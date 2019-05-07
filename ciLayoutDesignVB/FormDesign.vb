@@ -6,7 +6,7 @@ Option Strict On
 ''   https://www.codeproject.com/articles/38137/easy-drag-and-drop-of-controls-at-run-time
 ''
 
-Public Class Form1
+Public Class FormDesign
     ''
     ''   https://www.codeproject.com/articles/38137/easy-drag-and-drop-of-controls-at-run-time
     ''
@@ -77,6 +77,52 @@ Public Class Form1
 
     End Sub
 
+    Private Sub ButtonGenerateImage_Click(sender As Object, e As EventArgs) Handles ButtonGenerateImage.Click
+        ''
+        ''Added 5/6/2019 thomas downes  
+        ''
+        ''panelLayout
+        ''
+        ''Let's create the image we can write our text on.  
+        ''
+        ''  https://stackoverflow.com/questions/8022174/how-can-i-write-on-an-image-using-vb-net
+        ''
+        Dim img As System.Drawing.Image
+        Dim gr As Graphics ''= Graphics.FromImage(img)
 
+        labelDefault1.Visible = False
+        LabelDefault2.Visible = False
 
+        img = panelLayout.BackgroundImage
+
+        gr = Graphics.FromImage(img)
+
+        ''gr.DrawString("Drawing text",
+        ''              New Font("Tahoma", 14),
+        ''              New SolidBrush(Color.Green),
+        ''              10, 10)
+
+        gr.DrawString("Drawing text",
+                      New Font("Tahoma", labelDefault1.Font.SizeInPoints),
+                      New SolidBrush(labelDefault1.ForeColor),
+                       labelDefault1.Left, labelDefault1.Top)
+
+        gr.DrawString("Drawing text",
+                      New Font("Tahoma", LabelDefault2.Font.SizeInPoints),
+                      New SolidBrush(LabelDefault2.ForeColor),
+                       LabelDefault2.Left, LabelDefault2.Top)
+
+        gr.Dispose()
+        panelLayout.Refresh()
+        img.Save("Test.jpg", Imaging.ImageFormat.Png)
+        System.Diagnostics.Process.Start("Test.jpg")
+
+        If (False) Then
+            Convert.ToBase64String(System.IO.File.ReadAllBytes("Test.jpg"))
+        End If
+
+        labelDefault1.Visible = True
+        LabelDefault2.Visible = True
+
+    End Sub
 End Class

@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class Form1
+Partial Class FormDesign
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -22,6 +22,7 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormDesign))
         Me.linkLabel3 = New System.Windows.Forms.LinkLabel()
         Me.linkLabel2 = New System.Windows.Forms.LinkLabel()
         Me.linkLabel1 = New System.Windows.Forms.LinkLabel()
@@ -31,10 +32,10 @@ Partial Class Form1
         Me.radioButton1 = New System.Windows.Forms.RadioButton()
         Me.labelLayoutDesignHdr1 = New System.Windows.Forms.Label()
         Me.panelLayout = New System.Windows.Forms.Panel()
+        Me.picPortrait = New System.Windows.Forms.PictureBox()
+        Me.LabelDefault2 = New System.Windows.Forms.Label()
         Me.labelDefault1 = New System.Windows.Forms.Label()
         Me.ButtonGenerateImage = New System.Windows.Forms.Button()
-        Me.LabelDefault2 = New System.Windows.Forms.Label()
-        Me.picPortrait = New System.Windows.Forms.PictureBox()
         Me.panelLayout.SuspendLayout()
         CType(Me.picPortrait, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -42,7 +43,7 @@ Partial Class Form1
         'linkLabel3
         '
         Me.linkLabel3.AutoSize = True
-        Me.linkLabel3.Location = New System.Drawing.Point(29, 505)
+        Me.linkLabel3.Location = New System.Drawing.Point(36, 457)
         Me.linkLabel3.Name = "linkLabel3"
         Me.linkLabel3.Size = New System.Drawing.Size(422, 13)
         Me.linkLabel3.TabIndex = 17
@@ -53,7 +54,7 @@ Partial Class Form1
         'linkLabel2
         '
         Me.linkLabel2.AutoSize = True
-        Me.linkLabel2.Location = New System.Drawing.Point(29, 559)
+        Me.linkLabel2.Location = New System.Drawing.Point(31, 517)
         Me.linkLabel2.Name = "linkLabel2"
         Me.linkLabel2.Size = New System.Drawing.Size(427, 13)
         Me.linkLabel2.TabIndex = 16
@@ -64,7 +65,7 @@ Partial Class Form1
         'linkLabel1
         '
         Me.linkLabel1.AutoSize = True
-        Me.linkLabel1.Location = New System.Drawing.Point(19, 536)
+        Me.linkLabel1.Location = New System.Drawing.Point(26, 488)
         Me.linkLabel1.Name = "linkLabel1"
         Me.linkLabel1.Size = New System.Drawing.Size(616, 13)
         Me.linkLabel1.TabIndex = 15
@@ -125,19 +126,40 @@ Partial Class Form1
         'panelLayout
         '
         Me.panelLayout.BackColor = System.Drawing.Color.White
+        Me.panelLayout.BackgroundImage = CType(resources.GetObject("panelLayout.BackgroundImage"), System.Drawing.Image)
+        Me.panelLayout.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.panelLayout.Controls.Add(Me.picPortrait)
         Me.panelLayout.Controls.Add(Me.LabelDefault2)
         Me.panelLayout.Controls.Add(Me.labelDefault1)
-        Me.panelLayout.Location = New System.Drawing.Point(248, 64)
+        Me.panelLayout.Location = New System.Drawing.Point(283, 36)
         Me.panelLayout.Name = "panelLayout"
-        Me.panelLayout.Size = New System.Drawing.Size(261, 420)
+        Me.panelLayout.Size = New System.Drawing.Size(644, 400)
         Me.panelLayout.TabIndex = 9
+        '
+        'picPortrait
+        '
+        Me.picPortrait.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.picPortrait.Location = New System.Drawing.Point(433, 23)
+        Me.picPortrait.Name = "picPortrait"
+        Me.picPortrait.Size = New System.Drawing.Size(170, 220)
+        Me.picPortrait.TabIndex = 2
+        Me.picPortrait.TabStop = False
+        '
+        'LabelDefault2
+        '
+        Me.LabelDefault2.AutoSize = True
+        Me.LabelDefault2.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelDefault2.Location = New System.Drawing.Point(24, 284)
+        Me.LabelDefault2.Name = "LabelDefault2"
+        Me.LabelDefault2.Size = New System.Drawing.Size(179, 19)
+        Me.LabelDefault2.TabIndex = 1
+        Me.LabelDefault2.Text = "Student or Employee ID"
         '
         'labelDefault1
         '
         Me.labelDefault1.AutoSize = True
         Me.labelDefault1.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.labelDefault1.Location = New System.Drawing.Point(16, 335)
+        Me.labelDefault1.Location = New System.Drawing.Point(24, 345)
         Me.labelDefault1.Name = "labelDefault1"
         Me.labelDefault1.Size = New System.Drawing.Size(203, 19)
         Me.labelDefault1.TabIndex = 0
@@ -145,37 +167,18 @@ Partial Class Form1
         '
         'ButtonGenerateImage
         '
-        Me.ButtonGenerateImage.Location = New System.Drawing.Point(12, 461)
+        Me.ButtonGenerateImage.Location = New System.Drawing.Point(19, 413)
         Me.ButtonGenerateImage.Name = "ButtonGenerateImage"
         Me.ButtonGenerateImage.Size = New System.Drawing.Size(210, 23)
         Me.ButtonGenerateImage.TabIndex = 18
         Me.ButtonGenerateImage.Text = "Generate Image To Print (Test)"
         Me.ButtonGenerateImage.UseVisualStyleBackColor = True
         '
-        'LabelDefault2
-        '
-        Me.LabelDefault2.AutoSize = True
-        Me.LabelDefault2.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelDefault2.Location = New System.Drawing.Point(24, 291)
-        Me.LabelDefault2.Name = "LabelDefault2"
-        Me.LabelDefault2.Size = New System.Drawing.Size(179, 19)
-        Me.LabelDefault2.TabIndex = 1
-        Me.LabelDefault2.Text = "Student or Employee ID"
-        '
-        'picPortrait
-        '
-        Me.picPortrait.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.picPortrait.Location = New System.Drawing.Point(28, 25)
-        Me.picPortrait.Name = "picPortrait"
-        Me.picPortrait.Size = New System.Drawing.Size(136, 202)
-        Me.picPortrait.TabIndex = 2
-        Me.picPortrait.TabStop = False
-        '
-        'Form1
+        'FormDesign
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(619, 595)
+        Me.ClientSize = New System.Drawing.Size(981, 544)
         Me.Controls.Add(Me.ButtonGenerateImage)
         Me.Controls.Add(Me.linkLabel3)
         Me.Controls.Add(Me.linkLabel2)
@@ -186,7 +189,7 @@ Partial Class Form1
         Me.Controls.Add(Me.radioButton1)
         Me.Controls.Add(Me.labelLayoutDesignHdr1)
         Me.Controls.Add(Me.panelLayout)
-        Me.Name = "Form1"
+        Me.Name = "FormDesign"
         Me.Text = "Form1"
         Me.panelLayout.ResumeLayout(False)
         Me.panelLayout.PerformLayout()
