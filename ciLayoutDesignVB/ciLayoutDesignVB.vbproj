@@ -120,8 +120,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\JaneMulvey_1015.JPG" />
+    <None Include="Resources\V381.jpg" />
     <Content Include="SOU735-IVC-VENDOR.jpg" />
     <Content Include="SOU735-SADDLEBACK-VENDOR.jpg" />
+    <Content Include="test_JpegFile.htm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="test_of_embed.htm" />
     <Content Include="test_of_embed_W_button.htm" />
   </ItemGroup>

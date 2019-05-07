@@ -1,0 +1,31 @@
+
+<html>
+<head>
+<script type="text/javascript">
+    function printDiv(divName) {
+        var printContents = document.getElementById(divName).innerHTML;
+        w=window.open();
+        w.document.write(printContents);
+        w.print();
+        w.close();
+    }
+</script>  
+
+</head>
+
+<body> 
+
+<div id="print-content">
+<img alt="beastie.png" src="test.jpg">
+</div>
+
+<div id="print-button">
+ <a href="http://www.techerator.com/2011/12/how-to-embed-images-directly-into-your-html/">How to Embed Images Directly Into Your HTML</a><br />  
+ <form>
+  <input type="button" onclick="printDiv('print-content')" value="print a div!"/>
+</form>
+</div>
+
+</body>
+</html> 
+
