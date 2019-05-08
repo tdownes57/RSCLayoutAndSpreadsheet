@@ -1,0 +1,40 @@
+
+<html>
+<head>
+<script type="text/javascript">
+    function printDiv(divName) {
+        var printContents = document.getElementById(divName).innerHTML;
+        w=window.open();
+        w.document.write(printContents);
+        w.print();
+        w.close();
+    }
+    function printWholeDocument() {         
+        var printContents = document.innerHTML;
+        w=window.open();
+        w.document.write(printContents);
+        w.print();
+        w.close();
+    }
+</script>  
+
+</head>
+
+<body> 
+
+<div id="print-content">
+<img alt="beastie.png" src="test.gif">
+</div>
+
+<div id="print-button">
+ <a href="http://www.techerator.com/2011/12/how-to-embed-images-directly-into-your-html/">How to Embed Images Directly Into Your HTML</a><br />  
+ <form>
+  <input type="button" onclick="printDiv('print-content')" value="Print the Badge (without these buttons)"/>  << This button produces a blank :-( badge card in Chrome.  <br />
+  <input type="button" onclick="printDiv('print-content')" value="Print the Badge (without these buttons)"/>  << This button produces a page with non-zero margins in Microsoft Edge.   <br />
+  <input type="button" onclick="printWholeDocument()" value="Print the Page (w/ these buttons included)"/>  << This button works well in Chrome, insofar as the margins are zero-length. 
+</form>
+</div>
+
+</body>
+</html> 
+

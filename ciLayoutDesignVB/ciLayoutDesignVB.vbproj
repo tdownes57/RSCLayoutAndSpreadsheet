@@ -120,6 +120,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="test_EmbedBase64.htm" />
+    <Content Include="test_OnLoad.htm" />
+    <Content Include="test_WorksWellInChrome.htm" />
+    <Content Include="test__WorksWellInChrome.htm" />
     <None Include="Resources\JaneMulvey_1015.JPG" />
     <None Include="Resources\V381.jpg" />
     <Content Include="SOU735-IVC-VENDOR.jpg" />
