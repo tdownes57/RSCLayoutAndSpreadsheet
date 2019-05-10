@@ -37,9 +37,6 @@
 
 <body>
 
-
-<div id="print-content">
-
       <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAL0AAAD8CAIAAACtsTKuAAAAA3NCSVQICAjb4U/gAAAgAElEQVR4
 nEy8abRmaVUmuPd+hzN833fHmCMyxpyTBJJEyJRBQBGwQZGFqC2KUl1d2lazCgeWKGVVl1XY5VRi
 i+2EIKXdTdtLRXFCSIRMQNLMJOcpIjIjY7437vgN55x32Hv3j3Mj4Py46667vnPuue+7h2c/z/Ne
@@ -1400,34 +1397,22 @@ ycpZFA3sASIMPkzKr/7mWWQCI9VmW3z/9u6f//UPQILZCyRkZxBq5wQKAPbeaqniIKrJl2WJImLr
 lCTPKGXE3jMKBCmVlNIDeSYvpEYUEtFbEkK4yhKyFEYIZYR3ljSjYZRa5+BLRmktWZcBatbOspBC
 EtbshZAECFSHykSomVGgDqRiW6OSmvn/ADsCMaWbB/+LAAAAAElFTkSuQmCC">
 
-</div>
 
     <form>
 
         <style type="text/css">
             @media print {
-                               #printbtn1 {
-                                   display: none;
-                               }
-                               #printbtn2 {
-                                   display: none;
-                               }
-                               #printbtn3 {
-                                   display: none;
-                               }
-                               #printbtn4 {
-                                  display: none;
-                               }
-                               #printbtn5 {
-                                   display: none;
-                               }
+                #printbtn {
+                    display: none;
+                }
             }
         </style>
+        <input id="printbtn" type="button" value="Print this badge" onclick="window.print();">
 
-        <input id="printbtn1" type="button" value="Print this badge" onclick="window.print();">
-       <input id="printbtn3" type="button" value="Print the Badge (without these buttons)" onclick="printDiv('print-content');"  />        
-       <input id="printbtn4" type="button" value="Print the Page (without these buttons)" onclick="printWholeDocument('everything');"  />   
-       <input id="printbtn5" type="button"  value="Suggestion, use CTRL-P"/>   
+       <input type="button" onclick="printDiv('print-content')" value="Print the Badge (without these buttons)"/>       << This button produces a blank :-( badge card in Chrome.  <br />
+       <input type="button" onclick="printDiv('print-content')" value="Print the Badge (without these buttons)"/>       << This button produces a page with non-zero margins in Microsoft Edge.   <br />
+       <input type="button" onclick="printWholeDocument('everything')" value="Print the Page (w/ these buttons included)"/>   
+       <input type="button"  value="Suggestion, use CTRL-P"/>   
 
     </form>
 

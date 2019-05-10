@@ -120,6 +120,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ORO835 - OrovilleHS.PNG" />
+    <Content Include="Resources\RotatedLayout.png" />
     <Content Include="test_EmbedBase64.htm" />
     <Content Include="test_OnLoad.htm" />
     <Content Include="test_WorksWellInChrome.htm" />

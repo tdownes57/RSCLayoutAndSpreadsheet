@@ -13,6 +13,8 @@ Public Class FormDesign
     Dim dragging As Boolean
     Dim startX As Integer
     Dim startY As Integer
+    ''Dim mod_document As printing object
+    Dim WithEvents mod_PrintDoc As New System.Drawing.Printing.PrintDocument()
 
     Private Sub Form1_Load(ByVal sender As System.Object,
         ByVal e As System.EventArgs) Handles MyBase.Load
@@ -124,11 +126,18 @@ Public Class FormDesign
         ''   (I have removed the Zoom And StretchImage from the PictureBox, 
         ''   so part of the image might lie outside of the PanelLayout area. ---5/7/2019 td)
         ''
-        Using graphicsCroppping = Graphics.FromImage(imgPanelCropped)
-            graphicsCroppping.DrawImage(imgPanelBackground, New Rectangle(0, 0, CropRect.Width, CropRect.Height), CropRect, GraphicsUnit.Pixel)
-            imgPanelBackground.Dispose()
-            ''imgPanelCropped.Save(fileName)
-        End Using
+        Try
+            Using graphicsCroppping = Graphics.FromImage(imgPanelCropped)
+                graphicsCroppping.DrawImage(imgPanelBackground, New Rectangle(0, 0, CropRect.Width, CropRect.Height), CropRect, GraphicsUnit.Pixel)
+                ''This can be done when the application closes. -----imgPanelBackground.Dispose()
+                ''imgPanelCropped.Save(fileName)
+            End Using
+        Catch ex As Exception
+            ''
+            ''Added 5/9/2019 td
+            ''
+            MessageBox.Show("Resizing error, GenerateBuildImage:  " & ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        End Try
 
         img = imgPanelCropped
 
@@ -210,10 +219,16 @@ Public Class FormDesign
         ''              New SolidBrush(Color.Green),
         ''              10, 10)
 
+        ''Draw white space so that the text can be read more easily. 
+        ApplyWhiteSpaceToImage(par_image, labelDefault1)
+
         gr.DrawString("Person " & txtStudentID.Text,
                       New Font("Tahoma", labelDefault1.Font.SizeInPoints),
                       New SolidBrush(labelDefault1.ForeColor),
                        labelDefault1.Left, labelDefault1.Top)
+
+        ''Draw white space so that the text can be read more easily. 
+        ApplyWhiteSpaceToImage(par_image, LabelDefault2)
 
         gr.DrawString(txtStudentName.Text,
                       New Font("Tahoma", LabelDefault2.Font.SizeInPoints),
@@ -224,19 +239,51 @@ Public Class FormDesign
 
     End Sub ''End of ""Private Sub ApplyTextToImage(ByRef par_image As Image)
 
+    Private Sub ApplyWhiteSpaceToImage(ByRef par_image As Image, ByVal par_textboxOrLabel As Control)
+        ''
+        ''Added 5/10/2019 td  
+        ''
+        ''    https://docs.microsoft.com/en-us/dotnet/api/system.drawing.graphics.drawimage?view=netframework-4.8
+        ''
+        Dim gr As Graphics ''= Graphics.FromImage(img)
+
+        gr = Graphics.FromImage(par_image)
+
+        With par_textboxOrLabel
+            gr.DrawImage(picturePureWhite.Image, .Left, .Top, .Width, .Height)
+        End With
+
+        gr.Dispose()
+
+    End Sub ''ENd of "Private Sub ApplyWhiteSpaceToImage(ByRef par_image As Image, ByRef par_textboxOrLabel As Control)"
+
     Private Sub ApplyMemberPicToImage(ByRef par_image As Image)
         ''
         ''Added 5/7/2019 td  
         ''
+        ''
+        ''    https://docs.microsoft.com/en-us/dotnet/api/system.drawing.graphics.drawimage?view=netframework-4.8
+        ''
         Dim gr As Graphics ''= Graphics.FromImage(img)
         Dim imgPicture As Image
-        Dim imgResized As Image
+        ''Dim imgResized As Image
 
         ''-----gr = Graphics.FromImage(par_image)
         imgPicture = PicturePersonLarge.Image
 
-        Dim bm_source As New Bitmap(imgPicture)
-        imgResized = ResizeImage(bm_source, PicturePersonInLayout)
+        ''Dim bm_source As New Bitmap(imgPicture)
+        ''imgResized = ResizeImage(bm_source, PicturePersonInLayout)
+
+        gr = Graphics.FromImage(par_image)
+
+        ''
+        ''    https://docs.microsoft.com/en-us/dotnet/api/system.drawing.graphics.drawimage?view=netframework-4.8
+        ''
+        With PicturePersonInLayout
+            gr.DrawImage(imgPicture, .Left, .Top, .Width, .Height)
+        End With
+
+        gr.Dispose()
 
 ExitHandler:
         ''------gr.Dispose()
@@ -271,7 +318,29 @@ ExitHandler:
         img.Save("test.jpg", Imaging.ImageFormat.Jpeg)
 
         ''5/7/2019 td''System.Diagnostics.Process.Start("Test.html")
-        System.Diagnostics.Process.Start("test_JpegFile.htm")
+        ''5/9/2019 td''System.Diagnostics.Process.Start("test_JpegFile.htm")
+        ''5/9/2019 td''System.Diagnostics.Process.Start("test_WorksWellInChrome.htm")
+
+        OpenFileDialog1.InitialDirectory = My.Application.Info.DirectoryPath
+        OpenFileDialog1.Filter = "HTML files|*.htm*"
+        OpenFileDialog1.ShowDialog()
+        If ("" = OpenFileDialog1.FileName) Then Exit Sub
+        System.Diagnostics.Process.Start(OpenFileDialog1.FileName)
+
+    End Sub
+
+    Private Sub PrintDocument1_PrintPage(ByVal sender As System.Object, ByVal e As System.Drawing.Printing.PrintPageEventArgs) _
+          Handles mod_PrintDoc.PrintPage
+
+        e.Graphics.DrawImage(pictureboxReview.Image, 0, 0)
+
+    End Sub
+
+    Private Sub ButtonPrintBadge_Click(sender As Object, e As EventArgs) Handles ButtonPrintBadge.Click
+
+        ''If PrintDialog1.ShowDialog = DialogResult.OK Then
+        mod_PrintDoc.Print()
+        ''End If
 
     End Sub
 End Class

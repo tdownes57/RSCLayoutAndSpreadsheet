@@ -48,11 +48,14 @@ Partial Class FormDesign
         Me.Label2 = New System.Windows.Forms.Label()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.StatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
+        Me.picturePureWhite = New System.Windows.Forms.PictureBox()
         CType(Me.PicturePersonLarge, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panelLayout.SuspendLayout()
         CType(Me.PicturePersonInLayout, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureboxReview, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
+        CType(Me.picturePureWhite, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'linkLabel3
@@ -202,23 +205,23 @@ Partial Class FormDesign
         '
         'LabelDefault2
         '
-        Me.LabelDefault2.AutoSize = True
         Me.LabelDefault2.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelDefault2.Location = New System.Drawing.Point(24, 284)
+        Me.LabelDefault2.Location = New System.Drawing.Point(24, 264)
         Me.LabelDefault2.Name = "LabelDefault2"
-        Me.LabelDefault2.Size = New System.Drawing.Size(179, 19)
+        Me.LabelDefault2.Size = New System.Drawing.Size(196, 28)
         Me.LabelDefault2.TabIndex = 1
         Me.LabelDefault2.Text = "Student or Employee ID"
+        Me.LabelDefault2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'labelDefault1
         '
-        Me.labelDefault1.AutoSize = True
         Me.labelDefault1.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.labelDefault1.Location = New System.Drawing.Point(24, 303)
+        Me.labelDefault1.Location = New System.Drawing.Point(24, 320)
         Me.labelDefault1.Name = "labelDefault1"
-        Me.labelDefault1.Size = New System.Drawing.Size(203, 19)
+        Me.labelDefault1.Size = New System.Drawing.Size(373, 33)
         Me.labelDefault1.TabIndex = 0
         Me.labelDefault1.Text = "Student or Employee Name"
+        Me.labelDefault1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'LinkLabel4
         '
@@ -233,9 +236,10 @@ Partial Class FormDesign
         'pictureboxReview
         '
         Me.pictureboxReview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pictureboxReview.Image = CType(resources.GetObject("pictureboxReview.Image"), System.Drawing.Image)
         Me.pictureboxReview.Location = New System.Drawing.Point(946, 36)
         Me.pictureboxReview.Name = "pictureboxReview"
-        Me.pictureboxReview.Size = New System.Drawing.Size(224, 349)
+        Me.pictureboxReview.Size = New System.Drawing.Size(208, 322)
         Me.pictureboxReview.TabIndex = 23
         Me.pictureboxReview.TabStop = False
         '
@@ -289,7 +293,7 @@ Partial Class FormDesign
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StatusLabel1})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 522)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 532)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Size = New System.Drawing.Size(1198, 22)
         Me.StatusStrip1.TabIndex = 29
@@ -301,11 +305,26 @@ Partial Class FormDesign
         Me.StatusLabel1.Size = New System.Drawing.Size(73, 17)
         Me.StatusLabel1.Text = "StatusLabel1"
         '
+        'OpenFileDialog1
+        '
+        Me.OpenFileDialog1.FileName = "OpenFileDialog1"
+        '
+        'picturePureWhite
+        '
+        Me.picturePureWhite.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.picturePureWhite.Image = CType(resources.GetObject("picturePureWhite.Image"), System.Drawing.Image)
+        Me.picturePureWhite.Location = New System.Drawing.Point(233, 12)
+        Me.picturePureWhite.Name = "picturePureWhite"
+        Me.picturePureWhite.Size = New System.Drawing.Size(44, 35)
+        Me.picturePureWhite.TabIndex = 30
+        Me.picturePureWhite.TabStop = False
+        '
         'FormDesign
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1198, 544)
+        Me.ClientSize = New System.Drawing.Size(1198, 554)
+        Me.Controls.Add(Me.picturePureWhite)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
@@ -331,11 +350,11 @@ Partial Class FormDesign
         Me.Text = "Form1"
         CType(Me.PicturePersonLarge, System.ComponentModel.ISupportInitialize).EndInit()
         Me.panelLayout.ResumeLayout(False)
-        Me.panelLayout.PerformLayout()
         CType(Me.PicturePersonInLayout, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pictureboxReview, System.ComponentModel.ISupportInitialize).EndInit()
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
+        CType(Me.picturePureWhite, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -366,4 +385,6 @@ Partial Class FormDesign
     Private WithEvents Label2 As Label
     Friend WithEvents StatusStrip1 As StatusStrip
     Friend WithEvents StatusLabel1 As ToolStripStatusLabel
+    Friend WithEvents OpenFileDialog1 As OpenFileDialog
+    Friend WithEvents picturePureWhite As PictureBox
 End Class
