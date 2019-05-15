@@ -98,7 +98,7 @@ Public Class FormDesign
 
     End Sub
 
-    Private Sub GenerateBuildImage()
+    Private Sub GenerateBuildImage(Optional ByRef pref_image As Image = Nothing, Optional ByVal pboolLargeLandscape As Boolean = False)
         ''
         ''Added 5/6/2019 thomas downes  
         ''
@@ -108,7 +108,8 @@ Public Class FormDesign
         ''
         ''  https://stackoverflow.com/questions/8022174/how-can-i-write-on-an-image-using-vb-net
         ''
-        Dim img As System.Drawing.Image
+        Dim img_LargeLandscape As System.Drawing.Image
+        Dim img_Rotated As Image
         Dim imgPanelBackground As System.Drawing.Image
         Dim imgPanelCropped As System.Drawing.Image
         Dim gr As Graphics ''= Graphics.FromImage(img)
@@ -139,7 +140,7 @@ Public Class FormDesign
             MessageBox.Show("Resizing error, GenerateBuildImage:  " & ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         End Try
 
-        img = imgPanelCropped
+        img_LargeLandscape = imgPanelCropped
 
         ''Encapsulated 5/7/2019 td
         Const c_boolCallProcedureForText As Boolean = True
@@ -147,12 +148,12 @@ Public Class FormDesign
         If (c_boolCallProcedureForText) Then
 
             ''Encapsulated 5/7/2019 td
-            ApplyTextToImage(img)
-            ApplyMemberPicToImage(img)
+            ApplyTextToImage(img_LargeLandscape)
+            ApplyMemberPicToImage(img_LargeLandscape)
 
         Else
 
-            gr = Graphics.FromImage(img)
+            gr = Graphics.FromImage(img_LargeLandscape)
 
             ''
             ''Resizing Images in VB.NET
@@ -189,7 +190,11 @@ Public Class FormDesign
         labelDefault1.Visible = True
         LabelDefault2.Visible = True
 
-        Dim bm_source As New Bitmap(img)
+        ''Added 5/15/2019 td
+        img_Rotated = CType(img_LargeLandscape.Clone, Image)
+
+        ''5/15 td''Dim bm_source As New Bitmap(img_LargeLandscape)
+        Dim bm_source As New Bitmap(img_Rotated)
         bm_source.RotateFlip(RotateFlipType.Rotate90FlipNone)
 
         ''img = ResizeImage(img, pictureboxReview)
@@ -199,6 +204,12 @@ Public Class FormDesign
         pictureboxReview.Image = imgResized
 
         ''gr.DrawImage()
+
+        If (pboolLargeLandscape) Then
+            pref_image = img_LargeLandscape
+        Else
+            pref_image = imgResized
+        End If
 
     End Sub ''End of "Private Sub GenerateBuildImage()"
 
@@ -304,6 +315,23 @@ ExitHandler:
         ''Encapsulated 5/7/2019 thomas d. 
         ''
         GenerateBuildImage()
+
+        ''Added 5/15/2019 td
+        ''
+        If (checkboxDisplayWindow.Checked) Then
+
+            Dim objFormToShow As New FormDisplay
+            Dim image_Landscape As Image = Nothing
+            Dim image_SmallPortrait As Image = Nothing
+
+            GenerateBuildImage(image_Landscape, True)
+            GenerateBuildImage(image_SmallPortrait, False)
+
+            objFormToShow.ImageLarge_OrientLandscape = image_Landscape
+            objFormToShow.ImageSmall_OrientPortrait = image_SmallPortrait
+            objFormToShow.ShowDialog()
+
+        End If ''End of "If (checkboxDisplayWindow.Checked) Then"
 
     End Sub
 

@@ -34,13 +34,7 @@ Partial Class FormDesign
         Me.ButtonMakeFile = New System.Windows.Forms.Button()
         Me.ButtonOpenBrowser = New System.Windows.Forms.Button()
         Me.ButtonPrintBadge = New System.Windows.Forms.Button()
-        Me.PicturePersonLarge = New System.Windows.Forms.PictureBox()
-        Me.panelLayout = New System.Windows.Forms.Panel()
-        Me.PicturePersonInLayout = New System.Windows.Forms.PictureBox()
-        Me.LabelDefault2 = New System.Windows.Forms.Label()
-        Me.labelDefault1 = New System.Windows.Forms.Label()
         Me.LinkLabel4 = New System.Windows.Forms.LinkLabel()
-        Me.pictureboxReview = New System.Windows.Forms.PictureBox()
         Me.buttonGenerate = New System.Windows.Forms.Button()
         Me.txtStudentID = New System.Windows.Forms.TextBox()
         Me.txtStudentName = New System.Windows.Forms.TextBox()
@@ -49,13 +43,20 @@ Partial Class FormDesign
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.StatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
+        Me.checkboxDisplayWindow = New System.Windows.Forms.CheckBox()
         Me.picturePureWhite = New System.Windows.Forms.PictureBox()
+        Me.pictureboxReview = New System.Windows.Forms.PictureBox()
+        Me.PicturePersonLarge = New System.Windows.Forms.PictureBox()
+        Me.panelLayout = New System.Windows.Forms.Panel()
+        Me.PicturePersonInLayout = New System.Windows.Forms.PictureBox()
+        Me.LabelDefault2 = New System.Windows.Forms.Label()
+        Me.labelDefault1 = New System.Windows.Forms.Label()
+        Me.StatusStrip1.SuspendLayout()
+        CType(Me.picturePureWhite, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pictureboxReview, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicturePersonLarge, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.panelLayout.SuspendLayout()
         CType(Me.PicturePersonInLayout, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.pictureboxReview, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.StatusStrip1.SuspendLayout()
-        CType(Me.picturePureWhite, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'linkLabel3
@@ -170,59 +171,6 @@ Partial Class FormDesign
         Me.ButtonPrintBadge.Text = "Print Badge"
         Me.ButtonPrintBadge.UseVisualStyleBackColor = True
         '
-        'PicturePersonLarge
-        '
-        Me.PicturePersonLarge.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.PicturePersonLarge.Image = Global.ciLayoutDesignVB.My.Resources.Resources.V381
-        Me.PicturePersonLarge.Location = New System.Drawing.Point(17, 127)
-        Me.PicturePersonLarge.Name = "PicturePersonLarge"
-        Me.PicturePersonLarge.Size = New System.Drawing.Size(252, 309)
-        Me.PicturePersonLarge.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.PicturePersonLarge.TabIndex = 19
-        Me.PicturePersonLarge.TabStop = False
-        '
-        'panelLayout
-        '
-        Me.panelLayout.BackColor = System.Drawing.Color.White
-        Me.panelLayout.BackgroundImage = CType(resources.GetObject("panelLayout.BackgroundImage"), System.Drawing.Image)
-        Me.panelLayout.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.panelLayout.Controls.Add(Me.PicturePersonInLayout)
-        Me.panelLayout.Controls.Add(Me.LabelDefault2)
-        Me.panelLayout.Controls.Add(Me.labelDefault1)
-        Me.panelLayout.Location = New System.Drawing.Point(283, 36)
-        Me.panelLayout.Name = "panelLayout"
-        Me.panelLayout.Size = New System.Drawing.Size(644, 400)
-        Me.panelLayout.TabIndex = 9
-        '
-        'PicturePersonInLayout
-        '
-        Me.PicturePersonInLayout.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.PicturePersonInLayout.Location = New System.Drawing.Point(403, 167)
-        Me.PicturePersonInLayout.Name = "PicturePersonInLayout"
-        Me.PicturePersonInLayout.Size = New System.Drawing.Size(170, 220)
-        Me.PicturePersonInLayout.TabIndex = 2
-        Me.PicturePersonInLayout.TabStop = False
-        '
-        'LabelDefault2
-        '
-        Me.LabelDefault2.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelDefault2.Location = New System.Drawing.Point(24, 264)
-        Me.LabelDefault2.Name = "LabelDefault2"
-        Me.LabelDefault2.Size = New System.Drawing.Size(196, 28)
-        Me.LabelDefault2.TabIndex = 1
-        Me.LabelDefault2.Text = "Student or Employee ID"
-        Me.LabelDefault2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'labelDefault1
-        '
-        Me.labelDefault1.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.labelDefault1.Location = New System.Drawing.Point(24, 320)
-        Me.labelDefault1.Name = "labelDefault1"
-        Me.labelDefault1.Size = New System.Drawing.Size(373, 33)
-        Me.labelDefault1.TabIndex = 0
-        Me.labelDefault1.Text = "Student or Employee Name"
-        Me.labelDefault1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
         'LinkLabel4
         '
         Me.LinkLabel4.AutoSize = True
@@ -232,16 +180,6 @@ Partial Class FormDesign
         Me.LinkLabel4.TabIndex = 22
         Me.LinkLabel4.TabStop = True
         Me.LinkLabel4.Text = "https://stackoverflow.com/questions/2144592/resizing-images-in-vb-net"
-        '
-        'pictureboxReview
-        '
-        Me.pictureboxReview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pictureboxReview.Image = CType(resources.GetObject("pictureboxReview.Image"), System.Drawing.Image)
-        Me.pictureboxReview.Location = New System.Drawing.Point(946, 36)
-        Me.pictureboxReview.Name = "pictureboxReview"
-        Me.pictureboxReview.Size = New System.Drawing.Size(208, 322)
-        Me.pictureboxReview.TabIndex = 23
-        Me.pictureboxReview.TabStop = False
         '
         'buttonGenerate
         '
@@ -309,6 +247,18 @@ Partial Class FormDesign
         '
         Me.OpenFileDialog1.FileName = "OpenFileDialog1"
         '
+        'checkboxDisplayWindow
+        '
+        Me.checkboxDisplayWindow.AutoSize = True
+        Me.checkboxDisplayWindow.Checked = True
+        Me.checkboxDisplayWindow.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.checkboxDisplayWindow.Location = New System.Drawing.Point(866, 492)
+        Me.checkboxDisplayWindow.Name = "checkboxDisplayWindow"
+        Me.checkboxDisplayWindow.Size = New System.Drawing.Size(126, 17)
+        Me.checkboxDisplayWindow.TabIndex = 31
+        Me.checkboxDisplayWindow.Text = "Open display window"
+        Me.checkboxDisplayWindow.UseVisualStyleBackColor = True
+        '
         'picturePureWhite
         '
         Me.picturePureWhite.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
@@ -319,11 +269,75 @@ Partial Class FormDesign
         Me.picturePureWhite.TabIndex = 30
         Me.picturePureWhite.TabStop = False
         '
+        'pictureboxReview
+        '
+        Me.pictureboxReview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pictureboxReview.Image = CType(resources.GetObject("pictureboxReview.Image"), System.Drawing.Image)
+        Me.pictureboxReview.Location = New System.Drawing.Point(946, 36)
+        Me.pictureboxReview.Name = "pictureboxReview"
+        Me.pictureboxReview.Size = New System.Drawing.Size(208, 322)
+        Me.pictureboxReview.TabIndex = 23
+        Me.pictureboxReview.TabStop = False
+        '
+        'PicturePersonLarge
+        '
+        Me.PicturePersonLarge.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.PicturePersonLarge.Image = Global.ciLayoutDesignVB.My.Resources.Resources.V381
+        Me.PicturePersonLarge.Location = New System.Drawing.Point(17, 127)
+        Me.PicturePersonLarge.Name = "PicturePersonLarge"
+        Me.PicturePersonLarge.Size = New System.Drawing.Size(252, 309)
+        Me.PicturePersonLarge.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.PicturePersonLarge.TabIndex = 19
+        Me.PicturePersonLarge.TabStop = False
+        '
+        'panelLayout
+        '
+        Me.panelLayout.BackColor = System.Drawing.Color.White
+        Me.panelLayout.BackgroundImage = CType(resources.GetObject("panelLayout.BackgroundImage"), System.Drawing.Image)
+        Me.panelLayout.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.panelLayout.Controls.Add(Me.PicturePersonInLayout)
+        Me.panelLayout.Controls.Add(Me.LabelDefault2)
+        Me.panelLayout.Controls.Add(Me.labelDefault1)
+        Me.panelLayout.Location = New System.Drawing.Point(283, 36)
+        Me.panelLayout.Name = "panelLayout"
+        Me.panelLayout.Size = New System.Drawing.Size(644, 400)
+        Me.panelLayout.TabIndex = 9
+        '
+        'PicturePersonInLayout
+        '
+        Me.PicturePersonInLayout.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.PicturePersonInLayout.Location = New System.Drawing.Point(403, 167)
+        Me.PicturePersonInLayout.Name = "PicturePersonInLayout"
+        Me.PicturePersonInLayout.Size = New System.Drawing.Size(170, 220)
+        Me.PicturePersonInLayout.TabIndex = 2
+        Me.PicturePersonInLayout.TabStop = False
+        '
+        'LabelDefault2
+        '
+        Me.LabelDefault2.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelDefault2.Location = New System.Drawing.Point(24, 264)
+        Me.LabelDefault2.Name = "LabelDefault2"
+        Me.LabelDefault2.Size = New System.Drawing.Size(196, 28)
+        Me.LabelDefault2.TabIndex = 1
+        Me.LabelDefault2.Text = "Student or Employee ID"
+        Me.LabelDefault2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'labelDefault1
+        '
+        Me.labelDefault1.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.labelDefault1.Location = New System.Drawing.Point(24, 320)
+        Me.labelDefault1.Name = "labelDefault1"
+        Me.labelDefault1.Size = New System.Drawing.Size(373, 33)
+        Me.labelDefault1.TabIndex = 0
+        Me.labelDefault1.Text = "Student or Employee Name"
+        Me.labelDefault1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
         'FormDesign
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1198, 554)
+        Me.Controls.Add(Me.checkboxDisplayWindow)
         Me.Controls.Add(Me.picturePureWhite)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.Label2)
@@ -348,13 +362,13 @@ Partial Class FormDesign
         Me.Controls.Add(Me.panelLayout)
         Me.Name = "FormDesign"
         Me.Text = "Form1"
-        CType(Me.PicturePersonLarge, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.panelLayout.ResumeLayout(False)
-        CType(Me.PicturePersonInLayout, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.pictureboxReview, System.ComponentModel.ISupportInitialize).EndInit()
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
         CType(Me.picturePureWhite, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pictureboxReview, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicturePersonLarge, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.panelLayout.ResumeLayout(False)
+        CType(Me.PicturePersonInLayout, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -387,4 +401,5 @@ Partial Class FormDesign
     Friend WithEvents StatusLabel1 As ToolStripStatusLabel
     Friend WithEvents OpenFileDialog1 As OpenFileDialog
     Friend WithEvents picturePureWhite As PictureBox
+    Friend WithEvents checkboxDisplayWindow As CheckBox
 End Class
