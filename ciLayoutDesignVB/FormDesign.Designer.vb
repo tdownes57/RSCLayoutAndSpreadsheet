@@ -51,6 +51,8 @@ Partial Class FormDesign
         Me.PicturePersonInLayout = New System.Windows.Forms.PictureBox()
         Me.LabelDefault2 = New System.Windows.Forms.Label()
         Me.labelDefault1 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.picturePureWhite, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureboxReview, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -62,35 +64,38 @@ Partial Class FormDesign
         'linkLabel3
         '
         Me.linkLabel3.AutoSize = True
-        Me.linkLabel3.Location = New System.Drawing.Point(36, 457)
+        Me.linkLabel3.Location = New System.Drawing.Point(31, 480)
         Me.linkLabel3.Name = "linkLabel3"
         Me.linkLabel3.Size = New System.Drawing.Size(422, 13)
         Me.linkLabel3.TabIndex = 17
         Me.linkLabel3.TabStop = True
         Me.linkLabel3.Text = "https://www.codeproject.com/articles/38137/easy-drag-and-drop-of-controls-at-run-" &
     "time"
+        Me.linkLabel3.Visible = False
         '
         'linkLabel2
         '
         Me.linkLabel2.AutoSize = True
-        Me.linkLabel2.Location = New System.Drawing.Point(31, 483)
+        Me.linkLabel2.Location = New System.Drawing.Point(31, 493)
         Me.linkLabel2.Name = "linkLabel2"
         Me.linkLabel2.Size = New System.Drawing.Size(427, 13)
         Me.linkLabel2.TabIndex = 16
         Me.linkLabel2.TabStop = True
         Me.linkLabel2.Text = "https://stackoverflow.com/questions/8022174/how-can-i-write-on-an-image-using-vb-" &
     "net"
+        Me.linkLabel2.Visible = False
         '
         'linkLabel1
         '
         Me.linkLabel1.AutoSize = True
-        Me.linkLabel1.Location = New System.Drawing.Point(36, 470)
+        Me.linkLabel1.Location = New System.Drawing.Point(171, 531)
         Me.linkLabel1.Name = "linkLabel1"
         Me.linkLabel1.Size = New System.Drawing.Size(616, 13)
         Me.linkLabel1.TabIndex = 15
         Me.linkLabel1.TabStop = True
         Me.linkLabel1.Text = "https://www.experts-exchange.com/questions/28618021/how-to-print-a-jpg-file-using" &
     "-vb-net-without-showing-the-print-dialog.html"
+        Me.linkLabel1.Visible = False
         '
         'button2
         '
@@ -121,6 +126,7 @@ Partial Class FormDesign
         Me.radioButton2.TabIndex = 12
         Me.radioButton2.Text = "Landscape"
         Me.radioButton2.UseVisualStyleBackColor = True
+        Me.radioButton2.Visible = False
         '
         'radioButton1
         '
@@ -133,6 +139,7 @@ Partial Class FormDesign
         Me.radioButton1.TabStop = True
         Me.radioButton1.Text = "Portrait"
         Me.radioButton1.UseVisualStyleBackColor = True
+        Me.radioButton1.Visible = False
         '
         'labelLayoutDesignHdr1
         '
@@ -146,16 +153,16 @@ Partial Class FormDesign
         '
         'ButtonMakeFile
         '
-        Me.ButtonMakeFile.Location = New System.Drawing.Point(1006, 424)
+        Me.ButtonMakeFile.Location = New System.Drawing.Point(866, 483)
         Me.ButtonMakeFile.Name = "ButtonMakeFile"
-        Me.ButtonMakeFile.Size = New System.Drawing.Size(180, 23)
+        Me.ButtonMakeFile.Size = New System.Drawing.Size(135, 23)
         Me.ButtonMakeFile.TabIndex = 18
         Me.ButtonMakeFile.Text = "Make Image File"
         Me.ButtonMakeFile.UseVisualStyleBackColor = True
         '
         'ButtonOpenBrowser
         '
-        Me.ButtonOpenBrowser.Location = New System.Drawing.Point(1007, 453)
+        Me.ButtonOpenBrowser.Location = New System.Drawing.Point(1006, 483)
         Me.ButtonOpenBrowser.Name = "ButtonOpenBrowser"
         Me.ButtonOpenBrowser.Size = New System.Drawing.Size(180, 23)
         Me.ButtonOpenBrowser.TabIndex = 20
@@ -164,9 +171,9 @@ Partial Class FormDesign
         '
         'ButtonPrintBadge
         '
-        Me.ButtonPrintBadge.Location = New System.Drawing.Point(1006, 482)
+        Me.ButtonPrintBadge.Location = New System.Drawing.Point(935, 512)
         Me.ButtonPrintBadge.Name = "ButtonPrintBadge"
-        Me.ButtonPrintBadge.Size = New System.Drawing.Size(180, 23)
+        Me.ButtonPrintBadge.Size = New System.Drawing.Size(154, 23)
         Me.ButtonPrintBadge.TabIndex = 21
         Me.ButtonPrintBadge.Text = "Print Badge"
         Me.ButtonPrintBadge.UseVisualStyleBackColor = True
@@ -174,26 +181,27 @@ Partial Class FormDesign
         'LinkLabel4
         '
         Me.LinkLabel4.AutoSize = True
-        Me.LinkLabel4.Location = New System.Drawing.Point(36, 496)
+        Me.LinkLabel4.Location = New System.Drawing.Point(31, 512)
         Me.LinkLabel4.Name = "LinkLabel4"
         Me.LinkLabel4.Size = New System.Drawing.Size(349, 13)
         Me.LinkLabel4.TabIndex = 22
         Me.LinkLabel4.TabStop = True
         Me.LinkLabel4.Text = "https://stackoverflow.com/questions/2144592/resizing-images-in-vb-net"
+        Me.LinkLabel4.Visible = False
         '
         'buttonGenerate
         '
-        Me.buttonGenerate.Location = New System.Drawing.Point(782, 442)
+        Me.buttonGenerate.Location = New System.Drawing.Point(946, 364)
         Me.buttonGenerate.Name = "buttonGenerate"
-        Me.buttonGenerate.Size = New System.Drawing.Size(210, 47)
+        Me.buttonGenerate.Size = New System.Drawing.Size(210, 59)
         Me.buttonGenerate.TabIndex = 24
-        Me.buttonGenerate.Text = "Generate Image >>>>>>"
+        Me.buttonGenerate.Text = "Generate Final Image (above)"
         Me.buttonGenerate.UseVisualStyleBackColor = True
         '
         'txtStudentID
         '
         Me.txtStudentID.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtStudentID.Location = New System.Drawing.Point(643, 482)
+        Me.txtStudentID.Location = New System.Drawing.Point(631, 447)
         Me.txtStudentID.Name = "txtStudentID"
         Me.txtStudentID.Size = New System.Drawing.Size(133, 23)
         Me.txtStudentID.TabIndex = 25
@@ -202,7 +210,7 @@ Partial Class FormDesign
         'txtStudentName
         '
         Me.txtStudentName.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtStudentName.Location = New System.Drawing.Point(583, 505)
+        Me.txtStudentName.Location = New System.Drawing.Point(571, 470)
         Me.txtStudentName.Name = "txtStudentName"
         Me.txtStudentName.Size = New System.Drawing.Size(193, 23)
         Me.txtStudentName.TabIndex = 26
@@ -212,7 +220,7 @@ Partial Class FormDesign
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(481, 484)
+        Me.Label1.Location = New System.Drawing.Point(469, 449)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(156, 17)
         Me.Label1.TabIndex = 27
@@ -222,7 +230,7 @@ Partial Class FormDesign
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(481, 508)
+        Me.Label2.Location = New System.Drawing.Point(469, 473)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(96, 17)
         Me.Label2.TabIndex = 28
@@ -231,7 +239,7 @@ Partial Class FormDesign
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StatusLabel1})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 532)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 551)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Size = New System.Drawing.Size(1198, 22)
         Me.StatusStrip1.TabIndex = 29
@@ -252,7 +260,7 @@ Partial Class FormDesign
         Me.checkboxDisplayWindow.AutoSize = True
         Me.checkboxDisplayWindow.Checked = True
         Me.checkboxDisplayWindow.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.checkboxDisplayWindow.Location = New System.Drawing.Point(866, 492)
+        Me.checkboxDisplayWindow.Location = New System.Drawing.Point(1030, 429)
         Me.checkboxDisplayWindow.Name = "checkboxDisplayWindow"
         Me.checkboxDisplayWindow.Size = New System.Drawing.Size(126, 17)
         Me.checkboxDisplayWindow.TabIndex = 31
@@ -268,6 +276,7 @@ Partial Class FormDesign
         Me.picturePureWhite.Size = New System.Drawing.Size(44, 35)
         Me.picturePureWhite.TabIndex = 30
         Me.picturePureWhite.TabStop = False
+        Me.picturePureWhite.Visible = False
         '
         'pictureboxReview
         '
@@ -332,11 +341,33 @@ Partial Class FormDesign
         Me.labelDefault1.Text = "Student or Employee Name"
         Me.labelDefault1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(788, 457)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(398, 17)
+        Me.Label3.TabIndex = 32
+        Me.Label3.Text = "After pressing the button above, select any of these next steps:"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Location = New System.Drawing.Point(233, 447)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(225, 17)
+        Me.Label4.TabIndex = 33
+        Me.Label4.Text = "Enter the student information here:"
+        '
         'FormDesign
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1198, 554)
+        Me.ClientSize = New System.Drawing.Size(1198, 573)
+        Me.Controls.Add(Me.Label4)
+        Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.checkboxDisplayWindow)
         Me.Controls.Add(Me.picturePureWhite)
         Me.Controls.Add(Me.StatusStrip1)
@@ -402,4 +433,6 @@ Partial Class FormDesign
     Friend WithEvents OpenFileDialog1 As OpenFileDialog
     Friend WithEvents picturePureWhite As PictureBox
     Friend WithEvents checkboxDisplayWindow As CheckBox
+    Private WithEvents Label3 As Label
+    Private WithEvents Label4 As Label
 End Class

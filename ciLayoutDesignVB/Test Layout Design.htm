@@ -1,0 +1,55 @@
+
+<html>
+<head>
+    <script type="text/javascript">
+        function printDiv(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+            w = window.open();
+            w.document.write(printContents);
+            w.print();
+            w.close();
+        }
+    </script>
+
+    <script type="text/javascript">
+        function printWholeDocument(divName_NotUsed) {
+            var printContents = document.body.innerHTML;
+            w = window.open();
+            w.document.write(printContents);
+            w.print();
+            w.close();
+        }
+    </script>
+
+</head>
+
+<body>
+
+    <div id="print-content">
+        <img alt="beastie.png" src="file:///C:\Users\Thomas\source\repos\ciLayout\ciLayoutDesignVB\test.png">
+    </div>
+
+    <div id="print-button">
+
+        <style type="text/css">
+            @media print {
+                #printbtn {
+                    display: none;
+                }
+            }
+        </style>
+        <input id="printbtn" type="button" value="Print this badge" onclick="window.print();"> <br />
+
+        <a id="printbtn" href="http://www.techerator.com/2011/12/how-to-embed-images-directly-into-your-html/">How to Embed Images Directly Into Your HTML</a><br />
+        <form>
+            <input type="button" id="printbtn" onclick="printDiv('print-content')" value="Print the Badge (without these buttons)" /><br />
+            <input type="button" id="printbtn" onclick="printDiv('print-content')" value="Print the Badge (without these buttons)" /><br />
+            <input type="button" id="printbtn" onclick="printWholeDocument('everything')" value="Print the Page (w/ these buttons included)" /><br />
+        </form>
+    </div>
+
+</body>
+</html>
+
+       
+
