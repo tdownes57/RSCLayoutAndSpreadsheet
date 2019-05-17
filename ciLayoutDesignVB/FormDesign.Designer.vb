@@ -53,6 +53,7 @@ Partial Class FormDesign
         Me.labelDefault1 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.picturePureWhite, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureboxReview, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -64,7 +65,7 @@ Partial Class FormDesign
         'linkLabel3
         '
         Me.linkLabel3.AutoSize = True
-        Me.linkLabel3.Location = New System.Drawing.Point(31, 480)
+        Me.linkLabel3.Location = New System.Drawing.Point(26, 493)
         Me.linkLabel3.Name = "linkLabel3"
         Me.linkLabel3.Size = New System.Drawing.Size(422, 13)
         Me.linkLabel3.TabIndex = 17
@@ -76,7 +77,7 @@ Partial Class FormDesign
         'linkLabel2
         '
         Me.linkLabel2.AutoSize = True
-        Me.linkLabel2.Location = New System.Drawing.Point(31, 493)
+        Me.linkLabel2.Location = New System.Drawing.Point(26, 510)
         Me.linkLabel2.Name = "linkLabel2"
         Me.linkLabel2.Size = New System.Drawing.Size(427, 13)
         Me.linkLabel2.TabIndex = 16
@@ -181,7 +182,7 @@ Partial Class FormDesign
         'LinkLabel4
         '
         Me.LinkLabel4.AutoSize = True
-        Me.LinkLabel4.Location = New System.Drawing.Point(31, 512)
+        Me.LinkLabel4.Location = New System.Drawing.Point(31, 522)
         Me.LinkLabel4.Name = "LinkLabel4"
         Me.LinkLabel4.Size = New System.Drawing.Size(349, 13)
         Me.LinkLabel4.TabIndex = 22
@@ -191,9 +192,9 @@ Partial Class FormDesign
         '
         'buttonGenerate
         '
-        Me.buttonGenerate.Location = New System.Drawing.Point(946, 364)
+        Me.buttonGenerate.Location = New System.Drawing.Point(888, 379)
         Me.buttonGenerate.Name = "buttonGenerate"
-        Me.buttonGenerate.Size = New System.Drawing.Size(210, 59)
+        Me.buttonGenerate.Size = New System.Drawing.Size(210, 44)
         Me.buttonGenerate.TabIndex = 24
         Me.buttonGenerate.Text = "Generate Final Image (above)"
         Me.buttonGenerate.UseVisualStyleBackColor = True
@@ -201,7 +202,7 @@ Partial Class FormDesign
         'txtStudentID
         '
         Me.txtStudentID.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtStudentID.Location = New System.Drawing.Point(631, 447)
+        Me.txtStudentID.Location = New System.Drawing.Point(632, 480)
         Me.txtStudentID.Name = "txtStudentID"
         Me.txtStudentID.Size = New System.Drawing.Size(133, 23)
         Me.txtStudentID.TabIndex = 25
@@ -210,7 +211,7 @@ Partial Class FormDesign
         'txtStudentName
         '
         Me.txtStudentName.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtStudentName.Location = New System.Drawing.Point(571, 470)
+        Me.txtStudentName.Location = New System.Drawing.Point(572, 503)
         Me.txtStudentName.Name = "txtStudentName"
         Me.txtStudentName.Size = New System.Drawing.Size(193, 23)
         Me.txtStudentName.TabIndex = 26
@@ -220,7 +221,7 @@ Partial Class FormDesign
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(469, 449)
+        Me.Label1.Location = New System.Drawing.Point(470, 482)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(156, 17)
         Me.Label1.TabIndex = 27
@@ -230,7 +231,7 @@ Partial Class FormDesign
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(469, 473)
+        Me.Label2.Location = New System.Drawing.Point(470, 506)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(96, 17)
         Me.Label2.TabIndex = 28
@@ -345,7 +346,7 @@ Partial Class FormDesign
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(788, 457)
+        Me.Label3.Location = New System.Drawing.Point(788, 463)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(398, 17)
         Me.Label3.TabIndex = 32
@@ -355,17 +356,29 @@ Partial Class FormDesign
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(233, 447)
+        Me.Label4.Location = New System.Drawing.Point(239, 476)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(225, 17)
         Me.Label4.TabIndex = 33
         Me.Label4.Text = "Enter the student information here:"
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Location = New System.Drawing.Point(291, 439)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(540, 17)
+        Me.Label5.TabIndex = 34
+        Me.Label5.Text = "All of the white-background graphical elements above can be moved via click-and-d" &
+    "rag."
         '
         'FormDesign
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1198, 573)
+        Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.checkboxDisplayWindow)
@@ -435,4 +448,5 @@ Partial Class FormDesign
     Friend WithEvents checkboxDisplayWindow As CheckBox
     Private WithEvents Label3 As Label
     Private WithEvents Label4 As Label
+    Private WithEvents Label5 As Label
 End Class

@@ -379,4 +379,17 @@ ExitHandler:
     Private Sub button1_Click(sender As Object, e As EventArgs) Handles button1.Click
 
     End Sub
+
+    Private Sub LabelDefault2_MouseEnter(sender As Object, e As EventArgs) Handles LabelDefault2.MouseEnter, labelDefault1.MouseEnter, PicturePersonInLayout.MouseEnter
+
+        Me.Cursor = Cursors.SizeNWSE
+
+    End Sub
+
+    Private Sub LabelDefault2_MouseLeave(sender As Object, e As EventArgs) Handles LabelDefault2.MouseLeave, labelDefault1.MouseLeave, PicturePersonInLayout.MouseLeave
+
+        Me.Cursor = Cursors.Default
+
+    End Sub
+
 End Class
