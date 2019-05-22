@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ciLayoutPrint", "ciLayout\ciLayoutPrint.csproj", "{BBF8BB75-622B-4163-AA94-16DAE3763C10}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ciLayoutPrintCS", "ciLayout\ciLayoutPrintCS.csproj", "{BBF8BB75-622B-4163-AA94-16DAE3763C10}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ciLayoutStore", "ciLayoutStore\ciLayoutStore.csproj", "{404CD55F-4AB5-4390-9735-D24845C17329}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ciLayoutDesign", "ciLayoutDesign\ciLayoutDesign.csproj", "{A3A45502-64AE-40B2-B9A1-3DC1EF382191}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ciLayoutDesignCS", "ciLayoutDesign\ciLayoutDesignCS.csproj", "{A3A45502-64AE-40B2-B9A1-3DC1EF382191}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ciLayoutDesignVB", "ciLayoutDesignVB\ciLayoutDesignVB.vbproj", "{FB60907F-05CD-474D-967E-831B7BA2D517}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ciLayoutPrintLib", "ciLayoutPrintLib\ciLayoutPrintLib.vbproj", "{F8271E6C-5C26-4CEC-BD4C-AD3B10FEF6B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{FB60907F-05CD-474D-967E-831B7BA2D517}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB60907F-05CD-474D-967E-831B7BA2D517}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB60907F-05CD-474D-967E-831B7BA2D517}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8271E6C-5C26-4CEC-BD4C-AD3B10FEF6B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8271E6C-5C26-4CEC-BD4C-AD3B10FEF6B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8271E6C-5C26-4CEC-BD4C-AD3B10FEF6B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8271E6C-5C26-4CEC-BD4C-AD3B10FEF6B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
