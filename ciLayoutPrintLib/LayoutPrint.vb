@@ -11,20 +11,21 @@ Public Class LayoutPrint
     ''Added 5/21/2019 td  
     ''
     Private mod_panelLayout As New System.Windows.Forms.Panel
-    Private mod_pictureboxReview As System.Windows.Forms.PictureBox
+    ''Now a Public Property, PictureBoxReview.''Private mod_pictureboxReview As System.Windows.Forms.PictureBox
 
     ''Added 6/13/2019 thomas downes
     ''
-    Public Property RecipientID As String
-    Public Property RecipientName As String
+    Public Property RecipientID As String ''Added 6/13/2019
+    Public Property RecipientName As String ''Added 6/13/2019
 
-    Public Property LabelControlForID As Label
-    Public Property LabelControlForName As Label
-    Public Property PictureOfPureWhite As PictureBox
-    Public Property PicturePersonWithinLayout As PictureBox
-    Public Property PicturePersonImageLarge As PictureBox
+    Public Property LabelControlForID As Label ''Added 6/13/2019
+    Public Property LabelControlForName As Label ''Added 6/13/2019
+    Public Property PictureOfPureWhite As PictureBox ''Added 6/13/2019
+    Public Property PicturePersonWithinLayout As PictureBox ''Added 6/13/2019
+    Public Property PicturePersonImageLarge As PictureBox ''Added 6/13/2019
+    Public Property PictureBoxReview As PictureBox ''Added 6/13/2019
 
-    Public Sub GenerateBuildImage(Optional ByRef pref_image As Image = Nothing, Optional ByVal pboolLargeLandscape As Boolean = False)
+    Public Function GenerateBuildImage(Optional ByRef pref_image As Image = Nothing, Optional ByVal pboolLargeLandscape As Boolean = False) As Image
         ''
         ''Added 5/6/2019 thomas downes  
         ''
@@ -129,19 +130,23 @@ Public Class LayoutPrint
 
         ''img = ResizeImage(img, pictureboxReview)
         Dim imgResized As Image
-        imgResized = ResizeImage(bm_source, mod_pictureboxReview)
+        imgResized = ResizeImage(bm_source, Me.PictureBoxReview)
 
-        mod_pictureboxReview.Image = imgResized
+        If Me.PictureBoxReview IsNot Nothing Then
+            Me.PictureBoxReview.Image = imgResized
+        End If
 
         ''gr.DrawImage()
 
         If (pboolLargeLandscape) Then
             pref_image = img_LargeLandscape
+            Return img_LargeLandscape ''Added 6/13/2019 td
         Else
             pref_image = imgResized
-        End If
+            Return imgResized ''Added 6/13/2019 td
+        End If ''end of "If (pboolLarge...) .... Else...."
 
-    End Sub ''End of "Private Sub GenerateBuildImage()"
+    End Function ''End of "Private Sub GenerateBuildImage()"
 
     Private Sub ApplyTextToImage(ByRef par_image As Image)
         ''
