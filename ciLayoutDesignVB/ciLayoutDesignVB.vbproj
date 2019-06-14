@@ -146,5 +146,11 @@
     <Content Include="test_of_embed.htm" />
     <Content Include="test_of_embed_W_button.htm" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ciLayoutPrintLib\ciLayoutPrintLib.vbproj">
+      <Project>{f8271e6c-5c26-4cec-bd4c-ad3b10fef6b9}</Project>
+      <Name>ciLayoutPrintLib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
