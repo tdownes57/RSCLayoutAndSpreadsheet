@@ -51,6 +51,8 @@ Public Class FormDesign
             .LabelControlForID = Me.labelDefault1
             .LabelControlForName = Me.LabelDefault2
 
+            .PanelLayout = Me.panelLayout ''Added 6/13 td 
+
             mod_ciLayoutPrint.PictureOfPureWhite = Me.picturePureWhite
             mod_ciLayoutPrint.PicturePersonWithinLayout = Me.PicturePersonInLayout
             mod_ciLayoutPrint.PicturePersonImageLarge = Me.PicturePersonLarge
