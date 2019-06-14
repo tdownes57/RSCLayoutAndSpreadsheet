@@ -30,8 +30,8 @@ Partial Class FormLayoutEg
         Me.PicturePersonLarge = New System.Windows.Forms.PictureBox()
         Me.panelLayout = New System.Windows.Forms.Panel()
         Me.PicturePersonInLayout = New System.Windows.Forms.PictureBox()
-        Me.LabelDefault2 = New System.Windows.Forms.Label()
-        Me.labelDefault1 = New System.Windows.Forms.Label()
+        Me.LabelRecipientID = New System.Windows.Forms.Label()
+        Me.labelRecipientName = New System.Windows.Forms.Label()
         CType(Me.picturePureWhite, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureboxReview, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicturePersonLarge, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -65,10 +65,11 @@ Partial Class FormLayoutEg
         'PicturePersonLarge
         '
         Me.PicturePersonLarge.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.PicturePersonLarge.Image = Global.ciLayoutPrintLib.My.Resources.Resources.v9_lady
         Me.PicturePersonLarge.Location = New System.Drawing.Point(23, 156)
         Me.PicturePersonLarge.Margin = New System.Windows.Forms.Padding(4)
         Me.PicturePersonLarge.Name = "PicturePersonLarge"
-        Me.PicturePersonLarge.Size = New System.Drawing.Size(335, 380)
+        Me.PicturePersonLarge.Size = New System.Drawing.Size(300, 380)
         Me.PicturePersonLarge.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.PicturePersonLarge.TabIndex = 19
         Me.PicturePersonLarge.TabStop = False
@@ -79,8 +80,8 @@ Partial Class FormLayoutEg
         Me.panelLayout.BackgroundImage = CType(resources.GetObject("panelLayout.BackgroundImage"), System.Drawing.Image)
         Me.panelLayout.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.panelLayout.Controls.Add(Me.PicturePersonInLayout)
-        Me.panelLayout.Controls.Add(Me.LabelDefault2)
-        Me.panelLayout.Controls.Add(Me.labelDefault1)
+        Me.panelLayout.Controls.Add(Me.LabelRecipientID)
+        Me.panelLayout.Controls.Add(Me.labelRecipientName)
         Me.panelLayout.Location = New System.Drawing.Point(377, 44)
         Me.panelLayout.Margin = New System.Windows.Forms.Padding(4)
         Me.panelLayout.Name = "panelLayout"
@@ -97,29 +98,29 @@ Partial Class FormLayoutEg
         Me.PicturePersonInLayout.TabIndex = 2
         Me.PicturePersonInLayout.TabStop = False
         '
-        'LabelDefault2
+        'LabelRecipientID
         '
-        Me.LabelDefault2.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelDefault2.Location = New System.Drawing.Point(32, 325)
-        Me.LabelDefault2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.LabelDefault2.Name = "LabelDefault2"
-        Me.LabelDefault2.Size = New System.Drawing.Size(261, 34)
-        Me.LabelDefault2.TabIndex = 1
-        Me.LabelDefault2.Text = "Student or Employee ID"
-        Me.LabelDefault2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LabelRecipientID.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelRecipientID.Location = New System.Drawing.Point(32, 325)
+        Me.LabelRecipientID.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.LabelRecipientID.Name = "LabelRecipientID"
+        Me.LabelRecipientID.Size = New System.Drawing.Size(261, 34)
+        Me.LabelRecipientID.TabIndex = 1
+        Me.LabelRecipientID.Text = "Student or Employee ID"
+        Me.LabelRecipientID.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'labelDefault1
+        'labelRecipientName
         '
-        Me.labelDefault1.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.labelDefault1.Location = New System.Drawing.Point(32, 394)
-        Me.labelDefault1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.labelDefault1.Name = "labelDefault1"
-        Me.labelDefault1.Size = New System.Drawing.Size(497, 41)
-        Me.labelDefault1.TabIndex = 0
-        Me.labelDefault1.Text = "Student or Employee Name"
-        Me.labelDefault1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.labelRecipientName.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.labelRecipientName.Location = New System.Drawing.Point(32, 394)
+        Me.labelRecipientName.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.labelRecipientName.Name = "labelRecipientName"
+        Me.labelRecipientName.Size = New System.Drawing.Size(497, 41)
+        Me.labelRecipientName.TabIndex = 0
+        Me.labelRecipientName.Text = "Student or Employee Name"
+        Me.labelRecipientName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'FormDesign
+        'FormLayoutEg
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -129,7 +130,7 @@ Partial Class FormLayoutEg
         Me.Controls.Add(Me.PicturePersonLarge)
         Me.Controls.Add(Me.panelLayout)
         Me.Margin = New System.Windows.Forms.Padding(4)
-        Me.Name = "FormDesign"
+        Me.Name = "FormLayoutEg"
         Me.Text = "FormLayoutEg"
         CType(Me.picturePureWhite, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pictureboxReview, System.ComponentModel.ISupportInitialize).EndInit()
@@ -139,9 +140,9 @@ Partial Class FormLayoutEg
         Me.ResumeLayout(False)
 
     End Sub
-    Private WithEvents panelLayout As Panel
-    Private WithEvents labelDefault1 As Label
-    Private WithEvents LabelDefault2 As Label
+    Friend WithEvents panelLayout As Panel
+    Friend WithEvents labelRecipientName As Label
+    Friend WithEvents LabelRecipientID As Label
     Friend WithEvents PicturePersonInLayout As PictureBox
     Friend WithEvents PicturePersonLarge As PictureBox
     Friend WithEvents pictureboxReview As PictureBox

@@ -73,6 +73,7 @@
     <Compile Include="FormLayoutEg.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="LayoutExample.vb" />
     <Compile Include="LayoutPrint.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -120,6 +121,7 @@
     </Content>
     <Content Include="BackgroundEgs\SOU735-IVC-VENDOR.jpg" />
     <Content Include="BackgroundEgs\SOU735-SADDLEBACK-VENDOR.jpg" />
+    <None Include="Resources\v9 lady.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
