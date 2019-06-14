@@ -47,11 +47,15 @@ Public Class FormDesign
 
         ''Added 6/13/2019 thomas d.
         ''
-        mod_ciLayoutPrint.LabelControlForID = Me.labelDefault1
-        mod_ciLayoutPrint.LabelControlForName = Me.LabelDefault2
-        mod_ciLayoutPrint.PictureOfPureWhite = Me.picturePureWhite
-        mod_ciLayoutPrint.PicturePersonWithinLayout = Me.PicturePersonInLayout
-        mod_ciLayoutPrint.PicturePersonImageLarge = Me.PicturePersonLarge
+        With mod_ciLayoutPrint
+            .LabelControlForID = Me.labelDefault1
+            .LabelControlForName = Me.LabelDefault2
+
+            mod_ciLayoutPrint.PictureOfPureWhite = Me.picturePureWhite
+            mod_ciLayoutPrint.PicturePersonWithinLayout = Me.PicturePersonInLayout
+            mod_ciLayoutPrint.PicturePersonImageLarge = Me.PicturePersonLarge
+            mod_ciLayoutPrint.PictureBoxReview = Me.pictureboxReview
+        End With
 
     End Sub
 

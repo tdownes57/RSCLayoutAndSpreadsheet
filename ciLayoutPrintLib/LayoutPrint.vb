@@ -10,7 +10,7 @@ Public Class LayoutPrint
     ''
     ''Added 5/21/2019 td  
     ''
-    Private mod_panelLayout As New System.Windows.Forms.Panel
+    ''Now a Public Property, PictureBoxReview.''Private mod_panelLayout As New System.Windows.Forms.Panel
     ''Now a Public Property, PictureBoxReview.''Private mod_pictureboxReview As System.Windows.Forms.PictureBox
 
     ''Added 6/13/2019 thomas downes
@@ -18,8 +18,11 @@ Public Class LayoutPrint
     Public Property RecipientID As String ''Added 6/13/2019
     Public Property RecipientName As String ''Added 6/13/2019
 
+    Public Property PanelLayout As System.Windows.Forms.Panel
+
     Public Property LabelControlForID As Label ''Added 6/13/2019
     Public Property LabelControlForName As Label ''Added 6/13/2019
+
     Public Property PictureOfPureWhite As PictureBox ''Added 6/13/2019
     Public Property PicturePersonWithinLayout As PictureBox ''Added 6/13/2019
     Public Property PicturePersonImageLarge As PictureBox ''Added 6/13/2019
@@ -40,12 +43,12 @@ Public Class LayoutPrint
         Dim imgPanelBackground As System.Drawing.Image
         Dim imgPanelCropped As System.Drawing.Image
         Dim gr As Graphics ''= Graphics.FromImage(img)
-        Dim CropRect As New Rectangle(0, 0, mod_panelLayout.Width, mod_panelLayout.Height)
+        Dim CropRect As New Rectangle(0, 0, Me.PanelLayout.Width, Me.PanelLayout.Height)
 
         ''labelDefault1.Visible = False
         ''LabelDefault2.Visible = False
 
-        imgPanelBackground = mod_panelLayout.BackgroundImage
+        imgPanelBackground = Me.PanelLayout.BackgroundImage
         ''imgPanelCropped = imgPanelBackground
         imgPanelCropped = New Bitmap(CropRect.Width, CropRect.Height)
 
