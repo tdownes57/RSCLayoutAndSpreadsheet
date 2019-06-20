@@ -14,6 +14,7 @@ Public Class LayoutExample
 
     Public Property RecipientID As String ''Added 6/13/2019
     Public Property RecipientName As String ''Added 6/13/2019
+    Public Property RecipientPhoto As Image ''Added 6/20/2019
 
     Sub New()
 
@@ -30,6 +31,9 @@ Public Class LayoutExample
             .PictureOfPureWhite = mod_form.picturePureWhite
             .PicturePersonImageLarge = mod_form.PicturePersonLarge
             .PicturePersonWithinLayout = mod_form.PicturePersonInLayout
+
+            ''Added 6/20/2019 thoma downes
+            If (Me.RecipientPhoto IsNot Nothing) Then .PicturePersonImageLarge.Image = Me.RecipientPhoto
 
         End With
 
