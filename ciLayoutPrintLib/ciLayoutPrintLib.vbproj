@@ -66,6 +66,14 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BackImageExamples.vb" />
+    <Compile Include="FormLayoutEg.designer.vb">
+      <DependentUpon>FormLayoutEg.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormLayoutEg.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LayoutExample.vb" />
     <Compile Include="LayoutPrint.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -84,6 +92,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FormLayoutEg.resx">
+      <DependentUpon>FormLayoutEg.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
@@ -101,6 +112,16 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="BackgroundEgs\ORO835 - OrovilleHS.PNG" />
+    <Content Include="BackgroundEgs\SOU735-IrvineValleyCollege.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BackgroundEgs\SOU735-IVC-VENDOR.jpg" />
+    <Content Include="BackgroundEgs\SOU735-SADDLEBACK-VENDOR.jpg" />
+    <None Include="Resources\v9 lady.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

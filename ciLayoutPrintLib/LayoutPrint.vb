@@ -10,10 +10,25 @@ Public Class LayoutPrint
     ''
     ''Added 5/21/2019 td  
     ''
-    Private mod_panelLayout As New System.Windows.Forms.Panel
-    Private mod_pictureboxReview As System.Windows.Forms.PictureBox
+    ''Now a Public Property, PictureBoxReview.''Private mod_panelLayout As New System.Windows.Forms.Panel
+    ''Now a Public Property, PictureBoxReview.''Private mod_pictureboxReview As System.Windows.Forms.PictureBox
 
-    Public Sub GenerateBuildImage(Optional ByRef pref_image As Image = Nothing, Optional ByVal pboolLargeLandscape As Boolean = False)
+    ''Added 6/13/2019 thomas downes
+    ''
+    Public Property RecipientID As String ''Added 6/13/2019
+    Public Property RecipientName As String ''Added 6/13/2019
+
+    Public Property PanelLayout As System.Windows.Forms.Panel
+
+    Public Property LabelControlForID As Label ''Added 6/13/2019
+    Public Property LabelControlForName As Label ''Added 6/13/2019
+
+    Public Property PictureOfPureWhite As PictureBox ''Added 6/13/2019
+    Public Property PicturePersonWithinLayout As PictureBox ''Added 6/13/2019
+    Public Property PicturePersonImageLarge As PictureBox ''Added 6/13/2019
+    Public Property PictureBoxReview As PictureBox ''Added 6/13/2019
+
+    Public Function GenerateBuildImage(Optional ByRef pref_image As Image = Nothing, Optional ByVal pboolLargeLandscape As Boolean = False) As Image
         ''
         ''Added 5/6/2019 thomas downes  
         ''
@@ -28,12 +43,12 @@ Public Class LayoutPrint
         Dim imgPanelBackground As System.Drawing.Image
         Dim imgPanelCropped As System.Drawing.Image
         Dim gr As Graphics ''= Graphics.FromImage(img)
-        Dim CropRect As New Rectangle(0, 0, mod_panelLayout.Width, mod_panelLayout.Height)
+        Dim CropRect As New Rectangle(0, 0, Me.PanelLayout.Width, Me.PanelLayout.Height)
 
         ''labelDefault1.Visible = False
         ''LabelDefault2.Visible = False
 
-        imgPanelBackground = mod_panelLayout.BackgroundImage
+        imgPanelBackground = Me.PanelLayout.BackgroundImage
         ''imgPanelCropped = imgPanelBackground
         imgPanelCropped = New Bitmap(CropRect.Width, CropRect.Height)
 
@@ -80,15 +95,15 @@ Public Class LayoutPrint
             ''              New SolidBrush(Color.Green),
             ''              10, 10)
 
-            gr.DrawString("Person " & txtStudentID.Text,
-                          New Font("Tahoma", labelDefault1.Font.SizeInPoints),
-                          New SolidBrush(labelDefault1.ForeColor),
-                           labelDefault1.Left, labelDefault1.Top)
+            gr.DrawString("ID " & Me.RecipientID,
+                          New Font("Tahoma", Me.LabelControlForID.Font.SizeInPoints),
+                          New SolidBrush(Me.LabelControlForID.ForeColor),
+                           Me.LabelControlForID.Left, Me.LabelControlForID.Top)
 
-            gr.DrawString(txtStudentName.Text,
-                          New Font("Tahoma", LabelDefault2.Font.SizeInPoints),
-                          New SolidBrush(LabelDefault2.ForeColor),
-                           LabelDefault2.Left, LabelDefault2.Top)
+            gr.DrawString(Me.RecipientName,
+                          New Font("Tahoma", Me.LabelControlForName.Font.SizeInPoints),
+                          New SolidBrush(Me.LabelControlForName.ForeColor),
+                           Me.LabelControlForName.Left, Me.LabelControlForName.Top)
 
             gr.Dispose()
 
@@ -102,8 +117,12 @@ Public Class LayoutPrint
             Convert.ToBase64String(System.IO.File.ReadAllBytes("Test.jpg"))
         End If
 
-        ''labelDefault1.Visible = True
-        ''LabelDefault2.Visible = True
+        ''6/13/2019 TD''labelDefault1.Visible = True
+        ''6/13 TD''LabelDefault2.Visible = True
+
+        ''Really needed??  Let's set Visible = True, but this is vestigial and is likely not needed.
+        Me.LabelControlForID.Visible = True ''Keep as True, but this is vestigial and likely not needed.
+        Me.LabelControlForName.Visible = True ''Likely not needed.
 
         ''Added 5/15/2019 td
         img_Rotated = CType(img_LargeLandscape.Clone, Image)
@@ -114,19 +133,23 @@ Public Class LayoutPrint
 
         ''img = ResizeImage(img, pictureboxReview)
         Dim imgResized As Image
-        imgResized = ResizeImage(bm_source, mod_pictureboxReview)
+        imgResized = ResizeImage(bm_source, Me.PictureBoxReview)
 
-        mod_pictureboxReview.Image = imgResized
+        If Me.PictureBoxReview IsNot Nothing Then
+            Me.PictureBoxReview.Image = imgResized
+        End If
 
         ''gr.DrawImage()
 
         If (pboolLargeLandscape) Then
             pref_image = img_LargeLandscape
+            Return img_LargeLandscape ''Added 6/13/2019 td
         Else
             pref_image = imgResized
-        End If
+            Return imgResized ''Added 6/13/2019 td
+        End If ''end of "If (pboolLarge...) .... Else...."
 
-    End Sub ''End of "Private Sub GenerateBuildImage()"
+    End Function ''End of "Private Sub GenerateBuildImage()"
 
     Private Sub ApplyTextToImage(ByRef par_image As Image)
         ''
@@ -146,20 +169,20 @@ Public Class LayoutPrint
         ''              10, 10)
 
         ''Draw white space so that the text can be read more easily. 
-        ApplyWhiteSpaceToImage(par_image, labelDefault1)
+        ApplyWhiteSpaceToImage(par_image, Me.LabelControlForID)
 
-        gr.DrawString("Person " & txtStudentID.Text,
-                      New Font("Tahoma", labelDefault1.Font.SizeInPoints),
-                      New SolidBrush(labelDefault1.ForeColor),
-                       labelDefault1.Left, labelDefault1.Top)
+        gr.DrawString("Person " & Me.RecipientID,
+                      New Font("Tahoma", Me.LabelControlForID.Font.SizeInPoints),
+                      New SolidBrush(Me.LabelControlForID.ForeColor),
+                       Me.LabelControlForID.Left, Me.LabelControlForID.Top)
 
         ''Draw white space so that the text can be read more easily. 
-        ApplyWhiteSpaceToImage(par_image, LabelDefault2)
+        ApplyWhiteSpaceToImage(par_image, LabelControlForName)
 
-        gr.DrawString(txtStudentName.Text,
-                      New Font("Tahoma", LabelDefault2.Font.SizeInPoints),
-                      New SolidBrush(LabelDefault2.ForeColor),
-                       LabelDefault2.Left, LabelDefault2.Top)
+        gr.DrawString(Me.RecipientName,
+                      New Font("Tahoma", Me.LabelControlForName.Font.SizeInPoints),
+                      New SolidBrush(Me.LabelControlForName.ForeColor),
+                       Me.LabelControlForName.Left, Me.LabelControlForName.Top)
 
         gr.Dispose()
 
@@ -176,7 +199,7 @@ Public Class LayoutPrint
         gr = Graphics.FromImage(par_image)
 
         With par_textboxOrLabel
-            gr.DrawImage(picturePureWhite.Image, .Left, .Top, .Width, .Height)
+            gr.DrawImage(Me.PictureOfPureWhite.Image, .Left, .Top, .Width, .Height)
         End With
 
         gr.Dispose()
@@ -195,7 +218,7 @@ Public Class LayoutPrint
         ''Dim imgResized As Image
 
         ''-----gr = Graphics.FromImage(par_image)
-        imgPicture = PicturePersonLarge.Image
+        imgPicture = Me.PicturePersonImageLarge.Image
 
         ''Dim bm_source As New Bitmap(imgPicture)
         ''imgResized = ResizeImage(bm_source, PicturePersonInLayout)
@@ -205,7 +228,7 @@ Public Class LayoutPrint
         ''
         ''    https://docs.microsoft.com/en-us/dotnet/api/system.drawing.graphics.drawimage?view=netframework-4.8
         ''
-        With PicturePersonInLayout
+        With Me.PicturePersonWithinLayout
             gr.DrawImage(imgPicture, .Left, .Top, .Width, .Height)
         End With
 

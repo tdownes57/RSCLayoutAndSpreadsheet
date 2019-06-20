@@ -16,6 +16,9 @@ Public Class FormDesign
     ''Dim mod_document As printing object
     Dim WithEvents mod_PrintDoc As New System.Drawing.Printing.PrintDocument()
 
+    ''Added 6/13/2019 td
+    Private mod_ciLayoutPrint As New ciLayoutPrintLib.LayoutPrint
+
     Private Sub Form1_Load(ByVal sender As System.Object,
         ByVal e As System.EventArgs) Handles MyBase.Load
 
@@ -42,6 +45,19 @@ Public Class FormDesign
             Next
         Next
 
+        ''Added 6/13/2019 thomas d.
+        ''
+        With mod_ciLayoutPrint
+            .LabelControlForID = Me.labelDefault1
+            .LabelControlForName = Me.LabelDefault2
+
+            .PanelLayout = Me.panelLayout ''Added 6/13 td 
+
+            mod_ciLayoutPrint.PictureOfPureWhite = Me.picturePureWhite
+            mod_ciLayoutPrint.PicturePersonWithinLayout = Me.PicturePersonInLayout
+            mod_ciLayoutPrint.PicturePersonImageLarge = Me.PicturePersonLarge
+            mod_ciLayoutPrint.PictureBoxReview = Me.pictureboxReview
+        End With
 
     End Sub
 
@@ -311,10 +327,29 @@ ExitHandler:
     End Function ''Public Shared Function ResizeImage(ByVal InputImage As Image, ByVal parSizingBox As Control) As Image
 
     Private Sub buttonGenerate_Click(sender As Object, e As EventArgs) Handles buttonGenerate.Click
-
+        ''
         ''Encapsulated 5/7/2019 thomas d. 
         ''
-        GenerateBuildImage()
+        Dim boolUseCIWebLibrary As Boolean ''Added 6/13/2019 td
+
+        boolUseCIWebLibrary = checkUseCiLayoutPrintLib.Checked
+
+        ''6/13/2019 td''GenerateBuildImage()
+        If (boolUseCIWebLibrary) Then
+            ''Added 6/13/2019 td
+            ''
+            ''Use the web-friendly library. 
+            ''
+            mod_ciLayoutPrint.RecipientID = txtStudentID.Text
+            mod_ciLayoutPrint.RecipientName = txtStudentName.Text
+            mod_ciLayoutPrint.GenerateBuildImage()
+
+        Else
+            ''
+            ''Don't use the web-friendly library.  
+            ''
+            GenerateBuildImage()
+        End If
 
         ''Added 5/15/2019 td
         ''
@@ -324,8 +359,15 @@ ExitHandler:
             Dim image_Landscape As Image = Nothing
             Dim image_SmallPortrait As Image = Nothing
 
-            GenerateBuildImage(image_Landscape, True)
-            GenerateBuildImage(image_SmallPortrait, False)
+            If (boolUseCIWebLibrary) Then
+                ''Added 6/13/2019 td
+                mod_ciLayoutPrint.GenerateBuildImage(image_Landscape, True)
+                mod_ciLayoutPrint.GenerateBuildImage(image_SmallPortrait, False)
+            Else
+                ''From 5/15/2019 td
+                GenerateBuildImage(image_Landscape, True)
+                GenerateBuildImage(image_SmallPortrait, False)
+            End If
 
             objFormToShow.ImageLarge_OrientLandscape = image_Landscape
             objFormToShow.ImageSmall_OrientPortrait = image_SmallPortrait

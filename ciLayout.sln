@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.572
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28922.388
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ciLayoutPrintCS", "ciLayout\ciLayoutPrintCS.csproj", "{BBF8BB75-622B-4163-AA94-16DAE3763C10}"
 EndProject
@@ -12,6 +12,10 @@ EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ciLayoutDesignVB", "ciLayoutDesignVB\ciLayoutDesignVB.vbproj", "{FB60907F-05CD-474D-967E-831B7BA2D517}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ciLayoutPrintLib", "ciLayoutPrintLib\ciLayoutPrintLib.vbproj", "{F8271E6C-5C26-4CEC-BD4C-AD3B10FEF6B9}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ciPictures_VB", "..\ciBadgeForWeb\ciPictures_VB\ciPictures_VB.vbproj", "{A5FE9F7B-4075-43C5-892B-01E2CFEC342C}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ciPicturesTesting", "ciPicturesTesting\ciPicturesTesting.vbproj", "{4B98B14D-BC47-470A-81EA-625300E41F5B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,14 @@ Global
 		{F8271E6C-5C26-4CEC-BD4C-AD3B10FEF6B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8271E6C-5C26-4CEC-BD4C-AD3B10FEF6B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8271E6C-5C26-4CEC-BD4C-AD3B10FEF6B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5FE9F7B-4075-43C5-892B-01E2CFEC342C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5FE9F7B-4075-43C5-892B-01E2CFEC342C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5FE9F7B-4075-43C5-892B-01E2CFEC342C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5FE9F7B-4075-43C5-892B-01E2CFEC342C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B98B14D-BC47-470A-81EA-625300E41F5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B98B14D-BC47-470A-81EA-625300E41F5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B98B14D-BC47-470A-81EA-625300E41F5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B98B14D-BC47-470A-81EA-625300E41F5B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
