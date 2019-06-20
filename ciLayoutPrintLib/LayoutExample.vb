@@ -49,6 +49,7 @@ Public Class LayoutExample
             ''.RecipientName = Me.RecipientName
             .RecipientID = par_RecipientID
             .RecipientName = par_RecipientName
+            .RecipientPic = par_portraitpic ''Added 6/20/2019 td  
 
             .PanelLayout = mod_form.panelLayout
             .PictureBoxReview = mod_form.pictureboxReview
@@ -60,7 +61,7 @@ Public Class LayoutExample
 
             Return .GenerateBuildImage()
 
-        End With
+        End With ''End of "With mod_print"
 
     End Function ''End of "Public Function GenerateImage()"
 
