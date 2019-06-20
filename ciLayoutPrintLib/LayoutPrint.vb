@@ -102,8 +102,8 @@ Public Class LayoutPrint
             Convert.ToBase64String(System.IO.File.ReadAllBytes("Test.jpg"))
         End If
 
-        labelDefault1.Visible = True
-        LabelDefault2.Visible = True
+        ''labelDefault1.Visible = True
+        ''LabelDefault2.Visible = True
 
         ''Added 5/15/2019 td
         img_Rotated = CType(img_LargeLandscape.Clone, Image)
