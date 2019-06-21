@@ -144,7 +144,7 @@ Public Class LayoutPrint
 
         If Me.PictureBoxReview IsNot Nothing Then
             Me.PictureBoxReview.Image = imgResized
-        End If
+        End If ''ENd of " If Me.PictureBoxReview IsNot Nothing Then"
 
         ''gr.DrawImage()
 
@@ -154,6 +154,7 @@ Public Class LayoutPrint
 
         ElseIf (pboolSmallLandscape) Then ''Added 6/20/2019 thomas d. 
             ''Added 6/20/2019 thomas d. 
+            img_SmallLandscape = Resize_Landscape80x60(img_LargeLandscape, Me.PictureBoxReview.Size)
             pref_imageOutput = img_SmallLandscape ''Added 6/20/2019 td
             Return img_SmallLandscape ''Added 6/20/2019 td
 
