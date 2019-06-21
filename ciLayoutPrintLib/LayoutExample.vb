@@ -39,10 +39,16 @@ Public Class LayoutExample
 
     End Sub ''End of "With mod_print"
 
-    Public Function GenerateImage(par_RecipientID As String, par_RecipientName As String, par_portraitpic As Image) As Image
+    Public Function GenerateImage(par_RecipientID As String, par_RecipientName As String,
+                                  par_portraitpic As Image,
+                                  Optional pboolLargeLandscape As Boolean = False,
+                                  Optional pboolSmallLandscape As Boolean = False) As Image
+        '6/20 td''Public Function GenerateImage(par_RecipientID As String, par_RecipientName As String, par_portraitpic As Image) As Image
         ''
         ''Added 6/14/2019 thomas downes  
         ''
+        Dim imageDummy As Image = Nothing ''Added 6/20/2019 thomas downes 
+
         With mod_print
 
             ''.RecipientID = Me.RecipientID
@@ -59,7 +65,8 @@ Public Class LayoutExample
 
             .PicturePersonImageLarge.Image = par_portraitpic
 
-            Return .GenerateBuildImage()
+            ''6/20/2019 td''Return .GenerateBuildImage()
+            Return .GenerateBuildImage(imageDummy, pboolLargeLandscape, pboolSmallLandscape)
 
         End With ''End of "With mod_print"
 
