@@ -31,7 +31,8 @@ Public Class LayoutPrint
 
     Public Function GenerateBuildImage(Optional ByRef pref_imageOutput As Image = Nothing,
                                        Optional ByVal pboolLargeLandscape As Boolean = False,
-                                       Optional ByVal pboolSmallLandscape As Boolean = False) As Image
+                                       Optional ByVal pboolSmallLandscape As Boolean = False,
+                                       Optional ByVal pboolTinyLandscape As Boolean = False) As Image
         ''
         ''6/20 td''Public Function GenerateBuildImage(Optional ByRef pref_imageOutput As Image = Nothing,
         ''6/20 td''           Optional ByVal pboolLargeLandscape As Boolean = False) As Image
@@ -46,11 +47,13 @@ Public Class LayoutPrint
         ''
         Dim img_LargeLandscape As System.Drawing.Image
         Dim img_SmallLandscape As System.Drawing.Image ''Added 6/20/2019 td 
+        Dim img_TinyLandscape As System.Drawing.Image ''Added 6/21/2019 td 
         Dim img_Rotated As Image
         Dim imgPanelBackground As System.Drawing.Image
         Dim imgPanelCropped As System.Drawing.Image
         Dim gr As Graphics ''= Graphics.FromImage(img)
         Dim CropRect As New Rectangle(0, 0, Me.PanelLayout.Width, Me.PanelLayout.Height)
+        Dim sizeTiny As Size ''Added 6/21/2019 thomas downes
 
         ''labelDefault1.Visible = False
         ''LabelDefault2.Visible = False
@@ -157,6 +160,15 @@ Public Class LayoutPrint
             img_SmallLandscape = Resize_Landscape80x60(img_LargeLandscape, Me.PictureBoxReview.Size)
             pref_imageOutput = img_SmallLandscape ''Added 6/20/2019 td
             Return img_SmallLandscape ''Added 6/20/2019 td
+
+        ElseIf (pboolTinyLandscape) Then ''Added 6/21/2019 thomas d. 
+            ''
+            ''Added 6 / 21 / 2019 thomas d. 
+            ''
+            sizeTiny = New Size(CInt(Me.PictureBoxReview.Size.Width / 2), CInt(Me.PictureBoxReview.Size.Height / 2))
+            img_TinyLandscape = Resize_Landscape80x60(img_LargeLandscape, sizeTiny)
+            pref_imageOutput = img_TinyLandscape ''Added 6/21/2019 td
+            Return img_TinyLandscape ''Added 6/21/2019 td
 
         Else
             pref_imageOutput = imgResized
