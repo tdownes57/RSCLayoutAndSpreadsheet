@@ -15,6 +15,8 @@ Public Class LayoutExample
     Public Property RecipientID As String ''Added 6/13/2019
     Public Property RecipientName As String ''Added 6/13/2019
 
+    Public Property RecipientFaceImage As Image ''Added 6/20/2019 td 
+
     Sub New()
 
         mod_form.PicturePersonLarge.Image = Global.ciLayoutPrintLib.My.Resources.v9_lady
