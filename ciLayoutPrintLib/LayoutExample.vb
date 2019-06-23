@@ -14,6 +14,7 @@ Public Class LayoutExample
 
     Public Property RecipientID As String ''Added 6/13/2019
     Public Property RecipientName As String ''Added 6/13/2019
+    Public Property RecipientPhoto As Image ''Added 6/20/2019
 
     Public Property RecipientFaceImage As Image ''Added 6/20/2019 td 
 
@@ -33,20 +34,30 @@ Public Class LayoutExample
             .PicturePersonImageLarge = mod_form.PicturePersonLarge
             .PicturePersonWithinLayout = mod_form.PicturePersonInLayout
 
+            ''Added 6/20/2019 thoma downes
+            If (Me.RecipientPhoto IsNot Nothing) Then .PicturePersonImageLarge.Image = Me.RecipientPhoto
+
         End With
 
     End Sub ''End of "With mod_print"
 
-    Public Function GenerateImage(par_RecipientID As String, par_RecipientName As String, par_portraitpic As Image) As Image
+    Public Function GenerateImage(par_RecipientID As String, par_RecipientName As String,
+                                  par_portraitpic As Image,
+                                  Optional pboolLargeLandscape As Boolean = False,
+                                  Optional pboolSmallLandscape As Boolean = False) As Image
+        '6/20 td''Public Function GenerateImage(par_RecipientID As String, par_RecipientName As String, par_portraitpic As Image) As Image
         ''
         ''Added 6/14/2019 thomas downes  
         ''
+        Dim imageDummy As Image = Nothing ''Added 6/20/2019 thomas downes 
+
         With mod_print
 
             ''.RecipientID = Me.RecipientID
             ''.RecipientName = Me.RecipientName
             .RecipientID = par_RecipientID
             .RecipientName = par_RecipientName
+            .RecipientPic = par_portraitpic ''Added 6/20/2019 td  
 
             .PanelLayout = mod_form.panelLayout
             .PictureBoxReview = mod_form.pictureboxReview
@@ -56,9 +67,10 @@ Public Class LayoutExample
 
             .PicturePersonImageLarge.Image = par_portraitpic
 
-            Return .GenerateBuildImage()
+            ''6/20/2019 td''Return .GenerateBuildImage()
+            Return .GenerateBuildImage(imageDummy, pboolLargeLandscape, pboolSmallLandscape)
 
-        End With
+        End With ''End of "With mod_print"
 
     End Function ''End of "Public Function GenerateImage()"
 

@@ -17,6 +17,7 @@ Public Class LayoutPrint
     ''
     Public Property RecipientID As String ''Added 6/13/2019
     Public Property RecipientName As String ''Added 6/13/2019
+    Public Property RecipientPic As Image ''Added 6/20/2019 Thomas DOWNES
 
     Public Property PanelLayout As System.Windows.Forms.Panel
 
@@ -28,7 +29,13 @@ Public Class LayoutPrint
     Public Property PicturePersonImageLarge As PictureBox ''Added 6/13/2019
     Public Property PictureBoxReview As PictureBox ''Added 6/13/2019
 
-    Public Function GenerateBuildImage(Optional ByRef pref_image As Image = Nothing, Optional ByVal pboolLargeLandscape As Boolean = False) As Image
+    Public Function GenerateBuildImage(Optional ByRef pref_imageOutput As Image = Nothing,
+                                       Optional ByVal pboolLargeLandscape As Boolean = False,
+                                       Optional ByVal pboolSmallLandscape As Boolean = False,
+                                       Optional ByVal pboolTinyLandscape As Boolean = False) As Image
+        ''
+        ''6/20 td''Public Function GenerateBuildImage(Optional ByRef pref_imageOutput As Image = Nothing,
+        ''6/20 td''           Optional ByVal pboolLargeLandscape As Boolean = False) As Image
         ''
         ''Added 5/6/2019 thomas downes  
         ''
@@ -39,11 +46,14 @@ Public Class LayoutPrint
         ''  https://stackoverflow.com/questions/8022174/how-can-i-write-on-an-image-using-vb-net
         ''
         Dim img_LargeLandscape As System.Drawing.Image
+        Dim img_SmallLandscape As System.Drawing.Image ''Added 6/20/2019 td 
+        Dim img_TinyLandscape As System.Drawing.Image ''Added 6/21/2019 td 
         Dim img_Rotated As Image
         Dim imgPanelBackground As System.Drawing.Image
         Dim imgPanelCropped As System.Drawing.Image
         Dim gr As Graphics ''= Graphics.FromImage(img)
         Dim CropRect As New Rectangle(0, 0, Me.PanelLayout.Width, Me.PanelLayout.Height)
+        Dim sizeTiny As Size ''Added 6/21/2019 thomas downes
 
         ''labelDefault1.Visible = False
         ''LabelDefault2.Visible = False
@@ -137,15 +147,31 @@ Public Class LayoutPrint
 
         If Me.PictureBoxReview IsNot Nothing Then
             Me.PictureBoxReview.Image = imgResized
-        End If
+        End If ''ENd of " If Me.PictureBoxReview IsNot Nothing Then"
 
         ''gr.DrawImage()
 
         If (pboolLargeLandscape) Then
-            pref_image = img_LargeLandscape
+            pref_imageOutput = img_LargeLandscape
             Return img_LargeLandscape ''Added 6/13/2019 td
+
+        ElseIf (pboolSmallLandscape) Then ''Added 6/20/2019 thomas d. 
+            ''Added 6/20/2019 thomas d. 
+            img_SmallLandscape = Resize_Landscape80x60(img_LargeLandscape, Me.PictureBoxReview.Size)
+            pref_imageOutput = img_SmallLandscape ''Added 6/20/2019 td
+            Return img_SmallLandscape ''Added 6/20/2019 td
+
+        ElseIf (pboolTinyLandscape) Then ''Added 6/21/2019 thomas d. 
+            ''
+            ''Added 6 / 21 / 2019 thomas d. 
+            ''
+            sizeTiny = New Size(CInt(Me.PictureBoxReview.Size.Width / 2), CInt(Me.PictureBoxReview.Size.Height / 2))
+            img_TinyLandscape = Resize_Landscape80x60(img_LargeLandscape, sizeTiny)
+            pref_imageOutput = img_TinyLandscape ''Added 6/21/2019 td
+            Return img_TinyLandscape ''Added 6/21/2019 td
+
         Else
-            pref_image = imgResized
+            pref_imageOutput = imgResized
             Return imgResized ''Added 6/13/2019 td
         End If ''end of "If (pboolLarge...) .... Else...."
 
@@ -247,5 +273,74 @@ ExitHandler:
         Return New Bitmap(InputImage, New Size(parSizingBox.Width, parSizingBox.Height))
 
     End Function ''Public Shared Function ResizeImage(ByVal InputImage As Image, ByVal parSizingBox As Control) As Image
+
+    Public Shared Function Resize_Portrait60x80(ByVal parInputImage As Image, ByVal parSizeOfCard As Size) As Image
+        ''
+        ''https://stackoverflow.com/questions/2144592/resizing-images-in-vb-net 
+        ''
+        ''Added 6/20/2019 thomas DOWNES
+        ''
+        Dim confirmedAsPortrait As Size
+
+        With parSizeOfCard
+
+            If (.Width < .Height) Then
+
+                confirmedAsPortrait = parSizeOfCard
+
+            Else
+                ''
+                ''We have to do a switch-a-roo.
+                ''
+                Dim intWidthSwitchedFromHeight As Integer
+                Dim intHeightSwitchedFromWidth As Integer
+
+                intWidthSwitchedFromHeight = .Height
+                intHeightSwitchedFromWidth = .Width
+
+                confirmedAsPortrait = New Size(intWidthSwitchedFromHeight, intHeightSwitchedFromWidth)
+
+            End If ''End of "If (.Width < .Height) Then .... Else ....."
+
+        End With ''End of "With parSizeOfCard"
+
+        Return New Bitmap(parInputImage, confirmedAsPortrait)
+
+    End Function ''Public Shared Function Resize_Portrait60x80(ByVal InputImage As Image, ByVal parSizeOfCard As Size) As Image
+
+    Public Shared Function Resize_Landscape80x60(ByVal parInputImage As Image, ByVal parSizeOfCard As Size) As Image
+        ''
+        ''Added 6/20/2019 thomas DOWNES
+        ''
+        Dim confirmedAsLandscape As Size
+
+        With parSizeOfCard
+
+            If (.Height < .Width) Then
+
+                confirmedAsLandscape = parSizeOfCard
+
+            Else
+                ''
+                ''We have to do a switch-a-roo.
+                ''
+                Dim intWidthSwitchedFromHeight As Integer
+                Dim intHeightSwitchedFromWidth As Integer
+
+                intWidthSwitchedFromHeight = .Height
+                intHeightSwitchedFromWidth = .Width
+
+                confirmedAsLandscape = New Size(intWidthSwitchedFromHeight, intHeightSwitchedFromWidth)
+
+            End If ''End of "If (.Height < .Width) Then .... Else ....."
+
+        End With ''End of "With parSizeOfCard"
+
+        Return New Bitmap(parInputImage, confirmedAsLandscape)
+
+    End Function ''Public Shared Function Resize_Landscape80x60(ByVal parInputImage As Image, ByVal parSizeOfCard As Size) As Image
+
+
+
 
 End Class
