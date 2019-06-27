@@ -41,15 +41,14 @@ Public Class LayoutExample
 
     End Sub ''End of "With mod_print"
 
-    Public Sub UpdateLabelPositions(par_textPosition As Int16)
+    Public Sub UpdateLabelPositions(par_textPosition As CILayoutText)
         ''
         ''Added 6/27/2019
         ''
+        Me.mod_form.labelRecipientName.Top = par_textPosition.TopEdgePositionPixels
+        Me.mod_form.labelRecipientName.Left = par_textPosition.LeftEdgePositionPixels
 
-
-
-
-    End Sub
+    End Sub ''End of "Public Sub UpdateLabelPositions(......)"
 
     Public Function GenerateImage(par_RecipientID As String, par_RecipientName As String,
                                   par_portraitpic As Image,
