@@ -26,8 +26,14 @@ Public Class CILayoutText
     <Display(Name:="Width (or Length) in Pixels")>
     Public Property WidthLengthPixels() As Integer
 
+    <Display(Name:="Height in Pixels")>
+    Public Property HeightPixels() As Integer
+
     <Display(Name:="Font Size in Pixels")>
     Public Property FontSize() As Integer
+
+    <Display(Name:="Font Family (e.g. Courier)")>
+    Public Property FontFamilyName() As Integer
 
     ''[Display(Name = "Top-Edge Position in Pixels")]
     ''  Public int TopEdgePositionPixels { Get; Set; }
