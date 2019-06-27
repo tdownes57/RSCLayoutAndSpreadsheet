@@ -45,8 +45,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -67,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BackImageExamples.vb" />
+    <Compile Include="CILayoutText.vb" />
     <Compile Include="FormLayoutEg.designer.vb">
       <DependentUpon>FormLayoutEg.vb</DependentUpon>
     </Compile>
@@ -121,6 +124,7 @@
     </Content>
     <Content Include="BackgroundEgs\SOU735-IVC-VENDOR.jpg" />
     <Content Include="BackgroundEgs\SOU735-SADDLEBACK-VENDOR.jpg" />
+    <Content Include="CILayoutText_CS.cs" />
     <None Include="Resources\v9 lady.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

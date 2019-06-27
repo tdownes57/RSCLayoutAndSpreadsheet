@@ -41,6 +41,16 @@ Public Class LayoutExample
 
     End Sub ''End of "With mod_print"
 
+    Public Sub UpdateLabelPositions(par_textPosition As Int16)
+        ''
+        ''Added 6/27/2019
+        ''
+
+
+
+
+    End Sub
+
     Public Function GenerateImage(par_RecipientID As String, par_RecipientName As String,
                                   par_portraitpic As Image,
                                   Optional pboolLargeLandscape As Boolean = False,
