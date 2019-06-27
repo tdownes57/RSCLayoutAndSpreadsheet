@@ -32,8 +32,19 @@ Public Class CILayoutText
     <Display(Name:="Font Size in Pixels")>
     Public Property FontSize() As Integer
 
-    <Display(Name:="Font Family (e.g. Courier)")>
-    Public Property FontFamilyName() As Integer
+    ''' <summary>
+    ''' Khaki #F0E68C  https://www.w3schools.com/cssref/css_colors.asp
+    ''' </summary>
+    ''' <returns></returns>
+    <Display(Name:="Font Color")>
+    Public Property FontColor() As String
+
+    ''' <summary>
+    ''' Light Slate Grey #778899  https://www.w3schools.com/cssref/css_colors.asp
+    ''' </summary>
+    <Display(Name:="Background Color")>
+    Public Property BackgroundColor() As String
+
 
     ''[Display(Name = "Top-Edge Position in Pixels")]
     ''  Public int TopEdgePositionPixels { Get; Set; }
@@ -62,6 +73,19 @@ Public Class CILayoutText
         Me.FontSize = 12
         Me.LeftEdgePositionPixels = 20
         Me.TopEdgePositionPixels = 20
+
+        Me.HeightPixels = 30
+        Me.WidthLengthPixels = 300
+
+        '' <summary>
+        '' Khaki #F0E68C  https://www.w3schools.com/cssref/css_colors.asp
+        '' </summary>
+        Me.FontColor = "#F0E68C"
+
+        '' <summary>
+        '' Light Slate Grey #778899  https://www.w3schools.com/cssref/css_colors.asp
+        '' </summary>
+        Me.BackgroundColor = "#778899"
 
     End Sub
 
