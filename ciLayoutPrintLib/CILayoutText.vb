@@ -29,6 +29,9 @@ Public Class CILayoutText
     <Display(Name:="Height in Pixels")>
     Public Property HeightPixels() As Integer
 
+    <Display(Name:="Font Family Name")>
+    Public Property FontFamilyName() As String
+
     <Display(Name:="Font Size in Pixels")>
     Public Property FontSize() As Integer
 
@@ -69,8 +72,9 @@ Public Class CILayoutText
         ''Added 6/25/2019 thomas downes
         ''
         Me.CILayoutTextId = 1
-        Me.FieldName = "Comic Sans"
+        Me.FieldName = "Full Name"
         Me.FontSize = 12
+        Me.FontFamilyName = "Times New Roman"
         Me.LeftEdgePositionPixels = 20
         Me.TopEdgePositionPixels = 20
 
