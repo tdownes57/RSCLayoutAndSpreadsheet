@@ -20,4 +20,13 @@ Public Class CILayoutBadge
     Public T1 As New CILayoutText
     Public T2 As New CILayoutText
 
+    Public Sub New()
+        ''
+        ''Added 6/27/2019 thomas downes
+        ''
+        T2.TopEdgePositionPixels = 2 * T1.TopEdgePositionPixels
+        T2.LeftEdgePositionPixels = 2 * T1.LeftEdgePositionPixels
+
+    End Sub
+
 End Class
