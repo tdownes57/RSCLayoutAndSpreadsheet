@@ -48,6 +48,25 @@ Public Class LayoutExample
         Me.mod_form.labelRecipientName.Top = par_textPosition.TopEdgePositionPixels
         Me.mod_form.labelRecipientName.Left = par_textPosition.LeftEdgePositionPixels
 
+        ''Added 6/28/2019 thomas c.d.
+        ''
+        ''Me.mod_form.LabelRecipientID.BackColor = par_textPosition.BackgroundColor;
+
+        ''     //This gives us an array of 3 strings each representing a number in text form.
+        ''var splitString = stringArray[i].Split(','); 
+
+        ''//converts the array of 3 strings in to an array of 3 ints.
+        ''var splitInts = splitString.Select(item >= Int.Parse(item)).ToArray(); 
+
+        ''//takes each element of the array of 3 And passes it in to the correct slot
+        ''colorArray[i] = System.Drawing.Color.FromArgb(splitInts[0], splitInts[1], splitInts[2]); 
+
+        Color.FromArgb()
+
+
+
+
+
     End Sub ''End of "Public Sub UpdateLabelPositions(......)"
 
     Public Function GenerateImage(par_RecipientID As String, par_RecipientName As String,

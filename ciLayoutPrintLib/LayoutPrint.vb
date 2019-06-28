@@ -222,6 +222,9 @@ Public Class LayoutPrint
         ''
         Dim gr As Graphics ''= Graphics.FromImage(img)
 
+        ''Added 6/28/2019 td
+        Me.PictureOfPureWhite.BackColor = CType((New System.Drawing.ColorConverter()).ConvertFromString("#000000"), Color)
+
         gr = Graphics.FromImage(par_image)
 
         With par_textboxOrLabel
