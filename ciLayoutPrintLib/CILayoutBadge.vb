@@ -11,13 +11,13 @@ Public Class CILayoutBadge
     <Key> <Display(Name:="CI Layout ID")>
     Public Property CILayoutBadgeId() As Integer
 
-    Public FullName As CILayoutText
-    Public HolderID As CILayoutText
+    Public FullName As New CILayoutText
+    Public HolderID As New CILayoutText
     ''6/27 td''Public CustomField1 As CILayoutText
     ''6/27 td''Public CustomField2 As CILayoutText
-    Public PicPortrait As CILayoutPic
+    Public PicPortrait As New CILayoutPic
 
-    Public T1 As CILayoutText
-    Public T2 As CILayoutText
+    Public T1 As New CILayoutText
+    Public T2 As New CILayoutText
 
 End Class

@@ -73,7 +73,7 @@ Public Class CILayoutText
         ''
         Me.CILayoutTextId = 1
         Me.FieldName = "Full Name"
-        Me.FontSize = 12
+        Me.FontSize = 16 ''12
         Me.FontFamilyName = "Times New Roman"
         Me.LeftEdgePositionPixels = 20
         Me.TopEdgePositionPixels = 20
