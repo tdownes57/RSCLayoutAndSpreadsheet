@@ -83,6 +83,74 @@ Public Class CILayoutBadge
 
     End Sub ''End of "Public Sub Update_T2"
 
+    Public Function FormValues_T1(par_formValues As FormCollection) As FormCollection
+
+        Dim outputCollection1 As New FormCollection
+        Dim outputCollection2 As New FormCollection
+        Dim each_key As String
+        ''Dim each_value As String
+
+        ''
+        ''   https://stackoverflow.com/questions/6995285/how-to-access-my-formcollection-in-action-method-asp-net-mvc 
+        ''
+        outputCollection1.Add(par_formValues)
+
+        For Each each_key In outputCollection1.AllKeys
+
+            ''each_value = par_formValues(each_key)
+
+            If (each_key.ToString().StartsWith("T1.")) Then
+
+                outputCollection2.Add(each_key.Replace("T1.", ""),
+                                      par_formValues.GetValue(each_key).AttemptedValue)
+
+            Else
+
+                ''outputCollection.Add(par_formValues[each_key])
+                outputCollection1.Remove(each_key)
+
+            End If
+
+        Next each_key
+
+        Return outputCollection2
+
+    End Function ''end of "Public Function FormValues_T1"
+
+    Public Function FormValues_T2(par_formValues As FormCollection) As FormCollection
+
+        Dim outputCollection1 As New FormCollection
+        Dim outputCollection2 As New FormCollection
+        Dim each_key As String
+        ''Dim each_value As String
+
+        ''
+        ''   https://stackoverflow.com/questions/6995285/how-to-access-my-formcollection-in-action-method-asp-net-mvc 
+        ''
+        outputCollection1.Add(par_formValues)
+
+        For Each each_key In outputCollection1.AllKeys
+
+            ''each_value = par_formValues(each_key)
+
+            If (each_key.ToString().StartsWith("T2.")) Then
+
+                outputCollection2.Add(each_key.Replace("T2.", ""),
+                                      par_formValues.GetValue(each_key).AttemptedValue)
+
+            Else
+
+                ''outputCollection.Add(par_formValues[each_key])
+                outputCollection1.Remove(each_key)
+
+            End If
+
+        Next each_key
+
+        Return outputCollection2
+
+    End Function ''end of "Public Function FormValues_T2"
+
     Public Sub UpdateByFormValues(par_formValues As FormCollection)
         ''
         ''Added 6/27/2019 thomas downes
