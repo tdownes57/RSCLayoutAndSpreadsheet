@@ -61,13 +61,30 @@ Public Class LayoutExample
         ''//takes each element of the array of 3 And passes it in to the correct slot
         ''colorArray[i] = System.Drawing.Color.FromArgb(splitInts[0], splitInts[1], splitInts[2]); 
 
-        Color.FromArgb()
+        ''Color.FromArgb()
 
+        Dim strHexColor As String ''Added 6/28/2019 td 
+        Dim intColorInDecimalInteger As Integer
 
-
-
+        strHexColor = par_textPosition.BackgroundColor.Replace("#", "") ''Added 6/28/2019 thomas downes 
+        intColorInDecimalInteger = ConvertHexToInteger(strHexColor)
+        Me.mod_form.labelRecipientName.BackColor = Drawing.Color.FromArgb(intColorInDecimalInteger)
 
     End Sub ''End of "Public Sub UpdateLabelPositions(......)"
+
+    Public Function ConvertHexToInteger(par_strHexColor As String) As Integer
+        ''
+        ''Added 6/28/2019 thomas downes 
+        ''
+        ''   https://theburningmonk.com/2010/02/converting-hex-to-int-in-csharp/
+        ''
+        Dim intOutput As Integer
+
+        ''Added 6/28/2019 thomas downes 
+        intOutput = Integer.Parse(par_strHexColor, Globalization.NumberStyles.HexNumber)
+        Return intOutput
+
+    End Function ''End of "Public Function ConvertHexToInteger(par_strHexColor As String) As Integer" 
 
     Public Function GenerateImage(par_RecipientID As String, par_RecipientName As String,
                                   par_portraitpic As Image,
