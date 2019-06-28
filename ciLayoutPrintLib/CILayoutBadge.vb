@@ -13,8 +13,11 @@ Public Class CILayoutBadge
 
     Public FullName As CILayoutText
     Public HolderID As CILayoutText
-    Public CustomField1 As CILayoutText
-    Public CustomField2 As CILayoutText
+    ''6/27 td''Public CustomField1 As CILayoutText
+    ''6/27 td''Public CustomField2 As CILayoutText
     Public PicPortrait As CILayoutPic
+
+    Public T1 As CILayoutText
+    Public T2 As CILayoutText
 
 End Class
