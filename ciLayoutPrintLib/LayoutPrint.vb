@@ -177,6 +177,93 @@ Public Class LayoutPrint
 
     End Function ''End of "Private Sub GenerateBuildImage()"
 
+    Public Function GenerateBuildImage_BackgroundOnly(Optional ByRef pref_imageOutput As Image = Nothing,
+                                       Optional ByVal pboolLargeLandscape As Boolean = False,
+                                       Optional ByVal pboolSmallLandscape As Boolean = False,
+                                       Optional ByVal pboolTinyLandscape As Boolean = False) As Image
+        ''
+        ''Added 6/28/2019 thomas downes  
+        ''
+        ''panelLayout
+        ''
+        ''Let's create the image we can write our text on.  
+        ''
+        ''  https://stackoverflow.com/questions/8022174/how-can-i-write-on-an-image-using-vb-net
+        ''
+        Dim img_LargeLandscape As System.Drawing.Image
+        Dim img_SmallLandscape As System.Drawing.Image ''Added 6/20/2019 td 
+        Dim img_TinyLandscape As System.Drawing.Image ''Added 6/21/2019 td 
+        Dim img_Rotated As Image
+        Dim imgPanelBackground As System.Drawing.Image
+        Dim imgPanelCropped As System.Drawing.Image
+        ''Dim gr As Graphics ''= Graphics.FromImage(img)
+        Dim CropRect As New Rectangle(0, 0, Me.PanelLayout.Width, Me.PanelLayout.Height)
+        Dim sizeTiny As Size ''Added 6/21/2019 thomas downes
+
+        imgPanelBackground = Me.PanelLayout.BackgroundImage
+        ''imgPanelCropped = imgPanelBackground
+        imgPanelCropped = New Bitmap(CropRect.Width, CropRect.Height)
+
+        ''Crop the image to what you see in the Panel Layout.
+        ''
+        ''   (I have removed the Zoom And StretchImage from the PictureBox, 
+        ''   so part of the image might lie outside of the PanelLayout area. ---5/7/2019 td)
+        ''
+        Try
+            Using graphicsCroppping = Graphics.FromImage(imgPanelCropped)
+                graphicsCroppping.DrawImage(imgPanelBackground, New Rectangle(0, 0, CropRect.Width, CropRect.Height), CropRect, GraphicsUnit.Pixel)
+                ''This can be done when the application closes. -----imgPanelBackground.Dispose()
+                ''imgPanelCropped.Save(fileName)
+            End Using
+        Catch ex As Exception
+            ''
+            ''Added 5/9/2019 td
+            ''
+            MessageBox.Show("Resizing error, GenerateBuildImage:  " & ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        End Try
+
+        img_LargeLandscape = imgPanelCropped
+
+        ''Added 5/15/2019 td
+        img_Rotated = CType(img_LargeLandscape.Clone, Image)
+
+        ''5/15 td''Dim bm_source As New Bitmap(img_LargeLandscape)
+        Dim bm_source As New Bitmap(img_Rotated)
+        bm_source.RotateFlip(RotateFlipType.Rotate90FlipNone)
+
+        Dim imgResized As Image
+        imgResized = ResizeImage(bm_source, Me.PictureBoxReview)
+
+        If Me.PictureBoxReview IsNot Nothing Then
+            Me.PictureBoxReview.Image = imgResized
+        End If ''ENd of " If Me.PictureBoxReview IsNot Nothing Then"
+
+        If (pboolLargeLandscape) Then
+            pref_imageOutput = img_LargeLandscape
+            Return img_LargeLandscape ''Added 6/13/2019 td
+
+        ElseIf (pboolSmallLandscape) Then ''Added 6/20/2019 thomas d. 
+            ''Added 6/20/2019 thomas d. 
+            img_SmallLandscape = Resize_Landscape80x60(img_LargeLandscape, Me.PictureBoxReview.Size)
+            pref_imageOutput = img_SmallLandscape ''Added 6/20/2019 td
+            Return img_SmallLandscape ''Added 6/20/2019 td
+
+        ElseIf (pboolTinyLandscape) Then ''Added 6/21/2019 thomas d. 
+            ''
+            ''Added 6 / 21 / 2019 thomas d. 
+            ''
+            sizeTiny = New Size(CInt(Me.PictureBoxReview.Size.Width / 2), CInt(Me.PictureBoxReview.Size.Height / 2))
+            img_TinyLandscape = Resize_Landscape80x60(img_LargeLandscape, sizeTiny)
+            pref_imageOutput = img_TinyLandscape ''Added 6/21/2019 td
+            Return img_TinyLandscape ''Added 6/21/2019 td
+
+        Else
+            pref_imageOutput = imgResized
+            Return imgResized ''Added 6/13/2019 td
+        End If ''end of "If (pboolLarge...) .... Else...."
+
+    End Function ''End of "Private Sub GenerateBuildImage_BackgroundOnly()"
+
     Private Sub ApplyTextToImage(ByRef par_image As Image)
         ''
         ''Added 5/7/2019 td  

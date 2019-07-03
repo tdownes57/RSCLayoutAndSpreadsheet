@@ -119,4 +119,35 @@ Public Class LayoutExample
 
     End Function ''End of "Public Function GenerateImage()"
 
+    Public Function GenerateImage_BackgroundOnly(Optional pboolLargeLandscape As Boolean = False,
+                                                Optional pboolSmallLandscape As Boolean = False) As Image
+        ''
+        ''Added 6/28/2019 thomas downes  
+        ''
+        Dim imageDummy As Image = Nothing ''Added 6/20/2019 thomas downes 
+
+        With mod_print
+
+            ''6/28/2019 td''.RecipientID = par_RecipientID
+            ''6/28/2019 td''.RecipientName = par_RecipientName
+            ''6/28/2019 td''.RecipientPic = par_portraitpic ''Added 6/20/2019 td  
+
+            .PanelLayout = mod_form.panelLayout
+
+            ''6/28/2019 td''.PictureBoxReview = mod_form.pictureboxReview
+            ''6/28/2019 td''.PicturePersonImageLarge = mod_form.PicturePersonLarge
+            ''6/28/2019 td''.PictureOfPureWhite = mod_form.picturePureWhite
+            ''6/28/2019 td''.PicturePersonWithinLayout = mod_form.PicturePersonInLayout
+
+            ''.PicturePersonImageLarge.Image = par_portraitpic
+
+            ''6/20/2019 td''Return .GenerateBuildImage()
+            ''6/28/2019 td''Return .GenerateBuildImage(imageDummy, pboolLargeLandscape, pboolSmallLandscape)
+
+            Return .GenerateBuildImage_BackgroundOnly(imageDummy, pboolLargeLandscape, pboolSmallLandscape)
+
+        End With ''End of "With mod_print"
+
+    End Function ''End of "Public Function GenerateImage()"
+
 End Class ''End of Class LayoutExample
