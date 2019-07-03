@@ -92,7 +92,7 @@ Public Class LayoutExample
                                   Optional pboolSmallLandscape As Boolean = False) As Image
         '6/20 td''Public Function GenerateImage(par_RecipientID As String, par_RecipientName As String, par_portraitpic As Image) As Image
         ''
-        ''Added 6/14/2019 thomas downes  
+        ''Added 6/14/2019 thomas downes   
         ''
         Dim imageDummy As Image = Nothing ''Added 6/20/2019 thomas downes 
 
