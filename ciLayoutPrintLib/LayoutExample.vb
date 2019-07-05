@@ -112,6 +112,15 @@ Public Class LayoutExample
 
             .PicturePersonImageLarge.Image = par_portraitpic
 
+            ''Added 7/5/2019 td
+            Try
+                .PanelLayout.BackgroundImage = BackImageExamples.GetLatestImage()
+            Catch ex As Exception
+                ''Added 7/5/2019 td
+                Dim strErrMessage As String
+                If (True) Then strErrMessage = ex.Message
+            End Try
+
             ''6/20/2019 td''Return .GenerateBuildImage()
             Return .GenerateBuildImage(imageDummy, pboolLargeLandscape, pboolSmallLandscape)
 
@@ -133,6 +142,9 @@ Public Class LayoutExample
             ''6/28/2019 td''.RecipientPic = par_portraitpic ''Added 6/20/2019 td  
 
             .PanelLayout = mod_form.panelLayout
+
+            ''Added 7/5/2019 td
+            .PanelLayout.BackgroundImage = BackImageExamples.GetLatestImage()
 
             ''6/28/2019 td''.PictureBoxReview = mod_form.pictureboxReview
             ''6/28/2019 td''.PicturePersonImageLarge = mod_form.PicturePersonLarge

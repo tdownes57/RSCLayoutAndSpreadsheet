@@ -29,6 +29,24 @@ ExitHandler:
 
     End Function ''End of "Public Shared Function GetExample() As Image"
 
+    Public Shared Sub AddImage(par_image As Image)
+        ''
+        ''Added 7/4/2019 thomas downes
+        ''
+        mod_images.Add(par_image)
+
+    End Sub ''End of "Public Shared Sub AddImage(par_image As Image)"
+
+    Public Shared Function GetLatestImage() As Image
+        ''
+        ''Added 7/4/2019 thomas downes
+        ''
+        If (mod_images Is Nothing) Then mod_images = GetListOfImages()
+
+        Return mod_images.Where(Function(a_image) True).Last
+
+    End Function ''End of "Public Shared Function GetLatestImage(par_image As Image)"
+
     Private Shared Function GetListOfImages() As List(Of Image)
         ''
         ''Added 6/13/2019 thomas downes 
@@ -39,7 +57,8 @@ ExitHandler:
         Dim output_list = New List(Of Image)
 
         ''6/13 td''strPathToFolderWithPics = My.Application.Info.DirectoryPath & "\PictureExamples"
-        strPathToFolderWithPics = My.Application.Info.DirectoryPath & "\BackImageExamples"
+        ''7/5 td''strPathToFolderWithPics = My.Application.Info.DirectoryPath & "\BackImageExamples"
+        strPathToFolderWithPics = "C:\CI Solutions\CI Badge Web\ciPictures_VB\BackExamples"
 
         all_Jpegs = (New System.IO.DirectoryInfo(strPathToFolderWithPics)).EnumerateFiles()
 
