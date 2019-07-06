@@ -69,11 +69,18 @@ ExitHandler:
 
     End Sub ''End of "Public Shared Sub AddImage(par_image As Image)"
 
-    Public Shared Function GetLatestImage() As Image
+    Public Shared Function GetLatestImage(par_bNoImagesFound As Boolean) As Image
         ''
         ''Added 7/4/2019 thomas downes
         ''
         If (mod_images Is Nothing) Then mod_images = GetListOfImages()
+
+        ''Added 7/6/2019 td
+        ''
+        If (0 = mod_images.Count) Then
+            par_bNoImagesFound = True
+            Return Nothing
+        End If ''End if "If (0 = mod_images.Count) Then"
 
         Return mod_images.Where(Function(a_image) True).Last
 
@@ -99,6 +106,7 @@ ExitHandler:
                 .ImageLocation = each_file.FullName
                 .Visible = True
                 .Refresh()
+                .Load()
                 If (.Image IsNot Nothing) Then output_list.Add(.Image)
             End With
         Next each_file

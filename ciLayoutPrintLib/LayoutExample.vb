@@ -22,6 +22,10 @@ Public Class LayoutExample
 
     Public Property RecipientFaceImage As Image ''Added 6/20/2019 td 
 
+    ''Added 7/6/2019 thomas downes
+    ''    Width of Badge, in Landscape mode.
+    Public Property WidthInPixels_Land As Integer ''Added 7/6/2019 
+
     Sub New()
 
         mod_form.PicturePersonLarge.Image = Global.ciLayoutPrintLib.My.Resources.v9_lady
@@ -33,6 +37,14 @@ Public Class LayoutExample
 
             .PanelLayout = mod_form.panelLayout
 
+            ''Added 7/6/2019 td
+            .PanelLayout.BackgroundImageLayout = Windows.Forms.ImageLayout.Zoom
+
+            ''Added 7/6/2019 thomas downes
+            If (0 < WidthInPixels_Land) Then
+                .PanelLayout.Width = WidthInPixels_Land
+            End If ''end of " If (0 < WidthInPixels_Land) Then"
+
             .PictureBoxReview = mod_form.pictureboxReview
             .PictureOfPureWhite = mod_form.picturePureWhite
             .PicturePersonImageLarge = mod_form.PicturePersonLarge
@@ -41,7 +53,7 @@ Public Class LayoutExample
             ''Added 6/20/2019 thoma downes
             If (Me.RecipientPhoto IsNot Nothing) Then .PicturePersonImageLarge.Image = Me.RecipientPhoto
 
-        End With
+        End With ''End of "With mod_print"
 
     End Sub ''End of "With mod_print"
 
@@ -90,13 +102,16 @@ Public Class LayoutExample
 
     End Function ''End of "Public Function ConvertHexToInteger(par_strHexColor As String) As Integer" 
 
-    Public Shared Sub RefreshChoiceOfBackground_Last()
+    Public Shared Sub RefreshChoiceOfBackground_Last(pboolCantLoadImages As Boolean)
         ''
         ''Added 7/5/2019 td
         ''
+        ''7/6 td''Dim boolNoImagesAvailable As Boolean
+
         Try
             With mod_print
-                .PanelLayout.BackgroundImage = BackImageExamples.GetLatestImage()
+                ''7/6/2019 td''.PanelLayout.BackgroundImage = BackImageExamples.GetLatestImage()
+                .PanelLayout.BackgroundImage = BackImageExamples.GetLatestImage(pboolCantLoadImages)
             End With ''End of "With mod_print"
 
             ''Added 7/5/2019 td
@@ -172,6 +187,8 @@ Public Class LayoutExample
             .RecipientPic = par_portraitpic ''Added 6/20/2019 td  
 
             .PanelLayout = mod_form.panelLayout
+            .PanelLayout.BackgroundImageLayout = Windows.Forms.ImageLayout.Zoom ''Added 7/6/2019 td
+
             .PictureBoxReview = mod_form.pictureboxReview
             .PicturePersonImageLarge = mod_form.PicturePersonLarge
             .PictureOfPureWhite = mod_form.picturePureWhite
@@ -189,14 +206,15 @@ Public Class LayoutExample
             ''End Try
 
             ''6/20/2019 td''Return .GenerateBuildImage()
-            Return .GenerateBuildImage(imageDummy, pboolLargeLandscape, pboolSmallLandscape)
+            Return .GenerateBuildImage_Master(imageDummy, pboolLargeLandscape, pboolSmallLandscape)
 
         End With ''End of "With mod_print"
 
     End Function ''End of "Public Function GenerateImage()"
 
     Public Function GenerateImage_BackgroundOnly(Optional pboolLargeLandscape As Boolean = False,
-                                                Optional pboolSmallLandscape As Boolean = False) As Image
+                                                Optional pboolSmallLandscape As Boolean = False,
+                                                 Optional ByRef pboolNoImagesLoaded As Boolean = False) As Image
         ''
         ''Added 6/28/2019 thomas downes  
         ''
@@ -209,9 +227,21 @@ Public Class LayoutExample
             ''6/28/2019 td''.RecipientPic = par_portraitpic ''Added 6/20/2019 td  
 
             .PanelLayout = mod_form.panelLayout
+            .PanelLayout.BackgroundImageLayout = Windows.Forms.ImageLayout.Zoom ''Added 7/6/2019 td
+
+            ''Added 7/6/2019 thomas downes
+            ''
+            If (0 <> Me.WidthInPixels_Land) Then
+                .PanelLayout.Width = Me.WidthInPixels_Land
+                ''See above.''.PanelLayout.BackgroundImageLayout = Windows.Forms.ImageLayout.Zoom
+            End If ''End of "If (0 <> Me.WidthInPixels_Land) Then"
 
             ''Added 7/5/2019 td
-            .PanelLayout.BackgroundImage = BackImageExamples.GetLatestImage()
+            ''7/6/2019 td''.PanelLayout.BackgroundImage = BackImageExamples.GetLatestImage()
+            .PanelLayout.BackgroundImage = BackImageExamples.GetLatestImage(pboolNoImagesLoaded)
+
+            ''Added 7/6/2019 td
+            If (pboolNoImagesLoaded) Then Return Nothing ''Exit Function
 
             ''6/28/2019 td''.PictureBoxReview = mod_form.pictureboxReview
             ''6/28/2019 td''.PicturePersonImageLarge = mod_form.PicturePersonLarge
@@ -223,7 +253,8 @@ Public Class LayoutExample
             ''6/20/2019 td''Return .GenerateBuildImage()
             ''6/28/2019 td''Return .GenerateBuildImage(imageDummy, pboolLargeLandscape, pboolSmallLandscape)
 
-            Return .GenerateBuildImage_BackgroundOnly(imageDummy, pboolLargeLandscape, pboolSmallLandscape)
+            ''7/6/2019 td''Return .GenerateBuildImage_BackgroundOnly(imageDummy, pboolLargeLandscape, pboolSmallLandscape)
+            Return .GenBackgroundOnly_CropIt(imageDummy, pboolLargeLandscape, pboolSmallLandscape)
 
         End With ''End of "With mod_print"
 
