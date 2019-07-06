@@ -238,7 +238,8 @@ Public Class LayoutExample
 
             ''Added 7/5/2019 td
             ''7/6/2019 td''.PanelLayout.BackgroundImage = BackImageExamples.GetLatestImage()
-            .PanelLayout.BackgroundImage = BackImageExamples.GetLatestImage(pboolNoImagesLoaded)
+            ''7/6/2019 td''.PanelLayout.BackgroundImage = BackImageExamples.GetLatestImage(pboolNoImagesLoaded)
+            .PanelLayout.BackgroundImage = BackImageExamples.GetCurrentImage(pboolNoImagesLoaded)
 
             ''Added 7/6/2019 td
             If (pboolNoImagesLoaded) Then Return Nothing ''Exit Function

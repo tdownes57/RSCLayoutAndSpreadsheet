@@ -86,6 +86,24 @@ ExitHandler:
 
     End Function ''End of "Public Shared Function GetLatestImage(par_image As Image)"
 
+    Public Shared Function GetCurrentImage(par_bNoImagesFound As Boolean) As Image
+        ''
+        ''Added 7/6/2019 thomas downes
+        ''
+        If (mod_images Is Nothing) Then mod_images = GetListOfImages()
+
+        ''Added 7/6/2019 td
+        ''
+        If (0 = mod_images.Count) Then
+            par_bNoImagesFound = True
+            Return Nothing
+        End If ''End if "If (0 = mod_images.Count) Then"
+
+        ''7/6/2019 td''Return mod_images.Where(Function(a_image) True).Last
+        Return mod_images(mod_currentIndex)
+
+    End Function ''End of "Public Shared Function GetCurrentImage(par_image As Image)"
+
     Private Shared Function GetListOfImages() As List(Of Image)
         ''
         ''Added 6/13/2019 thomas downes 
