@@ -9,8 +9,12 @@ Public Class LayoutExample
     ''
     ''Added 6/14/2019 Thomas Downes  
     ''
-    Private mod_form As New FormLayoutEg
-    Private mod_print As New ciLayoutPrintLib.LayoutPrint
+    ''7/5/2019 td''Private mod_form As New FormLayoutEg
+    ''7/5/2019 td''Private mod_print As New ciLayoutPrintLib.LayoutPrint
+
+    Private Shared mod_form As New FormLayoutEg
+    Private Shared mod_print As New ciLayoutPrintLib.LayoutPrint
+    Private Shared mod_backIndex As Integer ''Added 7/5/2019 td 
 
     Public Property RecipientID As String ''Added 6/13/2019
     Public Property RecipientName As String ''Added 6/13/2019
@@ -86,7 +90,7 @@ Public Class LayoutExample
 
     End Function ''End of "Public Function ConvertHexToInteger(par_strHexColor As String) As Integer" 
 
-    Public Sub RefreshChoiceOfBackground()
+    Public Shared Sub RefreshChoiceOfBackground_Last()
         ''
         ''Added 7/5/2019 td
         ''
@@ -95,15 +99,18 @@ Public Class LayoutExample
                 .PanelLayout.BackgroundImage = BackImageExamples.GetLatestImage()
             End With ''End of "With mod_print"
 
+            ''Added 7/5/2019 td
+            mod_backIndex = BackImageExamples.CurrentIndex
+
         Catch ex As Exception
             ''Added 7/5/2019 td
             Dim strErrMessage As String
             If (True) Then strErrMessage = ex.Message
         End Try
 
-    End Sub ''End of "Public Function RefreshChoiceOfBackground"
+    End Sub ''End of "Public Shared Sub RefreshChoiceOfBackground_Last"
 
-    Public Sub RefreshChoiceOfBackground(par_intChoice As Integer)
+    Public Shared Sub RefreshChoiceOfBackground_ByIndex(par_intChoice As Integer)
         ''
         ''Added 7/5/2019 td
         ''
@@ -113,13 +120,38 @@ Public Class LayoutExample
                 .PanelLayout.BackgroundImage = BackImageExamples.Item(par_intChoice)
             End With ''End of "With mod_print"
 
+            ''Added 7/5/2019 td
+            BackImageExamples.CurrentIndex = par_intChoice
+            mod_backIndex = par_intChoice
+
         Catch ex As Exception
             ''Added 7/5/2019 td
             Dim strErrMessage As String
             If (True) Then strErrMessage = ex.Message
         End Try
 
-    End Sub ''End of "Public Function RefreshChoiceOfBackground"
+    End Sub ''End of "Public Function RefreshChoiceOfBackground_ByIndex"
+
+    Public Shared Sub RefreshChoiceOfBackground_Next()
+        ''
+        ''Added 7/5/2019 td
+        ''
+        Try
+            mod_backIndex += 1
+
+            If (mod_backIndex >= BackImageExamples.Count()) Then mod_backIndex = 0
+
+            With mod_print
+                .PanelLayout.BackgroundImage = BackImageExamples.Item(mod_backIndex)
+            End With ''End of "With mod_print"
+
+        Catch ex As Exception
+            ''Added 7/5/2019 td
+            Dim strErrMessage As String
+            If (True) Then strErrMessage = ex.Message
+        End Try
+
+    End Sub ''End of "Public Function RefreshChoiceOfBackground_Next"
 
     Public Function GenerateImage(par_RecipientID As String, par_RecipientName As String,
                                   par_portraitpic As Image,

@@ -11,13 +11,17 @@ Public Class BackImageExamples
     ''
     Private Shared mod_images As List(Of Image)
 
+    Private Shared mod_currentIndex As Integer ''Added 7/5/2019 td  
+
     Public Shared Function Item(par_intChoice As Integer) As Image
 
         ''Added 7/5/2019 thomas downes
         ''
+        mod_currentIndex = par_intChoice ''Added 7/5/2019 td
+
         Return mod_images.Item(par_intChoice)
 
-    End Function
+    End Function ''End of "Public Shared Function Item(par_intChoice As Integer) As Image"
 
     Public Shared Function GetExample() As Image  ''6/13/2019 td''As System.Drawing.Image
         ''
@@ -26,6 +30,7 @@ Public Class BackImageExamples
         Static s_intCallIndex As Integer
 
         ''See bottom.''s_intCallIndex += 1
+
         If (s_intCallIndex >= mod_images.Count) Then s_intCallIndex = 0
 
         If (mod_images Is Nothing) Then mod_images = GetListOfImages()
@@ -33,9 +38,28 @@ Public Class BackImageExamples
         Return mod_images(s_intCallIndex)
 
 ExitHandler:
+        mod_currentIndex = s_intCallIndex ''Added 7/5/2019 td 
         s_intCallIndex += 1
-
     End Function ''End of "Public Shared Function GetExample() As Image"
+
+    Public Function Count() As Integer
+
+        ''Added 7/5/2019 thomas downes 
+        Return mod_images.Count()
+
+    End Function
+
+    Public Shared Property CurrentIndex() As Integer
+        ''
+        ''Added 7/5/2019 Thomas DOWNES
+        ''
+        Get
+            Return mod_currentIndex
+        End Get
+        Set(value As Integer)
+            mod_currentIndex = value
+        End Set
+    End Property ''End of "Public Shared Function CurrentIndex() As Integer"
 
     Public Shared Sub AddImage(par_image As Image)
         ''
