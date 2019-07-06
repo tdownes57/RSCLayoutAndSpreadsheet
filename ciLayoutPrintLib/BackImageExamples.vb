@@ -42,7 +42,7 @@ ExitHandler:
         s_intCallIndex += 1
     End Function ''End of "Public Shared Function GetExample() As Image"
 
-    Public Function Count() As Integer
+    Public Shared Function Count() As Integer
 
         ''Added 7/5/2019 thomas downes 
         Return mod_images.Count()
