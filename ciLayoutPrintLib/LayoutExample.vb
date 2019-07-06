@@ -86,6 +86,41 @@ Public Class LayoutExample
 
     End Function ''End of "Public Function ConvertHexToInteger(par_strHexColor As String) As Integer" 
 
+    Public Sub RefreshChoiceOfBackground()
+        ''
+        ''Added 7/5/2019 td
+        ''
+        Try
+            With mod_print
+                .PanelLayout.BackgroundImage = BackImageExamples.GetLatestImage()
+            End With ''End of "With mod_print"
+
+        Catch ex As Exception
+            ''Added 7/5/2019 td
+            Dim strErrMessage As String
+            If (True) Then strErrMessage = ex.Message
+        End Try
+
+    End Sub ''End of "Public Function RefreshChoiceOfBackground"
+
+    Public Sub RefreshChoiceOfBackground(par_intChoice As Integer)
+        ''
+        ''Added 7/5/2019 td
+        ''
+        Try
+            With mod_print
+                ''7/5/2019 td''.PanelLayout.BackgroundImage = BackImageExamples.GetLatestImage()
+                .PanelLayout.BackgroundImage = BackImageExamples.Item(par_intChoice)
+            End With ''End of "With mod_print"
+
+        Catch ex As Exception
+            ''Added 7/5/2019 td
+            Dim strErrMessage As String
+            If (True) Then strErrMessage = ex.Message
+        End Try
+
+    End Sub ''End of "Public Function RefreshChoiceOfBackground"
+
     Public Function GenerateImage(par_RecipientID As String, par_RecipientName As String,
                                   par_portraitpic As Image,
                                   Optional pboolLargeLandscape As Boolean = False,
@@ -113,13 +148,13 @@ Public Class LayoutExample
             .PicturePersonImageLarge.Image = par_portraitpic
 
             ''Added 7/5/2019 td
-            Try
-                .PanelLayout.BackgroundImage = BackImageExamples.GetLatestImage()
-            Catch ex As Exception
-                ''Added 7/5/2019 td
-                Dim strErrMessage As String
-                If (True) Then strErrMessage = ex.Message
-            End Try
+            ''Try
+            ''    .PanelLayout.BackgroundImage = BackImageExamples.GetLatestImage()
+            ''Catch ex As Exception
+            ''    ''Added 7/5/2019 td
+            ''    Dim strErrMessage As String
+            ''    If (True) Then strErrMessage = ex.Message
+            ''End Try
 
             ''6/20/2019 td''Return .GenerateBuildImage()
             Return .GenerateBuildImage(imageDummy, pboolLargeLandscape, pboolSmallLandscape)

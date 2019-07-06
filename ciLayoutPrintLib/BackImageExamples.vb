@@ -11,6 +11,14 @@ Public Class BackImageExamples
     ''
     Private Shared mod_images As List(Of Image)
 
+    Public Shared Function Item(par_intChoice As Integer) As Image
+
+        ''Added 7/5/2019 thomas downes
+        ''
+        Return mod_images.Item(par_intChoice)
+
+    End Function
+
     Public Shared Function GetExample() As Image  ''6/13/2019 td''As System.Drawing.Image
         ''
         ''Added 6/13/2019 td  
