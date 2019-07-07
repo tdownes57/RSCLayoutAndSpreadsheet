@@ -43,6 +43,11 @@ Public Class LayoutExample
             ''Added 7/6/2019 thomas downes
             If (0 < WidthInPixels_Land) Then
                 .PanelLayout.Width = WidthInPixels_Land
+
+                ''Added 7/7/2019 td
+                ''   Let's maintain the shape.
+                .PanelLayout.Height = CInt(CSng(.PanelLayout.Width) * CILayoutBadge.RatioBadge_HeightToWidth_Land_1)
+
             End If ''end of " If (0 < WidthInPixels_Land) Then"
 
             .PictureBoxReview = mod_form.pictureboxReview
