@@ -254,8 +254,9 @@ Public Class LayoutExample
             ''6/20/2019 td''Return .GenerateBuildImage()
             ''6/28/2019 td''Return .GenerateBuildImage(imageDummy, pboolLargeLandscape, pboolSmallLandscape)
 
-            ''7/6/2019 td''Return .GenerateBuildImage_BackgroundOnly(imageDummy, pboolLargeLandscape, pboolSmallLandscape)
-            Return .GenBackgroundOnly_CropIt(imageDummy, pboolLargeLandscape, pboolSmallLandscape)
+            ''#1 7/6/2019 td''Return .GenerateBuildImage_BackgroundOnly(imageDummy, pboolLargeLandscape, pboolSmallLandscape)
+            '' #2 7/6/2019 td''Return .GenBackgroundOnly_CropIt(imageDummy, pboolLargeLandscape, pboolSmallLandscape)
+            Return .GenBackgroundOnly_Zoom(imageDummy, pboolLargeLandscape, pboolSmallLandscape)
 
         End With ''End of "With mod_print"
 
