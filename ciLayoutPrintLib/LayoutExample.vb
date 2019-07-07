@@ -189,6 +189,17 @@ Public Class LayoutExample
             .PanelLayout = mod_form.panelLayout
             .PanelLayout.BackgroundImageLayout = Windows.Forms.ImageLayout.Zoom ''Added 7/6/2019 td
 
+            ''Added 7/6/2019 thomas downes
+            ''
+            If (0 <> Me.WidthInPixels_Land) Then
+                .PanelLayout.Width = Me.WidthInPixels_Land
+                ''See above.''.PanelLayout.BackgroundImageLayout = Windows.Forms.ImageLayout.Zoom
+                ''
+                ''Added 7/7/2019 td
+                ''   Let's maintain the shape.
+                .PanelLayout.Height = CInt(CSng(.PanelLayout.Width) * CILayoutBadge.RatioBadge_HeightToWidth_Land_1)
+            End If ''End of "If (0 <> Me.WidthInPixels_Land) Then"
+
             .PictureBoxReview = mod_form.pictureboxReview
             .PicturePersonImageLarge = mod_form.PicturePersonLarge
             .PictureOfPureWhite = mod_form.picturePureWhite
@@ -234,6 +245,12 @@ Public Class LayoutExample
             If (0 <> Me.WidthInPixels_Land) Then
                 .PanelLayout.Width = Me.WidthInPixels_Land
                 ''See above.''.PanelLayout.BackgroundImageLayout = Windows.Forms.ImageLayout.Zoom
+
+                ''Added 7/7/2019 td
+                ''   Let's maintain the shape.
+                ''
+                .PanelLayout.Height = CInt(CSng(.PanelLayout.Width) * CILayoutBadge.RatioBadge_HeightToWidth_Land_1)
+
             End If ''End of "If (0 <> Me.WidthInPixels_Land) Then"
 
             ''Added 7/5/2019 td
