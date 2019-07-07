@@ -41,6 +41,16 @@ Public Class CILayoutBadge
     Public Property T2_FontColor() As String
     Public Property T2_BackgroundColor() As String
 
+    ''Added 7/07/2019 thomas downes
+    '' 
+    ''   Ratio of Badge Height to Width (for Landscape Mode Designing)
+    ''
+    Public Const RatioBadge_HeightToWidth_Land_Eg1 As Single = (695 / 1081) '' ORO835 - OrovilleHS
+    Public Const RatioBadge_HeightToWidth_Land_Eg2a As Single = (633 / 1009) '' SOU735 - IVC-VENDOR 
+    Public Const RatioBadge_HeightToWidth_Land_Eg2b As Single = (633 / 1009) '' SOU735 - SADDLEBACK-VENDOR
+
+    Public Const RatioBadge_HeightToWidth_Land_1 As Single = (0.643) '' SOU735 - SADDLEBACK-VENDOR
+    Public Const RatioBadge_HeightToWidth_Land_2 As Single = (0.627) '' SOU735 - SADDLEBACK-VENDOR
 
     Public Sub New()
         ''

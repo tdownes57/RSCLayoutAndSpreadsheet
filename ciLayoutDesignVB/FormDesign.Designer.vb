@@ -105,7 +105,7 @@ Partial Class FormDesign
         'button2
         '
         Me.button2.Location = New System.Drawing.Point(16, 85)
-        Me.button2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.button2.Margin = New System.Windows.Forms.Padding(4)
         Me.button2.Name = "button2"
         Me.button2.Size = New System.Drawing.Size(231, 28)
         Me.button2.TabIndex = 14
@@ -116,7 +116,7 @@ Partial Class FormDesign
         'button1
         '
         Me.button1.Location = New System.Drawing.Point(16, 121)
-        Me.button1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.button1.Margin = New System.Windows.Forms.Padding(4)
         Me.button1.Name = "button1"
         Me.button1.Size = New System.Drawing.Size(231, 28)
         Me.button1.TabIndex = 13
@@ -128,7 +128,7 @@ Partial Class FormDesign
         '
         Me.radioButton2.AutoSize = True
         Me.radioButton2.Location = New System.Drawing.Point(255, 121)
-        Me.radioButton2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.radioButton2.Margin = New System.Windows.Forms.Padding(4)
         Me.radioButton2.Name = "radioButton2"
         Me.radioButton2.Size = New System.Drawing.Size(99, 21)
         Me.radioButton2.TabIndex = 12
@@ -141,7 +141,7 @@ Partial Class FormDesign
         Me.radioButton1.AutoSize = True
         Me.radioButton1.Checked = True
         Me.radioButton1.Location = New System.Drawing.Point(255, 89)
-        Me.radioButton1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.radioButton1.Margin = New System.Windows.Forms.Padding(4)
         Me.radioButton1.Name = "radioButton1"
         Me.radioButton1.Size = New System.Drawing.Size(75, 21)
         Me.radioButton1.TabIndex = 11
@@ -164,7 +164,7 @@ Partial Class FormDesign
         'ButtonMakeFile
         '
         Me.ButtonMakeFile.Location = New System.Drawing.Point(1155, 594)
-        Me.ButtonMakeFile.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.ButtonMakeFile.Margin = New System.Windows.Forms.Padding(4)
         Me.ButtonMakeFile.Name = "ButtonMakeFile"
         Me.ButtonMakeFile.Size = New System.Drawing.Size(180, 28)
         Me.ButtonMakeFile.TabIndex = 18
@@ -174,7 +174,7 @@ Partial Class FormDesign
         'ButtonOpenBrowser
         '
         Me.ButtonOpenBrowser.Location = New System.Drawing.Point(1341, 594)
-        Me.ButtonOpenBrowser.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.ButtonOpenBrowser.Margin = New System.Windows.Forms.Padding(4)
         Me.ButtonOpenBrowser.Name = "ButtonOpenBrowser"
         Me.ButtonOpenBrowser.Size = New System.Drawing.Size(240, 28)
         Me.ButtonOpenBrowser.TabIndex = 20
@@ -184,7 +184,7 @@ Partial Class FormDesign
         'ButtonPrintBadge
         '
         Me.ButtonPrintBadge.Location = New System.Drawing.Point(1247, 630)
-        Me.ButtonPrintBadge.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.ButtonPrintBadge.Margin = New System.Windows.Forms.Padding(4)
         Me.ButtonPrintBadge.Name = "ButtonPrintBadge"
         Me.ButtonPrintBadge.Size = New System.Drawing.Size(205, 28)
         Me.ButtonPrintBadge.TabIndex = 21
@@ -206,7 +206,7 @@ Partial Class FormDesign
         'buttonGenerate
         '
         Me.buttonGenerate.Location = New System.Drawing.Point(1184, 466)
-        Me.buttonGenerate.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.buttonGenerate.Margin = New System.Windows.Forms.Padding(4)
         Me.buttonGenerate.Name = "buttonGenerate"
         Me.buttonGenerate.Size = New System.Drawing.Size(280, 54)
         Me.buttonGenerate.TabIndex = 24
@@ -217,7 +217,7 @@ Partial Class FormDesign
         '
         Me.txtStudentID.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtStudentID.Location = New System.Drawing.Point(843, 591)
-        Me.txtStudentID.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtStudentID.Margin = New System.Windows.Forms.Padding(4)
         Me.txtStudentID.Name = "txtStudentID"
         Me.txtStudentID.Size = New System.Drawing.Size(176, 26)
         Me.txtStudentID.TabIndex = 25
@@ -227,7 +227,7 @@ Partial Class FormDesign
         '
         Me.txtStudentName.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtStudentName.Location = New System.Drawing.Point(763, 619)
-        Me.txtStudentName.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtStudentName.Margin = New System.Windows.Forms.Padding(4)
         Me.txtStudentName.Name = "txtStudentName"
         Me.txtStudentName.Size = New System.Drawing.Size(256, 26)
         Me.txtStudentName.TabIndex = 26
@@ -282,7 +282,7 @@ Partial Class FormDesign
         Me.checkboxDisplayWindow.Checked = True
         Me.checkboxDisplayWindow.CheckState = System.Windows.Forms.CheckState.Checked
         Me.checkboxDisplayWindow.Location = New System.Drawing.Point(1373, 528)
-        Me.checkboxDisplayWindow.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.checkboxDisplayWindow.Margin = New System.Windows.Forms.Padding(4)
         Me.checkboxDisplayWindow.Name = "checkboxDisplayWindow"
         Me.checkboxDisplayWindow.Size = New System.Drawing.Size(162, 21)
         Me.checkboxDisplayWindow.TabIndex = 31
@@ -294,7 +294,7 @@ Partial Class FormDesign
         Me.picturePureWhite.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.picturePureWhite.Image = CType(resources.GetObject("picturePureWhite.Image"), System.Drawing.Image)
         Me.picturePureWhite.Location = New System.Drawing.Point(311, 15)
-        Me.picturePureWhite.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.picturePureWhite.Margin = New System.Windows.Forms.Padding(4)
         Me.picturePureWhite.Name = "picturePureWhite"
         Me.picturePureWhite.Size = New System.Drawing.Size(58, 43)
         Me.picturePureWhite.TabIndex = 30
@@ -306,7 +306,7 @@ Partial Class FormDesign
         Me.pictureboxReview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.pictureboxReview.Image = CType(resources.GetObject("pictureboxReview.Image"), System.Drawing.Image)
         Me.pictureboxReview.Location = New System.Drawing.Point(1261, 44)
-        Me.pictureboxReview.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.pictureboxReview.Margin = New System.Windows.Forms.Padding(4)
         Me.pictureboxReview.Name = "pictureboxReview"
         Me.pictureboxReview.Size = New System.Drawing.Size(277, 396)
         Me.pictureboxReview.TabIndex = 23
@@ -317,7 +317,7 @@ Partial Class FormDesign
         Me.PicturePersonLarge.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.PicturePersonLarge.Image = Global.ciLayoutDesignVB.My.Resources.Resources.V381
         Me.PicturePersonLarge.Location = New System.Drawing.Point(23, 156)
-        Me.PicturePersonLarge.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.PicturePersonLarge.Margin = New System.Windows.Forms.Padding(4)
         Me.PicturePersonLarge.Name = "PicturePersonLarge"
         Me.PicturePersonLarge.Size = New System.Drawing.Size(335, 380)
         Me.PicturePersonLarge.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -333,7 +333,7 @@ Partial Class FormDesign
         Me.panelLayout.Controls.Add(Me.LabelDefault2)
         Me.panelLayout.Controls.Add(Me.labelDefault1)
         Me.panelLayout.Location = New System.Drawing.Point(377, 44)
-        Me.panelLayout.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.panelLayout.Margin = New System.Windows.Forms.Padding(4)
         Me.panelLayout.Name = "panelLayout"
         Me.panelLayout.Size = New System.Drawing.Size(859, 492)
         Me.panelLayout.TabIndex = 9
@@ -342,7 +342,7 @@ Partial Class FormDesign
         '
         Me.PicturePersonInLayout.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.PicturePersonInLayout.Location = New System.Drawing.Point(537, 206)
-        Me.PicturePersonInLayout.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.PicturePersonInLayout.Margin = New System.Windows.Forms.Padding(4)
         Me.PicturePersonInLayout.Name = "PicturePersonInLayout"
         Me.PicturePersonInLayout.Size = New System.Drawing.Size(226, 270)
         Me.PicturePersonInLayout.TabIndex = 2
@@ -449,7 +449,7 @@ Partial Class FormDesign
         Me.Controls.Add(Me.radioButton1)
         Me.Controls.Add(Me.labelLayoutDesignHdr1)
         Me.Controls.Add(Me.panelLayout)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "FormDesign"
         Me.Text = "Form1"
         Me.StatusStrip1.ResumeLayout(False)

@@ -551,7 +551,17 @@ Public Class LayoutPrint
         ''    https://docs.microsoft.com/en-us/dotnet/api/system.drawing.graphics.drawimage?view=netframework-4.8
         ''
         With Me.PicturePersonWithinLayout
-            gr.DrawImage(imgPicture, .Left, .Top, .Width, .Height)
+            Try
+                gr.DrawImage(imgPicture, .Left, .Top, .Width, .Height)
+            Catch ex_draw_invalid As InvalidOperationException
+                ''Error:  Object not available.
+                Dim strMessage_Invalid As String
+                strMessage_Invalid = ex_draw_invalid.Message
+            Catch ex_draw_any As System.Exception
+                ''Error:  Object not available.
+                Dim strMessage_any As String
+                strMessage_any = ex_draw_any.Message
+            End Try
         End With
 
         gr.Dispose()
