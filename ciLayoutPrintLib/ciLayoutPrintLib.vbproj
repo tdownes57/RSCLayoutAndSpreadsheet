@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="BackImageExamples.vb" />
     <Compile Include="CILayoutBadge.vb" />
+    <Compile Include="ciLayoutColors.vb" />
     <Compile Include="CILayoutPic.vb" />
     <Compile Include="CILayoutText.vb" />
     <Compile Include="FormLayoutEg.designer.vb">
