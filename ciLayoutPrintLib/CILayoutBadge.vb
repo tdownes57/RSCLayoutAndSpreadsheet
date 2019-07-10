@@ -21,6 +21,10 @@ Public Class CILayoutBadge
     Public T1 As New CILayoutText
     Public T2 As New CILayoutText
 
+    ''Added 7/10/2019 TD
+    Public T3 As New CILayoutText ''Added 7/10/2019 TD
+    Public T4 As New CILayoutText ''Added 7/10/2019 TD
+
     Public Property T1_FieldName() As String
     Public Property T1_TopEdgePositionPixels() As Integer
     Public Property T1_LeftEdgePositionPixels() As Integer
