@@ -22,8 +22,8 @@ Public Class CILayoutBadge
     Public T2 As New CILayoutText
 
     ''Added 7/10/2019 TD
-    Public T3 As New CILayoutText ''Added 7/10/2019 TD
-    Public T4 As New CILayoutText ''Added 7/10/2019 TD
+    Public T3 As CILayoutText ''Added 7/10/2019 TD
+    Public T4 As CILayoutText ''Added 7/10/2019 TD
 
     Public Property T1_FieldName() As String
     Public Property T1_TopEdgePositionPixels() As Integer
@@ -44,6 +44,30 @@ Public Class CILayoutBadge
     Public Property T2_FontSize() As Integer
     Public Property T2_FontColor() As String
     Public Property T2_BackgroundColor() As String
+
+    ''Added 7/10/2019 thomas downes
+    '' 
+    Public Property T3_FieldName() As String
+    Public Property T3_TopEdgePositionPixels() As Integer
+    Public Property T3_LeftEdgePositionPixels() As Integer
+    Public Property T3_WidthLengthPixels() As Integer
+    Public Property T3_HeightPixels() As Integer
+    Public Property T3_FontFamilyName() As String
+    Public Property T3_FontSize() As Integer
+    Public Property T3_FontColor() As String
+    Public Property T3_BackgroundColor() As String
+
+    ''Added 7/10/2019 thomas downes
+    '' 
+    Public Property T4_FieldName() As String
+    Public Property T4_TopEdgePositionPixels() As Integer
+    Public Property T4_LeftEdgePositionPixels() As Integer
+    Public Property T4_WidthLengthPixels() As Integer
+    Public Property T4_HeightPixels() As Integer
+    Public Property T4_FontFamilyName() As String
+    Public Property T4_FontSize() As Integer
+    Public Property T4_FontColor() As String
+    Public Property T4_BackgroundColor() As String
 
     ''Added 7/07/2019 thomas downes
     '' 
@@ -96,6 +120,42 @@ Public Class CILayoutBadge
         T2.WidthLengthPixels = T2_WidthLengthPixels
 
     End Sub ''End of "Public Sub Update_T2"
+
+    Public Sub Update_T3()
+        ''
+        ''Added 7/10/2019 thomas downes
+        ''
+        If (T3 Is Nothing) Then T3 = New CILayoutText ''Added 7/10/2019 td
+
+        T3.BackgroundColor = T3_BackgroundColor
+        T3.FieldName = T3_BackgroundColor
+        T3.FontColor = T3_FontColor
+        T3.FontFamilyName = T3_FontFamilyName
+        T3.FontSize = T3_FontSize
+        T3.HeightPixels = T3_HeightPixels
+        T3.LeftEdgePositionPixels = T3_LeftEdgePositionPixels
+        T3.TopEdgePositionPixels = T3_TopEdgePositionPixels
+        T3.WidthLengthPixels = T3_WidthLengthPixels
+
+    End Sub ''End of "Public Sub Update_T3"
+
+    Public Sub Update_T4()
+        ''
+        ''Added 7/10/2019 thomas downes
+        ''
+        If (T4 Is Nothing) Then T4 = New CILayoutText ''Added 7/10/2019 td
+
+        T4.BackgroundColor = T4_BackgroundColor
+        T4.FieldName = T4_BackgroundColor
+        T4.FontColor = T4_FontColor
+        T4.FontFamilyName = T4_FontFamilyName
+        T4.FontSize = T4_FontSize
+        T4.HeightPixels = T4_HeightPixels
+        T4.LeftEdgePositionPixels = T4_LeftEdgePositionPixels
+        T4.TopEdgePositionPixels = T4_TopEdgePositionPixels
+        T4.WidthLengthPixels = T4_WidthLengthPixels
+
+    End Sub ''End of "Public Sub Update_T4"
 
     Public Function FormValues_T1(par_formValues As FormCollection) As FormCollection
 
@@ -164,6 +224,75 @@ Public Class CILayoutBadge
         Return outputCollection2
 
     End Function ''end of "Public Function FormValues_T2"
+
+    Public Function FormValues_T3(par_formValues As FormCollection) As FormCollection
+        ''
+        ''Added 7/10/2019 Thomas downes
+        ''
+        Dim outputCollection1 As New FormCollection
+        Dim outputCollection2 As New FormCollection
+        Dim each_key As String
+        ''Dim each_value As String
+
+        ''
+        ''   https://stackoverflow.com/questions/6995285/how-to-access-my-formcollection-in-action-method-asp-net-mvc 
+        ''
+        outputCollection1.Add(par_formValues)
+
+        For Each each_key In outputCollection1.AllKeys
+
+            ''each_value = par_formValues(each_key)
+
+            If (each_key.ToString().StartsWith("T3.")) Then
+
+                outputCollection2.Add(each_key.Replace("T3.", ""),
+                                      par_formValues.GetValue(each_key).AttemptedValue)
+
+            Else
+
+                outputCollection1.Remove(each_key)
+
+            End If
+
+        Next each_key
+
+        Return outputCollection2
+
+    End Function ''end of "Public Function FormValues_T3"
+
+    Public Function FormValues_T4(par_formValues As FormCollection) As FormCollection
+        ''
+        ''Added 7/10/2019 Thomas downes
+        ''
+        Dim outputCollection1 As New FormCollection
+        Dim outputCollection2 As New FormCollection
+        Dim each_key As String
+
+        ''
+        ''   https://stackoverflow.com/questions/6995285/how-to-access-my-formcollection-in-action-method-asp-net-mvc 
+        ''
+        outputCollection1.Add(par_formValues)
+
+        For Each each_key In outputCollection1.AllKeys
+
+            ''each_value = par_formValues(each_key)
+
+            If (each_key.ToString().StartsWith("T4.")) Then
+
+                outputCollection2.Add(each_key.Replace("T4.", ""),
+                                      par_formValues.GetValue(each_key).AttemptedValue)
+
+            Else
+
+                outputCollection1.Remove(each_key)
+
+            End If
+
+        Next each_key
+
+        Return outputCollection2
+
+    End Function ''end of "Public Function FormValues_T4"
 
     Public Sub UpdateByFormValues(par_formValues As FormCollection)
         ''
