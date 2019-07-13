@@ -580,6 +580,31 @@ ExitHandler:
 
     End Function ''Public Shared Function ResizeImage(ByVal InputImage As Image, ByVal parSizingBox As Control) As Image
 
+    Public Shared Function ResizeImage_ToWidth(ByVal InputImage As Image, ByVal par_intWidth As Integer) As Image
+        ''
+        ''Added 7/13/2019 Thomas Downes
+        ''
+        Dim intNewHeight As Integer
+
+        intNewHeight = CInt(par_intWidth * (InputImage.Height / InputImage.Width))
+
+        Return New Bitmap(InputImage, New Size(par_intWidth, intNewHeight))
+
+    End Function ''Public Shared Function ResizeImage(ByVal InputImage As Image, ByVal parSizingBox As Control) As Image
+
+    Public Shared Function ResizeImage_ToHeight(ByVal InputImage As Image, ByVal pbDummy As Boolean, ByVal par_intHeight As Integer) As Image
+        ''
+        ''Added 7/13/2019 Thomas Downes
+        ''
+        Dim intNewWidth As Integer
+
+        intNewWidth = CInt(par_intHeight * (InputImage.Width / InputImage.Height))
+
+        Return New Bitmap(InputImage, New Size(intNewWidth, par_intHeight))
+
+    End Function ''Public Shared Function ResizeImage(ByVal InputImage As Image, ByVal parSizingBox As Control) As Image
+
+
     Public Shared Function Resize_Portrait60x80(ByVal parInputImage As Image, ByVal parSizeOfCard As Size) As Image
         ''
         ''https://stackoverflow.com/questions/2144592/resizing-images-in-vb-net 
