@@ -131,6 +131,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Images\Adjust width &amp; height.jpg" />
+    <Content Include="Images\Adjust width &amp; height.png" />
+    <Content Include="Images\AdjustWHColor_V101.jpg" />
+    <Content Include="Images\CISolutionsLogo.png" />
+    <Content Include="Images\layout_BW - CompareToSpoof.png" />
     <Content Include="ORO835 - OrovilleHS.PNG" />
     <Content Include="Resources\RotatedLayout.png" />
     <Content Include="Test Layout Design.htm" />
