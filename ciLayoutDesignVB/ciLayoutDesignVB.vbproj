@@ -48,6 +48,9 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DAL">
+      <HintPath>..\..\..\..\Documents\CI Badge (my notes)\CI Libraries (by Rob)\RS2 - Visual Studio 2008\bin\Debug\DAL.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -73,6 +76,18 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormMain.Designer.vb">
+      <DependentUpon>FormMain.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormMain.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSupportLogin.designer.vb">
+      <DependentUpon>FormSupportLogin.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormSupportLogin.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormTestSizing_temp.vb" />
     <Compile Include="FormDesign.vb">
       <SubType>Form</SubType>
@@ -111,6 +126,9 @@
     <EmbeddedResource Include="FormDisplay.resx">
       <DependentUpon>FormDisplay.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormMain.resx">
+      <DependentUpon>FormMain.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
@@ -134,9 +152,11 @@
     <Content Include="Images\Adjust width &amp; height.jpg" />
     <Content Include="Images\Adjust width &amp; height.png" />
     <Content Include="Images\AdjustWHColor_V101.jpg" />
+    <Content Include="Images\CI Logo.jpg" />
     <Content Include="Images\CISolutionsLogo.png" />
     <Content Include="Images\layout_BW - CompareToSpoof.png" />
     <Content Include="ORO835 - OrovilleHS.PNG" />
+    <None Include="Resources\CI_Logo.bmp" />
     <Content Include="Resources\RotatedLayout.png" />
     <Content Include="Test Layout Design.htm" />
     <Content Include="test_EmbedBase64.htm" />
