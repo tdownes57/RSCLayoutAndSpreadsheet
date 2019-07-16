@@ -434,4 +434,21 @@ ExitHandler:
 
     End Sub
 
+    Private Sub ButtonSaveAsXML_Click(sender As Object, e As EventArgs) Handles ButtonSaveAsXML.Click
+        ''
+        ''Added 7/15/2019 thomas downes
+        ''
+        ''   Copy the elements of the layout to a class which is not a Windows Form
+        ''   but which will act as a "container" for the layout-relevant Windows controls.
+        ''
+        ''   The container class will have Serialize and Deserialize commands. 
+        ''
+        ''
+
+
+
+
+
+
+    End Sub
 End Class

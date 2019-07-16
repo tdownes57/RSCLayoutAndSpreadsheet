@@ -25,6 +25,8 @@ Partial Class FormDisplay
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormDisplay))
         Me.pictureboxFinalPrint = New System.Windows.Forms.PictureBox()
         Me.pictureboxLandscape = New System.Windows.Forms.PictureBox()
+        Me.ButtonSaveAsXML = New System.Windows.Forms.Button()
+        Me.ButtonPrintBadge = New System.Windows.Forms.Button()
         CType(Me.pictureboxFinalPrint, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureboxLandscape, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -49,15 +51,35 @@ Partial Class FormDisplay
         Me.pictureboxLandscape.TabIndex = 27
         Me.pictureboxLandscape.TabStop = False
         '
+        'ButtonSaveAsXML
+        '
+        Me.ButtonSaveAsXML.Location = New System.Drawing.Point(691, 52)
+        Me.ButtonSaveAsXML.Name = "ButtonSaveAsXML"
+        Me.ButtonSaveAsXML.Size = New System.Drawing.Size(154, 23)
+        Me.ButtonSaveAsXML.TabIndex = 38
+        Me.ButtonSaveAsXML.Text = "Save as XML"
+        Me.ButtonSaveAsXML.UseVisualStyleBackColor = True
+        '
+        'ButtonPrintBadge
+        '
+        Me.ButtonPrintBadge.Location = New System.Drawing.Point(689, 23)
+        Me.ButtonPrintBadge.Name = "ButtonPrintBadge"
+        Me.ButtonPrintBadge.Size = New System.Drawing.Size(154, 23)
+        Me.ButtonPrintBadge.TabIndex = 37
+        Me.ButtonPrintBadge.Text = "Print Badge"
+        Me.ButtonPrintBadge.UseVisualStyleBackColor = True
+        '
         'FormDisplay
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(914, 438)
+        Me.Controls.Add(Me.ButtonSaveAsXML)
+        Me.Controls.Add(Me.ButtonPrintBadge)
         Me.Controls.Add(Me.pictureboxLandscape)
         Me.Controls.Add(Me.pictureboxFinalPrint)
         Me.Name = "FormDisplay"
-        Me.Text = "FormDisplay"
+        Me.Text = "Display Composed Badge"
         CType(Me.pictureboxFinalPrint, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pictureboxLandscape, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
@@ -66,4 +88,6 @@ Partial Class FormDisplay
 
     Friend WithEvents pictureboxFinalPrint As PictureBox
     Friend WithEvents pictureboxLandscape As PictureBox
+    Private WithEvents ButtonSaveAsXML As Button
+    Private WithEvents ButtonPrintBadge As Button
 End Class
