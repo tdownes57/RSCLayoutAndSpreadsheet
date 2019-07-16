@@ -342,7 +342,7 @@ ExitHandler:
             ''
             mod_ciLayoutPrint.RecipientID = txtStudentID.Text
             mod_ciLayoutPrint.RecipientName = txtStudentName.Text
-            mod_ciLayoutPrint.GenerateBuildImage()
+            mod_ciLayoutPrint.GenerateBuildImage_Master()
 
         Else
             ''
@@ -361,8 +361,8 @@ ExitHandler:
 
             If (boolUseCIWebLibrary) Then
                 ''Added 6/13/2019 td
-                mod_ciLayoutPrint.GenerateBuildImage(image_Landscape, True)
-                mod_ciLayoutPrint.GenerateBuildImage(image_SmallPortrait, False)
+                mod_ciLayoutPrint.GenerateBuildImage_Master(image_Landscape, True)
+                mod_ciLayoutPrint.GenerateBuildImage_Master(image_SmallPortrait, False)
             Else
                 ''From 5/15/2019 td
                 GenerateBuildImage(image_Landscape, True)
