@@ -73,6 +73,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormTestSizing_temp.vb" />
     <Compile Include="FormDesign.vb">
       <SubType>Form</SubType>
     </Compile>
