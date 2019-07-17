@@ -76,6 +76,14 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassCustomField.vb" />
+    <Compile Include="ClassFields.vb" />
+    <Compile Include="FormCustomFields.Designer.vb">
+      <DependentUpon>FormCustomFields.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormCustomFields.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormMain.Designer.vb">
       <DependentUpon>FormMain.vb</DependentUpon>
     </Compile>
@@ -120,6 +128,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FormCustomFields.resx">
+      <DependentUpon>FormCustomFields.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormDesign.resx">
       <DependentUpon>FormDesign.vb</DependentUpon>
     </EmbeddedResource>
@@ -141,6 +152,8 @@
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </None>
+    <None Include="My Project\DataSources\ClassCustomField.datasource" />
+    <None Include="My Project\DataSources\ClassFields.datasource" />
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <CustomToolNamespace>My</CustomToolNamespace>
@@ -155,6 +168,11 @@
     <Content Include="Images\CI Logo.jpg" />
     <Content Include="Images\CISolutionsLogo.png" />
     <Content Include="Images\layout_BW - CompareToSpoof.png" />
+    <Content Include="Images\layout_BW.bmp" />
+    <Content Include="Images\ORO835 - OrovilleHS.PNG" />
+    <Content Include="Images\RotatedLayout.png" />
+    <Content Include="Images\SOU735-SADDLEBACK-VENDOR.jpg" />
+    <Content Include="Images\ValleyValleyColl.jpg" />
     <Content Include="ORO835 - OrovilleHS.PNG" />
     <None Include="Resources\CI_Logo.bmp" />
     <Content Include="Resources\RotatedLayout.png" />
