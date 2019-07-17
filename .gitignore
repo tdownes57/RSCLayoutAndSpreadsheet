@@ -259,3 +259,10 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/ciLayoutDesignVB/Images/AdjustWHColor_V102.BK7.jpg
+/ciLayoutDesignVB/Images/AdjustWHColor_V102.BK6jpg.jpg
+/ciLayoutDesignVB/Images/AdjustWHColor_V102.BK4.jpg
+/ciLayoutDesignVB/Images/AdjustWHColor_V102.BK3.jpg
+/ciLayoutDesignVB/Images/AdjustWHColor_V102.BK2.jpg
+/ciLayoutDesignVB/Images/AdjustWHColor_V102.BK1.jpg
+/ciLayoutDesignVB/Images/AdjustWHColor_V102.BAK.jpg
