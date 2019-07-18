@@ -44,10 +44,23 @@ Module modAdjustmentBoxes_V101
     Public ColorsOfMSPaint_Rght As Integer = 731
     Public ColorsOfMSPaint_Btm_ As Integer = 65
 
-    Public Function UserClickedWhichAdjustment(par_Left As Integer, par_Top As Integer) As Enum_V101
+    Public Function UserClickedWhichAdjustment(par_Left As Integer, par_Top As Integer,
+                                               par_widthOfGraphic As Integer) As Enum_V101
+        ''7/17 td''Public Function UserClickedWhichAdjustment(par_Left As Integer, par_Top As Integer) As Enum_V101
         ''
         ''Added 7/17/2019 td 
         ''
+        Dim singleScalingFactor As Single
+        Dim sf As Single
+        Dim sf_wLeft As Single
+        Dim sf_wRight As Single
+
+        singleScalingFactor = (CSng(EntireGraphic_Width) / CSng(par_widthOfGraphic))
+        sf = singleScalingFactor
+
+        sf_Lweft = sf * par_Left
+        sf_Twop = CInt(sf * par_Top)
+
         Select Case True
             Case WidthIncrease(par_Left, par_Top) : Return Enum_V101.WidthIncrease
             Case WidthDecrease(par_Left, par_Top) : Return Enum_V101.WidthDecrease
