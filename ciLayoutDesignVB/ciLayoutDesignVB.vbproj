@@ -78,6 +78,7 @@
   <ItemGroup>
     <Compile Include="ClassCustomField.vb" />
     <Compile Include="ClassFields.vb" />
+    <Compile Include="ClassLabelToImage.vb" />
     <Compile Include="FormCustomFields.Designer.vb">
       <DependentUpon>FormCustomFields.vb</DependentUpon>
     </Compile>
