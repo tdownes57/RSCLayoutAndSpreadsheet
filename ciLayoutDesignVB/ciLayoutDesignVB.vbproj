@@ -113,6 +113,8 @@
     <Compile Include="LayoutSerialization.vb" />
     <Compile Include="modAdjustmentBoxes_V101.vb" />
     <Compile Include="modAdjustmentBoxes_V102.vb" />
+    <Compile Include="modConvertWinLabelsToDrawing.vb" />
+    <Compile Include="modConvertWinLabelsToWebCSS.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
