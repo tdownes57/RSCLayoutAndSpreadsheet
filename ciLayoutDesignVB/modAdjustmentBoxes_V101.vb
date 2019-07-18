@@ -53,20 +53,20 @@ Module modAdjustmentBoxes_V101
         Dim singleScalingFactor As Single
         Dim sf As Single
         Dim sf_wLeft As Single
-        Dim sf_wRight As Single
+        Dim sf_wTop As Single
 
         singleScalingFactor = (CSng(EntireGraphic_Width) / CSng(par_widthOfGraphic))
         sf = singleScalingFactor
 
-        sf_Lweft = sf * par_Left
-        sf_Twop = CInt(sf * par_Top)
+        sf_wLeft = CInt(sf * par_Left)
+        sf_wTop = CInt(sf * par_Top)
 
         Select Case True
-            Case WidthIncrease(par_Left, par_Top) : Return Enum_V101.WidthIncrease
-            Case WidthDecrease(par_Left, par_Top) : Return Enum_V101.WidthDecrease
-            Case HeightIncrease(par_Left, par_Top) : Return Enum_V101.HeightIncrease
-            Case HeightDecrease(par_Left, par_Top) : Return Enum_V101.HeightDecrease
-            Case ColorsOfMSPaint(par_Left, par_Top) : Return Enum_V101.ColorsOfMSPaint
+            Case WidthIncrease(sf_wLeft, sf_wTop) : Return Enum_V101.WidthIncrease
+            Case WidthDecrease(sf_wLeft, sf_wTop) : Return Enum_V101.WidthDecrease
+            Case HeightIncrease(sf_wLeft, sf_wTop) : Return Enum_V101.HeightIncrease
+            Case HeightDecrease(sf_wLeft, sf_wTop) : Return Enum_V101.HeightDecrease
+            Case ColorsOfMSPaint(sf_wLeft, sf_wTop) : Return Enum_V101.ColorsOfMSPaint
             Case Else : Return Enum_V101.Undetermined
         End Select
 
