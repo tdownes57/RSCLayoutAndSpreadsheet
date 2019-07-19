@@ -17,7 +17,7 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ciPictures_VB", "..\ciBadge
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ciPicturesTesting", "ciPicturesTesting\ciPicturesTesting.vbproj", "{4B98B14D-BC47-470A-81EA-625300E41F5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoveAndResizeControls", "MoveAndResizeControls\MoveAndResizeControls\MoveAndResizeControls.csproj", "{5F1792DD-A52E-4167-A49B-13549802B2C9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoveAndResizeControls__Seyyed", "MoveAndResizeControls\MoveAndResizeControls\MoveAndResizeControls__Seyyed.csproj", "{5F1792DD-A52E-4167-A49B-13549802B2C9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoveAndResizeControls_Monem", "MoveAndResizeControls_Monem\MoveAndResizeControls_Monem.csproj", "{3D6A51A2-395E-467F-A3C4-8D6ED1DA961E}"
 EndProject
