@@ -6,6 +6,7 @@ Public Class FormDesignProtoTwo
     ''
     ''Added 7/18/2019 Thomas DOWNES
     ''
+    Private mod_generator As LayoutElementGenerator
 
     Private mod_Pic As IElement ''Added 7/18/2019 thomas downes 
     Private mod_Logo As IElement ''Added 7/18/2019 thomas downes 
@@ -30,7 +31,9 @@ Public Class FormDesignProtoTwo
         ''
         ''Added 7/18/2019 thomas downes 
         ''
-        LoadElements
+        LoadElementGenerator
+
+        LoadElements()
 
 
 
@@ -42,13 +45,24 @@ Public Class FormDesignProtoTwo
         ''
         mod_Pic = New ClassElementPic
 
-        mod_RecipientID = New ClassElementText
-        mod_NameFull = New ClassElementText
+        mod_RecipientID = mod_generator.GetRecipientID() ''New ClassElementText
+        mod_NameFull = mod_generator.GetFullName() ''New ClassElementText
 
-        mod_Text1 = New ClassElementText
-        mod_Text2 = New ClassElementText
-
+        mod_Text1 = mod_generator.GetTextField1() ''New ClassElementText
+        mod_Text2 = mod_generator.GetTextField2() ''New ClassElementText
+        mod_Text3 = mod_generator.GetTextField3()
 
     End Sub ''End of ''Private Sub LoadElements()''
+
+    Private Sub LoadElementGenerator()
+        ''
+        ''Added 7/18/2019 
+        ''
+        mod_generator = New LayoutElementGenerator
+
+
+
+    End Sub
+
 
 End Class
