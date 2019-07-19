@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 /***
     ''
-    ''seyyed hamed monem
+    ''   by Seyyed Hamed Monem
     ''
     '' https://www.codeproject.com/tips/709121/move-and-resize-controls-on-a-form-at-runtime-with 
     ''
@@ -32,8 +32,12 @@ using System.Windows.Forms;
 
 namespace ControlManager
 {
-    internal class ControlMoverOrResizer_TD
+    public class ControlMoverOrResizer_TD
     {
+        //
+        //  internal class ControlMoverOrResizer_TD
+        //
+
         private static bool _moving;
         private static Point _cursorStartPoint;
         private static bool _moveIsInterNal;
@@ -58,13 +62,13 @@ namespace ControlManager
 
         internal static MoveOrResize WorkType { get; set; }
 
-        internal static void Init(Control control, int par_margin)
+        public static void Init(Control control, int par_margin)
         {
             //Init(control, control);
             Init(control, control, par_margin);
         }
 
-        internal static void Init(Control control, Control container, int par_margin )
+        public static void Init(Control control, Control container, int par_margin )
         {
             //
             //   internal static void Init(Control control, Control container)

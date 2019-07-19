@@ -13,7 +13,7 @@ using System.Windows.Forms;
     ''
     ''    Move And Resize Controls on a Form at Runtime(With Mouse)
     ''
-    ''Seyyed Hamed Monem
+    ''    by Seyyed Hamed Monem
     ''
     ''Rate this :  
     ''

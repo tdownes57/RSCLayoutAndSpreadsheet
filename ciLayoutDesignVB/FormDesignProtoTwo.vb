@@ -1,6 +1,10 @@
-﻿''
+﻿Option Explicit On
+Option Infer On
+Option Strict On
+''
 ''Added 7/18/2019 Thomas DOWNES
 ''
+Imports ControlManager
 
 Public Class FormDesignProtoTwo
     ''
