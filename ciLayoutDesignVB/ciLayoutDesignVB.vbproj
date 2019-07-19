@@ -48,9 +48,6 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DAL">
-      <HintPath>..\..\..\..\Documents\CI Badge (my notes)\CI Libraries (by Rob)\RS2 - Visual Studio 2008\bin\Debug\DAL.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -77,12 +74,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClassCustomField.vb" />
+    <Compile Include="ClassElementPic.vb" />
+    <Compile Include="ClassElementText.vb" />
     <Compile Include="ClassFields.vb" />
     <Compile Include="ClassLabelToImage.vb" />
+    <Compile Include="ClassLayoutGenerator.vb" />
     <Compile Include="FormCustomFields.Designer.vb">
       <DependentUpon>FormCustomFields.vb</DependentUpon>
     </Compile>
     <Compile Include="FormCustomFields.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDesignProtoTwo.Designer.vb">
+      <DependentUpon>FormDesignProtoTwo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormDesignProtoTwo.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormMain.Designer.vb">
@@ -98,11 +104,11 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormTestSizing_temp.vb" />
-    <Compile Include="FormDesign.vb">
+    <Compile Include="FormDesignPrototype.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormDesign.Designer.vb">
-      <DependentUpon>FormDesign.vb</DependentUpon>
+    <Compile Include="FormDesignPrototype.Designer.vb">
+      <DependentUpon>FormDesignPrototype.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormDisplay.Designer.vb">
@@ -139,8 +145,11 @@
     <EmbeddedResource Include="FormCustomFields.resx">
       <DependentUpon>FormCustomFields.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormDesign.resx">
-      <DependentUpon>FormDesign.vb</DependentUpon>
+    <EmbeddedResource Include="FormDesignProtoTwo.resx">
+      <DependentUpon>FormDesignProtoTwo.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDesignPrototype.resx">
+      <DependentUpon>FormDesignPrototype.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormDisplay.resx">
       <DependentUpon>FormDisplay.vb</DependentUpon>

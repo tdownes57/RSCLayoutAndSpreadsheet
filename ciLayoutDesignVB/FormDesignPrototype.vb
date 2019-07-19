@@ -6,7 +6,7 @@ Option Strict On
 ''   https://www.codeproject.com/articles/38137/easy-drag-and-drop-of-controls-at-run-time
 ''
 
-Public Class FormDesign
+Public Class FormDesignPrototype
     ''
     ''   https://www.codeproject.com/articles/38137/easy-drag-and-drop-of-controls-at-run-time
     ''

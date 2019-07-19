@@ -10,8 +10,14 @@ Public Interface IElementText
     ''
     ''Added 7/18/2019 td
     ''
-    Property FontFamilyName As String
-    Property FontSize As String
+    ''Property FontFamilyName As String
+    ''Property FontSize As String
+    ''Property FontUnderline As Boolean
+    ''Property FontItalics As Boolean
+    ''Property FontBold As Boolean
+
+    Property Font_AllInfo As System.Drawing.Font
+
     Property FontColor As System.Drawing.Color
 
     Property BackColor As System.Drawing.Color
@@ -29,9 +35,6 @@ Public Interface IElementText
     Property OrientationInDegrees As Integer ''Default is 0, normal.  90 would be 1/4 turn clockwise.  180 is upside-down.  270 is the printing on the spine of a book sitting on the bookshelf.
 
 
-    Property FontBold As Boolean
-    Property FontUnderline As Boolean
-    Property FontItalics As Boolean
 
 
     ''

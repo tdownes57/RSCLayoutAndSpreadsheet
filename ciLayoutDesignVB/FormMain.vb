@@ -7,7 +7,7 @@ Option Strict On
 Public Class FormMain
     Private Sub ToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem1.Click
         ''Added 7/17/2019 thomas downes
-        Dim frm_ToShow As New FormDesign()
+        Dim frm_ToShow As New FormDesignPrototype()
         frm_ToShow.Show()
 
     End Sub
@@ -21,7 +21,7 @@ Public Class FormMain
 
     Private Sub PlaceElementsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PlaceElementsToolStripMenuItem.Click
         ''Added 7/17/2019 thomas downes
-        Dim frm_ToShow As New FormDesign()
+        Dim frm_ToShow As New FormDesignPrototype()
         frm_ToShow.Show()
 
     End Sub
