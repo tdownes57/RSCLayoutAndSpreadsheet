@@ -5,7 +5,10 @@ Public Class ClassElementText
     ''Added 7/18/2019 thomas downes
     ''
     ''
+
     Public Property Info As IElementText
+
+    Public Property FormControl As Control Implements IElement.FormControl ''Added 7/19/2019  
 
     Public Property ElementType As String Implements IElement.ElementType ''Text, Pic, or Logo
 
@@ -21,5 +24,14 @@ Public Class ClassElementText
     Public Property Border_Color As System.Drawing.Color Implements IElement.Border_Color
 
     Public Property Back_Color As System.Drawing.Color Implements IElement.Back_Color
+
+    Public Sub New(par_control As Control)
+
+        ''Added 7/19/2019 td
+        ''
+        Me.FormControl = par_control
+
+    End Sub
+
 
 End Class

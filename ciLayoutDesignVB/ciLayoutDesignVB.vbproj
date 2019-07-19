@@ -79,6 +79,7 @@
     <Compile Include="ClassFields.vb" />
     <Compile Include="ClassLabelToImage.vb" />
     <Compile Include="ClassLayoutGenerator.vb" />
+    <Compile Include="ClassSerialize.vb" />
     <Compile Include="FormCustomFields.Designer.vb">
       <DependentUpon>FormCustomFields.vb</DependentUpon>
     </Compile>

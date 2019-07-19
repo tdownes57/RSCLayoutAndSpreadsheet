@@ -12,6 +12,8 @@ Public Interface IElement
     ''
     Property ElementType As String ''Text, Pic, or Logo
 
+    Property FormControl As Control ''Added 7/19/2019 td
+
     Property LayoutWidth_Pixels As Integer ''This provides sizing context & scaling factors. 
 
     Property TopEdge_Pixels As Integer

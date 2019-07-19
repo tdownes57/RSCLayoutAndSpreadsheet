@@ -39,7 +39,15 @@ Public Class FormDesignProtoTwo
 
         LoadElements()
 
+        MakeElementsMoveable()
 
+
+    End Sub
+
+    Private Sub MakeElementsMoveable()
+        ''
+        ''Added 7/19/2019 thomas downes  
+        ''
 
     End Sub
 
@@ -47,14 +55,17 @@ Public Class FormDesignProtoTwo
         ''
         ''Added 7/18/2019 thomas downes 
         ''
-        mod_Pic = New ClassElementPic
+        mod_Pic = New ClassElementPic(pictureboxPic)
 
-        mod_RecipientID = mod_generator.GetRecipientID() ''New ClassElementText
-        mod_NameFull = mod_generator.GetFullName() ''New ClassElementText
+        mod_RecipientID = mod_generator.GetRecipientID(PictureBox10) ''New ClassElementText
+        mod_NameFull = mod_generator.GetFullName(PictureBox11) ''New ClassElementText
 
-        mod_Text1 = mod_generator.GetTextField1() ''New ClassElementText
-        mod_Text2 = mod_generator.GetTextField2() ''New ClassElementText
-        mod_Text3 = mod_generator.GetTextField3()
+        mod_Text1 = mod_generator.GetTextField1(PictureBox12) ''New ClassElementText
+        mod_Text2 = mod_generator.GetTextField2(PictureBox13) ''New ClassElementText
+        mod_Text3 = mod_generator.GetTextField3(PictureBox14)
+
+        mod_Date1 = mod_generator.GetDateField1(PictureBox15) ''New ClassElementText
+        mod_Date2 = mod_generator.GetDateField2(PictureBox16) ''New ClassElementText
 
     End Sub ''End of ''Private Sub LoadElements()''
 
