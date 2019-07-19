@@ -32,13 +32,22 @@ using System.Windows.Forms;
 
 namespace ControlManager
 {
-    internal class ControlMoverOrResizer
+    internal class ControlMoverOrResizer_TD
     {
+        //
+        //  internal class ControlMoverOrResizer_TD  
+        //
+
         private static bool _moving;
         private static Point _cursorStartPoint;
         private static bool _moveIsInterNal;
         private static bool _resizing;
         private static Size _currentControlStartSize;
+
+        //Added 7/18/2019 thomas downes
+        //
+        private static int _margin; //Added 7/18/2019 thomas downes
+
         internal static bool MouseIsInLeftEdge { get; set; }
         internal static bool MouseIsInRightEdge { get; set; }
         internal static bool MouseIsInTopEdge { get; set; }
@@ -53,17 +62,28 @@ namespace ControlManager
 
         internal static MoveOrResize WorkType { get; set; }
 
-        internal static void Init(Control control)
+        internal static void Init(Control control, int par_margin)
         {
-            Init(control, control);
+            //Init(control, control);
+            Init(control, control, par_margin);
         }
 
-        internal static void Init(Control control, Control container)
+        internal static void Init(Control control, Control container, int par_margin )
         {
+            //
+            //   internal static void Init(Control control, Control container)
+            //
+
             _moving = false;
             _resizing = false;
             _moveIsInterNal = false;
             _cursorStartPoint = Point.Empty;
+
+            //
+            //Added 7/18/2019 thomas downes 
+            //
+            _margin = par_margin; 
+
             MouseIsInLeftEdge = false;
             MouseIsInLeftEdge = false;
             MouseIsInRightEdge = false;
@@ -82,15 +102,15 @@ namespace ControlManager
                 return;
             }
 
-            MouseIsInLeftEdge = Math.Abs(mouseLocationInControl.X) <= 2;
-            MouseIsInRightEdge = Math.Abs(mouseLocationInControl.X - control.Width) <= 2;
-            MouseIsInTopEdge = Math.Abs(mouseLocationInControl.Y) <= 2;
-            MouseIsInBottomEdge = Math.Abs(mouseLocationInControl.Y - control.Height) <= 2;
-
-            //MouseIsInLeftEdge = Math.Abs(mouseLocationInControl.X) <= _margin;
-            //MouseIsInRightEdge = Math.Abs(mouseLocationInControl.X - control.Width) <= _margin;
-            //MouseIsInTopEdge = Math.Abs(mouseLocationInControl.Y) <= 2;
+            //MouseIsInLeftEdge = Math.Abs(mouseLocationInControl.X) <= 2;
+            //MouseIsInRightEdge = Math.Abs(mouseLocationInControl.X - control.Width) <= 2;
+            //MouseIsInTopEdge = Math.Abs(mouseLocationInControl.Y ) <= 2;
             //MouseIsInBottomEdge = Math.Abs(mouseLocationInControl.Y - control.Height) <= 2;
+
+            MouseIsInLeftEdge = Math.Abs(mouseLocationInControl.X) <= _margin;
+            MouseIsInRightEdge = Math.Abs(mouseLocationInControl.X - control.Width) <= _margin;
+            MouseIsInTopEdge = Math.Abs(mouseLocationInControl.Y) <= _margin;
+            MouseIsInBottomEdge = Math.Abs(mouseLocationInControl.Y - control.Height) <= _margin;
 
         }
 

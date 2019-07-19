@@ -13,7 +13,7 @@ using System.Windows.Forms;
     ''
     ''    Move And Resize Controls on a Form at Runtime(With Mouse)
     ''
-    ''seyyed hamed monem
+    ''Seyyed Hamed Monem
     ''
     ''Rate this :  
     ''
@@ -32,8 +32,11 @@ using System.Windows.Forms;
 
 namespace ControlManager
 {
-    internal class ControlMoverOrResizer
+    public class ControlMoverOrResizer
     {
+        //
+        //  internal class ControlMoverOrResizer
+        //
         private static bool _moving;
         private static Point _cursorStartPoint;
         private static bool _moveIsInterNal;
@@ -53,13 +56,17 @@ namespace ControlManager
 
         internal static MoveOrResize WorkType { get; set; }
 
-        internal static void Init(Control control)
+        public static void Init(Control control)
         {
+            //  internal static void Init(Control control)
+
             Init(control, control);
         }
 
-        internal static void Init(Control control, Control container)
+        public static void Init(Control control, Control container)
         {
+            //   internal static void Init(Control control, Control container)  
+
             _moving = false;
             _resizing = false;
             _moveIsInterNal = false;

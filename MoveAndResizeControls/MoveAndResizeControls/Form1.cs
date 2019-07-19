@@ -46,6 +46,7 @@ namespace MoveAndResizeControls
             ControlMoverOrResizer.Init(groupBox1);
             ControlMoverOrResizer.Init(textBox1);
             ControlMoverOrResizer.Init(button2,panel1);
+            ControlMoverOrResizer_TD.Init(pictureBox1, 20); //Added 7/18/2019 thomas downes
             cboWorkType.SelectedIndex = 0;
         }
 
