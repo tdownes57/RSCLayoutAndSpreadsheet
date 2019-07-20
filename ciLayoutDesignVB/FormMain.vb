@@ -14,7 +14,7 @@ Public Class FormMain
 
     Private Sub ConfigureFieldsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConfigureFieldsToolStripMenuItem.Click
         ''Added 7/17/2019 thomas downes
-        Dim frm_ToShow As New FormCustomFields()
+        Dim frm_ToShow As New FormCustomFieldsGrid()
         frm_ToShow.Show()
 
     End Sub

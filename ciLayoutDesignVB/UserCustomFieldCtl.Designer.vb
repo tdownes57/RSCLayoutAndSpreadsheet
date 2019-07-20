@@ -1,0 +1,192 @@
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+Partial Class UserCustomFieldCtl
+    Inherits System.Windows.Forms.UserControl
+
+    'UserControl overrides dispose to clean up the component list.
+    <System.Diagnostics.DebuggerNonUserCode()> _
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        Try
+            If disposing AndAlso components IsNot Nothing Then
+                components.Dispose()
+            End If
+        Finally
+            MyBase.Dispose(disposing)
+        End Try
+    End Sub
+
+    'Required by the Windows Form Designer
+    Private components As System.ComponentModel.IContainer
+
+    'NOTE: The following procedure is required by the Windows Form Designer
+    'It can be modified using the Windows Form Designer.  
+    'Do not modify it using the code editor.
+    <System.Diagnostics.DebuggerStepThrough()> _
+    Private Sub InitializeComponent()
+        Me.textFieldLabel = New System.Windows.Forms.TextBox()
+        Me.checkIsFieldForDates = New System.Windows.Forms.CheckBox()
+        Me.LabelFieldLabelCaption = New System.Windows.Forms.Label()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.LabelHeaderTop = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.checkHasPresetValues = New System.Windows.Forms.CheckBox()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.buttonAddField = New System.Windows.Forms.Button()
+        Me.listPresetValues = New System.Windows.Forms.ListBox()
+        Me.linkDeleteField = New System.Windows.Forms.LinkLabel()
+        Me.linkAddPresetValue = New System.Windows.Forms.LinkLabel()
+        Me.SuspendLayout()
+        '
+        'textFieldLabel
+        '
+        Me.textFieldLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.textFieldLabel.Location = New System.Drawing.Point(150, 42)
+        Me.textFieldLabel.Name = "textFieldLabel"
+        Me.textFieldLabel.Size = New System.Drawing.Size(215, 30)
+        Me.textFieldLabel.TabIndex = 0
+        '
+        'checkIsFieldForDates
+        '
+        Me.checkIsFieldForDates.AutoSize = True
+        Me.checkIsFieldForDates.Location = New System.Drawing.Point(195, -2)
+        Me.checkIsFieldForDates.Name = "checkIsFieldForDates"
+        Me.checkIsFieldForDates.Size = New System.Drawing.Size(154, 21)
+        Me.checkIsFieldForDates.TabIndex = 1
+        Me.checkIsFieldForDates.Text = "Is this a Date Field?"
+        Me.checkIsFieldForDates.UseVisualStyleBackColor = True
+        '
+        'LabelFieldLabelCaption
+        '
+        Me.LabelFieldLabelCaption.AutoSize = True
+        Me.LabelFieldLabelCaption.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelFieldLabelCaption.Location = New System.Drawing.Point(37, 45)
+        Me.LabelFieldLabelCaption.Name = "LabelFieldLabelCaption"
+        Me.LabelFieldLabelCaption.Size = New System.Drawing.Size(107, 25)
+        Me.LabelFieldLabelCaption.TabIndex = 2
+        Me.LabelFieldLabelCaption.Text = "Field Label"
+        '
+        'TextBox2
+        '
+        Me.TextBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox2.Location = New System.Drawing.Point(190, 76)
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.Size = New System.Drawing.Size(215, 30)
+        Me.TextBox2.TabIndex = 3
+        '
+        'LabelHeaderTop
+        '
+        Me.LabelHeaderTop.AutoSize = True
+        Me.LabelHeaderTop.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelHeaderTop.Location = New System.Drawing.Point(3, 0)
+        Me.LabelHeaderTop.Name = "LabelHeaderTop"
+        Me.LabelHeaderTop.Size = New System.Drawing.Size(177, 31)
+        Me.LabelHeaderTop.TabIndex = 4
+        Me.LabelHeaderTop.Text = "Text Field # 1"
+        Me.LabelHeaderTop.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(4, 76)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(180, 25)
+        Me.Label1.TabIndex = 5
+        Me.Label1.Text = "Example (Optional)"
+        '
+        'checkHasPresetValues
+        '
+        Me.checkHasPresetValues.AutoSize = True
+        Me.checkHasPresetValues.Location = New System.Drawing.Point(458, 3)
+        Me.checkHasPresetValues.Name = "checkHasPresetValues"
+        Me.checkHasPresetValues.Size = New System.Drawing.Size(186, 21)
+        Me.checkHasPresetValues.TabIndex = 6
+        Me.checkHasPresetValues.Text = "Are there preset values?"
+        Me.checkHasPresetValues.UseVisualStyleBackColor = True
+        '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Location = New System.Drawing.Point(195, 19)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(200, 21)
+        Me.CheckBox1.TabIndex = 7
+        Me.CheckBox1.Text = "Is this locked to stop edits?"
+        Me.CheckBox1.UseVisualStyleBackColor = True
+        '
+        'buttonAddField
+        '
+        Me.buttonAddField.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.buttonAddField.Location = New System.Drawing.Point(726, 42)
+        Me.buttonAddField.Name = "buttonAddField"
+        Me.buttonAddField.Size = New System.Drawing.Size(108, 51)
+        Me.buttonAddField.TabIndex = 8
+        Me.buttonAddField.Text = "Add Field"
+        Me.buttonAddField.UseVisualStyleBackColor = True
+        '
+        'listPresetValues
+        '
+        Me.listPresetValues.FormattingEnabled = True
+        Me.listPresetValues.ItemHeight = 16
+        Me.listPresetValues.Location = New System.Drawing.Point(458, 30)
+        Me.listPresetValues.Name = "listPresetValues"
+        Me.listPresetValues.Size = New System.Drawing.Size(194, 84)
+        Me.listPresetValues.TabIndex = 9
+        '
+        'linkDeleteField
+        '
+        Me.linkDeleteField.AutoSize = True
+        Me.linkDeleteField.Location = New System.Drawing.Point(728, 97)
+        Me.linkDeleteField.Name = "linkDeleteField"
+        Me.linkDeleteField.Size = New System.Drawing.Size(83, 17)
+        Me.linkDeleteField.TabIndex = 10
+        Me.linkDeleteField.TabStop = True
+        Me.linkDeleteField.Text = "Delete Field"
+        '
+        'linkAddPresetValue
+        '
+        Me.linkAddPresetValue.AutoSize = True
+        Me.linkAddPresetValue.Location = New System.Drawing.Point(650, 4)
+        Me.linkAddPresetValue.Name = "linkAddPresetValue"
+        Me.linkAddPresetValue.Size = New System.Drawing.Size(115, 17)
+        Me.linkAddPresetValue.TabIndex = 11
+        Me.linkAddPresetValue.TabStop = True
+        Me.linkAddPresetValue.Text = "Add preset value"
+        '
+        'UserCustomFieldCtl
+        '
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.Color.LightCyan
+        Me.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Controls.Add(Me.linkAddPresetValue)
+        Me.Controls.Add(Me.linkDeleteField)
+        Me.Controls.Add(Me.listPresetValues)
+        Me.Controls.Add(Me.buttonAddField)
+        Me.Controls.Add(Me.CheckBox1)
+        Me.Controls.Add(Me.checkHasPresetValues)
+        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.LabelHeaderTop)
+        Me.Controls.Add(Me.TextBox2)
+        Me.Controls.Add(Me.LabelFieldLabelCaption)
+        Me.Controls.Add(Me.checkIsFieldForDates)
+        Me.Controls.Add(Me.textFieldLabel)
+        Me.Name = "UserCustomFieldCtl"
+        Me.Size = New System.Drawing.Size(837, 123)
+        Me.ResumeLayout(False)
+        Me.PerformLayout()
+
+    End Sub
+
+    Friend WithEvents textFieldLabel As TextBox
+    Friend WithEvents checkIsFieldForDates As CheckBox
+    Friend WithEvents LabelFieldLabelCaption As Label
+    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents LabelHeaderTop As Label
+    Friend WithEvents Label1 As Label
+    Friend WithEvents checkHasPresetValues As CheckBox
+    Friend WithEvents CheckBox1 As CheckBox
+    Friend WithEvents buttonAddField As Button
+    Friend WithEvents listPresetValues As ListBox
+    Friend WithEvents linkDeleteField As LinkLabel
+    Friend WithEvents linkAddPresetValue As LinkLabel
+End Class

@@ -4,7 +4,7 @@
 ''
 Imports System.Collections.Generic
 
-Public Class FormCustomFields
+Public Class FormCustomFieldsGrid
 
     Public Shared FieldsList_Static As New List(Of ClassCustomField)
 
@@ -87,6 +87,10 @@ Public Class FormCustomFields
 
         ClassFieldsBindingSource.DataSource = FieldsList_Static
 
+
+    End Sub
+
+    Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
 
     End Sub
     '' { New ClassCustomField() {}, New ClassCustomField() {} }
