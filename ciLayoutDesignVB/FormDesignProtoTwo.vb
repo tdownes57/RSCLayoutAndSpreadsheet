@@ -79,5 +79,7 @@ Public Class FormDesignProtoTwo
 
     End Sub
 
+    Private Sub PictureboxPic_Click(sender As Object, e As EventArgs) Handles pictureboxPic.Click
 
+    End Sub
 End Class

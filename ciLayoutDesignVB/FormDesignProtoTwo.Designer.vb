@@ -31,6 +31,8 @@ Partial Class FormDesignProtoTwo
         Me.PictureBox13 = New System.Windows.Forms.PictureBox()
         Me.PictureBox12 = New System.Windows.Forms.PictureBox()
         Me.PictureBox11 = New System.Windows.Forms.PictureBox()
+        Me.LinkShowWebControls = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         CType(Me.pictureBack, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox10, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureboxPic, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -66,7 +68,7 @@ Partial Class FormDesignProtoTwo
         'pictureboxPic
         '
         Me.pictureboxPic.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.pictureboxPic.Location = New System.Drawing.Point(444, 482)
+        Me.pictureboxPic.Location = New System.Drawing.Point(12, 471)
         Me.pictureboxPic.Name = "pictureboxPic"
         Me.pictureboxPic.Size = New System.Drawing.Size(146, 177)
         Me.pictureboxPic.TabIndex = 23
@@ -126,11 +128,35 @@ Partial Class FormDesignProtoTwo
         Me.PictureBox11.TabIndex = 29
         Me.PictureBox11.TabStop = False
         '
+        'LinkShowWebControls
+        '
+        Me.LinkShowWebControls.AutoSize = True
+        Me.LinkShowWebControls.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LinkShowWebControls.Location = New System.Drawing.Point(662, 579)
+        Me.LinkShowWebControls.Name = "LinkShowWebControls"
+        Me.LinkShowWebControls.Size = New System.Drawing.Size(360, 29)
+        Me.LinkShowWebControls.TabIndex = 30
+        Me.LinkShowWebControls.TabStop = True
+        Me.LinkShowWebControls.Text = "Show adjustment controls below"
+        '
+        'LinkLabel1
+        '
+        Me.LinkLabel1.AutoSize = True
+        Me.LinkLabel1.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LinkLabel1.Location = New System.Drawing.Point(660, 608)
+        Me.LinkLabel1.Name = "LinkLabel1"
+        Me.LinkLabel1.Size = New System.Drawing.Size(362, 29)
+        Me.LinkLabel1.TabIndex = 31
+        Me.LinkLabel1.TabStop = True
+        Me.LinkLabel1.Text = "Open adjustment-controls dialog"
+        '
         'FormDesignProtoTwo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1041, 660)
+        Me.Controls.Add(Me.LinkLabel1)
+        Me.Controls.Add(Me.LinkShowWebControls)
         Me.Controls.Add(Me.PictureBox11)
         Me.Controls.Add(Me.PictureBox12)
         Me.Controls.Add(Me.PictureBox13)
@@ -152,6 +178,7 @@ Partial Class FormDesignProtoTwo
         CType(Me.PictureBox12, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox11, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -164,4 +191,6 @@ Partial Class FormDesignProtoTwo
     Friend WithEvents PictureBox13 As PictureBox
     Friend WithEvents PictureBox12 As PictureBox
     Friend WithEvents PictureBox11 As PictureBox
+    Friend WithEvents LinkShowWebControls As LinkLabel
+    Friend WithEvents LinkLabel1 As LinkLabel
 End Class
