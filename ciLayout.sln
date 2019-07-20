@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoveAndResizeControls__Seyy
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoveAndResizeControls_Monem", "MoveAndResizeControls_Monem\MoveAndResizeControls_Monem.csproj", "{3D6A51A2-395E-467F-A3C4-8D6ED1DA961E}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SerializationTesting", "SerializationTesting\SerializationTesting.vbproj", "{819F6F4C-9DCB-4465-8EA7-C039D4ADB2EC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +101,14 @@ Global
 		{3D6A51A2-395E-467F-A3C4-8D6ED1DA961E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3D6A51A2-395E-467F-A3C4-8D6ED1DA961E}.Release|x86.ActiveCfg = Release|Any CPU
 		{3D6A51A2-395E-467F-A3C4-8D6ED1DA961E}.Release|x86.Build.0 = Release|Any CPU
+		{819F6F4C-9DCB-4465-8EA7-C039D4ADB2EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{819F6F4C-9DCB-4465-8EA7-C039D4ADB2EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{819F6F4C-9DCB-4465-8EA7-C039D4ADB2EC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{819F6F4C-9DCB-4465-8EA7-C039D4ADB2EC}.Debug|x86.Build.0 = Debug|Any CPU
+		{819F6F4C-9DCB-4465-8EA7-C039D4ADB2EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{819F6F4C-9DCB-4465-8EA7-C039D4ADB2EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{819F6F4C-9DCB-4465-8EA7-C039D4ADB2EC}.Release|x86.ActiveCfg = Release|Any CPU
+		{819F6F4C-9DCB-4465-8EA7-C039D4ADB2EC}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
