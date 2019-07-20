@@ -28,6 +28,8 @@ Partial Class FormSerialize
         Me.OpenToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaveToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Button2 = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -61,26 +63,46 @@ Partial Class FormSerialize
         'OpenToolStripMenuItem
         '
         Me.OpenToolStripMenuItem.Name = "OpenToolStripMenuItem"
-        Me.OpenToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
+        Me.OpenToolStripMenuItem.Size = New System.Drawing.Size(203, 26)
         Me.OpenToolStripMenuItem.Text = "Open Layout....."
         '
         'SaveToolStripMenuItem
         '
         Me.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem"
-        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
+        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(203, 26)
         Me.SaveToolStripMenuItem.Text = "Save Layout As...."
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(203, 26)
         Me.ExitToolStripMenuItem.Text = "Exit"
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(385, 96)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(266, 49)
+        Me.Button1.TabIndex = 20
+        Me.Button1.Text = "Button1"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(267, 201)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(266, 49)
+        Me.Button2.TabIndex = 21
+        Me.Button2.Text = "Button2"
+        Me.Button2.UseVisualStyleBackColor = True
         '
         'FormSerialize
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.Controls.Add(Me.Button2)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.Label1)
         Me.Name = "FormSerialize"
@@ -98,4 +120,6 @@ Partial Class FormSerialize
     Friend WithEvents OpenToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents SaveToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ExitToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents Button1 As Button
+    Friend WithEvents Button2 As Button
 End Class
