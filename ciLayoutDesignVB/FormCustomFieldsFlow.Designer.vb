@@ -25,6 +25,7 @@ Partial Class FormCustomFieldsFlow
         Me.LabelHeaderCaption = New System.Windows.Forms.Label()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
         Me.UserAddFieldControl1 = New ciLayoutDesignVB.UserAddFieldControl()
+        Me.chkIncludeExampleValues = New System.Windows.Forms.CheckBox()
         Me.FlowLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -62,11 +63,24 @@ Partial Class FormCustomFieldsFlow
         Me.UserAddFieldControl1.Size = New System.Drawing.Size(837, 123)
         Me.UserAddFieldControl1.TabIndex = 4
         '
+        'chkIncludeExampleValues
+        '
+        Me.chkIncludeExampleValues.AutoSize = True
+        Me.chkIncludeExampleValues.Checked = True
+        Me.chkIncludeExampleValues.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkIncludeExampleValues.Location = New System.Drawing.Point(556, 39)
+        Me.chkIncludeExampleValues.Name = "chkIncludeExampleValues"
+        Me.chkIncludeExampleValues.Size = New System.Drawing.Size(180, 21)
+        Me.chkIncludeExampleValues.TabIndex = 4
+        Me.chkIncludeExampleValues.Text = "Include example values."
+        Me.chkIncludeExampleValues.UseVisualStyleBackColor = True
+        '
         'FormCustomFieldsFlow
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(912, 646)
+        Me.Controls.Add(Me.chkIncludeExampleValues)
         Me.Controls.Add(Me.FlowLayoutPanel1)
         Me.Controls.Add(Me.LabelHeaderCaption)
         Me.Name = "FormCustomFieldsFlow"
@@ -80,4 +94,5 @@ Partial Class FormCustomFieldsFlow
     Friend WithEvents LabelHeaderCaption As Label
     Friend WithEvents FlowLayoutPanel1 As FlowLayoutPanel
     Friend WithEvents UserAddFieldControl1 As UserAddFieldControl
+    Friend WithEvents chkIncludeExampleValues As CheckBox
 End Class

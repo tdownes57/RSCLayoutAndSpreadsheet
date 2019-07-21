@@ -22,4 +22,6 @@ Public Interface ICIBFieldCustom
 
     Property OtherDbFieldname As String
 
+    Property IsAdditionalField As Boolean ''Added 7/21/2019 thomas downes
+
 End Interface

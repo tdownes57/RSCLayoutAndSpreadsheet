@@ -34,6 +34,7 @@ Partial Class UserCustomFieldCtl
         Me.listPresetValues = New System.Windows.Forms.ListBox()
         Me.linkDeleteField = New System.Windows.Forms.LinkLabel()
         Me.linkAddPresetValue = New System.Windows.Forms.LinkLabel()
+        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         'textFieldLabel
@@ -128,7 +129,7 @@ Partial Class UserCustomFieldCtl
         Me.listPresetValues.ItemHeight = 16
         Me.listPresetValues.Location = New System.Drawing.Point(481, 30)
         Me.listPresetValues.Name = "listPresetValues"
-        Me.listPresetValues.Size = New System.Drawing.Size(171, 84)
+        Me.listPresetValues.Size = New System.Drawing.Size(195, 68)
         Me.listPresetValues.TabIndex = 9
         '
         'linkDeleteField
@@ -151,12 +152,23 @@ Partial Class UserCustomFieldCtl
         Me.linkAddPresetValue.TabStop = True
         Me.linkAddPresetValue.Text = "Add preset value"
         '
+        'CheckBox2
+        '
+        Me.CheckBox2.AutoSize = True
+        Me.CheckBox2.Location = New System.Drawing.Point(458, 104)
+        Me.CheckBox2.Name = "CheckBox2"
+        Me.CheckBox2.Size = New System.Drawing.Size(194, 21)
+        Me.CheckBox2.TabIndex = 12
+        Me.CheckBox2.Text = "Is this an Additional Field?"
+        Me.CheckBox2.UseVisualStyleBackColor = True
+        '
         'UserCustomFieldCtl
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.LightCyan
         Me.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Controls.Add(Me.CheckBox2)
         Me.Controls.Add(Me.linkAddPresetValue)
         Me.Controls.Add(Me.linkDeleteField)
         Me.Controls.Add(Me.listPresetValues)
@@ -188,4 +200,5 @@ Partial Class UserCustomFieldCtl
     Friend WithEvents listPresetValues As ListBox
     Friend WithEvents linkDeleteField As LinkLabel
     Friend WithEvents linkAddPresetValue As LinkLabel
+    Friend WithEvents CheckBox2 As CheckBox
 End Class

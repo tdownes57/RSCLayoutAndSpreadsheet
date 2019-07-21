@@ -33,6 +33,8 @@ Partial Class FormDesignProtoTwo
         Me.PictureBox11 = New System.Windows.Forms.PictureBox()
         Me.LinkShowWebControls = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
+        Me.chkIncludeExampleValues = New System.Windows.Forms.CheckBox()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         CType(Me.pictureBack, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox10, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureboxPic, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -150,11 +152,35 @@ Partial Class FormDesignProtoTwo
         Me.LinkLabel1.TabStop = True
         Me.LinkLabel1.Text = "Open adjustment-controls dialog"
         '
+        'chkIncludeExampleValues
+        '
+        Me.chkIncludeExampleValues.AutoSize = True
+        Me.chkIncludeExampleValues.Checked = True
+        Me.chkIncludeExampleValues.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkIncludeExampleValues.Location = New System.Drawing.Point(842, 12)
+        Me.chkIncludeExampleValues.Name = "chkIncludeExampleValues"
+        Me.chkIncludeExampleValues.Size = New System.Drawing.Size(180, 21)
+        Me.chkIncludeExampleValues.TabIndex = 32
+        Me.chkIncludeExampleValues.Text = "Include example values."
+        Me.chkIncludeExampleValues.UseVisualStyleBackColor = True
+        '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Location = New System.Drawing.Point(842, 39)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(182, 21)
+        Me.CheckBox1.TabIndex = 33
+        Me.CheckBox1.Text = "Include Additional Fields"
+        Me.CheckBox1.UseVisualStyleBackColor = True
+        '
         'FormDesignProtoTwo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1041, 660)
+        Me.Controls.Add(Me.CheckBox1)
+        Me.Controls.Add(Me.chkIncludeExampleValues)
         Me.Controls.Add(Me.LinkLabel1)
         Me.Controls.Add(Me.LinkShowWebControls)
         Me.Controls.Add(Me.PictureBox11)
@@ -193,4 +219,6 @@ Partial Class FormDesignProtoTwo
     Friend WithEvents PictureBox11 As PictureBox
     Friend WithEvents LinkShowWebControls As LinkLabel
     Friend WithEvents LinkLabel1 As LinkLabel
+    Friend WithEvents chkIncludeExampleValues As CheckBox
+    Friend WithEvents CheckBox1 As CheckBox
 End Class
