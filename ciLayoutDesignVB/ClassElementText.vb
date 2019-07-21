@@ -5,7 +5,6 @@ Public Class ClassElementText
     ''Added 7/18/2019 thomas downes
     ''
     ''
-
     Public Property Info As IElementText
 
     Public Property FormControl As Control Implements IElement.FormControl ''Added 7/19/2019  
@@ -32,6 +31,5 @@ Public Class ClassElementText
         Me.FormControl = par_control
 
     End Sub
-
 
 End Class

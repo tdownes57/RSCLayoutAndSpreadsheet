@@ -18,10 +18,11 @@ Public Interface ICIBFieldCustom
 
     Property HasPresetValues As Boolean
 
-    Property ArrayOfValues() As String
-
-    Property OtherDbFieldname As String
+    Property ArrayOfValues As String()
 
     Property IsAdditionalField As Boolean ''Added 7/21/2019 thomas downes
+
+    Property CIBadgeField_Optional As String ''Added 7/21/2019 thomas downes
+    Property OtherDbField_Optional As String ''Added 7/21/2019 thomas downes
 
 End Interface

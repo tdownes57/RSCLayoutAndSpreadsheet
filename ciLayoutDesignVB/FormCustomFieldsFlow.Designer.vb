@@ -26,6 +26,7 @@ Partial Class FormCustomFieldsFlow
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
         Me.UserAddFieldControl1 = New ciLayoutDesignVB.UserAddFieldControl()
         Me.chkIncludeExampleValues = New System.Windows.Forms.CheckBox()
+        Me.chkIncludeCIBField = New System.Windows.Forms.CheckBox()
         Me.FlowLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -68,18 +69,29 @@ Partial Class FormCustomFieldsFlow
         Me.chkIncludeExampleValues.AutoSize = True
         Me.chkIncludeExampleValues.Checked = True
         Me.chkIncludeExampleValues.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkIncludeExampleValues.Location = New System.Drawing.Point(556, 39)
+        Me.chkIncludeExampleValues.Location = New System.Drawing.Point(575, 12)
         Me.chkIncludeExampleValues.Name = "chkIncludeExampleValues"
         Me.chkIncludeExampleValues.Size = New System.Drawing.Size(180, 21)
         Me.chkIncludeExampleValues.TabIndex = 4
         Me.chkIncludeExampleValues.Text = "Include example values."
         Me.chkIncludeExampleValues.UseVisualStyleBackColor = True
         '
+        'chkIncludeCIBField
+        '
+        Me.chkIncludeCIBField.AutoSize = True
+        Me.chkIncludeCIBField.Location = New System.Drawing.Point(575, 39)
+        Me.chkIncludeCIBField.Name = "chkIncludeCIBField"
+        Me.chkIncludeCIBField.Size = New System.Drawing.Size(221, 21)
+        Me.chkIncludeCIBField.TabIndex = 5
+        Me.chkIncludeCIBField.Text = "Include Table Card Data Field."
+        Me.chkIncludeCIBField.UseVisualStyleBackColor = True
+        '
         'FormCustomFieldsFlow
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(912, 646)
+        Me.Controls.Add(Me.chkIncludeCIBField)
         Me.Controls.Add(Me.chkIncludeExampleValues)
         Me.Controls.Add(Me.FlowLayoutPanel1)
         Me.Controls.Add(Me.LabelHeaderCaption)
@@ -95,4 +107,5 @@ Partial Class FormCustomFieldsFlow
     Friend WithEvents FlowLayoutPanel1 As FlowLayoutPanel
     Friend WithEvents UserAddFieldControl1 As UserAddFieldControl
     Friend WithEvents chkIncludeExampleValues As CheckBox
+    Friend WithEvents chkIncludeCIBField As CheckBox
 End Class

@@ -25,22 +25,21 @@ Partial Class UserCustomFieldCtl
         Me.textFieldLabel = New System.Windows.Forms.TextBox()
         Me.checkIsFieldForDates = New System.Windows.Forms.CheckBox()
         Me.LabelFieldLabelCaption = New System.Windows.Forms.Label()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
-        Me.LabelHeaderTop = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.checkHasPresetValues = New System.Windows.Forms.CheckBox()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.buttonAddField = New System.Windows.Forms.Button()
         Me.listPresetValues = New System.Windows.Forms.ListBox()
         Me.linkDeleteField = New System.Windows.Forms.LinkLabel()
-        Me.linkAddPresetValue = New System.Windows.Forms.LinkLabel()
         Me.CheckBox2 = New System.Windows.Forms.CheckBox()
+        Me.linkAddPresetValue = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
+        Me.LabelHeaderTop = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'textFieldLabel
         '
         Me.textFieldLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.textFieldLabel.Location = New System.Drawing.Point(207, 54)
+        Me.textFieldLabel.Location = New System.Drawing.Point(207, 63)
         Me.textFieldLabel.Name = "textFieldLabel"
         Me.textFieldLabel.Size = New System.Drawing.Size(215, 30)
         Me.textFieldLabel.TabIndex = 0
@@ -58,40 +57,11 @@ Partial Class UserCustomFieldCtl
         'LabelFieldLabelCaption
         '
         Me.LabelFieldLabelCaption.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelFieldLabelCaption.Location = New System.Drawing.Point(3, 59)
+        Me.LabelFieldLabelCaption.Location = New System.Drawing.Point(3, 68)
         Me.LabelFieldLabelCaption.Name = "LabelFieldLabelCaption"
         Me.LabelFieldLabelCaption.Size = New System.Drawing.Size(180, 25)
         Me.LabelFieldLabelCaption.TabIndex = 2
         Me.LabelFieldLabelCaption.Text = "Field Label Caption"
-        '
-        'TextBox2
-        '
-        Me.TextBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox2.Location = New System.Drawing.Point(207, 90)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(215, 30)
-        Me.TextBox2.TabIndex = 3
-        '
-        'LabelHeaderTop
-        '
-        Me.LabelHeaderTop.AutoSize = True
-        Me.LabelHeaderTop.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelHeaderTop.Location = New System.Drawing.Point(6, 12)
-        Me.LabelHeaderTop.Name = "LabelHeaderTop"
-        Me.LabelHeaderTop.Size = New System.Drawing.Size(177, 31)
-        Me.LabelHeaderTop.TabIndex = 4
-        Me.LabelHeaderTop.Text = "Text Field # 1"
-        Me.LabelHeaderTop.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(3, 93)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(180, 25)
-        Me.Label1.TabIndex = 5
-        Me.Label1.Text = "Example (Optional)"
         '
         'checkHasPresetValues
         '
@@ -116,7 +86,7 @@ Partial Class UserCustomFieldCtl
         'buttonAddField
         '
         Me.buttonAddField.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.buttonAddField.Location = New System.Drawing.Point(726, 42)
+        Me.buttonAddField.Location = New System.Drawing.Point(713, 43)
         Me.buttonAddField.Name = "buttonAddField"
         Me.buttonAddField.Size = New System.Drawing.Size(108, 51)
         Me.buttonAddField.TabIndex = 8
@@ -142,16 +112,6 @@ Partial Class UserCustomFieldCtl
         Me.linkDeleteField.TabStop = True
         Me.linkDeleteField.Text = "Delete Field"
         '
-        'linkAddPresetValue
-        '
-        Me.linkAddPresetValue.AutoSize = True
-        Me.linkAddPresetValue.Location = New System.Drawing.Point(650, 4)
-        Me.linkAddPresetValue.Name = "linkAddPresetValue"
-        Me.linkAddPresetValue.Size = New System.Drawing.Size(115, 17)
-        Me.linkAddPresetValue.TabIndex = 11
-        Me.linkAddPresetValue.TabStop = True
-        Me.linkAddPresetValue.Text = "Add preset value"
-        '
         'CheckBox2
         '
         Me.CheckBox2.AutoSize = True
@@ -162,12 +122,44 @@ Partial Class UserCustomFieldCtl
         Me.CheckBox2.Text = "Is this an Additional Field?"
         Me.CheckBox2.UseVisualStyleBackColor = True
         '
+        'linkAddPresetValue
+        '
+        Me.linkAddPresetValue.AutoSize = True
+        Me.linkAddPresetValue.Location = New System.Drawing.Point(650, 4)
+        Me.linkAddPresetValue.Name = "linkAddPresetValue"
+        Me.linkAddPresetValue.Size = New System.Drawing.Size(115, 17)
+        Me.linkAddPresetValue.TabIndex = 11
+        Me.linkAddPresetValue.TabStop = True
+        Me.linkAddPresetValue.Text = "Add preset value"
+        '
+        'LinkLabel1
+        '
+        Me.LinkLabel1.AutoSize = True
+        Me.LinkLabel1.Location = New System.Drawing.Point(128, 104)
+        Me.LinkLabel1.Name = "LinkLabel1"
+        Me.LinkLabel1.Size = New System.Drawing.Size(296, 17)
+        Me.LinkLabel1.TabIndex = 13
+        Me.LinkLabel1.TabStop = True
+        Me.LinkLabel1.Text = "Example Value, CIBadge Field, Other Db Field"
+        '
+        'LabelHeaderTop
+        '
+        Me.LabelHeaderTop.AutoSize = True
+        Me.LabelHeaderTop.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelHeaderTop.Location = New System.Drawing.Point(6, 12)
+        Me.LabelHeaderTop.Name = "LabelHeaderTop"
+        Me.LabelHeaderTop.Size = New System.Drawing.Size(177, 31)
+        Me.LabelHeaderTop.TabIndex = 4
+        Me.LabelHeaderTop.Text = "Text Field # 1"
+        Me.LabelHeaderTop.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
         'UserCustomFieldCtl
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.LightCyan
         Me.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Controls.Add(Me.LinkLabel1)
         Me.Controls.Add(Me.CheckBox2)
         Me.Controls.Add(Me.linkAddPresetValue)
         Me.Controls.Add(Me.linkDeleteField)
@@ -175,9 +167,7 @@ Partial Class UserCustomFieldCtl
         Me.Controls.Add(Me.buttonAddField)
         Me.Controls.Add(Me.CheckBox1)
         Me.Controls.Add(Me.checkHasPresetValues)
-        Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.LabelHeaderTop)
-        Me.Controls.Add(Me.TextBox2)
         Me.Controls.Add(Me.LabelFieldLabelCaption)
         Me.Controls.Add(Me.checkIsFieldForDates)
         Me.Controls.Add(Me.textFieldLabel)
@@ -191,14 +181,13 @@ Partial Class UserCustomFieldCtl
     Friend WithEvents textFieldLabel As TextBox
     Friend WithEvents checkIsFieldForDates As CheckBox
     Friend WithEvents LabelFieldLabelCaption As Label
-    Friend WithEvents TextBox2 As TextBox
-    Friend WithEvents LabelHeaderTop As Label
-    Friend WithEvents Label1 As Label
     Friend WithEvents checkHasPresetValues As CheckBox
     Friend WithEvents CheckBox1 As CheckBox
     Friend WithEvents buttonAddField As Button
     Friend WithEvents listPresetValues As ListBox
     Friend WithEvents linkDeleteField As LinkLabel
-    Friend WithEvents linkAddPresetValue As LinkLabel
     Friend WithEvents CheckBox2 As CheckBox
+    Friend WithEvents linkAddPresetValue As LinkLabel
+    Friend WithEvents LinkLabel1 As LinkLabel
+    Friend WithEvents LabelHeaderTop As Label
 End Class
