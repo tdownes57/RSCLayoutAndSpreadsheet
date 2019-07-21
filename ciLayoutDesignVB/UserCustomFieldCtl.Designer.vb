@@ -39,7 +39,7 @@ Partial Class UserCustomFieldCtl
         'textFieldLabel
         '
         Me.textFieldLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.textFieldLabel.Location = New System.Drawing.Point(150, 42)
+        Me.textFieldLabel.Location = New System.Drawing.Point(207, 54)
         Me.textFieldLabel.Name = "textFieldLabel"
         Me.textFieldLabel.Size = New System.Drawing.Size(215, 30)
         Me.textFieldLabel.TabIndex = 0
@@ -47,7 +47,7 @@ Partial Class UserCustomFieldCtl
         'checkIsFieldForDates
         '
         Me.checkIsFieldForDates.AutoSize = True
-        Me.checkIsFieldForDates.Location = New System.Drawing.Point(195, -2)
+        Me.checkIsFieldForDates.Location = New System.Drawing.Point(212, 12)
         Me.checkIsFieldForDates.Name = "checkIsFieldForDates"
         Me.checkIsFieldForDates.Size = New System.Drawing.Size(154, 21)
         Me.checkIsFieldForDates.TabIndex = 1
@@ -56,18 +56,17 @@ Partial Class UserCustomFieldCtl
         '
         'LabelFieldLabelCaption
         '
-        Me.LabelFieldLabelCaption.AutoSize = True
         Me.LabelFieldLabelCaption.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelFieldLabelCaption.Location = New System.Drawing.Point(37, 45)
+        Me.LabelFieldLabelCaption.Location = New System.Drawing.Point(3, 59)
         Me.LabelFieldLabelCaption.Name = "LabelFieldLabelCaption"
-        Me.LabelFieldLabelCaption.Size = New System.Drawing.Size(107, 25)
+        Me.LabelFieldLabelCaption.Size = New System.Drawing.Size(180, 25)
         Me.LabelFieldLabelCaption.TabIndex = 2
-        Me.LabelFieldLabelCaption.Text = "Field Label"
+        Me.LabelFieldLabelCaption.Text = "Field Label Caption"
         '
         'TextBox2
         '
         Me.TextBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox2.Location = New System.Drawing.Point(190, 76)
+        Me.TextBox2.Location = New System.Drawing.Point(207, 90)
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.Size = New System.Drawing.Size(215, 30)
         Me.TextBox2.TabIndex = 3
@@ -76,7 +75,7 @@ Partial Class UserCustomFieldCtl
         '
         Me.LabelHeaderTop.AutoSize = True
         Me.LabelHeaderTop.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelHeaderTop.Location = New System.Drawing.Point(3, 0)
+        Me.LabelHeaderTop.Location = New System.Drawing.Point(6, 12)
         Me.LabelHeaderTop.Name = "LabelHeaderTop"
         Me.LabelHeaderTop.Size = New System.Drawing.Size(177, 31)
         Me.LabelHeaderTop.TabIndex = 4
@@ -87,7 +86,7 @@ Partial Class UserCustomFieldCtl
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(4, 76)
+        Me.Label1.Location = New System.Drawing.Point(3, 93)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(180, 25)
         Me.Label1.TabIndex = 5
@@ -106,7 +105,7 @@ Partial Class UserCustomFieldCtl
         'CheckBox1
         '
         Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(195, 19)
+        Me.CheckBox1.Location = New System.Drawing.Point(212, 33)
         Me.CheckBox1.Name = "CheckBox1"
         Me.CheckBox1.Size = New System.Drawing.Size(200, 21)
         Me.CheckBox1.TabIndex = 7
@@ -127,9 +126,9 @@ Partial Class UserCustomFieldCtl
         '
         Me.listPresetValues.FormattingEnabled = True
         Me.listPresetValues.ItemHeight = 16
-        Me.listPresetValues.Location = New System.Drawing.Point(458, 30)
+        Me.listPresetValues.Location = New System.Drawing.Point(481, 30)
         Me.listPresetValues.Name = "listPresetValues"
-        Me.listPresetValues.Size = New System.Drawing.Size(194, 84)
+        Me.listPresetValues.Size = New System.Drawing.Size(171, 84)
         Me.listPresetValues.TabIndex = 9
         '
         'linkDeleteField
@@ -171,7 +170,7 @@ Partial Class UserCustomFieldCtl
         Me.Controls.Add(Me.checkIsFieldForDates)
         Me.Controls.Add(Me.textFieldLabel)
         Me.Name = "UserCustomFieldCtl"
-        Me.Size = New System.Drawing.Size(837, 123)
+        Me.Size = New System.Drawing.Size(837, 130)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

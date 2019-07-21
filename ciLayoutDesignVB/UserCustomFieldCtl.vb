@@ -6,4 +6,8 @@
     Private Sub TextBox2_TextChanged(sender As Object, e As EventArgs) Handles TextBox2.TextChanged
 
     End Sub
+
+    Private Sub LabelFieldLabelCaption_Click(sender As Object, e As EventArgs) Handles LabelFieldLabelCaption.Click
+
+    End Sub
 End Class
