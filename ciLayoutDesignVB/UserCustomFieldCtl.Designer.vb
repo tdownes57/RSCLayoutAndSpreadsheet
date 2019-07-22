@@ -32,7 +32,7 @@ Partial Class UserCustomFieldCtl
         Me.linkDeleteField = New System.Windows.Forms.LinkLabel()
         Me.CheckBox2 = New System.Windows.Forms.CheckBox()
         Me.linkAddPresetValue = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
+        Me.LinkSupplementary = New System.Windows.Forms.LinkLabel()
         Me.LabelHeaderTop = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
@@ -132,15 +132,15 @@ Partial Class UserCustomFieldCtl
         Me.linkAddPresetValue.TabStop = True
         Me.linkAddPresetValue.Text = "Add preset value"
         '
-        'LinkLabel1
+        'LinkSupplementary
         '
-        Me.LinkLabel1.AutoSize = True
-        Me.LinkLabel1.Location = New System.Drawing.Point(128, 104)
-        Me.LinkLabel1.Name = "LinkLabel1"
-        Me.LinkLabel1.Size = New System.Drawing.Size(296, 17)
-        Me.LinkLabel1.TabIndex = 13
-        Me.LinkLabel1.TabStop = True
-        Me.LinkLabel1.Text = "Example Value, CIBadge Field, Other Db Field"
+        Me.LinkSupplementary.AutoSize = True
+        Me.LinkSupplementary.Location = New System.Drawing.Point(128, 104)
+        Me.LinkSupplementary.Name = "LinkSupplementary"
+        Me.LinkSupplementary.Size = New System.Drawing.Size(296, 17)
+        Me.LinkSupplementary.TabIndex = 13
+        Me.LinkSupplementary.TabStop = True
+        Me.LinkSupplementary.Text = "Example Value, CIBadge Field, Other Db Field"
         '
         'LabelHeaderTop
         '
@@ -159,7 +159,7 @@ Partial Class UserCustomFieldCtl
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.LightCyan
         Me.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Controls.Add(Me.LinkLabel1)
+        Me.Controls.Add(Me.LinkSupplementary)
         Me.Controls.Add(Me.CheckBox2)
         Me.Controls.Add(Me.linkAddPresetValue)
         Me.Controls.Add(Me.linkDeleteField)
@@ -188,6 +188,6 @@ Partial Class UserCustomFieldCtl
     Friend WithEvents linkDeleteField As LinkLabel
     Friend WithEvents CheckBox2 As CheckBox
     Friend WithEvents linkAddPresetValue As LinkLabel
-    Friend WithEvents LinkLabel1 As LinkLabel
+    Friend WithEvents LinkSupplementary As LinkLabel
     Friend WithEvents LabelHeaderTop As Label
 End Class
