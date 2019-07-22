@@ -67,8 +67,8 @@ Public Class LayoutExample
         ''
         ''Added 6/27/2019
         ''
-        Me.mod_form.labelRecipientName.Top = par_textPosition.TopEdgePositionPixels
-        Me.mod_form.labelRecipientName.Left = par_textPosition.LeftEdgePositionPixels
+        mod_form.labelRecipientName.Top = par_textPosition.TopEdgePositionPixels
+        mod_form.labelRecipientName.Left = par_textPosition.LeftEdgePositionPixels
 
         ''Added 6/28/2019 thomas c.d.
         ''
@@ -90,7 +90,8 @@ Public Class LayoutExample
 
         strHexColor = par_textPosition.BackgroundColor.Replace("#", "") ''Added 6/28/2019 thomas downes 
         intColorInDecimalInteger = ConvertHexToInteger(strHexColor)
-        Me.mod_form.labelRecipientName.BackColor = Drawing.Color.FromArgb(intColorInDecimalInteger)
+
+        mod_form.labelRecipientName.BackColor = Drawing.Color.FromArgb(intColorInDecimalInteger)
 
     End Sub ''End of "Public Sub UpdateLabelPositions(......)"
 

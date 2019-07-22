@@ -48,9 +48,6 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DAL">
-      <HintPath>..\..\..\..\Documents\CI Badge (my notes)\CI Libraries (by Rob)\RS2 - Visual Studio 2008\bin\Debug\DAL.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -77,11 +74,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClassCustomField.vb" />
+    <Compile Include="ClassElementPic.vb" />
+    <Compile Include="ClassElementText.vb" />
     <Compile Include="ClassFields.vb" />
+    <Compile Include="ClassLabelToImage.vb" />
+    <Compile Include="ClassLayoutGenerator.vb" />
+    <Compile Include="ClassSerialize.vb" />
     <Compile Include="FormCustomFields.Designer.vb">
       <DependentUpon>FormCustomFields.vb</DependentUpon>
     </Compile>
     <Compile Include="FormCustomFields.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDesignProtoTwo.Designer.vb">
+      <DependentUpon>FormDesignProtoTwo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormDesignProtoTwo.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormMain.Designer.vb">
@@ -97,11 +105,11 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormTestSizing_temp.vb" />
-    <Compile Include="FormDesign.vb">
+    <Compile Include="FormDesignPrototype.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormDesign.Designer.vb">
-      <DependentUpon>FormDesign.vb</DependentUpon>
+    <Compile Include="FormDesignPrototype.Designer.vb">
+      <DependentUpon>FormDesignPrototype.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormDisplay.Designer.vb">
@@ -110,11 +118,15 @@
     <Compile Include="FormDisplay.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="InterfaceElement.vb" />
+    <Compile Include="InterfaceElementPic.vb" />
+    <Compile Include="InterfaceElementText.vb" />
     <Compile Include="LayoutSerialization.vb" />
     <Compile Include="modAdjustmentBoxes_V101.vb" />
     <Compile Include="modAdjustmentBoxes_V102.vb" />
     <Compile Include="modConvertWinLabelsToDrawing.vb" />
     <Compile Include="modConvertWinLabelsToWebCSS.vb" />
+    <Compile Include="ModuleMonem.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -135,8 +147,11 @@
     <EmbeddedResource Include="FormCustomFields.resx">
       <DependentUpon>FormCustomFields.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormDesign.resx">
-      <DependentUpon>FormDesign.vb</DependentUpon>
+    <EmbeddedResource Include="FormDesignProtoTwo.resx">
+      <DependentUpon>FormDesignProtoTwo.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDesignPrototype.resx">
+      <DependentUpon>FormDesignPrototype.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormDisplay.resx">
       <DependentUpon>FormDisplay.vb</DependentUpon>
@@ -176,6 +191,12 @@
     <Content Include="Images\layout_BW.bmp" />
     <Content Include="Images\ORO835 - OrovilleHS.PNG" />
     <Content Include="Images\RotatedLayout.png" />
+    <Content Include="Images\SizeStretchZones.jpg" />
+    <Content Include="Images\SizeStretchZones_V101.bmp" />
+    <Content Include="Images\SizeStretchZones_V101.jpg" />
+    <Content Include="Images\SizeStretchZones_V102.BK2.bmp" />
+    <Content Include="Images\SizeStretchZones_V102.jpg" />
+    <Content Include="Images\SizeStretchZones_V103.bmp" />
     <Content Include="Images\SOU735-SADDLEBACK-VENDOR.jpg" />
     <Content Include="Images\ValleyValleyColl.jpg" />
     <Content Include="ORO835 - OrovilleHS.PNG" />
@@ -200,6 +221,10 @@
     <ProjectReference Include="..\ciLayoutPrintLib\ciLayoutPrintLib.vbproj">
       <Project>{f8271e6c-5c26-4cec-bd4c-ad3b10fef6b9}</Project>
       <Name>ciLayoutPrintLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MoveAndResizeControls_Monem\MoveAndResizeControls_Monem.csproj">
+      <Project>{3d6a51a2-395e-467f-a3c4-8d6ed1da961e}</Project>
+      <Name>MoveAndResizeControls_Monem</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
