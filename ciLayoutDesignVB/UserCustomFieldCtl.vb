@@ -8,7 +8,7 @@ Public Class UserCustomFieldCtl
     ''
     Private mod_model As ICIBFieldCustom
 
-    Public Sub Load_CustomControl(par_info As ICIBFieldCustom)
+    Public Sub Load_CustomField(par_info As ICIBFieldCustom)
         ''
         ''Added 7/21/2019 Thomas DOWNES   
         ''
@@ -22,7 +22,7 @@ Public Class UserCustomFieldCtl
 
         End With ''End of "With par_info"  
 
-    End Sub ''End of "Public Sub Load_CustomControl"
+    End Sub ''End of "Public Sub Load_CustomField"
 
     Private Sub UserCustomFieldCtl_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -48,6 +48,12 @@ Public Class UserCustomFieldCtl
     End Sub
 
     Private Sub LinkAddPresetValue_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles linkAddPresetValue.LinkClicked
+        ''
+        ''Added 7/21/2019 thomas downes
+        ''
+        Dim frm_show As New FormPresetValues
+        frm_show.Load_CustomField(mod_model)
+        frm_show.ShowDialog()
 
     End Sub
 End Class
