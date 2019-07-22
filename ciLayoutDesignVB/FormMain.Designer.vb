@@ -37,6 +37,8 @@ Partial Class FormMain
         Me.SelectFromExistingToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.pictureBack = New System.Windows.Forms.PictureBox()
         Me.LabelHeader1 = New System.Windows.Forms.Label()
+        Me.GridViewTableToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.UserControlsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.pictureBack, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -85,6 +87,7 @@ Partial Class FormMain
         '
         'ConfigureFieldsToolStripMenuItem
         '
+        Me.ConfigureFieldsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.GridViewTableToolStripMenuItem, Me.UserControlsToolStripMenuItem})
         Me.ConfigureFieldsToolStripMenuItem.Name = "ConfigureFieldsToolStripMenuItem"
         Me.ConfigureFieldsToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
         Me.ConfigureFieldsToolStripMenuItem.Text = "Configure Fields"
@@ -148,6 +151,18 @@ Partial Class FormMain
         Me.LabelHeader1.TabIndex = 21
         Me.LabelHeader1.Text = "Your Badge Background:"
         '
+        'GridViewTableToolStripMenuItem
+        '
+        Me.GridViewTableToolStripMenuItem.Name = "GridViewTableToolStripMenuItem"
+        Me.GridViewTableToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
+        Me.GridViewTableToolStripMenuItem.Text = "Grid View / Table"
+        '
+        'UserControlsToolStripMenuItem
+        '
+        Me.UserControlsToolStripMenuItem.Name = "UserControlsToolStripMenuItem"
+        Me.UserControlsToolStripMenuItem.Size = New System.Drawing.Size(225, 26)
+        Me.UserControlsToolStripMenuItem.Text = "User Controls / Flow"
+        '
         'FormMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -183,4 +198,6 @@ Partial Class FormMain
     Friend WithEvents BackgroundImagesToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents UploadNewToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents SelectFromExistingToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents GridViewTableToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents UserControlsToolStripMenuItem As ToolStripMenuItem
 End Class

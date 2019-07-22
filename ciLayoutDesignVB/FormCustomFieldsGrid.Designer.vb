@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class FormCustomFields
+Partial Class FormCustomFieldsGrid
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -24,6 +24,7 @@ Partial Class FormCustomFields
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.TextFieldIdDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DateFieldIdDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.IsDateFieldDataGridViewCheckBoxColumn = New System.Windows.Forms.DataGridViewCheckBoxColumn()
@@ -41,15 +42,26 @@ Partial Class FormCustomFields
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.DataGridView1.AutoGenerateColumns = False
+        Me.DataGridView1.BackgroundColor = System.Drawing.SystemColors.ActiveCaption
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.TextFieldIdDataGridViewTextBoxColumn, Me.DateFieldIdDataGridViewTextBoxColumn, Me.IsDateFieldDataGridViewCheckBoxColumn, Me.TextorDateDataGridViewTextBoxColumn, Me.LabelCaptionDataGridViewTextBoxColumn, Me.ExampleValueToUseInLayoutDataGridViewTextBoxColumn})
         Me.DataGridView1.DataSource = Me.ClassFieldsBindingSource
-        Me.DataGridView1.Location = New System.Drawing.Point(31, 58)
+        Me.DataGridView1.Location = New System.Drawing.Point(31, 84)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.RowHeadersWidth = 51
         Me.DataGridView1.RowTemplate.Height = 24
-        Me.DataGridView1.Size = New System.Drawing.Size(891, 451)
+        Me.DataGridView1.Size = New System.Drawing.Size(1035, 425)
         Me.DataGridView1.TabIndex = 0
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(28, 27)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(312, 36)
+        Me.Label1.TabIndex = 1
+        Me.Label1.Text = "Grid for Custom Fields"
         '
         'TextFieldIdDataGridViewTextBoxColumn
         '
@@ -97,32 +109,35 @@ Partial Class FormCustomFields
         Me.ExampleValueToUseInLayoutDataGridViewTextBoxColumn.HeaderText = "ExampleValueToUseInLayout"
         Me.ExampleValueToUseInLayoutDataGridViewTextBoxColumn.MinimumWidth = 6
         Me.ExampleValueToUseInLayoutDataGridViewTextBoxColumn.Name = "ExampleValueToUseInLayoutDataGridViewTextBoxColumn"
-        Me.ExampleValueToUseInLayoutDataGridViewTextBoxColumn.Width = 125
+        Me.ExampleValueToUseInLayoutDataGridViewTextBoxColumn.Width = 225
         '
         'ClassFieldsBindingSource
         '
         Me.ClassFieldsBindingSource.DataSource = GetType(ciLayoutDesignVB.ClassCustomField)
         '
-        'FormCustomFields
+        'FormCustomFieldsGrid
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(968, 535)
+        Me.ClientSize = New System.Drawing.Size(1112, 535)
+        Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.DataGridView1)
-        Me.Name = "FormCustomFields"
+        Me.Name = "FormCustomFieldsGrid"
         Me.Text = "FormCustomFields"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.ClassFieldsBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
     Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents ClassFieldsBindingSource As BindingSource
+    Friend WithEvents Label1 As Label
     Friend WithEvents TextFieldIdDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents DateFieldIdDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents IsDateFieldDataGridViewCheckBoxColumn As DataGridViewCheckBoxColumn
     Friend WithEvents TextorDateDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents LabelCaptionDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents ExampleValueToUseInLayoutDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
-    Friend WithEvents ClassFieldsBindingSource As BindingSource
 End Class

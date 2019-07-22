@@ -26,7 +26,7 @@ Public Class LayoutElementGenerator
 
 
 
-        Return New ClassElementText(par_control As Control)
+        Return New ClassElementText(par_control)
 
     End Function
 

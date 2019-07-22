@@ -80,16 +80,28 @@
     <Compile Include="ClassLabelToImage.vb" />
     <Compile Include="ClassLayoutGenerator.vb" />
     <Compile Include="ClassSerialize.vb" />
-    <Compile Include="FormCustomFields.Designer.vb">
-      <DependentUpon>FormCustomFields.vb</DependentUpon>
+    <Compile Include="FormCustomFieldsFlow.Designer.vb">
+      <DependentUpon>FormCustomFieldsFlow.vb</DependentUpon>
     </Compile>
-    <Compile Include="FormCustomFields.vb">
+    <Compile Include="FormCustomFieldsFlow.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCustomFieldsGrid.Designer.vb">
+      <DependentUpon>FormCustomFieldsGrid.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormCustomFieldsGrid.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormDesignProtoTwo.Designer.vb">
       <DependentUpon>FormDesignProtoTwo.vb</DependentUpon>
     </Compile>
     <Compile Include="FormDesignProtoTwo.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormExampleValueEtc.Designer.vb">
+      <DependentUpon>FormExampleValueEtc.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormExampleValueEtc.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormMain.Designer.vb">
@@ -118,6 +130,7 @@
     <Compile Include="FormDisplay.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="InterfaceCIBField.vb" />
     <Compile Include="InterfaceElement.vb" />
     <Compile Include="InterfaceElementPic.vb" />
     <Compile Include="InterfaceElementText.vb" />
@@ -142,10 +155,25 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="UserAddFieldControl.Designer.vb">
+      <DependentUpon>UserAddFieldControl.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UserAddFieldControl.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserCustomFieldCtl.Designer.vb">
+      <DependentUpon>UserCustomFieldCtl.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UserCustomFieldCtl.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="FormCustomFields.resx">
-      <DependentUpon>FormCustomFields.vb</DependentUpon>
+    <EmbeddedResource Include="FormCustomFieldsFlow.resx">
+      <DependentUpon>FormCustomFieldsFlow.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormCustomFieldsGrid.resx">
+      <DependentUpon>FormCustomFieldsGrid.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormDesignProtoTwo.resx">
       <DependentUpon>FormDesignProtoTwo.vb</DependentUpon>
@@ -156,6 +184,9 @@
     <EmbeddedResource Include="FormDisplay.resx">
       <DependentUpon>FormDisplay.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormExampleValueEtc.resx">
+      <DependentUpon>FormExampleValueEtc.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.vb</DependentUpon>
     </EmbeddedResource>
@@ -164,6 +195,12 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserAddFieldControl.resx">
+      <DependentUpon>UserAddFieldControl.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserCustomFieldCtl.resx">
+      <DependentUpon>UserCustomFieldCtl.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
