@@ -48,6 +48,13 @@ Public Class UserCustomFieldCtl
     End Sub
 
     Private Sub LinkAddPresetValue_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles linkAddPresetValue.LinkClicked
+        ''
+        ''Added 7/21/2019 thomas downes
+        ''
+        Dim frm_show As New FormPresetValues
+
+        frm_show.Load_CustomField(mod_model)
+        frm_show.ShowDialog()
 
     End Sub
 End Class

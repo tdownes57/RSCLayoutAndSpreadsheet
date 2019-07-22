@@ -1,4 +1,21 @@
 ﻿Public Class FormExampleValueEtc
+
+    Private mod_model As ClassCustomField
+
+    Public Sub Load_CustomField(par_model As ClassCustomField)
+
+
+
+
+    End Sub
+
+    Public Sub Save_CustomField()
+
+
+
+
+    End Sub
+
     Private Sub ButtonCancel_Click(sender As Object, e As EventArgs) Handles ButtonCancel.Click
 
     End Sub
@@ -12,6 +29,10 @@
     End Sub
 
     Private Sub TextBox2_TextChanged(sender As Object, e As EventArgs) Handles TextBox2.TextChanged
+
+    End Sub
+
+    Private Sub FormExampleValueEtc_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
     End Sub
 End Class
