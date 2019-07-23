@@ -26,11 +26,11 @@ Partial Class UserCustomFieldCtl
         Me.checkIsFieldForDates = New System.Windows.Forms.CheckBox()
         Me.LabelFieldLabelCaption = New System.Windows.Forms.Label()
         Me.checkHasPresetValues = New System.Windows.Forms.CheckBox()
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.checkIsLocked = New System.Windows.Forms.CheckBox()
         Me.buttonAddField = New System.Windows.Forms.Button()
         Me.listPresetValues = New System.Windows.Forms.ListBox()
         Me.linkDeleteField = New System.Windows.Forms.LinkLabel()
-        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
+        Me.checkIsAdditionalField = New System.Windows.Forms.CheckBox()
         Me.linkAddPresetValue = New System.Windows.Forms.LinkLabel()
         Me.LinkSupplementary = New System.Windows.Forms.LinkLabel()
         Me.LabelHeaderTop = New System.Windows.Forms.Label()
@@ -73,15 +73,15 @@ Partial Class UserCustomFieldCtl
         Me.checkHasPresetValues.Text = "Are there preset values?"
         Me.checkHasPresetValues.UseVisualStyleBackColor = True
         '
-        'CheckBox1
+        'checkIsLocked
         '
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(212, 33)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(200, 21)
-        Me.CheckBox1.TabIndex = 7
-        Me.CheckBox1.Text = "Is this locked to stop edits?"
-        Me.CheckBox1.UseVisualStyleBackColor = True
+        Me.checkIsLocked.AutoSize = True
+        Me.checkIsLocked.Location = New System.Drawing.Point(212, 33)
+        Me.checkIsLocked.Name = "checkIsLocked"
+        Me.checkIsLocked.Size = New System.Drawing.Size(200, 21)
+        Me.checkIsLocked.TabIndex = 7
+        Me.checkIsLocked.Text = "Is this locked to stop edits?"
+        Me.checkIsLocked.UseVisualStyleBackColor = True
         '
         'buttonAddField
         '
@@ -112,15 +112,15 @@ Partial Class UserCustomFieldCtl
         Me.linkDeleteField.TabStop = True
         Me.linkDeleteField.Text = "Delete Field"
         '
-        'CheckBox2
+        'checkIsAdditionalField
         '
-        Me.CheckBox2.AutoSize = True
-        Me.CheckBox2.Location = New System.Drawing.Point(458, 104)
-        Me.CheckBox2.Name = "CheckBox2"
-        Me.CheckBox2.Size = New System.Drawing.Size(194, 21)
-        Me.CheckBox2.TabIndex = 12
-        Me.CheckBox2.Text = "Is this an Additional Field?"
-        Me.CheckBox2.UseVisualStyleBackColor = True
+        Me.checkIsAdditionalField.AutoSize = True
+        Me.checkIsAdditionalField.Location = New System.Drawing.Point(458, 104)
+        Me.checkIsAdditionalField.Name = "checkIsAdditionalField"
+        Me.checkIsAdditionalField.Size = New System.Drawing.Size(194, 21)
+        Me.checkIsAdditionalField.TabIndex = 12
+        Me.checkIsAdditionalField.Text = "Is this an Additional Field?"
+        Me.checkIsAdditionalField.UseVisualStyleBackColor = True
         '
         'linkAddPresetValue
         '
@@ -160,12 +160,12 @@ Partial Class UserCustomFieldCtl
         Me.BackColor = System.Drawing.Color.LightCyan
         Me.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Controls.Add(Me.LinkSupplementary)
-        Me.Controls.Add(Me.CheckBox2)
+        Me.Controls.Add(Me.checkIsAdditionalField)
         Me.Controls.Add(Me.linkAddPresetValue)
         Me.Controls.Add(Me.linkDeleteField)
         Me.Controls.Add(Me.listPresetValues)
         Me.Controls.Add(Me.buttonAddField)
-        Me.Controls.Add(Me.CheckBox1)
+        Me.Controls.Add(Me.checkIsLocked)
         Me.Controls.Add(Me.checkHasPresetValues)
         Me.Controls.Add(Me.LabelHeaderTop)
         Me.Controls.Add(Me.LabelFieldLabelCaption)
@@ -182,11 +182,11 @@ Partial Class UserCustomFieldCtl
     Friend WithEvents checkIsFieldForDates As CheckBox
     Friend WithEvents LabelFieldLabelCaption As Label
     Friend WithEvents checkHasPresetValues As CheckBox
-    Friend WithEvents CheckBox1 As CheckBox
+    Friend WithEvents checkIsLocked As CheckBox
     Friend WithEvents buttonAddField As Button
     Friend WithEvents listPresetValues As ListBox
     Friend WithEvents linkDeleteField As LinkLabel
-    Friend WithEvents CheckBox2 As CheckBox
+    Friend WithEvents checkIsAdditionalField As CheckBox
     Friend WithEvents linkAddPresetValue As LinkLabel
     Friend WithEvents LinkSupplementary As LinkLabel
     Friend WithEvents LabelHeaderTop As Label

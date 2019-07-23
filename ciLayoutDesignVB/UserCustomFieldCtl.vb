@@ -7,6 +7,12 @@ Public Class UserCustomFieldCtl
     ''Added 7/21/2019 td
     ''
     Private mod_model As ICIBFieldCustom
+    Private mod_model_copy As ClassCustomField ''Added 7/23/2019 thomas d. 
+
+    Private mod_arrayOfValues As String() ''Added 7/23/2019 td 
+    Private mod_s_CIBadgeField As String '' = .CIBadgeField_Optional
+    Private mod_s_OtherDbField As String '' = .OtherDbField_Optional
+    Private mod_s_ExampleValue As String '' = .ExampleValue
 
     Public Sub Load_CustomControl(par_info As ICIBFieldCustom)
         ''
@@ -14,15 +20,50 @@ Public Class UserCustomFieldCtl
         ''
         mod_model = par_info
 
+        ''mod_model_copy = par_info.GetClone() ''Added 7/23/2019 td
+        mod_model_copy = New ClassCustomField
+        mod_model_copy.Load_ByCopyingMembers(par_info)
+
         With par_info
 
+            mod_arrayOfValues = .ArrayOfValues
+            ''Me.CIBadgeField = .CIBadgeField_Optional
 
+            mod_s_CIBadgeField = .CIBadgeField_Optional
+            mod_s_OtherDbField = .OtherDbField_Optional
+            mod_s_ExampleValue = .ExampleValue
 
-
+            checkHasPresetValues.Checked = .HasPresetValues
+            textFieldLabel.Text = .FieldLabelCaption
+            checkIsFieldForDates.Checked = .IsFieldForDates
+            checkIsLocked.Checked = .IsLocked
+            checkIsAdditionalField.Checked = .IsAdditionalField
+            listPresetValues.Items.AddRange(.ArrayOfValues)
 
         End With ''End of "With par_info"  
 
     End Sub ''End of "Public Sub Load_CustomControl"
+
+    Public Sub Save_CustomControl()
+        ''
+        ''Added 7/21/2019 Thomas DOWNES   
+        ''
+        With mod_model
+
+            .HasPresetValues = checkHasPresetValues.Checked
+            .FieldLabelCaption = textFieldLabel.Text
+            .IsFieldForDates = checkIsFieldForDates.Checked
+            .IsLocked = checkIsLocked.Checked
+            .IsAdditionalField = checkIsAdditionalField.Checked
+            .ArrayOfValues = mod_arrayOfValues
+
+            .CIBadgeField_Optional = mod_s_CIBadgeField '' = .CIBadgeField_Optional
+            .OtherDbField_Optional = mod_s_OtherDbField '' = .OtherDbField_Optional
+            .ExampleValue = mod_s_ExampleValue '' = .ExampleValue
+
+        End With ''End of "With par_info"  
+
+    End Sub
 
     Private Sub UserCustomFieldCtl_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -42,8 +83,27 @@ Public Class UserCustomFieldCtl
         ''
         Dim frm_show As New FormExampleValueEtc
 
-        frm_show.Load_CustomField(mod_model)
+        ''frm_show.Load_CustomField(mod_model)
+        frm_show.Load_CustomField(mod_model_copy)
+        ''frm_show.checkHasPresetValues.Checked = checkHasPresetValues.Checked
+        ''frm_show.listPresetValues_NotInUse.Items.Clear()
+        ''frm_show.listPresetValues_NotInUse.Items.Add(mod_arrayOfValues)
+
+        frm_show.textExampleValue.Text = mod_model_copy.ExampleValue
+        frm_show.textOtherDbField.Text = mod_model_copy.CIBadgeField_Optional
+        frm_show.TextBox2.Text = mod_model_copy.OtherDbField_Optional
+
         frm_show.ShowDialog()
+
+        ''
+        ''Did the user press OK (rather than Cancel)?  
+        ''
+        If (frm_show.DialogResult = vbOK) Then
+
+            check
+
+
+        End If ''ENd of "If (frm_show.DialogResult = vbOK) Then"
 
     End Sub
 
@@ -53,8 +113,42 @@ Public Class UserCustomFieldCtl
         ''
         Dim frm_show As New FormPresetValues
 
-        frm_show.Load_CustomField(mod_model)
+        mod_model_copy.HasPresetValues = Me.checkHasPresetValues.Checked
+        mod_model_copy.ArrayOfValues = mod_arrayOfValues
+
+        frm_show.Load_CustomField(mod_model_copy)
+        frm_show.checkHasPresetValues.Checked = Me.checkHasPresetValues.Checked
+        frm_show.listPresetValues.Items.Clear()
+        frm_show.listPresetValues.Items.AddRange(mod_arrayOfValues)
+
         frm_show.ShowDialog()
 
+        ''
+        ''Did the user press OK (rather than Cancel)?  
+        ''
+        If (frm_show.DialogResult = vbOK) Then
+
+            Me.checkHasPresetValues.Checked = frm_show.checkHasPresetValues.Checked
+            listPresetValues.Items.Clear()
+            frm_show.listPresetValues.Items.CopyTo(mod_arrayOfValues, 0)
+            listPresetValues.Items.AddRange(mod_arrayOfValues)
+
+        End If ''ENd of "If (frm_show.DialogResult = vbOK) Then"
+
     End Sub
+
+    Private Sub ButtonAddField_Click(sender As Object, e As EventArgs) Handles buttonAddField.Click
+
+    End Sub
+
+    Private Sub LinkDeleteField_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles linkDeleteField.LinkClicked
+        ''
+        ''Added 7/22/2019 thomas downes
+        ''
+        Dim objFlowPanel As FlowLayoutPanel
+        objFlowPanel = CType(Me.Parent, FlowLayoutPanel)
+        objFlowPanel.Controls.Remove(Me)
+
+    End Sub
+
 End Class

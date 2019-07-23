@@ -190,4 +190,24 @@ Public Class ClassCustomField
 
     End Sub
 
+    Public Sub Load_ByCopyingMembers(par_info As ICIBFieldCustom)
+        ''
+        ''Added 7/23/2019 td
+        ''
+        Me.ArrayOfValues = par_info.ArrayOfValues
+        Me.CIBadgeField_Optional = par_info.CIBadgeField_Optional
+        Me.ExampleValue = par_info.ExampleValue
+        Me.FieldIndex = par_info.FieldIndex
+        Me.FieldLabelCaption = par_info.FieldLabelCaption
+        Me.HasPresetValues = par_info.HasPresetValues
+        Me.IsAdditionalField = par_info.IsAdditionalField
+        Me.IsFieldForDates = par_info.IsFieldForDates
+        Me.IsLocked = par_info.IsLocked
+
+        Me.FieldType_TD = par_info.FieldType_TD
+
+
+
+    End Sub
+
 End Class

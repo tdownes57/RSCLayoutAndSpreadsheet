@@ -24,7 +24,7 @@
 
     End Sub
 
-    Private Sub ListPresetValues_SelectedIndexChanged(sender As Object, e As EventArgs) Handles listPresetValues.SelectedIndexChanged
+    Private Sub ListPresetValues_SelectedIndexChanged(sender As Object, e As EventArgs) Handles listPresetValues_NotInUse.SelectedIndexChanged
 
     End Sub
 
