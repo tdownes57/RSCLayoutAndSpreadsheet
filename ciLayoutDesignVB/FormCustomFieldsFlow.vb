@@ -43,11 +43,23 @@ Public Class FormCustomFieldsFlow
 
         ''7/21/2019 td''FlowLayoutPanel1.Controls.Add(New UserCustomFieldCtl())
 
-        userControl.Load_CustomField(CType(par_customfld, ICIBFieldCustom))
+        userControl.Load_CustomControl(CType(par_customfld, ICIBFieldCustom))
 
         FlowLayoutPanel1.Controls.Add(userControl)
 
     End Sub ''End of "Private Sub LoadCustomField_Each(par_customfld As ClassCustomField)"
 
+    Private Sub FormCustomFieldsFlow_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        ''
+        ''Added 7/23/2019 td  
+        ''
+        For Each each_control As Control In FlowLayoutPanel1.Controls
 
+            If (TypeOf each_control Is UserAddFieldControl) Then Continue For
+
+            CType(each_control, UserCustomFieldCtl).Save_CustomControl()
+
+        Next each_control
+
+    End Sub
 End Class

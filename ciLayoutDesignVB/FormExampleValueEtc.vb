@@ -35,4 +35,10 @@
     Private Sub FormExampleValueEtc_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
     End Sub
+
+    Private Sub FormExampleValueEtc_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        ''
+        ''Nothing to do here.  It's all done by the parent, UserControlCustomField.
+        ''
+    End Sub
 End Class
