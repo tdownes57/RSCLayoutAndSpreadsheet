@@ -1,28 +1,22 @@
-﻿Option Explicit On
-Option Infer On
-Option Strict On
+﻿Public Class FormPresetValues
 
-Public Class FormPresetValues
+    Private mod_model As ClassCustomField
 
-    Private mod_model As ICIBFieldCustom ''Added 7/21/2019 td
-
-    Public Sub Load_CustomField(par_info As ICIBFieldCustom)
-        ''
-        ''Added 7/21/2019 Thomas DOWNES   
-        ''
-        mod_model = par_info
-
-        With par_info
+    Public Sub Load_CustomField(par_model As ClassCustomField)
 
 
 
 
+    End Sub
 
-        End With ''End of "With par_info"  
+    Public Sub Save_CustomField()
 
-    End Sub ''End of "Public Sub Load_CustomField"
 
-    Private Sub LinkLabel1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
+
+
+    End Sub
+
+    Private Sub FormPresetValues_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
     End Sub
 End Class
