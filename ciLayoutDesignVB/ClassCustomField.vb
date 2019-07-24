@@ -26,78 +26,78 @@ Public Class ClassCustomField
     Public Property OtherDbField_Optional As String Implements ICIBFieldCustom.OtherDbField_Optional ''Added 7/21/2019 Thomas DOWNES 
 
     Public Property FieldLabelCaption As String Implements ICIBFieldCustom.FieldLabelCaption
-        Get
-            Throw New NotImplementedException()
-        End Get
-        Set(value As String)
-            Throw New NotImplementedException()
-        End Set
-    End Property
+    ''    Get
+    ''        Throw New NotImplementedException()
+    ''    End Get
+    ''    Set(value As String)
+    ''        Throw New NotImplementedException()
+    ''    End Set
+    ''End Property
 
     Public Property FieldType_TD As Char Implements ICIBFieldCustom.FieldType_TD
-        Get
-            Throw New NotImplementedException()
-        End Get
-        Set(value As Char)
-            Throw New NotImplementedException()
-        End Set
-    End Property
+    ''    Get
+    ''        Throw New NotImplementedException()
+    ''    End Get
+    ''    Set(value As Char)
+    ''        Throw New NotImplementedException()
+    ''    End Set
+    ''End Property
 
     Public Property FieldIndex As Integer Implements ICIBFieldCustom.FieldIndex
-        Get
-            Throw New NotImplementedException()
-        End Get
-        Set(value As Integer)
-            Throw New NotImplementedException()
-        End Set
-    End Property
+    ''    Get
+    ''        Throw New NotImplementedException()
+    ''    End Get
+    ''    Set(value As Integer)
+    ''        Throw New NotImplementedException()
+    ''    End Set
+    ''End Property
 
     Public Property IsFieldForDates As Boolean Implements ICIBFieldCustom.IsFieldForDates
-        Get
-            Throw New NotImplementedException()
-        End Get
-        Set(value As Boolean)
-            Throw New NotImplementedException()
-        End Set
-    End Property
+    ''    Get
+    ''        Throw New NotImplementedException()
+    ''    End Get
+    ''    Set(value As Boolean)
+    ''        Throw New NotImplementedException()
+    ''    End Set
+    ''End Property
 
     Public Property IsLocked As Boolean Implements ICIBFieldCustom.IsLocked
-        Get
-            Throw New NotImplementedException()
-        End Get
-        Set(value As Boolean)
-            Throw New NotImplementedException()
-        End Set
-    End Property
+    ''    Get
+    ''        Throw New NotImplementedException()
+    ''    End Get
+    ''    Set(value As Boolean)
+    ''        Throw New NotImplementedException()
+    ''    End Set
+    ''End Property
 
     Public Property ExampleValue As String Implements ICIBFieldCustom.ExampleValue
-        Get
-            Throw New NotImplementedException()
-        End Get
-        Set(value As String)
-            Throw New NotImplementedException()
-        End Set
-    End Property
+    ''    Get
+    ''        Throw New NotImplementedException()
+    ''    End Get
+    ''    Set(value As String)
+    ''        Throw New NotImplementedException()
+    ''    End Set
+    ''End Property
 
     Public Property HasPresetValues As Boolean Implements ICIBFieldCustom.HasPresetValues
-        Get
-            Throw New NotImplementedException()
-        End Get
-        Set(value As Boolean)
-            Throw New NotImplementedException()
-        End Set
-    End Property
+    ''    Get
+    ''        Throw New NotImplementedException()
+    ''    End Get
+    ''    Set(value As Boolean)
+    ''        Throw New NotImplementedException()
+    ''    End Set
+    ''End Property
 
     Public Property ArrayOfValues As String() Implements ICIBFieldCustom.ArrayOfValues
-        Get
-            Throw New NotImplementedException()
-        End Get
-        Set(value As String())
-            Throw New NotImplementedException()
-        End Set
-    End Property
+    ''    Get
+    ''        Throw New NotImplementedException()
+    ''    End Get
+    ''    Set(value As String())
+    ''        Throw New NotImplementedException()
+    ''    End Set
+    ''End Property
 
-    ''Public Property OtherDbFieldname As String Implements ICIBFieldCustom.OtherDbField_Optional
+    Public Property OtherDbFieldname As String Implements ICIBFieldCustom.OtherDbField_Optional
     ''    Get
     ''        Throw New NotImplementedException()
     ''    End Get
@@ -107,13 +107,13 @@ Public Class ClassCustomField
     ''End Property
 
     Public Property IsAdditionalField As Boolean Implements ICIBFieldCustom.IsAdditionalField
-        Get
-            Throw New NotImplementedException()
-        End Get
-        Set(value As Boolean)
-            Throw New NotImplementedException()
-        End Set
-    End Property
+    ''    Get
+    ''        Throw New NotImplementedException()
+    ''    End Get
+    ''    Set(value As Boolean)
+    ''        Throw New NotImplementedException()
+    ''    End Set
+    ''End Property
 
 
     ''
