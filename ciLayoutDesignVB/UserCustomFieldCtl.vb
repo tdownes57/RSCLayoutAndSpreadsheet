@@ -81,29 +81,49 @@ Public Class UserCustomFieldCtl
         ''
         ''Added 7/21/2019 thomas downes
         ''
-        Dim frm_show As New FormExampleValueEtc
+        Dim frm_showExampleEtc As New FormExampleValueEtc
 
-        ''frm_show.Load_CustomField(mod_model)
-        frm_show.Load_CustomField(mod_model_copy)
-        ''frm_show.checkHasPresetValues.Checked = checkHasPresetValues.Checked
-        ''frm_show.listPresetValues_NotInUse.Items.Clear()
-        ''frm_show.listPresetValues_NotInUse.Items.Add(mod_arrayOfValues)
+        With frm_showExampleEtc
 
-        frm_show.textExampleValue.Text = mod_model_copy.ExampleValue
-        frm_show.textOtherDbField.Text = mod_model_copy.CIBadgeField_Optional
-        frm_show.TextBox2.Text = mod_model_copy.OtherDbField_Optional
+            ''frm_show.Load_CustomField(mod_model)
 
-        frm_show.ShowDialog()
+            .Load_CustomField(mod_model_copy)
 
-        ''
-        ''Did the user press OK (rather than Cancel)?  
-        ''
-        If (frm_show.DialogResult = vbOK) Then
+            ''frm_show.checkHasPresetValues.Checked = checkHasPresetValues.Checked
+            ''frm_show.listPresetValues_NotInUse.Items.Clear()
+            ''frm_show.listPresetValues_NotInUse.Items.Add(mod_arrayOfValues)
 
-            check
+            .textExampleValue.Text = mod_model_copy.ExampleValue
+            .textOtherDbField.Text = mod_model_copy.OtherDbField_Optional
 
+            Dim boolSpecificCIBField As Boolean ''Added 7/23/2019 td
+            boolSpecificCIBField = ("" <> mod_model_copy.CIBadgeField_Optional)
 
-        End If ''ENd of "If (frm_show.DialogResult = vbOK) Then"
+            If (boolSpecificCIBField) Then
+                .dropdownCIBFields.SelectedValue = mod_model_copy.CIBadgeField_Optional
+            End If ''End of "If (boolSpecificCIBField) Then"
+
+            .ShowDialog()
+
+            ''
+            ''Did the user press OK (rather than Cancel)?  
+            ''
+            If (.DialogResult = vbOK) Then
+
+                mod_s_ExampleValue = .textExampleValue.Text
+                mod_s_OtherDbField = .textOtherDbField.Text
+
+                boolSpecificCIBField = (-1 < .dropdownCIBFields.SelectedIndex)
+
+                If (boolSpecificCIBField) Then
+                    mod_s_CIBadgeField = .dropdownCIBFields.SelectedValue.ToString
+                Else
+                    mod_s_CIBadgeField = ""
+                End If ''End of "If (boolSpecificCIBField) Then .... Else ...."
+
+            End If ''ENd of "If (frm_show.DialogResult = vbOK) Then"
+
+        End With ''end of "With frm_showExampleEtc"
 
     End Sub
 

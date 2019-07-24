@@ -31,11 +31,6 @@ Partial Class FormExampleValueEtc
         Me.ButtonOK = New System.Windows.Forms.Button()
         Me.ButtonCancel = New System.Windows.Forms.Button()
         Me.dropdownCIBFields = New System.Windows.Forms.ComboBox()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.listPresetValues_NotInUse = New System.Windows.Forms.ListBox()
-        Me.checkHasPresetValues = New System.Windows.Forms.CheckBox()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
-        Me.ButtonAddValue = New System.Windows.Forms.Button()
         Me.LabelReminderFootnote = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
@@ -107,6 +102,7 @@ Partial Class FormExampleValueEtc
         '
         'ButtonCancel
         '
+        Me.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.ButtonCancel.Location = New System.Drawing.Point(357, 228)
         Me.ButtonCancel.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.ButtonCancel.Name = "ButtonCancel"
@@ -126,59 +122,6 @@ Partial Class FormExampleValueEtc
         Me.dropdownCIBFields.Size = New System.Drawing.Size(215, 33)
         Me.dropdownCIBFields.TabIndex = 12
         '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(8, 305)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(183, 31)
-        Me.Label3.TabIndex = 13
-        Me.Label3.Text = "Preset Values"
-        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'listPresetValues_NotInUse
-        '
-        Me.listPresetValues_NotInUse.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.listPresetValues_NotInUse.FormattingEnabled = True
-        Me.listPresetValues_NotInUse.ItemHeight = 20
-        Me.listPresetValues_NotInUse.Location = New System.Drawing.Point(89, 412)
-        Me.listPresetValues_NotInUse.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.listPresetValues_NotInUse.Name = "listPresetValues_NotInUse"
-        Me.listPresetValues_NotInUse.Size = New System.Drawing.Size(315, 44)
-        Me.listPresetValues_NotInUse.TabIndex = 15
-        '
-        'checkHasPresetValues
-        '
-        Me.checkHasPresetValues.AutoSize = True
-        Me.checkHasPresetValues.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.checkHasPresetValues.Location = New System.Drawing.Point(89, 338)
-        Me.checkHasPresetValues.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.checkHasPresetValues.Name = "checkHasPresetValues"
-        Me.checkHasPresetValues.Size = New System.Drawing.Size(214, 24)
-        Me.checkHasPresetValues.TabIndex = 14
-        Me.checkHasPresetValues.Text = "Are there preset values?"
-        Me.checkHasPresetValues.UseVisualStyleBackColor = True
-        '
-        'TextBox2
-        '
-        Me.TextBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox2.Location = New System.Drawing.Point(89, 369)
-        Me.TextBox2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(237, 30)
-        Me.TextBox2.TabIndex = 18
-        '
-        'ButtonAddValue
-        '
-        Me.ButtonAddValue.Location = New System.Drawing.Point(332, 363)
-        Me.ButtonAddValue.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.ButtonAddValue.Name = "ButtonAddValue"
-        Me.ButtonAddValue.Size = New System.Drawing.Size(104, 36)
-        Me.ButtonAddValue.TabIndex = 19
-        Me.ButtonAddValue.Text = "Add Value"
-        Me.ButtonAddValue.UseVisualStyleBackColor = True
-        '
         'LabelReminderFootnote
         '
         Me.LabelReminderFootnote.AutoSize = True
@@ -194,13 +137,8 @@ Partial Class FormExampleValueEtc
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.ButtonCancel
-        Me.ClientSize = New System.Drawing.Size(459, 294)
+        Me.ClientSize = New System.Drawing.Size(459, 300)
         Me.Controls.Add(Me.LabelReminderFootnote)
-        Me.Controls.Add(Me.ButtonAddValue)
-        Me.Controls.Add(Me.TextBox2)
-        Me.Controls.Add(Me.listPresetValues_NotInUse)
-        Me.Controls.Add(Me.checkHasPresetValues)
-        Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.dropdownCIBFields)
         Me.Controls.Add(Me.ButtonCancel)
         Me.Controls.Add(Me.ButtonOK)
@@ -227,10 +165,5 @@ Partial Class FormExampleValueEtc
     Friend WithEvents ButtonOK As Button
     Friend WithEvents ButtonCancel As Button
     Friend WithEvents dropdownCIBFields As ComboBox
-    Friend WithEvents Label3 As Label
-    Friend WithEvents listPresetValues_NotInUse As ListBox
-    Friend WithEvents checkHasPresetValues As CheckBox
-    Friend WithEvents TextBox2 As TextBox
-    Friend WithEvents ButtonAddValue As Button
     Friend WithEvents LabelReminderFootnote As Label
 End Class

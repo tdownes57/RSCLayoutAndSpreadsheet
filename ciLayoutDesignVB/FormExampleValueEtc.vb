@@ -24,11 +24,11 @@
 
     End Sub
 
-    Private Sub ListPresetValues_SelectedIndexChanged(sender As Object, e As EventArgs) Handles listPresetValues_NotInUse.SelectedIndexChanged
+    Private Sub ListPresetValues_SelectedIndexChanged(sender As Object, e As EventArgs) 
 
     End Sub
 
-    Private Sub TextBox2_TextChanged(sender As Object, e As EventArgs) Handles TextBox2.TextChanged
+    Private Sub TextBox2_TextChanged(sender As Object, e As EventArgs) 
 
     End Sub
 
