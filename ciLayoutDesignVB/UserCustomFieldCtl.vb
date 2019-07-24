@@ -24,6 +24,11 @@ Public Class UserCustomFieldCtl
         mod_model_copy = New ClassCustomField
         mod_model_copy.Load_ByCopyingMembers(par_info)
 
+        LabelHeaderTop.Text = mod_model_copy.FieldLabelCaption
+
+        ''If a fieldname is missing, then display the field index. 
+        If (LabelHeaderTop.Text = "") Then If (mod_model_copy.FieldIndex > 0) Then LabelHeaderTop.Text = "Field # " & CStr(mod_model_copy.FieldIndex)
+
         With par_info
 
             mod_arrayOfValues = .ArrayOfValues
@@ -38,7 +43,10 @@ Public Class UserCustomFieldCtl
             checkIsFieldForDates.Checked = .IsFieldForDates
             checkIsLocked.Checked = .IsLocked
             checkIsAdditionalField.Checked = .IsAdditionalField
-            listPresetValues.Items.AddRange(.ArrayOfValues)
+
+            If (.ArrayOfValues IsNot Nothing) Then
+                listPresetValues.Items.AddRange(.ArrayOfValues)
+            End If ''End of "If (.ArrayOfValues IsNot Nothing) Then"
 
         End With ''End of "With par_info"  
 
@@ -139,7 +147,10 @@ Public Class UserCustomFieldCtl
         frm_show.Load_CustomField(mod_model_copy)
         frm_show.checkHasPresetValues.Checked = Me.checkHasPresetValues.Checked
         frm_show.listPresetValues.Items.Clear()
-        frm_show.listPresetValues.Items.AddRange(mod_arrayOfValues)
+
+        If (mod_arrayOfValues IsNot Nothing) Then
+            frm_show.listPresetValues.Items.AddRange(mod_arrayOfValues)
+        End If
 
         frm_show.ShowDialog()
 

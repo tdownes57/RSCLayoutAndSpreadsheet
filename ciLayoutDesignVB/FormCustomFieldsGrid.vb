@@ -8,11 +8,15 @@ Public Class FormCustomFieldsGrid
 
     Public Shared FieldsList_Static As New List(Of ClassCustomField)
 
+    Public Property ListOfFields As List(Of ClassCustomField)
+
     Private Sub FormCustomFields_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
         ''Added 7/17/2019 thomas downes
         ''
         If (0 = FieldsList_Static.Count) Then PopulateStaticList()
+
+        If (ListOfFields IsNot Nothing) Then DataGridView1.DataSource = ListOfFields
 
     End Sub
 

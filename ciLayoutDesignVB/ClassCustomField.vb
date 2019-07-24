@@ -97,7 +97,7 @@ Public Class ClassCustomField
     ''    End Set
     ''End Property
 
-    Public Property OtherDbFieldname As String Implements ICIBFieldCustom.OtherDbField_Optional
+    ''Public Property OtherDbFieldname As String Implements ICIBFieldCustom.OtherDbField_Optional
     ''    Get
     ''        Throw New NotImplementedException()
     ''    End Get
@@ -122,7 +122,7 @@ Public Class ClassCustomField
     Public Shared ListOfFields_Students As New List(Of ClassCustomField)
     Public Shared ListOfFields_Staff As New List(Of ClassCustomField)
 
-    Public Shared Sub InitializeHardcodedList_Students()
+    Public Shared Sub InitializeHardcodedList_Students(pboolOnlyIfNeeded As Boolean)
         ''
         ''Stubbed 7/16/2019 td
         ''
@@ -131,6 +131,11 @@ Public Class ClassCustomField
         ''Dim intIndex As Integer ''= 1 To 3
 
         ''For intIndex = 1 To 3
+
+        ''Added 7/23/2019 thomas
+        With ListOfFields_Students
+            If (pboolOnlyIfNeeded And .Count > 0) Then Exit Sub
+        End With
 
         Dim new_object1 As New ClassCustomField
         With new_object1
@@ -148,7 +153,7 @@ Public Class ClassCustomField
         ListOfFields_Students.Add(new_object1)
 
         Dim new_object2 As New ClassCustomField
-        With new_object1
+        With new_object2
             .TextFieldId = 2
             .FieldLabelCaption = "Teacher Name"
             .CIBadgeField_Optional = "" ''Optional. 
@@ -177,18 +182,61 @@ Public Class ClassCustomField
 
     End Sub ''End of "InitializeHardcodedList_Students()"
 
-    Public Shared Sub InitializeHardcodedList_Staff()
+    Public Shared Sub InitializeHardcodedList_Staff(pboolOnlyIfNeeded As Boolean)
         ''
         ''Stubbed 7/16/2019 td
         ''
         ''  Add Schoolname, Job Title, GradeLevel (if applicable). 
         ''
+        ''Added 7/23/2019 thomas
+        With ListOfFields_Staff
+            If (pboolOnlyIfNeeded And .Count > 0) Then Exit Sub
+        End With
 
+        Dim new_object1 As New ClassCustomField
+        With new_object1
+            .TextFieldId = 1
+            .FieldLabelCaption = "School Name"
+            .CIBadgeField_Optional = "" ''Optional. 
+            .FieldType_TD = "T"c
+            .HasPresetValues = True
+            .IsAdditionalField = False
+            ''.IsDateField = False
+            .IsFieldForDates = False
+            .ExampleValue = "Willcrest School"
+            .ArrayOfValues = New String() {"Willcrest School", "Woodbridge School"}
+        End With
+        ListOfFields_Staff.Add(new_object1)
 
+        Dim new_object2 As New ClassCustomField
+        With new_object1
+            .TextFieldId = 2
+            .FieldLabelCaption = "Job Title"
+            .CIBadgeField_Optional = "" ''Optional. 
+            .FieldType_TD = "T"c
+            .HasPresetValues = True
+            .IsAdditionalField = False
+            ''.IsDateField = False
+            .IsFieldForDates = False
+            .ArrayOfValues = New String() {"Teacher", "Custodian", "Security", "Admin"}
+        End With
+        ListOfFields_Staff.Add(new_object2)
 
+        Dim new_object3 As New ClassCustomField
+        With new_object3
+            .TextFieldId = 3
+            .FieldLabelCaption = "Grade Level If Applicable"
+            .CIBadgeField_Optional = "" ''Optional. 
+            .FieldType_TD = "T"c
+            .HasPresetValues = True
+            .IsAdditionalField = False
+            ''.IsDateField = False
+            .IsFieldForDates = False
+            .ArrayOfValues = New String() {"9th", "10th", "11th", "12th"}
+        End With
+        ListOfFields_Staff.Add(new_object3)
 
-
-    End Sub
+    End Sub ''End of "InitializeHardcodedList_Staff()"
 
     Public Sub Load_ByCopyingMembers(par_info As ICIBFieldCustom)
         ''
