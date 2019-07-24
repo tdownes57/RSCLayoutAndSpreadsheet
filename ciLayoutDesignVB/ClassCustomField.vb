@@ -253,8 +253,7 @@ Public Class ClassCustomField
         Me.IsLocked = par_info.IsLocked
 
         Me.FieldType_TD = par_info.FieldType_TD
-
-
+        Me.OtherDbField_Optional = par_info.OtherDbField_Optional  ''Added 7/23/2019 td 
 
     End Sub
 

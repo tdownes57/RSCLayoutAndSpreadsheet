@@ -114,6 +114,7 @@ Partial Class FormExampleValueEtc
         '
         'dropdownCIBFields
         '
+        Me.dropdownCIBFields.BackColor = System.Drawing.SystemColors.Menu
         Me.dropdownCIBFields.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dropdownCIBFields.FormattingEnabled = True
         Me.dropdownCIBFields.Items.AddRange(New Object() {"TextField01", "TextField02", "TextField03", "TextField04", "TextField05", "TextFiedl06", "DateField01", "DateField02", "DateField03", "DateField04", "DateField05"})

@@ -108,7 +108,8 @@ Public Class UserCustomFieldCtl
             boolSpecificCIBField = ("" <> mod_model_copy.CIBadgeField_Optional)
 
             If (boolSpecificCIBField) Then
-                .dropdownCIBFields.SelectedValue = mod_model_copy.CIBadgeField_Optional
+                ''.dropdownCIBFields.SelectedValue = mod_model_copy.CIBadgeField_Optional
+                .dropdownCIBFields.SelectedItem = mod_model_copy.CIBadgeField_Optional
             End If ''End of "If (boolSpecificCIBField) Then"
 
             .ShowDialog()
@@ -118,15 +119,20 @@ Public Class UserCustomFieldCtl
             ''
             If (.DialogResult = vbOK) Then
 
+                mod_model_copy.ExampleValue = .textExampleValue.Text
+                mod_model_copy.OtherDbField_Optional = .textOtherDbField.Text
+
                 mod_s_ExampleValue = .textExampleValue.Text
                 mod_s_OtherDbField = .textOtherDbField.Text
 
                 boolSpecificCIBField = (-1 < .dropdownCIBFields.SelectedIndex)
 
                 If (boolSpecificCIBField) Then
-                    mod_s_CIBadgeField = .dropdownCIBFields.SelectedValue.ToString
+                    mod_s_CIBadgeField = .dropdownCIBFields.SelectedItem.ToString
+                    mod_model_copy.CIBadgeField_Optional = mod_s_CIBadgeField
                 Else
                     mod_s_CIBadgeField = ""
+                    mod_model_copy.CIBadgeField_Optional = ""
                 End If ''End of "If (boolSpecificCIBField) Then .... Else ...."
 
             End If ''ENd of "If (frm_show.DialogResult = vbOK) Then"
