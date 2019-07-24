@@ -105,6 +105,7 @@ Partial Class FormPresetValues
         'ButtonOK
         '
         Me.ButtonOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ButtonOK.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.ButtonOK.Location = New System.Drawing.Point(224, 256)
         Me.ButtonOK.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.ButtonOK.Name = "ButtonOK"
@@ -127,7 +128,7 @@ Partial Class FormPresetValues
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.ButtonCancel)
         Me.Controls.Add(Me.ButtonOK)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "FormPresetValues"
         Me.Text = "FormPresetValues"
         Me.ResumeLayout(False)

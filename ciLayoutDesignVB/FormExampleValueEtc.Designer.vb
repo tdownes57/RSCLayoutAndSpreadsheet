@@ -92,6 +92,7 @@ Partial Class FormExampleValueEtc
         '
         'ButtonOK
         '
+        Me.ButtonOK.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.ButtonOK.Location = New System.Drawing.Point(209, 228)
         Me.ButtonOK.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.ButtonOK.Name = "ButtonOK"
