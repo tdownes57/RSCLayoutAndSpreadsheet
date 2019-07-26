@@ -57,10 +57,10 @@ Public Class FormDesignProtoTwo
         ''
         mod_Pic = New ClassElementPic(pictureboxPic)
 
-        mod_RecipientID = mod_generator.GetRecipientID(PictureBox10) ''New ClassElementText
-        mod_NameFull = mod_generator.GetFullName(PictureBox11) ''New ClassElementText
+        mod_RecipientID = mod_generator.GetRecipientID(GraphicFieldLabel1) ''New ClassElementText
+        mod_NameFull = mod_generator.GetFullName(GraphicFieldLabel2) ''New ClassElementText
 
-        mod_Text1 = mod_generator.GetTextField1(PictureBox12) ''New ClassElementText
+        mod_Text1 = mod_generator.GetTextField1(gr) ''New ClassElementText
         mod_Text2 = mod_generator.GetTextField2(PictureBox13) ''New ClassElementText
         mod_Text3 = mod_generator.GetTextField3(PictureBox14)
 
