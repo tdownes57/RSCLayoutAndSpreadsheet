@@ -67,6 +67,10 @@ Public Class FormDesignProtoTwo
         mod_Date1 = mod_generator.GetDateField1(PictureBox15) ''New ClassElementText
         mod_Date2 = mod_generator.GetDateField2(PictureBox16) ''New ClassElementText
 
+
+
+
+
     End Sub ''End of ''Private Sub LoadElements()''
 
     Private Sub LoadElementGenerator()
@@ -80,6 +84,18 @@ Public Class FormDesignProtoTwo
     End Sub
 
     Private Sub PictureboxPic_Click(sender As Object, e As EventArgs) Handles pictureboxPic.Click
+
+    End Sub
+
+    Private Sub PictureBox10_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub GraphicFieldLabel1_Load(sender As Object, e As EventArgs) Handles GraphicFieldLabel1.Load
+
+    End Sub
+
+    Private Sub GraphicFieldLabel4_Load(sender As Object, e As EventArgs) Handles GraphicFieldLabel4.Load
 
     End Sub
 End Class
