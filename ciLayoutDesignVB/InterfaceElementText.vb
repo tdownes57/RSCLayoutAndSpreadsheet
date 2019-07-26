@@ -24,7 +24,9 @@ Public Interface IElementText
 
     Property FieldInCardData As String
     Property FieldLabelCaption As String
-    Property ExampleText As String ''E.g. "George Washington" for FullName. 
+
+    ''7/25/2019 td''Prpoerty ExampleText As String ''Added 7/25/2019
+    Property Text As String ''E.g. "George Washington" for FullName. 
 
 
     Property Alignment As System.Windows.Forms.HorizontalAlignment
@@ -33,7 +35,6 @@ Public Interface IElementText
     Property OrientationToLayout As String ''E.g. "L" (Landscape) (by far the most common) or "P" for Portrait  
 
     Property OrientationInDegrees As Integer ''Default is 0, normal.  90 would be 1/4 turn clockwise.  180 is upside-down.  270 is the printing on the spine of a book sitting on the bookshelf.
-
 
 
 
