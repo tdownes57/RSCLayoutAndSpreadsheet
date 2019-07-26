@@ -52,7 +52,7 @@ Public Class FormCustomFieldsFlow
         ''
         ''Add 7/21/2019
         ''
-        FlowLayoutPanel1.Controls.Add(New UserAddFieldControl())
+        FlowLayoutPanel1.Controls.Add(New CtlAddCustomField())
 
     End Sub ''End of "Private Sub LoadFields()"  
 
@@ -60,7 +60,7 @@ Public Class FormCustomFieldsFlow
         ''
         ''Added 7/ 21/2019
         ''
-        Dim userControl As New UserCustomFieldCtl
+        Dim userControl As New CtlConfigFldCustom
 
         ''7/21/2019 td''FlowLayoutPanel1.Controls.Add(New UserCustomFieldCtl())
 
@@ -77,9 +77,9 @@ Public Class FormCustomFieldsFlow
         ''
         For Each each_control As Control In FlowLayoutPanel1.Controls
 
-            If (TypeOf each_control Is UserAddFieldControl) Then Continue For
+            If (TypeOf each_control Is CtlAddCustomField) Then Continue For
 
-            CType(each_control, UserCustomFieldCtl).Save_CustomControl()
+            CType(each_control, CtlConfigFldCustom).Save_CustomControl()
 
         Next each_control
 

@@ -83,6 +83,12 @@
     <Compile Include="ClassLayoutGenerator.vb" />
     <Compile Include="ClassSerialize.vb" />
     <Compile Include="ComClass1.vb" />
+    <Compile Include="CtlConfigFldStandard.Designer.vb">
+      <DependentUpon>CtlConfigFldStandard.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CtlConfigFldStandard.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="FormCustomFieldsFlow.Designer.vb">
       <DependentUpon>FormCustomFieldsFlow.vb</DependentUpon>
     </Compile>
@@ -170,20 +176,23 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="UserAddFieldControl.Designer.vb">
-      <DependentUpon>UserAddFieldControl.vb</DependentUpon>
+    <Compile Include="CtlAddCustomField.Designer.vb">
+      <DependentUpon>CtlAddCustomField.vb</DependentUpon>
     </Compile>
-    <Compile Include="UserAddFieldControl.vb">
+    <Compile Include="CtlAddCustomField.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserCustomFieldCtl.Designer.vb">
-      <DependentUpon>UserCustomFieldCtl.vb</DependentUpon>
+    <Compile Include="CtlConfigFldCustom.Designer.vb">
+      <DependentUpon>CtlConfigFldCustom.vb</DependentUpon>
     </Compile>
-    <Compile Include="UserCustomFieldCtl.vb">
+    <Compile Include="CtlConfigFldCustom.vb">
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="CtlConfigFldStandard.resx">
+      <DependentUpon>CtlConfigFldStandard.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormCustomFieldsFlow.resx">
       <DependentUpon>FormCustomFieldsFlow.vb</DependentUpon>
     </EmbeddedResource>
@@ -217,11 +226,11 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserAddFieldControl.resx">
-      <DependentUpon>UserAddFieldControl.vb</DependentUpon>
+    <EmbeddedResource Include="CtlAddCustomField.resx">
+      <DependentUpon>CtlAddCustomField.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserCustomFieldCtl.resx">
-      <DependentUpon>UserCustomFieldCtl.vb</DependentUpon>
+    <EmbeddedResource Include="CtlConfigFldCustom.resx">
+      <DependentUpon>CtlConfigFldCustom.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

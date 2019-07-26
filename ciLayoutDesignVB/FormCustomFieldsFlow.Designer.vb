@@ -24,7 +24,7 @@ Partial Class FormCustomFieldsFlow
     Private Sub InitializeComponent()
         Me.LabelHeaderCaption = New System.Windows.Forms.Label()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
-        Me.UserAddFieldControl1 = New ciLayoutDesignVB.UserAddFieldControl()
+        Me.UserAddFieldControl1 = New ciLayoutDesignVB.CtlAddCustomField()
         Me.chkIncludeExampleValues = New System.Windows.Forms.CheckBox()
         Me.chkIncludeCIBField = New System.Windows.Forms.CheckBox()
         Me.FlowLayoutPanel1.SuspendLayout()
@@ -105,7 +105,7 @@ Partial Class FormCustomFieldsFlow
 
     Friend WithEvents LabelHeaderCaption As Label
     Friend WithEvents FlowLayoutPanel1 As FlowLayoutPanel
-    Friend WithEvents UserAddFieldControl1 As UserAddFieldControl
+    Friend WithEvents UserAddFieldControl1 As CtlAddCustomField
     Friend WithEvents chkIncludeExampleValues As CheckBox
     Friend WithEvents chkIncludeCIBField As CheckBox
 End Class

@@ -2,7 +2,7 @@
 ''Added 7/21/2019 thomas downes 
 ''
 
-Public Class UserCustomFieldCtl
+Public Class CtlConfigFldCustom
     ''
     ''Added 7/21/2019 td
     ''

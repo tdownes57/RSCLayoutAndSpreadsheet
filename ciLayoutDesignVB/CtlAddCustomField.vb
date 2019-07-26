@@ -1,4 +1,4 @@
-﻿Public Class UserAddFieldControl
+﻿Public Class CtlAddCustomField
 
     Private mod_MyParentContainer As FlowLayoutPanel ''ContainerControl
 
@@ -8,7 +8,7 @@
 
         Me.Parent.Controls.Remove(Me)
 
-        Dim newfieldControl As New UserCustomFieldCtl
+        Dim newfieldControl As New CtlConfigFldCustom
         mod_MyParentContainer.Controls.Add(newfieldControl)
         mod_MyParentContainer.Controls.Add(Me)
         ''Moved down.''mod_MyParentContainer.ScrollControlIntoView(Me)
