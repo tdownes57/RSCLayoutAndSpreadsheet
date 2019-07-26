@@ -38,10 +38,12 @@ Public Class GraphicFieldLabel
 
             Case Else
 
+                ''Default value.
                 Me.ElementInfo.Info.Text = $"Field #{Me.FieldInfo.FieldIndex}"
 
-        End Select
+        End Select ''End of "Select Case True"
 
+        Return "Field Information"
 
     End Function ''End of "Public Function LabelText() As String"
 
