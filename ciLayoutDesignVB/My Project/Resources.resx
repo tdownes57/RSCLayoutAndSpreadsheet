@@ -130,6 +130,9 @@
   <data name="JaneMulvey_1015" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\JaneMulvey_1015.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="SizeAdjustmentBar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\SizeAdjustmentBar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="V381" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\V381.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
