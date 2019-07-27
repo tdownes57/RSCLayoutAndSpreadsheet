@@ -29,6 +29,9 @@ Partial Class FormPresetValues
         Me.Label3 = New System.Windows.Forms.Label()
         Me.ButtonCancel = New System.Windows.Forms.Button()
         Me.ButtonOK = New System.Windows.Forms.Button()
+        Me.LabelPresetValueHdr = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.LinkCreateSubsection = New System.Windows.Forms.LinkLabel()
         Me.SuspendLayout()
         '
         'ButtonAddValue
@@ -64,7 +67,7 @@ Partial Class FormPresetValues
         Me.listPresetValues.Location = New System.Drawing.Point(89, 138)
         Me.listPresetValues.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.listPresetValues.Name = "listPresetValues"
-        Me.listPresetValues.Size = New System.Drawing.Size(345, 84)
+        Me.listPresetValues.Size = New System.Drawing.Size(345, 184)
         Me.listPresetValues.TabIndex = 24
         '
         'checkHasPresetValues
@@ -94,7 +97,7 @@ Partial Class FormPresetValues
         '
         Me.ButtonCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.ButtonCancel.Location = New System.Drawing.Point(372, 256)
+        Me.ButtonCancel.Location = New System.Drawing.Point(372, 406)
         Me.ButtonCancel.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.ButtonCancel.Name = "ButtonCancel"
         Me.ButtonCancel.Size = New System.Drawing.Size(77, 59)
@@ -106,7 +109,7 @@ Partial Class FormPresetValues
         '
         Me.ButtonOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonOK.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.ButtonOK.Location = New System.Drawing.Point(224, 256)
+        Me.ButtonOK.Location = New System.Drawing.Point(224, 406)
         Me.ButtonOK.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.ButtonOK.Name = "ButtonOK"
         Me.ButtonOK.Size = New System.Drawing.Size(125, 59)
@@ -114,13 +117,48 @@ Partial Class FormPresetValues
         Me.ButtonOK.Text = "OK"
         Me.ButtonOK.UseVisualStyleBackColor = True
         '
+        'LabelPresetValueHdr
+        '
+        Me.LabelPresetValueHdr.AutoSize = True
+        Me.LabelPresetValueHdr.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelPresetValueHdr.Location = New System.Drawing.Point(17, 333)
+        Me.LabelPresetValueHdr.Name = "LabelPresetValueHdr"
+        Me.LabelPresetValueHdr.Size = New System.Drawing.Size(107, 20)
+        Me.LabelPresetValueHdr.TabIndex = 27
+        Me.LabelPresetValueHdr.Text = "Preset value:"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(130, 333)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(152, 20)
+        Me.Label1.TabIndex = 28
+        Me.Label1.Text = "Washington High"
+        '
+        'LinkCreateSubsection
+        '
+        Me.LinkCreateSubsection.AutoSize = True
+        Me.LinkCreateSubsection.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LinkCreateSubsection.Location = New System.Drawing.Point(18, 365)
+        Me.LinkCreateSubsection.Name = "LinkCreateSubsection"
+        Me.LinkCreateSubsection.Size = New System.Drawing.Size(327, 20)
+        Me.LinkCreateSubsection.TabIndex = 29
+        Me.LinkCreateSubsection.TabStop = True
+        Me.LinkCreateSubsection.Tag = "Create a sub-section for: {0}"
+        Me.LinkCreateSubsection.Text = "Create a sub-section for Washington High."
+        '
         'FormPresetValues
         '
         Me.AcceptButton = Me.ButtonOK
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.ButtonCancel
-        Me.ClientSize = New System.Drawing.Size(464, 329)
+        Me.ClientSize = New System.Drawing.Size(464, 479)
+        Me.Controls.Add(Me.LinkCreateSubsection)
+        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.LabelPresetValueHdr)
         Me.Controls.Add(Me.ButtonAddValue)
         Me.Controls.Add(Me.TextBox2)
         Me.Controls.Add(Me.listPresetValues)
@@ -143,4 +181,7 @@ Partial Class FormPresetValues
     Friend WithEvents Label3 As Label
     Friend WithEvents ButtonCancel As Button
     Friend WithEvents ButtonOK As Button
+    Friend WithEvents LabelPresetValueHdr As Label
+    Friend WithEvents Label1 As Label
+    Friend WithEvents LinkCreateSubsection As LinkLabel
 End Class

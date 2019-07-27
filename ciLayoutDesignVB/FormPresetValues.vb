@@ -19,4 +19,16 @@
     Private Sub FormPresetValues_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
     End Sub
+
+    Private Sub ListPresetValues_SelectedIndexChanged(sender As Object, e As EventArgs) Handles listPresetValues.SelectedIndexChanged
+
+    End Sub
+
+    Private Sub LinkCreateSubsection_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkCreateSubsection.LinkClicked
+
+        ''Added 7/26/2019 td
+        Dim frm_ToShow As New FormSubsection
+        frm_ToShow.Show()
+
+    End Sub
 End Class

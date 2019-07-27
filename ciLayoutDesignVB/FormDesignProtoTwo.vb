@@ -35,7 +35,14 @@ Public Class FormDesignProtoTwo
         ''
         ''Added 7/18/2019 thomas downes 
         ''
-        LoadElementGenerator
+        LoadElementGenerator()
+
+        Me.Controls.Remove(GraphicFieldLabel1)
+        Me.Controls.Remove(GraphicFieldLabel2)
+        Me.Controls.Remove(GraphicFieldLabel3)
+        Me.Controls.Remove(GraphicFieldLabel4)
+        Me.Controls.Remove(GraphicFieldLabel5)
+
 
         LoadElements()
 
