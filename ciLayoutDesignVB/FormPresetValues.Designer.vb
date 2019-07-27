@@ -23,7 +23,7 @@ Partial Class FormPresetValues
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.ButtonAddValue = New System.Windows.Forms.Button()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.textNewPresetValue = New System.Windows.Forms.TextBox()
         Me.listPresetValues = New System.Windows.Forms.ListBox()
         Me.checkHasPresetValues = New System.Windows.Forms.CheckBox()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -45,16 +45,16 @@ Partial Class FormPresetValues
         Me.ButtonAddValue.Text = "Add Value"
         Me.ButtonAddValue.UseVisualStyleBackColor = True
         '
-        'TextBox2
+        'textNewPresetValue
         '
-        Me.TextBox2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.textNewPresetValue.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox2.Location = New System.Drawing.Point(89, 95)
-        Me.TextBox2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(237, 30)
-        Me.TextBox2.TabIndex = 25
+        Me.textNewPresetValue.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.textNewPresetValue.Location = New System.Drawing.Point(89, 95)
+        Me.textNewPresetValue.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.textNewPresetValue.Name = "textNewPresetValue"
+        Me.textNewPresetValue.Size = New System.Drawing.Size(237, 30)
+        Me.textNewPresetValue.TabIndex = 25
         '
         'listPresetValues
         '
@@ -160,7 +160,7 @@ Partial Class FormPresetValues
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.LabelPresetValueHdr)
         Me.Controls.Add(Me.ButtonAddValue)
-        Me.Controls.Add(Me.TextBox2)
+        Me.Controls.Add(Me.textNewPresetValue)
         Me.Controls.Add(Me.listPresetValues)
         Me.Controls.Add(Me.checkHasPresetValues)
         Me.Controls.Add(Me.Label3)
@@ -175,7 +175,7 @@ Partial Class FormPresetValues
     End Sub
 
     Friend WithEvents ButtonAddValue As Button
-    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents textNewPresetValue As TextBox
     Friend WithEvents listPresetValues As ListBox
     Friend WithEvents checkHasPresetValues As CheckBox
     Friend WithEvents Label3 As Label

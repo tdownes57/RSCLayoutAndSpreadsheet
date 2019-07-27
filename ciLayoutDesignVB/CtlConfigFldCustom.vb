@@ -17,6 +17,8 @@ Public Class CtlConfigFldCustom
     Private mod_s_OtherDbField As String '' = .OtherDbField_Optional
     Private mod_s_ExampleValue As String '' = .ExampleValue
 
+    Private mod_loading As Boolean = True ''Added 7/27/2019 td
+
     Public Sub Load_CustomControl(par_info As ICIBFieldStandardOrCustom)
         ''
         ''Added 7/21/2019 Thomas DOWNES   
@@ -52,6 +54,10 @@ Public Class CtlConfigFldCustom
             End If ''End of "If (.ArrayOfValues IsNot Nothing) Then"
 
         End With ''End of "With par_info"  
+
+ExitHandler:
+        ''Added 7/27/2019 thomas downes
+        mod_loading = False
 
     End Sub ''End of "Public Sub Load_CustomControl"
 
@@ -198,10 +204,14 @@ Public Class CtlConfigFldCustom
         ''
         ''Added 7/27/2019
         ''
+        If (mod_loading) Then Exit Sub ''Added 7//27/2019 td
+
         mod_model_copy.FieldLabelCaption = CType(sender, TextBox).Text
 
         ''Added 7/27/2019 td  
-        LabelFieldLabelCaption.Text = CType(sender, TextBox).Text
+        ''7/27/ td''LabelFieldLabelCaption.Text = CType(sender, TextBox).Text
+
+        LabelHeaderTop.Text = CType(sender, TextBox).Text
 
     End Sub
 End Class

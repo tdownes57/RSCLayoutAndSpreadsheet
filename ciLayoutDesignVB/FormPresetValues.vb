@@ -31,4 +31,14 @@
         frm_ToShow.Show()
 
     End Sub
+
+    Private Sub ButtonAddValue_Click(sender As Object, e As EventArgs) Handles ButtonAddValue.Click
+
+        Dim strNewPresetValue As String ''Added 7/27/2019 td
+        strNewPresetValue = textNewPresetValue.Text
+
+        listPresetValues.Items.Add(strNewPresetValue)
+
+
+    End Sub
 End Class

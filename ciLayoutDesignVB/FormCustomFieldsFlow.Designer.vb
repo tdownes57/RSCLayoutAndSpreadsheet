@@ -24,10 +24,11 @@ Partial Class FormCustomFieldsFlow
     Private Sub InitializeComponent()
         Me.LabelHeaderCaption = New System.Windows.Forms.Label()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
-        Me.UserAddFieldControl1 = New ciLayoutDesignVB.CtlAddCustomField()
         Me.chkIncludeExampleValues = New System.Windows.Forms.CheckBox()
         Me.chkIncludeCIBField = New System.Windows.Forms.CheckBox()
         Me.linkLabelRefresh = New System.Windows.Forms.LinkLabel()
+        Me.UserAddFieldControl1 = New ciLayoutDesignVB.CtlAddCustomField()
+        Me.LinkLabelAddField = New System.Windows.Forms.LinkLabel()
         Me.FlowLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -54,17 +55,9 @@ Partial Class FormCustomFieldsFlow
         Me.FlowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
         Me.FlowLayoutPanel1.Location = New System.Drawing.Point(12, 76)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(872, 539)
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(872, 526)
         Me.FlowLayoutPanel1.TabIndex = 3
         Me.FlowLayoutPanel1.WrapContents = False
-        '
-        'UserAddFieldControl1
-        '
-        Me.UserAddFieldControl1.BackColor = System.Drawing.Color.LightCyan
-        Me.UserAddFieldControl1.Location = New System.Drawing.Point(3, 3)
-        Me.UserAddFieldControl1.Name = "UserAddFieldControl1"
-        Me.UserAddFieldControl1.Size = New System.Drawing.Size(837, 123)
-        Me.UserAddFieldControl1.TabIndex = 4
         '
         'chkIncludeExampleValues
         '
@@ -91,18 +84,38 @@ Partial Class FormCustomFieldsFlow
         'linkLabelRefresh
         '
         Me.linkLabelRefresh.AutoSize = True
-        Me.linkLabelRefresh.Location = New System.Drawing.Point(343, 56)
+        Me.linkLabelRefresh.Location = New System.Drawing.Point(413, 43)
         Me.linkLabelRefresh.Name = "linkLabelRefresh"
         Me.linkLabelRefresh.Size = New System.Drawing.Size(184, 17)
         Me.linkLabelRefresh.TabIndex = 6
         Me.linkLabelRefresh.TabStop = True
         Me.linkLabelRefresh.Text = "Save && Refresh the Window"
         '
+        'UserAddFieldControl1
+        '
+        Me.UserAddFieldControl1.BackColor = System.Drawing.Color.LightCyan
+        Me.UserAddFieldControl1.Location = New System.Drawing.Point(3, 3)
+        Me.UserAddFieldControl1.Name = "UserAddFieldControl1"
+        Me.UserAddFieldControl1.Size = New System.Drawing.Size(837, 123)
+        Me.UserAddFieldControl1.TabIndex = 4
+        '
+        'LinkLabelAddField
+        '
+        Me.LinkLabelAddField.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.LinkLabelAddField.AutoSize = True
+        Me.LinkLabelAddField.Location = New System.Drawing.Point(364, 620)
+        Me.LinkLabelAddField.Name = "LinkLabelAddField"
+        Me.LinkLabelAddField.Size = New System.Drawing.Size(149, 17)
+        Me.LinkLabelAddField.TabIndex = 7
+        Me.LinkLabelAddField.TabStop = True
+        Me.LinkLabelAddField.Text = "Add New Custom Field"
+        '
         'FormCustomFieldsFlow
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(912, 646)
+        Me.Controls.Add(Me.LinkLabelAddField)
         Me.Controls.Add(Me.linkLabelRefresh)
         Me.Controls.Add(Me.chkIncludeCIBField)
         Me.Controls.Add(Me.chkIncludeExampleValues)
@@ -122,4 +135,5 @@ Partial Class FormCustomFieldsFlow
     Friend WithEvents chkIncludeExampleValues As CheckBox
     Friend WithEvents chkIncludeCIBField As CheckBox
     Friend WithEvents linkLabelRefresh As LinkLabel
+    Friend WithEvents LinkLabelAddField As LinkLabel
 End Class
