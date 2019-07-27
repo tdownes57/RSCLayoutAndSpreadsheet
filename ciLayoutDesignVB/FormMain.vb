@@ -7,20 +7,33 @@ Option Strict On
 
 Public Class FormMain
 
-    Private mod_currentConfigID As Integer ''Added 7/23/2019 thomas downes  
+    Private Shared mod_currentConfigID As Integer ''Added 7/23/2019 thomas downes  
 
-    Private Function GetCurrentPersonality_Fields() As List(Of ClassCustomField)
+    Public Shared Function GetCurrentPersonality_Fields_Custom() As List(Of ClassFieldCustomized)
         ''
         ''Added 7/23/2019 thomas downes
         ''
-        ClassCustomField.InitializeHardcodedList_Students(True)
-        ClassCustomField.InitializeHardcodedList_Staff(True)
+        ClassFieldCustomized.InitializeHardcodedList_Students(True)
+        ClassFieldCustomized.InitializeHardcodedList_Staff(True)
 
-        If (2 <> mod_currentConfigID) Then Return ClassCustomField.ListOfFields_Students
-        If (2 = mod_currentConfigID) Then Return ClassCustomField.ListOfFields_Staff
+        If (2 <> mod_currentConfigID) Then Return ClassFieldCustomized.ListOfFields_Students
+        If (2 = mod_currentConfigID) Then Return ClassFieldCustomized.ListOfFields_Staff
         Return Nothing
 
-    End Function
+    End Function ''eNd of "Public Function GetCurrentPersonality_Fields_Custom() As List(Of ClassFieldCustomized)"
+
+    Public Shared Function GetCurrentPersonality_Fields_Standard() As List(Of ClassFieldStandard)
+        ''
+        ''Added 7/26/2019 thomas downes
+        ''
+        ClassFieldStandard.InitializeHardcodedList_Students(True)
+        ClassFieldStandard.InitializeHardcodedList_Staff(True)
+
+        If (2 <> mod_currentConfigID) Then Return ClassFieldStandard.ListOfFields_Students
+        If (2 = mod_currentConfigID) Then Return ClassFieldStandard.ListOfFields_Staff
+        Return Nothing
+
+    End Function ''eNd of "Public Function GetCurrentPersonality_Fields_Standard() As List(Of ClassFieldStandard)"
 
     Private Sub ToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem1.Click
         ''Added 7/17/2019 thomas downes
@@ -50,7 +63,8 @@ Public Class FormMain
         ''Added 7/17/2019 thomas downes
         ''
         Dim frm_ToShow As New FormCustomFieldsGrid()
-        frm_ToShow.ListOfFields = GetCurrentPersonality_Fields()
+        ''7/26/2019 td''frm_ToShow.ListOfFields = GetCurrentPersonality_Fields()
+        frm_ToShow.ListOfFields = GetCurrentPersonality_Fields_Custom()
         frm_ToShow.Show()
 
     End Sub
@@ -60,7 +74,8 @@ Public Class FormMain
         ''Added 7/17/2019 thomas downes
         ''
         Dim frm_ToShow As New FormCustomFieldsFlow()
-        frm_ToShow.ListOfFields = GetCurrentPersonality_Fields()
+        ''7/26/2019 td''frm_ToShow.ListOfFields = GetCurrentPersonality_Fields()
+        frm_ToShow.ListOfFields = GetCurrentPersonality_Fields_Custom()
         frm_ToShow.Show()
 
     End Sub
@@ -70,8 +85,8 @@ Public Class FormMain
         ''Added 7/23/2019 thomas downes
         ''
         Dim frm_ToShow As New FormCustomFieldsGrid()
-        ClassCustomField.InitializeHardcodedList_Students(True)
-        frm_ToShow.ListOfFields = ClassCustomField.ListOfFields_Students
+        ClassFieldCustomized.InitializeHardcodedList_Students(True)
+        frm_ToShow.ListOfFields = ClassFieldCustomized.ListOfFields_Students
         frm_ToShow.Show()
 
     End Sub
@@ -81,8 +96,8 @@ Public Class FormMain
         ''Added 7/23/2019 thomas downes
         ''
         Dim frm_ToShow As New FormCustomFieldsFlow()
-        ClassCustomField.InitializeHardcodedList_Students(True)
-        frm_ToShow.ListOfFields = ClassCustomField.ListOfFields_Students
+        ClassFieldCustomized.InitializeHardcodedList_Students(True)
+        frm_ToShow.ListOfFields = ClassFieldCustomized.ListOfFields_Students
         frm_ToShow.Show()
 
     End Sub
@@ -92,8 +107,8 @@ Public Class FormMain
         ''Added 7/23/2019 thomas downes
         ''
         Dim frm_ToShow As New FormCustomFieldsFlow()
-        ClassCustomField.InitializeHardcodedList_Staff(True)
-        frm_ToShow.ListOfFields = ClassCustomField.ListOfFields_Staff
+        ClassFieldCustomized.InitializeHardcodedList_Staff(True)
+        frm_ToShow.ListOfFields = ClassFieldCustomized.ListOfFields_Staff
         frm_ToShow.Show()
 
     End Sub
@@ -103,8 +118,8 @@ Public Class FormMain
         ''Added 7/23/2019 thomas downes
         ''
         Dim frm_ToShow As New FormCustomFieldsGrid()
-        ClassCustomField.InitializeHardcodedList_Staff(True)
-        frm_ToShow.ListOfFields = ClassCustomField.ListOfFields_Staff
+        ClassFieldCustomized.InitializeHardcodedList_Staff(True)
+        frm_ToShow.ListOfFields = ClassFieldCustomized.ListOfFields_Staff
         frm_ToShow.Show()
 
     End Sub
@@ -126,6 +141,10 @@ Public Class FormMain
         mod_currentConfigID = 1
         StaffToolStripMenuItem2.Checked = False
         StudentsToolStripMenuItem2.Checked = True
+
+    End Sub
+
+    Private Sub FormMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
     End Sub
 End Class

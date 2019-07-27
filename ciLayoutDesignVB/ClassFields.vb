@@ -1,4 +1,4 @@
 ﻿Public Class ClassFields
-    Inherits List(Of ClassCustomField)
+    Inherits List(Of ClassFieldCustomized)
 
 End Class

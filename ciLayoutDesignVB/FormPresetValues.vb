@@ -1,8 +1,8 @@
 ﻿Public Class FormPresetValues
 
-    Private mod_model As ClassCustomField
+    Private mod_model As ClassFieldCustomized
 
-    Public Sub Load_CustomField(par_model As ClassCustomField)
+    Public Sub Load_CustomField(par_model As ClassFieldCustomized)
 
 
 

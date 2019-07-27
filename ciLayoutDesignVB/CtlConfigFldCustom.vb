@@ -6,22 +6,22 @@ Public Class CtlConfigFldCustom
     ''
     ''Added 7/21/2019 td
     ''
-    Private mod_model As ICIBFieldCustom
-    Private mod_model_copy As ClassCustomField ''Added 7/23/2019 thomas d. 
+    Private mod_model As ICIBFieldStandardOrCustom
+    Private mod_model_copy As ClassFieldCustomized ''Added 7/23/2019 thomas d. 
 
     Private mod_arrayOfValues As String() ''Added 7/23/2019 td 
     Private mod_s_CIBadgeField As String '' = .CIBadgeField_Optional
     Private mod_s_OtherDbField As String '' = .OtherDbField_Optional
     Private mod_s_ExampleValue As String '' = .ExampleValue
 
-    Public Sub Load_CustomControl(par_info As ICIBFieldCustom)
+    Public Sub Load_CustomControl(par_info As ICIBFieldStandardOrCustom)
         ''
         ''Added 7/21/2019 Thomas DOWNES   
         ''
         mod_model = par_info
 
         ''mod_model_copy = par_info.GetClone() ''Added 7/23/2019 td
-        mod_model_copy = New ClassCustomField
+        mod_model_copy = New ClassFieldCustomized
         mod_model_copy.Load_ByCopyingMembers(par_info)
 
         LabelHeaderTop.Text = mod_model_copy.FieldLabelCaption

@@ -7,8 +7,28 @@ Public Class GraphicFieldLabel
     ''Added 7/25/2019 thomas d 
     ''
     Public Shared Generator As ClassLabelToImage
-    Public FieldInfo As ClassCustomField
+    ''7/26/2019 td''Public FieldInfo As ClassFieldCustomized
+    ''7/26/2019 td''Public ElementInfo As ClassElementText
+    Public FieldInfo As ICIBFieldStandardOrCustom
     Public ElementInfo As ClassElementText
+
+    Public Sub New()
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+    End Sub
+
+    Public Sub New(par_field As ICIBFieldStandardOrCustom)
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        Me.FieldInfo = par_field
+        Me.ElementInfo = New ClassElementText(Me)
+
+    End Sub
 
     Public Sub RefreshImage()
         ''

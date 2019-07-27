@@ -75,10 +75,11 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClassCustomField.vb" />
+    <Compile Include="ClassFieldCustomized.vb" />
     <Compile Include="ClassElementPic.vb" />
     <Compile Include="ClassElementText.vb" />
     <Compile Include="ClassFields.vb" />
+    <Compile Include="ClassFieldStandard.vb" />
     <Compile Include="ClassLabelToImage.vb" />
     <Compile Include="ClassLayoutGenerator.vb" />
     <Compile Include="ClassSerialize.vb" />

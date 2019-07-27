@@ -27,10 +27,13 @@ Partial Class FormMain
         Me.OpenToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaveToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PersonalityToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.StudentsToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.StaffToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ConfigurationOfFieldsEtcToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ConfigureFieldsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.GridViewTableToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.UserControlsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.GridViewTableToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DesignLayoutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.UploadBackgroundToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PlaceElementsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -39,9 +42,6 @@ Partial Class FormMain
         Me.SelectFromExistingToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.pictureBack = New System.Windows.Forms.PictureBox()
         Me.LabelHeader1 = New System.Windows.Forms.Label()
-        Me.PersonalityToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.StudentsToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.StaffToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.pictureBack, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -52,7 +52,8 @@ Partial Class FormMain
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1, Me.PersonalityToolStripMenuItem, Me.ConfigurationOfFieldsEtcToolStripMenuItem, Me.DesignLayoutToolStripMenuItem, Me.BackgroundImagesToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1067, 28)
+        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 2, 0, 2)
+        Me.MenuStrip1.Size = New System.Drawing.Size(800, 24)
         Me.MenuStrip1.TabIndex = 18
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -60,98 +61,120 @@ Partial Class FormMain
         '
         Me.ToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenToolStripMenuItem, Me.SaveToolStripMenuItem, Me.ExitToolStripMenuItem})
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(46, 24)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(37, 20)
         Me.ToolStripMenuItem1.Text = "File"
         '
         'OpenToolStripMenuItem
         '
         Me.OpenToolStripMenuItem.Name = "OpenToolStripMenuItem"
-        Me.OpenToolStripMenuItem.Size = New System.Drawing.Size(203, 26)
+        Me.OpenToolStripMenuItem.Size = New System.Drawing.Size(165, 22)
         Me.OpenToolStripMenuItem.Text = "Open Layout....."
         '
         'SaveToolStripMenuItem
         '
         Me.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem"
-        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(203, 26)
+        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(165, 22)
         Me.SaveToolStripMenuItem.Text = "Save Layout As...."
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(203, 26)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(165, 22)
         Me.ExitToolStripMenuItem.Text = "Exit"
+        '
+        'PersonalityToolStripMenuItem
+        '
+        Me.PersonalityToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StudentsToolStripMenuItem2, Me.StaffToolStripMenuItem2})
+        Me.PersonalityToolStripMenuItem.Name = "PersonalityToolStripMenuItem"
+        Me.PersonalityToolStripMenuItem.Size = New System.Drawing.Size(77, 20)
+        Me.PersonalityToolStripMenuItem.Text = "Personality"
+        '
+        'StudentsToolStripMenuItem2
+        '
+        Me.StudentsToolStripMenuItem2.Checked = True
+        Me.StudentsToolStripMenuItem2.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.StudentsToolStripMenuItem2.Name = "StudentsToolStripMenuItem2"
+        Me.StudentsToolStripMenuItem2.Size = New System.Drawing.Size(120, 22)
+        Me.StudentsToolStripMenuItem2.Text = "Students"
+        '
+        'StaffToolStripMenuItem2
+        '
+        Me.StaffToolStripMenuItem2.Name = "StaffToolStripMenuItem2"
+        Me.StaffToolStripMenuItem2.Size = New System.Drawing.Size(120, 22)
+        Me.StaffToolStripMenuItem2.Text = "Staff"
         '
         'ConfigurationOfFieldsEtcToolStripMenuItem
         '
         Me.ConfigurationOfFieldsEtcToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ConfigureFieldsToolStripMenuItem})
         Me.ConfigurationOfFieldsEtcToolStripMenuItem.Name = "ConfigurationOfFieldsEtcToolStripMenuItem"
-        Me.ConfigurationOfFieldsEtcToolStripMenuItem.Size = New System.Drawing.Size(204, 24)
+        Me.ConfigurationOfFieldsEtcToolStripMenuItem.Size = New System.Drawing.Size(165, 20)
         Me.ConfigurationOfFieldsEtcToolStripMenuItem.Text = "Configuration of Fields, Etc."
         '
         'ConfigureFieldsToolStripMenuItem
         '
         Me.ConfigureFieldsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.UserControlsToolStripMenuItem, Me.GridViewTableToolStripMenuItem})
         Me.ConfigureFieldsToolStripMenuItem.Name = "ConfigureFieldsToolStripMenuItem"
-        Me.ConfigureFieldsToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
+        Me.ConfigureFieldsToolStripMenuItem.Size = New System.Drawing.Size(160, 22)
         Me.ConfigureFieldsToolStripMenuItem.Text = "Configure Fields"
-        '
-        'GridViewTableToolStripMenuItem
-        '
-        Me.GridViewTableToolStripMenuItem.Name = "GridViewTableToolStripMenuItem"
-        Me.GridViewTableToolStripMenuItem.Size = New System.Drawing.Size(225, 26)
-        Me.GridViewTableToolStripMenuItem.Text = "Grid View / Table"
         '
         'UserControlsToolStripMenuItem
         '
         Me.UserControlsToolStripMenuItem.Name = "UserControlsToolStripMenuItem"
-        Me.UserControlsToolStripMenuItem.Size = New System.Drawing.Size(225, 26)
+        Me.UserControlsToolStripMenuItem.Size = New System.Drawing.Size(181, 22)
         Me.UserControlsToolStripMenuItem.Text = "User Controls / Flow"
+        '
+        'GridViewTableToolStripMenuItem
+        '
+        Me.GridViewTableToolStripMenuItem.Name = "GridViewTableToolStripMenuItem"
+        Me.GridViewTableToolStripMenuItem.Size = New System.Drawing.Size(181, 22)
+        Me.GridViewTableToolStripMenuItem.Text = "Grid View / Table"
         '
         'DesignLayoutToolStripMenuItem
         '
         Me.DesignLayoutToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.UploadBackgroundToolStripMenuItem, Me.PlaceElementsToolStripMenuItem})
         Me.DesignLayoutToolStripMenuItem.Name = "DesignLayoutToolStripMenuItem"
-        Me.DesignLayoutToolStripMenuItem.Size = New System.Drawing.Size(117, 24)
+        Me.DesignLayoutToolStripMenuItem.Size = New System.Drawing.Size(94, 20)
         Me.DesignLayoutToolStripMenuItem.Text = "Design Layout"
         '
         'UploadBackgroundToolStripMenuItem
         '
         Me.UploadBackgroundToolStripMenuItem.Name = "UploadBackgroundToolStripMenuItem"
-        Me.UploadBackgroundToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
+        Me.UploadBackgroundToolStripMenuItem.Size = New System.Drawing.Size(179, 22)
         Me.UploadBackgroundToolStripMenuItem.Text = "Upload Background"
         '
         'PlaceElementsToolStripMenuItem
         '
         Me.PlaceElementsToolStripMenuItem.Name = "PlaceElementsToolStripMenuItem"
-        Me.PlaceElementsToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
+        Me.PlaceElementsToolStripMenuItem.Size = New System.Drawing.Size(179, 22)
         Me.PlaceElementsToolStripMenuItem.Text = "Place Elements"
         '
         'BackgroundImagesToolStripMenuItem
         '
         Me.BackgroundImagesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.UploadNewToolStripMenuItem, Me.SelectFromExistingToolStripMenuItem})
         Me.BackgroundImagesToolStripMenuItem.Name = "BackgroundImagesToolStripMenuItem"
-        Me.BackgroundImagesToolStripMenuItem.Size = New System.Drawing.Size(154, 24)
+        Me.BackgroundImagesToolStripMenuItem.Size = New System.Drawing.Size(124, 20)
         Me.BackgroundImagesToolStripMenuItem.Text = "Background Images"
         '
         'UploadNewToolStripMenuItem
         '
         Me.UploadNewToolStripMenuItem.Name = "UploadNewToolStripMenuItem"
-        Me.UploadNewToolStripMenuItem.Size = New System.Drawing.Size(235, 26)
+        Me.UploadNewToolStripMenuItem.Size = New System.Drawing.Size(189, 22)
         Me.UploadNewToolStripMenuItem.Text = "Upload new...."
         '
         'SelectFromExistingToolStripMenuItem
         '
         Me.SelectFromExistingToolStripMenuItem.Name = "SelectFromExistingToolStripMenuItem"
-        Me.SelectFromExistingToolStripMenuItem.Size = New System.Drawing.Size(235, 26)
+        Me.SelectFromExistingToolStripMenuItem.Size = New System.Drawing.Size(189, 22)
         Me.SelectFromExistingToolStripMenuItem.Text = "Select from existing...."
         '
         'pictureBack
         '
         Me.pictureBack.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.pictureBack.Image = Global.ciLayoutDesignVB.My.Resources.Resources.CI_Logo
-        Me.pictureBack.Location = New System.Drawing.Point(94, 84)
+        Me.pictureBack.Location = New System.Drawing.Point(70, 68)
+        Me.pictureBack.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.pictureBack.Name = "pictureBack"
-        Me.pictureBack.Size = New System.Drawing.Size(859, 492)
+        Me.pictureBack.Size = New System.Drawing.Size(645, 400)
         Me.pictureBack.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.pictureBack.TabIndex = 20
         Me.pictureBack.TabStop = False
@@ -160,44 +183,23 @@ Partial Class FormMain
         '
         Me.LabelHeader1.AutoSize = True
         Me.LabelHeader1.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelHeader1.Location = New System.Drawing.Point(12, 43)
+        Me.LabelHeader1.Location = New System.Drawing.Point(9, 35)
+        Me.LabelHeader1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LabelHeader1.Name = "LabelHeader1"
-        Me.LabelHeader1.Size = New System.Drawing.Size(282, 29)
+        Me.LabelHeader1.Size = New System.Drawing.Size(222, 24)
         Me.LabelHeader1.TabIndex = 21
         Me.LabelHeader1.Text = "Your Badge Background:"
         '
-        'PersonalityToolStripMenuItem
-        '
-        Me.PersonalityToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StudentsToolStripMenuItem2, Me.StaffToolStripMenuItem2})
-        Me.PersonalityToolStripMenuItem.Name = "PersonalityToolStripMenuItem"
-        Me.PersonalityToolStripMenuItem.Size = New System.Drawing.Size(94, 24)
-        Me.PersonalityToolStripMenuItem.Text = "Personality"
-        '
-        'StudentsToolStripMenuItem2
-        '
-        Me.StudentsToolStripMenuItem2.Checked = True
-        Me.StudentsToolStripMenuItem2.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.StudentsToolStripMenuItem2.Name = "StudentsToolStripMenuItem2"
-        Me.StudentsToolStripMenuItem2.Size = New System.Drawing.Size(224, 26)
-        Me.StudentsToolStripMenuItem2.Text = "Students"
-        '
-        'StaffToolStripMenuItem2
-        '
-        Me.StaffToolStripMenuItem2.Name = "StaffToolStripMenuItem2"
-        Me.StaffToolStripMenuItem2.Size = New System.Drawing.Size(224, 26)
-        Me.StaffToolStripMenuItem2.Text = "Staff"
-        '
         'FormMain
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.ClientSize = New System.Drawing.Size(1067, 602)
+        Me.ClientSize = New System.Drawing.Size(800, 489)
         Me.Controls.Add(Me.LabelHeader1)
         Me.Controls.Add(Me.pictureBack)
         Me.Controls.Add(Me.MenuStrip1)
         Me.MainMenuStrip = Me.MenuStrip1
-        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "FormMain"
         Me.Text = "FormMain"
         Me.MenuStrip1.ResumeLayout(False)

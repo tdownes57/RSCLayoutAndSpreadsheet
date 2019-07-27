@@ -4,7 +4,7 @@
 
 Public Class FormCustomFieldsFlow
 
-    Public Property ListOfFields As List(Of ClassCustomField) ''Added 7/23/2019 thomas downes 
+    Public Property ListOfFields As List(Of ClassFieldCustomized) ''Added 7/23/2019 thomas downes 
 
     Public Sub AdjustHeightOfWindow()
         ''Added 7/23/2019 thomas downes
@@ -30,13 +30,13 @@ Public Class FormCustomFieldsFlow
         ''
         ''Added 7.21.2019
         ''
-        Dim list_local As List(Of ClassCustomField) = Nothing
+        Dim list_local As List(Of ClassFieldCustomized) = Nothing
 
         If (ListOfFields IsNot Nothing) Then list_local = ListOfFields
 
         If (list_local Is Nothing) Then
-            ClassCustomField.InitializeHardcodedList_Students(True)
-            list_local = ClassCustomField.ListOfFields_Students
+            ClassFieldCustomized.InitializeHardcodedList_Students(True)
+            list_local = ClassFieldCustomized.ListOfFields_Students
         End If ''end of "If (list_local Is Nothing) Then"
 
         FlowLayoutPanel1.Controls.Clear()
@@ -56,7 +56,7 @@ Public Class FormCustomFieldsFlow
 
     End Sub ''End of "Private Sub LoadFields()"  
 
-    Private Sub LoadCustomField_Each(par_customfld As ClassCustomField)
+    Private Sub LoadCustomField_Each(par_customfld As ClassFieldCustomized)
         ''
         ''Added 7/ 21/2019
         ''
@@ -64,7 +64,7 @@ Public Class FormCustomFieldsFlow
 
         ''7/21/2019 td''FlowLayoutPanel1.Controls.Add(New UserCustomFieldCtl())
 
-        userControl.Load_CustomControl(CType(par_customfld, ICIBFieldCustom))
+        userControl.Load_CustomControl(CType(par_customfld, ICIBFieldStandardOrCustom))
         userControl.Visible = True
 
         FlowLayoutPanel1.Controls.Add(userControl)

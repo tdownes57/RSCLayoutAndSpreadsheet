@@ -113,7 +113,7 @@ Partial Class FormCustomFieldsGrid
         '
         'ClassFieldsBindingSource
         '
-        Me.ClassFieldsBindingSource.DataSource = GetType(ciLayoutDesignVB.ClassCustomField)
+        Me.ClassFieldsBindingSource.DataSource = GetType(ciLayoutDesignVB.ClassFieldCustomized)
         '
         'FormCustomFieldsGrid
         '

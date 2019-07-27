@@ -6,9 +6,9 @@ Imports System.Collections.Generic
 
 Public Class FormCustomFieldsGrid
 
-    Public Shared FieldsList_Static As New List(Of ClassCustomField)
+    Public Shared FieldsList_Static As New List(Of ClassFieldCustomized)
 
-    Public Property ListOfFields As List(Of ClassCustomField)
+    Public Property ListOfFields As List(Of ClassFieldCustomized)
 
     Private Sub FormCustomFields_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
@@ -24,48 +24,54 @@ Public Class FormCustomFieldsGrid
 
         ''For intTextField As Integer = 1 To 10
 
-        Dim objTextField1 As New ClassCustomField
+        Dim objTextField1 As New ClassFieldCustomized
         With objTextField1
             .TextFieldId = 1 ''intTextField
             .Text_orDate = "Text"
             .LabelCaption = "Teacher"
-            .ExampleValueToUseInLayout = "Mrs. Moosemore"
+            ''.ExampleValueToUseInLayout = "Mrs. Moosemore"
+            .ExampleValue = "Mrs. Moosemore"
         End With
         FieldsList_Static.Add(objTextField1)
 
-        Dim objTextField2 As New ClassCustomField
+        Dim objTextField2 As New ClassFieldCustomized
         With objTextField2
             .TextFieldId = 2 ''intTextField
             .Text_orDate = "Text"
             .LabelCaption = "Class Grade"
-            .ExampleValueToUseInLayout = "9th"
+            ''.ExampleValueToUseInLayout = "9th"
+            .ExampleValue = "9th"
         End With
         FieldsList_Static.Add(objTextField2)
 
-        Dim objTextField3 As New ClassCustomField
+        Dim objTextField3 As New ClassFieldCustomized
         With objTextField3
             .TextFieldId = 3 ''intTextField
             .Text_orDate = "Text"
             .LabelCaption = "School"
-            .ExampleValueToUseInLayout = "Westmore High"
+            ''.ExampleValueToUseInLayout = "Westmore High"
+            .ExampleValue = "Westmore High"
         End With
         FieldsList_Static.Add(objTextField3)
 
-        Dim objTextField4 As New ClassCustomField
+        Dim objTextField4 As New ClassFieldCustomized
         With objTextField4
             .TextFieldId = 4 ''intTextField
             .Text_orDate = "Text"
             .LabelCaption = ""
-            .ExampleValueToUseInLayout = ""
+            ''.ExampleValueToUseInLayout = ""
+            .ExampleValue = ""
         End With
         FieldsList_Static.Add(objTextField2)
 
-        Dim objTextField5 As New ClassCustomField
+        Dim objTextField5 As New ClassFieldCustomized
         With objTextField5
             .TextFieldId = 5 ''intTextField
             .Text_orDate = "Text"
             .LabelCaption = ""
-            .ExampleValueToUseInLayout = ""
+            ''.ExampleValueToUseInLayout = ""
+            .ExampleValue = ""
+
         End With
         FieldsList_Static.Add(objTextField5)
 
@@ -77,13 +83,14 @@ Public Class FormCustomFieldsGrid
         ''
         For intDateField As Integer = 1 To 1
 
-            Dim objDateField1 As New ClassCustomField
+            Dim objDateField1 As New ClassFieldCustomized
             With objDateField1
                 .TextFieldId = 0 ''0 since it's not a Textfield. 
                 .DateFieldId = 1 ''intTextField
                 .Text_orDate = "Date"
                 .LabelCaption = "First Day"
-                .ExampleValueToUseInLayout = "7/21/2017"
+                ''.ExampleValueToUseInLayout = "7/21/2017"
+                .ExampleValue = "7/21/2017"
             End With
             FieldsList_Static.Add(objDateField1)
 

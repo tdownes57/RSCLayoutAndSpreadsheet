@@ -2,11 +2,15 @@
 ''Added 7/20/2019 thomas downes
 ''
 
-Public Interface ICIBFieldCustom
+Public Interface ICIBFieldStandardOrCustom
+    ''7/26/2019 td''Public Interface ICIBFieldCustom
     ''
     ''Added 7/20/2019 thomas downes
     ''
     Property FieldLabelCaption As String
+
+    Property IsStandard As Boolean ''Added 7/26/2019 thomas d. 
+    Property IsCustomizable As Boolean ''Added 7/26/2019 thomas d. 
 
     Property FieldType_TD As Char
     Property FieldIndex As Integer
