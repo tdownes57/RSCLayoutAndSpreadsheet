@@ -6,6 +6,9 @@ Public Class CtlConfigFldCustom
     ''
     ''Added 7/21/2019 td
     ''
+    Public Model As ClassFieldCustomized ''Added 7/23/2019 thomas d.
+    Public NewlyAdded As Boolean ''Add 7/23/2019 td 
+
     Private mod_model As ICIBFieldStandardOrCustom
     Private mod_model_copy As ClassFieldCustomized ''Added 7/23/2019 thomas d. 
 
@@ -70,6 +73,9 @@ Public Class CtlConfigFldCustom
             .ExampleValue = mod_s_ExampleValue '' = .ExampleValue
 
         End With ''End of "With par_info"  
+
+        ''Added 7/27/2019 td  
+        Me.Model = mod_model
 
     End Sub
 
@@ -188,4 +194,14 @@ Public Class CtlConfigFldCustom
 
     End Sub
 
+    Private Sub TextFieldLabel_TextChanged(sender As Object, e As EventArgs) Handles textFieldLabel.TextChanged
+        ''
+        ''Added 7/27/2019
+        ''
+        mod_model_copy.FieldLabelCaption = CType(sender, TextBox).Text
+
+        ''Added 7/27/2019 td  
+        LabelFieldLabelCaption.Text = CType(sender, TextBox).Text
+
+    End Sub
 End Class

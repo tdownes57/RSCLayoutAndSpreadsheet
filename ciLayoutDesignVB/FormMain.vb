@@ -52,8 +52,11 @@ Public Class FormMain
     End Sub
 
     Private Sub PlaceElementsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PlaceElementsToolStripMenuItem.Click
-        ''Added 7/17/2019 thomas downes
-        Dim frm_ToShow As New FormDesignPrototype()
+        ''
+        ''Added 7 / 17 / 2019 thomas downes
+        ''
+        ''7/26/2019 td''Dim frm_ToShow As New FormDesignPrototype()
+        Dim frm_ToShow As New FormDesignProtoTwo()
         frm_ToShow.Show()
 
     End Sub

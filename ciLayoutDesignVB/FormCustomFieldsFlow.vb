@@ -74,14 +74,46 @@ Public Class FormCustomFieldsFlow
     Private Sub FormCustomFieldsFlow_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         ''
         ''Added 7/23/2019 td  
+        ''Encapsulated 7/27/2019 td 
         ''
+        SaveControls()
+
+    End Sub
+
+    Private Sub SaveControls()
+        ''
+        ''Added 7/23/2019 td  
+        ''Encapsulated 7/27/2019 td 
+        ''
+        Dim each_ctl_configure_field As CtlConfigFldCustom
+
         For Each each_control As Control In FlowLayoutPanel1.Controls
 
             If (TypeOf each_control Is CtlAddCustomField) Then Continue For
 
-            CType(each_control, CtlConfigFldCustom).Save_CustomControl()
+            ''7/27/2019 td''CType(each_control, CtlConfigFldCustom).Save_CustomControl()
+
+            each_ctl_configure_field = CType(each_control, CtlConfigFldCustom)
+
+            With each_ctl_configure_field
+
+                .Save_CustomControl()
+
+                If (.NewlyAdded) Then FormMain.GetCurrentPersonality_Fields_Custom().Add(.Model)
+
+
+            End With ''End of "With each_ctl_configure_field"
 
         Next each_control
+
+    End Sub
+
+    Private Sub LinkLabelRefresh_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles linkLabelRefresh.LinkClicked
+
+        ''Added 7/27/2019 td
+        SaveControls()
+        FlowLayoutPanel1.Controls.Clear()
+        LoadCustomFields_All()
 
     End Sub
 End Class

@@ -15,6 +15,8 @@
 
         ''Add 7/23/2019 td 
         Dim new_field As New ClassFieldCustomized ''Add 7/23/2019 td 
+
+        newfieldControl.NewlyAdded = True ''Added 7/27/2019 td 
         newfieldControl.Load_CustomControl(new_field)
 
         CType(Me.ParentForm, FormCustomFieldsFlow).AdjustHeightOfWindow

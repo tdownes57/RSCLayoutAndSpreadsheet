@@ -27,6 +27,7 @@ Partial Class FormCustomFieldsFlow
         Me.UserAddFieldControl1 = New ciLayoutDesignVB.CtlAddCustomField()
         Me.chkIncludeExampleValues = New System.Windows.Forms.CheckBox()
         Me.chkIncludeCIBField = New System.Windows.Forms.CheckBox()
+        Me.linkLabelRefresh = New System.Windows.Forms.LinkLabel()
         Me.FlowLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -34,11 +35,12 @@ Partial Class FormCustomFieldsFlow
         '
         Me.LabelHeaderCaption.AutoSize = True
         Me.LabelHeaderCaption.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelHeaderCaption.Location = New System.Drawing.Point(31, 24)
+        Me.LabelHeaderCaption.Location = New System.Drawing.Point(9, 12)
         Me.LabelHeaderCaption.Name = "LabelHeaderCaption"
-        Me.LabelHeaderCaption.Size = New System.Drawing.Size(319, 36)
+        Me.LabelHeaderCaption.Size = New System.Drawing.Size(398, 36)
         Me.LabelHeaderCaption.TabIndex = 2
-        Me.LabelHeaderCaption.Text = "Flow for Custom Fields"
+        Me.LabelHeaderCaption.Tag = "Custom Fields - {0}"
+        Me.LabelHeaderCaption.Text = "Custom Fields - {Personality}"
         '
         'FlowLayoutPanel1
         '
@@ -69,7 +71,7 @@ Partial Class FormCustomFieldsFlow
         Me.chkIncludeExampleValues.AutoSize = True
         Me.chkIncludeExampleValues.Checked = True
         Me.chkIncludeExampleValues.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkIncludeExampleValues.Location = New System.Drawing.Point(575, 12)
+        Me.chkIncludeExampleValues.Location = New System.Drawing.Point(679, 12)
         Me.chkIncludeExampleValues.Name = "chkIncludeExampleValues"
         Me.chkIncludeExampleValues.Size = New System.Drawing.Size(180, 21)
         Me.chkIncludeExampleValues.TabIndex = 4
@@ -79,18 +81,29 @@ Partial Class FormCustomFieldsFlow
         'chkIncludeCIBField
         '
         Me.chkIncludeCIBField.AutoSize = True
-        Me.chkIncludeCIBField.Location = New System.Drawing.Point(575, 39)
+        Me.chkIncludeCIBField.Location = New System.Drawing.Point(679, 39)
         Me.chkIncludeCIBField.Name = "chkIncludeCIBField"
         Me.chkIncludeCIBField.Size = New System.Drawing.Size(221, 21)
         Me.chkIncludeCIBField.TabIndex = 5
         Me.chkIncludeCIBField.Text = "Include Table Card Data Field."
         Me.chkIncludeCIBField.UseVisualStyleBackColor = True
         '
+        'linkLabelRefresh
+        '
+        Me.linkLabelRefresh.AutoSize = True
+        Me.linkLabelRefresh.Location = New System.Drawing.Point(343, 56)
+        Me.linkLabelRefresh.Name = "linkLabelRefresh"
+        Me.linkLabelRefresh.Size = New System.Drawing.Size(184, 17)
+        Me.linkLabelRefresh.TabIndex = 6
+        Me.linkLabelRefresh.TabStop = True
+        Me.linkLabelRefresh.Text = "Save && Refresh the Window"
+        '
         'FormCustomFieldsFlow
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(912, 646)
+        Me.Controls.Add(Me.linkLabelRefresh)
         Me.Controls.Add(Me.chkIncludeCIBField)
         Me.Controls.Add(Me.chkIncludeExampleValues)
         Me.Controls.Add(Me.FlowLayoutPanel1)
@@ -108,4 +121,5 @@ Partial Class FormCustomFieldsFlow
     Friend WithEvents UserAddFieldControl1 As CtlAddCustomField
     Friend WithEvents chkIncludeExampleValues As CheckBox
     Friend WithEvents chkIncludeCIBField As CheckBox
+    Friend WithEvents linkLabelRefresh As LinkLabel
 End Class
