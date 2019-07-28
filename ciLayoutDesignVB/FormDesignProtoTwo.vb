@@ -80,14 +80,17 @@ Public Class FormDesignProtoTwo
         ''
         ''Standard Fields 
         ''
+        ClassFieldStandard.InitializeHardcodedList_Students(True)
+
         For Each field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students
 
             Dim new_label_control_std As New GraphicFieldLabel(field_standard)
 
             Me.Controls.Add(new_label_control_std)
-            new_label_control_std.Left = (((10 + intNumControlsAlready_std) * new_label_control_std.Width) + 10)
+            new_label_control_std.Left = ((10 + intNumControlsAlready_std * new_label_control_std.Width) + 10)
             new_label_control_std.Top = 10
             new_label_control_std.Visible = True
+            ControlMoverOrResizer_TD.Init(new_label_control_std, 20) ''Added 7/28/2019 thomas downes
             intNumControlsAlready_std += 1
             new_label_control_std.Name = "StandardCtl" & CStr(intNumControlsAlready_std)
 
@@ -96,13 +99,16 @@ Public Class FormDesignProtoTwo
         ''
         ''Custom Fields 
         ''
+        ClassFieldCustomized.InitializeHardcodedList_Students(True)
+
         For Each field_custom As ClassFieldCustomized In ClassFieldCustomized.ListOfFields_Students
 
             Dim new_label_control_cust As New GraphicFieldLabel(field_custom)
 
-            new_label_control_cust.Left = (((10 + intNumControlsAlready_cust) * new_label_control_cust.Width) + 10)
+            new_label_control_cust.Left = ((intNumControlsAlready_cust * new_label_control_cust.Width) + 10)
             new_label_control_cust.Top = (2 * 10 + new_label_control_cust.Height)
             new_label_control_cust.Visible = True
+            ControlMoverOrResizer_TD.Init(new_label_control_cust, 20) ''Added 7/28/2019 thomas downes
             intNumControlsAlready_cust += 1
             new_label_control_cust.Name = "CustCtl" & CStr(intNumControlsAlready_cust)
 
