@@ -37,8 +37,17 @@
         Dim strNewPresetValue As String ''Added 7/27/2019 td
         strNewPresetValue = textNewPresetValue.Text
 
-        listPresetValues.Items.Add(strNewPresetValue)
+        With listPresetValues
+            .Items.Add(strNewPresetValue)
+            ''Added 7/28/2019 td 
+            .SelectedItem = strNewPresetValue
+        End With
 
+        ''Added 7/28/2019 td  
+        With LinkCreateSubsection
+            .Text = String.Format(.Tag, strNewPresetValue)
+            .Visible = True
+        End With
 
     End Sub
 End Class

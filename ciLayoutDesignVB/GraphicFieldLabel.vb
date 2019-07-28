@@ -12,6 +12,13 @@ Public Class GraphicFieldLabel
     Public FieldInfo As ICIBFieldStandardOrCustom
     Public ElementInfo As ClassElementText
 
+    Public ReadOnly Property Picture_Box As PictureBox
+        Get
+            ''Added 7/28/2019 td 
+            Return Me.pictureLabel
+        End Get
+    End Property
+
     Public Sub New()
 
         ' This call is required by the designer.

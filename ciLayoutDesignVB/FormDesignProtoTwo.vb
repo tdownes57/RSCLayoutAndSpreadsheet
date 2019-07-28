@@ -1,5 +1,5 @@
 ﻿Option Explicit On
-Option Infer On
+Option Infer Off
 Option Strict On
 ''
 ''Added 7/18/2019 Thomas DOWNES
@@ -48,6 +48,9 @@ Public Class FormDesignProtoTwo
 
         MakeElementsMoveable()
 
+        ''Added 7/28/2019 td
+        ''
+        pictureBack.SendToBack()
 
     End Sub
 
@@ -55,8 +58,22 @@ Public Class FormDesignProtoTwo
         ''
         ''Added 7/19/2019 thomas downes  
         ''
+        Dim each_graphicLabel As GraphicFieldLabel
 
-    End Sub
+        For Each each_control As Control In Me.Controls
+
+            If (TypeOf each_control Is GraphicFieldLabel) Then
+
+                each_graphicLabel = CType(each_control, GraphicFieldLabel)
+
+                ControlMoverOrResizer_TD.Init(each_graphicLabel.Picture_Box,
+                                              each_control, 10) ''Added 7/28/2019 thomas downes
+
+            End If ''End of "If (TypeOf each_control Is GraphicFieldLabel) Then"
+
+        Next each_control
+
+    End Sub ''End of "Private Sub MakeElementsMoveable()"
 
     Private Sub LoadElements()
         ''
@@ -76,6 +93,8 @@ Public Class FormDesignProtoTwo
 
         Dim intNumControlsAlready_std As Integer ''Added 7/26/2019 td 
         Dim intNumControlsAlready_cust As Integer ''Added 7/26/2019 td 
+        Dim intTopEdge_cust As Integer ''Added 7/28/2019 td
+        Dim intTopEdge_std As Integer ''Added 7/28/2019 td
 
         ''
         ''Standard Fields 
@@ -86,13 +105,16 @@ Public Class FormDesignProtoTwo
 
             Dim new_label_control_std As New GraphicFieldLabel(field_standard)
 
+            intTopEdge_std = (30 + 30 * intNumControlsAlready_std)
+
             Me.Controls.Add(new_label_control_std)
             new_label_control_std.Left = ((10 + intNumControlsAlready_std * new_label_control_std.Width) + 10)
-            new_label_control_std.Top = 10
+            ''new_label_control_std.Top = 10
+            new_label_control_std.Top = intTopEdge_std
             new_label_control_std.Visible = True
-            ControlMoverOrResizer_TD.Init(new_label_control_std, 20) ''Added 7/28/2019 thomas downes
             intNumControlsAlready_std += 1
             new_label_control_std.Name = "StandardCtl" & CStr(intNumControlsAlready_std)
+            new_label_control_std.BorderStyle = BorderStyle.FixedSingle
 
         Next field_standard
 
@@ -105,15 +127,20 @@ Public Class FormDesignProtoTwo
 
             Dim new_label_control_cust As New GraphicFieldLabel(field_custom)
 
+            intTopEdge_cust = (30 + 30 * intNumControlsAlready_cust)
+
             new_label_control_cust.Left = ((intNumControlsAlready_cust * new_label_control_cust.Width) + 10)
-            new_label_control_cust.Top = (2 * 10 + new_label_control_cust.Height)
+            ''7/28 td''new_label_control_cust.Top = (120 + new_label_control_cust.Height)
+            new_label_control_cust.Top = intTopEdge_cust
             new_label_control_cust.Visible = True
-            ControlMoverOrResizer_TD.Init(new_label_control_cust, 20) ''Added 7/28/2019 thomas downes
+
+            ''7/28/2019 td''ControlMoverOrResizer_TD.Init(new_label_control_cust, 20) ''Added 7/28/2019 thomas downes
+
             intNumControlsAlready_cust += 1
             new_label_control_cust.Name = "CustCtl" & CStr(intNumControlsAlready_cust)
+            new_label_control_cust.BorderStyle = BorderStyle.FixedSingle
 
         Next field_custom
-
 
     End Sub ''End of ''Private Sub LoadElements()''
 
