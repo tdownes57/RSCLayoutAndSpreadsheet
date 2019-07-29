@@ -116,6 +116,11 @@ Public Class FormDesignProtoTwo
             new_label_control_std.Name = "StandardCtl" & CStr(intNumControlsAlready_std)
             new_label_control_std.BorderStyle = BorderStyle.FixedSingle
 
+            ''
+            ''Added 7/28/2019 thomas d.
+            ''
+            new_label_control_std.RefreshImage()
+
         Next field_standard
 
         ''
@@ -139,6 +144,11 @@ Public Class FormDesignProtoTwo
             intNumControlsAlready_cust += 1
             new_label_control_cust.Name = "CustCtl" & CStr(intNumControlsAlready_cust)
             new_label_control_cust.BorderStyle = BorderStyle.FixedSingle
+
+            ''
+            ''Added 7/28/2019 thomas d.
+            ''
+            new_label_control_cust.RefreshImage()
 
         Next field_custom
 
