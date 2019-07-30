@@ -110,6 +110,7 @@ Public Class FormDesignProtoTwo
 
                 field_standard.ElementInfo = New ClassElementText()
                 new_label_control_std = New GraphicFieldLabel(field_standard)
+                Me.Controls.Add(new_label_control_std)
 
                 new_label_control_std.Width = CInt(pictureBack.Width / 3)
 
@@ -127,6 +128,7 @@ Public Class FormDesignProtoTwo
             Else
 
                 new_label_control_std = New GraphicFieldLabel(field_standard)
+                Me.Controls.Add(new_label_control_std)
 
                 new_label_control_std.Top = field_standard.ElementInfo.TopEdge_Pixels
                 new_label_control_std.Left = field_standard.ElementInfo.LeftEdge_Pixels
@@ -137,7 +139,7 @@ Public Class FormDesignProtoTwo
 
             ''intTopEdge_std = (30 + 30 * intNumControlsAlready_std)
 
-            Me.Controls.Add(new_label_control_std)
+            ''Moved up.''Me.Controls.Add(new_label_control_std)
 
             ''Inappropriate. 7/29 td''new_label_control_std.Left = ((10 + intNumControlsAlready_std * new_label_control_std.Width) + 10)
             ''Inappropriate. 7/29 td''''new_label_control_std.Top = 10
@@ -164,19 +166,61 @@ Public Class FormDesignProtoTwo
         For Each field_custom As ClassFieldCustomized In ClassFieldCustomized.ListOfFields_Students
 
             ''Added 7/29
-            If (field_custom.ElementInfo Is Nothing) Then field_custom.ElementInfo = New ClassElementText()
+            ''If (field_custom.ElementInfo Is Nothing) Then field_custom.ElementInfo = New ClassElementText()
 
-            Dim new_label_control_cust As New GraphicFieldLabel(field_custom)
+            ''Dim new_label_control_cust As New GraphicFieldLabel(field_custom)
 
-            intTopEdge_cust = (30 + 30 * intNumControlsAlready_cust)
+            ''intTopEdge_cust = (30 + 30 * intNumControlsAlready_cust)
 
-            Me.Controls.Add(new_label_control_cust)
-            new_label_control_cust.Left = ((intNumControlsAlready_cust * new_label_control_cust.Width) + 10)
-            ''7/28 td''new_label_control_cust.Top = (120 + new_label_control_cust.Height)
-            new_label_control_cust.Top = intTopEdge_cust
-            new_label_control_cust.Visible = True
+            ''Me.Controls.Add(new_label_control_cust)
+            ''new_label_control_cust.Left = ((intNumControlsAlready_cust * new_label_control_cust.Width) + 10)
+            ''''7/28 td''new_label_control_cust.Top = (120 + new_label_control_cust.Height)
+            ''new_label_control_cust.Top = intTopEdge_cust
+            ''new_label_control_cust.Visible = True
 
             ''7/28/2019 td''ControlMoverOrResizer_TD.Init(new_label_control_cust, 20) ''Added 7/28/2019 thomas downes
+
+            Dim new_label_control_cust As GraphicFieldLabel
+
+            ''Added 7/29
+            If (field_custom.ElementInfo Is Nothing) Then
+
+                field_custom.ElementInfo = New ClassElementText()
+                new_label_control_cust = New GraphicFieldLabel(field_custom)
+                Me.Controls.Add(new_label_control_cust)
+
+                new_label_control_cust.Width = CInt(pictureBack.Width / 3)
+
+                With field_custom.ElementInfo
+
+                    .Width_Pixels = new_label_control_cust.Width
+                    .Height_Pixels = new_label_control_cust.Height
+
+                    intTopEdge_std = (30 + 30 * intNumControlsAlready_std)
+                    .TopEdge_Pixels = intTopEdge_std
+                    .LeftEdge_Pixels = ((10 + intNumControlsAlready_std * .Width_Pixels) + 10)
+
+                End With
+
+            Else
+
+                new_label_control_cust = New GraphicFieldLabel(field_custom)
+                Me.Controls.Add(new_label_control_cust)
+
+                new_label_control_cust.Top = field_custom.ElementInfo.TopEdge_Pixels
+                new_label_control_cust.Left = field_custom.ElementInfo.LeftEdge_Pixels
+                new_label_control_cust.Width = field_custom.ElementInfo.Width_Pixels
+                new_label_control_cust.Height = field_custom.ElementInfo.Height_Pixels
+
+            End If ''end of "If (field_standard.ElementInfo Is Nothing) Then ... Else..."
+
+            ''intTopEdge_std = (30 + 30 * intNumControlsAlready_std)
+
+            ''Moved up.''Me.Controls.Add(new_label_control_cust)
+
+            ''Inappropriate. 7/29 td''new_label_control_std.Left = ((10 + intNumControlsAlready_std * new_label_control_std.Width) + 10)
+            ''Inappropriate. 7/29 td''''new_label_control_std.Top = 10
+            ''Inappropriate. 7/29 td''new_label_control_std.Top = intTopEdge_std
 
             intNumControlsAlready_cust += 1
             new_label_control_cust.Name = "CustCtl" & CStr(intNumControlsAlready_cust)
