@@ -103,16 +103,49 @@ Public Class FormDesignProtoTwo
 
         For Each field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students
 
-            Dim new_label_control_std As New GraphicFieldLabel(field_standard)
+            Dim new_label_control_std As GraphicFieldLabel
 
-            intTopEdge_std = (30 + 30 * intNumControlsAlready_std)
+            ''Added 7/29
+            If (field_standard.ElementInfo Is Nothing) Then
+
+                field_standard.ElementInfo = New ClassElementText()
+                new_label_control_std = New GraphicFieldLabel(field_standard)
+
+                new_label_control_std.Width = CInt(pictureBack.Width / 3)
+
+                With field_standard.ElementInfo
+
+                    .Width_Pixels = new_label_control_std.Width
+                    .Height_Pixels = new_label_control_std.Height
+
+                    intTopEdge_std = (30 + 30 * intNumControlsAlready_std)
+                    .TopEdge_Pixels = intTopEdge_std
+                    .LeftEdge_Pixels = ((10 + intNumControlsAlready_std * .Width_Pixels) + 10)
+
+                End With
+
+            Else
+
+                new_label_control_std = New GraphicFieldLabel(field_standard)
+
+                new_label_control_std.Top = field_standard.ElementInfo.TopEdge_Pixels
+                new_label_control_std.Left = field_standard.ElementInfo.LeftEdge_Pixels
+                new_label_control_std.Width = field_standard.ElementInfo.Width_Pixels
+                new_label_control_std.Height = field_standard.ElementInfo.Height_Pixels
+
+            End If ''end of "If (field_standard.ElementInfo Is Nothing) Then ... Else..."
+
+            ''intTopEdge_std = (30 + 30 * intNumControlsAlready_std)
 
             Me.Controls.Add(new_label_control_std)
-            new_label_control_std.Left = ((10 + intNumControlsAlready_std * new_label_control_std.Width) + 10)
-            ''new_label_control_std.Top = 10
-            new_label_control_std.Top = intTopEdge_std
+
+            ''Inappropriate. 7/29 td''new_label_control_std.Left = ((10 + intNumControlsAlready_std * new_label_control_std.Width) + 10)
+            ''Inappropriate. 7/29 td''''new_label_control_std.Top = 10
+            ''Inappropriate. 7/29 td''new_label_control_std.Top = intTopEdge_std
+
             new_label_control_std.Visible = True
             intNumControlsAlready_std += 1
+
             new_label_control_std.Name = "StandardCtl" & CStr(intNumControlsAlready_std)
             new_label_control_std.BorderStyle = BorderStyle.FixedSingle
 
@@ -130,10 +163,14 @@ Public Class FormDesignProtoTwo
 
         For Each field_custom As ClassFieldCustomized In ClassFieldCustomized.ListOfFields_Students
 
+            ''Added 7/29
+            If (field_custom.ElementInfo Is Nothing) Then field_custom.ElementInfo = New ClassElementText()
+
             Dim new_label_control_cust As New GraphicFieldLabel(field_custom)
 
             intTopEdge_cust = (30 + 30 * intNumControlsAlready_cust)
 
+            Me.Controls.Add(new_label_control_cust)
             new_label_control_cust.Left = ((intNumControlsAlready_cust * new_label_control_cust.Width) + 10)
             ''7/28 td''new_label_control_cust.Top = (120 + new_label_control_cust.Height)
             new_label_control_cust.Top = intTopEdge_cust
@@ -153,6 +190,26 @@ Public Class FormDesignProtoTwo
         Next field_custom
 
     End Sub ''End of ''Private Sub LoadElements()''
+
+    Private Sub SaveLayout()
+        ''
+        ''Added 7/29/2019 td
+        ''
+        Dim each_graphicalLabel As GraphicFieldLabel
+
+        For Each each_control As Control In Me.Controls
+
+            If (TypeOf each_control Is GraphicFieldLabel) Then
+
+                each_graphicalLabel = CType(each_control, GraphicFieldLabel)
+
+                each_graphicalLabel.SaveToModel
+
+            End If ''end of "If (TypeOf each_control Is GraphicFieldLabel) Then"
+
+        Next each_control
+
+    End Sub ''End of "PRivate Sub SaveLayout()"  
 
     Private Sub LoadElementGenerator()
         ''
@@ -174,9 +231,19 @@ Public Class FormDesignProtoTwo
 
     Private Sub GraphicFieldLabel1_Load(sender As Object, e As EventArgs) Handles GraphicFieldLabel1.Load
 
+
+
     End Sub
 
     Private Sub GraphicFieldLabel4_Load(sender As Object, e As EventArgs) Handles GraphicFieldLabel4.Load
+
+    End Sub
+
+    Private Sub SaveToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles SaveToolStripMenuItem1.Click
+        ''
+        ''Added 7/29/2019 td  
+        ''
+        SaveLayout
 
     End Sub
 End Class

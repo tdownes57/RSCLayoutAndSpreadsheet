@@ -26,14 +26,39 @@ Public Class GraphicFieldLabel
 
     End Sub
 
-    Public Sub New(par_field As ICIBFieldStandardOrCustom)
+    Public Sub New_NotInUse(par_field As ICIBFieldStandardOrCustom)
 
         ' This call is required by the designer.
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
         Me.FieldInfo = par_field
+
         Me.ElementInfo = New ClassElementText(Me)
+
+    End Sub
+
+    Public Sub New(par_field As ClassFieldStandard)
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        Me.FieldInfo = par_field
+
+        Me.ElementInfo = par_field.ElementInfo
+
+    End Sub
+
+    Public Sub New(par_field As ClassFieldCustomized)
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        Me.FieldInfo = par_field
+
+        Me.ElementInfo = par_field.ElementInfo
 
     End Sub
 
@@ -43,12 +68,42 @@ Public Class GraphicFieldLabel
         ''
         ''7/29 td''Me.ElementInfo.Info = CType(Me.ElementInfo, IElementText)
 
-        Me.ElementInfo.Text = Me.LabelText()
+        ''Me.ElementInfo.Text = Me.LabelText(
+        If (String.IsNullOrEmpty(Me.ElementInfo.Text)) Then ElementInfo.Text = LabelText()
+
+        ''Me.ElementInfo.Width = pictureLabel.Width
+        ''Me.ElementInfo.Height = pictureLabel.Height
+
+        Me.ElementInfo.Font_AllInfo = Me.ParentForm.Font ''Me.Font
+        Me.ElementInfo.BackColor = Me.ParentForm.BackColor
+        Me.ElementInfo.FontColor = Me.ParentForm.ForeColor
+
+        If (Generator Is Nothing) Then Generator = New ClassLabelToImage
 
         ''7/29/2019 td''pictureLabel.Image = Generator.TextImage(Me.ElementInfo, Me.ElementInfo)
         Generator.TextImage(pictureLabel.Image, Me.ElementInfo, Me.ElementInfo)
 
     End Sub ''End of Public Sub RefreshImage
+
+    Public Sub SaveToModel()
+        ''
+        ''Added 7/29/2019 thomas d 
+        ''
+        ''7/29 td''Me.ElementInfo.Info = CType(Me.ElementInfo, IElementText)
+
+        ''Me.ElementInfo.Text = Me.LabelText()
+
+        Me.ElementInfo.TopEdge_Pixels = Me.Top
+        Me.ElementInfo.LeftEdge_Pixels = Me.Left
+
+        Me.ElementInfo.Width_Pixels = Me.Width
+        Me.ElementInfo.Height_Pixels = Me.Height
+
+        ''Me.ElementInfo.Font_AllInfo = Me.Font
+        ''Me.ElementInfo.BackColor = Me.BackColor
+        ''Me.ElementInfo.FontColor = Me.ForeColor
+
+    End Sub ''End of Public Sub SaveToModel
 
     Public Function LabelText() As String
         ''
@@ -64,7 +119,7 @@ Public Class GraphicFieldLabel
             Case (Me.FieldInfo.FieldLabelCaption <> "")
 
                 ''Me.ElementInfo.Info.Text = Me.FieldInfo.ExampleValue
-                Return Me.FieldInfo.ExampleValue
+                Return Me.FieldInfo.FieldLabelCaption
 
             Case Else
 

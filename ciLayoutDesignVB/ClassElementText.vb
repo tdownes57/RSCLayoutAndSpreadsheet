@@ -41,11 +41,11 @@ Public Class ClassElementText
 
     Public Property LayoutWidth As Integer Implements IElement.LayoutWidth_Pixels ''This provides sizing context & scaling factors. 
 
-    Public Property TopEdge As Integer Implements IElement.TopEdge_Pixels
-    Public Property LeftEdge As Integer Implements IElement.LeftEdge_Pixels
+    Public Property TopEdge_Pixels As Integer Implements IElement.TopEdge_Pixels
+    Public Property LeftEdge_Pixels As Integer Implements IElement.LeftEdge_Pixels
 
-    Public Property Width As Integer Implements IElement.Width_Pixels
-    Public Property Height As Integer Implements IElement.Height_Pixels
+    Public Property Width_Pixels As Integer Implements IElement.Width_Pixels
+    Public Property Height_Pixels As Integer Implements IElement.Height_Pixels
 
     Public Property Border_Pixels As Integer Implements IElement.Border_Pixels
     Public Property Border_Color As System.Drawing.Color Implements IElement.Border_Color
@@ -57,6 +57,13 @@ Public Class ClassElementText
         ''Added 7/19/2019 td
         ''
         Me.FormControl = par_control
+
+    End Sub
+
+    Public Sub New()
+        ''
+        ''Added 7/29/2019 td
+        ''
 
     End Sub
 

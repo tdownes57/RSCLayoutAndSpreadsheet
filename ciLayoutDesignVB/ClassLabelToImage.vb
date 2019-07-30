@@ -10,13 +10,19 @@ Public Class ClassLabelToImage
     ''
     ''Added 7/17/2019
     ''
-    Public Function TextImage(par_image As Image, par_design As IElementText, par_element As IElement) As Image
+    Public Function TextImage(ByRef par_image As Image, par_design As IElementText, par_element As IElement) As Image
         ''
         ''Added 7/17/2019 thomas downes
         ''
         Dim gr As Graphics ''= Graphics.FromImage(img)
         Dim pen_backcolor As Pen
         Dim brush_forecolor As Brush
+
+        If (par_image Is Nothing) Then
+            ''Create the image from scratch, if needed. 
+            ''7/29 td''par_image = New Bitmap(par_element.Width_Pixels, par_element.Height_Pixels)
+            par_image = New Bitmap(par_element.Width_Pixels, par_element.Height_Pixels)
+        End If ''End of "If (par_image Is Nothing) Then"
 
         gr = Graphics.FromImage(par_image)
 
@@ -30,7 +36,7 @@ Public Class ClassLabelToImage
 
         gr.DrawString(par_design.Text, par_design.Font_AllInfo, brush_forecolor, New Point(0, 0))
 
-        Return Nothing
+        Return par_image ''Return Nothing
 
     End Function ''End of "Public Function TextImage(par_label As Label) As Image"
 

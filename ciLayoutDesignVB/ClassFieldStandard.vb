@@ -120,6 +120,9 @@ Public Class ClassFieldStandard
     ''    End Set
     ''End Property
 
+    ''Added 7/29/2019 thomas downes
+    ''
+    Public Property ElementInfo As ClassElementText
 
     ''
     ''Added 7/16/2019 thomas d. 
