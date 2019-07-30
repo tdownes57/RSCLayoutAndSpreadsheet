@@ -1,11 +1,39 @@
 ﻿''Added 7/18/2019 thomas downes
 Public Class ClassElementText
-    Implements IElement
+    Implements IElement, IElementText
     ''
     ''Added 7/18/2019 thomas downes
     ''
     ''
-    Public Property Info As IElementText
+    ''7/29/2019 td''Public Property Info As IElementText
+
+    ''-------------------------------------------------------------
+
+    Public Property Font_AllInfo As System.Drawing.Font Implements IElementText.Font_AllInfo
+
+    Public Property FontColor As System.Drawing.Color Implements IElementText.FontColor
+
+    Public Property BackColor As System.Drawing.Color Implements IElementText.BackColor
+
+    Public Property FieldInCardData As String Implements IElementText.FieldInCardData
+
+    Public Property FieldLabelCaption As String Implements IElementText.FieldLabelCaption
+
+    ''7/25/2019 td''Prpoerty ExampleText As String ''Added 7/25/2019
+    Public Property Text As String Implements IElementText.Text ''E.g. "George Washington" for FullName. 
+
+
+    Public Property Alignment As System.Windows.Forms.HorizontalAlignment Implements IElementText.Alignment
+
+
+    Public Property OrientationToLayout As String Implements IElementText.OrientationToLayout ''E.g. "L" (Landscape) (by far the most common) or "P" for Portrait  
+
+    Public Property OrientationInDegrees As Integer Implements IElementText.OrientationInDegrees ''Default is 0, normal.  90 would be 1/4 turn clockwise.  180 is upside-down.  270 is the printing on the spine of a book sitting on the bookshelf.
+
+
+    ''-------------------------------------------------------------
+    ''-------------------------------------------------------------
+    ''-------------------------------------------------------------
 
     Public Property FormControl As Control Implements IElement.FormControl ''Added 7/19/2019  
 

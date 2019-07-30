@@ -41,9 +41,12 @@ Public Class GraphicFieldLabel
         ''
         ''Added 7/25/2019 thomas d 
         ''
-        Me.ElementInfo.Info.Text = LabelText()
+        ''7/29 td''Me.ElementInfo.Info = CType(Me.ElementInfo, IElementText)
 
-        pictureLabel.Image = Generator.TextImage(Me.ElementInfo, Me.ElementInfo)
+        Me.ElementInfo.Text = Me.LabelText()
+
+        ''7/29/2019 td''pictureLabel.Image = Generator.TextImage(Me.ElementInfo, Me.ElementInfo)
+        Generator.TextImage(pictureLabel.Image, Me.ElementInfo, Me.ElementInfo)
 
     End Sub ''End of Public Sub RefreshImage
 
@@ -66,7 +69,8 @@ Public Class GraphicFieldLabel
             Case Else
 
                 ''Default value.
-                Me.ElementInfo.Info.Text = $"Field #{Me.FieldInfo.FieldIndex}"
+                ''7/29 td''Me.ElementInfo.Info.Text = $"Field #{Me.FieldInfo.FieldIndex}"
+                Return $"Field #{Me.FieldInfo.FieldIndex}"
 
         End Select ''End of "Select Case True"
 

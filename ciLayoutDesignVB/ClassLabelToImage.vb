@@ -10,75 +10,87 @@ Public Class ClassLabelToImage
     ''
     ''Added 7/17/2019
     ''
-    Public Function TextImage(par_design As IElementText, par_element As IElement) As Image
+    Public Function TextImage(par_image As Image, par_design As IElementText, par_element As IElement) As Image
         ''
         ''Added 7/17/2019 thomas downes
         ''
+        Dim gr As Graphics ''= Graphics.FromImage(img)
+        Dim pen_backcolor As Pen
+        Dim brush_forecolor As Brush
 
+        gr = Graphics.FromImage(par_image)
 
+        pen_backcolor = New Pen(par_design.BackColor)
+        brush_forecolor = New SolidBrush(par_design.FontColor)
 
+        ''
+        ''Draw the select background color, so that hopefully the text can be read easily.
+        ''
+        gr.DrawRectangle(pen_backcolor, New Rectangle(0, 0, par_element.Width_Pixels, par_element.Height_Pixels))
+
+        gr.DrawString(par_design.Text, par_design.Font_AllInfo, brush_forecolor, New Point(0, 0))
 
         Return Nothing
 
     End Function ''End of "Public Function TextImage(par_label As Label) As Image"
 
-    Private Sub ApplyTextToImage(ByRef par_image As Image)
-        ''
-        ''Added 5/7/2019 td  
-        ''
-        Dim gr As Graphics ''= Graphics.FromImage(img)
-        gr = Graphics.FromImage(par_image)
+    ''Private Sub ApplyTextToImage(ByRef par_image As Image)
+    ''    ''
+    ''    ''Added 5/7/2019 td  
+    ''    ''
+    ''    Dim gr As Graphics ''= Graphics.FromImage(img)
+    ''    gr = Graphics.FromImage(par_image)
 
-        ''
-        ''Resizing Images in VB.NET
-        ''  https://stackoverflow.com/questions/2144592/resizing-images-in-vb-net
-        ''
+    ''    ''
+    ''    ''Resizing Images in VB.NET
+    ''    ''  https://stackoverflow.com/questions/2144592/resizing-images-in-vb-net
+    ''    ''
 
-        ''gr.DrawString("Drawing text",
-        ''              New Font("Tahoma", 14),
-        ''              New SolidBrush(Color.Green),
-        ''              10, 10)
+    ''    ''gr.DrawString("Drawing text",
+    ''    ''              New Font("Tahoma", 14),
+    ''    ''              New SolidBrush(Color.Green),
+    ''    ''              10, 10)
 
-        ''Draw white space so that the text can be read more easily. 
-        ApplyWhiteSpaceToImage(par_image, Me.LabelControlForID)
+    ''    ''Draw white space so that the text can be read more easily. 
+    ''    ApplyWhiteSpaceToImage(par_image, Me.LabelControlForID)
 
-        gr.DrawString("Person " & Me.RecipientID,
-                      New Font("Tahoma", Me.LabelControlForID.Font.SizeInPoints),
-                      New SolidBrush(Me.LabelControlForID.ForeColor),
-                       Me.LabelControlForID.Left, Me.LabelControlForID.Top)
+    ''    gr.DrawString("Person " & Me.RecipientID,
+    ''                  New Font("Tahoma", Me.LabelControlForID.Font.SizeInPoints),
+    ''                  New SolidBrush(Me.LabelControlForID.ForeColor),
+    ''                   Me.LabelControlForID.Left, Me.LabelControlForID.Top)
 
-        ''Draw white space so that the text can be read more easily. 
-        ApplyWhiteSpaceToImage(par_image, LabelControlForName)
+    ''    ''Draw white space so that the text can be read more easily. 
+    ''    ApplyWhiteSpaceToImage(par_image, LabelControlForName)
 
-        gr.DrawString(Me.RecipientName,
-                      New Font("Tahoma", Me.LabelControlForName.Font.SizeInPoints),
-                      New SolidBrush(Me.LabelControlForName.ForeColor),
-                       Me.LabelControlForName.Left, Me.LabelControlForName.Top)
+    ''    gr.DrawString(Me.RecipientName,
+    ''                  New Font("Tahoma", Me.LabelControlForName.Font.SizeInPoints),
+    ''                  New SolidBrush(Me.LabelControlForName.ForeColor),
+    ''                   Me.LabelControlForName.Left, Me.LabelControlForName.Top)
 
-        gr.Dispose()
+    ''    gr.Dispose()
 
-    End Sub ''End of ""Private Sub ApplyTextToImage(ByRef par_image As Image)
+    ''End Sub ''End of ""Private Sub ApplyTextToImage(ByRef par_image As Image)
 
-    Private Sub ApplyWhiteSpaceToImage(ByRef par_image As Image, ByVal par_textboxOrLabel As Control)
-        ''
-        ''Added 5/10/2019 td  
-        ''
-        ''    https://docs.microsoft.com/en-us/dotnet/api/system.drawing.graphics.drawimage?view=netframework-4.8
-        ''
-        Dim gr As Graphics ''= Graphics.FromImage(img)
+    ''Private Sub ApplyWhiteSpaceToImage(ByRef par_image As Image, ByVal par_textboxOrLabel As Control)
+    ''    ''
+    ''    ''Added 5/10/2019 td  
+    ''    ''
+    ''    ''    https://docs.microsoft.com/en-us/dotnet/api/system.drawing.graphics.drawimage?view=netframework-4.8
+    ''    ''
+    ''    Dim gr As Graphics ''= Graphics.FromImage(img)
 
-        ''Added 6/28/2019 td
-        Me.PictureOfPureWhite.BackColor = CType((New System.Drawing.ColorConverter()).ConvertFromString("#000000"), Color)
+    ''    ''Added 6/28/2019 td
+    ''    Me.PictureOfPureWhite.BackColor = CType((New System.Drawing.ColorConverter()).ConvertFromString("#000000"), Color)
 
-        gr = Graphics.FromImage(par_image)
+    ''    gr = Graphics.FromImage(par_image)
 
-        With par_textboxOrLabel
-            gr.DrawImage(Me.PictureOfPureWhite.Image, .Left, .Top, .Width, .Height)
-        End With
+    ''    With par_textboxOrLabel
+    ''        gr.DrawImage(Me.PictureOfPureWhite.Image, .Left, .Top, .Width, .Height)
+    ''    End With
 
-        gr.Dispose()
+    ''    gr.Dispose()
 
-    End Sub ''ENd of "Private Sub ApplyWhiteSpaceToImage(ByRef par_image As Image, ByRef par_textboxOrLabel As Control)"
+    ''End Sub ''ENd of "Private Sub ApplyWhiteSpaceToImage(ByRef par_image As Image, ByRef par_textboxOrLabel As Control)"
 
 
     Public Function MakeImage_FromLabel(par_label As Label) As Image
