@@ -2,7 +2,7 @@
 ''Added 7/25/2019 thomas d 
 ''
 
-Public Class GraphicFieldLabel
+Public Class CtlGraphicFldLabel
     ''
     ''Added 7/25/2019 thomas d 
     ''
@@ -133,5 +133,76 @@ Public Class GraphicFieldLabel
 
     End Function ''End of "Public Function LabelText() As String"
 
+    Private Sub OpenDialog_Field(sender As Object, e As EventArgs)
+        ''
+        ''Added 7/30/2019 thomas downes
+        ''
+        ''7/30/2019 td''ColorDialog1.ShowDialog()
+        Dim form_ToShow As New FormCustomFieldsFlow
+
+        ''Can (should) we just show a single field? ''form_ToShow.JustOneField = Me.FieldInfo
+        form_ToShow.JustOneField_Index = Me.FieldInfo.FieldIndex
+
+        form_ToShow.Show()
+
+    End Sub ''eNd of "Private Sub opendialog_Color()"
+
+    Private Sub OpenDialog_Color(sender As Object, e As EventArgs)
+        ''
+        ''Added 7/30/2019 thomas downes
+        ''
+        ColorDialog1.ShowDialog()
+
+    End Sub ''eNd of "Private Sub opendialog_Color()"
+
+    Private Sub OpenDialog_Font(sender As Object, e As EventArgs)
+        ''
+        ''Added 7/30/2019 thomas downes
+        ''
+        FontDialog1.ShowDialog()
+
+    End Sub ''eNd of "Private Sub opendialog_Color()"
+
+    Private Sub PictureLabel_MouseClick(sender As Object, e As MouseEventArgs) Handles pictureLabel.MouseClick
+        ''
+        ''Added 7/30/2019 thomas downes
+        ''
+        Dim boolRightClick As Boolean
+
+        Dim new_item_fieldname As ToolStripMenuItem
+        Dim new_item_field As ToolStripMenuItem
+        Dim new_item_colors As ToolStripMenuItem
+        Dim new_item_font As ToolStripMenuItem
+
+        boolRightClick = (e.Button = MouseButtons.Right)
+
+        ''Added 7/30/2019 thomas downes
+        If (boolRightClick) Then
+
+            ''Added 7/30/2019 thomas downes
+            ''ContextMenuStrip1.Items.Clear()
+
+            If (0 < ContextMenuStrip1.Items.Count) Then
+
+                new_item_fieldname = New ToolStripMenuItem("Field " & Me.FieldInfo.FieldLabelCaption)
+                new_item_field = New ToolStripMenuItem("Browse Field")
+
+                new_item_colors = New ToolStripMenuItem("Set Colors")
+                new_item_font = New ToolStripMenuItem("Set Font")
+
+                AddHandler new_item_field.Click, AddressOf OpenDialog_Field
+                AddHandler new_item_colors.Click, AddressOf OpenDialog_Color
+                AddHandler new_item_font.Click, AddressOf OpenDialog_Font
+
+                ContextMenuStrip1.Items.Add(new_item_colors)
+                ContextMenuStrip1.Items.Add(new_item_font)
+
+            End If ''End of "If (0 < ContextMenuStrip1.Items.Count) Then"
+
+            ContextMenuStrip1.Show()
+
+        End If ''End of "If (boolRightClick) Then"
+
+    End Sub
 
 End Class

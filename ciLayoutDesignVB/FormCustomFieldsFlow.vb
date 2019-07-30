@@ -5,6 +5,7 @@
 Public Class FormCustomFieldsFlow
 
     Public Property ListOfFields As List(Of ClassFieldCustomized) ''Added 7/23/2019 thomas downes 
+    Public Property JustOneField_Index As Integer ''Added 7/30/2019 thomas d. 
 
     Public Sub AdjustHeightOfWindow()
         ''Added 7/23/2019 thomas downes

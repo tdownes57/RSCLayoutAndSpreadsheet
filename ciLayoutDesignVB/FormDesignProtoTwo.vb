@@ -58,13 +58,13 @@ Public Class FormDesignProtoTwo
         ''
         ''Added 7/19/2019 thomas downes  
         ''
-        Dim each_graphicLabel As GraphicFieldLabel
+        Dim each_graphicLabel As CtlGraphicFldLabel
 
         For Each each_control As Control In Me.Controls
 
-            If (TypeOf each_control Is GraphicFieldLabel) Then
+            If (TypeOf each_control Is CtlGraphicFldLabel) Then
 
-                each_graphicLabel = CType(each_control, GraphicFieldLabel)
+                each_graphicLabel = CType(each_control, CtlGraphicFldLabel)
 
                 ControlMoverOrResizer_TD.Init(each_graphicLabel.Picture_Box,
                                               each_control, 10) ''Added 7/28/2019 thomas downes
@@ -103,13 +103,13 @@ Public Class FormDesignProtoTwo
 
         For Each field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students
 
-            Dim new_label_control_std As GraphicFieldLabel
+            Dim new_label_control_std As CtlGraphicFldLabel
 
             ''Added 7/29
             If (field_standard.ElementInfo Is Nothing) Then
 
                 field_standard.ElementInfo = New ClassElementText()
-                new_label_control_std = New GraphicFieldLabel(field_standard)
+                new_label_control_std = New CtlGraphicFldLabel(field_standard)
                 Me.Controls.Add(new_label_control_std)
 
                 new_label_control_std.Width = CInt(pictureBack.Width / 3)
@@ -127,7 +127,7 @@ Public Class FormDesignProtoTwo
 
             Else
 
-                new_label_control_std = New GraphicFieldLabel(field_standard)
+                new_label_control_std = New CtlGraphicFldLabel(field_standard)
                 Me.Controls.Add(new_label_control_std)
 
                 new_label_control_std.Top = field_standard.ElementInfo.TopEdge_Pixels
@@ -180,13 +180,13 @@ Public Class FormDesignProtoTwo
 
             ''7/28/2019 td''ControlMoverOrResizer_TD.Init(new_label_control_cust, 20) ''Added 7/28/2019 thomas downes
 
-            Dim new_label_control_cust As GraphicFieldLabel
+            Dim new_label_control_cust As CtlGraphicFldLabel
 
             ''Added 7/29
             If (field_custom.ElementInfo Is Nothing) Then
 
                 field_custom.ElementInfo = New ClassElementText()
-                new_label_control_cust = New GraphicFieldLabel(field_custom)
+                new_label_control_cust = New CtlGraphicFldLabel(field_custom)
                 Me.Controls.Add(new_label_control_cust)
 
                 new_label_control_cust.Width = CInt(pictureBack.Width / 3)
@@ -204,7 +204,7 @@ Public Class FormDesignProtoTwo
 
             Else
 
-                new_label_control_cust = New GraphicFieldLabel(field_custom)
+                new_label_control_cust = New CtlGraphicFldLabel(field_custom)
                 Me.Controls.Add(new_label_control_cust)
 
                 new_label_control_cust.Top = field_custom.ElementInfo.TopEdge_Pixels
@@ -239,13 +239,13 @@ Public Class FormDesignProtoTwo
         ''
         ''Added 7/29/2019 td
         ''
-        Dim each_graphicalLabel As GraphicFieldLabel
+        Dim each_graphicalLabel As CtlGraphicFldLabel
 
         For Each each_control As Control In Me.Controls
 
-            If (TypeOf each_control Is GraphicFieldLabel) Then
+            If (TypeOf each_control Is CtlGraphicFldLabel) Then
 
-                each_graphicalLabel = CType(each_control, GraphicFieldLabel)
+                each_graphicalLabel = CType(each_control, CtlGraphicFldLabel)
 
                 each_graphicalLabel.SaveToModel
 

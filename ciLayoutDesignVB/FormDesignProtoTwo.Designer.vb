@@ -51,11 +51,11 @@ Partial Class FormDesignProtoTwo
         Me.pictureAdjustmentToggle = New System.Windows.Forms.PictureBox()
         Me.pictureboxPic = New System.Windows.Forms.PictureBox()
         Me.pictureBack = New System.Windows.Forms.PictureBox()
-        Me.GraphicFieldLabel5 = New ciLayoutDesignVB.GraphicFieldLabel()
-        Me.GraphicFieldLabel4 = New ciLayoutDesignVB.GraphicFieldLabel()
-        Me.GraphicFieldLabel3 = New ciLayoutDesignVB.GraphicFieldLabel()
-        Me.GraphicFieldLabel2 = New ciLayoutDesignVB.GraphicFieldLabel()
-        Me.GraphicFieldLabel1 = New ciLayoutDesignVB.GraphicFieldLabel()
+        Me.GraphicFieldLabel5 = New ciLayoutDesignVB.CtlGraphicFldLabel()
+        Me.GraphicFieldLabel4 = New ciLayoutDesignVB.CtlGraphicFldLabel()
+        Me.GraphicFieldLabel3 = New ciLayoutDesignVB.CtlGraphicFldLabel()
+        Me.GraphicFieldLabel2 = New ciLayoutDesignVB.CtlGraphicFldLabel()
+        Me.GraphicFieldLabel1 = New ciLayoutDesignVB.CtlGraphicFldLabel()
         Me.SaveToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.pictureAdjustmentToggle, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -372,11 +372,11 @@ Partial Class FormDesignProtoTwo
     Friend WithEvents LinkShowWebControls As LinkLabel
     Friend WithEvents LinkLabel1 As LinkLabel
     Friend WithEvents chkIncludeExampleValues As CheckBox
-    Friend WithEvents GraphicFieldLabel1 As GraphicFieldLabel
-    Friend WithEvents GraphicFieldLabel2 As GraphicFieldLabel
-    Friend WithEvents GraphicFieldLabel3 As GraphicFieldLabel
-    Friend WithEvents GraphicFieldLabel4 As GraphicFieldLabel
-    Friend WithEvents GraphicFieldLabel5 As GraphicFieldLabel
+    Friend WithEvents GraphicFieldLabel1 As CtlGraphicFldLabel
+    Friend WithEvents GraphicFieldLabel2 As CtlGraphicFldLabel
+    Friend WithEvents GraphicFieldLabel3 As CtlGraphicFldLabel
+    Friend WithEvents GraphicFieldLabel4 As CtlGraphicFldLabel
+    Friend WithEvents GraphicFieldLabel5 As CtlGraphicFldLabel
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents OpenToolStripMenuItem As ToolStripMenuItem
