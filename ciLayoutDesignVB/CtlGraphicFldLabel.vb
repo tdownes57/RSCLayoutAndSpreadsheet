@@ -76,10 +76,11 @@ Public Class CtlGraphicFldLabel
 
         ''7/30/2019 td''Me.ElementInfo.Font_AllInfo = Me.ParentForm.Font ''Me.Font
         ''7/30/2019 td''Me.ElementInfo.Font_AllInfo = New Font("Times New Roman", 25, FontStyle.Italic)
-        Me.ElementInfo.Font_AllInfo = New Font("Times New Roman", 15, FontStyle.Regular)
+        If (Me.ElementInfo.Font_AllInfo Is Nothing) Then _
+            Me.ElementInfo.Font_AllInfo = New Font("Times New Roman", 15, FontStyle.Regular)
 
-        Me.ElementInfo.BackColor = Me.ParentForm.BackColor
-        Me.ElementInfo.FontColor = Me.ParentForm.ForeColor
+        ''Me.ElementInfo.BackColor = Me.ParentForm.BackColor
+        ''Me.ElementInfo.FontColor = Me.ParentForm.ForeColor
 
         If (Generator Is Nothing) Then Generator = New ClassLabelToImage
 
@@ -157,10 +158,11 @@ Public Class CtlGraphicFldLabel
         ColorDialog1.ShowDialog()
 
         ''7/30/2019 td''Me.ElementInfo.FontColor = ColorDialog1.Color
-
-        Me.ElementInfo.FontColor = ColorDialog1.Color
+        Me.ElementInfo.BackColor = ColorDialog1.Color
+        Me.ElementInfo.Back_Color = ColorDialog1.Color
 
         RefreshImage()
+        Me.Refresh()
 
     End Sub ''eNd of "Private Sub opendialog_Color()"
 
@@ -169,6 +171,10 @@ Public Class CtlGraphicFldLabel
         ''Added 7/30/2019 thomas downes
         ''
         FontDialog1.ShowDialog()
+
+        Me.ElementInfo.Font_AllInfo = FontDialog1.Font
+        RefreshImage()
+        Me.Refresh()
 
     End Sub ''eNd of "Private Sub opendialog_Color()"
 
