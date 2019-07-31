@@ -16,7 +16,12 @@ namespace ciLayoutDesign
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            // #1 7-30-2019 td//Application.Run(new FormRudimentary());
+            //  #2 7-30-2019 td//Application.Run(new FormBetterFontDraw());
+
+            Application.Run(new FormFontAliasing());
+
         }
     }
 }

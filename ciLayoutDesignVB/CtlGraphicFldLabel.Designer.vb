@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class GraphicFieldLabel
+Partial Class CtlGraphicFldLabel
     Inherits System.Windows.Forms.UserControl
 
     'UserControl overrides dispose to clean up the component list.
@@ -22,7 +22,11 @@ Partial Class GraphicFieldLabel
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.pictureLabel = New System.Windows.Forms.PictureBox()
+        Me.FontDialog1 = New System.Windows.Forms.FontDialog()
+        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.ColorDialog1 = New System.Windows.Forms.ColorDialog()
         CType(Me.pictureLabel, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -36,12 +40,17 @@ Partial Class GraphicFieldLabel
         Me.pictureLabel.TabIndex = 0
         Me.pictureLabel.TabStop = False
         '
-        'GraphicFieldLabel
+        'ContextMenuStrip1
+        '
+        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(61, 4)
+        '
+        'CtlGraphicFldLabel
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.pictureLabel)
-        Me.Name = "GraphicFieldLabel"
+        Me.Name = "CtlGraphicFldLabel"
         Me.Size = New System.Drawing.Size(253, 33)
         CType(Me.pictureLabel, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
@@ -49,4 +58,7 @@ Partial Class GraphicFieldLabel
     End Sub
 
     Friend WithEvents pictureLabel As PictureBox
+    Friend WithEvents FontDialog1 As FontDialog
+    Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
+    Friend WithEvents ColorDialog1 As ColorDialog
 End Class

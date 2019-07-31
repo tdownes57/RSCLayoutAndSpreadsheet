@@ -152,10 +152,10 @@
     <Compile Include="FormDisplay.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GraphicFieldLabel.Designer.vb">
-      <DependentUpon>GraphicFieldLabel.vb</DependentUpon>
+    <Compile Include="CtlGraphicFldLabel.Designer.vb">
+      <DependentUpon>CtlGraphicFldLabel.vb</DependentUpon>
     </Compile>
-    <Compile Include="GraphicFieldLabel.vb">
+    <Compile Include="CtlGraphicFldLabel.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="InterfaceCIBField.vb" />
@@ -227,8 +227,8 @@
     <EmbeddedResource Include="FormSubsection.resx">
       <DependentUpon>FormSubsection.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GraphicFieldLabel.resx">
-      <DependentUpon>GraphicFieldLabel.vb</DependentUpon>
+    <EmbeddedResource Include="CtlGraphicFldLabel.resx">
+      <DependentUpon>CtlGraphicFldLabel.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

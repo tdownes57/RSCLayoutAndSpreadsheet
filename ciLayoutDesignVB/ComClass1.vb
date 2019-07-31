@@ -1,4 +1,4 @@
-﻿<ComClass(ComClass1.ClassId, ComClass1.InterfaceId, ComClass1.EventsId)> _
+﻿''<ComClass(ComClass1.ClassId, ComClass1.InterfaceId, ComClass1.EventsId)> _
 Public Class ComClass1
 
 #Region "COM GUIDs"

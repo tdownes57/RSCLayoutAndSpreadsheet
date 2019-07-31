@@ -5,23 +5,112 @@ Option Strict On ''Added 7/17/2019
 ''Added 7/17/2019
 ''
 Imports System.Drawing.Image ''Added 7/17/2019
+Imports System.Drawing.Text ''Added 7/30/2019
 
 Public Class ClassLabelToImage
     ''
     ''Added 7/17/2019
     ''
-    Public Function TextImage(par_design As IElementText, par_element As IElement) As Image
+    Public Function TextImage(ByRef par_image As Image, par_design As IElementText, par_element As IElement) As Image
         ''
         ''Added 7/17/2019 thomas downes
         ''
+        Dim gr As Graphics ''= Graphics.FromImage(img)
+        Dim pen_backcolor As Pen
+        Dim brush_forecolor As Brush
 
+        If (par_image Is Nothing) Then
+            ''Create the image from scratch, if needed. 
+            ''7/29 td''par_image = New Bitmap(par_element.Width_Pixels, par_element.Height_Pixels)
+            par_image = New Bitmap(par_element.Width_Pixels, par_element.Height_Pixels)
+        End If ''End of "If (par_image Is Nothing) Then"
 
+        gr = Graphics.FromImage(par_image)
 
+        pen_backcolor = New Pen(par_design.BackColor)
+        pen_backcolor = New Pen(Color.White)
 
-        Return Nothing
+        brush_forecolor = New SolidBrush(par_design.FontColor)
+
+        ''
+        ''Draw the select background color, so that hopefully the text can be read easily.
+        ''
+        gr.DrawRectangle(pen_backcolor, New Rectangle(0, 0, par_element.Width_Pixels, par_element.Height_Pixels))
+
+        ''7/30/2019''gr.DrawString(par_design.Text, par_design.Font_AllInfo, brush_forecolor, New Point(0, 0))
+
+        ''Font TextFont = New Font("Times New Roman", 25, FontStyle.Italic);
+        ''    e.Graphics.TextRenderingHint = TextRenderingHint.SingleBitPerPixelGridFit;
+        ''    e.Graphics.DrawString("Sample Text", TextFont, Brushes.Black, 20, 20);
+        ''    e.Graphics.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
+        ''    e.Graphics.DrawString("Sample Text", TextFont, Brushes.Black, 20, 85);
+        ''    e.Graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
+        ''    e.Graphics.DrawString("Sample Text", TextFont, Brushes.Black, 20, 150);
+
+        gr.TextRenderingHint = TextRenderingHint.AntiAliasGridFit
+        gr.DrawString(par_design.Text, par_design.Font_AllInfo, Brushes.Black, 20, 20)
+
+        Return par_image ''Return Nothing
 
     End Function ''End of "Public Function TextImage(par_label As Label) As Image"
 
+    ''Private Sub ApplyTextToImage(ByRef par_image As Image)
+    ''    ''
+    ''    ''Added 5/7/2019 td  
+    ''    ''
+    ''    Dim gr As Graphics ''= Graphics.FromImage(img)
+    ''    gr = Graphics.FromImage(par_image)
+
+    ''    ''
+    ''    ''Resizing Images in VB.NET
+    ''    ''  https://stackoverflow.com/questions/2144592/resizing-images-in-vb-net
+    ''    ''
+
+    ''    ''gr.DrawString("Drawing text",
+    ''    ''              New Font("Tahoma", 14),
+    ''    ''              New SolidBrush(Color.Green),
+    ''    ''              10, 10)
+
+    ''    ''Draw white space so that the text can be read more easily. 
+    ''    ApplyWhiteSpaceToImage(par_image, Me.LabelControlForID)
+
+    ''    gr.DrawString("Person " & Me.RecipientID,
+    ''                  New Font("Tahoma", Me.LabelControlForID.Font.SizeInPoints),
+    ''                  New SolidBrush(Me.LabelControlForID.ForeColor),
+    ''                   Me.LabelControlForID.Left, Me.LabelControlForID.Top)
+
+    ''    ''Draw white space so that the text can be read more easily. 
+    ''    ApplyWhiteSpaceToImage(par_image, LabelControlForName)
+
+    ''    gr.DrawString(Me.RecipientName,
+    ''                  New Font("Tahoma", Me.LabelControlForName.Font.SizeInPoints),
+    ''                  New SolidBrush(Me.LabelControlForName.ForeColor),
+    ''                   Me.LabelControlForName.Left, Me.LabelControlForName.Top)
+
+    ''    gr.Dispose()
+
+    ''End Sub ''End of ""Private Sub ApplyTextToImage(ByRef par_image As Image)
+
+    ''Private Sub ApplyWhiteSpaceToImage(ByRef par_image As Image, ByVal par_textboxOrLabel As Control)
+    ''    ''
+    ''    ''Added 5/10/2019 td  
+    ''    ''
+    ''    ''    https://docs.microsoft.com/en-us/dotnet/api/system.drawing.graphics.drawimage?view=netframework-4.8
+    ''    ''
+    ''    Dim gr As Graphics ''= Graphics.FromImage(img)
+
+    ''    ''Added 6/28/2019 td
+    ''    Me.PictureOfPureWhite.BackColor = CType((New System.Drawing.ColorConverter()).ConvertFromString("#000000"), Color)
+
+    ''    gr = Graphics.FromImage(par_image)
+
+    ''    With par_textboxOrLabel
+    ''        gr.DrawImage(Me.PictureOfPureWhite.Image, .Left, .Top, .Width, .Height)
+    ''    End With
+
+    ''    gr.Dispose()
+
+    ''End Sub ''ENd of "Private Sub ApplyWhiteSpaceToImage(ByRef par_image As Image, ByRef par_textboxOrLabel As Control)"
 
 
     Public Function MakeImage_FromLabel(par_label As Label) As Image

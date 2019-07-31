@@ -1,6 +1,6 @@
 ﻿namespace ciLayoutDesign
 {
-    partial class Form1
+    partial class FormRudimentary
     {
         /// <summary>
         /// Required designer variable.

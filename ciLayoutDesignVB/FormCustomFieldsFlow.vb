@@ -5,6 +5,7 @@
 Public Class FormCustomFieldsFlow
 
     Public Property ListOfFields As List(Of ClassFieldCustomized) ''Added 7/23/2019 thomas downes 
+    Public Property JustOneField_Index As Integer ''Added 7/30/2019 thomas d. 
 
     Public Sub AdjustHeightOfWindow()
         ''Added 7/23/2019 thomas downes
@@ -117,11 +118,12 @@ Public Class FormCustomFieldsFlow
 
     End Sub
 
-    Private Sub LinkLabelAddField_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelAddField.LinkClicked
+    Private Sub LinkLabelSave_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelSave.LinkClicked
 
-        ''Added 7/27/2019 td
-        ''
-        ''Mod_add_field_control.AddField()
+        ''Added 7/30/2019 td
+        SaveControls()
+
+        MessageBox.Show("Saved.", "ciLayoutDesign", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
     End Sub
 End Class
