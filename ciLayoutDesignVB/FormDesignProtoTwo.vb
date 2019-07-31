@@ -66,8 +66,13 @@ Public Class FormDesignProtoTwo
 
                 each_graphicLabel = CType(each_control, CtlGraphicFldLabel)
 
+                ''7/31/2019 td''ControlMoverOrResizer_TD.Init(each_graphicLabel.Picture_Box,
+                ''                      each_control, 10) ''Added 7/28/2019 thomas downes
+
+                Const c_bRepaintAfterResize As Boolean = True ''Added 7/31/2019 td 
+
                 ControlMoverOrResizer_TD.Init(each_graphicLabel.Picture_Box,
-                                              each_control, 10) ''Added 7/28/2019 thomas downes
+                                              each_control, 10, c_bRepaintAfterResize) ''Added 7/28/2019 thomas downes
 
             End If ''End of "If (TypeOf each_control Is GraphicFieldLabel) Then"
 

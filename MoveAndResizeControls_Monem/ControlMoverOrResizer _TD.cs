@@ -39,6 +39,8 @@ namespace ControlManager
         //
 
         private static bool _moving;
+        private static bool _repaintAfterResize;  // Added 7/31/2019 td  
+        /// </summary>
         private static Point _cursorStartPoint;
         private static bool _moveIsInterNal;
         private static bool _resizing;
@@ -62,19 +64,33 @@ namespace ControlManager
 
         internal static MoveOrResize WorkType { get; set; }
 
-        public static void Init(Control control, int par_margin)
+        public static void Init(Control control, int par_margin, bool pbRepaintAfterResize)
         {
+            //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
+            //     the preferred background color.)   ----7/31/2019 td
+            //
+            // 7-31-2019 td ----public static void Init(Control control, int par_margin)
+            //
             //Init(control, control);
-            Init(control, control, par_margin);
+
+            // 7-31-2019 td----Init(control, control, par_margin
+
+            Init(control, control, par_margin, pbRepaintAfterResize);
         }
 
-        public static void Init(Control control, Control container, int par_margin )
+        public static void Init(Control par_control, Control par_container, int par_margin, bool pbRepaintAfterResize)
         {
+            //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
+            //     the preferred background color.)   ----7/31/2019 td
+            //
+            // 7-31-2019 td--public static void Init(Control control, Control container, int par_margin)
+            //
             //
             //   internal static void Init(Control control, Control container)
             //
 
             _moving = false;
+            _repaintAfterResize = pbRepaintAfterResize; //Added 7/31/2019 td 
             _resizing = false;
             _moveIsInterNal = false;
             _cursorStartPoint = Point.Empty;
@@ -82,7 +98,7 @@ namespace ControlManager
             //
             //Added 7/18/2019 thomas downes 
             //
-            _margin = par_margin; 
+            _margin = par_margin;
 
             MouseIsInLeftEdge = false;
             MouseIsInLeftEdge = false;
@@ -90,9 +106,10 @@ namespace ControlManager
             MouseIsInTopEdge = false;
             MouseIsInBottomEdge = false;
             WorkType = MoveOrResize.MoveAndResize;
-            control.MouseDown += (sender, e) => StartMovingOrResizing(control, e);
-            control.MouseUp += (sender, e) => StopDragOrResizing(control);
-            control.MouseMove += (sender, e) => MoveControl(container, e);
+
+            par_control.MouseDown += (sender, e) => StartMovingOrResizing(par_control, e);
+            par_control.MouseUp += (sender, e) => StopDragOrResizing(par_control);
+            par_control.MouseMove += (sender, e) => MoveControl(par_container, e);
         }
 
         private static void UpdateMouseEdgeProperties(Control control, Point mouseLocationInControl)
@@ -120,7 +137,7 @@ namespace ControlManager
             {
                 return;
             }
-            if (MouseIsInLeftEdge )
+            if (MouseIsInLeftEdge)
             {
                 if (MouseIsInTopEdge)
                 {
@@ -166,13 +183,13 @@ namespace ControlManager
             {
                 return;
             }
-            if (WorkType!=MoveOrResize.Move &&
+            if (WorkType != MoveOrResize.Move &&
                 (MouseIsInRightEdge || MouseIsInLeftEdge || MouseIsInTopEdge || MouseIsInBottomEdge))
             {
                 _resizing = true;
                 _currentControlStartSize = control.Size;
             }
-            else if (WorkType!=MoveOrResize.Resize)
+            else if (WorkType != MoveOrResize.Resize)
             {
                 _moving = true;
                 control.Cursor = Cursors.Hand;
@@ -183,7 +200,7 @@ namespace ControlManager
 
         private static void MoveControl(Control control, MouseEventArgs e)
         {
-            if (!_resizing && ! _moving)
+            if (!_resizing && !_moving)
             {
                 UpdateMouseEdgeProperties(control, new Point(e.X, e.Y));
                 UpdateMouseCursor(control);
@@ -195,7 +212,7 @@ namespace ControlManager
                     if (MouseIsInTopEdge)
                     {
                         control.Width -= (e.X - _cursorStartPoint.X);
-                        control.Left += (e.X - _cursorStartPoint.X); 
+                        control.Left += (e.X - _cursorStartPoint.X);
                         control.Height -= (e.Y - _cursorStartPoint.Y);
                         control.Top += (e.Y - _cursorStartPoint.Y);
                     }
@@ -203,12 +220,12 @@ namespace ControlManager
                     {
                         control.Width -= (e.X - _cursorStartPoint.X);
                         control.Left += (e.X - _cursorStartPoint.X);
-                        control.Height = (e.Y - _cursorStartPoint.Y) + _currentControlStartSize.Height;                    
+                        control.Height = (e.Y - _cursorStartPoint.Y) + _currentControlStartSize.Height;
                     }
                     else
                     {
                         control.Width -= (e.X - _cursorStartPoint.X);
-                        control.Left += (e.X - _cursorStartPoint.X) ;
+                        control.Left += (e.X - _cursorStartPoint.X);
                     }
                 }
                 else if (MouseIsInRightEdge)
@@ -223,11 +240,11 @@ namespace ControlManager
                     else if (MouseIsInBottomEdge)
                     {
                         control.Width = (e.X - _cursorStartPoint.X) + _currentControlStartSize.Width;
-                        control.Height = (e.Y - _cursorStartPoint.Y) + _currentControlStartSize.Height;                    
+                        control.Height = (e.Y - _cursorStartPoint.Y) + _currentControlStartSize.Height;
                     }
                     else
                     {
-                        control.Width = (e.X - _cursorStartPoint.X)+_currentControlStartSize.Width;
+                        control.Width = (e.X - _cursorStartPoint.X) + _currentControlStartSize.Width;
                     }
                 }
                 else if (MouseIsInTopEdge)
@@ -237,11 +254,11 @@ namespace ControlManager
                 }
                 else if (MouseIsInBottomEdge)
                 {
-                    control.Height = (e.Y - _cursorStartPoint.Y) + _currentControlStartSize.Height;                    
+                    control.Height = (e.Y - _cursorStartPoint.Y) + _currentControlStartSize.Height;
                 }
                 else
                 {
-                     StopDragOrResizing(control);
+                    StopDragOrResizing(control);
                 }
             }
             else if (_moving)
@@ -258,10 +275,19 @@ namespace ControlManager
 
         private static void StopDragOrResizing(Control control)
         {
+            bool bWasResizing = _resizing; // Added 7/31/2019 td
+
             _resizing = false;
             _moving = false;
             control.Capture = false;
             UpdateMouseCursor(control);
+
+            //Added 7/31/2019 td
+            //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
+            //     the preferred background color.)   
+            //
+            if (_repaintAfterResize && bWasResizing) control.Refresh();
+
         }
 
         #region Save And Load
@@ -290,18 +316,18 @@ namespace ControlManager
         {
             List<Control> controls = new List<Control>();
             GetAllChildControls(container, controls);
-            string[] controlsInfo = controlsInfoStr.Split(new []{"*"},StringSplitOptions.RemoveEmptyEntries );
+            string[] controlsInfo = controlsInfoStr.Split(new[] { "*" }, StringSplitOptions.RemoveEmptyEntries);
             Dictionary<string, string> controlsInfoDictionary = new Dictionary<string, string>();
             foreach (string controlInfo in controlsInfo)
             {
-                string[] info = controlInfo.Split(new [] { ":" }, StringSplitOptions.RemoveEmptyEntries);
+                string[] info = controlInfo.Split(new[] { ":" }, StringSplitOptions.RemoveEmptyEntries);
                 controlsInfoDictionary.Add(info[0], info[1]);
             }
             foreach (Control control in controls)
             {
                 string propertiesStr;
                 controlsInfoDictionary.TryGetValue(control.Name, out propertiesStr);
-                string[] properties = propertiesStr.Split(new [] { "," }, StringSplitOptions.RemoveEmptyEntries);
+                string[] properties = propertiesStr.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
                 if (properties.Length == 4)
                 {
                     control.Left = int.Parse(properties[0]);
