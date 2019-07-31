@@ -198,12 +198,12 @@ namespace ControlManager
             control.Capture = true;
         }
 
-        private static void MoveControl(Control control, MouseEventArgs e)
+        private static void MoveControl(Control par_control, MouseEventArgs e)
         {
             if (!_resizing && !_moving)
             {
-                UpdateMouseEdgeProperties(control, new Point(e.X, e.Y));
-                UpdateMouseCursor(control);
+                UpdateMouseEdgeProperties(par_control, new Point(e.X, e.Y));
+                UpdateMouseCursor(par_control);
             }
             if (_resizing)
             {
@@ -211,54 +211,54 @@ namespace ControlManager
                 {
                     if (MouseIsInTopEdge)
                     {
-                        control.Width -= (e.X - _cursorStartPoint.X);
-                        control.Left += (e.X - _cursorStartPoint.X);
-                        control.Height -= (e.Y - _cursorStartPoint.Y);
-                        control.Top += (e.Y - _cursorStartPoint.Y);
+                        par_control.Width -= (e.X - _cursorStartPoint.X);
+                        par_control.Left += (e.X - _cursorStartPoint.X);
+                        par_control.Height -= (e.Y - _cursorStartPoint.Y);
+                        par_control.Top += (e.Y - _cursorStartPoint.Y);
                     }
                     else if (MouseIsInBottomEdge)
                     {
-                        control.Width -= (e.X - _cursorStartPoint.X);
-                        control.Left += (e.X - _cursorStartPoint.X);
-                        control.Height = (e.Y - _cursorStartPoint.Y) + _currentControlStartSize.Height;
+                        par_control.Width -= (e.X - _cursorStartPoint.X);
+                        par_control.Left += (e.X - _cursorStartPoint.X);
+                        par_control.Height = (e.Y - _cursorStartPoint.Y) + _currentControlStartSize.Height;
                     }
                     else
                     {
-                        control.Width -= (e.X - _cursorStartPoint.X);
-                        control.Left += (e.X - _cursorStartPoint.X);
+                        par_control.Width -= (e.X - _cursorStartPoint.X);
+                        par_control.Left += (e.X - _cursorStartPoint.X);
                     }
                 }
                 else if (MouseIsInRightEdge)
                 {
                     if (MouseIsInTopEdge)
                     {
-                        control.Width = (e.X - _cursorStartPoint.X) + _currentControlStartSize.Width;
-                        control.Height -= (e.Y - _cursorStartPoint.Y);
-                        control.Top += (e.Y - _cursorStartPoint.Y);
+                        par_control.Width = (e.X - _cursorStartPoint.X) + _currentControlStartSize.Width;
+                        par_control.Height -= (e.Y - _cursorStartPoint.Y);
+                        par_control.Top += (e.Y - _cursorStartPoint.Y);
 
                     }
                     else if (MouseIsInBottomEdge)
                     {
-                        control.Width = (e.X - _cursorStartPoint.X) + _currentControlStartSize.Width;
-                        control.Height = (e.Y - _cursorStartPoint.Y) + _currentControlStartSize.Height;
+                        par_control.Width = (e.X - _cursorStartPoint.X) + _currentControlStartSize.Width;
+                        par_control.Height = (e.Y - _cursorStartPoint.Y) + _currentControlStartSize.Height;
                     }
                     else
                     {
-                        control.Width = (e.X - _cursorStartPoint.X) + _currentControlStartSize.Width;
+                        par_control.Width = (e.X - _cursorStartPoint.X) + _currentControlStartSize.Width;
                     }
                 }
                 else if (MouseIsInTopEdge)
                 {
-                    control.Height -= (e.Y - _cursorStartPoint.Y);
-                    control.Top += (e.Y - _cursorStartPoint.Y);
+                    par_control.Height -= (e.Y - _cursorStartPoint.Y);
+                    par_control.Top += (e.Y - _cursorStartPoint.Y);
                 }
                 else if (MouseIsInBottomEdge)
                 {
-                    control.Height = (e.Y - _cursorStartPoint.Y) + _currentControlStartSize.Height;
+                    par_control.Height = (e.Y - _cursorStartPoint.Y) + _currentControlStartSize.Height;
                 }
                 else
                 {
-                    StopDragOrResizing(control);
+                    StopDragOrResizing(par_control);
                 }
             }
             else if (_moving)
@@ -266,27 +266,28 @@ namespace ControlManager
                 _moveIsInterNal = !_moveIsInterNal;
                 if (!_moveIsInterNal)
                 {
-                    int x = (e.X - _cursorStartPoint.X) + control.Left;
-                    int y = (e.Y - _cursorStartPoint.Y) + control.Top;
-                    control.Location = new Point(x, y);
+                    int x = (e.X - _cursorStartPoint.X) + par_control.Left;
+                    int y = (e.Y - _cursorStartPoint.Y) + par_control.Top;
+                    par_control.Location = new Point(x, y);
                 }
             }
         }
 
-        private static void StopDragOrResizing(Control control)
+        private static void StopDragOrResizing(Control par_control)
         {
             bool bWasResizing = _resizing; // Added 7/31/2019 td
 
             _resizing = false;
             _moving = false;
-            control.Capture = false;
-            UpdateMouseCursor(control);
+            par_control.Capture = false;
+            UpdateMouseCursor(par_control);
 
             //Added 7/31/2019 td
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
             //     the preferred background color.)   
             //
-            if (_repaintAfterResize && bWasResizing) control.Refresh();
+            if (_repaintAfterResize && bWasResizing) par_control.Refresh();
+            if (_repaintAfterResize && bWasResizing) par_control.Parent.Refresh();
 
         }
 

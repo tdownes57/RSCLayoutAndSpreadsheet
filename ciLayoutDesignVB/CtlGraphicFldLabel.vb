@@ -12,6 +12,10 @@ Public Class CtlGraphicFldLabel
     Public FieldInfo As ICIBFieldStandardOrCustom
     Public ElementInfo As ClassElementText
 
+    Private Const mod_c_boolMustSetBackColor As Boolean = True ''True, since otherwise the background color 
+    ''  is (frustratingly) limited to the original control size, _NOT_ the resized control's full area
+    ''  (enlarged via user click-and-drag), unfortunately.  ----7/31/2019 thomas d. 
+
     Public ReadOnly Property Picture_Box As PictureBox
         Get
             ''Added 7/28/2019 td 
@@ -87,6 +91,25 @@ Public Class CtlGraphicFldLabel
         ''7/29/2019 td''pictureLabel.Image = Generator.TextImage(Me.ElementInfo, Me.ElementInfo)
         Generator.TextImage(pictureLabel.Image, Me.ElementInfo, Me.ElementInfo)
 
+        ''Added 7/31/2019 td
+        If (mod_c_boolMustSetBackColor And (ElementInfo IsNot Nothing)) Then
+            ''
+            ''A desperate attempt to get the background color to extend to the full, resized control.
+            ''
+            Dim boolColorDiscrepancy As Boolean ''Added 7/31/2019 td
+            boolColorDiscrepancy = (Me.ElementInfo.BackColor <> Me.ElementInfo.Back_Color)
+            If (boolColorDiscrepancy) Then
+                MessageBox.Show("Warning, there is a discrepancy in the color information.", "ciLayout",
+                                MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            End If ''ENd of "If (boolColorDiscrepancy) Then"
+
+            pictureLabel.BackColor = Me.ElementInfo.Back_Color
+            pictureLabel.BackColor = Me.ElementInfo.BackColor
+
+        End If ''End of "If (mod_c_boolMustSetBackColor And (ElementInfo IsNot Nothing)) Then"
+
+        pictureLabel.Refresh()
+
     End Sub ''End of Public Sub RefreshImage
 
     Public Sub SaveToModel()
@@ -137,6 +160,33 @@ Public Class CtlGraphicFldLabel
 
     End Function ''End of "Public Function LabelText() As String"
 
+    Private Sub RefreshElement_Field(sender As Object, e As EventArgs)
+        ''
+        ''Added 7/31/2019 thomas downes
+        ''
+        Me.ElementInfo.Width_Pixels = Me.Width
+        Me.ElementInfo.Height_Pixels = Me.Height
+        Application.DoEvents()
+        Me.RefreshImage()
+        Application.DoEvents()
+        Me.Refresh()
+
+    End Sub ''End of "Private Sub RefreshElement_Field(sender As Object, e As EventArgs)"
+
+    Private Sub GiveSizeInfo_Field(sender As Object, e As EventArgs)
+        ''
+        ''Added 7/31/2019 thomas downes
+        ''
+        Dim strMessageToUser As String = ""
+
+        strMessageToUser &= (vbCrLf & $"Height of Picture control: {pictureLabel.Height}")
+        strMessageToUser &= (vbCrLf & $"Height of Custom Graphics control: {Me.Height}")
+        strMessageToUser &= (vbCrLf & $"Element-Info Property (Height): {Me.ElementInfo.Height_Pixels}")
+
+        MessageBox.Show(strMessageToUser, "", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+    End Sub ''End of "Private Sub RefreshElement_Field(sender As Object, e As EventArgs)"
+
     Private Sub OpenDialog_Field(sender As Object, e As EventArgs)
         ''
         ''Added 7/30/2019 thomas downes
@@ -161,6 +211,12 @@ Public Class CtlGraphicFldLabel
         Me.ElementInfo.BackColor = ColorDialog1.Color
         Me.ElementInfo.Back_Color = ColorDialog1.Color
 
+        Me.ElementInfo.Width_Pixels = Me.Width
+        Me.ElementInfo.Height_Pixels = Me.Height
+
+        Application.DoEvents()
+        Application.DoEvents()
+
         RefreshImage()
         Me.Refresh()
 
@@ -173,6 +229,10 @@ Public Class CtlGraphicFldLabel
         FontDialog1.ShowDialog()
 
         Me.ElementInfo.Font_AllInfo = FontDialog1.Font
+
+        Application.DoEvents()
+        Application.DoEvents()
+
         RefreshImage()
         Me.Refresh()
 
@@ -188,6 +248,8 @@ Public Class CtlGraphicFldLabel
         Dim new_item_field As ToolStripMenuItem
         Dim new_item_colors As ToolStripMenuItem
         Dim new_item_font As ToolStripMenuItem
+        Dim new_item_refresh As ToolStripMenuItem ''Added 7/31/2019 td
+        Dim new_item_sizeInfo As ToolStripMenuItem ''Added 7/31/2019 td
 
         boolRightClick = (e.Button = MouseButtons.Right)
 
@@ -200,6 +262,8 @@ Public Class CtlGraphicFldLabel
             If (0 = ContextMenuStrip1.Items.Count) Then
 
                 new_item_fieldname = New ToolStripMenuItem("Field " & Me.FieldInfo.FieldLabelCaption)
+                new_item_refresh = New ToolStripMenuItem("Refresh Element") ''Added 7/31/2019 td
+                new_item_sizeInfo = New ToolStripMenuItem("Size Information") ''Added 7/31/2019 td
                 new_item_field = New ToolStripMenuItem("Browse Field")
 
                 new_item_colors = New ToolStripMenuItem("Set Colors")
@@ -209,11 +273,17 @@ Public Class CtlGraphicFldLabel
                 AddHandler new_item_colors.Click, AddressOf OpenDialog_Color
                 AddHandler new_item_font.Click, AddressOf OpenDialog_Font
 
+                AddHandler new_item_refresh.Click, AddressOf RefreshElement_Field ''Added 7/31/2019 thomas d.
+                AddHandler new_item_sizeInfo.Click, AddressOf GiveSizeInfo_Field ''Added 7/31/2019 thomas d.
+
                 ContextMenuStrip1.Items.Add(new_item_fieldname)
                 ContextMenuStrip1.Items.Add(new_item_field)
 
                 ContextMenuStrip1.Items.Add(new_item_colors)
                 ContextMenuStrip1.Items.Add(new_item_font)
+
+                ContextMenuStrip1.Items.Add(new_item_refresh) ''Added 7/31/2019 thomas d.  
+                ContextMenuStrip1.Items.Add(new_item_sizeInfo) ''Added 7/31/2019 thomas d.  
 
             End If ''End of "If (0 = ContextMenuStrip1.Items.Count) Then"
 
@@ -224,4 +294,16 @@ Public Class CtlGraphicFldLabel
 
     End Sub
 
+    Private Sub CtlGraphicFldLabel_Paint(sender As Object, e As PaintEventArgs) Handles MyBase.Paint
+        ''
+        ''Addd 7/31/2019 td
+        ''
+        If (Me.ElementInfo IsNot Nothing) Then
+
+            Me.ElementInfo.Width_Pixels = Me.Width
+            Me.ElementInfo.Height_Pixels = Me.Height
+            ''Me.RefreshImage()
+
+        End If ''End of "If (Me.ElementInfo IsNot Nothing) Then"
+    End Sub
 End Class

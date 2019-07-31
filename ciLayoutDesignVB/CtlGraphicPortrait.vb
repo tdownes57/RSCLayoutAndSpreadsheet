@@ -14,7 +14,7 @@ Public Class CtlGraphicPortrait
     ''7/31/2019 td''Public ElementInfo As ClassElementPic
 
     Public ElementInfo_Pic As IElementPic ''Added 7/31/2019 thomas d 
-    Public ElementInfo_Base As IElement ''Added 7/31/2019 thomas d 
+    Public ElementInfo_Base As IElement_Base ''Added 7/31/2019 thomas d 
 
     Public ReadOnly Property Picture_Box As PictureBox
         Get
@@ -30,7 +30,7 @@ Public Class CtlGraphicPortrait
 
     End Sub
 
-    Public Sub New(par_infoForPic_Base As IElement, par_infoForPic_Pic As IElementPic)
+    Public Sub New(par_infoForPic_Base As IElement_Base, par_infoForPic_Pic As IElementPic)
         ''
         ''Added 7/31/2019 td
         ''

@@ -50,16 +50,17 @@ Partial Class FormDesignProtoTwo
         Me.SelectFromExistingToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.pictureAdjustmentToggle = New System.Windows.Forms.PictureBox()
-        Me.pictureboxPic = New System.Windows.Forms.PictureBox()
         Me.pictureBack = New System.Windows.Forms.PictureBox()
         Me.GraphicFieldLabel5 = New ciLayoutDesignVB.CtlGraphicFldLabel()
         Me.GraphicFieldLabel4 = New ciLayoutDesignVB.CtlGraphicFldLabel()
         Me.GraphicFieldLabel3 = New ciLayoutDesignVB.CtlGraphicFldLabel()
         Me.GraphicFieldLabel2 = New ciLayoutDesignVB.CtlGraphicFldLabel()
         Me.GraphicFieldLabel1 = New ciLayoutDesignVB.CtlGraphicFldLabel()
+        Me.CtlGraphicPortrait1 = New ciLayoutDesignVB.CtlGraphicPortrait()
+        Me.LinkLabelSave = New System.Windows.Forms.LinkLabel()
+        Me.linkSaveAndRefresh = New System.Windows.Forms.LinkLabel()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.pictureAdjustmentToggle, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.pictureboxPic, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureBack, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -67,7 +68,7 @@ Partial Class FormDesignProtoTwo
         '
         Me.LinkShowWebControls.AutoSize = True
         Me.LinkShowWebControls.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LinkShowWebControls.Location = New System.Drawing.Point(590, 614)
+        Me.LinkShowWebControls.Location = New System.Drawing.Point(589, 518)
         Me.LinkShowWebControls.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LinkShowWebControls.Name = "LinkShowWebControls"
         Me.LinkShowWebControls.Size = New System.Drawing.Size(281, 24)
@@ -79,7 +80,7 @@ Partial Class FormDesignProtoTwo
         '
         Me.LinkLabel1.AutoSize = True
         Me.LinkLabel1.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LinkLabel1.Location = New System.Drawing.Point(588, 648)
+        Me.LinkLabel1.Location = New System.Drawing.Point(587, 552)
         Me.LinkLabel1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LinkLabel1.Name = "LinkLabel1"
         Me.LinkLabel1.Size = New System.Drawing.Size(282, 24)
@@ -92,7 +93,7 @@ Partial Class FormDesignProtoTwo
         Me.chkIncludeExampleValues.AutoSize = True
         Me.chkIncludeExampleValues.Checked = True
         Me.chkIncludeExampleValues.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkIncludeExampleValues.Location = New System.Drawing.Point(94, 648)
+        Me.chkIncludeExampleValues.Location = New System.Drawing.Point(93, 552)
         Me.chkIncludeExampleValues.Margin = New System.Windows.Forms.Padding(2)
         Me.chkIncludeExampleValues.Name = "chkIncludeExampleValues"
         Me.chkIncludeExampleValues.Size = New System.Drawing.Size(177, 21)
@@ -251,7 +252,7 @@ Partial Class FormDesignProtoTwo
         'CheckBox1
         '
         Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(90, 624)
+        Me.CheckBox1.Location = New System.Drawing.Point(89, 528)
         Me.CheckBox1.Margin = New System.Windows.Forms.Padding(2)
         Me.CheckBox1.Name = "CheckBox1"
         Me.CheckBox1.Size = New System.Drawing.Size(179, 21)
@@ -267,20 +268,10 @@ Partial Class FormDesignProtoTwo
         Me.pictureAdjustmentToggle.Location = New System.Drawing.Point(988, 24)
         Me.pictureAdjustmentToggle.Margin = New System.Windows.Forms.Padding(2)
         Me.pictureAdjustmentToggle.Name = "pictureAdjustmentToggle"
-        Me.pictureAdjustmentToggle.Size = New System.Drawing.Size(54, 555)
+        Me.pictureAdjustmentToggle.Size = New System.Drawing.Size(54, 567)
         Me.pictureAdjustmentToggle.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.pictureAdjustmentToggle.TabIndex = 40
         Me.pictureAdjustmentToggle.TabStop = False
-        '
-        'pictureboxPic
-        '
-        Me.pictureboxPic.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.pictureboxPic.Location = New System.Drawing.Point(654, 44)
-        Me.pictureboxPic.Margin = New System.Windows.Forms.Padding(2)
-        Me.pictureboxPic.Name = "pictureboxPic"
-        Me.pictureboxPic.Size = New System.Drawing.Size(146, 189)
-        Me.pictureboxPic.TabIndex = 23
-        Me.pictureboxPic.TabStop = False
         '
         'pictureBack
         '
@@ -297,6 +288,7 @@ Partial Class FormDesignProtoTwo
         '
         'GraphicFieldLabel5
         '
+        Me.GraphicFieldLabel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.GraphicFieldLabel5.Location = New System.Drawing.Point(388, 70)
         Me.GraphicFieldLabel5.Margin = New System.Windows.Forms.Padding(6, 5, 6, 5)
         Me.GraphicFieldLabel5.Name = "GraphicFieldLabel5"
@@ -313,6 +305,7 @@ Partial Class FormDesignProtoTwo
         '
         'GraphicFieldLabel3
         '
+        Me.GraphicFieldLabel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.GraphicFieldLabel3.Location = New System.Drawing.Point(202, 70)
         Me.GraphicFieldLabel3.Margin = New System.Windows.Forms.Padding(6, 5, 6, 5)
         Me.GraphicFieldLabel3.Name = "GraphicFieldLabel3"
@@ -321,6 +314,7 @@ Partial Class FormDesignProtoTwo
         '
         'GraphicFieldLabel2
         '
+        Me.GraphicFieldLabel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.GraphicFieldLabel2.Location = New System.Drawing.Point(12, 124)
         Me.GraphicFieldLabel2.Margin = New System.Windows.Forms.Padding(6, 5, 6, 5)
         Me.GraphicFieldLabel2.Name = "GraphicFieldLabel2"
@@ -329,17 +323,52 @@ Partial Class FormDesignProtoTwo
         '
         'GraphicFieldLabel1
         '
+        Me.GraphicFieldLabel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.GraphicFieldLabel1.Location = New System.Drawing.Point(14, 70)
         Me.GraphicFieldLabel1.Margin = New System.Windows.Forms.Padding(6, 5, 6, 5)
         Me.GraphicFieldLabel1.Name = "GraphicFieldLabel1"
         Me.GraphicFieldLabel1.Size = New System.Drawing.Size(178, 43)
         Me.GraphicFieldLabel1.TabIndex = 34
         '
+        'CtlGraphicPortrait1
+        '
+        Me.CtlGraphicPortrait1.Location = New System.Drawing.Point(720, 42)
+        Me.CtlGraphicPortrait1.Margin = New System.Windows.Forms.Padding(4)
+        Me.CtlGraphicPortrait1.Name = "CtlGraphicPortrait1"
+        Me.CtlGraphicPortrait1.Size = New System.Drawing.Size(150, 182)
+        Me.CtlGraphicPortrait1.TabIndex = 41
+        '
+        'LinkLabelSave
+        '
+        Me.LinkLabelSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LinkLabelSave.AutoSize = True
+        Me.LinkLabelSave.Location = New System.Drawing.Point(909, 33)
+        Me.LinkLabelSave.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LinkLabelSave.Name = "LinkLabelSave"
+        Me.LinkLabelSave.Size = New System.Drawing.Size(40, 17)
+        Me.LinkLabelSave.TabIndex = 43
+        Me.LinkLabelSave.TabStop = True
+        Me.LinkLabelSave.Text = "Save"
+        '
+        'linkSaveAndRefresh
+        '
+        Me.linkSaveAndRefresh.AutoSize = True
+        Me.linkSaveAndRefresh.Location = New System.Drawing.Point(385, 33)
+        Me.linkSaveAndRefresh.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.linkSaveAndRefresh.Name = "linkSaveAndRefresh"
+        Me.linkSaveAndRefresh.Size = New System.Drawing.Size(184, 17)
+        Me.linkSaveAndRefresh.TabIndex = 42
+        Me.linkSaveAndRefresh.TabStop = True
+        Me.linkSaveAndRefresh.Text = "Save && Refresh the Window"
+        '
         'FormDesignProtoTwo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1042, 579)
+        Me.ClientSize = New System.Drawing.Size(1042, 591)
+        Me.Controls.Add(Me.LinkLabelSave)
+        Me.Controls.Add(Me.linkSaveAndRefresh)
+        Me.Controls.Add(Me.CtlGraphicPortrait1)
         Me.Controls.Add(Me.pictureAdjustmentToggle)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.GraphicFieldLabel5)
@@ -351,7 +380,6 @@ Partial Class FormDesignProtoTwo
         Me.Controls.Add(Me.chkIncludeExampleValues)
         Me.Controls.Add(Me.LinkLabel1)
         Me.Controls.Add(Me.LinkShowWebControls)
-        Me.Controls.Add(Me.pictureboxPic)
         Me.Controls.Add(Me.pictureBack)
         Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Margin = New System.Windows.Forms.Padding(2)
@@ -360,7 +388,6 @@ Partial Class FormDesignProtoTwo
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         CType(Me.pictureAdjustmentToggle, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.pictureboxPic, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pictureBack, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -368,7 +395,6 @@ Partial Class FormDesignProtoTwo
     End Sub
 
     Friend WithEvents pictureBack As PictureBox
-    Friend WithEvents pictureboxPic As PictureBox
     Friend WithEvents LinkShowWebControls As LinkLabel
     Friend WithEvents LinkLabel1 As LinkLabel
     Friend WithEvents chkIncludeExampleValues As CheckBox
@@ -402,4 +428,7 @@ Partial Class FormDesignProtoTwo
     Friend WithEvents DoubleSidedToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents pictureAdjustmentToggle As PictureBox
     Friend WithEvents SaveToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents CtlGraphicPortrait1 As CtlGraphicPortrait
+    Friend WithEvents LinkLabelSave As LinkLabel
+    Friend WithEvents linkSaveAndRefresh As LinkLabel
 End Class

@@ -31,6 +31,8 @@ Public Class FormDesignProtoTwo
     ''Private mod_Date2 As IElement
     ''Private mod_Date3 As IElement
 
+    Private vbCrLf_Deux As String = (vbCrLf & vbCrLf) ''Added 7/31/2019 td 
+
     Private Sub FormDesignProtoTwo_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
         ''Added 7/18/2019 thomas downes 
@@ -42,8 +44,19 @@ Public Class FormDesignProtoTwo
         Me.Controls.Remove(GraphicFieldLabel3)
         Me.Controls.Remove(GraphicFieldLabel4)
         Me.Controls.Remove(GraphicFieldLabel5)
-        Me.Controls.Remove(pictureboxPic) ''Added 7/31/2019 thomas d. 
 
+        ''7/31/2019 td''Me.Controls.Remove(pictureboxPic) ''Added 7/31/2019 thomas d. 
+        Me.Controls.Remove(CtlGraphicPortrait1) ''Added 7/31/2019 thomas d. 
+
+        ''Encapsulated 7/31/2019 td
+        Load_Form()
+
+    End Sub
+
+    Private Sub Load_Form()
+        ''
+        ''Encapsulated 7/31/2019 td
+        ''
         ''7/31/2019 td''LoadElements()
         LoadElements_Fields()
 
@@ -57,15 +70,25 @@ Public Class FormDesignProtoTwo
         ''
         pictureBack.SendToBack()
 
-    End Sub
+    End Sub ''ENd of "Private Sub Load_Form()"
 
     Private Sub MakeElementsMoveable()
         ''
         ''Added 7/19/2019 thomas downes  
         ''
-        Dim each_graphicLabel As CtlGraphicFldLabel
 
-        For Each each_control As Control In Me.Controls
+        ''
+        ''Portrait
+        ''
+        ControlMoverOrResizer_TD.Init(CtlGraphicPortrait1.Picture_Box,
+                      CtlGraphicPortrait1, 10, True) ''Added 7/31/2019 thomas downes
+
+        ''
+        ''Fields
+        ''
+        Dim each_graphicLabel As CtlGraphicFldLabel ''Added 7/19/2019 thomas downes  
+
+        For Each each_control As Control In Me.Controls ''Added 7/19/2019 thomas downes  
 
             If (TypeOf each_control Is CtlGraphicFldLabel) Then
 
@@ -89,7 +112,7 @@ Public Class FormDesignProtoTwo
         ''
         ''Added 7/31/2019 thomas downes 
         ''
-        Dim new_picControl As CtlGraphicPortrait ''Added 7/31/2019 td  
+        ''7/31 td''Dim new_picControl As CtlGraphicPortrait ''Added 7/31/2019 td  
 
         If (ClassElementPic.ElementPicture Is Nothing) Then
 
@@ -97,21 +120,37 @@ Public Class FormDesignProtoTwo
 
             With ClassElementPic.ElementPicture
 
-                .Width = pictureboxPic.Width
-                .Height = pictureboxPic.Height
+                .Width = CtlGraphicPortrait1.Width
+                .Height = CtlGraphicPortrait1.Height
 
-                .TopEdge = pictureboxPic.Top
-                .LeftEdge = pictureboxPic.Left
+                .TopEdge = CtlGraphicPortrait1.Top
+                .LeftEdge = CtlGraphicPortrait1.Left
 
             End With ''End of "With field_standard.ElementInfo"
 
         End If ''End of "If (ClassElementPic.ElementPicture Is Nothing) Then"
 
-        ''7/31/2019 td''new_picControl = New CtlGraphicPortrait(ClassElementPic.ElementPicture)
-        new_picControl = New CtlGraphicPortrait(ClassElementPic.ElementPicture,
-                                                CType(ClassElementPic.ElementPicture, IElementPic))
+        ''#1 7/31/2019 td''new_picControl = New CtlGraphicPortrait(ClassElementPic.ElementPicture)
+        '' #2 7/31/2019 td''new_picControl = New CtlGraphicPortrait(ClassElementPic.ElementPicture,
+        ''      CType(ClassElementPic.ElementPicture, IElementPic))
+        '' #2 7/31/2019 td''Me.Controls.Add(new_picControl)
 
-        Me.Controls.Add(new_picControl)
+        ''
+        ''DIFFICULT & CONFUSING.....  Let's regenerate the control referenced above.  
+        ''
+        CtlGraphicPortrait1 = New CtlGraphicPortrait(ClassElementPic.ElementPicture,
+                                                 CType(ClassElementPic.ElementPicture, IElementPic))
+
+        Me.Controls.Add(CtlGraphicPortrait1)
+
+        With CtlGraphicPortrait1
+
+            .Top = ClassElementPic.ElementPicture.TopEdge
+            .Left = ClassElementPic.ElementPicture.LeftEdge
+            .Width = ClassElementPic.ElementPicture.Width
+            .Height = ClassElementPic.ElementPicture.Height
+
+        End With ''End of "With CtlGraphicPortrait1"
 
     End Sub ''Endo f " Private Sub LoadElements_Picture()"
 
@@ -305,7 +344,7 @@ Public Class FormDesignProtoTwo
 
     End Sub
 
-    Private Sub PictureboxPic_Click(sender As Object, e As EventArgs) Handles pictureboxPic.Click
+    Private Sub PictureboxPic_Click(sender As Object, e As EventArgs)
 
     End Sub
 
@@ -330,4 +369,49 @@ Public Class FormDesignProtoTwo
         SaveLayout
 
     End Sub
+
+    Private Sub FormDesignProtoTwo_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        ''
+        ''Added 7/31/2019 thomas downes
+        ''
+        Dim dia_result As DialogResult
+        Dim closing_reason As CloseReason
+
+        closing_reason = e.CloseReason
+
+        ''Added 7/31/2019 td  
+        dia_result = MessageBox.Show("Save your work?  (Currently, this does _NOT_ save your work permanently to your PC.) " &
+                                     vbCrLf_Deux & "(Allows the window to be re-opened from the parent application, with your work retained.)", "ciLayout",
+                                     MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)
+
+        If (dia_result = DialogResult.Cancel) Then e.Cancel = True
+        If (dia_result = DialogResult.Yes) Then SaveLayout()
+
+    End Sub
+
+    Private Sub LinkSaveAndRefresh_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles linkSaveAndRefresh.LinkClicked
+        ''
+        ''Added 7/31/2019 td
+        ''
+        ''
+        ''Step 1 of 3.   Save the user's work. 
+        ''
+        SaveLayout()
+
+        ''
+        ''Step 2 of 3.   Remove the existing controls. 
+        ''
+        ''Added 7/31/2019 td
+        For Each each_control As Control In Me.Controls
+            If (TypeOf each_control Is CtlGraphicFldLabel) Then Me.Controls.Remove(each_control)
+            If (TypeOf each_control Is CtlGraphicPortrait) Then Me.Controls.Remove(each_control)
+        Next each_control
+
+        ''
+        ''Step 3 of 3.   Regenerate the form. 
+        ''
+        Load_Form()
+
+    End Sub
+
 End Class

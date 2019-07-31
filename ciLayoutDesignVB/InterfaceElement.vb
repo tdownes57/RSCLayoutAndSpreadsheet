@@ -6,7 +6,7 @@
 ''      https://www.tutorialspoint.com/design_pattern/design_pattern_overview
 ''
 
-Public Interface IElement
+Public Interface IElement_Base
     ''
     ''Added 7/18/2019 td
     ''

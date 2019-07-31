@@ -12,13 +12,15 @@ Public Class ClassLabelToImage
     ''
     ''Added 7/17/2019
     ''
-    Public Function TextImage(ByRef par_image As Image, par_design As IElementText, par_element As IElement) As Image
+    Public Function TextImage(ByRef par_image As Image, par_design As IElementText, par_element As IElement_Base) As Image
         ''
         ''Added 7/17/2019 thomas downes
         ''
         Dim gr As Graphics ''= Graphics.FromImage(img)
         Dim pen_backcolor As Pen
         Dim brush_forecolor As Brush
+
+        Application.DoEvents()
 
         If (par_image Is Nothing) Then
             ''Create the image from scratch, if needed. 

@@ -9,7 +9,7 @@ Public Class ClassElementPic
     ''
     ''Added 7/18/2019 thomas downes 
     ''
-    Implements IElement
+    Implements IElement_Base, IElementPic
     ''
     ''Added 7/18/2019 thomas downes
     ''
@@ -18,22 +18,30 @@ Public Class ClassElementPic
 
     Public Property Info As IElementPic
 
-    Public Property FormControl As Control Implements IElement.FormControl ''Added 7/19/2019  
+    Public Property FormControl As Control Implements IElement_Base.FormControl ''Added 7/19/2019  
 
-    Public Property ElementType As String Implements IElement.ElementType ''Text, Pic, or Logo
+    Public Property ElementType As String Implements IElement_Base.ElementType ''Text, Pic, or Logo
 
-    Public Property LayoutWidth As Integer Implements IElement.LayoutWidth_Pixels ''This provides sizing context & scaling factors. 
+    Public Property LayoutWidth As Integer Implements IElement_Base.LayoutWidth_Pixels ''This provides sizing context & scaling factors. 
 
-    Public Property TopEdge As Integer Implements IElement.TopEdge_Pixels
-    Public Property LeftEdge As Integer Implements IElement.LeftEdge_Pixels
+    Public Property TopEdge As Integer Implements IElement_Base.TopEdge_Pixels
+    Public Property LeftEdge As Integer Implements IElement_Base.LeftEdge_Pixels
 
-    Public Property Width As Integer Implements IElement.Width_Pixels
-    Public Property Height As Integer Implements IElement.Height_Pixels
+    Public Property Width As Integer Implements IElement_Base.Width_Pixels
+    Public Property Height As Integer Implements IElement_Base.Height_Pixels
 
-    Public Property Border_Pixels As Integer Implements IElement.Border_Pixels
-    Public Property Border_Color As System.Drawing.Color Implements IElement.Border_Color
+    Public Property Border_Pixels As Integer Implements IElement_Base.Border_Pixels
+    Public Property Border_Color As System.Drawing.Color Implements IElement_Base.Border_Color
 
-    Public Property Back_Color As System.Drawing.Color Implements IElement.Back_Color
+    Public Property Back_Color As System.Drawing.Color Implements IElement_Base.Back_Color
+
+    ''
+    ''Added 7/31/2019 thomas downes
+    ''
+    Public Property PicFileType As String Implements IElementPic.PicFileType
+    Public Property PicFileTitleExt As String Implements IElementPic.PicFileTitleExt
+    Public Property OrientationToLayout As String Implements IElementPic.OrientationToLayout
+
 
     Public Sub New(par_control As Control)
 
