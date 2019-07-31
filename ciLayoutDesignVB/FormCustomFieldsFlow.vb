@@ -116,4 +116,12 @@ Public Class FormCustomFieldsFlow
         LoadCustomFields_All()
 
     End Sub
+
+    Private Sub LinkLabelAddField_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelAddField.LinkClicked
+
+        ''Added 7/27/2019 td
+        ''
+        ''Mod_add_field_control.AddField()
+
+    End Sub
 End Class
