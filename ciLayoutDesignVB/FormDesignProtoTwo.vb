@@ -42,13 +42,18 @@ Public Class FormDesignProtoTwo
         Me.Controls.Remove(GraphicFieldLabel3)
         Me.Controls.Remove(GraphicFieldLabel4)
         Me.Controls.Remove(GraphicFieldLabel5)
+        Me.Controls.Remove(pictureboxPic) ''Added 7/31/2019 thomas d. 
 
+        ''7/31/2019 td''LoadElements()
+        LoadElements_Fields()
 
-        LoadElements()
+        ''Added 7/31/2019 td  
+        LoadElements_Picture()
 
         MakeElementsMoveable()
 
         ''Added 7/28/2019 td
+        ''    Make sure that the Badge Background is in the background. 
         ''
         pictureBack.SendToBack()
 
@@ -80,7 +85,37 @@ Public Class FormDesignProtoTwo
 
     End Sub ''End of "Private Sub MakeElementsMoveable()"
 
-    Private Sub LoadElements()
+    Private Sub LoadElements_Picture()
+        ''
+        ''Added 7/31/2019 thomas downes 
+        ''
+        Dim new_picControl As CtlGraphicPortrait ''Added 7/31/2019 td  
+
+        If (ClassElementPic.ElementPicture Is Nothing) Then
+
+            ClassElementPic.ElementPicture = New ClassElementPic
+
+            With ClassElementPic.ElementPicture
+
+                .Width = pictureboxPic.Width
+                .Height = pictureboxPic.Height
+
+                .TopEdge = pictureboxPic.Top
+                .LeftEdge = pictureboxPic.Left
+
+            End With ''End of "With field_standard.ElementInfo"
+
+        End If ''End of "If (ClassElementPic.ElementPicture Is Nothing) Then"
+
+        ''7/31/2019 td''new_picControl = New CtlGraphicPortrait(ClassElementPic.ElementPicture)
+        new_picControl = New CtlGraphicPortrait(ClassElementPic.ElementPicture,
+                                                CType(ClassElementPic.ElementPicture, IElementPic))
+
+        Me.Controls.Add(new_picControl)
+
+    End Sub ''Endo f " Private Sub LoadElements_Picture()"
+
+    Private Sub LoadElements_Fields()
         ''
         ''Added 7/18/2019 thomas downes 
         ''
@@ -238,7 +273,7 @@ Public Class FormDesignProtoTwo
 
         Next field_custom
 
-    End Sub ''End of ''Private Sub LoadElements()''
+    End Sub ''End of ''Private Sub LoadElements_Fields()''
 
     Private Sub SaveLayout()
         ''

@@ -90,6 +90,12 @@
     <Compile Include="CtlConfigFldStandard.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="CtlGraphicPortrait.Designer.vb">
+      <DependentUpon>CtlGraphicPortrait.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CtlGraphicPortrait.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="FormCustomFieldsFlow.Designer.vb">
       <DependentUpon>FormCustomFieldsFlow.vb</DependentUpon>
     </Compile>
@@ -205,6 +211,9 @@
   <ItemGroup>
     <EmbeddedResource Include="CtlConfigFldStandard.resx">
       <DependentUpon>CtlConfigFldStandard.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CtlGraphicPortrait.resx">
+      <DependentUpon>CtlGraphicPortrait.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormCustomFieldsFlow.resx">
       <DependentUpon>FormCustomFieldsFlow.vb</DependentUpon>

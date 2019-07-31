@@ -25,6 +25,7 @@ Public Interface ICIBFieldStandardOrCustom
     Property ArrayOfValues As String()
 
     Property IsAdditionalField As Boolean ''Added 7/21/2019 thomas downes
+    Property IsBarcodeField As Boolean ''Added 7/31/2019 thomas downes
 
     Property CIBadgeField_Optional As String ''Added 7/21/2019 thomas downes
     Property OtherDbField_Optional As String ''Added 7/21/2019 thomas downes

@@ -14,6 +14,8 @@ Public Class ClassElementPic
     ''Added 7/18/2019 thomas downes
     ''
     ''
+    Public Shared ElementPicture As ClassElementPic ''Added 7/31/2019 thomas d.
+
     Public Property Info As IElementPic
 
     Public Property FormControl As Control Implements IElement.FormControl ''Added 7/19/2019  
@@ -38,6 +40,22 @@ Public Class ClassElementPic
         ''Added 7/19/2019 td
         ''
         Me.FormControl = par_control
+
+    End Sub
+
+    ''Public Sub New(par_infoForPic As IElementPic)
+    ''    ''
+    ''    ''Added 7/31/2019 td
+    ''    ''
+    ''    Me.Info = par_infoForPic
+
+    ''End Sub
+
+    Public Sub New()
+        ''
+        ''Added 7/31/2019 td
+        ''
+
 
     End Sub
 

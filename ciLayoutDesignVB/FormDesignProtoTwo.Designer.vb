@@ -28,6 +28,7 @@ Partial Class FormDesignProtoTwo
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.OpenToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SaveToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaveToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ConfigurationOfFieldsEtcToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -56,7 +57,6 @@ Partial Class FormDesignProtoTwo
         Me.GraphicFieldLabel3 = New ciLayoutDesignVB.CtlGraphicFldLabel()
         Me.GraphicFieldLabel2 = New ciLayoutDesignVB.CtlGraphicFldLabel()
         Me.GraphicFieldLabel1 = New ciLayoutDesignVB.CtlGraphicFldLabel()
-        Me.SaveToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.pictureAdjustmentToggle, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureboxPic, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -120,19 +120,25 @@ Partial Class FormDesignProtoTwo
         'OpenToolStripMenuItem
         '
         Me.OpenToolStripMenuItem.Name = "OpenToolStripMenuItem"
-        Me.OpenToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.OpenToolStripMenuItem.Size = New System.Drawing.Size(165, 22)
         Me.OpenToolStripMenuItem.Text = "Open Layout....."
+        '
+        'SaveToolStripMenuItem1
+        '
+        Me.SaveToolStripMenuItem1.Name = "SaveToolStripMenuItem1"
+        Me.SaveToolStripMenuItem1.Size = New System.Drawing.Size(165, 22)
+        Me.SaveToolStripMenuItem1.Text = "Save"
         '
         'SaveToolStripMenuItem
         '
         Me.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem"
-        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(165, 22)
         Me.SaveToolStripMenuItem.Text = "Save Layout As...."
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(165, 22)
         Me.ExitToolStripMenuItem.Text = "Exit"
         '
         'ConfigurationOfFieldsEtcToolStripMenuItem
@@ -269,7 +275,7 @@ Partial Class FormDesignProtoTwo
         'pictureboxPic
         '
         Me.pictureboxPic.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.pictureboxPic.Location = New System.Drawing.Point(646, 43)
+        Me.pictureboxPic.Location = New System.Drawing.Point(654, 44)
         Me.pictureboxPic.Margin = New System.Windows.Forms.Padding(2)
         Me.pictureboxPic.Name = "pictureboxPic"
         Me.pictureboxPic.Size = New System.Drawing.Size(146, 189)
@@ -328,12 +334,6 @@ Partial Class FormDesignProtoTwo
         Me.GraphicFieldLabel1.Name = "GraphicFieldLabel1"
         Me.GraphicFieldLabel1.Size = New System.Drawing.Size(178, 43)
         Me.GraphicFieldLabel1.TabIndex = 34
-        '
-        'SaveToolStripMenuItem1
-        '
-        Me.SaveToolStripMenuItem1.Name = "SaveToolStripMenuItem1"
-        Me.SaveToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
-        Me.SaveToolStripMenuItem1.Text = "Save"
         '
         'FormDesignProtoTwo
         '

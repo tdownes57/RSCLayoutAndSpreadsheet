@@ -120,6 +120,9 @@ Public Class ClassFieldStandard
     ''    End Set
     ''End Property
 
+    Public Property IsBarCode As Boolean = False Implements ICIBFieldStandardOrCustom.IsBarcodeField ''Added 7/31/2019 td
+
+    ''
     ''Added 7/29/2019 thomas downes
     ''
     Public Property ElementInfo As ClassElementText
