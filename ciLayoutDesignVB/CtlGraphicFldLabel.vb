@@ -12,9 +12,13 @@ Public Class CtlGraphicFldLabel
     Public FieldInfo As ICIBFieldStandardOrCustom
     Public ElementInfo As ClassElementText
 
-    Private Const mod_c_boolMustSetBackColor As Boolean = True ''True, since otherwise the background color 
+    Private Const mod_c_boolMustSetBackColor As Boolean = False ''False, since we have an alternate Boolean 
+    ''   below which works fine (i.e. mod_c_bRefreshMustReinitializeImage = True).
+    ''   We don't need to set the Background Color of the PictureBox control.  ----7/31/2019 thomas d. 
+
+    Private Const mod_c_bRefreshMustResizeImage As Boolean = True ''True, since otherwise the background color 
     ''  is (frustratingly) limited to the original control size, _NOT_ the resized control's full area
-    ''  (enlarged via user click-and-drag), unfortunately.  ----7/31/2019 thomas d. 
+    ''  (enlarged via user click-and-drag), unfortunately.  ----7/31/2019 thomas d.  
 
     Public ReadOnly Property Picture_Box As PictureBox
         Get
@@ -87,6 +91,19 @@ Public Class CtlGraphicFldLabel
         ''Me.ElementInfo.FontColor = Me.ParentForm.ForeColor
 
         If (Generator Is Nothing) Then Generator = New ClassLabelToImage
+
+        ''
+        ''Added 7/31/2019 thomas 
+        ''
+        Dim boolReinitializeImage As Boolean ''Added 7/31/2019 thomas
+        Const c_bMustReinitializeToResize As Boolean = True ''Added 7/31/2019 thomas
+        boolReinitializeImage = (c_bMustReinitializeToResize And mod_c_bRefreshMustResizeImage)
+
+        If (boolReinitializeImage) Then
+            ''Destroy & recreate the .Image member from scratch, to allow for a new size. ----7/31/2019 td
+            pictureLabel.Image = Nothing
+            pictureLabel.Image = (New Bitmap(pictureLabel.Width, pictureLabel.Height))
+        End If ''End of "If (boolReinitializeImage) Then"
 
         ''7/29/2019 td''pictureLabel.Image = Generator.TextImage(Me.ElementInfo, Me.ElementInfo)
         Generator.TextImage(pictureLabel.Image, Me.ElementInfo, Me.ElementInfo)
@@ -182,6 +199,7 @@ Public Class CtlGraphicFldLabel
         strMessageToUser &= (vbCrLf & $"Height of Picture control: {pictureLabel.Height}")
         strMessageToUser &= (vbCrLf & $"Height of Custom Graphics control: {Me.Height}")
         strMessageToUser &= (vbCrLf & $"Element-Info Property (Height): {Me.ElementInfo.Height_Pixels}")
+        strMessageToUser &= (vbCrLf & $"Picture control's Image Height: {pictureLabel.Image.Height}")
 
         MessageBox.Show(strMessageToUser, "", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
@@ -302,7 +320,7 @@ Public Class CtlGraphicFldLabel
 
             Me.ElementInfo.Width_Pixels = Me.Width
             Me.ElementInfo.Height_Pixels = Me.Height
-            ''Me.RefreshImage()
+            Me.RefreshImage()
 
         End If ''End of "If (Me.ElementInfo IsNot Nothing) Then"
     End Sub
