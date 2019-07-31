@@ -117,4 +117,13 @@ Public Class FormCustomFieldsFlow
         LoadCustomFields_All()
 
     End Sub
+
+    Private Sub LinkLabelSave_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelSave.LinkClicked
+
+        ''Added 7/30/2019 td
+        SaveControls()
+
+        MessageBox.Show("Saved.", "ciLayoutDesign", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+    End Sub
 End Class
