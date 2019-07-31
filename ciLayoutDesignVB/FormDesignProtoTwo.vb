@@ -93,7 +93,7 @@ Public Class FormDesignProtoTwo
 
         Dim intNumControlsAlready_std As Integer ''Added 7/26/2019 td 
         Dim intNumControlsAlready_cust As Integer ''Added 7/26/2019 td 
-        Dim intTopEdge_cust As Integer ''Added 7/28/2019 td
+        ''7/31 td''Dim intTopEdge_cust As Integer ''Added 7/28/2019 td
         Dim intTopEdge_std As Integer ''Added 7/28/2019 td
 
         ''
@@ -123,19 +123,19 @@ Public Class FormDesignProtoTwo
                     .TopEdge_Pixels = intTopEdge_std
                     .LeftEdge_Pixels = ((10 + intNumControlsAlready_std * .Width_Pixels) + 10)
 
-                End With
+                End With ''End of "With field_standard.ElementInfo"
 
             Else
 
                 new_label_control_std = New CtlGraphicFldLabel(field_standard)
                 Me.Controls.Add(new_label_control_std)
 
-                new_label_control_std.Top = field_standard.ElementInfo.TopEdge_Pixels
-                new_label_control_std.Left = field_standard.ElementInfo.LeftEdge_Pixels
-                new_label_control_std.Width = field_standard.ElementInfo.Width_Pixels
-                new_label_control_std.Height = field_standard.ElementInfo.Height_Pixels
-
             End If ''end of "If (field_standard.ElementInfo Is Nothing) Then ... Else..."
+
+            new_label_control_std.Top = field_standard.ElementInfo.TopEdge_Pixels
+            new_label_control_std.Left = field_standard.ElementInfo.LeftEdge_Pixels
+            new_label_control_std.Width = field_standard.ElementInfo.Width_Pixels
+            new_label_control_std.Height = field_standard.ElementInfo.Height_Pixels
 
             ''intTopEdge_std = (30 + 30 * intNumControlsAlready_std)
 
@@ -207,12 +207,12 @@ Public Class FormDesignProtoTwo
                 new_label_control_cust = New CtlGraphicFldLabel(field_custom)
                 Me.Controls.Add(new_label_control_cust)
 
-                new_label_control_cust.Top = field_custom.ElementInfo.TopEdge_Pixels
-                new_label_control_cust.Left = field_custom.ElementInfo.LeftEdge_Pixels
-                new_label_control_cust.Width = field_custom.ElementInfo.Width_Pixels
-                new_label_control_cust.Height = field_custom.ElementInfo.Height_Pixels
-
             End If ''end of "If (field_standard.ElementInfo Is Nothing) Then ... Else..."
+
+            new_label_control_cust.Top = field_custom.ElementInfo.TopEdge_Pixels
+            new_label_control_cust.Left = field_custom.ElementInfo.LeftEdge_Pixels
+            new_label_control_cust.Width = field_custom.ElementInfo.Width_Pixels
+            new_label_control_cust.Height = field_custom.ElementInfo.Height_Pixels
 
             ''intTopEdge_std = (30 + 30 * intNumControlsAlready_std)
 

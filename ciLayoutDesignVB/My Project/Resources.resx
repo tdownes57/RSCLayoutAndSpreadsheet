@@ -121,19 +121,25 @@
   <data name="CISolutionsLogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\CISolutionsLogo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="CI_Logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\CI Logo.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="CI_Logo1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\CI Logo.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="JaneMulvey_1015" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\JaneMulvey_1015.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CI_Logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\CI Logo.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SizeAdjustmentBar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\SizeAdjustmentBar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="CI_Logo1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\CI Logo.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="V381" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\V381.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="__UI for v900 w demo face" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\__UI for v900 w demo face.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="__UI_for_V831_w_No_Pic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\__UI for V831 w No Pic.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

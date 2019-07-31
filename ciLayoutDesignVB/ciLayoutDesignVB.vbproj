@@ -158,6 +158,12 @@
     <Compile Include="CtlGraphicFldLabel.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="FormVersion831.Designer.vb">
+      <DependentUpon>FormVersion831.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormVersion831.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="InterfaceCIBField.vb" />
     <Compile Include="InterfaceElement.vb" />
     <Compile Include="InterfaceElementPic.vb" />
@@ -230,6 +236,9 @@
     <EmbeddedResource Include="CtlGraphicFldLabel.resx">
       <DependentUpon>CtlGraphicFldLabel.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormVersion831.resx">
+      <DependentUpon>FormVersion831.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
@@ -277,9 +286,13 @@
     <Content Include="Images\SizeStretchZones_V103.bmp" />
     <Content Include="Images\SOU735-SADDLEBACK-VENDOR.jpg" />
     <Content Include="Images\ValleyValleyColl.jpg" />
+    <Content Include="Images\__UI for V831 w No Pic.PNG" />
+    <Content Include="Images\__UI for v900 w demo face.PNG" />
     <Content Include="ORO835 - OrovilleHS.PNG" />
     <None Include="Resources\CI_Logo.bmp" />
     <Content Include="Resources\RotatedLayout.png" />
+    <None Include="Resources\__UI for V831 w No Pic.PNG" />
+    <None Include="Resources\__UI for v900 w demo face.PNG" />
     <Content Include="Test Layout Design.htm" />
     <Content Include="test_EmbedBase64.htm" />
     <Content Include="test_OnLoad.htm" />
