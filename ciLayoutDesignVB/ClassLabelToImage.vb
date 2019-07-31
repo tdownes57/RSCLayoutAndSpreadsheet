@@ -6,6 +6,7 @@ Option Strict On ''Added 7/17/2019
 ''
 Imports System.Drawing.Image ''Added 7/17/2019
 Imports System.Drawing.Text ''Added 7/30/2019
+Imports System.Drawing ''Added 7/30/2019 td 
 
 Public Class ClassLabelToImage
     ''
@@ -35,7 +36,15 @@ Public Class ClassLabelToImage
         ''
         ''Draw the select background color, so that hopefully the text can be read easily.
         ''
-        gr.DrawRectangle(pen_backcolor, New Rectangle(0, 0, par_element.Width_Pixels, par_element.Height_Pixels))
+        ''7/30/2019 td''gr.DrawRectangle(Brushes.White....
+
+        ''
+        ''  https://stackoverflow.com/questions/5183856/converting-from-a-color-to-a-brush
+        ''
+        Using br_brush = New SolidBrush(par_element.Back_Color)
+            gr.FillRectangle(br_brush,
+                         New Rectangle(0, 0, par_element.Width_Pixels, par_element.Height_Pixels))
+        End Using
 
         ''7/30/2019''gr.DrawString(par_design.Text, par_design.Font_AllInfo, brush_forecolor, New Point(0, 0))
 

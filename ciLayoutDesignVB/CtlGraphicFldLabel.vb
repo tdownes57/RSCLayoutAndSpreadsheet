@@ -156,6 +156,12 @@ Public Class CtlGraphicFldLabel
         ''
         ColorDialog1.ShowDialog()
 
+        ''7/30/2019 td''Me.ElementInfo.FontColor = ColorDialog1.Color
+
+        Me.ElementInfo.FontColor = ColorDialog1.Color
+
+        RefreshImage()
+
     End Sub ''eNd of "Private Sub opendialog_Color()"
 
     Private Sub OpenDialog_Font(sender As Object, e As EventArgs)
@@ -185,7 +191,7 @@ Public Class CtlGraphicFldLabel
             ''Added 7/30/2019 thomas downes
             ''ContextMenuStrip1.Items.Clear()
 
-            If (0 < ContextMenuStrip1.Items.Count) Then
+            If (0 = ContextMenuStrip1.Items.Count) Then
 
                 new_item_fieldname = New ToolStripMenuItem("Field " & Me.FieldInfo.FieldLabelCaption)
                 new_item_field = New ToolStripMenuItem("Browse Field")
@@ -197,12 +203,16 @@ Public Class CtlGraphicFldLabel
                 AddHandler new_item_colors.Click, AddressOf OpenDialog_Color
                 AddHandler new_item_font.Click, AddressOf OpenDialog_Font
 
+                ContextMenuStrip1.Items.Add(new_item_fieldname)
+                ContextMenuStrip1.Items.Add(new_item_field)
+
                 ContextMenuStrip1.Items.Add(new_item_colors)
                 ContextMenuStrip1.Items.Add(new_item_font)
 
-            End If ''End of "If (0 < ContextMenuStrip1.Items.Count) Then"
+            End If ''End of "If (0 = ContextMenuStrip1.Items.Count) Then"
 
-            ContextMenuStrip1.Show()
+            ContextMenuStrip1.Show(e.Location.X + Me.ParentForm.Left,
+                                   e.Location.Y + Me.Top + Me.ParentForm.Top)
 
         End If ''End of "If (boolRightClick) Then"
 
