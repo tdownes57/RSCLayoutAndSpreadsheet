@@ -68,9 +68,9 @@ namespace ciLayoutDesign
             // 
             // buttonPaintForm
             // 
-            this.buttonPaintForm.Location = new System.Drawing.Point(313, 263);
+            this.buttonPaintForm.Location = new System.Drawing.Point(313, 223);
             this.buttonPaintForm.Name = "buttonPaintForm";
-            this.buttonPaintForm.Size = new System.Drawing.Size(99, 31);
+            this.buttonPaintForm.Size = new System.Drawing.Size(99, 71);
             this.buttonPaintForm.TabIndex = 6;
             this.buttonPaintForm.Text = "Paint Form";
             this.buttonPaintForm.UseVisualStyleBackColor = true;

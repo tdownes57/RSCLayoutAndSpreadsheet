@@ -74,7 +74,10 @@ Public Class CtlGraphicFldLabel
         ''Me.ElementInfo.Width = pictureLabel.Width
         ''Me.ElementInfo.Height = pictureLabel.Height
 
-        Me.ElementInfo.Font_AllInfo = Me.ParentForm.Font ''Me.Font
+        ''7/30/2019 td''Me.ElementInfo.Font_AllInfo = Me.ParentForm.Font ''Me.Font
+        ''7/30/2019 td''Me.ElementInfo.Font_AllInfo = New Font("Times New Roman", 25, FontStyle.Italic)
+        Me.ElementInfo.Font_AllInfo = New Font("Times New Roman", 15, FontStyle.Regular)
+
         Me.ElementInfo.BackColor = Me.ParentForm.BackColor
         Me.ElementInfo.FontColor = Me.ParentForm.ForeColor
 

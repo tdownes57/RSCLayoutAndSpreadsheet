@@ -5,6 +5,7 @@ Option Strict On ''Added 7/17/2019
 ''Added 7/17/2019
 ''
 Imports System.Drawing.Image ''Added 7/17/2019
+Imports System.Drawing.Text ''Added 7/30/2019
 
 Public Class ClassLabelToImage
     ''
@@ -27,6 +28,8 @@ Public Class ClassLabelToImage
         gr = Graphics.FromImage(par_image)
 
         pen_backcolor = New Pen(par_design.BackColor)
+        pen_backcolor = New Pen(Color.White)
+
         brush_forecolor = New SolidBrush(par_design.FontColor)
 
         ''
@@ -34,7 +37,18 @@ Public Class ClassLabelToImage
         ''
         gr.DrawRectangle(pen_backcolor, New Rectangle(0, 0, par_element.Width_Pixels, par_element.Height_Pixels))
 
-        gr.DrawString(par_design.Text, par_design.Font_AllInfo, brush_forecolor, New Point(0, 0))
+        ''7/30/2019''gr.DrawString(par_design.Text, par_design.Font_AllInfo, brush_forecolor, New Point(0, 0))
+
+        ''Font TextFont = New Font("Times New Roman", 25, FontStyle.Italic);
+        ''    e.Graphics.TextRenderingHint = TextRenderingHint.SingleBitPerPixelGridFit;
+        ''    e.Graphics.DrawString("Sample Text", TextFont, Brushes.Black, 20, 20);
+        ''    e.Graphics.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
+        ''    e.Graphics.DrawString("Sample Text", TextFont, Brushes.Black, 20, 85);
+        ''    e.Graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
+        ''    e.Graphics.DrawString("Sample Text", TextFont, Brushes.Black, 20, 150);
+
+        gr.TextRenderingHint = TextRenderingHint.AntiAliasGridFit
+        gr.DrawString(par_design.Text, par_design.Font_AllInfo, Brushes.Black, 20, 20)
 
         Return par_image ''Return Nothing
 
