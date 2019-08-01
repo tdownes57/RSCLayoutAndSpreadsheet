@@ -102,6 +102,12 @@
     <Compile Include="CtlGraphicPortrait.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="CtlGraphicText.Designer.vb">
+      <DependentUpon>CtlGraphicText.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CtlGraphicText.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="FormCustomFieldsFlow.Designer.vb">
       <DependentUpon>FormCustomFieldsFlow.vb</DependentUpon>
     </Compile>
@@ -225,6 +231,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CtlGraphicPortrait.resx">
       <DependentUpon>CtlGraphicPortrait.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CtlGraphicText.resx">
+      <DependentUpon>CtlGraphicText.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormCustomFieldsFlow.resx">
       <DependentUpon>FormCustomFieldsFlow.vb</DependentUpon>
