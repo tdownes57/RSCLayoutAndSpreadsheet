@@ -75,6 +75,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CtlCustomer.Designer.vb">
+      <DependentUpon>CtlCustomer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CtlCustomer.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ClassFieldCustomized.vb" />
     <Compile Include="ClassElementPic.vb" />
     <Compile Include="ClassElementText.vb" />
@@ -171,6 +177,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="InterfaceCIBField.vb" />
+    <Compile Include="InterfaceCustomer.vb" />
     <Compile Include="InterfaceElement.vb" />
     <Compile Include="InterfaceElementPic.vb" />
     <Compile Include="InterfaceElementText.vb" />
@@ -211,6 +218,9 @@
   <ItemGroup>
     <EmbeddedResource Include="CtlConfigFldStandard.resx">
       <DependentUpon>CtlConfigFldStandard.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CtlCustomer.resx">
+      <DependentUpon>CtlCustomer.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CtlGraphicPortrait.resx">
       <DependentUpon>CtlGraphicPortrait.vb</DependentUpon>
