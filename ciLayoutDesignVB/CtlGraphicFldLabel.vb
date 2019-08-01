@@ -11,7 +11,9 @@ Public Class CtlGraphicFldLabel
     ''7/26/2019 td''Public ElementInfo As ClassElementText
     Public FieldInfo As ICIBFieldStandardOrCustom
     Public ElementInfo As ClassElementText
-    Public ParentDesignForm As ISelectingElements ''Added 7/31/2019 thomas downes  
+    Public GroupEdits As ISelectingElements ''Added 7/31/2019 thomas downes  
+
+    Private mod_includedInGroupEdit As Boolean ''Added 8/1/2019 thomas downes 
 
     Private Const mod_c_boolMustSetBackColor As Boolean = False ''False, since we have an alternate Boolean 
     ''   below which works fine (i.e. mod_c_bRefreshMustReinitializeImage = True).
@@ -245,6 +247,8 @@ Public Class CtlGraphicFldLabel
         ''
         ''Added 7/30/2019 thomas downes
         ''
+        FontDialog1.Font = Me.ElementInfo.Font_AllInfo ''Added 7/31/2019 td  
+
         FontDialog1.ShowDialog()
 
         Me.ElementInfo.Font_AllInfo = FontDialog1.Font
@@ -325,11 +329,36 @@ Public Class CtlGraphicFldLabel
             ''Place a 6-pixel margin around the control, with a yellow color.
             ''   (This will indicate selection.)   ----7/3/2019
             ''
-            Me.BackColor = Color.Yellow
-            pictureLabel.Top = 6
-            pictureLabel.Left = 6
-            pictureLabel.Width = Me.Width - 2 * 6
-            pictureLabel.Height = Me.Height - 2 * 6
+            Dim boolNotIncludedYet As Boolean = (Not mod_includedInGroupEdit) ''Added 8/1/2019
+            Dim boolIncludedAlready As Boolean = (mod_includedInGroupEdit)
+
+            If (boolNotIncludedYet) Then
+
+                mod_includedInGroupEdit = True
+
+                Me.GroupEdits.LabelsDesignList_Add(Me) ''Added 8/1/2019 td
+
+                Me.BackColor = Color.Yellow
+                pictureLabel.Top = 6
+                pictureLabel.Left = 6
+                pictureLabel.Width = Me.Width - 2 * 6
+                pictureLabel.Height = Me.Height - 2 * 6
+
+            ElseIf (boolIncludedAlready) Then
+                ''
+                ''Undo the selection. 
+                ''
+                mod_includedInGroupEdit = False
+
+                Me.GroupEdits.LabelsDesignList_Remove(Me) ''Added 8/1/2019 td
+
+                Me.BackColor = Me.ElementInfo.BackColor
+                pictureLabel.Top = 0
+                pictureLabel.Left = 0
+                pictureLabel.Width = Me.Width ''- 2 * 6
+                pictureLabel.Height = Me.Height ''- 2 * 6
+
+            End If ''Endo f ""If (....) Then .... ElseIf (....) Then....
 
         End If ''End of "If (boolRightClick) Then .... Else ...."
 
@@ -346,5 +375,9 @@ Public Class CtlGraphicFldLabel
             Me.RefreshImage()
 
         End If ''End of "If (Me.ElementInfo IsNot Nothing) Then"
+    End Sub
+
+    Private Sub pictureLabel_DragOver(sender As Object, e As DragEventArgs) Handles pictureLabel.DragOver
+
     End Sub
 End Class

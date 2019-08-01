@@ -7,6 +7,7 @@ Option Strict On
 Imports ControlManager
 
 Public Class FormDesignProtoTwo
+    Implements ISelectingElements
     ''
     ''Added 7/18/2019 Thomas DOWNES
     ''
@@ -191,6 +192,8 @@ Public Class FormDesignProtoTwo
                 new_label_control_std = New CtlGraphicFldLabel(field_standard)
                 Me.Controls.Add(new_label_control_std)
 
+                ''Moved far below. ''new_label_control_std.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
+
                 new_label_control_std.Width = CInt(pictureBack.Width / 3)
 
                 With field_standard.ElementInfo
@@ -208,6 +211,8 @@ Public Class FormDesignProtoTwo
 
                 new_label_control_std = New CtlGraphicFldLabel(field_standard)
                 Me.Controls.Add(new_label_control_std)
+
+                ''Moved far below. ''new_label_control_std.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
 
             End If ''end of "If (field_standard.ElementInfo Is Nothing) Then ... Else..."
 
@@ -234,6 +239,9 @@ Public Class FormDesignProtoTwo
             ''Added 7/28/2019 thomas d.
             ''
             new_label_control_std.RefreshImage()
+
+            ''Added 7/28/2019 thomas d.
+            new_label_control_std.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
 
         Next field_standard
 
@@ -310,6 +318,9 @@ Public Class FormDesignProtoTwo
             ''
             new_label_control_cust.RefreshImage()
 
+            ''Added 7/28/2019 thomas d.
+            new_label_control_cust.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
+
         Next field_custom
 
     End Sub ''End of ''Private Sub LoadElements_Fields()''
@@ -319,6 +330,7 @@ Public Class FormDesignProtoTwo
         ''Added 7/29/2019 td
         ''
         Dim each_graphicalLabel As CtlGraphicFldLabel
+        Dim each_portraitLabel As CtlGraphicPortrait ''Added 7/31/2019 td
 
         For Each each_control As Control In Me.Controls
 
@@ -326,9 +338,16 @@ Public Class FormDesignProtoTwo
 
                 each_graphicalLabel = CType(each_control, CtlGraphicFldLabel)
 
-                each_graphicalLabel.SaveToModel
+                each_graphicalLabel.SaveToModel()
 
-            End If ''end of "If (TypeOf each_control Is GraphicFieldLabel) Then"
+            ElseIf (TypeOf each_control Is CtlGraphicPortrait) Then
+                ''
+                ''Added 7/31/2019 thomas downes  
+                ''
+                each_portraitLabel = CType(each_control, CtlGraphicPortrait)
+                each_portraitLabel.SaveToModel()
+
+            End If ''end of "If (TypeOf each_control Is GraphicFieldLabel) Then .... ElseIf ..."
 
         Next each_control
 
@@ -366,7 +385,7 @@ Public Class FormDesignProtoTwo
         ''
         ''Added 7/29/2019 td  
         ''
-        SaveLayout
+        SaveLayout()
 
     End Sub
 

@@ -42,6 +42,9 @@ Partial Class FormMain
         Me.SelectFromExistingToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.pictureBack = New System.Windows.Forms.PictureBox()
         Me.LabelHeader1 = New System.Windows.Forms.Label()
+        Me.CIBadgeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Version830v1010ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Version900v101ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.pictureBack, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -49,7 +52,7 @@ Partial Class FormMain
         'MenuStrip1
         '
         Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1, Me.PersonalityToolStripMenuItem, Me.ConfigurationOfFieldsEtcToolStripMenuItem, Me.DesignLayoutToolStripMenuItem, Me.BackgroundImagesToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1, Me.PersonalityToolStripMenuItem, Me.ConfigurationOfFieldsEtcToolStripMenuItem, Me.DesignLayoutToolStripMenuItem, Me.BackgroundImagesToolStripMenuItem, Me.CIBadgeToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 2, 0, 2)
@@ -172,7 +175,7 @@ Partial Class FormMain
         Me.pictureBack.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.pictureBack.Image = Global.ciLayoutDesignVB.My.Resources.Resources.CI_Logo
         Me.pictureBack.Location = New System.Drawing.Point(70, 68)
-        Me.pictureBack.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.pictureBack.Margin = New System.Windows.Forms.Padding(2)
         Me.pictureBack.Name = "pictureBack"
         Me.pictureBack.Size = New System.Drawing.Size(645, 400)
         Me.pictureBack.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -189,6 +192,25 @@ Partial Class FormMain
         Me.LabelHeader1.Size = New System.Drawing.Size(222, 24)
         Me.LabelHeader1.TabIndex = 21
         Me.LabelHeader1.Text = "Your Badge Background:"
+        '
+        'CIBadgeToolStripMenuItem
+        '
+        Me.CIBadgeToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Version830v1010ToolStripMenuItem, Me.Version900v101ToolStripMenuItem})
+        Me.CIBadgeToolStripMenuItem.Name = "CIBadgeToolStripMenuItem"
+        Me.CIBadgeToolStripMenuItem.Size = New System.Drawing.Size(66, 20)
+        Me.CIBadgeToolStripMenuItem.Text = "CI Badge"
+        '
+        'Version830v1010ToolStripMenuItem
+        '
+        Me.Version830v1010ToolStripMenuItem.Name = "Version830v1010ToolStripMenuItem"
+        Me.Version830v1010ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.Version830v1010ToolStripMenuItem.Text = "Version 8.30 (v101)"
+        '
+        'Version900v101ToolStripMenuItem
+        '
+        Me.Version900v101ToolStripMenuItem.Name = "Version900v101ToolStripMenuItem"
+        Me.Version900v101ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.Version900v101ToolStripMenuItem.Text = "Version 9.00 (v101)"
         '
         'FormMain
         '
@@ -229,4 +251,7 @@ Partial Class FormMain
     Friend WithEvents PersonalityToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents StudentsToolStripMenuItem2 As ToolStripMenuItem
     Friend WithEvents StaffToolStripMenuItem2 As ToolStripMenuItem
+    Friend WithEvents CIBadgeToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents Version830v1010ToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents Version900v101ToolStripMenuItem As ToolStripMenuItem
 End Class

@@ -1,4 +1,4 @@
-﻿Public Class FormVersion831
+﻿Public Class Version830_v101
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles txtSearchID.TextChanged
 
     End Sub

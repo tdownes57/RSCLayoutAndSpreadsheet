@@ -170,10 +170,16 @@
     <Compile Include="CtlGraphicFldLabel.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="FormVersion831.Designer.vb">
-      <DependentUpon>FormVersion831.vb</DependentUpon>
+    <Compile Include="Partial_ProtoTwo.Designer.vb">
+      <DependentUpon>Partial_ProtoTwo.vb</DependentUpon>
     </Compile>
-    <Compile Include="FormVersion831.vb">
+    <Compile Include="Partial_ProtoTwo.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Version830_v101.Designer.vb">
+      <DependentUpon>Version830_v101.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Version830_v101.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="InterfaceCIBField.vb" />
@@ -214,6 +220,12 @@
     </Compile>
     <Compile Include="CtlConfigFldCustom.vb">
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Version900_v101.Designer.vb">
+      <DependentUpon>Version900_v101.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Version900_v101.vb">
+      <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -256,8 +268,8 @@
     <EmbeddedResource Include="CtlGraphicFldLabel.resx">
       <DependentUpon>CtlGraphicFldLabel.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormVersion831.resx">
-      <DependentUpon>FormVersion831.vb</DependentUpon>
+    <EmbeddedResource Include="Version830_v101.resx">
+      <DependentUpon>Version830_v101.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -270,6 +282,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CtlConfigFldCustom.resx">
       <DependentUpon>CtlConfigFldCustom.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Version900_v101.resx">
+      <DependentUpon>Version900_v101.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

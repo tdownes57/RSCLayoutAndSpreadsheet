@@ -150,4 +150,14 @@ Public Class FormMain
     Private Sub FormMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
     End Sub
+
+    Private Sub Version830v1010ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles Version830v1010ToolStripMenuItem.Click
+        ''
+        ''Added 7/31/2019 td  
+        ''
+        Dim frm_ToShow As New Version830_v101
+        frm_ToShow.Show()
+
+
+    End Sub
 End Class
