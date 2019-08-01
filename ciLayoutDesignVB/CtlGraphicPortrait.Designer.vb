@@ -22,6 +22,7 @@ Partial Class CtlGraphicPortrait
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(CtlGraphicPortrait))
         Me.pictureLabel = New System.Windows.Forms.PictureBox()
         CType(Me.pictureLabel, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -30,9 +31,11 @@ Partial Class CtlGraphicPortrait
         '
         Me.pictureLabel.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.pictureLabel.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pictureLabel.Image = CType(resources.GetObject("pictureLabel.Image"), System.Drawing.Image)
         Me.pictureLabel.Location = New System.Drawing.Point(0, 0)
         Me.pictureLabel.Name = "pictureLabel"
-        Me.pictureLabel.Size = New System.Drawing.Size(150, 182)
+        Me.pictureLabel.Size = New System.Drawing.Size(144, 182)
+        Me.pictureLabel.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.pictureLabel.TabIndex = 1
         Me.pictureLabel.TabStop = False
         '
@@ -42,7 +45,7 @@ Partial Class CtlGraphicPortrait
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.pictureLabel)
         Me.Name = "CtlGraphicPortrait"
-        Me.Size = New System.Drawing.Size(150, 182)
+        Me.Size = New System.Drawing.Size(144, 182)
         CType(Me.pictureLabel, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 

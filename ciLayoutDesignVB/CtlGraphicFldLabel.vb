@@ -11,6 +11,7 @@ Public Class CtlGraphicFldLabel
     ''7/26/2019 td''Public ElementInfo As ClassElementText
     Public FieldInfo As ICIBFieldStandardOrCustom
     Public ElementInfo As ClassElementText
+    Public ParentDesignForm As ISelectingElements ''Added 7/31/2019 thomas downes  
 
     Private Const mod_c_boolMustSetBackColor As Boolean = False ''False, since we have an alternate Boolean 
     ''   below which works fine (i.e. mod_c_bRefreshMustReinitializeImage = True).
@@ -261,6 +262,7 @@ Public Class CtlGraphicFldLabel
         ''Added 7/30/2019 thomas downes
         ''
         Dim boolRightClick As Boolean
+        Dim boolHoldingCtrlKey As Boolean ''Added 7/31/2019 thomas downes  
 
         Dim new_item_fieldname As ToolStripMenuItem
         Dim new_item_field As ToolStripMenuItem
@@ -270,6 +272,11 @@ Public Class CtlGraphicFldLabel
         Dim new_item_sizeInfo As ToolStripMenuItem ''Added 7/31/2019 td
 
         boolRightClick = (e.Button = MouseButtons.Right)
+
+        ''I need to be able to determine if the SHIFT or CTRL keys were pressed when the application is launched
+        ''     https://stackoverflow.com/questions/22476342/how-to-determine-if-the-shift-or-ctrl-key-was-pressed-when-launching-the-applica
+        ''
+        boolHoldingCtrlKey = (My.Computer.Keyboard.CtrlKeyDown) ''Added 7/31/2019 td
 
         ''Added 7/30/2019 thomas downes
         If (boolRightClick) Then
@@ -308,7 +315,23 @@ Public Class CtlGraphicFldLabel
             ContextMenuStrip1.Show(e.Location.X + Me.ParentForm.Left,
                                    e.Location.Y + Me.Top + Me.ParentForm.Top)
 
-        End If ''End of "If (boolRightClick) Then"
+
+        ElseIf (boolHoldingCtrlKey) Then ''Added 7/31/2019 thomas downes
+            ''
+            ''Added 7/31/2019 thomas downes  
+            ''
+            ''pictureLabel.BorderStyle = BorderStyle.FixedSingle
+            ''
+            ''Place a 6-pixel margin around the control, with a yellow color.
+            ''   (This will indicate selection.)   ----7/3/2019
+            ''
+            Me.BackColor = Color.Yellow
+            pictureLabel.Top = 6
+            pictureLabel.Left = 6
+            pictureLabel.Width = Me.Width - 2 * 6
+            pictureLabel.Height = Me.Height - 2 * 6
+
+        End If ''End of "If (boolRightClick) Then .... Else ...."
 
     End Sub
 

@@ -181,6 +181,7 @@
     <Compile Include="InterfaceElement.vb" />
     <Compile Include="InterfaceElementPic.vb" />
     <Compile Include="InterfaceElementText.vb" />
+    <Compile Include="InterfaceSelectingElements.vb" />
     <Compile Include="LayoutSerialization.vb" />
     <Compile Include="modAdjustmentBoxes_V101.vb" />
     <Compile Include="modAdjustmentBoxes_V102.vb" />
@@ -260,9 +261,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="CtlAddCustomField.resx">
       <DependentUpon>CtlAddCustomField.vb</DependentUpon>
@@ -305,8 +306,8 @@
     <Content Include="Images\SizeStretchZones_V103.bmp" />
     <Content Include="Images\SOU735-SADDLEBACK-VENDOR.jpg" />
     <Content Include="Images\ValleyValleyColl.jpg" />
-    <Content Include="Images\__UI for V831 w No Pic.PNG" />
-    <Content Include="Images\__UI for v900 w demo face.PNG" />
+    <Content Include="Images\__UI for V831_v101.PNG" />
+    <Content Include="Images\__UI for v900_v101.PNG" />
     <Content Include="ORO835 - OrovilleHS.PNG" />
     <None Include="Resources\CI_Logo.bmp" />
     <Content Include="Resources\RotatedLayout.png" />
