@@ -108,6 +108,12 @@
     <Compile Include="CtlGraphicText.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="CtlPartial1.Designer.vb">
+      <DependentUpon>CtlPartial1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CtlPartial1.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="FormCustomFieldsFlow.Designer.vb">
       <DependentUpon>FormCustomFieldsFlow.vb</DependentUpon>
     </Compile>
