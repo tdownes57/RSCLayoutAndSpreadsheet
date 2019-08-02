@@ -57,7 +57,71 @@ Partial Public Class CtlGraphicFldLabel
         RefreshImage()
         Me.Refresh()
 
-    End Sub ''eNd of "Private Sub opendialog_Color()"
+    End Sub ''eNd of "Private Sub opendialog_Font()"
+
+    Private Sub GroupEditElement_Add(sender As Object, e As EventArgs)
+        ''
+        ''Added 8/2/2019 td  
+        ''
+        Static s_boolRunOnceMsg As Boolean ''Added 8/2/2019 td 
+        If (Not s_boolRunOnceMsg) Then
+            ''Added 8/2/2019 td  
+            MessageBox.Show("You can press the CTRL key while you click the element, to select (or de-select)", "Use CTRL key",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information)
+        End If ''ENd of "If (Not s_boolRunOnceMsg) Then"
+
+        GroupEditElement_Add()
+
+    End Sub ''End of "Private Sub GroupEditElement_Add(sender As Object, e As EventArgs)"
+
+    Private Sub GroupEditElement_Add()
+        ''
+        ''Added 8/2/2019 td  
+        ''
+        mod_includedInGroupEdit = True
+
+        Me.GroupEdits.LabelsDesignList_Add(Me) ''Added 8/1/2019 td
+
+        ''8/2/2019''Me.BackColor = Color.Yellow
+        ''8/2/2019''pictureLabel.Top = 6
+        ''8/2/2019''pictureLabel.Left = 6
+        ''8/2/2019''pictureLabel.Width = Me.Width - 2 * 6
+        ''8/2/2019''pictureLabel.Height = Me.Height - 2 * 6
+
+        ''Added 8/2/2019 td 
+        Me.ElementInfo.SelectedHighlighting = True
+        Me.RefreshImage()
+
+    End Sub ''End of "Private Sub GroupEditElement_Add()"
+
+    Private Sub GroupEditElement_Omit(sender As Object, e As EventArgs)
+        ''
+        ''Added 8/2/2019 td  
+        ''
+        GroupEditElement_Omit()
+
+    End Sub ''End of "Private Sub GroupEditElement_Omit(sender As Object, e As EventArgs)"
+
+    Private Sub GroupEditElement_Omit()
+        ''
+        ''Added 8/2/2019 td  
+        ''
+        ''Undo the selection. 
+        ''
+        mod_includedInGroupEdit = False
+
+        Me.GroupEdits.LabelsDesignList_Remove(Me) ''Added 8/1/2019 td
+
+        Me.BackColor = Me.ElementInfo.BackColor
+        pictureLabel.Top = 0
+        pictureLabel.Left = 0
+        pictureLabel.Width = Me.Width ''- 2 * 6
+        pictureLabel.Height = Me.Height ''- 2 * 6
+
+        Me.ElementInfo.SelectedHighlighting = False
+        Me.RefreshImage()
+
+    End Sub ''End of "Private Sub GroupEditElement_Omit( )"
 
     Private Sub PictureLabel_MouseClick(sender As Object, e As MouseEventArgs) Handles pictureLabel.MouseClick
         ''
@@ -72,8 +136,12 @@ Partial Public Class CtlGraphicFldLabel
         Dim new_item_font As ToolStripMenuItem
         Dim new_item_refresh As ToolStripMenuItem ''Added 7/31/2019 td
         Dim new_item_sizeInfo As ToolStripMenuItem ''Added 7/31/2019 td
+
         Static new_item_group_add As ToolStripMenuItem ''Added 8/2/2019 td
         Static new_item_group_omit As ToolStripMenuItem ''Added 8/2/2019 td
+
+        Static new_item_group_alignLeft As ToolStripMenuItem ''Added 8/2/2019 td
+        Static new_item_group_alignRight As ToolStripMenuItem ''Added 8/2/2019 td
 
         boolRightClick = (e.Button = MouseButtons.Right)
 
@@ -99,6 +167,10 @@ Partial Public Class CtlGraphicFldLabel
 
                 new_item_colors = New ToolStripMenuItem("Set Colors")
                 new_item_font = New ToolStripMenuItem("Set Font")
+
+                ''Add 8/2/2019 thomas d.  
+                new_item_group_alignLeft = New ToolStripMenuItem("Align Grouped Elements (Right-Hand Edge)")
+                new_item_group_alignRight = New ToolStripMenuItem("Align Grouped Elements (Left-Hand Edge)")
 
                 AddHandler new_item_field.Click, AddressOf OpenDialog_Field
                 AddHandler new_item_colors.Click, AddressOf OpenDialog_Color
@@ -127,13 +199,25 @@ Partial Public Class CtlGraphicFldLabel
                 ContextMenuStrip1.Items.Add(new_item_group_omit) ''Added 8/01/2019 thomas d.  
                 ''End If
 
+                ''Add 8/2/2019 thomas d.  
+                ContextMenuStrip1.Items.Add(new_item_group_alignLeft) ''Added 8/01/2019 thomas d.  
+                ContextMenuStrip1.Items.Add(new_item_group_alignRight) ''Added 8/01/2019 thomas d.  
+
             End If ''End of "If (0 = ContextMenuStrip1.Items.Count) Then"
 
             ''
             ''Is the current elment part of the Group-Edits Selection?  
             ''
-            new_item_group_add.Visible = Me.GroupEdits.LabelsList_IsItemUnselected(Me)
-            new_item_group_omit.Visible = Me.GroupEdits.LabelsList_IsItemIncluded(Me)
+            With Me.GroupEdits
+
+                new_item_group_add.Visible = .LabelsList_IsItemUnselected(Me)
+                new_item_group_omit.Visible = .LabelsList_IsItemIncluded(Me)
+
+                ''Add 8/2/2019 thomas d.  
+                new_item_group_add.Visible = .LabelsList_TwoOrMoreItems() _
+                                             And .LabelsList_IsItemIncluded(Me)
+
+            End With ''End of "With Me.GroupEdits"
 
             ContextMenuStrip1.Show(e.Location.X + Me.ParentForm.Left,
                                    e.Location.Y + Me.Top + Me.ParentForm.Top)
@@ -153,36 +237,39 @@ Partial Public Class CtlGraphicFldLabel
 
             If (boolNotIncludedYet) Then
 
-                mod_includedInGroupEdit = True
+                GroupEditElement_Add()
 
-                Me.GroupEdits.LabelsDesignList_Add(Me) ''Added 8/1/2019 td
+                ''mod_includedInGroupEdit = True
 
-                ''8/2/2019''Me.BackColor = Color.Yellow
-                ''8/2/2019''pictureLabel.Top = 6
-                ''8/2/2019''pictureLabel.Left = 6
-                ''8/2/2019''pictureLabel.Width = Me.Width - 2 * 6
-                ''8/2/2019''pictureLabel.Height = Me.Height - 2 * 6
+                ''Me.GroupEdits.LabelsDesignList_Add(Me) ''Added 8/1/2019 td
 
-                ''Added 8/2/2019 td 
-                Me.ElementInfo.SelectedHighlighting = True
-                Me.RefreshImage()
+                ''''8/2/2019''Me.BackColor = Color.Yellow
+                ''''8/2/2019''pictureLabel.Top = 6
+                ''''8/2/2019''pictureLabel.Left = 6
+                ''''8/2/2019''pictureLabel.Width = Me.Width - 2 * 6
+                ''''8/2/2019''pictureLabel.Height = Me.Height - 2 * 6
+
+                ''''Added 8/2/2019 td 
+                ''Me.ElementInfo.SelectedHighlighting = True
+                ''Me.RefreshImage()
 
             ElseIf (boolIncludedAlready) Then
                 ''
                 ''Undo the selection. 
                 ''
-                mod_includedInGroupEdit = False
+                GroupEditElement_Omit()
 
-                Me.GroupEdits.LabelsDesignList_Remove(Me) ''Added 8/1/2019 td
+                ''mod_includedInGroupEdit = False
+                ''Me.GroupEdits.LabelsDesignList_Remove(Me) ''Added 8/1/2019 td
 
-                Me.BackColor = Me.ElementInfo.BackColor
-                pictureLabel.Top = 0
-                pictureLabel.Left = 0
-                pictureLabel.Width = Me.Width ''- 2 * 6
-                pictureLabel.Height = Me.Height ''- 2 * 6
+                ''Me.BackColor = Me.ElementInfo.BackColor
+                ''pictureLabel.Top = 0
+                ''pictureLabel.Left = 0
+                ''pictureLabel.Width = Me.Width ''- 2 * 6
+                ''pictureLabel.Height = Me.Height ''- 2 * 6
 
-                Me.ElementInfo.SelectedHighlighting = False
-                Me.RefreshImage()
+                ''Me.ElementInfo.SelectedHighlighting = False
+                ''Me.RefreshImage()
 
             End If ''Endo f ""If (....) Then .... ElseIf (....) Then....
 

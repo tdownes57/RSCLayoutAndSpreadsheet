@@ -270,4 +270,11 @@ Public Class CtlGraphicText
 
         End If ''End of "If (Me.ElementInfo IsNot Nothing) Then"
     End Sub
+
+    Private Sub PictureLabel_Click(sender As Object, e As EventArgs) Handles pictureLabel.Click
+
+
+
+
+    End Sub
 End Class

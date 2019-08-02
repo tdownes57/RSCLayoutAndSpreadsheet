@@ -96,6 +96,12 @@
     <Compile Include="CtlConfigFldStandard.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="CtlFldLabelWithTextbox.Designer.vb">
+      <DependentUpon>CtlFldLabelWithTextbox.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CtlFldLabelWithTextbox.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="CtlGraphicPortrait.Designer.vb">
       <DependentUpon>CtlGraphicPortrait.vb</DependentUpon>
     </Compile>
@@ -108,10 +114,10 @@
     <Compile Include="CtlGraphicText.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CtlPartial1.Designer.vb">
-      <DependentUpon>CtlPartial1.vb</DependentUpon>
+    <Compile Include="CtlPartial_Menu.Designer.vb">
+      <DependentUpon>CtlPartial_Menu.vb</DependentUpon>
     </Compile>
-    <Compile Include="CtlPartial1.vb">
+    <Compile Include="CtlPartial_Menu.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="FormCustomFieldsFlow.Designer.vb">
@@ -246,6 +252,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CtlCustomer.resx">
       <DependentUpon>CtlCustomer.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CtlFldLabelWithTextbox.resx">
+      <DependentUpon>CtlFldLabelWithTextbox.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CtlGraphicPortrait.resx">
       <DependentUpon>CtlGraphicPortrait.vb</DependentUpon>
