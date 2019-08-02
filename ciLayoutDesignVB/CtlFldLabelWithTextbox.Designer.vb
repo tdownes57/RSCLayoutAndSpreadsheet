@@ -51,7 +51,7 @@ Partial Class CtlFldLabelWithTextbox
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.TextBox1)
         Me.Name = "CtlFldLabelWithTextbox"
-        Me.Size = New System.Drawing.Size(497, 38)
+        Me.Size = New System.Drawing.Size(497, 44)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
