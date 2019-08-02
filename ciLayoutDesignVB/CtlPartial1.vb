@@ -137,10 +137,15 @@ Partial Public Class CtlGraphicFldLabel
                 Me.GroupEdits.LabelsDesignList_Add(Me) ''Added 8/1/2019 td
 
                 Me.BackColor = Color.Yellow
-                pictureLabel.Top = 6
-                pictureLabel.Left = 6
-                pictureLabel.Width = Me.Width - 2 * 6
-                pictureLabel.Height = Me.Height - 2 * 6
+
+                ''8/2/2019''pictureLabel.Top = 6
+                ''8/2/2019''pictureLabel.Left = 6
+                ''8/2/2019''pictureLabel.Width = Me.Width - 2 * 6
+                ''8/2/2019''pictureLabel.Height = Me.Height - 2 * 6
+
+                ''Added 8/2/2019 td 
+                Me.ElementInfo.SelectedHighlighting = True
+                Me.RefreshImage()
 
             ElseIf (boolIncludedAlready) Then
                 ''

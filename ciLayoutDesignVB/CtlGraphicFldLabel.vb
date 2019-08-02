@@ -12,6 +12,7 @@ Public Class CtlGraphicFldLabel
     Public FieldInfo As ICIBFieldStandardOrCustom
     Public ElementInfo As ClassElementText
     Public GroupEdits As ISelectingElements ''Added 7/31/2019 thomas downes  
+    Public SelectedHighlighting As Boolean ''Added 8/2/2019 td
 
     Private mod_includedInGroupEdit As Boolean ''Added 8/1/2019 thomas downes 
 
