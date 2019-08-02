@@ -27,4 +27,6 @@ Public Interface IElement_Base
 
     Property Back_Color As System.Drawing.Color
 
+    Property SelectedHighlighting As Boolean ''Added 8/2/2019 thomas downes  
+
 End Interface

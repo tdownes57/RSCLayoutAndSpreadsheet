@@ -18,6 +18,7 @@ Public Class ClassLabelToImage
         ''
         Dim gr As Graphics ''= Graphics.FromImage(img)
         Dim pen_backcolor As Pen
+        Dim pen_highlighting As Pen ''Added 8/2/2019 thomas downes  
         Dim brush_forecolor As Brush
 
         Application.DoEvents()
@@ -32,6 +33,7 @@ Public Class ClassLabelToImage
 
         pen_backcolor = New Pen(par_design.BackColor)
         pen_backcolor = New Pen(Color.White)
+        pen_highlighting = New Pen(Color.YellowGreen, 5)
 
         brush_forecolor = New SolidBrush(par_design.FontColor)
 
@@ -47,6 +49,15 @@ Public Class ClassLabelToImage
             gr.FillRectangle(br_brush,
                          New Rectangle(0, 0, par_element.Width_Pixels, par_element.Height_Pixels))
         End Using
+
+        ''
+        ''Added 8/02/2019 td
+        ''
+        If (par_element.SelectedHighlighting) Then
+            ''Added 8/2/2019 td
+            gr.DrawRectangle(pen_highlighting,
+                         New Rectangle(0, 0, par_element.Width_Pixels, par_element.Height_Pixels))
+        End If ''End of "If (par_element.SelectedHighlighting) Then"
 
         ''7/30/2019''gr.DrawString(par_design.Text, par_design.Font_AllInfo, brush_forecolor, New Point(0, 0))
 

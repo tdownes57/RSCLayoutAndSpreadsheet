@@ -35,6 +35,10 @@ Public Class ClassElementPic
 
     Public Property Back_Color As System.Drawing.Color Implements IElement_Base.Back_Color
 
+    ''Added 8/2/2019 td
+    ''
+    Public Property SelectedHighlighting As Boolean Implements IElement_Base.SelectedHighlighting
+
     ''
     ''Added 7/31/2019 thomas downes
     ''

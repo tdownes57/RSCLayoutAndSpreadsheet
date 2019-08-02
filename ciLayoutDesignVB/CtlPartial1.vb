@@ -72,6 +72,8 @@ Partial Public Class CtlGraphicFldLabel
         Dim new_item_font As ToolStripMenuItem
         Dim new_item_refresh As ToolStripMenuItem ''Added 7/31/2019 td
         Dim new_item_sizeInfo As ToolStripMenuItem ''Added 7/31/2019 td
+        Static new_item_group_add As ToolStripMenuItem ''Added 8/2/2019 td
+        Static new_item_group_omit As ToolStripMenuItem ''Added 8/2/2019 td
 
         boolRightClick = (e.Button = MouseButtons.Right)
 
@@ -92,6 +94,8 @@ Partial Public Class CtlGraphicFldLabel
                 new_item_refresh = New ToolStripMenuItem("Refresh Element") ''Added 7/31/2019 td
                 new_item_sizeInfo = New ToolStripMenuItem("Size Information") ''Added 7/31/2019 td
                 new_item_field = New ToolStripMenuItem("Browse Field")
+                new_item_group_add = New ToolStripMenuItem("Grouping Elements to Edit")
+                new_item_group_omit = New ToolStripMenuItem("Remove from Grouped Elements")
 
                 new_item_colors = New ToolStripMenuItem("Set Colors")
                 new_item_font = New ToolStripMenuItem("Set Font")
@@ -103,6 +107,9 @@ Partial Public Class CtlGraphicFldLabel
                 AddHandler new_item_refresh.Click, AddressOf RefreshElement_Field ''Added 7/31/2019 thomas d.
                 AddHandler new_item_sizeInfo.Click, AddressOf GiveSizeInfo_Field ''Added 7/31/2019 thomas d.
 
+                AddHandler new_item_group_add.Click, AddressOf GroupEditElement_Add ''Added 8/01/2019 thomas d.
+                AddHandler new_item_group_add.Click, AddressOf GroupEditElement_Omit ''Added 8/01/2019 thomas d.
+
                 ContextMenuStrip1.Items.Add(new_item_fieldname)
                 ContextMenuStrip1.Items.Add(new_item_field)
 
@@ -110,9 +117,23 @@ Partial Public Class CtlGraphicFldLabel
                 ContextMenuStrip1.Items.Add(new_item_font)
 
                 ContextMenuStrip1.Items.Add(new_item_refresh) ''Added 7/31/2019 thomas d.  
-                ContextMenuStrip1.Items.Add(new_item_sizeInfo) ''Added 7/31/2019 thomas d.  
+                ContextMenuStrip1.Items.Add(new_item_sizeInfo) ''Added 7/31/2019 thomas d.
+
+                ''If (Me.GroupEdits.LabelsList_IsItemUnselected(Me)) Then
+                ContextMenuStrip1.Items.Add(new_item_group_add) ''Added 8/01/2019 thomas d.  
+                ''End If
+
+                ''If (Me.GroupEdits.LabelsList_IsItemIncluded(Me)) Then
+                ContextMenuStrip1.Items.Add(new_item_group_omit) ''Added 8/01/2019 thomas d.  
+                ''End If
 
             End If ''End of "If (0 = ContextMenuStrip1.Items.Count) Then"
+
+            ''
+            ''Is the current elment part of the Group-Edits Selection?  
+            ''
+            new_item_group_add.Visible = Me.GroupEdits.LabelsList_IsItemUnselected(Me)
+            new_item_group_omit.Visible = Me.GroupEdits.LabelsList_IsItemIncluded(Me)
 
             ContextMenuStrip1.Show(e.Location.X + Me.ParentForm.Left,
                                    e.Location.Y + Me.Top + Me.ParentForm.Top)
@@ -136,8 +157,7 @@ Partial Public Class CtlGraphicFldLabel
 
                 Me.GroupEdits.LabelsDesignList_Add(Me) ''Added 8/1/2019 td
 
-                Me.BackColor = Color.Yellow
-
+                ''8/2/2019''Me.BackColor = Color.Yellow
                 ''8/2/2019''pictureLabel.Top = 6
                 ''8/2/2019''pictureLabel.Left = 6
                 ''8/2/2019''pictureLabel.Width = Me.Width - 2 * 6
@@ -160,6 +180,9 @@ Partial Public Class CtlGraphicFldLabel
                 pictureLabel.Left = 0
                 pictureLabel.Width = Me.Width ''- 2 * 6
                 pictureLabel.Height = Me.Height ''- 2 * 6
+
+                Me.ElementInfo.SelectedHighlighting = False
+                Me.RefreshImage()
 
             End If ''Endo f ""If (....) Then .... ElseIf (....) Then....
 

@@ -73,6 +73,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\VersionController.vb" />
     <Compile Include="Views\FormVersion831.designer.vb">
       <DependentUpon>FormVersion831.vb</DependentUpon>
     </Compile>
@@ -119,7 +120,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controllers\" />
     <Folder Include="Images\" />
     <Folder Include="Models\" />
   </ItemGroup>
