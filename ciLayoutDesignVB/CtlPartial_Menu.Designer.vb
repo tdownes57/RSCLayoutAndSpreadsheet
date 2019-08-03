@@ -1,5 +1,5 @@
-﻿<''Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
- Public Class CtlGraphicFldLabel
+﻿''Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+Public Class CtlPartial_Menu
 
 
 End Class

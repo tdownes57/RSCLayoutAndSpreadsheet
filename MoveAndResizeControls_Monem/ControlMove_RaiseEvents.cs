@@ -44,7 +44,7 @@ namespace MoveAndResizeControls_Monem
         //
         public bool AreGroupOfElements;   //Added 8/2/2019 td  
         public delegate void GroupControlsMoved(int DeltaLeft, int DeltaTop, int DeltaWidth, int DeltaHeight);  //Added 8/2/2019 td
-        public event GroupControlsMoved GroupMove;  //Added 8/2/2019 td
+        //public event GroupControlsMoved GroupMove;  //Added 8/2/2019 td
 
         //
         //  internal class ControlMoverOrResizer_TD
@@ -341,7 +341,8 @@ namespace MoveAndResizeControls_Monem
                 //
                 //Allow a group of controls to be affected in unison.   
                 //
-                GroupControlsMoved(delta_Left, delta_Top, delta_Width, delta_Height);
+                GroupMove?.Invoke(delta_Left, delta_Top, delta_Width, delta_Height);
+
             }
 
         }
