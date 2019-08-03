@@ -1,4 +1,8 @@
 ﻿''Added 7/18/2019 thomas downes
+''
+'' A test object that needs to be serialized.
+''
+<Serializable()>
 Public Class ClassElementText
     Implements IElement
     ''

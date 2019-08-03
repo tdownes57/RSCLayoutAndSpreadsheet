@@ -28,11 +28,35 @@ Public Class FormSerialize
         srObj.LeftEdge = 50
         srObj.TopEdge = 40
 
-        Dim formatter As IFormatter = New System.Runtime.Serialization.Formatters.Binary.BinaryFormatter()
-        Dim fileStream As Stream = New FileStream("c:\SerializeFile.bin", FileMode.Create, FileAccess.Write, FileShare.None)
+        ''---------------------------------
+        ''Added 8/2/2019 Thomas DOWNES
+        ''
+        ''    https://docs.microsoft.com/en-us/dotnet/visual-basic/programming-guide/concepts/serialization/
+        ''----------------------------------
+        ''
+        Dim formatter_Bin As IFormatter = New System.Runtime.Serialization.Formatters.Binary.BinaryFormatter()
+        Dim fileStream_Bin As Stream = New FileStream("C:\Users\tdown\Documents\CIBadgeWeb\SerializeFile_Bin.bin",
+                                                  FileMode.Create, FileAccess.Write, FileShare.None)
 
-        formatter.Serialize(fileStream, srObj)
-        fileStream.Close()
+        formatter_Bin.Serialize(fileStream_Bin, srObj)
+        fileStream_Bin.Close()
+
+        ''----------------------------------
+        ''Added 8/2/2019 Thomas DOWNES
+        ''
+        ''    https://docs.microsoft.com/en-us/dotnet/visual-basic/programming-guide/concepts/serialization/
+        ''----------------------------------
+        ''
+        ''8/2 td''Dim formatter_Xml As IFormatter = New System.Runtime.Serialization.Formatters.()
+        Dim fileStream_Xml As Stream = New FileStream("C:\Users\tdown\Documents\CIBadgeWeb\SerializeFile_Xml.xml",
+                                                  FileMode.Create, FileAccess.Write, FileShare.None)
+
+        ''Formatter.Serialize(fileStream_Xml, srObj)
+        Dim writer As New System.Xml.Serialization.XmlSerializer(GetType(ClassParent))
+        ''Dim file As New System.IO.StreamWriter("c:\temp\SerializationOverview.xml")
+        writer.Serialize(fileStream_Xml, srObj)
+        fileStream_Xml.Close()
+
         MsgBox("Object Serialized !!")
 
     End Sub
@@ -44,6 +68,7 @@ Public Class FormSerialize
         Dim serialStream As Stream = New FileStream("c:\SerializeFile.bin", FileMode.Open, FileAccess.Read, FileShare.Read)
 
         ''7/20/2019 td''Dim srObj As serializeObject = DirectCast(formatter.Deserialize(serialStream), serializeObject)
+
         Dim srObj As ClassParent = DirectCast(formatter.Deserialize(serialStream), ClassParent) ''7/20/2019 td'' serializeObject)
 
         serialStream.Close()

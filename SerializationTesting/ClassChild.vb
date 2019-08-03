@@ -1,4 +1,10 @@
-﻿Public Class ClassChild
+﻿
+
+''
+'' A test object that needs to be serialized.
+''
+<Serializable()>
+Public Class ClassChild
 
     Public Property Font_AllInfo As System.Drawing.Font
 

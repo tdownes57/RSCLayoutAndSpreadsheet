@@ -5,6 +5,10 @@
 Imports System.Runtime.Serialization
 Imports System.IO
 
+''
+'' A test object that needs to be serialized.
+''
+<Serializable()>
 Public Class ClassParent
     ''
     ''Added 7/19/2019  
