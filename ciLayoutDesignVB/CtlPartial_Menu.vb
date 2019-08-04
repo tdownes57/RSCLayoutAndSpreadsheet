@@ -82,6 +82,27 @@ Partial Public Class CtlGraphicFldLabel
         RefreshImage()
         Me.Refresh()
 
+        ''Added 8/3/2019 td 
+        Dim objElements As List(Of CtlGraphicFldLabel)
+        objElements = CType(Me.ParentForm, ISelectingElements).LabelsDesignList_AllItems
+        If (objElements.Count = 0) Then
+            objElements.Add(Me)
+        End If ''End of " If (objElements.Count = 0) Then"
+
+        For Each each_ctl As CtlGraphicFldLabel In objElements
+            ''
+            ''Added 8/3/2019 td  
+            ''
+            With each_ctl
+
+                .ElementInfo.Font_AllInfo = FontDialog1.Font
+                .RefreshImage()
+                .Refresh()
+
+            End With
+
+        Next each_ctl
+
     End Sub ''eNd of "Private Sub opendialog_Font()"
 
     Private Sub GroupEditElement_Add(sender As Object, e As EventArgs)

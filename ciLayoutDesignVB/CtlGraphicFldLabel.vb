@@ -104,7 +104,9 @@ Public Class CtlGraphicFldLabel
         boolReinitializeImage = (c_bMustReinitializeToResize And mod_c_bRefreshMustResizeImage)
 
         If (boolReinitializeImage) Then
+            ''
             ''Destroy & recreate the .Image member from scratch, to allow for a new size. ----7/31/2019 td
+            ''
             pictureLabel.Image = Nothing
 
             If (pictureLabel.Width > 0 And pictureLabel.Height > 0) Then
@@ -119,8 +121,8 @@ Public Class CtlGraphicFldLabel
 
         End If ''End of "If (boolReinitializeImage) Then"
 
-            ''7/29/2019 td''pictureLabel.Image = Generator.TextImage(Me.ElementInfo, Me.ElementInfo)
-            Generator.TextImage(pictureLabel.Image, Me.ElementInfo, Me.ElementInfo)
+        ''7/29/2019 td''pictureLabel.Image = Generator.TextImage(Me.ElementInfo, Me.ElementInfo)
+        Generator.TextImage(pictureLabel.Image, Me.ElementInfo, Me.ElementInfo)
 
         ''Added 7/31/2019 td
         If (mod_c_boolMustSetBackColor And (ElementInfo IsNot Nothing)) Then
