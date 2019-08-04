@@ -268,7 +268,7 @@ namespace MoveAndResizeControls_Monem
                         //Added 8/2/2019 thomas downes 
                         delta_Width = -1 * (e.X - _cursorStartPoint.X);
                         delta_Left = (e.X - _cursorStartPoint.X);
-                        delta_Height = (e.Y - _cursorStartPoint.Y) + _currentControlStartSize.Height;
+                        delta_Height = (e.Y - _cursorStartPoint.Y); // + _currentControlStartSize.Height;
 
                     }
                     else
