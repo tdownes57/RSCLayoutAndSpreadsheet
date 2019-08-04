@@ -119,7 +119,7 @@ namespace ControlManager
 
             par_control.MouseDown += (sender, e) => StartMovingOrResizing(par_control, e);
             par_control.MouseUp += (sender, e) => StopDragOrResizing(par_control);
-            par_control.MouseMove += (sender, e) => MoveControl(par_container, e);
+            par_control.MouseMove += (sender, e) => MoveControl_Master(par_container, e);
         }
 
         private static void UpdateMouseEdgeProperties(Control control, Point mouseLocationInControl)
@@ -204,11 +204,13 @@ namespace ControlManager
                 _moving = true;
                 control.Cursor = Cursors.Hand;
             }
+
             _cursorStartPoint = new Point(e.X, e.Y);
             control.Capture = true;
+
         }
 
-        private void MouseControl_Master(Control par_control, MouseEventArgs e)
+        private static void MoveControl_Master(Control par_control, MouseEventArgs e)
         {
             //
             //Added 8/3/2019 thomas downes
@@ -218,7 +220,7 @@ namespace ControlManager
 
         }
 
-        private void MoveControl_GroupMove(Control par_control, MouseEventArgs e)
+        private static void MoveControl_GroupMove(Control par_control, MouseEventArgs e)
         {
             //
             //Modified 8/2/2019 thomas downes  
