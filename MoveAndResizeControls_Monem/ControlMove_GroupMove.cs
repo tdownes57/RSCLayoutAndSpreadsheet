@@ -208,6 +208,11 @@ namespace MoveAndResizeControls_Monem
             _cursorStartPoint = new Point(e.X, e.Y);
             control.Capture = true;
 
+            //
+            //Added 8/4/2019 td
+            //
+            //ParentForm.ControlBeingMoved = control
+
         }
 
         private static void MoveControl(Control par_control, MouseEventArgs e)
@@ -285,7 +290,7 @@ namespace MoveAndResizeControls_Monem
                         par_control.Top += (e.Y - _cursorStartPoint.Y);
 
                         //Added 8/2/2019 thomas downes 
-                        delta_Width = (e.X - _cursorStartPoint.X) + _currentControlStartSize.Width;
+                        delta_Width = (e.X - _cursorStartPoint.X); // + _currentControlStartSize.Width;
                         delta_Height = -1 * (e.Y - _cursorStartPoint.Y);
                         delta_Top = (e.Y - _cursorStartPoint.Y);
 
@@ -352,6 +357,7 @@ namespace MoveAndResizeControls_Monem
                 //
                 //Allow a group of controls to be affected in unison.   
                 //
+                mod_events.ControlBeingMoved(par_control);
                 mod_events.GroupMove(delta_Left, delta_Top, delta_Width, delta_Height); 
 
                 //const bool c_boolUseFunkyNewSyntax = false;

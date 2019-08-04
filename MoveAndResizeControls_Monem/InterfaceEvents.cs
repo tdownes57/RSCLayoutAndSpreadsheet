@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms; //added 8/4/2019 td
 
 namespace MoveAndResizeControls_Monem
 {
@@ -17,8 +18,12 @@ namespace MoveAndResizeControls_Monem
         //public delegate void GroupControlsMoved(int DeltaLeft, int DeltaTop, int DeltaWidth, int DeltaHeight);  //Added 8/2/2019 td
         //public event GroupControlsMoved GroupMove;  //Added 8/2/2019 td
 
-        void GroupMove(int DeltaLeft, int DeltaTop, int DeltaWidth, int DeltaHeight); 
+        void GroupMove(int DeltaLeft, int DeltaTop, int DeltaWidth, int DeltaHeight);
 
+        //
+        //Added 8-4-2019 thomas downes
+        //
+        void ControlBeingMoved(Control par_control);
 
     }
 }

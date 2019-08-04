@@ -7,7 +7,7 @@ Partial Public Class FormDesignProtoTwo
     ''Added 7/31/2019 thomas downes  
     ''
     Private mod_selectedCtls As New List(Of CtlGraphicFldLabel)   ''Added 8/03/2019 thomas downes 
-
+    Public ControlBeingMoved As Control ''Added 8/4/2019 td
 
     Public Property LabelsDesignList_AllItems As List(Of CtlGraphicFldLabel) Implements ISelectingElements.LabelsDesignList_AllItems
         Get
@@ -40,11 +40,18 @@ Partial Public Class FormDesignProtoTwo
         ''
         ''Added 8/3/2019 thomas downes  
         ''
+        ''8/4/2019 td''For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
         For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
+
+            ''Don't re-move the control being directly moved...!! 
+            ''  Causes ugly screen flicker!!
+            ''     --8/4/2019 td
+            If (each_control Is Me.ControlBeingMoved) Then Continue For
+            If (each_control Is Me.ControlBeingMoved.Parent) Then Continue For
 
             With each_control
 
-                ''Added 8/3/2019 thomas downes  
+                ''Added 8/3/2019 th omas downes  
                 .Top += DeltaTop
                 .Left += DeltaLeft
                 .Width += DeltaWidth

@@ -14,9 +14,9 @@ Public Class FormDesignProtoTwo
     ''
     ''#1 8-3-2019 td''Private WithEvents mod_moveAndResizeCtls_NA As New MoveAndResizeControls_Monem.ControlMove_RaiseEvents ''Added 8/3/2019 td  
     '' #2 8-3-2019 td''Private WithEvents mod_moveAndResizeCtls As New MoveAndResizeControls_Monem.ControlMove_GroupMove ''Added 8/3/2019 td  
-    Private WithEvents mod_groupedMove As ClassGroupMove ''8/4/2019 td''New ClassGroupMove
+    Private WithEvents mod_groupedMove As New ClassGroupMove(Me) ''8/4/2019 td''New ClassGroupMove
 
-    Private Const mc_boolAllowGroupMovements As Boolean = False ''True ''False ''Added 8/3/2019 td  
+    Private Const mc_boolAllowGroupMovements As Boolean = True ''False ''True ''False ''Added 8/3/2019 td  
 
     ''Private mod_generator As LayoutElementGenerator
 
