@@ -10,15 +10,15 @@ Imports MoveAndResizeControls_Monem
 Public Class ClassGroupMove
     Implements InterfaceEvents
 
-    Public Event MoveInUnison(deltaTop As Integer, deltaLeft As Integer, deltaWidth As Integer, deltaHeight As Integer)
+    Public Event MoveInUnison(deltaLeft As Integer, deltaTop As Integer, deltaWidth As Integer, deltaHeight As Integer)
 
-    Public Sub GroupMove(deltaTop As Integer, deltaLeft As Integer, deltaWidth As Integer, deltaHeight As Integer) _
+    Public Sub GroupMove(deltaLeft As Integer, deltaTop As Integer, deltaWidth As Integer, deltaHeight As Integer) _
         Implements InterfaceEvents.GroupMove
 
         ''
         ''Added 8/3/2019 td
         ''
-        RaiseEvent MoveInUnison(deltaTop, deltaLeft, deltaWidth, deltaHeight)
+        RaiseEvent MoveInUnison(deltaLeft, deltaTop, deltaWidth, deltaHeight)
 
 
 

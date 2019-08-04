@@ -108,120 +108,58 @@ Public Class CtlGraphicPortrait
 
     End Sub ''End of Public Sub SaveToModel
 
-    ''Public Function LabelText() As String
-    ''    ''
-    ''    ''Added 7/25/2019 thomas d 
-    ''    ''
-    ''    Select Case True
+    Private Sub Rotate90Degrees(sender As Object, e As EventArgs)
+        ''
+        ''Added 7/30/2019 thomas downes
+        ''
+        ''Me.ElementInfo_Pic.OrientationToLayout = "L"
 
-    ''        Case (Me.FieldInfo.ExampleValue <> "")
+        Select Case Me.ElementInfo_Pic.OrientationToLayout
+            Case "", " ", "P"
+                Me.ElementInfo_Pic.OrientationToLayout = "L"
+            Case "L"
+                Me.ElementInfo_Pic.OrientationToLayout = "P"
+            Case Else
+                Me.ElementInfo_Pic.OrientationToLayout = "P"
+        End Select
 
-    ''            ''Me.ElementInfo.Info.Text = Me.FieldInfo.ExampleValue
-    ''            Return Me.FieldInfo.ExampleValue
+        RefreshImage()
+        Me.Refresh()
 
-    ''        Case (Me.FieldInfo.FieldLabelCaption <> "")
+    End Sub ''eNd of "Private Sub Rotate90()"
 
-    ''            ''Me.ElementInfo.Info.Text = Me.FieldInfo.ExampleValue
-    ''            Return Me.FieldInfo.FieldLabelCaption
+    Private Sub PictureLabel_MouseClick(sender As Object, e As MouseEventArgs) Handles pictureLabel.MouseClick
+        ''
+        ''Added 7/30/2019 thomas downes
+        ''
+        Dim boolRightClick As Boolean
 
-    ''        Case Else
+        Dim new_item_rotate90 As ToolStripMenuItem
 
-    ''            ''Default value.
-    ''            ''7/29 td''Me.ElementInfo.Info.Text = $"Field #{Me.FieldInfo.FieldIndex}"
-    ''            Return $"Field #{Me.FieldInfo.FieldIndex}"
+        boolRightClick = (e.Button = MouseButtons.Right)
 
-    ''    End Select ''End of "Select Case True"
+        ''Added 7/30/2019 thomas downes
+        If (boolRightClick) Then
 
-    ''    Return "Field Information"
+            ''Added 7/30/2019 thomas downes
+            ''ContextMenuStrip1.Items.Clear()
 
-    ''End Function ''End of "Public Function LabelText() As String"
+            If (0 = ContextMenuStrip1.Items.Count) Then
 
-    ''Private Sub OpenDialog_Field(sender As Object, e As EventArgs)
-    ''    ''
-    ''    ''Added 7/30/2019 thomas downes
-    ''    ''
-    ''    ''7/30/2019 td''ColorDialog1.ShowDialog()
-    ''    Dim form_ToShow As New FormCustomFieldsFlow
+                new_item_rotate90 = New ToolStripMenuItem("Browse Field")
 
-    ''    ''Can (should) we just show a single field? ''form_ToShow.JustOneField = Me.FieldInfo
-    ''    form_ToShow.JustOneField_Index = Me.FieldInfo.FieldIndex
+                AddHandler new_item_rotate90.Click, AddressOf Rotate90Degrees
 
-    ''    form_ToShow.Show()
+                ContextMenuStrip1.Items.Add(new_item_rotate90)
 
-    ''End Sub ''eNd of "Private Sub opendialog_Color()"
+            End If ''End of "If (0 = ContextMenuStrip1.Items.Count) Then"
 
-    ''Private Sub OpenDialog_Color(sender As Object, e As EventArgs)
-    ''    ''
-    ''    ''Added 7/30/2019 thomas downes
-    ''    ''
-    ''    ColorDialog1.ShowDialog()
+            ContextMenuStrip1.Show(e.Location.X + Me.Left + Me.ParentForm.Left,
+                                   e.Location.Y + Me.Top + Me.ParentForm.Top)
 
-    ''    ''7/30/2019 td''Me.ElementInfo.FontColor = ColorDialog1.Color
-    ''    Me.ElementInfo.BackColor = ColorDialog1.Color
-    ''    Me.ElementInfo.Back_Color = ColorDialog1.Color
+        End If ''End of "If (boolRightClick) Then"
 
-    ''    RefreshImage()
-    ''    Me.Refresh()
-
-    ''End Sub ''eNd of "Private Sub opendialog_Color()"
-
-    ''Private Sub OpenDialog_Font(sender As Object, e As EventArgs)
-    ''    ''
-    ''    ''Added 7/30/2019 thomas downes
-    ''    ''
-    ''    FontDialog1.ShowDialog()
-
-    ''    Me.ElementInfo.Font_AllInfo = FontDialog1.Font
-    ''    RefreshImage()
-    ''    Me.Refresh()
-
-    ''End Sub ''eNd of "Private Sub opendialog_Color()"
-
-    ''Private Sub PictureLabel_MouseClick(sender As Object, e As MouseEventArgs) Handles pictureLabel.MouseClick
-    ''    ''
-    ''    ''Added 7/30/2019 thomas downes
-    ''    ''
-    ''    Dim boolRightClick As Boolean
-
-    ''    Dim new_item_fieldname As ToolStripMenuItem
-    ''    Dim new_item_field As ToolStripMenuItem
-    ''    Dim new_item_colors As ToolStripMenuItem
-    ''    Dim new_item_font As ToolStripMenuItem
-
-    ''    boolRightClick = (e.Button = MouseButtons.Right)
-
-    ''    ''Added 7/30/2019 thomas downes
-    ''    If (boolRightClick) Then
-
-    ''        ''Added 7/30/2019 thomas downes
-    ''        ''ContextMenuStrip1.Items.Clear()
-
-    ''        If (0 = ContextMenuStrip1.Items.Count) Then
-
-    ''            new_item_fieldname = New ToolStripMenuItem("Field " & Me.FieldInfo.FieldLabelCaption)
-    ''            new_item_field = New ToolStripMenuItem("Browse Field")
-
-    ''            new_item_colors = New ToolStripMenuItem("Set Colors")
-    ''            new_item_font = New ToolStripMenuItem("Set Font")
-
-    ''            AddHandler new_item_field.Click, AddressOf OpenDialog_Field
-    ''            AddHandler new_item_colors.Click, AddressOf OpenDialog_Color
-    ''            AddHandler new_item_font.Click, AddressOf OpenDialog_Font
-
-    ''            ContextMenuStrip1.Items.Add(new_item_fieldname)
-    ''            ContextMenuStrip1.Items.Add(new_item_field)
-
-    ''            ContextMenuStrip1.Items.Add(new_item_colors)
-    ''            ContextMenuStrip1.Items.Add(new_item_font)
-
-    ''        End If ''End of "If (0 = ContextMenuStrip1.Items.Count) Then"
-
-    ''        ContextMenuStrip1.Show(e.Location.X + Me.ParentForm.Left,
-    ''                               e.Location.Y + Me.Top + Me.ParentForm.Top)
-
-    ''    End If ''End of "If (boolRightClick) Then"
-
-    ''End Sub
+    End Sub
 
 End Class
 

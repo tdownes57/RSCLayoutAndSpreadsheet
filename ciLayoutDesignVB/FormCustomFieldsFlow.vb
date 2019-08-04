@@ -7,6 +7,8 @@ Public Class FormCustomFieldsFlow
     Public Property ListOfFields As List(Of ClassFieldCustomized) ''Added 7/23/2019 thomas downes 
     Public Property JustOneField_Index As Integer ''Added 7/30/2019 thomas d. 
 
+    Private Const vbCrLf_Deux As String = (vbCrLf & vbCrLf)
+
     Public Sub AdjustHeightOfWindow()
         ''Added 7/23/2019 thomas downes
         Static s_bEveryOtherCall As Boolean
@@ -77,7 +79,23 @@ Public Class FormCustomFieldsFlow
         ''Added 7/23/2019 td  
         ''Encapsulated 7/27/2019 td 
         ''
-        SaveControls()
+        ''8/4/2019 td''SaveControls()
+
+        ''
+        ''Added 7/31/2019 thomas downes
+        ''
+        Dim dia_result As DialogResult
+        Dim closing_reason As CloseReason
+
+        closing_reason = e.CloseReason
+
+        ''Added 7/31/2019 td  
+        dia_result = MessageBox.Show("Save your work?  (Currently, this does _NOT_ save your work permanently to your PC.) " &
+                                     vbCrLf_Deux & "(Allows the window to be re-opened from the parent application, with your work retained.)", "ciLayout",
+                                     MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)
+
+        If (dia_result = DialogResult.Cancel) Then e.Cancel = True
+        If (dia_result = DialogResult.Yes) Then SaveControls()
 
     End Sub
 
@@ -124,6 +142,23 @@ Public Class FormCustomFieldsFlow
         SaveControls()
 
         MessageBox.Show("Saved.", "ciLayoutDesign", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+    End Sub
+
+    Private Sub LinkLabelCancel_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelCancel.LinkClicked
+        ''
+        ''Added 8/4/2019 thomas downes
+        ''
+        Dim dia_result As DialogResult
+
+        ''Added 8/4/2019 td  
+        dia_result = MessageBox.Show("Cancel your work? ", "ciLayout",
+                                     MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
+
+        If (dia_result = DialogResult.Yes) Then ''LoadCustomFields_All()
+            FlowLayoutPanel1.Controls.Clear()
+            LoadCustomFields_All()
+        End If
 
     End Sub
 End Class

@@ -14,7 +14,9 @@ Public Class FormDesignProtoTwo
     ''
     ''#1 8-3-2019 td''Private WithEvents mod_moveAndResizeCtls_NA As New MoveAndResizeControls_Monem.ControlMove_RaiseEvents ''Added 8/3/2019 td  
     '' #2 8-3-2019 td''Private WithEvents mod_moveAndResizeCtls As New MoveAndResizeControls_Monem.ControlMove_GroupMove ''Added 8/3/2019 td  
-    Private WithEvents mod_groupedMove As New ClassGroupMove
+    Private WithEvents mod_groupedMove As ClassGroupMove ''8/4/2019 td''New ClassGroupMove
+
+    Private Const mc_boolAllowGroupMovements As Boolean = False ''True ''False ''Added 8/3/2019 td  
 
     ''Private mod_generator As LayoutElementGenerator
 
@@ -82,11 +84,11 @@ Public Class FormDesignProtoTwo
         ''
         ''Added 7/19/2019 thomas downes  
         ''
-        Dim boolAllowGroupMovements As Boolean = True ''False ''Added 8/3/2019 td  
+        ''8/4/2019 td''Dim boolAllowGroupMovements As Boolean = False ''True ''False ''Added 8/3/2019 td  
         ''
         ''Portrait
         ''
-        If (boolAllowGroupMovements) Then
+        If (mc_boolAllowGroupMovements) Then
 
             ControlMove_GroupMove.Init(CtlGraphicPortrait1.Picture_Box,
                       CtlGraphicPortrait1, 10, True, mod_groupedMove) ''Added 8/3/2019 thomas downes
@@ -111,8 +113,8 @@ Public Class FormDesignProtoTwo
 
                 Const c_bRepaintAfterResize As Boolean = True ''Added 7/31/2019 td 
 
-                If (boolAllowGroupMovements) Then
-                    ControlMove_GroupMove.Init(each_graphicLabel,
+                If (mc_boolAllowGroupMovements) Then
+                    ControlMove_GroupMove.Init(each_graphicLabel.Picture_Box,
                           each_control, 10, c_bRepaintAfterResize, mod_groupedMove) ''Added 8/3/2019 td 
                 Else
                     ControlMoverOrResizer_TD.Init(each_graphicLabel.Picture_Box,
@@ -440,7 +442,20 @@ Public Class FormDesignProtoTwo
         For Each each_control As Control In Me.Controls
             If (TypeOf each_control Is CtlGraphicFldLabel) Then Me.Controls.Remove(each_control)
             If (TypeOf each_control Is CtlGraphicPortrait) Then Me.Controls.Remove(each_control)
+
+            Select Case True
+                Case (TypeOf each_control Is CtlGraphicFldLabel)
+                    each_control.Visible = False
+                    Me.Controls.Remove(each_control)
+                Case (TypeOf each_control Is CtlGraphicPortrait)
+                    each_control.Visible = False
+                    Me.Controls.Remove(each_control)
+            End Select
+
         Next each_control
+
+        Me.Refresh()
+        Application.DoEvents()
 
         ''
         ''Step 3 of 3.   Regenerate the form. 

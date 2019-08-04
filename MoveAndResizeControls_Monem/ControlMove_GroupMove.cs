@@ -119,7 +119,7 @@ namespace MoveAndResizeControls_Monem
 
             par_control.MouseDown += (sender, e) => StartMovingOrResizing(par_control, e);
             par_control.MouseUp += (sender, e) => StopDragOrResizing(par_control);
-            par_control.MouseMove += (sender, e) => MoveControl_Master(par_container, e);
+            par_control.MouseMove += (sender, e) => MoveControl(par_container, e);
         }
 
         private static void UpdateMouseEdgeProperties(Control control, Point mouseLocationInControl)
@@ -210,7 +210,7 @@ namespace MoveAndResizeControls_Monem
 
         }
 
-        private static void MoveControl_Master(Control par_control, MouseEventArgs e)
+        private static void MoveControl(Control par_control, MouseEventArgs e)
         {
             //
             //Added 8/3/2019 thomas downes

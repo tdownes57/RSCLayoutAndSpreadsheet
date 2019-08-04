@@ -26,43 +26,52 @@ Partial Public Class CtlGraphicFldLabel
         ''
         ColorDialog1.ShowDialog()
 
-        ''7/30/2019 td''Me.ElementInfo.FontColor = ColorDialog1.Color
-        Me.ElementInfo.BackColor = ColorDialog1.Color
-        Me.ElementInfo.Back_Color = ColorDialog1.Color
+        If (Me.GroupEdits.LabelsList_IsItemUnselected(Me)) Then
 
-        ''Me.ElementInfo.Width_Pixels = Me.Width
-        ''Me.ElementInfo.Height_Pixels = Me.Height
+            ''7/30/2019 td''Me.ElementInfo.FontColor = ColorDialog1.Color
+            Me.ElementInfo.BackColor = ColorDialog1.Color
+            Me.ElementInfo.Back_Color = ColorDialog1.Color
 
-        Application.DoEvents()
-        Application.DoEvents()
+            ''Me.ElementInfo.Width_Pixels = Me.Width
+            ''Me.ElementInfo.Height_Pixels = Me.Height
 
-        RefreshImage()
-        Me.Refresh()
+            Application.DoEvents()
+            Application.DoEvents()
 
-        ''Added 8/3/2019 td 
-        Dim objElements As List(Of CtlGraphicFldLabel)
-        objElements = CType(Me.ParentForm, ISelectingElements).LabelsDesignList_AllItems
-        If (objElements.Count = 0) Then
-            objElements.Add(Me)
+            RefreshImage()
+            Me.Refresh()
+
+        ElseIf (Me.GroupEdits.LabelsList_IsItemIncluded(Me)) Then
+
+            ''Added 8/3/2019 td 
+            Dim objElements As List(Of CtlGraphicFldLabel)
+
+            ''8/4//2019 td'objElements = CType(Me.ParentForm, ISelectingElements).LabelsDesignList_AllItems
+            objElements = Me.GroupEdits.LabelsDesignList_AllItems
+
+            ''If (objElements.Count = 0) Then
+            ''   objElements.Add(Me)
+            '' End If
+
+            For Each each_ctl As CtlGraphicFldLabel In objElements
+                ''
+                ''Added 8/3/2019 td  
+                ''
+                With each_ctl
+
+                    .ElementInfo.BackColor = ColorDialog1.Color
+                    .ElementInfo.Back_Color = ColorDialog1.Color
+                    ''.ElementInfo.Width_Pixels = Me.Width
+                    ''.ElementInfo.Height_Pixels = Me.Height
+
+                    .RefreshImage()
+                    .Refresh()
+
+                End With
+
+            Next each_ctl
+
         End If
-
-        For Each each_ctl As CtlGraphicFldLabel In objElements
-            ''
-            ''Added 8/3/2019 td  
-            ''
-            With each_ctl
-
-                .ElementInfo.BackColor = ColorDialog1.Color
-                .ElementInfo.Back_Color = ColorDialog1.Color
-                ''.ElementInfo.Width_Pixels = Me.Width
-                ''.ElementInfo.Height_Pixels = Me.Height
-
-                .RefreshImage()
-                .Refresh()
-
-            End With
-
-        Next each_ctl
 
     End Sub ''eNd of "Private Sub opendialog_Color()"
 
@@ -71,37 +80,46 @@ Partial Public Class CtlGraphicFldLabel
         ''Added 7/30/2019 thomas downes
         ''
         FontDialog1.Font = Me.ElementInfo.Font_AllInfo ''Added 7/31/2019 td  
-
         FontDialog1.ShowDialog()
 
-        Me.ElementInfo.Font_AllInfo = FontDialog1.Font
+        ''Me.ElementInfo.Font_AllInfo = FontDialog1.Font
+        ''Application.DoEvents()
+        ''Application.DoEvents()
+        ''RefreshImage()
+        ''Me.Refresh()
 
-        Application.DoEvents()
-        Application.DoEvents()
+        If (Me.GroupEdits.LabelsList_IsItemUnselected(Me)) Then
 
-        RefreshImage()
-        Me.Refresh()
+            Me.ElementInfo.Font_AllInfo = FontDialog1.Font
+            Application.DoEvents()
+            Application.DoEvents()
 
-        ''Added 8/3/2019 td 
-        Dim objElements As List(Of CtlGraphicFldLabel)
-        objElements = CType(Me.ParentForm, ISelectingElements).LabelsDesignList_AllItems
-        If (objElements.Count = 0) Then
-            objElements.Add(Me)
-        End If ''End of " If (objElements.Count = 0) Then"
+            RefreshImage()
+            Me.Refresh()
 
-        For Each each_ctl As CtlGraphicFldLabel In objElements
-            ''
-            ''Added 8/3/2019 td  
-            ''
-            With each_ctl
+        ElseIf (Me.GroupEdits.LabelsList_IsItemIncluded(Me)) Then
 
-                .ElementInfo.Font_AllInfo = FontDialog1.Font
-                .RefreshImage()
-                .Refresh()
+            ''Added 8/3/2019 td 
+            Dim objElements As List(Of CtlGraphicFldLabel)
+            objElements = CType(Me.ParentForm, ISelectingElements).LabelsDesignList_AllItems
 
-            End With
+            For Each each_ctl As CtlGraphicFldLabel In objElements
+                ''
+                ''Added 8/3/2019 td  
+                ''
+                With each_ctl
 
-        Next each_ctl
+                    .ElementInfo.Font_AllInfo = FontDialog1.Font
+                    Application.DoEvents()
+                    Application.DoEvents()
+                    .RefreshImage()
+                    .Refresh()
+
+                End With
+
+            Next each_ctl
+
+        End If ''End of "If (Me.GroupEdits.LabelsList_IsItemUnselected(Me)) Then... Else ..."
 
     End Sub ''eNd of "Private Sub opendialog_Font()"
 
@@ -267,7 +285,9 @@ Partial Public Class CtlGraphicFldLabel
 
             End With ''End of "With Me.GroupEdits"
 
-            ContextMenuStrip1.Show(e.Location.X + Me.ParentForm.Left,
+            ''8/4/2019 td''ContextMenuStrip1.Show(e.Location.X + Me.ParentForm.Left,
+            ''8/4/2019 td''               e.Location.Y + Me.Top + Me.ParentForm.Top)
+            ContextMenuStrip1.Show(e.Location.X + Me.Left + Me.ParentForm.Left,
                                    e.Location.Y + Me.Top + Me.ParentForm.Top)
 
 

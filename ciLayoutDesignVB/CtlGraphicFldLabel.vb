@@ -81,7 +81,9 @@ Public Class CtlGraphicFldLabel
         ''7/29 td''Me.ElementInfo.Info = CType(Me.ElementInfo, IElementText)
 
         ''Me.ElementInfo.Text = Me.LabelText(
-        If (String.IsNullOrEmpty(Me.ElementInfo.Text)) Then ElementInfo.Text = LabelText()
+        ''8/4/2019''If (String.IsNullOrEmpty(Me.ElementInfo.Text)) Then ElementInfo.Text = LabelText()
+
+        ElementInfo.Text = LabelText()
 
         ''Me.ElementInfo.Width = pictureLabel.Width
         ''Me.ElementInfo.Height = pictureLabel.Height
