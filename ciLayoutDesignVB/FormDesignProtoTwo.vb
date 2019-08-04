@@ -5,13 +5,16 @@ Option Strict On
 ''Added 7/18/2019 Thomas DOWNES
 ''
 Imports ControlManager
+Imports MoveAndResizeControls_Monem
 
 Public Class FormDesignProtoTwo
     Implements ISelectingElements
     ''
     ''Added 7/18/2019 Thomas DOWNES
     ''
-    Private WithEvents mod_moveAndResizeCtls As New MoveAndResizeControls_Monem.ControlMove_RaiseEvents ''Added 8/3/2019 td  
+    ''#1 8-3-2019 td''Private WithEvents mod_moveAndResizeCtls_NA As New MoveAndResizeControls_Monem.ControlMove_RaiseEvents ''Added 8/3/2019 td  
+    '' #2 8-3-2019 td''Private WithEvents mod_moveAndResizeCtls As New MoveAndResizeControls_Monem.ControlMove_GroupMove ''Added 8/3/2019 td  
+    Private WithEvents mod_groupedMove As New ClassGroupMove
 
     ''Private mod_generator As LayoutElementGenerator
 
@@ -79,14 +82,14 @@ Public Class FormDesignProtoTwo
         ''
         ''Added 7/19/2019 thomas downes  
         ''
-        Dim boolAllowGroupMovements As Boolean = False ''Added 8/3/2019 td  
+        Dim boolAllowGroupMovements As Boolean = True ''False ''Added 8/3/2019 td  
         ''
         ''Portrait
         ''
         If (boolAllowGroupMovements) Then
 
-            mod_moveAndResizeCtls.Init(CtlGraphicPortrait1.Picture_Box,
-                      CtlGraphicPortrait1, 10, True) ''Added 8/3/2019 thomas downes
+            ControlMove_GroupMove.Init(CtlGraphicPortrait1.Picture_Box,
+                      CtlGraphicPortrait1, 10, True, mod_groupedMove) ''Added 8/3/2019 thomas downes
         Else
             ControlMoverOrResizer_TD.Init(CtlGraphicPortrait1.Picture_Box,
                   CtlGraphicPortrait1, 10, True) ''Added 7/31/2019 thomas downes
@@ -109,8 +112,8 @@ Public Class FormDesignProtoTwo
                 Const c_bRepaintAfterResize As Boolean = True ''Added 7/31/2019 td 
 
                 If (boolAllowGroupMovements) Then
-                    mod_moveAndResizeCtls.Init(each_graphicLabel,
-                          each_control, 10, c_bRepaintAfterResize) ''Added 8/3/2019 td 
+                    ControlMove_GroupMove.Init(each_graphicLabel,
+                          each_control, 10, c_bRepaintAfterResize, mod_groupedMove) ''Added 8/3/2019 td 
                 Else
                     ControlMoverOrResizer_TD.Init(each_graphicLabel.Picture_Box,
                           each_control, 10, c_bRepaintAfterResize) ''Added 7/28/2019 thomas downes

@@ -30,7 +30,7 @@ using System.Windows.Forms;
     ''
 ***/
 
-namespace ControlManager
+namespace MoveAndResizeControls_Monem
 {
     public class ControlMove_GroupMove
     {

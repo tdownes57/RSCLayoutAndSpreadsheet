@@ -6,7 +6,8 @@ Partial Public Class FormDesignProtoTwo
     ''
     ''Added 7/31/2019 thomas downes  
     ''
-    Private mod_selectedCtls As New List(Of CtlGraphicFldLabel)   ''Added 8/03/2019 thomas downes  
+    Private mod_selectedCtls As New List(Of CtlGraphicFldLabel)   ''Added 8/03/2019 thomas downes 
+
 
     Public Property LabelsDesignList_AllItems As List(Of CtlGraphicFldLabel) Implements ISelectingElements.LabelsDesignList_AllItems
         Get
@@ -35,7 +36,7 @@ Partial Public Class FormDesignProtoTwo
 
     End Sub
 
-    Private Sub mod_moveAndResizeCtls_GroupMove(DeltaLeft As Integer, DeltaTop As Integer, DeltaWidth As Integer, DeltaHeight As Integer) Handles mod_moveAndResizeCtls.GroupMove
+    Private Sub Move_GroupMove(DeltaLeft As Integer, DeltaTop As Integer, DeltaWidth As Integer, DeltaHeight As Integer) Handles mod_groupedMove.MoveInUnison
         ''
         ''Added 8/3/2019 thomas downes  
         ''

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ControlManager
+namespace MoveAndResizeControls_Monem
 {
     public interface InterfaceEvents
     {
