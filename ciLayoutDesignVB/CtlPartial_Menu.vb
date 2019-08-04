@@ -30,14 +30,39 @@ Partial Public Class CtlGraphicFldLabel
         Me.ElementInfo.BackColor = ColorDialog1.Color
         Me.ElementInfo.Back_Color = ColorDialog1.Color
 
-        Me.ElementInfo.Width_Pixels = Me.Width
-        Me.ElementInfo.Height_Pixels = Me.Height
+        ''Me.ElementInfo.Width_Pixels = Me.Width
+        ''Me.ElementInfo.Height_Pixels = Me.Height
 
         Application.DoEvents()
         Application.DoEvents()
 
         RefreshImage()
         Me.Refresh()
+
+        ''Added 8/3/2019 td 
+        Dim objElements As List(Of CtlGraphicFldLabel)
+        objElements = CType(Me.ParentForm, ISelectingElements).LabelsDesignList_AllItems
+        If (objElements.Count = 0) Then
+            objElements.Add(Me)
+        End If
+
+        For Each each_ctl As CtlGraphicFldLabel In objElements
+            ''
+            ''Added 8/3/2019 td  
+            ''
+            With each_ctl
+
+                .ElementInfo.BackColor = ColorDialog1.Color
+                .ElementInfo.Back_Color = ColorDialog1.Color
+                ''.ElementInfo.Width_Pixels = Me.Width
+                ''.ElementInfo.Height_Pixels = Me.Height
+
+                .RefreshImage()
+                .Refresh()
+
+            End With
+
+        Next each_ctl
 
     End Sub ''eNd of "Private Sub opendialog_Color()"
 
@@ -66,6 +91,7 @@ Partial Public Class CtlGraphicFldLabel
         Static s_boolRunOnceMsg As Boolean ''Added 8/2/2019 td 
         If (Not s_boolRunOnceMsg) Then
             ''Added 8/2/2019 td  
+            s_boolRunOnceMsg = True ''Added 8/3/2019 td  
             MessageBox.Show("You can press the CTRL key while you click the element, to select (or de-select)", "Use CTRL key",
                             MessageBoxButtons.OK, MessageBoxIcon.Information)
         End If ''ENd of "If (Not s_boolRunOnceMsg) Then"
@@ -112,12 +138,13 @@ Partial Public Class CtlGraphicFldLabel
 
         Me.GroupEdits.LabelsDesignList_Remove(Me) ''Added 8/1/2019 td
 
-        Me.BackColor = Me.ElementInfo.BackColor
-        pictureLabel.Top = 0
-        pictureLabel.Left = 0
-        pictureLabel.Width = Me.Width ''- 2 * 6
-        pictureLabel.Height = Me.Height ''- 2 * 6
+        ''Me.BackColor = Me.ElementInfo.BackColor
+        ''pictureLabel.Top = 0
+        ''pictureLabel.Left = 0
+        ''pictureLabel.Width = Me.Width ''- 2 * 6
+        ''pictureLabel.Height = Me.Height ''- 2 * 6
 
+        Me.SelectedHighlighting = False ''Added 8/3/2019 td  
         Me.ElementInfo.SelectedHighlighting = False
         Me.RefreshImage()
 

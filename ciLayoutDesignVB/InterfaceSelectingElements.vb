@@ -16,4 +16,9 @@ Public Interface ISelectingElements
     Function LabelsList_IsItemIncluded(par_control As CtlGraphicFldLabel) As Boolean ''Implements ISelectingElements.LabelsDesignList_IsItemIncluded
     Function LabelsList_IsItemUnselected(par_control As CtlGraphicFldLabel) As Boolean ''Implements ISelectingElements.LabelsDesignList_IsItemIncluded
 
+    ''
+    ''Added 8/3/2019 thomas downes
+    ''
+    Property LabelsDesignList_AllItems As List(Of CtlGraphicFldLabel)
+
 End Interface ''ENd of "Public Interface ISelectingElements"

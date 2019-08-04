@@ -188,10 +188,10 @@
     <Compile Include="CtlGraphicFldLabel.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Partial_ProtoTwo.Designer.vb">
-      <DependentUpon>Partial_ProtoTwo.vb</DependentUpon>
+    <Compile Include="FormPartial_ProtoTwo.Designer.vb">
+      <DependentUpon>FormPartial_ProtoTwo.vb</DependentUpon>
     </Compile>
-    <Compile Include="Partial_ProtoTwo.vb">
+    <Compile Include="FormPartial_ProtoTwo.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Version830_v101.Designer.vb">

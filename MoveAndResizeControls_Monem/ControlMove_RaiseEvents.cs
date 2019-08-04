@@ -44,7 +44,7 @@ namespace MoveAndResizeControls_Monem
         //
         public bool AreGroupOfElements;   //Added 8/2/2019 td  
         public delegate void GroupControlsMoved(int DeltaLeft, int DeltaTop, int DeltaWidth, int DeltaHeight);  //Added 8/2/2019 td
-        //public event GroupControlsMoved GroupMove;  //Added 8/2/2019 td
+        public event GroupControlsMoved GroupMove;  //Added 8/2/2019 td
 
         //
         //  internal class ControlMoverOrResizer_TD
@@ -209,13 +209,13 @@ namespace MoveAndResizeControls_Monem
             par_control.Capture = true;
         }
 
-        private  void MoveControl(Control par_control, MouseEventArgs e)
+        private void MoveControl(Control par_control, MouseEventArgs e)
         {
             //
             //Modified 8/2/2019 thomas downes  
             //
-            int delta_Width = 0 ;
-            int delta_Height = 0 ;
+            int delta_Width = 0;
+            int delta_Height = 0;
             int delta_Left = 0;
             int delta_Top = 0;
 
@@ -327,8 +327,8 @@ namespace MoveAndResizeControls_Monem
                     par_control.Location = new Point(x, y);
 
                     //Added 8/2/2019 thomas downes 
-                    delta_Left = (e.X - _cursorStartPoint.X) ;
-                    delta_Top = (e.Y - _cursorStartPoint.Y) ;
+                    delta_Left = (e.X - _cursorStartPoint.X);
+                    delta_Top = (e.Y - _cursorStartPoint.Y);
 
                 }
             }
@@ -341,7 +341,17 @@ namespace MoveAndResizeControls_Monem
                 //
                 //Allow a group of controls to be affected in unison.   
                 //
-                GroupMove?.Invoke(delta_Left, delta_Top, delta_Width, delta_Height);
+                const bool c_boolUseFunkyNewSyntax = false;
+                if (c_boolUseFunkyNewSyntax)
+                { 
+                    GroupMove?.Invoke(delta_Left, delta_Top, delta_Width, delta_Height);
+                }
+
+                if (!c_boolUseFunkyNewSyntax)
+                {
+                    if (GroupMove != null) GroupMove.Invoke(delta_Left, delta_Top, delta_Width, delta_Height);
+                }
+
 
             }
 
