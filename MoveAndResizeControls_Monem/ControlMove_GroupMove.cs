@@ -352,27 +352,42 @@ namespace MoveAndResizeControls_Monem
             //
             //Added 8/2/2019 thomas downes
             //
-            if (delta_Height != 0 || delta_Left != 0 || delta_Top != 0 || delta_Width != 0)
+            if (_resizing && (delta_Height != 0 || delta_Width != 0))
             {
-                //
-                //Allow a group of controls to be affected in unison.   
-                //
-                mod_events.ControlBeingMoved(par_control);
-                mod_events.GroupMove(delta_Left, delta_Top, delta_Width, delta_Height); 
+                    //
+                    //Allow a group of controls to be affected in unison.   
+                    //
+                    mod_events.ControlBeingMoved(par_control);
+                    delta_Top = 0;
+                    delta_Left = 0;
+                    mod_events.GroupMove(delta_Left, delta_Top, delta_Width, delta_Height);
 
-                //const bool c_boolUseFunkyNewSyntax = false;
-                //if (c_boolUseFunkyNewSyntax)
-                //{
-                //    GroupMove?.Invoke(delta_Left, delta_Top, delta_Width, delta_Height);
-                //}
+             }
 
-                //if (!c_boolUseFunkyNewSyntax)
-                //{
-                //    if (GroupMove != null) GroupMove.Invoke(delta_Left, delta_Top, delta_Width, delta_Height);
-                //}
-
+            if (_moving && (delta_Left != 0 || delta_Top != 0 ))
+            {
+                   //
+                   //Allow a group of controls to be affected in unison.   
+                   //
+                   mod_events.ControlBeingMoved(par_control);
+                   delta_Width = 0;
+                   delta_Height = 0; 
+                   mod_events.GroupMove(delta_Left, delta_Top, delta_Width, delta_Height);
 
             }
+
+            //const bool c_boolUseFunkyNewSyntax = false;
+            //if (c_boolUseFunkyNewSyntax)
+            //{
+            //    GroupMove?.Invoke(delta_Left, delta_Top, delta_Width, delta_Height);
+            //}
+
+            //if (!c_boolUseFunkyNewSyntax)
+            //{
+            //    if (GroupMove != null) GroupMove.Invoke(delta_Left, delta_Top, delta_Width, delta_Height);
+            //}
+
+
 
         }
 

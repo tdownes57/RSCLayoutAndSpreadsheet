@@ -59,6 +59,7 @@ Partial Class FormDesignProtoTwo
         Me.CtlGraphicPortrait1 = New ciLayoutDesignVB.CtlGraphicPortrait()
         Me.LinkLabelSave = New System.Windows.Forms.LinkLabel()
         Me.linkSaveAndRefresh = New System.Windows.Forms.LinkLabel()
+        Me.txtWidthDeltas = New System.Windows.Forms.TextBox()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.pictureAdjustmentToggle, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureBack, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -361,11 +362,20 @@ Partial Class FormDesignProtoTwo
         Me.linkSaveAndRefresh.TabStop = True
         Me.linkSaveAndRefresh.Text = "Save && Refresh the Window"
         '
+        'txtWidthDeltas
+        '
+        Me.txtWidthDeltas.Location = New System.Drawing.Point(4, 42)
+        Me.txtWidthDeltas.Multiline = True
+        Me.txtWidthDeltas.Name = "txtWidthDeltas"
+        Me.txtWidthDeltas.Size = New System.Drawing.Size(80, 482)
+        Me.txtWidthDeltas.TabIndex = 44
+        '
         'FormDesignProtoTwo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1042, 591)
+        Me.Controls.Add(Me.txtWidthDeltas)
         Me.Controls.Add(Me.LinkLabelSave)
         Me.Controls.Add(Me.linkSaveAndRefresh)
         Me.Controls.Add(Me.CtlGraphicPortrait1)
@@ -431,4 +441,5 @@ Partial Class FormDesignProtoTwo
     Friend WithEvents CtlGraphicPortrait1 As CtlGraphicPortrait
     Friend WithEvents LinkLabelSave As LinkLabel
     Friend WithEvents linkSaveAndRefresh As LinkLabel
+    Friend WithEvents txtWidthDeltas As TextBox
 End Class

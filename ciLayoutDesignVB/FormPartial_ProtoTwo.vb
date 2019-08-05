@@ -57,6 +57,9 @@ Partial Public Class FormDesignProtoTwo
                 .Width += DeltaWidth
                 .Height += DeltaHeight
 
+                txtWidthDeltas.AppendText($"Width: {DeltaWidth}" & vbCrLf)
+                txtWidthDeltas.AppendText($"   Height: {DeltaHeight}" & vbCrLf)
+
             End With ''End of "With each_control"
 
         Next each_control
