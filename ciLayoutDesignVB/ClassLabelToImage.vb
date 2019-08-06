@@ -33,7 +33,8 @@ Public Class ClassLabelToImage
 
         pen_backcolor = New Pen(par_design.BackColor)
         pen_backcolor = New Pen(Color.White)
-        pen_highlighting = New Pen(Color.YellowGreen, 5)
+        ''8/5/2019 td''pen_highlighting = New Pen(Color.YellowGreen, 5)
+        pen_highlighting = New Pen(Color.Yellow, 6)
 
         brush_forecolor = New SolidBrush(par_design.FontColor)
 
@@ -55,8 +56,10 @@ Public Class ClassLabelToImage
         ''
         If (par_element.SelectedHighlighting) Then
             ''Added 8/2/2019 td
+            ''8/5/2019 td''gr.DrawRectangle(pen_highlighting,
+            ''             New Rectangle(0, 0, par_element.Width_Pixels, par_element.Height_Pixels))
             gr.DrawRectangle(pen_highlighting,
-                         New Rectangle(0, 0, par_element.Width_Pixels, par_element.Height_Pixels))
+                         New Rectangle(3, 3, par_element.Width_Pixels - 6, par_element.Height_Pixels - 6))
         End If ''End of "If (par_element.SelectedHighlighting) Then"
 
         ''7/30/2019''gr.DrawString(par_design.Text, par_design.Font_AllInfo, brush_forecolor, New Point(0, 0))
