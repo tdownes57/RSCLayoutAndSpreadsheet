@@ -64,7 +64,7 @@ namespace MoveAndResizeControls_Monem
 
         //Added 8/03/2019 thomas downes
         //
-        internal static InterfaceEvents mod_events;
+        internal static InterfaceEvents mod_groupedctl_events;
 
         internal static MoveOrResize WorkType { get; set; }
 
@@ -97,7 +97,7 @@ namespace MoveAndResizeControls_Monem
             //   internal static void Init(Control control, Control container)
             //
 
-            mod_events = par_events;  // 8/3/2019 thomas downes   
+            mod_groupedctl_events = par_events;  // 8/3/2019 thomas downes   
 
             _moving = false;
             _repaintAfterResize = pbRepaintAfterResize; //Added 7/31/2019 td 
@@ -191,16 +191,26 @@ namespace MoveAndResizeControls_Monem
         {
             if (_moving || _resizing)
             {
+                //
+                //We are in the midst of one of the above above actions.   No Booleans need to be toggled on or off. 
+                //
                 return;
             }
             if (WorkType != MoveOrResize.Move &&
                 (MouseIsInRightEdge || MouseIsInLeftEdge || MouseIsInTopEdge || MouseIsInBottomEdge))
             {
+                //
+                //We need to initiate the Resizing process. 
+                //
                 _resizing = true;
                 _currentControlStartSize = control.Size;
+                mod_groupedctl_events.Resizing_Initiate(); //Added 8/5/2019 td 
             }
             else if (WorkType != MoveOrResize.Resize)
             {
+                //
+                //We need to initiate the Moving process. 
+                //
                 _moving = true;
                 control.Cursor = Cursors.Hand;
             }
@@ -220,8 +230,8 @@ namespace MoveAndResizeControls_Monem
             //
             //Added 8/3/2019 thomas downes
             //
-            if (mod_events != null) MoveControl_GroupMove(par_control, e);
-            if (mod_events == null) MoveControl_NoEvents(par_control, e);
+            if (mod_groupedctl_events != null) MoveControl_GroupMove(par_control, e);
+            if (mod_groupedctl_events == null) MoveControl_NoEvents(par_control, e);
 
         }
 
@@ -357,22 +367,24 @@ namespace MoveAndResizeControls_Monem
                     //
                     //Allow a group of controls to be affected in unison.   
                     //
-                    mod_events.ControlBeingMoved(par_control);
+                    mod_groupedctl_events.ControlBeingMoved(par_control);
                     delta_Top = 0;
                     delta_Left = 0;
-                    mod_events.GroupMove(delta_Left, delta_Top, delta_Width, delta_Height);
+                    // 8-5-2019 td //mod_events.GroupMove(delta_Left, delta_Top, delta_Width, delta_Height);
+                    mod_groupedctl_events.GroupMove_Change(delta_Left, delta_Top, delta_Width, delta_Height);
 
-             }
+            }
 
             if (_moving && (delta_Left != 0 || delta_Top != 0 ))
             {
                    //
                    //Allow a group of controls to be affected in unison.   
                    //
-                   mod_events.ControlBeingMoved(par_control);
+                   mod_groupedctl_events.ControlBeingMoved(par_control);
                    delta_Width = 0;
                    delta_Height = 0; 
-                   mod_events.GroupMove(delta_Left, delta_Top, delta_Width, delta_Height);
+                   // 8-5-2019 td //mod_events.GroupMove(delta_Left, delta_Top, delta_Width, delta_Height);
+                   mod_groupedctl_events.GroupMove_Change(delta_Left, delta_Top, delta_Width, delta_Height);
 
             }
 
@@ -482,6 +494,10 @@ namespace MoveAndResizeControls_Monem
             //
             if (_repaintAfterResize && bWasResizing) par_control.Refresh();
             if (_repaintAfterResize && bWasResizing) par_control.Parent.Refresh();
+
+            //Added 8/5/2019 thomas downes
+            //
+            if (bWasResizing) mod_groupedctl_events.Resizing_Terminate();
 
         }
 

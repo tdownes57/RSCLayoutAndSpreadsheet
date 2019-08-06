@@ -5,6 +5,10 @@
 
 Partial Public Class CtlGraphicFldLabel
 
+    ''Added 8/5/2019 td
+    ''   This is to store the initial Width & Height, when resizing.  
+    Public TempResizeInfo_W As Integer = 0 ''Intial resizing width.  (Before any adjustment is made.)
+    Public TempResizeInfo_H As Integer = 0 ''Intial resizing height.  (Before any adjustment is made.)
 
     Private Sub OpenDialog_Field(sender As Object, e As EventArgs)
         ''

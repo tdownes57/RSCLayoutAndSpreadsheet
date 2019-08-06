@@ -36,7 +36,21 @@ Partial Public Class FormDesignProtoTwo
 
     End Sub
 
-    Private Sub Move_GroupMove(DeltaLeft As Integer, DeltaTop As Integer, DeltaWidth As Integer, DeltaHeight As Integer) Handles mod_groupedMove.MoveInUnison
+    Private Sub Resizing_Start() Handles mod_groupedMove.Resizing_Start
+        ''
+        ''Added 8/5/2019 thomas downes  
+        ''
+        For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
+
+            ''Added 8/5/2019 thomas downes  
+            each_control.TempResizeInfo_W = each_control.Width
+            each_control.TempResizeInfo_H = each_control.Height
+
+        Next each_control
+
+    End Sub ''End of "Private Sub Resizing_Start"  
+
+    Private Sub Move_GroupMove_Continue(DeltaLeft As Integer, DeltaTop As Integer, DeltaWidth As Integer, DeltaHeight As Integer) Handles mod_groupedMove.MoveInUnison
         ''
         ''Added 8/3/2019 thomas downes  
         ''
@@ -54,8 +68,13 @@ Partial Public Class FormDesignProtoTwo
                 ''Added 8/3/2019 th omas downes  
                 .Top += DeltaTop
                 .Left += DeltaLeft
-                .Width += DeltaWidth
-                .Height += DeltaHeight
+
+                ''8/5/2019 TD''.Width += DeltaWidth
+                ''8/5/2019 TD''.Height += DeltaHeight
+
+                ''Modified 8/5/2019 thomas downes
+                .Width = (.TempResizeInfo_W + DeltaWidth)
+                .Height = (.TempResizeInfo_H + DeltaHeight)
 
                 txtWidthDeltas.AppendText($"Width: {DeltaWidth}" & vbCrLf)
                 txtWidthDeltas.AppendText($"   Height: {DeltaHeight}" & vbCrLf)
@@ -64,7 +83,20 @@ Partial Public Class FormDesignProtoTwo
 
         Next each_control
 
-    End Sub ''End of "Private Sub mod_moveAndResizeCtls_GroupMove"
+    End Sub ''End of "Private Sub Move_GroupMove_Continue"
+
+    Private Sub Resizing_End() Handles mod_groupedMove.Resizing_End
+        ''
+        ''Added 8/5/2019 thomas downes  
+        ''
+        For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
+
+            each_control.TempResizeInfo_W = 0
+            each_control.TempResizeInfo_H = 0
+
+        Next each_control
+
+    End Sub ''End of "Private Sub Move_GroupMove_End"
 
     Public Function LabelsList_CountItems() As Integer Implements ISelectingElements.LabelsList_CountItems
 
