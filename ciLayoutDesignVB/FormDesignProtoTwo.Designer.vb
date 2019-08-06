@@ -54,17 +54,17 @@ Partial Class FormDesignProtoTwo
         Me.pictureBack = New System.Windows.Forms.PictureBox()
         Me.LinkLabelSave = New System.Windows.Forms.LinkLabel()
         Me.linkSaveAndRefresh = New System.Windows.Forms.LinkLabel()
+        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.ContextBackDecrease = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ContextBackIncrease = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ContextBackRotate90 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ContextBackClearSelection = New System.Windows.Forms.ToolStripMenuItem()
         Me.CtlGraphicPortrait1 = New ciLayoutDesignVB.CtlGraphicPortrait()
         Me.GraphicFieldLabel5 = New ciLayoutDesignVB.CtlGraphicFldLabel()
         Me.GraphicFieldLabel4 = New ciLayoutDesignVB.CtlGraphicFldLabel()
         Me.GraphicFieldLabel3 = New ciLayoutDesignVB.CtlGraphicFldLabel()
         Me.GraphicFieldLabel2 = New ciLayoutDesignVB.CtlGraphicFldLabel()
         Me.GraphicFieldLabel1 = New ciLayoutDesignVB.CtlGraphicFldLabel()
-        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.ContextBackDecrease = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ContextBackIncrease = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ContextBackRotate90 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ContextBackClearSelection = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.pictureAdjustmentToggle, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureBack, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -160,7 +160,7 @@ Partial Class FormDesignProtoTwo
         '
         Me.ConfigureFieldsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.UserControlsToolStripMenuItem, Me.GridViewTableToolStripMenuItem})
         Me.ConfigureFieldsToolStripMenuItem.Name = "ConfigureFieldsToolStripMenuItem"
-        Me.ConfigureFieldsToolStripMenuItem.Size = New System.Drawing.Size(160, 22)
+        Me.ConfigureFieldsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.ConfigureFieldsToolStripMenuItem.Text = "Configure Fields"
         '
         'UserControlsToolStripMenuItem
@@ -316,6 +316,36 @@ Partial Class FormDesignProtoTwo
         Me.linkSaveAndRefresh.TabStop = True
         Me.linkSaveAndRefresh.Text = "Save && Refresh the Window"
         '
+        'ContextMenuStrip1
+        '
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContextBackDecrease, Me.ContextBackIncrease, Me.ContextBackRotate90, Me.ContextBackClearSelection})
+        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(341, 92)
+        '
+        'ContextBackDecrease
+        '
+        Me.ContextBackDecrease.Name = "ContextBackDecrease"
+        Me.ContextBackDecrease.Size = New System.Drawing.Size(340, 22)
+        Me.ContextBackDecrease.Text = "Decrease size of badge relative to elements by 20%"
+        '
+        'ContextBackIncrease
+        '
+        Me.ContextBackIncrease.Name = "ContextBackIncrease"
+        Me.ContextBackIncrease.Size = New System.Drawing.Size(340, 22)
+        Me.ContextBackIncrease.Text = "Increase size of badge relative to elements by 20%"
+        '
+        'ContextBackRotate90
+        '
+        Me.ContextBackRotate90.Name = "ContextBackRotate90"
+        Me.ContextBackRotate90.Size = New System.Drawing.Size(340, 22)
+        Me.ContextBackRotate90.Text = "Rotate Badge Background 90"
+        '
+        'ContextBackClearSelection
+        '
+        Me.ContextBackClearSelection.Name = "ContextBackClearSelection"
+        Me.ContextBackClearSelection.Size = New System.Drawing.Size(340, 22)
+        Me.ContextBackClearSelection.Text = "Clear Group-Editing Selections"
+        '
         'CtlGraphicPortrait1
         '
         Me.CtlGraphicPortrait1.Location = New System.Drawing.Point(720, 42)
@@ -367,36 +397,6 @@ Partial Class FormDesignProtoTwo
         Me.GraphicFieldLabel1.Name = "GraphicFieldLabel1"
         Me.GraphicFieldLabel1.Size = New System.Drawing.Size(178, 43)
         Me.GraphicFieldLabel1.TabIndex = 34
-        '
-        'ContextMenuStrip1
-        '
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContextBackDecrease, Me.ContextBackIncrease, Me.ContextBackRotate90, Me.ContextBackClearSelection})
-        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(341, 92)
-        '
-        'ContextBackDecrease
-        '
-        Me.ContextBackDecrease.Name = "ContextBackDecrease"
-        Me.ContextBackDecrease.Size = New System.Drawing.Size(340, 22)
-        Me.ContextBackDecrease.Text = "Decrease size of badge relative to elements by 20%"
-        '
-        'ContextBackIncrease
-        '
-        Me.ContextBackIncrease.Name = "ContextBackIncrease"
-        Me.ContextBackIncrease.Size = New System.Drawing.Size(340, 22)
-        Me.ContextBackIncrease.Text = "Increase size of badge relative to elements by 20%"
-        '
-        'ContextBackRotate90
-        '
-        Me.ContextBackRotate90.Name = "ContextBackRotate90"
-        Me.ContextBackRotate90.Size = New System.Drawing.Size(340, 22)
-        Me.ContextBackRotate90.Text = "Rotate Badge Background 90"
-        '
-        'ContextBackClearSelection
-        '
-        Me.ContextBackClearSelection.Name = "ContextBackClearSelection"
-        Me.ContextBackClearSelection.Size = New System.Drawing.Size(340, 22)
-        Me.ContextBackClearSelection.Text = "Clear Group-Editing Selections"
         '
         'FormDesignProtoTwo
         '

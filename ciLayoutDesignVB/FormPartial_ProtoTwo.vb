@@ -54,6 +54,31 @@ Partial Public Class FormDesignProtoTwo
         ''
         ''Added 8/3/2019 thomas downes  
         ''
+        Dim boolMoving As Boolean ''Added 8/5/2/019 td  
+        Dim boolResizing As Boolean ''Added 8/5/2/019 td  
+        Dim bControlMovedIsInGroup As Boolean ''Added 8/5/2019 td  
+
+        ''
+        ''8/5/2019 thomas downes
+        ''
+        If (TypeOf ControlBeingMoved Is CtlGraphicFldLabel) Then
+            Const c_bCheckThatControlIsGrouped As Boolean = True ''8/5/2019 thomas downes
+            If (c_bCheckThatControlIsGrouped) Then ''8/5/2019 thomas downes
+                bControlMovedIsInGroup = LabelsList_IsItemIncluded(ControlBeingMoved)
+                If (Not bControlMovedIsInGroup) Then Exit Sub
+            End If ''End of "If (c_bCheckThatControlIsGrouped) Then"
+        Else
+            ''
+            ''Perhaps the Portrait is being moved.   Don't allow other things to be 
+            ''  moved around as well.  ---8/5/2019 td
+            ''
+            Exit Sub
+
+        End If ''End of "If (TypeOf ControlBeingMoved Is CtlGraphicFldLabel) Then .... Else ...."
+
+        ''
+        ''The control being moved or resized is part of a group.   
+        ''
         ''8/4/2019 td''For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
         For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
 
@@ -66,15 +91,21 @@ Partial Public Class FormDesignProtoTwo
             With each_control
 
                 ''Added 8/3/2019 th omas downes  
-                .Top += DeltaTop
-                .Left += DeltaLeft
+                boolMoving = (DeltaTop <> 0 Or DeltaLeft <> 0)
+                If (boolMoving) Then
+                    .Top += DeltaTop
+                    .Left += DeltaLeft
+                End If ''End if ''End of "If (boolMoving) Then"
 
                 ''8/5/2019 TD''.Width += DeltaWidth
                 ''8/5/2019 TD''.Height += DeltaHeight
 
                 ''Modified 8/5/2019 thomas downes
-                .Width = (.TempResizeInfo_W + DeltaWidth)
-                .Height = (.TempResizeInfo_H + DeltaHeight)
+                boolResizing = ((Not boolMoving) And (.TempResizeInfo_W > 0 And .TempResizeInfo_H > 0))
+                If (boolResizing) Then
+                    .Width = (.TempResizeInfo_W + DeltaWidth)
+                    .Height = (.TempResizeInfo_H + DeltaHeight)
+                End If ''End of "If (boolResizing) Then"
 
                 ''8/5/2019 td''txtWidthDeltas.AppendText($"Width: {DeltaWidth}" & vbCrLf)
                 ''8/5/2019 td''txtWidthDeltas.AppendText($"   Height: {DeltaHeight}" & vbCrLf)
