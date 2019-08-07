@@ -97,10 +97,10 @@
     <Compile Include="CtlConfigFldStandard.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CtlFldLabelWithTextbox.Designer.vb">
-      <DependentUpon>CtlFldLabelWithTextbox.vb</DependentUpon>
+    <Compile Include="CtlMainEntryBox_v82.Designer.vb">
+      <DependentUpon>CtlMainEntryBox_v82.vb</DependentUpon>
     </Compile>
-    <Compile Include="CtlFldLabelWithTextbox.vb">
+    <Compile Include="CtlMainEntryBox_v82.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="CtlGraphicPortrait.Designer.vb">
@@ -113,6 +113,18 @@
       <DependentUpon>CtlGraphicText.vb</DependentUpon>
     </Compile>
     <Compile Include="CtlGraphicText.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CtlMainButton_v82.Designer.vb">
+      <DependentUpon>CtlMainButton_v82.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CtlMainButton_v82.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CtlMainEntryBox_NotInUse.Designer.vb">
+      <DependentUpon>CtlMainEntryBox_NotInUse.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CtlMainEntryBox_NotInUse.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="CtlPartial_Menu.Designer.vb">
@@ -254,14 +266,20 @@
     <EmbeddedResource Include="CtlCustomer.resx">
       <DependentUpon>CtlCustomer.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CtlFldLabelWithTextbox.resx">
-      <DependentUpon>CtlFldLabelWithTextbox.vb</DependentUpon>
+    <EmbeddedResource Include="CtlMainButton_v82.resx">
+      <DependentUpon>CtlMainButton_v82.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CtlMainEntryBox_v82.resx">
+      <DependentUpon>CtlMainEntryBox_v82.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CtlGraphicPortrait.resx">
       <DependentUpon>CtlGraphicPortrait.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CtlGraphicText.resx">
       <DependentUpon>CtlGraphicText.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CtlMainEntryBox_NotInUse.resx">
+      <DependentUpon>CtlMainEntryBox_NotInUse.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormCustomFieldsFlow.resx">
       <DependentUpon>FormCustomFieldsFlow.vb</DependentUpon>
