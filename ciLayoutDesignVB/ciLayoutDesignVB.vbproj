@@ -97,6 +97,12 @@
     <Compile Include="CtlConfigFldStandard.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="CtlMainButton_v90.Designer.vb">
+      <DependentUpon>CtlMainButton_v90.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CtlMainButton_v90.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="CtlMainEntryBox_v82.Designer.vb">
       <DependentUpon>CtlMainEntryBox_v82.vb</DependentUpon>
     </Compile>
@@ -125,6 +131,18 @@
       <DependentUpon>CtlMainEntryBox_NotInUse.vb</DependentUpon>
     </Compile>
     <Compile Include="CtlMainEntryBox_NotInUse.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CtlMainEntryBox_v90.Designer.vb">
+      <DependentUpon>CtlMainEntryBox_v90.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CtlMainEntryBox_v90.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CtlMainStep3_v82.Designer.vb">
+      <DependentUpon>CtlMainStep3_v82.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CtlMainStep3_v82.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="CtlPartial_Menu.Designer.vb">
@@ -161,6 +179,18 @@
       <DependentUpon>FormMain.vb</DependentUpon>
     </Compile>
     <Compile Include="FormMain.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMainEntry_v82.Designer.vb">
+      <DependentUpon>FormMainEntry_v82.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormMainEntry_v82.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMainEntry_v90.Designer.vb">
+      <DependentUpon>FormMainEntry_v90.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormMainEntry_v90.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormPresetValues.Designer.vb">
@@ -269,6 +299,9 @@
     <EmbeddedResource Include="CtlMainButton_v82.resx">
       <DependentUpon>CtlMainButton_v82.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CtlMainButton_v90.resx">
+      <DependentUpon>CtlMainButton_v90.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CtlMainEntryBox_v82.resx">
       <DependentUpon>CtlMainEntryBox_v82.vb</DependentUpon>
     </EmbeddedResource>
@@ -280,6 +313,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CtlMainEntryBox_NotInUse.resx">
       <DependentUpon>CtlMainEntryBox_NotInUse.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CtlMainEntryBox_v90.resx">
+      <DependentUpon>CtlMainEntryBox_v90.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CtlMainStep3_v82.resx">
+      <DependentUpon>CtlMainStep3_v82.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormCustomFieldsFlow.resx">
       <DependentUpon>FormCustomFieldsFlow.vb</DependentUpon>
@@ -301,6 +340,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMainEntry_v82.resx">
+      <DependentUpon>FormMainEntry_v82.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormPresetValues.resx">
       <DependentUpon>FormPresetValues.vb</DependentUpon>
@@ -363,6 +405,8 @@
     <Content Include="Images\SizeStretchZones_V102.jpg" />
     <Content Include="Images\SizeStretchZones_V103.bmp" />
     <Content Include="Images\SOU735-SADDLEBACK-VENDOR.jpg" />
+    <None Include="Images\Step3_TakePic_v90.PNG" />
+    <None Include="Images\Step3_TakePic_v82.PNG" />
     <Content Include="Images\ValleyValleyColl.jpg" />
     <Content Include="Images\__UI for V831_v101.PNG" />
     <Content Include="Images\__UI for v900_v101.PNG" />
@@ -371,6 +415,8 @@
     <Content Include="Resources\RotatedLayout.png" />
     <None Include="Resources\__UI for V831 w No Pic.PNG" />
     <None Include="Resources\__UI for v900 w demo face.PNG" />
+    <None Include="Resources\Textbox_v90.png" />
+    <None Include="Resources\__UI for V831 w No Pic1.PNG" />
     <Content Include="Test Layout Design.htm" />
     <Content Include="test_EmbedBase64.htm" />
     <Content Include="test_OnLoad.htm" />

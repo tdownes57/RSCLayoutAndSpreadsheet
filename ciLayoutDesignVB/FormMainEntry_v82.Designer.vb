@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class CtlMainButton_v82
-    Inherits System.Windows.Forms.UserControl
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+Partial Class FormMainEntry_v82
+    Inherits System.Windows.Forms.Form
 
-    'UserControl overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()>
+    'Form overrides dispose to clean up the component list.
+    <System.Diagnostics.DebuggerNonUserCode()> _
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,21 +20,20 @@ Partial Class CtlMainButton_v82
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()>
+    <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.SuspendLayout()
         '
-        'CtlMainButton_v82
+        'FormMainEntry_v82
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.CornflowerBlue
-        Me.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.Step3_TakePic_v82
-        Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.__UI_for_V831_w_No_Pic
+        Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.ClientSize = New System.Drawing.Size(1311, 901)
         Me.DoubleBuffered = True
-        Me.Margin = New System.Windows.Forms.Padding(4)
-        Me.Name = "CtlMainButton_v82"
-        Me.Size = New System.Drawing.Size(277, 126)
+        Me.Name = "FormMainEntry_v82"
+        Me.Text = "FormMainEntry_v82"
         Me.ResumeLayout(False)
 
     End Sub
