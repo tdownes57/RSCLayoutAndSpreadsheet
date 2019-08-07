@@ -395,6 +395,7 @@
     <Content Include="Images\CISolutionsLogo.png" />
     <Content Include="Images\layout_BW - CompareToSpoof.png" />
     <Content Include="Images\layout_BW.bmp" />
+    <None Include="Images\mainback_v82.PNG" />
     <Content Include="Images\ORO835 - OrovilleHS.PNG" />
     <Content Include="Images\RotatedLayout.png" />
     <Content Include="Images\SizeAdjustmentBar.png" />

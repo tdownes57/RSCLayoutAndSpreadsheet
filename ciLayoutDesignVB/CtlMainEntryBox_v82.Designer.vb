@@ -28,15 +28,18 @@ Partial Class CtlMainEntryBox_v82
         '
         'TextBox1
         '
+        Me.TextBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TextBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox1.Location = New System.Drawing.Point(345, 7)
-        Me.TextBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TextBox1.Location = New System.Drawing.Point(216, 4)
+        Me.TextBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(312, 34)
+        Me.TextBox1.Size = New System.Drawing.Size(262, 34)
         Me.TextBox1.TabIndex = 2
         '
         'Label1
         '
+        Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.Location = New System.Drawing.Point(4, 7)
         Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
@@ -50,11 +53,12 @@ Partial Class CtlMainEntryBox_v82
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.LightSkyBlue
-        Me.Controls.Add(Me.Label1)
+        Me.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.mainback_v82
         Me.Controls.Add(Me.TextBox1)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Controls.Add(Me.Label1)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "CtlMainEntryBox_v82"
-        Me.Size = New System.Drawing.Size(663, 54)
+        Me.Size = New System.Drawing.Size(482, 44)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

@@ -118,8 +118,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="CISolutionsLogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\CISolutionsLogo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="__UI for V831 w No Pic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\__UI for V831 w No Pic1.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="JaneMulvey_1015" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\JaneMulvey_1015.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -130,8 +130,14 @@
   <data name="SizeAdjustmentBar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\SizeAdjustmentBar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="CI_Logo1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\CI Logo.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="CISolutionsLogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\CISolutionsLogo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Step3_TakePic_v90" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Step3_TakePic_v90.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="__UI for V831_v101" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\__UI for V831_v101.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="V381" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\V381.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -139,13 +145,13 @@
   <data name="Textbox_v90" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Textbox_v90.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Step3_TakePic_v90" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\Step3_TakePic_v90.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="CI_Logo1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\CI Logo.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Step3_TakePic_v82" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\Step3_TakePic_v82.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="__UI for V831 w No Pic" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\__UI for V831 w No Pic1.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="mainback_v82" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\mainback_v82.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
