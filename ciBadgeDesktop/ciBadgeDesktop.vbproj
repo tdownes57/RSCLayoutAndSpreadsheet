@@ -119,6 +119,9 @@
     <EmbeddedResource Include="Views\FormMainEntry_VBA.resx">
       <DependentUpon>FormMainEntry_VBA.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\FormStep3TakePic_VBA.resx">
+      <DependentUpon>FormStep3TakePic_VBA.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\FormVersion831.resx">
       <DependentUpon>FormVersion831.vb</DependentUpon>
     </EmbeddedResource>
@@ -142,8 +145,19 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Images\" />
     <Folder Include="Models\" />
+    <Folder Include="NewFolder1\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\mainback_v82.JPG" />
+    <Content Include="Images\mainback_v82.PNG" />
+    <Content Include="Images\Step3_TakePic.PNG" />
+    <Content Include="Images\Step3_TakePic_v82.PNG" />
+    <Content Include="Images\Step3_TakePic_v90.PNG" />
+    <Content Include="Images\__UI %28v82 Step 3a%29.png" />
+    <Content Include="Images\__UI for V831_v101 - Copy.PNG" />
+    <Content Include="Images\__UI for V831_v101.PNG" />
+    <Content Include="Images\__UI for v900_v101.PNG" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
