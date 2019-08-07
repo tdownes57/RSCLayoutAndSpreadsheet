@@ -73,7 +73,26 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompositeControls\CtlMainButton_v82.vb" />
+    <Compile Include="CompositeControls\CtlMainButton_v90.vb" />
+    <Compile Include="CompositeControls\CtlMainEntryBox_v82.vb" />
+    <Compile Include="CompositeControls\CtlMainEntryBox_v90.vb" />
+    <Compile Include="CompositeControls\CtlMainStep3_v82.vb" />
     <Compile Include="Controllers\VersionController.vb" />
+    <Compile Include="Interfaces\InterfaceCIBField.vb" />
+    <Compile Include="Interfaces\InterfaceFieldControl.vb" />
+    <Compile Include="Views\FormMainEntry_VBA.Designer.vb">
+      <DependentUpon>FormMainEntry_VBA.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FormMainEntry_VBA.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FormStep3TakePic_VBA.Designer.vb">
+      <DependentUpon>FormStep3TakePic_VBA.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FormStep3TakePic_VBA.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Views\FormVersion831.designer.vb">
       <DependentUpon>FormVersion831.vb</DependentUpon>
     </Compile>
@@ -97,6 +116,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Views\FormMainEntry_VBA.resx">
+      <DependentUpon>FormMainEntry_VBA.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\FormVersion831.resx">
       <DependentUpon>FormVersion831.vb</DependentUpon>
     </EmbeddedResource>
