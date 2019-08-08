@@ -104,25 +104,39 @@ Public Class CtlGraphicPortrait
         Dim boolLetsRotate90 As Boolean
 
         Select Case Me.ElementInfo_Pic.OrientationToLayout
-            Case "H" '' H = Horizontal   
+            Case "H", "L" '' H = Horizontal   
                 ''
                 ''Added 8/7/2019 thomas downes 
                 ''
                 image_Pic = picturePortrait.Image
                 boolSeemsInPortraitMode = (image_Pic.Height > image_Pic.Width)
-                boolLetsRotate90 = boolSeemsInPortraitMode
+                boolLetsRotate90 = True ''boolSeemsInPortraitMode
 
                 ''Added 8/7/2019 thomas downes 
                 If (boolLetsRotate90) Then
                     ''Added 8/7/2019 thomas downes 
-                    image_Rotated = CType(image_Pic.Clone, Image)
-                    bm_rotation = New Bitmap(image_Rotated)
+                    ''8/7 td''image_Rotated = CType(image_Pic.Clone, Image)
+
+                    bm_rotation = New Bitmap(image_Pic)
                     bm_rotation.RotateFlip(RotateFlipType.Rotate90FlipNone)
-                    picturePortrait.Image = image_Rotated
-                    picturePortrait.Width = image_Rotated.Width
-                    picturePortrait.Height = image_Rotated.Height
-                    Me.Width = image_Rotated.Width
-                    Me.Height = image_Rotated.Height
+
+                    ''8/7 td''picturePortrait.Image = image_Rotated
+
+                    ''8/7 td''picturePortrait.Width = image_Rotated.Width
+                    ''8/7 td''picturePortrait.Height = image_Rotated.Height
+                    picturePortrait.Width = bm_rotation.Width
+                    picturePortrait.Height = bm_rotation.Height
+                    picturePortrait.Refresh()
+
+                    picturePortrait.Image = bm_rotation
+                    picturePortrait.Refresh()
+
+                    ''8/7 td''Me.Width = image_Rotated.Width
+                    ''8/7 td'' Me.Height = image_Rotated.Height
+
+                    Me.Width = picturePortrait.Width
+                    Me.Height = picturePortrait.Height
+
                 End If ''End of "If (boolLetsRotate90) Then"
 
             Case "P"
@@ -149,7 +163,7 @@ Public Class CtlGraphicPortrait
     Private Sub Rotate90Degrees(sender As Object, e As EventArgs)
         ''
         ''Added 7/30/2019 thomas downes
-        ''
+        ''  
         ''Me.ElementInfo_Pic.OrientationToLayout = "L"
 
         Select Case Me.ElementInfo_Pic.OrientationToLayout
@@ -184,7 +198,7 @@ Public Class CtlGraphicPortrait
 
             If (0 = ContextMenuStrip1.Items.Count) Then
 
-                new_item_rotate90 = New ToolStripMenuItem("Browse Field")
+                new_item_rotate90 = New ToolStripMenuItem("Rotate 90 Degrees")
 
                 AddHandler new_item_rotate90.Click, AddressOf Rotate90Degrees
 

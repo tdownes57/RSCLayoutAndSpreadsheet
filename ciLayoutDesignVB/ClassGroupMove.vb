@@ -40,7 +40,7 @@ Public Class ClassGroupMove
         ''Added 8/3/2019 td
         ''
         If (deltaHeight > 20 Or deltaHeight < -20) Then
-            System.Diagnostics.Debugger.Break()
+            ''System.Diagnostics.Debugger.Break()
         End If
 
         RaiseEvent MoveInUnison(deltaLeft, deltaTop, deltaWidth, deltaHeight)
