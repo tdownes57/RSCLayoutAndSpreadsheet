@@ -19,7 +19,7 @@ Public Class CtlGraphicPortrait
     Public ReadOnly Property Picture_Box As PictureBox
         Get
             ''Added 7/31/2019 td 
-            Return Me.pictureLabel
+            Return Me.picturePortrait
         End Get
     End Property
 
@@ -94,6 +94,44 @@ Public Class CtlGraphicPortrait
 
         ''7/31/2019 td''Generator.TextImage(pictureLabel.Image, Me.ElementInfo, Me.ElementInfo)
 
+        ''
+        ''Added 8/7/2019 thomas downes 
+        ''
+        Dim image_Pic As Image ''Added 8/7/2019 thomas downes 
+        Dim image_Rotated As Image ''Added 8/7/2019 thomas downes  
+        Dim bm_rotation As Bitmap ''Added 8/7/2019 thomas downes 
+        Dim boolSeemsInPortraitMode As Boolean
+        Dim boolLetsRotate90 As Boolean
+
+        Select Case Me.ElementInfo_Pic.OrientationToLayout
+            Case "H" '' H = Horizontal   
+                ''
+                ''Added 8/7/2019 thomas downes 
+                ''
+                image_Pic = picturePortrait.Image
+                boolSeemsInPortraitMode = (image_Pic.Height > image_Pic.Width)
+                boolLetsRotate90 = boolSeemsInPortraitMode
+
+                ''Added 8/7/2019 thomas downes 
+                If (boolLetsRotate90) Then
+                    ''Added 8/7/2019 thomas downes 
+                    image_Rotated = CType(image_Pic.Clone, Image)
+                    bm_rotation = New Bitmap(image_Rotated)
+                    bm_rotation.RotateFlip(RotateFlipType.Rotate90FlipNone)
+                    picturePortrait.Image = image_Rotated
+                    picturePortrait.Width = image_Rotated.Width
+                    picturePortrait.Height = image_Rotated.Height
+                    Me.Width = image_Rotated.Width
+                    Me.Height = image_Rotated.Height
+                End If ''End of "If (boolLetsRotate90) Then"
+
+            Case "P"
+                ''
+                ''Added 8/7/2019 thomas downes 
+                ''
+
+        End Select ''End of "Select Case Me.ElementInfo_Pic.OrientationToLayout "
+
     End Sub ''End of Public Sub RefreshImage
 
     Public Sub SaveToModel()
@@ -128,7 +166,7 @@ Public Class CtlGraphicPortrait
 
     End Sub ''eNd of "Private Sub Rotate90()"
 
-    Private Sub PictureLabel_MouseClick(sender As Object, e As MouseEventArgs) Handles pictureLabel.MouseClick
+    Private Sub PictureLabel_MouseClick(sender As Object, e As MouseEventArgs) Handles picturePortrait.MouseClick
         ''
         ''Added 7/30/2019 thomas downes
         ''

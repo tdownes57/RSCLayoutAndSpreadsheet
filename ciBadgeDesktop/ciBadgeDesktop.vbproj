@@ -73,7 +73,26 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompositeControls\CtlMainButton_v82.vb" />
+    <Compile Include="CompositeControls\CtlMainButton_v90.vb" />
+    <Compile Include="CompositeControls\CtlMainEntryBox_v82.vb" />
+    <Compile Include="CompositeControls\CtlMainEntryBox_v90.vb" />
+    <Compile Include="CompositeControls\CtlMainStep3_v82.vb" />
     <Compile Include="Controllers\VersionController.vb" />
+    <Compile Include="Interfaces\InterfaceCIBField.vb" />
+    <Compile Include="Interfaces\InterfaceFieldControl.vb" />
+    <Compile Include="Views\FormMainEntry_VBA.Designer.vb">
+      <DependentUpon>FormMainEntry_VBA.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FormMainEntry_VBA.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FormStep3TakePic_VBA.Designer.vb">
+      <DependentUpon>FormStep3TakePic_VBA.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FormStep3TakePic_VBA.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Views\FormVersion831.designer.vb">
       <DependentUpon>FormVersion831.vb</DependentUpon>
     </Compile>
@@ -97,6 +116,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Views\FormMainEntry_VBA.resx">
+      <DependentUpon>FormMainEntry_VBA.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FormStep3TakePic_VBA.resx">
+      <DependentUpon>FormStep3TakePic_VBA.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\FormVersion831.resx">
       <DependentUpon>FormVersion831.vb</DependentUpon>
     </EmbeddedResource>
@@ -120,8 +145,19 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Images\" />
     <Folder Include="Models\" />
+    <Folder Include="NewFolder1\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\mainback_v82.JPG" />
+    <Content Include="Images\mainback_v82.PNG" />
+    <Content Include="Images\Step3_TakePic.PNG" />
+    <Content Include="Images\Step3_TakePic_v82.PNG" />
+    <Content Include="Images\Step3_TakePic_v90.PNG" />
+    <Content Include="Images\__UI %28v82 Step 3a%29.png" />
+    <Content Include="Images\__UI for V831_v101 - Copy.PNG" />
+    <Content Include="Images\__UI for V831_v101.PNG" />
+    <Content Include="Images\__UI for v900_v101.PNG" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

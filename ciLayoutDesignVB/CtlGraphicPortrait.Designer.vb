@@ -24,43 +24,41 @@ Partial Class CtlGraphicPortrait
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(CtlGraphicPortrait))
-        Me.pictureLabel = New System.Windows.Forms.PictureBox()
+        Me.picturePortrait = New System.Windows.Forms.PictureBox()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        CType(Me.pictureLabel, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.picturePortrait, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'pictureLabel
+        'picturePortrait
         '
-        Me.pictureLabel.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.pictureLabel.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pictureLabel.Image = CType(resources.GetObject("pictureLabel.Image"), System.Drawing.Image)
-        Me.pictureLabel.Location = New System.Drawing.Point(0, 0)
-        Me.pictureLabel.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.pictureLabel.Name = "pictureLabel"
-        Me.pictureLabel.Size = New System.Drawing.Size(192, 224)
-        Me.pictureLabel.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.pictureLabel.TabIndex = 1
-        Me.pictureLabel.TabStop = False
+        Me.picturePortrait.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.picturePortrait.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.picturePortrait.Image = CType(resources.GetObject("picturePortrait.Image"), System.Drawing.Image)
+        Me.picturePortrait.Location = New System.Drawing.Point(0, 0)
+        Me.picturePortrait.Name = "picturePortrait"
+        Me.picturePortrait.Size = New System.Drawing.Size(144, 182)
+        Me.picturePortrait.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.picturePortrait.TabIndex = 1
+        Me.picturePortrait.TabStop = False
         '
         'ContextMenuStrip1
         '
         Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(211, 32)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(61, 4)
         '
         'CtlGraphicPortrait
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.Controls.Add(Me.pictureLabel)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Controls.Add(Me.picturePortrait)
         Me.Name = "CtlGraphicPortrait"
-        Me.Size = New System.Drawing.Size(192, 224)
-        CType(Me.pictureLabel, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Size = New System.Drawing.Size(144, 182)
+        CType(Me.picturePortrait, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
 
-    Friend WithEvents pictureLabel As PictureBox
+    Friend WithEvents picturePortrait As PictureBox
     Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
 End Class

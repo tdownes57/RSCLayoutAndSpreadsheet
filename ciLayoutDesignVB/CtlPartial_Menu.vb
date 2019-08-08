@@ -1,10 +1,22 @@
 ﻿
 ''
-''
+''Added 7/30/2019 thomas downes
 ''
 
 Partial Public Class CtlGraphicFldLabel
 
+    ''Added 8/5/2019 td
+    ''   This is to store the initial Width & Height, when resizing.  
+    Public TempResizeInfo_W As Integer = 0 ''Intial resizing width.  (Before any adjustment is made.)
+    Public TempResizeInfo_H As Integer = 0 ''Intial resizing height.  (Before any adjustment is made.)
+
+    Private item_group_alignLeft As ToolStripMenuItem ''Added 8/2/2019 td
+    Private item_group_alignRight As ToolStripMenuItem ''Added 8/2/2019 td
+    Private item_group_alignWidth As ToolStripMenuItem ''Added 8/5/2019 td
+    Private item_group_alignHeight As ToolStripMenuItem ''Added 8/5/2019 td
+    Private item_group_alignTop As ToolStripMenuItem ''Added 8/5/2019 td
+    Private item_group_alignBottom As ToolStripMenuItem ''Added 8/5/2019 td
+    Private item_group_alignParent As ToolStripMenuItem ''Added 8/5/2019 td
 
     Private Sub OpenDialog_Field(sender As Object, e As EventArgs)
         ''
@@ -189,6 +201,58 @@ Partial Public Class CtlGraphicFldLabel
 
     End Sub ''End of "Private Sub GroupEditElement_Omit( )"
 
+    Private Sub Alignment_Master(sender As Object, e As EventArgs)
+        ''
+        ''Added 8/5/2019 thomas downes
+        ''
+        Dim objElements As List(Of CtlGraphicFldLabel)
+        Dim sender_toolItem As ToolStripItem
+
+        If (Not TypeOf sender Is ToolStripMenuItem) Then Exit Sub
+        sender_toolItem = CType(sender, ToolStripMenuItem)
+
+        objElements = Me.GroupEdits.LabelsDesignList_AllItems
+
+        For Each each_ctl As CtlGraphicFldLabel In objElements
+            ''
+            ''Added 8/5/2019 td  
+            ''
+            With each_ctl
+
+                Select Case (sender_toolItem.Text)
+                    Case (item_group_alignTop.Text) : each_ctl.Top = Me.Top
+
+                    Case (item_group_alignLeft.Text) : each_ctl.Left = Me.Left
+
+                    Case (item_group_alignWidth.Text)
+
+                        each_ctl.Width = Me.Width
+                        each_ctl.ElementInfo.Width_Pixels = Me.Width
+
+                    Case (item_group_alignHeight.Text)
+
+                        each_ctl.Height = Me.Height
+                        each_ctl.ElementInfo.Height_Pixels = Me.Height
+
+                End Select
+
+                ''Select Case True
+                ''    Case (sender_toolItem Is item_group_alignTop) : each_ctl.Top = Me.Top
+                ''    Case (sender_toolItem Is item_group_alignLeft) : each_ctl.Left = Me.Left
+                ''    Case (sender_toolItem Is item_group_alignWidth)
+                ''        each_ctl.Width = Me.Width
+                ''        each_ctl.ElementInfo.Width_Pixels = Me.Width
+                ''    Case (sender_toolItem Is item_group_alignHeight)
+                ''        each_ctl.Height = Me.Height
+                ''        each_ctl.ElementInfo.Height_Pixels = Me.Height
+                ''End Select
+
+            End With
+
+        Next each_ctl
+
+    End Sub ''eNd of "Private Sub Alignment_Master()"
+
     Private Sub PictureLabel_MouseClick(sender As Object, e As MouseEventArgs) Handles pictureLabel.MouseClick
         ''
         ''Added 7/30/2019 thomas downes
@@ -205,9 +269,6 @@ Partial Public Class CtlGraphicFldLabel
 
         Static new_item_group_add As ToolStripMenuItem ''Added 8/2/2019 td
         Static new_item_group_omit As ToolStripMenuItem ''Added 8/2/2019 td
-
-        Static new_item_group_alignLeft As ToolStripMenuItem ''Added 8/2/2019 td
-        Static new_item_group_alignRight As ToolStripMenuItem ''Added 8/2/2019 td
 
         boolRightClick = (e.Button = MouseButtons.Right)
 
@@ -235,8 +296,15 @@ Partial Public Class CtlGraphicFldLabel
                 new_item_font = New ToolStripMenuItem("Set Font")
 
                 ''Add 8/2/2019 thomas d.  
-                new_item_group_alignLeft = New ToolStripMenuItem("Align Grouped Elements (Right-Hand Edge)")
-                new_item_group_alignRight = New ToolStripMenuItem("Align Grouped Elements (Left-Hand Edge)")
+                item_group_alignLeft = New ToolStripMenuItem("Left-Hand Edge")
+                item_group_alignRight = New ToolStripMenuItem("Right-Hand Edge")
+                ''Add 8/2/2019 thomas d.  
+                item_group_alignWidth = New ToolStripMenuItem("Width")
+                item_group_alignHeight = New ToolStripMenuItem("Height")
+
+                item_group_alignTop = New ToolStripMenuItem("Top Edge")
+                item_group_alignBottom = New ToolStripMenuItem("Bottom Edge")
+                item_group_alignParent = New ToolStripMenuItem("Align Grouped Elements")
 
                 AddHandler new_item_field.Click, AddressOf OpenDialog_Field
                 AddHandler new_item_colors.Click, AddressOf OpenDialog_Color
@@ -266,8 +334,36 @@ Partial Public Class CtlGraphicFldLabel
                 ''End If
 
                 ''Add 8/2/2019 thomas d.  
-                ContextMenuStrip1.Items.Add(new_item_group_alignLeft) ''Added 8/01/2019 thomas d.  
-                ContextMenuStrip1.Items.Add(new_item_group_alignRight) ''Added 8/01/2019 thomas d.  
+                ''8/5/2019 td''ContextMenuStrip1.Items.Add(new_item_group_alignLeft) ''Added 8/01/2019 thomas d.  
+                ''8/5/2019 td''ContextMenuStrip1.Items.Add(new_item_group_alignRight) ''Added 8/01/2019 thomas d.  
+
+                ''Add 8/5/2019 thomas d.  
+                ContextMenuStrip1.Items.Add(item_group_alignParent) ''Added 8/5/2019 thomas d.  
+                Dim toolstripAlign As ToolStripMenuItem = CType(item_group_alignParent, ToolStripMenuItem)
+
+                ''
+                ''Add 8/5/2019 thomas d.  
+                ''
+                toolstripAlign.DropDownItems.Add(item_group_alignLeft)
+                toolstripAlign.DropDownItems.Add(item_group_alignRight)
+
+                toolstripAlign.DropDownItems.Add(item_group_alignTop)
+                toolstripAlign.DropDownItems.Add(item_group_alignBottom)
+
+                toolstripAlign.DropDownItems.Add(item_group_alignWidth)
+                toolstripAlign.DropDownItems.Add(item_group_alignHeight)
+
+                ''
+                ''Add 8/5/2019 thomas d.  
+                ''
+                AddHandler item_group_alignLeft.Click, AddressOf Alignment_Master
+                AddHandler item_group_alignRight.Click, AddressOf Alignment_Master
+
+                AddHandler item_group_alignTop.Click, AddressOf Alignment_Master
+                AddHandler item_group_alignBottom.Click, AddressOf Alignment_Master
+
+                AddHandler item_group_alignWidth.Click, AddressOf Alignment_Master
+                AddHandler item_group_alignHeight.Click, AddressOf Alignment_Master
 
             End If ''End of "If (0 = ContextMenuStrip1.Items.Count) Then"
 
@@ -281,6 +377,10 @@ Partial Public Class CtlGraphicFldLabel
 
                 ''Add 8/2/2019 thomas d.  
                 new_item_group_add.Visible = .LabelsList_TwoOrMoreItems() _
+                                             And .LabelsList_IsItemIncluded(Me)
+
+                ''Add 8/2/2019 thomas d.  
+                item_group_alignParent.Visible = .LabelsList_TwoOrMoreItems() _
                                              And .LabelsList_IsItemIncluded(Me)
 
             End With ''End of "With Me.GroupEdits"

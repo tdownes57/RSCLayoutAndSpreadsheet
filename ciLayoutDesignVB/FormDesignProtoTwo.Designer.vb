@@ -22,6 +22,7 @@ Partial Class FormDesignProtoTwo
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.LinkShowWebControls = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         Me.chkIncludeExampleValues = New System.Windows.Forms.CheckBox()
@@ -51,17 +52,23 @@ Partial Class FormDesignProtoTwo
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.pictureAdjustmentToggle = New System.Windows.Forms.PictureBox()
         Me.pictureBack = New System.Windows.Forms.PictureBox()
+        Me.LinkLabelSave = New System.Windows.Forms.LinkLabel()
+        Me.linkSaveAndRefresh = New System.Windows.Forms.LinkLabel()
+        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.ContextBackDecrease = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ContextBackIncrease = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ContextBackRotate90 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ContextBackClearSelection = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CtlGraphicPortrait1 = New ciLayoutDesignVB.CtlGraphicPortrait()
         Me.GraphicFieldLabel5 = New ciLayoutDesignVB.CtlGraphicFldLabel()
         Me.GraphicFieldLabel4 = New ciLayoutDesignVB.CtlGraphicFldLabel()
         Me.GraphicFieldLabel3 = New ciLayoutDesignVB.CtlGraphicFldLabel()
         Me.GraphicFieldLabel2 = New ciLayoutDesignVB.CtlGraphicFldLabel()
         Me.GraphicFieldLabel1 = New ciLayoutDesignVB.CtlGraphicFldLabel()
-        Me.CtlGraphicPortrait1 = New ciLayoutDesignVB.CtlGraphicPortrait()
-        Me.LinkLabelSave = New System.Windows.Forms.LinkLabel()
-        Me.linkSaveAndRefresh = New System.Windows.Forms.LinkLabel()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.pictureAdjustmentToggle, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureBack, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.ContextMenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'LinkShowWebControls
@@ -153,7 +160,7 @@ Partial Class FormDesignProtoTwo
         '
         Me.ConfigureFieldsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.UserControlsToolStripMenuItem, Me.GridViewTableToolStripMenuItem})
         Me.ConfigureFieldsToolStripMenuItem.Name = "ConfigureFieldsToolStripMenuItem"
-        Me.ConfigureFieldsToolStripMenuItem.Size = New System.Drawing.Size(160, 22)
+        Me.ConfigureFieldsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.ConfigureFieldsToolStripMenuItem.Text = "Configure Fields"
         '
         'UserControlsToolStripMenuItem
@@ -286,6 +293,67 @@ Partial Class FormDesignProtoTwo
         Me.pictureBack.TabIndex = 21
         Me.pictureBack.TabStop = False
         '
+        'LinkLabelSave
+        '
+        Me.LinkLabelSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LinkLabelSave.AutoSize = True
+        Me.LinkLabelSave.Location = New System.Drawing.Point(909, 33)
+        Me.LinkLabelSave.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LinkLabelSave.Name = "LinkLabelSave"
+        Me.LinkLabelSave.Size = New System.Drawing.Size(40, 17)
+        Me.LinkLabelSave.TabIndex = 43
+        Me.LinkLabelSave.TabStop = True
+        Me.LinkLabelSave.Text = "Save"
+        '
+        'linkSaveAndRefresh
+        '
+        Me.linkSaveAndRefresh.AutoSize = True
+        Me.linkSaveAndRefresh.Location = New System.Drawing.Point(385, 33)
+        Me.linkSaveAndRefresh.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.linkSaveAndRefresh.Name = "linkSaveAndRefresh"
+        Me.linkSaveAndRefresh.Size = New System.Drawing.Size(184, 17)
+        Me.linkSaveAndRefresh.TabIndex = 42
+        Me.linkSaveAndRefresh.TabStop = True
+        Me.linkSaveAndRefresh.Text = "Save && Refresh the Window"
+        '
+        'ContextMenuStrip1
+        '
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContextBackDecrease, Me.ContextBackIncrease, Me.ContextBackRotate90, Me.ContextBackClearSelection})
+        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(341, 92)
+        '
+        'ContextBackDecrease
+        '
+        Me.ContextBackDecrease.Name = "ContextBackDecrease"
+        Me.ContextBackDecrease.Size = New System.Drawing.Size(340, 22)
+        Me.ContextBackDecrease.Text = "Decrease size of badge relative to elements by 20%"
+        '
+        'ContextBackIncrease
+        '
+        Me.ContextBackIncrease.Name = "ContextBackIncrease"
+        Me.ContextBackIncrease.Size = New System.Drawing.Size(340, 22)
+        Me.ContextBackIncrease.Text = "Increase size of badge relative to elements by 20%"
+        '
+        'ContextBackRotate90
+        '
+        Me.ContextBackRotate90.Name = "ContextBackRotate90"
+        Me.ContextBackRotate90.Size = New System.Drawing.Size(340, 22)
+        Me.ContextBackRotate90.Text = "Rotate Badge Background 90"
+        '
+        'ContextBackClearSelection
+        '
+        Me.ContextBackClearSelection.Name = "ContextBackClearSelection"
+        Me.ContextBackClearSelection.Size = New System.Drawing.Size(340, 22)
+        Me.ContextBackClearSelection.Text = "Clear Group-Editing Selections"
+        '
+        'CtlGraphicPortrait1
+        '
+        Me.CtlGraphicPortrait1.Location = New System.Drawing.Point(720, 42)
+        Me.CtlGraphicPortrait1.Margin = New System.Windows.Forms.Padding(4)
+        Me.CtlGraphicPortrait1.Name = "CtlGraphicPortrait1"
+        Me.CtlGraphicPortrait1.Size = New System.Drawing.Size(150, 182)
+        Me.CtlGraphicPortrait1.TabIndex = 41
+        '
         'GraphicFieldLabel5
         '
         Me.GraphicFieldLabel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
@@ -330,37 +398,6 @@ Partial Class FormDesignProtoTwo
         Me.GraphicFieldLabel1.Size = New System.Drawing.Size(178, 43)
         Me.GraphicFieldLabel1.TabIndex = 34
         '
-        'CtlGraphicPortrait1
-        '
-        Me.CtlGraphicPortrait1.Location = New System.Drawing.Point(720, 42)
-        Me.CtlGraphicPortrait1.Margin = New System.Windows.Forms.Padding(4)
-        Me.CtlGraphicPortrait1.Name = "CtlGraphicPortrait1"
-        Me.CtlGraphicPortrait1.Size = New System.Drawing.Size(150, 182)
-        Me.CtlGraphicPortrait1.TabIndex = 41
-        '
-        'LinkLabelSave
-        '
-        Me.LinkLabelSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LinkLabelSave.AutoSize = True
-        Me.LinkLabelSave.Location = New System.Drawing.Point(909, 33)
-        Me.LinkLabelSave.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.LinkLabelSave.Name = "LinkLabelSave"
-        Me.LinkLabelSave.Size = New System.Drawing.Size(40, 17)
-        Me.LinkLabelSave.TabIndex = 43
-        Me.LinkLabelSave.TabStop = True
-        Me.LinkLabelSave.Text = "Save"
-        '
-        'linkSaveAndRefresh
-        '
-        Me.linkSaveAndRefresh.AutoSize = True
-        Me.linkSaveAndRefresh.Location = New System.Drawing.Point(385, 33)
-        Me.linkSaveAndRefresh.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.linkSaveAndRefresh.Name = "linkSaveAndRefresh"
-        Me.linkSaveAndRefresh.Size = New System.Drawing.Size(184, 17)
-        Me.linkSaveAndRefresh.TabIndex = 42
-        Me.linkSaveAndRefresh.TabStop = True
-        Me.linkSaveAndRefresh.Text = "Save && Refresh the Window"
-        '
         'FormDesignProtoTwo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 17.0!)
@@ -389,6 +426,7 @@ Partial Class FormDesignProtoTwo
         Me.MenuStrip1.PerformLayout()
         CType(Me.pictureAdjustmentToggle, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pictureBack, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ContextMenuStrip1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -431,4 +469,9 @@ Partial Class FormDesignProtoTwo
     Friend WithEvents CtlGraphicPortrait1 As CtlGraphicPortrait
     Friend WithEvents LinkLabelSave As LinkLabel
     Friend WithEvents linkSaveAndRefresh As LinkLabel
+    Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
+    Friend WithEvents ContextBackDecrease As ToolStripMenuItem
+    Friend WithEvents ContextBackIncrease As ToolStripMenuItem
+    Friend WithEvents ContextBackRotate90 As ToolStripMenuItem
+    Friend WithEvents ContextBackClearSelection As ToolStripMenuItem
 End Class

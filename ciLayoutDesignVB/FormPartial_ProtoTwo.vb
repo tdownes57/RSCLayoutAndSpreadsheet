@@ -36,9 +36,48 @@ Partial Public Class FormDesignProtoTwo
 
     End Sub
 
-    Private Sub Move_GroupMove(DeltaLeft As Integer, DeltaTop As Integer, DeltaWidth As Integer, DeltaHeight As Integer) Handles mod_groupedMove.MoveInUnison
+    Private Sub Resizing_Start() Handles mod_groupedMove.Resizing_Start
+        ''
+        ''Added 8/5/2019 thomas downes  
+        ''
+        For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
+
+            ''Added 8/5/2019 thomas downes  
+            each_control.TempResizeInfo_W = each_control.Width
+            each_control.TempResizeInfo_H = each_control.Height
+
+        Next each_control
+
+    End Sub ''End of "Private Sub Resizing_Start"  
+
+    Private Sub Move_GroupMove_Continue(DeltaLeft As Integer, DeltaTop As Integer, DeltaWidth As Integer, DeltaHeight As Integer) Handles mod_groupedMove.MoveInUnison
         ''
         ''Added 8/3/2019 thomas downes  
+        ''
+        Dim boolMoving As Boolean ''Added 8/5/2/019 td  
+        Dim boolResizing As Boolean ''Added 8/5/2/019 td  
+        Dim bControlMovedIsInGroup As Boolean ''Added 8/5/2019 td  
+
+        ''
+        ''8/5/2019 thomas downes
+        ''
+        If (TypeOf ControlBeingMoved Is CtlGraphicFldLabel) Then
+            Const c_bCheckThatControlIsGrouped As Boolean = True ''8/5/2019 thomas downes
+            If (c_bCheckThatControlIsGrouped) Then ''8/5/2019 thomas downes
+                bControlMovedIsInGroup = LabelsList_IsItemIncluded(ControlBeingMoved)
+                If (Not bControlMovedIsInGroup) Then Exit Sub
+            End If ''End of "If (c_bCheckThatControlIsGrouped) Then"
+        Else
+            ''
+            ''Perhaps the Portrait is being moved.   Don't allow other things to be 
+            ''  moved around as well.  ---8/5/2019 td
+            ''
+            Exit Sub
+
+        End If ''End of "If (TypeOf ControlBeingMoved Is CtlGraphicFldLabel) Then .... Else ...."
+
+        ''
+        ''The control being moved or resized is part of a group.   
         ''
         ''8/4/2019 td''For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
         For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
@@ -52,16 +91,43 @@ Partial Public Class FormDesignProtoTwo
             With each_control
 
                 ''Added 8/3/2019 th omas downes  
-                .Top += DeltaTop
-                .Left += DeltaLeft
-                .Width += DeltaWidth
-                .Height += DeltaHeight
+                boolMoving = (DeltaTop <> 0 Or DeltaLeft <> 0)
+                If (boolMoving) Then
+                    .Top += DeltaTop
+                    .Left += DeltaLeft
+                End If ''End if ''End of "If (boolMoving) Then"
+
+                ''8/5/2019 TD''.Width += DeltaWidth
+                ''8/5/2019 TD''.Height += DeltaHeight
+
+                ''Modified 8/5/2019 thomas downes
+                boolResizing = ((Not boolMoving) And (.TempResizeInfo_W > 0 And .TempResizeInfo_H > 0))
+                If (boolResizing) Then
+                    .Width = (.TempResizeInfo_W + DeltaWidth)
+                    .Height = (.TempResizeInfo_H + DeltaHeight)
+                End If ''End of "If (boolResizing) Then"
+
+                ''8/5/2019 td''txtWidthDeltas.AppendText($"Width: {DeltaWidth}" & vbCrLf)
+                ''8/5/2019 td''txtWidthDeltas.AppendText($"   Height: {DeltaHeight}" & vbCrLf)
 
             End With ''End of "With each_control"
 
         Next each_control
 
-    End Sub ''End of "Private Sub mod_moveAndResizeCtls_GroupMove"
+    End Sub ''End of "Private Sub Move_GroupMove_Continue"
+
+    Private Sub Resizing_End() Handles mod_groupedMove.Resizing_End
+        ''
+        ''Added 8/5/2019 thomas downes  
+        ''
+        For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
+
+            each_control.TempResizeInfo_W = 0
+            each_control.TempResizeInfo_H = 0
+
+        Next each_control
+
+    End Sub ''End of "Private Sub Move_GroupMove_End"
 
     Public Function LabelsList_CountItems() As Integer Implements ISelectingElements.LabelsList_CountItems
 
