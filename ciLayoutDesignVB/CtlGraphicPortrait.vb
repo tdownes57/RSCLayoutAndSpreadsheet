@@ -98,13 +98,18 @@ Public Class CtlGraphicPortrait
         ''Added 8/7/2019 thomas downes 
         ''
         Dim image_Pic As Image ''Added 8/7/2019 thomas downes 
-        Dim image_Rotated As Image ''Added 8/7/2019 thomas downes  
+        ''Dim image_Rotated As Image ''Added 8/7/2019 thomas downes  
         Dim bm_rotation As Bitmap ''Added 8/7/2019 thomas downes 
         Dim boolSeemsInPortraitMode As Boolean
         Dim boolLetsRotate90 As Boolean
+        Dim intStarting_Width As Integer ''Added 8/8/2019 thomas 
+        Dim intStarting_Height As Integer ''Added 8/8/2019 thomas
+
+        intStarting_Width = picturePortrait.Width
+        intStarting_Height = picturePortrait.Height
 
         Select Case Me.ElementInfo_Pic.OrientationToLayout
-            Case "H", "L" '' H = Horizontal   
+            Case "H", "L", "P", "", " " '' H = Horizontal, P = Portrait     
                 ''
                 ''Added 8/7/2019 thomas downes 
                 ''
@@ -124,22 +129,31 @@ Public Class CtlGraphicPortrait
 
                     ''8/7 td''picturePortrait.Width = image_Rotated.Width
                     ''8/7 td''picturePortrait.Height = image_Rotated.Height
-                    picturePortrait.Width = bm_rotation.Width
-                    picturePortrait.Height = bm_rotation.Height
+
+                    ''8/8 td''picturePortrait.Width = bm_rotation.Width
+                    ''8/8 td''picturePortrait.Height = bm_rotation.Height
+
+                    picturePortrait.Width = intStarting_Height ''Switching!! Height & Width are switched.
+                    picturePortrait.Height = intStarting_Width ''Switching!! Height & Width are switched.
+
+                    Me.Width = intStarting_Height ''Switching!!  Height & Width are switched. ---8/8/2019 td
+                    Me.Height = intStarting_Width ''Switching!!  Height & Width are switched. ---8/8/2019 td 
+
                     picturePortrait.Refresh()
 
                     picturePortrait.Image = bm_rotation
+                    picturePortrait.SizeMode = PictureBoxSizeMode.Zoom
                     picturePortrait.Refresh()
 
                     ''8/7 td''Me.Width = image_Rotated.Width
                     ''8/7 td'' Me.Height = image_Rotated.Height
 
-                    Me.Width = picturePortrait.Width
-                    Me.Height = picturePortrait.Height
+                    ''8/7 td'' Me.Width = picturePortrait.Width
+                    ''8/7 td'' Me.Height = picturePortrait.Height
 
                 End If ''End of "If (boolLetsRotate90) Then"
 
-            Case "P"
+            Case "n/a" '' "P" ----Anything can be rotated by the program code above.  The operations are exactly the same !!
                 ''
                 ''Added 8/7/2019 thomas downes 
                 ''
