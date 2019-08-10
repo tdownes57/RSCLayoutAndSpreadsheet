@@ -7,7 +7,29 @@ Partial Public Class FormDesignProtoTwo
     ''Added 7/31/2019 thomas downes  
     ''
     Private mod_selectedCtls As New List(Of CtlGraphicFldLabel)   ''Added 8/03/2019 thomas downes 
-    Public ControlBeingMoved As Control ''Added 8/4/2019 td
+    Private mod_FieldControlLastTouched As CtlGraphicFldLabel   ''Added 8/09/2019 thomas downes 
+
+    Public Property ControlBeingMoved() As Control ''Added 8/4/2019 td
+        Get
+            ''Added 8/9/2019 td
+            Return mod_FieldControlLastTouched
+        End Get
+        Set(value As Control)
+            ''Added 8/9/2019 td
+            mod_FieldControlLastTouched = value
+        End Set
+    End Property
+
+    Public Property ControlBeingModified() As Control ''Added 8/9/2019 td
+        Get
+            ''Added 8/9/2019 td
+            Return mod_FieldControlLastTouched
+        End Get
+        Set(value As Control)
+            ''Added 8/9/2019 td
+            mod_FieldControlLastTouched = value
+        End Set
+    End Property
 
     Public Property LabelsDesignList_AllItems As List(Of CtlGraphicFldLabel) Implements ISelectingElements.LabelsDesignList_AllItems
         Get

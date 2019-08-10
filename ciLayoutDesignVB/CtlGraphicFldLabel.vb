@@ -50,7 +50,7 @@ Public Class CtlGraphicFldLabel
 
     End Sub
 
-    Public Sub New(par_field As ClassFieldStandard)
+    Public Sub New(par_field As ClassFieldStandard, Optional par_formDesigner As FormDesignProtoTwo = Nothing)
 
         ' This call is required by the designer.
         InitializeComponent()
@@ -59,10 +59,13 @@ Public Class CtlGraphicFldLabel
         Me.FieldInfo = par_field
 
         Me.ElementInfo = par_field.ElementInfo
+
+        ''Added 8/9/2019 td
+        Me.FormDesigner = par_formDesigner
 
     End Sub
 
-    Public Sub New(par_field As ClassFieldCustomized)
+    Public Sub New(par_field As ClassFieldCustomized, Optional par_formDesigner As FormDesignProtoTwo = Nothing)
 
         ' This call is required by the designer.
         InitializeComponent()
@@ -71,6 +74,9 @@ Public Class CtlGraphicFldLabel
         Me.FieldInfo = par_field
 
         Me.ElementInfo = par_field.ElementInfo
+
+        ''Added 8/9/2019 td
+        Me.FormDesigner = par_formDesigner
 
     End Sub
 

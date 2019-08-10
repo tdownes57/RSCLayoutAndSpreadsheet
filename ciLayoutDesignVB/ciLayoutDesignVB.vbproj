@@ -145,10 +145,10 @@
     <Compile Include="CtlMainStep3_v82.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CtlPartial_Menu.Designer.vb">
-      <DependentUpon>CtlPartial_Menu.vb</DependentUpon>
+    <Compile Include="CtlPartial_FieldLabel.Designer.vb">
+      <DependentUpon>CtlPartial_FieldLabel.vb</DependentUpon>
     </Compile>
-    <Compile Include="CtlPartial_Menu.vb">
+    <Compile Include="CtlPartial_FieldLabel.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="FormCustomFieldsFlow.Designer.vb">
@@ -391,6 +391,7 @@
     <Content Include="Images\Adjust width &amp; height.png" />
     <Content Include="Images\AdjustWHColor_V101.jpg" />
     <Content Include="Images\AdjustWHColor_V102.jpg" />
+    <Content Include="Images\AdjustWHColor_V103.jpg" />
     <Content Include="Images\CI Logo.jpg" />
     <Content Include="Images\CISolutionsLogo.png" />
     <Content Include="Images\layout_BW - CompareToSpoof.png" />

@@ -207,7 +207,10 @@ Public Class FormDesignProtoTwo
             If (field_standard.ElementInfo Is Nothing) Then
 
                 field_standard.ElementInfo = New ClassElementText()
-                new_label_control_std = New CtlGraphicFldLabel(field_standard)
+
+                ''8/9/2019 td''new_label_control_std = New CtlGraphicFldLabel(field_standard)
+                new_label_control_std = New CtlGraphicFldLabel(field_standard, Me)
+
                 Me.Controls.Add(new_label_control_std)
 
                 ''Moved far below. ''new_label_control_std.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
@@ -227,7 +230,9 @@ Public Class FormDesignProtoTwo
 
             Else
 
-                new_label_control_std = New CtlGraphicFldLabel(field_standard)
+                ''Added 8/9/2019 td''new_label_control_std = New CtlGraphicFldLabel(field_standard)
+                new_label_control_std = New CtlGraphicFldLabel(field_standard, Me)
+
                 Me.Controls.Add(new_label_control_std)
 
                 ''Moved far below. ''new_label_control_std.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
@@ -291,7 +296,10 @@ Public Class FormDesignProtoTwo
             If (field_custom.ElementInfo Is Nothing) Then
 
                 field_custom.ElementInfo = New ClassElementText()
-                new_label_control_cust = New CtlGraphicFldLabel(field_custom)
+
+                ''8/9/2019 td''new_label_control_cust = New CtlGraphicFldLabel(field_custom)
+                new_label_control_cust = New CtlGraphicFldLabel(field_custom, Me)
+
                 Me.Controls.Add(new_label_control_cust)
 
                 new_label_control_cust.Width = CInt(pictureBack.Width / 3)
@@ -309,7 +317,9 @@ Public Class FormDesignProtoTwo
 
             Else
 
-                new_label_control_cust = New CtlGraphicFldLabel(field_custom)
+                ''8/9/2019 td''new_label_control_cust = New CtlGraphicFldLabel(field_custom)
+                new_label_control_cust = New CtlGraphicFldLabel(field_custom, Me)
+
                 Me.Controls.Add(new_label_control_cust)
 
             End If ''end of "If (field_standard.ElementInfo Is Nothing) Then ... Else..."
@@ -467,4 +477,90 @@ Public Class FormDesignProtoTwo
     Private Sub ContextMenuStrip1_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles ContextMenuStrip1.Opening
 
     End Sub
+
+    Private Sub PictureAdjuster_MouseClick(sender As Object, e As MouseEventArgs) Handles pictureAdjuster.MouseClick
+        ''
+        ''Added 8/9/2019 thomas downes
+        ''
+        Dim intX As Integer
+        Dim intY As Integer
+        Dim objControlToModify As CtlGraphicFldLabel
+        Dim intGroupedControlsCount As Integer
+        Dim boolGroupedCtls As Boolean
+
+        intX = e.X
+        intY = e.Y
+
+        intGroupedControlsCount = mod_selectedCtls.Count
+        boolGroupedCtls = (0 < intGroupedControlsCount)
+
+        objControlToModify = mod_FieldControlLastTouched
+
+        Select Case True
+
+            Case ((0 < intX And intX < 45) And (0 < intY And intY < 45))
+
+                objControlToModify.ElementInfo.Alignment = HorizontalAlignment.Left
+
+            Case ((45 < intX And intX < 90) And (45 < intY And intY < 90))
+
+                objControlToModify.ElementInfo.Alignment = HorizontalAlignment.Center
+
+            Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
+
+                objControlToModify.ElementInfo.Alignment = HorizontalAlignment.Right
+
+            Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
+
+                objControlToModify.ElementInfo.FontSize += 1
+
+            Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
+
+                objControlToModify.ElementInfo.FontSize -= 1
+
+            Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
+
+                objControlToModify.ElementInfo.FontSize -= 1
+
+            Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
+
+                objControlToModify.ElementInfo.FontColor = Color.Lavender
+
+            Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
+
+                objControlToModify.ElementInfo.FontColor = Color.Lavender
+
+            Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
+
+                objControlToModify.ElementInfo.FontColor = Color.Lavender
+
+            Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
+
+                objControlToModify.ElementInfo.FontColor = Color.Lavender
+
+            Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
+
+                objControlToModify.ElementInfo.FontColor = Color.Lavender
+
+            Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
+
+                objControlToModify.ElementInfo.FontColor = Color.Lavender
+
+            Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
+
+                objControlToModify.ElementInfo.FontColor = Color.Lavender
+
+            Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
+
+                objControlToModify.ElementInfo.FontColor = Color.Lavender
+
+            Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
+
+                objControlToModify.ElementInfo.FontColor = Color.Lavender
+
+        End Select ''En do f"Select Case True"
+
+    End Sub
+
+
 End Class

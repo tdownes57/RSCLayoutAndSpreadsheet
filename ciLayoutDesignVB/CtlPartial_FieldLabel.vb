@@ -4,9 +4,12 @@
 ''
 
 Partial Public Class CtlGraphicFldLabel
-
+    ''
     ''Added 8/5/2019 td
-    ''   This is to store the initial Width & Height, when resizing.  
+    ''   This is to store the initial Width & Height, when resizing.
+    ''
+    Public FormDesigner As FormDesignProtoTwo ''Added 8/9/2019 td  
+
     Public TempResizeInfo_W As Integer = 0 ''Intial resizing width.  (Before any adjustment is made.)
     Public TempResizeInfo_H As Integer = 0 ''Intial resizing height.  (Before any adjustment is made.)
 
@@ -271,6 +274,11 @@ Partial Public Class CtlGraphicFldLabel
         Static new_item_group_omit As ToolStripMenuItem ''Added 8/2/2019 td
 
         boolRightClick = (e.Button = MouseButtons.Right)
+
+        ''
+        ''Added 8/9/2019 td
+        ''
+        Me.FormDesigner.ControlBeingModified = Me
 
         ''I need to be able to determine if the SHIFT or CTRL keys were pressed when the application is launched
         ''     https://stackoverflow.com/questions/22476342/how-to-determine-if-the-shift-or-ctrl-key-was-pressed-when-launching-the-applica
