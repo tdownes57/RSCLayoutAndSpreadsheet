@@ -414,9 +414,23 @@ Partial Public Class CtlGraphicFldLabel
 
             ''8/4/2019 td''ContextMenuStrip1.Show(e.Location.X + Me.ParentForm.Left,
             ''8/4/2019 td''               e.Location.Y + Me.Top + Me.ParentForm.Top)
-            ContextMenuStrip1.Show(e.Location.X + Me.Left + Me.ParentForm.Left,
-                                   e.Location.Y + Me.Top + Me.ParentForm.Top)
 
+            If (mc_AttachContextMenuToTop) Then
+                ''
+                ''This might make it visible to the Game Bar Recorder.
+                ''  -----8/10/2019 td 
+                ''
+                Me.FormDesigner.RightClickMenuParent.Visible = True
+
+                ''Reference the items in the main menu.  -----8/10/2019 td 
+                For Each each_menuitem In ContextMenuStrip1.Items
+                    Me.FormDesigner.RightClickMenuParent.DropDownItems.Add(each_menuitem)
+                Next each_menuitem
+
+            Else
+                ContextMenuStrip1.Show(e.Location.X + Me.Left + Me.ParentForm.Left,
+                                       e.Location.Y + Me.Top + Me.ParentForm.Top)
+            End If ''End of "If (mc_AttachContextMenuToTop) Then ... Else ...."
 
         ElseIf (boolHoldingCtrlKey) Then ''Added 7/31/2019 thomas downes
             ''
