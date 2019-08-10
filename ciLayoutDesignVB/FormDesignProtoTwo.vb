@@ -512,15 +512,15 @@ Public Class FormDesignProtoTwo
 
             Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
 
-                objControlToModify.ElementInfo.FontSize += 1
+                ''objControlToModify.ElementInfo.FontSize += 1
 
             Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
 
-                objControlToModify.ElementInfo.FontSize -= 1
+                ''objControlToModify.ElementInfo.FontSize -= 1
 
             Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
 
-                objControlToModify.ElementInfo.FontSize -= 1
+                ''objControlToModify.ElementInfo.FontSize -= 1
 
             Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
 

@@ -21,6 +21,8 @@ Partial Public Class CtlGraphicFldLabel
     Private item_group_alignBottom As ToolStripMenuItem ''Added 8/5/2019 td
     Private item_group_alignParent As ToolStripMenuItem ''Added 8/5/2019 td
 
+    Private Const mc_AttachContextMenuToTop As Boolean = True ''Added 8/5/2019 td 
+
     Private Sub OpenDialog_Field(sender As Object, e As EventArgs)
         ''
         ''Added 7/30/2019 thomas downes
@@ -300,7 +302,14 @@ Partial Public Class CtlGraphicFldLabel
             ''Added 7/30/2019 thomas downes
             ''ContextMenuStrip1.Items.Clear()
 
-            If (0 = ContextMenuStrip1.Items.Count) Then
+            Dim boolCreateNewItems As Boolean
+            If (mc_AttachContextMenuToTop) Then
+                boolCreateNewItems = (0 = Me.FormDesigner.RightClickMenuParent.DropDownItems.Count)
+            Else
+                boolCreateNewItems = (0 = ContextMenuStrip1.Items.Count)
+            End If
+
+            If (boolCreateNewItems) Then
 
                 new_item_fieldname = New ToolStripMenuItem("Field " & Me.FieldInfo.FieldLabelCaption)
                 new_item_refresh = New ToolStripMenuItem("Refresh Element") ''Added 7/31/2019 td
@@ -423,9 +432,9 @@ Partial Public Class CtlGraphicFldLabel
                 Me.FormDesigner.RightClickMenuParent.Visible = True
 
                 ''Reference the items in the main menu.  -----8/10/2019 td 
-                For Each each_menuitem In ContextMenuStrip1.Items
-                    Me.FormDesigner.RightClickMenuParent.DropDownItems.Add(each_menuitem)
-                Next each_menuitem
+                ''For Each each_menuitem In ContextMenuStrip1.Items
+                ''    Me.FormDesigner.RightClickMenuParent.DropDownItems.Add(each_menuitem)
+                ''Next each_menuitem
 
             Else
                 ContextMenuStrip1.Show(e.Location.X + Me.Left + Me.ParentForm.Left,
