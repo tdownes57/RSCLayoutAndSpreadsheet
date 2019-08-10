@@ -245,4 +245,27 @@ Public Class CtlGraphicFldLabel
     Private Sub pictureLabel_DragOver(sender As Object, e As DragEventArgs) Handles pictureLabel.DragOver
 
     End Sub
+
+    Private Sub TextTypeExample_KeyPress(sender As Object, e As KeyPressEventArgs) Handles textTypeExample.KeyPress
+        ''
+        ''Added 8/10/2019 td
+        ''
+        ''If (e.KeyChar = ) Then
+        ''
+        ''End If
+
+    End Sub
+
+    Private Sub TextTypeExample_KeyUp(sender As Object, e As KeyEventArgs) Handles textTypeExample.KeyDown
+
+        ''Added 8/10/2019 thomas downes  
+        If (e.KeyCode = Keys.Enter) Then
+
+            Me.FieldInfo.ExampleValue = textTypeExample.Text
+            Me.ElementInfo.Text = textTypeExample.Text
+            Me.textTypeExample.Visible = False
+
+        End If ''End If ''End of "If (e.KeyCode = Keys.Enter) Then"
+
+    End Sub
 End Class
