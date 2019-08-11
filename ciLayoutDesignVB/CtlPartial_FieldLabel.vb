@@ -266,6 +266,14 @@ Partial Public Class CtlGraphicFldLabel
 
     End Sub ''End of "Private Sub ExampleValue_Edit"  
 
+    Private Sub BringToForeground()
+        ''
+        ''Added 8/11/2019 thomas downes
+        ''
+        Me.BringToFront()
+
+    End Sub ''End of "Private Sub ExampleValue_Edit"  
+
     Private Sub PictureLabel_MouseClick(sender As Object, e As MouseEventArgs) Handles pictureLabel.MouseClick
         ''
         ''Added 7/30/2019 thomas downes
@@ -280,6 +288,7 @@ Partial Public Class CtlGraphicFldLabel
         Dim new_item_refresh As ToolStripMenuItem ''Added 7/31/2019 td
         Dim new_item_sizeInfo As ToolStripMenuItem ''Added 7/31/2019 td
         Dim new_item_editExample As ToolStripMenuItem ''Added 8/110/2019 td
+        Dim new_item_bringToFront As ToolStripMenuItem ''Added 8/11/2019 td
 
         Static new_item_group_add As ToolStripMenuItem ''Added 8/2/2019 td
         Static new_item_group_omit As ToolStripMenuItem ''Added 8/2/2019 td
@@ -304,7 +313,7 @@ Partial Public Class CtlGraphicFldLabel
 
             Dim boolCreateNewItems As Boolean
             If (mc_AttachContextMenuToTop) Then
-                boolCreateNewItems = (0 = Me.FormDesigner.RightClickMenuParent.DropDownItems.Count)
+                boolCreateNewItems = (1 >= Me.FormDesigner.RightClickMenuParent.DropDownItems.Count)
             Else
                 boolCreateNewItems = (0 = ContextMenuStrip1.Items.Count)
             End If
@@ -336,6 +345,9 @@ Partial Public Class CtlGraphicFldLabel
                 ''
                 new_item_editExample = New ToolStripMenuItem("Edit example value (for Layout Design)")
 
+                ''Added 8/10/2019 td
+                new_item_bringToFront = New ToolStripMenuItem("Bring to foreground")
+
                 AddHandler new_item_field.Click, AddressOf OpenDialog_Field
                 AddHandler new_item_colors.Click, AddressOf OpenDialog_Color
                 AddHandler new_item_font.Click, AddressOf OpenDialog_Font
@@ -348,6 +360,7 @@ Partial Public Class CtlGraphicFldLabel
 
                 ''Added 8/10/2019 thomas d.
                 AddHandler new_item_editExample.Click, AddressOf ExampleValue_Edit ''Added 8/10/2019 thomas d.
+                AddHandler new_item_bringToFront.Click, AddressOf BringToForeground ''Added 8/11/2019 thomas d.
 
                 ContextMenuStrip1.Items.Add(new_item_fieldname)
                 ContextMenuStrip1.Items.Add(new_item_field)
@@ -376,6 +389,7 @@ Partial Public Class CtlGraphicFldLabel
 
                 ''Added 8/10/2019 thomas d.
                 ContextMenuStrip1.Items.Add(new_item_editExample) ''Added 8/10/2019 thomas d.  
+                ContextMenuStrip1.Items.Add(new_item_bringToFront) ''Added 8/11/2019 thomas d.  
 
                 ''
                 ''Add 8/5/2019 thomas d.  

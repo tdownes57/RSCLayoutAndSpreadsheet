@@ -59,6 +59,13 @@ Public Class FormDesignProtoTwo
         ''Encapsulated 7/31/2019 td
         Load_Form()
 
+        ''Added 8/11/2019 thomas d.
+        ''
+        graphicAdjuster.SendToBack()
+        picturePreview.SendToBack()
+        pictureBack.SendToBack()
+
+
     End Sub
 
     Private Sub Load_Form()
@@ -478,7 +485,7 @@ Public Class FormDesignProtoTwo
 
     End Sub
 
-    Private Sub PictureAdjuster_MouseClick(sender As Object, e As MouseEventArgs) Handles pictureAdjuster.MouseClick
+    Private Sub PictureAdjuster_MouseClick(sender As Object, e As MouseEventArgs) Handles graphicAdjuster.MouseClick
         ''
         ''Added 8/9/2019 thomas downes
         ''
@@ -562,5 +569,7 @@ Public Class FormDesignProtoTwo
 
     End Sub
 
+    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles picturePreview.Click
 
+    End Sub
 End Class

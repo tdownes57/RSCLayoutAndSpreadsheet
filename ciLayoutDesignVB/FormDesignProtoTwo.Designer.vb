@@ -27,6 +27,8 @@ Partial Class FormDesignProtoTwo
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         Me.chkIncludeExampleValues = New System.Windows.Forms.CheckBox()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.RightClickMenuParent = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ShowRightclickMenuHereToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.OpenToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaveToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
@@ -57,21 +59,20 @@ Partial Class FormDesignProtoTwo
         Me.ContextBackIncrease = New System.Windows.Forms.ToolStripMenuItem()
         Me.ContextBackRotate90 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ContextBackClearSelection = New System.Windows.Forms.ToolStripMenuItem()
+        Me.graphicAdjuster = New System.Windows.Forms.PictureBox()
+        Me.picturePreview = New System.Windows.Forms.PictureBox()
+        Me.pictureBack = New System.Windows.Forms.PictureBox()
+        Me.AddFieldsEtcToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CtlGraphicPortrait1 = New ciLayoutDesignVB.CtlGraphicPortrait()
         Me.GraphicFieldLabel5 = New ciLayoutDesignVB.CtlGraphicFldLabel()
         Me.GraphicFieldLabel4 = New ciLayoutDesignVB.CtlGraphicFldLabel()
         Me.GraphicFieldLabel3 = New ciLayoutDesignVB.CtlGraphicFldLabel()
         Me.GraphicFieldLabel2 = New ciLayoutDesignVB.CtlGraphicFldLabel()
         Me.GraphicFieldLabel1 = New ciLayoutDesignVB.CtlGraphicFldLabel()
-        Me.pictureAdjuster = New System.Windows.Forms.PictureBox()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.pictureBack = New System.Windows.Forms.PictureBox()
-        Me.RightClickMenuParent = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ShowRightclickMenuHereToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
-        CType(Me.pictureAdjuster, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.graphicAdjuster, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureBack, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -115,12 +116,28 @@ Partial Class FormDesignProtoTwo
         'MenuStrip1
         '
         Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RightClickMenuParent, Me.ToolStripMenuItem1, Me.ConfigurationOfFieldsEtcToolStripMenuItem, Me.DesignLayoutToolStripMenuItem, Me.BackgroundImagesToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RightClickMenuParent, Me.ToolStripMenuItem1, Me.ConfigurationOfFieldsEtcToolStripMenuItem, Me.DesignLayoutToolStripMenuItem, Me.BackgroundImagesToolStripMenuItem, Me.AddFieldsEtcToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(1368, 28)
         Me.MenuStrip1.TabIndex = 39
         Me.MenuStrip1.Text = "MenuStrip1"
+        '
+        'RightClickMenuParent
+        '
+        Me.RightClickMenuParent.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ShowRightclickMenuHereToolStripMenuItem})
+        Me.RightClickMenuParent.Name = "RightClickMenuParent"
+        Me.RightClickMenuParent.Size = New System.Drawing.Size(136, 24)
+        Me.RightClickMenuParent.Text = "Right-Click Menu"
+        Me.RightClickMenuParent.Visible = False
+        '
+        'ShowRightclickMenuHereToolStripMenuItem
+        '
+        Me.ShowRightclickMenuHereToolStripMenuItem.Checked = True
+        Me.ShowRightclickMenuHereToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ShowRightclickMenuHereToolStripMenuItem.Name = "ShowRightclickMenuHereToolStripMenuItem"
+        Me.ShowRightclickMenuHereToolStripMenuItem.Size = New System.Drawing.Size(272, 26)
+        Me.ShowRightclickMenuHereToolStripMenuItem.Text = "Show right-click menu here"
         '
         'ToolStripMenuItem1
         '
@@ -325,6 +342,45 @@ Partial Class FormDesignProtoTwo
         Me.ContextBackClearSelection.Size = New System.Drawing.Size(420, 24)
         Me.ContextBackClearSelection.Text = "Clear Group-Editing Selections"
         '
+        'graphicAdjuster
+        '
+        Me.graphicAdjuster.BackColor = System.Drawing.Color.White
+        Me.graphicAdjuster.Image = Global.ciLayoutDesignVB.My.Resources.Resources.AdjustWHColor_V103
+        Me.graphicAdjuster.Location = New System.Drawing.Point(919, 265)
+        Me.graphicAdjuster.Name = "graphicAdjuster"
+        Me.graphicAdjuster.Size = New System.Drawing.Size(433, 230)
+        Me.graphicAdjuster.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.graphicAdjuster.TabIndex = 45
+        Me.graphicAdjuster.TabStop = False
+        '
+        'picturePreview
+        '
+        Me.picturePreview.BackColor = System.Drawing.Color.White
+        Me.picturePreview.Location = New System.Drawing.Point(919, 33)
+        Me.picturePreview.Name = "picturePreview"
+        Me.picturePreview.Size = New System.Drawing.Size(395, 226)
+        Me.picturePreview.TabIndex = 44
+        Me.picturePreview.TabStop = False
+        '
+        'pictureBack
+        '
+        Me.pictureBack.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.pictureBack.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pictureBack.Image = Global.ciLayoutDesignVB.My.Resources.Resources.CI_Logo
+        Me.pictureBack.Location = New System.Drawing.Point(43, 91)
+        Me.pictureBack.Margin = New System.Windows.Forms.Padding(2)
+        Me.pictureBack.Name = "pictureBack"
+        Me.pictureBack.Size = New System.Drawing.Size(860, 425)
+        Me.pictureBack.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.pictureBack.TabIndex = 21
+        Me.pictureBack.TabStop = False
+        '
+        'AddFieldsEtcToolStripMenuItem
+        '
+        Me.AddFieldsEtcToolStripMenuItem.Name = "AddFieldsEtcToolStripMenuItem"
+        Me.AddFieldsEtcToolStripMenuItem.Size = New System.Drawing.Size(123, 24)
+        Me.AddFieldsEtcToolStripMenuItem.Text = "Add Fields, Etc."
+        '
         'CtlGraphicPortrait1
         '
         Me.CtlGraphicPortrait1.Location = New System.Drawing.Point(663, 33)
@@ -377,62 +433,11 @@ Partial Class FormDesignProtoTwo
         Me.GraphicFieldLabel1.Size = New System.Drawing.Size(178, 43)
         Me.GraphicFieldLabel1.TabIndex = 34
         '
-        'pictureAdjuster
-        '
-        Me.pictureAdjuster.BackColor = System.Drawing.Color.White
-        Me.pictureAdjuster.Image = Global.ciLayoutDesignVB.My.Resources.Resources.AdjustWHColor_V103
-        Me.pictureAdjuster.Location = New System.Drawing.Point(919, 265)
-        Me.pictureAdjuster.Name = "pictureAdjuster"
-        Me.pictureAdjuster.Size = New System.Drawing.Size(433, 230)
-        Me.pictureAdjuster.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.pictureAdjuster.TabIndex = 45
-        Me.pictureAdjuster.TabStop = False
-        '
-        'PictureBox1
-        '
-        Me.PictureBox1.BackColor = System.Drawing.Color.White
-        Me.PictureBox1.Location = New System.Drawing.Point(919, 33)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(395, 226)
-        Me.PictureBox1.TabIndex = 44
-        Me.PictureBox1.TabStop = False
-        '
-        'pictureBack
-        '
-        Me.pictureBack.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.pictureBack.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pictureBack.Image = Global.ciLayoutDesignVB.My.Resources.Resources.CI_Logo
-        Me.pictureBack.Location = New System.Drawing.Point(43, 91)
-        Me.pictureBack.Margin = New System.Windows.Forms.Padding(2)
-        Me.pictureBack.Name = "pictureBack"
-        Me.pictureBack.Size = New System.Drawing.Size(860, 425)
-        Me.pictureBack.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.pictureBack.TabIndex = 21
-        Me.pictureBack.TabStop = False
-        '
-        'RightClickMenuParent
-        '
-        Me.RightClickMenuParent.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ShowRightclickMenuHereToolStripMenuItem})
-        Me.RightClickMenuParent.Name = "RightClickMenuParent"
-        Me.RightClickMenuParent.Size = New System.Drawing.Size(136, 24)
-        Me.RightClickMenuParent.Text = "Right-Click Menu"
-        Me.RightClickMenuParent.Visible = False
-        '
-        'ShowRightclickMenuHereToolStripMenuItem
-        '
-        Me.ShowRightclickMenuHereToolStripMenuItem.Checked = True
-        Me.ShowRightclickMenuHereToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ShowRightclickMenuHereToolStripMenuItem.Name = "ShowRightclickMenuHereToolStripMenuItem"
-        Me.ShowRightclickMenuHereToolStripMenuItem.Size = New System.Drawing.Size(272, 26)
-        Me.ShowRightclickMenuHereToolStripMenuItem.Text = "Show right-click menu here"
-        '
         'FormDesignProtoTwo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1368, 591)
-        Me.Controls.Add(Me.pictureAdjuster)
-        Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.LinkLabelSave)
         Me.Controls.Add(Me.linkSaveAndRefresh)
         Me.Controls.Add(Me.CtlGraphicPortrait1)
@@ -447,6 +452,8 @@ Partial Class FormDesignProtoTwo
         Me.Controls.Add(Me.LinkLabel1)
         Me.Controls.Add(Me.LinkShowWebControls)
         Me.Controls.Add(Me.pictureBack)
+        Me.Controls.Add(Me.graphicAdjuster)
+        Me.Controls.Add(Me.picturePreview)
         Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "FormDesignProtoTwo"
@@ -454,8 +461,8 @@ Partial Class FormDesignProtoTwo
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.ContextMenuStrip1.ResumeLayout(False)
-        CType(Me.pictureAdjuster, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.graphicAdjuster, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pictureBack, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -503,8 +510,9 @@ Partial Class FormDesignProtoTwo
     Friend WithEvents ContextBackIncrease As ToolStripMenuItem
     Friend WithEvents ContextBackRotate90 As ToolStripMenuItem
     Friend WithEvents ContextBackClearSelection As ToolStripMenuItem
-    Friend WithEvents PictureBox1 As PictureBox
-    Friend WithEvents pictureAdjuster As PictureBox
+    Friend WithEvents picturePreview As PictureBox
+    Friend WithEvents graphicAdjuster As PictureBox
     Friend WithEvents RightClickMenuParent As ToolStripMenuItem
     Friend WithEvents ShowRightclickMenuHereToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents AddFieldsEtcToolStripMenuItem As ToolStripMenuItem
 End Class
