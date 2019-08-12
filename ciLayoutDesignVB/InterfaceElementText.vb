@@ -20,6 +20,11 @@ Public Interface IElementText
 
     Property FontColor As System.Drawing.Color
 
+    Property FontSize As Integer ''Added 8/12/2019 thomas downes  
+    Property FontBold As Boolean ''Added 8/12/2019 thomas downes  
+    Property FontItalics As Boolean ''Added 8/12/2019 thomas downes  
+    Property FontUnderline As Boolean ''Added 8/12/2019 thomas downes  
+
     Property BackColor As System.Drawing.Color
 
     Property FieldInCardData As String
