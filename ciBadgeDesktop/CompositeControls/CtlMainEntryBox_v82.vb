@@ -48,9 +48,9 @@ Public Class CtlMainEntryBox_v82
         End Set
     End Property
 
-    Private Sub CtlFldLabelWithTextbox_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    ''Private Sub CtlFldLabelWithTextbox_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-    End Sub
+    ''End Sub
 
     Private Sub CtlMainEntryBox_v82_FontChanged(sender As Object, e As EventArgs) Handles MyBase.FontChanged
         ''
