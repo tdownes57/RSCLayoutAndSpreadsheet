@@ -29,6 +29,8 @@ Partial Public Class CtlGraphicFldLabel
     Private Shared _item_group_omit As ToolStripMenuItem ''Added to top of of module, 8/12 & 8/2/2019 td
 
     Private Const mc_AttachContextMenuToTop As Boolean = False ''8/12/2019 td''True ''Added 8/5/2019 td 
+    Private Const mc_CreateVisibleButtonForDemo As Boolean = True ''Added 8/13/2019 td 
+    Private mod_bBypassCreateButton As Boolean = False ''Added 8/13/2019 td 
 
     Private Sub OpenDialog_Field(sender As Object, e As EventArgs)
         ''
@@ -48,6 +50,18 @@ Partial Public Class CtlGraphicFldLabel
         ''
         ''Added 7/30/2019 thomas downes
         ''
+        If (mod_bBypassCreateButton) Then
+            ''Added 8/13/2019 td  
+            mod_bBypassCreateButton = False ''Reinitialize. 
+
+        ElseIf (mc_CreateVisibleButtonForDemo) Then
+            ''
+            ''Added 8 / 13 / 2019 td 
+            ''
+            CreateVisibleButton("Choose a background color", AddressOf OpenDialog_Color)
+
+        End If ''End of "If (mod_bBypassCreateButton) Then .... ElseIf (mc_CreateVisibleButtonForDemo) Then ...."
+
         ColorDialog1.ShowDialog()
 
         If (Me.GroupEdits.LabelsList_IsItemUnselected(Me)) Then
@@ -272,6 +286,29 @@ Partial Public Class CtlGraphicFldLabel
         textTypeExample.Visible = True
 
     End Sub ''End of "Private Sub ExampleValue_Edit"  
+
+    Private Sub CreateVisibleButton(par_strText As String, par_handler As EventHandler)
+        ''
+        ''Added 8/13/2019 td  
+        ''
+        Dim obj_newButton As New Button
+
+        mod_bBypassCreateButton = True ''Avoid infinite loops!!   Added 8/13/2019 
+
+        With obj_newButton
+
+            .Text = par_strText
+            ''#1 8/13/2019 td''.Click += par_address
+            '' #2 8/13/2019 td''AddHandler .Click, AddressOf par_handler
+            AddHandler .Click, par_handler
+            .Visible = True
+            .Left = Me.Left
+            .Top = (Me.Top + Me.Height)
+            Me.FormDesigner.Controls.Add(obj_newButton)
+
+        End With
+
+    End Sub ''End of "Private Sub CreateMouseButton(par_strText As String, par_handler As EventHandler)"
 
     Private Sub PictureLabel_MouseClick(sender As Object, e As MouseEventArgs) Handles pictureLabel.MouseClick
         ''

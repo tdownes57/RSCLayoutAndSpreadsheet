@@ -97,6 +97,18 @@
     <Compile Include="CtlConfigFldStandard.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="CtlGraphPopMenuEditGroup.Designer.vb">
+      <DependentUpon>CtlGraphPopMenuEditGroup.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CtlGraphPopMenuEditGroup.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CtlGraphPopMenuEditSingle.Designer.vb">
+      <DependentUpon>CtlGraphPopMenuEditSingle.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CtlGraphPopMenuEditSingle.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="CtlMainButton_v90.Designer.vb">
       <DependentUpon>CtlMainButton_v90.vb</DependentUpon>
     </Compile>
@@ -295,6 +307,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CtlCustomer.resx">
       <DependentUpon>CtlCustomer.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CtlGraphPopMenuEditGroup.resx">
+      <DependentUpon>CtlGraphPopMenuEditGroup.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CtlGraphPopMenuEditSingle.resx">
+      <DependentUpon>CtlGraphPopMenuEditSingle.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CtlMainButton_v82.resx">
       <DependentUpon>CtlMainButton_v82.vb</DependentUpon>
