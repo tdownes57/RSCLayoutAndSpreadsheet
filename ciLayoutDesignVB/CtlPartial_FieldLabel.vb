@@ -28,7 +28,7 @@ Partial Public Class CtlGraphicFldLabel
     Private Shared _item_group_add As ToolStripMenuItem ''Added to top of of module, 8/12 & 8/2/2019 td
     Private Shared _item_group_omit As ToolStripMenuItem ''Added to top of of module, 8/12 & 8/2/2019 td
 
-    Private Const mc_AttachContextMenuToTop As Boolean = True ''Added 8/5/2019 td 
+    Private Const mc_AttachContextMenuToTop As Boolean = False ''8/12/2019 td''True ''Added 8/5/2019 td 
 
     Private Sub OpenDialog_Field(sender As Object, e As EventArgs)
         ''
