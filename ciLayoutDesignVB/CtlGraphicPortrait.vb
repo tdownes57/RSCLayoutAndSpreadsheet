@@ -40,6 +40,18 @@ Public Class CtlGraphicPortrait
         Me.ElementInfo_Base = par_infoForPic_Base
         Me.ElementInfo_Pic = par_infoForPic_Pic
 
+        ''
+        ''Added 8/12/2019 thomas downes 
+        ''
+        picturePortrait.Image = ciPictures_VB.PictureExamples.GetImageByIndex(par_infoForPic_Pic.PicFileIndex)
+
+        ''
+        ''Rotate the image 90 degrees, as many times as needed.  ---8/12/2019 td  
+        ''
+
+
+
+
     End Sub
 
     ''7/31/2019 td''Public Sub New_NotInUse(par_field As ICIBFieldStandardOrCustom)
@@ -188,6 +200,13 @@ Public Class CtlGraphicPortrait
             Case Else
                 Me.ElementInfo_Pic.OrientationToLayout = "P"
         End Select
+
+        ''Added 8/12/2019 thomas downes 
+        ''   Increment by 90 degrees.  
+        ''   This will enable the badge to be printed with the element oriented
+        ''   correctly (with one out of four choices of orientation). 
+        ''
+        Me.ElementInfo_Pic.OrientationDegrees += 90
 
         RefreshImage()
         Me.Refresh()

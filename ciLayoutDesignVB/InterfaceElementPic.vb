@@ -13,7 +13,14 @@ Public Interface IElementPic
     Property PicFileType As String ''E.g. Image/PNG or Image/BMP 
     Property PicFileTitleExt As String ''E.g. 12345.jpg or 12345.png
 
+    ''Added 8/12/2019 thomas downes  
+    Property PicFileIndex As String ''Added 8/12/2019 thomas downes
+
     Property OrientationToLayout As String ''E.g. "P" for Portrait (by far the most common) or "L" (Landscape)
+
+    ''Added 8/12/2019 thomas downes
+    ''     This will equal 90, 180, 270, 360 (or better, 0).  
+    Property OrientationDegrees As Integer ''Added 8/12/2019 thomas downes  
 
     ''
     ''

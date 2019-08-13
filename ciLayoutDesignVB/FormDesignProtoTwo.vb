@@ -66,7 +66,7 @@ Public Class FormDesignProtoTwo
         pictureBack.SendToBack()
 
 
-    End Sub
+    End Sub ''End of "Private Sub FormDesignProtoTwo_Load"
 
     Private Sub Load_Form()
         ''
@@ -84,7 +84,7 @@ Public Class FormDesignProtoTwo
         ''    Make sure that the Badge Background is in the background. 
         ''
         pictureBack.SendToBack()
-        pictureAdjuster.SendToBack() ''Added 8/12/2019 td
+        graphicAdjuster.SendToBack() ''Added 8/12/2019 td
         picturePreview.SendToBack() ''Added 8/12/2019 td
 
     End Sub ''ENd of "Private Sub Load_Form()"
@@ -153,6 +153,18 @@ Public Class FormDesignProtoTwo
 
                 .TopEdge = CtlGraphicPortrait1.Top
                 .LeftEdge = CtlGraphicPortrait1.Left
+
+                ''Added 8/12/2019 td
+                Dim bSwitchWidthHeight As Boolean ''Added 8/12/2019 td
+                bSwitchWidthHeight = ("L" = ClassElementPic.ElementPicture.OrientationToLayout)
+
+                ''Added 8/12/2019 td
+                ''Switch width & height.  
+                If (bSwitchWidthHeight) Then
+                    ''Switch width & height.  
+                    .Width = CtlGraphicPortrait1.Height
+                    .Height = CtlGraphicPortrait1.Width
+                End If ''End of "If (bSwitchWidthHeight) Then"
 
             End With ''End of "With field_standard.ElementInfo"
 
