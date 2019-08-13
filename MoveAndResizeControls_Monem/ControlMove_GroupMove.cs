@@ -364,14 +364,16 @@ namespace MoveAndResizeControls_Monem
             //
             if (_resizing && (delta_Height != 0 || delta_Width != 0))
             {
-                    //
-                    //Allow a group of controls to be affected in unison.   
-                    //
-                    mod_groupedctl_events.ControlBeingMoved(par_control);
-                    delta_Top = 0;
-                    delta_Left = 0;
-                    // 8-5-2019 td //mod_events.GroupMove(delta_Left, delta_Top, delta_Width, delta_Height);
-                    mod_groupedctl_events.GroupMove_Change(delta_Left, delta_Top, delta_Width, delta_Height);
+                //
+                //Allow a group of controls to be affected in unison.   
+                //
+                mod_groupedctl_events.ControlBeingMoved(par_control);
+
+                // 8-12-2019 td//delta_Top = 0;
+                // 8-12-2019 td//delta_Left = 0;
+
+                // 8-5-2019 td //mod_events.GroupMove(delta_Left, delta_Top, delta_Width, delta_Height);
+                mod_groupedctl_events.GroupMove_Change(delta_Left, delta_Top, delta_Width, delta_Height);
 
             }
 
