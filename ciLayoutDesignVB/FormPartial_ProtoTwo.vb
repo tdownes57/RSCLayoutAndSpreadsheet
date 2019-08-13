@@ -8,6 +8,7 @@ Partial Public Class FormDesignProtoTwo
     ''
     Private mod_selectedCtls As New List(Of CtlGraphicFldLabel)   ''Added 8/03/2019 thomas downes 
     Private mod_FieldControlLastTouched As CtlGraphicFldLabel   ''Added 8/09/2019 thomas downes 
+    Private mod_ControlLastTouched As Control ''Added 8/12/2019 thomas d. 
 
     Public Property ControlBeingMoved() As Control ''Added 8/4/2019 td
         Get
@@ -16,18 +17,32 @@ Partial Public Class FormDesignProtoTwo
         End Get
         Set(value As Control)
             ''Added 8/9/2019 td
-            mod_FieldControlLastTouched = value
+            Try
+                mod_FieldControlLastTouched = value
+                mod_ControlLastTouched = value ''Added 8/1/2019 
+            Catch
+                ''Added 8/12/2019 td  
+                mod_ControlLastTouched = value
+            End Try
         End Set
     End Property
 
     Public Property ControlBeingModified() As Control ''Added 8/9/2019 td
         Get
-            ''Added 8/9/2019 td
-            Return mod_FieldControlLastTouched
+            ''
+            ''Added 8 / 9 / 2019 td
+            ''
+            ''8/12/2019 td''Return mod_FieldControlLastTouched
+            Return mod_ControlLastTouched ''Added 8/12/2019 td  
         End Get
         Set(value As Control)
             ''Added 8/9/2019 td
-            mod_FieldControlLastTouched = value
+            mod_ControlLastTouched = value ''Added 8/12/2019 td   
+            Try
+                mod_FieldControlLastTouched = value
+            Catch
+                ''Not all moveable controls are Field-Label controls. - ----8/12/2019 thomas d.  
+            End Try
         End Set
     End Property
 

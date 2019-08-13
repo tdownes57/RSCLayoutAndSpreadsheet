@@ -6,7 +6,7 @@ Public Class ClassElementText
     ''
     ''
     ''7/29/2019 td''Public Property Info As IElementText
-
+    ''
     ''-------------------------------------------------------------
 
     Public Property Font_AllInfo As System.Drawing.Font Implements IElementText.Font_AllInfo

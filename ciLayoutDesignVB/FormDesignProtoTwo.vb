@@ -77,6 +77,8 @@ Public Class FormDesignProtoTwo
         ''    Make sure that the Badge Background is in the background. 
         ''
         pictureBack.SendToBack()
+        pictureAdjuster.SendToBack() ''Added 8/12/2019 td
+        picturePreview.SendToBack() ''Added 8/12/2019 td
 
     End Sub ''ENd of "Private Sub Load_Form()"
 
