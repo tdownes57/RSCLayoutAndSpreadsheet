@@ -13,16 +13,20 @@ Partial Public Class CtlGraphicFldLabel
     Public TempResizeInfo_W As Integer = 0 ''Intial resizing width.  (Before any adjustment is made.)
     Public TempResizeInfo_H As Integer = 0 ''Intial resizing height.  (Before any adjustment is made.)
 
-    Private _item_group_alignLeft As ToolStripMenuItem ''Added 8/2/2019 td
-    Private _item_group_alignRight As ToolStripMenuItem ''Added 8/2/2019 td
-    Private _item_group_alignWidth As ToolStripMenuItem ''Added 8/5/2019 td
-    Private _item_group_alignHeight As ToolStripMenuItem ''Added 8/5/2019 td
-    Private _item_group_alignTop As ToolStripMenuItem ''Added 8/5/2019 td
-    Private _item_group_alignBottom As ToolStripMenuItem ''Added 8/5/2019 td
-    Private _item_group_alignParent As ToolStripMenuItem ''Added 8/5/2019 td
+    ''Added 8/12/2019 Thomas Downes 
+    Public TempResizeInfo_Left As Integer = 0 ''Intial resizing Left.  (Before any adjustment is made.)
+    Public TempResizeInfo_Top As Integer = 0 ''Intial resizing Top.  (Before any adjustment is made.)
 
-    Private _item_group_add As ToolStripMenuItem ''Added to top of of module, 8/12 & 8/2/2019 td
-    Private _item_group_omit As ToolStripMenuItem ''Added to top of of module, 8/12 & 8/2/2019 td
+    Private Shared _item_group_alignLeft As ToolStripMenuItem ''Added 8/2/2019 td
+    Private Shared _item_group_alignRight As ToolStripMenuItem ''Added 8/2/2019 td
+    Private Shared _item_group_alignWidth As ToolStripMenuItem ''Added 8/5/2019 td
+    Private Shared _item_group_alignHeight As ToolStripMenuItem ''Added 8/5/2019 td
+    Private Shared _item_group_alignTop As ToolStripMenuItem ''Added 8/5/2019 td
+    Private Shared _item_group_alignBottom As ToolStripMenuItem ''Added 8/5/2019 td
+    Private Shared _item_group_alignParent As ToolStripMenuItem ''Added 8/5/2019 td
+
+    Private Shared _item_group_add As ToolStripMenuItem ''Added to top of of module, 8/12 & 8/2/2019 td
+    Private Shared _item_group_omit As ToolStripMenuItem ''Added to top of of module, 8/12 & 8/2/2019 td
 
     Private Const mc_AttachContextMenuToTop As Boolean = True ''Added 8/5/2019 td 
 

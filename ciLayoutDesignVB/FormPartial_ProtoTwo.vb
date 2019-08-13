@@ -83,6 +83,12 @@ Partial Public Class FormDesignProtoTwo
             each_control.TempResizeInfo_W = each_control.Width
             each_control.TempResizeInfo_H = each_control.Height
 
+            ''Added 8/12/2019 thomas downes  
+            ''   The user might want might to resize using the left edge (or the top edge). 
+            ''
+            each_control.TempResizeInfo_Left = each_control.Left
+            each_control.TempResizeInfo_Top = each_control.Top
+
         Next each_control
 
     End Sub ''End of "Private Sub Resizing_Start"  
@@ -93,6 +99,8 @@ Partial Public Class FormDesignProtoTwo
         ''
         Dim boolMoving As Boolean ''Added 8/5/2/019 td  
         Dim boolResizing As Boolean ''Added 8/5/2/019 td  
+        Dim bResize_RightOrBottom As Boolean ''Added 8/12/019 td  
+        Dim bResize_LeftOrTop As Boolean ''Added 8/12/019 td  
         Dim bControlMovedIsInGroup As Boolean ''Added 8/5/2019 td  
 
         ''
@@ -128,7 +136,9 @@ Partial Public Class FormDesignProtoTwo
             With each_control
 
                 ''Added 8/3/2019 th omas downes  
-                boolMoving = (DeltaTop <> 0 Or DeltaLeft <> 0)
+                ''8/12/2019 td''boolMoving = (DeltaTop <> 0 Or DeltaLeft <> 0)
+                boolMoving = ((DeltaTop <> 0 And DeltaHeight = 0) Or
+                              (DeltaLeft <> 0 And DeltaWidth = 0))
                 If (boolMoving) Then
                     .Top += DeltaTop
                     .Left += DeltaLeft
@@ -139,9 +149,38 @@ Partial Public Class FormDesignProtoTwo
 
                 ''Modified 8/5/2019 thomas downes
                 boolResizing = ((Not boolMoving) And (.TempResizeInfo_W > 0 And .TempResizeInfo_H > 0))
+
                 If (boolResizing) Then
-                    .Width = (.TempResizeInfo_W + DeltaWidth)
-                    .Height = (.TempResizeInfo_H + DeltaHeight)
+                    ''
+                    ''Added 8/12/2019 thomas d. 
+                    ''
+                    bResize_LeftOrTop = (DeltaLeft <> 0 Or DeltaTop <> 0) ''-----DIFFICULT AND CONFUSING !!!!!    The user might want might to resize 
+                    ''    using the left edge (Or the top edge).  ----8/12/2019 td
+                    bResize_RightOrBottom = ((Not bResize_LeftOrTop) And (DeltaWidth <> 0 Or DeltaHeight <> 0))
+
+                    If (bResize_RightOrBottom) Then
+                        ''
+                        ''This is the simpler situation !! 
+                        ''
+                        .Width = (.TempResizeInfo_W + DeltaWidth)
+                        .Height = (.TempResizeInfo_H + DeltaHeight)
+
+                    ElseIf (bResize_LeftOrTop) Then
+                        ''
+                        ''Added 8/12/2019 thomas d.
+                        ''
+                        ''-----DIFFICULT AND CONFUSING !!!!!
+                        ''    The user might want might to resize using the left edge (Or the top edge). 
+                        ''
+                        ''8/12/2019 TD''.Top = (.TempResizeInfo_Top + DeltaTop)
+                        ''8/12/2019 TD''.Left = (.TempResizeInfo_Left + DeltaLeft)
+                        .Top += DeltaTop
+                        .Left += DeltaLeft
+                        .Width += DeltaWidth
+                        .Height += DeltaHeight
+
+                    End If ''End of "If (bResize_RightOrBottom) Then .... ElseIf (bResize_LeftOrTop) Then ..."
+
                 End If ''End of "If (boolResizing) Then"
 
                 ''8/5/2019 td''txtWidthDeltas.AppendText($"Width: {DeltaWidth}" & vbCrLf)
