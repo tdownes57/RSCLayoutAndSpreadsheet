@@ -262,10 +262,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="InterfaceCIBField.vb" />
-    <Compile Include="InterfaceCustomer.vb" />
-    <Compile Include="InterfaceElement.vb" />
-    <Compile Include="InterfaceElementPic.vb" />
-    <Compile Include="InterfaceElementText.vb" />
     <Compile Include="InterfaceSelectingElements.vb" />
     <Compile Include="LayoutSerialization.vb" />
     <Compile Include="modAdjustmentBoxes_V101.vb" />
@@ -470,6 +466,10 @@
     <ProjectReference Include="..\..\ciBadgeForWeb\ciPictures_VB\ciPictures_VB.vbproj">
       <Project>{a5fe9f7b-4075-43c5-892b-01e2cfec342c}</Project>
       <Name>ciPictures_VB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ciBadgeInterfaces\ciBadgeInterfaces.vbproj">
+      <Project>{3d1acca6-585e-4c92-9a6d-9a51d2f72f5f}</Project>
+      <Name>ciBadgeInterfaces</Name>
     </ProjectReference>
     <ProjectReference Include="..\ciLayoutPrintLib\ciLayoutPrintLib.vbproj">
       <Project>{f8271e6c-5c26-4cec-bd4c-ad3b10fef6b9}</Project>

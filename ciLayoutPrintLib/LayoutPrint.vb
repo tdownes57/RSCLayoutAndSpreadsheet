@@ -5,6 +5,7 @@ Option Strict On ''Added 5/21/2019 td
 ''
 Imports System.Drawing ''Added 5/21/2019 thomas downes 
 Imports System.Windows.Forms ''Added 5/21/2019 thomas downes 
+Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d. 
 
 Public Class LayoutPrint
     ''

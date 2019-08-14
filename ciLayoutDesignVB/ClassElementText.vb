@@ -1,4 +1,10 @@
-﻿''Added 7/18/2019 thomas downes
+﻿Option Explicit On
+Option Strict On
+Option Infer Off
+
+''Added 7/18/2019 thomas downes
+Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d. 
+
 Public Class ClassElementText
     Implements IElement_Base, IElementText
     ''
@@ -10,6 +16,9 @@ Public Class ClassElementText
     ''-------------------------------------------------------------
 
     Public Property Font_AllInfo As System.Drawing.Font Implements IElementText.Font_AllInfo
+
+    Public Property PositionalMode As String Implements IElement_Base.PositionalMode ''Added 8/14/2019 td 
+    Public Property ExampleValue As String Implements IElementText.ExampleValue ''Added 8/14/2019 td 
 
     Public Property FontColor As System.Drawing.Color Implements IElementText.FontColor
 
