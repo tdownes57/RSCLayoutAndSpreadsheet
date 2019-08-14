@@ -571,6 +571,193 @@ ExitHandler:
 
     End Sub ''End of ""Private Sub ApplyMemberPicToImage(ByRef par_image As Image)
 
+
+
+
+    Public Sub LoadElements_Fields()
+        ''
+        ''Added 7/18/2019 thomas downes 
+        ''
+        ''mod_Pic = New ClassElementPic(pictureboxPic)
+
+        ''mod_RecipientID = mod_generator.GetRecipientID(GraphicFieldLabel1) ''New ClassElementText
+        ''mod_NameFull = mod_generator.GetFullName(GraphicFieldLabel2) ''New ClassElementText
+
+        ''mod_Text1 = mod_generator.GetTextField1(gr) ''New ClassElementText
+        ''mod_Text2 = mod_generator.GetTextField2(PictureBox13) ''New ClassElementText
+        ''mod_Text3 = mod_generator.GetTextField3(PictureBox14)
+
+        ''mod_Date1 = mod_generator.GetDateField1(PictureBox15) ''New ClassElementText
+        ''mod_Date2 = mod_generator.GetDateField2(PictureBox16) ''New ClassElementText
+
+        Dim intNumControlsAlready_std As Integer ''Added 7/26/2019 td 
+        Dim intNumControlsAlready_cust As Integer ''Added 7/26/2019 td 
+        ''7/31 td''Dim intTopEdge_cust As Integer ''Added 7/28/2019 td
+        Dim intTopEdge_std As Integer ''Added 7/28/2019 td
+
+        ''
+        ''Standard Fields 
+        ''
+        ClassFieldStandard.InitializeHardcodedList_Students(True)
+
+        For Each field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students
+
+            Dim new_label_control_std As CtlGraphicFldLabel
+
+            ''Added 7/29
+            If (field_standard.ElementInfo Is Nothing) Then
+
+                field_standard.ElementInfo = New ClassElementText()
+
+                ''8/9/2019 td''new_label_control_std = New CtlGraphicFldLabel(field_standard)
+                new_label_control_std = New CtlGraphicFldLabel(field_standard, Me)
+
+                Me.Controls.Add(new_label_control_std)
+
+                ''Moved far below. ''new_label_control_std.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
+
+                new_label_control_std.Width = CInt(pictureBack.Width / 3)
+
+                With field_standard.ElementInfo
+
+                    .Width_Pixels = new_label_control_std.Width
+                    .Height_Pixels = new_label_control_std.Height
+
+                    intTopEdge_std = (30 + 30 * intNumControlsAlready_std)
+                    .TopEdge_Pixels = intTopEdge_std
+                    .LeftEdge_Pixels = ((10 + intNumControlsAlready_std * .Width_Pixels) + 10)
+
+                End With ''End of "With field_standard.ElementInfo"
+
+            Else
+
+                ''Added 8/9/2019 td''new_label_control_std = New CtlGraphicFldLabel(field_standard)
+                new_label_control_std = New CtlGraphicFldLabel(field_standard, Me)
+
+                Me.Controls.Add(new_label_control_std)
+
+                ''Moved far below. ''new_label_control_std.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
+
+            End If ''end of "If (field_standard.ElementInfo Is Nothing) Then ... Else..."
+
+            new_label_control_std.Top = field_standard.ElementInfo.TopEdge_Pixels
+            new_label_control_std.Left = field_standard.ElementInfo.LeftEdge_Pixels
+            new_label_control_std.Width = field_standard.ElementInfo.Width_Pixels
+            new_label_control_std.Height = field_standard.ElementInfo.Height_Pixels
+
+            ''intTopEdge_std = (30 + 30 * intNumControlsAlready_std)
+
+            ''Moved up.''Me.Controls.Add(new_label_control_std)
+
+            ''Inappropriate. 7/29 td''new_label_control_std.Left = ((10 + intNumControlsAlready_std * new_label_control_std.Width) + 10)
+            ''Inappropriate. 7/29 td''''new_label_control_std.Top = 10
+            ''Inappropriate. 7/29 td''new_label_control_std.Top = intTopEdge_std
+
+            new_label_control_std.Visible = True
+            intNumControlsAlready_std += 1
+
+            new_label_control_std.Name = "StandardCtl" & CStr(intNumControlsAlready_std)
+            new_label_control_std.BorderStyle = BorderStyle.FixedSingle
+
+            ''
+            ''Added 7/28/2019 thomas d.
+            ''
+            new_label_control_std.RefreshImage()
+
+            ''Added 7/28/2019 thomas d.
+            new_label_control_std.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
+
+        Next field_standard
+
+        ''
+        ''Custom Fields 
+        ''
+        ClassFieldCustomized.InitializeHardcodedList_Students(True)
+
+        For Each field_custom As ClassFieldCustomized In ClassFieldCustomized.ListOfFields_Students
+
+            ''Added 7/29
+            ''If (field_custom.ElementInfo Is Nothing) Then field_custom.ElementInfo = New ClassElementText()
+
+            ''Dim new_label_control_cust As New GraphicFieldLabel(field_custom)
+
+            ''intTopEdge_cust = (30 + 30 * intNumControlsAlready_cust)
+
+            ''Me.Controls.Add(new_label_control_cust)
+            ''new_label_control_cust.Left = ((intNumControlsAlready_cust * new_label_control_cust.Width) + 10)
+            ''''7/28 td''new_label_control_cust.Top = (120 + new_label_control_cust.Height)
+            ''new_label_control_cust.Top = intTopEdge_cust
+            ''new_label_control_cust.Visible = True
+
+            ''7/28/2019 td''ControlMoverOrResizer_TD.Init(new_label_control_cust, 20) ''Added 7/28/2019 thomas downes
+
+            Dim new_label_control_cust As CtlGraphicFldLabel
+
+            ''Added 7/29
+            If (field_custom.ElementInfo Is Nothing) Then
+
+                field_custom.ElementInfo = New ClassElementText()
+
+                ''8/9/2019 td''new_label_control_cust = New CtlGraphicFldLabel(field_custom)
+                new_label_control_cust = New CtlGraphicFldLabel(field_custom, Me)
+
+                Me.Controls.Add(new_label_control_cust)
+
+                new_label_control_cust.Width = CInt(pictureBack.Width / 3)
+
+                With field_custom.ElementInfo
+
+                    .Width_Pixels = new_label_control_cust.Width
+                    .Height_Pixels = new_label_control_cust.Height
+
+                    intTopEdge_std = (30 + 30 * intNumControlsAlready_std)
+                    .TopEdge_Pixels = intTopEdge_std
+                    .LeftEdge_Pixels = ((10 + intNumControlsAlready_std * .Width_Pixels) + 10)
+
+                End With
+
+            Else
+
+                ''8/9/2019 td''new_label_control_cust = New CtlGraphicFldLabel(field_custom)
+                new_label_control_cust = New CtlGraphicFldLabel(field_custom, Me)
+
+                Me.Controls.Add(new_label_control_cust)
+
+            End If ''end of "If (field_standard.ElementInfo Is Nothing) Then ... Else..."
+
+            new_label_control_cust.Top = field_custom.ElementInfo.TopEdge_Pixels
+            new_label_control_cust.Left = field_custom.ElementInfo.LeftEdge_Pixels
+            new_label_control_cust.Width = field_custom.ElementInfo.Width_Pixels
+            new_label_control_cust.Height = field_custom.ElementInfo.Height_Pixels
+
+            ''intTopEdge_std = (30 + 30 * intNumControlsAlready_std)
+
+            ''Moved up.''Me.Controls.Add(new_label_control_cust)
+
+            ''Inappropriate. 7/29 td''new_label_control_std.Left = ((10 + intNumControlsAlready_std * new_label_control_std.Width) + 10)
+            ''Inappropriate. 7/29 td''''new_label_control_std.Top = 10
+            ''Inappropriate. 7/29 td''new_label_control_std.Top = intTopEdge_std
+
+            intNumControlsAlready_cust += 1
+            new_label_control_cust.Name = "CustCtl" & CStr(intNumControlsAlready_cust)
+            new_label_control_cust.BorderStyle = BorderStyle.FixedSingle
+
+            ''
+            ''Added 7/28/2019 thomas d.
+            ''
+            new_label_control_cust.RefreshImage()
+
+            ''Added 7/28/2019 thomas d.
+            new_label_control_cust.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
+
+        Next field_custom
+
+    End Sub ''End of ''Private Sub LoadElements_Fields()''
+
+
+
+
+
     Public Shared Function ResizeImage(ByVal InputImage As Image, ByVal parSizingBox As Control) As Image
         ''
         ''https://stackoverflow.com/questions/2144592/resizing-images-in-vb-net 
