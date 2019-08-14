@@ -575,8 +575,8 @@ ExitHandler:
 
 
 
-    Public Sub LoadElements_Fields(par_standardFields As List(Of ICIBFieldCustomOrStandard),
-                                   par_customFields As List(Of ICIBFieldCustomOrStandard))
+    Public Sub LoadElements_Fields(par_standardFields As List(Of ICIBFieldStandardOrCustom),
+                                   par_customFields As List(Of ICIBFieldStandardOrCustom))
         ''
         ''Added 7/18/2019 thomas downes 
         ''
@@ -604,7 +604,8 @@ ExitHandler:
         ''
         ''8/14/2019 td''ClassFieldStandard.InitializeHardcodedList_Students(True)
 
-        For Each field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students
+        ''8/14/2019 td''For Each field_standard As ClassElementField In ClassFieldStandard.ListOfFields_Students
+        For Each field_standard As ICIBFieldStandardOrCustom In par_standardFields
 
             Dim new_label_control_std As CtlGraphicFldLabel
 
