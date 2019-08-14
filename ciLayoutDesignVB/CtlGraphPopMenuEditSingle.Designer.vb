@@ -24,12 +24,14 @@ Partial Class CtlGraphPopMenuEditSingle
     Private Sub InitializeComponent()
         Me.SuspendLayout()
         '
-        'CtlGraphicOfPopMenu
+        'CtlGraphPopMenuEditSingle
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.Name = "CtlGraphicOfPopMenu"
-        Me.Size = New System.Drawing.Size(194, 598)
+        Me.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.ContextMenu_non_grouped
+        Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.Name = "CtlGraphPopMenuEditSingle"
+        Me.Size = New System.Drawing.Size(278, 162)
         Me.ResumeLayout(False)
 
     End Sub

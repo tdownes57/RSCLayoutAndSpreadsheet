@@ -28,8 +28,10 @@ Partial Class CtlGraphPopMenuEditGroup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.ContextMenu_grouped
+        Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.Name = "CtlGraphPopMenuEditGroup"
-        Me.Size = New System.Drawing.Size(150, 542)
+        Me.Size = New System.Drawing.Size(284, 230)
         Me.ResumeLayout(False)
 
     End Sub

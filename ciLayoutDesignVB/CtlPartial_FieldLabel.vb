@@ -39,6 +39,10 @@ Partial Public Class CtlGraphicFldLabel
         ''7/30/2019 td''ColorDialog1.ShowDialog()
         Dim form_ToShow As New FormCustomFieldsFlow
 
+        Dim boolExitEarly As Boolean ''Added 8/13/2019 td
+        CreateVisibleButton_Master("Choose a background color", AddressOf OpenDialog_Color, boolExitEarly)
+        If (boolExitEarly) Then Exit Sub ''Added 8/13/2019 td
+
         ''Can (should) we just show a single field? ''form_ToShow.JustOneField = Me.FieldInfo
         form_ToShow.JustOneField_Index = Me.FieldInfo.FieldIndex
 
@@ -50,17 +54,9 @@ Partial Public Class CtlGraphicFldLabel
         ''
         ''Added 7/30/2019 thomas downes
         ''
-        If (mod_bBypassCreateButton) Then
-            ''Added 8/13/2019 td  
-            mod_bBypassCreateButton = False ''Reinitialize. 
-
-        ElseIf (mc_CreateVisibleButtonForDemo) Then
-            ''
-            ''Added 8 / 13 / 2019 td 
-            ''
-            CreateVisibleButton("Choose a background color", AddressOf OpenDialog_Color)
-
-        End If ''End of "If (mod_bBypassCreateButton) Then .... ElseIf (mc_CreateVisibleButtonForDemo) Then ...."
+        Dim boolExitEarly As Boolean ''Added 8/13/2019 td
+        CreateVisibleButton_Master("Choose a background color", AddressOf OpenDialog_Color, boolExitEarly)
+        If (boolExitEarly) Then Exit Sub ''Added 8/13/2019 td
 
         ColorDialog1.ShowDialog()
 
@@ -117,6 +113,10 @@ Partial Public Class CtlGraphicFldLabel
         ''
         ''Added 7/30/2019 thomas downes
         ''
+        Dim boolExitEarly As Boolean ''Added 8/13/2019 td
+        CreateVisibleButton_Master("Choose a background color", AddressOf OpenDialog_Color, boolExitEarly)
+        If (boolExitEarly) Then Exit Sub ''Added 8/13/2019 td
+
         FontDialog1.Font = Me.ElementInfo.Font_AllInfo ''Added 7/31/2019 td  
         FontDialog1.ShowDialog()
 
@@ -234,6 +234,10 @@ Partial Public Class CtlGraphicFldLabel
         Dim objElements As List(Of CtlGraphicFldLabel)
         Dim sender_toolItem As ToolStripItem
 
+        Dim boolExitEarly As Boolean ''Added 8/13/2019 td
+        CreateVisibleButton_Master("Choose a background color", AddressOf OpenDialog_Color, boolExitEarly)
+        If (boolExitEarly) Then Exit Sub ''Added 8/13/2019 td
+
         If (Not TypeOf sender Is ToolStripMenuItem) Then Exit Sub
         sender_toolItem = CType(sender, ToolStripMenuItem)
 
@@ -287,26 +291,71 @@ Partial Public Class CtlGraphicFldLabel
 
     End Sub ''End of "Private Sub ExampleValue_Edit"  
 
+    Private Sub CreateVisibleButton_Master(par_strText As String, par_handler As EventHandler, ByRef pboolExitEarly As Boolean)
+        ''
+        ''Added 8/13/2019 td  
+        ''
+        If (mod_bBypassCreateButton) Then
+            ''Added 8/13/2019 td  
+            mod_bBypassCreateButton = False ''Reinitialize. 
+
+        ElseIf (mc_CreateVisibleButtonForDemo) Then
+            ''
+            ''Added 8 / 13 / 2019 td 
+            ''
+            CreateVisibleButton(par_strText, par_handler)
+            pboolExitEarly = True
+
+        End If ''End of "If (mod_bBypassCreateButton) Then .... ElseIf (mc_CreateVisibleButtonForDemo) Then ...."
+
+    End Sub ''End of "Private Sub CreateMouseButton_Master(par_strText As String, par_handler As EventHandler)"
+
     Private Sub CreateVisibleButton(par_strText As String, par_handler As EventHandler)
         ''
         ''Added 8/13/2019 td  
         ''
-        Dim obj_newButton As New Button
+        ''8/13/2019 td''Dim obj_newButton As New Button
+        Dim obj_newMenuSingleton As CtlGraphPopMenuEditSingle
+        Dim obj_newMenuGroupedItems As CtlGraphPopMenuEditGroup
 
         mod_bBypassCreateButton = True ''Avoid infinite loops!!   Added 8/13/2019 
 
-        With obj_newButton
+        Select Case True
+            Case Me.GroupEdits.LabelsList_OneOrMoreItems
 
-            .Text = par_strText
-            ''#1 8/13/2019 td''.Click += par_address
-            '' #2 8/13/2019 td''AddHandler .Click, AddressOf par_handler
-            AddHandler .Click, par_handler
-            .Visible = True
-            .Left = Me.Left
-            .Top = (Me.Top + Me.Height)
-            Me.FormDesigner.Controls.Add(obj_newButton)
+                obj_newMenuGroupedItems = New CtlGraphPopMenuEditGroup
 
-        End With
+                With obj_newMenuGroupedItems
+
+                    ''8/13/2019 td''.Text = par_strText
+                    ''#1 8/13/2019 td''.Click += par_address
+                    '' #2 8/13/2019 td''AddHandler .Click, AddressOf par_handler
+                    AddHandler .Click, par_handler
+                    .Visible = True
+                    .Left = Me.Left
+                    .Top = (Me.Top + Me.Height)
+
+                    ''Me.FormDesigner.Controls.Add(obj_newButton)
+                    Me.FormDesigner.Controls.Add(obj_newMenuGroupedItems)
+
+                End With
+
+            Case Else
+
+                obj_newMenuSingleton = New CtlGraphPopMenuEditSingle
+
+                With obj_newMenuSingleton
+
+                    AddHandler .Click, par_handler
+                    .Visible = True
+                    .Left = Me.Left
+                    .Top = (Me.Top + Me.Height)
+                    Me.FormDesigner.Controls.Add(obj_newMenuSingleton)
+
+                End With
+
+        End Select
+
 
     End Sub ''End of "Private Sub CreateMouseButton(par_strText As String, par_handler As EventHandler)"
 

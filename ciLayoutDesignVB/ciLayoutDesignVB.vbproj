@@ -412,6 +412,8 @@
     <Content Include="Images\AdjustWHColor_V103.jpg" />
     <Content Include="Images\CI Logo.jpg" />
     <Content Include="Images\CISolutionsLogo.png" />
+    <None Include="Images\ContextMenu_non-grouped.png" />
+    <None Include="Images\ContextMenu_grouped.png" />
     <Content Include="Images\layout_BW - CompareToSpoof.png" />
     <Content Include="Images\layout_BW.bmp" />
     <None Include="Images\mainback_v82.PNG" />

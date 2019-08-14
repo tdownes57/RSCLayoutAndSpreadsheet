@@ -143,6 +143,36 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property ContextMenu_grouped() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ContextMenu_grouped", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ContextMenu_non_grouped() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ContextMenu_non_grouped", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ContextMenu_non_grouped1() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ContextMenu_non_grouped1", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property JaneMulvey_1015() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("JaneMulvey_1015", resourceCulture)
