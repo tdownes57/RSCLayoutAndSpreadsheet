@@ -574,7 +574,8 @@ ExitHandler:
 
 
 
-    Public Sub LoadElements_Fields()
+    Public Sub LoadElements_Fields(par_standardFields As List(Of ICIBFieldCustomOrStandard),
+                                   par_customFields As List(Of ICIBFieldCustomOrStandard))
         ''
         ''Added 7/18/2019 thomas downes 
         ''
@@ -596,9 +597,11 @@ ExitHandler:
         Dim intTopEdge_std As Integer ''Added 7/28/2019 td
 
         ''
+        ''
         ''Standard Fields 
         ''
-        ClassFieldStandard.InitializeHardcodedList_Students(True)
+        ''
+        ''8/14/2019 td''ClassFieldStandard.InitializeHardcodedList_Students(True)
 
         For Each field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students
 
