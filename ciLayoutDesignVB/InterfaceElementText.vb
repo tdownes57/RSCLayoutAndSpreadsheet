@@ -33,6 +33,8 @@ Public Interface IElementText
     ''7/25/2019 td''Prpoerty ExampleText As String ''Added 7/25/2019
     Property Text As String ''E.g. "George Washington" for FullName. 
 
+    ''Added 8/14/2019 td 
+    Property ExampleValue As String ''E.g. "George Washington" for FullName. 
 
     Property Alignment As System.Windows.Forms.HorizontalAlignment
 

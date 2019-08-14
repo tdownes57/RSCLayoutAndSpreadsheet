@@ -12,6 +12,8 @@ Public Interface IElement_Base
     ''
     Property ElementType As String ''Text, Pic, or Logo
 
+    Property PositionalMode As String ''E.g. "CIBv82", "CIBv83", "CIBv8", "CIBv90", "CIBv9", "BL" ("Badge Layout")  Added 8/14/2019
+
     Property FormControl As Control ''Added 7/19/2019 td
 
     Property LayoutWidth_Pixels As Integer ''This provides sizing context & scaling factors. 
