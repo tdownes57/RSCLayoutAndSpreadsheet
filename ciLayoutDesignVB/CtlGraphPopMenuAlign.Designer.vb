@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class CtlGraphPopMenuEditGroup
+Partial Class CtlGraphPopMenuAlign
     Inherits System.Windows.Forms.UserControl
 
     'UserControl overrides dispose to clean up the component list.
@@ -30,22 +30,24 @@ Partial Class CtlGraphPopMenuEditGroup
         '
         Me.PictureBox1.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.ContextMenu_grouped
         Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.PictureBox1.Location = New System.Drawing.Point(-9, 0)
+        Me.PictureBox1.Image = Global.ciLayoutDesignVB.My.Resources.Resources.Context_AlignMenuSubmenu
+        Me.PictureBox1.Location = New System.Drawing.Point(3, 3)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(263, 231)
-        Me.PictureBox1.TabIndex = 0
+        Me.PictureBox1.Size = New System.Drawing.Size(448, 319)
+        Me.PictureBox1.TabIndex = 1
         Me.PictureBox1.TabStop = False
         '
-        'CtlGraphPopMenuEditGroup
+        'CtlGraphPopMenuAlign
         '
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.PictureBox1)
-        Me.Name = "CtlGraphPopMenuEditGroup"
-        Me.Size = New System.Drawing.Size(253, 232)
+        Me.Name = "CtlGraphPopMenuAlign"
+        Me.Size = New System.Drawing.Size(455, 325)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
+
     Friend WithEvents PictureBox1 As PictureBox
 End Class

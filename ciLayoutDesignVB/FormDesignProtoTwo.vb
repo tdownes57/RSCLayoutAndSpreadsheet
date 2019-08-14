@@ -41,6 +41,15 @@ Public Class FormDesignProtoTwo
 
     Private vbCrLf_Deux As String = (vbCrLf & vbCrLf) ''Added 7/31/2019 td 
 
+    Public Function OkayToShowFauxContextMenu() As Boolean
+        ''
+        ''Added 8/14/2019 td 
+        ''
+        ''OkayToShowFauxContextMenu()
+        Return DemoModeActiveToolStripMenuItem.Checked
+
+    End Function ''End of "Public Function OkayToShowFauxContextMenu() As Boolean"
+
     Private Sub FormDesignProtoTwo_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
         ''Added 7/18/2019 thomas downes 
@@ -584,6 +593,13 @@ Public Class FormDesignProtoTwo
     End Sub
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles picturePreview.Click
+
+    End Sub
+
+    Private Sub DemoModeActiveToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DemoModeActiveToolStripMenuItem.Click
+
+        ''Added 8/14/2019 td 
+        DemoModeActiveToolStripMenuItem.Checked = (Not DemoModeActiveToolStripMenuItem.Checked)
 
     End Sub
 End Class

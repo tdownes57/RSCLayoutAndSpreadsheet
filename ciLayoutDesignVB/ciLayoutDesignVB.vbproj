@@ -97,6 +97,12 @@
     <Compile Include="CtlConfigFldStandard.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="CtlGraphPopMenuAlign.Designer.vb">
+      <DependentUpon>CtlGraphPopMenuAlign.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CtlGraphPopMenuAlign.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="CtlGraphPopMenuEditGroup.Designer.vb">
       <DependentUpon>CtlGraphPopMenuEditGroup.vb</DependentUpon>
     </Compile>
@@ -308,6 +314,9 @@
     <EmbeddedResource Include="CtlCustomer.resx">
       <DependentUpon>CtlCustomer.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CtlGraphPopMenuAlign.resx">
+      <DependentUpon>CtlGraphPopMenuAlign.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CtlGraphPopMenuEditGroup.resx">
       <DependentUpon>CtlGraphPopMenuEditGroup.vb</DependentUpon>
     </EmbeddedResource>
@@ -414,6 +423,8 @@
     <Content Include="Images\CISolutionsLogo.png" />
     <None Include="Images\ContextMenu_non-grouped.png" />
     <None Include="Images\ContextMenu_grouped.png" />
+    <None Include="Images\ContextMenu_AlignSubmenu.png" />
+    <None Include="Images\Context_AlignMenuSubmenu.png" />
     <Content Include="Images\layout_BW - CompareToSpoof.png" />
     <Content Include="Images\layout_BW.bmp" />
     <None Include="Images\mainback_v82.PNG" />
