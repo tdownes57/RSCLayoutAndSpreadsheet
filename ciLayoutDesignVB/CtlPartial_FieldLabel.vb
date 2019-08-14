@@ -32,6 +32,10 @@ Partial Public Class CtlGraphicFldLabel
     Private Const mc_CreateVisibleButtonForDemo As Boolean = True ''Added 8/13/2019 td 
     Private mod_bBypassCreateButton As Boolean = False ''Added 8/13/2019 td 
 
+    Private mod_fauxMenuEditSingleton As CtlGraphPopMenuEditSingle ''Added 8/14/2019 td
+    Private mod_fauxMenuEditGroupedItems As CtlGraphPopMenuEditGroup ''Added 8/14/2019 td
+    Private mod_strAlignmentTypeText As String ''Added 8/14/2019 td
+
     Private Sub OpenDialog_Field(sender As Object, e As EventArgs)
         ''
         ''Added 7/30/2019 thomas downes
@@ -56,6 +60,7 @@ Partial Public Class CtlGraphicFldLabel
         ''
         Dim boolExitEarly As Boolean ''Added 8/13/2019 td
         CreateVisibleButton_Master("Choose a background color", AddressOf OpenDialog_Color, boolExitEarly)
+        Application.DoEvents()
         If (boolExitEarly) Then Exit Sub ''Added 8/13/2019 td
 
         ColorDialog1.ShowDialog()
@@ -114,7 +119,9 @@ Partial Public Class CtlGraphicFldLabel
         ''Added 7/30/2019 thomas downes
         ''
         Dim boolExitEarly As Boolean ''Added 8/13/2019 td
-        CreateVisibleButton_Master("Choose a background color", AddressOf OpenDialog_Color, boolExitEarly)
+        CreateVisibleButton_Master("Choose a text font", AddressOf OpenDialog_Font, boolExitEarly)
+        Application.DoEvents()
+        mod_fauxMenuEditSingleton.SizeToExpectations()
         If (boolExitEarly) Then Exit Sub ''Added 8/13/2019 td
 
         FontDialog1.Font = Me.ElementInfo.Font_AllInfo ''Added 7/31/2019 td  
@@ -233,13 +240,23 @@ Partial Public Class CtlGraphicFldLabel
         ''
         Dim objElements As List(Of CtlGraphicFldLabel)
         Dim sender_toolItem As ToolStripItem
+        Dim strAlignmentTypeText As String ''Added 8/14/2019 thomas 
 
         Dim boolExitEarly As Boolean ''Added 8/13/2019 td
-        CreateVisibleButton_Master("Choose a background color", AddressOf OpenDialog_Color, boolExitEarly)
-        If (boolExitEarly) Then Exit Sub ''Added 8/13/2019 td
+        CreateVisibleButton_Master("Choose a background color", AddressOf Alignment_Master, boolExitEarly)
+        ''Moved below.''If (boolExitEarly) Then Exit Sub ''Added 8/13/2019 td
 
-        If (Not TypeOf sender Is ToolStripMenuItem) Then Exit Sub
-        sender_toolItem = CType(sender, ToolStripMenuItem)
+        If (TypeOf sender Is ToolStripMenuItem) Then
+            sender_toolItem = CType(sender, ToolStripMenuItem)
+            ''Added 8/14/2019 thomas 
+            strAlignmentTypeText = sender_toolItem.Text
+            mod_strAlignmentTypeText = sender_toolItem.Text ''Added 8/14 td
+        Else
+            ''Exit Sub
+            strAlignmentTypeText = mod_strAlignmentTypeText
+        End If ''End of "If (TypeOf sender Is ToolStripMenuItem) Then ..... Else ..."
+
+        If (boolExitEarly) Then Exit Sub ''Added 8/13/2019 td
 
         objElements = Me.GroupEdits.LabelsDesignList_AllItems
 
@@ -249,10 +266,17 @@ Partial Public Class CtlGraphicFldLabel
             ''
             With each_ctl
 
-                Select Case (sender_toolItem.Text)
-                    Case (_item_group_alignTop.Text) : each_ctl.Top = Me.Top
+                Select Case strAlignmentTypeText ''8/14/2019 td''(sender_toolItem.Text)
 
-                    Case (_item_group_alignLeft.Text) : each_ctl.Left = Me.Left
+                    Case (_item_group_alignTop.Text)
+
+                        each_ctl.Top = Me.Top
+                        each_ctl.ElementInfo.TopEdge_Pixels = Me.Top
+
+                    Case (_item_group_alignLeft.Text)
+
+                        each_ctl.Left = Me.Left
+                        each_ctl.ElementInfo.LeftEdge_Pixels = Me.Left
 
                     Case (_item_group_alignWidth.Text)
 
@@ -297,6 +321,7 @@ Partial Public Class CtlGraphicFldLabel
         ''
         If (mod_bBypassCreateButton) Then
             ''Added 8/13/2019 td  
+            pboolExitEarly = False  ''Reinitialize. 
             mod_bBypassCreateButton = False ''Reinitialize. 
 
         ElseIf (mc_CreateVisibleButtonForDemo) Then
@@ -304,6 +329,7 @@ Partial Public Class CtlGraphicFldLabel
             ''Added 8 / 13 / 2019 td 
             ''
             CreateVisibleButton(par_strText, par_handler)
+            mod_bBypassCreateButton = True ''Reinitialize. 
             pboolExitEarly = True
 
         End If ''End of "If (mod_bBypassCreateButton) Then .... ElseIf (mc_CreateVisibleButtonForDemo) Then ...."
@@ -315,43 +341,68 @@ Partial Public Class CtlGraphicFldLabel
         ''Added 8/13/2019 td  
         ''
         ''8/13/2019 td''Dim obj_newButton As New Button
-        Dim obj_newMenuSingleton As CtlGraphPopMenuEditSingle
-        Dim obj_newMenuGroupedItems As CtlGraphPopMenuEditGroup
+        ''  8/14/2019 td''Dim obj_newMenuSingleton As CtlGraphPopMenuEditSingle
+        ''  8/14/2019 td''Dim obj_newMenuGroupedItems As CtlGraphPopMenuEditGroup
 
-        mod_bBypassCreateButton = True ''Avoid infinite loops!!   Added 8/13/2019 
+        ''Moved to _Master procedure. ---8/14/2019 td''mod_bBypassCreateButton = True ''Avoid infinite loops!!   Added 8/13/2019 
 
         Select Case True
             Case Me.GroupEdits.LabelsList_OneOrMoreItems
 
-                obj_newMenuGroupedItems = New CtlGraphPopMenuEditGroup
+                ''8/14/2019 td''obj_newMenuSingleton = New CtlGraphPopMenuEditGroup
+                If (mod_fauxMenuEditGroupedItems Is Nothing) Then
+                    mod_fauxMenuEditGroupedItems = New CtlGraphPopMenuEditGroup
+                    ''Me.FormDesigner.Controls.Add(obj_newButton)
+                    Me.FormDesigner.Controls.Add(mod_fauxMenuEditGroupedItems)
+                End If ''End fo "If (mod_fauxMenuEditGroupedItems Is Nothing) Then"
 
-                With obj_newMenuGroupedItems
+                With mod_fauxMenuEditGroupedItems
 
                     ''8/13/2019 td''.Text = par_strText
                     ''#1 8/13/2019 td''.Click += par_address
                     '' #2 8/13/2019 td''AddHandler .Click, AddressOf par_handler
-                    AddHandler .Click, par_handler
-                    .Visible = True
+                    ''8/14/2019 td''AddHandler .Click, par_handler
+                    RemoveHandler .PictureBox1.Click, AddressOf OpenDialog_Color
+                    RemoveHandler .PictureBox1.Click, AddressOf OpenDialog_Font
+                    RemoveHandler .PictureBox1.Click, AddressOf OpenDialog_Field
+                    RemoveHandler .PictureBox1.Click, AddressOf Alignment_Master
+
+                    AddHandler .PictureBox1.Click, par_handler
+
                     .Left = Me.Left
-                    .Top = (Me.Top + Me.Height)
-
-                    ''Me.FormDesigner.Controls.Add(obj_newButton)
-                    Me.FormDesigner.Controls.Add(obj_newMenuGroupedItems)
-
+                    .Top = (Me.Top + Me.Height + 10)
+                    .Visible = True
+                    .BringToFront()
+                    Application.DoEvents()
+                    .SizeToExpectations()
+                    Application.DoEvents()
                 End With
 
             Case Else
 
-                obj_newMenuSingleton = New CtlGraphPopMenuEditSingle
+                ''8/14/2019 td''obj_newMenuSingleton = New CtlGraphPopMenuEditSingle
+                If (mod_fauxMenuEditSingleton Is Nothing) Then
+                    mod_fauxMenuEditSingleton = New CtlGraphPopMenuEditSingle
+                    Me.FormDesigner.Controls.Add(mod_fauxMenuEditSingleton)
+                End If ''End of "If (mod_fauxMenuEditSingleton Is Nothing) Then"
 
-                With obj_newMenuSingleton
+                With mod_fauxMenuEditSingleton
 
-                    AddHandler .Click, par_handler
+                    RemoveHandler .PictureBox1.Click, AddressOf OpenDialog_Color
+                    RemoveHandler .PictureBox1.Click, AddressOf OpenDialog_Font
+                    RemoveHandler .PictureBox1.Click, AddressOf OpenDialog_Field
+
+                    ''8/14/2019 td''AddHandler .Click, par_handler
+                    AddHandler .PictureBox1.Click, par_handler
+
                     .Visible = True
                     .Left = Me.Left
-                    .Top = (Me.Top + Me.Height)
-                    Me.FormDesigner.Controls.Add(obj_newMenuSingleton)
-
+                    .Top = (Me.Top + Me.Height + 10)
+                    .Visible = True
+                    .BringToFront()
+                    Application.DoEvents()
+                    .SizeToExpectations()
+                    Application.DoEvents()
                 End With
 
         End Select
