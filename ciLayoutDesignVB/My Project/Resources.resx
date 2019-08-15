@@ -178,4 +178,10 @@
   <data name="Context_AlignMenuSubmenu" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\Context_AlignMenuSubmenu.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="DecreaseY" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\DecreaseY.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IncreaseY" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\IncreaseY.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

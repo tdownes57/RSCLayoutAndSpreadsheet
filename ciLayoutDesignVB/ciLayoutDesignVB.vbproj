@@ -211,6 +211,12 @@
     <Compile Include="FormMainEntry_v90.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FormOffsetText.Designer.vb">
+      <DependentUpon>FormOffsetText.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormOffsetText.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormPresetValues.Designer.vb">
       <DependentUpon>FormPresetValues.vb</DependentUpon>
     </Compile>
@@ -367,6 +373,9 @@
     <EmbeddedResource Include="FormMainEntry_v82.resx">
       <DependentUpon>FormMainEntry_v82.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormOffsetText.resx">
+      <DependentUpon>FormOffsetText.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormPresetValues.resx">
       <DependentUpon>FormPresetValues.vb</DependentUpon>
     </EmbeddedResource>
@@ -421,6 +430,8 @@
     <None Include="Images\ContextMenu_grouped.png" />
     <None Include="Images\ContextMenu_AlignSubmenu.png" />
     <None Include="Images\Context_AlignMenuSubmenu.png" />
+    <None Include="Images\DecreaseY.png" />
+    <None Include="Images\IncreaseY.png" />
     <Content Include="Images\layout_BW - CompareToSpoof.png" />
     <Content Include="Images\layout_BW.bmp" />
     <None Include="Images\mainback_v82.PNG" />
