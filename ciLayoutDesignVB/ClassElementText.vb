@@ -29,6 +29,13 @@ Public Class ClassElementText
     Public Property FontItalics As Boolean Implements IElementText.FontItalics ''Added 8/12/2019 thomas downes  
     Public Property FontUnderline As Boolean Implements IElementText.FontUnderline ''Added 8/12/2019 thomas downes  
 
+
+    ''Added 8/15/2019 thomas downes  
+    Public Property FontSize_IsLocked As Boolean Implements IElementText.FontSize_IsLocked ''Added 8/15/2019 thomas downes  
+    Public Property FontOffset_X As Integer Implements IElementText.FontOffset_X ''Added 8/15/2019 thomas downes  
+    Public Property FontOffset_Y As Integer Implements IElementText.FontOffset_Y ''Added 8/15/2019 thomas downes  
+
+
     Public Property BackColor As System.Drawing.Color Implements IElementText.BackColor
 
     Public Property FieldInCardData As String Implements IElementText.FieldInCardData
