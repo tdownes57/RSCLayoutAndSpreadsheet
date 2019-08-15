@@ -7,6 +7,16 @@
 ''
 Imports System.Drawing ''Added 8/14/2019 td  
 Imports System.Windows.Forms ''Added 8/14/2019 td  
+
+Public Structure IElementWithText
+    ''
+    ''Added 8/14/2019 td  
+    ''
+    Dim Position As IElement_Base ''Added 8/14/2019 td 
+    Dim TextDisplay As IElementText ''Added 8/14/2019 td  
+
+End Structure
+
 Public Interface IElementText
     ''
     ''Added 7/18/2019 td
@@ -44,7 +54,7 @@ Public Interface IElementText
 
     Property OrientationInDegrees As Integer ''Default is 0, normal.  90 would be 1/4 turn clockwise.  180 is upside-down.  270 is the printing on the spine of a book sitting on the bookshelf.
 
-
+    Function GenerateImage() As Image ''Added 8/14/2019 td 
 
     ''
     ''

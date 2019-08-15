@@ -6,6 +6,7 @@ Option Strict On
 ''
 Imports ControlManager
 Imports MoveAndResizeControls_Monem
+Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d.  
 
 Public Class FormDesignProtoTwo
     Implements ISelectingElements

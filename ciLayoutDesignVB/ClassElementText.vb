@@ -84,4 +84,14 @@ Public Class ClassElementText
 
     End Sub
 
+    Public Function GenerateImage() As Image Implements IElementText.GenerateImage
+        ''
+        ''Added 8/14/2019 thomas downes 
+        ''
+        Throw New NotImplementedException
+
+        Return Nothing
+
+    End Function ''End of "Public Function GenerateImage() As Image Implements IElementText.GenerateImage"
+
 End Class

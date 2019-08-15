@@ -82,6 +82,12 @@
     <Compile Include="ciLayoutColors.vb" />
     <Compile Include="CILayoutPic.vb" />
     <Compile Include="CILayoutText.vb" />
+    <Compile Include="CtlGraphicFldLabel.designer.vb">
+      <DependentUpon>CtlGraphicFldLabel.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CtlGraphicFldLabel.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="FormLayoutEg.designer.vb">
       <DependentUpon>FormLayoutEg.vb</DependentUpon>
     </Compile>
@@ -107,6 +113,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="CtlGraphicFldLabel.resx">
+      <DependentUpon>CtlGraphicFldLabel.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormLayoutEg.resx">
       <DependentUpon>FormLayoutEg.vb</DependentUpon>
     </EmbeddedResource>
