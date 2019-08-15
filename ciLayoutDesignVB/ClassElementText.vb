@@ -3,7 +3,8 @@ Option Strict On
 Option Infer Off
 
 ''Added 7/18/2019 thomas downes
-Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d. 
+Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d. 8/14/2019 td  
+Imports System.Drawing.Text ''Added 
 
 Public Class ClassElementText
     Implements IElement_Base, IElementText
@@ -84,14 +85,102 @@ Public Class ClassElementText
 
     End Sub
 
-    Public Function GenerateImage() As Image Implements IElementText.GenerateImage
+    Public Function GenerateImage(pintLayoutHeight As Integer) As Image Implements IElementText.GenerateImage
         ''
         ''Added 8/14/2019 thomas downes 
         ''
-        Throw New NotImplementedException
+        Dim obj_image As Image = Nothing
 
-        Return Nothing
+        ''8/15/2019 td''GenerateImage(obj_image, Me, Me)
+        GenerateImage(pintLayoutHeight, obj_image, Me, Me)
+
+        Return obj_image
 
     End Function ''End of "Public Function GenerateImage() As Image Implements IElementText.GenerateImage"
+
+    Public Function GenerateImage(pintFinalLayoutWidth As Integer, ByRef par_image As Image,
+                                  par_design As IElementText, par_element As IElement_Base) As Image
+        ''
+        ''Added 8/14 & 7/17/2019 thomas downes
+        ''
+        Dim gr As Graphics ''= Graphics.FromImage(img)
+        Dim pen_backcolor As Pen
+        Dim pen_highlighting As Pen ''Added 8/2/2019 thomas downes  
+        Dim brush_forecolor As Brush
+        Dim doubleW_div_H As Double ''Added 8/15/2019 td  
+        Dim doubleScaling As Double ''Added 8/15/2019 td  
+        Dim intNewElementWidth As Integer ''Added 8/15 
+        Dim intNewElementHeight As Integer ''Added 8/15
+
+        Application.DoEvents()
+
+        ''Added 8/15/2019 td
+        doubleW_div_H = (par_element.Width_Pixels / par_element.Height_Pixels)
+        doubleScaling = (pintFinalLayoutWidth / par_element.LayoutWidth_Pixels)
+
+        If (par_image Is Nothing) Then
+            ''Create the image from scratch, if needed. 
+            ''7/29 td''par_image = New Bitmap(par_element.Width_Pixels, par_element.Height_Pixels)
+
+            ''Added 8/15/2019 td
+            intNewElementWidth = CInt(doubleScaling * par_element.Width_Pixels)
+            intNewElementHeight = CInt(doubleScaling * par_element.Height_Pixels)
+
+            ''Added 8/15/2019 td
+            par_image = New Bitmap(intNewElementWidth, intNewElementHeight)
+
+        End If ''End of "If (par_image Is Nothing) Then"
+
+        gr = Graphics.FromImage(par_image)
+
+        pen_backcolor = New Pen(par_design.BackColor)
+        pen_backcolor = New Pen(Color.White)
+        ''8/5/2019 td''pen_highlighting = New Pen(Color.YellowGreen, 5)
+        pen_highlighting = New Pen(Color.Yellow, 6)
+
+        brush_forecolor = New SolidBrush(par_design.FontColor)
+
+        ''
+        ''Draw the select background color, so that hopefully the text can be read easily.
+        ''
+        ''7/30/2019 td''gr.DrawRectangle(Brushes.White....
+
+        ''
+        ''  https://stackoverflow.com/questions/5183856/converting-from-a-color-to-a-brush
+        ''
+        Using br_brush As SolidBrush = New SolidBrush(par_element.Back_Color)
+            ''8/15 td''gr.FillRectangle(br_brush,
+            ''             New Rectangle(0, 0, par_element.Width_Pixels, par_element.Height_Pixels))
+            gr.FillRectangle(br_brush,
+                         New Rectangle(0, 0, intNewElementWidth, intNewElementHeight))
+        End Using
+
+        ''
+        ''Added 8/02/2019 td
+        ''
+        If (par_element.SelectedHighlighting) Then
+            ''Added 8/2/2019 td
+            ''8/5/2019 td''gr.DrawRectangle(pen_highlighting,
+            ''             New Rectangle(0, 0, par_element.Width_Pixels, par_element.Height_Pixels))
+            gr.DrawRectangle(pen_highlighting,
+                         New Rectangle(3, 3, intNewElementWidth - 6, intNewElementHeight - 6))
+        End If ''End of "If (par_element.SelectedHighlighting) Then"
+
+        ''7/30/2019''gr.DrawString(par_design.Text, par_design.Font_AllInfo, brush_forecolor, New Point(0, 0))
+
+        ''Font TextFont = New Font("Times New Roman", 25, FontStyle.Italic);
+        ''    e.Graphics.TextRenderingHint = TextRenderingHint.SingleBitPerPixelGridFit;
+        ''    e.Graphics.DrawString("Sample Text", TextFont, Brushes.Black, 20, 20);
+        ''    e.Graphics.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
+        ''    e.Graphics.DrawString("Sample Text", TextFont, Brushes.Black, 20, 85);
+        ''    e.Graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
+        ''    e.Graphics.DrawString("Sample Text", TextFont, Brushes.Black, 20, 150);
+
+        gr.TextRenderingHint = TextRenderingHint.AntiAliasGridFit
+        gr.DrawString(par_design.Text, par_design.Font_AllInfo, Brushes.Black, 20, 5)
+
+        Return par_image ''Return Nothing
+
+    End Function ''End of "Public Function TextImage(par_label As Label) As Image"
 
 End Class
