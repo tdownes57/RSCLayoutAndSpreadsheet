@@ -56,8 +56,8 @@ Public Class ClassElementPic
     Public Property OrientationDegrees As Integer Implements IElementPic.OrientationDegrees
 
 
-    Public Property PicFileIndex As Integer Implements IElementPic.PicFileIndex ''Added 8/13/2019 td  
-    Public Property OrientationDegrees As Integer Implements IElementPic.OrientationDegrees ''Added 8/13/2019 td  
+    ''Public Property PicFileIndex As Integer Implements IElementPic.PicFileIndex ''Added 8/13/2019 td  
+    ''Public Property OrientationDegrees As Integer Implements IElementPic.OrientationDegrees ''Added 8/13/2019 td  
 
 
     Public Sub New(par_control As Control)
