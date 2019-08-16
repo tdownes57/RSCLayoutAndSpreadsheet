@@ -29,7 +29,6 @@ Partial Class FormOffsetText
         Me.ButtonXIncrease = New System.Windows.Forms.Button()
         Me.ButtonXDecrease = New System.Windows.Forms.Button()
         Me.LabelHeader1 = New System.Windows.Forms.Label()
-        Me.CtlGraphicFldLabel1 = New ciLayoutDesignVB.CtlGraphicFldLabel()
         Me.ButtonYIncrease = New System.Windows.Forms.Button()
         Me.ButtonYDecrease = New System.Windows.Forms.Button()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
@@ -46,11 +45,13 @@ Partial Class FormOffsetText
         Me.Button7 = New System.Windows.Forms.Button()
         Me.Button8 = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.CtlGraphicFldLabel1 = New ciLayoutDesignVB.CtlGraphicFldLabel()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(515, 253)
+        Me.Button1.Location = New System.Drawing.Point(511, 336)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(104, 35)
         Me.Button1.TabIndex = 1
@@ -59,7 +60,7 @@ Partial Class FormOffsetText
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(625, 253)
+        Me.Button2.Location = New System.Drawing.Point(621, 336)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(98, 35)
         Me.Button2.TabIndex = 2
@@ -69,7 +70,7 @@ Partial Class FormOffsetText
         'ButtonXIncrease
         '
         Me.ButtonXIncrease.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonXIncrease.Location = New System.Drawing.Point(295, 151)
+        Me.ButtonXIncrease.Location = New System.Drawing.Point(291, 234)
         Me.ButtonXIncrease.Name = "ButtonXIncrease"
         Me.ButtonXIncrease.Size = New System.Drawing.Size(52, 40)
         Me.ButtonXIncrease.TabIndex = 3
@@ -79,7 +80,7 @@ Partial Class FormOffsetText
         'ButtonXDecrease
         '
         Me.ButtonXDecrease.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonXDecrease.Location = New System.Drawing.Point(237, 151)
+        Me.ButtonXDecrease.Location = New System.Drawing.Point(233, 234)
         Me.ButtonXDecrease.Name = "ButtonXDecrease"
         Me.ButtonXDecrease.Size = New System.Drawing.Size(52, 40)
         Me.ButtonXDecrease.TabIndex = 4
@@ -96,18 +97,11 @@ Partial Class FormOffsetText
         Me.LabelHeader1.TabIndex = 5
         Me.LabelHeader1.Text = "Offset of Text  "
         '
-        'CtlGraphicFldLabel1
-        '
-        Me.CtlGraphicFldLabel1.Location = New System.Drawing.Point(237, 112)
-        Me.CtlGraphicFldLabel1.Name = "CtlGraphicFldLabel1"
-        Me.CtlGraphicFldLabel1.Size = New System.Drawing.Size(253, 33)
-        Me.CtlGraphicFldLabel1.TabIndex = 6
-        '
         'ButtonYIncrease
         '
         Me.ButtonYIncrease.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ButtonYIncrease.Image = Global.ciLayoutDesignVB.My.Resources.Resources.IncreaseY
-        Me.ButtonYIncrease.Location = New System.Drawing.Point(499, 160)
+        Me.ButtonYIncrease.Location = New System.Drawing.Point(492, 238)
         Me.ButtonYIncrease.Name = "ButtonYIncrease"
         Me.ButtonYIncrease.Size = New System.Drawing.Size(52, 40)
         Me.ButtonYIncrease.TabIndex = 8
@@ -117,7 +111,7 @@ Partial Class FormOffsetText
         '
         Me.ButtonYDecrease.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ButtonYDecrease.Image = Global.ciLayoutDesignVB.My.Resources.Resources.DecreaseY
-        Me.ButtonYDecrease.Location = New System.Drawing.Point(499, 114)
+        Me.ButtonYDecrease.Location = New System.Drawing.Point(492, 192)
         Me.ButtonYDecrease.Name = "ButtonYDecrease"
         Me.ButtonYDecrease.Size = New System.Drawing.Size(52, 40)
         Me.ButtonYDecrease.TabIndex = 7
@@ -125,7 +119,7 @@ Partial Class FormOffsetText
         '
         'TextBox1
         '
-        Me.TextBox1.Location = New System.Drawing.Point(100, 267)
+        Me.TextBox1.Location = New System.Drawing.Point(96, 350)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(202, 20)
         Me.TextBox1.TabIndex = 9
@@ -133,7 +127,7 @@ Partial Class FormOffsetText
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(11, 270)
+        Me.Label1.Location = New System.Drawing.Point(7, 353)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(77, 13)
         Me.Label1.TabIndex = 10
@@ -141,7 +135,7 @@ Partial Class FormOffsetText
         '
         'Button3
         '
-        Me.Button3.Location = New System.Drawing.Point(308, 264)
+        Me.Button3.Location = New System.Drawing.Point(304, 347)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(149, 24)
         Me.Button3.TabIndex = 11
@@ -160,7 +154,7 @@ Partial Class FormOffsetText
         '
         'Button4
         '
-        Me.Button4.Location = New System.Drawing.Point(106, 206)
+        Me.Button4.Location = New System.Drawing.Point(102, 289)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(164, 24)
         Me.Button4.TabIndex = 13
@@ -170,7 +164,7 @@ Partial Class FormOffsetText
         '
         'Button5
         '
-        Me.Button5.Location = New System.Drawing.Point(276, 206)
+        Me.Button5.Location = New System.Drawing.Point(272, 289)
         Me.Button5.Name = "Button5"
         Me.Button5.Size = New System.Drawing.Size(164, 24)
         Me.Button5.TabIndex = 14
@@ -179,7 +173,7 @@ Partial Class FormOffsetText
         '
         'Button6
         '
-        Me.Button6.Location = New System.Drawing.Point(446, 206)
+        Me.Button6.Location = New System.Drawing.Point(442, 289)
         Me.Button6.Name = "Button6"
         Me.Button6.Size = New System.Drawing.Size(164, 24)
         Me.Button6.TabIndex = 15
@@ -191,7 +185,7 @@ Partial Class FormOffsetText
         '
         Me.LabelOffsetY.AutoSize = True
         Me.LabelOffsetY.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelOffsetY.Location = New System.Drawing.Point(557, 114)
+        Me.LabelOffsetY.Location = New System.Drawing.Point(553, 197)
         Me.LabelOffsetY.Name = "LabelOffsetY"
         Me.LabelOffsetY.Size = New System.Drawing.Size(24, 26)
         Me.LabelOffsetY.TabIndex = 16
@@ -201,7 +195,7 @@ Partial Class FormOffsetText
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(353, 151)
+        Me.Label2.Location = New System.Drawing.Point(349, 234)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(24, 26)
         Me.Label2.TabIndex = 17
@@ -210,7 +204,7 @@ Partial Class FormOffsetText
         'LabelFontSizeHdr
         '
         Me.LabelFontSizeHdr.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelFontSizeHdr.Location = New System.Drawing.Point(331, 15)
+        Me.LabelFontSizeHdr.Location = New System.Drawing.Point(106, 185)
         Me.LabelFontSizeHdr.Name = "LabelFontSizeHdr"
         Me.LabelFontSizeHdr.Size = New System.Drawing.Size(48, 45)
         Me.LabelFontSizeHdr.TabIndex = 18
@@ -220,7 +214,7 @@ Partial Class FormOffsetText
         '
         Me.Button7.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button7.Image = Global.ciLayoutDesignVB.My.Resources.Resources.IncreaseY
-        Me.Button7.Location = New System.Drawing.Point(385, 34)
+        Me.Button7.Location = New System.Drawing.Point(160, 204)
         Me.Button7.Name = "Button7"
         Me.Button7.Size = New System.Drawing.Size(30, 26)
         Me.Button7.TabIndex = 20
@@ -230,7 +224,7 @@ Partial Class FormOffsetText
         '
         Me.Button8.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button8.Image = Global.ciLayoutDesignVB.My.Resources.Resources.DecreaseY
-        Me.Button8.Location = New System.Drawing.Point(385, 9)
+        Me.Button8.Location = New System.Drawing.Point(160, 179)
         Me.Button8.Name = "Button8"
         Me.Button8.Size = New System.Drawing.Size(30, 26)
         Me.Button8.TabIndex = 19
@@ -240,17 +234,36 @@ Partial Class FormOffsetText
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(421, 22)
+        Me.Label3.Location = New System.Drawing.Point(196, 192)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(24, 26)
         Me.Label3.TabIndex = 21
         Me.Label3.Text = "0"
         '
+        'CtlGraphicFldLabel1
+        '
+        Me.CtlGraphicFldLabel1.Location = New System.Drawing.Point(233, 190)
+        Me.CtlGraphicFldLabel1.Name = "CtlGraphicFldLabel1"
+        Me.CtlGraphicFldLabel1.Size = New System.Drawing.Size(253, 33)
+        Me.CtlGraphicFldLabel1.TabIndex = 27
+        '
+        'Label4
+        '
+        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Location = New System.Drawing.Point(32, 95)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(632, 52)
+        Me.Label4.TabIndex = 28
+        Me.Label4.Text = "This window is for the fine detail work which will determine where the text is di" &
+    "splayed within the element."
+        '
         'FormOffsetText
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(731, 295)
+        Me.ClientSize = New System.Drawing.Size(731, 380)
+        Me.Controls.Add(Me.Label4)
+        Me.Controls.Add(Me.CtlGraphicFldLabel1)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Button7)
         Me.Controls.Add(Me.Button8)
@@ -266,7 +279,6 @@ Partial Class FormOffsetText
         Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.ButtonYIncrease)
         Me.Controls.Add(Me.ButtonYDecrease)
-        Me.Controls.Add(Me.CtlGraphicFldLabel1)
         Me.Controls.Add(Me.LabelHeader1)
         Me.Controls.Add(Me.ButtonXDecrease)
         Me.Controls.Add(Me.ButtonXIncrease)
@@ -286,7 +298,6 @@ Partial Class FormOffsetText
     Friend WithEvents ButtonXIncrease As Button
     Friend WithEvents ButtonXDecrease As Button
     Friend WithEvents LabelHeader1 As Label
-    Friend WithEvents CtlGraphicFldLabel1 As CtlGraphicFldLabel
     Friend WithEvents ButtonYIncrease As Button
     Friend WithEvents ButtonYDecrease As Button
     Friend WithEvents ToolTip1 As ToolTip
@@ -303,4 +314,6 @@ Partial Class FormOffsetText
     Friend WithEvents Button7 As Button
     Friend WithEvents Button8 As Button
     Friend WithEvents Label3 As Label
+    Friend WithEvents CtlGraphicFldLabel1 As CtlGraphicFldLabel
+    Friend WithEvents Label4 As Label
 End Class
