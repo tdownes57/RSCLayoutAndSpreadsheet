@@ -97,6 +97,24 @@
     <Compile Include="CtlConfigFldStandard.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="CtlGraphPopMenuAlign.Designer.vb">
+      <DependentUpon>CtlGraphPopMenuAlign.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CtlGraphPopMenuAlign.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CtlGraphPopMenuEditGroup.Designer.vb">
+      <DependentUpon>CtlGraphPopMenuEditGroup.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CtlGraphPopMenuEditGroup.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CtlGraphPopMenuEditSingle.Designer.vb">
+      <DependentUpon>CtlGraphPopMenuEditSingle.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CtlGraphPopMenuEditSingle.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="CtlMainButton_v90.Designer.vb">
       <DependentUpon>CtlMainButton_v90.vb</DependentUpon>
     </Compile>
@@ -193,6 +211,12 @@
     <Compile Include="FormMainEntry_v90.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FormOffsetText.Designer.vb">
+      <DependentUpon>FormOffsetText.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormOffsetText.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormPresetValues.Designer.vb">
       <DependentUpon>FormPresetValues.vb</DependentUpon>
     </Compile>
@@ -244,10 +268,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="InterfaceCIBField.vb" />
-    <Compile Include="InterfaceCustomer.vb" />
-    <Compile Include="InterfaceElement.vb" />
-    <Compile Include="InterfaceElementPic.vb" />
-    <Compile Include="InterfaceElementText.vb" />
     <Compile Include="InterfaceSelectingElements.vb" />
     <Compile Include="LayoutSerialization.vb" />
     <Compile Include="modAdjustmentBoxes_V101.vb" />
@@ -296,6 +316,15 @@
     <EmbeddedResource Include="CtlCustomer.resx">
       <DependentUpon>CtlCustomer.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CtlGraphPopMenuAlign.resx">
+      <DependentUpon>CtlGraphPopMenuAlign.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CtlGraphPopMenuEditGroup.resx">
+      <DependentUpon>CtlGraphPopMenuEditGroup.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CtlGraphPopMenuEditSingle.resx">
+      <DependentUpon>CtlGraphPopMenuEditSingle.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CtlMainButton_v82.resx">
       <DependentUpon>CtlMainButton_v82.vb</DependentUpon>
     </EmbeddedResource>
@@ -343,6 +372,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormMainEntry_v82.resx">
       <DependentUpon>FormMainEntry_v82.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormOffsetText.resx">
+      <DependentUpon>FormOffsetText.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormPresetValues.resx">
       <DependentUpon>FormPresetValues.vb</DependentUpon>
@@ -394,6 +426,12 @@
     <Content Include="Images\AdjustWHColor_V103.jpg" />
     <Content Include="Images\CI Logo.jpg" />
     <Content Include="Images\CISolutionsLogo.png" />
+    <None Include="Images\ContextMenu_non-grouped.png" />
+    <None Include="Images\ContextMenu_grouped.png" />
+    <None Include="Images\ContextMenu_AlignSubmenu.png" />
+    <None Include="Images\Context_AlignMenuSubmenu.png" />
+    <None Include="Images\DecreaseY.png" />
+    <None Include="Images\IncreaseY.png" />
     <Content Include="Images\layout_BW - CompareToSpoof.png" />
     <Content Include="Images\layout_BW.bmp" />
     <None Include="Images\mainback_v82.PNG" />
@@ -439,6 +477,10 @@
     <ProjectReference Include="..\..\ciBadgeForWeb\ciPictures_VB\ciPictures_VB.vbproj">
       <Project>{a5fe9f7b-4075-43c5-892b-01e2cfec342c}</Project>
       <Name>ciPictures_VB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ciBadgeInterfaces\ciBadgeInterfaces.vbproj">
+      <Project>{3d1acca6-585e-4c92-9a6d-9a51d2f72f5f}</Project>
+      <Name>ciBadgeInterfaces</Name>
     </ProjectReference>
     <ProjectReference Include="..\ciLayoutPrintLib\ciLayoutPrintLib.vbproj">
       <Project>{f8271e6c-5c26-4cec-bd4c-ad3b10fef6b9}</Project>

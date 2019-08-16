@@ -5,6 +5,8 @@ Option Strict On
 ''
 ''Added 7/18/2019 thomas downes 
 ''
+Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d. 
+
 Public Class ClassElementPic
     ''
     ''Added 7/18/2019 thomas downes 
@@ -17,6 +19,8 @@ Public Class ClassElementPic
     Public Shared ElementPicture As ClassElementPic ''Added 7/31/2019 thomas d.
 
     Public Property Info As IElementPic
+
+    Public Property PositionalMode As String Implements IElement_Base.PositionalMode ''Added 8/14/2019 td 
 
     Public Property FormControl As Control Implements IElement_Base.FormControl ''Added 7/19/2019  
 
@@ -51,6 +55,9 @@ Public Class ClassElementPic
     Public Property OrientationToLayout As String Implements IElementPic.OrientationToLayout
     Public Property OrientationDegrees As Integer Implements IElementPic.OrientationDegrees
 
+
+    Public Property PicFileIndex As Integer Implements IElementPic.PicFileIndex ''Added 8/13/2019 td  
+    Public Property OrientationDegrees As Integer Implements IElementPic.OrientationDegrees ''Added 8/13/2019 td  
 
 
     Public Sub New(par_control As Control)

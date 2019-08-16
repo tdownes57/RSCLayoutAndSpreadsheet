@@ -5,6 +5,7 @@ Option Strict On ''Added 5/21/2019 td
 ''
 Imports System.Drawing ''Added 5/21/2019 thomas downes 
 Imports System.Windows.Forms ''Added 5/21/2019 thomas downes 
+Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d. 
 
 Public Class LayoutPrint
     ''
@@ -570,6 +571,71 @@ ExitHandler:
         ''------gr.Dispose()
 
     End Sub ''End of ""Private Sub ApplyMemberPicToImage(ByRef par_image As Image)
+
+    Public Sub LoadElements_Fields(ByRef par_image As Image,
+                                   par_standardFields As List(Of IElementWithText),
+                                   par_customFields As List(Of IElementWithText))
+        ''
+        ''Added 8/14/2019 td  
+        ''
+        Dim gr As Graphics ''= Graphics.FromImage(img)
+        gr = Graphics.FromImage(par_image)
+
+        ''
+        ''
+        ''Standard Fields 
+        ''
+        ''
+        For Each each_elementField As IElementWithText In par_standardFields
+
+            With each_elementField
+                Try
+                    gr.DrawImage(.TextDisplay.GenerateImage(par_image.Height),
+                                 .Position_BL.LeftEdge_Pixels, .Position_BL.TopEdge_Pixels,
+                                 .Position_BL.Width_Pixels, .Position_BL.Height_Pixels)
+
+                Catch ex_draw_invalid As InvalidOperationException
+                    ''Error:  Object not available.
+                    Dim strMessage_Invalid As String
+                    strMessage_Invalid = ex_draw_invalid.Message
+                Catch ex_draw_any As System.Exception
+                    ''Error:  Object not available.
+                    Dim strMessage_any As String
+                    strMessage_any = ex_draw_any.Message
+                End Try
+            End With ''End of "With each_elementField"
+
+            gr.Dispose()
+
+        Next each_elementField
+
+        ''
+        ''Custom Fields 
+        ''
+        For Each each_elementField As IElementWithText In par_customFields
+
+            With each_elementField
+                Try
+                    gr.DrawImage(.TextDisplay.GenerateImage(par_image.Height),
+                                 .Position_BL.LeftEdge_Pixels, .Position_BL.TopEdge_Pixels,
+                                 .Position_BL.Width_Pixels, .Position_BL.Height_Pixels)
+
+                Catch ex_draw_invalid As InvalidOperationException
+                    ''Error:  Object not available.
+                    Dim strMessage_Invalid As String
+                    strMessage_Invalid = ex_draw_invalid.Message
+                Catch ex_draw_any As System.Exception
+                    ''Error:  Object not available.
+                    Dim strMessage_any As String
+                    strMessage_any = ex_draw_any.Message
+                End Try
+            End With ''End of "With each_elementField"
+
+            gr.Dispose()
+
+        Next each_elementField
+
+    End Sub ''End of ''Private Sub LoadElements_Fields()''
 
     Public Shared Function ResizeImage(ByVal InputImage As Image, ByVal parSizingBox As Control) As Image
         ''

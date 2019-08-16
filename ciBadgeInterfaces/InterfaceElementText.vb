@@ -5,6 +5,23 @@
 ''     Gang of Four
 ''      https://www.tutorialspoint.com/design_pattern/design_pattern_overview
 ''
+Imports System.Drawing ''Added 8/14/2019 td  
+Imports System.Windows.Forms ''Added 8/14/2019 td  
+
+Public Structure IElementWithText
+    ''
+    ''Added 8/14/2019 td  
+    ''
+    ''8/15 td''Dim Position As IElement_Base ''Added 8/14/2019 td 
+    Dim TextDisplay As IElementText ''Added 8/14/2019 td  
+
+    Dim Position_BL As IElement_Base ''BL = Badge Layout.   ---Added 8/14/2019 td 
+    Dim Position_V8 As IElement_Base ''Added 8/14/2019 td 
+    Dim Position_V9 As IElement_Base ''Added 8/14/2019 td 
+    Dim Position_V8_VM As IElement_Base ''VM = Visitor Management.     Added 8/14/2019 td 
+    Dim Position_V9_VM As IElement_Base ''VM = Visitor Management.     Added 8/14/2019 td 
+
+End Structure
 
 Public Interface IElementText
     ''
@@ -21,6 +38,11 @@ Public Interface IElementText
     Property FontColor As System.Drawing.Color
 
     Property FontSize As Integer ''Added 8/12/2019 thomas downes  
+
+    Property FontSize_IsLocked As Boolean ''Added 8/15/2019 thomas downes  
+    Property FontOffset_X As Integer ''Added 8/15/2019 thomas downes  
+    Property FontOffset_Y As Integer ''Added 8/15/2019 thomas downes  
+
     Property FontBold As Boolean ''Added 8/12/2019 thomas downes  
     Property FontItalics As Boolean ''Added 8/12/2019 thomas downes  
     Property FontUnderline As Boolean ''Added 8/12/2019 thomas downes  
@@ -43,7 +65,7 @@ Public Interface IElementText
 
     Property OrientationInDegrees As Integer ''Default is 0, normal.  90 would be 1/4 turn clockwise.  180 is upside-down.  270 is the printing on the spine of a book sitting on the bookshelf.
 
-
+    Function GenerateImage(pintHeight As Integer) As Image ''Added 8/14/2019 td 
 
     ''
     ''

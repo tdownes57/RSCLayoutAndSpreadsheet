@@ -4,15 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F8271E6C-5C26-4CEC-BD4C-AD3B10FEF6B9}</ProjectGuid>
+    <ProjectGuid>{3D1ACCA6-585E-4C92-9A6D-9A51D2F72F5F}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>ciLayoutPrintLib</RootNamespace>
-    <AssemblyName>ciLayoutPrintLib</AssemblyName>
+    <RootNamespace>ciBadgeInterfaces</RootNamespace>
+    <AssemblyName>ciBadgeInterfaces</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -20,9 +19,8 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>ciLayoutPrintLib.xml</DocumentationFile>
+    <DocumentationFile>ciBadgeInterfaces.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,9 +28,8 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>ciLayoutPrintLib.xml</DocumentationFile>
+    <DocumentationFile>ciBadgeInterfaces.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <OptionExplicit>On</OptionExplicit>
@@ -47,17 +44,9 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
-    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -77,25 +66,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BackImageExamples.vb" />
-    <Compile Include="CILayoutBadge.vb" />
-    <Compile Include="ciLayoutColors.vb" />
-    <Compile Include="CILayoutPic.vb" />
-    <Compile Include="CILayoutText.vb" />
-    <Compile Include="CtlGraphicFldLabel.designer.vb">
-      <DependentUpon>CtlGraphicFldLabel.vb</DependentUpon>
-    </Compile>
-    <Compile Include="CtlGraphicFldLabel.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="FormLayoutEg.designer.vb">
-      <DependentUpon>FormLayoutEg.vb</DependentUpon>
-    </Compile>
-    <Compile Include="FormLayoutEg.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LayoutExample.vb" />
-    <Compile Include="LayoutPrint.vb" />
+    <Compile Include="InterfaceCIBField.vb" />
+    <Compile Include="InterfaceCustomer.vb" />
+    <Compile Include="InterfaceElement.vb" />
+    <Compile Include="InterfaceElementPic.vb" />
+    <Compile Include="InterfaceElementText.vb" />
+    <Compile Include="InterfaceSelectingElements.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -113,12 +89,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="CtlGraphicFldLabel.resx">
-      <DependentUpon>CtlGraphicFldLabel.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormLayoutEg.resx">
-      <DependentUpon>FormLayoutEg.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
@@ -136,26 +106,6 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="BackgroundEgs\ORO835 - OrovilleHS.PNG" />
-    <Content Include="BackgroundEgs\SOU735-IrvineValleyCollege.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="BackgroundEgs\SOU735-IVC-VENDOR.jpg" />
-    <Content Include="BackgroundEgs\SOU735-SADDLEBACK-VENDOR.jpg" />
-    <Content Include="CILayoutText_CS.cs" />
-    <None Include="packages.config" />
-    <None Include="Resources\v9 lady.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ciBadgeInterfaces\ciBadgeInterfaces.vbproj">
-      <Project>{3d1acca6-585e-4c92-9a6d-9a51d2f72f5f}</Project>
-      <Name>ciBadgeInterfaces</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

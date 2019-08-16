@@ -4,6 +4,7 @@ Option Strict On ''Added 7/31/2019 td
 ''
 ''Added 7/31/2019 thomas d 
 ''
+Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d. 
 
 Public Class CtlGraphicPortrait
     ''
