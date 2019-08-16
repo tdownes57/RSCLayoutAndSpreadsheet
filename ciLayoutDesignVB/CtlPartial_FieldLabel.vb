@@ -475,7 +475,6 @@ Partial Public Class CtlGraphicFldLabel
         ''
         Dim boolRightClick As Boolean
         Dim boolHoldingCtrlKey As Boolean ''Added 7/31/2019 thomas downes  
-        Dim local_toolStripItems As ToolStripItemCollection ''Added 8/12/2019 thomas 
 
         boolRightClick = (e.Button = MouseButtons.Right)
 
@@ -491,124 +490,149 @@ Partial Public Class CtlGraphicFldLabel
 
         ''Added 7/30/2019 thomas downes
         If (boolRightClick) Then
-
-            ''Added 7/30/2019 thomas downes
-            ''ContextMenuStrip1.Items.Clear()
-
-            Dim boolCreateNewItems As Boolean ''Added 8/12/2019 thomas downes  
-
-            If (mc_AttachContextMenuToTop) Then ''Added 8/12/2019 thomas downes  
-                ''8/12/2019 td''boolCreateNewItems = (0 = Me.FormDesigner.RightClickMenuParent.DropDownItems.Count)
-                local_toolStripItems = Me.FormDesigner.RightClickMenuParent.DropDownItems
-                boolCreateNewItems = (1 >= local_toolStripItems.Count)
-            Else
-                boolCreateNewItems = (0 = ContextMenuStrip1.Items.Count)
-                local_toolStripItems = ContextMenuStrip1.Items
-            End If ''End of "If (mc_AttachContextMenuToTop) Then ..... Else ....."
-
-            If (boolCreateNewItems) Then
-                ''
-                ''Build the context menu.  
-                ''
-                LoadTheContextMenu(local_toolStripItems) ''Encapsulated 8/12/2019 thomas downes  
-
-            End If ''End of "If (0 = ContextMenuStrip1.Items.Count) Then"
-
             ''
-            ''Is the current elment part of the Group-Edits Selection?  
+            ''Encapsulated 8/16/2019 td 
             ''
-            With Me.GroupEdits
-
-                _item_group_add.Visible = .LabelsList_IsItemUnselected(Me)
-                _item_group_omit.Visible = .LabelsList_IsItemIncluded(Me)
-
-                ''Add 8/2/2019 thomas d.  
-                _item_group_add.Visible = .LabelsList_TwoOrMoreItems() _
-                                             And .LabelsList_IsItemIncluded(Me)
-
-                ''Add 8/2/2019 thomas d.  
-                _item_group_alignParent.Visible = .LabelsList_TwoOrMoreItems() _
-                                             And .LabelsList_IsItemIncluded(Me)
-
-            End With ''End of "With Me.GroupEdits"
-
-            ''8/4/2019 td''ContextMenuStrip1.Show(e.Location.X + Me.ParentForm.Left,
-            ''8/4/2019 td''               e.Location.Y + Me.Top + Me.ParentForm.Top)
-
-            If (mc_AttachContextMenuToTop) Then
-                ''
-                ''This might make it visible to the Game Bar Recorder.
-                ''  -----8/10/2019 td 
-                ''
-                Me.FormDesigner.RightClickMenuParent.Visible = True
-
-                ''8//12/2019 td''Me.FormDesigner.RightClickMenuParent.PerformClick() ''Show/display menu.  ---8//12/2018 td
-                Application.DoEvents() ''Added 8/12/2019 td  
-                Me.FormDesigner.RightClickMenuParent.ShowDropDown() ''Show/display menu.  ---8//12/2018 td
-
-                ''Reference the items in the main menu.  -----8/10/2019 td 
-                ''For Each each_menuitem In ContextMenuStrip1.Items
-                ''    Me.FormDesigner.RightClickMenuParent.DropDownItems.Add(each_menuitem)
-                ''Next each_menuitem
-
-            Else
-                ContextMenuStrip1.Show(e.Location.X + Me.Left + Me.ParentForm.Left,
-                                       e.Location.Y + Me.Top + Me.ParentForm.Top)
-            End If ''End of "If (mc_AttachContextMenuToTop) Then ... Else ...."
+            RefreshTheContextMenu(e)
 
         ElseIf (boolHoldingCtrlKey) Then ''Added 7/31/2019 thomas downes
             ''
             ''Added 7/31/2019 thomas downes  
             ''
-            ''pictureLabel.BorderStyle = BorderStyle.FixedSingle
+            ToggleGroupSelection
+
+        End If ''End of "If (boolRightClick) Then .... ElseIf (boolHoldingCtrlKey) Then ...."
+
+    End Sub  ''End of Sub RefreshTheContextMenu  
+
+
+    Private Sub RefreshTheContextMenu(par_mouse_info As MouseEventArgs)
+        ''
+        ''Encapsulated 8/16/2019 td 
+        ''
+        Dim local_toolStripItems As ToolStripItemCollection ''Added 8/12/2019 thomas 
+
+        ''Added 7/30/2019 thomas downes
+        ''ContextMenuStrip1.Items.Clear()
+
+        Dim boolCreateNewItems As Boolean ''Added 8/12/2019 thomas downes  
+
+        If (mc_AttachContextMenuToTop) Then ''Added 8/12/2019 thomas downes  
+            ''8/12/2019 td''boolCreateNewItems = (0 = Me.FormDesigner.RightClickMenuParent.DropDownItems.Count)
+            local_toolStripItems = Me.FormDesigner.RightClickMenuParent.DropDownItems
+            boolCreateNewItems = (1 >= local_toolStripItems.Count)
+        Else
+            boolCreateNewItems = (0 = ContextMenuStrip1.Items.Count)
+            local_toolStripItems = ContextMenuStrip1.Items
+        End If ''End of "If (mc_AttachContextMenuToTop) Then ..... Else ....."
+
+        If (boolCreateNewItems) Then
             ''
-            ''Place a 6-pixel margin around the control, with a yellow color.
-            ''   (This will indicate selection.)   ----7/3/2019
+            ''Build the context menu.  
             ''
-            Dim boolNotIncludedYet As Boolean = (Not mod_includedInGroupEdit) ''Added 8/1/2019
-            Dim boolIncludedAlready As Boolean = (mod_includedInGroupEdit)
+            LoadTheContextMenu(local_toolStripItems) ''Encapsulated 8/12/2019 thomas downes  
 
-            If (boolNotIncludedYet) Then
+        End If ''End of "If (0 = ContextMenuStrip1.Items.Count) Then"
 
-                GroupEditElement_Add()
+        ''
+        ''Is the current elment part of the Group-Edits Selection?  
+        ''
+        With Me.GroupEdits
 
-                ''mod_includedInGroupEdit = True
+            _item_group_add.Visible = .LabelsList_IsItemUnselected(Me)
+            _item_group_omit.Visible = .LabelsList_IsItemIncluded(Me)
 
-                ''Me.GroupEdits.LabelsDesignList_Add(Me) ''Added 8/1/2019 td
+            ''Add 8/2/2019 thomas d.  
+            _item_group_add.Visible = .LabelsList_TwoOrMoreItems() _
+                                             And .LabelsList_IsItemIncluded(Me)
 
-                ''''8/2/2019''Me.BackColor = Color.Yellow
-                ''''8/2/2019''pictureLabel.Top = 6
-                ''''8/2/2019''pictureLabel.Left = 6
-                ''''8/2/2019''pictureLabel.Width = Me.Width - 2 * 6
-                ''''8/2/2019''pictureLabel.Height = Me.Height - 2 * 6
+            ''Add 8/2/2019 thomas d.  
+            _item_group_alignParent.Visible = .LabelsList_TwoOrMoreItems() _
+                                             And .LabelsList_IsItemIncluded(Me)
 
-                ''''Added 8/2/2019 td 
-                ''Me.ElementInfo.SelectedHighlighting = True
-                ''Me.RefreshImage()
+        End With ''End of "With Me.GroupEdits"
 
-            ElseIf (boolIncludedAlready) Then
-                ''
-                ''Undo the selection. 
-                ''
-                GroupEditElement_Omit()
+        ''8/4/2019 td''ContextMenuStrip1.Show(e.Location.X + Me.ParentForm.Left,
+        ''8/4/2019 td''               e.Location.Y + Me.Top + Me.ParentForm.Top)
 
-                ''mod_includedInGroupEdit = False
-                ''Me.GroupEdits.LabelsDesignList_Remove(Me) ''Added 8/1/2019 td
+        If (mc_AttachContextMenuToTop) Then
+            ''
+            ''This might make it visible to the Game Bar Recorder.
+            ''  -----8/10/2019 td 
+            ''
+            Me.FormDesigner.RightClickMenuParent.Visible = True
 
-                ''Me.BackColor = Me.ElementInfo.BackColor
-                ''pictureLabel.Top = 0
-                ''pictureLabel.Left = 0
-                ''pictureLabel.Width = Me.Width ''- 2 * 6
-                ''pictureLabel.Height = Me.Height ''- 2 * 6
+            ''8//12/2019 td''Me.FormDesigner.RightClickMenuParent.PerformClick() ''Show/display menu.  ---8//12/2018 td
+            Application.DoEvents() ''Added 8/12/2019 td  
+            Me.FormDesigner.RightClickMenuParent.ShowDropDown() ''Show/display menu.  ---8//12/2018 td
 
-                ''Me.ElementInfo.SelectedHighlighting = False
-                ''Me.RefreshImage()
+            ''Reference the items in the main menu.  -----8/10/2019 td 
+            ''For Each each_menuitem In ContextMenuStrip1.Items
+            ''    Me.FormDesigner.RightClickMenuParent.DropDownItems.Add(each_menuitem)
+            ''Next each_menuitem
 
-            End If ''Endo f ""If (....) Then .... ElseIf (....) Then....
+        Else
+            With par_mouse_info
+                ContextMenuStrip1.Show(.Location.X + Me.Left + Me.ParentForm.Left,
+                                       .Location.Y + Me.Top + Me.ParentForm.Top)
+            End With ''ENd of " With par_mouse_info"
+        End If ''End of "If (mc_AttachContextMenuToTop) Then ... Else ...."
 
-        End If ''End of "If (boolRightClick) Then .... Else ...."
+    End Sub  ''End of Sub RefreshTheContextMenu 
 
-    End Sub
+
+    Private Sub ToggleGroupSelection()
+        ''
+        ''Encapsulated 8/16/2019 thomas downes  
+        ''
+        ''pictureLabel.BorderStyle = BorderStyle.FixedSingle
+        ''
+        ''Place a 6-pixel margin around the control, with a yellow color.
+        ''   (This will indicate selection.)   ----7/3/2019
+        ''
+        Dim boolNotIncludedYet As Boolean = (Not mod_includedInGroupEdit) ''Added 8/1/2019
+        Dim boolIncludedAlready As Boolean = (mod_includedInGroupEdit)
+
+        If (boolNotIncludedYet) Then
+
+            GroupEditElement_Add()
+
+            ''mod_includedInGroupEdit = True
+
+            ''Me.GroupEdits.LabelsDesignList_Add(Me) ''Added 8/1/2019 td
+
+            ''''8/2/2019''Me.BackColor = Color.Yellow
+            ''''8/2/2019''pictureLabel.Top = 6
+            ''''8/2/2019''pictureLabel.Left = 6
+            ''''8/2/2019''pictureLabel.Width = Me.Width - 2 * 6
+            ''''8/2/2019''pictureLabel.Height = Me.Height - 2 * 6
+
+            ''''Added 8/2/2019 td 
+            ''Me.ElementInfo.SelectedHighlighting = True
+            ''Me.RefreshImage()
+
+        ElseIf (boolIncludedAlready) Then
+            ''
+            ''Undo the selection. 
+            ''
+            GroupEditElement_Omit()
+
+            ''mod_includedInGroupEdit = False
+            ''Me.GroupEdits.LabelsDesignList_Remove(Me) ''Added 8/1/2019 td
+
+            ''Me.BackColor = Me.ElementInfo.BackColor
+            ''pictureLabel.Top = 0
+            ''pictureLabel.Left = 0
+            ''pictureLabel.Width = Me.Width ''- 2 * 6
+            ''pictureLabel.Height = Me.Height ''- 2 * 6
+
+            ''Me.ElementInfo.SelectedHighlighting = False
+            ''Me.RefreshImage()
+
+        End If ''Endo f ""If (boolNotIncludedYet) Then .... ElseIf (boolIncludedAlready) Then....
+
+    End Sub ''End of "Private Sub ToggleGroupSelection()"
+
 
     Private Sub LoadTheContextMenu(par_toolStripItems As ToolStripItemCollection)
         ''
@@ -627,6 +651,10 @@ Partial Public Class CtlGraphicFldLabel
         ''8/12/2019 td''Static item_group_omit As ToolStripMenuItem ''Added 8/2/2019 td
 
         new_item_fieldname = New ToolStripMenuItem("Field " & Me.FieldInfo.FieldLabelCaption)
+        ''8/16/2019 td''new_item_fieldname.Font.Bold = True ''Added 8/16/2019 td  
+        ''8/16/2019 td''new_item_fieldname.Font = modFonts.MakeItBold(new_item_fieldname.Font)
+        modFonts.MakeItBoldEtc(new_item_fieldname.Font)
+
         new_item_refresh = New ToolStripMenuItem("Refresh Element") ''Added 7/31/2019 td
         new_item_sizeInfo = New ToolStripMenuItem("Size Information") ''Added 7/31/2019 td
         new_item_field = New ToolStripMenuItem("Browse Field")
@@ -698,6 +726,10 @@ Partial Public Class CtlGraphicFldLabel
         par_toolStripItems.Add(_item_group_omit)   ''ContextMenuStrip1.Items.Add(new_item_group_omit) ''Added 8/01/2019 thomas d.  
         ''End If
 
+        ''Add 8/16/2019 thomas d.  
+        par_toolStripItems.Add(_item_group_switch__Up)
+        par_toolStripItems.Add(_item_group_switchDown)
+
         ''Add 8/2/2019 thomas d.  
         ''8/5/2019 td''ContextMenuStrip1.Items.Add(new_item_group_alignLeft) ''Added 8/01/2019 thomas d.  
         ''8/5/2019 td''ContextMenuStrip1.Items.Add(new_item_group_alignRight) ''Added 8/01/2019 thomas d.  
@@ -721,10 +753,6 @@ Partial Public Class CtlGraphicFldLabel
 
         toolstripAlign.DropDownItems.Add(_item_group_alignWidth)
         toolstripAlign.DropDownItems.Add(_item_group_alignHeight)
-
-        ''Add 8/16/2019 thomas d.  
-        toolstripAlign.DropDownItems.Add(_item_group_switch__Up)
-        toolstripAlign.DropDownItems.Add(_item_group_switchDown)
 
         ''
         ''Add 8/5/2019 thomas d.  
