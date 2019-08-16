@@ -44,7 +44,13 @@ Public Class ClassElementPic
     ''
     Public Property PicFileType As String Implements IElementPic.PicFileType
     Public Property PicFileTitleExt As String Implements IElementPic.PicFileTitleExt
+
+    Public Property PicFileIndex As Integer Implements IElementPic.PicFileIndex ''Added 8/16/2019 thomasd downes
+
+
     Public Property OrientationToLayout As String Implements IElementPic.OrientationToLayout
+    Public Property OrientationDegrees As Integer Implements IElementPic.OrientationDegrees
+
 
 
     Public Sub New(par_control As Control)

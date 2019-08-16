@@ -28,6 +28,9 @@ Partial Public Class CtlGraphicFldLabel
     Private Shared _item_group_add As ToolStripMenuItem ''Added to top of of module, 8/12 & 8/2/2019 td
     Private Shared _item_group_omit As ToolStripMenuItem ''Added to top of of module, 8/12 & 8/2/2019 td
 
+    Private Shared _item_group_switch__Up As ToolStripMenuItem ''Move up in a top-down sequence, 8/15/2019 td
+    Private Shared _item_group_switchDown As ToolStripMenuItem ''Move down in a top-down sequence, 8/15/2019 td
+
     Private Const mc_AttachContextMenuToTop As Boolean = False ''8/12/2019 td''True ''Added 8/5/2019 td 
 
     Private Sub OpenDialog_Field(sender As Object, e As EventArgs)
@@ -98,6 +101,22 @@ Partial Public Class CtlGraphicFldLabel
         End If
 
     End Sub ''eNd of "Private Sub opendialog_Color()"
+
+    Private Sub SwitchCtl__Up(sender As Object, e As EventArgs)
+        ''
+        ''Added 8/16/2019 thomas downes
+        ''
+        Me.GroupEdits.SwitchControls___Up(Me)
+
+    End Sub
+
+    Private Sub SwitchCtl_Down(sender As Object, e As EventArgs)
+        ''
+        ''Added 8/16/2019 thomas downes
+        ''
+        Me.GroupEdits.SwitchControls_Down(Me)
+
+    End Sub
 
     Private Sub OpenDialog_Font(sender As Object, e As EventArgs)
         ''
@@ -451,6 +470,9 @@ Partial Public Class CtlGraphicFldLabel
         _item_group_alignBottom = New ToolStripMenuItem("Bottom Edge")
         _item_group_alignParent = New ToolStripMenuItem("Align Grouped Elements")
 
+        _item_group_switchDown = New ToolStripMenuItem("Switch Downward in List")
+        _item_group_switch__Up = New ToolStripMenuItem("Switch Upward in List")
+
         ''
         ''Added 8/10/2019 td
         ''
@@ -465,6 +487,9 @@ Partial Public Class CtlGraphicFldLabel
 
         AddHandler _item_group_add.Click, AddressOf GroupEditElement_Add ''Added 8/01/2019 thomas d.
         AddHandler _item_group_omit.Click, AddressOf GroupEditElement_Omit ''Added 8/01/2019 thomas d.
+
+        AddHandler _item_group_switchDown.Click, AddressOf SwitchCtl_Down ''Added 8/15/2019 thomas d.
+        AddHandler _item_group_switch__Up.Click, AddressOf SwitchCtl__Up ''Added 8/15/2019 thomas d.
 
         ''Added 8/10/2019 thomas d.
         AddHandler new_item_editExample.Click, AddressOf ExampleValue_Edit ''Added 8/10/2019 thomas d.
@@ -509,6 +534,10 @@ Partial Public Class CtlGraphicFldLabel
 
         toolstripAlign.DropDownItems.Add(_item_group_alignWidth)
         toolstripAlign.DropDownItems.Add(_item_group_alignHeight)
+
+        ''Add 8/16/2019 thomas d.  
+        toolstripAlign.DropDownItems.Add(_item_group_switch__Up)
+        toolstripAlign.DropDownItems.Add(_item_group_switchDown)
 
         ''
         ''Add 8/5/2019 thomas d.  
