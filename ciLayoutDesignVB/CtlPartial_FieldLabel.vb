@@ -318,6 +318,18 @@ Partial Public Class CtlGraphicFldLabel
 
     End Sub ''End of "Private Sub ExampleValue_Edit"  
 
+    Private Sub Open_OffsetTextDialog()
+        ''
+        ''Added 8/10/2019 thomas downes
+        ''
+        Dim frm_ToShow As New FormOffsetText
+
+        ''Added 8/10/2019 thomas downes
+        frm_ToShow.LoadFieldAndForm(Me.FieldInfo, Me.FormDesigner, Me)
+        frm_ToShow.Show()
+
+    End Sub
+
     Private Sub CreateVisibleButton_Master(par_strText As String, par_handler As EventHandler, ByRef pboolExitEarly As Boolean,
                                            Optional pboolAlignment As Boolean = False)
         ''
@@ -590,6 +602,7 @@ Partial Public Class CtlGraphicFldLabel
         Dim new_item_refresh As ToolStripMenuItem ''Added 7/31/2019 td
         Dim new_item_sizeInfo As ToolStripMenuItem ''Added 7/31/2019 td
         Dim new_item_editExample As ToolStripMenuItem ''Added 8/110/2019 td
+        Dim new_item_offsetTextEtc As ToolStripMenuItem ''Added 8/15/2019 td  
 
         ''8/12/2019 td''Static item_group_add As ToolStripMenuItem ''Added 8/2/2019 td
         ''8/12/2019 td''Static item_group_omit As ToolStripMenuItem ''Added 8/2/2019 td
@@ -621,6 +634,9 @@ Partial Public Class CtlGraphicFldLabel
         ''
         new_item_editExample = New ToolStripMenuItem("Edit example value (for Layout Design)")
 
+        ''Added 8/15/2019 td  
+        new_item_offsetTextEtc = New ToolStripMenuItem("Position text within the element")
+
         AddHandler new_item_field.Click, AddressOf OpenDialog_Field
         AddHandler new_item_colors.Click, AddressOf OpenDialog_Color
         AddHandler new_item_font.Click, AddressOf OpenDialog_Font
@@ -633,6 +649,9 @@ Partial Public Class CtlGraphicFldLabel
 
         ''Added 8/10/2019 thomas d.
         AddHandler new_item_editExample.Click, AddressOf ExampleValue_Edit ''Added 8/10/2019 thomas d.
+
+        ''Added 8/15/2019 thomas d.
+        AddHandler new_item_offsetTextEtc.Click, AddressOf Open_OffsetTextDialog ''Added 8/15/2019 thomas d.
 
         ''Moved from below, 8/14/2019 td 
         par_toolStripItems.Add(_item_group_alignParent)   ''ContextMenuStrip1.Items.Add(item_group_alignParent) ''Added 8/5/2019 thomas d.  
