@@ -1,16 +1,48 @@
 ﻿''
 ''Added 8/15/2019 thomas downes 
 ''
+Imports ciBadgeInterfaces ''Added 8/16/2019 thomas d.
 
 Public Class FormOffsetText
     ''
     ''Added 8/15/2019 thomas downes 
     ''
     Public FieldInfo As ICIBFieldStandardOrCustom
-    Public ElementInfo As ClassElementText
+
+    Public ObjElementText As ClassElementText
+    Public ElementInfo As ciBadgeInterfaces.IElementText ''Added 8/16/2019 td
+
     Public GroupEdits As ISelectingElements ''Added 8/15/2019 thomas downes  
     Public FormDesigner As FormDesignProtoTwo ''Added 8/15/2019 td  
     Public OriginalElementControl As CtlGraphicFldLabel ''Added 8/15/2019 td  
+
+    Public Sub LoadFieldAndForm(par_elementInfo As IElementText,
+                                par_fieldInfo As ICIBFieldStandardOrCustom,
+                                par_formDesigner As FormDesignProtoTwo,
+                                par_originalCtl As CtlGraphicFldLabel)
+        ''
+        ''Worked on 8/16 & 8/15/2019 td
+        ''
+        Me.FieldInfo = par_fieldInfo
+
+        ''8/16/2019 td''Me.ElementInfo = par_field.ElementInfo
+        Me.ElementInfo = par_elementInfo ''Added 8/16 td
+
+        ''Added 8/15/2019 td
+        Me.FormDesigner = par_formDesigner
+        Me.OriginalElementControl = par_originalCtl
+
+        With CtlGraphicFldLabel1
+            .FieldInfo = par_fieldInfo
+            ''8/16/2019 td''.ElementInfo = par_field.ElementInfo
+            .FormDesigner = par_formDesigner
+            .RefreshImage()
+        End With
+
+        ''Position it at the center horizontally. 
+        CenterTheFieldControl()
+
+    End Sub ''End of "Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
 
     Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo,
                                 par_originalCtl As CtlGraphicFldLabel)

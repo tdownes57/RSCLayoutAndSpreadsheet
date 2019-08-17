@@ -280,7 +280,7 @@ Partial Public Class CtlGraphicFldLabel
 
         If (Not modFonts.AskedAlignmentQuestion) Then
             ''Added 8/16/2019 td  
-            diag_answer = MessageBox.Show("When aligning elements, how do you want to determine the alignment line? " & vbcr_Deux &
+            diag_answer = MessageBox.Show("When aligning elements, how do you want to determine the alignment line? " & vbCrLf_Deux &
                                           "Yes = Line elements up with the element which was mouse-clicked. " & vbCrLf &
                                           "No = Line elements up using an average-line which includes all selected items." & vbCrLf_Deux &
                                           "(This is a one-time message.  It won't be asked again during this session.)",
@@ -391,25 +391,34 @@ Partial Public Class CtlGraphicFldLabel
 
     End Sub ''eNd of "Private Sub Alignment_Master()"
 
-    Private Sub ExampleValue_Edit()
+    Private Sub ExampleValue_Edit(sender As Object, e As EventArgs)
         ''
         ''Added 8/10/2019 thomas downes
         ''
-        textTypeExample.Visible = True
+        With textTypeExample
+            .Visible = True
+            .Text = Me.ElementInfo.Text ''Added 8/16/2019 td
+            .SelectAll() ''Added 8/16/2019 td
+
+        End With
 
     End Sub ''End of "Private Sub ExampleValue_Edit"  
 
-    Private Sub Open_OffsetTextDialog()
+    Private Sub Open_OffsetTextDialog(sender As Object, e As EventArgs)
         ''
         ''Added 8/10/2019 thomas downes
         ''
         Dim frm_ToShow As New FormOffsetText
 
+        ''
         ''Added 8/10/2019 thomas downes
-        frm_ToShow.LoadFieldAndForm(Me.FieldInfo, Me.FormDesigner, Me)
+        ''
+        ''8/16/2019 td''frm_ToShow.LoadFieldAndForm(Me.FieldInfo, Me.FormDesigner, Me)
+        frm_ToShow.LoadFieldAndForm(Me.ElementInfo, Me.FieldInfo, Me.FormDesigner, Me)
+
         frm_ToShow.Show()
 
-    End Sub
+    End Sub ''End of "Private Sub Open_OffsetTextDialog(sender As Object, e As EventArgs)"
 
     Private Sub CreateVisibleButton_Master(par_strText As String, par_handler As EventHandler, ByRef pboolExitEarly As Boolean,
                                            Optional pboolAlignment As Boolean = False)
