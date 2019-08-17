@@ -37,7 +37,23 @@ ExitHandler:
 
     End Function ''End of "Public Function MakeItBold(ByRef par_font As Font) As Font"
 
+    Public Function SetFontSize(ByRef par_font As Font, par_intSize As Integer) As Font
+        ''
+        ''Added 8/16/2019 td  
+        ''
+        ''par_font.Size = par_intSize
 
+        Dim new_font As Font
 
+        With par_font
+
+            new_font = New Font(.FontFamily, par_intSize, .Style)
+
+        End With
+
+        par_font = new_font
+        Return new_font
+
+    End Function
 
 End Module

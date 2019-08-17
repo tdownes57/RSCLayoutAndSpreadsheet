@@ -84,4 +84,67 @@ Public Class FormOffsetText
 
     End Sub
 
+    Private Sub ButtonXIncrease_Click(sender As Object, e As EventArgs) Handles ButtonXIncrease.Click
+        ''
+        ''Added 8/16/2019 td
+        ''
+        Me.ElementInfo.FontOffset_X += 1
+        CtlGraphicFldLabel1.ElementInfo = Me.ElementInfo
+        CtlGraphicFldLabel1.RefreshImage()
+
+    End Sub
+
+    Private Sub ButtonXDecrease_Click(sender As Object, e As EventArgs) Handles ButtonXDecrease.Click
+        ''
+        ''Added 8/16/2019 td
+        ''
+        Me.ElementInfo.FontOffset_X -= 1
+        CtlGraphicFldLabel1.ElementInfo = Me.ElementInfo
+        CtlGraphicFldLabel1.RefreshImage()
+
+    End Sub
+
+    Private Sub ButtonYDecrease_Click(sender As Object, e As EventArgs) Handles ButtonYDecrease.Click
+        ''
+        ''Added 8/16/2019 td
+        ''
+        Me.ElementInfo.FontOffset_Y -= 1
+        CtlGraphicFldLabel1.ElementInfo = Me.ElementInfo
+        CtlGraphicFldLabel1.RefreshImage()
+
+    End Sub
+
+    Private Sub ButtonYIncrease_Click(sender As Object, e As EventArgs) Handles ButtonYIncrease.Click
+        ''
+        ''Added 8/16/2019 td
+        ''
+        Me.ElementInfo.FontOffset_Y += 1
+        CtlGraphicFldLabel1.ElementInfo = Me.ElementInfo
+        CtlGraphicFldLabel1.RefreshImage()
+
+    End Sub
+
+    Private Sub ButtonFontDecrease_Click(sender As Object, e As EventArgs) Handles ButtonFontDecrease.Click
+
+        ''Added 8/16/2019  td
+        Me.ElementInfo.FontSize -= 1
+        CtlGraphicFldLabel1.ElementInfo = Me.ElementInfo
+        CtlGraphicFldLabel1.RefreshImage()
+
+
+    End Sub
+
+    Private Sub ButtonFontIncrease_Click(sender As Object, e As EventArgs) Handles ButtonFontIncrease.Click
+        ''
+        ''Added 8 / 16 / 2019  td
+        ''
+        With Me.ElementInfo
+            .FontSize += 1
+            .Font_AllInfo = modFonts.SetFontSize(.Font_AllInfo, .FontSize)
+        End With
+
+        CtlGraphicFldLabel1.ElementInfo = Me.ElementInfo
+        CtlGraphicFldLabel1.RefreshImage()
+
+    End Sub
 End Class
