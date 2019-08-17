@@ -34,7 +34,10 @@ Public Class FormOffsetText
 
         With CtlGraphicFldLabel1
             .FieldInfo = par_fieldInfo
-            ''8/16/2019 td''.ElementInfo = par_field.ElementInfo
+            .LabelText()  ''par_elementInfo.Text)
+            ''8/17/2019 td''.FieldInfo = par_fieldInfo
+            ''8/16/2019 td   ''.ElementInfo = par_field.ElementInfo
+            .ElementInfo = par_elementInfo
             .FormDesigner = par_formDesigner
             .RefreshImage()
         End With
@@ -59,6 +62,8 @@ Public Class FormOffsetText
             .FieldInfo = par_field
             .ElementInfo = par_field.ElementInfo
             .FormDesigner = par_formDesigner
+            .Width = .ElementInfo.Width_Pixels
+            .Height = .ElementInfo.Height_Pixels
             .RefreshImage()
         End With
 

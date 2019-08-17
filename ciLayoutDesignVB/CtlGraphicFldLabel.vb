@@ -82,7 +82,7 @@ Public Class CtlGraphicFldLabel
 
     Public Sub RefreshImage()
         ''
-        ''Added 7/25/2019 thomas d 
+        ''zAdded 7/25/2019 thomas d 
         ''
         ''7/29 td''Me.ElementInfo.Info = CType(Me.ElementInfo, IElementText)
 
