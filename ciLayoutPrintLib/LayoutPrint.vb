@@ -590,7 +590,7 @@ ExitHandler:
 
             With each_elementField
                 Try
-                    gr.DrawImage(.TextDisplay.GenerateImage(),
+                    gr.DrawImage(.TextDisplay.GenerateImage(.Position.Height_Pixels),
                                  .Position.LeftEdge_Pixels, .Position.TopEdge_Pixels,
                                  .Position.Width_Pixels, .Position.Height_Pixels)
 
@@ -616,7 +616,7 @@ ExitHandler:
 
             With each_elementField
                 Try
-                    gr.DrawImage(.TextDisplay.GenerateImage(),
+                    gr.DrawImage(.TextDisplay.GenerateImage(.Position.Height_Pixels),
                                  .Position.LeftEdge_Pixels, .Position.TopEdge_Pixels,
                                  .Position.Width_Pixels, .Position.Height_Pixels)
 
