@@ -21,4 +21,16 @@ Public Interface ISelectingElements
     ''
     Property LabelsDesignList_AllItems As List(Of CtlGraphicFldLabel)
 
+    ''
+    ''Added 8/16/2019 thomas downes
+    ''
+    Function HasAtLeastOne__Up(par_control As CtlGraphicFldLabel) As Boolean
+    Function HasAtLeastOne_Down(par_control As CtlGraphicFldLabel) As Boolean
+
+    Sub SwitchControls___Up(par_control As CtlGraphicFldLabel)
+    Sub SwitchControls_Down(par_control As CtlGraphicFldLabel)
+
+
+
+
 End Interface ''ENd of "Public Interface ISelectingElements"

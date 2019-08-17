@@ -1,4 +1,5 @@
-﻿
+﻿Option Explicit On ''Added 8/16/2019 td 
+Option Strict On ''Added 8/16/2019 td 
 ''
 ''Added 7/30/2019 thomas downes
 ''
@@ -17,6 +18,8 @@ Partial Public Class CtlGraphicFldLabel
     Public TempResizeInfo_Left As Integer = 0 ''Intial resizing Left.  (Before any adjustment is made.)
     Public TempResizeInfo_Top As Integer = 0 ''Intial resizing Top.  (Before any adjustment is made.)
 
+    Private Shared _item_fieldname As ToolStripMenuItem ''Added 8/16/2019 td
+
     Private Shared _item_group_alignLeft As ToolStripMenuItem ''Added 8/2/2019 td
     Private Shared _item_group_alignRight As ToolStripMenuItem ''Added 8/2/2019 td
     Private Shared _item_group_alignWidth As ToolStripMenuItem ''Added 8/5/2019 td
@@ -25,8 +28,14 @@ Partial Public Class CtlGraphicFldLabel
     Private Shared _item_group_alignBottom As ToolStripMenuItem ''Added 8/5/2019 td
     Private Shared _item_group_alignParent As ToolStripMenuItem ''Added 8/5/2019 td
 
+    Private Shared _equalizeDistances_Top As ToolStripMenuItem ''Added 8/16/2019 td
+    Private Shared _equalizeDistances_Left As ToolStripMenuItem ''Added 8/16/2019 td
+
     Private Shared _item_group_add As ToolStripMenuItem ''Added to top of of module, 8/12 & 8/2/2019 td
     Private Shared _item_group_omit As ToolStripMenuItem ''Added to top of of module, 8/12 & 8/2/2019 td
+
+    Private Shared _item_group_switch__Up As ToolStripMenuItem ''Move up in a top-down sequence, 8/15/2019 td
+    Private Shared _item_group_switchDown As ToolStripMenuItem ''Move down in a top-down sequence, 8/15/2019 td
 
     Private Const mc_AttachContextMenuToTop As Boolean = False ''8/12/2019 td''True ''Added 8/5/2019 td 
 
@@ -117,20 +126,42 @@ Partial Public Class CtlGraphicFldLabel
 
     End Sub ''eNd of "Private Sub opendialog_Color()"
 
+    Private Sub SwitchCtl__Up(sender As Object, e As EventArgs)
+        ''
+        ''Added 8/16/2019 thomas downes
+        ''
+        Me.GroupEdits.SwitchControls___Up(Me)
+
+    End Sub
+
+    Private Sub SwitchCtl_Down(sender As Object, e As EventArgs)
+        ''
+        ''Added 8/16/2019 thomas downes
+        ''
+        Me.GroupEdits.SwitchControls_Down(Me)
+
+    End Sub
+
     Private Sub OpenDialog_Font(sender As Object, e As EventArgs)
         ''
         ''Added 7/30/2019 thomas downes
         ''
         Dim boolExitEarly As Boolean ''Added 8/13/2019 td
+
         CreateVisibleButton_Master("Choose a text font", AddressOf OpenDialog_Font, boolExitEarly)
         Application.DoEvents()
+
+        ''Added 8/17/2019 td
+        If (mod_fauxMenuEditSingleton Is Nothing) Then mod_fauxMenuEditSingleton = New CtlGraphPopMenuEditSingle
+
         mod_fauxMenuEditSingleton.SizeToExpectations()
+
         If (boolExitEarly) Then Exit Sub ''Added 8/13/2019 td
 
-        FontDialog1.Font = Me.ElementInfo.Font_AllInfo ''Added 7/31/2019 td  
+        FontDialog1.Font = Me.ElementInfo.Font_DrawingClass ''Added 7/31/2019 td  
         FontDialog1.ShowDialog()
 
-        ''Me.ElementInfo.Font_AllInfo = FontDialog1.Font
+        ''Me.ElementInfo.Font_DrawingClass = FontDialog1.Font
         ''Application.DoEvents()
         ''Application.DoEvents()
         ''RefreshImage()
@@ -138,7 +169,8 @@ Partial Public Class CtlGraphicFldLabel
 
         If (Me.GroupEdits.LabelsList_IsItemUnselected(Me)) Then
 
-            Me.ElementInfo.Font_AllInfo = FontDialog1.Font
+            Me.ElementInfo.Font_DrawingClass = FontDialog1.Font
+            Me.ElementInfo.FontSize = FontDialog1.Font.Size  ''Added 8/17/2019 td
             Application.DoEvents()
             Application.DoEvents()
 
@@ -157,7 +189,7 @@ Partial Public Class CtlGraphicFldLabel
                 ''
                 With each_ctl
 
-                    .ElementInfo.Font_AllInfo = FontDialog1.Font
+                    .ElementInfo.Font_DrawingClass = FontDialog1.Font
                     Application.DoEvents()
                     Application.DoEvents()
                     .RefreshImage()
@@ -244,8 +276,28 @@ Partial Public Class CtlGraphicFldLabel
         Dim objElements As List(Of CtlGraphicFldLabel)
         Dim sender_toolItem As ToolStripItem
         Dim strAlignmentTypeText As String ''Added 8/14/2019 thomas 
-
         Dim boolExitEarly As Boolean ''Added 8/13/2019 td
+        Dim diag_answer As DialogResult ''Added 8/16/2019 thomas d. 
+
+        ''Added 8/16/2019 td  
+        Dim intAverage_Top As Int32 = 0
+        Dim intAverage_Left As Int32 = 0
+        Dim intAverage_Width As Int32 = 0
+        Dim intAverage_Height As Int32 = 0
+
+        If (Not modFonts.AskedAlignmentQuestion) Then
+            ''Added 8/16/2019 td  
+            diag_answer = MessageBox.Show("When aligning elements, how do you want to determine the alignment line? " & vbCrLf_Deux &
+                                          "Yes = Line elements up with the element which was mouse-clicked. " & vbCrLf &
+                                          "No = Line elements up using an average-line which includes all selected items." & vbCrLf_Deux &
+                                          "(This is a one-time message.  It won't be asked again during this session.)",
+                                           "", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)
+            ''Added 8/16/2019 td  
+            modFonts.UseAverageLineForAlignment = (diag_answer = DialogResult.No)
+            If (diag_answer = DialogResult.Cancel) Then Exit Sub
+            modFonts.AskedAlignmentQuestion = True ''Ask only once.  
+        End If ''End of "If (Not modFonts.AskedAlignmentQuestion) Then"
+
         CreateVisibleButton_Master("Choose a background color", AddressOf Alignment_Master, boolExitEarly, True)
         ''Moved below.''If (boolExitEarly) Then Exit Sub ''Added 8/13/2019 td
 
@@ -263,35 +315,71 @@ Partial Public Class CtlGraphicFldLabel
 
         objElements = Me.GroupEdits.LabelsDesignList_AllItems
 
+        ''
+        ''Added 8/16/2019 td  
+        ''
+        If (modFonts.UseAverageLineForAlignment) Then
+
+            Dim intSumAll_Top As Int64 = 0
+            Dim intSumAll_Left As Int64 = 0
+            Dim intSumAll_Width As Int64 = 0
+            Dim intSumAll_Height As Int64 = 0
+            Dim intCountElements As Int64 = 0
+
+            ''Added 8/16/2019 td  
+            For Each each_ctl As CtlGraphicFldLabel In objElements
+                ''Added 8/16/2019 td  
+                intSumAll_Left += each_ctl.Left
+                intSumAll_Top += each_ctl.Top
+                intSumAll_Width += each_ctl.Width
+                intSumAll_Height += each_ctl.Height
+                intCountElements += 1
+            Next each_ctl
+
+            ''Added 8/16/2019 td  
+            intAverage_Top = CType(intSumAll_Top / intCountElements, Int32)
+            intAverage_Left = CType(intSumAll_Left / intCountElements, Int32)
+            intAverage_Width = CType(intSumAll_Width / intCountElements, Int32)
+            intAverage_Height = CType(intSumAll_Height / intCountElements, Int32)
+
+        End If ''End of "If (modFonts.UseAverageLineForAlignment) Then"
+
         For Each each_ctl As CtlGraphicFldLabel In objElements
             ''
             ''Added 8/5/2019 td  
             ''
+            Dim boolAverage As Boolean ''Added 8/16 td  
+            boolAverage = modFonts.UseAverageLineForAlignment
+
             With each_ctl
 
                 Select Case strAlignmentTypeText ''8/14/2019 td''(sender_toolItem.Text)
 
                     Case (_item_group_alignTop.Text)
 
-                        each_ctl.Top = Me.Top
-                        each_ctl.ElementInfo.TopEdge_Pixels = Me.Top
+                        ''Top 
+                        each_ctl.Top = CInt(IIf(boolAverage, intAverage_Top, Me.Top)) ''8/16 Me.Top
+                        each_ctl.ElementInfo.TopEdge_Pixels = each_ctl.Top ''8/16 Me.Top
 
                     Case (_item_group_alignLeft.Text)
 
-                        each_ctl.Left = Me.Left
-                        each_ctl.ElementInfo.LeftEdge_Pixels = Me.Left
+                        ''Left
+                        each_ctl.Left = CInt(IIf(boolAverage, intAverage_Left, Me.Left)) ''8/16 Me.Left
+                        each_ctl.ElementInfo.LeftEdge_Pixels = each_ctl.Left ''Me.Left
 
                     Case (_item_group_alignWidth.Text)
 
-                        each_ctl.Width = Me.Width
-                        each_ctl.ElementInfo.Width_Pixels = Me.Width
+                        ''Width
+                        each_ctl.Width = CInt(IIf(boolAverage, intAverage_Width, Me.Width)) ''8/16 Me.Width
+                        each_ctl.ElementInfo.Width_Pixels = each_ctl.Width ''Me.Width
 
                     Case (_item_group_alignHeight.Text)
 
-                        each_ctl.Height = Me.Height
-                        each_ctl.ElementInfo.Height_Pixels = Me.Height
+                        ''Height  
+                        each_ctl.Height = CInt(IIf(boolAverage, intAverage_Height, Me.Height)) ''8/16 Me.Height
+                        each_ctl.ElementInfo.Height_Pixels = each_ctl.Height ''Me.Height
 
-                End Select
+                End Select ''End of "Select Case strAlignmentTypeText"
 
                 ''Select Case True
                 ''    Case (sender_toolItem Is item_group_alignTop) : each_ctl.Top = Me.Top
@@ -304,19 +392,80 @@ Partial Public Class CtlGraphicFldLabel
                 ''        each_ctl.ElementInfo.Height_Pixels = Me.Height
                 ''End Select
 
-            End With
+            End With ''End of "With each_ctl"
 
         Next each_ctl
 
     End Sub ''eNd of "Private Sub Alignment_Master()"
 
-    Private Sub ExampleValue_Edit()
+    Private Sub ExampleValue_Edit(sender As Object, e As EventArgs)
         ''
         ''Added 8/10/2019 thomas downes
         ''
-        textTypeExample.Visible = True
+        With textTypeExample
+            .Visible = True
+            .Text = Me.ElementInfo.Text ''Added 8/16/2019 td
+            .SelectAll() ''Added 8/16/2019 td
+
+        End With
 
     End Sub ''End of "Private Sub ExampleValue_Edit"  
+
+    Private Sub Open_OffsetTextDialog(sender As Object, e As EventArgs)
+        ''
+        ''Added 8/10/2019 thomas downes
+        ''
+        Dim frm_ToShow As New FormOffsetText
+
+        ''
+        ''Added 8/10/2019 thomas downes
+        ''
+        ''8/16/2019 td''frm_ToShow.LoadFieldAndForm(Me.FieldInfo, Me.FormDesigner, Me)
+        frm_ToShow.LoadFieldAndForm(Me.ElementInfo, Me.FieldInfo, Me.FormDesigner, Me)
+
+        ''Major call !!
+        frm_ToShow.ShowDialog()
+
+        ''Refresh the form. ----8/17/2019 td
+        Dim boolUserPressedOK As Boolean
+        boolUserPressedOK = (frm_ToShow.DialogResult = DialogResult.OK)
+
+        If (boolUserPressedOK) Then '' ----8/17/2019 td
+
+            Me.ElementInfo.FontOffset_X = frm_ToShow.FontOffset_X
+            Me.ElementInfo.FontOffset_X = frm_ToShow.FontOffset_Y
+            Me.ElementInfo.FontSize = frm_ToShow.FontSize
+            Me.ElementInfo.Font_DrawingClass = frm_ToShow.Font_DrawingClass
+
+        End If ''End of "If (boolUserPressedOK) Then"
+
+    End Sub ''End of "Private Sub Open_OffsetTextDialog(sender As Object, e As EventArgs)"
+
+    Private Sub Rotate90Degrees(sender As Object, e As EventArgs)
+        ''
+        ''Added 8/17/2019 thomas downes
+        ''  
+        Select Case Me.ElementInfo.OrientationToLayout
+            Case "", " ", "P"
+                Me.ElementInfo.OrientationToLayout = "L"
+            Case "L"
+                Me.ElementInfo.OrientationToLayout = "P"
+            Case Else
+                Me.ElementInfo.OrientationToLayout = "P"
+        End Select
+
+        ''Added 8/12/2019 thomas downes 
+        ''
+        ''   Increment by 90 degrees.  
+        ''    This will enable the badge to be printed with the element oriented
+        ''   correctly (with one out of four choices of orientation). 
+        ''
+        Me.ElementInfo.OrientationInDegrees += 90
+
+        RefreshImage()
+        Me.Refresh()
+
+    End Sub ''eNd of "Private Sub Rotate90Degrees()"
 
     Private Sub CreateVisibleButton_Master(par_strText As String, par_handler As EventHandler, ByRef pboolExitEarly As Boolean,
                                            Optional pboolAlignment As Boolean = False)
@@ -444,7 +593,6 @@ Partial Public Class CtlGraphicFldLabel
         ''
         Dim boolRightClick As Boolean
         Dim boolHoldingCtrlKey As Boolean ''Added 7/31/2019 thomas downes  
-        Dim local_toolStripItems As ToolStripItemCollection ''Added 8/12/2019 thomas 
 
         boolRightClick = (e.Button = MouseButtons.Right)
 
@@ -453,6 +601,7 @@ Partial Public Class CtlGraphicFldLabel
         ''
         Me.FormDesigner.ControlBeingModified = Me
 
+        ''
         ''I need to be able to determine if the SHIFT or CTRL keys were pressed when the application is launched
         ''     https://stackoverflow.com/questions/22476342/how-to-determine-if-the-shift-or-ctrl-key-was-pressed-when-launching-the-applica
         ''
@@ -460,141 +609,194 @@ Partial Public Class CtlGraphicFldLabel
 
         ''Added 7/30/2019 thomas downes
         If (boolRightClick) Then
-
-            ''Added 7/30/2019 thomas downes
-            ''ContextMenuStrip1.Items.Clear()
-
-            Dim boolCreateNewItems As Boolean ''Added 8/12/2019 thomas downes  
-
-            If (mc_AttachContextMenuToTop) Then ''Added 8/12/2019 thomas downes  
-                ''8/12/2019 td''boolCreateNewItems = (0 = Me.FormDesigner.RightClickMenuParent.DropDownItems.Count)
-                local_toolStripItems = Me.FormDesigner.RightClickMenuParent.DropDownItems
-                boolCreateNewItems = (1 >= local_toolStripItems.Count)
-            Else
-                boolCreateNewItems = (0 = ContextMenuStrip1.Items.Count)
-                local_toolStripItems = ContextMenuStrip1.Items
-            End If ''End of "If (mc_AttachContextMenuToTop) Then ..... Else ....."
-
-            If (boolCreateNewItems) Then
-                ''
-                ''Build the context menu.  
-                ''
-                LoadTheContextMenu(local_toolStripItems) ''Encapsulated 8/12/2019 thomas downes  
-
-            End If ''End of "If (0 = ContextMenuStrip1.Items.Count) Then"
-
             ''
-            ''Is the current elment part of the Group-Edits Selection?  
+            ''Encapsulated 8/16/2019 td 
             ''
-            With Me.GroupEdits
-
-                _item_group_add.Visible = .LabelsList_IsItemUnselected(Me)
-                _item_group_omit.Visible = .LabelsList_IsItemIncluded(Me)
-
-                ''Add 8/2/2019 thomas d.  
-                _item_group_add.Visible = .LabelsList_TwoOrMoreItems() _
-                                             And .LabelsList_IsItemIncluded(Me)
-
-                ''Add 8/2/2019 thomas d.  
-                _item_group_alignParent.Visible = .LabelsList_TwoOrMoreItems() _
-                                             And .LabelsList_IsItemIncluded(Me)
-
-            End With ''End of "With Me.GroupEdits"
-
-            ''8/4/2019 td''ContextMenuStrip1.Show(e.Location.X + Me.ParentForm.Left,
-            ''8/4/2019 td''               e.Location.Y + Me.Top + Me.ParentForm.Top)
-
-            If (mc_AttachContextMenuToTop) Then
-                ''
-                ''This might make it visible to the Game Bar Recorder.
-                ''  -----8/10/2019 td 
-                ''
-                Me.FormDesigner.RightClickMenuParent.Visible = True
-
-                ''8//12/2019 td''Me.FormDesigner.RightClickMenuParent.PerformClick() ''Show/display menu.  ---8//12/2018 td
-                Application.DoEvents() ''Added 8/12/2019 td  
-                Me.FormDesigner.RightClickMenuParent.ShowDropDown() ''Show/display menu.  ---8//12/2018 td
-
-                ''Reference the items in the main menu.  -----8/10/2019 td 
-                ''For Each each_menuitem In ContextMenuStrip1.Items
-                ''    Me.FormDesigner.RightClickMenuParent.DropDownItems.Add(each_menuitem)
-                ''Next each_menuitem
-
-            Else
-                ContextMenuStrip1.Show(e.Location.X + Me.Left + Me.ParentForm.Left,
-                                       e.Location.Y + Me.Top + Me.ParentForm.Top)
-            End If ''End of "If (mc_AttachContextMenuToTop) Then ... Else ...."
+            RefreshTheContextMenu(e)
 
         ElseIf (boolHoldingCtrlKey) Then ''Added 7/31/2019 thomas downes
             ''
             ''Added 7/31/2019 thomas downes  
             ''
-            ''pictureLabel.BorderStyle = BorderStyle.FixedSingle
+            ToggleGroupSelection
+
+        End If ''End of "If (boolRightClick) Then .... ElseIf (boolHoldingCtrlKey) Then ...."
+
+    End Sub  ''End of Sub RefreshTheContextMenu  
+
+
+    Private Sub RefreshTheContextMenu(par_mouse_info As MouseEventArgs)
+        ''
+        ''Encapsulated 8/16/2019 td 
+        ''
+        Dim local_toolStripItems As ToolStripItemCollection ''Added 8/12/2019 thomas 
+        Dim bool_I_am_in_GroupOfItems As Boolean ''Added 8/16/2019 td 
+        Dim intGroupCount As Integer ''Added 8/16/2019 thomas d. 
+
+        ''Added 7/30/2019 thomas downes
+        ''ContextMenuStrip1.Items.Clear()
+
+        Dim boolCreateNewItems As Boolean ''Added 8/12/2019 thomas downes  
+
+        If (mc_AttachContextMenuToTop) Then ''Added 8/12/2019 thomas downes  
+            ''8/12/2019 td''boolCreateNewItems = (0 = Me.FormDesigner.RightClickMenuParent.DropDownItems.Count)
+            local_toolStripItems = Me.FormDesigner.RightClickMenuParent.DropDownItems
+            boolCreateNewItems = (1 >= local_toolStripItems.Count)
+        Else
+            boolCreateNewItems = (0 = ContextMenuStrip1.Items.Count)
+            local_toolStripItems = ContextMenuStrip1.Items
+        End If ''End of "If (mc_AttachContextMenuToTop) Then ..... Else ....."
+
+        If (boolCreateNewItems) Then
             ''
-            ''Place a 6-pixel margin around the control, with a yellow color.
-            ''   (This will indicate selection.)   ----7/3/2019
+            ''Build the context menu.  
             ''
-            Dim boolNotIncludedYet As Boolean = (Not mod_includedInGroupEdit) ''Added 8/1/2019
-            Dim boolIncludedAlready As Boolean = (mod_includedInGroupEdit)
+            LoadTheContextMenu(local_toolStripItems) ''Encapsulated 8/12/2019 thomas downes  
 
-            If (boolNotIncludedYet) Then
+        End If ''End of "If (0 = ContextMenuStrip1.Items.Count) Then"
 
-                GroupEditElement_Add()
+        ''
+        ''Is the current elment part of the Group-Edits Selection?  
+        ''
+        With Me.GroupEdits
 
-                ''mod_includedInGroupEdit = True
+            _item_group_add.Visible = .LabelsList_IsItemUnselected(Me)
+            _item_group_omit.Visible = .LabelsList_IsItemIncluded(Me)
 
-                ''Me.GroupEdits.LabelsDesignList_Add(Me) ''Added 8/1/2019 td
+            bool_I_am_in_GroupOfItems = .LabelsList_TwoOrMoreItems() _
+                                       And .LabelsList_IsItemIncluded(Me)
 
-                ''''8/2/2019''Me.BackColor = Color.Yellow
-                ''''8/2/2019''pictureLabel.Top = 6
-                ''''8/2/2019''pictureLabel.Left = 6
-                ''''8/2/2019''pictureLabel.Width = Me.Width - 2 * 6
-                ''''8/2/2019''pictureLabel.Height = Me.Height - 2 * 6
+            ''Add 8/2/2019 thomas d.  
+            _item_group_add.Visible = bool_I_am_in_GroupOfItems ''.LabelsList_TwoOrMoreItems() _
+            ''    And .LabelsList_IsItemIncluded(Me)
 
-                ''''Added 8/2/2019 td 
-                ''Me.ElementInfo.SelectedHighlighting = True
-                ''Me.RefreshImage()
+            ''Add 8/2/2019 thomas d.  
+            _item_group_alignParent.Visible = bool_I_am_in_GroupOfItems ''.LabelsList_TwoOrMoreItems() _
+            ''  And .LabelsList_IsItemIncluded(Me)
 
-            ElseIf (boolIncludedAlready) Then
-                ''
-                ''Undo the selection. 
-                ''
-                GroupEditElement_Omit()
+            ''Add 8/16/2019 thomas d.  
+            _item_group_switchDown.Visible = bool_I_am_in_GroupOfItems ''.LabelsList_TwoOrMoreItems() _
+            ''   And .LabelsList_IsItemIncluded(Me)
+            _item_group_switch__Up.Visible = bool_I_am_in_GroupOfItems ''.LabelsList_TwoOrMoreItems() _
+            ''   And .LabelsList_IsItemIncluded(Me)
 
-                ''mod_includedInGroupEdit = False
-                ''Me.GroupEdits.LabelsDesignList_Remove(Me) ''Added 8/1/2019 td
+            ''Add 8/16/2019 thomas d.  
+            _item_group_switch__Up.Enabled = .HasAtLeastOne__Up(Me)
+            _item_group_switchDown.Enabled = .HasAtLeastOne_Down(Me)
 
-                ''Me.BackColor = Me.ElementInfo.BackColor
-                ''pictureLabel.Top = 0
-                ''pictureLabel.Left = 0
-                ''pictureLabel.Width = Me.Width ''- 2 * 6
-                ''pictureLabel.Height = Me.Height ''- 2 * 6
+            If (bool_I_am_in_GroupOfItems) Then
+                intGroupCount = .LabelsList_CountItems()
+                _item_fieldname.Text = $"Group of {intGroupCount} Items (w/ Field " & Me.FieldInfo.FieldLabelCaption & ")"
+            Else
+                _item_fieldname.Text = "Field " & Me.FieldInfo.FieldLabelCaption
+            End If ''Endof " If (bool_I_am_in_GroupOfItems) Then .... Else ...."
 
-                ''Me.ElementInfo.SelectedHighlighting = False
-                ''Me.RefreshImage()
+        End With ''End of "With Me.GroupEdits"
 
-            End If ''Endo f ""If (....) Then .... ElseIf (....) Then....
+        ''8/4/2019 td''ContextMenuStrip1.Show(e.Location.X + Me.ParentForm.Left,
+        ''8/4/2019 td''               e.Location.Y + Me.Top + Me.ParentForm.Top)
 
-        End If ''End of "If (boolRightClick) Then .... Else ...."
+        If (mc_AttachContextMenuToTop) Then
+            ''
+            ''This might make it visible to the Game Bar Recorder.
+            ''  -----8/10/2019 td 
+            ''
+            Me.FormDesigner.RightClickMenuParent.Visible = True
 
-    End Sub
+            ''8//12/2019 td''Me.FormDesigner.RightClickMenuParent.PerformClick() ''Show/display menu.  ---8//12/2018 td
+            Application.DoEvents() ''Added 8/12/2019 td  
+            Me.FormDesigner.RightClickMenuParent.ShowDropDown() ''Show/display menu.  ---8//12/2018 td
+
+            ''Reference the items in the main menu.  -----8/10/2019 td 
+            ''For Each each_menuitem In ContextMenuStrip1.Items
+            ''    Me.FormDesigner.RightClickMenuParent.DropDownItems.Add(each_menuitem)
+            ''Next each_menuitem
+
+        Else
+            With par_mouse_info
+                ContextMenuStrip1.Show(.Location.X + Me.Left + Me.ParentForm.Left,
+                                       .Location.Y + Me.Top + Me.ParentForm.Top)
+            End With ''ENd of " With par_mouse_info"
+        End If ''End of "If (mc_AttachContextMenuToTop) Then ... Else ...."
+
+    End Sub  ''End of Sub RefreshTheContextMenu 
+
+
+    Private Sub ToggleGroupSelection()
+        ''
+        ''Encapsulated 8/16/2019 thomas downes  
+        ''
+        ''pictureLabel.BorderStyle = BorderStyle.FixedSingle
+        ''
+        ''Place a 6-pixel margin around the control, with a yellow color.
+        ''   (This will indicate selection.)   ----7/3/2019
+        ''
+        Dim boolNotIncludedYet As Boolean = (Not mod_includedInGroupEdit) ''Added 8/1/2019
+        Dim boolIncludedAlready As Boolean = (mod_includedInGroupEdit)
+
+        If (boolNotIncludedYet) Then
+
+            GroupEditElement_Add()
+
+            ''mod_includedInGroupEdit = True
+
+            ''Me.GroupEdits.LabelsDesignList_Add(Me) ''Added 8/1/2019 td
+
+            ''''8/2/2019''Me.BackColor = Color.Yellow
+            ''''8/2/2019''pictureLabel.Top = 6
+            ''''8/2/2019''pictureLabel.Left = 6
+            ''''8/2/2019''pictureLabel.Width = Me.Width - 2 * 6
+            ''''8/2/2019''pictureLabel.Height = Me.Height - 2 * 6
+
+            ''''Added 8/2/2019 td 
+            ''Me.ElementInfo.SelectedHighlighting = True
+            ''Me.RefreshImage()
+
+        ElseIf (boolIncludedAlready) Then
+            ''
+            ''Undo the selection. 
+            ''
+            GroupEditElement_Omit()
+
+            ''mod_includedInGroupEdit = False
+            ''Me.GroupEdits.LabelsDesignList_Remove(Me) ''Added 8/1/2019 td
+
+            ''Me.BackColor = Me.ElementInfo.BackColor
+            ''pictureLabel.Top = 0
+            ''pictureLabel.Left = 0
+            ''pictureLabel.Width = Me.Width ''- 2 * 6
+            ''pictureLabel.Height = Me.Height ''- 2 * 6
+
+            ''Me.ElementInfo.SelectedHighlighting = False
+            ''Me.RefreshImage()
+
+        End If ''Endo f ""If (boolNotIncludedYet) Then .... ElseIf (boolIncludedAlready) Then....
+
+    End Sub ''End of "Private Sub ToggleGroupSelection()"
+
 
     Private Sub LoadTheContextMenu(par_toolStripItems As ToolStripItemCollection)
         ''
         ''Encapsulated 8/12/2019 thomas downes  
         ''
-        Dim new_item_fieldname As ToolStripMenuItem
+        ''8/16/2019 td''Dim new_item_fieldname As ToolStripMenuItem
         Dim new_item_field As ToolStripMenuItem
         Dim new_item_colors As ToolStripMenuItem
         Dim new_item_font As ToolStripMenuItem
         Dim new_item_refresh As ToolStripMenuItem ''Added 7/31/2019 td
         Dim new_item_sizeInfo As ToolStripMenuItem ''Added 7/31/2019 td
         Dim new_item_editExample As ToolStripMenuItem ''Added 8/110/2019 td
+        Dim new_item_offsetTextEtc As ToolStripMenuItem ''Added 8/15/2019 td  
+        Dim new_item_rotate90 As ToolStripMenuItem ''Added 8/17/2019 td  
 
         ''8/12/2019 td''Static item_group_add As ToolStripMenuItem ''Added 8/2/2019 td
         ''8/12/2019 td''Static item_group_omit As ToolStripMenuItem ''Added 8/2/2019 td
 
-        new_item_fieldname = New ToolStripMenuItem("Field " & Me.FieldInfo.FieldLabelCaption)
+        _item_fieldname = New ToolStripMenuItem("Field " & Me.FieldInfo.FieldLabelCaption)
+        ''8/16/2019 td''new_item_fieldname.Font.Bold = True ''Added 8/16/2019 td  
+        ''8/16/2019 td''new_item_fieldname.Font = modFonts.MakeItBold(new_item_fieldname.Font)
+        modFonts.MakeItBoldEtc(_item_fieldname.Font)
+
         new_item_refresh = New ToolStripMenuItem("Refresh Element") ''Added 7/31/2019 td
         new_item_sizeInfo = New ToolStripMenuItem("Size Information") ''Added 7/31/2019 td
         new_item_field = New ToolStripMenuItem("Browse Field")
@@ -616,10 +818,23 @@ Partial Public Class CtlGraphicFldLabel
         _item_group_alignBottom = New ToolStripMenuItem("Bottom Edge")
         _item_group_alignParent = New ToolStripMenuItem("Align Grouped Elements")
 
+        _item_group_switchDown = New ToolStripMenuItem("Switch Downward in List")
+        _item_group_switch__Up = New ToolStripMenuItem("Switch Upward in List")
+
+        ''Added 8/16/2019 td
+        _equalizeDistances_Top = New ToolStripMenuItem("Equalize Distances (between Top Edges)")
+        _equalizeDistances_Left = New ToolStripMenuItem("Equalize Distances (between Left Edges)")
+
         ''
         ''Added 8/10/2019 td
         ''
         new_item_editExample = New ToolStripMenuItem("Edit example value (for Layout Design)")
+
+        ''Added 8/15/2019 td  
+        new_item_offsetTextEtc = New ToolStripMenuItem("Position text within the element")
+
+        ''Added 8/17/2019 td  
+        new_item_rotate90 = New ToolStripMenuItem("Rotate text 90 degrees")
 
         AddHandler new_item_field.Click, AddressOf OpenDialog_Field
         AddHandler new_item_colors.Click, AddressOf OpenDialog_Color
@@ -631,17 +846,29 @@ Partial Public Class CtlGraphicFldLabel
         AddHandler _item_group_add.Click, AddressOf GroupEditElement_Add ''Added 8/01/2019 thomas d.
         AddHandler _item_group_omit.Click, AddressOf GroupEditElement_Omit ''Added 8/01/2019 thomas d.
 
+        AddHandler _item_group_switchDown.Click, AddressOf SwitchCtl_Down ''Added 8/15/2019 thomas d.
+        AddHandler _item_group_switch__Up.Click, AddressOf SwitchCtl__Up ''Added 8/15/2019 thomas d.
+
         ''Added 8/10/2019 thomas d.
         AddHandler new_item_editExample.Click, AddressOf ExampleValue_Edit ''Added 8/10/2019 thomas d.
 
-        ''Moved from below, 8/14/2019 td 
-        par_toolStripItems.Add(_item_group_alignParent)   ''ContextMenuStrip1.Items.Add(item_group_alignParent) ''Added 8/5/2019 thomas d.  
+        ''Added 8/15/2019 thomas d.
+        AddHandler new_item_offsetTextEtc.Click, AddressOf Open_OffsetTextDialog ''Added 8/15/2019 thomas d.
 
-        par_toolStripItems.Add(new_item_fieldname)   ''ContextMenuStrip1.Items.Add(new_item_fieldname)
+        ''Added 8/17/2019 thomas d.
+        AddHandler new_item_rotate90.Click, AddressOf Rotate90Degrees ''Added 8/17 /2019 thomas d.
+
+        par_toolStripItems.Add(_item_fieldname)   ''ContextMenuStrip1.Items.Add(new_item_fieldname)
         par_toolStripItems.Add(new_item_field)   ''ContextMenuStrip1.Items.Add(new_item_field)
 
         par_toolStripItems.Add(new_item_colors)   ''ContextMenuStrip1.Items.Add(new_item_colors)
         par_toolStripItems.Add(new_item_font)   ''ContextMenuStrip1.Items.Add(new_item_font)
+
+        ''Added 8/17/2019 td
+        par_toolStripItems.Add(new_item_offsetTextEtc)
+
+        ''Moved from below, 8/14/2019 td 
+        par_toolStripItems.Add(_item_group_alignParent)   ''ContextMenuStrip1.Items.Add(item_group_alignParent) ''Added 8/5/2019 thomas d.  
 
         par_toolStripItems.Add(new_item_refresh)   ''ContextMenuStrip1.Items.Add(new_item_refresh) ''Added 7/31/2019 thomas d.  
         par_toolStripItems.Add(new_item_sizeInfo)   ''ContextMenuStrip1.Items.Add(new_item_sizeInfo) ''Added 7/31/2019 thomas d.
@@ -654,6 +881,10 @@ Partial Public Class CtlGraphicFldLabel
         par_toolStripItems.Add(_item_group_omit)   ''ContextMenuStrip1.Items.Add(new_item_group_omit) ''Added 8/01/2019 thomas d.  
         ''End If
 
+        ''Add 8/16/2019 thomas d.  
+        par_toolStripItems.Add(_item_group_switch__Up)
+        par_toolStripItems.Add(_item_group_switchDown)
+
         ''Add 8/2/2019 thomas d.  
         ''8/5/2019 td''ContextMenuStrip1.Items.Add(new_item_group_alignLeft) ''Added 8/01/2019 thomas d.  
         ''8/5/2019 td''ContextMenuStrip1.Items.Add(new_item_group_alignRight) ''Added 8/01/2019 thomas d.  
@@ -661,7 +892,7 @@ Partial Public Class CtlGraphicFldLabel
         ''Add 8/5/2019 thomas d.  
         ''Moved to the top.par_toolStripItems.Add(_item_group_alignParent)   ''ContextMenuStrip1.Items.Add(item_group_alignParent) ''Added 8/5/2019 thomas d.
 
-        Dim toolstripAlign As ToolStripMenuItem = CType(_item_group_alignParent, ToolStripMenuItem)
+        Dim toolstripAlignParent As ToolStripMenuItem = CType(_item_group_alignParent, ToolStripMenuItem)
 
         ''Added 8/10/2019 thomas d.
         par_toolStripItems.Add(new_item_editExample)   ''ContextMenuStrip1.Items.Add(new_item_editExample) ''Added 8/10/2019 thomas d.  
@@ -669,14 +900,22 @@ Partial Public Class CtlGraphicFldLabel
         ''
         ''Add 8/5/2019 thomas d.  
         ''
-        toolstripAlign.DropDownItems.Add(_item_group_alignLeft)
-        toolstripAlign.DropDownItems.Add(_item_group_alignRight)
+        With toolstripAlignParent.DropDownItems
 
-        toolstripAlign.DropDownItems.Add(_item_group_alignTop)
-        toolstripAlign.DropDownItems.Add(_item_group_alignBottom)
+            .Add(_item_group_alignLeft)
+            .Add(_item_group_alignRight)
 
-        toolstripAlign.DropDownItems.Add(_item_group_alignWidth)
-        toolstripAlign.DropDownItems.Add(_item_group_alignHeight)
+            .Add(_item_group_alignTop)
+            .Add(_item_group_alignBottom)
+
+            .Add(_item_group_alignWidth)
+            .Add(_item_group_alignHeight)
+
+            ''Added 8/16/2019 thoimas downes 
+            .Add(_equalizeDistances_Top)
+            .Add(_equalizeDistances_Left)
+
+        End With ''End of "With toolstripAlignParent.DropDownItems"
 
         ''
         ''Add 8/5/2019 thomas d.  
@@ -689,6 +928,10 @@ Partial Public Class CtlGraphicFldLabel
 
         AddHandler _item_group_alignWidth.Click, AddressOf Alignment_Master
         AddHandler _item_group_alignHeight.Click, AddressOf Alignment_Master
+
+        ''Add 8/16/2019 thomas d.  
+        AddHandler _equalizeDistances_Left.Click, AddressOf Alignment_Master
+        AddHandler _equalizeDistances_Top.Click, AddressOf Alignment_Master
 
     End Sub ''End of "Private Sub LoadTheContextMenu()" 
 

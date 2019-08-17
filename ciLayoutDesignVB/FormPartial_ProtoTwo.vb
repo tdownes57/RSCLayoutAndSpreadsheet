@@ -139,6 +139,7 @@ Partial Public Class FormDesignProtoTwo
                 ''8/12/2019 td''boolMoving = (DeltaTop <> 0 Or DeltaLeft <> 0)
                 boolMoving = ((DeltaTop <> 0 And DeltaHeight = 0) Or
                               (DeltaLeft <> 0 And DeltaWidth = 0))
+
                 If (boolMoving) Then
                     .Top += DeltaTop
                     .Left += DeltaLeft
@@ -174,6 +175,7 @@ Partial Public Class FormDesignProtoTwo
                         ''
                         ''8/12/2019 TD''.Top = (.TempResizeInfo_Top + DeltaTop)
                         ''8/12/2019 TD''.Left = (.TempResizeInfo_Left + DeltaLeft)
+
                         .Top += DeltaTop
                         .Left += DeltaLeft
                         .Width += DeltaWidth
@@ -190,7 +192,7 @@ Partial Public Class FormDesignProtoTwo
 
         Next each_control
 
-    End Sub ''End of "Private Sub Move_GroupMove_Continue"
+    End Sub ''End of "Private Sub MoveInUnison"
 
     Private Sub Resizing_End() Handles mod_groupedMove.Resizing_End
         ''
@@ -203,7 +205,85 @@ Partial Public Class FormDesignProtoTwo
 
         Next each_control
 
-    End Sub ''End of "Private Sub Move_GroupMove_End"
+    End Sub ''End of "Private Sub Resizing_End"
+
+    Private Sub SwitchControls_Down(par_ctl As CtlGraphicFldLabel) Implements ISelectingElements.SwitchControls_Down
+        ''
+        ''Added 8/15/2019 thomas downes  
+        ''
+        If (GetNextLowerControl(par_ctl) Is Nothing) Then Exit Sub ''Added 8/16/2019 td 
+
+        SwitchWithOtherCtl(par_ctl, GetNextLowerControl(par_ctl))
+
+    End Sub ''End of "Private Sub SwitchControls_Down(par_ctl As CtlGraphicFldLabel)"
+
+    Private Sub SwitchControls___Up(par_ctl As CtlGraphicFldLabel) Implements ISelectingElements.SwitchControls___Up
+        ''
+        ''Added 8/15/2019 thomas downes  
+        ''
+        If (GetNextHigherControl(par_ctl) Is Nothing) Then Exit Sub ''Added 8/16/2019 td 
+
+        SwitchWithOtherCtl(par_ctl, GetNextHigherControl(par_ctl))
+
+    End Sub ''End of "Private Sub SwitchWithNextHigher(par_ctl As CtlGraphicFldLabel)"
+
+    Private Sub SwitchWithOtherCtl(par_one As CtlGraphicFldLabel, par_two As CtlGraphicFldLabel)
+        ''
+        ''Added 8/15/2019 thomas downes  
+        ''
+        Dim intTemp_Left, intTemp_Top As Integer
+
+        intTemp_Left = par_one.Left
+        intTemp_Top = par_one.Top
+
+        par_one.Left = par_two.Left
+        par_one.Top = par_two.Top
+
+        par_two.Left = intTemp_Left
+        par_two.Top = intTemp_Top
+
+    End Sub ''End of "Private Sub SwitchWithOtherCtl(par_one As CtlGraphicFldLabel, par_two As .....)"
+
+    Private Function HasAtLeastOne_Down(par_ctl As CtlGraphicFldLabel) As Boolean Implements ISelectingElements.HasAtLeastOne_Down
+        ''Added 8/15/2019 thomas downes  
+        Return (GetNextLowerControl(par_ctl) IsNot Nothing)
+    End Function
+
+    Private Function HasAtLeastOne____Up(par_ctl As CtlGraphicFldLabel) As Boolean Implements ISelectingElements.HasAtLeastOne__Up
+        ''Added 8/15/2019 thomas downes  
+        Return (GetNextHigherControl(par_ctl) IsNot Nothing)
+    End Function
+
+    Private Function GetNextLowerControl(par_ctl As CtlGraphicFldLabel) As CtlGraphicFldLabel
+        ''
+        ''Added 8/15/2019 thomas downes  
+        ''
+        ''---For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
+        ''---Next each_control
+        Try
+            Return mod_selectedCtls.Where(Function(ctl) ctl.Top > par_ctl.Top).OrderBy(Function(ctl) ctl.Top).First
+        Catch ex_linq As Exception
+            ''Apparently the command above fails is there are not any lower controls.  --8/16 td 
+            Return Nothing
+        End Try
+
+    End Function ''End of "Private Function GetNextLowerControl"
+
+    Private Function GetNextHigherControl(par_ctl As CtlGraphicFldLabel) As CtlGraphicFldLabel
+        ''
+        ''Added 8/15/2019 thomas downes  
+        ''
+        ''---For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
+        ''---Next each_control
+
+        Try
+            Return mod_selectedCtls.Where(Function(ctl) ctl.Top < par_ctl.Top).OrderByDescending(Function(ctl) ctl.Top).First
+        Catch ex_linq As Exception
+            ''Apparently the command above fails is there are not any higher controls.  --8/16 td 
+            Return Nothing
+        End Try
+
+    End Function ''End of "Private Function GetNextHigherControl"
 
     Public Function LabelsList_CountItems() As Integer Implements ISelectingElements.LabelsList_CountItems
 

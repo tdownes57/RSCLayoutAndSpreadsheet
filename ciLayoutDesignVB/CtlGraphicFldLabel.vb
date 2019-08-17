@@ -82,7 +82,7 @@ Public Class CtlGraphicFldLabel
 
     Public Sub RefreshImage()
         ''
-        ''Added 7/25/2019 thomas d 
+        ''zAdded 7/25/2019 thomas d 
         ''
         ''7/29 td''Me.ElementInfo.Info = CType(Me.ElementInfo, IElementText)
 
@@ -94,10 +94,16 @@ Public Class CtlGraphicFldLabel
         ''Me.ElementInfo.Width = pictureLabel.Width
         ''Me.ElementInfo.Height = pictureLabel.Height
 
-        ''7/30/2019 td''Me.ElementInfo.Font_AllInfo = Me.ParentForm.Font ''Me.Font
-        ''7/30/2019 td''Me.ElementInfo.Font_AllInfo = New Font("Times New Roman", 25, FontStyle.Italic)
-        If (Me.ElementInfo.Font_AllInfo Is Nothing) Then _
-            Me.ElementInfo.Font_AllInfo = New Font("Times New Roman", 15, FontStyle.Regular)
+        ''7/30/2019 td''Me.ElementInfo.Font_DrawingClass = Me.ParentForm.Font ''Me.Font
+        ''7/30/2019 td''Me.ElementInfo.Font_DrawingClass = New Font("Times New Roman", 25, FontStyle.Italic)
+
+        If (Me.ElementInfo.Font_DrawingClass Is Nothing) Then
+            ''Initialize the font. 
+            Me.ElementInfo.Font_DrawingClass = New Font("Times New Roman", 15, FontStyle.Regular)
+            Me.ElementInfo.FontSize = 15
+            Me.ElementInfo.FontBold = False
+            Me.ElementInfo.FontItalics = False
+        End If ''end of " If (Me.ElementInfo.Font_DrawingClass Is Nothing) Then"
 
         ''Me.ElementInfo.BackColor = Me.ParentForm.BackColor
         ''Me.ElementInfo.FontColor = Me.ParentForm.ForeColor
@@ -167,7 +173,7 @@ Public Class CtlGraphicFldLabel
         Me.ElementInfo.Width_Pixels = Me.Width
         Me.ElementInfo.Height_Pixels = Me.Height
 
-        ''Me.ElementInfo.Font_AllInfo = Me.Font
+        ''Me.ElementInfo.Font_DrawingClass = Me.Font
         ''Me.ElementInfo.BackColor = Me.BackColor
         ''Me.ElementInfo.FontColor = Me.ForeColor
 

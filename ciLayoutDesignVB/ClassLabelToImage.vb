@@ -22,6 +22,10 @@ Public Class ClassLabelToImage
         Dim pen_highlighting As Pen ''Added 8/2/2019 thomas downes  
         Dim brush_forecolor As Brush
 
+        ''Added 8/17/2019 td
+        Dim singleOffsetX As Integer = par_design.FontOffset_X
+        Dim singleOffsetY As Integer = par_design.FontOffset_Y
+
         Application.DoEvents()
 
         If (par_image Is Nothing) Then
@@ -63,7 +67,7 @@ Public Class ClassLabelToImage
                          New Rectangle(3, 3, par_element.Width_Pixels - 6, par_element.Height_Pixels - 6))
         End If ''End of "If (par_element.SelectedHighlighting) Then"
 
-        ''7/30/2019''gr.DrawString(par_design.Text, par_design.Font_AllInfo, brush_forecolor, New Point(0, 0))
+        ''7/30/2019''gr.DrawString(par_design.Text, par_design.Font_DrawingClass, brush_forecolor, New Point(0, 0))
 
         ''Font TextFont = New Font("Times New Roman", 25, FontStyle.Italic);
         ''    e.Graphics.TextRenderingHint = TextRenderingHint.SingleBitPerPixelGridFit;
@@ -74,7 +78,7 @@ Public Class ClassLabelToImage
         ''    e.Graphics.DrawString("Sample Text", TextFont, Brushes.Black, 20, 150);
 
         gr.TextRenderingHint = TextRenderingHint.AntiAliasGridFit
-        gr.DrawString(par_design.Text, par_design.Font_AllInfo, Brushes.Black, 20, 20)
+        gr.DrawString(par_design.Text, par_design.Font_DrawingClass, Brushes.Black, singleOffsetX, singleOffsetY)
 
         Return par_image ''Return Nothing
 

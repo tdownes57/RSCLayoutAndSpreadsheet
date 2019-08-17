@@ -16,7 +16,7 @@ Public Class ClassElementText
     ''
     ''-------------------------------------------------------------
 
-    Public Property Font_AllInfo As System.Drawing.Font Implements IElementText.Font_AllInfo
+    Public Property Font_DrawingClass As System.Drawing.Font Implements IElementText.Font_DrawingClass
 
     Public Property PositionalMode As String Implements IElement_Base.PositionalMode ''Added 8/14/2019 td 
     Public Property ExampleValue As String Implements IElementText.ExampleValue ''Added 8/14/2019 td 
@@ -24,10 +24,17 @@ Public Class ClassElementText
     Public Property FontColor As System.Drawing.Color Implements IElementText.FontColor
 
     ''Added 8/12/2019 thomas downes  
-    Public Property FontSize As Integer Implements IElementText.FontSize ''Added 8/12/2019 thomas downes  
+    Public Property FontSize As Single Implements IElementText.FontSize ''Added 8/12/2019 thomas downes  
     Public Property FontBold As Boolean Implements IElementText.FontBold ''Added 8/12/2019 thomas downes  
     Public Property FontItalics As Boolean Implements IElementText.FontItalics ''Added 8/12/2019 thomas downes  
     Public Property FontUnderline As Boolean Implements IElementText.FontUnderline ''Added 8/12/2019 thomas downes  
+
+
+    ''Added 8/15/2019 thomas downes  
+    Public Property FontSize_IsLocked As Boolean Implements IElementText.FontSize_IsLocked ''Added 8/15/2019 thomas downes  
+    Public Property FontOffset_X As Integer Implements IElementText.FontOffset_X ''Added 8/15/2019 thomas downes  
+    Public Property FontOffset_Y As Integer Implements IElementText.FontOffset_Y ''Added 8/15/2019 thomas downes  
+
 
     Public Property BackColor As System.Drawing.Color Implements IElementText.BackColor
 
@@ -166,7 +173,7 @@ Public Class ClassElementText
                          New Rectangle(3, 3, intNewElementWidth - 6, intNewElementHeight - 6))
         End If ''End of "If (par_element.SelectedHighlighting) Then"
 
-        ''7/30/2019''gr.DrawString(par_design.Text, par_design.Font_AllInfo, brush_forecolor, New Point(0, 0))
+        ''7/30/2019''gr.DrawString(par_design.Text, par_design.Font_DrawingClass, brush_forecolor, New Point(0, 0))
 
         ''Font TextFont = New Font("Times New Roman", 25, FontStyle.Italic);
         ''    e.Graphics.TextRenderingHint = TextRenderingHint.SingleBitPerPixelGridFit;
@@ -177,7 +184,7 @@ Public Class ClassElementText
         ''    e.Graphics.DrawString("Sample Text", TextFont, Brushes.Black, 20, 150);
 
         gr.TextRenderingHint = TextRenderingHint.AntiAliasGridFit
-        gr.DrawString(par_design.Text, par_design.Font_AllInfo, Brushes.Black, 20, 5)
+        gr.DrawString(par_design.Text, par_design.Font_DrawingClass, Brushes.Black, 20, 5)
 
         Return par_image ''Return Nothing
 

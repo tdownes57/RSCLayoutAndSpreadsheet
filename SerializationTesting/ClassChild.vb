@@ -7,7 +7,7 @@
 Public Class ClassChild
 
     ''<NonSerialized()>
-    Public Property Font_AllInfo As System.Drawing.Font
+    Public Property Font_DrawingClass As System.Drawing.Font
 
     Public Property FontColor As System.Drawing.Color
 
