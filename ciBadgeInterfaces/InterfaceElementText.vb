@@ -37,7 +37,7 @@ Public Interface IElementText
 
     Property FontColor As System.Drawing.Color
 
-    Property FontSize As Integer ''Added 8/12/2019 thomas downes  
+    Property FontSize As Single ''Added 8/12/2019 thomas downes  
 
     Property FontSize_IsLocked As Boolean ''Added 8/15/2019 thomas downes  
     Property FontOffset_X As Integer ''Added 8/15/2019 thomas downes  

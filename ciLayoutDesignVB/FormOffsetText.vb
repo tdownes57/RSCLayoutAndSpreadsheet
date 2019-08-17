@@ -13,6 +13,7 @@ Public Class FormOffsetText
     Public FontOffset_X As Integer
     Public FontOffset_Y As Integer
     Public FontSize As Integer
+    Public Font_DrawingClass As Font ''Added 8/17/2019 td 
 
     ''8/17/2019 td''Public ObjElementText As ClassElementText
     Public ElementInfo As ciBadgeInterfaces.IElementText ''Added 8/16/2019 td
@@ -38,6 +39,7 @@ Public Class FormOffsetText
         Me.FontOffset_X = par_elementInfo.FontOffset_X
         Me.FontOffset_Y = par_elementInfo.FontOffset_Y
         Me.FontSize = par_elementInfo.FontSize
+        Me.Font_DrawingClass = par_elementInfo.Font_DrawingClass
 
         ''Added 8/15/2019 td
         Me.FormDesigner = par_formDesigner
@@ -163,8 +165,13 @@ Public Class FormOffsetText
         ''Added 8/16/2019  td
         With Me.ElementInfo
             .FontSize -= 1
+
+            Me.FontSize = .FontSize ''Push change to the level of the dialog form.
+
             LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, .FontSize)
             .Font_DrawingClass = modFonts.SetFontSize(.Font_DrawingClass, .FontSize)
+
+            Me.Font_DrawingClass = .Font_DrawingClass ''Push change to the level of the dialog form.
 
             ''Added 8/17/2019 thomas downes 
             LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, .FontSize)

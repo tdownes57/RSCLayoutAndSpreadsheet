@@ -96,8 +96,14 @@ Public Class CtlGraphicFldLabel
 
         ''7/30/2019 td''Me.ElementInfo.Font_DrawingClass = Me.ParentForm.Font ''Me.Font
         ''7/30/2019 td''Me.ElementInfo.Font_DrawingClass = New Font("Times New Roman", 25, FontStyle.Italic)
-        If (Me.ElementInfo.Font_DrawingClass Is Nothing) Then _
+
+        If (Me.ElementInfo.Font_DrawingClass Is Nothing) Then
+            ''Initialize the font. 
             Me.ElementInfo.Font_DrawingClass = New Font("Times New Roman", 15, FontStyle.Regular)
+            Me.ElementInfo.FontSize = 15
+            Me.ElementInfo.FontBold = False
+            Me.ElementInfo.FontItalics = False
+        End If ''end of " If (Me.ElementInfo.Font_DrawingClass Is Nothing) Then"
 
         ''Me.ElementInfo.BackColor = Me.ParentForm.BackColor
         ''Me.ElementInfo.FontColor = Me.ParentForm.ForeColor

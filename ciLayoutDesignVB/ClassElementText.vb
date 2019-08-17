@@ -24,7 +24,7 @@ Public Class ClassElementText
     Public Property FontColor As System.Drawing.Color Implements IElementText.FontColor
 
     ''Added 8/12/2019 thomas downes  
-    Public Property FontSize As Integer Implements IElementText.FontSize ''Added 8/12/2019 thomas downes  
+    Public Property FontSize As Single Implements IElementText.FontSize ''Added 8/12/2019 thomas downes  
     Public Property FontBold As Boolean Implements IElementText.FontBold ''Added 8/12/2019 thomas downes  
     Public Property FontItalics As Boolean Implements IElementText.FontItalics ''Added 8/12/2019 thomas downes  
     Public Property FontUnderline As Boolean Implements IElementText.FontUnderline ''Added 8/12/2019 thomas downes  

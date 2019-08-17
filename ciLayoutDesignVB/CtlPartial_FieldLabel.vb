@@ -147,9 +147,15 @@ Partial Public Class CtlGraphicFldLabel
         ''Added 7/30/2019 thomas downes
         ''
         Dim boolExitEarly As Boolean ''Added 8/13/2019 td
+
         CreateVisibleButton_Master("Choose a text font", AddressOf OpenDialog_Font, boolExitEarly)
         Application.DoEvents()
+
+        ''Added 8/17/2019 td
+        If (mod_fauxMenuEditSingleton Is Nothing) Then mod_fauxMenuEditSingleton = New CtlGraphPopMenuEditSingle
+
         mod_fauxMenuEditSingleton.SizeToExpectations()
+
         If (boolExitEarly) Then Exit Sub ''Added 8/13/2019 td
 
         FontDialog1.Font = Me.ElementInfo.Font_DrawingClass ''Added 7/31/2019 td  
@@ -164,6 +170,7 @@ Partial Public Class CtlGraphicFldLabel
         If (Me.GroupEdits.LabelsList_IsItemUnselected(Me)) Then
 
             Me.ElementInfo.Font_DrawingClass = FontDialog1.Font
+            Me.ElementInfo.FontSize = FontDialog1.Font.Size  ''Added 8/17/2019 td
             Application.DoEvents()
             Application.DoEvents()
 
@@ -419,11 +426,18 @@ Partial Public Class CtlGraphicFldLabel
         ''Major call !!
         frm_ToShow.ShowDialog()
 
-        ''Refresh the form. 
-        Me.ElementInfo.FontOffset_X = frm_ToShow.FontOffset_X
-        Me.ElementInfo.FontOffset_X = frm_ToShow.FontOffset_Y
-        Me.ElementInfo.FontSize = frm_ToShow.FontSize
-        Me.ElementInfo.Font_DrawingClass = frm_ToShow.Font_DrawingClassClass
+        ''Refresh the form. ----8/17/2019 td
+        Dim boolUserPressedOK As Boolean
+        boolUserPressedOK = (frm_ToShow.DialogResult = DialogResult.OK)
+
+        If (boolUserPressedOK) Then '' ----8/17/2019 td
+
+            Me.ElementInfo.FontOffset_X = frm_ToShow.FontOffset_X
+            Me.ElementInfo.FontOffset_X = frm_ToShow.FontOffset_Y
+            Me.ElementInfo.FontSize = frm_ToShow.FontSize
+            Me.ElementInfo.Font_DrawingClass = frm_ToShow.Font_DrawingClass
+
+        End If ''End of "If (boolUserPressedOK) Then"
 
     End Sub ''End of "Private Sub Open_OffsetTextDialog(sender As Object, e As EventArgs)"
 
