@@ -205,9 +205,14 @@ Public Class FormOffsetText
 
     Private Sub ButtonOK_Click(sender As Object, e As EventArgs) Handles ButtonOK.Click
 
+        Me.DialogResult = DialogResult.OK
+        Me.Close()
+
     End Sub
 
     Private Sub ButtonCancel_Click(sender As Object, e As EventArgs) Handles ButtonCancel.Click
+
+        Me.Close()
 
     End Sub
 End Class

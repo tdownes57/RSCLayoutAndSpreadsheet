@@ -866,6 +866,7 @@ Partial Public Class CtlGraphicFldLabel
 
         ''Added 8/17/2019 td
         par_toolStripItems.Add(new_item_offsetTextEtc)
+        par_toolStripItems.Add(new_item_rotate90)
 
         ''Moved from below, 8/14/2019 td 
         par_toolStripItems.Add(_item_group_alignParent)   ''ContextMenuStrip1.Items.Add(item_group_alignParent) ''Added 8/5/2019 thomas d.  
