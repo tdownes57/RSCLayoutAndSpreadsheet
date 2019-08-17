@@ -94,10 +94,10 @@ Public Class CtlGraphicFldLabel
         ''Me.ElementInfo.Width = pictureLabel.Width
         ''Me.ElementInfo.Height = pictureLabel.Height
 
-        ''7/30/2019 td''Me.ElementInfo.Font_AllInfo = Me.ParentForm.Font ''Me.Font
-        ''7/30/2019 td''Me.ElementInfo.Font_AllInfo = New Font("Times New Roman", 25, FontStyle.Italic)
-        If (Me.ElementInfo.Font_AllInfo Is Nothing) Then _
-            Me.ElementInfo.Font_AllInfo = New Font("Times New Roman", 15, FontStyle.Regular)
+        ''7/30/2019 td''Me.ElementInfo.Font_DrawingClass = Me.ParentForm.Font ''Me.Font
+        ''7/30/2019 td''Me.ElementInfo.Font_DrawingClass = New Font("Times New Roman", 25, FontStyle.Italic)
+        If (Me.ElementInfo.Font_DrawingClass Is Nothing) Then _
+            Me.ElementInfo.Font_DrawingClass = New Font("Times New Roman", 15, FontStyle.Regular)
 
         ''Me.ElementInfo.BackColor = Me.ParentForm.BackColor
         ''Me.ElementInfo.FontColor = Me.ParentForm.ForeColor
@@ -167,7 +167,7 @@ Public Class CtlGraphicFldLabel
         Me.ElementInfo.Width_Pixels = Me.Width
         Me.ElementInfo.Height_Pixels = Me.Height
 
-        ''Me.ElementInfo.Font_AllInfo = Me.Font
+        ''Me.ElementInfo.Font_DrawingClass = Me.Font
         ''Me.ElementInfo.BackColor = Me.BackColor
         ''Me.ElementInfo.FontColor = Me.ForeColor
 

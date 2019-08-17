@@ -14,7 +14,7 @@ Public Class FormOffsetText
     Public FontOffset_Y As Integer
     Public FontSize As Integer
 
-    Public ObjElementText As ClassElementText
+    ''8/17/2019 td''Public ObjElementText As ClassElementText
     Public ElementInfo As ciBadgeInterfaces.IElementText ''Added 8/16/2019 td
 
     Public GroupEdits As ISelectingElements ''Added 8/15/2019 thomas downes  
@@ -111,6 +111,9 @@ Public Class FormOffsetText
         CtlGraphicFldLabel1.ElementInfo = Me.ElementInfo
         CtlGraphicFldLabel1.RefreshImage()
 
+        ''Added 8/17/2019 thomas downes 
+        LabelNumberOffsetX.Text = String.Format(LabelNumberOffsetX.Tag.ToString, Me.FontOffset_X)
+
     End Sub
 
     Private Sub ButtonXDecrease_Click(sender As Object, e As EventArgs) Handles ButtonXDecrease.Click
@@ -121,6 +124,9 @@ Public Class FormOffsetText
         Me.ElementInfo.FontOffset_X -= 1
         CtlGraphicFldLabel1.ElementInfo = Me.ElementInfo
         CtlGraphicFldLabel1.RefreshImage()
+
+        ''Added 8/17/2019 thomas downes 
+        LabelNumberOffsetX.Text = String.Format(LabelNumberOffsetX.Tag.ToString, Me.FontOffset_X)
 
     End Sub
 
@@ -133,6 +139,9 @@ Public Class FormOffsetText
         CtlGraphicFldLabel1.ElementInfo = Me.ElementInfo
         CtlGraphicFldLabel1.RefreshImage()
 
+        ''Added 8/17/2019 thomas downes 
+        LabelNumberOffsetY.Text = String.Format(LabelNumberOffsetY.Tag.ToString, Me.FontOffset_Y)
+
     End Sub
 
     Private Sub ButtonYIncrease_Click(sender As Object, e As EventArgs) Handles ButtonYIncrease.Click
@@ -144,6 +153,9 @@ Public Class FormOffsetText
         CtlGraphicFldLabel1.ElementInfo = Me.ElementInfo
         CtlGraphicFldLabel1.RefreshImage()
 
+        ''Added 8/17/2019 thomas downes 
+        LabelNumberOffsetY.Text = String.Format(LabelNumberOffsetY.Tag.ToString, Me.FontOffset_Y)
+
     End Sub
 
     Private Sub ButtonFontDecrease_Click(sender As Object, e As EventArgs) Handles ButtonFontDecrease.Click
@@ -152,7 +164,7 @@ Public Class FormOffsetText
         With Me.ElementInfo
             .FontSize -= 1
             LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, .FontSize)
-            .Font_AllInfo = modFonts.SetFontSize(.Font_AllInfo, .FontSize)
+            .Font_DrawingClass = modFonts.SetFontSize(.Font_DrawingClass, .FontSize)
 
             ''Added 8/17/2019 thomas downes 
             LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, .FontSize)
@@ -172,7 +184,7 @@ Public Class FormOffsetText
         With Me.ElementInfo
             .FontSize += 1
             LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, .FontSize)
-            .Font_AllInfo = modFonts.SetFontSize(.Font_AllInfo, .FontSize)
+            .Font_DrawingClass = modFonts.SetFontSize(.Font_DrawingClass, .FontSize)
 
             ''Added 8/17/2019 thomas downes 
             LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, .FontSize)
@@ -181,6 +193,14 @@ Public Class FormOffsetText
 
         CtlGraphicFldLabel1.ElementInfo = Me.ElementInfo
         CtlGraphicFldLabel1.RefreshImage()
+
+    End Sub
+
+    Private Sub ButtonOK_Click(sender As Object, e As EventArgs) Handles ButtonOK.Click
+
+    End Sub
+
+    Private Sub ButtonCancel_Click(sender As Object, e As EventArgs) Handles ButtonCancel.Click
 
     End Sub
 End Class

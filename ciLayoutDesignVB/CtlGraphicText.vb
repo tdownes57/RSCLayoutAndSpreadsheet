@@ -58,8 +58,8 @@ Public Class CtlGraphicText
         ''
         If (String.IsNullOrEmpty(Me.ElementInfo.Text)) Then ElementInfo.Text = LabelText()
 
-        If (Me.ElementInfo.Font_AllInfo Is Nothing) Then _
-            Me.ElementInfo.Font_AllInfo = New Font("Times New Roman", 15, FontStyle.Regular)
+        If (Me.ElementInfo.Font_DrawingClass Is Nothing) Then _
+            Me.ElementInfo.Font_DrawingClass = New Font("Times New Roman", 15, FontStyle.Regular)
 
         If (Generator Is Nothing) Then Generator = New ClassLabelToImage
 
@@ -175,7 +175,7 @@ Public Class CtlGraphicText
         ''
         FontDialog1.ShowDialog()
 
-        Me.ElementInfo.Font_AllInfo = FontDialog1.Font
+        Me.ElementInfo.Font_DrawingClass = FontDialog1.Font
 
         Application.DoEvents()
         Application.DoEvents()

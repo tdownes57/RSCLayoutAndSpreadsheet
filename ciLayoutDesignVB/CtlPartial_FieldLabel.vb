@@ -152,10 +152,10 @@ Partial Public Class CtlGraphicFldLabel
         mod_fauxMenuEditSingleton.SizeToExpectations()
         If (boolExitEarly) Then Exit Sub ''Added 8/13/2019 td
 
-        FontDialog1.Font = Me.ElementInfo.Font_AllInfo ''Added 7/31/2019 td  
+        FontDialog1.Font = Me.ElementInfo.Font_DrawingClass ''Added 7/31/2019 td  
         FontDialog1.ShowDialog()
 
-        ''Me.ElementInfo.Font_AllInfo = FontDialog1.Font
+        ''Me.ElementInfo.Font_DrawingClass = FontDialog1.Font
         ''Application.DoEvents()
         ''Application.DoEvents()
         ''RefreshImage()
@@ -163,7 +163,7 @@ Partial Public Class CtlGraphicFldLabel
 
         If (Me.GroupEdits.LabelsList_IsItemUnselected(Me)) Then
 
-            Me.ElementInfo.Font_AllInfo = FontDialog1.Font
+            Me.ElementInfo.Font_DrawingClass = FontDialog1.Font
             Application.DoEvents()
             Application.DoEvents()
 
@@ -182,7 +182,7 @@ Partial Public Class CtlGraphicFldLabel
                 ''
                 With each_ctl
 
-                    .ElementInfo.Font_AllInfo = FontDialog1.Font
+                    .ElementInfo.Font_DrawingClass = FontDialog1.Font
                     Application.DoEvents()
                     Application.DoEvents()
                     .RefreshImage()
@@ -416,7 +416,14 @@ Partial Public Class CtlGraphicFldLabel
         ''8/16/2019 td''frm_ToShow.LoadFieldAndForm(Me.FieldInfo, Me.FormDesigner, Me)
         frm_ToShow.LoadFieldAndForm(Me.ElementInfo, Me.FieldInfo, Me.FormDesigner, Me)
 
-        frm_ToShow.Show()
+        ''Major call !!
+        frm_ToShow.ShowDialog()
+
+        ''Refresh the form. 
+        Me.ElementInfo.FontOffset_X = frm_ToShow.FontOffset_X
+        Me.ElementInfo.FontOffset_X = frm_ToShow.FontOffset_Y
+        Me.ElementInfo.FontSize = frm_ToShow.FontSize
+        Me.ElementInfo.Font_DrawingClass = frm_ToShow.Font_DrawingClassClass
 
     End Sub ''End of "Private Sub Open_OffsetTextDialog(sender As Object, e As EventArgs)"
 

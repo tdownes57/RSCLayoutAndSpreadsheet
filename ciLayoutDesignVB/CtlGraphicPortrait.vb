@@ -99,9 +99,9 @@ Public Class CtlGraphicPortrait
         ''
         ''7/31/2019 td'If (String.IsNullOrEmpty(Me.ElementInfo.Text)) Then ElementInfo.Text = LabelText()
 
-        ''7/31/2019 td'If (Me.ElementInfo.Font_AllInfo Is Nothing) Then 
-        ''7/31/2019 td'   Me.ElementInfo.Font_AllInfo = New Font("Times New Roman", 15, FontStyle.Regular)
-        ''7/31/2019 td''End If ''End of "If (Me.ElementInfo.Font_AllInfo Is Nothing) Then "
+        ''7/31/2019 td'If (Me.ElementInfo.Font_DrawingClass Is Nothing) Then 
+        ''7/31/2019 td'   Me.ElementInfo.Font_DrawingClass = New Font("Times New Roman", 15, FontStyle.Regular)
+        ''7/31/2019 td''End If ''End of "If (Me.ElementInfo.Font_DrawingClass Is Nothing) Then "
 
         ''7/31/2019 td''If (Generator Is Nothing) Then Generator = New ClassLabelToImage
 

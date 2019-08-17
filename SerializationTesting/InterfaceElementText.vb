@@ -16,7 +16,7 @@ Public Interface IElementText
     ''Property FontItalics As Boolean
     ''Property FontBold As Boolean
 
-    Property Font_AllInfo As System.Drawing.Font
+    Property Font_DrawingClass As System.Drawing.Font
 
     Property FontColor As System.Drawing.Color
 

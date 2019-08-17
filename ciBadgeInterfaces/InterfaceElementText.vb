@@ -33,7 +33,7 @@ Public Interface IElementText
     ''Property FontItalics As Boolean
     ''Property FontBold As Boolean
 
-    Property Font_AllInfo As System.Drawing.Font
+    Property Font_DrawingClass As System.Drawing.Font ''Formerly called Font__AllInfo.  8/17/2019 td
 
     Property FontColor As System.Drawing.Color
 

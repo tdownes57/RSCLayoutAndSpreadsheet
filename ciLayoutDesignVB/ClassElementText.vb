@@ -16,7 +16,7 @@ Public Class ClassElementText
     ''
     ''-------------------------------------------------------------
 
-    Public Property Font_AllInfo As System.Drawing.Font Implements IElementText.Font_AllInfo
+    Public Property Font_DrawingClass As System.Drawing.Font Implements IElementText.Font_DrawingClass
 
     Public Property PositionalMode As String Implements IElement_Base.PositionalMode ''Added 8/14/2019 td 
     Public Property ExampleValue As String Implements IElementText.ExampleValue ''Added 8/14/2019 td 
@@ -173,7 +173,7 @@ Public Class ClassElementText
                          New Rectangle(3, 3, intNewElementWidth - 6, intNewElementHeight - 6))
         End If ''End of "If (par_element.SelectedHighlighting) Then"
 
-        ''7/30/2019''gr.DrawString(par_design.Text, par_design.Font_AllInfo, brush_forecolor, New Point(0, 0))
+        ''7/30/2019''gr.DrawString(par_design.Text, par_design.Font_DrawingClass, brush_forecolor, New Point(0, 0))
 
         ''Font TextFont = New Font("Times New Roman", 25, FontStyle.Italic);
         ''    e.Graphics.TextRenderingHint = TextRenderingHint.SingleBitPerPixelGridFit;
@@ -184,7 +184,7 @@ Public Class ClassElementText
         ''    e.Graphics.DrawString("Sample Text", TextFont, Brushes.Black, 20, 150);
 
         gr.TextRenderingHint = TextRenderingHint.AntiAliasGridFit
-        gr.DrawString(par_design.Text, par_design.Font_AllInfo, Brushes.Black, 20, 5)
+        gr.DrawString(par_design.Text, par_design.Font_DrawingClass, Brushes.Black, 20, 5)
 
         Return par_image ''Return Nothing
 
