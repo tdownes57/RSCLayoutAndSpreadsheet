@@ -590,9 +590,9 @@ ExitHandler:
 
             With each_elementField
                 Try
-                    gr.DrawImage(.TextDisplay.GenerateImage(.Position.Height_Pixels),
-                                 .Position.LeftEdge_Pixels, .Position.TopEdge_Pixels,
-                                 .Position.Width_Pixels, .Position.Height_Pixels)
+                    gr.DrawImage(.TextDisplay.GenerateImage(.Position_BL.Height_Pixels),
+                                 .Position_BL.LeftEdge_Pixels, .Position_BL.TopEdge_Pixels,
+                                 .Position_BL.Width_Pixels, .Position_BL.Height_Pixels)
 
                 Catch ex_draw_invalid As InvalidOperationException
                     ''Error:  Object not available.
@@ -616,9 +616,9 @@ ExitHandler:
 
             With each_elementField
                 Try
-                    gr.DrawImage(.TextDisplay.GenerateImage(.Position.Height_Pixels),
-                                 .Position.LeftEdge_Pixels, .Position.TopEdge_Pixels,
-                                 .Position.Width_Pixels, .Position.Height_Pixels)
+                    gr.DrawImage(.TextDisplay.GenerateImage(.Position_BL.Height_Pixels),
+                                 .Position_BL.LeftEdge_Pixels, .Position_BL.TopEdge_Pixels,
+                                 .Position_BL.Width_Pixels, .Position_BL.Height_Pixels)
 
                 Catch ex_draw_invalid As InvalidOperationException
                     ''Error:  Object not available.
