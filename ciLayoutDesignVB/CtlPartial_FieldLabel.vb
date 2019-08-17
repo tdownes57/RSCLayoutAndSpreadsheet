@@ -441,6 +441,32 @@ Partial Public Class CtlGraphicFldLabel
 
     End Sub ''End of "Private Sub Open_OffsetTextDialog(sender As Object, e As EventArgs)"
 
+    Private Sub Rotate90Degrees(sender As Object, e As EventArgs)
+        ''
+        ''Added 8/17/2019 thomas downes
+        ''  
+        Select Case Me.ElementInfo.OrientationToLayout
+            Case "", " ", "P"
+                Me.ElementInfo.OrientationToLayout = "L"
+            Case "L"
+                Me.ElementInfo.OrientationToLayout = "P"
+            Case Else
+                Me.ElementInfo.OrientationToLayout = "P"
+        End Select
+
+        ''Added 8/12/2019 thomas downes 
+        ''
+        ''   Increment by 90 degrees.  
+        ''    This will enable the badge to be printed with the element oriented
+        ''   correctly (with one out of four choices of orientation). 
+        ''
+        Me.ElementInfo.OrientationInDegrees += 90
+
+        RefreshImage()
+        Me.Refresh()
+
+    End Sub ''eNd of "Private Sub Rotate90Degrees()"
+
     Private Sub CreateVisibleButton_Master(par_strText As String, par_handler As EventHandler, ByRef pboolExitEarly As Boolean,
                                            Optional pboolAlignment As Boolean = False)
         ''
@@ -761,6 +787,7 @@ Partial Public Class CtlGraphicFldLabel
         Dim new_item_sizeInfo As ToolStripMenuItem ''Added 7/31/2019 td
         Dim new_item_editExample As ToolStripMenuItem ''Added 8/110/2019 td
         Dim new_item_offsetTextEtc As ToolStripMenuItem ''Added 8/15/2019 td  
+        Dim new_item_rotate90 As ToolStripMenuItem ''Added 8/17/2019 td  
 
         ''8/12/2019 td''Static item_group_add As ToolStripMenuItem ''Added 8/2/2019 td
         ''8/12/2019 td''Static item_group_omit As ToolStripMenuItem ''Added 8/2/2019 td
@@ -806,6 +833,9 @@ Partial Public Class CtlGraphicFldLabel
         ''Added 8/15/2019 td  
         new_item_offsetTextEtc = New ToolStripMenuItem("Position text within the element")
 
+        ''Added 8/17/2019 td  
+        new_item_rotate90 = New ToolStripMenuItem("Rotate text 90 degrees")
+
         AddHandler new_item_field.Click, AddressOf OpenDialog_Field
         AddHandler new_item_colors.Click, AddressOf OpenDialog_Color
         AddHandler new_item_font.Click, AddressOf OpenDialog_Font
@@ -824,6 +854,9 @@ Partial Public Class CtlGraphicFldLabel
 
         ''Added 8/15/2019 thomas d.
         AddHandler new_item_offsetTextEtc.Click, AddressOf Open_OffsetTextDialog ''Added 8/15/2019 thomas d.
+
+        ''Added 8/17/2019 thomas d.
+        AddHandler new_item_rotate90.Click, AddressOf Rotate90Degrees ''Added 8/17 /2019 thomas d.
 
         par_toolStripItems.Add(_item_fieldname)   ''ContextMenuStrip1.Items.Add(new_item_fieldname)
         par_toolStripItems.Add(new_item_field)   ''ContextMenuStrip1.Items.Add(new_item_field)
