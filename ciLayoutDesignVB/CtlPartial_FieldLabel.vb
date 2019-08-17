@@ -350,21 +350,25 @@ Partial Public Class CtlGraphicFldLabel
 
                     Case (_item_group_alignTop.Text)
 
+                        ''Top 
                         each_ctl.Top = CInt(IIf(boolAverage, intAverage_Top, Me.Top)) ''8/16 Me.Top
                         each_ctl.ElementInfo.TopEdge_Pixels = each_ctl.Top ''8/16 Me.Top
 
                     Case (_item_group_alignLeft.Text)
 
+                        ''Left
                         each_ctl.Left = CInt(IIf(boolAverage, intAverage_Left, Me.Left)) ''8/16 Me.Left
                         each_ctl.ElementInfo.LeftEdge_Pixels = each_ctl.Left ''Me.Left
 
                     Case (_item_group_alignWidth.Text)
 
+                        ''Width
                         each_ctl.Width = CInt(IIf(boolAverage, intAverage_Width, Me.Width)) ''8/16 Me.Width
                         each_ctl.ElementInfo.Width_Pixels = each_ctl.Width ''Me.Width
 
                     Case (_item_group_alignHeight.Text)
 
+                        ''Height  
                         each_ctl.Height = CInt(IIf(boolAverage, intAverage_Height, Me.Height)) ''8/16 Me.Height
                         each_ctl.ElementInfo.Height_Pixels = each_ctl.Height ''Me.Height
 
