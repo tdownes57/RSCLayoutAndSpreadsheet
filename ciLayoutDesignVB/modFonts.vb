@@ -45,6 +45,8 @@ ExitHandler:
 
         Dim new_font As Font
 
+        If (par_intSize < 7) Then par_intSize = 7
+
         With par_font
 
             new_font = New Font(.FontFamily, par_intSize, .Style)

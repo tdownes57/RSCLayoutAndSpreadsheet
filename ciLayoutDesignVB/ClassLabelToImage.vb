@@ -22,6 +22,10 @@ Public Class ClassLabelToImage
         Dim pen_highlighting As Pen ''Added 8/2/2019 thomas downes  
         Dim brush_forecolor As Brush
 
+        ''Added 8/17/2019 td
+        Dim singleOffsetX As Integer = par_design.FontOffset_X
+        Dim singleOffsetY As Integer = par_design.FontOffset_Y
+
         Application.DoEvents()
 
         If (par_image Is Nothing) Then
@@ -74,7 +78,7 @@ Public Class ClassLabelToImage
         ''    e.Graphics.DrawString("Sample Text", TextFont, Brushes.Black, 20, 150);
 
         gr.TextRenderingHint = TextRenderingHint.AntiAliasGridFit
-        gr.DrawString(par_design.Text, par_design.Font_AllInfo, Brushes.Black, 20, 20)
+        gr.DrawString(par_design.Text, par_design.Font_AllInfo, Brushes.Black, singleOffsetX, singleOffsetY)
 
         Return par_image ''Return Nothing
 

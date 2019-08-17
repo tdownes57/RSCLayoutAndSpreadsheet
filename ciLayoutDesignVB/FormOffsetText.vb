@@ -9,6 +9,11 @@ Public Class FormOffsetText
     ''
     Public FieldInfo As ICIBFieldStandardOrCustom
 
+    ''Added 8/17/2019 td  
+    Public FontOffset_X As Integer
+    Public FontOffset_Y As Integer
+    Public FontSize As Integer
+
     Public ObjElementText As ClassElementText
     Public ElementInfo As ciBadgeInterfaces.IElementText ''Added 8/16/2019 td
 
@@ -28,16 +33,24 @@ Public Class FormOffsetText
         ''8/16/2019 td''Me.ElementInfo = par_field.ElementInfo
         Me.ElementInfo = par_elementInfo ''Added 8/16 td
 
+        ''Added 8/17/2019 td
+        ''
+        Me.FontOffset_X = par_elementInfo.FontOffset_X
+        Me.FontOffset_Y = par_elementInfo.FontOffset_Y
+        Me.FontSize = par_elementInfo.FontSize
+
         ''Added 8/15/2019 td
         Me.FormDesigner = par_formDesigner
         Me.OriginalElementControl = par_originalCtl
 
         With CtlGraphicFldLabel1
+            .ElementInfo = par_elementInfo
+            .Width = .ElementInfo.Width_Pixels
+            .Height = .ElementInfo.Height_Pixels
             .FieldInfo = par_fieldInfo
             .LabelText()  ''par_elementInfo.Text)
             ''8/17/2019 td''.FieldInfo = par_fieldInfo
             ''8/16/2019 td   ''.ElementInfo = par_field.ElementInfo
-            .ElementInfo = par_elementInfo
             .FormDesigner = par_formDesigner
             .RefreshImage()
         End With
@@ -93,6 +106,7 @@ Public Class FormOffsetText
         ''
         ''Added 8/16/2019 td
         ''
+        Me.FontOffset_X += 1
         Me.ElementInfo.FontOffset_X += 1
         CtlGraphicFldLabel1.ElementInfo = Me.ElementInfo
         CtlGraphicFldLabel1.RefreshImage()
@@ -103,6 +117,7 @@ Public Class FormOffsetText
         ''
         ''Added 8/16/2019 td
         ''
+        Me.FontOffset_X -= 1
         Me.ElementInfo.FontOffset_X -= 1
         CtlGraphicFldLabel1.ElementInfo = Me.ElementInfo
         CtlGraphicFldLabel1.RefreshImage()
@@ -113,6 +128,7 @@ Public Class FormOffsetText
         ''
         ''Added 8/16/2019 td
         ''
+        Me.FontOffset_Y -= 1
         Me.ElementInfo.FontOffset_Y -= 1
         CtlGraphicFldLabel1.ElementInfo = Me.ElementInfo
         CtlGraphicFldLabel1.RefreshImage()
@@ -123,6 +139,7 @@ Public Class FormOffsetText
         ''
         ''Added 8/16/2019 td
         ''
+        Me.FontOffset_Y += 1
         Me.ElementInfo.FontOffset_Y += 1
         CtlGraphicFldLabel1.ElementInfo = Me.ElementInfo
         CtlGraphicFldLabel1.RefreshImage()
@@ -132,7 +149,16 @@ Public Class FormOffsetText
     Private Sub ButtonFontDecrease_Click(sender As Object, e As EventArgs) Handles ButtonFontDecrease.Click
 
         ''Added 8/16/2019  td
-        Me.ElementInfo.FontSize -= 1
+        With Me.ElementInfo
+            .FontSize -= 1
+            LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, .FontSize)
+            .Font_AllInfo = modFonts.SetFontSize(.Font_AllInfo, .FontSize)
+
+            ''Added 8/17/2019 thomas downes 
+            LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, .FontSize)
+
+        End With
+
         CtlGraphicFldLabel1.ElementInfo = Me.ElementInfo
         CtlGraphicFldLabel1.RefreshImage()
 
@@ -145,7 +171,12 @@ Public Class FormOffsetText
         ''
         With Me.ElementInfo
             .FontSize += 1
+            LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, .FontSize)
             .Font_AllInfo = modFonts.SetFontSize(.Font_AllInfo, .FontSize)
+
+            ''Added 8/17/2019 thomas downes 
+            LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, .FontSize)
+
         End With
 
         CtlGraphicFldLabel1.ElementInfo = Me.ElementInfo
