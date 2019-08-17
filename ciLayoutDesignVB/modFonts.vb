@@ -8,6 +8,10 @@ Module modFonts
     ''
     ''Added 8/16/2019 td  
     ''
+    Public AskedAlignmentQuestion As Boolean ''Added 8/16/2019 td  
+    Public Const vbCrLf_Deux As String = (vbCrLf & vbCrLf) ''Added 8/16/2019 td
+    Public UseAverageLineForAlignment As Boolean ''Added 8/16/2019 td   
+
     Public Function MakeItBoldEtc(ByRef par_font As Font) As Font
         ''
         ''Added 8/16/2019 td  

@@ -139,6 +139,7 @@ Partial Public Class FormDesignProtoTwo
                 ''8/12/2019 td''boolMoving = (DeltaTop <> 0 Or DeltaLeft <> 0)
                 boolMoving = ((DeltaTop <> 0 And DeltaHeight = 0) Or
                               (DeltaLeft <> 0 And DeltaWidth = 0))
+
                 If (boolMoving) Then
                     .Top += DeltaTop
                     .Left += DeltaLeft
@@ -174,6 +175,7 @@ Partial Public Class FormDesignProtoTwo
                         ''
                         ''8/12/2019 TD''.Top = (.TempResizeInfo_Top + DeltaTop)
                         ''8/12/2019 TD''.Left = (.TempResizeInfo_Left + DeltaLeft)
+
                         .Top += DeltaTop
                         .Left += DeltaLeft
                         .Width += DeltaWidth
@@ -209,6 +211,8 @@ Partial Public Class FormDesignProtoTwo
         ''
         ''Added 8/15/2019 thomas downes  
         ''
+        If (GetNextLowerControl(par_ctl) Is Nothing) Then Exit Sub ''Added 8/16/2019 td 
+
         SwitchWithOtherCtl(par_ctl, GetNextLowerControl(par_ctl))
 
     End Sub ''End of "Private Sub SwitchControls_Down(par_ctl As CtlGraphicFldLabel)"
@@ -217,6 +221,8 @@ Partial Public Class FormDesignProtoTwo
         ''
         ''Added 8/15/2019 thomas downes  
         ''
+        If (GetNextHigherControl(par_ctl) Is Nothing) Then Exit Sub ''Added 8/16/2019 td 
+
         SwitchWithOtherCtl(par_ctl, GetNextHigherControl(par_ctl))
 
     End Sub ''End of "Private Sub SwitchWithNextHigher(par_ctl As CtlGraphicFldLabel)"
@@ -254,8 +260,12 @@ Partial Public Class FormDesignProtoTwo
         ''
         ''---For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
         ''---Next each_control
-
-        Return mod_selectedCtls.Where(Function(ctl) ctl.Top > par_ctl.Top).OrderBy(Function(ctl) ctl.Top).First
+        Try
+            Return mod_selectedCtls.Where(Function(ctl) ctl.Top > par_ctl.Top).OrderBy(Function(ctl) ctl.Top).First
+        Catch ex_linq As Exception
+            ''Apparently the command above fails is there are not any lower controls.  --8/16 td 
+            Return Nothing
+        End Try
 
     End Function ''End of "Private Function GetNextLowerControl"
 
@@ -266,7 +276,12 @@ Partial Public Class FormDesignProtoTwo
         ''---For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
         ''---Next each_control
 
-        Return mod_selectedCtls.Where(Function(ctl) ctl.Top < par_ctl.Top).OrderByDescending(Function(ctl) ctl.Top).First
+        Try
+            Return mod_selectedCtls.Where(Function(ctl) ctl.Top < par_ctl.Top).OrderByDescending(Function(ctl) ctl.Top).First
+        Catch ex_linq As Exception
+            ''Apparently the command above fails is there are not any higher controls.  --8/16 td 
+            Return Nothing
+        End Try
 
     End Function ''End of "Private Function GetNextHigherControl"
 
