@@ -433,9 +433,11 @@ Partial Public Class CtlGraphicFldLabel
         If (boolUserPressedOK) Then '' ----8/17/2019 td
 
             Me.ElementInfo.FontOffset_X = frm_ToShow.FontOffset_X
-            Me.ElementInfo.FontOffset_X = frm_ToShow.FontOffset_Y
+            Me.ElementInfo.FontOffset_Y = frm_ToShow.FontOffset_Y
             Me.ElementInfo.FontSize = frm_ToShow.FontSize
             Me.ElementInfo.Font_DrawingClass = frm_ToShow.Font_DrawingClass
+
+            Me.RefreshImage()
 
         End If ''End of "If (boolUserPressedOK) Then"
 

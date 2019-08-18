@@ -60,6 +60,12 @@ Public Class FormOffsetText
         ''Position it at the center horizontally. 
         CenterTheFieldControl()
 
+        ''Added 8/17/2019 thomas downes 
+        LabelNumberOffsetX.Text = String.Format(LabelNumberOffsetX.Tag.ToString, Me.FontOffset_X)
+        LabelNumberOffsetY.Text = String.Format(LabelNumberOffsetY.Tag.ToString, Me.FontOffset_Y)
+        LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, Me.FontSize)
+
+
     End Sub ''End of "Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
 
     Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo,
@@ -114,7 +120,7 @@ Public Class FormOffsetText
         CtlGraphicFldLabel1.RefreshImage()
 
         ''Added 8/17/2019 thomas downes 
-        LabelNumberOffsetX.Text = String.Format(LabelNumberOffsetX.Tag.ToString, Me.FontOffset_X)
+        LabelNumberOffsetY.Text = String.Format(LabelNumberOffsetY.Tag.ToString, Me.FontOffset_X)
 
     End Sub
 
@@ -128,7 +134,7 @@ Public Class FormOffsetText
         CtlGraphicFldLabel1.RefreshImage()
 
         ''Added 8/17/2019 thomas downes 
-        LabelNumberOffsetX.Text = String.Format(LabelNumberOffsetX.Tag.ToString, Me.FontOffset_X)
+        LabelNumberOffsetY.Text = String.Format(LabelNumberOffsetY.Tag.ToString, Me.FontOffset_X)
 
     End Sub
 
@@ -142,7 +148,7 @@ Public Class FormOffsetText
         CtlGraphicFldLabel1.RefreshImage()
 
         ''Added 8/17/2019 thomas downes 
-        LabelNumberOffsetY.Text = String.Format(LabelNumberOffsetY.Tag.ToString, Me.FontOffset_Y)
+        LabelNumberOffsetX.Text = String.Format(LabelNumberOffsetX.Tag.ToString, Me.FontOffset_Y)
 
     End Sub
 
@@ -156,7 +162,7 @@ Public Class FormOffsetText
         CtlGraphicFldLabel1.RefreshImage()
 
         ''Added 8/17/2019 thomas downes 
-        LabelNumberOffsetY.Text = String.Format(LabelNumberOffsetY.Tag.ToString, Me.FontOffset_Y)
+        LabelNumberOffsetX.Text = String.Format(LabelNumberOffsetX.Tag.ToString, Me.FontOffset_X)
 
     End Sub
 
@@ -190,8 +196,12 @@ Public Class FormOffsetText
         ''
         With Me.ElementInfo
             .FontSize += 1
+            Me.FontSize = .FontSize ''Push change to the level of the dialog form.
+
             LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, .FontSize)
             .Font_DrawingClass = modFonts.SetFontSize(.Font_DrawingClass, .FontSize)
+
+            Me.Font_DrawingClass = .Font_DrawingClass ''Push change to the level of the dialog form.
 
             ''Added 8/17/2019 thomas downes 
             LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, .FontSize)
