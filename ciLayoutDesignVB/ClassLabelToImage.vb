@@ -100,6 +100,7 @@ Public Class ClassLabelToImage
 
             Case HorizontalAlignment.Right
                 ''// Measure string.
+                ''
                 stringSize = gr.MeasureString(par_design.Text, par_design.Font_DrawingClass)
 
                 Dim singleOffsetX_AlignRight As Single ''Added 8/18/2019 td 
