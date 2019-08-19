@@ -58,7 +58,7 @@ Public Interface IElementText
     ''Added 8/14/2019 td 
     Property ExampleValue As String ''E.g. "George Washington" for FullName. 
 
-    Property Alignment As System.Windows.Forms.HorizontalAlignment
+    Property TextAlignment As System.Windows.Forms.HorizontalAlignment
 
 
     Property OrientationToLayout As String ''E.g. "L" (Landscape) (by far the most common) or "P" for Portrait  

@@ -531,19 +531,19 @@ Public Class FormDesignProtoTwo
 
             Case ((0 < intX And intX < 45) And (0 < intY And intY < 45))
 
-                objControlToModify.ElementInfo.Alignment = HorizontalAlignment.Left
+                objControlToModify.ElementInfo.TextAlignment = HorizontalAlignment.Left
 
             Case ((45 < intX And intX < 90) And (45 < intY And intY < 90))
 
-                objControlToModify.ElementInfo.Alignment = HorizontalAlignment.Center
+                objControlToModify.ElementInfo.TextAlignment = HorizontalAlignment.Center
 
             Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
 
-                objControlToModify.ElementInfo.Alignment = HorizontalAlignment.Right
+                objControlToModify.ElementInfo.TextAlignment = HorizontalAlignment.Right
 
             Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
 
-                ''objControlToModify.ElementInfo.FontSize += 1
+                ''objControlToModify.ElementInfo.Fo  ntSize += 1
 
             Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
 

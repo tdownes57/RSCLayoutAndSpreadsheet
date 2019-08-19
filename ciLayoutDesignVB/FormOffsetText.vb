@@ -14,6 +14,7 @@ Public Class FormOffsetText
     Public FontOffset_Y As Integer
     Public FontSize As Integer
     Public Font_DrawingClass As Font ''Added 8/17/2019 td 
+    Public TextAlignment As System.Windows.Forms.HorizontalAlignment ''Added 8/18/2019 td  
 
     ''8/17/2019 td''Public ObjElementText As ClassElementText
     Public ElementInfo As ciBadgeInterfaces.IElementText ''Added 8/16/2019 td
@@ -223,6 +224,34 @@ Public Class FormOffsetText
     Private Sub ButtonCancel_Click(sender As Object, e As EventArgs) Handles ButtonCancel.Click
 
         Me.Close()
+
+    End Sub
+
+    Private Sub ButtonLeft_Click(sender As Object, e As EventArgs) Handles ButtonLeft.Click
+
+        ''Added 8/18/2019 thomas downes
+        ''
+        Me.ElementInfo.TextAlignment = HorizontalAlignment.Left
+        Me.TextAlignment = HorizontalAlignment.Left
+        Me.CtlGraphicFldLabel1.RefreshImage()
+
+    End Sub
+
+    Private Sub ButtonCenter_Click(sender As Object, e As EventArgs) Handles ButtonCenter.Click
+
+        ''Added 8/18/2019 thomas downes
+        Me.ElementInfo.TextAlignment = HorizontalAlignment.Center
+        Me.TextAlignment = HorizontalAlignment.Center
+        Me.CtlGraphicFldLabel1.RefreshImage()
+
+    End Sub
+
+    Private Sub ButtonRight_Click(sender As Object, e As EventArgs) Handles ButtonRight.Click
+
+        ''Added 8/18/2019 thomas downes
+        Me.ElementInfo.TextAlignment = HorizontalAlignment.Right
+        Me.TextAlignment = HorizontalAlignment.Right
+        Me.CtlGraphicFldLabel1.RefreshImage()
 
     End Sub
 End Class

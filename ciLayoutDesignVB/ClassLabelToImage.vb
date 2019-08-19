@@ -76,9 +76,39 @@ Public Class ClassLabelToImage
         ''    e.Graphics.DrawString("Sample Text", TextFont, Brushes.Black, 20, 85);
         ''    e.Graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
         ''    e.Graphics.DrawString("Sample Text", TextFont, Brushes.Black, 20, 150);
-
+        ''
         gr.TextRenderingHint = TextRenderingHint.AntiAliasGridFit
-        gr.DrawString(par_design.Text, par_design.Font_DrawingClass, Brushes.Black, singleOffsetX, singleOffsetY)
+        Dim stringSize = New SizeF()
+
+        ''Added 8/18/2019 td
+        Select Case par_design.TextAlignment''Added 8/18/2019 td
+
+            Case HorizontalAlignment.Left
+
+                gr.DrawString(par_design.Text, par_design.Font_DrawingClass, Brushes.Black, singleOffsetX, singleOffsetY)
+
+            Case HorizontalAlignment.Center
+                ''// Measure string.
+                stringSize = gr.MeasureString(par_design.Text, par_design.Font_DrawingClass)
+
+                Dim singleOffsetX_AlignRight As Single ''Added 8/18/2019 td 
+                ''Added 8/18/2019 td 
+                singleOffsetX_AlignRight = (singleOffsetX + (par_image.Width - stringSize.Width) / 2)
+                ''Added 8/18/2019 td 
+                gr.DrawString(par_design.Text, par_design.Font_DrawingClass, Brushes.Black,
+                              singleOffsetX_AlignRight, singleOffsetY)
+
+            Case HorizontalAlignment.Right
+                ''// Measure string.
+                stringSize = gr.MeasureString(par_design.Text, par_design.Font_DrawingClass)
+
+                Dim singleOffsetX_AlignRight As Single ''Added 8/18/2019 td 
+                singleOffsetX_AlignRight = (par_image.Width - stringSize.Width - singleOffsetX)
+                ''Added 8/18/2019 td 
+                gr.DrawString(par_design.Text, par_design.Font_DrawingClass, Brushes.Black,
+                              singleOffsetX_AlignRight, singleOffsetY)
+
+        End Select ''End of "Select Case par_design.TextAlignment"
 
         Return par_image ''Return Nothing
 

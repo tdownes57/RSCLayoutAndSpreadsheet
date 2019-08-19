@@ -439,6 +439,37 @@ Partial Public Class CtlGraphicFldLabel
 
             Me.RefreshImage()
 
+            ''
+            ''
+            ''Group Editimg
+            ''
+            ''
+            ''Added 8/18/2019 td 
+            If (Me.GroupEdits.LabelsList_IsItemIncluded(Me)) Then
+
+                ''Added 8/18/2019 td 
+                Dim objElements As List(Of CtlGraphicFldLabel)
+                objElements = Me.GroupEdits.LabelsDesignList_AllItems
+
+                For Each each_ctl As CtlGraphicFldLabel In objElements
+                    ''
+                    ''Added 8/3/2019 td  
+                    ''
+                    With each_ctl
+                        ''.ElementInfo.Alignment = frm_ToShow.Alignment  
+                        .ElementInfo.FontOffset_X = frm_ToShow.FontOffset_X
+                        .ElementInfo.FontOffset_Y = frm_ToShow.FontOffset_Y
+                        .ElementInfo.FontSize = frm_ToShow.FontSize
+
+                        .RefreshImage()
+                        .Refresh()
+
+                    End With
+
+                Next each_ctl
+
+            End If
+
         End If ''End of "If (boolUserPressedOK) Then"
 
     End Sub ''End of "Private Sub Open_OffsetTextDialog(sender As Object, e As EventArgs)"

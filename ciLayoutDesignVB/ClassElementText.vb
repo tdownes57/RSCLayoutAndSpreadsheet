@@ -46,7 +46,7 @@ Public Class ClassElementText
     Public Property Text As String Implements IElementText.Text ''E.g. "George Washington" for FullName. 
 
 
-    Public Property Alignment As System.Windows.Forms.HorizontalAlignment Implements IElementText.Alignment
+    Public Property TextAlignment As System.Windows.Forms.HorizontalAlignment Implements IElementText.TextAlignment
 
 
     Public Property OrientationToLayout As String Implements IElementText.OrientationToLayout ''E.g. "L" (Landscape) (by far the most common) or "P" for Portrait  
