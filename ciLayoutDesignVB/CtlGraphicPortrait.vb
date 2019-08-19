@@ -49,9 +49,17 @@ Public Class CtlGraphicPortrait
         ''
         ''Rotate the image 90 degrees, as many times as needed.  ---8/12/2019 td  
         ''
+        Me.RefreshImage()
 
+    End Sub
 
+    Private Sub DisplayAnotherImage(sender As Object, e As EventArgs)
+        ''
+        ''Added 8/18/2019 td
+        ''
+        Me.ElementInfo_Pic.PicFileIndex += 1
 
+        picturePortrait.Image = ciPictures_VB.PictureExamples.GetImageByIndex(Me.ElementInfo_Pic.PicFileIndex)
 
     End Sub
 
@@ -129,40 +137,49 @@ Public Class CtlGraphicPortrait
                 image_Pic = picturePortrait.Image
                 boolSeemsInPortraitMode = (image_Pic.Height > image_Pic.Width)
                 boolLetsRotate90 = True ''boolSeemsInPortraitMode
+                boolLetsRotate90 = (Me.ElementInfo_Pic.OrientationDegrees > 0)
 
                 ''Added 8/7/2019 thomas downes 
                 If (boolLetsRotate90) Then
-                    ''Added 8/7/2019 thomas downes 
-                    ''8/7 td''image_Rotated = CType(image_Pic.Clone, Image)
 
-                    bm_rotation = New Bitmap(image_Pic)
-                    bm_rotation.RotateFlip(RotateFlipType.Rotate90FlipNone)
+                    Dim intRotateIndex As Integer ''Added 8/18/2019 td  
 
-                    ''8/7 td''picturePortrait.Image = image_Rotated
+                    For intRotateIndex = 1 To CInt(Me.ElementInfo_Pic.OrientationDegrees / 90)
 
-                    ''8/7 td''picturePortrait.Width = image_Rotated.Width
-                    ''8/7 td''picturePortrait.Height = image_Rotated.Height
+                        ''Added 8/7/2019 thomas downes 
+                        ''8/7 td''image_Rotated = CType(image_Pic.Clone, Image)
 
-                    ''8/8 td''picturePortrait.Width = bm_rotation.Width
-                    ''8/8 td''picturePortrait.Height = bm_rotation.Height
+                        image_Pic = picturePortrait.Image
+                        bm_rotation = New Bitmap(image_Pic)
+                        bm_rotation.RotateFlip(RotateFlipType.Rotate90FlipNone)
 
-                    picturePortrait.Width = intStarting_Height ''Switching!! Height & Width are switched.
-                    picturePortrait.Height = intStarting_Width ''Switching!! Height & Width are switched.
+                        ''8/7 td''picturePortrait.Image = image_Rotated
 
-                    Me.Width = intStarting_Height ''Switching!!  Height & Width are switched. ---8/8/2019 td
-                    Me.Height = intStarting_Width ''Switching!!  Height & Width are switched. ---8/8/2019 td 
+                        ''8/7 td''picturePortrait.Width = image_Rotated.Width
+                        ''8/7 td''picturePortrait.Height = image_Rotated.Height
 
-                    picturePortrait.Refresh()
+                        ''8/8 td''picturePortrait.Width = bm_rotation.Width
+                        ''8/8 td''picturePortrait.Height = bm_rotation.Height
 
-                    picturePortrait.Image = bm_rotation
-                    picturePortrait.SizeMode = PictureBoxSizeMode.Zoom
-                    picturePortrait.Refresh()
+                        picturePortrait.Width = intStarting_Height ''Switching!! Height & Width are switched.
+                        picturePortrait.Height = intStarting_Width ''Switching!! Height & Width are switched.
 
-                    ''8/7 td''Me.Width = image_Rotated.Width
-                    ''8/7 td'' Me.Height = image_Rotated.Height
+                        Me.Width = intStarting_Height ''Switching!!  Height & Width are switched. ---8/8/2019 td
+                        Me.Height = intStarting_Width ''Switching!!  Height & Width are switched. ---8/8/2019 td 
 
-                    ''8/7 td'' Me.Width = picturePortrait.Width
-                    ''8/7 td'' Me.Height = picturePortrait.Height
+                        picturePortrait.Refresh()
+
+                        picturePortrait.Image = bm_rotation
+                        picturePortrait.SizeMode = PictureBoxSizeMode.Zoom
+                        picturePortrait.Refresh()
+
+                        ''8/7 td''Me.Width = image_Rotated.Width
+                        ''8/7 td'' Me.Height = image_Rotated.Height
+
+                        ''8/7 td'' Me.Width = picturePortrait.Width
+                        ''8/7 td'' Me.Height = picturePortrait.Height
+
+                    Next intRotateIndex
 
                 End If ''End of "If (boolLetsRotate90) Then"
 
@@ -225,6 +242,7 @@ Public Class CtlGraphicPortrait
         Dim boolRightClick As Boolean
 
         Dim new_item_rotate90 As ToolStripMenuItem
+        Dim new_item_changePic As ToolStripMenuItem
 
         boolRightClick = (e.Button = MouseButtons.Right)
 
@@ -237,10 +255,15 @@ Public Class CtlGraphicPortrait
             If (0 = ContextMenuStrip1.Items.Count) Then
 
                 new_item_rotate90 = New ToolStripMenuItem("Rotate 90 Degrees")
+                ''Added 8/18/2019 td
+                new_item_changePic = New ToolStripMenuItem("Change Example Pic")
 
                 AddHandler new_item_rotate90.Click, AddressOf Rotate90Degrees
+                ''Added 8/18/2019 td
+                AddHandler new_item_rotate90.Click, AddressOf DisplayAnotherImage
 
                 ContextMenuStrip1.Items.Add(new_item_rotate90)
+                ContextMenuStrip1.Items.Add(new_item_changePic) ''Added 8/18/2019 td
 
             End If ''End of "If (0 = ContextMenuStrip1.Items.Count) Then"
 

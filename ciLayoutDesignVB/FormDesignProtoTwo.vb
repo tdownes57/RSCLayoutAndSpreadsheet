@@ -68,6 +68,7 @@ Public Class FormDesignProtoTwo
 
         ''7/31/2019 td''Me.Controls.Remove(pictureboxPic) ''Added 7/31/2019 thomas d. 
         mod_imageLady = CtlGraphicPortrait_Lady.picturePortrait.Image
+
         Me.Controls.Remove(CtlGraphicPortrait_Lady) ''Added 7/31/2019 thomas d. 
 
         ''Encapsulated 7/31/2019 td
