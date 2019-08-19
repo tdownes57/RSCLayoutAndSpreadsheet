@@ -183,7 +183,7 @@ Partial Class FormDesignProtoTwo
         '
         Me.ConfigureFieldsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.UserControlsToolStripMenuItem, Me.GridViewTableToolStripMenuItem})
         Me.ConfigureFieldsToolStripMenuItem.Name = "ConfigureFieldsToolStripMenuItem"
-        Me.ConfigureFieldsToolStripMenuItem.Size = New System.Drawing.Size(199, 26)
+        Me.ConfigureFieldsToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
         Me.ConfigureFieldsToolStripMenuItem.Text = "Configure Fields"
         '
         'UserControlsToolStripMenuItem

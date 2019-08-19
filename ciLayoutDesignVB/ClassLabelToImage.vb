@@ -13,7 +13,9 @@ Public Class ClassLabelToImage
     ''
     ''Added 7/17/2019
     ''
-    Public Function TextImage(ByRef par_image As Image, par_design As IElementText, par_element As IElement_Base) As Image
+    Public Function TextImage(ByRef par_image As Image, par_design As IElementText,
+                              par_element As IElement_Base,
+                              ByRef pref_rotated As Boolean) As Image
         ''
         ''Added 7/17/2019 thomas downes
         ''
@@ -112,6 +114,57 @@ Public Class ClassLabelToImage
                               singleOffsetX_AlignRight, singleOffsetY)
 
         End Select ''End of "Select Case par_design.TextAlignment"
+
+        ''
+        ''Added 8/7/2019 thomas downes 
+        ''
+        ''8/18 td''image_Pic = picturePortrait.Image
+        ''8/18 td''boolSeemsInPortraitMode = (image_Pic.Height > image_Pic.Width)
+        ''8/18 td''boolLetsRotate90 = True ''boolSeemsInPortraitMode
+
+        Dim boolLetsRotate90 As Boolean ''Added 8/18/2019 td 
+        boolLetsRotate90 = (par_design.OrientationInDegrees > 0)
+
+        ''Added 8/7/2019 thomas downes 
+        If (boolLetsRotate90) Then
+
+            Dim intRotateIndex As Integer ''Added 8/18/2019 td  
+
+            For intRotateIndex = 1 To CInt(par_design.OrientationInDegrees / 90)
+
+                pref_rotated = (Not pref_rotated) ''Added 8/18/2019 td 
+
+                ''Added 8/7/2019 thomas downes 
+                ''8/7 td''image_Rotated = CType(image_Pic.Clone, Image)
+
+                ''8/18 td''image_Pic = picturePortrait.Image
+                Dim bm_rotation As Bitmap
+                bm_rotation = New Bitmap(par_image)
+                bm_rotation.RotateFlip(RotateFlipType.Rotate90FlipNone)
+
+                ''8/18 td''picturePortrait.Width = intStarting_Height ''Switching!! Height & Width are switched.
+                ''8/18 td''picturePortrait.Height = intStarting_Width ''Switching!! Height & Width are switched.
+
+                ''8/18 td''Me.Width = intStarting_Height ''Switching!!  Height & Width are switched. ---8/8/2019 td
+                ''8/18 td''Me.Height = intStarting_Width ''Switching!!  Height & Width are switched. ---8/8/2019 td 
+
+                ''8/18 td''picturePortrait.Refresh()
+
+                ''8/18 td''picturePortrait.Image = bm_rotation
+                ''8/18 td''picturePortrait.SizeMode = PictureBoxSizeMode.Zoom
+                ''8/18 td''picturePortrait.Refresh()
+
+                ''8/7 td''Me.Width = image_Rotated.Width
+                ''8/7 td'' Me.Height = image_Rotated.Height
+
+                ''8/7 td'' Me.Width = picturePortrait.Width
+                ''8/7 td'' Me.Height = picturePortrait.Height
+
+                par_image = bm_rotation
+
+            Next intRotateIndex
+
+        End If ''End of "If (boolLetsRotate90) Then"
 
         Return par_image ''Return Nothing
 

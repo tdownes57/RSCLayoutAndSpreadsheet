@@ -82,7 +82,10 @@ Public Class CtlGraphicText
         End If ''End of "If (boolReinitializeImage) Then"
 
         ''7/29/2019 td''pictureLabel.Image = Generator.TextImage(Me.ElementInfo, Me.ElementInfo)
-        Generator.TextImage(pictureLabel.Image, Me.ElementInfo, Me.ElementInfo)
+        ''8/18/2019 td''Generator.TextImage(pictureLabel.Image, Me.ElementInfo, Me.ElementInfo)
+
+        Dim boolRotated As Boolean ''Added 8/18/2019 td
+        Generator.TextImage(pictureLabel.Image, Me.ElementInfo, Me.ElementInfo, boolRotated)
 
         ''Added 7/31/2019 td
         If (mod_c_boolMustSetBackColor And (ElementInfo IsNot Nothing)) Then

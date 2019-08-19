@@ -611,4 +611,16 @@ Public Class FormDesignProtoTwo
         DemoModeActiveToolStripMenuItem.Checked = (Not DemoModeActiveToolStripMenuItem.Checked)
 
     End Sub
+
+    Private Sub UserControlsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UserControlsToolStripMenuItem.Click
+        ''
+        ''Added 7/17/2019 thomas downes
+        ''
+        Dim frm_ToShow As New FormCustomFieldsFlow()
+
+        ''7/26/2019 td''frm_ToShow.ListOfFields = GetCurrentPersonality_Fields()
+        frm_ToShow.ListOfFields = FormMain.GetCurrentPersonality_Fields_Custom()
+        frm_ToShow.Show()
+
+    End Sub
 End Class

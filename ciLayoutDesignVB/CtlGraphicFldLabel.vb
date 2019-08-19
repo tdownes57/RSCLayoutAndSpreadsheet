@@ -140,7 +140,21 @@ Public Class CtlGraphicFldLabel
         End If ''End of "If (boolReinitializeImage) Then"
 
         ''7/29/2019 td''pictureLabel.Image = Generator.TextImage(Me.ElementInfo, Me.ElementInfo)
-        Generator.TextImage(pictureLabel.Image, Me.ElementInfo, Me.ElementInfo)
+        ''8/18/2019 td''Generator.TextImage(pictureLabel.Image, Me.ElementInfo, Me.ElementInfo)
+
+        Dim boolRotated As Boolean ''Added 8/18/2019 td
+        ''Added 8/18/2019 td
+        Generator.TextImage(pictureLabel.Image, Me.ElementInfo, Me.ElementInfo, boolRotated)
+
+        ''Added 8/18/2019 td
+        Dim intImageWidth As Integer
+        intImageWidth = pictureLabel.Image.Width
+        If (boolRotated) Then ''Added 8/18/2019 td
+            pictureLabel.Height = pictureLabel.Image.Height
+            pictureLabel.Width = intImageWidth
+            Me.Height = pictureLabel.Height
+            Me.Width = pictureLabel.Width
+        End If ''End if "If (boolRotated) Then"
 
         ''Added 7/31/2019 td
         If (mod_c_boolMustSetBackColor And (ElementInfo IsNot Nothing)) Then
@@ -159,7 +173,7 @@ Public Class CtlGraphicFldLabel
 
         End If ''End of "If (mod_c_boolMustSetBackColor And (ElementInfo IsNot Nothing)) Then"
 
-        pictureLabel.Refresh()
+        ''8/19/2019 td''pictureLabel.Refresh()
 
     End Sub ''End of Public Sub RefreshImage
 
@@ -247,7 +261,7 @@ Public Class CtlGraphicFldLabel
 
             Me.ElementInfo.Width_Pixels = Me.Width
             Me.ElementInfo.Height_Pixels = Me.Height
-            Me.RefreshImage()
+            ''Me.RefreshImage()
 
         End If ''End of "If (Me.ElementInfo IsNot Nothing) Then"
     End Sub
