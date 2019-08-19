@@ -179,11 +179,15 @@ Public Class CtlGraphicPortrait
         ''
         ''Added 7/31/2019 thomas d 
         ''
-        Me.ElementInfo_Base.TopEdge_Pixels = Me.Top
-        Me.ElementInfo_Base.LeftEdge_Pixels = Me.Left
+        If (Me.ElementInfo_Base IsNot Nothing) Then
 
-        Me.ElementInfo_Base.Width_Pixels = Me.Width
-        Me.ElementInfo_Base.Height_Pixels = Me.Height
+            Me.ElementInfo_Base.TopEdge_Pixels = Me.Top
+            Me.ElementInfo_Base.LeftEdge_Pixels = Me.Left
+
+            Me.ElementInfo_Base.Width_Pixels = Me.Width
+            Me.ElementInfo_Base.Height_Pixels = Me.Height
+
+        End If ''End of "If (Me.ElementInfo_Base IsNot Nothing) Then"
 
     End Sub ''End of Public Sub SaveToModel
 

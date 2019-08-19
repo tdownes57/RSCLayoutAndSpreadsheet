@@ -19,6 +19,9 @@ Public Class FormDesignProtoTwo
 
     Private Const mc_boolAllowGroupMovements As Boolean = True ''False ''True ''False ''Added 8/3/2019 td  
 
+    ''Added 8/18/2019 td
+    Private mod_imageLady As Image ''8/18/2019 td'' = CtlGraphicPortrait_Lady.picturePortrait.Image
+
     ''Private mod_generator As LayoutElementGenerator
 
     ''Private mod_Pic As IElement ''Added 7/18/2019 thomas downes 
@@ -64,7 +67,8 @@ Public Class FormDesignProtoTwo
         Me.Controls.Remove(GraphicFieldLabel5)
 
         ''7/31/2019 td''Me.Controls.Remove(pictureboxPic) ''Added 7/31/2019 thomas d. 
-        Me.Controls.Remove(CtlGraphicPortrait1) ''Added 7/31/2019 thomas d. 
+        mod_imageLady = CtlGraphicPortrait_Lady.picturePortrait.Image
+        Me.Controls.Remove(CtlGraphicPortrait_Lady) ''Added 7/31/2019 thomas d. 
 
         ''Encapsulated 7/31/2019 td
         Load_Form()
@@ -109,11 +113,11 @@ Public Class FormDesignProtoTwo
         ''
         If (mc_boolAllowGroupMovements) Then
 
-            ControlMove_GroupMove.Init(CtlGraphicPortrait1.Picture_Box,
-                      CtlGraphicPortrait1, 10, True, mod_groupedMove) ''Added 8/3/2019 thomas downes
+            ControlMove_GroupMove.Init(CtlGraphicPortrait_Lady.Picture_Box,
+                      CtlGraphicPortrait_Lady, 10, True, mod_groupedMove) ''Added 8/3/2019 thomas downes
         Else
-            ControlMoverOrResizer_TD.Init(CtlGraphicPortrait1.Picture_Box,
-                  CtlGraphicPortrait1, 10, True) ''Added 7/31/2019 thomas downes
+            ControlMoverOrResizer_TD.Init(CtlGraphicPortrait_Lady.Picture_Box,
+                  CtlGraphicPortrait_Lady, 10, True) ''Added 7/31/2019 thomas downes
         End If
 
         ''
@@ -158,11 +162,11 @@ Public Class FormDesignProtoTwo
 
             With ClassElementPic.ElementPicture
 
-                .Width = CtlGraphicPortrait1.Width
-                .Height = CtlGraphicPortrait1.Height
+                .Width = CtlGraphicPortrait_Lady.Width
+                .Height = CtlGraphicPortrait_Lady.Height
 
-                .TopEdge = CtlGraphicPortrait1.Top
-                .LeftEdge = CtlGraphicPortrait1.Left
+                .TopEdge = CtlGraphicPortrait_Lady.Top
+                .LeftEdge = CtlGraphicPortrait_Lady.Left
 
                 ''Added 8/12/2019 td
                 Dim bSwitchWidthHeight As Boolean ''Added 8/12/2019 td
@@ -172,8 +176,8 @@ Public Class FormDesignProtoTwo
                 ''Switch width & height.  
                 If (bSwitchWidthHeight) Then
                     ''Switch width & height.  
-                    .Width = CtlGraphicPortrait1.Height
-                    .Height = CtlGraphicPortrait1.Width
+                    .Width = CtlGraphicPortrait_Lady.Height
+                    .Height = CtlGraphicPortrait_Lady.Width
                 End If ''End of "If (bSwitchWidthHeight) Then"
 
             End With ''End of "With field_standard.ElementInfo"
@@ -188,17 +192,20 @@ Public Class FormDesignProtoTwo
         ''
         ''DIFFICULT & CONFUSING.....  Let's regenerate the control referenced above.  
         ''
-        CtlGraphicPortrait1 = New CtlGraphicPortrait(ClassElementPic.ElementPicture,
+        CtlGraphicPortrait_Lady = New CtlGraphicPortrait(ClassElementPic.ElementPicture,
                                                  CType(ClassElementPic.ElementPicture, IElementPic))
 
-        Me.Controls.Add(CtlGraphicPortrait1)
+        Me.Controls.Add(CtlGraphicPortrait_Lady)
 
-        With CtlGraphicPortrait1
+        With CtlGraphicPortrait_Lady
 
             .Top = ClassElementPic.ElementPicture.TopEdge
             .Left = ClassElementPic.ElementPicture.LeftEdge
             .Width = ClassElementPic.ElementPicture.Width
             .Height = ClassElementPic.ElementPicture.Height
+
+            ''Added 8/18/2019 td
+            .picturePortrait.Image = mod_imageLady
 
         End With ''End of "With CtlGraphicPortrait1"
 
