@@ -108,6 +108,10 @@ Public Class CtlGraphicFldLabel
         ''Me.ElementInfo.BackColor = Me.ParentForm.BackColor
         ''Me.ElementInfo.FontColor = Me.ParentForm.ForeColor
 
+        ''Added 8/18/2019 thomas downes 
+        pictureLabel.Width = Me.ElementInfo.Width_Pixels
+        pictureLabel.Height = Me.ElementInfo.Height_Pixels
+
         If (Generator Is Nothing) Then Generator = New ClassLabelToImage
 
         ''

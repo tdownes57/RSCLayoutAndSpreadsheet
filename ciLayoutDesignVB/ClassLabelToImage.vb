@@ -94,6 +94,7 @@ Public Class ClassLabelToImage
                 Dim singleOffsetX_AlignRight As Single ''Added 8/18/2019 td 
                 ''Added 8/18/2019 td 
                 singleOffsetX_AlignRight = (singleOffsetX + (par_image.Width - stringSize.Width) / 2)
+
                 ''Added 8/18/2019 td 
                 gr.DrawString(par_design.Text, par_design.Font_DrawingClass, Brushes.Black,
                               singleOffsetX_AlignRight, singleOffsetY)
@@ -105,6 +106,7 @@ Public Class ClassLabelToImage
 
                 Dim singleOffsetX_AlignRight As Single ''Added 8/18/2019 td 
                 singleOffsetX_AlignRight = (par_image.Width - stringSize.Width - singleOffsetX)
+
                 ''Added 8/18/2019 td 
                 gr.DrawString(par_design.Text, par_design.Font_DrawingClass, Brushes.Black,
                               singleOffsetX_AlignRight, singleOffsetY)

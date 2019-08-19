@@ -461,6 +461,11 @@ Partial Public Class CtlGraphicFldLabel
                         .ElementInfo.FontOffset_Y = frm_ToShow.FontOffset_Y
                         .ElementInfo.FontSize = frm_ToShow.FontSize
 
+                        ''Added 8/18/2019 thomas d.
+                        .ElementInfo.Font_DrawingClass = frm_ToShow.Font_DrawingClass
+                        .ElementInfo.TextAlignment = frm_ToShow.TextAlignment
+                        .ElementInfo.ExampleValue = frm_ToShow.TextExampleValue.Text
+
                         .RefreshImage()
                         .Refresh()
 
