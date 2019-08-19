@@ -516,7 +516,7 @@ Partial Public Class CtlGraphicFldLabel
             mod_bBypassCreateButton = False ''Reinitialize. 
 
             ''8/14/2019 td''ElseIf (mc_CreateVisibleButtonForDemo) Then
-        ElseIf (Me.FormDesigner.OkaytoShowFauxContextMenu()) Then
+        ElseIf (Me.FormDesigner.OkayToShowFauxContextMenu()) Then
             ''
             ''Added 8 / 13 / 2019 td 
             ''
@@ -656,7 +656,7 @@ Partial Public Class CtlGraphicFldLabel
             ''
             ''Added 7/31/2019 thomas downes  
             ''
-            ToggleGroupSelection
+            ToggleGroupSelection()
 
         End If ''End of "If (boolRightClick) Then .... ElseIf (boolHoldingCtrlKey) Then ...."
 

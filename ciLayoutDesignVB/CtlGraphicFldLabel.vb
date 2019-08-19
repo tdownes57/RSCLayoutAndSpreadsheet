@@ -174,6 +174,8 @@ Public Class CtlGraphicFldLabel
         End If ''End of "If (mod_c_boolMustSetBackColor And (ElementInfo IsNot Nothing)) Then"
 
         ''8/19/2019 td''pictureLabel.Refresh()
+        pictureLabel.Refresh()
+        Me.Refresh()
 
     End Sub ''End of Public Sub RefreshImage
 

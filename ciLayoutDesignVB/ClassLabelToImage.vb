@@ -15,7 +15,9 @@ Public Class ClassLabelToImage
     ''
     Public Function TextImage(ByRef par_image As Image, par_design As IElementText,
                               par_element As IElement_Base,
-                              ByRef pref_rotated As Boolean) As Image
+                              ByRef pref_rotated As Boolean,
+                              Optional par_pictureBox As PictureBox = Nothing,
+                              Optional par_graphicalCtl As CtlGraphicFldLabel = Nothing) As Image
         ''
         ''Added 7/17/2019 thomas downes
         ''
@@ -27,6 +29,12 @@ Public Class ClassLabelToImage
         ''Added 8/17/2019 td
         Dim singleOffsetX As Integer = par_design.FontOffset_X
         Dim singleOffsetY As Integer = par_design.FontOffset_Y
+        Dim intStarting_Width As Integer ''Added 8/19/2019 thomas 
+        Dim intStarting_Height As Integer ''Added 8/19/2019 thomas
+
+        ''Added 8/19/2019 td
+        intStarting_Width = par_image.Width
+        intStarting_Height = par_image.Height
 
         Application.DoEvents()
 
@@ -123,7 +131,7 @@ Public Class ClassLabelToImage
         ''8/18 td''boolLetsRotate90 = True ''boolSeemsInPortraitMode
 
         Dim boolLetsRotate90 As Boolean ''Added 8/18/2019 td 
-        boolLetsRotate90 = (par_design.OrientationInDegrees > 0)
+        boolLetsRotate90 = False ''(par_design.OrientationInDegrees > 0)
 
         ''Added 8/7/2019 thomas downes 
         If (boolLetsRotate90) Then
@@ -142,25 +150,30 @@ Public Class ClassLabelToImage
                 bm_rotation = New Bitmap(par_image)
                 bm_rotation.RotateFlip(RotateFlipType.Rotate90FlipNone)
 
-                ''8/18 td''picturePortrait.Width = intStarting_Height ''Switching!! Height & Width are switched.
-                ''8/18 td''picturePortrait.Height = intStarting_Width ''Switching!! Height & Width are switched.
+                If (par_pictureBox IsNot Nothing) Then
+                    ''
+                    ''Added 8/19/2019 thomas downes
+                    ''
+                    par_pictureBox.Width = intStarting_Height ''Switching!! Height & Width are switched.
+                    par_pictureBox.Height = intStarting_Width ''Switching!! Height & Width are switched.
 
-                ''8/18 td''Me.Width = intStarting_Height ''Switching!!  Height & Width are switched. ---8/8/2019 td
-                ''8/18 td''Me.Height = intStarting_Width ''Switching!!  Height & Width are switched. ---8/8/2019 td 
+                    par_graphicalCtl.Width = intStarting_Height ''Switching!!  Height & Width are switched. ---8/8/2019 td
+                    par_graphicalCtl.Height = intStarting_Width ''Switching!!  Height & Width are switched. ---8/8/2019 td 
 
-                ''8/18 td''picturePortrait.Refresh()
+                    par_pictureBox.Refresh()
 
-                ''8/18 td''picturePortrait.Image = bm_rotation
-                ''8/18 td''picturePortrait.SizeMode = PictureBoxSizeMode.Zoom
-                ''8/18 td''picturePortrait.Refresh()
+                    par_pictureBox.Image = bm_rotation
+                    ''8/19/2019 td''par_pictureBox.SizeMode = PictureBoxSizeMode.Zoom
+                    par_pictureBox.Refresh()
 
-                ''8/7 td''Me.Width = image_Rotated.Width
-                ''8/7 td'' Me.Height = image_Rotated.Height
+                    par_image = par_pictureBox.Image
 
-                ''8/7 td'' Me.Width = picturePortrait.Width
-                ''8/7 td'' Me.Height = picturePortrait.Height
+                Else
 
-                par_image = bm_rotation
+                    par_image = bm_rotation
+
+                End If ''End of "If (par_pictureBox IsNot Nothing) Then .... Else ...."
+
 
             Next intRotateIndex
 
