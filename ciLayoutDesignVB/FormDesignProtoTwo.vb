@@ -612,7 +612,7 @@ Public Class FormDesignProtoTwo
 
     End Sub
 
-    Private Sub UserControlsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UserControlsToolStripMenuItem.Click
+    Private Sub UserControlsToolStripMenuItem_Click(sender As Object, e As EventArgs)
         ''
         ''Added 7/17/2019 thomas downes
         ''
@@ -620,6 +620,28 @@ Public Class FormDesignProtoTwo
 
         ''7/26/2019 td''frm_ToShow.ListOfFields = GetCurrentPersonality_Fields()
         frm_ToShow.ListOfFields = FormMain.GetCurrentPersonality_Fields_Custom()
+        frm_ToShow.Show()
+
+    End Sub
+
+    Private Sub CustomFieldsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CustomFieldsToolStripMenuItem.Click
+        ''
+        ''Added 7/17/2019 thomas downes
+        ''
+        Dim frm_ToShow As New FormCustomFieldsFlow()
+
+        ''7/26/2019 td''frm_ToShow.ListOfFields = GetCurrentPersonality_Fields()
+        frm_ToShow.ListOfFields = FormMain.GetCurrentPersonality_Fields_Custom()
+        frm_ToShow.Show()
+
+    End Sub
+
+    Private Sub StandardFieldsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StandardFieldsToolStripMenuItem.Click
+        ''
+        ''Added 8/19/2019 thomas downes
+        '' 
+        Dim frm_ToShow As New FormStandardFields()
+        frm_ToShow.ListOfFields = FormMain.GetCurrentPersonality_Fields_Standard()
         frm_ToShow.Show()
 
     End Sub

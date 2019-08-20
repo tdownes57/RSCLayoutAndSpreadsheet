@@ -29,15 +29,15 @@ Partial Class CtlConfigFldStandard
         Me.textFieldLabel = New System.Windows.Forms.TextBox()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.CheckBox2 = New System.Windows.Forms.CheckBox()
+        Me.checkIsFieldForDates = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         'LinkSupplementary
         '
         Me.LinkSupplementary.AutoSize = True
-        Me.LinkSupplementary.Location = New System.Drawing.Point(327, 88)
-        Me.LinkSupplementary.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LinkSupplementary.Location = New System.Drawing.Point(436, 108)
         Me.LinkSupplementary.Name = "LinkSupplementary"
-        Me.LinkSupplementary.Size = New System.Drawing.Size(223, 13)
+        Me.LinkSupplementary.Size = New System.Drawing.Size(296, 17)
         Me.LinkSupplementary.TabIndex = 19
         Me.LinkSupplementary.TabStop = True
         Me.LinkSupplementary.Text = "Example Value, CIBadge Field, Other Db Field"
@@ -45,10 +45,10 @@ Partial Class CtlConfigFldStandard
         'checkIsLocked
         '
         Me.checkIsLocked.AutoSize = True
-        Me.checkIsLocked.Location = New System.Drawing.Point(177, 88)
-        Me.checkIsLocked.Margin = New System.Windows.Forms.Padding(2)
+        Me.checkIsLocked.Location = New System.Drawing.Point(236, 108)
+        Me.checkIsLocked.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.checkIsLocked.Name = "checkIsLocked"
-        Me.checkIsLocked.Size = New System.Drawing.Size(113, 17)
+        Me.checkIsLocked.Size = New System.Drawing.Size(142, 21)
         Me.checkIsLocked.TabIndex = 18
         Me.checkIsLocked.Text = "Locked / no edits."
         Me.checkIsLocked.UseVisualStyleBackColor = True
@@ -57,10 +57,9 @@ Partial Class CtlConfigFldStandard
         '
         Me.LabelHeaderTop.AutoSize = True
         Me.LabelHeaderTop.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelHeaderTop.Location = New System.Drawing.Point(2, 0)
-        Me.LabelHeaderTop.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LabelHeaderTop.Location = New System.Drawing.Point(3, 0)
         Me.LabelHeaderTop.Name = "LabelHeaderTop"
-        Me.LabelHeaderTop.Size = New System.Drawing.Size(457, 26)
+        Me.LabelHeaderTop.Size = New System.Drawing.Size(571, 31)
         Me.LabelHeaderTop.TabIndex = 17
         Me.LabelHeaderTop.Text = "ID  (Recipient ID / Student ID / Staffperson ID)"
         Me.LabelHeaderTop.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -68,20 +67,19 @@ Partial Class CtlConfigFldStandard
         'LabelFieldLabelCaption
         '
         Me.LabelFieldLabelCaption.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelFieldLabelCaption.Location = New System.Drawing.Point(2, 45)
-        Me.LabelFieldLabelCaption.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LabelFieldLabelCaption.Location = New System.Drawing.Point(3, 55)
         Me.LabelFieldLabelCaption.Name = "LabelFieldLabelCaption"
-        Me.LabelFieldLabelCaption.Size = New System.Drawing.Size(219, 20)
+        Me.LabelFieldLabelCaption.Size = New System.Drawing.Size(292, 25)
         Me.LabelFieldLabelCaption.TabIndex = 16
         Me.LabelFieldLabelCaption.Text = "Field Label Caption (Optional)"
         '
         'textFieldLabel
         '
         Me.textFieldLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.textFieldLabel.Location = New System.Drawing.Point(223, 42)
-        Me.textFieldLabel.Margin = New System.Windows.Forms.Padding(2)
+        Me.textFieldLabel.Location = New System.Drawing.Point(297, 52)
+        Me.textFieldLabel.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.textFieldLabel.Name = "textFieldLabel"
-        Me.textFieldLabel.Size = New System.Drawing.Size(170, 26)
+        Me.textFieldLabel.Size = New System.Drawing.Size(225, 30)
         Me.textFieldLabel.TabIndex = 14
         '
         'CheckBox1
@@ -89,10 +87,10 @@ Partial Class CtlConfigFldStandard
         Me.CheckBox1.AutoSize = True
         Me.CheckBox1.Checked = True
         Me.CheckBox1.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.CheckBox1.Location = New System.Drawing.Point(7, 88)
-        Me.CheckBox1.Margin = New System.Windows.Forms.Padding(2)
+        Me.CheckBox1.Location = New System.Drawing.Point(9, 108)
+        Me.CheckBox1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(166, 17)
+        Me.CheckBox1.Size = New System.Drawing.Size(217, 21)
         Me.CheckBox1.TabIndex = 20
         Me.CheckBox1.Text = "Displayed on Main Data Entry"
         Me.CheckBox1.UseVisualStyleBackColor = True
@@ -102,19 +100,30 @@ Partial Class CtlConfigFldStandard
         Me.CheckBox2.AutoSize = True
         Me.CheckBox2.Checked = True
         Me.CheckBox2.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.CheckBox2.Location = New System.Drawing.Point(7, 67)
-        Me.CheckBox2.Margin = New System.Windows.Forms.Padding(2)
+        Me.CheckBox2.Location = New System.Drawing.Point(9, 82)
+        Me.CheckBox2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CheckBox2.Name = "CheckBox2"
-        Me.CheckBox2.Size = New System.Drawing.Size(147, 17)
+        Me.CheckBox2.Size = New System.Drawing.Size(193, 21)
         Me.CheckBox2.TabIndex = 21
         Me.CheckBox2.Text = "Displayed on card-badge."
         Me.CheckBox2.UseVisualStyleBackColor = True
         '
+        'checkIsFieldForDates
+        '
+        Me.checkIsFieldForDates.AutoSize = True
+        Me.checkIsFieldForDates.Location = New System.Drawing.Point(535, 84)
+        Me.checkIsFieldForDates.Name = "checkIsFieldForDates"
+        Me.checkIsFieldForDates.Size = New System.Drawing.Size(154, 21)
+        Me.checkIsFieldForDates.TabIndex = 22
+        Me.checkIsFieldForDates.Text = "Is this a Date Field?"
+        Me.checkIsFieldForDates.UseVisualStyleBackColor = True
+        '
         'CtlConfigFldStandard
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.PowderBlue
+        Me.Controls.Add(Me.checkIsFieldForDates)
         Me.Controls.Add(Me.CheckBox2)
         Me.Controls.Add(Me.CheckBox1)
         Me.Controls.Add(Me.LinkSupplementary)
@@ -122,8 +131,9 @@ Partial Class CtlConfigFldStandard
         Me.Controls.Add(Me.LabelHeaderTop)
         Me.Controls.Add(Me.LabelFieldLabelCaption)
         Me.Controls.Add(Me.textFieldLabel)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "CtlConfigFldStandard"
-        Me.Size = New System.Drawing.Size(562, 107)
+        Me.Size = New System.Drawing.Size(749, 132)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -136,4 +146,5 @@ Partial Class CtlConfigFldStandard
     Friend WithEvents textFieldLabel As TextBox
     Friend WithEvents CheckBox1 As CheckBox
     Friend WithEvents CheckBox2 As CheckBox
+    Friend WithEvents checkIsFieldForDates As CheckBox
 End Class

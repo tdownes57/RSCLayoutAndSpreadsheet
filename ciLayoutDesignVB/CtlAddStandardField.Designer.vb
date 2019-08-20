@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class CtlAddCustomField
+Partial Class CtlAddStandardField
     Inherits System.Windows.Forms.UserControl
 
     'UserControl overrides dispose to clean up the component list.
@@ -28,21 +28,21 @@ Partial Class CtlAddCustomField
         'buttonAddField
         '
         Me.buttonAddField.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.buttonAddField.Location = New System.Drawing.Point(364, 36)
+        Me.buttonAddField.Location = New System.Drawing.Point(343, 24)
         Me.buttonAddField.Name = "buttonAddField"
         Me.buttonAddField.Size = New System.Drawing.Size(108, 51)
-        Me.buttonAddField.TabIndex = 9
+        Me.buttonAddField.TabIndex = 10
         Me.buttonAddField.Text = "Add Field"
         Me.buttonAddField.UseVisualStyleBackColor = True
         '
-        'CtlAddCustomField
+        'CtlAddStandardField
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.LightCyan
+        Me.BackColor = System.Drawing.Color.SkyBlue
         Me.Controls.Add(Me.buttonAddField)
-        Me.Name = "CtlAddCustomField"
-        Me.Size = New System.Drawing.Size(837, 123)
+        Me.Name = "CtlAddStandardField"
+        Me.Size = New System.Drawing.Size(794, 98)
         Me.ResumeLayout(False)
 
     End Sub

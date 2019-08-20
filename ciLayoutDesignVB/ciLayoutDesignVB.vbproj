@@ -76,6 +76,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClassGroupMove.vb" />
+    <Compile Include="CtlAddStandardField.Designer.vb">
+      <DependentUpon>CtlAddStandardField.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CtlAddStandardField.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="CtlCustomer.Designer.vb">
       <DependentUpon>CtlCustomer.vb</DependentUpon>
     </Compile>
@@ -223,6 +229,12 @@
     <Compile Include="FormPresetValues.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FormStandardFields.Designer.vb">
+      <DependentUpon>FormStandardFields.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormStandardFields.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormSubsection.Designer.vb">
       <DependentUpon>FormSubsection.vb</DependentUpon>
     </Compile>
@@ -311,6 +323,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="CtlAddStandardField.resx">
+      <DependentUpon>CtlAddStandardField.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CtlConfigFldStandard.resx">
       <DependentUpon>CtlConfigFldStandard.vb</DependentUpon>
     </EmbeddedResource>
@@ -379,6 +394,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormPresetValues.resx">
       <DependentUpon>FormPresetValues.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormStandardFields.resx">
+      <DependentUpon>FormStandardFields.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormSubsection.resx">
       <DependentUpon>FormSubsection.vb</DependentUpon>

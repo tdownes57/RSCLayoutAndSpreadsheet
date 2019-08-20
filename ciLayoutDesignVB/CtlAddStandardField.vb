@@ -1,6 +1,10 @@
-﻿Public Class CtlAddCustomField
+﻿''
+''Added 8/19/2019 td  
+''
 
-    Private mod_MyParentContainer As FlowLayoutPanel ''ContainerControl
+Public Class CtlAddStandardField
+
+    Private mod_MyParentContainer As FlowLayoutPanel
 
     Private Sub ButtonAddField_Click(sender As Object, e As EventArgs) Handles buttonAddField.Click
 
@@ -11,21 +15,16 @@
         Dim newfieldControl As New CtlConfigFldCustom
         mod_MyParentContainer.Controls.Add(newfieldControl)
         mod_MyParentContainer.Controls.Add(Me)
-        ''Moved down.''mod_MyParentContainer.ScrollControlIntoView(Me)
 
-        ''Add 7/23/2019 td 
-        Dim new_field As New ClassFieldCustomized ''Add 7/23/2019 td 
+        Dim new_field As New ClassFieldStandard
 
         newfieldControl.NewlyAdded = True ''Added 7/27/2019 td 
         newfieldControl.Load_CustomControl(new_field)
 
-        CType(Me.ParentForm, FormCustomFieldsFlow).AdjustHeightOfWindow
+        CType(Me.ParentForm, FormCustomFieldsFlow).AdjustHeightOfWindow()
 
         mod_MyParentContainer.ScrollControlIntoView(Me)
 
     End Sub
 
-    Private Sub CtlAddCustomField_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-    End Sub
 End Class

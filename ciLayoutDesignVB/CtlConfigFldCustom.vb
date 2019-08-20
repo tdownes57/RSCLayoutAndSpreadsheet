@@ -83,7 +83,7 @@ ExitHandler:
         ''Added 7/27/2019 td  
         Me.Model = mod_model
 
-    End Sub
+    End Sub ''End of "Public Sub Save_CustomControl()" 
 
     Private Sub UserCustomFieldCtl_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 

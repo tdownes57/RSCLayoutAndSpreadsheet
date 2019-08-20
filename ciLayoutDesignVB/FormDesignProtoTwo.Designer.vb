@@ -35,9 +35,7 @@ Partial Class FormDesignProtoTwo
         Me.SaveToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ConfigurationOfFieldsEtcToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ConfigureFieldsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.UserControlsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.GridViewTableToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.StandardFieldsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DesignLayoutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.OpenControlPanelToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.UploadBackgroundToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -71,6 +69,7 @@ Partial Class FormDesignProtoTwo
         Me.picturePreview = New System.Windows.Forms.PictureBox()
         Me.pictureBack = New System.Windows.Forms.PictureBox()
         Me.LinkRefreshPreview = New System.Windows.Forms.LinkLabel()
+        Me.CustomFieldsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         CType(Me.graphicAdjuster, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -174,29 +173,16 @@ Partial Class FormDesignProtoTwo
         '
         'ConfigurationOfFieldsEtcToolStripMenuItem
         '
-        Me.ConfigurationOfFieldsEtcToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ConfigureFieldsToolStripMenuItem})
+        Me.ConfigurationOfFieldsEtcToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StandardFieldsToolStripMenuItem, Me.CustomFieldsToolStripMenuItem})
         Me.ConfigurationOfFieldsEtcToolStripMenuItem.Name = "ConfigurationOfFieldsEtcToolStripMenuItem"
         Me.ConfigurationOfFieldsEtcToolStripMenuItem.Size = New System.Drawing.Size(204, 24)
         Me.ConfigurationOfFieldsEtcToolStripMenuItem.Text = "Configuration of Fields, Etc."
         '
-        'ConfigureFieldsToolStripMenuItem
+        'StandardFieldsToolStripMenuItem
         '
-        Me.ConfigureFieldsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.UserControlsToolStripMenuItem, Me.GridViewTableToolStripMenuItem})
-        Me.ConfigureFieldsToolStripMenuItem.Name = "ConfigureFieldsToolStripMenuItem"
-        Me.ConfigureFieldsToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
-        Me.ConfigureFieldsToolStripMenuItem.Text = "Configure Fields"
-        '
-        'UserControlsToolStripMenuItem
-        '
-        Me.UserControlsToolStripMenuItem.Name = "UserControlsToolStripMenuItem"
-        Me.UserControlsToolStripMenuItem.Size = New System.Drawing.Size(225, 26)
-        Me.UserControlsToolStripMenuItem.Text = "User Controls / Flow"
-        '
-        'GridViewTableToolStripMenuItem
-        '
-        Me.GridViewTableToolStripMenuItem.Name = "GridViewTableToolStripMenuItem"
-        Me.GridViewTableToolStripMenuItem.Size = New System.Drawing.Size(225, 26)
-        Me.GridViewTableToolStripMenuItem.Text = "Grid View / Table"
+        Me.StandardFieldsToolStripMenuItem.Name = "StandardFieldsToolStripMenuItem"
+        Me.StandardFieldsToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
+        Me.StandardFieldsToolStripMenuItem.Text = "Standard Fields"
         '
         'DesignLayoutToolStripMenuItem
         '
@@ -454,6 +440,12 @@ Partial Class FormDesignProtoTwo
         Me.LinkRefreshPreview.TabStop = True
         Me.LinkRefreshPreview.Text = "Refresh Preview"
         '
+        'CustomFieldsToolStripMenuItem
+        '
+        Me.CustomFieldsToolStripMenuItem.Name = "CustomFieldsToolStripMenuItem"
+        Me.CustomFieldsToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
+        Me.CustomFieldsToolStripMenuItem.Text = "Custom Fields"
+        '
         'FormDesignProtoTwo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 20.0!)
@@ -506,9 +498,7 @@ Partial Class FormDesignProtoTwo
     Friend WithEvents SaveToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ExitToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ConfigurationOfFieldsEtcToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ConfigureFieldsToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents UserControlsToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents GridViewTableToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents StandardFieldsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents DesignLayoutToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents OpenControlPanelToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents UploadBackgroundToolStripMenuItem As ToolStripMenuItem
@@ -539,4 +529,5 @@ Partial Class FormDesignProtoTwo
     Friend WithEvents LinkRefreshPreview As LinkLabel
     Friend WithEvents DemoModeVideoToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents DemoModeActiveToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents CustomFieldsToolStripMenuItem As ToolStripMenuItem
 End Class
