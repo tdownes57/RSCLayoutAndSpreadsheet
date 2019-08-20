@@ -470,6 +470,7 @@
     <Content Include="Images\__UI for V831_v101.PNG" />
     <Content Include="Images\__UI for v900_v101.PNG" />
     <Content Include="ORO835 - OrovilleHS.PNG" />
+    <None Include="Resources\C39FIRA.TTF" />
     <None Include="Resources\CI_Logo.bmp" />
     <None Include="Resources\AdjustWHColor_V101.jpg" />
     <Content Include="Resources\RotatedLayout.png" />
