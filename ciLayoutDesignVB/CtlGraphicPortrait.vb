@@ -49,9 +49,13 @@ Public Class CtlGraphicPortrait
         picturePortrait.Image =
             ciPictures_VB.PictureExamples.GetImageByIndex(par_infoForPic_Pic.PicFileIndex, strErrorMessage)
 
-        If ("" <> strErrorMessage) Then MessageBox.Show(strErrorMessage, " ",
-                                                        MessageBoxButtons.OK,
-                                                        MessageBoxIcon.Exclamation)
+        If ("" <> strErrorMessage) Then
+            ''Added 8/22/2019 
+            MessageBox.Show(strErrorMessage, " ",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Exclamation)
+            Exit Sub
+        End If ''End of "If ("" <> strErrorMessage) Then"
 
         ''
         ''Rotate the image 90 degrees, as many times as needed.  ---8/12/2019 td  

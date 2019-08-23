@@ -157,6 +157,9 @@ Public Class FormDesignProtoTwo
         ''
         ''7/31 td''Dim new_picControl As CtlGraphicPortrait ''Added 7/31/2019 td  
 
+        ''Added 8/22/2019 THOMAS D.
+        ciPictures_VB.PictureExamples.PathToFolderOfImages = (My.Application.Info.DirectoryPath & "\Images\PictureExamples")
+
         If (ClassElementPic.ElementPicture Is Nothing) Then
 
             ClassElementPic.ElementPicture = New ClassElementPic
