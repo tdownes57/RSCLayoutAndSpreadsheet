@@ -48,7 +48,8 @@ Public Class FormStandardFields
         For Each each_standardField In list_local
 
             ''Add 8/19/2019 td
-            LoadCustomField_Each(each_standardField)
+            ''8/22/2019 td''LoadCustomField_Each(each_standardField)
+            LoadStandardField_Each(each_standardField)
 
         Next each_standardField
 
@@ -65,7 +66,7 @@ Public Class FormStandardFields
         ''
         Dim userControl As New CtlConfigFldStandard
 
-        userControl.Load_CustomControl(CType(par_standardFld, ICIBFieldStandardOrCustom))
+        userControl.Load_StandardControl(CType(par_standardFld, ICIBFieldStandardOrCustom))
         userControl.Visible = True
 
         FlowLayoutPanel1.Controls.Add(userControl)
@@ -99,16 +100,17 @@ Public Class FormStandardFields
 
         For Each each_control As Control In FlowLayoutPanel1.Controls
 
-            If (TypeOf each_control Is CtlAddCustomField) Then Continue For
+            If (TypeOf each_control Is CtlAddStandardField) Then Continue For
 
             each_ctl_configure_field = CType(each_control, CtlConfigFldStandard)
 
             With each_ctl_configure_field
 
-                .Save_CustomControl()
+                ''8/22/2019 TD''.Save_CustomControl()
+                .Save_StandardControl()
 
-                If (.NewlyAdded) Then FormMain.GetCurrentPersonality_Fields_Custom().Add(.Model)
-
+                ''8/22/2019 td''If (.NewlyAdded) Then FormMain.GetCurrentPersonality_Fields_Custom().Add(.Model)
+                If (.NewlyAdded) Then FormMain.GetCurrentPersonality_Fields_Standard().Add(.Model)
 
             End With ''End of "With each_ctl_configure_field"
 
@@ -121,7 +123,9 @@ Public Class FormStandardFields
         ''Added 7/27/2019 td
         SaveControls()
         FlowLayoutPanel1.Controls.Clear()
-        LoadCustomFields_All()
+
+        ''8/22/2019 td''LoadCustomFields_All()
+        LoadStandardFields_All()
 
     End Sub
 
@@ -146,8 +150,9 @@ Public Class FormStandardFields
 
         If (dia_result = DialogResult.Yes) Then ''LoadCustomFields_All()
             FlowLayoutPanel1.Controls.Clear()
-            LoadCustomFields_All()
-        End If
+            ''8/22/2019 td''LoadCustomFields_All()
+            LoadStandardFields_All()
+        End If ''End of "If (dia_result = DialogResult.Yes) Then"
 
     End Sub
 End Class

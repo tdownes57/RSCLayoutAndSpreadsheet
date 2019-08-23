@@ -19,7 +19,7 @@ Public Class CtlConfigFldStandard
 
     Private mod_loading As Boolean = True ''Added 7/27/2019 td
 
-    Public Sub Load_CustomControl(par_info As ICIBFieldStandardOrCustom)
+    Public Sub Load_StandardControl(par_info As ICIBFieldStandardOrCustom)
         ''
         ''Added 8/19/2019 Thomas DOWNES   
         ''
@@ -59,11 +59,11 @@ ExitHandler:
         ''Added 7/27/2019 thomas downes
         mod_loading = False
 
-    End Sub ''End of "Public Sub Load_CustomControl"
+    End Sub ''End of "Public Sub Load_StandardControl"
 
-    Public Sub Save_CustomControl()
+    Public Sub Save_StandardControl()
         ''
-        ''Added 7/21/2019 Thomas DOWNES   
+        ''Added 8/22/2019 & 7/21/2019 Thomas DOWNES   
         ''
         With mod_model
 
@@ -84,7 +84,7 @@ ExitHandler:
         ''Added 7/27/2019 td  
         Me.Model = mod_model
 
-    End Sub ''End of "Public Sub Save_CustomControl()" 
+    End Sub ''End of "Public Sub Save_StandardControl()" 
 
 
 End Class
