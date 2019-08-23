@@ -12,16 +12,16 @@ Public Class CtlAddStandardField
 
         Me.Parent.Controls.Remove(Me)
 
-        Dim newfieldControl As New CtlConfigFldCustom
+        Dim newfieldControl As New CtlConfigFldStandard
         mod_MyParentContainer.Controls.Add(newfieldControl)
         mod_MyParentContainer.Controls.Add(Me)
 
         Dim new_field As New ClassFieldStandard
 
         newfieldControl.NewlyAdded = True ''Added 7/27/2019 td 
-        newfieldControl.Load_CustomControl(new_field)
+        newfieldControl.Load_StandardControl(new_field)
 
-        CType(Me.ParentForm, FormCustomFieldsFlow).AdjustHeightOfWindow()
+        CType(Me.ParentForm, FormStandardFields).AdjustHeightOfWindow()
 
         mod_MyParentContainer.ScrollControlIntoView(Me)
 

@@ -14,8 +14,8 @@ Public Class FormStandardFields
         ''Added 8/19/2019 thomas downes
         Static s_bEveryOtherCall As Boolean
 
-        If (s_bEveryOtherCall) Then Me.Height -= UserAddFieldControl1.Height / 2
-        If (Not s_bEveryOtherCall) Then Me.Height += UserAddFieldControl1.Height / 2
+        If (s_bEveryOtherCall) Then Me.Height -= CtlAddStandardField1.Height / 2
+        If (Not s_bEveryOtherCall) Then Me.Height += CtlAddStandardField1.Height / 2
         s_bEveryOtherCall = Not s_bEveryOtherCall
 
     End Sub ''End of "Public Sub AdjustHeightOfWindow()"
@@ -56,7 +56,8 @@ Public Class FormStandardFields
         ''
         ''Add 7/21/2019
         ''
-        FlowLayoutPanel1.Controls.Add(New CtlAddCustomField())
+        ''8/22/2019 td''FlowLayoutPanel1.Controls.Add(New CtlAddCustomField())
+        FlowLayoutPanel1.Controls.Add(New CtlAddStandardField())
 
     End Sub ''End of "Private Sub LoadFields()"  
 
@@ -100,6 +101,7 @@ Public Class FormStandardFields
 
         For Each each_control As Control In FlowLayoutPanel1.Controls
 
+            If (TypeOf each_control Is CtlAddCustomField) Then Continue For
             If (TypeOf each_control Is CtlAddStandardField) Then Continue For
 
             each_ctl_configure_field = CType(each_control, CtlConfigFldStandard)
