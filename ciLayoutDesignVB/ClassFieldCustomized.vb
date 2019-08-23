@@ -19,6 +19,10 @@ Public Class ClassFieldCustomized
     Public Property DateFieldId As Integer = 0
     Public Property IsDateField As Boolean = False
 
+    ''Added 8/23/2019 thomas d. 
+    Public Property IsDisplayedOnBadge As Boolean = False Implements ICIBFieldStandardOrCustom.IsDisplayedOnBadge
+    Public Property IsDisplayedForEdits As Boolean = False Implements ICIBFieldStandardOrCustom.IsDisplayedForEdits
+
     Public Property Text_orDate As String = "Text"
 
     Public Property LabelCaption As String = ""

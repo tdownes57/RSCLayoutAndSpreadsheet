@@ -75,6 +75,10 @@ Public Class ClassFieldStandard
     ''    End Set
     ''End Property
 
+    ''Added 8/23/2019 thomas d.
+    Public Property IsDisplayedOnBadge As Boolean Implements ICIBFieldStandardOrCustom.IsDisplayedOnBadge
+    Public Property IsDisplayedForEdits As Boolean Implements ICIBFieldStandardOrCustom.IsDisplayedForEdits
+
     Public Property ExampleValue As String Implements ICIBFieldStandardOrCustom.ExampleValue
     ''    Get
     ''        Throw New NotImplementedException()
@@ -151,7 +155,11 @@ Public Class ClassFieldStandard
             .HasPresetValues = False
             .IsAdditionalField = False
             .IsFieldForDates = False
-            .ExampleValue = "3012"
+            .ExampleValue = "12345"
+            ''Added 8/23/2019 td
+            .IsDisplayedForEdits = True
+            .IsDisplayedOnBadge = True
+            .IsLocked = True
         End With
         ListOfFields_Students.Add(new_object1)
 
@@ -165,6 +173,10 @@ Public Class ClassFieldStandard
             .HasPresetValues = False
             .IsAdditionalField = False
             .IsFieldForDates = False
+            ''Added 8/23/2019 td
+            .IsDisplayedForEdits = True
+            .IsDisplayedOnBadge = True
+            .IsLocked = False
         End With
         ListOfFields_Students.Add(new_object2)
 
@@ -179,6 +191,10 @@ Public Class ClassFieldStandard
             .IsAdditionalField = False
             ''.IsDateField = False
             .IsFieldForDates = False
+            ''Added 8/23/2019 td
+            .IsDisplayedForEdits = True
+            .IsDisplayedOnBadge = True
+            .IsLocked = False
         End With
         ListOfFields_Students.Add(new_object3)
 

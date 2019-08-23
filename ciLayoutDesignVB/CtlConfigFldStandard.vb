@@ -53,6 +53,11 @@ Public Class CtlConfigFldStandard
             ''    listPresetValues.Items.AddRange(.ArrayOfValues)
             ''End If ''End of "If (.ArrayOfValues IsNot Nothing) Then"
 
+            ''Added 8/22/2019 thomas d.
+            checkDisplayOnBadge.Checked = .IsDisplayedOnBadge
+            checkDisplayForEdits.Checked = .IsDisplayedForEdits
+
+
         End With ''End of "With par_info"  
 
 ExitHandler:
@@ -71,6 +76,10 @@ ExitHandler:
             .FieldLabelCaption = textFieldLabel.Text
             .IsFieldForDates = checkIsFieldForDates.Checked
             .IsLocked = checkIsLocked.Checked
+
+            ''Added 8/22/2019 Thomas DOWNES
+            .IsDisplayedOnBadge = checkDisplayOnBadge.Checked
+            .IsDisplayedForEdits = checkDisplayForEdits.Checked
 
             ''---.IsAdditionalField = checkIsAdditionalField.Checked
             .ArrayOfValues = mod_arrayOfValues

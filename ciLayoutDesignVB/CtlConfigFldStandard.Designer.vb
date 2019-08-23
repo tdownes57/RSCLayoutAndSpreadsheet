@@ -27,8 +27,8 @@ Partial Class CtlConfigFldStandard
         Me.LabelHeaderTop = New System.Windows.Forms.Label()
         Me.LabelFieldLabelCaption = New System.Windows.Forms.Label()
         Me.textFieldLabel = New System.Windows.Forms.TextBox()
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
-        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
+        Me.checkDisplayForEdits = New System.Windows.Forms.CheckBox()
+        Me.checkDisplayOnBadge = New System.Windows.Forms.CheckBox()
         Me.checkIsFieldForDates = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
@@ -82,31 +82,31 @@ Partial Class CtlConfigFldStandard
         Me.textFieldLabel.Size = New System.Drawing.Size(225, 30)
         Me.textFieldLabel.TabIndex = 14
         '
-        'CheckBox1
+        'checkDisplayForEdits
         '
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Checked = True
-        Me.CheckBox1.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.CheckBox1.Location = New System.Drawing.Point(9, 108)
-        Me.CheckBox1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(217, 21)
-        Me.CheckBox1.TabIndex = 20
-        Me.CheckBox1.Text = "Displayed on Main Data Entry"
-        Me.CheckBox1.UseVisualStyleBackColor = True
+        Me.checkDisplayForEdits.AutoSize = True
+        Me.checkDisplayForEdits.Checked = True
+        Me.checkDisplayForEdits.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.checkDisplayForEdits.Location = New System.Drawing.Point(9, 108)
+        Me.checkDisplayForEdits.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.checkDisplayForEdits.Name = "checkDisplayForEdits"
+        Me.checkDisplayForEdits.Size = New System.Drawing.Size(217, 21)
+        Me.checkDisplayForEdits.TabIndex = 20
+        Me.checkDisplayForEdits.Text = "Displayed on Main Data Entry"
+        Me.checkDisplayForEdits.UseVisualStyleBackColor = True
         '
-        'CheckBox2
+        'checkDisplayOnBadge
         '
-        Me.CheckBox2.AutoSize = True
-        Me.CheckBox2.Checked = True
-        Me.CheckBox2.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.CheckBox2.Location = New System.Drawing.Point(9, 82)
-        Me.CheckBox2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.CheckBox2.Name = "CheckBox2"
-        Me.CheckBox2.Size = New System.Drawing.Size(193, 21)
-        Me.CheckBox2.TabIndex = 21
-        Me.CheckBox2.Text = "Displayed on card-badge."
-        Me.CheckBox2.UseVisualStyleBackColor = True
+        Me.checkDisplayOnBadge.AutoSize = True
+        Me.checkDisplayOnBadge.Checked = True
+        Me.checkDisplayOnBadge.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.checkDisplayOnBadge.Location = New System.Drawing.Point(9, 82)
+        Me.checkDisplayOnBadge.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.checkDisplayOnBadge.Name = "checkDisplayOnBadge"
+        Me.checkDisplayOnBadge.Size = New System.Drawing.Size(193, 21)
+        Me.checkDisplayOnBadge.TabIndex = 21
+        Me.checkDisplayOnBadge.Text = "Displayed on card-badge."
+        Me.checkDisplayOnBadge.UseVisualStyleBackColor = True
         '
         'checkIsFieldForDates
         '
@@ -124,14 +124,14 @@ Partial Class CtlConfigFldStandard
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.PowderBlue
         Me.Controls.Add(Me.checkIsFieldForDates)
-        Me.Controls.Add(Me.CheckBox2)
-        Me.Controls.Add(Me.CheckBox1)
+        Me.Controls.Add(Me.checkDisplayOnBadge)
+        Me.Controls.Add(Me.checkDisplayForEdits)
         Me.Controls.Add(Me.LinkSupplementary)
         Me.Controls.Add(Me.checkIsLocked)
         Me.Controls.Add(Me.LabelHeaderTop)
         Me.Controls.Add(Me.LabelFieldLabelCaption)
         Me.Controls.Add(Me.textFieldLabel)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "CtlConfigFldStandard"
         Me.Size = New System.Drawing.Size(749, 132)
         Me.ResumeLayout(False)
@@ -144,7 +144,7 @@ Partial Class CtlConfigFldStandard
     Friend WithEvents LabelHeaderTop As Label
     Friend WithEvents LabelFieldLabelCaption As Label
     Friend WithEvents textFieldLabel As TextBox
-    Friend WithEvents CheckBox1 As CheckBox
-    Friend WithEvents CheckBox2 As CheckBox
+    Friend WithEvents checkDisplayForEdits As CheckBox
+    Friend WithEvents checkDisplayOnBadge As CheckBox
     Friend WithEvents checkIsFieldForDates As CheckBox
 End Class
