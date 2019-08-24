@@ -2,6 +2,8 @@
 Option Strict On
 
 Imports ciLayoutDesignVB
+Imports ciBadgeInterfaces ''Added 8/24/2019 thomas d.
+
 ''
 ''Added 7/26/2019 thomas downes  
 ''
@@ -136,6 +138,32 @@ Public Class ClassFieldStandard
     ''
     Public Shared ListOfFields_Students As New List(Of ClassFieldStandard)
     Public Shared ListOfFields_Staff As New List(Of ClassFieldStandard)
+
+    Public Shared Function ListOfElementsText_Stdrd() As List(Of IElementWithText)
+        ''
+        ''Added 8/24/2019 Thomas D.  
+        ''
+        Dim obj_listOutput As New List(Of IElementWithText)
+
+        For Each each_obj In ListOfFields_Students
+
+            Dim new_ElementWithText As New IElementWithText
+            Dim obj_ElementText As IElementText
+            Dim obj_Element_Base As IElement_Base
+
+            obj_ElementText = CType(each_obj.ElementInfo, IElementText)
+            obj_Element_Base = CType(each_obj.ElementInfo, IElement_Base)
+
+            new_ElementWithText.Position_BL = obj_Element_Base
+            new_ElementWithText.TextDisplay = obj_ElementText
+
+            obj_listOutput.Add(new_ElementWithText)
+
+        Next each_obj
+
+        Return obj_listOutput
+
+    End Function ''eND OF Public Shared Function ListOfElementsText_Stdrd()  
 
     Public Shared Sub InitializeHardcodedList_Students(pboolOnlyIfNeeded As Boolean)
         ''

@@ -36,6 +36,7 @@ Partial Class FormDesignProtoTwo
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ConfigurationOfFieldsEtcToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StandardFieldsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CustomFieldsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DesignLayoutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.OpenControlPanelToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.UploadBackgroundToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -69,7 +70,6 @@ Partial Class FormDesignProtoTwo
         Me.picturePreview = New System.Windows.Forms.PictureBox()
         Me.pictureBack = New System.Windows.Forms.PictureBox()
         Me.LinkRefreshPreview = New System.Windows.Forms.LinkLabel()
-        Me.CustomFieldsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         CType(Me.graphicAdjuster, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -181,8 +181,14 @@ Partial Class FormDesignProtoTwo
         'StandardFieldsToolStripMenuItem
         '
         Me.StandardFieldsToolStripMenuItem.Name = "StandardFieldsToolStripMenuItem"
-        Me.StandardFieldsToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
+        Me.StandardFieldsToolStripMenuItem.Size = New System.Drawing.Size(194, 26)
         Me.StandardFieldsToolStripMenuItem.Text = "Standard Fields"
+        '
+        'CustomFieldsToolStripMenuItem
+        '
+        Me.CustomFieldsToolStripMenuItem.Name = "CustomFieldsToolStripMenuItem"
+        Me.CustomFieldsToolStripMenuItem.Size = New System.Drawing.Size(194, 26)
+        Me.CustomFieldsToolStripMenuItem.Text = "Custom Fields"
         '
         'DesignLayoutToolStripMenuItem
         '
@@ -439,12 +445,6 @@ Partial Class FormDesignProtoTwo
         Me.LinkRefreshPreview.TabIndex = 46
         Me.LinkRefreshPreview.TabStop = True
         Me.LinkRefreshPreview.Text = "Refresh Preview"
-        '
-        'CustomFieldsToolStripMenuItem
-        '
-        Me.CustomFieldsToolStripMenuItem.Name = "CustomFieldsToolStripMenuItem"
-        Me.CustomFieldsToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
-        Me.CustomFieldsToolStripMenuItem.Text = "Custom Fields"
         '
         'FormDesignProtoTwo
         '

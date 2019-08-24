@@ -1,12 +1,12 @@
 ﻿Option Explicit On
 Option Infer Off
 Option Strict On
+Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d.  
 ''
 ''Added 7/18/2019 Thomas DOWNES
 ''
 Imports ControlManager
 Imports MoveAndResizeControls_Monem
-Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d.  
 
 Public Class FormDesignProtoTwo
     Implements ISelectingElements
@@ -646,6 +646,30 @@ Public Class FormDesignProtoTwo
         Dim frm_ToShow As New FormStandardFields()
         frm_ToShow.ListOfFields = FormMain.GetCurrentPersonality_Fields_Standard()
         frm_ToShow.Show()
+
+    End Sub
+
+    Private Sub LinkRefreshPreview_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkRefreshPreview.LinkClicked
+        ''
+        ''Added 8/24/2019 thomas downes
+        ''
+        ''8/24 td''Dim objPrintLib As New ciLayoutPrintLib.CILayoutBadge
+        Dim objPrintLib As New ciLayoutPrintLib.LayoutPrint_Redux
+        Dim listOfElementText_Stdrd As List(Of IElementWithText)
+        Dim listOfElementText_Custom As List(Of IElementWithText)
+
+        ''For Each field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students
+
+        ''objPrintLib.LoadImageWithFieldValues(picturePreview.Image,
+        ''      ClassFieldStandard.ListOfFields_Students,
+        ''      ClassFieldCustomized.ListOfFields_Students)
+
+        listOfElementText_Stdrd = ClassFieldStandard.ListOfElementsText_Stdrd()
+        listOfElementText_Custom = ClassFieldCustomized.ListOfElementsText_Custom()
+
+        objPrintLib.LoadImageWithFieldValues(picturePreview.Image,
+                                             listOfElementText_Stdrd,
+                                             listOfElementText_Custom)
 
     End Sub
 End Class
