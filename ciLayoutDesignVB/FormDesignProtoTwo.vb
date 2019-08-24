@@ -80,6 +80,7 @@ Public Class FormDesignProtoTwo
         picturePreview.SendToBack()
         pictureBack.SendToBack()
 
+        RefreshPreview() ''Added 8/24/2019 td
 
     End Sub ''End of "Private Sub FormDesignProtoTwo_Load"
 
@@ -423,6 +424,35 @@ Public Class FormDesignProtoTwo
 
     End Sub ''End of "PRivate Sub SaveLayout()"  
 
+    Private Sub RefreshPreview()
+        ''
+        ''Added 8/24/2019 td
+        ''
+        ''8/24 td''Dim objPrintLib As New ciLayoutPrintLib.CILayoutBadge
+        Dim objPrintLib As New ciLayoutPrintLib.LayoutPrint_Redux
+        Dim listOfElementText_Stdrd As List(Of IElementWithText)
+        Dim listOfElementText_Custom As List(Of IElementWithText)
+
+        ''For Each field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students
+
+        ''objPrintLib.LoadImageWithFieldValues(picturePreview.Image,
+        ''      ClassFieldStandard.ListOfFields_Students,
+        ''      ClassFieldCustomized.ListOfFields_Students)
+
+        listOfElementText_Stdrd = ClassFieldStandard.ListOfElementsText_Stdrd()
+        listOfElementText_Custom = ClassFieldCustomized.ListOfElementsText_Custom()
+
+        picturePreview.SizeMode = PictureBoxSizeMode.Zoom
+        picturePreview.Image = pictureBack.Image
+
+        objPrintLib.LoadImageWithFieldValues(picturePreview.Image,
+                                             listOfElementText_Stdrd,
+                                             listOfElementText_Custom)
+
+        picturePreview.Refresh()
+
+    End Sub ''end of "Private Sub RefreshPreview()"
+
     Private Sub LoadElementGenerator()
         ''
         ''Added 7/18/2019 
@@ -653,23 +683,28 @@ Public Class FormDesignProtoTwo
         ''
         ''Added 8/24/2019 thomas downes
         ''
-        ''8/24 td''Dim objPrintLib As New ciLayoutPrintLib.CILayoutBadge
-        Dim objPrintLib As New ciLayoutPrintLib.LayoutPrint_Redux
-        Dim listOfElementText_Stdrd As List(Of IElementWithText)
-        Dim listOfElementText_Custom As List(Of IElementWithText)
+        RefreshPreview()
 
-        ''For Each field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students
+        ''''8/24 td''Dim objPrintLib As New ciLayoutPrintLib.CILayoutBadge
+        ''Dim objPrintLib As New ciLayoutPrintLib.LayoutPrint_Redux
+        ''Dim listOfElementText_Stdrd As List(Of IElementWithText)
+        ''Dim listOfElementText_Custom As List(Of IElementWithText)
+
+        ''''For Each field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students
+
+        ''''objPrintLib.LoadImageWithFieldValues(picturePreview.Image,
+        ''''      ClassFieldStandard.ListOfFields_Students,
+        ''''      ClassFieldCustomized.ListOfFields_Students)
+
+        ''listOfElementText_Stdrd = ClassFieldStandard.ListOfElementsText_Stdrd()
+        ''listOfElementText_Custom = ClassFieldCustomized.ListOfElementsText_Custom()
+
+        ''picturePreview.SizeMode = PictureBoxSizeMode.Zoom
+        ''picturePreview.Image = pictureBack.Image
 
         ''objPrintLib.LoadImageWithFieldValues(picturePreview.Image,
-        ''      ClassFieldStandard.ListOfFields_Students,
-        ''      ClassFieldCustomized.ListOfFields_Students)
-
-        listOfElementText_Stdrd = ClassFieldStandard.ListOfElementsText_Stdrd()
-        listOfElementText_Custom = ClassFieldCustomized.ListOfElementsText_Custom()
-
-        objPrintLib.LoadImageWithFieldValues(picturePreview.Image,
-                                             listOfElementText_Stdrd,
-                                             listOfElementText_Custom)
+        ''                                     listOfElementText_Stdrd,
+        ''                                     listOfElementText_Custom)
 
     End Sub
 End Class
