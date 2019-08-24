@@ -198,6 +198,120 @@ Public Class ClassFieldStandard
         End With
         ListOfFields_Students.Add(new_object3)
 
+        ''Added 8/23/2019 thomas d
+        Dim new_object4 As New ClassFieldStandard
+        With new_object4
+            .IsCustomizable = False ''Added 7/26/2019 td 
+            .FieldLabelCaption = "Middle Name"
+            .CIBadgeField_Optional = "fstrMidName"
+            .FieldType_TD = "T"c
+            .HasPresetValues = False
+            .IsAdditionalField = False
+            .IsFieldForDates = False
+            .IsDisplayedForEdits = False
+            .IsDisplayedOnBadge = False
+            .IsLocked = False
+        End With
+        ListOfFields_Students.Add(new_object4)
+
+        ''Added 8/23/2019 thomas d
+        Dim new_object5 As New ClassFieldStandard
+        With new_object5
+            .IsCustomizable = False ''Added 7/26/2019 td 
+            .FieldLabelCaption = "Barcode Value"
+            .CIBadgeField_Optional = "fstrBarcode"
+            .FieldType_TD = "T"c
+            .HasPresetValues = False
+            .IsAdditionalField = False
+            .IsFieldForDates = False
+            .IsDisplayedForEdits = False
+            .IsDisplayedOnBadge = False
+            .IsLocked = False
+        End With
+        ListOfFields_Students.Add(new_object5)
+
+        ''Added 8/23/2019 thomas d
+        Dim new_object6 As New ClassFieldStandard
+        With new_object6
+            .IsCustomizable = False ''Added 7/26/2019 td 
+            .FieldLabelCaption = "Address"
+            .CIBadgeField_Optional = "fstrAddress"
+            .FieldType_TD = "T"c
+            .HasPresetValues = False
+            .IsAdditionalField = False
+            .IsFieldForDates = False
+            .IsDisplayedForEdits = False
+            .IsDisplayedOnBadge = False
+            .IsLocked = False
+        End With
+        ListOfFields_Students.Add(new_object6)
+
+        ''Added 8/23/2019 thomas d
+        Dim new_object7 As New ClassFieldStandard
+        With new_object7
+            .IsCustomizable = False ''Added 7/26/2019 td 
+            .FieldLabelCaption = "City"
+            .CIBadgeField_Optional = "fstrCity"
+            .FieldType_TD = "T"c
+            .HasPresetValues = False
+            .IsAdditionalField = False
+            .IsFieldForDates = False
+            .IsDisplayedForEdits = False
+            .IsDisplayedOnBadge = False
+            .IsLocked = False
+        End With
+        ListOfFields_Students.Add(new_object7)
+
+        ''Added 8/23/2019 thomas d
+        Dim new_object8 As New ClassFieldStandard
+        With new_object8
+            .IsCustomizable = False ''Added 7/26/2019 td 
+            .FieldLabelCaption = "State"
+            .CIBadgeField_Optional = "fstrState"
+            .FieldType_TD = "T"c
+            .HasPresetValues = False
+            .IsAdditionalField = False
+            .IsFieldForDates = False
+            .IsDisplayedForEdits = False
+            .IsDisplayedOnBadge = False
+            .IsLocked = False
+        End With
+        ListOfFields_Students.Add(new_object8)
+
+        ''Added 8/23/2019 thomas d
+        Dim new_object9 As New ClassFieldStandard
+        With new_object9
+            .IsCustomizable = False ''Added 7/26/2019 td 
+            .FieldLabelCaption = "Zipcode"
+            .CIBadgeField_Optional = "fstrZip"
+            .FieldType_TD = "T"c
+            .HasPresetValues = False
+            .IsAdditionalField = False
+            .IsFieldForDates = False
+            .IsDisplayedForEdits = False
+            .IsDisplayedOnBadge = False
+            .IsLocked = False
+        End With
+        ListOfFields_Students.Add(new_object9)
+
+        ''Added 8/23/2019 thomas d
+        Dim new_object91 As New ClassFieldStandard
+        With new_object91
+            .IsCustomizable = False ''Added 7/26/2019 td 
+            .FieldLabelCaption = "RFID/UID Value"
+            .CIBadgeField_Optional = "fstrRFID"
+            .FieldType_TD = "T"c
+            .HasPresetValues = False
+            .IsAdditionalField = False
+            .IsFieldForDates = False
+            .IsDisplayedForEdits = False
+            .IsDisplayedOnBadge = False
+            .IsLocked = False
+        End With
+        ListOfFields_Students.Add(new_object91)
+
+
+
     End Sub ''End of "InitializeHardcodedList_Students()"
 
     Public Shared Sub InitializeHardcodedList_Staff(pboolOnlyIfNeeded As Boolean)
