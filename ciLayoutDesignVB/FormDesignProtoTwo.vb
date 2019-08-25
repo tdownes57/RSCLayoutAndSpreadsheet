@@ -442,13 +442,28 @@ Public Class FormDesignProtoTwo
         listOfElementText_Stdrd = ClassFieldStandard.ListOfElementsText_Stdrd()
         listOfElementText_Custom = ClassFieldCustomized.ListOfElementsText_Custom()
 
-        picturePreview.SizeMode = PictureBoxSizeMode.Zoom
-        picturePreview.Image = pictureBack.Image
+        ''8/24 td''picturePreview.SizeMode = PictureBoxSizeMode.Zoom
+        ''8/24 td''picturePreview.Image = pictureBack.Image
+        ''8/24 td''picturePreview.Image = CType(pictureBack.Image.Clone(), Image)
 
-        objPrintLib.LoadImageWithFieldValues(picturePreview.Image,
+        Dim obj_image As Image ''Added 8/24 td
+        Dim obj_image_clone As Image ''Added 8/24 td
+        Dim obj_image_clone_resized As Image ''Added 8/24/2019 td
+
+        ''Added 8/24/2019 td
+        obj_image = pictureBack.Image
+        obj_image_clone = CType(obj_image.Clone(), Image)
+
+        ''Dim gr_resize As Graphics = New Bitmap(obj_image_clone)
+
+        obj_image_clone_resized = ciLayoutPrintLib.LayoutPrint.ResizeImage_ToHeight(obj_image_clone, True,
+                                                                                    picturePreview.Height)
+
+        objPrintLib.LoadImageWithFieldValues(obj_image_clone_resized,
                                              listOfElementText_Stdrd,
                                              listOfElementText_Custom)
 
+        picturePreview.Image = obj_image_clone
         picturePreview.Refresh()
 
     End Sub ''end of "Private Sub RefreshPreview()"

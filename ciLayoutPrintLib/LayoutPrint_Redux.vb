@@ -579,6 +579,8 @@ ExitHandler:
         ''Added 8/14/2019 td  
         ''
         Dim gr As Graphics ''= Graphics.FromImage(img)
+        Dim intEachIndex As Integer ''Added 8/24/2019 td
+
         gr = Graphics.FromImage(par_image)
 
         ''
@@ -588,24 +590,54 @@ ExitHandler:
         ''
         For Each each_elementField As IElementWithText In par_standardFields
 
+            intEachIndex += 1
+
+            ''Added 8/24/2019 thomas d.
+            With each_elementField.Position_BL
+                If (.LeftEdge_Pixels < 0) Then Continue For
+                If (.TopEdge_Pixels < 0) Then Continue For
+                If (.LeftEdge_Pixels + .Width_Pixels > par_image.Width) Then Continue For
+                If (.TopEdge_Pixels + .Height_Pixels > par_image.Height) Then Continue For
+            End With
+
+            Dim image_text As Image
+            Dim intLeft As Integer
+            Dim intTop As Integer
+
             With each_elementField
                 Try
-                    gr.DrawImage(.TextDisplay.GenerateImage(.Position_BL.Height_Pixels),
-                                 .Position_BL.LeftEdge_Pixels, .Position_BL.TopEdge_Pixels,
-                                 .Position_BL.Width_Pixels, .Position_BL.Height_Pixels)
+                    ''gr.DrawImage(.TextDisplay.GenerateImage(.Position_BL.Height_Pixels),
+                    ''   .Position_BL.LeftEdge_Pixels, .Position_BL.TopEdge_Pixels,
+                    ''   .Position_BL.Width_Pixels, .Position_BL.Height_Pixels)
+
+                    image_text = .TextDisplay.GenerateImage(.Position_BL.Height_Pixels)
+
+                    intLeft = .Position_BL.LeftEdge_Pixels
+                    intTop = .Position_BL.TopEdge_Pixels
+
+                    gr.DrawImage(image_text,
+                                 New PointF(intLeft, intTop))
 
                 Catch ex_draw_invalid As InvalidOperationException
                     ''Error:  Object not available.
                     Dim strMessage_Invalid As String
                     strMessage_Invalid = ex_draw_invalid.Message
+                    ''Added 8/24 thomas d.
+                    MessageBox.Show(strMessage_Invalid, "",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Exclamation)
                 Catch ex_draw_any As System.Exception
                     ''Error:  Object not available.
                     Dim strMessage_any As String
                     strMessage_any = ex_draw_any.Message
+                    ''Added 8/24 thomas d.
+                    MessageBox.Show(strMessage_any, "",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Exclamation)
                 End Try
             End With ''End of "With each_elementField"
 
-            gr.Dispose()
+            ''----gr.Dispose()
 
         Next each_elementField
 
@@ -631,9 +663,11 @@ ExitHandler:
                 End Try
             End With ''End of "With each_elementField"
 
-            gr.Dispose()
+            ''---gr.Dispose()
 
         Next each_elementField
+
+        gr.Dispose()
 
     End Sub ''End of ''Private Sub LoadElements_Fields()''
 
