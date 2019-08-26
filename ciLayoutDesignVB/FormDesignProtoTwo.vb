@@ -99,8 +99,13 @@ Public Class FormDesignProtoTwo
 
         ''Dim gr_resize As Graphics = New Bitmap(obj_image_clone)
 
-        obj_image_clone_resized = ciLayoutPrintLib.LayoutPrint.ResizeImage_ToWidth(obj_image,
-                                                                          pictureBack.Width)
+        ''8/25/2019 td''obj_image_clone_resized = ciLayoutPrintLib.LayoutPrint.ResizeImage_ToHeight(obj_image,
+        ''                       pictureBack.Height)
+
+        ''8/26/2019 td''obj_image_clone_resized = ciLayoutPrintLib.LayoutPrint.ResizeImage_ToWidth(obj_image,
+        ''8/26/2019 td''       pictureBack.Width)
+
+        obj_image_clone_resized = ciLayoutPrintLib.LayoutPrint.ResizeBackground_ToFitBox(obj_image, pictureBack)
 
         pictureBack.Image = obj_image_clone_resized
 

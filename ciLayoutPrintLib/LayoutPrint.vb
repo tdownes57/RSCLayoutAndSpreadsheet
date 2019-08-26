@@ -637,12 +637,62 @@ ExitHandler:
 
     End Sub ''End of ''Private Sub LoadElements_Fields()''
 
-    Public Shared Function ResizeImage(ByVal InputImage As Image, ByVal parSizingBox As Control) As Image
+    Public Shared Function ResizeImage(ByVal par_InputImage As Image, ByVal parSizingBox As Control) As Image
         ''
         ''https://stackoverflow.com/questions/2144592/resizing-images-in-vb-net 
         ''
         ''5/7/2019 td''Return New Bitmap(InputImage, New Size(64, 64))
-        Return New Bitmap(InputImage, New Size(parSizingBox.Width, parSizingBox.Height))
+        ''8/26/2019 td''Return New Bitmap(InputImage, New Size(parSizingBox.Width, parSizingBox.Height))
+        Return ResizeBackground_ToFitBox(par_InputImage, parSizingBox)
+
+    End Function ''Public Shared Function ResizeImage(ByVal InputImage As Image, ByVal parSizingBox As Control) As Image
+
+    Public Shared Function ResizeBackground_ToFitBox(ByVal parInputImage As Image, ByVal parSizingBox As Control) As Image
+        ''
+        ''https://stackoverflow.com/questions/2144592/resizing-images-in-vb-net 
+        ''
+        ''5/7/2019 td''Return New Bitmap(InputImage, New Size(64, 64))
+        ''8/26/2019 td''Return New Bitmap(InputImage, New Size(parSizingBox.Width, parSizingBox.Height))
+
+        Dim doubRatioWidthToHeight_Box As Double
+        Dim doubRatioWidthToHeight_Image As Double
+        Dim bResizeByWidthNotHeight As Boolean
+        Dim bImageProportionsArePerfect As Boolean
+        Dim boolLandscapeMode As Boolean
+        Dim boolPortraitMode As Boolean
+
+        doubRatioWidthToHeight_Box = (parSizingBox.Width / parSizingBox.Height)
+        doubRatioWidthToHeight_Image = (parInputImage.Width / parInputImage.Height)
+
+        bImageProportionsArePerfect = (doubRatioWidthToHeight_Image = doubRatioWidthToHeight_Box)
+        bResizeByWidthNotHeight = (doubRatioWidthToHeight_Image > doubRatioWidthToHeight_Box)
+        boolLandscapeMode = (parSizingBox.Width > parSizingBox.Height)
+        boolPortraitMode = (Not boolLandscapeMode)
+
+        If (bImageProportionsArePerfect And (boolLandscapeMode)) Then
+
+            ''Since the image is perfectly proportioned, and we are in landscape mode, 
+            ''  let's resize by width.  
+            Return ResizeImage_ToWidth(parInputImage, parSizingBox.Width)
+
+        ElseIf (bImageProportionsArePerfect And (boolPortraitMode)) Then
+
+            ''Since the image is perfectly proportioned, and we are in Portrait mode, 
+            ''  let's resize by height.  
+            Dim boolDummy1 As Boolean
+            Return ResizeImage_ToHeight(parInputImage, boolDummy1, parSizingBox.Height)
+
+        ElseIf (bResizeByWidthNotHeight) Then
+
+            ''Since the image is unexpectedly wide, let's resize by width. 
+            Return ResizeImage_ToWidth(parInputImage, parSizingBox.Width)
+
+        Else
+            ''Since the image is unexpectedly tall, let's resize by height. 
+            Dim boolDummy2 As Boolean
+            Return ResizeImage_ToHeight(parInputImage, boolDummy2, parSizingBox.Height)
+
+        End If ''End of "If (bResizeByWidthNotHeight) Then .... Else ...."
 
     End Function ''Public Shared Function ResizeImage(ByVal InputImage As Image, ByVal parSizingBox As Control) As Image
 
@@ -669,7 +719,6 @@ ExitHandler:
         Return New Bitmap(InputImage, New Size(intNewWidth, par_intHeight))
 
     End Function ''Public Shared Function ResizeImage(ByVal InputImage As Image, ByVal parSizingBox As Control) As Image
-
 
     Public Shared Function Resize_Portrait60x80(ByVal parInputImage As Image, ByVal parSizeOfCard As Size) As Image
         ''
