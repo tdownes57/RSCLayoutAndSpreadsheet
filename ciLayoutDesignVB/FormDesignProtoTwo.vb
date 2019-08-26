@@ -493,7 +493,8 @@ Public Class FormDesignProtoTwo
                                              listOfElementText_Stdrd,
                                              listOfElementText_Custom)
 
-        picturePreview.Image = obj_image_clone
+        ''8/26 td''picturePreview.Image = obj_image_clone_resized
+        picturePreview.Image = obj_image_clone_resized
         picturePreview.Refresh()
 
     End Sub ''end of "Private Sub RefreshPreview()"

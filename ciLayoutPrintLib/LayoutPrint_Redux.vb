@@ -574,12 +574,16 @@ ExitHandler:
 
     Public Sub LoadImageWithFieldValues(ByRef par_image As Image,
                                    par_standardFields As List(Of IElementWithText),
-                                   par_customFields As List(Of IElementWithText))
+                                   par_customFields As List(Of IElementWithText),
+                                        Optional par_listTextImages As List(Of Image) = Nothing)
         ''
         ''Added 8/14/2019 td  
         ''
         Dim gr As Graphics ''= Graphics.FromImage(img)
         Dim intEachIndex As Integer ''Added 8/24/2019 td
+        Dim bOutputAllImages As Boolean ''Added 8/26/2019 thomas d. 
+
+        bOutputAllImages = (par_listTextImages IsNot Nothing) ''Added 8/26/2019 thomas d. 
 
         gr = Graphics.FromImage(par_image)
 
@@ -600,22 +604,25 @@ ExitHandler:
                 If (.TopEdge_Pixels + .Height_Pixels > par_image.Height) Then Continue For
             End With
 
-            Dim image_text As Image
+            Dim image_textStandard As Image
             Dim intLeft As Integer
             Dim intTop As Integer
 
             With each_elementField
+
                 Try
                     ''gr.DrawImage(.TextDisplay.GenerateImage(.Position_BL.Height_Pixels),
                     ''   .Position_BL.LeftEdge_Pixels, .Position_BL.TopEdge_Pixels,
                     ''   .Position_BL.Width_Pixels, .Position_BL.Height_Pixels)
 
-                    image_text = .TextDisplay.GenerateImage(.Position_BL.Height_Pixels)
+                    image_textStandard = .TextDisplay.GenerateImage(.Position_BL.Height_Pixels)
+
+                    If (bOutputAllImages) Then par_listTextImages.Add(image_textStandard) ''Added 8/26/2019 td
 
                     intLeft = .Position_BL.LeftEdge_Pixels
                     intTop = .Position_BL.TopEdge_Pixels
 
-                    gr.DrawImage(image_text,
+                    gr.DrawImage(image_textStandard,
                                  New PointF(intLeft, intTop))
 
                 Catch ex_draw_invalid As InvalidOperationException
@@ -646,11 +653,24 @@ ExitHandler:
         ''
         For Each each_elementField As IElementWithText In par_customFields
 
+            Dim image_textCustom As Image ''Added 8/26/2019 td  
+            Dim intLeft As Integer
+            Dim intTop As Integer
+
             With each_elementField
                 Try
-                    gr.DrawImage(.TextDisplay.GenerateImage(.Position_BL.Height_Pixels),
-                                 .Position_BL.LeftEdge_Pixels, .Position_BL.TopEdge_Pixels,
-                                 .Position_BL.Width_Pixels, .Position_BL.Height_Pixels)
+                    image_textCustom = .TextDisplay.GenerateImage(.Position_BL.Height_Pixels)
+                    If (bOutputAllImages) Then par_listTextImages.Add(image_textCustom) ''Added 8/26/2019 td
+
+                    ''8/26/2019 td''gr.DrawImage(image_textCustom,
+                    ''                    .Position_BL.LeftEdge_Pixels, .Position_BL.TopEdge_Pixels,
+                    ''                    .Position_BL.Width_Pixels, .Position_BL.Height_Pixels)
+
+                    intLeft = .Position_BL.LeftEdge_Pixels
+                    intTop = .Position_BL.TopEdge_Pixels
+
+                    gr.DrawImage(image_textCustom,
+                                 New PointF(intLeft, intTop))
 
                 Catch ex_draw_invalid As InvalidOperationException
                     ''Error:  Object not available.
