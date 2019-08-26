@@ -80,9 +80,31 @@ Public Class FormDesignProtoTwo
         picturePreview.SendToBack()
         pictureBack.SendToBack()
 
+        ResizeLayoutBackgroundImage_ToFitPictureBox() ''Added 8/25/2019 td
         RefreshPreview() ''Added 8/24/2019 td
 
     End Sub ''End of "Private Sub FormDesignProtoTwo_Load"
+
+    Private Sub ResizeLayoutBackgroundImage_ToFitPictureBox()
+        ''
+        ''Added 8/25/2019 td 
+        ''
+        Dim obj_image As Image ''Added 8/24 td
+        ''Dim obj_image_clone As Image ''Added 8/24 td
+        Dim obj_image_clone_resized As Image ''Added 8/24/2019 td
+
+        ''Added 8/24/2019 td
+        obj_image = pictureBack.Image
+        ''obj_image_clone = CType(obj_image.Clone(), Image)
+
+        ''Dim gr_resize As Graphics = New Bitmap(obj_image_clone)
+
+        obj_image_clone_resized = ciLayoutPrintLib.LayoutPrint.ResizeImage_ToWidth(obj_image,
+                                                                          pictureBack.Width)
+
+        pictureBack.Image = obj_image_clone_resized
+
+    End Sub ''End of Sub ResizeLayoutBackgroundImage()
 
     Private Sub Load_Form()
         ''
@@ -457,7 +479,7 @@ Public Class FormDesignProtoTwo
         ''Dim gr_resize As Graphics = New Bitmap(obj_image_clone)
 
         obj_image_clone_resized = ciLayoutPrintLib.LayoutPrint.ResizeImage_ToHeight(obj_image_clone, True,
-                                                                                    picturePreview.Height)
+                                                                          picturePreview.Height)
 
         objPrintLib.LoadImageWithFieldValues(obj_image_clone_resized,
                                              listOfElementText_Stdrd,
@@ -720,6 +742,10 @@ Public Class FormDesignProtoTwo
         ''objPrintLib.LoadImageWithFieldValues(picturePreview.Image,
         ''                                     listOfElementText_Stdrd,
         ''                                     listOfElementText_Custom)
+
+    End Sub
+
+    Private Sub PictureBack_Click(sender As Object, e As EventArgs) Handles pictureBack.Click
 
     End Sub
 End Class
