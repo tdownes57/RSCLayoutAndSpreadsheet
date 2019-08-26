@@ -1,12 +1,12 @@
 ﻿Option Explicit On
 Option Infer Off
 Option Strict On
+Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d.  
 ''
 ''Added 7/18/2019 Thomas DOWNES
 ''
 Imports ControlManager
 Imports MoveAndResizeControls_Monem
-Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d.  
 
 Public Class FormDesignProtoTwo
     Implements ISelectingElements
@@ -80,8 +80,31 @@ Public Class FormDesignProtoTwo
         picturePreview.SendToBack()
         pictureBack.SendToBack()
 
+        ResizeLayoutBackgroundImage_ToFitPictureBox() ''Added 8/25/2019 td
+        RefreshPreview() ''Added 8/24/2019 td
 
     End Sub ''End of "Private Sub FormDesignProtoTwo_Load"
+
+    Private Sub ResizeLayoutBackgroundImage_ToFitPictureBox()
+        ''
+        ''Added 8/25/2019 td 
+        ''
+        Dim obj_image As Image ''Added 8/24 td
+        ''Dim obj_image_clone As Image ''Added 8/24 td
+        Dim obj_image_clone_resized As Image ''Added 8/24/2019 td
+
+        ''Added 8/24/2019 td
+        obj_image = pictureBack.Image
+        ''obj_image_clone = CType(obj_image.Clone(), Image)
+
+        ''Dim gr_resize As Graphics = New Bitmap(obj_image_clone)
+
+        obj_image_clone_resized = ciLayoutPrintLib.LayoutPrint.ResizeImage_ToWidth(obj_image,
+                                                                          pictureBack.Width)
+
+        pictureBack.Image = obj_image_clone_resized
+
+    End Sub ''End of Sub ResizeLayoutBackgroundImage()
 
     Private Sub Load_Form()
         ''
@@ -156,6 +179,9 @@ Public Class FormDesignProtoTwo
         ''Added 7/31/2019 thomas downes 
         ''
         ''7/31 td''Dim new_picControl As CtlGraphicPortrait ''Added 7/31/2019 td  
+
+        ''Added 8/22/2019 THOMAS D.
+        ciPictures_VB.PictureExamples.PathToFolderOfImages = (My.Application.Info.DirectoryPath & "\Images\PictureExamples")
 
         If (ClassElementPic.ElementPicture Is Nothing) Then
 
@@ -420,6 +446,50 @@ Public Class FormDesignProtoTwo
 
     End Sub ''End of "PRivate Sub SaveLayout()"  
 
+    Private Sub RefreshPreview()
+        ''
+        ''Added 8/24/2019 td
+        ''
+        ''8/24 td''Dim objPrintLib As New ciLayoutPrintLib.CILayoutBadge
+        Dim objPrintLib As New ciLayoutPrintLib.LayoutPrint_Redux
+        Dim listOfElementText_Stdrd As List(Of IElementWithText)
+        Dim listOfElementText_Custom As List(Of IElementWithText)
+
+        ''For Each field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students
+
+        ''objPrintLib.LoadImageWithFieldValues(picturePreview.Image,
+        ''      ClassFieldStandard.ListOfFields_Students,
+        ''      ClassFieldCustomized.ListOfFields_Students)
+
+        listOfElementText_Stdrd = ClassFieldStandard.ListOfElementsText_Stdrd()
+        listOfElementText_Custom = ClassFieldCustomized.ListOfElementsText_Custom()
+
+        ''8/24 td''picturePreview.SizeMode = PictureBoxSizeMode.Zoom
+        ''8/24 td''picturePreview.Image = pictureBack.Image
+        ''8/24 td''picturePreview.Image = CType(pictureBack.Image.Clone(), Image)
+
+        Dim obj_image As Image ''Added 8/24 td
+        Dim obj_image_clone As Image ''Added 8/24 td
+        Dim obj_image_clone_resized As Image ''Added 8/24/2019 td
+
+        ''Added 8/24/2019 td
+        obj_image = pictureBack.Image
+        obj_image_clone = CType(obj_image.Clone(), Image)
+
+        ''Dim gr_resize As Graphics = New Bitmap(obj_image_clone)
+
+        obj_image_clone_resized = ciLayoutPrintLib.LayoutPrint.ResizeImage_ToHeight(obj_image_clone, True,
+                                                                          picturePreview.Height)
+
+        objPrintLib.LoadImageWithFieldValues(obj_image_clone_resized,
+                                             listOfElementText_Stdrd,
+                                             listOfElementText_Custom)
+
+        picturePreview.Image = obj_image_clone
+        picturePreview.Refresh()
+
+    End Sub ''end of "Private Sub RefreshPreview()"
+
     Private Sub LoadElementGenerator()
         ''
         ''Added 7/18/2019 
@@ -643,6 +713,39 @@ Public Class FormDesignProtoTwo
         Dim frm_ToShow As New FormStandardFields()
         frm_ToShow.ListOfFields = FormMain.GetCurrentPersonality_Fields_Standard()
         frm_ToShow.Show()
+
+    End Sub
+
+    Private Sub LinkRefreshPreview_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkRefreshPreview.LinkClicked
+        ''
+        ''Added 8/24/2019 thomas downes
+        ''
+        RefreshPreview()
+
+        ''''8/24 td''Dim objPrintLib As New ciLayoutPrintLib.CILayoutBadge
+        ''Dim objPrintLib As New ciLayoutPrintLib.LayoutPrint_Redux
+        ''Dim listOfElementText_Stdrd As List(Of IElementWithText)
+        ''Dim listOfElementText_Custom As List(Of IElementWithText)
+
+        ''''For Each field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students
+
+        ''''objPrintLib.LoadImageWithFieldValues(picturePreview.Image,
+        ''''      ClassFieldStandard.ListOfFields_Students,
+        ''''      ClassFieldCustomized.ListOfFields_Students)
+
+        ''listOfElementText_Stdrd = ClassFieldStandard.ListOfElementsText_Stdrd()
+        ''listOfElementText_Custom = ClassFieldCustomized.ListOfElementsText_Custom()
+
+        ''picturePreview.SizeMode = PictureBoxSizeMode.Zoom
+        ''picturePreview.Image = pictureBack.Image
+
+        ''objPrintLib.LoadImageWithFieldValues(picturePreview.Image,
+        ''                                     listOfElementText_Stdrd,
+        ''                                     listOfElementText_Custom)
+
+    End Sub
+
+    Private Sub PictureBack_Click(sender As Object, e As EventArgs) Handles pictureBack.Click
 
     End Sub
 End Class

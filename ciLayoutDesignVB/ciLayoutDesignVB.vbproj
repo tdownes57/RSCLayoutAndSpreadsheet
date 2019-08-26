@@ -443,6 +443,24 @@
     <Content Include="Images\AdjustWHColor_V101.jpg" />
     <Content Include="Images\AdjustWHColor_V102.jpg" />
     <Content Include="Images\AdjustWHColor_V103.jpg" />
+    <Content Include="Images\BackExamples\CI_Logo.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BackExamples\layout_BW.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BackExamples\ORO835 - OrovilleHS.PNG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BackExamples\RotatedLayout.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BackExamples\SOU735-SADDLEBACK-VENDOR.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BackExamples\ValleyValleyColl.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\CI Logo.jpg" />
     <Content Include="Images\CISolutionsLogo.png" />
     <None Include="Images\ContextMenu_non-grouped.png" />
@@ -455,6 +473,39 @@
     <Content Include="Images\layout_BW.bmp" />
     <None Include="Images\mainback_v82.PNG" />
     <Content Include="Images\ORO835 - OrovilleHS.PNG" />
+    <Content Include="Images\PictureExamples\1957.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\PictureExamples\1958.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\PictureExamples\1959.PNG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\PictureExamples\1960.JPG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\PictureExamples\1961.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\PictureExamples\1961.PNG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\PictureExamples\1962.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\PictureExamples\CI Badge v9 Susan.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\PictureExamples\NoPic.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\PictureExamples\Sample.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\PictureExamples\test - backup.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\RotatedLayout.png" />
     <Content Include="Images\SizeAdjustmentBar.png" />
     <Content Include="Images\SizeStretchZones.jpg" />
@@ -478,6 +529,12 @@
     <None Include="Resources\__UI for v900 w demo face.PNG" />
     <None Include="Resources\Textbox_v90.png" />
     <None Include="Resources\__UI for V831 w No Pic1.PNG" />
+    <Content Include="SQL\CreateTables - Just 5 + 1 tables.sql" />
+    <Content Include="SQL\CreateTables - Just 6 tables.sql" />
+    <Content Include="SQL\CreateTables - Mar29.sql" />
+    <Content Include="SQL\CreateTables.sql" />
+    <Content Include="SQL\Table tblCardData.sql" />
+    <Content Include="SQL\Table tblCardData.txt" />
     <Content Include="Test Layout Design.htm" />
     <Content Include="test_EmbedBase64.htm" />
     <Content Include="test_OnLoad.htm" />
@@ -511,5 +568,6 @@
       <Name>MoveAndResizeControls_Monem</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

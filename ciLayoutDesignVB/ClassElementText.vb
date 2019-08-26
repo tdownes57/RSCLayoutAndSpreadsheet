@@ -123,7 +123,8 @@ Public Class ClassElementText
 
         ''Added 8/15/2019 td
         doubleW_div_H = (par_element.Width_Pixels / par_element.Height_Pixels)
-        doubleScaling = (pintFinalLayoutWidth / par_element.LayoutWidth_Pixels)
+        ''8/24 td''doubleScaling = (pintFinalLayoutWidth / par_element.LayoutWidth_Pixels)
+        doubleScaling = (pintFinalLayoutWidth / par_element.Width_Pixels)
 
         If (par_image Is Nothing) Then
             ''Create the image from scratch, if needed. 

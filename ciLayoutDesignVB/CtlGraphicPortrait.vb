@@ -44,7 +44,19 @@ Public Class CtlGraphicPortrait
         ''
         ''Added 8/12/2019 thomas downes 
         ''
-        picturePortrait.Image = ciPictures_VB.PictureExamples.GetImageByIndex(par_infoForPic_Pic.PicFileIndex)
+        ''8/22/2019 td''picturePortrait.Image = ciPictures_VB.PictureExamples.GetImageByIndex(par_infoForPic_Pic.PicFileIndex)
+
+        Dim strErrorMessage As String = "" ''Added 8/22/2019 td
+        picturePortrait.Image =
+            ciPictures_VB.PictureExamples.GetImageByIndex(par_infoForPic_Pic.PicFileIndex) '', strErrorMessage)
+
+        If ("" <> strErrorMessage) Then
+            ''Added 8/22/2019 
+            MessageBox.Show(strErrorMessage, " ",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Exclamation)
+            Exit Sub
+        End If ''End of "If ("" <> strErrorMessage) Then"
 
         ''
         ''Rotate the image 90 degrees, as many times as needed.  ---8/12/2019 td  
@@ -59,9 +71,17 @@ Public Class CtlGraphicPortrait
         ''
         Me.ElementInfo_Pic.PicFileIndex += 1
 
-        picturePortrait.Image = ciPictures_VB.PictureExamples.GetImageByIndex(Me.ElementInfo_Pic.PicFileIndex)
+        ''8/22/2019 td''picturePortrait.Image = ciPictures_VB.PictureExamples.GetImageByIndex(Me.ElementInfo_Pic.PicFileIndex)
 
-    End Sub
+        Dim strErrorMessage As String = ""
+        picturePortrait.Image = ciPictures_VB.PictureExamples.GetImageByIndex(Me.ElementInfo_Pic.PicFileIndex) '', strErrorMessage)
+
+        ''Added 8/22/2019 td
+        If ("" <> strErrorMessage) Then MessageBox.Show(strErrorMessage, " ",
+                                                        MessageBoxButtons.OK,
+                                                        MessageBoxIcon.Exclamation)
+
+    End Sub ''End of "Private Sub DisplayAnotherImage(sender As Object, e As EventArgs)"
 
     ''7/31/2019 td''Public Sub New_NotInUse(par_field As ICIBFieldStandardOrCustom)
     ''

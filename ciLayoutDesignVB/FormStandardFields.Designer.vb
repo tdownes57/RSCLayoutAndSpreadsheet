@@ -31,7 +31,7 @@ Partial Class FormStandardFields
         Me.chkIncludeExampleValues = New System.Windows.Forms.CheckBox()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
         Me.LabelHeaderCaption = New System.Windows.Forms.Label()
-        Me.UserAddFieldControl1 = New ciLayoutDesignVB.CtlAddCustomField()
+        Me.CtlAddStandardField1 = New ciLayoutDesignVB.CtlAddStandardField()
         Me.FlowLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -39,7 +39,7 @@ Partial Class FormStandardFields
         '
         Me.LinkLabelCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.LinkLabelCancel.AutoSize = True
-        Me.LinkLabelCancel.Location = New System.Drawing.Point(751, 625)
+        Me.LinkLabelCancel.Location = New System.Drawing.Point(694, 625)
         Me.LinkLabelCancel.Name = "LinkLabelCancel"
         Me.LinkLabelCancel.Size = New System.Drawing.Size(51, 17)
         Me.LinkLabelCancel.TabIndex = 19
@@ -50,7 +50,7 @@ Partial Class FormStandardFields
         '
         Me.LinkLabelSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.LinkLabelSave.AutoSize = True
-        Me.LinkLabelSave.Location = New System.Drawing.Point(851, 625)
+        Me.LinkLabelSave.Location = New System.Drawing.Point(794, 625)
         Me.LinkLabelSave.Name = "LinkLabelSave"
         Me.LinkLabelSave.Size = New System.Drawing.Size(40, 17)
         Me.LinkLabelSave.TabIndex = 18
@@ -92,7 +92,7 @@ Partial Class FormStandardFields
         'chkIncludeCIBField
         '
         Me.chkIncludeCIBField.AutoSize = True
-        Me.chkIncludeCIBField.Location = New System.Drawing.Point(689, 44)
+        Me.chkIncludeCIBField.Location = New System.Drawing.Point(632, 42)
         Me.chkIncludeCIBField.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.chkIncludeCIBField.Name = "chkIncludeCIBField"
         Me.chkIncludeCIBField.Size = New System.Drawing.Size(221, 21)
@@ -105,7 +105,7 @@ Partial Class FormStandardFields
         Me.chkIncludeExampleValues.AutoSize = True
         Me.chkIncludeExampleValues.Checked = True
         Me.chkIncludeExampleValues.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkIncludeExampleValues.Location = New System.Drawing.Point(689, 17)
+        Me.chkIncludeExampleValues.Location = New System.Drawing.Point(632, 17)
         Me.chkIncludeExampleValues.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.chkIncludeExampleValues.Name = "chkIncludeExampleValues"
         Me.chkIncludeExampleValues.Size = New System.Drawing.Size(180, 21)
@@ -121,12 +121,12 @@ Partial Class FormStandardFields
         Me.FlowLayoutPanel1.AutoScroll = True
         Me.FlowLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.FlowLayoutPanel1.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.FlowLayoutPanel1.Controls.Add(Me.UserAddFieldControl1)
+        Me.FlowLayoutPanel1.Controls.Add(Me.CtlAddStandardField1)
         Me.FlowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
         Me.FlowLayoutPanel1.Location = New System.Drawing.Point(22, 81)
         Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(872, 526)
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(815, 526)
         Me.FlowLayoutPanel1.TabIndex = 12
         Me.FlowLayoutPanel1.WrapContents = False
         '
@@ -141,20 +141,19 @@ Partial Class FormStandardFields
         Me.LabelHeaderCaption.Tag = "Custom Fields - {0}"
         Me.LabelHeaderCaption.Text = "Standard Fields - {Personality}"
         '
-        'UserAddFieldControl1
+        'CtlAddStandardField1
         '
-        Me.UserAddFieldControl1.BackColor = System.Drawing.Color.LightCyan
-        Me.UserAddFieldControl1.Location = New System.Drawing.Point(3, 2)
-        Me.UserAddFieldControl1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.UserAddFieldControl1.Name = "UserAddFieldControl1"
-        Me.UserAddFieldControl1.Size = New System.Drawing.Size(837, 123)
-        Me.UserAddFieldControl1.TabIndex = 4
+        Me.CtlAddStandardField1.BackColor = System.Drawing.Color.SkyBlue
+        Me.CtlAddStandardField1.Location = New System.Drawing.Point(3, 3)
+        Me.CtlAddStandardField1.Name = "CtlAddStandardField1"
+        Me.CtlAddStandardField1.Size = New System.Drawing.Size(799, 98)
+        Me.CtlAddStandardField1.TabIndex = 0
         '
         'FormStandardFields
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(928, 658)
+        Me.ClientSize = New System.Drawing.Size(871, 658)
         Me.Controls.Add(Me.LinkLabelCancel)
         Me.Controls.Add(Me.LinkLabelSave)
         Me.Controls.Add(Me.linklabelExport)
@@ -181,5 +180,5 @@ Partial Class FormStandardFields
     Friend WithEvents chkIncludeExampleValues As CheckBox
     Friend WithEvents FlowLayoutPanel1 As FlowLayoutPanel
     Friend WithEvents LabelHeaderCaption As Label
-    Friend WithEvents UserAddFieldControl1 As CtlAddCustomField
+    Friend WithEvents CtlAddStandardField1 As CtlAddStandardField
 End Class

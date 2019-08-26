@@ -15,6 +15,10 @@ Public Interface ICIBFieldStandardOrCustom
     Property FieldType_TD As Char
     Property FieldIndex As Integer
 
+    ''Added 8/22/2019 td
+    Property IsDisplayedOnBadge As Boolean
+    Property IsDisplayedForEdits As Boolean
+
     Property IsFieldForDates As Boolean
     Property IsLocked As Boolean
 
