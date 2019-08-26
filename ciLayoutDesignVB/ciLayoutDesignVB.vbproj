@@ -193,6 +193,12 @@
     <Compile Include="FormDesignProtoTwo.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FormDisplayImageList.Designer.vb">
+      <DependentUpon>FormDisplayImageList.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormDisplayImageList.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormExampleValueEtc.Designer.vb">
       <DependentUpon>FormExampleValueEtc.vb</DependentUpon>
     </Compile>
@@ -379,6 +385,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormDisplay.resx">
       <DependentUpon>FormDisplay.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDisplayImageList.resx">
+      <DependentUpon>FormDisplayImageList.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormExampleValueEtc.resx">
       <DependentUpon>FormExampleValueEtc.vb</DependentUpon>

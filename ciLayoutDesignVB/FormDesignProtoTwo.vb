@@ -459,6 +459,7 @@ Public Class FormDesignProtoTwo
         Dim objPrintLib As New ciLayoutPrintLib.LayoutPrint_Redux
         Dim listOfElementText_Stdrd As List(Of IElementWithText)
         Dim listOfElementText_Custom As List(Of IElementWithText)
+        Dim listOfTextImages As New List(Of Image) ''Added 8/26/2019 thomas downes 
 
         ''For Each field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students
 
@@ -491,7 +492,8 @@ Public Class FormDesignProtoTwo
 
         objPrintLib.LoadImageWithFieldValues(obj_image_clone_resized,
                                              listOfElementText_Stdrd,
-                                             listOfElementText_Custom)
+                                             listOfElementText_Custom,
+                                             listOfTextImages)
 
         ''8/26 td''picturePreview.Image = obj_image_clone_resized
         picturePreview.Image = obj_image_clone_resized
