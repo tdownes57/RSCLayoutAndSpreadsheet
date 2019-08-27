@@ -9,6 +9,8 @@ Public Class BackImageExamples
     ''
     ''Added 6/13/2019 td  
     ''
+    Public Shared PathToFolderWithBacks As String ''Added 8/21/2019 thomas d. 
+
     Private Shared mod_images As List(Of Image)
 
     Private Shared mod_currentIndex As Integer ''Added 7/5/2019 td  
@@ -115,7 +117,11 @@ ExitHandler:
 
         ''6/13 td''strPathToFolderWithPics = My.Application.Info.DirectoryPath & "\PictureExamples"
         ''7/5 td''strPathToFolderWithPics = My.Application.Info.DirectoryPath & "\BackImageExamples"
-        strPathToFolderWithPics = "C:\CI Solutions\CI Badge Web\ciPictures_VB\BackExamples"
+        ''8/20/2019 td''strPathToFolderWithPics = "C:\CI Solutions\CI Badge Web\ciPictures_VB\BackExamples"
+        ''8/21/2019 td''strPathToFolderWithPics = My.Application.Info.DirectoryPath & "\BackgroundEgs"
+
+        ''8/21/2019 td''strPathToFolderWithPics = My.Application.Info.DirectoryPath & "\BackgroundEgs"
+        strPathToFolderWithPics = PathToFolderWithBacks & "\BackgroundEgs"
 
         all_Jpegs = (New System.IO.DirectoryInfo(strPathToFolderWithPics)).EnumerateFiles()
 

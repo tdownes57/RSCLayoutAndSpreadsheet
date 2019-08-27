@@ -80,9 +80,36 @@ Public Class FormDesignProtoTwo
         picturePreview.SendToBack()
         pictureBack.SendToBack()
 
+        ResizeLayoutBackgroundImage_ToFitPictureBox() ''Added 8/25/2019 td
         RefreshPreview() ''Added 8/24/2019 td
 
     End Sub ''End of "Private Sub FormDesignProtoTwo_Load"
+
+    Private Sub ResizeLayoutBackgroundImage_ToFitPictureBox()
+        ''
+        ''Added 8/25/2019 td 
+        ''
+        Dim obj_image As Image ''Added 8/24 td
+        ''Dim obj_image_clone As Image ''Added 8/24 td
+        Dim obj_image_clone_resized As Image ''Added 8/24/2019 td
+
+        ''Added 8/24/2019 td
+        obj_image = pictureBack.Image
+        ''obj_image_clone = CType(obj_image.Clone(), Image)
+
+        ''Dim gr_resize As Graphics = New Bitmap(obj_image_clone)
+
+        ''8/25/2019 td''obj_image_clone_resized = ciLayoutPrintLib.LayoutPrint.ResizeImage_ToHeight(obj_image,
+        ''                       pictureBack.Height)
+
+        ''8/26/2019 td''obj_image_clone_resized = ciLayoutPrintLib.LayoutPrint.ResizeImage_ToWidth(obj_image,
+        ''8/26/2019 td''       pictureBack.Width)
+
+        obj_image_clone_resized = ciLayoutPrintLib.LayoutPrint.ResizeBackground_ToFitBox(obj_image, pictureBack)
+
+        pictureBack.Image = obj_image_clone_resized
+
+    End Sub ''End of Sub ResizeLayoutBackgroundImage()
 
     Private Sub Load_Form()
         ''
@@ -432,6 +459,7 @@ Public Class FormDesignProtoTwo
         Dim objPrintLib As New ciLayoutPrintLib.LayoutPrint_Redux
         Dim listOfElementText_Stdrd As List(Of IElementWithText)
         Dim listOfElementText_Custom As List(Of IElementWithText)
+        Dim listOfTextImages As New List(Of Image) ''Added 8/26/2019 thomas downes 
 
         ''For Each field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students
 
@@ -456,15 +484,23 @@ Public Class FormDesignProtoTwo
 
         ''Dim gr_resize As Graphics = New Bitmap(obj_image_clone)
 
-        obj_image_clone_resized = ciLayoutPrintLib.LayoutPrint.ResizeImage_ToHeight(obj_image_clone, True,
-                                                                                    picturePreview.Height)
+        ''8/26/2019 td''obj_image_clone_resized = ciLayoutPrintLib.LayoutPrint.ResizeImage_ToHeight(obj_image_clone, True,
+        ''8/26/2019 td''      picturePreview.Height)
+
+        ''Added 8/26/2019 thomas downes
+        obj_image_clone_resized = ciLayoutPrintLib.LayoutPrint.ResizeBackground_ToFitBox(obj_image, picturePreview)
 
         objPrintLib.LoadImageWithFieldValues(obj_image_clone_resized,
                                              listOfElementText_Stdrd,
-                                             listOfElementText_Custom)
+                                             listOfElementText_Custom,
+                                             listOfTextImages)
 
+        ''Added 8/26/2019 thomas downes  
+        Dim frm_ToShow As New FormDisplayImageList(listOfTextImages)
+        frm_ToShow.Show()
+
+        ''8/26 td''picturePreview.Image = obj_image_clone_resized
         picturePreview.Image = obj_image_clone_resized
-        picturePreview.SizeMode = PictureBoxSizeMode.Zoom
         picturePreview.Refresh()
 
     End Sub ''end of "Private Sub RefreshPreview()"
@@ -721,6 +757,10 @@ Public Class FormDesignProtoTwo
         ''objPrintLib.LoadImageWithFieldValues(picturePreview.Image,
         ''                                     listOfElementText_Stdrd,
         ''                                     listOfElementText_Custom)
+
+    End Sub
+
+    Private Sub PictureBack_Click(sender As Object, e As EventArgs) Handles pictureBack.Click
 
     End Sub
 End Class
