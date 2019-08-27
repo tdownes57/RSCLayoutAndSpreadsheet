@@ -617,7 +617,10 @@ ExitHandler:
 
             With each_elementField
                 Try
-                    gr.DrawImage(.TextDisplay.GenerateImage(.Position_BL.Height_Pixels),
+                    ''8/26/2019 td''gr.DrawImage(.TextDisplay.GenerateImage(.Position_BL.Height_Pixels),
+                    ''                   .Position_BL.LeftEdge_Pixels, .Position_BL.TopEdge_Pixels,
+                    ''                   .Position_BL.Width_Pixels, .Position_BL.Height_Pixels)
+                    gr.DrawImage(.TextDisplay.GenerateImage_ByDesiredLayoutWidth(par_image.Width),
                                  .Position_BL.LeftEdge_Pixels, .Position_BL.TopEdge_Pixels,
                                  .Position_BL.Width_Pixels, .Position_BL.Height_Pixels)
 
@@ -643,7 +646,11 @@ ExitHandler:
 
             With each_elementField
                 Try
-                    gr.DrawImage(.TextDisplay.GenerateImage(.Position_BL.Height_Pixels),
+                    ''8/26/2019 td''gr.DrawImage(.TextDisplay.GenerateImage(.Position_BL.Height_Pixels),
+                    ''                      .Position_BL.LeftEdge_Pixels, .Position_BL.TopEdge_Pixels,
+                    ''                      .Position_BL.Width_Pixels, .Position_BL.Height_Pixels)
+
+                    gr.DrawImage(.TextDisplay.GenerateImage_ByDesiredLayoutWidth(par_image.Width),
                                  .Position_BL.LeftEdge_Pixels, .Position_BL.TopEdge_Pixels,
                                  .Position_BL.Width_Pixels, .Position_BL.Height_Pixels)
 

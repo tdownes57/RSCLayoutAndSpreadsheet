@@ -615,8 +615,9 @@ ExitHandler:
                     ''   .Position_BL.LeftEdge_Pixels, .Position_BL.TopEdge_Pixels,
                     ''   .Position_BL.Width_Pixels, .Position_BL.Height_Pixels)
 
-                    ''8/26/2019 td''image_textStandard = .TextDisplay.GenerateImage(.Position_BL.Height_Pixels)
-                    image_textStandard = .TextDisplay.GenerateImage_ByHeight(.Position_BL.Height_Pixels)
+                    ''#1 8/26/2019 td''image_textStandard = .TextDisplay.GenerateImage(.Position_BL.Height_Pixels)
+                    '' #2 8/26/2019 td''image_textStandard = .TextDisplay.GenerateImage_ByHeight(.Position_BL.Height_Pixels)
+                    image_textStandard = .TextDisplay.GenerateImage_ByDesiredLayoutWidth(par_image.Width)
 
                     If (bOutputAllImages) Then par_listTextImages.Add(image_textStandard) ''Added 8/26/2019 td
 
@@ -660,8 +661,9 @@ ExitHandler:
 
             With each_elementField
                 Try
-                    ''8/26/2019 td''image_textCustom = .TextDisplay.GenerateImage(.Position_BL.Height_Pixels)
-                    image_textCustom = .TextDisplay.GenerateImage_ByHeight(.Position_BL.Height_Pixels)
+                    ''#1 8/26/2019 td''image_textCustom = .TextDisplay.GenerateImage(.Position_BL.Height_Pixels)
+                    '' #2 8/26/2019 td''image_textCustom = .TextDisplay.GenerateImage_ByHeight(.Position_BL.Height_Pixels)
+                    image_textCustom = .TextDisplay.GenerateImage_ByDesiredLayoutWidth(par_image.Width)
 
                     If (bOutputAllImages) Then par_listTextImages.Add(image_textCustom) ''Added 8/26/2019 td
 
