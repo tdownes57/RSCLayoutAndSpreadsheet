@@ -598,11 +598,17 @@ ExitHandler:
 
             ''Added 8/24/2019 thomas d.
             With each_elementField.Position_BL
-                If (.LeftEdge_Pixels < 0) Then Continue For
-                If (.TopEdge_Pixels < 0) Then Continue For
-                If (.LeftEdge_Pixels + .Width_Pixels > par_image.Width) Then Continue For
-                If (.TopEdge_Pixels + .Height_Pixels > par_image.Height) Then Continue For
-            End With
+                Select Case True
+                    Case (.LeftEdge_Pixels < 0)
+                        Continue For
+                    Case (.TopEdge_Pixels < 0) ''Then 
+                        ''Continue For
+                    Case (.LeftEdge_Pixels + .Width_Pixels > par_image.Width) ''Then 
+                        ''Continue For
+                    Case (.TopEdge_Pixels + .Height_Pixels > par_image.Height) ''Then 
+                        ''Continue For
+                End Select
+            End With ''End of "With each_elementField.Position_BL"
 
             Dim image_textStandard As Image
             Dim intLeft As Integer

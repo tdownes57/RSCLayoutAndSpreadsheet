@@ -48,7 +48,7 @@ Public Class CtlGraphicPortrait
 
         Dim strErrorMessage As String = "" ''Added 8/22/2019 td
         picturePortrait.Image =
-            ciPictures_VB.PictureExamples.GetImageByIndex(par_infoForPic_Pic.PicFileIndex) '', strErrorMessage)
+            ciPictures_VB.PictureExamples.GetImageByIndex(par_infoForPic_Pic.PicFileIndex, strErrorMessage)
 
         If ("" <> strErrorMessage) Then
             ''Added 8/22/2019 
@@ -74,7 +74,7 @@ Public Class CtlGraphicPortrait
         ''8/22/2019 td''picturePortrait.Image = ciPictures_VB.PictureExamples.GetImageByIndex(Me.ElementInfo_Pic.PicFileIndex)
 
         Dim strErrorMessage As String = ""
-        picturePortrait.Image = ciPictures_VB.PictureExamples.GetImageByIndex(Me.ElementInfo_Pic.PicFileIndex) '', strErrorMessage)
+        picturePortrait.Image = ciPictures_VB.PictureExamples.GetImageByIndex(Me.ElementInfo_Pic.PicFileIndex, strErrorMessage)
 
         ''Added 8/22/2019 td
         If ("" <> strErrorMessage) Then MessageBox.Show(strErrorMessage, " ",

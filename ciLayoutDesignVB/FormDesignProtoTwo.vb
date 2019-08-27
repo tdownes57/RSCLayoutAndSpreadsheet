@@ -264,6 +264,8 @@ Public Class FormDesignProtoTwo
         ''7/31 td''Dim intTopEdge_cust As Integer ''Added 7/28/2019 td
         Dim intTopEdge_std As Integer ''Added 7/28/2019 td
 
+        Dim intCountControlsAdded As Integer ''Added 8/27/2019 td 
+
         ''
         ''Standard Fields 
         ''
@@ -282,6 +284,7 @@ Public Class FormDesignProtoTwo
                 new_label_control_std = New CtlGraphicFldLabel(field_standard, Me)
 
                 Me.Controls.Add(new_label_control_std)
+                intCountControlsAdded += 1 ''Added 8/27/2019 td
 
                 ''Moved far below. ''new_label_control_std.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
 
@@ -294,7 +297,7 @@ Public Class FormDesignProtoTwo
 
                     intTopEdge_std = (30 + 30 * intNumControlsAlready_std)
                     .TopEdge_Pixels = intTopEdge_std
-                    .LeftEdge_Pixels = ((10 + intNumControlsAlready_std * .Width_Pixels) + 10)
+                    .LeftEdge_Pixels = intTopEdge_std ''((10 + intNumControlsAlready_std * .Width_Pixels) + 10)
 
                 End With ''End of "With field_standard.ElementInfo"
 
@@ -304,6 +307,7 @@ Public Class FormDesignProtoTwo
                 new_label_control_std = New CtlGraphicFldLabel(field_standard, Me)
 
                 Me.Controls.Add(new_label_control_std)
+                intCountControlsAdded += 1 ''Added 8/27/2019 td
 
                 ''Moved far below. ''new_label_control_std.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
 
@@ -341,6 +345,7 @@ Public Class FormDesignProtoTwo
         ''
         ''Custom Fields 
         ''
+        Dim intTopEdge_cust As Integer ''Added 7/28/2019 td
         ClassFieldCustomized.InitializeHardcodedList_Students(True)
 
         For Each field_custom As ClassFieldCustomized In ClassFieldCustomized.ListOfFields_Students
@@ -371,6 +376,7 @@ Public Class FormDesignProtoTwo
                 new_label_control_cust = New CtlGraphicFldLabel(field_custom, Me)
 
                 Me.Controls.Add(new_label_control_cust)
+                intCountControlsAdded += 1 ''Added 8/27/2019 td
 
                 new_label_control_cust.Width = CInt(pictureBack.Width / 3)
 
@@ -379,9 +385,9 @@ Public Class FormDesignProtoTwo
                     .Width_Pixels = new_label_control_cust.Width
                     .Height_Pixels = new_label_control_cust.Height
 
-                    intTopEdge_std = (30 + 30 * intNumControlsAlready_std)
-                    .TopEdge_Pixels = intTopEdge_std
-                    .LeftEdge_Pixels = ((10 + intNumControlsAlready_std * .Width_Pixels) + 10)
+                    intTopEdge_cust = (30 + 30 * intNumControlsAlready_cust)
+                    .TopEdge_Pixels = intTopEdge_cust
+                    .LeftEdge_Pixels = intTopEdge_cust '' ((10 + intNumControlsAlready_cust * .Width_Pixels) + 10)
 
                 End With
 
@@ -391,6 +397,7 @@ Public Class FormDesignProtoTwo
                 new_label_control_cust = New CtlGraphicFldLabel(field_custom, Me)
 
                 Me.Controls.Add(new_label_control_cust)
+                intCountControlsAdded += 1 ''Added 8/27/2019 td
 
             End If ''end of "If (field_standard.ElementInfo Is Nothing) Then ... Else..."
 
@@ -420,6 +427,12 @@ Public Class FormDesignProtoTwo
             new_label_control_cust.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
 
         Next field_custom
+
+        ''
+        ''Added 8/27/2019 thomas downes
+        ''
+        MessageBox.Show($"Number of field controls now on the form: {intCountControlsAdded}", "",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information)
 
     End Sub ''End of ''Private Sub LoadElements_Fields()''
 
