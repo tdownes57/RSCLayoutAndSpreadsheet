@@ -463,7 +463,8 @@ Public Class FormDesignProtoTwo
                                              listOfElementText_Stdrd,
                                              listOfElementText_Custom)
 
-        picturePreview.Image = obj_image_clone
+        picturePreview.Image = obj_image_clone_resized
+        picturePreview.SizeMode = PictureBoxSizeMode.Zoom
         picturePreview.Refresh()
 
     End Sub ''end of "Private Sub RefreshPreview()"
