@@ -30,6 +30,33 @@ Public Class LayoutPrint
     Public Property PicturePersonImageLarge As PictureBox ''Added 6/13/2019
     Public Property PictureBoxReview As PictureBox ''Added 6/13/2019
 
+    Public Shared Function LongSideToShortRatio() As Double
+        ''
+        ''Added 8/26/2019 thomas downes
+        ''
+        ''The website 
+        ''   https://tinyurl.com/yyqyosz3    
+        ''    (  https://www.identicard.com/store/id-card-and-credentials/standard-id-cards/pvc-and-composite-id-cards-for-custom-id-badges ) 
+        ''
+        ''says
+        ''
+        ''    We offer PVC cards in several different sizes and thickness levels, but the most common PVC ID card size
+        ''       is CR80/credit card size (2.13" x 3.38").
+        ''
+        ''My measurements of the PVC card on my desk is:
+        ''
+        ''       2 1/8 inches by 3 3/8 inches, 
+        ''
+        ''      or  17/8 inches by  27/8 inches
+        ''
+        '' and so leads me to the ratio of 27 to 17.  
+        ''
+        ''   ------8/26/2019 td 
+        ''
+        Return (27 / 17) ''Approx. 1.588, or  3.38 / 2.13 
+
+    End Function ''eDN OF "Public Shared Function LongSideToShortRatio() As Double"
+
     Public Function GenerateBuildImage_Master(Optional ByRef pref_imageOutput As Image = Nothing,
                                        Optional ByVal pboolLargeLandscape As Boolean = False,
                                        Optional ByVal pboolSmallLandscape As Boolean = False,

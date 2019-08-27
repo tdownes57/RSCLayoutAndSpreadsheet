@@ -495,6 +495,10 @@ Public Class FormDesignProtoTwo
                                              listOfElementText_Custom,
                                              listOfTextImages)
 
+        ''Added 8/26/2019 thomas downes  
+        Dim frm_ToShow As New FormDisplayImageList(listOfTextImages)
+        frm_ToShow.Show()
+
         ''8/26 td''picturePreview.Image = obj_image_clone_resized
         picturePreview.Image = obj_image_clone_resized
         picturePreview.Refresh()

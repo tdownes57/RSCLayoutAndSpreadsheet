@@ -92,20 +92,64 @@ Public Class ClassElementText
 
     End Sub
 
-    Public Function GenerateImage(pintLayoutHeight As Integer) As Image Implements IElementText.GenerateImage
+    ''8/26 td''Public Function GenerateImage(pintLayoutHeight As Integer) As Image Implements IElementText.GenerateImage
+    ''    ''
+    ''    ''Added 8/14/2019 thomas downes 
+    ''    ''
+    ''    Dim obj_image As Image = Nothing
+    ''
+    ''    ''8/15/2019 td''GenerateImage(obj_image, Me, Me)
+    ''    GenerateImage(pintLayoutHeight, obj_image, Me, Me)
+    ''
+    ''    Return obj_image
+    ''
+    ''End of 8/26 td''End Function ''End of "Public Function GenerateImage() As Image Implements IElementText.GenerateImage"
+
+    Public Function GenerateImage_ByDesiredLayoutWidth(pintDesiredLayoutWidth As Integer) As Image _
+        Implements IElementText.GenerateImage_ByDesiredLayoutWidth
+        ''
+        ''    8/26 td''Public Function GenerateImage(pintLayoutHeight As Integer) As Image Implements IElementText.GenerateImage
         ''
         ''Added 8/14/2019 thomas downes 
         ''
         Dim obj_image As Image = Nothing
 
         ''8/15/2019 td''GenerateImage(obj_image, Me, Me)
-        GenerateImage(pintLayoutHeight, obj_image, Me, Me)
+        ''8/26/2019 td''GenerateImage(pintLayoutHeight, obj_image, Me, Me)
+        GenerateImage(pintDesiredLayoutWidth, obj_image, Me, Me)
 
         Return obj_image
 
-    End Function ''End of "Public Function GenerateImage() As Image Implements IElementText.GenerateImage"
+    End Function ''End of "Public Function GenerateImage_ByDesiredLayoutWidth() As Image Implements IElementText.GenerateImage_ByDesiredLayoutWidth"
 
-    Public Function GenerateImage(pintFinalLayoutWidth As Integer, ByRef par_image As Image,
+    Public Function GenerateImage_ByDesiredLayoutHeight(pintDesiredLayoutHeight As Integer) As Image _
+        Implements IElementText.GenerateImage_ByDesiredLayoutHeight
+        ''
+        ''Added 8/26/2019 thomas downes 
+        ''
+        ''   This assumes the Badge is currently being displayed in Landscape mode, like so: 
+        ''
+        ''         ----------------------------
+        ''         |                          |
+        ''         |                          |
+        ''         |                          |
+        ''         |                          |
+        ''         |                          |
+        ''         ----------------------------   
+        ''
+        ''
+        Dim obj_image As Image = Nothing
+        Dim intDesiredLayoutWidth As Integer
+
+        intDesiredLayoutWidth = CInt(pintDesiredLayoutHeight * ciLayoutPrintLib.LayoutPrint.LongSideToShortRatio())
+
+        GenerateImage(intDesiredLayoutWidth, obj_image, Me, Me)
+
+        Return obj_image
+
+    End Function ''End of "Public Function GenerateImage_ByDesiredLayoutWidth() As Image Implements IElementText.GenerateImage_ByDesiredLayoutWidth"
+
+    Public Function GenerateImage(pintDesiredLayoutWidth As Integer, ByRef par_image As Image,
                                   par_design As IElementText, par_element As IElement_Base) As Image
         ''
         ''Added 8/14 & 7/17/2019 thomas downes
@@ -124,7 +168,7 @@ Public Class ClassElementText
         ''Added 8/15/2019 td
         doubleW_div_H = (par_element.Width_Pixels / par_element.Height_Pixels)
         ''8/24 td''doubleScaling = (pintFinalLayoutWidth / par_element.LayoutWidth_Pixels)
-        doubleScaling = (pintFinalLayoutWidth / par_element.Width_Pixels)
+        doubleScaling = (pintDesiredLayoutWidth / par_element.Width_Pixels)
 
         If (par_image Is Nothing) Then
             ''Create the image from scratch, if needed. 
@@ -189,6 +233,6 @@ Public Class ClassElementText
 
         Return par_image ''Return Nothing
 
-    End Function ''End of "Public Function TextImage(par_label As Label) As Image"
+    End Function ''End of "Public Function GenerateImage(par_label As Label) As Image"
 
 End Class

@@ -24,6 +24,7 @@ Partial Class FormDisplayImageList
     Private Sub InitializeComponent()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
         Me.LabelHeaderCaption = New System.Windows.Forms.Label()
+        Me.ButtonRefresh = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'FlowLayoutPanel1
@@ -54,11 +55,21 @@ Partial Class FormDisplayImageList
         Me.LabelHeaderCaption.Tag = "Custom Fields - {0}"
         Me.LabelHeaderCaption.Text = "Display Images"
         '
+        'ButtonRefresh
+        '
+        Me.ButtonRefresh.Location = New System.Drawing.Point(483, 18)
+        Me.ButtonRefresh.Name = "ButtonRefresh"
+        Me.ButtonRefresh.Size = New System.Drawing.Size(162, 38)
+        Me.ButtonRefresh.TabIndex = 6
+        Me.ButtonRefresh.Text = "Refresh"
+        Me.ButtonRefresh.UseVisualStyleBackColor = True
+        '
         'FormDisplayImageList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(770, 263)
+        Me.Controls.Add(Me.ButtonRefresh)
         Me.Controls.Add(Me.LabelHeaderCaption)
         Me.Controls.Add(Me.FlowLayoutPanel1)
         Me.Name = "FormDisplayImageList"
@@ -70,4 +81,5 @@ Partial Class FormDisplayImageList
 
     Friend WithEvents FlowLayoutPanel1 As FlowLayoutPanel
     Friend WithEvents LabelHeaderCaption As Label
+    Friend WithEvents ButtonRefresh As Button
 End Class

@@ -65,7 +65,9 @@ Public Interface IElementText
 
     Property OrientationInDegrees As Integer ''Default is 0, normal.  90 would be 1/4 turn clockwise.  180 is upside-down.  270 is the printing on the spine of a book sitting on the bookshelf.
 
-    Function GenerateImage(pintHeight As Integer) As Image ''Added 8/14/2019 td 
+    ''8/26/2019 td''Function GenerateImage(pintHeight As Integer) As Image ''Added 8/14/2019 td 
+    Function GenerateImage_ByDesiredLayoutHeight(pintDesiredLayoutHeight As Integer) As Image ''Added 8/14/2019 td 
+    Function GenerateImage_ByDesiredLayoutWidth(pintDesiredLayoutWidth As Integer) As Image ''Added 8/26/2019 td 
 
     ''
     ''
