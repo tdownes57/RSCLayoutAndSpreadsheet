@@ -1,7 +1,7 @@
 ﻿Option Explicit On ''Added 8/26/2019 td 
 Option Strict On ''Added 8/26/2019 td 
 
-Public Class FormDisplayImageList ''Added 8/26/2019 td 
+Public Class FormDisplayImageList1 ''Added 8/26/2019 td 
 
     Private _objListImages As List(Of Image) ''Added 8/26/2019 td 
 

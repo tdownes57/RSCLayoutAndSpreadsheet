@@ -69,6 +69,8 @@ Public Interface IElementText
     Function GenerateImage_ByDesiredLayoutHeight(pintDesiredLayoutHeight As Integer) As Image ''Added 8/14/2019 td 
     Function GenerateImage_ByDesiredLayoutWidth(pintDesiredLayoutWidth As Integer) As Image ''Added 8/26/2019 td 
 
+    Property Image_BL As Image ''Added 8/27/2019 td 
+
     ''
     ''
     ''For the below, see InterfaceElement.vb. 

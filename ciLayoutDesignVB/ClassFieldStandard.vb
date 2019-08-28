@@ -128,6 +128,8 @@ Public Class ClassFieldStandard
 
     Public Property IsBarCode As Boolean = False Implements ICIBFieldStandardOrCustom.IsBarcodeField ''Added 7/31/2019 td
 
+    ''8/27/2019 td'' Property Image_BL As Image Implements ICIBFieldStandardOrCustom.Image_BL ''Added 8/27/2019 
+
     ''
     ''Added 7/29/2019 thomas downes
     ''

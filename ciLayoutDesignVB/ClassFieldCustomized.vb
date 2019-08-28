@@ -133,6 +133,9 @@ Public Class ClassFieldCustomized
     ''
     Public Property ElementInfo As ClassElementText
 
+    ''8/27/2019 td''Public Property Image_BL As Image Implements ICIBFieldStandardOrCustom.Image_BL ''Added 8/27/2019 
+
+
     ''
     ''Added 7/16/2019 thomas d. 
     ''

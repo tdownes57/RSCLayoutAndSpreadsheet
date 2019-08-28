@@ -34,4 +34,6 @@ Public Interface ICIBFieldStandardOrCustom
     Property CIBadgeField_Optional As String ''Added 7/21/2019 thomas downes
     Property OtherDbField_Optional As String ''Added 7/21/2019 thomas downes
 
+    ''8/27 td''Property Image_BL_notUsed As Image ''BL = BadgeLayout.  Added 8/27/2019 Thomas Downes
+
 End Interface

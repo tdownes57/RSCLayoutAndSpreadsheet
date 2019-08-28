@@ -627,6 +627,8 @@ ExitHandler:
 
                     If (bOutputAllImages) Then par_listTextImages.Add(image_textStandard) ''Added 8/26/2019 td
 
+                    .TextDisplay.Image_BL = image_textStandard ''Added 8/27/2019 td
+
                     intLeft = .Position_BL.LeftEdge_Pixels
                     intTop = .Position_BL.TopEdge_Pixels
 
@@ -672,6 +674,8 @@ ExitHandler:
                     image_textCustom = .TextDisplay.GenerateImage_ByDesiredLayoutWidth(par_image.Width)
 
                     If (bOutputAllImages) Then par_listTextImages.Add(image_textCustom) ''Added 8/26/2019 td
+
+                    .TextDisplay.Image_BL = image_textCustom ''Added 8/27/2019 td
 
                     ''8/26/2019 td''gr.DrawImage(image_textCustom,
                     ''                    .Position_BL.LeftEdge_Pixels, .Position_BL.TopEdge_Pixels,

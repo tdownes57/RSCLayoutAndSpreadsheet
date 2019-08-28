@@ -509,8 +509,13 @@ Public Class FormDesignProtoTwo
                                              listOfTextImages)
 
         ''Added 8/26/2019 thomas downes  
-        Dim frm_ToShow As New FormDisplayImageList(listOfTextImages)
-        frm_ToShow.Show()
+        Dim frm_ToShow1 As New FormDisplayImageList1(listOfTextImages)
+        frm_ToShow1.Show()
+
+        ''Added 8/27/2019 thomas downes  
+        Dim frm_ToShow2 As New FormDisplayImageList2(ClassFieldStandard.ListOfFields_Staff,
+                                                      ClassFieldCustomized.ListOfFields_Students)
+        frm_ToShow2.Show()
 
         ''8/26 td''picturePreview.Image = obj_image_clone_resized
         picturePreview.Image = obj_image_clone_resized

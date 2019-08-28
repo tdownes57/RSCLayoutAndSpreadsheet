@@ -53,7 +53,9 @@ Public Class ClassElementText
 
     Public Property OrientationInDegrees As Integer Implements IElementText.OrientationInDegrees ''Default is 0, normal.  90 would be 1/4 turn clockwise.  180 is upside-down.  270 is the printing on the spine of a book sitting on the bookshelf.
 
-    Public Property SelectedHighlighting As Boolean Implements IElement_Base.SelectedHighlighting ''Added 8/2/2019 td  
+    Public Property Image_BL As Image Implements IElementText.Image_BL ''Added 8/27/2019 td
+
+    ''Moved below. 8/27/2019 td''Public Property SelectedHighlighting As Boolean Implements IElement_Base.SelectedHighlighting ''Added 8/2/2019 td  
 
 
     ''-------------------------------------------------------------
@@ -76,6 +78,8 @@ Public Class ClassElementText
     Public Property Border_Color As System.Drawing.Color Implements IElement_Base.Border_Color
 
     Public Property Back_Color As System.Drawing.Color Implements IElement_Base.Back_Color
+
+    Public Property SelectedHighlighting As Boolean Implements IElement_Base.SelectedHighlighting ''Added 8/2/2019 td  
 
     Public Sub New(par_control As Control)
 
