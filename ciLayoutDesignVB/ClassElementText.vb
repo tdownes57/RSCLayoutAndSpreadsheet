@@ -162,6 +162,7 @@ Public Class ClassElementText
         Dim pen_backcolor As Pen
         Dim pen_highlighting As Pen ''Added 8/2/2019 thomas downes  
         Dim brush_forecolor As Brush
+        Dim brush_backcolor As Brush ''Added 8/28/2019 td
         Dim doubleW_div_H As Double ''Added 8/15/2019 td  
         Dim doubleScaling As Double ''Added 8/15/2019 td  
         Dim intNewElementWidth As Integer ''Added 8/15 
@@ -190,7 +191,12 @@ Public Class ClassElementText
         gr = Graphics.FromImage(par_image)
 
         pen_backcolor = New Pen(par_design.BackColor)
-        pen_backcolor = New Pen(Color.White)
+        ''pen_backcolor = New Pen(Color.White)
+
+        ''Added 8/28/2019 td
+        brush_backcolor = New SolidBrush(par_design.BackColor)
+        gr.FillRectangle(brush_backcolor, 0, 0, intNewElementWidth, intNewElementHeight)
+
         ''8/5/2019 td''pen_highlighting = New Pen(Color.YellowGreen, 5)
         pen_highlighting = New Pen(Color.Yellow, 6)
 

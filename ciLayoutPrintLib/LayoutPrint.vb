@@ -677,17 +677,20 @@ ExitHandler:
         ''
         ''5/7/2019 td''Return New Bitmap(InputImage, New Size(64, 64))
         ''8/26/2019 td''Return New Bitmap(InputImage, New Size(parSizingBox.Width, parSizingBox.Height))
-        Return ResizeBackground_ToFitBox(par_InputImage, parSizingBox)
+        Return ResizeBackground_ToFitBox(par_InputImage, parSizingBox, True)
 
     End Function ''Public Shared Function ResizeImage(ByVal InputImage As Image, ByVal parSizingBox As Control) As Image
 
-    Public Shared Function ResizeBackground_ToFitBox(ByVal parInputImage As Image, ByVal parSizingBox As Control) As Image
+    Public Shared Function ResizeBackground_ToFitBox(ByVal parInputImage As Image,
+                                                     ByVal parSizingBox As Control,
+                                                     ByVal par_bApplyCentering As Boolean) As Image
         ''
         ''https://stackoverflow.com/questions/2144592/resizing-images-in-vb-net 
         ''
         ''5/7/2019 td''Return New Bitmap(InputImage, New Size(64, 64))
         ''8/26/2019 td''Return New Bitmap(InputImage, New Size(parSizingBox.Width, parSizingBox.Height))
 
+        Dim temp_image As Image ''Added 8/27/2019 td
         Dim doubRatioWidthToHeight_Box As Double
         Dim doubRatioWidthToHeight_Image As Double
         Dim bResizeByWidthNotHeight As Boolean
@@ -707,28 +710,53 @@ ExitHandler:
 
             ''Since the image is perfectly proportioned, and we are in landscape mode, 
             ''  let's resize by width.  
-            Return ResizeImage_ToWidth(parInputImage, parSizingBox.Width)
+            ''
+            ''8/27/2019 td''Return ResizeImage_ToWidth(parInputImage, parSizingBox.Width)
+            temp_image = ResizeImage_ToWidth(parInputImage, parSizingBox.Width)
 
         ElseIf (bImageProportionsArePerfect And (boolPortraitMode)) Then
 
             ''Since the image is perfectly proportioned, and we are in Portrait mode, 
             ''  let's resize by height.  
             Dim boolDummy1 As Boolean
-            Return ResizeImage_ToHeight(parInputImage, boolDummy1, parSizingBox.Height)
+
+            ''8/27/2019 td''Return ResizeImage_ToHeight(parInputImage, boolDummy1, parSizingBox.Height)
+            temp_image = ResizeImage_ToHeight(parInputImage, boolDummy1, parSizingBox.Height)
 
         ElseIf (bResizeByWidthNotHeight) Then
 
             ''Since the image is unexpectedly wide, let's resize by width. 
-            Return ResizeImage_ToWidth(parInputImage, parSizingBox.Width)
+            ''8/27/2019 td''Return ResizeImage_ToWidth(parInputImage, parSizingBox.Width)
+            temp_image = ResizeImage_ToWidth(parInputImage, parSizingBox.Width)
 
         Else
             ''Since the image is unexpectedly tall, let's resize by height. 
             Dim boolDummy2 As Boolean
-            Return ResizeImage_ToHeight(parInputImage, boolDummy2, parSizingBox.Height)
+            ''8/27/2019 td''Return ResizeImage_ToHeight(parInputImage, boolDummy2, parSizingBox.Height)
+            temp_image = ResizeImage_ToHeight(parInputImage, boolDummy2, parSizingBox.Height)
 
         End If ''End of "If (bResizeByWidthNotHeight) Then .... Else ...."
 
-    End Function ''Public Shared Function ResizeImage(ByVal InputImage As Image, ByVal parSizingBox As Control) As Image
+        Dim imgLayout As Image ''Added 8/28/2019 td
+        Dim gr As Graphics ''Added 8/28/2019 td
+        Dim intLeft As Integer = 0 ''Added 8/28/2019 td
+        Dim intTop As Integer = 0 ''Added 8/28/2019 td
+
+        imgLayout = New Bitmap(parSizingBox.Width, parSizingBox.Height)
+        gr = Graphics.FromImage(imgLayout)
+
+        If (par_bApplyCentering) Then
+            ''
+            ''Center the image. ---8/28/2019 thomas d.
+            ''
+            intLeft = CInt((parSizingBox.Width - temp_image.Width) / 2)
+            intTop = CInt((parSizingBox.Height - temp_image.Height) / 2)
+        End If ''End of "If (par_bApplyCentering) Then"
+
+        gr.DrawImage(temp_image, New PointF(intLeft, intTop))
+        Return imgLayout
+
+    End Function ''Public Shared Function ResizeImage(ByVal InputImage As Image, ByVal parSizingBox) As Image
 
     Public Shared Function ResizeImage_ToWidth(ByVal InputImage As Image, ByVal par_intWidth As Integer) As Image
         ''

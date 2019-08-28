@@ -1,12 +1,14 @@
 ﻿Option Explicit On
 Option Infer Off
 Option Strict On
-Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d.  
+
 ''
 ''Added 7/18/2019 Thomas DOWNES
 ''
 Imports ControlManager
 Imports MoveAndResizeControls_Monem
+Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d.  
+Imports ciLayoutPrintLib ''Added 8/28/2019 thomas d. 
 
 Public Class FormDesignProtoTwo
     Implements ISelectingElements
@@ -95,6 +97,7 @@ Public Class FormDesignProtoTwo
 
         ''Added 8/24/2019 td
         obj_image = pictureBack.Image
+
         ''obj_image_clone = CType(obj_image.Clone(), Image)
 
         ''Dim gr_resize As Graphics = New Bitmap(obj_image_clone)
@@ -105,7 +108,7 @@ Public Class FormDesignProtoTwo
         ''8/26/2019 td''obj_image_clone_resized = ciLayoutPrintLib.LayoutPrint.ResizeImage_ToWidth(obj_image,
         ''8/26/2019 td''       pictureBack.Width)
 
-        obj_image_clone_resized = ciLayoutPrintLib.LayoutPrint.ResizeBackground_ToFitBox(obj_image, pictureBack)
+        obj_image_clone_resized = LayoutPrint.ResizeBackground_ToFitBox(obj_image, pictureBack, True)
 
         pictureBack.Image = obj_image_clone_resized
 
@@ -501,7 +504,8 @@ Public Class FormDesignProtoTwo
         ''8/26/2019 td''      picturePreview.Height)
 
         ''Added 8/26/2019 thomas downes
-        obj_image_clone_resized = ciLayoutPrintLib.LayoutPrint.ResizeBackground_ToFitBox(obj_image, picturePreview)
+        obj_image_clone_resized =
+            LayoutPrint.ResizeBackground_ToFitBox(obj_image, picturePreview, True)
 
         objPrintLib.LoadImageWithFieldValues(obj_image_clone_resized,
                                              listOfElementText_Stdrd,

@@ -55,7 +55,7 @@ Public Class FormDisplayImageList2 ''Added 8/27/2019 td
 
         For Each par_objField As ClassFieldCustomized In _objListFieldsCust
 
-            LoadEachImageToUI(par_objField.ElementInfo.Image_BL, CType(par_objField, IElement_Base))
+            LoadEachImageToUI(par_objField.ElementInfo.Image_BL, CType(par_objField.ElementInfo, IElement_Base))
 
         Next par_objField
 
@@ -90,8 +90,7 @@ Public Class FormDisplayImageList2 ''Added 8/27/2019 td
 
         Me.Panel1.Refresh()
 
-
-    End Sub
+    End Sub ''End of "Private Sub LoadEachImageToUI(par_image As Image, par_element As IElement_Ba   se)"
 
     Private Sub ButtonRefresh_Click(sender As Object, e As EventArgs) Handles ButtonRefresh.Click
 
