@@ -1,12 +1,19 @@
-﻿''
+﻿Option Explicit On
+Option Strict On
+Option Infer Off
+
+''
 ''Programming added 8/19/2019 thomas d. 
 ''
+Imports ciBadgeInterfaces ''Added 8/29/2019 thomas downes 
 
 Public Class CtlConfigFldStandard
     ''
     ''Added 8/19/2019 td
     ''
-    Public Model As ClassFieldStandard ''Added 8/19/2019 thomas d.
+    ''8/29/2019 td''Public Model As ClassFieldStandard ''Added 8/19/2019 thomas d.
+    Public ModelFieldInfo As ICIBFieldStandardOrCustom ''Added 8/29/2019 thomas d. 
+
     Public NewlyAdded As Boolean ''Add 8/19/2019 td 
 
     Private mod_model As ICIBFieldStandardOrCustom
@@ -91,7 +98,8 @@ ExitHandler:
         End With ''End of "With par_info"  
 
         ''Added 7/27/2019 td  
-        Me.Model = mod_model
+        ''8/29/2019 td''Me.Model = mod_model
+        Me.ModelFieldInfo = mod_model
 
     End Sub ''End of "Public Sub Save_StandardControl()" 
 

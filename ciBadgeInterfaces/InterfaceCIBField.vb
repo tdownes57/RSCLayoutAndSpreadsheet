@@ -30,4 +30,8 @@ Public Interface ICIBFieldStandardOrCustom
     Property CIBadgeField_Optional As String ''Added 7/21/2019 thomas downes
     Property OtherDbField_Optional As String ''Added 7/21/2019 thomas downes
 
+    ''Added 8/29 & 8/22/2019 td
+    Property IsDisplayedOnBadge As Boolean
+    Property IsDisplayedForEdits As Boolean
+
 End Interface
