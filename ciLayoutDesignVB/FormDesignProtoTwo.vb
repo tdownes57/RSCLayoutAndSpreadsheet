@@ -119,7 +119,9 @@ Public Class FormDesignProtoTwo
         ''Encapsulated 7/31/2019 td
         ''
         ''7/31/2019 td''LoadElements()
-        LoadElements_Fields()
+        ''8/28/2019 td''LoadElements_Fields()
+        Const c_boolLoadingForm As Boolean = True ''Added 8/28/2019 thomas downes  
+        LoadElements_Fields(c_boolLoadingForm)
 
         ''Added 7/31/2019 td  
         LoadElements_Picture()
@@ -246,7 +248,7 @@ Public Class FormDesignProtoTwo
 
     End Sub ''Endo f " Private Sub LoadElements_Picture()"
 
-    Private Sub LoadElements_Fields()
+    Private Sub LoadElements_Fields(par_boolLoadingForm As Boolean, Optional par_bUnloading As Boolean = False)
         ''
         ''Added 7/18/2019 thomas downes 
         ''
@@ -286,7 +288,14 @@ Public Class FormDesignProtoTwo
                 ''8/9/2019 td''new_label_control_std = New CtlGraphicFldLabel(field_standard)
                 new_label_control_std = New CtlGraphicFldLabel(field_standard, Me)
 
-                Me.Controls.Add(new_label_control_std)
+                ''8/28/2019 td''Me.Controls.Add(new_label_control_std)
+                If (par_boolLoadingForm) Then
+                    Me.Controls.Add(new_label_control_std)
+                ElseIf (par_bUnloading) Then ''Added 8/28/2019 thomas downes 
+                    ''Added 8/28/2019 thomas downes 
+                    Me.Controls.Remove(new_label_control_std)
+                End If
+
                 intCountControlsAdded += 1 ''Added 8/27/2019 td
 
                 ''Moved far below. ''new_label_control_std.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
@@ -309,8 +318,15 @@ Public Class FormDesignProtoTwo
                 ''Added 8/9/2019 td''new_label_control_std = New CtlGraphicFldLabel(field_standard)
                 new_label_control_std = New CtlGraphicFldLabel(field_standard, Me)
 
-                Me.Controls.Add(new_label_control_std)
+                ''8/28/2019 td''Me.Controls.Add(new_label_control_std)
                 intCountControlsAdded += 1 ''Added 8/27/2019 td
+
+                If (par_boolLoadingForm) Then
+                    Me.Controls.Add(new_label_control_std)
+                ElseIf (par_bUnloading) Then ''Added 8/28/2019 thomas downes 
+                    ''Added 8/28/2019 thomas downes 
+                    Me.Controls.Remove(new_label_control_std)
+                End If
 
                 ''Moved far below. ''new_label_control_std.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
 
@@ -378,8 +394,15 @@ Public Class FormDesignProtoTwo
                 ''8/9/2019 td''new_label_control_cust = New CtlGraphicFldLabel(field_custom)
                 new_label_control_cust = New CtlGraphicFldLabel(field_custom, Me)
 
-                Me.Controls.Add(new_label_control_cust)
+                ''8/28/2019 td''Me.Controls.Add(new_label_control_cust)
                 intCountControlsAdded += 1 ''Added 8/27/2019 td
+
+                If (par_boolLoadingForm) Then
+                    Me.Controls.Add(new_label_control_cust)
+                ElseIf (par_bUnloading) Then ''Added 8/28/2019 thomas downes 
+                    ''Added 8/28/2019 thomas downes 
+                    Me.Controls.Remove(new_label_control_cust)
+                End If
 
                 new_label_control_cust.Width = CInt(pictureBack.Width / 3)
 
@@ -399,8 +422,15 @@ Public Class FormDesignProtoTwo
                 ''8/9/2019 td''new_label_control_cust = New CtlGraphicFldLabel(field_custom)
                 new_label_control_cust = New CtlGraphicFldLabel(field_custom, Me)
 
-                Me.Controls.Add(new_label_control_cust)
+                ''8/28/2019 td''Me.Controls.Add(new_label_control_cust)
                 intCountControlsAdded += 1 ''Added 8/27/2019 td
+
+                If (par_boolLoadingForm) Then
+                    Me.Controls.Add(new_label_control_cust)
+                ElseIf (par_bUnloading) Then ''Added 8/28/2019 thomas downes 
+                    ''Added 8/28/2019 thomas downes 
+                    Me.Controls.Remove(new_label_control_cust)
+                End If
 
             End If ''end of "If (field_standard.ElementInfo Is Nothing) Then ... Else..."
 
@@ -434,6 +464,7 @@ Public Class FormDesignProtoTwo
         ''
         ''Added 8/27/2019 thomas downes
         ''
+        Me.Refresh() ''Added 8/28/2019 td   
         MessageBox.Show($"Number of field controls now on the form: {intCountControlsAdded}", "",
                         MessageBoxButtons.OK, MessageBoxIcon.Information)
 

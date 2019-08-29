@@ -56,6 +56,19 @@ ExitHandler:
         par_font = new_font
         Return new_font
 
-    End Function
+    End Function ''End of "Public Function SetFontSize(ByRef par_font As Font, par_intSize As Integer) As Font"
+
+
+    Public Function BarCodeFont_ByDefault(par_sizeFont As Single) As Font
+        ''
+        ''Added 8/28/2019 td  
+        ''
+        ''   On Monday 8/19/2019, Erick Madrid sent me Resources\C39FIRA.TTF, which 
+        ''   is probably Font Family "Code 39".  
+        ''
+        ''8/28/2019 td''Return New Font(New FontFamily("BarCode Font"), par_sizeFont)
+        Return New Font(New FontFamily("Code 39"), par_sizeFont)
+
+    End Function ''End of "Public Function BarCodeFont_ByDefault() As Font"
 
 End Module

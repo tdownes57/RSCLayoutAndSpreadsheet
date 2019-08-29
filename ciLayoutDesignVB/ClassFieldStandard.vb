@@ -172,8 +172,9 @@ Public Class ClassFieldStandard
         ''Added 7/26/2019 td
         ''
         With ListOfFields_Students
-            If (pboolOnlyIfNeeded And .Count > 0) Then Exit Sub
-        End With
+            ''8/28/2019 td''If (pboolOnlyIfNeeded And .Count > 0) Then Exit Sub
+            If (.Count > 0) Then Exit Sub
+        End With ''End of "With ListOfFields_Students"
 
         Dim new_object1 As New ClassFieldStandard
         With new_object1
@@ -257,6 +258,8 @@ Public Class ClassFieldStandard
             .IsDisplayedForEdits = False
             .IsDisplayedOnBadge = False
             .IsLocked = False
+            ''Added 8/28/2019 thomas downes
+            .ElementInfo.Font_DrawingClass = modFonts.BarCodeFont_ByDefault(.ElementInfo.FontSize)
         End With
         ListOfFields_Students.Add(new_object5)
 
