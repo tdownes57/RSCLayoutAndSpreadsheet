@@ -76,16 +76,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClassGroupMove.vb" />
-    <Compile Include="CtlAddStandardField.Designer.vb">
+    <Compile Include="Controls\CtlAddStandardField.Designer.vb">
       <DependentUpon>CtlAddStandardField.vb</DependentUpon>
     </Compile>
-    <Compile Include="CtlAddStandardField.vb">
+    <Compile Include="Controls\CtlAddStandardField.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CtlCustomer.Designer.vb">
+    <Compile Include="Controls\CtlCustomer.Designer.vb">
       <DependentUpon>CtlCustomer.vb</DependentUpon>
     </Compile>
-    <Compile Include="CtlCustomer.vb">
+    <Compile Include="Controls\CtlCustomer.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ClassFieldCustomized.vb" />
@@ -97,82 +97,82 @@
     <Compile Include="ClassLayoutGenerator.vb" />
     <Compile Include="ClassSerialize.vb" />
     <Compile Include="ComClass1.vb" />
-    <Compile Include="CtlConfigFldStandard.Designer.vb">
+    <Compile Include="Controls\CtlConfigFldStandard.Designer.vb">
       <DependentUpon>CtlConfigFldStandard.vb</DependentUpon>
     </Compile>
-    <Compile Include="CtlConfigFldStandard.vb">
+    <Compile Include="Controls\CtlConfigFldStandard.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CtlGraphPopMenuAlign.Designer.vb">
+    <Compile Include="Controls\CtlGraphPopMenuAlign.Designer.vb">
       <DependentUpon>CtlGraphPopMenuAlign.vb</DependentUpon>
     </Compile>
-    <Compile Include="CtlGraphPopMenuAlign.vb">
+    <Compile Include="Controls\CtlGraphPopMenuAlign.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CtlGraphPopMenuEditGroup.Designer.vb">
+    <Compile Include="Controls\CtlGraphPopMenuEditGroup.Designer.vb">
       <DependentUpon>CtlGraphPopMenuEditGroup.vb</DependentUpon>
     </Compile>
-    <Compile Include="CtlGraphPopMenuEditGroup.vb">
+    <Compile Include="Controls\CtlGraphPopMenuEditGroup.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CtlGraphPopMenuEditSingle.Designer.vb">
+    <Compile Include="Controls\CtlGraphPopMenuEditSingle.Designer.vb">
       <DependentUpon>CtlGraphPopMenuEditSingle.vb</DependentUpon>
     </Compile>
-    <Compile Include="CtlGraphPopMenuEditSingle.vb">
+    <Compile Include="Controls\CtlGraphPopMenuEditSingle.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CtlMainButton_v90.Designer.vb">
+    <Compile Include="Controls\CtlMainButton_v90.Designer.vb">
       <DependentUpon>CtlMainButton_v90.vb</DependentUpon>
     </Compile>
-    <Compile Include="CtlMainButton_v90.vb">
+    <Compile Include="Controls\CtlMainButton_v90.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CtlMainEntryBox_v82.Designer.vb">
+    <Compile Include="Controls\CtlMainEntryBox_v82.Designer.vb">
       <DependentUpon>CtlMainEntryBox_v82.vb</DependentUpon>
     </Compile>
-    <Compile Include="CtlMainEntryBox_v82.vb">
+    <Compile Include="Controls\CtlMainEntryBox_v82.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CtlGraphicPortrait.Designer.vb">
+    <Compile Include="Controls\CtlGraphicPortrait.Designer.vb">
       <DependentUpon>CtlGraphicPortrait.vb</DependentUpon>
     </Compile>
-    <Compile Include="CtlGraphicPortrait.vb">
+    <Compile Include="Controls\CtlGraphicPortrait.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CtlGraphicText.Designer.vb">
+    <Compile Include="Controls\CtlGraphicText.Designer.vb">
       <DependentUpon>CtlGraphicText.vb</DependentUpon>
     </Compile>
-    <Compile Include="CtlGraphicText.vb">
+    <Compile Include="Controls\CtlGraphicText.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CtlMainButton_v82.Designer.vb">
+    <Compile Include="Controls\CtlMainButton_v82.Designer.vb">
       <DependentUpon>CtlMainButton_v82.vb</DependentUpon>
     </Compile>
-    <Compile Include="CtlMainButton_v82.vb">
+    <Compile Include="Controls\CtlMainButton_v82.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CtlMainEntryBox_NotInUse.Designer.vb">
+    <Compile Include="Controls\CtlMainEntryBox_NotInUse.Designer.vb">
       <DependentUpon>CtlMainEntryBox_NotInUse.vb</DependentUpon>
     </Compile>
-    <Compile Include="CtlMainEntryBox_NotInUse.vb">
+    <Compile Include="Controls\CtlMainEntryBox_NotInUse.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CtlMainEntryBox_v90.Designer.vb">
+    <Compile Include="Controls\CtlMainEntryBox_v90.Designer.vb">
       <DependentUpon>CtlMainEntryBox_v90.vb</DependentUpon>
     </Compile>
-    <Compile Include="CtlMainEntryBox_v90.vb">
+    <Compile Include="Controls\CtlMainEntryBox_v90.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CtlMainStep3_v82.Designer.vb">
+    <Compile Include="Controls\CtlMainStep3_v82.Designer.vb">
       <DependentUpon>CtlMainStep3_v82.vb</DependentUpon>
     </Compile>
-    <Compile Include="CtlMainStep3_v82.vb">
+    <Compile Include="Controls\CtlMainStep3_v82.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CtlPartial_FieldLabel.Designer.vb">
+    <Compile Include="Controls\CtlPartial_FieldLabel.Designer.vb">
       <DependentUpon>CtlPartial_FieldLabel.vb</DependentUpon>
     </Compile>
-    <Compile Include="CtlPartial_FieldLabel.vb">
+    <Compile Include="Controls\CtlPartial_FieldLabel.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="FormCustomFieldsFlow.Designer.vb">
@@ -273,10 +273,10 @@
     <Compile Include="FormDisplay.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CtlGraphicFldLabel.Designer.vb">
+    <Compile Include="Controls\CtlGraphicFldLabel.Designer.vb">
       <DependentUpon>CtlGraphicFldLabel.vb</DependentUpon>
     </Compile>
-    <Compile Include="CtlGraphicFldLabel.vb">
+    <Compile Include="Controls\CtlGraphicFldLabel.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="FormPartial_ProtoTwo.Designer.vb">
@@ -315,16 +315,16 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="CtlAddCustomField.Designer.vb">
+    <Compile Include="Controls\CtlAddCustomField.Designer.vb">
       <DependentUpon>CtlAddCustomField.vb</DependentUpon>
     </Compile>
-    <Compile Include="CtlAddCustomField.vb">
+    <Compile Include="Controls\CtlAddCustomField.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CtlConfigFldCustom.Designer.vb">
+    <Compile Include="Controls\CtlConfigFldCustom.Designer.vb">
       <DependentUpon>CtlConfigFldCustom.vb</DependentUpon>
     </Compile>
-    <Compile Include="CtlConfigFldCustom.vb">
+    <Compile Include="Controls\CtlConfigFldCustom.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Version900_v101.Designer.vb">
@@ -335,46 +335,46 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="CtlAddStandardField.resx">
+    <EmbeddedResource Include="Controls\CtlAddStandardField.resx">
       <DependentUpon>CtlAddStandardField.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CtlConfigFldStandard.resx">
+    <EmbeddedResource Include="Controls\CtlConfigFldStandard.resx">
       <DependentUpon>CtlConfigFldStandard.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CtlCustomer.resx">
+    <EmbeddedResource Include="Controls\CtlCustomer.resx">
       <DependentUpon>CtlCustomer.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CtlGraphPopMenuAlign.resx">
+    <EmbeddedResource Include="Controls\CtlGraphPopMenuAlign.resx">
       <DependentUpon>CtlGraphPopMenuAlign.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CtlGraphPopMenuEditGroup.resx">
+    <EmbeddedResource Include="Controls\CtlGraphPopMenuEditGroup.resx">
       <DependentUpon>CtlGraphPopMenuEditGroup.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CtlGraphPopMenuEditSingle.resx">
+    <EmbeddedResource Include="Controls\CtlGraphPopMenuEditSingle.resx">
       <DependentUpon>CtlGraphPopMenuEditSingle.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CtlMainButton_v82.resx">
+    <EmbeddedResource Include="Controls\CtlMainButton_v82.resx">
       <DependentUpon>CtlMainButton_v82.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CtlMainButton_v90.resx">
+    <EmbeddedResource Include="Controls\CtlMainButton_v90.resx">
       <DependentUpon>CtlMainButton_v90.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CtlMainEntryBox_v82.resx">
+    <EmbeddedResource Include="Controls\CtlMainEntryBox_v82.resx">
       <DependentUpon>CtlMainEntryBox_v82.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CtlGraphicPortrait.resx">
+    <EmbeddedResource Include="Controls\CtlGraphicPortrait.resx">
       <DependentUpon>CtlGraphicPortrait.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CtlGraphicText.resx">
+    <EmbeddedResource Include="Controls\CtlGraphicText.resx">
       <DependentUpon>CtlGraphicText.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CtlMainEntryBox_NotInUse.resx">
+    <EmbeddedResource Include="Controls\CtlMainEntryBox_NotInUse.resx">
       <DependentUpon>CtlMainEntryBox_NotInUse.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CtlMainEntryBox_v90.resx">
+    <EmbeddedResource Include="Controls\CtlMainEntryBox_v90.resx">
       <DependentUpon>CtlMainEntryBox_v90.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CtlMainStep3_v82.resx">
+    <EmbeddedResource Include="Controls\CtlMainStep3_v82.resx">
       <DependentUpon>CtlMainStep3_v82.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormCustomFieldsFlow.resx">
@@ -419,7 +419,7 @@
     <EmbeddedResource Include="FormSubsection.resx">
       <DependentUpon>FormSubsection.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CtlGraphicFldLabel.resx">
+    <EmbeddedResource Include="Controls\CtlGraphicFldLabel.resx">
       <DependentUpon>CtlGraphicFldLabel.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Version830_v101.resx">
@@ -431,10 +431,10 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="CtlAddCustomField.resx">
+    <EmbeddedResource Include="Controls\CtlAddCustomField.resx">
       <DependentUpon>CtlAddCustomField.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CtlConfigFldCustom.resx">
+    <EmbeddedResource Include="Controls\CtlConfigFldCustom.resx">
       <DependentUpon>CtlConfigFldCustom.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Version900_v101.resx">
