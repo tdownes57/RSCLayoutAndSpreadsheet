@@ -16,8 +16,9 @@ Public Class CtlGraphicFldLabel
     ''7/26/2019 td''Public ElementInfo As ClassElementText
     Public FieldInfo As ICIBFieldStandardOrCustom
 
-    ''8/29/2019 td''Public ElementInfo As ClassElementText
-    Public ElementInfo_Text As ClassElementText
+    ''#1 8/29/2019 td''Public ElementInfo As ClassElementText
+    '' #2 8/29/2019 td''Public ElementInfo_Text As ClassElementText
+    Public ElementInfo_Text As ciBadgeInterfaces.IElement_Text
     Public ElementInfo_Base As ciBadgeInterfaces.IElement_Base
 
     Public GroupEdits As ISelectingElements ''Added 7/31/2019 thomas downes  
@@ -118,8 +119,8 @@ Public Class CtlGraphicFldLabel
         ''Me.ElementInfo.FontColor = Me.ParentForm.ForeColor
 
         ''Added 8/18/2019 thomas downes 
-        pictureLabel.Width = Me.ElementInfo_Text.Width_Pixels
-        pictureLabel.Height = Me.ElementInfo_Text.Height_Pixels
+        pictureLabel.Width = Me.ElementInfo_Base.Width_Pixels
+        pictureLabel.Height = Me.ElementInfo_Base.Height_Pixels
 
         If (Generator Is Nothing) Then Generator = New ClassLabelToImage
 
@@ -153,7 +154,7 @@ Public Class CtlGraphicFldLabel
 
         Dim boolRotated As Boolean ''Added 8/18/2019 td
         ''Added 8/18/2019 td
-        Generator.TextImage(pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Text, boolRotated)
+        Generator.TextImage(pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
 
         ''Added 8/18/2019 td
         Dim intImageWidth As Integer
@@ -170,16 +171,17 @@ Public Class CtlGraphicFldLabel
             ''
             ''A desperate attempt to get the background color to extend to the full, resized control.
             ''
-            Dim boolColorDiscrepancy As Boolean ''Added 7/31/2019 td
-            boolColorDiscrepancy = (Me.ElementInfo_Text.BackColor <> Me.ElementInfo_Text.Back_Color)
+            Dim boolColorDiscrepancy As Boolean = False ''Added 7/31/2019 td
+            ''8/29 td''boolColorDiscrepancy = (Me.ElementInfo_Text.BackColor <> Me.ElementInfo_Text.Back_Color)
 
             If (boolColorDiscrepancy) Then
                 MessageBox.Show("Warning, there is a discrepancy in the color information.", "ciLayout",
                                 MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If ''ENd of "If (boolColorDiscrepancy) Then"
 
-            pictureLabel.BackColor = Me.ElementInfo_Text.Back_Color
-            pictureLabel.BackColor = Me.ElementInfo_Text.BackColor
+            pictureLabel.BackColor = Me.ElementInfo_Base.Back_Color
+            ''8/29/2019 td''pictureLabel.BackColor = Me.ElementInfo_Text.BackColor
+            pictureLabel.BackColor = Me.ElementInfo_Base.Back_Color
 
         End If ''End of "If (mod_c_boolMustSetBackColor And (ElementInfo IsNot Nothing)) Then"
 
@@ -197,11 +199,11 @@ Public Class CtlGraphicFldLabel
 
         ''Me.ElementInfo.Text = Me.LabelText()
 
-        Me.ElementInfo_Text.TopEdge_Pixels = Me.Top
-        Me.ElementInfo_Text.LeftEdge_Pixels = Me.Left
+        Me.ElementInfo_Base.TopEdge_Pixels = Me.Top
+        Me.ElementInfo_Base.LeftEdge_Pixels = Me.Left
 
-        Me.ElementInfo_Text.Width_Pixels = Me.Width
-        Me.ElementInfo_Text.Height_Pixels = Me.Height
+        Me.ElementInfo_Base.Width_Pixels = Me.Width
+        Me.ElementInfo_Base.Height_Pixels = Me.Height
 
         ''Me.ElementInfo.Font_DrawingClass = Me.Font
         ''Me.ElementInfo.BackColor = Me.BackColor
@@ -241,8 +243,9 @@ Public Class CtlGraphicFldLabel
         ''
         ''Added 7/31/2019 thomas downes
         ''
-        Me.ElementInfo_Text.Width_Pixels = Me.Width
-        Me.ElementInfo_Text.Height_Pixels = Me.Height
+        Me.ElementInfo_Base.Width_Pixels = Me.Width
+        Me.ElementInfo_Base.Height_Pixels = Me.Height
+
         Application.DoEvents()
         Me.RefreshImage()
         Application.DoEvents()
@@ -258,7 +261,7 @@ Public Class CtlGraphicFldLabel
 
         strMessageToUser &= (vbCrLf & $"Height of Picture control: {pictureLabel.Height}")
         strMessageToUser &= (vbCrLf & $"Height of Custom Graphics control: {Me.Height}")
-        strMessageToUser &= (vbCrLf & $"Element-Info Property (Height): {Me.ElementInfo_Text.Height_Pixels}")
+        strMessageToUser &= (vbCrLf & $"Element-Info Property (Height): {Me.ElementInfo_Base.Height_Pixels}")
         strMessageToUser &= (vbCrLf & $"Picture control's Image Height: {pictureLabel.Image.Height}")
 
         MessageBox.Show(strMessageToUser, "", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -271,8 +274,8 @@ Public Class CtlGraphicFldLabel
         ''
         If (Me.ElementInfo_Text IsNot Nothing) Then
 
-            Me.ElementInfo_Text.Width_Pixels = Me.Width
-            Me.ElementInfo_Text.Height_Pixels = Me.Height
+            Me.ElementInfo_Base.Width_Pixels = Me.Width
+            Me.ElementInfo_Base.Height_Pixels = Me.Height
             ''Me.RefreshImage()
 
         End If ''End of "If (Me.ElementInfo IsNot Nothing) Then"
