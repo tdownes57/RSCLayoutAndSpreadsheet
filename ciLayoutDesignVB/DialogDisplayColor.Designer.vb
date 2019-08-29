@@ -23,6 +23,7 @@ Partial Class DialogDisplayColor
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.ButtonOK = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'Label1
@@ -35,13 +36,24 @@ Partial Class DialogDisplayColor
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Header Message"
         '
-        'FormDisplayColor
+        'ButtonOK
         '
+        Me.ButtonOK.Location = New System.Drawing.Point(240, 162)
+        Me.ButtonOK.Name = "ButtonOK"
+        Me.ButtonOK.Size = New System.Drawing.Size(96, 43)
+        Me.ButtonOK.TabIndex = 1
+        Me.ButtonOK.Text = "OK"
+        Me.ButtonOK.UseVisualStyleBackColor = True
+        '
+        'DialogDisplayColor
+        '
+        Me.AcceptButton = Me.ButtonOK
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(354, 218)
+        Me.Controls.Add(Me.ButtonOK)
         Me.Controls.Add(Me.Label1)
-        Me.Name = "FormDisplayColor"
+        Me.Name = "DialogDisplayColor"
         Me.Text = "FormDisplayColor"
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -49,4 +61,5 @@ Partial Class DialogDisplayColor
     End Sub
 
     Friend WithEvents Label1 As Label
+    Friend WithEvents ButtonOK As Button
 End Class

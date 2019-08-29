@@ -56,8 +56,8 @@ Public Class ClassLabelToImage
         ''
         ''Added 8/28/2019 td
         ''
-        Dim boolClashOfColors As Boolean
-        Static s_boolRunOnce As Boolean
+        Dim boolClashOfColors As Boolean ''Added 8/28/2019 td
+        Static s_boolRunOnce As Boolean ''Added 8/28/2019 td
 
         boolClashOfColors = (par_design.BackColor <>
                               par_element.Back_Color)
@@ -65,10 +65,13 @@ Public Class ClassLabelToImage
             If (Not s_boolRunOnce) Then
                 ''Added 8/28/2019 td
                 s_boolRunOnce = True
+                ''Added 8/28/2019 td
                 MessageBox.Show("A clash of colors--which Property is reliable?", "",
                      MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-
-            End If
+                ''Added 8/29/2019 td
+                DialogDisplayColor.ShowColor("par_design.BackColor", par_design.BackColor)
+                DialogDisplayColor.ShowColor("par_element.BackColor", par_element.Back_Color)
+            End If ''eND OF "If (Not s_boolRunOnce) Then"
         End If ''Endof "If (boolClashOfColors) Then"
 
         ''
