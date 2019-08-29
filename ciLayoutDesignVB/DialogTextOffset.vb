@@ -3,7 +3,7 @@
 ''
 Imports ciBadgeInterfaces ''Added 8/16/2019 thomas d.
 
-Public Class FormOffsetText
+Public Class DialogTextOffset
     ''
     ''Added 8/15/2019 thomas downes 
     ''

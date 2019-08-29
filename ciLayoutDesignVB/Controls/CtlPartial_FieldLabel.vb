@@ -415,7 +415,7 @@ Partial Public Class CtlGraphicFldLabel
         ''
         ''Added 8/10/2019 thomas downes
         ''
-        Dim frm_ToShow As New FormOffsetText
+        Dim frm_ToShow As New DialogTextOffset
 
         ''
         ''Added 8/10/2019 thomas downes
