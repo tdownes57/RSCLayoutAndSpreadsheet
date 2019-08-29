@@ -193,6 +193,12 @@
     <Compile Include="FormDesignProtoTwo.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="DialogDisplayColor.Designer.vb">
+      <DependentUpon>DialogDisplayColor.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DialogDisplayColor.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormDisplayImageList1.Designer.vb">
       <DependentUpon>FormDisplayImageList1.vb</DependentUpon>
     </Compile>
@@ -205,10 +211,10 @@
     <Compile Include="FormDisplayImageList2.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormExampleValueEtc.Designer.vb">
-      <DependentUpon>FormExampleValueEtc.vb</DependentUpon>
+    <Compile Include="DialogExampleValueEtc.Designer.vb">
+      <DependentUpon>DialogExampleValueEtc.vb</DependentUpon>
     </Compile>
-    <Compile Include="FormExampleValueEtc.vb">
+    <Compile Include="DialogExampleValueEtc.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormMain.Designer.vb">
@@ -229,10 +235,10 @@
     <Compile Include="FormMainEntry_v90.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormOffsetText.Designer.vb">
-      <DependentUpon>FormOffsetText.vb</DependentUpon>
+    <Compile Include="DialogTextOffset.Designer.vb">
+      <DependentUpon>DialogTextOffset.vb</DependentUpon>
     </Compile>
-    <Compile Include="FormOffsetText.vb">
+    <Compile Include="DialogTextOffset.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormPresetValues.Designer.vb">
@@ -283,6 +289,12 @@
       <DependentUpon>FormPartial_ProtoTwo.vb</DependentUpon>
     </Compile>
     <Compile Include="FormPartial_ProtoTwo.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DialogTextBorder.Designer.vb">
+      <DependentUpon>DialogTextBorder.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DialogTextBorder.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="modFonts.vb" />
@@ -377,6 +389,9 @@
     <EmbeddedResource Include="Controls\CtlMainStep3_v82.resx">
       <DependentUpon>CtlMainStep3_v82.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DialogTextBorder.resx">
+      <DependentUpon>DialogTextBorder.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormCustomFieldsFlow.resx">
       <DependentUpon>FormCustomFieldsFlow.vb</DependentUpon>
     </EmbeddedResource>
@@ -392,14 +407,17 @@
     <EmbeddedResource Include="FormDisplay.resx">
       <DependentUpon>FormDisplay.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DialogDisplayColor.resx">
+      <DependentUpon>DialogDisplayColor.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormDisplayImageList1.resx">
       <DependentUpon>FormDisplayImageList1.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormDisplayImageList2.resx">
       <DependentUpon>FormDisplayImageList2.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormExampleValueEtc.resx">
-      <DependentUpon>FormExampleValueEtc.vb</DependentUpon>
+    <EmbeddedResource Include="DialogExampleValueEtc.resx">
+      <DependentUpon>DialogExampleValueEtc.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.vb</DependentUpon>
@@ -407,8 +425,8 @@
     <EmbeddedResource Include="FormMainEntry_v82.resx">
       <DependentUpon>FormMainEntry_v82.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormOffsetText.resx">
-      <DependentUpon>FormOffsetText.vb</DependentUpon>
+    <EmbeddedResource Include="DialogTextOffset.resx">
+      <DependentUpon>DialogTextOffset.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormPresetValues.resx">
       <DependentUpon>FormPresetValues.vb</DependentUpon>

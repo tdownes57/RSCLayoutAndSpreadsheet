@@ -47,11 +47,29 @@ Public Class ClassLabelToImage
         gr = Graphics.FromImage(par_image)
 
         pen_backcolor = New Pen(par_design.BackColor)
-        pen_backcolor = New Pen(Color.White)
+        ''8/28/2019 td''pen_backcolor = New Pen(Color.White)
         ''8/5/2019 td''pen_highlighting = New Pen(Color.YellowGreen, 5)
         pen_highlighting = New Pen(Color.Yellow, 6)
 
         brush_forecolor = New SolidBrush(par_design.FontColor)
+
+        ''
+        ''Added 8/28/2019 td
+        ''
+        Dim boolClashOfColors As Boolean
+        Static s_boolRunOnce As Boolean
+
+        boolClashOfColors = (par_design.BackColor <>
+                              par_element.Back_Color)
+        If (boolClashOfColors) Then
+            If (Not s_boolRunOnce) Then
+                ''Added 8/28/2019 td
+                s_boolRunOnce = True
+                MessageBox.Show("A clash of colors--which Property is reliable?", "",
+                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+
+            End If
+        End If ''Endof "If (boolClashOfColors) Then"
 
         ''
         ''Draw the select background color, so that hopefully the text can be read easily.

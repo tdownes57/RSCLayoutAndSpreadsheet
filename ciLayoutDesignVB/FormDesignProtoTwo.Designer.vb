@@ -61,21 +61,25 @@ Partial Class FormDesignProtoTwo
         Me.ContextBackIncrease = New System.Windows.Forms.ToolStripMenuItem()
         Me.ContextBackRotate90 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ContextBackClearSelection = New System.Windows.Forms.ToolStripMenuItem()
+        Me.graphicAdjuster = New System.Windows.Forms.PictureBox()
+        Me.picturePreview = New System.Windows.Forms.PictureBox()
+        Me.pictureBack = New System.Windows.Forms.PictureBox()
+        Me.LinkRefreshPreview = New System.Windows.Forms.LinkLabel()
         Me.CtlGraphicPortrait_Lady = New ciLayoutDesignVB.CtlGraphicPortrait()
         Me.GraphicFieldLabel5 = New ciLayoutDesignVB.CtlGraphicFldLabel()
         Me.GraphicFieldLabel4 = New ciLayoutDesignVB.CtlGraphicFldLabel()
         Me.GraphicFieldLabel3 = New ciLayoutDesignVB.CtlGraphicFldLabel()
         Me.GraphicFieldLabel2 = New ciLayoutDesignVB.CtlGraphicFldLabel()
         Me.GraphicFieldLabel1 = New ciLayoutDesignVB.CtlGraphicFldLabel()
-        Me.graphicAdjuster = New System.Windows.Forms.PictureBox()
-        Me.picturePreview = New System.Windows.Forms.PictureBox()
-        Me.pictureBack = New System.Windows.Forms.PictureBox()
-        Me.LinkRefreshPreview = New System.Windows.Forms.LinkLabel()
+        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
+        Me.StatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.StatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         CType(Me.graphicAdjuster, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureBack, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'LinkShowWebControls
@@ -85,7 +89,7 @@ Partial Class FormDesignProtoTwo
         Me.LinkShowWebControls.Location = New System.Drawing.Point(543, 519)
         Me.LinkShowWebControls.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LinkShowWebControls.Name = "LinkShowWebControls"
-        Me.LinkShowWebControls.Size = New System.Drawing.Size(360, 29)
+        Me.LinkShowWebControls.Size = New System.Drawing.Size(281, 24)
         Me.LinkShowWebControls.TabIndex = 30
         Me.LinkShowWebControls.TabStop = True
         Me.LinkShowWebControls.Text = "Show adjustment controls below"
@@ -97,7 +101,7 @@ Partial Class FormDesignProtoTwo
         Me.LinkLabel1.Location = New System.Drawing.Point(541, 553)
         Me.LinkLabel1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LinkLabel1.Name = "LinkLabel1"
-        Me.LinkLabel1.Size = New System.Drawing.Size(362, 29)
+        Me.LinkLabel1.Size = New System.Drawing.Size(282, 24)
         Me.LinkLabel1.TabIndex = 31
         Me.LinkLabel1.TabStop = True
         Me.LinkLabel1.Text = "Open adjustment-controls dialog"
@@ -110,7 +114,7 @@ Partial Class FormDesignProtoTwo
         Me.chkIncludeExampleValues.Location = New System.Drawing.Point(93, 552)
         Me.chkIncludeExampleValues.Margin = New System.Windows.Forms.Padding(2)
         Me.chkIncludeExampleValues.Name = "chkIncludeExampleValues"
-        Me.chkIncludeExampleValues.Size = New System.Drawing.Size(223, 26)
+        Me.chkIncludeExampleValues.Size = New System.Drawing.Size(177, 21)
         Me.chkIncludeExampleValues.TabIndex = 32
         Me.chkIncludeExampleValues.Text = "Include example values."
         Me.chkIncludeExampleValues.UseVisualStyleBackColor = True
@@ -121,7 +125,7 @@ Partial Class FormDesignProtoTwo
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RightClickMenuParent, Me.ToolStripMenuItem1, Me.ConfigurationOfFieldsEtcToolStripMenuItem, Me.DesignLayoutToolStripMenuItem, Me.BackgroundImagesToolStripMenuItem, Me.DemoModeVideoToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1368, 28)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1368, 24)
         Me.MenuStrip1.TabIndex = 39
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -129,7 +133,7 @@ Partial Class FormDesignProtoTwo
         '
         Me.RightClickMenuParent.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ShowRightclickMenuHereToolStripMenuItem})
         Me.RightClickMenuParent.Name = "RightClickMenuParent"
-        Me.RightClickMenuParent.Size = New System.Drawing.Size(136, 24)
+        Me.RightClickMenuParent.Size = New System.Drawing.Size(112, 20)
         Me.RightClickMenuParent.Text = "Right-Click Menu"
         Me.RightClickMenuParent.Visible = False
         '
@@ -138,151 +142,151 @@ Partial Class FormDesignProtoTwo
         Me.ShowRightclickMenuHereToolStripMenuItem.Checked = True
         Me.ShowRightclickMenuHereToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
         Me.ShowRightclickMenuHereToolStripMenuItem.Name = "ShowRightclickMenuHereToolStripMenuItem"
-        Me.ShowRightclickMenuHereToolStripMenuItem.Size = New System.Drawing.Size(272, 26)
+        Me.ShowRightclickMenuHereToolStripMenuItem.Size = New System.Drawing.Size(220, 22)
         Me.ShowRightclickMenuHereToolStripMenuItem.Text = "Show right-click menu here"
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenToolStripMenuItem, Me.SaveToolStripMenuItem1, Me.SaveToolStripMenuItem, Me.ExitToolStripMenuItem})
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(46, 24)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(37, 20)
         Me.ToolStripMenuItem1.Text = "File"
         '
         'OpenToolStripMenuItem
         '
         Me.OpenToolStripMenuItem.Name = "OpenToolStripMenuItem"
-        Me.OpenToolStripMenuItem.Size = New System.Drawing.Size(203, 26)
+        Me.OpenToolStripMenuItem.Size = New System.Drawing.Size(165, 22)
         Me.OpenToolStripMenuItem.Text = "Open Layout....."
         '
         'SaveToolStripMenuItem1
         '
         Me.SaveToolStripMenuItem1.Name = "SaveToolStripMenuItem1"
-        Me.SaveToolStripMenuItem1.Size = New System.Drawing.Size(203, 26)
+        Me.SaveToolStripMenuItem1.Size = New System.Drawing.Size(165, 22)
         Me.SaveToolStripMenuItem1.Text = "Save"
         '
         'SaveToolStripMenuItem
         '
         Me.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem"
-        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(203, 26)
+        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(165, 22)
         Me.SaveToolStripMenuItem.Text = "Save Layout As...."
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(203, 26)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(165, 22)
         Me.ExitToolStripMenuItem.Text = "Exit"
         '
         'ConfigurationOfFieldsEtcToolStripMenuItem
         '
         Me.ConfigurationOfFieldsEtcToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StandardFieldsToolStripMenuItem, Me.CustomFieldsToolStripMenuItem})
         Me.ConfigurationOfFieldsEtcToolStripMenuItem.Name = "ConfigurationOfFieldsEtcToolStripMenuItem"
-        Me.ConfigurationOfFieldsEtcToolStripMenuItem.Size = New System.Drawing.Size(204, 24)
+        Me.ConfigurationOfFieldsEtcToolStripMenuItem.Size = New System.Drawing.Size(165, 20)
         Me.ConfigurationOfFieldsEtcToolStripMenuItem.Text = "Configuration of Fields, Etc."
         '
         'StandardFieldsToolStripMenuItem
         '
         Me.StandardFieldsToolStripMenuItem.Name = "StandardFieldsToolStripMenuItem"
-        Me.StandardFieldsToolStripMenuItem.Size = New System.Drawing.Size(194, 26)
+        Me.StandardFieldsToolStripMenuItem.Size = New System.Drawing.Size(154, 22)
         Me.StandardFieldsToolStripMenuItem.Text = "Standard Fields"
         '
         'CustomFieldsToolStripMenuItem
         '
         Me.CustomFieldsToolStripMenuItem.Name = "CustomFieldsToolStripMenuItem"
-        Me.CustomFieldsToolStripMenuItem.Size = New System.Drawing.Size(194, 26)
+        Me.CustomFieldsToolStripMenuItem.Size = New System.Drawing.Size(154, 22)
         Me.CustomFieldsToolStripMenuItem.Text = "Custom Fields"
         '
         'DesignLayoutToolStripMenuItem
         '
         Me.DesignLayoutToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenControlPanelToolStripMenuItem, Me.UploadBackgroundToolStripMenuItem, Me.PlaceElementsToolStripMenuItem, Me.AddGraphicsElementToolStripMenuItem, Me.AddSubsectionToolStripMenuItem, Me.ChangeOrientationToolStripMenuItem, Me.DoubleSidedToolStripMenuItem})
         Me.DesignLayoutToolStripMenuItem.Name = "DesignLayoutToolStripMenuItem"
-        Me.DesignLayoutToolStripMenuItem.Size = New System.Drawing.Size(117, 24)
+        Me.DesignLayoutToolStripMenuItem.Size = New System.Drawing.Size(94, 20)
         Me.DesignLayoutToolStripMenuItem.Text = "Design Layout"
         '
         'OpenControlPanelToolStripMenuItem
         '
         Me.OpenControlPanelToolStripMenuItem.Name = "OpenControlPanelToolStripMenuItem"
-        Me.OpenControlPanelToolStripMenuItem.Size = New System.Drawing.Size(292, 26)
+        Me.OpenControlPanelToolStripMenuItem.Size = New System.Drawing.Size(229, 22)
         Me.OpenControlPanelToolStripMenuItem.Text = "Open Control Panel"
         '
         'UploadBackgroundToolStripMenuItem
         '
         Me.UploadBackgroundToolStripMenuItem.Name = "UploadBackgroundToolStripMenuItem"
-        Me.UploadBackgroundToolStripMenuItem.Size = New System.Drawing.Size(292, 26)
+        Me.UploadBackgroundToolStripMenuItem.Size = New System.Drawing.Size(229, 22)
         Me.UploadBackgroundToolStripMenuItem.Text = "Select Background"
         '
         'PlaceElementsToolStripMenuItem
         '
         Me.PlaceElementsToolStripMenuItem.Name = "PlaceElementsToolStripMenuItem"
-        Me.PlaceElementsToolStripMenuItem.Size = New System.Drawing.Size(292, 26)
+        Me.PlaceElementsToolStripMenuItem.Size = New System.Drawing.Size(229, 22)
         Me.PlaceElementsToolStripMenuItem.Text = "Add Text Element"
         '
         'AddGraphicsElementToolStripMenuItem
         '
         Me.AddGraphicsElementToolStripMenuItem.Name = "AddGraphicsElementToolStripMenuItem"
-        Me.AddGraphicsElementToolStripMenuItem.Size = New System.Drawing.Size(292, 26)
+        Me.AddGraphicsElementToolStripMenuItem.Size = New System.Drawing.Size(229, 22)
         Me.AddGraphicsElementToolStripMenuItem.Text = "Add Graphics Element"
         '
         'AddSubsectionToolStripMenuItem
         '
         Me.AddSubsectionToolStripMenuItem.Name = "AddSubsectionToolStripMenuItem"
-        Me.AddSubsectionToolStripMenuItem.Size = New System.Drawing.Size(292, 26)
+        Me.AddSubsectionToolStripMenuItem.Size = New System.Drawing.Size(229, 22)
         Me.AddSubsectionToolStripMenuItem.Text = "Add Subsection"
         '
         'ChangeOrientationToolStripMenuItem
         '
         Me.ChangeOrientationToolStripMenuItem.Name = "ChangeOrientationToolStripMenuItem"
-        Me.ChangeOrientationToolStripMenuItem.Size = New System.Drawing.Size(292, 26)
+        Me.ChangeOrientationToolStripMenuItem.Size = New System.Drawing.Size(229, 22)
         Me.ChangeOrientationToolStripMenuItem.Text = "Change Orientation"
         '
         'DoubleSidedToolStripMenuItem
         '
         Me.DoubleSidedToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SingleSidedToolStripMenuItem, Me.DoubleSidedToolStripMenuItem1})
         Me.DoubleSidedToolStripMenuItem.Name = "DoubleSidedToolStripMenuItem"
-        Me.DoubleSidedToolStripMenuItem.Size = New System.Drawing.Size(292, 26)
+        Me.DoubleSidedToolStripMenuItem.Size = New System.Drawing.Size(229, 22)
         Me.DoubleSidedToolStripMenuItem.Text = "Double-Sided or Single-Sided"
         '
         'SingleSidedToolStripMenuItem
         '
         Me.SingleSidedToolStripMenuItem.Name = "SingleSidedToolStripMenuItem"
-        Me.SingleSidedToolStripMenuItem.Size = New System.Drawing.Size(185, 26)
+        Me.SingleSidedToolStripMenuItem.Size = New System.Drawing.Size(146, 22)
         Me.SingleSidedToolStripMenuItem.Text = "Single-Sided"
         '
         'DoubleSidedToolStripMenuItem1
         '
         Me.DoubleSidedToolStripMenuItem1.Name = "DoubleSidedToolStripMenuItem1"
-        Me.DoubleSidedToolStripMenuItem1.Size = New System.Drawing.Size(185, 26)
+        Me.DoubleSidedToolStripMenuItem1.Size = New System.Drawing.Size(146, 22)
         Me.DoubleSidedToolStripMenuItem1.Text = "Double-Sided"
         '
         'BackgroundImagesToolStripMenuItem
         '
         Me.BackgroundImagesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.UploadNewToolStripMenuItem, Me.SelectFromExistingToolStripMenuItem})
         Me.BackgroundImagesToolStripMenuItem.Name = "BackgroundImagesToolStripMenuItem"
-        Me.BackgroundImagesToolStripMenuItem.Size = New System.Drawing.Size(154, 24)
+        Me.BackgroundImagesToolStripMenuItem.Size = New System.Drawing.Size(124, 20)
         Me.BackgroundImagesToolStripMenuItem.Text = "Background Images"
         '
         'UploadNewToolStripMenuItem
         '
         Me.UploadNewToolStripMenuItem.Name = "UploadNewToolStripMenuItem"
-        Me.UploadNewToolStripMenuItem.Size = New System.Drawing.Size(235, 26)
+        Me.UploadNewToolStripMenuItem.Size = New System.Drawing.Size(190, 22)
         Me.UploadNewToolStripMenuItem.Text = "Upload new...."
         '
         'SelectFromExistingToolStripMenuItem
         '
         Me.SelectFromExistingToolStripMenuItem.Name = "SelectFromExistingToolStripMenuItem"
-        Me.SelectFromExistingToolStripMenuItem.Size = New System.Drawing.Size(235, 26)
+        Me.SelectFromExistingToolStripMenuItem.Size = New System.Drawing.Size(190, 22)
         Me.SelectFromExistingToolStripMenuItem.Text = "Select from existing...."
         '
         'DemoModeVideoToolStripMenuItem
         '
         Me.DemoModeVideoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DemoModeActiveToolStripMenuItem})
         Me.DemoModeVideoToolStripMenuItem.Name = "DemoModeVideoToolStripMenuItem"
-        Me.DemoModeVideoToolStripMenuItem.Size = New System.Drawing.Size(160, 24)
+        Me.DemoModeVideoToolStripMenuItem.Size = New System.Drawing.Size(126, 20)
         Me.DemoModeVideoToolStripMenuItem.Text = "Demo Mode (Video)"
         '
         'DemoModeActiveToolStripMenuItem
         '
         Me.DemoModeActiveToolStripMenuItem.Name = "DemoModeActiveToolStripMenuItem"
-        Me.DemoModeActiveToolStripMenuItem.Size = New System.Drawing.Size(221, 26)
+        Me.DemoModeActiveToolStripMenuItem.Size = New System.Drawing.Size(176, 22)
         Me.DemoModeActiveToolStripMenuItem.Text = "Demo Mode Active"
         '
         'CheckBox1
@@ -291,7 +295,7 @@ Partial Class FormDesignProtoTwo
         Me.CheckBox1.Location = New System.Drawing.Point(89, 528)
         Me.CheckBox1.Margin = New System.Windows.Forms.Padding(2)
         Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(226, 26)
+        Me.CheckBox1.Size = New System.Drawing.Size(179, 21)
         Me.CheckBox1.TabIndex = 33
         Me.CheckBox1.Text = "Include Additional Fields"
         Me.CheckBox1.UseVisualStyleBackColor = True
@@ -303,7 +307,7 @@ Partial Class FormDesignProtoTwo
         Me.LinkLabelSave.Location = New System.Drawing.Point(852, 33)
         Me.LinkLabelSave.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LinkLabelSave.Name = "LinkLabelSave"
-        Me.LinkLabelSave.Size = New System.Drawing.Size(51, 22)
+        Me.LinkLabelSave.Size = New System.Drawing.Size(40, 17)
         Me.LinkLabelSave.TabIndex = 43
         Me.LinkLabelSave.TabStop = True
         Me.LinkLabelSave.Text = "Save"
@@ -314,7 +318,7 @@ Partial Class FormDesignProtoTwo
         Me.linkSaveAndRefresh.Location = New System.Drawing.Point(385, 33)
         Me.linkSaveAndRefresh.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.linkSaveAndRefresh.Name = "linkSaveAndRefresh"
-        Me.linkSaveAndRefresh.Size = New System.Drawing.Size(235, 22)
+        Me.linkSaveAndRefresh.Size = New System.Drawing.Size(184, 17)
         Me.linkSaveAndRefresh.TabIndex = 42
         Me.linkSaveAndRefresh.TabStop = True
         Me.linkSaveAndRefresh.Text = "Save && Refresh the Window"
@@ -324,36 +328,80 @@ Partial Class FormDesignProtoTwo
         Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContextBackDecrease, Me.ContextBackIncrease, Me.ContextBackRotate90, Me.ContextBackClearSelection})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(421, 100)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(341, 92)
         '
         'ContextBackDecrease
         '
         Me.ContextBackDecrease.Name = "ContextBackDecrease"
-        Me.ContextBackDecrease.Size = New System.Drawing.Size(420, 24)
+        Me.ContextBackDecrease.Size = New System.Drawing.Size(340, 22)
         Me.ContextBackDecrease.Text = "Decrease size of badge relative to elements by 20%"
         '
         'ContextBackIncrease
         '
         Me.ContextBackIncrease.Name = "ContextBackIncrease"
-        Me.ContextBackIncrease.Size = New System.Drawing.Size(420, 24)
+        Me.ContextBackIncrease.Size = New System.Drawing.Size(340, 22)
         Me.ContextBackIncrease.Text = "Increase size of badge relative to elements by 20%"
         '
         'ContextBackRotate90
         '
         Me.ContextBackRotate90.Name = "ContextBackRotate90"
-        Me.ContextBackRotate90.Size = New System.Drawing.Size(420, 24)
+        Me.ContextBackRotate90.Size = New System.Drawing.Size(340, 22)
         Me.ContextBackRotate90.Text = "Rotate Badge Background 90"
         '
         'ContextBackClearSelection
         '
         Me.ContextBackClearSelection.Name = "ContextBackClearSelection"
-        Me.ContextBackClearSelection.Size = New System.Drawing.Size(420, 24)
+        Me.ContextBackClearSelection.Size = New System.Drawing.Size(340, 22)
         Me.ContextBackClearSelection.Text = "Clear Group-Editing Selections"
+        '
+        'graphicAdjuster
+        '
+        Me.graphicAdjuster.BackColor = System.Drawing.Color.White
+        Me.graphicAdjuster.Image = Global.ciLayoutDesignVB.My.Resources.Resources.AdjustWHColor_V103
+        Me.graphicAdjuster.Location = New System.Drawing.Point(919, 306)
+        Me.graphicAdjuster.Name = "graphicAdjuster"
+        Me.graphicAdjuster.Size = New System.Drawing.Size(433, 230)
+        Me.graphicAdjuster.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.graphicAdjuster.TabIndex = 45
+        Me.graphicAdjuster.TabStop = False
+        '
+        'picturePreview
+        '
+        Me.picturePreview.BackColor = System.Drawing.Color.White
+        Me.picturePreview.Location = New System.Drawing.Point(919, 70)
+        Me.picturePreview.Name = "picturePreview"
+        Me.picturePreview.Size = New System.Drawing.Size(395, 226)
+        Me.picturePreview.TabIndex = 44
+        Me.picturePreview.TabStop = False
+        '
+        'pictureBack
+        '
+        Me.pictureBack.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.pictureBack.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pictureBack.Image = CType(resources.GetObject("pictureBack.Image"), System.Drawing.Image)
+        Me.pictureBack.Location = New System.Drawing.Point(43, 91)
+        Me.pictureBack.Margin = New System.Windows.Forms.Padding(2)
+        Me.pictureBack.Name = "pictureBack"
+        Me.pictureBack.Size = New System.Drawing.Size(860, 425)
+        Me.pictureBack.TabIndex = 21
+        Me.pictureBack.TabStop = False
+        '
+        'LinkRefreshPreview
+        '
+        Me.LinkRefreshPreview.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LinkRefreshPreview.AutoSize = True
+        Me.LinkRefreshPreview.Location = New System.Drawing.Point(1197, 33)
+        Me.LinkRefreshPreview.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LinkRefreshPreview.Name = "LinkRefreshPreview"
+        Me.LinkRefreshPreview.Size = New System.Drawing.Size(111, 17)
+        Me.LinkRefreshPreview.TabIndex = 46
+        Me.LinkRefreshPreview.TabStop = True
+        Me.LinkRefreshPreview.Text = "Refresh Preview"
         '
         'CtlGraphicPortrait_Lady
         '
         Me.CtlGraphicPortrait_Lady.Location = New System.Drawing.Point(1189, 396)
-        Me.CtlGraphicPortrait_Lady.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.CtlGraphicPortrait_Lady.Margin = New System.Windows.Forms.Padding(4)
         Me.CtlGraphicPortrait_Lady.Name = "CtlGraphicPortrait_Lady"
         Me.CtlGraphicPortrait_Lady.Size = New System.Drawing.Size(150, 182)
         Me.CtlGraphicPortrait_Lady.TabIndex = 41
@@ -403,55 +451,33 @@ Partial Class FormDesignProtoTwo
         Me.GraphicFieldLabel1.Size = New System.Drawing.Size(178, 43)
         Me.GraphicFieldLabel1.TabIndex = 34
         '
-        'graphicAdjuster
+        'StatusStrip1
         '
-        Me.graphicAdjuster.BackColor = System.Drawing.Color.White
-        Me.graphicAdjuster.Image = Global.ciLayoutDesignVB.My.Resources.Resources.AdjustWHColor_V103
-        Me.graphicAdjuster.Location = New System.Drawing.Point(919, 306)
-        Me.graphicAdjuster.Name = "graphicAdjuster"
-        Me.graphicAdjuster.Size = New System.Drawing.Size(433, 230)
-        Me.graphicAdjuster.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.graphicAdjuster.TabIndex = 45
-        Me.graphicAdjuster.TabStop = False
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StatusLabel1, Me.StatusLabel2})
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 569)
+        Me.StatusStrip1.Name = "StatusStrip1"
+        Me.StatusStrip1.Size = New System.Drawing.Size(1368, 22)
+        Me.StatusStrip1.TabIndex = 47
+        Me.StatusStrip1.Text = "StatusStrip1"
         '
-        'picturePreview
+        'StatusLabel1
         '
-        Me.picturePreview.BackColor = System.Drawing.Color.White
-        Me.picturePreview.Location = New System.Drawing.Point(919, 70)
-        Me.picturePreview.Name = "picturePreview"
-        Me.picturePreview.Size = New System.Drawing.Size(395, 226)
-        Me.picturePreview.TabIndex = 44
-        Me.picturePreview.TabStop = False
+        Me.StatusLabel1.Name = "StatusLabel1"
+        Me.StatusLabel1.Size = New System.Drawing.Size(73, 17)
+        Me.StatusLabel1.Text = "StatusLabel1"
         '
-        'pictureBack
+        'StatusLabel2
         '
-        Me.pictureBack.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.pictureBack.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pictureBack.Image = CType(resources.GetObject("pictureBack.Image"), System.Drawing.Image)
-        Me.pictureBack.Location = New System.Drawing.Point(43, 91)
-        Me.pictureBack.Margin = New System.Windows.Forms.Padding(2)
-        Me.pictureBack.Name = "pictureBack"
-        Me.pictureBack.Size = New System.Drawing.Size(860, 425)
-        Me.pictureBack.TabIndex = 21
-        Me.pictureBack.TabStop = False
-        '
-        'LinkRefreshPreview
-        '
-        Me.LinkRefreshPreview.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LinkRefreshPreview.AutoSize = True
-        Me.LinkRefreshPreview.Location = New System.Drawing.Point(1197, 33)
-        Me.LinkRefreshPreview.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.LinkRefreshPreview.Name = "LinkRefreshPreview"
-        Me.LinkRefreshPreview.Size = New System.Drawing.Size(142, 22)
-        Me.LinkRefreshPreview.TabIndex = 46
-        Me.LinkRefreshPreview.TabStop = True
-        Me.LinkRefreshPreview.Text = "Refresh Preview"
+        Me.StatusLabel2.Name = "StatusLabel2"
+        Me.StatusLabel2.Size = New System.Drawing.Size(73, 17)
+        Me.StatusLabel2.Text = "StatusLabel2"
         '
         'FormDesignProtoTwo
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 20.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1368, 591)
+        Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.LinkRefreshPreview)
         Me.Controls.Add(Me.graphicAdjuster)
         Me.Controls.Add(Me.picturePreview)
@@ -479,6 +505,8 @@ Partial Class FormDesignProtoTwo
         CType(Me.graphicAdjuster, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pictureBack, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.StatusStrip1.ResumeLayout(False)
+        Me.StatusStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -531,4 +559,7 @@ Partial Class FormDesignProtoTwo
     Friend WithEvents DemoModeVideoToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents DemoModeActiveToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents CustomFieldsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents StatusStrip1 As StatusStrip
+    Friend WithEvents StatusLabel1 As ToolStripStatusLabel
+    Friend WithEvents StatusLabel2 As ToolStripStatusLabel
 End Class

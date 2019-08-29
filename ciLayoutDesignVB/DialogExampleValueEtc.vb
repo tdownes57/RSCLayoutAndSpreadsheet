@@ -1,4 +1,4 @@
-﻿Public Class FormExampleValueEtc
+﻿Public Class DialogExampleValueEtc
 
     Private mod_model As ClassFieldCustomized
 

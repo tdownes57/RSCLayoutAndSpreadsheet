@@ -101,7 +101,7 @@ ExitHandler:
         ''
         ''Added 7/21/2019 thomas downes
         ''
-        Dim frm_showExampleEtc As New FormExampleValueEtc
+        Dim frm_showExampleEtc As New DialogExampleValueEtc
 
         With frm_showExampleEtc
 
