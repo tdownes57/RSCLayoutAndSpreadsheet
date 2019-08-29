@@ -151,10 +151,10 @@ Public Class ClassFieldCustomized
         For Each each_obj In ListOfFields_Students
 
             Dim new_ElementWithText As New IElementWithText
-            Dim obj_ElementText As IElementText
+            Dim obj_ElementText As IElement_Text
             Dim obj_Element_Base As IElement_Base
 
-            obj_ElementText = CType(each_obj.ElementInfo, IElementText)
+            obj_ElementText = CType(each_obj.ElementInfo, IElement_Text)
             obj_Element_Base = CType(each_obj.ElementInfo, IElement_Base)
 
             new_ElementWithText.Position_BL = obj_Element_Base

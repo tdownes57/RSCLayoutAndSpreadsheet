@@ -677,15 +677,15 @@ Public Class FormDesignProtoTwo
 
             Case ((0 < intX And intX < 45) And (0 < intY And intY < 45))
 
-                objControlToModify.ElementInfo.TextAlignment = HorizontalAlignment.Left
+                objControlToModify.ElementInfo_Text.TextAlignment = HorizontalAlignment.Left
 
             Case ((45 < intX And intX < 90) And (45 < intY And intY < 90))
 
-                objControlToModify.ElementInfo.TextAlignment = HorizontalAlignment.Center
+                objControlToModify.ElementInfo_Text.TextAlignment = HorizontalAlignment.Center
 
             Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
 
-                objControlToModify.ElementInfo.TextAlignment = HorizontalAlignment.Right
+                objControlToModify.ElementInfo_Text.TextAlignment = HorizontalAlignment.Right
 
             Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
 
@@ -701,39 +701,39 @@ Public Class FormDesignProtoTwo
 
             Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
 
-                objControlToModify.ElementInfo.FontColor = Color.Lavender
+                objControlToModify.ElementInfo_Text.FontColor = Color.Lavender
 
             Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
 
-                objControlToModify.ElementInfo.FontColor = Color.Lavender
+                objControlToModify.ElementInfo_Text.FontColor = Color.Lavender
 
             Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
 
-                objControlToModify.ElementInfo.FontColor = Color.Lavender
+                objControlToModify.ElementInfo_Text.FontColor = Color.Lavender
 
             Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
 
-                objControlToModify.ElementInfo.FontColor = Color.Lavender
+                objControlToModify.ElementInfo_Text.FontColor = Color.Lavender
 
             Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
 
-                objControlToModify.ElementInfo.FontColor = Color.Lavender
+                objControlToModify.ElementInfo_Text.FontColor = Color.Lavender
 
             Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
 
-                objControlToModify.ElementInfo.FontColor = Color.Lavender
+                objControlToModify.ElementInfo_Text.FontColor = Color.Lavender
 
             Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
 
-                objControlToModify.ElementInfo.FontColor = Color.Lavender
+                objControlToModify.ElementInfo_Text.FontColor = Color.Lavender
 
             Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
 
-                objControlToModify.ElementInfo.FontColor = Color.Lavender
+                objControlToModify.ElementInfo_Text.FontColor = Color.Lavender
 
             Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
 
-                objControlToModify.ElementInfo.FontColor = Color.Lavender
+                objControlToModify.ElementInfo_Text.FontColor = Color.Lavender
 
         End Select ''En do f"Select Case True"
 
@@ -754,7 +754,7 @@ Public Class FormDesignProtoTwo
         ''
         ''Added 7/17/2019 thomas downes
         ''
-        Dim frm_ToShow As New FormCustomFieldsFlow()
+        Dim frm_ToShow As New ListCustomFieldsFlow()
 
         ''7/26/2019 td''frm_ToShow.ListOfFields = GetCurrentPersonality_Fields()
         frm_ToShow.ListOfFields = FormMain.GetCurrentPersonality_Fields_Custom()
@@ -766,7 +766,7 @@ Public Class FormDesignProtoTwo
         ''
         ''Added 7/17/2019 thomas downes
         ''
-        Dim frm_ToShow As New FormCustomFieldsFlow()
+        Dim frm_ToShow As New ListCustomFieldsFlow()
 
         ''7/26/2019 td''frm_ToShow.ListOfFields = GetCurrentPersonality_Fields()
         frm_ToShow.ListOfFields = FormMain.GetCurrentPersonality_Fields_Custom()
@@ -778,7 +778,7 @@ Public Class FormDesignProtoTwo
         ''
         ''Added 8/19/2019 thomas downes
         '' 
-        Dim frm_ToShow As New FormStandardFields()
+        Dim frm_ToShow As New ListStandardFields()
         frm_ToShow.ListOfFields = FormMain.GetCurrentPersonality_Fields_Standard()
         frm_ToShow.Show()
 

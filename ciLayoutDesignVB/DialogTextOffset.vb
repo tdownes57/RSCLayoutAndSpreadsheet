@@ -17,13 +17,15 @@ Public Class DialogTextOffset
     Public TextAlignment As System.Windows.Forms.HorizontalAlignment ''Added 8/18/2019 td  
 
     ''8/17/2019 td''Public ObjElementText As ClassElementText
-    Public ElementInfo As ciBadgeInterfaces.IElementText ''Added 8/16/2019 td
+    ''8/29/2019 td''Public ElementInfo As ciBadgeInterfaces.IElementText ''Added 8/16/2019 td
+    Public ElementInfo_Text As ciBadgeInterfaces.IElement_Text ''Renamed 8/29/2019 td
+    Public ElementInfo_Base As ciBadgeInterfaces.IElement_Base ''Added 8/29/2019 td
 
     Public GroupEdits As ISelectingElements ''Added 8/15/2019 thomas downes  
     Public FormDesigner As FormDesignProtoTwo ''Added 8/15/2019 td  
     Public OriginalElementControl As CtlGraphicFldLabel ''Added 8/15/2019 td  
 
-    Public Sub LoadFieldAndForm(par_elementInfo As IElementText,
+    Public Sub LoadFieldAndForm(par_elementInfo As IElement_Text,
                                 par_fieldInfo As ICIBFieldStandardOrCustom,
                                 par_formDesigner As FormDesignProtoTwo,
                                 par_originalCtl As CtlGraphicFldLabel)
@@ -33,7 +35,7 @@ Public Class DialogTextOffset
         Me.FieldInfo = par_fieldInfo
 
         ''8/16/2019 td''Me.ElementInfo = par_field.ElementInfo
-        Me.ElementInfo = par_elementInfo ''Added 8/16 td
+        Me.ElementInfo_Text = par_elementInfo ''Added 8/16 td
 
         ''Added 8/17/2019 td
         ''
@@ -47,9 +49,9 @@ Public Class DialogTextOffset
         Me.OriginalElementControl = par_originalCtl
 
         With CtlGraphicFldLabel1
-            .ElementInfo = par_elementInfo
-            .Width = .ElementInfo.Width_Pixels
-            .Height = .ElementInfo.Height_Pixels
+            .ElementInfo_Text = par_elementInfo
+            .Width = .ElementInfo_Text.Width_Pixels
+            .Height = .ElementInfo_Text.Height_Pixels
             .FieldInfo = par_fieldInfo
             .LabelText()  ''par_elementInfo.Text)
             ''8/17/2019 td''.FieldInfo = par_fieldInfo
@@ -74,7 +76,7 @@ Public Class DialogTextOffset
 
         Me.FieldInfo = par_field
 
-        Me.ElementInfo = par_field.ElementInfo
+        Me.ElementInfo_Text = par_field.ElementInfo
 
         ''Added 8/15/2019 td
         Me.FormDesigner = par_formDesigner
@@ -82,10 +84,10 @@ Public Class DialogTextOffset
 
         With CtlGraphicFldLabel1
             .FieldInfo = par_field
-            .ElementInfo = par_field.ElementInfo
+            .ElementInfo_Text = par_field.ElementInfo
             .FormDesigner = par_formDesigner
-            .Width = .ElementInfo.Width_Pixels
-            .Height = .ElementInfo.Height_Pixels
+            .Width = .ElementInfo_Text.Width_Pixels
+            .Height = .ElementInfo_Text.Height_Pixels
             .RefreshImage()
         End With
 
@@ -116,8 +118,8 @@ Public Class DialogTextOffset
         ''Added 8/16/2019 td
         ''
         Me.FontOffset_X += 1
-        Me.ElementInfo.FontOffset_X += 1
-        CtlGraphicFldLabel1.ElementInfo = Me.ElementInfo
+        Me.ElementInfo_Text.FontOffset_X += 1
+        CtlGraphicFldLabel1.ElementInfo_Text = Me.ElementInfo_Text
         CtlGraphicFldLabel1.RefreshImage()
 
         ''Added 8/17/2019 thomas downes 
@@ -130,8 +132,8 @@ Public Class DialogTextOffset
         ''Added 8/16/2019 td
         ''
         Me.FontOffset_X -= 1
-        Me.ElementInfo.FontOffset_X -= 1
-        CtlGraphicFldLabel1.ElementInfo = Me.ElementInfo
+        Me.ElementInfo_Text.FontOffset_X -= 1
+        CtlGraphicFldLabel1.ElementInfo_Text = Me.ElementInfo_Text
         CtlGraphicFldLabel1.RefreshImage()
 
         ''Added 8/17/2019 thomas downes 
@@ -144,8 +146,8 @@ Public Class DialogTextOffset
         ''Added 8/16/2019 td
         ''
         Me.FontOffset_Y -= 1
-        Me.ElementInfo.FontOffset_Y -= 1
-        CtlGraphicFldLabel1.ElementInfo = Me.ElementInfo
+        Me.ElementInfo_Text.FontOffset_Y -= 1
+        CtlGraphicFldLabel1.ElementInfo_Text = Me.ElementInfo_Text
         CtlGraphicFldLabel1.RefreshImage()
 
         ''Added 8/17/2019 thomas downes 
@@ -158,8 +160,8 @@ Public Class DialogTextOffset
         ''Added 8/16/2019 td
         ''
         Me.FontOffset_Y += 1
-        Me.ElementInfo.FontOffset_Y += 1
-        CtlGraphicFldLabel1.ElementInfo = Me.ElementInfo
+        Me.ElementInfo_Text.FontOffset_Y += 1
+        CtlGraphicFldLabel1.ElementInfo_Text = Me.ElementInfo_Text
         CtlGraphicFldLabel1.RefreshImage()
 
         ''Added 8/17/2019 thomas downes 
@@ -170,7 +172,7 @@ Public Class DialogTextOffset
     Private Sub ButtonFontDecrease_Click(sender As Object, e As EventArgs) Handles ButtonFontDecrease.Click
 
         ''Added 8/16/2019  td
-        With Me.ElementInfo
+        With Me.ElementInfo_Text
             .FontSize -= 1
 
             Me.FontSize = .FontSize ''Push change to the level of the dialog form.
@@ -185,7 +187,7 @@ Public Class DialogTextOffset
 
         End With
 
-        CtlGraphicFldLabel1.ElementInfo = Me.ElementInfo
+        CtlGraphicFldLabel1.ElementInfo_Text = Me.ElementInfo_Text
         CtlGraphicFldLabel1.RefreshImage()
 
 
@@ -195,7 +197,7 @@ Public Class DialogTextOffset
         ''
         ''Added 8 / 16 / 2019  td
         ''
-        With Me.ElementInfo
+        With Me.ElementInfo_Text
             .FontSize += 1
             Me.FontSize = .FontSize ''Push change to the level of the dialog form.
 
@@ -209,7 +211,7 @@ Public Class DialogTextOffset
 
         End With
 
-        CtlGraphicFldLabel1.ElementInfo = Me.ElementInfo
+        CtlGraphicFldLabel1.ElementInfo_Text = Me.ElementInfo_Text
         CtlGraphicFldLabel1.RefreshImage()
 
     End Sub
@@ -231,7 +233,7 @@ Public Class DialogTextOffset
 
         ''Added 8/18/2019 thomas downes
         ''
-        Me.ElementInfo.TextAlignment = HorizontalAlignment.Left
+        Me.ElementInfo_Text.TextAlignment = HorizontalAlignment.Left
         Me.TextAlignment = HorizontalAlignment.Left
         Me.CtlGraphicFldLabel1.RefreshImage()
 
@@ -240,7 +242,7 @@ Public Class DialogTextOffset
     Private Sub ButtonCenter_Click(sender As Object, e As EventArgs) Handles ButtonCenter.Click
 
         ''Added 8/18/2019 thomas downes
-        Me.ElementInfo.TextAlignment = HorizontalAlignment.Center
+        Me.ElementInfo_Text.TextAlignment = HorizontalAlignment.Center
         Me.TextAlignment = HorizontalAlignment.Center
         Me.CtlGraphicFldLabel1.RefreshImage()
 
@@ -249,7 +251,7 @@ Public Class DialogTextOffset
     Private Sub ButtonRight_Click(sender As Object, e As EventArgs) Handles ButtonRight.Click
 
         ''Added 8/18/2019 thomas downes
-        Me.ElementInfo.TextAlignment = HorizontalAlignment.Right
+        Me.ElementInfo_Text.TextAlignment = HorizontalAlignment.Right
         Me.TextAlignment = HorizontalAlignment.Right
         Me.CtlGraphicFldLabel1.RefreshImage()
 

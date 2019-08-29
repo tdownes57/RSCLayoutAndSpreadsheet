@@ -21,7 +21,7 @@ Public Class CtlAddStandardField
         newfieldControl.NewlyAdded = True ''Added 7/27/2019 td 
         newfieldControl.Load_StandardControl(new_field)
 
-        CType(Me.ParentForm, FormStandardFields).AdjustHeightOfWindow()
+        CType(Me.ParentForm, ListStandardFields).AdjustHeightOfWindow()
 
         mod_MyParentContainer.ScrollControlIntoView(Me)
 

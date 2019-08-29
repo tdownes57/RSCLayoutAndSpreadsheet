@@ -53,7 +53,7 @@ Partial Public Class CtlGraphicFldLabel
         ''Added 7/30/2019 thomas downes
         ''
         ''7/30/2019 td''ColorDialog1.ShowDialog()
-        Dim form_ToShow As New FormCustomFieldsFlow
+        Dim form_ToShow As New ListCustomFieldsFlow
 
         Dim boolExitEarly As Boolean ''Added 8/13/2019 td
         CreateVisibleButton_Master("Choose a background color", AddressOf OpenDialog_Color, boolExitEarly)
@@ -80,8 +80,8 @@ Partial Public Class CtlGraphicFldLabel
         If (Me.GroupEdits.LabelsList_IsItemUnselected(Me)) Then
 
             ''7/30/2019 td''Me.ElementInfo.FontColor = ColorDialog1.Color
-            Me.ElementInfo.BackColor = ColorDialog1.Color
-            Me.ElementInfo.Back_Color = ColorDialog1.Color
+            Me.ElementInfo_Text.BackColor = ColorDialog1.Color
+            Me.ElementInfo_Text.Back_Color = ColorDialog1.Color
 
             ''Me.ElementInfo.Width_Pixels = Me.Width
             ''Me.ElementInfo.Height_Pixels = Me.Height
@@ -110,8 +110,8 @@ Partial Public Class CtlGraphicFldLabel
                 ''
                 With each_ctl
 
-                    .ElementInfo.BackColor = ColorDialog1.Color
-                    .ElementInfo.Back_Color = ColorDialog1.Color
+                    .ElementInfo_Text.BackColor = ColorDialog1.Color
+                    .ElementInfo_Text.Back_Color = ColorDialog1.Color
                     ''.ElementInfo.Width_Pixels = Me.Width
                     ''.ElementInfo.Height_Pixels = Me.Height
 
@@ -158,7 +158,7 @@ Partial Public Class CtlGraphicFldLabel
 
         If (boolExitEarly) Then Exit Sub ''Added 8/13/2019 td
 
-        FontDialog1.Font = Me.ElementInfo.Font_DrawingClass ''Added 7/31/2019 td  
+        FontDialog1.Font = Me.ElementInfo_Text.Font_DrawingClass ''Added 7/31/2019 td  
         FontDialog1.ShowDialog()
 
         ''Me.ElementInfo.Font_DrawingClass = FontDialog1.Font
@@ -169,8 +169,8 @@ Partial Public Class CtlGraphicFldLabel
 
         If (Me.GroupEdits.LabelsList_IsItemUnselected(Me)) Then
 
-            Me.ElementInfo.Font_DrawingClass = FontDialog1.Font
-            Me.ElementInfo.FontSize = FontDialog1.Font.Size  ''Added 8/17/2019 td
+            Me.ElementInfo_Text.Font_DrawingClass = FontDialog1.Font
+            Me.ElementInfo_Text.FontSize = FontDialog1.Font.Size  ''Added 8/17/2019 td
             Application.DoEvents()
             Application.DoEvents()
 
@@ -189,7 +189,7 @@ Partial Public Class CtlGraphicFldLabel
                 ''
                 With each_ctl
 
-                    .ElementInfo.Font_DrawingClass = FontDialog1.Font
+                    .ElementInfo_Text.Font_DrawingClass = FontDialog1.Font
                     Application.DoEvents()
                     Application.DoEvents()
                     .RefreshImage()
@@ -234,7 +234,7 @@ Partial Public Class CtlGraphicFldLabel
         ''8/2/2019''pictureLabel.Height = Me.Height - 2 * 6
 
         ''Added 8/2/2019 td 
-        Me.ElementInfo.SelectedHighlighting = True
+        Me.ElementInfo_Text.SelectedHighlighting = True
         Me.RefreshImage()
 
     End Sub ''End of "Private Sub GroupEditElement_Add()"
@@ -264,7 +264,7 @@ Partial Public Class CtlGraphicFldLabel
         ''pictureLabel.Height = Me.Height ''- 2 * 6
 
         Me.SelectedHighlighting = False ''Added 8/3/2019 td  
-        Me.ElementInfo.SelectedHighlighting = False
+        Me.ElementInfo_Text.SelectedHighlighting = False
         Me.RefreshImage()
 
     End Sub ''End of "Private Sub GroupEditElement_Omit( )"
@@ -359,25 +359,25 @@ Partial Public Class CtlGraphicFldLabel
 
                         ''Top 
                         each_ctl.Top = CInt(IIf(boolAverage, intAverage_Top, Me.Top)) ''8/16 Me.Top
-                        each_ctl.ElementInfo.TopEdge_Pixels = each_ctl.Top ''8/16 Me.Top
+                        each_ctl.ElementInfo_Text.TopEdge_Pixels = each_ctl.Top ''8/16 Me.Top
 
                     Case (_item_group_alignLeft.Text)
 
                         ''Left
                         each_ctl.Left = CInt(IIf(boolAverage, intAverage_Left, Me.Left)) ''8/16 Me.Left
-                        each_ctl.ElementInfo.LeftEdge_Pixels = each_ctl.Left ''Me.Left
+                        each_ctl.ElementInfo_Text.LeftEdge_Pixels = each_ctl.Left ''Me.Left
 
                     Case (_item_group_alignWidth.Text)
 
                         ''Width
                         each_ctl.Width = CInt(IIf(boolAverage, intAverage_Width, Me.Width)) ''8/16 Me.Width
-                        each_ctl.ElementInfo.Width_Pixels = each_ctl.Width ''Me.Width
+                        each_ctl.ElementInfo_Text.Width_Pixels = each_ctl.Width ''Me.Width
 
                     Case (_item_group_alignHeight.Text)
 
                         ''Height  
                         each_ctl.Height = CInt(IIf(boolAverage, intAverage_Height, Me.Height)) ''8/16 Me.Height
-                        each_ctl.ElementInfo.Height_Pixels = each_ctl.Height ''Me.Height
+                        each_ctl.ElementInfo_Text.Height_Pixels = each_ctl.Height ''Me.Height
 
                 End Select ''End of "Select Case strAlignmentTypeText"
 
@@ -404,7 +404,7 @@ Partial Public Class CtlGraphicFldLabel
         ''
         With textTypeExample
             .Visible = True
-            .Text = Me.ElementInfo.Text ''Added 8/16/2019 td
+            .Text = Me.ElementInfo_Text.Text ''Added 8/16/2019 td
             .SelectAll() ''Added 8/16/2019 td
 
         End With
@@ -421,7 +421,7 @@ Partial Public Class CtlGraphicFldLabel
         ''Added 8/10/2019 thomas downes
         ''
         ''8/16/2019 td''frm_ToShow.LoadFieldAndForm(Me.FieldInfo, Me.FormDesigner, Me)
-        frm_ToShow.LoadFieldAndForm(Me.ElementInfo, Me.FieldInfo, Me.FormDesigner, Me)
+        frm_ToShow.LoadFieldAndForm(Me.ElementInfo_Text, Me.FieldInfo, Me.FormDesigner, Me)
 
         ''Major call !!
         frm_ToShow.ShowDialog()
@@ -432,10 +432,10 @@ Partial Public Class CtlGraphicFldLabel
 
         If (boolUserPressedOK) Then '' ----8/17/2019 td
 
-            Me.ElementInfo.FontOffset_X = frm_ToShow.FontOffset_X
-            Me.ElementInfo.FontOffset_Y = frm_ToShow.FontOffset_Y
-            Me.ElementInfo.FontSize = frm_ToShow.FontSize
-            Me.ElementInfo.Font_DrawingClass = frm_ToShow.Font_DrawingClass
+            Me.ElementInfo_Text.FontOffset_X = frm_ToShow.FontOffset_X
+            Me.ElementInfo_Text.FontOffset_Y = frm_ToShow.FontOffset_Y
+            Me.ElementInfo_Text.FontSize = frm_ToShow.FontSize
+            Me.ElementInfo_Text.Font_DrawingClass = frm_ToShow.Font_DrawingClass
 
             Me.RefreshImage()
 
@@ -457,14 +457,14 @@ Partial Public Class CtlGraphicFldLabel
                     ''
                     With each_ctl
                         ''.ElementInfo.Alignment = frm_ToShow.Alignment  
-                        .ElementInfo.FontOffset_X = frm_ToShow.FontOffset_X
-                        .ElementInfo.FontOffset_Y = frm_ToShow.FontOffset_Y
-                        .ElementInfo.FontSize = frm_ToShow.FontSize
+                        .ElementInfo_Text.FontOffset_X = frm_ToShow.FontOffset_X
+                        .ElementInfo_Text.FontOffset_Y = frm_ToShow.FontOffset_Y
+                        .ElementInfo_Text.FontSize = frm_ToShow.FontSize
 
                         ''Added 8/18/2019 thomas d.
-                        .ElementInfo.Font_DrawingClass = frm_ToShow.Font_DrawingClass
-                        .ElementInfo.TextAlignment = frm_ToShow.TextAlignment
-                        .ElementInfo.ExampleValue = frm_ToShow.TextExampleValue.Text
+                        .ElementInfo_Text.Font_DrawingClass = frm_ToShow.Font_DrawingClass
+                        .ElementInfo_Text.TextAlignment = frm_ToShow.TextAlignment
+                        .ElementInfo_Text.ExampleValue = frm_ToShow.TextExampleValue.Text
 
                         .RefreshImage()
                         .Refresh()
@@ -483,13 +483,13 @@ Partial Public Class CtlGraphicFldLabel
         ''
         ''Added 8/17/2019 thomas downes
         ''  
-        Select Case Me.ElementInfo.OrientationToLayout
+        Select Case Me.ElementInfo_Text.OrientationToLayout
             Case "", " ", "P"
-                Me.ElementInfo.OrientationToLayout = "L"
+                Me.ElementInfo_Text.OrientationToLayout = "L"
             Case "L"
-                Me.ElementInfo.OrientationToLayout = "P"
+                Me.ElementInfo_Text.OrientationToLayout = "P"
             Case Else
-                Me.ElementInfo.OrientationToLayout = "P"
+                Me.ElementInfo_Text.OrientationToLayout = "P"
         End Select
 
         ''Added 8/12/2019 thomas downes 
@@ -498,7 +498,7 @@ Partial Public Class CtlGraphicFldLabel
         ''    This will enable the badge to be printed with the element oriented
         ''   correctly (with one out of four choices of orientation). 
         ''
-        Me.ElementInfo.OrientationInDegrees += 90
+        Me.ElementInfo_Text.OrientationInDegrees += 90
 
         RefreshImage()
         Me.Refresh()

@@ -24,10 +24,11 @@ Partial Class DialogTextBorder
     Private Sub InitializeComponent()
         Me.CtlGraphicFldLabel1 = New ciLayoutDesignVB.CtlGraphicFldLabel()
         Me.LabelHeader1 = New System.Windows.Forms.Label()
-        Me.ButtonXDecrease = New System.Windows.Forms.Button()
-        Me.ButtonXIncrease = New System.Windows.Forms.Button()
+        Me.ButtonDecrease = New System.Windows.Forms.Button()
+        Me.ButtonIncrease = New System.Windows.Forms.Button()
         Me.ButtonCancel = New System.Windows.Forms.Button()
         Me.ButtonOK = New System.Windows.Forms.Button()
+        Me.LabelBorderWidth = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'CtlGraphicFldLabel1
@@ -44,37 +45,37 @@ Partial Class DialogTextBorder
         Me.LabelHeader1.Location = New System.Drawing.Point(16, 15)
         Me.LabelHeader1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LabelHeader1.Name = "LabelHeader1"
-        Me.LabelHeader1.Size = New System.Drawing.Size(199, 31)
+        Me.LabelHeader1.Size = New System.Drawing.Size(297, 31)
         Me.LabelHeader1.TabIndex = 32
-        Me.LabelHeader1.Text = "Border of Text  "
+        Me.LabelHeader1.Text = "Border of Field Element"
         '
-        'ButtonXDecrease
+        'ButtonDecrease
         '
-        Me.ButtonXDecrease.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonXDecrease.Location = New System.Drawing.Point(17, 84)
-        Me.ButtonXDecrease.Margin = New System.Windows.Forms.Padding(2)
-        Me.ButtonXDecrease.Name = "ButtonXDecrease"
-        Me.ButtonXDecrease.Size = New System.Drawing.Size(29, 31)
-        Me.ButtonXDecrease.TabIndex = 31
-        Me.ButtonXDecrease.Text = "<"
-        Me.ButtonXDecrease.UseVisualStyleBackColor = True
+        Me.ButtonDecrease.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonDecrease.Location = New System.Drawing.Point(17, 70)
+        Me.ButtonDecrease.Margin = New System.Windows.Forms.Padding(2)
+        Me.ButtonDecrease.Name = "ButtonDecrease"
+        Me.ButtonDecrease.Size = New System.Drawing.Size(29, 45)
+        Me.ButtonDecrease.TabIndex = 31
+        Me.ButtonDecrease.Text = "<"
+        Me.ButtonDecrease.UseVisualStyleBackColor = True
         '
-        'ButtonXIncrease
+        'ButtonIncrease
         '
-        Me.ButtonXIncrease.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonXIncrease.Location = New System.Drawing.Point(50, 84)
-        Me.ButtonXIncrease.Margin = New System.Windows.Forms.Padding(2)
-        Me.ButtonXIncrease.Name = "ButtonXIncrease"
-        Me.ButtonXIncrease.Size = New System.Drawing.Size(29, 31)
-        Me.ButtonXIncrease.TabIndex = 30
-        Me.ButtonXIncrease.Text = ">"
-        Me.ButtonXIncrease.UseVisualStyleBackColor = True
+        Me.ButtonIncrease.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonIncrease.Location = New System.Drawing.Point(50, 70)
+        Me.ButtonIncrease.Margin = New System.Windows.Forms.Padding(2)
+        Me.ButtonIncrease.Name = "ButtonIncrease"
+        Me.ButtonIncrease.Size = New System.Drawing.Size(29, 45)
+        Me.ButtonIncrease.TabIndex = 30
+        Me.ButtonIncrease.Text = ">"
+        Me.ButtonIncrease.UseVisualStyleBackColor = True
         '
         'ButtonCancel
         '
         Me.ButtonCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.ButtonCancel.Location = New System.Drawing.Point(383, 204)
+        Me.ButtonCancel.Location = New System.Drawing.Point(383, 173)
         Me.ButtonCancel.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonCancel.Name = "ButtonCancel"
         Me.ButtonCancel.Size = New System.Drawing.Size(56, 38)
@@ -85,7 +86,7 @@ Partial Class DialogTextBorder
         'ButtonOK
         '
         Me.ButtonOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.ButtonOK.Location = New System.Drawing.Point(295, 204)
+        Me.ButtonOK.Location = New System.Drawing.Point(295, 173)
         Me.ButtonOK.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonOK.Name = "ButtonOK"
         Me.ButtonOK.Size = New System.Drawing.Size(81, 38)
@@ -93,16 +94,29 @@ Partial Class DialogTextBorder
         Me.ButtonOK.Text = "OK"
         Me.ButtonOK.UseVisualStyleBackColor = True
         '
+        'LabelBorderWidth
+        '
+        Me.LabelBorderWidth.AutoSize = True
+        Me.LabelBorderWidth.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelBorderWidth.Location = New System.Drawing.Point(93, 87)
+        Me.LabelBorderWidth.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LabelBorderWidth.Name = "LabelBorderWidth"
+        Me.LabelBorderWidth.Size = New System.Drawing.Size(143, 22)
+        Me.LabelBorderWidth.TabIndex = 34
+        Me.LabelBorderWidth.Tag = "Border width: {0}"
+        Me.LabelBorderWidth.Text = "Border width: {0}"
+        '
         'DialogTextBorder
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.LimeGreen
-        Me.ClientSize = New System.Drawing.Size(447, 253)
+        Me.BackColor = System.Drawing.Color.LightGreen
+        Me.ClientSize = New System.Drawing.Size(447, 222)
+        Me.Controls.Add(Me.LabelBorderWidth)
         Me.Controls.Add(Me.CtlGraphicFldLabel1)
         Me.Controls.Add(Me.LabelHeader1)
-        Me.Controls.Add(Me.ButtonXDecrease)
-        Me.Controls.Add(Me.ButtonXIncrease)
+        Me.Controls.Add(Me.ButtonDecrease)
+        Me.Controls.Add(Me.ButtonIncrease)
         Me.Controls.Add(Me.ButtonCancel)
         Me.Controls.Add(Me.ButtonOK)
         Me.Name = "DialogTextBorder"
@@ -114,8 +128,9 @@ Partial Class DialogTextBorder
 
     Friend WithEvents CtlGraphicFldLabel1 As CtlGraphicFldLabel
     Friend WithEvents LabelHeader1 As Label
-    Friend WithEvents ButtonXDecrease As Button
-    Friend WithEvents ButtonXIncrease As Button
+    Friend WithEvents ButtonDecrease As Button
+    Friend WithEvents ButtonIncrease As Button
     Friend WithEvents ButtonCancel As Button
     Friend WithEvents ButtonOK As Button
+    Friend WithEvents LabelBorderWidth As Label
 End Class

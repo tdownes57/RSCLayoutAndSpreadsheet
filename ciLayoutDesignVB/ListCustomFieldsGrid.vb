@@ -4,7 +4,7 @@
 ''
 Imports System.Collections.Generic
 
-Public Class FormCustomFieldsGrid
+Public Class ListCustomFieldsGrid
 
     Public Shared FieldsList_Static As New List(Of ClassFieldCustomized)
 

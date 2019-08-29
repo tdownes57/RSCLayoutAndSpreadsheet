@@ -4,7 +4,7 @@ Option Strict On ''Created 2/5/2018 Thomas DOWNES
 ''Created 2/5/2018 Thomas DOWNES  
 ''
 
-Public Class FormSupportLogin
+Public Class DialogSupportLogin
     ''
     ''Created 2/5/2018 Thomas DOWNES  
     ''

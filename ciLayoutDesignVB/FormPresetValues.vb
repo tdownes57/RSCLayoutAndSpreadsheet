@@ -27,7 +27,7 @@
     Private Sub LinkCreateSubsection_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkCreateSubsection.LinkClicked
 
         ''Added 7/26/2019 td
-        Dim frm_ToShow As New FormSubsection
+        Dim frm_ToShow As New DialogSubsection
         frm_ToShow.Show()
 
     End Sub

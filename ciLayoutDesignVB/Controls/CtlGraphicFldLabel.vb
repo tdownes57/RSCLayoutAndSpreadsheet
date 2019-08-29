@@ -1,6 +1,11 @@
-﻿''
+﻿Option Explicit On ''Added 8/29/2019 td
+Option Strict On ''Added 8/29/2019 td
+Option Infer Off ''Added 8/29/2019 td  
+
+''
 ''Added 7/25/2019 thomas d 
 ''
+Imports ciBadgeInterfaces ''Added 8/28/2019 thomas downes 
 
 Public Class CtlGraphicFldLabel
     ''
@@ -10,7 +15,11 @@ Public Class CtlGraphicFldLabel
     ''7/26/2019 td''Public FieldInfo As ClassFieldCustomized
     ''7/26/2019 td''Public ElementInfo As ClassElementText
     Public FieldInfo As ICIBFieldStandardOrCustom
-    Public ElementInfo As ClassElementText
+
+    ''8/29/2019 td''Public ElementInfo As ClassElementText
+    Public ElementInfo_Text As ClassElementText
+    Public ElementInfo_Base As ciBadgeInterfaces.IElement_Base
+
     Public GroupEdits As ISelectingElements ''Added 7/31/2019 thomas downes  
     Public SelectedHighlighting As Boolean ''Added 8/2/2019 td
 
@@ -46,7 +55,7 @@ Public Class CtlGraphicFldLabel
         ' Add any initialization after the InitializeComponent() call.
         Me.FieldInfo = par_field
 
-        Me.ElementInfo = New ClassElementText(Me)
+        Me.ElementInfo_Text = New ClassElementText(Me)
 
     End Sub
 
@@ -58,7 +67,7 @@ Public Class CtlGraphicFldLabel
         ' Add any initialization after the InitializeComponent() call.
         Me.FieldInfo = par_field
 
-        Me.ElementInfo = par_field.ElementInfo
+        Me.ElementInfo_Text = par_field.ElementInfo
 
         ''Added 8/9/2019 td
         Me.FormDesigner = par_formDesigner
@@ -73,7 +82,7 @@ Public Class CtlGraphicFldLabel
         ' Add any initialization after the InitializeComponent() call.
         Me.FieldInfo = par_field
 
-        Me.ElementInfo = par_field.ElementInfo
+        Me.ElementInfo_Text = par_field.ElementInfo
 
         ''Added 8/9/2019 td
         Me.FormDesigner = par_formDesigner
@@ -89,7 +98,7 @@ Public Class CtlGraphicFldLabel
         ''Me.ElementInfo.Text = Me.LabelText(
         ''8/4/2019''If (String.IsNullOrEmpty(Me.ElementInfo.Text)) Then ElementInfo.Text = LabelText()
 
-        ElementInfo.Text = LabelText()
+        ElementInfo_Text.Text = LabelText()
 
         ''Me.ElementInfo.Width = pictureLabel.Width
         ''Me.ElementInfo.Height = pictureLabel.Height
@@ -97,20 +106,20 @@ Public Class CtlGraphicFldLabel
         ''7/30/2019 td''Me.ElementInfo.Font_DrawingClass = Me.ParentForm.Font ''Me.Font
         ''7/30/2019 td''Me.ElementInfo.Font_DrawingClass = New Font("Times New Roman", 25, FontStyle.Italic)
 
-        If (Me.ElementInfo.Font_DrawingClass Is Nothing) Then
+        If (Me.ElementInfo_Text.Font_DrawingClass Is Nothing) Then
             ''Initialize the font. 
-            Me.ElementInfo.Font_DrawingClass = New Font("Times New Roman", 15, FontStyle.Regular)
-            Me.ElementInfo.FontSize = 15
-            Me.ElementInfo.FontBold = False
-            Me.ElementInfo.FontItalics = False
+            Me.ElementInfo_Text.Font_DrawingClass = New Font("Times New Roman", 15, FontStyle.Regular)
+            Me.ElementInfo_Text.FontSize = 15
+            Me.ElementInfo_Text.FontBold = False
+            Me.ElementInfo_Text.FontItalics = False
         End If ''end of " If (Me.ElementInfo.Font_DrawingClass Is Nothing) Then"
 
         ''Me.ElementInfo.BackColor = Me.ParentForm.BackColor
         ''Me.ElementInfo.FontColor = Me.ParentForm.ForeColor
 
         ''Added 8/18/2019 thomas downes 
-        pictureLabel.Width = Me.ElementInfo.Width_Pixels
-        pictureLabel.Height = Me.ElementInfo.Height_Pixels
+        pictureLabel.Width = Me.ElementInfo_Text.Width_Pixels
+        pictureLabel.Height = Me.ElementInfo_Text.Height_Pixels
 
         If (Generator Is Nothing) Then Generator = New ClassLabelToImage
 
@@ -144,7 +153,7 @@ Public Class CtlGraphicFldLabel
 
         Dim boolRotated As Boolean ''Added 8/18/2019 td
         ''Added 8/18/2019 td
-        Generator.TextImage(pictureLabel.Image, Me.ElementInfo, Me.ElementInfo, boolRotated)
+        Generator.TextImage(pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Text, boolRotated)
 
         ''Added 8/18/2019 td
         Dim intImageWidth As Integer
@@ -157,19 +166,20 @@ Public Class CtlGraphicFldLabel
         End If ''End if "If (boolRotated) Then"
 
         ''Added 7/31/2019 td
-        If (mod_c_boolMustSetBackColor And (ElementInfo IsNot Nothing)) Then
+        If (mod_c_boolMustSetBackColor And (ElementInfo_Text IsNot Nothing)) Then
             ''
             ''A desperate attempt to get the background color to extend to the full, resized control.
             ''
             Dim boolColorDiscrepancy As Boolean ''Added 7/31/2019 td
-            boolColorDiscrepancy = (Me.ElementInfo.BackColor <> Me.ElementInfo.Back_Color)
+            boolColorDiscrepancy = (Me.ElementInfo_Text.BackColor <> Me.ElementInfo_Text.Back_Color)
+
             If (boolColorDiscrepancy) Then
                 MessageBox.Show("Warning, there is a discrepancy in the color information.", "ciLayout",
                                 MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If ''ENd of "If (boolColorDiscrepancy) Then"
 
-            pictureLabel.BackColor = Me.ElementInfo.Back_Color
-            pictureLabel.BackColor = Me.ElementInfo.BackColor
+            pictureLabel.BackColor = Me.ElementInfo_Text.Back_Color
+            pictureLabel.BackColor = Me.ElementInfo_Text.BackColor
 
         End If ''End of "If (mod_c_boolMustSetBackColor And (ElementInfo IsNot Nothing)) Then"
 
@@ -187,11 +197,11 @@ Public Class CtlGraphicFldLabel
 
         ''Me.ElementInfo.Text = Me.LabelText()
 
-        Me.ElementInfo.TopEdge_Pixels = Me.Top
-        Me.ElementInfo.LeftEdge_Pixels = Me.Left
+        Me.ElementInfo_Text.TopEdge_Pixels = Me.Top
+        Me.ElementInfo_Text.LeftEdge_Pixels = Me.Left
 
-        Me.ElementInfo.Width_Pixels = Me.Width
-        Me.ElementInfo.Height_Pixels = Me.Height
+        Me.ElementInfo_Text.Width_Pixels = Me.Width
+        Me.ElementInfo_Text.Height_Pixels = Me.Height
 
         ''Me.ElementInfo.Font_DrawingClass = Me.Font
         ''Me.ElementInfo.BackColor = Me.BackColor
@@ -231,8 +241,8 @@ Public Class CtlGraphicFldLabel
         ''
         ''Added 7/31/2019 thomas downes
         ''
-        Me.ElementInfo.Width_Pixels = Me.Width
-        Me.ElementInfo.Height_Pixels = Me.Height
+        Me.ElementInfo_Text.Width_Pixels = Me.Width
+        Me.ElementInfo_Text.Height_Pixels = Me.Height
         Application.DoEvents()
         Me.RefreshImage()
         Application.DoEvents()
@@ -248,7 +258,7 @@ Public Class CtlGraphicFldLabel
 
         strMessageToUser &= (vbCrLf & $"Height of Picture control: {pictureLabel.Height}")
         strMessageToUser &= (vbCrLf & $"Height of Custom Graphics control: {Me.Height}")
-        strMessageToUser &= (vbCrLf & $"Element-Info Property (Height): {Me.ElementInfo.Height_Pixels}")
+        strMessageToUser &= (vbCrLf & $"Element-Info Property (Height): {Me.ElementInfo_Text.Height_Pixels}")
         strMessageToUser &= (vbCrLf & $"Picture control's Image Height: {pictureLabel.Image.Height}")
 
         MessageBox.Show(strMessageToUser, "", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -259,10 +269,10 @@ Public Class CtlGraphicFldLabel
         ''
         ''Addd 7/31/2019 td
         ''
-        If (Me.ElementInfo IsNot Nothing) Then
+        If (Me.ElementInfo_Text IsNot Nothing) Then
 
-            Me.ElementInfo.Width_Pixels = Me.Width
-            Me.ElementInfo.Height_Pixels = Me.Height
+            Me.ElementInfo_Text.Width_Pixels = Me.Width
+            Me.ElementInfo_Text.Height_Pixels = Me.Height
             ''Me.RefreshImage()
 
         End If ''End of "If (Me.ElementInfo IsNot Nothing) Then"
@@ -288,7 +298,7 @@ Public Class CtlGraphicFldLabel
         If (e.KeyCode = Keys.Enter) Then
 
             Me.FieldInfo.ExampleValue = textTypeExample.Text
-            Me.ElementInfo.Text = textTypeExample.Text
+            Me.ElementInfo_Text.Text = textTypeExample.Text
             Me.textTypeExample.Visible = False
 
         End If ''End If ''End of "If (e.KeyCode = Keys.Enter) Then"

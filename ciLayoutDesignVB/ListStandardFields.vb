@@ -2,7 +2,7 @@
 ''Added 8/19/2019 thomas downes
 ''
 
-Public Class FormStandardFields
+Public Class ListStandardFields
 
     Public Property ListOfFields As List(Of ClassFieldStandard) ''Added 8/19/2019 thomas downes 
     Public Property JustOneField_Index As Integer ''Added 7/30/2019 thomas d. 

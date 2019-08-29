@@ -13,7 +13,7 @@ Public Class ClassLabelToImage
     ''
     ''Added 7/17/2019
     ''
-    Public Function TextImage(ByRef par_image As Image, par_design As IElementText,
+    Public Function TextImage(ByRef par_image As Image, par_design As IElement_Text,
                               par_element As IElement_Base,
                               ByRef pref_rotated As Boolean,
                               Optional par_pictureBox As PictureBox = Nothing,

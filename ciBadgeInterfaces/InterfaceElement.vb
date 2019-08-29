@@ -26,11 +26,15 @@ Public Interface IElement_Base
     Property Width_Pixels As Integer
     Property Height_Pixels As Integer
 
-    Property Border_Pixels As Integer
-    Property Border_Color As System.Drawing.Color
+    ''8/29/2019 td''Property Border_Pixels As Integer ''Renamed 8/29/2019 thomas d. 
+    Property Border_WidthInPixels As Integer ''Resuffixed 8/29/2019 thomas d. 
+    Property Border_Color As System.Drawing.Color ''Rediscovered 8/29/2019 thoma d. 
 
     Property Back_Color As System.Drawing.Color
 
     Property SelectedHighlighting As Boolean ''Added 8/2/2019 thomas downes  
+
+    ''See above.''Property Border_Pixels As Integer ''Added 8/29/2019 thoma d. 
+    ''See above.''Property Border_Color As Color ''Added 8/29/2019 thoma d. 
 
 End Interface

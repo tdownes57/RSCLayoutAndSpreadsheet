@@ -34,7 +34,8 @@ Public Class ClassElementPic
     Public Property Width As Integer Implements IElement_Base.Width_Pixels
     Public Property Height As Integer Implements IElement_Base.Height_Pixels
 
-    Public Property Border_Pixels As Integer Implements IElement_Base.Border_Pixels
+    ''8/29/2019 td''Public Property Border_Pixels As Integer Implements IElement_Base.Border_Pixels
+    Public Property Border_WidthInPixels As Integer Implements IElement_Base.Border_WidthInPixels
     Public Property Border_Color As System.Drawing.Color Implements IElement_Base.Border_Color
 
     Public Property Back_Color As System.Drawing.Color Implements IElement_Base.Back_Color

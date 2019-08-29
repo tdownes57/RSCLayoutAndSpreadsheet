@@ -2,7 +2,7 @@
 ''Added 7/20/2019 thomas downes
 ''
 
-Public Interface ICIBFieldStandardOrCustom
+Public Interface ICIBFieldStandardOrCustom_NotInUse
     ''7/26/2019 td''Public Interface ICIBFieldCustom
     ''
     ''Added 7/20/2019 thomas downes

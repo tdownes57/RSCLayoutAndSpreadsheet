@@ -175,16 +175,16 @@
     <Compile Include="Controls\CtlPartial_FieldLabel.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="FormCustomFieldsFlow.Designer.vb">
-      <DependentUpon>FormCustomFieldsFlow.vb</DependentUpon>
+    <Compile Include="ListCustomFieldsFlow.Designer.vb">
+      <DependentUpon>ListCustomFieldsFlow.vb</DependentUpon>
     </Compile>
-    <Compile Include="FormCustomFieldsFlow.vb">
+    <Compile Include="ListCustomFieldsFlow.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormCustomFieldsGrid.Designer.vb">
-      <DependentUpon>FormCustomFieldsGrid.vb</DependentUpon>
+    <Compile Include="ListCustomFieldsGrid.Designer.vb">
+      <DependentUpon>ListCustomFieldsGrid.vb</DependentUpon>
     </Compile>
-    <Compile Include="FormCustomFieldsGrid.vb">
+    <Compile Include="ListCustomFieldsGrid.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormDesignProtoTwo.Designer.vb">
@@ -247,22 +247,22 @@
     <Compile Include="FormPresetValues.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormStandardFields.Designer.vb">
-      <DependentUpon>FormStandardFields.vb</DependentUpon>
+    <Compile Include="ListStandardFields.Designer.vb">
+      <DependentUpon>ListStandardFields.vb</DependentUpon>
     </Compile>
-    <Compile Include="FormStandardFields.vb">
+    <Compile Include="ListStandardFields.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormSubsection.Designer.vb">
-      <DependentUpon>FormSubsection.vb</DependentUpon>
+    <Compile Include="DialogSubsection.Designer.vb">
+      <DependentUpon>DialogSubsection.vb</DependentUpon>
     </Compile>
-    <Compile Include="FormSubsection.vb">
+    <Compile Include="DialogSubsection.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormSupportLogin.designer.vb">
-      <DependentUpon>FormSupportLogin.vb</DependentUpon>
+    <Compile Include="DialogSupportLogin.designer.vb">
+      <DependentUpon>DialogSupportLogin.vb</DependentUpon>
     </Compile>
-    <Compile Include="FormSupportLogin.vb">
+    <Compile Include="DialogSupportLogin.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormTestSizing_temp.vb" />
@@ -304,7 +304,7 @@
     <Compile Include="Version830_v101.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="InterfaceCIBField.vb" />
+    <Compile Include="InterfaceCIBField_NotInUse.vb" />
     <Compile Include="InterfaceSelectingElements.vb" />
     <Compile Include="LayoutSerialization.vb" />
     <Compile Include="modAdjustmentBoxes_V101.vb" />
@@ -392,11 +392,11 @@
     <EmbeddedResource Include="DialogTextBorder.resx">
       <DependentUpon>DialogTextBorder.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormCustomFieldsFlow.resx">
-      <DependentUpon>FormCustomFieldsFlow.vb</DependentUpon>
+    <EmbeddedResource Include="ListCustomFieldsFlow.resx">
+      <DependentUpon>ListCustomFieldsFlow.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormCustomFieldsGrid.resx">
-      <DependentUpon>FormCustomFieldsGrid.vb</DependentUpon>
+    <EmbeddedResource Include="ListCustomFieldsGrid.resx">
+      <DependentUpon>ListCustomFieldsGrid.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormDesignProtoTwo.resx">
       <DependentUpon>FormDesignProtoTwo.vb</DependentUpon>
@@ -431,11 +431,11 @@
     <EmbeddedResource Include="FormPresetValues.resx">
       <DependentUpon>FormPresetValues.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormStandardFields.resx">
-      <DependentUpon>FormStandardFields.vb</DependentUpon>
+    <EmbeddedResource Include="ListStandardFields.resx">
+      <DependentUpon>ListStandardFields.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormSubsection.resx">
-      <DependentUpon>FormSubsection.vb</DependentUpon>
+    <EmbeddedResource Include="DialogSubsection.resx">
+      <DependentUpon>DialogSubsection.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlGraphicFldLabel.resx">
       <DependentUpon>CtlGraphicFldLabel.vb</DependentUpon>
