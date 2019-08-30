@@ -1,6 +1,9 @@
-﻿''
+﻿Option Explicit On ''Added 8/29/2019 td
+Option Strict On ''Added 8/29/2019 td
+''
 ''Added 8/19/2019 thomas downes
 ''
+Imports ciBadgeInterfaces
 
 Public Class ListStandardFields
 
@@ -14,8 +17,9 @@ Public Class ListStandardFields
         ''Added 8/19/2019 thomas downes
         Static s_bEveryOtherCall As Boolean
 
-        If (s_bEveryOtherCall) Then Me.Height -= CtlAddStandardField1.Height / 2
-        If (Not s_bEveryOtherCall) Then Me.Height += CtlAddStandardField1.Height / 2
+        If (s_bEveryOtherCall) Then Me.Height -= CInt(CtlAddStandardField1.Height / 2)
+        If (Not s_bEveryOtherCall) Then Me.Height += CInt(CtlAddStandardField1.Height / 2)
+
         s_bEveryOtherCall = Not s_bEveryOtherCall
 
     End Sub ''End of "Public Sub AdjustHeightOfWindow()"

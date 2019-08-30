@@ -1,6 +1,10 @@
-﻿''
+﻿Option Explicit On
+Option Strict On
+Option Infer Off
+''
 ''Added 7/21/2019 thomas downes
 ''
+Imports ciBadgeInterfaces
 
 Public Class ListCustomFieldsFlow
 
@@ -13,8 +17,9 @@ Public Class ListCustomFieldsFlow
         ''Added 7/23/2019 thomas downes
         Static s_bEveryOtherCall As Boolean
 
-        If (s_bEveryOtherCall) Then Me.Height -= UserAddFieldControl1.Height / 2
-        If (Not s_bEveryOtherCall) Then Me.Height += UserAddFieldControl1.Height / 2
+        If (s_bEveryOtherCall) Then Me.Height -= CInt(UserAddFieldControl1.Height / 2)
+        If (Not s_bEveryOtherCall) Then Me.Height += CInt(UserAddFieldControl1.Height / 2)
+
         s_bEveryOtherCall = Not s_bEveryOtherCall
 
     End Sub ''End of "Public Sub AdjustHeightOfWindow()"
@@ -118,7 +123,8 @@ Public Class ListCustomFieldsFlow
 
                 .Save_CustomControl()
 
-                If (.NewlyAdded) Then FormMain.GetCurrentPersonality_Fields_Custom().Add(.Model)
+                ''8/29/2019 td''If (.NewlyAdded) Then FormMain.GetCurrentPersonality_Fields_Custom().Add(.Model)
+                If (.NewlyAdded) Then FormMain.GetCurrentPersonality_Fields_Custom().Add(.ModelFieldInfo)
 
 
             End With ''End of "With each_ctl_configure_field"
