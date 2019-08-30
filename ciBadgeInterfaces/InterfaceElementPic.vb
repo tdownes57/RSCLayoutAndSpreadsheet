@@ -16,11 +16,11 @@ Public Interface IElementPic
     ''Added 8/12/2019 thomas downes  
     Property PicFileIndex As Integer ''Added 8/12/2019 thomas downes
 
-    Property OrientationToLayout As String ''E.g. "P" for Portrait (by far the most common) or "L" (Landscape)
+    ''8/29/2019 td''Property OrientationToLayout As String ''E.g. "P" for Portrait (by far the most common) or "L" (Landscape)
 
     ''Added 8/12/2019 thomas downes
     ''     This will equal 90, 180, 270, 360 (or better, 0).  
-    Property OrientationDegrees As Integer ''Added 8/12/2019 thomas downes  
+    ''8/29/2019 td''Property OrientationDegrees As Integer ''Added 8/12/2019 thomas downes  
 
     ''
     ''
