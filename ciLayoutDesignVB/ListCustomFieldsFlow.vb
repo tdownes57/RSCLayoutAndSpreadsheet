@@ -49,7 +49,7 @@ Public Class ListCustomFieldsFlow
 
         FlowLayoutPanel1.Controls.Clear()
 
-        For Each each_customField In list_local ''ClassCustomField.ListOfFields_Students
+        For Each each_customField As ClassFieldCustomized In list_local ''ClassCustomField.ListOfFields_Students
             ''
             ''Add 7/21/2019
             ''
