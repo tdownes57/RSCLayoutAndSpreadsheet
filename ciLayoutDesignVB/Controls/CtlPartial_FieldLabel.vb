@@ -80,8 +80,8 @@ Partial Public Class CtlGraphicFldLabel
         If (Me.GroupEdits.LabelsList_IsItemUnselected(Me)) Then
 
             ''7/30/2019 td''Me.ElementInfo.FontColor = ColorDialog1.Color
-            Me.ElementInfo_Text.BackColor = ColorDialog1.Color
-            Me.ElementInfo_Text.Back_Color = ColorDialog1.Color
+            ''8/29/2019 td''Me.ElementInfo.BackColor = ColorDialog1.Color
+            Me.ElementInfo_Base.Back_Color = ColorDialog1.Color
 
             ''Me.ElementInfo.Width_Pixels = Me.Width
             ''Me.ElementInfo.Height_Pixels = Me.Height
@@ -110,8 +110,8 @@ Partial Public Class CtlGraphicFldLabel
                 ''
                 With each_ctl
 
-                    .ElementInfo_Text.BackColor = ColorDialog1.Color
-                    .ElementInfo_Text.Back_Color = ColorDialog1.Color
+                    ''8/29/2019 td''.ElementInfoBase.BackColor = ColorDialog1.Color
+                    .ElementInfo_Base.Back_Color = ColorDialog1.Color
                     ''.ElementInfo.Width_Pixels = Me.Width
                     ''.ElementInfo.Height_Pixels = Me.Height
 
@@ -234,7 +234,7 @@ Partial Public Class CtlGraphicFldLabel
         ''8/2/2019''pictureLabel.Height = Me.Height - 2 * 6
 
         ''Added 8/2/2019 td 
-        Me.ElementInfo_Text.SelectedHighlighting = True
+        Me.ElementInfo_Base.SelectedHighlighting = True
         Me.RefreshImage()
 
     End Sub ''End of "Private Sub GroupEditElement_Add()"
@@ -264,7 +264,7 @@ Partial Public Class CtlGraphicFldLabel
         ''pictureLabel.Height = Me.Height ''- 2 * 6
 
         Me.SelectedHighlighting = False ''Added 8/3/2019 td  
-        Me.ElementInfo_Text.SelectedHighlighting = False
+        Me.ElementInfo_Base.SelectedHighlighting = False
         Me.RefreshImage()
 
     End Sub ''End of "Private Sub GroupEditElement_Omit( )"
@@ -359,25 +359,26 @@ Partial Public Class CtlGraphicFldLabel
 
                         ''Top 
                         each_ctl.Top = CInt(IIf(boolAverage, intAverage_Top, Me.Top)) ''8/16 Me.Top
-                        each_ctl.ElementInfo_Text.TopEdge_Pixels = each_ctl.Top ''8/16 Me.Top
+                        ''8/29/2019 td''each_ctl.ElementInfo_Text.TopEdge_Pixels = each_ctl.Top ''8/16 Me.Top
+                        each_ctl.ElementInfo_Base.TopEdge_Pixels = each_ctl.Top ''8/16 Me.Top
 
                     Case (_item_group_alignLeft.Text)
 
                         ''Left
                         each_ctl.Left = CInt(IIf(boolAverage, intAverage_Left, Me.Left)) ''8/16 Me.Left
-                        each_ctl.ElementInfo_Text.LeftEdge_Pixels = each_ctl.Left ''Me.Left
+                        each_ctl.ElementInfo_Base.LeftEdge_Pixels = each_ctl.Left ''Me.Left
 
                     Case (_item_group_alignWidth.Text)
 
                         ''Width
                         each_ctl.Width = CInt(IIf(boolAverage, intAverage_Width, Me.Width)) ''8/16 Me.Width
-                        each_ctl.ElementInfo_Text.Width_Pixels = each_ctl.Width ''Me.Width
+                        each_ctl.ElementInfo_Base.Width_Pixels = each_ctl.Width ''Me.Width
 
                     Case (_item_group_alignHeight.Text)
 
                         ''Height  
                         each_ctl.Height = CInt(IIf(boolAverage, intAverage_Height, Me.Height)) ''8/16 Me.Height
-                        each_ctl.ElementInfo_Text.Height_Pixels = each_ctl.Height ''Me.Height
+                        each_ctl.ElementInfo_Base.Height_Pixels = each_ctl.Height ''Me.Height
 
                 End Select ''End of "Select Case strAlignmentTypeText"
 
@@ -483,13 +484,13 @@ Partial Public Class CtlGraphicFldLabel
         ''
         ''Added 8/17/2019 thomas downes
         ''  
-        Select Case Me.ElementInfo_Text.OrientationToLayout
+        Select Case Me.ElementInfo_Base.OrientationToLayout
             Case "", " ", "P"
-                Me.ElementInfo_Text.OrientationToLayout = "L"
+                Me.ElementInfo_Base.OrientationToLayout = "L"
             Case "L"
-                Me.ElementInfo_Text.OrientationToLayout = "P"
+                Me.ElementInfo_Base.OrientationToLayout = "P"
             Case Else
-                Me.ElementInfo_Text.OrientationToLayout = "P"
+                Me.ElementInfo_Base.OrientationToLayout = "P"
         End Select
 
         ''Added 8/12/2019 thomas downes 
@@ -498,7 +499,7 @@ Partial Public Class CtlGraphicFldLabel
         ''    This will enable the badge to be printed with the element oriented
         ''   correctly (with one out of four choices of orientation). 
         ''
-        Me.ElementInfo_Text.OrientationInDegrees += 90
+        Me.ElementInfo_Base.OrientationInDegrees += 90
 
         RefreshImage()
         Me.Refresh()

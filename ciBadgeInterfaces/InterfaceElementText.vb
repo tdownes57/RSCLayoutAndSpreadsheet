@@ -61,15 +61,15 @@ Public Interface IElement_Text
     Property TextAlignment As System.Windows.Forms.HorizontalAlignment
 
 
-    Property OrientationToLayout As String ''E.g. "L" (Landscape) (by far the most common) or "P" for Portrait  
+    ''8/29/2019 td''Property OrientationToLayout As String ''E.g. "L" (Landscape) (by far the most common) or "P" for Portrait  
 
-    Property OrientationInDegrees As Integer ''Default is 0, normal.  90 would be 1/4 turn clockwise.  180 is upside-down.  270 is the printing on the spine of a book sitting on the bookshelf.
+    ''8/29/2019 td''Property OrientationInDegrees As Integer ''Default is 0, normal.  90 would be 1/4 turn clockwise.  180 is upside-down.  270 is the printing on the spine of a book sitting on the bookshelf.
 
     ''8/26/2019 td''Function GenerateImage(pintHeight As Integer) As Image ''Added 8/14/2019 td 
     Function GenerateImage_ByDesiredLayoutHeight(pintDesiredLayoutHeight As Integer) As Image ''Added 8/14/2019 td 
     Function GenerateImage_ByDesiredLayoutWidth(pintDesiredLayoutWidth As Integer) As Image ''Added 8/26/2019 td 
 
-    Property Image_BL As Image ''Added 8/27/2019 td 
+    ''8/29/2019 td''Property Image_BL As Image ''Added 8/27/2019 td 
 
     ''
     ''

@@ -50,8 +50,8 @@ Public Class DialogTextOffset
 
         With CtlGraphicFldLabel1
             .ElementInfo_Text = par_elementInfo
-            .Width = .ElementInfo_Text.Width_Pixels
-            .Height = .ElementInfo_Text.Height_Pixels
+            .Width = .ElementInfo_Base.Width_Pixels
+            .Height = .ElementInfo_Base.Height_Pixels
             .FieldInfo = par_fieldInfo
             .LabelText()  ''par_elementInfo.Text)
             ''8/17/2019 td''.FieldInfo = par_fieldInfo
@@ -86,8 +86,8 @@ Public Class DialogTextOffset
             .FieldInfo = par_field
             .ElementInfo_Text = par_field.ElementInfo
             .FormDesigner = par_formDesigner
-            .Width = .ElementInfo_Text.Width_Pixels
-            .Height = .ElementInfo_Text.Height_Pixels
+            .Width = .ElementInfo_Base.Width_Pixels
+            .Height = .ElementInfo_Base.Height_Pixels
             .RefreshImage()
         End With
 

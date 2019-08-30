@@ -68,7 +68,7 @@
   <ItemGroup>
     <Compile Include="InterfaceCIBField.vb" />
     <Compile Include="InterfaceCustomer.vb" />
-    <Compile Include="InterfaceElement.vb" />
+    <Compile Include="InterfaceElementBase.vb" />
     <Compile Include="InterfaceElementPic.vb" />
     <Compile Include="InterfaceElementText.vb" />
     <Compile Include="InterfaceSelectingElements.vb" />

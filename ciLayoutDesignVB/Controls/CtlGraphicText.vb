@@ -7,7 +7,11 @@ Public Class CtlGraphicText
     ''Added 8/01/2019 thomas d 
     ''
     Public Shared Generator As ClassLabelToImage
-    Public ElementInfo As ClassElementText
+
+    ''8/29/2019 td''Public ElementInfo As ClassElementText
+    Public ElementInfo_Base As ciBadgeInterfaces.IElement_Base ''Added 8/29/2019 td
+    Public ElementInfo_Text As ciBadgeInterfaces.IElement_Text ''Added 8/29/2019 td
+
     Public ParentDesignForm As ISelectingElements ''Added 7/31/2019 thomas downes  
 
     Private Const mod_c_boolMustSetBackColor As Boolean = False ''False, since we have an alternate Boolean 
@@ -38,7 +42,7 @@ Public Class CtlGraphicText
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        Me.ElementInfo = par_field.ElementInfo
+        Me.ElementInfo_Text = par_field.ElementInfo
 
     End Sub
 
@@ -48,7 +52,7 @@ Public Class CtlGraphicText
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        Me.ElementInfo = par_field.ElementInfo
+        Me.ElementInfo_Text = par_field.ElementInfo
 
     End Sub
 
@@ -56,15 +60,15 @@ Public Class CtlGraphicText
         ''
         ''Added 7/25/2019 thomas d 
         ''
-        If (String.IsNullOrEmpty(Me.ElementInfo.Text)) Then ElementInfo.Text = LabelText()
+        If (String.IsNullOrEmpty(Me.ElementInfo_Text.Text)) Then ElementInfo_Text.Text = LabelText()
 
-        If (Me.ElementInfo.Font_DrawingClass Is Nothing) Then
+        If (Me.ElementInfo_Text.Font_DrawingClass Is Nothing) Then
             ''Initialize the font. 
-            Me.ElementInfo.Font_DrawingClass = New Font("Times New Roman", 15, FontStyle.Regular)
-            Me.ElementInfo.FontSize = 15
-            Me.ElementInfo.FontBold = False
-            Me.ElementInfo.FontItalics = False
-        End If ''End of "If (Me.ElementInfo.Font_DrawingClass Is Nothing) Then"
+            Me.ElementInfo_Text.Font_DrawingClass = New Font("Times New Roman", 15, FontStyle.Regular)
+            Me.ElementInfo_Text.FontSize = 15
+            Me.ElementInfo_Text.FontBold = False
+            Me.ElementInfo_Text.FontItalics = False
+        End If ''End of "If (Me.ElementInfo_Text.Font_DrawingClass Is Nothing) Then"
 
         If (Generator Is Nothing) Then Generator = New ClassLabelToImage
 
@@ -85,22 +89,23 @@ Public Class CtlGraphicText
         ''8/18/2019 td''Generator.TextImage(pictureLabel.Image, Me.ElementInfo, Me.ElementInfo)
 
         Dim boolRotated As Boolean ''Added 8/18/2019 td
-        Generator.TextImage(pictureLabel.Image, Me.ElementInfo, Me.ElementInfo, boolRotated)
+        Generator.TextImage(pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
 
         ''Added 7/31/2019 td
-        If (mod_c_boolMustSetBackColor And (ElementInfo IsNot Nothing)) Then
+        If (mod_c_boolMustSetBackColor And (Me.ElementInfo_Base IsNot Nothing)) Then
             ''
             ''A desperate attempt to get the background color to extend to the full, resized control.
             ''
-            Dim boolColorDiscrepancy As Boolean ''Added 7/31/2019 td
-            boolColorDiscrepancy = (Me.ElementInfo.BackColor <> Me.ElementInfo.Back_Color)
+            Dim boolColorDiscrepancy As Boolean = False ''Added 7/31/2019 td
+
+            ''8/29/2019 td''boolColorDiscrepancy = (Me.ElementInfo.BackColor <> Me.ElementInfo.Back_Color)
             If (boolColorDiscrepancy) Then
                 MessageBox.Show("Warning, there is a discrepancy in the color information.", "ciLayout",
                                 MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If ''ENd of "If (boolColorDiscrepancy) Then"
 
-            pictureLabel.BackColor = Me.ElementInfo.Back_Color
-            pictureLabel.BackColor = Me.ElementInfo.BackColor
+            ''8/29/2019 td''pictureLabel.BackColor = Me.ElementInfo.Back_Color
+            pictureLabel.BackColor = Me.ElementInfo_Base.Back_Color
 
         End If ''End of "If (mod_c_boolMustSetBackColor And (ElementInfo IsNot Nothing)) Then"
 
@@ -112,11 +117,11 @@ Public Class CtlGraphicText
         ''
         ''Added 8/01/2019 thomas d 
         ''
-        Me.ElementInfo.TopEdge_Pixels = Me.Top
-        Me.ElementInfo.LeftEdge_Pixels = Me.Left
+        Me.ElementInfo_Base.TopEdge_Pixels = Me.Top
+        Me.ElementInfo_Base.LeftEdge_Pixels = Me.Left
 
-        Me.ElementInfo.Width_Pixels = Me.Width
-        Me.ElementInfo.Height_Pixels = Me.Height
+        Me.ElementInfo_Base.Width_Pixels = Me.Width
+        Me.ElementInfo_Base.Height_Pixels = Me.Height
 
     End Sub ''End of Public Sub SaveToModel
 
@@ -124,7 +129,7 @@ Public Class CtlGraphicText
         ''
         ''Added 7/25/2019 thomas d 
         ''
-        Return Me.ElementInfo.Text
+        Return Me.ElementInfo_Text.Text
 
     End Function ''End of "Public Function LabelText() As String"
 
@@ -132,8 +137,9 @@ Public Class CtlGraphicText
         ''
         ''Added 7/31/2019 thomas downes
         ''
-        Me.ElementInfo.Width_Pixels = Me.Width
-        Me.ElementInfo.Height_Pixels = Me.Height
+        Me.ElementInfo_Base.Width_Pixels = Me.Width
+        Me.ElementInfo_Base.Height_Pixels = Me.Height
+
         Application.DoEvents()
         Me.RefreshImage()
         Application.DoEvents()
@@ -149,7 +155,7 @@ Public Class CtlGraphicText
 
         strMessageToUser &= (vbCrLf & $"Height of Picture control: {pictureLabel.Height}")
         strMessageToUser &= (vbCrLf & $"Height of Custom Graphics control: {Me.Height}")
-        strMessageToUser &= (vbCrLf & $"Element-Info Property (Height): {Me.ElementInfo.Height_Pixels}")
+        strMessageToUser &= (vbCrLf & $"Element-Base-Info Property (Height): {Me.ElementInfo_Base.Height_Pixels}")
         strMessageToUser &= (vbCrLf & $"Picture control's Image Height: {pictureLabel.Image.Height}")
 
         MessageBox.Show(strMessageToUser, "", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -163,11 +169,11 @@ Public Class CtlGraphicText
         ColorDialog1.ShowDialog()
 
         ''7/30/2019 td''Me.ElementInfo.FontColor = ColorDialog1.Color
-        Me.ElementInfo.BackColor = ColorDialog1.Color
-        Me.ElementInfo.Back_Color = ColorDialog1.Color
+        ''8/29/2019 td''Me.ElementInfo.BackColor = ColorDialog1.Color
+        Me.ElementInfo_Base.Back_Color = ColorDialog1.Color
 
-        Me.ElementInfo.Width_Pixels = Me.Width
-        Me.ElementInfo.Height_Pixels = Me.Height
+        Me.ElementInfo_Base.Width_Pixels = Me.Width
+        Me.ElementInfo_Base.Height_Pixels = Me.Height
 
         Application.DoEvents()
         Application.DoEvents()
@@ -181,10 +187,10 @@ Public Class CtlGraphicText
         ''
         ''Added 7/30/2019 thomas downes
         ''
-        FontDialog1.Font = Me.ElementInfo.Font_DrawingClass
+        FontDialog1.Font = Me.ElementInfo_Text.Font_DrawingClass
         FontDialog1.ShowDialog()
 
-        Me.ElementInfo.Font_DrawingClass = FontDialog1.Font
+        Me.ElementInfo_Text.Font_DrawingClass = FontDialog1.Font
 
         Application.DoEvents()
         Application.DoEvents()
@@ -271,13 +277,13 @@ Public Class CtlGraphicText
         ''
         ''Addd 7/31/2019 td
         ''
-        If (Me.ElementInfo IsNot Nothing) Then
+        If (Me.ElementInfo_Base IsNot Nothing) Then
 
-            Me.ElementInfo.Width_Pixels = Me.Width
-            Me.ElementInfo.Height_Pixels = Me.Height
+            Me.ElementInfo_Base.Width_Pixels = Me.Width
+            Me.ElementInfo_Base.Height_Pixels = Me.Height
             Me.RefreshImage()
 
-        End If ''End of "If (Me.ElementInfo IsNot Nothing) Then"
+        End If ''End of "If (Me.ElementInfo_Base IsNot Nothing) Then"
     End Sub
 
     Private Sub PictureLabel_Click(sender As Object, e As EventArgs) Handles pictureLabel.Click

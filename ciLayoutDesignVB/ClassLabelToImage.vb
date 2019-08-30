@@ -13,8 +13,9 @@ Public Class ClassLabelToImage
     ''
     ''Added 7/17/2019
     ''
-    Public Function TextImage(ByRef par_image As Image, par_design As IElement_Text,
-                              par_element As IElement_Base,
+    Public Function TextImage(ByRef par_image As Image,
+                              par_elementInfo_Text As IElement_Text,
+                              par_elementInfo_Base As IElement_Base,
                               ByRef pref_rotated As Boolean,
                               Optional par_pictureBox As PictureBox = Nothing,
                               Optional par_graphicalCtl As CtlGraphicFldLabel = Nothing) As Image
@@ -27,8 +28,8 @@ Public Class ClassLabelToImage
         Dim brush_forecolor As Brush
 
         ''Added 8/17/2019 td
-        Dim singleOffsetX As Integer = par_design.FontOffset_X
-        Dim singleOffsetY As Integer = par_design.FontOffset_Y
+        Dim singleOffsetX As Integer = par_elementInfo_Text.FontOffset_X
+        Dim singleOffsetY As Integer = par_elementInfo_Text.FontOffset_Y
         Dim intStarting_Width As Integer ''Added 8/19/2019 thomas 
         Dim intStarting_Height As Integer ''Added 8/19/2019 thomas
 
@@ -39,19 +40,26 @@ Public Class ClassLabelToImage
         Application.DoEvents()
 
         If (par_image Is Nothing) Then
+            ''
             ''Create the image from scratch, if needed. 
+            ''
             ''7/29 td''par_image = New Bitmap(par_element.Width_Pixels, par_element.Height_Pixels)
-            par_image = New Bitmap(par_element.Width_Pixels, par_element.Height_Pixels)
+
+            par_image = New Bitmap(par_elementInfo_Base.Width_Pixels,
+                                   par_elementInfo_Base.Height_Pixels)
+
         End If ''End of "If (par_image Is Nothing) Then"
 
         gr = Graphics.FromImage(par_image)
 
-        pen_backcolor = New Pen(par_design.BackColor)
+        ''8/29/2019 td''pen_backcolor = New Pen(par_design.BackColor)
+        pen_backcolor = New Pen(par_elementInfo_Base.Back_Color)
+
         ''8/28/2019 td''pen_backcolor = New Pen(Color.White)
         ''8/5/2019 td''pen_highlighting = New Pen(Color.YellowGreen, 5)
         pen_highlighting = New Pen(Color.Yellow, 6)
 
-        brush_forecolor = New SolidBrush(par_design.FontColor)
+        brush_forecolor = New SolidBrush(par_elementInfo_Text.FontColor)
 
         ''
         ''Added 8/28/2019 td
@@ -59,8 +67,9 @@ Public Class ClassLabelToImage
         Dim boolClashOfColors As Boolean ''Added 8/28/2019 td
         Static s_boolRunOnce As Boolean ''Added 8/28/2019 td
 
-        boolClashOfColors = (par_design.BackColor <>
-                              par_element.Back_Color)
+        boolClashOfColors = (par_elementInfo_Base.Back_Color <>
+                              par_elementInfo_Base.Back_Color)
+
         If (boolClashOfColors) Then
             If (Not s_boolRunOnce) Then
                 ''Added 8/28/2019 td
@@ -69,8 +78,10 @@ Public Class ClassLabelToImage
                 MessageBox.Show("A clash of colors--which Property is reliable?", "",
                      MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 ''Added 8/29/2019 td
-                DialogDisplayColor.ShowColor("par_design.BackColor", par_design.BackColor)
-                DialogDisplayColor.ShowColor("par_element.BackColor", par_element.Back_Color)
+                DialogDisplayColor.ShowColor("par_design.BackColor", par_elementInfo_Base.Back_Color)
+
+                ''8/29/2019 td''DialogDisplayColor.ShowColor("par_element.BackColor", par_elementInfo_Text.BackColor)
+
             End If ''eND OF "If (Not s_boolRunOnce) Then"
         End If ''Endof "If (boolClashOfColors) Then"
 
@@ -82,20 +93,21 @@ Public Class ClassLabelToImage
         ''
         ''  https://stackoverflow.com/questions/5183856/converting-from-a-color-to-a-brush
         ''
-        Using br_brush = New SolidBrush(par_element.Back_Color)
+        Using br_brush = New SolidBrush(par_elementInfo_Base.Back_Color)
             gr.FillRectangle(br_brush,
-                         New Rectangle(0, 0, par_element.Width_Pixels, par_element.Height_Pixels))
+                         New Rectangle(0, 0, par_elementInfo_Base.Width_Pixels, par_elementInfo_Base.Height_Pixels))
         End Using
 
         ''
         ''Added 8/02/2019 td
         ''
-        If (par_element.SelectedHighlighting) Then
+        If (par_elementInfo_Base.SelectedHighlighting) Then
             ''Added 8/2/2019 td
             ''8/5/2019 td''gr.DrawRectangle(pen_highlighting,
             ''             New Rectangle(0, 0, par_element.Width_Pixels, par_element.Height_Pixels))
             gr.DrawRectangle(pen_highlighting,
-                         New Rectangle(3, 3, par_element.Width_Pixels - 6, par_element.Height_Pixels - 6))
+                         New Rectangle(3, 3, par_elementInfo_Base.Width_Pixels - 6,
+                                             par_elementInfo_Base.Height_Pixels - 6))
         End If ''End of "If (par_element.SelectedHighlighting) Then"
 
         ''7/30/2019''gr.DrawString(par_design.Text, par_design.Font_DrawingClass, brush_forecolor, New Point(0, 0))
@@ -111,38 +123,42 @@ Public Class ClassLabelToImage
         gr.TextRenderingHint = TextRenderingHint.AntiAliasGridFit
         Dim stringSize = New SizeF()
 
-        ''Added 8/18/2019 td
-        Select Case par_design.TextAlignment''Added 8/18/2019 td
+        With par_elementInfo_Text
 
-            Case HorizontalAlignment.Left
+            ''Added 8/18/2019 td
+            Select Case par_elementInfo_Text.TextAlignment''Added 8/18/2019 td
 
-                gr.DrawString(par_design.Text, par_design.Font_DrawingClass, Brushes.Black, singleOffsetX, singleOffsetY)
+                Case HorizontalAlignment.Left
 
-            Case HorizontalAlignment.Center
-                ''// Measure string.
-                stringSize = gr.MeasureString(par_design.Text, par_design.Font_DrawingClass)
+                    gr.DrawString(.Text, .Font_DrawingClass, Brushes.Black, singleOffsetX, singleOffsetY)
 
-                Dim singleOffsetX_AlignRight As Single ''Added 8/18/2019 td 
-                ''Added 8/18/2019 td 
-                singleOffsetX_AlignRight = (singleOffsetX + (par_image.Width - stringSize.Width) / 2)
+                Case HorizontalAlignment.Center
+                    ''// Measure string.
+                    stringSize = gr.MeasureString(.Text, .Font_DrawingClass)
 
-                ''Added 8/18/2019 td 
-                gr.DrawString(par_design.Text, par_design.Font_DrawingClass, Brushes.Black,
-                              singleOffsetX_AlignRight, singleOffsetY)
+                    Dim singleOffsetX_AlignRight As Single ''Added 8/18/2019 td 
+                    ''Added 8/18/2019 td 
+                    singleOffsetX_AlignRight = (singleOffsetX + (par_image.Width - stringSize.Width) / 2)
 
-            Case HorizontalAlignment.Right
-                ''// Measure string.
-                ''
-                stringSize = gr.MeasureString(par_design.Text, par_design.Font_DrawingClass)
+                    ''Added 8/18/2019 td 
+                    gr.DrawString(.Text, .Font_DrawingClass, Brushes.Black,
+                                  singleOffsetX_AlignRight, singleOffsetY)
 
-                Dim singleOffsetX_AlignRight As Single ''Added 8/18/2019 td 
-                singleOffsetX_AlignRight = (par_image.Width - stringSize.Width - singleOffsetX)
+                Case HorizontalAlignment.Right
+                    ''// Measure string.
+                    ''
+                    stringSize = gr.MeasureString(.Text, .Font_DrawingClass)
 
-                ''Added 8/18/2019 td 
-                gr.DrawString(par_design.Text, par_design.Font_DrawingClass, Brushes.Black,
-                              singleOffsetX_AlignRight, singleOffsetY)
+                    Dim singleOffsetX_AlignRight As Single ''Added 8/18/2019 td 
+                    singleOffsetX_AlignRight = (par_image.Width - stringSize.Width - singleOffsetX)
 
-        End Select ''End of "Select Case par_design.TextAlignment"
+                    ''Added 8/18/2019 td 
+                    gr.DrawString(.Text, .Font_DrawingClass, Brushes.Black,
+                                  singleOffsetX_AlignRight, singleOffsetY)
+
+            End Select ''End of "Select Case par_design.TextAlignment"
+
+        End With ''ENd of "With par_elementInfo_Text"
 
         ''
         ''Added 8/7/2019 thomas downes 
@@ -159,7 +175,7 @@ Public Class ClassLabelToImage
 
             Dim intRotateIndex As Integer ''Added 8/18/2019 td  
 
-            For intRotateIndex = 1 To CInt(par_design.OrientationInDegrees / 90)
+            For intRotateIndex = 1 To CInt(par_elementInfo_Base.OrientationInDegrees / 90)
 
                 pref_rotated = (Not pref_rotated) ''Added 8/18/2019 td 
 

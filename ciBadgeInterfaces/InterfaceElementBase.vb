@@ -37,4 +37,10 @@ Public Interface IElement_Base
     ''See above.''Property Border_Pixels As Integer ''Added 8/29/2019 thoma d. 
     ''See above.''Property Border_Color As Color ''Added 8/29/2019 thoma d. 
 
+    Property OrientationToLayout As String ''E.g. "L" (Landscape) (by far the most common) or "P" for Portrait  
+
+    Property OrientationInDegrees As Integer ''Default is 0, normal.  90 would be 1/4 turn clockwise.  180 is upside-down.  270 is the printing on the spine of a book sitting on the bookshelf.
+
+    Property Image_BL As Image ''Added 8/29 & 8/27/2019 td 
+
 End Interface
