@@ -28,8 +28,12 @@ Partial Class FormSerialize
         Me.OpenToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaveToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.ButtonSerializeToXML = New System.Windows.Forms.Button()
+        Me.ButtonDeserializeBin = New System.Windows.Forms.Button()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.ButtonDeserializeXML = New System.Windows.Forms.Button()
+        Me.ButtonSerializeToBinary = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -49,7 +53,7 @@ Partial Class FormSerialize
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(800, 28)
+        Me.MenuStrip1.Size = New System.Drawing.Size(945, 28)
         Me.MenuStrip1.TabIndex = 19
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -78,31 +82,73 @@ Partial Class FormSerialize
         Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(203, 26)
         Me.ExitToolStripMenuItem.Text = "Exit"
         '
-        'Button1
+        'ButtonSerializeToXML
         '
-        Me.Button1.Location = New System.Drawing.Point(385, 96)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(266, 49)
-        Me.Button1.TabIndex = 20
-        Me.Button1.Text = "Button1"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.ButtonSerializeToXML.Location = New System.Drawing.Point(605, 218)
+        Me.ButtonSerializeToXML.Name = "ButtonSerializeToXML"
+        Me.ButtonSerializeToXML.Size = New System.Drawing.Size(266, 49)
+        Me.ButtonSerializeToXML.TabIndex = 20
+        Me.ButtonSerializeToXML.Text = "Serialize"
+        Me.ButtonSerializeToXML.UseVisualStyleBackColor = True
         '
-        'Button2
+        'ButtonDeserializeBin
         '
-        Me.Button2.Location = New System.Drawing.Point(267, 201)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(266, 49)
-        Me.Button2.TabIndex = 21
-        Me.Button2.Text = "Button2"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.ButtonDeserializeBin.Location = New System.Drawing.Point(48, 287)
+        Me.ButtonDeserializeBin.Name = "ButtonDeserializeBin"
+        Me.ButtonDeserializeBin.Size = New System.Drawing.Size(266, 49)
+        Me.ButtonDeserializeBin.TabIndex = 21
+        Me.ButtonDeserializeBin.Text = "Deserialize"
+        Me.ButtonDeserializeBin.UseVisualStyleBackColor = True
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(42, 158)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(304, 36)
+        Me.Label2.TabIndex = 22
+        Me.Label2.Text = "Serialization to Binary"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(599, 156)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(282, 36)
+        Me.Label3.TabIndex = 23
+        Me.Label3.Text = "Serialization to XML"
+        '
+        'ButtonDeserializeXML
+        '
+        Me.ButtonDeserializeXML.Location = New System.Drawing.Point(605, 287)
+        Me.ButtonDeserializeXML.Name = "ButtonDeserializeXML"
+        Me.ButtonDeserializeXML.Size = New System.Drawing.Size(266, 49)
+        Me.ButtonDeserializeXML.TabIndex = 24
+        Me.ButtonDeserializeXML.Text = "Deserialize"
+        Me.ButtonDeserializeXML.UseVisualStyleBackColor = True
+        '
+        'ButtonSerializeToBinary
+        '
+        Me.ButtonSerializeToBinary.Location = New System.Drawing.Point(48, 218)
+        Me.ButtonSerializeToBinary.Name = "ButtonSerializeToBinary"
+        Me.ButtonSerializeToBinary.Size = New System.Drawing.Size(266, 49)
+        Me.ButtonSerializeToBinary.TabIndex = 25
+        Me.ButtonSerializeToBinary.Text = "Serialize"
+        Me.ButtonSerializeToBinary.UseVisualStyleBackColor = True
         '
         'FormSerialize
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
-        Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.Button1)
+        Me.ClientSize = New System.Drawing.Size(945, 450)
+        Me.Controls.Add(Me.ButtonSerializeToBinary)
+        Me.Controls.Add(Me.ButtonDeserializeXML)
+        Me.Controls.Add(Me.Label3)
+        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.ButtonDeserializeBin)
+        Me.Controls.Add(Me.ButtonSerializeToXML)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.Label1)
         Me.Name = "FormSerialize"
@@ -120,6 +166,10 @@ Partial Class FormSerialize
     Friend WithEvents OpenToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents SaveToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ExitToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents Button1 As Button
-    Friend WithEvents Button2 As Button
+    Friend WithEvents ButtonSerializeToXML As Button
+    Friend WithEvents ButtonDeserializeBin As Button
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Label3 As Label
+    Friend WithEvents ButtonDeserializeXML As Button
+    Friend WithEvents ButtonSerializeToBinary As Button
 End Class

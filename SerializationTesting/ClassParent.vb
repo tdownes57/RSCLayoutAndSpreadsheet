@@ -4,10 +4,12 @@
 
 Imports System.Runtime.Serialization
 Imports System.IO
+Imports System.Xml
 
 ''
 '' A test object that needs to be serialized.
 ''
+''<Serializable(), XmlType("Interface")>
 <Serializable()>
 Public Class ClassParent
     ''
