@@ -1,4 +1,5 @@
-﻿
+﻿Option Explicit On
+Option Strict On
 
 ''
 '' A test object that needs to be serialized.
@@ -7,7 +8,9 @@
 Public Class ClassChild
 
     ''<NonSerialized()>
-    Public Property Font_DrawingClass As System.Drawing.Font
+    ''9/1/2019 td''Public Property Font_DrawingClass As System.Drawing.Font
+    Public Property FontFamily As String ''Added 9/1/2019 td
+    Public Property FontSize As Integer ''Added 9/1/2019 td
 
     Public Property FontColor As System.Drawing.Color
 

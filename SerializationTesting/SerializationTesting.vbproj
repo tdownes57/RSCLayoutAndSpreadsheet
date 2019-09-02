@@ -86,6 +86,7 @@
     <Compile Include="InterfaceElement.vb" />
     <Compile Include="InterfaceElementText.vb" />
     <Compile Include="modFonts.vb" />
+    <Compile Include="modSerializeColors.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

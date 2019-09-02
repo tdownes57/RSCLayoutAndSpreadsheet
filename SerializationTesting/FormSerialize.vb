@@ -1,6 +1,8 @@
 ﻿
 Imports System.Runtime.Serialization
 Imports System.IO
+Imports System.Xml.Serialization ''Added 9/1/2019 thomas d. 
+
 ''
 ''   http://net-informations.com/faq/net/serialization.htm
 ''
@@ -15,7 +17,7 @@ Public Class FormSerialize
     ''9/1/2019 td''Public mod_c_sPathToBinary As String = "C:\Users\tdown\Documents\CIBadgeWeb\SerializeFile_Bin.txt"
 
     Public mod_sPathToXML As String = "" ''9/1/2019 td''  "C:\Users\tdown\Documents\CIBadgeWeb\SerializeFile_Xml.txt"
-    Public mod_sPathToBinary As String = "" ''9/1/2019 td''  "C:\Users\tdown\Documents\CIBadgeWeb\SerializeFile_Bin.txt"
+    Public mod_sPathToBinary As String = "" ''9/1/2019 td''  "C:\Users\tdown\Documents\CIBadgeWeb\SerializeFile_Bin.ttxt"
 
     Private mod_objParent As New ClassParent()
 
@@ -26,6 +28,16 @@ Public Class FormSerialize
             .LayoutWidth = 200
             .LeftEdge = 50
             .TopEdge = 40
+
+            With .MyChild
+
+                .FontFamily = "Ariana Sans"
+                .FontSize = 12
+                .FontColor = Color.AliceBlue
+                .BackColor = Color.Aqua
+
+            End With
+
         End With
 
         mod_sPathToBinary = My.Settings.PathToSerialFile_bin
@@ -74,8 +86,9 @@ Public Class FormSerialize
         ''8/2 td''Dim formatter_Xml As IFormatter = New System.Runtime.Serialization.Formatters.()
         ''8/31 td''Dim fileStream_Xml As Stream = New FileStream("C:\Users\tdown\Documents\CIBadgeWeb\SerializeFile_Xml.xml",
         ''8/31 td''   FileMode.Create, FileAccess.Write, FileShare.None)
+
         Dim fileStream_Xml As Stream = New FileStream(mod_sPathToXML,
-                                                  FileMode.Create, FileAccess.Write, FileShare.None)
+                     FileMode.Create, FileAccess.Write, FileShare.None)
 
         ''Formatter.Serialize(fileStream_Xml, srObj)
         Dim writer As New System.Xml.Serialization.XmlSerializer(GetType(ClassParent))
@@ -111,8 +124,10 @@ Public Class FormSerialize
     End Sub
 
     Private Sub DeserializeFromXML(sender As Object, e As EventArgs) Handles ButtonDeserializeXML.Click
-
-        Dim obj_serializer As IFormatter = New System.Xml.Serialization.XmlSerializer(GetType(ClassParent))
+        ''
+        ''Modified 9/1/2019 thomas d.  
+        ''
+        Dim obj_serializer As XmlSerializer = New XmlSerializer(GetType(ClassParent))
 
         Dim srObj As ClassParent
 
