@@ -480,6 +480,62 @@ Partial Public Class CtlGraphicFldLabel
 
     End Sub ''End of "Private Sub Open_OffsetTextDialog(sender As Object, e As EventArgs)"
 
+    Private Sub BorderDesign(sender As Object, e As EventArgs)
+        ''
+        ''Added 9/ 2/2019 thomas downes
+        ''
+        Dim frm_ToShow As New DialogTextBorder
+
+        frm_ToShow.LoadFieldAndForm(Me.ElementInfo_Base, Me.ElementInfo_Text, Me.FieldInfo, Me.FormDesigner, Me)
+
+        ''Major call !!
+        frm_ToShow.ShowDialog()
+
+        ''Refresh the form. ----8/17/2019 td
+        Dim boolUserPressedOK As Boolean
+        boolUserPressedOK = (frm_ToShow.DialogResult = DialogResult.OK)
+
+        If (boolUserPressedOK) Then '' ----8/17/2019 td
+
+            Me.ElementInfo_Base.Border_WidthInPixels = frm_ToShow.Border_SizeInPixels
+            Me.ElementInfo_Base.Border_Color = frm_ToShow.Border_Color
+
+            Me.RefreshImage()
+
+            ''
+            ''
+            ''Group Editimg
+            ''
+            ''
+            ''Added 8/18/2019 td 
+            If (Me.GroupEdits.LabelsList_IsItemIncluded(Me)) Then
+
+                ''Added 8/18/2019 td 
+                Dim objElements As List(Of CtlGraphicFldLabel)
+                objElements = Me.GroupEdits.LabelsDesignList_AllItems
+
+                For Each each_ctl As CtlGraphicFldLabel In objElements
+                    ''
+                    ''Added 8/3/2019 td  
+                    ''
+                    With each_ctl
+
+                        .ElementInfo_Base.Border_WidthInPixels = frm_ToShow.Border_SizeInPixels
+                        .ElementInfo_Base.Border_Color = frm_ToShow.Border_Color
+
+                        .RefreshImage()
+                        .Refresh()
+
+                    End With
+
+                Next each_ctl
+
+            End If
+
+        End If ''End of "If (boolUserPressedOK) Then"
+
+    End Sub ''End of "Private Sub Open_OffsetTextDialog(sender As Object, e As EventArgs)"
+
     Private Sub Rotate90Degrees(sender As Object, e As EventArgs)
         ''
         ''Added 8/17/2019 thomas downes
@@ -827,6 +883,7 @@ Partial Public Class CtlGraphicFldLabel
         Dim new_item_editExample As ToolStripMenuItem ''Added 8/110/2019 td
         Dim new_item_offsetTextEtc As ToolStripMenuItem ''Added 8/15/2019 td  
         Dim new_item_rotate90 As ToolStripMenuItem ''Added 8/17/2019 td  
+        Dim new_item_border As ToolStripMenuItem ''Added 9/02/2019 td  
 
         ''8/12/2019 td''Static item_group_add As ToolStripMenuItem ''Added 8/2/2019 td
         ''8/12/2019 td''Static item_group_omit As ToolStripMenuItem ''Added 8/2/2019 td
@@ -875,6 +932,9 @@ Partial Public Class CtlGraphicFldLabel
         ''Added 8/17/2019 td  
         new_item_rotate90 = New ToolStripMenuItem("Rotate text 90 degrees")
 
+        ''Added 9/02/2019 td  
+        new_item_border = New ToolStripMenuItem("Border Size and Color")
+
         AddHandler new_item_field.Click, AddressOf OpenDialog_Field
         AddHandler new_item_colors.Click, AddressOf OpenDialog_Color
         AddHandler new_item_font.Click, AddressOf OpenDialog_Font
@@ -897,6 +957,9 @@ Partial Public Class CtlGraphicFldLabel
         ''Added 8/17/2019 thomas d.
         AddHandler new_item_rotate90.Click, AddressOf Rotate90Degrees ''Added 8/17 /2019 thomas d.
 
+        ''Added 8/17/2019 thomas d.
+        AddHandler new_item_border.Click, AddressOf BorderDesign ''Added 9/02 /2019 thomas d.
+
         par_toolStripItems.Add(_item_fieldname)   ''ContextMenuStrip1.Items.Add(new_item_fieldname)
         par_toolStripItems.Add(new_item_field)   ''ContextMenuStrip1.Items.Add(new_item_field)
 
@@ -906,6 +969,7 @@ Partial Public Class CtlGraphicFldLabel
         ''Added 8/17/2019 td
         par_toolStripItems.Add(new_item_offsetTextEtc)
         par_toolStripItems.Add(new_item_rotate90)
+        par_toolStripItems.Add(new_item_border) ''Added 9/2/2019 td
 
         ''Moved from below, 8/14/2019 td 
         par_toolStripItems.Add(_item_group_alignParent)   ''ContextMenuStrip1.Items.Add(item_group_alignParent) ''Added 8/5/2019 thomas d.  
