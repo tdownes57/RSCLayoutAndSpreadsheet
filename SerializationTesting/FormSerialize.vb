@@ -9,6 +9,7 @@ Imports System.Xml.Serialization ''Added 9/1/2019 thomas d.
 ''
 Public Class FormSerialize
     Inherits Form
+
     '' <summary>
     '' http://net-informations.com/faq/net/serialization.htm
     '' </summary> 
@@ -30,12 +31,10 @@ Public Class FormSerialize
             .TopEdge = 40
 
             With .MyChild
-
                 .FontFamily = "Ariana Sans"
                 .FontSize = 12
                 .FontColor = Color.AliceBlue
                 .BackColor = Color.Aqua
-
             End With
 
         End With
