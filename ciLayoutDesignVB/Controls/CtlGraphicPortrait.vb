@@ -149,7 +149,8 @@ Public Class CtlGraphicPortrait
         intStarting_Width = picturePortrait.Width
         intStarting_Height = picturePortrait.Height
 
-        Select Case Me.ElementInfo_Pic.OrientationToLayout
+        ''9/2/2019''Select Case Me.ElementInfo_Pic.OrientationToLayout
+        Select Case Me.ElementInfo_Base.OrientationToLayout
             Case "H", "L", "P", "", " " '' H = Horizontal, P = Portrait     
                 ''
                 ''Added 8/7/2019 thomas downes 
@@ -157,14 +158,14 @@ Public Class CtlGraphicPortrait
                 image_Pic = picturePortrait.Image
                 boolSeemsInPortraitMode = (image_Pic.Height > image_Pic.Width)
                 boolLetsRotate90 = True ''boolSeemsInPortraitMode
-                boolLetsRotate90 = (Me.ElementInfo_Pic.OrientationDegrees > 0)
+                boolLetsRotate90 = (Me.ElementInfo_Base.OrientationInDegrees > 0)
 
                 ''Added 8/7/2019 thomas downes 
                 If (boolLetsRotate90) Then
 
                     Dim intRotateIndex As Integer ''Added 8/18/2019 td  
 
-                    For intRotateIndex = 1 To CInt(Me.ElementInfo_Pic.OrientationDegrees / 90)
+                    For intRotateIndex = 1 To CInt(Me.ElementInfo_Base.OrientationInDegrees / 90)
 
                         ''Added 8/7/2019 thomas downes 
                         ''8/7 td''image_Rotated = CType(image_Pic.Clone, Image)
@@ -234,13 +235,14 @@ Public Class CtlGraphicPortrait
         ''  
         ''Me.ElementInfo_Pic.OrientationToLayout = "L"
 
-        Select Case Me.ElementInfo_Pic.OrientationToLayout
+        ''9/2/2019 td''Select Case Me.ElementInfo_Pic.OrientationToLayout
+        Select Case Me.ElementInfo_Base.OrientationToLayout
             Case "", " ", "P"
-                Me.ElementInfo_Pic.OrientationToLayout = "L"
+                Me.ElementInfo_Base.OrientationToLayout = "L"
             Case "L"
-                Me.ElementInfo_Pic.OrientationToLayout = "P"
+                Me.ElementInfo_Base.OrientationToLayout = "P"
             Case Else
-                Me.ElementInfo_Pic.OrientationToLayout = "P"
+                Me.ElementInfo_Base.OrientationToLayout = "P"
         End Select
 
         ''Added 8/12/2019 thomas downes 
@@ -248,7 +250,8 @@ Public Class CtlGraphicPortrait
         ''   This will enable the badge to be printed with the element oriented
         ''   correctly (with one out of four choices of orientation). 
         ''
-        Me.ElementInfo_Pic.OrientationDegrees += 90
+        ''9/2/2019 td''Me.ElementInfo_Pic.OrientationDegrees += 90
+        Me.ElementInfo_Base.OrientationInDegrees += 90
 
         RefreshImage()
         Me.Refresh()

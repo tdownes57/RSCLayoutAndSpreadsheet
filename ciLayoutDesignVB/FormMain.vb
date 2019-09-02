@@ -4,6 +4,7 @@ Option Strict On
 ''
 ''Added 7/17/2019 thomas downes
 ''
+Imports ciBadgeInterfaces ''Added 9/2/2019 td
 
 Public Class FormMain
 
@@ -22,7 +23,8 @@ Public Class FormMain
 
     End Function ''eNd of "Public Function GetCurrentPersonality_Fields_Custom() As List(Of ClassFieldCustomized)"
 
-    Public Shared Function GetCurrentPersonality_Fields_Standard() As List(Of ClassFieldStandard)
+    Public Shared Function GetCurrentPersonality_Fields_Standard() As List(Of icibfieldstandardorcustom)
+        ''--- Public Shared Function GetCurrentPersonality_Fields_Standard() As List(Of ClassFieldStandard)
         ''
         ''Added 7/26/2019 thomas downes
         ''
