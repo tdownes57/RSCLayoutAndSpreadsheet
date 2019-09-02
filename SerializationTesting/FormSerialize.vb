@@ -7,13 +7,15 @@ Imports System.IO
 ''
 Public Class FormSerialize
     Inherits Form
-    ''' <summary>
-    ''' http://net-informations.com/faq/net/serialization.htm
-    ''' </summary> 
-    ''' 
+    '' <summary>
+    '' http://net-informations.com/faq/net/serialization.htm
+    '' </summary> 
+    '' 
+    ''9/1/2019 td''Public mod_c_sPathToXML As String = "C:\Users\tdown\Documents\CIBadgeWeb\SerializeFile_Xml.txt"
+    ''9/1/2019 td''Public mod_c_sPathToBinary As String = "C:\Users\tdown\Documents\CIBadgeWeb\SerializeFile_Bin.txt"
 
-    Public Const mod_c_sPathToXML As String = "C:\Users\tdown\Documents\CIBadgeWeb\SerializeFile_Xml.txt"
-    Public Const mod_c_sPathToBinary As String = "C:\Users\tdown\Documents\CIBadgeWeb\SerializeFile_Bin.txt"
+    Public mod_sPathToXML As String = "" ''9/1/2019 td''  "C:\Users\tdown\Documents\CIBadgeWeb\SerializeFile_Xml.txt"
+    Public mod_sPathToBinary As String = "" ''9/1/2019 td''  "C:\Users\tdown\Documents\CIBadgeWeb\SerializeFile_Bin.txt"
 
     Private mod_objParent As New ClassParent()
 
@@ -26,6 +28,9 @@ Public Class FormSerialize
             .TopEdge = 40
         End With
 
+        mod_sPathToBinary = My.Settings.PathToSerialFile_bin
+        mod_sPathToXML = My.Settings.PathToSerialFile_xml
+
     End Sub
 
     Private Sub SerializeToBinary(sender As Object, e As EventArgs) Handles ButtonSerializeToBinary.Click
@@ -37,12 +42,12 @@ Public Class FormSerialize
         ''----------------------------------
         ''
         Dim formatter_Bin As IFormatter = New System.Runtime.Serialization.Formatters.Binary.BinaryFormatter()
-        Dim fileStream_Bin As Stream = New FileStream(mod_c_sPathToBinary, FileMode.Create, FileAccess.Write, FileShare.None)
+        Dim fileStream_Bin As Stream = New FileStream(mod_sPathToBinary, FileMode.Create, FileAccess.Write, FileShare.None)
 
         formatter_Bin.Serialize(fileStream_Bin, mod_objParent)
         fileStream_Bin.Close()
 
-        System.Diagnostics.Process.Start(mod_c_sPathToBinary)
+        System.Diagnostics.Process.Start(mod_sPathToBinary)
 
     End Sub
 
@@ -69,7 +74,7 @@ Public Class FormSerialize
         ''8/2 td''Dim formatter_Xml As IFormatter = New System.Runtime.Serialization.Formatters.()
         ''8/31 td''Dim fileStream_Xml As Stream = New FileStream("C:\Users\tdown\Documents\CIBadgeWeb\SerializeFile_Xml.xml",
         ''8/31 td''   FileMode.Create, FileAccess.Write, FileShare.None)
-        Dim fileStream_Xml As Stream = New FileStream(mod_c_sPathToXML,
+        Dim fileStream_Xml As Stream = New FileStream(mod_sPathToXML,
                                                   FileMode.Create, FileAccess.Write, FileShare.None)
 
         ''Formatter.Serialize(fileStream_Xml, srObj)
@@ -80,8 +85,7 @@ Public Class FormSerialize
         fileStream_Xml.Close()
 
         MsgBox("Object Serialized !!", vbInformation, "Serialization")
-
-        System.Diagnostics.Process.Start(mod_c_sPathToXML)
+        System.Diagnostics.Process.Start(mod_sPathToXML)
 
     End Sub
 
@@ -91,7 +95,7 @@ Public Class FormSerialize
         Dim obj_formatter As IFormatter = New System.Runtime.Serialization.Formatters.Binary.BinaryFormatter()
 
         ''8/31 td'Dim serialStream As Stream = New FileStream("c:\SerializeFile.bin", FileMode.Open, FileAccess.Read, FileShare.Read)
-        Dim serialStream As Stream = New FileStream(mod_c_sPathToBinary, FileMode.Open, FileAccess.Read, FileShare.Read)
+        Dim serialStream As Stream = New FileStream(mod_sPathToBinary, FileMode.Open, FileAccess.Read, FileShare.Read)
 
         ''7/20/2019 td''Dim srObj As serializeObject = DirectCast(formatter.Deserialize(serialStream), serializeObject)
 
@@ -112,7 +116,7 @@ Public Class FormSerialize
 
         Dim srObj As ClassParent
 
-        Using serialStream = New FileStream(mod_c_sPathToXML, FileMode.Open, FileAccess.Read, FileShare.Read)
+        Using serialStream = New FileStream(mod_sPathToXML, FileMode.Open, FileAccess.Read, FileShare.Read)
 
             srObj = DirectCast(obj_serializer.Deserialize(serialStream), ClassParent)
 
