@@ -3,6 +3,9 @@ Option Strict On
 
 Imports System.Runtime.InteropServices ''Added 9/2/2019 td
 Imports System.Web.Script.Serialization
+Imports System.Runtime.Serialization
+Imports System.Xml
+
 ''
 '' A test object that needs to be serialized.
 ''
