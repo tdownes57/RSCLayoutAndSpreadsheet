@@ -4,7 +4,7 @@ Option Strict On
 Imports System.Runtime.InteropServices ''Added 9/2/2019 td
 Imports System.Web.Script.Serialization
 Imports System.Runtime.Serialization
-Imports System.Xml
+Imports System.Xml.Serialization ''Added 9/2/2019 td
 
 ''
 '' A test object that needs to be serialized.
@@ -14,6 +14,7 @@ Public Class ClassChild
     ''
     ''<NonSerialized()>
     ''     9/1/2019 td''Public Property Font_DrawingClass As System.Drawing.Font
+    ''
 
     Public Property FontFamily As String ''Added 9/1/2019 td
     Public Property FontSize As Integer ''Added 9/1/2019 td
@@ -31,9 +32,9 @@ Public Class ClassChild
     ''
     '' https://stackoverflow.com/questions/6746444/preventing-serialization-of-properties-in-vb-net
     ''
+    '' <!--System.Runtime.Serialization.IgnoreDataMember()-->
     <ScriptIgnore()>
-    <IgnoreDataMember()>
-    <Xmlignore()>
+    <XmlIgnore()>
     Public Property FontColor() As Color
         Get
             Return _font_Color
