@@ -107,6 +107,7 @@ Public Class ListCustomFieldsFlow
     Private Sub SaveControls()
         ''
         ''Added 7/23/2019 td  
+        ''
         ''Encapsulated 7/27/2019 td 
         ''
         Dim each_ctl_configure_field As CtlConfigFldCustom
@@ -124,8 +125,10 @@ Public Class ListCustomFieldsFlow
                 .Save_CustomControl()
 
                 ''8/29/2019 td''If (.NewlyAdded) Then FormMain.GetCurrentPersonality_Fields_Custom().Add(.Model)
-                If (.NewlyAdded) Then FormMain.GetCurrentPersonality_Fields_Custom().Add(.ModelFieldInfo)
-
+                If (.NewlyAdded) Then
+                    ''9/2/2019 td''FormMain.GetCurrentPersonality_Fields_Custom().Add(.ModelFieldInfo)
+                    FormMain.GetCurrentPersonality_Fields_Custom().Add(.Field_Customized)
+                End If ''End of "If (.NewlyAdded) Then"
 
             End With ''End of "With each_ctl_configure_field"
 

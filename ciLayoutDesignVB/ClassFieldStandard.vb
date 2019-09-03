@@ -141,6 +141,26 @@ Public Class ClassFieldStandard
     Public Shared ListOfFields_Students As New List(Of ClassFieldStandard)
     Public Shared ListOfFields_Staff As New List(Of ClassFieldStandard)
 
+    Public Shared Function ListOfFieldInfos_Students() As List(Of ICIBFieldStandardOrCustom)
+        ''Added 9/2/2019 Thomas DOWNES
+        Dim new_list As New List(Of ICIBFieldStandardOrCustom)
+        For Each obj_class As ClassFieldStandard In ListOfFields_Students
+            ''Added 9/2/2019
+            new_list.Add(CType(obj_class, ICIBFieldStandardOrCustom))
+        Next obj_class
+        Return new_list
+    End Function ''End of "Public Shared Function ListOfFieldInfos_Students() As List(Of ICIBFieldStandardOrCustom)"
+
+    Public Shared Function ListOfFieldInfos_Staff() As List(Of ICIBFieldStandardOrCustom)
+        ''Added 9/2/2019 Thomas DOWNES
+        Dim new_list As New List(Of ICIBFieldStandardOrCustom)
+        For Each obj_class As ClassFieldStandard In ListOfFields_Staff
+            ''Added 9/2/2019
+            new_list.Add(CType(obj_class, ICIBFieldStandardOrCustom))
+        Next obj_class
+        Return new_list
+    End Function ''End of "Public Shared Function ListOfFieldInfos_Students() As List(Of ICIBFieldStandardOrCustom)"
+
     Public Shared Function ListOfElementsText_Stdrd() As List(Of IElementWithText)
         ''
         ''Added 8/24/2019 Thomas D.  

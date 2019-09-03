@@ -19,12 +19,12 @@ Public Class FormMain
 
         If (2 <> mod_currentConfigID) Then Return ClassFieldCustomized.ListOfFields_Students
         If (2 = mod_currentConfigID) Then Return ClassFieldCustomized.ListOfFields_Staff
+
         Return Nothing
 
     End Function ''eNd of "Public Function GetCurrentPersonality_Fields_Custom() As List(Of ClassFieldCustomized)"
 
-    Public Shared Function GetCurrentPersonality_Fields_Standard() As List(Of icibfieldstandardorcustom)
-        ''--- Public Shared Function GetCurrentPersonality_Fields_Standard() As List(Of ClassFieldStandard)
+    Public Shared Function GetCurrentPersonality_Fields_Standard() As List(Of ClassFieldStandard)
         ''
         ''Added 7/26/2019 thomas downes
         ''
@@ -33,9 +33,29 @@ Public Class FormMain
 
         If (2 <> mod_currentConfigID) Then Return ClassFieldStandard.ListOfFields_Students
         If (2 = mod_currentConfigID) Then Return ClassFieldStandard.ListOfFields_Staff
+
         Return Nothing
 
-    End Function ''eNd of "Public Function GetCurrentPersonality_Fields_Standard() As List(Of ClassFieldStandard)"
+    End Function ''eNd of "Public Function GetCurrentPersonality_FieldInfos_Standard() As List(Of ClassFieldStandard)"
+
+    Public Shared Function GetCurrentPersonality_FieldInfos_Standard() As List(Of ICIBFieldStandardOrCustom)
+        ''
+        ''--- Public Shared Function GetCurrentPersonality_Fields_Standard() As List(Of ClassFieldStandard)
+        ''
+        ''Added 7/26/2019 thomas downes
+        ''
+        ClassFieldStandard.InitializeHardcodedList_Students(True)
+        ClassFieldStandard.InitializeHardcodedList_Staff(True)
+
+        '' 9/2/2019 td''If (2 <> mod_currentConfigID) Then Return ClassFieldStandard.ListOfFields_Students
+        '' 9/2/2019 td''If (2 = mod_currentConfigID) Then Return ClassFieldStandard.ListOfFields_Staff
+
+        If (2 <> mod_currentConfigID) Then Return ClassFieldStandard.ListOfFieldInfos_Students()
+        If (2 = mod_currentConfigID) Then Return ClassFieldStandard.ListOfFieldInfos_Staff()
+
+        Return Nothing
+
+    End Function ''eNd of "Public Function GetCurrentPersonality_FieldInfos_Standard() As List(Of ClassFieldStandard)"
 
     Private Sub ToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem1.Click
         ''Added 7/17/2019 thomas downes

@@ -26,6 +26,13 @@ Public Class CtlConfigFldCustom
 
     Private mod_loading As Boolean = True ''Added 7/27/2019 td
 
+    Public ReadOnly Property Field_Customized() As ClassFieldCustomized
+        Get
+            ''Added 9/2/2019 thomas downes
+            Return mod_model_copy
+        End Get
+    End Property
+
     Public Sub Load_CustomControl(par_info As ICIBFieldStandardOrCustom)
         ''
         ''Added 7/21/2019 Thomas DOWNES   

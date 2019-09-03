@@ -26,6 +26,13 @@ Public Class CtlConfigFldStandard
 
     Private mod_loading As Boolean = True ''Added 7/27/2019 td
 
+    Public ReadOnly Property Field_Standard() As ClassFieldStandard
+        Get
+            ''Added 9/2/2019 thomas downes
+            Return mod_model_copy
+        End Get
+    End Property
+
     Public Sub Load_StandardControl(par_info As ICIBFieldStandardOrCustom)
         ''
         ''Added 8/19/2019 Thomas DOWNES   
