@@ -278,8 +278,12 @@ Public Class ClassFieldStandard
             .IsDisplayedForEdits = False
             .IsDisplayedOnBadge = False
             .IsLocked = False
+
+            ''Added 9/3/2019 td
+            .ElementInfo = New ClassElementText()
+
             ''Added 8/28/2019 thomas downes
-            .ElementInfo.Font_DrawingClass = modFonts.BarCodeFont_ByDefault(.ElementInfo.FontSize)
+            .ElementInfo.Font_DrawingClass = modFonts.BarCodeFont_ByDefault(12)
         End With
         ListOfFields_Students.Add(new_object5)
 

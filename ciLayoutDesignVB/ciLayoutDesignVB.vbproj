@@ -562,6 +562,7 @@
     <None Include="Resources\CI_Logo.bmp" />
     <None Include="Resources\AdjustWHColor_V101.jpg" />
     <Content Include="Resources\RotatedLayout.png" />
+    <None Include="Resources\Font Code39FiveRedA.rtf" />
     <None Include="Resources\__UI for V831 w No Pic.PNG" />
     <None Include="Resources\__UI for v900 w demo face.PNG" />
     <None Include="Resources\Textbox_v90.png" />

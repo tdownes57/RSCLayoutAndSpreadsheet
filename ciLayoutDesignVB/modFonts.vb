@@ -67,7 +67,19 @@ ExitHandler:
         ''   is probably Font Family "Code 39".  
         ''
         ''8/28/2019 td''Return New Font(New FontFamily("BarCode Font"), par_sizeFont)
-        Return New Font(New FontFamily("Code 39"), par_sizeFont)
+
+        ''9/02/2019 td''Return New Font(New FontFamily("Code 39"), par_sizeFont)
+
+        ''9/02/2019 td''Return New Font(New FontFamily("Code39FiveRedA"), par_sizeFont)
+
+        Dim objFontFamily As FontFamily
+        Dim objFontObject As Font
+
+        objFontFamily = New FontFamily("Code39FiveRedA")
+
+        objFontObject = New Font(objFontFamily, par_sizeFont)
+
+        Return objFontObject
 
     End Function ''End of "Public Function BarCodeFont_ByDefault() As Font"
 
