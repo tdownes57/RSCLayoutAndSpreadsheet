@@ -68,7 +68,11 @@ Public Class CtlGraphicFldLabel
         ' Add any initialization after the InitializeComponent() call.
         Me.FieldInfo = par_field
 
-        Me.ElementInfo_Text = par_field.ElementInfo
+        ''Added 9/3/2019 thomas downes
+        Me.ElementInfo_Base = CType(par_field.ElementInfo, IElement_Base)
+
+        ''9/3/2019 td''Me.ElementInfo_Text = par_field.ElementInfo
+        Me.ElementInfo_Text = CType(par_field.ElementInfo, IElement_Text)
 
         ''Added 8/9/2019 td
         Me.FormDesigner = par_formDesigner
@@ -83,7 +87,11 @@ Public Class CtlGraphicFldLabel
         ' Add any initialization after the InitializeComponent() call.
         Me.FieldInfo = par_field
 
-        Me.ElementInfo_Text = par_field.ElementInfo
+        ''Added 9/3/2019 thomas downes
+        Me.ElementInfo_Base = CType(par_field.ElementInfo, IElement_Base)
+
+        ''9/3/2019 td''Me.ElementInfo_Text = par_field.ElementInfo
+        Me.ElementInfo_Text = CType(par_field.ElementInfo, IElement_Text)
 
         ''Added 8/9/2019 td
         Me.FormDesigner = par_formDesigner
