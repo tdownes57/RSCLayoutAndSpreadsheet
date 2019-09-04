@@ -241,7 +241,7 @@ Public Class FormDesignProtoTwo
         ''DIFFICULT & CONFUSING.....  Let's regenerate the control referenced above.  
         ''
         CtlGraphicPortrait_Lady = New CtlGraphicPortrait(ClassElementPic.ElementPicture,
-                                                 CType(ClassElementPic.ElementPicture, IElementPic))
+                                                 CType(ClassElementPic.ElementPicture, IElementPic), Me)
 
         Me.Controls.Add(CtlGraphicPortrait_Lady)
 
@@ -263,7 +263,7 @@ Public Class FormDesignProtoTwo
         ''
         ''Added 9/03/2019 thomas downes 
         ''
-        Const c_boolUseConsolidatedList As Boolean = True
+        Const c_boolUseConsolidatedList As Boolean = False ''True
 
         If (c_boolUseConsolidatedList) Then
 
@@ -284,7 +284,7 @@ Public Class FormDesignProtoTwo
         Dim intCountControlsAdded As Integer ''Added 9/03/2019 td 
         Dim intTopEdge As Integer ''Added 7/28/2019 td
         Dim intLeftEdge As Integer ''Added 9/03/2019 td
-        Dim boolIncludeOnBadge As Boolean
+        Dim boolIncludeOnBadge As Boolean ''Added 9/03/2019 td
 
         For Each each_field As ICIBFieldStandardOrCustom In ClassFields.ListAllFields()
 
@@ -304,7 +304,9 @@ Public Class FormDesignProtoTwo
                 each_field.ElementInfo_Base = new_element_text
                 each_field.ElementInfo_Text = new_element_text
 
-                label_control = New CtlGraphicFldLabel(each_field, Me)
+                ''#1 9/4/2019 td''label_control = New CtlGraphicFldLabel(each_field, Me)
+                '' #2 9/4/2019 td''label_control = New CtlGraphicFldLabel(each_field, new_element_text, Me)
+                label_control = New CtlGraphicFldLabel(each_field, Me, new_element_text)
 
                 ''If (par_boolLoadingForm) Then
                 ''    Me.Controls.Add(label_control)
@@ -416,23 +418,28 @@ Public Class FormDesignProtoTwo
         Dim intTopEdge_std As Integer ''Added 7/28/2019 td
 
         Dim intCountControlsAdded As Integer ''Added 8/27/2019 td 
+        Dim boolIncludeOnBadge As Boolean ''Added 9/03/2019 td
 
         ''
         ''Standard Fields 
         ''
         ClassFieldStandard.InitializeHardcodedList_Students(True)
 
-        For Each field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students
+        For Each each_field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students
 
             Dim new_label_control_std As CtlGraphicFldLabel
 
-            ''Added 7/29
-            If (field_standard.ElementInfo Is Nothing) Then
+            ''Added 9/3/2019 thomas d. 
+            boolIncludeOnBadge = (par_boolLoadingForm And each_field_standard.IsDisplayedOnBadge)
+            If (Not boolIncludeOnBadge) Then Continue For
 
-                field_standard.ElementInfo = New ClassElementText()
+            ''Added 7/29
+            If (each_field_standard.ElementInfo Is Nothing) Then
+
+                each_field_standard.ElementInfo = New ClassElementText()
 
                 ''8/9/2019 td''new_label_control_std = New CtlGraphicFldLabel(field_standard)
-                new_label_control_std = New CtlGraphicFldLabel(field_standard, Me)
+                new_label_control_std = New CtlGraphicFldLabel(each_field_standard, Me)
 
                 ''8/28/2019 td''Me.Controls.Add(new_label_control_std)
                 If (par_boolLoadingForm) Then
@@ -448,7 +455,7 @@ Public Class FormDesignProtoTwo
 
                 new_label_control_std.Width = CInt(pictureBack.Width / 3)
 
-                With field_standard.ElementInfo
+                With each_field_standard.ElementInfo
 
                     .Width_Pixels = new_label_control_std.Width
                     .Height_Pixels = new_label_control_std.Height
@@ -462,7 +469,7 @@ Public Class FormDesignProtoTwo
             Else
 
                 ''Added 8/9/2019 td''new_label_control_std = New CtlGraphicFldLabel(field_standard)
-                new_label_control_std = New CtlGraphicFldLabel(field_standard, Me)
+                new_label_control_std = New CtlGraphicFldLabel(each_field_standard, Me)
 
                 ''8/28/2019 td''Me.Controls.Add(new_label_control_std)
                 intCountControlsAdded += 1 ''Added 8/27/2019 td
@@ -472,16 +479,27 @@ Public Class FormDesignProtoTwo
                 ElseIf (par_bUnloading) Then ''Added 8/28/2019 thomas downes 
                     ''Added 8/28/2019 thomas downes 
                     Me.Controls.Remove(new_label_control_std)
-                End If
+                End If ''End of "If (par_boolLoadingForm) Then ... ElseIf ...."
 
                 ''Moved far below. ''new_label_control_std.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
 
             End If ''end of "If (field_standard.ElementInfo Is Nothing) Then ... Else..."
 
-            new_label_control_std.Top = field_standard.ElementInfo.TopEdge_Pixels
-            new_label_control_std.Left = field_standard.ElementInfo.LeftEdge_Pixels
-            new_label_control_std.Width = field_standard.ElementInfo.Width_Pixels
-            new_label_control_std.Height = field_standard.ElementInfo.Height_Pixels
+            ''Added 9/3/2019 thomas downes
+            ''   Start from the Layout Background's TopLeft corner. 
+            ''
+            With new_label_control_std
+
+                ''Start from the Layout Background's TopLeft corner. ---9/3/2019 td
+                .Top = pictureBack.Top
+                .Left = pictureBack.Left
+
+                .Top += each_field_standard.ElementInfo.TopEdge_Pixels
+                .Left += each_field_standard.ElementInfo.LeftEdge_Pixels
+                .Width = each_field_standard.ElementInfo.Width_Pixels
+                .Height = each_field_standard.ElementInfo.Height_Pixels
+
+            End With ''End of "With new_label_control_std"
 
             ''intTopEdge_std = (30 + 30 * intNumControlsAlready_std)
 
@@ -505,7 +523,7 @@ Public Class FormDesignProtoTwo
             ''Added 7/28/2019 thomas d.
             new_label_control_std.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
 
-        Next field_standard
+        Next each_field_standard
 
         ''
         ''Custom Fields 
@@ -513,7 +531,7 @@ Public Class FormDesignProtoTwo
         Dim intTopEdge_cust As Integer ''Added 7/28/2019 td
         ClassFieldCustomized.InitializeHardcodedList_Students(True)
 
-        For Each field_custom As ClassFieldCustomized In ClassFieldCustomized.ListOfFields_Students
+        For Each each_field_custom As ClassFieldCustomized In ClassFieldCustomized.ListOfFields_Students
 
             ''Added 7/29
             ''If (field_custom.ElementInfo Is Nothing) Then field_custom.ElementInfo = New ClassElementText()
@@ -532,13 +550,17 @@ Public Class FormDesignProtoTwo
 
             Dim new_label_control_cust As CtlGraphicFldLabel
 
-            ''Added 7/29
-            If (field_custom.ElementInfo Is Nothing) Then
+            ''Added 9/3/2019 thomas d. 
+            boolIncludeOnBadge = (par_boolLoadingForm And each_field_custom.IsDisplayedOnBadge)
+            If (Not boolIncludeOnBadge) Then Continue For
 
-                field_custom.ElementInfo = New ClassElementText()
+            ''Added 7/29
+            If (each_field_custom.ElementInfo Is Nothing) Then
+
+                each_field_custom.ElementInfo = New ClassElementText()
 
                 ''8/9/2019 td''new_label_control_cust = New CtlGraphicFldLabel(field_custom)
-                new_label_control_cust = New CtlGraphicFldLabel(field_custom, Me)
+                new_label_control_cust = New CtlGraphicFldLabel(each_field_custom, Me)
 
                 ''8/28/2019 td''Me.Controls.Add(new_label_control_cust)
                 intCountControlsAdded += 1 ''Added 8/27/2019 td
@@ -552,7 +574,7 @@ Public Class FormDesignProtoTwo
 
                 new_label_control_cust.Width = CInt(pictureBack.Width / 3)
 
-                With field_custom.ElementInfo
+                With each_field_custom.ElementInfo
 
                     .Width_Pixels = new_label_control_cust.Width
                     .Height_Pixels = new_label_control_cust.Height
@@ -561,12 +583,12 @@ Public Class FormDesignProtoTwo
                     .TopEdge_Pixels = intTopEdge_cust
                     .LeftEdge_Pixels = intTopEdge_cust '' ((10 + intNumControlsAlready_cust * .Width_Pixels) + 10)
 
-                End With
+                End With ''End of "With each_field_custom.ElementInfo"
 
             Else
 
                 ''8/9/2019 td''new_label_control_cust = New CtlGraphicFldLabel(field_custom)
-                new_label_control_cust = New CtlGraphicFldLabel(field_custom, Me)
+                new_label_control_cust = New CtlGraphicFldLabel(each_field_custom, Me)
 
                 ''8/28/2019 td''Me.Controls.Add(new_label_control_cust)
                 intCountControlsAdded += 1 ''Added 8/27/2019 td
@@ -580,10 +602,10 @@ Public Class FormDesignProtoTwo
 
             End If ''end of "If (field_standard.ElementInfo Is Nothing) Then ... Else..."
 
-            new_label_control_cust.Top = field_custom.ElementInfo.TopEdge_Pixels
-            new_label_control_cust.Left = field_custom.ElementInfo.LeftEdge_Pixels
-            new_label_control_cust.Width = field_custom.ElementInfo.Width_Pixels
-            new_label_control_cust.Height = field_custom.ElementInfo.Height_Pixels
+            new_label_control_cust.Top = each_field_custom.ElementInfo.TopEdge_Pixels
+            new_label_control_cust.Left = each_field_custom.ElementInfo.LeftEdge_Pixels
+            new_label_control_cust.Width = each_field_custom.ElementInfo.Width_Pixels
+            new_label_control_cust.Height = each_field_custom.ElementInfo.Height_Pixels
 
             ''intTopEdge_std = (30 + 30 * intNumControlsAlready_std)
 
@@ -605,7 +627,7 @@ Public Class FormDesignProtoTwo
             ''Added 7/28/2019 thomas d.
             new_label_control_cust.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
 
-        Next field_custom
+        Next each_field_custom
 
         ''
         ''Added 8/27/2019 thomas downes
@@ -714,23 +736,17 @@ Public Class FormDesignProtoTwo
 
     End Sub
 
-    Private Sub PictureboxPic_Click(sender As Object, e As EventArgs)
+    ''Private Sub PictureboxPic_Click(sender As Object, e As EventArgs)
+    ''End Sub
 
-    End Sub
+    ''Private Sub PictureBox10_Click(sender As Object, e As EventArgs)
+    ''End Sub
 
-    Private Sub PictureBox10_Click(sender As Object, e As EventArgs)
+    ''Private Sub GraphicFieldLabel1_Load(sender As Object, e As EventArgs) Handles GraphicFieldLabel1.Load
+    ''End Sub
 
-    End Sub
-
-    Private Sub GraphicFieldLabel1_Load(sender As Object, e As EventArgs) Handles GraphicFieldLabel1.Load
-
-
-
-    End Sub
-
-    Private Sub GraphicFieldLabel4_Load(sender As Object, e As EventArgs) Handles GraphicFieldLabel4.Load
-
-    End Sub
+    ''Private Sub GraphicFieldLabel4_Load(sender As Object, e As EventArgs) Handles GraphicFieldLabel4.Load
+    ''End Sub
 
     Private Sub SaveToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles SaveToolStripMenuItem1.Click
         ''

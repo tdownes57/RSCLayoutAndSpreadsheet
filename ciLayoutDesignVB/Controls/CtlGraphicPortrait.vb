@@ -16,6 +16,7 @@ Public Class CtlGraphicPortrait
 
     Public ElementInfo_Pic As IElementPic ''Added 7/31/2019 thomas d 
     Public ElementInfo_Base As IElement_Base ''Added 7/31/2019 thomas d 
+    Public FormDesigner As FormDesignProtoTwo ''Added 9/4/2019 td
 
     Public ReadOnly Property Picture_Box As PictureBox
         Get
@@ -31,7 +32,7 @@ Public Class CtlGraphicPortrait
 
     End Sub
 
-    Public Sub New(par_infoForPic_Base As IElement_Base, par_infoForPic_Pic As IElementPic)
+    Public Sub New(par_infoForPic_Base As IElement_Base, par_infoForPic_Pic As IElementPic, par_formLayout As FormDesignProtoTwo)
         ''
         ''Added 7/31/2019 td
         ''
@@ -40,6 +41,7 @@ Public Class CtlGraphicPortrait
 
         Me.ElementInfo_Base = par_infoForPic_Base
         Me.ElementInfo_Pic = par_infoForPic_Pic
+        Me.FormDesigner = par_formLayout ''Added 9/4/2019 td
 
         ''
         ''Added 8/12/2019 thomas downes 
@@ -224,6 +226,9 @@ Public Class CtlGraphicPortrait
 
             Me.ElementInfo_Base.Width_Pixels = Me.Width
             Me.ElementInfo_Base.Height_Pixels = Me.Height
+
+            ''Added 9/4/2019 td
+            Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.LayoutWidth()
 
         End If ''End of "If (Me.ElementInfo_Base IsNot Nothing) Then"
 

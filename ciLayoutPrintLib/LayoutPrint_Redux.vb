@@ -572,20 +572,20 @@ ExitHandler:
 
     End Sub ''End of ""Private Sub ApplyMemberPicToImage(ByRef par_image As Image)
 
-    Public Sub LoadImageWithFieldValues(ByRef par_image As Image,
+    Public Sub LoadImageWithFieldValues(ByRef par_imageBadgeCard As Image,
                                    par_standardFields As List(Of IElementWithText),
                                    par_customFields As List(Of IElementWithText),
                                         Optional par_listTextImages As List(Of Image) = Nothing)
         ''
         ''Added 8/14/2019 td  
         ''
-        Dim gr As Graphics ''= Graphics.FromImage(img)
+        Dim gr_Badge As Graphics ''= Graphics.FromImage(img)
         Dim intEachIndex As Integer ''Added 8/24/2019 td
         Dim bOutputAllImages As Boolean ''Added 8/26/2019 thomas d. 
 
         bOutputAllImages = (par_listTextImages IsNot Nothing) ''Added 8/26/2019 thomas d. 
 
-        gr = Graphics.FromImage(par_image)
+        gr_Badge = Graphics.FromImage(par_imageBadgeCard)
 
         ''
         ''
@@ -607,9 +607,9 @@ ExitHandler:
                         Continue For
                     Case (.TopEdge_Pixels < 0) ''Then 
                         ''Continue For
-                    Case (.LeftEdge_Pixels + .Width_Pixels > par_image.Width) ''Then 
+                    Case (.LeftEdge_Pixels + .Width_Pixels > par_imageBadgeCard.Width) ''Then 
                         ''Continue For
-                    Case (.TopEdge_Pixels + .Height_Pixels > par_image.Height) ''Then 
+                    Case (.TopEdge_Pixels + .Height_Pixels > par_imageBadgeCard.Height) ''Then 
                         ''Continue For
                 End Select
             End With ''End of "With each_elementField.Position_BL"
@@ -623,6 +623,13 @@ ExitHandler:
                 ''9/3/2019 td''If (Not .IsDisplayedOnBadge) Then Continue For
                 If (Not .FieldInfo.IsDisplayedOnBadge) Then Continue For
 
+                ''Added 9/4/2019 thomas downes
+                If (0 = .Position_BL.LayoutWidth_Pixels) Then
+                    ''Added 9/4/2019 thomas downes
+                    MessageBox.Show("We cannot scale the placement of the image.", "LayoutPrint_Redux",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                End If ''ENd of "If (0 = .Position_BL.LayoutWidth_Pixels) Then"
+
                 Try
                     ''gr.DrawImage(.TextDisplay.GenerateImage(.Position_BL.Height_Pixels),
                     ''   .Position_BL.LeftEdge_Pixels, .Position_BL.TopEdge_Pixels,
@@ -630,17 +637,23 @@ ExitHandler:
 
                     ''#1 8/26/2019 td''image_textStandard = .TextDisplay.GenerateImage(.Position_BL.Height_Pixels)
                     '' #2 8/26/2019 td''image_textStandard = .TextDisplay.GenerateImage_ByHeight(.Position_BL.Height_Pixels)
-                    image_textStandard = .TextDisplay.GenerateImage_ByDesiredLayoutWidth(par_image.Width)
+
+                    image_textStandard = .TextDisplay.GenerateImage_ByDesiredLayoutWidth(par_imageBadgeCard.Width)
 
                     If (bOutputAllImages) Then par_listTextImages.Add(image_textStandard) ''Added 8/26/2019 td
 
                     ''8/30/2019 td''.TextDisplay.Image_BL = image_textStandard ''Added 8/27/2019 td
                     .Position_BL.Image_BL = image_textStandard ''Added 8/27/2019 td
 
-                    intLeft = .Position_BL.LeftEdge_Pixels
-                    intTop = .Position_BL.TopEdge_Pixels
+                    ''9/4/2019 td''intLeft = .Position_BL.LeftEdge_Pixels
+                    ''9/4/2019 td''intTop = .Position_BL.TopEdge_Pixels
 
-                    gr.DrawImage(image_textStandard,
+                    Dim decScalingFactor As Double ''Added 9/4/2019 thomas downes ''9/4 td''Decimal
+                    decScalingFactor = (par_imageBadgeCard.Width / .Position_BL.LayoutWidth_Pixels)
+                    intLeft = CInt(.Position_BL.LeftEdge_Pixels * decScalingFactor)
+                    intTop = CInt(.Position_BL.TopEdge_Pixels * decScalingFactor)
+
+                    gr_Badge.DrawImage(image_textStandard,
                                  New PointF(intLeft, intTop))
 
                 Catch ex_draw_invalid As InvalidOperationException
@@ -683,7 +696,7 @@ ExitHandler:
                 Try
                     ''#1 8/26/2019 td''image_textCustom = .TextDisplay.GenerateImage(.Position_BL.Height_Pixels)
                     '' #2 8/26/2019 td''image_textCustom = .TextDisplay.GenerateImage_ByHeight(.Position_BL.Height_Pixels)
-                    image_textCustom = .TextDisplay.GenerateImage_ByDesiredLayoutWidth(par_image.Width)
+                    image_textCustom = .TextDisplay.GenerateImage_ByDesiredLayoutWidth(par_imageBadgeCard.Width)
 
                     If (bOutputAllImages) Then par_listTextImages.Add(image_textCustom) ''Added 8/26/2019 td
 
@@ -694,10 +707,15 @@ ExitHandler:
                     ''                    .Position_BL.LeftEdge_Pixels, .Position_BL.TopEdge_Pixels,
                     ''                    .Position_BL.Width_Pixels, .Position_BL.Height_Pixels)
 
-                    intLeft = .Position_BL.LeftEdge_Pixels
-                    intTop = .Position_BL.TopEdge_Pixels
+                    ''9/4/2019 td''intLeft = .Position_BL.LeftEdge_Pixels
+                    ''9/4/2019 td''intTop = .Position_BL.TopEdge_Pixels
 
-                    gr.DrawImage(image_textCustom,
+                    Dim decScalingFactor As Double ''Added 9/4/2019 thomas downes ''9/4 td''Decimal
+                    decScalingFactor = (par_imageBadgeCard.Width / .Position_BL.LayoutWidth_Pixels)
+                    intLeft = CInt(.Position_BL.LeftEdge_Pixels * decScalingFactor)
+                    intTop = CInt(.Position_BL.TopEdge_Pixels * decScalingFactor)
+
+                    gr_Badge.DrawImage(image_textCustom,
                                  New PointF(intLeft, intTop))
 
                 Catch ex_draw_invalid As InvalidOperationException
@@ -715,7 +733,7 @@ ExitHandler:
 
         Next each_elementField
 
-        gr.Dispose()
+        gr_Badge.Dispose()
 
     End Sub ''End of ''Private Sub LoadElements_Fields()''
 

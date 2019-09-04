@@ -128,6 +128,10 @@ Public Class CtlGraphicText
         Me.ElementInfo_Base.Width_Pixels = Me.Width
         Me.ElementInfo_Base.Height_Pixels = Me.Height
 
+        ''ADded 9/4/2019 td
+        ''
+        Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.LayoutWidth()
+
     End Sub ''End of Public Sub SaveToModel
 
     Public Function LabelText() As String
@@ -144,6 +148,9 @@ Public Class CtlGraphicText
         ''
         Me.ElementInfo_Base.Width_Pixels = Me.Width
         Me.ElementInfo_Base.Height_Pixels = Me.Height
+
+        ''Added 9/4/2019 td
+        Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.LayoutWidth()
 
         Application.DoEvents()
         Me.RefreshImage()
@@ -286,6 +293,10 @@ Public Class CtlGraphicText
 
             Me.ElementInfo_Base.Width_Pixels = Me.Width
             Me.ElementInfo_Base.Height_Pixels = Me.Height
+
+            ''Added 9/4/2019 td
+            Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.LayoutWidth()
+
             Me.RefreshImage()
 
         End If ''End of "If (Me.ElementInfo_Base IsNot Nothing) Then"

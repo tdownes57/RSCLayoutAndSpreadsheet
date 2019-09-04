@@ -61,6 +61,7 @@ Public Class FormDisplayImageList1 ''Added 8/26/2019 td
             .Height = par_image.Height ''+ 3
             .BorderStyle = BorderStyle.FixedSingle
             .BackColor = Color.Beige
+            .BackColor = Color.Black
 
             .Refresh()
 
