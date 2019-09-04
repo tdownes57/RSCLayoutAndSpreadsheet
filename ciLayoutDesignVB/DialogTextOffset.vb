@@ -1,4 +1,8 @@
-﻿''
+﻿Option Explicit On ''Added 9/3/2019 td
+Option Strict On ''Added 9/3/2019 td
+Option Infer Off ''Added 9/3/2019 td
+
+''
 ''Added 8/15/2019 thomas downes 
 ''
 Imports ciBadgeInterfaces ''Added 8/16/2019 thomas d.
@@ -25,7 +29,8 @@ Public Class DialogTextOffset
     Public FormDesigner As FormDesignProtoTwo ''Added 8/15/2019 td  
     Public OriginalElementControl As CtlGraphicFldLabel ''Added 8/15/2019 td  
 
-    Public Sub LoadFieldAndForm(par_elementInfo As IElement_Text,
+    Public Sub LoadFieldAndForm(par_elementInfo_Base As IElement_Base,
+                                par_elementInfo_Text As IElement_Text,
                                 par_fieldInfo As ICIBFieldStandardOrCustom,
                                 par_formDesigner As FormDesignProtoTwo,
                                 par_originalCtl As CtlGraphicFldLabel)
@@ -35,21 +40,22 @@ Public Class DialogTextOffset
         Me.FieldInfo = par_fieldInfo
 
         ''8/16/2019 td''Me.ElementInfo = par_field.ElementInfo
-        Me.ElementInfo_Text = par_elementInfo ''Added 8/16 td
+        Me.ElementInfo_Base = par_elementInfo_Base ''Added 9/3/2019 thomas d. 
+        Me.ElementInfo_Text = par_elementInfo_Text ''Added 8/16 td
 
         ''Added 8/17/2019 td
         ''
-        Me.FontOffset_X = par_elementInfo.FontOffset_X
-        Me.FontOffset_Y = par_elementInfo.FontOffset_Y
-        Me.FontSize = par_elementInfo.FontSize
-        Me.Font_DrawingClass = par_elementInfo.Font_DrawingClass
+        Me.FontOffset_X = par_elementInfo_Text.FontOffset_X
+        Me.FontOffset_Y = par_elementInfo_Text.FontOffset_Y
+        Me.FontSize = CInt(par_elementInfo_Text.FontSize) ''9/3 td''par_elementInfo.FontSize
+        Me.Font_DrawingClass = par_elementInfo_Text.Font_DrawingClass
 
         ''Added 8/15/2019 td
         Me.FormDesigner = par_formDesigner
         Me.OriginalElementControl = par_originalCtl
 
         With CtlGraphicFldLabel1
-            .ElementInfo_Text = par_elementInfo
+            .ElementInfo_Text = par_elementInfo_Text
             .Width = .ElementInfo_Base.Width_Pixels
             .Height = .ElementInfo_Base.Height_Pixels
             .FieldInfo = par_fieldInfo
@@ -175,10 +181,10 @@ Public Class DialogTextOffset
         With Me.ElementInfo_Text
             .FontSize -= 1
 
-            Me.FontSize = .FontSize ''Push change to the level of the dialog form.
+            Me.FontSize = CInt(.FontSize) ''9/3 td'' = .FontSize ''Push change to the level of the dialog form.
 
             LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, .FontSize)
-            .Font_DrawingClass = modFonts.SetFontSize(.Font_DrawingClass, .FontSize)
+            .Font_DrawingClass = modFonts.SetFontSize(.Font_DrawingClass, CInt(.FontSize))
 
             Me.Font_DrawingClass = .Font_DrawingClass ''Push change to the level of the dialog form.
 
@@ -199,10 +205,10 @@ Public Class DialogTextOffset
         ''
         With Me.ElementInfo_Text
             .FontSize += 1
-            Me.FontSize = .FontSize ''Push change to the level of the dialog form.
+            Me.FontSize = CInt(.FontSize) ''9/3 td '' .FontSize ''Push change to the level of the dialog form.
 
             LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, .FontSize)
-            .Font_DrawingClass = modFonts.SetFontSize(.Font_DrawingClass, .FontSize)
+            .Font_DrawingClass = modFonts.SetFontSize(.Font_DrawingClass, CInt(.FontSize)) ''9/3 td '' .FontSize)
 
             Me.Font_DrawingClass = .Font_DrawingClass ''Push change to the level of the dialog form.
 

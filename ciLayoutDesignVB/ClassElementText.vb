@@ -71,16 +71,18 @@ Public Class ClassElementText
     Public Property TopEdge_Pixels As Integer Implements IElement_Base.TopEdge_Pixels
     Public Property LeftEdge_Pixels As Integer Implements IElement_Base.LeftEdge_Pixels
 
-    Public Property Width_Pixels As Integer Implements IElement_Base.Width_Pixels
-    Public Property Height_Pixels As Integer Implements IElement_Base.Height_Pixels
+    Public Property Width_Pixels As Integer = 253 Implements IElement_Base.Width_Pixels
+    Public Property Height_Pixels As Integer = 33 Implements IElement_Base.Height_Pixels
 
     ''8/29/2019 td''Public Property Border_Pixels As Integer Implements IElement_Base.Border_Pixels
-    Public Property Border_WidthInPixels As Integer Implements IElement_Base.Border_WidthInPixels
-    Public Property Border_Color As System.Drawing.Color Implements IElement_Base.Border_Color
+    Public Property Border_WidthInPixels As Integer = 0 Implements IElement_Base.Border_WidthInPixels
+    Public Property Border_Color As System.Drawing.Color = Color.Black Implements IElement_Base.Border_Color
 
     Public Property Back_Color As System.Drawing.Color Implements IElement_Base.Back_Color
 
     Public Property SelectedHighlighting As Boolean Implements IElement_Base.SelectedHighlighting ''Added 8/2/2019 td  
+
+    Private _labelToImage As New ClassLabelToImage ''Added 9/3/2019 td  
 
     Public Sub New(par_control As Control)
 
@@ -121,7 +123,9 @@ Public Class ClassElementText
 
         ''8/15/2019 td''GenerateImage(obj_image, Me, Me)
         ''8/26/2019 td''GenerateImage(pintLayoutHeight, obj_image, Me, Me)
-        GenerateImage(pintDesiredLayoutWidth, obj_image, Me, Me)
+
+        ''9/3/2019 td''GenerateImage(pintDesiredLayoutWidth, obj_image, Me, Me)
+        _labelToImage.TextImage(pintDesiredLayoutWidth, obj_image, Me, Me, False)
 
         Return obj_image
 
@@ -134,13 +138,13 @@ Public Class ClassElementText
         ''
         ''   This assumes the Badge is currently being displayed in Landscape mode, like so: 
         ''
-        ''         ----------------------------
-        ''         |                          |
-        ''         |                          |
-        ''         |                          |
-        ''         |                          |
-        ''         |                          |
-        ''         ----------------------------   
+        ''    ----------------------------
+        ''    |                          |
+        ''    |                          |
+        ''    |                          |
+        ''    |                          |
+        ''    |                          |
+        ''    ----------------------------   
         ''
         ''
         Dim obj_image As Image = Nothing
@@ -148,20 +152,24 @@ Public Class ClassElementText
 
         intDesiredLayoutWidth = CInt(pintDesiredLayoutHeight * ciLayoutPrintLib.LayoutPrint.LongSideToShortRatio())
 
-        GenerateImage(intDesiredLayoutWidth, obj_image, Me, Me)
+        ''9/3/2019 td''GenerateImage(intDesiredLayoutWidth, obj_image, Me, Me)
+        _labelToImage.TextImage(intDesiredLayoutWidth, obj_image, Me, Me, False)
 
         Return obj_image
 
     End Function ''End of "Public Function GenerateImage_ByDesiredLayoutWidth() As Image Implements IElementText.GenerateImage_ByDesiredLayoutWidth"
 
-    Public Function GenerateImage(pintDesiredLayoutWidth As Integer, ByRef par_image As Image,
+    Public Function GenerateImage_NotInUse(pintDesiredLayoutWidth As Integer, ByRef par_image As Image,
                                   par_elementInfo_Text As IElement_Text, par_elementInfo_Base As IElement_Base) As Image
         ''
         ''Added 8/14 & 7/17/2019 thomas downes
         ''
+        ''Retired in favor of ClassLabelToImage.TextImage(), on 9/3/2019 td  
+        ''
         Dim gr As Graphics ''= Graphics.FromImage(img)
         Dim pen_backcolor As Pen
         Dim pen_highlighting As Pen ''Added 8/2/2019 thomas downes  
+        Dim pen_border As Pen ''Added 9/3/2019 thomas downes  
         Dim brush_forecolor As Brush
         Dim brush_backcolor As Brush ''Added 8/28/2019 td
         Dim doubleW_div_H As Double ''Added 8/15/2019 td  
@@ -200,6 +208,10 @@ Public Class ClassElementText
         brush_backcolor = New SolidBrush(par_elementInfo_Base.Back_Color)
         gr.FillRectangle(brush_backcolor, 0, 0, intNewElementWidth, intNewElementHeight)
 
+        ''Added 9/3/2019 td
+        pen_border = New Pen(par_elementInfo_Base.Border_Color,
+                             par_elementInfo_Base.Border_WidthInPixels)
+
         ''8/5/2019 td''pen_highlighting = New Pen(Color.YellowGreen, 5)
         pen_highlighting = New Pen(Color.Yellow, 6)
 
@@ -219,6 +231,14 @@ Public Class ClassElementText
             gr.FillRectangle(br_brush,
                          New Rectangle(0, 0, intNewElementWidth, intNewElementHeight))
         End Using
+
+        ''
+        ''Added 9/03/2019 td
+        ''
+        If (0 < par_elementInfo_Base.Border_WidthInPixels) Then
+            ''Added 9/03/2019 td
+            gr.DrawRectangle(pen_border, New Rectangle(0, 0, intNewElementWidth, intNewElementHeight))
+        End If ''End of "If (par_element.SelectedHighlighting) Then"
 
         ''
         ''Added 8/02/2019 td
@@ -246,6 +266,6 @@ Public Class ClassElementText
 
         Return par_image ''Return Nothing
 
-    End Function ''End of "Public Function GenerateImage(par_label As Label) As Image"
+    End Function ''End of "Public Function GenerateImage_NotInUse(par_label As Label) As Image"
 
 End Class

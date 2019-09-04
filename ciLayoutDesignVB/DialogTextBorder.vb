@@ -38,6 +38,7 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
         ''
         Me.FieldInfo = par_fieldInfo
 
+        Me.ElementInfo_Base = par_elementInfo_Base ''Added 9/3/2019 td
         Me.ElementInfo_Text = par_elementInfo_Text ''Added 8/16 td
 
         ''Added 8/17/2019 td
@@ -55,6 +56,7 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
         Me.OriginalElementControl = par_originalCtl
 
         With CtlGraphicFldLabel1
+
             ''8/29/2019 td''.ElementBaseInfo = par_elementBaseInfo ''Added 8/29/2019 thomas downes
             .ElementInfo_Base = par_elementInfo_Base ''Added 8/29/2019 thomas downes
             .ElementInfo_Text = par_elementInfo_Text
@@ -88,7 +90,9 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
 
         Me.FieldInfo = par_field
 
-        Me.ElementInfo_Text = par_field.ElementInfo
+        ''9/3/2019 td''Me.ElementInfo_Text = par_field.ElementInfo
+        Me.ElementInfo_Text = CType(par_field.ElementInfo, IElement_Text)
+        Me.ElementInfo_Base = CType(par_field.ElementInfo, IElement_Base)
 
         ''Added 8/15/2019 td
         Me.FormDesigner = par_formDesigner
@@ -96,12 +100,17 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
 
         With CtlGraphicFldLabel1
             .FieldInfo = par_field
-            .ElementInfo_Text = par_field.ElementInfo
+
+            ''9/3/2019 td''.ElementInfo_Text = par_field.ElementInfo
+            .ElementInfo_Text = CType(par_field.ElementInfo, IElement_Text)
+            .ElementInfo_Base = CType(par_field.ElementInfo, IElement_Base)
+
             .FormDesigner = par_formDesigner
             .Width = .ElementInfo_Base.Width_Pixels
             .Height = .ElementInfo_Base.Height_Pixels
             .RefreshImage()
-        End With
+
+        End With ''End of "With CtlGraphicFldLabel1"
 
         ''Position it at the center horizontally. 
         CenterTheFieldControl()

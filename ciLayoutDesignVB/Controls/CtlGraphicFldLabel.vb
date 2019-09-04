@@ -11,7 +11,9 @@ Public Class CtlGraphicFldLabel
     ''
     ''Added 7/25/2019 thomas d 
     ''
-    Public Shared Generator As ClassLabelToImage
+    ''9/3/2019 td''Public Shared Generator As ClassLabelToImage
+    Public Shared LabelToImage As ClassLabelToImage
+
     ''7/26/2019 td''Public FieldInfo As ClassFieldCustomized
     ''7/26/2019 td''Public ElementInfo As ClassElementText
     Public FieldInfo As ICIBFieldStandardOrCustom
@@ -130,7 +132,7 @@ Public Class CtlGraphicFldLabel
         pictureLabel.Width = Me.ElementInfo_Base.Width_Pixels
         pictureLabel.Height = Me.ElementInfo_Base.Height_Pixels
 
-        If (Generator Is Nothing) Then Generator = New ClassLabelToImage
+        If (LabelToImage Is Nothing) Then LabelToImage = New ClassLabelToImage
 
         ''
         ''Added 7/31/2019 thomas 
@@ -161,8 +163,13 @@ Public Class CtlGraphicFldLabel
         ''8/18/2019 td''Generator.TextImage(pictureLabel.Image, Me.ElementInfo, Me.ElementInfo)
 
         Dim boolRotated As Boolean ''Added 8/18/2019 td
+
         ''Added 8/18/2019 td
-        Generator.TextImage(pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
+        ''9/3/2019 td''LabelToImage.TextImage(pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
+
+        Dim intLayoutWidth As Integer ''Added 9/3/2019 thomas d.
+        intLayoutWidth = Me.FormDesigner.LayoutWidth()
+        LabelToImage.TextImage(intLayoutWidth, pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
 
         ''Added 8/18/2019 td
         Dim intImageWidth As Integer
@@ -172,7 +179,16 @@ Public Class CtlGraphicFldLabel
             pictureLabel.Width = intImageWidth
             Me.Height = pictureLabel.Height
             Me.Width = pictureLabel.Width
-        End If ''End if "If (boolRotated) Then"
+        Else
+            ''
+            ''Adjust the controls to the image size. ---9/3/2019 td 
+            ''
+            pictureLabel.Width = pictureLabel.Image.Width
+            pictureLabel.Height = pictureLabel.Image.Height
+            Me.Height = pictureLabel.Height
+            Me.Width = pictureLabel.Width
+
+        End If ''End if "If (boolRotated) Then .... Else ...."
 
         ''Added 7/31/2019 td
         If (mod_c_boolMustSetBackColor And (ElementInfo_Text IsNot Nothing)) Then

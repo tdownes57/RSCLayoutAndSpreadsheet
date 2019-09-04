@@ -176,6 +176,12 @@
     <Compile Include="Controls\CtlPartial_FieldLabel.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Controls\CtlPartial_HardText.Designer.vb">
+      <DependentUpon>CtlPartial_HardText.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtlPartial_HardText.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ListCustomFieldsFlow.Designer.vb">
       <DependentUpon>ListCustomFieldsFlow.vb</DependentUpon>
     </Compile>

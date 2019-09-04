@@ -6,7 +6,8 @@ Public Class CtlGraphicText
     ''
     ''Added 8/01/2019 thomas d 
     ''
-    Public Shared Generator As ClassLabelToImage
+    ''9/3/2019 td''Public Shared Generator As ClassLabelToImage
+    Public Shared LabelToImage As ClassLabelToImage
 
     ''8/29/2019 td''Public ElementInfo As ClassElementText
     Public ElementInfo_Base As ciBadgeInterfaces.IElement_Base ''Added 8/29/2019 td
@@ -70,7 +71,7 @@ Public Class CtlGraphicText
             Me.ElementInfo_Text.FontItalics = False
         End If ''End of "If (Me.ElementInfo_Text.Font_DrawingClass Is Nothing) Then"
 
-        If (Generator Is Nothing) Then Generator = New ClassLabelToImage
+        If (LabelToImage Is Nothing) Then LabelToImage = New ClassLabelToImage
 
         ''
         ''Added 7/31/2019 thomas 
@@ -89,7 +90,11 @@ Public Class CtlGraphicText
         ''8/18/2019 td''Generator.TextImage(pictureLabel.Image, Me.ElementInfo, Me.ElementInfo)
 
         Dim boolRotated As Boolean ''Added 8/18/2019 td
-        Generator.TextImage(pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
+        ''9/3/2019 td''LabelToImage.TextImage(pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
+
+        Dim intLayoutWidth As Integer ''Added 9/3/2019 thomas d.
+        intLayoutWidth = Me.FormDesigner.LayoutWidth()
+        LabelToImage.TextImage(intLayoutWidth, pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
 
         ''Added 7/31/2019 td
         If (mod_c_boolMustSetBackColor And (Me.ElementInfo_Base IsNot Nothing)) Then

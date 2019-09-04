@@ -13,7 +13,8 @@ Public Class ClassLabelToImage
     ''
     ''Added 7/17/2019
     ''
-    Public Function TextImage(ByRef par_image As Image,
+    Public Function TextImage(pintDesiredLayoutWidth As Integer,
+                              ByRef par_image As Image,
                               par_elementInfo_Text As IElement_Text,
                               par_elementInfo_Base As IElement_Base,
                               ByRef pref_rotated As Boolean,
@@ -25,6 +26,7 @@ Public Class ClassLabelToImage
         Dim gr As Graphics ''= Graphics.FromImage(img)
         Dim pen_backcolor As Pen
         Dim pen_highlighting As Pen ''Added 8/2/2019 thomas downes  
+        Dim pen_border As Pen ''Added 9/3/2019 thomas downes  
         Dim brush_forecolor As Brush
 
         ''Added 8/17/2019 td
@@ -34,26 +36,55 @@ Public Class ClassLabelToImage
         Dim intStarting_Height As Integer ''Added 8/19/2019 thomas
 
         ''Added 8/19/2019 td
-        intStarting_Width = par_image.Width
-        intStarting_Height = par_image.Height
+        ''Moved downward. 9/3/2019 td''intStarting_Width = par_image.Width
+        ''Moved downward. 9/3/2019 td''intStarting_Height = par_image.Height
 
         Application.DoEvents()
 
+        ''Copied from ClassElementText.GenerateImage_NotInUse, 9/3/2019 thomas d. 
+        Dim doubleW_div_H As Double ''Added 8/15/2019 td  
+        Dim doubleScaling As Double ''Added 8/15/2019 td  
+        Dim intNewElementWidth As Integer ''Added 8/15 
+        Dim intNewElementHeight As Integer ''Added 8/15
+
+        ''
+        ''Copied from ClassElementText.GenerateImage_NotInUse, 9/3/2019 & 8/15/2019 thomas d. 
+        ''
+        doubleW_div_H = (par_elementInfo_Base.Width_Pixels / par_elementInfo_Base.Height_Pixels)
+        ''8/24 td''doubleScaling = (pintFinalLayoutWidth / par_element.LayoutWidth_Pixels)
+        doubleScaling = (pintDesiredLayoutWidth / par_elementInfo_Base.Width_Pixels)
+
+        ''Copied from ClassElementText.GenerateImage_NotInUse, 9/3/2019 & 8/15/2019 thomas d. 
         If (par_image Is Nothing) Then
             ''
-            ''Create the image from scratch, if needed. 
+            ''Create the image from scratch, If needed. 
             ''
             ''7/29 td''par_image = New Bitmap(par_element.Width_Pixels, par_element.Height_Pixels)
 
-            par_image = New Bitmap(par_elementInfo_Base.Width_Pixels,
-                                   par_elementInfo_Base.Height_Pixels)
+            ''9/3/2019 td''par_image = New Bitmap(par_elementInfo_Base.Width_Pixels,
+            ''9/3/2019 td''                       par_elementInfo_Base.Height_Pixels)
+
+            ''Added 8/15/2019 td
+            intNewElementWidth = CInt(doubleScaling * par_elementInfo_Base.Width_Pixels)
+            intNewElementHeight = CInt(doubleScaling * par_elementInfo_Base.Height_Pixels)
+
+            ''Added 8/15/2019 td
+            par_image = New Bitmap(intNewElementWidth, intNewElementHeight)
 
         End If ''End of "If (par_image Is Nothing) Then"
+
+        ''Moved here from above. ---9.3.2019 td 
+        intStarting_Width = par_image.Width
+        intStarting_Height = par_image.Height
 
         gr = Graphics.FromImage(par_image)
 
         ''8/29/2019 td''pen_backcolor = New Pen(par_design.BackColor)
         pen_backcolor = New Pen(par_elementInfo_Base.Back_Color)
+
+        ''Added 9/3/2019 td
+        pen_border = New Pen(par_elementInfo_Base.Border_Color,
+                             par_elementInfo_Base.Border_WidthInPixels)
 
         ''8/28/2019 td''pen_backcolor = New Pen(Color.White)
         ''8/5/2019 td''pen_highlighting = New Pen(Color.YellowGreen, 5)
@@ -97,6 +128,14 @@ Public Class ClassLabelToImage
             gr.FillRectangle(br_brush,
                          New Rectangle(0, 0, par_elementInfo_Base.Width_Pixels, par_elementInfo_Base.Height_Pixels))
         End Using
+
+        ''
+        ''Added 9/03/2019 td
+        ''
+        If (0 < par_elementInfo_Base.Border_WidthInPixels) Then
+            ''Added 9/03/2019 td
+            gr.DrawRectangle(pen_border, New Rectangle(0, 0, intNewElementWidth, intNewElementHeight))
+        End If ''End of "If (par_element.SelectedHighlighting) Then"
 
         ''
         ''Added 8/02/2019 td
@@ -210,7 +249,6 @@ Public Class ClassLabelToImage
                     par_image = bm_rotation
 
                 End If ''End of "If (par_pictureBox IsNot Nothing) Then .... Else ...."
-
 
             Next intRotateIndex
 

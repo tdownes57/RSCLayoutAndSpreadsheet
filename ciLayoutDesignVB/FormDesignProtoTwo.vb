@@ -47,6 +47,14 @@ Public Class FormDesignProtoTwo
 
     Private vbCrLf_Deux As String = (vbCrLf & vbCrLf) ''Added 7/31/2019 td 
 
+    Public Function LayoutWidth() As Integer
+        ''
+        ''Added 9/3/2019 thomas downes
+        ''
+        Return pictureBack.Width
+
+    End Function ''End of "Public Function LayoutWidth() As Integer"
+
     Public Function OkayToShowFauxContextMenu() As Boolean
         ''
         ''Added 8/14/2019 td 
