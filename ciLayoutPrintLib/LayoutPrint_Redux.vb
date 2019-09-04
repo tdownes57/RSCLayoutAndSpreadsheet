@@ -596,7 +596,9 @@ ExitHandler:
 
             intEachIndex += 1
 
+            ''
             ''Added 8/24/2019 thomas d.
+            ''
             With each_elementField.Position_BL
                 Select Case True
                     Case (.LeftEdge_Pixels < 0)

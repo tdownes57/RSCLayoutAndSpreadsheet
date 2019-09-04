@@ -162,7 +162,8 @@ Public Class FormDesignProtoTwo
         Else
             ControlMoverOrResizer_TD.Init(CtlGraphicPortrait_Lady.Picture_Box,
                   CtlGraphicPortrait_Lady, 10, True) ''Added 7/31/2019 thomas downes
-        End If
+
+        End If ''End of " If (mc_boolAllowGroupMovements) Then .... Else ...."
 
         ''
         ''Fields
@@ -176,7 +177,7 @@ Public Class FormDesignProtoTwo
                 each_graphicLabel = CType(each_control, CtlGraphicFldLabel)
 
                 ''7/31/2019 td''ControlMoverOrResizer_TD.Init(each_graphicLabel.Picture_Box,
-                ''                      each_control, 10) ''Added 7/28/2019 thomas downes
+                ''                each_control, 10) ''Added 7/28/2019 thomas downes
 
                 Const c_bRepaintAfterResize As Boolean = True ''Added 7/31/2019 td 
 
@@ -283,12 +284,19 @@ Public Class FormDesignProtoTwo
         Dim intCountControlsAdded As Integer ''Added 9/03/2019 td 
         Dim intTopEdge As Integer ''Added 7/28/2019 td
         Dim intLeftEdge As Integer ''Added 9/03/2019 td
-        Dim boolInludeOnBadge As Boolean
+        Dim boolIncludeOnBadge As Boolean
 
         For Each each_field As ICIBFieldStandardOrCustom In ClassFields.ListAllFields()
 
             Dim label_control As CtlGraphicFldLabel
 
+            ''Added 9/3/2019 thomas d. 
+            boolIncludeOnBadge = (par_boolLoadingForm And each_field.IsDisplayedOnBadge)
+            If (Not boolIncludeOnBadge) Then Continue For
+
+            ''
+            ''Has the user moved the field into place (and pressed the Save & Refresh link)??
+            ''
             If (each_field.ElementInfo_Base Is Nothing) Then
 
                 Dim new_element_text As New ClassElementText
@@ -312,7 +320,7 @@ Public Class FormDesignProtoTwo
                     .Width_Pixels = label_control.Width
                     .Height_Pixels = label_control.Height
 
-                    intTopEdge = (30 + 30 * intCountControlsAdded)
+                    intTopEdge = (30 + (30 * intCountControlsAdded))
                     intLeftEdge = intTopEdge ''Left = Top !! By setting Left = Top, we will create 
                     ''   a nice diagonally-cascading effect. ---9/3/2019 td
 
@@ -337,20 +345,31 @@ Public Class FormDesignProtoTwo
 
             End If ''end of "If (field_standard.ElementInfo Is Nothing) Then ... Else..."
 
-            label_control.Top = each_field.ElementInfo_Base.TopEdge_Pixels
-            label_control.Left = each_field.ElementInfo_Base.LeftEdge_Pixels
+            ''Added 9/3/2019 thomas downes
+            ''   Start from the Layout Background's TopLeft corner. 
+            ''
+            label_control.Top = pictureBack.Top
+            label_control.Left = pictureBack.Left
+
+            ''Added 9/3/2019 thomas downes
+            ''   Move into position from the Layout Background's TopLeft corner. 
+            ''
+            label_control.Top += each_field.ElementInfo_Base.TopEdge_Pixels
+            label_control.Left += each_field.ElementInfo_Base.LeftEdge_Pixels
+
             label_control.Width = each_field.ElementInfo_Base.Width_Pixels
             label_control.Height = each_field.ElementInfo_Base.Height_Pixels
 
             label_control.Visible = each_field.IsDisplayedOnBadge ''BL = Badge Layout
 
             intCountControlsAdded += 1
+
             label_control.Name = "FieldControl" & CStr(intCountControlsAdded)
             label_control.BorderStyle = BorderStyle.FixedSingle
 
-            boolInludeOnBadge = (par_boolLoadingForm And each_field.IsDisplayedOnBadge)
+            boolIncludeOnBadge = (par_boolLoadingForm And each_field.IsDisplayedOnBadge)
 
-            If (boolInludeOnBadge) Then
+            If (boolIncludeOnBadge) Then
 
                 Me.Controls.Add(label_control)
                 label_control.Visible = True
@@ -360,7 +379,8 @@ Public Class FormDesignProtoTwo
             ElseIf (par_bUnloading) Then
                 ''9/3/2019 td''Me.Controls.Remove(label_control)
                 Throw New NotImplementedException
-            End If
+
+            End If ''End of "If (boolInludeOnBadge) Then .... ElseIf (....) ...."
 
         Next each_field
 
@@ -978,6 +998,11 @@ Public Class FormDesignProtoTwo
                 each_controlField = CType(each_control, CtlGraphicFldLabel)
                 each_controlField.FormDesigner = Nothing
                 each_controlField.Parent = Nothing
+                each_controlField.FieldInfo = Nothing
+                each_controlField.ElementInfo_Base = Nothing
+                each_controlField.ElementInfo_Text = Nothing
+
+                ''Add it to the list.   (Important!) 
                 list_controlFields.Add(each_controlField)
 
             End If ''End of "If (TypeOf each_control Is CtlGraphicFldLabel) Then"

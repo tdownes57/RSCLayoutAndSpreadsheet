@@ -215,6 +215,10 @@ Public Class ClassFieldCustomized
             .IsFieldForDates = False
             .ExampleValue = "Willcrest School"
             .ArrayOfValues = New String() {"Willcrest School", "Woodbridge School"}
+
+            ''Added 9/3/2019 td
+            .ElementInfo = New ClassElementText()
+
         End With
         ListOfFields_Students.Add(new_object1)
 
@@ -230,6 +234,10 @@ Public Class ClassFieldCustomized
             ''.IsDateField = False
             .IsFieldForDates = False
             .ArrayOfValues = New String() {"Mrs. Ross", "Mr. Smudge", "Ms. Randall"}
+
+            ''Added 9/3/2019 td
+            .ElementInfo = New ClassElementText()
+
         End With
         ListOfFields_Students.Add(new_object2)
 
@@ -245,6 +253,10 @@ Public Class ClassFieldCustomized
             ''.IsDateField = False
             .IsFieldForDates = False
             .ArrayOfValues = New String() {"9th", "10th", "11th", "12th"}
+
+            ''Added 9/3/2019 td
+            .ElementInfo = New ClassElementText()
+
         End With
         ListOfFields_Students.Add(new_object3)
 

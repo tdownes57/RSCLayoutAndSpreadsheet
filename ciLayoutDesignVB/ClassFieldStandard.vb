@@ -231,6 +231,10 @@ Public Class ClassFieldStandard
             .IsDisplayedForEdits = True
             .IsDisplayedOnBadge = True
             .IsLocked = True
+
+            ''Added 9/3/2019 td
+            .ElementInfo = New ClassElementText()
+
         End With
         ListOfFields_Students.Add(new_object1)
 
@@ -248,6 +252,10 @@ Public Class ClassFieldStandard
             .IsDisplayedForEdits = True
             .IsDisplayedOnBadge = True
             .IsLocked = False
+
+            ''Added 9/3/2019 td
+            .ElementInfo = New ClassElementText()
+
         End With
         ListOfFields_Students.Add(new_object2)
 
@@ -266,6 +274,10 @@ Public Class ClassFieldStandard
             .IsDisplayedForEdits = True
             .IsDisplayedOnBadge = True
             .IsLocked = False
+
+            ''Added 9/3/2019 td
+            .ElementInfo = New ClassElementText()
+
         End With
         ListOfFields_Students.Add(new_object3)
 
@@ -282,6 +294,10 @@ Public Class ClassFieldStandard
             .IsDisplayedForEdits = False
             .IsDisplayedOnBadge = False
             .IsLocked = False
+
+            ''Added 9/3/2019 td
+            .ElementInfo = New ClassElementText()
+
         End With
         ListOfFields_Students.Add(new_object4)
 
@@ -320,6 +336,10 @@ Public Class ClassFieldStandard
             .IsDisplayedForEdits = False
             .IsDisplayedOnBadge = False
             .IsLocked = False
+
+            ''Added 9/3/2019 td
+            .ElementInfo = New ClassElementText()
+
         End With
         ListOfFields_Students.Add(new_object6)
 
@@ -336,6 +356,10 @@ Public Class ClassFieldStandard
             .IsDisplayedForEdits = False
             .IsDisplayedOnBadge = False
             .IsLocked = False
+
+            ''Added 9/3/2019 td
+            .ElementInfo = New ClassElementText()
+
         End With
         ListOfFields_Students.Add(new_object7)
 
@@ -352,6 +376,10 @@ Public Class ClassFieldStandard
             .IsDisplayedForEdits = False
             .IsDisplayedOnBadge = False
             .IsLocked = False
+
+            ''Added 9/3/2019 td
+            .ElementInfo = New ClassElementText()
+
         End With
         ListOfFields_Students.Add(new_object8)
 
@@ -368,6 +396,10 @@ Public Class ClassFieldStandard
             .IsDisplayedForEdits = False
             .IsDisplayedOnBadge = False
             .IsLocked = False
+
+            ''Added 9/3/2019 td
+            .ElementInfo = New ClassElementText()
+
         End With
         ListOfFields_Students.Add(new_object9)
 
@@ -384,10 +416,12 @@ Public Class ClassFieldStandard
             .IsDisplayedForEdits = False
             .IsDisplayedOnBadge = False
             .IsLocked = False
+
+            ''Added 9/3/2019 td
+            .ElementInfo = New ClassElementText()
+
         End With
         ListOfFields_Students.Add(new_object91)
-
-
 
     End Sub ''End of "InitializeHardcodedList_Students()"
 
