@@ -47,12 +47,25 @@ Public Class ClassLabelToImage
         Dim intNewElementWidth As Integer ''Added 8/15 
         Dim intNewElementHeight As Integer ''Added 8/15
 
+        ''Added 9/4/2019 thomas d.
+        Dim doub_LongToShort As Double ''Added 9/4/2019 thomas d.
+        Dim boo_LikelyRatioIsMistaken As Boolean ''Added 9/4/2019 thomas d.
+        doub_LongToShort = ciLayoutPrintLib.LayoutPrint.LongSideToShortRatio()
+
         ''
         ''Copied from ClassElementText.GenerateImage_NotInUse, 9/3/2019 & 8/15/2019 thomas d. 
         ''
         doubleW_div_H = (par_elementInfo_Base.Width_Pixels / par_elementInfo_Base.Height_Pixels)
+
+        ''Added 9/4/2019 thomas downes
+        boo_LikelyRatioIsMistaken = ciLayoutPrintLib.LayoutPrint.RatioIsLikelyBad(doubleW_div_H)
+
         ''8/24 td''doubleScaling = (pintFinalLayoutWidth / par_element.LayoutWidth_Pixels)
         doubleScaling = (pintDesiredLayoutWidth / par_elementInfo_Base.Width_Pixels)
+
+        ''Added 8/15/2019 td
+        intNewElementWidth = CInt(doubleScaling * par_elementInfo_Base.Width_Pixels)
+        intNewElementHeight = CInt(doubleScaling * par_elementInfo_Base.Height_Pixels)
 
         ''Copied from ClassElementText.GenerateImage_NotInUse, 9/3/2019 & 8/15/2019 thomas d. 
         If (par_image Is Nothing) Then
@@ -63,10 +76,6 @@ Public Class ClassLabelToImage
 
             ''9/3/2019 td''par_image = New Bitmap(par_elementInfo_Base.Width_Pixels,
             ''9/3/2019 td''                       par_elementInfo_Base.Height_Pixels)
-
-            ''Added 8/15/2019 td
-            intNewElementWidth = CInt(doubleScaling * par_elementInfo_Base.Width_Pixels)
-            intNewElementHeight = CInt(doubleScaling * par_elementInfo_Base.Height_Pixels)
 
             ''Added 8/15/2019 td
             par_image = New Bitmap(intNewElementWidth, intNewElementHeight)
@@ -83,7 +92,9 @@ Public Class ClassLabelToImage
         pen_backcolor = New Pen(par_elementInfo_Base.Back_Color)
 
         ''Added 9/3/2019 td
-        pen_border = New Pen(par_elementInfo_Base.Border_Color,
+        ''pen_border = New Pen(par_elementInfo_Base.Border_Color,
+        ''     par_elementInfo_Base.Border_WidthInPixels)
+        pen_border = New Pen(Color.Black,
                              par_elementInfo_Base.Border_WidthInPixels)
 
         ''8/28/2019 td''pen_backcolor = New Pen(Color.White)
@@ -125,16 +136,21 @@ Public Class ClassLabelToImage
         ''  https://stackoverflow.com/questions/5183856/converting-from-a-color-to-a-brush
         ''
         Using br_brush = New SolidBrush(par_elementInfo_Base.Back_Color)
+            ''Major call.  
+            ''----9/4 td---gr.FillRectangle(br_brush,
+            ''           New Rectangle(0, 0, par_elementInfo_Base.Width_Pixels, par_elementInfo_Base.Height_Pixels))
             gr.FillRectangle(br_brush,
-                         New Rectangle(0, 0, par_elementInfo_Base.Width_Pixels, par_elementInfo_Base.Height_Pixels))
+                         New Rectangle(0, 0, intNewElementWidth, intNewElementHeight))
         End Using
 
         ''
         ''Added 9/03/2019 td
         ''
+        ''   Draw the border about the element.  
+        ''
         If (0 < par_elementInfo_Base.Border_WidthInPixels) Then
             ''Added 9/03/2019 td
-            gr.DrawRectangle(pen_border, New Rectangle(0, 0, intNewElementWidth, intNewElementHeight))
+            gr.DrawRectangle(pen_border, New Rectangle(3, 3, intNewElementWidth - 6, intNewElementHeight - 6))
         End If ''End of "If (par_element.SelectedHighlighting) Then"
 
         ''
@@ -143,10 +159,15 @@ Public Class ClassLabelToImage
         If (par_elementInfo_Base.SelectedHighlighting) Then
             ''Added 8/2/2019 td
             ''8/5/2019 td''gr.DrawRectangle(pen_highlighting,
-            ''             New Rectangle(0, 0, par_element.Width_Pixels, par_element.Height_Pixels))
+            ''       New Rectangle(0, 0, par_element.Width_Pixels, par_element.Height_Pixels))
+
+            ''9/4/2019 td''gr.DrawRectangle(pen_highlighting,
+            ''     New Rectangle(3, 3, par_elementInfo_Base.Width_Pixels - 6,
+            ''     par_elementInfo_Base.Height_Pixels - 6))
+
             gr.DrawRectangle(pen_highlighting,
-                         New Rectangle(3, 3, par_elementInfo_Base.Width_Pixels - 6,
-                                             par_elementInfo_Base.Height_Pixels - 6))
+                         New Rectangle(3, 3, intNewElementWidth - 6,
+                                             intNewElementHeight - 6))
         End If ''End of "If (par_element.SelectedHighlighting) Then"
 
         ''7/30/2019''gr.DrawString(par_design.Text, par_design.Font_DrawingClass, brush_forecolor, New Point(0, 0))

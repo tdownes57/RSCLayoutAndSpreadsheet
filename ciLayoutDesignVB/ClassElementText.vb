@@ -149,8 +149,14 @@ Public Class ClassElementText
         ''
         Dim obj_image As Image = Nothing
         Dim intDesiredLayoutWidth As Integer
+        Dim doubleCorrectRatioW_to_H As Double ''Added 9/4/2019 td
 
-        intDesiredLayoutWidth = CInt(pintDesiredLayoutHeight * ciLayoutPrintLib.LayoutPrint.LongSideToShortRatio())
+        ''Added 9/4/2019 td
+        doubleCorrectRatioW_to_H = ciLayoutPrintLib.LayoutPrint.LongSideToShortRatio()
+
+        ''9/4 td''intDesiredLayoutWidth = CInt(pintDesiredLayoutHeight * ciLayoutPrintLib.LayoutPrint.LongSideToShortRatio())
+
+        intDesiredLayoutWidth = CInt(pintDesiredLayoutHeight * doubleCorrectRatioW_to_H)
 
         ''9/3/2019 td''GenerateImage(intDesiredLayoutWidth, obj_image, Me, Me)
         _labelToImage.TextImage(intDesiredLayoutWidth, obj_image, Me, Me, False)

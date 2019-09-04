@@ -49,12 +49,20 @@ Public Class FormDisplayImageList2 ''Added 8/27/2019 td
 
             ''objImage = par_objField.
 
+            ''Added 9/4/2019 thomas d.
+            If (Not par_objField.IsDisplayedOnBadge) Then Continue For
+
+            ''Major call !!
             LoadEachImageToUI(par_objField.ElementInfo.Image_BL, CType(par_objField, IElement_Base))
 
         Next par_objField
 
         For Each par_objField As ClassFieldCustomized In _objListFieldsCust
 
+            ''Added 9/4/2019 thomas d.
+            If (Not par_objField.IsDisplayedOnBadge) Then Continue For
+
+            ''Major call !!
             LoadEachImageToUI(par_objField.ElementInfo.Image_BL, CType(par_objField.ElementInfo, IElement_Base))
 
         Next par_objField

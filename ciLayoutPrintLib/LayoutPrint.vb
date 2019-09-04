@@ -57,6 +57,14 @@ Public Class LayoutPrint
 
     End Function ''eDN OF "Public Shared Function LongSideToShortRatio() As Double"
 
+    Public Shared Function RatioIsLikelyBad(par_doubleW_div_H As Double) As Boolean
+        ''
+        ''Added 9/4/2019 thomas downes  
+        ''
+        RatioIsLikelyBad = (1 > (100 * Math.Abs(par_doubleW_div_H - LongSideToShortRatio())))
+
+    End Function ''End of "Public Shared Function RatioIsLikelyBad(par_doubleW_div_H As Double) As Boolean"
+
     Public Function GenerateBuildImage_Master(Optional ByRef pref_imageOutput As Image = Nothing,
                                        Optional ByVal pboolLargeLandscape As Boolean = False,
                                        Optional ByVal pboolSmallLandscape As Boolean = False,
