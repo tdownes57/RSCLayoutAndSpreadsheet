@@ -267,13 +267,13 @@ Partial Class FormDesignProtoTwo
         'UploadNewToolStripMenuItem
         '
         Me.UploadNewToolStripMenuItem.Name = "UploadNewToolStripMenuItem"
-        Me.UploadNewToolStripMenuItem.Size = New System.Drawing.Size(190, 22)
+        Me.UploadNewToolStripMenuItem.Size = New System.Drawing.Size(189, 22)
         Me.UploadNewToolStripMenuItem.Text = "Upload new...."
         '
         'SelectFromExistingToolStripMenuItem
         '
         Me.SelectFromExistingToolStripMenuItem.Name = "SelectFromExistingToolStripMenuItem"
-        Me.SelectFromExistingToolStripMenuItem.Size = New System.Drawing.Size(190, 22)
+        Me.SelectFromExistingToolStripMenuItem.Size = New System.Drawing.Size(189, 22)
         Me.SelectFromExistingToolStripMenuItem.Text = "Select from existing...."
         '
         'DemoModeVideoToolStripMenuItem
@@ -302,7 +302,6 @@ Partial Class FormDesignProtoTwo
         '
         'LinkLabelSave
         '
-        Me.LinkLabelSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.LinkLabelSave.AutoSize = True
         Me.LinkLabelSave.Location = New System.Drawing.Point(852, 33)
         Me.LinkLabelSave.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
@@ -388,7 +387,6 @@ Partial Class FormDesignProtoTwo
         '
         'LinkRefreshPreview
         '
-        Me.LinkRefreshPreview.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.LinkRefreshPreview.AutoSize = True
         Me.LinkRefreshPreview.Location = New System.Drawing.Point(1197, 33)
         Me.LinkRefreshPreview.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)

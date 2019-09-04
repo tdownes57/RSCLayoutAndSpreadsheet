@@ -130,10 +130,30 @@ Public Class ClassFieldStandard
 
     ''8/27/2019 td'' Property Image_BL As Image Implements ICIBFieldStandardOrCustom.Image_BL ''Added 8/27/2019 
 
+    Private mod_elementInfo As ClassElementText ''Added 9/3/2019 td   
+
     ''
     ''Added 7/29/2019 thomas downes
     ''
-    Public Property ElementInfo As ClassElementText
+    ''9/3/2019 td''Public Property ElementInfo As ClassElementText
+    Public Property ElementInfo() As ClassElementText
+        Get
+            ''Added 9/3/2019 thomas d. 
+            Return mod_elementInfo
+        End Get
+        Set(value As ClassElementText)
+            ''Added 9/3/2019 thomas d. 
+            mod_elementInfo = value
+            ''Added 9/3/2019 thomas d. 
+            Me.ElementInfo_Base = CType(value, IElement_Base)
+            Me.ElementInfo_Text = CType(value, IElement_Text)
+        End Set
+    End Property
+
+    ''Added 9/3/2019 td
+    Public Property ElementInfo_Base As IElement_Base Implements ICIBFieldStandardOrCustom.ElementInfo_Base
+    ''Added 9/3/2019 td
+    Public Property ElementInfo_Text As IElement_Text Implements ICIBFieldStandardOrCustom.ElementInfo_Text
 
     ''
     ''Added 7/16/2019 thomas d. 

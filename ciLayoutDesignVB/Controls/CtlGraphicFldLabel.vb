@@ -100,6 +100,23 @@ Public Class CtlGraphicFldLabel
 
     End Sub
 
+    Public Sub New(par_field As ICIBFieldStandardOrCustom, Optional par_formDesigner As FormDesignProtoTwo = Nothing)
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        Me.FieldInfo = par_field
+
+        ''Added 9/3/2019 td
+        Me.ElementInfo_Base = CType(par_field.ElementInfo_Base, IElement_Base)
+        Me.ElementInfo_Text = CType(par_field.ElementInfo_Text, IElement_Text)
+
+        ''Added 9/3/2019 td
+        Me.FormDesigner = par_formDesigner
+
+    End Sub
+
     Public Sub RefreshImage()
         ''
         ''zAdded 7/25/2019 thomas d 

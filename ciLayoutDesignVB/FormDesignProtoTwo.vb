@@ -129,7 +129,9 @@ Public Class FormDesignProtoTwo
         ''7/31/2019 td''LoadElements()
         ''8/28/2019 td''LoadElements_Fields()
         Const c_boolLoadingForm As Boolean = True ''Added 8/28/2019 thomas downes  
-        LoadElements_Fields(c_boolLoadingForm)
+
+        ''9/3/2019 td''LoadElements_Fields(c_boolLoadingForm)
+        LoadElements_Fields_Master(c_boolLoadingForm)
 
         ''Added 7/31/2019 td  
         LoadElements_Picture()
@@ -254,9 +256,125 @@ Public Class FormDesignProtoTwo
 
         End With ''End of "With CtlGraphicPortrait1"
 
-    End Sub ''Endo f " Private Sub LoadElements_Picture()"
+    End Sub ''End of " Private Sub LoadElements_Picture()"
 
-    Private Sub LoadElements_Fields(par_boolLoadingForm As Boolean, Optional par_bUnloading As Boolean = False)
+    Private Sub LoadElements_Fields_Master(par_boolLoadingForm As Boolean, Optional par_bUnloading As Boolean = False)
+        ''
+        ''Added 9/03/2019 thomas downes 
+        ''
+        Const c_boolUseConsolidatedList As Boolean = True
+
+        If (c_boolUseConsolidatedList) Then
+
+            LoadElements_Fields_OneList(par_boolLoadingForm, par_bUnloading)
+
+        Else
+
+            LoadElements_Fields_TwoLists(par_boolLoadingForm, par_bUnloading)
+
+        End If ''End of "If (c_boolUseConsolidatedList) Then ..... Else ...."
+
+    End Sub ''ENd of "Private Sub LoadElements_Fields_Master()"
+
+    Private Sub LoadElements_Fields_OneList(par_boolLoadingForm As Boolean, Optional par_bUnloading As Boolean = False)
+        ''
+        ''Added 9/03/2019 thomas downes 
+        ''
+        Dim intCountControlsAdded As Integer ''Added 9/03/2019 td 
+        Dim intTopEdge As Integer ''Added 7/28/2019 td
+        Dim intLeftEdge As Integer ''Added 9/03/2019 td
+        Dim boolInludeOnBadge As Boolean
+
+        For Each each_field As ICIBFieldStandardOrCustom In ClassFields.ListAllFields()
+
+            Dim label_control As CtlGraphicFldLabel
+
+            If (each_field.ElementInfo_Base Is Nothing) Then
+
+                Dim new_element_text As New ClassElementText
+
+                each_field.ElementInfo_Base = new_element_text
+                each_field.ElementInfo_Text = new_element_text
+
+                label_control = New CtlGraphicFldLabel(each_field, Me)
+
+                ''If (par_boolLoadingForm) Then
+                ''    Me.Controls.Add(label_control)
+                ''ElseIf (par_bUnloading) Then
+                ''    ''9/3/2019 td''Me.Controls.Remove(label_control)
+                ''    Throw New NotImplementedException
+                ''End If
+
+                label_control.Width = CInt(pictureBack.Width / 3)
+
+                With each_field.ElementInfo_Base
+
+                    .Width_Pixels = label_control.Width
+                    .Height_Pixels = label_control.Height
+
+                    intTopEdge = (30 + 30 * intCountControlsAdded)
+                    intLeftEdge = intTopEdge ''Left = Top !! By setting Left = Top, we will create 
+                    ''   a nice diagonally-cascading effect. ---9/3/2019 td
+
+                    .TopEdge_Pixels = intTopEdge
+                    .LeftEdge_Pixels = intLeftEdge
+
+                End With ''End of "With field_standard.ElementInfo"
+
+            Else
+
+                label_control = New CtlGraphicFldLabel(each_field, Me)
+
+                ''If (par_boolLoadingForm) Then
+                ''    Me.Controls.Add(label_control)
+                ''ElseIf (par_bUnloading) Then ''Added 8/28/2019 thomas downes 
+                ''    ''Added 8/28/2019 thomas downes 
+                ''    ''9/3/2019 td''Me.Controls.Remove(label_control)
+                ''    Throw New NotImplementedException
+                ''End If ''End of "If (par_boolLoadingForm) Then .... ElseIf ....."
+
+                ''Moved far below. ''new_label_control_std.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
+
+            End If ''end of "If (field_standard.ElementInfo Is Nothing) Then ... Else..."
+
+            label_control.Top = each_field.ElementInfo_Base.TopEdge_Pixels
+            label_control.Left = each_field.ElementInfo_Base.LeftEdge_Pixels
+            label_control.Width = each_field.ElementInfo_Base.Width_Pixels
+            label_control.Height = each_field.ElementInfo_Base.Height_Pixels
+
+            label_control.Visible = each_field.IsDisplayedOnBadge ''BL = Badge Layout
+
+            intCountControlsAdded += 1
+            label_control.Name = "FieldControl" & CStr(intCountControlsAdded)
+            label_control.BorderStyle = BorderStyle.FixedSingle
+
+            boolInludeOnBadge = (par_boolLoadingForm And each_field.IsDisplayedOnBadge)
+
+            If (boolInludeOnBadge) Then
+
+                Me.Controls.Add(label_control)
+                label_control.Visible = True
+                label_control.RefreshImage()
+                label_control.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
+
+            ElseIf (par_bUnloading) Then
+                ''9/3/2019 td''Me.Controls.Remove(label_control)
+                Throw New NotImplementedException
+            End If
+
+        Next each_field
+
+        ''
+        ''Added 8/27/2019 thomas downes
+        ''
+        Me.Refresh() ''Added 8/28/2019 td   
+
+        MessageBox.Show($"Number of field controls now on the form: {intCountControlsAdded}", "",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+    End Sub ''End of ''Private Sub LoadElements_Fields_OneList()''
+
+    Private Sub LoadElements_Fields_TwoLists(par_boolLoadingForm As Boolean, Optional par_bUnloading As Boolean = False)
         ''
         ''Added 7/18/2019 thomas downes 
         ''
@@ -476,7 +594,7 @@ Public Class FormDesignProtoTwo
         MessageBox.Show($"Number of field controls now on the form: {intCountControlsAdded}", "",
                         MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-    End Sub ''End of ''Private Sub LoadElements_Fields()''
+    End Sub ''End of ''Private Sub LoadElements_Fields_TwoLists()''
 
     Private Sub SaveLayout()
         ''

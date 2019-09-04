@@ -7,6 +7,9 @@ Public Interface ICIBFieldStandardOrCustom
     ''
     ''Added 7/20/2019 thomas downes
     ''
+    Property ElementInfo_Base As IElement_Base ''Added 9/3/2019 thomas d.
+    Property ElementInfo_Text As IElement_Text ''Added 9/3/2019 thomas d.
+
     Property FieldLabelCaption As String
 
     Property IsStandard As Boolean ''Added 7/26/2019 thomas d. 
