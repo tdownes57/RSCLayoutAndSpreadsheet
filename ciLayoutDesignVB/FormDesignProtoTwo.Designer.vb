@@ -54,7 +54,7 @@ Partial Class FormDesignProtoTwo
         Me.DemoModeVideoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DemoModeActiveToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
-        Me.LinkLabelSave = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabelSave1 = New System.Windows.Forms.LinkLabel()
         Me.linkSaveAndRefresh = New System.Windows.Forms.LinkLabel()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.ContextBackDecrease = New System.Windows.Forms.ToolStripMenuItem()
@@ -74,6 +74,8 @@ Partial Class FormDesignProtoTwo
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.StatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.StatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.linkRemoveElements = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabelSave2 = New System.Windows.Forms.LinkLabel()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         CType(Me.graphicAdjuster, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -267,13 +269,13 @@ Partial Class FormDesignProtoTwo
         'UploadNewToolStripMenuItem
         '
         Me.UploadNewToolStripMenuItem.Name = "UploadNewToolStripMenuItem"
-        Me.UploadNewToolStripMenuItem.Size = New System.Drawing.Size(189, 22)
+        Me.UploadNewToolStripMenuItem.Size = New System.Drawing.Size(190, 22)
         Me.UploadNewToolStripMenuItem.Text = "Upload new...."
         '
         'SelectFromExistingToolStripMenuItem
         '
         Me.SelectFromExistingToolStripMenuItem.Name = "SelectFromExistingToolStripMenuItem"
-        Me.SelectFromExistingToolStripMenuItem.Size = New System.Drawing.Size(189, 22)
+        Me.SelectFromExistingToolStripMenuItem.Size = New System.Drawing.Size(190, 22)
         Me.SelectFromExistingToolStripMenuItem.Text = "Select from existing...."
         '
         'DemoModeVideoToolStripMenuItem
@@ -300,16 +302,16 @@ Partial Class FormDesignProtoTwo
         Me.CheckBox1.Text = "Include Additional Fields"
         Me.CheckBox1.UseVisualStyleBackColor = True
         '
-        'LinkLabelSave
+        'LinkLabelSave1
         '
-        Me.LinkLabelSave.AutoSize = True
-        Me.LinkLabelSave.Location = New System.Drawing.Point(852, 33)
-        Me.LinkLabelSave.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.LinkLabelSave.Name = "LinkLabelSave"
-        Me.LinkLabelSave.Size = New System.Drawing.Size(40, 17)
-        Me.LinkLabelSave.TabIndex = 43
-        Me.LinkLabelSave.TabStop = True
-        Me.LinkLabelSave.Text = "Save"
+        Me.LinkLabelSave1.AutoSize = True
+        Me.LinkLabelSave1.Location = New System.Drawing.Point(852, 33)
+        Me.LinkLabelSave1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LinkLabelSave1.Name = "LinkLabelSave1"
+        Me.LinkLabelSave1.Size = New System.Drawing.Size(40, 17)
+        Me.LinkLabelSave1.TabIndex = 43
+        Me.LinkLabelSave1.TabStop = True
+        Me.LinkLabelSave1.Text = "Save"
         '
         'linkSaveAndRefresh
         '
@@ -470,16 +472,40 @@ Partial Class FormDesignProtoTwo
         Me.StatusLabel2.Size = New System.Drawing.Size(73, 17)
         Me.StatusLabel2.Text = "StatusLabel2"
         '
+        'linkRemoveElements
+        '
+        Me.linkRemoveElements.AutoSize = True
+        Me.linkRemoveElements.Location = New System.Drawing.Point(199, 33)
+        Me.linkRemoveElements.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.linkRemoveElements.Name = "linkRemoveElements"
+        Me.linkRemoveElements.Size = New System.Drawing.Size(122, 17)
+        Me.linkRemoveElements.TabIndex = 48
+        Me.linkRemoveElements.TabStop = True
+        Me.linkRemoveElements.Text = "Remove Elements"
+        '
+        'LinkLabelSave2
+        '
+        Me.LinkLabelSave2.AutoSize = True
+        Me.LinkLabelSave2.Location = New System.Drawing.Point(114, 33)
+        Me.LinkLabelSave2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LinkLabelSave2.Name = "LinkLabelSave2"
+        Me.LinkLabelSave2.Size = New System.Drawing.Size(40, 17)
+        Me.LinkLabelSave2.TabIndex = 50
+        Me.LinkLabelSave2.TabStop = True
+        Me.LinkLabelSave2.Text = "Save"
+        '
         'FormDesignProtoTwo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1368, 591)
+        Me.Controls.Add(Me.LinkLabelSave2)
+        Me.Controls.Add(Me.linkRemoveElements)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.LinkRefreshPreview)
         Me.Controls.Add(Me.graphicAdjuster)
         Me.Controls.Add(Me.picturePreview)
-        Me.Controls.Add(Me.LinkLabelSave)
+        Me.Controls.Add(Me.LinkLabelSave1)
         Me.Controls.Add(Me.linkSaveAndRefresh)
         Me.Controls.Add(Me.CtlGraphicPortrait_Lady)
         Me.Controls.Add(Me.MenuStrip1)
@@ -542,7 +568,7 @@ Partial Class FormDesignProtoTwo
     Friend WithEvents DoubleSidedToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents SaveToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents CtlGraphicPortrait_Lady As CtlGraphicPortrait
-    Friend WithEvents LinkLabelSave As LinkLabel
+    Friend WithEvents LinkLabelSave1 As LinkLabel
     Friend WithEvents linkSaveAndRefresh As LinkLabel
     Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
     Friend WithEvents ContextBackDecrease As ToolStripMenuItem
@@ -560,4 +586,6 @@ Partial Class FormDesignProtoTwo
     Friend WithEvents StatusStrip1 As StatusStrip
     Friend WithEvents StatusLabel1 As ToolStripStatusLabel
     Friend WithEvents StatusLabel2 As ToolStripStatusLabel
+    Friend WithEvents linkRemoveElements As LinkLabel
+    Friend WithEvents LinkLabelSave2 As LinkLabel
 End Class

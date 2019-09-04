@@ -942,4 +942,56 @@ Public Class FormDesignProtoTwo
     Private Sub PictureBack_Click(sender As Object, e As EventArgs) Handles pictureBack.Click
 
     End Sub
+
+    Private Sub LinkLabelSave1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) _
+        Handles LinkLabelSave1.LinkClicked,
+            LinkLabelSave2.LinkClicked
+        ''
+        ''Added 9/3/2019 thomas downes
+        ''
+        ''Step 1 of 3.   Save the user's work. 
+        ''
+        SaveLayout()
+
+    End Sub
+
+    Private Sub LinkRemoveElements_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles linkRemoveElements.LinkClicked
+        ''
+        ''Added 9/3/2019 thomas downes
+        ''
+        Dim each_controlField As CtlGraphicFldLabel
+        Dim list_controlFields As New List(Of CtlGraphicFldLabel)
+
+        Me.mod_ControlLastTouched = Nothing
+
+        Me.mod_FieldControlLastTouched = Nothing
+
+        Me.mod_selectedCtls.Clear()
+
+        ''
+        ''Part 1 of 2.  Create a list of the controls you want to detach from the form. 
+        ''
+        For Each each_control As Control In Me.Controls
+
+            If (TypeOf each_control Is CtlGraphicFldLabel) Then
+
+                each_controlField = CType(each_control, CtlGraphicFldLabel)
+                each_controlField.FormDesigner = Nothing
+                each_controlField.Parent = Nothing
+                list_controlFields.Add(each_controlField)
+
+            End If ''End of "If (TypeOf each_control Is CtlGraphicFldLabel) Then"
+
+        Next each_control
+
+        ''
+        ''Part 2 of 2.  Detach each listed control from the form. 
+        ''
+        For Each each_controlField In list_controlFields
+
+            Me.Controls.Remove(each_controlField)
+
+        Next each_controlField
+
+    End Sub
 End Class
