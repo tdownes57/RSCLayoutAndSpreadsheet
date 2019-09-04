@@ -12,6 +12,8 @@ Public Structure IElementWithText
     ''
     ''Added 8/14/2019 td  
     ''
+    Dim FieldInfo As ICIBFieldStandardOrCustom ''Added 9/3/2019 td  
+
     ''8/15 td''Dim Position As IElement_Base ''Added 8/14/2019 td 
     Dim TextDisplay As IElement_Text ''Added 8/14/2019 td  
 

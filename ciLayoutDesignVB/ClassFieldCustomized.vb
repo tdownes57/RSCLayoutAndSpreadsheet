@@ -173,6 +173,8 @@ Public Class ClassFieldCustomized
             Dim obj_ElementText As IElement_Text
             Dim obj_Element_Base As IElement_Base
 
+            new_ElementWithText.FieldInfo = each_obj ''Added 9/3/2019 td  
+
             obj_ElementText = CType(each_obj.ElementInfo, IElement_Text)
             obj_Element_Base = CType(each_obj.ElementInfo, IElement_Base)
 

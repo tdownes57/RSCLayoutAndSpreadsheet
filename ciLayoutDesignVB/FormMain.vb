@@ -170,6 +170,11 @@ Public Class FormMain
     End Sub
 
     Private Sub FormMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ''
+        ''Added 9/3/2019 thomas downes
+        ''
+        Dim frm_ToShow As New FormDesignProtoTwo()
+        frm_ToShow.Show()
 
     End Sub
 

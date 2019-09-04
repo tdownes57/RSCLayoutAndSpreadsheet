@@ -764,12 +764,23 @@ Public Class FormDesignProtoTwo
         ''Added 7/31/2019 td
         ''
         ''
-        ''Step 1 of 3.   Save the user's work. 
+        ''Step 1 of 4.   Save the user's work. 
         ''
         SaveLayout()
 
         ''
-        ''Step 2 of 3.   Remove the existing controls. 
+        ''Step 2 of 4.  Decide the next step. 
+        ''
+        Const c_boolStartNewWindow As Boolean = True ''Added 9/3/2019 thomas d. 
+        If (c_boolStartNewWindow) Then ''Added 9/3/2019 thomas d. 
+            Dim frm_ToShow As New FormDesignProtoTwo()
+            frm_ToShow.Show()
+            Me.Close()
+            Exit Sub
+        End If ''End of "If (c_boolStartNewWindow) Then"
+
+        ''
+        ''Step 3 of 4.   Remove the existing controls. 
         ''
         ''Added 7/31/2019 td
         For Each each_control As Control In Me.Controls
@@ -787,13 +798,17 @@ Public Class FormDesignProtoTwo
 
         Next each_control
 
+        ''
+        ''Step 4 of 5.   Regenerate the form. 
+        ''
         Me.Refresh()
         Application.DoEvents()
 
         ''
-        ''Step 3 of 3.   Regenerate the form. 
+        ''Step 5 of 5.   Reload the fields onto the form. 
         ''
-        Load_Form()
+        ''9/3/2019 td''Load_Form()
+        LoadElements_Fields_Master(False, False)
 
     End Sub
 

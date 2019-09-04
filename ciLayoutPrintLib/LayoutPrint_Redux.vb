@@ -596,6 +596,8 @@ ExitHandler:
 
             intEachIndex += 1
 
+            ''9/3/2019 td''If (not each_elementField.IsDiplayedOnBadge) Then Continue for
+
             ''
             ''Added 8/24/2019 thomas d.
             ''
@@ -612,11 +614,14 @@ ExitHandler:
                 End Select
             End With ''End of "With each_elementField.Position_BL"
 
-            Dim image_textStandard As Image
-            Dim intLeft As Integer
-            Dim intTop As Integer
-
             With each_elementField
+
+                Dim image_textStandard As Image
+                Dim intLeft As Integer
+                Dim intTop As Integer
+
+                ''9/3/2019 td''If (Not .IsDisplayedOnBadge) Then Continue For
+                If (Not .FieldInfo.IsDisplayedOnBadge) Then Continue For
 
                 Try
                     ''gr.DrawImage(.TextDisplay.GenerateImage(.Position_BL.Height_Pixels),
@@ -671,6 +676,10 @@ ExitHandler:
             Dim intTop As Integer
 
             With each_elementField
+
+                ''9/3/2019 td''If (Not .IsDisplayedOnBadge) Then Continue For
+                If (Not .FieldInfo.IsDisplayedOnBadge) Then Continue For
+
                 Try
                     ''#1 8/26/2019 td''image_textCustom = .TextDisplay.GenerateImage(.Position_BL.Height_Pixels)
                     '' #2 8/26/2019 td''image_textCustom = .TextDisplay.GenerateImage_ByHeight(.Position_BL.Height_Pixels)
