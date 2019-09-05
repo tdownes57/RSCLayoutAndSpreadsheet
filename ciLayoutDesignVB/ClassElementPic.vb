@@ -38,6 +38,9 @@ Public Class ClassElementPic
     Public Property Border_WidthInPixels As Integer Implements IElement_Base.Border_WidthInPixels
     Public Property Border_Color As System.Drawing.Color Implements IElement_Base.Border_Color
 
+    ''Added 9/4/2019 td 
+    Public Property Back_Transparent As Boolean Implements IElement_Base.Back_Transparent
+
     Public Property Back_Color As System.Drawing.Color Implements IElement_Base.Back_Color
 
     ''Added 8/2/2019 td
