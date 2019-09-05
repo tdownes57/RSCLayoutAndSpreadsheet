@@ -65,12 +65,13 @@ Partial Class FormDesignProtoTwo
         Me.picturePreview = New System.Windows.Forms.PictureBox()
         Me.pictureBack = New System.Windows.Forms.PictureBox()
         Me.LinkRefreshPreview = New System.Windows.Forms.LinkLabel()
-        Me.CtlGraphicPortrait_Lady = New ciLayoutDesignVB.CtlGraphicPortrait()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.StatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.StatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.linkRemoveElements = New System.Windows.Forms.LinkLabel()
         Me.LinkLabelSave2 = New System.Windows.Forms.LinkLabel()
+        Me.CtlGraphicPortrait_Lady = New ciLayoutDesignVB.CtlGraphicPortrait()
+        Me.dropdownHowToLoadFlds = New System.Windows.Forms.ComboBox()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         CType(Me.graphicAdjuster, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -393,14 +394,6 @@ Partial Class FormDesignProtoTwo
         Me.LinkRefreshPreview.TabStop = True
         Me.LinkRefreshPreview.Text = "Refresh Preview"
         '
-        'CtlGraphicPortrait_Lady
-        '
-        Me.CtlGraphicPortrait_Lady.Location = New System.Drawing.Point(1189, 396)
-        Me.CtlGraphicPortrait_Lady.Margin = New System.Windows.Forms.Padding(4)
-        Me.CtlGraphicPortrait_Lady.Name = "CtlGraphicPortrait_Lady"
-        Me.CtlGraphicPortrait_Lady.Size = New System.Drawing.Size(150, 182)
-        Me.CtlGraphicPortrait_Lady.TabIndex = 41
-        '
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StatusLabel1, Me.StatusLabel2})
@@ -444,11 +437,29 @@ Partial Class FormDesignProtoTwo
         Me.LinkLabelSave2.TabStop = True
         Me.LinkLabelSave2.Text = "Save"
         '
+        'CtlGraphicPortrait_Lady
+        '
+        Me.CtlGraphicPortrait_Lady.Location = New System.Drawing.Point(1189, 396)
+        Me.CtlGraphicPortrait_Lady.Margin = New System.Windows.Forms.Padding(4)
+        Me.CtlGraphicPortrait_Lady.Name = "CtlGraphicPortrait_Lady"
+        Me.CtlGraphicPortrait_Lady.Size = New System.Drawing.Size(150, 182)
+        Me.CtlGraphicPortrait_Lady.TabIndex = 41
+        '
+        'dropdownHowToLoadFlds
+        '
+        Me.dropdownHowToLoadFlds.FormattingEnabled = True
+        Me.dropdownHowToLoadFlds.Items.AddRange(New Object() {"...", "Load Standard & Custom Fields as different", "Load Standard & Custom Fields as same"})
+        Me.dropdownHowToLoadFlds.Location = New System.Drawing.Point(594, 30)
+        Me.dropdownHowToLoadFlds.Name = "dropdownHowToLoadFlds"
+        Me.dropdownHowToLoadFlds.Size = New System.Drawing.Size(229, 25)
+        Me.dropdownHowToLoadFlds.TabIndex = 51
+        '
         'FormDesignProtoTwo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1368, 591)
+        Me.Controls.Add(Me.dropdownHowToLoadFlds)
         Me.Controls.Add(Me.LinkLabelSave2)
         Me.Controls.Add(Me.linkRemoveElements)
         Me.Controls.Add(Me.StatusStrip1)
@@ -528,4 +539,5 @@ Partial Class FormDesignProtoTwo
     Friend WithEvents StatusLabel2 As ToolStripStatusLabel
     Friend WithEvents linkRemoveElements As LinkLabel
     Friend WithEvents LinkLabelSave2 As LinkLabel
+    Friend WithEvents dropdownHowToLoadFlds As ComboBox
 End Class

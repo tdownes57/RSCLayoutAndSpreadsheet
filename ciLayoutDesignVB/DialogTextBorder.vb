@@ -67,7 +67,7 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
             .FieldInfo = par_fieldInfo
             .LabelText()  ''par_elementInfo.Text)
             .FormDesigner = par_formDesigner
-            .RefreshImage()
+            .Refresh_Image()
 
         End With ''End of "With CtlGraphicFldLabel1"
 
@@ -108,7 +108,7 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
             .FormDesigner = par_formDesigner
             .Width = .ElementInfo_Base.Width_Pixels
             .Height = .ElementInfo_Base.Height_Pixels
-            .RefreshImage()
+            .Refresh_Image()
 
         End With ''End of "With CtlGraphicFldLabel1"
 
@@ -141,7 +141,7 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
         Me.ElementInfo_Base.Border_WidthInPixels += 1
 
         CtlGraphicFldLabel1.ElementInfo_Text = Me.ElementInfo_Text
-        CtlGraphicFldLabel1.RefreshImage()
+        CtlGraphicFldLabel1.Refresh_Image()
 
         ''Added 8/17/2019 thomas downes 
         ''   8/29/2019 td''LabelNumberOffsetY.Text = String.Format(LabelNumberOffsetY.Tag.ToString, Me.FontOffset_X)
@@ -161,7 +161,7 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
         Me.ElementInfo_Base.Border_WidthInPixels -= 1
 
         CtlGraphicFldLabel1.ElementInfo_Text = Me.ElementInfo_Text
-        CtlGraphicFldLabel1.RefreshImage()
+        CtlGraphicFldLabel1.Refresh_Image()
 
         ''Added 8/17/2019 thomas downes 
         ''  8/29/2019 td''LabelNumberOffsetY.Text = String.Format(LabelNumberOffsetY.Tag.ToString, Me.FontOffset_X)

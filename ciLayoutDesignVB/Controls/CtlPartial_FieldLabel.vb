@@ -89,7 +89,7 @@ Partial Public Class CtlGraphicFldLabel
             Application.DoEvents()
             Application.DoEvents()
 
-            RefreshImage()
+            Refresh_Image()
             Me.Refresh()
 
         ElseIf (Me.GroupEdits.LabelsList_IsItemIncluded(Me)) Then
@@ -115,7 +115,7 @@ Partial Public Class CtlGraphicFldLabel
                     ''.ElementInfo.Width_Pixels = Me.Width
                     ''.ElementInfo.Height_Pixels = Me.Height
 
-                    .RefreshImage()
+                    .Refresh_Image()
                     .Refresh()
 
                 End With
@@ -174,7 +174,7 @@ Partial Public Class CtlGraphicFldLabel
             Application.DoEvents()
             Application.DoEvents()
 
-            RefreshImage()
+            Refresh_Image()
             Me.Refresh()
 
         ElseIf (Me.GroupEdits.LabelsList_IsItemIncluded(Me)) Then
@@ -192,7 +192,7 @@ Partial Public Class CtlGraphicFldLabel
                     .ElementInfo_Text.Font_DrawingClass = FontDialog1.Font
                     Application.DoEvents()
                     Application.DoEvents()
-                    .RefreshImage()
+                    .Refresh_Image()
                     .Refresh()
 
                 End With
@@ -235,7 +235,7 @@ Partial Public Class CtlGraphicFldLabel
 
         ''Added 8/2/2019 td 
         Me.ElementInfo_Base.SelectedHighlighting = True
-        Me.RefreshImage()
+        Me.Refresh_Image()
 
     End Sub ''End of "Private Sub GroupEditElement_Add()"
 
@@ -265,7 +265,7 @@ Partial Public Class CtlGraphicFldLabel
 
         Me.SelectedHighlighting = False ''Added 8/3/2019 td  
         Me.ElementInfo_Base.SelectedHighlighting = False
-        Me.RefreshImage()
+        Me.Refresh_Image()
 
     End Sub ''End of "Private Sub GroupEditElement_Omit( )"
 
@@ -439,7 +439,7 @@ Partial Public Class CtlGraphicFldLabel
             Me.ElementInfo_Text.FontSize = frm_ToShow.FontSize
             Me.ElementInfo_Text.Font_DrawingClass = frm_ToShow.Font_DrawingClass
 
-            Me.RefreshImage()
+            Me.Refresh_Image()
 
             ''
             ''
@@ -468,7 +468,7 @@ Partial Public Class CtlGraphicFldLabel
                         .ElementInfo_Text.TextAlignment = frm_ToShow.TextAlignment
                         .ElementInfo_Text.ExampleValue = frm_ToShow.TextExampleValue.Text
 
-                        .RefreshImage()
+                        .Refresh_Image()
                         .Refresh()
 
                     End With
@@ -501,7 +501,7 @@ Partial Public Class CtlGraphicFldLabel
             Me.ElementInfo_Base.Border_WidthInPixels = frm_ToShow.Border_SizeInPixels
             Me.ElementInfo_Base.Border_Color = frm_ToShow.Border_Color
 
-            Me.RefreshImage()
+            Me.Refresh_Image()
 
             ''
             ''
@@ -524,7 +524,7 @@ Partial Public Class CtlGraphicFldLabel
                         .ElementInfo_Base.Border_WidthInPixels = frm_ToShow.Border_SizeInPixels
                         .ElementInfo_Base.Border_Color = frm_ToShow.Border_Color
 
-                        .RefreshImage()
+                        .Refresh_Image()
                         .Refresh()
 
                     End With
@@ -558,7 +558,7 @@ Partial Public Class CtlGraphicFldLabel
         ''
         Me.ElementInfo_Base.OrientationInDegrees += 90
 
-        RefreshImage()
+        Refresh_Image()
         Me.Refresh()
 
     End Sub ''eNd of "Private Sub Rotate90Degrees()"

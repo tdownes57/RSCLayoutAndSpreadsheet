@@ -47,13 +47,30 @@ Public Class FormDesignProtoTwo
 
     Private vbCrLf_Deux As String = (vbCrLf & vbCrLf) ''Added 7/31/2019 td 
 
-    Public Function LayoutWidth_Pixels() As Integer
-        ''
+    Public Function Layout_Width_Pixels() As Integer
         ''Added 9/3/2019 thomas downes
-        ''
         Return pictureBack.Width
+    End Function ''End of "Public Function Layout_Width_Pixels() As Integer"
 
-    End Function ''End of "Public Function LayoutWidth() As Integer"
+    Public Function Layout_Margin_Left_Omit(par_intPixelsLeft As Integer) As Integer
+        ''Added 9/5/2019 thomas downes
+        Return (par_intPixelsLeft - pictureBack.Left)
+    End Function ''End of "Public Function Layout_Margin_Left_Omit() As Integer"
+
+    Public Function Layout_Margin_Left_Add(par_intPixelsLeft As Integer) As Integer
+        ''Added 9/5/2019 thomas downes
+        Return (par_intPixelsLeft + pictureBack.Left)
+    End Function ''End of "Public Function Layout_Margin_Left_Add() As Integer"
+
+    Public Function Layout_Margin_Top_Omit(par_intPixelsTop As Integer) As Integer
+        ''Added 9/5/2019 thomas downes
+        Return (par_intPixelsTop - pictureBack.Top)
+    End Function ''End of "Public Function Layout_Margin_Top_Omit() As Integer"
+
+    Public Function Layout_Margin_Top_Add(par_intPixelsTop As Integer) As Integer
+        ''Added 9/5/2019 thomas downes
+        Return (par_intPixelsTop + pictureBack.Top)
+    End Function ''End of "Public Function Layout_Margin_Top_Add() As Integer"
 
     Public Function OkayToShowFauxContextMenu() As Boolean
         ''
@@ -263,9 +280,12 @@ Public Class FormDesignProtoTwo
         ''
         ''Added 9/03/2019 thomas downes 
         ''
-        Const c_boolUseConsolidatedList As Boolean = False ''True
+        ''9/4 td''Const c_boolUseConsolidatedList As Boolean = False ''True
+        Dim boolUseConsolidatedList As Boolean ''Added 9/5/2019 td  
+        ''Added 9/5/2019 td  
+        boolUseConsolidatedList = (2 <= dropdownHowToLoadFlds.SelectedIndex)
 
-        If (c_boolUseConsolidatedList) Then
+        If (boolUseConsolidatedList) Then
 
             LoadElements_Fields_OneList(par_boolLoadingForm, par_bUnloading)
 
@@ -273,13 +293,94 @@ Public Class FormDesignProtoTwo
 
             LoadElements_Fields_TwoLists(par_boolLoadingForm, par_bUnloading)
 
-        End If ''End of "If (c_boolUseConsolidatedList) Then ..... Else ...."
+        End If ''End of "If (boolUseConsolidatedList) Then ..... Else ...."
 
     End Sub ''ENd of "Private Sub LoadElements_Fields_Master()"
 
     Private Sub LoadElements_Fields_OneList(par_boolLoadingForm As Boolean, Optional par_bUnloading As Boolean = False)
         ''
         ''Added 9/03/2019 thomas downes 
+        ''Modified 9/5/2019 thomas downes
+        ''
+        Dim intCountControlsAdded As Integer ''Added 9/03/2019 td 
+        ''9/5/2019 td''Dim intTopEdge As Integer ''Added 7/28/2019 td
+        ''9/5/2019 td''Dim intLeftEdge As Integer ''Added 9/03/2019 td
+        Dim boolIncludeOnBadge As Boolean ''Added 9/03/2019 td
+
+        For Each each_field As ICIBFieldStandardOrCustom In ClassFields.ListAllFields()
+
+            Dim label_control As CtlGraphicFldLabel
+
+            ''Added 9/3/2019 thomas d. 
+            boolIncludeOnBadge = (par_boolLoadingForm And each_field.IsDisplayedOnBadge)
+            If (Not boolIncludeOnBadge) Then Continue For
+
+            ''
+            ''Has the user moved the field into place (and pressed the Save & Refresh link)??
+            ''
+            If (each_field.ElementInfo_Base Is Nothing) Then
+
+                Dim new_element_text As New ClassElementText
+
+                new_element_text.TopEdge_Pixels = (30 + (30 * intCountControlsAdded))
+
+                new_element_text.LeftEdge_Pixels = new_element_text.TopEdge_Pixels ''Left = Top !! By setting Left = Top, we will create 
+                ''   a nice diagonally-cascading effect. ---9/3/2019 td
+
+                each_field.ElementInfo_Base = new_element_text
+                each_field.ElementInfo_Text = new_element_text
+
+            End If ''ENd of "If (each_field.ElementInfo_Base Is Nothing) Then"
+
+            ''Added 9/5/2019 thomas d.
+            each_field.ElementInfo_Base.LayoutWidth_Pixels = Me.Layout_Width_Pixels()
+
+            ''#1 9/4/2019 td''label_control = New CtlGraphicFldLabel(each_field, Me)
+            '' #2 9/4/2019 td''label_control = New CtlGraphicFldLabel(each_field, new_element_text, Me)
+            label_control = New CtlGraphicFldLabel(each_field, Me)
+
+            ''Moved below. 9/5 td''label_control.Refresh_Master()
+            label_control.Visible = each_field.IsDisplayedOnBadge ''BL = Badge Layout
+            intCountControlsAdded += 1
+            label_control.Name = "FieldControl" & CStr(intCountControlsAdded)
+            label_control.BorderStyle = BorderStyle.FixedSingle
+
+            boolIncludeOnBadge = (par_boolLoadingForm And each_field.IsDisplayedOnBadge)
+
+            If (boolIncludeOnBadge) Then
+
+                Me.Controls.Add(label_control)
+                label_control.Visible = True
+                ''9/5/2019''label_control.Refresh_Image()
+                label_control.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
+
+                ''
+                ''Major call !!  ----Thomas DOWNES
+                ''
+                label_control.Refresh_Master()
+
+            ElseIf (par_bUnloading) Then
+                ''9/3/2019 td''Me.Controls.Remove(label_control)
+                Throw New NotImplementedException
+
+            End If ''End of "If (boolInludeOnBadge) Then .... ElseIf (....) ...."
+
+        Next each_field
+
+        ''
+        ''Added 8/27/2019 thomas downes
+        ''
+        Me.Refresh() ''Added 8/28/2019 td   
+
+        ''9/5/2019 td''MessageBox.Show($"Number of field controls now on the form: {intCountControlsAdded}", "",
+        ''     MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+    End Sub ''End of ''Private Sub LoadElements_Fields_OneList()''
+
+    Private Sub LoadElements_Fields_OneList_NotInUse(par_boolLoadingForm As Boolean, Optional par_bUnloading As Boolean = False)
+        ''
+        ''Added 9/03/2019 thomas downes 
+        ''Suffixed with "_NotInUse" on 9/5/2019 td 
         ''
         Dim intCountControlsAdded As Integer ''Added 9/03/2019 td 
         Dim intTopEdge As Integer ''Added 7/28/2019 td
@@ -302,7 +403,7 @@ Public Class FormDesignProtoTwo
                 Dim new_element_text As New ClassElementText
 
                 ''Added 9/5/2019 thomas d.
-                new_element_text.LayoutWidth_Pixels = Me.LayoutWidth_Pixels()
+                new_element_text.LayoutWidth_Pixels = Me.Layout_Width_Pixels()
 
                 each_field.ElementInfo_Base = new_element_text
                 each_field.ElementInfo_Text = new_element_text
@@ -337,7 +438,7 @@ Public Class FormDesignProtoTwo
             Else
 
                 ''Added 9/5/2019 thomas d.
-                each_field.ElementInfo_Base.LayoutWidth_Pixels = Me.LayoutWidth_Pixels()
+                each_field.ElementInfo_Base.LayoutWidth_Pixels = Me.Layout_Width_Pixels()
 
                 label_control = New CtlGraphicFldLabel(each_field, Me)
 
@@ -356,17 +457,27 @@ Public Class FormDesignProtoTwo
             ''Added 9/3/2019 thomas downes
             ''   Start from the Layout Background's TopLeft corner. 
             ''
-            label_control.Top = pictureBack.Top
-            label_control.Left = pictureBack.Left
+            ''9/5 td''label_control.Top = pictureBack.Top
+            ''9/5 td''label_control.Left = pictureBack.Left
 
-            ''Added 9/3/2019 thomas downes
-            ''   Move into position from the Layout Background's TopLeft corner. 
-            ''
-            label_control.Top += each_field.ElementInfo_Base.TopEdge_Pixels
-            label_control.Left += each_field.ElementInfo_Base.LeftEdge_Pixels
+            ''''Added 9/3/2019 thomas downes
+            ''''   Move into position from the Layout Background's TopLeft corner. 
+            ''''
+            ''9/5 td''label_control.Top += each_field.ElementInfo_Base.TopEdge_Pixels
+            ''9/5 td''label_control.Left += each_field.ElementInfo_Base.LeftEdge_Pixels
 
-            label_control.Width = each_field.ElementInfo_Base.Width_Pixels
-            label_control.Height = each_field.ElementInfo_Base.Height_Pixels
+            ''9/5 td''label_control.Width = each_field.ElementInfo_Base.Width_Pixels
+            ''9/5 td''label_control.Height = each_field.ElementInfo_Base.Height_Pixels
+
+            With label_control ''Added 9/5/2019 td
+                ''Added 9/5/2019 td
+                .Top = Me.Layout_Margin_Top_Add(each_field.ElementInfo_Base.TopEdge_Pixels)
+                .Left = Me.Layout_Margin_Left_Add(each_field.ElementInfo_Base.LeftEdge_Pixels)
+
+                .Width = each_field.ElementInfo_Base.Width_Pixels
+                .Height = each_field.ElementInfo_Base.Height_Pixels
+
+            End With ''End of "With label_control"
 
             label_control.Visible = each_field.IsDisplayedOnBadge ''BL = Badge Layout
 
@@ -381,7 +492,7 @@ Public Class FormDesignProtoTwo
 
                 Me.Controls.Add(label_control)
                 label_control.Visible = True
-                label_control.RefreshImage()
+                label_control.Refresh_Image()
                 label_control.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
 
             ElseIf (par_bUnloading) Then
@@ -434,7 +545,7 @@ Public Class FormDesignProtoTwo
         For Each each_field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students
 
             ''Added 9/5/2019 thomas d.
-            each_field_standard.ElementInfo.LayoutWidth_Pixels = Me.LayoutWidth_Pixels
+            each_field_standard.ElementInfo.LayoutWidth_Pixels = Me.Layout_Width_Pixels
 
             Dim new_label_control_std As CtlGraphicFldLabel
 
@@ -500,11 +611,16 @@ Public Class FormDesignProtoTwo
             With new_label_control_std
 
                 ''Start from the Layout Background's TopLeft corner. ---9/3/2019 td
-                .Top = pictureBack.Top
-                .Left = pictureBack.Left
 
-                .Top += each_field_standard.ElementInfo.TopEdge_Pixels
-                .Left += each_field_standard.ElementInfo.LeftEdge_Pixels
+                ''9/5/2019 td''.Top = pictureBack.Top
+                ''9/5/2019 td''.Left = pictureBack.Left
+
+                ''9/5/2019 td''.Top += each_field_standard.ElementInfo.TopEdge_Pixels
+                ''9/5/2019 td''.Left += each_field_standard.ElementInfo.LeftEdge_Pixels
+
+                .Top = Me.Layout_Margin_Top_Add(each_field_standard.ElementInfo.TopEdge_Pixels)
+                .Left = Me.Layout_Margin_Left_Add(each_field_standard.ElementInfo.LeftEdge_Pixels)
+
                 .Width = each_field_standard.ElementInfo.Width_Pixels
                 .Height = each_field_standard.ElementInfo.Height_Pixels
 
@@ -527,7 +643,7 @@ Public Class FormDesignProtoTwo
             ''
             ''Added 7/28/2019 thomas d.
             ''
-            new_label_control_std.RefreshImage()
+            new_label_control_std.Refresh_Image()
 
             ''Added 7/28/2019 thomas d.
             new_label_control_std.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
@@ -558,7 +674,7 @@ Public Class FormDesignProtoTwo
             ''7/28/2019 td''ControlMoverOrResizer_TD.Init(new_label_control_cust, 20) ''Added 7/28/2019 thomas downes
 
             ''Added 9/5/2019 thomas d.
-            each_field_custom.ElementInfo.LayoutWidth_Pixels = Me.LayoutWidth_Pixels
+            each_field_custom.ElementInfo.LayoutWidth_Pixels = Me.Layout_Width_Pixels
 
             Dim new_label_control_cust As CtlGraphicFldLabel
 
@@ -614,10 +730,18 @@ Public Class FormDesignProtoTwo
 
             End If ''end of "If (field_standard.ElementInfo Is Nothing) Then ... Else..."
 
-            new_label_control_cust.Top = each_field_custom.ElementInfo.TopEdge_Pixels
-            new_label_control_cust.Left = each_field_custom.ElementInfo.LeftEdge_Pixels
-            new_label_control_cust.Width = each_field_custom.ElementInfo.Width_Pixels
-            new_label_control_cust.Height = each_field_custom.ElementInfo.Height_Pixels
+            ''9/5 td''new_label_control_cust.Top = each_field_custom.ElementInfo.TopEdge_Pixels
+            ''9/5 td''new_label_control_cust.Left = each_field_custom.ElementInfo.LeftEdge_Pixels
+            ''9/5 td''new_label_control_cust.Width = each_field_custom.ElementInfo.Width_Pixels
+            ''9/5 td''new_label_control_cust.Height = each_field_custom.ElementInfo.Height_Pixels
+
+            With new_label_control_cust
+                .Top = Me.Layout_Margin_Top_Add(each_field_custom.ElementInfo.TopEdge_Pixels)
+                .Left = Me.Layout_Margin_Left_Add(each_field_custom.ElementInfo.LeftEdge_Pixels)
+
+                .Width = each_field_custom.ElementInfo.Width_Pixels
+                .Height = each_field_custom.ElementInfo.Height_Pixels
+            End With ''End of "With new_label_control_cust"
 
             ''intTopEdge_std = (30 + 30 * intNumControlsAlready_std)
 
@@ -634,7 +758,7 @@ Public Class FormDesignProtoTwo
             ''
             ''Added 7/28/2019 thomas d.
             ''
-            new_label_control_cust.RefreshImage()
+            new_label_control_cust.Refresh_Image()
 
             ''Added 7/28/2019 thomas d.
             new_label_control_cust.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
@@ -697,8 +821,8 @@ Public Class FormDesignProtoTwo
         ''9/4/2019 td''listOfElementText_Stdrd = ClassFieldStandard.ListOfElementsText_Stdrd()
         ''9/4/2019 td''listOfElementText_Custom = ClassFieldCustomized.ListOfElementsText_Custom()
 
-        listOfElementText_Stdrd = ClassFieldStandard.ListOfElementsText_Stdrd(Me.LayoutWidth_Pixels())
-        listOfElementText_Custom = ClassFieldCustomized.ListOfElementsText_Custom(Me.LayoutWidth_Pixels())
+        listOfElementText_Stdrd = ClassFieldStandard.ListOfElementsText_Stdrd(Me.Layout_Width_Pixels())
+        listOfElementText_Custom = ClassFieldCustomized.ListOfElementsText_Custom(Me.Layout_Width_Pixels())
 
         ''8/24 td''picturePreview.SizeMode = PictureBoxSizeMode.Zoom
         ''8/24 td''picturePreview.Image = pictureBack.Image
@@ -802,7 +926,7 @@ Public Class FormDesignProtoTwo
         ''
         ''Step 2 of 4.  Decide the next step. 
         ''
-        Const c_boolStartNewWindow As Boolean = True ''Added 9/3/2019 thomas d. 
+        Const c_boolStartNewWindow As Boolean = False ''9/5 td'' True ''Added 9/3/2019 thomas d. 
         If (c_boolStartNewWindow) Then ''Added 9/3/2019 thomas d. 
             Dim frm_ToShow As New FormDesignProtoTwo()
             frm_ToShow.Show()
@@ -815,33 +939,45 @@ Public Class FormDesignProtoTwo
         ''
         ''Added 7/31/2019 td
         For Each each_control As Control In Me.Controls
-            If (TypeOf each_control Is CtlGraphicFldLabel) Then Me.Controls.Remove(each_control)
-            If (TypeOf each_control Is CtlGraphicPortrait) Then Me.Controls.Remove(each_control)
 
-            Select Case True
-                Case (TypeOf each_control Is CtlGraphicFldLabel)
-                    each_control.Visible = False
-                    Me.Controls.Remove(each_control)
-                Case (TypeOf each_control Is CtlGraphicPortrait)
-                    each_control.Visible = False
-                    Me.Controls.Remove(each_control)
-            End Select
+            ''9/5 td''If (TypeOf each_control Is CtlGraphicFldLabel) Then Me.Controls.Remove(each_control)
+            ''9/5 td''If (TypeOf each_control Is CtlGraphicPortrait) Then Me.Controls.Remove(each_control)
+
+            ''9/5 td''Select Case True
+            ''    Case (TypeOf each_control Is CtlGraphicFldLabel)
+            ''        each_control.Visible = False
+            ''        Me.Controls.Remove(each_control)
+            ''    Case (TypeOf each_control Is CtlGraphicPortrait)
+            ''        each_control.Visible = False
+            ''        Me.Controls.Remove(each_control)
+            ''End of 9/5 td''End Select
+
+            ''Added 9/5/2019 td
+            If (TypeOf each_control Is CtlGraphicPortrait) Then Continue For
+
+            ''Added 9/5/2019 td
+            If (Not (TypeOf each_control Is CtlGraphicFldLabel)) Then Continue For
+
+            ''Added 9/5/2019 td
+            Dim each_field_control As CtlGraphicFldLabel = CType(each_control, CtlGraphicFldLabel)
+            each_field_control.Refresh_Master()
+            each_field_control.Refresh()
 
         Next each_control
 
         ''
         ''Step 4 of 5.   Regenerate the form. 
         ''
-        Me.Refresh()
+        ''9/5/2019 td''Me.Refresh()
         Application.DoEvents()
 
         ''
         ''Step 5 of 5.   Reload the fields onto the form. 
         ''
         ''9/3/2019 td''Load_Form()
-        LoadElements_Fields_Master(False, False)
+        ''9/5/2019 td''LoadElements_Fields_Master(False, False)
 
-    End Sub
+    End Sub ''ENd of "Private Sub LinkSaveAndRefresh_LinkClicked"
 
     Private Sub ContextMenuStrip1_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles ContextMenuStrip1.Opening
 

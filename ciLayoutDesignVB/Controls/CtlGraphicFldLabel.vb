@@ -186,9 +186,31 @@ Public Class CtlGraphicFldLabel
 
     End Sub
 
-    Public Sub RefreshImage()
+    Public Sub Refresh_Master()
         ''
-        ''zAdded 7/25/2019 thomas d 
+        ''Added 9/5/2019 thomas d 
+        ''
+        Refresh_PositionAndSize()
+
+        Refresh_Image()
+
+    End Sub ''End of "Public Sub Refresh_Master()"
+
+    Public Sub Refresh_PositionAndSize()
+        ''
+        ''Added 9/5/2019 thomas d 
+        ''
+        Me.Left = Me.FormDesigner.Layout_Margin_Left_Add(Me.ElementInfo_Base.LeftEdge_Pixels)
+        Me.Top = Me.FormDesigner.Layout_Margin_Top_Add(Me.ElementInfo_Base.TopEdge_Pixels)
+
+        Me.Width = Me.ElementInfo_Base.Width_Pixels
+        Me.Height = Me.ElementInfo_Base.Height_Pixels
+
+    End Sub ''End of "Public Sub Refresh_PositionAndSize()"
+
+    Public Sub Refresh_Image()
+        ''
+        ''Added 7/25/2019 thomas d 
         ''
         ''7/29 td''Me.ElementInfo.Info = CType(Me.ElementInfo, IElementText)
 
@@ -254,7 +276,7 @@ Public Class CtlGraphicFldLabel
         ''9/3/2019 td''LabelToImage.TextImage(pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
 
         Dim intLayoutWidth As Integer ''Added 9/3/2019 thomas d.
-        intLayoutWidth = Me.FormDesigner.LayoutWidth_Pixels()
+        intLayoutWidth = Me.FormDesigner.Layout_Width_Pixels()
 
         ''9/4/2019 td''LabelToImage.TextImage(intLayoutWidth, pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
 
@@ -306,7 +328,7 @@ Public Class CtlGraphicFldLabel
         pictureLabel.Refresh()
         Me.Refresh()
 
-    End Sub ''End of Public Sub RefreshImage
+    End Sub ''End of Public Sub Refresh_Image
 
     Public Sub SaveToModel()
         ''
@@ -316,14 +338,17 @@ Public Class CtlGraphicFldLabel
 
         ''Me.ElementInfo.Text = Me.LabelText()
 
-        Me.ElementInfo_Base.TopEdge_Pixels = Me.Top
-        Me.ElementInfo_Base.LeftEdge_Pixels = Me.Left
+        ''9/5/2019 td''Me.ElementInfo_Base.TopEdge_Pixels = Me.Top
+        ''9/5/2019 td''Me.ElementInfo_Base.LeftEdge_Pixels = Me.Left
+
+        Me.ElementInfo_Base.TopEdge_Pixels = Me.FormDesigner.Layout_Margin_Top_Omit(Me.Top)
+        Me.ElementInfo_Base.LeftEdge_Pixels = Me.FormDesigner.Layout_Margin_Left_Omit(Me.Left)
 
         Me.ElementInfo_Base.Width_Pixels = Me.Width
         Me.ElementInfo_Base.Height_Pixels = Me.Height
 
         ''Added 9/4/2019 thomas downes
-        Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.LayoutWidth_Pixels()
+        Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.Layout_Width_Pixels()
 
         ''Me.ElementInfo.Font_DrawingClass = Me.Font
         ''Me.ElementInfo.BackColor = Me.BackColor
@@ -366,11 +391,15 @@ Public Class CtlGraphicFldLabel
         Me.ElementInfo_Base.Width_Pixels = Me.Width
         Me.ElementInfo_Base.Height_Pixels = Me.Height
 
+        ''Added 9/5/2019 td 
+        Me.ElementInfo_Base.TopEdge_Pixels = Me.FormDesigner.Layout_Margin_Top_Omit(Me.Top)
+        Me.ElementInfo_Base.LeftEdge_Pixels = Me.FormDesigner.Layout_Margin_Left_Omit(Me.Left)
+
         ''Added 9/4/2019 td
-        Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.LayoutWidth_Pixels()
+        Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.Layout_Width_Pixels()
 
         Application.DoEvents()
-        Me.RefreshImage()
+        Me.Refresh_Image()
         Application.DoEvents()
         Me.Refresh()
 
@@ -402,8 +431,12 @@ Public Class CtlGraphicFldLabel
             Me.ElementInfo_Base.Height_Pixels = Me.Height
             ''Me.RefreshImage()
 
+            ''Added 9/5/2019 td 
+            Me.ElementInfo_Base.TopEdge_Pixels = Me.FormDesigner.Layout_Margin_Top_Omit(Me.Top)
+            Me.ElementInfo_Base.LeftEdge_Pixels = Me.FormDesigner.Layout_Margin_Left_Omit(Me.Left)
+
             ''Added 9/4/2019 td
-            Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.LayoutWidth_Pixels()
+            Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.Layout_Width_Pixels()
 
         End If ''End of "If (Me.ElementInfo_Base IsNot Nothing) Then"
 

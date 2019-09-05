@@ -93,7 +93,7 @@ Public Class CtlGraphicText
         ''9/3/2019 td''LabelToImage.TextImage(pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
 
         Dim intLayoutWidth As Integer ''Added 9/3/2019 thomas d.
-        intLayoutWidth = Me.FormDesigner.LayoutWidth_Pixels()
+        intLayoutWidth = Me.FormDesigner.Layout_Width_Pixels()
 
         ''9/4/2019 td''LabelToImage.TextImage(intLayoutWidth, pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
 
@@ -134,7 +134,7 @@ Public Class CtlGraphicText
 
         ''ADded 9/4/2019 td
         ''
-        Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.LayoutWidth_Pixels()
+        Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.Layout_Width_Pixels()
 
     End Sub ''End of Public Sub SaveToModel
 
@@ -154,7 +154,7 @@ Public Class CtlGraphicText
         Me.ElementInfo_Base.Height_Pixels = Me.Height
 
         ''Added 9/4/2019 td
-        Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.LayoutWidth_Pixels()
+        Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.Layout_Width_Pixels()
 
         Application.DoEvents()
         Me.RefreshImage()
@@ -299,7 +299,7 @@ Public Class CtlGraphicText
             Me.ElementInfo_Base.Height_Pixels = Me.Height
 
             ''Added 9/4/2019 td
-            Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.LayoutWidth_Pixels()
+            Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.Layout_Width_Pixels()
 
             Me.RefreshImage()
 
