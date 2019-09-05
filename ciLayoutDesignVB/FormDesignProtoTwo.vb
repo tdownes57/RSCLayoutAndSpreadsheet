@@ -70,11 +70,11 @@ Public Class FormDesignProtoTwo
         ''
         LoadElementGenerator()
 
-        Me.Controls.Remove(GraphicFieldLabel1)
-        Me.Controls.Remove(GraphicFieldLabel2)
-        Me.Controls.Remove(GraphicFieldLabel3)
-        Me.Controls.Remove(GraphicFieldLabel4)
-        Me.Controls.Remove(GraphicFieldLabel5)
+        ''Deleted 9/4/2019 td''Me.Controls.Remove(GraphicFieldLabel1)
+        ''Deleted 9/4/2019 td''Me.Controls.Remove(GraphicFieldLabel2)
+        ''Deleted 9/4/2019 td''Me.Controls.Remove(GraphicFieldLabel3)
+        ''Deleted 9/4/2019 td''Me.Controls.Remove(GraphicFieldLabel4)
+        ''Deleted 9/4/2019 td''Me.Controls.Remove(GraphicFieldLabel5)
 
         ''7/31/2019 td''Me.Controls.Remove(pictureboxPic) ''Added 7/31/2019 thomas d. 
         mod_imageLady = CtlGraphicPortrait_Lady.picturePortrait.Image
@@ -682,8 +682,11 @@ Public Class FormDesignProtoTwo
         ''      ClassFieldStandard.ListOfFields_Students,
         ''      ClassFieldCustomized.ListOfFields_Students)
 
-        listOfElementText_Stdrd = ClassFieldStandard.ListOfElementsText_Stdrd()
-        listOfElementText_Custom = ClassFieldCustomized.ListOfElementsText_Custom()
+        ''9/4/2019 td''listOfElementText_Stdrd = ClassFieldStandard.ListOfElementsText_Stdrd()
+        ''9/4/2019 td''listOfElementText_Custom = ClassFieldCustomized.ListOfElementsText_Custom()
+
+        listOfElementText_Stdrd = ClassFieldStandard.ListOfElementsText_Stdrd(Me.LayoutWidth())
+        listOfElementText_Custom = ClassFieldCustomized.ListOfElementsText_Custom(Me.LayoutWidth())
 
         ''8/24 td''picturePreview.SizeMode = PictureBoxSizeMode.Zoom
         ''8/24 td''picturePreview.Image = pictureBack.Image

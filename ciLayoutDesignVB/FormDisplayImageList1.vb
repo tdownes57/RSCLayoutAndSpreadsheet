@@ -60,12 +60,14 @@ Public Class FormDisplayImageList1 ''Added 8/26/2019 td
             .Width = par_image.Width ''+ 3
             .Height = par_image.Height ''+ 3
             .BorderStyle = BorderStyle.FixedSingle
+
             .BackColor = Color.Beige
             .BackColor = Color.Black
+            .BackColor = Color.Pink
 
             .Refresh()
 
-        End With
+        End With ''End of "With new_picturebox"
 
         Me.FlowLayoutPanel1.Controls.Add(new_picturebox)
         Me.FlowLayoutPanel1.Refresh()

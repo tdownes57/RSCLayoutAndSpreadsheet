@@ -66,11 +66,6 @@ Partial Class FormDesignProtoTwo
         Me.pictureBack = New System.Windows.Forms.PictureBox()
         Me.LinkRefreshPreview = New System.Windows.Forms.LinkLabel()
         Me.CtlGraphicPortrait_Lady = New ciLayoutDesignVB.CtlGraphicPortrait()
-        Me.GraphicFieldLabel5 = New ciLayoutDesignVB.CtlGraphicFldLabel()
-        Me.GraphicFieldLabel4 = New ciLayoutDesignVB.CtlGraphicFldLabel()
-        Me.GraphicFieldLabel3 = New ciLayoutDesignVB.CtlGraphicFldLabel()
-        Me.GraphicFieldLabel2 = New ciLayoutDesignVB.CtlGraphicFldLabel()
-        Me.GraphicFieldLabel1 = New ciLayoutDesignVB.CtlGraphicFldLabel()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.StatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.StatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
@@ -269,13 +264,13 @@ Partial Class FormDesignProtoTwo
         'UploadNewToolStripMenuItem
         '
         Me.UploadNewToolStripMenuItem.Name = "UploadNewToolStripMenuItem"
-        Me.UploadNewToolStripMenuItem.Size = New System.Drawing.Size(190, 22)
+        Me.UploadNewToolStripMenuItem.Size = New System.Drawing.Size(189, 22)
         Me.UploadNewToolStripMenuItem.Text = "Upload new...."
         '
         'SelectFromExistingToolStripMenuItem
         '
         Me.SelectFromExistingToolStripMenuItem.Name = "SelectFromExistingToolStripMenuItem"
-        Me.SelectFromExistingToolStripMenuItem.Size = New System.Drawing.Size(190, 22)
+        Me.SelectFromExistingToolStripMenuItem.Size = New System.Drawing.Size(189, 22)
         Me.SelectFromExistingToolStripMenuItem.Text = "Select from existing...."
         '
         'DemoModeVideoToolStripMenuItem
@@ -406,51 +401,6 @@ Partial Class FormDesignProtoTwo
         Me.CtlGraphicPortrait_Lady.Size = New System.Drawing.Size(150, 182)
         Me.CtlGraphicPortrait_Lady.TabIndex = 41
         '
-        'GraphicFieldLabel5
-        '
-        Me.GraphicFieldLabel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.GraphicFieldLabel5.Location = New System.Drawing.Point(388, 70)
-        Me.GraphicFieldLabel5.Margin = New System.Windows.Forms.Padding(6, 5, 6, 5)
-        Me.GraphicFieldLabel5.Name = "GraphicFieldLabel5"
-        Me.GraphicFieldLabel5.Size = New System.Drawing.Size(178, 43)
-        Me.GraphicFieldLabel5.TabIndex = 38
-        '
-        'GraphicFieldLabel4
-        '
-        Me.GraphicFieldLabel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.GraphicFieldLabel4.Location = New System.Drawing.Point(198, 124)
-        Me.GraphicFieldLabel4.Margin = New System.Windows.Forms.Padding(6, 5, 6, 5)
-        Me.GraphicFieldLabel4.Name = "GraphicFieldLabel4"
-        Me.GraphicFieldLabel4.Size = New System.Drawing.Size(178, 43)
-        Me.GraphicFieldLabel4.TabIndex = 37
-        '
-        'GraphicFieldLabel3
-        '
-        Me.GraphicFieldLabel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.GraphicFieldLabel3.Location = New System.Drawing.Point(202, 70)
-        Me.GraphicFieldLabel3.Margin = New System.Windows.Forms.Padding(6, 5, 6, 5)
-        Me.GraphicFieldLabel3.Name = "GraphicFieldLabel3"
-        Me.GraphicFieldLabel3.Size = New System.Drawing.Size(178, 43)
-        Me.GraphicFieldLabel3.TabIndex = 36
-        '
-        'GraphicFieldLabel2
-        '
-        Me.GraphicFieldLabel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.GraphicFieldLabel2.Location = New System.Drawing.Point(12, 124)
-        Me.GraphicFieldLabel2.Margin = New System.Windows.Forms.Padding(6, 5, 6, 5)
-        Me.GraphicFieldLabel2.Name = "GraphicFieldLabel2"
-        Me.GraphicFieldLabel2.Size = New System.Drawing.Size(178, 43)
-        Me.GraphicFieldLabel2.TabIndex = 35
-        '
-        'GraphicFieldLabel1
-        '
-        Me.GraphicFieldLabel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.GraphicFieldLabel1.Location = New System.Drawing.Point(14, 70)
-        Me.GraphicFieldLabel1.Margin = New System.Windows.Forms.Padding(6, 5, 6, 5)
-        Me.GraphicFieldLabel1.Name = "GraphicFieldLabel1"
-        Me.GraphicFieldLabel1.Size = New System.Drawing.Size(178, 43)
-        Me.GraphicFieldLabel1.TabIndex = 34
-        '
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StatusLabel1, Me.StatusLabel2})
@@ -509,11 +459,6 @@ Partial Class FormDesignProtoTwo
         Me.Controls.Add(Me.linkSaveAndRefresh)
         Me.Controls.Add(Me.CtlGraphicPortrait_Lady)
         Me.Controls.Add(Me.MenuStrip1)
-        Me.Controls.Add(Me.GraphicFieldLabel5)
-        Me.Controls.Add(Me.GraphicFieldLabel4)
-        Me.Controls.Add(Me.GraphicFieldLabel3)
-        Me.Controls.Add(Me.GraphicFieldLabel2)
-        Me.Controls.Add(Me.GraphicFieldLabel1)
         Me.Controls.Add(Me.CheckBox1)
         Me.Controls.Add(Me.chkIncludeExampleValues)
         Me.Controls.Add(Me.LinkLabel1)
@@ -540,11 +485,6 @@ Partial Class FormDesignProtoTwo
     Friend WithEvents LinkShowWebControls As LinkLabel
     Friend WithEvents LinkLabel1 As LinkLabel
     Friend WithEvents chkIncludeExampleValues As CheckBox
-    Friend WithEvents GraphicFieldLabel1 As CtlGraphicFldLabel
-    Friend WithEvents GraphicFieldLabel2 As CtlGraphicFldLabel
-    Friend WithEvents GraphicFieldLabel3 As CtlGraphicFldLabel
-    Friend WithEvents GraphicFieldLabel4 As CtlGraphicFldLabel
-    Friend WithEvents GraphicFieldLabel5 As CtlGraphicFldLabel
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents OpenToolStripMenuItem As ToolStripMenuItem

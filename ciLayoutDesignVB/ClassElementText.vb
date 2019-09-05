@@ -79,6 +79,7 @@ Public Class ClassElementText
     Public Property Border_Color As System.Drawing.Color = Color.Black Implements IElement_Base.Border_Color
 
     Public Property Back_Color As System.Drawing.Color Implements IElement_Base.Back_Color
+    Public Property Back_Transparent As Boolean Implements IElement_Base.Back_Transparent ''Added 9/4/2019 thomas d. 
 
     Public Property SelectedHighlighting As Boolean Implements IElement_Base.SelectedHighlighting ''Added 8/2/2019 td  
 
@@ -125,7 +126,9 @@ Public Class ClassElementText
         ''8/26/2019 td''GenerateImage(pintLayoutHeight, obj_image, Me, Me)
 
         ''9/3/2019 td''GenerateImage(pintDesiredLayoutWidth, obj_image, Me, Me)
-        _labelToImage.TextImage(pintDesiredLayoutWidth, obj_image, Me, Me, False)
+        ''9/4/2019 td''_labelToImage.TextImage(pintDesiredLayoutWidth, obj_image, Me, Me, False)
+
+        obj_image = _labelToImage.TextImage(pintDesiredLayoutWidth, Me, Me, False)
 
         Return obj_image
 
@@ -159,7 +162,9 @@ Public Class ClassElementText
         intDesiredLayoutWidth = CInt(pintDesiredLayoutHeight * doubleCorrectRatioW_to_H)
 
         ''9/3/2019 td''GenerateImage(intDesiredLayoutWidth, obj_image, Me, Me)
-        _labelToImage.TextImage(intDesiredLayoutWidth, obj_image, Me, Me, False)
+        ''9/4/2019 td''_labelToImage.TextImage(intDesiredLayoutWidth, obj_image, Me, Me, False)
+
+        obj_image = _labelToImage.TextImage(intDesiredLayoutWidth, Me, Me, False)
 
         Return obj_image
 

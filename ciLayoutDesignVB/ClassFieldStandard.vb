@@ -181,7 +181,8 @@ Public Class ClassFieldStandard
         Return new_list
     End Function ''End of "Public Shared Function ListOfFieldInfos_Students() As List(Of ICIBFieldStandardOrCustom)"
 
-    Public Shared Function ListOfElementsText_Stdrd() As List(Of IElementWithText)
+    Public Shared Function ListOfElementsText_Stdrd(Optional par_intLayoutWidth As Integer = 0) As List(Of IElementWithText)
+        ''9/4/2019 td''Public Shared Function ListOfElementsText_Stdrd() As List(Of IElementWithText)
         ''
         ''Added 8/24/2019 Thomas D.  
         ''
@@ -200,6 +201,10 @@ Public Class ClassFieldStandard
 
             new_ElementWithText.Position_BL = obj_Element_Base
             new_ElementWithText.TextDisplay = obj_ElementText
+
+            ''Added 9/4/2019 td
+            new_ElementWithText.BadgeLayout_Width = par_intLayoutWidth
+            new_ElementWithText.Position_BL.LayoutWidth_Pixels = par_intLayoutWidth
 
             obj_listOutput.Add(new_ElementWithText)
 

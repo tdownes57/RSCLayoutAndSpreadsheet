@@ -14,7 +14,6 @@ Public Class ClassLabelToImage
     ''Added 7/17/2019
     ''
     Public Function TextImage(pintDesiredLayoutWidth As Integer,
-                              ByRef par_image As Image,
                               par_elementInfo_Text As IElement_Text,
                               par_elementInfo_Base As IElement_Base,
                               ByRef pref_rotated As Boolean,
@@ -23,7 +22,8 @@ Public Class ClassLabelToImage
         ''
         ''Added 7/17/2019 thomas downes
         ''
-        Dim gr As Graphics ''= Graphics.FromImage(img)
+        Dim local_image As Bitmap ''Added 9/4/2019 td  
+        Dim gr_element As Graphics ''= Graphics.FromImage(img)
         Dim pen_backcolor As Pen
         Dim pen_highlighting As Pen ''Added 8/2/2019 thomas downes  
         Dim pen_border As Pen ''Added 9/3/2019 thomas downes  
@@ -68,25 +68,43 @@ Public Class ClassLabelToImage
         intNewElementHeight = CInt(doubleScaling * par_elementInfo_Base.Height_Pixels)
 
         ''Copied from ClassElementText.GenerateImage_NotInUse, 9/3/2019 & 8/15/2019 thomas d. 
-        If (par_image Is Nothing) Then
-            ''
-            ''Create the image from scratch, If needed. 
-            ''
-            ''7/29 td''par_image = New Bitmap(par_element.Width_Pixels, par_element.Height_Pixels)
+        ''9/4/2019 td''If (par_image Is Nothing) Then
+        ''
+        ''Create the image from scratch, If needed. 
+        ''
+        ''7/29 td''par_image = New Bitmap(par_element.Width_Pixels, par_element.Height_Pixels)
 
-            ''9/3/2019 td''par_image = New Bitmap(par_elementInfo_Base.Width_Pixels,
-            ''9/3/2019 td''                       par_elementInfo_Base.Height_Pixels)
+        ''9/3/2019 td''par_image = New Bitmap(par_elementInfo_Base.Width_Pixels,
+        ''9/3/2019 td''                       par_elementInfo_Base.Height_Pixels)
 
-            ''Added 8/15/2019 td
-            par_image = New Bitmap(intNewElementWidth, intNewElementHeight)
+        ''Added 8/15/2019 td
+        ''#1 9/4/2019 td''par_image = New Bitmap(intNewElementWidth, intNewElementHeight)
+        '' #2 9/4/2019 td''par_image = New Bitmap(intNewElementWidth, intNewElementWidth, Imaging.PixelFormat.Format32bppPArgb)
+        local_image = New Bitmap(intNewElementWidth, intNewElementWidth, Imaging.PixelFormat.Format32bppPArgb)
 
-        End If ''End of "If (par_image Is Nothing) Then"
+        ''Set the resolution to 300 DPI
+        ''  https://stackoverflow.com/questions/2478502/when-creating-an-bitmap-image-from-scratch-in-vb-net-the-quality-stinks
+        ''
+        ''9/4/2019 td''par_image.SetResolution(300, 300)
+        local_image.SetResolution(300, 300)
+
+        ''9/4/2019 td''End If ''End of "If (par_image Is Nothing) Then"
 
         ''Moved here from above. ---9.3.2019 td 
-        intStarting_Width = par_image.Width
-        intStarting_Height = par_image.Height
+        intStarting_Width = local_image.Width
+        intStarting_Height = local_image.Height
 
-        gr = Graphics.FromImage(par_image)
+        gr_element = Graphics.FromImage(local_image)
+
+        With gr_element
+            ''
+            'Set various modes to higher quality
+            ''  https://stackoverflow.com/questions/2478502/when-creating-an-bitmap-image-from-scratch-in-vb-net-the-quality-stinks
+            ''
+            .InterpolationMode = Drawing2D.InterpolationMode.HighQualityBicubic
+            .SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
+            .TextRenderingHint = Drawing.Text.TextRenderingHint.AntiAlias
+        End With
 
         ''8/29/2019 td''pen_backcolor = New Pen(par_design.BackColor)
         pen_backcolor = New Pen(par_elementInfo_Base.Back_Color)
@@ -135,13 +153,26 @@ Public Class ClassLabelToImage
         ''
         ''  https://stackoverflow.com/questions/5183856/converting-from-a-color-to-a-brush
         ''
-        Using br_brush = New SolidBrush(par_elementInfo_Base.Back_Color)
-            ''Major call.  
-            ''----9/4 td---gr.FillRectangle(br_brush,
-            ''           New Rectangle(0, 0, par_elementInfo_Base.Width_Pixels, par_elementInfo_Base.Height_Pixels))
-            gr.FillRectangle(br_brush,
-                         New Rectangle(0, 0, intNewElementWidth, intNewElementHeight))
-        End Using
+        If (par_elementInfo_Base.Back_Transparent) Then
+            ''
+            ''Don't apply any background color. ----9/4/2019 thomas downes
+            ''
+        Else
+
+            Using br_brush = New SolidBrush(par_elementInfo_Base.Back_Color)
+                ''Major call.  
+                ''----9/4 td---gr.FillRectangle(br_brush,
+                ''           New Rectangle(0, 0, par_elementInfo_Base.Width_Pixels, par_elementInfo_Base.Height_Pixels))
+                gr_element.FillRectangle(br_brush,
+                             New Rectangle(0, 0, intNewElementWidth, intNewElementHeight))
+            End Using
+
+            ''
+            '' https://stackoverflow.com/questions/2478502/when-creating-an-bitmap-image-from-scratch-in-vb-net-the-quality-stinks
+            ''
+            gr_element.Clear(par_elementInfo_Base.Back_Color) ''Added 9/4/2019 td 
+
+        End If
 
         ''
         ''Added 9/03/2019 td
@@ -150,7 +181,7 @@ Public Class ClassLabelToImage
         ''
         If (0 < par_elementInfo_Base.Border_WidthInPixels) Then
             ''Added 9/03/2019 td
-            gr.DrawRectangle(pen_border, New Rectangle(3, 3, intNewElementWidth - 6, intNewElementHeight - 6))
+            gr_element.DrawRectangle(pen_border, New Rectangle(3, 3, intNewElementWidth - 6, intNewElementHeight - 6))
         End If ''End of "If (par_element.SelectedHighlighting) Then"
 
         ''
@@ -165,7 +196,7 @@ Public Class ClassLabelToImage
             ''     New Rectangle(3, 3, par_elementInfo_Base.Width_Pixels - 6,
             ''     par_elementInfo_Base.Height_Pixels - 6))
 
-            gr.DrawRectangle(pen_highlighting,
+            gr_element.DrawRectangle(pen_highlighting,
                          New Rectangle(3, 3, intNewElementWidth - 6,
                                              intNewElementHeight - 6))
         End If ''End of "If (par_element.SelectedHighlighting) Then"
@@ -180,7 +211,7 @@ Public Class ClassLabelToImage
         ''    e.Graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
         ''    e.Graphics.DrawString("Sample Text", TextFont, Brushes.Black, 20, 150);
         ''
-        gr.TextRenderingHint = TextRenderingHint.AntiAliasGridFit
+        gr_element.TextRenderingHint = TextRenderingHint.AntiAliasGridFit
         Dim stringSize = New SizeF()
 
         With par_elementInfo_Text
@@ -190,30 +221,30 @@ Public Class ClassLabelToImage
 
                 Case HorizontalAlignment.Left
 
-                    gr.DrawString(.Text, .Font_DrawingClass, Brushes.Black, singleOffsetX, singleOffsetY)
+                    gr_element.DrawString(.Text, .Font_DrawingClass, Brushes.Black, singleOffsetX, singleOffsetY)
 
                 Case HorizontalAlignment.Center
                     ''// Measure string.
-                    stringSize = gr.MeasureString(.Text, .Font_DrawingClass)
+                    stringSize = gr_element.MeasureString(.Text, .Font_DrawingClass)
 
                     Dim singleOffsetX_AlignRight As Single ''Added 8/18/2019 td 
                     ''Added 8/18/2019 td 
-                    singleOffsetX_AlignRight = (singleOffsetX + (par_image.Width - stringSize.Width) / 2)
+                    singleOffsetX_AlignRight = (singleOffsetX + (local_image.Width - stringSize.Width) / 2)
 
                     ''Added 8/18/2019 td 
-                    gr.DrawString(.Text, .Font_DrawingClass, Brushes.Black,
+                    gr_element.DrawString(.Text, .Font_DrawingClass, Brushes.Black,
                                   singleOffsetX_AlignRight, singleOffsetY)
 
                 Case HorizontalAlignment.Right
                     ''// Measure string.
                     ''
-                    stringSize = gr.MeasureString(.Text, .Font_DrawingClass)
+                    stringSize = gr_element.MeasureString(.Text, .Font_DrawingClass)
 
                     Dim singleOffsetX_AlignRight As Single ''Added 8/18/2019 td 
-                    singleOffsetX_AlignRight = (par_image.Width - stringSize.Width - singleOffsetX)
+                    singleOffsetX_AlignRight = (local_image.Width - stringSize.Width - singleOffsetX)
 
                     ''Added 8/18/2019 td 
-                    gr.DrawString(.Text, .Font_DrawingClass, Brushes.Black,
+                    gr_element.DrawString(.Text, .Font_DrawingClass, Brushes.Black,
                                   singleOffsetX_AlignRight, singleOffsetY)
 
             End Select ''End of "Select Case par_design.TextAlignment"
@@ -244,7 +275,7 @@ Public Class ClassLabelToImage
 
                 ''8/18 td''image_Pic = picturePortrait.Image
                 Dim bm_rotation As Bitmap
-                bm_rotation = New Bitmap(par_image)
+                bm_rotation = New Bitmap(local_image)
                 bm_rotation.RotateFlip(RotateFlipType.Rotate90FlipNone)
 
                 If (par_pictureBox IsNot Nothing) Then
@@ -263,11 +294,12 @@ Public Class ClassLabelToImage
                     ''8/19/2019 td''par_pictureBox.SizeMode = PictureBoxSizeMode.Zoom
                     par_pictureBox.Refresh()
 
-                    par_image = par_pictureBox.Image
+                    ''9/4/2019 td''local_image = par_pictureBox.Image
+                    local_image = New Bitmap(par_pictureBox.Image)
 
                 Else
 
-                    par_image = bm_rotation
+                    local_image = bm_rotation
 
                 End If ''End of "If (par_pictureBox IsNot Nothing) Then .... Else ...."
 
@@ -275,7 +307,12 @@ Public Class ClassLabelToImage
 
         End If ''End of "If (boolLetsRotate90) Then"
 
-        Return par_image ''Return Nothing
+        gr_element.Dispose() ''Added 9/4/2019 thomas downes
+
+        ''#1 9/4/2019 td''Return par_image ''Return Nothing
+        '' #2 9/4/2019 td''par_image = local_image
+
+        Return local_image ''Return Nothing
 
     End Function ''End of "Public Function TextImage(par_label As Label) As Image"
 
@@ -316,26 +353,28 @@ Public Class ClassLabelToImage
 
     ''End Sub ''End of ""Private Sub ApplyTextToImage(ByRef par_image As Image)
 
-    ''Private Sub ApplyWhiteSpaceToImage(ByRef par_image As Image, ByVal par_textboxOrLabel As Control)
-    ''    ''
-    ''    ''Added 5/10/2019 td  
-    ''    ''
-    ''    ''    https://docs.microsoft.com/en-us/dotnet/api/system.drawing.graphics.drawimage?view=netframework-4.8
-    ''    ''
-    ''    Dim gr As Graphics ''= Graphics.FromImage(img)
+    Private Sub ApplyWhiteSpaceToImage(ByRef par_image As Image, ByVal par_textboxOrLabel As Control)
+        ''
+        ''Added 5/10/2019 td  
+        ''
+        ''    https://docs.microsoft.com/en-us/dotnet/api/system.drawing.graphics.drawimage?view=netframework-4.8
+        ''
+        Dim gr As Graphics ''= Graphics.FromImage(img)
 
-    ''    ''Added 6/28/2019 td
-    ''    Me.PictureOfPureWhite.BackColor = CType((New System.Drawing.ColorConverter()).ConvertFromString("#000000"), Color)
+        ''Added 6/28/2019 td
+        ''9/4/2019 td''Me.PictureOfPureWhite.BackColor = CType((New System.Drawing.ColorConverter()).ConvertFromString("#000000"), Color)
 
-    ''    gr = Graphics.FromImage(par_image)
+        gr = Graphics.FromImage(par_image)
 
-    ''    With par_textboxOrLabel
-    ''        gr.DrawImage(Me.PictureOfPureWhite.Image, .Left, .Top, .Width, .Height)
-    ''    End With
+        With par_textboxOrLabel
+            ''9/4/2019 td''gr.DrawImage(Me.PictureOfPureWhite.Image, .Left, .Top, .Width, .Height)
+        End With
 
-    ''    gr.Dispose()
+        gr.Clear(Color.White) '' https://stackoverflow.com/questions/2478502/when-creating-an-bitmap-image-from-scratch-in-vb-net-the-quality-stinks
 
-    ''End Sub ''ENd of "Private Sub ApplyWhiteSpaceToImage(ByRef par_image As Image, ByRef par_textboxOrLabel As Control)"
+        gr.Dispose()
+
+    End Sub ''ENd of "Private Sub ApplyWhiteSpaceToImage(ByRef par_image As Image, ByRef par_textboxOrLabel As Control)"
 
 
     Public Function MakeImage_FromLabel(par_label As Label) As Image

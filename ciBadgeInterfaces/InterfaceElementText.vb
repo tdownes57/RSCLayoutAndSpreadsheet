@@ -23,6 +23,8 @@ Public Structure IElementWithText
     Dim Position_V8_VM As IElement_Base ''VM = Visitor Management.     Added 8/14/2019 td 
     Dim Position_V9_VM As IElement_Base ''VM = Visitor Management.     Added 8/14/2019 td 
 
+    Dim BadgeLayout_Width As Integer ''Added 9/4/2019 td  
+
 End Structure ''End of "Public Structure IElementWithText"
 
 Public Interface IElement_Text

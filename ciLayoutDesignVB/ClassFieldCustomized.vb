@@ -161,7 +161,8 @@ Public Class ClassFieldCustomized
     Public Shared ListOfFields_Students As New List(Of ClassFieldCustomized)
     Public Shared ListOfFields_Staff As New List(Of ClassFieldCustomized)
 
-    Public Shared Function ListOfElementsText_Custom() As List(Of IElementWithText)
+    Public Shared Function ListOfElementsText_Custom(Optional par_intLayoutWidth As Integer = 0) As List(Of IElementWithText)
+        ''9/4/2019 td''Public Shared Function ListOfElementsText_Custom() As List(Of IElementWithText)
         ''
         ''Added 8/24/2019 Thomas D.  
         ''
@@ -180,6 +181,10 @@ Public Class ClassFieldCustomized
 
             new_ElementWithText.Position_BL = obj_Element_Base
             new_ElementWithText.TextDisplay = obj_ElementText
+
+            ''Added 9/4/2019 td
+            new_ElementWithText.BadgeLayout_Width = par_intLayoutWidth
+            new_ElementWithText.Position_BL.LayoutWidth_Pixels = par_intLayoutWidth
 
             obj_listOutput.Add(new_ElementWithText)
 

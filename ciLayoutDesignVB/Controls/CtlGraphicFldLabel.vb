@@ -255,7 +255,14 @@ Public Class CtlGraphicFldLabel
 
         Dim intLayoutWidth As Integer ''Added 9/3/2019 thomas d.
         intLayoutWidth = Me.FormDesigner.LayoutWidth()
-        LabelToImage.TextImage(intLayoutWidth, pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
+
+        ''9/4/2019 td''LabelToImage.TextImage(intLayoutWidth, pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
+
+        ''
+        ''Major call !!
+        ''
+        pictureLabel.Image =
+        LabelToImage.TextImage(intLayoutWidth, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
 
         ''Added 8/18/2019 td
         Dim intImageWidth As Integer
