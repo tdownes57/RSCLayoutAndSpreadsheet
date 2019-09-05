@@ -228,7 +228,7 @@ Public Class CtlGraphicPortrait
             Me.ElementInfo_Base.Height_Pixels = Me.Height
 
             ''Added 9/4/2019 td
-            Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.LayoutWidth()
+            Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.LayoutWidth_Pixels()
 
         End If ''End of "If (Me.ElementInfo_Base IsNot Nothing) Then"
 

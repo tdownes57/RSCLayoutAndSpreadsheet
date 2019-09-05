@@ -254,7 +254,7 @@ Public Class CtlGraphicFldLabel
         ''9/3/2019 td''LabelToImage.TextImage(pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
 
         Dim intLayoutWidth As Integer ''Added 9/3/2019 thomas d.
-        intLayoutWidth = Me.FormDesigner.LayoutWidth()
+        intLayoutWidth = Me.FormDesigner.LayoutWidth_Pixels()
 
         ''9/4/2019 td''LabelToImage.TextImage(intLayoutWidth, pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
 
@@ -323,7 +323,7 @@ Public Class CtlGraphicFldLabel
         Me.ElementInfo_Base.Height_Pixels = Me.Height
 
         ''Added 9/4/2019 thomas downes
-        Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.LayoutWidth()
+        Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.LayoutWidth_Pixels()
 
         ''Me.ElementInfo.Font_DrawingClass = Me.Font
         ''Me.ElementInfo.BackColor = Me.BackColor
@@ -367,7 +367,7 @@ Public Class CtlGraphicFldLabel
         Me.ElementInfo_Base.Height_Pixels = Me.Height
 
         ''Added 9/4/2019 td
-        Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.LayoutWidth()
+        Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.LayoutWidth_Pixels()
 
         Application.DoEvents()
         Me.RefreshImage()
@@ -403,7 +403,7 @@ Public Class CtlGraphicFldLabel
             ''Me.RefreshImage()
 
             ''Added 9/4/2019 td
-            Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.LayoutWidth()
+            Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.LayoutWidth_Pixels()
 
         End If ''End of "If (Me.ElementInfo_Base IsNot Nothing) Then"
 

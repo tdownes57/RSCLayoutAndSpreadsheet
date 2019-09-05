@@ -47,7 +47,7 @@ Public Class FormDesignProtoTwo
 
     Private vbCrLf_Deux As String = (vbCrLf & vbCrLf) ''Added 7/31/2019 td 
 
-    Public Function LayoutWidth() As Integer
+    Public Function LayoutWidth_Pixels() As Integer
         ''
         ''Added 9/3/2019 thomas downes
         ''
@@ -301,6 +301,9 @@ Public Class FormDesignProtoTwo
 
                 Dim new_element_text As New ClassElementText
 
+                ''Added 9/5/2019 thomas d.
+                new_element_text.LayoutWidth_Pixels = Me.LayoutWidth_Pixels()
+
                 each_field.ElementInfo_Base = new_element_text
                 each_field.ElementInfo_Text = new_element_text
 
@@ -332,6 +335,9 @@ Public Class FormDesignProtoTwo
                 End With ''End of "With field_standard.ElementInfo"
 
             Else
+
+                ''Added 9/5/2019 thomas d.
+                each_field.ElementInfo_Base.LayoutWidth_Pixels = Me.LayoutWidth_Pixels()
 
                 label_control = New CtlGraphicFldLabel(each_field, Me)
 
@@ -426,6 +432,9 @@ Public Class FormDesignProtoTwo
         ClassFieldStandard.InitializeHardcodedList_Students(True)
 
         For Each each_field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students
+
+            ''Added 9/5/2019 thomas d.
+            each_field_standard.ElementInfo.LayoutWidth_Pixels = Me.LayoutWidth_Pixels
 
             Dim new_label_control_std As CtlGraphicFldLabel
 
@@ -547,6 +556,9 @@ Public Class FormDesignProtoTwo
             ''new_label_control_cust.Visible = True
 
             ''7/28/2019 td''ControlMoverOrResizer_TD.Init(new_label_control_cust, 20) ''Added 7/28/2019 thomas downes
+
+            ''Added 9/5/2019 thomas d.
+            each_field_custom.ElementInfo.LayoutWidth_Pixels = Me.LayoutWidth_Pixels
 
             Dim new_label_control_cust As CtlGraphicFldLabel
 
@@ -685,8 +697,8 @@ Public Class FormDesignProtoTwo
         ''9/4/2019 td''listOfElementText_Stdrd = ClassFieldStandard.ListOfElementsText_Stdrd()
         ''9/4/2019 td''listOfElementText_Custom = ClassFieldCustomized.ListOfElementsText_Custom()
 
-        listOfElementText_Stdrd = ClassFieldStandard.ListOfElementsText_Stdrd(Me.LayoutWidth())
-        listOfElementText_Custom = ClassFieldCustomized.ListOfElementsText_Custom(Me.LayoutWidth())
+        listOfElementText_Stdrd = ClassFieldStandard.ListOfElementsText_Stdrd(Me.LayoutWidth_Pixels())
+        listOfElementText_Custom = ClassFieldCustomized.ListOfElementsText_Custom(Me.LayoutWidth_Pixels())
 
         ''8/24 td''picturePreview.SizeMode = PictureBoxSizeMode.Zoom
         ''8/24 td''picturePreview.Image = pictureBack.Image
