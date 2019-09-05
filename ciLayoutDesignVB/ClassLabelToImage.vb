@@ -80,7 +80,7 @@ Public Class ClassLabelToImage
         ''Added 8/15/2019 td
         ''#1 9/4/2019 td''par_image = New Bitmap(intNewElementWidth, intNewElementHeight)
         '' #2 9/4/2019 td''par_image = New Bitmap(intNewElementWidth, intNewElementWidth, Imaging.PixelFormat.Format32bppPArgb)
-        local_image = New Bitmap(intNewElementWidth, intNewElementWidth, Imaging.PixelFormat.Format32bppPArgb)
+        local_image = New Bitmap(intNewElementWidth, intNewElementHeight, Imaging.PixelFormat.Format32bppPArgb)
 
         ''Set the resolution to 300 DPI
         ''  https://stackoverflow.com/questions/2478502/when-creating-an-bitmap-image-from-scratch-in-vb-net-the-quality-stinks
