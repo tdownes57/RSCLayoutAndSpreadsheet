@@ -61,7 +61,8 @@ Public Class ClassLabelToImage
         boo_LikelyRatioIsMistaken = ciLayoutPrintLib.LayoutPrint.RatioIsLikelyBad(doubleW_div_H)
 
         ''8/24 td''doubleScaling = (pintFinalLayoutWidth / par_element.LayoutWidth_Pixels)
-        doubleScaling = (pintDesiredLayoutWidth / par_elementInfo_Base.Width_Pixels)
+        ''9/5/2019 td''doubleScaling = (pintDesiredLayoutWidth / par_elementInfo_Base.Width_Pixels)
+        doubleScaling = (pintDesiredLayoutWidth / par_elementInfo_Base.LayoutWidth_Pixels)
 
         ''Added 8/15/2019 td
         intNewElementWidth = CInt(doubleScaling * par_elementInfo_Base.Width_Pixels)

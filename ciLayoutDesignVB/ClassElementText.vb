@@ -64,7 +64,7 @@ Public Class ClassElementText
 
     Public Property FormControl As Control Implements IElement_Base.FormControl ''Added 7/19/2019  
 
-    Public Property ElementType As String Implements IElement_Base.ElementType ''Text, Pic, or Logo
+    Public Property ElementType As String = "Text" Implements IElement_Base.ElementType ''Text, Pic, or Logo
 
     Public Property LayoutWidth As Integer Implements IElement_Base.LayoutWidth_Pixels ''This provides sizing context & scaling factors. 
 
@@ -78,8 +78,8 @@ Public Class ClassElementText
     Public Property Border_WidthInPixels As Integer = 0 Implements IElement_Base.Border_WidthInPixels
     Public Property Border_Color As System.Drawing.Color = Color.Black Implements IElement_Base.Border_Color
 
-    Public Property Back_Color As System.Drawing.Color Implements IElement_Base.Back_Color
-    Public Property Back_Transparent As Boolean Implements IElement_Base.Back_Transparent ''Added 9/4/2019 thomas d. 
+    Public Property Back_Color As System.Drawing.Color = Color.White Implements IElement_Base.Back_Color
+    Public Property Back_Transparent As Boolean = False Implements IElement_Base.Back_Transparent ''Added 9/4/2019 thomas d. 
 
     Public Property SelectedHighlighting As Boolean Implements IElement_Base.SelectedHighlighting ''Added 8/2/2019 td  
 
