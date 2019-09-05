@@ -94,7 +94,11 @@ Public Class CtlGraphicText
 
         Dim intLayoutWidth As Integer ''Added 9/3/2019 thomas d.
         intLayoutWidth = Me.FormDesigner.LayoutWidth()
-        LabelToImage.TextImage(intLayoutWidth, pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
+
+        ''9/4/2019 td''LabelToImage.TextImage(intLayoutWidth, pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
+
+        pictureLabel.Image =
+        LabelToImage.TextImage(intLayoutWidth, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
 
         ''Added 7/31/2019 td
         If (mod_c_boolMustSetBackColor And (Me.ElementInfo_Base IsNot Nothing)) Then
