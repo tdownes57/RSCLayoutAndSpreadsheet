@@ -307,7 +307,7 @@ Partial Class FormDesignPrototype
         '
         Me.panelLayout.BackColor = System.Drawing.Color.White
         Me.panelLayout.BackgroundImage = CType(resources.GetObject("panelLayout.BackgroundImage"), System.Drawing.Image)
-        Me.panelLayout.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.panelLayout.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.panelLayout.Controls.Add(Me.PicturePersonInLayout)
         Me.panelLayout.Controls.Add(Me.LabelDefault2)
         Me.panelLayout.Controls.Add(Me.labelDefault1)
@@ -397,7 +397,7 @@ Partial Class FormDesignPrototype
         Me.ButtonSaveAsXML.Text = "Save as XML"
         Me.ButtonSaveAsXML.UseVisualStyleBackColor = True
         '
-        'FormDesign
+        'FormDesignPrototype
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -430,7 +430,7 @@ Partial Class FormDesignPrototype
         Me.Controls.Add(Me.radioButton1)
         Me.Controls.Add(Me.labelLayoutDesignHdr1)
         Me.Controls.Add(Me.panelLayout)
-        Me.Name = "FormDesign"
+        Me.Name = "FormDesignPrototype"
         Me.Text = "Design Badge"
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()

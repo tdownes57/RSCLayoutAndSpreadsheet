@@ -80,7 +80,8 @@ Public Class ClassLabelToImage
         ''Added 8/15/2019 td
         ''#1 9/4/2019 td''par_image = New Bitmap(intNewElementWidth, intNewElementHeight)
         '' #2 9/4/2019 td''par_image = New Bitmap(intNewElementWidth, intNewElementWidth, Imaging.PixelFormat.Format32bppPArgb)
-        local_image = New Bitmap(intNewElementWidth, intNewElementWidth, Imaging.PixelFormat.Format32bppPArgb)
+        ''  #3 9/4/2019 td''local_image = New Bitmap(intNewElementWidth, intNewElementWidth, Imaging.PixelFormat.Format32bppPArgb)
+        local_image = New Bitmap(intNewElementWidth, intNewElementHeight, Imaging.PixelFormat.Format32bppPArgb)
 
         ''Set the resolution to 300 DPI
         ''  https://stackoverflow.com/questions/2478502/when-creating-an-bitmap-image-from-scratch-in-vb-net-the-quality-stinks
@@ -161,10 +162,10 @@ Public Class ClassLabelToImage
 
             Using br_brush = New SolidBrush(par_elementInfo_Base.Back_Color)
                 ''Major call.  
-                ''----9/4 td---gr.FillRectangle(br_brush,
+                ''----#1 9/4 td---gr.FillRectangle(br_brush,
                 ''           New Rectangle(0, 0, par_elementInfo_Base.Width_Pixels, par_elementInfo_Base.Height_Pixels))
-                gr_element.FillRectangle(br_brush,
-                             New Rectangle(0, 0, intNewElementWidth, intNewElementHeight))
+                ''---- #2 9/4 td---gr_element.FillRectangle(br_brush,
+                ''             New Rectangle(0, 0, intNewElementWidth, intNewElementHeight))
             End Using
 
             ''
