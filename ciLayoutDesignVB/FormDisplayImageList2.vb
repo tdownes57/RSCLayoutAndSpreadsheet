@@ -53,7 +53,7 @@ Public Class FormDisplayImageList2 ''Added 8/27/2019 td
             If (Not par_objField.IsDisplayedOnBadge) Then Continue For
 
             ''Major call !!
-            LoadEachImageToUI(par_objField.ElementInfo.Image_BL, CType(par_objField, IElement_Base))
+            LoadEachImageToUI(par_objField.ElementInfo.Image_BL, CType(par_objField.ElementInfo, IElement_Base))
 
         Next par_objField
 

@@ -263,11 +263,12 @@ Public Class FormDesignProtoTwo
         ''
         ''Added 9/03/2019 thomas downes 
         ''
-        Const c_boolUseConsolidatedList As Boolean = False ''True
+        Const c_boolUseConsolidatedList As Boolean = True ''False ''True
 
         If (c_boolUseConsolidatedList) Then
 
-            LoadElements_Fields_OneList(par_boolLoadingForm, par_bUnloading)
+            ''9/4/2019 td''LoadElements_Fields_OneList(par_boolLoadingForm, par_bUnloading)
+            LoadElements_Fields_OneList(par_boolLoadingForm, par_bUnloading, Me.LayoutWidth())
 
         Else
 
@@ -277,7 +278,9 @@ Public Class FormDesignProtoTwo
 
     End Sub ''ENd of "Private Sub LoadElements_Fields_Master()"
 
-    Private Sub LoadElements_Fields_OneList(par_boolLoadingForm As Boolean, Optional par_bUnloading As Boolean = False)
+    Private Sub LoadElements_Fields_OneList(par_boolLoadingForm As Boolean,
+                                            Optional par_bUnloading As Boolean = False,
+                                            Optional par_widthOfLayout As Integer = 0)
         ''
         ''Added 9/03/2019 thomas downes 
         ''
@@ -315,7 +318,8 @@ Public Class FormDesignProtoTwo
                 ''    Throw New NotImplementedException
                 ''End If
 
-                label_control.Width = CInt(pictureBack.Width / 3)
+                ''9/4/2019 td''label_control.Width = CInt(pictureBack.Width / 3)
+                label_control.Width = CInt(par_widthOfLayout / 3)
 
                 With each_field.ElementInfo_Base
 
@@ -328,6 +332,9 @@ Public Class FormDesignProtoTwo
 
                     .TopEdge_Pixels = intTopEdge
                     .LeftEdge_Pixels = intLeftEdge
+
+                    ''Added 9/4/2019 td
+                    .LayoutWidth_Pixels = par_widthOfLayout
 
                 End With ''End of "With field_standard.ElementInfo"
 
@@ -719,7 +726,7 @@ Public Class FormDesignProtoTwo
         frm_ToShow1.Show()
 
         ''Added 8/27/2019 thomas downes  
-        Dim frm_ToShow2 As New FormDisplayImageList2(ClassFieldStandard.ListOfFields_Staff,
+        Dim frm_ToShow2 As New FormDisplayImageList2(ClassFieldStandard.ListOfFields_Students,
                                                       ClassFieldCustomized.ListOfFields_Students)
         frm_ToShow2.Show()
 
