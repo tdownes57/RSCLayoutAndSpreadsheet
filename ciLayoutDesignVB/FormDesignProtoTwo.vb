@@ -877,6 +877,9 @@ Public Class FormDesignProtoTwo
         Dim obj_image_clone As Image ''Added 8/24 td
         Dim obj_image_clone_resized As Image ''Added 8/24/2019 td
 
+        ''Added 9/6/2019 td 
+        ClassLabelToImage.ProportionsAreSlightlyOff(pictureBack.Image, True, "Background Image")
+
         ''Added 8/24/2019 td
         obj_image = pictureBack.Image
         obj_image_clone = CType(obj_image.Clone(), Image)
@@ -889,6 +892,9 @@ Public Class FormDesignProtoTwo
         ''Added 8/26/2019 thomas downes
         obj_image_clone_resized =
             LayoutPrint.ResizeBackground_ToFitBox(obj_image, picturePreview, True)
+
+        ''Added 9/6/2019 td 
+        ClassLabelToImage.ProportionsAreSlightlyOff(obj_image_clone_resized, True, "Clone Resized #1")
 
         objPrintLib.LoadImageWithFieldValues(obj_image_clone_resized,
                                              listOfElementText_Stdrd,
@@ -903,6 +909,9 @@ Public Class FormDesignProtoTwo
         Dim frm_ToShow2 As New FormDisplayImageList2(ClassFieldStandard.ListOfFields_Staff,
                                                       ClassFieldCustomized.ListOfFields_Students)
         frm_ToShow2.Show()
+
+        ''Added 9/6/2019 td 
+        ClassLabelToImage.ProportionsAreSlightlyOff(pictureBack.Image, True, "Clone Resized #1")
 
         ''8/26 td''picturePreview.Image = obj_image_clone_resized
         picturePreview.Image = obj_image_clone_resized
@@ -1161,6 +1170,16 @@ Public Class FormDesignProtoTwo
         ''
         ''Added 8/24/2019 thomas downes
         ''
+
+        ''
+        ''Check that the proportions are correct. 
+        ''
+        ClassLabelToImage.ProportionsAreSlightlyOff(pictureBack, True)
+        ClassLabelToImage.ProportionsAreSlightlyOff(picturePreview, True)
+
+        ''
+        ''Refresh the preview picture box. 
+        ''
         RefreshPreview()
 
         ''''8/24 td''Dim objPrintLib As New ciLayoutPrintLib.CILayoutBadge
@@ -1248,6 +1267,7 @@ Public Class FormDesignProtoTwo
     End Sub
 
     ''
+    ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
     ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
     ''
     Private _bRubberBandingOn As Boolean = False '-- State to control if we are drawing the rubber banding object
@@ -1255,8 +1275,9 @@ Public Class FormDesignProtoTwo
     Private _pClickStop As New Point '-- The place where the mouse button went 'up'.
     Private _pNow As New Point '-- Holds the current mouse location to make the shape appear to follow the mouse cursor.
 
-    Private Sub FormDesignProtoTwo_MouseDown(sender As Object, e As MouseEventArgs) Handles Me.MouseDown
+    Private Sub FormDesignProtoTwo_MouseDown(sender As Object, e As MouseEventArgs) Handles pictureBack.MouseDown ''----Me.MouseDown
         ''
+        ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
         ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
         ''
         '-- 1.0  Flip the state.
@@ -1280,18 +1301,24 @@ Public Class FormDesignProtoTwo
 
         End If ''End of " If Me._bRubberBandingOn Then"
 
+        ''
         '-- 3.0 Invalidate and for the paint method to be called.
-        Me.Invalidate()
+        ''
+        ''------Me.Invalidate()
+        Me.pictureBack.Invalidate()
 
     End Sub
 
-    Private Sub FormDesignProtoTwo_MouseMove(sender As Object, e As MouseEventArgs) Handles Me.MouseMove
+    Private Sub FormDesignProtoTwo_MouseMove(sender As Object, e As MouseEventArgs) Handles pictureBack.MouseMove ''----Me.MouseMove
         ''
+        ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
         ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
         ''
         '-- 1.0 If the rubber banding is on, set the current location, and force the redraw.
 
         If Me._bRubberBandingOn Then
+
+            ''--------Me.pictureBack.Visible = False ''Temporarily hide the huge background picture box. 
 
             '-- 1.1 make sure the object exists (create if not)
             If _pNow = Nothing Then _pNow = New Point
@@ -1300,16 +1327,20 @@ Public Class FormDesignProtoTwo
             Me._pNow.X = e.X
             Me._pNow.Y = e.Y
 
+            ''
             '-- 1.3 Invalidate and for the paint method to be called.
-            Me.Invalidate()
+            ''
+            ''------Me.Invalidate()
+            Me.pictureBack.Invalidate()
 
         End If ''End of " If Me._bRubberBandingOn Then"
 
 
     End Sub
 
-    Private Sub FormDesignProtoTwo_MouseUp(sender As Object, e As MouseEventArgs) Handles Me.MouseUp
+    Private Sub FormDesignProtoTwo_MouseUp(sender As Object, e As MouseEventArgs) Handles pictureBack.MouseUp ''----Me.MouseUp
         ''
+        ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
         ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
         ''
         '-- 1.0  Flip the state.
@@ -1317,7 +1348,9 @@ Public Class FormDesignProtoTwo
         Me._bRubberBandingOn = (Not Me._bRubberBandingOn)
 
         '-- 2.0 if the state is off
-        If Not Me._bRubberBandingOn Then
+        If (Not Me._bRubberBandingOn) Then
+
+            ''--------Me.pictureBack.Visible = True ''Restore the huge background picture box. 
 
             '-- 2.1 make sure the object exists (create if not)
             If _pClickStop = Nothing Then _pClickStop = New Point
@@ -1327,13 +1360,19 @@ Public Class FormDesignProtoTwo
             _pClickStop.Y = e.Y
 
             '-- 2.3 Invalidate and for the paint method to be called.
-            Me.Invalidate()
+            ''
+            ''------Me.Invalidate()
+            Me.pictureBack.Invalidate()
 
         End If ''End of " If Me._bRubberBandingOn Then"
 
     End Sub
 
-    Private Sub FormDesignProtoTwo_Paint(sender As Object, e As PaintEventArgs) Handles Me.Paint
+    Private Sub FormDesignProtoTwo_Paint(sender As Object, e As PaintEventArgs) Handles pictureBack.Paint ''----Me.Paint
+        ''
+        ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
+        ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
+        ''
         '-- 1.0 The rectangle used by .NET to get the draw area
 
         Dim _rRectangle As New Rectangle
@@ -1359,16 +1398,16 @@ Public Class FormDesignProtoTwo
             _rRectangle.Width = Me._pClickStop.X - _pClickStart.X
             _rRectangle.Height = Me._pClickStop.Y - _pClickStart.Y
 
-        End If
+        End If ''End of "If Me._bRubberBandingOn Then .... Else ...."
 
         '-- 5.0  Let's be cheeky and make it a dashed style
         _penNew.DashStyle = Drawing2D.DashStyle.Dash
 
         '-- 6.0 Draw the elipse
-        e.Graphics.DrawEllipse(_penNew, _rRectangle)
+        '-- e.Graphics.DrawEllipse(_penNew, _rRectangle)
 
         '-- 7.0 Notice the rectangle is the same thing!
-        '-- e.Graphics.DrawRectangle(_penNew, _rRectangle)
+        e.Graphics.DrawRectangle(_penNew, _rRectangle)
 
     End Sub
 End Class
