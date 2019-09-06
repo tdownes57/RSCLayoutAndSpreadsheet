@@ -64,11 +64,25 @@ Public Class CtlGraphicText
         If (String.IsNullOrEmpty(Me.ElementInfo_Text.Text)) Then ElementInfo_Text.Text = LabelText()
 
         If (Me.ElementInfo_Text.Font_DrawingClass Is Nothing) Then
+            ''
             ''Initialize the font. 
-            Me.ElementInfo_Text.Font_DrawingClass = New Font("Times New Roman", 15, FontStyle.Regular)
-            Me.ElementInfo_Text.FontSize_Pixels = 15
-            Me.ElementInfo_Text.FontBold = False
-            Me.ElementInfo_Text.FontItalics = False
+            ''
+            ''9/6/2019 td''Me.ElementInfo_Text.Font_DrawingClass = New Font("Times New Roman", 15, FontStyle.Regular)
+            ''9/6/2019 td''Me.ElementInfo_Text.FontSize_Pixels = 15
+            ''9/6/2019 td''Me.ElementInfo_Text.FontBold = False
+            ''9/6/2019 td''Me.ElementInfo_Text.FontItalics = False
+
+            With Me.ElementInfo_Text
+                ''9/6/2019 td''.FontSize = 15
+                .FontSize_Pixels = 25 ''9/6/2019 ''15
+                .FontBold = False
+                .FontItalics = False
+                .FontUnderline = False ''Added 9/6/2019 thomas downes
+                .FontFamilyName = "Times New Roman"
+                ''9/6/2019 td''.Font_DrawingClass = New Font(.FontFamilyName, .FontSize_Pixels, FontStyle.Regular, GraphicsUnit.Pixel)
+                .Font_DrawingClass = modFonts.MakeFont(.FontFamilyName, .FontSize_Pixels, .FontBold, .FontItalics, .FontUnderline)
+            End With
+
         End If ''End of "If (Me.ElementInfo_Text.Font_DrawingClass Is Nothing) Then"
 
         If (LabelToImage Is Nothing) Then LabelToImage = New ClassLabelToImage

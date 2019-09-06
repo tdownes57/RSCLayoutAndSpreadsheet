@@ -12,14 +12,42 @@ Module modFonts
     Public Const vbCrLf_Deux As String = (vbCrLf & vbCrLf) ''Added 8/16/2019 td
     Public UseAverageLineForAlignment As Boolean ''Added 8/16/2019 td   
 
-    Public Function MakeFont(par_strFamily As String, par_sizeInPixels As Integer) As Font
+    Public Function MakeFont(par_strFamilyName As String, par_sizeInPixels As Single,
+                             Optional pboolStyleBold As Boolean = False,
+                             Optional pboolStyleItalics As Boolean = False,
+                             Optional pboolStyleUnderline As Boolean = False) As Font
         ''
         ''9/6/2019 thomas downes  
         ''
         ''   FontFamily 
         ''
+        Dim new_font As Font
+        Dim new_fontFamily As FontFamily
+        Dim new_fontstyle As FontStyle
 
+        new_fontFamily = New FontFamily(par_strFamilyName)
 
+        new_fontstyle = New FontStyle()
+
+        Select Case True
+            Case (pboolStyleBold And pboolStyleUnderline And pboolStyleItalics)
+                new_fontstyle = (FontStyle.Bold Or FontStyle.Underline Or FontStyle.Italic)
+            Case (pboolStyleUnderline And pboolStyleItalics)
+                new_fontstyle = (FontStyle.Underline Or FontStyle.Italic)
+            Case (pboolStyleBold And pboolStyleItalics)
+                new_fontstyle = (FontStyle.Bold Or FontStyle.Italic)
+            Case (pboolStyleBold And pboolStyleUnderline)
+                new_fontstyle = (FontStyle.Bold Or FontStyle.Underline)
+            Case (pboolStyleBold)
+                new_fontstyle = (FontStyle.Bold)
+            Case (pboolStyleUnderline)
+                new_fontstyle = (FontStyle.Underline)
+        End Select
+
+        new_font = New Font(new_fontFamily, par_sizeInPixels, new_fontstyle, GraphicsUnit.Pixel)
+
+ExitHandler:
+        Return new_font
     End Function ''Endof "Public Function MakeFont"
 
     Public Function MakeItBoldEtc(ByRef par_font As Font) As Font

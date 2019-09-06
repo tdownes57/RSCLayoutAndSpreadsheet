@@ -236,8 +236,10 @@ Public Class CtlGraphicFldLabel
                 .FontSize_Pixels = 25 ''9/6/2019 ''15
                 .FontBold = False
                 .FontItalics = False
+                .FontUnderline = False ''Added 9/6/2019 thomas downes
                 .FontFamilyName = "Times New Roman"
-                .Font_DrawingClass = New Font(.FontFamilyName, .FontSize_Pixels, FontStyle.Regular, GraphicsUnit.Pixel)
+                ''9/6/2019 td''.Font_DrawingClass = New Font(.FontFamilyName, .FontSize_Pixels, FontStyle.Regular, GraphicsUnit.Pixel)
+                .Font_DrawingClass = modFonts.MakeFont(.FontFamilyName, .FontSize_Pixels, .FontBold, .FontItalics, .FontUnderline)
             End With
 
         End If ''end of " If (Me.ElementInfo.Font_DrawingClass Is Nothing) Then"
