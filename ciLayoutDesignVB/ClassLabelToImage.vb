@@ -183,7 +183,10 @@ Public Class ClassLabelToImage
         ''
         If (0 < par_elementInfo_Base.Border_WidthInPixels) Then
             ''Added 9/03/2019 td
-            gr_element.DrawRectangle(pen_border, New Rectangle(3, 3, intNewElementWidth - 6, intNewElementHeight - 6))
+            ''9/6/2019 td''gr_element.DrawRectangle(pen_border, New Rectangle(3, 3, intNewElementWidth - 6, intNewElementHeight - 6))
+            DrawBorder_PixelsWide(par_elementInfo_Base.Border_WidthInPixels,
+                                  gr_element, intNewElementWidth, intNewElementHeight,
+                                  par_elementInfo_Base.Border_Color)
         End If ''End of "If (par_element.SelectedHighlighting) Then"
 
         ''
@@ -317,6 +320,28 @@ Public Class ClassLabelToImage
         Return local_image ''Return Nothing
 
     End Function ''End of "Public Function TextImage(par_label As Label) As Image"
+
+    Private Sub DrawBorder_PixelsWide(par_WidthInPixels As Integer, par_gr As Graphics, par_intWidth As Integer, par_intHeight As Integer, par_color As Color)
+        ''
+        ''Added 9/6/2019 td  
+        ''
+        Dim pen_border As System.Drawing.Pen
+        Dim intLineIndex As Integer
+        Dim intOffsetPixels As Integer
+
+        For intLineIndex = 1 To (par_WidthInPixels)
+
+            pen_border = New Pen(par_color, 1)
+
+            intOffsetPixels = (intLineIndex - 1)
+
+            par_gr.DrawRectangle(pen_border, New Rectangle(intOffsetPixels, intOffsetPixels,
+                                                           par_intWidth - intOffsetPixels,
+                                                           par_intHeight - intOffsetPixels))
+
+        Next intLineIndex
+
+    End Sub ''end of "Private Sub DrawBorder_PixelsWide(par_elementInfo_Base.Border_WidthInPixels, gr_element, intNewElementWidth, intNewElementHeight)"
 
     ''Private Sub ApplyTextToImage(ByRef par_image As Image)
     ''    ''

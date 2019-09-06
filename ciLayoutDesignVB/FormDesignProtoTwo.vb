@@ -306,6 +306,7 @@ Public Class FormDesignProtoTwo
         ''9/5/2019 td''Dim intTopEdge As Integer ''Added 7/28/2019 td
         ''9/5/2019 td''Dim intLeftEdge As Integer ''Added 9/03/2019 td
         Dim boolIncludeOnBadge As Boolean ''Added 9/03/2019 td
+        Dim intStagger As Integer ''Added 9.6.2019 td 
 
         For Each each_field As ICIBFieldStandardOrCustom In ClassFields.ListAllFields()
 
@@ -322,7 +323,13 @@ Public Class FormDesignProtoTwo
 
                 Dim new_element_text As New ClassElementText
 
-                new_element_text.TopEdge_Pixels = (30 + (30 * intCountControlsAdded))
+                new_element_text.Height_Pixels = 30
+                new_element_text.FontSize_Pixels = 25
+
+                ''9/6/2019 td''new_element_text.TopEdge_Pixels = (30 + (30 * intCountControlsAdded))
+                intStagger = intCountControlsAdded
+                new_element_text.TopEdge_Pixels = (intStagger * new_element_text.Height_Pixels)
+                intCountControlsAdded += 1 ''Added 9/6/2019 td 
 
                 new_element_text.LeftEdge_Pixels = new_element_text.TopEdge_Pixels ''Left = Top !! By setting Left = Top, we will create 
                 ''   a nice diagonally-cascading effect. ---9/3/2019 td
