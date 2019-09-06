@@ -302,11 +302,11 @@ Public Class FormDesignProtoTwo
         ''Added 9/03/2019 thomas downes 
         ''Modified 9/5/2019 thomas downes
         ''
-        Dim intCountControlsAdded As Integer ''Added 9/03/2019 td 
+        Dim intCountControlsAdded As Integer = 0 ''Added 9/03/2019 td 
         ''9/5/2019 td''Dim intTopEdge As Integer ''Added 7/28/2019 td
         ''9/5/2019 td''Dim intLeftEdge As Integer ''Added 9/03/2019 td
-        Dim boolIncludeOnBadge As Boolean ''Added 9/03/2019 td
-        Dim intStagger As Integer ''Added 9.6.2019 td 
+        Dim boolIncludeOnBadge As Boolean = False ''Added 9/03/2019 td
+        Dim intStagger As Integer = 0 ''Added 9.6.2019 td 
 
         For Each each_field As ICIBFieldStandardOrCustom In ClassFields.ListAllFields()
 
@@ -326,13 +326,13 @@ Public Class FormDesignProtoTwo
                 new_element_text.Height_Pixels = 30
                 new_element_text.FontSize_Pixels = 25
 
-                ''9/6/2019 td''new_element_text.TopEdge_Pixels = (30 + (30 * intCountControlsAdded))
-                intStagger = intCountControlsAdded
-                new_element_text.TopEdge_Pixels = (intStagger * new_element_text.Height_Pixels)
-                intCountControlsAdded += 1 ''Added 9/6/2019 td 
+                ''''9/6/2019 td''new_element_text.TopEdge_Pixels = (30 + (30 * intCountControlsAdded))
+                ''intStagger = intCountControlsAdded
+                ''new_element_text.TopEdge_Pixels = (intStagger * new_element_text.Height_Pixels)
+                ''intCountControlsAdded += 1 ''Added 9/6/2019 td 
 
-                new_element_text.LeftEdge_Pixels = new_element_text.TopEdge_Pixels ''Left = Top !! By setting Left = Top, we will create 
-                ''   a nice diagonally-cascading effect. ---9/3/2019 td
+                ''new_element_text.LeftEdge_Pixels = new_element_text.TopEdge_Pixels ''Left = Top !! By setting Left = Top, we will create 
+                ''''   a nice diagonally-cascading effect. ---9/3/2019 td
 
                 each_field.ElementInfo_Base = new_element_text
                 each_field.ElementInfo_Text = new_element_text
@@ -351,6 +351,26 @@ Public Class FormDesignProtoTwo
             intCountControlsAdded += 1
             label_control.Name = "FieldControl" & CStr(intCountControlsAdded)
             label_control.BorderStyle = BorderStyle.FixedSingle
+
+            ''Added 9/6/2019 thomas downes 
+            ''
+            ''   Stagger the elements on the badge layout, in a cascade from
+            '' the upper-left to the lower-right. 
+            '' ------9/6/2019 td
+            ''
+            If (0 = each_field.ElementInfo_Base.TopEdge_Pixels) Then
+                ''Added 9/6/2019 thomas downes 
+                label_control.Width = CInt(pictureBack.Width / 3)
+                With each_field.ElementInfo_Base
+                    .Width_Pixels = label_control.Width
+                    .Height_Pixels = label_control.Height
+                    intStagger = intCountControlsAdded
+                    .TopEdge_Pixels = (intStagger * .Height_Pixels)
+                    .LeftEdge_Pixels = .TopEdge_Pixels ''Left = Top !! By setting Left = Top, we will create 
+                    ''   a nice diagonally-cascading effect. ---9/3/2019 td
+                    ''See above. 9/6/2019 td''intCountControlsAdded += 1 ''Added 9/6/2019 td 
+                End With ''End of " With each_field.ElementInfo_Base"
+            End If ''ENd of "If (0 = each_field.ElementInfo_Base.TopEdge_Pixels) Then"
 
             boolIncludeOnBadge = (par_boolLoadingForm And each_field.IsDisplayedOnBadge)
 
@@ -441,6 +461,24 @@ Public Class FormDesignProtoTwo
                     .LeftEdge_Pixels = intLeftEdge
 
                 End With ''End of "With field_standard.ElementInfo"
+
+
+            ElseIf (0 = each_field.ElementInfo_Base.TopEdge_Pixels) Then
+                ''
+                ''Added 9/6/2019 thomas downes 
+                ''
+                each_field.ElementInfo_Base.LayoutWidth_Pixels = Me.Layout_Width_Pixels()
+                label_control = New CtlGraphicFldLabel(each_field, Me)
+                label_control.Width = CInt(pictureBack.Width / 3)
+                With each_field.ElementInfo_Base
+                    .Width_Pixels = label_control.Width
+                    .Height_Pixels = label_control.Height
+                    intTopEdge = (30 + (30 * intCountControlsAdded))
+                    intLeftEdge = intTopEdge ''Left = Top !! By setting Left = Top, we will create 
+                    ''   a nice diagonally-cascading effect. ---9/3/2019 td
+                    .TopEdge_Pixels = intTopEdge
+                    .LeftEdge_Pixels = intLeftEdge
+                End With ''End of " With each_field.ElementInfo_Base"
 
             Else
 
@@ -1206,6 +1244,131 @@ Public Class FormDesignProtoTwo
             Me.Controls.Remove(each_controlField)
 
         Next each_controlField
+
+    End Sub
+
+    ''
+    ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
+    ''
+    Private _bRubberBandingOn As Boolean = False '-- State to control if we are drawing the rubber banding object
+    Private _pClickStart As New Point '-- The place where the mouse button went 'down'.
+    Private _pClickStop As New Point '-- The place where the mouse button went 'up'.
+    Private _pNow As New Point '-- Holds the current mouse location to make the shape appear to follow the mouse cursor.
+
+    Private Sub FormDesignProtoTwo_MouseDown(sender As Object, e As MouseEventArgs) Handles Me.MouseDown
+        ''
+        ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
+        ''
+        '-- 1.0  Flip the state.
+        ''
+        Me._bRubberBandingOn = (Not _bRubberBandingOn)
+
+        '-- 2.0 if the state is on
+        If Me._bRubberBandingOn Then
+
+            '-- 2.1 make sure the object exists (create if not)
+
+            If _pClickStart = Nothing Then _pClickStart = New Point
+
+            '-- 2.2 Save the mouse's start postition
+            _pClickStart.X = e.X
+            _pClickStart.Y = e.Y
+
+            '-- 2.3 Save the current location for the immediate drawing
+            _pNow.X = e.X
+            _pNow.Y = e.Y
+
+        End If ''End of " If Me._bRubberBandingOn Then"
+
+        '-- 3.0 Invalidate and for the paint method to be called.
+        Me.Invalidate()
+
+    End Sub
+
+    Private Sub FormDesignProtoTwo_MouseMove(sender As Object, e As MouseEventArgs) Handles Me.MouseMove
+        ''
+        ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
+        ''
+        '-- 1.0 If the rubber banding is on, set the current location, and force the redraw.
+
+        If Me._bRubberBandingOn Then
+
+            '-- 1.1 make sure the object exists (create if not)
+            If _pNow = Nothing Then _pNow = New Point
+
+            '-- 1.2 Save the current location for the immediate drawing
+            Me._pNow.X = e.X
+            Me._pNow.Y = e.Y
+
+            '-- 1.3 Invalidate and for the paint method to be called.
+            Me.Invalidate()
+
+        End If ''End of " If Me._bRubberBandingOn Then"
+
+
+    End Sub
+
+    Private Sub FormDesignProtoTwo_MouseUp(sender As Object, e As MouseEventArgs) Handles Me.MouseUp
+        ''
+        ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
+        ''
+        '-- 1.0  Flip the state.
+
+        Me._bRubberBandingOn = (Not Me._bRubberBandingOn)
+
+        '-- 2.0 if the state is off
+        If Not Me._bRubberBandingOn Then
+
+            '-- 2.1 make sure the object exists (create if not)
+            If _pClickStop = Nothing Then _pClickStop = New Point
+
+            '-- 2.2 Save the mouse's stop postition
+            _pClickStop.X = e.X
+            _pClickStop.Y = e.Y
+
+            '-- 2.3 Invalidate and for the paint method to be called.
+            Me.Invalidate()
+
+        End If ''End of " If Me._bRubberBandingOn Then"
+
+    End Sub
+
+    Private Sub FormDesignProtoTwo_Paint(sender As Object, e As PaintEventArgs) Handles Me.Paint
+        '-- 1.0 The rectangle used by .NET to get the draw area
+
+        Dim _rRectangle As New Rectangle
+
+        '-- 2.0 The pen.  You can change the color or pixel width to your heart's content
+
+        Dim _penNew As New Pen(Color.Black, 3)
+
+        '-- 3.0 Set the rectangle's top left x/y to the click location.
+        _rRectangle.X = _pClickStart.X
+        _rRectangle.Y = _pClickStart.Y
+
+        '-- 4.0  If the state is on...
+        If Me._bRubberBandingOn Then
+
+            '-- 4.1 Set the rectangle's  width using the 'now' mouse location just set in the 'Form1_MouseMove' event
+            _rRectangle.Width = Me._pNow.X - _pClickStart.X
+            _rRectangle.Height = Me._pNow.Y - _pClickStart.Y
+
+        Else '-- else if we are done having the shape follow the mouse
+
+            '-- 4.2 Set the rectangle's  width using the 'stop' mouse location just set in the 'Form1_MouseUp' event
+            _rRectangle.Width = Me._pClickStop.X - _pClickStart.X
+            _rRectangle.Height = Me._pClickStop.Y - _pClickStart.Y
+
+        End If
+
+        '-- 5.0  Let's be cheeky and make it a dashed style
+        _penNew.DashStyle = Drawing2D.DashStyle.Dash
+
+        '-- 6.0 Draw the elipse
+        e.Graphics.DrawEllipse(_penNew, _rRectangle)
+
+        '-- 7.0 Notice the rectangle is the same thing!
+        '-- e.Graphics.DrawRectangle(_penNew, _rRectangle)
 
     End Sub
 End Class
