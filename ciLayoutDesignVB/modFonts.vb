@@ -12,6 +12,16 @@ Module modFonts
     Public Const vbCrLf_Deux As String = (vbCrLf & vbCrLf) ''Added 8/16/2019 td
     Public UseAverageLineForAlignment As Boolean ''Added 8/16/2019 td   
 
+    Public Function MakeFont(par_strFamily As String, par_sizeInPixels As Integer) As Font
+        ''
+        ''9/6/2019 thomas downes  
+        ''
+        ''   FontFamily 
+        ''
+
+
+    End Function ''Endof "Public Function MakeFont"
+
     Public Function MakeItBoldEtc(ByRef par_font As Font) As Font
         ''
         ''Added 8/16/2019 td  
@@ -42,6 +52,9 @@ ExitHandler:
         ''Added 8/16/2019 td  
         ''
         ''par_font.Size = par_intSize
+        ''
+        ''   https://docs.microsoft.com/en-us/dotnet/api/system.drawing.graphicsunit?view=netframework-4.8
+        ''
 
         Dim new_font As Font
 
@@ -57,6 +70,57 @@ ExitHandler:
         Return new_font
 
     End Function ''End of "Public Function SetFontSize(ByRef par_font As Font, par_intSize As Integer) As Font"
+
+    ''
+    ''  https://stackoverflow.com/questions/15419744/fontsize-pixels-c-sharp-equivalent
+    ''
+    Public Function SetFontSize_Pixels(ByRef par_font As Font, par_intSizeInPixels As Integer) As Font
+        ''
+        ''  https://stackoverflow.com/questions/15419744/fontsize-pixels-c-sharp-equivalent
+        ''
+        ''  Added 9/5/2019 td  
+        ''
+        Dim new_font As Font
+
+        If (par_intSizeInPixels < 7) Then par_intSizeInPixels = 7
+
+        With par_font
+
+            ''#1 9/5/2019 td''new_font = New Font(.FontFamily, par_intSize, .Style)
+            '' #2 9/5/2019 td''new_font = New Font(.FontFamily, par_intSizeInPixels, GraphicsUnit.Pixel)
+
+            new_font = New Font(.FontFamily, par_intSizeInPixels, .Style, GraphicsUnit.Pixel)
+
+        End With
+
+        par_font = new_font
+        Return new_font
+
+    End Function ''End of "Public Function SetFontSize(ByRef par_font As Font, par_intSize As Integer) As Font"
+
+    Public Function SetFontSize_InPoints(ByRef par_font As Font, par_intSizeInPoints As Integer) As Font
+        ''
+        ''Added 8/16/2019 td  
+        ''
+        ''par_font.Size = par_intSize
+        ''
+        ''   https://docs.microsoft.com/en-us/dotnet/api/system.drawing.graphicsunit?view=netframework-4.8
+        ''
+
+        Dim new_font As Font
+
+        If (par_intSizeInPoints < 7) Then par_intSizeInPoints = 7
+
+        With par_font
+
+            new_font = New Font(.FontFamily, par_intSizeInPoints, .Style, GraphicsUnit.Point)
+
+        End With
+
+        par_font = new_font
+        Return new_font
+
+    End Function ''End of "Public Function SetFontSize_InPoints(ByRef par_font As Font, par_intSize As Integer) As Font"
 
 
     Public Function BarCodeFont_ByDefault(par_sizeFont As Single) As Font

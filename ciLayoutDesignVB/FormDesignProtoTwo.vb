@@ -283,7 +283,7 @@ Public Class FormDesignProtoTwo
         ''9/4 td''Const c_boolUseConsolidatedList As Boolean = False ''True
         Dim boolUseConsolidatedList As Boolean ''Added 9/5/2019 td  
         ''Added 9/5/2019 td  
-        boolUseConsolidatedList = (2 <= dropdownHowToLoadFlds.SelectedIndex)
+        boolUseConsolidatedList = True ''9/5 td''(2 <= dropdownHowToLoadFlds.SelectedIndex)
 
         If (boolUseConsolidatedList) Then
 

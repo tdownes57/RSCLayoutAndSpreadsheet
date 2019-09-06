@@ -66,7 +66,7 @@ Public Class CtlGraphicText
         If (Me.ElementInfo_Text.Font_DrawingClass Is Nothing) Then
             ''Initialize the font. 
             Me.ElementInfo_Text.Font_DrawingClass = New Font("Times New Roman", 15, FontStyle.Regular)
-            Me.ElementInfo_Text.FontSize = 15
+            Me.ElementInfo_Text.FontSize_Pixels = 15
             Me.ElementInfo_Text.FontBold = False
             Me.ElementInfo_Text.FontItalics = False
         End If ''End of "If (Me.ElementInfo_Text.Font_DrawingClass Is Nothing) Then"

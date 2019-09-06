@@ -170,7 +170,7 @@ Partial Public Class CtlGraphicFldLabel
         If (Me.GroupEdits.LabelsList_IsItemUnselected(Me)) Then
 
             Me.ElementInfo_Text.Font_DrawingClass = FontDialog1.Font
-            Me.ElementInfo_Text.FontSize = FontDialog1.Font.Size  ''Added 8/17/2019 td
+            Me.ElementInfo_Text.FontSize_Pixels = FontDialog1.Font.Size  ''Added 8/17/2019 td
             Application.DoEvents()
             Application.DoEvents()
 
@@ -436,7 +436,7 @@ Partial Public Class CtlGraphicFldLabel
 
             Me.ElementInfo_Text.FontOffset_X = frm_ToShow.FontOffset_X
             Me.ElementInfo_Text.FontOffset_Y = frm_ToShow.FontOffset_Y
-            Me.ElementInfo_Text.FontSize = frm_ToShow.FontSize
+            Me.ElementInfo_Text.FontSize_Pixels = frm_ToShow.FontSize
             Me.ElementInfo_Text.Font_DrawingClass = frm_ToShow.Font_DrawingClass
 
             Me.Refresh_Image()
@@ -461,7 +461,7 @@ Partial Public Class CtlGraphicFldLabel
                         ''.ElementInfo.Alignment = frm_ToShow.Alignment  
                         .ElementInfo_Text.FontOffset_X = frm_ToShow.FontOffset_X
                         .ElementInfo_Text.FontOffset_Y = frm_ToShow.FontOffset_Y
-                        .ElementInfo_Text.FontSize = frm_ToShow.FontSize
+                        .ElementInfo_Text.FontSize_Pixels = frm_ToShow.FontSize
 
                         ''Added 8/18/2019 thomas d.
                         .ElementInfo_Text.Font_DrawingClass = frm_ToShow.Font_DrawingClass

@@ -24,10 +24,12 @@ Public Class ClassElementText
     Public Property FontColor As System.Drawing.Color Implements IElement_Text.FontColor
 
     ''Added 8/12/2019 thomas downes  
-    Public Property FontSize As Single Implements IElement_Text.FontSize ''Added 8/12/2019 thomas downes  
+    Public Property FontSize_Pixels As Single Implements IElement_Text.FontSize_Pixels ''Added 8/12/2019 thomas downes  
     Public Property FontBold As Boolean Implements IElement_Text.FontBold ''Added 8/12/2019 thomas downes  
     Public Property FontItalics As Boolean Implements IElement_Text.FontItalics ''Added 8/12/2019 thomas downes  
     Public Property FontUnderline As Boolean Implements IElement_Text.FontUnderline ''Added 8/12/2019 thomas downes  
+    ''Added 9/6/2019 thomas downes  
+    Public Property FontFamilyName As String Implements IElement_Text.FontFamilyName ''Added 9/6/2019 thomas downes  
 
 
     ''Added 8/15/2019 thomas downes  
@@ -204,7 +206,9 @@ Public Class ClassElementText
             intNewElementHeight = CInt(doubleScaling * par_elementInfo_Base.Height_Pixels)
 
             ''Added 8/15/2019 td
-            par_image = New Bitmap(intNewElementWidth, intNewElementHeight)
+            ''
+            ''9/6/2019 td''par_image = New Bitmap(intNewElementWidth, intNewElementHeight)
+            par_image = New Bitmap(intNewElementWidth, intNewElementHeight, Imaging.PixelFormat.Format32bppPArgb)
 
         End If ''End of "If (par_image Is Nothing) Then"
 
