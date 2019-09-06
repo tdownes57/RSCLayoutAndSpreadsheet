@@ -67,6 +67,12 @@ Public Class CtlConfigFldCustom
                 listPresetValues.Items.AddRange(.ArrayOfValues)
             End If ''End of "If (.ArrayOfValues IsNot Nothing) Then"
 
+            ''
+            ''Added 9/6/2019 thomas downes
+            ''
+            checkDisplayOnBadge.Checked = .IsDisplayedOnBadge
+            checkDisplayForEdits.Checked = .IsDisplayedForEdits
+
         End With ''End of "With par_info"  
 
 ExitHandler:
@@ -91,6 +97,11 @@ ExitHandler:
             .CIBadgeField_Optional = mod_s_CIBadgeField '' = .CIBadgeField_Optional
             .OtherDbField_Optional = mod_s_OtherDbField '' = .OtherDbField_Optional
             .ExampleValue = mod_s_ExampleValue '' = .ExampleValue
+
+            ''Added 9/6/2019 td
+            ''
+            .IsDisplayedForEdits = checkDisplayForEdits.Checked
+            .IsDisplayedOnBadge = checkDisplayOnBadge.Checked
 
         End With ''End of "With par_info"  
 

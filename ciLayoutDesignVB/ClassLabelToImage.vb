@@ -50,7 +50,15 @@ Public Class ClassLabelToImage
         ''
         ''Added 9/4/2019 thomas downes  
         ''
-        RatioIsLikelyBad = (1 > (100 * Math.Abs(par_doubleW_div_H - LongSideToShortRatio())))
+        Dim doubleExpectedRatio As Double ''Added 9/6/2019 td  
+
+        ''---9/6/2019 td ''RatioIsLikelyBad = (1 > (100 * Math.Abs(par_doubleW_div_H - LongSideToShortRatio())))
+
+        ''Added 9/6/2019 td  
+        doubleExpectedRatio = LongSideToShortRatio()
+
+        ''9/6/2019 td''RatioIsLikelyBad = (1 > (100 * Math.Abs(par_doubleW_div_H - doubleExpectedRatio)))
+        RatioIsLikelyBad = (1 < (100 * Math.Abs(par_doubleW_div_H - doubleExpectedRatio)))
 
     End Function ''End of "Public Shared Function RatioIsLikelyBad(par_doubleW_div_H As Double) As Boolean"
 
@@ -111,6 +119,14 @@ Public Class ClassLabelToImage
         Return boolRatioIsBad
 
     End Function ''End of "Public Shared Function RatioIsLikelyBad(par_doubleW_div_H As Double) As Boolean"
+
+    Public Shared Sub Proportions_CorrectWidth(par_control As Control)
+        ''
+        ''Added 9/5/2019 thomas downes  
+        ''
+        par_control.Width = CInt(par_control.Height * LongSideToShortRatio())
+
+    End Sub ''End of "Public Shared Sub Proportions_CorrectWidth(par_control As Control)"
 
     Public Function TextImage(pintDesiredLayoutWidth As Integer,
                               par_elementInfo_Text As IElement_Text,

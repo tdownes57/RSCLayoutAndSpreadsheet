@@ -28,21 +28,23 @@ Partial Class CtlAddCustomField
         'buttonAddField
         '
         Me.buttonAddField.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.buttonAddField.Location = New System.Drawing.Point(364, 36)
+        Me.buttonAddField.Location = New System.Drawing.Point(299, 14)
+        Me.buttonAddField.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.buttonAddField.Name = "buttonAddField"
-        Me.buttonAddField.Size = New System.Drawing.Size(108, 51)
+        Me.buttonAddField.Size = New System.Drawing.Size(81, 41)
         Me.buttonAddField.TabIndex = 9
         Me.buttonAddField.Text = "Add Field"
         Me.buttonAddField.UseVisualStyleBackColor = True
         '
         'CtlAddCustomField
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.LightCyan
         Me.Controls.Add(Me.buttonAddField)
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Name = "CtlAddCustomField"
-        Me.Size = New System.Drawing.Size(837, 123)
+        Me.Size = New System.Drawing.Size(708, 67)
         Me.ResumeLayout(False)
 
     End Sub

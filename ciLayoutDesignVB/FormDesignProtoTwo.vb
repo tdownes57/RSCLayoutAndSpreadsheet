@@ -85,6 +85,20 @@ Public Class FormDesignProtoTwo
         ''
         ''Added 7/18/2019 thomas downes 
         ''
+
+        ''
+        ''Check that the proportions are correct. 
+        ''
+        ClassLabelToImage.Proportions_CorrectWidth(pictureBack)
+        ClassLabelToImage.Proportions_CorrectWidth(picturePreview)
+
+        ''Double-check the proportions are correct. ---9/6/2019 td
+        ClassLabelToImage.ProportionsAreSlightlyOff(pictureBack, True)
+        ClassLabelToImage.ProportionsAreSlightlyOff(picturePreview, True)
+
+        ''
+        ''I forget, what does this do?  ---9/6/2019 td
+        ''
         LoadElementGenerator()
 
         ''Deleted 9/4/2019 td''Me.Controls.Remove(GraphicFieldLabel1)
