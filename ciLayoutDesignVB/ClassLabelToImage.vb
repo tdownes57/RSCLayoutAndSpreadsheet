@@ -336,8 +336,8 @@ Public Class ClassLabelToImage
             intOffsetPixels = (intLineIndex - 1)
 
             par_gr.DrawRectangle(pen_border, New Rectangle(intOffsetPixels, intOffsetPixels,
-                                                           par_intWidth - intOffsetPixels,
-                                                           par_intHeight - intOffsetPixels))
+                                                           par_intWidth - 2 * intOffsetPixels,
+                                                           par_intHeight - 2 * intOffsetPixels))
 
         Next intLineIndex
 
