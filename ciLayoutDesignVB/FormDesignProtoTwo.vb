@@ -322,6 +322,17 @@ Public Class FormDesignProtoTwo
 
     End Sub
 
+    Private Sub LoadField_JustOne(par_field As ICIBFieldStandardOrCustom)
+        ''
+        ''Added 9/6/2019 thomas d. 
+        ''
+        Dim new_list As New List(Of ICIBFieldStandardOrCustom)
+
+        new_list.Add(par_field)
+        LoadElements_ByListOfFields(new_list, True, False)
+
+    End Sub ''End of "Private Sub LoadField_JustOne(...)"
+
     Private Sub LoadElements_ByListOfFields(par_list As List(Of ICIBFieldStandardOrCustom),
                                            par_boolLoadingForm As Boolean,
                                            Optional par_bUnloading As Boolean = False)
@@ -341,7 +352,10 @@ Public Class FormDesignProtoTwo
 
             ''Added 9/3/2019 thomas d. 
             boolIncludeOnBadge = (par_boolLoadingForm And each_field.IsDisplayedOnBadge)
-            If (Not boolIncludeOnBadge) Then Continue For
+            If (Not boolIncludeOnBadge) Then
+                AddToFlowPanelOfOmittedFlds(each_field)
+                Continue For
+            End If ''End of "If (Not boolIncludeOnBadge) Then"
 
             ''
             ''Has the user moved the field into place (and pressed the Save & Refresh link)??
@@ -430,6 +444,18 @@ Public Class FormDesignProtoTwo
         ''     MessageBoxButtons.OK, MessageBoxIcon.Information)
 
     End Sub ''End of ''Private Sub LoadElements_Fields_OneList()''
+
+    Private Sub AddToFlowPanelOfOmittedFlds(par_field As ICIBFieldStandardOrCustom)
+        ''
+        ''Added 9/6/2019 td
+        ''
+        Dim new_linkLabel As New LinkLabel
+        new_linkLabel.Tag = par_field
+        new_linkLabel.Text = par_field.FieldLabelCaption
+        flowFieldsNotListed.Controls.Add(new_linkLabel)
+        new_linkLabel.Visible = True
+
+    End Sub
 
     Private Sub LoadElements_Fields_OneList_NotInUse(par_boolLoadingForm As Boolean, Optional par_bUnloading As Boolean = False)
         ''
@@ -1121,7 +1147,7 @@ Public Class FormDesignProtoTwo
         ''9/3/2019 td''Load_Form()
         ''9/5/2019 td''LoadElements_Fields_Master(False, False)
 
-    End Sub ''ENd of "Private Sub LinkSaveAndRefresh_LinkClicked"
+    End Sub ''ENd of "Private Sub RefreshTheSetOfDisplayedElements"
 
     Private Sub ContextMenuStrip1_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles ContextMenuStrip1.Opening
 

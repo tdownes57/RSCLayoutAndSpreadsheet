@@ -70,9 +70,9 @@ Partial Class FormDesignProtoTwo
         Me.StatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.linkRemoveElements = New System.Windows.Forms.LinkLabel()
         Me.LinkLabelSave2 = New System.Windows.Forms.LinkLabel()
-        Me.CtlGraphicPortrait_Lady = New ciLayoutDesignVB.CtlGraphicPortrait()
         Me.dropdownHowToLoadFlds = New System.Windows.Forms.ComboBox()
         Me.flowFieldsNotListed = New System.Windows.Forms.FlowLayoutPanel()
+        Me.CtlGraphicPortrait_Lady = New ciLayoutDesignVB.CtlGraphicPortrait()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         CType(Me.graphicAdjuster, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -356,7 +356,7 @@ Partial Class FormDesignProtoTwo
         '
         Me.graphicAdjuster.BackColor = System.Drawing.Color.White
         Me.graphicAdjuster.Image = Global.ciLayoutDesignVB.My.Resources.Resources.AdjustWHColor_V103
-        Me.graphicAdjuster.Location = New System.Drawing.Point(919, 306)
+        Me.graphicAdjuster.Location = New System.Drawing.Point(923, 352)
         Me.graphicAdjuster.Name = "graphicAdjuster"
         Me.graphicAdjuster.Size = New System.Drawing.Size(433, 230)
         Me.graphicAdjuster.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -366,9 +366,9 @@ Partial Class FormDesignProtoTwo
         'picturePreview
         '
         Me.picturePreview.BackColor = System.Drawing.Color.White
-        Me.picturePreview.Location = New System.Drawing.Point(919, 70)
+        Me.picturePreview.Location = New System.Drawing.Point(805, 70)
         Me.picturePreview.Name = "picturePreview"
-        Me.picturePreview.Size = New System.Drawing.Size(395, 226)
+        Me.picturePreview.Size = New System.Drawing.Size(408, 268)
         Me.picturePreview.TabIndex = 44
         Me.picturePreview.TabStop = False
         '
@@ -377,7 +377,7 @@ Partial Class FormDesignProtoTwo
         Me.pictureBack.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.pictureBack.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.pictureBack.Image = CType(resources.GetObject("pictureBack.Image"), System.Drawing.Image)
-        Me.pictureBack.Location = New System.Drawing.Point(69, 70)
+        Me.pictureBack.Location = New System.Drawing.Point(11, 70)
         Me.pictureBack.Margin = New System.Windows.Forms.Padding(2)
         Me.pictureBack.Name = "pictureBack"
         Me.pictureBack.Size = New System.Drawing.Size(754, 425)
@@ -439,14 +439,6 @@ Partial Class FormDesignProtoTwo
         Me.LinkLabelSave2.TabStop = True
         Me.LinkLabelSave2.Text = "Save"
         '
-        'CtlGraphicPortrait_Lady
-        '
-        Me.CtlGraphicPortrait_Lady.Location = New System.Drawing.Point(1189, 396)
-        Me.CtlGraphicPortrait_Lady.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.CtlGraphicPortrait_Lady.Name = "CtlGraphicPortrait_Lady"
-        Me.CtlGraphicPortrait_Lady.Size = New System.Drawing.Size(150, 182)
-        Me.CtlGraphicPortrait_Lady.TabIndex = 41
-        '
         'dropdownHowToLoadFlds
         '
         Me.dropdownHowToLoadFlds.FormattingEnabled = True
@@ -463,6 +455,14 @@ Partial Class FormDesignProtoTwo
         Me.flowFieldsNotListed.Name = "flowFieldsNotListed"
         Me.flowFieldsNotListed.Size = New System.Drawing.Size(455, 74)
         Me.flowFieldsNotListed.TabIndex = 52
+        '
+        'CtlGraphicPortrait_Lady
+        '
+        Me.CtlGraphicPortrait_Lady.Location = New System.Drawing.Point(1189, 396)
+        Me.CtlGraphicPortrait_Lady.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.CtlGraphicPortrait_Lady.Name = "CtlGraphicPortrait_Lady"
+        Me.CtlGraphicPortrait_Lady.Size = New System.Drawing.Size(150, 182)
+        Me.CtlGraphicPortrait_Lady.TabIndex = 41
         '
         'FormDesignProtoTwo
         '
