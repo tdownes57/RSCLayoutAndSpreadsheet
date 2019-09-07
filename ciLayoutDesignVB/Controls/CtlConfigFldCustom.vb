@@ -96,6 +96,7 @@ ExitHandler:
 
             .CIBadgeField_Optional = mod_s_CIBadgeField '' = .CIBadgeField_Optional
             .OtherDbField_Optional = mod_s_OtherDbField '' = .OtherDbField_Optional
+
             .ExampleValue = mod_s_ExampleValue '' = .ExampleValue
 
             ''Added 9/6/2019 td

@@ -58,7 +58,7 @@ Partial Class ListCustomFieldsFlow
         Me.FlowLayoutPanel1.Controls.Add(Me.UserAddFieldControl1)
         Me.FlowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
         Me.FlowLayoutPanel1.Location = New System.Drawing.Point(9, 62)
-        Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(2)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
         Me.FlowLayoutPanel1.Size = New System.Drawing.Size(736, 427)
         Me.FlowLayoutPanel1.TabIndex = 3
@@ -68,9 +68,9 @@ Partial Class ListCustomFieldsFlow
         '
         Me.UserAddFieldControl1.BackColor = System.Drawing.Color.LightCyan
         Me.UserAddFieldControl1.Location = New System.Drawing.Point(2, 2)
-        Me.UserAddFieldControl1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.UserAddFieldControl1.Margin = New System.Windows.Forms.Padding(2)
         Me.UserAddFieldControl1.Name = "UserAddFieldControl1"
-        Me.UserAddFieldControl1.Size = New System.Drawing.Size(628, 100)
+        Me.UserAddFieldControl1.Size = New System.Drawing.Size(691, 70)
         Me.UserAddFieldControl1.TabIndex = 4
         '
         'chkIncludeExampleValues
@@ -79,7 +79,7 @@ Partial Class ListCustomFieldsFlow
         Me.chkIncludeExampleValues.Checked = True
         Me.chkIncludeExampleValues.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkIncludeExampleValues.Location = New System.Drawing.Point(575, 10)
-        Me.chkIncludeExampleValues.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.chkIncludeExampleValues.Margin = New System.Windows.Forms.Padding(2)
         Me.chkIncludeExampleValues.Name = "chkIncludeExampleValues"
         Me.chkIncludeExampleValues.Size = New System.Drawing.Size(140, 17)
         Me.chkIncludeExampleValues.TabIndex = 4
@@ -90,7 +90,7 @@ Partial Class ListCustomFieldsFlow
         '
         Me.chkIncludeCIBField.AutoSize = True
         Me.chkIncludeCIBField.Location = New System.Drawing.Point(575, 32)
-        Me.chkIncludeCIBField.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.chkIncludeCIBField.Margin = New System.Windows.Forms.Padding(2)
         Me.chkIncludeCIBField.Name = "chkIncludeCIBField"
         Me.chkIncludeCIBField.Size = New System.Drawing.Size(170, 17)
         Me.chkIncludeCIBField.TabIndex = 5
@@ -170,7 +170,7 @@ Partial Class ListCustomFieldsFlow
         Me.Controls.Add(Me.chkIncludeExampleValues)
         Me.Controls.Add(Me.FlowLayoutPanel1)
         Me.Controls.Add(Me.LabelHeaderCaption)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "ListCustomFieldsFlow"
         Me.Text = "FormCustomFieldsFlow"
         Me.FlowLayoutPanel1.ResumeLayout(False)

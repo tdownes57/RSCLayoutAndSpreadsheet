@@ -175,9 +175,9 @@ Partial Class CtlConfigFldCustom
         Me.checkDisplayOnBadge.Location = New System.Drawing.Point(527, 28)
         Me.checkDisplayOnBadge.Margin = New System.Windows.Forms.Padding(2)
         Me.checkDisplayOnBadge.Name = "checkDisplayOnBadge"
-        Me.checkDisplayOnBadge.Size = New System.Drawing.Size(135, 17)
+        Me.checkDisplayOnBadge.Size = New System.Drawing.Size(146, 17)
         Me.checkDisplayOnBadge.TabIndex = 23
-        Me.checkDisplayOnBadge.Text = "Display on card-badge."
+        Me.checkDisplayOnBadge.Text = "Display on printed badge."
         Me.checkDisplayOnBadge.UseVisualStyleBackColor = True
         '
         'checkDisplayForEdits

@@ -9,6 +9,7 @@ Imports ControlManager
 Imports MoveAndResizeControls_Monem
 Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d.  
 Imports ciLayoutPrintLib ''Added 8/28/2019 thomas d. 
+Imports System.Collections.Generic ''Added 9.6.2019 td 
 
 Public Class FormDesignProtoTwo
     Implements ISelectingElements
@@ -313,6 +314,16 @@ Public Class FormDesignProtoTwo
 
     Private Sub LoadElements_Fields_OneList(par_boolLoadingForm As Boolean, Optional par_bUnloading As Boolean = False)
         ''
+        ''Added 9/6/2019 td  
+        ''
+        LoadElements_Fields_ByList(ClassFields.ListAllFields(), par_boolLoadingForm)
+
+    End Sub
+
+    Private Sub LoadElements_Fields_ByList(par_list As List(Of ICIBFieldStandardOrCustom),
+                                           par_boolLoadingForm As Boolean,
+                                           Optional par_bUnloading As Boolean = False)
+        ''
         ''Added 9/03/2019 thomas downes 
         ''Modified 9/5/2019 thomas downes
         ''
@@ -322,7 +333,7 @@ Public Class FormDesignProtoTwo
         Dim boolIncludeOnBadge As Boolean = False ''Added 9/03/2019 td
         Dim intStagger As Integer = 0 ''Added 9.6.2019 td 
 
-        For Each each_field As ICIBFieldStandardOrCustom In ClassFields.ListAllFields()
+        For Each each_field As ICIBFieldStandardOrCustom In par_list ''9/6/2019 td''ClassFields.ListAllFields()
 
             Dim label_control As CtlGraphicFldLabel
 
@@ -987,12 +998,12 @@ Public Class FormDesignProtoTwo
         ''Added 7/31/2019 td
         ''
         ''
-        ''Step 1 of 4.   Save the user's work. 
+        ''Step 1 of 3.   Save the user's work. 
         ''
         SaveLayout()
 
         ''
-        ''Step 2 of 4.  Decide the next step. 
+        ''Step 2 of 3.  Decide the next step. 
         ''
         Const c_boolStartNewWindow As Boolean = False ''9/5 td'' True ''Added 9/3/2019 thomas d. 
         If (c_boolStartNewWindow) Then ''Added 9/3/2019 thomas d. 
@@ -1003,7 +1014,20 @@ Public Class FormDesignProtoTwo
         End If ''End of "If (c_boolStartNewWindow) Then"
 
         ''
-        ''Step 3 of 4.   Remove the existing controls. 
+        ''Step 3 of 3.  Refresh the representation of the elements on the form. 
+        ''
+        RefreshTheSetOfDisplayedElements()
+
+    End Sub
+
+    Private Sub RefreshTheSetOfDisplayedElements()
+        ''
+        ''Step 1 of 5.   Create a dictionary of elements. 
+        ''
+        Dim dictonary_clt_elmnt As New Dictionary(Of IElement_Base, CtlGraphicFldLabel)
+
+        ''
+        ''Step 2 of 5.   Refresh the existing controls. 
         ''
         ''Added 7/31/2019 td
         For Each each_control As Control In Me.Controls
@@ -1031,16 +1055,42 @@ Public Class FormDesignProtoTwo
             each_field_control.Refresh_Master()
             each_field_control.Refresh()
 
+            ''Added 9/6/2019 td 
+            ''
+            ''   Build a dictionary of control-element.
+            ''
+            dictonary_clt_elmnt.Add(each_field_control.ElementInfo_Base, each_field_control)
+
         Next each_control
 
         ''
-        ''Step 4 of 5.   Regenerate the form. 
+        ''Step 3 of 5.   Make a list of the elements which are not yet populated on the form. 
+        ''
+        ''Dim list_fieldsNotLoadedYet_Custom As New List(Of ClassFieldCustomized)
+        ''Dim list_fieldsNotLoadedYet_Standrd As New List(Of ClassFieldStandard)
+        Dim list_elementsNotLoadedYet_Any As New List(Of IElement_Base)
+        Dim boolMissingFromForm As Boolean
+        For Each each_element As IElement_Base In ClassFields.ListAllFields()
+            boolMissingFromForm = (Not dictonary_clt_elmnt.ContainsKey(each_element))
+            If (boolMissingFromForm) Then list_elementsNotLoadedYet_Any.Add(each_element)
+        Next each_element
+
+        ''
+        ''Step 4 of 5.   Load the missing elements onto the form, if any.  
+        ''
+        If (0 < list_elementsNotLoadedYet_Any.Count) Then
+            ''Load the missing elements. 
+            LoadElements_Fields_ByList(list_elementsNotLoadedYet_Any)
+        End If ''End of "If (0 < list_elementsNotLoadedYet_Any.Count) Then"
+
+        ''
+        ''Step 5 of 5.   Regenerate the form. 
         ''
         ''9/5/2019 td''Me.Refresh()
         Application.DoEvents()
 
         ''
-        ''Step 5 of 5.   Reload the fields onto the form. 
+        ''Step 6 of 6.   Reload the fields onto the form. 
         ''
         ''9/3/2019 td''Load_Form()
         ''9/5/2019 td''LoadElements_Fields_Master(False, False)
