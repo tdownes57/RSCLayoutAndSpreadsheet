@@ -297,12 +297,14 @@ Public Class FormDesignProtoTwo
         ''
         ''9/4 td''Const c_boolUseConsolidatedList As Boolean = False ''True
         Dim boolUseConsolidatedList As Boolean ''Added 9/5/2019 td  
+
         ''Added 9/5/2019 td  
         boolUseConsolidatedList = True ''9/5 td''(2 <= dropdownHowToLoadFlds.SelectedIndex)
 
         If (boolUseConsolidatedList) Then
 
-            LoadElements_Fields_OneList(par_boolLoadingForm, par_bUnloading)
+            ''9/6/2019 td''LoadElements_Fields_OneList(par_boolLoadingForm, par_bUnloading)
+            LoadElements_OneListOfFields(par_boolLoadingForm, par_bUnloading)
 
         Else
 
@@ -312,15 +314,15 @@ Public Class FormDesignProtoTwo
 
     End Sub ''ENd of "Private Sub LoadElements_Fields_Master()"
 
-    Private Sub LoadElements_Fields_OneList(par_boolLoadingForm As Boolean, Optional par_bUnloading As Boolean = False)
+    Private Sub LoadElements_OneListOfFields(par_boolLoadingForm As Boolean, Optional par_bUnloading As Boolean = False)
         ''
         ''Added 9/6/2019 td  
         ''
-        LoadElements_Fields_ByList(ClassFields.ListAllFields(), par_boolLoadingForm)
+        LoadElements_ByListOfFields(ClassFields.ListAllFields(), par_boolLoadingForm)
 
     End Sub
 
-    Private Sub LoadElements_Fields_ByList(par_list As List(Of ICIBFieldStandardOrCustom),
+    Private Sub LoadElements_ByListOfFields(par_list As List(Of ICIBFieldStandardOrCustom),
                                            par_boolLoadingForm As Boolean,
                                            Optional par_bUnloading As Boolean = False)
         ''
@@ -1024,7 +1026,9 @@ Public Class FormDesignProtoTwo
         ''
         ''Step 1 of 5.   Create a dictionary of elements. 
         ''
-        Dim dictonary_clt_elmnt As New Dictionary(Of IElement_Base, CtlGraphicFldLabel)
+        Dim dictonary_elmnt_control As New Dictionary(Of IElement_Base, CtlGraphicFldLabel)
+        Dim dictonary_field_control As New Dictionary(Of ICIBFieldStandardOrCustom,
+            CtlGraphicFldLabel)
 
         ''
         ''Step 2 of 5.   Refresh the existing controls. 
@@ -1059,7 +1063,8 @@ Public Class FormDesignProtoTwo
             ''
             ''   Build a dictionary of control-element.
             ''
-            dictonary_clt_elmnt.Add(each_field_control.ElementInfo_Base, each_field_control)
+            dictonary_elmnt_control.Add(each_field_control.ElementInfo_Base, each_field_control)
+            dictonary_field_control.Add(each_field_control.FieldInfo, each_field_control)
 
         Next each_control
 
@@ -1068,20 +1073,41 @@ Public Class FormDesignProtoTwo
         ''
         ''Dim list_fieldsNotLoadedYet_Custom As New List(Of ClassFieldCustomized)
         ''Dim list_fieldsNotLoadedYet_Standrd As New List(Of ClassFieldStandard)
-        Dim list_elementsNotLoadedYet_Any As New List(Of IElement_Base)
+        Dim list_fieldsNotLoadedYet_Any As New List(Of ICIBFieldStandardOrCustom)
         Dim boolMissingFromForm As Boolean
-        For Each each_element As IElement_Base In ClassFields.ListAllFields()
-            boolMissingFromForm = (Not dictonary_clt_elmnt.ContainsKey(each_element))
-            If (boolMissingFromForm) Then list_elementsNotLoadedYet_Any.Add(each_element)
-        Next each_element
+        Dim boolNotDisplayed_ButShouldBe As Boolean
+
+        For Each each_field As ICIBFieldStandardOrCustom In ClassFields.ListAllFields()
+            ''
+            ''Added 9/6/2019 td
+            ''
+            boolMissingFromForm = (Not dictonary_field_control.ContainsKey(each_field))
+
+            boolNotDisplayed_ButShouldBe = (boolMissingFromForm And each_field.IsDisplayedOnBadge)
+
+            If (boolNotDisplayed_ButShouldBe) Then
+                ''
+                ''Add it to a list. 
+                ''
+                list_fieldsNotLoadedYet_Any.Add(each_field)
+
+            End If ''End of "If (boolNotDisplayed_ButShouldBe) Then"
+
+        Next each_field
 
         ''
         ''Step 4 of 5.   Load the missing elements onto the form, if any.  
         ''
-        If (0 < list_elementsNotLoadedYet_Any.Count) Then
+        Dim bSomeDisplayableFldsAreNotLoaded As Boolean
+
+        bSomeDisplayableFldsAreNotLoaded = (0 < list_fieldsNotLoadedYet_Any.Count)
+
+        If (bSomeDisplayableFldsAreNotLoaded) Then
             ''Load the missing elements. 
-            LoadElements_Fields_ByList(list_elementsNotLoadedYet_Any)
-        End If ''End of "If (0 < list_elementsNotLoadedYet_Any.Count) Then"
+            ''9/6/2019 td''Load_Fields_ByList(list_elementsNotLoadedYet_Any)
+            LoadElements_ByListOfFields(list_fieldsNotLoadedYet_Any, True, False)
+
+        End If ''End of "If (bSomeDisplayableFieldsAreNotLoaded) Then"
 
         ''
         ''Step 5 of 5.   Regenerate the form. 
@@ -1472,6 +1498,10 @@ Public Class FormDesignProtoTwo
 
         '-- 7.0 Notice the rectangle is the same thing!
         e.Graphics.DrawRectangle(_penNew, _rRectangle)
+
+    End Sub
+
+    Private Sub FlowFieldsNotListed_Paint(sender As Object, e As PaintEventArgs) Handles flowFieldsNotListed.Paint
 
     End Sub
 End Class
