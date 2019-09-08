@@ -51,6 +51,8 @@ Public Class ClassLabelToImage
         ''Added 9/4/2019 thomas downes  
         ''
         Dim doubleExpectedRatio As Double ''Added 9/6/2019 td  
+        Dim doubleDifference As Double ''Added 9/8/2019 td
+        Dim doubleDifference_x100 As Double ''Added 9/8/2019 td
 
         ''---9/6/2019 td ''RatioIsLikelyBad = (1 > (100 * Math.Abs(par_doubleW_div_H - LongSideToShortRatio())))
 
@@ -58,7 +60,17 @@ Public Class ClassLabelToImage
         doubleExpectedRatio = LongSideToShortRatio()
 
         ''9/6/2019 td''RatioIsLikelyBad = (1 > (100 * Math.Abs(par_doubleW_div_H - doubleExpectedRatio)))
-        RatioIsLikelyBad = (1 < (100 * Math.Abs(par_doubleW_div_H - doubleExpectedRatio)))
+        ''9/8/2019 td''RatioIsLikelyBad = (1 < (100 * Math.Abs(par_doubleW_div_H - doubleExpectedRatio)))
+
+        doubleDifference = Math.Abs(par_doubleW_div_H - doubleExpectedRatio)
+        doubleDifference_x100 = (100 * doubleDifference)
+
+        Dim boolDiffersMoreThanPoint99 As Boolean
+        Dim boolReturnValue As Boolean
+
+        boolDiffersMoreThanPoint99 = (0.99 < doubleDifference_x100)
+        boolReturnValue = boolDiffersMoreThanPoint99
+        Return boolReturnValue
 
     End Function ''End of "Public Shared Function RatioIsLikelyBad(par_doubleW_div_H As Double) As Boolean"
 

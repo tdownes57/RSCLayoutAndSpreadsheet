@@ -61,7 +61,23 @@ Public Class LayoutPrint_Redux
         ''
         ''Added 9/4/2019 thomas downes  
         ''
-        RatioIsLikelyBad = (1 > (100 * Math.Abs(par_doubleW_div_H - LongSideToShortRatio())))
+        Dim doubleExpected_27_17 As Double ''Added 9/8/2019 
+        Dim doubleDifference As Double ''Added 9/8/2019 
+        Dim doubleDifference_x100 As Double ''Added 9/8/2019 
+        Dim boolReturnValue As Boolean ''Added 9/8
+
+        ''9/8/2019 td''RatioIsLikelyBad = (1 > (100 * Math.Abs(par_doubleW_div_H - LongSideToShortRatio())))
+
+        doubleExpected_27_17 = LongSideToShortRatio()
+
+        ''9/8/2019 td''RatioIsLikelyBad = (1 > (100 * Math.Abs(par_doubleW_div_H - doubleExpected_27_17)))
+
+        doubleDifference = Math.Abs(par_doubleW_div_H - doubleExpected_27_17)
+        doubleDifference_x100 = (100 * doubleDifference)
+
+        boolReturnValue = (1 < doubleDifference_x100)
+
+        Return boolReturnValue
 
     End Function ''End of "Public Shared Function RatioIsLikelyBad(par_doubleW_div_H As Double) As Boolean"
 
