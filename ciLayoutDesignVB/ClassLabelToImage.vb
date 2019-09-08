@@ -19,6 +19,8 @@ Public Class ClassLabelToImage
     ''
     ''Added 7/17/2019
     ''
+    Public Shared UseHighResolutionTips As Boolean = False ''Added 9/8/2019 td
+
     Public Shared Function LongSideToShortRatio() As Double
         ''
         ''Added 8/26/2019 thomas downes
@@ -207,15 +209,25 @@ Public Class ClassLabelToImage
 
         ''Added 8/15/2019 td
         ''#1 9/4/2019 td''par_image = New Bitmap(intNewElementWidth, intNewElementHeight)
-        '' #2 9/4/2019 td''par_image = New Bitmap(intNewElementWidth, intNewElementWidth, Imaging.PixelFormat.Format32bppPArgb)
+        '' #2 9/4/20 19 td''par_image = New Bitmap(intNewElementWidth, intNewElementWidth, Imaging.PixelFormat.Format32bppPArgb)
         ''  #3 9/4/2019 td''local_image = New Bitmap(intNewElementWidth, intNewElementWidth, Imaging.PixelFormat.Format32bppPArgb)
-        local_image = New Bitmap(intNewElementWidth, intNewElementHeight, Imaging.PixelFormat.Format32bppPArgb)
 
-        ''Set the resolution to 300 DPI
         ''  https://stackoverflow.com/questions/2478502/when-creating-an-bitmap-image-from-scratch-in-vb-net-the-quality-stinks
-        ''
-        ''9/4/2019 td''par_image.SetResolution(300, 300)
-        local_image.SetResolution(300, 300)
+        If (UseHighResolutionTips) Then
+
+            local_image = New Bitmap(intNewElementWidth, intNewElementHeight,
+                                     Imaging.PixelFormat.Format32bppPArgb)
+
+            ''Set the resolution to 300 DPI
+            ''  https://stackoverflow.com/questions/2478502/when-creating-an-bitmap-image-from-scratch-in-vb-net-the-quality-stinks
+            ''
+            ''9/4/2019 td''par_image.SetResolution(300, 300)
+            local_image.SetResolution(300, 300)
+
+        Else
+            local_image = New Bitmap(intNewElementWidth, intNewElementHeight)
+
+        End If ''End of "If (UseHighResolutionTips) Then ... Else ..."
 
         ''9/4/2019 td''End If ''End of "If (par_image Is Nothing) Then"
 
@@ -463,8 +475,8 @@ Public Class ClassLabelToImage
             intOffsetPixels = (intLineIndex - 1)
 
             par_gr.DrawRectangle(pen_border, New Rectangle(intOffsetPixels, intOffsetPixels,
-                                                           par_intWidth - 2 * intOffsetPixels,
-                                                           par_intHeight - 2 * intOffsetPixels))
+                                                           -1 + par_intWidth - 2 * intOffsetPixels,
+                                                           -1 + par_intHeight - 2 * intOffsetPixels))
 
         Next intLineIndex
 

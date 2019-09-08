@@ -401,7 +401,8 @@ Public Class FormDesignProtoTwo
             label_control.Visible = each_field.IsDisplayedOnBadge ''BL = Badge Layout
             intCountControlsAdded += 1
             label_control.Name = "FieldControl" & CStr(intCountControlsAdded)
-            label_control.BorderStyle = BorderStyle.FixedSingle
+
+            ''9/8 td''label_control.BorderStyle = BorderStyle.FixedSingle
 
             ''Added 9/6/2019 thomas downes 
             ''
@@ -601,7 +602,8 @@ Public Class FormDesignProtoTwo
             intCountControlsAdded += 1
 
             label_control.Name = "FieldControl" & CStr(intCountControlsAdded)
-            label_control.BorderStyle = BorderStyle.FixedSingle
+
+            ''9/8 td''label_control.BorderStyle = BorderStyle.FixedSingle
 
             boolIncludeOnBadge = (par_boolLoadingForm And each_field.IsDisplayedOnBadge)
 
@@ -755,7 +757,8 @@ Public Class FormDesignProtoTwo
             intNumControlsAlready_std += 1
 
             new_label_control_std.Name = "StandardCtl" & CStr(intNumControlsAlready_std)
-            new_label_control_std.BorderStyle = BorderStyle.FixedSingle
+
+            ''9/8 td''new_label_control_std.BorderStyle = BorderStyle.FixedSingle
 
             ''
             ''Added 7/28/2019 thomas d.
@@ -870,7 +873,7 @@ Public Class FormDesignProtoTwo
 
             intNumControlsAlready_cust += 1
             new_label_control_cust.Name = "CustCtl" & CStr(intNumControlsAlready_cust)
-            new_label_control_cust.BorderStyle = BorderStyle.FixedSingle
+            ''9/8 td''new_label_control_cust.BorderStyle = BorderStyle.FixedSingle
 
             ''
             ''Added 7/28/2019 thomas d.
@@ -1569,6 +1572,13 @@ Public Class FormDesignProtoTwo
     End Sub
 
     Private Sub FlowFieldsNotListed_Paint(sender As Object, e As PaintEventArgs) Handles flowFieldsNotListed.Paint
+
+    End Sub
+
+    Private Sub HighRez_CheckedChanged(sender As Object, e As EventArgs) Handles chkHighResolution.CheckedChanged
+
+        ''Added 9/8/2019 thomas downes
+        ClassLabelToImage.UseHighResolutionTips = CType(sender, CheckBox).Checked
 
     End Sub
 End Class

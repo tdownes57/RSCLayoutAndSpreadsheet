@@ -77,7 +77,7 @@ Public Class ClassElementText
     Public Property Height_Pixels As Integer = 33 Implements IElement_Base.Height_Pixels
 
     ''8/29/2019 td''Public Property Border_Pixels As Integer Implements IElement_Base.Border_Pixels
-    Public Property Border_WidthInPixels As Integer = 0 Implements IElement_Base.Border_WidthInPixels
+    Public Property Border_WidthInPixels As Integer = 1 Implements IElement_Base.Border_WidthInPixels
     Public Property Border_Color As System.Drawing.Color = Color.Black Implements IElement_Base.Border_Color
 
     Public Property Back_Color As System.Drawing.Color = Color.White Implements IElement_Base.Back_Color
@@ -207,12 +207,19 @@ Public Class ClassElementText
 
             ''Added 8/15/2019 td
             ''
-            ''9/6/2019 td''par_image = New Bitmap(intNewElementWidth, intNewElementHeight)
-            par_image = New Bitmap(intNewElementWidth, intNewElementHeight, Imaging.PixelFormat.Format32bppPArgb)
+            If (ClassLabelToImage.UseHighResolutionTips) Then
+
+                ''9/6/2019 td''par_image = New Bitmap(intNewElementWidth, intNewElementHeight)
+                par_image = New Bitmap(intNewElementWidth, intNewElementHeight, Imaging.PixelFormat.Format32bppPArgb)
+
+            Else
+                par_image = New Bitmap(intNewElementWidth, intNewElementHeight)
+
+            End If ''end of "If (ClassLabelToImage.UseHighResolutionTips) Then ... Else"
 
         End If ''End of "If (par_image Is Nothing) Then"
 
-        gr = Graphics.FromImage(par_image)
+            gr = Graphics.FromImage(par_image)
 
         ''8/29/2019 td''pen_backcolor = New Pen(par_design.BackColor)
         pen_backcolor = New Pen(par_elementInfo_Base.Back_Color)

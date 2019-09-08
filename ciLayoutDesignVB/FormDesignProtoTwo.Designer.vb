@@ -74,6 +74,7 @@ Partial Class FormDesignProtoTwo
         Me.flowFieldsNotListed = New System.Windows.Forms.FlowLayoutPanel()
         Me.lblFieldsNotCurrentlyShownHdr = New System.Windows.Forms.Label()
         Me.CtlGraphicPortrait_Lady = New ciLayoutDesignVB.CtlGraphicPortrait()
+        Me.chkHighResolution = New System.Windows.Forms.CheckBox()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         CType(Me.graphicAdjuster, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -368,9 +369,10 @@ Partial Class FormDesignProtoTwo
         'picturePreview
         '
         Me.picturePreview.BackColor = System.Drawing.Color.White
-        Me.picturePreview.Location = New System.Drawing.Point(805, 70)
+        Me.picturePreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.picturePreview.Location = New System.Drawing.Point(872, 70)
         Me.picturePreview.Name = "picturePreview"
-        Me.picturePreview.Size = New System.Drawing.Size(614, 425)
+        Me.picturePreview.Size = New System.Drawing.Size(467, 276)
         Me.picturePreview.TabIndex = 44
         Me.picturePreview.TabStop = False
         '
@@ -379,10 +381,10 @@ Partial Class FormDesignProtoTwo
         Me.pictureBack.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.pictureBack.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.pictureBack.Image = CType(resources.GetObject("pictureBack.Image"), System.Drawing.Image)
-        Me.pictureBack.Location = New System.Drawing.Point(11, 70)
+        Me.pictureBack.Location = New System.Drawing.Point(89, 70)
         Me.pictureBack.Margin = New System.Windows.Forms.Padding(2)
         Me.pictureBack.Name = "pictureBack"
-        Me.pictureBack.Size = New System.Drawing.Size(754, 425)
+        Me.pictureBack.Size = New System.Drawing.Size(681, 425)
         Me.pictureBack.TabIndex = 21
         Me.pictureBack.TabStop = False
         '
@@ -471,17 +473,30 @@ Partial Class FormDesignProtoTwo
         '
         'CtlGraphicPortrait_Lady
         '
-        Me.CtlGraphicPortrait_Lady.Location = New System.Drawing.Point(1189, 396)
+        Me.CtlGraphicPortrait_Lady.Location = New System.Drawing.Point(594, 91)
         Me.CtlGraphicPortrait_Lady.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.CtlGraphicPortrait_Lady.Name = "CtlGraphicPortrait_Lady"
         Me.CtlGraphicPortrait_Lady.Size = New System.Drawing.Size(150, 182)
         Me.CtlGraphicPortrait_Lady.TabIndex = 41
+        '
+        'chkHighResolution
+        '
+        Me.chkHighResolution.AutoSize = True
+        Me.chkHighResolution.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chkHighResolution.Location = New System.Drawing.Point(936, 39)
+        Me.chkHighResolution.Margin = New System.Windows.Forms.Padding(2)
+        Me.chkHighResolution.Name = "chkHighResolution"
+        Me.chkHighResolution.Size = New System.Drawing.Size(155, 22)
+        Me.chkHighResolution.TabIndex = 53
+        Me.chkHighResolution.Text = "Use High-Rez Tips"
+        Me.chkHighResolution.UseVisualStyleBackColor = True
         '
         'FormDesignProtoTwo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1440, 705)
+        Me.Controls.Add(Me.chkHighResolution)
         Me.Controls.Add(Me.flowFieldsNotListed)
         Me.Controls.Add(Me.dropdownHowToLoadFlds)
         Me.Controls.Add(Me.LinkLabelSave2)
@@ -568,4 +583,5 @@ Partial Class FormDesignProtoTwo
     Friend WithEvents dropdownHowToLoadFlds As ComboBox
     Friend WithEvents flowFieldsNotListed As FlowLayoutPanel
     Friend WithEvents lblFieldsNotCurrentlyShownHdr As Label
+    Friend WithEvents chkHighResolution As CheckBox
 End Class
