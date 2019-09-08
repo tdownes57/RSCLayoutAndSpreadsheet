@@ -37,6 +37,13 @@ namespace ControlManager
         //
         //  internal class ControlMoverOrResizer_TD
         //
+        //
+        //  Class primarily authored by Seyyed Hamed Monem 
+        //       https://www.codeproject.com/tips/709121/move-and-resize-controls-on-a-form-at-runtime-with 
+        //       https://www.codeproject.com/info/cpol10.aspx
+        //  This class was modified in August 2019 by Thomas C. Downes
+        //
+        //
 
         private static bool _moving;
         private static bool _repaintAfterResize;  // Added 7/31/2019 td  

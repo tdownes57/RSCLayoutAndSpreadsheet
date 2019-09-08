@@ -419,6 +419,7 @@ Public Class FormDesignProtoTwo
 
                 Me.Controls.Add(label_control)
                 label_control.Visible = True
+                label_control.BringToFront() ''Added 9/7/2019 thomas d.  
                 ''9/5/2019''label_control.Refresh_Image()
                 label_control.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
 
@@ -442,6 +443,7 @@ Public Class FormDesignProtoTwo
         ''
         ''Added 8/27/2019 thomas downes
         ''
+        pictureBack.SendToBack() ''Added 9/7/2019 thomas d.
         Me.Refresh() ''Added 8/28/2019 td   
 
         ''9/5/2019 td''MessageBox.Show($"Number of field controls now on the form: {intCountControlsAdded}", "",
@@ -1395,12 +1397,13 @@ Public Class FormDesignProtoTwo
 
     End Sub
 
-    Private Sub AddField_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles linkSaveAndRefresh.LinkClicked
+    Private Sub AddField_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) ''9/7/2019 td''Handles linkSaveAndRefresh.LinkClicked
         ''
         ''Added 9/7/2019 thomas d
         ''
         Dim field_to_add As ICIBFieldStandardOrCustom
         field_to_add = CType(CType(sender, LinkLabel).Tag, ICIBFieldStandardOrCustom)
+        If (field_to_add Is Nothing) Then Exit Sub
         field_to_add.IsDisplayedOnBadge = True
         LoadField_JustOne(field_to_add)
 
