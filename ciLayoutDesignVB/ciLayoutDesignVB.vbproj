@@ -77,6 +77,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClassGroupMove.vb" />
+    <Compile Include="Controls\ContextLayoutDesignToolstrip.Designer.vb">
+      <DependentUpon>ContextLayoutDesignToolstrip.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ContextLayoutDesignToolstrip.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controls\CtlAddStandardField.Designer.vb">
       <DependentUpon>CtlAddStandardField.vb</DependentUpon>
     </Compile>
@@ -120,6 +126,12 @@
       <DependentUpon>CtlGraphPopMenuEditSingle.vb</DependentUpon>
     </Compile>
     <Compile Include="Controls\CtlGraphPopMenuEditSingle.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ContextLayoutDesignButtons.Designer.vb">
+      <DependentUpon>ContextLayoutDesignButtons.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ContextLayoutDesignButtons.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\CtlMainButton_v90.Designer.vb">
@@ -182,6 +194,7 @@
     <Compile Include="Controls\CtlPartial_HardText.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Controls\modLayoutDesignMenu.vb" />
     <Compile Include="ListCustomFieldsFlow.Designer.vb">
       <DependentUpon>ListCustomFieldsFlow.vb</DependentUpon>
     </Compile>
@@ -354,6 +367,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Controls\ContextLayoutDesignToolstrip.resx">
+      <DependentUpon>ContextLayoutDesignToolstrip.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlAddStandardField.resx">
       <DependentUpon>CtlAddStandardField.vb</DependentUpon>
     </EmbeddedResource>
@@ -371,6 +387,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlGraphPopMenuEditSingle.resx">
       <DependentUpon>CtlGraphPopMenuEditSingle.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ContextLayoutDesignButtons.resx">
+      <DependentUpon>ContextLayoutDesignButtons.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlMainButton_v82.resx">
       <DependentUpon>CtlMainButton_v82.vb</DependentUpon>
