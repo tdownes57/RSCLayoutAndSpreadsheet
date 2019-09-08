@@ -127,6 +127,10 @@ Public Class FormDesignProtoTwo
         ResizeLayoutBackgroundImage_ToFitPictureBox() ''Added 8/25/2019 td
         RefreshPreview() ''Added 8/24/2019 td
 
+        ''Badge Preview is also moveable/sizeable.
+        ControlMoverOrResizer_TD.Init(picturePreview,
+                          picturePreview, 10, False) ''Added 9/08/2019 thomas downes
+
     End Sub ''End of "Private Sub FormDesignProtoTwo_Load"
 
     Private Sub ResizeLayoutBackgroundImage_ToFitPictureBox()
@@ -1314,6 +1318,7 @@ Public Class FormDesignProtoTwo
         ''
         ''Added 8/24/2019 thomas downes
         ''
+        ClassLabelToImage.Proportions_FixTheWidth(picturePreview)
 
         ''
         ''Check that the proportions are correct. 

@@ -693,7 +693,12 @@ ExitHandler:
                     '' #2 8/26/2019 td''image_textStandard = .TextDisplay.GenerateImage_ByHeight(.Position_BL.Height_Pixels)
 
                     ''9/5/2019 td''image_textStandard = .TextDisplay.GenerateImage_ByDesiredLayoutWidth(par_imageBadgeCard.Width)
-                    image_textStandard = .TextDisplay.GenerateImage_ByDesiredLayoutWidth(each_elementField.BadgeLayout_Width)
+                    ''9/8/2019 td''image_textStandard = .TextDisplay.GenerateImage_ByDesiredLayoutWidth(each_elementField.BadgeLayout_Width)
+
+                    Dim intDesiredLayout_Width As Integer ''added 9/8/2019 td
+                    intDesiredLayout_Width = par_imageBadgeCard.Width
+                    image_textStandard =
+                        .TextDisplay.GenerateImage_ByDesiredLayoutWidth(intDesiredLayout_Width)
 
                     If (bOutputAllImages) Then par_listTextImages.Add(image_textStandard) ''Added 8/26/2019 td
 
