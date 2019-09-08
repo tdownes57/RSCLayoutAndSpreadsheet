@@ -618,6 +618,9 @@ ExitHandler:
         Dim intEachIndex As Integer ''Added 8/24/2019 td
         Dim bOutputAllImages As Boolean ''Added 8/26/2019 thomas d. 
 
+        ''9/8/2019 thomas d.
+        ProportionsAreSlightlyOff(par_imageBadgeCard, True, "par_imageBadgeCard")
+
         bOutputAllImages = (par_listTextImages IsNot Nothing) ''Added 8/26/2019 thomas d. 
 
         gr_Badge = Graphics.FromImage(par_imageBadgeCard)
@@ -641,7 +644,7 @@ ExitHandler:
                     Case (.LeftEdge_Pixels < 0)
                         Continue For
                     Case (.TopEdge_Pixels < 0) ''Then 
-                        ''Continue For
+                        Continue For
                     Case (.LeftEdge_Pixels + .Width_Pixels > par_imageBadgeCard.Width) ''Then 
                         ''Continue For
                     Case (.TopEdge_Pixels + .Height_Pixels > par_imageBadgeCard.Height) ''Then 
@@ -772,6 +775,51 @@ ExitHandler:
         gr_Badge.Dispose()
 
     End Sub ''End of ''Private Sub LoadElements_Fields()''
+
+    Public Shared Function ProportionsAreSlightlyOff(par_image As Image, pboolVerbose As Boolean,
+                                                     Optional par_strNameOfImage As String = "") As Boolean
+        ''
+        ''Added 9/5/2019 thomas downes  
+        ''
+        Dim doubleW_div_H As Double
+
+        doubleW_div_H = (par_image.Width / par_image.Height)
+
+        ''9/6 td''Return ProportionsAreSlightlyOff(doubleW_div_H, pboolVerbose, par_strNameOfImage)
+        Return ProportionsAreSlightlyOff(doubleW_div_H, pboolVerbose, par_strNameOfImage)
+
+    End Function ''End of "Public Shared Function RatioIsLikelyBad(par_doubleW_div_H As Double) As Boolean"
+
+    Public Shared Function ProportionsAreSlightlyOff(par_doubleW_div_H As Double, pboolVerbose As Boolean,
+                                                     Optional par_strImageOrControl As String = "") As Boolean
+        ''
+        ''Added 9/5/2019 thomas downes  
+        ''
+        Dim strRatioCurrent As String ''Double
+        Dim strRatioDesired As String ''Double
+        ''Dim doubleW_div_H As Double
+        Dim boolRatioIsBad As Boolean
+        Dim strObjectType As String = ""
+
+        boolRatioIsBad = RatioIsLikelyBad(par_doubleW_div_H)
+
+        ''9/8 td''Select Case par_enum
+        ''    Case EnumImageOrControl.Image : strObjectType = "(image)"
+        ''    Case EnumImageOrControl.Contl : strObjectType = "(control)"
+        ''End Select
+        strObjectType = "(image)"
+
+        If (pboolVerbose And boolRatioIsBad) Then
+            ''Added 9/6/2019 Thomasd.
+            strRatioDesired = LongSideToShortRatio().ToString("0.00")
+            strRatioCurrent = par_doubleW_div_H.ToString("0.00")
+            MessageBox.Show($"Uh-oh, the proportions of {strObjectType} [{par_strImageOrControl}] are {strRatioCurrent} instead of {strRatioDesired}.", "",
+                                               MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        End If ''End of "If (pboolVerbose) Then"
+
+        Return boolRatioIsBad
+
+    End Function ''End of "Public Shared Function RatioIsLikelyBad(par_doubleW_div_H As Double) As Boolean"
 
     Public Shared Function ResizeImage(ByVal InputImage As Image, ByVal parSizingBox As Control) As Image
         ''

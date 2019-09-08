@@ -120,7 +120,7 @@ Public Class ClassLabelToImage
 
     End Function ''End of "Public Shared Function RatioIsLikelyBad(par_doubleW_div_H As Double) As Boolean"
 
-    Public Shared Sub Proportions_CorrectWidth(par_control As Control)
+    Public Shared Sub Proportions_FixTheWidth(par_control As Control)
         ''
         ''Added 9/5/2019 thomas downes  
         ''

@@ -72,8 +72,8 @@ Partial Class FormDesignProtoTwo
         Me.LinkLabelSave2 = New System.Windows.Forms.LinkLabel()
         Me.dropdownHowToLoadFlds = New System.Windows.Forms.ComboBox()
         Me.flowFieldsNotListed = New System.Windows.Forms.FlowLayoutPanel()
-        Me.CtlGraphicPortrait_Lady = New ciLayoutDesignVB.CtlGraphicPortrait()
         Me.lblFieldsNotCurrentlyShownHdr = New System.Windows.Forms.Label()
+        Me.CtlGraphicPortrait_Lady = New ciLayoutDesignVB.CtlGraphicPortrait()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         CType(Me.graphicAdjuster, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -126,7 +126,7 @@ Partial Class FormDesignProtoTwo
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RightClickMenuParent, Me.ToolStripMenuItem1, Me.ConfigurationOfFieldsEtcToolStripMenuItem, Me.DesignLayoutToolStripMenuItem, Me.BackgroundImagesToolStripMenuItem, Me.DemoModeVideoToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1368, 28)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1440, 28)
         Me.MenuStrip1.TabIndex = 39
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -187,13 +187,13 @@ Partial Class FormDesignProtoTwo
         'StandardFieldsToolStripMenuItem
         '
         Me.StandardFieldsToolStripMenuItem.Name = "StandardFieldsToolStripMenuItem"
-        Me.StandardFieldsToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
+        Me.StandardFieldsToolStripMenuItem.Size = New System.Drawing.Size(194, 26)
         Me.StandardFieldsToolStripMenuItem.Text = "Standard Fields"
         '
         'CustomFieldsToolStripMenuItem
         '
         Me.CustomFieldsToolStripMenuItem.Name = "CustomFieldsToolStripMenuItem"
-        Me.CustomFieldsToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
+        Me.CustomFieldsToolStripMenuItem.Size = New System.Drawing.Size(194, 26)
         Me.CustomFieldsToolStripMenuItem.Text = "Custom Fields"
         '
         'DesignLayoutToolStripMenuItem
@@ -370,7 +370,7 @@ Partial Class FormDesignProtoTwo
         Me.picturePreview.BackColor = System.Drawing.Color.White
         Me.picturePreview.Location = New System.Drawing.Point(805, 70)
         Me.picturePreview.Name = "picturePreview"
-        Me.picturePreview.Size = New System.Drawing.Size(408, 268)
+        Me.picturePreview.Size = New System.Drawing.Size(614, 425)
         Me.picturePreview.TabIndex = 44
         Me.picturePreview.TabStop = False
         '
@@ -403,7 +403,7 @@ Partial Class FormDesignProtoTwo
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StatusLabel1, Me.StatusLabel2})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 679)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(1368, 26)
+        Me.StatusStrip1.Size = New System.Drawing.Size(1440, 26)
         Me.StatusStrip1.TabIndex = 47
         Me.StatusStrip1.Text = "StatusStrip1"
         '
@@ -459,14 +459,6 @@ Partial Class FormDesignProtoTwo
         Me.flowFieldsNotListed.Size = New System.Drawing.Size(507, 93)
         Me.flowFieldsNotListed.TabIndex = 52
         '
-        'CtlGraphicPortrait_Lady
-        '
-        Me.CtlGraphicPortrait_Lady.Location = New System.Drawing.Point(1189, 396)
-        Me.CtlGraphicPortrait_Lady.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.CtlGraphicPortrait_Lady.Name = "CtlGraphicPortrait_Lady"
-        Me.CtlGraphicPortrait_Lady.Size = New System.Drawing.Size(150, 182)
-        Me.CtlGraphicPortrait_Lady.TabIndex = 41
-        '
         'lblFieldsNotCurrentlyShownHdr
         '
         Me.lblFieldsNotCurrentlyShownHdr.AutoSize = True
@@ -477,18 +469,25 @@ Partial Class FormDesignProtoTwo
         Me.lblFieldsNotCurrentlyShownHdr.TabIndex = 0
         Me.lblFieldsNotCurrentlyShownHdr.Text = "Fields not yet displayed"
         '
+        'CtlGraphicPortrait_Lady
+        '
+        Me.CtlGraphicPortrait_Lady.Location = New System.Drawing.Point(1189, 396)
+        Me.CtlGraphicPortrait_Lady.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.CtlGraphicPortrait_Lady.Name = "CtlGraphicPortrait_Lady"
+        Me.CtlGraphicPortrait_Lady.Size = New System.Drawing.Size(150, 182)
+        Me.CtlGraphicPortrait_Lady.TabIndex = 41
+        '
         'FormDesignProtoTwo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1368, 705)
+        Me.ClientSize = New System.Drawing.Size(1440, 705)
         Me.Controls.Add(Me.flowFieldsNotListed)
         Me.Controls.Add(Me.dropdownHowToLoadFlds)
         Me.Controls.Add(Me.LinkLabelSave2)
         Me.Controls.Add(Me.linkRemoveElements)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.LinkRefreshPreview)
-        Me.Controls.Add(Me.graphicAdjuster)
         Me.Controls.Add(Me.picturePreview)
         Me.Controls.Add(Me.LinkLabelSave1)
         Me.Controls.Add(Me.linkSaveAndRefresh)
@@ -499,6 +498,7 @@ Partial Class FormDesignProtoTwo
         Me.Controls.Add(Me.LinkLabel1)
         Me.Controls.Add(Me.LinkShowWebControls)
         Me.Controls.Add(Me.pictureBack)
+        Me.Controls.Add(Me.graphicAdjuster)
         Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "FormDesignProtoTwo"

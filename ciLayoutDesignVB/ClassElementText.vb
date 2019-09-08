@@ -170,7 +170,7 @@ Public Class ClassElementText
 
         Return obj_image
 
-    End Function ''End of "Public Function GenerateImage_ByDesiredLayoutWidth() As Image Implements IElementText.GenerateImage_ByDesiredLayoutWidth"
+    End Function ''End of "Public Function GenerateImage_ByDesiredLayoutHeight() As Image Implements IElementText.GenerateImage_ByDesiredLayoutWidth"
 
     Public Function GenerateImage_NotInUse(pintDesiredLayoutWidth As Integer, ByRef par_image As Image,
                                   par_elementInfo_Text As IElement_Text, par_elementInfo_Base As IElement_Base) As Image

@@ -90,8 +90,10 @@ Public Class FormDesignProtoTwo
         ''
         ''Check that the proportions are correct. 
         ''
-        ClassLabelToImage.Proportions_CorrectWidth(pictureBack)
-        ClassLabelToImage.Proportions_CorrectWidth(picturePreview)
+        ''9/8/2019 td''ClassLabelToImage.Proportions_CorrectWidth(pictureBack)
+        ''9/8/2019 td''ClassLabelToImage.Proportions_CorrectWidth(picturePreview)
+        ClassLabelToImage.Proportions_FixTheWidth(pictureBack)
+        ClassLabelToImage.Proportions_FixTheWidth(picturePreview)
 
         ''Double-check the proportions are correct. ---9/6/2019 td
         ClassLabelToImage.ProportionsAreSlightlyOff(pictureBack, True)
@@ -189,7 +191,7 @@ Public Class FormDesignProtoTwo
         ''
         If (mc_boolAllowGroupMovements) Then
 
-            ControlMove_GroupMove.Init(CtlGraphicPortrait_Lady.Picture_Box,
+            ControlMove_GroupMove_TD.Init(CtlGraphicPortrait_Lady.Picture_Box,
                       CtlGraphicPortrait_Lady, 10, True, mod_groupedMove) ''Added 8/3/2019 thomas downes
         Else
             ControlMoverOrResizer_TD.Init(CtlGraphicPortrait_Lady.Picture_Box,
@@ -1315,6 +1317,10 @@ Public Class FormDesignProtoTwo
         ''
         ClassLabelToImage.ProportionsAreSlightlyOff(pictureBack, True)
         ClassLabelToImage.ProportionsAreSlightlyOff(picturePreview, True)
+
+        ''Added 9/8/2019 td
+        ClassLabelToImage.ProportionsAreSlightlyOff(pictureBack.Image, True)
+        ClassLabelToImage.ProportionsAreSlightlyOff(picturePreview.Image, True)
 
         ''
         ''Refresh the preview picture box. 
