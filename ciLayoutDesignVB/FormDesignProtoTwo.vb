@@ -211,21 +211,29 @@ Public Class FormDesignProtoTwo
                 ''7/31/2019 td''ControlMoverOrResizer_TD.Init(each_graphicLabel.Picture_Box,
                 ''                each_control, 10) ''Added 7/28/2019 thomas downes
 
-                Const c_bRepaintAfterResize As Boolean = True ''Added 7/31/2019 td 
-
-                If (mc_boolAllowGroupMovements) Then
-                    ControlMove_GroupMove.Init(each_graphicLabel.Picture_Box,
-                          each_control, 10, c_bRepaintAfterResize, mod_groupedMove) ''Added 8/3/2019 td 
-                Else
-                    ControlMoverOrResizer_TD.Init(each_graphicLabel.Picture_Box,
-                          each_control, 10, c_bRepaintAfterResize) ''Added 7/28/2019 thomas downes
-                End If ''End of "If (boolAllowGroupMovements) Then ...... Else ..."
+                ControlMoverResizer_AddField(each_graphicLabel)
 
             End If ''End of "If (TypeOf each_control Is GraphicFieldLabel) Then"
 
         Next each_control
 
     End Sub ''End of "Private Sub MakeElementsMoveable()"
+
+    Private Sub ControlMoverResizer_AddField(par_graphicFieldCtl As CtlGraphicFldLabel)
+        ''
+        ''Encapsulated 9/7/2019 thomas d
+        ''
+        Const c_bRepaintAfterResize As Boolean = True ''Added 7/31/2019 td 
+
+        If (mc_boolAllowGroupMovements) Then
+            ControlMove_GroupMove_TD.Init(par_graphicFieldCtl.Picture_Box,
+                          par_graphicFieldCtl, 10, c_bRepaintAfterResize, mod_groupedMove) ''Added 8/3/2019 td 
+        Else
+            ControlMoverOrResizer_TD.Init(par_graphicFieldCtl.Picture_Box,
+                          par_graphicFieldCtl, 10, c_bRepaintAfterResize) ''Added 7/28/2019 thomas downes
+        End If ''End of "If (boolAllowGroupMovements) Then ...... Else ..."
+
+    End Sub ''End of "Private Sub ControlMoverResizer_AddField"
 
     Private Sub LoadElements_Picture()
         ''
