@@ -73,12 +73,14 @@ Partial Class FormDesignProtoTwo
         Me.dropdownHowToLoadFlds = New System.Windows.Forms.ComboBox()
         Me.flowFieldsNotListed = New System.Windows.Forms.FlowLayoutPanel()
         Me.CtlGraphicPortrait_Lady = New ciLayoutDesignVB.CtlGraphicPortrait()
+        Me.lblFieldsNotCurrentlyShownHdr = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         CType(Me.graphicAdjuster, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureBack, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
+        Me.flowFieldsNotListed.SuspendLayout()
         Me.SuspendLayout()
         '
         'LinkShowWebControls
@@ -185,13 +187,13 @@ Partial Class FormDesignProtoTwo
         'StandardFieldsToolStripMenuItem
         '
         Me.StandardFieldsToolStripMenuItem.Name = "StandardFieldsToolStripMenuItem"
-        Me.StandardFieldsToolStripMenuItem.Size = New System.Drawing.Size(194, 26)
+        Me.StandardFieldsToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
         Me.StandardFieldsToolStripMenuItem.Text = "Standard Fields"
         '
         'CustomFieldsToolStripMenuItem
         '
         Me.CustomFieldsToolStripMenuItem.Name = "CustomFieldsToolStripMenuItem"
-        Me.CustomFieldsToolStripMenuItem.Size = New System.Drawing.Size(194, 26)
+        Me.CustomFieldsToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
         Me.CustomFieldsToolStripMenuItem.Text = "Custom Fields"
         '
         'DesignLayoutToolStripMenuItem
@@ -451,9 +453,10 @@ Partial Class FormDesignProtoTwo
         'flowFieldsNotListed
         '
         Me.flowFieldsNotListed.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.flowFieldsNotListed.Location = New System.Drawing.Point(78, 602)
+        Me.flowFieldsNotListed.Controls.Add(Me.lblFieldsNotCurrentlyShownHdr)
+        Me.flowFieldsNotListed.Location = New System.Drawing.Point(26, 583)
         Me.flowFieldsNotListed.Name = "flowFieldsNotListed"
-        Me.flowFieldsNotListed.Size = New System.Drawing.Size(455, 74)
+        Me.flowFieldsNotListed.Size = New System.Drawing.Size(507, 93)
         Me.flowFieldsNotListed.TabIndex = 52
         '
         'CtlGraphicPortrait_Lady
@@ -463,6 +466,16 @@ Partial Class FormDesignProtoTwo
         Me.CtlGraphicPortrait_Lady.Name = "CtlGraphicPortrait_Lady"
         Me.CtlGraphicPortrait_Lady.Size = New System.Drawing.Size(150, 182)
         Me.CtlGraphicPortrait_Lady.TabIndex = 41
+        '
+        'lblFieldsNotCurrentlyShownHdr
+        '
+        Me.lblFieldsNotCurrentlyShownHdr.AutoSize = True
+        Me.lblFieldsNotCurrentlyShownHdr.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblFieldsNotCurrentlyShownHdr.Location = New System.Drawing.Point(3, 0)
+        Me.lblFieldsNotCurrentlyShownHdr.Name = "lblFieldsNotCurrentlyShownHdr"
+        Me.lblFieldsNotCurrentlyShownHdr.Size = New System.Drawing.Size(160, 18)
+        Me.lblFieldsNotCurrentlyShownHdr.TabIndex = 0
+        Me.lblFieldsNotCurrentlyShownHdr.Text = "Fields not yet displayed"
         '
         'FormDesignProtoTwo
         '
@@ -498,6 +511,8 @@ Partial Class FormDesignProtoTwo
         CType(Me.pictureBack, System.ComponentModel.ISupportInitialize).EndInit()
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
+        Me.flowFieldsNotListed.ResumeLayout(False)
+        Me.flowFieldsNotListed.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -552,4 +567,5 @@ Partial Class FormDesignProtoTwo
     Friend WithEvents LinkLabelSave2 As LinkLabel
     Friend WithEvents dropdownHowToLoadFlds As ComboBox
     Friend WithEvents flowFieldsNotListed As FlowLayoutPanel
+    Friend WithEvents lblFieldsNotCurrentlyShownHdr As Label
 End Class

@@ -422,6 +422,10 @@ Public Class FormDesignProtoTwo
                 ''9/5/2019''label_control.Refresh_Image()
                 label_control.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
 
+                ''Added 9/7/2019 td
+                label_control.Left = Me.Layout_Margin_Left_Add(each_field.ElementInfo_Base.LeftEdge_Pixels)
+                label_control.Top = Me.Layout_Margin_Top_Add(each_field.ElementInfo_Base.TopEdge_Pixels)
+
                 ''
                 ''Major call !!  ----Thomas DOWNES
                 ''
@@ -454,6 +458,9 @@ Public Class FormDesignProtoTwo
         new_linkLabel.Text = par_field.FieldLabelCaption
         flowFieldsNotListed.Controls.Add(new_linkLabel)
         new_linkLabel.Visible = True
+
+        ''Added 9/7/2019 thomas downes
+        AddHandler new_linkLabel.LinkClicked, AddressOf AddField_LinkClicked
 
     End Sub
 
@@ -1256,7 +1263,9 @@ Public Class FormDesignProtoTwo
 
         ''7/26/2019 td''frm_ToShow.ListOfFields = GetCurrentPersonality_Fields()
         frm_ToShow.ListOfFields = FormMain.GetCurrentPersonality_Fields_Custom()
-        frm_ToShow.Show()
+        frm_ToShow.ShowDialog()
+        RefreshTheSetOfDisplayedElements()
+        pictureBack.SendToBack()
 
     End Sub
 
@@ -1268,7 +1277,9 @@ Public Class FormDesignProtoTwo
 
         ''7/26/2019 td''frm_ToShow.ListOfFields = GetCurrentPersonality_Fields()
         frm_ToShow.ListOfFields = FormMain.GetCurrentPersonality_Fields_Custom()
-        frm_ToShow.Show()
+        frm_ToShow.ShowDialog()
+        RefreshTheSetOfDisplayedElements()
+        pictureBack.SendToBack()
 
     End Sub
 
@@ -1278,7 +1289,9 @@ Public Class FormDesignProtoTwo
         '' 
         Dim frm_ToShow As New ListStandardFields()
         frm_ToShow.ListOfFields = FormMain.GetCurrentPersonality_Fields_Standard()
-        frm_ToShow.Show()
+        frm_ToShow.ShowDialog()
+        RefreshTheSetOfDisplayedElements()
+        pictureBack.SendToBack()
 
     End Sub
 
@@ -1379,6 +1392,17 @@ Public Class FormDesignProtoTwo
             Me.Controls.Remove(each_controlField)
 
         Next each_controlField
+
+    End Sub
+
+    Private Sub AddField_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles linkSaveAndRefresh.LinkClicked
+        ''
+        ''Added 9/7/2019 thomas d
+        ''
+        Dim field_to_add As ICIBFieldStandardOrCustom
+        field_to_add = CType(CType(sender, LinkLabel).Tag, ICIBFieldStandardOrCustom)
+        field_to_add.IsDisplayedOnBadge = True
+        LoadField_JustOne(field_to_add)
 
     End Sub
 
