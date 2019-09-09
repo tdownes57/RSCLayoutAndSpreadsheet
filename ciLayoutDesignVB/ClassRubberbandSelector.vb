@@ -158,13 +158,93 @@ Public Class ClassRubberbandSelector
         '-- 5.0  Let's be cheeky and make it a dashed style
         _penNew.DashStyle = Drawing2D.DashStyle.Dash
 
-        '-- 6.0 Draw the elipse
-        '-- e.Graphics.DrawEllipse(_penNew, _rRectangle)
+        ''-- 6.0 Draw the elipse
+        ''-- e.Graphics.DrawEllipse(_penNew, _rRectangle)
 
-        '-- 7.0 Notice the rectangle is the same thing!
-        e.Graphics.DrawRectangle(_penNew, _rRectangle)
+        ''
+        ''-- 7.0 Notice the rectangle is the same thing!
+        ''
+        Const c_bTryToAllowBidirectional As Boolean = False ''False since it's
+        '' not testing well.   -----9/8/2019 td
+
+        Dim new_rect As Rectangle ''Added 9/8/2019 thomas d. 
+        Dim boolBackwards_TryIt As Boolean ''Added 9/8/2019 thomas d. 
+
+        boolBackwards_TryIt = (c_bTryToAllowBidirectional And
+                                (_rRectangle.Width < 0 _
+                               Or _rRectangle.Height < 0))
+
+        If (boolBackwards_TryIt) Then
+
+            new_rect = ReverseRectangle_IfNeeded(_rRectangle)
+            e.Graphics.DrawRectangle(_penNew, new_rect)
+
+        Else
+            '-- 7.0 Notice the rectangle is the same thing!
+            e.Graphics.DrawRectangle(_penNew, _rRectangle)
+
+        End If ''End of "If (boolRectangleBackwards) Then .... Else ...."
 
     End Sub ''End of Public Sub Paint   
+
+    Private Function ReverseRectangle_IfNeeded(par_rect As Rectangle) As Rectangle
+        ''
+        ''Added 9/8/2019 td
+        ''
+        Dim newRectangle As Rectangle
+
+        Dim intTop_Start As Integer
+        Dim intLeft_Start As Integer
+
+        Dim intTop_Final As Integer
+        Dim intLeft_Final As Integer
+
+        Dim intFinal_Height As Integer
+        Dim intFinal_Width As Integer
+
+        With par_rect
+
+            intTop_Start = .Top
+            intLeft_Start = .Left
+
+            If (.Width < 0 And .Height < 0) Then
+
+                intTop_Final = (.Top - (-1 * .Height))
+                intLeft_Final = (.Left - (-1 * .Height))
+
+                intFinal_Width = (-1 * .Width)
+                intFinal_Height = (-1 * .Height)
+
+            ElseIf (.Width < 0) Then
+
+                intLeft_Final = (.Left - (-1 * .Height))
+                intFinal_Width = (-1 * .Width)
+
+                ''The boring stuff is next.
+                intLeft_Final = intLeft_Start
+                intFinal_Height = (.Height)
+
+            ElseIf (.Height < 0) Then
+
+                intTop_Final = (.Top - (-1 * .Height))
+                intFinal_Height = (-1 * .Height)
+
+                ''The boring stuff is next.
+                intTop_Final = intTop_Start
+                intFinal_Width = (.Width)
+
+            End If ''End of "If (.Width < 0 And .Height < 0) Then ... ElseIf ... ElseIf  ..."
+
+        End With
+
+ExitHandler:
+        newRectangle = New Rectangle(intLeft_Final, intTop_Final,
+                                 intFinal_Width, intFinal_Height)
+
+        ''-----par_rect = newRectangle
+        Return newRectangle
+
+    End Function ''End of "Private Sub ReverseRectangle_IfNeeded(ByRef par_rect As Rectangle)"
 
     ''
     ''  Simple Drawing Selection Shape (Or Rubberband Shape)       

@@ -89,6 +89,7 @@ Public Class FormDesignProtoTwo
         ''
         ''Added 7/18/2019 thomas downes 
         ''
+        Initiate_RubberbandSelector() ''Added 9/8/2019 thomas d. 
 
         ''
         ''Check that the proportions are correct. 
@@ -134,13 +135,23 @@ Public Class FormDesignProtoTwo
         ResizeLayoutBackgroundImage_ToFitPictureBox() ''Added 8/25/2019 td
         RefreshPreview() ''Added 8/24/2019 td
 
-        ''Badge Preview is also moveable/sizeable.
+        ''Badge Preview is also moveable/sizeable, mostly to impress
+        ''    management.  ----9/8/2019 td
+        ''
         ControlMoverOrResizer_TD.Init(picturePreview,
                           picturePreview, 10, False) ''Added 9/08/2019 thomas downes
 
-        ''Badge Layout Background is also moveable/sizeable.
-        ControlMoverOrResizer_TD.Init(pictureBack,
+        ''If it won't conflict with the Rubber-Band Selector, 
+        ''    then let's make the Badge Layout Background 
+        ''    also moveable / sizeable.
+        ''    ----9/8/2019 td
+        ''
+        Const c_LayoutBackIsMoveable As Boolean = False ''Added 9/8/2019 td 
+        If (c_LayoutBackIsMoveable) Then
+            ''Badge Layout Background is also moveable/sizeable.
+            ControlMoverOrResizer_TD.Init(pictureBack,
                           picturePreview, 10, False) ''Added 9/08/2019 thomas downes
+        End If ''End of "If (c_LayoutBackIsMoveable) Then"
 
     End Sub ''End of "Private Sub FormDesignProtoTwo_Load"
 
@@ -1481,7 +1492,7 @@ Public Class FormDesignProtoTwo
         ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
         ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
         ''
-        mod_rubberbandClass.MouseMove(sender, e)
+        mod_rubberbandClass.MouseDown(sender, e)
 
     End Sub
 
@@ -1490,7 +1501,9 @@ Public Class FormDesignProtoTwo
         ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
         ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
         ''
-        mod_rubberbandClass.MouseMove(sender, e)
+        If (mod_rubberbandClass IsNot Nothing) Then
+            mod_rubberbandClass.MouseMove(sender, e)
+        End If
 
     End Sub
 
@@ -1508,7 +1521,9 @@ Public Class FormDesignProtoTwo
         ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
         ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
         ''
-        mod_rubberbandClass.Paint(sender, e)
+        If (mod_rubberbandClass IsNot Nothing) Then
+            mod_rubberbandClass.Paint(sender, e)
+        End If
 
     End Sub
 
