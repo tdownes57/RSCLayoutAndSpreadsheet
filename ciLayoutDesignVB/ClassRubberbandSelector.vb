@@ -1,0 +1,314 @@
+﻿Option Explicit On
+Option Strict On
+Option Infer Off
+''
+''Added 9/8/2019 
+''
+''  Simple Drawing Selection Shape (Or Rubberband Shape)       
+''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
+''
+''  Modified by Thomas Downes, 9/8/2019 
+''
+
+Public Class ClassRubberbandSelector
+    ''
+    ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
+    ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
+    ''
+    ''  Modified by Thomas Downes, 9/8/2019 
+    ''
+    ''9/8/2019 td''Public ParentDesignForm As FormDesignProtoTwo
+    Public PictureBack As PictureBox
+    Public FieldControls_GroupEdit As List(Of CtlGraphicFldLabel)
+    Public FieldControls_All As List(Of CtlGraphicFldLabel)
+
+    ''
+    ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
+    ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
+    ''
+    Private _bRubberBandingOn As Boolean = False '-- State to control if we are drawing the rubber banding object
+    Private _pClickStart As New Point '-- The place where the mouse button went 'down'.
+    Private _pClickStop As New Point '-- The place where the mouse button went 'up'.
+    Private _pNow As New Point '-- Holds the current mouse location to make the shape appear to follow the mouse cursor.
+
+    Public Sub MouseDown(sender As Object, e As MouseEventArgs) ''9/8/2019''Handles pictureBack.MouseDown ''----Me.MouseDown
+        ''
+        ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
+        ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
+        ''
+        '-- 1.0  Flip the state.
+        ''
+        Me._bRubberBandingOn = (Not _bRubberBandingOn)
+
+        '-- 2.0 if the state is on
+        If Me._bRubberBandingOn Then
+
+            '-- 2.1 make sure the object exists (create if not)
+
+            If _pClickStart = Nothing Then _pClickStart = New Point
+
+            '-- 2.2 Save the mouse's start postition
+            _pClickStart.X = e.X
+            _pClickStart.Y = e.Y
+
+            '-- 2.3 Save the current location for the immediate drawing
+            _pNow.X = e.X
+            _pNow.Y = e.Y
+
+        End If ''End of " If Me._bRubberBandingOn Then"
+
+        ''
+        '-- 3.0 Invalidate and for the paint method to be called.
+        ''
+        ''------Me.Invalidate()
+        PictureBack.Invalidate()
+
+    End Sub ''End of Public Sub MouseDown  
+
+    Public Sub MouseMove(sender As Object, e As MouseEventArgs) ''9/8/2019 td''Handles pictureBack.MouseMove ''----Me.MouseMove
+        ''
+        ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
+        ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
+        ''
+        '-- 1.0 If the rubber banding is on, set the current location, and force the redraw.
+
+        If Me._bRubberBandingOn Then
+
+            ''--------Me.pictureBack.Visible = False ''Temporarily hide the huge background picture box. 
+
+            '-- 1.1 make sure the object exists (create if not)
+            If _pNow = Nothing Then _pNow = New Point
+
+            '-- 1.2 Save the current location for the immediate drawing
+            Me._pNow.X = e.X
+            Me._pNow.Y = e.Y
+
+            ''
+            '-- 1.3 Invalidate and for the paint method to be called.
+            ''
+            ''------Me.Invalidate()
+            PictureBack.Invalidate()
+
+        End If ''End of " If Me._bRubberBandingOn Then"
+
+    End Sub ''END OF "Public Sub MouseMove()"
+
+    Public Sub MouseUp(sender As Object, e As MouseEventArgs) ''9/8 td''Handles pictureBack.MouseUp ''----Me.MouseUp
+        ''
+        ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
+        ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
+        ''
+        '-- 1.0  Flip the state.
+
+        Me._bRubberBandingOn = (Not Me._bRubberBandingOn)
+
+        '-- 2.0 if the state is off
+        If (Not Me._bRubberBandingOn) Then
+
+            ''--------Me.pictureBack.Visible = True ''Restore the huge background picture box. 
+
+            '-- 2.1 make sure the object exists (create if not)
+            If _pClickStop = Nothing Then _pClickStop = New Point
+
+            '-- 2.2 Save the mouse's stop postition
+            _pClickStop.X = e.X
+            _pClickStop.Y = e.Y
+
+            '-- 2.3 Invalidate and for the paint method to be called.
+            ''
+            ''------Me.Invalidate()
+            PictureBack.Invalidate()
+
+        End If ''End of " If Me._bRubberBandingOn Then"
+
+    End Sub ''End of Public Sub MouseUp
+
+    Public Sub Paint(sender As Object, e As PaintEventArgs) ''9/8 td''Handles pictureBack.Paint ''----Me.Paint
+        ''
+        ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
+        ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
+        ''
+        '-- 1.0 The rectangle used by .NET to get the draw area
+
+        Dim _rRectangle As New Rectangle
+
+        '-- 2.0 The pen.  You can change the color or pixel width to your heart's content
+
+        Dim _penNew As New Pen(Color.Black, 3)
+
+        '-- 3.0 Set the rectangle's top left x/y to the click location.
+        _rRectangle.X = _pClickStart.X
+        _rRectangle.Y = _pClickStart.Y
+
+        '-- 4.0  If the state is on...
+        If Me._bRubberBandingOn Then
+
+            '-- 4.1 Set the rectangle's  width using the 'now' mouse location just set in the 'Form1_MouseMove' event
+            _rRectangle.Width = Me._pNow.X - _pClickStart.X
+            _rRectangle.Height = Me._pNow.Y - _pClickStart.Y
+
+        Else '-- else if we are done having the shape follow the mouse
+
+            '-- 4.2 Set the rectangle's  width using the 'stop' mouse location just set in the 'Form1_MouseUp' event
+            _rRectangle.Width = Me._pClickStop.X - _pClickStart.X
+            _rRectangle.Height = Me._pClickStop.Y - _pClickStart.Y
+
+        End If ''End of "If Me._bRubberBandingOn Then .... Else ...."
+
+        '-- 5.0  Let's be cheeky and make it a dashed style
+        _penNew.DashStyle = Drawing2D.DashStyle.Dash
+
+        '-- 6.0 Draw the elipse
+        '-- e.Graphics.DrawEllipse(_penNew, _rRectangle)
+
+        '-- 7.0 Notice the rectangle is the same thing!
+        e.Graphics.DrawRectangle(_penNew, _rRectangle)
+
+    End Sub ''End of Public Sub Paint   
+
+    ''
+    ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
+    ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
+    ''
+    ''Private _bRubberBandingOn As Boolean = False '-- State to control if we are drawing the rubber banding object
+    ''Private _pClickStart As New Point '-- The place where the mouse button went 'down'.
+    ''Private _pClickStop As New Point '-- The place where the mouse button went 'up'.
+    ''Private _pNow As New Point '-- Holds the current mouse location to make the shape appear to follow the mouse cursor.
+
+    ''Private Sub FormDesignProtoTwo_MouseDown(sender As Object, e As MouseEventArgs) Handles pictureBack.MouseDown ''----Me.MouseDown
+    ''    ''
+    ''    ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
+    ''    ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
+    ''    ''
+    ''    '-- 1.0  Flip the state.
+    ''    ''
+    ''    Me._bRubberBandingOn = (Not _bRubberBandingOn)
+
+    ''    '-- 2.0 if the state is on
+    ''    If Me._bRubberBandingOn Then
+
+    ''        '-- 2.1 make sure the object exists (create if not)
+
+    ''        If _pClickStart = Nothing Then _pClickStart = New Point
+
+    ''        '-- 2.2 Save the mouse's start postition
+    ''        _pClickStart.X = e.X
+    ''        _pClickStart.Y = e.Y
+
+    ''        '-- 2.3 Save the current location for the immediate drawing
+    ''        _pNow.X = e.X
+    ''        _pNow.Y = e.Y
+
+    ''    End If ''End of " If Me._bRubberBandingOn Then"
+
+    ''    ''
+    ''    '-- 3.0 Invalidate and for the paint method to be called.
+    ''    ''
+    ''    ''------Me.Invalidate()
+    ''    Me.pictureBack.Invalidate()
+
+    ''End Sub
+
+    ''Private Sub FormDesignProtoTwo_MouseMove(sender As Object, e As MouseEventArgs) Handles pictureBack.MouseMove ''----Me.MouseMove
+    ''    ''
+    ''    ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
+    ''    ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
+    ''    ''
+    ''    '-- 1.0 If the rubber banding is on, set the current location, and force the redraw.
+
+    ''    If Me._bRubberBandingOn Then
+
+    ''        ''--------Me.pictureBack.Visible = False ''Temporarily hide the huge background picture box. 
+
+    ''        '-- 1.1 make sure the object exists (create if not)
+    ''        If _pNow = Nothing Then _pNow = New Point
+
+    ''        '-- 1.2 Save the current location for the immediate drawing
+    ''        Me._pNow.X = e.X
+    ''        Me._pNow.Y = e.Y
+
+    ''        ''
+    ''        '-- 1.3 Invalidate and for the paint method to be called.
+    ''        ''
+    ''        ''------Me.Invalidate()
+    ''        Me.pictureBack.Invalidate()
+
+    ''    End If ''End of " If Me._bRubberBandingOn Then"
+
+
+    ''End Sub
+
+    ''Private Sub FormDesignProtoTwo_MouseUp(sender As Object, e As MouseEventArgs) Handles pictureBack.MouseUp ''----Me.MouseUp
+    ''    ''
+    ''    ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
+    ''    ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
+    ''    ''
+    ''    '-- 1.0  Flip the state.
+
+    ''    Me._bRubberBandingOn = (Not Me._bRubberBandingOn)
+
+    ''    '-- 2.0 if the state is off
+    ''    If (Not Me._bRubberBandingOn) Then
+
+    ''        ''--------Me.pictureBack.Visible = True ''Restore the huge background picture box. 
+
+    ''        '-- 2.1 make sure the object exists (create if not)
+    ''        If _pClickStop = Nothing Then _pClickStop = New Point
+
+    ''        '-- 2.2 Save the mouse's stop postition
+    ''        _pClickStop.X = e.X
+    ''        _pClickStop.Y = e.Y
+
+    ''        '-- 2.3 Invalidate and for the paint method to be called.
+    ''        ''
+    ''        ''------Me.Invalidate()
+    ''        Me.pictureBack.Invalidate()
+
+    ''    End If ''End of " If Me._bRubberBandingOn Then"
+
+    ''End Sub
+
+    ''Private Sub FormDesignProtoTwo_Paint(sender As Object, e As PaintEventArgs) Handles pictureBack.Paint ''----Me.Paint
+    ''    ''
+    ''    ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
+    ''    ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
+    ''    ''
+    ''    '-- 1.0 The rectangle used by .NET to get the draw area
+
+    ''    Dim _rRectangle As New Rectangle
+
+    ''    '-- 2.0 The pen.  You can change the color or pixel width to your heart's content
+
+    ''    Dim _penNew As New Pen(Color.Black, 3)
+
+    ''    '-- 3.0 Set the rectangle's top left x/y to the click location.
+    ''    _rRectangle.X = _pClickStart.X
+    ''    _rRectangle.Y = _pClickStart.Y
+
+    ''    '-- 4.0  If the state is on...
+    ''    If Me._bRubberBandingOn Then
+
+    ''        '-- 4.1 Set the rectangle's  width using the 'now' mouse location just set in the 'Form1_MouseMove' event
+    ''        _rRectangle.Width = Me._pNow.X - _pClickStart.X
+    ''        _rRectangle.Height = Me._pNow.Y - _pClickStart.Y
+
+    ''    Else '-- else if we are done having the shape follow the mouse
+
+    ''        '-- 4.2 Set the rectangle's  width using the 'stop' mouse location just set in the 'Form1_MouseUp' event
+    ''        _rRectangle.Width = Me._pClickStop.X - _pClickStart.X
+    ''        _rRectangle.Height = Me._pClickStop.Y - _pClickStart.Y
+
+    ''    End If ''End of "If Me._bRubberBandingOn Then .... Else ...."
+
+    ''    '-- 5.0  Let's be cheeky and make it a dashed style
+    ''    _penNew.DashStyle = Drawing2D.DashStyle.Dash
+
+    ''    '-- 6.0 Draw the elipse
+    ''    '-- e.Graphics.DrawEllipse(_penNew, _rRectangle)
+
+    ''    '-- 7.0 Notice the rectangle is the same thing!
+    ''    e.Graphics.DrawRectangle(_penNew, _rRectangle)
+
+    ''End Sub
+
+End Class

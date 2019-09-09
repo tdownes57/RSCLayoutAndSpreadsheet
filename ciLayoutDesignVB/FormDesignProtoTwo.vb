@@ -25,6 +25,9 @@ Public Class FormDesignProtoTwo
     ''Added 8/18/2019 td
     Private mod_imageLady As Image ''8/18/2019 td'' = CtlGraphicPortrait_Lady.picturePortrait.Image
 
+    ''Added 9/8/2019 td
+    Private mod_rubberbandClass As ClassRubberbandSelector
+
     ''Private mod_generator As LayoutElementGenerator
 
     ''Private mod_Pic As IElement ''Added 7/18/2019 thomas downes 
@@ -100,9 +103,9 @@ Public Class FormDesignProtoTwo
         ClassLabelToImage.ProportionsAreSlightlyOff(picturePreview, True)
 
         ''
-        ''I forget, what does this do?  ---9/6/2019 td
+        ''I forget, what was this going to do originally?  ---9/6/2019 td
         ''
-        LoadElementGenerator()
+        ''9/8/2019 td''LoadElementGenerator_NotInUse()
 
         ''Deleted 9/4/2019 td''Me.Controls.Remove(GraphicFieldLabel1)
         ''Deleted 9/4/2019 td''Me.Controls.Remove(GraphicFieldLabel2)
@@ -116,7 +119,11 @@ Public Class FormDesignProtoTwo
         Me.Controls.Remove(CtlGraphicPortrait_Lady) ''Added 7/31/2019 thomas d. 
 
         ''Encapsulated 7/31/2019 td
-        Load_Form()
+        ''
+        ''Major call !!
+        ''
+        ''9/8/2019 td''Load_Form()
+        LoadForm_LayoutElements()
 
         ''Added 8/11/2019 thomas d.
         ''
@@ -129,6 +136,10 @@ Public Class FormDesignProtoTwo
 
         ''Badge Preview is also moveable/sizeable.
         ControlMoverOrResizer_TD.Init(picturePreview,
+                          picturePreview, 10, False) ''Added 9/08/2019 thomas downes
+
+        ''Badge Layout Background is also moveable/sizeable.
+        ControlMoverOrResizer_TD.Init(pictureBack,
                           picturePreview, 10, False) ''Added 9/08/2019 thomas downes
 
     End Sub ''End of "Private Sub FormDesignProtoTwo_Load"
@@ -160,7 +171,8 @@ Public Class FormDesignProtoTwo
 
     End Sub ''End of Sub ResizeLayoutBackgroundImage()
 
-    Private Sub Load_Form()
+    Private Sub LoadForm_LayoutElements()
+        ''Renamed 9/8/2019''PRivate Sub Load_Form()
         ''
         ''Encapsulated 7/31/2019 td
         ''
@@ -217,7 +229,7 @@ Public Class FormDesignProtoTwo
                 ''7/31/2019 td''ControlMoverOrResizer_TD.Init(each_graphicLabel.Picture_Box,
                 ''                each_control, 10) ''Added 7/28/2019 thomas downes
 
-                ControlMoverResizer_AddField(each_graphicLabel)
+                ControlMoverResizer_AddFieldCtl(each_graphicLabel)
 
             End If ''End of "If (TypeOf each_control Is GraphicFieldLabel) Then"
 
@@ -225,7 +237,7 @@ Public Class FormDesignProtoTwo
 
     End Sub ''End of "Private Sub MakeElementsMoveable()"
 
-    Private Sub ControlMoverResizer_AddField(par_graphicFieldCtl As CtlGraphicFldLabel)
+    Private Sub ControlMoverResizer_AddFieldCtl(par_graphicFieldCtl As CtlGraphicFldLabel)
         ''
         ''Encapsulated 9/7/2019 thomas d
         ''
@@ -305,6 +317,25 @@ Public Class FormDesignProtoTwo
 
     End Sub ''End of " Private Sub LoadElements_Picture()"
 
+    Private Sub Initiate_RubberbandSelector()
+        ''
+        ''Added 9/8/2019 td
+        ''
+        mod_rubberbandClass = New ClassRubberbandSelector
+
+        With mod_rubberbandClass
+
+            .PictureBack = Me.pictureBack
+
+            ''AddHandler , AddressOf mod_rubberbandClass.MouseMove
+            ''AddHandler .PictureBack.MouseMove, AddressOf mod_rubberbandClass.MouseMove
+            ''AddHandler .PictureBack.MouseMove, AddressOf mod_rubberbandClass.MouseMove
+            ''AddHandler .PictureBack.MouseMove, AddressOf mod_rubberbandClass.MouseMove
+
+        End With ''end of "With mod_rubberbandClass"
+
+    End Sub ''End of "Private Sub InitiateRubberbandSelector"
+
     Private Sub LoadElements_Fields_Master(par_boolLoadingForm As Boolean, Optional par_bUnloading As Boolean = False)
         ''
         ''Added 9/03/2019 thomas downes 
@@ -349,7 +380,8 @@ Public Class FormDesignProtoTwo
 
     Private Sub LoadElements_ByListOfFields(par_list As List(Of ICIBFieldStandardOrCustom),
                                            par_boolLoadingForm As Boolean,
-                                           Optional par_bUnloading As Boolean = False)
+                                           Optional par_bUnloading As Boolean = False,
+                                            Optional par_bAddMoveability As Boolean = False)
         ''
         ''Added 9/03/2019 thomas downes 
         ''Modified 9/5/2019 thomas downes
@@ -446,6 +478,9 @@ Public Class FormDesignProtoTwo
                 ''Major call !!  ----Thomas DOWNES
                 ''
                 label_control.Refresh_Master()
+
+                ''Added 9/8/2019 td
+                If (par_bAddMoveability) Then ControlMoverResizer_AddFieldCtl(label_control)
 
             ElseIf (par_bUnloading) Then
                 ''9/3/2019 td''Me.Controls.Remove(label_control)
@@ -998,7 +1033,7 @@ Public Class FormDesignProtoTwo
 
     End Sub ''end of "Private Sub RefreshPreview()"
 
-    Private Sub LoadElementGenerator()
+    Private Sub LoadElementGenerator_NotInUse()
         ''
         ''Added 7/18/2019 
         ''
@@ -1157,7 +1192,8 @@ Public Class FormDesignProtoTwo
         If (bSomeDisplayableFldsAreNotLoaded) Then
             ''Load the missing elements. 
             ''9/6/2019 td''Load_Fields_ByList(list_elementsNotLoadedYet_Any)
-            LoadElements_ByListOfFields(list_fieldsNotLoadedYet_Any, True, False)
+            LoadElements_ByListOfFields(list_fieldsNotLoadedYet_Any,
+                                        True, False, True)
 
         End If ''End of "If (bSomeDisplayableFieldsAreNotLoaded) Then"
 
@@ -1435,148 +1471,44 @@ Public Class FormDesignProtoTwo
     ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
     ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
     ''
-    Private _bRubberBandingOn As Boolean = False '-- State to control if we are drawing the rubber banding object
-    Private _pClickStart As New Point '-- The place where the mouse button went 'down'.
-    Private _pClickStop As New Point '-- The place where the mouse button went 'up'.
-    Private _pNow As New Point '-- Holds the current mouse location to make the shape appear to follow the mouse cursor.
+    ''9/8/2019 td''Private _bRubberBandingOn As Boolean = False '-- State to control if we are drawing the rubber banding object
+    ''9/8/2019 td''Private _pClickStart As New Point '-- The place where the mouse button went 'down'.
+    ''9/8/2019 td''Private _pClickStop As New Point '-- The place where the mouse button went 'up'.
+    ''9/8/2019 td''Private _pNow As New Point '-- Holds the current mouse location to make the shape appear to follow the mouse cursor.
 
-    Private Sub FormDesignProtoTwo_MouseDown(sender As Object, e As MouseEventArgs) Handles pictureBack.MouseDown ''----Me.MouseDown
+    Private Sub Layout_MouseDown(sender As Object, e As MouseEventArgs) Handles pictureBack.MouseDown ''----Me.MouseDown
         ''
         ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
         ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
         ''
-        '-- 1.0  Flip the state.
-        ''
-        Me._bRubberBandingOn = (Not _bRubberBandingOn)
-
-        '-- 2.0 if the state is on
-        If Me._bRubberBandingOn Then
-
-            '-- 2.1 make sure the object exists (create if not)
-
-            If _pClickStart = Nothing Then _pClickStart = New Point
-
-            '-- 2.2 Save the mouse's start postition
-            _pClickStart.X = e.X
-            _pClickStart.Y = e.Y
-
-            '-- 2.3 Save the current location for the immediate drawing
-            _pNow.X = e.X
-            _pNow.Y = e.Y
-
-        End If ''End of " If Me._bRubberBandingOn Then"
-
-        ''
-        '-- 3.0 Invalidate and for the paint method to be called.
-        ''
-        ''------Me.Invalidate()
-        Me.pictureBack.Invalidate()
+        mod_rubberbandClass.MouseMove(sender, e)
 
     End Sub
 
-    Private Sub FormDesignProtoTwo_MouseMove(sender As Object, e As MouseEventArgs) Handles pictureBack.MouseMove ''----Me.MouseMove
+    Private Sub Layout_MouseMove(sender As Object, e As MouseEventArgs) Handles pictureBack.MouseMove ''----Me.MouseMove
         ''
         ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
         ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
         ''
-        '-- 1.0 If the rubber banding is on, set the current location, and force the redraw.
-
-        If Me._bRubberBandingOn Then
-
-            ''--------Me.pictureBack.Visible = False ''Temporarily hide the huge background picture box. 
-
-            '-- 1.1 make sure the object exists (create if not)
-            If _pNow = Nothing Then _pNow = New Point
-
-            '-- 1.2 Save the current location for the immediate drawing
-            Me._pNow.X = e.X
-            Me._pNow.Y = e.Y
-
-            ''
-            '-- 1.3 Invalidate and for the paint method to be called.
-            ''
-            ''------Me.Invalidate()
-            Me.pictureBack.Invalidate()
-
-        End If ''End of " If Me._bRubberBandingOn Then"
-
+        mod_rubberbandClass.MouseMove(sender, e)
 
     End Sub
 
-    Private Sub FormDesignProtoTwo_MouseUp(sender As Object, e As MouseEventArgs) Handles pictureBack.MouseUp ''----Me.MouseUp
+    Private Sub Layout_MouseUp(sender As Object, e As MouseEventArgs) Handles pictureBack.MouseUp ''----Me.MouseUp
         ''
         ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
         ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
         ''
-        '-- 1.0  Flip the state.
-
-        Me._bRubberBandingOn = (Not Me._bRubberBandingOn)
-
-        '-- 2.0 if the state is off
-        If (Not Me._bRubberBandingOn) Then
-
-            ''--------Me.pictureBack.Visible = True ''Restore the huge background picture box. 
-
-            '-- 2.1 make sure the object exists (create if not)
-            If _pClickStop = Nothing Then _pClickStop = New Point
-
-            '-- 2.2 Save the mouse's stop postition
-            _pClickStop.X = e.X
-            _pClickStop.Y = e.Y
-
-            '-- 2.3 Invalidate and for the paint method to be called.
-            ''
-            ''------Me.Invalidate()
-            Me.pictureBack.Invalidate()
-
-        End If ''End of " If Me._bRubberBandingOn Then"
+        mod_rubberbandClass.MouseUp(sender, e)
 
     End Sub
 
-    Private Sub FormDesignProtoTwo_Paint(sender As Object, e As PaintEventArgs) Handles pictureBack.Paint ''----Me.Paint
+    Private Sub Layout_Paint(sender As Object, e As PaintEventArgs) Handles pictureBack.Paint ''----Me.Paint
         ''
         ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
         ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
         ''
-        '-- 1.0 The rectangle used by .NET to get the draw area
-
-        Dim _rRectangle As New Rectangle
-
-        '-- 2.0 The pen.  You can change the color or pixel width to your heart's content
-
-        Dim _penNew As New Pen(Color.Black, 3)
-
-        '-- 3.0 Set the rectangle's top left x/y to the click location.
-        _rRectangle.X = _pClickStart.X
-        _rRectangle.Y = _pClickStart.Y
-
-        '-- 4.0  If the state is on...
-        If Me._bRubberBandingOn Then
-
-            '-- 4.1 Set the rectangle's  width using the 'now' mouse location just set in the 'Form1_MouseMove' event
-            _rRectangle.Width = Me._pNow.X - _pClickStart.X
-            _rRectangle.Height = Me._pNow.Y - _pClickStart.Y
-
-        Else '-- else if we are done having the shape follow the mouse
-
-            '-- 4.2 Set the rectangle's  width using the 'stop' mouse location just set in the 'Form1_MouseUp' event
-            _rRectangle.Width = Me._pClickStop.X - _pClickStart.X
-            _rRectangle.Height = Me._pClickStop.Y - _pClickStart.Y
-
-        End If ''End of "If Me._bRubberBandingOn Then .... Else ...."
-
-        '-- 5.0  Let's be cheeky and make it a dashed style
-        _penNew.DashStyle = Drawing2D.DashStyle.Dash
-
-        '-- 6.0 Draw the elipse
-        '-- e.Graphics.DrawEllipse(_penNew, _rRectangle)
-
-        '-- 7.0 Notice the rectangle is the same thing!
-        e.Graphics.DrawRectangle(_penNew, _rRectangle)
-
-    End Sub
-
-    Private Sub FlowFieldsNotListed_Paint(sender As Object, e As PaintEventArgs) Handles flowFieldsNotListed.Paint
+        mod_rubberbandClass.Paint(sender, e)
 
     End Sub
 
