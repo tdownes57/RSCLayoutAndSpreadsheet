@@ -1,18 +1,18 @@
 ﻿Option Explicit On
 Option Strict On
 Option Infer Off
-
 ''
-''Added 7/31/2019 td  
+''Added 9/9/2019 td  
 ''
 
-Partial Public Class FormDesignProtoTwo
+Partial Public Class FormMainEntry_v90
     ''
-    ''Added 7/31/2019 thomas downes  
+    ''Added 9/09/2019 thomas downes  
+    ''Copied from Form_PartialProtoTwo.vb 9/09/2019 td  
     ''
-    Private mod_selectedCtls As New List(Of CtlGraphicFldLabel)   ''Added 8/03/2019 thomas downes 
-    Private mod_FieldControlLastTouched As CtlGraphicFldLabel   ''Added 8/09/2019 thomas downes 
-    Private mod_ControlLastTouched As Control ''Added 8/12/2019 thomas d. 
+    Private mod_selectedCtls As New List(Of CtlMainEntryBox_v90)
+    Private mod_FieldControlLastTouched As CtlMainEntryBox_v90
+    Private mod_ControlLastTouched As Control
 
     Public Property ControlBeingMoved() As Control ''Added 8/4/2019 td
         Get
@@ -23,7 +23,7 @@ Partial Public Class FormDesignProtoTwo
             ''Added 8/9/2019 td
             Try
                 ''9/9/2019 td''mod_FieldControlLastTouched = value
-                mod_FieldControlLastTouched = CType(value, CtlGraphicFldLabel)
+                mod_FieldControlLastTouched = CType(value, CtlMainEntryBox_v90)
                 mod_ControlLastTouched = value ''Added 8/1/2019 
             Catch
                 ''Added 8/12/2019 td  
@@ -45,14 +45,14 @@ Partial Public Class FormDesignProtoTwo
             mod_ControlLastTouched = value ''Added 8/12/2019 td   
             Try
                 ''9/9/2019 td''mod_FieldControlLastTouched = value
-                mod_FieldControlLastTouched = CType(value, CtlGraphicFldLabel)
+                mod_FieldControlLastTouched = CType(value, CtlMainEntryBox_v90)
             Catch
                 ''Not all moveable controls are Field-Label controls. - ----8/12/2019 thomas d.  
             End Try
         End Set
     End Property
 
-    Public Property LabelsDesignList_AllItems As List(Of CtlGraphicFldLabel) Implements ISelectingElements.LabelsDesignList_AllItems
+    Public Property LabelsDesignList_AllItems As List(Of CtlMainEntryBox_v90) Implements ISelectingElements_v90.LabelsDesignList_AllItems
         Get
             ''Added 8/3/2019 thomas downes
             Return mod_selectedCtls
@@ -63,7 +63,7 @@ Partial Public Class FormDesignProtoTwo
         End Set
     End Property
 
-    Public Sub LabelsDesignList_Add(par_control As CtlGraphicFldLabel) Implements ISelectingElements.LabelsDesignList_Add
+    Public Sub LabelsDesignList_Add(par_control As CtlMainEntryBox_v90) Implements ISelectingElements_v90.LabelsDesignList_Add
         ''
         ''Added 8/3/2019 thomas downes
         ''
@@ -71,7 +71,7 @@ Partial Public Class FormDesignProtoTwo
 
     End Sub
 
-    Public Sub LabelsDesignList_Remove(par_control As CtlGraphicFldLabel) Implements ISelectingElements.LabelsDesignList_Remove
+    Public Sub LabelsDesignList_Remove(par_control As CtlMainEntryBox_v90) Implements ISelectingElements_v90.LabelsDesignList_Remove
         ''
         ''Added 8/3/2019 thomas downes
         ''
@@ -83,7 +83,7 @@ Partial Public Class FormDesignProtoTwo
         ''
         ''Added 8/5/2019 thomas downes  
         ''
-        For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
+        For Each each_control As CtlMainEntryBox_v90 In mod_selectedCtls
 
             ''Added 8/5/2019 thomas downes  
             each_control.TempResizeInfo_W = each_control.Width
@@ -112,12 +112,15 @@ Partial Public Class FormDesignProtoTwo
         ''
         ''8/5/2019 thomas downes
         ''
-        If (TypeOf ControlBeingMoved Is CtlGraphicFldLabel) Then
+        If (TypeOf ControlBeingMoved Is CtlMainEntryBox_v90) Then
             Const c_bCheckThatControlIsGrouped As Boolean = True ''8/5/2019 thomas downes
             If (c_bCheckThatControlIsGrouped) Then ''8/5/2019 thomas downes
-                ''9/9 td''bControlMovedIsInGroup = LabelsList_IsItemIncluded(ControlBeingMoved)
-                bControlMovedIsInGroup = LabelsList_IsItemIncluded(CType(ControlBeingMoved, CtlGraphicFldLabel))
+
+                ''9/9/2019 td''bControlMovedIsInGroup = LabelsList_IsItemIncluded(ControlBeingMoved)
+                bControlMovedIsInGroup = LabelsList_IsItemIncluded(CType(ControlBeingMoved, CtlMainEntryBox_v90))
+
                 If (Not bControlMovedIsInGroup) Then Exit Sub
+
             End If ''End of "If (c_bCheckThatControlIsGrouped) Then"
         Else
             ''
@@ -126,13 +129,13 @@ Partial Public Class FormDesignProtoTwo
             ''
             Exit Sub
 
-        End If ''End of "If (TypeOf ControlBeingMoved Is CtlGraphicFldLabel) Then .... Else ...."
+        End If ''End of "If (TypeOf ControlBeingMoved Is CtlMainEntryBox_v90) Then .... Else ...."
 
         ''
         ''The control being moved or resized is part of a group.   
         ''
-        ''8/4/2019 td''For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
-        For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
+        ''8/4/2019 td''For Each each_control As CtlMainEntryBox_v90 In mod_selectedCtls
+        For Each each_control As CtlMainEntryBox_v90 In mod_selectedCtls
 
             ''Don't re-move the control being directly moved...!! 
             ''  Causes ugly screen flicker!!
@@ -205,7 +208,7 @@ Partial Public Class FormDesignProtoTwo
         ''
         ''Added 8/5/2019 thomas downes  
         ''
-        For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
+        For Each each_control As CtlMainEntryBox_v90 In mod_selectedCtls
 
             each_control.TempResizeInfo_W = 0
             each_control.TempResizeInfo_H = 0
@@ -214,7 +217,7 @@ Partial Public Class FormDesignProtoTwo
 
     End Sub ''End of "Private Sub Resizing_End"
 
-    Private Sub SwitchControls_Down(par_ctl As CtlGraphicFldLabel) Implements ISelectingElements.SwitchControls_Down
+    Private Sub SwitchControls_Down(par_ctl As CtlMainEntryBox_v90) Implements ISelectingElements_v90.SwitchControls_Down
         ''
         ''Added 8/15/2019 thomas downes  
         ''
@@ -222,9 +225,9 @@ Partial Public Class FormDesignProtoTwo
 
         SwitchWithOtherCtl(par_ctl, GetNextLowerControl(par_ctl))
 
-    End Sub ''End of "Private Sub SwitchControls_Down(par_ctl As CtlGraphicFldLabel)"
+    End Sub ''End of "Private Sub SwitchControls_Down(par_ctl As CtlMainEntryBox_v90)"
 
-    Private Sub SwitchControls___Up(par_ctl As CtlGraphicFldLabel) Implements ISelectingElements.SwitchControls___Up
+    Private Sub SwitchControls___Up(par_ctl As CtlMainEntryBox_v90) Implements ISelectingElements_v90.SwitchControls___Up
         ''
         ''Added 8/15/2019 thomas downes  
         ''
@@ -232,9 +235,9 @@ Partial Public Class FormDesignProtoTwo
 
         SwitchWithOtherCtl(par_ctl, GetNextHigherControl(par_ctl))
 
-    End Sub ''End of "Private Sub SwitchWithNextHigher(par_ctl As CtlGraphicFldLabel)"
+    End Sub ''End of "Private Sub SwitchWithNextHigher(par_ctl As CtlMainEntryBox_v90)"
 
-    Private Sub SwitchWithOtherCtl(par_one As CtlGraphicFldLabel, par_two As CtlGraphicFldLabel)
+    Private Sub SwitchWithOtherCtl(par_one As CtlMainEntryBox_v90, par_two As CtlMainEntryBox_v90)
         ''
         ''Added 8/15/2019 thomas downes  
         ''
@@ -249,23 +252,23 @@ Partial Public Class FormDesignProtoTwo
         par_two.Left = intTemp_Left
         par_two.Top = intTemp_Top
 
-    End Sub ''End of "Private Sub SwitchWithOtherCtl(par_one As CtlGraphicFldLabel, par_two As .....)"
+    End Sub ''End of "Private Sub SwitchWithOtherCtl(par_one As CtlMainEntryBox_v90, par_two As .....)"
 
-    Private Function HasAtLeastOne_Down(par_ctl As CtlGraphicFldLabel) As Boolean Implements ISelectingElements.HasAtLeastOne_Down
+    Private Function HasAtLeastOne_Down(par_ctl As CtlMainEntryBox_v90) As Boolean Implements ISelectingElements_v90.HasAtLeastOne_Down
         ''Added 8/15/2019 thomas downes  
         Return (GetNextLowerControl(par_ctl) IsNot Nothing)
     End Function
 
-    Private Function HasAtLeastOne____Up(par_ctl As CtlGraphicFldLabel) As Boolean Implements ISelectingElements.HasAtLeastOne__Up
+    Private Function HasAtLeastOne____Up(par_ctl As CtlMainEntryBox_v90) As Boolean Implements ISelectingElements_v90.HasAtLeastOne__Up
         ''Added 8/15/2019 thomas downes  
         Return (GetNextHigherControl(par_ctl) IsNot Nothing)
     End Function
 
-    Private Function GetNextLowerControl(par_ctl As CtlGraphicFldLabel) As CtlGraphicFldLabel
+    Private Function GetNextLowerControl(par_ctl As CtlMainEntryBox_v90) As CtlMainEntryBox_v90
         ''
         ''Added 8/15/2019 thomas downes  
         ''
-        ''---For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
+        ''---For Each each_control As CtlMainEntryBox_v90 In mod_selectedCtls
         ''---Next each_control
         Try
             Return mod_selectedCtls.Where(Function(ctl) ctl.Top > par_ctl.Top).OrderBy(Function(ctl) ctl.Top).First
@@ -276,11 +279,11 @@ Partial Public Class FormDesignProtoTwo
 
     End Function ''End of "Private Function GetNextLowerControl"
 
-    Private Function GetNextHigherControl(par_ctl As CtlGraphicFldLabel) As CtlGraphicFldLabel
+    Private Function GetNextHigherControl(par_ctl As CtlMainEntryBox_v90) As CtlMainEntryBox_v90
         ''
         ''Added 8/15/2019 thomas downes  
         ''
-        ''---For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
+        ''---For Each each_control As CtlMainEntryBox_v90 In mod_selectedCtls
         ''---Next each_control
 
         Try
@@ -292,28 +295,28 @@ Partial Public Class FormDesignProtoTwo
 
     End Function ''End of "Private Function GetNextHigherControl"
 
-    Public Function LabelsList_CountItems() As Integer Implements ISelectingElements.LabelsList_CountItems
+    Public Function LabelsList_CountItems() As Integer Implements ISelectingElements_v90.LabelsList_CountItems
 
         ''Added 8/3/2019 td 
         Return mod_selectedCtls.Count
 
     End Function
 
-    Public Function LabelsList_OneOrMoreItems() As Boolean Implements ISelectingElements.LabelsList_OneOrMoreItems
+    Public Function LabelsList_OneOrMoreItems() As Boolean Implements ISelectingElements_v90.LabelsList_OneOrMoreItems
 
         ''Added 8/3/2019 td 
         Return (1 <= mod_selectedCtls.Count)
 
     End Function
 
-    Public Function LabelsList_TwoOrMoreItems() As Boolean Implements ISelectingElements.LabelsList_TwoOrMoreItems
+    Public Function LabelsList_TwoOrMoreItems() As Boolean Implements ISelectingElements_v90.LabelsList_TwoOrMoreItems
 
         ''Added 8/3/2019 td 
         Return (2 <= mod_selectedCtls.Count)
 
     End Function
 
-    Public Function LabelsList_IsItemIncluded(par_control As CtlGraphicFldLabel) As Boolean Implements ISelectingElements.LabelsList_IsItemIncluded
+    Public Function LabelsList_IsItemIncluded(par_control As CtlMainEntryBox_v90) As Boolean Implements ISelectingElements_v90.LabelsList_IsItemIncluded
 
         ''Added 8/3/2019 td 
         Return (mod_selectedCtls.Contains(par_control))
@@ -321,7 +324,7 @@ Partial Public Class FormDesignProtoTwo
     End Function
 
 
-    Public Function LabelsList_IsItemUnselected(par_control As CtlGraphicFldLabel) As Boolean Implements ISelectingElements.LabelsList_IsItemUnselected
+    Public Function LabelsList_IsItemUnselected(par_control As CtlMainEntryBox_v90) As Boolean Implements ISelectingElements_v90.LabelsList_IsItemUnselected
 
         ''Added 8/3/2019 td 
         Return (Not (mod_selectedCtls.Contains(par_control)))
@@ -329,3 +332,4 @@ Partial Public Class FormDesignProtoTwo
     End Function
 
 End Class
+

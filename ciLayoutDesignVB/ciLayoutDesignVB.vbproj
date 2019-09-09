@@ -202,6 +202,19 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\modLayoutDesignMenu.vb" />
+    <Compile Include="FormPartial_MDEv90_p1.Designer.vb">
+      <DependentUpon>FormPartial_MDEv90_p1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormPartial_MDEv90_p1.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPartial_MDEv90_p2.Designer.vb">
+      <DependentUpon>FormPartial_MDEv90_p2.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormPartial_MDEv90_p2.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InterfaceSelectingElements_v90.vb" />
     <Compile Include="ListCustomFieldsFlow.Designer.vb">
       <DependentUpon>ListCustomFieldsFlow.vb</DependentUpon>
     </Compile>
@@ -430,6 +443,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormMainEntry_v90.resx">
       <DependentUpon>FormMainEntry_v90.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPartial_MDEv90_p2.resx">
+      <DependentUpon>FormPartial_MDEv90_p2.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ListCustomFieldsFlow.resx">
       <DependentUpon>ListCustomFieldsFlow.vb</DependentUpon>

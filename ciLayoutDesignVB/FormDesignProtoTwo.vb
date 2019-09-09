@@ -12,7 +12,7 @@ Imports ciLayoutPrintLib ''Added 8/28/2019 thomas d.
 Imports System.Collections.Generic ''Added 9.6.2019 td 
 
 Public Class FormDesignProtoTwo
-    Implements ISelectingElements
+    Implements ISelectingElements, ILayoutFunctions
     ''
     ''Added 7/18/2019 Thomas DOWNES
     ''
@@ -51,27 +51,27 @@ Public Class FormDesignProtoTwo
 
     Private vbCrLf_Deux As String = (vbCrLf & vbCrLf) ''Added 7/31/2019 td 
 
-    Public Function Layout_Width_Pixels() As Integer
+    Public Function Layout_Width_Pixels() As Integer Implements ILayoutFunctions.Layout_Width_Pixels
         ''Added 9/3/2019 thomas downes
         Return pictureBack.Width
     End Function ''End of "Public Function Layout_Width_Pixels() As Integer"
 
-    Public Function Layout_Margin_Left_Omit(par_intPixelsLeft As Integer) As Integer
+    Public Function Layout_Margin_Left_Omit(par_intPixelsLeft As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Left_Omit
         ''Added 9/5/2019 thomas downes
         Return (par_intPixelsLeft - pictureBack.Left)
     End Function ''End of "Public Function Layout_Margin_Left_Omit() As Integer"
 
-    Public Function Layout_Margin_Left_Add(par_intPixelsLeft As Integer) As Integer
+    Public Function Layout_Margin_Left_Add(par_intPixelsLeft As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Left_Add
         ''Added 9/5/2019 thomas downes
         Return (par_intPixelsLeft + pictureBack.Left)
     End Function ''End of "Public Function Layout_Margin_Left_Add() As Integer"
 
-    Public Function Layout_Margin_Top_Omit(par_intPixelsTop As Integer) As Integer
+    Public Function Layout_Margin_Top_Omit(par_intPixelsTop As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Top_Omit
         ''Added 9/5/2019 thomas downes
         Return (par_intPixelsTop - pictureBack.Top)
     End Function ''End of "Public Function Layout_Margin_Top_Omit() As Integer"
 
-    Public Function Layout_Margin_Top_Add(par_intPixelsTop As Integer) As Integer
+    Public Function Layout_Margin_Top_Add(par_intPixelsTop As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Top_Add
         ''Added 9/5/2019 thomas downes
         Return (par_intPixelsTop + pictureBack.Top)
     End Function ''End of "Public Function Layout_Margin_Top_Add() As Integer"
@@ -528,7 +528,7 @@ Public Class FormDesignProtoTwo
         ''Added 9/7/2019 thomas downes
         AddHandler new_linkLabel.LinkClicked, AddressOf AddField_LinkClicked
 
-    End Sub
+    End Sub ''End of "Private Sub AddToFlowPanelOfOmittedFlds(par_field As ICIBFieldStandardOrCustom)"
 
     Private Sub LoadElements_Fields_OneList_NotInUse(par_boolLoadingForm As Boolean, Optional par_bUnloading As Boolean = False)
         ''
@@ -1489,7 +1489,7 @@ Public Class FormDesignProtoTwo
         LoadField_JustOne(field_to_add)
         flowFieldsNotListed.Controls.Remove(CType(sender, LinkLabel))
 
-    End Sub
+    End Sub ''End of "Private Sub AddField_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)"
 
     ''
     ''  Simple Drawing Selection Shape (Or Rubberband Shape)       

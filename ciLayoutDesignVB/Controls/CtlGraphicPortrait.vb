@@ -16,7 +16,9 @@ Public Class CtlGraphicPortrait
 
     Public ElementInfo_Pic As IElementPic ''Added 7/31/2019 thomas d 
     Public ElementInfo_Base As IElement_Base ''Added 7/31/2019 thomas d 
-    Public FormDesigner As FormDesignProtoTwo ''Added 9/4/2019 td
+
+    ''9/9/2019 td''Public FormDesigner As FormDesignProtoTwo ''Added 9/4/2019 td
+    Public FormDesigner As ILayoutFunctions ''Modified 9/9/2019 td
 
     Public ReadOnly Property Picture_Box As PictureBox
         Get
@@ -32,7 +34,7 @@ Public Class CtlGraphicPortrait
 
     End Sub
 
-    Public Sub New(par_infoForPic_Base As IElement_Base, par_infoForPic_Pic As IElementPic, par_formLayout As FormDesignProtoTwo)
+    Public Sub New(par_infoForPic_Base As IElement_Base, par_infoForPic_Pic As IElementPic, par_formLayout As ILayoutFunctions)
         ''
         ''Added 7/31/2019 td
         ''

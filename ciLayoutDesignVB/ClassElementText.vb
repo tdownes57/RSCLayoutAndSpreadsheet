@@ -260,7 +260,7 @@ Public Class ClassElementText
         ''
         Dim boolNonzeroBorder As Boolean ''9/9 td 
         If (par_elementInfo_Base.Border_Displayed) Then
-            boolNonzeroBorder = (0 < par_elementInfo_Base.Border_WidthInPixels
+            boolNonzeroBorder = (0 < par_elementInfo_Base.Border_WidthInPixels)
             If (boolNonzeroBorder) Then
                 ''Added 9/03/2019 td
                 gr.DrawRectangle(pen_border, New Rectangle(0, 0, intNewElementWidth, intNewElementHeight))
