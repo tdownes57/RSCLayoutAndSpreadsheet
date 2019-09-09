@@ -27,6 +27,7 @@ Partial Class ContextLayoutBack
         Me.cmdClearGroupEditing = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
+        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         Me.SuspendLayout()
         '
         'cmdBackgroundImage
@@ -76,17 +77,28 @@ Partial Class ContextLayoutBack
         Me.Button2.UseVisualStyleBackColor = True
         Me.Button2.Visible = False
         '
+        'LinkLabel1
+        '
+        Me.LinkLabel1.Location = New System.Drawing.Point(3, 159)
+        Me.LinkLabel1.Name = "LinkLabel1"
+        Me.LinkLabel1.Size = New System.Drawing.Size(156, 47)
+        Me.LinkLabel1.TabIndex = 13
+        Me.LinkLabel1.TabStop = True
+        Me.LinkLabel1.Text = "These buttons might be cleared and rebuilt via program code.  (Design-time messag" &
+    "e)"
+        '
         'ContextLayoutBack
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.Controls.Add(Me.LinkLabel1)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.cmdClearGroupEditing)
         Me.Controls.Add(Me.cmdBackgroundColor)
         Me.Controls.Add(Me.cmdBackgroundImage)
         Me.Name = "ContextLayoutBack"
-        Me.Size = New System.Drawing.Size(211, 150)
+        Me.Size = New System.Drawing.Size(211, 224)
         Me.ResumeLayout(False)
 
     End Sub
@@ -96,4 +108,5 @@ Partial Class ContextLayoutBack
     Friend WithEvents cmdClearGroupEditing As Button
     Friend WithEvents Button1 As Button
     Friend WithEvents Button2 As Button
+    Friend WithEvents LinkLabel1 As LinkLabel
 End Class
