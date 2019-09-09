@@ -12,6 +12,17 @@ Module modFonts
     Public Const vbCrLf_Deux As String = (vbCrLf & vbCrLf) ''Added 8/16/2019 td
     Public UseAverageLineForAlignment As Boolean ''Added 8/16/2019 td   
 
+    Public Function ScaledFont(par_font As Font, par_scale As Double) As Font
+        ''
+        ''Added 9/8/2019 thomas d. 
+        ''
+        Dim intNewSize As Integer
+
+        intNewSize = CInt(par_font.Size * par_scale)
+        Return MakeFont(par_font.FontFamily.Name, intNewSize)
+
+    End Function ''End of "Public Function ScaledFont()"
+
     Public Function MakeFont(par_strFamilyName As String, par_sizeInPixels As Single,
                              Optional pboolStyleBold As Boolean = False,
                              Optional pboolStyleItalics As Boolean = False,
@@ -44,7 +55,8 @@ Module modFonts
                 new_fontstyle = (FontStyle.Underline)
         End Select
 
-        new_font = New Font(new_fontFamily, par_sizeInPixels, new_fontstyle, GraphicsUnit.Pixel)
+        new_font = New Font(new_fontFamily, par_sizeInPixels,
+                            new_fontstyle, GraphicsUnit.Pixel)
 
 ExitHandler:
         Return new_font
