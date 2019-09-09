@@ -126,7 +126,9 @@ Public Class ClassFieldCustomized
     ''    End Set
     ''End Property
 
-    Public Property IsBarcodeField As Boolean Implements ICIBFieldStandardOrCustom.IsBarcodeField
+    Public Property IsBarcodeField As Boolean Implements ICIBFieldStandardOrCustom.IsBarcodeField ''Added 7/31/2019 thomas downes
+
+    Public Property DataEntryText As String Implements ICIBFieldStandardOrCustom.DataEntryText ''Added 9/9/2019 td
 
     ''
     ''Added 7/29/2019 thomas downes

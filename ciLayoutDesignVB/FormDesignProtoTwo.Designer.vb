@@ -158,25 +158,25 @@ Partial Class FormDesignProtoTwo
         'OpenToolStripMenuItem
         '
         Me.OpenToolStripMenuItem.Name = "OpenToolStripMenuItem"
-        Me.OpenToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.OpenToolStripMenuItem.Size = New System.Drawing.Size(165, 22)
         Me.OpenToolStripMenuItem.Text = "Open Layout....."
         '
         'FileSaveMenuItem
         '
         Me.FileSaveMenuItem.Name = "FileSaveMenuItem"
-        Me.FileSaveMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.FileSaveMenuItem.Size = New System.Drawing.Size(165, 22)
         Me.FileSaveMenuItem.Text = "Save"
         '
         'FileSaveAsMenuItem
         '
         Me.FileSaveAsMenuItem.Name = "FileSaveAsMenuItem"
-        Me.FileSaveAsMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.FileSaveAsMenuItem.Size = New System.Drawing.Size(165, 22)
         Me.FileSaveAsMenuItem.Text = "Save Layout As...."
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(165, 22)
         Me.ExitToolStripMenuItem.Text = "Exit"
         '
         'ConfigurationOfFieldsEtcToolStripMenuItem
@@ -189,13 +189,13 @@ Partial Class FormDesignProtoTwo
         'StandardFieldsToolStripMenuItem
         '
         Me.StandardFieldsToolStripMenuItem.Name = "StandardFieldsToolStripMenuItem"
-        Me.StandardFieldsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.StandardFieldsToolStripMenuItem.Size = New System.Drawing.Size(154, 22)
         Me.StandardFieldsToolStripMenuItem.Text = "Standard Fields"
         '
         'CustomFieldsToolStripMenuItem
         '
         Me.CustomFieldsToolStripMenuItem.Name = "CustomFieldsToolStripMenuItem"
-        Me.CustomFieldsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.CustomFieldsToolStripMenuItem.Size = New System.Drawing.Size(154, 22)
         Me.CustomFieldsToolStripMenuItem.Text = "Custom Fields"
         '
         'DesignLayoutToolStripMenuItem
@@ -366,18 +366,19 @@ Partial Class FormDesignProtoTwo
         '
         Me.graphicAdjuster.BackColor = System.Drawing.Color.White
         Me.graphicAdjuster.Image = Global.ciLayoutDesignVB.My.Resources.Resources.AdjustWHColor_V103
-        Me.graphicAdjuster.Location = New System.Drawing.Point(923, 352)
+        Me.graphicAdjuster.Location = New System.Drawing.Point(842, 446)
         Me.graphicAdjuster.Name = "graphicAdjuster"
         Me.graphicAdjuster.Size = New System.Drawing.Size(433, 230)
         Me.graphicAdjuster.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.graphicAdjuster.TabIndex = 45
         Me.graphicAdjuster.TabStop = False
+        Me.graphicAdjuster.Visible = False
         '
         'picturePreview
         '
         Me.picturePreview.BackColor = System.Drawing.Color.White
         Me.picturePreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.picturePreview.Location = New System.Drawing.Point(872, 70)
+        Me.picturePreview.Location = New System.Drawing.Point(876, 62)
         Me.picturePreview.Name = "picturePreview"
         Me.picturePreview.Size = New System.Drawing.Size(467, 276)
         Me.picturePreview.TabIndex = 44
@@ -388,7 +389,7 @@ Partial Class FormDesignProtoTwo
         Me.pictureBack.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.pictureBack.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.pictureBack.Image = CType(resources.GetObject("pictureBack.Image"), System.Drawing.Image)
-        Me.pictureBack.Location = New System.Drawing.Point(89, 70)
+        Me.pictureBack.Location = New System.Drawing.Point(32, 60)
         Me.pictureBack.Margin = New System.Windows.Forms.Padding(2)
         Me.pictureBack.Name = "pictureBack"
         Me.pictureBack.Size = New System.Drawing.Size(681, 425)
@@ -462,6 +463,7 @@ Partial Class FormDesignProtoTwo
         'flowFieldsNotListed
         '
         Me.flowFieldsNotListed.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.flowFieldsNotListed.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.flowFieldsNotListed.Controls.Add(Me.lblFieldsNotCurrentlyShownHdr)
         Me.flowFieldsNotListed.Location = New System.Drawing.Point(26, 583)
         Me.flowFieldsNotListed.Name = "flowFieldsNotListed"
@@ -480,7 +482,7 @@ Partial Class FormDesignProtoTwo
         '
         'CtlGraphicPortrait_Lady
         '
-        Me.CtlGraphicPortrait_Lady.Location = New System.Drawing.Point(594, 91)
+        Me.CtlGraphicPortrait_Lady.Location = New System.Drawing.Point(719, 62)
         Me.CtlGraphicPortrait_Lady.Margin = New System.Windows.Forms.Padding(4)
         Me.CtlGraphicPortrait_Lady.Name = "CtlGraphicPortrait_Lady"
         Me.CtlGraphicPortrait_Lady.Size = New System.Drawing.Size(150, 182)

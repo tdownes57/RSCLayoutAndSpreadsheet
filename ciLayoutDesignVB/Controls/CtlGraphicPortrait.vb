@@ -289,8 +289,9 @@ Public Class CtlGraphicPortrait
                 new_item_changePic = New ToolStripMenuItem("Change Example Pic")
 
                 AddHandler new_item_rotate90.Click, AddressOf Rotate90Degrees
+
                 ''Added 8/18/2019 td
-                AddHandler new_item_rotate90.Click, AddressOf DisplayAnotherImage
+                AddHandler new_item_changePic.Click, AddressOf DisplayAnotherImage
 
                 ContextMenuStrip1.Items.Add(new_item_rotate90)
                 ContextMenuStrip1.Items.Add(new_item_changePic) ''Added 8/18/2019 td
