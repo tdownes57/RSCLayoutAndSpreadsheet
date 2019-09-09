@@ -383,9 +383,12 @@ Public Class FormDesignProtoTwo
         ''Added 9/6/2019 thomas d. 
         ''
         Dim new_list As New List(Of ICIBFieldStandardOrCustom)
+        Const c_bAddToMoveableClass As Boolean = True ''Added 9/8/2019 td 
 
         new_list.Add(par_field)
-        LoadElements_ByListOfFields(new_list, True, False)
+
+        LoadElements_ByListOfFields(new_list, True, False,
+                                    c_bAddToMoveableClass)
 
     End Sub ''End of "Private Sub LoadField_JustOne(...)"
 

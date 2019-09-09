@@ -144,14 +144,14 @@ Public Class ClassRubberbandSelector
         If Me._bRubberBandingOn Then
 
             '-- 4.1 Set the rectangle's  width using the 'now' mouse location just set in the 'Form1_MouseMove' event
-            _rRectangle.Width = Me._pNow.X - _pClickStart.X
-            _rRectangle.Height = Me._pNow.Y - _pClickStart.Y
+            _rRectangle.Width = (Me._pNow.X - _pClickStart.X)
+            _rRectangle.Height = (Me._pNow.Y - _pClickStart.Y)
 
         Else '-- else if we are done having the shape follow the mouse
 
             '-- 4.2 Set the rectangle's  width using the 'stop' mouse location just set in the 'Form1_MouseUp' event
-            _rRectangle.Width = Me._pClickStop.X - _pClickStart.X
-            _rRectangle.Height = Me._pClickStop.Y - _pClickStart.Y
+            _rRectangle.Width = (Me._pClickStop.X - _pClickStart.X)
+            _rRectangle.Height = (Me._pClickStop.Y - _pClickStart.Y)
 
         End If ''End of "If Me._bRubberBandingOn Then .... Else ...."
 
