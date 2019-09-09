@@ -146,6 +146,7 @@ Public Class ClassLabelToImage
                               par_elementInfo_Text As IElement_Text,
                               par_elementInfo_Base As IElement_Base,
                               ByRef pref_rotated As Boolean,
+                              ByVal par_bIsDesignStage As Boolean,
                               Optional par_pictureBox As PictureBox = Nothing,
                               Optional par_graphicalCtl As CtlGraphicFldLabel = Nothing) As Image
         ''
@@ -212,7 +213,9 @@ Public Class ClassLabelToImage
         '' #2 9/4/20 19 td''par_image = New Bitmap(intNewElementWidth, intNewElementWidth, Imaging.PixelFormat.Format32bppPArgb)
         ''  #3 9/4/2019 td''local_image = New Bitmap(intNewElementWidth, intNewElementWidth, Imaging.PixelFormat.Format32bppPArgb)
 
+        ''
         ''  https://stackoverflow.com/questions/2478502/when-creating-an-bitmap-image-from-scratch-in-vb-net-the-quality-stinks
+        ''
         If (UseHighResolutionTips) Then
 
             local_image = New Bitmap(intNewElementWidth, intNewElementHeight,
@@ -294,9 +297,13 @@ Public Class ClassLabelToImage
         ''
         ''  https://stackoverflow.com/questions/5183856/converting-from-a-color-to-a-brush
         ''
-        If (par_elementInfo_Base.Back_Transparent) Then
+        Dim boolSuppressBackColor As Boolean ''Added 9/8/2019
+        boolSuppressBackColor = (par_elementInfo_Base.Back_Transparent)
+
+        If (boolSuppressBackColor) Then
             ''
-            ''Don't apply any background color. ----9/4/2019 thomas downes
+            ''The Transparent flag is True, so don't apply
+            ''  any background color. ----9/4/2019 thomas downes
             ''
         Else
 
@@ -313,7 +320,7 @@ Public Class ClassLabelToImage
             ''
             gr_element.Clear(par_elementInfo_Base.Back_Color) ''Added 9/4/2019 td 
 
-        End If
+        End If ''End of "If (boolSuppressBackColor) Then ... Else ...."
 
         ''
         ''Added 9/03/2019 td
@@ -321,7 +328,9 @@ Public Class ClassLabelToImage
         ''   Draw the border about the element.  
         ''
         If (0 < par_elementInfo_Base.Border_WidthInPixels) Then
+            ''
             ''Added 9/03/2019 td
+            ''
             ''9/6/2019 td''gr_element.DrawRectangle(pen_border, New Rectangle(3, 3, intNewElementWidth - 6, intNewElementHeight - 6))
             DrawBorder_PixelsWide(par_elementInfo_Base.Border_WidthInPixels,
                                   gr_element, intNewElementWidth, intNewElementHeight,
@@ -331,7 +340,20 @@ Public Class ClassLabelToImage
         ''
         ''Added 8/02/2019 td
         ''
+        Dim boolAddHighlighting As Boolean ''Added 9/8/2019 td
+
+        ''Added 9/8/2019 td
         If (par_elementInfo_Base.SelectedHighlighting) Then
+            ''
+            ''The conditional expression above Is redundant, 
+            ''   but the programmer might want to put a 
+            ''   breakpoint below. ----9/8/2019 td
+            ''
+            boolAddHighlighting = (par_bIsDesignStage And
+                par_elementInfo_Base.SelectedHighlighting)
+        End If ''End of "If (par_elementInfo_Base.SelectedHighlighting) Then"
+
+        If (boolAddHighlighting) Then
             ''Added 8/2/2019 td
             ''8/5/2019 td''gr.DrawRectangle(pen_highlighting,
             ''       New Rectangle(0, 0, par_element.Width_Pixels, par_element.Height_Pixels))
@@ -343,7 +365,8 @@ Public Class ClassLabelToImage
             gr_element.DrawRectangle(pen_highlighting,
                          New Rectangle(3, 3, intNewElementWidth - 6,
                                              intNewElementHeight - 6))
-        End If ''End of "If (par_element.SelectedHighlighting) Then"
+
+        End If ''End of "If (boolHighlighting) Then"
 
         ''7/30/2019''gr.DrawString(par_design.Text, par_design.Font_DrawingClass, brush_forecolor, New Point(0, 0))
 
@@ -357,38 +380,51 @@ Public Class ClassLabelToImage
         ''
         gr_element.TextRenderingHint = TextRenderingHint.AntiAliasGridFit
         Dim stringSize = New SizeF()
+        Dim font_scaled As System.Drawing.Font ''Added 9/8/2019 td
 
         With par_elementInfo_Text
+
+            ''Added 9/8/2019 td
+            font_scaled = modFonts.ScaledFont(.Font_DrawingClass, doubleScaling)
 
             ''Added 8/18/2019 td
             Select Case par_elementInfo_Text.TextAlignment''Added 8/18/2019 td
 
                 Case HorizontalAlignment.Left
 
-                    gr_element.DrawString(.Text, .Font_DrawingClass, Brushes.Black, singleOffsetX, singleOffsetY)
+                    ''9/8/2019 td''gr_element.DrawString(.Text, .Font_DrawingClass, Brushes.Black, singleOffsetX, singleOffsetY)
+                    gr_element.DrawString(.Text, font_scaled, Brushes.Black,
+                                          singleOffsetX, singleOffsetY)
 
                 Case HorizontalAlignment.Center
                     ''// Measure string.
-                    stringSize = gr_element.MeasureString(.Text, .Font_DrawingClass)
+                    ''9/8/2019 td''stringSize = gr_element.MeasureString(.Text, .Font_DrawingClass)
+                    stringSize = gr_element.MeasureString(.Text, font_scaled)
 
                     Dim singleOffsetX_AlignRight As Single ''Added 8/18/2019 td 
                     ''Added 8/18/2019 td 
                     singleOffsetX_AlignRight = (singleOffsetX + (local_image.Width - stringSize.Width) / 2)
 
-                    ''Added 8/18/2019 td 
-                    gr_element.DrawString(.Text, .Font_DrawingClass, Brushes.Black,
+                    ''Added 8/18/2019 td
+                    ''
+                    ''9/8/2019 td''gr_element.DrawString(.Text, .Font_DrawingClass, Brushes.Black,
+                    ''                            singleOffsetX_AlignRight, singleOffsetY)
+                    gr_element.DrawString(.Text, font_scaled, Brushes.Black,
                                   singleOffsetX_AlignRight, singleOffsetY)
 
                 Case HorizontalAlignment.Right
                     ''// Measure string.
                     ''
-                    stringSize = gr_element.MeasureString(.Text, .Font_DrawingClass)
+                    ''9/8/2019 td''stringSize = gr_element.MeasureString(.Text, .Font_DrawingClass)
+                    stringSize = gr_element.MeasureString(.Text, font_scaled)
 
                     Dim singleOffsetX_AlignRight As Single ''Added 8/18/2019 td 
                     singleOffsetX_AlignRight = (local_image.Width - stringSize.Width - singleOffsetX)
 
                     ''Added 8/18/2019 td 
-                    gr_element.DrawString(.Text, .Font_DrawingClass, Brushes.Black,
+                    ''9/8/2019 td''gr_element.DrawString(.Text, .Font_DrawingClass, Brushes.Black,
+                    ''                           singleOffsetX_AlignRight, singleOffsetY)
+                    gr_element.DrawString(.Text, font_scaled, Brushes.Black,
                                   singleOffsetX_AlignRight, singleOffsetY)
 
             End Select ''End of "Select Case par_design.TextAlignment"

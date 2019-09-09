@@ -1024,19 +1024,28 @@ Public Class FormDesignProtoTwo
         ''Added 9/6/2019 td 
         ClassLabelToImage.ProportionsAreSlightlyOff(obj_image_clone_resized, True, "Clone Resized #1")
 
+        ''
+        ''Major call !!
+        ''
         objPrintLib.LoadImageWithFieldValues(obj_image_clone_resized,
                                              listOfElementText_Stdrd,
                                              listOfElementText_Custom,
                                              listOfTextImages)
 
-        ''Added 8/26/2019 thomas downes  
-        Dim frm_ToShow1 As New FormDisplayImageList1(listOfTextImages)
-        frm_ToShow1.Show()
+        ''Added 9/8/2019 td
+        Const c_bHelpProgrammer As Boolean = False ''Added 9/8/2019 td
 
-        ''Added 8/27/2019 thomas downes  
-        Dim frm_ToShow2 As New FormDisplayImageList2(ClassFieldStandard.ListOfFields_Staff,
-                                                      ClassFieldCustomized.ListOfFields_Students)
-        frm_ToShow2.Show()
+        If (c_bHelpProgrammer) Then ''Added 9/8/2019 td
+            ''Added 8/26/2019 thomas downes  
+            Dim frm_ToShow1 As New FormDisplayImageList1(listOfTextImages)
+            frm_ToShow1.Show()
+
+            ''Added 8/27/2019 thomas downes  
+            Dim frm_ToShow2 As New FormDisplayImageList2(ClassFieldStandard.ListOfFields_Students,
+                                                          ClassFieldCustomized.ListOfFields_Students)
+            frm_ToShow2.Show()
+
+        End If ''End of "If (c_bHelpProgrammer) Then"
 
         ''Added 9/6/2019 td 
         ClassLabelToImage.ProportionsAreSlightlyOff(pictureBack.Image, True, "Clone Resized #1")
@@ -1478,6 +1487,7 @@ Public Class FormDesignProtoTwo
         If (field_to_add Is Nothing) Then Exit Sub
         field_to_add.IsDisplayedOnBadge = True
         LoadField_JustOne(field_to_add)
+        flowFieldsNotListed.Controls.Remove(CType(sender, LinkLabel))
 
     End Sub
 

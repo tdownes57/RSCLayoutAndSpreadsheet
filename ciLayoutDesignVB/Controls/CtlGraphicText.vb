@@ -112,7 +112,8 @@ Public Class CtlGraphicText
         ''9/4/2019 td''LabelToImage.TextImage(intLayoutWidth, pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
 
         pictureLabel.Image =
-        LabelToImage.TextImage(intLayoutWidth, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
+        LabelToImage.TextImage(intLayoutWidth, Me.ElementInfo_Text,
+                               Me.ElementInfo_Base, boolRotated, True)
 
         ''Added 7/31/2019 td
         If (mod_c_boolMustSetBackColor And (Me.ElementInfo_Base IsNot Nothing)) Then

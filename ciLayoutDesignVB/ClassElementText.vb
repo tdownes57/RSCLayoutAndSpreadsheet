@@ -130,7 +130,7 @@ Public Class ClassElementText
         ''9/3/2019 td''GenerateImage(pintDesiredLayoutWidth, obj_image, Me, Me)
         ''9/4/2019 td''_labelToImage.TextImage(pintDesiredLayoutWidth, obj_image, Me, Me, False)
 
-        obj_image = _labelToImage.TextImage(pintDesiredLayoutWidth, Me, Me, False)
+        obj_image = _labelToImage.TextImage(pintDesiredLayoutWidth, Me, Me, False, False)
 
         Return obj_image
 
@@ -166,7 +166,7 @@ Public Class ClassElementText
         ''9/3/2019 td''GenerateImage(intDesiredLayoutWidth, obj_image, Me, Me)
         ''9/4/2019 td''_labelToImage.TextImage(intDesiredLayoutWidth, obj_image, Me, Me, False)
 
-        obj_image = _labelToImage.TextImage(intDesiredLayoutWidth, Me, Me, False)
+        obj_image = _labelToImage.TextImage(intDesiredLayoutWidth, Me, Me, False, False)
 
         Return obj_image
 

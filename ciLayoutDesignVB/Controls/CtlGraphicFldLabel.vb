@@ -295,7 +295,9 @@ Public Class CtlGraphicFldLabel
         ''Major call !!
         ''
         pictureLabel.Image =
-        LabelToImage.TextImage(intLayoutWidth, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
+        LabelToImage.TextImage(intLayoutWidth, Me.ElementInfo_Text,
+                               Me.ElementInfo_Base,
+                               boolRotated, True)
 
         ''Added 8/18/2019 td
         Dim intImageWidth As Integer
