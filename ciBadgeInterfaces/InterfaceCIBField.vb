@@ -37,4 +37,6 @@ Public Interface ICIBFieldStandardOrCustom
     Property IsDisplayedOnBadge As Boolean
     Property IsDisplayedForEdits As Boolean
 
+    Property DataEntryText As String ''Added 9/9/2019 td  
+
 End Interface
