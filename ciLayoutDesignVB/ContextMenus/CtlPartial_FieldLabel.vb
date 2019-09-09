@@ -500,6 +500,7 @@ Partial Public Class CtlGraphicFldLabel
 
             Me.ElementInfo_Base.Border_WidthInPixels = frm_ToShow.Border_SizeInPixels
             Me.ElementInfo_Base.Border_Color = frm_ToShow.Border_Color
+            Me.ElementInfo_Base.Border_Displayed = frm_ToShow.Border_Displayed ''Added 9/9/2019 td
 
             Me.Refresh_Image()
 
@@ -523,6 +524,7 @@ Partial Public Class CtlGraphicFldLabel
 
                         .ElementInfo_Base.Border_WidthInPixels = frm_ToShow.Border_SizeInPixels
                         .ElementInfo_Base.Border_Color = frm_ToShow.Border_Color
+                        .ElementInfo_Base.Border_Displayed = frm_ToShow.Border_Displayed ''9/9 td
 
                         .Refresh_Image()
                         .Refresh()

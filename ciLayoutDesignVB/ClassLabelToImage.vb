@@ -327,15 +327,19 @@ Public Class ClassLabelToImage
         ''
         ''   Draw the border about the element.  
         ''
-        If (0 < par_elementInfo_Base.Border_WidthInPixels) Then
-            ''
-            ''Added 9/03/2019 td
-            ''
-            ''9/6/2019 td''gr_element.DrawRectangle(pen_border, New Rectangle(3, 3, intNewElementWidth - 6, intNewElementHeight - 6))
-            DrawBorder_PixelsWide(par_elementInfo_Base.Border_WidthInPixels,
-                                  gr_element, intNewElementWidth, intNewElementHeight,
-                                  par_elementInfo_Base.Border_Color)
-        End If ''End of "If (par_element.SelectedHighlighting) Then"
+        Dim boolNonzeroBorder As Boolean ''9/9 td
+        If (par_elementInfo_Base.Border_Displayed) Then
+            boolNonzeroBorder = (0 < par_elementInfo_Base.Border_WidthInPixels)
+            If (boolNonzeroBorder) Then
+                ''
+                ''Added 9/03/2019 td
+                ''
+                ''9/6/2019 td''gr_element.DrawRectangle(pen_border, New Rectangle(3, 3, intNewElementWidth - 6, intNewElementHeight - 6))
+                DrawBorder_PixelsWide(par_elementInfo_Base.Border_WidthInPixels,
+                                      gr_element, intNewElementWidth, intNewElementHeight,
+                                      par_elementInfo_Base.Border_Color)
+            End If ''End of "If (boolNonzeroBorder) Then"
+        End If ''End of "If (par_elementInfo_Base.Border_Displayed) Then"
 
         ''
         ''Added 8/02/2019 td

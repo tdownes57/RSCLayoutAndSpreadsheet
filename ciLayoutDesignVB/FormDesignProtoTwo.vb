@@ -5,8 +5,8 @@ Option Strict On
 ''
 ''Added 7/18/2019 Thomas DOWNES
 ''
-Imports ControlManager
 Imports MoveAndResizeControls_Monem
+''9/9/2019 td''Imports ControlManager
 Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d.  
 Imports ciLayoutPrintLib ''Added 8/28/2019 thomas d. 
 Imports System.Collections.Generic ''Added 9.6.2019 td 

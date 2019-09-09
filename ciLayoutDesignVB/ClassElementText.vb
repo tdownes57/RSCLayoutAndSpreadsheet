@@ -79,6 +79,7 @@ Public Class ClassElementText
     ''8/29/2019 td''Public Property Border_Pixels As Integer Implements IElement_Base.Border_Pixels
     Public Property Border_WidthInPixels As Integer = 1 Implements IElement_Base.Border_WidthInPixels
     Public Property Border_Color As System.Drawing.Color = Color.Black Implements IElement_Base.Border_Color
+    Public Property Border_Displayed As Boolean = True Implements IElement_Base.Border_Displayed ''Added 9/9/2019 td 
 
     Public Property Back_Color As System.Drawing.Color = Color.White Implements IElement_Base.Back_Color
     Public Property Back_Transparent As Boolean = False Implements IElement_Base.Back_Transparent ''Added 9/4/2019 thomas d. 
@@ -257,10 +258,14 @@ Public Class ClassElementText
         ''
         ''Added 9/03/2019 td
         ''
-        If (0 < par_elementInfo_Base.Border_WidthInPixels) Then
-            ''Added 9/03/2019 td
-            gr.DrawRectangle(pen_border, New Rectangle(0, 0, intNewElementWidth, intNewElementHeight))
-        End If ''End of "If (par_element.SelectedHighlighting) Then"
+        Dim boolNonzeroBorder As Boolean ''9/9 td 
+        If (par_elementInfo_Base.Border_Displayed) Then
+            boolNonzeroBorder = (0 < par_elementInfo_Base.Border_WidthInPixels
+            If (boolNonzeroBorder) Then
+                ''Added 9/03/2019 td
+                gr.DrawRectangle(pen_border, New Rectangle(0, 0, intNewElementWidth, intNewElementHeight))
+            End If ''End of "If (boolNonzeroBorder) Then"
+        End If ''End of "If (par_elementInfo_Base.Border_Displayed) Then"
 
         ''
         ''Added 8/02/2019 td
