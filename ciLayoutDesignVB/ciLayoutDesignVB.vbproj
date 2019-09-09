@@ -444,9 +444,6 @@
     <EmbeddedResource Include="FormMainEntry_v90.resx">
       <DependentUpon>FormMainEntry_v90.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormPartial_MDEv90_p2.resx">
-      <DependentUpon>FormPartial_MDEv90_p2.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ListCustomFieldsFlow.resx">
       <DependentUpon>ListCustomFieldsFlow.vb</DependentUpon>
     </EmbeddedResource>
