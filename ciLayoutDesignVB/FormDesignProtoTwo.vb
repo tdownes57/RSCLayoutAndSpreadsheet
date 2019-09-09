@@ -1078,7 +1078,7 @@ Public Class FormDesignProtoTwo
     ''Private Sub GraphicFieldLabel4_Load(sender As Object, e As EventArgs) Handles GraphicFieldLabel4.Load
     ''End Sub
 
-    Private Sub SaveToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles SaveToolStripMenuItem1.Click
+    Private Sub SaveToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles FileSaveMenuItem.Click
         ''
         ''Added 7/29/2019 td  
         ''
@@ -1556,6 +1556,19 @@ Public Class FormDesignProtoTwo
             .Checked = (Not .Checked)
             mod_DataEntryV9 = True
         End With ''End of "With ModeV9ToolStripMenuItem"
+
+    End Sub
+
+    Private Sub FileSaveAs_Click(sender As Object, e As EventArgs) Handles FileSaveAsMenuItem.Click
+        ''
+        ''Added 9/9/2019 thomas downes 
+        ''
+        Dim objSerializationClass As ciBadgeSerialize.Tools
+
+
+
+
+
 
     End Sub
 End Class
