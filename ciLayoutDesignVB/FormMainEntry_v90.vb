@@ -1,12 +1,19 @@
 ﻿''
 ''Added 9/8/2019 thomas downes
 ''
+Imports ciBadgeInterfaces ''added 9/8 
+''9/9/2019 td''Imports ControlManager
+Imports MoveAndResizeControls_Monem
+Imports ciLayoutPrintLib ''Added 8/28/2019 thomas d. 
+Imports System.Collections.Generic ''Added 9.6.2019 td 
+
 Public Class FormMainEntry_v90
     ''
     ''Added 9/8/2019 thomas downes
     ''
     Private mod_imagePortrait As CtlGraphicPortrait
     Private Const mc_boolMoveableElements As Boolean = True
+    Private vbCrLf_Deux As String = (vbCrLf & vbCrLf) ''Added 7/31/2019 td 
 
     Private Sub Form_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
