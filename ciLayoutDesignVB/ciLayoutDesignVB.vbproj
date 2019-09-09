@@ -419,6 +419,9 @@
     <EmbeddedResource Include="DialogTextBorder.resx">
       <DependentUpon>DialogTextBorder.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormMainEntry_v90.resx">
+      <DependentUpon>FormMainEntry_v90.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ListCustomFieldsFlow.resx">
       <DependentUpon>ListCustomFieldsFlow.vb</DependentUpon>
     </EmbeddedResource>
@@ -597,6 +600,8 @@
     <None Include="Resources\__UI for v900 w demo face.PNG" />
     <None Include="Resources\Textbox_v90.png" />
     <None Include="Resources\__UI for V831 w No Pic1.PNG" />
+    <None Include="Resources\__UI for v900 w demo face1.PNG" />
+    <None Include="Resources\The UI for v900.PNG" />
     <Content Include="SQL\CreateTables - Just 5 + 1 tables.sql" />
     <Content Include="SQL\CreateTables - Just 6 tables.sql" />
     <Content Include="SQL\CreateTables - Mar29.sql" />

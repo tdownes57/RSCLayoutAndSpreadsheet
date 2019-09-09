@@ -206,7 +206,7 @@ Public Class FormDesignProtoTwo
         graphicAdjuster.SendToBack() ''Added 8/12/2019 td
         picturePreview.SendToBack() ''Added 8/12/2019 td
 
-    End Sub ''ENd of "Private Sub Load_Form()"
+    End Sub ''ENd of "Private Sub LoadForm_LayoutElements()"
 
     Private Sub MakeElementsMoveable()
         ''
@@ -1544,6 +1544,18 @@ Public Class FormDesignProtoTwo
 
         ''Added 9/8/2019 thomas downes
         ClassLabelToImage.UseHighResolutionTips = CType(sender, CheckBox).Checked
+
+    End Sub
+
+    Private mod_DataEntryV9 As Boolean = False ''Added 9/8/2019 thomas downes
+    Private Sub ModeV9ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ModeV9ToolStripMenuItem.Click
+        ''
+        ''Added 9/8/2019 td
+        ''
+        With ModeV9ToolStripMenuItem
+            .Checked = (Not .Checked)
+            mod_DataEntryV9 = True
+        End With ''End of "With ModeV9ToolStripMenuItem"
 
     End Sub
 End Class

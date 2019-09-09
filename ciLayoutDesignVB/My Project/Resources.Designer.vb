@@ -83,6 +83,16 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property __UI_for_v900_w_demo_face() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("__UI for v900 w demo face", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property AdjustWHColor_V101() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("AdjustWHColor_V101", resourceCulture)
@@ -209,18 +219,18 @@ Namespace My.Resources
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
-
-        ''<summary>
-        ''  Looks up a localized string similar to {\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}{\f1\fnil\fcharset0 Code39FiveRedA;}}
-        ''{\*\generator Riched20 10.0.18362}\viewkind4\uc1 
-        ''\pard\sa200\sl276\slmult1\f0\fs22\lang9\par
-        ''\par
-        ''\f1\fs48 75757575757575757575cccccccc999989898989898HFHFHFHFHFH\f0\par
-        ''\par
-        ''\fs22\par
-        ''}
-        '' .
-        ''</summary>
+        
+        '''<summary>
+        '''  Looks up a localized string similar to {\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}{\f1\fnil\fcharset0 Code39FiveRedA;}}
+        '''{\*\generator Riched20 10.0.18362}\viewkind4\uc1 
+        '''\pard\sa200\sl276\slmult1\f0\fs22\lang9\par
+        '''\par
+        '''\f1\fs48 75757575757575757575cccccccc999989898989898HFHFHFHFHFH\f0\par
+        '''\par
+        '''\fs22\par
+        '''}
+        ''' .
+        '''</summary>
         Friend ReadOnly Property Font_Code39FiveRedA() As String
             Get
                 Return ResourceManager.GetString("Font_Code39FiveRedA", resourceCulture)
@@ -293,6 +303,16 @@ Namespace My.Resources
         Friend ReadOnly Property Textbox_v90() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Textbox_v90", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property The_UI_for_v900() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("The UI for v900", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

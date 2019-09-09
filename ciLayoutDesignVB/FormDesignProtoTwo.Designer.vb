@@ -75,6 +75,7 @@ Partial Class FormDesignProtoTwo
         Me.lblFieldsNotCurrentlyShownHdr = New System.Windows.Forms.Label()
         Me.CtlGraphicPortrait_Lady = New ciLayoutDesignVB.CtlGraphicPortrait()
         Me.chkHighResolution = New System.Windows.Forms.CheckBox()
+        Me.ModeV9ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         CType(Me.graphicAdjuster, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -199,7 +200,7 @@ Partial Class FormDesignProtoTwo
         '
         'DesignLayoutToolStripMenuItem
         '
-        Me.DesignLayoutToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenControlPanelToolStripMenuItem, Me.UploadBackgroundToolStripMenuItem, Me.PlaceElementsToolStripMenuItem, Me.AddGraphicsElementToolStripMenuItem, Me.AddSubsectionToolStripMenuItem, Me.ChangeOrientationToolStripMenuItem, Me.DoubleSidedToolStripMenuItem})
+        Me.DesignLayoutToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenControlPanelToolStripMenuItem, Me.UploadBackgroundToolStripMenuItem, Me.PlaceElementsToolStripMenuItem, Me.AddGraphicsElementToolStripMenuItem, Me.AddSubsectionToolStripMenuItem, Me.ChangeOrientationToolStripMenuItem, Me.DoubleSidedToolStripMenuItem, Me.ModeV9ToolStripMenuItem})
         Me.DesignLayoutToolStripMenuItem.Name = "DesignLayoutToolStripMenuItem"
         Me.DesignLayoutToolStripMenuItem.Size = New System.Drawing.Size(117, 24)
         Me.DesignLayoutToolStripMenuItem.Text = "Design Layout"
@@ -491,6 +492,12 @@ Partial Class FormDesignProtoTwo
         Me.chkHighResolution.Text = "Use High-Rez Tips"
         Me.chkHighResolution.UseVisualStyleBackColor = True
         '
+        'ModeV9ToolStripMenuItem
+        '
+        Me.ModeV9ToolStripMenuItem.Name = "ModeV9ToolStripMenuItem"
+        Me.ModeV9ToolStripMenuItem.Size = New System.Drawing.Size(292, 26)
+        Me.ModeV9ToolStripMenuItem.Text = "Mode of Data Entry v9"
+        '
         'FormDesignProtoTwo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 20.0!)
@@ -584,4 +591,5 @@ Partial Class FormDesignProtoTwo
     Friend WithEvents flowFieldsNotListed As FlowLayoutPanel
     Friend WithEvents lblFieldsNotCurrentlyShownHdr As Label
     Friend WithEvents chkHighResolution As CheckBox
+    Friend WithEvents ModeV9ToolStripMenuItem As ToolStripMenuItem
 End Class
