@@ -24,55 +24,53 @@ Partial Class CtlMainEntryBox_v90
     Private Sub InitializeComponent()
         Me.LabelCaption = New System.Windows.Forms.Label()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.SuspendLayout()
         '
         'LabelCaption
         '
         Me.LabelCaption.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelCaption.Location = New System.Drawing.Point(4, 5)
-        Me.LabelCaption.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.LabelCaption.Location = New System.Drawing.Point(3, 4)
         Me.LabelCaption.Name = "LabelCaption"
-        Me.LabelCaption.Size = New System.Drawing.Size(173, 37)
+        Me.LabelCaption.Size = New System.Drawing.Size(130, 30)
         Me.LabelCaption.TabIndex = 5
         Me.LabelCaption.Text = "Field Caption"
         '
         'TextBox1
         '
-        Me.TextBox1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.TextBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TextBox1.BackColor = System.Drawing.Color.White
         Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.TextBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox1.Location = New System.Drawing.Point(185, 3)
-        Me.TextBox1.Margin = New System.Windows.Forms.Padding(4)
+        Me.TextBox1.Location = New System.Drawing.Point(139, 2)
         Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(164, 34)
+        Me.TextBox1.Size = New System.Drawing.Size(112, 29)
         Me.TextBox1.TabIndex = 4
         Me.TextBox1.Text = " "
         '
-        'PictureBox1
+        'ComboBox1
         '
-        Me.PictureBox1.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.Textbox_v90
-        Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.PictureBox1.Location = New System.Drawing.Point(167, 12)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(207, 33)
-        Me.PictureBox1.TabIndex = 6
-        Me.PictureBox1.TabStop = False
+        Me.ComboBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ComboBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ComboBox1.FormattingEnabled = True
+        Me.ComboBox1.Location = New System.Drawing.Point(140, 2)
+        Me.ComboBox1.Name = "ComboBox1"
+        Me.ComboBox1.Size = New System.Drawing.Size(111, 32)
+        Me.ComboBox1.TabIndex = 7
+        Me.ComboBox1.Visible = False
         '
         'CtlMainEntryBox_v90
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.LabelCaption)
         Me.Controls.Add(Me.TextBox1)
-        Me.Controls.Add(Me.PictureBox1)
+        Me.Controls.Add(Me.ComboBox1)
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Name = "CtlMainEntryBox_v90"
-        Me.Size = New System.Drawing.Size(354, 42)
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Size = New System.Drawing.Size(266, 34)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -80,5 +78,5 @@ Partial Class CtlMainEntryBox_v90
 
     Friend WithEvents LabelCaption As Label
     Friend WithEvents TextBox1 As TextBox
-    Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents ComboBox1 As ComboBox
 End Class

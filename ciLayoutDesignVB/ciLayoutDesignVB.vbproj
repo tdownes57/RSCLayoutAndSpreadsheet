@@ -214,6 +214,12 @@
     <Compile Include="FormPartial_MDEv90_p2.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FormSimpleDataEntry.Designer.vb">
+      <DependentUpon>FormSimpleDataEntry.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormSimpleDataEntry.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="InterfaceSelectingElements_v90.vb" />
     <Compile Include="ListCustomFieldsFlow.Designer.vb">
       <DependentUpon>ListCustomFieldsFlow.vb</DependentUpon>
@@ -443,6 +449,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormMainEntry_v90.resx">
       <DependentUpon>FormMainEntry_v90.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSimpleDataEntry.resx">
+      <DependentUpon>FormSimpleDataEntry.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ListCustomFieldsFlow.resx">
       <DependentUpon>ListCustomFieldsFlow.vb</DependentUpon>

@@ -459,7 +459,7 @@ Public Class CtlGraphicFldLabel
 
     End Sub
 
-    Private Sub TextTypeExample_KeyPress(sender As Object, e As KeyPressEventArgs) Handles textTypeExample.KeyPress
+    Private Sub TextTypeExample_KeyPress(sender As Object, e As KeyPressEventArgs) ''9/10/2019 td''Handles textTypeExample.KeyPress
         ''
         ''Added 8/10/2019 td
         ''
@@ -477,6 +477,9 @@ Public Class CtlGraphicFldLabel
             Me.FieldInfo.ExampleValue = textTypeExample.Text
             Me.ElementInfo_Text.Text = textTypeExample.Text
             Me.textTypeExample.Visible = False
+
+            ''Added 9/10/2019 td
+            Me.Refresh_Master()
 
         End If ''End If ''End of "If (e.KeyCode = Keys.Enter) Then"
 

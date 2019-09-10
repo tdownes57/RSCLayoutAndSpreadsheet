@@ -408,7 +408,10 @@ Partial Public Class CtlGraphicFldLabel
             .Text = Me.ElementInfo_Text.Text ''Added 8/16/2019 td
             .SelectAll() ''Added 8/16/2019 td
 
-        End With
+            ''Added 9/10/2019 td 
+            .SelectionStart = 0
+            .SelectionLength = .Text.Length
+        End With ''End of "With textTypeExample"
 
     End Sub ''End of "Private Sub ExampleValue_Edit"  
 

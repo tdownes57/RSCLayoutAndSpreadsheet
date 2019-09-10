@@ -223,8 +223,11 @@ Public Class CtlGraphicPortrait
         ''
         If (Me.ElementInfo_Base IsNot Nothing) Then
 
-            Me.ElementInfo_Base.TopEdge_Pixels = Me.Top
-            Me.ElementInfo_Base.LeftEdge_Pixels = Me.Left
+            ''9/10/2019 td''Me.ElementInfo_Base.TopEdge_Pixels = Me.Top
+            ''9/10/2019 td''Me.ElementInfo_Base.LeftEdge_Pixels = Me.Left
+
+            Me.ElementInfo_Base.TopEdge_Pixels = Me.FormDesigner.Layout_Margin_Top_Omit(Me.Top)
+            Me.ElementInfo_Base.LeftEdge_Pixels = Me.FormDesigner.Layout_Margin_Top_Omit(Me.Left)
 
             Me.ElementInfo_Base.Width_Pixels = Me.Width
             Me.ElementInfo_Base.Height_Pixels = Me.Height
