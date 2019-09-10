@@ -16,6 +16,8 @@ Public Interface IElementPic
     ''Added 8/12/2019 thomas downes  
     Property PicFileIndex As Integer ''Added 8/12/2019 thomas downes
 
+    Property Recipient As IRecipient ''Added 9/9/2019   
+
     ''8/29/2019 td''Property OrientationToLayout As String ''E.g. "P" for Portrait (by far the most common) or "L" (Landscape)
 
     ''Added 8/12/2019 thomas downes

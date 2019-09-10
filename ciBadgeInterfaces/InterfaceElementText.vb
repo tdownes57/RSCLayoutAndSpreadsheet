@@ -77,6 +77,8 @@ Public Interface IElement_Text
 
     ''8/29/2019 td''Property Image_BL As Image ''Added 8/27/2019 td 
 
+    Property Recipient As IRecipient ''Added 9/9/2019   
+
     ''
     ''
     ''For the below, see InterfaceElement.vb. 

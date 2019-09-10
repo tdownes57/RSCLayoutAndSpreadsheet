@@ -68,6 +68,8 @@ Public Class ClassElementPic
 
     Public Property Image_BL As Image Implements IElement_Base.Image_BL ''Added 9/2/2019 td
 
+    Public Property Recipient As IRecipient Implements IElementPic.Recipient ''Added 9/10/2019 td
+
     Public Sub New(par_control As Control)
 
         ''Added 7/19/2019 td

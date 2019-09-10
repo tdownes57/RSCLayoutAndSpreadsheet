@@ -47,6 +47,8 @@ Public Class ClassElementText
     ''7/25/2019 td''Prpoerty ExampleText As String ''Added 7/25/2019
     Public Property Text As String Implements IElement_Text.Text ''E.g. "George Washington" for FullName. 
 
+    ''Added 9/10/2019 td 
+    Public Property Recipient As IRecipient Implements IElement_Text.Recipient
 
     Public Property TextAlignment As System.Windows.Forms.HorizontalAlignment Implements IElement_Text.TextAlignment
 
