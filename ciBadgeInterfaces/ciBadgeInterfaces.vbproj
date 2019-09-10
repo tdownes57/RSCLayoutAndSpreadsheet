@@ -72,6 +72,7 @@
     <Compile Include="InterfaceElementPic.vb" />
     <Compile Include="InterfaceElementText.vb" />
     <Compile Include="InterfaceLayoutFunctions.vb" />
+    <Compile Include="InterfaceRecipient.vb" />
     <Compile Include="InterfaceSelectingElements.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
