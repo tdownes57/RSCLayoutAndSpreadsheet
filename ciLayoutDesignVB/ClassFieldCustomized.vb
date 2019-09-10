@@ -349,4 +349,30 @@ Public Class ClassFieldCustomized
 
     End Sub
 
+    Public Function GetValue_Recipient_String(par_enum As EnumCIBFields) As String
+        ''
+        ''Added 9/10/2019 td
+        ''
+        ''
+        Return Me.ElementInfo_Text.Recipient.GetTextValue(par_enum)
+
+    End Function ''End of "Public Function GetValue_Recipient_String(par_enum As EnumCIBFields) As String"
+
+    Public Function GetValue_Recipient_Date(par_enum As EnumCIBFields) As Date
+        ''
+        ''Added 9/10/2019 td
+        ''
+        Return Me.ElementInfo_Text.Recipient.GetDateValue(par_enum)
+
+    End Function ''End of "Public Function GetValue_Recipient_Date(par_enum As EnumCIBFields) As Date"
+
+    Public Function GetValue_Recipient_TimesPrinted() As Integer
+        ''
+        ''Added 9/10/2019 td
+        ''
+        Return Me.ElementInfo_Text.Recipient.TimesPrinted()
+
+    End Function ''End of "Public Function GetValue_Recipient_TimesPrinted(par_enum As EnumCIBFields) As Integer"
+
+
 End Class
