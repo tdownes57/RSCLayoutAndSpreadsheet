@@ -797,6 +797,44 @@ ExitHandler:
 
     End Sub ''End of ''Private Sub LoadElements_Fields()''
 
+    Public Sub LoadImageWithPortrait(pintDesiredLayoutWidth As Integer,
+                                     pintDesignedLayoutWidth As Integer,
+                                    ByRef par_imageBadgeCard As Image,
+                                     ByVal par_elementBase As IElement_Base,
+                                     ByVal par_elementPic As IElementPic,
+                                     ByRef par_imagePortrait As Image)
+        ''
+        ''Added 9/9/2019 thomas d. 
+        ''
+        Dim imagePortraitResized As Image
+        Dim gr_Badge As Graphics ''= Graphics.FromImage(img)
+        Dim decScalingFactor As Double ''Added 9/4/2019 thomas downes ''9/4 td''Decimal
+        Dim intLeft_Desired As Integer
+        Dim intTop_Desired As Integer
+        Dim intWidth_Desired As Integer
+
+        ProportionsAreSlightlyOff(par_imageBadgeCard, True, "par_imageBadgeCard")
+
+        gr_Badge = Graphics.FromImage(par_imageBadgeCard)
+
+        decScalingFactor = (pintDesiredLayoutWidth / pintDesignedLayoutWidth)
+
+        With par_elementBase
+            intLeft_Desired = CInt(.LeftEdge_Pixels * decScalingFactor)
+            intTop_Desired = CInt(.TopEdge_Pixels * decScalingFactor)
+            intWidth_Desired = CInt(.Width_Pixels * decScalingFactor)
+        End With
+
+        ''9/9/2019 td''gr_Badge.DrawImage(par_imagePortrait, New PointF(intLeft_Desired, intTop_Desired))
+
+        imagePortraitResized = ResizeImage_ToWidth(par_imagePortrait, intWidth_Desired)
+
+        gr_Badge.DrawImage(imagePortraitResized, New PointF(intLeft_Desired, intTop_Desired))
+
+        gr_Badge.Dispose()
+
+    End Sub ''end of "Public Sub LoadImageWithPortrait()"
+
     Public Shared Function ProportionsAreSlightlyOff(par_image As Image, pboolVerbose As Boolean,
                                                      Optional par_strNameOfImage As String = "") As Boolean
         ''

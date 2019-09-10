@@ -1032,10 +1032,21 @@ Public Class FormDesignProtoTwo
                                              listOfElementText_Custom,
                                              listOfTextImages)
 
-        ''Added 9/8/2019 td
-        Const c_bHelpProgrammer As Boolean = False ''Added 9/8/2019 td
+        ''
+        ''Major call, let's show the portrait !!  ---9/9/2019 td  
+        ''
+        objPrintLib.LoadImageWithPortrait(obj_image_clone_resized.Width,
+                                          Me.Layout_Width_Pixels(),
+                                          obj_image_clone_resized,
+                                           CtlGraphicPortrait_Lady.ElementInfo_Base,
+                                           CtlGraphicPortrait_Lady.ElementInfo_Pic,
+                                          CtlGraphicPortrait_Lady.picturePortrait.Image)
 
-        If (c_bHelpProgrammer) Then ''Added 9/8/2019 td
+        ''Added 9/8/2019 td
+        Const c_bListEachElementImage As Boolean = False ''Added 9/8/2019 td
+        Const c_bTestingReview As Boolean = False ''Added 9/8/2019 td
+
+        If (c_bListEachElementImage And c_bTestingReview) Then ''Added 9/8/2019 td
             ''Added 8/26/2019 thomas downes  
             Dim frm_ToShow1 As New FormDisplayImageList1(listOfTextImages)
             frm_ToShow1.Show()
@@ -1045,7 +1056,7 @@ Public Class FormDesignProtoTwo
                                                           ClassFieldCustomized.ListOfFields_Students)
             frm_ToShow2.Show()
 
-        End If ''End of "If (c_bHelpProgrammer) Then"
+        End If ''End of "If (c_bHelpProgrammer And c_bTestingReview) Then"
 
         ''Added 9/6/2019 td 
         ClassLabelToImage.ProportionsAreSlightlyOff(pictureBack.Image, True, "Clone Resized #1")
