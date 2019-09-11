@@ -66,6 +66,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InterfaceBadgeLayout.vb" />
     <Compile Include="InterfaceCIBField.vb" />
     <Compile Include="InterfaceCustomer.vb" />
     <Compile Include="InterfaceElementBase.vb" />

@@ -18,7 +18,14 @@ Public Interface IElement_Base
 
     Property FormControl As Control ''Added 7/19/2019 td
 
-    Property LayoutWidth_Pixels As Integer ''This provides sizing context & scaling factors. 
+    ''9/11/2019 td''Property LayoutWidth_Pixels As Integer ''---CONFUSING----  This is the width of the "canvas"/layout
+    ''   __within which__ the applicable text-label image resides.  Analogous to a child placing a sticker on 
+    '    a school notebook, this is the width of the notebook (not the sticker width!!).  This provides sizing
+    ''   context & scaling factors.   (Unfortunately, there might not be a good name to eliminate the 
+    ''   amiguity--the confusion between an element inside the layout & the layout itself.)
+    ''   -----9/11/20019 
+
+    Property BadgeLayout As BadgeLayoutClass ''Added 9/11/2019 td   
 
     Property TopEdge_Pixels As Integer
     Property LeftEdge_Pixels As Integer

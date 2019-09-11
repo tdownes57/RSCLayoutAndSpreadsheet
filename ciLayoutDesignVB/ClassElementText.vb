@@ -70,7 +70,8 @@ Public Class ClassElementText
 
     Public Property ElementType As String = "Text" Implements IElement_Base.ElementType ''Text, Pic, or Logo
 
-    Public Property LayoutWidth_Pixels As Integer Implements IElement_Base.LayoutWidth_Pixels ''This provides sizing context & scaling factors. 
+    ''9/11/2019 td''Public Property LayoutWidth_Pixels As Integer Implements IElement_Base.LayoutWidth_Pixels ''This provides sizing context & scaling factors. 
+    Public Property BadgeLayout As BadgeLayoutClass Implements IElement_Base.BadgeLayout ''Added 9/11/2019 td  
 
     Public Property TopEdge_Pixels As Integer Implements IElement_Base.TopEdge_Pixels
     Public Property LeftEdge_Pixels As Integer Implements IElement_Base.LeftEdge_Pixels
@@ -102,6 +103,7 @@ Public Class ClassElementText
         ''
         ''Added 7/29/2019 td
         ''
+
 
     End Sub
 

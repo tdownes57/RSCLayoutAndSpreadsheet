@@ -4,10 +4,10 @@ Option Infer Off
 ''
 ''Added 9/8/2019 
 ''
-''  Simple Drawing Selection Shape (Or Rubberband Shape)       
+''Simple Drawing Selection Shape (Or Rubberband Shape)       
 ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
 ''
-''  Modified by Thomas Downes, 9/8/2019 
+''Modified by Thomas Downes, 9/8/2019 
 ''
 
 Public Class ClassRubberbandSelector

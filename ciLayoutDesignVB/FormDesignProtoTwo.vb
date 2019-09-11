@@ -56,6 +56,11 @@ Public Class FormDesignProtoTwo
         Return pictureBack.Width
     End Function ''End of "Public Function Layout_Width_Pixels() As Integer"
 
+    Public Function Layout_Height_Pixels() As Integer Implements ILayoutFunctions.Layout_Height_Pixels
+        ''Added 9/11/2019 Never Forget 
+        Return pictureBack.Height
+    End Function ''End of "Public Function Layout_Height_Pixels() As Integer"
+
     Public Function Layout_Margin_Left_Omit(par_intPixelsLeft As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Left_Omit
         ''Added 9/5/2019 thomas downes
         Return (par_intPixelsLeft - pictureBack.Left)
@@ -441,7 +446,9 @@ Public Class FormDesignProtoTwo
             End If ''ENd of "If (each_field.ElementInfo_Base Is Nothing) Then"
 
             ''Added 9/5/2019 thomas d.
-            each_field.ElementInfo_Base.LayoutWidth_Pixels = Me.Layout_Width_Pixels()
+            ''9/11/2019 td''each_field.ElementInfo_Base.LayoutWidth_Pixels = Me.Layout_Width_Pixels()
+            each_field.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.Layout_Width_Pixels()
+            each_field.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.Layout_Height_Pixels
 
             ''#1 9/4/2019 td''label_control = New CtlGraphicFldLabel(each_field, Me)
             '' #2 9/4/2019 td''label_control = New CtlGraphicFldLabel(each_field, new_element_text, Me)
@@ -556,7 +563,8 @@ Public Class FormDesignProtoTwo
                 Dim new_element_text As New ClassElementText
 
                 ''Added 9/5/2019 thomas d.
-                new_element_text.LayoutWidth_Pixels = Me.Layout_Width_Pixels()
+                ''9/11/2019 td''new_element_text.LayoutWidth_Pixels = Me.Layout_Width_Pixels()
+                new_element_text.BadgeLayout.Width_Pixels = Me.Layout_Width_Pixels()
 
                 each_field.ElementInfo_Base = new_element_text
                 each_field.ElementInfo_Text = new_element_text
@@ -593,7 +601,10 @@ Public Class FormDesignProtoTwo
                 ''
                 ''Added 9/6/2019 thomas downes 
                 ''
-                each_field.ElementInfo_Base.LayoutWidth_Pixels = Me.Layout_Width_Pixels()
+                ''9/11/2019 td''each_field.ElementInfo_Base.LayoutWidth_Pixels = Me.Layout_Width_Pixels()
+                each_field.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.Layout_Width_Pixels()
+                each_field.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.Layout_Height_Pixels()
+
                 label_control = New CtlGraphicFldLabel(each_field, Me)
                 label_control.Width = CInt(pictureBack.Width / 3)
                 With each_field.ElementInfo_Base
@@ -609,7 +620,9 @@ Public Class FormDesignProtoTwo
             Else
 
                 ''Added 9/5/2019 thomas d.
-                each_field.ElementInfo_Base.LayoutWidth_Pixels = Me.Layout_Width_Pixels()
+                ''9/11/2019 td''each_field.ElementInfo_Base.LayoutWidth_Pixels = Me.Layout_Width_Pixels()
+                each_field.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.Layout_Width_Pixels()
+                each_field.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.Layout_Height_Pixels() ''Added 9/11/2019 Never Forget
 
                 label_control = New CtlGraphicFldLabel(each_field, Me)
 
@@ -717,7 +730,9 @@ Public Class FormDesignProtoTwo
         For Each each_field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students
 
             ''Added 9/5/2019 thomas d.
-            each_field_standard.ElementInfo.LayoutWidth_Pixels = Me.Layout_Width_Pixels
+            ''9/11/2019 td''each_field_standard.ElementInfo.LayoutWidth_Pixels = Me.Layout_Width_Pixels
+            each_field_standard.ElementInfo.BadgeLayout.Width_Pixels = Me.Layout_Width_Pixels
+            each_field_standard.ElementInfo.BadgeLayout.Height_Pixels = Me.Layout_Height_Pixels
 
             Dim new_label_control_std As CtlGraphicFldLabel
 
@@ -847,7 +862,9 @@ Public Class FormDesignProtoTwo
             ''7/28/2019 td''ControlMoverOrResizer_TD.Init(new_label_control_cust, 20) ''Added 7/28/2019 thomas downes
 
             ''Added 9/5/2019 thomas d.
-            each_field_custom.ElementInfo.LayoutWidth_Pixels = Me.Layout_Width_Pixels
+            ''9/11/2019 td''each_field_custom.ElementInfo.LayoutWidth_Pixels = Me.Layout_Width_Pixels
+            each_field_custom.ElementInfo.BadgeLayout.Width_Pixels = Me.Layout_Width_Pixels
+            each_field_custom.ElementInfo.BadgeLayout.Height_Pixels = Me.Layout_Width_Pixels
 
             Dim new_label_control_cust As CtlGraphicFldLabel
 
