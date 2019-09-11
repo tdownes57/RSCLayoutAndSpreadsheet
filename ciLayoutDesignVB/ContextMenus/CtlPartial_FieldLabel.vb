@@ -409,6 +409,7 @@ Partial Public Class CtlGraphicFldLabel
             .SelectAll() ''Added 8/16/2019 td
 
             ''Added 9/10/2019 td 
+            ''  Put the focus on the textbox. 
             .Select() ''Added 9/10/2019 td 
 
         End With ''End of "With textTypeExample"
