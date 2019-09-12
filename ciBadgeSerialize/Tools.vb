@@ -3,6 +3,7 @@ Option Strict On ''Added 9/9/2019 td
 ''
 ''Added 9/9/2019 td 
 ''
+Imports System.IO ''Added 9/12/2019 td 
 
 Public Class Tools
     ''
@@ -21,6 +22,8 @@ Public Class Tools
 
     Public PathToXML As String = "" ''9/1/2019 td''  "C:\Users\tdown\Documents\CIBadgeWeb\SerializeFile_Xml.txt"
     Public PathToBinary As String = "" ''9/1/2019 td''  "C:\Users\tdown\Documents\CIBadgeWeb\SerializeFile_Bin.ttxt"
+    Public TypeOfObject As Type ''Added 9/1/2019 td 
+    Public ObjectToSerialize As Object ''Added 9/12/2019 td 
 
     ''
     ''serializing the Object
@@ -48,18 +51,26 @@ Public Class Tools
         ''8/31 td''Dim fileStream_Xml As Stream = New FileStream("C:\Users\tdown\Documents\CIBadgeWeb\SerializeFile_Xml.xml",
         ''8/31 td''   FileMode.Create, FileAccess.Write, FileShare.None)
 
-        Dim fileStream_Xml As Stream = New FileStream(mod_sPathToXML,
+        ''9/12 td''Dim fileStream_Xml As Stream = New FileStream(mod_sPathToXML,
+        ''                FileMode.Create, FileAccess.Write, FileShare.None)
+        Dim fileStream_Xml As Stream = New FileStream(Me.PathToXML,
                      FileMode.Create, FileAccess.Write, FileShare.None)
 
         ''Formatter.Serialize(fileStream_Xml, srObj)
-        Dim writer As New System.Xml.Serialization.XmlSerializer(GetType(ClassParent))
+        ''9/12/2019 td''Dim writer As New System.Xml.Serialization.XmlSerializer(GetType(ClassParent))
+        Dim writer As New System.Xml.Serialization.XmlSerializer(Me.TypeOfObject)
+
         ''Dim file As New System.IO.StreamWriter("c:\temp\SerializationOverview.xml")
 
-        writer.Serialize(fileStream_Xml, mod_objParent)
+        ''9/12/2019 td''writer.Serialize(fileStream_Xml, mod_objParent)
+        writer.Serialize(fileStream_Xml, Me.ObjectToSerialize)
+
         fileStream_Xml.Close()
 
         MsgBox("Object Serialized !!", vbInformation, "Serialization")
-        System.Diagnostics.Process.Start(mod_sPathToXML)
+
+        ''9/12/2019 td''System.Diagnostics.Process.Start(mod_sPathToXML)
+        System.Diagnostics.Process.Start(Me.PathToXML)
 
     End Sub
 
