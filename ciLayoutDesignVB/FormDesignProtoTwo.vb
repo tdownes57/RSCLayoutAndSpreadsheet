@@ -1597,12 +1597,24 @@ Public Class FormDesignProtoTwo
         ''
         ''Added 9/9/2019 thomas downes 
         ''
-        Dim objSerializationClass As ciBadgeSerialize.Tools
+        Dim objSerializationClass As New ciBadgeSerialize.Tools
+
+        With objSerializationClass
+
+            ''.TypeOfObject = (TypeOf List(Of ICIBFieldStandardOrCustom))
 
 
 
 
+        End With
 
+    End Sub
+
+    Private Sub LinkCloseSidebar_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkCloseSidebar.LinkClicked
+
+        ''Added 9/11/2019 Never forget.
+        ''
+        flowSidebar.Visible = False
 
     End Sub
 End Class
