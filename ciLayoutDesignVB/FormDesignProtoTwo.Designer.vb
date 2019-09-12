@@ -522,7 +522,7 @@ Partial Class FormDesignProtoTwo
         Me.flowSidebar.Dock = System.Windows.Forms.DockStyle.Left
         Me.flowSidebar.Location = New System.Drawing.Point(0, 24)
         Me.flowSidebar.Name = "flowSidebar"
-        Me.flowSidebar.Size = New System.Drawing.Size(166, 567)
+        Me.flowSidebar.Size = New System.Drawing.Size(22, 567)
         Me.flowSidebar.TabIndex = 54
         '
         'LinkCloseSidebar
@@ -530,7 +530,7 @@ Partial Class FormDesignProtoTwo
         Me.LinkCloseSidebar.AutoSize = True
         Me.LinkCloseSidebar.Location = New System.Drawing.Point(3, 0)
         Me.LinkCloseSidebar.Name = "LinkCloseSidebar"
-        Me.LinkCloseSidebar.Size = New System.Drawing.Size(94, 17)
+        Me.LinkCloseSidebar.Size = New System.Drawing.Size(17, 204)
         Me.LinkCloseSidebar.TabIndex = 0
         Me.LinkCloseSidebar.TabStop = True
         Me.LinkCloseSidebar.Text = "Close sidebar"
