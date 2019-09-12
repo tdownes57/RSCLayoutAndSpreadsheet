@@ -76,6 +76,8 @@ Partial Class FormDesignProtoTwo
         Me.lblFieldsNotCurrentlyShownHdr = New System.Windows.Forms.Label()
         Me.CtlGraphicPortrait_Lady = New ciLayoutDesignVB.CtlGraphicPortrait()
         Me.chkHighResolution = New System.Windows.Forms.CheckBox()
+        Me.flowSidebar = New System.Windows.Forms.FlowLayoutPanel()
+        Me.LinkCloseSidebar = New System.Windows.Forms.LinkLabel()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         CType(Me.graphicAdjuster, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -83,6 +85,7 @@ Partial Class FormDesignProtoTwo
         CType(Me.pictureBack, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
         Me.flowFieldsNotListed.SuspendLayout()
+        Me.flowSidebar.SuspendLayout()
         Me.SuspendLayout()
         '
         'LinkShowWebControls
@@ -96,6 +99,7 @@ Partial Class FormDesignProtoTwo
         Me.LinkShowWebControls.TabIndex = 30
         Me.LinkShowWebControls.TabStop = True
         Me.LinkShowWebControls.Text = "Show adjustment controls below"
+        Me.LinkShowWebControls.Visible = False
         '
         'LinkLabel1
         '
@@ -108,13 +112,14 @@ Partial Class FormDesignProtoTwo
         Me.LinkLabel1.TabIndex = 31
         Me.LinkLabel1.TabStop = True
         Me.LinkLabel1.Text = "Open adjustment-controls dialog"
+        Me.LinkLabel1.Visible = False
         '
         'chkIncludeExampleValues
         '
         Me.chkIncludeExampleValues.AutoSize = True
         Me.chkIncludeExampleValues.Checked = True
         Me.chkIncludeExampleValues.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkIncludeExampleValues.Location = New System.Drawing.Point(93, 552)
+        Me.chkIncludeExampleValues.Location = New System.Drawing.Point(737, 464)
         Me.chkIncludeExampleValues.Margin = New System.Windows.Forms.Padding(2)
         Me.chkIncludeExampleValues.Name = "chkIncludeExampleValues"
         Me.chkIncludeExampleValues.Size = New System.Drawing.Size(177, 21)
@@ -128,7 +133,7 @@ Partial Class FormDesignProtoTwo
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RightClickMenuParent, Me.ToolStripMenuItem1, Me.ConfigurationOfFieldsEtcToolStripMenuItem, Me.DesignLayoutToolStripMenuItem, Me.BackgroundImagesToolStripMenuItem, Me.DemoModeVideoToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1440, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1245, 24)
         Me.MenuStrip1.TabIndex = 39
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -210,6 +215,7 @@ Partial Class FormDesignProtoTwo
         Me.OpenControlPanelToolStripMenuItem.Name = "OpenControlPanelToolStripMenuItem"
         Me.OpenControlPanelToolStripMenuItem.Size = New System.Drawing.Size(229, 22)
         Me.OpenControlPanelToolStripMenuItem.Text = "Open Control Panel"
+        Me.OpenControlPanelToolStripMenuItem.Visible = False
         '
         'UploadBackgroundToolStripMenuItem
         '
@@ -228,18 +234,21 @@ Partial Class FormDesignProtoTwo
         Me.AddGraphicsElementToolStripMenuItem.Name = "AddGraphicsElementToolStripMenuItem"
         Me.AddGraphicsElementToolStripMenuItem.Size = New System.Drawing.Size(229, 22)
         Me.AddGraphicsElementToolStripMenuItem.Text = "Add Graphics Element"
+        Me.AddGraphicsElementToolStripMenuItem.Visible = False
         '
         'AddSubsectionToolStripMenuItem
         '
         Me.AddSubsectionToolStripMenuItem.Name = "AddSubsectionToolStripMenuItem"
         Me.AddSubsectionToolStripMenuItem.Size = New System.Drawing.Size(229, 22)
         Me.AddSubsectionToolStripMenuItem.Text = "Add Subsection"
+        Me.AddSubsectionToolStripMenuItem.Visible = False
         '
         'ChangeOrientationToolStripMenuItem
         '
         Me.ChangeOrientationToolStripMenuItem.Name = "ChangeOrientationToolStripMenuItem"
         Me.ChangeOrientationToolStripMenuItem.Size = New System.Drawing.Size(229, 22)
         Me.ChangeOrientationToolStripMenuItem.Text = "Change Orientation"
+        Me.ChangeOrientationToolStripMenuItem.Visible = False
         '
         'DoubleSidedToolStripMenuItem
         '
@@ -247,17 +256,18 @@ Partial Class FormDesignProtoTwo
         Me.DoubleSidedToolStripMenuItem.Name = "DoubleSidedToolStripMenuItem"
         Me.DoubleSidedToolStripMenuItem.Size = New System.Drawing.Size(229, 22)
         Me.DoubleSidedToolStripMenuItem.Text = "Double-Sided or Single-Sided"
+        Me.DoubleSidedToolStripMenuItem.Visible = False
         '
         'SingleSidedToolStripMenuItem
         '
         Me.SingleSidedToolStripMenuItem.Name = "SingleSidedToolStripMenuItem"
-        Me.SingleSidedToolStripMenuItem.Size = New System.Drawing.Size(146, 22)
+        Me.SingleSidedToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.SingleSidedToolStripMenuItem.Text = "Single-Sided"
         '
         'DoubleSidedToolStripMenuItem1
         '
         Me.DoubleSidedToolStripMenuItem1.Name = "DoubleSidedToolStripMenuItem1"
-        Me.DoubleSidedToolStripMenuItem1.Size = New System.Drawing.Size(146, 22)
+        Me.DoubleSidedToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
         Me.DoubleSidedToolStripMenuItem1.Text = "Double-Sided"
         '
         'ModeV9ToolStripMenuItem
@@ -265,6 +275,7 @@ Partial Class FormDesignProtoTwo
         Me.ModeV9ToolStripMenuItem.Name = "ModeV9ToolStripMenuItem"
         Me.ModeV9ToolStripMenuItem.Size = New System.Drawing.Size(229, 22)
         Me.ModeV9ToolStripMenuItem.Text = "Mode of Data Entry v9"
+        Me.ModeV9ToolStripMenuItem.Visible = False
         '
         'BackgroundImagesToolStripMenuItem
         '
@@ -276,13 +287,13 @@ Partial Class FormDesignProtoTwo
         'UploadNewToolStripMenuItem
         '
         Me.UploadNewToolStripMenuItem.Name = "UploadNewToolStripMenuItem"
-        Me.UploadNewToolStripMenuItem.Size = New System.Drawing.Size(189, 22)
+        Me.UploadNewToolStripMenuItem.Size = New System.Drawing.Size(190, 22)
         Me.UploadNewToolStripMenuItem.Text = "Upload new...."
         '
         'SelectFromExistingToolStripMenuItem
         '
         Me.SelectFromExistingToolStripMenuItem.Name = "SelectFromExistingToolStripMenuItem"
-        Me.SelectFromExistingToolStripMenuItem.Size = New System.Drawing.Size(189, 22)
+        Me.SelectFromExistingToolStripMenuItem.Size = New System.Drawing.Size(190, 22)
         Me.SelectFromExistingToolStripMenuItem.Text = "Select from existing...."
         '
         'DemoModeVideoToolStripMenuItem
@@ -291,23 +302,25 @@ Partial Class FormDesignProtoTwo
         Me.DemoModeVideoToolStripMenuItem.Name = "DemoModeVideoToolStripMenuItem"
         Me.DemoModeVideoToolStripMenuItem.Size = New System.Drawing.Size(126, 20)
         Me.DemoModeVideoToolStripMenuItem.Text = "Demo Mode (Video)"
+        Me.DemoModeVideoToolStripMenuItem.Visible = False
         '
         'DemoModeActiveToolStripMenuItem
         '
         Me.DemoModeActiveToolStripMenuItem.Name = "DemoModeActiveToolStripMenuItem"
-        Me.DemoModeActiveToolStripMenuItem.Size = New System.Drawing.Size(176, 22)
+        Me.DemoModeActiveToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.DemoModeActiveToolStripMenuItem.Text = "Demo Mode Active"
         '
         'CheckBox1
         '
         Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(89, 528)
+        Me.CheckBox1.Location = New System.Drawing.Point(733, 440)
         Me.CheckBox1.Margin = New System.Windows.Forms.Padding(2)
         Me.CheckBox1.Name = "CheckBox1"
         Me.CheckBox1.Size = New System.Drawing.Size(179, 21)
         Me.CheckBox1.TabIndex = 33
         Me.CheckBox1.Text = "Include Additional Fields"
         Me.CheckBox1.UseVisualStyleBackColor = True
+        Me.CheckBox1.Visible = False
         '
         'LinkLabelSave1
         '
@@ -366,19 +379,18 @@ Partial Class FormDesignProtoTwo
         '
         Me.graphicAdjuster.BackColor = System.Drawing.Color.White
         Me.graphicAdjuster.Image = Global.ciLayoutDesignVB.My.Resources.Resources.AdjustWHColor_V103
-        Me.graphicAdjuster.Location = New System.Drawing.Point(842, 446)
+        Me.graphicAdjuster.Location = New System.Drawing.Point(829, 515)
         Me.graphicAdjuster.Name = "graphicAdjuster"
         Me.graphicAdjuster.Size = New System.Drawing.Size(433, 230)
         Me.graphicAdjuster.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.graphicAdjuster.TabIndex = 45
         Me.graphicAdjuster.TabStop = False
-        Me.graphicAdjuster.Visible = False
         '
         'picturePreview
         '
         Me.picturePreview.BackColor = System.Drawing.Color.White
         Me.picturePreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.picturePreview.Location = New System.Drawing.Point(876, 62)
+        Me.picturePreview.Location = New System.Drawing.Point(737, 63)
         Me.picturePreview.Name = "picturePreview"
         Me.picturePreview.Size = New System.Drawing.Size(467, 276)
         Me.picturePreview.TabIndex = 44
@@ -399,7 +411,7 @@ Partial Class FormDesignProtoTwo
         'LinkRefreshPreview
         '
         Me.LinkRefreshPreview.AutoSize = True
-        Me.LinkRefreshPreview.Location = New System.Drawing.Point(1197, 33)
+        Me.LinkRefreshPreview.Location = New System.Drawing.Point(1093, 38)
         Me.LinkRefreshPreview.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LinkRefreshPreview.Name = "LinkRefreshPreview"
         Me.LinkRefreshPreview.Size = New System.Drawing.Size(111, 17)
@@ -413,9 +425,10 @@ Partial Class FormDesignProtoTwo
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StatusLabel1, Me.StatusLabel2})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 683)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(1440, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(1245, 22)
         Me.StatusStrip1.TabIndex = 47
         Me.StatusStrip1.Text = "StatusStrip1"
+        Me.StatusStrip1.Visible = False
         '
         'StatusLabel1
         '
@@ -459,15 +472,16 @@ Partial Class FormDesignProtoTwo
         Me.dropdownHowToLoadFlds.Name = "dropdownHowToLoadFlds"
         Me.dropdownHowToLoadFlds.Size = New System.Drawing.Size(229, 25)
         Me.dropdownHowToLoadFlds.TabIndex = 51
+        Me.dropdownHowToLoadFlds.Visible = False
         '
         'flowFieldsNotListed
         '
         Me.flowFieldsNotListed.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.flowFieldsNotListed.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.flowFieldsNotListed.Controls.Add(Me.lblFieldsNotCurrentlyShownHdr)
-        Me.flowFieldsNotListed.Location = New System.Drawing.Point(26, 583)
+        Me.flowFieldsNotListed.Location = New System.Drawing.Point(202, 494)
         Me.flowFieldsNotListed.Name = "flowFieldsNotListed"
-        Me.flowFieldsNotListed.Size = New System.Drawing.Size(507, 93)
+        Me.flowFieldsNotListed.Size = New System.Drawing.Size(337, 83)
         Me.flowFieldsNotListed.TabIndex = 52
         '
         'lblFieldsNotCurrentlyShownHdr
@@ -482,7 +496,7 @@ Partial Class FormDesignProtoTwo
         '
         'CtlGraphicPortrait_Lady
         '
-        Me.CtlGraphicPortrait_Lady.Location = New System.Drawing.Point(719, 62)
+        Me.CtlGraphicPortrait_Lady.Location = New System.Drawing.Point(547, 73)
         Me.CtlGraphicPortrait_Lady.Margin = New System.Windows.Forms.Padding(4)
         Me.CtlGraphicPortrait_Lady.Name = "CtlGraphicPortrait_Lady"
         Me.CtlGraphicPortrait_Lady.Size = New System.Drawing.Size(150, 182)
@@ -492,19 +506,41 @@ Partial Class FormDesignProtoTwo
         '
         Me.chkHighResolution.AutoSize = True
         Me.chkHighResolution.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chkHighResolution.Location = New System.Drawing.Point(936, 39)
+        Me.chkHighResolution.Location = New System.Drawing.Point(917, 31)
         Me.chkHighResolution.Margin = New System.Windows.Forms.Padding(2)
         Me.chkHighResolution.Name = "chkHighResolution"
         Me.chkHighResolution.Size = New System.Drawing.Size(129, 19)
         Me.chkHighResolution.TabIndex = 53
         Me.chkHighResolution.Text = "Use High-Rez Tips"
         Me.chkHighResolution.UseVisualStyleBackColor = True
+        Me.chkHighResolution.Visible = False
+        '
+        'flowSidebar
+        '
+        Me.flowSidebar.BackColor = System.Drawing.SystemColors.Info
+        Me.flowSidebar.Controls.Add(Me.LinkCloseSidebar)
+        Me.flowSidebar.Dock = System.Windows.Forms.DockStyle.Left
+        Me.flowSidebar.Location = New System.Drawing.Point(0, 24)
+        Me.flowSidebar.Name = "flowSidebar"
+        Me.flowSidebar.Size = New System.Drawing.Size(166, 567)
+        Me.flowSidebar.TabIndex = 54
+        '
+        'LinkCloseSidebar
+        '
+        Me.LinkCloseSidebar.AutoSize = True
+        Me.LinkCloseSidebar.Location = New System.Drawing.Point(3, 0)
+        Me.LinkCloseSidebar.Name = "LinkCloseSidebar"
+        Me.LinkCloseSidebar.Size = New System.Drawing.Size(94, 17)
+        Me.LinkCloseSidebar.TabIndex = 0
+        Me.LinkCloseSidebar.TabStop = True
+        Me.LinkCloseSidebar.Text = "Close sidebar"
         '
         'FormDesignProtoTwo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1440, 705)
+        Me.ClientSize = New System.Drawing.Size(1245, 591)
+        Me.Controls.Add(Me.flowSidebar)
         Me.Controls.Add(Me.chkHighResolution)
         Me.Controls.Add(Me.flowFieldsNotListed)
         Me.Controls.Add(Me.dropdownHowToLoadFlds)
@@ -537,6 +573,8 @@ Partial Class FormDesignProtoTwo
         Me.StatusStrip1.PerformLayout()
         Me.flowFieldsNotListed.ResumeLayout(False)
         Me.flowFieldsNotListed.PerformLayout()
+        Me.flowSidebar.ResumeLayout(False)
+        Me.flowSidebar.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -594,4 +632,6 @@ Partial Class FormDesignProtoTwo
     Friend WithEvents lblFieldsNotCurrentlyShownHdr As Label
     Friend WithEvents chkHighResolution As CheckBox
     Friend WithEvents ModeV9ToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents flowSidebar As FlowLayoutPanel
+    Friend WithEvents LinkCloseSidebar As LinkLabel
 End Class
