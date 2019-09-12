@@ -323,12 +323,16 @@ Public Class ClassFieldStandard
             .IsDisplayedForEdits = False
             .IsDisplayedOnBadge = False
             .IsLocked = False
+            .ExampleValue = "1234567890" ''Added 9/12/2019 td 
 
             ''Added 9/3/2019 td
             .ElementInfo = New ClassElementText()
 
             ''Added 8/28/2019 thomas downes
-            .ElementInfo.Font_DrawingClass = modFonts.BarCodeFont_ByDefault(12)
+            .ElementInfo.FontSize_Pixels = 16 ''Added 9/12/2019 td  
+            ''9/12/2019 td''.ElementInfo.Font_DrawingClass = modFonts.BarCodeFont_ByDefault(16)
+            .ElementInfo.Font_DrawingClass = modFonts.BarCodeFont_ByDefault(.ElementInfo.FontSize_Pixels)
+
         End With
         ListOfFields_Students.Add(new_object5)
 

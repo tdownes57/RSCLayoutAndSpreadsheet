@@ -107,7 +107,7 @@ Public Class ClassElementText
         ''
         ''Added 7/29/2019 td
         ''
-
+        Me.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass ''Added 9/12/2019
 
     End Sub
 

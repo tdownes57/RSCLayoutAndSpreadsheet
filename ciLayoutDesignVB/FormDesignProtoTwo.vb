@@ -436,6 +436,10 @@ Public Class FormDesignProtoTwo
                     ''9/12/2019 td''.FontSize_IsLocked = True 
                     .FontSize_ScaleToElementRatio = (.FontSize_Pixels / .Height_Pixels)
                     .FontSize_ScaleToElementYesNo = True
+
+                    ''Added 9/12/2019 td
+                    .BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass(pictureBack.Width, pictureBack.Height)
+
                 End With 'End of "With new_element_text"
 
                 ''''9/6/2019 td''new_element_text.TopEdge_Pixels = (30 + (30 * intCountControlsAdded))

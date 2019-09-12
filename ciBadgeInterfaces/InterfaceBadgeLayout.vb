@@ -46,6 +46,20 @@ Public Class BadgeLayoutClass
 
     Public Property Height_Pixels As Integer Implements IBadgeLayout.Height_Pixels
 
+    Public Sub New()
+        ''
+        ''Added 9/1/2019 td  
+        ''
+    End Sub ''End of "Public Sub New()"
+
+    Public Sub New(par_pixelsWidth As Integer, par_pixelsHeight As Integer)
+        ''
+        ''Added 9/1/2019 td  
+        ''
+        Me.Width_Pixels = par_pixelsWidth
+        Me.Height_Pixels = par_pixelsHeight
+
+    End Sub ''End of "Public Sub New(par_pixelsWidth As Integer, par_pixelsHeight As Integer)"
 
     Public Shared Function LongSideToShortRatio() As Double
         ''

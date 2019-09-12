@@ -17,8 +17,9 @@ Public Class DialogTextOffset
     Public FontOffset_X As Integer
     Public FontOffset_Y As Integer
     Public FontSize As Integer
+    Public FontSize_ScaleToElement As Boolean ''Added 9/12/2019 td
     Public Font_DrawingClass As Font ''Added 8/17/2019 td 
-    Public TextAlignment As System.Windows.Forms.HorizontalAlignment ''Added 8/18/2019 td  
+    Public TextAlignment As System.Windows.Forms.HorizontalAlignment ''Added 8/18/2019 td 
 
     ''8/17/2019 td''Public ObjElementText As ClassElementText
     ''8/29/2019 td''Public ElementInfo As ciBadgeInterfaces.IElementText ''Added 8/16/2019 td
@@ -241,7 +242,7 @@ Public Class DialogTextOffset
 
     End Sub
 
-    Private Sub ButtonLeft_Click(sender As Object, e As EventArgs) Handles ButtonLeft.Click
+    Private Sub ButtonLeft_Click(sender As Object, e As EventArgs)
 
         ''Added 8/18/2019 thomas downes
         ''
