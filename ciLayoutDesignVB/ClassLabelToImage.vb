@@ -9,14 +9,144 @@ Imports System.Drawing.Text ''Added 7/30/2019
 Imports System.Drawing ''Added 7/30/2019 td 
 Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d. 
 
+Public Enum EnumImageOrControl
+    Undetermined
+    Image
+    Contl
+End Enum
+
 Public Class ClassLabelToImage
     ''
     ''Added 7/17/2019
     ''
+    Public Shared UseHighResolutionTips As Boolean = False ''Added 9/8/2019 td
+
+    Public Shared Function LongSideToShortRatio() As Double
+        ''
+        ''Added 8/26/2019 thomas downes
+        ''
+        ''The website 
+        ''   https://tinyurl.com/yyqyosz3    
+        ''    (  https://www.identicard.com/store/id-card-and-credentials/standard-id-cards/pvc-and-composite-id-cards-for-custom-id-badges ) 
+        ''
+        ''says
+        ''
+        ''    We offer PVC cards in several different sizes and thickness levels, but the most common PVC ID card size
+        ''       is CR80/credit card size (2.13" x 3.38").
+        ''
+        ''My measurements of the PVC card on my desk is:
+        ''
+        ''       2 1/8 inches by 3 3/8 inches, 
+        ''
+        ''      or  17/8 inches by  27/8 inches
+        ''
+        '' and so leads me to the ratio of 27 to 17.  
+        ''
+        ''   ------8/26/2019 td 
+        ''
+        Return (27 / 17) ''Approx. 1.588, or  3.38 / 2.13 
+
+    End Function ''eDN OF "Public Shared Function LongSideToShortRatio() As Double"
+
+    Public Shared Function RatioIsLikelyBad(par_doubleW_div_H As Double) As Boolean
+        ''
+        ''Added 9/4/2019 thomas downes  
+        ''
+        Dim doubleExpectedRatio As Double ''Added 9/6/2019 td  
+        Dim doubleDifference As Double ''Added 9/8/2019 td
+        Dim doubleDifference_x100 As Double ''Added 9/8/2019 td
+
+        ''---9/6/2019 td ''RatioIsLikelyBad = (1 > (100 * Math.Abs(par_doubleW_div_H - LongSideToShortRatio())))
+
+        ''Added 9/6/2019 td  
+        doubleExpectedRatio = LongSideToShortRatio()
+
+        ''9/6/2019 td''RatioIsLikelyBad = (1 > (100 * Math.Abs(par_doubleW_div_H - doubleExpectedRatio)))
+        ''9/8/2019 td''RatioIsLikelyBad = (1 < (100 * Math.Abs(par_doubleW_div_H - doubleExpectedRatio)))
+
+        doubleDifference = Math.Abs(par_doubleW_div_H - doubleExpectedRatio)
+        doubleDifference_x100 = (100 * doubleDifference)
+
+        Dim boolDiffersMoreThanPoint99 As Boolean
+        Dim boolReturnValue As Boolean
+
+        boolDiffersMoreThanPoint99 = (0.99 < doubleDifference_x100)
+        boolReturnValue = boolDiffersMoreThanPoint99
+        Return boolReturnValue
+
+    End Function ''End of "Public Shared Function RatioIsLikelyBad(par_doubleW_div_H As Double) As Boolean"
+
+    Public Shared Function ProportionsAreSlightlyOff(par_control As Control, pboolVerbose As Boolean) As Boolean
+        ''
+        ''Added 9/5/2019 thomas downes  
+        ''
+        Dim doubleW_div_H As Double
+
+        doubleW_div_H = (par_control.Width / par_control.Height)
+
+        ''9/6 td''Return ProportionsAreSlightlyOff(doubleW_div_H, pboolVerbose, par_control.Name)
+        Return ProportionsAreSlightlyOff(doubleW_div_H, pboolVerbose, EnumImageOrControl.Contl, par_control.Name)
+
+    End Function ''End of "Public Shared Function RatioIsLikelyBad(par_doubleW_div_H As Double) As Boolean"
+
+    Public Shared Function ProportionsAreSlightlyOff(par_image As Image, pboolVerbose As Boolean,
+                                                     Optional par_strNameOfImage As String = "") As Boolean
+        ''
+        ''Added 9/5/2019 thomas downes  
+        ''
+        Dim doubleW_div_H As Double
+
+        doubleW_div_H = (par_image.Width / par_image.Height)
+
+        ''9/6 td''Return ProportionsAreSlightlyOff(doubleW_div_H, pboolVerbose, par_strNameOfImage)
+        Return ProportionsAreSlightlyOff(doubleW_div_H, pboolVerbose, EnumImageOrControl.Image, par_strNameOfImage)
+
+    End Function ''End of "Public Shared Function RatioIsLikelyBad(par_doubleW_div_H As Double) As Boolean"
+
+    Public Shared Function ProportionsAreSlightlyOff(par_doubleW_div_H As Double, pboolVerbose As Boolean,
+                                                     Optional par_enum As EnumImageOrControl = EnumImageOrControl.Undetermined,
+                                                     Optional par_strImageOrControl As String = "") As Boolean
+        ''
+        ''Added 9/5/2019 thomas downes  
+        ''
+        Dim strRatioCurrent As String ''Double
+        Dim strRatioDesired As String ''Double
+        ''Dim doubleW_div_H As Double
+        Dim boolRatioIsBad As Boolean
+        Dim strObjectType As String = ""
+
+        boolRatioIsBad = RatioIsLikelyBad(par_doubleW_div_H)
+
+        Select Case par_enum
+            Case EnumImageOrControl.Image : strObjectType = "(image)"
+            Case EnumImageOrControl.Contl : strObjectType = "(control)"
+        End Select
+
+        If (pboolVerbose And boolRatioIsBad) Then
+            ''Added 9/6/2019 Thomasd.
+            strRatioDesired = LongSideToShortRatio().ToString("0.00")
+            strRatioCurrent = par_doubleW_div_H.ToString("0.00")
+            MessageBox.Show($"Uh-oh, the proportions of {strObjectType} [{par_strImageOrControl}] are {strRatioCurrent} instead of {strRatioDesired}.", "",
+                                               MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        End If ''End of "If (pboolVerbose) Then"
+
+        Return boolRatioIsBad
+
+    End Function ''End of "Public Shared Function RatioIsLikelyBad(par_doubleW_div_H As Double) As Boolean"
+
+    Public Shared Sub Proportions_FixTheWidth(par_control As Control)
+        ''
+        ''Added 9/5/2019 thomas downes  
+        ''
+        par_control.Width = CInt(par_control.Height * LongSideToShortRatio())
+
+    End Sub ''End of "Public Shared Sub Proportions_CorrectWidth(par_control As Control)"
+
     Public Function TextImage(pintDesiredLayoutWidth As Integer,
                               par_elementInfo_Text As IElement_Text,
                               par_elementInfo_Base As IElement_Base,
                               ByRef pref_rotated As Boolean,
+                              ByVal par_bIsDesignStage As Boolean,
                               Optional par_pictureBox As PictureBox = Nothing,
                               Optional par_graphicalCtl As CtlGraphicFldLabel = Nothing) As Image
         ''
@@ -61,7 +191,9 @@ Public Class ClassLabelToImage
         boo_LikelyRatioIsMistaken = ciLayoutPrintLib.LayoutPrint.RatioIsLikelyBad(doubleW_div_H)
 
         ''8/24 td''doubleScaling = (pintFinalLayoutWidth / par_element.LayoutWidth_Pixels)
-        doubleScaling = (pintDesiredLayoutWidth / par_elementInfo_Base.LayoutWidth_Pixels)
+        ''9/5/2019 td''doubleScaling = (pintDesiredLayoutWidth / par_elementInfo_Base.Width_Pixels)
+        ''9/11/2019 td''doubleScaling = (pintDesiredLayoutWidth / par_elementInfo_Base.LayoutWidth_Pixels)
+        doubleScaling = (pintDesiredLayoutWidth / par_elementInfo_Base.BadgeLayout.Width_Pixels)
 
         ''Added 8/15/2019 td
         intNewElementWidth = CInt(doubleScaling * par_elementInfo_Base.Width_Pixels)
@@ -79,14 +211,27 @@ Public Class ClassLabelToImage
 
         ''Added 8/15/2019 td
         ''#1 9/4/2019 td''par_image = New Bitmap(intNewElementWidth, intNewElementHeight)
-        '' #2 9/4/2019 td''par_image = New Bitmap(intNewElementWidth, intNewElementWidth, Imaging.PixelFormat.Format32bppPArgb)
-        local_image = New Bitmap(intNewElementWidth, intNewElementHeight, Imaging.PixelFormat.Format32bppPArgb)
+        '' #2 9/4/20 19 td''par_image = New Bitmap(intNewElementWidth, intNewElementWidth, Imaging.PixelFormat.Format32bppPArgb)
+        ''  #3 9/4/2019 td''local_image = New Bitmap(intNewElementWidth, intNewElementWidth, Imaging.PixelFormat.Format32bppPArgb)
 
-        ''Set the resolution to 300 DPI
+        ''
         ''  https://stackoverflow.com/questions/2478502/when-creating-an-bitmap-image-from-scratch-in-vb-net-the-quality-stinks
         ''
-        ''9/4/2019 td''par_image.SetResolution(300, 300)
-        local_image.SetResolution(300, 300)
+        If (UseHighResolutionTips) Then
+
+            local_image = New Bitmap(intNewElementWidth, intNewElementHeight,
+                                     Imaging.PixelFormat.Format32bppPArgb)
+
+            ''Set the resolution to 300 DPI
+            ''  https://stackoverflow.com/questions/2478502/when-creating-an-bitmap-image-from-scratch-in-vb-net-the-quality-stinks
+            ''
+            ''9/4/2019 td''par_image.SetResolution(300, 300)
+            local_image.SetResolution(300, 300)
+
+        Else
+            local_image = New Bitmap(intNewElementWidth, intNewElementHeight)
+
+        End If ''End of "If (UseHighResolutionTips) Then ... Else ..."
 
         ''9/4/2019 td''End If ''End of "If (par_image Is Nothing) Then"
 
@@ -153,18 +298,22 @@ Public Class ClassLabelToImage
         ''
         ''  https://stackoverflow.com/questions/5183856/converting-from-a-color-to-a-brush
         ''
-        If (par_elementInfo_Base.Back_Transparent) Then
+        Dim boolSuppressBackColor As Boolean ''Added 9/8/2019
+        boolSuppressBackColor = (par_elementInfo_Base.Back_Transparent)
+
+        If (boolSuppressBackColor) Then
             ''
-            ''Don't apply any background color. ----9/4/2019 thomas downes
+            ''The Transparent flag is True, so don't apply
+            ''  any background color. ----9/4/2019 thomas downes
             ''
         Else
 
             Using br_brush = New SolidBrush(par_elementInfo_Base.Back_Color)
                 ''Major call.  
-                ''----9/4 td---gr.FillRectangle(br_brush,
+                ''----#1 9/4 td---gr.FillRectangle(br_brush,
                 ''           New Rectangle(0, 0, par_elementInfo_Base.Width_Pixels, par_elementInfo_Base.Height_Pixels))
-                gr_element.FillRectangle(br_brush,
-                             New Rectangle(0, 0, intNewElementWidth, intNewElementHeight))
+                ''---- #2 9/4 td---gr_element.FillRectangle(br_brush,
+                ''             New Rectangle(0, 0, intNewElementWidth, intNewElementHeight))
             End Using
 
             ''
@@ -172,22 +321,44 @@ Public Class ClassLabelToImage
             ''
             gr_element.Clear(par_elementInfo_Base.Back_Color) ''Added 9/4/2019 td 
 
-        End If
+        End If ''End of "If (boolSuppressBackColor) Then ... Else ...."
 
         ''
         ''Added 9/03/2019 td
         ''
         ''   Draw the border about the element.  
         ''
-        If (0 < par_elementInfo_Base.Border_WidthInPixels) Then
-            ''Added 9/03/2019 td
-            gr_element.DrawRectangle(pen_border, New Rectangle(3, 3, intNewElementWidth - 6, intNewElementHeight - 6))
-        End If ''End of "If (par_element.SelectedHighlighting) Then"
+        Dim boolNonzeroBorder As Boolean ''9/9 td
+        If (par_elementInfo_Base.Border_Displayed) Then
+            boolNonzeroBorder = (0 < par_elementInfo_Base.Border_WidthInPixels)
+            If (boolNonzeroBorder) Then
+                ''
+                ''Added 9/03/2019 td
+                ''
+                ''9/6/2019 td''gr_element.DrawRectangle(pen_border, New Rectangle(3, 3, intNewElementWidth - 6, intNewElementHeight - 6))
+                DrawBorder_PixelsWide(par_elementInfo_Base.Border_WidthInPixels,
+                                      gr_element, intNewElementWidth, intNewElementHeight,
+                                      par_elementInfo_Base.Border_Color)
+            End If ''End of "If (boolNonzeroBorder) Then"
+        End If ''End of "If (par_elementInfo_Base.Border_Displayed) Then"
 
         ''
         ''Added 8/02/2019 td
         ''
+        Dim boolAddHighlighting As Boolean ''Added 9/8/2019 td
+
+        ''Added 9/8/2019 td
         If (par_elementInfo_Base.SelectedHighlighting) Then
+            ''
+            ''The conditional expression above Is redundant, 
+            ''   but the programmer might want to put a 
+            ''   breakpoint below. ----9/8/2019 td
+            ''
+            boolAddHighlighting = (par_bIsDesignStage And
+                par_elementInfo_Base.SelectedHighlighting)
+        End If ''End of "If (par_elementInfo_Base.SelectedHighlighting) Then"
+
+        If (boolAddHighlighting) Then
             ''Added 8/2/2019 td
             ''8/5/2019 td''gr.DrawRectangle(pen_highlighting,
             ''       New Rectangle(0, 0, par_element.Width_Pixels, par_element.Height_Pixels))
@@ -199,7 +370,8 @@ Public Class ClassLabelToImage
             gr_element.DrawRectangle(pen_highlighting,
                          New Rectangle(3, 3, intNewElementWidth - 6,
                                              intNewElementHeight - 6))
-        End If ''End of "If (par_element.SelectedHighlighting) Then"
+
+        End If ''End of "If (boolHighlighting) Then"
 
         ''7/30/2019''gr.DrawString(par_design.Text, par_design.Font_DrawingClass, brush_forecolor, New Point(0, 0))
 
@@ -213,38 +385,51 @@ Public Class ClassLabelToImage
         ''
         gr_element.TextRenderingHint = TextRenderingHint.AntiAliasGridFit
         Dim stringSize = New SizeF()
+        Dim font_scaled As System.Drawing.Font ''Added 9/8/2019 td
 
         With par_elementInfo_Text
+
+            ''Added 9/8/2019 td
+            font_scaled = modFonts.ScaledFont(.Font_DrawingClass, doubleScaling)
 
             ''Added 8/18/2019 td
             Select Case par_elementInfo_Text.TextAlignment''Added 8/18/2019 td
 
                 Case HorizontalAlignment.Left
 
-                    gr_element.DrawString(.Text, .Font_DrawingClass, Brushes.Black, singleOffsetX, singleOffsetY)
+                    ''9/8/2019 td''gr_element.DrawString(.Text, .Font_DrawingClass, Brushes.Black, singleOffsetX, singleOffsetY)
+                    gr_element.DrawString(.Text, font_scaled, Brushes.Black,
+                                          singleOffsetX, singleOffsetY)
 
                 Case HorizontalAlignment.Center
                     ''// Measure string.
-                    stringSize = gr_element.MeasureString(.Text, .Font_DrawingClass)
+                    ''9/8/2019 td''stringSize = gr_element.MeasureString(.Text, .Font_DrawingClass)
+                    stringSize = gr_element.MeasureString(.Text, font_scaled)
 
                     Dim singleOffsetX_AlignRight As Single ''Added 8/18/2019 td 
                     ''Added 8/18/2019 td 
                     singleOffsetX_AlignRight = (singleOffsetX + (local_image.Width - stringSize.Width) / 2)
 
-                    ''Added 8/18/2019 td 
-                    gr_element.DrawString(.Text, .Font_DrawingClass, Brushes.Black,
+                    ''Added 8/18/2019 td
+                    ''
+                    ''9/8/2019 td''gr_element.DrawString(.Text, .Font_DrawingClass, Brushes.Black,
+                    ''                            singleOffsetX_AlignRight, singleOffsetY)
+                    gr_element.DrawString(.Text, font_scaled, Brushes.Black,
                                   singleOffsetX_AlignRight, singleOffsetY)
 
                 Case HorizontalAlignment.Right
                     ''// Measure string.
                     ''
-                    stringSize = gr_element.MeasureString(.Text, .Font_DrawingClass)
+                    ''9/8/2019 td''stringSize = gr_element.MeasureString(.Text, .Font_DrawingClass)
+                    stringSize = gr_element.MeasureString(.Text, font_scaled)
 
                     Dim singleOffsetX_AlignRight As Single ''Added 8/18/2019 td 
                     singleOffsetX_AlignRight = (local_image.Width - stringSize.Width - singleOffsetX)
 
                     ''Added 8/18/2019 td 
-                    gr_element.DrawString(.Text, .Font_DrawingClass, Brushes.Black,
+                    ''9/8/2019 td''gr_element.DrawString(.Text, .Font_DrawingClass, Brushes.Black,
+                    ''                           singleOffsetX_AlignRight, singleOffsetY)
+                    gr_element.DrawString(.Text, font_scaled, Brushes.Black,
                                   singleOffsetX_AlignRight, singleOffsetY)
 
             End Select ''End of "Select Case par_design.TextAlignment"
@@ -315,6 +500,28 @@ Public Class ClassLabelToImage
         Return local_image ''Return Nothing
 
     End Function ''End of "Public Function TextImage(par_label As Label) As Image"
+
+    Private Sub DrawBorder_PixelsWide(par_WidthInPixels As Integer, par_gr As Graphics, par_intWidth As Integer, par_intHeight As Integer, par_color As Color)
+        ''
+        ''Added 9/6/2019 td  
+        ''
+        Dim pen_border As System.Drawing.Pen
+        Dim intLineIndex As Integer
+        Dim intOffsetPixels As Integer
+
+        For intLineIndex = 1 To (par_WidthInPixels)
+
+            pen_border = New Pen(par_color, 1)
+
+            intOffsetPixels = (intLineIndex - 1)
+
+            par_gr.DrawRectangle(pen_border, New Rectangle(intOffsetPixels, intOffsetPixels,
+                                                           -1 + par_intWidth - 2 * intOffsetPixels,
+                                                           -1 + par_intHeight - 2 * intOffsetPixels))
+
+        Next intLineIndex
+
+    End Sub ''end of "Private Sub DrawBorder_PixelsWide(par_elementInfo_Base.Border_WidthInPixels, gr_element, intNewElementWidth, intNewElementHeight)"
 
     ''Private Sub ApplyTextToImage(ByRef par_image As Image)
     ''    ''

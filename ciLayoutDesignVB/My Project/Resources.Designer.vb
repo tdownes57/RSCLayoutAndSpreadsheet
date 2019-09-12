@@ -83,6 +83,16 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property __UI_for_v900_w_demo_face() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("__UI for v900 w demo face", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property AdjustWHColor_V101() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("AdjustWHColor_V101", resourceCulture)
@@ -293,6 +303,16 @@ Namespace My.Resources
         Friend ReadOnly Property Textbox_v90() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Textbox_v90", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property The_UI_for_v900() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("The UI for v900", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

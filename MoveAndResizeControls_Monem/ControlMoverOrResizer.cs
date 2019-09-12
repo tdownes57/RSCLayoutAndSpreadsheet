@@ -30,7 +30,7 @@ using System.Windows.Forms;
     ''
 ***/
 
-namespace ControlManager
+namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManager
 {
     public class ControlMoverOrResizer
     {

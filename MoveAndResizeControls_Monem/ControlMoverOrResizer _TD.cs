@@ -30,12 +30,19 @@ using System.Windows.Forms;
     ''
 ***/
 
-namespace ControlManager
+namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManager
 {
     public class ControlMoverOrResizer_TD
     {
         //
         //  internal class ControlMoverOrResizer_TD
+        //
+        //
+        //  Class primarily authored by Seyyed Hamed Monem 
+        //       https://www.codeproject.com/tips/709121/move-and-resize-controls-on-a-form-at-runtime-with 
+        //       https://www.codeproject.com/info/cpol10.aspx
+        //  This class was modified in August 2019 by Thomas C. Downes
+        //
         //
 
         private static bool _moving;

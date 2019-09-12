@@ -24,10 +24,12 @@ Public Class ClassElementText
     Public Property FontColor As System.Drawing.Color Implements IElement_Text.FontColor
 
     ''Added 8/12/2019 thomas downes  
-    Public Property FontSize As Single Implements IElement_Text.FontSize ''Added 8/12/2019 thomas downes  
+    Public Property FontSize_Pixels As Single Implements IElement_Text.FontSize_Pixels ''Added 8/12/2019 thomas downes  
     Public Property FontBold As Boolean Implements IElement_Text.FontBold ''Added 8/12/2019 thomas downes  
     Public Property FontItalics As Boolean Implements IElement_Text.FontItalics ''Added 8/12/2019 thomas downes  
     Public Property FontUnderline As Boolean Implements IElement_Text.FontUnderline ''Added 8/12/2019 thomas downes  
+    ''Added 9/6/2019 thomas downes  
+    Public Property FontFamilyName As String Implements IElement_Text.FontFamilyName ''Added 9/6/2019 thomas downes  
 
 
     ''Added 8/15/2019 thomas downes  
@@ -45,6 +47,8 @@ Public Class ClassElementText
     ''7/25/2019 td''Prpoerty ExampleText As String ''Added 7/25/2019
     Public Property Text As String Implements IElement_Text.Text ''E.g. "George Washington" for FullName. 
 
+    ''Added 9/10/2019 td 
+    Public Property Recipient As IRecipient Implements IElement_Text.Recipient
 
     Public Property TextAlignment As System.Windows.Forms.HorizontalAlignment Implements IElement_Text.TextAlignment
 
@@ -64,9 +68,10 @@ Public Class ClassElementText
 
     Public Property FormControl As Control Implements IElement_Base.FormControl ''Added 7/19/2019  
 
-    Public Property ElementType As String Implements IElement_Base.ElementType ''Text, Pic, or Logo
+    Public Property ElementType As String = "Text" Implements IElement_Base.ElementType ''Text, Pic, or Logo
 
-    Public Property LayoutWidth As Integer Implements IElement_Base.LayoutWidth_Pixels ''This provides sizing context & scaling factors. 
+    ''9/11/2019 td''Public Property LayoutWidth_Pixels As Integer Implements IElement_Base.LayoutWidth_Pixels ''This provides sizing context & scaling factors. 
+    Public Property BadgeLayout As BadgeLayoutClass Implements IElement_Base.BadgeLayout ''Added 9/11/2019 td  
 
     Public Property TopEdge_Pixels As Integer Implements IElement_Base.TopEdge_Pixels
     Public Property LeftEdge_Pixels As Integer Implements IElement_Base.LeftEdge_Pixels
@@ -75,11 +80,12 @@ Public Class ClassElementText
     Public Property Height_Pixels As Integer = 33 Implements IElement_Base.Height_Pixels
 
     ''8/29/2019 td''Public Property Border_Pixels As Integer Implements IElement_Base.Border_Pixels
-    Public Property Border_WidthInPixels As Integer = 0 Implements IElement_Base.Border_WidthInPixels
+    Public Property Border_WidthInPixels As Integer = 1 Implements IElement_Base.Border_WidthInPixels
     Public Property Border_Color As System.Drawing.Color = Color.Black Implements IElement_Base.Border_Color
+    Public Property Border_Displayed As Boolean = True Implements IElement_Base.Border_Displayed ''Added 9/9/2019 td 
 
-    Public Property Back_Color As System.Drawing.Color Implements IElement_Base.Back_Color
-    Public Property Back_Transparent As Boolean Implements IElement_Base.Back_Transparent ''Added 9/4/2019 thomas d. 
+    Public Property Back_Color As System.Drawing.Color = Color.White Implements IElement_Base.Back_Color
+    Public Property Back_Transparent As Boolean = False Implements IElement_Base.Back_Transparent ''Added 9/4/2019 thomas d. 
 
     Public Property SelectedHighlighting As Boolean Implements IElement_Base.SelectedHighlighting ''Added 8/2/2019 td  
 
@@ -97,6 +103,7 @@ Public Class ClassElementText
         ''
         ''Added 7/29/2019 td
         ''
+
 
     End Sub
 
@@ -128,7 +135,7 @@ Public Class ClassElementText
         ''9/3/2019 td''GenerateImage(pintDesiredLayoutWidth, obj_image, Me, Me)
         ''9/4/2019 td''_labelToImage.TextImage(pintDesiredLayoutWidth, obj_image, Me, Me, False)
 
-        obj_image = _labelToImage.TextImage(pintDesiredLayoutWidth, Me, Me, False)
+        obj_image = _labelToImage.TextImage(pintDesiredLayoutWidth, Me, Me, False, False)
 
         Return obj_image
 
@@ -164,11 +171,11 @@ Public Class ClassElementText
         ''9/3/2019 td''GenerateImage(intDesiredLayoutWidth, obj_image, Me, Me)
         ''9/4/2019 td''_labelToImage.TextImage(intDesiredLayoutWidth, obj_image, Me, Me, False)
 
-        obj_image = _labelToImage.TextImage(intDesiredLayoutWidth, Me, Me, False)
+        obj_image = _labelToImage.TextImage(intDesiredLayoutWidth, Me, Me, False, False)
 
         Return obj_image
 
-    End Function ''End of "Public Function GenerateImage_ByDesiredLayoutWidth() As Image Implements IElementText.GenerateImage_ByDesiredLayoutWidth"
+    End Function ''End of "Public Function GenerateImage_ByDesiredLayoutHeight() As Image Implements IElementText.GenerateImage_ByDesiredLayoutWidth"
 
     Public Function GenerateImage_NotInUse(pintDesiredLayoutWidth As Integer, ByRef par_image As Image,
                                   par_elementInfo_Text As IElement_Text, par_elementInfo_Base As IElement_Base) As Image
@@ -204,11 +211,20 @@ Public Class ClassElementText
             intNewElementHeight = CInt(doubleScaling * par_elementInfo_Base.Height_Pixels)
 
             ''Added 8/15/2019 td
-            par_image = New Bitmap(intNewElementWidth, intNewElementHeight)
+            ''
+            If (ClassLabelToImage.UseHighResolutionTips) Then
+
+                ''9/6/2019 td''par_image = New Bitmap(intNewElementWidth, intNewElementHeight)
+                par_image = New Bitmap(intNewElementWidth, intNewElementHeight, Imaging.PixelFormat.Format32bppPArgb)
+
+            Else
+                par_image = New Bitmap(intNewElementWidth, intNewElementHeight)
+
+            End If ''end of "If (ClassLabelToImage.UseHighResolutionTips) Then ... Else"
 
         End If ''End of "If (par_image Is Nothing) Then"
 
-        gr = Graphics.FromImage(par_image)
+            gr = Graphics.FromImage(par_image)
 
         ''8/29/2019 td''pen_backcolor = New Pen(par_design.BackColor)
         pen_backcolor = New Pen(par_elementInfo_Base.Back_Color)
@@ -246,10 +262,14 @@ Public Class ClassElementText
         ''
         ''Added 9/03/2019 td
         ''
-        If (0 < par_elementInfo_Base.Border_WidthInPixels) Then
-            ''Added 9/03/2019 td
-            gr.DrawRectangle(pen_border, New Rectangle(0, 0, intNewElementWidth, intNewElementHeight))
-        End If ''End of "If (par_element.SelectedHighlighting) Then"
+        Dim boolNonzeroBorder As Boolean ''9/9 td 
+        If (par_elementInfo_Base.Border_Displayed) Then
+            boolNonzeroBorder = (0 < par_elementInfo_Base.Border_WidthInPixels)
+            If (boolNonzeroBorder) Then
+                ''Added 9/03/2019 td
+                gr.DrawRectangle(pen_border, New Rectangle(0, 0, intNewElementWidth, intNewElementHeight))
+            End If ''End of "If (boolNonzeroBorder) Then"
+        End If ''End of "If (par_elementInfo_Base.Border_Displayed) Then"
 
         ''
         ''Added 8/02/2019 td

@@ -127,6 +127,7 @@ Public Class ClassFieldStandard
     ''End Property
 
     Public Property IsBarCode As Boolean = False Implements ICIBFieldStandardOrCustom.IsBarcodeField ''Added 7/31/2019 td
+    Public Property DataEntryText As String Implements ICIBFieldStandardOrCustom.DataEntryText ''Added 9/9/2019 td
 
     ''8/27/2019 td'' Property Image_BL As Image Implements ICIBFieldStandardOrCustom.Image_BL ''Added 8/27/2019 
 
@@ -506,5 +507,33 @@ Public Class ClassFieldStandard
         Me.OtherDbField_Optional = par_info.OtherDbField_Optional  ''Added 7/23/2019 td 
 
     End Sub
+
+    Public Function GetValue_Recipient_String(par_enum As EnumCIBFields) As String
+        ''
+        ''Added 9/10/2019 td
+        ''
+        ''
+        Return Me.ElementInfo_Text.Recipient.GetTextValue(par_enum)
+
+    End Function ''End of "Public Function GetValue_Recipient_String(par_enum As EnumCIBFields) As String"
+
+    Public Function GetValue_Recipient_Date(par_enum As EnumCIBFields) As Date
+        ''
+        ''Added 9/10/2019 td
+        ''
+        Return Me.ElementInfo_Text.Recipient.GetDateValue(par_enum)
+
+    End Function ''End of "Public Function GetValue_Recipient_Date(par_enum As EnumCIBFields) As Date"
+
+    Public Function GetValue_Recipient_TimesPrinted() As Integer
+        ''
+        ''Added 9/10/2019 td
+        ''
+        Return Me.ElementInfo_Text.Recipient.TimesPrinted()
+
+    End Function ''End of "Public Function GetValue_Recipient_TimesPrinted(par_enum As EnumCIBFields) As Integer"
+
+
+
 
 End Class

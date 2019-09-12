@@ -41,7 +41,9 @@ Public Interface IElement_Text
 
     Property FontColor As System.Drawing.Color
 
-    Property FontSize As Single ''Added 8/12/2019 thomas downes  
+    ''9/6/2019 td''Property FontSize As Single ''Added 8/12/2019 thomas downes  
+    Property FontSize_Pixels As Single ''Added 8/12/2019 thomas downes  
+    Property FontFamilyName As String ''Added 9/6/2019 thomas downes  
 
     Property FontSize_IsLocked As Boolean ''Added 8/15/2019 thomas downes  
     Property FontOffset_X As Integer ''Added 8/15/2019 thomas downes  
@@ -74,6 +76,8 @@ Public Interface IElement_Text
     Function GenerateImage_ByDesiredLayoutWidth(pintDesiredLayoutWidth As Integer) As Image ''Added 8/26/2019 td 
 
     ''8/29/2019 td''Property Image_BL As Image ''Added 8/27/2019 td 
+
+    Property Recipient As IRecipient ''Added 9/9/2019   
 
     ''
     ''

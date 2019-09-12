@@ -30,6 +30,57 @@ Public Class LayoutPrint_Redux
     Public Property PicturePersonImageLarge As PictureBox ''Added 6/13/2019
     Public Property PictureBoxReview As PictureBox ''Added 6/13/2019
 
+    Public Shared Function LongSideToShortRatio() As Double
+        ''
+        ''Added 8/26/2019 thomas downes
+        ''
+        ''The website 
+        ''   https://tinyurl.com/yyqyosz3    
+        ''    (  https://www.identicard.com/store/id-card-and-credentials/standard-id-cards/pvc-and-composite-id-cards-for-custom-id-badges ) 
+        ''
+        ''says
+        ''
+        ''    We offer PVC cards in several different sizes and thickness levels, but the most common PVC ID card size
+        ''       is CR80/credit card size (2.13" x 3.38").
+        ''
+        ''My measurements of the PVC card on my desk is:
+        ''
+        ''       2 1/8 inches by 3 3/8 inches, 
+        ''
+        ''      or  17/8 inches by  27/8 inches
+        ''
+        '' and so leads me to the ratio of 27 to 17.  
+        ''
+        ''   ------8/26/2019 td 
+        ''
+        Return (27 / 17) ''Approx. 1.588, or  3.38 / 2.13 
+
+    End Function ''eDN OF "Public Shared Function LongSideToShortRatio() As Double"
+
+    Public Shared Function RatioIsLikelyBad(par_doubleW_div_H As Double) As Boolean
+        ''
+        ''Added 9/4/2019 thomas downes  
+        ''
+        Dim doubleExpected_27_17 As Double ''Added 9/8/2019 
+        Dim doubleDifference As Double ''Added 9/8/2019 
+        Dim doubleDifference_x100 As Double ''Added 9/8/2019 
+        Dim boolReturnValue As Boolean ''Added 9/8
+
+        ''9/8/2019 td''RatioIsLikelyBad = (1 > (100 * Math.Abs(par_doubleW_div_H - LongSideToShortRatio())))
+
+        doubleExpected_27_17 = LongSideToShortRatio()
+
+        ''9/8/2019 td''RatioIsLikelyBad = (1 > (100 * Math.Abs(par_doubleW_div_H - doubleExpected_27_17)))
+
+        doubleDifference = Math.Abs(par_doubleW_div_H - doubleExpected_27_17)
+        doubleDifference_x100 = (100 * doubleDifference)
+
+        boolReturnValue = (1 < doubleDifference_x100)
+
+        Return boolReturnValue
+
+    End Function ''End of "Public Shared Function RatioIsLikelyBad(par_doubleW_div_H As Double) As Boolean"
+
     Public Function GenerateBuildImage_Master(Optional ByRef pref_imageOutput As Image = Nothing,
                                        Optional ByVal pboolLargeLandscape As Boolean = False,
                                        Optional ByVal pboolSmallLandscape As Boolean = False,
@@ -583,6 +634,9 @@ ExitHandler:
         Dim intEachIndex As Integer ''Added 8/24/2019 td
         Dim bOutputAllImages As Boolean ''Added 8/26/2019 thomas d. 
 
+        ''9/8/2019 thomas d.
+        ProportionsAreSlightlyOff(par_imageBadgeCard, True, "par_imageBadgeCard")
+
         bOutputAllImages = (par_listTextImages IsNot Nothing) ''Added 8/26/2019 thomas d. 
 
         gr_Badge = Graphics.FromImage(par_imageBadgeCard)
@@ -606,7 +660,7 @@ ExitHandler:
                     Case (.LeftEdge_Pixels < 0)
                         Continue For
                     Case (.TopEdge_Pixels < 0) ''Then 
-                        ''Continue For
+                        Continue For
                     Case (.LeftEdge_Pixels + .Width_Pixels > par_imageBadgeCard.Width) ''Then 
                         ''Continue For
                     Case (.TopEdge_Pixels + .Height_Pixels > par_imageBadgeCard.Height) ''Then 
@@ -638,7 +692,13 @@ ExitHandler:
                     ''#1 8/26/2019 td''image_textStandard = .TextDisplay.GenerateImage(.Position_BL.Height_Pixels)
                     '' #2 8/26/2019 td''image_textStandard = .TextDisplay.GenerateImage_ByHeight(.Position_BL.Height_Pixels)
 
-                    image_textStandard = .TextDisplay.GenerateImage_ByDesiredLayoutWidth(par_imageBadgeCard.Width)
+                    ''9/5/2019 td''image_textStandard = .TextDisplay.GenerateImage_ByDesiredLayoutWidth(par_imageBadgeCard.Width)
+                    ''9/8/2019 td''image_textStandard = .TextDisplay.GenerateImage_ByDesiredLayoutWidth(each_elementField.BadgeLayout_Width)
+
+                    Dim intDesiredLayout_Width As Integer ''added 9/8/2019 td
+                    intDesiredLayout_Width = par_imageBadgeCard.Width
+                    image_textStandard =
+                        .TextDisplay.GenerateImage_ByDesiredLayoutWidth(intDesiredLayout_Width)
 
                     If (bOutputAllImages) Then par_listTextImages.Add(image_textStandard) ''Added 8/26/2019 td
 
@@ -736,6 +796,89 @@ ExitHandler:
         gr_Badge.Dispose()
 
     End Sub ''End of ''Private Sub LoadElements_Fields()''
+
+    Public Sub LoadImageWithPortrait(pintDesiredLayoutWidth As Integer,
+                                     pintDesignedLayoutWidth As Integer,
+                                    ByRef par_imageBadgeCard As Image,
+                                     ByVal par_elementBase As IElement_Base,
+                                     ByVal par_elementPic As IElementPic,
+                                     ByRef par_imagePortrait As Image)
+        ''
+        ''Added 9/9/2019 thomas d. 
+        ''
+        Dim imagePortraitResized As Image
+        Dim gr_Badge As Graphics ''= Graphics.FromImage(img)
+        Dim decScalingFactor As Double ''Added 9/4/2019 thomas downes ''9/4 td''Decimal
+        Dim intLeft_Desired As Integer
+        Dim intTop_Desired As Integer
+        Dim intWidth_Desired As Integer
+
+        ProportionsAreSlightlyOff(par_imageBadgeCard, True, "par_imageBadgeCard")
+
+        gr_Badge = Graphics.FromImage(par_imageBadgeCard)
+
+        decScalingFactor = (pintDesiredLayoutWidth / pintDesignedLayoutWidth)
+
+        With par_elementBase
+            intLeft_Desired = CInt(.LeftEdge_Pixels * decScalingFactor)
+            intTop_Desired = CInt(.TopEdge_Pixels * decScalingFactor)
+            intWidth_Desired = CInt(.Width_Pixels * decScalingFactor)
+        End With
+
+        ''9/9/2019 td''gr_Badge.DrawImage(par_imagePortrait, New PointF(intLeft_Desired, intTop_Desired))
+
+        imagePortraitResized = ResizeImage_ToWidth(par_imagePortrait, intWidth_Desired)
+
+        gr_Badge.DrawImage(imagePortraitResized, New PointF(intLeft_Desired, intTop_Desired))
+
+        gr_Badge.Dispose()
+
+    End Sub ''end of "Public Sub LoadImageWithPortrait()"
+
+    Public Shared Function ProportionsAreSlightlyOff(par_image As Image, pboolVerbose As Boolean,
+                                                     Optional par_strNameOfImage As String = "") As Boolean
+        ''
+        ''Added 9/5/2019 thomas downes  
+        ''
+        Dim doubleW_div_H As Double
+
+        doubleW_div_H = (par_image.Width / par_image.Height)
+
+        ''9/6 td''Return ProportionsAreSlightlyOff(doubleW_div_H, pboolVerbose, par_strNameOfImage)
+        Return ProportionsAreSlightlyOff(doubleW_div_H, pboolVerbose, par_strNameOfImage)
+
+    End Function ''End of "Public Shared Function RatioIsLikelyBad(par_doubleW_div_H As Double) As Boolean"
+
+    Public Shared Function ProportionsAreSlightlyOff(par_doubleW_div_H As Double, pboolVerbose As Boolean,
+                                                     Optional par_strImageOrControl As String = "") As Boolean
+        ''
+        ''Added 9/5/2019 thomas downes  
+        ''
+        Dim strRatioCurrent As String ''Double
+        Dim strRatioDesired As String ''Double
+        ''Dim doubleW_div_H As Double
+        Dim boolRatioIsBad As Boolean
+        Dim strObjectType As String = ""
+
+        boolRatioIsBad = RatioIsLikelyBad(par_doubleW_div_H)
+
+        ''9/8 td''Select Case par_enum
+        ''    Case EnumImageOrControl.Image : strObjectType = "(image)"
+        ''    Case EnumImageOrControl.Contl : strObjectType = "(control)"
+        ''End Select
+        strObjectType = "(image)"
+
+        If (pboolVerbose And boolRatioIsBad) Then
+            ''Added 9/6/2019 Thomasd.
+            strRatioDesired = LongSideToShortRatio().ToString("0.00")
+            strRatioCurrent = par_doubleW_div_H.ToString("0.00")
+            MessageBox.Show($"Uh-oh, the proportions of {strObjectType} [{par_strImageOrControl}] are {strRatioCurrent} instead of {strRatioDesired}.", "",
+                                               MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        End If ''End of "If (pboolVerbose) Then"
+
+        Return boolRatioIsBad
+
+    End Function ''End of "Public Shared Function RatioIsLikelyBad(par_doubleW_div_H As Double) As Boolean"
 
     Public Shared Function ResizeImage(ByVal InputImage As Image, ByVal parSizingBox As Control) As Image
         ''

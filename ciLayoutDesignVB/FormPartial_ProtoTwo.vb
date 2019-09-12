@@ -1,4 +1,8 @@
-﻿''
+﻿Option Explicit On
+Option Strict On
+Option Infer Off
+
+''
 ''Added 7/31/2019 td  
 ''
 
@@ -9,6 +13,7 @@ Partial Public Class FormDesignProtoTwo
     Private mod_selectedCtls As New List(Of CtlGraphicFldLabel)   ''Added 8/03/2019 thomas downes 
     Private mod_FieldControlLastTouched As CtlGraphicFldLabel   ''Added 8/09/2019 thomas downes 
     Private mod_ControlLastTouched As Control ''Added 8/12/2019 thomas d. 
+    Private Const mc_bAddBorderOnlyWhileResizing As Boolean = True ''Added 9/11/2019 thomas d. 
 
     Public Property ControlBeingMoved() As Control ''Added 8/4/2019 td
         Get
@@ -18,7 +23,8 @@ Partial Public Class FormDesignProtoTwo
         Set(value As Control)
             ''Added 8/9/2019 td
             Try
-                mod_FieldControlLastTouched = value
+                ''9/9/2019 td''mod_FieldControlLastTouched = value
+                mod_FieldControlLastTouched = CType(value, CtlGraphicFldLabel)
                 mod_ControlLastTouched = value ''Added 8/1/2019 
             Catch
                 ''Added 8/12/2019 td  
@@ -39,7 +45,14 @@ Partial Public Class FormDesignProtoTwo
             ''Added 8/9/2019 td
             mod_ControlLastTouched = value ''Added 8/12/2019 td   
             Try
-                mod_FieldControlLastTouched = value
+                ''9/9/2019 td''mod_FieldControlLastTouched = value
+                mod_FieldControlLastTouched = CType(value, CtlGraphicFldLabel)
+
+                ''Added 9/11/2019 td  
+                If (mc_bAddBorderOnlyWhileResizing) Then
+                    mod_FieldControlLastTouched.BorderStyle = BorderStyle.FixedSingle
+                End If ''End of "If (mc_bAddBorderOnlyWhileResizing) Then"
+
             Catch
                 ''Not all moveable controls are Field-Label controls. - ----8/12/2019 thomas d.  
             End Try
@@ -79,6 +92,11 @@ Partial Public Class FormDesignProtoTwo
         ''
         For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
 
+            ''Added 9/11/2019 td  
+            If (mc_bAddBorderOnlyWhileResizing) Then
+                each_control.BorderStyle = BorderStyle.FixedSingle
+            End If ''End of "If (mc_boolAddBorderWhileResizing) Then"
+
             ''Added 8/5/2019 thomas downes  
             each_control.TempResizeInfo_W = each_control.Width
             each_control.TempResizeInfo_H = each_control.Height
@@ -109,7 +127,8 @@ Partial Public Class FormDesignProtoTwo
         If (TypeOf ControlBeingMoved Is CtlGraphicFldLabel) Then
             Const c_bCheckThatControlIsGrouped As Boolean = True ''8/5/2019 thomas downes
             If (c_bCheckThatControlIsGrouped) Then ''8/5/2019 thomas downes
-                bControlMovedIsInGroup = LabelsList_IsItemIncluded(ControlBeingMoved)
+                ''9/9 td''bControlMovedIsInGroup = LabelsList_IsItemIncluded(ControlBeingMoved)
+                bControlMovedIsInGroup = LabelsList_IsItemIncluded(CType(ControlBeingMoved, CtlGraphicFldLabel))
                 If (Not bControlMovedIsInGroup) Then Exit Sub
             End If ''End of "If (c_bCheckThatControlIsGrouped) Then"
         Else
@@ -198,12 +217,29 @@ Partial Public Class FormDesignProtoTwo
         ''
         ''Added 8/5/2019 thomas downes  
         ''
+
         For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
+
+            ''Added 9/11/2019 td  
+            If (mc_bAddBorderOnlyWhileResizing) Then
+                each_control.BorderStyle = BorderStyle.None
+            End If ''End of "If (mc_boolAddBorderWhileResizing) Then"
 
             each_control.TempResizeInfo_W = 0
             each_control.TempResizeInfo_H = 0
 
+            ''Added 9/11/2019 td
+            each_control.Refresh_Image()
+
         Next each_control
+
+        ''Added 9/11/2019 Never Forget
+        ''   This is needed in case it's not a group of controls being resized, 
+        ''   but just a single control. ---9/11 td 
+        ''
+        mod_FieldControlLastTouched.ElementInfo_Base.Width_Pixels = mod_FieldControlLastTouched.Width
+        mod_FieldControlLastTouched.ElementInfo_Base.Height_Pixels = mod_FieldControlLastTouched.Height
+        mod_FieldControlLastTouched.Refresh_Image()
 
     End Sub ''End of "Private Sub Resizing_End"
 

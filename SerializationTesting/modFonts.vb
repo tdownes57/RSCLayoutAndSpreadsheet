@@ -27,7 +27,8 @@ Module modFonts
             new_fontstyle = (FontStyle.Bold) ''  Or FontStyle.Underline)
             new_fontstyle = (FontStyle.Bold Or FontStyle.Underline)
 
-            new_font = New Font(.FontFamily, .Size, new_fontstyle)
+            ''9/6/2019 td''new_font = New Font(.FontFamily, .Size, new_fontstyle)
+            new_font = New Font(.FontFamily, .Size, new_fontstyle, GraphicsUnit.Pixel)
 
         End With
 
@@ -49,7 +50,8 @@ ExitHandler:
 
         With par_font
 
-            new_font = New Font(.FontFamily, par_intSize, .Style)
+            ''9/6/2019 td''new_font = New Font(.FontFamily, par_intSize, .Style)
+            new_font = New Font(.FontFamily, par_intSize, .Style, GraphicsUnit.Pixel)
 
         End With
 

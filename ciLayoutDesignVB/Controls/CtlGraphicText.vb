@@ -64,11 +64,25 @@ Public Class CtlGraphicText
         If (String.IsNullOrEmpty(Me.ElementInfo_Text.Text)) Then ElementInfo_Text.Text = LabelText()
 
         If (Me.ElementInfo_Text.Font_DrawingClass Is Nothing) Then
+            ''
             ''Initialize the font. 
-            Me.ElementInfo_Text.Font_DrawingClass = New Font("Times New Roman", 15, FontStyle.Regular)
-            Me.ElementInfo_Text.FontSize = 15
-            Me.ElementInfo_Text.FontBold = False
-            Me.ElementInfo_Text.FontItalics = False
+            ''
+            ''9/6/2019 td''Me.ElementInfo_Text.Font_DrawingClass = New Font("Times New Roman", 15, FontStyle.Regular)
+            ''9/6/2019 td''Me.ElementInfo_Text.FontSize_Pixels = 15
+            ''9/6/2019 td''Me.ElementInfo_Text.FontBold = False
+            ''9/6/2019 td''Me.ElementInfo_Text.FontItalics = False
+
+            With Me.ElementInfo_Text
+                ''9/6/2019 td''.FontSize = 15
+                .FontSize_Pixels = 25 ''9/6/2019 ''15
+                .FontBold = False
+                .FontItalics = False
+                .FontUnderline = False ''Added 9/6/2019 thomas downes
+                .FontFamilyName = "Times New Roman"
+                ''9/6/2019 td''.Font_DrawingClass = New Font(.FontFamilyName, .FontSize_Pixels, FontStyle.Regular, GraphicsUnit.Pixel)
+                .Font_DrawingClass = modFonts.MakeFont(.FontFamilyName, .FontSize_Pixels, .FontBold, .FontItalics, .FontUnderline)
+            End With
+
         End If ''End of "If (Me.ElementInfo_Text.Font_DrawingClass Is Nothing) Then"
 
         If (LabelToImage Is Nothing) Then LabelToImage = New ClassLabelToImage
@@ -93,12 +107,13 @@ Public Class CtlGraphicText
         ''9/3/2019 td''LabelToImage.TextImage(pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
 
         Dim intLayoutWidth As Integer ''Added 9/3/2019 thomas d.
-        intLayoutWidth = Me.FormDesigner.LayoutWidth()
+        intLayoutWidth = Me.FormDesigner.Layout_Width_Pixels()
 
         ''9/4/2019 td''LabelToImage.TextImage(intLayoutWidth, pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
 
         pictureLabel.Image =
-        LabelToImage.TextImage(intLayoutWidth, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
+        LabelToImage.TextImage(intLayoutWidth, Me.ElementInfo_Text,
+                               Me.ElementInfo_Base, boolRotated, True)
 
         ''Added 7/31/2019 td
         If (mod_c_boolMustSetBackColor And (Me.ElementInfo_Base IsNot Nothing)) Then
@@ -134,7 +149,7 @@ Public Class CtlGraphicText
 
         ''ADded 9/4/2019 td
         ''
-        Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.LayoutWidth()
+        Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.Layout_Width_Pixels()
 
     End Sub ''End of Public Sub SaveToModel
 
@@ -154,7 +169,7 @@ Public Class CtlGraphicText
         Me.ElementInfo_Base.Height_Pixels = Me.Height
 
         ''Added 9/4/2019 td
-        Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.LayoutWidth()
+        Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.Layout_Width_Pixels()
 
         Application.DoEvents()
         Me.RefreshImage()
@@ -299,7 +314,7 @@ Public Class CtlGraphicText
             Me.ElementInfo_Base.Height_Pixels = Me.Height
 
             ''Added 9/4/2019 td
-            Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.LayoutWidth()
+            Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.Layout_Width_Pixels()
 
             Me.RefreshImage()
 

@@ -18,6 +18,7 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
 
     Public Border_SizeInPixels As Integer ''Added 8/29/2019 td
     Public Border_Color As Drawing.Color ''Added 8/29/2019 td
+    Public Border_Displayed As Boolean ''Added 9/9/2019 td  
 
     ''8/29/2019 td''Public ElementInfo As ciBadgeInterfaces.IElementText ''Added 8/16/2019 td
     Public ElementInfo_Text As ciBadgeInterfaces.IElement_Text ''Added 8/16/2019 td
@@ -50,6 +51,7 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
 
         Me.Border_SizeInPixels = par_elementInfo_Base.Border_WidthInPixels
         Me.Border_Color = par_elementInfo_Base.Border_Color
+        Me.Border_Displayed = par_elementInfo_Base.Border_Displayed ''Added 9/9/2019 td 
 
         ''Added 8/15/2019 td
         Me.FormDesigner = par_formDesigner
@@ -67,7 +69,7 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
             .FieldInfo = par_fieldInfo
             .LabelText()  ''par_elementInfo.Text)
             .FormDesigner = par_formDesigner
-            .RefreshImage()
+            .Refresh_Image()
 
         End With ''End of "With CtlGraphicFldLabel1"
 
@@ -82,6 +84,8 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
         ''Added 8/17/2019 thomas downes 
         LabelBorderWidth.Text = String.Format(LabelBorderWidth.Tag.ToString, Me.Border_SizeInPixels)
 
+        ''Added 9/9/2019 thomas downes 
+        chkBorderDisplayed.Checked = Me.Border_Displayed
 
     End Sub ''End of "Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
 
@@ -108,7 +112,7 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
             .FormDesigner = par_formDesigner
             .Width = .ElementInfo_Base.Width_Pixels
             .Height = .ElementInfo_Base.Height_Pixels
-            .RefreshImage()
+            .Refresh_Image()
 
         End With ''End of "With CtlGraphicFldLabel1"
 
@@ -141,7 +145,7 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
         Me.ElementInfo_Base.Border_WidthInPixels += 1
 
         CtlGraphicFldLabel1.ElementInfo_Text = Me.ElementInfo_Text
-        CtlGraphicFldLabel1.RefreshImage()
+        CtlGraphicFldLabel1.Refresh_Image()
 
         ''Added 8/17/2019 thomas downes 
         ''   8/29/2019 td''LabelNumberOffsetY.Text = String.Format(LabelNumberOffsetY.Tag.ToString, Me.FontOffset_X)
@@ -161,7 +165,7 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
         Me.ElementInfo_Base.Border_WidthInPixels -= 1
 
         CtlGraphicFldLabel1.ElementInfo_Text = Me.ElementInfo_Text
-        CtlGraphicFldLabel1.RefreshImage()
+        CtlGraphicFldLabel1.Refresh_Image()
 
         ''Added 8/17/2019 thomas downes 
         ''  8/29/2019 td''LabelNumberOffsetY.Text = String.Format(LabelNumberOffsetY.Tag.ToString, Me.FontOffset_X)
@@ -183,5 +187,14 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
 
     End Sub
 
+    Private Sub ChkBorderDisplayed_CheckedChanged(sender As Object, e As EventArgs) Handles chkBorderDisplayed.CheckedChanged
+
+        ''Added 9/9/2019 thomas downes
+        ''
+        ButtonDecrease.Enabled = chkBorderDisplayed.Checked
+        ButtonIncrease.Enabled = chkBorderDisplayed.Checked
+        LabelBorderWidth.Enabled = chkBorderDisplayed.Checked
+
+    End Sub
 End Class
 

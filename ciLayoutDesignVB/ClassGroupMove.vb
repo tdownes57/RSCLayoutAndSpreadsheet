@@ -26,6 +26,13 @@ Public Class ClassGroupMove
 
     End Sub
 
+    Public Sub New() ''9/9 td''New(par_form As FormDesignProtoTwo)
+
+        ''Added 9/9/2019 td  
+        ''9/9 td''ParentLayoutForm = par_form
+
+    End Sub
+
     Public Sub Resizing_Initiate() Implements InterfaceEvents.Resizing_Initiate
 
         ''Added 8/4/2019 td  

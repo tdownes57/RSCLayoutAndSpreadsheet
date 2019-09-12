@@ -47,7 +47,7 @@ Public Class DialogTextOffset
         ''
         Me.FontOffset_X = par_elementInfo_Text.FontOffset_X
         Me.FontOffset_Y = par_elementInfo_Text.FontOffset_Y
-        Me.FontSize = CInt(par_elementInfo_Text.FontSize) ''9/3 td''par_elementInfo.FontSize
+        Me.FontSize = CInt(par_elementInfo_Text.FontSize_Pixels) ''9/3 td''par_elementInfo.FontSize
         Me.Font_DrawingClass = par_elementInfo_Text.Font_DrawingClass
 
         ''Added 8/15/2019 td
@@ -56,6 +56,12 @@ Public Class DialogTextOffset
 
         With CtlGraphicFldLabel1
             .ElementInfo_Text = par_elementInfo_Text
+
+            ''added 9.6.2019 td
+            .ElementClass_Obj = Nothing ''CType(par_elementInfo_Text, ClassElementText)
+            .ElementInfo_Base = par_elementInfo_Base
+            .ElementInfo_Text = par_elementInfo_Text
+
             .Width = .ElementInfo_Base.Width_Pixels
             .Height = .ElementInfo_Base.Height_Pixels
             .FieldInfo = par_fieldInfo
@@ -63,7 +69,7 @@ Public Class DialogTextOffset
             ''8/17/2019 td''.FieldInfo = par_fieldInfo
             ''8/16/2019 td   ''.ElementInfo = par_field.ElementInfo
             .FormDesigner = par_formDesigner
-            .RefreshImage()
+            .Refresh_Image()
         End With
 
         ''Position it at the center horizontally. 
@@ -94,7 +100,7 @@ Public Class DialogTextOffset
             .FormDesigner = par_formDesigner
             .Width = .ElementInfo_Base.Width_Pixels
             .Height = .ElementInfo_Base.Height_Pixels
-            .RefreshImage()
+            .Refresh_Image()
         End With
 
         ''Position it at the center horizontally. 
@@ -126,7 +132,7 @@ Public Class DialogTextOffset
         Me.FontOffset_X += 1
         Me.ElementInfo_Text.FontOffset_X += 1
         CtlGraphicFldLabel1.ElementInfo_Text = Me.ElementInfo_Text
-        CtlGraphicFldLabel1.RefreshImage()
+        CtlGraphicFldLabel1.Refresh_Image()
 
         ''Added 8/17/2019 thomas downes 
         LabelNumberOffsetY.Text = String.Format(LabelNumberOffsetY.Tag.ToString, Me.FontOffset_X)
@@ -140,7 +146,7 @@ Public Class DialogTextOffset
         Me.FontOffset_X -= 1
         Me.ElementInfo_Text.FontOffset_X -= 1
         CtlGraphicFldLabel1.ElementInfo_Text = Me.ElementInfo_Text
-        CtlGraphicFldLabel1.RefreshImage()
+        CtlGraphicFldLabel1.Refresh_Image()
 
         ''Added 8/17/2019 thomas downes 
         LabelNumberOffsetY.Text = String.Format(LabelNumberOffsetY.Tag.ToString, Me.FontOffset_X)
@@ -154,7 +160,7 @@ Public Class DialogTextOffset
         Me.FontOffset_Y -= 1
         Me.ElementInfo_Text.FontOffset_Y -= 1
         CtlGraphicFldLabel1.ElementInfo_Text = Me.ElementInfo_Text
-        CtlGraphicFldLabel1.RefreshImage()
+        CtlGraphicFldLabel1.Refresh_Image()
 
         ''Added 8/17/2019 thomas downes 
         LabelNumberOffsetX.Text = String.Format(LabelNumberOffsetX.Tag.ToString, Me.FontOffset_Y)
@@ -168,7 +174,7 @@ Public Class DialogTextOffset
         Me.FontOffset_Y += 1
         Me.ElementInfo_Text.FontOffset_Y += 1
         CtlGraphicFldLabel1.ElementInfo_Text = Me.ElementInfo_Text
-        CtlGraphicFldLabel1.RefreshImage()
+        CtlGraphicFldLabel1.Refresh_Image()
 
         ''Added 8/17/2019 thomas downes 
         LabelNumberOffsetX.Text = String.Format(LabelNumberOffsetX.Tag.ToString, Me.FontOffset_X)
@@ -179,22 +185,22 @@ Public Class DialogTextOffset
 
         ''Added 8/16/2019  td
         With Me.ElementInfo_Text
-            .FontSize -= 1
+            .FontSize_Pixels -= 1
 
-            Me.FontSize = CInt(.FontSize) ''9/3 td'' = .FontSize ''Push change to the level of the dialog form.
+            Me.FontSize = CInt(.FontSize_Pixels) ''9/3 td'' = .FontSize ''Push change to the level of the dialog form.
 
-            LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, .FontSize)
-            .Font_DrawingClass = modFonts.SetFontSize(.Font_DrawingClass, CInt(.FontSize))
+            LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, .FontSize_Pixels)
+            .Font_DrawingClass = modFonts.SetFontSize(.Font_DrawingClass, CInt(.FontSize_Pixels))
 
             Me.Font_DrawingClass = .Font_DrawingClass ''Push change to the level of the dialog form.
 
             ''Added 8/17/2019 thomas downes 
-            LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, .FontSize)
+            LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, .FontSize_Pixels)
 
         End With
 
         CtlGraphicFldLabel1.ElementInfo_Text = Me.ElementInfo_Text
-        CtlGraphicFldLabel1.RefreshImage()
+        CtlGraphicFldLabel1.Refresh_Image()
 
 
     End Sub
@@ -204,21 +210,21 @@ Public Class DialogTextOffset
         ''Added 8 / 16 / 2019  td
         ''
         With Me.ElementInfo_Text
-            .FontSize += 1
-            Me.FontSize = CInt(.FontSize) ''9/3 td '' .FontSize ''Push change to the level of the dialog form.
+            .FontSize_Pixels += 1
+            Me.FontSize = CInt(.FontSize_Pixels) ''9/3 td '' .FontSize ''Push change to the level of the dialog form.
 
-            LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, .FontSize)
-            .Font_DrawingClass = modFonts.SetFontSize(.Font_DrawingClass, CInt(.FontSize)) ''9/3 td '' .FontSize)
+            LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, .FontSize_Pixels)
+            .Font_DrawingClass = modFonts.SetFontSize(.Font_DrawingClass, CInt(.FontSize_Pixels)) ''9/3 td '' .FontSize)
 
             Me.Font_DrawingClass = .Font_DrawingClass ''Push change to the level of the dialog form.
 
             ''Added 8/17/2019 thomas downes 
-            LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, .FontSize)
+            LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, .FontSize_Pixels)
 
         End With
 
         CtlGraphicFldLabel1.ElementInfo_Text = Me.ElementInfo_Text
-        CtlGraphicFldLabel1.RefreshImage()
+        CtlGraphicFldLabel1.Refresh_Image()
 
     End Sub
 
@@ -241,7 +247,7 @@ Public Class DialogTextOffset
         ''
         Me.ElementInfo_Text.TextAlignment = HorizontalAlignment.Left
         Me.TextAlignment = HorizontalAlignment.Left
-        Me.CtlGraphicFldLabel1.RefreshImage()
+        Me.CtlGraphicFldLabel1.Refresh_Image()
 
     End Sub
 
@@ -250,7 +256,7 @@ Public Class DialogTextOffset
         ''Added 8/18/2019 thomas downes
         Me.ElementInfo_Text.TextAlignment = HorizontalAlignment.Center
         Me.TextAlignment = HorizontalAlignment.Center
-        Me.CtlGraphicFldLabel1.RefreshImage()
+        Me.CtlGraphicFldLabel1.Refresh_Image()
 
     End Sub
 
@@ -259,7 +265,7 @@ Public Class DialogTextOffset
         ''Added 8/18/2019 thomas downes
         Me.ElementInfo_Text.TextAlignment = HorizontalAlignment.Right
         Me.TextAlignment = HorizontalAlignment.Right
-        Me.CtlGraphicFldLabel1.RefreshImage()
+        Me.CtlGraphicFldLabel1.Refresh_Image()
 
     End Sub
 End Class

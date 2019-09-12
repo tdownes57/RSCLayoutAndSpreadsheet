@@ -16,7 +16,9 @@ Public Class CtlGraphicPortrait
 
     Public ElementInfo_Pic As IElementPic ''Added 7/31/2019 thomas d 
     Public ElementInfo_Base As IElement_Base ''Added 7/31/2019 thomas d 
-    Public FormDesigner As FormDesignProtoTwo ''Added 9/4/2019 td
+
+    ''9/9/2019 td''Public FormDesigner As FormDesignProtoTwo ''Added 9/4/2019 td
+    Public FormDesigner As ILayoutFunctions ''Modified 9/9/2019 td
 
     Public ReadOnly Property Picture_Box As PictureBox
         Get
@@ -32,7 +34,7 @@ Public Class CtlGraphicPortrait
 
     End Sub
 
-    Public Sub New(par_infoForPic_Base As IElement_Base, par_infoForPic_Pic As IElementPic, par_formLayout As FormDesignProtoTwo)
+    Public Sub New(par_infoForPic_Base As IElement_Base, par_infoForPic_Pic As IElementPic, par_formLayout As ILayoutFunctions)
         ''
         ''Added 7/31/2019 td
         ''
@@ -221,14 +223,17 @@ Public Class CtlGraphicPortrait
         ''
         If (Me.ElementInfo_Base IsNot Nothing) Then
 
-            Me.ElementInfo_Base.TopEdge_Pixels = Me.Top
-            Me.ElementInfo_Base.LeftEdge_Pixels = Me.Left
+            ''9/10/2019 td''Me.ElementInfo_Base.TopEdge_Pixels = Me.Top
+            ''9/10/2019 td''Me.ElementInfo_Base.LeftEdge_Pixels = Me.Left
+
+            Me.ElementInfo_Base.TopEdge_Pixels = Me.FormDesigner.Layout_Margin_Top_Omit(Me.Top)
+            Me.ElementInfo_Base.LeftEdge_Pixels = Me.FormDesigner.Layout_Margin_Top_Omit(Me.Left)
 
             Me.ElementInfo_Base.Width_Pixels = Me.Width
             Me.ElementInfo_Base.Height_Pixels = Me.Height
 
             ''Added 9/4/2019 td
-            Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.LayoutWidth()
+            Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.Layout_Width_Pixels()
 
         End If ''End of "If (Me.ElementInfo_Base IsNot Nothing) Then"
 
@@ -287,8 +292,9 @@ Public Class CtlGraphicPortrait
                 new_item_changePic = New ToolStripMenuItem("Change Example Pic")
 
                 AddHandler new_item_rotate90.Click, AddressOf Rotate90Degrees
+
                 ''Added 8/18/2019 td
-                AddHandler new_item_rotate90.Click, AddressOf DisplayAnotherImage
+                AddHandler new_item_changePic.Click, AddressOf DisplayAnotherImage
 
                 ContextMenuStrip1.Items.Add(new_item_rotate90)
                 ContextMenuStrip1.Items.Add(new_item_changePic) ''Added 8/18/2019 td

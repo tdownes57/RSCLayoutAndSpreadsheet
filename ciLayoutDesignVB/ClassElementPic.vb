@@ -37,6 +37,7 @@ Public Class ClassElementPic
     ''8/29/2019 td''Public Property Border_Pixels As Integer Implements IElement_Base.Border_Pixels
     Public Property Border_WidthInPixels As Integer Implements IElement_Base.Border_WidthInPixels
     Public Property Border_Color As System.Drawing.Color Implements IElement_Base.Border_Color
+    Public Property Border_Displayed As Boolean Implements IElement_Base.Border_Displayed ''Added 9/9/2019 td
 
     ''Added 9/4/2019 td 
     Public Property Back_Transparent As Boolean Implements IElement_Base.Back_Transparent
@@ -66,6 +67,8 @@ Public Class ClassElementPic
     ''Public Property OrientationDegrees As Integer Implements IElementPic.OrientationDegrees ''Added 8/13/2019 td  
 
     Public Property Image_BL As Image Implements IElement_Base.Image_BL ''Added 9/2/2019 td
+
+    Public Property Recipient As IRecipient Implements IElementPic.Recipient ''Added 9/10/2019 td
 
     Public Sub New(par_control As Control)
 

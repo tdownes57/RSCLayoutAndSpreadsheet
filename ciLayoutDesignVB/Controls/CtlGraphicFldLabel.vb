@@ -186,9 +186,31 @@ Public Class CtlGraphicFldLabel
 
     End Sub
 
-    Public Sub RefreshImage()
+    Public Sub Refresh_Master()
         ''
-        ''zAdded 7/25/2019 thomas d 
+        ''Added 9/5/2019 thomas d 
+        ''
+        Refresh_PositionAndSize()
+
+        Refresh_Image()
+
+    End Sub ''End of "Public Sub Refresh_Master()"
+
+    Public Sub Refresh_PositionAndSize()
+        ''
+        ''Added 9/5/2019 thomas d 
+        ''
+        Me.Left = Me.FormDesigner.Layout_Margin_Left_Add(Me.ElementInfo_Base.LeftEdge_Pixels)
+        Me.Top = Me.FormDesigner.Layout_Margin_Top_Add(Me.ElementInfo_Base.TopEdge_Pixels)
+
+        Me.Width = Me.ElementInfo_Base.Width_Pixels
+        Me.Height = Me.ElementInfo_Base.Height_Pixels
+
+    End Sub ''End of "Public Sub Refresh_PositionAndSize()"
+
+    Public Sub Refresh_Image()
+        ''
+        ''Added 7/25/2019 thomas d 
         ''
         ''7/29 td''Me.ElementInfo.Info = CType(Me.ElementInfo, IElementText)
 
@@ -204,11 +226,22 @@ Public Class CtlGraphicFldLabel
         ''7/30/2019 td''Me.ElementInfo.Font_DrawingClass = New Font("Times New Roman", 25, FontStyle.Italic)
 
         If (Me.ElementInfo_Text.Font_DrawingClass Is Nothing) Then
+            ''
             ''Initialize the font. 
-            Me.ElementInfo_Text.Font_DrawingClass = New Font("Times New Roman", 15, FontStyle.Regular)
-            Me.ElementInfo_Text.FontSize = 15
-            Me.ElementInfo_Text.FontBold = False
-            Me.ElementInfo_Text.FontItalics = False
+            ''
+            ''9/6/2019 tdMe.ElementInfo_Text.Font_DrawingClass = New Font("Times New Roman", 15, FontStyle.Regular)
+
+            With Me.ElementInfo_Text
+                ''9/6/2019 td''.FontSize = 15
+                .FontSize_Pixels = 25 ''9/6/2019 ''15
+                .FontBold = False
+                .FontItalics = False
+                .FontUnderline = False ''Added 9/6/2019 thomas downes
+                .FontFamilyName = "Times New Roman"
+                ''9/6/2019 td''.Font_DrawingClass = New Font(.FontFamilyName, .FontSize_Pixels, FontStyle.Regular, GraphicsUnit.Pixel)
+                .Font_DrawingClass = modFonts.MakeFont(.FontFamilyName, .FontSize_Pixels, .FontBold, .FontItalics, .FontUnderline)
+            End With
+
         End If ''end of " If (Me.ElementInfo.Font_DrawingClass Is Nothing) Then"
 
         ''Me.ElementInfo.BackColor = Me.ParentForm.BackColor
@@ -254,7 +287,7 @@ Public Class CtlGraphicFldLabel
         ''9/3/2019 td''LabelToImage.TextImage(pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
 
         Dim intLayoutWidth As Integer ''Added 9/3/2019 thomas d.
-        intLayoutWidth = Me.FormDesigner.LayoutWidth()
+        intLayoutWidth = Me.FormDesigner.Layout_Width_Pixels()
 
         ''9/4/2019 td''LabelToImage.TextImage(intLayoutWidth, pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
 
@@ -262,7 +295,9 @@ Public Class CtlGraphicFldLabel
         ''Major call !!
         ''
         pictureLabel.Image =
-        LabelToImage.TextImage(intLayoutWidth, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
+        LabelToImage.TextImage(intLayoutWidth, Me.ElementInfo_Text,
+                               Me.ElementInfo_Base,
+                               boolRotated, True)
 
         ''Added 8/18/2019 td
         Dim intImageWidth As Integer
@@ -306,7 +341,7 @@ Public Class CtlGraphicFldLabel
         pictureLabel.Refresh()
         Me.Refresh()
 
-    End Sub ''End of Public Sub RefreshImage
+    End Sub ''End of Public Sub Refresh_Image
 
     Public Sub SaveToModel()
         ''
@@ -316,14 +351,17 @@ Public Class CtlGraphicFldLabel
 
         ''Me.ElementInfo.Text = Me.LabelText()
 
-        Me.ElementInfo_Base.TopEdge_Pixels = Me.Top
-        Me.ElementInfo_Base.LeftEdge_Pixels = Me.Left
+        ''9/5/2019 td''Me.ElementInfo_Base.TopEdge_Pixels = Me.Top
+        ''9/5/2019 td''Me.ElementInfo_Base.LeftEdge_Pixels = Me.Left
+
+        Me.ElementInfo_Base.TopEdge_Pixels = Me.FormDesigner.Layout_Margin_Top_Omit(Me.Top)
+        Me.ElementInfo_Base.LeftEdge_Pixels = Me.FormDesigner.Layout_Margin_Left_Omit(Me.Left)
 
         Me.ElementInfo_Base.Width_Pixels = Me.Width
         Me.ElementInfo_Base.Height_Pixels = Me.Height
 
         ''Added 9/4/2019 thomas downes
-        Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.LayoutWidth()
+        Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.Layout_Width_Pixels()
 
         ''Me.ElementInfo.Font_DrawingClass = Me.Font
         ''Me.ElementInfo.BackColor = Me.BackColor
@@ -366,11 +404,15 @@ Public Class CtlGraphicFldLabel
         Me.ElementInfo_Base.Width_Pixels = Me.Width
         Me.ElementInfo_Base.Height_Pixels = Me.Height
 
+        ''Added 9/5/2019 td 
+        Me.ElementInfo_Base.TopEdge_Pixels = Me.FormDesigner.Layout_Margin_Top_Omit(Me.Top)
+        Me.ElementInfo_Base.LeftEdge_Pixels = Me.FormDesigner.Layout_Margin_Left_Omit(Me.Left)
+
         ''Added 9/4/2019 td
-        Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.LayoutWidth()
+        Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.Layout_Width_Pixels()
 
         Application.DoEvents()
-        Me.RefreshImage()
+        Me.Refresh_Image()
         Application.DoEvents()
         Me.Refresh()
 
@@ -402,8 +444,12 @@ Public Class CtlGraphicFldLabel
             Me.ElementInfo_Base.Height_Pixels = Me.Height
             ''Me.RefreshImage()
 
+            ''Added 9/5/2019 td 
+            Me.ElementInfo_Base.TopEdge_Pixels = Me.FormDesigner.Layout_Margin_Top_Omit(Me.Top)
+            Me.ElementInfo_Base.LeftEdge_Pixels = Me.FormDesigner.Layout_Margin_Left_Omit(Me.Left)
+
             ''Added 9/4/2019 td
-            Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.LayoutWidth()
+            Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.Layout_Width_Pixels()
 
         End If ''End of "If (Me.ElementInfo_Base IsNot Nothing) Then"
 
@@ -413,7 +459,7 @@ Public Class CtlGraphicFldLabel
 
     End Sub
 
-    Private Sub TextTypeExample_KeyPress(sender As Object, e As KeyPressEventArgs) Handles textTypeExample.KeyPress
+    Private Sub TextTypeExample_KeyPress(sender As Object, e As KeyPressEventArgs) ''9/10/2019 td''Handles textTypeExample.KeyPress
         ''
         ''Added 8/10/2019 td
         ''
@@ -431,6 +477,9 @@ Public Class CtlGraphicFldLabel
             Me.FieldInfo.ExampleValue = textTypeExample.Text
             Me.ElementInfo_Text.Text = textTypeExample.Text
             Me.textTypeExample.Visible = False
+
+            ''Added 9/10/2019 td
+            Me.Refresh_Master()
 
         End If ''End If ''End of "If (e.KeyCode = Keys.Enter) Then"
 
