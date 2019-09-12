@@ -429,8 +429,14 @@ Public Class FormDesignProtoTwo
 
                 Dim new_element_text As New ClassElementText
 
-                new_element_text.Height_Pixels = 30
-                new_element_text.FontSize_Pixels = 25
+                With new_element_text
+                    .Height_Pixels = 30
+                    .FontSize_Pixels = 25
+                    ''Added 9/12/2019 td 
+                    ''9/12/2019 td''.FontSize_IsLocked = True 
+                    .FontSize_ScaleToElementRatio = (.FontSize_Pixels / .Height_Pixels)
+                    .FontSize_ScaleToElementYesNo = True
+                End With 'End of "With new_element_text"
 
                 ''''9/6/2019 td''new_element_text.TopEdge_Pixels = (30 + (30 * intCountControlsAdded))
                 ''intStagger = intCountControlsAdded

@@ -678,11 +678,12 @@ ExitHandler:
                 If (Not .FieldInfo.IsDisplayedOnBadge) Then Continue For
 
                 ''Added 9/4/2019 thomas downes
-                If (0 = .Position_BL.LayoutWidth_Pixels) Then
+                ''9/12/2019 td''If (0 = .Position_BL.LayoutWidth_Pixels) Then
+                If (0 = .Position_BL.BadgeLayout.Width_Pixels) Then
                     ''Added 9/4/2019 thomas downes
                     MessageBox.Show("We cannot scale the placement of the image.", "LayoutPrint_Redux",
                                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-                End If ''ENd of "If (0 = .Position_BL.LayoutWidth_Pixels) Then"
+                End If ''ENd of "If (0 = .Position_BL.BadgeLayout.Width_Pixels) Then"
 
                 Try
                     ''gr.DrawImage(.TextDisplay.GenerateImage(.Position_BL.Height_Pixels),
@@ -709,7 +710,10 @@ ExitHandler:
                     ''9/4/2019 td''intTop = .Position_BL.TopEdge_Pixels
 
                     Dim decScalingFactor As Double ''Added 9/4/2019 thomas downes ''9/4 td''Decimal
-                    decScalingFactor = (par_imageBadgeCard.Width / .Position_BL.LayoutWidth_Pixels)
+
+                    ''9/12/2019 td''decScalingFactor = (par_imageBadgeCard.Width / .Position_BL.LayoutWidth_Pixels)
+                    decScalingFactor = (par_imageBadgeCard.Width / .Position_BL.BadgeLayout.Width_Pixels)
+
                     intLeft = CInt(.Position_BL.LeftEdge_Pixels * decScalingFactor)
                     intTop = CInt(.Position_BL.TopEdge_Pixels * decScalingFactor)
 
@@ -771,7 +775,9 @@ ExitHandler:
                     ''9/4/2019 td''intTop = .Position_BL.TopEdge_Pixels
 
                     Dim decScalingFactor As Double ''Added 9/4/2019 thomas downes ''9/4 td''Decimal
-                    decScalingFactor = (par_imageBadgeCard.Width / .Position_BL.LayoutWidth_Pixels)
+                    ''9/12/2019 td''decScalingFactor = (par_imageBadgeCard.Width / .Position_BL.LayoutWidth_Pixels)
+                    decScalingFactor = (par_imageBadgeCard.Width / .Position_BL.BadgeLayout.Width_Pixels)
+
                     intLeft = CInt(.Position_BL.LeftEdge_Pixels * decScalingFactor)
                     intTop = CInt(.Position_BL.TopEdge_Pixels * decScalingFactor)
 

@@ -30,6 +30,13 @@ Partial Public Class FormMainEntry_v90
 
     End Function ''End of "Public Function Layout_Width_Pixels() As Integer"
 
+    Public Function Layout_Height_Pixels() As Integer Implements ILayoutFunctions.Layout_Height_Pixels
+        ''Added 9/12/2019 thomas downes
+
+        Return Me.BackgroundImage.Height
+
+    End Function ''End of "Public Function Layout_Width_Pixels() As Integer"
+
     Public Function Layout_Margin_Left_Omit(par_intPixelsLeft As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Left_Omit
         ''Added 9/5/2019 thomas downes
         Return (par_intPixelsLeft - 0) ''9/9 td''pictureBack.Left)
@@ -175,7 +182,9 @@ Partial Public Class FormMainEntry_v90
             End If ''ENd of "If (each_field.ElementInfo_Base Is Nothing) Then"
 
             ''Added 9/5/2019 thomas d.
-            each_field.ElementInfo_Base.LayoutWidth_Pixels = Me.Layout_Width_Pixels()
+            ''9/12/2019 td''each_field.ElementInfo_Base.LayoutWidth_Pixels = Me.Layout_Width_Pixels()
+            each_field.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.Layout_Width_Pixels()
+            each_field.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.Layout_Height_Pixels()
 
             ''#1 9/4/2019 td''label_control = New CtlGraphicFldLabel(each_field, Me)
             '' #2 9/4/2019 td''label_control = New CtlGraphicFldLabel(each_field, new_element_text, Me)

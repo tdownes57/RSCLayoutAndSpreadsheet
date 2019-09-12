@@ -34,7 +34,7 @@ Public Interface IBadgeLayout
 
     Property Height_Pixels As Integer
 
-End Interface
+End Interface ''End of "Public Interface IBadgeLayout"
 
 Public Class BadgeLayoutClass
     Implements IBadgeLayout

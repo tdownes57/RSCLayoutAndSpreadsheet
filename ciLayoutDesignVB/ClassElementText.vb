@@ -33,7 +33,11 @@ Public Class ClassElementText
 
 
     ''Added 8/15/2019 thomas downes  
-    Public Property FontSize_IsLocked As Boolean Implements IElement_Text.FontSize_IsLocked ''Added 8/15/2019 thomas downes  
+    ''9/12/2019 td''Public Property FontSize_IsLocked As Boolean Implements IElement_Text.FontSize_IsLocked ''Added 8/15/2019 thomas downes  
+    Public Property FontSize_ScaleToElementRatio As Double Implements IElement_Text.FontSize_ScaleToElementRatio ''Added 9/12/2019 thomas downes  
+    Public Property FontSize_ScaleToElementYesNo As Boolean Implements IElement_Text.FontSize_ScaleToElementYesNo ''Added 9/12/2019 thomas downes  
+
+
     Public Property FontOffset_X As Integer Implements IElement_Text.FontOffset_X ''Added 8/15/2019 thomas downes  
     Public Property FontOffset_Y As Integer Implements IElement_Text.FontOffset_Y ''Added 8/15/2019 thomas downes  
 

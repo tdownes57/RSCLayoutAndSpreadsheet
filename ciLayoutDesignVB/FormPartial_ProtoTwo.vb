@@ -237,9 +237,23 @@ Partial Public Class FormDesignProtoTwo
         ''   This is needed in case it's not a group of controls being resized, 
         ''   but just a single control. ---9/11 td 
         ''
-        mod_FieldControlLastTouched.ElementInfo_Base.Width_Pixels = mod_FieldControlLastTouched.Width
-        mod_FieldControlLastTouched.ElementInfo_Base.Height_Pixels = mod_FieldControlLastTouched.Height
-        mod_FieldControlLastTouched.Refresh_Image()
+        With mod_FieldControlLastTouched
+
+            .ElementInfo_Base.Width_Pixels = mod_FieldControlLastTouched.Width
+            .ElementInfo_Base.Height_Pixels = mod_FieldControlLastTouched.Height
+
+            ''Added 9/12/2019 td  
+            With .ElementInfo_Text
+                If .FontSize_ScaleToElementYesNo Then
+                    ''Change the Font Size, to account for the new Height of the Element !!
+                    ''  ---9/12/2019 td 
+                    .FontSize_Pixels = CSng(mod_FieldControlLastTouched.Height * .FontSize_ScaleToElementRatio)
+                End If ''End of "If .FontSize_ScaleToElementYesNo Then"
+            End With ''End of "With .ElementInfo_Text"
+
+            .Refresh_Image()
+
+            End With ''End of "With mod_FieldControlLastTouched"
 
     End Sub ''End of "Private Sub Resizing_End"
 

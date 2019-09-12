@@ -26,7 +26,8 @@ Public Class ClassElementPic
 
     Public Property ElementType As String Implements IElement_Base.ElementType ''Text, Pic, or Logo
 
-    Public Property LayoutWidth As Integer Implements IElement_Base.LayoutWidth_Pixels ''This provides sizing context & scaling factors. 
+    ''9/12/2019 td''Public Property LayoutWidth As Integer Implements IElement_Base.LayoutWidth_Pixels ''This provides sizing context & scaling factors. 
+    Public Property BadgeLayout As BadgeLayoutClass Implements IElement_Base.BadgeLayout ''This provides sizing context & scaling factors. 
 
     Public Property TopEdge As Integer Implements IElement_Base.TopEdge_Pixels
     Public Property LeftEdge As Integer Implements IElement_Base.LeftEdge_Pixels

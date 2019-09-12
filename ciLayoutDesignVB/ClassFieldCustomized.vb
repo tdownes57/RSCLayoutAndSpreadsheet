@@ -186,7 +186,8 @@ Public Class ClassFieldCustomized
 
             ''Added 9/4/2019 td
             new_ElementWithText.BadgeLayout_Width = par_intLayoutWidth
-            new_ElementWithText.Position_BL.LayoutWidth_Pixels = par_intLayoutWidth
+            ''9/12/2019 td''new_ElementWithText.Position_BL.LayoutWidth_Pixels = par_intLayoutWidth
+            new_ElementWithText.Position_BL.BadgeLayout.Width_Pixels = par_intLayoutWidth
 
             obj_listOutput.Add(new_ElementWithText)
 

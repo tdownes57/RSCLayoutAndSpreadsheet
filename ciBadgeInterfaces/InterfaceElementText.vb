@@ -45,7 +45,10 @@ Public Interface IElement_Text
     Property FontSize_Pixels As Single ''Added 8/12/2019 thomas downes  
     Property FontFamilyName As String ''Added 9/6/2019 thomas downes  
 
-    Property FontSize_IsLocked As Boolean ''Added 8/15/2019 thomas downes  
+    ''9/12/2019 td''Property FontSize_IsLocked As Boolean ''Added 8/15/2019 thomas downes  
+    Property FontSize_ScaleToElementYesNo As Boolean ''Added 9/12/2019 thomas downes  
+    Property FontSize_ScaleToElementRatio As Double ''Added 9/12/2019 thomas downes  
+
     Property FontOffset_X As Integer ''Added 8/15/2019 thomas downes  
     Property FontOffset_Y As Integer ''Added 8/15/2019 thomas downes  
 
