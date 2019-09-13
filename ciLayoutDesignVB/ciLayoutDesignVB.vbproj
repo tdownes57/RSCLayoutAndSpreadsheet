@@ -201,6 +201,18 @@
     <Compile Include="Controls\CtlPartial_HardText.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Controls\CtlPropertyLeftRight.Designer.vb">
+      <DependentUpon>CtlPropertyLeftRight.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtlPropertyLeftRight.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtlPropertyUpDownvb.Designer.vb">
+      <DependentUpon>CtlPropertyUpDownvb.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtlPropertyUpDownvb.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controls\modLayoutDesignMenu.vb" />
     <Compile Include="FormPartial_MDEv90_p1.Designer.vb">
       <DependentUpon>FormPartial_MDEv90_p1.vb</DependentUpon>
@@ -443,6 +455,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlMainStep3_v82.resx">
       <DependentUpon>CtlMainStep3_v82.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtlPropertyLeftRight.resx">
+      <DependentUpon>CtlPropertyLeftRight.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtlPropertyUpDownvb.resx">
+      <DependentUpon>CtlPropertyUpDownvb.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DialogTextBorder.resx">
       <DependentUpon>DialogTextBorder.vb</DependentUpon>

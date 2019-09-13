@@ -80,9 +80,9 @@ Public Class DialogTextOffset
         CenterTheFieldControl()
 
         ''Added 8/17/2019 thomas downes 
-        LabelNumberOffsetX.Text = String.Format(LabelNumberOffsetX.Tag.ToString, Me.FontOffset_X)
-        LabelNumberOffsetY.Text = String.Format(LabelNumberOffsetY.Tag.ToString, Me.FontOffset_Y)
-        LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, Me.FontSize)
+        ''LabelNumberOffsetX.Text = String.Format(LabelNumberOffsetX.Tag.ToString, Me.FontOffset_X)
+        ''LabelNumberOffsetY.Text = String.Format(LabelNumberOffsetY.Tag.ToString, Me.FontOffset_Y)
+        ''LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, Me.FontSize)
 
 
     End Sub ''End of "Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
@@ -100,7 +100,10 @@ Public Class DialogTextOffset
 
         With CtlGraphicFldLabel1
             .FieldInfo = par_field
-            .ElementInfo_Text = par_field.ElementInfo
+
+            .ElementClass_Obj = par_field.ElementInfo ''Added 9/13/2019 td
+            .ElementInfo_Base = par_field.ElementInfo_Base ''Added 9/13/2019 td 
+            .ElementInfo_Text = par_field.ElementInfo_Text ''Added 9/13/2019 td 
             .FormDesigner = par_formDesigner
             .Width = .ElementInfo_Base.Width_Pixels
             .Height = .ElementInfo_Base.Height_Pixels
@@ -109,6 +112,25 @@ Public Class DialogTextOffset
 
         ''Position it at the center horizontally. 
         CenterTheFieldControl()
+
+        ''
+        ''Added 9/13/2019 thomas downes
+        ''
+        Me.CtlElementHeight.ElementInfo_Base = par_field.ElementInfo_Base
+        Me.CtlElementHeight.ElementInfo_Text = par_field.ElementInfo_Text
+
+        Me.CtlElementWidth.ElementInfo_Base = par_field.ElementInfo_Base
+        Me.CtlElementWidth.ElementInfo_Text = par_field.ElementInfo_Text
+
+        Me.CtlFontSize.ElementInfo_Base = par_field.ElementInfo_Base
+        Me.CtlFontSize.ElementInfo_Text = par_field.ElementInfo_Text
+
+        Me.CtlTextOffsetX.ElementInfo_Base = par_field.ElementInfo_Base
+        Me.CtlTextOffsetX.ElementInfo_Text = par_field.ElementInfo_Text
+
+        Me.ctlTextOffsetY.ElementInfo_Base = par_field.ElementInfo_Base
+        Me.ctlTextOffsetY.ElementInfo_Text = par_field.ElementInfo_Text
+
 
     End Sub ''End of "Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
 
@@ -129,108 +151,108 @@ Public Class DialogTextOffset
 
     End Sub
 
-    Private Sub ButtonXIncrease_Click(sender As Object, e As EventArgs) Handles ButtonXIncrease.Click
-        ''
-        ''Added 8/16/2019 td
-        ''
-        Me.FontOffset_X += 1
-        Me.ElementInfo_Text.FontOffset_X += 1
-        CtlGraphicFldLabel1.ElementInfo_Text = Me.ElementInfo_Text
-        CtlGraphicFldLabel1.Refresh_Image()
+    ''Private Sub ButtonXIncrease_Click(sender As Object, e As EventArgs) Handles ButtonXIncrease.Click
+    ''    ''
+    ''    ''Added 8/16/2019 td
+    ''    ''
+    ''    Me.FontOffset_X += 1
+    ''    Me.ElementInfo_Text.FontOffset_X += 1
+    ''    CtlGraphicFldLabel1.ElementInfo_Text = Me.ElementInfo_Text
+    ''    CtlGraphicFldLabel1.Refresh_Image()
 
-        ''Added 8/17/2019 thomas downes 
-        LabelNumberOffsetY.Text = String.Format(LabelNumberOffsetY.Tag.ToString, Me.FontOffset_X)
+    ''    ''Added 8/17/2019 thomas downes 
+    ''    LabelNumberOffsetY.Text = String.Format(LabelNumberOffsetY.Tag.ToString, Me.FontOffset_X)
 
-    End Sub
+    ''End Sub
 
-    Private Sub ButtonXDecrease_Click(sender As Object, e As EventArgs) Handles ButtonXDecrease.Click
-        ''
-        ''Added 8/16/2019 td
-        ''
-        Me.FontOffset_X -= 1
-        Me.ElementInfo_Text.FontOffset_X -= 1
-        CtlGraphicFldLabel1.ElementInfo_Text = Me.ElementInfo_Text
-        CtlGraphicFldLabel1.Refresh_Image()
+    ''Private Sub ButtonXDecrease_Click(sender As Object, e As EventArgs) Handles ButtonXDecrease.Click
+    ''    ''
+    ''    ''Added 8/16/2019 td
+    ''    ''
+    ''    Me.FontOffset_X -= 1
+    ''    Me.ElementInfo_Text.FontOffset_X -= 1
+    ''    CtlGraphicFldLabel1.ElementInfo_Text = Me.ElementInfo_Text
+    ''    CtlGraphicFldLabel1.Refresh_Image()
 
-        ''Added 8/17/2019 thomas downes 
-        LabelNumberOffsetY.Text = String.Format(LabelNumberOffsetY.Tag.ToString, Me.FontOffset_X)
+    ''    ''Added 8/17/2019 thomas downes 
+    ''    LabelNumberOffsetY.Text = String.Format(LabelNumberOffsetY.Tag.ToString, Me.FontOffset_X)
 
-    End Sub
+    ''End Sub
 
-    Private Sub ButtonYDecrease_Click(sender As Object, e As EventArgs) Handles ButtonYDecrease.Click
-        ''
-        ''Added 8/16/2019 td
-        ''
-        Me.FontOffset_Y -= 1
-        Me.ElementInfo_Text.FontOffset_Y -= 1
-        CtlGraphicFldLabel1.ElementInfo_Text = Me.ElementInfo_Text
-        CtlGraphicFldLabel1.Refresh_Image()
+    ''Private Sub ButtonYDecrease_Click(sender As Object, e As EventArgs)
+    ''    ''
+    ''    ''Added 8/16/2019 td
+    ''    ''
+    ''    Me.FontOffset_Y -= 1
+    ''    Me.ElementInfo_Text.FontOffset_Y -= 1
+    ''    CtlGraphicFldLabel1.ElementInfo_Text = Me.ElementInfo_Text
+    ''    CtlGraphicFldLabel1.Refresh_Image()
 
-        ''Added 8/17/2019 thomas downes 
-        LabelNumberOffsetX.Text = String.Format(LabelNumberOffsetX.Tag.ToString, Me.FontOffset_Y)
+    ''    ''Added 8/17/2019 thomas downes 
+    ''    LabelNumberOffsetX.Text = String.Format(LabelNumberOffsetX.Tag.ToString, Me.FontOffset_Y)
 
-    End Sub
+    ''End Sub
 
-    Private Sub ButtonYIncrease_Click(sender As Object, e As EventArgs) Handles ButtonYIncrease.Click
-        ''
-        ''Added 8/16/2019 td
-        ''
-        Me.FontOffset_Y += 1
-        Me.ElementInfo_Text.FontOffset_Y += 1
-        CtlGraphicFldLabel1.ElementInfo_Text = Me.ElementInfo_Text
-        CtlGraphicFldLabel1.Refresh_Image()
+    ''Private Sub ButtonYIncrease_Click(sender As Object, e As EventArgs)
+    ''    ''
+    ''    ''Added 8/16/2019 td
+    ''    ''
+    ''    Me.FontOffset_Y += 1
+    ''    Me.ElementInfo_Text.FontOffset_Y += 1
+    ''    CtlGraphicFldLabel1.ElementInfo_Text = Me.ElementInfo_Text
+    ''    CtlGraphicFldLabel1.Refresh_Image()
 
-        ''Added 8/17/2019 thomas downes 
-        LabelNumberOffsetX.Text = String.Format(LabelNumberOffsetX.Tag.ToString, Me.FontOffset_X)
+    ''    ''Added 8/17/2019 thomas downes 
+    ''    LabelNumberOffsetX.Text = String.Format(LabelNumberOffsetX.Tag.ToString, Me.FontOffset_X)
 
-    End Sub
+    ''End Sub
 
-    Private Sub ButtonFontDecrease_Click(sender As Object, e As EventArgs) Handles ButtonFontDecrease.Click
+    ''Private Sub ButtonFontDecrease_Click(sender As Object, e As EventArgs)
 
-        ''Added 8/16/2019  td
-        With Me.ElementInfo_Text
-            .FontSize_Pixels -= 1
+    ''    ''Added 8/16/2019  td
+    ''    With Me.ElementInfo_Text
+    ''        .FontSize_Pixels -= 1
 
-            Me.FontSize = CInt(.FontSize_Pixels) ''9/3 td'' = .FontSize ''Push change to the level of the dialog form.
+    ''        Me.FontSize = CInt(.FontSize_Pixels) ''9/3 td'' = .FontSize ''Push change to the level of the dialog form.
 
-            LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, .FontSize_Pixels)
-            .Font_DrawingClass = modFonts.SetFontSize(.Font_DrawingClass, CInt(.FontSize_Pixels))
+    ''        LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, .FontSize_Pixels)
+    ''        .Font_DrawingClass = modFonts.SetFontSize(.Font_DrawingClass, CInt(.FontSize_Pixels))
 
-            Me.Font_DrawingClass = .Font_DrawingClass ''Push change to the level of the dialog form.
+    ''        Me.Font_DrawingClass = .Font_DrawingClass ''Push change to the level of the dialog form.
 
-            ''Added 8/17/2019 thomas downes 
-            LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, .FontSize_Pixels)
+    ''        ''Added 8/17/2019 thomas downes 
+    ''        LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, .FontSize_Pixels)
 
-        End With
+    ''    End With
 
-        CtlGraphicFldLabel1.ElementInfo_Text = Me.ElementInfo_Text
-        CtlGraphicFldLabel1.Refresh_Image()
+    ''    CtlGraphicFldLabel1.ElementInfo_Text = Me.ElementInfo_Text
+    ''    CtlGraphicFldLabel1.Refresh_Image()
 
 
-    End Sub
+    ''End Sub
 
-    Private Sub ButtonFontIncrease_Click(sender As Object, e As EventArgs) Handles ButtonFontIncrease.Click
-        ''
-        ''Added 8 / 16 / 2019  td
-        ''
-        With Me.ElementInfo_Text
-            .FontSize_Pixels += 1
-            Me.FontSize = CInt(.FontSize_Pixels) ''9/3 td '' .FontSize ''Push change to the level of the dialog form.
+    ''Private Sub ButtonFontIncrease_Click(sender As Object, e As EventArgs)
+    ''    ''
+    ''    ''Added 8 / 16 / 2019  td
+    ''    ''
+    ''    With Me.ElementInfo_Text
+    ''        .FontSize_Pixels += 1
+    ''        Me.FontSize = CInt(.FontSize_Pixels) ''9/3 td '' .FontSize ''Push change to the level of the dialog form.
 
-            LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, .FontSize_Pixels)
-            .Font_DrawingClass = modFonts.SetFontSize(.Font_DrawingClass, CInt(.FontSize_Pixels)) ''9/3 td '' .FontSize)
+    ''        LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, .FontSize_Pixels)
+    ''        .Font_DrawingClass = modFonts.SetFontSize(.Font_DrawingClass, CInt(.FontSize_Pixels)) ''9/3 td '' .FontSize)
 
-            Me.Font_DrawingClass = .Font_DrawingClass ''Push change to the level of the dialog form.
+    ''        Me.Font_DrawingClass = .Font_DrawingClass ''Push change to the level of the dialog form.
 
-            ''Added 8/17/2019 thomas downes 
-            LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, .FontSize_Pixels)
+    ''        ''Added 8/17/2019 thomas downes 
+    ''        LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, .FontSize_Pixels)
 
-        End With
+    ''    End With
 
-        CtlGraphicFldLabel1.ElementInfo_Text = Me.ElementInfo_Text
-        CtlGraphicFldLabel1.Refresh_Image()
+    ''    CtlGraphicFldLabel1.ElementInfo_Text = Me.ElementInfo_Text
+    ''    CtlGraphicFldLabel1.Refresh_Image()
 
-    End Sub
+    ''End Sub
 
     Private Sub ButtonOK_Click(sender As Object, e As EventArgs) Handles ButtonOK.Click
 
@@ -271,61 +293,67 @@ Public Class DialogTextOffset
         Me.TextAlignment = HorizontalAlignment.Right
         Me.CtlGraphicFldLabel1.Refresh_Image()
 
-
     End Sub
 
-    Private Sub ButtonElementHghtDecrease_Click(sender As Object, e As EventArgs) Handles ButtonElementHghtDecrease.Click
+    ''Private Sub ButtonElementHghtDecrease_Click(sender As Object, e As EventArgs)
 
-        ''Added 9/12/2019 thomas downes
-        Me.ElementInfo_Base.Height_Pixels -= 1
-        Me.Element_Height = Me.ElementInfo_Base.Height_Pixels
-        Me.CtlGraphicFldLabel1.Refresh_Image()
+    ''    ''Added 9/12/2019 thomas downes
+    ''    Me.ElementInfo_Base.Height_Pixels -= 1
+    ''    Me.Element_Height = Me.ElementInfo_Base.Height_Pixels
+    ''    Me.CtlGraphicFldLabel1.Refresh_Image()
+    ''
+    ''    ''Added 9/12/2019 thomas downes 
+    ''    LabelElementHghtNum.Text = String.Format(LabelElementHghtNum.Tag.ToString, Me.Element_Height)
+    ''
+    ''End Sub
 
-        ''Added 9/12/2019 thomas downes 
-        LabelElementHghtNum.Text = String.Format(LabelElementHghtNum.Tag.ToString, Me.Element_Height)
+    ''Private Sub ButtonElementHghtIncrease_Click(sender As Object, e As EventArgs)
+    ''
+    ''    ''Added 9/12/2019 thomas downes
+    ''    Me.ElementInfo_Base.Height_Pixels += 1
+    ''    Me.Element_Height = Me.ElementInfo_Base.Height_Pixels
+    ''    Me.CtlGraphicFldLabel1.Refresh_Image()
+    ''
+    ''    ''Added 9/12/2019 thomas downes 
+    ''    LabelElementHghtNum.Text = String.Format(LabelElementHghtNum.Tag.ToString, Me.Element_Height)
+    ''
+    ''End Sub
 
-    End Sub
+    ''Private Sub ButtonElementWidthDecrease_Click(sender As Object, e As EventArgs) Handles ButtonElementWidthDecrease.Click
+    ''
+    ''    ''Added 9/12/2019 thomas downes
+    ''    Me.ElementInfo_Base.Width_Pixels -= 1
+    ''    Me.Element_Width = Me.ElementInfo_Base.Width_Pixels
+    ''    Me.CtlGraphicFldLabel1.Refresh_Image()
+    ''
+    ''    ''Added 9/12/2019 thomas downes 
+    ''    LabelElementWidthNum.Text = String.Format(LabelElementWidthNum.Tag.ToString, Me.Element_Width)
+    ''
+    ''End Sub
 
-    Private Sub ButtonElementHghtIncrease_Click(sender As Object, e As EventArgs) Handles ButtonElementHghtIncrease.Click
+    ''Private Sub ButtonElementWidthIncrease_Click(sender As Object, e As EventArgs) Handles ButtonElementWidthIncrease.Click
 
-        ''Added 9/12/2019 thomas downes
-        Me.ElementInfo_Base.Height_Pixels += 1
-        Me.Element_Height = Me.ElementInfo_Base.Height_Pixels
-        Me.CtlGraphicFldLabel1.Refresh_Image()
-
-        ''Added 9/12/2019 thomas downes 
-        LabelElementHghtNum.Text = String.Format(LabelElementHghtNum.Tag.ToString, Me.Element_Height)
-
-    End Sub
-
-    Private Sub ButtonElementWidthDecrease_Click(sender As Object, e As EventArgs) Handles ButtonElementWidthDecrease.Click
-
-        ''Added 9/12/2019 thomas downes
-        Me.ElementInfo_Base.Width_Pixels -= 1
-        Me.Element_Width = Me.ElementInfo_Base.Width_Pixels
-        Me.CtlGraphicFldLabel1.Refresh_Image()
-
-        ''Added 9/12/2019 thomas downes 
-        LabelElementWidthNum.Text = String.Format(LabelElementWidthNum.Tag.ToString, Me.Element_Width)
-
-    End Sub
-
-    Private Sub ButtonElementWidthIncrease_Click(sender As Object, e As EventArgs) Handles ButtonElementWidthIncrease.Click
-
-        ''Added 9/12/2019 thomas downes
-        Me.ElementInfo_Base.Width_Pixels += 1
-        Me.Element_Width = Me.ElementInfo_Base.Width_Pixels
-        Me.CtlGraphicFldLabel1.Refresh_Image()
-
-        ''Added 9/12/2019 thomas downes 
-        LabelElementWidthNum.Text = String.Format(LabelElementWidthNum.Tag.ToString, Me.Element_Width)
-
-    End Sub
+    ''    ''Added 9/12/2019 thomas downes
+    ''    Me.ElementInfo_Base.Width_Pixels += 1
+    ''    Me.Element_Width = Me.ElementInfo_Base.Width_Pixels
+    ''    Me.CtlGraphicFldLabel1.Refresh_Image()
+    ''
+    ''    ''Added 9/12/2019 thomas downes 
+    ''    LabelElementWidthNum.Text = String.Format(LabelElementWidthNum.Tag.ToString, Me.Element_Width)
+    ''
+    ''End Sub
 
     Private Sub CheckFontSizeScalesYN_CheckedChanged(sender As Object, e As EventArgs) Handles checkFontSizeScalesYN.CheckedChanged
 
         ''Added 9/12/2019 thomas d.
         Me.ElementInfo_Text.FontSize_ScaleToElementYesNo = checkFontSizeScalesYN.Checked
+
+    End Sub
+
+    Private Sub For_EventUpdateRequest() Handles ctlTextOffsetY.EventUpdateRequest, CtlFontSize.EventUpdateRequest, CtlElementHeight.EventUpdateRequest
+
+        ''Added 9/13/2019 thomas downes
+        Me.CtlGraphicFldLabel1.Refresh_Image()
 
     End Sub
 End Class

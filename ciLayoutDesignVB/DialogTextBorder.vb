@@ -73,6 +73,10 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
 
         End With ''End of "With CtlGraphicFldLabel1"
 
+        ''Added 9/13/2019 thomas downes
+        Me.CtlBorderWidth.ElementInfo_Base = par_elementInfo_Base
+        Me.CtlBorderWidth.ElementInfo_Text = par_elementInfo_Text
+
         ''Position it at the center horizontally. 
         CenterTheFieldControl()
 
@@ -82,7 +86,7 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
         ''8/29 td''LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, Me.FontSize)
 
         ''Added 8/17/2019 thomas downes 
-        LabelBorderWidth.Text = String.Format(LabelBorderWidth.Tag.ToString, Me.Border_SizeInPixels)
+        ''9/13/2019 td''LabelBorderWidth.Text = String.Format(LabelBorderWidth.Tag.ToString, Me.Border_SizeInPixels)
 
         ''Added 9/9/2019 thomas downes 
         chkBorderDisplayed.Checked = Me.Border_Displayed
@@ -134,45 +138,45 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
 
     End Sub
 
-    Private Sub ButtonIncrease_Click(sender As Object, e As EventArgs) Handles ButtonIncrease.Click
-        ''
-        ''Added 8/16/2019 td
-        ''
-        ''8/29/2019 td''Me.FontOffset_X += 1
-        ''8/29/2019 td''Me.ElementInfo_Text.FontOffset_X += 1
+    ''Private Sub ButtonIncrease_Click(sender As Object, e As EventArgs)
+    ''    ''
+    ''    ''Added 8/16/2019 td
+    ''    ''
+    ''    ''8/29/2019 td''Me.FontOffset_X += 1
+    ''    ''8/29/2019 td''Me.ElementInfo_Text.FontOffset_X += 1
 
-        Me.Border_SizeInPixels += 1
-        Me.ElementInfo_Base.Border_WidthInPixels += 1
+    ''    Me.Border_SizeInPixels += 1
+    ''    Me.ElementInfo_Base.Border_WidthInPixels += 1
 
-        CtlGraphicFldLabel1.ElementInfo_Text = Me.ElementInfo_Text
-        CtlGraphicFldLabel1.Refresh_Image()
+    ''    CtlGraphicFldLabel1.ElementInfo_Text = Me.ElementInfo_Text
+    ''    CtlGraphicFldLabel1.Refresh_Image()
 
-        ''Added 8/17/2019 thomas downes 
-        ''   8/29/2019 td''LabelNumberOffsetY.Text = String.Format(LabelNumberOffsetY.Tag.ToString, Me.FontOffset_X)
-        ''
-        LabelBorderWidth.Text = String.Format(LabelBorderWidth.Tag.ToString, Me.Border_SizeInPixels)
+    ''    ''Added 8/17/2019 thomas downes 
+    ''    ''   8/29/2019 td''LabelNumberOffsetY.Text = String.Format(LabelNumberOffsetY.Tag.ToString, Me.FontOffset_X)
+    ''    ''
+    ''    LabelBorderWidth.Text = String.Format(LabelBorderWidth.Tag.ToString, Me.Border_SizeInPixels)
 
-    End Sub
+    ''End Sub
 
-    Private Sub ButtonDecrease_Click(sender As Object, e As EventArgs) Handles ButtonDecrease.Click
-        ''
-        ''Added 8/29/2019 td
-        ''
-        ''8/29/2019 td''Me.FontOffset_X -= 1
-        ''8/29/2019 td''Me.ElementInfo_Text.FontOffset_X -= 1
+    ''Private Sub ButtonDecrease_Click(sender As Object, e As EventArgs)
+    ''    ''
+    ''    ''Added 8/29/2019 td
+    ''    ''
+    ''    ''8/29/2019 td''Me.FontOffset_X -= 1
+    ''    ''8/29/2019 td''Me.ElementInfo_Text.FontOffset_X -= 1
 
-        Me.Border_SizeInPixels -= 1
-        Me.ElementInfo_Base.Border_WidthInPixels -= 1
+    ''    Me.Border_SizeInPixels -= 1
+    ''    Me.ElementInfo_Base.Border_WidthInPixels -= 1
 
-        CtlGraphicFldLabel1.ElementInfo_Text = Me.ElementInfo_Text
-        CtlGraphicFldLabel1.Refresh_Image()
+    ''    CtlGraphicFldLabel1.ElementInfo_Text = Me.ElementInfo_Text
+    ''    CtlGraphicFldLabel1.Refresh_Image()
 
-        ''Added 8/17/2019 thomas downes 
-        ''  8/29/2019 td''LabelNumberOffsetY.Text = String.Format(LabelNumberOffsetY.Tag.ToString, Me.FontOffset_X)
-        ''
-        LabelBorderWidth.Text = String.Format(LabelBorderWidth.Tag.ToString, Me.Border_SizeInPixels)
+    ''    ''Added 8/17/2019 thomas downes 
+    ''    ''  8/29/2019 td''LabelNumberOffsetY.Text = String.Format(LabelNumberOffsetY.Tag.ToString, Me.FontOffset_X)
+    ''    ''
+    ''    LabelBorderWidth.Text = String.Format(LabelBorderWidth.Tag.ToString, Me.Border_SizeInPixels)
 
-    End Sub
+    ''End Sub
 
     Private Sub ButtonOK_Click(sender As Object, e As EventArgs) Handles ButtonOK.Click
 
@@ -191,9 +195,11 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
 
         ''Added 9/9/2019 thomas downes
         ''
-        ButtonDecrease.Enabled = chkBorderDisplayed.Checked
-        ButtonIncrease.Enabled = chkBorderDisplayed.Checked
-        LabelBorderWidth.Enabled = chkBorderDisplayed.Checked
+        ''9/13/2019 td''ButtonDecrease.Enabled = chkBorderDisplayed.Checked
+        ''9/13/2019 td''ButtonIncrease.Enabled = chkBorderDisplayed.Checked
+        ''9/13/2019 td''LabelBorderWidth.Enabled = chkBorderDisplayed.Checked
+
+        CtlBorderWidth.Enabled = chkBorderDisplayed.Checked
 
     End Sub
 End Class
