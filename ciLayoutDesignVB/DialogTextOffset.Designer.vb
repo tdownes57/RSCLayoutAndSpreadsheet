@@ -109,7 +109,7 @@ Partial Class DialogTextOffset
         Me.LabelHeader1.Location = New System.Drawing.Point(7, 5)
         Me.LabelHeader1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LabelHeader1.Name = "LabelHeader1"
-        Me.LabelHeader1.Size = New System.Drawing.Size(192, 31)
+        Me.LabelHeader1.Size = New System.Drawing.Size(236, 39)
         Me.LabelHeader1.TabIndex = 5
         Me.LabelHeader1.Text = "Offset of Text  "
         '
@@ -142,7 +142,7 @@ Partial Class DialogTextOffset
         Me.TextExampleValue.Location = New System.Drawing.Point(32, 408)
         Me.TextExampleValue.Margin = New System.Windows.Forms.Padding(2)
         Me.TextExampleValue.Name = "TextExampleValue"
-        Me.TextExampleValue.Size = New System.Drawing.Size(218, 23)
+        Me.TextExampleValue.Size = New System.Drawing.Size(218, 26)
         Me.TextExampleValue.TabIndex = 9
         '
         'LabelExampleValueHdr
@@ -153,7 +153,7 @@ Partial Class DialogTextOffset
         Me.LabelExampleValueHdr.Location = New System.Drawing.Point(10, 387)
         Me.LabelExampleValueHdr.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LabelExampleValueHdr.Name = "LabelExampleValueHdr"
-        Me.LabelExampleValueHdr.Size = New System.Drawing.Size(101, 17)
+        Me.LabelExampleValueHdr.Size = New System.Drawing.Size(120, 20)
         Me.LabelExampleValueHdr.TabIndex = 10
         Me.LabelExampleValueHdr.Text = "Example Value"
         '
@@ -175,7 +175,7 @@ Partial Class DialogTextOffset
         Me.LabelHeader2.Location = New System.Drawing.Point(47, 36)
         Me.LabelHeader2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LabelHeader2.Name = "LabelHeader2"
-        Me.LabelHeader2.Size = New System.Drawing.Size(211, 25)
+        Me.LabelHeader2.Size = New System.Drawing.Size(271, 29)
         Me.LabelHeader2.TabIndex = 12
         Me.LabelHeader2.Text = "(from upper-left corner)"
         '
@@ -207,7 +207,7 @@ Partial Class DialogTextOffset
         Me.LabelNumberOffsetX.Location = New System.Drawing.Point(11, 73)
         Me.LabelNumberOffsetX.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LabelNumberOffsetX.Name = "LabelNumberOffsetX"
-        Me.LabelNumberOffsetX.Size = New System.Drawing.Size(107, 22)
+        Me.LabelNumberOffsetX.Size = New System.Drawing.Size(129, 26)
         Me.LabelNumberOffsetX.TabIndex = 16
         Me.LabelNumberOffsetX.Tag = "Offset X: {0}"
         Me.LabelNumberOffsetX.Text = "Offset X: {0}"
@@ -219,7 +219,7 @@ Partial Class DialogTextOffset
         Me.LabelNumberOffsetY.Location = New System.Drawing.Point(369, 48)
         Me.LabelNumberOffsetY.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LabelNumberOffsetY.Name = "LabelNumberOffsetY"
-        Me.LabelNumberOffsetY.Size = New System.Drawing.Size(107, 22)
+        Me.LabelNumberOffsetY.Size = New System.Drawing.Size(130, 26)
         Me.LabelNumberOffsetY.TabIndex = 17
         Me.LabelNumberOffsetY.Tag = "Offset Y: {0}"
         Me.LabelNumberOffsetY.Text = "Offset Y: {0}"
@@ -260,6 +260,7 @@ Partial Class DialogTextOffset
         'CtlGraphicFldLabel1
         '
         Me.CtlGraphicFldLabel1.Location = New System.Drawing.Point(20, 141)
+        Me.CtlGraphicFldLabel1.Margin = New System.Windows.Forms.Padding(4)
         Me.CtlGraphicFldLabel1.Name = "CtlGraphicFldLabel1"
         Me.CtlGraphicFldLabel1.Size = New System.Drawing.Size(272, 19)
         Me.CtlGraphicFldLabel1.TabIndex = 27
@@ -360,7 +361,7 @@ Partial Class DialogTextOffset
         Me.ButtonElementWidthDecrease.Location = New System.Drawing.Point(462, 325)
         Me.ButtonElementWidthDecrease.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonElementWidthDecrease.Name = "ButtonElementWidthDecrease"
-        Me.ButtonElementWidthDecrease.Size = New System.Drawing.Size(29, 39)
+        Me.ButtonElementWidthDecrease.Size = New System.Drawing.Size(29, 53)
         Me.ButtonElementWidthDecrease.TabIndex = 38
         Me.ButtonElementWidthDecrease.Text = "<"
         Me.ButtonElementWidthDecrease.UseVisualStyleBackColor = True
@@ -371,7 +372,7 @@ Partial Class DialogTextOffset
         Me.ButtonElementWidthIncrease.Location = New System.Drawing.Point(495, 325)
         Me.ButtonElementWidthIncrease.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonElementWidthIncrease.Name = "ButtonElementWidthIncrease"
-        Me.ButtonElementWidthIncrease.Size = New System.Drawing.Size(29, 39)
+        Me.ButtonElementWidthIncrease.Size = New System.Drawing.Size(29, 53)
         Me.ButtonElementWidthIncrease.TabIndex = 37
         Me.ButtonElementWidthIncrease.Text = ">"
         Me.ButtonElementWidthIncrease.UseVisualStyleBackColor = True
@@ -379,7 +380,7 @@ Partial Class DialogTextOffset
         'DialogTextOffset
         '
         Me.AcceptButton = Me.ButtonOK
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Thistle
         Me.CancelButton = Me.ButtonCancel

@@ -21,6 +21,9 @@ Public Class DialogTextOffset
     Public Font_DrawingClass As Font ''Added 8/17/2019 td 
     Public TextAlignment As System.Windows.Forms.HorizontalAlignment ''Added 8/18/2019 td 
 
+    Public Element_Height As Integer ''Added 9/12/2019 thomas d.
+    Public Element_Width As Integer ''Added 9/12/2019 thomas d.
+
     ''8/17/2019 td''Public ObjElementText As ClassElementText
     ''8/29/2019 td''Public ElementInfo As ciBadgeInterfaces.IElementText ''Added 8/16/2019 td
     Public ElementInfo_Text As ciBadgeInterfaces.IElement_Text ''Renamed 8/29/2019 td
@@ -267,6 +270,62 @@ Public Class DialogTextOffset
         Me.ElementInfo_Text.TextAlignment = HorizontalAlignment.Right
         Me.TextAlignment = HorizontalAlignment.Right
         Me.CtlGraphicFldLabel1.Refresh_Image()
+
+
+    End Sub
+
+    Private Sub ButtonElementHghtDecrease_Click(sender As Object, e As EventArgs) Handles ButtonElementHghtDecrease.Click
+
+        ''Added 9/12/2019 thomas downes
+        Me.ElementInfo_Base.Height_Pixels -= 1
+        Me.Element_Height = Me.ElementInfo_Base.Height_Pixels
+        Me.CtlGraphicFldLabel1.Refresh_Image()
+
+        ''Added 9/12/2019 thomas downes 
+        LabelElementHghtNum.Text = String.Format(LabelElementHghtNum.Tag.ToString, Me.Element_Height)
+
+    End Sub
+
+    Private Sub ButtonElementHghtIncrease_Click(sender As Object, e As EventArgs) Handles ButtonElementHghtIncrease.Click
+
+        ''Added 9/12/2019 thomas downes
+        Me.ElementInfo_Base.Height_Pixels += 1
+        Me.Element_Height = Me.ElementInfo_Base.Height_Pixels
+        Me.CtlGraphicFldLabel1.Refresh_Image()
+
+        ''Added 9/12/2019 thomas downes 
+        LabelElementHghtNum.Text = String.Format(LabelElementHghtNum.Tag.ToString, Me.Element_Height)
+
+    End Sub
+
+    Private Sub ButtonElementWidthDecrease_Click(sender As Object, e As EventArgs) Handles ButtonElementWidthDecrease.Click
+
+        ''Added 9/12/2019 thomas downes
+        Me.ElementInfo_Base.Width_Pixels -= 1
+        Me.Element_Width = Me.ElementInfo_Base.Width_Pixels
+        Me.CtlGraphicFldLabel1.Refresh_Image()
+
+        ''Added 9/12/2019 thomas downes 
+        LabelElementWidthNum.Text = String.Format(LabelElementWidthNum.Tag.ToString, Me.Element_Width)
+
+    End Sub
+
+    Private Sub ButtonElementWidthIncrease_Click(sender As Object, e As EventArgs) Handles ButtonElementWidthIncrease.Click
+
+        ''Added 9/12/2019 thomas downes
+        Me.ElementInfo_Base.Width_Pixels += 1
+        Me.Element_Width = Me.ElementInfo_Base.Width_Pixels
+        Me.CtlGraphicFldLabel1.Refresh_Image()
+
+        ''Added 9/12/2019 thomas downes 
+        LabelElementWidthNum.Text = String.Format(LabelElementWidthNum.Tag.ToString, Me.Element_Width)
+
+    End Sub
+
+    Private Sub CheckFontSizeScalesYN_CheckedChanged(sender As Object, e As EventArgs) Handles checkFontSizeScalesYN.CheckedChanged
+
+        ''Added 9/12/2019 thomas d.
+        Me.ElementInfo_Text.FontSize_ScaleToElementYesNo = checkFontSizeScalesYN.Checked
 
     End Sub
 End Class
