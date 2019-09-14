@@ -105,7 +105,7 @@ Public Class DialogTextOffset
     End Sub ''End of "Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
 
     Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo,
-                                par_originalCtl As CtlGraphicFldLabel)
+                                 par_originalCtl As CtlGraphicFldLabel)
 
         Me.FieldInfo = par_field
 
@@ -139,20 +139,19 @@ Public Class DialogTextOffset
 
         Me.CtlElementWidth.ElementInfo_Base = par_field.ElementInfo_Base
         Me.CtlElementWidth.ElementInfo_Text = par_field.ElementInfo_Text
-        Me.CtlElementHeight.InitiateLocalValue()
+        Me.CtlElementWidth.InitiateLocalValue()
 
         Me.CtlFontSize.ElementInfo_Base = par_field.ElementInfo_Base
         Me.CtlFontSize.ElementInfo_Text = par_field.ElementInfo_Text
-        Me.CtlElementHeight.InitiateLocalValue()
+        Me.CtlFontSize.InitiateLocalValue()
 
         Me.CtlTextOffsetX.ElementInfo_Base = par_field.ElementInfo_Base
         Me.CtlTextOffsetX.ElementInfo_Text = par_field.ElementInfo_Text
-        Me.CtlElementHeight.InitiateLocalValue()
-        Me.CtlElementHeight.InitiateLocalValue()
+        Me.CtlTextOffsetX.InitiateLocalValue()
 
         Me.ctlTextOffsetY.ElementInfo_Base = par_field.ElementInfo_Base
         Me.ctlTextOffsetY.ElementInfo_Text = par_field.ElementInfo_Text
-        Me.CtlElementHeight.InitiateLocalValue()
+        Me.ctlTextOffsetY.InitiateLocalValue()
 
     End Sub ''End of "Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
 
@@ -376,7 +375,15 @@ Public Class DialogTextOffset
         CtlElementHeight.EventUpdateRequest, CtlTextOffsetX.EventUpdateRequest, CtlElementWidth.EventUpdateRequest
 
         ''Added 9/13/2019 thomas downes
-        Me.CtlGraphicFldLabel1.Refresh_Image()
+        With Me.CtlGraphicFldLabel1
+            Me.CtlGraphicFldLabel1.Width = Me.ElementInfo_Base.Width_Pixels
+            Me.CtlGraphicFldLabel1.Height = Me.ElementInfo_Base.Height_Pixels
+            Me.CtlGraphicFldLabel1.Refresh_Image()
+        End With
+
+    End Sub
+
+    Private Sub CtlElementWidth_Load(sender As Object, e As EventArgs) Handles CtlElementWidth.Load
 
     End Sub
 End Class
