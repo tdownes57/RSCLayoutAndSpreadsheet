@@ -16,6 +16,7 @@ Public Class ClassGroupMove
     ''Added 8/3/2019 thomas downes
     Public Event Resizing_Start()
     Public Event Resizing_End()
+    Public Event Moving_End() ''Added 9/13/2019 td  
 
     Public ParentLayoutForm As FormDesignProtoTwo ''Added 8/4/2019
 
@@ -69,5 +70,11 @@ Public Class ClassGroupMove
 
     End Sub
 
+    Public Sub Moving_Terminate() Implements InterfaceEvents.Moving_Terminate
+
+        ''Added 9/13/2019 td  
+        RaiseEvent Moving_End()
+
+    End Sub
 
 End Class

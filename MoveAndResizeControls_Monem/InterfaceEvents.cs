@@ -31,6 +31,7 @@ namespace MoveAndResizeControls_Monem
         //
         void Resizing_Initiate();
         void Resizing_Terminate();
+        void Moving_Terminate(); //Added 9/13/2019 td 
 
     }
 }

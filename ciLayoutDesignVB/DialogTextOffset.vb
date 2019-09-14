@@ -84,6 +84,23 @@ Public Class DialogTextOffset
         ''LabelNumberOffsetY.Text = String.Format(LabelNumberOffsetY.Tag.ToString, Me.FontOffset_Y)
         ''LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, Me.FontSize)
 
+        ''
+        ''Added 9/13/2019 thomas downes
+        ''
+        Me.CtlElementHeight.ElementInfo_Base = par_elementInfo_Base
+        Me.CtlElementHeight.ElementInfo_Text = par_elementInfo_Text
+
+        Me.CtlElementWidth.ElementInfo_Base = par_elementInfo_Base
+        Me.CtlElementWidth.ElementInfo_Text = par_elementInfo_Text
+
+        Me.CtlFontSize.ElementInfo_Base = par_elementInfo_Base
+        Me.CtlFontSize.ElementInfo_Text = par_elementInfo_Text
+
+        Me.CtlTextOffsetX.ElementInfo_Base = par_elementInfo_Base
+        Me.CtlTextOffsetX.ElementInfo_Text = par_elementInfo_Text
+
+        Me.ctlTextOffsetY.ElementInfo_Base = par_elementInfo_Base
+        Me.ctlTextOffsetY.ElementInfo_Text = par_elementInfo_Text
 
     End Sub ''End of "Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
 
@@ -350,7 +367,8 @@ Public Class DialogTextOffset
 
     End Sub
 
-    Private Sub For_EventUpdateRequest() Handles ctlTextOffsetY.EventUpdateRequest, CtlFontSize.EventUpdateRequest, CtlElementHeight.EventUpdateRequest
+    Private Sub For_EventUpdateRequest() Handles ctlTextOffsetY.EventUpdateRequest, CtlFontSize.EventUpdateRequest,
+        CtlElementHeight.EventUpdateRequest, CtlTextOffsetX.EventUpdateRequest, CtlElementWidth.EventUpdateRequest
 
         ''Added 9/13/2019 thomas downes
         Me.CtlGraphicFldLabel1.Refresh_Image()

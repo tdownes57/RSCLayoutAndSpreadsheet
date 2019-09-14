@@ -60,6 +60,8 @@ namespace MoveAndResizeControls_Monem
         internal static bool MouseIsInTopEdge { get; set; }
         internal static bool MouseIsInBottomEdge { get; set; }
 
+        internal static bool SetBreakpoint_AfterMove { get; set; } //Added 9/13/2019 td 
+
         internal enum MoveOrResize
         {
             Move,
@@ -73,7 +75,8 @@ namespace MoveAndResizeControls_Monem
 
         internal static MoveOrResize WorkType { get; set; }
 
-        public static void Init(Control control, int par_margin, bool pbRepaintAfterResize, InterfaceEvents par_events)
+        public static void Init(Control control, int par_margin, bool pbRepaintAfterResize, 
+                                 InterfaceEvents par_events, bool pbSetBreakpoint_AfterMove)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
             //     the preferred background color.)   ----7/31/2019 td
@@ -86,11 +89,15 @@ namespace MoveAndResizeControls_Monem
 
             // 8-03-2019 td//Init(control, control, par_margin, pbRepaintAfterResize);
 
-            Init(control, control, par_margin, pbRepaintAfterResize, par_events);
+            //Not needed here. 9/13 td.//SetBreakpoint_AfterMove = pbSetBreakpoint_AfterMove;  //Added 9/13/2019 td 
+
+            // 9-13-2019 td//Init(control, control, par_margin, pbRepaintAfterResize, par_events);
+            Init(control, control, par_margin, pbRepaintAfterResize, par_events, SetBreakpoint_AfterMove );
 
         }
 
-        public static void Init(Control par_control, Control par_container, int par_margin, bool pbRepaintAfterResize, InterfaceEvents par_events)
+        public static void Init(Control par_control, Control par_container, int par_margin, bool pbRepaintAfterResize, 
+                               InterfaceEvents par_events, bool pbSetBreakpoint_AfterMove)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
             //     the preferred background color.)   ----7/31/2019 td
@@ -101,6 +108,8 @@ namespace MoveAndResizeControls_Monem
             //
             //   internal static void Init(Control control, Control container)
             //
+
+            SetBreakpoint_AfterMove = pbSetBreakpoint_AfterMove;  //Added 9/13/2019 td 
 
             mod_groupedctl_events = par_events;  // 8/3/2019 thomas downes   
 
@@ -502,9 +511,14 @@ namespace MoveAndResizeControls_Monem
             if (_repaintAfterResize && bWasResizing) par_control.Refresh();
             if (_repaintAfterResize && bWasResizing) par_control.Parent.Refresh();
 
+            //Added 9/13/2019 td
+            if (SetBreakpoint_AfterMove) System.Diagnostics.Debugger.Break();
+
             //Added 8/5/2019 thomas downes
-            //
             if (bWasResizing) mod_groupedctl_events.Resizing_Terminate();
+
+            //Added 9/13/2019 thomas downes
+            if (!(bWasResizing)) mod_groupedctl_events.Moving_Terminate();
 
         }
 

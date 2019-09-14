@@ -74,10 +74,11 @@ Partial Class FormDesignProtoTwo
         Me.dropdownHowToLoadFlds = New System.Windows.Forms.ComboBox()
         Me.flowFieldsNotListed = New System.Windows.Forms.FlowLayoutPanel()
         Me.lblFieldsNotCurrentlyShownHdr = New System.Windows.Forms.Label()
-        Me.CtlGraphicPortrait_Lady = New ciLayoutDesignVB.CtlGraphicPortrait()
         Me.chkHighResolution = New System.Windows.Forms.CheckBox()
         Me.flowSidebar = New System.Windows.Forms.FlowLayoutPanel()
         Me.LinkCloseSidebar = New System.Windows.Forms.LinkLabel()
+        Me.checkAutoPreview = New System.Windows.Forms.CheckBox()
+        Me.CtlGraphicPortrait_Lady = New ciLayoutDesignVB.CtlGraphicPortrait()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         CType(Me.graphicAdjuster, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -116,9 +117,8 @@ Partial Class FormDesignProtoTwo
         '
         'chkIncludeExampleValues
         '
+        Me.chkIncludeExampleValues.AutoCheck = False
         Me.chkIncludeExampleValues.AutoSize = True
-        Me.chkIncludeExampleValues.Checked = True
-        Me.chkIncludeExampleValues.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkIncludeExampleValues.Location = New System.Drawing.Point(737, 464)
         Me.chkIncludeExampleValues.Margin = New System.Windows.Forms.Padding(2)
         Me.chkIncludeExampleValues.Name = "chkIncludeExampleValues"
@@ -261,13 +261,13 @@ Partial Class FormDesignProtoTwo
         'SingleSidedToolStripMenuItem
         '
         Me.SingleSidedToolStripMenuItem.Name = "SingleSidedToolStripMenuItem"
-        Me.SingleSidedToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.SingleSidedToolStripMenuItem.Size = New System.Drawing.Size(146, 22)
         Me.SingleSidedToolStripMenuItem.Text = "Single-Sided"
         '
         'DoubleSidedToolStripMenuItem1
         '
         Me.DoubleSidedToolStripMenuItem1.Name = "DoubleSidedToolStripMenuItem1"
-        Me.DoubleSidedToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
+        Me.DoubleSidedToolStripMenuItem1.Size = New System.Drawing.Size(146, 22)
         Me.DoubleSidedToolStripMenuItem1.Text = "Double-Sided"
         '
         'ModeV9ToolStripMenuItem
@@ -287,13 +287,13 @@ Partial Class FormDesignProtoTwo
         'UploadNewToolStripMenuItem
         '
         Me.UploadNewToolStripMenuItem.Name = "UploadNewToolStripMenuItem"
-        Me.UploadNewToolStripMenuItem.Size = New System.Drawing.Size(190, 22)
+        Me.UploadNewToolStripMenuItem.Size = New System.Drawing.Size(189, 22)
         Me.UploadNewToolStripMenuItem.Text = "Upload new...."
         '
         'SelectFromExistingToolStripMenuItem
         '
         Me.SelectFromExistingToolStripMenuItem.Name = "SelectFromExistingToolStripMenuItem"
-        Me.SelectFromExistingToolStripMenuItem.Size = New System.Drawing.Size(190, 22)
+        Me.SelectFromExistingToolStripMenuItem.Size = New System.Drawing.Size(189, 22)
         Me.SelectFromExistingToolStripMenuItem.Text = "Select from existing...."
         '
         'DemoModeVideoToolStripMenuItem
@@ -307,7 +307,7 @@ Partial Class FormDesignProtoTwo
         'DemoModeActiveToolStripMenuItem
         '
         Me.DemoModeActiveToolStripMenuItem.Name = "DemoModeActiveToolStripMenuItem"
-        Me.DemoModeActiveToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.DemoModeActiveToolStripMenuItem.Size = New System.Drawing.Size(176, 22)
         Me.DemoModeActiveToolStripMenuItem.Text = "Demo Mode Active"
         '
         'CheckBox1
@@ -385,12 +385,13 @@ Partial Class FormDesignProtoTwo
         Me.graphicAdjuster.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.graphicAdjuster.TabIndex = 45
         Me.graphicAdjuster.TabStop = False
+        Me.graphicAdjuster.Visible = False
         '
         'picturePreview
         '
         Me.picturePreview.BackColor = System.Drawing.Color.White
         Me.picturePreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.picturePreview.Location = New System.Drawing.Point(737, 63)
+        Me.picturePreview.Location = New System.Drawing.Point(737, 86)
         Me.picturePreview.Name = "picturePreview"
         Me.picturePreview.Size = New System.Drawing.Size(467, 276)
         Me.picturePreview.TabIndex = 44
@@ -494,14 +495,6 @@ Partial Class FormDesignProtoTwo
         Me.lblFieldsNotCurrentlyShownHdr.TabIndex = 0
         Me.lblFieldsNotCurrentlyShownHdr.Text = "Fields not yet displayed"
         '
-        'CtlGraphicPortrait_Lady
-        '
-        Me.CtlGraphicPortrait_Lady.Location = New System.Drawing.Point(547, 73)
-        Me.CtlGraphicPortrait_Lady.Margin = New System.Windows.Forms.Padding(4)
-        Me.CtlGraphicPortrait_Lady.Name = "CtlGraphicPortrait_Lady"
-        Me.CtlGraphicPortrait_Lady.Size = New System.Drawing.Size(150, 182)
-        Me.CtlGraphicPortrait_Lady.TabIndex = 41
-        '
         'chkHighResolution
         '
         Me.chkHighResolution.AutoSize = True
@@ -524,6 +517,7 @@ Partial Class FormDesignProtoTwo
         Me.flowSidebar.Name = "flowSidebar"
         Me.flowSidebar.Size = New System.Drawing.Size(22, 567)
         Me.flowSidebar.TabIndex = 54
+        Me.flowSidebar.Visible = False
         '
         'LinkCloseSidebar
         '
@@ -535,11 +529,34 @@ Partial Class FormDesignProtoTwo
         Me.LinkCloseSidebar.TabStop = True
         Me.LinkCloseSidebar.Text = "Close sidebar"
         '
+        'checkAutoPreview
+        '
+        Me.checkAutoPreview.AutoSize = True
+        Me.checkAutoPreview.Checked = True
+        Me.checkAutoPreview.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.checkAutoPreview.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.checkAutoPreview.Location = New System.Drawing.Point(1096, 60)
+        Me.checkAutoPreview.Margin = New System.Windows.Forms.Padding(2)
+        Me.checkAutoPreview.Name = "checkAutoPreview"
+        Me.checkAutoPreview.Size = New System.Drawing.Size(97, 19)
+        Me.checkAutoPreview.TabIndex = 55
+        Me.checkAutoPreview.Text = "Auto-Preview"
+        Me.checkAutoPreview.UseVisualStyleBackColor = True
+        '
+        'CtlGraphicPortrait_Lady
+        '
+        Me.CtlGraphicPortrait_Lady.Location = New System.Drawing.Point(547, 73)
+        Me.CtlGraphicPortrait_Lady.Margin = New System.Windows.Forms.Padding(4)
+        Me.CtlGraphicPortrait_Lady.Name = "CtlGraphicPortrait_Lady"
+        Me.CtlGraphicPortrait_Lady.Size = New System.Drawing.Size(150, 182)
+        Me.CtlGraphicPortrait_Lady.TabIndex = 41
+        '
         'FormDesignProtoTwo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1245, 591)
+        Me.Controls.Add(Me.checkAutoPreview)
         Me.Controls.Add(Me.flowSidebar)
         Me.Controls.Add(Me.chkHighResolution)
         Me.Controls.Add(Me.flowFieldsNotListed)
@@ -634,4 +651,5 @@ Partial Class FormDesignProtoTwo
     Friend WithEvents ModeV9ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents flowSidebar As FlowLayoutPanel
     Friend WithEvents LinkCloseSidebar As LinkLabel
+    Friend WithEvents checkAutoPreview As CheckBox
 End Class

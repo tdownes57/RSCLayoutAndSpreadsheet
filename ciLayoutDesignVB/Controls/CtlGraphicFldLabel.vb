@@ -14,6 +14,9 @@ Public Class CtlGraphicFldLabel
     ''9/3/2019 td''Public Shared Generator As ClassLabelToImage
     Public Shared LabelToImage As ClassLabelToImage
 
+    ''Added 9/13/2019 td  
+    Public Shared UseExampleValues As Boolean
+
     ''7/26/2019 td''Public FieldInfo As ClassFieldCustomized
     ''7/26/2019 td''Public ElementInfo As ClassElementText
     Public FieldInfo As ICIBFieldStandardOrCustom
@@ -377,7 +380,7 @@ Public Class CtlGraphicFldLabel
         ''
         Select Case True
 
-            Case (Me.FieldInfo.ExampleValue <> "")
+            Case (UseExampleValues And (Me.FieldInfo.ExampleValue <> ""))
 
                 ''Me.ElementInfo.Info.Text = Me.FieldInfo.ExampleValue
                 Return Me.FieldInfo.ExampleValue

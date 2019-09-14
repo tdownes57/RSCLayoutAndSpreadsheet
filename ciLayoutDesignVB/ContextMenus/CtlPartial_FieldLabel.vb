@@ -122,7 +122,10 @@ Partial Public Class CtlGraphicFldLabel
 
             Next each_ctl
 
-        End If
+        End If ''End of "If (Me.GroupEdits.LabelsList_IsItemUnselected(Me)) Then ... ElseIf (Me.GroupEdits.LabelsList_IsItemIncluded(Me)) Then"
+
+        ''Added 9/13/2019 td
+        Me.FormDesigner.AutoPreview_IfChecked()
 
     End Sub ''eNd of "Private Sub opendialog_Color()"
 
@@ -132,6 +135,9 @@ Partial Public Class CtlGraphicFldLabel
         ''
         Me.GroupEdits.SwitchControls___Up(Me)
 
+        ''Added 9/13/2019 td
+        Me.FormDesigner.AutoPreview_IfChecked()
+
     End Sub
 
     Private Sub SwitchCtl_Down(sender As Object, e As EventArgs)
@@ -139,6 +145,9 @@ Partial Public Class CtlGraphicFldLabel
         ''Added 8/16/2019 thomas downes
         ''
         Me.GroupEdits.SwitchControls_Down(Me)
+
+        ''Added 9/13/2019 td
+        Me.FormDesigner.AutoPreview_IfChecked()
 
     End Sub
 
@@ -200,6 +209,9 @@ Partial Public Class CtlGraphicFldLabel
             Next each_ctl
 
         End If ''End of "If (Me.GroupEdits.LabelsList_IsItemUnselected(Me)) Then... Else ..."
+
+        ''Added 9/13/2019 td
+        Me.FormDesigner.AutoPreview_IfChecked()
 
     End Sub ''eNd of "Private Sub opendialog_Font()"
 
@@ -397,6 +409,9 @@ Partial Public Class CtlGraphicFldLabel
 
         Next each_ctl
 
+        ''Added 9/13/2019 td
+        Me.FormDesigner.AutoPreview_IfChecked()
+
     End Sub ''eNd of "Private Sub Alignment_Master()"
 
     Private Sub ExampleValue_Edit(sender As Object, e As EventArgs)
@@ -479,9 +494,12 @@ Partial Public Class CtlGraphicFldLabel
 
                 Next each_ctl
 
-            End If
+            End If ''ENdo f "If (Me.GroupEdits.LabelsList_IsItemIncluded(Me)) Then"
 
         End If ''End of "If (boolUserPressedOK) Then"
+
+        ''Added 9/13/2019 td
+        Me.FormDesigner.AutoPreview_IfChecked()
 
     End Sub ''End of "Private Sub Open_OffsetTextDialog(sender As Object, e As EventArgs)"
 
@@ -537,9 +555,12 @@ Partial Public Class CtlGraphicFldLabel
 
                 Next each_ctl
 
-            End If
+            End If ''End of "If (Me.GroupEdits.LabelsList_IsItemIncluded(Me)) Then"
 
         End If ''End of "If (boolUserPressedOK) Then"
+
+        ''Added 9/13/2019 td
+        Me.FormDesigner.AutoPreview_IfChecked()
 
     End Sub ''End of "Private Sub Open_OffsetTextDialog(sender As Object, e As EventArgs)"
 
@@ -566,6 +587,9 @@ Partial Public Class CtlGraphicFldLabel
 
         Refresh_Image()
         Me.Refresh()
+
+        ''Added 9/13/2019 td
+        Me.FormDesigner.AutoPreview_IfChecked()
 
     End Sub ''eNd of "Private Sub Rotate90Degrees()"
 

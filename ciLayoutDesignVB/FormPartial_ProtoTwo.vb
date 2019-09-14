@@ -253,9 +253,19 @@ Partial Public Class FormDesignProtoTwo
 
             .Refresh_Image()
 
-            End With ''End of "With mod_FieldControlLastTouched"
+        End With ''End of "With mod_FieldControlLastTouched"
 
-    End Sub ''End of "Private Sub Resizing_End"
+        ''Added 9/13/2019 td 
+        AutoPreview_IfChecked()
+
+    End Sub ''End of "Private Sub Resizing_End() Handles mod_groupedMove.Resizing_End"
+
+    Private Sub MovingElement_End() Handles mod_groupedMove.Moving_End
+
+        ''Added 9/13/2019 td 
+        AutoPreview_IfChecked()
+
+    End Sub
 
     Private Sub SwitchControls_Down(par_ctl As CtlGraphicFldLabel) Implements ISelectingElements.SwitchControls_Down
         ''

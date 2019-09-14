@@ -129,6 +129,10 @@ Public Class FormDesignProtoTwo
         ''Major call !!
         ''
         ''9/8/2019 td''Load_Form()
+
+        ''
+        ''Major call!!  
+        ''
         LoadForm_LayoutElements()
 
         ''Added 8/11/2019 thomas d.
@@ -217,6 +221,8 @@ Public Class FormDesignProtoTwo
         ''
         ''Added 7/19/2019 thomas downes  
         ''
+        Const c_addAfterMoveAddBreakpoint As Boolean = True
+
         ''8/4/2019 td''Dim boolAllowGroupMovements As Boolean = False ''True ''False ''Added 8/3/2019 td  
         ''
         ''Portrait
@@ -224,10 +230,12 @@ Public Class FormDesignProtoTwo
         If (mc_boolAllowGroupMovements) Then
 
             ControlMove_GroupMove_TD.Init(CtlGraphicPortrait_Lady.Picture_Box,
-                      CtlGraphicPortrait_Lady, 10, True, mod_groupedMove) ''Added 8/3/2019 thomas downes
+                      CtlGraphicPortrait_Lady, 10, True, mod_groupedMove,
+                      c_addAfterMoveAddBreakpoint) ''Added 8/3/2019 thomas downes
         Else
             ControlMoverOrResizer_TD.Init(CtlGraphicPortrait_Lady.Picture_Box,
-                  CtlGraphicPortrait_Lady, 10, True) ''Added 7/31/2019 thomas downes
+                  CtlGraphicPortrait_Lady, 10, True,
+                   c_addAfterMoveAddBreakpoint) ''Added 7/31/2019 thomas downes
 
         End If ''End of " If (mc_boolAllowGroupMovements) Then .... Else ...."
 
@@ -301,6 +309,9 @@ Public Class FormDesignProtoTwo
                     .Width = CtlGraphicPortrait_Lady.Height
                     .Height = CtlGraphicPortrait_Lady.Width
                 End If ''End of "If (bSwitchWidthHeight) Then"
+
+                ''Added 9/13/2019 td 
+                .BadgeLayout = New BadgeLayoutClass(pictureBack.Width, pictureBack.Height)
 
             End With ''End of "With field_standard.ElementInfo"
 
@@ -1272,6 +1283,17 @@ Public Class FormDesignProtoTwo
 
     End Sub ''ENd of "Private Sub RefreshTheSetOfDisplayedElements"
 
+    Public Sub AutoPreview_IfChecked()
+        ''
+        ''Refresh the preview picture box. 
+        ''
+        If (checkAutoPreview.Checked) Then
+            SaveLayout()
+            RefreshPreview()
+        End If ''End of "If (checkAutoPreview.Checked) Then"
+
+    End Sub ''End of  "Private Sub AutoPreview_IfChecked()"
+
     Private Sub ContextMenuStrip1_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles ContextMenuStrip1.Opening
 
     End Sub
@@ -1620,5 +1642,38 @@ Public Class FormDesignProtoTwo
         ''
         flowSidebar.Visible = False
 
+    End Sub
+
+    Private Sub ChkIncludeExampleValues_Click(sender As Object, e As EventArgs) Handles chkIncludeExampleValues.Click
+        ''
+        ''We have .AutoChecked = False !!   Therefore, please look for Checkbox.Checked = .... below.
+        ''    ----9/13/2019 Thomas downes
+        ''
+        ''Added 9/13/2019 td 
+        Dim diag_res As DialogResult ''Added 9/13/2019 td
+        Const c_boolCheckBeforeSave As Boolean = False ''Added 9/13/2019 td 
+
+        If (c_boolCheckBeforeSave) Then
+            ''Added 9/13/2019 td 
+            diag_res = MessageBox.Show("A side effect of this is, your present layout work will be __saved__.", "",
+                                     MessageBoxButtons.OKCancel, MessageBoxIcon.Information)
+            If (vbCancel = diag_res) Then Exit Sub
+        End If ''Endolf "If (c_boolCheckBeforeSave) Then"
+
+        ''Added 9/13/2019 thomas downes
+        chkIncludeExampleValues.Checked = (Not chkIncludeExampleValues.Checked)
+        CtlGraphicFldLabel.UseExampleValues = chkIncludeExampleValues.Checked
+        SaveLayout()
+        RefreshTheSetOfDisplayedElements()
+
+        ''Addded 9/13/2019 td
+        AutoPreview_IfChecked()
+
+    End Sub
+
+    Private Sub ChkIncludeExampleValues_CheckedChanged(sender As Object, e As EventArgs) Handles chkIncludeExampleValues.CheckedChanged
+        ''
+        ''We have .AutoChecked = False, so please see the Click event.  ----9/13/2019 
+        ''
     End Sub
 End Class

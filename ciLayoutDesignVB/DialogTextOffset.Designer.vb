@@ -36,12 +36,12 @@ Partial Class DialogTextOffset
         Me.checkFontSizeScalesYN = New System.Windows.Forms.CheckBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.ButtonLeft = New System.Windows.Forms.Button()
-        Me.CtlGraphicFldLabel1 = New ciLayoutDesignVB.CtlGraphicFldLabel()
-        Me.ctlTextOffsetY = New ciLayoutDesignVB.CtlPropertyUpDownvb()
-        Me.CtlFontSize = New ciLayoutDesignVB.CtlPropertyUpDownvb()
-        Me.CtlElementHeight = New ciLayoutDesignVB.CtlPropertyUpDownvb()
-        Me.CtlElementWidth = New ciLayoutDesignVB.CtlPropertyLeftRight()
         Me.CtlTextOffsetX = New ciLayoutDesignVB.CtlPropertyLeftRight()
+        Me.CtlElementWidth = New ciLayoutDesignVB.CtlPropertyLeftRight()
+        Me.CtlElementHeight = New ciLayoutDesignVB.CtlPropertyUpDownvb()
+        Me.CtlFontSize = New ciLayoutDesignVB.CtlPropertyUpDownvb()
+        Me.ctlTextOffsetY = New ciLayoutDesignVB.CtlPropertyUpDownvb()
+        Me.CtlGraphicFldLabel1 = New ciLayoutDesignVB.CtlGraphicFldLabel()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -170,12 +170,48 @@ Partial Class DialogTextOffset
         Me.ButtonLeft.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.ButtonLeft.UseVisualStyleBackColor = True
         '
-        'CtlGraphicFldLabel1
+        'CtlTextOffsetX
         '
-        Me.CtlGraphicFldLabel1.Location = New System.Drawing.Point(17, 83)
-        Me.CtlGraphicFldLabel1.Name = "CtlGraphicFldLabel1"
-        Me.CtlGraphicFldLabel1.Size = New System.Drawing.Size(463, 24)
-        Me.CtlGraphicFldLabel1.TabIndex = 27
+        Me.CtlTextOffsetX.BackColor = System.Drawing.Color.Plum
+        Me.CtlTextOffsetX.Location = New System.Drawing.Point(12, 162)
+        Me.CtlTextOffsetX.Name = "CtlTextOffsetX"
+        Me.CtlTextOffsetX.PropertyName = "Text Offset Horizontal"
+        Me.CtlTextOffsetX.PropertyValue = 4
+        Me.CtlTextOffsetX.Size = New System.Drawing.Size(175, 113)
+        Me.CtlTextOffsetX.TabIndex = 43
+        Me.ToolTip1.SetToolTip(Me.CtlTextOffsetX, "Text Offset is from the top-left corner of the label.")
+        '
+        'CtlElementWidth
+        '
+        Me.CtlElementWidth.BackColor = System.Drawing.Color.Plum
+        Me.CtlElementWidth.Location = New System.Drawing.Point(193, 162)
+        Me.CtlElementWidth.Name = "CtlElementWidth"
+        Me.CtlElementWidth.PropertyName = "Total Width of Label"
+        Me.CtlElementWidth.PropertyValue = 100
+        Me.CtlElementWidth.Size = New System.Drawing.Size(175, 113)
+        Me.CtlElementWidth.TabIndex = 42
+        '
+        'CtlElementHeight
+        '
+        Me.CtlElementHeight.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.CtlElementHeight.BackColor = System.Drawing.Color.Plum
+        Me.CtlElementHeight.Location = New System.Drawing.Point(588, 275)
+        Me.CtlElementHeight.Name = "CtlElementHeight"
+        Me.CtlElementHeight.PropertyName = "Total Height of Label"
+        Me.CtlElementHeight.PropertyValue = 10
+        Me.CtlElementHeight.Size = New System.Drawing.Size(181, 106)
+        Me.CtlElementHeight.TabIndex = 41
+        '
+        'CtlFontSize
+        '
+        Me.CtlFontSize.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.CtlFontSize.BackColor = System.Drawing.Color.Plum
+        Me.CtlFontSize.Location = New System.Drawing.Point(588, 153)
+        Me.CtlFontSize.Name = "CtlFontSize"
+        Me.CtlFontSize.PropertyName = "Font Size Pixels"
+        Me.CtlFontSize.PropertyValue = 25
+        Me.CtlFontSize.Size = New System.Drawing.Size(181, 106)
+        Me.CtlFontSize.TabIndex = 40
         '
         'ctlTextOffsetY
         '
@@ -189,46 +225,12 @@ Partial Class DialogTextOffset
         Me.ctlTextOffsetY.TabIndex = 39
         Me.ToolTip1.SetToolTip(Me.ctlTextOffsetY, "Text Offset is from the top-left corner of the label.")
         '
-        'CtlFontSize
+        'CtlGraphicFldLabel1
         '
-        Me.CtlFontSize.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.CtlFontSize.BackColor = System.Drawing.Color.Plum
-        Me.CtlFontSize.Location = New System.Drawing.Point(588, 153)
-        Me.CtlFontSize.Name = "CtlFontSize"
-        Me.CtlFontSize.PropertyName = "Font Size Pixels"
-        Me.CtlFontSize.PropertyValue = 25
-        Me.CtlFontSize.Size = New System.Drawing.Size(181, 106)
-        Me.CtlFontSize.TabIndex = 40
-        '
-        'CtlElementHeight
-        '
-        Me.CtlElementHeight.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.CtlElementHeight.BackColor = System.Drawing.Color.Plum
-        Me.CtlElementHeight.Location = New System.Drawing.Point(588, 275)
-        Me.CtlElementHeight.Name = "CtlElementHeight"
-        Me.CtlElementHeight.PropertyName = "Total Height of Label"
-        Me.CtlElementHeight.PropertyValue = 10
-        Me.CtlElementHeight.Size = New System.Drawing.Size(181, 106)
-        Me.CtlElementHeight.TabIndex = 41
-        '
-        'CtlElementWidth
-        '
-        Me.CtlElementWidth.Location = New System.Drawing.Point(193, 162)
-        Me.CtlElementWidth.Name = "CtlElementWidth"
-        Me.CtlElementWidth.PropertyName = "Total Width of Label"
-        Me.CtlElementWidth.PropertyValue = 100
-        Me.CtlElementWidth.Size = New System.Drawing.Size(175, 113)
-        Me.CtlElementWidth.TabIndex = 42
-        '
-        'CtlTextOffsetX
-        '
-        Me.CtlTextOffsetX.Location = New System.Drawing.Point(12, 162)
-        Me.CtlTextOffsetX.Name = "CtlTextOffsetX"
-        Me.CtlTextOffsetX.PropertyName = "Text Offset Horizontal"
-        Me.CtlTextOffsetX.PropertyValue = 4
-        Me.CtlTextOffsetX.Size = New System.Drawing.Size(175, 113)
-        Me.CtlTextOffsetX.TabIndex = 43
-        Me.ToolTip1.SetToolTip(Me.CtlTextOffsetX, "Text Offset is from the top-left corner of the label.")
+        Me.CtlGraphicFldLabel1.Location = New System.Drawing.Point(17, 83)
+        Me.CtlGraphicFldLabel1.Name = "CtlGraphicFldLabel1"
+        Me.CtlGraphicFldLabel1.Size = New System.Drawing.Size(463, 24)
+        Me.CtlGraphicFldLabel1.TabIndex = 27
         '
         'DialogTextOffset
         '

@@ -61,6 +61,8 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
         internal static bool MouseIsInRightEdge { get; set; }
         internal static bool MouseIsInTopEdge { get; set; }
         internal static bool MouseIsInBottomEdge { get; set; }
+        internal static bool SetBreakpoint_AfterMove { get; set; } //Added 9/13/2019 td 
+
 
         internal enum MoveOrResize
         {
@@ -71,7 +73,7 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
 
         internal static MoveOrResize WorkType { get; set; }
 
-        public static void Init(Control control, int par_margin, bool pbRepaintAfterResize)
+        public static void Init(Control control, int par_margin, bool pbRepaintAfterResize, bool pbSetBreakpoint_AfterMove)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
             //     the preferred background color.)   ----7/31/2019 td
@@ -85,7 +87,7 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             Init(control, control, par_margin, pbRepaintAfterResize);
         }
 
-        public static void Init(Control par_control, Control par_container, int par_margin, bool pbRepaintAfterResize)
+        public static void Init(Control par_control, Control par_container, int par_margin, bool pbRepaintAfterResize, bool pbSetBreakpoint_AfterMove)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
             //     the preferred background color.)   ----7/31/2019 td
@@ -295,6 +297,9 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             //
             if (_repaintAfterResize && bWasResizing) par_control.Refresh();
             if (_repaintAfterResize && bWasResizing) par_control.Parent.Refresh();
+
+            //Added 9/13/2019 td
+            if (SetBreakpoint_AfterMove) System.Diagnostics.Debugger.Break();
 
         }
 
