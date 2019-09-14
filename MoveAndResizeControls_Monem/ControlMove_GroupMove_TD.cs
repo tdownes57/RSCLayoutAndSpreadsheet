@@ -512,7 +512,7 @@ namespace MoveAndResizeControls_Monem
             if (_repaintAfterResize && bWasResizing) par_control.Parent.Refresh();
 
             //Added 9/13/2019 td
-            if (SetBreakpoint_AfterMove) System.Diagnostics.Debugger.Break();
+            //if (SetBreakpoint_AfterMove) System.Diagnostics.Debugger.Break();
 
             //Added 8/5/2019 thomas downes
             if (bWasResizing) mod_groupedctl_events.Resizing_Terminate();

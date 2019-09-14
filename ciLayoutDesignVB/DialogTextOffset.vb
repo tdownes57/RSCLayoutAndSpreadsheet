@@ -135,19 +135,24 @@ Public Class DialogTextOffset
         ''
         Me.CtlElementHeight.ElementInfo_Base = par_field.ElementInfo_Base
         Me.CtlElementHeight.ElementInfo_Text = par_field.ElementInfo_Text
+        Me.CtlElementHeight.InitiateLocalValue()
 
         Me.CtlElementWidth.ElementInfo_Base = par_field.ElementInfo_Base
         Me.CtlElementWidth.ElementInfo_Text = par_field.ElementInfo_Text
+        Me.CtlElementHeight.InitiateLocalValue()
 
         Me.CtlFontSize.ElementInfo_Base = par_field.ElementInfo_Base
         Me.CtlFontSize.ElementInfo_Text = par_field.ElementInfo_Text
+        Me.CtlElementHeight.InitiateLocalValue()
 
         Me.CtlTextOffsetX.ElementInfo_Base = par_field.ElementInfo_Base
         Me.CtlTextOffsetX.ElementInfo_Text = par_field.ElementInfo_Text
+        Me.CtlElementHeight.InitiateLocalValue()
+        Me.CtlElementHeight.InitiateLocalValue()
 
         Me.ctlTextOffsetY.ElementInfo_Base = par_field.ElementInfo_Base
         Me.ctlTextOffsetY.ElementInfo_Text = par_field.ElementInfo_Text
-
+        Me.CtlElementHeight.InitiateLocalValue()
 
     End Sub ''End of "Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
 

@@ -90,5 +90,40 @@ Public Class CtlPropertyLeftRight
 
     End Sub ''End of "Private Sub UpdateElementInfo()"
 
+    Public Sub InitiateLocalValue()
+        ''
+        ''Added 9/14/2019 td
+        ''
+        InitiateLocalValue(Me.ElementInfo_Base, Me.ElementInfo_Text)
+
+    End Sub
+
+    Public Sub InitiateLocalValue(par_Base As IElement_Base,
+                                   par_Text As IElement_Text)
+        ''
+        ''Added 9/14/2019 thomas d. 
+        ''
+        With mod_sPropertyName
+
+            Select Case True
+
+                Case (.StartsWith("Text") Or .StartsWith("Off"))
+
+                    mod_iPropertyValue = par_Text.FontOffset_X ''= par_value
+
+                Case (.StartsWith("Font"))
+
+                    mod_iPropertyValue = par_Text.FontSize_Pixels ''= par_value
+
+                Case (.StartsWith("Total") Or .StartsWith("Label"))
+
+                    mod_iPropertyValue = par_Base.Width_Pixels ''= par_value
+
+            End Select ''End of "Select Case True"
+
+        End With ''End of " With mod_sPropertyName"
+
+    End Sub ''End of "Public Sub InitiateLocalValue()"
+
 End Class
 
