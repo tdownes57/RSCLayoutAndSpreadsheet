@@ -387,19 +387,37 @@ Public Class ClassFieldCustomized
 
     End Function ''End of "Public Function GetValue_Recipient_TimesPrinted(par_enum As EnumCIBFields) As Integer"
 
-    Public Shared Function Javascript(personality) As String
+    Public Shared Function Javascript() As String ''----(par_personality As IPersonality) As String
         ''
         ''Added 9/13/2019 td  
         ''
-        Dim stringbldrJavascript As New System.Text.StringBuilder
+        Dim stringbldrJavascript As New System.Text.StringBuilder(700)
+        Dim each_field As ClassFieldStandard
 
-        For Each objField As ClassFieldCustomized In ClassFieldCustomized.ListOfFields_Students
+        For Each each_field In ClassFieldStandard.ListOfFields_Students
+
+            With stringbldrJavascript
+
+                .AppendLine("ctl_" + each_field.CIBadgeField_Optional +
+                            ".Left = " + each_field.ElementInfo_Base.LeftEdge_Pixels.ToString() + " ; ")
 
 
 
 
 
-        Next
+
+
+
+
+
+
+            End With
+
+
+
+
+
+        Next each_field
 
 
 
