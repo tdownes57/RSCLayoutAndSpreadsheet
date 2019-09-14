@@ -303,4 +303,28 @@ Public Class ClassElementText
 
     End Function ''End of "Public Function GenerateImage_NotInUse(par_label As Label) As Image"
 
+    Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base,
+                                    par_ElementInfo_Text As IElement_Text)
+        ''
+        ''Added 9/13/2019 thomas downes
+        ''
+        Me.ExampleValue = par_ElementInfo_Text.ExampleValue
+
+        Me.FieldInCardData = par_ElementInfo_Text.FieldInCardData
+
+        Me.FieldLabelCaption = par_ElementInfo_Text.FieldLabelCaption
+
+        Me.FontBold = par_ElementInfo_Text.FontBold
+
+
+
+
+
+
+
+
+
+    End Sub
+
+
 End Class

@@ -337,18 +337,30 @@ Public Class ClassFieldCustomized
         ''
         Me.ArrayOfValues = par_info.ArrayOfValues
         Me.CIBadgeField_Optional = par_info.CIBadgeField_Optional
+        Me.DataEntryText = par_info.DataEntryText
+
+        ''Added 9/13/2019 td
+        Dim objElementText As New ClassElementText ''Added 9/13 td
+        Me.ElementInfo = objElementText ''Added 9/13/2019 td
+        Me.ElementInfo.LoadbyCopyingMembers(par_info.ElementInfo_Base,
+                                            par_info.ElementInfo_Text)
+
         Me.ExampleValue = par_info.ExampleValue
         Me.FieldIndex = par_info.FieldIndex
         Me.FieldLabelCaption = par_info.FieldLabelCaption
+        Me.FieldType_TD = par_info.FieldType_TD
         Me.HasPresetValues = par_info.HasPresetValues
         Me.IsAdditionalField = par_info.IsAdditionalField
+        Me.IsCustomizable = par_info.IsCustomizable
+        Me.IsDisplayedForEdits = par_info.IsDisplayedForEdits
+        Me.IsDisplayedOnBadge = par_info.IsDisplayedOnBadge
         Me.IsFieldForDates = par_info.IsFieldForDates
         Me.IsLocked = par_info.IsLocked
+        Me.IsStandard = par_info.IsStandard
 
-        Me.FieldType_TD = par_info.FieldType_TD
         Me.OtherDbField_Optional = par_info.OtherDbField_Optional  ''Added 7/23/2019 td 
 
-    End Sub
+    End Sub ''End of "Public Sub Load_ByCopyingMembers(par_info As ICIBFieldStandardOrCustom)"
 
     Public Function GetValue_Recipient_String(par_enum As EnumCIBFields) As String
         ''
@@ -375,5 +387,27 @@ Public Class ClassFieldCustomized
 
     End Function ''End of "Public Function GetValue_Recipient_TimesPrinted(par_enum As EnumCIBFields) As Integer"
 
+    Public Shared Function Javascript(personality) As String
+        ''
+        ''Added 9/13/2019 td  
+        ''
+        Dim stringbldrJavascript As New System.Text.StringBuilder
+
+        For Each objField As ClassFieldCustomized In ClassFieldCustomized.ListOfFields_Students
+
+
+
+
+
+        Next
+
+
+
+
+
+
+
+
+    End Function ''End of "Public Shared Functionn Javascript() As String"
 
 End Class
