@@ -274,10 +274,10 @@ Partial Public Class FormMainEntry_v90
         If (mc_boolAllowGroupMovements) Then
 
             ControlMove_GroupMove_TD.Init(mod_imagePortrait.Picture_Box,
-                      mod_imagePortrait, 10, True, mod_groupedMove) ''Added 8/3/2019 thomas downes
+                      mod_imagePortrait, 10, True, mod_groupedMove, False) ''Added 8/3/2019 thomas downes
         Else
             ControlMoverOrResizer_TD.Init(mod_imagePortrait.Picture_Box,
-                  mod_imagePortrait, 10, True) ''Added 7/31/2019 thomas downes
+                  mod_imagePortrait, 10, True, False) ''Added 7/31/2019 thomas downes
 
         End If ''End of " If (mc_boolAllowGroupMovements) Then .... Else ...."
 

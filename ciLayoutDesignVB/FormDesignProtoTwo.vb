@@ -1508,7 +1508,7 @@ Public Class FormDesignProtoTwo
         Dim list_controlFields As New List(Of CtlGraphicFldLabel)
 
         Me.mod_ControlLastTouched = Nothing
-
+        Me.mod_ElementLastTouched = Nothing ''9/14 td
         Me.mod_FieldControlLastTouched = Nothing
 
         Me.mod_selectedCtls.Clear()

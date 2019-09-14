@@ -13,6 +13,7 @@ Partial Public Class FormDesignProtoTwo
     Private mod_selectedCtls As New List(Of CtlGraphicFldLabel)   ''Added 8/03/2019 thomas downes 
     Private mod_FieldControlLastTouched As CtlGraphicFldLabel   ''Added 8/09/2019 thomas downes 
     Private mod_ControlLastTouched As Control ''Added 8/12/2019 thomas d. 
+    Private mod_ElementLastTouched As Control ''Let's change this to IElement_Base soon. ---Added 9/14/2019 td 
     Private Const mc_bAddBorderOnlyWhileResizing As Boolean = True ''Added 9/11/2019 thomas d. 
 
     Public Property ControlBeingMoved() As Control ''Added 8/4/2019 td
@@ -25,10 +26,12 @@ Partial Public Class FormDesignProtoTwo
             Try
                 ''9/9/2019 td''mod_FieldControlLastTouched = value
                 mod_FieldControlLastTouched = CType(value, CtlGraphicFldLabel)
+                mod_ElementLastTouched = CType(value, Control) ''Added 9/14 
                 mod_ControlLastTouched = value ''Added 8/1/2019 
             Catch
                 ''Added 8/12/2019 td  
                 mod_ControlLastTouched = value
+                mod_ElementLastTouched = CType(value, Control)
             End Try
         End Set
     End Property
@@ -43,7 +46,8 @@ Partial Public Class FormDesignProtoTwo
         End Get
         Set(value As Control)
             ''Added 8/9/2019 td
-            mod_ControlLastTouched = value ''Added 8/12/2019 td   
+            mod_ControlLastTouched = value ''Added 8/12/2019 td
+            mod_ElementLastTouched = value ''Added 9/14/2019 td
             Try
                 ''9/9/2019 td''mod_FieldControlLastTouched = value
                 mod_FieldControlLastTouched = CType(value, CtlGraphicFldLabel)
@@ -237,23 +241,32 @@ Partial Public Class FormDesignProtoTwo
         ''   This is needed in case it's not a group of controls being resized, 
         ''   but just a single control. ---9/11 td 
         ''
-        With mod_FieldControlLastTouched
+        ''9/14/2019 td''If (mod_ElementLastTouched = mod_FieldControlLastTouched) Then
 
-            .ElementInfo_Base.Width_Pixels = mod_FieldControlLastTouched.Width
-            .ElementInfo_Base.Height_Pixels = mod_FieldControlLastTouched.Height
+        Dim boolResizedAFieldCtl As Boolean ''Added 9/14/2019 td
+        boolResizedAFieldCtl = (TypeOf mod_ControlLastTouched Is CtlGraphicFldLabel)
 
-            ''Added 9/12/2019 td  
-            With .ElementInfo_Text
-                If .FontSize_ScaleToElementYesNo Then
-                    ''Change the Font Size, to account for the new Height of the Element !!
-                    ''  ---9/12/2019 td 
-                    .FontSize_Pixels = CSng(mod_FieldControlLastTouched.Height * .FontSize_ScaleToElementRatio)
-                End If ''End of "If .FontSize_ScaleToElementYesNo Then"
-            End With ''End of "With .ElementInfo_Text"
+        If (boolResizedAFieldCtl) Then ''Added 9/14/2019 td
 
-            .Refresh_Image()
+            With mod_FieldControlLastTouched
 
-        End With ''End of "With mod_FieldControlLastTouched"
+                .ElementInfo_Base.Width_Pixels = mod_FieldControlLastTouched.Width
+                .ElementInfo_Base.Height_Pixels = mod_FieldControlLastTouched.Height
+
+                ''Added 9/12/2019 td  
+                With .ElementInfo_Text
+                    If .FontSize_ScaleToElementYesNo Then
+                        ''Change the Font Size, to account for the new Height of the Element !!
+                        ''  ---9/12/2019 td 
+                        .FontSize_Pixels = CSng(mod_FieldControlLastTouched.Height * .FontSize_ScaleToElementRatio)
+                    End If ''End of "If .FontSize_ScaleToElementYesNo Then"
+                End With ''End of "With .ElementInfo_Text"
+
+                .Refresh_Image()
+
+            End With ''End of "With mod_FieldControlLastTouched"
+
+        End If ''End of "If (mod_ElementLastTouched = mod_FieldControlLastTouched) Then"
 
         ''Added 9/13/2019 td 
         AutoPreview_IfChecked()
