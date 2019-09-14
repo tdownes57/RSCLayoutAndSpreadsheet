@@ -21,6 +21,7 @@ Public Class FormDesignProtoTwo
     Private WithEvents mod_groupedMove As New ClassGroupMove(Me) ''8/4/2019 td''New ClassGroupMove
 
     Private Const mc_boolAllowGroupMovements As Boolean = True ''False ''True ''False ''Added 8/3/2019 td  
+    Private Const mc_boolBreakpoints As Boolean = True
 
     ''Added 8/18/2019 td
     Private mod_imageLady As Image ''8/18/2019 td'' = CtlGraphicPortrait_Lady.picturePortrait.Image
@@ -144,11 +145,14 @@ Public Class FormDesignProtoTwo
         ResizeLayoutBackgroundImage_ToFitPictureBox() ''Added 8/25/2019 td
         RefreshPreview() ''Added 8/24/2019 td
 
+        Const c_boolBreakpoint As Boolean = True  ''Added 9//13/2019 td
+
         ''Badge Preview is also moveable/sizeable, mostly to impress
         ''    management.  ----9/8/2019 td
         ''
         ControlMoverOrResizer_TD.Init(picturePreview,
-                          picturePreview, 10, False) ''Added 9/08/2019 thomas downes
+                          picturePreview, 10, False,
+                          c_boolBreakpoint) ''Added 9/08/2019 thomas downes
 
         ''If it won't conflict with the Rubber-Band Selector, 
         ''    then let's make the Badge Layout Background 
@@ -159,7 +163,8 @@ Public Class FormDesignProtoTwo
         If (c_LayoutBackIsMoveable) Then
             ''Badge Layout Background is also moveable/sizeable.
             ControlMoverOrResizer_TD.Init(pictureBack,
-                          picturePreview, 10, False) ''Added 9/08/2019 thomas downes
+                          picturePreview, 10, False,
+                          c_boolBreakpoint) ''Added 9/08/2019 thomas downes
         End If ''End of "If (c_LayoutBackIsMoveable) Then"
 
     End Sub ''End of "Private Sub FormDesignProtoTwo_Load"
@@ -269,10 +274,12 @@ Public Class FormDesignProtoTwo
 
         If (mc_boolAllowGroupMovements) Then
             ControlMove_GroupMove_TD.Init(par_graphicFieldCtl.Picture_Box,
-                          par_graphicFieldCtl, 10, c_bRepaintAfterResize, mod_groupedMove) ''Added 8/3/2019 td 
+                          par_graphicFieldCtl, 10, c_bRepaintAfterResize,
+                          mod_groupedMove, mc_boolAllowGroupMovements) ''Added 8/3/2019 td 
         Else
             ControlMoverOrResizer_TD.Init(par_graphicFieldCtl.Picture_Box,
-                          par_graphicFieldCtl, 10, c_bRepaintAfterResize) ''Added 7/28/2019 thomas downes
+                          par_graphicFieldCtl, 10,
+                          c_bRepaintAfterResize, mc_boolBreakpoints) ''Added 7/28/2019 thomas downes
         End If ''End of "If (boolAllowGroupMovements) Then ...... Else ..."
 
     End Sub ''End of "Private Sub ControlMoverResizer_AddField"

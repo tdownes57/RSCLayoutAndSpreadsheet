@@ -308,14 +308,17 @@ Partial Public Class FormMainEntry_v90
         ''
         ''Encapsulated 9/7/2019 thomas d
         ''
-        Const c_bRepaintAfterResize As Boolean = True ''Added 7/31/2019 td 
+        Const c_bRepaintAfterResize As Boolean = True ''Added 7/31/2019 tdpoint 
+        Const c_bBreakpoint As Boolean = True ''Added 9/13/2019 td
 
         If (mc_boolAllowGroupMovements) Then
             ControlMove_GroupMove_TD.Init(par_entryFieldCtl.LabelCaption,
-                          par_entryFieldCtl, 10, c_bRepaintAfterResize, mod_groupedMove) ''Added 8/3/2019 td 
+                          par_entryFieldCtl, 10, c_bRepaintAfterResize,
+                          mod_groupedMove, c_bBreakpoint) ''Added 8/3/2019 td 
         Else
             ControlMoverOrResizer_TD.Init(par_entryFieldCtl.LabelCaption,
-                          par_entryFieldCtl, 10, c_bRepaintAfterResize) ''Added 7/28/2019 thomas downes
+                          par_entryFieldCtl, 10, c_bRepaintAfterResize,
+                          c_bBreakpoint) ''Added 7/28/2019 thomas downes
         End If ''End of "If (boolAllowGroupMovements) Then ...... Else ..."
 
     End Sub ''End of "Private Sub ControlMoverResizer_AddField"

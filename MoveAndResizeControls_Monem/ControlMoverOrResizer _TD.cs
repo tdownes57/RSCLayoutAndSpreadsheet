@@ -84,7 +84,11 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
 
             // 7-31-2019 td----Init(control, control, par_margin
 
-            Init(control, control, par_margin, pbRepaintAfterResize);
+            // 9-13-2019 td----Init(control, control, par_margin, pbRepaintAfterResize);
+
+            Init(control, control, par_margin, pbRepaintAfterResize,
+                pbSetBreakpoint_AfterMove);
+
         }
 
         public static void Init(Control par_control, Control par_container, int par_margin, bool pbRepaintAfterResize, bool pbSetBreakpoint_AfterMove)
