@@ -52,7 +52,7 @@ Public Class CtlPropertyUpDownvb
         End Set
     End Property
 
-    Private Sub ButtonDecrease_Click(sender As Object, e As EventArgs) Handles ButtonFontDecrease.Click
+    Private Sub ButtonDecrease_Click(sender As Object, e As EventArgs) Handles ButtonDecrease.Click
 
         mod_iPropertyValue -= 1
         If (mod_iPropertyValue < 0) Then mod_iPropertyValue = 0
@@ -64,7 +64,7 @@ Public Class CtlPropertyUpDownvb
 
     End Sub
 
-    Private Sub ButtonIncrease_Click(sender As Object, e As EventArgs) Handles ButtonFontIncrease.Click
+    Private Sub ButtonIncrease_Click(sender As Object, e As EventArgs) Handles ButtonIncrease.Click
 
         mod_iPropertyValue += 1
         If (mod_iPropertyValue < 0) Then mod_iPropertyValue = 0
@@ -101,10 +101,22 @@ Public Class CtlPropertyUpDownvb
 
                     Me.ElementInfo_Text.FontSize_Pixels = par_value
 
-
                 Case (.StartsWith("Total") Or .StartsWith("Label"))
 
                     Me.ElementInfo_Base.Height_Pixels = par_value
+
+                Case (.StartsWith("Border"))
+
+                    ''Added 9/14/2019 td  
+                    Me.ElementInfo_Base.Border_WidthInPixels = par_value
+
+                Case Else
+
+                    ''Added 9/14/2019 td
+                    ''
+                    MessageBox.Show("The element property is not being determined, and hence nothing will happen.", "",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+
 
             End Select ''End of "Select Case True"
 

@@ -202,5 +202,18 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
         CtlBorderWidth.Enabled = chkBorderDisplayed.Checked
 
     End Sub
+
+    Private Sub CtlBorderWidth_EventUpdateRequest() Handles CtlBorderWidth.EventUpdateRequest
+        ''
+        ''Added 9/14/2019
+        ''
+        ''Added 9/13/2019 thomas downes
+        With Me.CtlGraphicFldLabel1
+            ''---Me.CtlGraphicFldLabel1.Width = Me.ElementInfo_Base.Width_Pixels
+            ''---Me.CtlGraphicFldLabel1.Height = Me.ElementInfo_Base.Height_Pixels
+            Me.CtlGraphicFldLabel1.Refresh_Image()
+        End With
+
+    End Sub
 End Class
 

@@ -23,8 +23,8 @@ Partial Class CtlPropertyLeftRight
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.LabelProperty = New System.Windows.Forms.Label()
-        Me.ButtonFontIncrease = New System.Windows.Forms.Button()
-        Me.ButtonFontDecrease = New System.Windows.Forms.Button()
+        Me.ButtonIncrease = New System.Windows.Forms.Button()
+        Me.ButtonDecrease = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'LabelProperty
@@ -39,39 +39,39 @@ Partial Class CtlPropertyLeftRight
         Me.LabelProperty.Tag = "Property: {0}"
         Me.LabelProperty.Text = "Property: {0}"
         '
-        'ButtonFontIncrease
+        'ButtonIncrease
         '
-        Me.ButtonFontIncrease.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.ButtonFontIncrease.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonFontIncrease.Location = New System.Drawing.Point(107, 70)
-        Me.ButtonFontIncrease.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.ButtonFontIncrease.Name = "ButtonFontIncrease"
-        Me.ButtonFontIncrease.Size = New System.Drawing.Size(67, 49)
-        Me.ButtonFontIncrease.TabIndex = 26
-        Me.ButtonFontIncrease.Text = ">"
-        Me.ButtonFontIncrease.UseVisualStyleBackColor = True
+        Me.ButtonIncrease.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.ButtonIncrease.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonIncrease.Location = New System.Drawing.Point(107, 70)
+        Me.ButtonIncrease.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.ButtonIncrease.Name = "ButtonIncrease"
+        Me.ButtonIncrease.Size = New System.Drawing.Size(67, 49)
+        Me.ButtonIncrease.TabIndex = 26
+        Me.ButtonIncrease.Text = ">"
+        Me.ButtonIncrease.UseVisualStyleBackColor = True
         '
-        'ButtonFontDecrease
+        'ButtonDecrease
         '
-        Me.ButtonFontDecrease.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.ButtonFontDecrease.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonFontDecrease.Location = New System.Drawing.Point(35, 70)
-        Me.ButtonFontDecrease.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.ButtonFontDecrease.Name = "ButtonFontDecrease"
-        Me.ButtonFontDecrease.Size = New System.Drawing.Size(67, 49)
-        Me.ButtonFontDecrease.TabIndex = 25
-        Me.ButtonFontDecrease.Text = "<"
-        Me.ButtonFontDecrease.UseVisualStyleBackColor = True
+        Me.ButtonDecrease.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.ButtonDecrease.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonDecrease.Location = New System.Drawing.Point(35, 70)
+        Me.ButtonDecrease.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.ButtonDecrease.Name = "ButtonDecrease"
+        Me.ButtonDecrease.Size = New System.Drawing.Size(67, 49)
+        Me.ButtonDecrease.TabIndex = 25
+        Me.ButtonDecrease.Text = "<"
+        Me.ButtonDecrease.UseVisualStyleBackColor = True
         '
         'CtlPropertyLeftRight
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Plum
-        Me.Controls.Add(Me.ButtonFontIncrease)
-        Me.Controls.Add(Me.ButtonFontDecrease)
+        Me.Controls.Add(Me.ButtonIncrease)
+        Me.Controls.Add(Me.ButtonDecrease)
         Me.Controls.Add(Me.LabelProperty)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "CtlPropertyLeftRight"
         Me.Size = New System.Drawing.Size(233, 139)
         Me.ResumeLayout(False)
@@ -79,6 +79,6 @@ Partial Class CtlPropertyLeftRight
     End Sub
 
     Friend WithEvents LabelProperty As Label
-    Friend WithEvents ButtonFontIncrease As Button
-    Friend WithEvents ButtonFontDecrease As Button
+    Friend WithEvents ButtonIncrease As Button
+    Friend WithEvents ButtonDecrease As Button
 End Class
