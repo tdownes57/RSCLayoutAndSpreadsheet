@@ -37,6 +37,8 @@ Public Class CtlPropertyLeftRight
     Private Sub ButtonFontDecrease_Click(sender As Object, e As EventArgs) Handles ButtonFontDecrease.Click
 
         mod_iPropertyValue -= 1
+        If (mod_iPropertyValue < 0) Then mod_iPropertyValue = 0
+
         ''9/13/2019 td''LabelProperty.Text = (mod_sPropertyName & ": " & CStr(mod_iPropertyValue))
         UpdateUserFeedbackLabel()
         UpdateElementInfo(mod_iPropertyValue)
@@ -47,6 +49,8 @@ Public Class CtlPropertyLeftRight
     Private Sub ButtonFontIncrease_Click(sender As Object, e As EventArgs) Handles ButtonFontIncrease.Click
 
         mod_iPropertyValue += 1
+        If (mod_iPropertyValue < 0) Then mod_iPropertyValue = 0
+
         ''9/13/2019 td''LabelProperty.Text = (mod_sPropertyName & ": " & CStr(mod_iPropertyValue))
         UpdateUserFeedbackLabel()
         UpdateElementInfo(mod_iPropertyValue)
