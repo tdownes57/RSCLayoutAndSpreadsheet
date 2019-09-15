@@ -184,7 +184,8 @@ Partial Public Class CtlGraphicFldLabel
             Application.DoEvents()
             Application.DoEvents()
 
-            Refresh_Image()
+            ''9/15/2019 td''Refresh_Image()
+            Refresh_Image(False)
             Me.Refresh()
 
         ElseIf (Me.GroupEdits.LabelsList_IsItemIncluded(Me)) Then

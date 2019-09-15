@@ -136,7 +136,28 @@ ExitHandler:
         par_font = new_font
         Return new_font
 
-    End Function ''End of "Public Function SetFontSize(ByRef par_font As Font, par_intSize As Integer) As Font"
+    End Function ''End of "Public Function SetFontSize_Pixels(ByRef par_font As Font, par_intSize As Integer) As Font"
+
+    Public Function SetFontSize_Pixels(ByRef par_font As Font, par_sizeInPixels As Single) As Font
+        ''
+        ''  https://stackoverflow.com/questions/15419744/fontsize-pixels-c-sharp-equivalent
+        ''
+        ''  Added 9/5/2019 td  
+        ''
+        Dim new_font As Font
+
+        If (par_sizeInPixels < 7) Then par_sizeInPixels = 7
+
+        With par_font
+
+            new_font = New Font(.FontFamily, par_sizeInPixels, .Style, GraphicsUnit.Pixel)
+
+        End With
+
+        par_font = new_font
+        Return new_font
+
+    End Function ''End of "Public Function SetFontSize_Pixels(ByRef par_font As Font, par_sizeInPixels As Single) As Font"
 
     Public Function SetFontSize_InPoints(ByRef par_font As Font, par_intSizeInPoints As Integer) As Font
         ''

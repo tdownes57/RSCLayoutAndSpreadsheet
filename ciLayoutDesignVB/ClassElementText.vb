@@ -318,13 +318,20 @@ Public Class ClassElementText
 
 
 
+    End Sub ''End of "Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base, .....)"
 
+    Public Sub Font_ScaleAdjustment(par_intNewHeightInPixels As Integer)
+        ''
+        ''Added 9/15/2019 td  
+        ''
+        If FontSize_ScaleToElementYesNo Then
 
+            FontSize_Pixels = CSng(FontSize_ScaleToElementRatio * par_intNewHeightInPixels)
+            Font_DrawingClass = modFonts.SetFontSize_Pixels(Font_DrawingClass, FontSize_Pixels)
 
+        End If ''End of "If FontSize_ScaleToElementYesNo Then"
 
-
-
-    End Sub
+    End Sub ''End of "Public Sub Font_ScaleAdjustment()" 
 
 
 End Class

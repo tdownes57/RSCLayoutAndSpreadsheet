@@ -253,9 +253,21 @@ Public Class CtlGraphicFldLabel
         ''Me.ElementInfo.FontColor = Me.ParentForm.ForeColor
 
         ''Added 8/18/2019 thomas downes 
-        If (pbRefreshSize) then
-           pictureLabel.Width = Me.ElementInfo_Base.Width_Pixels
-           pictureLabel.Height = Me.ElementInfo_Base.Height_Pixels
+        If (pbRefreshSize) Then
+            ''
+            ''Adjust the size of the label graphic. 
+            ''
+            pictureLabel.Width = Me.ElementInfo_Base.Width_Pixels
+            pictureLabel.Height = Me.ElementInfo_Base.Height_Pixels
+
+            ''Added 9/15/2019 thomas d.
+            Dim boolScaleFontSize As Boolean ''Added 9/15/2019 thomas d. 
+            boolScaleFontSize = (Me.ElementInfo_Text.FontSize_ScaleToElementYesNo)
+            If (boolScaleFontSize) Then
+                ''Added 9/15/2019 thomas d.
+                Me.ElementClass_Obj.Font_ScaleAdjustment(Me.ElementInfo_Base.Height_Pixels)
+            End If ''End of "If (boolScaleFontSize) Then"
+
         End If ''end if "If (pbRefreshSize) then"
 
         If (LabelToImage Is Nothing) Then LabelToImage = New ClassLabelToImage
