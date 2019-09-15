@@ -195,7 +195,9 @@ Public Class CtlGraphicFldLabel
         ''
         Refresh_PositionAndSize()
 
-        Refresh_Image()
+        ''#1 9/15 td''Refresh_Image
+        '' #2 9/15 tdRefresh_Image(False)
+        Refresh_Image(False)
 
     End Sub ''End of "Public Sub Refresh_Master()"
 
@@ -211,7 +213,7 @@ Public Class CtlGraphicFldLabel
 
     End Sub ''End of "Public Sub Refresh_PositionAndSize()"
 
-    Public Sub Refresh_Image()
+    Public Sub Refresh_Image(pbRefreshSize As boolean)
         ''
         ''Added 7/25/2019 thomas d 
         ''
@@ -251,8 +253,10 @@ Public Class CtlGraphicFldLabel
         ''Me.ElementInfo.FontColor = Me.ParentForm.ForeColor
 
         ''Added 8/18/2019 thomas downes 
-        pictureLabel.Width = Me.ElementInfo_Base.Width_Pixels
-        pictureLabel.Height = Me.ElementInfo_Base.Height_Pixels
+        If (pbRefreshSize) then
+           pictureLabel.Width = Me.ElementInfo_Base.Width_Pixels
+           pictureLabel.Height = Me.ElementInfo_Base.Height_Pixels
+        End If ''end if "If (pbRefreshSize) then"
 
         If (LabelToImage Is Nothing) Then LabelToImage = New ClassLabelToImage
 
@@ -419,7 +423,7 @@ Public Class CtlGraphicFldLabel
         Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.FormDesigner.Layout_Height_Pixels()
 
         Application.DoEvents()
-        Me.Refresh_Image()
+        Me.Refresh_Image(True)
         Application.DoEvents()
         Me.Refresh()
 

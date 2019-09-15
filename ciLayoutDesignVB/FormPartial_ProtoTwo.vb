@@ -233,7 +233,7 @@ Partial Public Class FormDesignProtoTwo
             each_control.TempResizeInfo_H = 0
 
             ''Added 9/11/2019 td
-            each_control.Refresh_Image()
+            each_control.Refresh_Image(True)
 
         Next each_control
 
@@ -262,7 +262,7 @@ Partial Public Class FormDesignProtoTwo
                     End If ''End of "If .FontSize_ScaleToElementYesNo Then"
                 End With ''End of "With .ElementInfo_Text"
 
-                .Refresh_Image()
+                .Refresh_Image(True)
 
             End With ''End of "With mod_FieldControlLastTouched"
 

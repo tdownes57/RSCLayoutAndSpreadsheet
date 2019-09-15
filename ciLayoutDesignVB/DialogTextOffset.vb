@@ -73,7 +73,7 @@ Public Class DialogTextOffset
             ''8/17/2019 td''.FieldInfo = par_fieldInfo
             ''8/16/2019 td   ''.ElementInfo = par_field.ElementInfo
             .FormDesigner = par_formDesigner
-            .Refresh_Image()
+            .Refresh_Image(True)
         End With
 
         ''Position it at the center horizontally. 
@@ -124,7 +124,7 @@ Public Class DialogTextOffset
             .FormDesigner = par_formDesigner
             .Width = .ElementInfo_Base.Width_Pixels
             .Height = .ElementInfo_Base.Height_Pixels
-            .Refresh_Image()
+            .Refresh_Image(True)
         End With
 
         ''Position it at the center horizontally. 
@@ -179,7 +179,7 @@ Public Class DialogTextOffset
     ''    Me.FontOffset_X += 1
     ''    Me.ElementInfo_Text.FontOffset_X += 1
     ''    CtlGraphicFldLabel1.ElementInfo_Text = Me.ElementInfo_Text
-    ''    CtlGraphicFldLabel1.Refresh_Image()
+    ''    CtlGraphicFldLabel1.Refresh_Image(True)
 
     ''    ''Added 8/17/2019 thomas downes 
     ''    LabelNumberOffsetY.Text = String.Format(LabelNumberOffsetY.Tag.ToString, Me.FontOffset_X)
@@ -193,7 +193,7 @@ Public Class DialogTextOffset
     ''    Me.FontOffset_X -= 1
     ''    Me.ElementInfo_Text.FontOffset_X -= 1
     ''    CtlGraphicFldLabel1.ElementInfo_Text = Me.ElementInfo_Text
-    ''    CtlGraphicFldLabel1.Refresh_Image()
+    ''    CtlGraphicFldLabel1.Refresh_Image(True)
 
     ''    ''Added 8/17/2019 thomas downes 
     ''    LabelNumberOffsetY.Text = String.Format(LabelNumberOffsetY.Tag.ToString, Me.FontOffset_X)
@@ -207,7 +207,7 @@ Public Class DialogTextOffset
     ''    Me.FontOffset_Y -= 1
     ''    Me.ElementInfo_Text.FontOffset_Y -= 1
     ''    CtlGraphicFldLabel1.ElementInfo_Text = Me.ElementInfo_Text
-    ''    CtlGraphicFldLabel1.Refresh_Image()
+    ''    CtlGraphicFldLabel1.Refresh_Image(True)
 
     ''    ''Added 8/17/2019 thomas downes 
     ''    LabelNumberOffsetX.Text = String.Format(LabelNumberOffsetX.Tag.ToString, Me.FontOffset_Y)
@@ -221,7 +221,7 @@ Public Class DialogTextOffset
     ''    Me.FontOffset_Y += 1
     ''    Me.ElementInfo_Text.FontOffset_Y += 1
     ''    CtlGraphicFldLabel1.ElementInfo_Text = Me.ElementInfo_Text
-    ''    CtlGraphicFldLabel1.Refresh_Image()
+    ''    CtlGraphicFldLabel1.Refresh_Image(True)
 
     ''    ''Added 8/17/2019 thomas downes 
     ''    LabelNumberOffsetX.Text = String.Format(LabelNumberOffsetX.Tag.ToString, Me.FontOffset_X)
@@ -247,7 +247,7 @@ Public Class DialogTextOffset
     ''    End With
 
     ''    CtlGraphicFldLabel1.ElementInfo_Text = Me.ElementInfo_Text
-    ''    CtlGraphicFldLabel1.Refresh_Image()
+    ''    CtlGraphicFldLabel1.Refresh_Image(True)
 
 
     ''End Sub
@@ -271,7 +271,7 @@ Public Class DialogTextOffset
     ''    End With
 
     ''    CtlGraphicFldLabel1.ElementInfo_Text = Me.ElementInfo_Text
-    ''    CtlGraphicFldLabel1.Refresh_Image()
+    ''    CtlGraphicFldLabel1.Refresh_Image(True)
 
     ''End Sub
 
@@ -294,7 +294,7 @@ Public Class DialogTextOffset
         ''
         Me.ElementInfo_Text.TextAlignment = HorizontalAlignment.Left
         Me.TextAlignment = HorizontalAlignment.Left
-        Me.CtlGraphicFldLabel1.Refresh_Image()
+        Me.CtlGraphicFldLabel1.Refresh_Image(True)
 
     End Sub
 
@@ -303,7 +303,7 @@ Public Class DialogTextOffset
         ''Added 8/18/2019 thomas downes
         Me.ElementInfo_Text.TextAlignment = HorizontalAlignment.Center
         Me.TextAlignment = HorizontalAlignment.Center
-        Me.CtlGraphicFldLabel1.Refresh_Image()
+        Me.CtlGraphicFldLabel1.Refresh_Image(True)
 
     End Sub
 
@@ -312,7 +312,7 @@ Public Class DialogTextOffset
         ''Added 8/18/2019 thomas downes
         Me.ElementInfo_Text.TextAlignment = HorizontalAlignment.Right
         Me.TextAlignment = HorizontalAlignment.Right
-        Me.CtlGraphicFldLabel1.Refresh_Image()
+        Me.CtlGraphicFldLabel1.Refresh_Image(True)
 
     End Sub
 
@@ -321,7 +321,7 @@ Public Class DialogTextOffset
     ''    ''Added 9/12/2019 thomas downes
     ''    Me.ElementInfo_Base.Height_Pixels -= 1
     ''    Me.Element_Height = Me.ElementInfo_Base.Height_Pixels
-    ''    Me.CtlGraphicFldLabel1.Refresh_Image()
+    ''    Me.CtlGraphicFldLabel1.Refresh_Image(True)
     ''
     ''    ''Added 9/12/2019 thomas downes 
     ''    LabelElementHghtNum.Text = String.Format(LabelElementHghtNum.Tag.ToString, Me.Element_Height)
@@ -333,7 +333,7 @@ Public Class DialogTextOffset
     ''    ''Added 9/12/2019 thomas downes
     ''    Me.ElementInfo_Base.Height_Pixels += 1
     ''    Me.Element_Height = Me.ElementInfo_Base.Height_Pixels
-    ''    Me.CtlGraphicFldLabel1.Refresh_Image()
+    ''    Me.CtlGraphicFldLabel1.Refresh_Image(True)
     ''
     ''    ''Added 9/12/2019 thomas downes 
     ''    LabelElementHghtNum.Text = String.Format(LabelElementHghtNum.Tag.ToString, Me.Element_Height)
@@ -345,7 +345,7 @@ Public Class DialogTextOffset
     ''    ''Added 9/12/2019 thomas downes
     ''    Me.ElementInfo_Base.Width_Pixels -= 1
     ''    Me.Element_Width = Me.ElementInfo_Base.Width_Pixels
-    ''    Me.CtlGraphicFldLabel1.Refresh_Image()
+    ''    Me.CtlGraphicFldLabel1.Refresh_Image(True)
     ''
     ''    ''Added 9/12/2019 thomas downes 
     ''    LabelElementWidthNum.Text = String.Format(LabelElementWidthNum.Tag.ToString, Me.Element_Width)
@@ -357,7 +357,7 @@ Public Class DialogTextOffset
     ''    ''Added 9/12/2019 thomas downes
     ''    Me.ElementInfo_Base.Width_Pixels += 1
     ''    Me.Element_Width = Me.ElementInfo_Base.Width_Pixels
-    ''    Me.CtlGraphicFldLabel1.Refresh_Image()
+    ''    Me.CtlGraphicFldLabel1.Refresh_Image(True)
     ''
     ''    ''Added 9/12/2019 thomas downes 
     ''    LabelElementWidthNum.Text = String.Format(LabelElementWidthNum.Tag.ToString, Me.Element_Width)
@@ -378,7 +378,7 @@ Public Class DialogTextOffset
         With Me.CtlGraphicFldLabel1
             Me.CtlGraphicFldLabel1.Width = Me.ElementInfo_Base.Width_Pixels
             Me.CtlGraphicFldLabel1.Height = Me.ElementInfo_Base.Height_Pixels
-            Me.CtlGraphicFldLabel1.Refresh_Image()
+            Me.CtlGraphicFldLabel1.Refresh_Image(True)
         End With
 
     End Sub

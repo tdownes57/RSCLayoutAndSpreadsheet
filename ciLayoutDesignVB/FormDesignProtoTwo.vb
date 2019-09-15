@@ -516,7 +516,7 @@ Public Class FormDesignProtoTwo
                 Me.Controls.Add(label_control)
                 label_control.Visible = True
                 label_control.BringToFront() ''Added 9/7/2019 thomas d.  
-                ''9/5/2019''label_control.Refresh_Image()
+                ''9/5/2019''label_control.Refresh_Image(True)
                 label_control.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
 
                 ''Added 9/7/2019 td
@@ -705,7 +705,7 @@ Public Class FormDesignProtoTwo
 
                 Me.Controls.Add(label_control)
                 label_control.Visible = True
-                label_control.Refresh_Image()
+                label_control.Refresh_Image(True)
                 label_control.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
 
             ElseIf (par_bUnloading) Then
@@ -859,7 +859,7 @@ Public Class FormDesignProtoTwo
             ''
             ''Added 7/28/2019 thomas d.
             ''
-            new_label_control_std.Refresh_Image()
+            new_label_control_std.Refresh_Image(True)
 
             ''Added 7/28/2019 thomas d.
             new_label_control_std.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
@@ -976,7 +976,7 @@ Public Class FormDesignProtoTwo
             ''
             ''Added 7/28/2019 thomas d.
             ''
-            new_label_control_cust.Refresh_Image()
+            new_label_control_cust.Refresh_Image(True)
 
             ''Added 7/28/2019 thomas d.
             new_label_control_cust.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td

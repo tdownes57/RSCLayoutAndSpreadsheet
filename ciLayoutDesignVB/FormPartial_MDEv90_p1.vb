@@ -229,7 +229,7 @@ Partial Public Class FormMainEntry_v90
                 Me.Controls.Add(label_control)
                 label_control.Visible = True
                 label_control.BringToFront() ''Added 9/7/2019 thomas d.  
-                ''9/5/2019''label_control.Refresh_Image()
+                ''9/5/2019''label_control.Refresh_Image(True)
                 label_control.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
 
                 ''Added 9/7/2019 td
