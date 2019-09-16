@@ -155,7 +155,8 @@ Public Class ClassElementField
             ''
             ''Major call !!
             ''
-            obj_image = _labelToImage.TextImage(pintDesiredLayoutWidth, Me, Me, False, False)
+            ''9/16/2019 td''obj_image = _labelToImage.TextImage(pintDesiredLayoutWidth, Me, Me, False, False)
+            obj_image = _labelToImage.TextImage_Field(pintDesiredLayoutWidth, Me, Me, False, False)
 
         Catch ex As Exception
             ''Added 9/15/2019 td  
@@ -196,7 +197,8 @@ Public Class ClassElementField
         ''9/3/2019 td''GenerateImage(intDesiredLayoutWidth, obj_image, Me, Me)
         ''9/4/2019 td''_labelToImage.TextImage(intDesiredLayoutWidth, obj_image, Me, Me, False)
 
-        obj_image = _labelToImage.TextImage(intDesiredLayoutWidth, Me, Me, False, False)
+        ''9/16/2019 td''obj_image = _labelToImage.TextImage(intDesiredLayoutWidth, Me, Me, False, False)
+        obj_image = _labelToImage.TextImage_Field(intDesiredLayoutWidth, Me, Me, False, False)
 
         Return obj_image
 
