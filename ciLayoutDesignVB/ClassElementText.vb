@@ -35,7 +35,7 @@ Public Class ClassElementText
     ''Added 8/15/2019 thomas downes  
     ''9/12/2019 td''Public Property FontSize_IsLocked As Boolean Implements IElement_Text.FontSize_IsLocked ''Added 8/15/2019 thomas downes  
     Public Property FontSize_ScaleToElementRatio As Double Implements IElement_Text.FontSize_ScaleToElementRatio ''Added 9/12/2019 thomas downes  
-    Public Property FontSize_ScaleToElementYesNo As Boolean Implements IElement_Text.FontSize_ScaleToElementYesNo ''Added 9/12/2019 thomas downes  
+    Public Property FontSize_ScaleToElementYesNo As Boolean = True Implements IElement_Text.FontSize_ScaleToElementYesNo ''Added 9/12/2019 thomas downes  
 
 
     Public Property FontOffset_X As Integer Implements IElement_Text.FontOffset_X ''Added 8/15/2019 thomas downes  
@@ -308,6 +308,40 @@ Public Class ClassElementText
         ''
         ''Added 9/13/2019 thomas downes
         ''
+        Me.Back_Color = par_ElementInfo_Base.Back_Color
+        Me.Back_Transparent = par_ElementInfo_Base.Back_Transparent
+        Me.BadgeLayout = par_ElementInfo_Base.BadgeLayout
+        Me.Border_Color = par_ElementInfo_Base.Border_Color
+        Me.Border_Displayed = par_ElementInfo_Base.Border_Displayed
+        Me.Border_WidthInPixels = par_ElementInfo_Base.Border_WidthInPixels
+
+        Me.ExampleValue = par_ElementInfo_Text.ExampleValue
+        Me.FieldInCardData = par_ElementInfo_Text.FieldInCardData
+
+        Me.FontBold = par_ElementInfo_Text.FontBold
+        Me.FontColor = par_ElementInfo_Text.FontColor
+        Me.FontFamilyName = par_ElementInfo_Text.FontFamilyName
+        Me.FontItalics = par_ElementInfo_Text.FontItalics
+        Me.FontOffset_X = par_ElementInfo_Text.FontOffset_X
+        Me.FontOffset_Y = par_ElementInfo_Text.FontOffset_Y
+        Me.FontSize_Pixels = par_ElementInfo_Text.FontSize_Pixels
+        Me.FontSize_ScaleToElementRatio = par_ElementInfo_Text.FontSize_ScaleToElementRatio
+        Me.FontSize_ScaleToElementYesNo = par_ElementInfo_Text.FontSize_ScaleToElementYesNo
+        Me.FontUnderline = par_ElementInfo_Text.FontUnderline
+        Me.Font_DrawingClass = par_ElementInfo_Text.Font_DrawingClass
+
+        Me.Height_Pixels = par_ElementInfo_Base.Height_Pixels
+        Me.LeftEdge_Pixels = par_ElementInfo_Base.LeftEdge_Pixels
+        Me.OrientationInDegrees = par_ElementInfo_Base.OrientationInDegrees
+        Me.OrientationToLayout = par_ElementInfo_Base.OrientationToLayout
+
+        Me.PositionalMode = par_ElementInfo_Base.PositionalMode
+        Me.SelectedHighlighting = par_ElementInfo_Base.SelectedHighlighting
+
+        Me.TopEdge_Pixels = par_ElementInfo_Base.TopEdge_Pixels
+
+        Me.Width_Pixels = par_ElementInfo_Base.Width_Pixels
+
         Me.ExampleValue = par_ElementInfo_Text.ExampleValue
 
         Me.FieldInCardData = par_ElementInfo_Text.FieldInCardData
@@ -315,6 +349,9 @@ Public Class ClassElementText
         Me.FieldLabelCaption = par_ElementInfo_Text.FieldLabelCaption
 
         Me.FontBold = par_ElementInfo_Text.FontBold
+
+
+
 
 
 

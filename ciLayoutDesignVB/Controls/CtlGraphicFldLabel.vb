@@ -161,20 +161,30 @@ Public Class CtlGraphicFldLabel
         ' This call is required by the designer.
         InitializeComponent()
 
+        ''
         ' Add any initialization after the InitializeComponent() call.
+        ''
         Me.FieldInfo = par_field
 
         ''Added 9/3/2019 td
-        ''9/4/2019 td''Me.ElementInfo_Base = CType(par_field.ElementInfo_Base, IElement_Base)
-        ''9/4/2019 td''Me.ElementInfo_Text = CType(par_field.ElementInfo_Text, IElement_Text)
+        ''  9/4/2019 td''Me.ElementInfo_Base = CType(par_field.ElementInfo_Base, IElement_Base)
+        ''  9/4/2019 td''Me.ElementInfo_Text = CType(par_field.ElementInfo_Text, IElement_Text)
 
         ''
         ''Refactored 9/4/2019 td  
         ''
         If (par_elementText Is Nothing) Then
-            Me.ElementClass_Obj = Nothing ''9/4/2019 td''par_field.ElementInfo
-            Me.ElementInfo_Base = CType(par_field.ElementInfo_Base, IElement_Base)
-            Me.ElementInfo_Text = CType(par_field.ElementInfo_Text, IElement_Text)
+            ''9/15/2019 td''Me.ElementClass_Obj = Nothing ''9/4/2019 td''par_field.ElementInfo
+
+            Me.ElementClass_Obj = New ClassElementText
+            Me.ElementClass_Obj.LoadbyCopyingMembers(par_field.ElementInfo_Base, par_field.ElementInfo_Text)
+
+            ''  9/15/2019 td''Me.ElementInfo_Base = CType(par_field.ElementInfo_Base, IElement_Base)
+            ''  9/15/2019 td''Me.ElementInfo_Text = CType(par_field.ElementInfo_Text, IElement_Text)
+
+            Me.ElementInfo_Base = CType(Me.ElementClass_Obj, IElement_Base)
+            Me.ElementInfo_Text = CType(Me.ElementClass_Obj, IElement_Text)
+
         Else
             ''
             ''Added 9/4/2019 thomas d.
@@ -182,6 +192,7 @@ Public Class CtlGraphicFldLabel
             Me.ElementClass_Obj = par_elementText
             Me.ElementInfo_Base = CType(par_elementText, IElement_Base)
             Me.ElementInfo_Text = CType(par_elementText, IElement_Text)
+
         End If ''End of "If (par_elementText Is Nothing) Then .... Else ...."
 
         ''Added 9/3/2019 td
