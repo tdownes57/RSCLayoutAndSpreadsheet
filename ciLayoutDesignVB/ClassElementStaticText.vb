@@ -13,45 +13,45 @@ Public Class ClassElementStaticText
     ''
     ''
 
-    Public Property Font_DrawingClass As System.Drawing.Font Implements IElement_Field.Font_DrawingClass
+    Public Property Font_DrawingClass As System.Drawing.Font Implements IElement_StaticText.Font_DrawingClass
 
     Public Property PositionalMode As String Implements IElement_Base.PositionalMode ''Added 8/14/2019 td 
-    Public Property ExampleValue As String Implements IElement_Field.ExampleValue ''Added 8/14/2019 td 
+    ''9/16 td''Public Property ExampleValue As String Implements IElement_StaticText.ExampleValue ''Added 8/14/2019 td 
 
-    Public Property FontColor As System.Drawing.Color Implements IElement_Field.FontColor
+    Public Property FontColor As System.Drawing.Color Implements IElement_StaticText.FontColor
 
     ''Added 8/12/2019 thomas downes  
-    Public Property FontSize_Pixels As Single = 25 Implements IElement_Field.FontSize_Pixels ''Added 8/12/2019 thomas downes  
-    Public Property FontBold As Boolean Implements IElement_Field.FontBold ''Added 8/12/2019 thomas downes  
-    Public Property FontItalics As Boolean Implements IElement_Field.FontItalics ''Added 8/12/2019 thomas downes  
-    Public Property FontUnderline As Boolean Implements IElement_Field.FontUnderline ''Added 8/12/2019 thomas downes  
+    Public Property FontSize_Pixels As Single = 25 Implements IElement_StaticText.FontSize_Pixels ''Added 8/12/2019 thomas downes  
+    Public Property FontBold As Boolean Implements IElement_StaticText.FontBold ''Added 8/12/2019 thomas downes  
+    Public Property FontItalics As Boolean Implements IElement_StaticText.FontItalics ''Added 8/12/2019 thomas downes  
+    Public Property FontUnderline As Boolean Implements IElement_StaticText.FontUnderline ''Added 8/12/2019 thomas downes  
     ''Added 9/6/2019 thomas downes  
-    Public Property FontFamilyName As String = "Times New Roman" Implements IElement_Field.FontFamilyName ''Added 9/6/2019 thomas downes  
+    Public Property FontFamilyName As String = "Times New Roman" Implements IElement_StaticText.FontFamilyName ''Added 9/6/2019 thomas downes  
 
 
     ''Added 8/15/2019 thomas downes  
     ''9/12/2019 td''Public Property FontSize_IsLocked As Boolean Implements IElement_Text.FontSize_IsLocked ''Added 8/15/2019 thomas downes  
-    Public Property FontSize_ScaleToElementRatio As Double Implements IElement_Field.FontSize_ScaleToElementRatio ''Added 9/12/2019 thomas downes  
-    Public Property FontSize_ScaleToElementYesNo As Boolean = True Implements IElement_Field.FontSize_ScaleToElementYesNo ''Added 9/12/2019 thomas downes  
+    Public Property FontSize_ScaleToElementRatio As Double Implements IElement_StaticText.FontSize_ScaleToElementRatio ''Added 9/12/2019 thomas downes  
+    Public Property FontSize_ScaleToElementYesNo As Boolean = True Implements IElement_StaticText.FontSize_ScaleToElementYesNo ''Added 9/12/2019 thomas downes  
 
 
-    Public Property FontOffset_X As Integer Implements IElement_Field.FontOffset_X ''Added 8/15/2019 thomas downes  
-    Public Property FontOffset_Y As Integer Implements IElement_Field.FontOffset_Y ''Added 8/15/2019 thomas downes  
+    Public Property FontOffset_X As Integer Implements IElement_StaticText.FontOffset_X ''Added 8/15/2019 thomas downes  
+    Public Property FontOffset_Y As Integer Implements IElement_StaticText.FontOffset_Y ''Added 8/15/2019 thomas downes  
 
 
     ''See Interface IElement_Base. ---8/29/2019 td''Public Property BackColor As System.Drawing.Color Implements IElement_Text.BackColor
 
-    Public Property FieldInCardData As String Implements IElement_Field.FieldInCardData
+    ''9/16 td''Public Property FieldInCardData As String Implements IElement_StaticText.FieldInCardData
 
-    Public Property FieldLabelCaption As String Implements IElement_Field.FieldLabelCaption
+    ''9/16 td''Public Property FieldLabelCaption As String Implements IElement_StaticText.FieldLabelCaption
 
     ''7/25/2019 td''Prpoerty ExampleText As String ''Added 7/25/2019
-    Public Property Text As String Implements IElement_Field.Text ''E.g. "George Washington" for FullName. 
+    Public Property Text As String Implements IElement_StaticText.Text ''E.g. "George Washington" for FullName. 
 
     ''Added 9/10/2019 td 
-    Public Property Recipient As IRecipient Implements IElement_Field.Recipient
+    ''9/16 td''Public Property Recipient As IRecipient Implements IElement_StaticText.Recipient
 
-    Public Property TextAlignment As System.Windows.Forms.HorizontalAlignment Implements IElement_Field.TextAlignment
+    Public Property TextAlignment As System.Windows.Forms.HorizontalAlignment Implements IElement_StaticText.TextAlignment
 
 
     Public Property OrientationToLayout As String Implements IElement_Base.OrientationToLayout ''E.g. "L" (Landscape) (by far the most common) or "P" for Portrait  
@@ -134,7 +134,7 @@ Public Class ClassElementStaticText
     ''End of 8/26 td''End Function ''End of "Public Function GenerateImage() As Image Implements IElementText.GenerateImage"
 
     Public Function GenerateImage_ByDesiredLayoutWidth(pintDesiredLayoutWidth As Integer) As Image _
-        Implements IElement_Field.GenerateImage_ByDesiredLayoutWidth
+        Implements IElement_StaticText.GenerateImage_ByDesiredLayoutWidth
         ''
         ''    8/26 td''Public Function GenerateImage(pintLayoutHeight As Integer) As Image Implements IElementText.GenerateImage
         ''
@@ -142,17 +142,11 @@ Public Class ClassElementStaticText
         ''
         Dim obj_image As Image = Nothing
 
-        ''8/15/2019 td''GenerateImage(obj_image, Me, Me)
-        ''8/26/2019 td''GenerateImage(pintLayoutHeight, obj_image, Me, Me)
-
-        ''9/3/2019 td''GenerateImage(pintDesiredLayoutWidth, obj_image, Me, Me)
-        ''9/4/2019 td''_labelToImage.TextImage(pintDesiredLayoutWidth, obj_image, Me, Me, False)
-
         Try
             ''
             ''Major call !!
             ''
-            obj_image = _labelToImage.TextImage(pintDesiredLayoutWidth, Me, Me, False, False)
+            obj_image = _labelToImage.TextImage_Static(pintDesiredLayoutWidth, Me, Me, False, False)
 
         Catch ex As Exception
             ''Added 9/15/2019 td  
@@ -164,7 +158,7 @@ Public Class ClassElementStaticText
     End Function ''End of "Public Function GenerateImage_ByDesiredLayoutWidth() As Image Implements IElementText.GenerateImage_ByDesiredLayoutWidth"
 
     Public Function GenerateImage_ByDesiredLayoutHeight(pintDesiredLayoutHeight As Integer) As Image _
-        Implements IElement_Field.GenerateImage_ByDesiredLayoutHeight
+        Implements IElement_StaticText.GenerateImage_ByDesiredLayoutHeight
         ''
         ''Added 8/26/2019 thomas downes 
         ''
@@ -200,7 +194,7 @@ Public Class ClassElementStaticText
     End Function ''End of "Public Function GenerateImage_ByDesiredLayoutHeight() As Image Implements IElementText.GenerateImage_ByDesiredLayoutWidth"
 
     Public Function GenerateImage_NotInUse(pintDesiredLayoutWidth As Integer, ByRef par_image As Image,
-                                  par_elementInfo_Text As IElement_Field, par_elementInfo_Base As IElement_Base) As Image
+                                  par_elementInfo_Text As IElement_StaticText, par_elementInfo_Base As IElement_Base) As Image
         ''
         ''Added 8/14 & 7/17/2019 thomas downes
         ''
@@ -322,7 +316,7 @@ Public Class ClassElementStaticText
     End Function ''End of "Public Function GenerateImage_NotInUse(par_label As Label) As Image"
 
     Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base,
-                                    par_ElementInfo_Text As IElement_Field)
+                                    par_ElementInfo_Text As IElement_StaticText)
         ''
         ''Added 9/13/2019 thomas downes
         ''

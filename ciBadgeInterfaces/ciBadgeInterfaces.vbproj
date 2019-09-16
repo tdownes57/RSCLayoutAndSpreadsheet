@@ -71,11 +71,11 @@
     <Compile Include="InterfaceCustomer.vb" />
     <Compile Include="InterfaceElementBase.vb" />
     <Compile Include="InterfaceElementPic.vb" />
-    <Compile Include="InterfaceElementText.vb" />
+    <Compile Include="InterfaceElement_TextField.vb" />
     <Compile Include="InterfaceLayoutFunctions.vb" />
     <Compile Include="InterfaceRecipient.vb" />
     <Compile Include="InterfaceSelectingElements.vb" />
-    <Compile Include="InterfaceStaticText.vb" />
+    <Compile Include="InterfaceElement_TextOnly.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

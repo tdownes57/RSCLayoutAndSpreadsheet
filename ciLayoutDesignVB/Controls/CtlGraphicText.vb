@@ -11,7 +11,7 @@ Public Class CtlGraphicText
 
     ''8/29/2019 td''Public ElementInfo As ClassElementText
     Public ElementInfo_Base As ciBadgeInterfaces.IElement_Base ''Added 8/29/2019 td
-    Public ElementInfo_Text As ciBadgeInterfaces.IElement_Field ''Added 8/29/2019 td
+    Public ElementInfo_Text As ciBadgeInterfaces.IElement_TextField ''Added 8/29/2019 td
 
     Public ParentDesignForm As ISelectingElements ''Added 7/31/2019 thomas downes  
 

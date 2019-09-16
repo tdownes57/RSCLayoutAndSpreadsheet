@@ -144,14 +144,14 @@ Public Class ClassFieldCustomized
             mod_elementInfo = value
             ''Added 9/3/2019 thomas d. 
             Me.ElementInfo_Base = CType(value, IElement_Base)
-            Me.ElementInfo_Text = CType(value, IElement_Field)
+            Me.ElementInfo_Text = CType(value, IElement_TextField)
         End Set
     End Property
 
     ''Added 9/3/2019 td
     Public Property ElementInfo_Base As IElement_Base Implements ICIBFieldStandardOrCustom.ElementInfo_Base
     ''Added 9/3/2019 td
-    Public Property ElementInfo_Text As IElement_Field Implements ICIBFieldStandardOrCustom.ElementInfo_Text
+    Public Property ElementInfo_Text As IElement_TextField Implements ICIBFieldStandardOrCustom.ElementInfo_Text
 
     ''8/27/2019 td''Public Property Image_BL As Image Implements ICIBFieldStandardOrCustom.Image_BL ''Added 8/27/2019 
 
@@ -173,12 +173,12 @@ Public Class ClassFieldCustomized
         For Each each_obj In ListOfFields_Students
 
             Dim new_ElementWithText As New IFieldInfo_ElementPositions
-            Dim obj_ElementText As IElement_Field
+            Dim obj_ElementText As IElement_TextField
             Dim obj_Element_Base As IElement_Base
 
             new_ElementWithText.FieldInfo = each_obj ''Added 9/3/2019 td  
 
-            obj_ElementText = CType(each_obj.ElementInfo, IElement_Field)
+            obj_ElementText = CType(each_obj.ElementInfo, IElement_TextField)
             obj_Element_Base = CType(each_obj.ElementInfo, IElement_Base)
 
             new_ElementWithText.Position_BL = obj_Element_Base

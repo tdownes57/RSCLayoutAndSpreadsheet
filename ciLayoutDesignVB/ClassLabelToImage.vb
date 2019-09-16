@@ -143,7 +143,7 @@ Public Class ClassLabelToImage
     End Sub ''End of "Public Shared Sub Proportions_CorrectWidth(par_control As Control)"
 
     Public Function TextImage(pintDesiredLayoutWidth As Integer,
-                              par_elementInfo_Text As IElement_Field,
+                              par_elementInfo_Text As IElement_TextField,
                               par_elementInfo_Base As IElement_Base,
                               ByRef pref_rotated As Boolean,
                               ByVal par_bIsDesignStage As Boolean,

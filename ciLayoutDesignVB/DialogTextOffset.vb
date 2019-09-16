@@ -26,7 +26,7 @@ Public Class DialogTextOffset
 
     ''8/17/2019 td''Public ObjElementText As ClassElementText
     ''8/29/2019 td''Public ElementInfo As ciBadgeInterfaces.IElementText ''Added 8/16/2019 td
-    Public ElementInfo_Text As ciBadgeInterfaces.IElement_Field ''Renamed 8/29/2019 td
+    Public ElementInfo_Text As ciBadgeInterfaces.IElement_TextField ''Renamed 8/29/2019 td
     Public ElementInfo_Base As ciBadgeInterfaces.IElement_Base ''Added 8/29/2019 td
 
     Public GroupEdits As ISelectingElements ''Added 8/15/2019 thomas downes  
@@ -34,7 +34,7 @@ Public Class DialogTextOffset
     Public OriginalElementControl As CtlGraphicFldLabel ''Added 8/15/2019 td  
 
     Public Sub LoadFieldAndForm(par_elementInfo_Base As IElement_Base,
-                                par_elementInfo_Text As IElement_Field,
+                                par_elementInfo_Text As IElement_TextField,
                                 par_fieldInfo As ICIBFieldStandardOrCustom,
                                 par_formDesigner As FormDesignProtoTwo,
                                 par_originalCtl As CtlGraphicFldLabel)

@@ -8,7 +8,7 @@
 Imports System.Drawing ''Added 8/14/2019 td  
 Imports System.Windows.Forms ''Added 8/14/2019 td  
 
-Public Interface IElement_StaticText
+Public Interface IElement_TextRedux
     ''
     ''Added 9/16/2019 td
     ''

@@ -22,7 +22,7 @@ Public Class CtlMainEntryBox_v90
     Public FieldInfo As ICIBFieldStandardOrCustom
 
     Public ElementClass_Obj As ClassElementField ''Added 9/4/2019 thomas downes
-    Public ElementInfo_Text As ciBadgeInterfaces.IElement_Field
+    Public ElementInfo_Text As ciBadgeInterfaces.IElement_TextField
     Public ElementInfo_Base As ciBadgeInterfaces.IElement_Base
     Public GroupEdits As ISelectingElements ''Added 7/31/2019 thomas downes  
     Public SelectedHighlighting As Boolean ''Added 8/2/2019 td
@@ -54,7 +54,7 @@ Public Class CtlMainEntryBox_v90
         obj_elementText = New ClassElementField(Me) ''Added 9/4/2019 thomas d.
         Me.ElementClass_Obj = obj_elementText ''Added 9/4/2019 thomas d.
         Me.ElementInfo_Base = CType(obj_elementText, IElement_Base) ''Added 9/4/2019 thomas d.
-        Me.ElementInfo_Text = CType(obj_elementText, IElement_Field)  ''Added 9/4/2019 thomas d.
+        Me.ElementInfo_Text = CType(obj_elementText, IElement_TextField)  ''Added 9/4/2019 thomas d.
 
     End Sub
 
@@ -80,14 +80,14 @@ Public Class CtlMainEntryBox_v90
         If (par_elementText Is Nothing) Then
             Me.ElementClass_Obj = par_field.ElementInfo
             Me.ElementInfo_Base = CType(Me.ElementClass_Obj, IElement_Base)
-            Me.ElementInfo_Text = CType(Me.ElementClass_Obj, IElement_Field)
+            Me.ElementInfo_Text = CType(Me.ElementClass_Obj, IElement_TextField)
         Else
             ''
             ''Added 9/4/2019 thomas d.
             ''
             Me.ElementClass_Obj = par_elementText
             Me.ElementInfo_Base = CType(par_elementText, IElement_Base)
-            Me.ElementInfo_Text = CType(par_elementText, IElement_Field)
+            Me.ElementInfo_Text = CType(par_elementText, IElement_TextField)
         End If ''End of "If (par_elementText Is Nothing) Then .... Else ...."
 
         ''Added 9/9 & 8/9/2019 td
@@ -124,14 +124,14 @@ Public Class CtlMainEntryBox_v90
         If (par_elementText Is Nothing) Then
             Me.ElementClass_Obj = par_field.ElementInfo
             Me.ElementInfo_Base = CType(Me.ElementClass_Obj, IElement_Base)
-            Me.ElementInfo_Text = CType(Me.ElementClass_Obj, IElement_Field)
+            Me.ElementInfo_Text = CType(Me.ElementClass_Obj, IElement_TextField)
         Else
             ''
             ''Added 9/4/2019 thomas d.
             ''
             Me.ElementClass_Obj = par_elementText
             Me.ElementInfo_Base = CType(par_elementText, IElement_Base)
-            Me.ElementInfo_Text = CType(par_elementText, IElement_Field)
+            Me.ElementInfo_Text = CType(par_elementText, IElement_TextField)
         End If ''End of "If (par_elementText Is Nothing) Then .... Else ...."
 
         ''Added 8/9/2019 td
@@ -159,14 +159,14 @@ Public Class CtlMainEntryBox_v90
         If (par_elementText Is Nothing) Then
             Me.ElementClass_Obj = Nothing ''9/4/2019 td''par_field.ElementInfo
             Me.ElementInfo_Base = CType(par_field.ElementInfo_Base, IElement_Base)
-            Me.ElementInfo_Text = CType(par_field.ElementInfo_Text, IElement_Field)
+            Me.ElementInfo_Text = CType(par_field.ElementInfo_Text, IElement_TextField)
         Else
             ''
             ''Added 9/4/2019 thomas d.
             ''
             Me.ElementClass_Obj = par_elementText
             Me.ElementInfo_Base = CType(par_elementText, IElement_Base)
-            Me.ElementInfo_Text = CType(par_elementText, IElement_Field)
+            Me.ElementInfo_Text = CType(par_elementText, IElement_TextField)
         End If ''End of "If (par_elementText Is Nothing) Then .... Else ...."
 
         ''Added 9/3/2019 td

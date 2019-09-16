@@ -24,7 +24,7 @@ Public Class ClassElementsCache
 
     End Function
 
-    Public Function StaticTextElements() As List(Of ClassElementStatic)
+    Public Function StaticTextElements() As List(Of ClassElementStaticText)
         ''
         ''Added 9/16/2019 thomas downes
         ''
@@ -33,7 +33,7 @@ Public Class ClassElementsCache
 
 
 
-    End Function ''End of "Public Function FieldElements() As List(Of ClassElementText)"
+    End Function ''End of "Public Function FieldElements() As List(Of ClassElementStaticText)"
 
 
 End Class
