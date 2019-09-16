@@ -242,7 +242,12 @@ Public Class ClassFieldStandard
             .IsLocked = True
 
             ''Added 9/3/2019 td
-            .ElementInfo = New ClassElementText()
+            ''9/15/2019 td''.ElementInfo = New ClassElementText()
+            .ElementInfo = New ClassElementText(0, 0, 30)
+
+            ''Added 9/3/2019 td
+            .ElementInfo_Base = CType(.ElementInfo, ciBadgeInterfaces.IElement_Base)
+            .ElementInfo_Text = CType(.ElementInfo, ciBadgeInterfaces.IElement_Text)
 
         End With
         ListOfFields_Students.Add(new_object1)
@@ -263,7 +268,12 @@ Public Class ClassFieldStandard
             .IsLocked = False
 
             ''Added 9/3/2019 td
-            .ElementInfo = New ClassElementText()
+            ''9/15/2019 td''.ElementInfo = New ClassElementText()
+            .ElementInfo = New ClassElementText(30, 30, 30)
+
+            ''Added 9/3/2019 td
+            .ElementInfo_Base = CType(.ElementInfo, ciBadgeInterfaces.IElement_Base)
+            .ElementInfo_Text = CType(.ElementInfo, ciBadgeInterfaces.IElement_Text)
 
         End With
         ListOfFields_Students.Add(new_object2)
@@ -285,7 +295,12 @@ Public Class ClassFieldStandard
             .IsLocked = False
 
             ''Added 9/3/2019 td
-            .ElementInfo = New ClassElementText()
+            ''9/15/2019 td''.ElementInfo = New ClassElementText()
+            .ElementInfo = New ClassElementText(60, 60, 30)
+
+            ''Added 9/3/2019 td
+            .ElementInfo_Base = CType(.ElementInfo, ciBadgeInterfaces.IElement_Base)
+            .ElementInfo_Text = CType(.ElementInfo, ciBadgeInterfaces.IElement_Text)
 
         End With
         ListOfFields_Students.Add(new_object3)
@@ -494,6 +509,47 @@ Public Class ClassFieldStandard
 
     End Sub ''End of "InitializeHardcodedList_Staff()"
 
+    Public Shared Sub CopyElementInfo(par_intFieldIndex As Integer,
+                                      par_info_base As IElement_Base,
+                                      par_info_text As IElement_Text)
+        ''
+        ''Added 9/15/2019 td
+        ''
+        Dim fieldRequested As ClassFieldStandard
+
+        fieldRequested = ListOfFields_Students.Where(Function(x) x.FieldIndex = par_intFieldIndex).First()
+        fieldRequested.Load_ByCopyingMembers(par_info_base)
+        fieldRequested.Load_ByCopyingMembers(par_info_text)
+
+    End Sub ''End of "Public Shared Sub CopyElementInfo"
+
+    Public Sub Load_ByCopyingMembers(par_info As IElement_Base)
+        ''
+        ''Added 7/23/2019 td
+        ''
+        With par_info
+
+            Me.ElementInfo_Base.Back_Color = .Back_Color
+            Me.ElementInfo_Base.Back_Transparent = .Back_Transparent
+            Me.ElementInfo_Base.BadgeLayout = .BadgeLayout
+            Me.ElementInfo_Base.Border_Color = .Border_Color
+            Me.ElementInfo_Base.Border_Displayed = .Border_Displayed
+            Me.ElementInfo_Base.Border_WidthInPixels = .Border_WidthInPixels
+            Me.ElementInfo_Base.ElementType = .ElementType
+            Me.ElementInfo_Base.Height_Pixels = .Height_Pixels
+            Me.ElementInfo_Base.Image_BL = .Image_BL
+            Me.ElementInfo_Base.LeftEdge_Pixels = .LeftEdge_Pixels
+            Me.ElementInfo_Base.OrientationInDegrees = .OrientationInDegrees
+            Me.ElementInfo_Base.OrientationToLayout = .OrientationToLayout
+            Me.ElementInfo_Base.PositionalMode = .PositionalMode
+            ''Not needed.''.SelectedHighlighting
+            Me.ElementInfo_Base.TopEdge_Pixels = .TopEdge_Pixels
+            Me.ElementInfo_Base.Width_Pixels = .Width_Pixels
+
+        End With
+
+    End Sub ''end of "Public Sub Load_ByCopyingMembers(par_info As IElement_Base)"
+
     Public Sub Load_ByCopyingMembers(par_info As ICIBFieldStandardOrCustom)
         ''
         ''Added 7/23/2019 td
@@ -511,7 +567,7 @@ Public Class ClassFieldStandard
         Me.FieldType_TD = par_info.FieldType_TD
         Me.OtherDbField_Optional = par_info.OtherDbField_Optional  ''Added 7/23/2019 td 
 
-    End Sub
+    End Sub ''End of "Public Sub Load_ByCopyingMembers(par_info As ICIBFieldStandardOrCustom)"
 
     Public Function GetValue_Recipient_String(par_enum As EnumCIBFields) As String
         ''

@@ -445,20 +445,24 @@ Public Class FormDesignProtoTwo
             ''
             If (each_field.ElementInfo_Base Is Nothing) Then
 
-                Dim new_element_text As New ClassElementText
+                ''Added 9/15/2019 thomas d. 
+                Throw New Exception("ElementInfo_Base should _not_ be uninitialized. 896741")
 
-                With new_element_text
-                    .Height_Pixels = 30
-                    .FontSize_Pixels = 25
-                    ''Added 9/12/2019 td 
-                    ''9/12/2019 td''.FontSize_IsLocked = True 
-                    .FontSize_ScaleToElementRatio = (.FontSize_Pixels / .Height_Pixels)
-                    .FontSize_ScaleToElementYesNo = True
-
-                    ''Added 9/12/2019 td
-                    .BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass(pictureBack.Width, pictureBack.Height)
-
-                End With 'End of "With new_element_text"
+                ''9/15 td''Dim new_element_text As New ClassElementText
+                ''
+                ''9/15 td''With new_element_text
+                ''    .Height_Pixels = 30 
+                ''    .FontFamilyName = "Times New Roman" ''Added 9/15/2019 thomas d. 
+                ''    .FontSize_Pixels = 25
+                ''    ''Added 9/12/2019 td 
+                ''    ''9/12/2019 td''.FontSize_IsLocked = True 
+                ''    .FontSize_ScaleToElementRatio = (.FontSize_Pixels / .Height_Pixels)
+                ''    .FontSize_ScaleToElementYesNo = True
+                ''
+                ''    ''Added 9/12/2019 td
+                ''    .BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass(pictureBack.Width, pictureBack.Height)
+                ''
+                ''End With 'End of "With new_element_text"
 
                 ''''9/6/2019 td''new_element_text.TopEdge_Pixels = (30 + (30 * intCountControlsAdded))
                 ''intStagger = intCountControlsAdded
@@ -468,10 +472,41 @@ Public Class FormDesignProtoTwo
                 ''new_element_text.LeftEdge_Pixels = new_element_text.TopEdge_Pixels ''Left = Top !! By setting Left = Top, we will create 
                 ''''   a nice diagonally-cascading effect. ---9/3/2019 td
 
-                each_field.ElementInfo_Base = new_element_text
-                each_field.ElementInfo_Text = new_element_text
+                ''9/15 td''each_field.ElementInfo_Base = new_element_text
+                ''9/15 td''each_field.ElementInfo_Text = new_element_text
 
-            End If ''ENd of "If (each_field.ElementInfo_Base Is Nothing) Then"
+            Else
+                ''
+                ''Added 9/15/2019 td
+                ''
+                With each_field.ElementInfo_Base
+                    .Height_Pixels = 30
+
+                    ''9/6/2019 td''new_element_text.TopEdge_Pixels = (30 + (30 * intCountControlsAdded))
+                    intStagger = intCountControlsAdded
+                    .TopEdge_Pixels = (intStagger * .Height_Pixels)
+                    intCountControlsAdded += 1 ''Added 9/6/2019 td 
+
+                    .LeftEdge_Pixels = .TopEdge_Pixels ''Left = Top !! By setting Left = Top, we will create 
+                    ''   a nice diagonally-cascading effect. ---9/3/2019 td
+
+                    ''Added 9/12/2019 td
+                    .BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass(pictureBack.Width, pictureBack.Height)
+
+                End With
+
+                ''Added 9/15/2019 td
+                With each_field.ElementInfo_Text
+                    .FontFamilyName = "Times New Roman" ''Added 9/15/2019 thomas d. 
+                    .FontSize_Pixels = 25
+                    ''Added 9/12/2019 td 
+                    ''9/12/2019 td''.FontSize_IsLocked = True 
+                    .FontSize_ScaleToElementRatio = (.FontSize_Pixels / each_field.ElementInfo_Base.Height_Pixels)
+                    .FontSize_ScaleToElementYesNo = True
+
+                End With 'End of "With new_element_text"
+
+            End If ''ENd of "If (each_field.ElementInfo_Base Is Nothing) Then ..... Else ...."
 
             ''Added 9/5/2019 thomas d.
             ''9/11/2019 td''each_field.ElementInfo_Base.LayoutWidth_Pixels = Me.Layout_Width_Pixels()

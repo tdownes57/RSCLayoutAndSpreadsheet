@@ -725,7 +725,7 @@ ExitHandler:
                     Dim strMessage_Invalid As String
                     strMessage_Invalid = ex_draw_invalid.Message
                     ''Added 8/24 thomas d.
-                    MessageBox.Show(strMessage_Invalid, "",
+                    MessageBox.Show(strMessage_Invalid, "10303",
                                     MessageBoxButtons.OK,
                                     MessageBoxIcon.Exclamation)
                 Catch ex_draw_any As System.Exception
@@ -733,7 +733,7 @@ ExitHandler:
                     Dim strMessage_any As String
                     strMessage_any = ex_draw_any.Message
                     ''Added 8/24 thomas d.
-                    MessageBox.Show(strMessage_any, "",
+                    MessageBox.Show(strMessage_any, "99943800",
                                     MessageBoxButtons.OK,
                                     MessageBoxIcon.Exclamation)
                 End Try

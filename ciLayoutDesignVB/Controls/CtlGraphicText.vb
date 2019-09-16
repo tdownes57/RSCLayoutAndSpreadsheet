@@ -193,7 +193,7 @@ Public Class CtlGraphicText
         strMessageToUser &= (vbCrLf & $"Element-Base-Info Property (Height): {Me.ElementInfo_Base.Height_Pixels}")
         strMessageToUser &= (vbCrLf & $"Picture control's Image Height: {pictureLabel.Image.Height}")
 
-        MessageBox.Show(strMessageToUser, "", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        MessageBox.Show(strMessageToUser, "994938", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
     End Sub ''End of "Private Sub RefreshElement_Field(sender As Object, e As EventArgs)"
 

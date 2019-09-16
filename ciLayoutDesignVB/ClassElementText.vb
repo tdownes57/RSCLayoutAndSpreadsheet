@@ -24,12 +24,12 @@ Public Class ClassElementText
     Public Property FontColor As System.Drawing.Color Implements IElement_Text.FontColor
 
     ''Added 8/12/2019 thomas downes  
-    Public Property FontSize_Pixels As Single Implements IElement_Text.FontSize_Pixels ''Added 8/12/2019 thomas downes  
+    Public Property FontSize_Pixels As Single = 25 Implements IElement_Text.FontSize_Pixels ''Added 8/12/2019 thomas downes  
     Public Property FontBold As Boolean Implements IElement_Text.FontBold ''Added 8/12/2019 thomas downes  
     Public Property FontItalics As Boolean Implements IElement_Text.FontItalics ''Added 8/12/2019 thomas downes  
     Public Property FontUnderline As Boolean Implements IElement_Text.FontUnderline ''Added 8/12/2019 thomas downes  
     ''Added 9/6/2019 thomas downes  
-    Public Property FontFamilyName As String Implements IElement_Text.FontFamilyName ''Added 9/6/2019 thomas downes  
+    Public Property FontFamilyName As String = "Times New Roman" Implements IElement_Text.FontFamilyName ''Added 9/6/2019 thomas downes  
 
 
     ''Added 8/15/2019 thomas downes  
@@ -77,8 +77,8 @@ Public Class ClassElementText
     ''9/11/2019 td''Public Property LayoutWidth_Pixels As Integer Implements IElement_Base.LayoutWidth_Pixels ''This provides sizing context & scaling factors. 
     Public Property BadgeLayout As BadgeLayoutClass Implements IElement_Base.BadgeLayout ''Added 9/11/2019 td  
 
-    Public Property TopEdge_Pixels As Integer Implements IElement_Base.TopEdge_Pixels
-    Public Property LeftEdge_Pixels As Integer Implements IElement_Base.LeftEdge_Pixels
+    Public Property TopEdge_Pixels As Integer = 0 Implements IElement_Base.TopEdge_Pixels
+    Public Property LeftEdge_Pixels As Integer = 0 Implements IElement_Base.LeftEdge_Pixels
 
     Public Property Width_Pixels As Integer = 253 Implements IElement_Base.Width_Pixels
     Public Property Height_Pixels As Integer = 33 Implements IElement_Base.Height_Pixels
@@ -100,6 +100,18 @@ Public Class ClassElementText
         ''Added 7/19/2019 td
         ''
         Me.FormControl = par_control
+
+    End Sub
+
+    Public Sub New(par_intLeft_Pixels As Integer, par_intTop_Pixels As Integer, par_intHeight_Pixels As Integer)
+        ''
+        ''Added 9/15/2019 td
+        ''
+        Me.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass ''Added 9/12/2019
+
+        Me.LeftEdge_Pixels = par_intLeft_Pixels
+        Me.TopEdge_Pixels = par_intTop_Pixels
+        Me.Height_Pixels = par_intHeight_Pixels
 
     End Sub
 
@@ -139,7 +151,16 @@ Public Class ClassElementText
         ''9/3/2019 td''GenerateImage(pintDesiredLayoutWidth, obj_image, Me, Me)
         ''9/4/2019 td''_labelToImage.TextImage(pintDesiredLayoutWidth, obj_image, Me, Me, False)
 
-        obj_image = _labelToImage.TextImage(pintDesiredLayoutWidth, Me, Me, False, False)
+        Try
+            ''
+            ''Major call !!
+            ''
+            obj_image = _labelToImage.TextImage(pintDesiredLayoutWidth, Me, Me, False, False)
+
+        Catch ex As Exception
+            ''Added 9/15/2019 td  
+            MessageBox.Show(ex.Message, "90022", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        End Try
 
         Return obj_image
 

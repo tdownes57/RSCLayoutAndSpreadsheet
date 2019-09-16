@@ -193,6 +193,7 @@ Public Class ClassLabelToImage
         ''8/24 td''doubleScaling = (pintFinalLayoutWidth / par_element.LayoutWidth_Pixels)
         ''9/5/2019 td''doubleScaling = (pintDesiredLayoutWidth / par_elementInfo_Base.Width_Pixels)
         ''9/11/2019 td''doubleScaling = (pintDesiredLayoutWidth / par_elementInfo_Base.LayoutWidth_Pixels)
+
         doubleScaling = (pintDesiredLayoutWidth / par_elementInfo_Base.BadgeLayout.Width_Pixels)
 
         ''Added 8/15/2019 td
@@ -388,6 +389,12 @@ Public Class ClassLabelToImage
         Dim font_scaled As System.Drawing.Font ''Added 9/8/2019 td
 
         With par_elementInfo_Text
+
+            ''Added 9/15/2019 thomas d.
+            If (.FontFamilyName Is Nothing) Then
+                ''Added 9/15/2019 thomas d.
+                System.Diagnostics.Debugger.Break()
+            End If ''End of "If (.FontFamilyName Is Nothing) Then"
 
             ''Added 9/15/2019 td
             If (.Font_DrawingClass Is Nothing) Then

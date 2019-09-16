@@ -55,8 +55,8 @@ Public Class CtlGraphicPortrait
             ciPictures_VB.PictureExamples.GetImageByIndex(par_infoForPic_Pic.PicFileIndex, strErrorMessage)
 
         If ("" <> strErrorMessage) Then
-            ''Added 8/22/2019 
-            MessageBox.Show(strErrorMessage, " ",
+            ''Added 8/22/2019  
+            MessageBox.Show(strErrorMessage, "192032",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Exclamation)
             Exit Sub
@@ -81,7 +81,7 @@ Public Class CtlGraphicPortrait
         picturePortrait.Image = ciPictures_VB.PictureExamples.GetImageByIndex(Me.ElementInfo_Pic.PicFileIndex, strErrorMessage)
 
         ''Added 8/22/2019 td
-        If ("" <> strErrorMessage) Then MessageBox.Show(strErrorMessage, " ",
+        If ("" <> strErrorMessage) Then MessageBox.Show(strErrorMessage, "229124",
                                                         MessageBoxButtons.OK,
                                                         MessageBoxIcon.Exclamation)
 
