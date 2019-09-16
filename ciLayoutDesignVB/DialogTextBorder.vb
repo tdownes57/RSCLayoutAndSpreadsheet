@@ -21,7 +21,7 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
     Public Border_Displayed As Boolean ''Added 9/9/2019 td  
 
     ''8/29/2019 td''Public ElementInfo As ciBadgeInterfaces.IElementText ''Added 8/16/2019 td
-    Public ElementInfo_Text As ciBadgeInterfaces.IElement_Text ''Added 8/16/2019 td
+    Public ElementInfo_Text As ciBadgeInterfaces.IElement_Field ''Added 8/16/2019 td
     Public ElementInfo_Base As ciBadgeInterfaces.IElement_Base ''Added 8/16/2019 td
 
     Public GroupEdits As ISelectingElements ''Added 8/15/2019 thomas downes  
@@ -29,7 +29,7 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
     Public OriginalElementControl As CtlGraphicFldLabel ''Added 8/15/2019 td  
 
     Public Sub LoadFieldAndForm(par_elementInfo_Base As IElement_Base,
-                                par_elementInfo_Text As IElement_Text,
+                                par_elementInfo_Text As IElement_Field,
                                 par_fieldInfo As ICIBFieldStandardOrCustom,
                                 par_formDesigner As FormDesignProtoTwo,
                                 par_originalCtl As CtlGraphicFldLabel)
@@ -99,7 +99,7 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
         Me.FieldInfo = par_field
 
         ''9/3/2019 td''Me.ElementInfo_Text = par_field.ElementInfo
-        Me.ElementInfo_Text = CType(par_field.ElementInfo, IElement_Text)
+        Me.ElementInfo_Text = CType(par_field.ElementInfo, IElement_Field)
         Me.ElementInfo_Base = CType(par_field.ElementInfo, IElement_Base)
 
         ''Added 8/15/2019 td
@@ -110,7 +110,7 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
             .FieldInfo = par_field
 
             ''9/3/2019 td''.ElementInfo_Text = par_field.ElementInfo
-            .ElementInfo_Text = CType(par_field.ElementInfo, IElement_Text)
+            .ElementInfo_Text = CType(par_field.ElementInfo, IElement_Field)
             .ElementInfo_Base = CType(par_field.ElementInfo, IElement_Base)
 
             .FormDesigner = par_formDesigner

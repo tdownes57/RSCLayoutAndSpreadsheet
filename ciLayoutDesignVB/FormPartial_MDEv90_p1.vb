@@ -163,7 +163,7 @@ Partial Public Class FormMainEntry_v90
             ''
             If (each_field.ElementInfo_Base Is Nothing) Then
 
-                Dim new_element_text As New ClassElementText
+                Dim new_element_text As New ClassElementField
 
                 new_element_text.Height_Pixels = 30
                 new_element_text.FontSize_Pixels = 25

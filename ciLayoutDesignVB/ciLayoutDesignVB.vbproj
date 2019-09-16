@@ -76,6 +76,8 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassElementsCache.vb" />
+    <Compile Include="ClassElementStaticText.vb" />
     <Compile Include="ClassGroupMove.vb" />
     <Compile Include="ClassRubberbandSelector.vb" />
     <Compile Include="ContextMenus\ContextLayoutBack.Designer.vb">
@@ -104,7 +106,7 @@
     </Compile>
     <Compile Include="ClassFieldCustomized.vb" />
     <Compile Include="ClassElementPic.vb" />
-    <Compile Include="ClassElementText.vb" />
+    <Compile Include="ClassElementField.vb" />
     <Compile Include="ClassFields.vb" />
     <Compile Include="ClassFieldStandard.vb" />
     <Compile Include="ClassLabelToImage.vb" />

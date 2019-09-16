@@ -134,28 +134,28 @@ Public Class ClassFieldCustomized
     ''Added 7/29/2019 thomas downes
     ''
     ''9/3/2019 td''Public Property ElementInfo As ClassElementText
-    Public Property ElementInfo() As ClassElementText
+    Public Property ElementInfo() As ClassElementField
         Get
             ''Added 9/3/2019 thomas d. 
             Return mod_elementInfo
         End Get
-        Set(value As ClassElementText)
+        Set(value As ClassElementField)
             ''Added 9/3/2019 thomas d. 
             mod_elementInfo = value
             ''Added 9/3/2019 thomas d. 
             Me.ElementInfo_Base = CType(value, IElement_Base)
-            Me.ElementInfo_Text = CType(value, IElement_Text)
+            Me.ElementInfo_Text = CType(value, IElement_Field)
         End Set
     End Property
 
     ''Added 9/3/2019 td
     Public Property ElementInfo_Base As IElement_Base Implements ICIBFieldStandardOrCustom.ElementInfo_Base
     ''Added 9/3/2019 td
-    Public Property ElementInfo_Text As IElement_Text Implements ICIBFieldStandardOrCustom.ElementInfo_Text
+    Public Property ElementInfo_Text As IElement_Field Implements ICIBFieldStandardOrCustom.ElementInfo_Text
 
     ''8/27/2019 td''Public Property Image_BL As Image Implements ICIBFieldStandardOrCustom.Image_BL ''Added 8/27/2019 
 
-    Private mod_elementInfo As ClassElementText ''Added 9/3/2019 td   
+    Private mod_elementInfo As ClassElementField ''Added 9/3/2019 td   
 
     ''
     ''Added 7/16/2019 thomas d. 
@@ -163,22 +163,22 @@ Public Class ClassFieldCustomized
     Public Shared ListOfFields_Students As New List(Of ClassFieldCustomized)
     Public Shared ListOfFields_Staff As New List(Of ClassFieldCustomized)
 
-    Public Shared Function ListOfElementsText_Custom(Optional par_intLayoutWidth As Integer = 0) As List(Of IElementWithText)
+    Public Shared Function ListOfElementsText_Custom(Optional par_intLayoutWidth As Integer = 0) As List(Of IFieldInfo_ElementPositions)
         ''9/4/2019 td''Public Shared Function ListOfElementsText_Custom() As List(Of IElementWithText)
         ''
         ''Added 8/24/2019 Thomas D.  
         ''
-        Dim obj_listOutput As New List(Of IElementWithText)
+        Dim obj_listOutput As New List(Of IFieldInfo_ElementPositions)
 
         For Each each_obj In ListOfFields_Students
 
-            Dim new_ElementWithText As New IElementWithText
-            Dim obj_ElementText As IElement_Text
+            Dim new_ElementWithText As New IFieldInfo_ElementPositions
+            Dim obj_ElementText As IElement_Field
             Dim obj_Element_Base As IElement_Base
 
             new_ElementWithText.FieldInfo = each_obj ''Added 9/3/2019 td  
 
-            obj_ElementText = CType(each_obj.ElementInfo, IElement_Text)
+            obj_ElementText = CType(each_obj.ElementInfo, IElement_Field)
             obj_Element_Base = CType(each_obj.ElementInfo, IElement_Base)
 
             new_ElementWithText.Position_BL = obj_Element_Base
@@ -227,7 +227,7 @@ Public Class ClassFieldCustomized
             .ArrayOfValues = New String() {"Willcrest School", "Woodbridge School"}
 
             ''Added 9/3/2019 td
-            .ElementInfo = New ClassElementText()
+            .ElementInfo = New ClassElementField()
 
         End With
         ListOfFields_Students.Add(new_object1)
@@ -246,7 +246,7 @@ Public Class ClassFieldCustomized
             .ArrayOfValues = New String() {"Mrs. Ross", "Mr. Smudge", "Ms. Randall"}
 
             ''Added 9/3/2019 td
-            .ElementInfo = New ClassElementText()
+            .ElementInfo = New ClassElementField()
 
         End With
         ListOfFields_Students.Add(new_object2)
@@ -265,7 +265,7 @@ Public Class ClassFieldCustomized
             .ArrayOfValues = New String() {"9th", "10th", "11th", "12th"}
 
             ''Added 9/3/2019 td
-            .ElementInfo = New ClassElementText()
+            .ElementInfo = New ClassElementField()
 
         End With
         ListOfFields_Students.Add(new_object3)
@@ -340,7 +340,7 @@ Public Class ClassFieldCustomized
         Me.DataEntryText = par_info.DataEntryText
 
         ''Added 9/13/2019 td
-        Dim objElementText As New ClassElementText ''Added 9/13 td
+        Dim objElementText As New ClassElementField ''Added 9/13 td
         Me.ElementInfo = objElementText ''Added 9/13/2019 td
         Me.ElementInfo.LoadbyCopyingMembers(par_info.ElementInfo_Base,
                                             par_info.ElementInfo_Text)

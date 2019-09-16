@@ -626,8 +626,8 @@ ExitHandler:
     End Sub ''End of ""Private Sub ApplyMemberPicToImage(ByRef par_image As Image)
 
     Public Sub LoadElements_Fields(ByRef par_image As Image,
-                                   par_standardFields As List(Of IElementWithText),
-                                   par_customFields As List(Of IElementWithText))
+                                   par_standardFields As List(Of IFieldInfo_ElementPositions),
+                                   par_customFields As List(Of IFieldInfo_ElementPositions))
         ''
         ''Added 8/14/2019 td  
         ''
@@ -639,7 +639,7 @@ ExitHandler:
         ''Standard Fields 
         ''
         ''
-        For Each each_elementField As IElementWithText In par_standardFields
+        For Each each_elementField As IFieldInfo_ElementPositions In par_standardFields
 
             With each_elementField
                 Try
@@ -668,7 +668,7 @@ ExitHandler:
         ''
         ''Custom Fields 
         ''
-        For Each each_elementField As IElementWithText In par_customFields
+        For Each each_elementField As IFieldInfo_ElementPositions In par_customFields
 
             With each_elementField
                 Try

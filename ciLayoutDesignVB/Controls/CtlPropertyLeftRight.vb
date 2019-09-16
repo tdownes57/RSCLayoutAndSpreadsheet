@@ -8,7 +8,7 @@ Public Class CtlPropertyLeftRight
     Private mod_iPropertyValue As Integer = 10
 
     Public ElementInfo_Base As IElement_Base
-    Public ElementInfo_Text As IElement_Text
+    Public ElementInfo_Text As IElement_Field
 
     Public Event EventUpdateRequest()
 
@@ -114,7 +114,7 @@ Public Class CtlPropertyLeftRight
     End Sub
 
     Public Sub InitiateLocalValue(par_Base As IElement_Base,
-                                   par_Text As IElement_Text)
+                                   par_Text As IElement_Field)
         ''
         ''Added 9/14/2019 thomas d. 
         ''

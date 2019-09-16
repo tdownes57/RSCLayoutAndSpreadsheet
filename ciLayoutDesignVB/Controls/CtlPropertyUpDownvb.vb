@@ -6,7 +6,7 @@ Public Class CtlPropertyUpDownvb
     Private mod_iPropertyValue As Integer = 10
 
     Public _ElementInfo_Base As IElement_Base
-    Public _ElementInfo_Text As IElement_Text
+    Public _ElementInfo_Text As IElement_Field
     Public Event EventUpdateRequest()
 
     Public Property ElementInfo_Base As IElement_Base
@@ -19,11 +19,11 @@ Public Class CtlPropertyUpDownvb
 
     End Property
 
-    Public Property ElementInfo_Text As IElement_Text
+    Public Property ElementInfo_Text As IElement_Field
         Get
             Return _ElementInfo_Text
         End Get
-        Set(value As IElement_Text)
+        Set(value As IElement_Field)
             _ElementInfo_Text = value
         End Set
 
@@ -133,7 +133,7 @@ Public Class CtlPropertyUpDownvb
     End Sub
 
     Public Sub InitiateLocalValue(par_Base As IElement_Base,
-                                   par_Text As IElement_Text)
+                                   par_Text As IElement_Field)
         ''
         ''Added 9/14/2019 thomas d. 
         ''

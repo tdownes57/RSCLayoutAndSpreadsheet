@@ -8,14 +8,15 @@
 Imports System.Drawing ''Added 8/14/2019 td  
 Imports System.Windows.Forms ''Added 8/14/2019 td  
 
-Public Structure IElementWithText
+Public Structure IFieldInfo_ElementPositions
+    ''9/16/2019 td''Public Structure IElementWithText
     ''
     ''Added 8/14/2019 td  
     ''
     Dim FieldInfo As ICIBFieldStandardOrCustom ''Added 9/3/2019 td  
 
     ''8/15 td''Dim Position As IElement_Base ''Added 8/14/2019 td 
-    Dim TextDisplay As IElement_Text ''Added 8/14/2019 td  
+    Dim TextDisplay As IElement_Field ''Added 8/14/2019 td  
 
     Dim Position_BL As IElement_Base ''BL = Badge Layout.   ---Added 8/14/2019 td 
     Dim Position_V8 As IElement_Base ''Added 8/14/2019 td 
@@ -27,7 +28,8 @@ Public Structure IElementWithText
 
 End Structure ''End of "Public Structure IElementWithText"
 
-Public Interface IElement_Text
+Public Interface IElement_Field
+    ''9/16/2019 td''Public Interface IElement_Text
     ''
     ''Added 7/18/2019 td
     ''

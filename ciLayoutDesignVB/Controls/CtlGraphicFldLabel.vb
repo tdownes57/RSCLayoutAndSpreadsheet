@@ -24,8 +24,8 @@ Public Class CtlGraphicFldLabel
     ''#1 8/29/2019 td''Public ElementInfo As ClassElementText
     '' #2 8/29/2019 td''Public ElementInfo_Text As ClassElementText
 
-    Public ElementClass_Obj As ClassElementText ''Added 9/4/2019 thomas downes
-    Public ElementInfo_Text As ciBadgeInterfaces.IElement_Text
+    Public ElementClass_Obj As ClassElementField ''Added 9/4/2019 thomas downes
+    Public ElementInfo_Text As ciBadgeInterfaces.IElement_Field
     Public ElementInfo_Base As ciBadgeInterfaces.IElement_Base
 
     Public GroupEdits As ISelectingElements ''Added 7/31/2019 thomas downes  
@@ -65,17 +65,17 @@ Public Class CtlGraphicFldLabel
 
         ''9/4/2019 td''Me.ElementInfo_Text = New ClassElementText(Me)
 
-        Dim obj_elementText As ClassElementText ''Added 9/4/2019 thomas d.
-        obj_elementText = New ClassElementText(Me) ''Added 9/4/2019 thomas d.
+        Dim obj_elementText As ClassElementField ''Added 9/4/2019 thomas d.
+        obj_elementText = New ClassElementField(Me) ''Added 9/4/2019 thomas d.
         Me.ElementClass_Obj = obj_elementText ''Added 9/4/2019 thomas d.
         Me.ElementInfo_Base = CType(obj_elementText, IElement_Base) ''Added 9/4/2019 thomas d.
-        Me.ElementInfo_Text = CType(obj_elementText, IElement_Text)  ''Added 9/4/2019 thomas d.
+        Me.ElementInfo_Text = CType(obj_elementText, IElement_Field)  ''Added 9/4/2019 thomas d.
 
     End Sub
 
     Public Sub New(par_field As ClassFieldStandard,
                    Optional par_formDesigner As FormDesignProtoTwo = Nothing,
-                   Optional par_elementText As ClassElementText = Nothing)
+                   Optional par_elementText As ClassElementField = Nothing)
 
         ' This call is required by the designer.
         InitializeComponent()
@@ -95,14 +95,14 @@ Public Class CtlGraphicFldLabel
         If (par_elementText Is Nothing) Then
             Me.ElementClass_Obj = par_field.ElementInfo
             Me.ElementInfo_Base = CType(Me.ElementClass_Obj, IElement_Base)
-            Me.ElementInfo_Text = CType(Me.ElementClass_Obj, IElement_Text)
+            Me.ElementInfo_Text = CType(Me.ElementClass_Obj, IElement_Field)
         Else
             ''
             ''Added 9/4/2019 thomas d.
             ''
             Me.ElementClass_Obj = par_elementText
             Me.ElementInfo_Base = CType(par_elementText, IElement_Base)
-            Me.ElementInfo_Text = CType(par_elementText, IElement_Text)
+            Me.ElementInfo_Text = CType(par_elementText, IElement_Field)
         End If ''End of "If (par_elementText Is Nothing) Then .... Else ...."
 
         ''Added 8/9/2019 td
@@ -112,7 +112,7 @@ Public Class CtlGraphicFldLabel
 
     Public Sub New(par_field As ClassFieldCustomized,
                    Optional par_formDesigner As FormDesignProtoTwo = Nothing,
-                   Optional par_elementText As ClassElementText = Nothing)
+                   Optional par_elementText As ClassElementField = Nothing)
 
         ' This call is required by the designer.
         InitializeComponent()
@@ -139,14 +139,14 @@ Public Class CtlGraphicFldLabel
         If (par_elementText Is Nothing) Then
             Me.ElementClass_Obj = par_field.ElementInfo
             Me.ElementInfo_Base = CType(Me.ElementClass_Obj, IElement_Base)
-            Me.ElementInfo_Text = CType(Me.ElementClass_Obj, IElement_Text)
+            Me.ElementInfo_Text = CType(Me.ElementClass_Obj, IElement_Field)
         Else
             ''
             ''Added 9/4/2019 thomas d.
             ''
             Me.ElementClass_Obj = par_elementText
             Me.ElementInfo_Base = CType(par_elementText, IElement_Base)
-            Me.ElementInfo_Text = CType(par_elementText, IElement_Text)
+            Me.ElementInfo_Text = CType(par_elementText, IElement_Field)
         End If ''End of "If (par_elementText Is Nothing) Then .... Else ...."
 
         ''Added 8/9/2019 td
@@ -156,7 +156,7 @@ Public Class CtlGraphicFldLabel
 
     Public Sub New(par_field As ICIBFieldStandardOrCustom,
                    Optional par_formDesigner As FormDesignProtoTwo = Nothing,
-                   Optional par_elementText As ClassElementText = Nothing)
+                   Optional par_elementText As ClassElementField = Nothing)
 
         ' This call is required by the designer.
         InitializeComponent()
@@ -176,7 +176,7 @@ Public Class CtlGraphicFldLabel
         If (par_elementText Is Nothing) Then
             ''9/15/2019 td''Me.ElementClass_Obj = Nothing ''9/4/2019 td''par_field.ElementInfo
 
-            Me.ElementClass_Obj = New ClassElementText
+            Me.ElementClass_Obj = New ClassElementField
 
             ''
             ''------ IMPORTANT ------------------
@@ -188,7 +188,7 @@ Public Class CtlGraphicFldLabel
             ''  9/15/2019 td''Me.ElementInfo_Text = CType(par_field.ElementInfo_Text, IElement_Text)
 
             Me.ElementInfo_Base = CType(Me.ElementClass_Obj, IElement_Base)
-            Me.ElementInfo_Text = CType(Me.ElementClass_Obj, IElement_Text)
+            Me.ElementInfo_Text = CType(Me.ElementClass_Obj, IElement_Field)
 
         Else
             ''
@@ -196,7 +196,7 @@ Public Class CtlGraphicFldLabel
             ''
             Me.ElementClass_Obj = par_elementText
             Me.ElementInfo_Base = CType(par_elementText, IElement_Base)
-            Me.ElementInfo_Text = CType(par_elementText, IElement_Text)
+            Me.ElementInfo_Text = CType(par_elementText, IElement_Field)
 
         End If ''End of "If (par_elementText Is Nothing) Then .... Else ...."
 

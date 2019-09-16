@@ -16,6 +16,9 @@ Public Class FormDesignProtoTwo
     ''
     ''Added 7/18/2019 Thomas DOWNES
     ''
+    ''Added 9/16/2019 thomas downes
+    Public Property ElementsCache As ClassElementsCache ''Added 9/16/2019 thomas downes
+
     ''#1 8-3-2019 td''Private WithEvents mod_moveAndResizeCtls_NA As New MoveAndResizeControls_Monem.ControlMove_RaiseEvents ''Added 8/3/2019 td  
     '' #2 8-3-2019 td''Private WithEvents mod_moveAndResizeCtls As New MoveAndResizeControls_Monem.ControlMove_GroupMove ''Added 8/3/2019 td  
     Private WithEvents mod_groupedMove As New ClassGroupMove(Me) ''8/4/2019 td''New ClassGroupMove
@@ -623,7 +626,7 @@ Public Class FormDesignProtoTwo
             ''
             If (each_field.ElementInfo_Base Is Nothing) Then
 
-                Dim new_element_text As New ClassElementText
+                Dim new_element_text As New ClassElementField
 
                 ''Added 9/5/2019 thomas d.
                 ''9/11/2019 td''new_element_text.LayoutWidth_Pixels = Me.Layout_Width_Pixels()
@@ -806,7 +809,7 @@ Public Class FormDesignProtoTwo
             ''Added 7/29
             If (each_field_standard.ElementInfo Is Nothing) Then
 
-                each_field_standard.ElementInfo = New ClassElementText()
+                each_field_standard.ElementInfo = New ClassElementField()
 
                 ''8/9/2019 td''new_label_control_std = New CtlGraphicFldLabel(field_standard)
                 new_label_control_std = New CtlGraphicFldLabel(each_field_standard, Me)
@@ -938,7 +941,7 @@ Public Class FormDesignProtoTwo
             ''Added 7/29
             If (each_field_custom.ElementInfo Is Nothing) Then
 
-                each_field_custom.ElementInfo = New ClassElementText()
+                each_field_custom.ElementInfo = New ClassElementField()
 
                 ''8/9/2019 td''new_label_control_cust = New CtlGraphicFldLabel(field_custom)
                 new_label_control_cust = New CtlGraphicFldLabel(each_field_custom, Me)
@@ -1061,8 +1064,8 @@ Public Class FormDesignProtoTwo
         ''
         ''8/24 td''Dim objPrintLib As New ciLayoutPrintLib.CILayoutBadge
         Dim objPrintLib As New ciLayoutPrintLib.LayoutPrint_Redux
-        Dim listOfElementText_Stdrd As List(Of IElementWithText)
-        Dim listOfElementText_Custom As List(Of IElementWithText)
+        Dim listOfElementText_Stdrd As List(Of IFieldInfo_ElementPositions)
+        Dim listOfElementText_Custom As List(Of IFieldInfo_ElementPositions)
         Dim listOfTextImages As New List(Of Image) ''Added 8/26/2019 thomas downes 
 
         ''For Each field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students

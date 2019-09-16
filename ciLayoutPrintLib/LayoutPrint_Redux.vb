@@ -624,8 +624,8 @@ ExitHandler:
     End Sub ''End of ""Private Sub ApplyMemberPicToImage(ByRef par_image As Image)
 
     Public Sub LoadImageWithFieldValues(ByRef par_imageBadgeCard As Image,
-                                   par_standardFields As List(Of IElementWithText),
-                                   par_customFields As List(Of IElementWithText),
+                                   par_standardFields As List(Of IFieldInfo_ElementPositions),
+                                   par_customFields As List(Of IFieldInfo_ElementPositions),
                                         Optional par_listTextImages As List(Of Image) = Nothing)
         ''
         ''Added 8/14/2019 td  
@@ -646,7 +646,7 @@ ExitHandler:
         ''Standard Fields 
         ''
         ''
-        For Each each_elementField As IElementWithText In par_standardFields
+        For Each each_elementField As IFieldInfo_ElementPositions In par_standardFields
 
             intEachIndex += 1
 
@@ -746,7 +746,7 @@ ExitHandler:
         ''
         ''Custom Fields 
         ''
-        For Each each_elementField As IElementWithText In par_customFields
+        For Each each_elementField As IFieldInfo_ElementPositions In par_customFields
 
             Dim image_textCustom As Image ''Added 8/26/2019 td  
             Dim intLeft As Integer
