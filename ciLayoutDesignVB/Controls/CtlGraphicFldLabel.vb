@@ -93,7 +93,7 @@ Public Class CtlGraphicFldLabel
         ''Refactored 9/4/2019 td  
         ''
         If (par_elementText Is Nothing) Then
-            Me.ElementClass_Obj = par_field.ElementInfo
+            Me.ElementClass_Obj = par_field.ElementFieldClass
             Me.ElementInfo_Base = CType(Me.ElementClass_Obj, IElement_Base)
             Me.ElementInfo_Text = CType(Me.ElementClass_Obj, IElement_TextField)
         Else
@@ -137,7 +137,7 @@ Public Class CtlGraphicFldLabel
         ''Refactored 9/4/2019 td  
         ''
         If (par_elementText Is Nothing) Then
-            Me.ElementClass_Obj = par_field.ElementInfo
+            Me.ElementClass_Obj = par_field.ElementFieldClass
             Me.ElementInfo_Base = CType(Me.ElementClass_Obj, IElement_Base)
             Me.ElementInfo_Text = CType(Me.ElementClass_Obj, IElement_TextField)
         Else
@@ -330,7 +330,7 @@ Public Class CtlGraphicFldLabel
         ''Major call !!
         ''
         pictureLabel.Image =
-        LabelToImage.TextImage(intLayoutWidth, Me.ElementInfo_Text,
+        LabelToImage.TextImage_Field(intLayoutWidth, Me.ElementInfo_Text,
                                Me.ElementInfo_Base,
                                boolRotated, True)
 
@@ -421,7 +421,7 @@ Public Class CtlGraphicFldLabel
                 ''Customized field.
                 ''
                 ''Added 9/15/2019 thomas d.
-                ClassFieldCustomized.CopyElementInfo(Me.FieldInfo.FieldLabelCaption,
+                ClassFieldCustomized.CopyElementInfo(Me.FieldInfo.FieldEnumValue,
                                                    Me.ElementInfo_Base, Me.ElementInfo_Text)
 
         End Select

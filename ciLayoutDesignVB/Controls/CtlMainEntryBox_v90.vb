@@ -78,7 +78,7 @@ Public Class CtlMainEntryBox_v90
         ''Refactored 9/4/2019 td  
         ''
         If (par_elementText Is Nothing) Then
-            Me.ElementClass_Obj = par_field.ElementInfo
+            Me.ElementClass_Obj = par_field.ElementFieldClass
             Me.ElementInfo_Base = CType(Me.ElementClass_Obj, IElement_Base)
             Me.ElementInfo_Text = CType(Me.ElementClass_Obj, IElement_TextField)
         Else
@@ -122,7 +122,7 @@ Public Class CtlMainEntryBox_v90
         ''Refactored 9/4/2019 td  
         ''
         If (par_elementText Is Nothing) Then
-            Me.ElementClass_Obj = par_field.ElementInfo
+            Me.ElementClass_Obj = par_field.ElementFieldClass
             Me.ElementInfo_Base = CType(Me.ElementClass_Obj, IElement_Base)
             Me.ElementInfo_Text = CType(Me.ElementClass_Obj, IElement_TextField)
         Else

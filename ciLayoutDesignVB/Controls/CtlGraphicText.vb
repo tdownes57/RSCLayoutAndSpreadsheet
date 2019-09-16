@@ -43,7 +43,7 @@ Public Class CtlGraphicText
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        Me.ElementInfo_Text = par_field.ElementInfo
+        Me.ElementInfo_Text = par_field.ElementFieldClass
 
     End Sub
 
@@ -53,7 +53,7 @@ Public Class CtlGraphicText
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        Me.ElementInfo_Text = par_field.ElementInfo
+        Me.ElementInfo_Text = par_field.ElementFieldClass
 
     End Sub
 
@@ -112,7 +112,7 @@ Public Class CtlGraphicText
         ''9/4/2019 td''LabelToImage.TextImage(intLayoutWidth, pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
 
         pictureLabel.Image =
-        LabelToImage.TextImage(intLayoutWidth, Me.ElementInfo_Text,
+        LabelToImage.TextImage_Field(intLayoutWidth, Me.ElementInfo_Text,
                                Me.ElementInfo_Base, boolRotated, True)
 
         ''Added 7/31/2019 td

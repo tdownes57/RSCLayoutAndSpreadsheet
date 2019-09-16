@@ -99,8 +99,8 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
         Me.FieldInfo = par_field
 
         ''9/3/2019 td''Me.ElementInfo_Text = par_field.ElementInfo
-        Me.ElementInfo_Text = CType(par_field.ElementInfo, IElement_TextField)
-        Me.ElementInfo_Base = CType(par_field.ElementInfo, IElement_Base)
+        Me.ElementInfo_Text = CType(par_field.ElementFieldClass, IElement_TextField)
+        Me.ElementInfo_Base = CType(par_field.ElementFieldClass, IElement_Base)
 
         ''Added 8/15/2019 td
         Me.FormDesigner = par_formDesigner
@@ -110,8 +110,8 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
             .FieldInfo = par_field
 
             ''9/3/2019 td''.ElementInfo_Text = par_field.ElementInfo
-            .ElementInfo_Text = CType(par_field.ElementInfo, IElement_TextField)
-            .ElementInfo_Base = CType(par_field.ElementInfo, IElement_Base)
+            .ElementInfo_Text = CType(par_field.ElementFieldClass, IElement_TextField)
+            .ElementInfo_Base = CType(par_field.ElementFieldClass, IElement_Base)
 
             .FormDesigner = par_formDesigner
             .Width = .ElementInfo_Base.Width_Pixels

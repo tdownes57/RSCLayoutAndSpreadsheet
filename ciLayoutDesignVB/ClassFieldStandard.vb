@@ -50,6 +50,8 @@ Public Class ClassFieldStandard
     ''    End Set
     ''End Property
 
+    Public Property FieldEnumValue As EnumCIBFields Implements ICIBFieldStandardOrCustom.FieldEnumValue ''Added 9/16/2019 td 
+
     Public Property FieldIndex As Integer Implements ICIBFieldStandardOrCustom.FieldIndex
     ''    Get
     ''        Throw New NotImplementedException()
@@ -131,20 +133,20 @@ Public Class ClassFieldStandard
 
     ''8/27/2019 td'' Property Image_BL As Image Implements ICIBFieldStandardOrCustom.Image_BL ''Added 8/27/2019 
 
-    Private mod_elementInfo As ClassElementField ''Added 9/3/2019 td   
+    Private mod_elementFieldClass As ClassElementField ''Added 9/3/2019 td   
 
     ''
     ''Added 7/29/2019 thomas downes
     ''
     ''9/3/2019 td''Public Property ElementInfo As ClassElementText
-    Public Property ElementInfo() As ClassElementField
+    Public Property ElementFieldClass() As ClassElementField
         Get
             ''Added 9/3/2019 thomas d. 
-            Return mod_elementInfo
+            Return mod_elementFieldClass
         End Get
         Set(value As ClassElementField)
             ''Added 9/3/2019 thomas d. 
-            mod_elementInfo = value
+            mod_elementFieldClass = value
             ''Added 9/3/2019 thomas d. 
             Me.ElementInfo_Base = CType(value, IElement_Base)
             Me.ElementInfo_Text = CType(value, IElement_TextField)
@@ -197,8 +199,8 @@ Public Class ClassFieldStandard
 
             new_ElementWithText.FieldInfo = each_obj ''Added 9/3/2019 td  
 
-            obj_ElementText = CType(each_obj.ElementInfo, IElement_TextField)
-            obj_Element_Base = CType(each_obj.ElementInfo, IElement_Base)
+            obj_ElementText = CType(each_obj.ElementFieldClass, IElement_TextField)
+            obj_Element_Base = CType(each_obj.ElementFieldClass, IElement_Base)
 
             new_ElementWithText.Position_BL = obj_Element_Base
             new_ElementWithText.TextDisplay = obj_ElementText
@@ -243,11 +245,11 @@ Public Class ClassFieldStandard
 
             ''Added 9/3/2019 td
             ''9/15/2019 td''.ElementInfo = New ClassElementText()
-            .ElementInfo = New ClassElementField(0, 0, 30)
+            .ElementFieldClass = New ClassElementField(0, 0, 30)
 
             ''Added 9/3/2019 td
-            .ElementInfo_Base = CType(.ElementInfo, ciBadgeInterfaces.IElement_Base)
-            .ElementInfo_Text = CType(.ElementInfo, ciBadgeInterfaces.IElement_TextField)
+            .ElementInfo_Base = CType(.ElementFieldClass, ciBadgeInterfaces.IElement_Base)
+            .ElementInfo_Text = CType(.ElementFieldClass, ciBadgeInterfaces.IElement_TextField)
 
         End With
         ListOfFields_Students.Add(new_object1)
@@ -269,11 +271,11 @@ Public Class ClassFieldStandard
 
             ''Added 9/3/2019 td
             ''9/15/2019 td''.ElementInfo = New ClassElementText()
-            .ElementInfo = New ClassElementField(30, 30, 30)
+            .ElementFieldClass = New ClassElementField(30, 30, 30)
 
             ''Added 9/3/2019 td
-            .ElementInfo_Base = CType(.ElementInfo, ciBadgeInterfaces.IElement_Base)
-            .ElementInfo_Text = CType(.ElementInfo, ciBadgeInterfaces.IElement_TextField)
+            .ElementInfo_Base = CType(.ElementFieldClass, ciBadgeInterfaces.IElement_Base)
+            .ElementInfo_Text = CType(.ElementFieldClass, ciBadgeInterfaces.IElement_TextField)
 
         End With
         ListOfFields_Students.Add(new_object2)
@@ -296,11 +298,11 @@ Public Class ClassFieldStandard
 
             ''Added 9/3/2019 td
             ''9/15/2019 td''.ElementInfo = New ClassElementText()
-            .ElementInfo = New ClassElementField(60, 60, 30)
+            .ElementFieldClass = New ClassElementField(60, 60, 30)
 
             ''Added 9/3/2019 td
-            .ElementInfo_Base = CType(.ElementInfo, ciBadgeInterfaces.IElement_Base)
-            .ElementInfo_Text = CType(.ElementInfo, ciBadgeInterfaces.IElement_TextField)
+            .ElementInfo_Base = CType(.ElementFieldClass, ciBadgeInterfaces.IElement_Base)
+            .ElementInfo_Text = CType(.ElementFieldClass, ciBadgeInterfaces.IElement_TextField)
 
         End With
         ListOfFields_Students.Add(new_object3)
@@ -320,7 +322,7 @@ Public Class ClassFieldStandard
             .IsLocked = False
 
             ''Added 9/3/2019 td
-            .ElementInfo = New ClassElementField()
+            .ElementFieldClass = New ClassElementField()
 
         End With
         ListOfFields_Students.Add(new_object4)
@@ -341,12 +343,12 @@ Public Class ClassFieldStandard
             .ExampleValue = "1234567890" ''Added 9/12/2019 td 
 
             ''Added 9/3/2019 td
-            .ElementInfo = New ClassElementField()
+            .ElementFieldClass = New ClassElementField()
 
             ''Added 8/28/2019 thomas downes
-            .ElementInfo.FontSize_Pixels = 16 ''Added 9/12/2019 td  
+            .ElementFieldClass.FontSize_Pixels = 16 ''Added 9/12/2019 td  
             ''9/12/2019 td''.ElementInfo.Font_DrawingClass = modFonts.BarCodeFont_ByDefault(16)
-            .ElementInfo.Font_DrawingClass = modFonts.BarCodeFont_ByDefault(.ElementInfo.FontSize_Pixels)
+            .ElementFieldClass.Font_DrawingClass = modFonts.BarCodeFont_ByDefault(.ElementFieldClass.FontSize_Pixels)
 
         End With
         ListOfFields_Students.Add(new_object5)
@@ -366,7 +368,7 @@ Public Class ClassFieldStandard
             .IsLocked = False
 
             ''Added 9/3/2019 td
-            .ElementInfo = New ClassElementField()
+            .ElementFieldClass = New ClassElementField()
 
         End With
         ListOfFields_Students.Add(new_object6)
@@ -386,7 +388,7 @@ Public Class ClassFieldStandard
             .IsLocked = False
 
             ''Added 9/3/2019 td
-            .ElementInfo = New ClassElementField()
+            .ElementFieldClass = New ClassElementField()
 
         End With
         ListOfFields_Students.Add(new_object7)
@@ -406,7 +408,7 @@ Public Class ClassFieldStandard
             .IsLocked = False
 
             ''Added 9/3/2019 td
-            .ElementInfo = New ClassElementField()
+            .ElementFieldClass = New ClassElementField()
 
         End With
         ListOfFields_Students.Add(new_object8)
@@ -426,7 +428,7 @@ Public Class ClassFieldStandard
             .IsLocked = False
 
             ''Added 9/3/2019 td
-            .ElementInfo = New ClassElementField()
+            .ElementFieldClass = New ClassElementField()
 
         End With
         ListOfFields_Students.Add(new_object9)
@@ -446,7 +448,7 @@ Public Class ClassFieldStandard
             .IsLocked = False
 
             ''Added 9/3/2019 td
-            .ElementInfo = New ClassElementField()
+            .ElementFieldClass = New ClassElementField()
 
         End With
         ListOfFields_Students.Add(new_object91)
@@ -523,6 +525,20 @@ Public Class ClassFieldStandard
 
     End Sub ''End of "Public Shared Sub CopyElementInfo"
 
+    Public Shared Sub CopyElementInfo(par_enumCIBField As EnumCIBFields,
+                                      par_info_base As IElement_Base,
+                                      par_info_text As IElement_TextField)
+        ''
+        ''Added 9/16/2019 td
+        ''
+        Dim fieldRequested As ClassFieldStandard
+
+        fieldRequested = ListOfFields_Students.Where(Function(x) x.FieldEnumValue = par_enumCIBField).First()
+        fieldRequested.Load_ByCopyingMembers(par_info_base)
+        fieldRequested.Load_ByCopyingMembers(par_info_text)
+
+    End Sub ''End of "Public Shared Sub CopyElementInfo"
+
     Public Sub Load_ByCopyingMembers(par_info As IElement_Base)
         ''
         ''Added 7/23/2019 td
@@ -549,6 +565,35 @@ Public Class ClassFieldStandard
         End With
 
     End Sub ''end of "Public Sub Load_ByCopyingMembers(par_info As IElement_Base)"
+
+    Public Sub Load_ByCopyingMembers(par_info As IElement_TextField)
+        ''
+        ''Added 9/16/2019 td
+        ''
+        With par_info
+
+            Me.ElementInfo_Text.ExampleValue = .ExampleValue
+            Me.ElementInfo_Text.FieldInCardData = .FieldInCardData
+            Me.ElementInfo_Text.FieldLabelCaption = .FieldLabelCaption
+            Me.ElementInfo_Text.FontBold = .FontBold
+            Me.ElementInfo_Text.FontColor = .FontColor
+            Me.ElementInfo_Text.FontFamilyName = .FontFamilyName
+            Me.ElementInfo_Text.FontItalics = .FontItalics
+            Me.ElementInfo_Text.FontOffset_X = .FontOffset_X
+            Me.ElementInfo_Text.FontOffset_Y = .FontOffset_Y
+            Me.ElementInfo_Text.FontSize_Pixels = .FontSize_Pixels
+            Me.ElementInfo_Text.FontSize_ScaleToElementRatio = .FontSize_ScaleToElementRatio
+            Me.ElementInfo_Text.FontSize_ScaleToElementYesNo = .FontSize_ScaleToElementYesNo
+
+            Me.ElementInfo_Text.FontUnderline = .FontUnderline
+            Me.ElementInfo_Text.Font_DrawingClass = .Font_DrawingClass
+            Me.ElementInfo_Text.Recipient = .Recipient
+            Me.ElementInfo_Text.Text = .Text
+            Me.ElementInfo_Text.TextAlignment = .TextAlignment
+
+        End With ''End of "With par_info"
+
+    End Sub ''end of "Public Sub Load_ByCopyingMembers(par_info As IElement_TextField)"
 
     Public Sub Load_ByCopyingMembers(par_info As ICIBFieldStandardOrCustom)
         ''

@@ -109,7 +109,7 @@ Public Class DialogTextOffset
 
         Me.FieldInfo = par_field
 
-        Me.ElementInfo_Text = par_field.ElementInfo
+        Me.ElementInfo_Text = par_field.ElementFieldClass
 
         ''Added 8/15/2019 td
         Me.FormDesigner = par_formDesigner
@@ -118,7 +118,7 @@ Public Class DialogTextOffset
         With CtlGraphicFldLabel1
             .FieldInfo = par_field
 
-            .ElementClass_Obj = par_field.ElementInfo ''Added 9/13/2019 td
+            .ElementClass_Obj = par_field.ElementFieldClass ''Added 9/13/2019 td
             .ElementInfo_Base = par_field.ElementInfo_Base ''Added 9/13/2019 td 
             .ElementInfo_Text = par_field.ElementInfo_Text ''Added 9/13/2019 td 
             .FormDesigner = par_formDesigner

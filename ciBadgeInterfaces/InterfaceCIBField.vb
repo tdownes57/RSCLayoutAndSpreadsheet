@@ -17,6 +17,7 @@ Public Interface ICIBFieldStandardOrCustom
 
     Property FieldType_TD As Char
     Property FieldIndex As Integer
+    Property FieldEnumValue As ciBadgeInterfaces.EnumCIBFields ''Added 9/16/2019 td  
 
     Property IsFieldForDates As Boolean
     Property IsLocked As Boolean

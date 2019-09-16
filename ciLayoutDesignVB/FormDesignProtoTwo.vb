@@ -17,7 +17,7 @@ Public Class FormDesignProtoTwo
     ''Added 7/18/2019 Thomas DOWNES
     ''
     ''Added 9/16/2019 thomas downes
-    Public Property ElementsCache As ClassElementsCache ''Added 9/16/2019 thomas downes
+    Public Property ElementsCache As New ClassElementsCache ''Added 9/16/2019 thomas downes
 
     ''#1 8-3-2019 td''Private WithEvents mod_moveAndResizeCtls_NA As New MoveAndResizeControls_Monem.ControlMove_RaiseEvents ''Added 8/3/2019 td  
     '' #2 8-3-2019 td''Private WithEvents mod_moveAndResizeCtls As New MoveAndResizeControls_Monem.ControlMove_GroupMove ''Added 8/3/2019 td  
@@ -133,6 +133,11 @@ Public Class FormDesignProtoTwo
         ''Major call !!
         ''
         ''9/8/2019 td''Load_Form()
+
+        ''
+        ''Major call!!
+        ''
+        Me.ElementsCache.LoadFieldElements()
 
         ''
         ''Major call!!  
@@ -797,8 +802,8 @@ Public Class FormDesignProtoTwo
 
             ''Added 9/5/2019 thomas d.
             ''9/11/2019 td''each_field_standard.ElementInfo.LayoutWidth_Pixels = Me.Layout_Width_Pixels
-            each_field_standard.ElementInfo.BadgeLayout.Width_Pixels = Me.Layout_Width_Pixels
-            each_field_standard.ElementInfo.BadgeLayout.Height_Pixels = Me.Layout_Height_Pixels
+            each_field_standard.ElementFieldClass.BadgeLayout.Width_Pixels = Me.Layout_Width_Pixels
+            each_field_standard.ElementFieldClass.BadgeLayout.Height_Pixels = Me.Layout_Height_Pixels
 
             Dim new_label_control_std As CtlGraphicFldLabel
 
@@ -807,9 +812,9 @@ Public Class FormDesignProtoTwo
             If (Not boolIncludeOnBadge) Then Continue For
 
             ''Added 7/29
-            If (each_field_standard.ElementInfo Is Nothing) Then
+            If (each_field_standard.ElementFieldClass Is Nothing) Then
 
-                each_field_standard.ElementInfo = New ClassElementField()
+                each_field_standard.ElementFieldClass = New ClassElementField()
 
                 ''8/9/2019 td''new_label_control_std = New CtlGraphicFldLabel(field_standard)
                 new_label_control_std = New CtlGraphicFldLabel(each_field_standard, Me)
@@ -828,7 +833,7 @@ Public Class FormDesignProtoTwo
 
                 new_label_control_std.Width = CInt(pictureBack.Width / 3)
 
-                With each_field_standard.ElementInfo
+                With each_field_standard.ElementFieldClass
 
                     .Width_Pixels = new_label_control_std.Width
                     .Height_Pixels = new_label_control_std.Height
@@ -871,11 +876,11 @@ Public Class FormDesignProtoTwo
                 ''9/5/2019 td''.Top += each_field_standard.ElementInfo.TopEdge_Pixels
                 ''9/5/2019 td''.Left += each_field_standard.ElementInfo.LeftEdge_Pixels
 
-                .Top = Me.Layout_Margin_Top_Add(each_field_standard.ElementInfo.TopEdge_Pixels)
-                .Left = Me.Layout_Margin_Left_Add(each_field_standard.ElementInfo.LeftEdge_Pixels)
+                .Top = Me.Layout_Margin_Top_Add(each_field_standard.ElementFieldClass.TopEdge_Pixels)
+                .Left = Me.Layout_Margin_Left_Add(each_field_standard.ElementFieldClass.LeftEdge_Pixels)
 
-                .Width = each_field_standard.ElementInfo.Width_Pixels
-                .Height = each_field_standard.ElementInfo.Height_Pixels
+                .Width = each_field_standard.ElementFieldClass.Width_Pixels
+                .Height = each_field_standard.ElementFieldClass.Height_Pixels
 
             End With ''End of "With new_label_control_std"
 
@@ -929,8 +934,8 @@ Public Class FormDesignProtoTwo
 
             ''Added 9/5/2019 thomas d.
             ''9/11/2019 td''each_field_custom.ElementInfo.LayoutWidth_Pixels = Me.Layout_Width_Pixels
-            each_field_custom.ElementInfo.BadgeLayout.Width_Pixels = Me.Layout_Width_Pixels
-            each_field_custom.ElementInfo.BadgeLayout.Height_Pixels = Me.Layout_Width_Pixels
+            each_field_custom.ElementFieldClass.BadgeLayout.Width_Pixels = Me.Layout_Width_Pixels
+            each_field_custom.ElementFieldClass.BadgeLayout.Height_Pixels = Me.Layout_Width_Pixels
 
             Dim new_label_control_cust As CtlGraphicFldLabel
 
@@ -939,9 +944,9 @@ Public Class FormDesignProtoTwo
             If (Not boolIncludeOnBadge) Then Continue For
 
             ''Added 7/29
-            If (each_field_custom.ElementInfo Is Nothing) Then
+            If (each_field_custom.ElementFieldClass Is Nothing) Then
 
-                each_field_custom.ElementInfo = New ClassElementField()
+                each_field_custom.ElementFieldClass = New ClassElementField()
 
                 ''8/9/2019 td''new_label_control_cust = New CtlGraphicFldLabel(field_custom)
                 new_label_control_cust = New CtlGraphicFldLabel(each_field_custom, Me)
@@ -958,7 +963,7 @@ Public Class FormDesignProtoTwo
 
                 new_label_control_cust.Width = CInt(pictureBack.Width / 3)
 
-                With each_field_custom.ElementInfo
+                With each_field_custom.ElementFieldClass
 
                     .Width_Pixels = new_label_control_cust.Width
                     .Height_Pixels = new_label_control_cust.Height
@@ -992,11 +997,11 @@ Public Class FormDesignProtoTwo
             ''9/5 td''new_label_control_cust.Height = each_field_custom.ElementInfo.Height_Pixels
 
             With new_label_control_cust
-                .Top = Me.Layout_Margin_Top_Add(each_field_custom.ElementInfo.TopEdge_Pixels)
-                .Left = Me.Layout_Margin_Left_Add(each_field_custom.ElementInfo.LeftEdge_Pixels)
+                .Top = Me.Layout_Margin_Top_Add(each_field_custom.ElementFieldClass.TopEdge_Pixels)
+                .Left = Me.Layout_Margin_Left_Add(each_field_custom.ElementFieldClass.LeftEdge_Pixels)
 
-                .Width = each_field_custom.ElementInfo.Width_Pixels
-                .Height = each_field_custom.ElementInfo.Height_Pixels
+                .Width = each_field_custom.ElementFieldClass.Width_Pixels
+                .Height = each_field_custom.ElementFieldClass.Height_Pixels
             End With ''End of "With new_label_control_cust"
 
             ''intTopEdge_std = (30 + 30 * intNumControlsAlready_std)
