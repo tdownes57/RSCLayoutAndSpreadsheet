@@ -78,6 +78,7 @@
   <ItemGroup>
     <Compile Include="ClassElementsCache.vb" />
     <Compile Include="ClassElementStaticText.vb" />
+    <Compile Include="ClassFieldAny.vb" />
     <Compile Include="ClassGroupMove.vb" />
     <Compile Include="ClassRubberbandSelector.vb" />
     <Compile Include="ContextMenus\ContextLayoutBack.Designer.vb">

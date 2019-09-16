@@ -9,154 +9,155 @@ Imports ciBadgeInterfaces ''Added 8/24/2019 thomas d.
 ''
 
 Public Class ClassFieldStandard
-    Implements ICIBFieldStandardOrCustom ''Added 7/21/2019 td
+    Inherits ClassFieldAny ''Added 9/16/2019 thomas d.
+    ''9/16/2019 td''Implements ICIBFieldStandardOrCustom ''Added 7/21/2019 td
     ''
     ''Added 7/26/2019 thomas d. 
     ''
     ''Public TextFieldId As Integer
     ''Not applicable. 7/26/2019 td''Public Property TextFieldId As Integer = 1
 
-    Public Property IsStandard As Boolean = False Implements ICIBFieldStandardOrCustom.IsStandard ''Added 7/26/2019 td
-    Public Property IsCustomizable As Boolean = False Implements ICIBFieldStandardOrCustom.IsCustomizable ''Added 7/26/2019 td
+    ''Public Property IsStandard As Boolean = False Implements ICIBFieldStandardOrCustom.IsStandard ''Added 7/26/2019 td
+    ''Public Property IsCustomizable As Boolean = False Implements ICIBFieldStandardOrCustom.IsCustomizable ''Added 7/26/2019 td
 
-    ''Not applicable. 7/26/2019 td''Public Property DateFieldId As Integer = 0
-    Public Property IsDateField As Boolean = False
+    ''''Not applicable. 7/26/2019 td''Public Property DateFieldId As Integer = 0
+    ''Public Property IsDateField As Boolean = False
 
-    Public Property Text_orDate As String = "Text"
+    ''Public Property Text_orDate As String = "Text"
 
-    Public Property LabelCaption As String = ""
+    ''Public Property LabelCaption As String = ""
 
-    ''Redundant. See ExampleValue. ---7/26/2019 td''Public Property ExampleValueToUseInLayout As String = ""
+    ''''Redundant. See ExampleValue. ---7/26/2019 td''Public Property ExampleValueToUseInLayout As String = ""
 
-    ''7/21 td''Public Property CIBadgeFieldname As String ''Added 7/21/2019 Thomas DOWNES 
-    Public Property CIBadgeField_Optional As String Implements ICIBFieldStandardOrCustom.CIBadgeField_Optional ''Added 7/21/2019 Thomas DOWNES 
-    Public Property OtherDbField_Optional As String Implements ICIBFieldStandardOrCustom.OtherDbField_Optional ''Added 7/21/2019 Thomas DOWNES 
+    ''''7/21 td''Public Property CIBadgeFieldname As String ''Added 7/21/2019 Thomas DOWNES 
+    ''Public Property CIBadgeField As String Implements ICIBFieldStandardOrCustom.CIBadgeField ''Added 7/21/2019 Thomas DOWNES 
+    ''Public Property OtherDbField_Optional As String Implements ICIBFieldStandardOrCustom.OtherDbField_Optional ''Added 7/21/2019 Thomas DOWNES 
 
-    Public Property FieldLabelCaption As String Implements ICIBFieldStandardOrCustom.FieldLabelCaption
+    ''Public Property FieldLabelCaption As String Implements ICIBFieldStandardOrCustom.FieldLabelCaption
+    ''''    Get
+    ''''        Throw New NotImplementedException()
+    ''''    End Get
+    ''''    Set(value As String)
+    ''''        Throw New NotImplementedException()
+    ''''    End Set
+    ''''End Property
+
+    ''Public Property FieldType_TD As Char Implements ICIBFieldStandardOrCustom.FieldType_TD
+    ''''    Get
+    ''''        Throw New NotImplementedException()
+    ''''    End Get
+    ''''    Set(value As Char)
+    ''''        Throw New NotImplementedException()
+    ''''    End Set
+    ''''End Property
+
+    ''Public Property FieldEnumValue As EnumCIBFields Implements ICIBFieldStandardOrCustom.FieldEnumValue ''Added 9/16/2019 td 
+
+    ''Public Property FieldIndex As Integer Implements ICIBFieldStandardOrCustom.FieldIndex
+    ''''    Get
+    ''''        Throw New NotImplementedException()
+    ''''    End Get
+    ''''    Set(value As Integer)
+    ''''        Throw New NotImplementedException()
+    ''''    End Set
+    ''''End Property
+
+    ''Public Property IsFieldForDates As Boolean Implements ICIBFieldStandardOrCustom.IsFieldForDates
+    ''''    Get
+    ''''        Throw New NotImplementedException()
+    ''''    End Get
+    ''''    Set(value As Boolean)
+    ''''        Throw New NotImplementedException()
+    ''''    End Set
+    ''''End Property
+
+    ''Public Property IsLocked As Boolean Implements ICIBFieldStandardOrCustom.IsLocked
+    ''''    Get
+    ''''        Throw New NotImplementedException()
+    ''''    End Get
+    ''''    Set(value As Boolean)
+    ''''        Throw New NotImplementedException()
+    ''''    End Set
+    ''''End Property
+
+    ''''Added 8/23/2019 thomas d.
+    ''Public Property IsDisplayedOnBadge As Boolean Implements ICIBFieldStandardOrCustom.IsDisplayedOnBadge
+    ''Public Property IsDisplayedForEdits As Boolean Implements ICIBFieldStandardOrCustom.IsDisplayedForEdits
+
+    ''Public Property ExampleValue As String Implements ICIBFieldStandardOrCustom.ExampleValue
+    ''''    Get
+    ''''        Throw New NotImplementedException()
+    ''''    End Get
+    ''''    Set(value As String)
+    ''''        Throw New NotImplementedException()
+    ''''    End Set
+    ''''End Property
+
+    ''Public Property HasPresetValues As Boolean Implements ICIBFieldStandardOrCustom.HasPresetValues
+    ''''    Get
+    ''''        Throw New NotImplementedException()
+    ''''    End Get
+    ''''    Set(value As Boolean)
+    ''''        Throw New NotImplementedException()
+    ''''    End Set
+    ''''End Property
+
+    ''''Not needed here for Standard fields. ---9/16/2019 td''Public Property ArrayOfValues As String() Implements ICIBFieldStandardOrCustom.ArrayOfValues
+    ''''    Get
+    ''''        Throw New NotImplementedException()
+    ''''    End Get
+    ''''    Set(value As String())
+    ''''        Throw New NotImplementedException()
+    ''''    End Set
+    ''''End Property
+
+    ''''Public Property OtherDbFieldname As String Implements ICIBFieldStandardOrCustom.OtherDbField_Optional
+    ''''    Get
+    ''''        Throw New NotImplementedException()
+    ''''    End Get
+    ''''    Set(value As String)
+    ''''        Throw New NotImplementedException()
+    ''''    End Set
+    ''''End Property
+
+    ''Public Property IsAdditionalField As Boolean Implements ICIBFieldStandardOrCustom.IsAdditionalField
+    ''''    Get
+    ''''        Throw New NotImplementedException()
+    ''''    End Get
+    ''''    Set(value As Boolean)
+    ''''        Throw New NotImplementedException()
+    ''''    End Set
+    ''''End Property
+
+    ''Public Property IsBarCode As Boolean = False Implements ICIBFieldStandardOrCustom.IsBarcodeField ''Added 7/31/2019 td
+    ''Public Property DataEntryText As String Implements ICIBFieldStandardOrCustom.DataEntryText ''Added 9/9/2019 td
+
+    ''''8/27/2019 td'' Property Image_BL As Image Implements ICIBFieldStandardOrCustom.Image_BL ''Added 8/27/2019 
+
+    ''Private mod_elementFieldClass As ClassElementField ''Added 9/3/2019 td   
+
+    ''''
+    ''''Added 7/29/2019 thomas downes
+    ''''
+    ''''9/3/2019 td''Public Property ElementInfo As ClassElementText
+    ''Public Property ElementFieldClass() As ClassElementField
     ''    Get
-    ''        Throw New NotImplementedException()
+    ''        ''Added 9/3/2019 thomas d. 
+    ''        Return mod_elementFieldClass
     ''    End Get
-    ''    Set(value As String)
-    ''        Throw New NotImplementedException()
+    ''    Set(value As ClassElementField)
+    ''        ''Added 9/3/2019 thomas d. 
+    ''        mod_elementFieldClass = value
+    ''        ''Added 9/3/2019 thomas d. 
+    ''        Me.ElementInfo_Base = CType(value, IElement_Base)
+    ''        Me.ElementInfo_Text = CType(value, IElement_TextField)
     ''    End Set
     ''End Property
 
-    Public Property FieldType_TD As Char Implements ICIBFieldStandardOrCustom.FieldType_TD
-    ''    Get
-    ''        Throw New NotImplementedException()
-    ''    End Get
-    ''    Set(value As Char)
-    ''        Throw New NotImplementedException()
-    ''    End Set
-    ''End Property
-
-    Public Property FieldEnumValue As EnumCIBFields Implements ICIBFieldStandardOrCustom.FieldEnumValue ''Added 9/16/2019 td 
-
-    Public Property FieldIndex As Integer Implements ICIBFieldStandardOrCustom.FieldIndex
-    ''    Get
-    ''        Throw New NotImplementedException()
-    ''    End Get
-    ''    Set(value As Integer)
-    ''        Throw New NotImplementedException()
-    ''    End Set
-    ''End Property
-
-    Public Property IsFieldForDates As Boolean Implements ICIBFieldStandardOrCustom.IsFieldForDates
-    ''    Get
-    ''        Throw New NotImplementedException()
-    ''    End Get
-    ''    Set(value As Boolean)
-    ''        Throw New NotImplementedException()
-    ''    End Set
-    ''End Property
-
-    Public Property IsLocked As Boolean Implements ICIBFieldStandardOrCustom.IsLocked
-    ''    Get
-    ''        Throw New NotImplementedException()
-    ''    End Get
-    ''    Set(value As Boolean)
-    ''        Throw New NotImplementedException()
-    ''    End Set
-    ''End Property
-
-    ''Added 8/23/2019 thomas d.
-    Public Property IsDisplayedOnBadge As Boolean Implements ICIBFieldStandardOrCustom.IsDisplayedOnBadge
-    Public Property IsDisplayedForEdits As Boolean Implements ICIBFieldStandardOrCustom.IsDisplayedForEdits
-
-    Public Property ExampleValue As String Implements ICIBFieldStandardOrCustom.ExampleValue
-    ''    Get
-    ''        Throw New NotImplementedException()
-    ''    End Get
-    ''    Set(value As String)
-    ''        Throw New NotImplementedException()
-    ''    End Set
-    ''End Property
-
-    Public Property HasPresetValues As Boolean Implements ICIBFieldStandardOrCustom.HasPresetValues
-    ''    Get
-    ''        Throw New NotImplementedException()
-    ''    End Get
-    ''    Set(value As Boolean)
-    ''        Throw New NotImplementedException()
-    ''    End Set
-    ''End Property
-
-    Public Property ArrayOfValues As String() Implements ICIBFieldStandardOrCustom.ArrayOfValues
-    ''    Get
-    ''        Throw New NotImplementedException()
-    ''    End Get
-    ''    Set(value As String())
-    ''        Throw New NotImplementedException()
-    ''    End Set
-    ''End Property
-
-    ''Public Property OtherDbFieldname As String Implements ICIBFieldStandardOrCustom.OtherDbField_Optional
-    ''    Get
-    ''        Throw New NotImplementedException()
-    ''    End Get
-    ''    Set(value As String)
-    ''        Throw New NotImplementedException()
-    ''    End Set
-    ''End Property
-
-    Public Property IsAdditionalField As Boolean Implements ICIBFieldStandardOrCustom.IsAdditionalField
-    ''    Get
-    ''        Throw New NotImplementedException()
-    ''    End Get
-    ''    Set(value As Boolean)
-    ''        Throw New NotImplementedException()
-    ''    End Set
-    ''End Property
-
-    Public Property IsBarCode As Boolean = False Implements ICIBFieldStandardOrCustom.IsBarcodeField ''Added 7/31/2019 td
-    Public Property DataEntryText As String Implements ICIBFieldStandardOrCustom.DataEntryText ''Added 9/9/2019 td
-
-    ''8/27/2019 td'' Property Image_BL As Image Implements ICIBFieldStandardOrCustom.Image_BL ''Added 8/27/2019 
-
-    Private mod_elementFieldClass As ClassElementField ''Added 9/3/2019 td   
-
-    ''
-    ''Added 7/29/2019 thomas downes
-    ''
-    ''9/3/2019 td''Public Property ElementInfo As ClassElementText
-    Public Property ElementFieldClass() As ClassElementField
-        Get
-            ''Added 9/3/2019 thomas d. 
-            Return mod_elementFieldClass
-        End Get
-        Set(value As ClassElementField)
-            ''Added 9/3/2019 thomas d. 
-            mod_elementFieldClass = value
-            ''Added 9/3/2019 thomas d. 
-            Me.ElementInfo_Base = CType(value, IElement_Base)
-            Me.ElementInfo_Text = CType(value, IElement_TextField)
-        End Set
-    End Property
-
-    ''Added 9/3/2019 td
-    Public Property ElementInfo_Base As IElement_Base Implements ICIBFieldStandardOrCustom.ElementInfo_Base
-    ''Added 9/3/2019 td
-    Public Property ElementInfo_Text As IElement_TextField Implements ICIBFieldStandardOrCustom.ElementInfo_Text
+    ''''Added 9/3/2019 td
+    ''Public Property ElementInfo_Base As IElement_Base Implements ICIBFieldStandardOrCustom.ElementInfo_Base
+    ''''Added 9/3/2019 td
+    ''Public Property ElementInfo_Text As IElement_TextField Implements ICIBFieldStandardOrCustom.ElementInfo_Text
 
     ''
     ''Added 7/16/2019 thomas d. 
@@ -229,10 +230,11 @@ Public Class ClassFieldStandard
 
         Dim new_object1 As New ClassFieldStandard
         With new_object1
+            .FieldEnumValue = EnumCIBFields.fstrID ''Added 9/16/2019 td
             ''N/A''.TextFieldId = 1 ''TextField01 
             .IsCustomizable = False ''Added 7/26/2019 td 
             .FieldLabelCaption = "Student ID"
-            .CIBadgeField_Optional = "fstrID"
+            .CIBadgeField = "fstrID"
             .FieldType_TD = "T"c
             .HasPresetValues = False
             .IsAdditionalField = False
@@ -256,10 +258,11 @@ Public Class ClassFieldStandard
 
         Dim new_object2 As New ClassFieldStandard
         With new_object2
+            .FieldEnumValue = EnumCIBFields.fstrFirstName ''Added 9/16/2019 td
             ''N/A''.TextFieldId = 2 ''TextField02
             .IsCustomizable = False ''Added 7/26/2019 td 
             .FieldLabelCaption = "First Name"
-            .CIBadgeField_Optional = "fstrFirstName"
+            .CIBadgeField = "fstrFirstName"
             .FieldType_TD = "T"c
             .HasPresetValues = False
             .IsAdditionalField = False
@@ -282,10 +285,11 @@ Public Class ClassFieldStandard
 
         Dim new_object3 As New ClassFieldStandard
         With new_object3
+            .FieldEnumValue = EnumCIBFields.fstrLastName ''Added 9/16/2019 td
             ''N/A''.TextFieldId = 3 ''TextField03 
             .IsCustomizable = False ''Added 7/26/2019 td 
             .FieldLabelCaption = "Last Name"
-            .CIBadgeField_Optional = "fstrLastName"
+            .CIBadgeField = "fstrLastName"
             .FieldType_TD = "T"c
             .HasPresetValues = False
             .IsAdditionalField = False
@@ -310,9 +314,10 @@ Public Class ClassFieldStandard
         ''Added 8/23/2019 thomas d
         Dim new_object4 As New ClassFieldStandard
         With new_object4
+            .FieldEnumValue = EnumCIBFields.fstrMidName ''Added 9/16/2019 td
             .IsCustomizable = False ''Added 7/26/2019 td 
             .FieldLabelCaption = "Middle Name"
-            .CIBadgeField_Optional = "fstrMidName"
+            .CIBadgeField = "fstrMidName"
             .FieldType_TD = "T"c
             .HasPresetValues = False
             .IsAdditionalField = False
@@ -330,9 +335,10 @@ Public Class ClassFieldStandard
         ''Added 8/23/2019 thomas d
         Dim new_object5 As New ClassFieldStandard
         With new_object5
+            .FieldEnumValue = EnumCIBFields.fstrBarCode ''Added 9/16/2019 td
             .IsCustomizable = False ''Added 7/26/2019 td 
             .FieldLabelCaption = "Barcode Value"
-            .CIBadgeField_Optional = "fstrBarcode"
+            .CIBadgeField = "fstrBarcode"
             .FieldType_TD = "T"c
             .HasPresetValues = False
             .IsAdditionalField = False
@@ -356,9 +362,10 @@ Public Class ClassFieldStandard
         ''Added 8/23/2019 thomas d
         Dim new_object6 As New ClassFieldStandard
         With new_object6
+            .FieldEnumValue = EnumCIBFields.fstrAddress ''Added 9/16/2019 td
             .IsCustomizable = False ''Added 7/26/2019 td 
             .FieldLabelCaption = "Address"
-            .CIBadgeField_Optional = "fstrAddress"
+            .CIBadgeField = "fstrAddress"
             .FieldType_TD = "T"c
             .HasPresetValues = False
             .IsAdditionalField = False
@@ -376,9 +383,10 @@ Public Class ClassFieldStandard
         ''Added 8/23/2019 thomas d
         Dim new_object7 As New ClassFieldStandard
         With new_object7
+            .FieldEnumValue = EnumCIBFields.fstrCity ''Added 9/16/2019 td
             .IsCustomizable = False ''Added 7/26/2019 td 
             .FieldLabelCaption = "City"
-            .CIBadgeField_Optional = "fstrCity"
+            .CIBadgeField = "fstrCity"
             .FieldType_TD = "T"c
             .HasPresetValues = False
             .IsAdditionalField = False
@@ -396,9 +404,10 @@ Public Class ClassFieldStandard
         ''Added 8/23/2019 thomas d
         Dim new_object8 As New ClassFieldStandard
         With new_object8
+            .FieldEnumValue = EnumCIBFields.fstrState ''Added 9/16/2019 td
             .IsCustomizable = False ''Added 7/26/2019 td 
             .FieldLabelCaption = "State"
-            .CIBadgeField_Optional = "fstrState"
+            .CIBadgeField = "fstrState"
             .FieldType_TD = "T"c
             .HasPresetValues = False
             .IsAdditionalField = False
@@ -416,9 +425,10 @@ Public Class ClassFieldStandard
         ''Added 8/23/2019 thomas d
         Dim new_object9 As New ClassFieldStandard
         With new_object9
+            .FieldEnumValue = EnumCIBFields.fstrZip ''Added 9/16/2019 td
             .IsCustomizable = False ''Added 7/26/2019 td 
             .FieldLabelCaption = "Zipcode"
-            .CIBadgeField_Optional = "fstrZip"
+            .CIBadgeField = "fstrZip"
             .FieldType_TD = "T"c
             .HasPresetValues = False
             .IsAdditionalField = False
@@ -436,9 +446,10 @@ Public Class ClassFieldStandard
         ''Added 8/23/2019 thomas d
         Dim new_object91 As New ClassFieldStandard
         With new_object91
+            .FieldEnumValue = EnumCIBFields.fstrRFID_Unique ''Added 9/16/2019 td
             .IsCustomizable = False ''Added 7/26/2019 td 
             .FieldLabelCaption = "RFID/UID Value"
-            .CIBadgeField_Optional = "fstrRFID"
+            .CIBadgeField = "fstrRFID"
             .FieldType_TD = "T"c
             .HasPresetValues = False
             .IsAdditionalField = False
@@ -471,7 +482,7 @@ Public Class ClassFieldStandard
             ''N/A''.TextFieldId = 1
             .IsCustomizable = False ''Added 7/26/2019 td 
             .FieldLabelCaption = "Staffperson ID"
-            .CIBadgeField_Optional = "fstrID"
+            .CIBadgeField = "fstrID"
             .FieldType_TD = "T"c
             .HasPresetValues = False
             .IsAdditionalField = False
@@ -486,7 +497,7 @@ Public Class ClassFieldStandard
             ''N/A''.TextFieldId = 2
             .IsCustomizable = False ''Added 7/26/2019 td 
             .FieldLabelCaption = "First Name"
-            .CIBadgeField_Optional = "fstrFirstName"
+            .CIBadgeField = "fstrFirstName"
             .FieldType_TD = "T"c
             .HasPresetValues = False
             .IsAdditionalField = False
@@ -500,7 +511,7 @@ Public Class ClassFieldStandard
             ''N/A''.TextFieldId = 3
             .IsCustomizable = False ''Added 7/26/2019 td 
             .FieldLabelCaption = "Last Name"
-            .CIBadgeField_Optional = "fstrLastName"
+            .CIBadgeField = "fstrLastName"
             .FieldType_TD = "T"c
             .HasPresetValues = True
             .IsAdditionalField = False
@@ -599,8 +610,8 @@ Public Class ClassFieldStandard
         ''
         ''Added 7/23/2019 td
         ''
-        Me.ArrayOfValues = par_info.ArrayOfValues
-        Me.CIBadgeField_Optional = par_info.CIBadgeField_Optional
+        ''NOt needed here. 9/16/2019 td''Me.ArrayOfValues = par_info.ArrayOfValues
+        Me.CIBadgeField = par_info.CIBadgeField
         Me.ExampleValue = par_info.ExampleValue
         Me.FieldIndex = par_info.FieldIndex
         Me.FieldLabelCaption = par_info.FieldLabelCaption

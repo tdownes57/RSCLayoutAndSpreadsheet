@@ -15,6 +15,9 @@ Public Interface ICIBFieldStandardOrCustom
     Property IsStandard As Boolean ''Added 7/26/2019 thomas d. 
     Property IsCustomizable As Boolean ''Added 7/26/2019 thomas d. 
 
+    Property IsDateField As Boolean ''Added 9/16/2019 td
+    Property Text_OrDate As String ''Added 9/16/2019 td
+
     Property FieldType_TD As Char
     Property FieldIndex As Integer
     Property FieldEnumValue As ciBadgeInterfaces.EnumCIBFields ''Added 9/16/2019 td  
@@ -26,12 +29,14 @@ Public Interface ICIBFieldStandardOrCustom
 
     Property HasPresetValues As Boolean
 
-    Property ArrayOfValues As String()
+    ''Not needed here. ---9/16/2019 td''Property ArrayOfValues As String()
 
     Property IsAdditionalField As Boolean ''Added 7/21/2019 thomas downes
     Property IsBarcodeField As Boolean ''Added 7/31/2019 thomas downes
 
-    Property CIBadgeField_Optional As String ''Added 7/21/2019 thomas downes
+    ''9/16/2019 td''Property CIBadgeField_Optional As String ''Added 7/21/2019 thomas downes
+    Property CIBadgeField As String ''Added 7/21/2019 thomas downes
+
     Property OtherDbField_Optional As String ''Added 7/21/2019 thomas downes
 
     ''Added 8/29 & 8/22/2019 td
