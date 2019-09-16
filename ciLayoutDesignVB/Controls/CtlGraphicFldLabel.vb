@@ -177,6 +177,11 @@ Public Class CtlGraphicFldLabel
             ''9/15/2019 td''Me.ElementClass_Obj = Nothing ''9/4/2019 td''par_field.ElementInfo
 
             Me.ElementClass_Obj = New ClassElementText
+
+            ''
+            ''------ IMPORTANT ------------------
+            ''------ POTENTIALLY CONFUSING-------
+            ''
             Me.ElementClass_Obj.LoadbyCopyingMembers(par_field.ElementInfo_Base, par_field.ElementInfo_Text)
 
             ''  9/15/2019 td''Me.ElementInfo_Base = CType(par_field.ElementInfo_Base, IElement_Base)

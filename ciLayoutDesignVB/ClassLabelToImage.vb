@@ -389,6 +389,12 @@ Public Class ClassLabelToImage
 
         With par_elementInfo_Text
 
+            ''Added 9/15/2019 td
+            If (.Font_DrawingClass Is Nothing) Then
+                ''Added 9/15/2019 td
+                .Font_DrawingClass = modFonts.MakeFont(.FontFamilyName, .FontSize_Pixels, .FontBold, .FontItalics, .FontUnderline)
+            End If ''End of '"If (.Font_DrawingClass Is Nothing) Then"
+
             ''Added 9/8/2019 td
             font_scaled = modFonts.ScaledFont(.Font_DrawingClass, doubleScaling)
 
