@@ -655,8 +655,9 @@ Public Class FormDesignProtoTwo
             boolIncludeOnBadge = (par_boolLoadingForm And each_element.FieldInfo.IsDisplayedOnBadge)
 
             If (Not boolIncludeOnBadge) Then
-                ''9/17/2019 td''AddToFlowPanelOfOmittedFlds(each_element)
-                AddToFlowPanelOfOmittedFlds(each_element.FieldInfo)
+                ''#1 9/17/2019 td''AddToFlowPanelOfOmittedFlds(each_element)
+                '' #2 9/17/2019 td''AddToFlowPanelOfOmittedFlds(each_element.FieldInfo)
+                AddToFlowPanelOfOmittedFlds(each_element)
                 Continue For
             End If ''End of "If (Not boolIncludeOnBadge) Then"
 
@@ -767,20 +768,46 @@ Public Class FormDesignProtoTwo
 
     End Sub ''End of ''Private Sub LoadElements_ByListOfElements()''
 
-    Private Sub AddToFlowPanelOfOmittedFlds(par_field As ICIBFieldStandardOrCustom)
+    Private Sub LoadFieldControl_JustOne(par_elementField As ClassElementField)
         ''
-        ''Added 9/6/2019 td
+        ''Added 9/17/2019 thomas d.  
+        ''
+        Dim new_list As New List(Of ClassElementField)
+        Const c_bAddToMoveableClass As Boolean = True ''Added 9/8/2019 td 
+
+        new_list.Add(par_elementField)
+
+        LoadFieldControls_ByListOfElements(new_list, True, False, c_bAddToMoveableClass)
+
+    End Sub ''End of "Private Sub LoadFieldControl_JustOne(par_elementField As ClassElementField)"
+
+    ''9/17/2019 td''Private Sub AddToFlowPanelOfOmittedFlds(par_field As ICIBFieldStandardOrCustom)
+    ''    ''
+    ''    ''Added 9/6/2019 td
+    ''    ''
+    ''    Dim new_linkLabel As New LinkLabel
+    ''    new_linkLabel.Tag = par_field
+    ''    new_linkLabel.Text = par_field.FieldLabelCaption
+    ''    flowFieldsNotListed.Controls.Add(new_linkLabel)
+    ''    new_linkLabel.Visible = True
+
+    ''    ''Added 9/7/2019 thomas downes
+    ''    AddHandler new_linkLabel.LinkClicked, AddressOf AddField_LinkClicked
+
+    ''End Sub ''End of "Private Sub AddToFlowPanelOfOmittedFlds(par_field As ICIBFieldStandardOrCustom)"
+
+    Private Sub AddToFlowPanelOfOmittedFlds(par_elementField As ClassElementField)
+        ''
+        ''Added 9/17/2019 td
         ''
         Dim new_linkLabel As New LinkLabel
-        new_linkLabel.Tag = par_field
-        new_linkLabel.Text = par_field.FieldLabelCaption
+        new_linkLabel.Tag = par_elementField
+        new_linkLabel.Text = par_elementField.FieldInfo.FieldLabelCaption
         flowFieldsNotListed.Controls.Add(new_linkLabel)
         new_linkLabel.Visible = True
-
-        ''Added 9/7/2019 thomas downes
         AddHandler new_linkLabel.LinkClicked, AddressOf AddField_LinkClicked
 
-    End Sub ''End of "Private Sub AddToFlowPanelOfOmittedFlds(par_field As ICIBFieldStandardOrCustom)"
+    End Sub ''End of "Private Sub AddToFlowPanelOfOmittedFlds(par_elementField As ClassElementField)"
 
     ''9/17/2019 td''Private Sub LoadElements_Fields_OneList_NotInUse(par_boolLoadingForm As Boolean, Optional par_bUnloading As Boolean = False)
     ''    ''
@@ -1413,9 +1440,10 @@ Public Class FormDesignProtoTwo
         ''
         ''Step 1 of 5.   Create a dictionary of elements. 
         ''
-        Dim dictonary_elmnt_control As New Dictionary(Of IElement_Base, CtlGraphicFldLabel)
+        Dim dictonary_elmntInfo_control As New Dictionary(Of IElement_Base, CtlGraphicFldLabel)
         Dim dictonary_field_control As New Dictionary(Of ICIBFieldStandardOrCustom,
             CtlGraphicFldLabel)
+        Dim dictonary_elmntObj_control As New Dictionary(Of ClassElementField, CtlGraphicFldLabel) ''Added 9/17/2019 td
 
         ''
         ''Step 2 of 5.   Refresh the existing controls. 
@@ -1450,8 +1478,11 @@ Public Class FormDesignProtoTwo
             ''
             ''   Build a dictionary of control-element.
             ''
-            dictonary_elmnt_control.Add(each_field_control.ElementInfo_Base, each_field_control)
+            dictonary_elmntInfo_control.Add(each_field_control.ElementInfo_Base, each_field_control)
             dictonary_field_control.Add(each_field_control.FieldInfo, each_field_control)
+
+            ''Added 9/17/2019 td
+            dictonary_elmntObj_control.Add(each_field_control.ElementClass_Obj, each_field_control)
 
         Next each_control
 
@@ -1460,10 +1491,15 @@ Public Class FormDesignProtoTwo
         ''
         ''Dim list_fieldsNotLoadedYet_Custom As New List(Of ClassFieldCustomized)
         ''Dim list_fieldsNotLoadedYet_Standrd As New List(Of ClassFieldStandard)
+
         Dim list_fieldsNotLoadedYet_Any As New List(Of ICIBFieldStandardOrCustom)
+        Dim list_elementsNotLoadedYet_Any As New List(Of ClassElementField) ''Added 9/17/2019 td  
         Dim boolMissingFromForm As Boolean
         Dim boolNotDisplayed_ButShouldBe As Boolean
 
+        ''
+        ''Step #3(a)  List the undisplayed fields.  
+        ''
         For Each each_field As ICIBFieldStandardOrCustom In ClassFields.ListAllFields()
             ''
             ''Added 9/6/2019 td
@@ -1483,6 +1519,28 @@ Public Class FormDesignProtoTwo
         Next each_field
 
         ''
+        ''Step #3(b)  List the undisplayed elements.    ---Added 9/17/2019 td
+        ''
+        For Each each_element As ClassElementField In Me.ElementsCache_Edits.FieldElements()
+            ''
+            ''Added 9/17/2019 td
+            ''
+            ''9/17/2019 td''boolMissingFromForm = (Not dictonary_elmntInfo_control.ContainsKey(each_element))
+            boolMissingFromForm = (Not dictonary_elmntObj_control.ContainsKey(each_element))
+
+            boolNotDisplayed_ButShouldBe = (boolMissingFromForm And each_element.FieldInfo.IsDisplayedOnBadge)
+
+            If (boolNotDisplayed_ButShouldBe) Then
+                ''
+                ''Add it to a list. 
+                ''
+                list_elementsNotLoadedYet_Any.Add(each_element)
+
+            End If ''End of "If (boolNotDisplayed_ButShouldBe) Then"
+
+        Next each_element
+
+        ''
         ''Step 4 of 5.   Load the missing elements onto the form, if any.  
         ''
         Dim bSomeDisplayableFldsAreNotLoaded As Boolean
@@ -1492,8 +1550,9 @@ Public Class FormDesignProtoTwo
         If (bSomeDisplayableFldsAreNotLoaded) Then
             ''Load the missing elements. 
             ''9/6/2019 td''Load_Fields_ByList(list_elementsNotLoadedYet_Any)
-            LoadElements_ByListOfFields(list_fieldsNotLoadedYet_Any,
-                                        True, False, True)
+            ''9/17/2019 td''LoadElements_ByListOfFields(list_fieldsNotLoadedYet_Any,
+            ''9/17/2019 td''                            True, False, True)
+            LoadFieldControls_ByListOfElements(list_elementsNotLoadedYet_Any, True, False, True)
 
         End If ''End of "If (bSomeDisplayableFieldsAreNotLoaded) Then"
 
@@ -1770,11 +1829,18 @@ Public Class FormDesignProtoTwo
         ''
         ''Added 9/7/2019 thomas d
         ''
-        Dim field_to_add As ICIBFieldStandardOrCustom
-        field_to_add = CType(CType(sender, LinkLabel).Tag, ICIBFieldStandardOrCustom)
-        If (field_to_add Is Nothing) Then Exit Sub
-        field_to_add.IsDisplayedOnBadge = True
-        LoadField_JustOne(field_to_add)
+        ''9/17/2019 td''Dim field_to_add As ICIBFieldStandardOrCustom
+        ''9/17/2019 td''field_to_add = CType(CType(sender, LinkLabel).Tag, ICIBFieldStandardOrCustom)
+        ''9/17/2019 td''If (field_to_add Is Nothing) Then Exit Sub
+        ''9/17/2019 td''field_to_add.IsDisplayedOnBadge = True
+        ''9/17/2019 td''LoadField_JustOne(field_to_add)
+
+        Dim element_to_add As ClassElementField ''Added 9/17/2019 td
+        element_to_add = CType(CType(sender, LinkLabel).Tag, ClassElementField)
+        If (element_to_add Is Nothing) Then Exit Sub
+        element_to_add.FieldInfo.IsDisplayedOnBadge = True
+        LoadFieldControl_JustOne(element_to_add) ''Modified 9/17/2019 td
+
         flowFieldsNotListed.Controls.Remove(CType(sender, LinkLabel))
 
     End Sub ''End of "Private Sub AddField_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)"
