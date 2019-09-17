@@ -119,6 +119,26 @@ Public Class ClassElementsCache
 
     End Sub ''End of "Public Sub LoadPicElement(par_pictureBackground As PictureBox)"
 
+    Public Function Copy() As ClassElementsCache
+        ''
+        ''Added 9/17/2019 thomas downes  
+        ''
+        Dim objCopy As New ClassElementsCache
+
+        For Each each_field As ClassElementField In mod_listElementFields
+
+            objCopy.FieldElements().Add(each_field.Copy())
+
+        Next each_field
+
+
+
+
+
+
+
+    End Function ''End of "Public Function Copy() As ClassElementsCache"
+
     ''Private Sub LoadElements_Picture()
     ''    ''
     ''    ''Added 7/31/2019 thomas downes 

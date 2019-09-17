@@ -73,7 +73,7 @@ Public Class CtlGraphicFldLabel
 
     End Sub
 
-    Public Sub New(par_field As ClassFieldStandard,
+    Public Sub New_Deprecated(par_field As ClassFieldStandard,
                    Optional par_formDesigner As FormDesignProtoTwo = Nothing,
                    Optional par_elementText As ClassElementField = Nothing)
 
@@ -110,7 +110,7 @@ Public Class CtlGraphicFldLabel
 
     End Sub
 
-    Public Sub New(par_field As ClassFieldCustomized,
+    Public Sub New_Deprecated(par_field As ClassFieldCustomized,
                    Optional par_formDesigner As FormDesignProtoTwo = Nothing,
                    Optional par_elementText As ClassElementField = Nothing)
 
@@ -154,7 +154,7 @@ Public Class CtlGraphicFldLabel
 
     End Sub
 
-    Public Sub New(par_field As ICIBFieldStandardOrCustom,
+    Public Sub New_Deprecated(par_field As ICIBFieldStandardOrCustom,
                    Optional par_formDesigner As FormDesignProtoTwo = Nothing,
                    Optional par_elementText As ClassElementField = Nothing)
 
@@ -202,6 +202,22 @@ Public Class CtlGraphicFldLabel
 
         ''Added 9/3/2019 td
         Me.FormDesigner = par_formDesigner
+
+    End Sub
+
+    Public Sub New(par_elementField As ClassElementField,
+                  par_layout As ILayoutFunctions)
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        Me.FieldInfo = par_elementField.FieldInfo
+
+        Me.ElementClass_Obj = par_elementField
+        Me.ElementInfo_Base = CType(par_elementField, IElement_Base)
+        Me.ElementInfo_Text = CType(par_elementField, IElement_TextField)
+        Me.LayoutFunctions = par_layout
 
     End Sub
 

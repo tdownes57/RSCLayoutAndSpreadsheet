@@ -54,6 +54,9 @@ Public Class ClassElementField
     ''Added 9/10/2019 td 
     Public Property Recipient As IRecipient Implements IElement_TextField.Recipient
 
+    ''Added 9/17/2019 td 
+    Public Property FieldInfo As ICIBFieldStandardOrCustom Implements IElement_TextField.FieldInfo
+
     Public Property TextAlignment As System.Windows.Forms.HorizontalAlignment Implements IElement_TextField.TextAlignment
 
 
@@ -103,10 +106,14 @@ Public Class ClassElementField
 
     End Sub
 
-    Public Sub New(par_intLeft_Pixels As Integer, par_intTop_Pixels As Integer, par_intHeight_Pixels As Integer)
+    Public Sub New(par_fieldInfo As ICIBFieldStandardOrCustom,
+                   par_intLeft_Pixels As Integer, par_intTop_Pixels As Integer, par_intHeight_Pixels As Integer)
+        ''9/17 td''Public Sub New(par_intLeft_Pixels As Integer, par_intTop_Pixels As Integer, par_intHeight_Pixels As Integer)
         ''
         ''Added 9/15/2019 td
         ''
+        Me.FieldInfo = par_fieldInfo ''Added 9/17/2019 td 
+
         Me.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass ''Added 9/12/2019
 
         Me.LeftEdge_Pixels = par_intLeft_Pixels
@@ -326,10 +333,24 @@ Public Class ClassElementField
 
     End Function ''End of "Public Function GenerateImage_NotInUse(par_label As Label) As Image"
 
+    Public Function Copy() As ClassElementField
+        ''
+        ''Added 9/17/2019 
+        ''
+        Dim objCopy As New ClassElementField
+        objCopy.LoadbyCopyingMembers(Me, Me)
+        Return objCopy
+
+    End Function ''End of "Public Function Copy() As ClassElementField"
+
     Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base,
-                                    par_ElementInfo_Text As IElement_TextField)
+                                    par_ElementInfo_TextFld As IElement_TextField)
         ''
         ''Added 9/13/2019 thomas downes
+        ''
+        ''--------------------------------------------------------------------------
+        ''Step 1 of 2 -- Base properties.
+        ''--------------------------------------------------------------------------
         ''
         Me.Back_Color = par_ElementInfo_Base.Back_Color
         Me.Back_Transparent = par_ElementInfo_Base.Back_Transparent
@@ -337,46 +358,34 @@ Public Class ClassElementField
         Me.Border_Color = par_ElementInfo_Base.Border_Color
         Me.Border_Displayed = par_ElementInfo_Base.Border_Displayed
         Me.Border_WidthInPixels = par_ElementInfo_Base.Border_WidthInPixels
-
-        Me.ExampleValue = par_ElementInfo_Text.ExampleValue
-        Me.FieldInCardData = par_ElementInfo_Text.FieldInCardData
-
-        Me.FontBold = par_ElementInfo_Text.FontBold
-        Me.FontColor = par_ElementInfo_Text.FontColor
-        Me.FontFamilyName = par_ElementInfo_Text.FontFamilyName
-        Me.FontItalics = par_ElementInfo_Text.FontItalics
-        Me.FontOffset_X = par_ElementInfo_Text.FontOffset_X
-        Me.FontOffset_Y = par_ElementInfo_Text.FontOffset_Y
-        Me.FontSize_Pixels = par_ElementInfo_Text.FontSize_Pixels
-        Me.FontSize_ScaleToElementRatio = par_ElementInfo_Text.FontSize_ScaleToElementRatio
-        Me.FontSize_ScaleToElementYesNo = par_ElementInfo_Text.FontSize_ScaleToElementYesNo
-        Me.FontUnderline = par_ElementInfo_Text.FontUnderline
-        Me.Font_DrawingClass = par_ElementInfo_Text.Font_DrawingClass
-
         Me.Height_Pixels = par_ElementInfo_Base.Height_Pixels
         Me.LeftEdge_Pixels = par_ElementInfo_Base.LeftEdge_Pixels
         Me.OrientationInDegrees = par_ElementInfo_Base.OrientationInDegrees
         Me.OrientationToLayout = par_ElementInfo_Base.OrientationToLayout
-
         Me.PositionalMode = par_ElementInfo_Base.PositionalMode
         Me.SelectedHighlighting = par_ElementInfo_Base.SelectedHighlighting
-
         Me.TopEdge_Pixels = par_ElementInfo_Base.TopEdge_Pixels
-
         Me.Width_Pixels = par_ElementInfo_Base.Width_Pixels
 
-        Me.ExampleValue = par_ElementInfo_Text.ExampleValue
-
-        Me.FieldInCardData = par_ElementInfo_Text.FieldInCardData
-
-        Me.FieldLabelCaption = par_ElementInfo_Text.FieldLabelCaption
-
-        Me.FontBold = par_ElementInfo_Text.FontBold
-
-
-
-
-
+        ''--------------------------------------------------------------------------
+        ''Step 2 of 2 -- Field-related properties.
+        ''--------------------------------------------------------------------------
+        ''
+        Me.ExampleValue = par_ElementInfo_TextFld.ExampleValue
+        Me.FieldInCardData = par_ElementInfo_TextFld.FieldInCardData
+        Me.FieldLabelCaption = par_ElementInfo_TextFld.FieldLabelCaption
+        Me.FontBold = par_ElementInfo_TextFld.FontBold
+        Me.FontColor = par_ElementInfo_TextFld.FontColor
+        Me.FontFamilyName = par_ElementInfo_TextFld.FontFamilyName
+        Me.FontItalics = par_ElementInfo_TextFld.FontItalics
+        Me.FontOffset_X = par_ElementInfo_TextFld.FontOffset_X
+        Me.FontOffset_Y = par_ElementInfo_TextFld.FontOffset_Y
+        Me.FontSize_Pixels = par_ElementInfo_TextFld.FontSize_Pixels
+        Me.FontSize_ScaleToElementRatio = par_ElementInfo_TextFld.FontSize_ScaleToElementRatio
+        Me.FontSize_ScaleToElementYesNo = par_ElementInfo_TextFld.FontSize_ScaleToElementYesNo
+        Me.FontUnderline = par_ElementInfo_TextFld.FontUnderline
+        Me.Font_DrawingClass = par_ElementInfo_TextFld.Font_DrawingClass
+        Me.ExampleValue = par_ElementInfo_TextFld.ExampleValue
 
     End Sub ''End of "Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base, .....)"
 

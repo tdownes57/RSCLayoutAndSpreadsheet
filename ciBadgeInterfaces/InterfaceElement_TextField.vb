@@ -33,42 +33,61 @@ Public Interface IElement_TextField
     ''
     ''Added 7/18/2019 td
     ''
+    Property FieldInfo As ICIBFieldStandardOrCustom ''Added 9/9/2019   
+    Property Recipient As IRecipient ''Added 9/9/2019   
+
+    Property FieldInCardData As String
+    Property FieldLabelCaption As String
+    Property ExampleValue As String ''E.g. "George Washington" for FullName. ''Added 8/14/2019 td 
+
     ''Property FontFamilyName As String
     ''Property FontSize As String
     ''Property FontUnderline As Boolean
     ''Property FontItalics As Boolean
     ''Property FontBold As Boolean
 
+
+
+    ''-----DEPRECATED, SEE IElement_TextOnly.  9/17/2019 td----
     Property Font_DrawingClass As System.Drawing.Font ''Formerly called Font__AllInfo.  8/17/2019 td
 
+    ''-----DEPRECATED, SEE IElement_TextOnly.  9/17/2019 td----
     Property FontColor As System.Drawing.Color
 
+    ''-----DEPRECATED, SEE IElement_TextOnly.  9/17/2019 td----
     ''9/6/2019 td''Property FontSize As Single ''Added 8/12/2019 thomas downes  
     Property FontSize_Pixels As Single ''Added 8/12/2019 thomas downes  
+
+    ''-----DEPRECATED, SEE IElement_TextOnly.  9/17/2019 td----
     Property FontFamilyName As String ''Added 9/6/2019 thomas downes  
 
+    ''-----DEPRECATED, SEE IElement_TextOnly.  9/17/2019 td----
     ''9/12/2019 td''Property FontSize_IsLocked As Boolean ''Added 8/15/2019 thomas downes  
     Property FontSize_ScaleToElementYesNo As Boolean ''Added 9/12/2019 thomas downes  
+
+    ''-----DEPRECATED, SEE IElement_TextOnly.  9/17/2019 td----
     Property FontSize_ScaleToElementRatio As Double ''Added 9/12/2019 thomas downes  
 
-    Property FontOffset_X As Integer ''Added 8/15/2019 thomas downes  
+    ''-----DEPRECATED, SEE IElement_TextOnly.  9/17/2019 td----
+    Property FontOffset_X As Integer ''Added 8/15/2019 thomas downes 
+
+    ''-----DEPRECATED, SEE IElement_TextOnly.  9/17/2019 td----
     Property FontOffset_Y As Integer ''Added 8/15/2019 thomas downes  
 
+    ''-----DEPRECATED, SEE IElement_TextOnly.  9/17/2019 td----
     Property FontBold As Boolean ''Added 8/12/2019 thomas downes  
     Property FontItalics As Boolean ''Added 8/12/2019 thomas downes  
     Property FontUnderline As Boolean ''Added 8/12/2019 thomas downes  
 
     ''See Interface IElement_Base. ---8/29/2019 td''Property BackColor As System.Drawing.Color
 
-    Property FieldInCardData As String
-    Property FieldLabelCaption As String
 
+    ''-----DEPRECATED, SEE IElement_TextOnly.  9/17/2019 td----
     ''7/25/2019 td''Prpoerty ExampleText As String ''Added 7/25/2019
     Property Text As String ''E.g. "George Washington" for FullName. 
 
-    ''Added 8/14/2019 td 
-    Property ExampleValue As String ''E.g. "George Washington" for FullName. 
 
+    ''-----DEPRECATED, SEE IElement_TextOnly.  9/17/2019 td----
     Property TextAlignment As System.Windows.Forms.HorizontalAlignment
 
 
@@ -81,8 +100,6 @@ Public Interface IElement_TextField
     Function GenerateImage_ByDesiredLayoutWidth(pintDesiredLayoutWidth As Integer) As Image ''Added 8/26/2019 td 
 
     ''8/29/2019 td''Property Image_BL As Image ''Added 8/27/2019 td 
-
-    Property Recipient As IRecipient ''Added 9/9/2019   
 
     ''
     ''

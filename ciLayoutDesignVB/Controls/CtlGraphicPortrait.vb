@@ -14,6 +14,7 @@ Public Class CtlGraphicPortrait
     ''7/31/2019 td''Public FieldInfo As ICIBFieldStandardOrCustom
     ''7/31/2019 td''Public ElementInfo As ClassElementPic
 
+    Public ElementClass_Obj As ClassElementPic ''Added 9/17/2019 thomas downes
     Public ElementInfo_Pic As IElementPic ''Added 7/31/2019 thomas d 
     Public ElementInfo_Base As IElement_Base ''Added 7/31/2019 thomas d 
 
@@ -34,7 +35,50 @@ Public Class CtlGraphicPortrait
 
     End Sub
 
-    Public Sub New(par_infoForPic_Base As IElement_Base, par_infoForPic_Pic As IElementPic, par_formLayout As ILayoutFunctions)
+    Public Sub New(par_elementPic As ClassElementPic, par_formLayout As ILayoutFunctions)
+        ''
+        ''Added 9/17/2019 td
+        ''
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ''9/17/2019 td''Me.ElementInfo_Base = par_infoForPic_Base
+        ''9/17/2019 td''Me.ElementInfo_Pic = par_infoForPic_Pic
+
+        Me.ElementClass_Obj = par_elementPic
+        Me.ElementInfo_Base = CType(par_elementPic, IElement_Base)
+        Me.ElementInfo_Pic = CType(par_elementPic, IElementPic)
+        Me.FormDesigner = par_formLayout ''Added 9/4/2019 td
+
+        ''
+        ''Added 8/12/2019 thomas downes 
+        ''
+        ''8/22/2019 td''picturePortrait.Image = ciPictures_VB.PictureExamples.GetImageByIndex(par_infoForPic_Pic.PicFileIndex)
+
+        Dim strErrorMessage As String = "" ''Added 8/22/2019 td
+
+        ''9/17/2019 td''picturePortrait.Image =
+        ''   ciPictures_VB.PictureExamples.GetImageByIndex(par_infoForPic_Pic.PicFileIndex, strErrorMessage)
+
+        picturePortrait.Image =
+            ciPictures_VB.PictureExamples.GetImageByIndex(par_elementPic.PicFileIndex, strErrorMessage)
+
+        If ("" <> strErrorMessage) Then
+            ''Added 8/22/2019  
+            MessageBox.Show(strErrorMessage, "192032",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Exclamation)
+            Exit Sub
+        End If ''End of "If ("" <> strErrorMessage) Then"
+
+        ''
+        ''Rotate the image 90 degrees, as many times as needed.  ---8/12/2019 td  
+        ''
+        Me.RefreshImage()
+
+    End Sub ''End of "Public Sub New(par_elementPic As ClassElementPic, par_formLayout As ILayoutFunctions)"
+
+    Public Sub New_Deprecated(par_infoForPic_Base As IElement_Base, par_infoForPic_Pic As IElementPic, par_formLayout As ILayoutFunctions)
         ''
         ''Added 7/31/2019 td
         ''
@@ -67,7 +111,40 @@ Public Class CtlGraphicPortrait
         ''
         Me.RefreshImage()
 
-    End Sub
+    End Sub ''End of "Public Sub New_Deprecated(par_infoForPic_Base As IElement_Base, par_infoForPic_Pic As IElementPic, par_formLayout As ILayoutFunctions)"
+
+    Public Sub Refresh_Master()
+        ''
+        ''Added 9/17 & 9/5/2019 thomas d 
+        ''
+        Refresh_PositionAndSize()
+
+        ''#1 9/15 td''Refresh_Image
+        '' #2 9/15 tdRefresh_Image(False)
+        Refresh_Image(False)
+
+    End Sub ''End of "Public Sub Refresh_Master()"
+
+    Public Sub Refresh_PositionAndSize()
+        ''
+        ''Added 9/17 & 9/5/2019 thomas d 
+        ''
+        Me.Left = Me.FormDesigner.Layout_Margin_Left_Add(Me.ElementInfo_Base.LeftEdge_Pixels)
+        Me.Top = Me.FormDesigner.Layout_Margin_Top_Add(Me.ElementInfo_Base.TopEdge_Pixels)
+
+        Me.Width = Me.ElementInfo_Base.Width_Pixels
+        Me.Height = Me.ElementInfo_Base.Height_Pixels
+
+    End Sub ''End of "Public Sub Refresh_PositionAndSize()"
+
+    Public Sub Refresh_Image(pbRefreshSize As Boolean)
+        ''
+        ''Added 9/17/2019 thomas d 
+        ''
+
+
+
+    End Sub ''ENd of "Public Sub Refresh_Image(pbRefreshSize As Boolean)"
 
     Private Sub DisplayAnotherImage(sender As Object, e As EventArgs)
         ''
