@@ -461,7 +461,7 @@ Public Class ClassFieldStandard
         ListOfFields_Students.Add(new_object91)
 
 
-        ''Added 8/23/2019 thomas d
+        ''Added 9/16/2019 thomas d
         Dim new_object92 As New ClassFieldStandard
         With new_object92
             .FieldEnumValue = EnumCIBFields.idfConfigID ''Added 9/16/2019 td

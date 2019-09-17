@@ -236,9 +236,9 @@ Public Class ClassFieldCustomized
             ''Added 9/3/2019 td
             ''9/16/2019 td''.ElementFieldClass = New ClassElementField()
             .ElementFieldClass = New ClassElementField(0, 0, 30)
-
         End With
         ListOfFields_Students.Add(new_object1)
+
 
         Dim new_object2 As New ClassFieldCustomized
         With new_object2
@@ -257,9 +257,9 @@ Public Class ClassFieldCustomized
             ''Added 9/3/2019 td
             ''9/16/2019 td''.ElementFieldClass = New ClassElementField()
             .ElementFieldClass = New ClassElementField(0, 0, 30)
-
         End With
         ListOfFields_Students.Add(new_object2)
+
 
         Dim new_object3 As New ClassFieldCustomized
         With new_object3
@@ -281,6 +281,40 @@ Public Class ClassFieldCustomized
 
         End With
         ListOfFields_Students.Add(new_object3)
+
+
+        ''Added 9/16/2019 td
+        Dim new_object61 As New ClassFieldCustomized
+        With new_object61
+            .FieldEnumValue = EnumCIBFields.DateField01
+            .IsCustomizable = True ''Added 7/26/2019 td 
+            .FieldLabelCaption = "Date of Birth"
+            .CIBadgeField = "DateField01" ''Optional. 
+            .FieldType_TD = "D"c
+            .HasPresetValues = False
+            .IsAdditionalField = False
+            .IsFieldForDates = True
+            .IsDisplayedForEdits = True
+            .IsDisplayedOnBadge = True
+            .ElementFieldClass = New ClassElementField(0, 0, 30)
+        End With
+        ListOfFields_Students.Add(new_object61)
+
+        ''Added 9/16/2019 td
+        Dim new_object62 As New ClassFieldCustomized
+        With new_object62
+            .FieldEnumValue = EnumCIBFields.DateField02
+            .IsCustomizable = True
+            .FieldLabelCaption = "ExpirationDate"
+            .CIBadgeField = "DateField02" ''Optional. 
+            .FieldType_TD = "D"c
+            .HasPresetValues = False
+            .IsAdditionalField = False
+            .IsFieldForDates = True
+            .ElementFieldClass = New ClassElementField(0, 0, 30)
+        End With
+        ListOfFields_Students.Add(new_object62)
+
 
     End Sub ''End of "InitializeHardcodedList_Students()"
 
