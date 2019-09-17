@@ -18,7 +18,6 @@ Public Class ClassElementField
 
     Public Property Font_DrawingClass As System.Drawing.Font Implements IElement_TextField.Font_DrawingClass
 
-    Public Property PositionalMode As String Implements IElement_Base.PositionalMode ''Added 8/14/2019 td 
     Public Property ExampleValue As String Implements IElement_TextField.ExampleValue ''Added 8/14/2019 td 
 
     Public Property FontColor As System.Drawing.Color Implements IElement_TextField.FontColor
@@ -59,6 +58,12 @@ Public Class ClassElementField
 
     Public Property TextAlignment As System.Windows.Forms.HorizontalAlignment Implements IElement_TextField.TextAlignment
 
+
+    ''-------------------------------------------------------------
+    ''-------------------------------------------------------------
+    ''-------------------------------------------------------------
+
+    Public Property PositionalMode As String Implements IElement_Base.PositionalMode ''Added 8/14/2019 td 
 
     Public Property OrientationToLayout As String Implements IElement_Base.OrientationToLayout ''E.g. "L" (Landscape) (by far the most common) or "P" for Portrait  
 

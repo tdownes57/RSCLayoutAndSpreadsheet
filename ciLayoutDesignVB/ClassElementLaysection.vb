@@ -38,6 +38,13 @@ Public Class ClassElementLaysection
 
     Public Property SelectedHighlighting As Boolean Implements IElement_Base.SelectedHighlighting ''Added 8/2/2019 td 
 
+    Public Property PositionalMode As String Implements IElement_Base.PositionalMode ''Added 8/14/2019 td 
+
+    Public Property OrientationToLayout As String Implements IElement_Base.OrientationToLayout ''E.g. "L" (Landscape) (by far the most common) or "P" for Portrait  
+
+    Public Property OrientationInDegrees As Integer Implements IElement_Base.OrientationInDegrees ''Default is 0, normal.  90 would be 1/4 turn clockwise.  180 is upside-down.  270 is the printing on the spine of a book sitting on the bookshelf.
+
+    Public Property Image_BL As Image Implements IElement_Base.Image_BL ''Added 8/27/2019 td
 
 
 
