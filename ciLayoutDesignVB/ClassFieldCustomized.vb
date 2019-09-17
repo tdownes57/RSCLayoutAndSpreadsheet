@@ -397,15 +397,21 @@ Public Class ClassFieldCustomized
             .ExampleValue = "Willcrest School"
             .ArrayOfValues = New String() {"Willcrest School", "Woodbridge School"}
 
+            ''Added 9/17/2019 td
+            intLeft_Pixels = (30 * (intFieldIndex - 1))
+            intTop_Pixels = intLeft_Pixels ''Let's have a staircase effect!! 
+
             ''Added 9/3/2019 td
             ''9/16/2019 td''.ElementFieldClass = New ClassElementField()
             ''9/16/2019 td''.ElementFieldClass = New ClassElementField(0, 0, 30)
-            .ElementFieldClass = New ClassElementField(new_objectField1, 0, 0, 30)
+            ''#2 9/17/2019 td''.ElementFieldClass = New ClassElementField(new_objectField1, 0, 0, 30)
+            .ElementFieldClass = New ClassElementField(new_objectField1, intLeft_Pixels, intTop_Pixels, c_heightPixels)
 
         End With
         ListOfFields_Staff.Add(new_objectField1)
 
 
+        intFieldIndex = 2 ''Added 9/17
         Dim new_objectField2 As New ClassFieldCustomized
         With new_objectField2
             .FieldEnumValue = EnumCIBFields.TextField02
@@ -420,16 +426,22 @@ Public Class ClassFieldCustomized
             .IsFieldForDates = False
             .ArrayOfValues = New String() {"Teacher", "Custodian", "Security", "Admin"}
 
+            ''Added 9/17/2019 td
+            intLeft_Pixels = (30 * (intFieldIndex - 1))
+            intTop_Pixels = intLeft_Pixels ''Let's have a staircase effect!! 
+
             ''Added 9/3/2019 td
             ''9/16/2019 td''.ElementFieldClass = New ClassElementField()
-            ''9/17/2019 td''.ElementFieldClass = New ClassElementField(0, 0, 30)
-            .ElementFieldClass = New ClassElementField(new_objectField2, 0, 0, 30)
+            ''#1 9/17/2019 td''.ElementFieldClass = New ClassElementField(0, 0, 30)
+            '' #2 9/17/2019 td''.ElementFieldClass = New ClassElementField(new_objectField2, 0, 0, 30)
+            .ElementFieldClass = New ClassElementField(new_objectField2, intLeft_Pixels, intTop_Pixels, c_heightPixels)
 
         End With
         ListOfFields_Staff.Add(new_objectField2)
 
 
-        Dim new_object3 As New ClassFieldCustomized
+        intFieldIndex = 3 ''Added 9/17
+        Dim new_objectField3 As New ClassFieldCustomized
         With new_objectField3
             .FieldEnumValue = EnumCIBFields.TextField03
             ''9/16/2019 td''.TextFieldId = 3 ''TextField03 
@@ -443,12 +455,18 @@ Public Class ClassFieldCustomized
             .IsFieldForDates = False
             .ArrayOfValues = New String() {"9th", "10th", "11th", "12th"}
 
+            ''Added 9/17/2019 td
+            intLeft_Pixels = (30 * (intFieldIndex - 1))
+            intTop_Pixels = intLeft_Pixels ''Let's have a staircase effect!! 
+
             ''Added 9/3/2019 td
             ''9/16/2019 td''.ElementFieldClass = New ClassElementField()
-            .ElementFieldClass = New ClassElementField(0, 0, 30)
+            ''#1 9/17/2019 td''.ElementFieldClass = New ClassElementField(0, 0, 30)
+            '' #2 9/17/2019 td''.ElementFieldClass = New ClassElementField(new_objectField3, 0, 0, 30)
+            .ElementFieldClass = New ClassElementField(new_objectField3, intLeft_Pixels, intTop_Pixels, c_heightPixels)
 
         End With
-        ListOfFields_Staff.Add(new_object3)
+        ListOfFields_Staff.Add(new_objectField3)
 
     End Sub ''End of "InitializeHardcodedList_Staff()"
 

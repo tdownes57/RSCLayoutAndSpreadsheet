@@ -30,6 +30,14 @@ Public Class ClassElementsCache
 
     End Function
 
+    Public Function PicElements() As List(Of ClassElementPic)
+        ''
+        ''Added 9/17/2019 thomas downes
+        ''
+        Return mod_listElementPics
+
+    End Function
+
     Public Function StaticTextElements() As List(Of ClassElementStaticText)
         ''
         ''Added 9/16/2019 thomas downes
@@ -123,19 +131,24 @@ Public Class ClassElementsCache
         ''
         ''Added 9/17/2019 thomas downes  
         ''
-        Dim objCopy As New ClassElementsCache
+        Dim objCopyOfCache As New ClassElementsCache
 
-        For Each each_field As ClassElementField In mod_listElementFields
+        ''Added 9/17/2019 thomas downes  
+        For Each each_elementField As ClassElementField In mod_listElementFields
+            objCopyOfCache.FieldElements().Add(each_elementField.Copy())
+        Next each_elementField
 
-            objCopy.FieldElements().Add(each_field.Copy())
+        ''Added 9/17/2019 thomas downes  
+        For Each each_elementPic As ClassElementPic In mod_listElementPics
+            objCopyOfCache.PicElements().Add(each_elementPic.Copy())
+        Next each_elementPic
 
-        Next each_field
+        ''Added 9/17/2019 thomas downes  
+        For Each each_elementStaticText As ClassElementStaticText In mod_listElementStatics
+            objCopyOfCache.StaticTextElements().Add(each_elementStaticText.Copy())
+        Next each_elementStaticText
 
-
-
-
-
-
+        Return objCopyOfCache
 
     End Function ''End of "Public Function Copy() As ClassElementsCache"
 
