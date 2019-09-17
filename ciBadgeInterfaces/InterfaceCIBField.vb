@@ -43,6 +43,9 @@ Public Interface ICIBFieldStandardOrCustom
     Property IsDisplayedOnBadge As Boolean
     Property IsDisplayedForEdits As Boolean
 
-    Property DataEntryText As String ''Added 9/9/2019 td  
+    Property DataEntryText As String ''Added 9/9/2019 td 
+
+    Property IsLinkedToSections As Boolean ''Added 9/17/2019 td 
+    Property SublayoutLookup As Dictionary(Of String, Integer) ''Added 9/17/2019 td
 
 End Interface
