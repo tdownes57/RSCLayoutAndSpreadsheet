@@ -29,11 +29,11 @@ Public Class ClassElementPic
     ''9/12/2019 td''Public Property LayoutWidth As Integer Implements IElement_Base.LayoutWidth_Pixels ''This provides sizing context & scaling factors. 
     Public Property BadgeLayout As BadgeLayoutClass Implements IElement_Base.BadgeLayout ''This provides sizing context & scaling factors. 
 
-    Public Property TopEdge As Integer Implements IElement_Base.TopEdge_Pixels
-    Public Property LeftEdge As Integer Implements IElement_Base.LeftEdge_Pixels
+    Public Property TopEdge_Pixels As Integer Implements IElement_Base.TopEdge_Pixels
+    Public Property LeftEdge_Pixels As Integer Implements IElement_Base.LeftEdge_Pixels
 
-    Public Property Width As Integer Implements IElement_Base.Width_Pixels
-    Public Property Height As Integer Implements IElement_Base.Height_Pixels
+    Public Property Width_Pixels As Integer Implements IElement_Base.Width_Pixels
+    Public Property Height_Pixels As Integer Implements IElement_Base.Height_Pixels
 
     ''8/29/2019 td''Public Property Border_Pixels As Integer Implements IElement_Base.Border_Pixels
     Public Property Border_WidthInPixels As Integer Implements IElement_Base.Border_WidthInPixels
@@ -94,6 +94,23 @@ Public Class ClassElementPic
 
 
     End Sub
+
+    Public Sub New(par_rectangle As Rectangle, par_layout As PictureBox)
+        ''
+        ''Added 9/16/2019 td
+        ''
+        BadgeLayout = New BadgeLayoutClass(par_layout)
+
+        ''Added 9/16/2019 td
+        Me.LeftEdge_Pixels = par_rectangle.Left
+        Me.TopEdge_Pixels = par_rectangle.Top
+
+        ''Added 9/16/2019 td
+        Me.Width_Pixels = par_rectangle.Width
+        Me.Height_Pixels = par_rectangle.Height
+
+    End Sub ''ENd of ""Public Sub New(par_rectangle As Rectangle, par_layout As PictureBox)""
+
 
 End Class
 

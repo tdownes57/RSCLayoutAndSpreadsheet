@@ -61,6 +61,15 @@ Public Class BadgeLayoutClass
 
     End Sub ''End of "Public Sub New(par_pixelsWidth As Integer, par_pixelsHeight As Integer)"
 
+    Public Sub New(par_pictureBadgeLayout As PictureBox)
+        ''
+        ''Added 9/16/2019 td  
+        ''
+        Me.Width_Pixels = par_pictureBadgeLayout.Width
+        Me.Height_Pixels = par_pictureBadgeLayout.Height
+
+    End Sub ''End of "Public Sub New(par_pixelsWidth As Integer, par_pixelsHeight As Integer)"
+
     Public Shared Function LongSideToShortRatio() As Double
         ''
         ''Added 9/11/2019 & 8/26/2019 thomas downes

@@ -402,7 +402,7 @@ Partial Class FormDesignProtoTwo
         Me.pictureBack.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.pictureBack.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.pictureBack.Image = CType(resources.GetObject("pictureBack.Image"), System.Drawing.Image)
-        Me.pictureBack.Location = New System.Drawing.Point(32, 60)
+        Me.pictureBack.Location = New System.Drawing.Point(38, 52)
         Me.pictureBack.Margin = New System.Windows.Forms.Padding(2)
         Me.pictureBack.Name = "pictureBack"
         Me.pictureBack.Size = New System.Drawing.Size(681, 425)
@@ -545,7 +545,7 @@ Partial Class FormDesignProtoTwo
         '
         'CtlGraphicPortrait_Lady
         '
-        Me.CtlGraphicPortrait_Lady.Location = New System.Drawing.Point(547, 73)
+        Me.CtlGraphicPortrait_Lady.Location = New System.Drawing.Point(545, 71)
         Me.CtlGraphicPortrait_Lady.Margin = New System.Windows.Forms.Padding(4)
         Me.CtlGraphicPortrait_Lady.Name = "CtlGraphicPortrait_Lady"
         Me.CtlGraphicPortrait_Lady.Size = New System.Drawing.Size(150, 182)
