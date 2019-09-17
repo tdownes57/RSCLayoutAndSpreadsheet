@@ -137,7 +137,7 @@ Public Class FormDesignProtoTwo
         ''
         ''Major call!!
         ''
-        Me.ElementsCache.LoadFieldElements()
+        Me.ElementsCache.LoadFieldElements(pictureBack)
 
         ''
         ''Major call!!  
@@ -307,11 +307,11 @@ Public Class FormDesignProtoTwo
 
             With ClassElementPic.ElementPicture
 
-                .Width = CtlGraphicPortrait_Lady.Width
-                .Height = CtlGraphicPortrait_Lady.Height
+                .Width_Pixels = CtlGraphicPortrait_Lady.Width
+                .Height_Pixels = CtlGraphicPortrait_Lady.Height
 
-                .TopEdge = CtlGraphicPortrait_Lady.Top
-                .LeftEdge = CtlGraphicPortrait_Lady.Left
+                .TopEdge_Pixels = CtlGraphicPortrait_Lady.Top
+                .LeftEdge_Pixels = CtlGraphicPortrait_Lady.Left
 
                 ''Added 8/12/2019 td
                 Dim bSwitchWidthHeight As Boolean ''Added 8/12/2019 td
@@ -321,8 +321,8 @@ Public Class FormDesignProtoTwo
                 ''Switch width & height.  
                 If (bSwitchWidthHeight) Then
                     ''Switch width & height.  
-                    .Width = CtlGraphicPortrait_Lady.Height
-                    .Height = CtlGraphicPortrait_Lady.Width
+                    .Width_Pixels = CtlGraphicPortrait_Lady.Height
+                    .Height_Pixels = CtlGraphicPortrait_Lady.Width
                 End If ''End of "If (bSwitchWidthHeight) Then"
 
                 ''Added 9/13/2019 td 
@@ -347,10 +347,10 @@ Public Class FormDesignProtoTwo
 
         With CtlGraphicPortrait_Lady
 
-            .Top = ClassElementPic.ElementPicture.TopEdge
-            .Left = ClassElementPic.ElementPicture.LeftEdge
-            .Width = ClassElementPic.ElementPicture.Width
-            .Height = ClassElementPic.ElementPicture.Height
+            .Top = ClassElementPic.ElementPicture.TopEdge_Pixels
+            .Left = ClassElementPic.ElementPicture.LeftEdge_Pixels
+            .Width = ClassElementPic.ElementPicture.Width_Pixels
+            .Height = ClassElementPic.ElementPicture.Height_Pixels
 
             ''Added 8/18/2019 td
             .picturePortrait.Image = mod_imageLady
