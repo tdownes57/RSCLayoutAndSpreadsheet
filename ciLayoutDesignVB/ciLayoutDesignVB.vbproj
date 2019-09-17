@@ -76,6 +76,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassElementLaysection.vb" />
     <Compile Include="ClassElementsCache.vb" />
     <Compile Include="ClassElementStaticText.vb" />
     <Compile Include="ClassFieldAny.vb" />

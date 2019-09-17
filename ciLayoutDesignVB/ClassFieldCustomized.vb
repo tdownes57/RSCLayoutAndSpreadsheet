@@ -162,6 +162,8 @@ Public Class ClassFieldCustomized
     ''#1 9/16 td''Private mod_elementInfo As ClassElementField ''Added 9/3/2019 td   
     '' #2 9/16 td''Private mod_elementFieldClass As ClassElementField ''Added 9/3/2019 td   
 
+    Private mod_arrayOfListItems() As String ''Added 9/17/2019 td  
+
     ''
     ''Added 7/16/2019 thomas d. 
     ''
@@ -486,10 +488,12 @@ Public Class ClassFieldCustomized
 
     Public Property ArrayOfValues As String() ''Implements ICIBFieldStandardOrCustom.ArrayOfValues
         Get
-            Throw New NotImplementedException()
+            ''Throw New NotImplementedException()
+            Return mod_arrayOfListItems
         End Get
         Set(value As String())
             Throw New NotImplementedException()
+            mod_arrayOfListItems = value
         End Set
     End Property
 
