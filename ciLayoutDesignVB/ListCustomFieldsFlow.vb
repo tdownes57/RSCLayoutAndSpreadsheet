@@ -72,7 +72,8 @@ Public Class ListCustomFieldsFlow
 
         ''7/21/2019 td''FlowLayoutPanel1.Controls.Add(New UserCustomFieldCtl())
 
-        userControl.Load_CustomControl(CType(par_customfld, ICIBFieldStandardOrCustom))
+        ''9/17/2019 td''userControl.Load_CustomControl(CType(par_customfld, ICIBFieldStandardOrCustom))
+        userControl.Load_CustomControl(par_customfld)
         userControl.Visible = True
 
         FlowLayoutPanel1.Controls.Add(userControl)

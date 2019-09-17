@@ -223,13 +223,20 @@ Public Class ClassFieldStandard
         ''
         ''Added 7/26/2019 td
         ''
+        Dim intFieldIndex As Integer ''Added 9/17/2019 td 
+        Const c_heightPixels As Integer = 30 ''Added 9/17 td
+        Dim intLeft_Pixels As Integer = 0
+        Dim intTop_Pixels As Integer = 0 ''Added 9/17/2019 td 
+
         With ListOfFields_Students
             ''8/28/2019 td''If (pboolOnlyIfNeeded And .Count > 0) Then Exit Sub
             If (.Count > 0) Then Exit Sub
         End With ''End of "With ListOfFields_Students"
 
-        Dim new_object1 As New ClassFieldStandard
-        With new_object1
+
+        intFieldIndex = 1 ''Added 9/17/2019 td
+        Dim new_objectField1 As New ClassFieldStandard
+        With new_objectField1
             .FieldEnumValue = EnumCIBFields.fstrID ''Added 9/16/2019 td
             ''N/A''.TextFieldId = 1 ''TextField01 
             .IsCustomizable = False ''Added 7/26/2019 td 
@@ -247,17 +254,22 @@ Public Class ClassFieldStandard
 
             ''Added 9/3/2019 td
             ''9/15/2019 td''.ElementInfo = New ClassElementText()
-            .ElementFieldClass = New ClassElementField(0, 0, 30)
+            ''9/17/2019 td''.ElementFieldClass = New ClassElementField(0, 0, 30)
+            intLeft_Pixels = (30 * (intFieldIndex - 1))
+            intTop_Pixels = intLeft_Pixels ''Let's have a staircase effect!! 
+            .ElementFieldClass = New ClassElementField(new_objectField1, intLeft_Pixels, intTop_Pixels, c_heightPixels)
 
             ''Added 9/3/2019 td
             .ElementInfo_Base = CType(.ElementFieldClass, ciBadgeInterfaces.IElement_Base)
             .ElementInfo_Text = CType(.ElementFieldClass, ciBadgeInterfaces.IElement_TextField)
 
         End With
-        ListOfFields_Students.Add(new_object1)
+        ListOfFields_Students.Add(new_objectField1)
 
-        Dim new_object2 As New ClassFieldStandard
-        With new_object2
+
+        intFieldIndex = 2 ''Added 9/17/2019 td
+        Dim new_objectField2 As New ClassFieldStandard
+        With new_objectField2
             .FieldEnumValue = EnumCIBFields.fstrFirstName ''Added 9/16/2019 td
             ''N/A''.TextFieldId = 2 ''TextField02
             .IsCustomizable = False ''Added 7/26/2019 td 
@@ -274,15 +286,22 @@ Public Class ClassFieldStandard
 
             ''Added 9/3/2019 td
             ''9/15/2019 td''.ElementInfo = New ClassElementText()
-            .ElementFieldClass = New ClassElementField(30, 30, 30)
+            ''#1 9/17/2019 td''.ElementFieldClass = New ClassElementField(30, 30, 30)
+            '' #2 9/17/2019 td''.ElementFieldClass = New ClassElementField(new_objectField2, 30, 30, 30)
+            intLeft_Pixels = (30 * (intFieldIndex - 1))
+            intTop_Pixels = intLeft_Pixels ''Let's have a staircase effect!! 
+            .ElementFieldClass = New ClassElementField(new_objectField2, intLeft_Pixels, intTop_Pixels, c_heightPixels)
 
             ''Added 9/3/2019 td
             .ElementInfo_Base = CType(.ElementFieldClass, ciBadgeInterfaces.IElement_Base)
             .ElementInfo_Text = CType(.ElementFieldClass, ciBadgeInterfaces.IElement_TextField)
 
         End With
-        ListOfFields_Students.Add(new_object2)
+        ListOfFields_Students.Add(new_objectField2)
 
+
+
+        intFieldIndex = 3 ''Added 9/17/2019 td
         Dim new_object3 As New ClassFieldStandard
         With new_object3
             .FieldEnumValue = EnumCIBFields.fstrLastName ''Added 9/16/2019 td
@@ -302,7 +321,10 @@ Public Class ClassFieldStandard
 
             ''Added 9/3/2019 td
             ''9/15/2019 td''.ElementInfo = New ClassElementText()
-            .ElementFieldClass = New ClassElementField(60, 60, 30)
+            ''9/17/2019 td''.ElementFieldClass = New ClassElementField(60, 60, 30)
+            intLeft_Pixels = (30 * (intFieldIndex - 1))
+            intTop_Pixels = intLeft_Pixels ''Let's have a staircase effect!! 
+            .ElementFieldClass = New ClassElementField(new_objectField2, intLeft_Pixels, intTop_Pixels, c_heightPixels)
 
             ''Added 9/3/2019 td
             .ElementInfo_Base = CType(.ElementFieldClass, ciBadgeInterfaces.IElement_Base)
@@ -312,6 +334,7 @@ Public Class ClassFieldStandard
         ListOfFields_Students.Add(new_object3)
 
         ''Added 8/23/2019 thomas d
+        intFieldIndex = 4 ''Added 9/17/2019 td
         Dim new_object4 As New ClassFieldStandard
         With new_object4
             .FieldEnumValue = EnumCIBFields.fstrMidName ''Added 9/16/2019 td
@@ -332,7 +355,9 @@ Public Class ClassFieldStandard
         End With
         ListOfFields_Students.Add(new_object4)
 
+
         ''Added 8/23/2019 thomas d
+        intFieldIndex = 5 ''Added 9/17/2019 td
         Dim new_object5 As New ClassFieldStandard
         With new_object5
             .FieldEnumValue = EnumCIBFields.fstrBarCode ''Added 9/16/2019 td
@@ -359,7 +384,9 @@ Public Class ClassFieldStandard
         End With
         ListOfFields_Students.Add(new_object5)
 
+
         ''Added 8/23/2019 thomas d
+        intFieldIndex = 6 ''Added 9/17/2019 td
         Dim new_object6 As New ClassFieldStandard
         With new_object6
             .FieldEnumValue = EnumCIBFields.fstrAddress ''Added 9/16/2019 td
@@ -380,7 +407,9 @@ Public Class ClassFieldStandard
         End With
         ListOfFields_Students.Add(new_object6)
 
+
         ''Added 8/23/2019 thomas d
+        intFieldIndex = 7 ''Added 9/17/2019 td
         Dim new_object7 As New ClassFieldStandard
         With new_object7
             .FieldEnumValue = EnumCIBFields.fstrCity ''Added 9/16/2019 td
@@ -401,7 +430,9 @@ Public Class ClassFieldStandard
         End With
         ListOfFields_Students.Add(new_object7)
 
+
         ''Added 8/23/2019 thomas d
+        intFieldIndex = 8 ''Added 9/17/2019 td
         Dim new_object8 As New ClassFieldStandard
         With new_object8
             .FieldEnumValue = EnumCIBFields.fstrState ''Added 9/16/2019 td
@@ -424,6 +455,7 @@ Public Class ClassFieldStandard
 
 
         ''Added 8/23/2019 thomas d
+        intFieldIndex = 9 ''Added 9/17/2019 td
         Dim new_object9 As New ClassFieldStandard
         With new_object9
             .FieldEnumValue = EnumCIBFields.fstrZip ''Added 9/16/2019 td
@@ -443,6 +475,7 @@ Public Class ClassFieldStandard
 
 
         ''Added 9/16/2019 thomas d
+        intFieldIndex = 10 ''Added 9/17/2019 td
         Dim new_object91 As New ClassFieldStandard
         With new_object91
             .FieldEnumValue = EnumCIBFields.blnBatchPrint ''Added 9/16/2019 td
@@ -462,6 +495,7 @@ Public Class ClassFieldStandard
 
 
         ''Added 9/16/2019 thomas d
+        intFieldIndex = 11 ''Added 9/17/2019 td
         Dim new_object92 As New ClassFieldStandard
         With new_object92
             .FieldEnumValue = EnumCIBFields.idfConfigID ''Added 9/16/2019 td
@@ -481,6 +515,7 @@ Public Class ClassFieldStandard
 
 
         ''Added 9/16/2019 thomas d
+        intFieldIndex = 12 ''Added 9/17/2019 td
         Dim new_object93 As New ClassFieldStandard
         With new_object93
             .FieldEnumValue = EnumCIBFields.idfReportID ''Added 9/16/2019 td
@@ -500,6 +535,7 @@ Public Class ClassFieldStandard
 
 
         ''Added 9/16/2019 thomas d
+        intFieldIndex = 13 ''Added 9/17/2019 td
         Dim new_object94 As New ClassFieldStandard
         With new_object94
             .FieldEnumValue = EnumCIBFields.fdateRecDate ''Added 9/16/2019 td
@@ -519,6 +555,7 @@ Public Class ClassFieldStandard
 
 
         ''Added 9/16/2019 thomas d
+        intFieldIndex = 14 ''Added 9/17/2019 td
         Dim new_object95 As New ClassFieldStandard
         With new_object95
             .FieldEnumValue = EnumCIBFields.fdatTimeStamp ''Added 9/16/2019 td
@@ -538,6 +575,7 @@ Public Class ClassFieldStandard
 
 
         ''Added 8/23/2019 thomas d
+        intFieldIndex = 15 ''Added 9/17/2019 td
         Dim new_object99 As New ClassFieldStandard
         With new_object99
             .FieldEnumValue = EnumCIBFields.fstrRFID_Unique ''Added 9/16/2019 td
