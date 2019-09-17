@@ -17,7 +17,8 @@ Public Class FormDesignProtoTwo
     ''Added 7/18/2019 Thomas DOWNES
     ''
     ''Added 9/16/2019 thomas downes
-    Public Property ElementsCache As New ClassElementsCache ''Added 9/16/2019 thomas downes
+    Public Property ElementsCache_Saved As New ClassElementsCache ''Added 9/16/2019 thomas downes
+    Public Property ElementsCache_Edits As New ClassElementsCache ''Added 9/16/2019 thomas downes
 
     ''#1 8-3-2019 td''Private WithEvents mod_moveAndResizeCtls_NA As New MoveAndResizeControls_Monem.ControlMove_RaiseEvents ''Added 8/3/2019 td  
     '' #2 8-3-2019 td''Private WithEvents mod_moveAndResizeCtls As New MoveAndResizeControls_Monem.ControlMove_GroupMove ''Added 8/3/2019 td  
@@ -137,7 +138,8 @@ Public Class FormDesignProtoTwo
         ''
         ''Major call!!
         ''
-        Me.ElementsCache.LoadFieldElements(pictureBack)
+        Me.ElementsCache_Saved.LoadFieldElements(pictureBack)
+        Me.ElementsCache_Edits.LoadFieldElements(pictureBack)
 
         ''
         ''Major call!!  

@@ -422,6 +422,7 @@ Public Class ClassFieldStandard
         End With
         ListOfFields_Students.Add(new_object8)
 
+
         ''Added 8/23/2019 thomas d
         Dim new_object9 As New ClassFieldStandard
         With new_object9
@@ -436,16 +437,109 @@ Public Class ClassFieldStandard
             .IsDisplayedForEdits = False
             .IsDisplayedOnBadge = False
             .IsLocked = False
-
-            ''Added 9/3/2019 td
             .ElementFieldClass = New ClassElementField()
-
         End With
         ListOfFields_Students.Add(new_object9)
 
-        ''Added 8/23/2019 thomas d
+
+        ''Added 9/16/2019 thomas d
         Dim new_object91 As New ClassFieldStandard
         With new_object91
+            .FieldEnumValue = EnumCIBFields.blnBatchPrint ''Added 9/16/2019 td
+            .IsCustomizable = False ''Added 9/16/2019 td 
+            .FieldLabelCaption = "Printed by Batch"
+            .CIBadgeField = "blnBatchPrint"
+            .FieldType_TD = "B"c
+            .HasPresetValues = False
+            .IsAdditionalField = False
+            .IsFieldForDates = False
+            .IsDisplayedForEdits = False
+            .IsDisplayedOnBadge = False
+            .IsLocked = True
+            .ElementFieldClass = New ClassElementField()
+        End With
+        ListOfFields_Students.Add(new_object91)
+
+
+        ''Added 8/23/2019 thomas d
+        Dim new_object92 As New ClassFieldStandard
+        With new_object92
+            .FieldEnumValue = EnumCIBFields.idfConfigID ''Added 9/16/2019 td
+            .IsCustomizable = False ''Added 7/26/2019 td 
+            .FieldLabelCaption = "Personality ID"
+            .CIBadgeField = "idfConfigID"
+            .FieldType_TD = "I"c
+            .HasPresetValues = False
+            .IsAdditionalField = False
+            .IsFieldForDates = False
+            .IsDisplayedForEdits = False
+            .IsDisplayedOnBadge = False
+            .IsLocked = True
+            .ElementFieldClass = New ClassElementField()
+        End With
+        ListOfFields_Students.Add(new_object92)
+
+
+        ''Added 9/16/2019 thomas d
+        Dim new_object93 As New ClassFieldStandard
+        With new_object93
+            .FieldEnumValue = EnumCIBFields.idfReportID ''Added 9/16/2019 td
+            .IsCustomizable = False
+            .FieldLabelCaption = "Badge Layout ID"
+            .CIBadgeField = "idfReportID"
+            .FieldType_TD = "I"c
+            .HasPresetValues = False
+            .IsAdditionalField = False
+            .IsFieldForDates = False
+            .IsDisplayedForEdits = False
+            .IsDisplayedOnBadge = False
+            .IsLocked = True
+            .ElementFieldClass = New ClassElementField()
+        End With
+        ListOfFields_Students.Add(new_object93)
+
+
+        ''Added 9/16/2019 thomas d
+        Dim new_object94 As New ClassFieldStandard
+        With new_object94
+            .FieldEnumValue = EnumCIBFields.fdateRecDate ''Added 9/16/2019 td
+            .IsCustomizable = False
+            .FieldLabelCaption = "Record Created"
+            .CIBadgeField = "fdateRecDate"
+            .FieldType_TD = "D"c
+            .HasPresetValues = False
+            .IsAdditionalField = False
+            .IsFieldForDates = True
+            .IsDisplayedForEdits = False
+            .IsDisplayedOnBadge = False
+            .IsLocked = True
+            .ElementFieldClass = New ClassElementField()
+        End With
+        ListOfFields_Students.Add(new_object94)
+
+
+        ''Added 9/16/2019 thomas d
+        Dim new_object95 As New ClassFieldStandard
+        With new_object95
+            .FieldEnumValue = EnumCIBFields.fdatTimeStamp ''Added 9/16/2019 td
+            .IsCustomizable = False
+            .FieldLabelCaption = "Record Updated"
+            .CIBadgeField = "fdatTimeStamp"
+            .FieldType_TD = "D"c
+            .HasPresetValues = False
+            .IsAdditionalField = False
+            .IsFieldForDates = True
+            .IsDisplayedForEdits = False
+            .IsDisplayedOnBadge = False
+            .IsLocked = True
+            .ElementFieldClass = New ClassElementField()
+        End With
+        ListOfFields_Students.Add(new_object95)
+
+
+        ''Added 8/23/2019 thomas d
+        Dim new_object99 As New ClassFieldStandard
+        With new_object99
             .FieldEnumValue = EnumCIBFields.fstrRFID_Unique ''Added 9/16/2019 td
             .IsCustomizable = False ''Added 7/26/2019 td 
             .FieldLabelCaption = "RFID/UID Value"
@@ -462,7 +556,7 @@ Public Class ClassFieldStandard
             .ElementFieldClass = New ClassElementField()
 
         End With
-        ListOfFields_Students.Add(new_object91)
+        ListOfFields_Students.Add(new_object99)
 
     End Sub ''End of "InitializeHardcodedList_Students()"
 
