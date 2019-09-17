@@ -3,6 +3,7 @@
 ''
 ''
 Imports System.Collections.Generic
+Imports ciBadgeInterfaces ''Added 9/17/2019 td
 
 Public Class ListCustomFieldsGrid
 
@@ -26,9 +27,10 @@ Public Class ListCustomFieldsGrid
 
         Dim objTextField1 As New ClassFieldCustomized
         With objTextField1
-            .TextFieldId = 1 ''intTextField
+            ''9/17/2019 td.TextFieldId = 1 ''intTextField
+            .FieldEnumValue = EnumCIBFields.TextField01
             .Text_orDate = "Text"
-            .LabelCaption = "Teacher"
+            .FieldLabelCaption = "Teacher"
             ''.ExampleValueToUseInLayout = "Mrs. Moosemore"
             .ExampleValue = "Mrs. Moosemore"
         End With
@@ -36,9 +38,10 @@ Public Class ListCustomFieldsGrid
 
         Dim objTextField2 As New ClassFieldCustomized
         With objTextField2
-            .TextFieldId = 2 ''intTextField
+            ''9/17/2019 td.TextFieldId = 2 ''intTextField
+            .FieldEnumValue = EnumCIBFields.TextField02
             .Text_orDate = "Text"
-            .LabelCaption = "Class Grade"
+            .FieldLabelCaption = "Class Grade"
             ''.ExampleValueToUseInLayout = "9th"
             .ExampleValue = "9th"
         End With
@@ -46,9 +49,10 @@ Public Class ListCustomFieldsGrid
 
         Dim objTextField3 As New ClassFieldCustomized
         With objTextField3
-            .TextFieldId = 3 ''intTextField
+            ''9/17/2019 td.TextFieldId = 3 ''intTextField
+            .FieldEnumValue = EnumCIBFields.TextField03
             .Text_orDate = "Text"
-            .LabelCaption = "School"
+            .FieldLabelCaption = "School"
             ''.ExampleValueToUseInLayout = "Westmore High"
             .ExampleValue = "Westmore High"
         End With
@@ -56,19 +60,22 @@ Public Class ListCustomFieldsGrid
 
         Dim objTextField4 As New ClassFieldCustomized
         With objTextField4
-            .TextFieldId = 4 ''intTextField
+            ''9/17/2019 td.TextFieldId = 4 ''intTextField
+            .FieldEnumValue = EnumCIBFields.TextField04
             .Text_orDate = "Text"
-            .LabelCaption = ""
+            .FieldLabelCaption = ""
             ''.ExampleValueToUseInLayout = ""
             .ExampleValue = ""
         End With
-        FieldsList_Static.Add(objTextField2)
+        FieldsList_Static.Add(objTextField4)
 
         Dim objTextField5 As New ClassFieldCustomized
         With objTextField5
-            .TextFieldId = 5 ''intTextField
+            ''9/17/2019 td''.TextFieldId = 5 ''intTextField
+            ''9/17/2019 td.TextFieldId = 5 ''intTextField
+            .FieldEnumValue = EnumCIBFields.TextField05
             .Text_orDate = "Text"
-            .LabelCaption = ""
+            .FieldLabelCaption = ""
             ''.ExampleValueToUseInLayout = ""
             .ExampleValue = ""
 
@@ -85,10 +92,13 @@ Public Class ListCustomFieldsGrid
 
             Dim objDateField1 As New ClassFieldCustomized
             With objDateField1
-                .TextFieldId = 0 ''0 since it's not a Textfield. 
-                .DateFieldId = 1 ''intTextField
+                ''9/17 td''.TextFieldId = 0 ''0 since it's not a Textfield. 
+                ''9/17 td''.DateFieldId = 1 ''intTextField
+                .FieldEnumValue = EnumCIBFields.DateField01
                 .Text_orDate = "Date"
-                .LabelCaption = "First Day"
+                ''9/16/2019 td''.LabelCaption = "First Day"
+                .FieldLabelCaption = "First Day"
+
                 ''.ExampleValueToUseInLayout = "7/21/2017"
                 .ExampleValue = "7/21/2017"
             End With

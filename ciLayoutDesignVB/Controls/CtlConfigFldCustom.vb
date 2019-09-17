@@ -16,7 +16,8 @@ Public Class CtlConfigFldCustom
 
     Public NewlyAdded As Boolean ''Add 7/23/2019 td 
 
-    Private mod_model As ICIBFieldStandardOrCustom
+    ''9/16/2019 td''Private mod_model As ICIBFieldStandardOrCustom
+    Private mod_model As ClassFieldCustomized
     Private mod_model_copy As ClassFieldCustomized ''Added 7/23/2019 thomas d. 
 
     Private mod_arrayOfValues As String() ''Added 7/23/2019 td 
@@ -33,27 +34,30 @@ Public Class CtlConfigFldCustom
         End Get
     End Property
 
-    Public Sub Load_CustomControl(par_info As ICIBFieldStandardOrCustom)
+    Public Sub Load_CustomControl(par_field As ClassFieldCustomized)
+        ''9/16/2019 td''Public Sub Load_CustomControl(par_info As ICIBFieldStandardOrCustom)
         ''
         ''Added 7/21/2019 Thomas DOWNES   
         ''
-        mod_model = par_info
+        ''9/16/2019 td''mod_model = par_info
+        mod_model = par_field
 
         ''mod_model_copy = par_info.GetClone() ''Added 7/23/2019 td
         mod_model_copy = New ClassFieldCustomized
-        mod_model_copy.Load_ByCopyingMembers(par_info)
+        ''9/16 td''mod_model_copy.Load_ByCopyingMembers(par_info)
+        mod_model_copy.Load_ByCopyingMembers(par_field)
 
         LabelHeaderTop.Text = mod_model_copy.FieldLabelCaption
 
         ''If a fieldname is missing, then display the field index. 
         If (LabelHeaderTop.Text = "") Then If (mod_model_copy.FieldIndex > 0) Then LabelHeaderTop.Text = "Field # " & CStr(mod_model_copy.FieldIndex)
 
-        With par_info
+        With par_field ''9/16 td''With par_info
 
             mod_arrayOfValues = .ArrayOfValues
             ''Me.CIBadgeField = .CIBadgeField_Optional
 
-            mod_s_CIBadgeField = .CIBadgeField_Optional
+            mod_s_CIBadgeField = .CIBadgeField
             mod_s_OtherDbField = .OtherDbField_Optional
             mod_s_ExampleValue = .ExampleValue
 
@@ -94,7 +98,7 @@ ExitHandler:
             .IsAdditionalField = checkIsAdditionalField.Checked
             .ArrayOfValues = mod_arrayOfValues
 
-            .CIBadgeField_Optional = mod_s_CIBadgeField '' = .CIBadgeField_Optional
+            .CIBadgeField = mod_s_CIBadgeField '' = .CIBadgeField_Optional
             .OtherDbField_Optional = mod_s_OtherDbField '' = .OtherDbField_Optional
 
             .ExampleValue = mod_s_ExampleValue '' = .ExampleValue
@@ -144,11 +148,11 @@ ExitHandler:
             .textOtherDbField.Text = mod_model_copy.OtherDbField_Optional
 
             Dim boolSpecificCIBField As Boolean ''Added 7/23/2019 td
-            boolSpecificCIBField = ("" <> mod_model_copy.CIBadgeField_Optional)
+            boolSpecificCIBField = ("" <> mod_model_copy.CIBadgeField)
 
             If (boolSpecificCIBField) Then
                 ''.dropdownCIBFields.SelectedValue = mod_model_copy.CIBadgeField_Optional
-                .dropdownCIBFields.SelectedItem = mod_model_copy.CIBadgeField_Optional
+                .dropdownCIBFields.SelectedItem = mod_model_copy.CIBadgeField
             End If ''End of "If (boolSpecificCIBField) Then"
 
             .ShowDialog()
@@ -168,10 +172,10 @@ ExitHandler:
 
                 If (boolSpecificCIBField) Then
                     mod_s_CIBadgeField = .dropdownCIBFields.SelectedItem.ToString
-                    mod_model_copy.CIBadgeField_Optional = mod_s_CIBadgeField
+                    mod_model_copy.CIBadgeField = mod_s_CIBadgeField
                 Else
                     mod_s_CIBadgeField = ""
-                    mod_model_copy.CIBadgeField_Optional = ""
+                    mod_model_copy.CIBadgeField = ""
                 End If ''End of "If (boolSpecificCIBField) Then .... Else ...."
 
             End If ''ENd of "If (frm_show.DialogResult = vbOK) Then"

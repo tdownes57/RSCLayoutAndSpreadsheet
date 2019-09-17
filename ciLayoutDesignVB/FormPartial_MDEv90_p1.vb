@@ -338,11 +338,11 @@ Partial Public Class FormMainEntry_v90
 
             With ClassElementPic.ElementPicture
 
-                .Width = mod_imagePortrait.Width
-                .Height = mod_imagePortrait.Height
+                .Width_Pixels = mod_imagePortrait.Width
+                .Height_Pixels = mod_imagePortrait.Height
 
-                .TopEdge = mod_imagePortrait.Top
-                .LeftEdge = mod_imagePortrait.Left
+                .TopEdge_Pixels = mod_imagePortrait.Top
+                .LeftEdge_Pixels = mod_imagePortrait.Left
 
                 ''Added 8/12/2019 td
                 Dim bSwitchWidthHeight As Boolean ''Added 8/12/2019 td
@@ -352,8 +352,8 @@ Partial Public Class FormMainEntry_v90
                 ''Switch width & height.  
                 If (bSwitchWidthHeight) Then
                     ''Switch width & height.  
-                    .Width = mod_imagePortrait.Height
-                    .Height = mod_imagePortrait.Width
+                    .Width_Pixels = mod_imagePortrait.Height
+                    .Height_Pixels = mod_imagePortrait.Width
                 End If ''End of "If (bSwitchWidthHeight) Then"
 
             End With ''End of "With field_standard.ElementInfo"
@@ -375,10 +375,10 @@ Partial Public Class FormMainEntry_v90
 
         With mod_imagePortrait
 
-            .Top = ClassElementPic.ElementPicture.TopEdge
-            .Left = ClassElementPic.ElementPicture.LeftEdge
-            .Width = ClassElementPic.ElementPicture.Width
-            .Height = ClassElementPic.ElementPicture.Height
+            .Top = ClassElementPic.ElementPicture.TopEdge_Pixels
+            .Left = ClassElementPic.ElementPicture.LeftEdge_Pixels
+            .Width = ClassElementPic.ElementPicture.Width_Pixels
+            .Height = ClassElementPic.ElementPicture.Height_Pixels
 
             ''Added 8/18/2019 td
             .picturePortrait.Image = mod_imageLady

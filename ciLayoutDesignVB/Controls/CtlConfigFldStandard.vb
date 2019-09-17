@@ -19,7 +19,7 @@ Public Class CtlConfigFldStandard
     Private mod_model As ICIBFieldStandardOrCustom
     Private mod_model_copy As ClassFieldStandard ''Added 8/19/2019 thomas d. 
 
-    Private mod_arrayOfValues As String() ''Added 8/19/2019 td 
+    ''9/16/2019 td''Private mod_arrayOfValues As String() ''Added 8/19/2019 td 
     Private mod_s_CIBadgeField As String '' = .CIBadgeField_Optional
     Private mod_s_OtherDbField As String '' = .OtherDbField_Optional
     Private mod_s_ExampleValue As String '' = .ExampleValue
@@ -50,10 +50,10 @@ Public Class CtlConfigFldStandard
 
         With par_info
 
-            mod_arrayOfValues = .ArrayOfValues
+            ''9/16/2019 td''mod_arrayOfValues = .ArrayOfValues
             ''Me.CIBadgeField = .CIBadgeField_Optional
 
-            mod_s_CIBadgeField = .CIBadgeField_Optional
+            mod_s_CIBadgeField = .CIBadgeField
             mod_s_OtherDbField = .OtherDbField_Optional
             mod_s_ExampleValue = .ExampleValue
 
@@ -96,9 +96,9 @@ ExitHandler:
             .IsDisplayedForEdits = checkDisplayForEdits.Checked
 
             ''---.IsAdditionalField = checkIsAdditionalField.Checked
-            .ArrayOfValues = mod_arrayOfValues
+            ''9/16/2019 td''ArrayOfValues = mod_arrayOfValues
 
-            .CIBadgeField_Optional = mod_s_CIBadgeField '' = .CIBadgeField_Optional
+            .CIBadgeField = mod_s_CIBadgeField '' = .CIBadgeField_Optional
             .OtherDbField_Optional = mod_s_OtherDbField '' = .OtherDbField_Optional
             .ExampleValue = mod_s_ExampleValue '' = .ExampleValue
 
