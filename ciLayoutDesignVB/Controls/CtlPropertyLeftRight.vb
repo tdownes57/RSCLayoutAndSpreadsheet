@@ -13,6 +13,8 @@ Public Class CtlPropertyLeftRight
 
     Public Event EventUpdateRequest()
 
+    Public Shared ReminderMsg1_BeenGiven As Boolean = False ''Added 9/18/2019 td 
+
     Public Property PropertyName As String
         Get
             Return mod_sPropertyName
@@ -46,7 +48,7 @@ Public Class CtlPropertyLeftRight
         End Set
     End Property
 
-    Private Sub ButtonFontDecrease_Click(sender As Object, e As EventArgs) Handles ButtonDecrease.Click
+    Private Sub ButtonDecrease_Click(sender As Object, e As EventArgs) Handles ButtonDecrease.Click
 
         ''9/18/2019 td''mod_iPropertyValue -= 1
         mod_iPropertyValue -= Numeric1.Value
@@ -63,10 +65,13 @@ Public Class CtlPropertyLeftRight
 
     End Sub
 
-    Private Sub ButtonFontIncrease_Click(sender As Object, e As EventArgs) Handles ButtonIncrease.Click
+    Private Sub ButtonIncrease_Click(sender As Object, e As EventArgs) Handles ButtonIncrease.Click
 
-        mod_iPropertyValue += 1
-        If (mod_iPropertyValue < 0) Then mod_iPropertyValue = 0
+        ''9/18/2019 td''mod_iPropertyValue += 1
+        mod_iPropertyValue += Numeric1.Value
+
+        ''9/18/2019 td''If (mod_iPropertyValue < 0) Then mod_iPropertyValue = 0
+        If (mod_iPropertyValue < Me.MinimumValue) Then mod_iPropertyValue = Me.MinimumValue
 
         ''9/13/2019 td''LabelProperty.Text = (mod_sPropertyName & ": " & CStr(mod_iPropertyValue))
         UpdateUserFeedbackLabel()
@@ -157,5 +162,22 @@ Public Class CtlPropertyLeftRight
 
     End Sub ''End of "Public Sub InitiateLocalValue()"
 
+    Private Sub LabelProperty_Click(sender As Object, e As EventArgs) Handles LabelProperty.Click
+
+    End Sub
+
+    Private Sub Numeric1_ValueChanged(sender As Object, e As EventArgs) Handles Numeric1.ValueChanged
+
+        If (Not ReminderMsg1_BeenGiven) Then
+            ''
+            ''Added 9/18/2019 td  
+            ''
+            MessageBox.Show("Please note, this number determines by how much the buttons < and > affect the value.", "",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information)
+            ReminderMsg1_BeenGiven = True
+
+        End If ''End of "If (Not ReminderMsg1_BeenGiven) Then"
+
+    End Sub
 End Class
 

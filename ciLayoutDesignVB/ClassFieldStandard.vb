@@ -257,11 +257,14 @@ Public Class ClassFieldStandard
             ''9/17/2019 td''.ElementFieldClass = New ClassElementField(0, 0, 30)
             intLeft_Pixels = (30 * (intFieldIndex - 1))
             intTop_Pixels = intLeft_Pixels ''Let's have a staircase effect!! 
-            .ElementFieldClass = New ClassElementField(new_objectField1, intLeft_Pixels, intTop_Pixels, c_heightPixels)
+
+            ''---(---Fields cannot link outward to elements.---9/18/2019 td
+            ''--.ElementFieldClass = New ClassElementField(new_objectField1, intLeft_Pixels, intTop_Pixels, c_heightPixels)
 
             ''Added 9/3/2019 td
-            .ElementInfo_Base = CType(.ElementFieldClass, ciBadgeInterfaces.IElement_Base)
-            .ElementInfo_Text = CType(.ElementFieldClass, ciBadgeInterfaces.IElement_TextField)
+            ''---(---Fields cannot link outward to elements.---9/18/2019 td
+            ''--.ElementInfo_Base = CType(.ElementFieldClass, ciBadgeInterfaces.IElement_Base)
+            ''--.ElementInfo_Text = CType(.ElementFieldClass, ciBadgeInterfaces.IElement_TextField)
 
         End With
         ListOfFields_Students.Add(new_objectField1)
@@ -290,11 +293,11 @@ Public Class ClassFieldStandard
             '' #2 9/17/2019 td''.ElementFieldClass = New ClassElementField(new_objectField2, 30, 30, 30)
             intLeft_Pixels = (30 * (intFieldIndex - 1))
             intTop_Pixels = intLeft_Pixels ''Let's have a staircase effect!! 
-            .ElementFieldClass = New ClassElementField(new_objectField2, intLeft_Pixels, intTop_Pixels, c_heightPixels)
+            ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementFieldClass = New ClassElementField(new_objectField2, intLeft_Pixels, intTop_Pixels, c_heightPixels)
 
             ''Added 9/3/2019 td
-            .ElementInfo_Base = CType(.ElementFieldClass, ciBadgeInterfaces.IElement_Base)
-            .ElementInfo_Text = CType(.ElementFieldClass, ciBadgeInterfaces.IElement_TextField)
+            ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementInfo_Base = CType(.ElementFieldClass, ciBadgeInterfaces.IElement_Base)
+            ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementInfo_Text = CType(.ElementFieldClass, ciBadgeInterfaces.IElement_TextField)
 
         End With
         ListOfFields_Students.Add(new_objectField2)
@@ -324,11 +327,11 @@ Public Class ClassFieldStandard
             ''9/17/2019 td''.ElementFieldClass = New ClassElementField(60, 60, 30)
             intLeft_Pixels = (30 * (intFieldIndex - 1))
             intTop_Pixels = intLeft_Pixels ''Let's have a staircase effect!! 
-            .ElementFieldClass = New ClassElementField(new_objectField2, intLeft_Pixels, intTop_Pixels, c_heightPixels)
+            ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementFieldClass = New ClassElementField(new_objectField2, intLeft_Pixels, intTop_Pixels, c_heightPixels)
 
             ''Added 9/3/2019 td
-            .ElementInfo_Base = CType(.ElementFieldClass, ciBadgeInterfaces.IElement_Base)
-            .ElementInfo_Text = CType(.ElementFieldClass, ciBadgeInterfaces.IElement_TextField)
+            ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementInfo_Base = CType(.ElementFieldClass, ciBadgeInterfaces.IElement_Base)
+            ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementInfo_Text = CType(.ElementFieldClass, ciBadgeInterfaces.IElement_TextField)
 
         End With
         ListOfFields_Students.Add(new_object3)
@@ -350,7 +353,7 @@ Public Class ClassFieldStandard
             .IsLocked = False
 
             ''Added 9/3/2019 td
-            .ElementFieldClass = New ClassElementField()
+            ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementFieldClass = New ClassElementField()
 
         End With
         ListOfFields_Students.Add(new_object4)
@@ -374,12 +377,12 @@ Public Class ClassFieldStandard
             .ExampleValue = "1234567890" ''Added 9/12/2019 td 
 
             ''Added 9/3/2019 td
-            .ElementFieldClass = New ClassElementField()
+            ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementFieldClass = New ClassElementField()
 
             ''Added 8/28/2019 thomas downes
-            .ElementFieldClass.FontSize_Pixels = 16 ''Added 9/12/2019 td  
+            ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementFieldClass.FontSize_Pixels = 16 ''Added 9/12/2019 td  
             ''9/12/2019 td''.ElementInfo.Font_DrawingClass = modFonts.BarCodeFont_ByDefault(16)
-            .ElementFieldClass.Font_DrawingClass = modFonts.BarCodeFont_ByDefault(.ElementFieldClass.FontSize_Pixels)
+            ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementFieldClass.Font_DrawingClass = modFonts.BarCodeFont_ByDefault(.ElementFieldClass.FontSize_Pixels)
 
         End With
         ListOfFields_Students.Add(new_object5)
@@ -402,7 +405,7 @@ Public Class ClassFieldStandard
             .IsLocked = False
 
             ''Added 9/3/2019 td
-            .ElementFieldClass = New ClassElementField()
+            ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementFieldClass = New ClassElementField()
 
         End With
         ListOfFields_Students.Add(new_object6)
@@ -425,7 +428,7 @@ Public Class ClassFieldStandard
             .IsLocked = False
 
             ''Added 9/3/2019 td
-            .ElementFieldClass = New ClassElementField()
+            ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementFieldClass = New ClassElementField()
 
         End With
         ListOfFields_Students.Add(new_object7)
@@ -448,7 +451,7 @@ Public Class ClassFieldStandard
             .IsLocked = False
 
             ''Added 9/3/2019 td
-            .ElementFieldClass = New ClassElementField()
+            ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementFieldClass = New ClassElementField()
 
         End With
         ListOfFields_Students.Add(new_object8)
@@ -469,7 +472,7 @@ Public Class ClassFieldStandard
             .IsDisplayedForEdits = False
             .IsDisplayedOnBadge = False
             .IsLocked = False
-            .ElementFieldClass = New ClassElementField()
+            ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementFieldClass = New ClassElementField()
         End With
         ListOfFields_Students.Add(new_object9)
 
@@ -489,7 +492,7 @@ Public Class ClassFieldStandard
             .IsDisplayedForEdits = False
             .IsDisplayedOnBadge = False
             .IsLocked = True
-            .ElementFieldClass = New ClassElementField()
+            ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementFieldClass = New ClassElementField()
         End With
         ListOfFields_Students.Add(new_object91)
 
@@ -509,7 +512,7 @@ Public Class ClassFieldStandard
             .IsDisplayedForEdits = False
             .IsDisplayedOnBadge = False
             .IsLocked = True
-            .ElementFieldClass = New ClassElementField()
+            ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementFieldClass = New ClassElementField()
         End With
         ListOfFields_Students.Add(new_object92)
 
@@ -529,7 +532,7 @@ Public Class ClassFieldStandard
             .IsDisplayedForEdits = False
             .IsDisplayedOnBadge = False
             .IsLocked = True
-            .ElementFieldClass = New ClassElementField()
+            ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementFieldClass = New ClassElementField()
         End With
         ListOfFields_Students.Add(new_object93)
 
@@ -549,7 +552,7 @@ Public Class ClassFieldStandard
             .IsDisplayedForEdits = False
             .IsDisplayedOnBadge = False
             .IsLocked = True
-            .ElementFieldClass = New ClassElementField()
+            ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementFieldClass = New ClassElementField()
         End With
         ListOfFields_Students.Add(new_object94)
 
@@ -569,7 +572,7 @@ Public Class ClassFieldStandard
             .IsDisplayedForEdits = False
             .IsDisplayedOnBadge = False
             .IsLocked = True
-            .ElementFieldClass = New ClassElementField()
+            ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementFieldClass = New ClassElementField()
         End With
         ListOfFields_Students.Add(new_object95)
 
@@ -591,7 +594,7 @@ Public Class ClassFieldStandard
             .IsLocked = False
 
             ''Added 9/3/2019 td
-            .ElementFieldClass = New ClassElementField()
+            ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementFieldClass = New ClassElementField()
 
         End With
         ListOfFields_Students.Add(new_object99)
@@ -682,61 +685,61 @@ Public Class ClassFieldStandard
 
     End Sub ''End of "Public Shared Sub CopyElementInfo"
 
-    Public Sub Load_ByCopyingMembers(par_info As IElement_Base)
-        ''
-        ''Added 7/23/2019 td
-        ''
-        With par_info
+    ''9/18/2019 td''Public Sub Load_ByCopyingMembers(par_info As IElement_Base)
+    ''    ''
+    ''    ''Added 7/23/2019 td
+    ''    ''
+    ''    With par_info
+    ''
+    ''        Me.ElementInfo_Base.Back_Color = .Back_Color
+    ''        Me.ElementInfo_Base.Back_Transparent = .Back_Transparent
+    ''        Me.ElementInfo_Base.BadgeLayout = .BadgeLayout
+    ''        Me.ElementInfo_Base.Border_Color = .Border_Color
+    ''        Me.ElementInfo_Base.Border_Displayed = .Border_Displayed
+    ''        Me.ElementInfo_Base.Border_WidthInPixels = .Border_WidthInPixels
+    ''        Me.ElementInfo_Base.ElementType = .ElementType
+    ''        Me.ElementInfo_Base.Height_Pixels = .Height_Pixels
+    ''        Me.ElementInfo_Base.Image_BL = .Image_BL
+    ''        Me.ElementInfo_Base.LeftEdge_Pixels = .LeftEdge_Pixels
+    ''        Me.ElementInfo_Base.OrientationInDegrees = .OrientationInDegrees
+    ''        Me.ElementInfo_Base.OrientationToLayout = .OrientationToLayout
+    ''        Me.ElementInfo_Base.PositionalMode = .PositionalMode
+    ''        ''Not needed.''.SelectedHighlighting
+    ''        Me.ElementInfo_Base.TopEdge_Pixels = .TopEdge_Pixels
+    ''        Me.ElementInfo_Base.Width_Pixels = .Width_Pixels
+    ''
+    ''    End With
+    ''
+    ''End Sub ''end of "Public Sub Load_ByCopyingMembers(par_info As IElement_Base)"
 
-            Me.ElementInfo_Base.Back_Color = .Back_Color
-            Me.ElementInfo_Base.Back_Transparent = .Back_Transparent
-            Me.ElementInfo_Base.BadgeLayout = .BadgeLayout
-            Me.ElementInfo_Base.Border_Color = .Border_Color
-            Me.ElementInfo_Base.Border_Displayed = .Border_Displayed
-            Me.ElementInfo_Base.Border_WidthInPixels = .Border_WidthInPixels
-            Me.ElementInfo_Base.ElementType = .ElementType
-            Me.ElementInfo_Base.Height_Pixels = .Height_Pixels
-            Me.ElementInfo_Base.Image_BL = .Image_BL
-            Me.ElementInfo_Base.LeftEdge_Pixels = .LeftEdge_Pixels
-            Me.ElementInfo_Base.OrientationInDegrees = .OrientationInDegrees
-            Me.ElementInfo_Base.OrientationToLayout = .OrientationToLayout
-            Me.ElementInfo_Base.PositionalMode = .PositionalMode
-            ''Not needed.''.SelectedHighlighting
-            Me.ElementInfo_Base.TopEdge_Pixels = .TopEdge_Pixels
-            Me.ElementInfo_Base.Width_Pixels = .Width_Pixels
-
-        End With
-
-    End Sub ''end of "Public Sub Load_ByCopyingMembers(par_info As IElement_Base)"
-
-    Public Sub Load_ByCopyingMembers(par_info As IElement_TextField)
-        ''
-        ''Added 9/16/2019 td
-        ''
-        With par_info
-
-            Me.ElementInfo_Text.ExampleValue = .ExampleValue
-            Me.ElementInfo_Text.FieldInCardData = .FieldInCardData
-            Me.ElementInfo_Text.FieldLabelCaption = .FieldLabelCaption
-            Me.ElementInfo_Text.FontBold = .FontBold
-            Me.ElementInfo_Text.FontColor = .FontColor
-            Me.ElementInfo_Text.FontFamilyName = .FontFamilyName
-            Me.ElementInfo_Text.FontItalics = .FontItalics
-            Me.ElementInfo_Text.FontOffset_X = .FontOffset_X
-            Me.ElementInfo_Text.FontOffset_Y = .FontOffset_Y
-            Me.ElementInfo_Text.FontSize_Pixels = .FontSize_Pixels
-            Me.ElementInfo_Text.FontSize_ScaleToElementRatio = .FontSize_ScaleToElementRatio
-            Me.ElementInfo_Text.FontSize_ScaleToElementYesNo = .FontSize_ScaleToElementYesNo
-
-            Me.ElementInfo_Text.FontUnderline = .FontUnderline
-            Me.ElementInfo_Text.Font_DrawingClass = .Font_DrawingClass
-            Me.ElementInfo_Text.Recipient = .Recipient
-            Me.ElementInfo_Text.Text = .Text
-            Me.ElementInfo_Text.TextAlignment = .TextAlignment
-
-        End With ''End of "With par_info"
-
-    End Sub ''end of "Public Sub Load_ByCopyingMembers(par_info As IElement_TextField)"
+    ''9/18/2019 td''Public Sub Load_ByCopyingMembers(par_info As IElement_TextField)
+    ''    ''
+    ''    ''Added 9/16/2019 td
+    ''    ''
+    ''    With par_info
+    ''
+    ''        Me.ElementInfo_Text.ExampleValue = .ExampleValue
+    ''        Me.ElementInfo_Text.FieldInCardData = .FieldInCardData
+    ''        Me.ElementInfo_Text.FieldLabelCaption = .FieldLabelCaption
+    ''        Me.ElementInfo_Text.FontBold = .FontBold
+    ''        Me.ElementInfo_Text.FontColor = .FontColor
+    ''        Me.ElementInfo_Text.FontFamilyName = .FontFamilyName
+    ''        Me.ElementInfo_Text.FontItalics = .FontItalics
+    ''        Me.ElementInfo_Text.FontOffset_X = .FontOffset_X
+    ''        Me.ElementInfo_Text.FontOffset_Y = .FontOffset_Y
+    ''        Me.ElementInfo_Text.FontSize_Pixels = .FontSize_Pixels
+    ''        Me.ElementInfo_Text.FontSize_ScaleToElementRatio = .FontSize_ScaleToElementRatio
+    ''        Me.ElementInfo_Text.FontSize_ScaleToElementYesNo = .FontSize_ScaleToElementYesNo
+    ''
+    ''        Me.ElementInfo_Text.FontUnderline = .FontUnderline
+    ''        Me.ElementInfo_Text.Font_DrawingClass = .Font_DrawingClass
+    ''        Me.ElementInfo_Text.Recipient = .Recipient
+    ''        Me.ElementInfo_Text.Text = .Text
+    ''        Me.ElementInfo_Text.TextAlignment = .TextAlignment
+    ''
+    ''    End With ''End of "With par_info"
+    ''
+    ''End Sub ''end of "Public Sub Load_ByCopyingMembers(par_info As IElement_TextField)"
 
     Public Sub Load_ByCopyingMembers(par_info As ICIBFieldStandardOrCustom)
         ''

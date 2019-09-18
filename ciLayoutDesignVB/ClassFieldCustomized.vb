@@ -249,7 +249,8 @@ Public Class ClassFieldCustomized
             ''9/16/2019 td''.ElementFieldClass = New ClassElementField()
             ''#1 9/17/2019 td''.ElementFieldClass = New ClassElementField(0, 0, 30)
             '' #2 9/17/2019 td''.ElementFieldClass = New ClassElementField(new_objectField1, 0, 200, 30)
-            .ElementFieldClass = New ClassElementField(new_objectField1, intLeft_Pixels, intTop_Pixels, c_heightPixels)
+            ''---(---Fields cannot link outward to elements.---9/18/2019 td
+            ''---(-.ElementFieldClass = New ClassElementField(new_objectField1, intLeft_Pixels, intTop_Pixels, c_heightPixels)
 
         End With
         ListOfFields_Students.Add(new_objectField1)
@@ -278,7 +279,9 @@ Public Class ClassFieldCustomized
             ''9/16/2019 td''.ElementFieldClass = New ClassElementField()
             ''#1 9/17/2019 td''.ElementFieldClass = New ClassElementField(0, 0, 30)
             '' #2 9/17/2019 td''.ElementFieldClass = New ClassElementField(new_objectField2, 30, 230, 30)
-            .ElementFieldClass = New ClassElementField(new_objectField2, intLeft_Pixels, intTop_Pixels, c_heightPixels)
+
+            ''---(---Fields cannot link outward to elements.---9/18/2019 td
+            ''---(-.ElementFieldClass = New ClassElementField(new_objectField2, intLeft_Pixels, intTop_Pixels, c_heightPixels)
 
         End With
         ListOfFields_Students.Add(new_objectField2)
@@ -307,7 +310,9 @@ Public Class ClassFieldCustomized
             ''9/16/2019 td''.ElementFieldClass = New ClassElementField()
             ''#1 9/17/2019 td''.ElementFieldClass = New ClassElementField(0, 0, 30)
             '' #2 9/17/2019 td''.ElementFieldClass = New ClassElementField(new_objectField3, 60, 260, 30)
-            .ElementFieldClass = New ClassElementField(new_objectField3, intLeft_Pixels, intTop_Pixels, c_heightPixels)
+
+            ''---(---Fields cannot link outward to elements.---9/18/2019 td
+            ''.ElementFieldClass = New ClassElementField(new_objectField3, intLeft_Pixels, intTop_Pixels, c_heightPixels)
 
         End With
         ListOfFields_Students.Add(new_objectField3)
@@ -334,7 +339,9 @@ Public Class ClassFieldCustomized
 
             ''#1 9/17/2019 td''.ElementFieldClass = New ClassElementField(0, 0, 30)
             '' #2 9/17/2019 td''.ElementFieldClass = New ClassElementField(new_objectField61, 90, 290, 30)
-            .ElementFieldClass = New ClassElementField(new_objectField61, intLeft_Pixels, intTop_Pixels, c_heightPixels)
+
+            ''---(---Fields cannot link outward to elements.---9/18/2019 td
+            ''--.ElementFieldClass = New ClassElementField(new_objectField61, intLeft_Pixels, intTop_Pixels, c_heightPixels)
 
         End With
         ListOfFields_Students.Add(new_objectField61)
@@ -358,7 +365,9 @@ Public Class ClassFieldCustomized
 
             ''#1 9/17/2019 td''.ElementFieldClass = New ClassElementField(0, 0, 30)
             '' #2 9/17/2019 td''.ElementFieldClass = New ClassElementField(new_objectField62, 120, 320, 30)
-            .ElementFieldClass = New ClassElementField(new_objectField62, intLeft_Pixels, intTop_Pixels, c_heightPixels)
+
+            ''---(---Fields cannot link outward to elements.---9/18/2019 td
+            ''--.ElementFieldClass = New ClassElementField(new_objectField62, intLeft_Pixels, intTop_Pixels, c_heightPixels)
 
         End With
         ListOfFields_Students.Add(new_objectField62)
@@ -407,7 +416,9 @@ Public Class ClassFieldCustomized
             ''9/16/2019 td''.ElementFieldClass = New ClassElementField()
             ''9/16/2019 td''.ElementFieldClass = New ClassElementField(0, 0, 30)
             ''#2 9/17/2019 td''.ElementFieldClass = New ClassElementField(new_objectField1, 0, 0, 30)
-            .ElementFieldClass = New ClassElementField(new_objectField1, intLeft_Pixels, intTop_Pixels, c_heightPixels)
+
+            ''---(---Fields cannot link outward to elements.---9/18/2019 td
+            ''--.ElementFieldClass = New ClassElementField(new_objectField1, intLeft_Pixels, intTop_Pixels, c_heightPixels)
 
         End With
         ListOfFields_Staff.Add(new_objectField1)
@@ -436,7 +447,9 @@ Public Class ClassFieldCustomized
             ''9/16/2019 td''.ElementFieldClass = New ClassElementField()
             ''#1 9/17/2019 td''.ElementFieldClass = New ClassElementField(0, 0, 30)
             '' #2 9/17/2019 td''.ElementFieldClass = New ClassElementField(new_objectField2, 0, 0, 30)
-            .ElementFieldClass = New ClassElementField(new_objectField2, intLeft_Pixels, intTop_Pixels, c_heightPixels)
+
+            ''---(---Fields cannot link outward to elements.---9/18/2019 td
+            ''--.ElementFieldClass = New ClassElementField(new_objectField2, intLeft_Pixels, intTop_Pixels, c_heightPixels)
 
         End With
         ListOfFields_Staff.Add(new_objectField2)
@@ -465,7 +478,9 @@ Public Class ClassFieldCustomized
             ''9/16/2019 td''.ElementFieldClass = New ClassElementField()
             ''#1 9/17/2019 td''.ElementFieldClass = New ClassElementField(0, 0, 30)
             '' #2 9/17/2019 td''.ElementFieldClass = New ClassElementField(new_objectField3, 0, 0, 30)
-            .ElementFieldClass = New ClassElementField(new_objectField3, intLeft_Pixels, intTop_Pixels, c_heightPixels)
+
+            ''---(---Fields cannot link outward to elements.---9/18/2019 td
+            ''--.ElementFieldClass = New ClassElementField(new_objectField3, intLeft_Pixels, intTop_Pixels, c_heightPixels)
 
         End With
         ListOfFields_Staff.Add(new_objectField3)
@@ -488,11 +503,11 @@ Public Class ClassFieldCustomized
 
     Public Property ArrayOfValues As String() ''Implements ICIBFieldStandardOrCustom.ArrayOfValues
         Get
-            ''Throw New NotImplementedException()
+            ''9/18/2019 td''Throw New NotImplementedException()
             Return mod_arrayOfListItems
         End Get
         Set(value As String())
-            Throw New NotImplementedException()
+            ''9/18/2019 td''Throw New NotImplementedException()
             mod_arrayOfListItems = value
         End Set
     End Property
@@ -524,66 +539,66 @@ Public Class ClassFieldCustomized
 
     End Sub ''end of "Public Sub Load_ByCopyingMembers(par_info As IElement_Base)"
 
-    Public Sub Load_ByCopyingMembers(par_info As IElement_TextField)
-        ''
-        ''Added 9/16/2019 td
-        ''
-        With par_info
+    ''9/18/2019 td''Public Sub Load_ByCopyingMembers(par_info As IElement_TextField)
+    ''    ''
+    ''    ''Added 9/16/2019 td
+    ''    ''
+    ''    With par_info
+    ''
+    ''        Me.ElementInfo_Text.ExampleValue = .ExampleValue
+    ''        Me.ElementInfo_Text.FieldInCardData = .FieldInCardData
+    ''        Me.ElementInfo_Text.FieldLabelCaption = .FieldLabelCaption
+    ''        Me.ElementInfo_Text.FontBold = .FontBold
+    ''        Me.ElementInfo_Text.FontColor = .FontColor
+    ''        Me.ElementInfo_Text.FontFamilyName = .FontFamilyName
+    ''        Me.ElementInfo_Text.FontItalics = .FontItalics
+    ''        Me.ElementInfo_Text.FontOffset_X = .FontOffset_X
+    ''        Me.ElementInfo_Text.FontOffset_Y = .FontOffset_Y
+    ''        Me.ElementInfo_Text.FontSize_Pixels = .FontSize_Pixels
+    ''        Me.ElementInfo_Text.FontSize_ScaleToElementRatio = .FontSize_ScaleToElementRatio
+    ''        Me.ElementInfo_Text.FontSize_ScaleToElementYesNo = .FontSize_ScaleToElementYesNo
+    ''
+    ''        Me.ElementInfo_Text.FontUnderline = .FontUnderline
+    ''        Me.ElementInfo_Text.Font_DrawingClass = .Font_DrawingClass
+    ''        Me.ElementInfo_Text.Recipient = .Recipient
+    ''        Me.ElementInfo_Text.Text = .Text
+    ''        Me.ElementInfo_Text.TextAlignment = .TextAlignment
+    ''
+    ''    End With ''End of "With par_info"
+    ''
+    ''End Sub ''end of "Public Sub Load_ByCopyingMembers(par_info As IElement_TextField)"
 
-            Me.ElementInfo_Text.ExampleValue = .ExampleValue
-            Me.ElementInfo_Text.FieldInCardData = .FieldInCardData
-            Me.ElementInfo_Text.FieldLabelCaption = .FieldLabelCaption
-            Me.ElementInfo_Text.FontBold = .FontBold
-            Me.ElementInfo_Text.FontColor = .FontColor
-            Me.ElementInfo_Text.FontFamilyName = .FontFamilyName
-            Me.ElementInfo_Text.FontItalics = .FontItalics
-            Me.ElementInfo_Text.FontOffset_X = .FontOffset_X
-            Me.ElementInfo_Text.FontOffset_Y = .FontOffset_Y
-            Me.ElementInfo_Text.FontSize_Pixels = .FontSize_Pixels
-            Me.ElementInfo_Text.FontSize_ScaleToElementRatio = .FontSize_ScaleToElementRatio
-            Me.ElementInfo_Text.FontSize_ScaleToElementYesNo = .FontSize_ScaleToElementYesNo
-
-            Me.ElementInfo_Text.FontUnderline = .FontUnderline
-            Me.ElementInfo_Text.Font_DrawingClass = .Font_DrawingClass
-            Me.ElementInfo_Text.Recipient = .Recipient
-            Me.ElementInfo_Text.Text = .Text
-            Me.ElementInfo_Text.TextAlignment = .TextAlignment
-
-        End With ''End of "With par_info"
-
-    End Sub ''end of "Public Sub Load_ByCopyingMembers(par_info As IElement_TextField)"
-
-    Public Sub Load_ByCopyingMembers(par_info As ICIBFieldStandardOrCustom)
-        ''
-        ''Added 7/23/2019 td
-        ''
-        ''9/16/2019 td''Me.ArrayOfValues = par_info.ArrayOfValues
-
-        Me.CIBadgeField = par_info.CIBadgeField
-        Me.DataEntryText = par_info.DataEntryText
-
-        ''Added 9/13/2019 td
-        Dim objElementText As New ClassElementField ''Added 9/13 td
-        Me.ElementFieldClass = objElementText ''Added 9/13/2019 td
-        Me.ElementFieldClass.LoadbyCopyingMembers(par_info.ElementInfo_Base,
-                                            par_info.ElementInfo_Text)
-
-        Me.ExampleValue = par_info.ExampleValue
-        Me.FieldIndex = par_info.FieldIndex
-        Me.FieldLabelCaption = par_info.FieldLabelCaption
-        Me.FieldType_TD = par_info.FieldType_TD
-        Me.HasPresetValues = par_info.HasPresetValues
-        Me.IsAdditionalField = par_info.IsAdditionalField
-        Me.IsCustomizable = par_info.IsCustomizable
-        Me.IsDisplayedForEdits = par_info.IsDisplayedForEdits
-        Me.IsDisplayedOnBadge = par_info.IsDisplayedOnBadge
-        Me.IsFieldForDates = par_info.IsFieldForDates
-        Me.IsLocked = par_info.IsLocked
-        Me.IsStandard = par_info.IsStandard
-
-        Me.OtherDbField_Optional = par_info.OtherDbField_Optional  ''Added 7/23/2019 td 
-
-    End Sub ''End of "Public Sub Load_ByCopyingMembers(par_info As ICIBFieldStandardOrCustom)"
+    ''9/18/2019 td''Public Sub Load_ByCopyingMembers(par_info As ICIBFieldStandardOrCustom)
+    ''    ''
+    ''    ''Added 7/23/2019 td
+    ''    ''
+    ''    ''9/16/2019 td''Me.ArrayOfValues = par_info.ArrayOfValues
+    ''
+    ''    Me.CIBadgeField = par_info.CIBadgeField
+    ''    Me.DataEntryText = par_info.DataEntryText
+    ''
+    ''    ''Added 9/13/2019 td
+    ''    Dim objElementText As New ClassElementField ''Added 9/13 td
+    ''    Me.ElementFieldClass = objElementText ''Added 9/13/2019 td
+    ''    Me.ElementFieldClass.LoadbyCopyingMembers(par_info.ElementInfo_Base,
+    ''                                        par_info.ElementInfo_Text)
+    ''
+    ''    Me.ExampleValue = par_info.ExampleValue
+    ''    Me.FieldIndex = par_info.FieldIndex
+    ''    Me.FieldLabelCaption = par_info.FieldLabelCaption
+    ''    Me.FieldType_TD = par_info.FieldType_TD
+    ''    Me.HasPresetValues = par_info.HasPresetValues
+    ''    Me.IsAdditionalField = par_info.IsAdditionalField
+    ''    Me.IsCustomizable = par_info.IsCustomizable
+    ''    Me.IsDisplayedForEdits = par_info.IsDisplayedForEdits
+    ''    Me.IsDisplayedOnBadge = par_info.IsDisplayedOnBadge
+    ''    Me.IsFieldForDates = par_info.IsFieldForDates
+    ''    Me.IsLocked = par_info.IsLocked
+    ''    Me.IsStandard = par_info.IsStandard
+    ''
+    ''    Me.OtherDbField_Optional = par_info.OtherDbField_Optional  ''Added 7/23/2019 td 
+    ''
+    ''End Sub ''End of "Public Sub Load_ByCopyingMembers(par_info As ICIBFieldStandardOrCustom)"
 
     Public Function GetValue_Recipient_String(par_enum As EnumCIBFields) As String
         ''

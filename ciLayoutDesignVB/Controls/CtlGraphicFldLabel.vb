@@ -94,14 +94,14 @@ Public Class CtlGraphicFldLabel
         ''Refactored 9/4/2019 td  
         ''
         If (par_elementText Is Nothing) Then
-            Me.ElementClass_Obj = par_field.ElementFieldClass
+            ''This Sub New is deprecated.---9/18/2019 td''Me.ElementClass_Obj = par_field.ElementFieldClass
             Me.ElementInfo_Base = CType(Me.ElementClass_Obj, IElement_Base)
             Me.ElementInfo_Text = CType(Me.ElementClass_Obj, IElement_TextField)
         Else
             ''
             ''Added 9/4/2019 thomas d.
             ''
-            Me.ElementClass_Obj = par_elementText
+            ''This Sub New is deprecated.---9/18/2019 td''Me.ElementClass_Obj = par_elementText
             Me.ElementInfo_Base = CType(par_elementText, IElement_Base)
             Me.ElementInfo_Text = CType(par_elementText, IElement_TextField)
         End If ''End of "If (par_elementText Is Nothing) Then .... Else ...."

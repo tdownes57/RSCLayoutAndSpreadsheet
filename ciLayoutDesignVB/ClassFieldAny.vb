@@ -58,24 +58,24 @@ Public Class ClassFieldAny
 
     Private mod_elementFieldClass As ClassElementField ''Added 9/3/2019 td   
 
-    Public Property ElementFieldClass() As ClassElementField
-        Get
-            ''Added 9/3/2019 thomas d. 
-            Return mod_elementFieldClass
-        End Get
-        Set(value As ClassElementField)
-            ''Added 9/3/2019 thomas d. 
-            mod_elementFieldClass = value
-            ''Added 9/3/2019 thomas d. 
-            Me.ElementInfo_Base = CType(value, IElement_Base)
-            Me.ElementInfo_Text = CType(value, IElement_TextField)
-        End Set
-    End Property
+    ''Fields cannot link to elements.---9/18/2019 td''Public Property ElementFieldClass() As ClassElementField
+    ''    Get
+    ''        ''Added 9/3/2019 thomas d. 
+    ''        Return mod_elementFieldClass
+    ''    End Get
+    ''    Set(value As ClassElementField)
+    ''        ''Added 9/3/2019 thomas d. 
+    ''        mod_elementFieldClass = value
+    ''        ''Added 9/3/2019 thomas d. 
+    ''        Me.ElementInfo_Base = CType(value, IElement_Base)
+    ''        Me.ElementInfo_Text = CType(value, IElement_TextField)
+    ''    End Set
+    ''End Property
 
-    ''Added 9/3/2019 td
-    Public Property ElementInfo_Base As IElement_Base Implements ICIBFieldStandardOrCustom.ElementInfo_Base
-    ''Added 9/3/2019 td
-    Public Property ElementInfo_Text As IElement_TextField Implements ICIBFieldStandardOrCustom.ElementInfo_Text
+    ''''Added 9/3/2019 td
+    ''Fields cannot link to elements.---9/18/2019 td''Public Property ElementInfo_Base As IElement_Base Implements ICIBFieldStandardOrCustom.ElementInfo_Base
+    ''''Added 9/3/2019 td
+    ''Fields cannot link to elements.---9/18/2019 td''Public Property ElementInfo_Text As IElement_TextField Implements ICIBFieldStandardOrCustom.ElementInfo_Text
 
     ''''
     ''''Added 7/16/2019 thomas d. 

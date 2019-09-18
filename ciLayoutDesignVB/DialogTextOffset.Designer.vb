@@ -37,13 +37,13 @@ Partial Class DialogTextOffset
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.ButtonLeft = New System.Windows.Forms.Button()
         Me.ButtonApply = New System.Windows.Forms.Button()
+        Me.LabelResultHdr = New System.Windows.Forms.Label()
         Me.CtlTextOffsetX = New ciLayoutDesignVB.CtlPropertyLeftRight()
         Me.CtlElementWidth = New ciLayoutDesignVB.CtlPropertyLeftRight()
         Me.CtlElementHeight = New ciLayoutDesignVB.CtlPropertyUpDownvb()
         Me.CtlFontSize = New ciLayoutDesignVB.CtlPropertyUpDownvb()
         Me.ctlTextOffsetY = New ciLayoutDesignVB.CtlPropertyUpDownvb()
         Me.CtlGraphicFldLabel1 = New ciLayoutDesignVB.CtlGraphicFldLabel()
-        Me.LabelResultHdr = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -183,6 +183,18 @@ Partial Class DialogTextOffset
         Me.ButtonApply.Text = "Apply"
         Me.ButtonApply.UseVisualStyleBackColor = True
         '
+        'LabelResultHdr
+        '
+        Me.LabelResultHdr.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.LabelResultHdr.AutoSize = True
+        Me.LabelResultHdr.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelResultHdr.Location = New System.Drawing.Point(5, 293)
+        Me.LabelResultHdr.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LabelResultHdr.Name = "LabelResultHdr"
+        Me.LabelResultHdr.Size = New System.Drawing.Size(257, 29)
+        Me.LabelResultHdr.TabIndex = 45
+        Me.LabelResultHdr.Text = "Preview of text display:"
+        '
         'CtlTextOffsetX
         '
         Me.CtlTextOffsetX.BackColor = System.Drawing.Color.Plum
@@ -199,7 +211,7 @@ Partial Class DialogTextOffset
         '
         Me.CtlElementWidth.BackColor = System.Drawing.Color.Plum
         Me.CtlElementWidth.Location = New System.Drawing.Point(188, 98)
-        Me.CtlElementWidth.MinimumValue = 0
+        Me.CtlElementWidth.MinimumValue = 10
         Me.CtlElementWidth.Name = "CtlElementWidth"
         Me.CtlElementWidth.PropertyName = "Total Width of Label"
         Me.CtlElementWidth.PropertyValue = 100
@@ -252,18 +264,6 @@ Partial Class DialogTextOffset
         Me.CtlGraphicFldLabel1.Name = "CtlGraphicFldLabel1"
         Me.CtlGraphicFldLabel1.Size = New System.Drawing.Size(347, 18)
         Me.CtlGraphicFldLabel1.TabIndex = 27
-        '
-        'LabelResultHdr
-        '
-        Me.LabelResultHdr.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.LabelResultHdr.AutoSize = True
-        Me.LabelResultHdr.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelResultHdr.Location = New System.Drawing.Point(5, 293)
-        Me.LabelResultHdr.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.LabelResultHdr.Name = "LabelResultHdr"
-        Me.LabelResultHdr.Size = New System.Drawing.Size(257, 29)
-        Me.LabelResultHdr.TabIndex = 45
-        Me.LabelResultHdr.Text = "Preview of text display:"
         '
         'DialogTextOffset
         '

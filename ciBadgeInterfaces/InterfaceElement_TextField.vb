@@ -33,12 +33,13 @@ Public Interface IElement_TextField
     ''
     ''Added 7/18/2019 td
     ''
+    ''9/18/2019 td''Property FieldObject As ClassFieldAny ''Added 9/18/2019   
     Property FieldInfo As ICIBFieldStandardOrCustom ''Added 9/9/2019   
     Property Recipient As IRecipient ''Added 9/9/2019   
 
-    Property FieldInCardData As String
-    Property FieldLabelCaption As String
-    Property ExampleValue As String ''E.g. "George Washington" for FullName. ''Added 8/14/2019 td 
+    ''This is stored in FieldInfo.--9/18/2019 td''Property FieldInCardData As String
+    ''This is stored in FieldInfo.--9/18/2019 td''Property FieldLabelCaption As String
+    Property ExampleValue_ForElement As String ''E.g. "George Washington" for FullName. ''Added 8/14/2019 td 
 
     ''Property FontFamilyName As String
     ''Property FontSize As String

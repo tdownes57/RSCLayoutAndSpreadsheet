@@ -4,6 +4,7 @@ Public Class CtlPropertyUpDownvb
 
     Private mod_sPropertyName As String = "Property"
     Private mod_iPropertyValue As Integer = 10
+    Private mod_iMinimumValue As Integer = 0 ''Added 9/18/2019 td  
 
     Public _ElementInfo_Base As IElement_Base
     Public _ElementInfo_Text As IElement_TextField
@@ -49,6 +50,17 @@ Public Class CtlPropertyUpDownvb
             mod_iPropertyValue = value
             ''9/13/2019 td''LabelProperty.Text = (mod_sPropertyName & ": " & CStr(mod_iPropertyValue))
             UpdateUserFeedbackLabel()
+        End Set
+    End Property
+
+    Public Property MinimumValue As Integer
+        Get
+            ''Added 9/18/2019 td
+            Return mod_iMinimumValue
+        End Get
+        Set(value As Integer)
+            ''Added 9/18/2019 td
+            mod_iMinimumValue = value
         End Set
     End Property
 
@@ -159,4 +171,7 @@ Public Class CtlPropertyUpDownvb
 
     End Sub ''End of "Public Sub InitiateLocalValue()"
 
+    Private Sub LabelProperty_Click(sender As Object, e As EventArgs) Handles LabelProperty.Click
+
+    End Sub
 End Class

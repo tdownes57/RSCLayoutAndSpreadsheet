@@ -18,7 +18,7 @@ Public Class ClassElementField
 
     Public Property Font_DrawingClass As System.Drawing.Font Implements IElement_TextField.Font_DrawingClass
 
-    Public Property ExampleValue As String Implements IElement_TextField.ExampleValue ''Added 8/14/2019 td 
+    Public Property ExampleValue_ForElement As String Implements IElement_TextField.ExampleValue_ForElement ''Added 8/14/2019 td 
 
     Public Property FontColor As System.Drawing.Color Implements IElement_TextField.FontColor
 
@@ -43,15 +43,18 @@ Public Class ClassElementField
 
     ''See Interface IElement_Base. ---8/29/2019 td''Public Property BackColor As System.Drawing.Color Implements IElement_Text.BackColor
 
-    Public Property FieldInCardData As String Implements IElement_TextField.FieldInCardData
+    ''This is stored in FieldInfo.--9/18/2019 td''Public Property FieldInCardData As String Implements IElement_TextField.FieldInCardData
 
-    Public Property FieldLabelCaption As String Implements IElement_TextField.FieldLabelCaption
+    ''This is stored in FieldInfo.--9/18/2019 td''Public Property FieldLabelCaption As String Implements IElement_TextField.FieldLabelCaption
 
     ''7/25/2019 td''Prpoerty ExampleText As String ''Added 7/25/2019
     Public Property Text As String Implements IElement_TextField.Text ''E.g. "George Washington" for FullName. 
 
     ''Added 9/10/2019 td 
     Public Property Recipient As IRecipient Implements IElement_TextField.Recipient
+
+    ''Added 9/18/2019
+    Public Property FieldObject As ClassFieldAny ''Added 9/18/2019 td
 
     ''Added 9/17/2019 td 
     Public Property FieldInfo As ICIBFieldStandardOrCustom Implements IElement_TextField.FieldInfo

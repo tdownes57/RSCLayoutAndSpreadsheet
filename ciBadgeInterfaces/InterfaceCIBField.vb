@@ -7,8 +7,8 @@ Public Interface ICIBFieldStandardOrCustom
     ''
     ''Added 7/20/2019 thomas downes
     ''
-    Property ElementInfo_Base As IElement_Base ''Added 9/3/2019 thomas d.
-    Property ElementInfo_Text As IElement_TextField ''Added 9/3/2019 thomas d.
+    ''Fields cannot link outward to elements.---9/18/2019 td''Property ElementInfo_Base As IElement_Base ''Added 9/3/2019 thomas d.
+    ''Fields cannot link outward to elements.---9/18/2019 td''Property ElementInfo_Text As IElement_TextField ''Added 9/3/2019 thomas d.
 
     Property FieldLabelCaption As String
 

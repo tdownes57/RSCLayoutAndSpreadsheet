@@ -49,7 +49,7 @@ Partial Class CtlPropertyLeftRight
         Me.ButtonIncrease.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.ButtonIncrease.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ButtonIncrease.Location = New System.Drawing.Point(58, 55)
-        Me.ButtonIncrease.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.ButtonIncrease.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonIncrease.Name = "ButtonIncrease"
         Me.ButtonIncrease.Size = New System.Drawing.Size(50, 40)
         Me.ButtonIncrease.TabIndex = 26
@@ -61,7 +61,7 @@ Partial Class CtlPropertyLeftRight
         Me.ButtonDecrease.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.ButtonDecrease.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ButtonDecrease.Location = New System.Drawing.Point(4, 55)
-        Me.ButtonDecrease.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.ButtonDecrease.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonDecrease.Name = "ButtonDecrease"
         Me.ButtonDecrease.Size = New System.Drawing.Size(50, 40)
         Me.ButtonDecrease.TabIndex = 25
