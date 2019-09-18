@@ -28,6 +28,20 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
     Public FormDesigner As FormDesignProtoTwo ''Added 8/15/2019 td  
     Public OriginalElementControl As CtlGraphicFldLabel ''Added 8/15/2019 td  
 
+    Public Sub UpdateInfo(par_elementInfo As IElement_Base)
+        ''
+        ''added 9/17 td
+        ''
+        With par_elementInfo
+
+            .Border_Color = Me.Border_Color
+            .Border_Displayed = Me.Border_Displayed
+            .Border_WidthInPixels = Me.Border_SizeInPixels
+
+        End With
+
+    End Sub ''Public Sub UpdateInfo(par_elementInfo As IElement_Base)
+
     Public Sub LoadFieldAndForm(par_elementInfo_Base As IElement_Base,
                                 par_elementInfo_Text As IElement_TextField,
                                 par_fieldInfo As ICIBFieldStandardOrCustom,

@@ -33,6 +33,33 @@ Public Class DialogTextOffset
     Public FormDesigner As FormDesignProtoTwo ''Added 8/15/2019 td  
     Public OriginalElementControl As CtlGraphicFldLabel ''Added 8/15/2019 td  
 
+    Public Sub UpdateInfo(par_elementInfo As IElement_Base,
+                          par_elementInfo_TextFld As IElement_TextField)
+        ''
+        ''added 9/17 td
+        ''
+        With par_elementInfo
+
+            .Height_Pixels = Me.Element_Height
+            .Width_Pixels = Me.Element_Width
+
+        End With
+
+        With par_elementInfo_TextFld
+
+
+
+
+
+
+
+
+        End With
+
+
+
+    End Sub ''Public Sub UpdateInfo(par_elementInfo As IElement_Base)
+
     Public Sub LoadFieldAndForm(par_elementInfo_Base As IElement_Base,
                                 par_elementInfo_Text As IElement_TextField,
                                 par_fieldInfo As ICIBFieldStandardOrCustom,
