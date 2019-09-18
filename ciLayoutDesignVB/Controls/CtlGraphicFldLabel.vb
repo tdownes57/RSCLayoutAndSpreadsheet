@@ -30,6 +30,7 @@ Public Class CtlGraphicFldLabel
 
     Public GroupEdits As ISelectingElements ''Added 7/31/2019 thomas downes  
     Public SelectedHighlighting As Boolean ''Added 8/2/2019 td
+    Public ExampleTextToDisplay As String = "" ''Added 9/19/2019 td
 
     Private mod_includedInGroupEdit As Boolean ''Added 8/1/2019 thomas downes 
 
@@ -152,7 +153,7 @@ Public Class CtlGraphicFldLabel
         ''Added 8/9/2019 td
         Me.FormDesigner = par_formDesigner
 
-    End Sub
+    End Sub ''ENd of "Public Sub New_Deprecated"
 
     Public Sub New_Deprecated(par_field As ICIBFieldStandardOrCustom,
                    Optional par_formDesigner As FormDesignProtoTwo = Nothing,
@@ -203,7 +204,7 @@ Public Class CtlGraphicFldLabel
         ''Added 9/3/2019 td
         Me.FormDesigner = par_formDesigner
 
-    End Sub
+    End Sub ''ENd of "Public Sub New_Deprecated"
 
     Public Sub New(par_elementField As ClassElementField,
                   par_layout As ILayoutFunctions)
@@ -219,7 +220,7 @@ Public Class CtlGraphicFldLabel
         Me.ElementInfo_Text = CType(par_elementField, IElement_TextField)
         Me.LayoutFunctions = par_layout
 
-    End Sub
+    End Sub ''ENd of "Public Sub New "
 
     Public Sub Refresh_Master()
         ''
@@ -449,6 +450,12 @@ Public Class CtlGraphicFldLabel
         ''Added 7/25/2019 thomas d 
         ''
         Select Case True
+
+            Case (Me.ExampleTextToDisplay.Trim() <> "")
+                ''
+                ''Added 9/18/2019 td 
+                ''
+                Return Me.ExampleTextToDisplay
 
             Case (UseExampleValues And (Me.FieldInfo.ExampleValue <> ""))
 

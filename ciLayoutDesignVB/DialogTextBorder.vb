@@ -16,33 +16,126 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
     ''8/29 td''Public Font_DrawingClass As Font ''Added 8/17/2019 td 
     ''8/29 td''Public TextAlignment As System.Windows.Forms.HorizontalAlignment ''Added 8/18/2019 td  
 
-    Public Border_SizeInPixels As Integer ''Added 8/29/2019 td
-    Public Border_Color As Drawing.Color ''Added 8/29/2019 td
-    Public Border_Displayed As Boolean ''Added 9/9/2019 td  
+    ''Obselete.  9/18 td''Public Border_SizeInPixels As Integer ''Added 8/29/2019 td
+    ''Obselete.  9/18 td''Public Border_Color As Drawing.Color ''Added 8/29/2019 td
+    ''Obselete.  9/18 td''Public Border_Displayed As Boolean ''Added 9/9/2019 td  
+
+    Public Property Border_SizeInPixels_NotInUse As Integer
+        Get
+            ''
+            ''Obselete.  Instead, call this form's .UpdateInfo_ViaInterface method. 
+            ''   ----9/18/2019 td 
+            ''
+            Return -1
+        End Get
+        Set(value As Integer)
+
+        End Set
+    End Property
 
     ''8/29/2019 td''Public ElementInfo As ciBadgeInterfaces.IElementText ''Added 8/16/2019 td
-    Public ElementInfo_Text As ciBadgeInterfaces.IElement_TextField ''Added 8/16/2019 td
-    Public ElementInfo_Base As ciBadgeInterfaces.IElement_Base ''Added 8/16/2019 td
+    Public ElementCopy_Info_Text As ciBadgeInterfaces.IElement_TextField ''Added 8/16/2019 td
+    Public ElementCopy_Info_Base As ciBadgeInterfaces.IElement_Base ''Added 8/16/2019 td
+
+    Public ElementObject_ForLayout_NotUsed As ClassElementField ''Added 9/18/2019 td
+    Public ElementObject_Copy As ClassElementField ''Added 9/18/2019 td
 
     Public GroupEdits As ISelectingElements ''Added 8/15/2019 thomas downes  
     Public FormDesigner As FormDesignProtoTwo ''Added 8/15/2019 td  
     Public OriginalElementControl As CtlGraphicFldLabel ''Added 8/15/2019 td  
 
-    Public Sub UpdateInfo(par_elementInfo As IElement_Base)
+    Public UserConfirmed As Boolean ''Added 9/18/2019 thomas d. 
+
+    Public Sub New(par_element_fromLayout As ClassElementField, par_element_copy As ClassElementField)
         ''
-        ''added 9/17 td
+        ''Added 9/18/2019 thomas d. 
+        ''
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ''
+        ' Add any initialization after the InitializeComponent() call.
+        ''
+
+        ''Just to be extra cautious, let's use a copy of the copy.   :-)  ----9/18/2019 td
+        Me.ElementObject_Copy = par_element_copy.Copy()
+
+        ''9/18/2019 td''Me.ElementObject_ForLayout_NotUsed = par_element_fromLayout
+        Me.ElementObject_ForLayout_NotUsed = Nothing ''9/18/2019 td''par_element_fromLayout
+
+        ''Added 9/18/2019 td 
+        Me.ElementCopy_Info_Base = CType(Me.ElementObject_Copy, IElement_Base)
+        Me.ElementCopy_Info_Text = CType(Me.ElementObject_Copy, IElement_TextField)
+
+    End Sub ''ENd of "Public Sub New(par_element_fromLayout As ClassElementField, par_element_copy As ClassElementField)"
+
+    Public Sub UpdateInfo_ViaInterface(par_elementInfo As IElement_Base, Optional par_overrideConfirmation As Boolean = False)
+        ''
+        ''This is perhaps like an "dependency injection" to "push" the 
+        ''   new settings out to the the parent designer form.
+        ''   ----9/18/2019 td 
+        ''
+        ''      ''added 9/17 td
+        ''
+        ''This allows the parental designer form to "grab" the new settings.  ---9/18/2019 td
         ''
         With par_elementInfo
 
-            .Border_Color = Me.Border_Color
-            .Border_Displayed = Me.Border_Displayed
-            .Border_WidthInPixels = Me.Border_SizeInPixels
+            If (Me.UserConfirmed) Then
 
+                ''9/18/2019 td''.Border_Color = Me.Border_Color
+                ''9/18/2019 td''.Border_Displayed = Me.Border_Displayed
+                ''9/18/2019 td''.Border_WidthInPixels = Me.Border_SizeInPixels
+
+                .Border_Color = Me.ElementCopy_Info_Base.Border_Color
+                .Border_Displayed = Me.ElementCopy_Info_Base.Border_Displayed
+                .Border_WidthInPixels = Me.ElementCopy_Info_Base.Border_WidthInPixels
+
+            ElseIf (Not par_overrideConfirmation) Then
+
+                ''Added 9/18/2019 td 
+                MessageBox.Show("Settings have not been confirmed.", "",
+                                MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+
+            End If ''End of "If (Me.UserConfirmed) Then .... ElseIf ... "
         End With
 
-    End Sub ''Public Sub UpdateInfo(par_elementInfo As IElement_Base)
+    End Sub ''Public Sub UpdateInfo_ViaInterface(par_elementInfo As IElement_Base)
 
-    Public Sub LoadFieldAndForm(par_elementInfo_Base As IElement_Base,
+    Public Sub LoadFieldAndForm(par_formDesigner As FormDesignProtoTwo,
+                                par_originalCtl As CtlGraphicFldLabel)
+
+        ''
+        ''Added 9/18/2019 td
+        ''
+        Me.FormDesigner = par_formDesigner
+        Me.OriginalElementControl = par_originalCtl
+
+        With CtlGraphicFldLabel1
+
+            .FieldInfo = Me.ElementObject_Copy.FieldInfo
+
+            ''Added 9/18/2019 td 
+            .ElementInfo_Base = Me.ElementCopy_Info_Base
+            .ElementInfo_Text = Me.ElementCopy_Info_Text
+
+            .FormDesigner = par_formDesigner
+            .Width = .ElementInfo_Base.Width_Pixels
+            .Height = .ElementInfo_Base.Height_Pixels
+            .Refresh_Image(True)
+
+        End With ''End of "With CtlGraphicFldLabel1"
+
+        ''Added 9/13/2019 thomas downes
+        Me.CtlBorderWidth.ElementInfo_Base = Me.ElementCopy_Info_Base
+        Me.CtlBorderWidth.ElementInfo_Text = Me.ElementCopy_Info_Text
+
+        ''Position it at the center horizontally. 
+        CenterTheFieldControl()
+
+    End Sub ''End of "Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
+
+    Public Sub LoadFieldAndForm_NotInUse(par_elementInfo_Base As IElement_Base,
                                 par_elementInfo_Text As IElement_TextField,
                                 par_fieldInfo As ICIBFieldStandardOrCustom,
                                 par_formDesigner As FormDesignProtoTwo,
@@ -53,8 +146,8 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
         ''
         Me.FieldInfo = par_fieldInfo
 
-        Me.ElementInfo_Base = par_elementInfo_Base ''Added 9/3/2019 td
-        Me.ElementInfo_Text = par_elementInfo_Text ''Added 8/16 td
+        ''This procedure is obselete. ---9/18/2019 td''Me.ElementInfo_Base = par_elementInfo_Base ''Added 9/3/2019 td
+        ''This procedure is obselete. ---9/18/2019 td''Me.ElementInfo_Text = par_elementInfo_Text ''Added 8/16 td
 
         ''Added 8/17/2019 td
         ''
@@ -63,9 +156,9 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
         ''8/29 td''Me.FontSize = par_elementInfo.FontSize
         ''8/29 td''Me.Font_DrawingClass = par_elementInfo.Font_DrawingClass
 
-        Me.Border_SizeInPixels = par_elementInfo_Base.Border_WidthInPixels
-        Me.Border_Color = par_elementInfo_Base.Border_Color
-        Me.Border_Displayed = par_elementInfo_Base.Border_Displayed ''Added 9/9/2019 td 
+        ''Obselete/Not is use.---9/18/2019 td''Me.Border_SizeInPixels = par_elementInfo_Base.Border_WidthInPixels
+        ''Obselete/Not is use.---9/18/2019 td''Me.Border_Color = par_elementInfo_Base.Border_Color
+        ''Obselete/Not is use.---9/18/2019 td''Me.Border_Displayed = par_elementInfo_Base.Border_Displayed ''Added 9/9/2019 td 
 
         ''Added 8/15/2019 td
         Me.FormDesigner = par_formDesigner
@@ -103,18 +196,19 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
         ''9/13/2019 td''LabelBorderWidth.Text = String.Format(LabelBorderWidth.Tag.ToString, Me.Border_SizeInPixels)
 
         ''Added 9/9/2019 thomas downes 
-        chkBorderDisplayed.Checked = Me.Border_Displayed
+        ''9/18/2019 td''chkBorderDisplayed.Checked = Me.Border_Displayed
+        chkBorderDisplayed.Checked = Me.ElementCopy_Info_Base.Border_Displayed
 
     End Sub ''End of "Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
 
-    Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo,
+    Public Sub LoadFieldAndForm_NotInUse(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo,
                                 par_originalCtl As CtlGraphicFldLabel)
 
         Me.FieldInfo = par_field
 
         ''9/3/2019 td''Me.ElementInfo_Text = par_field.ElementInfo
-        Me.ElementInfo_Text = CType(par_field.ElementFieldClass, IElement_TextField)
-        Me.ElementInfo_Base = CType(par_field.ElementFieldClass, IElement_Base)
+        ''This procedure is obselete. ---9/18/2019 td''Me.ElementInfo_Text = CType(par_field.ElementFieldClass, IElement_TextField)
+        ''This procedure is obselete. ---9/18/2019 td''Me.ElementInfo_Base = CType(par_field.ElementFieldClass, IElement_Base)
 
         ''Added 8/15/2019 td
         Me.FormDesigner = par_formDesigner
@@ -194,6 +288,7 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
 
     Private Sub ButtonOK_Click(sender As Object, e As EventArgs) Handles ButtonOK.Click
 
+        Me.UserConfirmed = True ''Added 9/18/2019 td
         Me.DialogResult = DialogResult.OK
         Me.Close()
 
@@ -227,6 +322,10 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
             ''---Me.CtlGraphicFldLabel1.Height = Me.ElementInfo_Base.Height_Pixels
             Me.CtlGraphicFldLabel1.Refresh_Image(True)
         End With
+
+    End Sub
+
+    Private Sub DialogTextBorder_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
     End Sub
 End Class

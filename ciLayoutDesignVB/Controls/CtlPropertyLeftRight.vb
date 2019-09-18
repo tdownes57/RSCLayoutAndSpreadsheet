@@ -6,6 +6,7 @@ Public Class CtlPropertyLeftRight
     ''
     Private mod_sPropertyName As String = "Property"
     Private mod_iPropertyValue As Integer = 10
+    Private mod_iMinimumValue As Integer = 0 ''Added 9/18/2019 td  
 
     Public ElementInfo_Base As IElement_Base
     Public ElementInfo_Text As IElement_TextField
@@ -34,14 +35,30 @@ Public Class CtlPropertyLeftRight
         End Set
     End Property
 
+    Public Property MinimumValue As Integer
+        Get
+            ''Added 9/18/2019 td
+            Return mod_iMinimumValue
+        End Get
+        Set(value As Integer)
+            ''Added 9/18/2019 td
+            mod_iMinimumValue = value
+        End Set
+    End Property
+
     Private Sub ButtonFontDecrease_Click(sender As Object, e As EventArgs) Handles ButtonDecrease.Click
 
-        mod_iPropertyValue -= 1
-        If (mod_iPropertyValue < 0) Then mod_iPropertyValue = 0
+        ''9/18/2019 td''mod_iPropertyValue -= 1
+        mod_iPropertyValue -= Numeric1.Value
+
+        ''9/18/2019 td''If (mod_iPropertyValue < 0) Then mod_iPropertyValue = 0
+        If (mod_iPropertyValue < Me.MinimumValue) Then mod_iPropertyValue = Me.MinimumValue
 
         ''9/13/2019 td''LabelProperty.Text = (mod_sPropertyName & ": " & CStr(mod_iPropertyValue))
         UpdateUserFeedbackLabel()
+
         UpdateElementInfo(mod_iPropertyValue)
+
         RaiseEvent EventUpdateRequest()
 
     End Sub
