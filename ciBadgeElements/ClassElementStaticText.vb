@@ -92,7 +92,7 @@ Public Class ClassElementStaticText
 
     Public Property SelectedHighlighting As Boolean Implements IElement_Base.SelectedHighlighting ''Added 8/2/2019 td  
 
-    Private _labelToImage As New ClassLabelToImage ''Added 9/3/2019 td  
+    ''9/18/2019 td''Private _labelToImage As New ClassLabelToImage ''Added 9/3/2019 td  
 
     Public Sub New(par_control As Control)
 
@@ -159,7 +159,7 @@ Public Class ClassElementStaticText
 
     End Function ''End of "Public Function GenerateImage_ByDesiredLayoutWidth() As Image Implements IElementText.GenerateImage_ByDesiredLayoutWidth"
 
-    Public Function GenerateImage_ByDesiredLayoutHeight(pintDesiredLayoutHeight As Integer) As Image _
+    Public Function GenerateImage_ByDesiredLayoutHeight_Deprecated(pintDesiredLayoutHeight As Integer) As Image _
         Implements IElement_TextOnly.GenerateImage_ByDesiredLayoutHeight
         ''
         ''Added 8/26/2019 thomas downes 
@@ -177,10 +177,10 @@ Public Class ClassElementStaticText
         ''
         Dim obj_image As Image = Nothing
         Dim intDesiredLayoutWidth As Integer
-        Dim doubleCorrectRatioW_to_H As Double ''Added 9/4/2019 td
+        Dim doubleCorrectRatioW_to_H As Double = 0 ''Added 9/4/2019 td
 
         ''Added 9/4/2019 td
-        doubleCorrectRatioW_to_H = ciLayoutPrintLib.LayoutPrint.LongSideToShortRatio()
+        ''Deprecated. 9/18 td''doubleCorrectRatioW_to_H = ciLayoutPrintLib.LayoutPrint.LongSideToShortRatio()
 
         ''9/4 td''intDesiredLayoutWidth = CInt(pintDesiredLayoutHeight * ciLayoutPrintLib.LayoutPrint.LongSideToShortRatio())
 
@@ -231,7 +231,7 @@ Public Class ClassElementStaticText
 
             ''Added 8/15/2019 td
             ''
-            If (ClassLabelToImage.UseHighResolutionTips) Then
+            If (False) Then ''9/18/2019 td''If (ClassLabelToImage.UseHighResolutionTips) Then
 
                 ''9/6/2019 td''par_image = New Bitmap(intNewElementWidth, intNewElementHeight)
                 par_image = New Bitmap(intNewElementWidth, intNewElementHeight, Imaging.PixelFormat.Format32bppPArgb)

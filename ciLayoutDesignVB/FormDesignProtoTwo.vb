@@ -9,7 +9,9 @@ Imports MoveAndResizeControls_Monem
 ''9/9/2019 td''Imports ControlManager
 Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d.  
 Imports ciLayoutPrintLib ''Added 8/28/2019 thomas d. 
-Imports System.Collections.Generic ''Added 9.6.2019 td 
+Imports System.Collections.Generic ''Added 9.6.2019 td
+Imports ciBadgeFields ''Added 9/18/2019 td 
+Imports ciBadgeElements ''Added 9/18/2019 td
 
 Public Class FormDesignProtoTwo
     Implements ISelectingElements, ILayoutFunctions
@@ -1273,10 +1275,14 @@ Public Class FormDesignProtoTwo
         ''Added 8/24/2019 td
         ''
         ''8/24 td''Dim objPrintLib As New ciLayoutPrintLib.CILayoutBadge
-        Dim objPrintLib As New ciLayoutPrintLib.LayoutPrint_Redux
-        Dim listOfElementText_Stdrd As List(Of IFieldInfo_ElementPositions)
-        Dim listOfElementText_Custom As List(Of IFieldInfo_ElementPositions)
+        ''9/18 td''Dim objPrintLib As New ciLayoutPrintLib.LayoutPrint_Redux
+        Dim objPrintLib As New ciLayoutPrintLib.LayoutPrint_Redux2
+
+        ''Deprecated. 9/18/2019 td''Dim listOfElementText_Stdrd As List(Of IFieldInfo_ElementPositions)
+        ''Deprecated. 9/18/2019 td''Dim listOfElementText_Custom As List(Of IFieldInfo_ElementPositions)
+
         Dim listOfTextImages As New List(Of Image) ''Added 8/26/2019 thomas downes 
+        Dim listOfElementTextFields As List(Of ClassElementField)
 
         ''For Each field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students
 
@@ -1287,8 +1293,10 @@ Public Class FormDesignProtoTwo
         ''9/4/2019 td''listOfElementText_Stdrd = ClassFieldStandard.ListOfElementsText_Stdrd()
         ''9/4/2019 td''listOfElementText_Custom = ClassFieldCustomized.ListOfElementsText_Custom()
 
-        listOfElementText_Stdrd = ClassFieldStandard.ListOfElementsText_Stdrd(Me.Layout_Width_Pixels())
-        listOfElementText_Custom = ClassFieldCustomized.ListOfElementsText_Custom(Me.Layout_Width_Pixels())
+        ''Deprecated. 9/18/2019 td''listOfElementText_Stdrd = ClassFieldStandard.ListOfElementsText_Stdrd(Me.Layout_Width_Pixels())
+        ''Deprecated. 9/18/2019 td''listOfElementText_Custom = ClassFieldCustomized.ListOfElementsText_Custom(Me.Layout_Width_Pixels())
+
+        listOfElementTextFields = Me.ElementsCache_Edits.FieldElements()
 
         ''8/24 td''picturePreview.SizeMode = PictureBoxSizeMode.Zoom
         ''8/24 td''picturePreview.Image = pictureBack.Image
@@ -1320,9 +1328,12 @@ Public Class FormDesignProtoTwo
         ''
         ''Major call !!
         ''
+        ''9/18 td''objPrintLib.LoadImageWithFieldValues(obj_image_clone_resized,
+        ''     listOfElementText_Stdrd,
+        ''     listOfElementText_Custom,
+        ''     listOfTextImages)
         objPrintLib.LoadImageWithFieldValues(obj_image_clone_resized,
-                                             listOfElementText_Stdrd,
-                                             listOfElementText_Custom,
+                                             listOfElementTextFields,
                                              listOfTextImages)
 
         ''
