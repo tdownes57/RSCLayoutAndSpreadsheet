@@ -3,6 +3,7 @@
 ''
 Imports ciBadgeInterfaces ''Added 9/18/2019 td
 Imports ciBadgeFields ''Added 9/18/2019 td
+Imports ciBadgeElements ''Added 9/18/2019 td  
 
 Public Class CtlGraphicText
     ''
@@ -13,7 +14,8 @@ Public Class CtlGraphicText
 
     ''8/29/2019 td''Public ElementInfo As ClassElementText
     Public ElementInfo_Base As ciBadgeInterfaces.IElement_Base ''Added 8/29/2019 td
-    Public ElementInfo_Text As ciBadgeInterfaces.IElement_TextField ''Added 8/29/2019 td
+    ''9/18/2019 td''Public ElementInfo_Text As ciBadgeInterfaces.IElement_TextField ''Added 8/29/2019 td
+    Public ElementInfo_TextOnly As ciBadgeInterfaces.IElement_TextOnly ''Added 8/29/2019 td
 
     Public ParentDesignForm As ISelectingElements ''Added 7/31/2019 thomas downes  
 
@@ -39,23 +41,35 @@ Public Class CtlGraphicText
 
     End Sub
 
-    Public Sub New(par_field As ClassFieldStandard)
+    Public Sub New_Deprecated(par_element As ClassElementStaticText)
 
         ' This call is required by the designer.
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        Me.ElementInfo_Text = par_field.ElementFieldClass
+        ''_Deprecated 9/18/2019 td''''Me.ElementInfo_Text = par_field.ElementFieldClass
+        ''9/18/2019 td''Me.ElementInfo_Text = par_element
+        Me.ElementInfo_TextOnly = par_element
 
     End Sub
 
-    Public Sub New(par_field As ClassFieldCustomized)
+    Public Sub New_Deprecated(par_field As ClassFieldStandard)
 
         ' This call is required by the designer.
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        Me.ElementInfo_Text = par_field.ElementFieldClass
+        ''_Deprecated 9/18/2019 td''''Me.ElementInfo_Text = par_field.ElementFieldClass
+
+    End Sub
+
+    Public Sub New_Deprecated(par_field As ClassFieldCustomized)
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        ''_Deprecated 9/18/2019 td''Me.ElementInfo_Text = par_field.ElementFieldClass
 
     End Sub
 
@@ -63,18 +77,18 @@ Public Class CtlGraphicText
         ''
         ''Added 7/25/2019 thomas d 
         ''
-        If (String.IsNullOrEmpty(Me.ElementInfo_Text.Text)) Then ElementInfo_Text.Text = LabelText()
+        If (String.IsNullOrEmpty(Me.ElementInfo_TextOnly.Text)) Then ElementInfo_TextOnly.Text = LabelText()
 
-        If (Me.ElementInfo_Text.Font_DrawingClass Is Nothing) Then
+        If (Me.ElementInfo_TextOnly.Font_DrawingClass Is Nothing) Then
             ''
             ''Initialize the font. 
             ''
-            ''9/6/2019 td''Me.ElementInfo_Text.Font_DrawingClass = New Font("Times New Roman", 15, FontStyle.Regular)
-            ''9/6/2019 td''Me.ElementInfo_Text.FontSize_Pixels = 15
-            ''9/6/2019 td''Me.ElementInfo_Text.FontBold = False
-            ''9/6/2019 td''Me.ElementInfo_Text.FontItalics = False
+            ''9/6/2019 td''Me.ElementInfo_TextOnly.Font_DrawingClass = New Font("Times New Roman", 15, FontStyle.Regular)
+            ''9/6/2019 td''Me.ElementInfo_TextOnly.FontSize_Pixels = 15
+            ''9/6/2019 td''Me.ElementInfo_TextOnly.FontBold = False
+            ''9/6/2019 td''Me.ElementInfo_TextOnly.FontItalics = False
 
-            With Me.ElementInfo_Text
+            With Me.ElementInfo_TextOnly
                 ''9/6/2019 td''.FontSize = 15
                 .FontSize_Pixels = 25 ''9/6/2019 ''15
                 .FontBold = False
@@ -85,7 +99,7 @@ Public Class CtlGraphicText
                 .Font_DrawingClass = modFonts.MakeFont(.FontFamilyName, .FontSize_Pixels, .FontBold, .FontItalics, .FontUnderline)
             End With
 
-        End If ''End of "If (Me.ElementInfo_Text.Font_DrawingClass Is Nothing) Then"
+        End If ''End of "If (Me.ElementInfo_TextOnly.Font_DrawingClass Is Nothing) Then"
 
         If (LabelToImage Is Nothing) Then LabelToImage = New ClassLabelToImage
 
@@ -114,7 +128,7 @@ Public Class CtlGraphicText
         ''9/4/2019 td''LabelToImage.TextImage(intLayoutWidth, pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
 
         pictureLabel.Image =
-        LabelToImage.TextImage_Field(intLayoutWidth, Me.ElementInfo_Text,
+        LabelToImage.TextImage_Field(intLayoutWidth, Me.ElementInfo_TextOnly,
                                Me.ElementInfo_Base, boolRotated, True)
 
         ''Added 7/31/2019 td
@@ -161,7 +175,7 @@ Public Class CtlGraphicText
         ''
         ''Added 7/25/2019 thomas d 
         ''
-        Return Me.ElementInfo_Text.Text
+        Return Me.ElementInfo_TextOnly.Text
 
     End Function ''End of "Public Function LabelText() As String"
 
@@ -224,10 +238,10 @@ Public Class CtlGraphicText
         ''
         ''Added 7/30/2019 thomas downes
         ''
-        FontDialog1.Font = Me.ElementInfo_Text.Font_DrawingClass
+        FontDialog1.Font = Me.ElementInfo_TextOnly.Font_DrawingClass
         FontDialog1.ShowDialog()
 
-        Me.ElementInfo_Text.Font_DrawingClass = FontDialog1.Font
+        Me.ElementInfo_TextOnly.Font_DrawingClass = FontDialog1.Font
 
         Application.DoEvents()
         Application.DoEvents()

@@ -1,4 +1,11 @@
-﻿Public Class DialogExampleValueEtc
+﻿Option Explicit On ''Added 9/18/2019 td
+Option Strict On ''Added 9/18/2019 td
+''
+''
+''
+Imports ciBadgeFields ''Added 9/18/2019 td  
+
+Public Class DialogExampleValueEtc
 
     Private mod_model As ClassFieldCustomized
 
@@ -24,11 +31,11 @@
 
     End Sub
 
-    Private Sub ListPresetValues_SelectedIndexChanged(sender As Object, e As EventArgs) 
+    Private Sub ListPresetValues_SelectedIndexChanged(sender As Object, e As EventArgs)
 
     End Sub
 
-    Private Sub TextBox2_TextChanged(sender As Object, e As EventArgs) 
+    Private Sub TextBox2_TextChanged(sender As Object, e As EventArgs)
 
     End Sub
 

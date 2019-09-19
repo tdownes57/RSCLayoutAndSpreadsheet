@@ -7,6 +7,7 @@ Option Infer Off ''Added 8/29/2019 td
 ''
 Imports ciBadgeInterfaces ''Added 8/28/2019 thomas downes 
 Imports ciBadgeFields ''Added 9/18/2019 thomas downes 
+Imports ciBadgeElements ''Added 9/18/2019 td 
 
 Public Class CtlGraphicFldLabel
     ''
@@ -139,7 +140,7 @@ Public Class CtlGraphicFldLabel
         ''Refactored 9/4/2019 td  
         ''
         If (par_elementText Is Nothing) Then
-            Me.ElementClass_Obj = par_field.ElementFieldClass
+            ''This Sub New is deprecated.  ---9/18/2019 td''Me.ElementClass_Obj = par_field.ElementFieldClass
             Me.ElementInfo_Base = CType(Me.ElementClass_Obj, IElement_Base)
             Me.ElementInfo_Text = CType(Me.ElementClass_Obj, IElement_TextField)
         Else
@@ -184,7 +185,8 @@ Public Class CtlGraphicFldLabel
             ''------ IMPORTANT ------------------
             ''------ POTENTIALLY CONFUSING-------
             ''
-            Me.ElementClass_Obj.LoadbyCopyingMembers(par_field.ElementInfo_Base, par_field.ElementInfo_Text)
+            ''-------Fields no longer contain links to Elements. ---9/18/2019 td 
+            ''-----Me.ElementClass_Obj.LoadbyCopyingMembers(par_field.ElementInfo_Base, par_field.ElementInfo_Text)
 
             ''  9/15/2019 td''Me.ElementInfo_Base = CType(par_field.ElementInfo_Base, IElement_Base)
             ''  9/15/2019 td''Me.ElementInfo_Text = CType(par_field.ElementInfo_Text, IElement_Text)

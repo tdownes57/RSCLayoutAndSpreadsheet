@@ -2,6 +2,8 @@
 ''Added 8/29/2019 thomas downes 
 ''
 Imports ciBadgeInterfaces ''Added 8/29/2019 thomas d.
+Imports ciBadgeFields ''Added 9/18/2019 td 
+Imports ciBadgeElements ''Added 9/18/2019 td 
 
 Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
     ''
@@ -218,8 +220,8 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
             .FieldInfo = par_field
 
             ''9/3/2019 td''.ElementInfo_Text = par_field.ElementInfo
-            .ElementInfo_Text = CType(par_field.ElementFieldClass, IElement_TextField)
-            .ElementInfo_Base = CType(par_field.ElementFieldClass, IElement_Base)
+            ''Deprecated.  9/18/2019 td''.ElementInfo_Text = CType(par_field.ElementFieldClass, IElement_TextField)
+            ''Deprecated.  9/18/2019 td''.ElementInfo_Base = CType(par_field.ElementFieldClass, IElement_Base)
 
             .FormDesigner = par_formDesigner
             .Width = .ElementInfo_Base.Width_Pixels

@@ -5,6 +5,8 @@ Option Strict On ''Added 7/31/2019 td
 ''Added 7/31/2019 thomas d 
 ''
 Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d. 
+Imports ciBadgeFields ''Added 9/18/2019 td 
+Imports ciBadgeElements ''Added 9/18/2019 td 
 
 Public Class CtlGraphicPortrait
     ''

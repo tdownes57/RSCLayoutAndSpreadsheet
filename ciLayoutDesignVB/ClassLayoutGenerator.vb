@@ -1,6 +1,7 @@
 ﻿''
 ''Added 7/18/2019 td 
 ''
+Imports ciBadgeElements ''Added 9/18/2019 td  
 
 Public Class LayoutElementGenerator
     ''

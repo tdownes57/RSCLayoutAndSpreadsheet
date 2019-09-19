@@ -6,6 +6,7 @@ Option Infer Off ''Added 9/3/2019 td
 ''Added 8/15/2019 thomas downes 
 ''
 Imports ciBadgeInterfaces ''Added 8/16/2019 thomas d.
+Imports ciBadgeElements ''Added 9/18/2019 thomas d.
 Imports ciBadgeFields ''Added 9/18/2019 thomas d.  
 
 Public Class DialogTextOffset
@@ -255,9 +256,9 @@ Public Class DialogTextOffset
         With CtlGraphicFldLabel1
             .FieldInfo = par_field
 
-            .ElementClass_Obj = par_field.ElementFieldClass ''Added 9/13/2019 td
-            .ElementInfo_Base = par_field.ElementInfo_Base ''Added 9/13/2019 td 
-            .ElementInfo_Text = par_field.ElementInfo_Text ''Added 9/13/2019 td 
+            ''Deprecated 9/18/2019 td''.ElementClass_Obj = par_field.ElementFieldClass ''Added 9/13/2019 td
+            ''Deprecated 9/18/2019 td''.ElementInfo_Base = par_field.ElementInfo_Base ''Added 9/13/2019 td 
+            ''Deprecated 9/18/2019 td''.ElementInfo_Text = par_field.ElementInfo_Text ''Added 9/13/2019 td 
             .FormDesigner = par_formDesigner
             .Width = .ElementInfo_Base.Width_Pixels
             .Height = .ElementInfo_Base.Height_Pixels
@@ -270,24 +271,24 @@ Public Class DialogTextOffset
         ''
         ''Added 9/13/2019 thomas downes
         ''
-        Me.CtlElementHeight.ElementInfo_Base = par_field.ElementInfo_Base
-        Me.CtlElementHeight.ElementInfo_Text = par_field.ElementInfo_Text
+        ''Deprecated 9/18/2019 td''Me.CtlElementHeight.ElementInfo_Base = par_field.ElementInfo_Base
+        ''Deprecated 9/18/2019 td''Me.CtlElementHeight.ElementInfo_Text = par_field.ElementInfo_Text
         Me.CtlElementHeight.InitiateLocalValue()
 
-        Me.CtlElementWidth.ElementInfo_Base = par_field.ElementInfo_Base
-        Me.CtlElementWidth.ElementInfo_Text = par_field.ElementInfo_Text
+        ''Deprecated 9/18/2019 td''Me.CtlElementWidth.ElementInfo_Base = par_field.ElementInfo_Base
+        ''Deprecated 9/18/2019 td''Me.CtlElementWidth.ElementInfo_Text = par_field.ElementInfo_Text
         Me.CtlElementWidth.InitiateLocalValue()
 
-        Me.CtlFontSize.ElementInfo_Base = par_field.ElementInfo_Base
-        Me.CtlFontSize.ElementInfo_Text = par_field.ElementInfo_Text
+        ''Deprecated 9/18/2019 td''Me.CtlFontSize.ElementInfo_Base = par_field.ElementInfo_Base
+        ''Deprecated 9/18/2019 td''Me.CtlFontSize.ElementInfo_Text = par_field.ElementInfo_Text
         Me.CtlFontSize.InitiateLocalValue()
 
-        Me.CtlTextOffsetX.ElementInfo_Base = par_field.ElementInfo_Base
-        Me.CtlTextOffsetX.ElementInfo_Text = par_field.ElementInfo_Text
+        ''Deprecated 9/18/2019 td''Me.CtlTextOffsetX.ElementInfo_Base = par_field.ElementInfo_Base
+        ''Deprecated 9/18/2019 td''Me.CtlTextOffsetX.ElementInfo_Text = par_field.ElementInfo_Text
         Me.CtlTextOffsetX.InitiateLocalValue()
 
-        Me.ctlTextOffsetY.ElementInfo_Base = par_field.ElementInfo_Base
-        Me.ctlTextOffsetY.ElementInfo_Text = par_field.ElementInfo_Text
+        ''Deprecated 9/18/2019 td''Me.ctlTextOffsetY.ElementInfo_Base = par_field.ElementInfo_Base
+        ''Deprecated 9/18/2019 td''Me.ctlTextOffsetY.ElementInfo_Text = par_field.ElementInfo_Text
         Me.ctlTextOffsetY.InitiateLocalValue()
 
     End Sub ''End of "Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
