@@ -53,4 +53,6 @@ Public Interface IElement_Base
 
     Property Image_BL As Image ''Added 8/29 & 8/27/2019 td 
 
+    Property Visible As Boolean ''Added 9/19/2019 td
+
 End Interface

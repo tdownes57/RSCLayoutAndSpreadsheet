@@ -23,6 +23,17 @@ Public Class FormDisplayImageList2 ''Added 8/27/2019 td
 
     ''End Sub
 
+    Public Sub New(par_list As List(Of ClassElementField))
+
+        InitializeComponent()
+
+        ''
+        ''Added 9/19/2019 td  
+        ''
+        mod_listOfElementFields = par_list ''Added 9/19/2019 td 
+
+    End Sub
+
     Private Sub FormDisplayImageList_Load(sender As Object, e As EventArgs) Handles Me.Load
 
         Const c_LoadNow As Boolean = True ''False
@@ -42,34 +53,54 @@ Public Class FormDisplayImageList2 ''Added 8/27/2019 td
 
     End Sub
 
+    Private Sub LoadAllImagesToUI_ByElement()
+        ''
+        ''Added 9/19/2019 td 
+        ''
+        Dim boolSkipIt As Boolean ''Added 9/4/2019 thomas d.
 
-    Private Sub LoadAllImagesToUI()
+        For Each par_objElement As ClassElementField In mod_listOfElementFields
+
+            ''Added 9/4/2019 thomas d.
+            ''9/19 td''If (Not par_objField.IsDisplayedOnBadge()) Then Continue For
+
+            boolSkipIt = (Not par_objElement.IsDisplayedOnBadge_Visibly())
+            If (boolSkipIt) Then Continue For
+
+            ''Major call !!
+            LoadEachImageToUI(par_objElement.Image_BL, CType(par_objElement, IElement_Base))
+
+        Next par_objElement
+
+    End Sub ''End of "Private Sub LoadAllImagesToUI_ByField_Denigrated()"
+
+    Private Sub LoadAllImagesToUI_ByField_Denigrated()
         ''
         ''Added 8/26/2019 td 
         ''
-        For Each par_objField As ClassFieldStandard In _objListFieldsStd
+        ''For Each par_objField As ClassFieldStandard In _objListFieldsStd
+        ''
+        ''    ''objImage = par_objField.
+        ''
+        ''    ''Added 9/4/2019 thomas d.
+        ''    If (Not par_objField.IsDisplayedOnBadge) Then Continue For
+        ''
+        ''    ''Major call !!
+        ''    LoadEachImageToUI(par_objField.ElementFieldClass.Image_BL, CType(par_objField.ElementFieldClass, IElement_Base))
+        ''
+        ''Next par_objField
 
-            ''objImage = par_objField.
+        ''For Each par_objField As ClassFieldCustomized In _objListFieldsCust
+        ''
+        ''    ''Added 9/4/2019 thomas d.
+        ''    If (Not par_objField.IsDisplayedOnBadge) Then Continue For
+        ''
+        ''    ''Major call !!
+        ''    LoadEachImageToUI(par_objField.ElementFieldClass.Image_BL, CType(par_objField.ElementFieldClass, IElement_Base))
+        ''
+        ''Next par_objField
 
-            ''Added 9/4/2019 thomas d.
-            If (Not par_objField.IsDisplayedOnBadge) Then Continue For
-
-            ''Major call !!
-            LoadEachImageToUI(par_objField.ElementFieldClass.Image_BL, CType(par_objField.ElementFieldClass, IElement_Base))
-
-        Next par_objField
-
-        For Each par_objField As ClassFieldCustomized In _objListFieldsCust
-
-            ''Added 9/4/2019 thomas d.
-            If (Not par_objField.IsDisplayedOnBadge) Then Continue For
-
-            ''Major call !!
-            LoadEachImageToUI(par_objField.ElementFieldClass.Image_BL, CType(par_objField.ElementFieldClass, IElement_Base))
-
-        Next par_objField
-
-    End Sub ''End of "Private Sub LoadAllImagesToUI()"
+    End Sub ''End of "Private Sub LoadAllImagesToUI_ByField_Denigrated()"
 
     Private Sub LoadEachImageToUI(par_image As Image, par_element As IElement_Base)
         '' 

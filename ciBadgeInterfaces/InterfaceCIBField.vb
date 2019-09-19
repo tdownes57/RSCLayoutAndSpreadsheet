@@ -48,4 +48,6 @@ Public Interface ICIBFieldStandardOrCustom
     Property IsLinkedToSections As Boolean ''Added 9/17/2019 td 
     Property SublayoutLookup As Dictionary(Of String, Integer) ''Added 9/17/2019 td
 
+    ''Moved to InterfaceElementBase. ----9/19 td''Property Visible As Boolean ''Added 9/19/2019 td
+
 End Interface

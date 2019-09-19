@@ -107,6 +107,8 @@ Public Class ClassElementField
 
     Public Property SelectedHighlighting As Boolean Implements IElement_Base.SelectedHighlighting ''Added 8/2/2019 td  
 
+    Public Property Visible As Boolean Implements IElement_Base.Visible ''Added 8/2/2019 td  
+
     ''9/18/2019 td''Private _labelToImage As New ClassLabelToImage ''Added 9/3/2019 td  
 
     Public Sub New(par_control As Control)
@@ -141,6 +143,14 @@ Public Class ClassElementField
 
     End Sub
 
+    Public Function IsDisplayedOnBadge_Visibly() As Boolean
+        ''
+        ''Added 9/19/2019 td  
+        ''
+        Return (Me.FieldInfo.IsDisplayedOnBadge And Me.Visible)
+
+    End Function ''End of "Public Function IsDisplayedOnBadge_Visibly() As Boolean"
+
     ''8/26 td''Public Function GenerateImage(pintLayoutHeight As Integer) As Image Implements IElementText.GenerateImage
     ''    ''
     ''    ''Added 8/14/2019 thomas downes 
@@ -154,7 +164,7 @@ Public Class ClassElementField
     ''
     ''End of 8/26 td''End Function ''End of "Public Function GenerateImage() As Image Implements IElementText.GenerateImage"
 
-    Public Function GenerateImage_ByDesiredLayoutWidth(pintDesiredLayoutWidth As Integer) As Image _
+    Public Function GenerateImage_ByDesiredLayoutWidth_Deprecated(pintDesiredLayoutWidth As Integer) As Image _
         Implements IElement_TextField.GenerateImage_ByDesiredLayoutWidth
         ''
         ''    8/26 td''Public Function GenerateImage(pintLayoutHeight As Integer) As Image Implements IElementText.GenerateImage
@@ -174,7 +184,7 @@ Public Class ClassElementField
             ''Major call !!
             ''
             ''9/16/2019 td''obj_image = _labelToImage.TextImage(pintDesiredLayoutWidth, Me, Me, False, False)
-            ''9/18/2019 td''obj_image = _labelToImage.TextImage_Field(pintDesiredLayoutWidth, Me, Me, False, False)
+            ''Deprecated.  9/18/2019 td''obj_image = _labelToImage.TextImage_Field(pintDesiredLayoutWidth, Me, Me, False, False)
 
         Catch ex As Exception
             ''Added 9/15/2019 td  
@@ -183,7 +193,7 @@ Public Class ClassElementField
 
         Return obj_image
 
-    End Function ''End of "Public Function GenerateImage_ByDesiredLayoutWidth() As Image Implements IElementText.GenerateImage_ByDesiredLayoutWidth"
+    End Function ''End of "Public Function GenerateImage_ByDesiredLayoutWidth_Deprecated() As Image Implements IElementText.GenerateImage_ByDesiredLayoutWidth"
 
     Public Function GenerateImage_ByDesiredLayoutHeight_Deprecated(pintDesiredLayoutHeight As Integer) As Image _
         Implements IElement_TextField.GenerateImage_ByDesiredLayoutHeight
@@ -220,7 +230,7 @@ Public Class ClassElementField
 
         Return obj_image
 
-    End Function ''End of "Public Function GenerateImage_ByDesiredLayoutHeight() As Image Implements IElementText.GenerateImage_ByDesiredLayoutWidth"
+    End Function ''End of "Public Function GenerateImage_ByDesiredLayoutHeight_Deprecated() As Image Implements IElementText.GenerateImage_ByDesiredLayoutWidth"
 
     Public Function GenerateImage_NotInUse(pintDesiredLayoutWidth As Integer, ByRef par_image As Image,
                                   par_elementInfo_Text As IElement_TextField, par_elementInfo_Base As IElement_Base) As Image

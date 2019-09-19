@@ -97,7 +97,7 @@
     <Compile Include="LayoutExample.vb" />
     <Compile Include="LayoutPrint.vb" />
     <Compile Include="LayoutPrint_Redux.vb" />
-    <Compile Include="LayoutPrint_Redux2.vb" />
+    <Compile Include="LayoutElements.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

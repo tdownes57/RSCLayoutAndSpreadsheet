@@ -1276,7 +1276,7 @@ Public Class FormDesignProtoTwo
         ''
         ''8/24 td''Dim objPrintLib As New ciLayoutPrintLib.CILayoutBadge
         ''9/18 td''Dim objPrintLib As New ciLayoutPrintLib.LayoutPrint_Redux
-        Dim objPrintLib As New ciLayoutPrintLib.LayoutPrint_Redux2
+        Dim objPrintLibElems As New ciLayoutPrintLib.LayoutElements
 
         ''Deprecated. 9/18/2019 td''Dim listOfElementText_Stdrd As List(Of IFieldInfo_ElementPositions)
         ''Deprecated. 9/18/2019 td''Dim listOfElementText_Custom As List(Of IFieldInfo_ElementPositions)
@@ -1332,14 +1332,17 @@ Public Class FormDesignProtoTwo
         ''     listOfElementText_Stdrd,
         ''     listOfElementText_Custom,
         ''     listOfTextImages)
-        objPrintLib.LoadImageWithFieldValues(obj_image_clone_resized,
+        ''9/19 td''objPrintLib.LoadImageWithFieldValues(obj_image_clone_resized,
+        ''9/19 td''    listOfElementTextFields,
+        ''9/19 td''    listOfTextImages)
+        objPrintLibElems.LoadImageWithElements(obj_image_clone_resized,
                                              listOfElementTextFields,
                                              listOfTextImages)
 
         ''
         ''Major call, let's show the portrait !!  ---9/9/2019 td  
         ''
-        objPrintLib.LoadImageWithPortrait(obj_image_clone_resized.Width,
+        objPrintLibElems.LoadImageWithPortrait(obj_image_clone_resized.Width,
                                           Me.Layout_Width_Pixels(),
                                           obj_image_clone_resized,
                                            CtlGraphicPortrait_Lady.ElementInfo_Base,
@@ -1356,8 +1359,10 @@ Public Class FormDesignProtoTwo
             frm_ToShow1.Show()
 
             ''Added 8/27/2019 thomas downes  
-            Dim frm_ToShow2 As New FormDisplayImageList2(ClassFieldStandard.ListOfFields_Students,
-                                                          ClassFieldCustomized.ListOfFields_Students)
+            ''9/19 td''Dim frm_ToShow2 As New FormDisplayImageList2(ClassFieldStandard.ListOfFields_Students,
+            ''9/19 td''    ClassFieldCustomized.ListOfFields_Students)
+
+            Dim frm_ToShow2 As New FormDisplayImageList2(listOfElementTextFields)
             frm_ToShow2.Show()
 
         End If ''End of "If (c_bHelpProgrammer And c_bTestingReview) Then"

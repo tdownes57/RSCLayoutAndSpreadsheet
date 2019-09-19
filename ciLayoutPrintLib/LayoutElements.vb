@@ -8,7 +8,7 @@ Imports System.Windows.Forms ''Added 8/24/2019 thomas downes
 Imports ciBadgeInterfaces ''Added 8/24/2019 thomas d. 
 Imports ciBadgeElements ''Added 9/18/2019 thomas d. 
 
-Public Class LayoutPrint_Redux2
+Public Class LayoutElements
     ''
     ''Added 9/18/2019 & 8/24/2019 td  
     ''
@@ -624,10 +624,13 @@ ExitHandler:
 
     End Sub ''End of ""Private Sub ApplyMemberPicToImage(ByRef par_image As Image)
 
-    Public Sub LoadImageWithFieldValues(ByRef par_imageBadgeCard As Image,
+    Public Sub LoadImageWithElements(ByRef par_imageBadgeCard As Image,
                                    par_elements As List(Of ClassElementField),
                                         Optional par_listTextImages As List(Of Image) = Nothing)
-        ''
+        ''9/18/2019 td---Public Sub LoadImageWithFieldValues(ByRef par_imageBadgeCard As Image,
+        ''---                                par_standardFields As List(Of IFieldInfo_ElementPositions),
+        ''---                                par_customFields As List(Of IFieldInfo_ElementPositions),
+        ''---                                     Optional par_listTextImages As List(Of Image) = Nothing)        ''
         ''Added 8/14/2019 td  
         ''
         Dim gr_Badge As Graphics ''= Graphics.FromImage(img)
