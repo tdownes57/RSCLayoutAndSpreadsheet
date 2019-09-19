@@ -8,7 +8,7 @@ Imports System.Drawing ''Added 9/18/2019 td
 Imports System.Windows.Forms ''Added 9/18/2019 td
 Imports ciBadgeInterfaces ''Added 9/16/2019 td 
 Imports ciBadgeFields ''Added 9/18/2019 td
-Imports ciLayoutPrintLib ''Added 9/18/2019 td 
+''9/19/2019 td''Imports ciLayoutPrintLib ''Added 9/18/2019 td 
 
 Public Class ClassElementsCache
     ''

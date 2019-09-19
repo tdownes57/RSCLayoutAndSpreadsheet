@@ -1,7 +1,7 @@
 ﻿Option Explicit On
 Option Strict On
 
-Imports ciLayoutDesignVB
+''9/19/2019 td''Imports ciLayoutDesignVB
 Imports ciBadgeInterfaces ''Added 8/24/2019 thomas d.
 
 ''
