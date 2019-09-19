@@ -196,6 +196,9 @@ Public Class ClassElementsCache
             new_elementField = New ClassElementField(each_field, intLeft_Pixels, intTop_Pixels, c_intHeight_Pixels)
             new_elementField.FieldInfo = each_field
 
+            ''Added 9/19/2019 td
+            mod_listElementFields.Add(new_elementField)
+
         Next each_field
 
     End Sub ''ENd of "Public Sub LoadFieldElements(par_pictureBackground As PictureBox)"
@@ -257,17 +260,17 @@ Public Class ClassElementsCache
 
         ''Added 9/17/2019 thomas downes  
         For Each each_elementField As ClassElementField In mod_listElementFields
-            objCopyOfCache.FieldElements().Add(each_elementField.Copy())
+            objCopyOfCache.ListFieldElements().Add(each_elementField.Copy())
         Next each_elementField
 
         ''Added 9/17/2019 thomas downes  
         For Each each_elementPic As ClassElementPic In mod_listElementPics
-            objCopyOfCache.PicElements().Add(each_elementPic.Copy())
+            objCopyOfCache.ListPicElements().Add(each_elementPic.Copy())
         Next each_elementPic
 
         ''Added 9/17/2019 thomas downes  
         For Each each_elementStaticText As ClassElementStaticText In mod_listElementStatics
-            objCopyOfCache.StaticTextElements().Add(each_elementStaticText.Copy())
+            objCopyOfCache.ListStaticTextElements().Add(each_elementStaticText.Copy())
         Next each_elementStaticText
 
         Return objCopyOfCache

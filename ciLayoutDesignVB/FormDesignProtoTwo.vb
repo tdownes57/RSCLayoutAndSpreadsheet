@@ -234,7 +234,7 @@ Public Class FormDesignProtoTwo
 
         ''#1 9/17/2019 td''LoadElements_Fields_Master(c_boolLoadingForm, par_cache.FieldElements())
         '' #2 9/17/2019 td''LoadElements_ByListOfFields(ClassFields.ListAllFields())
-        LoadFieldControls_ByListOfElements(par_cache.FieldElements(), c_boolLoadingForm)
+        LoadFieldControls_ByListOfElements(par_cache.ListFieldElements(), c_boolLoadingForm)
 
         LoadElements_Picture(par_cache.PicElement())
 
@@ -1313,7 +1313,7 @@ Public Class FormDesignProtoTwo
         ''Deprecated. 9/18/2019 td''listOfElementText_Stdrd = ClassFieldStandard.ListOfElementsText_Stdrd(Me.Layout_Width_Pixels())
         ''Deprecated. 9/18/2019 td''listOfElementText_Custom = ClassFieldCustomized.ListOfElementsText_Custom(Me.Layout_Width_Pixels())
 
-        listOfElementTextFields = Me.ElementsCache_Edits.FieldElements()
+        listOfElementTextFields = Me.ElementsCache_Edits.ListFieldElements()
 
         ''8/24 td''picturePreview.SizeMode = PictureBoxSizeMode.Zoom
         ''8/24 td''picturePreview.Image = pictureBack.Image
@@ -1554,7 +1554,7 @@ Public Class FormDesignProtoTwo
         ''
         ''Step #3(b)  List the undisplayed elements.    ---Added 9/17/2019 td
         ''
-        For Each each_element As ClassElementField In Me.ElementsCache_Edits.FieldElements()
+        For Each each_element As ClassElementField In Me.ElementsCache_Edits.ListFieldElements()
             ''
             ''Added 9/17/2019 td
             ''
