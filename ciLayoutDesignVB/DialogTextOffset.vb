@@ -13,7 +13,7 @@ Public Class DialogTextOffset
     ''
     ''Added 8/15/2019 thomas downes 
     ''
-    Public FieldInfo As ICIBFieldStandardOrCustom
+    Public FieldInfo_Denigrated As ICIBFieldStandardOrCustom
 
     ''Added 8/17/2019 td  
     ''Obselete.  9/18 td''Public FontOffset_X As Integer
@@ -29,14 +29,14 @@ Public Class DialogTextOffset
     ''8/17/2019 td''Public ObjElementText As ClassElementText
     ''8/29/2019 td''Public ElementInfo As ciBadgeInterfaces.IElementText ''Added 8/16/2019 td
 
-    Public ElementCopy_Info_Text As ciBadgeInterfaces.IElement_TextField ''Renamed 8/29/2019 td
-    Public ElementCopy_Info_Base As ciBadgeInterfaces.IElement_Base ''Added 8/29/2019 td
-
     Public ElementObject_LayoutDesign As ClassElementField ''Added 9/18/2019 td
     Public ElementObject_CopyForEditing As ClassElementField ''Added 9/18/2019 td
 
+    Public ElementCopy_Info_Text As ciBadgeInterfaces.IElement_TextField ''Renamed 8/29/2019 td
+    Public ElementCopy_Info_Base As ciBadgeInterfaces.IElement_Base ''Added 8/29/2019 td
+
     Public GroupEdits As ISelectingElements ''Added 8/15/2019 thomas downes  
-    Public FormDesigner As FormDesignProtoTwo ''Added 8/15/2019 td  
+    Public FormDesigner_Denigrated As FormDesignProtoTwo ''Added 8/15/2019 td  
     Public OriginalElementControl_ForApplyOnly As CtlGraphicFldLabel ''Added 8/15/2019 td  
 
     Public UserConfirmed As Boolean ''Added 9/18/2019 thomas d. 
@@ -66,7 +66,7 @@ Public Class DialogTextOffset
         OriginalElementControl_ForApplyOnly = par_parentControl
 
         ''Added 9/18/2019 td 
-        Me.FieldInfo = Me.ElementObject_LayoutDesign.FieldInfo ''Added 9/18/2019 td 
+        Me.FieldInfo_Denigrated = Me.ElementObject_LayoutDesign.FieldInfo ''Added 9/18/2019 td 
 
     End Sub ''ENd of "Public Sub New(par_element_fromLayout As ClassElementField, par_element_copy As ClassElementField)"
 
@@ -119,13 +119,14 @@ Public Class DialogTextOffset
 
     End Sub ''Public Sub UpdateInfo_ViaInterfaces(par_elementInfo_Base As IElement_Base, par_elementInfo_Text As IElement_Text)
 
-    Public Sub LoadFieldAndForm(par_formDesigner As FormDesignProtoTwo,
+    Public Sub LoadFieldAndForm(par_layoutFun As ILayoutFunctions,
                                 par_originalCtl As CtlGraphicFldLabel)
-
+        ''9/19/2019 td''Public Sub LoadFieldAndForm(par_formDesigner As FormDesignProtoTwo,
+        ''                  par_originalCtl As CtlGraphicFldLabel)
         ''
         ''Added 9/18/2019 td
         ''
-        Me.FormDesigner = par_formDesigner
+        ''9/19/2019 td''Me.FormDesigner = par_formDesigner
         Me.OriginalElementControl_ForApplyOnly = par_originalCtl
 
         With CtlGraphicFldLabel1
@@ -133,10 +134,14 @@ Public Class DialogTextOffset
             .FieldInfo = Me.ElementObject_CopyForEditing.FieldInfo
 
             ''Added 9/18/2019 td 
+            .ElementClass_Obj = Me.ElementObject_CopyForEditing ''Added 9/19/2019 td 
             .ElementInfo_Base = Me.ElementCopy_Info_Base
             .ElementInfo_Text = Me.ElementCopy_Info_Text
 
-            .FormDesigner = par_formDesigner
+            ''9/19/2019 td''.FormDesigner = par_formDesigner
+            ''9/19/2019 td''.LayoutFunctions = CType(par_formDesigner, ILayoutFunctions) ''Added 9/19/2019 td 
+            .LayoutFunctions = par_layoutFun
+
             .Width = .ElementInfo_Base.Width_Pixels
             .Height = .ElementInfo_Base.Height_Pixels
 
@@ -179,7 +184,7 @@ Public Class DialogTextOffset
         ''
         ''Worked on 8/16 & 8/15/2019 td
         ''
-        Me.FieldInfo = par_fieldInfo
+        Me.FieldInfo_Denigrated = par_fieldInfo
 
         ''8/16/2019 td''Me.ElementInfo = par_field.ElementInfo
         ''Obselete. ---9/18/2019 td''Me.ElementInfo_Base = par_elementInfo_Base ''Added 9/3/2019 thomas d. 
@@ -193,7 +198,7 @@ Public Class DialogTextOffset
         ''Obselete. ---9/18/2019 td''Me.Font_DrawingClass = par_elementInfo_Text.Font_DrawingClass
 
         ''Added 8/15/2019 td
-        Me.FormDesigner = par_formDesigner
+        Me.FormDesigner_Denigrated = par_formDesigner
         Me.OriginalElementControl_ForApplyOnly = par_originalCtl
 
         With CtlGraphicFldLabel1
@@ -245,12 +250,14 @@ Public Class DialogTextOffset
     Public Sub LoadFieldAndForm_NotInUse(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo,
                                  par_originalCtl As CtlGraphicFldLabel)
 
-        Me.FieldInfo = par_field
+        Me.FieldInfo_Denigrated = par_field
 
         ''This procedure is obselete.---9/18/2019 td''Me.ElementInfo_Text = par_field.ElementFieldClass
 
         ''Added 8/15/2019 td
-        Me.FormDesigner = par_formDesigner
+        Me.FormDesigner_Denigrated = par_formDesigner
+
+        ''Added 9/18/2019 td
         Me.OriginalElementControl_ForApplyOnly = par_originalCtl
 
         With CtlGraphicFldLabel1

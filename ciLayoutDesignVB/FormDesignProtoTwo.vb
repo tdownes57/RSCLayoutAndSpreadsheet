@@ -1603,7 +1603,7 @@ Public Class FormDesignProtoTwo
 
     End Sub ''ENd of "Private Sub RefreshTheSetOfDisplayedElements"
 
-    Public Sub AutoPreview_IfChecked() Implements ILayoutFunctions.AutoPreviewIfChecked
+    Public Sub AutoPreview_IfChecked() Implements ILayoutFunctions.AutoPreview_IfChecked
         ''
         ''Refresh the preview picture box. 
         ''

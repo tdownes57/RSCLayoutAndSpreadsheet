@@ -452,7 +452,8 @@ Partial Public Class CtlGraphicFldLabel
         ''8/16/2019 td''frm_ToShow.LoadFieldAndForm(Me.FieldInfo, Me.FormDesigner, Me)
         ''9/03/2019 td''frm_ToShow.LoadFieldAndForm(Me.ElementInfo_Text, Me.FieldInfo, Me.FormDesigner, Me)
         ''9/18/2019 td''frm_ToShow.LoadFieldAndForm(Me.ElementInfo_Base, Me.ElementInfo_Text, Me.FieldInfo, Me.FormDesigner, Me)
-        frm_ToShow.LoadFieldAndForm(Me.FormDesigner, Me)
+        ''9/19/2019 td''frm_ToShow.LoadFieldAndForm(Me.FormDesigner, Me)
+        frm_ToShow.LoadFieldAndForm(Me.LayoutFunctions, Me)
 
         ''Major call !!
         frm_ToShow.ShowDialog()
