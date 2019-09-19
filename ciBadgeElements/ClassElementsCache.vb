@@ -192,6 +192,31 @@ Public Class ClassElementsCache
 
     End Sub ''ENd of "Public Sub LoadFieldElements(par_pictureBackground As PictureBox)"
 
+    Public Sub LoadPicElement(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)
+        ''
+        ''Added 9/16/2019 td  
+        ''
+        Dim objElementPic As ClassElementPic ''Added 9/16/2019 td 
+        Dim objRectangle As Rectangle ''Added 9/16/2019 td  
+        Dim intLeft As Integer
+        Dim intTop As Integer
+
+        ciPictures_VB.PictureExamples.PathToFolderOfImages = (My.Application.Info.DirectoryPath & "\Images\PictureExamples")
+
+        intLeft = par_intLeft ''9/19 td''(par_picturePortrait.Left - par_pictureBackground.Left)
+        intTop = par_intTop ''9/19 td''(par_picturePortrait.Top - par_pictureBackground.Top)
+
+        ''9/19/2019 td''objRectangle = New Rectangle(intLeft, intTop, par_picturePortrait.Width, par_picturePortrait.Height)
+        objRectangle = New Rectangle(intLeft, intTop, par_intWidth, par_intHeight)
+
+        objElementPic = New ClassElementPic(objRectangle, par_pictureBackground)
+
+        objElementPic.PicFileIndex = 1
+
+        mod_listElementPics.Add(objElementPic)
+
+    End Sub ''End of "Public Sub LoadPicElement(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)"
+
     Public Sub LoadPicElement(par_picturePortrait As PictureBox, par_pictureBackground As PictureBox)
         ''
         ''Added 9/16/2019 td  

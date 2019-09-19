@@ -141,6 +141,22 @@ Public Class FormDesignProtoTwo
         ''Major call!!
         ''
         Me.ElementsCache_Saved.LoadFieldElements(pictureBack)
+
+        ''Added 9/19/2019 td
+        Dim intPicLeft As Integer
+        Dim intPicTop As Integer
+        Dim intPicWidth As Integer
+        Dim intPicHeight As Integer
+
+        ''Added 9/19/2019 td
+        intPicLeft = CtlGraphicPortrait_Lady.Left - pictureBack.Left
+        intPicTop = CtlGraphicPortrait_Lady.Top - pictureBack.Top
+        intPicWidth = CtlGraphicPortrait_Lady.Width
+        intPicHeight = CtlGraphicPortrait_Lady.Height
+
+        ''9/19 td''Me.ElementsCache_Saved.LoadPicElement(CtlGraphicPortrait_Lady.picturePortrait, pictureBack) ''Added 9/19/2019 td
+        Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
+
         Me.ElementsCache_Edits = Me.ElementsCache_Saved.Copy()
 
         ''
