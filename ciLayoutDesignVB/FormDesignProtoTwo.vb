@@ -88,7 +88,7 @@ Public Class FormDesignProtoTwo
         Return (par_intPixelsTop + pictureBack.Top)
     End Function ''End of "Public Function Layout_Margin_Top_Add() As Integer"
 
-    Public Function OkayToShowFauxContextMenu() As Boolean
+    Public Function OkayToShowFauxContextMenu() As Boolean Implements ILayoutFunctions.OkayToShowFauxContextMenu
         ''
         ''Added 8/14/2019 td 
         ''
@@ -1603,7 +1603,7 @@ Public Class FormDesignProtoTwo
 
     End Sub ''ENd of "Private Sub RefreshTheSetOfDisplayedElements"
 
-    Public Sub AutoPreview_IfChecked()
+    Public Sub AutoPreview_IfChecked() Implements ILayoutFunctions.AutoPreviewIfChecked
         ''
         ''Refresh the preview picture box. 
         ''

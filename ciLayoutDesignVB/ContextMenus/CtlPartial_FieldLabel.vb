@@ -128,7 +128,8 @@ Partial Public Class CtlGraphicFldLabel
         End If ''End of "If (Me.GroupEdits.LabelsList_IsItemUnselected(Me)) Then ... ElseIf (Me.GroupEdits.LabelsList_IsItemIncluded(Me)) Then"
 
         ''Added 9/13/2019 td
-        Me.FormDesigner.AutoPreview_IfChecked()
+        ''9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()
+        Me.LayoutFunctions.AutoPreview_IfChecked()
 
     End Sub ''eNd of "Private Sub opendialog_Color()"
 
@@ -139,7 +140,8 @@ Partial Public Class CtlGraphicFldLabel
         Me.GroupEdits.SwitchControls___Up(Me)
 
         ''Added 9/13/2019 td
-        Me.FormDesigner.AutoPreview_IfChecked()
+        ''9/19/2019 td'' Me.FormDesigner.AutoPreview_IfChecked()
+        Me.LayoutFunctions.AutoPreview_IfChecked()
 
     End Sub
 
@@ -150,7 +152,8 @@ Partial Public Class CtlGraphicFldLabel
         Me.GroupEdits.SwitchControls_Down(Me)
 
         ''Added 9/13/2019 td
-        Me.FormDesigner.AutoPreview_IfChecked()
+        ''9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()
+        Me.LayoutFunctions.AutoPreview_IfChecked()
 
     End Sub
 
@@ -215,7 +218,8 @@ Partial Public Class CtlGraphicFldLabel
         End If ''End of "If (Me.GroupEdits.LabelsList_IsItemUnselected(Me)) Then... Else ..."
 
         ''Added 9/13/2019 td
-        Me.FormDesigner.AutoPreview_IfChecked()
+        ''9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()
+        Me.LayoutFunctions.AutoPreview_IfChecked()
 
     End Sub ''eNd of "Private Sub opendialog_Font()"
 
@@ -625,8 +629,9 @@ Partial Public Class CtlGraphicFldLabel
             pboolExitEarly = False  ''Reinitialize. 
             mod_bBypassCreateButton = False ''Reinitialize. 
 
+        ElseIf (Me.LayoutFunctions.OkayToShowFauxContextMenu()) Then
             ''8/14/2019 td''ElseIf (mc_CreateVisibleButtonForDemo) Then
-        ElseIf (Me.FormDesigner.OkayToShowFauxContextMenu()) Then
+            ''9/19/2019 td''ElseIf (Me.FormDesigner.OkayToShowFauxContextMenu()) Then
             ''
             ''Added 8 / 13 / 2019 td 
             ''

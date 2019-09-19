@@ -56,6 +56,9 @@ Public Class CtlGraphicFldLabel
         ' This call is required by the designer.
         InitializeComponent()
 
+        ''Added 9/19/2019 td
+        ''9/19/2019 td''Throw New NotImplementedException("This initializer is not allowed.  A element-of-field must be supplied.")
+
     End Sub
 
     Public Sub New_NotInUse(par_field As ICIBFieldStandardOrCustom)
@@ -261,6 +264,8 @@ Public Class CtlGraphicFldLabel
         ''Me.ElementInfo.Text = Me.LabelText(
         ''8/4/2019''If (String.IsNullOrEmpty(Me.ElementInfo.Text)) Then ElementInfo.Text = LabelText()
 
+        Dim boolScaleFontSize As Boolean ''Added 9/15/2019 thomas d. 
+
         ElementInfo_Text.Text = LabelText()
 
         ''Me.ElementInfo.Width = pictureLabel.Width
@@ -268,6 +273,13 @@ Public Class CtlGraphicFldLabel
 
         ''7/30/2019 td''Me.ElementInfo.Font_DrawingClass = Me.ParentForm.Font ''Me.Font
         ''7/30/2019 td''Me.ElementInfo.Font_DrawingClass = New Font("Times New Roman", 25, FontStyle.Italic)
+
+        boolScaleFontSize = (Me.ElementInfo_Text.FontSize_ScaleToElementYesNo)
+        If (boolScaleFontSize And Me.ElementClass_Obj Is Nothing) Then
+            ''Added 9/19/2019 td 
+            MessageBox.Show("Where is the Element-Field Class???   We will need it to scale the Font.", "",
+                            MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        End If ''End of "If (boolScaleFontSize) Then"
 
         If (Me.ElementInfo_Text.Font_DrawingClass Is Nothing) Then
             ''
@@ -300,7 +312,6 @@ Public Class CtlGraphicFldLabel
             pictureLabel.Height = Me.ElementInfo_Base.Height_Pixels
 
             ''Added 9/15/2019 thomas d.
-            Dim boolScaleFontSize As Boolean ''Added 9/15/2019 thomas d. 
             boolScaleFontSize = (Me.ElementInfo_Text.FontSize_ScaleToElementYesNo)
             If (boolScaleFontSize) Then
                 ''Added 9/15/2019 thomas d.

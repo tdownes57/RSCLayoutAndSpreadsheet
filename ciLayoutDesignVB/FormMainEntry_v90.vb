@@ -49,7 +49,7 @@ Public Class FormMainEntry_v90
     Public Property ControlBeingModified() As Control Implements ILayoutFunctions.ControlBeingModified ''Added 8/9/2019 td
         Get
             ''
-            ''Added 8 / 9 / 2019 td
+            ''Added 9/19/2019 td
             ''
             ''8/12/2019 td''Return mod_FieldControlLastTouched
             Return mod_ControlLastTouched ''Added 8/12/2019 td  
@@ -72,5 +72,23 @@ Public Class FormMainEntry_v90
             End Try
         End Set
     End Property ''End of Public Property ControlBeingModified() As Control Implements ILayoutFunctions.ControlBeingModified 
+
+    Public Function OkayToShowFauxContextMenu() As Boolean Implements ILayoutFunctions.OkayToShowFauxContextMenu
+        ''
+        ''Added 9/19/2019 td 
+        ''
+        ''OkayToShowFauxContextMenu()
+        ''9/19/2019 td''Return DemoModeActiveToolStripMenuItem.Checked
+
+        Return False
+
+    End Function ''End of "Public Function OkayToShowFauxContextMenu() As Boolean"
+
+    Public Sub AutoPreview_IfChecked() Implements ILayoutFunctions.AutoPreview_IfChecked
+        ''
+        ''Added 9/19/2019 td 
+        ''
+
+    End Sub ''End of "Public Function AutoPreview_IfChecked() As Boolean"
 
 End Class

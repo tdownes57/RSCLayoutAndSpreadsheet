@@ -19,8 +19,12 @@ Public Interface ILayoutFunctions
 
     Function Layout_Margin_Top_Add(par_intPixelsTop As Integer) As Integer
 
+    ''
     ''Added 9/19/2019 td 
+    ''
     ''9/19/2019 td''Sub SetControlBeingModified(par_control As Control)
     Property ControlBeingModified() As Control ''Added 9/19/2019 td 
+    Function OkayToShowFauxContextMenu() As Boolean ''Added 9/19/2019 td 
+    Sub AutoPreview_IfChecked() ''Added 9/19/2019 td 
 
 End Interface
