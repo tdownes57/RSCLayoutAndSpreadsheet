@@ -2,24 +2,26 @@
 Option Strict On ''Added 8/27/2019 td 
 
 Imports ciBadgeInterfaces ''Added 8/27/2019 td  
+Imports ciBadgeElements ''Added 9/19/2019 td  
 
 Public Class FormDisplayImageList2 ''Added 8/27/2019 td 
 
     ''-----Private _objListImages As List(Of Image) ''Added 8/27/2019 td 
-    Private _objListFieldsStd As List(Of ClassFieldStandard) ''Added 8/27/2019 td 
-    Private _objListFieldsCust As List(Of ClassFieldCustomized) ''Added 8/27/2019 td 
+    ''9/18/2019''Private _objListFieldsStd As List(Of ClassFieldStandard) ''Added 8/27/2019 td 
+    ''9/18/2019''Private _objListFieldsCust As List(Of ClassFieldCustomized) ''Added 8/27/2019 td 
+    Private mod_listOfElementFields As List(Of ClassElementField)
 
-    Public Sub New(par_listStd As List(Of ClassFieldStandard),
-                   par_listCust As List(Of ClassFieldCustomized))
+    ''9/18/2019 td''Public Sub New(par_listStd As List(Of ClassFieldStandard),
+    ''               par_listCust As List(Of ClassFieldCustomized))
 
-        InitializeComponent()
+    ''    InitializeComponent()
 
-        ''----_objListImages = par_list ''Added 8/26/2019 td 
+    ''    ''----_objListImages = par_list ''Added 8/26/2019 td 
 
-        _objListFieldsStd = par_listStd
-        _objListFieldsCust = par_listCust
+    ''    _objListFieldsStd = par_listStd
+    ''    _objListFieldsCust = par_listCust
 
-    End Sub
+    ''End Sub
 
     Private Sub FormDisplayImageList_Load(sender As Object, e As EventArgs) Handles Me.Load
 

@@ -643,7 +643,7 @@ ExitHandler:
 
         ''
         ''
-        ''Standard Fields 
+        ''All Fields 
         ''
         ''
         ''9/18/2019 td''For Each each_elementField As IFieldInfo_ElementPositions In par_standardFields
@@ -656,7 +656,10 @@ ExitHandler:
             ''
             ''Added 8/24/2019 thomas d.
             ''
-            With each_elementField.Position_BL
+            ''9/18 td''With each_elementField.Position_BL
+
+            With each_elementField
+
                 Select Case True
                     Case (.LeftEdge_Pixels < 0)
                         Continue For
@@ -667,7 +670,7 @@ ExitHandler:
                     Case (.TopEdge_Pixels + .Height_Pixels > par_imageBadgeCard.Height) ''Then 
                         ''Continue For
                 End Select
-            End With ''End of "With each_elementField.Position_BL"
+            End With ''End of "With each_elementField"
 
             With each_elementField
 
@@ -680,7 +683,7 @@ ExitHandler:
 
                 ''Added 9/4/2019 thomas downes
                 ''9/12/2019 td''If (0 = .Position_BL.LayoutWidth_Pixels) Then
-                If (0 = .Position_BL.BadgeLayout.Width_Pixels) Then
+                If (0 = .Width_Pixels) Then
                     ''Added 9/4/2019 thomas downes
                     MessageBox.Show("We cannot scale the placement of the image.", "LayoutPrint_Redux",
                                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
@@ -740,12 +743,7 @@ ExitHandler:
                 End Try
             End With ''End of "With each_elementField"
 
-            ''----gr.Dispose()
-
-        Next each_elementField
-
-
-        ''---gr.Dispose()
+            ''---gr.Dispose()
 
         Next each_elementField
 
