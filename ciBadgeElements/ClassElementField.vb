@@ -3,7 +3,9 @@ Option Strict On
 Option Infer Off
 
 ''Added 7/18/2019 thomas downes
+Imports System.Drawing ''Added 9/18/2019 td  
 Imports System.Drawing.Text ''Added 
+Imports System.Windows.Forms ''Added 9/18/2019 td 
 Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d. 8/14/2019 td  
 Imports ciBadgeFields ''Added 9/18/2019 td  
 

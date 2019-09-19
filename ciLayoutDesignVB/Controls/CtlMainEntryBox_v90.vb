@@ -4,7 +4,8 @@ Option Infer Off
 ''
 ''Added 9/9/2019 td  
 ''
-Imports ciBadgeInterfaces
+Imports ciBadgeInterfaces ''Added 9/9/2019 td 
+Imports ciBadgeFields ''Added 9/18/2019 td 
 
 Public Class CtlMainEntryBox_v90
 

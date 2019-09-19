@@ -6,6 +6,7 @@ Option Infer Off ''Added 9/3/2019 td
 ''Added 8/15/2019 thomas downes 
 ''
 Imports ciBadgeInterfaces ''Added 8/16/2019 thomas d.
+Imports ciBadgeFields ''Added 9/18/2019 thomas d.  
 
 Public Class DialogTextOffset
     ''

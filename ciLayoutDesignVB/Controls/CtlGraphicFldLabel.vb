@@ -6,6 +6,7 @@ Option Infer Off ''Added 8/29/2019 td
 ''Added 7/25/2019 thomas d 
 ''
 Imports ciBadgeInterfaces ''Added 8/28/2019 thomas downes 
+Imports ciBadgeFields ''Added 9/18/2019 thomas downes 
 
 Public Class CtlGraphicFldLabel
     ''

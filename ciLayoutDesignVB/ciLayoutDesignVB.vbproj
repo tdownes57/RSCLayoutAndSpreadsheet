@@ -79,7 +79,6 @@
     <Compile Include="ClassElementLaysection.vb" />
     <Compile Include="ClassElementsCache.vb" />
     <Compile Include="ClassElementStaticText.vb" />
-    <Compile Include="ClassFieldAny.vb" />
     <Compile Include="ClassGroupMove.vb" />
     <Compile Include="ClassRubberbandSelector.vb" />
     <Compile Include="ContextMenus\ContextLayoutBack.Designer.vb">
@@ -106,11 +105,8 @@
     <Compile Include="Controls\CtlCustomer.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ClassFieldCustomized.vb" />
     <Compile Include="ClassElementPic.vb" />
     <Compile Include="ClassElementField.vb" />
-    <Compile Include="ClassFields.vb" />
-    <Compile Include="ClassFieldStandard.vb" />
     <Compile Include="ClassLabelToImage.vb" />
     <Compile Include="ClassLayoutGenerator.vb" />
     <Compile Include="ClassSerialize.vb" />
@@ -680,6 +676,10 @@
     <ProjectReference Include="..\..\ciBadgeForWeb\ciPictures_VB\ciPictures_VB.vbproj">
       <Project>{a5fe9f7b-4075-43c5-892b-01e2cfec342c}</Project>
       <Name>ciPictures_VB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ciBadgeFields\ciBadgeFields.vbproj">
+      <Project>{ef9acec9-841e-4397-bfcb-917c814c4b8c}</Project>
+      <Name>ciBadgeFields</Name>
     </ProjectReference>
     <ProjectReference Include="..\ciBadgeInterfaces\ciBadgeInterfaces.vbproj">
       <Project>{3d1acca6-585e-4c92-9a6d-9a51d2f72f5f}</Project>

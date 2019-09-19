@@ -1,6 +1,8 @@
 ﻿''
 ''Added 8/01/2019 thomas d 
 ''
+Imports ciBadgeInterfaces ''Added 9/18/2019 td
+Imports ciBadgeFields ''Added 9/18/2019 td
 
 Public Class CtlGraphicText
     ''
