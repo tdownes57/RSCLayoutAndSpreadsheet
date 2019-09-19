@@ -165,7 +165,7 @@ Public Class ClassElementsCache
         Dim intFieldIndex As Integer ''Added 9/18/2019 td
         Dim intLeft_Pixels As Integer ''Added 9/18/2019 td
         Dim intTop_Pixels As Integer ''Added 9/18/2019 td
-        Dim intHeight_Pixels As Integer ''Added 9/18/2019 td
+        Const c_intHeight_Pixels As Integer = 30 ''Added 9/18/2019 td
 
         ''Added 9/18/2019 td
         For Each each_field As ClassFieldAny In mod_listFields
@@ -176,12 +176,12 @@ Public Class ClassElementsCache
             ''Fields cannot link to elements.---9/18/2019 td''field_custom.ElementFieldClass.BadgeLayout = New BadgeLayoutClass(par_pictureBackground)
 
             intFieldIndex += 1
-            intHeight_Pixels = 30
-            intLeft_Pixels = (30 * (intFieldIndex - 1))
-            intTop_Pixels = intLeft_Pixels ''Let's have a staircase effect!! 
+            ''9/18/2019 td''intLeft_Pixels = (30 * (intFieldIndex - 1))
+            intTop_Pixels = (c_intHeight_Pixels * (intFieldIndex - 1))
+            intLeft_Pixels = intTop_Pixels ''Let's have a staircase effect!! 
 
             ''Added 9/18/2019 td
-            new_elementField = New ClassElementField(each_field, intLeft_Pixels, intTop_Pixels, intHeight_Pixels)
+            new_elementField = New ClassElementField(each_field, intLeft_Pixels, intTop_Pixels, c_intHeight_Pixels)
             new_elementField.FieldInfo = each_field
 
         Next each_field

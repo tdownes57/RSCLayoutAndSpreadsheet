@@ -379,9 +379,11 @@ Public Class ClassElementField
         ''Step 2 of 2 -- Field-related properties.
         ''--------------------------------------------------------------------------
         ''
-        Me.ExampleValue = par_ElementInfo_TextFld.ExampleValue
-        Me.FieldInCardData = par_ElementInfo_TextFld.FieldInCardData
-        Me.FieldLabelCaption = par_ElementInfo_TextFld.FieldLabelCaption
+        Me.ExampleValue_ForElement = par_ElementInfo_TextFld.ExampleValue_ForElement
+        ''See FieldInfo. ---9/18/2019 td''Me.FieldInCardData = par_ElementInfo_TextFld.FieldInCardData
+        ''See FieldInfo. ---9/18/2019 td''Me.FieldLabelCaption = par_ElementInfo_TextFld.FieldLabelCaption
+        Me.FieldInfo = par_ElementInfo_TextFld.FieldInfo ''Added 9/18/2019 td 
+
         Me.FontBold = par_ElementInfo_TextFld.FontBold
         Me.FontColor = par_ElementInfo_TextFld.FontColor
         Me.FontFamilyName = par_ElementInfo_TextFld.FontFamilyName
@@ -393,7 +395,9 @@ Public Class ClassElementField
         Me.FontSize_ScaleToElementYesNo = par_ElementInfo_TextFld.FontSize_ScaleToElementYesNo
         Me.FontUnderline = par_ElementInfo_TextFld.FontUnderline
         Me.Font_DrawingClass = par_ElementInfo_TextFld.Font_DrawingClass
-        Me.ExampleValue = par_ElementInfo_TextFld.ExampleValue
+
+        ''---See above. ---9/18/2019 td
+        ''---Me.ExampleValue = par_ElementInfo_TextFld.ExampleValue
 
     End Sub ''End of "Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base, .....)"
 

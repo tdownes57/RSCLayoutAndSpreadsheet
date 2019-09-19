@@ -424,24 +424,25 @@ Public Class CtlGraphicFldLabel
         ''
         ''Added 9/15/2019 thomas d. 
         ''
-        Select Case True
-            Case Me.FieldInfo.IsStandard
-                ''
-                ''Standard field. 
-                ''
-                ''Added 9/15/2019 thomas d.
-                ClassFieldStandard.CopyElementInfo(Me.FieldInfo.FieldIndex,
-                                                   Me.ElementInfo_Base, Me.ElementInfo_Text)
+        ''9/18/2019 td''
+        ''Select Case True
+        ''    Case Me.FieldInfo.IsStandard
+        ''        ''
+        ''        ''Standard field. 
+        ''        ''
+        ''        ''Added 9/15/2019 thomas d.
+        ''        ClassFieldStandard.CopyElementInfo(Me.FieldInfo.FieldIndex,
+        ''                                           Me.ElementInfo_Base, Me.ElementInfo_Text)
 
-            Case Else
-                ''
-                ''Customized field.
-                ''
-                ''Added 9/15/2019 thomas d.
-                ClassFieldCustomized.CopyElementInfo(Me.FieldInfo.FieldEnumValue,
-                                                   Me.ElementInfo_Base, Me.ElementInfo_Text)
+        ''    Case Else
+        ''        ''
+        ''        ''Customized field.
+        ''        ''
+        ''        ''Added 9/15/2019 thomas d.
+        ''        ClassFieldCustomized.CopyElementInfo(Me.FieldInfo.FieldEnumValue,
+        ''                                           Me.ElementInfo_Base, Me.ElementInfo_Text)
 
-        End Select
+        ''End Select
 
     End Sub ''End of Public Sub SaveToModel
 
