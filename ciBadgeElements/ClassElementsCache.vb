@@ -4,9 +4,11 @@ Option Infer Off
 ''
 ''Added 9/16/2019 thomas downes
 ''
-''Imports System.Drawing ''Added 9/18/2019 td
-''Imports System.Windows.Forms ''Added 9/18/2019 td
-Imports ciBadgeInterfaces ''Added 9/16/2019 td  
+Imports System.Drawing ''Added 9/18/2019 td
+Imports System.Windows.Forms ''Added 9/18/2019 td
+Imports ciBadgeInterfaces ''Added 9/16/2019 td 
+Imports ciBadgeFields ''Added 9/18/2019 td
+Imports ciLayoutPrintLib ''Added 9/18/2019 td 
 
 Public Class ClassElementsCache
     ''

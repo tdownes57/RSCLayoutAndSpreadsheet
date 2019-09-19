@@ -109,6 +109,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\ciBadgeForWeb\ciPictures_VB\ciPictures_VB.vbproj">
+      <Project>{a5fe9f7b-4075-43c5-892b-01e2cfec342c}</Project>
+      <Name>ciPictures_VB</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ciBadgeFields\ciBadgeFields.vbproj">
       <Project>{ef9acec9-841e-4397-bfcb-917c814c4b8c}</Project>
       <Name>ciBadgeFields</Name>
