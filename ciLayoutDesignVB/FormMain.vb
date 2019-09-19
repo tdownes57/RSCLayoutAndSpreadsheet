@@ -5,6 +5,7 @@ Option Strict On
 ''Added 7/17/2019 thomas downes
 ''
 Imports ciBadgeInterfaces ''Added 9/2/2019 td
+Imports ciBadgeFields ''Added 9/19/2019 td
 
 Public Class FormMain
 

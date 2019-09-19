@@ -4,6 +4,7 @@
 ''
 Imports System.Collections.Generic
 Imports ciBadgeInterfaces ''Added 9/17/2019 td
+Imports ciBadgeFields ''Added 9/19/2019 td
 
 Public Class ListCustomFieldsGrid
 

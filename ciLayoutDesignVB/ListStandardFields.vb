@@ -4,6 +4,7 @@ Option Strict On ''Added 8/29/2019 td
 ''Added 8/19/2019 thomas downes
 ''
 Imports ciBadgeInterfaces
+Imports ciBadgeFields ''Added 9/19/2019 td 
 
 Public Class ListStandardFields
 

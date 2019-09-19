@@ -7,6 +7,7 @@ Imports System.Drawing ''Added 8/24/2019 thomas downes
 Imports System.Windows.Forms ''Added 8/24/2019 thomas downes 
 Imports ciBadgeInterfaces ''Added 8/24/2019 thomas d. 
 Imports ciBadgeElements ''Added 9/18/2019 thomas d. 
+Imports ciBadgeElemImage ''Added 9/19/2019 td 
 
 Public Class LayoutElements
     ''
@@ -705,13 +706,19 @@ ExitHandler:
 
                     Dim intDesiredLayout_Width As Integer ''added 9/8/2019 td
                     intDesiredLayout_Width = par_imageBadgeCard.Width
+
+                    ''9/19/2019 td''image_textStandard =
+                    ''9/19/2019 td''    .TextDisplay.GenerateImage_ByDesiredLayoutWidth(intDesiredLayout_Width)
+
                     image_textStandard =
-                        .TextDisplay.GenerateImage_ByDesiredLayoutWidth(intDesiredLayout_Width)
+                        modGenerate.TextImage_ByElemInfo(intDesiredLayout_Width,
+                                                         each_elementField, each_elementField, False, True)
 
                     If (bOutputAllImages) Then par_listTextImages.Add(image_textStandard) ''Added 8/26/2019 td
 
                     ''8/30/2019 td''.TextDisplay.Image_BL = image_textStandard ''Added 8/27/2019 td
-                    .Position_BL.Image_BL = image_textStandard ''Added 8/27/2019 td
+                    ''9/19/2019 td''.Position_BL.Image_BL = image_textStandard ''Added 8/27/2019 td
+                    .Image_BL = image_textStandard ''Added 8/27/2019 td
 
                     ''9/4/2019 td''intLeft = .Position_BL.LeftEdge_Pixels
                     ''9/4/2019 td''intTop = .Position_BL.TopEdge_Pixels
@@ -719,10 +726,11 @@ ExitHandler:
                     Dim decScalingFactor As Double ''Added 9/4/2019 thomas downes ''9/4 td''Decimal
 
                     ''9/12/2019 td''decScalingFactor = (par_imageBadgeCard.Width / .Position_BL.LayoutWidth_Pixels)
-                    decScalingFactor = (par_imageBadgeCard.Width / .Position_BL.BadgeLayout.Width_Pixels)
+                    ''9/19/2019 td''decScalingFactor = (par_imageBadgeCard.Width / .Position_BL.BadgeLayout.Width_Pixels)
+                    decScalingFactor = (par_imageBadgeCard.Width / .Width_Pixels)
 
-                    intLeft = CInt(.Position_BL.LeftEdge_Pixels * decScalingFactor)
-                    intTop = CInt(.Position_BL.TopEdge_Pixels * decScalingFactor)
+                    intLeft = CInt(.LeftEdge_Pixels * decScalingFactor)
+                    intTop = CInt(.TopEdge_Pixels * decScalingFactor)
 
                     gr_Badge.DrawImage(image_textStandard,
                                  New PointF(intLeft, intTop))
