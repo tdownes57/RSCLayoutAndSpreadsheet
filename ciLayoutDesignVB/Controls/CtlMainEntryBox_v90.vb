@@ -4,7 +4,9 @@ Option Infer Off
 ''
 ''Added 9/9/2019 td  
 ''
-Imports ciBadgeInterfaces
+Imports ciBadgeInterfaces ''Added 9/9/2019 td 
+Imports ciBadgeFields ''Added 9/18/2019 td 
+Imports ciBadgeElements ''Added 9/18/2019 td 
 
 Public Class CtlMainEntryBox_v90
 
@@ -58,7 +60,7 @@ Public Class CtlMainEntryBox_v90
 
     End Sub
 
-    Public Sub New(par_field As ClassFieldStandard,
+    Public Sub New_Deprecated(par_field As ClassFieldStandard,
                    Optional par_formDesigner As FormMainEntry_v90 = Nothing,
                    Optional par_elementText As ClassElementField = Nothing)
 
@@ -78,7 +80,7 @@ Public Class CtlMainEntryBox_v90
         ''Refactored 9/4/2019 td  
         ''
         If (par_elementText Is Nothing) Then
-            Me.ElementClass_Obj = par_field.ElementFieldClass
+            ''_Deprecated 9/18/2019 td''Me.ElementClass_Obj = par_field.ElementFieldClass
             Me.ElementInfo_Base = CType(Me.ElementClass_Obj, IElement_Base)
             Me.ElementInfo_Text = CType(Me.ElementClass_Obj, IElement_TextField)
         Else
@@ -95,7 +97,7 @@ Public Class CtlMainEntryBox_v90
 
     End Sub
 
-    Public Sub New(par_field As ClassFieldCustomized,
+    Public Sub New_Deprecated(par_field As ClassFieldCustomized,
                    Optional par_formDesigner As FormMainEntry_v90 = Nothing,
                    Optional par_elementText As ClassElementField = Nothing)
 
@@ -122,7 +124,7 @@ Public Class CtlMainEntryBox_v90
         ''Refactored 9/4/2019 td  
         ''
         If (par_elementText Is Nothing) Then
-            Me.ElementClass_Obj = par_field.ElementFieldClass
+            ''_Deprecated 9/18 td''Me.ElementClass_Obj = par_field.ElementFieldClass
             Me.ElementInfo_Base = CType(Me.ElementClass_Obj, IElement_Base)
             Me.ElementInfo_Text = CType(Me.ElementClass_Obj, IElement_TextField)
         Else
@@ -139,7 +141,7 @@ Public Class CtlMainEntryBox_v90
 
     End Sub
 
-    Public Sub New(par_field As ICIBFieldStandardOrCustom,
+    Public Sub New_Deprecated(par_field As ICIBFieldStandardOrCustom,
                    Optional par_formDesigner As FormMainEntry_v90 = Nothing,
                    Optional par_elementText As ClassElementField = Nothing)
 
@@ -158,8 +160,8 @@ Public Class CtlMainEntryBox_v90
         ''
         If (par_elementText Is Nothing) Then
             Me.ElementClass_Obj = Nothing ''9/4/2019 td''par_field.ElementInfo
-            Me.ElementInfo_Base = CType(par_field.ElementInfo_Base, IElement_Base)
-            Me.ElementInfo_Text = CType(par_field.ElementInfo_Text, IElement_TextField)
+            ''_Deprecated 9/18 td''Me.ElementInfo_Base = CType(par_field.ElementInfo_Base, IElement_Base)
+            ''_Deprecated 9/18 td''Me.ElementInfo_Text = CType(par_field.ElementInfo_Text, IElement_TextField)
         Else
             ''
             ''Added 9/4/2019 thomas d.

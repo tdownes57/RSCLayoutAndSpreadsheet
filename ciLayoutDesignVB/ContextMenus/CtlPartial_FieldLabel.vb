@@ -3,6 +3,7 @@ Option Strict On ''Added 8/16/2019 td
 ''
 ''Added 7/30/2019 thomas downes
 ''
+Imports ciBadgeInterfaces ''Added 9/17/2019 td  
 
 Partial Public Class CtlGraphicFldLabel
     ''
@@ -10,6 +11,7 @@ Partial Public Class CtlGraphicFldLabel
     ''   This is to store the initial Width & Height, when resizing.
     ''
     Public FormDesigner As FormDesignProtoTwo ''Added 8/9/2019 td  
+    Public LayoutFunctions As ciBadgeInterfaces.ILayoutFunctions ''Added 8/9/2019 td  
 
     Public TempResizeInfo_W As Integer = 0 ''Intial resizing width.  (Before any adjustment is made.)
     Public TempResizeInfo_H As Integer = 0 ''Intial resizing height.  (Before any adjustment is made.)
@@ -437,14 +439,16 @@ Partial Public Class CtlGraphicFldLabel
         ''
         ''Added 8/10/2019 thomas downes
         ''
-        Dim frm_ToShow As New DialogTextOffset
+        ''9/18/2019 td''Dim frm_ToShow As New DialogTextOffset
+        Dim frm_ToShow As New DialogTextOffset(Me.ElementClass_Obj, Me.ElementClass_Obj.Copy(), Me)
 
         ''
         ''Added 8/10/2019 thomas downes
         ''
         ''8/16/2019 td''frm_ToShow.LoadFieldAndForm(Me.FieldInfo, Me.FormDesigner, Me)
         ''9/03/2019 td''frm_ToShow.LoadFieldAndForm(Me.ElementInfo_Text, Me.FieldInfo, Me.FormDesigner, Me)
-        frm_ToShow.LoadFieldAndForm(Me.ElementInfo_Base, Me.ElementInfo_Text, Me.FieldInfo, Me.FormDesigner, Me)
+        ''9/18/2019 td''frm_ToShow.LoadFieldAndForm(Me.ElementInfo_Base, Me.ElementInfo_Text, Me.FieldInfo, Me.FormDesigner, Me)
+        frm_ToShow.LoadFieldAndForm(Me.FormDesigner, Me)
 
         ''Major call !!
         frm_ToShow.ShowDialog()
@@ -455,12 +459,17 @@ Partial Public Class CtlGraphicFldLabel
 
         If (boolUserPressedOK) Then '' ----8/17/2019 td
 
-            Me.ElementInfo_Text.FontOffset_X = frm_ToShow.FontOffset_X
-            Me.ElementInfo_Text.FontOffset_Y = frm_ToShow.FontOffset_Y
-            Me.ElementInfo_Text.FontSize_Pixels = frm_ToShow.FontSize
-            Me.ElementInfo_Text.Font_DrawingClass = frm_ToShow.Font_DrawingClass
+            ''Obselete.---9/18/2019 td''Me.ElementInfo_Text.FontOffset_X = frm_ToShow.FontOffset_X
+            ''Obselete.---9/18/2019 td''Me.ElementInfo_Text.FontOffset_Y = frm_ToShow.FontOffset_Y
+            ''Obselete.---9/18/2019 td''Me.ElementInfo_Text.FontSize_Pixels = frm_ToShow.FontSize
+            ''Obselete.---9/18/2019 td''Me.ElementInfo_Text.Font_DrawingClass = frm_ToShow.Font_DrawingClass
 
-            Me.Refresh_Image(True)
+            If (frm_ToShow.UserConfirmed) Then
+
+                frm_ToShow.UpdateInfo_ViaInterfaces(Me.ElementInfo_Base, Me.ElementInfo_Text)
+                Me.Refresh_Image(True)
+
+            End If ''End of "If (frm_ToShow.UserConfirmed) Then"
 
             ''
             ''
@@ -480,19 +489,21 @@ Partial Public Class CtlGraphicFldLabel
                     ''
                     With each_ctl
                         ''.ElementInfo.Alignment = frm_ToShow.Alignment  
-                        .ElementInfo_Text.FontOffset_X = frm_ToShow.FontOffset_X
-                        .ElementInfo_Text.FontOffset_Y = frm_ToShow.FontOffset_Y
-                        .ElementInfo_Text.FontSize_Pixels = frm_ToShow.FontSize
+                        ''9/18/2019 td''.ElementInfo_Text.FontOffset_X = frm_ToShow.FontOffset_X
+                        ''9/18/2019 td''.ElementInfo_Text.FontOffset_Y = frm_ToShow.FontOffset_Y
+                        ''9/18/2019 td''.ElementInfo_Text.FontSize_Pixels = frm_ToShow.FontSize
 
                         ''Added 8/18/2019 thomas d.
-                        .ElementInfo_Text.Font_DrawingClass = frm_ToShow.Font_DrawingClass
-                        .ElementInfo_Text.TextAlignment = frm_ToShow.TextAlignment
-                        .ElementInfo_Text.ExampleValue = frm_ToShow.TextExampleValue.Text
+                        ''9/18/2019 td''.ElementInfo_Text.Font_DrawingClass = frm_ToShow.Font_DrawingClass
+                        ''9/18/2019 td''.ElementInfo_Text.TextAlignment = frm_ToShow.TextAlignment
+                        ''9/18/2019 td''.ElementInfo_Text.ExampleValue = frm_ToShow.TextExampleValue.Text
+
+                        frm_ToShow.UpdateInfo_ViaInterfaces(.ElementInfo_Base, .ElementInfo_Text)
 
                         .Refresh_Image(True)
                         .Refresh()
 
-                    End With
+                    End With ''End of " With each_ctl"
 
                 Next each_ctl
 
@@ -509,9 +520,11 @@ Partial Public Class CtlGraphicFldLabel
         ''
         ''Added 9/ 2/2019 thomas downes
         ''
-        Dim frm_ToShow As New DialogTextBorder
+        ''9/18/2019 td''Dim frm_ToShow As New DialogTextBorder
+        ''9/18/2019 td''frm_ToShow.LoadFieldAndForm(Me.ElementInfo_Base, Me.ElementInfo_Text, Me.FieldInfo, Me.FormDesigner, Me)
 
-        frm_ToShow.LoadFieldAndForm(Me.ElementInfo_Base, Me.ElementInfo_Text, Me.FieldInfo, Me.FormDesigner, Me)
+        Dim frm_ToShow As New DialogTextBorder(Me.ElementClass_Obj, Me.ElementClass_Obj.Copy())
+        frm_ToShow.LoadFieldAndForm(Me.FormDesigner, Me)
 
         ''Major call !!
         frm_ToShow.ShowDialog()
@@ -522,9 +535,12 @@ Partial Public Class CtlGraphicFldLabel
 
         If (boolUserPressedOK) Then '' ----8/17/2019 td
 
-            Me.ElementInfo_Base.Border_WidthInPixels = frm_ToShow.Border_SizeInPixels
-            Me.ElementInfo_Base.Border_Color = frm_ToShow.Border_Color
-            Me.ElementInfo_Base.Border_Displayed = frm_ToShow.Border_Displayed ''Added 9/9/2019 td
+            ''9/18/2019 td''Me.ElementInfo_Base.Border_WidthInPixels = frm_ToShow.Border_SizeInPixels
+            ''9/18/2019 td''Me.ElementInfo_Base.Border_Color = frm_ToShow.Border_Color
+            ''9/18/2019 td''Me.ElementInfo_Base.Border_Displayed = frm_ToShow.Border_Displayed ''Added 9/9/2019 td
+
+            ''Added 9/18/2019 td
+            frm_ToShow.UpdateInfo_ViaInterface(Me.ElementInfo_Base)
 
             Me.Refresh_Image(True)
 
@@ -546,9 +562,12 @@ Partial Public Class CtlGraphicFldLabel
                     ''
                     With each_ctl
 
-                        .ElementInfo_Base.Border_WidthInPixels = frm_ToShow.Border_SizeInPixels
-                        .ElementInfo_Base.Border_Color = frm_ToShow.Border_Color
-                        .ElementInfo_Base.Border_Displayed = frm_ToShow.Border_Displayed ''9/9 td
+                        ''9/18/2019 td''.ElementInfo_Base.Border_WidthInPixels = frm_ToShow.Border_SizeInPixels
+                        ''9/18/2019 td''.ElementInfo_Base.Border_Color = frm_ToShow.Border_Color
+                        ''9/18/2019 td''.ElementInfo_Base.Border_Displayed = frm_ToShow.Border_Displayed ''9/9 td
+
+                        ''Added 9/18/2019 td 
+                        frm_ToShow.UpdateInfo_ViaInterface(.ElementInfo_Base)
 
                         .Refresh_Image(True)
                         .Refresh()

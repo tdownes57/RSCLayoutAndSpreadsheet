@@ -25,6 +25,10 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ciBadgeSerialize", "ciBadge
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ciWebControllers", "ciWebControllers\ciWebControllers.csproj", "{AAD800DC-1071-4186-BCFE-3939CAC743C6}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ciBadgeFields", "ciBadgeFields\ciBadgeFields.vbproj", "{EF9ACEC9-841E-4397-BFCB-917C814C4B8C}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ciBadgeElements", "ciBadgeElements\ciBadgeElements.vbproj", "{E7EB43C4-358C-4880-9C9B-206127B57722}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -121,6 +125,22 @@ Global
 		{AAD800DC-1071-4186-BCFE-3939CAC743C6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AAD800DC-1071-4186-BCFE-3939CAC743C6}.Release|x86.ActiveCfg = Release|Any CPU
 		{AAD800DC-1071-4186-BCFE-3939CAC743C6}.Release|x86.Build.0 = Release|Any CPU
+		{EF9ACEC9-841E-4397-BFCB-917C814C4B8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF9ACEC9-841E-4397-BFCB-917C814C4B8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF9ACEC9-841E-4397-BFCB-917C814C4B8C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EF9ACEC9-841E-4397-BFCB-917C814C4B8C}.Debug|x86.Build.0 = Debug|Any CPU
+		{EF9ACEC9-841E-4397-BFCB-917C814C4B8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF9ACEC9-841E-4397-BFCB-917C814C4B8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF9ACEC9-841E-4397-BFCB-917C814C4B8C}.Release|x86.ActiveCfg = Release|Any CPU
+		{EF9ACEC9-841E-4397-BFCB-917C814C4B8C}.Release|x86.Build.0 = Release|Any CPU
+		{E7EB43C4-358C-4880-9C9B-206127B57722}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7EB43C4-358C-4880-9C9B-206127B57722}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7EB43C4-358C-4880-9C9B-206127B57722}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E7EB43C4-358C-4880-9C9B-206127B57722}.Debug|x86.Build.0 = Debug|Any CPU
+		{E7EB43C4-358C-4880-9C9B-206127B57722}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7EB43C4-358C-4880-9C9B-206127B57722}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7EB43C4-358C-4880-9C9B-206127B57722}.Release|x86.ActiveCfg = Release|Any CPU
+		{E7EB43C4-358C-4880-9C9B-206127B57722}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

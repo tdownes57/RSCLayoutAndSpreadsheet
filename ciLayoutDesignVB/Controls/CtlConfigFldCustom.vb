@@ -6,6 +6,7 @@ Option Infer Off
 ''Added 7/21/2019 thomas downes 
 ''
 Imports ciBadgeInterfaces ''Added 8/29/2019 thomas downes 
+Imports ciBadgeFields ''Added 9/18/2019 td  
 
 Public Class CtlConfigFldCustom
     ''

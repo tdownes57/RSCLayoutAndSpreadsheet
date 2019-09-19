@@ -316,6 +316,16 @@ Public Class ClassElementStaticText
 
     End Function ''End of "Public Function GenerateImage_NotInUse(par_label As Label) As Image"
 
+    Public Function Copy() As ClassElementStaticText
+        ''
+        ''Added 9/17/2019 
+        ''
+        Dim objCopy As New ClassElementStaticText
+        objCopy.LoadbyCopyingMembers(Me, Me)
+        Return objCopy
+
+    End Function ''End of "Public Function Copy() As ClassElementStaticText"
+
     Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base,
                                     par_ElementInfo_Text As IElement_TextOnly)
         ''

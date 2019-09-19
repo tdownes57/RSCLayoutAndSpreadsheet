@@ -53,26 +53,29 @@ Public Class ClassFieldAny
     Public Property IsBarCode As Boolean = False Implements ICIBFieldStandardOrCustom.IsBarcodeField ''Added 7/31/2019 td
     Public Property DataEntryText As String Implements ICIBFieldStandardOrCustom.DataEntryText ''Added 9/9/2019 td
 
+    Public Property IsLinkedToSections As Boolean = False Implements ICIBFieldStandardOrCustom.IsLinkedToSections ''Added 9/17/2019 td 
+    Public Property SublayoutLookup As Dictionary(Of String, Integer) = Nothing Implements ICIBFieldStandardOrCustom.SublayoutLookup ''Added 9/17/2019 td
+
     Private mod_elementFieldClass As ClassElementField ''Added 9/3/2019 td   
 
-    Public Property ElementFieldClass() As ClassElementField
-        Get
-            ''Added 9/3/2019 thomas d. 
-            Return mod_elementFieldClass
-        End Get
-        Set(value As ClassElementField)
-            ''Added 9/3/2019 thomas d. 
-            mod_elementFieldClass = value
-            ''Added 9/3/2019 thomas d. 
-            Me.ElementInfo_Base = CType(value, IElement_Base)
-            Me.ElementInfo_Text = CType(value, IElement_TextField)
-        End Set
-    End Property
+    ''Fields cannot link to elements.---9/18/2019 td''Public Property ElementFieldClass() As ClassElementField
+    ''    Get
+    ''        ''Added 9/3/2019 thomas d. 
+    ''        Return mod_elementFieldClass
+    ''    End Get
+    ''    Set(value As ClassElementField)
+    ''        ''Added 9/3/2019 thomas d. 
+    ''        mod_elementFieldClass = value
+    ''        ''Added 9/3/2019 thomas d. 
+    ''        Me.ElementInfo_Base = CType(value, IElement_Base)
+    ''        Me.ElementInfo_Text = CType(value, IElement_TextField)
+    ''    End Set
+    ''End Property
 
-    ''Added 9/3/2019 td
-    Public Property ElementInfo_Base As IElement_Base Implements ICIBFieldStandardOrCustom.ElementInfo_Base
-    ''Added 9/3/2019 td
-    Public Property ElementInfo_Text As IElement_TextField Implements ICIBFieldStandardOrCustom.ElementInfo_Text
+    ''''Added 9/3/2019 td
+    ''Fields cannot link to elements.---9/18/2019 td''Public Property ElementInfo_Base As IElement_Base Implements ICIBFieldStandardOrCustom.ElementInfo_Base
+    ''''Added 9/3/2019 td
+    ''Fields cannot link to elements.---9/18/2019 td''Public Property ElementInfo_Text As IElement_TextField Implements ICIBFieldStandardOrCustom.ElementInfo_Text
 
     ''''
     ''''Added 7/16/2019 thomas d. 

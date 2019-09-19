@@ -6,6 +6,8 @@ Option Infer Off ''Added 8/29/2019 td
 ''Added 7/25/2019 thomas d 
 ''
 Imports ciBadgeInterfaces ''Added 8/28/2019 thomas downes 
+Imports ciBadgeFields ''Added 9/18/2019 thomas downes 
+Imports ciBadgeElements ''Added 9/18/2019 td 
 
 Public Class CtlGraphicFldLabel
     ''
@@ -30,6 +32,7 @@ Public Class CtlGraphicFldLabel
 
     Public GroupEdits As ISelectingElements ''Added 7/31/2019 thomas downes  
     Public SelectedHighlighting As Boolean ''Added 8/2/2019 td
+    Public ExampleTextToDisplay As String = "" ''Added 9/19/2019 td
 
     Private mod_includedInGroupEdit As Boolean ''Added 8/1/2019 thomas downes 
 
@@ -73,7 +76,7 @@ Public Class CtlGraphicFldLabel
 
     End Sub
 
-    Public Sub New(par_field As ClassFieldStandard,
+    Public Sub New_Deprecated(par_field As ClassFieldStandard,
                    Optional par_formDesigner As FormDesignProtoTwo = Nothing,
                    Optional par_elementText As ClassElementField = Nothing)
 
@@ -93,14 +96,14 @@ Public Class CtlGraphicFldLabel
         ''Refactored 9/4/2019 td  
         ''
         If (par_elementText Is Nothing) Then
-            Me.ElementClass_Obj = par_field.ElementFieldClass
+            ''This Sub New is deprecated.---9/18/2019 td''Me.ElementClass_Obj = par_field.ElementFieldClass
             Me.ElementInfo_Base = CType(Me.ElementClass_Obj, IElement_Base)
             Me.ElementInfo_Text = CType(Me.ElementClass_Obj, IElement_TextField)
         Else
             ''
             ''Added 9/4/2019 thomas d.
             ''
-            Me.ElementClass_Obj = par_elementText
+            ''This Sub New is deprecated.---9/18/2019 td''Me.ElementClass_Obj = par_elementText
             Me.ElementInfo_Base = CType(par_elementText, IElement_Base)
             Me.ElementInfo_Text = CType(par_elementText, IElement_TextField)
         End If ''End of "If (par_elementText Is Nothing) Then .... Else ...."
@@ -110,7 +113,7 @@ Public Class CtlGraphicFldLabel
 
     End Sub
 
-    Public Sub New(par_field As ClassFieldCustomized,
+    Public Sub New_Deprecated(par_field As ClassFieldCustomized,
                    Optional par_formDesigner As FormDesignProtoTwo = Nothing,
                    Optional par_elementText As ClassElementField = Nothing)
 
@@ -137,7 +140,7 @@ Public Class CtlGraphicFldLabel
         ''Refactored 9/4/2019 td  
         ''
         If (par_elementText Is Nothing) Then
-            Me.ElementClass_Obj = par_field.ElementFieldClass
+            ''This Sub New is deprecated.  ---9/18/2019 td''Me.ElementClass_Obj = par_field.ElementFieldClass
             Me.ElementInfo_Base = CType(Me.ElementClass_Obj, IElement_Base)
             Me.ElementInfo_Text = CType(Me.ElementClass_Obj, IElement_TextField)
         Else
@@ -152,9 +155,9 @@ Public Class CtlGraphicFldLabel
         ''Added 8/9/2019 td
         Me.FormDesigner = par_formDesigner
 
-    End Sub
+    End Sub ''ENd of "Public Sub New_Deprecated"
 
-    Public Sub New(par_field As ICIBFieldStandardOrCustom,
+    Public Sub New_Deprecated(par_field As ICIBFieldStandardOrCustom,
                    Optional par_formDesigner As FormDesignProtoTwo = Nothing,
                    Optional par_elementText As ClassElementField = Nothing)
 
@@ -182,7 +185,8 @@ Public Class CtlGraphicFldLabel
             ''------ IMPORTANT ------------------
             ''------ POTENTIALLY CONFUSING-------
             ''
-            Me.ElementClass_Obj.LoadbyCopyingMembers(par_field.ElementInfo_Base, par_field.ElementInfo_Text)
+            ''-------Fields no longer contain links to Elements. ---9/18/2019 td 
+            ''-----Me.ElementClass_Obj.LoadbyCopyingMembers(par_field.ElementInfo_Base, par_field.ElementInfo_Text)
 
             ''  9/15/2019 td''Me.ElementInfo_Base = CType(par_field.ElementInfo_Base, IElement_Base)
             ''  9/15/2019 td''Me.ElementInfo_Text = CType(par_field.ElementInfo_Text, IElement_Text)
@@ -203,7 +207,23 @@ Public Class CtlGraphicFldLabel
         ''Added 9/3/2019 td
         Me.FormDesigner = par_formDesigner
 
-    End Sub
+    End Sub ''ENd of "Public Sub New_Deprecated"
+
+    Public Sub New(par_elementField As ClassElementField,
+                  par_layout As ILayoutFunctions)
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        Me.FieldInfo = par_elementField.FieldInfo
+
+        Me.ElementClass_Obj = par_elementField
+        Me.ElementInfo_Base = CType(par_elementField, IElement_Base)
+        Me.ElementInfo_Text = CType(par_elementField, IElement_TextField)
+        Me.LayoutFunctions = par_layout
+
+    End Sub ''ENd of "Public Sub New "
 
     Public Sub Refresh_Master()
         ''
@@ -407,24 +427,25 @@ Public Class CtlGraphicFldLabel
         ''
         ''Added 9/15/2019 thomas d. 
         ''
-        Select Case True
-            Case Me.FieldInfo.IsStandard
-                ''
-                ''Standard field. 
-                ''
-                ''Added 9/15/2019 thomas d.
-                ClassFieldStandard.CopyElementInfo(Me.FieldInfo.FieldIndex,
-                                                   Me.ElementInfo_Base, Me.ElementInfo_Text)
+        ''9/18/2019 td''
+        ''Select Case True
+        ''    Case Me.FieldInfo.IsStandard
+        ''        ''
+        ''        ''Standard field. 
+        ''        ''
+        ''        ''Added 9/15/2019 thomas d.
+        ''        ClassFieldStandard.CopyElementInfo(Me.FieldInfo.FieldIndex,
+        ''                                           Me.ElementInfo_Base, Me.ElementInfo_Text)
 
-            Case Else
-                ''
-                ''Customized field.
-                ''
-                ''Added 9/15/2019 thomas d.
-                ClassFieldCustomized.CopyElementInfo(Me.FieldInfo.FieldEnumValue,
-                                                   Me.ElementInfo_Base, Me.ElementInfo_Text)
+        ''    Case Else
+        ''        ''
+        ''        ''Customized field.
+        ''        ''
+        ''        ''Added 9/15/2019 thomas d.
+        ''        ClassFieldCustomized.CopyElementInfo(Me.FieldInfo.FieldEnumValue,
+        ''                                           Me.ElementInfo_Base, Me.ElementInfo_Text)
 
-        End Select
+        ''End Select
 
     End Sub ''End of Public Sub SaveToModel
 
@@ -433,6 +454,12 @@ Public Class CtlGraphicFldLabel
         ''Added 7/25/2019 thomas d 
         ''
         Select Case True
+
+            Case (Me.ExampleTextToDisplay.Trim() <> "")
+                ''
+                ''Added 9/18/2019 td 
+                ''
+                Return Me.ExampleTextToDisplay
 
             Case (UseExampleValues And (Me.FieldInfo.ExampleValue <> ""))
 

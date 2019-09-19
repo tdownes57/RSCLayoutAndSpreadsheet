@@ -111,6 +111,53 @@ Public Class ClassElementPic
 
     End Sub ''ENd of ""Public Sub New(par_rectangle As Rectangle, par_layout As PictureBox)""
 
+    Public Function Copy() As ClassElementPic
+        ''
+        ''Added 9/17/2019 
+        ''
+        Dim objCopy As New ClassElementPic
+        objCopy.LoadbyCopyingMembers(Me, Me)
+        Return objCopy
+
+    End Function ''End of "Public Function Copy() As ClassElementPic"
+
+    Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base,
+                                  par_ElementInfo_Pic As IElementPic)
+        ''
+        ''Added 9/17/2019 thomas downes
+        ''
+        ''
+        ''First, Element-related information.
+        ''
+        Me.Back_Color = par_ElementInfo_Base.Back_Color
+        Me.Back_Transparent = par_ElementInfo_Base.Back_Transparent
+        Me.BadgeLayout = par_ElementInfo_Base.BadgeLayout
+        Me.Border_Color = par_ElementInfo_Base.Border_Color
+        Me.Border_Displayed = par_ElementInfo_Base.Border_Displayed
+        Me.Border_WidthInPixels = par_ElementInfo_Base.Border_WidthInPixels
+
+        Me.Height_Pixels = par_ElementInfo_Base.Height_Pixels
+        Me.LeftEdge_Pixels = par_ElementInfo_Base.LeftEdge_Pixels
+        Me.OrientationInDegrees = par_ElementInfo_Base.OrientationInDegrees
+        Me.OrientationToLayout = par_ElementInfo_Base.OrientationToLayout
+
+        Me.PositionalMode = par_ElementInfo_Base.PositionalMode
+        Me.SelectedHighlighting = par_ElementInfo_Base.SelectedHighlighting
+
+        Me.TopEdge_Pixels = par_ElementInfo_Base.TopEdge_Pixels
+        Me.Width_Pixels = par_ElementInfo_Base.Width_Pixels
+
+        ''
+        ''Next, Picture-related information.
+        ''
+        ''   Public Property PicFileType As String Implements IElementPic.PicFileType
+        ''   Public Property PicFileTitleExt As String Implements IElementPic.PicFileTitleExt
+        ''
+        Me.PicFileIndex = par_ElementInfo_Pic.PicFileIndex
+        Me.PicFileTitleExt = par_ElementInfo_Pic.PicFileTitleExt
+        Me.PicFileType = par_ElementInfo_Pic.PicFileType
+
+    End Sub ''End of "Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base, .....)"
 
 End Class
 

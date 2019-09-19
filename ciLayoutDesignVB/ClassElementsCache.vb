@@ -10,9 +10,13 @@ Public Class ClassElementsCache
     ''
     ''Added 9/16/2019 thomas downes
     ''
+    Private mod_listFields As New List(Of ClassFieldAny) ''Added 9/18/2019 td  
     Private mod_listElementFields As New List(Of ClassElementField)
     Private mod_listElementPics As New List(Of ClassElementPic)
     Private mod_listElementStatics As New List(Of ClassElementStaticText)
+    Private mod_listElementLaysections As New List(Of ClassElementLaysection) ''Added 9/17/2019 thomas downes
+
+    Public Property BadgeLayout As ciBadgeInterfaces.BadgeLayoutClass ''Added 9/17/2019 thomas downes
 
     Public Function FieldElements() As List(Of ClassElementField)
         ''
@@ -30,6 +34,14 @@ Public Class ClassElementsCache
 
     End Function
 
+    Public Function PicElements() As List(Of ClassElementPic)
+        ''
+        ''Added 9/17/2019 thomas downes
+        ''
+        Return mod_listElementPics
+
+    End Function
+
     Public Function StaticTextElements() As List(Of ClassElementStaticText)
         ''
         ''Added 9/16/2019 thomas downes
@@ -38,9 +50,17 @@ Public Class ClassElementsCache
 
     End Function ''End of "Public Function StaticTextElements() As List(Of ClassElementStaticText)"
 
-    Public Sub LoadFieldElements(par_pictureBackground As PictureBox)
+    Public Function LaysectionElements() As List(Of ClassElementLaysection)
         ''
-        ''Added 9/16/2019 thomas d. 
+        ''Added 9/17/2019 thomas downes
+        ''
+        Return mod_listElementLaysections
+
+    End Function ''End of "Public Function StaticTextElements() As List(Of ClassElementStaticText)"
+
+    Public Sub LoadFields()
+        ''
+        ''Added 9/18/2019 td
         ''
         ''----------------------------------------------------------------------------------------------------
         ''
@@ -62,6 +82,55 @@ Public Class ClassElementsCache
         ''
         ''----------------------------------------------------------------------------------------------------
 
+        ''
+        ''Part 2 of 2.  Collect the list items. 
+        ''
+        ''----------------------------------------------------------------------------------------------------
+        ''Standard Fields (Collect the list items)  
+        ''
+        For Each each_field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students
+
+            mod_listFields.Add(each_field_standard)
+
+        Next each_field_standard
+        ''----------------------------------------------------------------------------------------------------
+
+        ''----------------------------------------------------------------------------------------------------
+        ''Customized Fields (Collect the list items)  
+        ''
+        For Each each_field_customized As ClassFieldCustomized In ClassFieldCustomized.ListOfFields_Students
+
+            mod_listFields.Add(each_field_customized)
+
+        Next each_field_customized
+        ''----------------------------------------------------------------------------------------------------
+
+    End Sub ''End of "Public Sub LoadFields(par_pictureBackground As PictureBox)"
+
+    Public Sub LoadFieldElements(par_pictureBackground As PictureBox)
+        ''
+        ''Added 9/16/2019 thomas d. 
+        ''
+        ''----------------------------------------------------------------------------------------------------
+        ''
+        ''Part 1 of 2.  Initialize the lists. 
+        ''
+        ''----------------------------------------------------------------------------------------------------
+        ''Standard Fields (Initialize the list) 
+        ''
+        ''Moved to Public Sub LoadFields.---9/18 td''ClassFieldStandard.InitializeHardcodedList_Students(True)
+
+        ''----------------------------------------------------------------------------------------------------
+        ''Custom Fields (Initialize the list)  
+        ''
+        ''Moved to Public Sub LoadFields.---9/18 td''ClassFieldCustomized.InitializeHardcodedList_Students(True)
+
+        ''----------------------------------------------------------------------------------------------------
+        ''
+        ''End of "Part 1 of 2.  Initialize the lists." 
+        ''
+        ''----------------------------------------------------------------------------------------------------
+
         ''----------------------------------------------------------------------------------------------------
         ''
         ''Part 2 of 2.  Collect the list items. 
@@ -69,29 +138,53 @@ Public Class ClassElementsCache
         ''----------------------------------------------------------------------------------------------------
         ''Standard Fields (Collect the list items)  
         ''
-        For Each field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students
+        ''For Each field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students
 
-            mod_listElementFields.Add(field_standard.ElementFieldClass)
+        ''    mod_listElementFields.Add(field_standard.ElementFieldClass)
 
-            ''Added 9/16/2019 td  
-            field_standard.ElementFieldClass.BadgeLayout = New BadgeLayoutClass(par_pictureBackground)
+        ''    ''Added 9/16/2019 td  
+        ''    field_standard.ElementFieldClass.BadgeLayout = New BadgeLayoutClass(par_pictureBackground)
 
-        Next field_standard
+        ''Next field_standard
         ''----------------------------------------------------------------------------------------------------
 
         ''----------------------------------------------------------------------------------------------------
         ''Custom Fields (Collect the list items) 
         ''
-        For Each field_custom As ClassFieldCustomized In ClassFieldCustomized.ListOfFields_Students
+        ''For Each field_custom As ClassFieldCustomized In ClassFieldCustomized.ListOfFields_Students
 
-            mod_listElementFields.Add(field_custom.ElementFieldClass)
+        ''    mod_listElementFields.Add(field_custom.ElementFieldClass)
 
-            ''Added 9/16/2019 td  
-            field_custom.ElementFieldClass.BadgeLayout = New BadgeLayoutClass(par_pictureBackground)
+        ''    ''Added 9/16/2019 td  
+        ''    field_custom.ElementFieldClass.BadgeLayout = New BadgeLayoutClass(par_pictureBackground)
 
-        Next field_custom
+        ''Next field_custom
         ''----------------------------------------------------------------------------------------------------
 
+        Dim new_elementField As ClassElementField ''Added 9/18/2019 td
+        Dim intFieldIndex As Integer ''Added 9/18/2019 td
+        Dim intLeft_Pixels As Integer ''Added 9/18/2019 td
+        Dim intTop_Pixels As Integer ''Added 9/18/2019 td
+        Const c_intHeight_Pixels As Integer = 30 ''Added 9/18/2019 td
+
+        ''Added 9/18/2019 td
+        For Each each_field As ClassFieldAny In mod_listFields
+
+            ''Fields cannot link to elements.---9/18/2019 td''mod_listElementFields.Add(each_field.ElementFieldClass)
+
+            ''Added 9/16/2019 td  
+            ''Fields cannot link to elements.---9/18/2019 td''field_custom.ElementFieldClass.BadgeLayout = New BadgeLayoutClass(par_pictureBackground)
+
+            intFieldIndex += 1
+            ''9/18/2019 td''intLeft_Pixels = (30 * (intFieldIndex - 1))
+            intTop_Pixels = (c_intHeight_Pixels * (intFieldIndex - 1))
+            intLeft_Pixels = intTop_Pixels ''Let's have a staircase effect!! 
+
+            ''Added 9/18/2019 td
+            new_elementField = New ClassElementField(each_field, intLeft_Pixels, intTop_Pixels, c_intHeight_Pixels)
+            new_elementField.FieldInfo = each_field
+
+        Next each_field
 
     End Sub ''ENd of "Public Sub LoadFieldElements(par_pictureBackground As PictureBox)"
 
@@ -118,6 +211,31 @@ Public Class ClassElementsCache
         mod_listElementPics.Add(objElementPic)
 
     End Sub ''End of "Public Sub LoadPicElement(par_pictureBackground As PictureBox)"
+
+    Public Function Copy() As ClassElementsCache
+        ''
+        ''Added 9/17/2019 thomas downes  
+        ''
+        Dim objCopyOfCache As New ClassElementsCache
+
+        ''Added 9/17/2019 thomas downes  
+        For Each each_elementField As ClassElementField In mod_listElementFields
+            objCopyOfCache.FieldElements().Add(each_elementField.Copy())
+        Next each_elementField
+
+        ''Added 9/17/2019 thomas downes  
+        For Each each_elementPic As ClassElementPic In mod_listElementPics
+            objCopyOfCache.PicElements().Add(each_elementPic.Copy())
+        Next each_elementPic
+
+        ''Added 9/17/2019 thomas downes  
+        For Each each_elementStaticText As ClassElementStaticText In mod_listElementStatics
+            objCopyOfCache.StaticTextElements().Add(each_elementStaticText.Copy())
+        Next each_elementStaticText
+
+        Return objCopyOfCache
+
+    End Function ''End of "Public Function Copy() As ClassElementsCache"
 
     ''Private Sub LoadElements_Picture()
     ''    ''

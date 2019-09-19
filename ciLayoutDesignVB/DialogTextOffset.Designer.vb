@@ -36,6 +36,8 @@ Partial Class DialogTextOffset
         Me.checkFontSizeScalesYN = New System.Windows.Forms.CheckBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.ButtonLeft = New System.Windows.Forms.Button()
+        Me.ButtonApply = New System.Windows.Forms.Button()
+        Me.LabelResultHdr = New System.Windows.Forms.Label()
         Me.CtlTextOffsetX = New ciLayoutDesignVB.CtlPropertyLeftRight()
         Me.CtlElementWidth = New ciLayoutDesignVB.CtlPropertyLeftRight()
         Me.CtlElementHeight = New ciLayoutDesignVB.CtlPropertyUpDownvb()
@@ -48,10 +50,10 @@ Partial Class DialogTextOffset
         'ButtonOK
         '
         Me.ButtonOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.ButtonOK.Location = New System.Drawing.Point(612, 496)
+        Me.ButtonOK.Location = New System.Drawing.Point(459, 451)
         Me.ButtonOK.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonOK.Name = "ButtonOK"
-        Me.ButtonOK.Size = New System.Drawing.Size(86, 29)
+        Me.ButtonOK.Size = New System.Drawing.Size(64, 44)
         Me.ButtonOK.TabIndex = 1
         Me.ButtonOK.Text = "OK"
         Me.ButtonOK.UseVisualStyleBackColor = True
@@ -60,10 +62,10 @@ Partial Class DialogTextOffset
         '
         Me.ButtonCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.ButtonCancel.Location = New System.Drawing.Point(702, 496)
+        Me.ButtonCancel.Location = New System.Drawing.Point(526, 451)
         Me.ButtonCancel.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonCancel.Name = "ButtonCancel"
-        Me.ButtonCancel.Size = New System.Drawing.Size(67, 29)
+        Me.ButtonCancel.Size = New System.Drawing.Size(74, 44)
         Me.ButtonCancel.TabIndex = 2
         Me.ButtonCancel.Text = "Cancel"
         Me.ButtonCancel.UseVisualStyleBackColor = True
@@ -72,10 +74,10 @@ Partial Class DialogTextOffset
         '
         Me.LabelHeader1.AutoSize = True
         Me.LabelHeader1.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelHeader1.Location = New System.Drawing.Point(11, 4)
+        Me.LabelHeader1.Location = New System.Drawing.Point(8, 3)
         Me.LabelHeader1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LabelHeader1.Name = "LabelHeader1"
-        Me.LabelHeader1.Size = New System.Drawing.Size(334, 39)
+        Me.LabelHeader1.Size = New System.Drawing.Size(266, 31)
         Me.LabelHeader1.TabIndex = 5
         Me.LabelHeader1.Text = "Positioning the Text  "
         '
@@ -83,40 +85,40 @@ Partial Class DialogTextOffset
         '
         Me.TextExampleValue.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.TextExampleValue.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextExampleValue.Location = New System.Drawing.Point(197, 420)
+        Me.TextExampleValue.Location = New System.Drawing.Point(170, 399)
         Me.TextExampleValue.Margin = New System.Windows.Forms.Padding(2)
         Me.TextExampleValue.Name = "TextExampleValue"
-        Me.TextExampleValue.Size = New System.Drawing.Size(283, 26)
+        Me.TextExampleValue.Size = New System.Drawing.Size(353, 23)
         Me.TextExampleValue.TabIndex = 9
         '
         'LabelExampleValueHdr
         '
         Me.LabelExampleValueHdr.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.LabelExampleValueHdr.AutoSize = True
-        Me.LabelExampleValueHdr.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelExampleValueHdr.Location = New System.Drawing.Point(11, 426)
+        Me.LabelExampleValueHdr.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelExampleValueHdr.Location = New System.Drawing.Point(12, 402)
         Me.LabelExampleValueHdr.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LabelExampleValueHdr.Name = "LabelExampleValueHdr"
-        Me.LabelExampleValueHdr.Size = New System.Drawing.Size(176, 20)
+        Me.LabelExampleValueHdr.Size = New System.Drawing.Size(128, 15)
         Me.LabelExampleValueHdr.TabIndex = 10
         Me.LabelExampleValueHdr.Text = "Example Display Text:"
         '
         'ButtonCenter
         '
-        Me.ButtonCenter.Location = New System.Drawing.Point(199, 5)
+        Me.ButtonCenter.Location = New System.Drawing.Point(149, 4)
         Me.ButtonCenter.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonCenter.Name = "ButtonCenter"
-        Me.ButtonCenter.Size = New System.Drawing.Size(82, 23)
+        Me.ButtonCenter.Size = New System.Drawing.Size(62, 26)
         Me.ButtonCenter.TabIndex = 14
         Me.ButtonCenter.Text = "Center Text"
         Me.ButtonCenter.UseVisualStyleBackColor = True
         '
         'ButtonRight
         '
-        Me.ButtonRight.Location = New System.Drawing.Point(288, 6)
+        Me.ButtonRight.Location = New System.Drawing.Point(216, 5)
         Me.ButtonRight.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonRight.Name = "ButtonRight"
-        Me.ButtonRight.Size = New System.Drawing.Size(186, 23)
+        Me.ButtonRight.Size = New System.Drawing.Size(140, 25)
         Me.ButtonRight.TabIndex = 15
         Me.ButtonRight.Text = "Right Justify Text"
         Me.ButtonRight.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -125,10 +127,10 @@ Partial Class DialogTextOffset
         'Label4
         '
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(14, 41)
+        Me.Label4.Location = New System.Drawing.Point(10, 44)
         Me.Label4.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(540, 39)
+        Me.Label4.Size = New System.Drawing.Size(390, 51)
         Me.Label4.TabIndex = 28
         Me.Label4.Text = "This window is for the fine detail work which will determine where the text is di" &
     "splayed within the element, and the relevant sizes."
@@ -138,10 +140,10 @@ Partial Class DialogTextOffset
         Me.checkFontSizeScalesYN.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.checkFontSizeScalesYN.BackColor = System.Drawing.Color.Plum
         Me.checkFontSizeScalesYN.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.checkFontSizeScalesYN.Location = New System.Drawing.Point(14, 459)
+        Me.checkFontSizeScalesYN.Location = New System.Drawing.Point(14, 427)
         Me.checkFontSizeScalesYN.Margin = New System.Windows.Forms.Padding(2)
         Me.checkFontSizeScalesYN.Name = "checkFontSizeScalesYN"
-        Me.checkFontSizeScalesYN.Size = New System.Drawing.Size(492, 26)
+        Me.checkFontSizeScalesYN.Size = New System.Drawing.Size(369, 20)
         Me.checkFontSizeScalesYN.TabIndex = 29
         Me.checkFontSizeScalesYN.Text = "Scale the font size, so changing the height of the element changes the font size." &
     ""
@@ -153,44 +155,67 @@ Partial Class DialogTextOffset
         Me.Panel1.Controls.Add(Me.ButtonLeft)
         Me.Panel1.Controls.Add(Me.ButtonCenter)
         Me.Panel1.Controls.Add(Me.ButtonRight)
-        Me.Panel1.Location = New System.Drawing.Point(17, 280)
+        Me.Panel1.Location = New System.Drawing.Point(10, 242)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(486, 31)
+        Me.Panel1.Size = New System.Drawing.Size(364, 32)
         Me.Panel1.TabIndex = 32
         '
         'ButtonLeft
         '
-        Me.ButtonLeft.Location = New System.Drawing.Point(10, 5)
+        Me.ButtonLeft.Location = New System.Drawing.Point(8, 4)
         Me.ButtonLeft.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonLeft.Name = "ButtonLeft"
-        Me.ButtonLeft.Size = New System.Drawing.Size(176, 23)
+        Me.ButtonLeft.Size = New System.Drawing.Size(132, 26)
         Me.ButtonLeft.TabIndex = 31
         Me.ButtonLeft.Text = "Left Justify Text"
         Me.ButtonLeft.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.ButtonLeft.UseVisualStyleBackColor = True
         '
+        'ButtonApply
+        '
+        Me.ButtonApply.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.ButtonApply.Location = New System.Drawing.Point(9, 451)
+        Me.ButtonApply.Margin = New System.Windows.Forms.Padding(2)
+        Me.ButtonApply.Name = "ButtonApply"
+        Me.ButtonApply.Size = New System.Drawing.Size(193, 44)
+        Me.ButtonApply.TabIndex = 44
+        Me.ButtonApply.Text = "Apply"
+        Me.ButtonApply.UseVisualStyleBackColor = True
+        '
+        'LabelResultHdr
+        '
+        Me.LabelResultHdr.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.LabelResultHdr.AutoSize = True
+        Me.LabelResultHdr.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelResultHdr.Location = New System.Drawing.Point(5, 293)
+        Me.LabelResultHdr.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LabelResultHdr.Name = "LabelResultHdr"
+        Me.LabelResultHdr.Size = New System.Drawing.Size(257, 29)
+        Me.LabelResultHdr.TabIndex = 45
+        Me.LabelResultHdr.Text = "Preview of text display:"
+        '
         'CtlTextOffsetX
         '
         Me.CtlTextOffsetX.BackColor = System.Drawing.Color.Plum
-        Me.CtlTextOffsetX.Location = New System.Drawing.Point(12, 162)
-        Me.CtlTextOffsetX.Margin = New System.Windows.Forms.Padding(4)
+        Me.CtlTextOffsetX.Location = New System.Drawing.Point(10, 98)
+        Me.CtlTextOffsetX.MinimumValue = 0
         Me.CtlTextOffsetX.Name = "CtlTextOffsetX"
         Me.CtlTextOffsetX.PropertyName = "Text Offset Horizontal"
         Me.CtlTextOffsetX.PropertyValue = 4
-        Me.CtlTextOffsetX.Size = New System.Drawing.Size(175, 113)
+        Me.CtlTextOffsetX.Size = New System.Drawing.Size(163, 114)
         Me.CtlTextOffsetX.TabIndex = 43
         Me.ToolTip1.SetToolTip(Me.CtlTextOffsetX, "Text Offset is from the top-left corner of the label.")
         '
         'CtlElementWidth
         '
         Me.CtlElementWidth.BackColor = System.Drawing.Color.Plum
-        Me.CtlElementWidth.Location = New System.Drawing.Point(193, 162)
-        Me.CtlElementWidth.Margin = New System.Windows.Forms.Padding(4)
+        Me.CtlElementWidth.Location = New System.Drawing.Point(188, 98)
+        Me.CtlElementWidth.MinimumValue = 10
         Me.CtlElementWidth.Name = "CtlElementWidth"
         Me.CtlElementWidth.PropertyName = "Total Width of Label"
         Me.CtlElementWidth.PropertyValue = 100
-        Me.CtlElementWidth.Size = New System.Drawing.Size(175, 113)
+        Me.CtlElementWidth.Size = New System.Drawing.Size(158, 114)
         Me.CtlElementWidth.TabIndex = 42
         '
         'CtlElementHeight
@@ -199,12 +224,11 @@ Partial Class DialogTextOffset
         Me.CtlElementHeight.BackColor = System.Drawing.Color.Plum
         Me.CtlElementHeight.ElementInfo_Base = Nothing
         Me.CtlElementHeight.ElementInfo_Text = Nothing
-        Me.CtlElementHeight.Location = New System.Drawing.Point(588, 341)
-        Me.CtlElementHeight.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.CtlElementHeight.Location = New System.Drawing.Point(405, 232)
         Me.CtlElementHeight.Name = "CtlElementHeight"
         Me.CtlElementHeight.PropertyName = "Total Height of Label"
         Me.CtlElementHeight.PropertyValue = 10
-        Me.CtlElementHeight.Size = New System.Drawing.Size(181, 135)
+        Me.CtlElementHeight.Size = New System.Drawing.Size(194, 102)
         Me.CtlElementHeight.TabIndex = 41
         '
         'CtlFontSize
@@ -213,12 +237,11 @@ Partial Class DialogTextOffset
         Me.CtlFontSize.BackColor = System.Drawing.Color.Plum
         Me.CtlFontSize.ElementInfo_Base = Nothing
         Me.CtlFontSize.ElementInfo_Text = Nothing
-        Me.CtlFontSize.Location = New System.Drawing.Point(540, 182)
-        Me.CtlFontSize.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.CtlFontSize.Location = New System.Drawing.Point(406, 127)
         Me.CtlFontSize.Name = "CtlFontSize"
         Me.CtlFontSize.PropertyName = "Font Size Pixels"
         Me.CtlFontSize.PropertyValue = 25
-        Me.CtlFontSize.Size = New System.Drawing.Size(181, 129)
+        Me.CtlFontSize.Size = New System.Drawing.Size(194, 99)
         Me.CtlFontSize.TabIndex = 40
         '
         'ctlTextOffsetY
@@ -227,31 +250,31 @@ Partial Class DialogTextOffset
         Me.ctlTextOffsetY.BackColor = System.Drawing.Color.Plum
         Me.ctlTextOffsetY.ElementInfo_Base = Nothing
         Me.ctlTextOffsetY.ElementInfo_Text = Nothing
-        Me.ctlTextOffsetY.Location = New System.Drawing.Point(621, 22)
-        Me.ctlTextOffsetY.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.ctlTextOffsetY.Location = New System.Drawing.Point(405, 17)
         Me.ctlTextOffsetY.Name = "ctlTextOffsetY"
         Me.ctlTextOffsetY.PropertyName = "Text Offset Vertical"
         Me.ctlTextOffsetY.PropertyValue = 10
-        Me.ctlTextOffsetY.Size = New System.Drawing.Size(181, 136)
+        Me.ctlTextOffsetY.Size = New System.Drawing.Size(197, 104)
         Me.ctlTextOffsetY.TabIndex = 39
         Me.ToolTip1.SetToolTip(Me.ctlTextOffsetY, "Text Offset is from the top-left corner of the label.")
         '
         'CtlGraphicFldLabel1
         '
-        Me.CtlGraphicFldLabel1.Location = New System.Drawing.Point(17, 83)
-        Me.CtlGraphicFldLabel1.Margin = New System.Windows.Forms.Padding(4)
+        Me.CtlGraphicFldLabel1.Location = New System.Drawing.Point(12, 346)
         Me.CtlGraphicFldLabel1.Name = "CtlGraphicFldLabel1"
-        Me.CtlGraphicFldLabel1.Size = New System.Drawing.Size(463, 24)
+        Me.CtlGraphicFldLabel1.Size = New System.Drawing.Size(347, 18)
         Me.CtlGraphicFldLabel1.TabIndex = 27
         '
         'DialogTextOffset
         '
         Me.AcceptButton = Me.ButtonOK
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 17.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Thistle
         Me.CancelButton = Me.ButtonCancel
-        Me.ClientSize = New System.Drawing.Size(815, 536)
+        Me.ClientSize = New System.Drawing.Size(611, 504)
+        Me.Controls.Add(Me.LabelResultHdr)
+        Me.Controls.Add(Me.ButtonApply)
         Me.Controls.Add(Me.CtlTextOffsetX)
         Me.Controls.Add(Me.CtlElementWidth)
         Me.Controls.Add(Me.CtlElementHeight)
@@ -295,4 +318,6 @@ Partial Class DialogTextOffset
     Friend WithEvents CtlElementHeight As CtlPropertyUpDownvb
     Friend WithEvents CtlElementWidth As CtlPropertyLeftRight
     Friend WithEvents CtlTextOffsetX As CtlPropertyLeftRight
+    Friend WithEvents ButtonApply As Button
+    Friend WithEvents LabelResultHdr As Label
 End Class

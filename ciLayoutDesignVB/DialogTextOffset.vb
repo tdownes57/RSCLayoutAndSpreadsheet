@@ -6,6 +6,8 @@ Option Infer Off ''Added 9/3/2019 td
 ''Added 8/15/2019 thomas downes 
 ''
 Imports ciBadgeInterfaces ''Added 8/16/2019 thomas d.
+Imports ciBadgeElements ''Added 9/18/2019 thomas d.
+Imports ciBadgeFields ''Added 9/18/2019 thomas d.  
 
 Public Class DialogTextOffset
     ''
@@ -14,26 +16,162 @@ Public Class DialogTextOffset
     Public FieldInfo As ICIBFieldStandardOrCustom
 
     ''Added 8/17/2019 td  
-    Public FontOffset_X As Integer
-    Public FontOffset_Y As Integer
-    Public FontSize As Integer
-    Public FontSize_ScaleToElement As Boolean ''Added 9/12/2019 td
-    Public Font_DrawingClass As Font ''Added 8/17/2019 td 
-    Public TextAlignment As System.Windows.Forms.HorizontalAlignment ''Added 8/18/2019 td 
+    ''Obselete.  9/18 td''Public FontOffset_X As Integer
+    ''Obselete.  9/18 td''Public FontOffset_Y As Integer
+    ''Obselete.  9/18 td''Public FontSize As Integer
+    ''Obselete.  9/18 td''Public FontSize_ScaleToElement As Boolean ''Added 9/12/2019 td
+    ''Obselete.  9/18 td''Public Font_DrawingClass As Font ''Added 8/17/2019 td 
+    ''Obselete.  9/18 td''Public TextAlignment As System.Windows.Forms.HorizontalAlignment ''Added 8/18/2019 td 
 
-    Public Element_Height As Integer ''Added 9/12/2019 thomas d.
-    Public Element_Width As Integer ''Added 9/12/2019 thomas d.
+    ''Obselete.  9/18 td''Public Element_Height As Integer ''Added 9/12/2019 thomas d.
+    ''Obselete.  9/18 td''Public Element_Width As Integer ''Added 9/12/2019 thomas d.
 
     ''8/17/2019 td''Public ObjElementText As ClassElementText
     ''8/29/2019 td''Public ElementInfo As ciBadgeInterfaces.IElementText ''Added 8/16/2019 td
-    Public ElementInfo_Text As ciBadgeInterfaces.IElement_TextField ''Renamed 8/29/2019 td
-    Public ElementInfo_Base As ciBadgeInterfaces.IElement_Base ''Added 8/29/2019 td
+
+    Public ElementCopy_Info_Text As ciBadgeInterfaces.IElement_TextField ''Renamed 8/29/2019 td
+    Public ElementCopy_Info_Base As ciBadgeInterfaces.IElement_Base ''Added 8/29/2019 td
+
+    Public ElementObject_LayoutDesign As ClassElementField ''Added 9/18/2019 td
+    Public ElementObject_CopyForEditing As ClassElementField ''Added 9/18/2019 td
 
     Public GroupEdits As ISelectingElements ''Added 8/15/2019 thomas downes  
     Public FormDesigner As FormDesignProtoTwo ''Added 8/15/2019 td  
-    Public OriginalElementControl As CtlGraphicFldLabel ''Added 8/15/2019 td  
+    Public OriginalElementControl_ForApplyOnly As CtlGraphicFldLabel ''Added 8/15/2019 td  
 
-    Public Sub LoadFieldAndForm(par_elementInfo_Base As IElement_Base,
+    Public UserConfirmed As Boolean ''Added 9/18/2019 thomas d. 
+
+    Public Sub New(par_element_fromLayout As ClassElementField, par_element_copy As ClassElementField,
+                   par_parentControl As CtlGraphicFldLabel)
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ''
+        ' Add any initialization after the InitializeComponent() call.
+        ''
+
+        ''Just to be extra cautious, let's use a copy of the copy.   :-)  ----9/18/2019 td
+        Me.ElementObject_CopyForEditing = par_element_copy.Copy()
+
+        ''#1 9/18/2019 td''Me.ElementObject_ForLayout_NotUsed = par_element_fromLayout
+        '' #2 9/18/2019 td''Me.ElementObject_ForLayout_NotUsed = Nothing ''Nothing, since it's not used!!  ---9/18/2019 td''par_element_fromLayout
+        Me.ElementObject_LayoutDesign = par_element_fromLayout
+
+        ''Added 9/18/2019 td 
+        Me.ElementCopy_Info_Base = CType(Me.ElementObject_CopyForEditing, IElement_Base)
+        Me.ElementCopy_Info_Text = CType(Me.ElementObject_CopyForEditing, IElement_TextField)
+
+        ''Added 9/18/2019 td 
+        OriginalElementControl_ForApplyOnly = par_parentControl
+
+        ''Added 9/18/2019 td 
+        Me.FieldInfo = Me.ElementObject_LayoutDesign.FieldInfo ''Added 9/18/2019 td 
+
+    End Sub ''ENd of "Public Sub New(par_element_fromLayout As ClassElementField, par_element_copy As ClassElementField)"
+
+    Public Sub UpdateInfo_ViaInterfaces(par_elementInfo_Base As IElement_Base,
+                          par_elementInfo_TextFld As IElement_TextField,
+                          Optional par_overrideConfirmation As Boolean = False)
+        ''
+        ''This is perhaps like an "dependency injection" to "push" the 
+        ''   new settings out to the the parent designer form.
+        ''   ----9/18/2019 td 
+        ''
+        ''added 9/17 td
+        ''
+        If (Me.UserConfirmed) Then
+
+            With par_elementInfo_Base
+
+                ''9/18/2019 td''.Height_Pixels = Me.Element_Height
+                ''9/18/2019 td''.Width_Pixels = Me.Element_Width
+
+                .Height_Pixels = Me.ElementCopy_Info_Base.Height_Pixels
+                .Width_Pixels = Me.ElementCopy_Info_Base.Width_Pixels
+
+            End With ''End of "With par_elementInfo_Base"
+
+            With par_elementInfo_TextFld
+
+
+                ''Obselete.---9/18/2019 td''Me.ElementInfo_Text.FontOffset_X = frm_ToShow.FontOffset_X
+                ''Obselete.---9/18/2019 td''Me.ElementInfo_Text.FontOffset_Y = frm_ToShow.FontOffset_Y
+                ''Obselete.---9/18/2019 td''Me.ElementInfo_Text.FontSize_Pixels = frm_ToShow.FontSize
+                ''Obselete.---9/18/2019 td''Me.ElementInfo_Text.Font_DrawingClass = frm_ToShow.Font_DrawingClass
+
+                .FontOffset_X = Me.ElementCopy_Info_Text.FontOffset_X
+                .FontOffset_Y = Me.ElementCopy_Info_Text.FontOffset_Y
+
+                .FontSize_Pixels = Me.ElementCopy_Info_Text.FontSize_Pixels
+                .Font_DrawingClass = modFonts.SetFontSize_Pixels(Me.ElementCopy_Info_Text.Font_DrawingClass,
+                                                                 Me.ElementCopy_Info_Text.FontSize_Pixels)
+
+            End With
+
+        ElseIf (Not par_overrideConfirmation) Then
+
+            ''Added 9/18/2019 td 
+            MessageBox.Show("Settings have not been confirmed.", "",
+                            MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+
+        End If ''End of "If (Me.UserConfirmed) Then .... ElseIf ..."
+
+    End Sub ''Public Sub UpdateInfo_ViaInterfaces(par_elementInfo_Base As IElement_Base, par_elementInfo_Text As IElement_Text)
+
+    Public Sub LoadFieldAndForm(par_formDesigner As FormDesignProtoTwo,
+                                par_originalCtl As CtlGraphicFldLabel)
+
+        ''
+        ''Added 9/18/2019 td
+        ''
+        Me.FormDesigner = par_formDesigner
+        Me.OriginalElementControl_ForApplyOnly = par_originalCtl
+
+        With CtlGraphicFldLabel1
+
+            .FieldInfo = Me.ElementObject_CopyForEditing.FieldInfo
+
+            ''Added 9/18/2019 td 
+            .ElementInfo_Base = Me.ElementCopy_Info_Base
+            .ElementInfo_Text = Me.ElementCopy_Info_Text
+
+            .FormDesigner = par_formDesigner
+            .Width = .ElementInfo_Base.Width_Pixels
+            .Height = .ElementInfo_Base.Height_Pixels
+
+            .Refresh_Image(True)
+
+        End With ''End of "With CtlGraphicFldLabel1"
+
+        ''Position it at the center horizontally. 
+        Const c_boolCenterLabelControl As Boolean = False ''Added 9/18/2019 td
+        If (c_boolCenterLabelControl) Then ''Added 9/18/2019 td
+            ''Added 9/18/2019 td
+            CenterTheFieldControl()
+        End If ''End of "If (c_boolCenterLabelControl) Then"
+
+        ''
+        ''Added 9/13/2019 thomas downes
+        ''
+        Me.CtlElementHeight.ElementInfo_Base = Me.ElementCopy_Info_Base
+        Me.CtlElementHeight.ElementInfo_Text = Me.ElementCopy_Info_Text
+
+        Me.CtlElementWidth.ElementInfo_Base = Me.ElementCopy_Info_Base
+        Me.CtlElementWidth.ElementInfo_Text = Me.ElementCopy_Info_Text
+
+        Me.CtlFontSize.ElementInfo_Base = Me.ElementCopy_Info_Base
+        Me.CtlFontSize.ElementInfo_Text = Me.ElementCopy_Info_Text
+
+        Me.CtlTextOffsetX.ElementInfo_Base = Me.ElementCopy_Info_Base
+        Me.CtlTextOffsetX.ElementInfo_Text = Me.ElementCopy_Info_Text
+
+        Me.ctlTextOffsetY.ElementInfo_Base = Me.ElementCopy_Info_Base
+        Me.ctlTextOffsetY.ElementInfo_Text = Me.ElementCopy_Info_Text
+
+    End Sub ''End of "Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
+
+    Public Sub LoadFieldAndForm_NotInUse(par_elementInfo_Base As IElement_Base,
                                 par_elementInfo_Text As IElement_TextField,
                                 par_fieldInfo As ICIBFieldStandardOrCustom,
                                 par_formDesigner As FormDesignProtoTwo,
@@ -44,19 +182,19 @@ Public Class DialogTextOffset
         Me.FieldInfo = par_fieldInfo
 
         ''8/16/2019 td''Me.ElementInfo = par_field.ElementInfo
-        Me.ElementInfo_Base = par_elementInfo_Base ''Added 9/3/2019 thomas d. 
-        Me.ElementInfo_Text = par_elementInfo_Text ''Added 8/16 td
+        ''Obselete. ---9/18/2019 td''Me.ElementInfo_Base = par_elementInfo_Base ''Added 9/3/2019 thomas d. 
+        ''Obselete. ---9/18/2019 td''Me.ElementInfo_Text = par_elementInfo_Text ''Added 8/16 td
 
         ''Added 8/17/2019 td
         ''
-        Me.FontOffset_X = par_elementInfo_Text.FontOffset_X
-        Me.FontOffset_Y = par_elementInfo_Text.FontOffset_Y
-        Me.FontSize = CInt(par_elementInfo_Text.FontSize_Pixels) ''9/3 td''par_elementInfo.FontSize
-        Me.Font_DrawingClass = par_elementInfo_Text.Font_DrawingClass
+        ''Obselete. ---9/18/2019 td''Me.FontOffset_X = par_elementInfo_Text.FontOffset_X
+        ''Obselete. ---9/18/2019 td''Me.FontOffset_Y = par_elementInfo_Text.FontOffset_Y
+        ''Obselete. ---9/18/2019 td''Me.FontSize = CInt(par_elementInfo_Text.FontSize_Pixels) ''9/3 td''par_elementInfo.FontSize
+        ''Obselete. ---9/18/2019 td''Me.Font_DrawingClass = par_elementInfo_Text.Font_DrawingClass
 
         ''Added 8/15/2019 td
         Me.FormDesigner = par_formDesigner
-        Me.OriginalElementControl = par_originalCtl
+        Me.OriginalElementControl_ForApplyOnly = par_originalCtl
 
         With CtlGraphicFldLabel1
             .ElementInfo_Text = par_elementInfo_Text
@@ -104,23 +242,23 @@ Public Class DialogTextOffset
 
     End Sub ''End of "Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
 
-    Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo,
+    Public Sub LoadFieldAndForm_NotInUse(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo,
                                  par_originalCtl As CtlGraphicFldLabel)
 
         Me.FieldInfo = par_field
 
-        Me.ElementInfo_Text = par_field.ElementFieldClass
+        ''This procedure is obselete.---9/18/2019 td''Me.ElementInfo_Text = par_field.ElementFieldClass
 
         ''Added 8/15/2019 td
         Me.FormDesigner = par_formDesigner
-        Me.OriginalElementControl = par_originalCtl
+        Me.OriginalElementControl_ForApplyOnly = par_originalCtl
 
         With CtlGraphicFldLabel1
             .FieldInfo = par_field
 
-            .ElementClass_Obj = par_field.ElementFieldClass ''Added 9/13/2019 td
-            .ElementInfo_Base = par_field.ElementInfo_Base ''Added 9/13/2019 td 
-            .ElementInfo_Text = par_field.ElementInfo_Text ''Added 9/13/2019 td 
+            ''Deprecated 9/18/2019 td''.ElementClass_Obj = par_field.ElementFieldClass ''Added 9/13/2019 td
+            ''Deprecated 9/18/2019 td''.ElementInfo_Base = par_field.ElementInfo_Base ''Added 9/13/2019 td 
+            ''Deprecated 9/18/2019 td''.ElementInfo_Text = par_field.ElementInfo_Text ''Added 9/13/2019 td 
             .FormDesigner = par_formDesigner
             .Width = .ElementInfo_Base.Width_Pixels
             .Height = .ElementInfo_Base.Height_Pixels
@@ -133,24 +271,24 @@ Public Class DialogTextOffset
         ''
         ''Added 9/13/2019 thomas downes
         ''
-        Me.CtlElementHeight.ElementInfo_Base = par_field.ElementInfo_Base
-        Me.CtlElementHeight.ElementInfo_Text = par_field.ElementInfo_Text
+        ''Deprecated 9/18/2019 td''Me.CtlElementHeight.ElementInfo_Base = par_field.ElementInfo_Base
+        ''Deprecated 9/18/2019 td''Me.CtlElementHeight.ElementInfo_Text = par_field.ElementInfo_Text
         Me.CtlElementHeight.InitiateLocalValue()
 
-        Me.CtlElementWidth.ElementInfo_Base = par_field.ElementInfo_Base
-        Me.CtlElementWidth.ElementInfo_Text = par_field.ElementInfo_Text
+        ''Deprecated 9/18/2019 td''Me.CtlElementWidth.ElementInfo_Base = par_field.ElementInfo_Base
+        ''Deprecated 9/18/2019 td''Me.CtlElementWidth.ElementInfo_Text = par_field.ElementInfo_Text
         Me.CtlElementWidth.InitiateLocalValue()
 
-        Me.CtlFontSize.ElementInfo_Base = par_field.ElementInfo_Base
-        Me.CtlFontSize.ElementInfo_Text = par_field.ElementInfo_Text
+        ''Deprecated 9/18/2019 td''Me.CtlFontSize.ElementInfo_Base = par_field.ElementInfo_Base
+        ''Deprecated 9/18/2019 td''Me.CtlFontSize.ElementInfo_Text = par_field.ElementInfo_Text
         Me.CtlFontSize.InitiateLocalValue()
 
-        Me.CtlTextOffsetX.ElementInfo_Base = par_field.ElementInfo_Base
-        Me.CtlTextOffsetX.ElementInfo_Text = par_field.ElementInfo_Text
+        ''Deprecated 9/18/2019 td''Me.CtlTextOffsetX.ElementInfo_Base = par_field.ElementInfo_Base
+        ''Deprecated 9/18/2019 td''Me.CtlTextOffsetX.ElementInfo_Text = par_field.ElementInfo_Text
         Me.CtlTextOffsetX.InitiateLocalValue()
 
-        Me.ctlTextOffsetY.ElementInfo_Base = par_field.ElementInfo_Base
-        Me.ctlTextOffsetY.ElementInfo_Text = par_field.ElementInfo_Text
+        ''Deprecated 9/18/2019 td''Me.ctlTextOffsetY.ElementInfo_Base = par_field.ElementInfo_Base
+        ''Deprecated 9/18/2019 td''Me.ctlTextOffsetY.ElementInfo_Text = par_field.ElementInfo_Text
         Me.ctlTextOffsetY.InitiateLocalValue()
 
     End Sub ''End of "Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
@@ -277,6 +415,7 @@ Public Class DialogTextOffset
 
     Private Sub ButtonOK_Click(sender As Object, e As EventArgs) Handles ButtonOK.Click
 
+        Me.UserConfirmed = True ''Added 9//18/2019 td 
         Me.DialogResult = DialogResult.OK
         Me.Close()
 
@@ -292,8 +431,11 @@ Public Class DialogTextOffset
 
         ''Added 8/18/2019 thomas downes
         ''
-        Me.ElementInfo_Text.TextAlignment = HorizontalAlignment.Left
-        Me.TextAlignment = HorizontalAlignment.Left
+        ''Obselete. ---9/18/2019 td''Me.ElementInfo_Text.TextAlignment = HorizontalAlignment.Left
+        ''Obselete. ---9/18/2019 td''Me.TextAlignment = HorizontalAlignment.Left
+
+        Me.ElementCopy_Info_Text.TextAlignment = HorizontalAlignment.Left
+
         Me.CtlGraphicFldLabel1.Refresh_Image(True)
 
     End Sub
@@ -301,8 +443,11 @@ Public Class DialogTextOffset
     Private Sub ButtonCenter_Click(sender As Object, e As EventArgs) Handles ButtonCenter.Click
 
         ''Added 8/18/2019 thomas downes
-        Me.ElementInfo_Text.TextAlignment = HorizontalAlignment.Center
-        Me.TextAlignment = HorizontalAlignment.Center
+        ''Obselete. ---9/18/2019 td''Me.ElementInfo_Text.TextAlignment = HorizontalAlignment.Center
+        ''Obselete. ---9/18/2019 td''Me.TextAlignment = HorizontalAlignment.Center
+
+        Me.ElementCopy_Info_Text.TextAlignment = HorizontalAlignment.Center
+
         Me.CtlGraphicFldLabel1.Refresh_Image(True)
 
     End Sub
@@ -310,8 +455,11 @@ Public Class DialogTextOffset
     Private Sub ButtonRight_Click(sender As Object, e As EventArgs) Handles ButtonRight.Click
 
         ''Added 8/18/2019 thomas downes
-        Me.ElementInfo_Text.TextAlignment = HorizontalAlignment.Right
-        Me.TextAlignment = HorizontalAlignment.Right
+        ''Obselete. ---9/18/2019 td''Me.ElementInfo_Text.TextAlignment = HorizontalAlignment.Right
+        ''Obselete. ---9/18/2019 td''Me.TextAlignment = HorizontalAlignment.Right
+
+        Me.ElementCopy_Info_Text.TextAlignment = HorizontalAlignment.Right
+
         Me.CtlGraphicFldLabel1.Refresh_Image(True)
 
     End Sub
@@ -367,7 +515,8 @@ Public Class DialogTextOffset
     Private Sub CheckFontSizeScalesYN_CheckedChanged(sender As Object, e As EventArgs) Handles checkFontSizeScalesYN.CheckedChanged
 
         ''Added 9/12/2019 thomas d.
-        Me.ElementInfo_Text.FontSize_ScaleToElementYesNo = checkFontSizeScalesYN.Checked
+        ''9/18/2019 td''Me.ElementInfo_Text.FontSize_ScaleToElementYesNo = checkFontSizeScalesYN.Checked
+        Me.ElementCopy_Info_Text.FontSize_ScaleToElementYesNo = checkFontSizeScalesYN.Checked
 
     End Sub
 
@@ -376,14 +525,39 @@ Public Class DialogTextOffset
 
         ''Added 9/13/2019 thomas downes
         With Me.CtlGraphicFldLabel1
-            Me.CtlGraphicFldLabel1.Width = Me.ElementInfo_Base.Width_Pixels
-            Me.CtlGraphicFldLabel1.Height = Me.ElementInfo_Base.Height_Pixels
+            ''9/18/2019 td''Me.CtlGraphicFldLabel1.Width = Me.Element_Info_Base.Width_Pixels
+            ''9/18/2019 td''Me.CtlGraphicFldLabel1.Height = Me.ElementInfo_Base.Height_Pixels
+
+            .Width = Me.ElementCopy_Info_Base.Width_Pixels
+            .Height = Me.ElementCopy_Info_Base.Height_Pixels
+
             Me.CtlGraphicFldLabel1.Refresh_Image(True)
         End With
 
     End Sub
 
     Private Sub CtlElementWidth_Load(sender As Object, e As EventArgs) Handles CtlElementWidth.Load
+
+    End Sub
+
+    Private Sub ButtonApply_Click(sender As Object, e As EventArgs) Handles ButtonApply.Click
+        ''
+        ''Added 9/18/2019 td  
+        ''
+        UpdateInfo_ViaInterfaces(Me.ElementObject_LayoutDesign, Me.ElementObject_LayoutDesign)
+        Me.OriginalElementControl_ForApplyOnly.Refresh_Master()
+
+    End Sub
+
+    Private Sub TextExampleValue_TextChanged(sender As Object, e As EventArgs) Handles TextExampleValue.TextChanged
+        ''
+        ''Added 9/18/2019 thomas d. 
+        ''
+        With TextExampleValue
+            If (Trim(.Text) <> "") Then
+                CtlGraphicFldLabel1.ExampleTextToDisplay = .Text  ''.Text.Trim
+            End If ''eNd of "If (Trim(.Text) <> "") Then"
+        End With
 
     End Sub
 End Class

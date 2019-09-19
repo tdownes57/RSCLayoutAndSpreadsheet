@@ -3,8 +3,9 @@ Option Strict On
 Option Infer Off
 
 ''Added 7/18/2019 thomas downes
-Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d. 8/14/2019 td  
 Imports System.Drawing.Text ''Added 
+Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d. 8/14/2019 td  
+Imports ciBadgeFields ''Added 9/18/2019 td  
 
 Public Class ClassElementField
     Implements IElement_Base, IElement_TextField
@@ -18,8 +19,7 @@ Public Class ClassElementField
 
     Public Property Font_DrawingClass As System.Drawing.Font Implements IElement_TextField.Font_DrawingClass
 
-    Public Property PositionalMode As String Implements IElement_Base.PositionalMode ''Added 8/14/2019 td 
-    Public Property ExampleValue As String Implements IElement_TextField.ExampleValue ''Added 8/14/2019 td 
+    Public Property ExampleValue_ForElement As String Implements IElement_TextField.ExampleValue_ForElement ''Added 8/14/2019 td 
 
     Public Property FontColor As System.Drawing.Color Implements IElement_TextField.FontColor
 
@@ -44,9 +44,9 @@ Public Class ClassElementField
 
     ''See Interface IElement_Base. ---8/29/2019 td''Public Property BackColor As System.Drawing.Color Implements IElement_Text.BackColor
 
-    Public Property FieldInCardData As String Implements IElement_TextField.FieldInCardData
+    ''This is stored in FieldInfo.--9/18/2019 td''Public Property FieldInCardData As String Implements IElement_TextField.FieldInCardData
 
-    Public Property FieldLabelCaption As String Implements IElement_TextField.FieldLabelCaption
+    ''This is stored in FieldInfo.--9/18/2019 td''Public Property FieldLabelCaption As String Implements IElement_TextField.FieldLabelCaption
 
     ''7/25/2019 td''Prpoerty ExampleText As String ''Added 7/25/2019
     Public Property Text As String Implements IElement_TextField.Text ''E.g. "George Washington" for FullName. 
@@ -54,8 +54,20 @@ Public Class ClassElementField
     ''Added 9/10/2019 td 
     Public Property Recipient As IRecipient Implements IElement_TextField.Recipient
 
+    ''Added 9/18/2019
+    Public Property FieldObject As ClassFieldAny ''Added 9/18/2019 td
+
+    ''Added 9/17/2019 td 
+    Public Property FieldInfo As ICIBFieldStandardOrCustom Implements IElement_TextField.FieldInfo
+
     Public Property TextAlignment As System.Windows.Forms.HorizontalAlignment Implements IElement_TextField.TextAlignment
 
+
+    ''-------------------------------------------------------------
+    ''-------------------------------------------------------------
+    ''-------------------------------------------------------------
+
+    Public Property PositionalMode As String Implements IElement_Base.PositionalMode ''Added 8/14/2019 td 
 
     Public Property OrientationToLayout As String Implements IElement_Base.OrientationToLayout ''E.g. "L" (Landscape) (by far the most common) or "P" for Portrait  
 
@@ -103,10 +115,14 @@ Public Class ClassElementField
 
     End Sub
 
-    Public Sub New(par_intLeft_Pixels As Integer, par_intTop_Pixels As Integer, par_intHeight_Pixels As Integer)
+    Public Sub New(par_fieldInfo As ICIBFieldStandardOrCustom,
+                   par_intLeft_Pixels As Integer, par_intTop_Pixels As Integer, par_intHeight_Pixels As Integer)
+        ''9/17 td''Public Sub New(par_intLeft_Pixels As Integer, par_intTop_Pixels As Integer, par_intHeight_Pixels As Integer)
         ''
         ''Added 9/15/2019 td
         ''
+        Me.FieldInfo = par_fieldInfo ''Added 9/17/2019 td 
+
         Me.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass ''Added 9/12/2019
 
         Me.LeftEdge_Pixels = par_intLeft_Pixels
@@ -326,10 +342,24 @@ Public Class ClassElementField
 
     End Function ''End of "Public Function GenerateImage_NotInUse(par_label As Label) As Image"
 
+    Public Function Copy() As ClassElementField
+        ''
+        ''Added 9/17/2019 
+        ''
+        Dim objCopy As New ClassElementField
+        objCopy.LoadbyCopyingMembers(Me, Me)
+        Return objCopy
+
+    End Function ''End of "Public Function Copy() As ClassElementField"
+
     Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base,
-                                    par_ElementInfo_Text As IElement_TextField)
+                                    par_ElementInfo_TextFld As IElement_TextField)
         ''
         ''Added 9/13/2019 thomas downes
+        ''
+        ''--------------------------------------------------------------------------
+        ''Step 1 of 2 -- Base properties.
+        ''--------------------------------------------------------------------------
         ''
         Me.Back_Color = par_ElementInfo_Base.Back_Color
         Me.Back_Transparent = par_ElementInfo_Base.Back_Transparent
@@ -337,46 +367,38 @@ Public Class ClassElementField
         Me.Border_Color = par_ElementInfo_Base.Border_Color
         Me.Border_Displayed = par_ElementInfo_Base.Border_Displayed
         Me.Border_WidthInPixels = par_ElementInfo_Base.Border_WidthInPixels
-
-        Me.ExampleValue = par_ElementInfo_Text.ExampleValue
-        Me.FieldInCardData = par_ElementInfo_Text.FieldInCardData
-
-        Me.FontBold = par_ElementInfo_Text.FontBold
-        Me.FontColor = par_ElementInfo_Text.FontColor
-        Me.FontFamilyName = par_ElementInfo_Text.FontFamilyName
-        Me.FontItalics = par_ElementInfo_Text.FontItalics
-        Me.FontOffset_X = par_ElementInfo_Text.FontOffset_X
-        Me.FontOffset_Y = par_ElementInfo_Text.FontOffset_Y
-        Me.FontSize_Pixels = par_ElementInfo_Text.FontSize_Pixels
-        Me.FontSize_ScaleToElementRatio = par_ElementInfo_Text.FontSize_ScaleToElementRatio
-        Me.FontSize_ScaleToElementYesNo = par_ElementInfo_Text.FontSize_ScaleToElementYesNo
-        Me.FontUnderline = par_ElementInfo_Text.FontUnderline
-        Me.Font_DrawingClass = par_ElementInfo_Text.Font_DrawingClass
-
         Me.Height_Pixels = par_ElementInfo_Base.Height_Pixels
         Me.LeftEdge_Pixels = par_ElementInfo_Base.LeftEdge_Pixels
         Me.OrientationInDegrees = par_ElementInfo_Base.OrientationInDegrees
         Me.OrientationToLayout = par_ElementInfo_Base.OrientationToLayout
-
         Me.PositionalMode = par_ElementInfo_Base.PositionalMode
         Me.SelectedHighlighting = par_ElementInfo_Base.SelectedHighlighting
-
         Me.TopEdge_Pixels = par_ElementInfo_Base.TopEdge_Pixels
-
         Me.Width_Pixels = par_ElementInfo_Base.Width_Pixels
 
-        Me.ExampleValue = par_ElementInfo_Text.ExampleValue
+        ''--------------------------------------------------------------------------
+        ''Step 2 of 2 -- Field-related properties.
+        ''--------------------------------------------------------------------------
+        ''
+        Me.ExampleValue_ForElement = par_ElementInfo_TextFld.ExampleValue_ForElement
+        ''See FieldInfo. ---9/18/2019 td''Me.FieldInCardData = par_ElementInfo_TextFld.FieldInCardData
+        ''See FieldInfo. ---9/18/2019 td''Me.FieldLabelCaption = par_ElementInfo_TextFld.FieldLabelCaption
+        Me.FieldInfo = par_ElementInfo_TextFld.FieldInfo ''Added 9/18/2019 td 
 
-        Me.FieldInCardData = par_ElementInfo_Text.FieldInCardData
+        Me.FontBold = par_ElementInfo_TextFld.FontBold
+        Me.FontColor = par_ElementInfo_TextFld.FontColor
+        Me.FontFamilyName = par_ElementInfo_TextFld.FontFamilyName
+        Me.FontItalics = par_ElementInfo_TextFld.FontItalics
+        Me.FontOffset_X = par_ElementInfo_TextFld.FontOffset_X
+        Me.FontOffset_Y = par_ElementInfo_TextFld.FontOffset_Y
+        Me.FontSize_Pixels = par_ElementInfo_TextFld.FontSize_Pixels
+        Me.FontSize_ScaleToElementRatio = par_ElementInfo_TextFld.FontSize_ScaleToElementRatio
+        Me.FontSize_ScaleToElementYesNo = par_ElementInfo_TextFld.FontSize_ScaleToElementYesNo
+        Me.FontUnderline = par_ElementInfo_TextFld.FontUnderline
+        Me.Font_DrawingClass = par_ElementInfo_TextFld.Font_DrawingClass
 
-        Me.FieldLabelCaption = par_ElementInfo_Text.FieldLabelCaption
-
-        Me.FontBold = par_ElementInfo_Text.FontBold
-
-
-
-
-
+        ''---See above. ---9/18/2019 td
+        ''---Me.ExampleValue = par_ElementInfo_TextFld.ExampleValue
 
     End Sub ''End of "Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base, .....)"
 
