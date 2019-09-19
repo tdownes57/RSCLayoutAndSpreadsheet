@@ -412,6 +412,7 @@ Public Class ClassFieldCustomized
     Public Property ArrayOfValues As String() ''Implements ICIBFieldStandardOrCustom.ArrayOfValues
         Get
             Throw New NotImplementedException()
+            Return Mod
         End Get
         Set(value As String())
             Throw New NotImplementedException()
