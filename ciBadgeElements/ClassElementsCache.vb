@@ -22,7 +22,15 @@ Public Class ClassElementsCache
 
     Public Property BadgeLayout As ciBadgeInterfaces.BadgeLayoutClass ''Added 9/17/2019 thomas downes
 
-    Public Function FieldElements() As List(Of ClassElementField)
+    Public Function ListFields() As List(Of ClassFieldAny)
+        ''
+        ''Added 9/19/2019 thomas downes
+        ''
+        Return mod_listFields
+
+    End Function ''End of "Public Function Fields() As List(Of ClassFieldAny)"
+
+    Public Function ListFieldElements() As List(Of ClassElementField)
         ''
         ''Added 9/16/2019 thomas downes
         ''
@@ -36,23 +44,23 @@ Public Class ClassElementsCache
         ''
         Return mod_listElementPics(0)
 
-    End Function
+    End Function ''End of "Public Function PicElement() As ClassElementPic"
 
-    Public Function PicElements() As List(Of ClassElementPic)
+    Public Function ListPicElements() As List(Of ClassElementPic)
         ''
         ''Added 9/17/2019 thomas downes
         ''
         Return mod_listElementPics
 
-    End Function
+    End Function ''End of " Public Function ListPicElements() As List(Of ClassElementPic)"
 
-    Public Function StaticTextElements() As List(Of ClassElementStaticText)
+    Public Function ListStaticTextElements() As List(Of ClassElementStaticText)
         ''
         ''Added 9/16/2019 thomas downes
         ''
         Return mod_listElementStatics
 
-    End Function ''End of "Public Function StaticTextElements() As List(Of ClassElementStaticText)"
+    End Function ''End of "Public Function ListStaticTextElements() As List(Of ClassElementStaticText)"
 
     Public Function LaysectionElements() As List(Of ClassElementLaysection)
         ''

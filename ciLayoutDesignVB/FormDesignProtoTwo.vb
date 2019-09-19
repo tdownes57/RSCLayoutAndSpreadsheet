@@ -140,6 +140,7 @@ Public Class FormDesignProtoTwo
         ''
         ''Major call!!
         ''
+        Me.ElementsCache_Saved.LoadFields()
         Me.ElementsCache_Saved.LoadFieldElements(pictureBack)
 
         ''Added 9/19/2019 td
