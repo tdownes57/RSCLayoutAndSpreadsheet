@@ -225,6 +225,7 @@ Partial Class DialogTextOffset
         Me.CtlElementHeight.ElementInfo_Base = Nothing
         Me.CtlElementHeight.ElementInfo_Text = Nothing
         Me.CtlElementHeight.Location = New System.Drawing.Point(405, 232)
+        Me.CtlElementHeight.MinimumValue = 0
         Me.CtlElementHeight.Name = "CtlElementHeight"
         Me.CtlElementHeight.PropertyName = "Total Height of Label"
         Me.CtlElementHeight.PropertyValue = 10
@@ -238,6 +239,7 @@ Partial Class DialogTextOffset
         Me.CtlFontSize.ElementInfo_Base = Nothing
         Me.CtlFontSize.ElementInfo_Text = Nothing
         Me.CtlFontSize.Location = New System.Drawing.Point(406, 127)
+        Me.CtlFontSize.MinimumValue = 0
         Me.CtlFontSize.Name = "CtlFontSize"
         Me.CtlFontSize.PropertyName = "Font Size Pixels"
         Me.CtlFontSize.PropertyValue = 25
@@ -251,6 +253,7 @@ Partial Class DialogTextOffset
         Me.ctlTextOffsetY.ElementInfo_Base = Nothing
         Me.ctlTextOffsetY.ElementInfo_Text = Nothing
         Me.ctlTextOffsetY.Location = New System.Drawing.Point(405, 17)
+        Me.ctlTextOffsetY.MinimumValue = 0
         Me.ctlTextOffsetY.Name = "ctlTextOffsetY"
         Me.ctlTextOffsetY.PropertyName = "Text Offset Vertical"
         Me.ctlTextOffsetY.PropertyValue = 10

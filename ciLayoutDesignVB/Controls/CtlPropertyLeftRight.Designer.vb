@@ -71,6 +71,8 @@ Partial Class CtlPropertyLeftRight
         'Numeric1
         '
         Me.Numeric1.Location = New System.Drawing.Point(113, 55)
+        Me.Numeric1.Maximum = New Decimal(New Integer() {25, 0, 0, 0})
+        Me.Numeric1.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.Numeric1.Name = "Numeric1"
         Me.Numeric1.Size = New System.Drawing.Size(39, 20)
         Me.Numeric1.TabIndex = 27

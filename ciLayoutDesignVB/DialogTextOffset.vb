@@ -161,18 +161,23 @@ Public Class DialogTextOffset
         ''
         Me.CtlElementHeight.ElementInfo_Base = Me.ElementCopy_Info_Base
         Me.CtlElementHeight.ElementInfo_Text = Me.ElementCopy_Info_Text
+        Me.CtlElementHeight.InitiateLocalValue() ''Added 9/19/2019 td
 
         Me.CtlElementWidth.ElementInfo_Base = Me.ElementCopy_Info_Base
         Me.CtlElementWidth.ElementInfo_Text = Me.ElementCopy_Info_Text
+        Me.CtlElementWidth.InitiateLocalValue() ''Added 9/19/2019 td
 
         Me.CtlFontSize.ElementInfo_Base = Me.ElementCopy_Info_Base
         Me.CtlFontSize.ElementInfo_Text = Me.ElementCopy_Info_Text
+        Me.CtlFontSize.InitiateLocalValue() ''Added 9/19/2019 td
 
         Me.CtlTextOffsetX.ElementInfo_Base = Me.ElementCopy_Info_Base
         Me.CtlTextOffsetX.ElementInfo_Text = Me.ElementCopy_Info_Text
+        Me.CtlTextOffsetX.InitiateLocalValue() ''Added 9/19/2019 td
 
         Me.ctlTextOffsetY.ElementInfo_Base = Me.ElementCopy_Info_Base
         Me.ctlTextOffsetY.ElementInfo_Text = Me.ElementCopy_Info_Text
+        Me.ctlTextOffsetY.InitiateLocalValue() ''Added 9/19/2019 td
 
     End Sub ''End of "Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
 
@@ -232,18 +237,23 @@ Public Class DialogTextOffset
         ''
         Me.CtlElementHeight.ElementInfo_Base = par_elementInfo_Base
         Me.CtlElementHeight.ElementInfo_Text = par_elementInfo_Text
+        Me.CtlElementHeight.InitiateLocalValue() ''Added 9/19/2019 td
 
         Me.CtlElementWidth.ElementInfo_Base = par_elementInfo_Base
         Me.CtlElementWidth.ElementInfo_Text = par_elementInfo_Text
+        Me.CtlElementWidth.InitiateLocalValue() ''Added 9/19/2019 td
 
         Me.CtlFontSize.ElementInfo_Base = par_elementInfo_Base
         Me.CtlFontSize.ElementInfo_Text = par_elementInfo_Text
+        Me.CtlFontSize.InitiateLocalValue() ''Added 9/19/2019 td
 
         Me.CtlTextOffsetX.ElementInfo_Base = par_elementInfo_Base
         Me.CtlTextOffsetX.ElementInfo_Text = par_elementInfo_Text
+        Me.CtlTextOffsetX.InitiateLocalValue() ''Added 9/19/2019 td
 
         Me.ctlTextOffsetY.ElementInfo_Base = par_elementInfo_Base
         Me.ctlTextOffsetY.ElementInfo_Text = par_elementInfo_Text
+        Me.ctlTextOffsetY.InitiateLocalValue() ''Added 9/19/2019 td
 
     End Sub ''End of "Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
 
@@ -434,7 +444,7 @@ Public Class DialogTextOffset
 
     End Sub
 
-    Private Sub ButtonLeft_Click(sender As Object, e As EventArgs)
+    Private Sub ButtonLeft_Click(sender As Object, e As EventArgs) Handles ButtonLeft.Click
 
         ''Added 8/18/2019 thomas downes
         ''
@@ -551,7 +561,8 @@ Public Class DialogTextOffset
         ''
         ''Added 9/18/2019 td  
         ''
-        UpdateInfo_ViaInterfaces(Me.ElementObject_LayoutDesign, Me.ElementObject_LayoutDesign)
+        ''9/19/2019 td''UpdateInfo_ViaInterfaces(Me.ElementObject_LayoutDesign, Me.ElementObject_LayoutDesign)
+        UpdateInfo_ViaInterfaces(Me.ElementObject_LayoutDesign, Me.ElementObject_LayoutDesign, True)
         Me.OriginalElementControl_ForApplyOnly.Refresh_Master()
 
     End Sub
@@ -565,6 +576,10 @@ Public Class DialogTextOffset
                 CtlGraphicFldLabel1.ExampleTextToDisplay = .Text  ''.Text.Trim
             End If ''eNd of "If (Trim(.Text) <> "") Then"
         End With
+
+    End Sub
+
+    Private Sub ButtonLeft_Click_1(sender As Object, e As EventArgs) Handles ButtonLeft.Click
 
     End Sub
 End Class

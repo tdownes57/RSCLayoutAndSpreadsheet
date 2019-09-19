@@ -517,7 +517,8 @@ Partial Public Class CtlGraphicFldLabel
         End If ''End of "If (boolUserPressedOK) Then"
 
         ''Added 9/13/2019 td
-        Me.FormDesigner.AutoPreview_IfChecked()
+        ''9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()
+        Me.LayoutFunctions.AutoPreview_IfChecked()
 
     End Sub ''End of "Private Sub Open_OffsetTextDialog(sender As Object, e As EventArgs)"
 
@@ -586,7 +587,8 @@ Partial Public Class CtlGraphicFldLabel
         End If ''End of "If (boolUserPressedOK) Then"
 
         ''Added 9/13/2019 td
-        Me.FormDesigner.AutoPreview_IfChecked()
+        ''9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()
+        Me.LayoutFunctions.AutoPreview_IfChecked()
 
     End Sub ''End of "Private Sub Open_OffsetTextDialog(sender As Object, e As EventArgs)"
 
@@ -616,7 +618,8 @@ Partial Public Class CtlGraphicFldLabel
         Me.Refresh()
 
         ''Added 9/13/2019 td
-        Me.FormDesigner.AutoPreview_IfChecked()
+        ''9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()
+        Me.LayoutFunctions.AutoPreview_IfChecked()
 
     End Sub ''eNd of "Private Sub Rotate90Degrees()"
 

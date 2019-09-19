@@ -160,6 +160,9 @@ Public Class CtlPropertyLeftRight
 
         End With ''End of " With mod_sPropertyName"
 
+        ''Added 9/19/2019 td  
+        UpdateUserFeedbackLabel()
+
     End Sub ''End of "Public Sub InitiateLocalValue()"
 
     Private Sub LabelProperty_Click(sender As Object, e As EventArgs) Handles LabelProperty.Click
@@ -168,7 +171,11 @@ Public Class CtlPropertyLeftRight
 
     Private Sub Numeric1_ValueChanged(sender As Object, e As EventArgs) Handles Numeric1.ValueChanged
 
-        If (Not ReminderMsg1_BeenGiven) Then
+        If (Numeric1.Value = 1) Then
+            ''
+            ''The Control is probably initializing. ---9/19/2019 td 
+            ''
+        ElseIf (Not ReminderMsg1_BeenGiven) Then
             ''
             ''Added 9/18/2019 td  
             ''
