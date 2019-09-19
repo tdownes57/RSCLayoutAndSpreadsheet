@@ -1,6 +1,7 @@
 ﻿''
 ''Added 8/19/2019 td  
 ''
+Imports ciBadgeFields ''Added 9/19/2019 td  
 
 Public Class CtlAddStandardField
 

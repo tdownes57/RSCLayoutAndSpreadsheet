@@ -5,6 +5,7 @@ Option Infer Off
 ''Added 7/21/2019 thomas downes
 ''
 Imports ciBadgeInterfaces
+Imports ciBadgeFields ''Added 9/19/2019 td   
 
 Public Class ListCustomFieldsFlow
 

@@ -1,4 +1,7 @@
-﻿Public Class CtlAddCustomField
+﻿
+Imports ciBadgeFields ''Added 9/19/2019 td  
+
+Public Class CtlAddCustomField
 
     Private mod_MyParentContainer As FlowLayoutPanel ''ContainerControl
 
@@ -19,7 +22,7 @@
         newfieldControl.NewlyAdded = True ''Added 7/27/2019 td 
         newfieldControl.Load_CustomControl(new_field)
 
-        CType(Me.ParentForm, ListCustomFieldsFlow).AdjustHeightOfWindow
+        CType(Me.ParentForm, ListCustomFieldsFlow).AdjustHeightOfWindow()
 
         mod_MyParentContainer.ScrollControlIntoView(Me)
 

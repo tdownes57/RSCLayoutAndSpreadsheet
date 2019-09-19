@@ -294,10 +294,10 @@
     <Compile Include="DialogTextOffset.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormPresetValues.Designer.vb">
-      <DependentUpon>FormPresetValues.vb</DependentUpon>
+    <Compile Include="DialogPresetValues.Designer.vb">
+      <DependentUpon>DialogPresetValues.vb</DependentUpon>
     </Compile>
-    <Compile Include="FormPresetValues.vb">
+    <Compile Include="DialogPresetValues.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ListStandardFields.Designer.vb">
@@ -502,8 +502,8 @@
     <EmbeddedResource Include="DialogTextOffset.resx">
       <DependentUpon>DialogTextOffset.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormPresetValues.resx">
-      <DependentUpon>FormPresetValues.vb</DependentUpon>
+    <EmbeddedResource Include="DialogPresetValues.resx">
+      <DependentUpon>DialogPresetValues.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ListStandardFields.resx">
       <DependentUpon>ListStandardFields.vb</DependentUpon>

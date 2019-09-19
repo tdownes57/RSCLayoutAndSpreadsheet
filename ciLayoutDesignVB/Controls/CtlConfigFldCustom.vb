@@ -189,7 +189,7 @@ ExitHandler:
         ''
         ''Added 7/21/2019 thomas downes
         ''
-        Dim frm_show As New FormPresetValues
+        Dim frm_show As New DialogPresetValues
 
         mod_model_copy.HasPresetValues = Me.checkHasPresetValues.Checked
         mod_model_copy.ArrayOfValues = mod_arrayOfValues

@@ -44,7 +44,8 @@ Public Class FormDisplayImageList2 ''Added 8/27/2019 td
             Me.Visible = True
 
             ''Added 8/26/2019 td 
-            LoadAllImagesToUI()
+            ''9/19/2019 td''LoadAllImagesToUI()
+            LoadAllImagesToUI_ByElement()
 
             ''Added 8/26/2019 td 
             Me.Panel1.Refresh()
@@ -72,7 +73,7 @@ Public Class FormDisplayImageList2 ''Added 8/27/2019 td
 
         Next par_objElement
 
-    End Sub ''End of "Private Sub LoadAllImagesToUI_ByField_Denigrated()"
+    End Sub ''End of "Private Sub LoadAllImagesToUI_ByElement()"
 
     Private Sub LoadAllImagesToUI_ByField_Denigrated()
         ''
@@ -138,7 +139,8 @@ Public Class FormDisplayImageList2 ''Added 8/27/2019 td
         Me.Panel1.Controls.Clear()
 
         ''Added 8/26/2019 td 
-        LoadAllImagesToUI()
+        ''9/19/2019 td''LoadAllImagesToUI()
+        LoadAllImagesToUI_ByElement()
 
         ''Added 8/26/2019 td 
         Me.Panel1.Refresh()

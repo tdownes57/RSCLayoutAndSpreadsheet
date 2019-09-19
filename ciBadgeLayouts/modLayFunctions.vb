@@ -3,9 +3,9 @@ Option Strict On ''Added 9/19/2019 thomas d
 ''
 ''Added 9/19/2019 thomas d
 ''
-Imports System.Drawing ''Added 9/19/2019 thomas d
-Imports System.Drawing.Text ''Added 9/19/2019 thomas d
-Imports ciBadgeInterfaces ''Added 9/19/2019 thomas d
+''9/19 td''Imports System.Drawing ''Added 9/19/2019 thomas d
+''9/19 td''Imports System.Drawing.Text ''Added 9/19/2019 thomas d
+''9/19 td''Imports ciBadgeInterfaces ''Added 9/19/2019 thomas d
 
 Public Module modLayFunctions
     ''
@@ -64,4 +64,4 @@ Public Module modLayFunctions
 
     End Function ''End of "Public Shared Function RatioIsLikelyBad(par_doubleW_div_H As Double) As Boolean"
 
-End Module
+End Module ''Endof "Public Module modLayFunctions"

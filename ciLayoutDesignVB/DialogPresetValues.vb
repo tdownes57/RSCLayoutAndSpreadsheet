@@ -1,4 +1,11 @@
-﻿Public Class FormPresetValues
+﻿''
+''Added 7/26/2019 td  
+''Modified 9/19/2019 td
+''
+Imports ciBadgeInterfaces
+Imports ciBadgeFields
+
+Public Class DialogPresetValues
 
     Private mod_model As ClassFieldCustomized
 
