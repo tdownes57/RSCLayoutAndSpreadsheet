@@ -107,7 +107,7 @@ Public Class ClassElementField
 
     Public Property SelectedHighlighting As Boolean Implements IElement_Base.SelectedHighlighting ''Added 8/2/2019 td  
 
-    Public Property Visible As Boolean Implements IElement_Base.Visible ''Added 9/19/2019 td  
+    Public Property Visible As Boolean = True Implements IElement_Base.Visible ''Added 9/19/2019 td  
 
     ''9/18/2019 td''Private _labelToImage As New ClassLabelToImage ''Added 9/3/2019 td  
 

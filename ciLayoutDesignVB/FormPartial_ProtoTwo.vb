@@ -5,6 +5,7 @@ Option Infer Off
 ''
 ''Added 7/31/2019 td  
 ''
+Imports ciBadgeInterfaces ''Added 9/19/2019 td  
 
 Partial Public Class FormDesignProtoTwo
     ''
@@ -36,7 +37,7 @@ Partial Public Class FormDesignProtoTwo
         End Set
     End Property
 
-    Public Property ControlBeingModified() As Control ''Added 8/9/2019 td
+    Public Property ControlBeingModified() As Control Implements ILayoutFunctions.ControlBeingModified ''Added 8/9/2019 td
         Get
             ''
             ''Added 8 / 9 / 2019 td

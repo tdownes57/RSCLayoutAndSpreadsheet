@@ -747,7 +747,8 @@ Partial Public Class CtlGraphicFldLabel
         ''
         ''Added 8/9/2019 td
         ''
-        Me.FormDesigner.ControlBeingModified = Me
+        ''9/19 td''Me.FormDesigner.ControlBeingModified = Me
+        Me.LayoutFunctions.ControlBeingModified = Me
 
         ''
         ''I need to be able to determine if the SHIFT or CTRL keys were pressed when the application is launched

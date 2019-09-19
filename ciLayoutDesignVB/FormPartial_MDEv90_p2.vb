@@ -32,25 +32,25 @@ Partial Public Class FormMainEntry_v90
         End Set
     End Property
 
-    Public Property ControlBeingModified() As Control ''Added 8/9/2019 td
-        Get
-            ''
-            ''Added 8 / 9 / 2019 td
-            ''
-            ''8/12/2019 td''Return mod_FieldControlLastTouched
-            Return mod_ControlLastTouched ''Added 8/12/2019 td  
-        End Get
-        Set(value As Control)
-            ''Added 8/9/2019 td
-            mod_ControlLastTouched = value ''Added 8/12/2019 td   
-            Try
-                ''9/9/2019 td''mod_FieldControlLastTouched = value
-                mod_FieldControlLastTouched = CType(value, CtlMainEntryBox_v90)
-            Catch
-                ''Not all moveable controls are Field-Label controls. - ----8/12/2019 thomas d.  
-            End Try
-        End Set
-    End Property
+    ''Public Property ControlBeingModified() As Control ''Added 8/9/2019 td
+    ''    Get
+    ''        ''
+    ''        ''Added 8 / 9 / 2019 td
+    ''        ''
+    ''        ''8/12/2019 td''Return mod_FieldControlLastTouched
+    ''        Return mod_ControlLastTouched ''Added 8/12/2019 td  
+    ''    End Get
+    ''    Set(value As Control)
+    ''        ''Added 8/9/2019 td
+    ''        mod_ControlLastTouched = value ''Added 8/12/2019 td   
+    ''        Try
+    ''            ''9/9/2019 td''mod_FieldControlLastTouched = value
+    ''            mod_FieldControlLastTouched = CType(value, CtlMainEntryBox_v90)
+    ''        Catch
+    ''            ''Not all moveable controls are Field-Label controls. - ----8/12/2019 thomas d.  
+    ''        End Try
+    ''    End Set
+    ''End Property
 
     Public Property LabelsDesignList_AllItems As List(Of CtlMainEntryBox_v90) Implements ISelectingElements_v90.LabelsDesignList_AllItems
         Get
