@@ -57,9 +57,10 @@ Public Class CtlPropertyLeftRight
         If (mod_iPropertyValue < Me.MinimumValue) Then mod_iPropertyValue = Me.MinimumValue
 
         ''9/13/2019 td''LabelProperty.Text = (mod_sPropertyName & ": " & CStr(mod_iPropertyValue))
-        UpdateUserFeedbackLabel()
+        ''9/19/2019 td''UpdateUserFeedbackLabel()
 
         UpdateElementInfo(mod_iPropertyValue)
+        UpdateUserFeedbackLabel()
 
         RaiseEvent EventUpdateRequest()
 
@@ -74,8 +75,9 @@ Public Class CtlPropertyLeftRight
         If (mod_iPropertyValue < Me.MinimumValue) Then mod_iPropertyValue = Me.MinimumValue
 
         ''9/13/2019 td''LabelProperty.Text = (mod_sPropertyName & ": " & CStr(mod_iPropertyValue))
-        UpdateUserFeedbackLabel()
+        ''9/19/2019 td''UpdateUserFeedbackLabel()
         UpdateElementInfo(mod_iPropertyValue)
+        UpdateUserFeedbackLabel()
         RaiseEvent EventUpdateRequest()
 
     End Sub
@@ -163,7 +165,7 @@ Public Class CtlPropertyLeftRight
         ''Added 9/19/2019 td  
         UpdateUserFeedbackLabel()
 
-    End Sub ''End of "Public Sub InitiateLocalValue()"
+    End Sub ''End of "Public Sub InitiateLocalValue(par_Base As IElement_Base, ...)"
 
     Private Sub LabelProperty_Click(sender As Object, e As EventArgs) Handles LabelProperty.Click
 

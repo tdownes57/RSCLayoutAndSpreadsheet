@@ -91,4 +91,16 @@ Public Class FormMainEntry_v90
 
     End Sub ''End of "Public Function AutoPreview_IfChecked() As Boolean"
 
+    Public Function RightClickMenu_Parent() As ToolStripMenuItem Implements ILayoutFunctions.RightClickMenu_Parent
+
+        ''Added 9/19/2019 td
+        Return Nothing ''RightClickMenuParent
+
+    End Function
+
+    Public Function NameOfForm() As String Implements ILayoutFunctions.NameOfForm
+        ''Added 9/19/2019
+        Return Me.Name
+    End Function
+
 End Class

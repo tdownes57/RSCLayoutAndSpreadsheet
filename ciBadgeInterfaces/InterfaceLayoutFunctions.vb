@@ -27,4 +27,8 @@ Public Interface ILayoutFunctions
     Function OkayToShowFauxContextMenu() As Boolean ''Added 9/19/2019 td 
     Sub AutoPreview_IfChecked() ''Added 9/19/2019 td 
 
+    Function RightClickMenu_Parent() As ToolStripMenuItem ''Added 9/19/2019 td 
+
+    Function NameOfForm() As String ''ADded 9/19/2019 td 
+
 End Interface

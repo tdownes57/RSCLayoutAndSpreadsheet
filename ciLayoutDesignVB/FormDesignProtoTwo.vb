@@ -1614,6 +1614,18 @@ Public Class FormDesignProtoTwo
 
     End Sub ''End of  "Private Sub AutoPreview_IfChecked()"
 
+    Public Function RightClickMenu_Parent() As ToolStripMenuItem Implements ILayoutFunctions.RightClickMenu_Parent
+
+        ''Added 9/19/2019 td
+        Return RightClickMenuParent
+
+    End Function
+
+    Public Function NameOfForm() As String Implements ILayoutFunctions.NameOfForm
+        ''Added 9/19/2019
+        Return Me.Name
+    End Function
+
     Private Sub ContextMenuStrip1_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles ContextMenuStrip1.Opening
 
     End Sub

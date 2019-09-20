@@ -412,6 +412,9 @@ Public Class ClassElementField
         ''---See above. ---9/18/2019 td
         ''---Me.ExampleValue = par_ElementInfo_TextFld.ExampleValue
 
+        ''Added 9/19/2019 td 
+        Me.TextAlignment = par_ElementInfo_TextFld.TextAlignment
+
     End Sub ''End of "Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base, .....)"
 
     Public Sub Font_ScaleAdjustment(par_intNewHeightInPixels As Integer)

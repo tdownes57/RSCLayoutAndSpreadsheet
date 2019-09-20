@@ -112,7 +112,7 @@ Public Class CtlGraphicFldLabel
         End If ''End of "If (par_elementText Is Nothing) Then .... Else ...."
 
         ''Added 8/9/2019 td
-        Me.FormDesigner = par_formDesigner
+        ''Denigrated. ---9/19/2019 td''Me.FormDesigner = par_formDesigner
 
     End Sub
 
@@ -156,7 +156,7 @@ Public Class CtlGraphicFldLabel
         End If ''End of "If (par_elementText Is Nothing) Then .... Else ...."
 
         ''Added 8/9/2019 td
-        Me.FormDesigner = par_formDesigner
+        ''Denigrated. ---9/19/2019 td''Me.FormDesigner = par_formDesigner
 
     End Sub ''ENd of "Public Sub New_Deprecated"
 
@@ -208,7 +208,7 @@ Public Class CtlGraphicFldLabel
         End If ''End of "If (par_elementText Is Nothing) Then .... Else ...."
 
         ''Added 9/3/2019 td
-        Me.FormDesigner = par_formDesigner
+        ''Denigrated. ---9/19/2019 td''Me.FormDesigner = par_formDesigner
 
     End Sub ''ENd of "Public Sub New_Deprecated"
 
@@ -228,10 +228,13 @@ Public Class CtlGraphicFldLabel
 
     End Sub ''ENd of "Public Sub New "
 
-    Public Sub Refresh_Master()
+    Public Sub Refresh_Master(Optional pboolDialogApplyButton As Boolean = False)
         ''
         ''Added 9/5/2019 thomas d 
         ''
+        If (pboolDialogApplyButton) Then System.Diagnostics.Debugger.Break() ''Added 9/19/2019 td  
+        If (pboolDialogApplyButton) Then MessageBox.Show(Me.LayoutFunctions.NameOfForm()) ''Added 9/19/2019 td  
+
         Refresh_PositionAndSize()
 
         ''#1 9/15 td''Refresh_Image
@@ -512,13 +515,13 @@ Public Class CtlGraphicFldLabel
         Me.ElementInfo_Base.Height_Pixels = Me.Height
 
         ''Added 9/5/2019 td 
-        Me.ElementInfo_Base.TopEdge_Pixels = Me.FormDesigner.Layout_Margin_Top_Omit(Me.Top)
-        Me.ElementInfo_Base.LeftEdge_Pixels = Me.FormDesigner.Layout_Margin_Left_Omit(Me.Left)
+        Me.ElementInfo_Base.TopEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Top_Omit(Me.Top)
+        Me.ElementInfo_Base.LeftEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Left_Omit(Me.Left)
 
         ''Added 9/4/2019 td
         ''9/12/2019 td''Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.Layout_Width_Pixels()
-        Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.FormDesigner.Layout_Width_Pixels()
-        Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.FormDesigner.Layout_Height_Pixels()
+        Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.LayoutFunctions.Layout_Width_Pixels()
+        Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
 
         Application.DoEvents()
         Me.Refresh_Image(True)

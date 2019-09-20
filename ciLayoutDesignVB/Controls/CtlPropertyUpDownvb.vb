@@ -70,8 +70,9 @@ Public Class CtlPropertyUpDownvb
         If (mod_iPropertyValue < 0) Then mod_iPropertyValue = 0
 
         ''9/13/2019 td''LabelProperty.Text = (mod_sPropertyName & ": " & CStr(mod_iPropertyValue))
-        UpdateUserFeedbackLabel()
+        ''9/19/2019 td''UpdateUserFeedbackLabel()
         UpdateElementInfo(mod_iPropertyValue)
+        UpdateUserFeedbackLabel()
         RaiseEvent EventUpdateRequest()
 
     End Sub
@@ -82,8 +83,9 @@ Public Class CtlPropertyUpDownvb
         If (mod_iPropertyValue < 0) Then mod_iPropertyValue = 0
 
         ''9/13/2019 td''LabelProperty.Text = (mod_sPropertyName & ": " & CStr(mod_iPropertyValue))
-        UpdateUserFeedbackLabel()
+        ''9/19/2019 td''UpdateUserFeedbackLabel()
         UpdateElementInfo(mod_iPropertyValue)
+        UpdateUserFeedbackLabel()
         RaiseEvent EventUpdateRequest()
 
     End Sub
@@ -93,6 +95,15 @@ Public Class CtlPropertyUpDownvb
         ''9/13/2019 
         ''
         LabelProperty.Text = (mod_sPropertyName & ": " & CStr(mod_iPropertyValue))
+
+        ''Added 9/19/2019 td
+        Dim boolVeryLongName As Boolean ''Added 9/19/2019 td
+        boolVeryLongName = (mod_sPropertyName.Length >= "Total Height of Label".Length)
+        If (boolVeryLongName) Then ''Added 9/19/2019 td
+            ''Make the label font smaller. 
+            LabelProperty.Font = modFonts.SetFontSize(LabelProperty.Font, -1 + LabelProperty.Font.Size)
+        End If ''End of "If (boolVeryLongName) Then"
+
         Me.Refresh()
 
     End Sub
@@ -169,7 +180,10 @@ Public Class CtlPropertyUpDownvb
 
         End With ''End of " With mod_sPropertyName"
 
-    End Sub ''End of "Public Sub InitiateLocalValue()"
+        ''Added 9/19/2019 td  
+        UpdateUserFeedbackLabel()
+
+    End Sub ''End of "Public Sub InitiateLocalValue(par_Base As IElement_Base, ...)"
 
     Private Sub LabelProperty_Click(sender As Object, e As EventArgs) Handles LabelProperty.Click
 

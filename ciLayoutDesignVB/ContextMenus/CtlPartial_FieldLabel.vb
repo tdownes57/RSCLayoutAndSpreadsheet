@@ -10,7 +10,7 @@ Partial Public Class CtlGraphicFldLabel
     ''Added 8/5/2019 td
     ''   This is to store the initial Width & Height, when resizing.
     ''
-    Public FormDesigner As FormDesignProtoTwo ''Added 8/9/2019 td  
+    ''Denigrated. 9/19/2019 td''Public FormDesigner As FormDesignProtoTwo ''Added 8/9/2019 td  
     Public LayoutFunctions As ciBadgeInterfaces.ILayoutFunctions ''Added 8/9/2019 td  
 
     Public TempResizeInfo_W As Integer = 0 ''Intial resizing width.  (Before any adjustment is made.)
@@ -418,7 +418,8 @@ Partial Public Class CtlGraphicFldLabel
         Next each_ctl
 
         ''Added 9/13/2019 td
-        Me.FormDesigner.AutoPreview_IfChecked()
+        ''Denigrated. 9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()
+        Me.LayoutFunctions.AutoPreview_IfChecked()
 
     End Sub ''eNd of "Private Sub Alignment_Master()"
 
@@ -530,7 +531,8 @@ Partial Public Class CtlGraphicFldLabel
         ''9/18/2019 td''frm_ToShow.LoadFieldAndForm(Me.ElementInfo_Base, Me.ElementInfo_Text, Me.FieldInfo, Me.FormDesigner, Me)
 
         Dim frm_ToShow As New DialogTextBorder(Me.ElementClass_Obj, Me.ElementClass_Obj.Copy())
-        frm_ToShow.LoadFieldAndForm(Me.FormDesigner, Me)
+        ''Denigrated. 9/19 td''frm_ToShow.LoadFieldAndForm(Me.FormDesigner, Me)
+        frm_ToShow.LoadFieldAndForm(Me.LayoutFunctions, Me)
 
         ''Major call !!
         frm_ToShow.ShowDialog()
@@ -667,7 +669,7 @@ Partial Public Class CtlGraphicFldLabel
                 ''
                 If (mod_fauxMenuAlignment Is Nothing) Then
                     mod_fauxMenuAlignment = New CtlGraphPopMenuAlign
-                    Me.FormDesigner.Controls.Add(mod_fauxMenuAlignment)
+                    ''Denigrated. 9/19 td''Me.FormDesigner.Controls.Add(mod_fauxMenuAlignment)
                     AddHandler mod_fauxMenuAlignment.PictureBox1.Click, AddressOf Alignment_Master
                 End If ''End fo "If (mod_fauxMenuAlignment Is Nothing) Then"
 
@@ -687,7 +689,7 @@ Partial Public Class CtlGraphicFldLabel
                 If (mod_fauxMenuEditGroupedItems Is Nothing) Then
                     mod_fauxMenuEditGroupedItems = New CtlGraphPopMenuEditGroup
                     ''Me.FormDesigner.Controls.Add(obj_newButton)
-                    Me.FormDesigner.Controls.Add(mod_fauxMenuEditGroupedItems)
+                    ''Denigrated. 9/19 td''Me.FormDesigner.Controls.Add(mod_fauxMenuEditGroupedItems)
                 End If ''End fo "If (mod_fauxMenuEditGroupedItems Is Nothing) Then"
 
                 With mod_fauxMenuEditGroupedItems
@@ -717,7 +719,7 @@ Partial Public Class CtlGraphicFldLabel
                 ''8/14/2019 td''obj_newMenuSingleton = New CtlGraphPopMenuEditSingle
                 If (mod_fauxMenuEditSingleton Is Nothing) Then
                     mod_fauxMenuEditSingleton = New CtlGraphPopMenuEditSingle
-                    Me.FormDesigner.Controls.Add(mod_fauxMenuEditSingleton)
+                    ''Denigrated. 9/19 td''Me.FormDesigner.Controls.Add(mod_fauxMenuEditSingleton)
                 End If ''End of "If (mod_fauxMenuEditSingleton Is Nothing) Then"
 
                 With mod_fauxMenuEditSingleton
@@ -798,7 +800,9 @@ Partial Public Class CtlGraphicFldLabel
 
         If (mc_AttachContextMenuToTop) Then ''Added 8/12/2019 thomas downes  
             ''8/12/2019 td''boolCreateNewItems = (0 = Me.FormDesigner.RightClickMenuParent.DropDownItems.Count)
-            local_toolStripItems = Me.FormDesigner.RightClickMenuParent.DropDownItems
+            ''Denigrated 9/19 td''local_toolStripItems = Me.FormDesigner.RightClickMenuParent.DropDownItems
+            local_toolStripItems = Me.LayoutFunctions.RightClickMenu_Parent().DropDownItems
+
             boolCreateNewItems = (1 >= local_toolStripItems.Count)
         Else
             boolCreateNewItems = (0 = ContextMenuStrip1.Items.Count)
@@ -859,11 +863,13 @@ Partial Public Class CtlGraphicFldLabel
             ''This might make it visible to the Game Bar Recorder.
             ''  -----8/10/2019 td 
             ''
-            Me.FormDesigner.RightClickMenuParent.Visible = True
+            ''9/19/2019 td''Me.FormDesigner.RightClickMenuParent.Visible = True
+            Me.LayoutFunctions.RightClickMenu_Parent().Visible = True
 
             ''8//12/2019 td''Me.FormDesigner.RightClickMenuParent.PerformClick() ''Show/display menu.  ---8//12/2018 td
             Application.DoEvents() ''Added 8/12/2019 td  
-            Me.FormDesigner.RightClickMenuParent.ShowDropDown() ''Show/display menu.  ---8//12/2018 td
+            ''9/19/2019 td''Me.FormDesigner.RightClickMenuParent.ShowDropDown() ''Show/display menu.  ---8//12/2018 td
+            Me.LayoutFunctions.RightClickMenu_Parent().ShowDropDown() ''Show/display menu.  ---8//12/2018 td
 
             ''Reference the items in the main menu.  -----8/10/2019 td 
             ''For Each each_menuitem In ContextMenuStrip1.Items

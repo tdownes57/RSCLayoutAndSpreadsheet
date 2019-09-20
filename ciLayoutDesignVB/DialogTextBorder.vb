@@ -43,7 +43,10 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
     Public ElementObject_Copy As ClassElementField ''Added 9/18/2019 td
 
     Public GroupEdits As ISelectingElements ''Added 8/15/2019 thomas downes  
-    Public FormDesigner As FormDesignProtoTwo ''Added 8/15/2019 td  
+
+    ''9/19/2019 td''Public FormDesigner As FormDesignProtoTwo ''Added 8/15/2019 td  
+    Public LayoutFunctions As ILayoutFunctions ''Added 9/19/2019 td  
+
     Public OriginalElementControl As CtlGraphicFldLabel ''Added 8/15/2019 td  
 
     Public UserConfirmed As Boolean ''Added 9/18/2019 thomas d. 
@@ -104,13 +107,14 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
 
     End Sub ''Public Sub UpdateInfo_ViaInterface(par_elementInfo As IElement_Base)
 
-    Public Sub LoadFieldAndForm(par_formDesigner As FormDesignProtoTwo,
+    Public Sub LoadFieldAndForm(par_layoutFun As ILayoutFunctions,
                                 par_originalCtl As CtlGraphicFldLabel)
 
         ''
         ''Added 9/18/2019 td
         ''
-        Me.FormDesigner = par_formDesigner
+        ''Denigrated. 9/19/2019 td''Me.FormDesigner = par_formDesigner
+        Me.LayoutFunctions = par_layoutFun ''Added 9/19/2019 td  
         Me.OriginalElementControl = par_originalCtl
 
         With CtlGraphicFldLabel1
@@ -121,7 +125,9 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
             .ElementInfo_Base = Me.ElementCopy_Info_Base
             .ElementInfo_Text = Me.ElementCopy_Info_Text
 
-            .FormDesigner = par_formDesigner
+            ''Denigrated. 9/19/2019 td''.FormDesigner = par_formDesigner
+            .LayoutFunctions = par_layoutFun ''Added 9/19/2019 td 
+
             .Width = .ElementInfo_Base.Width_Pixels
             .Height = .ElementInfo_Base.Height_Pixels
             .Refresh_Image(True)
@@ -136,6 +142,39 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
         CenterTheFieldControl()
 
     End Sub ''End of "Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
+
+    ''Denigrated.  9/19/2019 td''Public Sub LoadFieldAndForm(par_formDesigner As FormDesignProtoTwo,
+    ''                            par_originalCtl As CtlGraphicFldLabel)
+    ''
+    ''    ''
+    ''    ''Added 9/18/2019 td
+    ''    ''
+    ''    Me.FormDesigner = par_formDesigner
+    ''    Me.OriginalElementControl = par_originalCtl
+    ''
+    ''    With CtlGraphicFldLabel1
+    ''
+    ''        .FieldInfo = Me.ElementObject_Copy.FieldInfo
+    ''
+    ''        ''Added 9/18/2019 td 
+    ''        .ElementInfo_Base = Me.ElementCopy_Info_Base
+    ''        .ElementInfo_Text = Me.ElementCopy_Info_Text
+    ''
+    ''        .FormDesigner = par_formDesigner
+    ''        .Width = .ElementInfo_Base.Width_Pixels
+    ''        .Height = .ElementInfo_Base.Height_Pixels
+    ''        .Refresh_Image(True)
+    ''
+    ''    End With ''End of "With CtlGraphicFldLabel1"
+    ''
+    ''    ''Added 9/13/2019 thomas downes
+    ''    Me.CtlBorderWidth.ElementInfo_Base = Me.ElementCopy_Info_Base
+    ''    Me.CtlBorderWidth.ElementInfo_Text = Me.ElementCopy_Info_Text
+    ''
+    ''    ''Position it at the center horizontally. 
+    ''    CenterTheFieldControl()
+    ''
+    ''End Sub ''End of "Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
 
     Public Sub LoadFieldAndForm_NotInUse(par_elementInfo_Base As IElement_Base,
                                 par_elementInfo_Text As IElement_TextField,
@@ -163,7 +202,7 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
         ''Obselete/Not is use.---9/18/2019 td''Me.Border_Displayed = par_elementInfo_Base.Border_Displayed ''Added 9/9/2019 td 
 
         ''Added 8/15/2019 td
-        Me.FormDesigner = par_formDesigner
+        ''Denigrated. ---9/19/2019 td''Me.FormDesigner = par_formDesigner
         Me.OriginalElementControl = par_originalCtl
 
         With CtlGraphicFldLabel1
@@ -177,7 +216,7 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
 
             .FieldInfo = par_fieldInfo
             .LabelText()  ''par_elementInfo.Text)
-            .FormDesigner = par_formDesigner
+            ''Denigrated. ---9/19/2019 td''.FormDesigner = par_formDesigner
             .Refresh_Image(True)
 
         End With ''End of "With CtlGraphicFldLabel1"
@@ -213,7 +252,7 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
         ''This procedure is obselete. ---9/18/2019 td''Me.ElementInfo_Base = CType(par_field.ElementFieldClass, IElement_Base)
 
         ''Added 8/15/2019 td
-        Me.FormDesigner = par_formDesigner
+        ''Denigrated. ---9/19/2019 td''Me.FormDesigner = par_formDesigner
         Me.OriginalElementControl = par_originalCtl
 
         With CtlGraphicFldLabel1
@@ -223,7 +262,7 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
             ''Deprecated.  9/18/2019 td''.ElementInfo_Text = CType(par_field.ElementFieldClass, IElement_TextField)
             ''Deprecated.  9/18/2019 td''.ElementInfo_Base = CType(par_field.ElementFieldClass, IElement_Base)
 
-            .FormDesigner = par_formDesigner
+            ''Denigrated. ---9/19/2019 td''.FormDesigner = par_formDesigner
             .Width = .ElementInfo_Base.Width_Pixels
             .Height = .ElementInfo_Base.Height_Pixels
             .Refresh_Image(True)

@@ -107,6 +107,12 @@ Public Class DialogTextOffset
                 .Font_DrawingClass = modFonts.SetFontSize_Pixels(Me.ElementCopy_Info_Text.Font_DrawingClass,
                                                                  Me.ElementCopy_Info_Text.FontSize_Pixels)
 
+                ''Added 9/19/2019 td
+                .TextAlignment = Me.ElementCopy_Info_Text.TextAlignment ''Added 9/19/2019 td
+
+                ''Added 9/19/2019 td
+                .FontSize_ScaleToElementYesNo = Me.ElementCopy_Info_Text.FontSize_ScaleToElementYesNo
+
             End With
 
         ElseIf (Not par_overrideConfirmation) Then
@@ -178,6 +184,12 @@ Public Class DialogTextOffset
         Me.ctlTextOffsetY.ElementInfo_Base = Me.ElementCopy_Info_Base
         Me.ctlTextOffsetY.ElementInfo_Text = Me.ElementCopy_Info_Text
         Me.ctlTextOffsetY.InitiateLocalValue() ''Added 9/19/2019 td
+
+        ''Added 9/19/2019 td
+        ''
+        ''Does the font size scale to the element height???
+        ''
+        checkFontSizeScalesYN.Checked = Me.ElementCopy_Info_Text.FontSize_ScaleToElementYesNo
 
     End Sub ''End of "Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
 
