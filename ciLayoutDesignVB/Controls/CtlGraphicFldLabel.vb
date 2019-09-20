@@ -8,6 +8,7 @@ Option Infer Off ''Added 8/29/2019 td
 Imports ciBadgeInterfaces ''Added 8/28/2019 thomas downes 
 Imports ciBadgeFields ''Added 9/18/2019 thomas downes 
 Imports ciBadgeElements ''Added 9/18/2019 td 
+Imports ciBadgeElemImage ''Added 9/20/2019 td 
 
 Public Class CtlGraphicFldLabel
     ''
@@ -365,34 +366,65 @@ Public Class CtlGraphicFldLabel
         ''Added 8/18/2019 td
         ''9/3/2019 td''LabelToImage.TextImage(pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
 
-        Dim intLayoutWidth As Integer ''Added 9/3/2019 thomas d.
+        Dim intBadgeLayoutWidth As Integer ''Added 9/3/2019 thomas d.
         ''9/19/2019 td''intLayoutWidth = Me.FormDesigner.Layout_Width_Pixels()
-        intLayoutWidth = Me.LayoutFunctions.Layout_Width_Pixels()
+        intBadgeLayoutWidth = Me.LayoutFunctions.Layout_Width_Pixels()
 
         ''9/4/2019 td''LabelToImage.TextImage(intLayoutWidth, pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
 
         ''
         ''Major call !!
         ''
-        pictureLabel.Image =
-        LabelToImage.TextImage_Field(intLayoutWidth, Me.ElementInfo_Text,
-                               Me.ElementInfo_Base,
-                               boolRotated, True)
+        Dim newTextImage As Image ''Added 9/20/2019 td  
+
+        Const c_boolUseNewestProjectReference As Boolean = True ''Added 9/20/2019 td 
+        If (c_boolUseNewestProjectReference) Then
+
+            newTextImage =
+            modGenerate.TextImage_ByElemInfo(intBadgeLayoutWidth,
+                                   Me.ElementInfo_Text,
+                                   Me.ElementInfo_Base,
+                                   boolRotated, True)
+        Else
+            ''9/20/2019 td''pictureLabel.Image =
+            newTextImage =
+            LabelToImage.TextImage_Field(intBadgeLayoutWidth, Me.ElementInfo_Text,
+                                   Me.ElementInfo_Base,
+                                   boolRotated, True)
+        End If ''End of "If (c_boolUseNewestProjectReference) Then ..... Else ...."
+
+        ''Added 9/20/2019 td
+        pictureLabel.Image = newTextImage
 
         ''Added 8/18/2019 td
-        Dim intImageWidth As Integer
-        intImageWidth = pictureLabel.Image.Width
+        Dim intNewImageWidth As Integer ''Added 8/18/2019 td
+        Dim intNewImageHeight As Integer ''Added 9/20/2019 td
+
+        ''9/20/2019 td''intNewImageWidth = pictureLabel.Image.Width
+        intNewImageWidth = newTextImage.Width ''Added 9/20/2019 td
+        intNewImageHeight = newTextImage.Height ''Added 9/20/2019 td
+
         If (boolRotated) Then ''Added 8/18/2019 td
-            pictureLabel.Height = pictureLabel.Image.Height
-            pictureLabel.Width = intImageWidth
+            ''
+            ''Rotated Images ---  Any special programming needed? 
+            ''
+            ''Adjust the controls to the image size.
+            ''   Is there any special programming for rotated images?   Probably not! ---9/3/2019 td 
+            ''
+            ''9/20/2019 td''pictureLabel.Width = pictureLabel.Image.Width
+            ''9/20/2019 td''pictureLabel.Height = pictureLabel.Image.Height
+            pictureLabel.Width = intNewImageWidth ''Straightforward.   No reversal is needed here, despite the rotation. ---9/20 td
+            pictureLabel.Height = intNewImageHeight ''Straightforward.   No reversal is needed here, despite the rotation. ---9/20 td 
             Me.Height = pictureLabel.Height
             Me.Width = pictureLabel.Width
         Else
             ''
             ''Adjust the controls to the image size. ---9/3/2019 td 
             ''
-            pictureLabel.Width = pictureLabel.Image.Width
-            pictureLabel.Height = pictureLabel.Image.Height
+            ''9/20/2019 td''pictureLabel.Width = pictureLabel.Image.Width
+            ''9/20/2019 td''pictureLabel.Height = pictureLabel.Image.Height
+            pictureLabel.Width = intNewImageWidth
+            pictureLabel.Height = intNewImageHeight
             Me.Height = pictureLabel.Height
             Me.Width = pictureLabel.Width
 

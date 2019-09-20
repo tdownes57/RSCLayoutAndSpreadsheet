@@ -676,6 +676,10 @@
       <Project>{e7eb43c4-358c-4880-9c9b-206127b57722}</Project>
       <Name>ciBadgeElements</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ciBadgeElemImage\ciBadgeElemImage.vbproj">
+      <Project>{86b509fc-8c1a-4d30-b431-ef576de25fc4}</Project>
+      <Name>ciBadgeElemImage</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ciBadgeFields\ciBadgeFields.vbproj">
       <Project>{ef9acec9-841e-4397-bfcb-917c814c4b8c}</Project>
       <Name>ciBadgeFields</Name>
