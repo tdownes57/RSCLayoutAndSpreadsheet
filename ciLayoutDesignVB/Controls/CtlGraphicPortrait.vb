@@ -21,7 +21,8 @@ Public Class CtlGraphicPortrait
     Public ElementInfo_Base As IElement_Base ''Added 7/31/2019 thomas d 
 
     ''9/9/2019 td''Public FormDesigner As FormDesignProtoTwo ''Added 9/4/2019 td
-    Public FormDesigner As ILayoutFunctions ''Modified 9/9/2019 td
+    ''9/20/2019 td''Public FormDesigner As ILayoutFunctions ''Modified 9/9/2019 td
+    Public LayoutFunctions As ILayoutFunctions ''Modified 9/9/2019 td
 
     Public ReadOnly Property Picture_Box As PictureBox
         Get
@@ -50,7 +51,8 @@ Public Class CtlGraphicPortrait
         Me.ElementClass_Obj = par_elementPic
         Me.ElementInfo_Base = CType(par_elementPic, IElement_Base)
         Me.ElementInfo_Pic = CType(par_elementPic, IElementPic)
-        Me.FormDesigner = par_formLayout ''Added 9/4/2019 td
+        ''9/20/2019 td''Me.FormDesigner = par_formLayout ''Added 9/4/2019 td
+        Me.LayoutFunctions = par_formLayout ''Added 9/4/2019 td
 
         ''
         ''Added 8/12/2019 thomas downes 
@@ -89,7 +91,9 @@ Public Class CtlGraphicPortrait
 
         Me.ElementInfo_Base = par_infoForPic_Base
         Me.ElementInfo_Pic = par_infoForPic_Pic
-        Me.FormDesigner = par_formLayout ''Added 9/4/2019 td
+
+        ''9/20/2019 td''Me.FormDesigner = par_formLayout ''Added 9/4/2019 td
+        Me.LayoutFunctions = par_formLayout ''Added 9/4/2019 td
 
         ''
         ''Added 8/12/2019 thomas downes 
@@ -131,8 +135,11 @@ Public Class CtlGraphicPortrait
         ''
         ''Added 9/17 & 9/5/2019 thomas d 
         ''
-        Me.Left = Me.FormDesigner.Layout_Margin_Left_Add(Me.ElementInfo_Base.LeftEdge_Pixels)
-        Me.Top = Me.FormDesigner.Layout_Margin_Top_Add(Me.ElementInfo_Base.TopEdge_Pixels)
+        ''9/20/2019 td''Me.Left = Me.FormDesigner.Layout_Margin_Left_Add(Me.ElementInfo_Base.LeftEdge_Pixels)
+        ''9/20/2019 td''Me.Top = Me.FormDesigner.Layout_Margin_Top_Add(Me.ElementInfo_Base.TopEdge_Pixels)
+
+        Me.Left = Me.LayoutFunctions.Layout_Margin_Left_Add(Me.ElementInfo_Base.LeftEdge_Pixels)
+        Me.Top = Me.LayoutFunctions.Layout_Margin_Top_Add(Me.ElementInfo_Base.TopEdge_Pixels)
 
         Me.Width = Me.ElementInfo_Base.Width_Pixels
         Me.Height = Me.ElementInfo_Base.Height_Pixels
@@ -158,6 +165,9 @@ Public Class CtlGraphicPortrait
 
         Dim strErrorMessage As String = ""
         picturePortrait.Image = ciPictures_VB.PictureExamples.GetImageByIndex(Me.ElementInfo_Pic.PicFileIndex, strErrorMessage)
+
+        ''Added 9/20/2019 td
+        Me.LayoutFunctions.AutoPreview_IfChecked()
 
         ''Added 8/22/2019 td
         If ("" <> strErrorMessage) Then MessageBox.Show(strErrorMessage, "229124",
@@ -305,17 +315,24 @@ Public Class CtlGraphicPortrait
             ''9/10/2019 td''Me.ElementInfo_Base.TopEdge_Pixels = Me.Top
             ''9/10/2019 td''Me.ElementInfo_Base.LeftEdge_Pixels = Me.Left
 
-            Me.ElementInfo_Base.TopEdge_Pixels = Me.FormDesigner.Layout_Margin_Top_Omit(Me.Top)
+            ''9/20/2019 td''Me.ElementInfo_Base.TopEdge_Pixels = Me.FormDesigner.Layout_Margin_Top_Omit(Me.Top)
             ''Oops, nasty bug!!!  ---9/19/2019 td''Me.ElementInfo_Base.LeftEdge_Pixels = Me.FormDesigner.Layout_Margin_Top_Omit(Me.Left)
-            Me.ElementInfo_Base.LeftEdge_Pixels = Me.FormDesigner.Layout_Margin_Left_Omit(Me.Left)
+            ''9/20/2019 td''Me.ElementInfo_Base.LeftEdge_Pixels = Me.FormDesigner.Layout_Margin_Left_Omit(Me.Left)
+
+            Me.ElementInfo_Base.TopEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Top_Omit(Me.Top)
+            Me.ElementInfo_Base.LeftEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Left_Omit(Me.Left)
 
             Me.ElementInfo_Base.Width_Pixels = Me.Width
             Me.ElementInfo_Base.Height_Pixels = Me.Height
 
             ''Added 9/4/2019 td
             ''9/12 td''Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.Layout_Width_Pixels()
-            Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.FormDesigner.Layout_Width_Pixels()
-            Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.FormDesigner.Layout_Height_Pixels()
+
+            ''9/20/2019 td''Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.FormDesigner.Layout_Width_Pixels()
+            ''9/20/2019 td''Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.FormDesigner.Layout_Height_Pixels()
+
+            Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.LayoutFunctions.Layout_Width_Pixels()
+            Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
 
         End If ''End of "If (Me.ElementInfo_Base IsNot Nothing) Then"
 
