@@ -226,6 +226,13 @@ Public Class CtlGraphicFldLabel
         Me.ElementInfo_Text = CType(par_elementField, IElement_TextField)
         Me.LayoutFunctions = par_layout
 
+        ''Added 9/20/2019 td 
+        ''   Add an alert to the user that the element is not rendered
+        ''   on the Badge.  ----9/20/2019 td 
+        Dim bElementInvisibleOnBadge As Boolean
+        bElementInvisibleOnBadge = (Not Me.ElementInfo_Base.Visible)
+        LinkInvisible.Visible = bElementInvisibleOnBadge
+
     End Sub ''ENd of "Public Sub New "
 
     Public Sub Refresh_Master(Optional pboolDialogApplyButton As Boolean = False)
@@ -485,6 +492,12 @@ Public Class CtlGraphicFldLabel
                 ''
                 Return Me.ExampleTextToDisplay
 
+            Case (Me.ElementInfo_Text.ExampleValue_ForElement <> "")
+                ''
+                ''Added 9/18/2019 td 
+                ''
+                Return Me.ElementInfo_Text.ExampleValue_ForElement
+
             Case (UseExampleValues And (Me.FieldInfo.ExampleValue <> ""))
 
                 ''Me.ElementInfo.Info.Text = Me.FieldInfo.ExampleValue
@@ -598,8 +611,15 @@ Public Class CtlGraphicFldLabel
             Me.ElementInfo_Text.Text = textTypeExample.Text
             Me.textTypeExample.Visible = False
 
+            ''Added 9/20/2019 td  
+            Me.ElementInfo_Text.ExampleValue_ForElement = textTypeExample.Text
+            Me.ElementClass_Obj.ExampleValue_ForElement = textTypeExample.Text ''Redundant command. 
+
             ''Added 9/10/2019 td
             Me.Refresh_Master()
+
+            ''Added 9/20/2019 td
+            Me.LayoutFunctions.AutoPreview_IfChecked()
 
         End If ''End If ''End of "If (e.KeyCode = Keys.Enter) Then"
 
@@ -610,9 +630,26 @@ Public Class CtlGraphicFldLabel
         ''Added 9/19/2019 td  
         ''
         Dim intResult As DialogResult
+        Dim bUserDesiresTo_Display As Boolean
 
         intResult = MessageBox.Show("Want this element to appear on the Badge?", "",
                   MessageBoxButtons.OK, MessageBoxIcon.Question)
+
+        bUserDesiresTo_Display = (intResult = DialogResult.OK Or intResult = DialogResult.Yes)
+
+        If (bUserDesiresTo_Display) Then
+
+            ''Added 9/20/2019 td 
+            ''   Add an alert to the user that the element is not rendered
+            ''   on the Badge.  ----9/20/2019 td
+            ''
+            Me.ElementInfo_Base.Visible = True
+
+            Dim bElementInvisibleOnBadge As Boolean
+            bElementInvisibleOnBadge = False ''False, since invisible is the opposite of "Displayed". 
+            LinkInvisible.Visible = bElementInvisibleOnBadge ''Hide the link-label, it's not needed anymore. 
+
+        End If ''End of "If (bUserDesiresTo_Display) Then"
 
     End Sub
 End Class
