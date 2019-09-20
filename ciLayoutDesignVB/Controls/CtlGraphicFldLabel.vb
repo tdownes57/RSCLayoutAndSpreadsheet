@@ -604,4 +604,15 @@ Public Class CtlGraphicFldLabel
         End If ''End If ''End of "If (e.KeyCode = Keys.Enter) Then"
 
     End Sub
+
+    Private Sub LinkInvisible_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkInvisible.LinkClicked
+        ''
+        ''Added 9/19/2019 td  
+        ''
+        Dim intResult As DialogResult
+
+        intResult = MessageBox.Show("Want this element to appear on the Badge?", "",
+                  MessageBoxButtons.OK, MessageBoxIcon.Question)
+
+    End Sub
 End Class
