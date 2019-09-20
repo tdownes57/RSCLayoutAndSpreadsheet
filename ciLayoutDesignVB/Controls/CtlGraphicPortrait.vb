@@ -352,7 +352,7 @@ Public Class CtlGraphicPortrait
                 Me.ElementInfo_Base.OrientationToLayout = "P"
             Case Else
                 Me.ElementInfo_Base.OrientationToLayout = "P"
-        End Select
+        End Select ''End of "Select Case Me.ElementInfo_Base.OrientationToLayout"
 
         ''Added 8/12/2019 thomas downes 
         ''   Increment by 90 degrees.  
@@ -364,6 +364,9 @@ Public Class CtlGraphicPortrait
 
         RefreshImage()
         Me.Refresh()
+
+        ''Added 9/20/2019 td
+        Me.LayoutFunctions.AutoPreview_IfChecked()
 
     End Sub ''eNd of "Private Sub Rotate90()"
 

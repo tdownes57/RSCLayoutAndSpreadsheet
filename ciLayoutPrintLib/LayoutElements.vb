@@ -712,7 +712,7 @@ ExitHandler:
 
                     image_textStandard =
                         modGenerate.TextImage_ByElemInfo(intDesiredLayout_Width,
-                                                         each_elementField, each_elementField, False, True)
+                            each_elementField, each_elementField, False, False) ''9/20/2019 td'', True)
 
                     If (bOutputAllImages) Then par_listTextImages.Add(image_textStandard) ''Added 8/26/2019 td
 

@@ -552,6 +552,43 @@ Public Class CtlGraphicFldLabel
 
     End Function ''End of "Public Function LabelText() As String"
 
+    Public Sub Highlight_IfInsideRubberband(par_rubberband As Rectangle)
+        ''
+        ''Added 9/20/2019 thomas downes
+        ''
+        Dim boolRubberBandIsLeftOfMe As Boolean
+        Dim boolRubberBandIsRightOfMe As Boolean
+        Dim boolRubberBandIsAboveMe As Boolean
+        Dim boolRubberBandIsBelowMe As Boolean
+
+        Dim boolBandIsInsideMeHorizontally As Boolean
+        Dim boolBandIsInsideMeVertically As Boolean
+        Dim boolBandIsInsideMe_BothWays As Boolean
+        Dim boolBandOverlapsWithMe As Boolean
+
+        With par_rubberband
+
+            boolRubberBandIsAboveMe = ((.Top + .Height) < Me.Top)
+            boolRubberBandIsBelowMe = ((Me.Top + Me.Height) < .Top)
+
+            boolRubberBandIsLeftOfMe = (.Left + .Width < Me.Left)
+            boolRubberBandIsRightOfMe = ((Me.Left + Me.Width) < .Left)
+
+        End With ''End of " With par_rubberband"
+
+        boolBandIsInsideMeHorizontally = (Not (boolRubberBandIsLeftOfMe Or boolRubberBandIsRightOfMe))
+        boolBandIsInsideMeVertically = (Not (boolRubberBandIsAboveMe Or boolRubberBandIsBelowMe))
+
+        boolBandIsInsideMe_BothWays = (boolBandIsInsideMeHorizontally And boolBandIsInsideMeVertically)
+        boolBandOverlapsWithMe = boolBandIsInsideMe_BothWays
+
+        If (boolBandOverlapsWithMe) Then
+            Me.ElementClass_Obj.SelectedHighlighting = True
+            Me.Refresh_Image(False)
+        End If ''End of "If (boolBandOverlapsWithMe) Then"
+
+    End Sub ''End of "Public Sub Highlight_IfInsideRubberband()"
+
     Private Sub RefreshElement_Field(sender As Object, e As EventArgs)
         ''
         ''Added 7/31/2019 thomas downes

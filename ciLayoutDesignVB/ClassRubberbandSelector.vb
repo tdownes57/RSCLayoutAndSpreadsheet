@@ -9,6 +9,7 @@ Option Infer Off
 ''
 ''Modified by Thomas Downes, 9/8/2019 
 ''
+''9/20/2019 td''Imports ciBadgeInterfaces ''Added 9/20/2019 thomas downes
 
 Public Class ClassRubberbandSelector
     ''
@@ -21,6 +22,7 @@ Public Class ClassRubberbandSelector
     Public PictureBack As PictureBox
     Public FieldControls_GroupEdit As List(Of CtlGraphicFldLabel)
     Public FieldControls_All As List(Of CtlGraphicFldLabel)
+    ''9/20/2019 td''Public LayoutFunctions As ILayoutFunctions ''Added 9/20/2019 thomas d
 
     ''
     ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
@@ -110,7 +112,7 @@ Public Class ClassRubberbandSelector
             '-- 2.1 make sure the object exists (create if not)
             If _pClickStop = Nothing Then _pClickStop = New Point
 
-            '-- 2.2 Save the mouse's stop postition
+            '-- 2.2 Save the mouse's stop position
             _pClickStop.X = e.X
             _pClickStop.Y = e.Y
 
@@ -185,7 +187,35 @@ Public Class ClassRubberbandSelector
 
         End If ''End of "If (boolRectangleBackwards) Then .... Else ...."
 
-    End Sub ''End of Public Sub Paint   
+        ''
+        ''Added 9/20/2019 thomas d. 
+        ''
+        ''9/20/2019 td''Me.LayoutFunctions.HighlightSelectedFields(_rRectangle)
+        HighlightSelectedFields(_rRectangle)
+
+    End Sub ''End of Public Sub Paint  
+
+    Private Sub HighlightSelectedFields(par_rect As Rectangle)
+        ''
+        ''Added 9/20/2019 td 
+        ''
+        Dim each_fieldCtl As CtlGraphicFldLabel
+
+        If (Me.FieldControls_All Is Nothing) Then
+            ''
+            ''Perhaps the form is in "load" mode. ---9/20/2019 td
+            ''
+        Else
+
+            For Each each_fieldCtl In Me.FieldControls_All
+
+                each_fieldCtl.Highlight_IfInsideRubberband(par_rect)
+
+            Next each_fieldCtl
+
+        End If ''end of "If (Me.FieldControls_All Is Nothing) Then"
+
+    End Sub ''ENd of "Private Sub HighlightSelectedFields(par_rect As Rectangle)"
 
     Private Function ReverseRectangle_IfNeeded(par_rect As Rectangle) As Rectangle
         ''
