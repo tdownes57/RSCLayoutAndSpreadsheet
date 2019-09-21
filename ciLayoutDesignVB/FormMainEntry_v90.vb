@@ -73,6 +73,36 @@ Public Class FormMainEntry_v90
         End Set
     End Property ''End of Public Property ControlBeingModified() As Control Implements ILayoutFunctions.ControlBeingModified 
 
+    Public Property ControlBeingMoved() As Control Implements ILayoutFunctions.ControlBeingMoved ''Added 8/9/2019 td
+        Get
+            ''
+            ''Added 9/20/2019 td
+            ''
+            Return mod_ControlLastMoved
+        End Get
+        Set(value As Control)
+            ''
+            ''Added 9/20/2019 td
+            ''
+            mod_ControlLastTouched = value ''Added 8/12/2019 td
+            mod_ElementLastTouched = value ''Added 9/14/2019 td
+            mod_ControlLastMoved = value ''Added 9/20/2019 td 
+
+            Try
+                ''9/9/2019 td''mod_FieldControlLastTouched = value
+                mod_FieldControlLastTouched = CType(value, CtlMainEntryBox_v90)
+
+                ''Added 9/11/2019 td  
+                If (mc_bAddBorderOnlyWhileResizing) Then
+                    mod_FieldControlLastTouched.BorderStyle = BorderStyle.FixedSingle
+                End If ''End of "If (mc_bAddBorderOnlyWhileResizing) Then"
+
+            Catch
+                ''Not all moveable controls are Field-Label controls. - ----8/12/2019 thomas d.  
+            End Try
+        End Set
+    End Property ''End of Public Property ControlBeingModified() As Control Implements ILayoutFunctions.ControlBeingModified 
+
     Public Function OkayToShowFauxContextMenu() As Boolean Implements ILayoutFunctions.OkayToShowFauxContextMenu
         ''
         ''Added 9/19/2019 td 

@@ -552,32 +552,67 @@ Public Class CtlGraphicFldLabel
 
     End Function ''End of "Public Function LabelText() As String"
 
+    Public Function InsideMe(par_intX As Integer, par_intY As Integer) As Boolean
+        ''
+        ''Added 9/20/2019 td  
+        ''
+        Dim boolInsideHorizontally As Boolean
+        Dim boolInsideVertically As Boolean
+        Dim boolInside_BothWays As Boolean
+
+        boolInsideHorizontally = (Me.Left <= par_intX And par_intX <= (Me.Left + Me.Width))
+        boolInsideVertically = (Me.Top <= par_intY And par_intY <= (Me.Top + Me.Height))
+
+        boolInside_BothWays = (boolInsideHorizontally And boolInsideVertically)
+        Return boolInside_BothWays
+
+    End Function ''eND OF "Public Function InsideMe(par_intX, par_intY As Integer) As Boolean"
+
     Public Sub Highlight_IfInsideRubberband(par_rubberband As Rectangle)
         ''
         ''Added 9/20/2019 thomas downes
         ''
-        Dim boolRubberBandIsLeftOfMe As Boolean
-        Dim boolRubberBandIsRightOfMe As Boolean
-        Dim boolRubberBandIsAboveMe As Boolean
-        Dim boolRubberBandIsBelowMe As Boolean
+        Dim boolRubBandIsAll_LeftOfMe As Boolean
+        Dim boolRubBandIsAll_RightOfMe As Boolean
+        Dim boolRubBandIsAll_AboveMe As Boolean
+        Dim boolRubBandIsAll_BelowMe As Boolean
 
         Dim boolBandIsInsideMeHorizontally As Boolean
         Dim boolBandIsInsideMeVertically As Boolean
         Dim boolBandIsInsideMe_BothWays As Boolean
         Dim boolBandOverlapsWithMe As Boolean
 
-        With par_rubberband
+        Dim obj_rectangleAdjusted As Rectangle
 
-            boolRubberBandIsAboveMe = ((.Top + .Height) < Me.Top)
-            boolRubberBandIsBelowMe = ((Me.Top + Me.Height) < .Top)
+        Dim intRbandInDesignForm_Left As Integer
+        Dim intRbandInDesignForm_Top As Integer
 
-            boolRubberBandIsLeftOfMe = (.Left + .Width < Me.Left)
-            boolRubberBandIsRightOfMe = ((Me.Left + Me.Width) < .Left)
+        With par_rubberband ''Added 9/20/2019 td
+
+            ''Rband = Rubberband 
+            intRbandInDesignForm_Left = Me.LayoutFunctions.Layout_Margin_Left_Add(.Left)
+            intRbandInDesignForm_Top = Me.LayoutFunctions.Layout_Margin_Top_Add(.Top)
+
+            ''Added 9/20/2019 td
+            obj_rectangleAdjusted =
+                New Rectangle(intRbandInDesignForm_Left,
+                              intRbandInDesignForm_Top,
+                                     .Width, .Height)
+
+        End With ''End of "With par_rubberband"
+
+        With obj_rectangleAdjusted
+
+            boolRubBandIsAll_AboveMe = ((.Top + .Height) < Me.Top)
+            boolRubBandIsAll_BelowMe = ((Me.Top + Me.Height) < .Top)
+
+            boolRubBandIsAll_LeftOfMe = (.Left + .Width < Me.Left)
+            boolRubBandIsAll_RightOfMe = ((Me.Left + Me.Width) < .Left)
 
         End With ''End of " With par_rubberband"
 
-        boolBandIsInsideMeHorizontally = (Not (boolRubberBandIsLeftOfMe Or boolRubberBandIsRightOfMe))
-        boolBandIsInsideMeVertically = (Not (boolRubberBandIsAboveMe Or boolRubberBandIsBelowMe))
+        boolBandIsInsideMeHorizontally = (Not (boolRubBandIsAll_LeftOfMe Or boolRubBandIsAll_RightOfMe))
+        boolBandIsInsideMeVertically = (Not (boolRubBandIsAll_AboveMe Or boolRubBandIsAll_BelowMe))
 
         boolBandIsInsideMe_BothWays = (boolBandIsInsideMeHorizontally And boolBandIsInsideMeVertically)
         boolBandOverlapsWithMe = boolBandIsInsideMe_BothWays

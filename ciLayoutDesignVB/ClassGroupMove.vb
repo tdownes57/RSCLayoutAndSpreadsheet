@@ -6,6 +6,7 @@
 '' </summary>
 
 Imports MoveAndResizeControls_Monem
+Imports ciBadgeInterfaces ''Added 9/20/2019 td  
 
 Public Class ClassGroupMove
     Implements InterfaceEvents
@@ -18,12 +19,23 @@ Public Class ClassGroupMove
     Public Event Resizing_End()
     Public Event Moving_End() ''Added 9/13/2019 td  
 
-    Public ParentLayoutForm As FormDesignProtoTwo ''Added 8/4/2019
+    ''9/20/2019 td''Public ParentLayoutForm As FormDesignProtoTwo ''Added 8/4/2019
+    Public LayoutFunctions As ILayoutFunctions ''Added 9/20/2019 td
 
     Public Sub New(par_form As FormDesignProtoTwo)
 
         ''Added 8/4/2019 td  
-        ParentLayoutForm = par_form
+        ''
+        ''9/20/2019 td''ParentLayoutForm = par_form
+        LayoutFunctions = CType(par_form, ILayoutFunctions)
+
+    End Sub
+
+    Public Sub New(par_layoutFun As ILayoutFunctions)
+        ''
+        ''Added 9/20/2019 td  
+        ''
+        LayoutFunctions = CType(par_layoutFun, ILayoutFunctions)
 
     End Sub
 
@@ -59,7 +71,8 @@ Public Class ClassGroupMove
         ''
         ''Added 8/4/2019 td
         ''
-        ParentLayoutForm.ControlBeingMoved = par_control
+        ''9/20/2019 td''ParentLayoutForm.ControlBeingMoved = par_control
+        LayoutFunctions.ControlBeingMoved = par_control
 
     End Sub
 

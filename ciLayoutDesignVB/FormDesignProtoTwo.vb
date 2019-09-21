@@ -202,7 +202,8 @@ Public Class FormDesignProtoTwo
         End If ''End of "If (c_LayoutBackIsMoveable) Then"
 
         ''Moved from above, 9/20/2019 td 
-        Initiate_RubberbandSelector(mod_listOfFieldControls) ''Added 9/8/2019 thomas d. 
+        Initiate_RubberbandSelector(mod_listOfFieldControls,
+                                     mod_selectedCtls) ''Added 9/8/2019 thomas d. 
 
     End Sub ''End of "Private Sub FormDesignProtoTwo_Load"
 
@@ -443,7 +444,8 @@ Public Class FormDesignProtoTwo
 
     End Sub ''End of " Private Sub LoadElements_Picture()"
 
-    Private Sub Initiate_RubberbandSelector(par_list_elementControls As List(Of CtlGraphicFldLabel))
+    Private Sub Initiate_RubberbandSelector(par_elementControls_All As List(Of CtlGraphicFldLabel),
+                                            par_elementControls_GroupEdit As List(Of CtlGraphicFldLabel))
         ''9/20 td''Private Sub Initiate_RubberbandSelector() 
         ''
         ''Added 9/8/2019 td
@@ -455,7 +457,9 @@ Public Class FormDesignProtoTwo
             .PictureBack = Me.pictureBack
 
             ''Added 9/20/2019 td  
-            .FieldControls_All = par_list_elementControls
+            .FieldControls_All = par_elementControls_All
+
+            .FieldControls_GroupEdit = par_elementControls_GroupEdit
 
             ''AddHandler , AddressOf mod_rubberbandClass.MouseMove
             ''AddHandler .PictureBack.MouseMove, AddressOf mod_rubberbandClass.MouseMove
