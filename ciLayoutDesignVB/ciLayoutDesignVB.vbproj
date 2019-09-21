@@ -630,6 +630,7 @@
     <Content Include="Images\ValleyValleyColl.jpg" />
     <Content Include="Images\__UI for V831_v101.PNG" />
     <Content Include="Images\__UI for v900_v101.PNG" />
+    <Content Include="Notes\Have to do next.txt" />
     <Content Include="ORO835 - OrovilleHS.PNG" />
     <None Include="Resources\C39FIRA.TTF">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

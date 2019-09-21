@@ -353,7 +353,7 @@ Public Module modGenerate
         ''8/18 td''boolLetsRotate90 = True ''boolSeemsInPortraitMode
 
         Dim boolLetsRotate90 As Boolean ''Added 8/18/2019 td 
-        boolLetsRotate90 = False ''(par_design.OrientationInDegrees > 0)
+        boolLetsRotate90 = (par_elementInfo_Base.OrientationInDegrees > 0)
 
         ''Added 8/7/2019 thomas downes 
         If (boolLetsRotate90) Then

@@ -45,6 +45,9 @@ Public Class ClassRubberbandSelector
         Dim intY_AdjustedToForm As Integer ''Added 9/20/2019 td
 
         ''Added 9/20/2019 td
+        If (LayoutFunctions Is Nothing) Then System.Diagnostics.Debugger.Break()
+
+        ''Added 9/20/2019 td
         intX_AdjustedToForm = LayoutFunctions.Layout_Margin_Left_Add(e.X)
         intY_AdjustedToForm = LayoutFunctions.Layout_Margin_Top_Add(e.Y)
 
@@ -203,7 +206,16 @@ Public Class ClassRubberbandSelector
         ''Added 9/20/2019 thomas d. 
         ''
         ''9/20/2019 td''Me.LayoutFunctions.HighlightSelectedFields(_rRectangle)
-        HighlightSelectedFields(_rRectangle)
+
+        Dim boolNonTrivial As Boolean
+
+        boolNonTrivial = (_rRectangle.Width > 5 And _rRectangle.Height > 5) ''Added 9/20/2019 td
+
+        If (boolNonTrivial) Then
+
+            HighlightSelectedFields(_rRectangle)
+
+        End If ''End of "if (boolNonTrivial) Then"
 
     End Sub ''End of Public Sub Paint  
 
@@ -240,7 +252,11 @@ Public Class ClassRubberbandSelector
 
                 each_fieldCtl.Highlight_IfInsideRubberband(par_rect)
 
-                Me.FieldControls_GroupEdit.Add(each_fieldCtl) ''Added 9/20/2019 td
+                With Me.FieldControls_GroupEdit
+                    If (Not .Contains(each_fieldCtl)) Then
+                        .Add(each_fieldCtl) ''Added 9/20/2019 td
+                    End If ''End of "If (Not .Contains(each_fieldCtl)) Then"
+                End With ''End of "With Me.FieldControls_GroupEdit"
 
             Next each_fieldCtl
 

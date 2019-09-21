@@ -459,6 +459,9 @@ Public Class FormDesignProtoTwo
             ''Added 9/20/2019 td  
             .FieldControls_All = par_elementControls_All
 
+            ''Added 9/20/2019 td
+            .LayoutFunctions = CType(Me, ILayoutFunctions)
+
             .FieldControls_GroupEdit = par_elementControls_GroupEdit
 
             ''AddHandler , AddressOf mod_rubberbandClass.MouseMove

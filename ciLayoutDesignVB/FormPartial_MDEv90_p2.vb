@@ -15,7 +15,7 @@ Partial Public Class FormMainEntry_v90
     Private mod_ControlLastTouched As Control
     Private mod_ControlLastMoved As Control ''Added 9/20/2019 td
 
-    Public Property ControlBeingMoved() As Control ''Added 8/4/2019 td
+    Public Property ControlBeingMoved_Deux() As Control ''Added 8/4/2019 td
         Get
             ''Added 8/9/2019 td
             Return mod_FieldControlLastTouched

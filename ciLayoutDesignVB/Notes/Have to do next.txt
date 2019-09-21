@@ -1,0 +1,20 @@
+﻿
+--------------------
+Have to do next 
+--------------------
+
+Fix rotation (90 degrees) of element field controls.  
+
+Add "Clear selected-controls selections" to the Design-Layout menu (not a right-click menu)
+
+Add a "Copy Element" option in the Right-Click menu, in case the same field needs to appear in two places on the badge.
+
+Add layout sections ????
+
+Figure out why the "Apply" button doesnt work.     
+
+  
+
+
+
+
