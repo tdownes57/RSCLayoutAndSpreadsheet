@@ -9,7 +9,8 @@ Public Class FormRotateText
     Private Sub FormRotateText_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         ''Dim objInfo As Type ''System.Reflection.Assembly
-        Dim each_member As Reflection.MemberInfo
+        Dim each_methodInfo As Reflection.MethodInfo
+        ''Dim each_eventInfo As Reflection.EventInfo
 
         Dim objClass1 As New ClassMethods
         Dim strMethodName As String
@@ -22,9 +23,9 @@ Public Class FormRotateText
 
         Dim t As Type = objClass1.GetType
 
-        For Each each_member In t.GetMembers()
+        For Each each_methodInfo In t.GetMethods()
 
-            strMethodName = each_member.Name
+            strMethodName = each_methodInfo.Name
 
             strMethodWithSpaces = strMethodName.Replace("_", " ")
 
@@ -33,12 +34,47 @@ Public Class FormRotateText
             each_link.Visible = True
             each_link.Text = strMethodWithSpaces
 
-            AddHandler each_link.LinkClicked, AddressOf each_member
+            ''AddHandler each_link.LinkClicked, AddressOf each_member
+
+            Dim tt As Type = each_link.GetType
+
+            ''each_eventInfo = tt.GetEvents()(0)
+
+            ''Dim list_events() As Reflection.EventInfo
+            Dim link_clicked As Reflection.EventInfo
+
+            ''list_events = tt.GetEvents()
+            ''For Each each_eventInfo In list_events
+            ''    If (each_eventInfo.Name = "LinkClicked") Then Exit For
+            ''    System.Diagnostics.Debug.Print(each_eventInfo.Name)
+            ''Next
+            link_clicked = tt.GetEvent("LinkClicked")
+
+            ''each_eventInfo.AddEventHandler()
+
+            ''    var p = New Program();
+            ''var eventInfo = p.GetType().GetEvent("TestEvent");
+            ''var methodInfo = p.GetType().GetMethod("TestMethod");
+            ''Delegate handler() = 
+            ''     Delegate.CreateDelegate(eventInfo.EventHandlerType,
+            ''                             p,
+            ''                             methodInfo);
+            ''eventInfo.AddEventHandler(p, handler);
+            ''p.Test();
+
+            Dim myDelegate As [Delegate]
+            myDelegate = [Delegate].CreateDelegate(link_clicked.EventHandlerType, Me, each_methodInfo)
+
+            link_clicked.AddEventHandler(Me, myDelegate)
+
+            FlowLayoutPanel1.Controls.Add(each_link)
+
+        Next each_methodInfo
 
 
+    End Sub
 
-        Next each_member
-
+    Private Sub LinkLabel1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
 
     End Sub
 End Class

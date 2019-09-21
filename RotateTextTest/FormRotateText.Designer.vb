@@ -23,6 +23,7 @@ Partial Class FormRotateText
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         Me.SuspendLayout()
         '
         'FlowLayoutPanel1
@@ -34,18 +35,31 @@ Partial Class FormRotateText
         Me.FlowLayoutPanel1.Size = New System.Drawing.Size(200, 450)
         Me.FlowLayoutPanel1.TabIndex = 0
         '
+        'LinkLabel1
+        '
+        Me.LinkLabel1.AutoSize = True
+        Me.LinkLabel1.Location = New System.Drawing.Point(12, 18)
+        Me.LinkLabel1.Name = "LinkLabel1"
+        Me.LinkLabel1.Size = New System.Drawing.Size(77, 17)
+        Me.LinkLabel1.TabIndex = 1
+        Me.LinkLabel1.TabStop = True
+        Me.LinkLabel1.Text = "LinkLabel1"
+        '
         'FormRotateText
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.Controls.Add(Me.LinkLabel1)
         Me.Controls.Add(Me.FlowLayoutPanel1)
         Me.Name = "FormRotateText"
         Me.Text = "FormRotateText"
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
     Friend WithEvents FlowLayoutPanel1 As FlowLayoutPanel
+    Friend WithEvents LinkLabel1 As LinkLabel
 End Class
