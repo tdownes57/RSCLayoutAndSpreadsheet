@@ -414,8 +414,13 @@ Public Class CtlGraphicFldLabel
             ''9/20/2019 td''pictureLabel.Width = pictureLabel.Image.Width
             ''9/20/2019 td''pictureLabel.Height = pictureLabel.Image.Height
             pictureLabel.Width = intNewImageWidth ''Straightforward.   No reversal is needed here, despite the rotation. ---9/20 td
+            Application.DoEvents()
             pictureLabel.Height = intNewImageHeight ''Straightforward.   No reversal is needed here, despite the rotation. ---9/20 td 
+            Application.DoEvents()
+            pictureLabel.Invalidate() ''Forces it to be repainted.  
+
             Me.Height = pictureLabel.Height
+            Application.DoEvents()
             Me.Width = pictureLabel.Width
         Else
             ''
@@ -424,8 +429,11 @@ Public Class CtlGraphicFldLabel
             ''9/20/2019 td''pictureLabel.Width = pictureLabel.Image.Width
             ''9/20/2019 td''pictureLabel.Height = pictureLabel.Image.Height
             pictureLabel.Width = intNewImageWidth
+            Application.DoEvents()
             pictureLabel.Height = intNewImageHeight
+            Application.DoEvents()
             Me.Height = pictureLabel.Height
+            Application.DoEvents()
             Me.Width = pictureLabel.Width
 
         End If ''End if "If (boolRotated) Then .... Else ...."
@@ -450,6 +458,7 @@ Public Class CtlGraphicFldLabel
         End If ''End of "If (mod_c_boolMustSetBackColor And (ElementInfo IsNot Nothing)) Then"
 
         ''8/19/2019 td''pictureLabel.Refresh()
+        pictureLabel.Invalidate() ''Forces it to be re-painted. ---9/21/2019 td 
         pictureLabel.Refresh()
         Me.Refresh()
 
