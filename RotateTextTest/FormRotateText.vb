@@ -3,6 +3,7 @@ Option Strict On
 ''
 ''Added 9/21/2019 thomas d
 ''
+Imports System.Reflection
 Imports System.Reflection.Assembly
 
 Public Class FormRotateText
@@ -15,6 +16,7 @@ Public Class FormRotateText
         Dim objClass1 As New ClassMethods
         Dim strMethodName As String
         Dim strMethodWithSpaces As String
+        Dim boolHasUnderscore As Boolean  ''Added 9//21/2019 td
 
         ''objInfo = (TypeOf objClass1)
 
@@ -26,6 +28,10 @@ Public Class FormRotateText
         For Each each_methodInfo In t.GetMethods()
 
             strMethodName = each_methodInfo.Name
+
+            ''Added 9/21/2019 thomas d. 
+            boolHasUnderscore = strMethodName.Contains("_")
+            If (Not boolHasUnderscore) Then Exit For
 
             strMethodWithSpaces = strMethodName.Replace("_", " ")
 
@@ -63,9 +69,8 @@ Public Class FormRotateText
             ''p.Test();
 
             Dim myDelegate As [Delegate]
-            myDelegate = [Delegate].CreateDelegate(link_clicked.EventHandlerType, Me, each_methodInfo)
-
-            link_clicked.AddEventHandler(Me, myDelegate)
+            myDelegate = [Delegate].CreateDelegate(link_clicked.EventHandlerType, each_methodInfo)
+            link_clicked.AddEventHandler(Me, myDelegate) '', BindingFlags.Public)
 
             FlowLayoutPanel1.Controls.Add(each_link)
 
