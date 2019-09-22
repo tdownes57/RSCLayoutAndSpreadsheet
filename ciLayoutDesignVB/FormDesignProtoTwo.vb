@@ -1846,7 +1846,8 @@ Public Class FormDesignProtoTwo
             If (TypeOf each_control Is CtlGraphicFldLabel) Then
 
                 each_controlField = CType(each_control, CtlGraphicFldLabel)
-                each_controlField.FormDesigner = Nothing
+                ''9/19/2019 td''each_controlField.FormDesigner = Nothing
+                each_controlField.LayoutFunctions = Nothing ''Added 9/19/2019 td
                 each_controlField.Parent = Nothing
                 each_controlField.FieldInfo = Nothing
                 each_controlField.ElementInfo_Base = Nothing
