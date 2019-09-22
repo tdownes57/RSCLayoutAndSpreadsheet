@@ -35,6 +35,9 @@ Public Class FormDesignProtoTwo
     ''Added 9/8/2019 td
     Private mod_rubberbandClass As ClassRubberbandSelector
 
+    ''Added 9/20/2019 td  
+    Private mod_listOfFieldControls As New List(Of CtlGraphicFldLabel)
+
     ''Private mod_generator As LayoutElementGenerator
 
     ''Private mod_Pic As IElement ''Added 7/18/2019 thomas downes 
@@ -101,7 +104,7 @@ Public Class FormDesignProtoTwo
         ''
         ''Added 7/18/2019 thomas downes 
         ''
-        Initiate_RubberbandSelector() ''Added 9/8/2019 thomas d. 
+        ''Moved below.  9/20 td''Initiate_RubberbandSelector() ''Added 9/8/2019 thomas d. 
 
         ''
         ''Check that the proportions are correct. 
@@ -164,7 +167,8 @@ Public Class FormDesignProtoTwo
         ''Major call!!  
         ''
         ''9/17/2019 td''LoadForm_LayoutElements()
-        LoadForm_LayoutElements(Me.ElementsCache_Edits)
+        ''9/20/2019 td''LoadForm_LayoutElements(Me.ElementsCache_Edits)
+        LoadForm_LayoutElements(Me.ElementsCache_Edits, mod_listOfFieldControls)
 
         ''Added 8/11/2019 thomas d.
         ''
@@ -197,6 +201,10 @@ Public Class FormDesignProtoTwo
                           c_boolBreakpoint) ''Added 9/08/2019 thomas downes
         End If ''End of "If (c_LayoutBackIsMoveable) Then"
 
+        ''Moved from above, 9/20/2019 td 
+        Initiate_RubberbandSelector(mod_listOfFieldControls,
+                                     mod_selectedCtls) ''Added 9/8/2019 thomas d. 
+
     End Sub ''End of "Private Sub FormDesignProtoTwo_Load"
 
     Private Sub ResizeLayoutBackgroundImage_ToFitPictureBox()
@@ -226,20 +234,38 @@ Public Class FormDesignProtoTwo
 
     End Sub ''End of Sub ResizeLayoutBackgroundImage()
 
-    Private Sub LoadForm_LayoutElements(par_cache As ClassElementsCache)
+    Private Sub LoadForm_LayoutElements(par_cache As ClassElementsCache,
+                                        ByRef par_listFieldCtls As List(Of CtlGraphicFldLabel))
+        ''9/20/2019 td''Private Sub LoadForm_LayoutElements(par_cache As ClassElementsCache)
         ''
         ''Added 9/17/2019 td
         ''
-        Const c_boolLoadingForm As Boolean = True ''Added 8/28/2019 thomas downes  
+        Const c_boolLoadingForm As Boolean = True ''Added 8/28/2019 thomas downes 
+        Dim boolMakeMoveableByUser As Boolean ''Added 9/20/2019 td 
+        Const c_boolMakeMoveableASAP As Boolean = False ''added 9/20/2019 td
 
         ''#1 9/17/2019 td''LoadElements_Fields_Master(c_boolLoadingForm, par_cache.FieldElements())
         '' #2 9/17/2019 td''LoadElements_ByListOfFields(ClassFields.ListAllFields())
-        LoadFieldControls_ByListOfElements(par_cache.ListFieldElements(), c_boolLoadingForm)
+        ''9/20/2019 td''LoadFieldControls_ByListOfElements(par_cache.ListFieldElements(), c_boolLoadingForm)
+
+        boolMakeMoveableByUser = c_boolMakeMoveableASAP ''Added 9/20/2019 td  
+
+        LoadFieldControls_ByListOfElements(par_cache.ListFieldElements(),
+                                           c_boolLoadingForm,
+                                           False, boolMakeMoveableByUser,
+                                           par_listFieldCtls)
 
         LoadElements_Picture(par_cache.PicElement())
 
         ''Add moveability.   
-        MakeElementsMoveable()
+        boolMakeMoveableByUser = (Not c_boolMakeMoveableASAP) ''Added 9/20/2019 td
+        If (boolMakeMoveableByUser) Then
+            ''
+            ''Pretty big call!!   Allow the user to "click & drag" the control. 
+            ''
+            MakeElementsMoveable()
+
+        End If ''ENd of "If (boolMakeMoveableByUser) Then"
 
         ''
         ''Added 7/28/2019 td
@@ -418,7 +444,9 @@ Public Class FormDesignProtoTwo
 
     End Sub ''End of " Private Sub LoadElements_Picture()"
 
-    Private Sub Initiate_RubberbandSelector()
+    Private Sub Initiate_RubberbandSelector(par_elementControls_All As List(Of CtlGraphicFldLabel),
+                                            par_elementControls_GroupEdit As List(Of CtlGraphicFldLabel))
+        ''9/20 td''Private Sub Initiate_RubberbandSelector() 
         ''
         ''Added 9/8/2019 td
         ''
@@ -427,6 +455,14 @@ Public Class FormDesignProtoTwo
         With mod_rubberbandClass
 
             .PictureBack = Me.pictureBack
+
+            ''Added 9/20/2019 td  
+            .FieldControls_All = par_elementControls_All
+
+            ''Added 9/20/2019 td
+            .LayoutFunctions = CType(Me, ILayoutFunctions)
+
+            .FieldControls_GroupEdit = par_elementControls_GroupEdit
 
             ''AddHandler , AddressOf mod_rubberbandClass.MouseMove
             ''AddHandler .PictureBack.MouseMove, AddressOf mod_rubberbandClass.MouseMove
@@ -656,7 +692,8 @@ Public Class FormDesignProtoTwo
     Private Sub LoadFieldControls_ByListOfElements(par_list As List(Of ClassElementField),
                             par_boolLoadingForm As Boolean,
                             Optional par_bUnloading As Boolean = False,
-                            Optional par_bAddMoveability As Boolean = False)
+                            Optional par_bAddMoveability As Boolean = False,
+                            Optional ByRef par_listFieldCtls As List(Of CtlGraphicFldLabel) = Nothing)
         ''
         ''Added 9/17/2019 thomas downes 
         ''
@@ -751,6 +788,8 @@ Public Class FormDesignProtoTwo
             If (boolIncludeOnBadge) Then
 
                 Me.Controls.Add(label_control)
+                par_listFieldCtls.Add(label_control) ''Added 9/20/2019 td
+
                 label_control.Visible = True
                 label_control.BringToFront() ''Added 9/7/2019 thomas d.  
                 ''9/5/2019''label_control.Refresh_Image(True)
@@ -1846,8 +1885,8 @@ Public Class FormDesignProtoTwo
             If (TypeOf each_control Is CtlGraphicFldLabel) Then
 
                 each_controlField = CType(each_control, CtlGraphicFldLabel)
-                ''9/19/2019 td''each_controlField.FormDesigner = Nothing
-                each_controlField.LayoutFunctions = Nothing ''Added 9/19/2019 td
+                ''9/20/2019 td''each_controlField.FormDesigner = Nothing
+                each_controlField.LayoutFunctions = Nothing ''Added 9/20/2019 td
                 each_controlField.Parent = Nothing
                 each_controlField.FieldInfo = Nothing
                 each_controlField.ElementInfo_Base = Nothing
@@ -1936,7 +1975,7 @@ Public Class FormDesignProtoTwo
         ''
         If (mod_rubberbandClass IsNot Nothing) Then
             mod_rubberbandClass.Paint(sender, e)
-        End If
+        End If ''End of "If (mod_rubberbandClass IsNot Nothing) Then"
 
     End Sub
 

@@ -17,7 +17,7 @@ Partial Public Class FormDesignProtoTwo
     Private mod_ElementLastTouched As Control ''Let's change this to IElement_Base soon. ---Added 9/14/2019 td 
     Private Const mc_bAddBorderOnlyWhileResizing As Boolean = True ''Added 9/11/2019 thomas d. 
 
-    Public Property ControlBeingMoved() As Control ''Added 8/4/2019 td
+    Public Property ControlBeingMoved() As Control Implements ILayoutFunctions.ControlBeingMoved ''Added 8/4/2019 td
         Get
             ''Added 8/9/2019 td
             Return mod_FieldControlLastTouched
@@ -35,7 +35,7 @@ Partial Public Class FormDesignProtoTwo
                 mod_ElementLastTouched = CType(value, Control)
             End Try
         End Set
-    End Property
+    End Property ''End of "Public Property ControlBeingMoved() As Control Implements ILayoutFunctions.ControlBeingMoved"
 
     Public Property ControlBeingModified() As Control Implements ILayoutFunctions.ControlBeingModified ''Added 8/9/2019 td
         Get
@@ -62,7 +62,7 @@ Partial Public Class FormDesignProtoTwo
                 ''Not all moveable controls are Field-Label controls. - ----8/12/2019 thomas d.  
             End Try
         End Set
-    End Property
+    End Property ''End of "Public Property ControlBeingModified() As Control Implements ILayoutFunctions.ControlBeingModified"
 
     Public Property LabelsDesignList_AllItems As List(Of CtlGraphicFldLabel) Implements ISelectingElements.LabelsDesignList_AllItems
         Get

@@ -24,11 +24,13 @@ Public Interface ILayoutFunctions
     ''
     ''9/19/2019 td''Sub SetControlBeingModified(par_control As Control)
     Property ControlBeingModified() As Control ''Added 9/19/2019 td 
+    Property ControlBeingMoved() As Control ''Added 9/20/2019 td 
+
     Function OkayToShowFauxContextMenu() As Boolean ''Added 9/19/2019 td 
     Sub AutoPreview_IfChecked() ''Added 9/19/2019 td 
 
     Function RightClickMenu_Parent() As ToolStripMenuItem ''Added 9/19/2019 td 
 
-    Function NameOfForm() As String ''ADded 9/19/2019 td 
+    Function NameOfForm() As String ''Added 9/19/2019 td 
 
 End Interface

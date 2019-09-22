@@ -232,7 +232,9 @@ Public Class DialogTextOffset
             .LabelText()  ''par_elementInfo.Text)
             ''8/17/2019 td''.FieldInfo = par_fieldInfo
             ''8/16/2019 td   ''.ElementInfo = par_field.ElementInfo
-            ''9/18/2019 td''.FormDesigner = par_formDesigner
+            ''Deprecated. ----9/20/2019 td''.FormDesigner = par_formDesigner
+            .LayoutFunctions = CType(par_formDesigner, ILayoutFunctions) ''Added 9/20/2019 td 
+
             .Refresh_Image(True)
         End With
 
@@ -288,7 +290,9 @@ Public Class DialogTextOffset
             ''Deprecated 9/18/2019 td''.ElementClass_Obj = par_field.ElementFieldClass ''Added 9/13/2019 td
             ''Deprecated 9/18/2019 td''.ElementInfo_Base = par_field.ElementInfo_Base ''Added 9/13/2019 td 
             ''Deprecated 9/18/2019 td''.ElementInfo_Text = par_field.ElementInfo_Text ''Added 9/13/2019 td 
-            ''Deprecated 9/19/2019 td''.FormDesigner = par_formDesigner
+            ''Deprecated 9/18/2019 td''.FormDesigner = par_formDesigner
+            .LayoutFunctions = CType(par_formDesigner, ILayoutFunctions)
+
             .Width = .ElementInfo_Base.Width_Pixels
             .Height = .ElementInfo_Base.Height_Pixels
             .Refresh_Image(True)

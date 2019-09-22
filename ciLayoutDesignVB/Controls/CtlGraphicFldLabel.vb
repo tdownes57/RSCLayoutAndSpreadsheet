@@ -8,6 +8,7 @@ Option Infer Off ''Added 8/29/2019 td
 Imports ciBadgeInterfaces ''Added 8/28/2019 thomas downes 
 Imports ciBadgeFields ''Added 9/18/2019 thomas downes 
 Imports ciBadgeElements ''Added 9/18/2019 td 
+Imports ciBadgeElemImage ''Added 9/20/2019 td 
 
 Public Class CtlGraphicFldLabel
     ''
@@ -226,6 +227,13 @@ Public Class CtlGraphicFldLabel
         Me.ElementInfo_Text = CType(par_elementField, IElement_TextField)
         Me.LayoutFunctions = par_layout
 
+        ''Added 9/20/2019 td 
+        ''   Add an alert to the user that the element is not rendered
+        ''   on the Badge.  ----9/20/2019 td 
+        Dim bElementInvisibleOnBadge As Boolean
+        bElementInvisibleOnBadge = (Not Me.ElementInfo_Base.Visible)
+        LinkInvisible.Visible = bElementInvisibleOnBadge
+
     End Sub ''ENd of "Public Sub New "
 
     Public Sub Refresh_Master(Optional pboolDialogApplyButton As Boolean = False)
@@ -358,35 +366,74 @@ Public Class CtlGraphicFldLabel
         ''Added 8/18/2019 td
         ''9/3/2019 td''LabelToImage.TextImage(pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
 
-        Dim intLayoutWidth As Integer ''Added 9/3/2019 thomas d.
+        Dim intBadgeLayoutWidth As Integer ''Added 9/3/2019 thomas d.
         ''9/19/2019 td''intLayoutWidth = Me.FormDesigner.Layout_Width_Pixels()
-        intLayoutWidth = Me.LayoutFunctions.Layout_Width_Pixels()
+        intBadgeLayoutWidth = Me.LayoutFunctions.Layout_Width_Pixels()
 
         ''9/4/2019 td''LabelToImage.TextImage(intLayoutWidth, pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
 
         ''
         ''Major call !!
         ''
-        pictureLabel.Image =
-        LabelToImage.TextImage_Field(intLayoutWidth, Me.ElementInfo_Text,
-                               Me.ElementInfo_Base,
-                               boolRotated, True)
+        Dim newTextImage As Image ''Added 9/20/2019 td  
+
+        Const c_boolUseNewestProjectReference As Boolean = True ''Added 9/20/2019 td 
+        If (c_boolUseNewestProjectReference) Then
+
+            newTextImage =
+            modGenerate.TextImage_ByElemInfo(intBadgeLayoutWidth,
+                                   Me.ElementInfo_Text,
+                                   Me.ElementInfo_Base,
+                                   boolRotated, True)
+        Else
+            ''9/20/2019 td''pictureLabel.Image =
+            newTextImage =
+            LabelToImage.TextImage_Field(intBadgeLayoutWidth, Me.ElementInfo_Text,
+                                   Me.ElementInfo_Base,
+                                   boolRotated, True)
+        End If ''End of "If (c_boolUseNewestProjectReference) Then ..... Else ...."
+
+        ''Added 9/20/2019 td
+        pictureLabel.Image = newTextImage
 
         ''Added 8/18/2019 td
-        Dim intImageWidth As Integer
-        intImageWidth = pictureLabel.Image.Width
+        Dim intNewImageWidth As Integer ''Added 8/18/2019 td
+        Dim intNewImageHeight As Integer ''Added 9/20/2019 td
+
+        ''9/20/2019 td''intNewImageWidth = pictureLabel.Image.Width
+        intNewImageWidth = newTextImage.Width ''Added 9/20/2019 td
+        intNewImageHeight = newTextImage.Height ''Added 9/20/2019 td
+
         If (boolRotated) Then ''Added 8/18/2019 td
-            pictureLabel.Height = pictureLabel.Image.Height
-            pictureLabel.Width = intImageWidth
+            ''
+            ''Rotated Images ---  Any special programming needed? 
+            ''
+            ''Adjust the controls to the image size.
+            ''   Is there any special programming for rotated images?   Probably not! ---9/3/2019 td 
+            ''
+            ''9/20/2019 td''pictureLabel.Width = pictureLabel.Image.Width
+            ''9/20/2019 td''pictureLabel.Height = pictureLabel.Image.Height
+            pictureLabel.Width = intNewImageWidth ''Straightforward.   No reversal is needed here, despite the rotation. ---9/20 td
+            Application.DoEvents()
+            pictureLabel.Height = intNewImageHeight ''Straightforward.   No reversal is needed here, despite the rotation. ---9/20 td 
+            Application.DoEvents()
+            pictureLabel.Invalidate() ''Forces it to be repainted.  
+
             Me.Height = pictureLabel.Height
+            Application.DoEvents()
             Me.Width = pictureLabel.Width
         Else
             ''
             ''Adjust the controls to the image size. ---9/3/2019 td 
             ''
-            pictureLabel.Width = pictureLabel.Image.Width
-            pictureLabel.Height = pictureLabel.Image.Height
+            ''9/20/2019 td''pictureLabel.Width = pictureLabel.Image.Width
+            ''9/20/2019 td''pictureLabel.Height = pictureLabel.Image.Height
+            pictureLabel.Width = intNewImageWidth
+            Application.DoEvents()
+            pictureLabel.Height = intNewImageHeight
+            Application.DoEvents()
             Me.Height = pictureLabel.Height
+            Application.DoEvents()
             Me.Width = pictureLabel.Width
 
         End If ''End if "If (boolRotated) Then .... Else ...."
@@ -411,6 +458,7 @@ Public Class CtlGraphicFldLabel
         End If ''End of "If (mod_c_boolMustSetBackColor And (ElementInfo IsNot Nothing)) Then"
 
         ''8/19/2019 td''pictureLabel.Refresh()
+        pictureLabel.Invalidate() ''Forces it to be re-painted. ---9/21/2019 td 
         pictureLabel.Refresh()
         Me.Refresh()
 
@@ -485,6 +533,12 @@ Public Class CtlGraphicFldLabel
                 ''
                 Return Me.ExampleTextToDisplay
 
+            Case (Me.ElementInfo_Text.ExampleValue_ForElement <> "")
+                ''
+                ''Added 9/18/2019 td 
+                ''
+                Return Me.ElementInfo_Text.ExampleValue_ForElement
+
             Case (UseExampleValues And (Me.FieldInfo.ExampleValue <> ""))
 
                 ''Me.ElementInfo.Info.Text = Me.FieldInfo.ExampleValue
@@ -506,6 +560,78 @@ Public Class CtlGraphicFldLabel
         Return "Field Information"
 
     End Function ''End of "Public Function LabelText() As String"
+
+    Public Function InsideMe(par_intX As Integer, par_intY As Integer) As Boolean
+        ''
+        ''Added 9/20/2019 td  
+        ''
+        Dim boolInsideHorizontally As Boolean
+        Dim boolInsideVertically As Boolean
+        Dim boolInside_BothWays As Boolean
+
+        boolInsideHorizontally = (Me.Left <= par_intX And par_intX <= (Me.Left + Me.Width))
+        boolInsideVertically = (Me.Top <= par_intY And par_intY <= (Me.Top + Me.Height))
+
+        boolInside_BothWays = (boolInsideHorizontally And boolInsideVertically)
+        Return boolInside_BothWays
+
+    End Function ''eND OF "Public Function InsideMe(par_intX, par_intY As Integer) As Boolean"
+
+    Public Sub Highlight_IfInsideRubberband(par_rubberband As Rectangle)
+        ''
+        ''Added 9/20/2019 thomas downes
+        ''
+        Dim boolRubBandIsAll_LeftOfMe As Boolean
+        Dim boolRubBandIsAll_RightOfMe As Boolean
+        Dim boolRubBandIsAll_AboveMe As Boolean
+        Dim boolRubBandIsAll_BelowMe As Boolean
+
+        Dim boolBandIsInsideMeHorizontally As Boolean
+        Dim boolBandIsInsideMeVertically As Boolean
+        Dim boolBandIsInsideMe_BothWays As Boolean
+        Dim boolBandOverlapsWithMe As Boolean
+
+        Dim obj_rectangleAdjusted As Rectangle
+
+        Dim intRbandInDesignForm_Left As Integer
+        Dim intRbandInDesignForm_Top As Integer
+
+        With par_rubberband ''Added 9/20/2019 td
+
+            ''Rband = Rubberband 
+            intRbandInDesignForm_Left = Me.LayoutFunctions.Layout_Margin_Left_Add(.Left)
+            intRbandInDesignForm_Top = Me.LayoutFunctions.Layout_Margin_Top_Add(.Top)
+
+            ''Added 9/20/2019 td
+            obj_rectangleAdjusted =
+                New Rectangle(intRbandInDesignForm_Left,
+                              intRbandInDesignForm_Top,
+                                     .Width, .Height)
+
+        End With ''End of "With par_rubberband"
+
+        With obj_rectangleAdjusted
+
+            boolRubBandIsAll_AboveMe = ((.Top + .Height) < Me.Top)
+            boolRubBandIsAll_BelowMe = ((Me.Top + Me.Height) < .Top)
+
+            boolRubBandIsAll_LeftOfMe = (.Left + .Width < Me.Left)
+            boolRubBandIsAll_RightOfMe = ((Me.Left + Me.Width) < .Left)
+
+        End With ''End of " With par_rubberband"
+
+        boolBandIsInsideMeHorizontally = (Not (boolRubBandIsAll_LeftOfMe Or boolRubBandIsAll_RightOfMe))
+        boolBandIsInsideMeVertically = (Not (boolRubBandIsAll_AboveMe Or boolRubBandIsAll_BelowMe))
+
+        boolBandIsInsideMe_BothWays = (boolBandIsInsideMeHorizontally And boolBandIsInsideMeVertically)
+        boolBandOverlapsWithMe = boolBandIsInsideMe_BothWays
+
+        If (boolBandOverlapsWithMe) Then
+            Me.ElementClass_Obj.SelectedHighlighting = True
+            Me.Refresh_Image(False)
+        End If ''End of "If (boolBandOverlapsWithMe) Then"
+
+    End Sub ''End of "Public Sub Highlight_IfInsideRubberband()"
 
     Private Sub RefreshElement_Field(sender As Object, e As EventArgs)
         ''
@@ -598,8 +724,15 @@ Public Class CtlGraphicFldLabel
             Me.ElementInfo_Text.Text = textTypeExample.Text
             Me.textTypeExample.Visible = False
 
+            ''Added 9/20/2019 td  
+            Me.ElementInfo_Text.ExampleValue_ForElement = textTypeExample.Text
+            Me.ElementClass_Obj.ExampleValue_ForElement = textTypeExample.Text ''Redundant command. 
+
             ''Added 9/10/2019 td
             Me.Refresh_Master()
+
+            ''Added 9/20/2019 td
+            Me.LayoutFunctions.AutoPreview_IfChecked()
 
         End If ''End If ''End of "If (e.KeyCode = Keys.Enter) Then"
 
@@ -610,9 +743,26 @@ Public Class CtlGraphicFldLabel
         ''Added 9/19/2019 td  
         ''
         Dim intResult As DialogResult
+        Dim bUserDesiresTo_Display As Boolean
 
         intResult = MessageBox.Show("Want this element to appear on the Badge?", "",
                   MessageBoxButtons.OK, MessageBoxIcon.Question)
+
+        bUserDesiresTo_Display = (intResult = DialogResult.OK Or intResult = DialogResult.Yes)
+
+        If (bUserDesiresTo_Display) Then
+
+            ''Added 9/20/2019 td 
+            ''   Add an alert to the user that the element is not rendered
+            ''   on the Badge.  ----9/20/2019 td
+            ''
+            Me.ElementInfo_Base.Visible = True
+
+            Dim bElementInvisibleOnBadge As Boolean
+            bElementInvisibleOnBadge = False ''False, since invisible is the opposite of "Displayed". 
+            LinkInvisible.Visible = bElementInvisibleOnBadge ''Hide the link-label, it's not needed anymore. 
+
+        End If ''End of "If (bUserDesiresTo_Display) Then"
 
     End Sub
 End Class

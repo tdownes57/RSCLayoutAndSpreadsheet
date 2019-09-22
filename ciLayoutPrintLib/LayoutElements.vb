@@ -679,8 +679,8 @@ ExitHandler:
             With each_elementField
 
                 Dim image_textStandard As Image
-                Dim intLeft As Integer
-                Dim intTop As Integer
+                ''9/20/2019 td''Dim intLeft As Integer
+                ''9/20/2019 td''Dim intTop As Integer
 
                 ''9/3/2019 td''If (Not .IsDisplayedOnBadge) Then Continue For
                 If (Not .FieldInfo.IsDisplayedOnBadge) Then Continue For
@@ -712,7 +712,7 @@ ExitHandler:
 
                     image_textStandard =
                         modGenerate.TextImage_ByElemInfo(intDesiredLayout_Width,
-                                                         each_elementField, each_elementField, False, True)
+                            each_elementField, each_elementField, False, False) ''9/20/2019 td'', True)
 
                     If (bOutputAllImages) Then par_listTextImages.Add(image_textStandard) ''Added 8/26/2019 td
 
@@ -727,13 +727,29 @@ ExitHandler:
 
                     ''9/12/2019 td''decScalingFactor = (par_imageBadgeCard.Width / .Position_BL.LayoutWidth_Pixels)
                     ''9/19/2019 td''decScalingFactor = (par_imageBadgeCard.Width / .Position_BL.BadgeLayout.Width_Pixels)
-                    decScalingFactor = (par_imageBadgeCard.Width / .Width_Pixels)
 
-                    intLeft = CInt(.LeftEdge_Pixels * decScalingFactor)
-                    intTop = CInt(.TopEdge_Pixels * decScalingFactor)
+                    ''---+--9/20/2019 td''decScalingFactor = (par_imageBadgeCard.Width / .Width_Pixels)
+                    ''---+--9/20/2019 td''intLeft = CInt(.LeftEdge_Pixels * decScalingFactor)
+                    ''---+--9/20/2019 td''intTop = CInt(.TopEdge_Pixels * decScalingFactor)
+                    ''---+--9/20/2019 td''gr_Badge.DrawImage(image_textStandard,
+                    ''---+--9/20/2019 td''             New PointF(intLeft, intTop))
+
+                    ''Added 9/20/2019 td 
+                    decScalingFactor = (par_imageBadgeCard.Width / each_elementField.BadgeLayout.Width_Pixels)
+
+                    Dim intDesignedLeft As Integer ''Designed = layout pre-production = The Left value when designed via the Layout Designer tool. --9/20
+                    Dim intDesignedTop As Integer ''Designed = layout pre-production = The Top value when designed via the Layout Designer tool.  --9/20
+                    Dim intDesiredLeft As Integer ''Desired = preview/print/production = The Left value on the print/preview version of the badge.  --9/20
+                    Dim intDesiredTop As Integer ''Desired = preview/print/production = The Top value on the print/preview version of the badge.  --9/20
+
+                    intDesignedLeft = .LeftEdge_Pixels
+                    intDesignedTop = .TopEdge_Pixels
+
+                    intDesiredLeft = CInt(intDesignedLeft * decScalingFactor)
+                    intDesiredTop = CInt(intDesignedTop * decScalingFactor)
 
                     gr_Badge.DrawImage(image_textStandard,
-                                 New PointF(intLeft, intTop))
+                                 New PointF(intDesiredLeft, intDesiredTop))
 
                 Catch ex_draw_invalid As InvalidOperationException
                     ''Error:  Object not available.

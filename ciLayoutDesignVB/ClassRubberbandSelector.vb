@@ -9,6 +9,7 @@ Option Infer Off
 ''
 ''Modified by Thomas Downes, 9/8/2019 
 ''
+Imports ciBadgeInterfaces ''Added 9/20/2019 thomas downes
 
 Public Class ClassRubberbandSelector
     ''
@@ -21,6 +22,7 @@ Public Class ClassRubberbandSelector
     Public PictureBack As PictureBox
     Public FieldControls_GroupEdit As List(Of CtlGraphicFldLabel)
     Public FieldControls_All As List(Of CtlGraphicFldLabel)
+    Public LayoutFunctions As ILayoutFunctions ''Added 9/20/2019 thomas d
 
     ''
     ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
@@ -38,6 +40,21 @@ Public Class ClassRubberbandSelector
         ''
         '-- 1.0  Flip the state.
         ''
+        Dim bInsideAFieldControl As Boolean ''Added 9/20/2019 td
+        Dim intX_AdjustedToForm As Integer ''Added 9/20/2019 td
+        Dim intY_AdjustedToForm As Integer ''Added 9/20/2019 td
+
+        ''Added 9/20/2019 td
+        If (LayoutFunctions Is Nothing) Then System.Diagnostics.Debugger.Break()
+
+        ''Added 9/20/2019 td
+        intX_AdjustedToForm = LayoutFunctions.Layout_Margin_Left_Add(e.X)
+        intY_AdjustedToForm = LayoutFunctions.Layout_Margin_Top_Add(e.Y)
+
+        ''Added 9/20/2019 td
+        bInsideAFieldControl = InsideAFieldControl(intX_AdjustedToForm, intY_AdjustedToForm)
+        If (bInsideAFieldControl) Then Exit Sub
+
         Me._bRubberBandingOn = (Not _bRubberBandingOn)
 
         '-- 2.0 if the state is on
@@ -110,7 +127,7 @@ Public Class ClassRubberbandSelector
             '-- 2.1 make sure the object exists (create if not)
             If _pClickStop = Nothing Then _pClickStop = New Point
 
-            '-- 2.2 Save the mouse's stop postition
+            '-- 2.2 Save the mouse's stop position
             _pClickStop.X = e.X
             _pClickStop.Y = e.Y
 
@@ -185,7 +202,67 @@ Public Class ClassRubberbandSelector
 
         End If ''End of "If (boolRectangleBackwards) Then .... Else ...."
 
-    End Sub ''End of Public Sub Paint   
+        ''
+        ''Added 9/20/2019 thomas d. 
+        ''
+        ''9/20/2019 td''Me.LayoutFunctions.HighlightSelectedFields(_rRectangle)
+
+        Dim boolNonTrivial As Boolean
+
+        boolNonTrivial = (_rRectangle.Width > 5 And _rRectangle.Height > 5) ''Added 9/20/2019 td
+
+        If (boolNonTrivial) Then
+
+            HighlightSelectedFields(_rRectangle)
+
+        End If ''End of "if (boolNonTrivial) Then"
+
+    End Sub ''End of Public Sub Paint  
+
+    Private Function InsideAFieldControl(par_x As Integer, par_y As Integer) As Boolean
+        ''
+        ''Added 9/20/2019 td  
+        ''
+        Dim each_ctl As CtlGraphicFldLabel
+        Dim boolInsideCtl As Boolean
+
+        For Each each_ctl In Me.FieldControls_All
+            ''Are the coordinates inside a field control?   
+            boolInsideCtl = each_ctl.InsideMe(par_x, par_y)
+            If (boolInsideCtl) Then Exit For
+        Next each_ctl
+
+        Return boolInsideCtl
+
+    End Function ''End of "Private Function InsideAFieldControl(par_x As Integer, par_y As Integer) As Boolean"
+
+    Private Sub HighlightSelectedFields(par_rect As Rectangle)
+        ''
+        ''Added 9/20/2019 td 
+        ''
+        Dim each_fieldCtl As CtlGraphicFldLabel
+
+        If (Me.FieldControls_All Is Nothing) Then
+            ''
+            ''Perhaps the form is in "load" mode. ---9/20/2019 td
+            ''
+        Else
+
+            For Each each_fieldCtl In Me.FieldControls_All
+
+                each_fieldCtl.Highlight_IfInsideRubberband(par_rect)
+
+                With Me.FieldControls_GroupEdit
+                    If (Not .Contains(each_fieldCtl)) Then
+                        .Add(each_fieldCtl) ''Added 9/20/2019 td
+                    End If ''End of "If (Not .Contains(each_fieldCtl)) Then"
+                End With ''End of "With Me.FieldControls_GroupEdit"
+
+            Next each_fieldCtl
+
+        End If ''end of "If (Me.FieldControls_All Is Nothing) Then"
+
+    End Sub ''ENd of "Private Sub HighlightSelectedFields(par_rect As Rectangle)"
 
     Private Function ReverseRectangle_IfNeeded(par_rect As Rectangle) As Rectangle
         ''
