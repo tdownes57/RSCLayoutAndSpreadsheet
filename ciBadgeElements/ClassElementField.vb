@@ -106,6 +106,11 @@ Public Class ClassElementField
         End Get
         Set(value As Integer)
 
+            mod_width_pixels = value
+
+            ''
+            ''Inform software developer of programming which violates design expectations.
+            ''
             Dim boolTallerThanWidth As Boolean ''Added 9/23/2019 thomas downes
             Dim boolGiveDisallowedMsg As Boolean ''Added 9/23/2019 thomas downes
 
@@ -115,7 +120,6 @@ Public Class ClassElementField
             If (boolGiveDisallowedMsg) Then
                 Throw New Exception("The Height cannot exceed the width #1 (rotation is _not_ an exception to this).")
             End If ''End of "If (boolGiveDisallowedMsg) Then"
-            mod_width_pixels = value
 
         End Set
     End Property
@@ -128,6 +132,11 @@ Public Class ClassElementField
         End Get
         Set(value As Integer)
 
+            mod_height_pixels = value
+
+            ''
+            ''Inform software developer of programming which violates design expectations.
+            ''
             Dim boolTallerThanWidth As Boolean ''Added 9/23/2019 thomas downes
             Dim boolGiveDisallowedMsg As Boolean ''Added 9/23/2019 thomas downes
             ''Added 9/23/2019 thomas downes
@@ -136,7 +145,6 @@ Public Class ClassElementField
             If (boolGiveDisallowedMsg) Then
                 Throw New Exception("The Height cannot exceed the width #2 (rotation is _not_ an exception to this).")
             End If ''End of "If (boolGiveDisallowedMsg) Then"
-            mod_height_pixels = value
 
         End Set
     End Property

@@ -24,6 +24,8 @@ Public Class CtlGraphicPortrait
     ''9/20/2019 td''Public FormDesigner As ILayoutFunctions ''Modified 9/9/2019 td
     Public LayoutFunctions As ILayoutFunctions ''Modified 9/9/2019 td
 
+    Public Pic_CloneOfInitialImage As Image ''Added 9/23/2019 thomas downes. 
+
     Public ReadOnly Property Picture_Box As PictureBox
         Get
             ''Added 7/31/2019 td 
@@ -64,8 +66,12 @@ Public Class CtlGraphicPortrait
         ''9/17/2019 td''picturePortrait.Image =
         ''   ciPictures_VB.PictureExamples.GetImageByIndex(par_infoForPic_Pic.PicFileIndex, strErrorMessage)
 
-        picturePortrait.Image =
-            ciPictures_VB.PictureExamples.GetImageByIndex(par_elementPic.PicFileIndex, strErrorMessage)
+        ''9/23/2019 td''picturePortrait.Image =
+        ''    ciPictures_VB.PictureExamples.GetImageByIndex(par_elementPic.PicFileIndex, strErrorMessage)
+
+        ''Added 9/23/2019 thomas d. 
+        Me.Pic_CloneOfInitialImage = CType(ciPictures_VB.PictureExamples.GetImageByIndex(par_elementPic.PicFileIndex, strErrorMessage).Clone(), Image)
+        picturePortrait.Image = CType(Me.Pic_CloneOfInitialImage.Clone(), Image)
 
         If ("" <> strErrorMessage) Then
             ''Added 8/22/2019  
@@ -78,7 +84,8 @@ Public Class CtlGraphicPortrait
         ''
         ''Rotate the image 90 degrees, as many times as needed.  ---8/12/2019 td  
         ''
-        Me.RefreshImage()
+        ''9/23/2019 td''Me.RefreshImage_NoMajorCalls()
+        Me.RefreshImage_ViaElemImage()
 
     End Sub ''End of "Public Sub New(par_elementPic As ClassElementPic, par_formLayout As ILayoutFunctions)"
 
@@ -115,7 +122,9 @@ Public Class CtlGraphicPortrait
         ''
         ''Rotate the image 90 degrees, as many times as needed.  ---8/12/2019 td  
         ''
-        Me.RefreshImage()
+        ''#1 9/23/2019 td''Me.RefreshImage()
+        '' #2 9/23/2019 td''Me.RefreshImage_NoMajorCalls()
+        Me.RefreshImage_ViaElemImage()
 
     End Sub ''End of "Public Sub New_Deprecated(par_infoForPic_Base As IElement_Base, par_infoForPic_Pic As IElementPic, par_formLayout As ILayoutFunctions)"
 
@@ -127,7 +136,10 @@ Public Class CtlGraphicPortrait
 
         ''#1 9/15 td''Refresh_Image
         '' #2 9/15 tdRefresh_Image(False)
-        Refresh_Image(False)
+
+        ''#1 9/23/2019 td''Refresh_Image(False)
+        '' #2 9/23/2019 td''RefreshImage_NoMajorCalls()
+        RefreshImage_ViaElemImage()
 
     End Sub ''End of "Public Sub Refresh_Master()"
 
@@ -146,7 +158,7 @@ Public Class CtlGraphicPortrait
 
     End Sub ''End of "Public Sub Refresh_PositionAndSize()"
 
-    Public Sub Refresh_Image(pbRefreshSize As Boolean)
+    Public Sub Refresh_Image_NotInUse(pbRefreshSize As Boolean)
         ''
         ''Added 9/17/2019 thomas d 
         ''
@@ -214,7 +226,27 @@ Public Class CtlGraphicPortrait
     ''
     ''End Sub
 
-    Public Sub RefreshImage()
+    Public Sub RefreshImage_ViaElemImage()
+        ''
+        ''Refactored 7/25/2019 thomas d 
+        ''
+        Const c_boolUse_ciBadgeElemImage As Boolean = True
+
+        If (c_boolUse_ciBadgeElemImage) Then
+            ''
+            ''Added 9/23/2019 td 
+            ''
+            ciBadgeElemImage.modGenerate.PicImage_ByElement(ElementClass_Obj,
+                                                            Me.Pic_CloneOfInitialImage)
+
+        Else
+            RefreshImage_NoMajorCalls()
+
+        End If ''end of "If (c_boolUse_ciBadgeElemImage) Then ..... Else ...."
+
+    End Sub ''ENd of "Public Sub RefreshImage_ViaElemImage()"
+
+    Private Sub RefreshImage_NoMajorCalls()
         ''
         ''Added 7/25/2019 thomas d 
         ''
@@ -304,7 +336,7 @@ Public Class CtlGraphicPortrait
 
         End Select ''End of "Select Case Me.ElementInfo_Pic.OrientationToLayout "
 
-    End Sub ''End of Public Sub RefreshImage
+    End Sub ''End of Public Sub RefreshImage_NoMajorCalls
 
     Public Sub SaveToModel()
         ''
@@ -362,7 +394,10 @@ Public Class CtlGraphicPortrait
         ''9/2/2019 td''Me.ElementInfo_Pic.OrientationDegrees += 90
         Me.ElementInfo_Base.OrientationInDegrees += 90
 
-        RefreshImage()
+        ''#1 9/23/2019 td''RefreshImage()
+        '' #2 9/23/2019 td''RefreshImage_NoMajorCalls()
+        RefreshImage_ViaElemImage()
+
         Me.Refresh()
 
         ''Added 9/20/2019 td

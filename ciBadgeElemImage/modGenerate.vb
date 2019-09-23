@@ -433,6 +433,8 @@ Public Module modGenerate
         Dim image_Pic As Image ''Added 8/7/2019 thomas downes 
         ''Dim image_Rotated As Image ''Added 8/7/2019 thomas downes  
         Dim bm_rotation As Bitmap ''Added 8/7/2019 thomas downes 
+        Dim bm_resized As Bitmap ''Added 9/23/2019 thomas downes 
+
         Dim boolSeemsInPortraitMode As Boolean
         Dim boolLetsRotate90 As Boolean
         Dim intStarting_Width As Integer ''Added 8/8/2019 thomas 
@@ -527,10 +529,13 @@ Public Module modGenerate
         intStarting_Width = par_element.Width_Pixels
         intStarting_Height = par_element.Height_Pixels
 
+        ''---bm_resized = image_Pic
 
+        ''
+        ''Let's postpone this step's programming (Step 2 of 2.  Resizing). 
+        ''
 
-
-        Return bm_resized
+        Return image_Pic ''---bm_resized
 
     End Function ''End of Public Sub PicImage_ByElement
 
