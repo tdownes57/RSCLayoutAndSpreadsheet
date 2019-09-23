@@ -412,6 +412,101 @@ Public Module modGenerate
 
     End Function ''End of "Public Function TextImage_Field(par_label As Label) As Image"
 
+    Public Sub PicImage_ByElement(par_element As ciBadgeElements.ClassElementPic, par_image As Image)
+        ''
+        ''Added 9/22/2019 thomas d 
+        ''
+        ''7/31/2019 td'If (String.IsNullOrEmpty(Me.ElementInfo.Text)) Then ElementInfo.Text = LabelText()
+
+        ''7/31/2019 td'If (Me.ElementInfo.Font_DrawingClass Is Nothing) Then 
+        ''7/31/2019 td'   Me.ElementInfo.Font_DrawingClass = New Font("Times New Roman", 15, FontStyle.Regular)
+        ''7/31/2019 td''End If ''End of "If (Me.ElementInfo.Font_DrawingClass Is Nothing) Then "
+
+        ''7/31/2019 td''If (Generator Is Nothing) Then Generator = New ClassLabelToImage
+
+        ''7/31/2019 td''Generator.TextImage(pictureLabel.Image, Me.ElementInfo, Me.ElementInfo)
+
+        ''
+        ''Added 8/7/2019 thomas downes 
+        ''
+        Dim image_Pic As Image ''Added 8/7/2019 thomas downes 
+        ''Dim image_Rotated As Image ''Added 8/7/2019 thomas downes  
+        Dim bm_rotation As Bitmap ''Added 8/7/2019 thomas downes 
+        Dim boolSeemsInPortraitMode As Boolean
+        Dim boolLetsRotate90 As Boolean
+        Dim intStarting_Width As Integer ''Added 8/8/2019 thomas 
+        Dim intStarting_Height As Integer ''Added 8/8/2019 thomas
+
+        ''---intStarting_Width = picturePortrait.Width
+        ''--intStarting_Height = picturePortrait.Height
+
+        intStarting_Width = par_element.Width_Pixels
+        intStarting_Height = par_element.Height_Pixels
+
+        ''9/2/2019''Select Case Me.ElementInfo_Pic.OrientationToLayout
+        Select Case par_element.OrientationToLayout
+            Case "H", "L", "P", "", " " '' H = Horizontal, P = Portrait     
+                ''
+                ''Added 8/7/2019 thomas downes 
+                ''
+                image_Pic = par_image
+                boolSeemsInPortraitMode = (image_Pic.Height > image_Pic.Width)
+                boolLetsRotate90 = True ''boolSeemsInPortraitMode
+                boolLetsRotate90 = (par_element.OrientationInDegrees > 0)
+
+                ''Added 8/7/2019 thomas downes 
+                If (boolLetsRotate90) Then
+
+                    Dim intRotateIndex As Integer ''Added 8/18/2019 td  
+
+                    For intRotateIndex = 1 To CInt(Me.ElementInfo_Base.OrientationInDegrees / 90)
+
+                        ''Added 8/7/2019 thomas downes 
+                        ''8/7 td''image_Rotated = CType(image_Pic.Clone, Image)
+
+                        image_Pic = picturePortrait.Image
+                        bm_rotation = New Bitmap(image_Pic)
+                        bm_rotation.RotateFlip(RotateFlipType.Rotate90FlipNone)
+
+                        ''8/7 td''picturePortrait.Image = image_Rotated
+
+                        ''8/7 td''picturePortrait.Width = image_Rotated.Width
+                        ''8/7 td''picturePortrait.Height = image_Rotated.Height
+
+                        ''8/8 td''picturePortrait.Width = bm_rotation.Width
+                        ''8/8 td''picturePortrait.Height = bm_rotation.Height
+
+                        picturePortrait.Width = intStarting_Height ''Switching!! Height & Width are switched.
+                        picturePortrait.Height = intStarting_Width ''Switching!! Height & Width are switched.
+
+                        Me.Width = intStarting_Height ''Switching!!  Height & Width are switched. ---8/8/2019 td
+                        Me.Height = intStarting_Width ''Switching!!  Height & Width are switched. ---8/8/2019 td 
+
+                        picturePortrait.Refresh()
+
+                        picturePortrait.Image = bm_rotation
+                        picturePortrait.SizeMode = PictureBoxSizeMode.Zoom
+                        picturePortrait.Refresh()
+
+                        ''8/7 td''Me.Width = image_Rotated.Width
+                        ''8/7 td'' Me.Height = image_Rotated.Height
+
+                        ''8/7 td'' Me.Width = picturePortrait.Width
+                        ''8/7 td'' Me.Height = picturePortrait.Height
+
+                    Next intRotateIndex
+
+                End If ''End of "If (boolLetsRotate90) Then"
+
+            Case "n/a" '' "P" ----Anything can be rotated by the program code above.  The operations are exactly the same !!
+                ''
+                ''Added 8/7/2019 thomas downes 
+                ''
+
+        End Select ''End of "Select Case Me.ElementInfo_Pic.OrientationToLayout "
+
+    End Sub ''End of Public Sub PicImage_ByElement
+
     Private Sub DrawBorder_PixelsWide(par_WidthInPixels As Integer, par_gr As Graphics, par_intWidth As Integer, par_intHeight As Integer, par_color As Color)
         ''
         ''Added 9/6/2019 td  

@@ -9,20 +9,22 @@ Public Class ClassMethods
     ''
     ''Added 9/21/2019 td
     ''
-    Public Shared Sub Add_Text_Image(sender As Object, e As LinkLabelLinkClickedEventArgs)
+    Friend WithEvents MyLinkLabel As New LinkLabel
+
+    Friend Sub Add_Text_Image(sender As Object, e As LinkLabelLinkClickedEventArgs)
 
         System.Diagnostics.Debugger.Break()
 
 
     End Sub
 
-    Public Shared Sub Create_a_Rotated_Image(sender As Object, e As LinkLabelLinkClickedEventArgs)
+    Friend Sub Create_a_Rotated_Image(sender As Object, e As LinkLabelLinkClickedEventArgs)
 
         System.Diagnostics.Debugger.Break()
 
     End Sub
 
+    Private Sub MyLinkLabel_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles MyLinkLabel.LinkClicked
 
-
-
+    End Sub
 End Class

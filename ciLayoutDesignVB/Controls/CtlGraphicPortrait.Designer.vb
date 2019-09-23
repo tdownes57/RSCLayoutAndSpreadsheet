@@ -35,8 +35,9 @@ Partial Class CtlGraphicPortrait
         Me.picturePortrait.Dock = System.Windows.Forms.DockStyle.Fill
         Me.picturePortrait.Image = CType(resources.GetObject("picturePortrait.Image"), System.Drawing.Image)
         Me.picturePortrait.Location = New System.Drawing.Point(0, 0)
+        Me.picturePortrait.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.picturePortrait.Name = "picturePortrait"
-        Me.picturePortrait.Size = New System.Drawing.Size(144, 182)
+        Me.picturePortrait.Size = New System.Drawing.Size(177, 224)
         Me.picturePortrait.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.picturePortrait.TabIndex = 1
         Me.picturePortrait.TabStop = False
@@ -49,11 +50,12 @@ Partial Class CtlGraphicPortrait
         '
         'CtlGraphicPortrait
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.picturePortrait)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "CtlGraphicPortrait"
-        Me.Size = New System.Drawing.Size(144, 182)
+        Me.Size = New System.Drawing.Size(177, 224)
         CType(Me.picturePortrait, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 

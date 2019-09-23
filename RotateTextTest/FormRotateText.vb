@@ -6,7 +6,13 @@ Option Strict On
 Imports System.Reflection
 Imports System.Reflection.Assembly
 
+Delegate Sub LinkClickedDelegate(sender As Object, e As LinkLabelLinkClickedEventArgs)
+
 Public Class FormRotateText
+
+    Private mod_handler As LinkClickedDelegate
+    Private mod_classMenuMethods As New ClassMethods
+
     Private Sub FormRotateText_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         ''Dim objInfo As Type ''System.Reflection.Assembly
@@ -36,13 +42,14 @@ Public Class FormRotateText
             strMethodWithSpaces = strMethodName.Replace("_", " ")
 
             Dim each_link As New LinkLabel
-
             each_link.Visible = True
             each_link.Text = strMethodWithSpaces
 
             ''AddHandler each_link.LinkClicked, AddressOf each_member
 
-            Dim tt As Type = each_link.GetType
+            ''Dim tt As Type = each_link.GetType
+
+            Dim tt As Type = mod_classMenuMethods.MyLinkLabel.GetType
 
             ''each_eventInfo = tt.GetEvents()(0)
 
@@ -56,8 +63,10 @@ Public Class FormRotateText
             ''Next
             link_clicked = tt.GetEvent("LinkClicked")
 
+            ''
+            '''
+            ''
             ''each_eventInfo.AddEventHandler()
-
             ''    var p = New Program();
             ''var eventInfo = p.GetType().GetEvent("TestEvent");
             ''var methodInfo = p.GetType().GetMethod("TestMethod");
@@ -69,10 +78,22 @@ Public Class FormRotateText
             ''p.Test();
 
             Dim myDelegate As [Delegate]
-            myDelegate = [Delegate].CreateDelegate(link_clicked.EventHandlerType, each_methodInfo)
-            link_clicked.AddEventHandler(Me, myDelegate) '', BindingFlags.Public)
+            ''myDelegate = [Delegate].CreateDelegate(link_clicked.EventHandlerType, each_methodInfo)
+            ''link_clicked.AddEventHandler(Me, myDelegate) '', BindingFlags.Public)
+
+            ''mod_handler = New LinkClickedDelegate(each_methodInfo)
+
+            ''myDelegate = [Delegate].CreateDelegate(LinkClickedDelegate, each_methodInfo)
+
+            ''myDelegate = [Delegate].CreateDelegate(link_clicked.EventHandlerType, mod_classMenuMethods, each_methodInfo)
+            myDelegate = [Delegate].CreateDelegate(link_clicked.EventHandlerType, mod_classMenuMethods, each_methodInfo)
+            ''myDelegate = [Delegate].CreateDelegate(mod_classMenuMethods.GetType, each_methodInfo, True)
+
+
+            link_clicked.AddEventHandler(Me, myDelegate)
 
             FlowLayoutPanel1.Controls.Add(each_link)
+            each_link.Visible = True
 
         Next each_methodInfo
 
