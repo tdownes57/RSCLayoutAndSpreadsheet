@@ -41,16 +41,29 @@ Public Class ClassElementPic
         End Get
         Set(value As Integer)
 
+            mod_width_pixels = value ''Added 9/23/2019 thomas downes
+
+            ''
+            ''Are we initializing Height & Width?   
+            ''
+            ''Added 9/23/2019 thomas downes
+            Dim boolLikelyInitializing As Boolean ''Added 9/23/2019 thomas d. 
+            Dim intOtherPropertyValue As Integer ''Added 9/23/2019 thomas d. 
+            intOtherPropertyValue = mod_width_pixels
+            boolLikelyInitializing = (0 = intOtherPropertyValue)
+            If (boolLikelyInitializing) Then Exit Property ''Added 9/23/2019 td 
+
+            ''
+            ''Inform software developer of programming which violates design expectations.
+            ''
             Dim boolShorterThanWidth As Boolean ''Added 9/23/2019 thomas downes
             Dim boolGiveDisallowedMsg As Boolean ''Added 9/23/2019 thomas downes
-            ''Added 9/23/2019 thomas downes
+            ''9/23 td''boolShorterThanWidth = (mod_height_pixels < mod_width_pixels) ''value)
             boolShorterThanWidth = (mod_height_pixels < value)
             boolGiveDisallowedMsg = boolShorterThanWidth
             If (boolGiveDisallowedMsg) Then
                 Throw New Exception("The Height cannot be less than the width #1 (rotation is _not_ an exception to this).")
             End If ''End of "If (boolGiveDisallowedMsg) Then"
-
-            mod_width_pixels = value ''Added 9/23/2019 thomas downes
 
         End Set
     End Property
@@ -62,16 +75,29 @@ Public Class ClassElementPic
         End Get
         Set(value As Integer)
 
-            Dim boolTallerThanWidth As Boolean ''Added 9/23/2019 thomas downes
+            mod_height_pixels = value ''Added 9/23/2019 thomas downes
+
+            ''
+            ''Are we initializing Height & Width?   
+            ''
+            Dim boolLikelyInitializing As Boolean ''Added 9/23/2019 thomas d. 
+            Dim intOtherPropertyValue As Integer ''Added 9/23/2019 thomas d. 
+            intOtherPropertyValue = mod_width_pixels
+            boolLikelyInitializing = (0 = intOtherPropertyValue)
+            If (boolLikelyInitializing) Then Exit Property ''Added 9/23/2019 td 
+
+            ''
+            ''Inform software developer of programming which violates design expectations.
+            ''
+            Dim boolShorterThanWidth As Boolean ''Added 9/23/2019 thomas downes
             Dim boolGiveDisallowedMsg As Boolean ''Added 9/23/2019 thomas downes
             ''Added 9/23/2019 thomas downes
-            boolTallerThanWidth = (value > mod_width_pixels)
-            boolGiveDisallowedMsg = boolTallerThanWidth
+            ''9/23/2019 td''boolTallerThanWidth = (mod_height_pixels > mod_width_pixels)
+            boolShorterThanWidth = (mod_height_pixels < mod_width_pixels)
+            boolGiveDisallowedMsg = boolShorterThanWidth
             If (boolGiveDisallowedMsg) Then
-                Throw New Exception("The Height cannot exceed the width #2 (rotation is _not_ an exception to this).")
+                Throw New Exception("The Height cannot be less than the width #2 (rotation is _not_ an exception to this).")
             End If ''End of "If (boolGiveDisallowedMsg) Then"
-
-            mod_height_pixels = value ''Added 9/23/2019 thomas downes
 
         End Set
     End Property

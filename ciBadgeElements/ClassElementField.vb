@@ -109,13 +109,22 @@ Public Class ClassElementField
             mod_width_pixels = value
 
             ''
+            ''Are we initializing Height & Width?   
+            ''
+            Dim boolLikelyInitializing As Boolean ''Added 9/23/2019 thomas d. 
+            Dim intOtherPropertyValue As Integer ''Added 9/23/2019 thomas d. 
+            intOtherPropertyValue = mod_height_pixels
+            boolLikelyInitializing = (0 = intOtherPropertyValue)
+            If (boolLikelyInitializing) Then Exit Property ''Added 9/23/2019 td 
+
+            ''
             ''Inform software developer of programming which violates design expectations.
             ''
             Dim boolTallerThanWidth As Boolean ''Added 9/23/2019 thomas downes
             Dim boolGiveDisallowedMsg As Boolean ''Added 9/23/2019 thomas downes
 
             ''Added 9/23/2019 thomas downes
-            boolTallerThanWidth = (mod_height_pixels > value)
+            boolTallerThanWidth = (mod_height_pixels > mod_width_pixels)
             boolGiveDisallowedMsg = boolTallerThanWidth
             If (boolGiveDisallowedMsg) Then
                 Throw New Exception("The Height cannot exceed the width #1 (rotation is _not_ an exception to this).")
@@ -135,12 +144,21 @@ Public Class ClassElementField
             mod_height_pixels = value
 
             ''
+            ''Are we initializing Height & Width?   
+            ''
+            Dim boolLikelyInitializing As Boolean ''Added 9/23/2019 thomas d. 
+            Dim intOtherPropertyValue As Integer ''Added 9/23/2019 thomas d. 
+            intOtherPropertyValue = mod_width_pixels
+            boolLikelyInitializing = (0 = intOtherPropertyValue)
+            If (boolLikelyInitializing) Then Exit Property ''Added 9/23/2019 td 
+
+            ''
             ''Inform software developer of programming which violates design expectations.
             ''
             Dim boolTallerThanWidth As Boolean ''Added 9/23/2019 thomas downes
             Dim boolGiveDisallowedMsg As Boolean ''Added 9/23/2019 thomas downes
             ''Added 9/23/2019 thomas downes
-            boolTallerThanWidth = (value > mod_width_pixels)
+            boolTallerThanWidth = (mod_height_pixels > mod_width_pixels)
             boolGiveDisallowedMsg = boolTallerThanWidth
             If (boolGiveDisallowedMsg) Then
                 Throw New Exception("The Height cannot exceed the width #2 (rotation is _not_ an exception to this).")
