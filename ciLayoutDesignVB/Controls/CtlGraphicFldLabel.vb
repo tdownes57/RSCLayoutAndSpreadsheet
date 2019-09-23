@@ -481,8 +481,44 @@ Public Class CtlGraphicFldLabel
         Me.ElementInfo_Base.TopEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Top_Omit(Me.Top)
         Me.ElementInfo_Base.LeftEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Left_Omit(Me.Left)
 
-        Me.ElementInfo_Base.Width_Pixels = Me.Width
-        Me.ElementInfo_Base.Height_Pixels = Me.Height
+        ''
+        ''Width & Height
+        ''
+        ''       (Account for rotated text, if applicable.) 
+        ''
+        If (Me.Rotated_0degrees()) Then
+            ''
+            ''Normal.  Easy-peasy.  The text is not rotated at all. 
+            ''
+            Me.ElementInfo_Base.Width_Pixels = Me.Width
+            Me.ElementInfo_Base.Height_Pixels = Me.Height
+        ElseIf (Me.Rotated_180_360()) Then
+            ''
+            ''Normal, easy-peasy. 
+            ''
+            Me.ElementInfo_Base.Width_Pixels = Me.Width
+            Me.ElementInfo_Base.Height_Pixels = Me.Height
+
+        ElseIf (Me.Rotated_90_270()) Then
+            ''
+            ''-------DIFFICULT/CONFUSING-----
+            ''This is rotated, so let's pull a switcheroo. 
+            ''   ----9/23/2019 TD  
+            ''
+            If (Me.Width < Me.Height) Then
+                Me.ElementInfo_Base.Width_Pixels = Me.Height
+                Me.ElementInfo_Base.Height_Pixels = Me.Width
+            Else
+                ''Added 9/23/2019 td 
+                Throw New Exception("Logically, this should not occur. #1957 " &
+                                    "(Because the function Me.Rotated_90_270() says, we are rotated. " &
+                                    "  (The function checks the Element.))")
+            End If ''End of "If (Me.Width < Me.Height) Then"
+        Else
+            ''Added 9/23/2019 td 
+            Throw New Exception("Logically, this should Not occur. #1958  " &
+                                "(because we have accounted for all rotational positions).")
+        End If ''End of "If (Me.Rotated_0degrees()) Then .... ElseIf .... ElseIf ...."
 
         ''Added 9/4/2019 thomas downes
         ''9/12/2019 td''Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.Layout_Width_Pixels()
@@ -538,7 +574,7 @@ Public Class CtlGraphicFldLabel
                 ''Double-check the orientation.  ----9/23/2019 td
                 boolTextImageRotated_0_180 = (Me.pictureLabel.Image.Width > Me.pictureLabel.Image.Height)
                 If (boolTextImageRotated_0_180) Then
-                    Throw New Exception("Image dimensions are not expected.")
+                    Throw New Exception("Image dimensions are Not expected.")
                 End If ''End of "If (boolImageRotated_0_180) Then"
 
                 Return True
@@ -562,7 +598,7 @@ Public Class CtlGraphicFldLabel
                 ''Double-check the orientation.  ----9/23/2019 td
                 boolTextImageRotated_90_270 = (Me.pictureLabel.Image.Width < Me.pictureLabel.Image.Height)
                 If (boolTextImageRotated_90_270) Then
-                    Throw New Exception("Image dimensions are not expected.")
+                    Throw New Exception("Image dimensions are Not expected.")
                 End If ''End of "If (boolImageRotated_90_270) Then"
 
                 Return True
@@ -591,7 +627,7 @@ Public Class CtlGraphicFldLabel
         If (boolReturnValue) Then
             boolTextImageRotated_90_270 = (Me.pictureLabel.Image.Width < Me.pictureLabel.Image.Height)
             If (boolTextImageRotated_90_270) Then
-                Throw New Exception("Image dimensions are not expected.")
+                Throw New Exception("Image dimensions are Not expected.")
             End If ''End of "If (boolImageRotated_90_360) Then"
         End If ''End of "If (boolReturnValue) Then"
 
@@ -756,24 +792,38 @@ Public Class CtlGraphicFldLabel
         ''9/4/2019 td''If (Me.ElementInfo_Text IsNot Nothing) Then
         If (Me.ElementInfo_Base IsNot Nothing) Then
 
-            Me.ElementInfo_Base.Width_Pixels = Me.Width
-            Me.ElementInfo_Base.Height_Pixels = Me.Height
-            ''Me.RefreshImage()
+            Const c_bAvoidAntiflowDesign As Boolean = True ''Avoid "BadDesign" / "bad design".  ---Added 9/23/2019 td
 
-            ''Added 9/5/2019 td 
-            ''9/19/2019 td''Me.ElementInfo_Base.TopEdge_Pixels = Me.FormDesigner.Layout_Margin_Top_Omit(Me.Top)
-            ''9/19/2019 td''Me.ElementInfo_Base.LeftEdge_Pixels = Me.FormDesigner.Layout_Margin_Left_Omit(Me.Left)
+            If (c_bAvoidAntiflowDesign) Then
+                ''
+                ''The "Else" code (below) violates the "Fields-->Elements-->UserGraphicsControl-->Layout"
+                ''   sequence, since it supports a "UserGraphicsControl-->Element" flow.   That 
+                ''   flow (UserGraphicsControl-->Element) is maybe okay in some respects, !perhaps!, 
+                ''   but probably not here.
+                ''   -----9/23 td
+                ''
+            Else
 
-            Me.ElementInfo_Base.TopEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Top_Omit(Me.Top)
-            Me.ElementInfo_Base.LeftEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Left_Omit(Me.Left)
+                Me.ElementInfo_Base.Width_Pixels = Me.Width
+                Me.ElementInfo_Base.Height_Pixels = Me.Height
+                ''Me.RefreshImage()
 
-            ''Added 9/4/2019 td
-            ''9/12/2019 td''Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.Layout_Width_Pixels()
-            ''9/19/2019 td''Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.FormDesigner.Layout_Width_Pixels()
-            ''9/19/2019 td''Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.FormDesigner.Layout_Height_Pixels()
+                ''Added 9/5/2019 td 
+                ''9/19/2019 td''Me.ElementInfo_Base.TopEdge_Pixels = Me.FormDesigner.Layout_Margin_Top_Omit(Me.Top)
+                ''9/19/2019 td''Me.ElementInfo_Base.LeftEdge_Pixels = Me.FormDesigner.Layout_Margin_Left_Omit(Me.Left)
 
-            Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.LayoutFunctions.Layout_Width_Pixels()
-            Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
+                Me.ElementInfo_Base.TopEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Top_Omit(Me.Top)
+                Me.ElementInfo_Base.LeftEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Left_Omit(Me.Left)
+
+                ''Added 9/4/2019 td
+                ''9/12/2019 td''Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.Layout_Width_Pixels()
+                ''9/19/2019 td''Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.FormDesigner.Layout_Width_Pixels()
+                ''9/19/2019 td''Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.FormDesigner.Layout_Height_Pixels()
+
+                Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.LayoutFunctions.Layout_Width_Pixels()
+                Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
+
+            End If ''ENd of "If (c_boolAvoidAntidesignedCode) Then .... Else ..."
 
         End If ''End of "If (Me.ElementInfo_Base IsNot Nothing) Then"
 
