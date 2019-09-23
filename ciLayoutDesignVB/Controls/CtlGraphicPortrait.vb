@@ -437,25 +437,41 @@ Public Class CtlGraphicPortrait
         ''
         ''Added 9/23/2019 thomas d.  
         ''
-        Dim boolPortraitRotated_90_270 As Boolean ''Added 9/23/2019 thomas d.  
+        Dim boolPortraitRotated_0_360 As Boolean ''Added 9/23/2019 thomas d.  
+        Dim boolReturnValue As Boolean
+        Dim boolRotationExpected As Boolean
 
         Select Case Me.ElementClass_Obj.OrientationInDegrees
 
             Case 0, 360
 
-                ''Double-check the orientation.  ----9/23/2019 td
-                boolPortraitRotated_90_270 = (Me.picturePortrait.Image.Width >
-                                           Me.picturePortrait.Image.Height)
+                ''''Double-check the orientation.  ----9/23/2019 td
+                ''boolPortraitRotated_90_270 = (Me.picturePortrait.Image.Width >
+                ''                           Me.picturePortrait.Image.Height)
 
-                If (boolPortraitRotated_90_270) Then
-                    Throw New Exception("Image dimensions are not expected.")
-                End If ''End of "If (boolImageRotated_90_270) Then"
+                ''If (boolPortraitRotated_90_270) Then
+                ''    Throw New Exception("Image dimensions are not expected.")
+                ''End If ''End of "If (boolImageRotated_90_270) Then"
 
-                Return True
+                ''Return True
 
-            Case Else : Return False
+                boolPortraitRotated_0_360 = True
+
+            Case Else '': Return False
+
+                boolPortraitRotated_0_360 = False
 
         End Select ''ENd of "Select Case Me.ElementClass_Obj.OrientationInDegrees"
+
+ExitHandler:
+        boolReturnValue = boolPortraitRotated_0_360
+
+        ''Encapsulated 9/23/2019 td 
+        Const c_SemiCircle_Degrees As Integer = 180
+        boolRotationExpected = (0 <> Me.ElementClass_Obj.OrientationInDegrees Mod c_SemiCircle_Degrees)
+        ClassElementField.CheckWidthVsLength_OfText(Me.picturePortrait.Image.Width, Me.picturePortrait.Image.Height, boolRotationExpected)
+
+        Return boolReturnValue
 
     End Function ''End of "Public Function Rotated_0degrees() As Boolean"
 
@@ -468,20 +484,27 @@ Public Class CtlGraphicPortrait
         ''   between 180 degrees & 360 degrees. ----9/23/2019 td)
         ''
         Dim boolReturnValue As Boolean
-        Dim boolPortraitRotated_90_270 As Boolean ''Added 9/23/2019 thomas d.  
+        ''Dim boolPortraitRotated_90_270 As Boolean ''Added 9/23/2019 thomas d.  
+        Dim boolPortraitRotated_180_360 As Boolean ''Added 9/23/2019 thomas d.  
+        Dim boolRotationExpected As Boolean
         Const c_SemiCircle_Degrees As Integer = 180
 
-        boolReturnValue = (0 = (Me.ElementClass_Obj.OrientationInDegrees Mod c_SemiCircle_Degrees))
+        boolPortraitRotated_180_360 = (0 = (Me.ElementClass_Obj.OrientationInDegrees Mod c_SemiCircle_Degrees))
+        boolReturnValue = boolPortraitRotated_180_360
 
         ''Double-check the orientation.  ----9/23/2019 td
-        If (boolReturnValue) Then
-            boolPortraitRotated_90_270 = (Me.picturePortrait.Image.Width >
-                                      Me.picturePortrait.Image.Height)
+        ''If (boolReturnValue) Then
+        ''    boolPortraitRotated_90_270 = (Me.picturePortrait.Image.Width >
+        ''                              Me.picturePortrait.Image.Height)
 
-            If (boolPortraitRotated_90_270) Then
-                Throw New Exception("Image dimensions are not expected.")
-            End If ''End of "If (boolImageRotated_90_360) Then"
-        End If ''End of "If (boolReturnValue) Then"
+        ''    If (boolPortraitRotated_90_270) Then
+        ''        Throw New Exception("Image dimensions are not expected.")
+        ''    End If ''End of "If (boolImageRotated_90_360) Then"
+        ''End If ''End of "If (boolReturnValue) Then"
+
+        ''Encapsulated 9/23/2019 td 
+        boolRotationExpected = (0 <> Me.ElementClass_Obj.OrientationInDegrees Mod c_SemiCircle_Degrees)
+        ClassElementField.CheckWidthVsLength_OfText(Me.picturePortrait.Image.Width, Me.picturePortrait.Image.Height, boolRotationExpected)
 
         Return boolReturnValue
 

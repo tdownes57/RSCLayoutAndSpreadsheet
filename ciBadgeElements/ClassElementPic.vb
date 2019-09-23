@@ -65,6 +65,10 @@ Public Class ClassElementPic
                 Throw New Exception("The Height cannot be less than the width #1 (rotation is _not_ an exception to this).")
             End If ''End of "If (boolGiveDisallowedMsg) Then"
 
+            ''Added 9/23/2019 td
+            Const c_False_RegardlessOfRotation As Boolean = False
+            CheckWidthVsLength_OfPic(mod_width_pixels, mod_height_pixels, c_False_RegardlessOfRotation)
+
         End Set
     End Property
 
@@ -98,6 +102,10 @@ Public Class ClassElementPic
             If (boolGiveDisallowedMsg) Then
                 Throw New Exception("The Height cannot be less than the width #2 (rotation is _not_ an exception to this).")
             End If ''End of "If (boolGiveDisallowedMsg) Then"
+
+            ''Added 9/23/2019 td
+            Const c_False_RegardlessOfRotation As Boolean = False
+            CheckWidthVsLength_OfPic(mod_width_pixels, mod_height_pixels, c_False_RegardlessOfRotation)
 
         End Set
     End Property
@@ -228,6 +236,21 @@ Public Class ClassElementPic
         Me.PicFileType = par_ElementInfo_Pic.PicFileType
 
     End Sub ''End of "Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base, .....)"
+
+    Public Shared Sub CheckWidthVsLength_OfPic(intWidth As Integer, intHeight As Integer, boolRotated As Boolean)
+        ''
+        ''Double-check the orientation.  ----9/23/2019 td
+        ''
+        Dim boolTextImageRotated_0_180 As Boolean = (intWidth < intHeight) ''Vs. Textual comparison, (intWidth > intHeight)
+        Dim boolTextImageRotated_90_270 As Boolean = (intWidth > intHeight) ''Vs. Textual comparison, (intWidth < intHeight)
+
+        If (boolTextImageRotated_0_180 And boolRotated) Then
+            Throw New Exception("Image dimensions are not expected. (Rotation of pic expected)")
+        ElseIf (boolTextImageRotated_90_270 And (Not boolRotated)) Then
+            Throw New Exception("Image dimensions are not expected.  (Unexpected rotation of pic detected.)")
+        End If ''End of "If (boolImageRotated_0_180 and boolRotated) Then .... ElseIf ..."
+
+    End Sub ''ENd of "Public Shared Sub CheckWidthVsLength_OfPic()"
 
 End Class
 
