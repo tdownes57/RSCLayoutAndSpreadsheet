@@ -251,8 +251,19 @@ Partial Public Class FormDesignProtoTwo
 
             With mod_FieldControlLastTouched
 
-                .ElementInfo_Base.Width_Pixels = mod_FieldControlLastTouched.Width
-                .ElementInfo_Base.Height_Pixels = mod_FieldControlLastTouched.Height
+                If (.Rotated_0degrees) Then
+                    .ElementInfo_Base.Width_Pixels = mod_FieldControlLastTouched.Width
+                    .ElementInfo_Base.Height_Pixels = mod_FieldControlLastTouched.Height
+                ElseIf (.Rotated_180_360) Then
+                    .ElementInfo_Base.Width_Pixels = mod_FieldControlLastTouched.Width
+                    .ElementInfo_Base.Height_Pixels = mod_FieldControlLastTouched.Height
+                ElseIf (.Rotated_90_270) Then
+                    ''
+                    ''---- POTENTIALLY CONFUSING -----
+                    ''Switch them up !!  
+                    .ElementInfo_Base.Width_Pixels = mod_FieldControlLastTouched.Height
+                    .ElementInfo_Base.Height_Pixels = mod_FieldControlLastTouched.Width
+                End If ''End of "If (.Rotated_180_360) Then"
 
                 ''Added 9/12/2019 td  
                 With .ElementInfo_Text

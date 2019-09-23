@@ -49,7 +49,7 @@ Public Class ClassElementPic
             ''Added 9/23/2019 thomas downes
             Dim boolLikelyInitializing As Boolean ''Added 9/23/2019 thomas d. 
             Dim intOtherPropertyValue As Integer ''Added 9/23/2019 thomas d. 
-            intOtherPropertyValue = mod_width_pixels
+            intOtherPropertyValue = mod_height_pixels
             boolLikelyInitializing = (0 = intOtherPropertyValue)
             If (boolLikelyInitializing) Then Exit Property ''Added 9/23/2019 td 
 

@@ -405,6 +405,88 @@ Public Class CtlGraphicPortrait
 
     End Sub ''eNd of "Private Sub Rotate90()"
 
+    Public Function Rotated_90_270() As Boolean
+        ''
+        ''Added 9/23/2019 thomas d.  
+        ''
+        ''  This function is the numerical equivalent of, Portrait vs. Landscape.
+        ''   (This function purposely _ignores_ the rotational distinction
+        ''   between 180 degrees & 360 degrees. ----9/23/2019 td)
+        ''
+        Dim boolImageRotated_0_180 As Boolean ''Added 9/23/2019 thomas d.  
+
+        Select Case Me.ElementClass_Obj.OrientationInDegrees
+
+            Case 90, 270
+
+                ''Double-check the orientation.  ----9/23/2019 td
+                boolImageRotated_0_180 = (Me.picturePortrait.Image.Width < Me.picturePortrait.Image.Height)
+                If (boolImageRotated_0_180) Then
+                    Throw New Exception("Image dimensions are not expected.")
+                End If ''End of "If (boolImageRotated_0_180) Then"
+
+                Return True
+
+            Case Else : Return False
+
+        End Select ''ENd of "Select Case Me.ElementClass_Obj.OrientationInDegrees"
+
+    End Function ''End of "Public Function Rotated_90_270() As Boolean"
+
+    Public Function Rotated_0degrees() As Boolean
+        ''
+        ''Added 9/23/2019 thomas d.  
+        ''
+        Dim boolPortraitRotated_90_270 As Boolean ''Added 9/23/2019 thomas d.  
+
+        Select Case Me.ElementClass_Obj.OrientationInDegrees
+
+            Case 0, 360
+
+                ''Double-check the orientation.  ----9/23/2019 td
+                boolPortraitRotated_90_270 = (Me.picturePortrait.Image.Width >
+                                           Me.picturePortrait.Image.Height)
+
+                If (boolPortraitRotated_90_270) Then
+                    Throw New Exception("Image dimensions are not expected.")
+                End If ''End of "If (boolImageRotated_90_270) Then"
+
+                Return True
+
+            Case Else : Return False
+
+        End Select ''ENd of "Select Case Me.ElementClass_Obj.OrientationInDegrees"
+
+    End Function ''End of "Public Function Rotated_0degrees() As Boolean"
+
+    Public Function Rotated_180_360() As Boolean
+        ''
+        ''Added 9/23/2019 thomas d.  
+        ''
+        ''  This function is the numerical equivalent of, Portrait vs. Landscape.
+        ''   (This function purposely _ignores_ the rotational distinction
+        ''   between 180 degrees & 360 degrees. ----9/23/2019 td)
+        ''
+        Dim boolReturnValue As Boolean
+        Dim boolPortraitRotated_90_270 As Boolean ''Added 9/23/2019 thomas d.  
+        Const c_SemiCircle_Degrees As Integer = 180
+
+        boolReturnValue = (0 = (Me.ElementClass_Obj.OrientationInDegrees Mod c_SemiCircle_Degrees))
+
+        ''Double-check the orientation.  ----9/23/2019 td
+        If (boolReturnValue) Then
+            boolPortraitRotated_90_270 = (Me.picturePortrait.Image.Width >
+                                      Me.picturePortrait.Image.Height)
+
+            If (boolPortraitRotated_90_270) Then
+                Throw New Exception("Image dimensions are not expected.")
+            End If ''End of "If (boolImageRotated_90_360) Then"
+        End If ''End of "If (boolReturnValue) Then"
+
+        Return boolReturnValue
+
+    End Function ''End of "Public Function Rotated_180_360() As Boolean"
+
     Private Sub PictureLabel_MouseClick(sender As Object, e As MouseEventArgs) Handles picturePortrait.MouseClick
         ''
         ''Added 7/30/2019 thomas downes

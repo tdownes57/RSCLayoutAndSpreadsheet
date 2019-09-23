@@ -525,15 +525,19 @@ Public Class CtlGraphicFldLabel
         ''
         ''Added 9/23/2019 thomas d.  
         ''
-        Dim boolImageRotated_0_180 As Boolean ''Added 9/23/2019 thomas d.  
+        ''  This function is the numerical equivalent of, Portrait vs. Landscape.
+        ''   (This function purposely _ignores_ the rotational distinction
+        ''   between 180 degrees & 360 degrees. ----9/23/2019 td)
+        ''
+        Dim boolTextImageRotated_0_180 As Boolean ''Added 9/23/2019 thomas d.  
 
         Select Case Me.ElementClass_Obj.OrientationInDegrees
 
             Case 90, 270
 
                 ''Double-check the orientation.  ----9/23/2019 td
-                boolImageRotated_0_180 = (Me.pictureLabel.Image.Width > Me.pictureLabel.Image.Height)
-                If (boolImageRotated_0_180) Then
+                boolTextImageRotated_0_180 = (Me.pictureLabel.Image.Width > Me.pictureLabel.Image.Height)
+                If (boolTextImageRotated_0_180) Then
                     Throw New Exception("Image dimensions are not expected.")
                 End If ''End of "If (boolImageRotated_0_180) Then"
 
@@ -544,6 +548,56 @@ Public Class CtlGraphicFldLabel
         End Select ''ENd of "Select Case Me.ElementClass_Obj.OrientationInDegrees"
 
     End Function ''End of "Public Function Rotated_90_270() As Boolean"
+
+    Public Function Rotated_0degrees() As Boolean
+        ''
+        ''Added 9/23/2019 thomas d.  
+        ''
+        Dim boolTextImageRotated_90_270 As Boolean ''Added 9/23/2019 thomas d.  
+
+        Select Case Me.ElementClass_Obj.OrientationInDegrees
+
+            Case 0, 360
+
+                ''Double-check the orientation.  ----9/23/2019 td
+                boolTextImageRotated_90_270 = (Me.pictureLabel.Image.Width < Me.pictureLabel.Image.Height)
+                If (boolTextImageRotated_90_270) Then
+                    Throw New Exception("Image dimensions are not expected.")
+                End If ''End of "If (boolImageRotated_90_270) Then"
+
+                Return True
+
+            Case Else : Return False
+
+        End Select ''ENd of "Select Case Me.ElementClass_Obj.OrientationInDegrees"
+
+    End Function ''End of "Public Function Rotated_0degrees() As Boolean"
+
+    Public Function Rotated_180_360() As Boolean
+        ''
+        ''Added 9/23/2019 thomas d.  
+        ''
+        ''  This function is the numerical equivalent of, Portrait vs. Landscape.
+        ''   (This function purposely _ignores_ the rotational distinction
+        ''   between 180 degrees & 360 degrees. ----9/23/2019 td)
+        ''
+        Dim boolReturnValue As Boolean
+        Dim boolTextImageRotated_90_270 As Boolean ''Added 9/23/2019 thomas d.  
+        Const c_SemiCircle_Degrees As Integer = 180
+
+        boolReturnValue = (0 = (Me.ElementClass_Obj.OrientationInDegrees Mod c_SemiCircle_Degrees))
+
+        ''Double-check the orientation.  ----9/23/2019 td
+        If (boolReturnValue) Then
+            boolTextImageRotated_90_270 = (Me.pictureLabel.Image.Width < Me.pictureLabel.Image.Height)
+            If (boolTextImageRotated_90_270) Then
+                Throw New Exception("Image dimensions are not expected.")
+            End If ''End of "If (boolImageRotated_90_360) Then"
+        End If ''End of "If (boolReturnValue) Then"
+
+        Return boolReturnValue
+
+    End Function ''End of "Public Function Rotated_180_360() As Boolean"
 
     Public Function LabelText() As String
         ''
