@@ -249,6 +249,36 @@ Public Class CtlGraphicFldLabel
         '' #2 9/15 tdRefresh_Image(False)
         Refresh_Image(False)
 
+ExitHandler:
+        ''
+        ''Check for Label-Control size discrepancies.  ---9/23 thomas d.    
+        ''
+        Dim boolWidthDisparity As Boolean ''Added 9/23/2019 td 
+        Dim boolHeightDisparity As Boolean ''Added 9/23/2019 td 
+        Dim intTry As Integer ''Why this is needed, is not clear.
+        Dim bDisparity_Neither As Boolean ''Added 9/23/2019 td 
+
+        For intTry = 1 To 3 ''Why this is needed, is not clear. It's needed in conjunction with rotations. 
+
+            ''Check for Label-Control size discrepancies.  ---9/23 thomas d.    
+            boolWidthDisparity = (Math.Abs(Me.Width - Me.pictureLabel.Width) > 5) Or
+                            (Math.Abs(Me.pictureLabel.Width - Me.pictureLabel.Image.Width) > 5)
+            boolHeightDisparity = (Math.Abs(Me.Height - Me.pictureLabel.Height) > 5) Or
+                                (Math.Abs(Me.pictureLabel.Height - Me.pictureLabel.Image.Height) > 5)
+
+            bDisparity_Neither = (Not (boolWidthDisparity Or boolHeightDisparity))
+            If (bDisparity_Neither) Then Exit For
+
+            ''Why this is needed, is not clear.
+            Me.pictureLabel.Width = Me.pictureLabel.Image.Width
+            Me.pictureLabel.Height = Me.pictureLabel.Image.Height
+
+        Next intTry
+
+        ''Issue a program-execuation break, if needed.     
+        If (boolWidthDisparity) Then System.Diagnostics.Debugger.Break()
+        If (boolHeightDisparity) Then System.Diagnostics.Debugger.Break()
+
     End Sub ''End of "Public Sub Refresh_Master()"
 
     Public Sub Refresh_PositionAndSize()
@@ -266,7 +296,10 @@ Public Class CtlGraphicFldLabel
 
     End Sub ''End of "Public Sub Refresh_PositionAndSize()"
 
-    Public Sub Refresh_Image(pbRefreshSize As boolean)
+    Public Sub Refresh_Image(pbRefreshSize As Boolean,
+                             Optional pboolResizeLabelControl As Boolean = True,
+                             Optional pboolRefreshLabelControl As Boolean = True,
+                             Optional pboolRefreshUserControl As Boolean = False)
         ''
         ''Added 7/25/2019 thomas d 
         ''
@@ -396,47 +429,55 @@ Public Class CtlGraphicFldLabel
         ''Added 9/20/2019 td
         pictureLabel.Image = newTextImage
 
-        ''Added 8/18/2019 td
-        Dim intNewImageWidth As Integer ''Added 8/18/2019 td
-        Dim intNewImageHeight As Integer ''Added 9/20/2019 td
+        ''Added 9/23/2019 td
+        Application.DoEvents() ''Give the PictureBox control time to make any adjustments it might want to do. 
 
-        ''9/20/2019 td''intNewImageWidth = pictureLabel.Image.Width
-        intNewImageWidth = newTextImage.Width ''Added 9/20/2019 td
-        intNewImageHeight = newTextImage.Height ''Added 9/20/2019 td
+ExitHandler:
+        If (pboolResizeLabelControl) Then ''Added9/23/2019 td 
 
-        If (boolRotated) Then ''Added 8/18/2019 td
-            ''
-            ''Rotated Images ---  Any special programming needed? 
-            ''
-            ''Adjust the controls to the image size.
-            ''   Is there any special programming for rotated images?   Probably not! ---9/3/2019 td 
-            ''
-            ''9/20/2019 td''pictureLabel.Width = pictureLabel.Image.Width
-            ''9/20/2019 td''pictureLabel.Height = pictureLabel.Image.Height
-            pictureLabel.Width = intNewImageWidth ''Straightforward.   No reversal is needed here, despite the rotation. ---9/20 td
-            Application.DoEvents()
-            pictureLabel.Height = intNewImageHeight ''Straightforward.   No reversal is needed here, despite the rotation. ---9/20 td 
-            Application.DoEvents()
-            pictureLabel.Invalidate() ''Forces it to be repainted.  
+            ''Added 8/18/2019 td
+            Dim intNewImageWidth As Integer ''Added 8/18/2019 td
+            Dim intNewImageHeight As Integer ''Added 9/20/2019 td
 
-            Me.Height = pictureLabel.Height
-            Application.DoEvents()
-            Me.Width = pictureLabel.Width
-        Else
-            ''
-            ''Adjust the controls to the image size. ---9/3/2019 td 
-            ''
-            ''9/20/2019 td''pictureLabel.Width = pictureLabel.Image.Width
-            ''9/20/2019 td''pictureLabel.Height = pictureLabel.Image.Height
-            pictureLabel.Width = intNewImageWidth
-            Application.DoEvents()
-            pictureLabel.Height = intNewImageHeight
-            Application.DoEvents()
-            Me.Height = pictureLabel.Height
-            Application.DoEvents()
-            Me.Width = pictureLabel.Width
+            ''9/20/2019 td''intNewImageWidth = pictureLabel.Image.Width
+            intNewImageWidth = newTextImage.Width ''Added 9/20/2019 td
+            intNewImageHeight = newTextImage.Height ''Added 9/20/2019 td
 
-        End If ''End if "If (boolRotated) Then .... Else ...."
+            If (boolRotated) Then ''Added 8/18/2019 td
+                ''
+                ''Rotated Images ---  Any special programming needed? 
+                ''
+                ''Adjust the controls to the image size.
+                ''   Is there any special programming for rotated images?   Probably not! ---9/3/2019 td 
+                ''
+                ''9/20/2019 td''pictureLabel.Width = pictureLabel.Image.Width
+                ''9/20/2019 td''pictureLabel.Height = pictureLabel.Image.Height
+                pictureLabel.Width = intNewImageWidth ''Straightforward.   No reversal is needed here, despite the rotation. ---9/20 td
+                Application.DoEvents()
+                pictureLabel.Height = intNewImageHeight ''Straightforward.   No reversal is needed here, despite the rotation. ---9/20 td 
+                Application.DoEvents()
+                pictureLabel.Invalidate() ''Forces it to be repainted.  
+
+                Me.Height = pictureLabel.Height
+                Application.DoEvents()
+                Me.Width = pictureLabel.Width
+            Else
+                ''
+                ''Adjust the controls to the image size. ---9/3/2019 td 
+                ''
+                ''9/20/2019 td''pictureLabel.Width = pictureLabel.Image.Width
+                ''9/20/2019 td''pictureLabel.Height = pictureLabel.Image.Height
+                pictureLabel.Width = intNewImageWidth
+                Application.DoEvents()
+                pictureLabel.Height = intNewImageHeight
+                Application.DoEvents()
+                Me.Height = pictureLabel.Height
+                Application.DoEvents()
+                Me.Width = pictureLabel.Width
+
+            End If ''End if "If (boolRotated) Then .... Else ...."
+
+        End If ''End of "If (par_boolResizeLabelControl) Then ..... Else ...."
 
         ''Added 7/31/2019 td
         If (mod_c_boolMustSetBackColor And (ElementInfo_Text IsNot Nothing)) Then
@@ -457,10 +498,15 @@ Public Class CtlGraphicFldLabel
 
         End If ''End of "If (mod_c_boolMustSetBackColor And (ElementInfo IsNot Nothing)) Then"
 
-        ''8/19/2019 td''pictureLabel.Refresh()
-        pictureLabel.Invalidate() ''Forces it to be re-painted. ---9/21/2019 td 
-        pictureLabel.Refresh()
-        Me.Refresh()
+        If (pboolRefreshLabelControl) Then
+            ''8/19/2019 td''pictureLabel.Refresh()
+            pictureLabel.Invalidate() ''Forces it to be re-painted. ---9/21/2019 td 
+            pictureLabel.Refresh()
+        End If ''End of "If (par_boolRefreshLabelControl) Then"
+
+        If (pboolRefreshUserControl) Then
+            Me.Refresh()
+        End If ''ENd of "If (par_boolRefreshUserControl) Then"
 
     End Sub ''End of Public Sub Refresh_Image
 
@@ -751,8 +797,22 @@ Public Class CtlGraphicFldLabel
         ''
         ''Added 7/31/2019 thomas downes
         ''
-        Me.ElementInfo_Base.Width_Pixels = Me.Width
-        Me.ElementInfo_Base.Height_Pixels = Me.Height
+        If (Me.Rotated_0degrees) Then
+            Me.ElementInfo_Base.Width_Pixels = Me.Width
+            Me.ElementInfo_Base.Height_Pixels = Me.Height
+        ElseIf (Me.Rotated_180_360) Then
+            Me.ElementInfo_Base.Width_Pixels = Me.Width
+            Me.ElementInfo_Base.Height_Pixels = Me.Height
+
+        ElseIf (Me.Rotated_90_270) Then
+            ''---DIFFICULT & CONFUSING---
+            ''   It's rotated to 90 or 270 degrees, so let's 
+            ''   pull a "switcheroo" on the Width & Height. 
+            Me.ElementInfo_Base.Width_Pixels = Me.Height
+            Me.ElementInfo_Base.Height_Pixels = Me.Width
+        Else
+            Throw New Exception("Logical error #42")
+        End If ''ENd of "If (Me.Rotated_0degrees) Then ... ElseIf .... ElseIf ...."
 
         ''Added 9/5/2019 td 
         Me.ElementInfo_Base.TopEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Top_Omit(Me.Top)
