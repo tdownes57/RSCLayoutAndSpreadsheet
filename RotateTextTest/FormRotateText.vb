@@ -11,7 +11,7 @@ Delegate Sub LinkClickedDelegate(sender As Object, e As LinkLabelLinkClickedEven
 Public Class FormRotateText
 
     Private mod_handler As LinkClickedDelegate
-    Private mod_classMenuMethods As New ClassMenuMethods
+    Private WithEvents mod_classMenuMethods As New ClassMenuMethods
 
     Private Sub FormRotateText_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -25,6 +25,10 @@ Public Class FormRotateText
         Dim boolHasUnderscore As Boolean  ''Added 9//21/2019 td
         Dim objBindingFlags As System.Reflection.BindingFlags ''Added 9/23/2019 td  
         Dim boolPropertyGet As Boolean ''Added 9/23/2019 td 
+        Dim boolPropertySet As Boolean ''Added 9/23/2019 td 
+        Dim intExceptionCount As Integer  ''Added 9/23/2019 td
+        Dim ex_AddEventHandler As New Exception("Routine initialization")  ''Added 9/23/2019 td
+        Dim boolProcedureNotUsed As Boolean ''Added 9/23/2019 thomas downes
 
         ''objInfo = (TypeOf objClass1)
 
@@ -43,11 +47,19 @@ Public Class FormRotateText
 
             ''Added 9/21/2019 thomas d. 
             boolHasUnderscore = strMethodName.Contains("_")
-            If (Not boolHasUnderscore) Then Exit For
+            If (Not boolHasUnderscore) Then Continue For ''----Exit For
 
             ''Added 9/21/2019 thomas d. 
             boolPropertyGet = strMethodName.Contains("get_")
-            If (boolPropertyGet) Then Exit For
+            If (boolPropertyGet) Then Continue For ''---Exit For
+
+            ''Added 9/21/2019 thomas d. 
+            boolPropertySet = strMethodName.Contains("set_")
+            If (boolPropertySet) Then Continue For ''---Exit For
+
+            ''Added 9/21/2019 thomas d. 
+            boolProcedureNotUsed = strMethodName.Contains("_NotUsed")
+            If (boolProcedureNotUsed) Then Continue For ''---Exit For
 
             strMethodWithSpaces = strMethodName.Replace("_", " ")
 
@@ -74,7 +86,7 @@ Public Class FormRotateText
             ''9/23/2019 td''
 
             ''
-            '''
+            ''
             ''
             ''each_eventInfo.AddEventHandler()
             ''    var p = New Program();
@@ -87,42 +99,73 @@ Public Class FormRotateText
             ''eventInfo.AddEventHandler(p, handler);
             ''p.Test();
 
-            Const c_TryToUseReflectionForHandlers As Boolean = False ''Added 9/23/2019 Thomas DOWNES
+            Const c_TryToUseReflectionForHandlers As Boolean = True ''False ''Added 9/23/2019 Thomas DOWNES
+            Dim bAddEventHandler_Reflection As Boolean = c_TryToUseReflectionForHandlers ''True
 
             ''Added 9/23/2019 Thomas DOWNES 
             ''
             ''   https://stackoverflow.com/questions/1121441/addeventhandler-using-reflection
             ''
-            If (c_TryToUseReflectionForHandlers) Then
+            If (bAddEventHandler_Reflection) Then
                 ''Added 9/23/2019 Thomas DOWNES 
                 ''
                 ''   https://stackoverflow.com/questions/1121441/addeventhandler-using-reflection
                 ''
-                Dim tt As Type = mod_classMenuMethods.MyLinkLabel.GetType
-                Dim link_clicked As Reflection.EventInfo
-                link_clicked = tt.GetEvent("LinkClicked", objBindingFlags)
-                Dim my_handler As [Delegate]
-                my_handler = [Delegate].CreateDelegate(link_clicked.EventHandlerType, mod_classMenuMethods, each_methodInfo)
-                link_clicked.AddEventHandler(Me, my_handler) '', BindingFlags.Public)
-            End If ''End of "If (c_TryToUseReflectionForHandlers) Then"
+                Dim type_LinkLabel As Type = mod_classMenuMethods.MyLinkLabel.GetType
+                Dim event_linkClicked As Reflection.EventInfo
+
+                Try
+                    event_linkClicked = type_LinkLabel.GetEvent("LinkClicked", objBindingFlags)
+                    Dim my_click_handler As [Delegate]
+                    my_click_handler = [Delegate].CreateDelegate(event_linkClicked.EventHandlerType, mod_classMenuMethods, each_methodInfo)
+
+                    ''---link_clicked.AddEventHandler(Me, my_handler) '', BindingFlags.Public)
+                    ''---link_clicked.AddEventHandler(mod_classMenuMethods, my_handler)
+                    ''---link_clicked.AddEventHandler(mod_classMenuMethods.MyLinkLabel, my_handler)
+
+                    event_linkClicked.AddEventHandler(each_link, my_click_handler)
+
+                Catch ex_AddEventHandler ''As Exception
+                    ''
+                    ''Added 9//23/2019 td 
+                    ''
+                    intExceptionCount += 1
+
+                End Try
+
+            Else
+                ''Added 9/23/2019 thomas downes  
+                mod_classMenuMethods.AddEventHandlerLinkClicked_NotUsed(each_link)
+
+            End If ''End of "If (bAddEventHandler_Reflection) Then .... Else ...."
 
             ''mod_handler = New LinkClickedDelegate(each_methodInfo)
-
             ''myDelegate = [Delegate].CreateDelegate(LinkClickedDelegate, each_methodInfo)
-
             ''myDelegate = [Delegate].CreateDelegate(link_clicked.EventHandlerType, mod_classMenuMethods, each_methodInfo)
             ''myDelegate = [Delegate].CreateDelegate(link_clicked.EventHandlerType, mod_classMenuMethods, each_methodInfo)
             ''myDelegate = [Delegate].CreateDelegate(mod_classMenuMethods.GetType, each_methodInfo, True)
 
             ''link_clicked.AddEventHandler(Me, myDelegate)
 
-            mod_classMenuMethods.AddEventHandlerLinkClicked(each_link)
+            ''Move up a few executable lines. ----9/23/2019 td''mod_classMenuMethods.AddEventHandlerLinkClicked(each_link)
 
             FlowLayoutPanel1.Controls.Add(each_link)
             each_link.Visible = True
 
         Next each_methodInfo
 
+        ''
+        ''Added 9/23/2019 thomas downes
+        ''
+        If (intExceptionCount > 1) Then
+            ''
+            ''Added 9/23/2019 thomas downes
+            ''
+            MessageBox.Show($"A count of {intExceptionCount} errors occurred.  The last error is as follows:  " & vbCrLf & vbCrLf &
+                            ex_AddEventHandler.Message, "RotateTextTest",
+                            MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+
+        End If ''End of "If (intExceptionCount > 1) Then"
 
     End Sub
 

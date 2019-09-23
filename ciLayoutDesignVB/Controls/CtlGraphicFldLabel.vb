@@ -508,7 +508,7 @@ Public Class CtlGraphicFldLabel
         ''        ''Added 9/15/2019 thomas d.
         ''        ClassFieldStandard.CopyElementInfo(Me.FieldInfo.FieldIndex,
         ''                                           Me.ElementInfo_Base, Me.ElementInfo_Text)
-
+        ''
         ''    Case Else
         ''        ''
         ''        ''Customized field.
@@ -516,10 +516,34 @@ Public Class CtlGraphicFldLabel
         ''        ''Added 9/15/2019 thomas d.
         ''        ClassFieldCustomized.CopyElementInfo(Me.FieldInfo.FieldEnumValue,
         ''                                           Me.ElementInfo_Base, Me.ElementInfo_Text)
-
+        ''
         ''End Select
 
     End Sub ''End of Public Sub SaveToModel
+
+    Public Function Rotated_90_270() As Boolean
+        ''
+        ''Added 9/23/2019 thomas d.  
+        ''
+        Dim boolImageRotated_0_180 As Boolean ''Added 9/23/2019 thomas d.  
+
+        Select Case Me.ElementClass_Obj.OrientationInDegrees
+
+            Case 90, 270
+
+                ''Double-check the orientation.  ----9/23/2019 td
+                boolImageRotated_0_180 = (Me.pictureLabel.Image.Width > Me.pictureLabel.Image.Height)
+                If (boolImageRotated_0_180) Then
+                    Throw New Exception("Image dimensions are not expected.")
+                End If ''End of "If (boolImageRotated_0_180) Then"
+
+                Return True
+
+            Case Else : Return False
+
+        End Select ''ENd of "Select Case Me.ElementClass_Obj.OrientationInDegrees"
+
+    End Function ''End of "Public Function Rotated_90_270() As Boolean"
 
     Public Function LabelText() As String
         ''

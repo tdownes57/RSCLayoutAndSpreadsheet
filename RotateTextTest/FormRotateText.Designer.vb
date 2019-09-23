@@ -30,29 +30,33 @@ Partial Class FormRotateText
         '
         Me.FlowLayoutPanel1.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.FlowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Right
-        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(600, 0)
+        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(450, 0)
+        Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(200, 450)
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(150, 366)
         Me.FlowLayoutPanel1.TabIndex = 0
         '
         'LinkLabel1
         '
         Me.LinkLabel1.AutoSize = True
-        Me.LinkLabel1.Location = New System.Drawing.Point(12, 18)
+        Me.LinkLabel1.LinkColor = System.Drawing.Color.White
+        Me.LinkLabel1.Location = New System.Drawing.Point(22, 81)
+        Me.LinkLabel1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LinkLabel1.Name = "LinkLabel1"
-        Me.LinkLabel1.Size = New System.Drawing.Size(77, 17)
+        Me.LinkLabel1.Size = New System.Drawing.Size(59, 13)
         Me.LinkLabel1.TabIndex = 1
         Me.LinkLabel1.TabStop = True
         Me.LinkLabel1.Text = "LinkLabel1"
         '
         'FormRotateText
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.ClientSize = New System.Drawing.Size(600, 366)
         Me.Controls.Add(Me.LinkLabel1)
         Me.Controls.Add(Me.FlowLayoutPanel1)
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Name = "FormRotateText"
         Me.Text = "FormRotateText"
         Me.ResumeLayout(False)

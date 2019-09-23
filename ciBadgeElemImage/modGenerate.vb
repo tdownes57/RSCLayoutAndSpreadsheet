@@ -253,6 +253,7 @@ Public Module modGenerate
             ''
             boolAddHighlighting = (par_bIsDesignStage And
                 par_elementInfo_Base.SelectedHighlighting)
+
         End If ''End of "If (par_elementInfo_Base.SelectedHighlighting) Then"
 
         If (boolAddHighlighting) Then
@@ -412,7 +413,7 @@ Public Module modGenerate
 
     End Function ''End of "Public Function TextImage_Field(par_label As Label) As Image"
 
-    Public Sub PicImage_ByElement(par_element As ciBadgeElements.ClassElementPic, par_image As Image)
+    Public Function PicImage_ByElement(par_element As ciBadgeElements.ClassElementPic, par_image As Image) As Image
         ''
         ''Added 9/22/2019 thomas d 
         ''
@@ -440,6 +441,13 @@ Public Module modGenerate
         ''---intStarting_Width = picturePortrait.Width
         ''--intStarting_Height = picturePortrait.Height
 
+        image_Pic = par_image
+
+        ''
+        ''
+        ''Step 1 of 2.   Rotating.  
+        ''
+        ''
         intStarting_Width = par_element.Width_Pixels
         intStarting_Height = par_element.Height_Pixels
 
@@ -497,6 +505,11 @@ Public Module modGenerate
 
                     Next intRotateIndex
 
+                    ''
+                    ''Added 9/23/2019 td 
+                    ''
+                    image_Pic = bm_rotation
+
                 End If ''End of "If (boolLetsRotate90) Then"
 
             Case "n/a" '' "P" ----Anything can be rotated by the program code above.  The operations are exactly the same !!
@@ -506,9 +519,20 @@ Public Module modGenerate
 
         End Select ''End of "Select Case Me.ElementInfo_Pic.OrientationToLayout "
 
+        ''
+        ''
+        ''Step 2 of 2.   Resizing.  
+        ''
+        ''
+        intStarting_Width = par_element.Width_Pixels
+        intStarting_Height = par_element.Height_Pixels
 
 
-    End Sub ''End of Public Sub PicImage_ByElement
+
+
+        Return bm_resized
+
+    End Function ''End of Public Sub PicImage_ByElement
 
     Private Sub DrawBorder_PixelsWide(par_WidthInPixels As Integer, par_gr As Graphics, par_intWidth As Integer, par_intHeight As Integer, par_color As Color)
         ''

@@ -94,8 +94,53 @@ Public Class ClassElementField
     Public Property TopEdge_Pixels As Integer = 0 Implements IElement_Base.TopEdge_Pixels
     Public Property LeftEdge_Pixels As Integer = 0 Implements IElement_Base.LeftEdge_Pixels
 
-    Public Property Width_Pixels As Integer = 253 Implements IElement_Base.Width_Pixels
-    Public Property Height_Pixels As Integer = 33 Implements IElement_Base.Height_Pixels
+
+    ''9/23/20198 td''Public Property Width_Pixels As Integer = 253 Implements IElement_Base.Width_Pixels
+    ''9/23/20198 td''Public Property Height_Pixels As Integer = 33 Implements IElement_Base.Height_Pixels
+
+
+    Private mod_width_pixels As Integer = 253 ''Added 9/23/2019 td 
+    Public Property Width_Pixels As Integer Implements IElement_Base.Width_Pixels
+        Get
+            Return mod_width_pixels
+        End Get
+        Set(value As Integer)
+
+            Dim boolTallerThanWidth As Boolean ''Added 9/23/2019 thomas downes
+            Dim boolGiveDisallowedMsg As Boolean ''Added 9/23/2019 thomas downes
+
+            ''Added 9/23/2019 thomas downes
+            boolTallerThanWidth = (mod_height_pixels > value)
+            boolGiveDisallowedMsg = boolTallerThanWidth
+            If (boolGiveDisallowedMsg) Then
+                Throw New Exception("The Height cannot exceed the width #1 (rotation is _not_ an exception to this).")
+            End If ''End of "If (boolGiveDisallowedMsg) Then"
+            mod_width_pixels = value
+
+        End Set
+    End Property
+
+
+    Private mod_height_pixels As Integer = 33 ''Added 9/23/2019 td 
+    Public Property Height_Pixels As Integer Implements IElement_Base.Height_Pixels
+        Get
+            Return mod_height_pixels
+        End Get
+        Set(value As Integer)
+
+            Dim boolTallerThanWidth As Boolean ''Added 9/23/2019 thomas downes
+            Dim boolGiveDisallowedMsg As Boolean ''Added 9/23/2019 thomas downes
+            ''Added 9/23/2019 thomas downes
+            boolTallerThanWidth = (value > mod_width_pixels)
+            boolGiveDisallowedMsg = boolTallerThanWidth
+            If (boolGiveDisallowedMsg) Then
+                Throw New Exception("The Height cannot exceed the width #2 (rotation is _not_ an exception to this).")
+            End If ''End of "If (boolGiveDisallowedMsg) Then"
+            mod_height_pixels = value
+
+        End Set
+    End Property
+
 
     ''8/29/2019 td''Public Property Border_Pixels As Integer Implements IElement_Base.Border_Pixels
     Public Property Border_WidthInPixels As Integer = 1 Implements IElement_Base.Border_WidthInPixels

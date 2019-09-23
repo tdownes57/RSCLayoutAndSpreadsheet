@@ -22,6 +22,8 @@ Public Class ClassElementsCache
 
     Public Property BadgeLayout As ciBadgeInterfaces.BadgeLayoutClass ''Added 9/17/2019 thomas downes
 
+    Public Property Pic_InitialDefault As Image ''Added 9/23/2019 td 
+
     Public Function ListFields() As List(Of ClassFieldAny)
         ''
         ''Added 9/19/2019 thomas downes

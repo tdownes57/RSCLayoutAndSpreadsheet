@@ -132,6 +132,16 @@ Public Class FormDesignProtoTwo
         ''7/31/2019 td''Me.Controls.Remove(pictureboxPic) ''Added 7/31/2019 thomas d. 
         mod_imageLady = CtlGraphicPortrait_Lady.picturePortrait.Image
 
+        ''Added 9/23/2019 td 
+        ''
+        ''   Save a link to the "CIB Version 9.0 Lady" so that the 
+        ''   procedure ciBadgeElemImage.modGenerate's Public Sub PicImage_ByElement 
+        ''   can have an image to utilize, instead of requiring that the image
+        ''   be passed as an parameter.  ---9/23/2019 td
+        ''
+        Me.ElementsCache_Saved.Pic_InitialDefault = mod_imageLady
+        Me.ElementsCache_Edits.Pic_InitialDefault = mod_imageLady
+
         Me.Controls.Remove(CtlGraphicPortrait_Lady) ''Added 7/31/2019 thomas d. 
 
         ''Encapsulated 7/31/2019 td
