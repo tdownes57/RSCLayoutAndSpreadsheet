@@ -459,13 +459,14 @@ Public Module modGenerate
 
                     Dim intRotateIndex As Integer ''Added 8/18/2019 td  
 
-                    For intRotateIndex = 1 To CInt(Me.ElementInfo_Base.OrientationInDegrees / 90)
+                    bm_rotation = New Bitmap(image_Pic)
+
+                    For intRotateIndex = 1 To CInt(par_element.OrientationInDegrees / 90)
 
                         ''Added 8/7/2019 thomas downes 
                         ''8/7 td''image_Rotated = CType(image_Pic.Clone, Image)
 
-                        image_Pic = picturePortrait.Image
-                        bm_rotation = New Bitmap(image_Pic)
+                        ''9/22/2019 td''bm_rotation = New Bitmap(image_Pic)
                         bm_rotation.RotateFlip(RotateFlipType.Rotate90FlipNone)
 
                         ''8/7 td''picturePortrait.Image = image_Rotated
@@ -476,17 +477,17 @@ Public Module modGenerate
                         ''8/8 td''picturePortrait.Width = bm_rotation.Width
                         ''8/8 td''picturePortrait.Height = bm_rotation.Height
 
-                        picturePortrait.Width = intStarting_Height ''Switching!! Height & Width are switched.
-                        picturePortrait.Height = intStarting_Width ''Switching!! Height & Width are switched.
+                        ''picturePortrait.Width = intStarting_Height ''Switching!! Height & Width are switched.
+                        ''picturePortrait.Height = intStarting_Width ''Switching!! Height & Width are switched.
 
-                        Me.Width = intStarting_Height ''Switching!!  Height & Width are switched. ---8/8/2019 td
-                        Me.Height = intStarting_Width ''Switching!!  Height & Width are switched. ---8/8/2019 td 
+                        ''Me.Width = intStarting_Height ''Switching!!  Height & Width are switched. ---8/8/2019 td
+                        ''Me.Height = intStarting_Width ''Switching!!  Height & Width are switched. ---8/8/2019 td 
 
-                        picturePortrait.Refresh()
+                        ''picturePortrait.Refresh()
 
-                        picturePortrait.Image = bm_rotation
-                        picturePortrait.SizeMode = PictureBoxSizeMode.Zoom
-                        picturePortrait.Refresh()
+                        ''picturePortrait.Image = bm_rotation
+                        ''picturePortrait.SizeMode = PictureBoxSizeMode.Zoom
+                        ''picturePortrait.Refresh()
 
                         ''8/7 td''Me.Width = image_Rotated.Width
                         ''8/7 td'' Me.Height = image_Rotated.Height
@@ -504,6 +505,8 @@ Public Module modGenerate
                 ''
 
         End Select ''End of "Select Case Me.ElementInfo_Pic.OrientationToLayout "
+
+
 
     End Sub ''End of Public Sub PicImage_ByElement
 

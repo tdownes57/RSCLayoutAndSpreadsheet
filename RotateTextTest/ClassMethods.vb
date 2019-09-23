@@ -27,4 +27,26 @@ Public Class ClassMethods
     Private Sub MyLinkLabel_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles MyLinkLabel.LinkClicked
 
     End Sub
+
+    Friend Sub AddEventHandler_LinkClicked(par_link As LinkLabel)
+        ''
+        ''Added 9/22/2019 thomas d. 
+        ''
+        Select Case par_link.Text
+            Case "Add Text Image" : AddHandler par_link.LinkClicked, AddressOf Add_Text_Image
+
+            Case "Create A Rotated Image" : AddHandler par_link.LinkClicked, AddressOf Me.Create_a_Rotated_Image
+
+            Case Else
+                MessageBox.Show("The link is unpaired with a class method.")
+
+        End Select
+
+
+
+
+    End Sub
+
+
+
 End Class

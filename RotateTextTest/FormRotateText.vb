@@ -86,11 +86,12 @@ Public Class FormRotateText
             ''myDelegate = [Delegate].CreateDelegate(LinkClickedDelegate, each_methodInfo)
 
             ''myDelegate = [Delegate].CreateDelegate(link_clicked.EventHandlerType, mod_classMenuMethods, each_methodInfo)
-            myDelegate = [Delegate].CreateDelegate(link_clicked.EventHandlerType, mod_classMenuMethods, each_methodInfo)
+            ''myDelegate = [Delegate].CreateDelegate(link_clicked.EventHandlerType, mod_classMenuMethods, each_methodInfo)
             ''myDelegate = [Delegate].CreateDelegate(mod_classMenuMethods.GetType, each_methodInfo, True)
 
+            ''link_clicked.AddEventHandler(Me, myDelegate)
 
-            link_clicked.AddEventHandler(Me, myDelegate)
+            mod_classMenuMethods.AddEventHandler_LinkClicked(each_link)
 
             FlowLayoutPanel1.Controls.Add(each_link)
             each_link.Visible = True
