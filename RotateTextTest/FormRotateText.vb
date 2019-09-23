@@ -11,7 +11,7 @@ Delegate Sub LinkClickedDelegate(sender As Object, e As LinkLabelLinkClickedEven
 Public Class FormRotateText
 
     Private mod_handler As LinkClickedDelegate
-    Private mod_classMenuMethods As New ClassMethods
+    Private mod_classMenuMethods As New ClassMenuMethods
 
     Private Sub FormRotateText_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -19,17 +19,23 @@ Public Class FormRotateText
         Dim each_methodInfo As Reflection.MethodInfo
         ''Dim each_eventInfo As Reflection.EventInfo
 
-        Dim objClass1 As New ClassMethods
+        ''Dim objClass1 As New ClassMethods
         Dim strMethodName As String
         Dim strMethodWithSpaces As String
         Dim boolHasUnderscore As Boolean  ''Added 9//21/2019 td
+        Dim objBindingFlags As System.Reflection.BindingFlags ''Added 9/23/2019 td  
+        Dim boolPropertyGet As Boolean ''Added 9/23/2019 td 
 
         ''objInfo = (TypeOf objClass1)
+
+        objBindingFlags = (BindingFlags.Public Or BindingFlags.Instance)
 
         ''// Using Reflection to get information of an Assembly  
         ''System.Reflection.Assembly info = TypeOf (System.Int32).Assembly;
 
-        Dim t As Type = objClass1.GetType
+        Dim t As Type = mod_classMenuMethods.GetType
+
+        mod_classMenuMethods.ParentForm = Me
 
         For Each each_methodInfo In t.GetMethods()
 
@@ -38,6 +44,10 @@ Public Class FormRotateText
             ''Added 9/21/2019 thomas d. 
             boolHasUnderscore = strMethodName.Contains("_")
             If (Not boolHasUnderscore) Then Exit For
+
+            ''Added 9/21/2019 thomas d. 
+            boolPropertyGet = strMethodName.Contains("get_")
+            If (boolPropertyGet) Then Exit For
 
             strMethodWithSpaces = strMethodName.Replace("_", " ")
 
@@ -49,19 +59,19 @@ Public Class FormRotateText
 
             ''Dim tt As Type = each_link.GetType
 
-            Dim tt As Type = mod_classMenuMethods.MyLinkLabel.GetType
+            ''9/23/2019 td''
 
             ''each_eventInfo = tt.GetEvents()(0)
 
             ''Dim list_events() As Reflection.EventInfo
-            Dim link_clicked As Reflection.EventInfo
+            ''9/23/2019 td''
 
             ''list_events = tt.GetEvents()
             ''For Each each_eventInfo In list_events
             ''    If (each_eventInfo.Name = "LinkClicked") Then Exit For
             ''    System.Diagnostics.Debug.Print(each_eventInfo.Name)
             ''Next
-            link_clicked = tt.GetEvent("LinkClicked")
+            ''9/23/2019 td''
 
             ''
             '''
@@ -77,9 +87,24 @@ Public Class FormRotateText
             ''eventInfo.AddEventHandler(p, handler);
             ''p.Test();
 
-            Dim myDelegate As [Delegate]
-            ''myDelegate = [Delegate].CreateDelegate(link_clicked.EventHandlerType, each_methodInfo)
-            ''link_clicked.AddEventHandler(Me, myDelegate) '', BindingFlags.Public)
+            Const c_TryToUseReflectionForHandlers As Boolean = False ''Added 9/23/2019 Thomas DOWNES
+
+            ''Added 9/23/2019 Thomas DOWNES 
+            ''
+            ''   https://stackoverflow.com/questions/1121441/addeventhandler-using-reflection
+            ''
+            If (c_TryToUseReflectionForHandlers) Then
+                ''Added 9/23/2019 Thomas DOWNES 
+                ''
+                ''   https://stackoverflow.com/questions/1121441/addeventhandler-using-reflection
+                ''
+                Dim tt As Type = mod_classMenuMethods.MyLinkLabel.GetType
+                Dim link_clicked As Reflection.EventInfo
+                link_clicked = tt.GetEvent("LinkClicked", objBindingFlags)
+                Dim my_handler As [Delegate]
+                my_handler = [Delegate].CreateDelegate(link_clicked.EventHandlerType, mod_classMenuMethods, each_methodInfo)
+                link_clicked.AddEventHandler(Me, my_handler) '', BindingFlags.Public)
+            End If ''End of "If (c_TryToUseReflectionForHandlers) Then"
 
             ''mod_handler = New LinkClickedDelegate(each_methodInfo)
 
@@ -91,7 +116,7 @@ Public Class FormRotateText
 
             ''link_clicked.AddEventHandler(Me, myDelegate)
 
-            mod_classMenuMethods.AddEventHandler_LinkClicked(each_link)
+            mod_classMenuMethods.AddEventHandlerLinkClicked(each_link)
 
             FlowLayoutPanel1.Controls.Add(each_link)
             each_link.Visible = True

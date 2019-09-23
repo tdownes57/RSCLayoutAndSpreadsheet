@@ -74,7 +74,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClassMethods.vb" />
+    <Compile Include="ClassMenuMethods.vb" />
     <Compile Include="FormRotateText.vb">
       <SubType>Form</SubType>
     </Compile>

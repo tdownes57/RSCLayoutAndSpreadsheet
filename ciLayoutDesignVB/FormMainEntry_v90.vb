@@ -94,6 +94,7 @@ Public Class FormMainEntry_v90
 
                 ''Added 9/11/2019 td  
                 If (mc_bAddBorderOnlyWhileResizing) Then
+                    ''Add a border while a control is being resized.  
                     mod_FieldControlLastTouched.BorderStyle = BorderStyle.FixedSingle
                 End If ''End of "If (mc_bAddBorderOnlyWhileResizing) Then"
 
