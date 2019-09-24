@@ -8,7 +8,9 @@ Imports System.Drawing.Text ''Added
 Imports System.Windows.Forms ''Added 9/18/2019 td 
 Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d. 8/14/2019 td  
 Imports ciBadgeFields ''Added 9/18/2019 td  
+Imports System.Xml.Serialization ''Added 9/24/2019 thomas d. 
 
+<Serializable>
 Public Class ClassElementField
     Implements IElement_Base, IElement_TextField
     ''
@@ -19,6 +21,7 @@ Public Class ClassElementField
     ''
     ''-------------------------------------------------------------
 
+    <Xml.Serialization.XmlIgnore>
     Public Property Font_DrawingClass As System.Drawing.Font Implements IElement_TextField.Font_DrawingClass
 
     Public Property ExampleValue_ForElement As String Implements IElement_TextField.ExampleValue_ForElement ''Added 8/14/2019 td 
@@ -75,6 +78,7 @@ Public Class ClassElementField
 
     Public Property OrientationInDegrees As Integer Implements IElement_Base.OrientationInDegrees ''Default is 0, normal.  90 would be 1/4 turn clockwise.  180 is upside-down.  270 is the printing on the spine of a book sitting on the bookshelf.
 
+    <Xml.Serialization.XmlIgnore>
     Public Property Image_BL As Image Implements IElement_Base.Image_BL ''Added 8/27/2019 td
 
     ''Moved below. 8/27/2019 td''Public Property SelectedHighlighting As Boolean Implements IElement_Base.SelectedHighlighting ''Added 8/2/2019 td  

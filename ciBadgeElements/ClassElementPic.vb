@@ -10,6 +10,7 @@ Imports System.Windows.Forms ''Added 9/18/2019 td
 Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d. 
 Imports System.Xml.Serialization ''Added 9/24/2019 td
 
+<Serializable>
 Public Class ClassElementPic
     ''
     ''Added 7/18/2019 thomas downes 

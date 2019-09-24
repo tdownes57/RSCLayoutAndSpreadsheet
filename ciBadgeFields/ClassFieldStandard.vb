@@ -8,6 +8,7 @@ Imports ciBadgeInterfaces ''Added 8/24/2019 thomas d.
 ''Added 7/26/2019 thomas downes  
 ''
 
+<Serializable>
 Public Class ClassFieldStandard
     Inherits ClassFieldAny ''Added 9/16/2019 thomas d.
     ''9/16/2019 td''Implements ICIBFieldStandardOrCustom ''Added 7/21/2019 td

@@ -10,6 +10,7 @@ Imports ciBadgeInterfaces ''Added 9/16/2019 td
 Imports ciBadgeFields ''Added 9/18/2019 td
 ''9/19/2019 td''Imports ciLayoutPrintLib ''Added 9/18/2019 td 
 
+<Serializable>
 Public Class ClassElementsCache
     ''
     ''Added 9/16/2019 thomas downes
@@ -22,6 +23,7 @@ Public Class ClassElementsCache
 
     Public Property BadgeLayout As ciBadgeInterfaces.BadgeLayoutClass ''Added 9/17/2019 thomas downes
 
+    <Xml.Serialization.XmlIgnore>
     Public Property Pic_InitialDefault As Image ''Added 9/23/2019 td 
 
     Public Function ListFields() As List(Of ClassFieldAny)
