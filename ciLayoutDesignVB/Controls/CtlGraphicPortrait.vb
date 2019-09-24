@@ -232,7 +232,6 @@ Public Class CtlGraphicPortrait
         ''
         Const c_boolUse_ciBadgeElemImage As Boolean = True
         Dim imgPortrait_withRotationIfAny As Image ''Added 9/24/2019 td
-        Static s_Landscape_Prior As Boolean ''Added 9/24/2019 td  
 
         If (c_boolUse_ciBadgeElemImage) Then
             ''
@@ -241,26 +240,12 @@ Public Class CtlGraphicPortrait
             imgPortrait_withRotationIfAny =
             ciBadgeElemImage.modGenerate.PicImage_ByElement(ElementClass_Obj,
                                                             Me.Pic_CloneOfInitialImage)
+
             ''Added 9/24/2019 td
             picturePortrait.Image = imgPortrait_withRotationIfAny
 
-            Dim boolRotatedToLandscape As Boolean
-            boolRotatedToLandscape = (90 = (ElementClass_Obj.OrientationInDegrees Mod 180))
-            If (boolRotatedToLandscape) Then
-                If (s_Landscape_Prior) Then
-                    ''Fine, no change.
-                Else
-                    SwitchControl_WidthAndHeight
-                    s_Landscape_Prior = True ''Retain for the next call to this procedure. 
-                End If
-            Else
-                If (Not s_Landscape_Prior) Then
-                    ''Fine, no change. 
-                Else
-                    SwitchControl_WidthAndHeight
-                    s_Landscape_Prior = False ''Retain for the next call to this procedure. 
-                End If
-            End If ''eNd of "If (boolRotatedToLandscape) Then"
+            ''Added 9/24/2019 td
+            SwitchControl_WidthAndHeight_Master
 
             picturePortrait.SizeMode = PictureBoxSizeMode.Zoom
             picturePortrait.Refresh()
@@ -271,6 +256,43 @@ Public Class CtlGraphicPortrait
         End If ''end of "If (c_boolUse_ciBadgeElemImage) Then ..... Else ...."
 
     End Sub ''ENd of "Public Sub RefreshImage_ViaElemImage()"
+
+    Private Sub SwitchControl_WidthAndHeight_Master()
+        ''
+        ''Added 9/24/2019 td  
+        ''
+        Dim boolRotatedToLandscape As Boolean
+        Static s_Landscape_Prior As Boolean ''Added 9/24/2019 td  
+
+        boolRotatedToLandscape = (90 = (ElementClass_Obj.OrientationInDegrees Mod 180))
+        If (boolRotatedToLandscape) Then
+            If (s_Landscape_Prior) Then
+                ''Fine, no change.
+            Else
+                SwitchControl_WidthAndHeight_Sub
+                s_Landscape_Prior = True ''Retain for the next call to this procedure. 
+            End If
+        Else
+            If (Not s_Landscape_Prior) Then
+                ''Fine, no change. 
+            Else
+                SwitchControl_WidthAndHeight_Sub
+                s_Landscape_Prior = False ''Retain for the next call to this procedure. 
+            End If
+        End If ''eNd of "If (boolRotatedToLandscape) Then"
+
+    End Sub ''ENd of "Private Sub SwitchControl_WidthAndHeight_Master()"
+
+    Private Sub SwitchControl_WidthAndHeight_Sub()
+        ''
+        ''Added 9/24/2019 td  
+        ''
+        Dim intWidth As Integer
+        intWidth = Me.Width
+        Me.Width = Me.Height
+        Me.Height = intWidth
+
+    End Sub ''ENd of "Private Sub SwitchControl_WidthAndHeight_Sub()"
 
     Private Sub RefreshImage_NoMajorCalls()
         ''
