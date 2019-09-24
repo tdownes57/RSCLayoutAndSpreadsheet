@@ -2029,6 +2029,7 @@ Public Class FormDesignProtoTwo
 
             ''Added 9/24/2019 thomas 
             .SerializeToXML(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved)
+            .SerializeToBinary(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved)
 
         End With
 

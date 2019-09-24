@@ -4,6 +4,8 @@ Option Strict On ''Added 9/9/2019 td
 ''Added 9/9/2019 td 
 ''
 Imports System.IO ''Added 9/12/2019 td 
+Imports System.Runtime.Serialization
+Imports System.Xml.Serialization ''Added 9/1/2019 thomas d. 
 
 Public Class SerialTools
     ''
@@ -76,7 +78,25 @@ Public Class SerialTools
 
     End Sub ''End of "Public Sub SerializeToXML(par_TypeOfObject As Type, par_objectToSerialize As Object) "
 
+    Public Sub SerializeToBinary(par_TypeOfObject As Type, par_objectToSerialize As Object)
 
+        ''---------------------------------
+        ''Added 9/24 & 8/2/2019 Thomas DOWNES
+        ''
+        ''    https://docs.microsoft.com/en-us/dotnet/visual-basic/programming-guide/concepts/serialization/
+        ''----------------------------------
+        ''
+        Dim formatter_Bin As IFormatter = New System.Runtime.Serialization.Formatters.Binary.BinaryFormatter()
+        ''9/24 td''Dim fileStream_Bin As Stream = New FileStream(mod_sPathToBinary, FileMode.Create, FileAccess.Write, FileShare.None)
+        Dim fileStream_Bin As Stream = New FileStream(Me.PathToBinary, FileMode.Create, FileAccess.Write, FileShare.None)
+
+        ''9/24/2019 td''formatter_Bin.Serialize(fileStream_Bin, mod_objParent)
+        formatter_Bin.Serialize(fileStream_Bin, par_objectToSerialize)
+        fileStream_Bin.Close()
+
+        System.Diagnostics.Process.Start(Me.PathToBinary)
+
+    End Sub ''End of "Private Sub SerializeToBinary(par_TypeOfObject As Type, par_objectToSerialize As Object)"
 
 
 
