@@ -297,7 +297,15 @@ Public Module modGenerate
             If (.Font_DrawingClass Is Nothing) Then
                 ''Added 9/15/2019 td
                 .Font_DrawingClass = modFonts.MakeFont(.FontFamilyName, .FontSize_Pixels, .FontBold, .FontItalics, .FontUnderline)
-            End If ''End of '"If (.Font_DrawingClass Is Nothing) Then"
+
+            Else
+                Dim bRegenerateFontObjectClass As Boolean ''Added 9/23/2019 td 
+                bRegenerateFontObjectClass = (CInt(.Font_DrawingClass.Size) <> .FontSize_Pixels) ''Added 9/23/2019 td 
+                If (bRegenerateFontObjectClass) Then ''Added 9/23/2019 td 
+                    ''Added 9/23/2019 td 
+                    .Font_DrawingClass = modFonts.SetFontSize_Pixels(.Font_DrawingClass, .FontSize_Pixels)
+                End If ''End of '"If (bRegenerateFont) Then .... ElseIf ...."
+            End If ''End of '"If (.Font_DrawingClass Is Nothing) Then .... ElseIf ...."
 
             ''Added 9/8/2019 td
             font_scaled = modFonts.ScaledFont(.Font_DrawingClass, doubleScaling)

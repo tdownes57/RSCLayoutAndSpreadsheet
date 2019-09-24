@@ -134,4 +134,9 @@ Public Class FormMainEntry_v90
         Return Me.Name
     End Function
 
+    Public Sub RedrawForm() Implements ILayoutFunctions.RedrawForm
+        ''Added 9/23/2019
+        Me.Invalidate() ''Causes the form to be re-painted. 
+    End Sub
+
 End Class

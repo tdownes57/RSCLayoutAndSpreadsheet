@@ -64,6 +64,33 @@ Public Class CtlPropertyUpDownvb
         End Set
     End Property
 
+    Public Overloads Property Enabled As Boolean
+        Get
+            ''Added 9/23/2019 td
+            Return ButtonIncrease.Enabled
+        End Get
+        Set(value As Boolean)
+            ''Added 9/23/2019 td
+            MyBase.Enabled = value
+            ButtonIncrease.Enabled = value
+            ButtonDecrease.Enabled = value
+            LabelProperty.Enabled = value
+
+        End Set
+    End Property ''eNdof "Public Overloads Property Enabled As Boolean"
+
+    Public Overloads Property BackColor As Color
+        Get
+            ''Added 9/23/2019 td
+            Return MyBase.BackColor
+        End Get
+        Set(value As Color)
+            ''Added 9/23/2019 td
+            MyBase.BackColor = value
+            LabelProperty.BackColor = value
+        End Set
+    End Property ''eNdof "Public Overloads Property BackColor As Color"
+
     Private Sub ButtonDecrease_Click(sender As Object, e As EventArgs) Handles ButtonDecrease.Click
 
         mod_iPropertyValue -= 1

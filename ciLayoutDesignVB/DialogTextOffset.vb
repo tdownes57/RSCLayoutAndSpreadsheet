@@ -80,7 +80,11 @@ Public Class DialogTextOffset
         ''
         ''added 9/17 td
         ''
-        If (Me.UserConfirmed) Then
+        Dim boolTransferPropertyValues As Boolean ''Added 9/23/2019 td 
+        boolTransferPropertyValues = (Me.UserConfirmed Or par_overrideConfirmation) ''Added 9/23/2019 td 
+
+        ''9/23 td''If (Me.UserConfirmed) Then
+        If (boolTransferPropertyValues) Then
 
             With par_elementInfo_Base
 
@@ -94,7 +98,6 @@ Public Class DialogTextOffset
 
             With par_elementInfo_TextFld
 
-
                 ''Obselete.---9/18/2019 td''Me.ElementInfo_Text.FontOffset_X = frm_ToShow.FontOffset_X
                 ''Obselete.---9/18/2019 td''Me.ElementInfo_Text.FontOffset_Y = frm_ToShow.FontOffset_Y
                 ''Obselete.---9/18/2019 td''Me.ElementInfo_Text.FontSize_Pixels = frm_ToShow.FontSize
@@ -104,6 +107,7 @@ Public Class DialogTextOffset
                 .FontOffset_Y = Me.ElementCopy_Info_Text.FontOffset_Y
 
                 .FontSize_Pixels = Me.ElementCopy_Info_Text.FontSize_Pixels
+
                 .Font_DrawingClass = modFonts.SetFontSize_Pixels(Me.ElementCopy_Info_Text.Font_DrawingClass,
                                                                  Me.ElementCopy_Info_Text.FontSize_Pixels)
 
@@ -549,7 +553,11 @@ Public Class DialogTextOffset
 
         ''Added 9/12/2019 thomas d.
         ''9/18/2019 td''Me.ElementInfo_Text.FontSize_ScaleToElementYesNo = checkFontSizeScalesYN.Checked
-        Me.ElementCopy_Info_Text.FontSize_ScaleToElementYesNo = checkFontSizeScalesYN.Checked
+        If (Me.ElementCopy_Info_Text IsNot Nothing) Then
+            Me.ElementCopy_Info_Text.FontSize_ScaleToElementYesNo = checkFontSizeScalesYN.Checked
+            ''Added 9/23/2019 td
+            CtlFontSize.Enabled = (Not checkFontSizeScalesYN.Checked) ''Added 9/23/2019 td
+        End If ''End of "If (Me.ElementCopy_Info_Text IsNot Nothing) Then"
 
     End Sub
 
@@ -565,7 +573,8 @@ Public Class DialogTextOffset
             .Height = Me.ElementCopy_Info_Base.Height_Pixels
 
             Me.CtlGraphicFldLabel1.Refresh_Image(True)
-        End With
+
+        End With ''ENd of "With Me.CtlGraphicFldLabel1"
 
     End Sub
 
@@ -579,7 +588,15 @@ Public Class DialogTextOffset
         ''
         ''9/19/2019 td''UpdateInfo_ViaInterfaces(Me.ElementObject_LayoutDesign, Me.ElementObject_LayoutDesign)
         UpdateInfo_ViaInterfaces(Me.ElementObject_LayoutDesign, Me.ElementObject_LayoutDesign, True)
-        Me.OriginalElementControl_ForApplyOnly.Refresh_Master()
+
+        ''9/23/2019 td''Me.OriginalElementControl_ForApplyOnly.Refresh_Master()
+        ''9/23/2019 td''Me.LayoutFunctions.RedrawForm
+
+        With Me.OriginalElementControl_ForApplyOnly
+            .Refresh_Master()
+            ''Added 9/23/2019 td 
+            .LayoutFunctions.RedrawForm
+        End With ''ENd of "With Me.OriginalElementControl_ForApplyOnly"
 
     End Sub
 

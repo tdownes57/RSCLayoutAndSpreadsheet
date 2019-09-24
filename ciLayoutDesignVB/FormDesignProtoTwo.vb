@@ -1675,6 +1675,11 @@ Public Class FormDesignProtoTwo
         Return Me.Name
     End Function
 
+    Public Sub RedrawForm() Implements ILayoutFunctions.RedrawForm
+        ''Added 9/23/2019
+        ''Not needed. ---9/23 td''Me.Invalidate() ''Causes the form to be re-painted.
+        ''Not needed. ---9/23 td''Application.DoEvents()
+    End Sub
     Private Sub ContextMenuStrip1_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles ContextMenuStrip1.Opening
 
     End Sub

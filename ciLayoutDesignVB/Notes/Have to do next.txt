@@ -3,7 +3,7 @@
 Have to do next 
 --------------------
 
-Fix rotation (90 degrees) of element field controls.  
+----Completed 9/23 td----Fix rotation (90 degrees) of element field controls.  
 
 Add "Clear selected-controls selections" to the Design-Layout menu (not a right-click menu)
 
@@ -11,7 +11,17 @@ Add a "Copy Element" option in the Right-Click menu, in case the same field need
 
 Add layout sections ????
 
-Figure out why the "Apply" button doesnt work.     
+----Completed 9/23 td----Figure out why the "Apply" button doesnt work.     
+----Completed 9/23 td----Fix the Font Sizer on the "Position Text Within...." dialog.
+
+Fix rotation (90 degrees) of Portrait Pic.  
+
+Output design layout to XML. 
+
+
+
+
+
 
   
 

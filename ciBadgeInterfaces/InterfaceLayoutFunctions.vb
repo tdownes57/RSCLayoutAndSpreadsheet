@@ -33,4 +33,6 @@ Public Interface ILayoutFunctions
 
     Function NameOfForm() As String ''Added 9/19/2019 td 
 
+    Sub RedrawForm() ''Added 9/23/2019 td
+
 End Interface
