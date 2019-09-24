@@ -390,6 +390,9 @@ Public Class CtlGraphicPortrait
         ''
         ''Added 7/31/2019 thomas d 
         ''
+        Dim bRotated90degrees As Boolean ''Added 9/24/2019 thomas d. 
+        Dim boolSuccess As Boolean ''Added 9/24/2019 td  
+
         If (Me.ElementInfo_Base IsNot Nothing) Then
 
             ''9/10/2019 td''Me.ElementInfo_Base.TopEdge_Pixels = Me.Top
@@ -402,18 +405,34 @@ Public Class CtlGraphicPortrait
             Me.ElementInfo_Base.TopEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Top_Omit(Me.Top)
             Me.ElementInfo_Base.LeftEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Left_Omit(Me.Left)
 
+            ''Added 9/24/2019 td
+            ''  Let's avoid violating the Pic's (Height >= Width) constraint, when 
+            ''  the Pic has been rotated 90 degrees. 
+            Static s_bRotated90degrees As Boolean
+            bRotated90degrees = (90 = (Me.ElementInfo_Base.OrientationInDegrees Mod 180))
+            If (bRotated90degrees And (Not s_bRotated90degrees)) Then
+                ''We don't need to "SaveToModel" just because the Portrait has just been rotated. ---9/24/2019 td 
+                s_bRotated90degrees = True ''
+                Exit Sub
+            Else
+                s_bRotated90degrees = bRotated90degrees ''Save for next call to this procedure.  ---9/24 td. 
+            End If ''End of ""If (bRotated90degrees And (Not s_bRotated90degrees)) Then .... Else ..."
+
             Try
                 ''First try-- Set Width first, and then height.  ---9/23/2019 
                 Me.ElementInfo_Base.Width_Pixels = Me.Width
                 Me.ElementInfo_Base.Height_Pixels = Me.Height
+                boolSuccess = True ''Added 9/24/2019 td
             Catch
                 ''An error, related to the constraint of the height always being greater than the width
                 ''  since it's a portrait object, not a landscape object.  ---9/23/2019 td
                 ''
             Finally
                 ''Second try--Set height first, and then width. ----9/23/2019 td 
-                Me.ElementInfo_Base.Height_Pixels = Me.Height
-                Me.ElementInfo_Base.Width_Pixels = Me.Width
+                If (Not boolSuccess) Then
+                    Me.ElementInfo_Base.Height_Pixels = Me.Height
+                    Me.ElementInfo_Base.Width_Pixels = Me.Width
+                End If ''End of "If (Not boolSuccess) Then"
             End Try
 
             ''Added 9/4/2019 td

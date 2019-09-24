@@ -688,27 +688,27 @@ Public Class FormDesignProtoTwo
     ''        ElseIf (par_bUnloading) Then
     ''            ''9/3/2019 td''Me.Controls.Remove(label_control)
     ''            Throw New NotImplementedException
-
+    ''
     ''        End If ''End of "If (boolInludeOnBadge) Then .... ElseIf (....) ...."
-
+    ''
     ''    Next each_field
-
+    ''
     ''    ''
     ''    ''Added 8/27/2019 thomas downes
     ''    ''
     ''    pictureBack.SendToBack() ''Added 9/7/2019 thomas d.
     ''    Me.Refresh() ''Added 8/28/2019 td   
-
+    ''
     ''    ''9/5/2019 td''MessageBox.Show($"Number of field controls now on the form: {intCountControlsAdded}", "",
     ''    ''     MessageBoxButtons.OK, MessageBoxIcon.Information)
-
+    ''
     ''End Sub ''End of ''Private Sub LoadElements_Fields_OneList()''
 
-    Private Sub LoadFieldControls_ByListOfElements(par_list As List(Of ClassElementField),
-                            par_boolLoadingForm As Boolean,
-                            Optional par_bUnloading As Boolean = False,
-                            Optional par_bAddMoveability As Boolean = False,
-                            Optional ByRef par_listFieldCtls As List(Of CtlGraphicFldLabel) = Nothing)
+    Private Sub LoadFieldControls_ByListOfElements(par_listElements As List(Of ClassElementField),
+                               par_boolLoadingForm As Boolean,
+                               Optional par_bUnloading As Boolean = False,
+                               Optional par_bAddMoveability As Boolean = False,
+                                Optional ByRef par_listFieldCtls As List(Of CtlGraphicFldLabel) = Nothing)
         ''
         ''Added 9/17/2019 thomas downes 
         ''
@@ -717,7 +717,7 @@ Public Class FormDesignProtoTwo
         Dim intStagger As Integer = 0 ''Added 9.6.2019 td 
 
         ''9/17/2019 td''For Each each_field As ICIBFieldStandardOrCustom In par_list  
-        For Each each_element As ClassElementField In par_list
+        For Each each_element As ClassElementField In par_listElements
 
             Dim label_control As CtlGraphicFldLabel
 
@@ -850,7 +850,8 @@ Public Class FormDesignProtoTwo
 
         new_list.Add(par_elementField)
 
-        LoadFieldControls_ByListOfElements(new_list, True, False, c_bAddToMoveableClass)
+        ''9/24/2019 td''LoadFieldControls_ByListOfElements(new_list, True, False, c_bAddToMoveableClass)
+        LoadFieldControls_ByListOfElements(new_list, True, False, c_bAddToMoveableClass, mod_listOfFieldControls)
 
     End Sub ''End of "Private Sub LoadFieldControl_JustOne(par_elementField As ClassElementField)"
 
