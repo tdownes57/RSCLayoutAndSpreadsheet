@@ -5,7 +5,7 @@ Option Strict On ''Added 9/9/2019 td
 ''
 Imports System.IO ''Added 9/12/2019 td 
 
-Public Class Tools
+Public Class SerialTools
     ''
     ''Added 9/9/2019 td 
     ''
@@ -28,7 +28,7 @@ Public Class Tools
     ''
     ''serializing the Object
     ''
-    Public Sub SerializeToXML() ''ByVal sender As System.Object, ByVal e As System.EventArgs) ''Handles ButtonSerializeToXML.Click
+    Public Sub SerializeToXML(par_TypeOfObject As Type, par_objectToSerialize As Object) ''ByVal sender As System.Object, ByVal e As System.EventArgs) ''Handles ButtonSerializeToXML.Click
 
         ''7/20/2019 td''Dim srObj As New serializeObject()
         '' 8/31/2019 td''Dim srObj As New ClassParent()
@@ -58,12 +58,14 @@ Public Class Tools
 
         ''Formatter.Serialize(fileStream_Xml, srObj)
         ''9/12/2019 td''Dim writer As New System.Xml.Serialization.XmlSerializer(GetType(ClassParent))
-        Dim writer As New System.Xml.Serialization.XmlSerializer(Me.TypeOfObject)
+        ''9/24/2019 td''Dim writer As New System.Xml.Serialization.XmlSerializer(par_TypeOfObject)
+        Dim writer As New System.Xml.Serialization.XmlSerializer(par_TypeOfObject)
 
         ''Dim file As New System.IO.StreamWriter("c:\temp\SerializationOverview.xml")
 
         ''9/12/2019 td''writer.Serialize(fileStream_Xml, mod_objParent)
-        writer.Serialize(fileStream_Xml, Me.ObjectToSerialize)
+        ''9/24/2019 td''writer.Serialize(fileStream_Xml, Me.ObjectToSerialize)
+        writer.Serialize(fileStream_Xml, par_objectToSerialize)
 
         fileStream_Xml.Close()
 
@@ -72,7 +74,7 @@ Public Class Tools
         ''9/12/2019 td''System.Diagnostics.Process.Start(mod_sPathToXML)
         System.Diagnostics.Process.Start(Me.PathToXML)
 
-    End Sub
+    End Sub ''End of "Public Sub SerializeToXML(par_TypeOfObject As Type, par_objectToSerialize As Object) "
 
 
 

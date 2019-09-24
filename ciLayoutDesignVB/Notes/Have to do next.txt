@@ -9,14 +9,16 @@ Add "Clear selected-controls selections" to the Design-Layout menu (not a right-
 
 Add a "Copy Element" option in the Right-Click menu, in case the same field needs to appear in two places on the badge.
 
-Add layout sections ????
+Add layout sections?
 
 ----Completed 9/23 td----Figure out why the "Apply" button doesnt work.     
 ----Completed 9/23 td----Fix the Font Sizer on the "Position Text Within...." dialog.
 
-Fix rotation (90 degrees) of Portrait Pic.  
+----Progress 9/24 td---Fix rotation (90 degrees) of Portrait Pic.  
 
 Output design layout to XML. 
+
+Test & fix using the Control key to remove the selection of a element-control which has been selected via the rubber-band. 
 
 
 
