@@ -231,13 +231,39 @@ Public Class CtlGraphicPortrait
         ''Refactored 7/25/2019 thomas d 
         ''
         Const c_boolUse_ciBadgeElemImage As Boolean = True
+        Dim imgPortrait_withRotationIfAny As Image ''Added 9/24/2019 td
+        Static s_Landscape_Prior As Boolean ''Added 9/24/2019 td  
 
         If (c_boolUse_ciBadgeElemImage) Then
             ''
             ''Added 9/23/2019 td 
             ''
+            imgPortrait_withRotationIfAny =
             ciBadgeElemImage.modGenerate.PicImage_ByElement(ElementClass_Obj,
                                                             Me.Pic_CloneOfInitialImage)
+            ''Added 9/24/2019 td
+            picturePortrait.Image = imgPortrait_withRotationIfAny
+
+            Dim boolRotatedToLandscape As Boolean
+            boolRotatedToLandscape = (90 = (ElementClass_Obj.OrientationInDegrees Mod 180))
+            If (boolRotatedToLandscape) Then
+                If (s_Landscape_Prior) Then
+                    ''Fine, no change.
+                Else
+                    SwitchControl_WidthAndHeight
+                    s_Landscape_Prior = True ''Retain for the next call to this procedure. 
+                End If
+            Else
+                If (Not s_Landscape_Prior) Then
+                    ''Fine, no change. 
+                Else
+                    SwitchControl_WidthAndHeight
+                    s_Landscape_Prior = False ''Retain for the next call to this procedure. 
+                End If
+            End If ''eNd of "If (boolRotatedToLandscape) Then"
+
+            picturePortrait.SizeMode = PictureBoxSizeMode.Zoom
+            picturePortrait.Refresh()
 
         Else
             RefreshImage_NoMajorCalls()
@@ -354,8 +380,19 @@ Public Class CtlGraphicPortrait
             Me.ElementInfo_Base.TopEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Top_Omit(Me.Top)
             Me.ElementInfo_Base.LeftEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Left_Omit(Me.Left)
 
-            Me.ElementInfo_Base.Width_Pixels = Me.Width
-            Me.ElementInfo_Base.Height_Pixels = Me.Height
+            Try
+                ''First try-- Set Width first, and then height.  ---9/23/2019 
+                Me.ElementInfo_Base.Width_Pixels = Me.Width
+                Me.ElementInfo_Base.Height_Pixels = Me.Height
+            Catch
+                ''An error, related to the constraint of the height always being greater than the width
+                ''  since it's a portrait object, not a landscape object.  ---9/23/2019 td
+                ''
+            Finally
+                ''Second try--Set height first, and then width. ----9/23/2019 td 
+                Me.ElementInfo_Base.Height_Pixels = Me.Height
+                Me.ElementInfo_Base.Width_Pixels = Me.Width
+            End Try
 
             ''Added 9/4/2019 td
             ''9/12 td''Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.Layout_Width_Pixels()
@@ -392,7 +429,23 @@ Public Class CtlGraphicPortrait
         ''   correctly (with one out of four choices of orientation). 
         ''
         ''9/2/2019 td''Me.ElementInfo_Pic.OrientationDegrees += 90
-        Me.ElementInfo_Base.OrientationInDegrees += 90
+        ''9/24/2019 td''  Me.ElementInfo_Base.OrientationInDegrees += 90
+
+        With Me.ElementInfo_Base
+
+            .OrientationInDegrees += 90
+
+            ''Added 9/23/2019 td
+            If (360 <= .OrientationInDegrees) Then
+                ''Remove 360 degrees (the full circle) from the 
+                ''    property value.   We don't want to have to 
+                ''    do modulo arithmetic (divide by 360 & get 
+                ''    the remainder).  ---9/23/2019 td 
+                ''     
+                .OrientationInDegrees = (.OrientationInDegrees - 360)
+            End If ''End of "If (360 <= .OrientationInDegrees) Then"
+
+        End With ''End of " With Me.ElementInfo_Base"
 
         ''#1 9/23/2019 td''RefreshImage()
         '' #2 9/23/2019 td''RefreshImage_NoMajorCalls()

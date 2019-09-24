@@ -917,7 +917,7 @@ Partial Public Class CtlGraphicFldLabel
 
             GroupEditElement_Add()
 
-            ''mod_includedInGroupEdit = True
+            mod_includedInGroupEdit = True ''Reinstated, 9/23/2019 td
 
             ''Me.GroupEdits.LabelsDesignList_Add(Me) ''Added 8/1/2019 td
 
@@ -937,7 +937,8 @@ Partial Public Class CtlGraphicFldLabel
             ''
             GroupEditElement_Omit()
 
-            ''mod_includedInGroupEdit = False
+            mod_includedInGroupEdit = False ''Reinstated, 9/23/2019 td  
+
             ''Me.GroupEdits.LabelsDesignList_Remove(Me) ''Added 8/1/2019 td
 
             ''Me.BackColor = Me.ElementInfo.BackColor
