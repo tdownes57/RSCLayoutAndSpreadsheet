@@ -418,22 +418,38 @@ Public Class CtlGraphicPortrait
                 s_bRotated90degrees = bRotated90degrees ''Save for next call to this procedure.  ---9/24 td. 
             End If ''End of ""If (bRotated90degrees And (Not s_bRotated90degrees)) Then .... Else ..."
 
-            Try
-                ''First try-- Set Width first, and then height.  ---9/23/2019 
-                Me.ElementInfo_Base.Width_Pixels = Me.Width
-                Me.ElementInfo_Base.Height_Pixels = Me.Height
-                boolSuccess = True ''Added 9/24/2019 td
-            Catch
-                ''An error, related to the constraint of the height always being greater than the width
-                ''  since it's a portrait object, not a landscape object.  ---9/23/2019 td
+            If (bRotated90degrees) Then
                 ''
-            Finally
-                ''Second try--Set height first, and then width. ----9/23/2019 td 
-                If (Not boolSuccess) Then
-                    Me.ElementInfo_Base.Height_Pixels = Me.Height
+                ''Rotation will cause problems if we are not carefull!! 
+                ''
+                Dim bHeightIsCloseToBaseWidth As Boolean
+                bHeightIsCloseToBaseWidth = (Math.Abs(Me.Height - Me.ElementInfo_Base.Width_Pixels) <
+                                             Math.Abs(Me.Height - Me.ElementInfo_Base.Height_Pixels))
+                If (bHeightIsCloseToBaseWidth And (Me.Width > Me.Height)) Then
+                    ''---DIFFICULT & CONFUSING               ----
+                    ''---    Rotation Switcheroo   ---9/24 td----
+                    Me.ElementInfo_Base.Height_Pixels = Me.Width ''Me.Width vs. Me.Height switcheroo.... confusing but correct!!!!!!!
+                    Me.ElementInfo_Base.Width_Pixels = Me.Height ''Me.Width vs. Me.Height switcheroo.... confusing but correct!!!!!!!
+                End If ''End of "If (bHeightIsCloseToBaseWidth) Then"
+
+            Else
+                    Try
+                    ''First try-- Set Width first, and then height.  ---9/23/2019 
                     Me.ElementInfo_Base.Width_Pixels = Me.Width
-                End If ''End of "If (Not boolSuccess) Then"
-            End Try
+                    Me.ElementInfo_Base.Height_Pixels = Me.Height
+                    boolSuccess = True ''Added 9/24/2019 td
+                Catch
+                    ''An error, related to the constraint of the height always being greater than the width
+                    ''  since it's a portrait object, not a landscape object.  ---9/23/2019 td
+                    ''
+                Finally
+                    ''Second try--Set height first, and then width. ----9/23/2019 td 
+                    If (Not boolSuccess) Then
+                        Me.ElementInfo_Base.Height_Pixels = Me.Height
+                        Me.ElementInfo_Base.Width_Pixels = Me.Width
+                    End If ''End of "If (Not boolSuccess) Then"
+                End Try
+            End If ''ENd of "If (bRotated90degrees) Then ..... Else ...."
 
             ''Added 9/4/2019 td
             ''9/12 td''Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.Layout_Width_Pixels()
@@ -442,9 +458,9 @@ Public Class CtlGraphicPortrait
             ''9/20/2019 td''Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.FormDesigner.Layout_Height_Pixels()
 
             Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.LayoutFunctions.Layout_Width_Pixels()
-            Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
+                Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
 
-        End If ''End of "If (Me.ElementInfo_Base IsNot Nothing) Then"
+            End If ''End of "If (Me.ElementInfo_Base IsNot Nothing) Then"
 
     End Sub ''End of Public Sub SaveToModel
 
