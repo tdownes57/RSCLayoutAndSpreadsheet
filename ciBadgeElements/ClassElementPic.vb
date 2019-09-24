@@ -8,6 +8,7 @@ Option Strict On
 Imports System.Drawing ''Added 9/18/2019 td
 Imports System.Windows.Forms ''Added 9/18/2019 td
 Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d. 
+Imports System.Xml.Serialization ''Added 9/24/2019 td
 
 Public Class ClassElementPic
     ''
@@ -142,6 +143,7 @@ Public Class ClassElementPic
     ''Public Property PicFileIndex As Integer Implements IElementPic.PicFileIndex ''Added 8/13/2019 td  
     ''Public Property OrientationDegrees As Integer Implements IElementPic.OrientationDegrees ''Added 8/13/2019 td  
 
+    <Xml.Serialization.XmlIgnore>
     Public Property Image_BL As Image Implements IElement_Base.Image_BL ''Added 9/2/2019 td
 
     Public Property Visible As Boolean Implements IElement_Base.Visible ''Added 9/19/2019 td  

@@ -104,7 +104,6 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ClassLayoutGenerator.vb" />
-    <Compile Include="ClassSerialize.vb" />
     <Compile Include="ComClass1.vb" />
     <Compile Include="Controls\CtlConfigFldStandard.Designer.vb">
       <DependentUpon>CtlConfigFldStandard.vb</DependentUpon>

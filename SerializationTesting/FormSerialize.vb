@@ -42,7 +42,7 @@ Public Class FormSerialize
         mod_sPathToBinary = My.Settings.PathToSerialFile_bin
         mod_sPathToXML = My.Settings.PathToSerialFile_xml
 
-    End Sub
+    End Sub ''End of "Private Sub FormSerialize_Load(sender As Object, e As EventArgs) Handles MyBase.Load"
 
     Private Sub SerializeToBinary(sender As Object, e As EventArgs) Handles ButtonSerializeToBinary.Click
 
@@ -60,7 +60,7 @@ Public Class FormSerialize
 
         System.Diagnostics.Process.Start(mod_sPathToBinary)
 
-    End Sub
+    End Sub ''End of "Private Sub SerializeToBinary(sender As Object, e As EventArgs) Handles ButtonSerializeToBinary.Click"
 
     'serializing the object
     Private Sub SerializeToXML(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ButtonSerializeToXML.Click

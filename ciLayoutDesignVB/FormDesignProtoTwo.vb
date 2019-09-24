@@ -158,6 +158,7 @@ Public Class FormDesignProtoTwo
 
         ''Added 9/24/2019 thomas 
         Dim serial_tools As New ciBadgeSerialize.SerialTools
+        serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
         serial_tools.SerializeToXML(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved)
 
         ''Added 9/19/2019 td
