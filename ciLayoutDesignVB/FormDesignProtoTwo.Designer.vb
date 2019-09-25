@@ -79,6 +79,7 @@ Partial Class FormDesignProtoTwo
         Me.LinkCloseSidebar = New System.Windows.Forms.LinkLabel()
         Me.checkAutoPreview = New System.Windows.Forms.CheckBox()
         Me.CtlGraphicPortrait_Lady = New ciLayoutDesignVB.CtlGraphicPortrait()
+        Me.ClearAllSelectedElementsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         CType(Me.graphicAdjuster, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -205,9 +206,9 @@ Partial Class FormDesignProtoTwo
         '
         'DesignLayoutToolStripMenuItem
         '
-        Me.DesignLayoutToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenControlPanelToolStripMenuItem, Me.UploadBackgroundToolStripMenuItem, Me.PlaceElementsToolStripMenuItem, Me.AddGraphicsElementToolStripMenuItem, Me.AddSubsectionToolStripMenuItem, Me.ChangeOrientationToolStripMenuItem, Me.DoubleSidedToolStripMenuItem, Me.ModeV9ToolStripMenuItem})
+        Me.DesignLayoutToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenControlPanelToolStripMenuItem, Me.UploadBackgroundToolStripMenuItem, Me.PlaceElementsToolStripMenuItem, Me.AddGraphicsElementToolStripMenuItem, Me.AddSubsectionToolStripMenuItem, Me.ChangeOrientationToolStripMenuItem, Me.DoubleSidedToolStripMenuItem, Me.ModeV9ToolStripMenuItem, Me.ClearAllSelectedElementsToolStripMenuItem})
         Me.DesignLayoutToolStripMenuItem.Name = "DesignLayoutToolStripMenuItem"
-        Me.DesignLayoutToolStripMenuItem.Size = New System.Drawing.Size(117, 24)
+        Me.DesignLayoutToolStripMenuItem.Size = New System.Drawing.Size(27, 24)
         Me.DesignLayoutToolStripMenuItem.Text = "Design Layout"
         '
         'OpenControlPanelToolStripMenuItem
@@ -546,10 +547,16 @@ Partial Class FormDesignProtoTwo
         'CtlGraphicPortrait_Lady
         '
         Me.CtlGraphicPortrait_Lady.Location = New System.Drawing.Point(545, 71)
-        Me.CtlGraphicPortrait_Lady.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.CtlGraphicPortrait_Lady.Margin = New System.Windows.Forms.Padding(4)
         Me.CtlGraphicPortrait_Lady.Name = "CtlGraphicPortrait_Lady"
         Me.CtlGraphicPortrait_Lady.Size = New System.Drawing.Size(150, 182)
         Me.CtlGraphicPortrait_Lady.TabIndex = 41
+        '
+        'ClearAllSelectedElementsToolStripMenuItem
+        '
+        Me.ClearAllSelectedElementsToolStripMenuItem.Name = "ClearAllSelectedElementsToolStripMenuItem"
+        Me.ClearAllSelectedElementsToolStripMenuItem.Size = New System.Drawing.Size(292, 26)
+        Me.ClearAllSelectedElementsToolStripMenuItem.Text = "Clear all selected Elements"
         '
         'FormDesignProtoTwo
         '
@@ -652,4 +659,5 @@ Partial Class FormDesignProtoTwo
     Friend WithEvents flowSidebar As FlowLayoutPanel
     Friend WithEvents LinkCloseSidebar As LinkLabel
     Friend WithEvents checkAutoPreview As CheckBox
+    Friend WithEvents ClearAllSelectedElementsToolStripMenuItem As ToolStripMenuItem
 End Class

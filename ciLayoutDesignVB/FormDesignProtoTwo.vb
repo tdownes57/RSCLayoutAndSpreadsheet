@@ -185,6 +185,11 @@ Public Class FormDesignProtoTwo
         ''9/20/2019 td''LoadForm_LayoutElements(Me.ElementsCache_Edits)
         LoadForm_LayoutElements(Me.ElementsCache_Edits, mod_listOfFieldControls)
 
+        ''Added 9/24/2019 thomas 
+        serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
+        serial_tools.SerializeToXML(Me.ElementsCache_Saved.PicElement().GetType,
+                                    Me.ElementsCache_Saved.PicElement)
+
         ''Added 8/11/2019 thomas d.
         ''
         graphicAdjuster.SendToBack()
@@ -2076,5 +2081,9 @@ Public Class FormDesignProtoTwo
         ''
         ''We have .AutoChecked = False, so please see the Click event.  ----9/13/2019 
         ''
+    End Sub
+
+    Private Sub RightClickMenuParent_Click(sender As Object, e As EventArgs) Handles RightClickMenuParent.Click
+
     End Sub
 End Class

@@ -9,6 +9,7 @@ Imports System.Drawing ''Added 9/18/2019 td
 Imports System.Windows.Forms ''Added 9/18/2019 td
 Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d. 
 Imports System.Xml.Serialization ''Added 9/24/2019 td
+''imports system.serial
 
 <Serializable>
 Public Class ClassElementPic
@@ -22,10 +23,12 @@ Public Class ClassElementPic
     ''
     Public Shared ElementPicture As ClassElementPic ''Added 7/31/2019 thomas d.
 
+    <Xml.Serialization.XmlIgnore>
     Public Property Info As IElementPic
 
     Public Property PositionalMode As String Implements IElement_Base.PositionalMode ''Added 8/14/2019 td 
 
+    <Xml.Serialization.XmlIgnore>
     Public Property FormControl As Control Implements IElement_Base.FormControl ''Added 7/19/2019  
 
     Public Property ElementType As String Implements IElement_Base.ElementType ''Text, Pic, or Logo
@@ -149,6 +152,7 @@ Public Class ClassElementPic
 
     Public Property Visible As Boolean Implements IElement_Base.Visible ''Added 9/19/2019 td  
 
+    <Xml.Serialization.XmlIgnore>
     Public Property Recipient As IRecipient Implements IElementPic.Recipient ''Added 9/10/2019 td
 
 
