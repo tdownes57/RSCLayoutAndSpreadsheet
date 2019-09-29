@@ -172,7 +172,7 @@ Public Class FormDesignProtoTwo
         Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
 
         ''Added 9/24/2019 thomas 
-        Dim serial_tools As New ciBadgeSerialize.SerialTools
+        Dim serial_tools As New ciBadgeSerialize.ClassSerial
         serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
         serial_tools.SerializeToXML(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved)
 
@@ -2036,7 +2036,7 @@ Public Class FormDesignProtoTwo
         ''
         ''Added 9/9/2019 thomas downes 
         ''
-        Dim objSerializationClass As New ciBadgeSerialize.SerialTools
+        Dim objSerializationClass As New ciBadgeSerialize.ClassSerial
 
         With objSerializationClass
 

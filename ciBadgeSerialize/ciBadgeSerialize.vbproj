@@ -64,7 +64,9 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SerialTools.vb" />
+    <Compile Include="ClassCycle.vb" />
+    <Compile Include="ClassDeserial.vb" />
+    <Compile Include="ClassSerial.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
