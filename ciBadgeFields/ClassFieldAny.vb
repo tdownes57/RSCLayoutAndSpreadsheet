@@ -55,6 +55,8 @@ Public Class ClassFieldAny
     Public Property DataEntryText As String Implements ICIBFieldStandardOrCustom.DataEntryText ''Added 9/9/2019 td
 
     Public Property IsLinkedToSections As Boolean = False Implements ICIBFieldStandardOrCustom.IsLinkedToSections ''Added 9/17/2019 td 
+
+    <Xml.Serialization.XmlIgnore>
     Public Property SublayoutLookup As Dictionary(Of String, Integer) = Nothing Implements ICIBFieldStandardOrCustom.SublayoutLookup ''Added 9/17/2019 td
 
     ''Fields cannot link to elements.---9/18/2019 td''Private mod_elementFieldClass As ClassElementField ''Added 9/3/2019 td   

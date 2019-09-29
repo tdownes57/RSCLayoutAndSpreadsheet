@@ -190,6 +190,14 @@ Public Class FormDesignProtoTwo
         serial_tools.SerializeToXML(Me.ElementsCache_Saved.PicElement().GetType,
                                     Me.ElementsCache_Saved.PicElement)
 
+        ''Added 9/28/2019 thomas 
+        serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
+        serial_tools.SerializeToXML(Me.ElementsCache_Saved.ListFields(0).GetType,
+                                    Me.ElementsCache_Saved.ListFields(0))
+        serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
+        serial_tools.SerializeToXML(Me.ElementsCache_Saved.ListFieldElements(0).GetType,
+                                    Me.ElementsCache_Saved.ListFieldElements(0))
+
         ''Added 8/11/2019 thomas d.
         ''
         graphicAdjuster.SendToBack()
