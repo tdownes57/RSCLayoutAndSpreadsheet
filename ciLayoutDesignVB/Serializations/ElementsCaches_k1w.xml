@@ -1,0 +1,1005 @@
+<?xml version="1.0"?>
+<ClassElementsCache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ListOfFields>
+    <ClassFieldAny xsi:type="ClassFieldStandard">
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>false</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>fstrID</CIBadgeField>
+      <FieldLabelCaption>Student ID</FieldLabelCaption>
+      <FieldType_TD>84</FieldType_TD>
+      <FieldEnumValue>fstrID</FieldEnumValue>
+      <FieldIndex>0</FieldIndex>
+      <IsFieldForDates>false</IsFieldForDates>
+      <IsLocked>true</IsLocked>
+      <IsDisplayedOnBadge>true</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>true</IsDisplayedForEdits>
+      <ExampleValue>12345</ExampleValue>
+      <HasPresetValues>false</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <IsLinkedToSections>false</IsLinkedToSections>
+    </ClassFieldAny>
+    <ClassFieldAny xsi:type="ClassFieldStandard">
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>false</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>fstrFirstName</CIBadgeField>
+      <FieldLabelCaption>First Name</FieldLabelCaption>
+      <FieldType_TD>84</FieldType_TD>
+      <FieldEnumValue>fstrFirstName</FieldEnumValue>
+      <FieldIndex>0</FieldIndex>
+      <IsFieldForDates>false</IsFieldForDates>
+      <IsLocked>false</IsLocked>
+      <IsDisplayedOnBadge>true</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>true</IsDisplayedForEdits>
+      <HasPresetValues>false</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <IsLinkedToSections>false</IsLinkedToSections>
+    </ClassFieldAny>
+    <ClassFieldAny xsi:type="ClassFieldStandard">
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>false</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>fstrLastName</CIBadgeField>
+      <FieldLabelCaption>Last Name</FieldLabelCaption>
+      <FieldType_TD>84</FieldType_TD>
+      <FieldEnumValue>fstrLastName</FieldEnumValue>
+      <FieldIndex>0</FieldIndex>
+      <IsFieldForDates>false</IsFieldForDates>
+      <IsLocked>false</IsLocked>
+      <IsDisplayedOnBadge>true</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>true</IsDisplayedForEdits>
+      <HasPresetValues>false</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <IsLinkedToSections>false</IsLinkedToSections>
+    </ClassFieldAny>
+    <ClassFieldAny xsi:type="ClassFieldStandard">
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>false</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>fstrMidName</CIBadgeField>
+      <FieldLabelCaption>Middle Name</FieldLabelCaption>
+      <FieldType_TD>84</FieldType_TD>
+      <FieldEnumValue>fstrMidName</FieldEnumValue>
+      <FieldIndex>0</FieldIndex>
+      <IsFieldForDates>false</IsFieldForDates>
+      <IsLocked>false</IsLocked>
+      <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>false</IsDisplayedForEdits>
+      <HasPresetValues>false</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <IsLinkedToSections>false</IsLinkedToSections>
+    </ClassFieldAny>
+    <ClassFieldAny xsi:type="ClassFieldStandard">
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>false</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>fstrBarcode</CIBadgeField>
+      <FieldLabelCaption>Barcode Value</FieldLabelCaption>
+      <FieldType_TD>84</FieldType_TD>
+      <FieldEnumValue>fstrBarCode</FieldEnumValue>
+      <FieldIndex>0</FieldIndex>
+      <IsFieldForDates>false</IsFieldForDates>
+      <IsLocked>false</IsLocked>
+      <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>false</IsDisplayedForEdits>
+      <ExampleValue>1234567890</ExampleValue>
+      <HasPresetValues>false</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <IsLinkedToSections>false</IsLinkedToSections>
+    </ClassFieldAny>
+    <ClassFieldAny xsi:type="ClassFieldStandard">
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>false</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>fstrAddress</CIBadgeField>
+      <FieldLabelCaption>Address</FieldLabelCaption>
+      <FieldType_TD>84</FieldType_TD>
+      <FieldEnumValue>fstrAddress</FieldEnumValue>
+      <FieldIndex>0</FieldIndex>
+      <IsFieldForDates>false</IsFieldForDates>
+      <IsLocked>false</IsLocked>
+      <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>false</IsDisplayedForEdits>
+      <HasPresetValues>false</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <IsLinkedToSections>false</IsLinkedToSections>
+    </ClassFieldAny>
+    <ClassFieldAny xsi:type="ClassFieldStandard">
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>false</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>fstrCity</CIBadgeField>
+      <FieldLabelCaption>City</FieldLabelCaption>
+      <FieldType_TD>84</FieldType_TD>
+      <FieldEnumValue>fstrCity</FieldEnumValue>
+      <FieldIndex>0</FieldIndex>
+      <IsFieldForDates>false</IsFieldForDates>
+      <IsLocked>false</IsLocked>
+      <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>false</IsDisplayedForEdits>
+      <HasPresetValues>false</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <IsLinkedToSections>false</IsLinkedToSections>
+    </ClassFieldAny>
+    <ClassFieldAny xsi:type="ClassFieldStandard">
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>false</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>fstrState</CIBadgeField>
+      <FieldLabelCaption>State</FieldLabelCaption>
+      <FieldType_TD>84</FieldType_TD>
+      <FieldEnumValue>fstrState</FieldEnumValue>
+      <FieldIndex>0</FieldIndex>
+      <IsFieldForDates>false</IsFieldForDates>
+      <IsLocked>false</IsLocked>
+      <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>false</IsDisplayedForEdits>
+      <HasPresetValues>false</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <IsLinkedToSections>false</IsLinkedToSections>
+    </ClassFieldAny>
+    <ClassFieldAny xsi:type="ClassFieldStandard">
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>false</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>fstrZip</CIBadgeField>
+      <FieldLabelCaption>Zipcode</FieldLabelCaption>
+      <FieldType_TD>84</FieldType_TD>
+      <FieldEnumValue>fstrZip</FieldEnumValue>
+      <FieldIndex>0</FieldIndex>
+      <IsFieldForDates>false</IsFieldForDates>
+      <IsLocked>false</IsLocked>
+      <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>false</IsDisplayedForEdits>
+      <HasPresetValues>false</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <IsLinkedToSections>false</IsLinkedToSections>
+    </ClassFieldAny>
+    <ClassFieldAny xsi:type="ClassFieldStandard">
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>false</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>blnBatchPrint</CIBadgeField>
+      <FieldLabelCaption>Printed by Batch</FieldLabelCaption>
+      <FieldType_TD>66</FieldType_TD>
+      <FieldEnumValue>blnBatchPrint</FieldEnumValue>
+      <FieldIndex>0</FieldIndex>
+      <IsFieldForDates>false</IsFieldForDates>
+      <IsLocked>true</IsLocked>
+      <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>false</IsDisplayedForEdits>
+      <HasPresetValues>false</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <IsLinkedToSections>false</IsLinkedToSections>
+    </ClassFieldAny>
+    <ClassFieldAny xsi:type="ClassFieldStandard">
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>false</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>idfConfigID</CIBadgeField>
+      <FieldLabelCaption>Personality ID</FieldLabelCaption>
+      <FieldType_TD>73</FieldType_TD>
+      <FieldEnumValue>idfConfigID</FieldEnumValue>
+      <FieldIndex>0</FieldIndex>
+      <IsFieldForDates>false</IsFieldForDates>
+      <IsLocked>true</IsLocked>
+      <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>false</IsDisplayedForEdits>
+      <HasPresetValues>false</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <IsLinkedToSections>false</IsLinkedToSections>
+    </ClassFieldAny>
+    <ClassFieldAny xsi:type="ClassFieldStandard">
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>false</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>idfReportID</CIBadgeField>
+      <FieldLabelCaption>Badge Layout ID</FieldLabelCaption>
+      <FieldType_TD>73</FieldType_TD>
+      <FieldEnumValue>idfReportID</FieldEnumValue>
+      <FieldIndex>0</FieldIndex>
+      <IsFieldForDates>false</IsFieldForDates>
+      <IsLocked>true</IsLocked>
+      <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>false</IsDisplayedForEdits>
+      <HasPresetValues>false</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <IsLinkedToSections>false</IsLinkedToSections>
+    </ClassFieldAny>
+    <ClassFieldAny xsi:type="ClassFieldStandard">
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>false</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>fdateRecDate</CIBadgeField>
+      <FieldLabelCaption>Record Created</FieldLabelCaption>
+      <FieldType_TD>68</FieldType_TD>
+      <FieldEnumValue>fdateRecDate</FieldEnumValue>
+      <FieldIndex>0</FieldIndex>
+      <IsFieldForDates>true</IsFieldForDates>
+      <IsLocked>true</IsLocked>
+      <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>false</IsDisplayedForEdits>
+      <HasPresetValues>false</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <IsLinkedToSections>false</IsLinkedToSections>
+    </ClassFieldAny>
+    <ClassFieldAny xsi:type="ClassFieldStandard">
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>false</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>fdatTimeStamp</CIBadgeField>
+      <FieldLabelCaption>Record Updated</FieldLabelCaption>
+      <FieldType_TD>68</FieldType_TD>
+      <FieldEnumValue>fdatTimeStamp</FieldEnumValue>
+      <FieldIndex>0</FieldIndex>
+      <IsFieldForDates>true</IsFieldForDates>
+      <IsLocked>true</IsLocked>
+      <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>false</IsDisplayedForEdits>
+      <HasPresetValues>false</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <IsLinkedToSections>false</IsLinkedToSections>
+    </ClassFieldAny>
+    <ClassFieldAny xsi:type="ClassFieldStandard">
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>false</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>fstrRFID</CIBadgeField>
+      <FieldLabelCaption>RFID/UID Value</FieldLabelCaption>
+      <FieldType_TD>84</FieldType_TD>
+      <FieldEnumValue>fstrRFID_Unique</FieldEnumValue>
+      <FieldIndex>0</FieldIndex>
+      <IsFieldForDates>false</IsFieldForDates>
+      <IsLocked>false</IsLocked>
+      <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>false</IsDisplayedForEdits>
+      <HasPresetValues>false</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <IsLinkedToSections>false</IsLinkedToSections>
+    </ClassFieldAny>
+    <ClassFieldAny xsi:type="ClassFieldCustomized">
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>true</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>TextField01</CIBadgeField>
+      <FieldLabelCaption>School Name</FieldLabelCaption>
+      <FieldType_TD>84</FieldType_TD>
+      <FieldEnumValue>TextField01</FieldEnumValue>
+      <FieldIndex>0</FieldIndex>
+      <IsFieldForDates>false</IsFieldForDates>
+      <IsLocked>false</IsLocked>
+      <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>false</IsDisplayedForEdits>
+      <ExampleValue>Willcrest School</ExampleValue>
+      <HasPresetValues>true</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <IsLinkedToSections>false</IsLinkedToSections>
+      <ArrayOfValues>
+        <string>Willcrest School</string>
+        <string>Woodbridge School</string>
+      </ArrayOfValues>
+    </ClassFieldAny>
+    <ClassFieldAny xsi:type="ClassFieldCustomized">
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>true</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>TextField02</CIBadgeField>
+      <FieldLabelCaption>Teacher Name</FieldLabelCaption>
+      <FieldType_TD>84</FieldType_TD>
+      <FieldEnumValue>TextField02</FieldEnumValue>
+      <FieldIndex>0</FieldIndex>
+      <IsFieldForDates>false</IsFieldForDates>
+      <IsLocked>false</IsLocked>
+      <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>false</IsDisplayedForEdits>
+      <HasPresetValues>true</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <IsLinkedToSections>false</IsLinkedToSections>
+      <ArrayOfValues>
+        <string>Mrs. Ross</string>
+        <string>Mr. Smudge</string>
+        <string>Ms. Randall</string>
+      </ArrayOfValues>
+    </ClassFieldAny>
+    <ClassFieldAny xsi:type="ClassFieldCustomized">
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>true</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>TextField03</CIBadgeField>
+      <FieldLabelCaption>Grade Level</FieldLabelCaption>
+      <FieldType_TD>84</FieldType_TD>
+      <FieldEnumValue>TextField03</FieldEnumValue>
+      <FieldIndex>0</FieldIndex>
+      <IsFieldForDates>false</IsFieldForDates>
+      <IsLocked>false</IsLocked>
+      <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>false</IsDisplayedForEdits>
+      <HasPresetValues>true</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <IsLinkedToSections>false</IsLinkedToSections>
+      <ArrayOfValues>
+        <string>9th</string>
+        <string>10th</string>
+        <string>11th</string>
+        <string>12th</string>
+      </ArrayOfValues>
+    </ClassFieldAny>
+    <ClassFieldAny xsi:type="ClassFieldCustomized">
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>true</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>DateField01</CIBadgeField>
+      <FieldLabelCaption>Date of Birth</FieldLabelCaption>
+      <FieldType_TD>68</FieldType_TD>
+      <FieldEnumValue>DateField01</FieldEnumValue>
+      <FieldIndex>0</FieldIndex>
+      <IsFieldForDates>true</IsFieldForDates>
+      <IsLocked>false</IsLocked>
+      <IsDisplayedOnBadge>true</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>true</IsDisplayedForEdits>
+      <HasPresetValues>false</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <IsLinkedToSections>false</IsLinkedToSections>
+    </ClassFieldAny>
+    <ClassFieldAny xsi:type="ClassFieldCustomized">
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>true</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>DateField02</CIBadgeField>
+      <FieldLabelCaption>ExpirationDate</FieldLabelCaption>
+      <FieldType_TD>68</FieldType_TD>
+      <FieldEnumValue>DateField02</FieldEnumValue>
+      <FieldIndex>0</FieldIndex>
+      <IsFieldForDates>true</IsFieldForDates>
+      <IsLocked>false</IsLocked>
+      <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>false</IsDisplayedForEdits>
+      <HasPresetValues>false</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <IsLinkedToSections>false</IsLinkedToSections>
+    </ClassFieldAny>
+  </ListOfFields>
+  <ListOfElementFields>
+    <ClassElementField>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>0</Width_Pixels>
+        <Height_Pixels>0</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>0</TopEdge_Pixels>
+      <LeftEdge_Pixels>0</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Color />
+      <Border_Displayed>true</Border_Displayed>
+      <Back_Color />
+      <Back_Transparent>false</Back_Transparent>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+    </ClassElementField>
+    <ClassElementField>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>0</Width_Pixels>
+        <Height_Pixels>0</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>30</TopEdge_Pixels>
+      <LeftEdge_Pixels>30</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Color />
+      <Border_Displayed>true</Border_Displayed>
+      <Back_Color />
+      <Back_Transparent>false</Back_Transparent>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+    </ClassElementField>
+    <ClassElementField>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>0</Width_Pixels>
+        <Height_Pixels>0</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>60</TopEdge_Pixels>
+      <LeftEdge_Pixels>60</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Color />
+      <Border_Displayed>true</Border_Displayed>
+      <Back_Color />
+      <Back_Transparent>false</Back_Transparent>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+    </ClassElementField>
+    <ClassElementField>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>0</Width_Pixels>
+        <Height_Pixels>0</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>90</TopEdge_Pixels>
+      <LeftEdge_Pixels>90</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Color />
+      <Border_Displayed>true</Border_Displayed>
+      <Back_Color />
+      <Back_Transparent>false</Back_Transparent>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+    </ClassElementField>
+    <ClassElementField>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>0</Width_Pixels>
+        <Height_Pixels>0</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>120</TopEdge_Pixels>
+      <LeftEdge_Pixels>120</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Color />
+      <Border_Displayed>true</Border_Displayed>
+      <Back_Color />
+      <Back_Transparent>false</Back_Transparent>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+    </ClassElementField>
+    <ClassElementField>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>0</Width_Pixels>
+        <Height_Pixels>0</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>150</TopEdge_Pixels>
+      <LeftEdge_Pixels>150</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Color />
+      <Border_Displayed>true</Border_Displayed>
+      <Back_Color />
+      <Back_Transparent>false</Back_Transparent>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+    </ClassElementField>
+    <ClassElementField>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>0</Width_Pixels>
+        <Height_Pixels>0</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>180</TopEdge_Pixels>
+      <LeftEdge_Pixels>180</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Color />
+      <Border_Displayed>true</Border_Displayed>
+      <Back_Color />
+      <Back_Transparent>false</Back_Transparent>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+    </ClassElementField>
+    <ClassElementField>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>0</Width_Pixels>
+        <Height_Pixels>0</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>210</TopEdge_Pixels>
+      <LeftEdge_Pixels>210</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Color />
+      <Border_Displayed>true</Border_Displayed>
+      <Back_Color />
+      <Back_Transparent>false</Back_Transparent>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+    </ClassElementField>
+    <ClassElementField>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>0</Width_Pixels>
+        <Height_Pixels>0</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>240</TopEdge_Pixels>
+      <LeftEdge_Pixels>240</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Color />
+      <Border_Displayed>true</Border_Displayed>
+      <Back_Color />
+      <Back_Transparent>false</Back_Transparent>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+    </ClassElementField>
+    <ClassElementField>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>0</Width_Pixels>
+        <Height_Pixels>0</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>270</TopEdge_Pixels>
+      <LeftEdge_Pixels>270</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Color />
+      <Border_Displayed>true</Border_Displayed>
+      <Back_Color />
+      <Back_Transparent>false</Back_Transparent>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+    </ClassElementField>
+    <ClassElementField>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>0</Width_Pixels>
+        <Height_Pixels>0</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>300</TopEdge_Pixels>
+      <LeftEdge_Pixels>300</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Color />
+      <Border_Displayed>true</Border_Displayed>
+      <Back_Color />
+      <Back_Transparent>false</Back_Transparent>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+    </ClassElementField>
+    <ClassElementField>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>0</Width_Pixels>
+        <Height_Pixels>0</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>330</TopEdge_Pixels>
+      <LeftEdge_Pixels>330</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Color />
+      <Border_Displayed>true</Border_Displayed>
+      <Back_Color />
+      <Back_Transparent>false</Back_Transparent>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+    </ClassElementField>
+    <ClassElementField>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>0</Width_Pixels>
+        <Height_Pixels>0</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>360</TopEdge_Pixels>
+      <LeftEdge_Pixels>360</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Color />
+      <Border_Displayed>true</Border_Displayed>
+      <Back_Color />
+      <Back_Transparent>false</Back_Transparent>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+    </ClassElementField>
+    <ClassElementField>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>0</Width_Pixels>
+        <Height_Pixels>0</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>390</TopEdge_Pixels>
+      <LeftEdge_Pixels>390</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Color />
+      <Border_Displayed>true</Border_Displayed>
+      <Back_Color />
+      <Back_Transparent>false</Back_Transparent>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+    </ClassElementField>
+    <ClassElementField>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>0</Width_Pixels>
+        <Height_Pixels>0</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>420</TopEdge_Pixels>
+      <LeftEdge_Pixels>420</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Color />
+      <Border_Displayed>true</Border_Displayed>
+      <Back_Color />
+      <Back_Transparent>false</Back_Transparent>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+    </ClassElementField>
+    <ClassElementField>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>0</Width_Pixels>
+        <Height_Pixels>0</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>450</TopEdge_Pixels>
+      <LeftEdge_Pixels>450</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Color />
+      <Border_Displayed>true</Border_Displayed>
+      <Back_Color />
+      <Back_Transparent>false</Back_Transparent>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+    </ClassElementField>
+    <ClassElementField>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>0</Width_Pixels>
+        <Height_Pixels>0</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>480</TopEdge_Pixels>
+      <LeftEdge_Pixels>480</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Color />
+      <Border_Displayed>true</Border_Displayed>
+      <Back_Color />
+      <Back_Transparent>false</Back_Transparent>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+    </ClassElementField>
+    <ClassElementField>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>0</Width_Pixels>
+        <Height_Pixels>0</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>510</TopEdge_Pixels>
+      <LeftEdge_Pixels>510</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Color />
+      <Border_Displayed>true</Border_Displayed>
+      <Back_Color />
+      <Back_Transparent>false</Back_Transparent>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+    </ClassElementField>
+    <ClassElementField>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>0</Width_Pixels>
+        <Height_Pixels>0</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>540</TopEdge_Pixels>
+      <LeftEdge_Pixels>540</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Color />
+      <Border_Displayed>true</Border_Displayed>
+      <Back_Color />
+      <Back_Transparent>false</Back_Transparent>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+    </ClassElementField>
+    <ClassElementField>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>0</Width_Pixels>
+        <Height_Pixels>0</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>570</TopEdge_Pixels>
+      <LeftEdge_Pixels>570</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Color />
+      <Border_Displayed>true</Border_Displayed>
+      <Back_Color />
+      <Back_Transparent>false</Back_Transparent>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+    </ClassElementField>
+  </ListOfElementFields>
+</ClassElementsCache>
