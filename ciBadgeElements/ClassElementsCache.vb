@@ -21,6 +21,26 @@ Public Class ClassElementsCache
     Private mod_listElementStatics As New List(Of ClassElementStaticText)
     Private mod_listElementLaysections As New List(Of ClassElementLaysection) ''Added 9/17/2019 thomas downes
 
+    Public Property ListOfFields As List(Of ClassFieldAny)
+        Get ''Added 9/28/2019 td
+            Return mod_listFields
+        End Get
+        Set(value As List(Of ClassFieldAny))
+            ''Added 9/28/2019 td
+            mod_listFields = value
+        End Set
+    End Property
+
+    Public Property ListOfElementFields As List(Of ClassElementField)
+        Get ''Added 9/28/2019 td
+            Return mod_listElementFields
+        End Get
+        Set(value As List(Of ClassElementField))
+            ''Added 9/28/2019 td
+            mod_listElementFields = value
+        End Set
+    End Property
+
     Public Property BadgeLayout As ciBadgeInterfaces.BadgeLayoutClass ''Added 9/17/2019 thomas downes
 
     <Xml.Serialization.XmlIgnore>

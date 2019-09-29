@@ -156,11 +156,6 @@ Public Class FormDesignProtoTwo
         Me.ElementsCache_Saved.LoadFields()
         Me.ElementsCache_Saved.LoadFieldElements(pictureBack)
 
-        ''Added 9/24/2019 thomas 
-        Dim serial_tools As New ciBadgeSerialize.SerialTools
-        serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
-        serial_tools.SerializeToXML(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved)
-
         ''Added 9/19/2019 td
         Dim intPicLeft As Integer
         Dim intPicTop As Integer
@@ -175,6 +170,11 @@ Public Class FormDesignProtoTwo
 
         ''9/19 td''Me.ElementsCache_Saved.LoadPicElement(CtlGraphicPortrait_Lady.picturePortrait, pictureBack) ''Added 9/19/2019 td
         Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
+
+        ''Added 9/24/2019 thomas 
+        Dim serial_tools As New ciBadgeSerialize.SerialTools
+        serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
+        serial_tools.SerializeToXML(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved)
 
         Me.ElementsCache_Edits = Me.ElementsCache_Saved.Copy()
 
