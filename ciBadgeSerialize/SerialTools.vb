@@ -64,7 +64,7 @@ Public Class SerialTools
         Dim writer As New System.Xml.Serialization.XmlSerializer(par_TypeOfObject)
 
         ''Dim file As New System.IO.StreamWriter("c:\temp\SerializationOverview.xml")
-
+        ''
         ''9/12/2019 td''writer.Serialize(fileStream_Xml, mod_objParent)
         ''9/24/2019 td''writer.Serialize(fileStream_Xml, Me.ObjectToSerialize)
         writer.Serialize(fileStream_Xml, par_objectToSerialize)

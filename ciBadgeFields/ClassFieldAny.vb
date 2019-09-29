@@ -7,6 +7,8 @@ Imports ciBadgeInterfaces ''Added 8/24/2019 thomas d.
 ''
 ''Added 9/16/2019 thomas downes  
 ''
+<Xml.Serialization.XmlInclude(GetType(ClassFieldStandard))>
+<Xml.Serialization.XmlInclude(GetType(ClassFieldCustomized))>
 <Serializable>
 Public Class ClassFieldAny
     Implements ICIBFieldStandardOrCustom ''Added 7/21/2019 td
