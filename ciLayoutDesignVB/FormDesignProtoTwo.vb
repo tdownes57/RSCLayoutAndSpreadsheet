@@ -156,15 +156,6 @@ Public Class FormDesignProtoTwo
         Me.ElementsCache_Saved.LoadFields()
         Me.ElementsCache_Saved.LoadFieldElements(pictureBack)
 
-        ''Added 9/24/2019 thomas 
-        Const c_boolTryToSerializeAtLoad As Boolean = False
-        If (c_boolTryToSerializeAtLoad) Then
-            ''Added 9/24/2019 thomas 
-            Dim serial_tools As New ciBadgeSerialize.SerialTools
-            serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
-            serial_tools.SerializeToXML(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved)
-        End If ''End of "If (c_boolTryToSerializeAtLoad) Then"
-
         ''Added 9/19/2019 td
         Dim intPicLeft As Integer
         Dim intPicTop As Integer
@@ -180,6 +171,11 @@ Public Class FormDesignProtoTwo
         ''9/19 td''Me.ElementsCache_Saved.LoadPicElement(CtlGraphicPortrait_Lady.picturePortrait, pictureBack) ''Added 9/19/2019 td
         Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
 
+        ''Added 9/24/2019 thomas 
+        Dim serial_tools As New ciBadgeSerialize.ClassSerial
+        serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
+        serial_tools.SerializeToXML(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved)
+
         Me.ElementsCache_Edits = Me.ElementsCache_Saved.Copy()
 
         ''
@@ -188,6 +184,21 @@ Public Class FormDesignProtoTwo
         ''9/17/2019 td''LoadForm_LayoutElements()
         ''9/20/2019 td''LoadForm_LayoutElements(Me.ElementsCache_Edits)
         LoadForm_LayoutElements(Me.ElementsCache_Edits, mod_listOfFieldControls)
+
+        ''Added 9/24/2019 thomas 
+        ''9/29/2019 td''serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
+        serial_tools.PathToXML = (My.Application.Info.DirectoryPath & "\Serialization_" & DateTime.Today.ToString("mmm_dd") & ".xml")
+        serial_tools.SerializeToXML(Me.ElementsCache_Saved.PicElement().GetType,
+                                    Me.ElementsCache_Saved.PicElement,
+                                    False, False)
+
+        ''Added 9/28/2019 thomas 
+        ''serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
+        ''serial_tools.SerializeToXML(Me.ElementsCache_Saved.ListFields(0).GetType,
+        ''                            Me.ElementsCache_Saved.ListFields(0), False, True)
+        ''serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
+        ''serial_tools.SerializeToXML(Me.ElementsCache_Saved.ListFieldElements(0).GetType,
+        ''                            Me.ElementsCache_Saved.ListFieldElements(0), False, True)
 
         ''Added 8/11/2019 thomas d.
         ''
@@ -1325,6 +1336,9 @@ Public Class FormDesignProtoTwo
         Dim each_graphicalLabel As CtlGraphicFldLabel
         Dim each_portraitLabel As CtlGraphicPortrait ''Added 7/31/2019 td
 
+        ''
+        ''Step #1 of 2. 
+        ''
         For Each each_control As Control In Me.Controls
 
             If (TypeOf each_control Is CtlGraphicFldLabel) Then
@@ -1343,6 +1357,18 @@ Public Class FormDesignProtoTwo
             End If ''end of "If (TypeOf each_control Is GraphicFieldLabel) Then .... ElseIf ..."
 
         Next each_control
+
+        ''
+        ''
+        ''Step #2 of 3.
+        ''
+        Me.ElementsCache_Saved = Me.ElementsCache_Edits.Copy()
+
+        ''
+        ''
+        ''
+
+
 
     End Sub ''End of "PRivate Sub SaveLayout()"  
 
@@ -2027,7 +2053,7 @@ Public Class FormDesignProtoTwo
         ''
         ''Added 9/9/2019 thomas downes 
         ''
-        Dim objSerializationClass As New ciBadgeSerialize.SerialTools
+        Dim objSerializationClass As New ciBadgeSerialize.ClassSerial
 
         With objSerializationClass
 
@@ -2080,5 +2106,9 @@ Public Class FormDesignProtoTwo
         ''
         ''We have .AutoChecked = False, so please see the Click event.  ----9/13/2019 
         ''
+    End Sub
+
+    Private Sub RightClickMenuParent_Click(sender As Object, e As EventArgs) Handles RightClickMenuParent.Click
+
     End Sub
 End Class

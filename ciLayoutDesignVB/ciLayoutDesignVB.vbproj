@@ -646,6 +646,7 @@
     <None Include="Resources\__UI for V831 w No Pic1.PNG" />
     <None Include="Resources\__UI for v900 w demo face1.PNG" />
     <None Include="Resources\The UI for v900.PNG" />
+    <Content Include="Serializations\ElementsCaches_k1w.xml" />
     <Content Include="SQL\CreateTables - Just 5 + 1 tables.sql" />
     <Content Include="SQL\CreateTables - Just 6 tables.sql" />
     <Content Include="SQL\CreateTables - Mar29.sql" />

@@ -7,7 +7,7 @@ Imports System.IO ''Added 9/12/2019 td
 Imports System.Runtime.Serialization
 Imports System.Xml.Serialization ''Added 9/1/2019 thomas d. 
 
-Public Class SerialTools
+Public Class ClassSerial
     ''
     ''Added 9/9/2019 td 
     ''
@@ -30,7 +30,10 @@ Public Class SerialTools
     ''
     ''serializing the Object
     ''
-    Public Sub SerializeToXML(par_TypeOfObject As Type, par_objectToSerialize As Object) ''ByVal sender As System.Object, ByVal e As System.EventArgs) ''Handles ButtonSerializeToXML.Click
+
+    Public Sub SerializeToXML(par_TypeOfObject As Type, par_objectToSerialize As Object,
+                              pbVerboseSuccess As Boolean,
+                              pboolAutoOpenFile As Boolean) ''ByVal sender As System.Object, ByVal e As System.EventArgs) ''Handles ButtonSerializeToXML.Click
 
         ''7/20/2019 td''Dim srObj As New serializeObject()
         '' 8/31/2019 td''Dim srObj As New ClassParent()
@@ -64,17 +67,21 @@ Public Class SerialTools
         Dim writer As New System.Xml.Serialization.XmlSerializer(par_TypeOfObject)
 
         ''Dim file As New System.IO.StreamWriter("c:\temp\SerializationOverview.xml")
-
+        ''
         ''9/12/2019 td''writer.Serialize(fileStream_Xml, mod_objParent)
         ''9/24/2019 td''writer.Serialize(fileStream_Xml, Me.ObjectToSerialize)
         writer.Serialize(fileStream_Xml, par_objectToSerialize)
 
         fileStream_Xml.Close()
 
-        MsgBox("Object Serialized !!", vbInformation, "Serialization")
+        If (pbVerboseSuccess) Then
+            MsgBox("Object Serialized !!", vbInformation, "Serialization")
+        End If ''End of "If (pbVerboseSuccess) Then"
 
-        ''9/12/2019 td''System.Diagnostics.Process.Start(mod_sPathToXML)
-        System.Diagnostics.Process.Start(Me.PathToXML)
+        If (pboolAutoOpenFile) Then
+            ''9/12/2019 td''System.Diagnostics.Process.Start(mod_sPathToXML)
+            System.Diagnostics.Process.Start(Me.PathToXML)
+        End If ''End of "If (pboolAutoOpenFile) Then"
 
     End Sub ''End of "Public Sub SerializeToXML(par_TypeOfObject As Type, par_objectToSerialize As Object) "
 
@@ -98,7 +105,18 @@ Public Class SerialTools
 
     End Sub ''End of "Private Sub SerializeToBinary(par_TypeOfObject As Type, par_objectToSerialize As Object)"
 
+    Public Function SaveAndRegenerateObject_XML_NotInUseHere(par_TypeOfObject As Type, ByRef par_objectToSerialize As Object) As Object
+        ''
+        ''Added & moved 9/29/2019 td
+        ''
+        ''See class module ClassCycle. 
+        ''
+        SerializeToXML(par_TypeOfObject, par_objectToSerialize, False, False)
+        Dim objDeserialized As Object = Nothing
+        ''9/29/2019 td''objDeserialized = deserializeFromXML(par_TypeOfObject, Me.PathToXML)
+        Return objDeserialized
 
+    End Function ''End of "Public Function SaveAndRegenerateObject_XML"
 
 
 End Class

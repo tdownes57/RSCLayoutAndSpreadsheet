@@ -7,6 +7,8 @@ Imports ciBadgeInterfaces ''Added 8/24/2019 thomas d.
 ''
 ''Added 9/16/2019 thomas downes  
 ''
+<Xml.Serialization.XmlInclude(GetType(ClassFieldStandard))>
+<Xml.Serialization.XmlInclude(GetType(ClassFieldCustomized))>
 <Serializable>
 Public Class ClassFieldAny
     Implements ICIBFieldStandardOrCustom ''Added 7/21/2019 td
@@ -55,6 +57,8 @@ Public Class ClassFieldAny
     Public Property DataEntryText As String Implements ICIBFieldStandardOrCustom.DataEntryText ''Added 9/9/2019 td
 
     Public Property IsLinkedToSections As Boolean = False Implements ICIBFieldStandardOrCustom.IsLinkedToSections ''Added 9/17/2019 td 
+
+    <Xml.Serialization.XmlIgnore>
     Public Property SublayoutLookup As Dictionary(Of String, Integer) = Nothing Implements ICIBFieldStandardOrCustom.SublayoutLookup ''Added 9/17/2019 td
 
     ''Fields cannot link to elements.---9/18/2019 td''Private mod_elementFieldClass As ClassElementField ''Added 9/3/2019 td   
