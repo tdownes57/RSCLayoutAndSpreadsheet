@@ -14,25 +14,34 @@ Public Class ClassDeserial
     Public PathToXML As String = "" ''9/1/2019 td''  "C:\Users\tdown\Documents\CIBadgeWeb\SerializeFile_Xml.txt"
 
     Public Function DeserializeFromXML(par_TypeOfObject As Type, par_objectToSerialize As Object,
-                              pbVerboseSuccess As Boolean,
-                              pboolAutoOpenFile As Boolean) As Object
+                              pbVerboseSuccess As Boolean) As Object
         ''
         ''Modified 9/1/2019 thomas d.  
         ''
-        Dim obj_serializer As XmlSerializer = New XmlSerializer(GetType(ClassParent))
+        ''9/29/2019 td''Dim obj_serializer As XmlSerializer = New XmlSerializer(GetType(ClassParent))
+        Dim obj_serializer As XmlSerializer = New XmlSerializer(par_TypeOfObject)
 
-        Dim srObj As ClassParent
+        ''9/29/2019 td''Dim srObj As ClassParent
+        Dim srObj As Object
 
-        Using serialStream = New FileStream(mod_sPathToXML, FileMode.Open, FileAccess.Read, FileShare.Read)
+        Using serialStream = New FileStream(Me.PathToXML, FileMode.Open, FileAccess.Read, FileShare.Read)
 
-            srObj = DirectCast(obj_serializer.Deserialize(serialStream), ClassParent)
+            ''#1 9/29/2019 td''srObj = DirectCast(obj_serializer.Deserialize(serialStream), ClassParent)
+            '' #2 9/29/2019 td''srObj = DirectCast(obj_serializer.Deserialize(serialStream), par_TypeOfObject)
+
+            srObj = obj_serializer.Deserialize(serialStream)
 
         End Using
 
-        MsgBox("Deserialization from binary:  " & vbCrLf & vbCrLf &
-               srObj.ElementType + "      " + srObj.LeftEdge.ToString(), vbInformation)
+        If (pbVerboseSuccess) Then
+            ''Added 9/29/2019 Thomas D. 
+            MsgBox("Deserialization from binary:  " & vbCrLf & vbCrLf &
+                 "Type:  " & par_TypeOfObject.ToString() & vbCrLf &
+                 "Object: " & par_objectToSerialize.ToString, vbInformation)
+        End If ''End of "If (pbVerboseSuccess) Then"
 
+        Return srObj
 
-    End Function
+    End Function ''End of "Public Function DeserializeFromXML(.....)"
 
 End Class

@@ -32,7 +32,7 @@ Public Class ClassTestCycle
         mod_serial.SerializeToXML(par_TypeOfObject, par_objectToSerialize, False, False)
 
         Dim objDeserialized As Object
-        objDeserialized = mod_deserial.deserializeFromXML(par_TypeOfObject, Me.PathToXML)
+        objDeserialized = mod_deserial.DeserializeFromXML(par_TypeOfObject, Me.PathToXML, False)
         Return objDeserialized
 
     End Function ''End of "Public Function SaveAndRegenerateObject_XML"
