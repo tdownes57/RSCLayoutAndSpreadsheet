@@ -157,9 +157,13 @@ Public Class FormDesignProtoTwo
         Me.ElementsCache_Saved.LoadFieldElements(pictureBack)
 
         ''Added 9/24/2019 thomas 
-        Dim serial_tools As New ciBadgeSerialize.SerialTools
-        serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
-        serial_tools.SerializeToXML(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved)
+        Const c_boolTryToSerializeAtLoad As Boolean = False
+        If (c_boolTryToSerializeAtLoad) Then
+            ''Added 9/24/2019 thomas 
+            Dim serial_tools As New ciBadgeSerialize.SerialTools
+            serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
+            serial_tools.SerializeToXML(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved)
+        End If ''End of "If (c_boolTryToSerializeAtLoad) Then"
 
         ''Added 9/19/2019 td
         Dim intPicLeft As Integer
