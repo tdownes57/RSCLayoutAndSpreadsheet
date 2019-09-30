@@ -186,17 +186,19 @@ Public Class FormDesignProtoTwo
         LoadForm_LayoutElements(Me.ElementsCache_Edits, mod_listOfFieldControls)
 
         ''Added 9/24/2019 thomas 
-        serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
+        ''9/29/2019 td''serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
+        serial_tools.PathToXML = (My.Application.Info.DirectoryPath & "\Serialization_" & DateTime.Today.ToString("mmm_dd") & ".xml")
         serial_tools.SerializeToXML(Me.ElementsCache_Saved.PicElement().GetType,
-                                    Me.ElementsCache_Saved.PicElement)
+                                    Me.ElementsCache_Saved.PicElement,
+                                    False, False)
 
         ''Added 9/28/2019 thomas 
-        serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
-        serial_tools.SerializeToXML(Me.ElementsCache_Saved.ListFields(0).GetType,
-                                    Me.ElementsCache_Saved.ListFields(0))
-        serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
-        serial_tools.SerializeToXML(Me.ElementsCache_Saved.ListFieldElements(0).GetType,
-                                    Me.ElementsCache_Saved.ListFieldElements(0))
+        ''serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
+        ''serial_tools.SerializeToXML(Me.ElementsCache_Saved.ListFields(0).GetType,
+        ''                            Me.ElementsCache_Saved.ListFields(0), False, True)
+        ''serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
+        ''serial_tools.SerializeToXML(Me.ElementsCache_Saved.ListFieldElements(0).GetType,
+        ''                            Me.ElementsCache_Saved.ListFieldElements(0), False, True)
 
         ''Added 8/11/2019 thomas d.
         ''
@@ -1334,6 +1336,9 @@ Public Class FormDesignProtoTwo
         Dim each_graphicalLabel As CtlGraphicFldLabel
         Dim each_portraitLabel As CtlGraphicPortrait ''Added 7/31/2019 td
 
+        ''
+        ''Step #1 of 2. 
+        ''
         For Each each_control As Control In Me.Controls
 
             If (TypeOf each_control Is CtlGraphicFldLabel) Then
@@ -1352,6 +1357,18 @@ Public Class FormDesignProtoTwo
             End If ''end of "If (TypeOf each_control Is GraphicFieldLabel) Then .... ElseIf ..."
 
         Next each_control
+
+        ''
+        ''
+        ''Step #2 of 3.
+        ''
+        Me.ElementsCache_Saved = Me.ElementsCache_Edits.Copy()
+
+        ''
+        ''
+        ''
+
+
 
     End Sub ''End of "PRivate Sub SaveLayout()"  
 

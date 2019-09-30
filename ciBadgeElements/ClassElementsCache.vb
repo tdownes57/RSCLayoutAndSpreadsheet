@@ -15,6 +15,8 @@ Public Class ClassElementsCache
     ''
     ''Added 9/16/2019 thomas downes
     ''
+    Public Property SaveToXmlPath As String ''Added 9/29/2019 td
+
     Private mod_listFields As New List(Of ClassFieldAny) ''Added 9/18/2019 td  
     Private mod_listElementFields As New List(Of ClassElementField)
     Private mod_listElementPics As New List(Of ClassElementPic)
@@ -281,10 +283,28 @@ Public Class ClassElementsCache
         ''Added 9/17/2019 thomas downes  
         ''
         Dim objCopyOfCache As New ClassElementsCache
+        Dim ListFields_NotUsed As New List(Of ClassFieldAny)
+        Dim dictionaryFields As New Dictionary(Of ciBadgeInterfaces.EnumCIBFields, ClassFieldAny)
+        Dim copy_ofField As ClassFieldAny
+
+        ''Added 9/29/2019 thomas downes  
+        For Each each_field As ClassFieldAny In mod_listFields
+            ''9/29/2019 td''objCopyOfCache.ListFields().Add(each_field.Copy())
+            copy_ofField = each_field.Copy()
+            objCopyOfCache.ListFields().Add(copy_ofField)
+            ListFields_NotUsed.Add(copy_ofField)
+            dictionaryFields.Add(copy_ofField.FieldEnumValue, copy_ofField)
+        Next each_field
 
         ''Added 9/17/2019 thomas downes  
         For Each each_elementField As ClassElementField In mod_listElementFields
             objCopyOfCache.ListFieldElements().Add(each_elementField.Copy())
+            ''
+            ''I need to utilize the dictionary object to fix the field reference of the 
+            ''  copied element. -----9/229/2019 td 
+            ''
+            Throw New NotImplementedException("Fix the field reference!")
+
         Next each_elementField
 
         ''Added 9/17/2019 thomas downes  
