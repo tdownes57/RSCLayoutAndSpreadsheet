@@ -66,7 +66,10 @@ Public Class ClassFieldAny
         ''Added 9/30/2019 
         ''
         Dim objCopy As New ClassFieldAny
-        objCopy.LoadbyCopyingMembers(Me, Me)
+
+        ''9/30/2019 td''objCopy.LoadbyCopyingMembers(Me, Me)
+        objCopy.LoadbyCopyingMembers(CType(Me, ICIBFieldStandardOrCustom))
+
         Return objCopy
 
     End Function ''End of "Public Function Copy() As ClassElementField"
