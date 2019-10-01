@@ -54,6 +54,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Reflection.Context" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -79,6 +80,7 @@
     <Compile Include="ClassGroupMove.vb" />
     <Compile Include="ClassLabelToImage.vb" />
     <Compile Include="ClassRubberbandSelector.vb" />
+    <Compile Include="ContextMenus\ClassMenuMethods.vb" />
     <Compile Include="ContextMenus\ContextLayoutBack.Designer.vb">
       <DependentUpon>ContextLayoutBack.vb</DependentUpon>
     </Compile>
@@ -91,6 +93,7 @@
     <Compile Include="ContextMenus\ContextLayoutDesignToolstrip.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="ContextMenus\c_modReflection.vb" />
     <Compile Include="Controls\CtlAddStandardField.Designer.vb">
       <DependentUpon>CtlAddStandardField.vb</DependentUpon>
     </Compile>
