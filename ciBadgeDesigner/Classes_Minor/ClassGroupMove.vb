@@ -7,6 +7,7 @@
 
 Imports MoveAndResizeControls_Monem
 Imports ciBadgeInterfaces ''Added 9/20/2019 td  
+Imports System.Windows.Forms ''Added 10/1/2019 td 
 
 Public Class ClassGroupMove
     Implements InterfaceEvents
@@ -22,14 +23,14 @@ Public Class ClassGroupMove
     ''9/20/2019 td''Public ParentLayoutForm As FormDesignProtoTwo ''Added 8/4/2019
     Public LayoutFunctions As ILayoutFunctions ''Added 9/20/2019 td
 
-    Public Sub New(par_form As FormDesignProtoTwo)
-
-        ''Added 8/4/2019 td  
-        ''
-        ''9/20/2019 td''ParentLayoutForm = par_form
-        LayoutFunctions = CType(par_form, ILayoutFunctions)
-
-    End Sub
+    ''10/1/2019 td''Public Sub New(par_form As FormDesignProtoTwo)
+    ''
+    ''    ''Added 8/4/2019 td  
+    ''    ''
+    ''    ''9/20/2019 td''ParentLayoutForm = par_form
+    ''    LayoutFunctions = CType(par_form, ILayoutFunctions)
+    ''
+    ''End Sub
 
     Public Sub New(par_layoutFun As ILayoutFunctions)
         ''

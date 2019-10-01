@@ -10,19 +10,28 @@ Imports ciBadgeElements ''Added 10/1/2019 thomas downes
 Imports System.Drawing ''Added 10/1/2019 thomas downes 
 
 Public Class ClassDesigner
+    Implements ILayoutFunctions, ISelectingElements
     ''
     ''Added 10/1/2019 thomas downes 
     ''
-    Public Property LayoutFunctions As ILayoutFunctions
+    ''10/1/2019 td''Public Property LayoutFunctions As ILayoutFunctions
     Public Property DesignerForm As Form
     Public Property BackgroundBox As PictureBox
     Public Property PreviewBox As PictureBox
+    Public Property ExamplePortraitImage As Image ''Added 10/1/2019 td 
 
     Public Property ElementsCache_Saved As New ClassElementsCache ''Added 9/16/2019 thomas downes
     Public Property ElementsCache_Edits As New ClassElementsCache ''Added 9/16/2019 thomas downes
 
+    Public Property PicInitialize_Left As Integer
+    Public Property PicInitialize_Top As Integer
+    Public Property PicInitialize_Width As Integer = 150 ''Default value added 10/1/2019 thomas downes
+    Public Property PicInitialize_Height As Integer = 182 ''Default value added 10/1/2019 thomas downes
+
     ''#1 8-3-2019 td''Private WithEvents mod_moveAndResizeCtls_NA As New MoveAndResizeControls_Monem.ControlMove_RaiseEvents ''Added 8/3/2019 td  
     '' #2 8-3-2019 td''Private WithEvents mod_moveAndResizeCtls As New MoveAndResizeControls_Monem.ControlMove_GroupMove ''Added 8/3/2019 td  
+    ''#1 10/1/2019 td''Private WithEvents mod_groupedMove As New ClassGroupMove(Me) ''8/4/2019 td''New ClassGroupMove
+    '' #2 10/1/2019 td''Private WithEvents mod_groupedMove As New ClassGroupMove(Me.LayoutFunctions) ''8/4/2019 td''New ClassGroupMove
     Private WithEvents mod_groupedMove As New ClassGroupMove(Me) ''8/4/2019 td''New ClassGroupMove
 
     Private Const mc_boolAllowGroupMovements As Boolean = True ''False ''True ''False ''Added 8/3/2019 td  
@@ -70,7 +79,8 @@ Public Class ClassDesigner
         ''Deleted 9/4/2019 td''Me.Controls.Remove(GraphicFieldLabel5)
 
         ''7/31/2019 td''Me.Controls.Remove(pictureboxPic) ''Added 7/31/2019 thomas d. 
-        mod_imageLady = CtlGraphicPortrait_Lady.picturePortrait.Image
+        ''10/1/2019 td''mod_imageLady = CtlGraphicPortrait_Lady.picturePortrait.Image
+        mod_imageLady = Me.ExamplePortraitImage ''Added 10/1/2019 td
 
         ''Added 9/23/2019 td 
         ''
@@ -82,7 +92,7 @@ Public Class ClassDesigner
         Me.ElementsCache_Saved.Pic_InitialDefault = mod_imageLady
         Me.ElementsCache_Edits.Pic_InitialDefault = mod_imageLady
 
-        Me.Controls.Remove(CtlGraphicPortrait_Lady) ''Added 7/31/2019 thomas d. 
+        ''10/1/2019 td''Me.Controls.Remove(CtlGraphicPortrait_Lady) ''Added 7/31/2019 thomas d. 
 
         ''Encapsulated 7/31/2019 td
         ''
@@ -94,7 +104,8 @@ Public Class ClassDesigner
         ''Major call!!
         ''
         Me.ElementsCache_Saved.LoadFields()
-        Me.ElementsCache_Saved.LoadFieldElements(pictureBack)
+        ''10/1/2019 td''Me.ElementsCache_Saved.LoadFieldElements(pictureBack)
+        Me.ElementsCache_Saved.LoadFieldElements(Me.BackgroundBox)
 
         ''Added 9/19/2019 td
         Dim intPicLeft As Integer
@@ -103,13 +114,20 @@ Public Class ClassDesigner
         Dim intPicHeight As Integer
 
         ''Added 9/19/2019 td
-        intPicLeft = CtlGraphicPortrait_Lady.Left - pictureBack.Left
-        intPicTop = CtlGraphicPortrait_Lady.Top - pictureBack.Top
-        intPicWidth = CtlGraphicPortrait_Lady.Width
-        intPicHeight = CtlGraphicPortrait_Lady.Height
+        ''10/1/2019 td''intPicLeft = CtlGraphicPortrait_Lady.Left - pictureBack.Left
+        ''10/1/2019 td''intPicTop = CtlGraphicPortrait_Lady.Top - pictureBack.Top
+        ''10/1/2019 td''intPicWidth = CtlGraphicPortrait_Lady.Width
+        ''10/1/2019 td''intPicHeight = CtlGraphicPortrait_Lady.Height
+
+        ''Added 10/01/2019 td
+        intPicLeft = Me.PicInitialize_Left
+        intPicTop = Me.PicInitialize_Top
+        intPicWidth = Me.PicInitialize_Width
+        intPicHeight = Me.PicInitialize_Height
 
         ''9/19 td''Me.ElementsCache_Saved.LoadPicElement(CtlGraphicPortrait_Lady.picturePortrait, pictureBack) ''Added 9/19/2019 td
-        Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
+        ''10/1/2019 td''Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
+        Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, Me.BackgroundBox) ''Added 9/19/2019 td
 
         ''Added 9/24/2019 thomas 
         Dim serial_tools As New ciBadgeSerialize.ClassSerial
@@ -1110,9 +1128,73 @@ Public Class ClassDesigner
     End Function
 
 
+    Public Function Layout_Width_Pixels() As Integer Implements ILayoutFunctions.Layout_Width_Pixels
+        ''Added 9/3/2019 thomas downes
+        Return pictureBack.Width
+    End Function ''End of "Public Function Layout_Width_Pixels() As Integer"
 
+    Public Function Layout_Height_Pixels() As Integer Implements ILayoutFunctions.Layout_Height_Pixels
+        ''Added 9/11/2019 Never Forget 
+        Return pictureBack.Height
+    End Function ''End of "Public Function Layout_Height_Pixels() As Integer"
 
+    Public Function Layout_Margin_Left_Omit(par_intPixelsLeft As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Left_Omit
+        ''Added 9/5/2019 thomas downes
+        Return (par_intPixelsLeft - pictureBack.Left)
+    End Function ''End of "Public Function Layout_Margin_Left_Omit() As Integer"
 
+    Public Function Layout_Margin_Left_Add(par_intPixelsLeft As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Left_Add
+        ''Added 9/5/2019 thomas downes
+        Return (par_intPixelsLeft + pictureBack.Left)
+    End Function ''End of "Public Function Layout_Margin_Left_Add() As Integer"
+
+    Public Function Layout_Margin_Top_Omit(par_intPixelsTop As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Top_Omit
+        ''Added 9/5/2019 thomas downes
+        Return (par_intPixelsTop - pictureBack.Top)
+    End Function ''End of "Public Function Layout_Margin_Top_Omit() As Integer"
+
+    Public Function Layout_Margin_Top_Add(par_intPixelsTop As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Top_Add
+        ''Added 9/5/2019 thomas downes
+        Return (par_intPixelsTop + pictureBack.Top)
+    End Function ''End of "Public Function Layout_Margin_Top_Add() As Integer"
+
+    Public Function OkayToShowFauxContextMenu() As Boolean Implements ILayoutFunctions.OkayToShowFauxContextMenu
+        ''
+        ''Added 8/14/2019 td 
+        ''
+        ''OkayToShowFauxContextMenu()
+        Return DemoModeActiveToolStripMenuItem.Checked
+
+    End Function ''End of "Public Function OkayToShowFauxContextMenu() As Boolean"
+
+    Public Sub AutoPreview_IfChecked() Implements ILayoutFunctions.AutoPreview_IfChecked
+        ''
+        ''Refresh the preview picture box. 
+        ''
+        If (checkAutoPreview.Checked) Then
+            SaveLayout()
+            RefreshPreview()
+        End If ''End of "If (checkAutoPreview.Checked) Then"
+
+    End Sub ''End of  "Private Sub AutoPreview_IfChecked()"
+
+    Public Function RightClickMenu_Parent() As ToolStripMenuItem Implements ILayoutFunctions.RightClickMenu_Parent
+
+        ''Added 9/19/2019 td
+        Return RightClickMenuParent
+
+    End Function
+
+    Public Function NameOfForm() As String Implements ILayoutFunctions.NameOfForm
+        ''Added 9/19/2019
+        Return Me.Name
+    End Function
+
+    Public Sub RedrawForm() Implements ILayoutFunctions.RedrawForm
+        ''Added 9/23/2019
+        ''Not needed. ---9/23 td''Me.Invalidate() ''Causes the form to be re-painted.
+        ''Not needed. ---9/23 td''Application.DoEvents()
+    End Sub
 
 
 

@@ -9,6 +9,8 @@ Imports ciBadgeInterfaces ''Added 8/28/2019 thomas downes
 ''10/1/2019 td''Imports ciBadgeFields ''Added 9/18/2019 thomas downes 
 Imports ciBadgeElements ''Added 9/18/2019 td 
 Imports ciBadgeElemImage ''Added 9/20/2019 td 
+Imports System.Windows.Forms ''Added 10/1/2019 td
+Imports System.Drawing ''Added 10/1/2019 td  
 
 Public Class CtlGraphicFldLabel
     ''
@@ -34,6 +36,24 @@ Public Class CtlGraphicFldLabel
     Public GroupEdits As ISelectingElements ''Added 7/31/2019 thomas downes  
     Public SelectedHighlighting As Boolean ''Added 8/2/2019 td
     Public ExampleTextToDisplay As String = "" ''Added 9/19/2019 td
+
+    ''
+    ''Added 8/5/2019 td
+    ''   This is to store the initial Width & Height, when resizing.
+    ''
+    ''Denigrated. 9/19/2019 td''Public FormDesigner As FormDesignProtoTwo ''Added 8/9/2019 td  
+    Public LayoutFunctions As ciBadgeInterfaces.ILayoutFunctions ''Added 8/9/2019 td  
+
+    Public TempResizeInfo_W As Integer = 0 ''Intial resizing width.  (Before any adjustment is made.)
+    Public TempResizeInfo_H As Integer = 0 ''Intial resizing height.  (Before any adjustment is made.)
+
+    ''Added 8/12/2019 Thomas Downes 
+    Public TempResizeInfo_Left As Integer = 0 ''Intial resizing Left.  (Before any adjustment is made.)
+    Public TempResizeInfo_Top As Integer = 0 ''Intial resizing Top.  (Before any adjustment is made.)
+
+    ''
+    ''Private variables.  
+    ''
 
     Private mod_includedInGroupEdit As Boolean ''Added 8/1/2019 thomas downes 
 
@@ -62,157 +82,6 @@ Public Class CtlGraphicFldLabel
 
     End Sub
 
-    Public Sub New_NotInUse(par_field As ICIBFieldStandardOrCustom)
-
-        ' This call is required by the designer.
-        InitializeComponent()
-
-        ' Add any initialization after the InitializeComponent() call.
-        Me.FieldInfo = par_field
-
-        ''9/4/2019 td''Me.ElementInfo_Text = New ClassElementText(Me)
-
-        Dim obj_elementText As ClassElementField ''Added 9/4/2019 thomas d.
-        obj_elementText = New ClassElementField(Me) ''Added 9/4/2019 thomas d.
-        Me.ElementClass_Obj = obj_elementText ''Added 9/4/2019 thomas d.
-        Me.ElementInfo_Base = CType(obj_elementText, IElement_Base) ''Added 9/4/2019 thomas d.
-        Me.ElementInfo_Text = CType(obj_elementText, IElement_TextField)  ''Added 9/4/2019 thomas d.
-
-    End Sub
-
-    Public Sub New_Deprecated(par_field As ClassFieldStandard,
-                   Optional par_formDesigner As FormDesignProtoTwo = Nothing,
-                   Optional par_elementText As ClassElementField = Nothing)
-
-        ' This call is required by the designer.
-        InitializeComponent()
-
-        ' Add any initialization after the InitializeComponent() call.
-        Me.FieldInfo = par_field
-
-        ''Added 9/3/2019 thomas downes
-        ''9/4/2019 td''Me.ElementInfo_Base = CType(par_field.ElementInfo, IElement_Base)
-
-        ''9/3/2019 td''Me.ElementInfo_Text = par_field.ElementInfo
-        ''9/4/2019 td''Me.ElementInfo_Text = CType(par_field.ElementInfo, IElement_Text)
-
-        ''
-        ''Refactored 9/4/2019 td  
-        ''
-        If (par_elementText Is Nothing) Then
-            ''This Sub New is deprecated.---9/18/2019 td''Me.ElementClass_Obj = par_field.ElementFieldClass
-            Me.ElementInfo_Base = CType(Me.ElementClass_Obj, IElement_Base)
-            Me.ElementInfo_Text = CType(Me.ElementClass_Obj, IElement_TextField)
-        Else
-            ''
-            ''Added 9/4/2019 thomas d.
-            ''
-            ''This Sub New is deprecated.---9/18/2019 td''Me.ElementClass_Obj = par_elementText
-            Me.ElementInfo_Base = CType(par_elementText, IElement_Base)
-            Me.ElementInfo_Text = CType(par_elementText, IElement_TextField)
-        End If ''End of "If (par_elementText Is Nothing) Then .... Else ...."
-
-        ''Added 8/9/2019 td
-        ''Denigrated. ---9/19/2019 td''Me.FormDesigner = par_formDesigner
-
-    End Sub
-
-    Public Sub New_Deprecated(par_field As ClassFieldCustomized,
-                   Optional par_formDesigner As FormDesignProtoTwo = Nothing,
-                   Optional par_elementText As ClassElementField = Nothing)
-
-        ' This call is required by the designer.
-        InitializeComponent()
-
-        ' Add any initialization after the InitializeComponent() call.
-        Me.FieldInfo = par_field
-
-        ''Added 9/3/2019 thomas downes
-        ''9/4/2019 td''Me.ElementInfo_Base = CType(par_field.ElementInfo, IElement_Base)
-
-        ''9/3/2019 td''Me.ElementInfo_Text = par_field.ElementInfo
-        ''#1 9/4/2019 td''Me.ElementInfo_Text = CType(par_field.ElementInfo, IElement_Text)
-
-        ''
-        ''Refactored 9/4/2019 td  
-        ''
-        '' #2 9/4/2019 td''Me.ElementClass_Obj = par_field.ElementInfo
-        '' #2 9/4/2019 td''Me.ElementInfo_Base = CType(Me.ElementClass_Obj, IElement_Base)
-        '' #2 9/4/2019 td''Me.ElementInfo_Text = CType(Me.ElementClass_Obj, IElement_Text)
-
-        ''
-        ''Refactored 9/4/2019 td  
-        ''
-        If (par_elementText Is Nothing) Then
-            ''This Sub New is deprecated.  ---9/18/2019 td''Me.ElementClass_Obj = par_field.ElementFieldClass
-            Me.ElementInfo_Base = CType(Me.ElementClass_Obj, IElement_Base)
-            Me.ElementInfo_Text = CType(Me.ElementClass_Obj, IElement_TextField)
-        Else
-            ''
-            ''Added 9/4/2019 thomas d.
-            ''
-            Me.ElementClass_Obj = par_elementText
-            Me.ElementInfo_Base = CType(par_elementText, IElement_Base)
-            Me.ElementInfo_Text = CType(par_elementText, IElement_TextField)
-        End If ''End of "If (par_elementText Is Nothing) Then .... Else ...."
-
-        ''Added 8/9/2019 td
-        ''Denigrated. ---9/19/2019 td''Me.FormDesigner = par_formDesigner
-
-    End Sub ''ENd of "Public Sub New_Deprecated"
-
-    Public Sub New_Deprecated(par_field As ICIBFieldStandardOrCustom,
-                   Optional par_formDesigner As FormDesignProtoTwo = Nothing,
-                   Optional par_elementText As ClassElementField = Nothing)
-
-        ' This call is required by the designer.
-        InitializeComponent()
-
-        ''
-        ' Add any initialization after the InitializeComponent() call.
-        ''
-        Me.FieldInfo = par_field
-
-        ''Added 9/3/2019 td
-        ''  9/4/2019 td''Me.ElementInfo_Base = CType(par_field.ElementInfo_Base, IElement_Base)
-        ''  9/4/2019 td''Me.ElementInfo_Text = CType(par_field.ElementInfo_Text, IElement_Text)
-
-        ''
-        ''Refactored 9/4/2019 td  
-        ''
-        If (par_elementText Is Nothing) Then
-            ''9/15/2019 td''Me.ElementClass_Obj = Nothing ''9/4/2019 td''par_field.ElementInfo
-
-            Me.ElementClass_Obj = New ClassElementField
-
-            ''
-            ''------ IMPORTANT ------------------
-            ''------ POTENTIALLY CONFUSING-------
-            ''
-            ''-------Fields no longer contain links to Elements. ---9/18/2019 td 
-            ''-----Me.ElementClass_Obj.LoadbyCopyingMembers(par_field.ElementInfo_Base, par_field.ElementInfo_Text)
-
-            ''  9/15/2019 td''Me.ElementInfo_Base = CType(par_field.ElementInfo_Base, IElement_Base)
-            ''  9/15/2019 td''Me.ElementInfo_Text = CType(par_field.ElementInfo_Text, IElement_Text)
-
-            Me.ElementInfo_Base = CType(Me.ElementClass_Obj, IElement_Base)
-            Me.ElementInfo_Text = CType(Me.ElementClass_Obj, IElement_TextField)
-
-        Else
-            ''
-            ''Added 9/4/2019 thomas d.
-            ''
-            Me.ElementClass_Obj = par_elementText
-            Me.ElementInfo_Base = CType(par_elementText, IElement_Base)
-            Me.ElementInfo_Text = CType(par_elementText, IElement_TextField)
-
-        End If ''End of "If (par_elementText Is Nothing) Then .... Else ...."
-
-        ''Added 9/3/2019 td
-        ''Denigrated. ---9/19/2019 td''Me.FormDesigner = par_formDesigner
-
-    End Sub ''ENd of "Public Sub New_Deprecated"
-
     Public Sub New(par_elementField As ClassElementField,
                   par_layout As ILayoutFunctions)
 
@@ -225,6 +94,8 @@ Public Class CtlGraphicFldLabel
         Me.ElementClass_Obj = par_elementField
         Me.ElementInfo_Base = CType(par_elementField, IElement_Base)
         Me.ElementInfo_Text = CType(par_elementField, IElement_TextField)
+
+        Me.LayoutFunctions = par_layout
         Me.LayoutFunctions = par_layout
 
         ''Added 9/20/2019 td 
@@ -235,6 +106,157 @@ Public Class CtlGraphicFldLabel
         LinkInvisible.Visible = bElementInvisibleOnBadge
 
     End Sub ''ENd of "Public Sub New "
+
+    ''Public Sub New_NotInUse(par_field As ICIBFieldStandardOrCustom)
+
+    ''    ' This call is required by the designer.
+    ''    InitializeComponent()
+
+    ''    ' Add any initialization after the InitializeComponent() call.
+    ''    Me.FieldInfo = par_field
+
+    ''    ''9/4/2019 td''Me.ElementInfo_Text = New ClassElementText(Me)
+
+    ''    Dim obj_elementText As ClassElementField ''Added 9/4/2019 thomas d.
+    ''    obj_elementText = New ClassElementField(Me) ''Added 9/4/2019 thomas d.
+    ''    Me.ElementClass_Obj = obj_elementText ''Added 9/4/2019 thomas d.
+    ''    Me.ElementInfo_Base = CType(obj_elementText, IElement_Base) ''Added 9/4/2019 thomas d.
+    ''    Me.ElementInfo_Text = CType(obj_elementText, IElement_TextField)  ''Added 9/4/2019 thomas d.
+
+    ''End Sub
+
+    ''Public Sub New_Deprecated(par_field As ClassFieldStandard,
+    ''               Optional par_formDesigner As FormDesignProtoTwo = Nothing,
+    ''               Optional par_elementText As ClassElementField = Nothing)
+
+    ''    ' This call is required by the designer.
+    ''    InitializeComponent()
+
+    ''    ' Add any initialization after the InitializeComponent() call.
+    ''    Me.FieldInfo = par_field
+
+    ''    ''Added 9/3/2019 thomas downes
+    ''    ''9/4/2019 td''Me.ElementInfo_Base = CType(par_field.ElementInfo, IElement_Base)
+
+    ''    ''9/3/2019 td''Me.ElementInfo_Text = par_field.ElementInfo
+    ''    ''9/4/2019 td''Me.ElementInfo_Text = CType(par_field.ElementInfo, IElement_Text)
+
+    ''    ''
+    ''    ''Refactored 9/4/2019 td  
+    ''    ''
+    ''    If (par_elementText Is Nothing) Then
+    ''        ''This Sub New is deprecated.---9/18/2019 td''Me.ElementClass_Obj = par_field.ElementFieldClass
+    ''        Me.ElementInfo_Base = CType(Me.ElementClass_Obj, IElement_Base)
+    ''        Me.ElementInfo_Text = CType(Me.ElementClass_Obj, IElement_TextField)
+    ''    Else
+    ''        ''
+    ''        ''Added 9/4/2019 thomas d.
+    ''        ''
+    ''        ''This Sub New is deprecated.---9/18/2019 td''Me.ElementClass_Obj = par_elementText
+    ''        Me.ElementInfo_Base = CType(par_elementText, IElement_Base)
+    ''        Me.ElementInfo_Text = CType(par_elementText, IElement_TextField)
+    ''    End If ''End of "If (par_elementText Is Nothing) Then .... Else ...."
+
+    ''    ''Added 8/9/2019 td
+    ''    ''Denigrated. ---9/19/2019 td''Me.FormDesigner = par_formDesigner
+
+    ''End Sub
+
+    ''Public Sub New_Deprecated(par_field As ClassFieldCustomized,
+    ''               Optional par_formDesigner As FormDesignProtoTwo = Nothing,
+    ''               Optional par_elementText As ClassElementField = Nothing)
+
+    ''    ' This call is required by the designer.
+    ''    InitializeComponent()
+
+    ''    ' Add any initialization after the InitializeComponent() call.
+    ''    Me.FieldInfo = par_field
+
+    ''    ''Added 9/3/2019 thomas downes
+    ''    ''9/4/2019 td''Me.ElementInfo_Base = CType(par_field.ElementInfo, IElement_Base)
+
+    ''    ''9/3/2019 td''Me.ElementInfo_Text = par_field.ElementInfo
+    ''    ''#1 9/4/2019 td''Me.ElementInfo_Text = CType(par_field.ElementInfo, IElement_Text)
+
+    ''    ''
+    ''    ''Refactored 9/4/2019 td  
+    ''    ''
+    ''    '' #2 9/4/2019 td''Me.ElementClass_Obj = par_field.ElementInfo
+    ''    '' #2 9/4/2019 td''Me.ElementInfo_Base = CType(Me.ElementClass_Obj, IElement_Base)
+    ''    '' #2 9/4/2019 td''Me.ElementInfo_Text = CType(Me.ElementClass_Obj, IElement_Text)
+
+    ''    ''
+    ''    ''Refactored 9/4/2019 td  
+    ''    ''
+    ''    If (par_elementText Is Nothing) Then
+    ''        ''This Sub New is deprecated.  ---9/18/2019 td''Me.ElementClass_Obj = par_field.ElementFieldClass
+    ''        Me.ElementInfo_Base = CType(Me.ElementClass_Obj, IElement_Base)
+    ''        Me.ElementInfo_Text = CType(Me.ElementClass_Obj, IElement_TextField)
+    ''    Else
+    ''        ''
+    ''        ''Added 9/4/2019 thomas d.
+    ''        ''
+    ''        Me.ElementClass_Obj = par_elementText
+    ''        Me.ElementInfo_Base = CType(par_elementText, IElement_Base)
+    ''        Me.ElementInfo_Text = CType(par_elementText, IElement_TextField)
+    ''    End If ''End of "If (par_elementText Is Nothing) Then .... Else ...."
+
+    ''    ''Added 8/9/2019 td
+    ''    ''Denigrated. ---9/19/2019 td''Me.FormDesigner = par_formDesigner
+
+    ''End Sub ''ENd of "Public Sub New_Deprecated"
+
+    ''Public Sub New_Deprecated(par_field As ICIBFieldStandardOrCustom,
+    ''               Optional par_formDesigner As FormDesignProtoTwo = Nothing,
+    ''               Optional par_elementText As ClassElementField = Nothing)
+
+    ''    ' This call is required by the designer.
+    ''    InitializeComponent()
+
+    ''    ''
+    ''    ' Add any initialization after the InitializeComponent() call.
+    ''    ''
+    ''    Me.FieldInfo = par_field
+
+    ''    ''Added 9/3/2019 td
+    ''    ''  9/4/2019 td''Me.ElementInfo_Base = CType(par_field.ElementInfo_Base, IElement_Base)
+    ''    ''  9/4/2019 td''Me.ElementInfo_Text = CType(par_field.ElementInfo_Text, IElement_Text)
+
+    ''    ''
+    ''    ''Refactored 9/4/2019 td  
+    ''    ''
+    ''    If (par_elementText Is Nothing) Then
+    ''        ''9/15/2019 td''Me.ElementClass_Obj = Nothing ''9/4/2019 td''par_field.ElementInfo
+
+    ''        Me.ElementClass_Obj = New ClassElementField
+
+    ''        ''
+    ''        ''------ IMPORTANT ------------------
+    ''        ''------ POTENTIALLY CONFUSING-------
+    ''        ''
+    ''        ''-------Fields no longer contain links to Elements. ---9/18/2019 td 
+    ''        ''-----Me.ElementClass_Obj.LoadbyCopyingMembers(par_field.ElementInfo_Base, par_field.ElementInfo_Text)
+
+    ''        ''  9/15/2019 td''Me.ElementInfo_Base = CType(par_field.ElementInfo_Base, IElement_Base)
+    ''        ''  9/15/2019 td''Me.ElementInfo_Text = CType(par_field.ElementInfo_Text, IElement_Text)
+
+    ''        Me.ElementInfo_Base = CType(Me.ElementClass_Obj, IElement_Base)
+    ''        Me.ElementInfo_Text = CType(Me.ElementClass_Obj, IElement_TextField)
+
+    ''    Else
+    ''        ''
+    ''        ''Added 9/4/2019 thomas d.
+    ''        ''
+    ''        Me.ElementClass_Obj = par_elementText
+    ''        Me.ElementInfo_Base = CType(par_elementText, IElement_Base)
+    ''        Me.ElementInfo_Text = CType(par_elementText, IElement_TextField)
+
+    ''    End If ''End of "If (par_elementText Is Nothing) Then .... Else ...."
+
+    ''    ''Added 9/3/2019 td
+    ''    ''Denigrated. ---9/19/2019 td''Me.FormDesigner = par_formDesigner
+
+    ''End Sub ''ENd of "Public Sub New_Deprecated"
 
     Public Sub Refresh_Master(Optional pboolDialogApplyButton As Boolean = False)
         ''
@@ -886,20 +908,6 @@ ExitHandler:
             End If ''ENd of "If (c_boolAvoidAntidesignedCode) Then .... Else ..."
 
         End If ''End of "If (Me.ElementInfo_Base IsNot Nothing) Then"
-
-    End Sub
-
-    Private Sub pictureLabel_DragOver(sender As Object, e As DragEventArgs) Handles pictureLabel.DragOver
-
-    End Sub
-
-    Private Sub TextTypeExample_KeyPress(sender As Object, e As KeyPressEventArgs) ''9/10/2019 td''Handles textTypeExample.KeyPress
-        ''
-        ''Added 8/10/2019 td
-        ''
-        ''If (e.KeyChar = ) Then
-        ''
-        ''End If
 
     End Sub
 
