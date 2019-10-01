@@ -6,7 +6,7 @@ Option Infer Off
 ''
 Imports ciBadgeInterfaces
 
-Public Class Recipient
+Public Class ClassRecipient
     Implements IRecipient
     ''
     ''Added 10/1/2019 td  
