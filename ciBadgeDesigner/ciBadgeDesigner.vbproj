@@ -88,6 +88,12 @@
     <Compile Include="Controls\CtlGraphicText.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Controls\CtlPartial_HardText.designer.vb">
+      <DependentUpon>CtlPartial_HardText.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtlPartial_HardText.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="InterfaceSelectingElements.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
