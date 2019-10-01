@@ -96,9 +96,20 @@ Public Class ClassFieldAny
         Me.IsBarCode = par_FieldInfo.IsBarcodeField
         Me.IsCustomizable = par_FieldInfo.IsCustomizable
 
+        ''Added 10/01/2019 thomas downes
+        Me.IsDateField = par_FieldInfo.IsDateField
+        Me.IsDisplayedForEdits = par_FieldInfo.IsDisplayedForEdits
+        Me.IsDisplayedOnBadge = par_FieldInfo.IsDisplayedOnBadge
+        Me.IsFieldForDates = par_FieldInfo.IsFieldForDates
+        Me.IsLinkedToSections = par_FieldInfo.IsLinkedToSections
+        Me.IsLocked = par_FieldInfo.IsLocked
+        Me.IsStandard = par_FieldInfo.IsStandard
+        Me.OtherDbField_Optional = par_FieldInfo.OtherDbField_Optional
+        Me.SublayoutLookup = par_FieldInfo.SublayoutLookup
+        Me.Text_orDate = par_FieldInfo.Text_OrDate
 
         ''Added 9/30/2019 thomas downes
-        Throw New NotImplementedException("Not all the members are programmed yet (i.e. the commands for copying their values haven't been written yet).")
+        ''10/01/2019 td''Throw New NotImplementedException("Not all the members are programmed yet (i.e. the commands for copying their values haven't been written yet).")
 
     End Sub ''End of "Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base, .....)"
 
