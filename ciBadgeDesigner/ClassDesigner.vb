@@ -17,6 +17,8 @@ Public Class ClassDesigner
     ''10/1/2019 td''Public Property LayoutFunctions As ILayoutFunctions
     Public Property DesignerForm As Form
     Public Property BackgroundBox As PictureBox
+
+    Public Property PreviewLayoutAsImage As Boolean = True ''Added 10.1.2019 thomas d. 
     Public Property PreviewBox As PictureBox
     Public Property ExamplePortraitImage As Image ''Added 10/1/2019 td 
 
@@ -58,14 +60,14 @@ Public Class ClassDesigner
         ''
         ''Check that the proportions are correct. 
         ''
-        ''9/8/2019 td''ClassLabelToImage.Proportions_CorrectWidth(pictureBack)
-        ''9/8/2019 td''ClassLabelToImage.Proportions_CorrectWidth(picturePreview)
-        ClassLabelToImage.Proportions_FixTheWidth(Me.BackgroundBox) ''----- pictureBack)
-        ClassLabelToImage.Proportions_FixTheWidth(Me.PreviewBox) ''---- picturePreview)
+        ''9/8/2019 td''ClassLabelToImage.Proportions_CorrectWidth(Me.BackgroundBox)
+        ''9/8/2019 td''ClassLabelToImage.Proportions_CorrectWidth(Me.PreviewBox)
+        ClassLabelToImage.Proportions_FixTheWidth(Me.BackgroundBox) ''----- Me.BackgroundBox)
+        ClassLabelToImage.Proportions_FixTheWidth(Me.PreviewBox) ''---- Me.PreviewBox)
 
         ''Double-check the proportions are correct. ---9/6/2019 td
-        ClassLabelToImage.ProportionsAreSlightlyOff(Me.BackgroundBox, True) ''-----pictureBack, True)
-        ClassLabelToImage.ProportionsAreSlightlyOff(Me.PreviewBox, True) ''-----(picturePreview, True)
+        ClassLabelToImage.ProportionsAreSlightlyOff(Me.BackgroundBox, True) ''-----Me.BackgroundBox, True)
+        ClassLabelToImage.ProportionsAreSlightlyOff(Me.PreviewBox, True) ''-----(Me.PreviewBox, True)
 
         ''
         ''I forget, what was this going to do originally?  ---9/6/2019 td
@@ -104,7 +106,7 @@ Public Class ClassDesigner
         ''Major call!!
         ''
         Me.ElementsCache_Saved.LoadFields()
-        ''10/1/2019 td''Me.ElementsCache_Saved.LoadFieldElements(pictureBack)
+        ''10/1/2019 td''Me.ElementsCache_Saved.LoadFieldElements(Me.BackgroundBox)
         Me.ElementsCache_Saved.LoadFieldElements(Me.BackgroundBox)
 
         ''Added 9/19/2019 td
@@ -114,8 +116,8 @@ Public Class ClassDesigner
         Dim intPicHeight As Integer
 
         ''Added 9/19/2019 td
-        ''10/1/2019 td''intPicLeft = CtlGraphicPortrait_Lady.Left - pictureBack.Left
-        ''10/1/2019 td''intPicTop = CtlGraphicPortrait_Lady.Top - pictureBack.Top
+        ''10/1/2019 td''intPicLeft = CtlGraphicPortrait_Lady.Left - Me.BackgroundBox.Left
+        ''10/1/2019 td''intPicTop = CtlGraphicPortrait_Lady.Top - Me.BackgroundBox.Top
         ''10/1/2019 td''intPicWidth = CtlGraphicPortrait_Lady.Width
         ''10/1/2019 td''intPicHeight = CtlGraphicPortrait_Lady.Height
 
@@ -125,14 +127,14 @@ Public Class ClassDesigner
         intPicWidth = Me.PicInitialize_Width
         intPicHeight = Me.PicInitialize_Height
 
-        ''9/19 td''Me.ElementsCache_Saved.LoadPicElement(CtlGraphicPortrait_Lady.picturePortrait, pictureBack) ''Added 9/19/2019 td
-        ''10/1/2019 td''Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
+        ''9/19 td''Me.ElementsCache_Saved.LoadPicElement(CtlGraphicPortrait_Lady.picturePortrait, Me.BackgroundBox) ''Added 9/19/2019 td
+        ''10/1/2019 td''Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, Me.BackgroundBox) ''Added 9/19/2019 td
         Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, Me.BackgroundBox) ''Added 9/19/2019 td
 
         ''Added 9/24/2019 thomas 
-        Dim serial_tools As New ciBadgeSerialize.ClassSerial
-        serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
-        serial_tools.SerializeToXML(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved, False, True)
+        ''10/1/2019 td''Dim serial_tools As New ciBadgeSerialize.ClassSerial
+        ''10/1/2019 td''serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
+        ''10/1/2019 td''serial_tools.SerializeToXML(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved, False, True)
 
         Me.ElementsCache_Edits = Me.ElementsCache_Saved.Copy()
 
@@ -145,10 +147,10 @@ Public Class ClassDesigner
 
         ''Added 9/24/2019 thomas 
         ''9/29/2019 td''serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
-        serial_tools.PathToXML = (My.Application.Info.DirectoryPath & "\Serialization_" & DateTime.Today.ToString("mmm_dd") & ".xml")
-        serial_tools.SerializeToXML(Me.ElementsCache_Saved.PicElement().GetType,
-                                    Me.ElementsCache_Saved.PicElement,
-                                    False, False)
+        ''10/1/2019 td''serial_tools.PathToXML = (My.Application.Info.DirectoryPath & "\Serialization_" & DateTime.Today.ToString("mmm_dd") & ".xml")
+        ''10/1/2019 td''serial_tools.SerializeToXML(Me.ElementsCache_Saved.PicElement().GetType,
+        ''10/1/2019 td''                            Me.ElementsCache_Saved.PicElement,
+        ''10/1/2019 td''                            False, False)
 
         ''Added 9/28/2019 thomas 
         ''serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
@@ -160,9 +162,12 @@ Public Class ClassDesigner
 
         ''Added 8/11/2019 thomas d.
         ''
-        graphicAdjuster.SendToBack()
-        picturePreview.SendToBack()
-        pictureBack.SendToBack()
+        ''10/1/2019 td''graphicAdjuster.SendToBack()
+
+        ''10/1/2019 td''Me.PreviewBox.SendToBack()
+        ''10/1/2019 td''Me.BackgroundBox.SendToBack()
+        Me.PreviewBox.SendToBack()
+        Me.BackgroundBox.SendToBack()
 
         ResizeLayoutBackgroundImage_ToFitPictureBox() ''Added 8/25/2019 td
         RefreshPreview() ''Added 8/24/2019 td
@@ -172,8 +177,8 @@ Public Class ClassDesigner
         ''Badge Preview is also moveable/sizeable, mostly to impress
         ''    management.  ----9/8/2019 td
         ''
-        ControlMoverOrResizer_TD.Init(picturePreview,
-                          picturePreview, 10, False,
+        ControlMoverOrResizer_TD.Init(Me.PreviewBox,
+                          Me.PreviewBox, 10, False,
                           c_boolBreakpoint) ''Added 9/08/2019 thomas downes
 
         ''If it won't conflict with the Rubber-Band Selector, 
@@ -184,8 +189,8 @@ Public Class ClassDesigner
         Const c_LayoutBackIsMoveable As Boolean = False ''Added 9/8/2019 td 
         If (c_LayoutBackIsMoveable) Then
             ''Badge Layout Background is also moveable/sizeable.
-            ControlMoverOrResizer_TD.Init(pictureBack,
-                          picturePreview, 10, False,
+            ControlMoverOrResizer_TD.Init(Me.BackgroundBox,
+                          Me.PreviewBox, 10, False,
                           c_boolBreakpoint) ''Added 9/08/2019 thomas downes
         End If ''End of "If (c_LayoutBackIsMoveable) Then"
 
@@ -204,21 +209,21 @@ Public Class ClassDesigner
         Dim obj_image_clone_resized As Image ''Added 8/24/2019 td
 
         ''Added 8/24/2019 td
-        obj_image = pictureBack.Image
+        obj_image = Me.BackgroundBox.Image
 
         ''obj_image_clone = CType(obj_image.Clone(), Image)
 
         ''Dim gr_resize As Graphics = New Bitmap(obj_image_clone)
 
         ''8/25/2019 td''obj_image_clone_resized = ciLayoutPrintLib.LayoutPrint.ResizeImage_ToHeight(obj_image,
-        ''                       pictureBack.Height)
+        ''                       Me.BackgroundBox.Height)
 
         ''8/26/2019 td''obj_image_clone_resized = ciLayoutPrintLib.LayoutPrint.ResizeImage_ToWidth(obj_image,
-        ''8/26/2019 td''       pictureBack.Width)
+        ''8/26/2019 td''       Me.BackgroundBox.Width)
 
-        obj_image_clone_resized = LayoutPrint.ResizeBackground_ToFitBox(obj_image, pictureBack, True)
+        obj_image_clone_resized = LayoutPrint.ResizeBackground_ToFitBox(obj_image, Me.BackgroundBox, True)
 
-        pictureBack.Image = obj_image_clone_resized
+        Me.BackgroundBox.Image = obj_image_clone_resized
 
     End Sub ''End of Sub ResizeLayoutBackgroundImage()
 
@@ -259,9 +264,9 @@ Public Class ClassDesigner
         ''Added 7/28/2019 td
         ''    Make sure that the Badge Background is in the background. 
         ''
-        pictureBack.SendToBack()
+        Me.BackgroundBox.SendToBack()
         graphicAdjuster.SendToBack() ''Added 8/12/2019 td
-        picturePreview.SendToBack() ''Added 8/12/2019 td
+        Me.PreviewBox.SendToBack() ''Added 8/12/2019 td
 
     End Sub ''ENd of "Private Sub LoadForm_LayoutElements()"
 
@@ -373,7 +378,7 @@ Public Class ClassDesigner
 
         With mod_rubberbandClass
 
-            .PictureBack = Me.pictureBack
+            .Me.BackgroundBox = Me.Me.BackgroundBox
 
             ''Added 9/20/2019 td  
             .FieldControls_All = par_elementControls_All
@@ -384,9 +389,9 @@ Public Class ClassDesigner
             .FieldControls_GroupEdit = par_elementControls_GroupEdit
 
             ''AddHandler , AddressOf mod_rubberbandClass.MouseMove
-            ''AddHandler .PictureBack.MouseMove, AddressOf mod_rubberbandClass.MouseMove
-            ''AddHandler .PictureBack.MouseMove, AddressOf mod_rubberbandClass.MouseMove
-            ''AddHandler .PictureBack.MouseMove, AddressOf mod_rubberbandClass.MouseMove
+            ''AddHandler .Me.BackgroundBox.MouseMove, AddressOf mod_rubberbandClass.MouseMove
+            ''AddHandler .Me.BackgroundBox.MouseMove, AddressOf mod_rubberbandClass.MouseMove
+            ''AddHandler .Me.BackgroundBox.MouseMove, AddressOf mod_rubberbandClass.MouseMove
 
         End With ''end of "With mod_rubberbandClass"
 
@@ -435,7 +440,7 @@ Public Class ClassDesigner
                 ''   a nice diagonally-cascading effect. ---9/3/2019 td
 
                 ''Added 9/12/2019 td
-                .BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass(pictureBack.Width, pictureBack.Height)
+                .BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass(Me.BackgroundBox.Width, Me.BackgroundBox.Height)
 
             End With
 
@@ -474,7 +479,7 @@ Public Class ClassDesigner
             ''
             If (0 = each_element.TopEdge_Pixels) Then
                 ''Added 9/6/2019 thomas downes 
-                label_control.Width = CInt(pictureBack.Width / 3)
+                label_control.Width = CInt(Me.BackgroundBox.Width / 3)
                 With each_element
                     .Width_Pixels = label_control.Width
                     .Height_Pixels = label_control.Height
@@ -521,7 +526,7 @@ Public Class ClassDesigner
         ''
         ''Added 8/27/2019 thomas downes
         ''
-        pictureBack.SendToBack() ''Added 9/7/2019 thomas d.
+        Me.BackgroundBox.SendToBack() ''Added 9/7/2019 thomas d.
         Me.Refresh() ''Added 8/28/2019 td   
 
         ''9/5/2019 td''MessageBox.Show($"Number of field controls now on the form: {intCountControlsAdded}", "",
@@ -630,7 +635,7 @@ Public Class ClassDesigner
 
         ''For Each field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students
 
-        ''objPrintLib.LoadImageWithFieldValues(picturePreview.Image,
+        ''objPrintLib.LoadImageWithFieldValues(Me.PreviewBox.Image,
         ''      ClassFieldStandard.ListOfFields_Students,
         ''      ClassFieldCustomized.ListOfFields_Students)
 
@@ -642,29 +647,29 @@ Public Class ClassDesigner
 
         listOfElementTextFields = Me.ElementsCache_Edits.ListFieldElements()
 
-        ''8/24 td''picturePreview.SizeMode = PictureBoxSizeMode.Zoom
-        ''8/24 td''picturePreview.Image = pictureBack.Image
-        ''8/24 td''picturePreview.Image = CType(pictureBack.Image.Clone(), Image)
+        ''8/24 td''Me.PreviewBox.SizeMode = PictureBoxSizeMode.Zoom
+        ''8/24 td''Me.PreviewBox.Image = Me.BackgroundBox.Image
+        ''8/24 td''Me.PreviewBox.Image = CType(Me.BackgroundBox.Image.Clone(), Image)
 
         Dim obj_image As Image ''Added 8/24 td
         Dim obj_image_clone As Image ''Added 8/24 td
         Dim obj_image_clone_resized As Image ''Added 8/24/2019 td
 
         ''Added 9/6/2019 td 
-        ClassLabelToImage.ProportionsAreSlightlyOff(pictureBack.Image, True, "Background Image")
+        ClassLabelToImage.ProportionsAreSlightlyOff(Me.BackgroundBox.Image, True, "Background Image")
 
         ''Added 8/24/2019 td
-        obj_image = pictureBack.Image
+        obj_image = Me.BackgroundBox.Image
         obj_image_clone = CType(obj_image.Clone(), Image)
 
         ''Dim gr_resize As Graphics = New Bitmap(obj_image_clone)
 
         ''8/26/2019 td''obj_image_clone_resized = ciLayoutPrintLib.LayoutPrint.ResizeImage_ToHeight(obj_image_clone, True,
-        ''8/26/2019 td''      picturePreview.Height)
+        ''8/26/2019 td''      Me.PreviewBox.Height)
 
         ''Added 8/26/2019 thomas downes
         obj_image_clone_resized =
-            LayoutPrint.ResizeBackground_ToFitBox(obj_image, picturePreview, True)
+            LayoutPrint.ResizeBackground_ToFitBox(obj_image, Me.PreviewBox, True)
 
         ''Added 9/6/2019 td 
         ClassLabelToImage.ProportionsAreSlightlyOff(obj_image_clone_resized, True, "Clone Resized #1")
@@ -712,11 +717,11 @@ Public Class ClassDesigner
         End If ''End of "If (c_bHelpProgrammer And c_bTestingReview) Then"
 
         ''Added 9/6/2019 td 
-        ClassLabelToImage.ProportionsAreSlightlyOff(pictureBack.Image, True, "Clone Resized #1")
+        ClassLabelToImage.ProportionsAreSlightlyOff(Me.BackgroundBox.Image, True, "Clone Resized #1")
 
-        ''8/26 td''picturePreview.Image = obj_image_clone_resized
-        picturePreview.Image = obj_image_clone_resized
-        picturePreview.Refresh()
+        ''8/26 td''Me.PreviewBox.Image = obj_image_clone_resized
+        Me.PreviewBox.Image = obj_image_clone_resized
+        Me.PreviewBox.Refresh()
 
     End Sub ''end of "Private Sub RefreshPreview()"
 
@@ -1130,32 +1135,32 @@ Public Class ClassDesigner
 
     Public Function Layout_Width_Pixels() As Integer Implements ILayoutFunctions.Layout_Width_Pixels
         ''Added 9/3/2019 thomas downes
-        Return pictureBack.Width
+        Return Me.BackgroundBox.Width
     End Function ''End of "Public Function Layout_Width_Pixels() As Integer"
 
     Public Function Layout_Height_Pixels() As Integer Implements ILayoutFunctions.Layout_Height_Pixels
         ''Added 9/11/2019 Never Forget 
-        Return pictureBack.Height
+        Return Me.BackgroundBox.Height
     End Function ''End of "Public Function Layout_Height_Pixels() As Integer"
 
     Public Function Layout_Margin_Left_Omit(par_intPixelsLeft As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Left_Omit
         ''Added 9/5/2019 thomas downes
-        Return (par_intPixelsLeft - pictureBack.Left)
+        Return (par_intPixelsLeft - Me.BackgroundBox.Left)
     End Function ''End of "Public Function Layout_Margin_Left_Omit() As Integer"
 
     Public Function Layout_Margin_Left_Add(par_intPixelsLeft As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Left_Add
         ''Added 9/5/2019 thomas downes
-        Return (par_intPixelsLeft + pictureBack.Left)
+        Return (par_intPixelsLeft + Me.BackgroundBox.Left)
     End Function ''End of "Public Function Layout_Margin_Left_Add() As Integer"
 
     Public Function Layout_Margin_Top_Omit(par_intPixelsTop As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Top_Omit
         ''Added 9/5/2019 thomas downes
-        Return (par_intPixelsTop - pictureBack.Top)
+        Return (par_intPixelsTop - Me.BackgroundBox.Top)
     End Function ''End of "Public Function Layout_Margin_Top_Omit() As Integer"
 
     Public Function Layout_Margin_Top_Add(par_intPixelsTop As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Top_Add
         ''Added 9/5/2019 thomas downes
-        Return (par_intPixelsTop + pictureBack.Top)
+        Return (par_intPixelsTop + Me.BackgroundBox.Top)
     End Function ''End of "Public Function Layout_Margin_Top_Add() As Integer"
 
     Public Function OkayToShowFauxContextMenu() As Boolean Implements ILayoutFunctions.OkayToShowFauxContextMenu

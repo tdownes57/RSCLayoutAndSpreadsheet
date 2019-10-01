@@ -2,8 +2,9 @@
 ''Added 8/01/2019 thomas d 
 ''
 Imports ciBadgeInterfaces ''Added 9/18/2019 td
-Imports ciBadgeFields ''Added 9/18/2019 td
+''10/1/2019 td''Imports ciBadgeFields ''Added 9/18/2019 td
 Imports ciBadgeElements ''Added 9/18/2019 td  
+Imports System.Windows.Forms ''Added 10/1/2019 thomas d.  
 
 Public Class CtlGraphicText
     ''
@@ -53,25 +54,25 @@ Public Class CtlGraphicText
 
     End Sub
 
-    Public Sub New_Deprecated(par_field As ClassFieldStandard)
+    ''Public Sub New_Deprecated(par_field As ClassFieldStandard)
+    ''
+    ''    ' This call is required by the designer.
+    ''    InitializeComponent()
+    ''
+    ''    ' Add any initialization after the InitializeComponent() call.
+    ''    ''_Deprecated 9/18/2019 td''''Me.ElementInfo_Text = par_field.ElementFieldClass
+    ''
+    ''End Sub
 
-        ' This call is required by the designer.
-        InitializeComponent()
-
-        ' Add any initialization after the InitializeComponent() call.
-        ''_Deprecated 9/18/2019 td''''Me.ElementInfo_Text = par_field.ElementFieldClass
-
-    End Sub
-
-    Public Sub New_Deprecated(par_field As ClassFieldCustomized)
-
-        ' This call is required by the designer.
-        InitializeComponent()
-
-        ' Add any initialization after the InitializeComponent() call.
-        ''_Deprecated 9/18/2019 td''Me.ElementInfo_Text = par_field.ElementFieldClass
-
-    End Sub
+    ''Public Sub New_Deprecated(par_field As ClassFieldCustomized)
+    ''
+    ''    ' This call is required by the designer.
+    ''    InitializeComponent()
+    ''
+    ''    ' Add any initialization after the InitializeComponent() call.
+    ''    ''_Deprecated 9/18/2019 td''Me.ElementInfo_Text = par_field.ElementFieldClass
+    ''
+    ''End Sub
 
     Public Sub RefreshImage()
         ''

@@ -13,22 +13,24 @@ Friend Class ClassMenuMethods
     ''9/23/2019 td''
     Public WithEvents MyLinkLabel As New LinkLabel
 
-    Public ParentForm As FormRotateText
+    ''10/1/2019 td''Public ParentForm As FormRotateText
+    Public BackgroundImage As Image ''Added 10/1/2019 td
+    Public ParentForm As Form ''Added 10/1/2019 td
 
     Public Sub Add_Text_Image(sender As Object, e As LinkLabelLinkClickedEventArgs)
 
         ''System.Diagnostics.Debugger.Break()
 
-        ParentForm.BackgroundImage = New Bitmap(250, 30) '', Color.White)
+        BackgroundImage = New Bitmap(250, 30) '', Color.White)
 
-        ''ParentForm.BackgroundImageLayout = ImageLayout.Tile
-        ParentForm.BackgroundImageLayout = ImageLayout.None
+        ParentForm.BackgroundImageLayout = ImageLayout.Tile
 
         Dim gm_back As Graphics ''----New Bitmap(ParentForm.BackgroundImage)
 
-        gm_back = Graphics.FromImage(ParentForm.BackgroundImage)
+        gm_back = Graphics.FromImage(BackgroundImage)
         ''---ParentForm.BackgroundImage
         gm_back.Clear(Color.White)
+
         ParentForm.Invalidate()
 
     End Sub ''End of "Public Sub Add_Text_Image(sender As Object, e As LinkLabelLinkClickedEventArgs)"
