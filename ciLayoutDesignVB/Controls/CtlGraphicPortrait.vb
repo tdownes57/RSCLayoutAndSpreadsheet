@@ -240,9 +240,11 @@ Public Class CtlGraphicPortrait
             imgPortrait_withRotationIfAny =
             ciBadgeElemImage.modGenerate.PicImage_ByElement(ElementClass_Obj,
                                                             Me.Pic_CloneOfInitialImage)
+
             ''Added 9/24/2019 td
             picturePortrait.Image = imgPortrait_withRotationIfAny
 
+            ''Added 9/24/2019 td
             SwitchControl_WidthAndHeight_Master
 
             picturePortrait.SizeMode = PictureBoxSizeMode.Zoom
@@ -257,38 +259,40 @@ Public Class CtlGraphicPortrait
 
     Private Sub SwitchControl_WidthAndHeight_Master()
         ''
-        ''Added 9/24/2019 thomas d.  
+        ''Added 9/24/2019 td  
         ''
-        Static s_Landscape_Prior As Boolean ''Added 9/24/2019 td  
         Dim boolRotatedToLandscape As Boolean
+        Static s_Landscape_Prior As Boolean ''Added 9/24/2019 td  
+
         boolRotatedToLandscape = (90 = (ElementClass_Obj.OrientationInDegrees Mod 180))
         If (boolRotatedToLandscape) Then
             If (s_Landscape_Prior) Then
                 ''Fine, no change.
             Else
-                SwitchControl_WidthAndHeight_Sub()
+                SwitchControl_WidthAndHeight_Sub
                 s_Landscape_Prior = True ''Retain for the next call to this procedure. 
             End If
         Else
             If (Not s_Landscape_Prior) Then
                 ''Fine, no change. 
             Else
-                SwitchControl_WidthAndHeight_Sub()
+                SwitchControl_WidthAndHeight_Sub
                 s_Landscape_Prior = False ''Retain for the next call to this procedure. 
             End If
         End If ''eNd of "If (boolRotatedToLandscape) Then"
 
-    End Sub ''End of "Private Sub SwitchControl_WidthAndHeight_Master()"
+    End Sub ''ENd of "Private Sub SwitchControl_WidthAndHeight_Master()"
 
     Private Sub SwitchControl_WidthAndHeight_Sub()
         ''
-        ''Added 9/24/2019 thomas d.  
+        ''Added 9/24/2019 td  
         ''
+        Dim intWidth As Integer
+        intWidth = Me.Width
+        Me.Width = Me.Height
+        Me.Height = intWidth
 
-
-
-
-    End Sub ''End of "Private Sub SwitchControl_WidthAndHeight_Sub()"
+    End Sub ''ENd of "Private Sub SwitchControl_WidthAndHeight_Sub()"
 
     Private Sub RefreshImage_NoMajorCalls()
         ''
@@ -386,6 +390,9 @@ Public Class CtlGraphicPortrait
         ''
         ''Added 7/31/2019 thomas d 
         ''
+        Dim bRotated90degrees As Boolean ''Added 9/24/2019 thomas d. 
+        Dim boolSuccess As Boolean ''Added 9/24/2019 td  
+
         If (Me.ElementInfo_Base IsNot Nothing) Then
 
             ''9/10/2019 td''Me.ElementInfo_Base.TopEdge_Pixels = Me.Top
@@ -398,19 +405,51 @@ Public Class CtlGraphicPortrait
             Me.ElementInfo_Base.TopEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Top_Omit(Me.Top)
             Me.ElementInfo_Base.LeftEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Left_Omit(Me.Left)
 
-            Try
-                ''First try-- Set Width first, and then height.  ---9/23/2019 
-                Me.ElementInfo_Base.Width_Pixels = Me.Width
-                Me.ElementInfo_Base.Height_Pixels = Me.Height
-            Catch
-                ''An error, related to the constraint of the height always being greater than the width
-                ''  since it's a portrait object, not a landscape object.  ---9/23/2019 td
+            ''Added 9/24/2019 td
+            ''  Let's avoid violating the Pic's (Height >= Width) constraint, when 
+            ''  the Pic has been rotated 90 degrees. 
+            Static s_bRotated90degrees As Boolean
+            bRotated90degrees = (90 = (Me.ElementInfo_Base.OrientationInDegrees Mod 180))
+            If (bRotated90degrees And (Not s_bRotated90degrees)) Then
+                ''We don't need to "SaveToModel" just because the Portrait has just been rotated. ---9/24/2019 td 
+                s_bRotated90degrees = True ''
+                Exit Sub
+            Else
+                s_bRotated90degrees = bRotated90degrees ''Save for next call to this procedure.  ---9/24 td. 
+            End If ''End of ""If (bRotated90degrees And (Not s_bRotated90degrees)) Then .... Else ..."
+
+            If (bRotated90degrees) Then
                 ''
-            Finally
-                ''Second try--Set height first, and then width. ----9/23/2019 td 
-                Me.ElementInfo_Base.Height_Pixels = Me.Height
-                Me.ElementInfo_Base.Width_Pixels = Me.Width
-            End Try
+                ''Rotation will cause problems if we are not carefull!! 
+                ''
+                Dim bHeightIsCloseToBaseWidth As Boolean
+                bHeightIsCloseToBaseWidth = (Math.Abs(Me.Height - Me.ElementInfo_Base.Width_Pixels) <
+                                             Math.Abs(Me.Height - Me.ElementInfo_Base.Height_Pixels))
+                If (bHeightIsCloseToBaseWidth And (Me.Width > Me.Height)) Then
+                    ''---DIFFICULT & CONFUSING               ----
+                    ''---    Rotation Switcheroo   ---9/24 td----
+                    Me.ElementInfo_Base.Height_Pixels = Me.Width ''Me.Width vs. Me.Height switcheroo.... confusing but correct!!!!!!!
+                    Me.ElementInfo_Base.Width_Pixels = Me.Height ''Me.Width vs. Me.Height switcheroo.... confusing but correct!!!!!!!
+                End If ''End of "If (bHeightIsCloseToBaseWidth) Then"
+
+            Else
+                    Try
+                    ''First try-- Set Width first, and then height.  ---9/23/2019 
+                    Me.ElementInfo_Base.Width_Pixels = Me.Width
+                    Me.ElementInfo_Base.Height_Pixels = Me.Height
+                    boolSuccess = True ''Added 9/24/2019 td
+                Catch
+                    ''An error, related to the constraint of the height always being greater than the width
+                    ''  since it's a portrait object, not a landscape object.  ---9/23/2019 td
+                    ''
+                Finally
+                    ''Second try--Set height first, and then width. ----9/23/2019 td 
+                    If (Not boolSuccess) Then
+                        Me.ElementInfo_Base.Height_Pixels = Me.Height
+                        Me.ElementInfo_Base.Width_Pixels = Me.Width
+                    End If ''End of "If (Not boolSuccess) Then"
+                End Try
+            End If ''ENd of "If (bRotated90degrees) Then ..... Else ...."
 
             ''Added 9/4/2019 td
             ''9/12 td''Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.Layout_Width_Pixels()
@@ -419,9 +458,9 @@ Public Class CtlGraphicPortrait
             ''9/20/2019 td''Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.FormDesigner.Layout_Height_Pixels()
 
             Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.LayoutFunctions.Layout_Width_Pixels()
-            Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
+                Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
 
-        End If ''End of "If (Me.ElementInfo_Base IsNot Nothing) Then"
+            End If ''End of "If (Me.ElementInfo_Base IsNot Nothing) Then"
 
     End Sub ''End of Public Sub SaveToModel
 

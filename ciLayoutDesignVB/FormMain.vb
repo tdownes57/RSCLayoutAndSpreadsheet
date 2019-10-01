@@ -6,10 +6,24 @@ Option Strict On
 ''
 Imports ciBadgeInterfaces ''Added 9/2/2019 td
 Imports ciBadgeFields ''Added 9/19/2019 td
+Imports ciBadgeElements ''Added 9/30/2019 td  
 
 Public Class FormMain
 
     Private Shared mod_currentConfigID As Integer ''Added 7/23/2019 thomas downes  
+
+    Public Shared Sub OpenElementsCache(par_cache As ClassElementsCache)
+        ''
+        ''Added 9/30/2019 thomas downes
+        ''
+        Dim objFormToShow As New FormDesignProtoTwo
+
+
+
+
+
+
+    End Sub ''End of "Public Shared Function OpenElementsCache(par_cache As classel)"
 
     Public Shared Function GetCurrentPersonality_Fields_Custom() As List(Of ClassFieldCustomized)
         ''

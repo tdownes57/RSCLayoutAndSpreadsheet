@@ -3,7 +3,7 @@ Option Explicit On
 Option Strict On
 
 ''
-''Added 7/18/2019 thomas downes 
+''Added 9/30/2019 thomas downes 
 ''
 Imports System.Drawing ''Added 9/18/2019 td
 Imports System.Windows.Forms ''Added 9/18/2019 td
@@ -12,18 +12,16 @@ Imports System.Xml.Serialization ''Added 9/24/2019 td
 ''imports system.serial
 
 <Serializable>
-Public Class ClassElementPic
+Public Class ClassElementQRCode
     ''
-    ''Added 7/18/2019 thomas downes 
+    ''Added 9/30/2019 thomas downes 
     ''
-    Implements IElement_Base, IElementPic
+    Implements IElement_Base, IElementQRCode
     ''
-    ''Added 7/18/2019 thomas downes
+    ''Added 9/30/2019 thomas downes
     ''
     ''
-    Public Shared ElementPicture As ClassElementPic ''Added 7/31/2019 thomas d.
-
-    Public Property Id_GUID As System.Guid ''Added 9/30/2019 td 
+    Public Shared ElementQRCode As ClassElementQRCode ''Added 9/30/2019 thomas d.
 
     <Xml.Serialization.XmlIgnore>
     Public Property Info As IElementPic
@@ -131,32 +129,16 @@ Public Class ClassElementPic
     ''
     Public Property SelectedHighlighting As Boolean Implements IElement_Base.SelectedHighlighting
 
-    ''
-    ''Added 7/31/2019 thomas downes
-    ''
-    Public Property PicFileType As String Implements IElementPic.PicFileType
-    Public Property PicFileTitleExt As String Implements IElementPic.PicFileTitleExt
-
-    Public Property PicFileIndex As Integer Implements IElementPic.PicFileIndex ''Added 8/16/2019 thomasd downes
-
-
-    ''9/2 td''Public Property OrientationToLayout As String Implements IElementPic.OrientationToLayout
-    ''9/2 td''Public Property OrientationDegrees As Integer Implements IElementPic.OrientationDegrees
 
     Public Property OrientationToLayout As String Implements IElement_Base.OrientationToLayout
     Public Property OrientationInDegrees As Integer Implements IElement_Base.OrientationInDegrees
-
-    ''Public Property PicFileIndex As Integer Implements IElementPic.PicFileIndex ''Added 8/13/2019 td  
-    ''Public Property OrientationDegrees As Integer Implements IElementPic.OrientationDegrees ''Added 8/13/2019 td  
 
     <Xml.Serialization.XmlIgnore>
     Public Property Image_BL As Image Implements IElement_Base.Image_BL ''Added 9/2/2019 td
 
     Public Property Visible As Boolean Implements IElement_Base.Visible ''Added 9/19/2019 td  
 
-    <Xml.Serialization.XmlIgnore>
-    Public Property Recipient As IRecipient Implements IElementPic.Recipient ''Added 9/10/2019 td
-
+    Public Property QRFormula As String Implements IElementQRCode.QRFormula ''Added 9/30/2019 td  
 
     Public Sub New(par_control As Control)
 
@@ -166,17 +148,9 @@ Public Class ClassElementPic
 
     End Sub
 
-    ''Public Sub New(par_infoForPic As IElementPic)
-    ''    ''
-    ''    ''Added 7/31/2019 td
-    ''    ''
-    ''    Me.Info = par_infoForPic
-
-    ''End Sub
-
     Public Sub New()
         ''
-        ''Added 7/31/2019 td
+        ''Added 9/30/2019 td
         ''
 
 
@@ -198,20 +172,20 @@ Public Class ClassElementPic
 
     End Sub ''ENd of ""Public Sub New(par_rectangle As Rectangle, par_layout As PictureBox)""
 
-    Public Function Copy() As ClassElementPic
+    Public Function Copy() As ClassElementQRCode
         ''
-        ''Added 9/17/2019 
+        ''Added 9/30/2019 
         ''
-        Dim objCopy As New ClassElementPic
+        Dim objCopy As New ClassElementQRCode
         objCopy.LoadbyCopyingMembers(Me, Me)
         Return objCopy
 
     End Function ''End of "Public Function Copy() As ClassElementPic"
 
     Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base,
-                                  par_ElementInfo_Pic As IElementPic)
+                                  par_ElementInfo_QR As IElementQRCode)
         ''
-        ''Added 9/17/2019 thomas downes
+        ''Added 9/30/2019 thomas downes
         ''
         ''
         ''First, Element-related information.
@@ -235,14 +209,9 @@ Public Class ClassElementPic
         Me.Width_Pixels = par_ElementInfo_Base.Width_Pixels
 
         ''
-        ''Next, Picture-related information.
-        ''
-        ''   Public Property PicFileType As String Implements IElementPic.PicFileType
-        ''   Public Property PicFileTitleExt As String Implements IElementPic.PicFileTitleExt
-        ''
-        Me.PicFileIndex = par_ElementInfo_Pic.PicFileIndex
-        Me.PicFileTitleExt = par_ElementInfo_Pic.PicFileTitleExt
-        Me.PicFileType = par_ElementInfo_Pic.PicFileType
+        ''Next, QR Code-related information.
+        '' 
+        Me.QRFormula = par_ElementInfo_QR.QRFormula
 
     End Sub ''End of "Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base, .....)"
 
@@ -262,5 +231,3 @@ Public Class ClassElementPic
     End Sub ''ENd of "Public Shared Sub CheckWidthVsLength_OfPic()"
 
 End Class
-
-

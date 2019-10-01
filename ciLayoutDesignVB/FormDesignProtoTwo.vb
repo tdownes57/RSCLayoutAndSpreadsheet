@@ -171,6 +171,11 @@ Public Class FormDesignProtoTwo
         ''9/19 td''Me.ElementsCache_Saved.LoadPicElement(CtlGraphicPortrait_Lady.picturePortrait, pictureBack) ''Added 9/19/2019 td
         Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
 
+        ''Added 9/24/2019 thomas 
+        Dim serial_tools As New ciBadgeSerialize.ClassSerial
+        serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
+        serial_tools.SerializeToXML(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved, False, True)
+
         Me.ElementsCache_Edits = Me.ElementsCache_Saved.Copy()
 
         ''
@@ -179,6 +184,21 @@ Public Class FormDesignProtoTwo
         ''9/17/2019 td''LoadForm_LayoutElements()
         ''9/20/2019 td''LoadForm_LayoutElements(Me.ElementsCache_Edits)
         LoadForm_LayoutElements(Me.ElementsCache_Edits, mod_listOfFieldControls)
+
+        ''Added 9/24/2019 thomas 
+        ''9/29/2019 td''serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
+        serial_tools.PathToXML = (My.Application.Info.DirectoryPath & "\Serialization_" & DateTime.Today.ToString("mmm_dd") & ".xml")
+        serial_tools.SerializeToXML(Me.ElementsCache_Saved.PicElement().GetType,
+                                    Me.ElementsCache_Saved.PicElement,
+                                    False, False)
+
+        ''Added 9/28/2019 thomas 
+        ''serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
+        ''serial_tools.SerializeToXML(Me.ElementsCache_Saved.ListFields(0).GetType,
+        ''                            Me.ElementsCache_Saved.ListFields(0), False, True)
+        ''serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
+        ''serial_tools.SerializeToXML(Me.ElementsCache_Saved.ListFieldElements(0).GetType,
+        ''                            Me.ElementsCache_Saved.ListFieldElements(0), False, True)
 
         ''Added 8/11/2019 thomas d.
         ''
@@ -683,27 +703,27 @@ Public Class FormDesignProtoTwo
     ''        ElseIf (par_bUnloading) Then
     ''            ''9/3/2019 td''Me.Controls.Remove(label_control)
     ''            Throw New NotImplementedException
-
+    ''
     ''        End If ''End of "If (boolInludeOnBadge) Then .... ElseIf (....) ...."
-
+    ''
     ''    Next each_field
-
+    ''
     ''    ''
     ''    ''Added 8/27/2019 thomas downes
     ''    ''
     ''    pictureBack.SendToBack() ''Added 9/7/2019 thomas d.
     ''    Me.Refresh() ''Added 8/28/2019 td   
-
+    ''
     ''    ''9/5/2019 td''MessageBox.Show($"Number of field controls now on the form: {intCountControlsAdded}", "",
     ''    ''     MessageBoxButtons.OK, MessageBoxIcon.Information)
-
+    ''
     ''End Sub ''End of ''Private Sub LoadElements_Fields_OneList()''
 
-    Private Sub LoadFieldControls_ByListOfElements(par_list As List(Of ClassElementField),
-                            par_boolLoadingForm As Boolean,
-                            Optional par_bUnloading As Boolean = False,
-                            Optional par_bAddMoveability As Boolean = False,
-                            Optional ByRef par_listFieldCtls As List(Of CtlGraphicFldLabel) = Nothing)
+    Private Sub LoadFieldControls_ByListOfElements(par_listElements As List(Of ClassElementField),
+                               par_boolLoadingForm As Boolean,
+                               Optional par_bUnloading As Boolean = False,
+                               Optional par_bAddMoveability As Boolean = False,
+                                Optional ByRef par_listFieldCtls As List(Of CtlGraphicFldLabel) = Nothing)
         ''
         ''Added 9/17/2019 thomas downes 
         ''
@@ -712,7 +732,7 @@ Public Class FormDesignProtoTwo
         Dim intStagger As Integer = 0 ''Added 9.6.2019 td 
 
         ''9/17/2019 td''For Each each_field As ICIBFieldStandardOrCustom In par_list  
-        For Each each_element As ClassElementField In par_list
+        For Each each_element As ClassElementField In par_listElements
 
             Dim label_control As CtlGraphicFldLabel
 
@@ -845,7 +865,8 @@ Public Class FormDesignProtoTwo
 
         new_list.Add(par_elementField)
 
-        LoadFieldControls_ByListOfElements(new_list, True, False, c_bAddToMoveableClass)
+        ''9/24/2019 td''LoadFieldControls_ByListOfElements(new_list, True, False, c_bAddToMoveableClass)
+        LoadFieldControls_ByListOfElements(new_list, True, False, c_bAddToMoveableClass, mod_listOfFieldControls)
 
     End Sub ''End of "Private Sub LoadFieldControl_JustOne(par_elementField As ClassElementField)"
 
@@ -1315,6 +1336,9 @@ Public Class FormDesignProtoTwo
         Dim each_graphicalLabel As CtlGraphicFldLabel
         Dim each_portraitLabel As CtlGraphicPortrait ''Added 7/31/2019 td
 
+        ''
+        ''Step #1 of 2. 
+        ''
         For Each each_control As Control In Me.Controls
 
             If (TypeOf each_control Is CtlGraphicFldLabel) Then
@@ -1333,6 +1357,18 @@ Public Class FormDesignProtoTwo
             End If ''end of "If (TypeOf each_control Is GraphicFieldLabel) Then .... ElseIf ..."
 
         Next each_control
+
+        ''
+        ''
+        ''Step #2 of 3.
+        ''
+        Me.ElementsCache_Saved = Me.ElementsCache_Edits.Copy()
+
+        ''
+        ''
+        ''
+
+
 
     End Sub ''End of "PRivate Sub SaveLayout()"  
 
@@ -2017,16 +2053,23 @@ Public Class FormDesignProtoTwo
         ''
         ''Added 9/9/2019 thomas downes 
         ''
-        Dim objSerializationClass As New ciBadgeSerialize.Tools
+        Dim objSerializationClass As New ciBadgeSerialize.ClassSerial
 
         With objSerializationClass
 
             ''.TypeOfObject = (TypeOf List(Of ICIBFieldStandardOrCustom))
 
+            SaveFileDialog1.ShowDialog()
+            .PathToXML = SaveFileDialog1.FileName
 
+            ''Added 9/24/2019 thomas 
+            .SerializeToXML(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved, False, True)
 
+            Const c_SerializeToBinary As Boolean = False ''Added 9/30/2019 td
+            If (c_SerializeToBinary) Then _
+            .SerializeToBinary(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved)
 
-        End With
+        End With ''End of "With objSerializationClass"
 
     End Sub
 
@@ -2070,4 +2113,40 @@ Public Class FormDesignProtoTwo
         ''We have .AutoChecked = False, so please see the Click event.  ----9/13/2019 
         ''
     End Sub
+
+    Private Sub RightClickMenuParent_Click(sender As Object, e As EventArgs) Handles RightClickMenuParent.Click
+
+    End Sub
+
+    Private Sub OpenToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OpenToolStripMenuItem.Click
+
+        Static s_strFolder As String
+        Dim objCache As ClassElementsCache
+
+        If (String.IsNullOrEmpty(s_strFolder)) Then s_strFolder = My.Application.Info.DirectoryPath
+
+        OpenFileDialog1.InitialDirectory = s_strFolder
+        OpenFileDialog1.ShowDialog()
+
+        Dim objDeserial As New ciBadgeSerialize.ClassDeserial
+
+        With objDeserial
+
+            .PathToXML = OpenFileDialog1.FileName
+
+            ''9/30 td''objCache =
+            ''9/30 td''     .DeserializeFromXML(GetType(ClassElementsCache), False)
+
+            objCache =
+            CType(.DeserializeFromXML(GetType(ClassElementsCache), False), ClassElementsCache)
+
+        End With
+
+        ''
+        ''Major call !!  
+        ''
+        FormMain.OpenElementsCache(objCache)
+
+    End Sub
+
 End Class

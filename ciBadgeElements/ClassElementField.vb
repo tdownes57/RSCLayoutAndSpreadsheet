@@ -8,7 +8,9 @@ Imports System.Drawing.Text ''Added
 Imports System.Windows.Forms ''Added 9/18/2019 td 
 Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d. 8/14/2019 td  
 Imports ciBadgeFields ''Added 9/18/2019 td  
+Imports System.Xml.Serialization ''Added 9/24/2019 thomas d. 
 
+<Serializable>
 Public Class ClassElementField
     Implements IElement_Base, IElement_TextField
     ''
@@ -19,6 +21,9 @@ Public Class ClassElementField
     ''
     ''-------------------------------------------------------------
 
+    Public Property Id_GUID As System.Guid ''Added 9/30/2019 td 
+
+    <Xml.Serialization.XmlIgnore>
     Public Property Font_DrawingClass As System.Drawing.Font Implements IElement_TextField.Font_DrawingClass
 
     Public Property ExampleValue_ForElement As String Implements IElement_TextField.ExampleValue_ForElement ''Added 8/14/2019 td 
@@ -53,13 +58,15 @@ Public Class ClassElementField
     ''7/25/2019 td''Prpoerty ExampleText As String ''Added 7/25/2019
     Public Property Text As String Implements IElement_TextField.Text ''E.g. "George Washington" for FullName. 
 
-    ''Added 9/10/2019 td 
+    ''Added 9/10/2019 td     <Xml.Serialization.XmlIgnore>
+    <Xml.Serialization.XmlIgnore>
     Public Property Recipient As IRecipient Implements IElement_TextField.Recipient
 
     ''Added 9/18/2019
     Public Property FieldObject As ClassFieldAny ''Added 9/18/2019 td
 
     ''Added 9/17/2019 td 
+    <Xml.Serialization.XmlIgnore>
     Public Property FieldInfo As ICIBFieldStandardOrCustom Implements IElement_TextField.FieldInfo
 
     Public Property TextAlignment As System.Windows.Forms.HorizontalAlignment Implements IElement_TextField.TextAlignment
@@ -75,6 +82,7 @@ Public Class ClassElementField
 
     Public Property OrientationInDegrees As Integer Implements IElement_Base.OrientationInDegrees ''Default is 0, normal.  90 would be 1/4 turn clockwise.  180 is upside-down.  270 is the printing on the spine of a book sitting on the bookshelf.
 
+    <Xml.Serialization.XmlIgnore>
     Public Property Image_BL As Image Implements IElement_Base.Image_BL ''Added 8/27/2019 td
 
     ''Moved below. 8/27/2019 td''Public Property SelectedHighlighting As Boolean Implements IElement_Base.SelectedHighlighting ''Added 8/2/2019 td  
@@ -84,6 +92,7 @@ Public Class ClassElementField
     ''-------------------------------------------------------------
     ''-------------------------------------------------------------
 
+    <Xml.Serialization.XmlIgnore>
     Public Property FormControl As Control Implements IElement_Base.FormControl ''Added 7/19/2019  
 
     Public Property ElementType As String = "Text" Implements IElement_Base.ElementType ''Text, Pic, or Logo
@@ -189,6 +198,7 @@ Public Class ClassElementField
     Public Property Visible As Boolean = True Implements IElement_Base.Visible ''Added 9/19/2019 td  
 
     ''9/18/2019 td''Private _labelToImage As New ClassLabelToImage ''Added 9/3/2019 td  
+    ''Moved up. 9/30/2019 td''Public Property Id_GUID As System.Guid ''Added 9/30/2019 td 
 
     Public Sub New(par_control As Control)
 

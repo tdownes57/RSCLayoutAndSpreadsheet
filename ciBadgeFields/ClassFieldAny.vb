@@ -7,6 +7,9 @@ Imports ciBadgeInterfaces ''Added 8/24/2019 thomas d.
 ''
 ''Added 9/16/2019 thomas downes  
 ''
+<Xml.Serialization.XmlInclude(GetType(ClassFieldStandard))>
+<Xml.Serialization.XmlInclude(GetType(ClassFieldCustomized))>
+<Serializable>
 Public Class ClassFieldAny
     Implements ICIBFieldStandardOrCustom ''Added 7/21/2019 td
     ''
@@ -54,7 +57,39 @@ Public Class ClassFieldAny
     Public Property DataEntryText As String Implements ICIBFieldStandardOrCustom.DataEntryText ''Added 9/9/2019 td
 
     Public Property IsLinkedToSections As Boolean = False Implements ICIBFieldStandardOrCustom.IsLinkedToSections ''Added 9/17/2019 td 
+
+    <Xml.Serialization.XmlIgnore>
     Public Property SublayoutLookup As Dictionary(Of String, Integer) = Nothing Implements ICIBFieldStandardOrCustom.SublayoutLookup ''Added 9/17/2019 td
+
+    Public Function Copy() As ClassFieldAny
+        ''
+        ''Added 9/30/2019 
+        ''
+        Dim objCopy As New ClassFieldAny
+
+        ''9/30/2019 td''objCopy.LoadbyCopyingMembers(Me, Me)
+        objCopy.LoadbyCopyingMembers(CType(Me, ICIBFieldStandardOrCustom))
+
+        Return objCopy
+
+    End Function ''End of "Public Function Copy() As ClassElementField"
+
+    Public Sub LoadbyCopyingMembers(par_FieldInfo As ICIBFieldStandardOrCustom)
+        ''
+        ''Added 9/30/2019 thomas downes
+        ''
+        ''--------------------------------------------------------------------------
+        ''Step 1 of 1 -- Field-related properties.
+        ''--------------------------------------------------------------------------
+        ''
+        Me.CIBadgeField = par_FieldInfo.CIBadgeField
+        Me.DataEntryText = par_FieldInfo.DataEntryText
+        Me.ExampleValue = par_FieldInfo.ExampleValue
+
+        ''Added 9/30/2019 thomas downes
+        Throw New NotImplementedException("Not all the members are programmed yet (i.e. the commands for copying their values haven't been written yet).")
+
+    End Sub ''End of "Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base, .....)"
 
     ''Fields cannot link to elements.---9/18/2019 td''Private mod_elementFieldClass As ClassElementField ''Added 9/3/2019 td   
 

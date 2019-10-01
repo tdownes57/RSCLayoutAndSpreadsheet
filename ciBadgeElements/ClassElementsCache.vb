@@ -10,18 +10,44 @@ Imports ciBadgeInterfaces ''Added 9/16/2019 td
 Imports ciBadgeFields ''Added 9/18/2019 td
 ''9/19/2019 td''Imports ciLayoutPrintLib ''Added 9/18/2019 td 
 
+<Serializable>
 Public Class ClassElementsCache
     ''
     ''Added 9/16/2019 thomas downes
     ''
+    Public Property Id_GUID As System.Guid ''Added 9/30/2019 td 
+
+    Public Property SaveToXmlPath As String ''Added 9/29/2019 td
+
     Private mod_listFields As New List(Of ClassFieldAny) ''Added 9/18/2019 td  
     Private mod_listElementFields As New List(Of ClassElementField)
     Private mod_listElementPics As New List(Of ClassElementPic)
     Private mod_listElementStatics As New List(Of ClassElementStaticText)
     Private mod_listElementLaysections As New List(Of ClassElementLaysection) ''Added 9/17/2019 thomas downes
 
+    Public Property ListOfFields As List(Of ClassFieldAny)
+        Get ''Added 9/28/2019 td
+            Return mod_listFields
+        End Get
+        Set(value As List(Of ClassFieldAny))
+            ''Added 9/28/2019 td
+            mod_listFields = value
+        End Set
+    End Property
+
+    Public Property ListOfElementFields As List(Of ClassElementField)
+        Get ''Added 9/28/2019 td
+            Return mod_listElementFields
+        End Get
+        Set(value As List(Of ClassElementField))
+            ''Added 9/28/2019 td
+            mod_listElementFields = value
+        End Set
+    End Property
+
     Public Property BadgeLayout As ciBadgeInterfaces.BadgeLayoutClass ''Added 9/17/2019 thomas downes
 
+    <Xml.Serialization.XmlIgnore>
     Public Property Pic_InitialDefault As Image ''Added 9/23/2019 td 
 
     Public Function ListFields() As List(Of ClassFieldAny)
@@ -259,10 +285,28 @@ Public Class ClassElementsCache
         ''Added 9/17/2019 thomas downes  
         ''
         Dim objCopyOfCache As New ClassElementsCache
+        Dim ListFields_NotUsed As New List(Of ClassFieldAny)
+        Dim dictionaryFields As New Dictionary(Of ciBadgeInterfaces.EnumCIBFields, ClassFieldAny)
+        Dim copy_ofField As ClassFieldAny
+
+        ''Added 9/29/2019 thomas downes  
+        For Each each_field As ClassFieldAny In mod_listFields
+            ''9/29/2019 td''objCopyOfCache.ListFields().Add(each_field.Copy())
+            copy_ofField = each_field.Copy()
+            objCopyOfCache.ListFields().Add(copy_ofField)
+            ListFields_NotUsed.Add(copy_ofField)
+            dictionaryFields.Add(copy_ofField.FieldEnumValue, copy_ofField)
+        Next each_field
 
         ''Added 9/17/2019 thomas downes  
         For Each each_elementField As ClassElementField In mod_listElementFields
             objCopyOfCache.ListFieldElements().Add(each_elementField.Copy())
+            ''
+            ''I need to utilize the dictionary object to fix the field reference of the 
+            ''  copied element. -----9/229/2019 td 
+            ''
+            Throw New NotImplementedException("Fix the field reference!")
+
         Next each_elementField
 
         ''Added 9/17/2019 thomas downes  
@@ -278,6 +322,15 @@ Public Class ClassElementsCache
         Return objCopyOfCache
 
     End Function ''End of "Public Function Copy() As ClassElementsCache"
+
+    Public Function GetElementByGUID(par_guid As System.Guid) As ClassElementField
+        ''
+        ''Added 9/30/2019 td  
+        ''
+
+
+
+    End Function ''End of "Public Function GetElementByGUID(par_guid As System.Guid) As ClassElementField"
 
     ''Private Sub LoadElements_Picture()
     ''    ''

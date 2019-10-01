@@ -53,6 +53,7 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -69,6 +70,7 @@
     <Compile Include="ClassElementField.vb" />
     <Compile Include="ClassElementLaysection.vb" />
     <Compile Include="ClassElementPic.vb" />
+    <Compile Include="ClassElementQRCode.vb" />
     <Compile Include="ClassElementsCache.vb" />
     <Compile Include="ClassElementStaticText.vb" />
     <Compile Include="modFonts.vb" />
