@@ -87,6 +87,17 @@ Public Class ClassFieldAny
         Me.ExampleValue = par_FieldInfo.ExampleValue
 
         ''Added 9/30/2019 thomas downes
+        Me.FieldEnumValue = par_FieldInfo.FieldEnumValue
+        Me.FieldIndex = par_FieldInfo.FieldIndex
+        Me.FieldLabelCaption = par_FieldInfo.FieldLabelCaption
+        Me.FieldType_TD = par_FieldInfo.FieldType_TD
+        Me.HasPresetValues = par_FieldInfo.HasPresetValues
+        Me.IsAdditionalField = par_FieldInfo.IsAdditionalField
+        Me.IsBarCode = par_FieldInfo.IsBarcodeField
+        Me.IsCustomizable = par_FieldInfo.IsCustomizable
+
+
+        ''Added 9/30/2019 thomas downes
         Throw New NotImplementedException("Not all the members are programmed yet (i.e. the commands for copying their values haven't been written yet).")
 
     End Sub ''End of "Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base, .....)"
