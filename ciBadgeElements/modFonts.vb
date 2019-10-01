@@ -6,7 +6,7 @@
 Imports System.Drawing ''Added 9/18/2019 td  
 Imports System.Drawing.Text ''Added 
 
-Module modFonts
+Public Module modFonts
     ''
     ''Added 8/16/2019 td  
     ''
