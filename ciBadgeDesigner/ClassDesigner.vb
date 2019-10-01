@@ -21,9 +21,13 @@ Public Class ClassDesigner
     Public Property PreviewLayoutAsImage As Boolean = True ''Added 10.1.2019 thomas d. 
     Public Property PreviewBox As PictureBox
     Public Property ExamplePortraitImage As Image ''Added 10/1/2019 td 
+    Public Property CtlGraphicPortrait_Lady As CtlGraphicPortrait ''Added 10/1/2019 td
 
     Public Property ElementsCache_Saved As New ClassElementsCache ''Added 9/16/2019 thomas downes
     Public Property ElementsCache_Edits As New ClassElementsCache ''Added 9/16/2019 thomas downes
+
+    Public Property ControlMoverOrResizer_TD As New MoveAndResizeControls_Monem.ControlMoverOrResizer_TD ''Added 10/1/2019 td
+    Public Property ControlMove_GroupMove_TD As New MoveAndResizeControls_Monem.ControlMove_GroupMove_TD ''Added 10/1/2019 td
 
     Public Property PicInitialize_Left As Integer
     Public Property PicInitialize_Top As Integer
@@ -177,8 +181,8 @@ Public Class ClassDesigner
         ''Badge Preview is also moveable/sizeable, mostly to impress
         ''    management.  ----9/8/2019 td
         ''
-        ControlMoverOrResizer_TD.Init(Me.PreviewBox,
-                          Me.PreviewBox, 10, False,
+        ControlMoverOrResizer_TD.Init(CType(Me.PreviewBox, Control),
+                          CType(Me.PreviewBox, Control), 10, False,
                           c_boolBreakpoint) ''Added 9/08/2019 thomas downes
 
         ''If it won't conflict with the Rubber-Band Selector, 
@@ -262,10 +266,11 @@ Public Class ClassDesigner
 
         ''
         ''Added 7/28/2019 td
+        ''
         ''    Make sure that the Badge Background is in the background. 
         ''
         Me.BackgroundBox.SendToBack()
-        graphicAdjuster.SendToBack() ''Added 8/12/2019 td
+        ''10/1/2019 td''graphicAdjuster.SendToBack() ''Added 8/12/2019 td
         Me.PreviewBox.SendToBack() ''Added 8/12/2019 td
 
     End Sub ''ENd of "Private Sub LoadForm_LayoutElements()"
@@ -297,7 +302,7 @@ Public Class ClassDesigner
         ''
         Dim each_graphicLabel As CtlGraphicFldLabel ''Added 7/19/2019 thomas downes  
 
-        For Each each_control As Control In Me.Controls ''Added 7/19/2019 thomas downes  
+        For Each each_control As Control In Me.DesignerForm.Controls ''Added 7/19/2019 thomas downes  
 
             If (TypeOf each_control Is CtlGraphicFldLabel) Then
 
@@ -344,7 +349,8 @@ Public Class ClassDesigner
 
         CtlGraphicPortrait_Lady = New CtlGraphicPortrait(par_elementPic, Me)
 
-        Me.Controls.Add(CtlGraphicPortrait_Lady)
+        ''10/1/2019 td''Me.Controls.Add(CtlGraphicPortrait_Lady)
+        Me.DesignerForm.Controls.Add(CtlGraphicPortrait_Lady)
 
         With CtlGraphicPortrait_Lady
 
@@ -378,7 +384,8 @@ Public Class ClassDesigner
 
         With mod_rubberbandClass
 
-            .Me.BackgroundBox = Me.Me.BackgroundBox
+            ''10/1/2019 td''.Me.BackgroundBox = Me.Me.BackgroundBox
+            .PictureBack = Me.BackgroundBox
 
             ''Added 9/20/2019 td  
             .FieldControls_All = par_elementControls_All
@@ -495,7 +502,7 @@ Public Class ClassDesigner
 
             If (boolIncludeOnBadge) Then
 
-                Me.Controls.Add(label_control)
+                Me.DesignerForm.Controls.Add(label_control)
                 par_listFieldCtls.Add(label_control) ''Added 9/20/2019 td
 
                 label_control.Visible = True
@@ -586,7 +593,7 @@ Public Class ClassDesigner
         ''
         ''Step #1 of 2. 
         ''
-        For Each each_control As Control In Me.Controls
+        For Each each_control As Control In Me.DesignerForm.Controls
 
             If (TypeOf each_control Is CtlGraphicFldLabel) Then
 

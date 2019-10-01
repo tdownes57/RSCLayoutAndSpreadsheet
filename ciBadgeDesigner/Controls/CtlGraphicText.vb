@@ -5,6 +5,7 @@ Imports ciBadgeInterfaces ''Added 9/18/2019 td
 ''10/1/2019 td''Imports ciBadgeFields ''Added 9/18/2019 td
 Imports ciBadgeElements ''Added 9/18/2019 td  
 Imports System.Windows.Forms ''Added 10/1/2019 thomas d.  
+Imports System.Drawing ''Added 10/1/2019 td 
 
 Public Class CtlGraphicText
     ''
