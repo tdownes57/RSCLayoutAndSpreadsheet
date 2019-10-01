@@ -71,6 +71,7 @@
     <Compile Include="InterfaceCustomer.vb" />
     <Compile Include="InterfaceElementBase.vb" />
     <Compile Include="InterfaceElementPic.vb" />
+    <Compile Include="InterfaceElementQRCode.vb" />
     <Compile Include="InterfaceElement_TextField.vb" />
     <Compile Include="InterfaceLayoutFunctions.vb" />
     <Compile Include="InterfaceRecipient.vb" />

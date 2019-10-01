@@ -15,6 +15,8 @@ Public Class ClassElementsCache
     ''
     ''Added 9/16/2019 thomas downes
     ''
+    Public Property Id_GUID As System.Guid ''Added 9/30/2019 td 
+
     Public Property SaveToXmlPath As String ''Added 9/29/2019 td
 
     Private mod_listFields As New List(Of ClassFieldAny) ''Added 9/18/2019 td  
@@ -320,6 +322,15 @@ Public Class ClassElementsCache
         Return objCopyOfCache
 
     End Function ''End of "Public Function Copy() As ClassElementsCache"
+
+    Public Function GetElementByGUID(par_guid As System.Guid) As ClassElementField
+        ''
+        ''Added 9/30/2019 td  
+        ''
+
+
+
+    End Function ''End of "Public Function GetElementByGUID(par_guid As System.Guid) As ClassElementField"
 
     ''Private Sub LoadElements_Picture()
     ''    ''

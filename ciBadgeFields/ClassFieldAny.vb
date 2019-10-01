@@ -61,6 +61,33 @@ Public Class ClassFieldAny
     <Xml.Serialization.XmlIgnore>
     Public Property SublayoutLookup As Dictionary(Of String, Integer) = Nothing Implements ICIBFieldStandardOrCustom.SublayoutLookup ''Added 9/17/2019 td
 
+    Public Function Copy() As ClassFieldAny
+        ''
+        ''Added 9/30/2019 
+        ''
+        Dim objCopy As New ClassFieldAny
+        objCopy.LoadbyCopyingMembers(Me, Me)
+        Return objCopy
+
+    End Function ''End of "Public Function Copy() As ClassElementField"
+
+    Public Sub LoadbyCopyingMembers(par_FieldInfo As ICIBFieldStandardOrCustom)
+        ''
+        ''Added 9/30/2019 thomas downes
+        ''
+        ''--------------------------------------------------------------------------
+        ''Step 1 of 1 -- Field-related properties.
+        ''--------------------------------------------------------------------------
+        ''
+        Me.CIBadgeField = par_FieldInfo.CIBadgeField
+        Me.DataEntryText = par_FieldInfo.DataEntryText
+        Me.ExampleValue = par_FieldInfo.ExampleValue
+
+        ''Added 9/30/2019 thomas downes
+        Throw New NotImplementedException("Not all the members are programmed yet (i.e. the commands for copying their values haven't been written yet).")
+
+    End Sub ''End of "Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base, .....)"
+
     ''Fields cannot link to elements.---9/18/2019 td''Private mod_elementFieldClass As ClassElementField ''Added 9/3/2019 td   
 
     ''Fields cannot link to elements.---9/18/2019 td''Public Property ElementFieldClass() As ClassElementField

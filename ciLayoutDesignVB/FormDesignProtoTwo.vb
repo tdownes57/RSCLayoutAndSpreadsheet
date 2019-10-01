@@ -174,7 +174,7 @@ Public Class FormDesignProtoTwo
         ''Added 9/24/2019 thomas 
         Dim serial_tools As New ciBadgeSerialize.ClassSerial
         serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
-        serial_tools.SerializeToXML(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved)
+        serial_tools.SerializeToXML(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved, False, True)
 
         Me.ElementsCache_Edits = Me.ElementsCache_Saved.Copy()
 
@@ -2059,11 +2059,17 @@ Public Class FormDesignProtoTwo
 
             ''.TypeOfObject = (TypeOf List(Of ICIBFieldStandardOrCustom))
 
+            SaveFileDialog1.ShowDialog()
+            .PathToXML = SaveFileDialog1.FileName
+
             ''Added 9/24/2019 thomas 
-            .SerializeToXML(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved)
+            .SerializeToXML(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved, False, True)
+
+            Const c_SerializeToBinary As Boolean = False ''Added 9/30/2019 td
+            If (c_SerializeToBinary) Then _
             .SerializeToBinary(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved)
 
-        End With
+        End With ''End of "With objSerializationClass"
 
     End Sub
 
@@ -2111,4 +2117,36 @@ Public Class FormDesignProtoTwo
     Private Sub RightClickMenuParent_Click(sender As Object, e As EventArgs) Handles RightClickMenuParent.Click
 
     End Sub
+
+    Private Sub OpenToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OpenToolStripMenuItem.Click
+
+        Static s_strFolder As String
+        Dim objCache As ClassElementsCache
+
+        If (String.IsNullOrEmpty(s_strFolder)) Then s_strFolder = My.Application.Info.DirectoryPath
+
+        OpenFileDialog1.InitialDirectory = s_strFolder
+        OpenFileDialog1.ShowDialog()
+
+        Dim objDeserial As New ciBadgeSerialize.ClassDeserial
+
+        With objDeserial
+
+            .PathToXML = OpenFileDialog1.FileName
+
+            ''9/30 td''objCache =
+            ''9/30 td''     .DeserializeFromXML(GetType(ClassElementsCache), False)
+
+            objCache =
+            CType(.DeserializeFromXML(GetType(ClassElementsCache), False), ClassElementsCache)
+
+        End With
+
+        ''
+        ''Major call !!  
+        ''
+        FormMain.OpenElementsCache(objCache)
+
+    End Sub
+
 End Class

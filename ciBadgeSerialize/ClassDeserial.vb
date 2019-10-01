@@ -1,7 +1,7 @@
 ﻿Option Explicit On ''Added 9/29/2019 td 
 Option Strict On ''Added 9/29/2019 td 
 ''
-''Added 9/29/2019 td 
+''Added 9/29   /2019 td 
 ''
 Imports System.IO ''Added 9/12/2019 td 
 Imports System.Runtime.Serialization
@@ -13,8 +13,11 @@ Public Class ClassDeserial
     ''
     Public PathToXML As String = "" ''9/1/2019 td''  "C:\Users\tdown\Documents\CIBadgeWeb\SerializeFile_Xml.txt"
 
-    Public Function DeserializeFromXML(par_TypeOfObject As Type, par_objectToSerialize As Object,
-                              pbVerboseSuccess As Boolean) As Object
+    Public Function DeserializeFromXML(par_TypeOfObject As Type, pbVerboseSuccess As Boolean) As Object
+        ''
+        ''9/30/2019 td''Public Function DeserializeFromXML(par_TypeOfObject As Type, 
+        ''                   par_objectToSerialize As Object,
+        ''                   pbVerboseSuccess As Boolean) As Object
         ''
         ''Modified 9/1/2019 thomas d.  
         ''
@@ -35,9 +38,13 @@ Public Class ClassDeserial
 
         If (pbVerboseSuccess) Then
             ''Added 9/29/2019 Thomas D. 
+            ''9/30/2019 td''MsgBox("Deserialization from binary:  " & vbCrLf & vbCrLf &
+            ''     "Type:  " & par_TypeOfObject.ToString() & vbCrLf &
+            ''     "Object: " & par_objectToSerialize.ToString, vbInformation)
+
             MsgBox("Deserialization from binary:  " & vbCrLf & vbCrLf &
-                 "Type:  " & par_TypeOfObject.ToString() & vbCrLf &
-                 "Object: " & par_objectToSerialize.ToString, vbInformation)
+                 "Type:  " & par_TypeOfObject.ToString(), vbInformation)
+
         End If ''End of "If (pbVerboseSuccess) Then"
 
         Return srObj
