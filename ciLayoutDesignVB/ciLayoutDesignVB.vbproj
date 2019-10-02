@@ -80,6 +80,7 @@
     <Compile Include="ClassGroupMove.vb" />
     <Compile Include="ClassLabelToImage.vb" />
     <Compile Include="ClassRubberbandSelector.vb" />
+    <Compile Include="ContextMenus\ClassEditingMethods.vb" />
     <Compile Include="ContextMenus\ClassMenuMethods.vb" />
     <Compile Include="ContextMenus\ContextLayoutBack.Designer.vb">
       <DependentUpon>ContextLayoutBack.vb</DependentUpon>
