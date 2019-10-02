@@ -10,11 +10,15 @@ Imports ciBadgeElements ''Added 10/1/2019 thomas downes
 Imports System.Drawing ''Added 10/1/2019 thomas downes 
 Imports ciLayoutPrintLib ''Added 10/1/2019 td
 
+''10/1/2019 td''Public Event ElementField_Clicked(par_elementField As ClassElementField)
+
 Public Class ClassDesigner
     Implements ILayoutFunctions, ISelectingElements
     ''
     ''Added 10/1/2019 thomas downes 
     ''
+    Public Event ElementRightClicked(par_control As CtlGraphicFldLabel) ''Added 10/1/2019 td
+
     ''10/1/2019 td''Public Property LayoutFunctions As ILayoutFunctions
     Public Property DesignerForm As Form
     Public Property BackgroundBox As PictureBox
@@ -480,6 +484,10 @@ Public Class ClassDesigner
             label_control.Visible = each_element.FieldInfo.IsDisplayedOnBadge ''BL = Badge Layout
             intCountControlsAdded += 1
             label_control.Name = "FieldControl" & CStr(intCountControlsAdded)
+
+            ''Added 10/1/2019 td
+            ''   Pass on the event of right-clicking a element-field control. 
+            AddHandler label_control.ElementField_RightClicked, AddressOf ElementField_Clicked
 
             ''9/8 td''label_control.BorderStyle = BorderStyle.FixedSingle
 
@@ -1240,10 +1248,12 @@ Public Class ClassDesigner
         ''Not needed. ---9/23 td''Application.DoEvents()
     End Sub
 
+    Private Sub ElementField_Clicked(par_control As CtlGraphicFldLabel)
+        ''
+        ''Added 10/1/2019 thomas d.
+        ''
+        RaiseEvent ElementRightClicked(par_control)
 
-
-
-
-
+    End Sub
 
 End Class ''End of "Public Class ClassDesigner"

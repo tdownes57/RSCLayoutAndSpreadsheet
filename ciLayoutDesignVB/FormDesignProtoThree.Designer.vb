@@ -27,8 +27,13 @@ Partial Class FormDesignProtoThree
         Me.lblFieldsNotCurrentlyShownHdr = New System.Windows.Forms.Label()
         Me.picturePreview = New System.Windows.Forms.PictureBox()
         Me.pictureBack = New System.Windows.Forms.PictureBox()
-        Me.CtlGraphicPortrait_Lady = New ciLayoutDesignVB.CtlGraphicPortrait()
         Me.checkAutoPreview = New System.Windows.Forms.CheckBox()
+        Me.CtlGraphicPortrait_Lady = New ciLayoutDesignVB.CtlGraphicPortrait()
+        Me.FlowMenu = New System.Windows.Forms.FlowLayoutPanel()
+        Me.linkSaveAndRefresh = New System.Windows.Forms.LinkLabel()
+        Me.LinkRefreshPreview = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabelSave2 = New System.Windows.Forms.LinkLabel()
+        Me.LinkRevertToLastSave = New System.Windows.Forms.LinkLabel()
         Me.flowFieldsNotListed.SuspendLayout()
         CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureBack, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -40,7 +45,7 @@ Partial Class FormDesignProtoThree
         Me.flowFieldsNotListed.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.flowFieldsNotListed.Controls.Add(Me.lblFieldsNotCurrentlyShownHdr)
         Me.flowFieldsNotListed.Location = New System.Drawing.Point(989, 421)
-        Me.flowFieldsNotListed.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.flowFieldsNotListed.Margin = New System.Windows.Forms.Padding(4)
         Me.flowFieldsNotListed.Name = "flowFieldsNotListed"
         Me.flowFieldsNotListed.Size = New System.Drawing.Size(449, 102)
         Me.flowFieldsNotListed.TabIndex = 56
@@ -61,9 +66,9 @@ Partial Class FormDesignProtoThree
         Me.picturePreview.BackColor = System.Drawing.Color.White
         Me.picturePreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.picturePreview.Location = New System.Drawing.Point(989, 74)
-        Me.picturePreview.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.picturePreview.Margin = New System.Windows.Forms.Padding(4)
         Me.picturePreview.Name = "picturePreview"
-        Me.picturePreview.Size = New System.Drawing.Size(622, 339)
+        Me.picturePreview.Size = New System.Drawing.Size(556, 339)
         Me.picturePreview.TabIndex = 55
         Me.picturePreview.TabStop = False
         '
@@ -72,20 +77,12 @@ Partial Class FormDesignProtoThree
         Me.pictureBack.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.pictureBack.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.pictureBack.Image = CType(resources.GetObject("pictureBack.Image"), System.Drawing.Image)
-        Me.pictureBack.Location = New System.Drawing.Point(48, 47)
+        Me.pictureBack.Location = New System.Drawing.Point(48, 94)
         Me.pictureBack.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.pictureBack.Name = "pictureBack"
         Me.pictureBack.Size = New System.Drawing.Size(907, 523)
         Me.pictureBack.TabIndex = 53
         Me.pictureBack.TabStop = False
-        '
-        'CtlGraphicPortrait_Lady
-        '
-        Me.CtlGraphicPortrait_Lady.Location = New System.Drawing.Point(733, 55)
-        Me.CtlGraphicPortrait_Lady.Margin = New System.Windows.Forms.Padding(5)
-        Me.CtlGraphicPortrait_Lady.Name = "CtlGraphicPortrait_Lady"
-        Me.CtlGraphicPortrait_Lady.Size = New System.Drawing.Size(200, 224)
-        Me.CtlGraphicPortrait_Lady.TabIndex = 54
         '
         'checkAutoPreview
         '
@@ -101,17 +98,86 @@ Partial Class FormDesignProtoThree
         Me.checkAutoPreview.Text = "Auto-Preview"
         Me.checkAutoPreview.UseVisualStyleBackColor = True
         '
+        'CtlGraphicPortrait_Lady
+        '
+        Me.CtlGraphicPortrait_Lady.Location = New System.Drawing.Point(736, 110)
+        Me.CtlGraphicPortrait_Lady.Margin = New System.Windows.Forms.Padding(5)
+        Me.CtlGraphicPortrait_Lady.Name = "CtlGraphicPortrait_Lady"
+        Me.CtlGraphicPortrait_Lady.Size = New System.Drawing.Size(200, 224)
+        Me.CtlGraphicPortrait_Lady.TabIndex = 54
+        '
+        'FlowMenu
+        '
+        Me.FlowMenu.BackColor = System.Drawing.Color.PowderBlue
+        Me.FlowMenu.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.FlowMenu.Dock = System.Windows.Forms.DockStyle.Right
+        Me.FlowMenu.Location = New System.Drawing.Point(1309, 0)
+        Me.FlowMenu.Margin = New System.Windows.Forms.Padding(4)
+        Me.FlowMenu.Name = "FlowMenu"
+        Me.FlowMenu.Size = New System.Drawing.Size(351, 725)
+        Me.FlowMenu.TabIndex = 58
+        Me.FlowMenu.Visible = False
+        '
+        'linkSaveAndRefresh
+        '
+        Me.linkSaveAndRefresh.AutoSize = True
+        Me.linkSaveAndRefresh.Location = New System.Drawing.Point(127, 40)
+        Me.linkSaveAndRefresh.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.linkSaveAndRefresh.Name = "linkSaveAndRefresh"
+        Me.linkSaveAndRefresh.Size = New System.Drawing.Size(184, 17)
+        Me.linkSaveAndRefresh.TabIndex = 59
+        Me.linkSaveAndRefresh.TabStop = True
+        Me.linkSaveAndRefresh.Text = "Save && Refresh the Window"
+        '
+        'LinkRefreshPreview
+        '
+        Me.LinkRefreshPreview.AutoSize = True
+        Me.LinkRefreshPreview.Location = New System.Drawing.Point(1120, 38)
+        Me.LinkRefreshPreview.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LinkRefreshPreview.Name = "LinkRefreshPreview"
+        Me.LinkRefreshPreview.Size = New System.Drawing.Size(111, 17)
+        Me.LinkRefreshPreview.TabIndex = 60
+        Me.LinkRefreshPreview.TabStop = True
+        Me.LinkRefreshPreview.Text = "Refresh Preview"
+        '
+        'LinkLabelSave2
+        '
+        Me.LinkLabelSave2.AutoSize = True
+        Me.LinkLabelSave2.Location = New System.Drawing.Point(45, 38)
+        Me.LinkLabelSave2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LinkLabelSave2.Name = "LinkLabelSave2"
+        Me.LinkLabelSave2.Size = New System.Drawing.Size(40, 17)
+        Me.LinkLabelSave2.TabIndex = 61
+        Me.LinkLabelSave2.TabStop = True
+        Me.LinkLabelSave2.Text = "Save"
+        '
+        'LinkRevertToLastSave
+        '
+        Me.LinkRevertToLastSave.AutoSize = True
+        Me.LinkRevertToLastSave.Location = New System.Drawing.Point(347, 40)
+        Me.LinkRevertToLastSave.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LinkRevertToLastSave.Name = "LinkRevertToLastSave"
+        Me.LinkRevertToLastSave.Size = New System.Drawing.Size(228, 17)
+        Me.LinkRevertToLastSave.TabIndex = 62
+        Me.LinkRevertToLastSave.TabStop = True
+        Me.LinkRevertToLastSave.Text = "Discard Edits / Revert to Last Save"
+        '
         'FormDesignProtoThree
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1660, 725)
+        Me.Controls.Add(Me.LinkRevertToLastSave)
+        Me.Controls.Add(Me.LinkLabelSave2)
+        Me.Controls.Add(Me.LinkRefreshPreview)
+        Me.Controls.Add(Me.linkSaveAndRefresh)
+        Me.Controls.Add(Me.FlowMenu)
         Me.Controls.Add(Me.checkAutoPreview)
         Me.Controls.Add(Me.flowFieldsNotListed)
         Me.Controls.Add(Me.picturePreview)
         Me.Controls.Add(Me.CtlGraphicPortrait_Lady)
         Me.Controls.Add(Me.pictureBack)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "FormDesignProtoThree"
         Me.Text = "FormDesignProtoThree"
         Me.flowFieldsNotListed.ResumeLayout(False)
@@ -129,4 +195,9 @@ Partial Class FormDesignProtoThree
     Friend WithEvents CtlGraphicPortrait_Lady As CtlGraphicPortrait
     Friend WithEvents pictureBack As PictureBox
     Friend WithEvents checkAutoPreview As CheckBox
+    Friend WithEvents FlowMenu As FlowLayoutPanel
+    Friend WithEvents linkSaveAndRefresh As LinkLabel
+    Friend WithEvents LinkRefreshPreview As LinkLabel
+    Friend WithEvents LinkLabelSave2 As LinkLabel
+    Friend WithEvents LinkRevertToLastSave As LinkLabel
 End Class

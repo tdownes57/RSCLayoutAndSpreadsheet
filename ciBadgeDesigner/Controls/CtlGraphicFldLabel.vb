@@ -22,6 +22,8 @@ Public Class CtlGraphicFldLabel
     ''Added 9/13/2019 td  
     Public Shared UseExampleValues As Boolean
 
+    Public Event ElementField_RightClicked(par_control As CtlGraphicFldLabel) ''Added 10/1/2019 td
+
     ''7/26/2019 td''Public FieldInfo As ClassFieldCustomized
     ''7/26/2019 td''Public ElementInfo As ClassElementText
     Public FieldInfo As ICIBFieldStandardOrCustom
@@ -959,6 +961,18 @@ ExitHandler:
             LinkInvisible.Visible = bElementInvisibleOnBadge ''Hide the link-label, it's not needed anymore. 
 
         End If ''End of "If (bUserDesiresTo_Display) Then"
+
+    End Sub
+
+    Private Sub pictureLabel_Click(sender As Object, e As MouseEventArgs) Handles pictureLabel.MouseClick
+        ''
+        ''Added 10/1/2019 td
+        ''
+        If (e.Button = MouseButtons.Right) Then
+
+            RaiseEvent ElementField_RightClicked(Me)
+
+        End If ''end of "If (e.Button = MouseButtons.Right) Then"
 
     End Sub
 End Class

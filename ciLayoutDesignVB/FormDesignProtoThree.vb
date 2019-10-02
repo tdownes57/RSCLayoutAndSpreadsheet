@@ -16,7 +16,7 @@ Public Class FormDesignProtoThree
     Public Property ElementsCache_Saved As New ClassElementsCache ''Added 9/16/2019 thomas downes
     Public Property ElementsCache_Edits As New ClassElementsCache ''Added 9/16/2019 thomas downes
 
-    Private mod_designer As ClassDesigner
+    Private WithEvents mod_designer As ClassDesigner
 
     Private Sub FormDesignProtoThree_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
@@ -45,6 +45,17 @@ Public Class FormDesignProtoThree
             .LoadDesigner()
 
         End With
+
+    End Sub
+
+    Private Sub mod_designer_ElementRightClicked(par_control As ciBadgeDesigner.CtlGraphicFldLabel) Handles mod_designer.ElementRightClicked
+        ''
+        ''Added 10/1/2019 td
+        ''
+        FlowMenu.Visible = True
+
+        MessageBox.Show(par_control.ElementClass_Obj.FieldInfo.CIBadgeField, "",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information)
 
     End Sub
 End Class

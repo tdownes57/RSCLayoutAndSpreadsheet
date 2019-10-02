@@ -10,6 +10,8 @@ Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d. 8/14/2019 td
 Imports ciBadgeFields ''Added 9/18/2019 td  
 Imports System.Xml.Serialization ''Added 9/24/2019 thomas d. 
 
+Public Event ElementField_RightClicked(par_elementField As ClassElementField) ''Added 10/1/2019 td
+
 <Serializable>
 Public Class ClassElementField
     Implements IElement_Base, IElement_TextField
