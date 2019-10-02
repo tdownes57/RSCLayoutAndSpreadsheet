@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="InterfaceBadgeLayout.vb" />
     <Compile Include="InterfaceCIBField.vb" />
+    <Compile Include="InterfaceCtlElementField.vb" />
     <Compile Include="InterfaceCustomer.vb" />
     <Compile Include="InterfaceElementBase.vb" />
     <Compile Include="InterfaceElementPic.vb" />
