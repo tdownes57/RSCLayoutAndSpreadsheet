@@ -1166,7 +1166,6 @@ Public Class ClassDesigner
 
     End Function
 
-
     Public Function Layout_Width_Pixels() As Integer Implements ILayoutFunctions.Layout_Width_Pixels
         ''Added 9/3/2019 thomas downes
         Return Me.BackgroundBox.Width
