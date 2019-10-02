@@ -8,6 +8,7 @@ Imports System.Windows.Forms ''Added 10/1/2019 thomas downes
 Imports ciBadgeInterfaces ''Added 10/1/2019 thomas downes 
 Imports ciBadgeElements ''Added 10/1/2019 thomas downes 
 Imports System.Drawing ''Added 10/1/2019 thomas downes 
+Imports ciLayoutPrintLib ''Added 10/1/2019 td
 
 Public Class ClassDesigner
     Implements ILayoutFunctions, ISelectingElements
@@ -20,7 +21,11 @@ Public Class ClassDesigner
 
     Public Property PreviewLayoutAsImage As Boolean = True ''Added 10.1.2019 thomas d. 
     Public Property PreviewBox As PictureBox
+
+    Public Property CheckboxAutoPreview As CheckBox ''Added 10/1/2019 td
     Public Property ExamplePortraitImage As Image ''Added 10/1/2019 td 
+
+    Public Property FlowFieldsNotListed As FlowLayoutPanel ''Added 10/1/2019 td
     Public Property CtlGraphicPortrait_Lady As CtlGraphicPortrait ''Added 10/1/2019 td
 
     Public Property ElementsCache_Saved As New ClassElementsCache ''Added 9/16/2019 thomas downes
@@ -229,7 +234,7 @@ Public Class ClassDesigner
 
         Me.BackgroundBox.Image = obj_image_clone_resized
 
-    End Sub ''End of Sub ResizeLayoutBackgroundImage()
+    End Sub ''End of Sub ResizeLayoutBackgroundImage_ToFitPictureBox()
 
     Private Sub LoadForm_LayoutElements(par_cache As ClassElementsCache,
                                         ByRef par_listFieldCtls As List(Of CtlGraphicFldLabel))
@@ -534,7 +539,9 @@ Public Class ClassDesigner
         ''Added 8/27/2019 thomas downes
         ''
         Me.BackgroundBox.SendToBack() ''Added 9/7/2019 thomas d.
-        Me.Refresh() ''Added 8/28/2019 td   
+
+        ''10/1/2019 td''Me.Refresh() ''Added 8/28/2019 td   
+        Me.DesignerForm.Refresh() ''Added 8/28/2019 td   
 
         ''9/5/2019 td''MessageBox.Show($"Number of field controls now on the form: {intCountControlsAdded}", "",
         ''     MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -582,6 +589,26 @@ Public Class ClassDesigner
         AddHandler new_linkLabel.LinkClicked, AddressOf AddField_LinkClicked
 
     End Sub ''End of "Private Sub AddToFlowPanelOfOmittedFlds(par_elementField As ClassElementField)"
+
+    Private Sub AddField_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) ''9/7/2019 td''Handles linkSaveAndRefresh.LinkClicked
+        ''
+        ''Added 9/7/2019 thomas d
+        ''
+        ''9/17/2019 td''Dim field_to_add As ICIBFieldStandardOrCustom
+        ''9/17/2019 td''field_to_add = CType(CType(sender, LinkLabel).Tag, ICIBFieldStandardOrCustom)
+        ''9/17/2019 td''If (field_to_add Is Nothing) Then Exit Sub
+        ''9/17/2019 td''field_to_add.IsDisplayedOnBadge = True
+        ''9/17/2019 td''LoadField_JustOne(field_to_add)
+
+        Dim element_to_add As ClassElementField ''Added 9/17/2019 td
+        element_to_add = CType(CType(sender, LinkLabel).Tag, ClassElementField)
+        If (element_to_add Is Nothing) Then Exit Sub
+        element_to_add.FieldInfo.IsDisplayedOnBadge = True
+        LoadFieldControl_JustOne(element_to_add) ''Modified 9/17/2019 td
+
+        FlowFieldsNotListed.Controls.Remove(CType(sender, LinkLabel))
+
+    End Sub ''End of "Private Sub AddField_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)"
 
     Private Sub SaveLayout()
         ''
@@ -706,22 +733,22 @@ Public Class ClassDesigner
                                           CtlGraphicPortrait_Lady.picturePortrait.Image)
 
         ''Added 9/8/2019 td
-        Const c_bListEachElementImage As Boolean = False ''Added 9/8/2019 td
-        Const c_bTestingReview As Boolean = False ''Added 9/8/2019 td
+        ''Const c_bListEachElementImage As Boolean = False ''Added 9/8/2019 td
+        ''Const c_bTestingReview As Boolean = False ''Added 9/8/2019 td
 
-        If (c_bListEachElementImage And c_bTestingReview) Then ''Added 9/8/2019 td
-            ''Added 8/26/2019 thomas downes  
-            Dim frm_ToShow1 As New FormDisplayImageList1(listOfTextImages)
-            frm_ToShow1.Show()
+        ''If (c_bListEachElementImage And c_bTestingReview) Then ''Added 9/8/2019 td
+        ''    ''Added 8/26/2019 thomas downes  
+        ''    Dim frm_ToShow1 As New FormDisplayImageList1(listOfTextImages)
+        ''    frm_ToShow1.Show()
 
-            ''Added 8/27/2019 thomas downes  
-            ''9/19 td''Dim frm_ToShow2 As New FormDisplayImageList2(ClassFieldStandard.ListOfFields_Students,
-            ''9/19 td''    ClassFieldCustomized.ListOfFields_Students)
+        ''    ''Added 8/27/2019 thomas downes  
+        ''    ''9/19 td''Dim frm_ToShow2 As New FormDisplayImageList2(ClassFieldStandard.ListOfFields_Students,
+        ''    ''9/19 td''    ClassFieldCustomized.ListOfFields_Students)
 
-            Dim frm_ToShow2 As New FormDisplayImageList2(listOfElementTextFields)
-            frm_ToShow2.Show()
+        ''    Dim frm_ToShow2 As New FormDisplayImageList2(listOfElementTextFields)
+        ''    frm_ToShow2.Show()
 
-        End If ''End of "If (c_bHelpProgrammer And c_bTestingReview) Then"
+        ''End If ''End of "If (c_bHelpProgrammer And c_bTestingReview) Then"
 
         ''Added 9/6/2019 td 
         ClassLabelToImage.ProportionsAreSlightlyOff(Me.BackgroundBox.Image, True, "Clone Resized #1")
@@ -1175,7 +1202,8 @@ Public Class ClassDesigner
         ''Added 8/14/2019 td 
         ''
         ''OkayToShowFauxContextMenu()
-        Return DemoModeActiveToolStripMenuItem.Checked
+        ''10/1/2019 td''Return DemoModeActiveToolStripMenuItem.Checked
+        Return True
 
     End Function ''End of "Public Function OkayToShowFauxContextMenu() As Boolean"
 
@@ -1183,7 +1211,7 @@ Public Class ClassDesigner
         ''
         ''Refresh the preview picture box. 
         ''
-        If (checkAutoPreview.Checked) Then
+        If (CheckboxAutoPreview.Checked) Then
             SaveLayout()
             RefreshPreview()
         End If ''End of "If (checkAutoPreview.Checked) Then"
@@ -1193,13 +1221,18 @@ Public Class ClassDesigner
     Public Function RightClickMenu_Parent() As ToolStripMenuItem Implements ILayoutFunctions.RightClickMenu_Parent
 
         ''Added 9/19/2019 td
-        Return RightClickMenuParent
+        ''10/1/2019 td''Return RightClickMenuParent
+
+        Throw New NotImplementedException("This class is not in charge of displaying context menus!!")
 
     End Function
 
     Public Function NameOfForm() As String Implements ILayoutFunctions.NameOfForm
+
         ''Added 9/19/2019
-        Return Me.Name
+        ''10/1/2019 td''Return Me.Name
+        Return Me.DesignerForm.Name
+
     End Function
 
     Public Sub RedrawForm() Implements ILayoutFunctions.RedrawForm
