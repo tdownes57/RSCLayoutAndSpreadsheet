@@ -9,7 +9,7 @@ Imports ciBadgeInterfaces
 Imports ciBadgeDesigner
 Imports ciBadgeElements
 
-Public Class ClassEditingMethods
+Public Class Methods_EditElement
     ''
     ''Added 10/1/2019 td
     ''
