@@ -83,9 +83,14 @@ Public Interface IRecipient
     Function GetDateValue(par_enum As EnumCIBFields) As Date
 
     Function RecipientID() As String
-    Function FirstName() As String
-    Function LastName() As String
 
-    Function TimesPrinted() As Integer
+    Property idsCardDataID As Integer
+    Property idfConfigID As Integer
+    Property fstrLastName As String
+    Property fstrFirstName As String
+    Property fstrMidName As String
+    Property fstrID As String
+
+    Property intTimesPrinted As Integer
 
 End Interface
