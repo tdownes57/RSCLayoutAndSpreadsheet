@@ -2149,4 +2149,30 @@ Public Class FormDesignProtoTwo
 
     End Sub
 
+    Private Sub LinkRevertToLastSave_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkRevertToLastSave.LinkClicked
+        ''
+        ''Added 10/2/2019 thomas downes
+        ''
+        Dim intConfirm As DialogResult
+
+        intConfirm = MessageBox.Show("Do you want to undo all of the changes you made " &
+                                     " since you last saved?", "",
+                                     MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)
+
+        If (intConfirm = DialogResult.Yes) Then
+
+            ''Discard the user's edits.
+            Me.ElementsCache_Edits = Nothing
+
+            ''Copy the saved work, to become the new starting point.
+            Me.ElementsCache_Edits = Me.ElementsCache_Saved.Copy()
+
+            ''
+            ''Step 3 of 3.  Refresh the representation of the elements on the form. 
+            ''
+            RefreshTheSetOfDisplayedElements()
+
+        End If ''End of "If (intConfirm = DialogResult.Yes) Then"
+
+    End Sub
 End Class

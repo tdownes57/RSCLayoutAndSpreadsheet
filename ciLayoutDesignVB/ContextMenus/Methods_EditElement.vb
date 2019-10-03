@@ -29,11 +29,38 @@ Public Class Methods_EditElement
         If (boolExitEarly) Then Exit Sub ''Added 8/13/2019 td
 
         ''Can (should) we just show a single field? ''form_ToShow.JustOneField = Me.FieldInfo
-        form_ToShow.JustOneField_Index = Me.FieldInfo.FieldIndex
+        ''10/2/2019 td''form_ToShow.JustOneField_Index = Me.FieldInfo.FieldIndex
+        form_ToShow.JustOneField_Index = CurrentElementCtl.FieldInfo.FieldIndex
 
         form_ToShow.Show()
 
     End Sub ''eNd of "Private Sub opendialog_Field()"
+
+    Private Sub CreateVisibleButton_Master(par_strText As String, par_handler As EventHandler, ByRef pboolExitEarly As Boolean,
+                                           Optional pboolAlignment As Boolean = False)
+        ''
+        ''Added 8/13/2019 td  
+        ''
+        ''10/2/2019 td''If (mod_bBypassCreateButton) Then
+        ''    ''Added 8/13/2019 td  
+        ''    pboolExitEarly = False  ''Reinitialize. 
+        ''    mod_bBypassCreateButton = False ''Reinitialize. 
+
+        ''10/2/2019 td''ElseIf (Me.LayoutFunctions.OkayToShowFauxContextMenu()) Then
+        ''    ''8/14/2019 td''ElseIf (mc_CreateVisibleButtonForDemo) Then
+        ''    ''9/19/2019 td''ElseIf (Me.FormDesigner.OkayToShowFauxContextMenu()) Then
+        ''    ''
+        ''    ''Added 8 / 13 / 2019 td 
+        ''    ''
+        ''    ''8/14/2019 td''CreateVisibleButton(par_strText, par_handler)
+        ''    CreateFauxContextMenu(par_strText, par_handler, pboolAlignment)
+        ''    mod_bBypassCreateButton = True ''Reinitialize. 
+        ''    pboolExitEarly = True
+
+        ''End If ''End of "If (mod_bBypassCreateButton) Then .... ElseIf (mc_CreateVisibleButtonForDemo) Then ...."
+
+    End Sub ''End of "Private Sub CreateMouseButton_Master(par_strText As String, par_handler As EventHandler)"
+
 
     Private Sub OpenDialog_Color(sender As Object, e As EventArgs)
         ''
@@ -51,6 +78,7 @@ Public Class Methods_EditElement
             ''7/30/2019 td''Me.ElementInfo.FontColor = ColorDialog1.Color
             ''8/29/2019 td''Me.ElementInfo.BackColor = ColorDialog1.Color
             Me.ElementInfo_Base.Back_Color = ColorDialog1.Color
+            Me.
 
             ''Me.ElementInfo.Width_Pixels = Me.Width
             ''Me.ElementInfo.Height_Pixels = Me.Height
