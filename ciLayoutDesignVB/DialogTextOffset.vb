@@ -8,6 +8,7 @@ Option Infer Off ''Added 9/3/2019 td
 Imports ciBadgeInterfaces ''Added 8/16/2019 thomas d.
 Imports ciBadgeElements ''Added 9/18/2019 thomas d.
 Imports ciBadgeFields ''Added 9/18/2019 thomas d.  
+Imports ciBadgeDesigner ''Added 10/3/2019 td   
 
 Public Class DialogTextOffset
     ''
@@ -36,7 +37,7 @@ Public Class DialogTextOffset
     Public ElementCopy_Info_Base As ciBadgeInterfaces.IElement_Base ''Added 8/29/2019 td
 
     Public GroupEdits As ISelectingElements ''Added 8/15/2019 thomas downes  
-    Public FormDesigner_Denigrated As FormDesignProtoTwo ''Added 8/15/2019 td  
+    ''10/3/2019 td''Public FormDesigner_Denigrated As FormDesignProtoTwo ''Added 8/15/2019 td  
     Public OriginalElementControl_ForApplyOnly As CtlGraphicFldLabel ''Added 8/15/2019 td  
 
     Public UserConfirmed As Boolean ''Added 9/18/2019 thomas d. 
@@ -197,138 +198,140 @@ Public Class DialogTextOffset
 
     End Sub ''End of "Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
 
-    Public Sub LoadFieldAndForm_NotInUse(par_elementInfo_Base As IElement_Base,
-                                par_elementInfo_Text As IElement_TextField,
-                                par_fieldInfo As ICIBFieldStandardOrCustom,
-                                par_formDesigner As FormDesignProtoTwo,
-                                par_originalCtl As CtlGraphicFldLabel)
-        ''
-        ''Worked on 8/16 & 8/15/2019 td
-        ''
-        Me.FieldInfo_Denigrated = par_fieldInfo
+    ''--------10/3/2019 td----------------------------------------------------------------------------------------------
+    ''Public Sub LoadFieldAndForm_NotInUse(par_elementInfo_Base As IElement_Base,
+    ''                            par_elementInfo_Text As IElement_TextField,
+    ''                            par_fieldInfo As ICIBFieldStandardOrCustom,
+    ''                            par_formDesigner As FormDesignProtoTwo,
+    ''                            par_originalCtl As CtlGraphicFldLabel)
+    ''    ''
+    ''    ''Worked on 8/16 & 8/15/2019 td
+    ''    ''
+    ''    Me.FieldInfo_Denigrated = par_fieldInfo
 
-        ''8/16/2019 td''Me.ElementInfo = par_field.ElementInfo
-        ''Obselete. ---9/18/2019 td''Me.ElementInfo_Base = par_elementInfo_Base ''Added 9/3/2019 thomas d. 
-        ''Obselete. ---9/18/2019 td''Me.ElementInfo_Text = par_elementInfo_Text ''Added 8/16 td
+    ''    ''8/16/2019 td''Me.ElementInfo = par_field.ElementInfo
+    ''    ''Obselete. ---9/18/2019 td''Me.ElementInfo_Base = par_elementInfo_Base ''Added 9/3/2019 thomas d. 
+    ''    ''Obselete. ---9/18/2019 td''Me.ElementInfo_Text = par_elementInfo_Text ''Added 8/16 td
 
-        ''Added 8/17/2019 td
-        ''
-        ''Obselete. ---9/18/2019 td''Me.FontOffset_X = par_elementInfo_Text.FontOffset_X
-        ''Obselete. ---9/18/2019 td''Me.FontOffset_Y = par_elementInfo_Text.FontOffset_Y
-        ''Obselete. ---9/18/2019 td''Me.FontSize = CInt(par_elementInfo_Text.FontSize_Pixels) ''9/3 td''par_elementInfo.FontSize
-        ''Obselete. ---9/18/2019 td''Me.Font_DrawingClass = par_elementInfo_Text.Font_DrawingClass
+    ''    ''Added 8/17/2019 td
+    ''    ''
+    ''    ''Obselete. ---9/18/2019 td''Me.FontOffset_X = par_elementInfo_Text.FontOffset_X
+    ''    ''Obselete. ---9/18/2019 td''Me.FontOffset_Y = par_elementInfo_Text.FontOffset_Y
+    ''    ''Obselete. ---9/18/2019 td''Me.FontSize = CInt(par_elementInfo_Text.FontSize_Pixels) ''9/3 td''par_elementInfo.FontSize
+    ''    ''Obselete. ---9/18/2019 td''Me.Font_DrawingClass = par_elementInfo_Text.Font_DrawingClass
 
-        ''Added 8/15/2019 td
-        Me.FormDesigner_Denigrated = par_formDesigner
-        Me.OriginalElementControl_ForApplyOnly = par_originalCtl
+    ''    ''Added 8/15/2019 td
+    ''    Me.FormDesigner_Denigrated = par_formDesigner
+    ''    Me.OriginalElementControl_ForApplyOnly = par_originalCtl
 
-        With CtlGraphicFldLabel1
-            .ElementInfo_Text = par_elementInfo_Text
+    ''    With CtlGraphicFldLabel1
+    ''        .ElementInfo_Text = par_elementInfo_Text
 
-            ''added 9.6.2019 td
-            .ElementClass_Obj = Nothing ''CType(par_elementInfo_Text, ClassElementText)
-            .ElementInfo_Base = par_elementInfo_Base
-            .ElementInfo_Text = par_elementInfo_Text
+    ''        ''added 9.6.2019 td
+    ''        .ElementClass_Obj = Nothing ''CType(par_elementInfo_Text, ClassElementText)
+    ''        .ElementInfo_Base = par_elementInfo_Base
+    ''        .ElementInfo_Text = par_elementInfo_Text
 
-            .Width = .ElementInfo_Base.Width_Pixels
-            .Height = .ElementInfo_Base.Height_Pixels
-            .FieldInfo = par_fieldInfo
-            .LabelText()  ''par_elementInfo.Text)
-            ''8/17/2019 td''.FieldInfo = par_fieldInfo
-            ''8/16/2019 td   ''.ElementInfo = par_field.ElementInfo
-            ''Deprecated. ----9/20/2019 td''.FormDesigner = par_formDesigner
-            .LayoutFunctions = CType(par_formDesigner, ILayoutFunctions) ''Added 9/20/2019 td 
+    ''        .Width = .ElementInfo_Base.Width_Pixels
+    ''        .Height = .ElementInfo_Base.Height_Pixels
+    ''        .FieldInfo = par_fieldInfo
+    ''        .LabelText()  ''par_elementInfo.Text)
+    ''        ''8/17/2019 td''.FieldInfo = par_fieldInfo
+    ''        ''8/16/2019 td   ''.ElementInfo = par_field.ElementInfo
+    ''        ''Deprecated. ----9/20/2019 td''.FormDesigner = par_formDesigner
+    ''        .LayoutFunctions = CType(par_formDesigner, ILayoutFunctions) ''Added 9/20/2019 td 
 
-            .Refresh_Image(True)
-        End With
+    ''        .Refresh_Image(True)
+    ''    End With
 
-        ''Position it at the center horizontally. 
-        CenterTheFieldControl()
+    ''    ''Position it at the center horizontally. 
+    ''    CenterTheFieldControl()
 
-        ''Added 8/17/2019 thomas downes 
-        ''LabelNumberOffsetX.Text = String.Format(LabelNumberOffsetX.Tag.ToString, Me.FontOffset_X)
-        ''LabelNumberOffsetY.Text = String.Format(LabelNumberOffsetY.Tag.ToString, Me.FontOffset_Y)
-        ''LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, Me.FontSize)
+    ''    ''Added 8/17/2019 thomas downes 
+    ''    ''LabelNumberOffsetX.Text = String.Format(LabelNumberOffsetX.Tag.ToString, Me.FontOffset_X)
+    ''    ''LabelNumberOffsetY.Text = String.Format(LabelNumberOffsetY.Tag.ToString, Me.FontOffset_Y)
+    ''    ''LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, Me.FontSize)
 
-        ''
-        ''Added 9/13/2019 thomas downes
-        ''
-        Me.CtlElementHeight.ElementInfo_Base = par_elementInfo_Base
-        Me.CtlElementHeight.ElementInfo_Text = par_elementInfo_Text
-        Me.CtlElementHeight.InitiateLocalValue() ''Added 9/19/2019 td
+    ''    ''
+    ''    ''Added 9/13/2019 thomas downes
+    ''    ''
+    ''    Me.CtlElementHeight.ElementInfo_Base = par_elementInfo_Base
+    ''    Me.CtlElementHeight.ElementInfo_Text = par_elementInfo_Text
+    ''    Me.CtlElementHeight.InitiateLocalValue() ''Added 9/19/2019 td
 
-        Me.CtlElementWidth.ElementInfo_Base = par_elementInfo_Base
-        Me.CtlElementWidth.ElementInfo_Text = par_elementInfo_Text
-        Me.CtlElementWidth.InitiateLocalValue() ''Added 9/19/2019 td
+    ''    Me.CtlElementWidth.ElementInfo_Base = par_elementInfo_Base
+    ''    Me.CtlElementWidth.ElementInfo_Text = par_elementInfo_Text
+    ''    Me.CtlElementWidth.InitiateLocalValue() ''Added 9/19/2019 td
 
-        Me.CtlFontSize.ElementInfo_Base = par_elementInfo_Base
-        Me.CtlFontSize.ElementInfo_Text = par_elementInfo_Text
-        Me.CtlFontSize.InitiateLocalValue() ''Added 9/19/2019 td
+    ''    Me.CtlFontSize.ElementInfo_Base = par_elementInfo_Base
+    ''    Me.CtlFontSize.ElementInfo_Text = par_elementInfo_Text
+    ''    Me.CtlFontSize.InitiateLocalValue() ''Added 9/19/2019 td
 
-        Me.CtlTextOffsetX.ElementInfo_Base = par_elementInfo_Base
-        Me.CtlTextOffsetX.ElementInfo_Text = par_elementInfo_Text
-        Me.CtlTextOffsetX.InitiateLocalValue() ''Added 9/19/2019 td
+    ''    Me.CtlTextOffsetX.ElementInfo_Base = par_elementInfo_Base
+    ''    Me.CtlTextOffsetX.ElementInfo_Text = par_elementInfo_Text
+    ''    Me.CtlTextOffsetX.InitiateLocalValue() ''Added 9/19/2019 td
 
-        Me.ctlTextOffsetY.ElementInfo_Base = par_elementInfo_Base
-        Me.ctlTextOffsetY.ElementInfo_Text = par_elementInfo_Text
-        Me.ctlTextOffsetY.InitiateLocalValue() ''Added 9/19/2019 td
+    ''    Me.ctlTextOffsetY.ElementInfo_Base = par_elementInfo_Base
+    ''    Me.ctlTextOffsetY.ElementInfo_Text = par_elementInfo_Text
+    ''    Me.ctlTextOffsetY.InitiateLocalValue() ''Added 9/19/2019 td
 
-    End Sub ''End of "Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
+    ''End Sub ''End of "Public Sub LoadFieldAndForm_NotInUse(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
 
-    Public Sub LoadFieldAndForm_NotInUse(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo,
-                                 par_originalCtl As CtlGraphicFldLabel)
+    ''--------10/3/2019 td----------------------------------------------------------------------------------------------
+    ''Public Sub LoadFieldAndForm_NotInUse(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo,
+    ''                             par_originalCtl As CtlGraphicFldLabel)
 
-        Me.FieldInfo_Denigrated = par_field
+    ''    Me.FieldInfo_Denigrated = par_field
 
-        ''This procedure is obselete.---9/18/2019 td''Me.ElementInfo_Text = par_field.ElementFieldClass
+    ''    ''This procedure is obselete.---9/18/2019 td''Me.ElementInfo_Text = par_field.ElementFieldClass
 
-        ''Added 8/15/2019 td
-        Me.FormDesigner_Denigrated = par_formDesigner
+    ''    ''Added 8/15/2019 td
+    ''    Me.FormDesigner_Denigrated = par_formDesigner
 
-        ''Added 9/18/2019 td
-        Me.OriginalElementControl_ForApplyOnly = par_originalCtl
+    ''    ''Added 9/18/2019 td
+    ''    Me.OriginalElementControl_ForApplyOnly = par_originalCtl
 
-        With CtlGraphicFldLabel1
-            .FieldInfo = par_field
+    ''    With CtlGraphicFldLabel1
+    ''        .FieldInfo = par_field
 
-            ''Deprecated 9/18/2019 td''.ElementClass_Obj = par_field.ElementFieldClass ''Added 9/13/2019 td
-            ''Deprecated 9/18/2019 td''.ElementInfo_Base = par_field.ElementInfo_Base ''Added 9/13/2019 td 
-            ''Deprecated 9/18/2019 td''.ElementInfo_Text = par_field.ElementInfo_Text ''Added 9/13/2019 td 
-            ''Deprecated 9/18/2019 td''.FormDesigner = par_formDesigner
-            .LayoutFunctions = CType(par_formDesigner, ILayoutFunctions)
+    ''        ''Deprecated 9/18/2019 td''.ElementClass_Obj = par_field.ElementFieldClass ''Added 9/13/2019 td
+    ''        ''Deprecated 9/18/2019 td''.ElementInfo_Base = par_field.ElementInfo_Base ''Added 9/13/2019 td 
+    ''        ''Deprecated 9/18/2019 td''.ElementInfo_Text = par_field.ElementInfo_Text ''Added 9/13/2019 td 
+    ''        ''Deprecated 9/18/2019 td''.FormDesigner = par_formDesigner
+    ''        .LayoutFunctions = CType(par_formDesigner, ILayoutFunctions)
 
-            .Width = .ElementInfo_Base.Width_Pixels
-            .Height = .ElementInfo_Base.Height_Pixels
-            .Refresh_Image(True)
-        End With
+    ''        .Width = .ElementInfo_Base.Width_Pixels
+    ''        .Height = .ElementInfo_Base.Height_Pixels
+    ''        .Refresh_Image(True)
+    ''    End With
 
-        ''Position it at the center horizontally. 
-        CenterTheFieldControl()
+    ''    ''Position it at the center horizontally. 
+    ''    CenterTheFieldControl()
 
-        ''
-        ''Added 9/13/2019 thomas downes
-        ''
-        ''Deprecated 9/18/2019 td''Me.CtlElementHeight.ElementInfo_Base = par_field.ElementInfo_Base
-        ''Deprecated 9/18/2019 td''Me.CtlElementHeight.ElementInfo_Text = par_field.ElementInfo_Text
-        Me.CtlElementHeight.InitiateLocalValue()
+    ''    ''
+    ''    ''Added 9/13/2019 thomas downes
+    ''    ''
+    ''    ''Deprecated 9/18/2019 td''Me.CtlElementHeight.ElementInfo_Base = par_field.ElementInfo_Base
+    ''    ''Deprecated 9/18/2019 td''Me.CtlElementHeight.ElementInfo_Text = par_field.ElementInfo_Text
+    ''    Me.CtlElementHeight.InitiateLocalValue()
 
-        ''Deprecated 9/18/2019 td''Me.CtlElementWidth.ElementInfo_Base = par_field.ElementInfo_Base
-        ''Deprecated 9/18/2019 td''Me.CtlElementWidth.ElementInfo_Text = par_field.ElementInfo_Text
-        Me.CtlElementWidth.InitiateLocalValue()
+    ''    ''Deprecated 9/18/2019 td''Me.CtlElementWidth.ElementInfo_Base = par_field.ElementInfo_Base
+    ''    ''Deprecated 9/18/2019 td''Me.CtlElementWidth.ElementInfo_Text = par_field.ElementInfo_Text
+    ''    Me.CtlElementWidth.InitiateLocalValue()
 
-        ''Deprecated 9/18/2019 td''Me.CtlFontSize.ElementInfo_Base = par_field.ElementInfo_Base
-        ''Deprecated 9/18/2019 td''Me.CtlFontSize.ElementInfo_Text = par_field.ElementInfo_Text
-        Me.CtlFontSize.InitiateLocalValue()
+    ''    ''Deprecated 9/18/2019 td''Me.CtlFontSize.ElementInfo_Base = par_field.ElementInfo_Base
+    ''    ''Deprecated 9/18/2019 td''Me.CtlFontSize.ElementInfo_Text = par_field.ElementInfo_Text
+    ''    Me.CtlFontSize.InitiateLocalValue()
 
-        ''Deprecated 9/18/2019 td''Me.CtlTextOffsetX.ElementInfo_Base = par_field.ElementInfo_Base
-        ''Deprecated 9/18/2019 td''Me.CtlTextOffsetX.ElementInfo_Text = par_field.ElementInfo_Text
-        Me.CtlTextOffsetX.InitiateLocalValue()
+    ''    ''Deprecated 9/18/2019 td''Me.CtlTextOffsetX.ElementInfo_Base = par_field.ElementInfo_Base
+    ''    ''Deprecated 9/18/2019 td''Me.CtlTextOffsetX.ElementInfo_Text = par_field.ElementInfo_Text
+    ''    Me.CtlTextOffsetX.InitiateLocalValue()
 
-        ''Deprecated 9/18/2019 td''Me.ctlTextOffsetY.ElementInfo_Base = par_field.ElementInfo_Base
-        ''Deprecated 9/18/2019 td''Me.ctlTextOffsetY.ElementInfo_Text = par_field.ElementInfo_Text
-        Me.ctlTextOffsetY.InitiateLocalValue()
+    ''    ''Deprecated 9/18/2019 td''Me.ctlTextOffsetY.ElementInfo_Base = par_field.ElementInfo_Base
+    ''    ''Deprecated 9/18/2019 td''Me.ctlTextOffsetY.ElementInfo_Text = par_field.ElementInfo_Text
+    ''    Me.ctlTextOffsetY.InitiateLocalValue()
 
-    End Sub ''End of "Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
+    ''End Sub ''End of "Public Sub LoadFieldAndForm_NotInUse(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
 
     Private Sub CenterTheFieldControl()
         ''

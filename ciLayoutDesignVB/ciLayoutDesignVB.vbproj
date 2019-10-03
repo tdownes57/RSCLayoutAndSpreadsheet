@@ -177,10 +177,6 @@
     <Compile Include="Controls\CtlMainStep3_v82.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ContextMenus_Obselete\CtlPartial_FieldLabel.Designer.vb">
-      <DependentUpon>CtlPartial_FieldLabel.vb</DependentUpon>
-    </Compile>
-    <Compile Include="ContextMenus_Obselete\CtlPartial_FieldLabel.vb" />
     <Compile Include="Controls\CtlPartial_HardText.Designer.vb">
       <DependentUpon>CtlPartial_HardText.vb</DependentUpon>
     </Compile>
@@ -234,12 +230,6 @@
       <DependentUpon>ListCustomFieldsGrid.vb</DependentUpon>
     </Compile>
     <Compile Include="ListCustomFieldsGrid.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormDesignProtoTwo.Designer.vb">
-      <DependentUpon>FormDesignProtoTwo.vb</DependentUpon>
-    </Compile>
-    <Compile Include="FormDesignProtoTwo.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DialogDisplayColor.Designer.vb">
@@ -326,12 +316,6 @@
       <DependentUpon>FormDisplay.vb</DependentUpon>
     </Compile>
     <Compile Include="FormDisplay.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormPartial_ProtoTwo.Designer.vb">
-      <DependentUpon>FormPartial_ProtoTwo.vb</DependentUpon>
-    </Compile>
-    <Compile Include="FormPartial_ProtoTwo.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DialogTextBorder.Designer.vb">
@@ -457,9 +441,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ListCustomFieldsGrid.resx">
       <DependentUpon>ListCustomFieldsGrid.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormDesignProtoTwo.resx">
-      <DependentUpon>FormDesignProtoTwo.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormDesignPrototype.resx">
       <DependentUpon>FormDesignPrototype.vb</DependentUpon>

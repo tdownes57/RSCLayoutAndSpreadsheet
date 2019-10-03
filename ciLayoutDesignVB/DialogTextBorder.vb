@@ -4,6 +4,7 @@
 Imports ciBadgeInterfaces ''Added 8/29/2019 thomas d.
 Imports ciBadgeFields ''Added 9/18/2019 td 
 Imports ciBadgeElements ''Added 9/18/2019 td 
+Imports ciBadgeDesigner ''Added 10/3/2019 td   
 
 Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
     ''
@@ -143,6 +144,7 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
 
     End Sub ''End of "Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
 
+    ''--------9/19/2019 td----------------------------------------------------------------------------------------------
     ''Denigrated.  9/19/2019 td''Public Sub LoadFieldAndForm(par_formDesigner As FormDesignProtoTwo,
     ''                            par_originalCtl As CtlGraphicFldLabel)
     ''
@@ -176,103 +178,104 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
     ''
     ''End Sub ''End of "Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
 
-    Public Sub LoadFieldAndForm_NotInUse(par_elementInfo_Base As IElement_Base,
-                                par_elementInfo_Text As IElement_TextField,
-                                par_fieldInfo As ICIBFieldStandardOrCustom,
-                                par_formDesigner As FormDesignProtoTwo,
-                                par_originalCtl As CtlGraphicFldLabel)
-        ''
-        ''Modelled after DialogTextOffset, 8/29/2019  
-        ''Modified on 8/29/2019 td
-        ''
-        Me.FieldInfo = par_fieldInfo
+    ''--------10/3/2019 td----------------------------------------------------------------------------------------------
+    ''Public Sub LoadFieldAndForm_NotInUse(par_elementInfo_Base As IElement_Base,
+    ''                            par_elementInfo_Text As IElement_TextField,
+    ''                            par_fieldInfo As ICIBFieldStandardOrCustom,
+    ''                            par_formDesigner As FormDesignProtoTwo,
+    ''                            par_originalCtl As CtlGraphicFldLabel)
+    ''    ''
+    ''    ''Modelled after DialogTextOffset, 8/29/2019  
+    ''    ''Modified on 8/29/2019 td
+    ''    ''
+    ''    Me.FieldInfo = par_fieldInfo
 
-        ''This procedure is obselete. ---9/18/2019 td''Me.ElementInfo_Base = par_elementInfo_Base ''Added 9/3/2019 td
-        ''This procedure is obselete. ---9/18/2019 td''Me.ElementInfo_Text = par_elementInfo_Text ''Added 8/16 td
+    ''    ''This procedure is obselete. ---9/18/2019 td''Me.ElementInfo_Base = par_elementInfo_Base ''Added 9/3/2019 td
+    ''    ''This procedure is obselete. ---9/18/2019 td''Me.ElementInfo_Text = par_elementInfo_Text ''Added 8/16 td
 
-        ''Added 8/17/2019 td
-        ''
-        ''8/29 td''Me.FontOffset_X = par_elementInfo.FontOffset_X
-        ''8/29 td''Me.FontOffset_Y = par_elementInfo.FontOffset_Y
-        ''8/29 td''Me.FontSize = par_elementInfo.FontSize
-        ''8/29 td''Me.Font_DrawingClass = par_elementInfo.Font_DrawingClass
+    ''    ''Added 8/17/2019 td
+    ''    ''
+    ''    ''8/29 td''Me.FontOffset_X = par_elementInfo.FontOffset_X
+    ''    ''8/29 td''Me.FontOffset_Y = par_elementInfo.FontOffset_Y
+    ''    ''8/29 td''Me.FontSize = par_elementInfo.FontSize
+    ''    ''8/29 td''Me.Font_DrawingClass = par_elementInfo.Font_DrawingClass
 
-        ''Obselete/Not is use.---9/18/2019 td''Me.Border_SizeInPixels = par_elementInfo_Base.Border_WidthInPixels
-        ''Obselete/Not is use.---9/18/2019 td''Me.Border_Color = par_elementInfo_Base.Border_Color
-        ''Obselete/Not is use.---9/18/2019 td''Me.Border_Displayed = par_elementInfo_Base.Border_Displayed ''Added 9/9/2019 td 
+    ''    ''Obselete/Not is use.---9/18/2019 td''Me.Border_SizeInPixels = par_elementInfo_Base.Border_WidthInPixels
+    ''    ''Obselete/Not is use.---9/18/2019 td''Me.Border_Color = par_elementInfo_Base.Border_Color
+    ''    ''Obselete/Not is use.---9/18/2019 td''Me.Border_Displayed = par_elementInfo_Base.Border_Displayed ''Added 9/9/2019 td 
 
-        ''Added 8/15/2019 td
-        ''Denigrated. ---9/19/2019 td''Me.FormDesigner = par_formDesigner
-        Me.OriginalElementControl = par_originalCtl
+    ''    ''Added 8/15/2019 td
+    ''    ''Denigrated. ---9/19/2019 td''Me.FormDesigner = par_formDesigner
+    ''    Me.OriginalElementControl = par_originalCtl
 
-        With CtlGraphicFldLabel1
+    ''    With CtlGraphicFldLabel1
 
-            ''8/29/2019 td''.ElementBaseInfo = par_elementBaseInfo ''Added 8/29/2019 thomas downes
-            .ElementInfo_Base = par_elementInfo_Base ''Added 8/29/2019 thomas downes
-            .ElementInfo_Text = par_elementInfo_Text
+    ''        ''8/29/2019 td''.ElementBaseInfo = par_elementBaseInfo ''Added 8/29/2019 thomas downes
+    ''        .ElementInfo_Base = par_elementInfo_Base ''Added 8/29/2019 thomas downes
+    ''        .ElementInfo_Text = par_elementInfo_Text
 
-            .Width = .ElementInfo_Base.Width_Pixels
-            .Height = .ElementInfo_Base.Height_Pixels
+    ''        .Width = .ElementInfo_Base.Width_Pixels
+    ''        .Height = .ElementInfo_Base.Height_Pixels
 
-            .FieldInfo = par_fieldInfo
-            .LabelText()  ''par_elementInfo.Text)
-            ''Denigrated. ---9/19/2019 td''.FormDesigner = par_formDesigner
-            .Refresh_Image(True)
+    ''        .FieldInfo = par_fieldInfo
+    ''        .LabelText()  ''par_elementInfo.Text)
+    ''        ''Denigrated. ---9/19/2019 td''.FormDesigner = par_formDesigner
+    ''        .Refresh_Image(True)
 
-        End With ''End of "With CtlGraphicFldLabel1"
+    ''    End With ''End of "With CtlGraphicFldLabel1"
 
-        ''Added 9/13/2019 thomas downes
-        Me.CtlBorderWidth.ElementInfo_Base = par_elementInfo_Base
-        Me.CtlBorderWidth.ElementInfo_Text = par_elementInfo_Text
+    ''    ''Added 9/13/2019 thomas downes
+    ''    Me.CtlBorderWidth.ElementInfo_Base = par_elementInfo_Base
+    ''    Me.CtlBorderWidth.ElementInfo_Text = par_elementInfo_Text
 
-        ''Position it at the center horizontally. 
-        CenterTheFieldControl()
+    ''    ''Position it at the center horizontally. 
+    ''    CenterTheFieldControl()
 
-        ''Added 8/17/2019 thomas downes 
-        ''8/29 td''LabelNumberOffsetX.Text = String.Format(LabelNumberOffsetX.Tag.ToString, Me.FontOffset_X)
-        ''8/29 td''LabelNumberOffsetY.Text = String.Format(LabelNumberOffsetY.Tag.ToString, Me.FontOffset_Y)
-        ''8/29 td''LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, Me.FontSize)
+    ''    ''Added 8/17/2019 thomas downes 
+    ''    ''8/29 td''LabelNumberOffsetX.Text = String.Format(LabelNumberOffsetX.Tag.ToString, Me.FontOffset_X)
+    ''    ''8/29 td''LabelNumberOffsetY.Text = String.Format(LabelNumberOffsetY.Tag.ToString, Me.FontOffset_Y)
+    ''    ''8/29 td''LabelFontSizeNum.Text = String.Format(LabelFontSizeNum.Tag.ToString, Me.FontSize)
 
-        ''Added 8/17/2019 thomas downes 
-        ''9/13/2019 td''LabelBorderWidth.Text = String.Format(LabelBorderWidth.Tag.ToString, Me.Border_SizeInPixels)
+    ''    ''Added 8/17/2019 thomas downes 
+    ''    ''9/13/2019 td''LabelBorderWidth.Text = String.Format(LabelBorderWidth.Tag.ToString, Me.Border_SizeInPixels)
 
-        ''Added 9/9/2019 thomas downes 
-        ''9/18/2019 td''chkBorderDisplayed.Checked = Me.Border_Displayed
-        chkBorderDisplayed.Checked = Me.ElementCopy_Info_Base.Border_Displayed
+    ''    ''Added 9/9/2019 thomas downes 
+    ''    ''9/18/2019 td''chkBorderDisplayed.Checked = Me.Border_Displayed
+    ''    chkBorderDisplayed.Checked = Me.ElementCopy_Info_Base.Border_Displayed
 
-    End Sub ''End of "Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
+    ''End Sub ''End of "Public Sub LoadFieldAndForm_NotInUse(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
 
-    Public Sub LoadFieldAndForm_NotInUse(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo,
-                                par_originalCtl As CtlGraphicFldLabel)
-
-        Me.FieldInfo = par_field
-
-        ''9/3/2019 td''Me.ElementInfo_Text = par_field.ElementInfo
-        ''This procedure is obselete. ---9/18/2019 td''Me.ElementInfo_Text = CType(par_field.ElementFieldClass, IElement_TextField)
-        ''This procedure is obselete. ---9/18/2019 td''Me.ElementInfo_Base = CType(par_field.ElementFieldClass, IElement_Base)
-
-        ''Added 8/15/2019 td
-        ''Denigrated. ---9/19/2019 td''Me.FormDesigner = par_formDesigner
-        Me.OriginalElementControl = par_originalCtl
-
-        With CtlGraphicFldLabel1
-            .FieldInfo = par_field
-
-            ''9/3/2019 td''.ElementInfo_Text = par_field.ElementInfo
-            ''Deprecated.  9/18/2019 td''.ElementInfo_Text = CType(par_field.ElementFieldClass, IElement_TextField)
-            ''Deprecated.  9/18/2019 td''.ElementInfo_Base = CType(par_field.ElementFieldClass, IElement_Base)
-
-            ''Denigrated. ---9/19/2019 td''.FormDesigner = par_formDesigner
-            .Width = .ElementInfo_Base.Width_Pixels
-            .Height = .ElementInfo_Base.Height_Pixels
-            .Refresh_Image(True)
-
-        End With ''End of "With CtlGraphicFldLabel1"
-
-        ''Position it at the center horizontally. 
-        CenterTheFieldControl()
-
-    End Sub ''End of "Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
+    ''Public Sub LoadFieldAndForm_NotInUse(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo,
+    ''                            par_originalCtl As CtlGraphicFldLabel)
+    ''
+    ''    Me.FieldInfo = par_field
+    ''
+    ''    ''9/3/2019 td''Me.ElementInfo_Text = par_field.ElementInfo
+    ''    ''This procedure is obselete. ---9/18/2019 td''Me.ElementInfo_Text = CType(par_field.ElementFieldClass, IElement_TextField)
+    ''    ''This procedure is obselete. ---9/18/2019 td''Me.ElementInfo_Base = CType(par_field.ElementFieldClass, IElement_Base)
+    ''
+    ''    ''Added 8/15/2019 td
+    ''    ''Denigrated. ---9/19/2019 td''Me.FormDesigner = par_formDesigner
+    ''    Me.OriginalElementControl = par_originalCtl
+    ''
+    ''    With CtlGraphicFldLabel1
+    ''        .FieldInfo = par_field
+    ''
+    ''        ''9/3/2019 td''.ElementInfo_Text = par_field.ElementInfo
+    ''        ''Deprecated.  9/18/2019 td''.ElementInfo_Text = CType(par_field.ElementFieldClass, IElement_TextField)
+    ''        ''Deprecated.  9/18/2019 td''.ElementInfo_Base = CType(par_field.ElementFieldClass, IElement_Base)
+    ''
+    ''        ''Denigrated. ---9/19/2019 td''.FormDesigner = par_formDesigner
+    ''        .Width = .ElementInfo_Base.Width_Pixels
+    ''        .Height = .ElementInfo_Base.Height_Pixels
+    ''        .Refresh_Image(True)
+    ''
+    ''    End With ''End of "With CtlGraphicFldLabel1"
+    ''
+    ''    ''Position it at the center horizontally. 
+    ''    CenterTheFieldControl()
+    ''
+    ''End Sub ''End of "Public Sub LoadFieldAndForm_NotInUse(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
 
     Private Sub CenterTheFieldControl()
         ''

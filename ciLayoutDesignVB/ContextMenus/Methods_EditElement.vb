@@ -69,76 +69,75 @@ Public Class Methods_EditElement
 
     End Sub ''End of "Private Sub CreateMouseButton_Master(par_strText As String, par_handler As EventHandler)"
 
+    Private Sub OpenDialog_Color(sender As Object, e As EventArgs)
+        ''
+        ''Added 7/30/2019 thomas downes
+        ''
+        Dim boolExitEarly As Boolean ''Added 8/13/2019 td
+        CreateVisibleButton_Master("Choose a background color", AddressOf OpenDialog_Color, boolExitEarly)
+        Application.DoEvents()
+        If (boolExitEarly) Then Exit Sub ''Added 8/13/2019 td
 
-    ''Private Sub OpenDialog_Color(sender As Object, e As EventArgs)
-    ''    ''
-    ''    ''Added 7/30/2019 thomas downes
-    ''    ''
-    ''    Dim boolExitEarly As Boolean ''Added 8/13/2019 td
-    ''    CreateVisibleButton_Master("Choose a background color", AddressOf OpenDialog_Color, boolExitEarly)
-    ''    Application.DoEvents()
-    ''    If (boolExitEarly) Then Exit Sub ''Added 8/13/2019 td
+        ColorDialog1.ShowDialog()
 
-    ''    ColorDialog1.ShowDialog()
+        If (Me.SelectingElements.LabelsList_IsItemUnselected(Me.CtlCurrentElement)) Then
+            ''10/3 td''If (LabelsList_IsItemUnselected(Me)) Then
 
-    ''    If (Me.SelectingElements.LabelsList_IsItemUnselected(Me.CtlCurrentElement)) Then
-    ''        ''10/3 td''If (LabelsList_IsItemUnselected(Me)) Then
+            ''7/30/2019 td''Me.ElementInfo.FontColor = ColorDialog1.Color
+            ''8/29/2019 td''Me.ElementInfo.BackColor = ColorDialog1.Color
+            ''10/3/2019 td''Me.ElementInfo_Base.Back_Color = ColorDialog1.Color
+            Me.CtlCurrentElement.ElementInfo_Base.Back_Color = Me.ColorDialog1.Color
 
-    ''        ''7/30/2019 td''Me.ElementInfo.FontColor = ColorDialog1.Color
-    ''        ''8/29/2019 td''Me.ElementInfo.BackColor = ColorDialog1.Color
-    ''        ''10/3/2019 td''Me.ElementInfo_Base.Back_Color = ColorDialog1.Color
-    ''        Me.CtlCurrentElement.ElementInfo_Base.Back_Color = Me.ColorDialog1.Color
+            ''Me.ElementInfo.Width_Pixels = Me.Width
+            ''Me.ElementInfo.Height_Pixels = Me.Height
 
-    ''        ''Me.ElementInfo.Width_Pixels = Me.Width
-    ''        ''Me.ElementInfo.Height_Pixels = Me.Height
+            Application.DoEvents()
+            Application.DoEvents()
 
-    ''        Application.DoEvents()
-    ''        Application.DoEvents()
+            ''9/15/2019 td ''Refresh_Image()
+            ''10/3/2019 td ''Refresh_Image(True)
+            Me.CtlCurrentElement.Refresh_Image(True)
+            Me.CtlCurrentElement.Refresh()
 
-    ''        ''9/15/2019 td ''Refresh_Image()
-    ''        ''10/3/2019 td ''Refresh_Image(True)
-    ''        Me.CtlCurrentElement.Refresh_Image(True)
-    ''        Me.CtlCurrentElement.Refresh()
+        ElseIf (Me.SelectingElements.LabelsList_IsItemIncluded(Me.CtlCurrentElement)) Then
+            ''10/3/2019 td''ElseIf (LabelsList_IsItemIncluded(Me)) Then
 
-    ''    ElseIf (Me.SelectingElements.LabelsList_IsItemIncluded(Me.CtlCurrentElement)) Then
-    ''        ''10/3/2019 td''ElseIf (LabelsList_IsItemIncluded(Me)) Then
+            ''Added 8/3/2019 td 
+            Dim objElements As List(Of CtlGraphicFldLabel)
 
-    ''        ''Added 8/3/2019 td 
-    ''        Dim objElements As List(Of CtlGraphicFldLabel)
+            ''8/4//2019 td'objElements = CType(Me.ParentForm, ISelectingElements).LabelsDesignList_AllItems
+            ''10/3/2019 td''objElements = Me.SelectingElements.LabelsDesignList_AllItems
+            objElements = Me.SelectingElements.LabelsDesignList_AllItems
 
-    ''        ''8/4//2019 td'objElements = CType(Me.ParentForm, ISelectingElements).LabelsDesignList_AllItems
-    ''        ''10/3/2019 td''objElements = Me.SelectingElements.LabelsDesignList_AllItems
-    ''        objElements = Me.SelectingElements.LabelsDesignList_AllItems
+            ''If (objElements.Count = 0) Then
+            ''   objElements.Add(Me)
+            '' End If
 
-    ''        ''If (objElements.Count = 0) Then
-    ''        ''   objElements.Add(Me)
-    ''        '' End If
+            For Each each_ctl As CtlGraphicFldLabel In objElements
+                ''
+                ''Added 8/3/2019 td  
+                ''
+                With each_ctl
 
-    ''        For Each each_ctl As CtlGraphicFldLabel In objElements
-    ''            ''
-    ''            ''Added 8/3/2019 td  
-    ''            ''
-    ''            With each_ctl
+                    ''8/29/2019 td''.ElementInfoBase.BackColor = ColorDialog1.Color
+                    .ElementInfo_Base.Back_Color = Me.ColorDialog1.Color
+                    ''.ElementInfo.Width_Pixels = Me.Width
+                    ''.ElementInfo.Height_Pixels = Me.Height
 
-    ''                ''8/29/2019 td''.ElementInfoBase.BackColor = ColorDialog1.Color
-    ''                .ElementInfo_Base.Back_Color = Me.ColorDialog1.Color
-    ''                ''.ElementInfo.Width_Pixels = Me.Width
-    ''                ''.ElementInfo.Height_Pixels = Me.Height
+                    .Refresh_Image(True)
+                    .Refresh()
 
-    ''                .Refresh_Image(True)
-    ''                .Refresh()
+                End With
 
-    ''            End With
+            Next each_ctl
 
-    ''        Next each_ctl
+        End If ''End of "If (Me.SelectingElements.LabelsList_IsItemUnselected(Me)) Then ... ElseIf (Me.SelectingElements.LabelsList_IsItemIncluded(Me)) Then"
 
-    ''    End If ''End of "If (Me.SelectingElements.LabelsList_IsItemUnselected(Me)) Then ... ElseIf (Me.SelectingElements.LabelsList_IsItemIncluded(Me)) Then"
+        ''Added 9/13/2019 td
+        ''9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()
+        Me.LayoutFunctions.AutoPreview_IfChecked()
 
-    ''    ''Added 9/13/2019 td
-    ''    ''9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()
-    ''    Me.LayoutFunctions.AutoPreview_IfChecked()
-
-    ''End Sub ''eNd of "Private Sub opendialog_Color()"
+    End Sub ''eNd of "Private Sub opendialog_Color()"
 
     ''Private Sub SwitchCtl__Up(sender As Object, e As EventArgs)
     ''    ''
