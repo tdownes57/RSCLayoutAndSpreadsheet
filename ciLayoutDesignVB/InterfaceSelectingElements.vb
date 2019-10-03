@@ -1,6 +1,7 @@
 ﻿''
 ''Added 7/31/2019 thomas downes  
 ''
+Imports ciBadgeDesigner ''Added 10/3/2019 td   
 
 Public Interface ISelectingElements
     ''

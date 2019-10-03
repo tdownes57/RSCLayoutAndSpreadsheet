@@ -88,6 +88,24 @@
     <Compile Include="Controls\CtlGraphicText.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Controls\CtlMainButton_v90.designer.vb">
+      <DependentUpon>CtlMainButton_v90.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtlMainButton_v90.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtlMainEntryBox_v82.designer.vb">
+      <DependentUpon>CtlMainEntryBox_v82.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtlMainEntryBox_v82.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtlMainEntryBox_v90.designer.vb">
+      <DependentUpon>CtlMainEntryBox_v90.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtlMainEntryBox_v90.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controls\CtlPartial_HardText.designer.vb">
       <DependentUpon>CtlPartial_HardText.vb</DependentUpon>
     </Compile>
@@ -95,6 +113,7 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="InterfaceSelectingElements.vb" />
+    <Compile Include="InterfaceSelectingElements_v90.vb" />
     <Compile Include="modFactoryControls.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -121,6 +140,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlGraphicText.resx">
       <DependentUpon>CtlGraphicText.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtlMainButton_v90.resx">
+      <DependentUpon>CtlMainButton_v90.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtlMainEntryBox_v82.resx">
+      <DependentUpon>CtlMainEntryBox_v82.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtlMainEntryBox_v90.resx">
+      <DependentUpon>CtlMainEntryBox_v90.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

@@ -13,12 +13,16 @@ Public Class Methods_EditElement
     ''
     ''Added 10/1/2019 td
     ''
-    Public Property CurrentElementCtl As CtlGraphicFldLabel
+    Public Property CtlCurrentElement As ciBadgeDesigner.CtlGraphicFldLabel ''CtlGraphicFldLabel
     Public Property LayoutFunctions As ILayoutFunctions ''Added 10/3/2019 td 
     Public Property Designer As ciBadgeDesigner.ClassDesigner
     Public Property ColorDialog1 As ColorDialog ''Added 10/3/2019 td 
+    Public Property FontDialog1 As ColorDialog ''Added 10/3/2019 td 
+
     ''---not needed 10/3/2019 td----Public Property GroupEdits As ClassGroupMove ''Added 10/3/2019 td 
     Public Property SelectingElements As ISelectingElements ''Added 10/3/2019 td 
+
+    Private mod_fauxMenuEditSingleton As CtlGraphPopMenuEditSingle ''Added 10/3/2019 td 
 
     Private Sub Open_Field_Of_Element(sender As Object, e As EventArgs)
         ''Private Sub OpenDialog_Field(sender As Object, e As EventArgs)
@@ -34,7 +38,7 @@ Public Class Methods_EditElement
 
         ''Can (should) we just show a single field? ''form_ToShow.JustOneField = Me.FieldInfo
         ''10/2/2019 td''form_ToShow.JustOneField_Index = Me.FieldInfo.FieldIndex
-        form_ToShow.JustOneField_Index = CurrentElementCtl.FieldInfo.FieldIndex
+        form_ToShow.JustOneField_Index = CtlCurrentElement.FieldInfo.FieldIndex
 
         form_ToShow.Show()
 
@@ -77,13 +81,13 @@ Public Class Methods_EditElement
 
         ColorDialog1.ShowDialog()
 
-        If (Me.SelectingElements.LabelsList_IsItemUnselected(Me)) Then
+        If (Me.SelectingElements.LabelsList_IsItemUnselected(Me.CtlCurrentElement)) Then
             ''10/3 td''If (LabelsList_IsItemUnselected(Me)) Then
 
             ''7/30/2019 td''Me.ElementInfo.FontColor = ColorDialog1.Color
             ''8/29/2019 td''Me.ElementInfo.BackColor = ColorDialog1.Color
             ''10/3/2019 td''Me.ElementInfo_Base.Back_Color = ColorDialog1.Color
-            Me.CurrentElementCtl.ElementInfo_Base.Back_Color = Me.ColorDialog1.Color
+            Me.CtlCurrentElement.ElementInfo_Base.Back_Color = Me.ColorDialog1.Color
 
             ''Me.ElementInfo.Width_Pixels = Me.Width
             ''Me.ElementInfo.Height_Pixels = Me.Height
@@ -93,10 +97,10 @@ Public Class Methods_EditElement
 
             ''9/15/2019 td ''Refresh_Image()
             ''10/3/2019 td ''Refresh_Image(True)
-            Me.CurrentElementCtl.Refresh_Image(True)
-            Me.CurrentElementCtl.Refresh()
+            Me.CtlCurrentElement.Refresh_Image(True)
+            Me.CtlCurrentElement.Refresh()
 
-        ElseIf (Me.SelectingElements.LabelsList_IsItemIncluded(Me)) Then
+        ElseIf (Me.SelectingElements.LabelsList_IsItemIncluded(Me.CtlCurrentElement)) Then
             ''10/3/2019 td''ElseIf (LabelsList_IsItemIncluded(Me)) Then
 
             ''Added 8/3/2019 td 
@@ -117,7 +121,7 @@ Public Class Methods_EditElement
                 With each_ctl
 
                     ''8/29/2019 td''.ElementInfoBase.BackColor = ColorDialog1.Color
-                    .ElementInfo_Base.Back_Color = ColorDialog1.Color
+                    .ElementInfo_Base.Back_Color = Me.ColorDialog1.Color
                     ''.ElementInfo.Width_Pixels = Me.Width
                     ''.ElementInfo.Height_Pixels = Me.Height
 
@@ -147,7 +151,7 @@ Public Class Methods_EditElement
         ''9/19/2019 td'' Me.FormDesigner.AutoPreview_IfChecked()
         Me.LayoutFunctions.AutoPreview_IfChecked()
 
-    End Sub
+    End Sub ''End of "Private Sub SwitchCtl__Up(sender As Object, e As EventArgs)"
 
     Private Sub SwitchCtl_Down(sender As Object, e As EventArgs)
         ''
@@ -160,7 +164,7 @@ Public Class Methods_EditElement
         ''9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()
         Me.LayoutFunctions.AutoPreview_IfChecked()
 
-    End Sub
+    End Sub ''ENd of "Private Sub SwitchCtl_Down(sender As Object, e As EventArgs)"
 
     Private Sub OpenDialog_Font(sender As Object, e As EventArgs)
         ''
@@ -178,8 +182,8 @@ Public Class Methods_EditElement
 
         If (boolExitEarly) Then Exit Sub ''Added 8/13/2019 td
 
-        FontDialog1.Font = Me.ElementInfo_Text.Font_DrawingClass ''Added 7/31/2019 td  
-        FontDialog1.ShowDialog()
+        Me.FontDialog1.Font = Me.ElementInfo_Text.Font_DrawingClass ''Added 7/31/2019 td  
+        Me.FontDialog1.ShowDialog()
 
         ''Me.ElementInfo.Font_DrawingClass = FontDialog1.Font
         ''Application.DoEvents()
@@ -187,22 +191,26 @@ Public Class Methods_EditElement
         ''RefreshImage()
         ''Me.Refresh()
 
-        If (Me.SelectingElements.LabelsList_IsItemUnselected(Me)) Then
+        If (Me.SelectingElements.LabelsList_IsItemUnselected(Me.CtlCurrentElement)) Then
 
-            Me.ElementInfo_Text.Font_DrawingClass = FontDialog1.Font
-            Me.ElementInfo_Text.FontSize_Pixels = FontDialog1.Font.Size  ''Added 8/17/2019 td
+            Me.CtlCurrentElement.ElementInfo_Text.Font_DrawingClass = Me.FontDialog1.Font
+            Me.CtlCurrentElement.ElementInfo_Text.FontSize_Pixels = Me.FontDialog1.Font.Size  ''Added 8/17/2019 td
             Application.DoEvents()
             Application.DoEvents()
 
             ''9/15/2019 td''Refresh_Image()
-            Refresh_Image(False)
-            Me.Refresh()
+            ''10/3/2019 td''Refresh_Image(False)
+            ''10/3/2019 td''Me.Refresh()
+            Me.CtlCurrentElement.Refresh_Image(False)
+            Me.CtlCurrentElement.Refresh()
 
         ElseIf (Me.SelectingElements.LabelsList_IsItemIncluded(Me)) Then
 
             ''Added 8/3/2019 td 
             Dim objElements As List(Of CtlGraphicFldLabel)
-            objElements = CType(Me.ParentForm, ISelectingElements).LabelsDesignList_AllItems
+
+            ''10/3/2019 td''objElements = CType(Me.ParentForm, ISelectingElements).LabelsDesignList_AllItems
+            objElements = Me.SelectingElements.LabelsDesignList_AllItems
 
             For Each each_ctl As CtlGraphicFldLabel In objElements
                 ''

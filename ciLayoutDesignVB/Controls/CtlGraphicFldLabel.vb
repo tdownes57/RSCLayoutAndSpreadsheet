@@ -10,9 +10,10 @@ Imports ciBadgeFields ''Added 9/18/2019 thomas downes
 Imports ciBadgeElements ''Added 9/18/2019 td 
 Imports ciBadgeElemImage ''Added 9/20/2019 td 
 
-Public Class CtlGraphicFldLabel
+Public Class CtlGraphicFldLabel_NotInUse
     ''
     ''Added 7/25/2019 thomas d 
+    ''Suffixed with "_NotInUse", 10/3/2019 td 
     ''
     ''9/3/2019 td''Public Shared Generator As ClassLabelToImage
     Public Shared LabelToImage As ClassLabelToImage

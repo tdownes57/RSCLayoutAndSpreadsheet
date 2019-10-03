@@ -192,9 +192,7 @@
     <Compile Include="ContextMenus_Obselete\CtlPartial_FieldLabel.Designer.vb">
       <DependentUpon>CtlPartial_FieldLabel.vb</DependentUpon>
     </Compile>
-    <Compile Include="ContextMenus_Obselete\CtlPartial_FieldLabel.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="ContextMenus_Obselete\CtlPartial_FieldLabel.vb" />
     <Compile Include="Controls\CtlPartial_HardText.Designer.vb">
       <DependentUpon>CtlPartial_HardText.vb</DependentUpon>
     </Compile>
@@ -343,12 +341,6 @@
     <Compile Include="FormDisplay.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Controls\CtlGraphicFldLabel.Designer.vb">
-      <DependentUpon>CtlGraphicFldLabel.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\CtlGraphicFldLabel.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="FormPartial_ProtoTwo.Designer.vb">
       <DependentUpon>FormPartial_ProtoTwo.vb</DependentUpon>
     </Compile>
@@ -369,7 +361,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="InterfaceCIBField_NotInUse.vb" />
-    <Compile Include="InterfaceSelectingElements.vb" />
     <Compile Include="LayoutSerialization.vb" />
     <Compile Include="modAdjustmentBoxes_V101.vb" />
     <Compile Include="modAdjustmentBoxes_V102.vb" />
@@ -524,9 +515,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DialogSubsection.resx">
       <DependentUpon>DialogSubsection.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\CtlGraphicFldLabel.resx">
-      <DependentUpon>CtlGraphicFldLabel.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Version830_v101.resx">
       <DependentUpon>Version830_v101.vb</DependentUpon>
