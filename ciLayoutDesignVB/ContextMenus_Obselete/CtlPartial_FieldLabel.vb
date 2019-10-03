@@ -4,6 +4,7 @@ Option Strict On ''Added 8/16/2019 td
 ''Added 7/30/2019 thomas downes
 ''
 Imports ciBadgeInterfaces ''Added 9/17/2019 td  
+Imports ciBadgeDesigner ''Added 10/3/2019 td
 
 Partial Public Class CtlGraphicFldLabel
     ''

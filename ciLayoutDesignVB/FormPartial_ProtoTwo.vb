@@ -6,6 +6,7 @@ Option Infer Off
 ''Added 7/31/2019 td  
 ''
 Imports ciBadgeInterfaces ''Added 9/19/2019 td  
+Imports ciBadgeDesigner ''Added 10/3/2019 td  
 
 Partial Public Class FormDesignProtoTwo
     ''
@@ -20,7 +21,8 @@ Partial Public Class FormDesignProtoTwo
     Public Property ControlBeingMoved() As Control Implements ILayoutFunctions.ControlBeingMoved ''Added 8/4/2019 td
         Get
             ''Added 8/9/2019 td
-            Return mod_FieldControlLastTouched
+            ''10/3/2019 td''Return mod_FieldControlLastTouched 
+            Return CType(mod_FieldControlLastTouched, Control)
         End Get
         Set(value As Control)
             ''Added 8/9/2019 td
@@ -64,7 +66,7 @@ Partial Public Class FormDesignProtoTwo
         End Set
     End Property ''End of "Public Property ControlBeingModified() As Control Implements ILayoutFunctions.ControlBeingModified"
 
-    Public Property LabelsDesignList_AllItems As List(Of CtlGraphicFldLabel) Implements ISelectingElements.LabelsDesignList_AllItems
+    Public Property LabelsDesignList_AllItems As List(Of CtlGraphicFldLabel) ''-----Implements ISelectingElements.LabelsDesignList_AllItems
         Get
             ''Added 8/3/2019 thomas downes
             Return mod_selectedCtls
@@ -75,7 +77,7 @@ Partial Public Class FormDesignProtoTwo
         End Set
     End Property
 
-    Public Sub LabelsDesignList_Add(par_control As CtlGraphicFldLabel) Implements ISelectingElements.LabelsDesignList_Add
+    Public Sub LabelsDesignList_Add(par_control As CtlGraphicFldLabel) ''-----Implements ISelectingElements.LabelsDesignList_Add
         ''
         ''Added 8/3/2019 thomas downes
         ''
@@ -83,7 +85,7 @@ Partial Public Class FormDesignProtoTwo
 
     End Sub
 
-    Public Sub LabelsDesignList_Remove(par_control As CtlGraphicFldLabel) Implements ISelectingElements.LabelsDesignList_Remove
+    Public Sub LabelsDesignList_Remove(par_control As CtlGraphicFldLabel) ''-----Implements ISelectingElements.LabelsDesignList_Remove
         ''
         ''Added 8/3/2019 thomas downes
         ''
@@ -292,7 +294,7 @@ Partial Public Class FormDesignProtoTwo
 
     End Sub
 
-    Private Sub SwitchControls_Down(par_ctl As CtlGraphicFldLabel) Implements ISelectingElements.SwitchControls_Down
+    Private Sub SwitchControls_Down(par_ctl As CtlGraphicFldLabel) ''-----Implements ISelectingElements.SwitchControls_Down
         ''
         ''Added 8/15/2019 thomas downes  
         ''
@@ -302,7 +304,7 @@ Partial Public Class FormDesignProtoTwo
 
     End Sub ''End of "Private Sub SwitchControls_Down(par_ctl As CtlGraphicFldLabel)"
 
-    Private Sub SwitchControls___Up(par_ctl As CtlGraphicFldLabel) Implements ISelectingElements.SwitchControls___Up
+    Private Sub SwitchControls___Up(par_ctl As CtlGraphicFldLabel) ''-----Implements ISelectingElements.SwitchControls___Up
         ''
         ''Added 8/15/2019 thomas downes  
         ''
@@ -329,12 +331,12 @@ Partial Public Class FormDesignProtoTwo
 
     End Sub ''End of "Private Sub SwitchWithOtherCtl(par_one As CtlGraphicFldLabel, par_two As .....)"
 
-    Private Function HasAtLeastOne_Down(par_ctl As CtlGraphicFldLabel) As Boolean Implements ISelectingElements.HasAtLeastOne_Down
+    Private Function HasAtLeastOne_Down(par_ctl As CtlGraphicFldLabel) As Boolean ''-----Implements ISelectingElements.HasAtLeastOne_Down
         ''Added 8/15/2019 thomas downes  
         Return (GetNextLowerControl(par_ctl) IsNot Nothing)
     End Function
 
-    Private Function HasAtLeastOne____Up(par_ctl As CtlGraphicFldLabel) As Boolean Implements ISelectingElements.HasAtLeastOne__Up
+    Private Function HasAtLeastOne____Up(par_ctl As CtlGraphicFldLabel) As Boolean ''-----Implements ISelectingElements.HasAtLeastOne__Up
         ''Added 8/15/2019 thomas downes  
         Return (GetNextHigherControl(par_ctl) IsNot Nothing)
     End Function
@@ -370,28 +372,28 @@ Partial Public Class FormDesignProtoTwo
 
     End Function ''End of "Private Function GetNextHigherControl"
 
-    Public Function LabelsList_CountItems() As Integer Implements ISelectingElements.LabelsList_CountItems
+    Public Function LabelsList_CountItems() As Integer ''-----Implements ISelectingElements.LabelsList_CountItems
 
         ''Added 8/3/2019 td 
         Return mod_selectedCtls.Count
 
     End Function
 
-    Public Function LabelsList_OneOrMoreItems() As Boolean Implements ISelectingElements.LabelsList_OneOrMoreItems
+    Public Function LabelsList_OneOrMoreItems() As Boolean ''-----Implements ISelectingElements.LabelsList_OneOrMoreItems
 
         ''Added 8/3/2019 td 
         Return (1 <= mod_selectedCtls.Count)
 
     End Function
 
-    Public Function LabelsList_TwoOrMoreItems() As Boolean Implements ISelectingElements.LabelsList_TwoOrMoreItems
+    Public Function LabelsList_TwoOrMoreItems() As Boolean ''-----Implements ISelectingElements.LabelsList_TwoOrMoreItems
 
         ''Added 8/3/2019 td 
         Return (2 <= mod_selectedCtls.Count)
 
     End Function
 
-    Public Function LabelsList_IsItemIncluded(par_control As CtlGraphicFldLabel) As Boolean Implements ISelectingElements.LabelsList_IsItemIncluded
+    Public Function LabelsList_IsItemIncluded(par_control As CtlGraphicFldLabel) As Boolean ''-----Implements ISelectingElements.LabelsList_IsItemIncluded
 
         ''Added 8/3/2019 td 
         Return (mod_selectedCtls.Contains(par_control))
@@ -399,7 +401,7 @@ Partial Public Class FormDesignProtoTwo
     End Function
 
 
-    Public Function LabelsList_IsItemUnselected(par_control As CtlGraphicFldLabel) As Boolean Implements ISelectingElements.LabelsList_IsItemUnselected
+    Public Function LabelsList_IsItemUnselected(par_control As CtlGraphicFldLabel) As Boolean ''-----Implements ISelectingElements.LabelsList_IsItemUnselected
 
         ''Added 8/3/2019 td 
         Return (Not (mod_selectedCtls.Contains(par_control)))

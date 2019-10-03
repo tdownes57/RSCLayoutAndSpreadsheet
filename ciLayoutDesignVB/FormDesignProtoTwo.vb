@@ -14,7 +14,7 @@ Imports ciBadgeFields ''Added 9/18/2019 td
 Imports ciBadgeElements ''Added 9/18/2019 td
 
 Public Class FormDesignProtoTwo
-    Implements ISelectingElements, ILayoutFunctions
+    Implements ILayoutFunctions ''-----, ISelectingElements, ILayoutFunctions
     ''
     ''Added 7/18/2019 Thomas DOWNES
     ''
