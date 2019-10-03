@@ -1,4 +1,6 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿Imports ciBadgeDesigner
+
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class DialogTextBorder
     Inherits System.Windows.Forms.Form
 
@@ -26,7 +28,7 @@ Partial Class DialogTextBorder
         Me.ButtonCancel = New System.Windows.Forms.Button()
         Me.ButtonOK = New System.Windows.Forms.Button()
         Me.chkBorderDisplayed = New System.Windows.Forms.CheckBox()
-        Me.CtlGraphicFldLabel1 = New ciLayoutDesignVB.CtlGraphicFldLabel()
+        Me.CtlGraphicFldLabel1 = New CtlGraphicFldLabel()
         Me.CtlBorderWidth = New ciLayoutDesignVB.CtlPropertyLeftRight()
         Me.SuspendLayout()
         '

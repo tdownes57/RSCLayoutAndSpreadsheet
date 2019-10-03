@@ -10,6 +10,7 @@ Option Infer Off
 ''Modified by Thomas Downes, 9/8/2019 
 ''
 Imports ciBadgeInterfaces ''Added 9/20/2019 thomas downes
+Imports ciBadgeDesigner ''Added 10/3/2019 thomas downes 
 
 Public Class ClassRubberbandSelector
     ''

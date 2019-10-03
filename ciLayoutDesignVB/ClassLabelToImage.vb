@@ -8,6 +8,7 @@ Imports System.Drawing.Image ''Added 7/17/2019
 Imports System.Drawing.Text ''Added 7/30/2019
 Imports System.Drawing ''Added 7/30/2019 td 
 Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d. 
+Imports ciBadgeDesigner ''Added 10/3/2019 td  
 
 Public Enum EnumImageOrControl
     Undetermined

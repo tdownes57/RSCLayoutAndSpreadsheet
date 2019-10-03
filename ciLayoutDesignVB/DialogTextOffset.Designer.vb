@@ -1,4 +1,6 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿Imports ciBadgeDesigner
+
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class DialogTextOffset
     Inherits System.Windows.Forms.Form
 
@@ -43,7 +45,7 @@ Partial Class DialogTextOffset
         Me.CtlElementHeight = New ciLayoutDesignVB.CtlPropertyUpDownvb()
         Me.CtlFontSize = New ciLayoutDesignVB.CtlPropertyUpDownvb()
         Me.ctlTextOffsetY = New ciLayoutDesignVB.CtlPropertyUpDownvb()
-        Me.CtlGraphicFldLabel1 = New ciLayoutDesignVB.CtlGraphicFldLabel()
+        Me.CtlGraphicFldLabel1 = New CtlGraphicFldLabel()
         Me.LabelForBorderOnly = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()

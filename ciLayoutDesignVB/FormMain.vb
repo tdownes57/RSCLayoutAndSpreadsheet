@@ -16,7 +16,7 @@ Public Class FormMain
         ''
         ''Added 9/30/2019 thomas downes
         ''
-        Dim objFormToShow As New FormDesignProtoTwo
+        ''------------Dim objFormToShow As New FormDesignProtoTwo
 
 
 
@@ -93,7 +93,9 @@ Public Class FormMain
         ''Added 7 / 17 / 2019 thomas downes
         ''
         ''7/26/2019 td''Dim frm_ToShow As New FormDesignPrototype()
-        Dim frm_ToShow As New FormDesignProtoTwo()
+
+        ''-----10/3 td-----Dim frm_ToShow As New FormDesignProtoTwo()
+        Dim frm_ToShow As New FormDesignProtoThree()
         frm_ToShow.Show()
 
     End Sub
@@ -188,7 +190,8 @@ Public Class FormMain
         ''
         ''Added 9/3/2019 thomas downes
         ''
-        Dim frm_ToShow As New FormDesignProtoTwo()
+        ''-----10/3/2019 td----Dim frm_ToShow As New FormDesignProtoTwo()
+        Dim frm_ToShow As New FormDesignProtoThree()
         frm_ToShow.Show()
 
     End Sub
