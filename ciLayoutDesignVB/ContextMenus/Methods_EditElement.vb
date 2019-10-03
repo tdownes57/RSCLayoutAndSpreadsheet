@@ -14,7 +14,11 @@ Public Class Methods_EditElement
     ''Added 10/1/2019 td
     ''
     Public Property CurrentElementCtl As CtlGraphicFldLabel
+    Public Property LayoutFunctions As ILayoutFunctions ''Added 10/3/2019 td 
     Public Property Designer As ciBadgeDesigner.ClassDesigner
+    Public Property ColorDialog1 As ColorDialog ''Added 10/3/2019 td 
+    ''---not needed 10/3/2019 td----Public Property GroupEdits As ClassGroupMove ''Added 10/3/2019 td 
+    Public Property SelectingElements As ISelectingElements ''Added 10/3/2019 td 
 
     Private Sub Open_Field_Of_Element(sender As Object, e As EventArgs)
         ''Private Sub OpenDialog_Field(sender As Object, e As EventArgs)
@@ -73,12 +77,13 @@ Public Class Methods_EditElement
 
         ColorDialog1.ShowDialog()
 
-        If (Me.GroupEdits.LabelsList_IsItemUnselected(Me)) Then
+        If (Me.SelectingElements.LabelsList_IsItemUnselected(Me)) Then
+            ''10/3 td''If (LabelsList_IsItemUnselected(Me)) Then
 
             ''7/30/2019 td''Me.ElementInfo.FontColor = ColorDialog1.Color
             ''8/29/2019 td''Me.ElementInfo.BackColor = ColorDialog1.Color
-            Me.ElementInfo_Base.Back_Color = ColorDialog1.Color
-            Me.
+            ''10/3/2019 td''Me.ElementInfo_Base.Back_Color = ColorDialog1.Color
+            Me.CurrentElementCtl.ElementInfo_Base.Back_Color = Me.ColorDialog1.Color
 
             ''Me.ElementInfo.Width_Pixels = Me.Width
             ''Me.ElementInfo.Height_Pixels = Me.Height
@@ -87,16 +92,19 @@ Public Class Methods_EditElement
             Application.DoEvents()
 
             ''9/15/2019 td ''Refresh_Image()
-            Refresh_Image(True)
-            Me.Refresh()
+            ''10/3/2019 td ''Refresh_Image(True)
+            Me.CurrentElementCtl.Refresh_Image(True)
+            Me.CurrentElementCtl.Refresh()
 
-        ElseIf (Me.GroupEdits.LabelsList_IsItemIncluded(Me)) Then
+        ElseIf (Me.SelectingElements.LabelsList_IsItemIncluded(Me)) Then
+            ''10/3/2019 td''ElseIf (LabelsList_IsItemIncluded(Me)) Then
 
             ''Added 8/3/2019 td 
             Dim objElements As List(Of CtlGraphicFldLabel)
 
             ''8/4//2019 td'objElements = CType(Me.ParentForm, ISelectingElements).LabelsDesignList_AllItems
-            objElements = Me.GroupEdits.LabelsDesignList_AllItems
+            ''10/3/2019 td''objElements = Me.SelectingElements.LabelsDesignList_AllItems
+            objElements = Me.SelectingElements.LabelsDesignList_AllItems
 
             ''If (objElements.Count = 0) Then
             ''   objElements.Add(Me)
@@ -120,7 +128,7 @@ Public Class Methods_EditElement
 
             Next each_ctl
 
-        End If ''End of "If (Me.GroupEdits.LabelsList_IsItemUnselected(Me)) Then ... ElseIf (Me.GroupEdits.LabelsList_IsItemIncluded(Me)) Then"
+        End If ''End of "If (Me.SelectingElements.LabelsList_IsItemUnselected(Me)) Then ... ElseIf (Me.SelectingElements.LabelsList_IsItemIncluded(Me)) Then"
 
         ''Added 9/13/2019 td
         ''9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()
@@ -132,7 +140,8 @@ Public Class Methods_EditElement
         ''
         ''Added 8/16/2019 thomas downes
         ''
-        Me.GroupEdits.SwitchControls___Up(Me)
+        ''10/3/2019 td'Me.SelectingElements.SwitchControls___Up(Me)
+        Me.SelectingElements.SwitchControls___Up(Me)
 
         ''Added 9/13/2019 td
         ''9/19/2019 td'' Me.FormDesigner.AutoPreview_IfChecked()
@@ -144,7 +153,8 @@ Public Class Methods_EditElement
         ''
         ''Added 8/16/2019 thomas downes
         ''
-        Me.GroupEdits.SwitchControls_Down(Me)
+        ''10/3/2019 td'Me.SelectingElements.SwitchControls_Down(Me)
+        Me.SelectingElements.SwitchControls_Down(Me)
 
         ''Added 9/13/2019 td
         ''9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()
@@ -177,7 +187,7 @@ Public Class Methods_EditElement
         ''RefreshImage()
         ''Me.Refresh()
 
-        If (Me.GroupEdits.LabelsList_IsItemUnselected(Me)) Then
+        If (Me.SelectingElements.LabelsList_IsItemUnselected(Me)) Then
 
             Me.ElementInfo_Text.Font_DrawingClass = FontDialog1.Font
             Me.ElementInfo_Text.FontSize_Pixels = FontDialog1.Font.Size  ''Added 8/17/2019 td
@@ -188,7 +198,7 @@ Public Class Methods_EditElement
             Refresh_Image(False)
             Me.Refresh()
 
-        ElseIf (Me.GroupEdits.LabelsList_IsItemIncluded(Me)) Then
+        ElseIf (Me.SelectingElements.LabelsList_IsItemIncluded(Me)) Then
 
             ''Added 8/3/2019 td 
             Dim objElements As List(Of CtlGraphicFldLabel)
@@ -210,7 +220,7 @@ Public Class Methods_EditElement
 
             Next each_ctl
 
-        End If ''End of "If (Me.GroupEdits.LabelsList_IsItemUnselected(Me)) Then... Else ..."
+        End If ''End of "If (Me.SelectingElements.LabelsList_IsItemUnselected(Me)) Then... Else ..."
 
         ''Added 9/13/2019 td
         ''9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()
@@ -240,7 +250,7 @@ Public Class Methods_EditElement
         ''
         mod_includedInGroupEdit = True
 
-        Me.GroupEdits.LabelsDesignList_Add(Me) ''Added 8/1/2019 td
+        Me.SelectingElements.LabelsDesignList_Add(Me) ''Added 8/1/2019 td
 
         ''8/2/2019''Me.BackColor = Color.Yellow
         ''8/2/2019''pictureLabel.Top = 6
@@ -270,7 +280,7 @@ Public Class Methods_EditElement
         ''
         mod_includedInGroupEdit = False
 
-        Me.GroupEdits.LabelsDesignList_Remove(Me) ''Added 8/1/2019 td
+        Me.SelectingElements.LabelsDesignList_Remove(Me) ''Added 8/1/2019 td
 
         ''Me.BackColor = Me.ElementInfo.BackColor
         ''pictureLabel.Top = 0
@@ -328,7 +338,7 @@ Public Class Methods_EditElement
 
         If (boolExitEarly) Then Exit Sub ''Added 8/13/2019 td
 
-        objElements = Me.GroupEdits.LabelsDesignList_AllItems
+        objElements = Me.SelectingElements.LabelsDesignList_AllItems
 
         ''
         ''Added 8/16/2019 td  
@@ -478,11 +488,11 @@ Public Class Methods_EditElement
             ''
             ''
             ''Added 8/18/2019 td 
-            If (Me.GroupEdits.LabelsList_IsItemIncluded(Me)) Then
+            If (Me.SelectingElements.LabelsList_IsItemIncluded(Me)) Then
 
                 ''Added 8/18/2019 td 
                 Dim objElements As List(Of CtlGraphicFldLabel)
-                objElements = Me.GroupEdits.LabelsDesignList_AllItems
+                objElements = Me.SelectingElements.LabelsDesignList_AllItems
 
                 For Each each_ctl As CtlGraphicFldLabel In objElements
                     ''
@@ -508,7 +518,7 @@ Public Class Methods_EditElement
 
                 Next each_ctl
 
-            End If ''ENdo f "If (Me.GroupEdits.LabelsList_IsItemIncluded(Me)) Then"
+            End If ''ENdo f "If (Me.SelectingElements.LabelsList_IsItemIncluded(Me)) Then"
 
         End If ''End of "If (boolUserPressedOK) Then"
 
@@ -553,11 +563,11 @@ Public Class Methods_EditElement
             ''
             ''
             ''Added 8/18/2019 td 
-            If (Me.GroupEdits.LabelsList_IsItemIncluded(Me)) Then
+            If (Me.SelectingElements.LabelsList_IsItemIncluded(Me)) Then
 
                 ''Added 8/18/2019 td 
                 Dim objElements As List(Of CtlGraphicFldLabel)
-                objElements = Me.GroupEdits.LabelsDesignList_AllItems
+                objElements = Me.SelectingElements.LabelsDesignList_AllItems
 
                 For Each each_ctl As CtlGraphicFldLabel In objElements
                     ''
@@ -579,7 +589,7 @@ Public Class Methods_EditElement
 
                 Next each_ctl
 
-            End If ''End of "If (Me.GroupEdits.LabelsList_IsItemIncluded(Me)) Then"
+            End If ''End of "If (Me.SelectingElements.LabelsList_IsItemIncluded(Me)) Then"
 
         End If ''End of "If (boolUserPressedOK) Then"
 
