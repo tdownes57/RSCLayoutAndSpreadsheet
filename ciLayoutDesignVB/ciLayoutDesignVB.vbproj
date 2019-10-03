@@ -202,6 +202,12 @@
     <Compile Include="FormDesignProtoThree.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FormDesignProtoTwo.Designer.vb">
+      <DependentUpon>FormDesignProtoTwo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormDesignProtoTwo.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormPartial_MDEv90_p1.Designer.vb">
       <DependentUpon>FormPartial_MDEv90_p1.vb</DependentUpon>
     </Compile>
@@ -429,6 +435,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormDesignProtoThree.resx">
       <DependentUpon>FormDesignProtoThree.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDesignProtoTwo.resx">
+      <DependentUpon>FormDesignProtoTwo.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormMainEntry_v90.resx">
       <DependentUpon>FormMainEntry_v90.vb</DependentUpon>
