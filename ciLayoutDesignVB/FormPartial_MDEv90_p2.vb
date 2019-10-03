@@ -4,6 +4,7 @@ Option Infer Off
 ''
 ''Added 9/9/2019 td  
 ''
+Imports ciBadgeDesigner ''Added 10/3/2019 td  
 
 Partial Public Class FormMainEntry_v90
     ''
