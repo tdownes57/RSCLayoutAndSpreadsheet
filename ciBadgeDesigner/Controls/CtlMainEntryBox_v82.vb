@@ -2,6 +2,8 @@
 ''Added 8/7/2019 thomas downes   
 ''
 
+Imports System.Drawing
+
 Public Class CtlMainEntryBox_v82
     ''
     ''Added 8/7/2019 thomas downes   

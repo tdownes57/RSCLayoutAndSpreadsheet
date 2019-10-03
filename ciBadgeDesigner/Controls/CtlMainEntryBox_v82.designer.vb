@@ -1,4 +1,6 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿Imports System.Windows.Forms
+
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class CtlMainEntryBox_v82
     Inherits System.Windows.Forms.UserControl
 
@@ -53,7 +55,7 @@ Partial Class CtlMainEntryBox_v82
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.LightSkyBlue
-        Me.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.mainback_v82
+        Me.BackgroundImage = My.Resources.Resources.mainback_v82
         Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.Label1)
         Me.Margin = New System.Windows.Forms.Padding(4)

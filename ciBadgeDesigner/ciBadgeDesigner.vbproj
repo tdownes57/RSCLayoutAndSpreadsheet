@@ -194,5 +194,11 @@
       <Name>MoveAndResizeControls_Monem</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mainback_v82.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Step3_TakePic_v90.PNG" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

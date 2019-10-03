@@ -147,12 +147,6 @@
     <Compile Include="Controls\CtlMainButton_v90.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\CtlMainEntryBox_v82.Designer.vb">
-      <DependentUpon>CtlMainEntryBox_v82.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\CtlMainEntryBox_v82.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="Controls\CtlGraphicPortrait.Designer.vb">
       <DependentUpon>CtlGraphicPortrait.vb</DependentUpon>
     </Compile>
@@ -175,12 +169,6 @@
       <DependentUpon>CtlMainEntryBox_NotInUse.vb</DependentUpon>
     </Compile>
     <Compile Include="Controls\CtlMainEntryBox_NotInUse.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\CtlMainEntryBox_v90.Designer.vb">
-      <DependentUpon>CtlMainEntryBox_v90.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\CtlMainEntryBox_v90.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\CtlMainStep3_v82.Designer.vb">
@@ -236,7 +224,6 @@
     <Compile Include="FormSimpleDataEntry.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="InterfaceSelectingElements_v90.vb" />
     <Compile Include="ListCustomFieldsFlow.Designer.vb">
       <DependentUpon>ListCustomFieldsFlow.vb</DependentUpon>
     </Compile>
@@ -435,9 +422,6 @@
     <EmbeddedResource Include="Controls\CtlMainButton_v90.resx">
       <DependentUpon>CtlMainButton_v90.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\CtlMainEntryBox_v82.resx">
-      <DependentUpon>CtlMainEntryBox_v82.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlGraphicPortrait.resx">
       <DependentUpon>CtlGraphicPortrait.vb</DependentUpon>
     </EmbeddedResource>
@@ -446,9 +430,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlMainEntryBox_NotInUse.resx">
       <DependentUpon>CtlMainEntryBox_NotInUse.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\CtlMainEntryBox_v90.resx">
-      <DependentUpon>CtlMainEntryBox_v90.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlMainStep3_v82.resx">
       <DependentUpon>CtlMainStep3_v82.vb</DependentUpon>

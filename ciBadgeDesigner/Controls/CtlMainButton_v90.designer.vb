@@ -29,7 +29,7 @@ Partial Class CtlMainButton_v90
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.Step3_TakePic_v90
+        Me.BackgroundImage = My.Resources.Resources.Step3_TakePic_v90
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.DoubleBuffered = True
         Me.Name = "CtlMainButton_v90"

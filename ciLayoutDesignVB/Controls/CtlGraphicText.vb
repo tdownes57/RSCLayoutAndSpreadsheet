@@ -4,6 +4,7 @@
 Imports ciBadgeInterfaces ''Added 9/18/2019 td
 Imports ciBadgeFields ''Added 9/18/2019 td
 Imports ciBadgeElements ''Added 9/18/2019 td  
+Imports ciBadgeDesigner ''Added10/3/2019 td 
 
 Public Class CtlGraphicText
     ''
