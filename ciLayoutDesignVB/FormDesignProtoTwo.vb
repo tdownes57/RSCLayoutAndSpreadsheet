@@ -8,13 +8,14 @@ Option Strict On
 Imports MoveAndResizeControls_Monem
 ''9/9/2019 td''Imports ControlManager
 Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d.  
-Imports ciLayoutPrintLib ''Added 8/28/2019 thomas d. 
-Imports System.Collections.Generic ''Added 9.6.2019 td
+''10/3/2019 td''Imports ciLayoutPrintLib ''Added 8/28/2019 thomas d. 
+''10/3/2019 td''Imports System.Collections.Generic ''Added 9.6.2019 td
 Imports ciBadgeFields ''Added 9/18/2019 td 
 Imports ciBadgeElements ''Added 9/18/2019 td
+Imports ciBadgeDesigner ''Added 10/3/2019 td
 
 Public Class FormDesignProtoTwo
-    Implements ILayoutFunctions ''-----, ISelectingElements, ILayoutFunctions
+    ''10/3/2019 td''Implements ILayoutFunctions ''-----, ISelectingElements, ILayoutFunctions
     ''
     ''Added 7/18/2019 Thomas DOWNES
     ''
@@ -22,9 +23,12 @@ Public Class FormDesignProtoTwo
     Public Property ElementsCache_Saved As New ClassElementsCache ''Added 9/16/2019 thomas downes
     Public Property ElementsCache_Edits As New ClassElementsCache ''Added 9/16/2019 thomas downes
 
+    Private mod_designer As New ciBadgeDesigner.ClassDesigner ''Added 10/3/2019 td
+
     ''#1 8-3-2019 td''Private WithEvents mod_moveAndResizeCtls_NA As New MoveAndResizeControls_Monem.ControlMove_RaiseEvents ''Added 8/3/2019 td  
     '' #2 8-3-2019 td''Private WithEvents mod_moveAndResizeCtls As New MoveAndResizeControls_Monem.ControlMove_GroupMove ''Added 8/3/2019 td  
-    Private WithEvents mod_groupedMove As New ClassGroupMove(Me) ''8/4/2019 td''New ClassGroupMove
+    ''#1 10/3/2019 td''Private WithEvents mod_groupedMove As New ClassGroupMove(Me) ''8/4/2019 td''New ClassGroupMove
+    '' #2 10/3/2019 td''Private WithEvents mod_groupedMove As New ClassGroupMove(mod_designer) ''8/4/2019 td''New ClassGroupMove
 
     Private Const mc_boolAllowGroupMovements As Boolean = True ''False ''True ''False ''Added 8/3/2019 td  
     Private Const mc_boolBreakpoints As Boolean = True
@@ -33,10 +37,10 @@ Public Class FormDesignProtoTwo
     Private mod_imageLady As Image ''8/18/2019 td'' = CtlGraphicPortrait_Lady.picturePortrait.Image
 
     ''Added 9/8/2019 td
-    Private mod_rubberbandClass As ClassRubberbandSelector
+    '' #2 10/3/2019 td''Private mod_rubberbandClass As ClassRubberbandSelector
 
     ''Added 9/20/2019 td  
-    Private mod_listOfFieldControls As New List(Of CtlGraphicFldLabel)
+    '' #2 10/3/2019 td''Private mod_listOfFieldControls As New List(Of CtlGraphicFldLabel)
 
     ''Private mod_generator As LayoutElementGenerator
 
@@ -61,44 +65,44 @@ Public Class FormDesignProtoTwo
 
     Private vbCrLf_Deux As String = (vbCrLf & vbCrLf) ''Added 7/31/2019 td 
 
-    Public Function Layout_Width_Pixels() As Integer Implements ILayoutFunctions.Layout_Width_Pixels
-        ''Added 9/3/2019 thomas downes
-        Return pictureBack.Width
-    End Function ''End of "Public Function Layout_Width_Pixels() As Integer"
+    ''Public Function Layout_Width_Pixels() As Integer Implements ILayoutFunctions.Layout_Width_Pixels
+    ''    ''Added 9/3/2019 thomas downes
+    ''    Return pictureBack.Width
+    ''End Function ''End of "Public Function Layout_Width_Pixels() As Integer"
 
-    Public Function Layout_Height_Pixels() As Integer Implements ILayoutFunctions.Layout_Height_Pixels
-        ''Added 9/11/2019 Never Forget 
-        Return pictureBack.Height
-    End Function ''End of "Public Function Layout_Height_Pixels() As Integer"
+    ''Public Function Layout_Height_Pixels() As Integer Implements ILayoutFunctions.Layout_Height_Pixels
+    ''    ''Added 9/11/2019 Never Forget 
+    ''    Return pictureBack.Height
+    ''End Function ''End of "Public Function Layout_Height_Pixels() As Integer"
 
-    Public Function Layout_Margin_Left_Omit(par_intPixelsLeft As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Left_Omit
-        ''Added 9/5/2019 thomas downes
-        Return (par_intPixelsLeft - pictureBack.Left)
-    End Function ''End of "Public Function Layout_Margin_Left_Omit() As Integer"
+    ''Public Function Layout_Margin_Left_Omit(par_intPixelsLeft As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Left_Omit
+    ''    ''Added 9/5/2019 thomas downes
+    ''    Return (par_intPixelsLeft - pictureBack.Left)
+    ''End Function ''End of "Public Function Layout_Margin_Left_Omit() As Integer"
 
-    Public Function Layout_Margin_Left_Add(par_intPixelsLeft As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Left_Add
-        ''Added 9/5/2019 thomas downes
-        Return (par_intPixelsLeft + pictureBack.Left)
-    End Function ''End of "Public Function Layout_Margin_Left_Add() As Integer"
+    ''Public Function Layout_Margin_Left_Add(par_intPixelsLeft As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Left_Add
+    ''    ''Added 9/5/2019 thomas downes
+    ''    Return (par_intPixelsLeft + pictureBack.Left)
+    ''End Function ''End of "Public Function Layout_Margin_Left_Add() As Integer"
 
-    Public Function Layout_Margin_Top_Omit(par_intPixelsTop As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Top_Omit
-        ''Added 9/5/2019 thomas downes
-        Return (par_intPixelsTop - pictureBack.Top)
-    End Function ''End of "Public Function Layout_Margin_Top_Omit() As Integer"
+    ''Public Function Layout_Margin_Top_Omit(par_intPixelsTop As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Top_Omit
+    ''    ''Added 9/5/2019 thomas downes
+    ''    Return (par_intPixelsTop - pictureBack.Top)
+    ''End Function ''End of "Public Function Layout_Margin_Top_Omit() As Integer"
 
-    Public Function Layout_Margin_Top_Add(par_intPixelsTop As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Top_Add
-        ''Added 9/5/2019 thomas downes
-        Return (par_intPixelsTop + pictureBack.Top)
-    End Function ''End of "Public Function Layout_Margin_Top_Add() As Integer"
+    ''Public Function Layout_Margin_Top_Add(par_intPixelsTop As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Top_Add
+    ''    ''Added 9/5/2019 thomas downes
+    ''    Return (par_intPixelsTop + pictureBack.Top)
+    ''End Function ''End of "Public Function Layout_Margin_Top_Add() As Integer"
 
-    Public Function OkayToShowFauxContextMenu() As Boolean Implements ILayoutFunctions.OkayToShowFauxContextMenu
-        ''
-        ''Added 8/14/2019 td 
-        ''
-        ''OkayToShowFauxContextMenu()
-        Return DemoModeActiveToolStripMenuItem.Checked
+    ''Public Function OkayToShowFauxContextMenu() As Boolean Implements ILayoutFunctions.OkayToShowFauxContextMenu
+    ''    ''
+    ''    ''Added 8/14/2019 td 
+    ''    ''
+    ''    ''OkayToShowFauxContextMenu()
+    ''    Return DemoModeActiveToolStripMenuItem.Checked
 
-    End Function ''End of "Public Function OkayToShowFauxContextMenu() As Boolean"
+    ''End Function ''End of "Public Function OkayToShowFauxContextMenu() As Boolean"
 
     Private Sub FormDesignProtoTwo_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
@@ -178,12 +182,34 @@ Public Class FormDesignProtoTwo
 
         Me.ElementsCache_Edits = Me.ElementsCache_Saved.Copy()
 
+        With mod_designer
+
+            .BackgroundBox = Me.pictureBack
+            .PreviewBox = Me.picturePreview
+            .DesignerForm = Me
+            .FlowFieldsNotListed = Me.flowFieldsNotListed
+            .CheckboxAutoPreview = Me.checkAutoPreview
+
+            ''10/1/2019''intPicLeft = CtlGraphicPortrait_Lady.Left - pictureBack.Left
+            ''10/1/2019''intPicTop = CtlGraphicPortrait_Lady.Top - pictureBack.Top
+            ''10/1/2019''intPicWidth = CtlGraphicPortrait_Lady.Width
+            ''10/1/2019''intPicHeight = CtlGraphicPortrait_Lady.Height
+
+            .PicInitialize_Left = .Layout_Margin_Left_Omit(Me.CtlGraphicPortrait_Lady.Left)
+            .PicInitialize_Top = .Layout_Margin_Top_Omit(Me.CtlGraphicPortrait_Lady.Top)
+            .PicInitialize_Width = Me.CtlGraphicPortrait_Lady.Width
+            .PicInitialize_Height = Me.CtlGraphicPortrait_Lady.Height
+
+            .LoadDesigner()
+
+        End With
+
         ''
         ''Major call!!  
         ''
         ''9/17/2019 td''LoadForm_LayoutElements()
         ''9/20/2019 td''LoadForm_LayoutElements(Me.ElementsCache_Edits)
-        LoadForm_LayoutElements(Me.ElementsCache_Edits, mod_listOfFieldControls)
+        ''10/3/2019 td''LoadForm_LayoutElements(Me.ElementsCache_Edits, mod_listOfFieldControls)
 
         ''Added 9/24/2019 thomas 
         ''9/29/2019 td''serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
@@ -192,683 +218,686 @@ Public Class FormDesignProtoTwo
                                     Me.ElementsCache_Saved.PicElement,
                                     False, False)
 
-        ''Added 9/28/2019 thomas 
-        ''serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
-        ''serial_tools.SerializeToXML(Me.ElementsCache_Saved.ListFields(0).GetType,
-        ''                            Me.ElementsCache_Saved.ListFields(0), False, True)
-        ''serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
-        ''serial_tools.SerializeToXML(Me.ElementsCache_Saved.ListFieldElements(0).GetType,
-        ''                            Me.ElementsCache_Saved.ListFieldElements(0), False, True)
-
-        ''Added 8/11/2019 thomas d.
-        ''
-        graphicAdjuster.SendToBack()
-        picturePreview.SendToBack()
-        pictureBack.SendToBack()
-
-        ResizeLayoutBackgroundImage_ToFitPictureBox() ''Added 8/25/2019 td
-        RefreshPreview() ''Added 8/24/2019 td
-
-        Const c_boolBreakpoint As Boolean = True  ''Added 9//13/2019 td
-
-        ''Badge Preview is also moveable/sizeable, mostly to impress
-        ''    management.  ----9/8/2019 td
-        ''
-        ControlMoverOrResizer_TD.Init(picturePreview,
-                          picturePreview, 10, False,
-                          c_boolBreakpoint) ''Added 9/08/2019 thomas downes
-
-        ''If it won't conflict with the Rubber-Band Selector, 
-        ''    then let's make the Badge Layout Background 
-        ''    also moveable / sizeable.
-        ''    ----9/8/2019 td
-        ''
-        Const c_LayoutBackIsMoveable As Boolean = False ''Added 9/8/2019 td 
-        If (c_LayoutBackIsMoveable) Then
-            ''Badge Layout Background is also moveable/sizeable.
-            ControlMoverOrResizer_TD.Init(pictureBack,
-                          picturePreview, 10, False,
-                          c_boolBreakpoint) ''Added 9/08/2019 thomas downes
-        End If ''End of "If (c_LayoutBackIsMoveable) Then"
-
-        ''Moved from above, 9/20/2019 td 
-        Initiate_RubberbandSelector(mod_listOfFieldControls,
-                                     mod_selectedCtls) ''Added 9/8/2019 thomas d. 
-
-    End Sub ''End of "Private Sub FormDesignProtoTwo_Load"
-
-    Private Sub ResizeLayoutBackgroundImage_ToFitPictureBox()
-        ''
-        ''Added 8/25/2019 td 
-        ''
-        Dim obj_image As Image ''Added 8/24 td
-        ''Dim obj_image_clone As Image ''Added 8/24 td
-        Dim obj_image_clone_resized As Image ''Added 8/24/2019 td
-
-        ''Added 8/24/2019 td
-        obj_image = pictureBack.Image
-
-        ''obj_image_clone = CType(obj_image.Clone(), Image)
-
-        ''Dim gr_resize As Graphics = New Bitmap(obj_image_clone)
-
-        ''8/25/2019 td''obj_image_clone_resized = ciLayoutPrintLib.LayoutPrint.ResizeImage_ToHeight(obj_image,
-        ''                       pictureBack.Height)
-
-        ''8/26/2019 td''obj_image_clone_resized = ciLayoutPrintLib.LayoutPrint.ResizeImage_ToWidth(obj_image,
-        ''8/26/2019 td''       pictureBack.Width)
-
-        obj_image_clone_resized = LayoutPrint.ResizeBackground_ToFitBox(obj_image, pictureBack, True)
-
-        pictureBack.Image = obj_image_clone_resized
-
-    End Sub ''End of Sub ResizeLayoutBackgroundImage()
-
-    Private Sub LoadForm_LayoutElements(par_cache As ClassElementsCache,
-                                        ByRef par_listFieldCtls As List(Of CtlGraphicFldLabel))
-        ''9/20/2019 td''Private Sub LoadForm_LayoutElements(par_cache As ClassElementsCache)
-        ''
-        ''Added 9/17/2019 td
-        ''
-        Const c_boolLoadingForm As Boolean = True ''Added 8/28/2019 thomas downes 
-        Dim boolMakeMoveableByUser As Boolean ''Added 9/20/2019 td 
-        Const c_boolMakeMoveableASAP As Boolean = False ''added 9/20/2019 td
-
-        ''#1 9/17/2019 td''LoadElements_Fields_Master(c_boolLoadingForm, par_cache.FieldElements())
-        '' #2 9/17/2019 td''LoadElements_ByListOfFields(ClassFields.ListAllFields())
-        ''9/20/2019 td''LoadFieldControls_ByListOfElements(par_cache.ListFieldElements(), c_boolLoadingForm)
-
-        boolMakeMoveableByUser = c_boolMakeMoveableASAP ''Added 9/20/2019 td  
-
-        LoadFieldControls_ByListOfElements(par_cache.ListFieldElements(),
-                                           c_boolLoadingForm,
-                                           False, boolMakeMoveableByUser,
-                                           par_listFieldCtls)
-
-        LoadElements_Picture(par_cache.PicElement())
-
-        ''Add moveability.   
-        boolMakeMoveableByUser = (Not c_boolMakeMoveableASAP) ''Added 9/20/2019 td
-        If (boolMakeMoveableByUser) Then
-            ''
-            ''Pretty big call!!   Allow the user to "click & drag" the control. 
-            ''
-            MakeElementsMoveable()
-
-        End If ''ENd of "If (boolMakeMoveableByUser) Then"
-
-        ''
-        ''Added 7/28/2019 td
-        ''    Make sure that the Badge Background is in the background. 
-        ''
-        pictureBack.SendToBack()
-        graphicAdjuster.SendToBack() ''Added 8/12/2019 td
-        picturePreview.SendToBack() ''Added 8/12/2019 td
-
-    End Sub ''ENd of "Private Sub LoadForm_LayoutElements()"
-
-    ''Private Sub LoadForm_LayoutElements()
-    ''    ''Renamed 9/8/2019''PRivate Sub Load_Form()
-    ''    ''
-    ''    ''Encapsulated 7/31/2019 td
-    ''    ''
-    ''    ''7/31/2019 td''LoadElements()
-    ''    ''8/28/2019 td''LoadElements_Fields()
-    ''    Const c_boolLoadingForm As Boolean = True ''Added 8/28/2019 thomas downes  
-
-    ''    ''9/3/2019 td''LoadElements_Fields(c_boolLoadingForm)
-    ''    LoadElements_Fields_Master(c_boolLoadingForm)
-
-    ''    ''Added 7/31/2019 td  
-    ''    ''9/17/2019 td''LoadElements_Picture()
-    ''    LoadElements_Picture(Me.ElementsCache_Edits.PicElement())
-
-    ''    MakeElementsMoveable()
-
-    ''    ''Added 7/28/2019 td
-    ''    ''    Make sure that the Badge Background is in the background. 
-    ''    ''
-    ''    pictureBack.SendToBack()
-    ''    graphicAdjuster.SendToBack() ''Added 8/12/2019 td
-    ''    picturePreview.SendToBack() ''Added 8/12/2019 td
-
-    ''End Sub ''ENd of "Private Sub LoadForm_LayoutElements()"
-
-    Private Sub MakeElementsMoveable()
-        ''
-        ''Added 7/19/2019 thomas downes  
-        ''
-        Const c_addAfterMoveAddBreakpoint As Boolean = True
-
-        ''8/4/2019 td''Dim boolAllowGroupMovements As Boolean = False ''True ''False ''Added 8/3/2019 td  
-        ''
-        ''Portrait
-        ''
-        If (mc_boolAllowGroupMovements) Then
-
-            ControlMove_GroupMove_TD.Init(CtlGraphicPortrait_Lady.Picture_Box,
-                      CtlGraphicPortrait_Lady, 10, True, mod_groupedMove,
-                      c_addAfterMoveAddBreakpoint) ''Added 8/3/2019 thomas downes
-        Else
-            ControlMoverOrResizer_TD.Init(CtlGraphicPortrait_Lady.Picture_Box,
-                  CtlGraphicPortrait_Lady, 10, True,
-                   c_addAfterMoveAddBreakpoint) ''Added 7/31/2019 thomas downes
-
-        End If ''End of " If (mc_boolAllowGroupMovements) Then .... Else ...."
-
-        ''
-        ''Fields
-        ''
-        Dim each_graphicLabel As CtlGraphicFldLabel ''Added 7/19/2019 thomas downes  
-
-        For Each each_control As Control In Me.Controls ''Added 7/19/2019 thomas downes  
-
-            If (TypeOf each_control Is CtlGraphicFldLabel) Then
-
-                each_graphicLabel = CType(each_control, CtlGraphicFldLabel)
-
-                ''7/31/2019 td''ControlMoverOrResizer_TD.Init(each_graphicLabel.Picture_Box,
-                ''                each_control, 10) ''Added 7/28/2019 thomas downes
-
-                ControlMoverResizer_AddFieldCtl(each_graphicLabel)
-
-            End If ''End of "If (TypeOf each_control Is GraphicFieldLabel) Then"
-
-        Next each_control
-
-    End Sub ''End of "Private Sub MakeElementsMoveable()"
-
-    Private Sub ControlMoverResizer_AddFieldCtl(par_graphicFieldCtl As CtlGraphicFldLabel)
-        ''
-        ''Encapsulated 9/7/2019 thomas d
-        ''
-        Const c_bRepaintAfterResize As Boolean = True ''Added 7/31/2019 td 
-
-        If (mc_boolAllowGroupMovements) Then
-            ControlMove_GroupMove_TD.Init(par_graphicFieldCtl.Picture_Box,
-                          par_graphicFieldCtl, 10, c_bRepaintAfterResize,
-                          mod_groupedMove, mc_boolAllowGroupMovements) ''Added 8/3/2019 td 
-        Else
-            ControlMoverOrResizer_TD.Init(par_graphicFieldCtl.Picture_Box,
-                          par_graphicFieldCtl, 10,
-                          c_bRepaintAfterResize, mc_boolBreakpoints) ''Added 7/28/2019 thomas downes
-        End If ''End of "If (boolAllowGroupMovements) Then ...... Else ..."
-
-    End Sub ''End of "Private Sub ControlMoverResizer_AddField"
-
-    Private Sub LoadElements_Picture(par_elementPic As ClassElementPic)
-        ''
-        ''Added 7/31/2019 thomas downes
-        ''Parameter par_elementPic added 9/17/2019 td
-        ''
-        ''7/31 td''Dim new_picControl As CtlGraphicPortrait ''Added 7/31/2019 td  
-
-        ''Added 8/22/2019 THOMAS D.
-        ciPictures_VB.PictureExamples.PathToFolderOfImages = (My.Application.Info.DirectoryPath & "\Images\PictureExamples")
-
-        ''9/17/2019 td''If (ClassElementPic.ElementPicture Is Nothing) Then
-        ''
-        ''    ClassElementPic.ElementPicture = New ClassElementPic
-        ''
-        ''    With ClassElementPic.ElementPicture
-        ''
-        ''        .Width_Pixels = CtlGraphicPortrait_Lady.Width
-        ''        .Height_Pixels = CtlGraphicPortrait_Lady.Height
-        ''
-        ''        .TopEdge_Pixels = CtlGraphicPortrait_Lady.Top
-        ''        .LeftEdge_Pixels = CtlGraphicPortrait_Lady.Left
-        ''
-        ''        ''Added 8/12/2019 td
-        ''        Dim bSwitchWidthHeight As Boolean ''Added 8/12/2019 td
-        ''        bSwitchWidthHeight = ("L" = ClassElementPic.ElementPicture.OrientationToLayout)
-        ''
-        ''        ''Added 8/12/2019 td
-        ''        ''Switch width & height.  
-        ''        If (bSwitchWidthHeight) Then
-        ''            ''Switch width & height.  
-        ''            .Width_Pixels = CtlGraphicPortrait_Lady.Height
-        ''            .Height_Pixels = CtlGraphicPortrait_Lady.Width
-        ''        End If ''End of "If (bSwitchWidthHeight) Then"
-        ''
-        ''        ''Added 9/13/2019 td 
-        ''        .BadgeLayout = New BadgeLayoutClass(pictureBack.Width, pictureBack.Height)
-        ''
-        ''End of "''9/17/2019 td''"   ''End With ''End of "With field_standard.ElementInfo"
-
-        ''End If ''End of "If (ClassElementPic.ElementPicture Is Nothing) Then"
-
-        ''#1 7/31/2019 td''new_picControl = New CtlGraphicPortrait(ClassElementPic.ElementPicture)
-        '' #2 7/31/2019 td''new_picControl = New CtlGraphicPortrait(ClassElementPic.ElementPicture,
-        ''      CType(ClassElementPic.ElementPicture, IElementPic))
-        '' #2 7/31/2019 td''Me.Controls.Add(new_picControl)
-
-        ''
-        ''DIFFICULT & CONFUSING.....  Let's regenerate the control referenced above.  
-        ''
-        ''9/17/2019 td''CtlGraphicPortrait_Lady = New CtlGraphicPortrait(ClassElementPic.ElementPicture,
-        ''9/17/2019 td''                                CType(ClassElementPic.ElementPicture, IElementPic), Me)
-
-        CtlGraphicPortrait_Lady = New CtlGraphicPortrait(par_elementPic, Me)
-
-        Me.Controls.Add(CtlGraphicPortrait_Lady)
-
-        With CtlGraphicPortrait_Lady
-
-            ''9/17/2019 td''.Top = ClassElementPic.ElementPicture.TopEdge_Pixels
-            ''9/17/2019 td''.Left = ClassElementPic.ElementPicture.LeftEdge_Pixels
-            ''9/17/2019 td''.Width = ClassElementPic.ElementPicture.Width_Pixels
-            ''9/17/2019 td''.Height = ClassElementPic.ElementPicture.Height_Pixels
-
-            .Top = par_elementPic.TopEdge_Pixels
-            .Left = par_elementPic.LeftEdge_Pixels
-            .Width = par_elementPic.Width_Pixels
-            .Height = par_elementPic.Height_Pixels
-
-            ''Added 8/18/2019 td
-            .picturePortrait.Image = mod_imageLady
-
-            ''Added 9/17/2019 td
-            .Refresh_Master
-
-        End With ''End of "With CtlGraphicPortrait1"
-
-    End Sub ''End of " Private Sub LoadElements_Picture()"
-
-    Private Sub Initiate_RubberbandSelector(par_elementControls_All As List(Of CtlGraphicFldLabel),
-                                            par_elementControls_GroupEdit As List(Of CtlGraphicFldLabel))
-        ''9/20 td''Private Sub Initiate_RubberbandSelector() 
-        ''
-        ''Added 9/8/2019 td
-        ''
-        mod_rubberbandClass = New ClassRubberbandSelector
-
-        With mod_rubberbandClass
-
-            .PictureBack = Me.pictureBack
-
-            ''Added 9/20/2019 td  
-            .FieldControls_All = par_elementControls_All
-
-            ''Added 9/20/2019 td
-            .LayoutFunctions = CType(Me, ILayoutFunctions)
-
-            .FieldControls_GroupEdit = par_elementControls_GroupEdit
-
-            ''AddHandler , AddressOf mod_rubberbandClass.MouseMove
-            ''AddHandler .PictureBack.MouseMove, AddressOf mod_rubberbandClass.MouseMove
-            ''AddHandler .PictureBack.MouseMove, AddressOf mod_rubberbandClass.MouseMove
-            ''AddHandler .PictureBack.MouseMove, AddressOf mod_rubberbandClass.MouseMove
-
-        End With ''end of "With mod_rubberbandClass"
-
-    End Sub ''End of "Private Sub InitiateRubberbandSelector"
-
-    ''Private Sub LoadElements_Fields_Master(par_boolLoadingForm As Boolean, Optional par_bUnloading As Boolean = False)
-    ''    ''
-    ''    ''Added 9/03/2019 thomas downes 
-    ''    ''
-    ''    ''9/4 td''Const c_boolUseConsolidatedList As Boolean = False ''True
-    ''    Dim boolUseConsolidatedList As Boolean ''Added 9/5/2019 td  
-
-    ''    ''Added 9/5/2019 td  
-    ''    boolUseConsolidatedList = True ''9/5 td''(2 <= dropdownHowToLoadFlds.SelectedIndex)
-
-    ''    If (boolUseConsolidatedList) Then
-
-    ''        ''9/6/2019 td''LoadElements_Fields_OneList(par_boolLoadingForm, par_bUnloading)
-    ''        LoadElements_OneListOfFields(par_boolLoadingForm, par_bUnloading)
-
-    ''    Else
-
-    ''        LoadElements_Fields_TwoLists(par_boolLoadingForm, par_bUnloading)
-
-    ''    End If ''End of "If (boolUseConsolidatedList) Then ..... Else ...."
-
-    ''End Sub ''ENd of "Private Sub LoadElements_Fields_Master()"
-
-    ''Private Sub LoadElements_OneListOfFields(par_boolLoadingForm As Boolean, Optional par_bUnloading As Boolean = False)
-    ''    ''
-    ''    ''Added 9/6/2019 td  
-    ''    ''
-    ''    LoadElements_ByListOfFields(ClassFields.ListAllFields(), par_boolLoadingForm)
-
-    ''End Sub
-
-    ''Private Sub LoadField_JustOne(par_field As ICIBFieldStandardOrCustom)
-    ''    ''
-    ''    ''Added 9/6/2019 thomas d. 
-    ''    ''
-    ''    Dim new_list As New List(Of ICIBFieldStandardOrCustom)
-    ''    Const c_bAddToMoveableClass As Boolean = True ''Added 9/8/2019 td 
-
-    ''    new_list.Add(par_field)
-
-    ''    LoadElements_ByListOfFields(new_list, True, False,
-    ''                                c_bAddToMoveableClass)
-
-    ''End Sub ''End of "Private Sub LoadField_JustOne(...)"
-
-    ''Private Sub LoadElements_ByListOfFields(par_list As List(Of ICIBFieldStandardOrCustom),
-    ''                                       par_boolLoadingForm As Boolean,
-    ''                                       Optional par_bUnloading As Boolean = False,
-    ''                                        Optional par_bAddMoveability As Boolean = False)
-    ''    ''
-    ''    ''Added 9/03/2019 thomas downes 
-    ''    ''Modified 9/5/2019 thomas downes
-    ''    ''
-    ''    Dim intCountControlsAdded As Integer = 0 ''Added 9/03/2019 td 
-    ''    ''9/5/2019 td''Dim intTopEdge As Integer ''Added 7/28/2019 td
-    ''    ''9/5/2019 td''Dim intLeftEdge As Integer ''Added 9/03/2019 td
-    ''    Dim boolIncludeOnBadge As Boolean = False ''Added 9/03/2019 td
-    ''    Dim intStagger As Integer = 0 ''Added 9.6.2019 td 
-
-    ''    For Each each_field As ICIBFieldStandardOrCustom In par_list ''9/6/2019 td''ClassFields.ListAllFields()
-
-    ''        Dim label_control As CtlGraphicFldLabel
-
-    ''        ''Added 9/3/2019 thomas d. 
-    ''        boolIncludeOnBadge = (par_boolLoadingForm And each_field.IsDisplayedOnBadge)
-    ''        If (Not boolIncludeOnBadge) Then
-    ''            AddToFlowPanelOfOmittedFlds(each_field)
-    ''            Continue For
-    ''        End If ''End of "If (Not boolIncludeOnBadge) Then"
-
-    ''        ''
-    ''        ''Has the user moved the field into place (and pressed the Save & Refresh link)??
-    ''        ''
-    ''        If (each_field.ElementInfo_Base Is Nothing) Then
-
-    ''            ''Added 9/15/2019 thomas d. 
-    ''            Throw New Exception("ElementInfo_Base should _not_ be uninitialized. 896741")
-
-    ''            ''9/15 td''Dim new_element_text As New ClassElementText
-    ''            ''
-    ''            ''9/15 td''With new_element_text
-    ''            ''    .Height_Pixels = 30 
-    ''            ''    .FontFamilyName = "Times New Roman" ''Added 9/15/2019 thomas d. 
-    ''            ''    .FontSize_Pixels = 25
-    ''            ''    ''Added 9/12/2019 td 
-    ''            ''    ''9/12/2019 td''.FontSize_IsLocked = True 
-    ''            ''    .FontSize_ScaleToElementRatio = (.FontSize_Pixels / .Height_Pixels)
-    ''            ''    .FontSize_ScaleToElementYesNo = True
-    ''            ''
-    ''            ''    ''Added 9/12/2019 td
-    ''            ''    .BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass(pictureBack.Width, pictureBack.Height)
-    ''            ''
-    ''            ''End With 'End of "With new_element_text"
-
-    ''            ''''9/6/2019 td''new_element_text.TopEdge_Pixels = (30 + (30 * intCountControlsAdded))
-    ''            ''intStagger = intCountControlsAdded
-    ''            ''new_element_text.TopEdge_Pixels = (intStagger * new_element_text.Height_Pixels)
-    ''            ''intCountControlsAdded += 1 ''Added 9/6/2019 td 
-
-    ''            ''new_element_text.LeftEdge_Pixels = new_element_text.TopEdge_Pixels ''Left = Top !! By setting Left = Top, we will create 
-    ''            ''''   a nice diagonally-cascading effect. ---9/3/2019 td
-
-    ''            ''9/15 td''each_field.ElementInfo_Base = new_element_text
-    ''            ''9/15 td''each_field.ElementInfo_Text = new_element_text
-
-    ''        Else
-    ''            ''
-    ''            ''Added 9/15/2019 td
-    ''            ''
-    ''            With each_field.ElementInfo_Base
-    ''                .Height_Pixels = 30
-
-    ''                ''9/6/2019 td''new_element_text.TopEdge_Pixels = (30 + (30 * intCountControlsAdded))
-    ''                intStagger = intCountControlsAdded
-    ''                .TopEdge_Pixels = (intStagger * .Height_Pixels)
-    ''                intCountControlsAdded += 1 ''Added 9/6/2019 td 
-
-    ''                .LeftEdge_Pixels = .TopEdge_Pixels ''Left = Top !! By setting Left = Top, we will create 
-    ''                ''   a nice diagonally-cascading effect. ---9/3/2019 td
-
-    ''                ''Added 9/12/2019 td
-    ''                .BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass(pictureBack.Width, pictureBack.Height)
-
-    ''            End With
-
-    ''            ''Added 9/15/2019 td
-    ''            With each_field.ElementInfo_Text
-    ''                .FontFamilyName = "Times New Roman" ''Added 9/15/2019 thomas d. 
-    ''                .FontSize_Pixels = 25
-    ''                ''Added 9/12/2019 td 
-    ''                ''9/12/2019 td''.FontSize_IsLocked = True 
-    ''                .FontSize_ScaleToElementRatio = (.FontSize_Pixels / each_field.ElementInfo_Base.Height_Pixels)
-    ''                .FontSize_ScaleToElementYesNo = True
-
-    ''            End With 'End of "With new_element_text"
-
-    ''        End If ''ENd of "If (each_field.ElementInfo_Base Is Nothing) Then ..... Else ...."
-
-    ''        ''Added 9/5/2019 thomas d.
-    ''        ''9/11/2019 td''each_field.ElementInfo_Base.LayoutWidth_Pixels = Me.Layout_Width_Pixels()
-    ''        each_field.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.Layout_Width_Pixels()
-    ''        each_field.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.Layout_Height_Pixels
-
-    ''        ''#1 9/4/2019 td''label_control = New CtlGraphicFldLabel(each_field, Me)
-    ''        '' #2 9/4/2019 td''label_control = New CtlGraphicFldLabel(each_field, new_element_text, Me)
-    ''        ''9/17/2019 td''label_control = New CtlGraphicFldLabel(each_field, Me)
-    ''        label_control = New CtlGraphicFldLabel(new_elementField, Me)
-
-    ''        ''Moved below. 9/5 td''label_control.Refresh_Master()
-    ''        label_control.Visible = each_field.IsDisplayedOnBadge ''BL = Badge Layout
-    ''        intCountControlsAdded += 1
-    ''        label_control.Name = "FieldControl" & CStr(intCountControlsAdded)
-
-    ''        ''9/8 td''label_control.BorderStyle = BorderStyle.FixedSingle
-
-    ''        ''Added 9/6/2019 thomas downes 
-    ''        ''
-    ''        ''   Stagger the elements on the badge layout, in a cascade from
-    ''        '' the upper-left to the lower-right. 
-    ''        '' ------9/6/2019 td
-    ''        ''
-    ''        If (0 = each_field.ElementInfo_Base.TopEdge_Pixels) Then
-    ''            ''Added 9/6/2019 thomas downes 
-    ''            label_control.Width = CInt(pictureBack.Width / 3)
-    ''            With each_field.ElementInfo_Base
-    ''                .Width_Pixels = label_control.Width
-    ''                .Height_Pixels = label_control.Height
-    ''                intStagger = intCountControlsAdded
-    ''                .TopEdge_Pixels = (intStagger * .Height_Pixels)
-    ''                .LeftEdge_Pixels = .TopEdge_Pixels ''Left = Top !! By setting Left = Top, we will create 
-    ''                ''   a nice diagonally-cascading effect. ---9/3/2019 td
-    ''                ''See above. 9/6/2019 td''intCountControlsAdded += 1 ''Added 9/6/2019 td 
-    ''            End With ''End of " With each_field.ElementInfo_Base"
-    ''        End If ''ENd of "If (0 = each_field.ElementInfo_Base.TopEdge_Pixels) Then"
-
-    ''        boolIncludeOnBadge = (par_boolLoadingForm And each_field.IsDisplayedOnBadge)
-
-    ''        If (boolIncludeOnBadge) Then
-
-    ''            Me.Controls.Add(label_control)
-    ''            label_control.Visible = True
-    ''            label_control.BringToFront() ''Added 9/7/2019 thomas d.  
-    ''            ''9/5/2019''label_control.Refresh_Image(True)
-    ''            label_control.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
-
-    ''            ''Added 9/7/2019 td
-    ''            label_control.Left = Me.Layout_Margin_Left_Add(each_field.ElementInfo_Base.LeftEdge_Pixels)
-    ''            label_control.Top = Me.Layout_Margin_Top_Add(each_field.ElementInfo_Base.TopEdge_Pixels)
-
-    ''            ''
-    ''            ''Major call !!  ----Thomas DOWNES
-    ''            ''
-    ''            label_control.Refresh_Master()
-
-    ''            ''Added 9/8/2019 td
-    ''            If (par_bAddMoveability) Then ControlMoverResizer_AddFieldCtl(label_control)
-
-    ''        ElseIf (par_bUnloading) Then
-    ''            ''9/3/2019 td''Me.Controls.Remove(label_control)
-    ''            Throw New NotImplementedException
-    ''
-    ''        End If ''End of "If (boolInludeOnBadge) Then .... ElseIf (....) ...."
-    ''
-    ''    Next each_field
-    ''
-    ''    ''
-    ''    ''Added 8/27/2019 thomas downes
-    ''    ''
-    ''    pictureBack.SendToBack() ''Added 9/7/2019 thomas d.
-    ''    Me.Refresh() ''Added 8/28/2019 td   
-    ''
-    ''    ''9/5/2019 td''MessageBox.Show($"Number of field controls now on the form: {intCountControlsAdded}", "",
-    ''    ''     MessageBoxButtons.OK, MessageBoxIcon.Information)
-    ''
-    ''End Sub ''End of ''Private Sub LoadElements_Fields_OneList()''
-
-    Private Sub LoadFieldControls_ByListOfElements(par_listElements As List(Of ClassElementField),
-                               par_boolLoadingForm As Boolean,
-                               Optional par_bUnloading As Boolean = False,
-                               Optional par_bAddMoveability As Boolean = False,
-                                Optional ByRef par_listFieldCtls As List(Of CtlGraphicFldLabel) = Nothing)
-        ''
-        ''Added 9/17/2019 thomas downes 
-        ''
-        Dim intCountControlsAdded As Integer = 0 ''Added 9/03/2019 td 
-        Dim boolIncludeOnBadge As Boolean = False ''Added 9/03/2019 td
-        Dim intStagger As Integer = 0 ''Added 9.6.2019 td 
-
-        ''9/17/2019 td''For Each each_field As ICIBFieldStandardOrCustom In par_list  
-        For Each each_element As ClassElementField In par_listElements
-
-            Dim label_control As CtlGraphicFldLabel
-
-            ''Added 9/3/2019 thomas d. 
-            ''9/17/2019 td''boolIncludeOnBadge = (par_boolLoadingForm And each_element.IsDisplayedOnBadge)
-            boolIncludeOnBadge = (par_boolLoadingForm And each_element.FieldInfo.IsDisplayedOnBadge)
-
-            If (Not boolIncludeOnBadge) Then
-                ''#1 9/17/2019 td''AddToFlowPanelOfOmittedFlds(each_element)
-                '' #2 9/17/2019 td''AddToFlowPanelOfOmittedFlds(each_element.FieldInfo)
-                AddToFlowPanelOfOmittedFlds(each_element)
-                Continue For
-            End If ''End of "If (Not boolIncludeOnBadge) Then"
-
-            ''
-            ''Added 9/15/2019 td
-            ''
-            With each_element
-                .Height_Pixels = 30
-
-                ''9/6/2019 td''new_element_text.TopEdge_Pixels = (30 + (30 * intCountControlsAdded))
-                intStagger = intCountControlsAdded
-                .TopEdge_Pixels = (intStagger * .Height_Pixels)
-                intCountControlsAdded += 1 ''Added 9/6/2019 td 
-
-                .LeftEdge_Pixels = .TopEdge_Pixels ''Left = Top !! By setting Left = Top, we will create 
-                ''   a nice diagonally-cascading effect. ---9/3/2019 td
-
-                ''Added 9/12/2019 td
-                .BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass(pictureBack.Width, pictureBack.Height)
-
-            End With
-
-            ''Added 9/15/2019 td
-            With each_element
-                .FontFamilyName = "Times New Roman" ''Added 9/15/2019 thomas d. 
-                .FontSize_Pixels = 25
-                ''Added 9/12/2019 td 
-                ''9/12/2019 td''.FontSize_IsLocked = True 
-                .FontSize_ScaleToElementRatio = (.FontSize_Pixels / .Height_Pixels)
-                .FontSize_ScaleToElementYesNo = True
-
-            End With 'End of "With each_element"
-
-            ''Added 9/5/2019 thomas d.
-            ''9/11/2019 td''each_field.ElementInfo_Base.LayoutWidth_Pixels = Me.Layout_Width_Pixels()
-            each_element.BadgeLayout.Width_Pixels = Me.Layout_Width_Pixels()
-            each_element.BadgeLayout.Height_Pixels = Me.Layout_Height_Pixels
-
-            ''#1 9/4/2019 td''label_control = New CtlGraphicFldLabel(each_field, Me)
-            '' #2 9/4/2019 td''label_control = New CtlGraphicFldLabel(each_field, new_element_text, Me)
-            label_control = New CtlGraphicFldLabel(each_element, Me)
-
-            ''Moved below. 9/5 td''label_control.Refresh_Master()
-            label_control.Visible = each_element.FieldInfo.IsDisplayedOnBadge ''BL = Badge Layout
-            intCountControlsAdded += 1
-            label_control.Name = "FieldControl" & CStr(intCountControlsAdded)
-
-            ''9/8 td''label_control.BorderStyle = BorderStyle.FixedSingle
-
-            ''Added 9/6/2019 thomas downes 
-            ''
-            ''   Stagger the elements on the badge layout, in a cascade from
-            '' the upper-left to the lower-right. 
-            '' ------9/6/2019 td
-            ''
-            If (0 = each_element.TopEdge_Pixels) Then
-                ''Added 9/6/2019 thomas downes 
-                label_control.Width = CInt(pictureBack.Width / 3)
-                With each_element
-                    .Width_Pixels = label_control.Width
-                    .Height_Pixels = label_control.Height
-                    intStagger = intCountControlsAdded
-                    .TopEdge_Pixels = (intStagger * .Height_Pixels)
-                    .LeftEdge_Pixels = .TopEdge_Pixels ''Left = Top !! By setting Left = Top, we will create 
-                    ''   a nice diagonally-cascading effect. ---9/3/2019 td
-                    ''See above. 9/6/2019 td''intCountControlsAdded += 1 ''Added 9/6/2019 td 
-                End With ''End of " With each_field.ElementInfo_Base"
-            End If ''ENd of "If (0 = each_field.ElementInfo_Base.TopEdge_Pixels) Then"
-
-            boolIncludeOnBadge = (par_boolLoadingForm And each_element.FieldInfo.IsDisplayedOnBadge)
-
-            If (boolIncludeOnBadge) Then
-
-                Me.Controls.Add(label_control)
-                par_listFieldCtls.Add(label_control) ''Added 9/20/2019 td
-
-                label_control.Visible = True
-                label_control.BringToFront() ''Added 9/7/2019 thomas d.  
-                ''9/5/2019''label_control.Refresh_Image(True)
-                label_control.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
-
-                ''Added 9/7/2019 td
-                label_control.Left = Me.Layout_Margin_Left_Add(each_element.LeftEdge_Pixels)
-                label_control.Top = Me.Layout_Margin_Top_Add(each_element.TopEdge_Pixels)
-
-                ''
-                ''Major call !!  ----Thomas DOWNES
-                ''
-                label_control.Refresh_Master()
-
-                ''Added 9/8/2019 td
-                If (par_bAddMoveability) Then ControlMoverResizer_AddFieldCtl(label_control)
-
-            ElseIf (par_bUnloading) Then
-                ''9/3/2019 td''Me.Controls.Remove(label_control)
-                Throw New NotImplementedException
-
-            End If ''End of "If (boolInludeOnBadge) Then .... ElseIf (....) ...."
-
-        Next each_element
-
-        ''
-        ''Added 8/27/2019 thomas downes
-        ''
-        pictureBack.SendToBack() ''Added 9/7/2019 thomas d.
-        Me.Refresh() ''Added 8/28/2019 td   
-
-        ''9/5/2019 td''MessageBox.Show($"Number of field controls now on the form: {intCountControlsAdded}", "",
-        ''     MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-    End Sub ''End of ''Private Sub LoadElements_ByListOfElements()''
-
-    Private Sub LoadFieldControl_JustOne(par_elementField As ClassElementField)
-        ''
-        ''Added 9/17/2019 thomas d.  
-        ''
-        Dim new_list As New List(Of ClassElementField)
-        Const c_bAddToMoveableClass As Boolean = True ''Added 9/8/2019 td 
-
-        new_list.Add(par_elementField)
-
-        ''9/24/2019 td''LoadFieldControls_ByListOfElements(new_list, True, False, c_bAddToMoveableClass)
-        LoadFieldControls_ByListOfElements(new_list, True, False, c_bAddToMoveableClass, mod_listOfFieldControls)
-
-    End Sub ''End of "Private Sub LoadFieldControl_JustOne(par_elementField As ClassElementField)"
+    End Sub
+
+
+    '    ''Added 9/28/2019 thomas 
+    '    ''serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
+    '    ''serial_tools.SerializeToXML(Me.ElementsCache_Saved.ListFields(0).GetType,
+    '    ''                            Me.ElementsCache_Saved.ListFields(0), False, True)
+    '    ''serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
+    '    ''serial_tools.SerializeToXML(Me.ElementsCache_Saved.ListFieldElements(0).GetType,
+    '    ''                            Me.ElementsCache_Saved.ListFieldElements(0), False, True)
+
+    '    ''Added 8/11/2019 thomas d.
+    '    ''
+    '    graphicAdjuster.SendToBack()
+    '    picturePreview.SendToBack()
+    '    pictureBack.SendToBack()
+
+    '    ResizeLayoutBackgroundImage_ToFitPictureBox() ''Added 8/25/2019 td
+    '    RefreshPreview() ''Added 8/24/2019 td
+
+    '    Const c_boolBreakpoint As Boolean = True  ''Added 9//13/2019 td
+
+    '    ''Badge Preview is also moveable/sizeable, mostly to impress
+    '    ''    management.  ----9/8/2019 td
+    '    ''
+    '    ControlMoverOrResizer_TD.Init(picturePreview,
+    '                      picturePreview, 10, False,
+    '                      c_boolBreakpoint) ''Added 9/08/2019 thomas downes
+
+    '    ''If it won't conflict with the Rubber-Band Selector, 
+    '    ''    then let's make the Badge Layout Background 
+    '    ''    also moveable / sizeable.
+    '    ''    ----9/8/2019 td
+    '    ''
+    '    Const c_LayoutBackIsMoveable As Boolean = False ''Added 9/8/2019 td 
+    '    If (c_LayoutBackIsMoveable) Then
+    '        ''Badge Layout Background is also moveable/sizeable.
+    '        ControlMoverOrResizer_TD.Init(pictureBack,
+    '                      picturePreview, 10, False,
+    '                      c_boolBreakpoint) ''Added 9/08/2019 thomas downes
+    '    End If ''End of "If (c_LayoutBackIsMoveable) Then"
+
+    '    ''Moved from above, 9/20/2019 td 
+    '    Initiate_RubberbandSelector(mod_listOfFieldControls,
+    '                                 mod_selectedCtls) ''Added 9/8/2019 thomas d. 
+
+    'End Sub ''End of "Private Sub FormDesignProtoTwo_Load"
+
+    'Private Sub ResizeLayoutBackgroundImage_ToFitPictureBox()
+    '    ''
+    '    ''Added 8/25/2019 td 
+    '    ''
+    '    Dim obj_image As Image ''Added 8/24 td
+    '    ''Dim obj_image_clone As Image ''Added 8/24 td
+    '    Dim obj_image_clone_resized As Image ''Added 8/24/2019 td
+
+    '    ''Added 8/24/2019 td
+    '    obj_image = pictureBack.Image
+
+    '    ''obj_image_clone = CType(obj_image.Clone(), Image)
+
+    '    ''Dim gr_resize As Graphics = New Bitmap(obj_image_clone)
+
+    '    ''8/25/2019 td''obj_image_clone_resized = ciLayoutPrintLib.LayoutPrint.ResizeImage_ToHeight(obj_image,
+    '    ''                       pictureBack.Height)
+
+    '    ''8/26/2019 td''obj_image_clone_resized = ciLayoutPrintLib.LayoutPrint.ResizeImage_ToWidth(obj_image,
+    '    ''8/26/2019 td''       pictureBack.Width)
+
+    '    obj_image_clone_resized = LayoutPrint.ResizeBackground_ToFitBox(obj_image, pictureBack, True)
+
+    '    pictureBack.Image = obj_image_clone_resized
+
+    'End Sub ''End of Sub ResizeLayoutBackgroundImage()
+
+    'Private Sub LoadForm_LayoutElements(par_cache As ClassElementsCache,
+    '                                    ByRef par_listFieldCtls As List(Of CtlGraphicFldLabel))
+    '    ''9/20/2019 td''Private Sub LoadForm_LayoutElements(par_cache As ClassElementsCache)
+    '    ''
+    '    ''Added 9/17/2019 td
+    '    ''
+    '    Const c_boolLoadingForm As Boolean = True ''Added 8/28/2019 thomas downes 
+    '    Dim boolMakeMoveableByUser As Boolean ''Added 9/20/2019 td 
+    '    Const c_boolMakeMoveableASAP As Boolean = False ''added 9/20/2019 td
+
+    '    ''#1 9/17/2019 td''LoadElements_Fields_Master(c_boolLoadingForm, par_cache.FieldElements())
+    '    '' #2 9/17/2019 td''LoadElements_ByListOfFields(ClassFields.ListAllFields())
+    '    ''9/20/2019 td''LoadFieldControls_ByListOfElements(par_cache.ListFieldElements(), c_boolLoadingForm)
+
+    '    boolMakeMoveableByUser = c_boolMakeMoveableASAP ''Added 9/20/2019 td  
+
+    '    LoadFieldControls_ByListOfElements(par_cache.ListFieldElements(),
+    '                                       c_boolLoadingForm,
+    '                                       False, boolMakeMoveableByUser,
+    '                                       par_listFieldCtls)
+
+    '    LoadElements_Picture(par_cache.PicElement())
+
+    '    ''Add moveability.   
+    '    boolMakeMoveableByUser = (Not c_boolMakeMoveableASAP) ''Added 9/20/2019 td
+    '    If (boolMakeMoveableByUser) Then
+    '        ''
+    '        ''Pretty big call!!   Allow the user to "click & drag" the control. 
+    '        ''
+    '        MakeElementsMoveable()
+
+    '    End If ''ENd of "If (boolMakeMoveableByUser) Then"
+
+    '    ''
+    '    ''Added 7/28/2019 td
+    '    ''    Make sure that the Badge Background is in the background. 
+    '    ''
+    '    pictureBack.SendToBack()
+    '    graphicAdjuster.SendToBack() ''Added 8/12/2019 td
+    '    picturePreview.SendToBack() ''Added 8/12/2019 td
+
+    'End Sub ''ENd of "Private Sub LoadForm_LayoutElements()"
+
+    '''Private Sub LoadForm_LayoutElements()
+    '''    ''Renamed 9/8/2019''PRivate Sub Load_Form()
+    '''    ''
+    '''    ''Encapsulated 7/31/2019 td
+    '''    ''
+    '''    ''7/31/2019 td''LoadElements()
+    '''    ''8/28/2019 td''LoadElements_Fields()
+    '''    Const c_boolLoadingForm As Boolean = True ''Added 8/28/2019 thomas downes  
+
+    '''    ''9/3/2019 td''LoadElements_Fields(c_boolLoadingForm)
+    '''    LoadElements_Fields_Master(c_boolLoadingForm)
+
+    '''    ''Added 7/31/2019 td  
+    '''    ''9/17/2019 td''LoadElements_Picture()
+    '''    LoadElements_Picture(Me.ElementsCache_Edits.PicElement())
+
+    '''    MakeElementsMoveable()
+
+    '''    ''Added 7/28/2019 td
+    '''    ''    Make sure that the Badge Background is in the background. 
+    '''    ''
+    '''    pictureBack.SendToBack()
+    '''    graphicAdjuster.SendToBack() ''Added 8/12/2019 td
+    '''    picturePreview.SendToBack() ''Added 8/12/2019 td
+
+    '''End Sub ''ENd of "Private Sub LoadForm_LayoutElements()"
+
+    'Private Sub MakeElementsMoveable()
+    '    ''
+    '    ''Added 7/19/2019 thomas downes  
+    '    ''
+    '    Const c_addAfterMoveAddBreakpoint As Boolean = True
+
+    '    ''8/4/2019 td''Dim boolAllowGroupMovements As Boolean = False ''True ''False ''Added 8/3/2019 td  
+    '    ''
+    '    ''Portrait
+    '    ''
+    '    If (mc_boolAllowGroupMovements) Then
+
+    '        ControlMove_GroupMove_TD.Init(CtlGraphicPortrait_Lady.Picture_Box,
+    '                  CtlGraphicPortrait_Lady, 10, True, mod_groupedMove,
+    '                  c_addAfterMoveAddBreakpoint) ''Added 8/3/2019 thomas downes
+    '    Else
+    '        ControlMoverOrResizer_TD.Init(CtlGraphicPortrait_Lady.Picture_Box,
+    '              CtlGraphicPortrait_Lady, 10, True,
+    '               c_addAfterMoveAddBreakpoint) ''Added 7/31/2019 thomas downes
+
+    '    End If ''End of " If (mc_boolAllowGroupMovements) Then .... Else ...."
+
+    '    ''
+    '    ''Fields
+    '    ''
+    '    Dim each_graphicLabel As CtlGraphicFldLabel ''Added 7/19/2019 thomas downes  
+
+    '    For Each each_control As Control In Me.Controls ''Added 7/19/2019 thomas downes  
+
+    '        If (TypeOf each_control Is CtlGraphicFldLabel) Then
+
+    '            each_graphicLabel = CType(each_control, CtlGraphicFldLabel)
+
+    '            ''7/31/2019 td''ControlMoverOrResizer_TD.Init(each_graphicLabel.Picture_Box,
+    '            ''                each_control, 10) ''Added 7/28/2019 thomas downes
+
+    '            ControlMoverResizer_AddFieldCtl(each_graphicLabel)
+
+    '        End If ''End of "If (TypeOf each_control Is GraphicFieldLabel) Then"
+
+    '    Next each_control
+
+    'End Sub ''End of "Private Sub MakeElementsMoveable()"
+
+    'Private Sub ControlMoverResizer_AddFieldCtl(par_graphicFieldCtl As CtlGraphicFldLabel)
+    '    ''
+    '    ''Encapsulated 9/7/2019 thomas d
+    '    ''
+    '    Const c_bRepaintAfterResize As Boolean = True ''Added 7/31/2019 td 
+
+    '    If (mc_boolAllowGroupMovements) Then
+    '        ControlMove_GroupMove_TD.Init(par_graphicFieldCtl.Picture_Box,
+    '                      par_graphicFieldCtl, 10, c_bRepaintAfterResize,
+    '                      mod_groupedMove, mc_boolAllowGroupMovements) ''Added 8/3/2019 td 
+    '    Else
+    '        ControlMoverOrResizer_TD.Init(par_graphicFieldCtl.Picture_Box,
+    '                      par_graphicFieldCtl, 10,
+    '                      c_bRepaintAfterResize, mc_boolBreakpoints) ''Added 7/28/2019 thomas downes
+    '    End If ''End of "If (boolAllowGroupMovements) Then ...... Else ..."
+
+    'End Sub ''End of "Private Sub ControlMoverResizer_AddField"
+
+    'Private Sub LoadElements_Picture(par_elementPic As ClassElementPic)
+    '    ''
+    '    ''Added 7/31/2019 thomas downes
+    '    ''Parameter par_elementPic added 9/17/2019 td
+    '    ''
+    '    ''7/31 td''Dim new_picControl As CtlGraphicPortrait ''Added 7/31/2019 td  
+
+    '    ''Added 8/22/2019 THOMAS D.
+    '    ciPictures_VB.PictureExamples.PathToFolderOfImages = (My.Application.Info.DirectoryPath & "\Images\PictureExamples")
+
+    '    ''9/17/2019 td''If (ClassElementPic.ElementPicture Is Nothing) Then
+    '    ''
+    '    ''    ClassElementPic.ElementPicture = New ClassElementPic
+    '    ''
+    '    ''    With ClassElementPic.ElementPicture
+    '    ''
+    '    ''        .Width_Pixels = CtlGraphicPortrait_Lady.Width
+    '    ''        .Height_Pixels = CtlGraphicPortrait_Lady.Height
+    '    ''
+    '    ''        .TopEdge_Pixels = CtlGraphicPortrait_Lady.Top
+    '    ''        .LeftEdge_Pixels = CtlGraphicPortrait_Lady.Left
+    '    ''
+    '    ''        ''Added 8/12/2019 td
+    '    ''        Dim bSwitchWidthHeight As Boolean ''Added 8/12/2019 td
+    '    ''        bSwitchWidthHeight = ("L" = ClassElementPic.ElementPicture.OrientationToLayout)
+    '    ''
+    '    ''        ''Added 8/12/2019 td
+    '    ''        ''Switch width & height.  
+    '    ''        If (bSwitchWidthHeight) Then
+    '    ''            ''Switch width & height.  
+    '    ''            .Width_Pixels = CtlGraphicPortrait_Lady.Height
+    '    ''            .Height_Pixels = CtlGraphicPortrait_Lady.Width
+    '    ''        End If ''End of "If (bSwitchWidthHeight) Then"
+    '    ''
+    '    ''        ''Added 9/13/2019 td 
+    '    ''        .BadgeLayout = New BadgeLayoutClass(pictureBack.Width, pictureBack.Height)
+    '    ''
+    '    ''End of "''9/17/2019 td''"   ''End With ''End of "With field_standard.ElementInfo"
+
+    '    ''End If ''End of "If (ClassElementPic.ElementPicture Is Nothing) Then"
+
+    '    ''#1 7/31/2019 td''new_picControl = New CtlGraphicPortrait(ClassElementPic.ElementPicture)
+    '    '' #2 7/31/2019 td''new_picControl = New CtlGraphicPortrait(ClassElementPic.ElementPicture,
+    '    ''      CType(ClassElementPic.ElementPicture, IElementPic))
+    '    '' #2 7/31/2019 td''Me.Controls.Add(new_picControl)
+
+    '    ''
+    '    ''DIFFICULT & CONFUSING.....  Let's regenerate the control referenced above.  
+    '    ''
+    '    ''9/17/2019 td''CtlGraphicPortrait_Lady = New CtlGraphicPortrait(ClassElementPic.ElementPicture,
+    '    ''9/17/2019 td''                                CType(ClassElementPic.ElementPicture, IElementPic), Me)
+
+    '    CtlGraphicPortrait_Lady = New CtlGraphicPortrait(par_elementPic, Me)
+
+    '    Me.Controls.Add(CtlGraphicPortrait_Lady)
+
+    '    With CtlGraphicPortrait_Lady
+
+    '        ''9/17/2019 td''.Top = ClassElementPic.ElementPicture.TopEdge_Pixels
+    '        ''9/17/2019 td''.Left = ClassElementPic.ElementPicture.LeftEdge_Pixels
+    '        ''9/17/2019 td''.Width = ClassElementPic.ElementPicture.Width_Pixels
+    '        ''9/17/2019 td''.Height = ClassElementPic.ElementPicture.Height_Pixels
+
+    '        .Top = par_elementPic.TopEdge_Pixels
+    '        .Left = par_elementPic.LeftEdge_Pixels
+    '        .Width = par_elementPic.Width_Pixels
+    '        .Height = par_elementPic.Height_Pixels
+
+    '        ''Added 8/18/2019 td
+    '        .picturePortrait.Image = mod_imageLady
+
+    '        ''Added 9/17/2019 td
+    '        .Refresh_Master
+
+    '    End With ''End of "With CtlGraphicPortrait1"
+
+    'End Sub ''End of " Private Sub LoadElements_Picture()"
+
+    'Private Sub Initiate_RubberbandSelector(par_elementControls_All As List(Of CtlGraphicFldLabel),
+    '                                        par_elementControls_GroupEdit As List(Of CtlGraphicFldLabel))
+    '    ''9/20 td''Private Sub Initiate_RubberbandSelector() 
+    '    ''
+    '    ''Added 9/8/2019 td
+    '    ''
+    '    mod_rubberbandClass = New ClassRubberbandSelector
+
+    '    With mod_rubberbandClass
+
+    '        .PictureBack = Me.pictureBack
+
+    '        ''Added 9/20/2019 td  
+    '        .FieldControls_All = par_elementControls_All
+
+    '        ''Added 9/20/2019 td
+    '        .LayoutFunctions = CType(Me, ILayoutFunctions)
+
+    '        .FieldControls_GroupEdit = par_elementControls_GroupEdit
+
+    '        ''AddHandler , AddressOf mod_rubberbandClass.MouseMove
+    '        ''AddHandler .PictureBack.MouseMove, AddressOf mod_rubberbandClass.MouseMove
+    '        ''AddHandler .PictureBack.MouseMove, AddressOf mod_rubberbandClass.MouseMove
+    '        ''AddHandler .PictureBack.MouseMove, AddressOf mod_rubberbandClass.MouseMove
+
+    '    End With ''end of "With mod_rubberbandClass"
+
+    'End Sub ''End of "Private Sub InitiateRubberbandSelector"
+
+    '''Private Sub LoadElements_Fields_Master(par_boolLoadingForm As Boolean, Optional par_bUnloading As Boolean = False)
+    '''    ''
+    '''    ''Added 9/03/2019 thomas downes 
+    '''    ''
+    '''    ''9/4 td''Const c_boolUseConsolidatedList As Boolean = False ''True
+    '''    Dim boolUseConsolidatedList As Boolean ''Added 9/5/2019 td  
+
+    '''    ''Added 9/5/2019 td  
+    '''    boolUseConsolidatedList = True ''9/5 td''(2 <= dropdownHowToLoadFlds.SelectedIndex)
+
+    '''    If (boolUseConsolidatedList) Then
+
+    '''        ''9/6/2019 td''LoadElements_Fields_OneList(par_boolLoadingForm, par_bUnloading)
+    '''        LoadElements_OneListOfFields(par_boolLoadingForm, par_bUnloading)
+
+    '''    Else
+
+    '''        LoadElements_Fields_TwoLists(par_boolLoadingForm, par_bUnloading)
+
+    '''    End If ''End of "If (boolUseConsolidatedList) Then ..... Else ...."
+
+    '''End Sub ''ENd of "Private Sub LoadElements_Fields_Master()"
+
+    '''Private Sub LoadElements_OneListOfFields(par_boolLoadingForm As Boolean, Optional par_bUnloading As Boolean = False)
+    '''    ''
+    '''    ''Added 9/6/2019 td  
+    '''    ''
+    '''    LoadElements_ByListOfFields(ClassFields.ListAllFields(), par_boolLoadingForm)
+
+    '''End Sub
+
+    '''Private Sub LoadField_JustOne(par_field As ICIBFieldStandardOrCustom)
+    '''    ''
+    '''    ''Added 9/6/2019 thomas d. 
+    '''    ''
+    '''    Dim new_list As New List(Of ICIBFieldStandardOrCustom)
+    '''    Const c_bAddToMoveableClass As Boolean = True ''Added 9/8/2019 td 
+
+    '''    new_list.Add(par_field)
+
+    '''    LoadElements_ByListOfFields(new_list, True, False,
+    '''                                c_bAddToMoveableClass)
+
+    '''End Sub ''End of "Private Sub LoadField_JustOne(...)"
+
+    '''Private Sub LoadElements_ByListOfFields(par_list As List(Of ICIBFieldStandardOrCustom),
+    '''                                       par_boolLoadingForm As Boolean,
+    '''                                       Optional par_bUnloading As Boolean = False,
+    '''                                        Optional par_bAddMoveability As Boolean = False)
+    '''    ''
+    '''    ''Added 9/03/2019 thomas downes 
+    '''    ''Modified 9/5/2019 thomas downes
+    '''    ''
+    '''    Dim intCountControlsAdded As Integer = 0 ''Added 9/03/2019 td 
+    '''    ''9/5/2019 td''Dim intTopEdge As Integer ''Added 7/28/2019 td
+    '''    ''9/5/2019 td''Dim intLeftEdge As Integer ''Added 9/03/2019 td
+    '''    Dim boolIncludeOnBadge As Boolean = False ''Added 9/03/2019 td
+    '''    Dim intStagger As Integer = 0 ''Added 9.6.2019 td 
+
+    '''    For Each each_field As ICIBFieldStandardOrCustom In par_list ''9/6/2019 td''ClassFields.ListAllFields()
+
+    '''        Dim label_control As CtlGraphicFldLabel
+
+    '''        ''Added 9/3/2019 thomas d. 
+    '''        boolIncludeOnBadge = (par_boolLoadingForm And each_field.IsDisplayedOnBadge)
+    '''        If (Not boolIncludeOnBadge) Then
+    '''            AddToFlowPanelOfOmittedFlds(each_field)
+    '''            Continue For
+    '''        End If ''End of "If (Not boolIncludeOnBadge) Then"
+
+    '''        ''
+    '''        ''Has the user moved the field into place (and pressed the Save & Refresh link)??
+    '''        ''
+    '''        If (each_field.ElementInfo_Base Is Nothing) Then
+
+    '''            ''Added 9/15/2019 thomas d. 
+    '''            Throw New Exception("ElementInfo_Base should _not_ be uninitialized. 896741")
+
+    '''            ''9/15 td''Dim new_element_text As New ClassElementText
+    '''            ''
+    '''            ''9/15 td''With new_element_text
+    '''            ''    .Height_Pixels = 30 
+    '''            ''    .FontFamilyName = "Times New Roman" ''Added 9/15/2019 thomas d. 
+    '''            ''    .FontSize_Pixels = 25
+    '''            ''    ''Added 9/12/2019 td 
+    '''            ''    ''9/12/2019 td''.FontSize_IsLocked = True 
+    '''            ''    .FontSize_ScaleToElementRatio = (.FontSize_Pixels / .Height_Pixels)
+    '''            ''    .FontSize_ScaleToElementYesNo = True
+    '''            ''
+    '''            ''    ''Added 9/12/2019 td
+    '''            ''    .BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass(pictureBack.Width, pictureBack.Height)
+    '''            ''
+    '''            ''End With 'End of "With new_element_text"
+
+    '''            ''''9/6/2019 td''new_element_text.TopEdge_Pixels = (30 + (30 * intCountControlsAdded))
+    '''            ''intStagger = intCountControlsAdded
+    '''            ''new_element_text.TopEdge_Pixels = (intStagger * new_element_text.Height_Pixels)
+    '''            ''intCountControlsAdded += 1 ''Added 9/6/2019 td 
+
+    '''            ''new_element_text.LeftEdge_Pixels = new_element_text.TopEdge_Pixels ''Left = Top !! By setting Left = Top, we will create 
+    '''            ''''   a nice diagonally-cascading effect. ---9/3/2019 td
+
+    '''            ''9/15 td''each_field.ElementInfo_Base = new_element_text
+    '''            ''9/15 td''each_field.ElementInfo_Text = new_element_text
+
+    '''        Else
+    '''            ''
+    '''            ''Added 9/15/2019 td
+    '''            ''
+    '''            With each_field.ElementInfo_Base
+    '''                .Height_Pixels = 30
+
+    '''                ''9/6/2019 td''new_element_text.TopEdge_Pixels = (30 + (30 * intCountControlsAdded))
+    '''                intStagger = intCountControlsAdded
+    '''                .TopEdge_Pixels = (intStagger * .Height_Pixels)
+    '''                intCountControlsAdded += 1 ''Added 9/6/2019 td 
+
+    '''                .LeftEdge_Pixels = .TopEdge_Pixels ''Left = Top !! By setting Left = Top, we will create 
+    '''                ''   a nice diagonally-cascading effect. ---9/3/2019 td
+
+    '''                ''Added 9/12/2019 td
+    '''                .BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass(pictureBack.Width, pictureBack.Height)
+
+    '''            End With
+
+    '''            ''Added 9/15/2019 td
+    '''            With each_field.ElementInfo_Text
+    '''                .FontFamilyName = "Times New Roman" ''Added 9/15/2019 thomas d. 
+    '''                .FontSize_Pixels = 25
+    '''                ''Added 9/12/2019 td 
+    '''                ''9/12/2019 td''.FontSize_IsLocked = True 
+    '''                .FontSize_ScaleToElementRatio = (.FontSize_Pixels / each_field.ElementInfo_Base.Height_Pixels)
+    '''                .FontSize_ScaleToElementYesNo = True
+
+    '''            End With 'End of "With new_element_text"
+
+    '''        End If ''ENd of "If (each_field.ElementInfo_Base Is Nothing) Then ..... Else ...."
+
+    '''        ''Added 9/5/2019 thomas d.
+    '''        ''9/11/2019 td''each_field.ElementInfo_Base.LayoutWidth_Pixels = Me.Layout_Width_Pixels()
+    '''        each_field.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.Layout_Width_Pixels()
+    '''        each_field.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.Layout_Height_Pixels
+
+    '''        ''#1 9/4/2019 td''label_control = New CtlGraphicFldLabel(each_field, Me)
+    '''        '' #2 9/4/2019 td''label_control = New CtlGraphicFldLabel(each_field, new_element_text, Me)
+    '''        ''9/17/2019 td''label_control = New CtlGraphicFldLabel(each_field, Me)
+    '''        label_control = New CtlGraphicFldLabel(new_elementField, Me)
+
+    '''        ''Moved below. 9/5 td''label_control.Refresh_Master()
+    '''        label_control.Visible = each_field.IsDisplayedOnBadge ''BL = Badge Layout
+    '''        intCountControlsAdded += 1
+    '''        label_control.Name = "FieldControl" & CStr(intCountControlsAdded)
+
+    '''        ''9/8 td''label_control.BorderStyle = BorderStyle.FixedSingle
+
+    '''        ''Added 9/6/2019 thomas downes 
+    '''        ''
+    '''        ''   Stagger the elements on the badge layout, in a cascade from
+    '''        '' the upper-left to the lower-right. 
+    '''        '' ------9/6/2019 td
+    '''        ''
+    '''        If (0 = each_field.ElementInfo_Base.TopEdge_Pixels) Then
+    '''            ''Added 9/6/2019 thomas downes 
+    '''            label_control.Width = CInt(pictureBack.Width / 3)
+    '''            With each_field.ElementInfo_Base
+    '''                .Width_Pixels = label_control.Width
+    '''                .Height_Pixels = label_control.Height
+    '''                intStagger = intCountControlsAdded
+    '''                .TopEdge_Pixels = (intStagger * .Height_Pixels)
+    '''                .LeftEdge_Pixels = .TopEdge_Pixels ''Left = Top !! By setting Left = Top, we will create 
+    '''                ''   a nice diagonally-cascading effect. ---9/3/2019 td
+    '''                ''See above. 9/6/2019 td''intCountControlsAdded += 1 ''Added 9/6/2019 td 
+    '''            End With ''End of " With each_field.ElementInfo_Base"
+    '''        End If ''ENd of "If (0 = each_field.ElementInfo_Base.TopEdge_Pixels) Then"
+
+    '''        boolIncludeOnBadge = (par_boolLoadingForm And each_field.IsDisplayedOnBadge)
+
+    '''        If (boolIncludeOnBadge) Then
+
+    '''            Me.Controls.Add(label_control)
+    '''            label_control.Visible = True
+    '''            label_control.BringToFront() ''Added 9/7/2019 thomas d.  
+    '''            ''9/5/2019''label_control.Refresh_Image(True)
+    '''            label_control.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
+
+    '''            ''Added 9/7/2019 td
+    '''            label_control.Left = Me.Layout_Margin_Left_Add(each_field.ElementInfo_Base.LeftEdge_Pixels)
+    '''            label_control.Top = Me.Layout_Margin_Top_Add(each_field.ElementInfo_Base.TopEdge_Pixels)
+
+    '''            ''
+    '''            ''Major call !!  ----Thomas DOWNES
+    '''            ''
+    '''            label_control.Refresh_Master()
+
+    '''            ''Added 9/8/2019 td
+    '''            If (par_bAddMoveability) Then ControlMoverResizer_AddFieldCtl(label_control)
+
+    '''        ElseIf (par_bUnloading) Then
+    '''            ''9/3/2019 td''Me.Controls.Remove(label_control)
+    '''            Throw New NotImplementedException
+    '''
+    '''        End If ''End of "If (boolInludeOnBadge) Then .... ElseIf (....) ...."
+    '''
+    '''    Next each_field
+    '''
+    '''    ''
+    '''    ''Added 8/27/2019 thomas downes
+    '''    ''
+    '''    pictureBack.SendToBack() ''Added 9/7/2019 thomas d.
+    '''    Me.Refresh() ''Added 8/28/2019 td   
+    '''
+    '''    ''9/5/2019 td''MessageBox.Show($"Number of field controls now on the form: {intCountControlsAdded}", "",
+    '''    ''     MessageBoxButtons.OK, MessageBoxIcon.Information)
+    '''
+    '''End Sub ''End of ''Private Sub LoadElements_Fields_OneList()''
+
+    'Private Sub LoadFieldControls_ByListOfElements(par_listElements As List(Of ClassElementField),
+    '                           par_boolLoadingForm As Boolean,
+    '                           Optional par_bUnloading As Boolean = False,
+    '                           Optional par_bAddMoveability As Boolean = False,
+    '                            Optional ByRef par_listFieldCtls As List(Of CtlGraphicFldLabel) = Nothing)
+    '    ''
+    '    ''Added 9/17/2019 thomas downes 
+    '    ''
+    '    Dim intCountControlsAdded As Integer = 0 ''Added 9/03/2019 td 
+    '    Dim boolIncludeOnBadge As Boolean = False ''Added 9/03/2019 td
+    '    Dim intStagger As Integer = 0 ''Added 9.6.2019 td 
+
+    '    ''9/17/2019 td''For Each each_field As ICIBFieldStandardOrCustom In par_list  
+    '    For Each each_element As ClassElementField In par_listElements
+
+    '        Dim label_control As CtlGraphicFldLabel
+
+    '        ''Added 9/3/2019 thomas d. 
+    '        ''9/17/2019 td''boolIncludeOnBadge = (par_boolLoadingForm And each_element.IsDisplayedOnBadge)
+    '        boolIncludeOnBadge = (par_boolLoadingForm And each_element.FieldInfo.IsDisplayedOnBadge)
+
+    '        If (Not boolIncludeOnBadge) Then
+    '            ''#1 9/17/2019 td''AddToFlowPanelOfOmittedFlds(each_element)
+    '            '' #2 9/17/2019 td''AddToFlowPanelOfOmittedFlds(each_element.FieldInfo)
+    '            AddToFlowPanelOfOmittedFlds(each_element)
+    '            Continue For
+    '        End If ''End of "If (Not boolIncludeOnBadge) Then"
+
+    '        ''
+    '        ''Added 9/15/2019 td
+    '        ''
+    '        With each_element
+    '            .Height_Pixels = 30
+
+    '            ''9/6/2019 td''new_element_text.TopEdge_Pixels = (30 + (30 * intCountControlsAdded))
+    '            intStagger = intCountControlsAdded
+    '            .TopEdge_Pixels = (intStagger * .Height_Pixels)
+    '            intCountControlsAdded += 1 ''Added 9/6/2019 td 
+
+    '            .LeftEdge_Pixels = .TopEdge_Pixels ''Left = Top !! By setting Left = Top, we will create 
+    '            ''   a nice diagonally-cascading effect. ---9/3/2019 td
+
+    '            ''Added 9/12/2019 td
+    '            .BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass(pictureBack.Width, pictureBack.Height)
+
+    '        End With
+
+    '        ''Added 9/15/2019 td
+    '        With each_element
+    '            .FontFamilyName = "Times New Roman" ''Added 9/15/2019 thomas d. 
+    '            .FontSize_Pixels = 25
+    '            ''Added 9/12/2019 td 
+    '            ''9/12/2019 td''.FontSize_IsLocked = True 
+    '            .FontSize_ScaleToElementRatio = (.FontSize_Pixels / .Height_Pixels)
+    '            .FontSize_ScaleToElementYesNo = True
+
+    '        End With 'End of "With each_element"
+
+    '        ''Added 9/5/2019 thomas d.
+    '        ''9/11/2019 td''each_field.ElementInfo_Base.LayoutWidth_Pixels = Me.Layout_Width_Pixels()
+    '        each_element.BadgeLayout.Width_Pixels = Me.Layout_Width_Pixels()
+    '        each_element.BadgeLayout.Height_Pixels = Me.Layout_Height_Pixels
+
+    '        ''#1 9/4/2019 td''label_control = New CtlGraphicFldLabel(each_field, Me)
+    '        '' #2 9/4/2019 td''label_control = New CtlGraphicFldLabel(each_field, new_element_text, Me)
+    '        label_control = New CtlGraphicFldLabel(each_element, Me)
+
+    '        ''Moved below. 9/5 td''label_control.Refresh_Master()
+    '        label_control.Visible = each_element.FieldInfo.IsDisplayedOnBadge ''BL = Badge Layout
+    '        intCountControlsAdded += 1
+    '        label_control.Name = "FieldControl" & CStr(intCountControlsAdded)
+
+    '        ''9/8 td''label_control.BorderStyle = BorderStyle.FixedSingle
+
+    '        ''Added 9/6/2019 thomas downes 
+    '        ''
+    '        ''   Stagger the elements on the badge layout, in a cascade from
+    '        '' the upper-left to the lower-right. 
+    '        '' ------9/6/2019 td
+    '        ''
+    '        If (0 = each_element.TopEdge_Pixels) Then
+    '            ''Added 9/6/2019 thomas downes 
+    '            label_control.Width = CInt(pictureBack.Width / 3)
+    '            With each_element
+    '                .Width_Pixels = label_control.Width
+    '                .Height_Pixels = label_control.Height
+    '                intStagger = intCountControlsAdded
+    '                .TopEdge_Pixels = (intStagger * .Height_Pixels)
+    '                .LeftEdge_Pixels = .TopEdge_Pixels ''Left = Top !! By setting Left = Top, we will create 
+    '                ''   a nice diagonally-cascading effect. ---9/3/2019 td
+    '                ''See above. 9/6/2019 td''intCountControlsAdded += 1 ''Added 9/6/2019 td 
+    '            End With ''End of " With each_field.ElementInfo_Base"
+    '        End If ''ENd of "If (0 = each_field.ElementInfo_Base.TopEdge_Pixels) Then"
+
+    '        boolIncludeOnBadge = (par_boolLoadingForm And each_element.FieldInfo.IsDisplayedOnBadge)
+
+    '        If (boolIncludeOnBadge) Then
+
+    '            Me.Controls.Add(label_control)
+    '            par_listFieldCtls.Add(label_control) ''Added 9/20/2019 td
+
+    '            label_control.Visible = True
+    '            label_control.BringToFront() ''Added 9/7/2019 thomas d.  
+    '            ''9/5/2019''label_control.Refresh_Image(True)
+    '            label_control.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
+
+    '            ''Added 9/7/2019 td
+    '            label_control.Left = Me.Layout_Margin_Left_Add(each_element.LeftEdge_Pixels)
+    '            label_control.Top = Me.Layout_Margin_Top_Add(each_element.TopEdge_Pixels)
+
+    '            ''
+    '            ''Major call !!  ----Thomas DOWNES
+    '            ''
+    '            label_control.Refresh_Master()
+
+    '            ''Added 9/8/2019 td
+    '            If (par_bAddMoveability) Then ControlMoverResizer_AddFieldCtl(label_control)
+
+    '        ElseIf (par_bUnloading) Then
+    '            ''9/3/2019 td''Me.Controls.Remove(label_control)
+    '            Throw New NotImplementedException
+
+    '        End If ''End of "If (boolInludeOnBadge) Then .... ElseIf (....) ...."
+
+    '    Next each_element
+
+    '    ''
+    '    ''Added 8/27/2019 thomas downes
+    '    ''
+    '    pictureBack.SendToBack() ''Added 9/7/2019 thomas d.
+    '    Me.Refresh() ''Added 8/28/2019 td   
+
+    '    ''9/5/2019 td''MessageBox.Show($"Number of field controls now on the form: {intCountControlsAdded}", "",
+    '    ''     MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+    'End Sub ''End of ''Private Sub LoadElements_ByListOfElements()''
+
+    'Private Sub LoadFieldControl_JustOne(par_elementField As ClassElementField)
+    '    ''
+    '    ''Added 9/17/2019 thomas d.  
+    '    ''
+    '    Dim new_list As New List(Of ClassElementField)
+    '    Const c_bAddToMoveableClass As Boolean = True ''Added 9/8/2019 td 
+
+    '    new_list.Add(par_elementField)
+
+    '    ''9/24/2019 td''LoadFieldControls_ByListOfElements(new_list, True, False, c_bAddToMoveableClass)
+    '    LoadFieldControls_ByListOfElements(new_list, True, False, c_bAddToMoveableClass, mod_listOfFieldControls)
+
+    'End Sub ''End of "Private Sub LoadFieldControl_JustOne(par_elementField As ClassElementField)"
 
     ''9/17/2019 td''Private Sub AddToFlowPanelOfOmittedFlds(par_field As ICIBFieldStandardOrCustom)
     ''    ''
@@ -885,18 +914,18 @@ Public Class FormDesignProtoTwo
 
     ''End Sub ''End of "Private Sub AddToFlowPanelOfOmittedFlds(par_field As ICIBFieldStandardOrCustom)"
 
-    Private Sub AddToFlowPanelOfOmittedFlds(par_elementField As ClassElementField)
-        ''
-        ''Added 9/17/2019 td
-        ''
-        Dim new_linkLabel As New LinkLabel
-        new_linkLabel.Tag = par_elementField
-        new_linkLabel.Text = par_elementField.FieldInfo.FieldLabelCaption
-        flowFieldsNotListed.Controls.Add(new_linkLabel)
-        new_linkLabel.Visible = True
-        AddHandler new_linkLabel.LinkClicked, AddressOf AddField_LinkClicked
+    'Private Sub AddToFlowPanelOfOmittedFlds(par_elementField As ClassElementField)
+    '    ''
+    '    ''Added 9/17/2019 td
+    '    ''
+    '    Dim new_linkLabel As New LinkLabel
+    '    new_linkLabel.Tag = par_elementField
+    '    new_linkLabel.Text = par_elementField.FieldInfo.FieldLabelCaption
+    '    flowFieldsNotListed.Controls.Add(new_linkLabel)
+    '    new_linkLabel.Visible = True
+    '    AddHandler new_linkLabel.LinkClicked, AddressOf AddField_LinkClicked
 
-    End Sub ''End of "Private Sub AddToFlowPanelOfOmittedFlds(par_elementField As ClassElementField)"
+    'End Sub ''End of "Private Sub AddToFlowPanelOfOmittedFlds(par_elementField As ClassElementField)"
 
     ''9/17/2019 td''Private Sub LoadElements_Fields_OneList_NotInUse(par_boolLoadingForm As Boolean, Optional par_bUnloading As Boolean = False)
     ''    ''
@@ -1339,24 +1368,26 @@ Public Class FormDesignProtoTwo
         ''
         ''Step #1 of 2. 
         ''
-        For Each each_control As Control In Me.Controls
+        mod_designer.SaveLayout()
 
-            If (TypeOf each_control Is CtlGraphicFldLabel) Then
-
-                each_graphicalLabel = CType(each_control, CtlGraphicFldLabel)
-
-                each_graphicalLabel.SaveToModel()
-
-            ElseIf (TypeOf each_control Is CtlGraphicPortrait) Then
-                ''
-                ''Added 7/31/2019 thomas downes  
-                ''
-                each_portraitLabel = CType(each_control, CtlGraphicPortrait)
-                each_portraitLabel.SaveToModel()
-
-            End If ''end of "If (TypeOf each_control Is GraphicFieldLabel) Then .... ElseIf ..."
-
-        Next each_control
+        ''For Each each_control As Control In Me.Controls
+        ''
+        ''    If (TypeOf each_control Is CtlGraphicFldLabel) Then
+        ''
+        ''        each_graphicalLabel = CType(each_control, CtlGraphicFldLabel)
+        ''
+        ''        each_graphicalLabel.SaveToModel()
+        ''
+        ''    ElseIf (TypeOf each_control Is CtlGraphicPortrait) Then
+        ''        ''
+        ''        ''Added 7/31/2019 thomas downes  
+        ''        ''
+        ''        each_portraitLabel = CType(each_control, CtlGraphicPortrait)
+        ''        each_portraitLabel.SaveToModel()
+        ''
+        ''    End If ''end of "If (TypeOf each_control Is GraphicFieldLabel) Then .... ElseIf ..."
+        ''
+        ''Next each_control
 
         ''
         ''
@@ -1365,118 +1396,118 @@ Public Class FormDesignProtoTwo
         Me.ElementsCache_Saved = Me.ElementsCache_Edits.Copy()
 
         ''
-        ''
+        ''Serialize !!  
         ''
 
 
 
     End Sub ''End of "PRivate Sub SaveLayout()"  
 
-    Private Sub RefreshPreview()
-        ''
-        ''Added 8/24/2019 td
-        ''
-        ''8/24 td''Dim objPrintLib As New ciLayoutPrintLib.CILayoutBadge
-        ''9/18 td''Dim objPrintLib As New ciLayoutPrintLib.LayoutPrint_Redux
-        Dim objPrintLibElems As New ciLayoutPrintLib.LayoutElements
-
-        ''Deprecated. 9/18/2019 td''Dim listOfElementText_Stdrd As List(Of IFieldInfo_ElementPositions)
-        ''Deprecated. 9/18/2019 td''Dim listOfElementText_Custom As List(Of IFieldInfo_ElementPositions)
-
-        Dim listOfTextImages As New List(Of Image) ''Added 8/26/2019 thomas downes 
-        Dim listOfElementTextFields As List(Of ClassElementField)
-
-        ''For Each field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students
-
-        ''objPrintLib.LoadImageWithFieldValues(picturePreview.Image,
-        ''      ClassFieldStandard.ListOfFields_Students,
-        ''      ClassFieldCustomized.ListOfFields_Students)
-
-        ''9/4/2019 td''listOfElementText_Stdrd = ClassFieldStandard.ListOfElementsText_Stdrd()
-        ''9/4/2019 td''listOfElementText_Custom = ClassFieldCustomized.ListOfElementsText_Custom()
-
-        ''Deprecated. 9/18/2019 td''listOfElementText_Stdrd = ClassFieldStandard.ListOfElementsText_Stdrd(Me.Layout_Width_Pixels())
-        ''Deprecated. 9/18/2019 td''listOfElementText_Custom = ClassFieldCustomized.ListOfElementsText_Custom(Me.Layout_Width_Pixels())
-
-        listOfElementTextFields = Me.ElementsCache_Edits.ListFieldElements()
-
-        ''8/24 td''picturePreview.SizeMode = PictureBoxSizeMode.Zoom
-        ''8/24 td''picturePreview.Image = pictureBack.Image
-        ''8/24 td''picturePreview.Image = CType(pictureBack.Image.Clone(), Image)
-
-        Dim obj_image As Image ''Added 8/24 td
-        Dim obj_image_clone As Image ''Added 8/24 td
-        Dim obj_image_clone_resized As Image ''Added 8/24/2019 td
-
-        ''Added 9/6/2019 td 
-        ClassLabelToImage.ProportionsAreSlightlyOff(pictureBack.Image, True, "Background Image")
-
-        ''Added 8/24/2019 td
-        obj_image = pictureBack.Image
-        obj_image_clone = CType(obj_image.Clone(), Image)
-
-        ''Dim gr_resize As Graphics = New Bitmap(obj_image_clone)
-
-        ''8/26/2019 td''obj_image_clone_resized = ciLayoutPrintLib.LayoutPrint.ResizeImage_ToHeight(obj_image_clone, True,
-        ''8/26/2019 td''      picturePreview.Height)
-
-        ''Added 8/26/2019 thomas downes
-        obj_image_clone_resized =
-            LayoutPrint.ResizeBackground_ToFitBox(obj_image, picturePreview, True)
-
-        ''Added 9/6/2019 td 
-        ClassLabelToImage.ProportionsAreSlightlyOff(obj_image_clone_resized, True, "Clone Resized #1")
-
-        ''
-        ''Major call !!
-        ''
-        ''9/18 td''objPrintLib.LoadImageWithFieldValues(obj_image_clone_resized,
-        ''     listOfElementText_Stdrd,
-        ''     listOfElementText_Custom,
-        ''     listOfTextImages)
-        ''9/19 td''objPrintLib.LoadImageWithFieldValues(obj_image_clone_resized,
-        ''9/19 td''    listOfElementTextFields,
-        ''9/19 td''    listOfTextImages)
-        objPrintLibElems.LoadImageWithElements(obj_image_clone_resized,
-                                             listOfElementTextFields,
-                                             listOfTextImages)
-
-        ''
-        ''Major call, let's show the portrait !!  ---9/9/2019 td  
-        ''
-        objPrintLibElems.LoadImageWithPortrait(obj_image_clone_resized.Width,
-                                          Me.Layout_Width_Pixels(),
-                                          obj_image_clone_resized,
-                                           CtlGraphicPortrait_Lady.ElementInfo_Base,
-                                           CtlGraphicPortrait_Lady.ElementInfo_Pic,
-                                          CtlGraphicPortrait_Lady.picturePortrait.Image)
-
-        ''Added 9/8/2019 td
-        Const c_bListEachElementImage As Boolean = False ''Added 9/8/2019 td
-        Const c_bTestingReview As Boolean = False ''Added 9/8/2019 td
-
-        If (c_bListEachElementImage And c_bTestingReview) Then ''Added 9/8/2019 td
-            ''Added 8/26/2019 thomas downes  
-            Dim frm_ToShow1 As New FormDisplayImageList1(listOfTextImages)
-            frm_ToShow1.Show()
-
-            ''Added 8/27/2019 thomas downes  
-            ''9/19 td''Dim frm_ToShow2 As New FormDisplayImageList2(ClassFieldStandard.ListOfFields_Students,
-            ''9/19 td''    ClassFieldCustomized.ListOfFields_Students)
-
-            Dim frm_ToShow2 As New FormDisplayImageList2(listOfElementTextFields)
-            frm_ToShow2.Show()
-
-        End If ''End of "If (c_bHelpProgrammer And c_bTestingReview) Then"
-
-        ''Added 9/6/2019 td 
-        ClassLabelToImage.ProportionsAreSlightlyOff(pictureBack.Image, True, "Clone Resized #1")
-
-        ''8/26 td''picturePreview.Image = obj_image_clone_resized
-        picturePreview.Image = obj_image_clone_resized
-        picturePreview.Refresh()
-
-    End Sub ''end of "Private Sub RefreshPreview()"
+    ''Private Sub RefreshPreview()
+    ''    ''
+    ''    ''Added 8/24/2019 td
+    ''    ''
+    ''    ''8/24 td''Dim objPrintLib As New ciLayoutPrintLib.CILayoutBadge
+    ''    ''9/18 td''Dim objPrintLib As New ciLayoutPrintLib.LayoutPrint_Redux
+    ''    Dim objPrintLibElems As New ciLayoutPrintLib.LayoutElements
+    ''
+    ''    ''Deprecated. 9/18/2019 td''Dim listOfElementText_Stdrd As List(Of IFieldInfo_ElementPositions)
+    ''    ''Deprecated. 9/18/2019 td''Dim listOfElementText_Custom As List(Of IFieldInfo_ElementPositions)
+    ''
+    ''    Dim listOfTextImages As New List(Of Image) ''Added 8/26/2019 thomas downes 
+    ''    Dim listOfElementTextFields As List(Of ClassElementField)
+    ''
+    ''    ''For Each field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students
+    ''
+    ''    ''objPrintLib.LoadImageWithFieldValues(picturePreview.Image,
+    ''    ''      ClassFieldStandard.ListOfFields_Students,
+    ''    ''      ClassFieldCustomized.ListOfFields_Students)
+    ''
+    ''    ''9/4/2019 td''listOfElementText_Stdrd = ClassFieldStandard.ListOfElementsText_Stdrd()
+    ''    ''9/4/2019 td''listOfElementText_Custom = ClassFieldCustomized.ListOfElementsText_Custom()
+    ''
+    ''    ''Deprecated. 9/18/2019 td''listOfElementText_Stdrd = ClassFieldStandard.ListOfElementsText_Stdrd(Me.Layout_Width_Pixels())
+    ''    ''Deprecated. 9/18/2019 td''listOfElementText_Custom = ClassFieldCustomized.ListOfElementsText_Custom(Me.Layout_Width_Pixels())
+    ''
+    ''    listOfElementTextFields = Me.ElementsCache_Edits.ListFieldElements()
+    ''
+    ''    ''8/24 td''picturePreview.SizeMode = PictureBoxSizeMode.Zoom
+    ''    ''8/24 td''picturePreview.Image = pictureBack.Image
+    ''    ''8/24 td''picturePreview.Image = CType(pictureBack.Image.Clone(), Image)
+    ''
+    ''    Dim obj_image As Image ''Added 8/24 td
+    ''    Dim obj_image_clone As Image ''Added 8/24 td
+    ''    Dim obj_image_clone_resized As Image ''Added 8/24/2019 td
+    ''
+    ''    ''Added 9/6/2019 td 
+    ''    ClassLabelToImage.ProportionsAreSlightlyOff(pictureBack.Image, True, "Background Image")
+    ''
+    ''    ''Added 8/24/2019 td
+    ''    obj_image = pictureBack.Image
+    ''    obj_image_clone = CType(obj_image.Clone(), Image)
+    ''
+    ''    ''Dim gr_resize As Graphics = New Bitmap(obj_image_clone)
+    ''
+    ''    ''8/26/2019 td''obj_image_clone_resized = ciLayoutPrintLib.LayoutPrint.ResizeImage_ToHeight(obj_image_clone, True,
+    ''    ''8/26/2019 td''      picturePreview.Height)
+    ''
+    ''    ''Added 8/26/2019 thomas downes
+    ''    obj_image_clone_resized =
+    ''        LayoutPrint.ResizeBackground_ToFitBox(obj_image, picturePreview, True)
+    ''
+    ''    ''Added 9/6/2019 td 
+    ''    ClassLabelToImage.ProportionsAreSlightlyOff(obj_image_clone_resized, True, "Clone Resized #1")
+    ''
+    ''    ''
+    ''    ''Major call !!
+    ''    ''
+    ''    ''9/18 td''objPrintLib.LoadImageWithFieldValues(obj_image_clone_resized,
+    ''    ''     listOfElementText_Stdrd,
+    ''    ''     listOfElementText_Custom,
+    ''    ''     listOfTextImages)
+    ''    ''9/19 td''objPrintLib.LoadImageWithFieldValues(obj_image_clone_resized,
+    ''    ''9/19 td''    listOfElementTextFields,
+    ''    ''9/19 td''    listOfTextImages)
+    ''    objPrintLibElems.LoadImageWithElements(obj_image_clone_resized,
+    ''                                         listOfElementTextFields,
+    ''                                         listOfTextImages)
+    ''
+    ''    ''
+    ''    ''Major call, let's show the portrait !!  ---9/9/2019 td  
+    ''    ''
+    ''    objPrintLibElems.LoadImageWithPortrait(obj_image_clone_resized.Width,
+    ''                                      Me.Layout_Width_Pixels(),
+    ''                                      obj_image_clone_resized,
+    ''                                       CtlGraphicPortrait_Lady.ElementInfo_Base,
+    ''                                       CtlGraphicPortrait_Lady.ElementInfo_Pic,
+    ''                                      CtlGraphicPortrait_Lady.picturePortrait.Image)
+    ''
+    ''    ''Added 9/8/2019 td
+    ''    Const c_bListEachElementImage As Boolean = False ''Added 9/8/2019 td
+    ''    Const c_bTestingReview As Boolean = False ''Added 9/8/2019 td
+    ''
+    ''    If (c_bListEachElementImage And c_bTestingReview) Then ''Added 9/8/2019 td
+    ''        ''Added 8/26/2019 thomas downes  
+    ''        Dim frm_ToShow1 As New FormDisplayImageList1(listOfTextImages)
+    ''        frm_ToShow1.Show()
+    ''
+    ''        ''Added 8/27/2019 thomas downes  
+    ''        ''9/19 td''Dim frm_ToShow2 As New FormDisplayImageList2(ClassFieldStandard.ListOfFields_Students,
+    ''        ''9/19 td''    ClassFieldCustomized.ListOfFields_Students)
+    ''
+    ''        Dim frm_ToShow2 As New FormDisplayImageList2(listOfElementTextFields)
+    ''        frm_ToShow2.Show()
+    ''
+    ''    End If ''End of "If (c_bHelpProgrammer And c_bTestingReview) Then"
+    ''
+    ''    ''Added 9/6/2019 td 
+    ''    ClassLabelToImage.ProportionsAreSlightlyOff(pictureBack.Image, True, "Clone Resized #1")
+    ''
+    ''    ''8/26 td''picturePreview.Image = obj_image_clone_resized
+    ''    picturePreview.Image = obj_image_clone_resized
+    ''    picturePreview.Refresh()
+    ''
+    ''End Sub ''end of "Private Sub RefreshPreview()"
 
     Private Sub LoadElementGenerator_NotInUse()
         ''
@@ -1504,7 +1535,8 @@ Public Class FormDesignProtoTwo
         ''
         ''Added 7/29/2019 td  
         ''
-        SaveLayout()
+        ''103/2019 td''SaveLayout()
+        mod_designer.SaveLayout()
 
     End Sub
 
@@ -1670,7 +1702,9 @@ Public Class FormDesignProtoTwo
             ''9/6/2019 td''Load_Fields_ByList(list_elementsNotLoadedYet_Any)
             ''9/17/2019 td''LoadElements_ByListOfFields(list_fieldsNotLoadedYet_Any,
             ''9/17/2019 td''                            True, False, True)
-            LoadFieldControls_ByListOfElements(list_elementsNotLoadedYet_Any, True, False, True)
+            ''10/3/2019 tdLoadFieldControls_ByListOfElements(list_elementsNotLoadedYet_Any, True, False, True)
+
+            mod_designer.LoadDesigner()
 
         End If ''End of "If (bSomeDisplayableFieldsAreNotLoaded) Then"
 
@@ -1688,121 +1722,122 @@ Public Class FormDesignProtoTwo
 
     End Sub ''ENd of "Private Sub RefreshTheSetOfDisplayedElements"
 
-    Public Sub AutoPreview_IfChecked() Implements ILayoutFunctions.AutoPreview_IfChecked
-        ''
-        ''Refresh the preview picture box. 
-        ''
-        If (checkAutoPreview.Checked) Then
-            SaveLayout()
-            RefreshPreview()
-        End If ''End of "If (checkAutoPreview.Checked) Then"
+    ''Public Sub AutoPreview_IfChecked() Implements ILayoutFunctions.AutoPreview_IfChecked
+    ''    ''
+    ''    ''Refresh the preview picture box. 
+    ''    ''
+    ''    If (checkAutoPreview.Checked) Then
+    ''        SaveLayout()
+    ''        RefreshPreview()
+    ''    End If ''End of "If (checkAutoPreview.Checked) Then"
 
-    End Sub ''End of  "Private Sub AutoPreview_IfChecked()"
+    ''End Sub ''End of  "Private Sub AutoPreview_IfChecked()"
 
-    Public Function RightClickMenu_Parent() As ToolStripMenuItem Implements ILayoutFunctions.RightClickMenu_Parent
+    ''Public Function RightClickMenu_Parent() As ToolStripMenuItem Implements ILayoutFunctions.RightClickMenu_Parent
 
-        ''Added 9/19/2019 td
-        Return RightClickMenuParent
+    ''    ''Added 9/19/2019 td
+    ''    Return RightClickMenuParent
 
-    End Function
+    ''End Function
 
-    Public Function NameOfForm() As String Implements ILayoutFunctions.NameOfForm
-        ''Added 9/19/2019
-        Return Me.Name
-    End Function
+    ''Public Function NameOfForm() As String Implements ILayoutFunctions.NameOfForm
+    ''    ''Added 9/19/2019
+    ''    Return Me.Name
+    ''End Function
 
-    Public Sub RedrawForm() Implements ILayoutFunctions.RedrawForm
-        ''Added 9/23/2019
-        ''Not needed. ---9/23 td''Me.Invalidate() ''Causes the form to be re-painted.
-        ''Not needed. ---9/23 td''Application.DoEvents()
-    End Sub
+    ''Public Sub RedrawForm() Implements ILayoutFunctions.RedrawForm
+    ''    ''Added 9/23/2019
+    ''    ''Not needed. ---9/23 td''Me.Invalidate() ''Causes the form to be re-painted.
+    ''    ''Not needed. ---9/23 td''Application.DoEvents()
+    ''End Sub
+
     Private Sub ContextMenuStrip1_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles ContextMenuStrip1.Opening
 
     End Sub
 
-    Private Sub PictureAdjuster_MouseClick(sender As Object, e As MouseEventArgs) Handles graphicAdjuster.MouseClick
-        ''
-        ''Added 8/9/2019 thomas downes
-        ''
-        Dim intX As Integer
-        Dim intY As Integer
-        Dim objControlToModify As CtlGraphicFldLabel
-        Dim intGroupedControlsCount As Integer
-        Dim boolGroupedCtls As Boolean
+    ''Private Sub PictureAdjuster_MouseClick(sender As Object, e As MouseEventArgs) Handles graphicAdjuster.MouseClick
+    ''    ''
+    ''    ''Added 8/9/2019 thomas downes
+    ''    ''
+    ''    Dim intX As Integer
+    ''    Dim intY As Integer
+    ''    Dim objControlToModify As CtlGraphicFldLabel
+    ''    Dim intGroupedControlsCount As Integer
+    ''    Dim boolGroupedCtls As Boolean
 
-        intX = e.X
-        intY = e.Y
+    ''    intX = e.X
+    ''    intY = e.Y
 
-        intGroupedControlsCount = mod_selectedCtls.Count
-        boolGroupedCtls = (0 < intGroupedControlsCount)
+    ''    intGroupedControlsCount = mod_selectedCtls.Count
+    ''    boolGroupedCtls = (0 < intGroupedControlsCount)
 
-        objControlToModify = mod_FieldControlLastTouched
+    ''    objControlToModify = mod_FieldControlLastTouched
 
-        Select Case True
+    ''    Select Case True
 
-            Case ((0 < intX And intX < 45) And (0 < intY And intY < 45))
+    ''        Case ((0 < intX And intX < 45) And (0 < intY And intY < 45))
 
-                objControlToModify.ElementInfo_Text.TextAlignment = HorizontalAlignment.Left
+    ''            objControlToModify.ElementInfo_Text.TextAlignment = HorizontalAlignment.Left
 
-            Case ((45 < intX And intX < 90) And (45 < intY And intY < 90))
+    ''        Case ((45 < intX And intX < 90) And (45 < intY And intY < 90))
 
-                objControlToModify.ElementInfo_Text.TextAlignment = HorizontalAlignment.Center
+    ''            objControlToModify.ElementInfo_Text.TextAlignment = HorizontalAlignment.Center
 
-            Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
+    ''        Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
 
-                objControlToModify.ElementInfo_Text.TextAlignment = HorizontalAlignment.Right
+    ''            objControlToModify.ElementInfo_Text.TextAlignment = HorizontalAlignment.Right
 
-            Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
+    ''        Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
 
-                ''objControlToModify.ElementInfo.Fo  ntSize += 1
+    ''            ''objControlToModify.ElementInfo.Fo  ntSize += 1
 
-            Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
+    ''        Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
 
-                ''objControlToModify.ElementInfo.FontSize -= 1
+    ''            ''objControlToModify.ElementInfo.FontSize -= 1
 
-            Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
+    ''        Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
 
-                ''objControlToModify.ElementInfo.FontSize -= 1
+    ''            ''objControlToModify.ElementInfo.FontSize -= 1
 
-            Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
+    ''        Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
 
-                objControlToModify.ElementInfo_Text.FontColor = Color.Lavender
+    ''            objControlToModify.ElementInfo_Text.FontColor = Color.Lavender
 
-            Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
+    ''        Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
 
-                objControlToModify.ElementInfo_Text.FontColor = Color.Lavender
+    ''            objControlToModify.ElementInfo_Text.FontColor = Color.Lavender
 
-            Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
+    ''        Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
 
-                objControlToModify.ElementInfo_Text.FontColor = Color.Lavender
+    ''            objControlToModify.ElementInfo_Text.FontColor = Color.Lavender
 
-            Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
+    ''        Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
 
-                objControlToModify.ElementInfo_Text.FontColor = Color.Lavender
+    ''            objControlToModify.ElementInfo_Text.FontColor = Color.Lavender
 
-            Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
+    ''        Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
 
-                objControlToModify.ElementInfo_Text.FontColor = Color.Lavender
+    ''            objControlToModify.ElementInfo_Text.FontColor = Color.Lavender
 
-            Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
+    ''        Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
 
-                objControlToModify.ElementInfo_Text.FontColor = Color.Lavender
+    ''            objControlToModify.ElementInfo_Text.FontColor = Color.Lavender
 
-            Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
+    ''        Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
 
-                objControlToModify.ElementInfo_Text.FontColor = Color.Lavender
+    ''            objControlToModify.ElementInfo_Text.FontColor = Color.Lavender
 
-            Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
+    ''        Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
 
-                objControlToModify.ElementInfo_Text.FontColor = Color.Lavender
+    ''            objControlToModify.ElementInfo_Text.FontColor = Color.Lavender
 
-            Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
+    ''        Case ((90 < intX And intX < 135) And (0 < intY And intY < 180))
 
-                objControlToModify.ElementInfo_Text.FontColor = Color.Lavender
+    ''            objControlToModify.ElementInfo_Text.FontColor = Color.Lavender
 
-        End Select ''En do f"Select Case True"
+    ''    End Select ''En do f"Select Case True"
 
-    End Sub
+    ''End Sub
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles picturePreview.Click
 
@@ -1874,7 +1909,8 @@ Public Class FormDesignProtoTwo
         ''
         ''Refresh the preview picture box. 
         ''
-        RefreshPreview()
+        ''10/3/2019 td''RefreshPreview()
+        mod_designer.RefreshPreview()
 
         ''''8/24 td''Dim objPrintLib As New ciLayoutPrintLib.CILayoutBadge
         ''Dim objPrintLib As New ciLayoutPrintLib.LayoutPrint_Redux
@@ -1922,11 +1958,10 @@ Public Class FormDesignProtoTwo
         Dim each_controlField As CtlGraphicFldLabel
         Dim list_controlFields As New List(Of CtlGraphicFldLabel)
 
-        Me.mod_ControlLastTouched = Nothing
-        Me.mod_ElementLastTouched = Nothing ''9/14 td
-        Me.mod_FieldControlLastTouched = Nothing
-
-        Me.mod_selectedCtls.Clear()
+        ''Me.mod_ControlLastTouched = Nothing
+        ''Me.mod_ElementLastTouched = Nothing ''9/14 td
+        ''Me.mod_FieldControlLastTouched = Nothing
+        ''Me.mod_selectedCtls.Clear()
 
         ''
         ''Part 1 of 2.  Create a list of the controls you want to detach from the form. 
@@ -1961,74 +1996,74 @@ Public Class FormDesignProtoTwo
 
     End Sub
 
-    Private Sub AddField_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) ''9/7/2019 td''Handles linkSaveAndRefresh.LinkClicked
-        ''
-        ''Added 9/7/2019 thomas d
-        ''
-        ''9/17/2019 td''Dim field_to_add As ICIBFieldStandardOrCustom
-        ''9/17/2019 td''field_to_add = CType(CType(sender, LinkLabel).Tag, ICIBFieldStandardOrCustom)
-        ''9/17/2019 td''If (field_to_add Is Nothing) Then Exit Sub
-        ''9/17/2019 td''field_to_add.IsDisplayedOnBadge = True
-        ''9/17/2019 td''LoadField_JustOne(field_to_add)
+    ''Private Sub AddField_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) ''9/7/2019 td''Handles linkSaveAndRefresh.LinkClicked
+    ''    ''
+    ''    ''Added 9/7/2019 thomas d
+    ''    ''
+    ''    ''9/17/2019 td''Dim field_to_add As ICIBFieldStandardOrCustom
+    ''    ''9/17/2019 td''field_to_add = CType(CType(sender, LinkLabel).Tag, ICIBFieldStandardOrCustom)
+    ''    ''9/17/2019 td''If (field_to_add Is Nothing) Then Exit Sub
+    ''    ''9/17/2019 td''field_to_add.IsDisplayedOnBadge = True
+    ''    ''9/17/2019 td''LoadField_JustOne(field_to_add)
 
-        Dim element_to_add As ClassElementField ''Added 9/17/2019 td
-        element_to_add = CType(CType(sender, LinkLabel).Tag, ClassElementField)
-        If (element_to_add Is Nothing) Then Exit Sub
-        element_to_add.FieldInfo.IsDisplayedOnBadge = True
-        LoadFieldControl_JustOne(element_to_add) ''Modified 9/17/2019 td
+    ''    Dim element_to_add As ClassElementField ''Added 9/17/2019 td
+    ''    element_to_add = CType(CType(sender, LinkLabel).Tag, ClassElementField)
+    ''    If (element_to_add Is Nothing) Then Exit Sub
+    ''    element_to_add.FieldInfo.IsDisplayedOnBadge = True
+    ''    LoadFieldControl_JustOne(element_to_add) ''Modified 9/17/2019 td
 
-        flowFieldsNotListed.Controls.Remove(CType(sender, LinkLabel))
+    ''    flowFieldsNotListed.Controls.Remove(CType(sender, LinkLabel))
 
-    End Sub ''End of "Private Sub AddField_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)"
+    ''End Sub ''End of "Private Sub AddField_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)"
 
-    ''
-    ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
-    ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
-    ''
-    ''9/8/2019 td''Private _bRubberBandingOn As Boolean = False '-- State to control if we are drawing the rubber banding object
-    ''9/8/2019 td''Private _pClickStart As New Point '-- The place where the mouse button went 'down'.
-    ''9/8/2019 td''Private _pClickStop As New Point '-- The place where the mouse button went 'up'.
-    ''9/8/2019 td''Private _pNow As New Point '-- Holds the current mouse location to make the shape appear to follow the mouse cursor.
+    ''''
+    ''''  Simple Drawing Selection Shape (Or Rubberband Shape)       
+    ''''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
+    ''''
+    ''''9/8/2019 td''Private _bRubberBandingOn As Boolean = False '-- State to control if we are drawing the rubber banding object
+    ''''9/8/2019 td''Private _pClickStart As New Point '-- The place where the mouse button went 'down'.
+    ''''9/8/2019 td''Private _pClickStop As New Point '-- The place where the mouse button went 'up'.
+    ''''9/8/2019 td''Private _pNow As New Point '-- Holds the current mouse location to make the shape appear to follow the mouse cursor.
 
-    Private Sub Layout_MouseDown(sender As Object, e As MouseEventArgs) Handles pictureBack.MouseDown ''----Me.MouseDown
-        ''
-        ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
-        ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
-        ''
-        mod_rubberbandClass.MouseDown(sender, e)
+    ''Private Sub Layout_MouseDown(sender As Object, e As MouseEventArgs) Handles pictureBack.MouseDown ''----Me.MouseDown
+    ''    ''
+    ''    ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
+    ''    ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
+    ''    ''
+    ''    mod_rubberbandClass.MouseDown(sender, e)
 
-    End Sub
+    ''End Sub
 
-    Private Sub Layout_MouseMove(sender As Object, e As MouseEventArgs) Handles pictureBack.MouseMove ''----Me.MouseMove
-        ''
-        ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
-        ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
-        ''
-        If (mod_rubberbandClass IsNot Nothing) Then
-            mod_rubberbandClass.MouseMove(sender, e)
-        End If
+    ''Private Sub Layout_MouseMove(sender As Object, e As MouseEventArgs) Handles pictureBack.MouseMove ''----Me.MouseMove
+    ''    ''
+    ''    ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
+    ''    ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
+    ''    ''
+    ''    If (mod_rubberbandClass IsNot Nothing) Then
+    ''        mod_rubberbandClass.MouseMove(sender, e)
+    ''    End If
 
-    End Sub
+    ''End Sub
 
-    Private Sub Layout_MouseUp(sender As Object, e As MouseEventArgs) Handles pictureBack.MouseUp ''----Me.MouseUp
-        ''
-        ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
-        ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
-        ''
-        mod_rubberbandClass.MouseUp(sender, e)
+    ''Private Sub Layout_MouseUp(sender As Object, e As MouseEventArgs) Handles pictureBack.MouseUp ''----Me.MouseUp
+    ''    ''
+    ''    ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
+    ''    ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
+    ''    ''
+    ''    mod_rubberbandClass.MouseUp(sender, e)
 
-    End Sub
+    ''End Sub
 
-    Private Sub Layout_Paint(sender As Object, e As PaintEventArgs) Handles pictureBack.Paint ''----Me.Paint
-        ''
-        ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
-        ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
-        ''
-        If (mod_rubberbandClass IsNot Nothing) Then
-            mod_rubberbandClass.Paint(sender, e)
-        End If ''End of "If (mod_rubberbandClass IsNot Nothing) Then"
+    ''Private Sub Layout_Paint(sender As Object, e As PaintEventArgs) Handles pictureBack.Paint ''----Me.Paint
+    ''    ''
+    ''    ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
+    ''    ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
+    ''    ''
+    ''    If (mod_rubberbandClass IsNot Nothing) Then
+    ''        mod_rubberbandClass.Paint(sender, e)
+    ''    End If ''End of "If (mod_rubberbandClass IsNot Nothing) Then"
 
-    End Sub
+    ''End Sub
 
     Private Sub HighRez_CheckedChanged(sender As Object, e As EventArgs) Handles chkHighResolution.CheckedChanged
 

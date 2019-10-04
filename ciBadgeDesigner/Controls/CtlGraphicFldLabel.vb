@@ -562,6 +562,7 @@ ExitHandler:
             ''
             Me.ElementInfo_Base.Width_Pixels = Me.Width
             Me.ElementInfo_Base.Height_Pixels = Me.Height
+
         ElseIf (Me.Rotated_180_360()) Then
             ''
             ''Normal, easy-peasy. 

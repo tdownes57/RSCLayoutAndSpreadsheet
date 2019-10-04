@@ -9,6 +9,7 @@ Imports ciBadgeInterfaces ''Added 10/1/2019 thomas downes
 Imports ciBadgeElements ''Added 10/1/2019 thomas downes 
 Imports System.Drawing ''Added 10/1/2019 thomas downes 
 Imports ciLayoutPrintLib ''Added 10/1/2019 td
+Imports MoveAndResizeControls_Monem ''Added 10/3/2019 td
 
 ''10/1/2019 td''Public Event ElementField_Clicked(par_elementField As ClassElementField)
 
@@ -35,8 +36,8 @@ Public Class ClassDesigner
     Public Property ElementsCache_Saved As New ClassElementsCache ''Added 9/16/2019 thomas downes
     Public Property ElementsCache_Edits As New ClassElementsCache ''Added 9/16/2019 thomas downes
 
-    Public Property ControlMoverOrResizer_TD As New MoveAndResizeControls_Monem.ControlMoverOrResizer_TD ''Added 10/1/2019 td
-    Public Property ControlMove_GroupMove_TD As New MoveAndResizeControls_Monem.ControlMove_GroupMove_TD ''Added 10/1/2019 td
+    ''----Public Property ControlMoverOrResizer_TD As New MoveAndResizeControls_Monem.ControlMoverOrResizer_TD ''Added 10/1/2019 td
+    ''----Public Property ControlMove_GroupMove_TD As New MoveAndResizeControls_Monem.ControlMove_GroupMove_TD ''Added 10/1/2019 td
 
     Public Property PicInitialize_Left As Integer
     Public Property PicInitialize_Top As Integer
@@ -190,8 +191,7 @@ Public Class ClassDesigner
         ''Badge Preview is also moveable/sizeable, mostly to impress
         ''    management.  ----9/8/2019 td
         ''
-        ControlMoverOrResizer_TD.Init(CType(Me.PreviewBox, Control),
-                          CType(Me.PreviewBox, Control), 10, False,
+        ControlMoverOrResizer_TD.Init(Me.PreviewBox, Me.PreviewBox, 10, False,
                           c_boolBreakpoint) ''Added 9/08/2019 thomas downes
 
         ''If it won't conflict with the Rubber-Band Selector, 
@@ -618,7 +618,7 @@ Public Class ClassDesigner
 
     End Sub ''End of "Private Sub AddField_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)"
 
-    Private Sub SaveLayout()
+    Public Sub SaveLayout()
         ''
         ''Added 7/29/2019 td
         ''
@@ -654,14 +654,15 @@ Public Class ClassDesigner
         Me.ElementsCache_Saved = Me.ElementsCache_Edits.Copy()
 
         ''
+        ''Step #3 of 3
         ''
+        ''   Serialize !!!
         ''
-
 
 
     End Sub ''End of "PRivate Sub SaveLayout()"  
 
-    Private Sub RefreshPreview()
+    Public Sub RefreshPreview()
         ''
         ''Added 8/24/2019 td
         ''
@@ -767,6 +768,55 @@ Public Class ClassDesigner
 
     End Sub ''end of "Private Sub RefreshPreview()"
 
+    ''
+    ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
+    ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
+    ''
+    ''9/8/2019 td''Private _bRubberBandingOn As Boolean = False '-- State to control if we are drawing the rubber banding object
+    ''9/8/2019 td''Private _pClickStart As New Point '-- The place where the mouse button went 'down'.
+    ''9/8/2019 td''Private _pClickStop As New Point '-- The place where the mouse button went 'up'.
+    ''9/8/2019 td''Private _pNow As New Point '-- Holds the current mouse location to make the shape appear to follow the mouse cursor.
+
+    Private Sub Layout_MouseDown(sender As Object, e As MouseEventArgs) Handles pictureBack.MouseDown ''----Me.MouseDown
+        ''
+        ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
+        ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
+        ''
+        mod_rubberbandClass.MouseDown(sender, e)
+
+    End Sub
+
+    Private Sub Layout_MouseMove(sender As Object, e As MouseEventArgs) Handles pictureBack.MouseMove ''----Me.MouseMove
+        ''
+        ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
+        ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
+        ''
+        If (mod_rubberbandClass IsNot Nothing) Then
+            mod_rubberbandClass.MouseMove(sender, e)
+        End If
+
+    End Sub
+
+    Private Sub Layout_MouseUp(sender As Object, e As MouseEventArgs) Handles pictureBack.MouseUp ''----Me.MouseUp
+        ''
+        ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
+        ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
+        ''
+        mod_rubberbandClass.MouseUp(sender, e)
+
+    End Sub
+
+    Private Sub Layout_Paint(sender As Object, e As PaintEventArgs) Handles pictureBack.Paint ''----Me.Paint
+        ''
+        ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
+        ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
+        ''
+        If (mod_rubberbandClass IsNot Nothing) Then
+            mod_rubberbandClass.Paint(sender, e)
+        End If ''End of "If (mod_rubberbandClass IsNot Nothing) Then"
+
+    End Sub
+
     ''-----------------------------------------------------------------------
     ''-----------------------------------------------------------------------
     ''-----------------------------------------------------------------------
@@ -808,7 +858,7 @@ Public Class ClassDesigner
     Public Property ControlBeingModified() As Control Implements ILayoutFunctions.ControlBeingModified ''Added 8/9/2019 td
         Get
             ''
-            ''Added 8 / 9 / 2019 td
+            ''Added 8/9/2019 td
             ''
             ''8/12/2019 td''Return mod_FieldControlLastTouched
             Return mod_ControlLastTouched ''Added 8/12/2019 td  

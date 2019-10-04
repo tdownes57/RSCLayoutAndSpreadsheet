@@ -44,7 +44,7 @@ Public Class FormDesignProtoThree
 
             .LoadDesigner()
 
-        End With
+        End With ''End of "With mod_designer"
 
     End Sub
 
