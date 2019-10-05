@@ -21,13 +21,17 @@ Public Class ClassDesigner
     Public Event ElementRightClicked(par_control As CtlGraphicFldLabel) ''Added 10/1/2019 td
 
     ''10/1/2019 td''Public Property LayoutFunctions As ILayoutFunctions
-    Public Property DesignerForm As Form
-    Public Property BackgroundBox As PictureBox
+    ''10/4/2019 td''Public Property DesignerForm As Form
+    ''10/4/2019 td''Public Property BackgroundBox As PictureBox
+    Public WithEvents DesignerForm As Form
+    Public WithEvents BackgroundBox As PictureBox
 
     Public Property PreviewLayoutAsImage As Boolean = True ''Added 10.1.2019 thomas d. 
-    Public Property PreviewBox As PictureBox
 
-    Public Property CheckboxAutoPreview As CheckBox ''Added 10/1/2019 td
+    ''10/4/2019 td''Public Property PreviewBox As PictureBox
+    Public WithEvents PreviewBox As PictureBox
+
+    Public CheckboxAutoPreview As CheckBox ''Added 10/1/2019 td
     Public Property ExamplePortraitImage As Image ''Added 10/1/2019 td 
 
     Public Property FlowFieldsNotListed As FlowLayoutPanel ''Added 10/1/2019 td
@@ -777,7 +781,7 @@ Public Class ClassDesigner
     ''9/8/2019 td''Private _pClickStop As New Point '-- The place where the mouse button went 'up'.
     ''9/8/2019 td''Private _pNow As New Point '-- Holds the current mouse location to make the shape appear to follow the mouse cursor.
 
-    Private Sub Layout_MouseDown(sender As Object, e As MouseEventArgs) Handles pictureBack.MouseDown ''----Me.MouseDown
+    Private Sub Layout_MouseDown(sender As Object, e As MouseEventArgs) Handles BackgroundBox.MouseDown  ''me.pictureBack.MouseDown ''----Me.MouseDown
         ''
         ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
         ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
@@ -786,7 +790,7 @@ Public Class ClassDesigner
 
     End Sub
 
-    Private Sub Layout_MouseMove(sender As Object, e As MouseEventArgs) Handles pictureBack.MouseMove ''----Me.MouseMove
+    Private Sub Layout_MouseMove(sender As Object, e As MouseEventArgs) Handles BackgroundBox.MouseMove ''----Me.MouseMove
         ''
         ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
         ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
@@ -797,7 +801,7 @@ Public Class ClassDesigner
 
     End Sub
 
-    Private Sub Layout_MouseUp(sender As Object, e As MouseEventArgs) Handles pictureBack.MouseUp ''----Me.MouseUp
+    Private Sub Layout_MouseUp(sender As Object, e As MouseEventArgs) Handles BackgroundBox.MouseUp ''10/4 td''pictureBack.MouseUp ''----Me.MouseUp
         ''
         ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
         ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
@@ -806,7 +810,7 @@ Public Class ClassDesigner
 
     End Sub
 
-    Private Sub Layout_Paint(sender As Object, e As PaintEventArgs) Handles pictureBack.Paint ''----Me.Paint
+    Private Sub Layout_Paint(sender As Object, e As PaintEventArgs) Handles BackgroundBox.Paint ''10/4 td''pictureBack.Paint ''----Me.Paint
         ''
         ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
         ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/

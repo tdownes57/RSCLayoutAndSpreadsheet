@@ -93,4 +93,33 @@ Public Interface IRecipient
 
     Property intTimesPrinted As Integer
 
-End Interface
+    ''-------------------------------------------------------
+    ''Custom fields 
+    ''   ----10/4/2019 thomas d
+    ''-------------------------------------------------------
+    Property DateField01 As DateTime
+    Property DateField02 As DateTime
+    Property DateField03 As DateTime
+    Property DateField04 As DateTime
+    Property DateField05 As DateTime
+
+
+    Property TextField01 As String
+    Property TextField02 As String
+    Property TextField03 As String
+    Property TextField04 As String
+    Property TextField05 As String
+    Property TextField06 As String
+    Property TextField07 As String
+    Property TextField08 As String
+    Property TextField09 As String
+    Property TextField10 As String
+    Property TextField11 As String
+    Property TextField12 As String
+    Property TextField13 As String
+    Property TextField14 As String
+    Property TextField15 As String
+
+
+
+End Interface ''End of "Public Interface IRecipient"
