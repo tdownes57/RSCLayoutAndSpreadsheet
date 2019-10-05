@@ -121,7 +121,7 @@ ExitHandler:
         ''8/21/2019 td''strPathToFolderWithPics = My.Application.Info.DirectoryPath & "\BackgroundEgs"
 
         ''8/21/2019 td''strPathToFolderWithPics = My.Application.Info.DirectoryPath & "\BackgroundEgs"
-        strPathToFolderWithPics = PathToFolderWithBacks.Replace("\\", "\") & "\BackgroundEgs"
+        strPathToFolderWithPics = PathToFolderWithBacks.Replace("\\", "\") ''10/5/2019 td'' & "\BackgroundEgs"
 
         all_Jpegs = (New System.IO.DirectoryInfo(strPathToFolderWithPics)).EnumerateFiles()
 
