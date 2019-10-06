@@ -231,6 +231,25 @@ namespace ciBadgeGenerator
         //   ---10/5/2019 Thomas D. 
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //We won't convert the function below to C#, since it's not needed.
+        //   ---10/5/2019 Thomas D. 
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+        //Public Function TextImage_Field(pintDesiredLayoutWidth As Integer,
+        //                          par_elementInfo_TextFld As IElement_TextField,
+        //                          par_elementInfo_Base As IElement_Base,
+        //                          ByRef pref_rotated As Boolean,
+        //                          ByVal par_bIsDesignStage As Boolean,
+        //                          Optional par_pictureBox As PictureBox = Nothing,
+        //                          Optional par_graphicalCtl As CtlGraphicFldLabel = Nothing) As Image
+        //''
+        //''Added 7/17/2019 thomas downes
+        //''
+
+
+
+
 
 
     }
