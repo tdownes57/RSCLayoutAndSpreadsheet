@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;   //Added 10/5/2019 td
 using ciLayoutPrintLib; //Added 10/5/2019 td
 using ciBadgeElements;  //Added 10/5/2019 td
+using ciBadgeInterfaces; //Added 10/5/2019 td
 
 namespace ciBadgeGenerator
 {
@@ -60,12 +61,14 @@ namespace ciBadgeGenerator
 
     public class ClassMakeBadge
     {
-        public Image MakeBadgeImage(Image par_backgroundImage, ClassElementsCache par_cache)
+        public Image MakeBadgeImage(Image par_backgroundImage, ClassElementsCache par_cache, 
+                                    int par_badge_width_pixels, 
+                                    IRecipient par_recipient, Image par_recipientPic)
         {
             //Dim objPrintLibElems As New ciLayoutPrintLib.LayoutElements
 
             //''Added 9 / 6 / 2019 td
-            ClassLabelToImage.ProportionsAreSlightlyOff(par_backgroundImage, true, "Background Image");
+            ClassElementToImage.ProportionsAreSlightlyOff(par_backgroundImage, true, "Background Image");
 
             LayoutElements objPrintLibElems = new LayoutElements();
 
@@ -87,21 +90,29 @@ namespace ciBadgeGenerator
 
             objPrintLibElems.LoadImageWithElements(ref obj_image_clone_resized, listOfElementTextFields);
 
-
-
-
             //''
             //''Major call, let's show the portrait !!  ---9/9/2019 td  
             //''
+            //objPrintLibElems.LoadImageWithPortrait(obj_image_clone_resized.Width,
+            //                                    par_badge_width_pixels,
+            //                                    obj_image_clone_resized,
+            //                                    CtlGraphicPortrait_Lady.ElementInfo_Base,
+            //                                    CtlGraphicPortrait_Lady.ElementInfo_Pic,
+            //                                    CtlGraphicPortrait_Lady.picturePortrait.Image);
+
+            ClassElementPic objElementPic = new ClassElementPic();
+            IElement_Base local_PicElementInfo_Base = (IElement_Base)objElementPic;
+            IElementPic local_PicElementInfo_Pic = (IElementPic)objElementPic;
+            //Image recipient_pic_Image = par_recipient.GetPic();
+
             objPrintLibElems.LoadImageWithPortrait(obj_image_clone_resized.Width,
-                                              Me.Layout_Width_Pixels(),
-                                              obj_image_clone_resized,
-                                               CtlGraphicPortrait_Lady.ElementInfo_Base,
-                                               CtlGraphicPortrait_Lady.ElementInfo_Pic,
-                                              CtlGraphicPortrait_Lady.picturePortrait.Image);
+                                                par_badge_width_pixels,
+                                                ref obj_image_clone_resized,
+                                                local_PicElementInfo_Base,
+                                                local_PicElementInfo_Pic,
+                                                ref par_recipientPic);
 
-
-
+            return null; 
 
         }
 

@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClassDesigner.vb" />
+    <Compile Include="Classes_Minor\ClassFixTheControlWidth.vb" />
     <Compile Include="Classes_Minor\ClassGroupMove.vb" />
     <Compile Include="Classes_Minor\ClassLabelToImage.vb" />
     <Compile Include="Classes_Minor\ClassRubberbandSelector.vb" />

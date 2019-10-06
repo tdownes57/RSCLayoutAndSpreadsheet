@@ -103,7 +103,7 @@ Public Class ClassLabelToImage
         ''9/6 td''Return ProportionsAreSlightlyOff(doubleW_div_H, pboolVerbose, par_strNameOfImage)
         Return ProportionsAreSlightlyOff(doubleW_div_H, pboolVerbose, EnumImageOrControl.Image, par_strNameOfImage)
 
-    End Function ''End of "Public Shared Function RatioIsLikelyBad(par_doubleW_div_H As Double) As Boolean"
+    End Function ''End of "Public Shared Function ProportionsAreSlightlyOff(par_doubleW_div_H As Double) As Boolean"
 
     Public Shared Function ProportionsAreSlightlyOff(par_doubleW_div_H As Double, pboolVerbose As Boolean,
                                                      Optional par_enum As EnumImageOrControl = EnumImageOrControl.Undetermined,
@@ -134,7 +134,7 @@ Public Class ClassLabelToImage
 
         Return boolRatioIsBad
 
-    End Function ''End of "Public Shared Function RatioIsLikelyBad(par_doubleW_div_H As Double) As Boolean"
+    End Function ''End of "Public Shared Function ProportionsAreSlightlyOff(par_doubleW_div_H As Double) As Boolean"
 
     Public Shared Sub Proportions_FixTheWidth(par_control As Control)
         ''
@@ -142,7 +142,7 @@ Public Class ClassLabelToImage
         ''
         par_control.Width = CInt(par_control.Height * LongSideToShortRatio())
 
-    End Sub ''End of "Public Shared Sub Proportions_CorrectWidth(par_control As Control)"
+    End Sub ''End of "Public Shared Sub Proportions_FixTheWidth(par_control As Control)"
 
     Public Function TextImage_Field(pintDesiredLayoutWidth As Integer,
                               par_elementInfo_TextFld As IElement_TextField,

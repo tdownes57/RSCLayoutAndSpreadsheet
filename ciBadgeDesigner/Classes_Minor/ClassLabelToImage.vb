@@ -11,11 +11,11 @@ Imports System.Windows.Forms ''Added 10/1/2019 td
 Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d. 
 Imports ciBadgeElements ''Added 10/1/2019 td 
 
-Public Enum EnumImageOrControl
-    Undetermined
-    Image
-    Contl
-End Enum
+''Public Enum EnumImageOrControl
+''    Undetermined
+''    Image
+''    Contl
+''End Enum
 
 Public Class ClassLabelToImage
     ''
