@@ -776,7 +776,7 @@ ExitHandler:
 
         gr_Badge.Dispose()
 
-    End Sub ''End of ''Private Sub LoadElements_Fields()''
+    End Sub ''End of ''Private Sub LoadImageWithElements()''
 
     Public Sub LoadImageWithPortrait(pintDesiredLayoutWidth As Integer,
                                      pintDesignedLayoutWidth As Integer,
