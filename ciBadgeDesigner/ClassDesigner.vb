@@ -80,12 +80,19 @@ Public Class ClassDesigner
         ''
         ''9/8/2019 td''ClassLabelToImage.Proportions_CorrectWidth(Me.BackgroundBox)
         ''9/8/2019 td''ClassLabelToImage.Proportions_CorrectWidth(Me.PreviewBox)
-        ClassLabelToImage.Proportions_FixTheWidth(Me.BackgroundBox) ''----- Me.BackgroundBox)
-        ClassLabelToImage.Proportions_FixTheWidth(Me.PreviewBox) ''---- Me.PreviewBox)
+
+        ''10/5/2019 td''ClassLabelToImage.Proportions_FixTheWidth(Me.BackgroundBox) ''----- Me.BackgroundBox)
+        ''10/5/2019 td''ClassLabelToImage.Proportions_FixTheWidth(Me.PreviewBox) ''---- Me.PreviewBox)
+
+        ClassFixTheControlWidth.Proportions_FixTheWidth(Me.BackgroundBox)
+        ClassFixTheControlWidth.Proportions_FixTheWidth(Me.PreviewBox)
 
         ''Double-check the proportions are correct. ---9/6/2019 td
-        ClassLabelToImage.ProportionsAreSlightlyOff(Me.BackgroundBox, True) ''-----Me.BackgroundBox, True)
-        ClassLabelToImage.ProportionsAreSlightlyOff(Me.PreviewBox, True) ''-----(Me.PreviewBox, True)
+        ''10/5/2019 td''ClassLabelToImage.ProportionsAreSlightlyOff(Me.BackgroundBox, True) ''-----Me.BackgroundBox, True)
+        ''10/5/2019 td''ClassLabelToImage.ProportionsAreSlightlyOff(Me.PreviewBox, True) ''-----(Me.PreviewBox, True)
+
+        ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.BackgroundBox, True) ''-----Me.BackgroundBox, True)
+        ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.PreviewBox, True) ''-----(Me.PreviewBox, True)
 
         ''
         ''I forget, what was this going to do originally?  ---9/6/2019 td
@@ -381,7 +388,7 @@ Public Class ClassDesigner
             .picturePortrait.Image = mod_imageLady
 
             ''Added 9/17/2019 td
-            .Refresh_Master
+            .Refresh_Master()
 
         End With ''End of "With CtlGraphicPortrait1"
 
@@ -596,7 +603,7 @@ Public Class ClassDesigner
         Dim new_linkLabel As New LinkLabel
         new_linkLabel.Tag = par_elementField
         new_linkLabel.Text = par_elementField.FieldInfo.FieldLabelCaption
-        flowFieldsNotListed.Controls.Add(new_linkLabel)
+        FlowFieldsNotListed.Controls.Add(new_linkLabel)
         new_linkLabel.Visible = True
         AddHandler new_linkLabel.LinkClicked, AddressOf AddField_LinkClicked
 
@@ -703,7 +710,8 @@ Public Class ClassDesigner
         Dim obj_image_clone_resized As Image ''Added 8/24/2019 td
 
         ''Added 9/6/2019 td 
-        ClassLabelToImage.ProportionsAreSlightlyOff(Me.BackgroundBox.Image, True, "Background Image")
+        ''10/5/2019 td''ClassLabelToImage.ProportionsAreSlightlyOff(Me.BackgroundBox.Image, True, "Background Image")
+        ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.BackgroundBox.Image, True, "Background Image")
 
         ''Added 8/24/2019 td
         obj_image = Me.BackgroundBox.Image
@@ -719,7 +727,8 @@ Public Class ClassDesigner
             LayoutPrint.ResizeBackground_ToFitBox(obj_image, Me.PreviewBox, True)
 
         ''Added 9/6/2019 td 
-        ClassLabelToImage.ProportionsAreSlightlyOff(obj_image_clone_resized, True, "Clone Resized #1")
+        ''10/5/2019 td''ClassLabelToImage.ProportionsAreSlightlyOff(obj_image_clone_resized, True, "Clone Resized #1")
+        ClassFixTheControlWidth.ProportionsAreSlightlyOff(obj_image_clone_resized, True, "Clone Resized #1")
 
         ''
         ''Major call !!
@@ -764,7 +773,8 @@ Public Class ClassDesigner
         ''End If ''End of "If (c_bHelpProgrammer And c_bTestingReview) Then"
 
         ''Added 9/6/2019 td 
-        ClassLabelToImage.ProportionsAreSlightlyOff(Me.BackgroundBox.Image, True, "Clone Resized #1")
+        ''10/5/2019 td''ClassLabelToImage.ProportionsAreSlightlyOff(Me.BackgroundBox.Image, True, "Clone Resized #1")
+        ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.BackgroundBox.Image, True, "Clone Resized #1")
 
         ''8/26 td''Me.PreviewBox.Image = obj_image_clone_resized
         Me.PreviewBox.Image = obj_image_clone_resized

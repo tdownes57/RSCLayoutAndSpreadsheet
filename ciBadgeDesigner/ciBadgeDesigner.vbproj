@@ -69,7 +69,7 @@
     <Compile Include="ClassDesigner.vb" />
     <Compile Include="Classes_Minor\ClassFixTheControlWidth.vb" />
     <Compile Include="Classes_Minor\ClassGroupMove.vb" />
-    <Compile Include="Classes_Minor\ClassLabelToImage.vb" />
+    <Compile Include="Classes_Minor\ClassLabelToImage_NotInUse.vb" />
     <Compile Include="Classes_Minor\ClassRubberbandSelector.vb" />
     <Compile Include="Controls\CtlGraphicFldLabel.designer.vb">
       <DependentUpon>CtlGraphicFldLabel.vb</DependentUpon>
@@ -181,6 +181,10 @@
     <ProjectReference Include="..\ciBadgeElemImage\ciBadgeElemImage.vbproj">
       <Project>{86b509fc-8c1a-4d30-b431-ef576de25fc4}</Project>
       <Name>ciBadgeElemImage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ciBadgeGenerator\ciBadgeGenerator.csproj">
+      <Project>{42468695-2856-4336-8bca-c5af2ea8178e}</Project>
+      <Name>ciBadgeGenerator</Name>
     </ProjectReference>
     <ProjectReference Include="..\ciBadgeInterfaces\ciBadgeInterfaces.vbproj">
       <Project>{3d1acca6-585e-4c92-9a6d-9a51d2f72f5f}</Project>

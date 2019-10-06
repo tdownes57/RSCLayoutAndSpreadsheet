@@ -10,12 +10,13 @@ Imports System.Drawing ''Added 7/30/2019 td
 Imports System.Windows.Forms ''Added 10/1/2019 td
 Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d. 
 Imports ciBadgeElements ''Added 10/1/2019 td 
+Imports ciBadgeGenerator ''Added 10/5/2019 td  
 
-Public Enum EnumImageOrControl
-    Undetermined
-    Image
-    Contl
-End Enum
+''Public Enum EnumImageOrControl
+''    Undetermined
+''    Image
+''    Contl
+''End Enum
 
 Public Class ClassFixTheControlWidth
     ''
@@ -29,6 +30,7 @@ Public Class ClassFixTheControlWidth
         par_control.Width = CInt(par_control.Height * LongSideToShortRatio())
 
     End Sub ''End of "Public Shared Sub Proportions_FixTheWidth(par_control As Control)"
+
 
     Public Shared Function LongSideToShortRatio() As Double
         ''
@@ -56,5 +58,38 @@ Public Class ClassFixTheControlWidth
         Return (27 / 17) ''Approx. 1.588, or  3.38 / 2.13 
 
     End Function ''eDN OF "Public Shared Function LongSideToShortRatio() As Double"
+
+    Public Shared Function ProportionsAreSlightlyOff(par_image As Image, pboolVerbose As Boolean,
+                                                     Optional par_strNameOfImage As String = "") As Boolean
+        ''
+        ''Added 9/5/2019 thomas downes  
+        ''
+        Dim doubleW_div_H As Double
+
+        doubleW_div_H = (par_image.Width / par_image.Height)
+
+        ''9/6 td''Return ProportionsAreSlightlyOff(doubleW_div_H, pboolVerbose, par_strNameOfImage)
+        ''10/5/2019 td''Return ProportionsAreSlightlyOff(doubleW_div_H, pboolVerbose, EnumImageOrControl.Image, par_strNameOfImage)
+
+        Return ClassElementToImage.ProportionsAreSlightlyOff(doubleW_div_H, pboolVerbose,
+                                            EnumImageOrControl.Image, par_strNameOfImage)
+
+    End Function ''End of "Public Shared Function ProportionsAreSlightlyOff(par_doubleW_div_H As Double) As Boolean"
+
+    Public Shared Function ProportionsAreSlightlyOff(par_control As Control, pboolVerbose As Boolean) As Boolean
+        ''
+        ''Added 9/5/2019 thomas downes  
+        ''
+        Dim doubleW_div_H As Double
+
+        doubleW_div_H = (par_control.Width / par_control.Height)
+
+        ''9/6 td''Return ProportionsAreSlightlyOff(doubleW_div_H, pboolVerbose, par_control.Name)
+        ''10/5/2019 td''Return ProportionsAreSlightlyOff(doubleW_div_H, pboolVerbose, EnumImageOrControl.Contl, par_control.Name)
+
+        Return ClassElementToImage.ProportionsAreSlightlyOff(doubleW_div_H, pboolVerbose,
+                                                             EnumImageOrControl.Contl, par_control.Name)
+
+    End Function ''End of "Public Shared Function ProportionsAreSlightlyOff(par_doubleW_div_H As Double) As Boolean"
 
 End Class

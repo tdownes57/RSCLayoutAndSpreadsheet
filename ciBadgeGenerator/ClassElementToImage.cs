@@ -20,9 +20,9 @@ namespace ciBadgeGenerator
     //    Contl
     //End Enum
 
-    enum EnumImageOrControl { Undetermined, Image, Contl}
+    //public enum EnumImageOrControl { Undetermined, Image, Contl}
 
-    class ClassElementToImage
+    public class ClassElementToImage
     {
          //''
          //''Added 10/5/2019 td
