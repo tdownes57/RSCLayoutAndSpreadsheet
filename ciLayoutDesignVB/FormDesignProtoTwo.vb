@@ -1910,7 +1910,7 @@ Public Class FormDesignProtoTwo
         ''Refresh the preview picture box. 
         ''
         ''10/3/2019 td''RefreshPreview()
-        mod_designer.RefreshPreview()
+        mod_designer.RefreshPreview_Redux()
 
         ''''8/24 td''Dim objPrintLib As New ciLayoutPrintLib.CILayoutBadge
         ''Dim objPrintLib As New ciLayoutPrintLib.LayoutPrint_Redux

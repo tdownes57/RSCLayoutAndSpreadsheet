@@ -58,12 +58,29 @@ namespace ciBadgeGenerator
     //
     //End Sub ''end of "Private Sub RefreshPreview()"
 
-
+         
     public class ClassMakeBadge
     {
+        public Image MakeBadgeImage_ByRecipient(Image par_backgroundImage, 
+                                    ClassElementsCache par_cache,
+                                    int par_badge_width_pixels,
+                                    IRecipient par_recipient, 
+                                    Image par_recipientPic)
+        {
+            //
+            //Step #1:  Load the Recipient into the Elements Cache. 
+            //
+            par_cache.LoadRecipient(par_recipient);
+
+            //
+            //Step #2:  Create the image of the badge-card for the above recipient. 
+            //
+            return MakeBadgeImage(par_backgroundImage, par_cache, par_badge_width_pixels, par_recipientPic);
+
+        }
+
         public Image MakeBadgeImage(Image par_backgroundImage, ClassElementsCache par_cache, 
-                                    int par_badge_width_pixels, 
-                                    IRecipient par_recipient, Image par_recipientPic)
+                                    int par_badge_width_pixels, Image par_recipientPic)
         {
             //Dim objPrintLibElems As New ciLayoutPrintLib.LayoutElements
 
@@ -88,7 +105,15 @@ namespace ciBadgeGenerator
             List<ClassElementField> listOfElementTextFields;
             listOfElementTextFields = par_cache.ListFieldElements();
 
-            objPrintLibElems.LoadImageWithElements(ref obj_image_clone_resized, listOfElementTextFields);
+            const bool c_boolUseUntestedProc = false;  //Added 10/5/2019 td
+            if (c_boolUseUntestedProc)
+            {
+                LoadImageWithElements(ref obj_image_clone_resized, listOfElementTextFields);
+            }
+            else
+            {
+                objPrintLibElems.LoadImageWithElements(ref obj_image_clone_resized, listOfElementTextFields);
+            }
 
             //''
             //''Major call, let's show the portrait !!  ---9/9/2019 td  

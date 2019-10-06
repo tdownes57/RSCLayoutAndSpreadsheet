@@ -10,6 +10,7 @@ Imports ciBadgeElements ''Added 10/1/2019 thomas downes
 Imports System.Drawing ''Added 10/1/2019 thomas downes 
 Imports ciLayoutPrintLib ''Added 10/1/2019 td
 Imports MoveAndResizeControls_Monem ''Added 10/3/2019 td
+Imports ciBadgeGenerator ''Added 10/5/2019 thomas d. 
 
 ''10/1/2019 td''Public Event ElementField_Clicked(par_elementField As ClassElementField)
 
@@ -195,7 +196,7 @@ Public Class ClassDesigner
         Me.BackgroundBox.SendToBack()
 
         ResizeLayoutBackgroundImage_ToFitPictureBox() ''Added 8/25/2019 td
-        RefreshPreview() ''Added 8/24/2019 td
+        RefreshPreview_Redux() ''Added 8/24/2019 td
 
         Const c_boolBreakpoint As Boolean = True  ''Added 9//13/2019 td
 
@@ -673,7 +674,33 @@ Public Class ClassDesigner
 
     End Sub ''End of "PRivate Sub SaveLayout()"  
 
-    Public Sub RefreshPreview()
+    Public Sub RefreshPreview_Redux()
+        ''
+        ''Added 10/5/2019 & 8/24/2019 td 
+        ''
+        Dim objPrintLibElems As New ciLayoutPrintLib.LayoutElements
+        Dim listOfTextImages As New List(Of Image) ''Added 8/26/2019 thomas downes 
+        Dim listOfElementTextFields As List(Of ClassElementField)
+        Dim obj_image As Image ''Added 8/24 td
+        Dim obj_generator As New ciBadgeGenerator.ClassMakeBadge
+
+        listOfElementTextFields = Me.ElementsCache_Edits.ListFieldElements()
+
+        ''obj_image = ciBadgeGenerator.ClassMakeBadge
+        ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.BackgroundBox.Image, True, "RefreshPreview_Redux #1")
+
+        obj_image = obj_generator.MakeBadgeImage(Me.BackgroundBox.Image, Me.ElementsCache_Edits,
+                                                  Me.PreviewBox.Width,
+                                                  Me.ExamplePortraitImage)
+
+        ClassFixTheControlWidth.ProportionsAreSlightlyOff(obj_image, True, "RefreshPreview_Redux #2")
+
+        Me.PreviewBox.Image = obj_image
+        Me.PreviewBox.Refresh()
+
+    End Sub ''End of "Public Sub RefreshPreview_Redux()"
+
+    Public Sub RefreshPreview_Deprecated()
         ''
         ''Added 8/24/2019 td
         ''
@@ -780,7 +807,7 @@ Public Class ClassDesigner
         Me.PreviewBox.Image = obj_image_clone_resized
         Me.PreviewBox.Refresh()
 
-    End Sub ''end of "Private Sub RefreshPreview()"
+    End Sub ''end of "Private Sub RefreshPreview_Deprecated()"
 
     ''
     ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
@@ -1284,7 +1311,7 @@ Public Class ClassDesigner
         ''
         If (CheckboxAutoPreview.Checked) Then
             SaveLayout()
-            RefreshPreview()
+            RefreshPreview_Redux()
         End If ''End of "If (checkAutoPreview.Checked) Then"
 
     End Sub ''End of  "Private Sub AutoPreview_IfChecked()"

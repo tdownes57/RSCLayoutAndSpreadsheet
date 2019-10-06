@@ -280,6 +280,20 @@ Public Class ClassElementsCache
 
     End Sub ''End of "Public Sub LoadPicElement(par_pictureBackground As PictureBox)"
 
+    Public Sub LoadRecipient(par_recipient As IRecipient)
+        ''
+        ''Added 10/5/2019 thomas downwe
+        ''
+        For Each each_elementField As ClassElementField In ListOfElementFields
+            ''
+            ''Attach the Recipient.  
+            ''
+            each_elementField.Recipient = par_recipient
+
+        Next each_elementField
+
+    End Sub ''End of "Public Sub LoadRecipient(par_recipient As IRecipient)"
+
     Public Function Copy() As ClassElementsCache
         ''
         ''Added 9/17/2019 thomas downes  
