@@ -68,7 +68,7 @@ namespace ciBadgeGenerator
             //Dim objPrintLibElems As New ciLayoutPrintLib.LayoutElements
 
             //''Added 9 / 6 / 2019 td
-            ClassElementToImage.ProportionsAreSlightlyOff(par_backgroundImage, true, "Background Image");
+            ClassProportions.ProportionsAreSlightlyOff(par_backgroundImage, true, "Background Image");
 
             LayoutElements objPrintLibElems = new LayoutElements();
 

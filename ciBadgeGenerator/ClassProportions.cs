@@ -22,12 +22,12 @@ namespace ciBadgeGenerator
 
     //public enum EnumImageOrControl { Undetermined, Image, Contl}
 
-    public class ClassElementToImage
+    public class ClassProportions //10/5/2019 td'' public class ClassElementToImage
     {
          //''
          //''Added 10/5/2019 td
          //''
-         //''    Modelled after ClassLabelToImage, created 7/17/2019
+         //''    Modelled after the proportion functions in ClassLabelToImage, created 7/17/2019
          //''
          //Public Shared UseHighResolutionTips As Boolean = False ''Added 9/8/2019 td
 
@@ -233,6 +233,20 @@ namespace ciBadgeGenerator
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         //We won't convert the function below to C#, since it's not needed.
+        //   The image-generating tech was ported to CIElementToImage, and is
+        //   called by the following:
+        //
+        //          image_textStandard =
+        //                modGenerate.TextImage_ByElemInfo(intDesiredLayout_Width,
+        //                each_elementField, each_elementField, False, False) ''9/20/2019 td'', True)
+        //
+        //   which is called by 
+        //
+        //         ciLayoutPrintLib.LayoutElements objPrintLibElems = new LayoutElements();
+        //         objPrintLibElems.LoadImageWithElements(ref obj_image_clone_resized, listOfElementTextFields);
+        //
+        //  The function Public Function TextImage_Field(.....) is obselete. 
+        //
         //   ---10/5/2019 Thomas D. 
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
