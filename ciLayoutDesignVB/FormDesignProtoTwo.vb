@@ -2139,7 +2139,8 @@ Public Class FormDesignProtoTwo
         RefreshTheSetOfDisplayedElements()
 
         ''Addded 9/13/2019 td
-        AutoPreview_IfChecked()
+        ''10/8/2019 td''AutoPreview_IfChecked()
+        mod_designer.AutoPreview_IfChecked()
 
     End Sub
 
