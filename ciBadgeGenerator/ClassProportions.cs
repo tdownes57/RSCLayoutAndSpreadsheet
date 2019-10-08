@@ -131,7 +131,8 @@ namespace ciBadgeGenerator
             //    ''Added 10/5/2019 & 9/5/2019 thomas downes  
             //    ''
 
-            double doubleW_div_H = (par_image.Width / par_image.Height);
+            // 10-8-2019 td // double doubleW_div_H = (par_image.Width / par_image.Height);
+            double doubleW_div_H = ((double)par_image.Width / (double)par_image.Height);
 
             bool boolReturnValue = ProportionsAreSlightlyOff(doubleW_div_H, pboolVerbose, EnumImageOrControl.Image, par_strNameOfImage);
 

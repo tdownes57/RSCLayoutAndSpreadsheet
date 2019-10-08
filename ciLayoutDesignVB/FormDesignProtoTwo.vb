@@ -189,6 +189,7 @@ Public Class FormDesignProtoTwo
             .DesignerForm = Me
             .FlowFieldsNotListed = Me.flowFieldsNotListed
             .CheckboxAutoPreview = Me.checkAutoPreview
+            .ExamplePortraitImage = mod_imageLady
 
             ''10/1/2019''intPicLeft = CtlGraphicPortrait_Lady.Left - pictureBack.Left
             ''10/1/2019''intPicTop = CtlGraphicPortrait_Lady.Top - pictureBack.Top
