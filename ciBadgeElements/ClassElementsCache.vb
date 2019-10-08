@@ -18,6 +18,7 @@ Public Class ClassElementsCache
     Public Property Id_GUID As System.Guid ''Added 9/30/2019 td 
 
     Public Property SaveToXmlPath As String ''Added 9/29/2019 td
+    Public Property ElementSignature As ClassElementSignature ''Added 10/8/2019 thomas d.  
 
     Private mod_listFields As New List(Of ClassFieldAny) ''Added 9/18/2019 td  
     Private mod_listElementFields As New List(Of ClassElementField)
@@ -343,6 +344,9 @@ Public Class ClassElementsCache
         For Each each_elementStaticText As ClassElementStaticText In mod_listElementStatics
             objCopyOfCache.ListStaticTextElements().Add(each_elementStaticText.Copy())
         Next each_elementStaticText
+
+        ''Added 10/8/2019 thomas downes
+        objCopyOfCache.ElementSignature = Me.ElementSignature.Copy
 
         Return objCopyOfCache
 
