@@ -399,8 +399,11 @@ Public Class ClassElementsCache
         Next each_elementStaticText
 
         ''Added 10/8/2019 thomas downes
-        objCopyOfCache.ElementQRCode = Me.ElementQRCode.Copy
-        objCopyOfCache.ElementSignature = Me.ElementSignature.Copy
+        ''
+        ''If the QR Code &/or Signature have been supplied, then we can proceed to copy them. 
+        ''
+        If (Me.ElementQRCode IsNot Nothing) Then objCopyOfCache.ElementQRCode = Me.ElementQRCode.Copy
+        If (Me.ElementSignature IsNot Nothing) Then objCopyOfCache.ElementSignature = Me.ElementSignature.Copy
 
         Return objCopyOfCache
 
