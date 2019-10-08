@@ -44,6 +44,9 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ciSigPlus_NET45">
+      <HintPath>P:\ThomasD\__Sammi\8.31 Access ACCDB\ciSigPlus_NET45.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -180,6 +183,7 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
+    <None Include="SigPlusLocal.ini" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\ciBadgeForWeb\ciPictures_VB\ciPictures_VB.vbproj">
@@ -219,6 +223,10 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{94E38DFF-614B-4CBD-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ciSigPlus_NET45.dll" />
+    <Content Include="SigPlusNET.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
