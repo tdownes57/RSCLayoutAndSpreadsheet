@@ -69,7 +69,7 @@
   <ItemGroup>
     <Compile Include="ClassElementField.vb" />
     <Compile Include="ClassElementLaysection.vb" />
-    <Compile Include="ClassElementPic.vb" />
+    <Compile Include="ClassElementPortrait.vb" />
     <Compile Include="ClassElementQRCode.vb" />
     <Compile Include="ClassElementsCache.vb" />
     <Compile Include="ClassElementSignature.vb" />

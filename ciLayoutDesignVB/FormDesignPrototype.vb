@@ -5,6 +5,7 @@ Option Strict On
 ''
 ''   https://www.codeproject.com/articles/38137/easy-drag-and-drop-of-controls-at-run-time
 ''
+Imports ciLayoutPrintLib ''Added 10/8/2019 td  
 
 Public Class FormDesignPrototype
     ''

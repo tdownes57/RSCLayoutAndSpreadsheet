@@ -12,7 +12,7 @@ Imports System.Xml.Serialization ''Added 9/24/2019 td
 ''imports system.serial
 
 <Serializable>
-Public Class ClassElementPic
+Public Class ClassElementPic ''May be renamed to ClassElementPortrait. ---10/8/2019 td 
     ''
     ''Added 7/18/2019 thomas downes 
     ''

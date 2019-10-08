@@ -24,7 +24,7 @@ Public Class ClassElementQRCode
     Public Shared ElementQRCode As ClassElementQRCode ''Added 9/30/2019 thomas d.
 
     <Xml.Serialization.XmlIgnore>
-    Public Property Info As IElementPic
+    Public Property Info As IElementQRCode
 
     Public Property PositionalMode As String Implements IElement_Base.PositionalMode ''Added 8/14/2019 td 
 
@@ -180,7 +180,7 @@ Public Class ClassElementQRCode
         objCopy.LoadbyCopyingMembers(Me, Me)
         Return objCopy
 
-    End Function ''End of "Public Function Copy() As ClassElementPic"
+    End Function ''End of "Public Function Copy() As ClassElementQRCode"
 
     Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base,
                                   par_ElementInfo_QR As IElementQRCode)

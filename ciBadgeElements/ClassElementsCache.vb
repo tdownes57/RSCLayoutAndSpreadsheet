@@ -18,6 +18,8 @@ Public Class ClassElementsCache
     Public Property Id_GUID As System.Guid ''Added 9/30/2019 td 
 
     Public Property SaveToXmlPath As String ''Added 9/29/2019 td
+
+    Public Property ElementQRCode As ClassElementQRCode ''Added 10/8/2019 thomas d.  
     Public Property ElementSignature As ClassElementSignature ''Added 10/8/2019 thomas d.  
 
     Private mod_listFields As New List(Of ClassFieldAny) ''Added 9/18/2019 td  
@@ -257,7 +259,8 @@ Public Class ClassElementsCache
 
     End Sub ''End of "Public Sub LoadPicElement(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)"
 
-    Public Sub LoadPicElement(par_picturePortrait As PictureBox, par_pictureBackground As PictureBox)
+    Public Sub LoadElement_Portrait(par_picturePortrait As PictureBox, par_pictureBackground As PictureBox)
+        ''10/8/2019 td''Public Sub LoadPicElement(par_picturePortrait As PictureBox, par_pictureBackground As PictureBox)
         ''
         ''Added 9/16/2019 td  
         ''
@@ -279,7 +282,57 @@ Public Class ClassElementsCache
 
         mod_listElementPics.Add(objElementPic)
 
-    End Sub ''End of "Public Sub LoadPicElement(par_pictureBackground As PictureBox)"
+    End Sub ''End of "Public Sub LoadElement_Portrait(par_pictureBackground As PictureBox)"
+
+    Public Sub LoadElement_Signature(par_picSignature As PictureBox, par_pictureBackground As PictureBox)
+        ''
+        ''Added 10/8/2019 & 9/16/2019 td  
+        ''
+        Dim objElementSig As ClassElementSignature ''Added 9/16/2019 td 
+        Dim objRectangle As Rectangle ''Added 9/16/2019 td  
+        Dim intLeft As Integer
+        Dim intTop As Integer
+
+        ciPictures_VB.PictureExamples.PathToFolderOfImages = (My.Application.Info.DirectoryPath & "\Images\PictureExamples")
+
+        intLeft = (par_picSignature.Left - par_pictureBackground.Left)
+        intTop = (par_picSignature.Top - par_pictureBackground.Top)
+
+        objRectangle = New Rectangle(intLeft, intTop, par_picSignature.Width, par_picSignature.Height)
+
+        objElementSig = New ClassElementSignature(objRectangle, par_pictureBackground)
+
+        objElementSig.SigFileIndex = 1
+
+        ''10/8/2019 td''mod_listElementPics.Add(objElementPic)
+        Me.ElementSignature = objElementSig
+
+    End Sub ''End of "Public Sub LoadElement_Signature(par_picSignature As PictureBox, par_pictureBackground As PictureBox)"
+
+    Public Sub LoadElement_QRCode(par_picQRCode As PictureBox, par_pictureBackground As PictureBox)
+        ''
+        ''Added 10/8/2019 & 9/16/2019 td  
+        ''
+        Dim objElementQR As ClassElementQRCode ''Added 9/16/2019 td 
+        Dim objRectangle As Rectangle ''Added 9/16/2019 td  
+        Dim intLeft As Integer
+        Dim intTop As Integer
+
+        ciPictures_VB.PictureExamples.PathToFolderOfImages = (My.Application.Info.DirectoryPath & "\Images\PictureExamples")
+
+        intLeft = (par_picQRCode.Left - par_pictureBackground.Left)
+        intTop = (par_picQRCode.Top - par_pictureBackground.Top)
+
+        objRectangle = New Rectangle(intLeft, intTop, par_picQRCode.Width, par_picQRCode.Height)
+
+        objElementQR = New ClassElementQRCode(objRectangle, par_pictureBackground)
+
+        ''10/8/2019 td''objElementQR.SigFileIndex = 1
+
+        ''10/8/2019 td''mod_listElementPics.Add(objElementPic)
+        Me.ElementQRCode = objElementQR
+
+    End Sub ''End of "Public Sub LoadElement_QRCode(par_picQRCode As PictureBox, par_pictureBackground As PictureBox)"
 
     Public Sub LoadRecipient(par_recipient As IRecipient)
         ''
@@ -346,6 +399,7 @@ Public Class ClassElementsCache
         Next each_elementStaticText
 
         ''Added 10/8/2019 thomas downes
+        objCopyOfCache.ElementQRCode = Me.ElementQRCode.Copy
         objCopyOfCache.ElementSignature = Me.ElementSignature.Copy
 
         Return objCopyOfCache
@@ -356,7 +410,7 @@ Public Class ClassElementsCache
         ''
         ''Added 9/30/2019 td  
         ''
-
+        Throw New NotImplementedException("Not implemented.   #x4591")
 
 
     End Function ''End of "Public Function GetElementByGUID(par_guid As System.Guid) As ClassElementField"
