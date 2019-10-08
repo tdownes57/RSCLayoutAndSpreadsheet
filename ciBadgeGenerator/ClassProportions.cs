@@ -59,7 +59,9 @@ namespace ciBadgeGenerator
             //''
             //Return(27 / 17) ''Approx. 1.588, or  3.38 / 2.13
 
-            return (27 / 17);  //''Approx. 1.588, or  3.38 / 2.13
+            // 10-8-2019 td// return (27 / 17);  //''Approx. 1.588, or  3.38 / 2.13
+
+            return (27d / 17d);  //''Approx. 1.588, or  3.38 / 2.13
 
             //End Function ''eDN OF "Public Shared Function LongSideToShortRatio() As Double"
 
