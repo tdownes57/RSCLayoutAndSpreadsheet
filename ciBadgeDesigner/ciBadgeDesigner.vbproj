@@ -83,6 +83,18 @@
     <Compile Include="Controls\CtlGraphicPortrait.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Controls\CtlGraphicQRCode.Designer.vb">
+      <DependentUpon>CtlGraphicQRCode.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtlGraphicQRCode.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtlGraphicSignature.Designer.vb">
+      <DependentUpon>CtlGraphicSignature.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtlGraphicSignature.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\CtlGraphicText.designer.vb">
       <DependentUpon>CtlGraphicText.vb</DependentUpon>
     </Compile>
@@ -204,6 +216,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Step3_TakePic_v90.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{94E38DFF-614B-4CBD-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
