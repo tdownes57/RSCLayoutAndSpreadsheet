@@ -21,6 +21,9 @@ Public Class BackImageExamples
         ''
         mod_currentIndex = par_intChoice ''Added 7/5/2019 td
 
+        ''Added 10/7/2019 td 
+        If (mod_images Is Nothing) Then mod_images = GetListOfImages()
+
         Return mod_images.Item(par_intChoice)
 
     End Function ''End of "Public Shared Function Item(par_intChoice As Integer) As Image"
