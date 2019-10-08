@@ -93,7 +93,7 @@
       <DependentUpon>CtlGraphicSignature.vb</DependentUpon>
     </Compile>
     <Compile Include="Controls\CtlGraphicSignature.vb">
-      <SubType>Component</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\CtlGraphicText.designer.vb">
       <DependentUpon>CtlGraphicText.vb</DependentUpon>
