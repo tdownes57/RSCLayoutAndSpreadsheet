@@ -78,6 +78,7 @@ Public Class ClassFixTheControlWidth
 
     Public Shared Function ProportionsAreSlightlyOff(par_control As Control, pboolVerbose As Boolean,
                                                      Optional par_strNameOfImage As String = "") As Boolean
+        ''10/9/2019 td''Public Shared Function ProportionsAreSlightlyOff(par_control As Control, pboolVerbose As Boolean) As Boolean
         ''
         ''Added 9/5/2019 thomas downes  
         ''
@@ -97,5 +98,26 @@ Public Class ClassFixTheControlWidth
                       EnumImageOrControl.Contl, par_strNameOfImage)
 
     End Function ''End of "Public Shared Function ProportionsAreSlightlyOff(par_doubleW_div_H As Double) As Boolean"
+
+    Public Shared Function ImageSizeDiffersFromControl(par_control As Control, par_image As Image,
+                                                             pboolVerbose As Boolean) As Boolean
+        ''
+        ''Added 10/9/2019 thomas downes  
+        ''
+        Dim boolDifferentSize_Width As Boolean
+        Dim boolDifferentSize_Height As Boolean
+        Dim boolDifferentSize As Boolean
+
+        boolDifferentSize_Width = (Math.Abs(par_control.Width - par_image.Width) > 3)
+        boolDifferentSize_Height = (Math.Abs(par_control.Width - par_image.Width) > 3)
+        boolDifferentSize = (boolDifferentSize_Height Or boolDifferentSize_Width)
+
+        If (boolDifferentSize) Then
+            Throw New Exception($"Uh-oh, the size of control {par_control.Name} differ from the image.")
+        End If ''End of "If (boolDifferentSize) Then"
+
+        Return boolDifferentSize
+
+    End Function ''End of "Public Shared Function ImageSizeDiffersFromControl(par_control As Control, par_image As Image, ....) As Boolean"
 
 End Class

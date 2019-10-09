@@ -84,12 +84,15 @@ namespace ciBadgeGenerator
         {
             //Dim objPrintLibElems As New ciLayoutPrintLib.LayoutElements
 
+            //Image obj_imageWithElementFlds; //Added 10/9/2019 td 
+
             //''Added 9 / 6 / 2019 td
             ClassProportions.ProportionsAreSlightlyOff(par_backgroundImage, true, "Background Image");
 
             LayoutElements objPrintLibElems = new LayoutElements();
 
-            Image obj_image_clone_resized = (Image)par_backgroundImage.Clone();
+            //10-09-2019 td//Image obj_image_clone_resized = (Image)par_backgroundImage.Clone();
+            Image obj_image = (Image)par_backgroundImage.Clone();
 
             //    ClassLabelToImage.ProportionsAreSlightlyOff(Me.BackgroundBox.Image, True, "Background Image")
             //
@@ -113,42 +116,61 @@ namespace ciBadgeGenerator
                 //   If I recall, it's rather long and I was experiencing fatigue from the 
                 //   late hour. ---10/9/2019 td
                 //
-                LoadImageWithElements(ref obj_image_clone_resized, listOfElementTextFields);
+                LoadImageWithElements(ref obj_image, listOfElementTextFields);
             }
             else
             {
-                objPrintLibElems.LoadImageWithElements(ref obj_image_clone_resized, listOfElementTextFields);
+                objPrintLibElems.LoadImageWithElements(ref obj_image, listOfElementTextFields);
             }
 
             //''
             //''Major call, let's show the portrait !!  ---9/9/2019 td  
             //''
             //objPrintLibElems.LoadImageWithPortrait(obj_image_clone_resized.Width,
-            //                                    par_badge_width_pixels,
-            //                                    obj_image_clone_resized,
-            //                                    CtlGraphicPortrait_Lady.ElementInfo_Base,
-            //                                    CtlGraphicPortrait_Lady.ElementInfo_Pic,
-            //                                    CtlGraphicPortrait_Lady.picturePortrait.Image);
+            //                    par_badge_width_pixels,
+            //                    obj_image_clone_resized,
+            //                    CtlGraphicPortrait_Lady.ElementInfo_Base,
+            //                    CtlGraphicPortrait_Lady.ElementInfo_Pic,
+            //                    CtlGraphicPortrait_Lady.picturePortrait.Image);
 
-            ClassElementPic objElementPic = new ClassElementPic();
+            const bool c_bIgnorePicDataInCache = false; //Added 10/9/2019 thomas d. 
 
-            // Added 10/8/2019 td  
-            objElementPic.Width_Pixels = par_recipientPic.Width;
-            objElementPic.Height_Pixels = par_recipientPic.Height; 
+            if (c_bIgnorePicDataInCache)
+            {
+                //ClassElementPic objElementPic = new ClassElementPic();
+                //
+                //// Added 10/8/2019 td  
+                //objElementPic.Width_Pixels = par_recipientPic.Width;
+                //objElementPic.Height_Pixels = par_recipientPic.Height;
+                //
+                //IElement_Base local_PicElementInfo_Base = (IElement_Base)objElementPic;
+                //IElementPic local_PicElementInfo_Pic = (IElementPic)objElementPic;
+                ////Image recipient_pic_Image = par_recipient.GetPic();
+                //
+                //objPrintLibElems.LoadImageWithPortrait(obj_image.Width,
+                //                                    par_badge_width_pixels,
+                //                                    ref obj_image,
+                //                                    local_PicElementInfo_Base,
+                //                                    local_PicElementInfo_Pic,
+                //                                    ref par_recipientPic);
+            }
+            else
+            {
+                //
+                //Added 10/9/2019 thomas d. 
+                //
+                ClassElementPic obj_elementPic = par_cache.ListPicElements()[0];
 
-            IElement_Base local_PicElementInfo_Base = (IElement_Base)objElementPic;
-            IElementPic local_PicElementInfo_Pic = (IElementPic)objElementPic;
-            //Image recipient_pic_Image = par_recipient.GetPic();
-
-            objPrintLibElems.LoadImageWithPortrait(obj_image_clone_resized.Width,
-                                                par_badge_width_pixels,
-                                                ref obj_image_clone_resized,
-                                                local_PicElementInfo_Base,
-                                                local_PicElementInfo_Pic,
-                                                ref par_recipientPic);
+                objPrintLibElems.LoadImageWithPortrait(obj_image.Width,
+                                                    par_badge_width_pixels,
+                                                    ref obj_image,
+                                                    (IElement_Base)obj_elementPic,
+                                                    (IElementPic)obj_elementPic,
+                                                    ref par_recipientPic);
+            }
 
             // 10-9-2019 td // return null;
-            return obj_image_clone_resized;  
+            return obj_image;  
 
         }
 

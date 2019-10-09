@@ -690,7 +690,7 @@ Public Class ClassDesigner
 
         ''obj_image = ciBadgeGenerator.ClassMakeBadge
         ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.BackgroundBox.Image, True, "RefreshPreview_Redux #1")
-        ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.PreviewBox, True, "RefreshPreview_Redux #1")
+        ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.PreviewBox, True, "RefreshPreview_Redux #2")
 
         ''Added 8/24/2019 td
         obj_image = Me.BackgroundBox.Image
@@ -707,13 +707,20 @@ Public Class ClassDesigner
 
         ''Added 9/6/2019 td 
         ''10/5/2019 td''ClassLabelToImage.ProportionsAreSlightlyOff(obj_image_clone_resized, True, "Clone Resized #1")
-        ClassFixTheControlWidth.ProportionsAreSlightlyOff(obj_image_clone_resized, True, "Clone Resized #1")
+        ClassFixTheControlWidth.ProportionsAreSlightlyOff(obj_image_clone_resized, True, "RefreshPreview_Redux #3")
+        ClassFixTheControlWidth.ImageSizeDiffersFromControl(Me.PreviewBox, obj_image_clone_resized, True) ''Added 10/9/2019 td  
 
-        obj_image = obj_generator.MakeBadgeImage(Me.BackgroundBox.Image, Me.ElementsCache_Edits,
+        ''#1 10/09/2019 td''obj_image = obj_generator.MakeBadgeImage(Me.BackgroundBox.Image, Me.ElementsCache_Edits,
+        ''     Me.PreviewBox.Width,
+        ''     Me.ExamplePortraitImage)
+        ''#2 10/09/2019 td''obj_image = obj_generator.MakeBadgeImage(obj_image_clone_resized, Me.ElementsCache_Edits,
+        ''                      Me.PreviewBox.Width,
+        ''                      Me.ExamplePortraitImage)
+        obj_image = obj_generator.MakeBadgeImage(obj_image_clone_resized, Me.ElementsCache_Edits,
                                                   Me.PreviewBox.Width,
-                                                  Me.ExamplePortraitImage)
+                                                  Me.CtlGraphicPortrait_Lady.picturePortrait.Image)
 
-        ClassFixTheControlWidth.ProportionsAreSlightlyOff(obj_image, True, "RefreshPreview_Redux #3")
+        ClassFixTheControlWidth.ProportionsAreSlightlyOff(obj_image, True, "RefreshPreview_Redux #4")
 
         Me.PreviewBox.Image = obj_image
         Me.PreviewBox.Refresh()
@@ -759,6 +766,7 @@ Public Class ClassDesigner
         ''Added 9/6/2019 td 
         ''10/5/2019 td''ClassLabelToImage.ProportionsAreSlightlyOff(Me.BackgroundBox.Image, True, "Background Image")
         ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.BackgroundBox.Image, True, "Background Image")
+        ClassFixTheControlWidth.ImageSizeDiffersFromControl(Me.BackgroundBox, Me.BackgroundBox.Image, True) ''Added 10/9/2019 td  
 
         ''Added 8/24/2019 td
         obj_image = Me.BackgroundBox.Image
@@ -776,6 +784,7 @@ Public Class ClassDesigner
         ''Added 9/6/2019 td 
         ''10/5/2019 td''ClassLabelToImage.ProportionsAreSlightlyOff(obj_image_clone_resized, True, "Clone Resized #1")
         ClassFixTheControlWidth.ProportionsAreSlightlyOff(obj_image_clone_resized, True, "Clone Resized #1")
+        ClassFixTheControlWidth.ImageSizeDiffersFromControl(Me.PreviewBox, obj_image_clone_resized, True) ''Added 10/9/2019 td  
 
         ''
         ''Major call !!
