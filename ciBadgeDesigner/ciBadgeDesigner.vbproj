@@ -71,7 +71,7 @@
   <ItemGroup>
     <Compile Include="ClassDesigner.vb" />
     <Compile Include="Classes_Minor\ClassFixTheControlWidth.vb" />
-    <Compile Include="Classes_Minor\ClassGroupMove.vb" />
+    <Compile Include="Classes_Minor\ClassGroupMoveEvents.vb" />
     <Compile Include="Classes_Minor\ClassLabelToImage_NotInUse.vb" />
     <Compile Include="Classes_Minor\ClassRubberbandSelector.vb" />
     <Compile Include="Controls\CtlGraphicFldLabel.designer.vb">
