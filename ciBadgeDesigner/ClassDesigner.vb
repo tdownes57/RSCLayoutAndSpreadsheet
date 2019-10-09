@@ -28,6 +28,7 @@ Public Class ClassDesigner
     Public WithEvents BackgroundBox As PictureBox
 
     Public Property PreviewLayoutAsImage As Boolean = True ''Added 10.1.2019 thomas d. 
+    Public BadgeLayout_Class As ciBadgeInterfaces.BadgeLayoutClass ''Added 10/9/2019 td  
 
     ''10/4/2019 td''Public Property PreviewBox As PictureBox
     Public WithEvents PreviewBox As PictureBox
@@ -94,6 +95,9 @@ Public Class ClassDesigner
 
         ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.BackgroundBox, True) ''-----Me.BackgroundBox, True)
         ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.PreviewBox, True) ''-----(Me.PreviewBox, True)
+
+        ''Added 10/9/2019 td  
+        Me.BadgeLayout_Class = New ciBadgeInterfaces.BadgeLayoutClass(Me.BackgroundBox.Width, Me.BackgroundBox.Height)
 
         ''
         ''I forget, what was this going to do originally?  ---9/6/2019 td
@@ -468,7 +472,8 @@ Public Class ClassDesigner
                 ''   a nice diagonally-cascading effect. ---9/3/2019 td
 
                 ''Added 9/12/2019 td
-                .BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass(Me.BackgroundBox.Width, Me.BackgroundBox.Height)
+                ''10/9/2019 td''.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass(Me.BackgroundBox.Width, Me.BackgroundBox.Height)
+                .BadgeLayout = Me.BadgeLayout_Class ''Modified 10/9/2019 td  
 
             End With
 
@@ -485,8 +490,9 @@ Public Class ClassDesigner
 
             ''Added 9/5/2019 thomas d.
             ''9/11/2019 td''each_field.ElementInfo_Base.LayoutWidth_Pixels = Me.Layout_Width_Pixels()
-            each_element.BadgeLayout.Width_Pixels = Me.Layout_Width_Pixels()
-            each_element.BadgeLayout.Height_Pixels = Me.Layout_Height_Pixels
+
+            ''Not needed. 10/09/2019 td''each_element.BadgeLayout.Width_Pixels = Me.Layout_Width_Pixels()
+            ''Not needed. 10/09/2019 td''each_element.BadgeLayout.Height_Pixels = Me.Layout_Height_Pixels
 
             ''#1 9/4/2019 td''label_control = New CtlGraphicFldLabel(each_field, Me)
             '' #2 9/4/2019 td''label_control = New CtlGraphicFldLabel(each_field, new_element_text, Me)
@@ -713,11 +719,14 @@ Public Class ClassDesigner
         ''#1 10/09/2019 td''obj_image = obj_generator.MakeBadgeImage(Me.BackgroundBox.Image, Me.ElementsCache_Edits,
         ''     Me.PreviewBox.Width,
         ''     Me.ExamplePortraitImage)
-        ''#2 10/09/2019 td''obj_image = obj_generator.MakeBadgeImage(obj_image_clone_resized, Me.ElementsCache_Edits,
+        '' #2 10/09/2019 td''obj_image = obj_generator.MakeBadgeImage(obj_image_clone_resized, Me.ElementsCache_Edits,
         ''                      Me.PreviewBox.Width,
         ''                      Me.ExamplePortraitImage)
-        obj_image = obj_generator.MakeBadgeImage(obj_image_clone_resized, Me.ElementsCache_Edits,
-                                                  Me.PreviewBox.Width,
+        ''  #3 10/09/2019 td''obj_image = obj_generator.MakeBadgeImage(obj_image_clone_resized, Me.ElementsCache_Edits,
+        ''           Me.PreviewBox.Width, Me.PreviewBox.Height,
+        ''           Me.CtlGraphicPortrait_Lady.picturePortrait.Image)
+        obj_image = obj_generator.MakeBadgeImage(Me.BadgeLayout_Class, obj_image_clone_resized, Me.ElementsCache_Edits,
+                                                  Me.PreviewBox.Width, Me.PreviewBox.Height,
                                                   Me.CtlGraphicPortrait_Lady.picturePortrait.Image)
 
         ClassFixTheControlWidth.ProportionsAreSlightlyOff(obj_image, True, "RefreshPreview_Redux #4")
