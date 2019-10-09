@@ -126,6 +126,11 @@ namespace ciBadgeGenerator
             //                                    CtlGraphicPortrait_Lady.picturePortrait.Image);
 
             ClassElementPic objElementPic = new ClassElementPic();
+
+            // Added 10/8/2019 td  
+            objElementPic.Width_Pixels = par_recipientPic.Width;
+            objElementPic.Height_Pixels = par_recipientPic.Height; 
+
             IElement_Base local_PicElementInfo_Base = (IElement_Base)objElementPic;
             IElementPic local_PicElementInfo_Pic = (IElementPic)objElementPic;
             //Image recipient_pic_Image = par_recipient.GetPic();
