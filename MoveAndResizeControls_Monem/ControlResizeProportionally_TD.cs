@@ -61,6 +61,7 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
         //Added 10/9/2019 thomas downes
         //
         private static decimal _proportionWH; //Added 10/9/2019 thomas downes
+        internal static InterfaceEvents mod_events; //Added 10/9/2019 thomas downes
 
         internal static bool MouseIsInLeftEdge { get; set; }
         internal static bool MouseIsInRightEdge { get; set; }
@@ -78,7 +79,8 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
 
         internal static MoveOrResize WorkType { get; set; }
 
-        public static void Init(Control control, int par_margin, bool pbRepaintAfterResize, bool pbSetBreakpoint_AfterMove)
+        public static void Init_NotInUse(Control par_control, int par_margin, bool pbRepaintAfterResize,
+                                InterfaceEvents par_events, bool pbSetBreakpoint_AfterMove)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
             //     the preferred background color.)   ----7/31/2019 td
@@ -91,12 +93,15 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
 
             // 9-13-2019 td----Init(control, control, par_margin, pbRepaintAfterResize);
 
-            Init(control, control, par_margin, pbRepaintAfterResize,
-                pbSetBreakpoint_AfterMove);
+            Control obj_container = par_control; //Added 10/9/2019 td;;
+
+            Init(par_control, obj_container, par_margin, pbRepaintAfterResize,
+                par_events, pbSetBreakpoint_AfterMove);
 
         }
 
-        public static void Init(Control par_control, Control par_container, int par_margin, bool pbRepaintAfterResize, bool pbSetBreakpoint_AfterMove)
+        public static void Init(Control par_control, Control par_container, int par_margin, bool pbRepaintAfterResize, 
+                                  InterfaceEvents par_events, bool pbSetBreakpoint_AfterMove)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
             //     the preferred background color.)   ----7/31/2019 td
@@ -119,10 +124,12 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             _margin = par_margin;
 
             //
-            //Added 7/18/2019 thomas downes 
+            //Added 10/09/2019 thomas downes 
             //
             _proportionWH = (decimal)par_container.Width / 
                             (decimal)par_container.Height;
+
+            mod_events = par_events;  // 10/09/2019 thomas downes   
 
             MouseIsInLeftEdge = false;
             MouseIsInLeftEdge = false;
@@ -206,7 +213,8 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             //
             //Added 10/09/2019 thomas downes 
             //
-            _proportionWH = (decimal)par_control.Width /
+            const bool c_bRefreshProportion  = false; //False, not needed here. ----Added 10/9/2019 td
+            if (c_bRefreshProportion) _proportionWH = (decimal)par_control.Width /
                             (decimal)par_control.Height;
 
             if (_moving || _resizing)
@@ -218,6 +226,8 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             {
                 _resizing = true;
                 _currentControlStartSize = par_control.Size;
+                mod_events.Resizing_Initiate(); //Added 10/09/2019 td 
+
             }
             else if (WorkType != MoveOrResize.Resize)
             {
@@ -230,6 +240,30 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
 
         private static void MoveControl(Control par_control, MouseEventArgs e)
         {
+            //
+            //Modified 10/9/2019 td
+            //     Added 8/3/2019 thomas downes
+            //
+            //10/9/2019 td//if (mod_events != null) MoveControl_GroupMove(par_control, e);
+            //10/9/2019 td //if (mod_groupedctl_events == null) MoveControl_NoEvents(par_control, e);
+            if (mod_events == null) throw new Exception("The EventsObject (mod_events) reference is missing/uninstantiated.");
+
+            MoveControl_IssueEvents(par_control, e);
+
+        }
+
+        private static void MoveControl_IssueEvents(Control par_control, MouseEventArgs e)
+        {
+            //Renamed 10/9/2019 td. ----private static void MoveControl_GroupMove(Control par_control, MouseEventArgs e)
+            //
+            //Modified 8/2/2019 thomas downes  
+            //
+            int delta_Width = 0;
+            int delta_Height = 0;
+            int delta_Left = 0;
+            int delta_Top = 0;
+
+
             if (!_resizing && !_moving)
             {
                 UpdateMouseEdgeProperties(par_control, new Point(e.X, e.Y));
@@ -242,74 +276,90 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
                 {
                     if (MouseIsInTopEdge)
                     {
-                        //
-                        // LeftEdge & TopEdge  
-                        //
                         par_control.Width -= (e.X - _cursorStartPoint.X);
                         par_control.Left += (e.X - _cursorStartPoint.X);
                         par_control.Height -= (e.Y - _cursorStartPoint.Y);
                         par_control.Top += (e.Y - _cursorStartPoint.Y);
+
+                        //Added 8/2/2019 thomas downes 
+                        delta_Width = -1 * (e.X - _cursorStartPoint.X);
+                        delta_Left = (e.X - _cursorStartPoint.X);
+                        delta_Height = -1 * (e.Y - _cursorStartPoint.Y);
+                        delta_Top = (e.Y - _cursorStartPoint.Y);
                     }
                     else if (MouseIsInBottomEdge)
                     {
-                        //
-                        // LeftEdge & BottomEdge  
-                        //
                         par_control.Width -= (e.X - _cursorStartPoint.X);
                         par_control.Left += (e.X - _cursorStartPoint.X);
                         par_control.Height = (e.Y - _cursorStartPoint.Y) + _currentControlStartSize.Height;
+
+                        //Added 8/2/2019 thomas downes 
+                        delta_Width = -1 * (e.X - _cursorStartPoint.X);
+                        delta_Left = (e.X - _cursorStartPoint.X);
+                        delta_Height = (e.Y - _cursorStartPoint.Y); // + _currentControlStartSize.Height;
+
                     }
                     else
                     {
                         par_control.Width -= (e.X - _cursorStartPoint.X);
                         par_control.Left += (e.X - _cursorStartPoint.X);
+
+                        //Added 8/2/2019 thomas downes 
+                        delta_Width = -1 * (e.X - _cursorStartPoint.X);
+                        delta_Left = (e.X - _cursorStartPoint.X);
                     }
                 }
                 else if (MouseIsInRightEdge)
                 {
                     if (MouseIsInTopEdge)
                     {
-                        //
-                        // RightEdge & TopEdge  
-                        //
                         par_control.Width = (e.X - _cursorStartPoint.X) + _currentControlStartSize.Width;
                         par_control.Height -= (e.Y - _cursorStartPoint.Y);
                         par_control.Top += (e.Y - _cursorStartPoint.Y);
 
+                        //Added 8/2/2019 thomas downes 
+                        delta_Width = (e.X - _cursorStartPoint.X); // + _currentControlStartSize.Width;
+                        delta_Height = -1 * (e.Y - _cursorStartPoint.Y);
+                        delta_Top = (e.Y - _cursorStartPoint.Y);
+
                     }
                     else if (MouseIsInBottomEdge)
                     {
-                        //
-                        // RightEdge & BottomEdge  
-                        //
                         par_control.Width = (e.X - _cursorStartPoint.X) + _currentControlStartSize.Width;
                         par_control.Height = (e.Y - _cursorStartPoint.Y) + _currentControlStartSize.Height;
+
+                        //Added 8/2/2019 thomas downes 
+                        delta_Width = (e.X - _cursorStartPoint.X);  //+ _currentControlStartSize.Width;
+                        delta_Height = (e.Y - _cursorStartPoint.Y);  // + _currentControlStartSize.Height;
                     }
                     else
                     {
                         par_control.Width = (e.X - _cursorStartPoint.X) + _currentControlStartSize.Width;
+
+                        //Added 8/2/2019 thomas downes 
+                        delta_Width = (e.X - _cursorStartPoint.X); // + _currentControlStartSize.Width;
                     }
                 }
                 else if (MouseIsInTopEdge)
                 {
                     par_control.Height -= (e.Y - _cursorStartPoint.Y);
                     par_control.Top += (e.Y - _cursorStartPoint.Y);
+
+                    //Added 8/2/2019 thomas downes 
+                    delta_Height = -1 * (e.Y - _cursorStartPoint.Y);
+                    delta_Top = (e.Y - _cursorStartPoint.Y);
                 }
                 else if (MouseIsInBottomEdge)
                 {
                     par_control.Height = (e.Y - _cursorStartPoint.Y) + _currentControlStartSize.Height;
+
+                    //Added 8/2/2019 thomas downes 
+                    delta_Height = (e.Y - _cursorStartPoint.Y);  //  + _currentControlStartSize.Height;
                 }
                 else
                 {
                     StopDragOrResizing(par_control);
                 }
-
-                //
-                //Added 10/9/2019 Thomas DOWNES
-                //
-                if (MouseIsInBottomEdge) par_control.Width = (int)(((decimal)par_control.Height) * _proportionWH);
-                if (MouseIsInRightEdge) par_control.Height = (int)(((decimal)par_control.Width) / _proportionWH);
-
             }
             else if (_moving)
             {
@@ -319,8 +369,56 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
                     int x = (e.X - _cursorStartPoint.X) + par_control.Left;
                     int y = (e.Y - _cursorStartPoint.Y) + par_control.Top;
                     par_control.Location = new Point(x, y);
+
+                    //Added 8/2/2019 thomas downes 
+                    delta_Left = (e.X - _cursorStartPoint.X);
+                    delta_Top = (e.Y - _cursorStartPoint.Y);
+
                 }
             }
+
+            //
+            //Added 8/2/2019 thomas downes
+            //
+            if (_resizing && (delta_Height != 0 || delta_Width != 0))
+            {
+                //
+                //Allow a group of controls to be affected in unison.   
+                //
+                mod_events.ControlBeingMoved(par_control);
+
+                // 8-12-2019 td//delta_Top = 0;
+                // 8-12-2019 td//delta_Left = 0;
+
+                // 8-5-2019 td //mod_events.GroupMove(delta_Left, delta_Top, delta_Width, delta_Height);
+                mod_events.GroupMove_Change(delta_Left, delta_Top, delta_Width, delta_Height);
+
+            }
+
+            if (_moving && (delta_Left != 0 || delta_Top != 0))
+            {
+                //
+                //Allow a group of controls to be affected in unison.   
+                //
+                mod_events.ControlBeingMoved(par_control);
+                delta_Width = 0;
+                delta_Height = 0;
+                // 8-5-2019 td //mod_events.GroupMove(delta_Left, delta_Top, delta_Width, delta_Height);
+                mod_events.GroupMove_Change(delta_Left, delta_Top, delta_Width, delta_Height);
+
+            }
+
+            //const bool c_boolUseFunkyNewSyntax = false;
+            //if (c_boolUseFunkyNewSyntax)
+            //{
+            //    GroupMove?.Invoke(delta_Left, delta_Top, delta_Width, delta_Height);
+            //}
+
+            //if (!c_boolUseFunkyNewSyntax)
+            //{
+            //    if (GroupMove != null) GroupMove.Invoke(delta_Left, delta_Top, delta_Width, delta_Height);
+            //}
+
         }
 
         private static void StopDragOrResizing(Control par_control)

@@ -55,6 +55,7 @@ Public Class ClassDesigner
     ''#1 10/1/2019 td''Private WithEvents mod_groupedMove As New ClassGroupMove(Me) ''8/4/2019 td''New ClassGroupMove
     '' #2 10/1/2019 td''Private WithEvents mod_groupedMove As New ClassGroupMove(Me.LayoutFunctions) ''8/4/2019 td''New ClassGroupMove
     Private WithEvents mod_groupedMove As New ClassGroupMove(Me) ''8/4/2019 td''New ClassGroupMove
+    Private WithEvents mod_sizingPic_events As New ClassGroupMove(Me) ''Added 10/9/2019 td  
 
     Private Const mc_boolAllowGroupMovements As Boolean = True ''False ''True ''False ''Added 8/3/2019 td  
     Private Const mc_boolBreakpoints As Boolean = True
@@ -310,17 +311,21 @@ Public Class ClassDesigner
         ''
         ''Portrait
         ''
-        If (mc_boolAllowGroupMovements) Then
+        ''10/9/2019 td''If (mc_boolAllowGroupMovements) Then
+        ''10/9/2019 td''    ControlMove_GroupMove_TD.Init(CtlGraphicPortrait_Lady.Picture_Box,
+        ''              CtlGraphicPortrait_Lady, 10, True, mod_groupedMove,
+        ''              c_addAfterMoveAddBreakpoint) ''Added 8/3/2019 thomas downes
+        ''
+        ''10/9/2019 td''Else
+        ''10/9/2019 td''    ControlMoverOrResizer_TD.Init(CtlGraphicPortrait_Lady.Picture_Box,
+        ''          CtlGraphicPortrait_Lady, 10, True,
+        ''           c_addAfterMoveAddBreakpoint) ''Added 7/31/2019 thomas downes
+        ''10/9/2019 td''End If ''End of " If (mc_boolAllowGroupMovements) Then .... Else ...."
 
-            ControlMove_GroupMove_TD.Init(CtlGraphicPortrait_Lady.Picture_Box,
-                      CtlGraphicPortrait_Lady, 10, True, mod_groupedMove,
-                      c_addAfterMoveAddBreakpoint) ''Added 8/3/2019 thomas downes
-        Else
-            ControlMoverOrResizer_TD.Init(CtlGraphicPortrait_Lady.Picture_Box,
-                  CtlGraphicPortrait_Lady, 10, True,
-                   c_addAfterMoveAddBreakpoint) ''Added 7/31/2019 thomas downes
-
-        End If ''End of " If (mc_boolAllowGroupMovements) Then .... Else ...."
+        ''Added 10/9/2019 thomas downes
+        ControlResizeProportionally_TD.Init(CtlGraphicPortrait_Lady.Picture_Box,
+                      CtlGraphicPortrait_Lady, 10, True,
+                      mod_sizingPic_events, c_addAfterMoveAddBreakpoint) ''Added 10/9/2019 thomas downes
 
         ''
         ''Fields
