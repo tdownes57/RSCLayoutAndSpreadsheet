@@ -76,7 +76,8 @@ Public Class ClassFixTheControlWidth
 
     End Function ''End of "Public Shared Function ProportionsAreSlightlyOff(par_doubleW_div_H As Double) As Boolean"
 
-    Public Shared Function ProportionsAreSlightlyOff(par_control As Control, pboolVerbose As Boolean) As Boolean
+    Public Shared Function ProportionsAreSlightlyOff(par_control As Control, pboolVerbose As Boolean,
+                                                     Optional par_strNameOfImage As String = "") As Boolean
         ''
         ''Added 9/5/2019 thomas downes  
         ''
@@ -87,8 +88,13 @@ Public Class ClassFixTheControlWidth
         ''9/6 td''Return ProportionsAreSlightlyOff(doubleW_div_H, pboolVerbose, par_control.Name)
         ''10/5/2019 td''Return ProportionsAreSlightlyOff(doubleW_div_H, pboolVerbose, EnumImageOrControl.Contl, par_control.Name)
 
+        ''10/9/2019 td''Return ClassProportions.ProportionsAreSlightlyOff(doubleW_div_H, pboolVerbose,
+        ''10/9/2019 td''    EnumImageOrControl.Contl, par_control.Name)
+
+        If ("" = par_strNameOfImage) Then par_strNameOfImage = par_control.Name
+
         Return ClassProportions.ProportionsAreSlightlyOff(doubleW_div_H, pboolVerbose,
-                                                             EnumImageOrControl.Contl, par_control.Name)
+                      EnumImageOrControl.Contl, par_strNameOfImage)
 
     End Function ''End of "Public Shared Function ProportionsAreSlightlyOff(par_doubleW_div_H As Double) As Boolean"
 

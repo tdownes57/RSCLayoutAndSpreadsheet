@@ -682,18 +682,38 @@ Public Class ClassDesigner
         Dim listOfTextImages As New List(Of Image) ''Added 8/26/2019 thomas downes 
         Dim listOfElementTextFields As List(Of ClassElementField)
         Dim obj_image As Image ''Added 8/24 td
+        Dim obj_image_clone As Image ''Added 8/24 td
+        Dim obj_image_clone_resized As Image ''Added 8/24/2019 td
         Dim obj_generator As New ciBadgeGenerator.ClassMakeBadge
 
         listOfElementTextFields = Me.ElementsCache_Edits.ListFieldElements()
 
         ''obj_image = ciBadgeGenerator.ClassMakeBadge
         ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.BackgroundBox.Image, True, "RefreshPreview_Redux #1")
+        ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.PreviewBox, True, "RefreshPreview_Redux #1")
+
+        ''Added 8/24/2019 td
+        obj_image = Me.BackgroundBox.Image
+        obj_image_clone = CType(obj_image.Clone(), Image)
+
+        ''Dim gr_resize As Graphics = New Bitmap(obj_image_clone)
+
+        ''8/26/2019 td''obj_image_clone_resized = ciLayoutPrintLib.LayoutPrint.ResizeImage_ToHeight(obj_image_clone, True,
+        ''8/26/2019 td''      Me.PreviewBox.Height)
+
+        ''Added 8/26/2019 thomas downes
+        obj_image_clone_resized =
+            LayoutPrint.ResizeBackground_ToFitBox(obj_image, Me.PreviewBox, True)
+
+        ''Added 9/6/2019 td 
+        ''10/5/2019 td''ClassLabelToImage.ProportionsAreSlightlyOff(obj_image_clone_resized, True, "Clone Resized #1")
+        ClassFixTheControlWidth.ProportionsAreSlightlyOff(obj_image_clone_resized, True, "Clone Resized #1")
 
         obj_image = obj_generator.MakeBadgeImage(Me.BackgroundBox.Image, Me.ElementsCache_Edits,
                                                   Me.PreviewBox.Width,
                                                   Me.ExamplePortraitImage)
 
-        ClassFixTheControlWidth.ProportionsAreSlightlyOff(obj_image, True, "RefreshPreview_Redux #2")
+        ClassFixTheControlWidth.ProportionsAreSlightlyOff(obj_image, True, "RefreshPreview_Redux #3")
 
         Me.PreviewBox.Image = obj_image
         Me.PreviewBox.Refresh()

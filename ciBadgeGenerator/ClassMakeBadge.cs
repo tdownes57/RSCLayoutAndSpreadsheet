@@ -105,9 +105,14 @@ namespace ciBadgeGenerator
             List<ClassElementField> listOfElementTextFields;
             listOfElementTextFields = par_cache.ListFieldElements();
 
-            const bool c_boolUseUntestedProc = false;  //Added 10/5/2019 td
+            const bool c_boolUseUntestedProc = false;  // true;  // false;  //Added 10/5/2019 td
             if (c_boolUseUntestedProc)
             {
+                //
+                // I don't think this procedure (LoadImageWithElement) is fully converted to C# yet. 
+                //   If I recall, it's rather long and I was experiencing fatigue from the 
+                //   late hour. ---10/9/2019 td
+                //
                 LoadImageWithElements(ref obj_image_clone_resized, listOfElementTextFields);
             }
             else
@@ -142,7 +147,8 @@ namespace ciBadgeGenerator
                                                 local_PicElementInfo_Pic,
                                                 ref par_recipientPic);
 
-            return null; 
+            // 10-9-2019 td // return null;
+            return obj_image_clone_resized;  
 
         }
 
