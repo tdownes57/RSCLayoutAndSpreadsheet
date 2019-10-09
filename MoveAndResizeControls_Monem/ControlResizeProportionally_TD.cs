@@ -33,10 +33,10 @@ using System.Windows.Forms;
 
 namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManager
 {
-    public class ControlMoverOrResizer_TD
+    public class ControlResizeProportionally_TD
     {
         //
-        //  internal class ControlMoverOrResizer_TD
+        //  internal class ControlResizeProportionally_TD
         //
         //
         //  Class primarily authored by Seyyed Hamed Monem 
@@ -57,6 +57,10 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
         //Added 7/18/2019 thomas downes
         //
         private static int _margin; //Added 7/18/2019 thomas downes
+
+        //Added 10/9/2019 thomas downes
+        //
+        private static decimal _proportionWH; //Added 10/9/2019 thomas downes
 
         internal static bool MouseIsInLeftEdge { get; set; }
         internal static bool MouseIsInRightEdge { get; set; }
@@ -113,6 +117,12 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             //Added 7/18/2019 thomas downes 
             //
             _margin = par_margin;
+
+            //
+            //Added 7/18/2019 thomas downes 
+            //
+            _proportionWH = (decimal)par_container.Width / 
+                            (decimal)par_container.Height;
 
             MouseIsInLeftEdge = false;
             MouseIsInLeftEdge = false;
@@ -191,8 +201,14 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             }
         }
 
-        private static void StartMovingOrResizing(Control control, MouseEventArgs e)
+        private static void StartMovingOrResizing(Control par_control, MouseEventArgs e)
         {
+            //
+            //Added 10/09/2019 thomas downes 
+            //
+            _proportionWH = (decimal)par_control.Width /
+                            (decimal)par_control.Height;
+
             if (_moving || _resizing)
             {
                 return;
@@ -201,15 +217,15 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
                 (MouseIsInRightEdge || MouseIsInLeftEdge || MouseIsInTopEdge || MouseIsInBottomEdge))
             {
                 _resizing = true;
-                _currentControlStartSize = control.Size;
+                _currentControlStartSize = par_control.Size;
             }
             else if (WorkType != MoveOrResize.Resize)
             {
                 _moving = true;
-                control.Cursor = Cursors.Hand;
+                par_control.Cursor = Cursors.Hand;
             }
             _cursorStartPoint = new Point(e.X, e.Y);
-            control.Capture = true;
+            par_control.Capture = true;
         }
 
         private static void MoveControl(Control par_control, MouseEventArgs e)
@@ -219,12 +235,16 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
                 UpdateMouseEdgeProperties(par_control, new Point(e.X, e.Y));
                 UpdateMouseCursor(par_control);
             }
+
             if (_resizing)
             {
                 if (MouseIsInLeftEdge)
                 {
                     if (MouseIsInTopEdge)
                     {
+                        //
+                        // LeftEdge & TopEdge  
+                        //
                         par_control.Width -= (e.X - _cursorStartPoint.X);
                         par_control.Left += (e.X - _cursorStartPoint.X);
                         par_control.Height -= (e.Y - _cursorStartPoint.Y);
@@ -232,6 +252,9 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
                     }
                     else if (MouseIsInBottomEdge)
                     {
+                        //
+                        // LeftEdge & BottomEdge  
+                        //
                         par_control.Width -= (e.X - _cursorStartPoint.X);
                         par_control.Left += (e.X - _cursorStartPoint.X);
                         par_control.Height = (e.Y - _cursorStartPoint.Y) + _currentControlStartSize.Height;
@@ -246,6 +269,9 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
                 {
                     if (MouseIsInTopEdge)
                     {
+                        //
+                        // RightEdge & TopEdge  
+                        //
                         par_control.Width = (e.X - _cursorStartPoint.X) + _currentControlStartSize.Width;
                         par_control.Height -= (e.Y - _cursorStartPoint.Y);
                         par_control.Top += (e.Y - _cursorStartPoint.Y);
@@ -253,6 +279,9 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
                     }
                     else if (MouseIsInBottomEdge)
                     {
+                        //
+                        // RightEdge & BottomEdge  
+                        //
                         par_control.Width = (e.X - _cursorStartPoint.X) + _currentControlStartSize.Width;
                         par_control.Height = (e.Y - _cursorStartPoint.Y) + _currentControlStartSize.Height;
                     }
@@ -274,6 +303,13 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
                 {
                     StopDragOrResizing(par_control);
                 }
+
+                //
+                //Added 10/9/2019 Thomas DOWNES
+                //
+                if (MouseIsInBottomEdge) par_control.Width = (int)(((decimal)par_control.Height) * _proportionWH);
+                if (MouseIsInRightEdge) par_control.Height = (int)(((decimal)par_control.Width) / _proportionWH);
+
             }
             else if (_moving)
             {

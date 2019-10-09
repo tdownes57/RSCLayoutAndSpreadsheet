@@ -47,6 +47,7 @@
     <Compile Include="ControlMoverOrResizer.cs" />
     <Compile Include="ControlMove_GroupMove_TD.cs" />
     <Compile Include="ControlMove_RaiseEvents.cs" />
+    <Compile Include="ControlResizeProportionally_TD.cs" />
     <Compile Include="InterfaceEvents.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
