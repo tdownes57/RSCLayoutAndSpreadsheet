@@ -59,6 +59,7 @@ Public Class ClassDesigner
 
     Private Const mc_boolAllowGroupMovements As Boolean = True ''False ''True ''False ''Added 8/3/2019 td  
     Private Const mc_boolBreakpoints As Boolean = True
+    Private Const mc_boolMoveGrowInUnison As Boolean = True ''Added 10/10/2019 td 
 
     ''Added 8/18/2019 td
     Private mod_imageLady As Image ''8/18/2019 td'' = CtlGraphicPortrait_Lady.picturePortrait.Image
@@ -692,7 +693,7 @@ Public Class ClassDesigner
             ''10/10/2019 td''SaveFileDialog1.ShowDialog()
             ''10/10/2019 td''.PathToXML = SaveFileDialog1.FileName
 
-            .PathToXML = Me.ElementsCache_Saved.PathToXML
+            .PathToXML = Me.ElementsCache_Saved.PathToXml_Saved
 
             ''Added 9/24/2019 thomas 
             .SerializeToXML(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved, False, True)
@@ -1373,7 +1374,8 @@ Public Class ClassDesigner
         ''Refresh the preview picture box. 
         ''
         If (CheckboxAutoPreview.Checked) Then
-            SaveLayout()
+            ''--o----No longer needed. The preview is driven by Me.ElementsCache_Edits.---10/10/2019 td
+            ''--o--SaveLayout()
             RefreshPreview_Redux()
         End If ''End of "If (checkAutoPreview.Checked) Then"
 

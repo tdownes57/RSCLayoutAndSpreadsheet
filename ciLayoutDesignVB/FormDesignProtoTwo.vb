@@ -156,8 +156,20 @@ Public Class FormDesignProtoTwo
 
         ''Added 10/10/2019 td
         Dim strPathToXML As String = ""
+        Dim boolNewFileXML As Boolean ''Added 10/10/2019 td  
 
         ''Added 10/10/2019 td
+        strPathToXML = My.Settings.PathToXML_Saved
+        If (strPathToXML = "") Then
+            boolNewFileXML = True
+            strPathToXML = (My.Application.Info.DirectoryPath & "\ciLayoutDesignVB_Saved.xml").Replace("\\", "\")
+            My.Settings.PathToXML_Saved = strPathToXML
+            My.Settings.Save()
+        Else
+            boolNewFileXML = (Not System.IO.File.Exists(strPathToXML))
+        End If ''End of "If (strPathToXML <> "") Then .... Else ..."
+
+        ''Added 10/09/2019 td
         If (strPathToXML <> "") Then
             Me.ElementsCache_Saved.PathToXml_Saved = strPathToXML
         End If ''End of "If (strPathToXML <> "") Then"
@@ -165,8 +177,15 @@ Public Class FormDesignProtoTwo
         ''
         ''Major call!!
         ''
-        Me.ElementsCache_Saved.LoadFields()
-        Me.ElementsCache_Saved.LoadFieldElements(pictureBack)
+        If (boolNewFileXML) Then ''Condition added 10/10/2019 td  
+            Me.ElementsCache_Saved.LoadFields()
+            Me.ElementsCache_Saved.LoadFieldElements(pictureBack)
+        Else
+            ''Added 10/10/2019 td  
+            Dim objDeserialize As New ciBadgeSerialize.ClassDeserial ''Added 10/10/2019 td  
+            objDeserialize.PathToXML = strPathToXML
+            Me.ElementsCache_Saved = CType(objDeserialize.DeserializeFromXML(Me.ElementsCache_Saved.GetType(), False), ClassElementsCache)
+        End If ''End of "If (boolNewFileXML) Then .... Else ..."
 
         ''Added 9/19/2019 td
         Dim intPicLeft As Integer

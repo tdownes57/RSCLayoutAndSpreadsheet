@@ -406,6 +406,9 @@ Public Class ClassElementsCache
         If (Me.ElementQRCode IsNot Nothing) Then objCopyOfCache.ElementQRCode = Me.ElementQRCode.Copy
         If (Me.ElementSignature IsNot Nothing) Then objCopyOfCache.ElementSignature = Me.ElementSignature.Copy
 
+        ''Added 10/10/2019 thomas downes
+        objCopyOfCache.PathToXml_Saved = Me.PathToXml_Saved
+
         Return objCopyOfCache
 
     End Function ''End of "Public Function Copy() As ClassElementsCache"
