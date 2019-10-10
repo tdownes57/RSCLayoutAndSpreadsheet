@@ -674,6 +674,8 @@ Public Class ClassDesigner
         ''
         ''Step #2 of 3.
         ''
+        ''   Create a clone of the current-latest edits. 
+        ''
         Me.ElementsCache_Saved = Me.ElementsCache_Edits.Copy()
 
         ''
@@ -681,7 +683,25 @@ Public Class ClassDesigner
         ''
         ''   Serialize !!!
         ''
+        Dim objSerializationClass As New ciBadgeSerialize.ClassSerial
 
+        With objSerializationClass
+
+            ''.TypeOfObject = (TypeOf List(Of ICIBFieldStandardOrCustom))
+
+            ''10/10/2019 td''SaveFileDialog1.ShowDialog()
+            ''10/10/2019 td''.PathToXML = SaveFileDialog1.FileName
+
+            .PathToXML = Me.ElementsCache_Saved.PathToXML
+
+            ''Added 9/24/2019 thomas 
+            .SerializeToXML(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved, False, True)
+
+            Const c_SerializeToBinary As Boolean = False ''Added 9/30/2019 td
+            If (c_SerializeToBinary) Then _
+            .SerializeToBinary(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved)
+
+        End With ''End of "With objSerializationClass"
 
     End Sub ''End of "PRivate Sub SaveLayout()"  
 
@@ -1390,4 +1410,15 @@ Public Class ClassDesigner
 
     End Sub
 
+    Private Sub mod_sizingPic_events_Moving_End() Handles mod_sizingPic_events.Moving_End
+        ''Added 10/9/2019 td 
+        AutoPreview_IfChecked()
+
+    End Sub
+
+    Private Sub mod_sizingPic_events_Resizing_End() Handles mod_sizingPic_events.Resizing_End
+        ''Added 10/9/2019 td 
+        AutoPreview_IfChecked()
+
+    End Sub
 End Class ''End of "Public Class ClassDesigner"
