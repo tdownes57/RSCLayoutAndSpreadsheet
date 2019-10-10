@@ -428,6 +428,22 @@ Public Class ClassElementsCache
 
     End Function ''End of "Public Function GetElementByGUID(par_guid As System.Guid) As ClassElementField"
 
+    Public Function MissingTheFields() As Boolean
+        ''
+        ''Added 10/10/2019 td 
+        ''
+        Return (0 = mod_listFields.Count)
+
+    End Function ''ENd of "Public Function MissingTheFields() As Boolean"
+
+    Public Function MissingTheElementFields() As Boolean
+        ''
+        ''Added 10/10/2019 td 
+        ''
+        Return (0 = mod_listElementFields.Count)
+
+    End Function ''ENd of "Public Function MissingTheElementFields() As Boolean"
+
     ''Private Sub LoadElements_Picture()
     ''    ''
     ''    ''Added 7/31/2019 thomas downes 

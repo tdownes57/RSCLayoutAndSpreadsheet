@@ -137,9 +137,21 @@ Public Class ClassDesigner
         ''
         ''Major call!!
         ''
-        Me.ElementsCache_Saved.LoadFields()
-        ''10/1/2019 td''Me.ElementsCache_Saved.LoadFieldElements(Me.BackgroundBox)
-        Me.ElementsCache_Saved.LoadFieldElements(Me.BackgroundBox)
+        Dim boolMissingAnyFields As Boolean ''Added 10/10/2019 td 
+        boolMissingAnyFields = (Me.ElementsCache_Saved.MissingTheFields())
+        If (boolMissingAnyFields) Then
+            ''Load the fields (which are //_not_// the elements (the thing which 
+            ''   appears on the badge layout); importantly, the fields are //referenced// 
+            ''   by the elements). ----10/10/2019 td
+            Me.ElementsCache_Saved.LoadFields()
+        End If ''end of "If (boolMissingAnyFields) Then"
+
+        Dim boolMissingAnyFieldElements As Boolean ''Added 10/10/2019 td 
+        boolMissingAnyFieldElements = (Me.ElementsCache_Saved.MissingTheElementFields())
+        If (boolMissingAnyFieldElements) Then
+            ''10/1/2019 td''Me.ElementsCache_Saved.LoadFieldElements(Me.BackgroundBox)
+            Me.ElementsCache_Saved.LoadFieldElements(Me.BackgroundBox)
+        End If ''end of "If (boolMissingAnyFields) Then"
 
         ''Added 9/19/2019 td
         Dim intPicLeft As Integer
