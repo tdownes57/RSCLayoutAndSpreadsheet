@@ -17,7 +17,8 @@ Public Class ClassElementsCache
     ''
     Public Property Id_GUID As System.Guid ''Added 9/30/2019 td 
 
-    Public Property SaveToXmlPath As String ''Added 9/29/2019 td
+    ''10/10/2019 td''Public Property SaveToXmlPath As String ''Added 9/29/2019 td
+    Public Property PathToXml_Saved As String ''Added 9/29/2019 td
 
     Public Property ElementQRCode As ClassElementQRCode ''Added 10/8/2019 thomas d.  
     Public Property ElementSignature As ClassElementSignature ''Added 10/8/2019 thomas d.  

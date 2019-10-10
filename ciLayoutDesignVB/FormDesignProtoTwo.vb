@@ -154,6 +154,14 @@ Public Class FormDesignProtoTwo
         ''
         ''9/8/2019 td''Load_Form()
 
+        ''Added 10/10/2019 td
+        Dim strPathToXML As String = ""
+
+        ''Added 10/10/2019 td
+        If (strPathToXML <> "") Then
+            Me.ElementsCache_Saved.PathToXml_Saved = strPathToXML
+        End If ''End of "If (strPathToXML <> "") Then"
+
         ''
         ''Major call!!
         ''

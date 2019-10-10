@@ -83,6 +83,7 @@ Partial Class FormDesignProtoTwo
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.LinkRevertToLastSave = New System.Windows.Forms.LinkLabel()
+        Me.LabelPersonalityCurrent = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         CType(Me.graphicAdjuster, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -137,7 +138,7 @@ Partial Class FormDesignProtoTwo
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RightClickMenuParent, Me.ToolStripMenuItem1, Me.ConfigurationOfFieldsEtcToolStripMenuItem, Me.DesignLayoutToolStripMenuItem, Me.BackgroundImagesToolStripMenuItem, Me.DemoModeVideoToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1245, 28)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1245, 30)
         Me.MenuStrip1.TabIndex = 39
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -161,7 +162,7 @@ Partial Class FormDesignProtoTwo
         '
         Me.ToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenToolStripMenuItem, Me.FileSaveMenuItem, Me.FileSaveAsMenuItem, Me.ExitToolStripMenuItem})
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(46, 24)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(46, 26)
         Me.ToolStripMenuItem1.Text = "File"
         '
         'OpenToolStripMenuItem
@@ -192,7 +193,7 @@ Partial Class FormDesignProtoTwo
         '
         Me.ConfigurationOfFieldsEtcToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StandardFieldsToolStripMenuItem, Me.CustomFieldsToolStripMenuItem})
         Me.ConfigurationOfFieldsEtcToolStripMenuItem.Name = "ConfigurationOfFieldsEtcToolStripMenuItem"
-        Me.ConfigurationOfFieldsEtcToolStripMenuItem.Size = New System.Drawing.Size(204, 24)
+        Me.ConfigurationOfFieldsEtcToolStripMenuItem.Size = New System.Drawing.Size(204, 26)
         Me.ConfigurationOfFieldsEtcToolStripMenuItem.Text = "Configuration of Fields, Etc."
         '
         'StandardFieldsToolStripMenuItem
@@ -211,7 +212,7 @@ Partial Class FormDesignProtoTwo
         '
         Me.DesignLayoutToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenControlPanelToolStripMenuItem, Me.UploadBackgroundToolStripMenuItem, Me.PlaceElementsToolStripMenuItem, Me.AddGraphicsElementToolStripMenuItem, Me.AddSubsectionToolStripMenuItem, Me.ChangeOrientationToolStripMenuItem, Me.DoubleSidedToolStripMenuItem, Me.ModeV9ToolStripMenuItem, Me.ClearAllSelectedElementsToolStripMenuItem})
         Me.DesignLayoutToolStripMenuItem.Name = "DesignLayoutToolStripMenuItem"
-        Me.DesignLayoutToolStripMenuItem.Size = New System.Drawing.Size(117, 24)
+        Me.DesignLayoutToolStripMenuItem.Size = New System.Drawing.Size(117, 26)
         Me.DesignLayoutToolStripMenuItem.Text = "Design Layout"
         '
         'OpenControlPanelToolStripMenuItem
@@ -291,7 +292,7 @@ Partial Class FormDesignProtoTwo
         '
         Me.BackgroundImagesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.UploadNewToolStripMenuItem, Me.SelectFromExistingToolStripMenuItem})
         Me.BackgroundImagesToolStripMenuItem.Name = "BackgroundImagesToolStripMenuItem"
-        Me.BackgroundImagesToolStripMenuItem.Size = New System.Drawing.Size(154, 24)
+        Me.BackgroundImagesToolStripMenuItem.Size = New System.Drawing.Size(154, 26)
         Me.BackgroundImagesToolStripMenuItem.Text = "Background Images"
         '
         'UploadNewToolStripMenuItem
@@ -401,7 +402,7 @@ Partial Class FormDesignProtoTwo
         '
         Me.picturePreview.BackColor = System.Drawing.Color.White
         Me.picturePreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.picturePreview.Location = New System.Drawing.Point(737, 86)
+        Me.picturePreview.Location = New System.Drawing.Point(733, 149)
         Me.picturePreview.Name = "picturePreview"
         Me.picturePreview.Size = New System.Drawing.Size(467, 276)
         Me.picturePreview.TabIndex = 44
@@ -422,7 +423,7 @@ Partial Class FormDesignProtoTwo
         'LinkRefreshPreview
         '
         Me.LinkRefreshPreview.AutoSize = True
-        Me.LinkRefreshPreview.Location = New System.Drawing.Point(1093, 38)
+        Me.LinkRefreshPreview.Location = New System.Drawing.Point(1058, 96)
         Me.LinkRefreshPreview.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LinkRefreshPreview.Name = "LinkRefreshPreview"
         Me.LinkRefreshPreview.Size = New System.Drawing.Size(142, 22)
@@ -509,7 +510,7 @@ Partial Class FormDesignProtoTwo
         '
         Me.chkHighResolution.AutoSize = True
         Me.chkHighResolution.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.chkHighResolution.Location = New System.Drawing.Point(917, 31)
+        Me.chkHighResolution.Location = New System.Drawing.Point(1062, 28)
         Me.chkHighResolution.Margin = New System.Windows.Forms.Padding(2)
         Me.chkHighResolution.Name = "chkHighResolution"
         Me.chkHighResolution.Size = New System.Drawing.Size(155, 22)
@@ -523,9 +524,9 @@ Partial Class FormDesignProtoTwo
         Me.flowSidebar.BackColor = System.Drawing.SystemColors.Info
         Me.flowSidebar.Controls.Add(Me.LinkCloseSidebar)
         Me.flowSidebar.Dock = System.Windows.Forms.DockStyle.Left
-        Me.flowSidebar.Location = New System.Drawing.Point(0, 28)
+        Me.flowSidebar.Location = New System.Drawing.Point(0, 30)
         Me.flowSidebar.Name = "flowSidebar"
-        Me.flowSidebar.Size = New System.Drawing.Size(22, 563)
+        Me.flowSidebar.Size = New System.Drawing.Size(22, 561)
         Me.flowSidebar.TabIndex = 54
         Me.flowSidebar.Visible = False
         '
@@ -545,7 +546,7 @@ Partial Class FormDesignProtoTwo
         Me.checkAutoPreview.Checked = True
         Me.checkAutoPreview.CheckState = System.Windows.Forms.CheckState.Checked
         Me.checkAutoPreview.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.checkAutoPreview.Location = New System.Drawing.Point(1096, 60)
+        Me.checkAutoPreview.Location = New System.Drawing.Point(1061, 118)
         Me.checkAutoPreview.Margin = New System.Windows.Forms.Padding(2)
         Me.checkAutoPreview.Name = "checkAutoPreview"
         Me.checkAutoPreview.Size = New System.Drawing.Size(117, 22)
@@ -576,11 +577,21 @@ Partial Class FormDesignProtoTwo
         Me.LinkRevertToLastSave.TabStop = True
         Me.LinkRevertToLastSave.Text = "Undo / Revert to Last Save"
         '
+        'LabelPersonalityCurrent
+        '
+        Me.LabelPersonalityCurrent.AutoSize = True
+        Me.LabelPersonalityCurrent.Location = New System.Drawing.Point(734, 68)
+        Me.LabelPersonalityCurrent.Name = "LabelPersonalityCurrent"
+        Me.LabelPersonalityCurrent.Size = New System.Drawing.Size(214, 22)
+        Me.LabelPersonalityCurrent.TabIndex = 64
+        Me.LabelPersonalityCurrent.Text = "Personality:___________"
+        '
         'FormDesignProtoTwo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1245, 591)
+        Me.Controls.Add(Me.LabelPersonalityCurrent)
         Me.Controls.Add(Me.LinkRevertToLastSave)
         Me.Controls.Add(Me.checkAutoPreview)
         Me.Controls.Add(Me.flowSidebar)
@@ -682,4 +693,5 @@ Partial Class FormDesignProtoTwo
     Friend WithEvents SaveFileDialog1 As SaveFileDialog
     Friend WithEvents OpenFileDialog1 As OpenFileDialog
     Friend WithEvents LinkRevertToLastSave As LinkLabel
+    Friend WithEvents LabelPersonalityCurrent As Label
 End Class
