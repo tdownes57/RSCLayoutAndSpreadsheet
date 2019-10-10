@@ -337,32 +337,32 @@ Public Class FormDesignProtoTwo
 
     'End Sub ''ENd of "Private Sub LoadForm_LayoutElements()"
 
-    '''Private Sub LoadForm_LayoutElements()
-    '''    ''Renamed 9/8/2019''PRivate Sub Load_Form()
-    '''    ''
-    '''    ''Encapsulated 7/31/2019 td
-    '''    ''
-    '''    ''7/31/2019 td''LoadElements()
-    '''    ''8/28/2019 td''LoadElements_Fields()
-    '''    Const c_boolLoadingForm As Boolean = True ''Added 8/28/2019 thomas downes  
+    ''Private Sub LoadForm_LayoutElements()
+    ''    ''Renamed 9/8/2019''PRivate Sub Load_Form()
+    ''    ''
+    ''    ''Encapsulated 7/31/2019 td
+    ''    ''
+    ''    ''7/31/2019 td''LoadElements()
+    ''    ''8/28/2019 td''LoadElements_Fields()
+    ''    Const c_boolLoadingForm As Boolean = True ''Added 8/28/2019 thomas downes  
 
-    '''    ''9/3/2019 td''LoadElements_Fields(c_boolLoadingForm)
-    '''    LoadElements_Fields_Master(c_boolLoadingForm)
+    ''    ''9/3/2019 td''LoadElements_Fields(c_boolLoadingForm)
+    ''    LoadElements_Fields_Master(c_boolLoadingForm)
 
-    '''    ''Added 7/31/2019 td  
-    '''    ''9/17/2019 td''LoadElements_Picture()
-    '''    LoadElements_Picture(Me.ElementsCache_Edits.PicElement())
+    ''    ''Added 7/31/2019 td  
+    ''    ''9/17/2019 td''LoadElements_Picture()
+    ''    LoadElements_Picture(Me.ElementsCache_Edits.PicElement())
 
-    '''    MakeElementsMoveable()
+    ''    MakeElementsMoveable()
 
-    '''    ''Added 7/28/2019 td
-    '''    ''    Make sure that the Badge Background is in the background. 
-    '''    ''
-    '''    pictureBack.SendToBack()
-    '''    graphicAdjuster.SendToBack() ''Added 8/12/2019 td
-    '''    picturePreview.SendToBack() ''Added 8/12/2019 td
+    ''    ''Added 7/28/2019 td
+    ''    ''    Make sure that the Badge Background is in the background. 
+    ''    ''
+    ''    pictureBack.SendToBack()
+    ''    graphicAdjuster.SendToBack() ''Added 8/12/2019 td
+    ''    picturePreview.SendToBack() ''Added 8/12/2019 td
 
-    '''End Sub ''ENd of "Private Sub LoadForm_LayoutElements()"
+    ''End Sub ''ENd of "Private Sub LoadForm_LayoutElements()"
 
     'Private Sub MakeElementsMoveable()
     '    ''
@@ -533,221 +533,221 @@ Public Class FormDesignProtoTwo
 
     'End Sub ''End of "Private Sub InitiateRubberbandSelector"
 
-    '''Private Sub LoadElements_Fields_Master(par_boolLoadingForm As Boolean, Optional par_bUnloading As Boolean = False)
-    '''    ''
-    '''    ''Added 9/03/2019 thomas downes 
-    '''    ''
-    '''    ''9/4 td''Const c_boolUseConsolidatedList As Boolean = False ''True
-    '''    Dim boolUseConsolidatedList As Boolean ''Added 9/5/2019 td  
+    ''Private Sub LoadElements_Fields_Master(par_boolLoadingForm As Boolean, Optional par_bUnloading As Boolean = False)
+    ''    ''
+    ''    ''Added 9/03/2019 thomas downes 
+    ''    ''
+    ''    ''9/4 td''Const c_boolUseConsolidatedList As Boolean = False ''True
+    ''    Dim boolUseConsolidatedList As Boolean ''Added 9/5/2019 td  
 
-    '''    ''Added 9/5/2019 td  
-    '''    boolUseConsolidatedList = True ''9/5 td''(2 <= dropdownHowToLoadFlds.SelectedIndex)
+    ''    ''Added 9/5/2019 td  
+    ''    boolUseConsolidatedList = True ''9/5 td''(2 <= dropdownHowToLoadFlds.SelectedIndex)
 
-    '''    If (boolUseConsolidatedList) Then
+    ''    If (boolUseConsolidatedList) Then
 
-    '''        ''9/6/2019 td''LoadElements_Fields_OneList(par_boolLoadingForm, par_bUnloading)
-    '''        LoadElements_OneListOfFields(par_boolLoadingForm, par_bUnloading)
+    ''        ''9/6/2019 td''LoadElements_Fields_OneList(par_boolLoadingForm, par_bUnloading)
+    ''        LoadElements_OneListOfFields(par_boolLoadingForm, par_bUnloading)
 
-    '''    Else
+    ''    Else
 
-    '''        LoadElements_Fields_TwoLists(par_boolLoadingForm, par_bUnloading)
+    ''        LoadElements_Fields_TwoLists(par_boolLoadingForm, par_bUnloading)
 
-    '''    End If ''End of "If (boolUseConsolidatedList) Then ..... Else ...."
+    ''    End If ''End of "If (boolUseConsolidatedList) Then ..... Else ...."
 
-    '''End Sub ''ENd of "Private Sub LoadElements_Fields_Master()"
+    ''End Sub ''ENd of "Private Sub LoadElements_Fields_Master()"
 
-    '''Private Sub LoadElements_OneListOfFields(par_boolLoadingForm As Boolean, Optional par_bUnloading As Boolean = False)
-    '''    ''
-    '''    ''Added 9/6/2019 td  
-    '''    ''
-    '''    LoadElements_ByListOfFields(ClassFields.ListAllFields(), par_boolLoadingForm)
+    ''Private Sub LoadElements_OneListOfFields(par_boolLoadingForm As Boolean, Optional par_bUnloading As Boolean = False)
+    ''    ''
+    ''    ''Added 9/6/2019 td  
+    ''    ''
+    ''    LoadElements_ByListOfFields(ClassFields.ListAllFields(), par_boolLoadingForm)
 
-    '''End Sub
+    ''End Sub
 
-    '''Private Sub LoadField_JustOne(par_field As ICIBFieldStandardOrCustom)
-    '''    ''
-    '''    ''Added 9/6/2019 thomas d. 
-    '''    ''
-    '''    Dim new_list As New List(Of ICIBFieldStandardOrCustom)
-    '''    Const c_bAddToMoveableClass As Boolean = True ''Added 9/8/2019 td 
+    ''Private Sub LoadField_JustOne(par_field As ICIBFieldStandardOrCustom)
+    ''    ''
+    ''    ''Added 9/6/2019 thomas d. 
+    ''    ''
+    ''    Dim new_list As New List(Of ICIBFieldStandardOrCustom)
+    ''    Const c_bAddToMoveableClass As Boolean = True ''Added 9/8/2019 td 
 
-    '''    new_list.Add(par_field)
+    ''    new_list.Add(par_field)
 
-    '''    LoadElements_ByListOfFields(new_list, True, False,
-    '''                                c_bAddToMoveableClass)
+    ''    LoadElements_ByListOfFields(new_list, True, False,
+    ''                                c_bAddToMoveableClass)
 
-    '''End Sub ''End of "Private Sub LoadField_JustOne(...)"
+    ''End Sub ''End of "Private Sub LoadField_JustOne(...)"
 
-    '''Private Sub LoadElements_ByListOfFields(par_list As List(Of ICIBFieldStandardOrCustom),
-    '''                                       par_boolLoadingForm As Boolean,
-    '''                                       Optional par_bUnloading As Boolean = False,
-    '''                                        Optional par_bAddMoveability As Boolean = False)
-    '''    ''
-    '''    ''Added 9/03/2019 thomas downes 
-    '''    ''Modified 9/5/2019 thomas downes
-    '''    ''
-    '''    Dim intCountControlsAdded As Integer = 0 ''Added 9/03/2019 td 
-    '''    ''9/5/2019 td''Dim intTopEdge As Integer ''Added 7/28/2019 td
-    '''    ''9/5/2019 td''Dim intLeftEdge As Integer ''Added 9/03/2019 td
-    '''    Dim boolIncludeOnBadge As Boolean = False ''Added 9/03/2019 td
-    '''    Dim intStagger As Integer = 0 ''Added 9.6.2019 td 
+    ''Private Sub LoadElements_ByListOfFields(par_list As List(Of ICIBFieldStandardOrCustom),
+    ''                                       par_boolLoadingForm As Boolean,
+    ''                                       Optional par_bUnloading As Boolean = False,
+    ''                                        Optional par_bAddMoveability As Boolean = False)
+    ''    ''
+    ''    ''Added 9/03/2019 thomas downes 
+    ''    ''Modified 9/5/2019 thomas downes
+    ''    ''
+    ''    Dim intCountControlsAdded As Integer = 0 ''Added 9/03/2019 td 
+    ''    ''9/5/2019 td''Dim intTopEdge As Integer ''Added 7/28/2019 td
+    ''    ''9/5/2019 td''Dim intLeftEdge As Integer ''Added 9/03/2019 td
+    ''    Dim boolIncludeOnBadge As Boolean = False ''Added 9/03/2019 td
+    ''    Dim intStagger As Integer = 0 ''Added 9.6.2019 td 
 
-    '''    For Each each_field As ICIBFieldStandardOrCustom In par_list ''9/6/2019 td''ClassFields.ListAllFields()
+    ''    For Each each_field As ICIBFieldStandardOrCustom In par_list ''9/6/2019 td''ClassFields.ListAllFields()
 
-    '''        Dim label_control As CtlGraphicFldLabel
+    ''        Dim label_control As CtlGraphicFldLabel
 
-    '''        ''Added 9/3/2019 thomas d. 
-    '''        boolIncludeOnBadge = (par_boolLoadingForm And each_field.IsDisplayedOnBadge)
-    '''        If (Not boolIncludeOnBadge) Then
-    '''            AddToFlowPanelOfOmittedFlds(each_field)
-    '''            Continue For
-    '''        End If ''End of "If (Not boolIncludeOnBadge) Then"
+    ''        ''Added 9/3/2019 thomas d. 
+    ''        boolIncludeOnBadge = (par_boolLoadingForm And each_field.IsDisplayedOnBadge)
+    ''        If (Not boolIncludeOnBadge) Then
+    ''            AddToFlowPanelOfOmittedFlds(each_field)
+    ''            Continue For
+    ''        End If ''End of "If (Not boolIncludeOnBadge) Then"
 
-    '''        ''
-    '''        ''Has the user moved the field into place (and pressed the Save & Refresh link)??
-    '''        ''
-    '''        If (each_field.ElementInfo_Base Is Nothing) Then
+    ''        ''
+    ''        ''Has the user moved the field into place (and pressed the Save & Refresh link)??
+    ''        ''
+    ''        If (each_field.ElementInfo_Base Is Nothing) Then
 
-    '''            ''Added 9/15/2019 thomas d. 
-    '''            Throw New Exception("ElementInfo_Base should _not_ be uninitialized. 896741")
+    ''            ''Added 9/15/2019 thomas d. 
+    ''            Throw New Exception("ElementInfo_Base should _not_ be uninitialized. 896741")
 
-    '''            ''9/15 td''Dim new_element_text As New ClassElementText
-    '''            ''
-    '''            ''9/15 td''With new_element_text
-    '''            ''    .Height_Pixels = 30 
-    '''            ''    .FontFamilyName = "Times New Roman" ''Added 9/15/2019 thomas d. 
-    '''            ''    .FontSize_Pixels = 25
-    '''            ''    ''Added 9/12/2019 td 
-    '''            ''    ''9/12/2019 td''.FontSize_IsLocked = True 
-    '''            ''    .FontSize_ScaleToElementRatio = (.FontSize_Pixels / .Height_Pixels)
-    '''            ''    .FontSize_ScaleToElementYesNo = True
-    '''            ''
-    '''            ''    ''Added 9/12/2019 td
-    '''            ''    .BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass(pictureBack.Width, pictureBack.Height)
-    '''            ''
-    '''            ''End With 'End of "With new_element_text"
+    ''            ''9/15 td''Dim new_element_text As New ClassElementText
+    ''            ''
+    ''            ''9/15 td''With new_element_text
+    ''            ''    .Height_Pixels = 30 
+    ''            ''    .FontFamilyName = "Times New Roman" ''Added 9/15/2019 thomas d. 
+    ''            ''    .FontSize_Pixels = 25
+    ''            ''    ''Added 9/12/2019 td 
+    ''            ''    ''9/12/2019 td''.FontSize_IsLocked = True 
+    ''            ''    .FontSize_ScaleToElementRatio = (.FontSize_Pixels / .Height_Pixels)
+    ''            ''    .FontSize_ScaleToElementYesNo = True
+    ''            ''
+    ''            ''    ''Added 9/12/2019 td
+    ''            ''    .BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass(pictureBack.Width, pictureBack.Height)
+    ''            ''
+    ''            ''End With 'End of "With new_element_text"
 
-    '''            ''''9/6/2019 td''new_element_text.TopEdge_Pixels = (30 + (30 * intCountControlsAdded))
-    '''            ''intStagger = intCountControlsAdded
-    '''            ''new_element_text.TopEdge_Pixels = (intStagger * new_element_text.Height_Pixels)
-    '''            ''intCountControlsAdded += 1 ''Added 9/6/2019 td 
+    ''            '''9/6/2019 td''new_element_text.TopEdge_Pixels = (30 + (30 * intCountControlsAdded))
+    ''            ''intStagger = intCountControlsAdded
+    ''            ''new_element_text.TopEdge_Pixels = (intStagger * new_element_text.Height_Pixels)
+    ''            ''intCountControlsAdded += 1 ''Added 9/6/2019 td 
 
-    '''            ''new_element_text.LeftEdge_Pixels = new_element_text.TopEdge_Pixels ''Left = Top !! By setting Left = Top, we will create 
-    '''            ''''   a nice diagonally-cascading effect. ---9/3/2019 td
+    ''            ''new_element_text.LeftEdge_Pixels = new_element_text.TopEdge_Pixels ''Left = Top !! By setting Left = Top, we will create 
+    ''            '''   a nice diagonally-cascading effect. ---9/3/2019 td
 
-    '''            ''9/15 td''each_field.ElementInfo_Base = new_element_text
-    '''            ''9/15 td''each_field.ElementInfo_Text = new_element_text
+    ''            ''9/15 td''each_field.ElementInfo_Base = new_element_text
+    ''            ''9/15 td''each_field.ElementInfo_Text = new_element_text
 
-    '''        Else
-    '''            ''
-    '''            ''Added 9/15/2019 td
-    '''            ''
-    '''            With each_field.ElementInfo_Base
-    '''                .Height_Pixels = 30
+    ''        Else
+    ''            ''
+    ''            ''Added 9/15/2019 td
+    ''            ''
+    ''            With each_field.ElementInfo_Base
+    ''                .Height_Pixels = 30
 
-    '''                ''9/6/2019 td''new_element_text.TopEdge_Pixels = (30 + (30 * intCountControlsAdded))
-    '''                intStagger = intCountControlsAdded
-    '''                .TopEdge_Pixels = (intStagger * .Height_Pixels)
-    '''                intCountControlsAdded += 1 ''Added 9/6/2019 td 
+    ''                ''9/6/2019 td''new_element_text.TopEdge_Pixels = (30 + (30 * intCountControlsAdded))
+    ''                intStagger = intCountControlsAdded
+    ''                .TopEdge_Pixels = (intStagger * .Height_Pixels)
+    ''                intCountControlsAdded += 1 ''Added 9/6/2019 td 
 
-    '''                .LeftEdge_Pixels = .TopEdge_Pixels ''Left = Top !! By setting Left = Top, we will create 
-    '''                ''   a nice diagonally-cascading effect. ---9/3/2019 td
+    ''                .LeftEdge_Pixels = .TopEdge_Pixels ''Left = Top !! By setting Left = Top, we will create 
+    ''                ''   a nice diagonally-cascading effect. ---9/3/2019 td
 
-    '''                ''Added 9/12/2019 td
-    '''                .BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass(pictureBack.Width, pictureBack.Height)
+    ''                ''Added 9/12/2019 td
+    ''                .BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass(pictureBack.Width, pictureBack.Height)
 
-    '''            End With
+    ''            End With
 
-    '''            ''Added 9/15/2019 td
-    '''            With each_field.ElementInfo_Text
-    '''                .FontFamilyName = "Times New Roman" ''Added 9/15/2019 thomas d. 
-    '''                .FontSize_Pixels = 25
-    '''                ''Added 9/12/2019 td 
-    '''                ''9/12/2019 td''.FontSize_IsLocked = True 
-    '''                .FontSize_ScaleToElementRatio = (.FontSize_Pixels / each_field.ElementInfo_Base.Height_Pixels)
-    '''                .FontSize_ScaleToElementYesNo = True
+    ''            ''Added 9/15/2019 td
+    ''            With each_field.ElementInfo_Text
+    ''                .FontFamilyName = "Times New Roman" ''Added 9/15/2019 thomas d. 
+    ''                .FontSize_Pixels = 25
+    ''                ''Added 9/12/2019 td 
+    ''                ''9/12/2019 td''.FontSize_IsLocked = True 
+    ''                .FontSize_ScaleToElementRatio = (.FontSize_Pixels / each_field.ElementInfo_Base.Height_Pixels)
+    ''                .FontSize_ScaleToElementYesNo = True
 
-    '''            End With 'End of "With new_element_text"
+    ''            End With 'End of "With new_element_text"
 
-    '''        End If ''ENd of "If (each_field.ElementInfo_Base Is Nothing) Then ..... Else ...."
+    ''        End If ''ENd of "If (each_field.ElementInfo_Base Is Nothing) Then ..... Else ...."
 
-    '''        ''Added 9/5/2019 thomas d.
-    '''        ''9/11/2019 td''each_field.ElementInfo_Base.LayoutWidth_Pixels = Me.Layout_Width_Pixels()
-    '''        each_field.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.Layout_Width_Pixels()
-    '''        each_field.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.Layout_Height_Pixels
+    ''        ''Added 9/5/2019 thomas d.
+    ''        ''9/11/2019 td''each_field.ElementInfo_Base.LayoutWidth_Pixels = Me.Layout_Width_Pixels()
+    ''        each_field.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.Layout_Width_Pixels()
+    ''        each_field.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.Layout_Height_Pixels
 
-    '''        ''#1 9/4/2019 td''label_control = New CtlGraphicFldLabel(each_field, Me)
-    '''        '' #2 9/4/2019 td''label_control = New CtlGraphicFldLabel(each_field, new_element_text, Me)
-    '''        ''9/17/2019 td''label_control = New CtlGraphicFldLabel(each_field, Me)
-    '''        label_control = New CtlGraphicFldLabel(new_elementField, Me)
+    ''        ''#1 9/4/2019 td''label_control = New CtlGraphicFldLabel(each_field, Me)
+    ''        '' #2 9/4/2019 td''label_control = New CtlGraphicFldLabel(each_field, new_element_text, Me)
+    ''        ''9/17/2019 td''label_control = New CtlGraphicFldLabel(each_field, Me)
+    ''        label_control = New CtlGraphicFldLabel(new_elementField, Me)
 
-    '''        ''Moved below. 9/5 td''label_control.Refresh_Master()
-    '''        label_control.Visible = each_field.IsDisplayedOnBadge ''BL = Badge Layout
-    '''        intCountControlsAdded += 1
-    '''        label_control.Name = "FieldControl" & CStr(intCountControlsAdded)
+    ''        ''Moved below. 9/5 td''label_control.Refresh_Master()
+    ''        label_control.Visible = each_field.IsDisplayedOnBadge ''BL = Badge Layout
+    ''        intCountControlsAdded += 1
+    ''        label_control.Name = "FieldControl" & CStr(intCountControlsAdded)
 
-    '''        ''9/8 td''label_control.BorderStyle = BorderStyle.FixedSingle
+    ''        ''9/8 td''label_control.BorderStyle = BorderStyle.FixedSingle
 
-    '''        ''Added 9/6/2019 thomas downes 
-    '''        ''
-    '''        ''   Stagger the elements on the badge layout, in a cascade from
-    '''        '' the upper-left to the lower-right. 
-    '''        '' ------9/6/2019 td
-    '''        ''
-    '''        If (0 = each_field.ElementInfo_Base.TopEdge_Pixels) Then
-    '''            ''Added 9/6/2019 thomas downes 
-    '''            label_control.Width = CInt(pictureBack.Width / 3)
-    '''            With each_field.ElementInfo_Base
-    '''                .Width_Pixels = label_control.Width
-    '''                .Height_Pixels = label_control.Height
-    '''                intStagger = intCountControlsAdded
-    '''                .TopEdge_Pixels = (intStagger * .Height_Pixels)
-    '''                .LeftEdge_Pixels = .TopEdge_Pixels ''Left = Top !! By setting Left = Top, we will create 
-    '''                ''   a nice diagonally-cascading effect. ---9/3/2019 td
-    '''                ''See above. 9/6/2019 td''intCountControlsAdded += 1 ''Added 9/6/2019 td 
-    '''            End With ''End of " With each_field.ElementInfo_Base"
-    '''        End If ''ENd of "If (0 = each_field.ElementInfo_Base.TopEdge_Pixels) Then"
+    ''        ''Added 9/6/2019 thomas downes 
+    ''        ''
+    ''        ''   Stagger the elements on the badge layout, in a cascade from
+    ''        '' the upper-left to the lower-right. 
+    ''        '' ------9/6/2019 td
+    ''        ''
+    ''        If (0 = each_field.ElementInfo_Base.TopEdge_Pixels) Then
+    ''            ''Added 9/6/2019 thomas downes 
+    ''            label_control.Width = CInt(pictureBack.Width / 3)
+    ''            With each_field.ElementInfo_Base
+    ''                .Width_Pixels = label_control.Width
+    ''                .Height_Pixels = label_control.Height
+    ''                intStagger = intCountControlsAdded
+    ''                .TopEdge_Pixels = (intStagger * .Height_Pixels)
+    ''                .LeftEdge_Pixels = .TopEdge_Pixels ''Left = Top !! By setting Left = Top, we will create 
+    ''                ''   a nice diagonally-cascading effect. ---9/3/2019 td
+    ''                ''See above. 9/6/2019 td''intCountControlsAdded += 1 ''Added 9/6/2019 td 
+    ''            End With ''End of " With each_field.ElementInfo_Base"
+    ''        End If ''ENd of "If (0 = each_field.ElementInfo_Base.TopEdge_Pixels) Then"
 
-    '''        boolIncludeOnBadge = (par_boolLoadingForm And each_field.IsDisplayedOnBadge)
+    ''        boolIncludeOnBadge = (par_boolLoadingForm And each_field.IsDisplayedOnBadge)
 
-    '''        If (boolIncludeOnBadge) Then
+    ''        If (boolIncludeOnBadge) Then
 
-    '''            Me.Controls.Add(label_control)
-    '''            label_control.Visible = True
-    '''            label_control.BringToFront() ''Added 9/7/2019 thomas d.  
-    '''            ''9/5/2019''label_control.Refresh_Image(True)
-    '''            label_control.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
+    ''            Me.Controls.Add(label_control)
+    ''            label_control.Visible = True
+    ''            label_control.BringToFront() ''Added 9/7/2019 thomas d.  
+    ''            ''9/5/2019''label_control.Refresh_Image(True)
+    ''            label_control.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
 
-    '''            ''Added 9/7/2019 td
-    '''            label_control.Left = Me.Layout_Margin_Left_Add(each_field.ElementInfo_Base.LeftEdge_Pixels)
-    '''            label_control.Top = Me.Layout_Margin_Top_Add(each_field.ElementInfo_Base.TopEdge_Pixels)
+    ''            ''Added 9/7/2019 td
+    ''            label_control.Left = Me.Layout_Margin_Left_Add(each_field.ElementInfo_Base.LeftEdge_Pixels)
+    ''            label_control.Top = Me.Layout_Margin_Top_Add(each_field.ElementInfo_Base.TopEdge_Pixels)
 
-    '''            ''
-    '''            ''Major call !!  ----Thomas DOWNES
-    '''            ''
-    '''            label_control.Refresh_Master()
+    ''            ''
+    ''            ''Major call !!  ----Thomas DOWNES
+    ''            ''
+    ''            label_control.Refresh_Master()
 
-    '''            ''Added 9/8/2019 td
-    '''            If (par_bAddMoveability) Then ControlMoverResizer_AddFieldCtl(label_control)
+    ''            ''Added 9/8/2019 td
+    ''            If (par_bAddMoveability) Then ControlMoverResizer_AddFieldCtl(label_control)
 
-    '''        ElseIf (par_bUnloading) Then
-    '''            ''9/3/2019 td''Me.Controls.Remove(label_control)
-    '''            Throw New NotImplementedException
-    '''
-    '''        End If ''End of "If (boolInludeOnBadge) Then .... ElseIf (....) ...."
-    '''
-    '''    Next each_field
-    '''
-    '''    ''
-    '''    ''Added 8/27/2019 thomas downes
-    '''    ''
-    '''    pictureBack.SendToBack() ''Added 9/7/2019 thomas d.
-    '''    Me.Refresh() ''Added 8/28/2019 td   
-    '''
-    '''    ''9/5/2019 td''MessageBox.Show($"Number of field controls now on the form: {intCountControlsAdded}", "",
-    '''    ''     MessageBoxButtons.OK, MessageBoxIcon.Information)
-    '''
-    '''End Sub ''End of ''Private Sub LoadElements_Fields_OneList()''
+    ''        ElseIf (par_bUnloading) Then
+    ''            ''9/3/2019 td''Me.Controls.Remove(label_control)
+    ''            Throw New NotImplementedException
+    ''
+    ''        End If ''End of "If (boolInludeOnBadge) Then .... ElseIf (....) ...."
+    ''
+    ''    Next each_field
+    ''
+    ''    ''
+    ''    ''Added 8/27/2019 thomas downes
+    ''    ''
+    ''    pictureBack.SendToBack() ''Added 9/7/2019 thomas d.
+    ''    Me.Refresh() ''Added 8/28/2019 td   
+    ''
+    ''    ''9/5/2019 td''MessageBox.Show($"Number of field controls now on the form: {intCountControlsAdded}", "",
+    ''    ''     MessageBoxButtons.OK, MessageBoxIcon.Information)
+    ''
+    ''End Sub ''End of ''Private Sub LoadElements_Fields_OneList()''
 
     'Private Sub LoadFieldControls_ByListOfElements(par_listElements As List(Of ClassElementField),
     '                           par_boolLoadingForm As Boolean,
@@ -1035,9 +1035,9 @@ Public Class FormDesignProtoTwo
     ''        ''9/5 td''label_control.Top = pictureBack.Top
     ''        ''9/5 td''label_control.Left = pictureBack.Left
 
-    ''        ''''Added 9/3/2019 thomas downes
-    ''        ''''   Move into position from the Layout Background's TopLeft corner. 
-    ''        ''''
+    ''        '''Added 9/3/2019 thomas downes
+    ''        '''   Move into position from the Layout Background's TopLeft corner. 
+    ''        '''
     ''        ''9/5 td''label_control.Top += each_field.ElementInfo_Base.TopEdge_Pixels
     ''        ''9/5 td''label_control.Left += each_field.ElementInfo_Base.LeftEdge_Pixels
 
@@ -1213,7 +1213,7 @@ Public Class FormDesignProtoTwo
     ''        ''Moved up.''Me.Controls.Add(new_label_control_std)
 
     ''        ''Inappropriate. 7/29 td''new_label_control_std.Left = ((10 + intNumControlsAlready_std * new_label_control_std.Width) + 10)
-    ''        ''Inappropriate. 7/29 td''''new_label_control_std.Top = 10
+    ''        ''Inappropriate. 7/29 td'''new_label_control_std.Top = 10
     ''        ''Inappropriate. 7/29 td''new_label_control_std.Top = intTopEdge_std
 
     ''        new_label_control_std.Visible = True
@@ -1250,7 +1250,7 @@ Public Class FormDesignProtoTwo
 
     ''        ''Me.Controls.Add(new_label_control_cust)
     ''        ''new_label_control_cust.Left = ((intNumControlsAlready_cust * new_label_control_cust.Width) + 10)
-    ''        ''''7/28 td''new_label_control_cust.Top = (120 + new_label_control_cust.Height)
+    ''        '''7/28 td''new_label_control_cust.Top = (120 + new_label_control_cust.Height)
     ''        ''new_label_control_cust.Top = intTopEdge_cust
     ''        ''new_label_control_cust.Visible = True
 
@@ -1333,7 +1333,7 @@ Public Class FormDesignProtoTwo
     ''        ''Moved up.''Me.Controls.Add(new_label_control_cust)
 
     ''        ''Inappropriate. 7/29 td''new_label_control_std.Left = ((10 + intNumControlsAlready_std * new_label_control_std.Width) + 10)
-    ''        ''Inappropriate. 7/29 td''''new_label_control_std.Top = 10
+    ''        ''Inappropriate. 7/29 td'''new_label_control_std.Top = 10
     ''        ''Inappropriate. 7/29 td''new_label_control_std.Top = intTopEdge_std
 
     ''        intNumControlsAlready_cust += 1
@@ -1913,16 +1913,16 @@ Public Class FormDesignProtoTwo
         ''10/3/2019 td''RefreshPreview()
         mod_designer.RefreshPreview_Redux()
 
-        ''''8/24 td''Dim objPrintLib As New ciLayoutPrintLib.CILayoutBadge
+        '''8/24 td''Dim objPrintLib As New ciLayoutPrintLib.CILayoutBadge
         ''Dim objPrintLib As New ciLayoutPrintLib.LayoutPrint_Redux
         ''Dim listOfElementText_Stdrd As List(Of IElementWithText)
         ''Dim listOfElementText_Custom As List(Of IElementWithText)
 
-        ''''For Each field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students
+        '''For Each field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students
 
-        ''''objPrintLib.LoadImageWithFieldValues(picturePreview.Image,
-        ''''      ClassFieldStandard.ListOfFields_Students,
-        ''''      ClassFieldCustomized.ListOfFields_Students)
+        '''objPrintLib.LoadImageWithFieldValues(picturePreview.Image,
+        '''      ClassFieldStandard.ListOfFields_Students,
+        '''      ClassFieldCustomized.ListOfFields_Students)
 
         ''listOfElementText_Stdrd = ClassFieldStandard.ListOfElementsText_Stdrd()
         ''listOfElementText_Custom = ClassFieldCustomized.ListOfElementsText_Custom()
@@ -2017,14 +2017,14 @@ Public Class FormDesignProtoTwo
 
     ''End Sub ''End of "Private Sub AddField_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)"
 
-    ''''
-    ''''  Simple Drawing Selection Shape (Or Rubberband Shape)       
-    ''''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
-    ''''
-    ''''9/8/2019 td''Private _bRubberBandingOn As Boolean = False '-- State to control if we are drawing the rubber banding object
-    ''''9/8/2019 td''Private _pClickStart As New Point '-- The place where the mouse button went 'down'.
-    ''''9/8/2019 td''Private _pClickStop As New Point '-- The place where the mouse button went 'up'.
-    ''''9/8/2019 td''Private _pNow As New Point '-- Holds the current mouse location to make the shape appear to follow the mouse cursor.
+    '''
+    '''  Simple Drawing Selection Shape (Or Rubberband Shape)       
+    '''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
+    '''
+    '''9/8/2019 td''Private _bRubberBandingOn As Boolean = False '-- State to control if we are drawing the rubber banding object
+    '''9/8/2019 td''Private _pClickStart As New Point '-- The place where the mouse button went 'down'.
+    '''9/8/2019 td''Private _pClickStop As New Point '-- The place where the mouse button went 'up'.
+    '''9/8/2019 td''Private _pNow As New Point '-- Holds the current mouse location to make the shape appear to follow the mouse cursor.
 
     ''Private Sub Layout_MouseDown(sender As Object, e As MouseEventArgs) Handles pictureBack.MouseDown ''----Me.MouseDown
     ''    ''
