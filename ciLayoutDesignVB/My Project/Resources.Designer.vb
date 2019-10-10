@@ -290,6 +290,16 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property QR_Code_BK() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("QR_Code_BK", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property SizeAdjustmentBar() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("SizeAdjustmentBar", resourceCulture)

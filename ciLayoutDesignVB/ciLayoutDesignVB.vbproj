@@ -621,6 +621,7 @@
     <None Include="Resources\AdjustWHColor_V101.jpg" />
     <None Include="Resources\Declaration.jpg" />
     <None Include="Resources\Declaration_BMP.bmp" />
+    <None Include="Resources\QR Code.BK.PNG" />
     <Content Include="Resources\RotatedLayout.png" />
     <None Include="Resources\Font Code39FiveRedA.rtf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

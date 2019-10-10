@@ -33,7 +33,7 @@ Public Class CtlGraphicQRCode
     Public ReadOnly Property Picture_Box As PictureBox
         Get
             ''Added 7/31/2019 td 
-            Return Me.pictureSignature
+            Return Me.pictureQRCode
         End Get
     End Property
 
@@ -75,7 +75,7 @@ Public Class CtlGraphicQRCode
 
         ''Added 9/23/2019 thomas d. 
         Me.Pic_CloneOfInitialImage = CType(ciPictures_VB.PictureExamples.GetImageByIndex(par_elementPic.PicFileIndex, strErrorMessage).Clone(), Image)
-        pictureSignature.Image = CType(Me.Pic_CloneOfInitialImage.Clone(), Image)
+        pictureQRCode.Image = CType(Me.Pic_CloneOfInitialImage.Clone(), Image)
 
         If ("" <> strErrorMessage) Then
             ''Added 8/22/2019  
@@ -112,7 +112,7 @@ Public Class CtlGraphicQRCode
         ''8/22/2019 td''picturePortrait.Image = ciPictures_VB.PictureExamples.GetImageByIndex(par_infoForPic_Pic.PicFileIndex)
 
         Dim strErrorMessage As String = "" ''Added 8/22/2019 td
-        pictureSignature.Image =
+        pictureQRCode.Image =
             ciPictures_VB.PictureExamples.GetImageByIndex(par_infoForPic_Pic.PicFileIndex, strErrorMessage)
 
         If ("" <> strErrorMessage) Then
@@ -180,7 +180,7 @@ Public Class CtlGraphicQRCode
         ''8/22/2019 td''picturePortrait.Image = ciPictures_VB.PictureExamples.GetImageByIndex(Me.ElementInfo_Pic.PicFileIndex)
 
         Dim strErrorMessage As String = ""
-        pictureSignature.Image = ciPictures_VB.PictureExamples.GetImageByIndex(Me.ElementInfo_Pic.PicFileIndex, strErrorMessage)
+        pictureQRCode.Image = ciPictures_VB.PictureExamples.GetImageByIndex(Me.ElementInfo_Pic.PicFileIndex, strErrorMessage)
 
         ''Added 9/20/2019 td
         Me.LayoutFunctions.AutoPreview_IfChecked()
@@ -246,13 +246,13 @@ Public Class CtlGraphicQRCode
                                                             Me.Pic_CloneOfInitialImage)
 
             ''Added 9/24/2019 td
-            pictureSignature.Image = imgPortrait_withRotationIfAny
+            pictureQRCode.Image = imgPortrait_withRotationIfAny
 
             ''Added 9/24/2019 td
             SwitchControl_WidthAndHeight_Master()
 
-            pictureSignature.SizeMode = PictureBoxSizeMode.Zoom
-            pictureSignature.Refresh()
+            pictureQRCode.SizeMode = PictureBoxSizeMode.Zoom
+            pictureQRCode.Refresh()
 
         Else
             RefreshImage_NoMajorCalls()
@@ -323,8 +323,8 @@ Public Class CtlGraphicQRCode
         Dim intStarting_Width As Integer ''Added 8/8/2019 thomas 
         Dim intStarting_Height As Integer ''Added 8/8/2019 thomas
 
-        intStarting_Width = pictureSignature.Width
-        intStarting_Height = pictureSignature.Height
+        intStarting_Width = pictureQRCode.Width
+        intStarting_Height = pictureQRCode.Height
 
         ''9/2/2019''Select Case Me.ElementInfo_Pic.OrientationToLayout
         Select Case Me.ElementInfo_Base.OrientationToLayout
@@ -332,7 +332,7 @@ Public Class CtlGraphicQRCode
                 ''
                 ''Added 8/7/2019 thomas downes 
                 ''
-                image_Pic = pictureSignature.Image
+                image_Pic = pictureQRCode.Image
                 boolSeemsInPortraitMode = (image_Pic.Height > image_Pic.Width)
                 boolLetsRotate90 = True ''boolSeemsInPortraitMode
                 boolLetsRotate90 = (Me.ElementInfo_Base.OrientationInDegrees > 0)
@@ -347,7 +347,7 @@ Public Class CtlGraphicQRCode
                         ''Added 8/7/2019 thomas downes 
                         ''8/7 td''image_Rotated = CType(image_Pic.Clone, Image)
 
-                        image_Pic = pictureSignature.Image
+                        image_Pic = pictureQRCode.Image
                         bm_rotation = New Bitmap(image_Pic)
                         bm_rotation.RotateFlip(RotateFlipType.Rotate90FlipNone)
 
@@ -359,17 +359,17 @@ Public Class CtlGraphicQRCode
                         ''8/8 td''picturePortrait.Width = bm_rotation.Width
                         ''8/8 td''picturePortrait.Height = bm_rotation.Height
 
-                        pictureSignature.Width = intStarting_Height ''Switching!! Height & Width are switched.
-                        pictureSignature.Height = intStarting_Width ''Switching!! Height & Width are switched.
+                        pictureQRCode.Width = intStarting_Height ''Switching!! Height & Width are switched.
+                        pictureQRCode.Height = intStarting_Width ''Switching!! Height & Width are switched.
 
                         Me.Width = intStarting_Height ''Switching!!  Height & Width are switched. ---8/8/2019 td
                         Me.Height = intStarting_Width ''Switching!!  Height & Width are switched. ---8/8/2019 td 
 
-                        pictureSignature.Refresh()
+                        pictureQRCode.Refresh()
 
-                        pictureSignature.Image = bm_rotation
-                        pictureSignature.SizeMode = PictureBoxSizeMode.Zoom
-                        pictureSignature.Refresh()
+                        pictureQRCode.Image = bm_rotation
+                        pictureQRCode.SizeMode = PictureBoxSizeMode.Zoom
+                        pictureQRCode.Refresh()
 
                         ''8/7 td''Me.Width = image_Rotated.Width
                         ''8/7 td'' Me.Height = image_Rotated.Height
@@ -534,7 +534,7 @@ Public Class CtlGraphicQRCode
             Case 90, 270
 
                 ''Double-check the orientation.  ----9/23/2019 td
-                boolImageRotated_0_180 = (Me.pictureSignature.Image.Width < Me.pictureSignature.Image.Height)
+                boolImageRotated_0_180 = (Me.pictureQRCode.Image.Width < Me.pictureQRCode.Image.Height)
                 If (boolImageRotated_0_180) Then
                     Throw New Exception("Image dimensions are not expected.")
                 End If ''End of "If (boolImageRotated_0_180) Then"
@@ -583,7 +583,7 @@ ExitHandler:
         ''Encapsulated 9/23/2019 td 
         Const c_SemiCircle_Degrees As Integer = 180
         boolRotationExpected = (0 <> Me.ElementClass_Obj.OrientationInDegrees Mod c_SemiCircle_Degrees)
-        ClassElementField.CheckWidthVsLength_OfText(Me.pictureSignature.Image.Width, Me.pictureSignature.Image.Height, boolRotationExpected)
+        ClassElementField.CheckWidthVsLength_OfText(Me.pictureQRCode.Image.Width, Me.pictureQRCode.Image.Height, boolRotationExpected)
 
         Return boolReturnValue
 
@@ -618,15 +618,15 @@ ExitHandler:
 
         ''Encapsulated 9/23/2019 td 
         boolRotationExpected = (0 <> Me.ElementClass_Obj.OrientationInDegrees Mod c_SemiCircle_Degrees)
-        ClassElementField.CheckWidthVsLength_OfText(Me.pictureSignature.Image.Width, Me.pictureSignature.Image.Height, boolRotationExpected)
+        ClassElementField.CheckWidthVsLength_OfText(Me.pictureQRCode.Image.Width, Me.pictureQRCode.Image.Height, boolRotationExpected)
 
         Return boolReturnValue
 
     End Function ''End of "Public Function Rotated_180_360() As Boolean"
 
-    Private Sub PictureLabel_MouseClick(sender As Object, e As MouseEventArgs) Handles pictureSignature.MouseClick
+    Private Sub PictureLabel_MouseClick(sender As Object, e As MouseEventArgs) Handles pictureQRCode.MouseClick
 
     End Sub
 
-End Class ''End of Public Class CtlGraphicPortrait 
+End Class ''End of Public Class CtlGraphicQRCode 
 

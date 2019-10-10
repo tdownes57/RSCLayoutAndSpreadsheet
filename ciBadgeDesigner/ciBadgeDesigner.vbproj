@@ -157,6 +157,9 @@
     <EmbeddedResource Include="Controls\CtlGraphicQRCode.resx">
       <DependentUpon>CtlGraphicQRCode.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtlGraphicSignature.resx">
+      <DependentUpon>CtlGraphicSignature.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlGraphicText.resx">
       <DependentUpon>CtlGraphicText.vb</DependentUpon>
     </EmbeddedResource>
@@ -233,6 +236,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ciSigPlus_NET45.dll" />
+    <None Include="Resources\QR Code.BK.PNG" />
+    <None Include="Resources\Declaration.bmp" />
+    <None Include="Resources\Declaration.emf" />
+    <None Include="Resources\Declaration.jpg" />
+    <None Include="Resources\Declaration _png.png" />
+    <None Include="Resources\Declaration_bmp.bmp" />
+    <None Include="Resources\Declaration_emf.emf" />
+    <None Include="Resources\Declaration_jpg.jpg" />
     <Content Include="SigPlusNET.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
