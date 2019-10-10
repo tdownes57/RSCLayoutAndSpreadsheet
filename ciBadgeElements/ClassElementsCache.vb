@@ -365,7 +365,13 @@ Public Class ClassElementsCache
             copy_ofField = each_field.Copy()
             objCopyOfCache.ListFields().Add(copy_ofField)
             ListFields_NotUsed.Add(copy_ofField)
-            dictionaryFields.Add(copy_ofField.FieldEnumValue, copy_ofField)
+            Try
+                dictionaryFields.Add(copy_ofField.FieldEnumValue, copy_ofField)
+            Catch ex_AddFailed As Exception
+                ''Added 10/10/2019 td
+                ''  The ID field is being added twice, for an unknown reason.  
+                System.Diagnostics.Debugger.Break()
+            End Try
         Next each_field
 
         ''Added 9/17/2019 thomas downes  

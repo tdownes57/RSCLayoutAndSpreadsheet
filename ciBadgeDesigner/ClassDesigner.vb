@@ -706,6 +706,35 @@ Public Class ClassDesigner
 
     End Sub ''End of "PRivate Sub SaveLayout()"  
 
+    Private Sub SaveControlPositionsToElement()
+        ''
+        ''Save location & sizing data each element that corresponds to each designer control.
+        ''  ----10/10/2019 td 
+        ''
+        Dim each_graphicalFieldCtl As CtlGraphicFldLabel ''Added 10/10/2019 td
+        Dim each_portraitControl As CtlGraphicPortrait ''Added 10/10/2019 td
+
+        For Each each_control As Control In Me.DesignerForm.Controls
+
+            If (TypeOf each_control Is CtlGraphicFldLabel) Then
+
+                each_graphicalFieldCtl = CType(each_control, CtlGraphicFldLabel)
+
+                each_graphicalFieldCtl.SaveToModel()
+
+            ElseIf (TypeOf each_control Is CtlGraphicPortrait) Then
+                ''
+                ''Added 7/31/2019 thomas downes  
+                ''
+                each_portraitControl = CType(each_control, CtlGraphicPortrait)
+                each_portraitControl.SaveToModel()
+
+            End If ''end of "If (TypeOf each_control Is GraphicFieldLabel) Then .... ElseIf ..."
+
+        Next each_control
+
+    End Sub ''End of "Private Sub SaveControlPositionsToElement()"
+
     Public Sub RefreshPreview_Redux()
         ''
         ''Added 10/5/2019 & 8/24/2019 td 
@@ -1376,6 +1405,7 @@ Public Class ClassDesigner
         If (CheckboxAutoPreview.Checked) Then
             ''--o----No longer needed. The preview is driven by Me.ElementsCache_Edits.---10/10/2019 td
             ''--o--SaveLayout()
+            SaveControlPositionsToElement() ''Added 10/10/2019 td
             RefreshPreview_Redux()
         End If ''End of "If (checkAutoPreview.Checked) Then"
 
@@ -1420,6 +1450,13 @@ Public Class ClassDesigner
 
     Private Sub mod_sizingPic_events_Resizing_End() Handles mod_sizingPic_events.Resizing_End
         ''Added 10/9/2019 td 
+        AutoPreview_IfChecked()
+
+    End Sub
+
+    Private Sub mod_sizingPic_events_MoveInUnison(deltaLeft As Integer, deltaTop As Integer, deltaWidth As Integer, deltaHeight As Integer) Handles mod_sizingPic_events.MoveInUnison
+
+        ''Added 10/10/2019 td
         AutoPreview_IfChecked()
 
     End Sub

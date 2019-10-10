@@ -331,6 +331,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="modFonts.vb" />
+    <Compile Include="Notes\CodeDeletedFromProtoTwo.vb" />
     <Compile Include="Version830_v101.Designer.vb">
       <DependentUpon>Version830_v101.vb</DependentUpon>
     </Compile>
