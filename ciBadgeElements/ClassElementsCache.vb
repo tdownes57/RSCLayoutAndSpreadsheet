@@ -429,20 +429,52 @@ Public Class ClassElementsCache
     End Function ''End of "Public Function GetElementByGUID(par_guid As System.Guid) As ClassElementField"
 
     Public Function MissingTheFields() As Boolean
-        ''
         ''Added 10/10/2019 td 
-        ''
         Return (0 = mod_listFields.Count)
 
     End Function ''ENd of "Public Function MissingTheFields() As Boolean"
 
     Public Function MissingTheElementFields() As Boolean
-        ''
         ''Added 10/10/2019 td 
-        ''
         Return (0 = mod_listElementFields.Count)
 
     End Function ''ENd of "Public Function MissingTheElementFields() As Boolean"
+
+    Public Function MissingTheElementPic() As Boolean
+        ''Added 10/10/2019 td 
+        Return (0 = mod_listElementPics.Count)
+
+    End Function ''ENd of "Public Function MissingTheElementPic() As Boolean"
+
+    Public Function MissingTheQRCode() As Boolean
+        ''Added 10/10/2019 td 
+        Return (Me.ElementQRCode Is Nothing)
+
+    End Function ''ENd of "Public Function MissingTheQRCode() As Boolean"
+
+    Public Function MissingTheSignature() As Boolean
+        ''Added 10/10/2019 td 
+        Return (Me.ElementSignature Is Nothing)
+
+    End Function ''ENd of "Public Function MissingTheSignature() As Boolean"
+
+    Public Function GetFieldByLabelCaption(par_caption As String) As ClassFieldAny
+        ''Added 10/10/2019 td 
+        Return (Nothing)
+
+    End Function ''ENd of "Public Function GetFieldByLabelCaptionpar_caption As String) As ClassFieldAny"
+
+    Public Function GetElementByLabelCaption(par_caption As String) As ClassElementField
+        ''Added 10/10/2019 td 
+        Return (Nothing)
+
+    End Function ''ENd of "Public Function GetFieldByLabelCaptionpar_caption As String) As ClassFieldAny"
+
+    Public Function GetElementByField(par_field As ClassFieldAny) As ClassElementField
+        ''Added 10/10/2019 td 
+        Return (Nothing)
+
+    End Function ''ENd of "Public Function GetFieldByLabelCaptionpar_caption As String) As ClassFieldAny"
 
     ''Private Sub LoadElements_Picture()
     ''    ''
