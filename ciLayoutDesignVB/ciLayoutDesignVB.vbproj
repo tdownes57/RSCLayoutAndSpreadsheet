@@ -619,6 +619,8 @@
     </None>
     <None Include="Resources\CI_Logo.bmp" />
     <None Include="Resources\AdjustWHColor_V101.jpg" />
+    <None Include="Resources\Declaration.jpg" />
+    <None Include="Resources\Declaration_BMP.bmp" />
     <Content Include="Resources\RotatedLayout.png" />
     <None Include="Resources\Font Code39FiveRedA.rtf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

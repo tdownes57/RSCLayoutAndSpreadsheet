@@ -154,6 +154,9 @@
     <EmbeddedResource Include="Controls\CtlGraphicPortrait.resx">
       <DependentUpon>CtlGraphicPortrait.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtlGraphicQRCode.resx">
+      <DependentUpon>CtlGraphicQRCode.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlGraphicText.resx">
       <DependentUpon>CtlGraphicText.vb</DependentUpon>
     </EmbeddedResource>

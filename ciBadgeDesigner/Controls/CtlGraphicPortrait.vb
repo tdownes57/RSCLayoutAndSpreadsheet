@@ -22,6 +22,8 @@ Public Class CtlGraphicPortrait
     Public ElementInfo_Pic As IElementPic ''Added 7/31/2019 thomas d 
     Public ElementInfo_Base As IElement_Base ''Added 7/31/2019 thomas d 
 
+    Public Event ElementPic_RightClicked(par_control As CtlGraphicPortrait) ''Added 10/10/2019 td
+
     ''9/9/2019 td''Public FormDesigner As FormDesignProtoTwo ''Added 9/4/2019 td
     ''9/20/2019 td''Public FormDesigner As ILayoutFunctions ''Modified 9/9/2019 td
     Public LayoutFunctions As ILayoutFunctions ''Modified 9/9/2019 td
@@ -435,7 +437,7 @@ Public Class CtlGraphicPortrait
                 End If ''End of "If (bHeightIsCloseToBaseWidth) Then"
 
             Else
-                    Try
+                Try
                     ''First try-- Set Width first, and then height.  ---9/23/2019 
                     Me.ElementInfo_Base.Width_Pixels = Me.Width
                     Me.ElementInfo_Base.Height_Pixels = Me.Height
@@ -460,9 +462,9 @@ Public Class CtlGraphicPortrait
             ''9/20/2019 td''Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.FormDesigner.Layout_Height_Pixels()
 
             Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.LayoutFunctions.Layout_Width_Pixels()
-                Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
+            Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
 
-            End If ''End of "If (Me.ElementInfo_Base IsNot Nothing) Then"
+        End If ''End of "If (Me.ElementInfo_Base IsNot Nothing) Then"
 
     End Sub ''End of Public Sub SaveToModel
 
@@ -662,5 +664,5 @@ ExitHandler:
 
     End Sub
 
-End Class
+End Class ''End of Public Class CtlGraphicPortrait 
 
