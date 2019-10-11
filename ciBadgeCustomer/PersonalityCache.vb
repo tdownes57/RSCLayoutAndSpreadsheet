@@ -3,6 +3,7 @@
 ''
 Imports ciBadgeFields ''Added 10/11/2019 td
 Imports ciBadgeElements ''Added 10/11/2019 td
+Imports ciBadgeRecipients ''Added 10/11/2019 td 
 
 <Serializable>
 Public Class PersonalityCache
@@ -14,6 +15,7 @@ Public Class PersonalityCache
 
     Public Property PathToXml_Saved As String ''Added 10/11/2019 td
 
+    Public Property ListOfRecipients As List(Of ClassRecipient) ''Added 10/11/2019 td
     Public Property ListOfFields As List(Of ClassFieldAny) ''Added 10/11/2019 td
 
     Public Property ElementFields_DataEntry_V8 As List(Of ClassElementField)
