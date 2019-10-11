@@ -47,6 +47,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ciBadgeGenerator", "ciBadge
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ciSigPlus_NET45", "..\ciSigPlus\ciSigPlus_NET45.vbproj", "{DDC3F524-3672-4893-B23D-BB462AC673AD}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ciBadgeCustomer", "ciBadgeCustomer\ciBadgeCustomer.vbproj", "{02F14561-E867-47EA-9B91-990B0BBB597F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -231,6 +233,14 @@ Global
 		{DDC3F524-3672-4893-B23D-BB462AC673AD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DDC3F524-3672-4893-B23D-BB462AC673AD}.Release|x86.ActiveCfg = Release|Any CPU
 		{DDC3F524-3672-4893-B23D-BB462AC673AD}.Release|x86.Build.0 = Release|Any CPU
+		{02F14561-E867-47EA-9B91-990B0BBB597F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02F14561-E867-47EA-9B91-990B0BBB597F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02F14561-E867-47EA-9B91-990B0BBB597F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{02F14561-E867-47EA-9B91-990B0BBB597F}.Debug|x86.Build.0 = Debug|Any CPU
+		{02F14561-E867-47EA-9B91-990B0BBB597F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02F14561-E867-47EA-9B91-990B0BBB597F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02F14561-E867-47EA-9B91-990B0BBB597F}.Release|x86.ActiveCfg = Release|Any CPU
+		{02F14561-E867-47EA-9B91-990B0BBB597F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
