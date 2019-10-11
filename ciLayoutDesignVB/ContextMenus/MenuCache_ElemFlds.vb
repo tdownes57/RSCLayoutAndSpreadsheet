@@ -1,8 +1,9 @@
 ﻿''
 ''Added 10/2/2019 thomas downes  
 ''
+Imports System.Reflection ''Added 10/11/2019 td  
 
-Public Class ClassMenuCache_Fields
+Public Class MenuCache_ElemFlds
     ''
     ''Added 10/2/2019 thomas downes  
     ''
@@ -15,6 +16,8 @@ Public Class ClassMenuCache_Fields
     Public Shared Tools_ManageGroupedCtls As New List(Of ToolStripMenuItem)
     Public Shared Tools_AlignmentFeatures As New List(Of ToolStripMenuItem)
     ''--Public Shared Tools_EditBackgroundMenu As New List(Of ToolStripMenuItem)
+
+    Private Shared mod_operations As New Operations_EditElement ''Added 10/11/2019 td  
 
     Public Shared Sub GenerateMenuItems()
         ''
@@ -56,9 +59,9 @@ Public Class ClassMenuCache_Fields
         ''// Using Reflection to get information of an Assembly  
         ''System.Reflection.Assembly info = TypeOf (System.Int32).Assembly;
 
-        Dim t As Type = mod_classMenuMethods.GetType
+        Dim t As Type = mod_operations.GetType
 
-        mod_classMenuMethods.ParentForm = Me
+        ''10/11/2019 td''mod_methods.ParentForm = Me
 
         For Each each_methodInfo In t.GetMethods()
 
@@ -130,13 +133,13 @@ Public Class ClassMenuCache_Fields
                 ''
                 ''   https://stackoverflow.com/questions/1121441/addeventhandler-using-reflection
                 ''
-                Dim type_LinkLabel As Type = mod_classMenuMethods.MyLinkLabel.GetType
+                Dim type_LinkLabel As Type = mod_operations.MyLinkLabel.GetType
                 Dim event_linkClicked As Reflection.EventInfo
 
                 Try
                     event_linkClicked = type_LinkLabel.GetEvent("LinkClicked", objBindingFlags)
                     Dim my_click_handler As [Delegate]
-                    my_click_handler = [Delegate].CreateDelegate(event_linkClicked.EventHandlerType, mod_classMenuMethods, each_methodInfo)
+                    my_click_handler = [Delegate].CreateDelegate(event_linkClicked.EventHandlerType, mod_operations, each_methodInfo)
 
                     ''---link_clicked.AddEventHandler(Me, my_handler) '', BindingFlags.Public)
                     ''---link_clicked.AddEventHandler(mod_classMenuMethods, my_handler)
@@ -153,8 +156,10 @@ Public Class ClassMenuCache_Fields
                 End Try
 
             Else
+                ''
                 ''Added 9/23/2019 thomas downes  
-                mod_classMenuMethods.AddEventHandlerLinkClicked_NotUsed(each_link)
+                ''
+                ''Obselete manual process. Too laborious.''mod_operations.AddEventHandlerLinkClicked_NotUsed(each_link)
 
             End If ''End of "If (bAddEventHandler_Reflection) Then .... Else ...."
 

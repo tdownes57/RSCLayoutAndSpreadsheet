@@ -9,10 +9,13 @@ Imports ciBadgeInterfaces
 Imports ciBadgeDesigner
 Imports ciBadgeElements
 
-Public Class Methods_EditElement
+Public Class Operations_EditElement
     ''
     ''Added 10/1/2019 td
     ''
+    Public WithEvents MyLinkLabel As New LinkLabel ''Added 10/11/2019 td 
+    Public WithEvents MyToolstripItem As New ToolStripMenuItem ''Added 10/11/2019 td 
+
     Public Property CtlCurrentElement As ciBadgeDesigner.CtlGraphicFldLabel ''CtlGraphicFldLabel
     Public Property LayoutFunctions As ILayoutFunctions ''Added 10/3/2019 td 
     Public Property Designer As ciBadgeDesigner.ClassDesigner

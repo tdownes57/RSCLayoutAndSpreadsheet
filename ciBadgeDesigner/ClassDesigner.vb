@@ -219,11 +219,12 @@ Public Class ClassDesigner
         End If ''End of "If (Me.ElementsCache_Saved.MissingTheSignature) Then"
 
         ''Added 10/10/2019 td
-        If (Me.ElementsCache_Saved.MissingTheText) Then ''Added 10/10/2019 td
+        If (Me.ElementsCache_Saved.MissingTheElementTexts) Then ''Added 10/10/2019 td
             ''Added 10/10/2019 td
-            Me.ElementsCache_Saved.LoadElement_Text(Initial_Text_Left, Initial_Text_Top,
+            Me.ElementsCache_Saved.LoadElement_Text("This is text which will be the same for everyone.",
+                                                    Initial_Text_Left, Initial_Text_Top,
                                                    Initial_Text_Width, Initial_Text_Height, Me.BackgroundBox) ''Added 9/19/2019 td
-        End If ''End of "If (Me.ElementsCache_Saved.MissingTheSignature) Then"
+        End If ''End of "If (Me.ElementsCache_Saved.MissingTheElementTexts) Then"
 
         ''Added 9/24/2019 thomas 
         ''  10/1/2019 td''Dim serial_tools As New ciBadgeSerialize.ClassSerial

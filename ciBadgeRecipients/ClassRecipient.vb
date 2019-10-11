@@ -22,7 +22,6 @@ Public Class ClassRecipient
     ''
     Public Shared mod_recipientList As IList(Of ClassRecipient) = New List(Of ClassRecipient) ''{New ClassRecipient() }
 
-
     Public Property ID_Guid As System.Guid
 
     Public Property Customer_Guid As System.Guid

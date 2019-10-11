@@ -6,11 +6,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{FB60907F-05CD-474D-967E-831B7BA2D517}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>ciLayoutDesignVB.My.MyApplication</StartupObject>
+    <StartupObject>Sub Main</StartupObject>
     <RootNamespace>ciLayoutDesignVB</RootNamespace>
     <AssemblyName>ciLayoutDesignVB</AssemblyName>
     <FileAlignment>512</FileAlignment>
-    <MyType>WindowsForms</MyType>
+    <MyType>WindowsFormsWithCustomSubMain</MyType>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -81,8 +81,8 @@
     <Compile Include="ClassGroupMove.vb" />
     <Compile Include="ClassLabelToImage.vb" />
     <Compile Include="ClassRubberbandSelector.vb" />
-    <Compile Include="ContextMenus\ClassMenuCache_Fields.vb" />
-    <Compile Include="ContextMenus\Methods_EditElement.vb" />
+    <Compile Include="ContextMenus\MenuCache_ElemFlds.vb" />
+    <Compile Include="ContextMenus\Operations_EditElement.vb" />
     <Compile Include="ContextMenus_Obselete\ClassMenuMethods.vb" />
     <Compile Include="ContextMenus_Obselete\ContextLayoutBackground.Designer.vb">
       <DependentUpon>ContextLayoutBackground.vb</DependentUpon>
@@ -332,6 +332,7 @@
     </Compile>
     <Compile Include="modFonts.vb" />
     <Compile Include="Notes\CodeDeletedFromProtoTwo.vb" />
+    <Compile Include="Startup.vb" />
     <Compile Include="Version830_v101.Designer.vb">
       <DependentUpon>Version830_v101.vb</DependentUpon>
     </Compile>
@@ -662,6 +663,10 @@
     <ProjectReference Include="..\..\ciBadgeForWeb\ciPictures_VB\ciPictures_VB.vbproj">
       <Project>{a5fe9f7b-4075-43c5-892b-01e2cfec342c}</Project>
       <Name>ciPictures_VB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ciBadgeCustomer\ciBadgeCustomer.vbproj">
+      <Project>{02f14561-e867-47ea-9b91-990b0bbb597f}</Project>
+      <Name>ciBadgeCustomer</Name>
     </ProjectReference>
     <ProjectReference Include="..\ciBadgeDesigner\ciBadgeDesigner.vbproj">
       <Project>{3a21a08c-c694-4f11-9838-91fff99a5d82}</Project>

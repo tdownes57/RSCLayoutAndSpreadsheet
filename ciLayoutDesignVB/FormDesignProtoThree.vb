@@ -37,10 +37,10 @@ Public Class FormDesignProtoThree
             ''10/1/2019''intPicWidth = CtlGraphicPortrait_Lady.Width
             ''10/1/2019''intPicHeight = CtlGraphicPortrait_Lady.Height
 
-            .Initialize_Pic_Left = .Layout_Margin_Left_Omit(Me.CtlGraphicPortrait_Lady.Left)
-            .Initialize_Pic_Top = .Layout_Margin_Top_Omit(Me.CtlGraphicPortrait_Lady.Top)
-            .Initialize_Pic_Width = Me.CtlGraphicPortrait_Lady.Width
-            .Initialize_Pic_Height = Me.CtlGraphicPortrait_Lady.Height
+            .Initial_Pic_Left = .Layout_Margin_Left_Omit(Me.CtlGraphicPortrait_Lady.Left)
+            .Initial_Pic_Top = .Layout_Margin_Top_Omit(Me.CtlGraphicPortrait_Lady.Top)
+            .Initial_Pic_Width = Me.CtlGraphicPortrait_Lady.Width
+            .Initial_Pic_Height = Me.CtlGraphicPortrait_Lady.Height
 
             .LoadDesigner()
 

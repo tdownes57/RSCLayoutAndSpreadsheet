@@ -14,15 +14,19 @@ Imports ciBadgeFields ''Added 9/18/2019 td
 Imports ciBadgeElements ''Added 9/18/2019 td
 Imports ciBadgeDesigner ''Added 10/3/2019 td
 Imports ciBadgeRecipients ''Added 10/11/2019 thomas d.  
+Imports ciBadgeCustomer ''Added 10/11/2019 thomas d.  
 
 Public Class FormDesignProtoTwo
     ''10/3/2019 td''Implements ILayoutFunctions ''-----, ISelectingElements, ILayoutFunctions
     ''
     ''Added 7/18/2019 Thomas DOWNES
     ''
+    Public Property PersonalityCache As ciBadgeCustomer.PersonalityCache ''Added 10/11/2019 td 
+
     ''Added 9/16/2019 thomas downes
     Public Property ElementsCache_Saved As New ClassElementsCache ''Added 9/16/2019 thomas downes
     Public Property ElementsCache_Edits As New ClassElementsCache ''Added 9/16/2019 thomas downes
+
 
     Private mod_designer As New ciBadgeDesigner.ClassDesigner ''Added 10/3/2019 td
 

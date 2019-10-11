@@ -398,7 +398,7 @@ Public Class ClassElementsCache
 
         objRectangle = New Rectangle(intLeft, intTop, par_intWidth, par_intHeight)
 
-        objElementText = New ClassElementStaticText(par_DisplayText As String, intLeft, intTop, par_intHeight)
+        objElementText = New ClassElementStaticText(par_DisplayText, intLeft, intTop, par_intHeight)
 
         mod_listElementStatics.Add(objElementText)
 
@@ -508,6 +508,12 @@ Public Class ClassElementsCache
         Return (0 = mod_listElementFields.Count)
 
     End Function ''ENd of "Public Function MissingTheElementFields() As Boolean"
+
+    Public Function MissingTheElementTexts() As Boolean
+        ''Added 10/11/2019 td 
+        Return (0 = mod_listElementStatics.Count)
+
+    End Function ''ENd of "Public Function MissingTheElementTexts() As Boolean"
 
     Public Function MissingTheElementPic() As Boolean
         ''Added 10/10/2019 td 
