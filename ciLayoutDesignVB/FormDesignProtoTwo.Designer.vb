@@ -87,6 +87,9 @@ Partial Class FormDesignProtoTwo
         Me.CtlGraphicText1 = New ciBadgeDesigner.CtlGraphicText()
         Me.CtlGraphicSignature1 = New ciBadgeDesigner.CtlGraphicSignature()
         Me.CtlGraphicQRCode1 = New ciBadgeDesigner.CtlGraphicQRCode()
+        Me.BadgeRecipientsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ShowBadgeRecipientsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CloseListOfRecipentsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -138,7 +141,7 @@ Partial Class FormDesignProtoTwo
         'MenuStrip1
         '
         Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RightClickMenuParent, Me.ToolStripMenuItem1, Me.ConfigurationOfFieldsEtcToolStripMenuItem, Me.DesignLayoutToolStripMenuItem, Me.BackgroundImagesToolStripMenuItem, Me.DemoModeVideoToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RightClickMenuParent, Me.ToolStripMenuItem1, Me.ConfigurationOfFieldsEtcToolStripMenuItem, Me.DesignLayoutToolStripMenuItem, Me.BackgroundImagesToolStripMenuItem, Me.DemoModeVideoToolStripMenuItem, Me.BadgeRecipientsToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(1245, 24)
@@ -492,8 +495,8 @@ Partial Class FormDesignProtoTwo
         '
         Me.flowSidebar.BackColor = System.Drawing.SystemColors.Info
         Me.flowSidebar.Controls.Add(Me.LinkCloseSidebar)
-        Me.flowSidebar.Dock = System.Windows.Forms.DockStyle.Left
-        Me.flowSidebar.Location = New System.Drawing.Point(0, 24)
+        Me.flowSidebar.Dock = System.Windows.Forms.DockStyle.Right
+        Me.flowSidebar.Location = New System.Drawing.Point(1223, 24)
         Me.flowSidebar.Name = "flowSidebar"
         Me.flowSidebar.Size = New System.Drawing.Size(22, 567)
         Me.flowSidebar.TabIndex = 54
@@ -614,6 +617,25 @@ Partial Class FormDesignProtoTwo
         Me.CtlGraphicQRCode1.Size = New System.Drawing.Size(95, 98)
         Me.CtlGraphicQRCode1.TabIndex = 65
         '
+        'BadgeRecipientsToolStripMenuItem
+        '
+        Me.BadgeRecipientsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ShowBadgeRecipientsToolStripMenuItem, Me.CloseListOfRecipentsToolStripMenuItem})
+        Me.BadgeRecipientsToolStripMenuItem.Name = "BadgeRecipientsToolStripMenuItem"
+        Me.BadgeRecipientsToolStripMenuItem.Size = New System.Drawing.Size(109, 20)
+        Me.BadgeRecipientsToolStripMenuItem.Text = "Badge Recipients"
+        '
+        'ShowBadgeRecipientsToolStripMenuItem
+        '
+        Me.ShowBadgeRecipientsToolStripMenuItem.Name = "ShowBadgeRecipientsToolStripMenuItem"
+        Me.ShowBadgeRecipientsToolStripMenuItem.Size = New System.Drawing.Size(251, 22)
+        Me.ShowBadgeRecipientsToolStripMenuItem.Text = "Show Badge Recipients in Sidebar"
+        '
+        'CloseListOfRecipentsToolStripMenuItem
+        '
+        Me.CloseListOfRecipentsToolStripMenuItem.Name = "CloseListOfRecipentsToolStripMenuItem"
+        Me.CloseListOfRecipentsToolStripMenuItem.Size = New System.Drawing.Size(251, 22)
+        Me.CloseListOfRecipentsToolStripMenuItem.Text = "Close List of Recipents"
+        '
         'FormDesignProtoTwo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 17.0!)
@@ -728,4 +750,7 @@ Partial Class FormDesignProtoTwo
     Friend WithEvents CtlGraphicQRCode1 As ciBadgeDesigner.CtlGraphicQRCode
     Friend WithEvents CtlGraphicSignature1 As ciBadgeDesigner.CtlGraphicSignature
     Friend WithEvents CtlGraphicText1 As ciBadgeDesigner.CtlGraphicText
+    Friend WithEvents BadgeRecipientsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ShowBadgeRecipientsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents CloseListOfRecipentsToolStripMenuItem As ToolStripMenuItem
 End Class

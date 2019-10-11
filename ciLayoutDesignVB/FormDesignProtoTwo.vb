@@ -13,6 +13,7 @@ Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d.
 Imports ciBadgeFields ''Added 9/18/2019 td 
 Imports ciBadgeElements ''Added 9/18/2019 td
 Imports ciBadgeDesigner ''Added 10/3/2019 td
+Imports ciBadgeRecipients ''Added 10/11/2019 thomas d.  
 
 Public Class FormDesignProtoTwo
     ''10/3/2019 td''Implements ILayoutFunctions ''-----, ISelectingElements, ILayoutFunctions
@@ -1141,4 +1142,31 @@ Public Class FormDesignProtoTwo
         End If ''End of "If (intConfirm = DialogResult.Yes) Then"
 
     End Sub
+
+    Private Sub ShowBadgeRecipientsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ShowBadgeRecipientsToolStripMenuItem.Click
+        ''
+        ''Added 10/11/2019 thomas downes
+        ''
+        Dim list_recips As List(Of ClassRecipient) ''Added 10/11/2019 thomas downes
+        Dim each_recip As ClassRecipient ''Added 10/11/2019 thomas downes
+
+        With flowSidebar
+
+            .Width = 200
+            .Visible = True
+            .Controls.Clear()
+
+            list_recips = Me.PersonalityCache.ListOfRecipients
+
+            For Each each_recip In list_recips
+
+
+
+            Next each_recip
+
+        End With
+
+
+    End Sub ''End of "Private Sub ShowBadgeRecipientsToolStripMenuItem_Click"
+
 End Class
