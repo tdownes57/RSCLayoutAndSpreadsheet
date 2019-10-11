@@ -51,10 +51,25 @@ Public Class ClassDesigner
     ''----Public Property ControlMoverOrResizer_TD As New MoveAndResizeControls_Monem.ControlMoverOrResizer_TD ''Added 10/1/2019 td
     ''----Public Property ControlMove_GroupMove_TD As New MoveAndResizeControls_Monem.ControlMove_GroupMove_TD ''Added 10/1/2019 td
 
-    Public Property PicInitialize_Left As Integer
-    Public Property PicInitialize_Top As Integer
-    Public Property PicInitialize_Width As Integer = 150 ''Default value added 10/1/2019 thomas downes
-    Public Property PicInitialize_Height As Integer = 182 ''Default value added 10/1/2019 thomas downes
+    Public Property Initial_Pic_Left As Integer
+    Public Property Initial_Pic_Top As Integer
+    Public Property Initial_Pic_Width As Integer = 150 ''Default value added 10/1/2019 thomas downes
+    Public Property Initial_Pic_Height As Integer = 182 ''Default value added 10/1/2019 thomas downes
+
+    Public Property Initial_QR_Left As Integer
+    Public Property Initial_QR_Top As Integer
+    Public Property Initial_QR_Width As Integer = 100 ''Default value added 10/10/2019 thomas downes
+    Public Property Initial_QR_Height As Integer = 100 ''Default value added 10/10/2019 thomas downes
+
+    Public Property Initial_Sig_Left As Integer
+    Public Property Initial_Sig_Top As Integer
+    Public Property Initial_Sig_Width As Integer = 314 ''Default value added 10/10/2019 thomas downes
+    Public Property Initial_Sig_Height As Integer = 100 ''Default value added 10/10/2019 thomas downes
+
+    Public Property Initial_Text_Left As Integer
+    Public Property Initial_Text_Top As Integer
+    Public Property Initial_Text_Width As Integer = 350 ''Default value added 10/1/2019 thomas downes
+    Public Property Initial_Text_Height As Integer = 30 ''Default value added 10/1/2019 thomas downes
 
     ''#1 8-3-2019 td''Private WithEvents mod_moveAndResizeCtls_NA As New MoveAndResizeControls_Monem.ControlMove_RaiseEvents ''Added 8/3/2019 td  
     '' #2 8-3-2019 td''Private WithEvents mod_moveAndResizeCtls As New MoveAndResizeControls_Monem.ControlMove_GroupMove ''Added 8/3/2019 td  
@@ -175,10 +190,10 @@ Public Class ClassDesigner
         ''10/1/2019 td''intPicHeight = CtlGraphicPortrait_Lady.Height
 
         ''Added 10/01/2019 td
-        intPicLeft = Me.PicInitialize_Left
-        intPicTop = Me.PicInitialize_Top
-        intPicWidth = Me.PicInitialize_Width
-        intPicHeight = Me.PicInitialize_Height
+        intPicLeft = Me.Initial_Pic_Left
+        intPicTop = Me.Initial_Pic_Top
+        intPicWidth = Me.Initial_Pic_Width
+        intPicHeight = Me.Initial_Pic_Height
 
         ''9/19 td''Me.ElementsCache_Saved.LoadPicElement(CtlGraphicPortrait_Lady.picturePortrait, Me.BackgroundBox) ''Added 9/19/2019 td
         ''10/1/2019 td''Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, Me.BackgroundBox) ''Added 9/19/2019 td
@@ -192,15 +207,22 @@ Public Class ClassDesigner
         ''Added 10/10/2019 td
         If (Me.ElementsCache_Saved.MissingTheQRCode) Then ''Added 10/10/2019 td
             ''Added 10/10/2019 td
-            Me.ElementsCache_Saved.LoadElement_QRCode(intPicLeft, intPicTop,
-                                                   intPicWidth, intPicHeight, Me.BackgroundBox) ''Added 9/19/2019 td
+            Me.ElementsCache_Saved.LoadElement_QRCode(Initial_QR_Left, Initial_QR_Top,
+                                                   Initial_QR_Width, Initial_QR_Height, Me.BackgroundBox) ''Added 9/19/2019 td
         End If ''End of "If (Me.ElementsCache_Saved.MissingTheElementPic) Then"
 
         ''Added 10/10/2019 td
         If (Me.ElementsCache_Saved.MissingTheSignature) Then ''Added 10/10/2019 td
             ''Added 10/10/2019 td
-            Me.ElementsCache_Saved.LoadElement_Signature(intPicLeft, intPicTop,
-                                                   intPicWidth, intPicHeight, Me.BackgroundBox) ''Added 9/19/2019 td
+            Me.ElementsCache_Saved.LoadElement_Signature(Initial_Sig_Left, Initial_Sig_Top,
+                                                   Initial_Sig_Width, Initial_Sig_Height, Me.BackgroundBox) ''Added 9/19/2019 td
+        End If ''End of "If (Me.ElementsCache_Saved.MissingTheSignature) Then"
+
+        ''Added 10/10/2019 td
+        If (Me.ElementsCache_Saved.MissingTheText) Then ''Added 10/10/2019 td
+            ''Added 10/10/2019 td
+            Me.ElementsCache_Saved.LoadElement_Text(Initial_Text_Left, Initial_Text_Top,
+                                                   Initial_Text_Width, Initial_Text_Height, Me.BackgroundBox) ''Added 9/19/2019 td
         End If ''End of "If (Me.ElementsCache_Saved.MissingTheSignature) Then"
 
         ''Added 9/24/2019 thomas 

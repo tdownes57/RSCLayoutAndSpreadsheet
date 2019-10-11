@@ -63,9 +63,6 @@ Partial Class FormDesignProtoTwo
         Me.ContextBackIncrease = New System.Windows.Forms.ToolStripMenuItem()
         Me.ContextBackRotate90 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ContextBackClearSelection = New System.Windows.Forms.ToolStripMenuItem()
-        Me.graphicAdjuster = New System.Windows.Forms.PictureBox()
-        Me.picturePreview = New System.Windows.Forms.PictureBox()
-        Me.pictureBack = New System.Windows.Forms.PictureBox()
         Me.LinkRefreshPreview = New System.Windows.Forms.LinkLabel()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.StatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
@@ -84,17 +81,20 @@ Partial Class FormDesignProtoTwo
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.LinkRevertToLastSave = New System.Windows.Forms.LinkLabel()
         Me.LabelPersonalityCurrent = New System.Windows.Forms.Label()
-        Me.CtlGraphicQRCode1 = New ciBadgeDesigner.CtlGraphicQRCode()
-        Me.CtlGraphicSignature1 = New ciBadgeDesigner.CtlGraphicSignature()
+        Me.picturePreview = New System.Windows.Forms.PictureBox()
+        Me.pictureBack = New System.Windows.Forms.PictureBox()
+        Me.graphicAdjuster = New System.Windows.Forms.PictureBox()
         Me.CtlGraphicText1 = New ciBadgeDesigner.CtlGraphicText()
+        Me.CtlGraphicSignature1 = New ciBadgeDesigner.CtlGraphicSignature()
+        Me.CtlGraphicQRCode1 = New ciBadgeDesigner.CtlGraphicQRCode()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
-        CType(Me.graphicAdjuster, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.pictureBack, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
         Me.flowFieldsNotListed.SuspendLayout()
         Me.flowSidebar.SuspendLayout()
+        CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pictureBack, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.graphicAdjuster, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'LinkShowWebControls
@@ -389,40 +389,6 @@ Partial Class FormDesignProtoTwo
         Me.ContextBackClearSelection.Size = New System.Drawing.Size(340, 22)
         Me.ContextBackClearSelection.Text = "Clear Group-Editing Selections"
         '
-        'graphicAdjuster
-        '
-        Me.graphicAdjuster.BackColor = System.Drawing.Color.White
-        Me.graphicAdjuster.Image = Global.ciLayoutDesignVB.My.Resources.Resources.AdjustWHColor_V103
-        Me.graphicAdjuster.Location = New System.Drawing.Point(829, 515)
-        Me.graphicAdjuster.Name = "graphicAdjuster"
-        Me.graphicAdjuster.Size = New System.Drawing.Size(433, 230)
-        Me.graphicAdjuster.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.graphicAdjuster.TabIndex = 45
-        Me.graphicAdjuster.TabStop = False
-        Me.graphicAdjuster.Visible = False
-        '
-        'picturePreview
-        '
-        Me.picturePreview.BackColor = System.Drawing.Color.White
-        Me.picturePreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.picturePreview.Location = New System.Drawing.Point(733, 149)
-        Me.picturePreview.Name = "picturePreview"
-        Me.picturePreview.Size = New System.Drawing.Size(467, 276)
-        Me.picturePreview.TabIndex = 44
-        Me.picturePreview.TabStop = False
-        '
-        'pictureBack
-        '
-        Me.pictureBack.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.pictureBack.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pictureBack.Image = CType(resources.GetObject("pictureBack.Image"), System.Drawing.Image)
-        Me.pictureBack.Location = New System.Drawing.Point(31, 64)
-        Me.pictureBack.Margin = New System.Windows.Forms.Padding(2)
-        Me.pictureBack.Name = "pictureBack"
-        Me.pictureBack.Size = New System.Drawing.Size(681, 425)
-        Me.pictureBack.TabIndex = 21
-        Me.pictureBack.TabStop = False
-        '
         'LinkRefreshPreview
         '
         Me.LinkRefreshPreview.AutoSize = True
@@ -589,29 +555,64 @@ Partial Class FormDesignProtoTwo
         Me.LabelPersonalityCurrent.TabIndex = 64
         Me.LabelPersonalityCurrent.Text = "Personality:___________"
         '
+        'picturePreview
+        '
+        Me.picturePreview.BackColor = System.Drawing.Color.White
+        Me.picturePreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.picturePreview.Location = New System.Drawing.Point(733, 149)
+        Me.picturePreview.Name = "picturePreview"
+        Me.picturePreview.Size = New System.Drawing.Size(467, 276)
+        Me.picturePreview.TabIndex = 44
+        Me.picturePreview.TabStop = False
+        '
+        'pictureBack
+        '
+        Me.pictureBack.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.pictureBack.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pictureBack.Image = CType(resources.GetObject("pictureBack.Image"), System.Drawing.Image)
+        Me.pictureBack.Location = New System.Drawing.Point(31, 64)
+        Me.pictureBack.Margin = New System.Windows.Forms.Padding(2)
+        Me.pictureBack.Name = "pictureBack"
+        Me.pictureBack.Size = New System.Drawing.Size(681, 425)
+        Me.pictureBack.TabIndex = 21
+        Me.pictureBack.TabStop = False
+        '
+        'graphicAdjuster
+        '
+        Me.graphicAdjuster.BackColor = System.Drawing.Color.White
+        Me.graphicAdjuster.Image = Global.ciLayoutDesignVB.My.Resources.Resources.AdjustWHColor_V103
+        Me.graphicAdjuster.Location = New System.Drawing.Point(829, 515)
+        Me.graphicAdjuster.Name = "graphicAdjuster"
+        Me.graphicAdjuster.Size = New System.Drawing.Size(433, 230)
+        Me.graphicAdjuster.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.graphicAdjuster.TabIndex = 45
+        Me.graphicAdjuster.TabStop = False
+        Me.graphicAdjuster.Visible = False
+        '
+        'CtlGraphicText1
+        '
+        Me.CtlGraphicText1.Location = New System.Drawing.Point(150, 323)
+        Me.CtlGraphicText1.Margin = New System.Windows.Forms.Padding(4)
+        Me.CtlGraphicText1.Name = "CtlGraphicText1"
+        Me.CtlGraphicText1.Size = New System.Drawing.Size(349, 32)
+        Me.CtlGraphicText1.TabIndex = 67
+        Me.CtlGraphicText1.TextToDisplay = "This is text which will be the same for everyone."
+        '
+        'CtlGraphicSignature1
+        '
+        Me.CtlGraphicSignature1.Location = New System.Drawing.Point(247, 363)
+        Me.CtlGraphicSignature1.Margin = New System.Windows.Forms.Padding(4)
+        Me.CtlGraphicSignature1.Name = "CtlGraphicSignature1"
+        Me.CtlGraphicSignature1.Size = New System.Drawing.Size(314, 105)
+        Me.CtlGraphicSignature1.TabIndex = 66
+        '
         'CtlGraphicQRCode1
         '
         Me.CtlGraphicQRCode1.Location = New System.Drawing.Point(594, 363)
         Me.CtlGraphicQRCode1.Margin = New System.Windows.Forms.Padding(4)
         Me.CtlGraphicQRCode1.Name = "CtlGraphicQRCode1"
-        Me.CtlGraphicQRCode1.Size = New System.Drawing.Size(101, 98)
+        Me.CtlGraphicQRCode1.Size = New System.Drawing.Size(95, 98)
         Me.CtlGraphicQRCode1.TabIndex = 65
-        '
-        'CtlGraphicSignature1
-        '
-        Me.CtlGraphicSignature1.Location = New System.Drawing.Point(247, 363)
-        Me.CtlGraphicSignature1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.CtlGraphicSignature1.Name = "CtlGraphicSignature1"
-        Me.CtlGraphicSignature1.Size = New System.Drawing.Size(314, 105)
-        Me.CtlGraphicSignature1.TabIndex = 66
-        '
-        'CtlGraphicText1
-        '
-        Me.CtlGraphicText1.Location = New System.Drawing.Point(70, 299)
-        Me.CtlGraphicText1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.CtlGraphicText1.Name = "CtlGraphicText1"
-        Me.CtlGraphicText1.Size = New System.Drawing.Size(411, 32)
-        Me.CtlGraphicText1.TabIndex = 67
         '
         'FormDesignProtoTwo
         '
@@ -650,15 +651,15 @@ Partial Class FormDesignProtoTwo
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.ContextMenuStrip1.ResumeLayout(False)
-        CType(Me.graphicAdjuster, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.pictureBack, System.ComponentModel.ISupportInitialize).EndInit()
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
         Me.flowFieldsNotListed.ResumeLayout(False)
         Me.flowFieldsNotListed.PerformLayout()
         Me.flowSidebar.ResumeLayout(False)
         Me.flowSidebar.PerformLayout()
+        CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pictureBack, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.graphicAdjuster, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

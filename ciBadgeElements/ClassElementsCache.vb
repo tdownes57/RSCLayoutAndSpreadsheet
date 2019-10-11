@@ -383,6 +383,27 @@ Public Class ClassElementsCache
 
     End Sub ''End of "Public Sub LoadElement_QRCode(par_picQRCode As PictureBox, par_pictureBackground As PictureBox)"
 
+    Public Sub LoadElement_Text(par_DisplayText As String, par_intLeft As Integer, par_intTop As Integer,
+                                par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)
+        ''
+        ''Added 10/10/2019 td  
+        ''
+        Dim objElementText As ClassElementStaticText ''Added 10/10/2019 td 
+        Dim objRectangle As Rectangle ''Added 10/10/2019 td  
+        Dim intLeft As Integer
+        Dim intTop As Integer
+
+        intLeft = (par_intLeft - par_pictureBackground.Left)
+        intTop = (par_intTop - par_pictureBackground.Top)
+
+        objRectangle = New Rectangle(intLeft, intTop, par_intWidth, par_intHeight)
+
+        objElementText = New ClassElementStaticText(par_DisplayText As String, intLeft, intTop, par_intHeight)
+
+        mod_listElementStatics.Add(objElementText)
+
+    End Sub ''End of "Public Sub LoadElement_Text(par_DisplayText As String, par_intLeft As Integer, ...., par_pictureBackground As PictureBox)"
+
     Public Sub LoadRecipient(par_recipient As IRecipient)
         ''
         ''Added 10/5/2019 thomas downwe

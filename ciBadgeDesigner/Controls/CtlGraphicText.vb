@@ -46,6 +46,7 @@ Public Class CtlGraphicText
         Set(value As String)
             ''Added 10/10/2019 td 
             mod_strTextToDisplay = value
+            Me.ElementInfo_TextOnly.Text = value
             textTypeExample.Text = mod_strTextToDisplay
         End Set
     End Property

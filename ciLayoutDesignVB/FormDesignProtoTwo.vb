@@ -201,7 +201,8 @@ Public Class FormDesignProtoTwo
 
         ''9/19 td''Me.ElementsCache_Saved.LoadPicElement(CtlGraphicPortrait_Lady.picturePortrait, pictureBack) ''Added 9/19/2019 td
         If (boolNewFileXML) Then
-            Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
+            ''10/10/2019 td''Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
+            Me.ElementsCache_Saved.LoadElement_Pic(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
         End If ''End of "If (boolNewFileXML) Then"
 
         ''Added 9/24/2019 thomas 
@@ -221,7 +222,8 @@ Public Class FormDesignProtoTwo
             .DesignerForm = Me
             .FlowFieldsNotListed = Me.flowFieldsNotListed
             .CheckboxAutoPreview = Me.checkAutoPreview
-            .ExamplePortraitImage = mod_imageLady
+            ''10/10/2019 td''.ExamplePortraitImage = mod_imageLady
+            .ExampleImage_Portrait = mod_imageLady
 
             ''10/1/2019''intPicLeft = CtlGraphicPortrait_Lady.Left - pictureBack.Left
             ''10/1/2019''intPicTop = CtlGraphicPortrait_Lady.Top - pictureBack.Top
@@ -229,17 +231,17 @@ Public Class FormDesignProtoTwo
             ''10/1/2019''intPicHeight = CtlGraphicPortrait_Lady.Height
 
             If (boolNewFileXML) Then
-                .PicInitialize_Left = .Layout_Margin_Left_Omit(Me.CtlGraphicPortrait_Lady.Left)
-                .PicInitialize_Top = .Layout_Margin_Top_Omit(Me.CtlGraphicPortrait_Lady.Top)
-                .PicInitialize_Width = Me.CtlGraphicPortrait_Lady.Width
-                .PicInitialize_Height = Me.CtlGraphicPortrait_Lady.Height
+                .Initial_Pic_Left = .Layout_Margin_Left_Omit(Me.CtlGraphicPortrait_Lady.Left)
+                .Initial_Pic_Top = .Layout_Margin_Top_Omit(Me.CtlGraphicPortrait_Lady.Top)
+                .Initial_Pic_Width = Me.CtlGraphicPortrait_Lady.Width
+                .Initial_Pic_Height = Me.CtlGraphicPortrait_Lady.Height
             Else
                 ''Added for deserialization from a saved XML file. 
                 ''  ---10/10/2019 td
-                .PicInitialize_Left = Me.ElementsCache_Edits.PicElement.LeftEdge_Pixels
-                .PicInitialize_Top = Me.ElementsCache_Edits.PicElement.TopEdge_Pixels
-                .PicInitialize_Width = Me.ElementsCache_Edits.PicElement.Width_Pixels
-                .PicInitialize_Height = Me.ElementsCache_Edits.PicElement.Height_Pixels
+                .Initial_Pic_Left = Me.ElementsCache_Edits.PicElement.LeftEdge_Pixels
+                .Initial_Pic_Top = Me.ElementsCache_Edits.PicElement.TopEdge_Pixels
+                .Initial_Pic_Width = Me.ElementsCache_Edits.PicElement.Width_Pixels
+                .Initial_Pic_Height = Me.ElementsCache_Edits.PicElement.Height_Pixels
 
             End If ''End of "If (boolNewFileXML) Then .... Else ..."
 
