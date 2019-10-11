@@ -244,6 +244,7 @@
     <None Include="Resources\Declaration_bmp.bmp" />
     <None Include="Resources\Declaration_emf.emf" />
     <None Include="Resources\Declaration_jpg.jpg" />
+    <None Include="Resources\Static_Text.png" />
     <Content Include="SigPlusNET.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

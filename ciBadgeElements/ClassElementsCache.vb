@@ -235,7 +235,8 @@ Public Class ClassElementsCache
 
     End Sub ''ENd of "Public Sub LoadFieldElements(par_pictureBackground As PictureBox)"
 
-    Public Sub LoadPicElement(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)
+    Public Sub LoadElement_Pic(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)
+        ''10/10/2019 td''Public Sub LoadPicElement(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)
         ''
         ''Added 9/16/2019 td  
         ''
@@ -258,7 +259,54 @@ Public Class ClassElementsCache
 
         mod_listElementPics.Add(objElementPic)
 
-    End Sub ''End of "Public Sub LoadPicElement(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)"
+    End Sub ''End of "Public Sub LoadElement_Pic(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)"
+
+    Public Sub LoadElement_QRCode(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)
+        ''
+        ''Added 10/10/2019 td  
+        ''
+        Dim objElementQR As ClassElementQRCode ''Added 9/16/2019 td 
+        Dim objRectangle As Rectangle ''Added 9/16/2019 td  
+        Dim intLeft As Integer
+        Dim intTop As Integer
+
+        ciPictures_VB.PictureExamples.PathToFolderOfImages = (My.Application.Info.DirectoryPath & "\Images\QRCodes")
+
+        intLeft = par_intLeft ''9/19 td''(par_picturePortrait.Left - par_pictureBackground.Left)
+        intTop = par_intTop ''9/19 td''(par_picturePortrait.Top - par_pictureBackground.Top)
+
+        ''9/19/2019 td''objRectangle = New Rectangle(intLeft, intTop, par_picturePortrait.Width, par_picturePortrait.Height)
+        objRectangle = New Rectangle(intLeft, intTop, par_intWidth, par_intHeight)
+
+        objElementQR = New ClassElementQRCode(objRectangle, par_pictureBackground)
+
+        ''10/10/2019 td''objElementQR.PicFileIndex = 1
+        ''10/10/2019 td''mod_listElementPics.Add(objElementPic)
+
+        Me.ElementQRCode = objElementQR
+
+    End Sub ''End of "Public Sub LoadElement_QRCode(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)"
+
+    Public Sub LoadElement_Signature(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)
+        ''
+        ''Added 10/10/2019 td  
+        ''
+        Dim objElementSig As ClassElementSignature ''Added 10/10/2019 td 
+        Dim objRectangle As Rectangle ''Added 9/16/2019 td  
+        Dim intLeft As Integer
+        Dim intTop As Integer
+
+        ciPictures_VB.PictureExamples.PathToFolderOfImages = (My.Application.Info.DirectoryPath & "\Images\Signatures")
+
+        intLeft = par_intLeft ''9/19 td''(par_picturePortrait.Left - par_pictureBackground.Left)
+        intTop = par_intTop ''9/19 td''(par_picturePortrait.Top - par_pictureBackground.Top)
+
+        objRectangle = New Rectangle(intLeft, intTop, par_intWidth, par_intHeight)
+        objElementSig = New ClassElementSignature(objRectangle, par_pictureBackground)
+
+        Me.ElementSignature = objElementSig
+
+    End Sub ''End of "Public Sub LoadElement_Signature(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)"
 
     Public Sub LoadElement_Portrait(par_picturePortrait As PictureBox, par_pictureBackground As PictureBox)
         ''10/8/2019 td''Public Sub LoadPicElement(par_picturePortrait As PictureBox, par_pictureBackground As PictureBox)
@@ -283,7 +331,7 @@ Public Class ClassElementsCache
 
         mod_listElementPics.Add(objElementPic)
 
-    End Sub ''End of "Public Sub LoadElement_Portrait(par_pictureBackground As PictureBox)"
+    End Sub ''End of "Public Sub LoadElement_Portrait(par_picturePortrait As PictureBox, par_pictureBackground As PictureBox)"
 
     Public Sub LoadElement_Signature(par_picSignature As PictureBox, par_pictureBackground As PictureBox)
         ''

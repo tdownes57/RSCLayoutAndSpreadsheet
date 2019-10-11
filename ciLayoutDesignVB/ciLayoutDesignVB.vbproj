@@ -592,12 +592,16 @@
     <Content Include="Images\PictureExamples\test - backup.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\QRCodes\QR Code Example.PNG" />
     <Content Include="Images\RotatedLayout.png" />
     <Content Include="Images\Signatures\200867.bmp" />
     <Content Include="Images\Signatures\200867.jpg" />
     <Content Include="Images\Signatures\201455.emf" />
     <Content Include="Images\Signatures\201466.png" />
     <Content Include="Images\Signatures\201477.jpg" />
+    <Content Include="Images\Signatures\Declaration _png.png" />
+    <Content Include="Images\Signatures\Declaration_bmp.bmp" />
+    <Content Include="Images\Signatures\Declaration_jpg.jpg" />
     <Content Include="Images\SizeAdjustmentBar.png" />
     <Content Include="Images\SizeStretchZones.jpg" />
     <Content Include="Images\SizeStretchZones_V101.bmp" />
@@ -692,8 +696,6 @@
       <Name>MoveAndResizeControls_Monem</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Images\QRCodes\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
