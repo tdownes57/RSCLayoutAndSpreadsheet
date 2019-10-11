@@ -28,11 +28,69 @@ Public Class ClassRecipient
 
     Public Property Personality_Guid As System.Guid
 
+    Public Function GetTextValue(par_enum As EnumCIBFields) As String Implements IRecipient.GetTextValue
+        ''Added 10/11/2019 td 
 
 
+        Return ""
+
+    End Function
+
+    Public Function GetDateValue(par_enum As EnumCIBFields) As Date Implements IRecipient.GetDateValue
+        ''Added 10/11/2019 td 
+
+        Return DateTime.MinValue
+
+    End Function
+
+    Public Function RecipientID() As String Implements IRecipient.RecipientID
+        ''Added 10/11/2019 td 
+
+        Return fstrID
+
+    End Function
 
 
+    ''-------------------------------------------------------
+    ''Standard fields 
+    ''   ----10/11/2019 thomas d
+    ''-------------------------------------------------------
 
+    Property idsCardDataID As Integer Implements IRecipient.idsCardDataID
+    Property idfConfigID As Integer Implements IRecipient.idfConfigID
+    Property fstrLastName As String Implements IRecipient.fstrLastName
+    Property fstrFirstName As String Implements IRecipient.fstrFirstName
+    Property fstrMidName As String Implements IRecipient.fstrMidName
+    Property fstrID As String Implements IRecipient.fstrID
+
+    Property intTimesPrinted As Integer Implements IRecipient.intTimesPrinted
+
+    ''-------------------------------------------------------
+    ''Custom fields 
+    ''   ----10/11/2019 thomas d
+    ''-------------------------------------------------------
+    Property DateField01 As DateTime Implements IRecipient.DateField01 ''   ----10/11/2019 thomas d
+    Property DateField02 As DateTime Implements IRecipient.DateField02 ''   ----10/11/2019 thomas d
+    Property DateField03 As DateTime Implements IRecipient.DateField03 ''   ----10/11/2019 thomas d
+    Property DateField04 As DateTime Implements IRecipient.DateField04 ''   ----10/11/2019 thomas d
+    Property DateField05 As DateTime Implements IRecipient.DateField05 ''   ----10/11/2019 thomas d
+
+
+    Property TextField01 As String Implements IRecipient.TextField01 ''   ----10/11/2019 thomas d
+    Property TextField02 As String Implements IRecipient.TextField02 ''   ----10/11/2019 thomas d
+    Property TextField03 As String Implements IRecipient.TextField03
+    Property TextField04 As String Implements IRecipient.TextField04
+    Property TextField05 As String Implements IRecipient.TextField05
+    Property TextField06 As String Implements IRecipient.TextField06
+    Property TextField07 As String Implements IRecipient.TextField07
+    Property TextField08 As String Implements IRecipient.TextField08
+    Property TextField09 As String Implements IRecipient.TextField09
+    Property TextField10 As String Implements IRecipient.TextField10
+    Property TextField11 As String Implements IRecipient.TextField11
+    Property TextField12 As String Implements IRecipient.TextField12
+    Property TextField13 As String Implements IRecipient.TextField13
+    Property TextField14 As String Implements IRecipient.TextField14
+    Property TextField15 As String Implements IRecipient.TextField15
 
 
 End Class
