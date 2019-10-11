@@ -1,19 +1,38 @@
-﻿Option Explicit On
-Option Strict On
+﻿''
+''Added 10/2/2019 thomas downes  
 ''
-''Added 9/21/2019 thomas d
-''
-Imports System.Reflection
-Imports System.Reflection.Assembly
 
-Delegate Sub LinkClickedDelegate(sender As Object, e As LinkLabelLinkClickedEventArgs)
+Public Class ClassMenuCache_Fields
+    ''
+    ''Added 10/2/2019 thomas downes  
+    ''
+    Public Shared Links_EditElementMenu As New List(Of LinkLabel)
+    Public Shared Links_ManageGroupedCtls As New List(Of LinkLabel)
+    Public Shared Links_AlignmentFeatures As New List(Of LinkLabel)
+    ''---Public Shared Links_EditBackgroundMenu As New List(Of LinkLabel)
 
-Public Class FormRotateText
+    Public Shared Tools_EditElementMenu As New List(Of ToolStripMenuItem)
+    Public Shared Tools_ManageGroupedCtls As New List(Of ToolStripMenuItem)
+    Public Shared Tools_AlignmentFeatures As New List(Of ToolStripMenuItem)
+    ''--Public Shared Tools_EditBackgroundMenu As New List(Of ToolStripMenuItem)
 
-    Private mod_handler As LinkClickedDelegate
-    Private WithEvents mod_classMenuMethods As New ClassMenuMethods
+    Public Shared Sub GenerateMenuItems()
+        ''
+        ''Added 10/2/2019 thomas downes  
+        ''
+        Generate_BasicEdits()
+        Generate_Grouped()
+        Generate_Aligning()
 
-    Private Sub FormRotateText_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    End Sub ''End of "Public Shared Sub GenerateMenuItems()"
+
+    Private Shared Sub Generate_BasicEdits()
+        ''
+        ''We will use Reflection to build this cache of menu controls. 
+        ''
+        ''   We will convert the procedures in class Methods_EditElement to clickable LinkLabels.
+        ''
+        Dim strList_MenuItems As String = ""
 
         ''Dim objInfo As Type ''System.Reflection.Assembly
         Dim each_methodInfo As Reflection.MethodInfo
@@ -149,7 +168,7 @@ Public Class FormRotateText
 
             ''Move up a few executable lines. ----9/23/2019 td''mod_classMenuMethods.AddEventHandlerLinkClicked(each_link)
 
-            FlowLayoutPanel1.Controls.Add(each_link)
+            ''10/11/2019 td''FlowLayoutPanel1.Controls.Add(each_link)
             each_link.Visible = True
 
         Next each_methodInfo
@@ -167,13 +186,32 @@ Public Class FormRotateText
 
         End If ''End of "If (intExceptionCount > 1) Then"
 
+
+
+        MessageBox.Show("The following links & context menu items were created. " & vbCrLf & vbCrLf & strList_MenuItems)
+
+
+
+
+    End Sub ''End of "Private Shared Sub Generate_BasicEdits()"
+
+    Private Shared Sub Generate_Grouped()
+        ''
+        ''We will use Reflection to build this cache of menu controls. 
+        ''
+        ''   We will convert the procedures in class ElementEditingMethods to clickable LinkLabels.
+        ''
+        ''
+
+    End Sub
+    Private Shared Sub Generate_Aligning()
+        ''
+        ''We will use Reflection to build this cache of menu controls. 
+        ''
+        ''   We will convert the procedures in class Methods_EditElement to clickable LinkLabels.
+        ''
+        ''
+
     End Sub
 
-    Private Sub LinkLabel1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
-
-    End Sub
-
-    Private Sub FlowLayoutPanel1_Paint(sender As Object, e As PaintEventArgs) Handles FlowLayoutPanel1.Paint
-
-    End Sub
 End Class

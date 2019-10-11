@@ -45,7 +45,7 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ciBadgeDesigner", "ciBadgeD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ciBadgeGenerator", "ciBadgeGenerator\ciBadgeGenerator.csproj", "{42468695-2856-4336-8BCA-C5AF2EA8178E}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ciSigPlus_NET45", "..\..\..\Documents\CI Badge (my notes)\CI Libraries (by Rob)\ciSigPlus\SigPlus_NET\ciSigPlus_NET45.vbproj", "{DDC3F524-3672-4893-B23D-BB462AC673AD}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ciSigPlus_NET45", "..\ciSigPlus\ciSigPlus_NET45.vbproj", "{DDC3F524-3672-4893-B23D-BB462AC673AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

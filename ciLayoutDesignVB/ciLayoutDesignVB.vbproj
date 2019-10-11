@@ -81,7 +81,7 @@
     <Compile Include="ClassGroupMove.vb" />
     <Compile Include="ClassLabelToImage.vb" />
     <Compile Include="ClassRubberbandSelector.vb" />
-    <Compile Include="ContextMenus\CacheMenuItems.vb" />
+    <Compile Include="ContextMenus\ClassMenuCache_Fields.vb" />
     <Compile Include="ContextMenus\Methods_EditElement.vb" />
     <Compile Include="ContextMenus_Obselete\ClassMenuMethods.vb" />
     <Compile Include="ContextMenus_Obselete\ContextLayoutBackground.Designer.vb">
