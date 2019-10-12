@@ -142,7 +142,7 @@ namespace ciBadgeGenerator
                                                 local_PicElementInfo_Pic,
                                                 ref par_recipientPic);
 
-            return null; 
+            return obj_image_clone_resized; 
 
         }
 
