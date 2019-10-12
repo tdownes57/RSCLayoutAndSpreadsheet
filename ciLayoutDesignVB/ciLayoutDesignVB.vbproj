@@ -705,6 +705,10 @@
       <Name>MoveAndResizeControls_Monem</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="__BlakemoreWebAPIs\" />
+    <Folder Include="__ErrorLog\" />
+    <Folder Include="__ProgressiveWebApp\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
