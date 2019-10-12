@@ -28,15 +28,22 @@ Public Class ClassDesigner
     Public WithEvents BackgroundBox As PictureBox
 
     Public Property PreviewLayoutAsImage As Boolean = True ''Added 10.1.2019 thomas d. 
+    Public BadgeLayout_Class As ciBadgeInterfaces.BadgeLayoutClass ''Added 10/9/2019 td  
 
     ''10/4/2019 td''Public Property PreviewBox As PictureBox
     Public WithEvents PreviewBox As PictureBox
 
     Public CheckboxAutoPreview As CheckBox ''Added 10/1/2019 td
-    Public Property ExamplePortraitImage As Image ''Added 10/1/2019 td 
+
+    Public Property ExampleImage_Portrait As Image ''Added 10/1/2019 td 
+    Public Property ExampleImage_QRCode As Image ''Added 10/10/2019 td 
+    Public Property ExampleImage_Signature As Image ''Added 10/10/2019 td 
 
     Public Property FlowFieldsNotListed As FlowLayoutPanel ''Added 10/1/2019 td
-    Public Property CtlGraphicPortrait_Lady As CtlGraphicPortrait ''Added 10/1/2019 td
+
+    Public Property CtlGraphic_Portrait As CtlGraphicPortrait ''Added 10/1/2019 td
+    Public Property CtlGraphic_Signature As CtlGraphicSignature ''Added 10/10/2019 td
+    Public Property CtlGraphic_QRCode As CtlGraphicQRCode ''Added 10/10/2019 td
 
     Public Property ElementsCache_Saved As New ClassElementsCache ''Added 9/16/2019 thomas downes
     Public Property ElementsCache_Edits As New ClassElementsCache ''Added 9/16/2019 thomas downes
@@ -44,22 +51,41 @@ Public Class ClassDesigner
     ''----Public Property ControlMoverOrResizer_TD As New MoveAndResizeControls_Monem.ControlMoverOrResizer_TD ''Added 10/1/2019 td
     ''----Public Property ControlMove_GroupMove_TD As New MoveAndResizeControls_Monem.ControlMove_GroupMove_TD ''Added 10/1/2019 td
 
-    Public Property PicInitialize_Left As Integer
-    Public Property PicInitialize_Top As Integer
-    Public Property PicInitialize_Width As Integer = 150 ''Default value added 10/1/2019 thomas downes
-    Public Property PicInitialize_Height As Integer = 182 ''Default value added 10/1/2019 thomas downes
+    Public Property Initial_Pic_Left As Integer
+    Public Property Initial_Pic_Top As Integer
+    Public Property Initial_Pic_Width As Integer = 150 ''Default value added 10/1/2019 thomas downes
+    Public Property Initial_Pic_Height As Integer = 182 ''Default value added 10/1/2019 thomas downes
+
+    Public Property Initial_QR_Left As Integer
+    Public Property Initial_QR_Top As Integer
+    Public Property Initial_QR_Width As Integer = 100 ''Default value added 10/10/2019 thomas downes
+    Public Property Initial_QR_Height As Integer = 100 ''Default value added 10/10/2019 thomas downes
+
+    Public Property Initial_Sig_Left As Integer
+    Public Property Initial_Sig_Top As Integer
+    Public Property Initial_Sig_Width As Integer = 314 ''Default value added 10/10/2019 thomas downes
+    Public Property Initial_Sig_Height As Integer = 100 ''Default value added 10/10/2019 thomas downes
+
+    Public Property Initial_Text_Left As Integer
+    Public Property Initial_Text_Top As Integer
+    Public Property Initial_Text_Width As Integer = 350 ''Default value added 10/1/2019 thomas downes
+    Public Property Initial_Text_Height As Integer = 30 ''Default value added 10/1/2019 thomas downes
 
     ''#1 8-3-2019 td''Private WithEvents mod_moveAndResizeCtls_NA As New MoveAndResizeControls_Monem.ControlMove_RaiseEvents ''Added 8/3/2019 td  
     '' #2 8-3-2019 td''Private WithEvents mod_moveAndResizeCtls As New MoveAndResizeControls_Monem.ControlMove_GroupMove ''Added 8/3/2019 td  
     ''#1 10/1/2019 td''Private WithEvents mod_groupedMove As New ClassGroupMove(Me) ''8/4/2019 td''New ClassGroupMove
     '' #2 10/1/2019 td''Private WithEvents mod_groupedMove As New ClassGroupMove(Me.LayoutFunctions) ''8/4/2019 td''New ClassGroupMove
-    Private WithEvents mod_groupedMove As New ClassGroupMove(Me) ''8/4/2019 td''New ClassGroupMove
+    Private WithEvents mod_groupedMove As New ClassGroupMoveEvents(Me) ''8/4/2019 td''New ClassGroupMove
+    Private WithEvents mod_sizingPic_events As New ClassGroupMoveEvents(Me) ''Added 10/9/2019 td  
 
     Private Const mc_boolAllowGroupMovements As Boolean = True ''False ''True ''False ''Added 8/3/2019 td  
     Private Const mc_boolBreakpoints As Boolean = True
+    Private Const mc_boolMoveGrowInUnison As Boolean = True ''Added 10/10/2019 td 
 
-    ''Added 8/18/2019 td
-    Private mod_imageLady As Image ''8/18/2019 td'' = CtlGraphicPortrait_Lady.picturePortrait.Image
+    ''Added 10/10 & 8/18/2019 td
+    Private mod_imageExamplePortrait As Image ''8/18/2019 td'' = CtlGraphicPortrait_Lady.picturePortrait.Image
+    Private mod_imageExampleQRCode As Image ''Added 10/10/2019 td
+    Private mod_imageExampleSignat As Image ''Added 10/10/2019 td
 
     ''Added 9/8/2019 td
     Private mod_rubberbandClass As ClassRubberbandSelector
@@ -95,6 +121,9 @@ Public Class ClassDesigner
         ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.BackgroundBox, True) ''-----Me.BackgroundBox, True)
         ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.PreviewBox, True) ''-----(Me.PreviewBox, True)
 
+        ''Added 10/9/2019 td  
+        Me.BadgeLayout_Class = New ciBadgeInterfaces.BadgeLayoutClass(Me.BackgroundBox.Width, Me.BackgroundBox.Height)
+
         ''
         ''I forget, what was this going to do originally?  ---9/6/2019 td
         ''
@@ -108,7 +137,8 @@ Public Class ClassDesigner
 
         ''7/31/2019 td''Me.Controls.Remove(pictureboxPic) ''Added 7/31/2019 thomas d. 
         ''10/1/2019 td''mod_imageLady = CtlGraphicPortrait_Lady.picturePortrait.Image
-        mod_imageLady = Me.ExamplePortraitImage ''Added 10/1/2019 td
+        ''10/1/2019 td''mod_imageExamplePortrait = Me.ExamplePortraitImage ''Added 10/1/2019 td
+        mod_imageExamplePortrait = Me.ExampleImage_Portrait ''Added 10/1/2019 td
 
         ''Added 9/23/2019 td 
         ''
@@ -117,8 +147,8 @@ Public Class ClassDesigner
         ''   can have an image to utilize, instead of requiring that the image
         ''   be passed as an parameter.  ---9/23/2019 td
         ''
-        Me.ElementsCache_Saved.Pic_InitialDefault = mod_imageLady
-        Me.ElementsCache_Edits.Pic_InitialDefault = mod_imageLady
+        Me.ElementsCache_Saved.Pic_InitialDefault = mod_imageExamplePortrait
+        Me.ElementsCache_Edits.Pic_InitialDefault = mod_imageExamplePortrait
 
         ''10/1/2019 td''Me.Controls.Remove(CtlGraphicPortrait_Lady) ''Added 7/31/2019 thomas d. 
 
@@ -131,9 +161,21 @@ Public Class ClassDesigner
         ''
         ''Major call!!
         ''
-        Me.ElementsCache_Saved.LoadFields()
-        ''10/1/2019 td''Me.ElementsCache_Saved.LoadFieldElements(Me.BackgroundBox)
-        Me.ElementsCache_Saved.LoadFieldElements(Me.BackgroundBox)
+        Dim boolMissingAnyFields As Boolean ''Added 10/10/2019 td 
+        boolMissingAnyFields = (Me.ElementsCache_Saved.MissingTheFields())
+        If (boolMissingAnyFields) Then
+            ''Load the fields (which are //_not_// the elements (the thing which 
+            ''   appears on the badge layout); importantly, the fields are //referenced// 
+            ''   by the elements). ----10/10/2019 td
+            Me.ElementsCache_Saved.LoadFields()
+        End If ''end of "If (boolMissingAnyFields) Then"
+
+        Dim boolMissingAnyFieldElements As Boolean ''Added 10/10/2019 td 
+        boolMissingAnyFieldElements = (Me.ElementsCache_Saved.MissingTheElementFields())
+        If (boolMissingAnyFieldElements) Then
+            ''10/1/2019 td''Me.ElementsCache_Saved.LoadFieldElements(Me.BackgroundBox)
+            Me.ElementsCache_Saved.LoadFieldElements(Me.BackgroundBox)
+        End If ''end of "If (boolMissingAnyFields) Then"
 
         ''Added 9/19/2019 td
         Dim intPicLeft As Integer
@@ -148,19 +190,46 @@ Public Class ClassDesigner
         ''10/1/2019 td''intPicHeight = CtlGraphicPortrait_Lady.Height
 
         ''Added 10/01/2019 td
-        intPicLeft = Me.PicInitialize_Left
-        intPicTop = Me.PicInitialize_Top
-        intPicWidth = Me.PicInitialize_Width
-        intPicHeight = Me.PicInitialize_Height
+        intPicLeft = Me.Initial_Pic_Left
+        intPicTop = Me.Initial_Pic_Top
+        intPicWidth = Me.Initial_Pic_Width
+        intPicHeight = Me.Initial_Pic_Height
 
         ''9/19 td''Me.ElementsCache_Saved.LoadPicElement(CtlGraphicPortrait_Lady.picturePortrait, Me.BackgroundBox) ''Added 9/19/2019 td
         ''10/1/2019 td''Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, Me.BackgroundBox) ''Added 9/19/2019 td
-        Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, Me.BackgroundBox) ''Added 9/19/2019 td
+
+        If (Me.ElementsCache_Saved.MissingTheElementPic) Then ''Added 10/10/2019 td
+            ''10/10/2019 td''Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, Me.BackgroundBox) ''Added 9/19/2019 td
+            Me.ElementsCache_Saved.LoadElement_Pic(intPicLeft, intPicTop,
+                                                   intPicWidth, intPicHeight, Me.BackgroundBox) ''Added 9/19/2019 td
+        End If ''End of "If (Me.ElementsCache_Saved.MissingTheElementPic) Then"
+
+        ''Added 10/10/2019 td
+        If (Me.ElementsCache_Saved.MissingTheQRCode) Then ''Added 10/10/2019 td
+            ''Added 10/10/2019 td
+            Me.ElementsCache_Saved.LoadElement_QRCode(Initial_QR_Left, Initial_QR_Top,
+                                                   Initial_QR_Width, Initial_QR_Height, Me.BackgroundBox) ''Added 9/19/2019 td
+        End If ''End of "If (Me.ElementsCache_Saved.MissingTheElementPic) Then"
+
+        ''Added 10/10/2019 td
+        If (Me.ElementsCache_Saved.MissingTheSignature) Then ''Added 10/10/2019 td
+            ''Added 10/10/2019 td
+            Me.ElementsCache_Saved.LoadElement_Signature(Initial_Sig_Left, Initial_Sig_Top,
+                                                   Initial_Sig_Width, Initial_Sig_Height, Me.BackgroundBox) ''Added 9/19/2019 td
+        End If ''End of "If (Me.ElementsCache_Saved.MissingTheSignature) Then"
+
+        ''Added 10/10/2019 td
+        If (Me.ElementsCache_Saved.MissingTheElementTexts) Then ''Added 10/10/2019 td
+            ''Added 10/10/2019 td
+            Me.ElementsCache_Saved.LoadElement_Text("This is text which will be the same for everyone.",
+                                                    Initial_Text_Left, Initial_Text_Top,
+                                                   Initial_Text_Width, Initial_Text_Height, Me.BackgroundBox) ''Added 9/19/2019 td
+        End If ''End of "If (Me.ElementsCache_Saved.MissingTheElementTexts) Then"
 
         ''Added 9/24/2019 thomas 
-        ''10/1/2019 td''Dim serial_tools As New ciBadgeSerialize.ClassSerial
-        ''10/1/2019 td''serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
-        ''10/1/2019 td''serial_tools.SerializeToXML(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved, False, True)
+        ''  10/1/2019 td''Dim serial_tools As New ciBadgeSerialize.ClassSerial
+        ''  10/1/2019 td''serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
+        ''  10/1/2019 td''serial_tools.SerializeToXML(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved, False, True)
 
         Me.ElementsCache_Edits = Me.ElementsCache_Saved.Copy()
 
@@ -306,17 +375,21 @@ Public Class ClassDesigner
         ''
         ''Portrait
         ''
-        If (mc_boolAllowGroupMovements) Then
+        ''10/9/2019 td''If (mc_boolAllowGroupMovements) Then
+        ''10/9/2019 td''    ControlMove_GroupMove_TD.Init(CtlGraphicPortrait_Lady.Picture_Box,
+        ''              CtlGraphicPortrait_Lady, 10, True, mod_groupedMove,
+        ''              c_addAfterMoveAddBreakpoint) ''Added 8/3/2019 thomas downes
+        ''
+        ''10/9/2019 td''Else
+        ''10/9/2019 td''    ControlMoverOrResizer_TD.Init(CtlGraphicPortrait_Lady.Picture_Box,
+        ''          CtlGraphicPortrait_Lady, 10, True,
+        ''           c_addAfterMoveAddBreakpoint) ''Added 7/31/2019 thomas downes
+        ''10/9/2019 td''End If ''End of " If (mc_boolAllowGroupMovements) Then .... Else ...."
 
-            ControlMove_GroupMove_TD.Init(CtlGraphicPortrait_Lady.Picture_Box,
-                      CtlGraphicPortrait_Lady, 10, True, mod_groupedMove,
-                      c_addAfterMoveAddBreakpoint) ''Added 8/3/2019 thomas downes
-        Else
-            ControlMoverOrResizer_TD.Init(CtlGraphicPortrait_Lady.Picture_Box,
-                  CtlGraphicPortrait_Lady, 10, True,
-                   c_addAfterMoveAddBreakpoint) ''Added 7/31/2019 thomas downes
-
-        End If ''End of " If (mc_boolAllowGroupMovements) Then .... Else ...."
+        ''Added 10/9/2019 thomas downes
+        ControlResizeProportionally_TD.Init(CtlGraphic_Portrait.Picture_Box,
+                      CtlGraphic_Portrait, 10, True,
+                      mod_sizingPic_events, c_addAfterMoveAddBreakpoint) ''Added 10/9/2019 thomas downes
 
         ''
         ''Fields
@@ -368,12 +441,12 @@ Public Class ClassDesigner
         ''Added 8/22/2019 THOMAS D.
         ciPictures_VB.PictureExamples.PathToFolderOfImages = (My.Application.Info.DirectoryPath & "\Images\PictureExamples")
 
-        CtlGraphicPortrait_Lady = New CtlGraphicPortrait(par_elementPic, Me)
+        CtlGraphic_Portrait = New CtlGraphicPortrait(par_elementPic, Me)
 
         ''10/1/2019 td''Me.Controls.Add(CtlGraphicPortrait_Lady)
-        Me.DesignerForm.Controls.Add(CtlGraphicPortrait_Lady)
+        Me.DesignerForm.Controls.Add(CtlGraphic_Portrait)
 
-        With CtlGraphicPortrait_Lady
+        With CtlGraphic_Portrait
 
             ''9/17/2019 td''.Top = ClassElementPic.ElementPicture.TopEdge_Pixels
             ''9/17/2019 td''.Left = ClassElementPic.ElementPicture.LeftEdge_Pixels
@@ -386,7 +459,7 @@ Public Class ClassDesigner
             .Height = par_elementPic.Height_Pixels
 
             ''Added 8/18/2019 td
-            .picturePortrait.Image = mod_imageLady
+            .picturePortrait.Image = mod_imageExamplePortrait
 
             ''Added 9/17/2019 td
             .Refresh_Master()
@@ -468,7 +541,8 @@ Public Class ClassDesigner
                 ''   a nice diagonally-cascading effect. ---9/3/2019 td
 
                 ''Added 9/12/2019 td
-                .BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass(Me.BackgroundBox.Width, Me.BackgroundBox.Height)
+                ''10/9/2019 td''.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass(Me.BackgroundBox.Width, Me.BackgroundBox.Height)
+                .BadgeLayout = Me.BadgeLayout_Class ''Modified 10/9/2019 td  
 
             End With
 
@@ -485,8 +559,9 @@ Public Class ClassDesigner
 
             ''Added 9/5/2019 thomas d.
             ''9/11/2019 td''each_field.ElementInfo_Base.LayoutWidth_Pixels = Me.Layout_Width_Pixels()
-            each_element.BadgeLayout.Width_Pixels = Me.Layout_Width_Pixels()
-            each_element.BadgeLayout.Height_Pixels = Me.Layout_Height_Pixels
+
+            ''Not needed. 10/09/2019 td''each_element.BadgeLayout.Width_Pixels = Me.Layout_Width_Pixels()
+            ''Not needed. 10/09/2019 td''each_element.BadgeLayout.Height_Pixels = Me.Layout_Height_Pixels
 
             ''#1 9/4/2019 td''label_control = New CtlGraphicFldLabel(each_field, Me)
             '' #2 9/4/2019 td''label_control = New CtlGraphicFldLabel(each_field, new_element_text, Me)
@@ -663,6 +738,8 @@ Public Class ClassDesigner
         ''
         ''Step #2 of 3.
         ''
+        ''   Create a clone of the current-latest edits. 
+        ''
         Me.ElementsCache_Saved = Me.ElementsCache_Edits.Copy()
 
         ''
@@ -670,9 +747,56 @@ Public Class ClassDesigner
         ''
         ''   Serialize !!!
         ''
+        Dim objSerializationClass As New ciBadgeSerialize.ClassSerial
 
+        With objSerializationClass
+
+            ''.TypeOfObject = (TypeOf List(Of ICIBFieldStandardOrCustom))
+
+            ''10/10/2019 td''SaveFileDialog1.ShowDialog()
+            ''10/10/2019 td''.PathToXML = SaveFileDialog1.FileName
+
+            .PathToXML = Me.ElementsCache_Saved.PathToXml_Saved
+
+            ''Added 9/24/2019 thomas 
+            .SerializeToXML(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved, False, True)
+
+            Const c_SerializeToBinary As Boolean = False ''Added 9/30/2019 td
+            If (c_SerializeToBinary) Then _
+            .SerializeToBinary(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved)
+
+        End With ''End of "With objSerializationClass"
 
     End Sub ''End of "PRivate Sub SaveLayout()"  
+
+    Private Sub SaveControlPositionsToElement()
+        ''
+        ''Save location & sizing data each element that corresponds to each designer control.
+        ''  ----10/10/2019 td 
+        ''
+        Dim each_graphicalFieldCtl As CtlGraphicFldLabel ''Added 10/10/2019 td
+        Dim each_portraitControl As CtlGraphicPortrait ''Added 10/10/2019 td
+
+        For Each each_control As Control In Me.DesignerForm.Controls
+
+            If (TypeOf each_control Is CtlGraphicFldLabel) Then
+
+                each_graphicalFieldCtl = CType(each_control, CtlGraphicFldLabel)
+
+                each_graphicalFieldCtl.SaveToModel()
+
+            ElseIf (TypeOf each_control Is CtlGraphicPortrait) Then
+                ''
+                ''Added 7/31/2019 thomas downes  
+                ''
+                each_portraitControl = CType(each_control, CtlGraphicPortrait)
+                each_portraitControl.SaveToModel()
+
+            End If ''end of "If (TypeOf each_control Is GraphicFieldLabel) Then .... ElseIf ..."
+
+        Next each_control
+
+    End Sub ''End of "Private Sub SaveControlPositionsToElement()"
 
     Public Sub RefreshPreview_Redux()
         ''
@@ -682,18 +806,48 @@ Public Class ClassDesigner
         Dim listOfTextImages As New List(Of Image) ''Added 8/26/2019 thomas downes 
         Dim listOfElementTextFields As List(Of ClassElementField)
         Dim obj_image As Image ''Added 8/24 td
+        Dim obj_image_clone As Image ''Added 8/24 td
+        Dim obj_image_clone_resized As Image ''Added 8/24/2019 td
         Dim obj_generator As New ciBadgeGenerator.ClassMakeBadge
 
         listOfElementTextFields = Me.ElementsCache_Edits.ListFieldElements()
 
         ''obj_image = ciBadgeGenerator.ClassMakeBadge
         ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.BackgroundBox.Image, True, "RefreshPreview_Redux #1")
+        ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.PreviewBox, True, "RefreshPreview_Redux #2")
 
-        obj_image = obj_generator.MakeBadgeImage(Me.BackgroundBox.Image, Me.ElementsCache_Edits,
-                                                  Me.PreviewBox.Width,
-                                                  Me.ExamplePortraitImage)
+        ''Added 8/24/2019 td
+        obj_image = Me.BackgroundBox.Image
+        obj_image_clone = CType(obj_image.Clone(), Image)
 
-        ClassFixTheControlWidth.ProportionsAreSlightlyOff(obj_image, True, "RefreshPreview_Redux #2")
+        ''Dim gr_resize As Graphics = New Bitmap(obj_image_clone)
+
+        ''8/26/2019 td''obj_image_clone_resized = ciLayoutPrintLib.LayoutPrint.ResizeImage_ToHeight(obj_image_clone, True,
+        ''8/26/2019 td''      Me.PreviewBox.Height)
+
+        ''Added 8/26/2019 thomas downes
+        obj_image_clone_resized =
+            LayoutPrint.ResizeBackground_ToFitBox(obj_image, Me.PreviewBox, True)
+
+        ''Added 9/6/2019 td 
+        ''10/5/2019 td''ClassLabelToImage.ProportionsAreSlightlyOff(obj_image_clone_resized, True, "Clone Resized #1")
+        ClassFixTheControlWidth.ProportionsAreSlightlyOff(obj_image_clone_resized, True, "RefreshPreview_Redux #3")
+        ClassFixTheControlWidth.ImageSizeDiffersFromControl(Me.PreviewBox, obj_image_clone_resized, True) ''Added 10/9/2019 td  
+
+        ''#1 10/09/2019 td''obj_image = obj_generator.MakeBadgeImage(Me.BackgroundBox.Image, Me.ElementsCache_Edits,
+        ''     Me.PreviewBox.Width,
+        ''     Me.ExamplePortraitImage)
+        '' #2 10/09/2019 td''obj_image = obj_generator.MakeBadgeImage(obj_image_clone_resized, Me.ElementsCache_Edits,
+        ''                      Me.PreviewBox.Width,
+        ''                      Me.ExamplePortraitImage)
+        ''  #3 10/09/2019 td''obj_image = obj_generator.MakeBadgeImage(obj_image_clone_resized, Me.ElementsCache_Edits,
+        ''           Me.PreviewBox.Width, Me.PreviewBox.Height,
+        ''           Me.CtlGraphicPortrait_Lady.picturePortrait.Image)
+        obj_image = obj_generator.MakeBadgeImage(Me.BadgeLayout_Class, obj_image_clone_resized, Me.ElementsCache_Edits,
+                                                  Me.PreviewBox.Width, Me.PreviewBox.Height,
+                                                  Me.CtlGraphic_Portrait.picturePortrait.Image)
+
+        ClassFixTheControlWidth.ProportionsAreSlightlyOff(obj_image, True, "RefreshPreview_Redux #4")
 
         Me.PreviewBox.Image = obj_image
         Me.PreviewBox.Refresh()
@@ -739,6 +893,7 @@ Public Class ClassDesigner
         ''Added 9/6/2019 td 
         ''10/5/2019 td''ClassLabelToImage.ProportionsAreSlightlyOff(Me.BackgroundBox.Image, True, "Background Image")
         ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.BackgroundBox.Image, True, "Background Image")
+        ClassFixTheControlWidth.ImageSizeDiffersFromControl(Me.BackgroundBox, Me.BackgroundBox.Image, True) ''Added 10/9/2019 td  
 
         ''Added 8/24/2019 td
         obj_image = Me.BackgroundBox.Image
@@ -756,6 +911,7 @@ Public Class ClassDesigner
         ''Added 9/6/2019 td 
         ''10/5/2019 td''ClassLabelToImage.ProportionsAreSlightlyOff(obj_image_clone_resized, True, "Clone Resized #1")
         ClassFixTheControlWidth.ProportionsAreSlightlyOff(obj_image_clone_resized, True, "Clone Resized #1")
+        ClassFixTheControlWidth.ImageSizeDiffersFromControl(Me.PreviewBox, obj_image_clone_resized, True) ''Added 10/9/2019 td  
 
         ''
         ''Major call !!
@@ -777,9 +933,9 @@ Public Class ClassDesigner
         objPrintLibElems.LoadImageWithPortrait(obj_image_clone_resized.Width,
                                           Me.Layout_Width_Pixels(),
                                           obj_image_clone_resized,
-                                           CtlGraphicPortrait_Lady.ElementInfo_Base,
-                                           CtlGraphicPortrait_Lady.ElementInfo_Pic,
-                                          CtlGraphicPortrait_Lady.picturePortrait.Image)
+                                           CtlGraphic_Portrait.ElementInfo_Base,
+                                           CtlGraphic_Portrait.ElementInfo_Pic,
+                                          CtlGraphic_Portrait.picturePortrait.Image)
 
         ''Added 9/8/2019 td
         ''Const c_bListEachElementImage As Boolean = False ''Added 9/8/2019 td
@@ -1310,7 +1466,9 @@ Public Class ClassDesigner
         ''Refresh the preview picture box. 
         ''
         If (CheckboxAutoPreview.Checked) Then
-            SaveLayout()
+            ''--o----No longer needed. The preview is driven by Me.ElementsCache_Edits.---10/10/2019 td
+            ''--o--SaveLayout()
+            SaveControlPositionsToElement() ''Added 10/10/2019 td
             RefreshPreview_Redux()
         End If ''End of "If (checkAutoPreview.Checked) Then"
 
@@ -1347,4 +1505,22 @@ Public Class ClassDesigner
 
     End Sub
 
+    Private Sub mod_sizingPic_events_Moving_End() Handles mod_sizingPic_events.Moving_End
+        ''Added 10/9/2019 td 
+        AutoPreview_IfChecked()
+
+    End Sub
+
+    Private Sub mod_sizingPic_events_Resizing_End() Handles mod_sizingPic_events.Resizing_End
+        ''Added 10/9/2019 td 
+        AutoPreview_IfChecked()
+
+    End Sub
+
+    Private Sub mod_sizingPic_events_MoveInUnison(deltaLeft As Integer, deltaTop As Integer, deltaWidth As Integer, deltaHeight As Integer) Handles mod_sizingPic_events.MoveInUnison
+
+        ''Added 10/10/2019 td
+        AutoPreview_IfChecked()
+
+    End Sub
 End Class ''End of "Public Class ClassDesigner"

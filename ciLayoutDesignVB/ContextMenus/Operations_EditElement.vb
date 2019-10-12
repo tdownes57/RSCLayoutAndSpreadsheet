@@ -9,15 +9,18 @@ Imports ciBadgeInterfaces
 Imports ciBadgeDesigner
 Imports ciBadgeElements
 
-Public Class Methods_EditElement
+Public Class Operations_EditElement
     ''
     ''Added 10/1/2019 td
     ''
+    Public WithEvents MyLinkLabel As New LinkLabel ''Added 10/11/2019 td 
+    Public WithEvents MyToolstripItem As New ToolStripMenuItem ''Added 10/11/2019 td 
+
     Public Property CtlCurrentElement As ciBadgeDesigner.CtlGraphicFldLabel ''CtlGraphicFldLabel
     Public Property LayoutFunctions As ILayoutFunctions ''Added 10/3/2019 td 
     Public Property Designer As ciBadgeDesigner.ClassDesigner
     Public Property ColorDialog1 As ColorDialog ''Added 10/3/2019 td 
-    Public Property FontDialog1 As ColorDialog ''Added 10/3/2019 td 
+    Public Property FontDialog1 As FontDialog ''Added 10/3/2019 td 
 
     ''---not needed 10/3/2019 td----Public Property GroupEdits As ClassGroupMove ''Added 10/3/2019 td 
     Public Property SelectingElements As ISelectingElements ''Added 10/3/2019 td 
@@ -33,7 +36,7 @@ Public Class Methods_EditElement
         Dim form_ToShow As New ListCustomFieldsFlow
 
         Dim boolExitEarly As Boolean ''Added 8/13/2019 td
-        CreateVisibleButton_Master("Choose a background color", AddressOf OpenDialog_Color, boolExitEarly)
+        ''10/10/2019 td''CreateVisibleButton_Master("Choose a background color", AddressOf OpenDialog_Color, boolExitEarly)
         If (boolExitEarly) Then Exit Sub ''Added 8/13/2019 td
 
         ''Can (should) we just show a single field? ''form_ToShow.JustOneField = Me.FieldInfo
@@ -42,10 +45,11 @@ Public Class Methods_EditElement
 
         form_ToShow.Show()
 
-    End Sub ''eNd of "Private Sub opendialog_Field()"
+    End Sub ''eNd of "Private Sub Open_Field_Of_Element()"
 
-    Private Sub CreateVisibleButton_Master(par_strText As String, par_handler As EventHandler, ByRef pboolExitEarly As Boolean,
+    Private Sub CreateVisibleButtonMaster(par_strText As String, par_handler As EventHandler, ByRef pboolExitEarly As Boolean,
                                            Optional pboolAlignment As Boolean = False)
+        ''10/10/2019 td''Private Sub CreateVisibleButton_Master(
         ''
         ''Added 8/13/2019 td  
         ''
@@ -69,14 +73,16 @@ Public Class Methods_EditElement
 
     End Sub ''End of "Private Sub CreateMouseButton_Master(par_strText As String, par_handler As EventHandler)"
 
-    Private Sub OpenDialog_Color(sender As Object, e As EventArgs)
+    Private Sub Choose_Background_Color(sender As Object, e As EventArgs)
+        ''---10/10/2019 td--Private Sub OpenDialog_Color(sender As Object, e As EventArgs)
         ''
         ''Added 7/30/2019 thomas downes
         ''
-        Dim boolExitEarly As Boolean ''Added 8/13/2019 td
-        CreateVisibleButton_Master("Choose a background color", AddressOf OpenDialog_Color, boolExitEarly)
-        Application.DoEvents()
-        If (boolExitEarly) Then Exit Sub ''Added 8/13/2019 td
+        ''Dim boolExitEarly As Boolean ''Added 8/13/2019 td
+
+        ''CreateVisibleButton_Master("Choose a background color", AddressOf OpenDialog_Color, boolExitEarly)
+        ''Application.DoEvents()
+        ''If (boolExitEarly) Then Exit Sub ''Added 8/13/2019 td
 
         ColorDialog1.ShowDialog()
 
@@ -165,75 +171,75 @@ Public Class Methods_EditElement
 
     ''End Sub ''ENd of "Private Sub SwitchCtl_Down(sender As Object, e As EventArgs)"
 
-    ''Private Sub OpenDialog_Font(sender As Object, e As EventArgs)
-    ''    ''
-    ''    ''Added 7/30/2019 thomas downes
-    ''    ''
-    ''    Dim boolExitEarly As Boolean ''Added 8/13/2019 td
+    Private Sub OpenDialog_Font(sender As Object, e As EventArgs)
+        ''
+        ''Added 7/30/2019 thomas downes
+        ''
+        Dim boolExitEarly As Boolean ''Added 8/13/2019 td
 
-    ''    CreateVisibleButton_Master("Choose a text font", AddressOf OpenDialog_Font, boolExitEarly)
-    ''    Application.DoEvents()
+        ''10/10/2019 td''CreateVisibleButton_Master("Choose a text font", AddressOf OpenDialog_Font, boolExitEarly)
+        ''10/10/2019 td''Application.DoEvents()
 
-    ''    ''Added 8/17/2019 td
-    ''    If (mod_fauxMenuEditSingleton Is Nothing) Then mod_fauxMenuEditSingleton = New CtlGraphPopMenuEditSingle
+        ''Added 8/17/2019 td
+        ''10/10/2019 td''If (mod_fauxMenuEditSingleton Is Nothing) Then mod_fauxMenuEditSingleton = New CtlGraphPopMenuEditSingle
 
-    ''    mod_fauxMenuEditSingleton.SizeToExpectations()
+        ''10/10/2019 td''mod_fauxMenuEditSingleton.SizeToExpectations()
 
-    ''    If (boolExitEarly) Then Exit Sub ''Added 8/13/2019 td
+        If (boolExitEarly) Then Exit Sub ''Added 8/13/2019 td
 
-    ''    Me.FontDialog1.Font = Me.ElementInfo_Text.Font_DrawingClass ''Added 7/31/2019 td  
-    ''    Me.FontDialog1.ShowDialog()
+        Me.FontDialog1.Font = Me.CtlCurrentElement.ElementClass_Obj.Font_DrawingClass ''Added 7/31/2019 td  
+        Me.FontDialog1.ShowDialog()
 
-    ''    ''Me.ElementInfo.Font_DrawingClass = FontDialog1.Font
-    ''    ''Application.DoEvents()
-    ''    ''Application.DoEvents()
-    ''    ''RefreshImage()
-    ''    ''Me.Refresh()
+        ''Me.ElementInfo.Font_DrawingClass = FontDialog1.Font
+        ''Application.DoEvents()
+        ''Application.DoEvents()
+        ''RefreshImage()
+        ''Me.Refresh()
 
-    ''    If (Me.SelectingElements.LabelsList_IsItemUnselected(Me.CtlCurrentElement)) Then
+        If (Me.SelectingElements.LabelsList_IsItemUnselected(Me.CtlCurrentElement)) Then
 
-    ''        Me.CtlCurrentElement.ElementInfo_Text.Font_DrawingClass = Me.FontDialog1.Font
-    ''        Me.CtlCurrentElement.ElementInfo_Text.FontSize_Pixels = Me.FontDialog1.Font.Size  ''Added 8/17/2019 td
-    ''        Application.DoEvents()
-    ''        Application.DoEvents()
+            Me.CtlCurrentElement.ElementInfo_Text.Font_DrawingClass = Me.FontDialog1.Font
+            Me.CtlCurrentElement.ElementInfo_Text.FontSize_Pixels = Me.FontDialog1.Font.Size  ''Added 8/17/2019 td
+            Application.DoEvents()
+            Application.DoEvents()
 
-    ''        ''9/15/2019 td''Refresh_Image()
-    ''        ''10/3/2019 td''Refresh_Image(False)
-    ''        ''10/3/2019 td''Me.Refresh()
-    ''        Me.CtlCurrentElement.Refresh_Image(False)
-    ''        Me.CtlCurrentElement.Refresh()
+            ''9/15/2019 td''Refresh_Image()
+            ''10/3/2019 td''Refresh_Image(False)
+            ''10/3/2019 td''Me.Refresh()
+            Me.CtlCurrentElement.Refresh_Image(False)
+            Me.CtlCurrentElement.Refresh()
 
-    ''    ElseIf (Me.SelectingElements.LabelsList_IsItemIncluded(Me)) Then
+        ElseIf (Me.SelectingElements.LabelsList_IsItemIncluded(Me.CtlCurrentElement)) Then
 
-    ''        ''Added 8/3/2019 td 
-    ''        Dim objElements As List(Of CtlGraphicFldLabel)
+            ''Added 8/3/2019 td 
+            Dim objElements As List(Of CtlGraphicFldLabel)
 
-    ''        ''10/3/2019 td''objElements = CType(Me.ParentForm, ISelectingElements).LabelsDesignList_AllItems
-    ''        objElements = Me.SelectingElements.LabelsDesignList_AllItems
+            ''10/3/2019 td''objElements = CType(Me.ParentForm, ISelectingElements).LabelsDesignList_AllItems
+            objElements = Me.SelectingElements.LabelsDesignList_AllItems
 
-    ''        For Each each_ctl As CtlGraphicFldLabel In objElements
-    ''            ''
-    ''            ''Added 8/3/2019 td  
-    ''            ''
-    ''            With each_ctl
+            For Each each_ctl As CtlGraphicFldLabel In objElements
+                ''
+                ''Added 8/3/2019 td  
+                ''
+                With each_ctl
 
-    ''                .ElementInfo_Text.Font_DrawingClass = FontDialog1.Font
-    ''                Application.DoEvents()
-    ''                Application.DoEvents()
-    ''                .Refresh_Image(True)
-    ''                .Refresh()
+                    .ElementInfo_Text.Font_DrawingClass = FontDialog1.Font
+                    Application.DoEvents()
+                    Application.DoEvents()
+                    .Refresh_Image(True)
+                    .Refresh()
 
-    ''            End With
+                End With
 
-    ''        Next each_ctl
+            Next each_ctl
 
-    ''    End If ''End of "If (Me.SelectingElements.LabelsList_IsItemUnselected(Me)) Then... Else ..."
+        End If ''End of "If (Me.SelectingElements.LabelsList_IsItemUnselected(Me)) Then... Else ..."
 
-    ''    ''Added 9/13/2019 td
-    ''    ''9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()
-    ''    Me.LayoutFunctions.AutoPreview_IfChecked()
+        ''Added 9/13/2019 td
+        ''9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()
+        Me.LayoutFunctions.AutoPreview_IfChecked()
 
-    ''End Sub ''eNd of "Private Sub opendialog_Font()"
+    End Sub ''eNd of "Private Sub opendialog_Font()"
 
     ''Private Sub GroupEditElement_Add(sender As Object, e As EventArgs)
     ''    ''

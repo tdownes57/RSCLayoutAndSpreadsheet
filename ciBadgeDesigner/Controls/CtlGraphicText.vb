@@ -29,11 +29,26 @@ Public Class CtlGraphicText
     ''  is (frustratingly) limited to the original control size, _NOT_ the resized control's full area
     ''  (enlarged via user click-and-drag), unfortunately.  ----7/31/2019 thomas d.  
 
+    Private mod_strTextToDisplay As String = "This is text which will be the same for everyone." ''Added 10/10/2019 td 
+
     Public ReadOnly Property Picture_Box As PictureBox
         Get
             ''Added 7/28/2019 td 
             Return Me.pictureLabel
         End Get
+    End Property
+
+    Public Property TextToDisplay As String
+        Get
+            ''Added 10/10/2019 td 
+            Return mod_strTextToDisplay
+        End Get
+        Set(value As String)
+            ''Added 10/10/2019 td 
+            mod_strTextToDisplay = value
+            Me.ElementInfo_TextOnly.Text = value
+            textTypeExample.Text = mod_strTextToDisplay
+        End Set
     End Property
 
     Public Sub New()

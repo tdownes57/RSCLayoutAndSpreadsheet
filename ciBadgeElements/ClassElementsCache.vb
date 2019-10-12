@@ -17,7 +17,8 @@ Public Class ClassElementsCache
     ''
     Public Property Id_GUID As System.Guid ''Added 9/30/2019 td 
 
-    Public Property SaveToXmlPath As String ''Added 9/29/2019 td
+    ''10/10/2019 td''Public Property SaveToXmlPath As String ''Added 9/29/2019 td
+    Public Property PathToXml_Saved As String ''Added 9/29/2019 td
 
     Public Property ElementQRCode As ClassElementQRCode ''Added 10/8/2019 thomas d.  
     Public Property ElementSignature As ClassElementSignature ''Added 10/8/2019 thomas d.  
@@ -234,7 +235,8 @@ Public Class ClassElementsCache
 
     End Sub ''ENd of "Public Sub LoadFieldElements(par_pictureBackground As PictureBox)"
 
-    Public Sub LoadPicElement(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)
+    Public Sub LoadElement_Pic(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)
+        ''10/10/2019 td''Public Sub LoadPicElement(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)
         ''
         ''Added 9/16/2019 td  
         ''
@@ -257,7 +259,54 @@ Public Class ClassElementsCache
 
         mod_listElementPics.Add(objElementPic)
 
-    End Sub ''End of "Public Sub LoadPicElement(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)"
+    End Sub ''End of "Public Sub LoadElement_Pic(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)"
+
+    Public Sub LoadElement_QRCode(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)
+        ''
+        ''Added 10/10/2019 td  
+        ''
+        Dim objElementQR As ClassElementQRCode ''Added 9/16/2019 td 
+        Dim objRectangle As Rectangle ''Added 9/16/2019 td  
+        Dim intLeft As Integer
+        Dim intTop As Integer
+
+        ciPictures_VB.PictureExamples.PathToFolderOfImages = (My.Application.Info.DirectoryPath & "\Images\QRCodes")
+
+        intLeft = par_intLeft ''9/19 td''(par_picturePortrait.Left - par_pictureBackground.Left)
+        intTop = par_intTop ''9/19 td''(par_picturePortrait.Top - par_pictureBackground.Top)
+
+        ''9/19/2019 td''objRectangle = New Rectangle(intLeft, intTop, par_picturePortrait.Width, par_picturePortrait.Height)
+        objRectangle = New Rectangle(intLeft, intTop, par_intWidth, par_intHeight)
+
+        objElementQR = New ClassElementQRCode(objRectangle, par_pictureBackground)
+
+        ''10/10/2019 td''objElementQR.PicFileIndex = 1
+        ''10/10/2019 td''mod_listElementPics.Add(objElementPic)
+
+        Me.ElementQRCode = objElementQR
+
+    End Sub ''End of "Public Sub LoadElement_QRCode(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)"
+
+    Public Sub LoadElement_Signature(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)
+        ''
+        ''Added 10/10/2019 td  
+        ''
+        Dim objElementSig As ClassElementSignature ''Added 10/10/2019 td 
+        Dim objRectangle As Rectangle ''Added 9/16/2019 td  
+        Dim intLeft As Integer
+        Dim intTop As Integer
+
+        ciPictures_VB.PictureExamples.PathToFolderOfImages = (My.Application.Info.DirectoryPath & "\Images\Signatures")
+
+        intLeft = par_intLeft ''9/19 td''(par_picturePortrait.Left - par_pictureBackground.Left)
+        intTop = par_intTop ''9/19 td''(par_picturePortrait.Top - par_pictureBackground.Top)
+
+        objRectangle = New Rectangle(intLeft, intTop, par_intWidth, par_intHeight)
+        objElementSig = New ClassElementSignature(objRectangle, par_pictureBackground)
+
+        Me.ElementSignature = objElementSig
+
+    End Sub ''End of "Public Sub LoadElement_Signature(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)"
 
     Public Sub LoadElement_Portrait(par_picturePortrait As PictureBox, par_pictureBackground As PictureBox)
         ''10/8/2019 td''Public Sub LoadPicElement(par_picturePortrait As PictureBox, par_pictureBackground As PictureBox)
@@ -282,7 +331,7 @@ Public Class ClassElementsCache
 
         mod_listElementPics.Add(objElementPic)
 
-    End Sub ''End of "Public Sub LoadElement_Portrait(par_pictureBackground As PictureBox)"
+    End Sub ''End of "Public Sub LoadElement_Portrait(par_picturePortrait As PictureBox, par_pictureBackground As PictureBox)"
 
     Public Sub LoadElement_Signature(par_picSignature As PictureBox, par_pictureBackground As PictureBox)
         ''
@@ -334,6 +383,27 @@ Public Class ClassElementsCache
 
     End Sub ''End of "Public Sub LoadElement_QRCode(par_picQRCode As PictureBox, par_pictureBackground As PictureBox)"
 
+    Public Sub LoadElement_Text(par_DisplayText As String, par_intLeft As Integer, par_intTop As Integer,
+                                par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)
+        ''
+        ''Added 10/10/2019 td  
+        ''
+        Dim objElementText As ClassElementStaticText ''Added 10/10/2019 td 
+        Dim objRectangle As Rectangle ''Added 10/10/2019 td  
+        Dim intLeft As Integer
+        Dim intTop As Integer
+
+        intLeft = (par_intLeft - par_pictureBackground.Left)
+        intTop = (par_intTop - par_pictureBackground.Top)
+
+        objRectangle = New Rectangle(intLeft, intTop, par_intWidth, par_intHeight)
+
+        objElementText = New ClassElementStaticText(par_DisplayText, intLeft, intTop, par_intHeight)
+
+        mod_listElementStatics.Add(objElementText)
+
+    End Sub ''End of "Public Sub LoadElement_Text(par_DisplayText As String, par_intLeft As Integer, ...., par_pictureBackground As PictureBox)"
+
     Public Sub LoadRecipient(par_recipient As IRecipient)
         ''
         ''Added 10/5/2019 thomas downwe
@@ -364,7 +434,13 @@ Public Class ClassElementsCache
             copy_ofField = each_field.Copy()
             objCopyOfCache.ListFields().Add(copy_ofField)
             ListFields_NotUsed.Add(copy_ofField)
-            dictionaryFields.Add(copy_ofField.FieldEnumValue, copy_ofField)
+            Try
+                dictionaryFields.Add(copy_ofField.FieldEnumValue, copy_ofField)
+            Catch ex_AddFailed As Exception
+                ''Added 10/10/2019 td
+                ''  The ID field is being added twice, for an unknown reason.  
+                System.Diagnostics.Debugger.Break()
+            End Try
         Next each_field
 
         ''Added 9/17/2019 thomas downes  
@@ -405,6 +481,9 @@ Public Class ClassElementsCache
         If (Me.ElementQRCode IsNot Nothing) Then objCopyOfCache.ElementQRCode = Me.ElementQRCode.Copy
         If (Me.ElementSignature IsNot Nothing) Then objCopyOfCache.ElementSignature = Me.ElementSignature.Copy
 
+        ''Added 10/10/2019 thomas downes
+        objCopyOfCache.PathToXml_Saved = Me.PathToXml_Saved
+
         Return objCopyOfCache
 
     End Function ''End of "Public Function Copy() As ClassElementsCache"
@@ -417,6 +496,60 @@ Public Class ClassElementsCache
 
 
     End Function ''End of "Public Function GetElementByGUID(par_guid As System.Guid) As ClassElementField"
+
+    Public Function MissingTheFields() As Boolean
+        ''Added 10/10/2019 td 
+        Return (0 = mod_listFields.Count)
+
+    End Function ''ENd of "Public Function MissingTheFields() As Boolean"
+
+    Public Function MissingTheElementFields() As Boolean
+        ''Added 10/10/2019 td 
+        Return (0 = mod_listElementFields.Count)
+
+    End Function ''ENd of "Public Function MissingTheElementFields() As Boolean"
+
+    Public Function MissingTheElementTexts() As Boolean
+        ''Added 10/11/2019 td 
+        Return (0 = mod_listElementStatics.Count)
+
+    End Function ''ENd of "Public Function MissingTheElementTexts() As Boolean"
+
+    Public Function MissingTheElementPic() As Boolean
+        ''Added 10/10/2019 td 
+        Return (0 = mod_listElementPics.Count)
+
+    End Function ''ENd of "Public Function MissingTheElementPic() As Boolean"
+
+    Public Function MissingTheQRCode() As Boolean
+        ''Added 10/10/2019 td 
+        Return (Me.ElementQRCode Is Nothing)
+
+    End Function ''ENd of "Public Function MissingTheQRCode() As Boolean"
+
+    Public Function MissingTheSignature() As Boolean
+        ''Added 10/10/2019 td 
+        Return (Me.ElementSignature Is Nothing)
+
+    End Function ''ENd of "Public Function MissingTheSignature() As Boolean"
+
+    Public Function GetFieldByLabelCaption(par_caption As String) As ClassFieldAny
+        ''Added 10/10/2019 td 
+        Return (Nothing)
+
+    End Function ''ENd of "Public Function GetFieldByLabelCaptionpar_caption As String) As ClassFieldAny"
+
+    Public Function GetElementByLabelCaption(par_caption As String) As ClassElementField
+        ''Added 10/10/2019 td 
+        Return (Nothing)
+
+    End Function ''ENd of "Public Function GetFieldByLabelCaptionpar_caption As String) As ClassFieldAny"
+
+    Public Function GetElementByField(par_field As ClassFieldAny) As ClassElementField
+        ''Added 10/10/2019 td 
+        Return (Nothing)
+
+    End Function ''ENd of "Public Function GetFieldByLabelCaptionpar_caption As String) As ClassFieldAny"
 
     ''Private Sub LoadElements_Picture()
     ''    ''

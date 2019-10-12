@@ -798,7 +798,8 @@ ExitHandler:
 
         gr_Badge = Graphics.FromImage(par_imageBadgeCard)
 
-        decScalingFactor = (pintDesiredLayoutWidth / pintDesignedLayoutWidth)
+        decScalingFactor = (pintDesiredLayoutWidth /
+                            pintDesignedLayoutWidth)
 
         With par_elementBase
             intLeft_Desired = CInt(.LeftEdge_Pixels * decScalingFactor)

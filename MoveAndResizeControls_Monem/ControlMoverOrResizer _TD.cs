@@ -8,6 +8,7 @@ using System.Windows.Forms;
 /***
     ''
     ''   by Seyyed Hamed Monem
+    ''     (modified by Thomas Downes) 
     ''
     '' https://www.codeproject.com/tips/709121/move-and-resize-controls-on-a-form-at-runtime-with 
     ''

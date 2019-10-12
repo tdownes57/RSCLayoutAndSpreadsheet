@@ -6,11 +6,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{FB60907F-05CD-474D-967E-831B7BA2D517}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>ciLayoutDesignVB.My.MyApplication</StartupObject>
+    <StartupObject>Sub Main</StartupObject>
     <RootNamespace>ciLayoutDesignVB</RootNamespace>
     <AssemblyName>ciLayoutDesignVB</AssemblyName>
     <FileAlignment>512</FileAlignment>
-    <MyType>WindowsForms</MyType>
+    <MyType>WindowsFormsWithCustomSubMain</MyType>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -81,8 +81,8 @@
     <Compile Include="ClassGroupMove.vb" />
     <Compile Include="ClassLabelToImage.vb" />
     <Compile Include="ClassRubberbandSelector.vb" />
-    <Compile Include="ContextMenus\CacheMenuItems.vb" />
-    <Compile Include="ContextMenus\Methods_EditElement.vb" />
+    <Compile Include="ContextMenus\MenuCache_ElemFlds.vb" />
+    <Compile Include="ContextMenus\Operations_EditElement.vb" />
     <Compile Include="ContextMenus_Obselete\ClassMenuMethods.vb" />
     <Compile Include="ContextMenus_Obselete\ContextLayoutBackground.Designer.vb">
       <DependentUpon>ContextLayoutBackground.vb</DependentUpon>
@@ -331,6 +331,8 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="modFonts.vb" />
+    <Compile Include="Notes\CodeDeletedFromProtoTwo.vb" />
+    <Compile Include="Startup.vb" />
     <Compile Include="Version830_v101.Designer.vb">
       <DependentUpon>Version830_v101.vb</DependentUpon>
     </Compile>
@@ -591,12 +593,16 @@
     <Content Include="Images\PictureExamples\test - backup.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\QRCodes\QR Code Example.PNG" />
     <Content Include="Images\RotatedLayout.png" />
     <Content Include="Images\Signatures\200867.bmp" />
     <Content Include="Images\Signatures\200867.jpg" />
     <Content Include="Images\Signatures\201455.emf" />
     <Content Include="Images\Signatures\201466.png" />
     <Content Include="Images\Signatures\201477.jpg" />
+    <Content Include="Images\Signatures\Declaration _png.png" />
+    <Content Include="Images\Signatures\Declaration_bmp.bmp" />
+    <Content Include="Images\Signatures\Declaration_jpg.jpg" />
     <Content Include="Images\SizeAdjustmentBar.png" />
     <Content Include="Images\SizeStretchZones.jpg" />
     <Content Include="Images\SizeStretchZones_V101.bmp" />
@@ -618,6 +624,9 @@
     </None>
     <None Include="Resources\CI_Logo.bmp" />
     <None Include="Resources\AdjustWHColor_V101.jpg" />
+    <None Include="Resources\Declaration.jpg" />
+    <None Include="Resources\Declaration_BMP.bmp" />
+    <None Include="Resources\QR Code.BK.PNG" />
     <Content Include="Resources\RotatedLayout.png" />
     <None Include="Resources\Font Code39FiveRedA.rtf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -655,6 +664,10 @@
       <Project>{a5fe9f7b-4075-43c5-892b-01e2cfec342c}</Project>
       <Name>ciPictures_VB</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ciBadgeCustomer\ciBadgeCustomer.vbproj">
+      <Project>{02f14561-e867-47ea-9b91-990b0bbb597f}</Project>
+      <Name>ciBadgeCustomer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ciBadgeDesigner\ciBadgeDesigner.vbproj">
       <Project>{3a21a08c-c694-4f11-9838-91fff99a5d82}</Project>
       <Name>ciBadgeDesigner</Name>
@@ -675,6 +688,10 @@
       <Project>{3d1acca6-585e-4c92-9a6d-9a51d2f72f5f}</Project>
       <Name>ciBadgeInterfaces</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ciBadgeRecipients\ciBadgeRecipients.vbproj">
+      <Project>{2f42efad-0baa-4057-a1b8-36412cf0e2c0}</Project>
+      <Name>ciBadgeRecipients</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ciBadgeSerialize\ciBadgeSerialize.vbproj">
       <Project>{59d5b213-e44b-432a-8237-53d91ec9c04a}</Project>
       <Name>ciBadgeSerialize</Name>
@@ -688,8 +705,6 @@
       <Name>MoveAndResizeControls_Monem</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Images\QRCodes\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

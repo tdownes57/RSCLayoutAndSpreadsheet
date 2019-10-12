@@ -22,8 +22,33 @@ Partial Class CtlGraphicQRCode
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        components = New System.ComponentModel.Container()
+        Me.pictureQRCode = New System.Windows.Forms.PictureBox()
+        CType(Me.pictureQRCode, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SuspendLayout()
+        '
+        'pictureQRCode
+        '
+        Me.pictureQRCode.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.pictureQRCode.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pictureQRCode.Image = Global.ciBadgeDesigner.My.Resources.Resources.QR_Code_BK
+        Me.pictureQRCode.Location = New System.Drawing.Point(0, 0)
+        Me.pictureQRCode.Name = "pictureQRCode"
+        Me.pictureQRCode.Size = New System.Drawing.Size(136, 138)
+        Me.pictureQRCode.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.pictureQRCode.TabIndex = 2
+        Me.pictureQRCode.TabStop = False
+        '
+        'CtlGraphicQRCode
+        '
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.Controls.Add(Me.pictureQRCode)
+        Me.Name = "CtlGraphicQRCode"
+        Me.Size = New System.Drawing.Size(136, 138)
+        CType(Me.pictureQRCode, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ResumeLayout(False)
+
     End Sub
 
+    Friend WithEvents pictureQRCode As Windows.Forms.PictureBox
 End Class

@@ -1,6 +1,8 @@
 ﻿''
 ''Added 9/9/2019 thomasd
 ''
+Imports System.Drawing ''Added 10/11/2019 td 
+
 Public Enum EnumCIBFields
 
     Undetermined
@@ -72,12 +74,14 @@ Public Enum EnumCIBFields
     fintRecPool
     fstrRFID_Unique
 
-End Enum
+End Enum ''End of "Public Enum EnumCIBFields"
 
 Public Interface IRecipient
     ''
     ''Added 9/9/2019 thomasd
     ''
+    Function GetPortraitImage() As System.Drawing.Image ''Added 10/11/2019 td 
+
     Function GetTextValue(par_enum As EnumCIBFields) As String
 
     Function GetDateValue(par_enum As EnumCIBFields) As Date
@@ -92,6 +96,9 @@ Public Interface IRecipient
     Property fstrID As String
 
     Property intTimesPrinted As Integer
+
+    Property fstrBarcode As String ''Added 10/11/2019 td
+    Property fstrRFID_Unique As String ''Added 10/11/2019 td
 
     ''-------------------------------------------------------
     ''Custom fields 

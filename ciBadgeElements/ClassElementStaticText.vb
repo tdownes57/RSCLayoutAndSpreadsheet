@@ -48,7 +48,19 @@ Public Class ClassElementStaticText
     ''9/16 td''Public Property FieldLabelCaption As String Implements IElement_StaticText.FieldLabelCaption
 
     ''7/25/2019 td''Prpoerty ExampleText As String ''Added 7/25/2019
-    Public Property Text As String Implements IElement_TextOnly.Text ''E.g. "George Washington" for FullName. 
+    ''10/10/2019 td''Public Property Text As String Implements IElement_TextOnly.Text ''E.g. "George Washington" for FullName. 
+
+    Private mod_strTextToDisplay As String ''Added 10/10/2019 td
+    Public Property Text As String Implements IElement_TextOnly.Text ''Added 10/10/2019 td
+        Get
+            ''Added 10/10/2019 td 
+            Return mod_strTextToDisplay
+        End Get
+        Set(value As String)
+            ''Added 10/10/2019 td 
+            mod_strTextToDisplay = value
+        End Set
+    End Property
 
     ''Added 9/10/2019 td 
     ''9/16 td''Public Property Recipient As IRecipient Implements IElement_StaticText.Recipient
@@ -105,7 +117,7 @@ Public Class ClassElementStaticText
 
     End Sub
 
-    Public Sub New(par_intLeft_Pixels As Integer, par_intTop_Pixels As Integer, par_intHeight_Pixels As Integer)
+    Public Sub New(par_DisplayText As String, par_intLeft_Pixels As Integer, par_intTop_Pixels As Integer, par_intHeight_Pixels As Integer)
         ''
         ''Added 9/15/2019 td
         ''
@@ -114,6 +126,9 @@ Public Class ClassElementStaticText
         Me.LeftEdge_Pixels = par_intLeft_Pixels
         Me.TopEdge_Pixels = par_intTop_Pixels
         Me.Height_Pixels = par_intHeight_Pixels
+
+        ''Added 10//10/2019 td
+        Me.Text = par_DisplayText
 
     End Sub
 

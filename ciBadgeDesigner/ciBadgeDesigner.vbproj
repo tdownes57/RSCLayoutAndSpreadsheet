@@ -71,7 +71,7 @@
   <ItemGroup>
     <Compile Include="ClassDesigner.vb" />
     <Compile Include="Classes_Minor\ClassFixTheControlWidth.vb" />
-    <Compile Include="Classes_Minor\ClassGroupMove.vb" />
+    <Compile Include="Classes_Minor\ClassGroupMoveEvents.vb" />
     <Compile Include="Classes_Minor\ClassLabelToImage_NotInUse.vb" />
     <Compile Include="Classes_Minor\ClassRubberbandSelector.vb" />
     <Compile Include="Controls\CtlGraphicFldLabel.designer.vb">
@@ -154,6 +154,12 @@
     <EmbeddedResource Include="Controls\CtlGraphicPortrait.resx">
       <DependentUpon>CtlGraphicPortrait.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtlGraphicQRCode.resx">
+      <DependentUpon>CtlGraphicQRCode.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtlGraphicSignature.resx">
+      <DependentUpon>CtlGraphicSignature.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlGraphicText.resx">
       <DependentUpon>CtlGraphicText.vb</DependentUpon>
     </EmbeddedResource>
@@ -206,6 +212,10 @@
       <Project>{3d1acca6-585e-4c92-9a6d-9a51d2f72f5f}</Project>
       <Name>ciBadgeInterfaces</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ciBadgeSerialize\ciBadgeSerialize.vbproj">
+      <Project>{59d5b213-e44b-432a-8237-53d91ec9c04a}</Project>
+      <Name>ciBadgeSerialize</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ciLayoutPrintLib\ciLayoutPrintLib.vbproj">
       <Project>{f8271e6c-5c26-4cec-bd4c-ad3b10fef6b9}</Project>
       <Name>ciLayoutPrintLib</Name>
@@ -226,6 +236,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ciSigPlus_NET45.dll" />
+    <None Include="Resources\QR Code.BK.PNG" />
+    <None Include="Resources\Declaration.bmp" />
+    <None Include="Resources\Declaration.emf" />
+    <None Include="Resources\Declaration.jpg" />
+    <None Include="Resources\Declaration _png.png" />
+    <None Include="Resources\Declaration_bmp.bmp" />
+    <None Include="Resources\Declaration_emf.emf" />
+    <None Include="Resources\Declaration_jpg.jpg" />
+    <None Include="Resources\Static_Text.png" />
     <Content Include="SigPlusNET.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

@@ -61,9 +61,11 @@ namespace ciBadgeGenerator
          
     public class ClassMakeBadge
     {
-        public Image MakeBadgeImage_ByRecipient(Image par_backgroundImage, 
+        public Image MakeBadgeImage_ByRecipient(IBadgeLayout par_layout,
+                                    Image par_backgroundImage, 
                                     ClassElementsCache par_cache,
                                     int par_badge_width_pixels,
+                                    int par_badge_height_pixels,
                                     IRecipient par_recipient, 
                                     Image par_recipientPic)
         {
@@ -75,74 +77,113 @@ namespace ciBadgeGenerator
             //
             //Step #2:  Create the image of the badge-card for the above recipient. 
             //
-            return MakeBadgeImage(par_backgroundImage, par_cache, par_badge_width_pixels, par_recipientPic);
+            //10-09-2019 td //return MakeBadgeImage(par_backgroundImage, par_cache, par_badge_width_pixels, par_recipientPic);
+            return MakeBadgeImage(par_layout, par_backgroundImage, par_cache, 
+                                    par_badge_width_pixels, 
+                                    par_badge_height_pixels, 
+                                    par_recipientPic);
 
         }
 
-        public Image MakeBadgeImage(Image par_backgroundImage, ClassElementsCache par_cache, 
-                                    int par_badge_width_pixels, Image par_recipientPic)
+        public Image MakeBadgeImage(IBadgeLayout par_layout,  
+                                    Image par_backgroundImage, 
+                                    ClassElementsCache par_cache, 
+                                    int par_newBadge_width_pixels, 
+                                    int par_newBadge_height_pixels,
+                                    Image par_recipientPic)
         {
             //Dim objPrintLibElems As New ciLayoutPrintLib.LayoutElements
 
+            //Image obj_imageWithElementFlds; //Added 10/9/2019 td 
+
             //''Added 9 / 6 / 2019 td
+            //    ClassLabelToImage.ProportionsAreSlightlyOff(Me.BackgroundBox.Image, True, "Background Image")
             ClassProportions.ProportionsAreSlightlyOff(par_backgroundImage, true, "Background Image");
 
             LayoutElements objPrintLibElems = new LayoutElements();
 
-            Image obj_image_clone_resized = (Image)par_backgroundImage.Clone();
-
-            //    ClassLabelToImage.ProportionsAreSlightlyOff(Me.BackgroundBox.Image, True, "Background Image")
-            //
             //    obj_image = Me.BackgroundBox.Image
             //    obj_image_clone = CType(obj_image.Clone(), Image)
             //
+            //10-09-2019 td//Image obj_image_clone_resized = (Image)par_backgroundImage.Clone();
+            Image obj_image = (Image)par_backgroundImage.Clone();
+
+            //
             //    obj_image_clone_resized =
             //        LayoutPrint.ResizeBackground_ToFitBox(obj_image, Me.PreviewBox, True)
-            //
+
+            Image obj_image_resized = ResizeImage_WidthAndHeight(obj_image, par_newBadge_width_pixels, par_newBadge_height_pixels);
+            obj_image = obj_image_resized;
+
             //    Dim listOfElementTextFields As List(Of ClassElementField)
             //    listOfElementTextFields = Me.ElementsCache_Edits.ListFieldElements()
 
-            List<ClassElementField> listOfElementTextFields;
+            List <ClassElementField> listOfElementTextFields;
             listOfElementTextFields = par_cache.ListFieldElements();
 
-            const bool c_boolUseUntestedProc = false;  //Added 10/5/2019 td
+            const bool c_boolUseUntestedProc = false;  // true;  // false;  //Added 10/5/2019 td
             if (c_boolUseUntestedProc)
             {
-                LoadImageWithElements(ref obj_image_clone_resized, listOfElementTextFields);
+                //
+                // I don't think this procedure (LoadImageWithElement) is fully converted to C# yet. 
+                //   If I recall, it's rather long and I was experiencing fatigue from the 
+                //   late hour. ---10/9/2019 td
+                //
+                LoadImageWithElements(ref obj_image, listOfElementTextFields);
             }
             else
             {
-                objPrintLibElems.LoadImageWithElements(ref obj_image_clone_resized, listOfElementTextFields);
+                objPrintLibElems.LoadImageWithElements(ref obj_image, listOfElementTextFields);
             }
 
             //''
             //''Major call, let's show the portrait !!  ---9/9/2019 td  
             //''
             //objPrintLibElems.LoadImageWithPortrait(obj_image_clone_resized.Width,
-            //                                    par_badge_width_pixels,
-            //                                    obj_image_clone_resized,
-            //                                    CtlGraphicPortrait_Lady.ElementInfo_Base,
-            //                                    CtlGraphicPortrait_Lady.ElementInfo_Pic,
-            //                                    CtlGraphicPortrait_Lady.picturePortrait.Image);
+            //                    par_badge_width_pixels,
+            //                    obj_image_clone_resized,
+            //                    CtlGraphicPortrait_Lady.ElementInfo_Base,
+            //                    CtlGraphicPortrait_Lady.ElementInfo_Pic,
+            //                    CtlGraphicPortrait_Lady.picturePortrait.Image);
 
-            ClassElementPic objElementPic = new ClassElementPic();
+            const bool c_bIgnorePicDataInCache = false; //Added 10/9/2019 thomas d. 
 
-            // Added 10/8/2019 td  
-            objElementPic.Width_Pixels = par_recipientPic.Width;
-            objElementPic.Height_Pixels = par_recipientPic.Height; 
+            if (c_bIgnorePicDataInCache)
+            {
+                //ClassElementPic objElementPic = new ClassElementPic();
+                //
+                //// Added 10/8/2019 td  
+                //objElementPic.Width_Pixels = par_recipientPic.Width;
+                //objElementPic.Height_Pixels = par_recipientPic.Height;
+                //
+                //IElement_Base local_PicElementInfo_Base = (IElement_Base)objElementPic;
+                //IElementPic local_PicElementInfo_Pic = (IElementPic)objElementPic;
+                ////Image recipient_pic_Image = par_recipient.GetPic();
+                //
+                //objPrintLibElems.LoadImageWithPortrait(obj_image.Width,
+                //                                    par_badge_width_pixels,
+                //                                    ref obj_image,
+                //                                    local_PicElementInfo_Base,
+                //                                    local_PicElementInfo_Pic,
+                //                                    ref par_recipientPic);
+            }
+            else
+            {
+                //
+                //Added 10/9/2019 thomas d. 
+                //
+                ClassElementPic obj_elementPic = par_cache.ListPicElements()[0];
 
-            IElement_Base local_PicElementInfo_Base = (IElement_Base)objElementPic;
-            IElementPic local_PicElementInfo_Pic = (IElementPic)objElementPic;
-            //Image recipient_pic_Image = par_recipient.GetPic();
+                objPrintLibElems.LoadImageWithPortrait(par_newBadge_width_pixels,
+                                                    par_layout.Width_Pixels,
+                                                    ref obj_image,
+                                                    (IElement_Base)obj_elementPic,
+                                                    (IElementPic)obj_elementPic,
+                                                    ref par_recipientPic);
+            }
 
-            objPrintLibElems.LoadImageWithPortrait(obj_image_clone_resized.Width,
-                                                par_badge_width_pixels,
-                                                ref obj_image_clone_resized,
-                                                local_PicElementInfo_Base,
-                                                local_PicElementInfo_Pic,
-                                                ref par_recipientPic);
-
-            return obj_image_clone_resized; 
+            // 10-9-2019 td // return null;
+            return obj_image;  
 
         }
 
@@ -347,6 +388,66 @@ namespace ciBadgeGenerator
             //
             //End Sub ''End of ''Private Sub LoadImageWithElements()''
 
+        }
+
+  
+    //    Public Shared Function ResizeImage_ToWidth(ByVal InputImage As Image, ByVal par_intWidth As Integer) As Image
+    //    ''
+    //    ''Added 7/13/2019 Thomas Downes
+    //    ''
+    //    Dim intNewHeight As Integer
+    //
+    //    intNewHeight = CInt(par_intWidth* (InputImage.Height / InputImage.Width))
+    //
+    //    Return New Bitmap(InputImage, New Size(par_intWidth, intNewHeight))
+    //
+    //End Function ''Public Shared Function ResizeImage(ByVal InputImage As Image, ByVal parSizingBox As Control) As Image
+
+    //Public Shared Function ResizeImage_ToHeight(ByVal InputImage As Image, ByVal pbDummy As Boolean, ByVal par_intHeight As Integer) As Image
+    //    ''
+    //    ''Added 7/13/2019 Thomas Downes
+    //    ''
+    //    Dim intNewWidth As Integer
+    //
+    //    intNewWidth = CInt(par_intHeight* (InputImage.Width / InputImage.Height))
+    //
+    //    Return New Bitmap(InputImage, New Size(intNewWidth, par_intHeight))
+    //
+    //End Function ''Public Shared Function ResizeImage(ByVal InputImage As Image, ByVal parSizingBox As Control) As Image
+
+      public Image ResizeImage_WidthAndHeight(Image par_image, int par_intNewWidth, int par_intNewHeight)
+        {
+            //
+            //Example of call: 
+            //   ResizeImage_WidthAndHeight(obj_image, par_badge_width_pixels, par_badge_height_pixels);
+            //
+
+            return new Bitmap(par_image, new Size(par_intNewWidth, par_intNewHeight));
+
+        }
+
+        public Image ResizeImage_ToHeight(Image par_image, int par_intNewHeight)
+        {
+            //
+            //Example of call: 
+            //   ResizeImage_WidthAndHeight(obj_image, par_badge_width_pixels, par_badge_height_pixels);
+            //
+            decimal dec_proportionsWH = ((decimal)par_image.Width) / ((decimal)par_image.Height);
+            int intNewWidth = (int)(((decimal)par_intNewHeight) * dec_proportionsWH);
+
+            return new Bitmap(par_image, new Size(intNewWidth, par_intNewHeight));
+        }
+
+        public Image ResizeImage_ToWidth(Image par_image, int par_intNewWidth)
+        {
+            //
+            //Example of call: 
+            //   ResizeImage_WidthAndHeight(obj_image, par_badge_width_pixels, par_badge_height_pixels);
+            //
+            decimal dec_proportionsHW = ((decimal)par_image.Height) / ((decimal)par_image.Width);
+            int intNewHeight = (int)(((decimal)par_intNewWidth) * dec_proportionsHW);
+
+            return new Bitmap(par_image, new Size(par_intNewWidth, intNewHeight));
         }
 
 
