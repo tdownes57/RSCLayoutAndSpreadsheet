@@ -58,15 +58,15 @@ namespace ciBadgeGenerator
     //
     //End Sub ''end of "Private Sub RefreshPreview()"
 
-         
+
     public class ClassMakeBadge
     {
         public Image MakeBadgeImage_ByRecipient(IBadgeLayout par_layout,
-                                    Image par_backgroundImage, 
+                                    Image par_backgroundImage,
                                     ClassElementsCache par_cache,
                                     int par_badge_width_pixels,
                                     int par_badge_height_pixels,
-                                    IRecipient par_recipient, 
+                                    IRecipient par_recipient,
                                     Image par_recipientPic)
         {
             //
@@ -78,17 +78,17 @@ namespace ciBadgeGenerator
             //Step #2:  Create the image of the badge-card for the above recipient. 
             //
             //10-09-2019 td //return MakeBadgeImage(par_backgroundImage, par_cache, par_badge_width_pixels, par_recipientPic);
-            return MakeBadgeImage(par_layout, par_backgroundImage, par_cache, 
-                                    par_badge_width_pixels, 
-                                    par_badge_height_pixels, 
+            return MakeBadgeImage(par_layout, par_backgroundImage, par_cache,
+                                    par_badge_width_pixels,
+                                    par_badge_height_pixels,
                                     par_recipientPic);
 
         }
 
-        public Image MakeBadgeImage(IBadgeLayout par_layout,  
-                                    Image par_backgroundImage, 
-                                    ClassElementsCache par_cache, 
-                                    int par_newBadge_width_pixels, 
+        public Image MakeBadgeImage(IBadgeLayout par_layout,
+                                    Image par_backgroundImage,
+                                    ClassElementsCache par_cache,
+                                    int par_newBadge_width_pixels,
                                     int par_newBadge_height_pixels,
                                     Image par_recipientPic)
         {
@@ -118,7 +118,7 @@ namespace ciBadgeGenerator
             //    Dim listOfElementTextFields As List(Of ClassElementField)
             //    listOfElementTextFields = Me.ElementsCache_Edits.ListFieldElements()
 
-            List <ClassElementField> listOfElementTextFields;
+            List<ClassElementField> listOfElementTextFields;
             listOfElementTextFields = par_cache.ListFieldElements();
 
             const bool c_boolUseUntestedProc = false;  // true;  // false;  //Added 10/5/2019 td
@@ -182,8 +182,31 @@ namespace ciBadgeGenerator
                                                     ref par_recipientPic);
             }
 
+            //
+            //Added 10/9/2019 thomas d. 
+            //
+            if (par_cache.MissingTheSignature())
+            {
+                //
+                //There is not any Signature to display.
+                //
+            }
+            else
+            {
+                ClassElementSignature obj_elementSig = par_cache.ElementSignature;
+
+                LoadImageWithSignature(par_newBadge_width_pixels,
+                                    par_layout.Width_Pixels,
+                                    ref obj_image,
+                                    (IElement_Base)obj_elementSig,
+                                    (IElementSig)obj_elementSig,
+                                    ref par_recipientPic);
+
+            }
+
+
             // 10-9-2019 td // return null;
-            return obj_image;  
+            return obj_image;
 
         }
 
@@ -265,7 +288,7 @@ namespace ciBadgeGenerator
                 //              Case(.LeftEdge_Pixels + .Width_Pixels > par_imageBadgeCard.Width) ''Then 
                 //                    ''Continue For
 
-                int intElementsRightEdge = (each_elementField.LeftEdge_Pixels + 
+                int intElementsRightEdge = (each_elementField.LeftEdge_Pixels +
                                             each_elementField.Width_Pixels);
                 if (intElementsRightEdge > par_imageBadgeCard.Width) continue;
 
@@ -390,32 +413,158 @@ namespace ciBadgeGenerator
 
         }
 
-  
-    //    Public Shared Function ResizeImage_ToWidth(ByVal InputImage As Image, ByVal par_intWidth As Integer) As Image
-    //    ''
-    //    ''Added 7/13/2019 Thomas Downes
-    //    ''
-    //    Dim intNewHeight As Integer
-    //
-    //    intNewHeight = CInt(par_intWidth* (InputImage.Height / InputImage.Width))
-    //
-    //    Return New Bitmap(InputImage, New Size(par_intWidth, intNewHeight))
-    //
-    //End Function ''Public Shared Function ResizeImage(ByVal InputImage As Image, ByVal parSizingBox As Control) As Image
+        public void LoadImageWithPortrait(int pintDesiredLayoutWidth,
+                                 int pintDesignedLayoutWidth,
+                                 ref Image par_imageBadgeCard,
+                                 IElement_Base par_elementBase,
+                                 IElementPic par_elementPic,
+                                 ref Image par_imagePortrait)
+        {
+            //
+            //Added 9/9/2019 thomas d.
+            //
+            Image imagePortraitResized;
+            Graphics gr_Badge;  // As Graphics '' = Graphics.FromImage(img)
+            Double decScalingFactor;  // As Double ''Added 9 / 4 / 2019 thomas downes ''9 / 4 td''Decimal
+            int intLeft_Desired; // As Integer
+            int intTop_Desired; // As Integer
+            int intWidth_Desired; // As Integer
 
-    //Public Shared Function ResizeImage_ToHeight(ByVal InputImage As Image, ByVal pbDummy As Boolean, ByVal par_intHeight As Integer) As Image
-    //    ''
-    //    ''Added 7/13/2019 Thomas Downes
-    //    ''
-    //    Dim intNewWidth As Integer
-    //
-    //    intNewWidth = CInt(par_intHeight* (InputImage.Width / InputImage.Height))
-    //
-    //    Return New Bitmap(InputImage, New Size(intNewWidth, par_intHeight))
-    //
-    //End Function ''Public Shared Function ResizeImage(ByVal InputImage As Image, ByVal parSizingBox As Control) As Image
+            ClassProportions.ProportionsAreSlightlyOff(par_imageBadgeCard, true, "par_imageBadgeCard");
 
-      public Image ResizeImage_WidthAndHeight(Image par_image, int par_intNewWidth, int par_intNewHeight)
+            gr_Badge = Graphics.FromImage(par_imageBadgeCard);
+
+            decScalingFactor = ((double)pintDesiredLayoutWidth /
+                                        pintDesignedLayoutWidth);
+
+            //With par_elementBase
+            intLeft_Desired = (int)(par_elementBase.LeftEdge_Pixels * decScalingFactor);
+            intTop_Desired = (int)(par_elementBase.TopEdge_Pixels * decScalingFactor);
+            intWidth_Desired = (int)(par_elementBase.Width_Pixels * decScalingFactor);
+            //End With
+
+            //''9 / 9 / 2019 td''gr_Badge.DrawImage(par_imagePortrait, New PointF(intLeft_Desired, intTop_Desired))
+
+            imagePortraitResized = ResizeImage_ToWidth(par_imagePortrait, intWidth_Desired);
+
+            gr_Badge.DrawImage(imagePortraitResized, new PointF(intLeft_Desired, intTop_Desired));
+
+            gr_Badge.Dispose();
+
+        }  // End Sub ''end of "Public Sub LoadImageWithPortrait()"
+
+        public void LoadImageWithSignature(int pintDesiredLayoutWidth,
+                                 int pintDesignedLayoutWidth,
+                                 ref Image par_imageBadgeCard,
+                                 IElement_Base par_elementBase,
+                                 IElementSig par_elementSig,
+                                 ref Image par_imageSignature)
+        {
+            //
+            //Added 10/12/2019 thomas d.
+            //
+            Image imageSignaResized;
+            Graphics gr_Badge;  // As Graphics '' = Graphics.FromImage(img)
+            Double decScalingFactor;  // As Double ''Added 9 / 4 / 2019 thomas downes ''9 / 4 td''Decimal
+            int intLeft_Desired; // As Integer
+            int intTop_Desired; // As Integer
+            int intWidth_Desired; // As Integer
+
+            ClassProportions.ProportionsAreSlightlyOff(par_imageBadgeCard, true, "par_imageBadgeCard");
+
+            gr_Badge = Graphics.FromImage(par_imageBadgeCard);
+
+            decScalingFactor = ((double)pintDesiredLayoutWidth /
+                                        pintDesignedLayoutWidth);
+
+            //With par_elementBase
+            intLeft_Desired = (int)(par_elementBase.LeftEdge_Pixels * decScalingFactor);
+            intTop_Desired = (int)(par_elementBase.TopEdge_Pixels * decScalingFactor);
+            intWidth_Desired = (int)(par_elementBase.Width_Pixels * decScalingFactor);
+            //End With
+
+            //''9 / 9 / 2019 td''gr_Badge.DrawImage(par_imagePortrait, New PointF(intLeft_Desired, intTop_Desired))
+
+            imageSignaResized = ResizeImage_ToWidth(par_imageSignature, intWidth_Desired);
+
+            gr_Badge.DrawImage(imageSignaResized, new PointF(intLeft_Desired, intTop_Desired));
+
+            gr_Badge.Dispose();
+
+        }  // End Sub ''end of "Public Sub LoadImageWithSignature()"
+
+        public void LoadImageWithQRCode(int pintDesiredLayoutWidth,
+                                 int pintDesignedLayoutWidth,
+                                 ref Image par_imageBadgeCard,
+                                 IElement_Base par_elementBase,
+                                 IElementQRCode par_elementQR,
+                                 ref Image par_imageQRCode)
+        {
+            //
+            //Added 10/12/2019 thomas d.
+            //
+            Image imageQRCodeResized;
+            Graphics gr_Badge;  // As Graphics '' = Graphics.FromImage(img)
+            Double decScalingFactor;  // As Double ''Added 9 / 4 / 2019 thomas downes ''9 / 4 td''Decimal
+            int intLeft_Desired; // As Integer
+            int intTop_Desired; // As Integer
+            int intWidth_Desired; // As Integer
+
+            ClassProportions.ProportionsAreSlightlyOff(par_imageBadgeCard, true, "par_imageBadgeCard");
+
+            gr_Badge = Graphics.FromImage(par_imageBadgeCard);
+
+            decScalingFactor = ((double)pintDesiredLayoutWidth /
+                                        pintDesignedLayoutWidth);
+
+            //With par_elementBase
+            intLeft_Desired = (int)(par_elementBase.LeftEdge_Pixels * decScalingFactor);
+            intTop_Desired = (int)(par_elementBase.TopEdge_Pixels * decScalingFactor);
+            intWidth_Desired = (int)(par_elementBase.Width_Pixels * decScalingFactor);
+            //End With
+
+            //''9 / 9 / 2019 td''gr_Badge.DrawImage(par_imagePortrait, New PointF(intLeft_Desired, intTop_Desired))
+
+            imageQRCodeResized = ResizeImage_ToWidth(par_imageQRCode, intWidth_Desired);
+
+            gr_Badge.DrawImage(imageQRCodeResized, new PointF(intLeft_Desired, intTop_Desired));
+
+            gr_Badge.Dispose();
+
+        }  // End Sub ''end of "Public Sub LoadImageWithQRCode()"
+
+
+
+
+
+
+
+
+        //    Public Shared Function ResizeImage_ToWidth(ByVal InputImage As Image, ByVal par_intWidth As Integer) As Image
+        //    ''
+        //    ''Added 7/13/2019 Thomas Downes
+        //    ''
+        //    Dim intNewHeight As Integer
+        //
+        //    intNewHeight = CInt(par_intWidth* (InputImage.Height / InputImage.Width))
+        //
+        //    Return New Bitmap(InputImage, New Size(par_intWidth, intNewHeight))
+        //
+        //End Function ''Public Shared Function ResizeImage(ByVal InputImage As Image, ByVal parSizingBox As Control) As Image
+
+        //Public Shared Function ResizeImage_ToHeight(ByVal InputImage As Image, ByVal pbDummy As Boolean, ByVal par_intHeight As Integer) As Image
+        //    ''
+        //    ''Added 7/13/2019 Thomas Downes
+        //    ''
+        //    Dim intNewWidth As Integer
+        //
+        //    intNewWidth = CInt(par_intHeight* (InputImage.Width / InputImage.Height))
+        //
+        //    Return New Bitmap(InputImage, New Size(intNewWidth, par_intHeight))
+        //
+        //End Function ''Public Shared Function ResizeImage(ByVal InputImage As Image, ByVal parSizingBox As Control) As Image
+
+        public Image ResizeImage_WidthAndHeight(Image par_image, int par_intNewWidth, int par_intNewHeight)
         {
             //
             //Example of call: 
