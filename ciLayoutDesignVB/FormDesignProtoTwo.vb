@@ -118,7 +118,7 @@ Public Class FormDesignProtoTwo
 
         ''Added 10/12/2019 td
         CtlGraphicText1.LayoutFunctions = CType(mod_designer, ILayoutFunctions)
-        CtlGraphicSignature1.ElementClass_Obj.PathToSigFile = "";
+        CtlGraphicSignature1.ElementClass_Obj.SigFilePath = ""
 
 
     End Sub

@@ -82,7 +82,7 @@ Public Class CtlGraphicSignature
 
         ''10/12/2019 td''pictureSignature.Image = CType(Me.Pic_CloneOfInitialImage.Clone(), Image)
 
-        pictureSignature.Image = ElementInfo_Sig.GetImage_Signature(False)
+        pictureSignature.Image = ElementInfo_Sig.GetImage_Signature(False, strErrorMessage)
 
         If ("" <> strErrorMessage) Then
             ''Added 8/22/2019  
@@ -119,10 +119,11 @@ Public Class CtlGraphicSignature
         ''8/22/2019 td''picturePortrait.Image = ciPictures_VB.PictureExamples.GetImageByIndex(par_infoForPic_Pic.PicFileIndex)
 
         Dim strErrorMessage As String = "" ''Added 8/22/2019 td
+
         ''10/12/2019 td''pictureSignature.Image =
         ''10/12/2019 td''      ciPictures_VB.PictureExamples.GetImageByIndex(par_infoForPic_Pic.PicFileIndex, strErrorMessage)
 
-        pictureSignature.Image = ElementClass_Obj.GetImage_Signature(True, strErrMessage)
+        pictureSignature.Image = ElementClass_Obj.GetImage_Signature(True, strErrorMessage)
 
         If ("" <> strErrorMessage) Then
             ''Added 8/22/2019  
@@ -184,20 +185,20 @@ Public Class CtlGraphicSignature
         ''
         ''Added 8/18/2019 td
         ''
-        Me.ElementInfo_Sig.PicFileIndex += 1
+        ''10/12/2019 td''Me.ElementInfo_Sig.PicFileIndex += 1
 
         ''8/22/2019 td''picturePortrait.Image = ciPictures_VB.PictureExamples.GetImageByIndex(Me.ElementInfo_Pic.PicFileIndex)
 
-        Dim strErrorMessage As String = ""
-        pictureSignature.Image = ciPictures_VB.PictureExamples.GetImageByIndex(Me.ElementInfo_Sig.PicFileIndex, strErrorMessage)
+        ''10/12 td''Dim strErrorMessage As String = ""
+        ''      pictureSignature.Image = ciPictures_VB.PictureExamples.GetImageByIndex(Me.ElementInfo_Sig.PicFileIndex, strErrorMessage)
 
         ''Added 9/20/2019 td
         Me.LayoutFunctions.AutoPreview_IfChecked()
 
         ''Added 8/22/2019 td
-        If ("" <> strErrorMessage) Then MessageBox.Show(strErrorMessage, "229124",
-                                                    MessageBoxButtons.OK,
-                                                    MessageBoxIcon.Exclamation)
+        ''If ("" <> strErrorMessage) Then MessageBox.Show(strErrorMessage, "229124",
+        ''      MessageBoxButtons.OK,
+        ''      MessageBoxIcon.Exclamation)
 
     End Sub ''End of "Private Sub DisplayAnotherImage(sender As Object, e As EventArgs)"
 
@@ -250,9 +251,12 @@ Public Class CtlGraphicSignature
             ''
             ''Added 9/23/2019 td 
             ''
-            imgPortrait_withRotationIfAny =
-        ciBadgeElemImage.modGenerate.PicImage_ByElement(ElementClass_Obj,
-                                                        Me.Pic_CloneOfInitialImage)
+            ''10/12 td''imgPortrait_withRotationIfAny =
+            ''10/12 td''   ciBadgeElemImage.modGenerate.PicImage_ByElement(ElementClass_Obj,
+            ''10/12 td''                          Me.Pic_CloneOfInitialImage)
+
+            Dim strMessage = "" ''Added 10/12/2019 td
+            imgPortrait_withRotationIfAny = ElementClass_Obj.GetImage_Signature(True, strMessage)
 
             ''Added 9/24/2019 td
             pictureSignature.Image = imgPortrait_withRotationIfAny

@@ -294,7 +294,8 @@ namespace ciBadgeGenerator
 
             //Added 10/12/2019 td 
             par_elementSig.SigFilePath = par_strPathToSigFile;
-            Image imageSignature = par_elementSig.GetImage_Signature(true);
+            string strErrorMessage = "";
+            Image imageSignature = par_elementSig.GetImage_Signature(true, ref strErrorMessage);
 
             imageSignaResized = ResizeImage_ToWidth(imageSignature, intWidth_Desired);
 
