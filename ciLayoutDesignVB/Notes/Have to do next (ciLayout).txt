@@ -20,7 +20,7 @@ Add layout sub-sections (which appear conditionally)?
 
 Test & fix using the Control key to remove the selection of a element-control which has been selected via the rubber-band. 
 
-Add a Signature Element
+---Completed 10/12/2019 td------Add a Signature Element
 
 
 

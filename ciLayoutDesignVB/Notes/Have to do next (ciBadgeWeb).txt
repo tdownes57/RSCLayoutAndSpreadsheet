@@ -7,6 +7,12 @@ Fix the Upload of Background-of-Layout Images.
 
 Super Upload Page!!
 
+For Batch-Printing, learn how to create a ZIPPED folder of
+    all the generated Badge images (100, 1000, etc.).
+	The user will download the ZIPPED folder.
+
+
+
 
 
 
