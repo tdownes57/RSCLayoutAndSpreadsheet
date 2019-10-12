@@ -257,8 +257,7 @@ namespace ciBadgeGenerator
                                  int pintDesignedLayoutWidth,
                                  ref Image par_imageBadgeCard,
                                  IElement_Base par_elementBase,
-                                 IElementSig par_elementSig,
-                                 ref Image par_imageSignature)
+                                 IElementSig par_elementSig)
         {
             //
             //Added 10/12/2019 thomas d.
@@ -285,7 +284,12 @@ namespace ciBadgeGenerator
 
             //''9 / 9 / 2019 td''gr_Badge.DrawImage(par_imagePortrait, New PointF(intLeft_Desired, intTop_Desired))
 
-            imageSignaResized = ResizeImage_ToWidth(par_imageSignature, intWidth_Desired);
+            // 10-12-2019 td//imageSignaResized = ResizeImage_ToWidth(par_imageSignature, intWidth_Desired);
+
+            //Added 10/12/2019 td 
+            Image imageSignature = par_elementSig.GetImage_Signature();
+
+            imageSignaResized = ResizeImage_ToWidth(imageSignature, intWidth_Desired);
 
             gr_Badge.DrawImage(imageSignaResized, new PointF(intLeft_Desired, intTop_Desired));
 
@@ -332,9 +336,6 @@ namespace ciBadgeGenerator
             gr_Badge.Dispose();
 
         }  // End Sub ''end of "Public Sub LoadImageWithQRCode()"
-
-
-
 
 
 

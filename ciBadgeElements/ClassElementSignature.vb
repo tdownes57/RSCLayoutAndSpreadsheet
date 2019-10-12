@@ -41,6 +41,8 @@ Public Class ClassElementSignature
     Public Property TopEdge_Pixels As Integer Implements IElement_Base.TopEdge_Pixels
     Public Property LeftEdge_Pixels As Integer Implements IElement_Base.LeftEdge_Pixels
 
+    Private mod_image As Image ''Added 10/12/2019 td
+
     Private mod_width_pixels As Integer ''Added 9/23/2019 td 
     Public Property Width_Pixels As Integer Implements IElement_Base.Width_Pixels
         Get
@@ -138,6 +140,7 @@ Public Class ClassElementSignature
     ''Added 7/31/2019 thomas downes
     ''
     Public Property SigFileType As String Implements IElementSig.SigFileType
+    Public Property SigFilePath As String Implements IElementSig.SigFilePath ''Added 10/12/2019 td
     Public Property SigFileTitleExt As String Implements IElementSig.SigFileTitleExt
 
     Public Property SigFileIndex As Integer Implements IElementSig.SigFileIndex ''Added 8/16/2019 thomasd downes
@@ -200,6 +203,21 @@ Public Class ClassElementSignature
         Me.Height_Pixels = par_rectangle.Height
 
     End Sub ''ENd of ""Public Sub New(par_rectangle As Rectangle, par_layout As PictureBox)""
+
+    Public Function GetImage_Signature(par_bRefreshFromFile As Boolean) As Image Implements IElementSig.GetImage_Signature
+        ''
+        ''Added 10/12/2019 td  
+        ''
+        Dim boolNoWorkToDo As Boolean
+        boolNoWorkToDo = (mod_image IsNot Nothing And (Not par_bRefreshFromFile))
+
+        If (boolNoWorkToDo) Then Return mod_image
+
+        Dim obj_bitmap As New Bitmap(Me.SigFilePath)
+
+        Return CType(obj_bitmap, Image)
+
+    End Function ''End of "Public Function GetImage_Signature(par_bRefreshFromFile As Boolean)"
 
     Public Function Copy() As ClassElementSignature
         ''

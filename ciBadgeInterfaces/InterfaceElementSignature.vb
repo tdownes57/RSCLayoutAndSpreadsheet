@@ -5,6 +5,7 @@
 ''     Gang of Four
 ''      https://www.tutorialspoint.com/design_pattern/design_pattern_overview
 ''
+Imports System.Drawing  ''Added 10/12/2019 td
 
 Public Interface IElementSig
     ''
@@ -17,6 +18,9 @@ Public Interface IElementSig
 
     ''Added 8/12/2019 thomas downes  
     Property SigFileIndex As Integer ''Added 8/12/2019 thomas downes
+    Property SigFilePath As String ''Added 10/12/2019 thomas downes
+
+    Function GetImage_Signature(pboolRefresh As Boolean) As Image ''Added 110/12/2019 td
 
     Property Recipient As IRecipient ''Added 9/9/2019   
 

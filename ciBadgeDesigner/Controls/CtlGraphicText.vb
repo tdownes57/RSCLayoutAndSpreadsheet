@@ -16,7 +16,7 @@ Public Class CtlGraphicText
     Public Shared LabelToImage As ClassLabelToImage
 
     ''8/29/2019 td''Public ElementInfo As ClassElementText
-    Public Element_StaticText As ClassElementStaticText ''Added 10/11/2019 td
+    Public Element_StaticText As New ClassElementStaticText ''Added 10/11/2019 td
     Public ElementInfo_Base As ciBadgeInterfaces.IElement_Base ''Added 8/29/2019 td
     ''9/18/2019 td''Public ElementInfo_Text As ciBadgeInterfaces.IElement_TextField ''Added 8/29/2019 td
     Public ElementInfo_TextOnly As ciBadgeInterfaces.IElement_TextOnly ''Added 8/29/2019 td
@@ -48,7 +48,10 @@ Public Class CtlGraphicText
         Set(value As String)
             ''Added 10/10/2019 td 
             mod_strTextToDisplay = value
+
+            If (Me.ElementInfo_TextOnly Is Nothing) Then Me.ElementInfo_TextOnly = Me.Element_StaticText
             Me.ElementInfo_TextOnly.Text = value
+
             textTypeExample.Text = mod_strTextToDisplay
         End Set
     End Property
@@ -112,6 +115,9 @@ Public Class CtlGraphicText
         ''8/4/2019''If (String.IsNullOrEmpty(Me.ElementInfo.Text)) Then ElementInfo.Text = LabelText()
 
         Dim boolScaleFontSize As Boolean ''Added 9/15/2019 thomas d. 
+
+        ''Added 10/12/2019 td
+        If (Me.ElementInfo_TextOnly Is Nothing) Then Me.ElementInfo_TextOnly = Me.Element_StaticText
 
         ElementInfo_TextOnly.Text = LabelText()
 
