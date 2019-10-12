@@ -174,7 +174,9 @@ namespace ciBadgeGenerator
                 //
                 ClassElementPic obj_elementPic = par_cache.ListPicElements()[0];
 
-                objPrintLibElems.LoadImageWithPortrait(par_newBadge_width_pixels,
+                // 10/12/2019 td//objPrintLibElems.LoadImageWithPortrait(par_newBadge_width_pixels,
+
+                LoadImageWithPortrait(par_newBadge_width_pixels,
                                                     par_layout.Width_Pixels,
                                                     ref obj_image,
                                                     (IElement_Base)obj_elementPic,
@@ -204,11 +206,137 @@ namespace ciBadgeGenerator
 
             }
 
-
             // 10-9-2019 td // return null;
             return obj_image;
 
         }
+
+
+
+        public void LoadImageWithPortrait(int pintDesiredLayoutWidth,
+                         int pintDesignedLayoutWidth,
+                         ref Image par_imageBadgeCard,
+                         IElement_Base par_elementBase,
+                         IElementPic par_elementPic,
+                         ref Image par_imagePortrait)
+        {
+            //
+            //Added 9/9/2019 thomas d.
+            //
+            Image imagePortraitResized;
+            Graphics gr_Badge;  // As Graphics '' = Graphics.FromImage(img)
+            Double decScalingFactor;  // As Double ''Added 9 / 4 / 2019 thomas downes ''9 / 4 td''Decimal
+            int intLeft_Desired; // As Integer
+            int intTop_Desired; // As Integer
+            int intWidth_Desired; // As Integer
+
+            ClassProportions.ProportionsAreSlightlyOff(par_imageBadgeCard, true, "par_imageBadgeCard");
+
+            gr_Badge = Graphics.FromImage(par_imageBadgeCard);
+
+            decScalingFactor = ((double)pintDesiredLayoutWidth /
+                                        pintDesignedLayoutWidth);
+
+            //With par_elementBase
+            intLeft_Desired = (int)(par_elementBase.LeftEdge_Pixels * decScalingFactor);
+            intTop_Desired = (int)(par_elementBase.TopEdge_Pixels * decScalingFactor);
+            intWidth_Desired = (int)(par_elementBase.Width_Pixels * decScalingFactor);
+            //End With
+
+            //''9 / 9 / 2019 td''gr_Badge.DrawImage(par_imagePortrait, New PointF(intLeft_Desired, intTop_Desired))
+
+            imagePortraitResized = ResizeImage_ToWidth(par_imagePortrait, intWidth_Desired);
+
+            gr_Badge.DrawImage(imagePortraitResized, new PointF(intLeft_Desired, intTop_Desired));
+
+            gr_Badge.Dispose();
+
+        }  // End Sub ''end of "Public Sub LoadImageWithPortrait()"
+
+        public void LoadImageWithSignature(int pintDesiredLayoutWidth,
+                                 int pintDesignedLayoutWidth,
+                                 ref Image par_imageBadgeCard,
+                                 IElement_Base par_elementBase,
+                                 IElementSig par_elementSig,
+                                 ref Image par_imageSignature)
+        {
+            //
+            //Added 10/12/2019 thomas d.
+            //
+            Image imageSignaResized;
+            Graphics gr_Badge;  // As Graphics '' = Graphics.FromImage(img)
+            Double decScalingFactor;  // As Double ''Added 9 / 4 / 2019 thomas downes ''9 / 4 td''Decimal
+            int intLeft_Desired; // As Integer
+            int intTop_Desired; // As Integer
+            int intWidth_Desired; // As Integer
+
+            ClassProportions.ProportionsAreSlightlyOff(par_imageBadgeCard, true, "par_imageBadgeCard");
+
+            gr_Badge = Graphics.FromImage(par_imageBadgeCard);
+
+            decScalingFactor = ((double)pintDesiredLayoutWidth /
+                                        pintDesignedLayoutWidth);
+
+            //With par_elementBase
+            intLeft_Desired = (int)(par_elementBase.LeftEdge_Pixels * decScalingFactor);
+            intTop_Desired = (int)(par_elementBase.TopEdge_Pixels * decScalingFactor);
+            intWidth_Desired = (int)(par_elementBase.Width_Pixels * decScalingFactor);
+            //End With
+
+            //''9 / 9 / 2019 td''gr_Badge.DrawImage(par_imagePortrait, New PointF(intLeft_Desired, intTop_Desired))
+
+            imageSignaResized = ResizeImage_ToWidth(par_imageSignature, intWidth_Desired);
+
+            gr_Badge.DrawImage(imageSignaResized, new PointF(intLeft_Desired, intTop_Desired));
+
+            gr_Badge.Dispose();
+
+        }  // End Sub ''end of "Public Sub LoadImageWithSignature()"
+
+        public void LoadImageWithQRCode(int pintDesiredLayoutWidth,
+                                 int pintDesignedLayoutWidth,
+                                 ref Image par_imageBadgeCard,
+                                 IElement_Base par_elementBase,
+                                 IElementQRCode par_elementQR,
+                                 ref Image par_imageQRCode)
+        {
+            //
+            //Added 10/12/2019 thomas d.
+            //
+            Image imageQRCodeResized;
+            Graphics gr_Badge;  // As Graphics '' = Graphics.FromImage(img)
+            Double decScalingFactor;  // As Double ''Added 9 / 4 / 2019 thomas downes ''9 / 4 td''Decimal
+            int intLeft_Desired; // As Integer
+            int intTop_Desired; // As Integer
+            int intWidth_Desired; // As Integer
+
+            ClassProportions.ProportionsAreSlightlyOff(par_imageBadgeCard, true, "par_imageBadgeCard");
+
+            gr_Badge = Graphics.FromImage(par_imageBadgeCard);
+
+            decScalingFactor = ((double)pintDesiredLayoutWidth /
+                                        pintDesignedLayoutWidth);
+
+            //With par_elementBase
+            intLeft_Desired = (int)(par_elementBase.LeftEdge_Pixels * decScalingFactor);
+            intTop_Desired = (int)(par_elementBase.TopEdge_Pixels * decScalingFactor);
+            intWidth_Desired = (int)(par_elementBase.Width_Pixels * decScalingFactor);
+            //End With
+
+            //''9 / 9 / 2019 td''gr_Badge.DrawImage(par_imagePortrait, New PointF(intLeft_Desired, intTop_Desired))
+
+            imageQRCodeResized = ResizeImage_ToWidth(par_imageQRCode, intWidth_Desired);
+
+            gr_Badge.DrawImage(imageQRCodeResized, new PointF(intLeft_Desired, intTop_Desired));
+
+            gr_Badge.Dispose();
+
+        }  // End Sub ''end of "Public Sub LoadImageWithQRCode()"
+
+
+
+
+
 
         //Public Sub LoadImageWithElements(ByRef par_imageBadgeCard As Image,
         //                           par_elements As List(Of ClassElementField),
@@ -412,127 +540,6 @@ namespace ciBadgeGenerator
             //End Sub ''End of ''Private Sub LoadImageWithElements()''
 
         }
-
-        public void LoadImageWithPortrait(int pintDesiredLayoutWidth,
-                                 int pintDesignedLayoutWidth,
-                                 ref Image par_imageBadgeCard,
-                                 IElement_Base par_elementBase,
-                                 IElementPic par_elementPic,
-                                 ref Image par_imagePortrait)
-        {
-            //
-            //Added 9/9/2019 thomas d.
-            //
-            Image imagePortraitResized;
-            Graphics gr_Badge;  // As Graphics '' = Graphics.FromImage(img)
-            Double decScalingFactor;  // As Double ''Added 9 / 4 / 2019 thomas downes ''9 / 4 td''Decimal
-            int intLeft_Desired; // As Integer
-            int intTop_Desired; // As Integer
-            int intWidth_Desired; // As Integer
-
-            ClassProportions.ProportionsAreSlightlyOff(par_imageBadgeCard, true, "par_imageBadgeCard");
-
-            gr_Badge = Graphics.FromImage(par_imageBadgeCard);
-
-            decScalingFactor = ((double)pintDesiredLayoutWidth /
-                                        pintDesignedLayoutWidth);
-
-            //With par_elementBase
-            intLeft_Desired = (int)(par_elementBase.LeftEdge_Pixels * decScalingFactor);
-            intTop_Desired = (int)(par_elementBase.TopEdge_Pixels * decScalingFactor);
-            intWidth_Desired = (int)(par_elementBase.Width_Pixels * decScalingFactor);
-            //End With
-
-            //''9 / 9 / 2019 td''gr_Badge.DrawImage(par_imagePortrait, New PointF(intLeft_Desired, intTop_Desired))
-
-            imagePortraitResized = ResizeImage_ToWidth(par_imagePortrait, intWidth_Desired);
-
-            gr_Badge.DrawImage(imagePortraitResized, new PointF(intLeft_Desired, intTop_Desired));
-
-            gr_Badge.Dispose();
-
-        }  // End Sub ''end of "Public Sub LoadImageWithPortrait()"
-
-        public void LoadImageWithSignature(int pintDesiredLayoutWidth,
-                                 int pintDesignedLayoutWidth,
-                                 ref Image par_imageBadgeCard,
-                                 IElement_Base par_elementBase,
-                                 IElementSig par_elementSig,
-                                 ref Image par_imageSignature)
-        {
-            //
-            //Added 10/12/2019 thomas d.
-            //
-            Image imageSignaResized;
-            Graphics gr_Badge;  // As Graphics '' = Graphics.FromImage(img)
-            Double decScalingFactor;  // As Double ''Added 9 / 4 / 2019 thomas downes ''9 / 4 td''Decimal
-            int intLeft_Desired; // As Integer
-            int intTop_Desired; // As Integer
-            int intWidth_Desired; // As Integer
-
-            ClassProportions.ProportionsAreSlightlyOff(par_imageBadgeCard, true, "par_imageBadgeCard");
-
-            gr_Badge = Graphics.FromImage(par_imageBadgeCard);
-
-            decScalingFactor = ((double)pintDesiredLayoutWidth /
-                                        pintDesignedLayoutWidth);
-
-            //With par_elementBase
-            intLeft_Desired = (int)(par_elementBase.LeftEdge_Pixels * decScalingFactor);
-            intTop_Desired = (int)(par_elementBase.TopEdge_Pixels * decScalingFactor);
-            intWidth_Desired = (int)(par_elementBase.Width_Pixels * decScalingFactor);
-            //End With
-
-            //''9 / 9 / 2019 td''gr_Badge.DrawImage(par_imagePortrait, New PointF(intLeft_Desired, intTop_Desired))
-
-            imageSignaResized = ResizeImage_ToWidth(par_imageSignature, intWidth_Desired);
-
-            gr_Badge.DrawImage(imageSignaResized, new PointF(intLeft_Desired, intTop_Desired));
-
-            gr_Badge.Dispose();
-
-        }  // End Sub ''end of "Public Sub LoadImageWithSignature()"
-
-        public void LoadImageWithQRCode(int pintDesiredLayoutWidth,
-                                 int pintDesignedLayoutWidth,
-                                 ref Image par_imageBadgeCard,
-                                 IElement_Base par_elementBase,
-                                 IElementQRCode par_elementQR,
-                                 ref Image par_imageQRCode)
-        {
-            //
-            //Added 10/12/2019 thomas d.
-            //
-            Image imageQRCodeResized;
-            Graphics gr_Badge;  // As Graphics '' = Graphics.FromImage(img)
-            Double decScalingFactor;  // As Double ''Added 9 / 4 / 2019 thomas downes ''9 / 4 td''Decimal
-            int intLeft_Desired; // As Integer
-            int intTop_Desired; // As Integer
-            int intWidth_Desired; // As Integer
-
-            ClassProportions.ProportionsAreSlightlyOff(par_imageBadgeCard, true, "par_imageBadgeCard");
-
-            gr_Badge = Graphics.FromImage(par_imageBadgeCard);
-
-            decScalingFactor = ((double)pintDesiredLayoutWidth /
-                                        pintDesignedLayoutWidth);
-
-            //With par_elementBase
-            intLeft_Desired = (int)(par_elementBase.LeftEdge_Pixels * decScalingFactor);
-            intTop_Desired = (int)(par_elementBase.TopEdge_Pixels * decScalingFactor);
-            intWidth_Desired = (int)(par_elementBase.Width_Pixels * decScalingFactor);
-            //End With
-
-            //''9 / 9 / 2019 td''gr_Badge.DrawImage(par_imagePortrait, New PointF(intLeft_Desired, intTop_Desired))
-
-            imageQRCodeResized = ResizeImage_ToWidth(par_imageQRCode, intWidth_Desired);
-
-            gr_Badge.DrawImage(imageQRCodeResized, new PointF(intLeft_Desired, intTop_Desired));
-
-            gr_Badge.Dispose();
-
-        }  // End Sub ''end of "Public Sub LoadImageWithQRCode()"
-
 
 
 
