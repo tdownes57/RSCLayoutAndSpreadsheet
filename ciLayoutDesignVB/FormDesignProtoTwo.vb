@@ -106,8 +106,22 @@ Public Class FormDesignProtoTwo
     ''    ''
     ''    ''OkayToShowFauxContextMenu()
     ''    Return DemoModeActiveToolStripMenuItem.Checked
-
+    ''
     ''End Function ''End of "Public Function OkayToShowFauxContextMenu() As Boolean"
+
+    Public Sub New()
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+
+        ''Added 10/12/2019 td
+        CtlGraphicText1.LayoutFunctions = CType(mod_designer, ILayoutFunctions)
+        CtlGraphicSignature1.ElementClass_Obj.PathToSigFile = "";
+
+
+    End Sub
 
     Private Sub FormDesignProtoTwo_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''

@@ -42,6 +42,9 @@ Public Class ClassDesigner
     Public Property FlowFieldsNotListed As FlowLayoutPanel ''Added 10/1/2019 td
 
     Public Property CtlGraphic_Portrait As CtlGraphicPortrait ''Added 10/1/2019 td
+
+    Public Property PathToSigFile As String ''Added 10/12/2019 td
+
     Public Property CtlGraphic_Signature As CtlGraphicSignature ''Added 10/10/2019 td
     Public Property CtlGraphic_QRCode As CtlGraphicQRCode ''Added 10/10/2019 td
 
@@ -809,6 +812,8 @@ Public Class ClassDesigner
         Dim obj_image_clone As Image ''Added 8/24 td
         Dim obj_image_clone_resized As Image ''Added 8/24/2019 td
         Dim obj_generator As New ciBadgeGenerator.ClassMakeBadge
+
+        obj_generator.PathToSigFile = Me.PathToSigFile ''Added 10/12/2019 td
 
         listOfElementTextFields = Me.ElementsCache_Edits.ListFieldElements()
 

@@ -21,8 +21,8 @@ Public Class CtlGraphicSignature
     ''7/31/2019 td''Public FieldInfo As ICIBFieldStandardOrCustom
     ''7/31/2019 td''Public ElementInfo As ClassElementPic
 
-    Public ElementClass_Obj As ClassElementPic ''Added 9/17/2019 thomas downes
-    Public ElementInfo_Pic As IElementPic ''Added 7/31/2019 thomas d 
+    Public ElementClass_Obj As ClassElementSignature ''Added 10/12/2019 thomas downes
+    Public ElementInfo_Sig As IElementSig ''Added 10/12/2019 thomas d 
     Public ElementInfo_Base As IElement_Base ''Added 7/31/2019 thomas d 
 
     Public Event ElementPic_RightClicked(par_control As CtlGraphicPortrait) ''Added 10/10/2019 td
@@ -47,7 +47,7 @@ Public Class CtlGraphicSignature
 
     End Sub
 
-    Public Sub New(par_elementPic As ClassElementPic, par_formLayout As ILayoutFunctions)
+    Public Sub New(par_elementSig As ClassElementSignature, par_formLayout As ILayoutFunctions)
         ''
         ''Added 9/17/2019 td
         ''
@@ -57,9 +57,10 @@ Public Class CtlGraphicSignature
         ''9/17/2019 td''Me.ElementInfo_Base = par_infoForPic_Base
         ''9/17/2019 td''Me.ElementInfo_Pic = par_infoForPic_Pic
 
-        Me.ElementClass_Obj = par_elementPic
-        Me.ElementInfo_Base = CType(par_elementPic, IElement_Base)
-        Me.ElementInfo_Pic = CType(par_elementPic, IElementPic)
+        Me.ElementClass_Obj = par_elementSig
+        Me.ElementInfo_Base = CType(par_elementSig, IElement_Base)
+        Me.ElementInfo_Sig = CType(par_elementSig, IElementSig)
+
         ''9/20/2019 td''Me.FormDesigner = par_formLayout ''Added 9/4/2019 td
         Me.LayoutFunctions = par_formLayout ''Added 9/4/2019 td
 
@@ -77,8 +78,11 @@ Public Class CtlGraphicSignature
         ''    ciPictures_VB.PictureExamples.GetImageByIndex(par_elementPic.PicFileIndex, strErrorMessage)
 
         ''Added 9/23/2019 thomas d. 
-        Me.Pic_CloneOfInitialImage = CType(ciPictures_VB.PictureExamples.GetImageByIndex(par_elementPic.PicFileIndex, strErrorMessage).Clone(), Image)
-        pictureSignature.Image = CType(Me.Pic_CloneOfInitialImage.Clone(), Image)
+        ''10/12/2019 td''Me.Pic_CloneOfInitialImage = CType(ciPictures_VB.PictureExamples.GetImageByIndex(par_elementSig.PicFileIndex, strErrorMessage).Clone(), Image)
+
+        ''10/12/2019 td''pictureSignature.Image = CType(Me.Pic_CloneOfInitialImage.Clone(), Image)
+
+        pictureSignature.Image = ElementInfo_Sig.GetImage_Signature(False)
 
         If ("" <> strErrorMessage) Then
             ''Added 8/22/2019  
@@ -96,15 +100,15 @@ Public Class CtlGraphicSignature
 
     End Sub ''End of "Public Sub New(par_elementPic As ClassElementPic, par_formLayout As ILayoutFunctions)"
 
-    Public Sub New_Deprecated(par_infoForPic_Base As IElement_Base, par_infoForPic_Pic As IElementPic, par_formLayout As ILayoutFunctions)
+    Public Sub New_Deprecated(par_infoForSig_Base As IElement_Base, par_infoForSig_Sig As IElementSig, par_formLayout As ILayoutFunctions)
         ''
         ''Added 7/31/2019 td
         ''
         ' This call is required by the designer.
         InitializeComponent()
 
-        Me.ElementInfo_Base = par_infoForPic_Base
-        Me.ElementInfo_Pic = par_infoForPic_Pic
+        Me.ElementInfo_Base = par_infoForSig_Base
+        Me.ElementInfo_Sig = par_infoForSig_Sig
 
         ''9/20/2019 td''Me.FormDesigner = par_formLayout ''Added 9/4/2019 td
         Me.LayoutFunctions = par_formLayout ''Added 9/4/2019 td
@@ -115,8 +119,10 @@ Public Class CtlGraphicSignature
         ''8/22/2019 td''picturePortrait.Image = ciPictures_VB.PictureExamples.GetImageByIndex(par_infoForPic_Pic.PicFileIndex)
 
         Dim strErrorMessage As String = "" ''Added 8/22/2019 td
-        pictureSignature.Image =
-        ciPictures_VB.PictureExamples.GetImageByIndex(par_infoForPic_Pic.PicFileIndex, strErrorMessage)
+        ''10/12/2019 td''pictureSignature.Image =
+        ''10/12/2019 td''      ciPictures_VB.PictureExamples.GetImageByIndex(par_infoForPic_Pic.PicFileIndex, strErrorMessage)
+
+        pictureSignature.Image = ElementClass_Obj.GetImage_Signature(True, strErrMessage)
 
         If ("" <> strErrorMessage) Then
             ''Added 8/22/2019  
@@ -178,12 +184,12 @@ Public Class CtlGraphicSignature
         ''
         ''Added 8/18/2019 td
         ''
-        Me.ElementInfo_Pic.PicFileIndex += 1
+        Me.ElementInfo_Sig.PicFileIndex += 1
 
         ''8/22/2019 td''picturePortrait.Image = ciPictures_VB.PictureExamples.GetImageByIndex(Me.ElementInfo_Pic.PicFileIndex)
 
         Dim strErrorMessage As String = ""
-        pictureSignature.Image = ciPictures_VB.PictureExamples.GetImageByIndex(Me.ElementInfo_Pic.PicFileIndex, strErrorMessage)
+        pictureSignature.Image = ciPictures_VB.PictureExamples.GetImageByIndex(Me.ElementInfo_Sig.PicFileIndex, strErrorMessage)
 
         ''Added 9/20/2019 td
         Me.LayoutFunctions.AutoPreview_IfChecked()

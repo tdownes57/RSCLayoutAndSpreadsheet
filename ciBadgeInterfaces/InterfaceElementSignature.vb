@@ -20,7 +20,8 @@ Public Interface IElementSig
     Property SigFileIndex As Integer ''Added 8/12/2019 thomas downes
     Property SigFilePath As String ''Added 10/12/2019 thomas downes
 
-    Function GetImage_Signature(pboolRefresh As Boolean) As Image ''Added 110/12/2019 td
+    Function GetImage_Signature(pboolRefresh As Boolean,
+                                ByRef pref_message As String) As Image ''Added 110/12/2019 td
 
     Property Recipient As IRecipient ''Added 9/9/2019   
 

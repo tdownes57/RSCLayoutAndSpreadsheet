@@ -61,6 +61,8 @@ namespace ciBadgeGenerator
 
     public class ClassMakeBadge
     {
+        public string PathToSigFile = ""; //Added 10/12/2019 td
+
         public Image MakeBadgeImage_ByRecipient(IBadgeLayout par_layout,
                                     Image par_backgroundImage,
                                     ClassElementsCache par_cache,
@@ -197,12 +199,15 @@ namespace ciBadgeGenerator
             {
                 ClassElementSignature obj_elementSig = par_cache.ElementSignature;
 
+                string strPathToSigFile = this.PathToSigFile; //Added 10/12/2019 td
+
                 LoadImageWithSignature(par_newBadge_width_pixels,
                                     par_layout.Width_Pixels,
                                     ref obj_image,
                                     (IElement_Base)obj_elementSig,
                                     (IElementSig)obj_elementSig,
-                                    ref par_recipientPic);
+                                    strPathToSigFile);
+                                    // 10-12-2019 td //ref par_recipientPic);
 
             }
 
@@ -257,7 +262,8 @@ namespace ciBadgeGenerator
                                  int pintDesignedLayoutWidth,
                                  ref Image par_imageBadgeCard,
                                  IElement_Base par_elementBase,
-                                 IElementSig par_elementSig)
+                                 IElementSig par_elementSig,
+                                 string par_strPathToSigFile)
         {
             //
             //Added 10/12/2019 thomas d.
@@ -287,7 +293,8 @@ namespace ciBadgeGenerator
             // 10-12-2019 td//imageSignaResized = ResizeImage_ToWidth(par_imageSignature, intWidth_Desired);
 
             //Added 10/12/2019 td 
-            Image imageSignature = par_elementSig.GetImage_Signature();
+            par_elementSig.SigFilePath = par_strPathToSigFile;
+            Image imageSignature = par_elementSig.GetImage_Signature(true);
 
             imageSignaResized = ResizeImage_ToWidth(imageSignature, intWidth_Desired);
 

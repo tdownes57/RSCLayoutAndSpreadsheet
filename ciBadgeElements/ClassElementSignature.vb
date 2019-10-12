@@ -204,16 +204,22 @@ Public Class ClassElementSignature
 
     End Sub ''ENd of ""Public Sub New(par_rectangle As Rectangle, par_layout As PictureBox)""
 
-    Public Function GetImage_Signature(par_bRefreshFromFile As Boolean) As Image Implements IElementSig.GetImage_Signature
+    Public Function GetImage_Signature(par_bRefreshFromFile As Boolean, ByRef pref_strErrorMessage As String) As Image Implements IElementSig.GetImage_Signature
         ''
         ''Added 10/12/2019 td  
         ''
         Dim boolNoWorkToDo As Boolean
+        Dim obj_bitmap As Bitmap = Nothing ''Added 10/12/2019 thomas d.
+
         boolNoWorkToDo = (mod_image IsNot Nothing And (Not par_bRefreshFromFile))
 
         If (boolNoWorkToDo) Then Return mod_image
 
-        Dim obj_bitmap As New Bitmap(Me.SigFilePath)
+        Try
+            obj_bitmap = New Bitmap(Me.SigFilePath)
+        Catch ex_Bitmap As Exception
+            pref_strErrorMessage = ex_Bitmap.Message
+        End Try
 
         Return CType(obj_bitmap, Image)
 
