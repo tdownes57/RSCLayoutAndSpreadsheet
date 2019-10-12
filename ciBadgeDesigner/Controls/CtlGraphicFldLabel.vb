@@ -32,8 +32,9 @@ Public Class CtlGraphicFldLabel
     '' #2 8/29/2019 td''Public ElementInfo_Text As ClassElementText
 
     Public ElementClass_Obj As ClassElementField ''Added 9/4/2019 thomas downes
-    Public ElementInfo_Text As ciBadgeInterfaces.IElement_TextField
+    Public ElementInfo_Text As ciBadgeInterfaces.IElement_TextOnly ''Modifield 10/12/2019
     Public ElementInfo_Base As ciBadgeInterfaces.IElement_Base
+    Public ElementInfo_Field As ciBadgeInterfaces.IElement_TextField ''Added 10/12/2019 td
 
     Public GroupEdits As ISelectingElements ''Added 7/31/2019 thomas downes  
     Public SelectedHighlighting As Boolean ''Added 8/2/2019 td
@@ -95,7 +96,9 @@ Public Class CtlGraphicFldLabel
 
         Me.ElementClass_Obj = par_elementField
         Me.ElementInfo_Base = CType(par_elementField, IElement_Base)
-        Me.ElementInfo_Text = CType(par_elementField, IElement_TextField)
+        ''10/12/2019 td''Me.ElementInfo_Text = CType(par_elementField, IElement_TextField)
+        Me.ElementInfo_Text = CType(par_elementField, IElement_TextOnly) ''Modified 10/12/2019 td
+        Me.ElementInfo_Field = CType(par_elementField, IElement_TextField) ''Added 10/12/2019 td
 
         Me.LayoutFunctions = par_layout
         Me.LayoutFunctions = par_layout
@@ -720,11 +723,11 @@ ExitHandler:
                 ''
                 Return Me.ExampleTextToDisplay
 
-            Case (Me.ElementInfo_Text.ExampleValue_ForElement <> "")
+            Case (Me.ElementInfo_Field.ExampleValue_ForElement <> "")
                 ''
                 ''Added 9/18/2019 td 
                 ''
-                Return Me.ElementInfo_Text.ExampleValue_ForElement
+                Return Me.ElementInfo_Field.ExampleValue_ForElement
 
             Case (UseExampleValues And (Me.FieldInfo.ExampleValue <> ""))
 
@@ -926,7 +929,7 @@ ExitHandler:
             Me.textTypeExample.Visible = False
 
             ''Added 9/20/2019 td  
-            Me.ElementInfo_Text.ExampleValue_ForElement = textTypeExample.Text
+            Me.ElementInfo_Field.ExampleValue_ForElement = textTypeExample.Text
             Me.ElementClass_Obj.ExampleValue_ForElement = textTypeExample.Text ''Redundant command. 
 
             ''Added 9/10/2019 td

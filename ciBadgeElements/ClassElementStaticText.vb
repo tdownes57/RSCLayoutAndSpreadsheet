@@ -215,7 +215,7 @@ Public Class ClassElementStaticText
     End Function ''End of "Public Function GenerateImage_ByDesiredLayoutHeight() As Image Implements IElementText.GenerateImage_ByDesiredLayoutWidth"
 
     Public Function GenerateImage_NotInUse(pintDesiredLayoutWidth As Integer, ByRef par_image As Image,
-                                  par_elementInfo_Text As IElement_TextField, par_elementInfo_Base As IElement_Base) As Image
+                                  par_elementInfo_Text As IElement_TextOnly, par_elementInfo_Base As IElement_Base) As Image
         ''
         ''Added 8/14 & 7/17/2019 thomas downes
         ''

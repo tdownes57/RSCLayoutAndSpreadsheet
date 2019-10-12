@@ -144,7 +144,7 @@ Public Class ClassLabelToImage
     End Sub ''End of "Public Shared Sub Proportions_CorrectWidth(par_control As Control)"
 
     Public Function TextImage_Field(pintDesiredLayoutWidth As Integer,
-                              par_elementInfo_TextFld As IElement_TextField,
+                              par_elementInfo_Text As IElement_TextOnly,
                               par_elementInfo_Base As IElement_Base,
                               ByRef pref_rotated As Boolean,
                               ByVal par_bIsDesignStage As Boolean,
@@ -161,8 +161,8 @@ Public Class ClassLabelToImage
         Dim brush_forecolor As Brush
 
         ''Added 8/17/2019 td
-        Dim singleOffsetX As Integer = par_elementInfo_TextFld.FontOffset_X
-        Dim singleOffsetY As Integer = par_elementInfo_TextFld.FontOffset_Y
+        Dim singleOffsetX As Integer = par_elementInfo_Text.FontOffset_X
+        Dim singleOffsetY As Integer = par_elementInfo_Text.FontOffset_Y
         Dim intStarting_Width As Integer ''Added 8/19/2019 thomas 
         Dim intStarting_Height As Integer ''Added 8/19/2019 thomas
 
@@ -266,7 +266,7 @@ Public Class ClassLabelToImage
         ''8/5/2019 td''pen_highlighting = New Pen(Color.YellowGreen, 5)
         pen_highlighting = New Pen(Color.Yellow, 6)
 
-        brush_forecolor = New SolidBrush(par_elementInfo_TextFld.FontColor)
+        brush_forecolor = New SolidBrush(par_elementInfo_Text.FontColor)
 
         ''
         ''Added 8/28/2019 td
@@ -389,7 +389,7 @@ Public Class ClassLabelToImage
         Dim stringSize = New SizeF()
         Dim font_scaled As System.Drawing.Font ''Added 9/8/2019 td
 
-        With par_elementInfo_TextFld
+        With par_elementInfo_Text
 
             ''Added 9/15/2019 thomas d.
             If (.FontFamilyName Is Nothing) Then
@@ -407,7 +407,7 @@ Public Class ClassLabelToImage
             font_scaled = modFonts.ScaledFont(.Font_DrawingClass, doubleScaling)
 
             ''Added 8/18/2019 td
-            Select Case par_elementInfo_TextFld.TextAlignment''Added 8/18/2019 td
+            Select Case par_elementInfo_Text.TextAlignment''Added 8/18/2019 td
 
                 Case HorizontalAlignment.Left
 

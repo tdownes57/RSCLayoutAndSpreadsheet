@@ -33,8 +33,9 @@ Public Class DialogTextOffset
     Public ElementObject_LayoutDesign As ClassElementField ''Added 9/18/2019 td
     Public ElementObject_CopyForEditing As ClassElementField ''Added 9/18/2019 td
 
-    Public ElementCopy_Info_Text As ciBadgeInterfaces.IElement_TextField ''Renamed 8/29/2019 td
     Public ElementCopy_Info_Base As ciBadgeInterfaces.IElement_Base ''Added 8/29/2019 td
+    Public ElementCopy_Info_Text As ciBadgeInterfaces.IElement_TextOnly ''Modified 10/12/2019 td
+    Public ElementCopy_Info_Field As ciBadgeInterfaces.IElement_TextField ''Renamed 10/12 & 8/29/2019 td
 
     Public GroupEdits As ISelectingElements ''Added 8/15/2019 thomas downes  
     ''10/3/2019 td''Public FormDesigner_Denigrated As FormDesignProtoTwo ''Added 8/15/2019 td  
@@ -61,7 +62,9 @@ Public Class DialogTextOffset
 
         ''Added 9/18/2019 td 
         Me.ElementCopy_Info_Base = CType(Me.ElementObject_CopyForEditing, IElement_Base)
-        Me.ElementCopy_Info_Text = CType(Me.ElementObject_CopyForEditing, IElement_TextField)
+
+        ''10/12/2019 td''Me.ElementCopy_Info_Text = CType(Me.ElementObject_CopyForEditing, IElement_TextField)
+        Me.ElementCopy_Info_Text = CType(Me.ElementObject_CopyForEditing, IElement_TextOnly)
 
         ''Added 9/18/2019 td 
         OriginalElementControl_ForApplyOnly = par_parentControl
@@ -72,7 +75,7 @@ Public Class DialogTextOffset
     End Sub ''ENd of "Public Sub New(par_element_fromLayout As ClassElementField, par_element_copy As ClassElementField)"
 
     Public Sub UpdateInfo_ViaInterfaces(par_elementInfo_Base As IElement_Base,
-                          par_elementInfo_TextFld As IElement_TextField,
+                          par_elementInfo_Text As IElement_TextOnly,
                           Optional par_overrideConfirmation As Boolean = False)
         ''
         ''This is perhaps like an "dependency injection" to "push" the 
@@ -97,7 +100,7 @@ Public Class DialogTextOffset
 
             End With ''End of "With par_elementInfo_Base"
 
-            With par_elementInfo_TextFld
+            With par_elementInfo_Text
 
                 ''Obselete.---9/18/2019 td''Me.ElementInfo_Text.FontOffset_X = frm_ToShow.FontOffset_X
                 ''Obselete.---9/18/2019 td''Me.ElementInfo_Text.FontOffset_Y = frm_ToShow.FontOffset_Y
@@ -148,6 +151,7 @@ Public Class DialogTextOffset
             .ElementClass_Obj = Me.ElementObject_CopyForEditing ''Added 9/19/2019 td 
             .ElementInfo_Base = Me.ElementCopy_Info_Base
             .ElementInfo_Text = Me.ElementCopy_Info_Text
+            .ElementInfo_Field = Me.ElementCopy_Info_Field ''Added 10/12/2019 td
 
             ''9/19/2019 td''.FormDesigner = par_formDesigner
             ''9/19/2019 td''.LayoutFunctions = CType(par_formDesigner, ILayoutFunctions) ''Added 9/19/2019 td 

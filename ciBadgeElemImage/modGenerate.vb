@@ -21,7 +21,7 @@ Public Module modGenerate
     End Function
 
     Public Function TextImage_ByElemInfo(pintDesiredLayoutWidth As Integer,
-                           par_elementInfo_TextFld As IElement_TextField,
+                           par_elementInfo_TextFld As IElement_TextOnly,
                            par_elementInfo_Base As IElement_Base,
                            ByRef pref_rotated As Boolean,
                            ByVal par_bIsDesignStage As Boolean) As Image

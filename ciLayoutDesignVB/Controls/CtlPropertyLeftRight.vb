@@ -1,5 +1,9 @@
-﻿
+﻿''
+''Added 9/13/2019 td
+''Modified 10/12/2019 td
+''
 Imports ciBadgeInterfaces
+
 Public Class CtlPropertyLeftRight
     ''
     ''Added 9/13/2019 thomas downes
@@ -9,7 +13,8 @@ Public Class CtlPropertyLeftRight
     Private mod_iMinimumValue As Integer = 0 ''Added 9/18/2019 td  
 
     Public ElementInfo_Base As IElement_Base
-    Public ElementInfo_Text As IElement_TextField
+    ''10/12/2019 td''Public ElementInfo_Text As IElement_TextField
+    Public ElementInfo_Text As IElement_TextOnly
 
     Public Event EventUpdateRequest()
 
@@ -138,7 +143,7 @@ Public Class CtlPropertyLeftRight
     End Sub
 
     Public Sub InitiateLocalValue(par_Base As IElement_Base,
-                                   par_Text As IElement_TextField)
+                                   par_Text As IElement_TextOnly)
         ''
         ''Added 9/14/2019 thomas d. 
         ''
@@ -188,5 +193,6 @@ Public Class CtlPropertyLeftRight
         End If ''End of "If (Not ReminderMsg1_BeenGiven) Then"
 
     End Sub
-End Class
+
+End Class ''End of Class CtlPropertyLeftRight
 

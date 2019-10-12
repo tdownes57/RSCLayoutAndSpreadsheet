@@ -160,8 +160,10 @@ namespace ciBadgeForWeb.Controllers
 
             var id_doublecheck = Request.QueryString["parameter_id"];
 
-            var printLog_by_id_list = TrackPrintsController.mod_trackPrintsLog.Where(s => s.RecipientID == parameter_id.ToString());
-            return (ViewResult)View(printLog_by_id_list);
+            //----10/12/2019 td''var printLog_by_id_list = TrackPrintsController.mod_trackPrintsLog.Where(s => s.RecipientID == parameter_id.ToString());
+            //----10/12/2019 td''return (ViewResult)View(printLog_by_id_list);
+
+            return null;
 
         }
 

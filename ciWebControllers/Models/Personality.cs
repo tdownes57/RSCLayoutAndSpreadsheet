@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc; //Added 7/10/2019 td
 using System.ComponentModel.DataAnnotations; //Added 7/10/2019 td
 using System.Drawing; //Added 7/10/2019 thomas d. 
+using System.Web.Mvc.Razor;  //Added 10/12/2019 td 
 
 namespace ciBadgeForWeb.Models
 {

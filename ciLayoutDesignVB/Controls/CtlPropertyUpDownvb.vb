@@ -7,7 +7,9 @@ Public Class CtlPropertyUpDownvb
     Private mod_iMinimumValue As Integer = 0 ''Added 9/18/2019 td  
 
     Public _ElementInfo_Base As IElement_Base
-    Public _ElementInfo_Text As IElement_TextField
+    ''10/12/2019 td''Public _ElementInfo_Text As IElement_TextField
+    Public _ElementInfo_Text As IElement_TextOnly
+
     Public Event EventUpdateRequest()
 
     Public Property ElementInfo_Base As IElement_Base
@@ -20,11 +22,12 @@ Public Class CtlPropertyUpDownvb
 
     End Property
 
-    Public Property ElementInfo_Text As IElement_TextField
+    Public Property ElementInfo_Text As IElement_TextOnly
+        ''10/12 td''Public Property ElementInfo_Text As IElement_TextField
         Get
             Return _ElementInfo_Text
         End Get
-        Set(value As IElement_TextField)
+        Set(value As IElement_TextOnly)
             _ElementInfo_Text = value
         End Set
 
@@ -183,7 +186,7 @@ Public Class CtlPropertyUpDownvb
     End Sub
 
     Public Sub InitiateLocalValue(par_Base As IElement_Base,
-                                   par_Text As IElement_TextField)
+                                   par_Text As IElement_TextOnly)
         ''
         ''Added 9/14/2019 thomas d. 
         ''

@@ -16,7 +16,10 @@ Public Structure IFieldInfo_ElementPositions
     Dim FieldInfo As ICIBFieldStandardOrCustom ''Added 9/3/2019 td  
 
     ''8/15 td''Dim Position As IElement_Base ''Added 8/14/2019 td 
-    Dim TextDisplay As IElement_TextField ''Added 8/14/2019 td  
+    ''10/12/2019 td''Dim TextDisplay As IElement_TextField ''Added 8/14/2019 td  
+
+    Dim TextDisplay As IElement_TextOnly ''Modified 10/12/2019 td.   Added 8/14/2019 td  
+    Dim TextDisplay_Fld As IElement_TextField ''Added 10/12/2019 td  
 
     Dim Position_BL As IElement_Base ''BL = Badge Layout.   ---Added 8/14/2019 td 
     Dim Position_V8 As IElement_Base ''Added 8/14/2019 td 
