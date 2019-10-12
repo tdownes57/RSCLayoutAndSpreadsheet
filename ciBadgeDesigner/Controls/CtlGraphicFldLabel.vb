@@ -371,6 +371,8 @@ ExitHandler:
         ''Me.ElementInfo.BackColor = Me.ParentForm.BackColor
         ''Me.ElementInfo.FontColor = Me.ParentForm.ForeColor
 
+
+
         ''Added 8/18/2019 thomas downes 
         If (pbRefreshSize) Then
             ''

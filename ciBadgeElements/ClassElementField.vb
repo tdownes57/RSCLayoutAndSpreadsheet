@@ -14,7 +14,7 @@ Public Event ElementField_RightClicked(par_elementField As ClassElementField) ''
 
 <Serializable>
 Public Class ClassElementField
-    Implements IElement_Base, IElement_TextField
+    Implements IElement_Base, IElement_TextOnly, IElement_TextField
     ''
     ''Added 7/18/2019 thomas downes
     ''
@@ -26,39 +26,39 @@ Public Class ClassElementField
     Public Property Id_GUID As System.Guid ''Added 9/30/2019 td 
 
     <Xml.Serialization.XmlIgnore>
-    Public Property Font_DrawingClass As System.Drawing.Font Implements IElement_TextField.Font_DrawingClass
+    Public Property Font_DrawingClass As System.Drawing.Font Implements IElement_TextOnly.Font_DrawingClass
 
     Public Property ExampleValue_ForElement As String Implements IElement_TextField.ExampleValue_ForElement ''Added 8/14/2019 td 
 
-    Public Property FontColor As System.Drawing.Color Implements IElement_TextField.FontColor
+    Public Property FontColor As System.Drawing.Color Implements IElement_TextOnly.FontColor
 
     ''Added 8/12/2019 thomas downes  
-    Public Property FontSize_Pixels As Single = 25 Implements IElement_TextField.FontSize_Pixels ''Added 8/12/2019 thomas downes  
-    Public Property FontBold As Boolean Implements IElement_TextField.FontBold ''Added 8/12/2019 thomas downes  
-    Public Property FontItalics As Boolean Implements IElement_TextField.FontItalics ''Added 8/12/2019 thomas downes  
-    Public Property FontUnderline As Boolean Implements IElement_TextField.FontUnderline ''Added 8/12/2019 thomas downes  
+    Public Property FontSize_Pixels As Single = 25 Implements IElement_TextOnly.FontSize_Pixels ''Added 8/12/2019 thomas downes  
+    Public Property FontBold As Boolean Implements IElement_TextOnly.FontBold ''Added 8/12/2019 thomas downes  
+    Public Property FontItalics As Boolean Implements IElement_TextOnly.FontItalics ''Added 8/12/2019 thomas downes  
+    Public Property FontUnderline As Boolean Implements IElement_TextOnly.FontUnderline ''Added 8/12/2019 thomas downes  
     ''Added 9/6/2019 thomas downes  
-    Public Property FontFamilyName As String = "Times New Roman" Implements IElement_TextField.FontFamilyName ''Added 9/6/2019 thomas downes  
+    Public Property FontFamilyName As String = "Times New Roman" Implements IElement_TextOnly.FontFamilyName ''Added 9/6/2019 thomas downes  
 
 
     ''Added 8/15/2019 thomas downes  
     ''9/12/2019 td''Public Property FontSize_IsLocked As Boolean Implements IElement_Text.FontSize_IsLocked ''Added 8/15/2019 thomas downes  
-    Public Property FontSize_ScaleToElementRatio As Double Implements IElement_TextField.FontSize_ScaleToElementRatio ''Added 9/12/2019 thomas downes  
-    Public Property FontSize_ScaleToElementYesNo As Boolean = True Implements IElement_TextField.FontSize_ScaleToElementYesNo ''Added 9/12/2019 thomas downes  
+    Public Property FontSize_ScaleToElementRatio As Double Implements IElement_TextOnly.FontSize_ScaleToElementRatio ''Added 9/12/2019 thomas downes  
+    Public Property FontSize_ScaleToElementYesNo As Boolean = True Implements IElement_TextOnly.FontSize_ScaleToElementYesNo ''Added 9/12/2019 thomas downes  
 
 
-    Public Property FontOffset_X As Integer Implements IElement_TextField.FontOffset_X ''Added 8/15/2019 thomas downes  
-    Public Property FontOffset_Y As Integer Implements IElement_TextField.FontOffset_Y ''Added 8/15/2019 thomas downes  
+    Public Property FontOffset_X As Integer Implements IElement_TextOnly.FontOffset_X ''Added 8/15/2019 thomas downes  
+    Public Property FontOffset_Y As Integer Implements IElement_TextOnly.FontOffset_Y ''Added 8/15/2019 thomas downes  
 
 
     ''See Interface IElement_Base. ---8/29/2019 td''Public Property BackColor As System.Drawing.Color Implements IElement_Text.BackColor
 
-    ''This is stored in FieldInfo.--9/18/2019 td''Public Property FieldInCardData As String Implements IElement_TextField.FieldInCardData
+    ''This is stored in FieldInfo.--9/18/2019 td''Public Property FieldInCardData As String Implements IElement_TextOnly.FieldInCardData
 
-    ''This is stored in FieldInfo.--9/18/2019 td''Public Property FieldLabelCaption As String Implements IElement_TextField.FieldLabelCaption
+    ''This is stored in FieldInfo.--9/18/2019 td''Public Property FieldLabelCaption As String Implements IElement_TextOnly.FieldLabelCaption
 
     ''7/25/2019 td''Prpoerty ExampleText As String ''Added 7/25/2019
-    Public Property Text As String Implements IElement_TextField.Text ''E.g. "George Washington" for FullName. 
+    Public Property Text As String Implements IElement_TextOnly.Text ''E.g. "George Washington" for FullName. 
 
     ''Added 9/10/2019 td     <Xml.Serialization.XmlIgnore>
     <Xml.Serialization.XmlIgnore>
@@ -71,7 +71,7 @@ Public Class ClassElementField
     <Xml.Serialization.XmlIgnore>
     Public Property FieldInfo As ICIBFieldStandardOrCustom Implements IElement_TextField.FieldInfo
 
-    Public Property TextAlignment As System.Windows.Forms.HorizontalAlignment Implements IElement_TextField.TextAlignment
+    Public Property TextAlignment As System.Windows.Forms.HorizontalAlignment Implements IElement_TextOnly.TextAlignment
 
 
     ''-------------------------------------------------------------
@@ -256,7 +256,7 @@ Public Class ClassElementField
     ''End of 8/26 td''End Function ''End of "Public Function GenerateImage() As Image Implements IElementText.GenerateImage"
 
     Public Function GenerateImage_ByDesiredLayoutWidth_Deprecated(pintDesiredLayoutWidth As Integer) As Image _
-        Implements IElement_TextField.GenerateImage_ByDesiredLayoutWidth
+        Implements IElement_TextOnly.GenerateImage_ByDesiredLayoutWidth
         ''
         ''    8/26 td''Public Function GenerateImage(pintLayoutHeight As Integer) As Image Implements IElementText.GenerateImage
         ''
@@ -287,7 +287,7 @@ Public Class ClassElementField
     End Function ''End of "Public Function GenerateImage_ByDesiredLayoutWidth_Deprecated() As Image Implements IElementText.GenerateImage_ByDesiredLayoutWidth"
 
     Public Function GenerateImage_ByDesiredLayoutHeight_Deprecated(pintDesiredLayoutHeight As Integer) As Image _
-        Implements IElement_TextField.GenerateImage_ByDesiredLayoutHeight
+        Implements IElement_TextOnly.GenerateImage_ByDesiredLayoutHeight
         ''
         ''Added 8/26/2019 thomas downes 
         ''
@@ -324,7 +324,7 @@ Public Class ClassElementField
     End Function ''End of "Public Function GenerateImage_ByDesiredLayoutHeight_Deprecated() As Image Implements IElementText.GenerateImage_ByDesiredLayoutWidth"
 
     Public Function GenerateImage_NotInUse(pintDesiredLayoutWidth As Integer, ByRef par_image As Image,
-                                  par_elementInfo_Text As IElement_TextField, par_elementInfo_Base As IElement_Base) As Image
+                                  par_elementInfo_Text As IElement_TextOnly, par_elementInfo_Base As IElement_Base) As Image
         ''
         ''Added 8/14 & 7/17/2019 thomas downes
         ''
@@ -450,13 +450,16 @@ Public Class ClassElementField
         ''Added 9/17/2019 
         ''
         Dim objCopy As New ClassElementField
-        objCopy.LoadbyCopyingMembers(Me, Me)
+
+        ''10/12/2019 td''objCopy.LoadbyCopyingMembers(Me, Me)
+        objCopy.LoadbyCopyingMembers(Me, Me, Me)
         Return objCopy
 
     End Function ''End of "Public Function Copy() As ClassElementField"
 
     Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base,
-                                    par_ElementInfo_TextFld As IElement_TextField)
+                                    par_ElementInfo_Text As IElement_TextOnly,
+                                    par_ElementInfo_Field As IElement_TextField)
         ''
         ''Added 9/13/2019 thomas downes
         ''
@@ -483,28 +486,28 @@ Public Class ClassElementField
         ''Step 2 of 2 -- Field-related properties.
         ''--------------------------------------------------------------------------
         ''
-        Me.ExampleValue_ForElement = par_ElementInfo_TextFld.ExampleValue_ForElement
+        Me.ExampleValue_ForElement = par_ElementInfo_Field.ExampleValue_ForElement
         ''See FieldInfo. ---9/18/2019 td''Me.FieldInCardData = par_ElementInfo_TextFld.FieldInCardData
         ''See FieldInfo. ---9/18/2019 td''Me.FieldLabelCaption = par_ElementInfo_TextFld.FieldLabelCaption
-        Me.FieldInfo = par_ElementInfo_TextFld.FieldInfo ''Added 9/18/2019 td 
+        Me.FieldInfo = par_ElementInfo_Field.FieldInfo ''Added 9/18/2019 td 
 
-        Me.FontBold = par_ElementInfo_TextFld.FontBold
-        Me.FontColor = par_ElementInfo_TextFld.FontColor
-        Me.FontFamilyName = par_ElementInfo_TextFld.FontFamilyName
-        Me.FontItalics = par_ElementInfo_TextFld.FontItalics
-        Me.FontOffset_X = par_ElementInfo_TextFld.FontOffset_X
-        Me.FontOffset_Y = par_ElementInfo_TextFld.FontOffset_Y
-        Me.FontSize_Pixels = par_ElementInfo_TextFld.FontSize_Pixels
-        Me.FontSize_ScaleToElementRatio = par_ElementInfo_TextFld.FontSize_ScaleToElementRatio
-        Me.FontSize_ScaleToElementYesNo = par_ElementInfo_TextFld.FontSize_ScaleToElementYesNo
-        Me.FontUnderline = par_ElementInfo_TextFld.FontUnderline
-        Me.Font_DrawingClass = par_ElementInfo_TextFld.Font_DrawingClass
+        Me.FontBold = par_ElementInfo_Text.FontBold
+        Me.FontColor = par_ElementInfo_Text.FontColor
+        Me.FontFamilyName = par_ElementInfo_Text.FontFamilyName
+        Me.FontItalics = par_ElementInfo_Text.FontItalics
+        Me.FontOffset_X = par_ElementInfo_Text.FontOffset_X
+        Me.FontOffset_Y = par_ElementInfo_Text.FontOffset_Y
+        Me.FontSize_Pixels = par_ElementInfo_Text.FontSize_Pixels
+        Me.FontSize_ScaleToElementRatio = par_ElementInfo_Text.FontSize_ScaleToElementRatio
+        Me.FontSize_ScaleToElementYesNo = par_ElementInfo_Text.FontSize_ScaleToElementYesNo
+        Me.FontUnderline = par_ElementInfo_Text.FontUnderline
+        Me.Font_DrawingClass = par_ElementInfo_Text.Font_DrawingClass
 
         ''---See above. ---9/18/2019 td
         ''---Me.ExampleValue = par_ElementInfo_TextFld.ExampleValue
 
         ''Added 9/19/2019 td 
-        Me.TextAlignment = par_ElementInfo_TextFld.TextAlignment
+        Me.TextAlignment = par_ElementInfo_Text.TextAlignment
 
     End Sub ''End of "Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base, .....)"
 

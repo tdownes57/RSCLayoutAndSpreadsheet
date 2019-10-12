@@ -31,12 +31,12 @@ Public Interface IElement_TextOnly
 
     ''See Interface IElement_Base. ---8/29/2019 td''Property BackColor As System.Drawing.Color
 
-    Property Text As String ''E.g. "George Washington" for FullName. 
+    Property Text As String ''E.g. "This is the same for everyone." or "The holder of this badge has all rights and responsibilities subject thereto." 
 
     Property TextAlignment As System.Windows.Forms.HorizontalAlignment
 
     Function GenerateImage_ByDesiredLayoutHeight(pintDesiredLayoutHeight As Integer) As Image ''Added 8/14/2019 td 
     Function GenerateImage_ByDesiredLayoutWidth(pintDesiredLayoutWidth As Integer) As Image ''Added 8/26/2019 td 
 
-End Interface
+End Interface ''End of "Interface IElement_TextOnly"
 

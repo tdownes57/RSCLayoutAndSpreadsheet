@@ -47,80 +47,81 @@ Public Interface IElement_TextField
     ''Property FontItalics As Boolean
     ''Property FontBold As Boolean
 
+End Interface ''End of "Public Interface IElement_TextField"
 
 
-    ''-----DEPRECATED, SEE IElement_TextOnly.  9/17/2019 td----
-    Property Font_DrawingClass As System.Drawing.Font ''Formerly called Font__AllInfo.  8/17/2019 td
+''''-----DEPRECATED, SEE IElement_TextOnly.  9/17/2019 td----
+''Property Font_DrawingClass As System.Drawing.Font ''Formerly called Font__AllInfo.  8/17/2019 td
 
-    ''-----DEPRECATED, SEE IElement_TextOnly.  9/17/2019 td----
-    Property FontColor As System.Drawing.Color
+''    ''-----DEPRECATED, SEE IElement_TextOnly.  9/17/2019 td----
+''    Property FontColor As System.Drawing.Color
 
-    ''-----DEPRECATED, SEE IElement_TextOnly.  9/17/2019 td----
-    ''9/6/2019 td''Property FontSize As Single ''Added 8/12/2019 thomas downes  
-    Property FontSize_Pixels As Single ''Added 8/12/2019 thomas downes  
+''    ''-----DEPRECATED, SEE IElement_TextOnly.  9/17/2019 td----
+''    ''9/6/2019 td''Property FontSize As Single ''Added 8/12/2019 thomas downes  
+''    Property FontSize_Pixels As Single ''Added 8/12/2019 thomas downes  
 
-    ''-----DEPRECATED, SEE IElement_TextOnly.  9/17/2019 td----
-    Property FontFamilyName As String ''Added 9/6/2019 thomas downes  
+''    ''-----DEPRECATED, SEE IElement_TextOnly.  9/17/2019 td----
+''    Property FontFamilyName As String ''Added 9/6/2019 thomas downes  
 
-    ''-----DEPRECATED, SEE IElement_TextOnly.  9/17/2019 td----
-    ''9/12/2019 td''Property FontSize_IsLocked As Boolean ''Added 8/15/2019 thomas downes  
-    Property FontSize_ScaleToElementYesNo As Boolean ''Added 9/12/2019 thomas downes  
+''    ''-----DEPRECATED, SEE IElement_TextOnly.  9/17/2019 td----
+''    ''9/12/2019 td''Property FontSize_IsLocked As Boolean ''Added 8/15/2019 thomas downes  
+''    Property FontSize_ScaleToElementYesNo As Boolean ''Added 9/12/2019 thomas downes  
 
-    ''-----DEPRECATED, SEE IElement_TextOnly.  9/17/2019 td----
-    Property FontSize_ScaleToElementRatio As Double ''Added 9/12/2019 thomas downes  
+''    ''-----DEPRECATED, SEE IElement_TextOnly.  9/17/2019 td----
+''    Property FontSize_ScaleToElementRatio As Double ''Added 9/12/2019 thomas downes  
 
-    ''-----DEPRECATED, SEE IElement_TextOnly.  9/17/2019 td----
-    Property FontOffset_X As Integer ''Added 8/15/2019 thomas downes 
+''    ''-----DEPRECATED, SEE IElement_TextOnly.  9/17/2019 td----
+''    Property FontOffset_X As Integer ''Added 8/15/2019 thomas downes 
 
-    ''-----DEPRECATED, SEE IElement_TextOnly.  9/17/2019 td----
-    Property FontOffset_Y As Integer ''Added 8/15/2019 thomas downes  
+''    ''-----DEPRECATED, SEE IElement_TextOnly.  9/17/2019 td----
+''    Property FontOffset_Y As Integer ''Added 8/15/2019 thomas downes  
 
-    ''-----DEPRECATED, SEE IElement_TextOnly.  9/17/2019 td----
-    Property FontBold As Boolean ''Added 8/12/2019 thomas downes  
-    Property FontItalics As Boolean ''Added 8/12/2019 thomas downes  
-    Property FontUnderline As Boolean ''Added 8/12/2019 thomas downes  
+''    ''-----DEPRECATED, SEE IElement_TextOnly.  9/17/2019 td----
+''    Property FontBold As Boolean ''Added 8/12/2019 thomas downes  
+''    Property FontItalics As Boolean ''Added 8/12/2019 thomas downes  
+''    Property FontUnderline As Boolean ''Added 8/12/2019 thomas downes  
 
-    ''See Interface IElement_Base. ---8/29/2019 td''Property BackColor As System.Drawing.Color
-
-
-    ''-----DEPRECATED, SEE IElement_TextOnly.  9/17/2019 td----
-    ''7/25/2019 td''Prpoerty ExampleText As String ''Added 7/25/2019
-    Property Text As String ''E.g. "George Washington" for FullName. 
+''    ''See Interface IElement_Base. ---8/29/2019 td''Property BackColor As System.Drawing.Color
 
 
-    ''-----DEPRECATED, SEE IElement_TextOnly.  9/17/2019 td----
-    Property TextAlignment As System.Windows.Forms.HorizontalAlignment
+''    ''-----DEPRECATED, SEE IElement_TextOnly.  9/17/2019 td----
+''    ''7/25/2019 td''Prpoerty ExampleText As String ''Added 7/25/2019
+''    Property Text As String ''E.g. "George Washington" for FullName. 
 
 
-    ''8/29/2019 td''Property OrientationToLayout As String ''E.g. "L" (Landscape) (by far the most common) or "P" for Portrait  
+''    ''-----DEPRECATED, SEE IElement_TextOnly.  9/17/2019 td----
+''    Property TextAlignment As System.Windows.Forms.HorizontalAlignment
 
-    ''8/29/2019 td''Property OrientationInDegrees As Integer ''Default is 0, normal.  90 would be 1/4 turn clockwise.  180 is upside-down.  270 is the printing on the spine of a book sitting on the bookshelf.
 
-    ''8/26/2019 td''Function GenerateImage(pintHeight As Integer) As Image ''Added 8/14/2019 td 
-    Function GenerateImage_ByDesiredLayoutHeight(pintDesiredLayoutHeight As Integer) As Image ''Added 8/14/2019 td 
-    Function GenerateImage_ByDesiredLayoutWidth(pintDesiredLayoutWidth As Integer) As Image ''Added 8/26/2019 td 
+''    ''8/29/2019 td''Property OrientationToLayout As String ''E.g. "L" (Landscape) (by far the most common) or "P" for Portrait  
 
-    ''8/29/2019 td''Property Image_BL As Image ''Added 8/27/2019 td 
+''    ''8/29/2019 td''Property OrientationInDegrees As Integer ''Default is 0, normal.  90 would be 1/4 turn clockwise.  180 is upside-down.  270 is the printing on the spine of a book sitting on the bookshelf.
 
-    ''
-    ''
-    ''For the below, see InterfaceElement.vb. 
-    ''
-    ''
-    ''Property ElementType As String ''Text, Pic, or Logo
+''    ''8/26/2019 td''Function GenerateImage(pintHeight As Integer) As Image ''Added 8/14/2019 td 
+''    Function GenerateImage_ByDesiredLayoutHeight(pintDesiredLayoutHeight As Integer) As Image ''Added 8/14/2019 td 
+''    Function GenerateImage_ByDesiredLayoutWidth(pintDesiredLayoutWidth As Integer) As Image ''Added 8/26/2019 td 
 
-    ''Property LayoutWidth_Pixels As Integer ''This provides sizing context & scaling factors. 
+''    ''8/29/2019 td''Property Image_BL As Image ''Added 8/27/2019 td 
 
-    ''Property TopEdge_Pixels As Integer
-    ''Property LeftEdge_Pixels As Integer
+''    ''
+''    ''
+''    ''For the below, see InterfaceElement.vb. 
+''    ''
+''    ''
+''    ''Property ElementType As String ''Text, Pic, or Logo
 
-    ''Property Width_Pixels As Integer
-    ''Property Height_Pixels As Integer
+''    ''Property LayoutWidth_Pixels As Integer ''This provides sizing context & scaling factors. 
 
-    ''Property Border_Pixels As Integer
-    ''Property Border_Color As System.Drawing.Color
+''    ''Property TopEdge_Pixels As Integer
+''    ''Property LeftEdge_Pixels As Integer
 
-    ''Property Back_Color As System.Drawing.Color
+''    ''Property Width_Pixels As Integer
+''    ''Property Height_Pixels As Integer
 
-End Interface
+''    ''Property Border_Pixels As Integer
+''    ''Property Border_Color As System.Drawing.Color
+
+''    ''Property Back_Color As System.Drawing.Color
+
+''End Interface ''End of "Interface_TextField"
 

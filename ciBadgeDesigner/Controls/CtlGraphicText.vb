@@ -6,6 +6,7 @@ Imports ciBadgeInterfaces ''Added 9/18/2019 td
 Imports ciBadgeElements ''Added 9/18/2019 td  
 Imports System.Windows.Forms ''Added 10/1/2019 thomas d.  
 Imports System.Drawing ''Added 10/1/2019 td 
+Imports ciBadgeElemImage ''Added 10/12/2019 td
 
 Public Class CtlGraphicText
     ''
@@ -97,20 +98,41 @@ Public Class CtlGraphicText
     ''
     ''End Sub
 
-    Public Sub RefreshImage()
+
+    Public Sub Refresh_Image(pbRefreshSize As Boolean,
+                             Optional pboolResizeLabelControl As Boolean = True,
+                             Optional pboolRefreshLabelControl As Boolean = True,
+                             Optional pboolRefreshUserControl As Boolean = False)
         ''
         ''Added 7/25/2019 thomas d 
         ''
-        If (String.IsNullOrEmpty(Me.ElementInfo_TextOnly.Text)) Then ElementInfo_TextOnly.Text = LabelText()
+        ''7/29 td''Me.ElementInfo.Info = CType(Me.ElementInfo, IElementText)
+
+        ''Me.ElementInfo.Text = Me.LabelText(
+        ''8/4/2019''If (String.IsNullOrEmpty(Me.ElementInfo.Text)) Then ElementInfo.Text = LabelText()
+
+        Dim boolScaleFontSize As Boolean ''Added 9/15/2019 thomas d. 
+
+        ElementInfo_TextOnly.Text = LabelText()
+
+        ''Me.ElementInfo.Width = pictureLabel.Width
+        ''Me.ElementInfo.Height = pictureLabel.Height
+
+        ''7/30/2019 td''Me.ElementInfo.Font_DrawingClass = Me.ParentForm.Font ''Me.Font
+        ''7/30/2019 td''Me.ElementInfo.Font_DrawingClass = New Font("Times New Roman", 25, FontStyle.Italic)
+
+        boolScaleFontSize = (Me.ElementInfo_TextOnly.FontSize_ScaleToElementYesNo)
+        If (boolScaleFontSize And Me.Element_StaticText Is Nothing) Then
+            ''Added 9/19/2019 td 
+            MessageBox.Show("Where is the Element-Field Class???   We will need it to scale the Font.", "",
+                            MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        End If ''End of "If (boolScaleFontSize) Then"
 
         If (Me.ElementInfo_TextOnly.Font_DrawingClass Is Nothing) Then
             ''
             ''Initialize the font. 
             ''
-            ''9/6/2019 td''Me.ElementInfo_TextOnly.Font_DrawingClass = New Font("Times New Roman", 15, FontStyle.Regular)
-            ''9/6/2019 td''Me.ElementInfo_TextOnly.FontSize_Pixels = 15
-            ''9/6/2019 td''Me.ElementInfo_TextOnly.FontBold = False
-            ''9/6/2019 td''Me.ElementInfo_TextOnly.FontItalics = False
+            ''9/6/2019 tdMe.ElementInfo_Text.Font_DrawingClass = New Font("Times New Roman", 15, FontStyle.Regular)
 
             With Me.ElementInfo_TextOnly
                 ''9/6/2019 td''.FontSize = 15
@@ -123,7 +145,27 @@ Public Class CtlGraphicText
                 .Font_DrawingClass = modFonts.MakeFont(.FontFamilyName, .FontSize_Pixels, .FontBold, .FontItalics, .FontUnderline)
             End With
 
-        End If ''End of "If (Me.ElementInfo_TextOnly.Font_DrawingClass Is Nothing) Then"
+        End If ''end of " If (Me.ElementInfo.Font_DrawingClass Is Nothing) Then"
+
+        ''Me.ElementInfo.BackColor = Me.ParentForm.BackColor
+        ''Me.ElementInfo.FontColor = Me.ParentForm.ForeColor
+
+        ''Added 8/18/2019 thomas downes 
+        If (pbRefreshSize) Then
+            ''
+            ''Adjust the size of the label graphic. 
+            ''
+            pictureLabel.Width = Me.ElementInfo_Base.Width_Pixels
+            pictureLabel.Height = Me.ElementInfo_Base.Height_Pixels
+
+            ''Added 9/15/2019 thomas d.
+            boolScaleFontSize = (Me.ElementInfo_TextOnly.FontSize_ScaleToElementYesNo)
+            If (boolScaleFontSize) Then
+                ''Added 9/15/2019 thomas d.
+                Me.Element_StaticText.Font_ScaleAdjustment(Me.ElementInfo_Base.Height_Pixels)
+            End If ''End of "If (boolScaleFontSize) Then"
+
+        End If ''end if "If (pbRefreshSize) then"
 
         If (LabelToImage Is Nothing) Then LabelToImage = New ClassLabelToImage
 
@@ -135,48 +177,142 @@ Public Class CtlGraphicText
         boolReinitializeImage = (c_bMustReinitializeToResize And mod_c_bRefreshMustResizeImage)
 
         If (boolReinitializeImage) Then
+            ''
             ''Destroy & recreate the .Image member from scratch, to allow for a new size. ----7/31/2019 td
+            ''
             pictureLabel.Image = Nothing
-            pictureLabel.Image = (New Bitmap(pictureLabel.Width, pictureLabel.Height))
+
+            If (pictureLabel.Width > 0 And pictureLabel.Height > 0) Then
+                pictureLabel.Image = (New Bitmap(pictureLabel.Width, pictureLabel.Height))
+            ElseIf (pictureLabel.Width > 0 And pictureLabel.Height = 0) Then
+                ''Don't allow a run-time error to occur, due to a parameter of Height = Zero (0). ----8/3/2019 td
+                pictureLabel.Image = (New Bitmap(pictureLabel.Width, 15))
+            ElseIf (pictureLabel.Width = 0 And pictureLabel.Height > 0) Then
+                ''Don't allow a run-time error to occur, due to a parameter of Width = Zero (0).  ----8/3/2019 td
+                pictureLabel.Image = (New Bitmap(15, pictureLabel.Height))
+            End If
+
         End If ''End of "If (boolReinitializeImage) Then"
 
         ''7/29/2019 td''pictureLabel.Image = Generator.TextImage(Me.ElementInfo, Me.ElementInfo)
         ''8/18/2019 td''Generator.TextImage(pictureLabel.Image, Me.ElementInfo, Me.ElementInfo)
 
         Dim boolRotated As Boolean ''Added 8/18/2019 td
+
+        ''Added 8/18/2019 td
         ''9/3/2019 td''LabelToImage.TextImage(pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
 
-        Dim intLayoutWidth As Integer ''Added 9/3/2019 thomas d.
-        ''10/1/2019 td''intLayoutWidth = Me.FormDesigner.Layout_Width_Pixels()
-        intLayoutWidth = Me.LayoutFunctions.Layout_Width_Pixels()
+        Dim intBadgeLayoutWidth As Integer ''Added 9/3/2019 thomas d.
+        ''9/19/2019 td''intLayoutWidth = Me.FormDesigner.Layout_Width_Pixels()
+        intBadgeLayoutWidth = Me.LayoutFunctions.Layout_Width_Pixels()
 
         ''9/4/2019 td''LabelToImage.TextImage(intLayoutWidth, pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
 
-        pictureLabel.Image =
-        LabelToImage.TextImage_Field(intLayoutWidth, Me.ElementInfo_TextOnly,
-                               Me.ElementInfo_Base, boolRotated, True)
+        ''
+        ''Major call !!
+        ''
+        Dim newTextImage As Image ''Added 9/20/2019 td  
+
+        Const c_boolUseNewestProjectReference As Boolean = True ''Added 9/20/2019 td 
+        If (c_boolUseNewestProjectReference) Then
+
+            newTextImage =
+            modGenerate.TextImage_ByElemInfo(intBadgeLayoutWidth,
+                                   Me.ElementInfo_TextOnly,
+                                   Me.ElementInfo_Base,
+                                   boolRotated, True)
+        Else
+            ''9/20/2019 td''pictureLabel.Image =
+            newTextImage =
+            LabelToImage.TextImage_Field(intBadgeLayoutWidth, Me.ElementInfo_TextOnly,
+                                   Me.ElementInfo_Base,
+                                   boolRotated, True)
+        End If ''End of "If (c_boolUseNewestProjectReference) Then ..... Else ...."
+
+        ''Added 9/20/2019 td
+        pictureLabel.Image = newTextImage
+
+        ''Added 9/23/2019 td
+        Application.DoEvents() ''Give the PictureBox control time to make any adjustments it might want to do. 
+
+ExitHandler:
+        If (pboolResizeLabelControl) Then ''Added9/23/2019 td 
+
+            ''Added 8/18/2019 td
+            Dim intNewImageWidth As Integer ''Added 8/18/2019 td
+            Dim intNewImageHeight As Integer ''Added 9/20/2019 td
+
+            ''9/20/2019 td''intNewImageWidth = pictureLabel.Image.Width
+            intNewImageWidth = newTextImage.Width ''Added 9/20/2019 td
+            intNewImageHeight = newTextImage.Height ''Added 9/20/2019 td
+
+            If (boolRotated) Then ''Added 8/18/2019 td
+                ''
+                ''Rotated Images ---  Any special programming needed? 
+                ''
+                ''Adjust the controls to the image size.
+                ''   Is there any special programming for rotated images?   Probably not! ---9/3/2019 td 
+                ''
+                ''9/20/2019 td''pictureLabel.Width = pictureLabel.Image.Width
+                ''9/20/2019 td''pictureLabel.Height = pictureLabel.Image.Height
+                pictureLabel.Width = intNewImageWidth ''Straightforward.   No reversal is needed here, despite the rotation. ---9/20 td
+                Application.DoEvents()
+                pictureLabel.Height = intNewImageHeight ''Straightforward.   No reversal is needed here, despite the rotation. ---9/20 td 
+                Application.DoEvents()
+                pictureLabel.Invalidate() ''Forces it to be repainted.  
+
+                Me.Height = pictureLabel.Height
+                Application.DoEvents()
+                Me.Width = pictureLabel.Width
+            Else
+                ''
+                ''Adjust the controls to the image size. ---9/3/2019 td 
+                ''
+                ''9/20/2019 td''pictureLabel.Width = pictureLabel.Image.Width
+                ''9/20/2019 td''pictureLabel.Height = pictureLabel.Image.Height
+                pictureLabel.Width = intNewImageWidth
+                Application.DoEvents()
+                pictureLabel.Height = intNewImageHeight
+                Application.DoEvents()
+                Me.Height = pictureLabel.Height
+                Application.DoEvents()
+                Me.Width = pictureLabel.Width
+
+            End If ''End if "If (boolRotated) Then .... Else ...."
+
+        End If ''End of "If (par_boolResizeLabelControl) Then ..... Else ...."
 
         ''Added 7/31/2019 td
-        If (mod_c_boolMustSetBackColor And (Me.ElementInfo_Base IsNot Nothing)) Then
+        If (mod_c_boolMustSetBackColor And (ElementInfo_TextOnly IsNot Nothing)) Then
             ''
             ''A desperate attempt to get the background color to extend to the full, resized control.
             ''
             Dim boolColorDiscrepancy As Boolean = False ''Added 7/31/2019 td
+            ''8/29 td''boolColorDiscrepancy = (Me.ElementInfo_Text.BackColor <> Me.ElementInfo_Text.Back_Color)
 
-            ''8/29/2019 td''boolColorDiscrepancy = (Me.ElementInfo.BackColor <> Me.ElementInfo.Back_Color)
             If (boolColorDiscrepancy) Then
                 MessageBox.Show("Warning, there is a discrepancy in the color information.", "ciLayout",
                                 MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If ''ENd of "If (boolColorDiscrepancy) Then"
 
-            ''8/29/2019 td''pictureLabel.BackColor = Me.ElementInfo.Back_Color
+            pictureLabel.BackColor = Me.ElementInfo_Base.Back_Color
+            ''8/29/2019 td''pictureLabel.BackColor = Me.ElementInfo_Text.BackColor
             pictureLabel.BackColor = Me.ElementInfo_Base.Back_Color
 
         End If ''End of "If (mod_c_boolMustSetBackColor And (ElementInfo IsNot Nothing)) Then"
 
-        pictureLabel.Refresh()
+        If (pboolRefreshLabelControl) Then
+            ''8/19/2019 td''pictureLabel.Refresh()
+            pictureLabel.Invalidate() ''Forces it to be re-painted. ---9/21/2019 td 
+            pictureLabel.Refresh()
+        End If ''End of "If (par_boolRefreshLabelControl) Then"
 
-    End Sub ''End of Public Sub RefreshImage
+        If (pboolRefreshUserControl) Then
+            Me.Refresh()
+        End If ''ENd of "If (par_boolRefreshUserControl) Then"
+
+    End Sub ''End of Public Sub Refresh_Image
+
 
     Public Sub SaveToModel()
         ''
@@ -223,7 +359,7 @@ Public Class CtlGraphicText
         Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
 
         Application.DoEvents()
-        Me.RefreshImage()
+        Me.Refresh_Image(True)
         Application.DoEvents()
         Me.Refresh()
 
@@ -260,7 +396,7 @@ Public Class CtlGraphicText
         Application.DoEvents()
         Application.DoEvents()
 
-        RefreshImage()
+        Refresh_Image(True)
         Me.Refresh()
 
     End Sub ''eNd of "Private Sub opendialog_Color()"
@@ -277,7 +413,7 @@ Public Class CtlGraphicText
         Application.DoEvents()
         Application.DoEvents()
 
-        RefreshImage()
+        Refresh_Image(True)
         Me.Refresh()
 
     End Sub ''eNd of "Private Sub opendialog_Color()"
@@ -374,9 +510,9 @@ Public Class CtlGraphicText
                 Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
             End If ''End of "If (Me.LayoutFunctions IsNot Nothing) Then"
 
-            Me.RefreshImage()
+            Me.Refresh_Image(True)
 
-            End If ''End of "If (Me.ElementInfo_Base IsNot Nothing) Then"
+        End If ''End of "If (Me.ElementInfo_Base IsNot Nothing) Then"
     End Sub
 
     Private Sub PictureLabel_Click(sender As Object, e As EventArgs) Handles pictureLabel.Click
