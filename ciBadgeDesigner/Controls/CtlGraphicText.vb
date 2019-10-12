@@ -15,6 +15,7 @@ Public Class CtlGraphicText
     Public Shared LabelToImage As ClassLabelToImage
 
     ''8/29/2019 td''Public ElementInfo As ClassElementText
+    Public Element_StaticText As ClassElementStaticText ''Added 10/11/2019 td
     Public ElementInfo_Base As ciBadgeInterfaces.IElement_Base ''Added 8/29/2019 td
     ''9/18/2019 td''Public ElementInfo_Text As ciBadgeInterfaces.IElement_TextField ''Added 8/29/2019 td
     Public ElementInfo_TextOnly As ciBadgeInterfaces.IElement_TextOnly ''Added 8/29/2019 td
@@ -55,6 +56,12 @@ Public Class CtlGraphicText
 
         ' This call is required by the designer.
         InitializeComponent()
+
+        ''Added 10/11/2019 thomas downes
+        ''
+        Me.Element_StaticText = New ClassElementStaticText
+        Me.ElementInfo_Base = CType(Me.Element_StaticText, IElement_Base)
+        Me.ElementInfo_TextOnly = CType(Me.Element_StaticText, IElement_TextOnly)
 
     End Sub
 
@@ -362,12 +369,14 @@ Public Class CtlGraphicText
             ''10/01/2019 td''Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.FormDesigner.Layout_Width_Pixels()
             ''10/01/2019 td''Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.FormDesigner.Layout_Height_Pixels()
 
-            Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.LayoutFunctions.Layout_Width_Pixels()
-            Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
+            If (Me.LayoutFunctions IsNot Nothing) Then
+                Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.LayoutFunctions.Layout_Width_Pixels()
+                Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
+            End If ''End of "If (Me.LayoutFunctions IsNot Nothing) Then"
 
             Me.RefreshImage()
 
-        End If ''End of "If (Me.ElementInfo_Base IsNot Nothing) Then"
+            End If ''End of "If (Me.ElementInfo_Base IsNot Nothing) Then"
     End Sub
 
     Private Sub PictureLabel_Click(sender As Object, e As EventArgs) Handles pictureLabel.Click

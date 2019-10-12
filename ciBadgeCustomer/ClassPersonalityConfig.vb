@@ -11,9 +11,14 @@ Public Class ClassPersonalityConfig
     Public Property ConfigGUID As System.Guid Implements InterfacePersonality.ConfigGUID
     Public Property CustomerNumber As String Implements InterfacePersonality.CustomerNumber
 
+    Public Property Name_ReferringToThem As String Implements InterfacePersonality.Name_ReferringToThem
+
+    Public Property Name_PersonalityDescription As String Implements InterfacePersonality.Name_PersonalityDescription
+
+
     Public Property ConfigID As Integer Implements InterfacePersonality.ConfigID
 
-    Public Property VisitorManagement As Boolean Implements InterfacePersonality.VisitorManagement
+    Public Property IsVisitorManagement As Boolean Implements InterfacePersonality.IsVisitorManagement
 
 
 

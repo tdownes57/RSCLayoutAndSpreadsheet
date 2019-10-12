@@ -153,6 +153,9 @@ Public Class FormDesignProtoTwo
 
         Me.Controls.Remove(CtlGraphicPortrait_Lady) ''Added 7/31/2019 thomas d. 
 
+        ''Added 10/11/2019 thomas downes 
+        Me.CtlGraphicText1.LayoutFunctions = CType(mod_designer, ILayoutFunctions)
+
         ''Encapsulated 7/31/2019 td
         ''
         ''Major call !!

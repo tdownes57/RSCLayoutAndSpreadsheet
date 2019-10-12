@@ -63,11 +63,11 @@ Public Class ClassElementSignature
             ''
             ''Inform software developer of programming which violates design expectations.
             ''
-            Dim boolShorterThanWidth As Boolean ''Added 9/23/2019 thomas downes
+            Dim boolTallerThanWidth As Boolean ''Added 9/23/2019 thomas downes
             Dim boolGiveDisallowedMsg As Boolean ''Added 9/23/2019 thomas downes
             ''9/23 td''boolShorterThanWidth = (mod_height_pixels < mod_width_pixels) ''value)
-            boolShorterThanWidth = (mod_height_pixels < value)
-            boolGiveDisallowedMsg = boolShorterThanWidth
+            boolTallerThanWidth = (mod_height_pixels > value)
+            boolGiveDisallowedMsg = boolTallerThanWidth
             If (boolGiveDisallowedMsg) Then
                 Throw New Exception("The Height cannot be less than the width #1 (rotation is _not_ an exception to this).")
             End If ''End of "If (boolGiveDisallowedMsg) Then"
@@ -100,14 +100,17 @@ Public Class ClassElementSignature
             ''
             ''Inform software developer of programming which violates design expectations.
             ''
-            Dim boolShorterThanWidth As Boolean ''Added 9/23/2019 thomas downes
+            ''10/11/2019 td''Dim boolShorterThanWidth As Boolean ''Added 9/23/2019 thomas downes
             Dim boolGiveDisallowedMsg As Boolean ''Added 9/23/2019 thomas downes
             ''Added 9/23/2019 thomas downes
             ''9/23/2019 td''boolTallerThanWidth = (mod_height_pixels > mod_width_pixels)
-            boolShorterThanWidth = (mod_height_pixels < mod_width_pixels)
-            boolGiveDisallowedMsg = boolShorterThanWidth
+            ''10/11/2019 td''boolShorterThanWidth = (mod_height_pixels < mod_width_pixels)
+
+            Dim boolTallerThanWidth As Boolean ''Added 10/11/2019 td
+            boolTallerThanWidth = (mod_height_pixels > mod_width_pixels)
+            boolGiveDisallowedMsg = boolTallerThanWidth
             If (boolGiveDisallowedMsg) Then
-                Throw New Exception("The Height cannot be less than the width #2 (rotation is _not_ an exception to this).")
+                Throw New Exception("The Height cannot be more than the width #2 (rotation is _not_ an exception to this).")
             End If ''End of "If (boolGiveDisallowedMsg) Then"
 
             ''Added 9/23/2019 td

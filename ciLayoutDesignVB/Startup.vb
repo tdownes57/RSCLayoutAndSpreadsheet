@@ -4,6 +4,8 @@ Option Infer On
 ''
 ''Added 10/11/2019 td  
 ''
+Imports ciBadgeInterfaces ''Added 10/11/2019 thomas d. 
+
 Public Class Startup
     ''
     ''Added 10/11/2019 td  
@@ -28,6 +30,8 @@ Public Class Startup
         ''
         ''
         Dim obj_formToShow As New FormDesignProtoTwo ''Added 10/11/2019 td 
+
+        ''Not needed. 10/11/2019 td'obj_formToShow.CtlGraphicText1.LayoutFunctions = CType(obj_formToShow., ILayoutFunctions)
 
         obj_formToShow.ShowDialog() ''Added 10/11/2019 td 
 
