@@ -195,6 +195,7 @@ Public Class FormDesignProtoTwo
         Me.ElementsCache_Edits.Pic_InitialDefault = mod_imageLady
 
         Me.Controls.Remove(CtlGraphicPortrait_Lady) ''Added 7/31/2019 thomas d. 
+        Me.Controls.Remove(CtlGraphicSignature1) ''Added 10/12/2019 thomas d. 
 
         ''Added 10/11/2019 thomas downes 
         Me.CtlGraphicText1.LayoutFunctions = CType(mod_designer, ILayoutFunctions)
@@ -237,6 +238,10 @@ Public Class FormDesignProtoTwo
             Dim objDeserialize As New ciBadgeSerialize.ClassDeserial ''Added 10/10/2019 td  
             objDeserialize.PathToXML = strPathToXML
             Me.ElementsCache_Saved = CType(objDeserialize.DeserializeFromXML(Me.ElementsCache_Saved.GetType(), False), ClassElementsCache)
+
+            ''Added 10/12/2019 td
+            Me.ElementsCache_Saved.LinkElementsToFields()
+
         End If ''End of "If (boolNewFileXML) Then .... Else ..."
 
         ''Added 9/19/2019 td

@@ -38,6 +38,9 @@ Public Interface IElement_TextField
     ''
     ''9/18/2019 td''Property FieldObject As ClassFieldAny ''Added 9/18/2019   
     Property FieldInfo As ICIBFieldStandardOrCustom ''Added 9/9/2019   
+
+    Property FieldEnum As EnumCIBFields ''Added 10/12/2019 thomas d.
+
     Property Recipient As IRecipient ''Added 9/9/2019   
 
     ''This is stored in FieldInfo.--9/18/2019 td''Property FieldInCardData As String

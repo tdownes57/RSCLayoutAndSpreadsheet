@@ -221,12 +221,13 @@ Public Class ClassElementsCache
 
             intFieldIndex += 1
             ''9/18/2019 td''intLeft_Pixels = (30 * (intFieldIndex - 1))
-            intTop_Pixels = (c_intHeight_Pixels * (intFieldIndex - 1))
+            'intTop_Pixels = (c_intHeight_Pixels * (intFieldIndex - 1))
             intLeft_Pixels = intTop_Pixels ''Let's have a staircase effect!! 
 
             ''Added 9/18/2019 td
             new_elementField = New ClassElementField(each_field, intLeft_Pixels, intTop_Pixels, c_intHeight_Pixels)
             new_elementField.FieldInfo = each_field
+            new_elementField.FieldEnum = each_field.FieldEnumValue ''Added 10/12/2019 td
 
             ''Added 9/19/2019 td
             mod_listElementFields.Add(new_elementField)
@@ -237,7 +238,7 @@ Public Class ClassElementsCache
 
     Public Sub LoadElement_Pic(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)
         ''10/10/2019 td''Public Sub LoadPicElement(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)
-        ''
+        '' 
         ''Added 9/16/2019 td  
         ''
         Dim objElementPic As ClassElementPic ''Added 9/16/2019 td 
@@ -487,6 +488,37 @@ Public Class ClassElementsCache
         Return objCopyOfCache
 
     End Function ''End of "Public Function Copy() As ClassElementsCache"
+
+    Public Sub LinkElementsToFields()
+        ''
+        ''Added 10/12/2019 thomas d. 
+        ''
+        Dim dictionaryFields As New Dictionary(Of ciBadgeInterfaces.EnumCIBFields, ClassFieldAny)
+
+        ''Added 9/29/2019 thomas downes  
+        For Each each_field As ClassFieldAny In mod_listFields
+            Try
+                dictionaryFields.Add(each_field.FieldEnumValue, each_field)
+            Catch ex_AddFailed As Exception
+                ''Added 10/12/2019 td
+                System.Diagnostics.Debugger.Break()
+            End Try
+        Next each_field
+
+        Dim found_field As ClassFieldAny ''Added 10/12/2019 td
+
+        For Each each_elementField As ClassElementField In mod_listElementFields
+
+            found_field = Nothing ''Initialize. ----10/12/2019 td
+
+            dictionaryFields.TryGetValue(each_elementField.FieldEnum, found_field)
+
+            each_elementField.FieldObject = found_field
+            each_elementField.FieldInfo = found_field
+
+        Next each_elementField
+
+    End Sub ''End of "Public Sub LinkElementsToFields()"
 
     Public Function GetElementByGUID(par_guid As System.Guid) As ClassElementField
         ''

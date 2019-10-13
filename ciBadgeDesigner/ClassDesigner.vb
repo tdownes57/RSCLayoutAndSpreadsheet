@@ -45,7 +45,7 @@ Public Class ClassDesigner
 
     Public Property PathToSigFile As String ''Added 10/12/2019 td
 
-    Public Property CtlGraphic_Signature As CtlGraphicSignature ''Added 10/10/2019 td
+    Public Property CtlGraphic_Signat As CtlGraphicSignature ''Added 10/10/2019 td
     Public Property CtlGraphic_QRCode As CtlGraphicQRCode ''Added 10/10/2019 td
 
     Public Property ElementsCache_Saved As New ClassElementsCache ''Added 9/16/2019 thomas downes
@@ -346,6 +346,7 @@ Public Class ClassDesigner
                                            par_listFieldCtls)
 
         LoadElements_Picture(par_cache.PicElement())
+        LoadElements_Signature(par_cache.ElementSignature) ''Added 10/12/2019 thomas d.
 
         ''Add moveability.   
         boolMakeMoveableByUser = (Not c_boolMakeMoveableASAP) ''Added 9/20/2019 td
@@ -353,7 +354,7 @@ Public Class ClassDesigner
             ''
             ''Pretty big call!!   Allow the user to "click & drag" the control. 
             ''
-            MakeElementsMoveable()
+            MakeElementsMoveable_Fields()
 
         End If ''ENd of "If (boolMakeMoveableByUser) Then"
 
@@ -368,7 +369,7 @@ Public Class ClassDesigner
 
     End Sub ''ENd of "Private Sub LoadForm_LayoutElements()"
 
-    Private Sub MakeElementsMoveable()
+    Private Sub MakeElementsMoveable_Fields()
         ''
         ''Added 7/19/2019 thomas downes  
         ''
@@ -393,6 +394,11 @@ Public Class ClassDesigner
         ControlResizeProportionally_TD.Init(CtlGraphic_Portrait.Picture_Box,
                       CtlGraphic_Portrait, 10, True,
                       mod_sizingPic_events, c_addAfterMoveAddBreakpoint) ''Added 10/9/2019 thomas downes
+
+        ''Added 10/11/2019 thomas downes
+        ControlMoverOrResizer_TD.Init(CtlGraphic_Signat.pictureSignature,
+                  CtlGraphic_Signat, 10, True,
+                   c_addAfterMoveAddBreakpoint)
 
         ''
         ''Fields
@@ -470,6 +476,29 @@ Public Class ClassDesigner
         End With ''End of "With CtlGraphicPortrait1"
 
     End Sub ''End of " Private Sub LoadElements_Picture()"
+
+    Private Sub LoadElements_Signature(par_elementSig As ClassElementSignature)
+        ''
+        ''Added 10/12/2019 thomas d. 
+        ''
+        CtlGraphic_Signat = New CtlGraphicSignature(par_elementSig, Me)
+
+        Me.DesignerForm.Controls.Add(CtlGraphic_Signat)
+
+        With CtlGraphic_Signat
+
+            .Top = par_elementSig.TopEdge_Pixels
+            .Left = par_elementSig.LeftEdge_Pixels
+            .Width = par_elementSig.Width_Pixels
+            .Height = par_elementSig.Height_Pixels
+
+            .pictureSignature.Image = mod_imageExampleSignat
+
+            .Refresh_Master()
+
+        End With ''End of "With CtlGraphic_Signat"
+
+    End Sub ''End of "Private Sub LoadElements_Signature"
 
     Private Sub Initiate_RubberbandSelector(par_elementControls_All As List(Of CtlGraphicFldLabel),
                                             par_elementControls_GroupEdit As List(Of CtlGraphicFldLabel))

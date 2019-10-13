@@ -67,6 +67,9 @@ Public Class ClassElementField
     ''Added 9/18/2019
     Public Property FieldObject As ClassFieldAny ''Added 9/18/2019 td
 
+    ''Added 10/12/2019 thomas downes
+    Public Property FieldEnum As EnumCIBFields Implements IElement_TextField.FieldEnum
+
     ''Added 9/17/2019 td 
     <Xml.Serialization.XmlIgnore>
     Public Property FieldInfo As ICIBFieldStandardOrCustom Implements IElement_TextField.FieldInfo
@@ -217,6 +220,7 @@ Public Class ClassElementField
         ''Added 9/15/2019 td
         ''
         Me.FieldInfo = par_fieldInfo ''Added 9/17/2019 td 
+        Me.FieldEnum = par_fieldInfo.FieldEnumValue ''Added 10/12/2019 thomas d. 
 
         Me.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass ''Added 9/12/2019
 
