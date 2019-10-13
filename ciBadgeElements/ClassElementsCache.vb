@@ -584,6 +584,21 @@ Public Class ClassElementsCache
 
     End Function ''ENd of "Public Function MissingTheSignature() As Boolean"
 
+    Public Function GetElementByFieldEnum(par_enum As EnumCIBFields) As ClassElementField
+        ''
+        ''Added 10 / 13 / 2019 td
+        ''
+        For Each each_elementField As ClassElementField In mod_listElementFields
+            With each_elementField
+                .FieldEnum = .FieldObject.FieldEnumValue ''This is a double-check that the Enum value matches. 
+                If (.FieldEnum = par_enum) Then Return each_elementField
+            End With ''End of "With each_elementField"
+        Next each_elementField
+
+        Return (Nothing)
+
+    End Function ''ENd of "Public Function GetFieldByLabelCaptionpar_caption As String) As ClassFieldAny"
+
     Public Function GetFieldByLabelCaption(par_caption As String) As ClassFieldAny
         ''Added 10/10/2019 td 
         Return (Nothing)

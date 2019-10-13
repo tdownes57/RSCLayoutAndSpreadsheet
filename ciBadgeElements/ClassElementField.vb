@@ -456,14 +456,17 @@ Public Class ClassElementField
         Dim objCopy As New ClassElementField
 
         ''10/12/2019 td''objCopy.LoadbyCopyingMembers(Me, Me)
-        objCopy.LoadbyCopyingMembers(Me, Me, Me)
+        ''10/13/2019 td''objCopy.LoadbyCopyingMembers(Me, Me, Me)
+        objCopy.LoadbyCopyingMembers(Me, Me, Me, Me.BadgeLayout)
+
         Return objCopy
 
     End Function ''End of "Public Function Copy() As ClassElementField"
 
     Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base,
                                     par_ElementInfo_Text As IElement_TextOnly,
-                                    par_ElementInfo_Field As IElement_TextField)
+                                    par_ElementInfo_Field As IElement_TextField,
+                                    par_badgeLayout As BadgeLayoutClass)
         ''
         ''Added 9/13/2019 thomas downes
         ''
@@ -497,6 +500,11 @@ Public Class ClassElementField
 
         ''Added 10/13/2019 td
         Me.FieldEnum = par_ElementInfo_Field.FieldEnum
+
+        ''Added 10/13/2019 td
+        Me.BadgeLayout = New BadgeLayoutClass
+        Me.BadgeLayout.Height_Pixels = par_badgeLayout.Height_Pixels
+        Me.BadgeLayout.Width_Pixels = par_badgeLayout.Width_Pixels
 
         Me.FontBold = par_ElementInfo_Text.FontBold
         Me.FontColor = par_ElementInfo_Text.FontColor

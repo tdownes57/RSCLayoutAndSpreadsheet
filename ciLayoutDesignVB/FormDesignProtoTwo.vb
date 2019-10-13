@@ -199,6 +199,9 @@ Public Class FormDesignProtoTwo
         mod_designer.CtlGraphic_QRCode = CtlGraphicQRCode1
         mod_designer.CtlGraphic_Signat = CtlGraphicSignature1
 
+        ''Added 10/13/2019 thomas d.
+        mod_designer.DesignerForm_Interface = CType(Me, IDesignerForm)
+
         Me.Controls.Remove(CtlGraphicPortrait_Lady) ''Added 7/31/2019 thomas d. 
         Me.Controls.Remove(CtlGraphicSignature1) ''Added 10/12/2019 thomas d. 
 
@@ -360,7 +363,7 @@ Public Class FormDesignProtoTwo
         ''
         ''Step #1 of 2. 
         ''
-        mod_designer.SaveLayout()
+        mod_designer.SaveLayout(False)
 
         ''For Each each_control As Control In Me.Controls
         ''
@@ -400,14 +403,14 @@ Public Class FormDesignProtoTwo
             ''10/10/2019 td''SaveFileDialog1.ShowDialog()
             ''10/10/2019 td''.PathToXML = SaveFileDialog1.FileName
 
-            .PathToXML = Me.ElementsCache_Saved.PathToXml_Saved
+            .PathToXML = Me.ElementsCache_Edits.PathToXml_Saved
 
             ''Added 9/24/2019 thomas 
-            .SerializeToXML(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved, False, True)
+            .SerializeToXML(Me.ElementsCache_Edits.GetType, Me.ElementsCache_Edits, False, True)
 
             Const c_SerializeToBinary As Boolean = False ''Added 9/30/2019 td
             If (c_SerializeToBinary) Then _
-            .SerializeToBinary(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved)
+            .SerializeToBinary(Me.ElementsCache_Edits.GetType, Me.ElementsCache_Edits)
 
         End With ''End of "With objSerializationClass"
 
@@ -546,7 +549,7 @@ Public Class FormDesignProtoTwo
         ''Added 7/29/2019 td  
         ''
         ''103/2019 td''SaveLayout()
-        mod_designer.SaveLayout()
+        mod_designer.SaveLayout(True)
 
     End Sub
 
@@ -1222,7 +1225,7 @@ Public Class FormDesignProtoTwo
             Dim each_element As ClassElementField ''Added 10/13/2019 td
 
             ''Added 10/13/2019 td
-            For Each each_ctl As CtlGraphicFldLabel In mod_designer.ListOfLabels()
+            For Each each_ctl As CtlGraphicFldLabel In mod_designer.ListOfFieldLabels()
 
                 each_element = Me.ElementsCache_Edits.GetElementByFieldEnum(each_ctl.FieldInfo.FieldEnumValue)
                 each_ctl.ElementClass_Obj = each_element

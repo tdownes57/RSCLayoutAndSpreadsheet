@@ -34,6 +34,7 @@ Public Class ClassDesigner
     Public WithEvents PreviewBox As PictureBox
 
     Public CheckboxAutoPreview As CheckBox ''Added 10/1/2019 td
+    Public DesignerForm_Interface As IDesignerForm ''Added 10/13/2019 td  
 
     Public Property ExampleImage_Portrait As Image ''Added 10/1/2019 td 
     Public Property ExampleImage_QRCode As Image ''Added 10/10/2019 td 
@@ -105,6 +106,11 @@ Public Class ClassDesigner
     Private mod_listOfFieldControls As New List(Of CtlGraphicFldLabel)
 
     Private vbCrLf_Deux As String = (vbCrLf & vbCrLf)
+
+    Public Function ListOfFieldLabels() As List(Of CtlGraphicFldLabel)
+        ''Added 10/13/2019 thomas downes
+        Return mod_listOfFieldControls
+    End Function ''End of "Public Function ListOfFieldLabels() As List(Of CtlGraphicFldLabel)"
 
     Public Sub LoadDesigner() ''10/1/2019 td''sender As Object, e As EventArgs) Handles MyBase.Load
         ''10/1/2019 td''Private Sub Form_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -798,7 +804,7 @@ Public Class ClassDesigner
         Me.ElementsCache_Saved = Me.ElementsCache_Edits.Copy()
 
         ''Added 10/13/2019 td
-        Me.DesignerForm_Interface.ElementsCached_Saved = Me.ElementsCache_Saved
+        Me.DesignerForm_Interface.RefreshElementsCache_Saved(Me.ElementsCache_Saved)
 
         ''
         ''Step #3 of 3
