@@ -215,7 +215,9 @@ Public Class FormDesignProtoTwo
         Dim boolNewFileXML As Boolean ''Added 10/10/2019 td  
 
         ''Added 10/10/2019 td
-        strPathToXML = My.Settings.PathToXML_Saved
+        ''10/13/2019 td''strPathToXML = My.Settings.PathToXML_Saved
+        strPathToXML = DiskFiles.PathToFile_XML
+
         If (strPathToXML = "") Then
             boolNewFileXML = True
             ''10/12/2019 td''strPathToXML = (My.Application.Info.DirectoryPath & "\ciLayoutDesignVB_Saved.xml").Replace("\\", "\")

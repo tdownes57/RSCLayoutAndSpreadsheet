@@ -587,7 +587,7 @@ Public Class ClassFieldStandard
             .FieldEnumValue = EnumCIBFields.fstrRFID_Unique ''Added 9/16/2019 td
             .IsCustomizable = False ''Added 7/26/2019 td 
             .FieldLabelCaption = "RFID/UID Value"
-            .CIBadgeField = "fstrRFID"
+            .CIBadgeField = "fstrRFID_Unique"
             .FieldType_TD = "T"c
             .HasPresetValues = False
             .IsAdditionalField = False

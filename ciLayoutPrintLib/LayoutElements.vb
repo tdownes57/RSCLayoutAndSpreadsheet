@@ -683,6 +683,7 @@ ExitHandler:
                 ''9/20/2019 td''Dim intTop As Integer
 
                 ''9/3/2019 td''If (Not .IsDisplayedOnBadge) Then Continue For
+                If (.FieldInfo Is Nothing) Then Continue For ''Added 10/13/2019 td
                 If (Not .FieldInfo.IsDisplayedOnBadge) Then Continue For
 
                 ''Added 9/4/2019 thomas downes

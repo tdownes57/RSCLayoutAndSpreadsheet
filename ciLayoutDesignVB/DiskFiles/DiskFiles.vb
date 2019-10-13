@@ -21,7 +21,13 @@ Public Class DiskFiles
         ''
         Dim strPathToXML As String
 
-        strPathToXML = (My.Application.Info.DirectoryPath & "\ciLayoutDesignVB_Saved.xml").Replace("\\", "\")
+        ''The following line will allow the File | Save As....
+        ''   menu item to be effective. ----10/13/2019 td
+        strPathToXML = My.Settings.PathToXML_Saved
+
+        If ("" = strPathToXML) Then
+            strPathToXML = (My.Application.Info.DirectoryPath & "\ciLayoutDesignVB_Saved.xml").Replace("\\", "\")
+        End If ''End of "If ("" = strPathToXML) Then"
 
         Return strPathToXML
 

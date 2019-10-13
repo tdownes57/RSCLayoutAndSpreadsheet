@@ -495,6 +495,9 @@ Public Class ClassElementField
         ''See FieldInfo. ---9/18/2019 td''Me.FieldLabelCaption = par_ElementInfo_TextFld.FieldLabelCaption
         Me.FieldInfo = par_ElementInfo_Field.FieldInfo ''Added 9/18/2019 td 
 
+        ''Added 10/13/2019 td
+        Me.FieldEnum = par_ElementInfo_Field.FieldEnum
+
         Me.FontBold = par_ElementInfo_Text.FontBold
         Me.FontColor = par_ElementInfo_Text.FontColor
         Me.FontFamilyName = par_ElementInfo_Text.FontFamilyName

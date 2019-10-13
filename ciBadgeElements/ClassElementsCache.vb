@@ -49,6 +49,16 @@ Public Class ClassElementsCache
         End Set
     End Property
 
+    Public Property ListOfElementPics As List(Of ClassElementPic)
+        Get ''Added 10/13/2019 td
+            Return mod_listElementPics
+        End Get
+        Set(value As List(Of ClassElementPic))
+            ''Added 10/13/2019 td
+            mod_listElementPics = value
+        End Set
+    End Property
+
     Public Property BadgeLayout As ciBadgeInterfaces.BadgeLayoutClass ''Added 9/17/2019 thomas downes
 
     <Xml.Serialization.XmlIgnore>

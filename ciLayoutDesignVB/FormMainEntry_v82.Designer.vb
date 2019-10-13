@@ -25,9 +25,9 @@ Partial Class FormMainEntry_v82
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormMainEntry_v82))
-        Me.CtlGraphicPortrait1 = New ciLayoutDesignVB.CtlGraphicPortrait()
+        Me.CtlGraphicPortrait1 = New CtlGraphicPortrait()
         Me.txtNameFirst = New CtlMainEntryBox_v82()
-        Me.CtlMainStep3_v821 = New ciLayoutDesignVB.CtlMainStep3_v82()
+        Me.CtlMainStep3_v821 = New CtlMainStep3_v82()
         Me.txtNameLast = New CtlMainEntryBox_v82()
         Me.txtID = New CtlMainEntryBox_v82()
         Me.DateField01 = New CtlMainEntryBox_v82()

@@ -11,6 +11,7 @@ Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d.
 Imports System.Xml.Serialization ''Added 9/24/2019 td
 ''imports system.serial
 
+<Xml.Serialization.XmlInclude(GetType(ClassElementPic))>
 <Serializable>
 Public Class ClassElementPic ''May be renamed to ClassElementPortrait. ---10/8/2019 td 
     ''
@@ -21,6 +22,7 @@ Public Class ClassElementPic ''May be renamed to ClassElementPortrait. ---10/8/2
     ''Added 7/18/2019 thomas downes
     ''
     ''
+    <Xml.Serialization.XmlIgnore>
     Public Shared ElementPicture As ClassElementPic ''Added 7/31/2019 thomas d.
 
     Public Property Id_GUID As System.Guid ''Added 9/30/2019 td 
@@ -121,12 +123,15 @@ Public Class ClassElementPic ''May be renamed to ClassElementPortrait. ---10/8/2
 
     ''8/29/2019 td''Public Property Border_Pixels As Integer Implements IElement_Base.Border_Pixels
     Public Property Border_WidthInPixels As Integer Implements IElement_Base.Border_WidthInPixels
+
+    <Xml.Serialization.XmlIgnore>
     Public Property Border_Color As System.Drawing.Color Implements IElement_Base.Border_Color
     Public Property Border_Displayed As Boolean Implements IElement_Base.Border_Displayed ''Added 9/9/2019 td
 
     ''Added 9/4/2019 td 
     Public Property Back_Transparent As Boolean Implements IElement_Base.Back_Transparent
 
+    <Xml.Serialization.XmlIgnore>
     Public Property Back_Color As System.Drawing.Color Implements IElement_Base.Back_Color
 
     ''Added 8/2/2019 td
@@ -215,6 +220,7 @@ Public Class ClassElementPic ''May be renamed to ClassElementPortrait. ---10/8/2
         ''
         ''Added 9/17/2019 thomas downes
         ''
+
         ''
         ''First, Element-related information.
         ''

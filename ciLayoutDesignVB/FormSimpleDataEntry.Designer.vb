@@ -31,7 +31,7 @@ Partial Class FormSimpleDataEntry
         Me.pictureBack = New System.Windows.Forms.PictureBox()
         Me.lblRecipientID = New System.Windows.Forms.Label()
         Me.ButtonSave = New System.Windows.Forms.Button()
-        Me.CtlGraphicPortrait_Lady = New ciLayoutDesignVB.CtlGraphicPortrait()
+        Me.CtlGraphicPortrait_Lady = New CtlGraphicPortrait()
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         Me.CtlMainEntryBox_v904 = New CtlMainEntryBox_v90()
         CType(Me.pictureBack, System.ComponentModel.ISupportInitialize).BeginInit()

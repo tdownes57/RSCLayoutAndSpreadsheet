@@ -555,6 +555,7 @@ Public Class ClassDesigner
         Dim intCountControlsAdded As Integer = 0 ''Added 9/03/2019 td 
         Dim boolIncludeOnBadge As Boolean = False ''Added 9/03/2019 td
         Dim intStagger As Integer = 0 ''Added 9.6.2019 td 
+        Dim intUndeterminedField As Integer = 0 ''Added 10/13/2019 td  
 
         ''9/17/2019 td''For Each each_field As ICIBFieldStandardOrCustom In par_list  
         For Each each_element As ClassElementField In par_listElements
@@ -563,7 +564,12 @@ Public Class ClassDesigner
 
             ''Added 9/3/2019 thomas d. 
             ''9/17/2019 td''boolIncludeOnBadge = (par_boolLoadingForm And each_element.IsDisplayedOnBadge)
-            boolIncludeOnBadge = (par_boolLoadingForm And each_element.FieldInfo.IsDisplayedOnBadge)
+
+            If (each_element.FieldInfo Is Nothing) Then
+                intUndeterminedField += 1
+            Else
+                boolIncludeOnBadge = (par_boolLoadingForm And each_element.FieldInfo.IsDisplayedOnBadge)
+            End If ''END OF "If (each_element.FieldInfo Is Nothing) Then .... Else ...."
 
             If (Not boolIncludeOnBadge) Then
                 ''#1 9/17/2019 td''AddToFlowPanelOfOmittedFlds(each_element)
@@ -723,6 +729,9 @@ Public Class ClassDesigner
         ''Added 9/17/2019 td
         ''
         Dim new_linkLabel As New LinkLabel
+
+        If (par_elementField.FieldInfo Is Nothing) Then Exit Sub ''Added 10/13/2019 td
+
         new_linkLabel.Tag = par_elementField
         new_linkLabel.Text = par_elementField.FieldInfo.FieldLabelCaption
         FlowFieldsNotListed.Controls.Add(new_linkLabel)
