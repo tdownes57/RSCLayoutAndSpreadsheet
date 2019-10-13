@@ -17,6 +17,7 @@ Imports ciBadgeRecipients ''Added 10/11/2019 thomas d.
 Imports ciBadgeCustomer ''Added 10/11/2019 thomas d.  
 
 Public Class FormDesignProtoTwo
+    Implements IDesignerForm ''Added 10/13/2019 td 
     ''10/3/2019 td''Implements ILayoutFunctions ''-----, ISelectingElements, ILayoutFunctions
     ''
     ''Added 7/18/2019 Thomas DOWNES
@@ -341,15 +342,20 @@ Public Class FormDesignProtoTwo
 
     End Sub
 
+    Public Sub RefreshElementsCache_Saved(par_cache As ClassElementsCache) Implements IDesignerForm.RefreshElementsCache_Saved
+        ''
+        ''Added 10/13/2019 td
+        ''
+        Me.ElementsCache_Saved = par_cache
 
-
+    End Sub ''End of "Public Sub RefreshElementsCache_Saved"
 
     Private Sub SaveLayout()
         ''
         ''Added 7/29/2019 td
         ''
-        Dim each_graphicalLabel As CtlGraphicFldLabel
-        Dim each_portraitLabel As CtlGraphicPortrait ''Added 7/31/2019 td
+        ''Dim each_graphicalLabel As CtlGraphicFldLabel
+        ''Dim each_portraitLabel As CtlGraphicPortrait ''Added 7/31/2019 td
 
         ''
         ''Step #1 of 2. 
@@ -379,6 +385,7 @@ Public Class FormDesignProtoTwo
         ''
         ''Step #2 of 3.
         ''
+        Me.ElementsCache_Edits = mod_designer.ElementsCache_Edits
         Me.ElementsCache_Saved = Me.ElementsCache_Edits.Copy()
 
         ''
@@ -587,7 +594,7 @@ Public Class FormDesignProtoTwo
         ''
         RefreshTheSetOfDisplayedElements()
 
-    End Sub
+    End Sub ''End of "Private Sub LinkSaveAndRefresh_LinkClicked"
 
     Private Sub RefreshTheSetOfDisplayedElements()
         ''
@@ -1200,14 +1207,33 @@ Public Class FormDesignProtoTwo
 
         If (intConfirm = DialogResult.Yes) Then
 
-            ''Discard the user's edits.
+            ''Step 1. Discard the user's edits.
             Me.ElementsCache_Edits = Nothing
 
-            ''Copy the saved work, to become the new starting point.
+            ''Step 2. Copy the saved work, to become the new starting point.
             Me.ElementsCache_Edits = Me.ElementsCache_Saved.Copy()
 
+            ''Added 10/13/2019 td
+            mod_designer.ElementsCache_Edits = Me.ElementsCache_Edits
+
             ''
-            ''Step 3 of 3.  Refresh the representation of the elements on the form. 
+            ''Step 3 of 4.  Relink all of the elements to the controls. 
+            ''
+            Dim each_element As ClassElementField ''Added 10/13/2019 td
+
+            ''Added 10/13/2019 td
+            For Each each_ctl As CtlGraphicFldLabel In mod_designer.ListOfLabels()
+
+                each_element = Me.ElementsCache_Edits.GetElementByFieldEnum(each_ctl.FieldInfo.FieldEnumValue)
+                each_ctl.ElementClass_Obj = each_element
+                each_ctl.ElementInfo_Base = each_element
+                each_ctl.ElementInfo_Field = each_element
+                each_ctl.ElementInfo_Text = each_element
+
+            Next each_ctl
+
+            ''
+            ''Step 4 of 4.  Refresh the representation of the elements on the form. 
             ''
             RefreshTheSetOfDisplayedElements()
 

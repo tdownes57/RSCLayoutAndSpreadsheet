@@ -760,7 +760,7 @@ Public Class ClassDesigner
 
     End Sub ''End of "Private Sub AddField_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)"
 
-    Public Sub SaveLayout()
+    Public Sub SaveLayout(par_bSerializeToDisk As Boolean)
         ''
         ''Added 7/29/2019 td
         ''
@@ -797,31 +797,38 @@ Public Class ClassDesigner
         ''
         Me.ElementsCache_Saved = Me.ElementsCache_Edits.Copy()
 
+        ''Added 10/13/2019 td
+        Me.DesignerForm_Interface.ElementsCached_Saved = Me.ElementsCache_Saved
+
         ''
         ''Step #3 of 3
         ''
         ''   Serialize !!!
         ''
-        Dim objSerializationClass As New ciBadgeSerialize.ClassSerial
+        If (par_bSerializeToDisk) Then
 
-        With objSerializationClass
+            Dim objSerializationClass As New ciBadgeSerialize.ClassSerial
 
-            ''.TypeOfObject = (TypeOf List(Of ICIBFieldStandardOrCustom))
+            With objSerializationClass
 
-            ''10/10/2019 td''SaveFileDialog1.ShowDialog()
-            ''10/10/2019 td''.PathToXML = SaveFileDialog1.FileName
+                ''.TypeOfObject = (TypeOf List(Of ICIBFieldStandardOrCustom))
 
-            ''10/13/2019 td''.PathToXML = Me.ElementsCache_Saved.PathToXml_Saved
-            .PathToXML = Me.ElementsCache_Edits.PathToXml_Saved
+                ''10/10/2019 td''SaveFileDialog1.ShowDialog()
+                ''10/10/2019 td''.PathToXML = SaveFileDialog1.FileName
 
-            ''Added 9/24/2019 thomas 
-            .SerializeToXML(Me.ElementsCache_Edits.GetType, Me.ElementsCache_Edits, False, True)
+                ''10/13/2019 td''.PathToXML = Me.ElementsCache_Saved.PathToXml_Saved
+                .PathToXML = Me.ElementsCache_Edits.PathToXml_Saved
 
-            Const c_SerializeToBinary As Boolean = False ''Added 9/30/2019 td
-            If (c_SerializeToBinary) Then _
-            .SerializeToBinary(Me.ElementsCache_Edits.GetType, Me.ElementsCache_Edits)
+                ''Added 9/24/2019 thomas 
+                .SerializeToXML(Me.ElementsCache_Edits.GetType, Me.ElementsCache_Edits, False, True)
 
-        End With ''End of "With objSerializationClass"
+                Const c_SerializeToBinary As Boolean = False ''Added 9/30/2019 td
+                If (c_SerializeToBinary) Then _
+                .SerializeToBinary(Me.ElementsCache_Edits.GetType, Me.ElementsCache_Edits)
+
+            End With ''End of "With objSerializationClass"
+
+        End If ''End of "If (par_bSerializeToDisk) Then"
 
     End Sub ''End of "PRivate Sub SaveLayout()"  
 
