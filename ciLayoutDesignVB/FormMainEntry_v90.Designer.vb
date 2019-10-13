@@ -1,4 +1,6 @@
-﻿Partial Class FormMainEntry_v90
+﻿Imports ciBadgeDesigner
+
+Partial Class FormMainEntry_v90
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -21,7 +23,7 @@
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.CtlGraphicPortrait_v90 = New ciLayoutDesignVB.CtlGraphicPortrait()
+        Me.CtlGraphicPortrait_v90 = New CtlGraphicPortrait()
         Me.flowFieldsNotListed = New System.Windows.Forms.FlowLayoutPanel()
         Me.lblFieldsNotCurrentlyShownHdr = New System.Windows.Forms.Label()
         Me.flowFieldsNotListed.SuspendLayout()

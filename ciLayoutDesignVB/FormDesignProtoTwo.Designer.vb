@@ -1,4 +1,6 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿Imports ciBadgeDesigner
+
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FormDesignProtoTwo
     Inherits System.Windows.Forms.Form
 
@@ -76,7 +78,7 @@ Partial Class FormDesignProtoTwo
         Me.flowSidebar = New System.Windows.Forms.FlowLayoutPanel()
         Me.LinkCloseSidebar = New System.Windows.Forms.LinkLabel()
         Me.checkAutoPreview = New System.Windows.Forms.CheckBox()
-        Me.CtlGraphicPortrait_Lady = New ciLayoutDesignVB.CtlGraphicPortrait()
+        Me.CtlGraphicPortrait_Lady = New CtlGraphicPortrait()
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.LinkRevertToLastSave = New System.Windows.Forms.LinkLabel()

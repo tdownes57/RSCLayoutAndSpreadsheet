@@ -147,18 +147,6 @@
     <Compile Include="Controls\CtlMainButton_v90.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\CtlGraphicPortrait.Designer.vb">
-      <DependentUpon>CtlGraphicPortrait.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\CtlGraphicPortrait.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\CtlGraphicText.Designer.vb">
-      <DependentUpon>CtlGraphicText.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\CtlGraphicText.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="Controls\CtlMainButton_v82.Designer.vb">
       <DependentUpon>CtlMainButton_v82.vb</DependentUpon>
     </Compile>
@@ -414,12 +402,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlMainButton_v90.resx">
       <DependentUpon>CtlMainButton_v90.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\CtlGraphicPortrait.resx">
-      <DependentUpon>CtlGraphicPortrait.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\CtlGraphicText.resx">
-      <DependentUpon>CtlGraphicText.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlMainEntryBox_NotInUse.resx">
       <DependentUpon>CtlMainEntryBox_NotInUse.vb</DependentUpon>

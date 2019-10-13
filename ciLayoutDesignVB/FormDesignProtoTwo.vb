@@ -180,7 +180,7 @@ Public Class FormDesignProtoTwo
         ''Deleted 9/4/2019 td''Me.Controls.Remove(GraphicFieldLabel5)
 
         ''7/31/2019 td''Me.Controls.Remove(pictureboxPic) ''Added 7/31/2019 thomas d. 
-        mod_imageLady = CtlGraphicPortrait_Lady.picturePortrait.Image
+        mod_imageLady = CtlGraphicPortrait_Lady.Picture_Box.Image
         ''mod_imageSignature = CtlGraphicSignature1.pictureSignature.Image
 
         ''Added 9/23/2019 td 
