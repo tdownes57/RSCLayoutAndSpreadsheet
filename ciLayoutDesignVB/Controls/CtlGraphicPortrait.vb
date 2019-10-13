@@ -75,7 +75,7 @@ Public Class CtlGraphicPortrait
 
         If ("" <> strErrorMessage) Then
             ''Added 8/22/2019  
-            MessageBox.Show(strErrorMessage, "192032",
+            MessageBox.Show(strErrorMessage, "192032 #8",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Exclamation)
             Exit Sub
@@ -113,7 +113,7 @@ Public Class CtlGraphicPortrait
 
         If ("" <> strErrorMessage) Then
             ''Added 8/22/2019  
-            MessageBox.Show(strErrorMessage, "192032",
+            MessageBox.Show(strErrorMessage, "192032 #7",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Exclamation)
             Exit Sub

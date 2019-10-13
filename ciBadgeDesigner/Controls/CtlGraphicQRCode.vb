@@ -79,7 +79,7 @@ Public Class CtlGraphicQRCode
 
         If ("" <> strErrorMessage) Then
             ''Added 8/22/2019  
-            MessageBox.Show(strErrorMessage, "192032",
+            MessageBox.Show(strErrorMessage, "192032 #4",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Exclamation)
             Exit Sub
@@ -117,7 +117,7 @@ Public Class CtlGraphicQRCode
 
         If ("" <> strErrorMessage) Then
             ''Added 8/22/2019  
-            MessageBox.Show(strErrorMessage, "192032",
+            MessageBox.Show(strErrorMessage, "192032 #3",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Exclamation)
             Exit Sub

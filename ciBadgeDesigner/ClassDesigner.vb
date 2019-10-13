@@ -79,11 +79,19 @@ Public Class ClassDesigner
     ''#1 10/1/2019 td''Private WithEvents mod_groupedMove As New ClassGroupMove(Me) ''8/4/2019 td''New ClassGroupMove
     '' #2 10/1/2019 td''Private WithEvents mod_groupedMove As New ClassGroupMove(Me.LayoutFunctions) ''8/4/2019 td''New ClassGroupMove
     Private WithEvents mod_groupedMove As New ClassGroupMoveEvents(Me) ''8/4/2019 td''New ClassGroupMove
-    Private WithEvents mod_sizingPic_events As New ClassGroupMoveEvents(Me) ''Added 10/9/2019 td  
+
+    Private WithEvents mod_sizingEvents_Pics As New ClassGroupMoveEvents(Me) ''Added 10/9/2019 td  
+    Private WithEvents mod_sizingEvents_QR As New ClassGroupMoveEvents(Me) ''Added 10/12/2019 td  
+    Private WithEvents mod_sizingEvents_Sig As New ClassGroupMoveEvents(Me) ''Added 10/12/2019 td  
 
     Private Const mc_boolAllowGroupMovements As Boolean = True ''False ''True ''False ''Added 8/3/2019 td  
     Private Const mc_boolBreakpoints As Boolean = True
     Private Const mc_boolMoveGrowInUnison As Boolean = True ''Added 10/10/2019 td 
+
+    ''Added 10/12/2019 td 
+    Private mod_sizing_portrait As New ControlResizeProportionally_TD
+    Private mod_sizing_signature As New ControlResizeProportionally_TD
+    Private mod_sizing_QR As New ControlResizeProportionally_TD
 
     ''Added 10/10 & 8/18/2019 td
     Private mod_imageExamplePortrait As Image ''8/18/2019 td'' = CtlGraphicPortrait_Lady.picturePortrait.Image
@@ -348,6 +356,11 @@ Public Class ClassDesigner
         LoadElements_Picture(par_cache.PicElement())
         LoadElements_Signature(par_cache.ElementSignature) ''Added 10/12/2019 thomas d.
 
+        ''Added 10/12/2019 td 
+        mod_sizing_portrait.Init(Me.CtlGraphic_Portrait.picturePortrait, Me.CtlGraphic_Portrait, 10, True, mod_sizingEvents_Pics, False)
+        mod_sizing_QR.Init(Me.CtlGraphic_QRCode.pictureQRCode, Me.CtlGraphic_QRCode, 10, True, mod_sizingEvents_QR, False)
+        mod_sizing_signature.Init(Me.CtlGraphic_Signat.pictureSignature, Me.CtlGraphic_Signat, 10, True, mod_sizingEvents_Sig, False)
+
         ''Add moveability.   
         boolMakeMoveableByUser = (Not c_boolMakeMoveableASAP) ''Added 9/20/2019 td
         If (boolMakeMoveableByUser) Then
@@ -373,7 +386,7 @@ Public Class ClassDesigner
         ''
         ''Added 7/19/2019 thomas downes  
         ''
-        Const c_addAfterMoveAddBreakpoint As Boolean = True
+        ''10/12/2019 td''Const c_addAfterMoveAddBreakpoint As Boolean = True
 
         ''8/4/2019 td''Dim boolAllowGroupMovements As Boolean = False ''True ''False ''Added 8/3/2019 td  
         ''
@@ -391,14 +404,14 @@ Public Class ClassDesigner
         ''10/9/2019 td''End If ''End of " If (mc_boolAllowGroupMovements) Then .... Else ...."
 
         ''Added 10/9/2019 thomas downes
-        ControlResizeProportionally_TD.Init(CtlGraphic_Portrait.Picture_Box,
-                      CtlGraphic_Portrait, 10, True,
-                      mod_sizingPic_events, c_addAfterMoveAddBreakpoint) ''Added 10/9/2019 thomas downes
+        ''10/12/2019 td-----ControlResizeProportionally_TD.Init(CtlGraphic_Portrait.Picture_Box,
+        ''---      CtlGraphic_Portrait, 10, True,
+        ''---      mod_sizingPic_events, c_addAfterMoveAddBreakpoint) ''Added 10/9/2019 thomas downes
 
         ''Added 10/11/2019 thomas downes
-        ControlMoverOrResizer_TD.Init(CtlGraphic_Signat.pictureSignature,
-                  CtlGraphic_Signat, 10, True,
-                   c_addAfterMoveAddBreakpoint)
+        ''10/12/2019 td-----ControlMoverOrResizer_TD.Init(CtlGraphic_Signat.pictureSignature,
+        ''---      CtlGraphic_Signat, 10, True,
+        ''---      c_addAfterMoveAddBreakpoint)
 
         ''
         ''Fields
@@ -481,7 +494,8 @@ Public Class ClassDesigner
         ''
         ''Added 10/12/2019 thomas d. 
         ''
-        CtlGraphic_Signat = New CtlGraphicSignature(par_elementSig, Me)
+        ''10//12/2019 td''CtlGraphic_Signat = New CtlGraphicSignature(par_elementSig, Me)
+        CtlGraphic_Signat = New CtlGraphicSignature(par_elementSig, Me, Me.PathToSigFile)
 
         Me.DesignerForm.Controls.Add(CtlGraphic_Signat)
 
@@ -1539,22 +1553,61 @@ Public Class ClassDesigner
 
     End Sub
 
-    Private Sub mod_sizingPic_events_Moving_End() Handles mod_sizingPic_events.Moving_End
+    Private Sub mod_sizingPic_events_Moving_End() Handles mod_sizingEvents_Pics.Moving_End
         ''Added 10/9/2019 td 
         AutoPreview_IfChecked()
 
     End Sub
 
-    Private Sub mod_sizingPic_events_Resizing_End() Handles mod_sizingPic_events.Resizing_End
+    Private Sub mod_sizingPic_events_Resizing_End() Handles mod_sizingEvents_Pics.Resizing_End
         ''Added 10/9/2019 td 
         AutoPreview_IfChecked()
 
     End Sub
 
-    Private Sub mod_sizingPic_events_MoveInUnison(deltaLeft As Integer, deltaTop As Integer, deltaWidth As Integer, deltaHeight As Integer) Handles mod_sizingPic_events.MoveInUnison
+    Private Sub mod_sizingQR_events_Moving_End() Handles mod_sizingEvents_QR.Moving_End
+        ''Added 10/9/2019 td 
+        AutoPreview_IfChecked()
+
+    End Sub
+
+    Private Sub mod_sizingQR_events_Resizing_End() Handles mod_sizingEvents_QR.Resizing_End
+        ''Added 10/9/2019 td 
+        AutoPreview_IfChecked()
+
+    End Sub
+
+    Private Sub mod_sizingSig_events_Moving_End() Handles mod_sizingEvents_Sig.Moving_End
+        ''Added 10/9/2019 td 
+        AutoPreview_IfChecked()
+
+    End Sub
+
+    Private Sub mod_sizingSig_events_Resizing_End() Handles mod_sizingEvents_Sig.Resizing_End
+        ''Added 10/9/2019 td 
+        AutoPreview_IfChecked()
+
+    End Sub
+
+    Private Sub mod_sizingPic_events_MoveInUnison(deltaLeft As Integer, deltaTop As Integer, deltaWidth As Integer, deltaHeight As Integer) Handles mod_sizingEvents_Pics.MoveInUnison
 
         ''Added 10/10/2019 td
         AutoPreview_IfChecked()
 
     End Sub
+
+    Private Sub mod_sizingQR_events_MoveInUnison(deltaLeft As Integer, deltaTop As Integer, deltaWidth As Integer, deltaHeight As Integer) Handles mod_sizingEvents_QR.MoveInUnison
+
+        ''Added 10/10/2019 td
+        AutoPreview_IfChecked()
+
+    End Sub
+
+    Private Sub mod_sizingSig_events_MoveInUnison(deltaLeft As Integer, deltaTop As Integer, deltaWidth As Integer, deltaHeight As Integer) Handles mod_sizingEvents_Sig.MoveInUnison
+
+        ''Added 10/10/2019 td
+        AutoPreview_IfChecked()
+
+    End Sub
+
 End Class ''End of "Public Class ClassDesigner"

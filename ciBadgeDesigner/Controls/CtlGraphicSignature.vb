@@ -47,7 +47,9 @@ Public Class CtlGraphicSignature
 
     End Sub
 
-    Public Sub New(par_elementSig As ClassElementSignature, par_formLayout As ILayoutFunctions)
+    Public Sub New(par_elementSig As ClassElementSignature,
+                   par_formLayout As ILayoutFunctions,
+                   par_strPathToSigFile As String)
         ''
         ''Added 9/17/2019 td
         ''
@@ -82,11 +84,12 @@ Public Class CtlGraphicSignature
 
         ''10/12/2019 td''pictureSignature.Image = CType(Me.Pic_CloneOfInitialImage.Clone(), Image)
 
+        ElementInfo_Sig.SigFilePath = par_strPathToSigFile ''Added 10/12/2019 td
         pictureSignature.Image = ElementInfo_Sig.GetImage_Signature(False, strErrorMessage)
 
         If ("" <> strErrorMessage) Then
             ''Added 8/22/2019  
-            MessageBox.Show(strErrorMessage, "192032",
+            MessageBox.Show(strErrorMessage, "192032 #2",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Exclamation)
             Exit Sub
@@ -127,7 +130,7 @@ Public Class CtlGraphicSignature
 
         If ("" <> strErrorMessage) Then
             ''Added 8/22/2019  
-            MessageBox.Show(strErrorMessage, "192032",
+            MessageBox.Show(strErrorMessage, "192032 #11",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Exclamation)
             Exit Sub

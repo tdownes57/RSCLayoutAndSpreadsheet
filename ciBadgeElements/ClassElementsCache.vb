@@ -74,6 +74,8 @@ Public Class ClassElementsCache
         ''
         ''Added 9/16/2019 thomas downes
         ''
+        If (MissingTheElementPic()) Then Return Nothing ''Added 10/12/2019 td
+
         Return mod_listElementPics(0)
 
     End Function ''End of "Public Function PicElement() As ClassElementPic"
@@ -459,7 +461,8 @@ Public Class ClassElementsCache
             ''
             ''10/1/2019 td''Throw New NotImplementedException("Fix the field reference!")
 
-            dictionaryFields.TryGetValue(each_elementField.FieldInfo.FieldEnumValue, copy_ofElementField.FieldObject)
+            ''10/12/2019 td''dictionaryFields.TryGetValue(each_elementField.FieldInfo.FieldEnumValue, copy_ofElementField.FieldObject)
+            dictionaryFields.TryGetValue(each_elementField.FieldEnum, copy_ofElementField.FieldObject)
 
             objCopyOfCache.ListFieldElements().Add(copy_ofElementField)
 

@@ -101,14 +101,16 @@ Public Class ClassElementPic ''May be renamed to ClassElementPortrait. ---10/8/2
             ''Inform software developer of programming which violates design expectations.
             ''
             Dim boolShorterThanWidth As Boolean ''Added 9/23/2019 thomas downes
-            Dim boolGiveDisallowedMsg As Boolean ''Added 9/23/2019 thomas downes
+            Dim bDisallowedSoBlockIt As Boolean ''Added 10/12 & 9/23/2019 thomas downes
             ''Added 9/23/2019 thomas downes
             ''9/23/2019 td''boolTallerThanWidth = (mod_height_pixels > mod_width_pixels)
             boolShorterThanWidth = (mod_height_pixels < mod_width_pixels)
-            boolGiveDisallowedMsg = boolShorterThanWidth
-            If (boolGiveDisallowedMsg) Then
-                Throw New Exception("The Height cannot be less than the width #2 (rotation is _not_ an exception to this).")
-            End If ''End of "If (boolGiveDisallowedMsg) Then"
+            bDisallowedSoBlockIt = boolShorterThanWidth
+
+            If (bDisallowedSoBlockIt) Then
+                ''10/12/2019 td''Throw New Exception("The Height cannot be less than the width #2 (rotation is _not_ an exception to this).")
+                mod_height_pixels = mod_width_pixels
+            End If ''End of "If (bGiveDisallowedMsg) Then"
 
             ''Added 9/23/2019 td
             Const c_False_RegardlessOfRotation As Boolean = False

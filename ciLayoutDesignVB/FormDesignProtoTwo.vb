@@ -27,7 +27,6 @@ Public Class FormDesignProtoTwo
     Public Property ElementsCache_Saved As New ClassElementsCache ''Added 9/16/2019 thomas downes
     Public Property ElementsCache_Edits As New ClassElementsCache ''Added 9/16/2019 thomas downes
 
-
     Private mod_designer As New ciBadgeDesigner.ClassDesigner ''Added 10/3/2019 td
 
     ''#1 8-3-2019 td''Private WithEvents mod_moveAndResizeCtls_NA As New MoveAndResizeControls_Monem.ControlMove_RaiseEvents ''Added 8/3/2019 td  
@@ -194,6 +193,11 @@ Public Class FormDesignProtoTwo
         Me.ElementsCache_Saved.Pic_InitialDefault = mod_imageLady
         Me.ElementsCache_Edits.Pic_InitialDefault = mod_imageLady
 
+        ''Added 10/13/2019 thomas d. 
+        mod_designer.CtlGraphic_Portrait = CtlGraphicPortrait_Lady
+        mod_designer.CtlGraphic_QRCode = CtlGraphicQRCode1
+        mod_designer.CtlGraphic_Signat = CtlGraphicSignature1
+
         Me.Controls.Remove(CtlGraphicPortrait_Lady) ''Added 7/31/2019 thomas d. 
         Me.Controls.Remove(CtlGraphicSignature1) ''Added 10/12/2019 thomas d. 
 
@@ -298,10 +302,10 @@ Public Class FormDesignProtoTwo
             Else
                 ''Added for deserialization from a saved XML file. 
                 ''  ---10/10/2019 td
-                .Initial_Pic_Left = Me.ElementsCache_Edits.PicElement.LeftEdge_Pixels
-                .Initial_Pic_Top = Me.ElementsCache_Edits.PicElement.TopEdge_Pixels
-                .Initial_Pic_Width = Me.ElementsCache_Edits.PicElement.Width_Pixels
-                .Initial_Pic_Height = Me.ElementsCache_Edits.PicElement.Height_Pixels
+                .Initial_Pic_Left = Me.ElementsCache_Edits.PicElement().LeftEdge_Pixels
+                .Initial_Pic_Top = Me.ElementsCache_Edits.PicElement().TopEdge_Pixels
+                .Initial_Pic_Width = Me.ElementsCache_Edits.PicElement().Width_Pixels
+                .Initial_Pic_Height = Me.ElementsCache_Edits.PicElement().Height_Pixels
 
             End If ''End of "If (boolNewFileXML) Then .... Else ..."
 
