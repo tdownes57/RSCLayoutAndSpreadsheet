@@ -237,16 +237,21 @@ Public Class FormDesignProtoTwo
         ''Major call!!
         ''
         If (boolNewFileXML) Then ''Condition added 10/10/2019 td  
-            Me.ElementsCache_Saved.LoadFields()
-            Me.ElementsCache_Saved.LoadFieldElements(pictureBack)
+            ''10/13/2019 td''Me.ElementsCache_Saved.LoadFields()
+            ''10/13/2019 td''Me.ElementsCache_Saved.LoadFieldElements(pictureBack)
+            Me.ElementsCache_Edits.LoadFields()
+            Me.ElementsCache_Edits.LoadFieldElements(pictureBack)
         Else
             ''Added 10/10/2019 td  
             Dim objDeserialize As New ciBadgeSerialize.ClassDeserial ''Added 10/10/2019 td  
             objDeserialize.PathToXML = strPathToXML
-            Me.ElementsCache_Saved = CType(objDeserialize.DeserializeFromXML(Me.ElementsCache_Saved.GetType(), False), ClassElementsCache)
+
+            ''10/13/2019 td''Me.ElementsCache_Saved = CType(objDeserialize.DeserializeFromXML(Me.ElementsCache_Saved.GetType(), False), ClassElementsCache)
+            Me.ElementsCache_Edits = CType(objDeserialize.DeserializeFromXML(Me.ElementsCache_Edits.GetType(), False), ClassElementsCache)
 
             ''Added 10/12/2019 td
-            Me.ElementsCache_Saved.LinkElementsToFields()
+            ''10/13/2019 td''Me.ElementsCache_Saved.LinkElementsToFields()
+            Me.ElementsCache_Edits.LinkElementsToFields()
 
         End If ''End of "If (boolNewFileXML) Then .... Else ..."
 
@@ -265,7 +270,8 @@ Public Class FormDesignProtoTwo
         ''9/19 td''Me.ElementsCache_Saved.LoadPicElement(CtlGraphicPortrait_Lady.picturePortrait, pictureBack) ''Added 9/19/2019 td
         If (boolNewFileXML) Then
             ''10/10/2019 td''Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
-            Me.ElementsCache_Saved.LoadElement_Pic(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
+            ''10/13/2019 td''Me.ElementsCache_Saved.LoadElement_Pic(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
+            Me.ElementsCache_Edits.LoadElement_Pic(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
         End If ''End of "If (boolNewFileXML) Then"
 
         ''Added 9/24/2019 thomas 
@@ -273,7 +279,8 @@ Public Class FormDesignProtoTwo
         ''Was just for testing. ---10/10/2019 td''serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
         ''Was just for testing. ---10/10/2019 td''serial_tools.SerializeToXML(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved, False, True)
 
-        Me.ElementsCache_Edits = Me.ElementsCache_Saved.Copy()
+        ''10/13/2019 td''Me.ElementsCache_Edits = Me.ElementsCache_Saved.Copy()
+        Me.ElementsCache_Saved = Me.ElementsCache_Edits.Copy()
 
         With mod_designer
 

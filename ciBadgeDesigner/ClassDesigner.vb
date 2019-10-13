@@ -811,14 +811,15 @@ Public Class ClassDesigner
             ''10/10/2019 td''SaveFileDialog1.ShowDialog()
             ''10/10/2019 td''.PathToXML = SaveFileDialog1.FileName
 
-            .PathToXML = Me.ElementsCache_Saved.PathToXml_Saved
+            ''10/13/2019 td''.PathToXML = Me.ElementsCache_Saved.PathToXml_Saved
+            .PathToXML = Me.ElementsCache_Edits.PathToXml_Saved
 
             ''Added 9/24/2019 thomas 
-            .SerializeToXML(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved, False, True)
+            .SerializeToXML(Me.ElementsCache_Edits.GetType, Me.ElementsCache_Edits, False, True)
 
             Const c_SerializeToBinary As Boolean = False ''Added 9/30/2019 td
             If (c_SerializeToBinary) Then _
-            .SerializeToBinary(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved)
+            .SerializeToBinary(Me.ElementsCache_Edits.GetType, Me.ElementsCache_Edits)
 
         End With ''End of "With objSerializationClass"
 

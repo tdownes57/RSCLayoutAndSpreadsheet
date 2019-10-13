@@ -441,6 +441,9 @@ Public Class ClassElementsCache
         Dim copy_ofField As ClassFieldAny
         Dim copy_ofElementField As ClassElementField ''Added 10/1/2019 td
 
+        ''Added 10/13/2019 thomas d.
+        objCopyOfCache.PathToXml_Saved = Me.PathToXml_Saved
+
         ''Added 9/29/2019 thomas downes  
         For Each each_field As ClassFieldAny In mod_listFields
             ''9/29/2019 td''objCopyOfCache.ListFields().Add(each_field.Copy())
@@ -473,6 +476,9 @@ Public Class ClassElementsCache
 
             ''10/12/2019 td''dictionaryFields.TryGetValue(each_elementField.FieldInfo.FieldEnumValue, copy_ofElementField.FieldObject)
             dictionaryFields.TryGetValue(each_elementField.FieldEnum, copy_ofElementField.FieldObject)
+
+            ''Added 10/13/2019 td
+            copy_ofElementField.FieldInfo = CType(copy_ofElementField.FieldObject, ICIBFieldStandardOrCustom)
 
             objCopyOfCache.ListFieldElements().Add(copy_ofElementField)
 
