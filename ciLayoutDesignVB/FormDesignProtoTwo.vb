@@ -40,6 +40,7 @@ Public Class FormDesignProtoTwo
 
     ''Added 8/18/2019 td
     Private mod_imageLady As Image ''8/18/2019 td'' = CtlGraphicPortrait_Lady.picturePortrait.Image
+    Private mod_imageSignature As Image ''Added 10/12/2019 td
 
     ''Added 9/8/2019 td
     '' #2 10/3/2019 td''Private mod_rubberbandClass As ClassRubberbandSelector
@@ -118,8 +119,35 @@ Public Class FormDesignProtoTwo
 
         ''Added 10/12/2019 td
         CtlGraphicText1.LayoutFunctions = CType(mod_designer, ILayoutFunctions)
-        CtlGraphicSignature1.ElementClass_Obj.SigFilePath = ""
 
+        ''Added 10/12/2019 td
+        With CtlGraphicSignature1
+
+            If (.ElementClass_Obj Is Nothing) Then
+                ''.ElementClass_Obj = New ClassElementSignature
+                ''.ElementInfo_Base = .ElementClass_Obj
+                ''.ElementInfo_Sig = .ElementClass_Obj
+
+                If (Me.ElementsCache_Edits.MissingTheSignature()) Then
+                    ''
+                    ''Major call!!
+                    ''
+                    Me.ElementsCache_Edits.LoadElement_Signature(0, 0,
+                                CtlGraphicSignature1.Width,
+                                CtlGraphicSignature1.Height,
+                                pictureBack)
+                End If ''End of "If (Me.ElementsCache_Edits.MissingTheSignature()) Then"
+
+                .ElementClass_Obj = Me.ElementsCache_Edits.ElementSignature
+
+            End If ''End of "If (.ElementClass_Obj Is Nothing) Then"
+
+            ''
+            ''Set the path to the Signature File. 
+            ''
+            .ElementClass_Obj.SigFilePath = DiskFiles.PathToFile_Sig()
+
+        End With ''End of "With CtlGraphicSignature1"
 
     End Sub
 
@@ -154,6 +182,7 @@ Public Class FormDesignProtoTwo
 
         ''7/31/2019 td''Me.Controls.Remove(pictureboxPic) ''Added 7/31/2019 thomas d. 
         mod_imageLady = CtlGraphicPortrait_Lady.picturePortrait.Image
+        ''mod_imageSignature = CtlGraphicSignature1.pictureSignature.Image
 
         ''Added 9/23/2019 td 
         ''
@@ -184,7 +213,8 @@ Public Class FormDesignProtoTwo
         strPathToXML = My.Settings.PathToXML_Saved
         If (strPathToXML = "") Then
             boolNewFileXML = True
-            strPathToXML = (My.Application.Info.DirectoryPath & "\ciLayoutDesignVB_Saved.xml").Replace("\\", "\")
+            ''10/12/2019 td''strPathToXML = (My.Application.Info.DirectoryPath & "\ciLayoutDesignVB_Saved.xml").Replace("\\", "\")
+            strPathToXML = DiskFiles.PathToFile_XML
             My.Settings.PathToXML_Saved = strPathToXML
             My.Settings.Save()
         Else
@@ -246,6 +276,9 @@ Public Class FormDesignProtoTwo
             .CheckboxAutoPreview = Me.checkAutoPreview
             ''10/10/2019 td''.ExamplePortraitImage = mod_imageLady
             .ExampleImage_Portrait = mod_imageLady
+
+            .ExampleImage_Signature = mod_imageSignature ''Added 10/12/2019 td
+            .PathToSigFile = DiskFiles.PathToFile_Sig() ''Added 10/12/2019 td
 
             ''10/1/2019''intPicLeft = CtlGraphicPortrait_Lady.Left - pictureBack.Left
             ''10/1/2019''intPicTop = CtlGraphicPortrait_Lady.Top - pictureBack.Top

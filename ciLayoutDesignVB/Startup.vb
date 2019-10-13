@@ -33,6 +33,11 @@ Public Class Startup
 
         ''Not needed. 10/11/2019 td'obj_formToShow.CtlGraphicText1.LayoutFunctions = CType(obj_formToShow., ILayoutFunctions)
 
+        ''10/12/2019 td''obj_formToShow.CtlGraphicSignature1.ElementInfo_Sig.
+
+        '-----obj_formToShow.CtlGraphicSignature1.ElementInfo_Sig.SigFilePath =
+        '-----          DiskFiles.PathToFile_Sig()
+
         obj_formToShow.ShowDialog() ''Added 10/11/2019 td 
 
 
