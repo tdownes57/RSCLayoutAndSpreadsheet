@@ -22,6 +22,9 @@ Public Class FormDesignProtoTwo
     ''
     ''Added 7/18/2019 Thomas DOWNES
     ''
+    Public Property LetsRefresh_CloseForm As Boolean ''Added 10/13/2019 td  
+    Public Property NewFileXML As Boolean ''Added 10/13/2019 td
+
     Public Property PersonalityCache As ciBadgeCustomer.PersonalityCache ''Added 10/11/2019 td 
     Public Property BadgeLayout As BadgeLayoutClass Implements IDesignerForm.BadgeLayout ''Added 10/13/2019 td
 
@@ -150,7 +153,7 @@ Public Class FormDesignProtoTwo
 
         End With ''End of "With CtlGraphicSignature1"
 
-    End Sub
+    End Sub ''End of "Public Sub New"
 
     Private Sub FormDesignProtoTwo_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
@@ -220,75 +223,11 @@ Public Class FormDesignProtoTwo
         ''
         ''9/8/2019 td''Load_Form()
 
-        ''Added 10/10/2019 td
-        Dim strPathToXML As String = ""
-        Dim boolNewFileXML As Boolean ''Added 10/10/2019 td  
-
-        ''Added 10/10/2019 td
-        ''10/13/2019 td''strPathToXML = My.Settings.PathToXML_Saved
-        strPathToXML = DiskFiles.PathToFile_XML
-
-        If (strPathToXML = "") Then
-            boolNewFileXML = True
-            ''10/12/2019 td''strPathToXML = (My.Application.Info.DirectoryPath & "\ciLayoutDesignVB_Saved.xml").Replace("\\", "\")
-            strPathToXML = DiskFiles.PathToFile_XML
-            My.Settings.PathToXML_Saved = strPathToXML
-            My.Settings.Save()
-        Else
-            boolNewFileXML = (Not System.IO.File.Exists(strPathToXML))
-        End If ''End of "If (strPathToXML <> "") Then .... Else ..."
-
-        ''Added 10/09/2019 td
-        If (strPathToXML <> "") Then
-            Me.ElementsCache_Saved.PathToXml_Saved = strPathToXML
-        End If ''End of "If (strPathToXML <> "") Then"
-
+        ''-------------------------------------------------------------------------
         ''
-        ''Major call!!
+        ''  See class Startup for cache-initialization work. ----10/13/2019 td
         ''
-        If (boolNewFileXML) Then ''Condition added 10/10/2019 td  
-            ''10/13/2019 td''Me.ElementsCache_Saved.LoadFields()
-            ''10/13/2019 td''Me.ElementsCache_Saved.LoadFieldElements(pictureBack)
-            Me.ElementsCache_Edits.LoadFields()
-            ''10/13/2019 td''Me.ElementsCache_Edits.LoadFieldElements(pictureBack, BadgeLayout)
-            Me.ElementsCache_Edits.LoadFieldElements(pictureBack, BadgeLayout)
-        Else
-            ''Added 10/10/2019 td  
-            Dim objDeserialize As New ciBadgeSerialize.ClassDeserial ''Added 10/10/2019 td  
-            objDeserialize.PathToXML = strPathToXML
-
-            ''10/13/2019 td''Me.ElementsCache_Saved = CType(objDeserialize.DeserializeFromXML(Me.ElementsCache_Saved.GetType(), False), ClassElementsCache)
-            Me.ElementsCache_Edits = CType(objDeserialize.DeserializeFromXML(Me.ElementsCache_Edits.GetType(), False), ClassElementsCache)
-
-            ''Added 10/12/2019 td
-            ''10/13/2019 td''Me.ElementsCache_Saved.LinkElementsToFields()
-            Me.ElementsCache_Edits.LinkElementsToFields()
-
-        End If ''End of "If (boolNewFileXML) Then .... Else ..."
-
-        ''Added 9/19/2019 td
-        Dim intPicLeft As Integer
-        Dim intPicTop As Integer
-        Dim intPicWidth As Integer
-        Dim intPicHeight As Integer
-
-        ''Added 9/19/2019 td
-        intPicLeft = CtlGraphicPortrait_Lady.Left - pictureBack.Left
-        intPicTop = CtlGraphicPortrait_Lady.Top - pictureBack.Top
-        intPicWidth = CtlGraphicPortrait_Lady.Width
-        intPicHeight = CtlGraphicPortrait_Lady.Height
-
-        ''9/19 td''Me.ElementsCache_Saved.LoadPicElement(CtlGraphicPortrait_Lady.picturePortrait, pictureBack) ''Added 9/19/2019 td
-        If (boolNewFileXML) Then
-            ''10/10/2019 td''Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
-            ''10/13/2019 td''Me.ElementsCache_Saved.LoadElement_Pic(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
-            Me.ElementsCache_Edits.LoadElement_Pic(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
-        End If ''End of "If (boolNewFileXML) Then"
-
-        ''Added 9/24/2019 thomas 
-        ''Was just for testing. ---10/10/2019 td''Dim serial_tools As New ciBadgeSerialize.ClassSerial
-        ''Was just for testing. ---10/10/2019 td''serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
-        ''Was just for testing. ---10/10/2019 td''serial_tools.SerializeToXML(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved, False, True)
+        ''-------------------------------------------------------------------------
 
         ''10/13/2019 td''Me.ElementsCache_Edits = Me.ElementsCache_Saved.Copy()
         Me.ElementsCache_Saved = Me.ElementsCache_Edits.Copy()
@@ -314,7 +253,7 @@ Public Class FormDesignProtoTwo
             ''10/1/2019''intPicWidth = CtlGraphicPortrait_Lady.Width
             ''10/1/2019''intPicHeight = CtlGraphicPortrait_Lady.Height
 
-            If (boolNewFileXML) Then
+            If (Me.NewFileXML) Then
                 .Initial_Pic_Left = .Layout_Margin_Left_Omit(Me.CtlGraphicPortrait_Lady.Left)
                 .Initial_Pic_Top = .Layout_Margin_Top_Omit(Me.CtlGraphicPortrait_Lady.Top)
                 .Initial_Pic_Width = Me.CtlGraphicPortrait_Lady.Width
@@ -327,7 +266,7 @@ Public Class FormDesignProtoTwo
                 .Initial_Pic_Width = Me.ElementsCache_Edits.PicElement().Width_Pixels
                 .Initial_Pic_Height = Me.ElementsCache_Edits.PicElement().Height_Pixels
 
-            End If ''End of "If (boolNewFileXML) Then .... Else ..."
+            End If ''End of "If (Me.NewFileXML) Then .... Else ..."
 
             ''
             ''Major call !!! 
