@@ -588,15 +588,20 @@ Public Class ClassDesigner
             ''Added 9/15/2019 td
             ''
             With each_element
-                .Height_Pixels = 30
 
-                ''9/6/2019 td''new_element_text.TopEdge_Pixels = (30 + (30 * intCountControlsAdded))
-                intStagger = intCountControlsAdded
-                .TopEdge_Pixels = (intStagger * .Height_Pixels)
-                intCountControlsAdded += 1 ''Added 9/6/2019 td 
+                If (0 = .TopEdge_Pixels + .LeftEdge_Pixels) Then
 
-                .LeftEdge_Pixels = .TopEdge_Pixels ''Left = Top !! By setting Left = Top, we will create 
-                ''   a nice diagonally-cascading effect. ---9/3/2019 td
+                    .Height_Pixels = 30
+
+                    ''9/6/2019 td''new_element_text.TopEdge_Pixels = (30 + (30 * intCountControlsAdded))
+                    intStagger = intCountControlsAdded
+                    .TopEdge_Pixels = (intStagger * .Height_Pixels)
+                    intCountControlsAdded += 1 ''Added 9/6/2019 td 
+
+                    .LeftEdge_Pixels = .TopEdge_Pixels ''Left = Top !! By setting Left = Top, we will create 
+                    ''   a nice diagonally-cascading effect. ---9/3/2019 td
+
+                End If ''end of "If (0 = .Height_Pixels) Then"
 
                 ''Added 9/12/2019 td
                 ''10/9/2019 td''.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass(Me.BackgroundBox.Width, Me.BackgroundBox.Height)
@@ -1333,7 +1338,8 @@ Public Class ClassDesigner
         Dim boolResizedAFieldCtl As Boolean ''Added 9/14/2019 td
         boolResizedAFieldCtl = (TypeOf mod_ControlLastTouched Is CtlGraphicFldLabel)
 
-        If (boolResizedAFieldCtl) Then ''Added 9/14/2019 td
+        ''10/13/2019 td''If (boolResizedAFieldCtl) Then ''Added 9/14/2019 td
+        If ((Not mc_boolMoveGrowInUnison) And boolResizedAFieldCtl) Then ''Added 9/14/2019 td
 
             With mod_FieldControlLastTouched
 

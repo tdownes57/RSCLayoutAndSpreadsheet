@@ -767,7 +767,8 @@ ExitHandler:
 
     End Function ''eND OF "Public Function InsideMe(par_intX, par_intY As Integer) As Boolean"
 
-    Public Sub Highlight_IfInsideRubberband(par_rubberband As Rectangle)
+    Public Sub Highlight_IfInsideRubberband(par_rubberband As Rectangle,
+                     Optional par_bRedrawElement As Boolean = False)
         ''
         ''Added 9/20/2019 thomas downes
         ''
@@ -818,7 +819,10 @@ ExitHandler:
 
         If (boolBandOverlapsWithMe) Then
             Me.ElementClass_Obj.SelectedHighlighting = True
-            Me.Refresh_Image(False)
+
+            ''10/13/2019 td''Me.Refresh_Image(False)
+            If (par_bRedrawElement) Then Me.Refresh_Image(False)
+
         End If ''End of "If (boolBandOverlapsWithMe) Then"
 
     End Sub ''End of "Public Sub Highlight_IfInsideRubberband()"

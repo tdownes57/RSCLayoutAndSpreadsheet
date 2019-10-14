@@ -417,8 +417,9 @@ Public Class FormDesignProtoTwo
 
             .PathToXML = Me.ElementsCache_Edits.PathToXml_Saved
 
-            ''Added 9/24/2019 thomas 
-            .SerializeToXML(Me.ElementsCache_Edits.GetType, Me.ElementsCache_Edits, False, True)
+            ''Added 9/24/2019  thomas 
+            ''10/13/2019 td''.SerializeToXML(Me.ElementsCache_Edits.GetType, Me.ElementsCache_Edits, False, True)
+            .SerializeToXML(Me.ElementsCache_Edits.GetType, Me.ElementsCache_Edits, False, False)
 
             Const c_SerializeToBinary As Boolean = False ''Added 9/30/2019 td
             If (c_SerializeToBinary) Then _
