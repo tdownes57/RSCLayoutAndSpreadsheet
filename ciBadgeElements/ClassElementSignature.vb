@@ -124,13 +124,46 @@ Public Class ClassElementSignature
 
     ''8/29/2019 td''Public Property Border_Pixels As Integer Implements IElement_Base.Border_Pixels
     Public Property Border_WidthInPixels As Integer Implements IElement_Base.Border_WidthInPixels
+
+    <XmlIgnore>
     Public Property Border_Color As System.Drawing.Color Implements IElement_Base.Border_Color
+
+    <XmlElement("Border_Color")>
+    Public Property Border_Color_HTML As String
+        ''Added 10/13/2019 td
+        Get
+            ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
+            Return ColorTranslator.ToHtml(Me.Border_Color)
+        End Get
+        Set(value As String)
+            ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
+            Me.Border_Color = ColorTranslator.FromHtml(value)
+        End Set
+    End Property
+
+
     Public Property Border_Displayed As Boolean Implements IElement_Base.Border_Displayed ''Added 9/9/2019 td
 
     ''Added 9/4/2019 td 
     Public Property Back_Transparent As Boolean Implements IElement_Base.Back_Transparent
 
+    <XmlIgnore>
     Public Property Back_Color As System.Drawing.Color Implements IElement_Base.Back_Color
+
+    <XmlElement("Back_Color")>
+    Public Property Back_Color_HTML As String
+        ''Added 10/13/2019 td
+        Get
+            ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
+            Return ColorTranslator.ToHtml(Me.Back_Color)
+        End Get
+        Set(value As String)
+            ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
+            Me.Back_Color = ColorTranslator.FromHtml(value)
+        End Set
+    End Property
+
+
 
     ''Added 8/2/2019 td
     ''

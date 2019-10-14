@@ -126,6 +126,20 @@ Public Class ClassElementPic ''May be renamed to ClassElementPortrait. ---10/8/2
 
     <Xml.Serialization.XmlIgnore>
     Public Property Border_Color As System.Drawing.Color Implements IElement_Base.Border_Color
+
+    <XmlElement("Border_Color")>
+    Public Property Border_Color_HTML As String
+        ''Added 10/13/2019 td
+        Get
+            ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
+            Return ColorTranslator.ToHtml(Me.Border_Color)
+        End Get
+        Set(value As String)
+            ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
+            Me.Border_Color = ColorTranslator.FromHtml(value)
+        End Set
+    End Property
+
     Public Property Border_Displayed As Boolean Implements IElement_Base.Border_Displayed ''Added 9/9/2019 td
 
     ''Added 9/4/2019 td 
@@ -133,6 +147,21 @@ Public Class ClassElementPic ''May be renamed to ClassElementPortrait. ---10/8/2
 
     <Xml.Serialization.XmlIgnore>
     Public Property Back_Color As System.Drawing.Color Implements IElement_Base.Back_Color
+
+    <XmlElement("Back_Color")>
+    Public Property Back_Color_HTML As String
+        ''Added 10/13/2019 td
+        Get
+            ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
+            Return ColorTranslator.ToHtml(Me.Back_Color)
+        End Get
+        Set(value As String)
+            ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
+            Me.Back_Color = ColorTranslator.FromHtml(value)
+        End Set
+    End Property
+
+
 
     ''Added 8/2/2019 td
     ''
