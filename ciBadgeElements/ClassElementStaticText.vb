@@ -100,7 +100,7 @@ Public Class ClassElementStaticText
     ''-------------------------------------------------------------
     ''-------------------------------------------------------------
     ''-------------------------------------------------------------
-
+    <XmlIgnore>
     Public Property FormControl As Control Implements IElement_Base.FormControl ''Added 7/19/2019  
 
     Public Property ElementType As String = "Text" Implements IElement_Base.ElementType ''Text, Pic, or Logo
