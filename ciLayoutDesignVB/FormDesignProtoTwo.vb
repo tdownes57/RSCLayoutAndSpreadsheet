@@ -289,6 +289,11 @@ Public Class FormDesignProtoTwo
         ''                           Me.ElementsCache_Saved.PicElement,
         ''                           False, False)
 
+        MenuCache_ElemFlds.ColorDialog1 = (New ColorDialog)
+        MenuCache_ElemFlds.FontDialog1 = (New FontDialog)
+        MenuCache_ElemFlds.Designer = mod_designer
+        MenuCache_ElemFlds.LayoutFunctions = mod_designer
+        MenuCache_ElemFlds.SelectingElements = mod_designer
         MenuCache_ElemFlds.GenerateMenuItems()
 
     End Sub ''End of "Private Sub Form_Load"  
@@ -1220,6 +1225,7 @@ Public Class FormDesignProtoTwo
         ''
         Dim list_recips As List(Of ClassRecipient) ''Added 10/11/2019 thomas downes
         Dim each_recip As ClassRecipient ''Added 10/11/2019 thomas downes
+        Dim new_LinkLabel As LinkLabel ''Added 10/14/2019 td  
 
         With flowSidebar
 
@@ -1231,12 +1237,16 @@ Public Class FormDesignProtoTwo
 
             For Each each_recip In list_recips
 
-
+                ''Added 10/14/2019 td  
+                new_LinkLabel = New LinkLabel
+                With new_LinkLabel
+                    .Visible = True
+                    .Text = (each_recip.fstrFirstName & " " & each_recip.fstrLastName)
+                End With
 
             Next each_recip
 
         End With
-
 
     End Sub ''End of "Private Sub ShowBadgeRecipientsToolStripMenuItem_Click"
 
@@ -1244,6 +1254,9 @@ Public Class FormDesignProtoTwo
         ''
         ''Added 10/13/2019 thomas downes  
         ''
+        MenuCache_ElemFlds.CtlCurrentElement = par_control ''Added 10/14/2019 td  
+        MenuCache_ElemFlds.Operations_Edit.CtlCurrentElement = par_control ''Added 10/14/2019 td
+
         ContextMenuStrip1.Items.Clear()
 
         ContextMenuStrip1.Items.AddRange(MenuCache_ElemFlds.Tools_EditElementMenu)

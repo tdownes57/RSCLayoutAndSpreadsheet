@@ -178,7 +178,7 @@ Module c_modReflection
             ''Added 9/23/2019 thomas downes
             ''
             MessageBox.Show($"A count of {intExceptionCount} errors occurred.  The last error is as follows:  " & vbCrLf & vbCrLf &
-                                ex_AddEventHandler.Message, "RotateTextTest",
+                                ex_AddEventHandler.Message, "LinkProceduresToLinkLabels",
                                 MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
 
         End If ''End of "If (intExceptionCount > 1) Then"

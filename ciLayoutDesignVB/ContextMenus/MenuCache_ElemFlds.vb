@@ -1,7 +1,9 @@
 ﻿''
 ''Added 10/2/2019 thomas downes  
 ''
-Imports System.Reflection ''Added 10/11/2019 td  
+Imports System.Reflection ''Added 10/11/2019 td
+Imports ciBadgeInterfaces ''Added 10/14/2019 td 
+Imports ciBadgeDesigner ''Added 10/14/2019 td
 
 Public Class MenuCache_ElemFlds
     ''
@@ -25,16 +27,36 @@ Public Class MenuCache_ElemFlds
     Public Shared Tools_AlignmentFeatures As New ToolStripItemCollection(ToolStripContainer3, array_tools3) ''10/13 td''''List(Of ToolStripMenuItem)
     ''--Public Shared Tools_EditBackgroundMenu As New List(Of ToolStripMenuItem)
 
-    Private Shared mod_operations As New Operations_EditElement ''Added 10/11/2019 td  
+    Public Shared Property CtlCurrentElement As ciBadgeDesigner.CtlGraphicFldLabel ''CtlGraphicFldLabel
+    Public Shared Property LayoutFunctions As ILayoutFunctions ''Added 10/3/2019 td 
+    Public Shared Property Designer As ciBadgeDesigner.ClassDesigner
+    Public Shared Property ColorDialog1 As ColorDialog ''Added 10/3/2019 td 
+    Public Shared Property FontDialog1 As FontDialog ''Added 10/3/2019 td 
+
+    ''---not needed 10/3/2019 td----Public Property GroupEdits As ClassGroupMove ''Added 10/3/2019 td 
+    Public Shared Property SelectingElements As ISelectingElements ''Added 10/3/2019 td 
+
+    Public Shared Operations_Edit As New Operations_EditElement ''Added 10/11/2019 td  
 
     Public Shared Sub GenerateMenuItems()
         ''
         ''Added 10/2/2019 thomas downes  
         ''
         Generate_BasicEdits()
-
         Generate_Grouped()
         Generate_Aligning()
+
+        ''
+        ''Added 10/1/4/2019 td
+        ''
+        With Operations_Edit
+            .ColorDialog1 = ColorDialog1
+            .CtlCurrentElement = CtlCurrentElement
+            .Designer = Designer
+            .FontDialog1 = FontDialog1
+            .LayoutFunctions = LayoutFunctions
+            .SelectingElements = SelectingElements
+        End With ''End of "With Operations_Edit"
 
     End Sub ''End of "Public Shared Sub GenerateMenuItems()"
 
@@ -57,10 +79,13 @@ Public Class MenuCache_ElemFlds
         Dim objBindingFlags As System.Reflection.BindingFlags ''Added 9/23/2019 td  
         Dim boolPropertyGet As Boolean ''Added 9/23/2019 td 
         Dim boolPropertySet As Boolean ''Added 9/23/2019 td 
-        Dim intExceptionCount As Integer  ''Added 9/23/2019 td
-        Dim ex_AddEventHandler As New Exception("Routine initialization")  ''Added 9/23/2019 td
+        Dim intExceptionCount_LinkLabels As Integer  ''Added 9/23/2019 td
+        Dim intExceptionCount_Toolstrip As Integer  ''Added 9/23/2019 td
+        Dim ex_AddEventHandler_LinkLbl As New Exception("Routine initialization")  ''Added 9/23/2019 td
+        Dim ex_AddEventHandler_ToolItem As New Exception("Routine initialization")  ''Added 9/23/2019 td
         Dim boolProcedureNotUsed As Boolean ''Added 9/23/2019 thomas downes 
         Dim intCountLinkLabels As Integer ''Added 10/13/2019 thomas downes 
+        Dim intCountMethodsAndMembers As Integer ''Added 10/14/2019 td 
 
         ''objInfo = (TypeOf objClass1)
 
@@ -69,11 +94,13 @@ Public Class MenuCache_ElemFlds
         ''// Using Reflection to get information of an Assembly  
         ''System.Reflection.Assembly info = TypeOf (System.Int32).Assembly;
 
-        Dim t As Type = mod_operations.GetType
+        Dim t As Type = Operations_Edit.GetType
 
         ''10/11/2019 td''mod_methods.ParentForm = Me
 
         For Each each_methodInfo In t.GetMethods()
+
+            intCountMethodsAndMembers += 1 ''Added 10/14/2019 td
 
             strMethodName = each_methodInfo.Name
 
@@ -95,9 +122,9 @@ Public Class MenuCache_ElemFlds
 
             strMethodWithSpaces = strMethodName.Replace("_", " ")
 
-            Dim each_link As New LinkLabel
-            each_link.Visible = True
-            each_link.Text = strMethodWithSpaces
+            Dim each_newLinkLabel As New LinkLabel
+            each_newLinkLabel.Visible = True
+            each_newLinkLabel.Text = strMethodWithSpaces
 
             ''Added 10/13/2019 td  
             Dim each_toolMenuItem As New ToolStripMenuItem ''Added 10/13/2019 td
@@ -150,54 +177,63 @@ Public Class MenuCache_ElemFlds
                 ''
                 ''   https://stackoverflow.com/questions/1121441/addeventhandler-using-reflection
                 ''
-                Dim type_LinkLabel As Type = mod_operations.MyLinkLabel.GetType
+                Dim type_LinkLabel As Type = Operations_Edit.MyLinkLabel.GetType
                 Dim event_linkClicked As Reflection.EventInfo
 
                 ''
-                ''Step 2 of 2:    LinkLabels  
+                ''Step 1 of 2:    LinkLabels  
                 ''
                 Try
                     event_linkClicked = type_LinkLabel.GetEvent("LinkClicked", objBindingFlags)
                     Dim my_click_handler As [Delegate]
-                    my_click_handler = [Delegate].CreateDelegate(event_linkClicked.EventHandlerType, mod_operations, each_methodInfo)
+                    my_click_handler = [Delegate].CreateDelegate(event_linkClicked.EventHandlerType,
+                                                                 Operations_Edit, each_methodInfo)
 
                     ''---link_clicked.AddEventHandler(Me, my_handler) '', BindingFlags.Public)
                     ''---link_clicked.AddEventHandler(mod_classMenuMethods, my_handler)
                     ''---link_clicked.AddEventHandler(mod_classMenuMethods.MyLinkLabel, my_handler)
 
-                    event_linkClicked.AddEventHandler(each_link, my_click_handler)
+                    event_linkClicked.AddEventHandler(each_newLinkLabel, my_click_handler)
 
-                Catch ex_AddEventHandler ''As Exception
+                    ''Added 10/14/2019 td 
+                    strList_MenuItems &= (vbCrLf & each_newLinkLabel.Text)
+
+                Catch ex_AddEventHandler_LinkLbl ''As Exception
                     ''
-                    ''Added 9//23/2019 td 
+                    ''Step 1 of 2:    LinkLabels  
+                    ''                Added 9/23/2019 td 
                     ''
-                    intExceptionCount += 1
+                    intExceptionCount_LinkLabels += 1
 
                 End Try
 
                 ''
                 ''Step 2 of 2:    ToolstripMenuItem  
                 ''
-                Dim type_ToolstripItem As Type = mod_operations.MyToolstripItem.GetType
+                Dim type_ToolstripItem As Type = Operations_Edit.MyToolstripItem.GetType
                 Dim event_toolClicked As Reflection.EventInfo
+                Dim boolSuccess_LinkLabel As Boolean = False ''Added 10/14/2019 td
 
                 Try
                     event_toolClicked = type_ToolstripItem.GetEvent("Click", objBindingFlags)
                     Dim my_click_handler As [Delegate]
                     my_click_handler = [Delegate].CreateDelegate(event_toolClicked.EventHandlerType,
-                                                                 mod_operations, each_methodInfo)
+                                                                 Operations_Edit, each_methodInfo)
 
                     ''---link_clicked.AddEventHandler(Me, my_handler) '', BindingFlags.Public)
                     ''---link_clicked.AddEventHandler(mod_classMenuMethods, my_handler)
                     ''---link_clicked.AddEventHandler(mod_classMenuMethods.MyLinkLabel, my_handler)
 
-                    event_toolClicked.AddEventHandler(each_link, my_click_handler)
+                    event_toolClicked.AddEventHandler(each_toolMenuItem, my_click_handler)
 
-                Catch ex_AddEventHandler ''As Exception
+                    boolSuccess_LinkLabel = True ''Added 10/14/2019 thomas d. 
+
+                Catch ex_AddEventHandler_ToolItem ''As Exception
                     ''
-                    ''Added 9//23/2019 td 
+                    ''Step 2 of 2:    ToolstripMenuItem  
+                    ''                Added 9/23/2019 td 
                     ''
-                    intExceptionCount += 1
+                    intExceptionCount_Toolstrip += 1
 
                 End Try
 
@@ -220,12 +256,12 @@ Public Class MenuCache_ElemFlds
             ''Move up a few executable lines. ----9/23/2019 td''mod_classMenuMethods.AddEventHandlerLinkClicked(each_link)
 
             ''10/11/2019 td''FlowLayoutPanel1.Controls.Add(each_link)
-            each_link.Visible = True
+            each_newLinkLabel.Visible = True
             each_toolMenuItem.Visible = True ''Added 10/13/2019 td  
 
             ''Added 10/13/2019 thomas downes
             intCountLinkLabels += 1
-            MenuCache_ElemFlds.Links_EditElementMenu.Add(each_link)
+            MenuCache_ElemFlds.Links_EditElementMenu.Add(each_newLinkLabel)
             MenuCache_ElemFlds.Tools_EditElementMenu.Add(each_toolMenuItem)
 
         Next each_methodInfo
@@ -233,22 +269,36 @@ Public Class MenuCache_ElemFlds
         ''
         ''Added 9/23/2019 thomas downes
         ''
-        If (intExceptionCount > 1) Then
+        If (intExceptionCount_LinkLabels > 0) Then
             ''
             ''Added 9/23/2019 thomas downes
             ''
-            MessageBox.Show($"A count of {intExceptionCount} errors occurred.  The last error is as follows:  " & vbCrLf & vbCrLf &
-                            ex_AddEventHandler.Message, "RotateTextTest",
+            MessageBox.Show($"Making LinkLabels, a count of {intExceptionCount_LinkLabels} errors occurred.  The last error is as follows:  " & vbCrLf & vbCrLf &
+                            ex_AddEventHandler_LinkLbl.Message, "Generate_BasicEdits",
                             MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
 
-        End If ''End of "If (intExceptionCount > 1) Then"
+        End If ''End of "If (intExceptionCount_LinkLabels > 1) Then"
 
+        ''Added 10/14/2019 thomas downes
+        If (intExceptionCount_Toolstrip > 0) Then
+            ''Inform user of the error count. 
+            MessageBox.Show($"Making ToolstripMenuItems, a count of {intExceptionCount_Toolstrip} errors occurred.  The last error is as follows:  " & vbCrLf & vbCrLf &
+                            ex_AddEventHandler_ToolItem.Message, "Generate_BasicEdits",
+                            MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
 
+        End If ''End of "If (intExceptionCount_Toolstrip > 1) Then"
 
-        MessageBox.Show("The following links & context menu items were created. " & vbCrLf & vbCrLf & strList_MenuItems)
-
-
-
+        ''Modified 10/14/2019 td
+        If ("" = strList_MenuItems) Then
+            ''Added 10/14/2019 td 
+            MessageBox.Show("The procedure to create links & context menu items failed completely. " &
+                            vbCrLf & vbCrLf & strList_MenuItems, "Generate_BasicEdits",
+                             MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        Else
+            MessageBox.Show("The following links & context menu items were created. " &
+                            vbCrLf & vbCrLf & strList_MenuItems, "Generate_BasicEdits",
+                             MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        End If
 
     End Sub ''End of "Private Shared Sub Generate_BasicEdits()"
 

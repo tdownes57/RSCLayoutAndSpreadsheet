@@ -84,6 +84,9 @@ Public Class Operations_EditElement
         ''Application.DoEvents()
         ''If (boolExitEarly) Then Exit Sub ''Added 8/13/2019 td
 
+        ''Added 10/14/2019 td 
+        If (Me.ColorDialog1 Is Nothing) Then Me.ColorDialog1 = New ColorDialog
+
         ColorDialog1.ShowDialog()
 
         If (Me.SelectingElements.LabelsList_IsItemUnselected(Me.CtlCurrentElement)) Then

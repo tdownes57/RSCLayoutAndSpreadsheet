@@ -1278,8 +1278,10 @@ Public Class ClassDesigner
                         ''
                         ''This is the simpler situation !! 
                         ''
-                        .Width = (.TempResizeInfo_W + DeltaWidth)
-                        .Height = (.TempResizeInfo_H + DeltaHeight)
+                        ''10/14 td''.Width = (.TempResizeInfo_W + DeltaWidth)
+                        ''10/14 td''.Height = (.TempResizeInfo_H + DeltaHeight)
+                        .ManageResizingByUser(True, DeltaWidth, DeltaHeight, 0, 0)
+
 
                     ElseIf (bResize_LeftOrTop) Then
                         ''
@@ -1291,10 +1293,11 @@ Public Class ClassDesigner
                         ''8/12/2019 TD''.Top = (.TempResizeInfo_Top + DeltaTop)
                         ''8/12/2019 TD''.Left = (.TempResizeInfo_Left + DeltaLeft)
 
-                        .Top += DeltaTop
-                        .Left += DeltaLeft
-                        .Width += DeltaWidth
-                        .Height += DeltaHeight
+                        ''10/14 td''.Top += DeltaTop
+                        ''10/14 td''.Left += DeltaLeft
+                        ''10/14 td''.Width += DeltaWidth
+                        ''10/14 td''.Height += DeltaHeight
+                        .ManageResizingByUser(False, DeltaWidth, DeltaHeight, DeltaTop, DeltaLeft)
 
                     End If ''End of "If (bResize_RightOrBottom) Then .... ElseIf (bResize_LeftOrTop) Then ..."
 

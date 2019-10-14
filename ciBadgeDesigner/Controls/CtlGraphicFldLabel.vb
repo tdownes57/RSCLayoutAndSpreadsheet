@@ -827,6 +827,30 @@ ExitHandler:
 
     End Sub ''End of "Public Sub Highlight_IfInsideRubberband()"
 
+    Public Sub ManageResizingByUser(par_bUseTempInfo As Boolean,
+                                    par_deltaWidth As Integer, par_deltaHeight As Integer,
+                                    par_deltaTop As Integer, par_deltaLeft As Integer)
+        ''
+        ''Added 10/14/2019 
+        ''
+        If (par_bUseTempInfo) Then
+
+            Me.ElementClass_Obj.Width_Pixels = (TempResizeInfo_W + par_deltaWidth)
+            Me.ElementClass_Obj.Height_Pixels = (TempResizeInfo_H + par_deltaHeight)
+        Else
+            Me.ElementClass_Obj.Width_Pixels += (par_deltaWidth)
+            Me.ElementClass_Obj.Height_Pixels += (par_deltaHeight)
+            Me.ElementClass_Obj.TopEdge_Pixels += (par_deltaTop)
+            Me.ElementClass_Obj.LeftEdge_Pixels += (par_deltaLeft)
+        End If ''End of "If (par_bUseTempInfo) Then ... Else ..."
+
+        Me.Width = Me.ElementClass_Obj.Width_Pixels
+        Me.Height = Me.ElementClass_Obj.Height_Pixels
+        Me.Top = Me.ElementClass_Obj.TopEdge_Pixels
+        Me.Left = Me.ElementClass_Obj.LeftEdge_Pixels
+
+    End Sub ''End of "Public Sub ManageResizingByUser(par_intWidth As Integer, par_intHeight As Integer)"
+
     Private Sub RefreshElement_Field(sender As Object, e As EventArgs)
         ''
         ''Added 7/31/2019 thomas downes
@@ -877,7 +901,7 @@ ExitHandler:
 
         MessageBox.Show(strMessageToUser, "", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-    End Sub ''End of "Private Sub RefreshElement_Field(sender As Object, e As EventArgs)"
+    End Sub ''End of "Private Sub GiveSizeInfo_Field(sender As Object, e As EventArgs)"
 
     Private Sub CtlGraphicFldLabel_Paint(sender As Object, e As PaintEventArgs) Handles MyBase.Paint
         ''
@@ -921,7 +945,7 @@ ExitHandler:
 
         End If ''End of "If (Me.ElementInfo_Base IsNot Nothing) Then"
 
-    End Sub
+    End Sub ''Private Sub CtlGraphicFldLabel_Paint(sender As Object, e As PaintEventArgs) Handles MyBase.Paint
 
     Private Sub TextTypeExample_KeyUp(sender As Object, e As KeyEventArgs) Handles textTypeExample.KeyDown
 
