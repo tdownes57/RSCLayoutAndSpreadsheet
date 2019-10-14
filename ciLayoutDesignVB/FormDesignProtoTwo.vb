@@ -515,14 +515,21 @@ Public Class FormDesignProtoTwo
         closing_reason = e.CloseReason
 
         ''Added 7/31/2019 td  
-        dia_result = MessageBox.Show("Save your work?  (Currently, this does _NOT_ save your work permanently to your PC.) " &
-                                     vbCrLf_Deux & "(Allows the window to be re-opened from the parent application, with your work retained.)", "ciLayout",
+        ''10/13/2019 td''dia_result = MessageBox.Show("Save your work?  (Currently, this does _NOT_ save your work permanently to your PC.) " &
+        ''                             vbCrLf_Deux & "(Allows the window to be re-opened from the parent application, with your work retained.)", "ciLayout",
+        ''                             MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)
+
+        If (Not Me.LetsRefresh_CloseForm) Then ''Added 10/13/2019 td
+            ''Ask the user if she wishes to save her work.  -----10/13/2019 td 
+            dia_result = MessageBox.Show("Save your work?  " &
+                                     vbCrLf_Deux & "(Allows the window to be re-opened, with your work retained.)", "ciLayout",
                                      MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)
+        End If ''End of "If (Not Me.LetsRefresh_CloseForm) Then"
 
         If (dia_result = DialogResult.Cancel) Then e.Cancel = True
         If (dia_result = DialogResult.Yes) Then SaveLayout()
 
-    End Sub
+    End Sub ''End of "Private Sub FormDesignProtoTwo_FormClosing"
 
     Private Sub LinkSaveAndRefresh_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles linkSaveAndRefresh.LinkClicked
         ''
@@ -536,18 +543,24 @@ Public Class FormDesignProtoTwo
         ''
         ''Step 2 of 3.  Decide the next step. 
         ''
-        Const c_boolStartNewWindow As Boolean = False ''9/5 td'' True ''Added 9/3/2019 thomas d. 
+        Const c_boolStartNewWindow As Boolean = True ''10/13/2019 td''False ''9/5 td'' True ''Added 9/3/2019 thomas d. 
+
         If (c_boolStartNewWindow) Then ''Added 9/3/2019 thomas d. 
-            Dim frm_ToShow As New FormDesignProtoTwo()
-            frm_ToShow.Show()
+
+            ''10/13 td''Dim frm_ToShow As New FormDesignProtoTwo()
+            ''10/13 td''frm_ToShow.Show()
+
+            Me.LetsRefresh_CloseForm = True ''Added 10/13/2019 td
             Me.Close()
             Exit Sub
-        End If ''End of "If (c_boolStartNewWindow) Then"
 
-        ''
-        ''Step 3 of 3.  Refresh the representation of the elements on the form. 
-        ''
-        RefreshTheSetOfDisplayedElements()
+        Else
+            ''
+            ''Step 3 of 3.  Refresh the representation of the elements on the form. 
+            ''
+            RefreshTheSetOfDisplayedElements()
+
+        End If ''End of "If (c_boolStartNewWindow) Then  ..... Else .."
 
     End Sub ''End of "Private Sub LinkSaveAndRefresh_LinkClicked"
 

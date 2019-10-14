@@ -120,6 +120,11 @@ Public Class Startup
 
             ''10/13/2019 td''Me.ElementsCache_Saved = CType(objDeserialize.DeserializeFromXML(Me.ElementsCache_Saved.GetType(), False), ClassElementsCache)
             ''-----Me.ElementsCache_Edits = CType(objDeserialize.DeserializeFromXML(Me.ElementsCache_Edits.GetType(), False), ClassElementsCache)
+
+            obj_cache_elements = New ClassElementsCache ''This may or may not be completely necessary,
+            ''   but I know of no other way to pass the object type.  Simply expressing the Type
+            ''   by typing its name doesn't work.  ---10/13/2019 td
+
             obj_cache_elements = CType(objDeserialize.DeserializeFromXML(obj_cache_elements.GetType(), False), ClassElementsCache)
 
             ''Added 10/12/2019 td
@@ -136,22 +141,28 @@ Public Class Startup
         Dim intPicHeight As Integer
 
         ''Added 9/19/2019 td
-        intPicLeft = CtlGraphicPortrait_Lady.Left - pictureBack.Left
-        intPicTop = CtlGraphicPortrait_Lady.Top - pictureBack.Top
-        intPicWidth = CtlGraphicPortrait_Lady.Width
-        intPicHeight = CtlGraphicPortrait_Lady.Height
+        With par_designForm
+            intPicLeft = .CtlGraphicPortrait_Lady.Left - .pictureBack.Left
+            intPicTop = .CtlGraphicPortrait_Lady.Top - .pictureBack.Top
+            intPicWidth = .CtlGraphicPortrait_Lady.Width
+            intPicHeight = .CtlGraphicPortrait_Lady.Height
+        End With
 
         ''9/19 td''Me.ElementsCache_Saved.LoadPicElement(CtlGraphicPortrait_Lady.picturePortrait, pictureBack) ''Added 9/19/2019 td
-        If (boolNewFileXML) Then
+        If (pboolNewFileXML) Then
             ''10/10/2019 td''Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
             ''10/13/2019 td''Me.ElementsCache_Saved.LoadElement_Pic(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
-            Me.ElementsCache_Edits.LoadElement_Pic(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
-        End If ''End of "If (boolNewFileXML) Then"
+            obj_cache_elements.LoadElement_Pic(intPicLeft, intPicTop, intPicWidth, intPicHeight,
+                                               par_designForm.pictureBack) ''Added 9/19/2019 td
+
+        End If ''End of "If (pboolNewFileXML) Then"
 
         ''Added 9/24/2019 thomas 
         ''Was just for testing. ---10/10/2019 td''Dim serial_tools As New ciBadgeSerialize.ClassSerial
         ''Was just for testing. ---10/10/2019 td''serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
         ''Was just for testing. ---10/10/2019 td''serial_tools.SerializeToXML(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved, False, True)
+
+        Return obj_cache_elements
 
     End Function ''End of "Private Sub LoadCachedData()"
 
