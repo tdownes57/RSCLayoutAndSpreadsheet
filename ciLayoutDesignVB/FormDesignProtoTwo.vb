@@ -294,7 +294,7 @@ Public Class FormDesignProtoTwo
         MenuCache_ElemFlds.Designer = mod_designer
         MenuCache_ElemFlds.LayoutFunctions = mod_designer
         MenuCache_ElemFlds.SelectingElements = mod_designer
-        MenuCache_ElemFlds.GenerateMenuItems()
+        MenuCache_ElemFlds.GenerateMenuItems_IfNeeded()
 
     End Sub ''End of "Private Sub Form_Load"  
 
@@ -1258,11 +1258,11 @@ Public Class FormDesignProtoTwo
         MenuCache_ElemFlds.Operations_Edit.CtlCurrentElement = par_control ''Added 10/14/2019 td
 
         ContextMenuStrip1.Items.Clear()
-
         ContextMenuStrip1.Items.AddRange(MenuCache_ElemFlds.Tools_EditElementMenu)
 
         ''10/13 td''ContextMenuStrip1.Show()
-        ContextMenuStrip1.Show(par_control, New Point(par_control.Left, par_control.Top))
+        ''10/13 td''ContextMenuStrip1.Show(par_control, New Point(par_control.Left, par_control.Top))
+        ContextMenuStrip1.Show(par_control, New Point(0, 0))
 
     End Sub
 End Class

@@ -156,6 +156,8 @@ Public Class ClassDesigner
         ''10/1/2019 td''mod_imageLady = CtlGraphicPortrait_Lady.picturePortrait.Image
         ''10/1/2019 td''mod_imageExamplePortrait = Me.ExamplePortraitImage ''Added 10/1/2019 td
         mod_imageExamplePortrait = Me.ExampleImage_Portrait ''Added 10/1/2019 td
+        mod_imageExampleSignat = Me.CtlGraphic_Signat.pictureSignature.Image ''Added 10/14/2019 td
+        mod_imageExampleQRCode = Me.CtlGraphic_QRCode.pictureQRCode.Image ''Added 10/14/2019 td
 
         ''Added 9/23/2019 td 
         ''
@@ -775,8 +777,16 @@ Public Class ClassDesigner
         ''
         ''Added 7/29/2019 td
         ''
-        Dim each_graphicalLabel As CtlGraphicFldLabel
-        Dim each_portraitLabel As CtlGraphicPortrait ''Added 7/31/2019 td
+        Dim each_ctl_field As CtlGraphicFldLabel
+        Dim each_ctl_portrait As CtlGraphicPortrait ''Added 7/31/2019 td
+        ''10/14 td''Dim each_ctl_qrcode As CtlGraphicQRCode ''Added 10/14/2019 td
+        ''10/14 td''Dim each_ctl_signat As CtlGraphicSignature ''Added 10/14/2019 td
+        Dim each_element_field As ClassElementField ''Added 10/14/2019 thomas d.  
+
+        ''Added 10/14/2019 td 
+        Me.CtlGraphic_Portrait.SaveToModel()
+        Me.CtlGraphic_QRCode.SaveToModel()
+        Me.CtlGraphic_Signat.SaveToModel()
 
         ''
         ''Step #1 of 2. 
@@ -785,16 +795,29 @@ Public Class ClassDesigner
 
             If (TypeOf each_control Is CtlGraphicFldLabel) Then
 
-                each_graphicalLabel = CType(each_control, CtlGraphicFldLabel)
+                each_ctl_field = CType(each_control, CtlGraphicFldLabel)
+                each_ctl_field.SelectedHighlighting_Denigrated = False ''Clear any/all highlighting. ---Added 10/14/2019 td
 
-                each_graphicalLabel.SaveToModel()
+                each_element_field = each_ctl_field.ElementClass_Obj ''Added 10/14/2019 td 
+
+                ''Clear any/all highlighting.  ---10/14/2019 td 
+                With each_element_field
+                    If (.SelectedHighlighting) Then
+                        ''Clear any/all highlighting.  ---10/14/2019 td 
+                        .SelectedHighlighting = False ''Added 10/14/2019 td
+                        ''Redraw without highlighting. ---10/14 td
+                        each_ctl_field.Refresh_Image(False)
+                    End If ''end of "If (.SelectedHighlighting) Then"
+                End With
+
+                each_ctl_field.SaveToModel()
 
             ElseIf (TypeOf each_control Is CtlGraphicPortrait) Then
                 ''
                 ''Added 7/31/2019 thomas downes  
                 ''
-                each_portraitLabel = CType(each_control, CtlGraphicPortrait)
-                each_portraitLabel.SaveToModel()
+                each_ctl_portrait = CType(each_control, CtlGraphicPortrait)
+                each_ctl_portrait.SaveToModel()
 
             End If ''end of "If (TypeOf each_control Is GraphicFieldLabel) Then .... ElseIf ..."
 
@@ -851,6 +874,10 @@ Public Class ClassDesigner
         Dim each_graphicalFieldCtl As CtlGraphicFldLabel ''Added 10/10/2019 td
         Dim each_portraitControl As CtlGraphicPortrait ''Added 10/10/2019 td
 
+        Dim each_ctl_QRCode As CtlGraphicQRCode ''Added 10/14/2019 td
+        Dim each_ctl_Signat As CtlGraphicSignature ''Added 10/14/2019 td
+        Dim each_ctl_Text As CtlGraphicText ''Added 10/14/2019 td
+
         For Each each_control As Control In Me.DesignerForm.Controls
 
             If (TypeOf each_control Is CtlGraphicFldLabel) Then
@@ -865,6 +892,21 @@ Public Class ClassDesigner
                 ''
                 each_portraitControl = CType(each_control, CtlGraphicPortrait)
                 each_portraitControl.SaveToModel()
+
+            ElseIf (TypeOf each_control Is CtlGraphicQRCode) Then
+                ''Added 10/14/2019 thomas downes  
+                each_ctl_QRCode = CType(each_control, CtlGraphicQRCode)
+                each_ctl_QRCode.SaveToModel()
+
+            ElseIf (TypeOf each_control Is CtlGraphicQRCode) Then
+                ''Added 10/14/2019 thomas downes  
+                each_ctl_Signat = CType(each_control, CtlGraphicSignature)
+                each_ctl_Signat.SaveToModel()
+
+            ElseIf (TypeOf each_control Is CtlGraphicText) Then
+                ''Added 10/14/2019 thomas downes  
+                each_ctl_Text = CType(each_control, CtlGraphicText)
+                each_ctl_Text.SaveToModel()
 
             End If ''end of "If (TypeOf each_control Is GraphicFieldLabel) Then .... ElseIf ..."
 
@@ -882,9 +924,14 @@ Public Class ClassDesigner
         Dim obj_image As Image ''Added 8/24 td
         Dim obj_image_clone As Image ''Added 8/24 td
         Dim obj_image_clone_resized As Image ''Added 8/24/2019 td
-        Dim obj_generator As New ciBadgeGenerator.ClassMakeBadge
+        ''10/14/2019 td''Dim obj_generator As New ciBadgeGenerator.ClassMakeBadge
+        Static obj_generator As ciBadgeGenerator.ClassMakeBadge
 
-        obj_generator.PathToSigFile = Me.PathToSigFile ''Added 10/12/2019 td
+        ''Added 10/14/2019 td 
+        If (obj_generator Is Nothing) Then obj_generator = New ciBadgeGenerator.ClassMakeBadge
+
+        obj_generator.PathToFile_Sig = Me.PathToSigFile ''Added 10/12/2019 td
+        obj_generator.ImageQRCode = CtlGraphic_QRCode.pictureQRCode.Image ''Added 10/14 td
 
         listOfElementTextFields = Me.ElementsCache_Edits.ListFieldElements()
 
@@ -1598,7 +1645,9 @@ Public Class ClassDesigner
     End Sub
 
     Private Sub mod_sizingQR_events_Moving_End() Handles mod_sizingEvents_QR.Moving_End
+
         ''Added 10/9/2019 td 
+        CtlGraphic_QRCode.SaveToModel()
         AutoPreview_IfChecked()
 
     End Sub

@@ -30,7 +30,21 @@ Public Class ClassElementField
 
     Public Property ExampleValue_ForElement As String Implements IElement_TextField.ExampleValue_ForElement ''Added 8/14/2019 td 
 
+    <XmlIgnore>
     Public Property FontColor As System.Drawing.Color Implements IElement_TextOnly.FontColor
+
+    <XmlElement("FontColor")>
+    Public Property FontColor_HTML As String
+        ''Added 10/14/2019 td
+        Get
+            ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
+            Return ColorTranslator.ToHtml(Me.FontColor)
+        End Get
+        Set(value As String)
+            ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
+            Me.FontColor = ColorTranslator.FromHtml(value)
+        End Set
+    End Property
 
     ''Added 8/12/2019 thomas downes  
     Public Property FontSize_Pixels As Single = 25 Implements IElement_TextOnly.FontSize_Pixels ''Added 8/12/2019 thomas downes  

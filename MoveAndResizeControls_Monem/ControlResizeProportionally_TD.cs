@@ -301,6 +301,9 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
                     }
                     else
                     {
+                        //
+                        //Left-hand edge only.  (No other edges are in play.) 
+                        //
                         par_control.Width -= (e.X - _cursorStartPoint.X);
                         par_control.Left += (e.X - _cursorStartPoint.X);
 
@@ -311,8 +314,14 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
                 }
                 else if (MouseIsInRightEdge)
                 {
+                    //
+                    //Right-hand edge. 
+                    //
                     if (MouseIsInTopEdge)
                     {
+                        //
+                        //Top-right corner.  
+                        //
                         par_control.Width = (e.X - _cursorStartPoint.X) + _currentControlStartSize.Width;
                         par_control.Height -= (e.Y - _cursorStartPoint.Y);
                         par_control.Top += (e.Y - _cursorStartPoint.Y);
@@ -325,6 +334,9 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
                     }
                     else if (MouseIsInBottomEdge)
                     {
+                        //
+                        //Bottom-right corner.  
+                        //
                         par_control.Width = (e.X - _cursorStartPoint.X) + _currentControlStartSize.Width;
                         par_control.Height = (e.Y - _cursorStartPoint.Y) + _currentControlStartSize.Height;
 
@@ -334,6 +346,9 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
                     }
                     else
                     {
+                        //
+                        //Only the right-hand edge is in play. 
+                        //
                         par_control.Width = (e.X - _cursorStartPoint.X) + _currentControlStartSize.Width;
 
                         //Added 8/2/2019 thomas downes 
@@ -342,6 +357,9 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
                 }
                 else if (MouseIsInTopEdge)
                 {
+                    //
+                    //Only the top edge is in play.  (No corners.) 
+                    //
                     par_control.Height -= (e.Y - _cursorStartPoint.Y);
                     par_control.Top += (e.Y - _cursorStartPoint.Y);
 
@@ -351,6 +369,9 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
                 }
                 else if (MouseIsInBottomEdge)
                 {
+                    //
+                    //Only the bottom edge is in play.  (No corners.) 
+                    //
                     par_control.Height = (e.Y - _cursorStartPoint.Y) + _currentControlStartSize.Height;
 
                     //Added 8/2/2019 thomas downes 
@@ -360,6 +381,22 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
                 {
                     StopDragOrResizing(par_control);
                 }
+
+                //Control the proportionality.
+                //    ----10/14/2019
+                decimal intAmtWrong_Width = Math.Abs(par_control.Width - (par_control.Height * _proportionWH));
+                decimal intAmtWrong_Height = Math.Abs(par_control.Height - (par_control.Width / _proportionWH));
+
+                //Fix whichever of the two is worse.  ---10/14
+                if (intAmtWrong_Height > intAmtWrong_Width)
+                {
+                    par_control.Height = (int)(par_control.Width / _proportionWH);
+                }
+                else
+                {
+                    par_control.Width = (int)(par_control.Height * _proportionWH);
+                }
+
             }
             else if (_moving)
             {
@@ -439,6 +476,12 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
 
             //Added 9/13/2019 td
             if (SetBreakpoint_AfterMove) System.Diagnostics.Debugger.Break();
+
+            //Added 10/14 & 8/5/2019 thomas downes
+            if (bWasResizing) mod_events.Resizing_Terminate();
+
+            //Added 10/14 & 9/13/2019 thomas downes
+            if (!(bWasResizing)) mod_events.Moving_Terminate();
 
         }
 

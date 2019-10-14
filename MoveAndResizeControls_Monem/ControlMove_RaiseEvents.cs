@@ -373,6 +373,12 @@ namespace MoveAndResizeControls_Monem
             if (_repaintAfterResize && bWasResizing) par_control.Refresh();
             if (_repaintAfterResize && bWasResizing) par_control.Parent.Refresh();
 
+            //Added 10/14/2019 thomas downes
+            //if (bWasResizing) mod_events.Resizing_Terminate();
+
+            //Added 10/14/2019 thomas downes
+            //if (!(bWasResizing)) mod_events.Moving_Terminate();
+
         }
 
         #region Save And Load

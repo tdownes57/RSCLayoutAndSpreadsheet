@@ -38,10 +38,14 @@ Public Class MenuCache_ElemFlds
 
     Public Shared Operations_Edit As New Operations_EditElement ''Added 10/11/2019 td  
 
-    Public Shared Sub GenerateMenuItems()
+    Public Shared Sub GenerateMenuItems_IfNeeded()
         ''
         ''Added 10/2/2019 thomas downes  
         ''
+        Dim boolAlreadyPopulated As Boolean ''Added 10/14/2019 thomas downes
+        boolAlreadyPopulated = (0 <> Links_EditElementMenu.Count)
+        If (boolAlreadyPopulated) Then Exit Sub
+
         Generate_BasicEdits()
         Generate_Grouped()
         Generate_Aligning()
@@ -58,7 +62,7 @@ Public Class MenuCache_ElemFlds
             .SelectingElements = SelectingElements
         End With ''End of "With Operations_Edit"
 
-    End Sub ''End of "Public Shared Sub GenerateMenuItems()"
+    End Sub ''End of "Public Shared Sub GenerateMenuItems_IfNeeded()"
 
     Private Shared Sub Generate_BasicEdits()
         ''
@@ -295,9 +299,9 @@ Public Class MenuCache_ElemFlds
                             vbCrLf & vbCrLf & strList_MenuItems, "Generate_BasicEdits",
                              MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         Else
-            MessageBox.Show("The following links & context menu items were created. " &
-                            vbCrLf & vbCrLf & strList_MenuItems, "Generate_BasicEdits",
-                             MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            ''MessageBox.Show("The following links & context menu items were created. " &
+            ''                vbCrLf & vbCrLf & strList_MenuItems, "Generate_BasicEdits",
+            ''                 MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         End If
 
     End Sub ''End of "Private Shared Sub Generate_BasicEdits()"

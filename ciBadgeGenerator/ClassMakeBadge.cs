@@ -61,7 +61,8 @@ namespace ciBadgeGenerator
 
     public class ClassMakeBadge
     {
-        public string PathToSigFile = ""; //Added 10/12/2019 td
+        public string PathToFile_Sig = ""; //Added 10/12/2019 td
+        public Image ImageQRCode;   //Added 10/14/2019 td 
 
         public Image MakeBadgeImage_ByRecipient(IBadgeLayout par_layout,
                                     Image par_backgroundImage,
@@ -199,7 +200,7 @@ namespace ciBadgeGenerator
             {
                 ClassElementSignature obj_elementSig = par_cache.ElementSignature;
 
-                string strPathToSigFile = this.PathToSigFile; //Added 10/12/2019 td
+                string strPathToSigFile = this.PathToFile_Sig; //Added 10/12/2019 td
 
                 LoadImageWithSignature(par_newBadge_width_pixels,
                                     par_layout.Width_Pixels,
@@ -208,6 +209,33 @@ namespace ciBadgeGenerator
                                     (IElementSig)obj_elementSig,
                                     strPathToSigFile);
                                     // 10-12-2019 td //ref par_recipientPic);
+
+            }
+
+            //
+            //Added 10/14/2019 thomas d. 
+            //
+            if (par_cache.MissingTheQRCode())
+            {
+                //
+                //There is not any QR Code to display.
+                //
+            }
+            else
+            {
+                ClassElementQRCode obj_elementQR = par_cache.ElementQRCode;
+
+                //string strPathToFile_QR = ""; //this.PathToFile_QR; //Added 10/14/2019 td
+
+                //strPathToFile_QR = obj_elementQR.PathToFile_
+
+                LoadImageWithQRCode(par_newBadge_width_pixels,
+                                    par_layout.Width_Pixels,
+                                    ref obj_image,
+                                    (IElement_Base)obj_elementQR,
+                                    (IElementQRCode)obj_elementQR,
+                                    ref this.ImageQRCode);
+                // 10-12-2019 td //ref par_recipientPic);
 
             }
 

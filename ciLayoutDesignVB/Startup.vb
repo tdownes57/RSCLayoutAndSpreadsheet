@@ -134,6 +134,7 @@ Public Class Startup
 
         End If ''End of "If (pboolNewFileXML) Then .... Else ..."
 
+        ''-------------------------------------------------------------
         ''Added 9/19/2019 td
         Dim intPicLeft As Integer
         Dim intPicTop As Integer
@@ -142,11 +143,63 @@ Public Class Startup
 
         ''Added 9/19/2019 td
         With par_designForm
+            ''Added 9/19/2019 td
             intPicLeft = .CtlGraphicPortrait_Lady.Left - .pictureBack.Left
             intPicTop = .CtlGraphicPortrait_Lady.Top - .pictureBack.Top
             intPicWidth = .CtlGraphicPortrait_Lady.Width
             intPicHeight = .CtlGraphicPortrait_Lady.Height
         End With
+
+        ''-------------------------------------------------------------
+        ''Added 10/14/2019 td
+        Dim intLeft_QR As Integer
+        Dim intTop_QR As Integer
+        Dim intWidth_QR As Integer
+        Dim intHeight_QR As Integer
+
+        ''Added 10/14/2019 td
+        With par_designForm
+            ''Added 10/14/2019 td
+            intLeft_QR = .CtlGraphicQRCode1.Left - .pictureBack.Left
+            intTop_QR = .CtlGraphicQRCode1.Top - .pictureBack.Top
+            intWidth_QR = .CtlGraphicQRCode1.Width
+            intHeight_QR = .CtlGraphicQRCode1.Height
+        End With
+
+        ''-------------------------------------------------------------
+        ''Added 10/14/2019 td
+        Dim intLeft_Sig As Integer
+        Dim intTop_Sig As Integer
+        Dim intWidth_Sig As Integer
+        Dim intHeight_Sig As Integer
+
+        ''Added 10/14/2019 td
+        With par_designForm
+            ''Added 10/14/2019 td
+            intLeft_Sig = .CtlGraphicSignature1.Left - .pictureBack.Left
+            intTop_Sig = .CtlGraphicSignature1.Top - .pictureBack.Top
+            intWidth_Sig = .CtlGraphicSignature1.Width
+            intHeight_Sig = .CtlGraphicSignature1.Height
+        End With
+
+        ''-------------------------------------------------------------
+        ''Added 10/14/2019 td
+        Dim strStaticText As String
+        Dim intLeft_Text As Integer
+        Dim intTop_Text As Integer
+        Dim intWidth_Text As Integer
+        Dim intHeight_Text As Integer
+
+        ''Added 10/14/2019 td
+        With par_designForm
+            ''Added 10/14/2019 td
+            strStaticText = "This is the same text for everyone."
+            intLeft_Text = .CtlGraphicText1.Left - .pictureBack.Left
+            intTop_Text = .CtlGraphicText1.Top - .pictureBack.Top
+            intWidth_Text = .CtlGraphicText1.Width
+            intHeight_Text = .CtlGraphicText1.Height
+        End With
+
 
         ''9/19 td''Me.ElementsCache_Saved.LoadPicElement(CtlGraphicPortrait_Lady.picturePortrait, pictureBack) ''Added 9/19/2019 td
         If (pboolNewFileXML) Then
@@ -154,6 +207,20 @@ Public Class Startup
             ''10/13/2019 td''Me.ElementsCache_Saved.LoadElement_Pic(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
             obj_cache_elements.LoadElement_Pic(intPicLeft, intPicTop, intPicWidth, intPicHeight,
                                                par_designForm.pictureBack) ''Added 9/19/2019 td
+
+            ''Added 10/14/2019 thomas d. 
+            obj_cache_elements.LoadElement_QRCode(intLeft_QR, intTop_QR, intWidth_QR, intHeight_QR,
+                                               par_designForm.pictureBack) ''Added 10/14/2019 td
+
+            ''Added 10/14/2019 thomas d. 
+            obj_cache_elements.LoadElement_Signature(intLeft_Sig, intTop_Sig, intWidth_Sig, intHeight_Sig,
+                                               par_designForm.pictureBack) ''Added 10/14/2019 td
+
+            ''Added 10/14/2019 thomas d. 
+            obj_cache_elements.LoadElement_Text(strStaticText,
+                                                intLeft_Text, intTop_Text,
+                                                intWidth_Text, intHeight_Text,
+                                               par_designForm.pictureBack) ''Added 10/14/2019 td
 
         End If ''End of "If (pboolNewFileXML) Then"
 

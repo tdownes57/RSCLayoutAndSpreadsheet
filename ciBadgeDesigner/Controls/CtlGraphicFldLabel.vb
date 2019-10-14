@@ -37,7 +37,7 @@ Public Class CtlGraphicFldLabel
     Public ElementInfo_Field As ciBadgeInterfaces.IElement_TextField ''Added 10/12/2019 td
 
     Public GroupEdits As ISelectingElements ''Added 7/31/2019 thomas downes  
-    Public SelectedHighlighting As Boolean ''Added 8/2/2019 td
+    Public SelectedHighlighting_Denigrated As Boolean ''Added 8/2/2019 td
     Public ExampleTextToDisplay As String = "" ''Added 9/19/2019 td
 
     ''

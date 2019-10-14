@@ -59,6 +59,16 @@ Public Class ClassElementsCache
         End Set
     End Property
 
+    Public Property ListOfElementTexts As List(Of ClassElementStaticText)
+        Get ''Added 10/14/2019 td
+            Return mod_listElementStatics
+        End Get
+        Set(value As List(Of ClassElementStaticText))
+            ''Added 10/14/2019 td
+            mod_listElementStatics = value
+        End Set
+    End Property
+
     Public Property BadgeLayout As ciBadgeInterfaces.BadgeLayoutClass ''Added 9/17/2019 thomas downes
 
     <Xml.Serialization.XmlIgnore>
