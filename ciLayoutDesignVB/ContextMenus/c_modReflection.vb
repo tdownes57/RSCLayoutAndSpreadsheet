@@ -6,6 +6,7 @@ Option Strict On
 ''
 Imports System.Reflection
 Imports System.Reflection.Assembly
+Imports System.Windows.Forms ''Added 10/13/2019 td  
 
 Delegate Sub LinkClickedDelegate(sender As Object, e As LinkLabelLinkClickedEventArgs)
 
@@ -19,9 +20,9 @@ Module c_modReflection
     Private mod_handler As LinkClickedDelegate
     Private WithEvents mod_classMenuMethods As New ClassMenuMethods
 
-    Public Sub LinkProceduresToLinkLabels(par_objSubprocedures As Object,
-                                          par_form As Form,
-                                          par_FlowLayoutPanel As FlowLayoutPanel)
+    Public Function LinkProceduresToLinkLabels(par_objSubprocedures As Object,
+                                          par_form As Form) As List(Of LinkLabel)
+        ''10/13/2019 td'' par_FlowLayoutPanel As FlowLayoutPanel)
         ''10/1/2019 td'' Sub FormRotateText_Load(sender As Object, e As EventArgs) ''10/2/2019 td''Handles MyBase.Load
 
         ''Dim objInfo As Type ''System.Reflection.Assembly
@@ -38,6 +39,7 @@ Module c_modReflection
         Dim intExceptionCount As Integer  ''Added 9/23/2019 td
         Dim ex_AddEventHandler As New Exception("Routine initialization")  ''Added 9/23/2019 td
         Dim boolProcedureNotUsed As Boolean ''Added 9/23/2019 thomas downes
+        Dim obj_listLinks As New List(Of LinkLabel) ''Added 10/13/2019 td 
 
         ''objInfo = (TypeOf objClass1)
 
@@ -160,9 +162,11 @@ Module c_modReflection
             ''Move up a few executable lines. ----9/23/2019 td''mod_classMenuMethods.AddEventHandlerLinkClicked(each_link)
 
             ''10/1/2019 td''FlowLayoutPanel1.Controls.Add(each_link)
-            par_FlowLayoutPanel.Controls.Add(each_link)
+            ''10/13/2019 td''par_FlowLayoutPanel.Controls.Add(each_link)
 
             each_link.Visible = True
+
+            obj_listLinks.Add(each_link)
 
         Next each_methodInfo
 
@@ -179,7 +183,9 @@ Module c_modReflection
 
         End If ''End of "If (intExceptionCount > 1) Then"
 
-    End Sub
+        Return obj_listLinks
+
+    End Function ''End of "Public Function LinkProceduresToLinkLabels"
 
     ''10/1/2019 td''Private Sub LinkLabel1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
 

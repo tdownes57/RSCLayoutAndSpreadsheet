@@ -12,9 +12,17 @@ Public Class MenuCache_ElemFlds
     Public Shared Links_AlignmentFeatures As New List(Of LinkLabel)
     ''---Public Shared Links_EditBackgroundMenu As New List(Of LinkLabel)
 
-    Public Shared Tools_EditElementMenu As New List(Of ToolStripMenuItem)
-    Public Shared Tools_ManageGroupedCtls As New List(Of ToolStripMenuItem)
-    Public Shared Tools_AlignmentFeatures As New List(Of ToolStripMenuItem)
+    Public Shared ToolStripContainer1 As New ToolStrip
+    Public Shared ToolStripContainer2 As New ToolStrip
+    Public Shared ToolStripContainer3 As New ToolStrip
+
+    Public Shared array_tools1() As ToolStripMenuItem = New ToolStripMenuItem() {}
+    Public Shared array_tools2() As ToolStripMenuItem = New ToolStripMenuItem() {}
+    Public Shared array_tools3() As ToolStripMenuItem = New ToolStripMenuItem() {}
+
+    Public Shared Tools_EditElementMenu As New ToolStripItemCollection(ToolStripContainer1, array_tools1) ''10/13 td''List(Of ToolStripMenuItem)
+    Public Shared Tools_ManageGroupedCtls As New ToolStripItemCollection(ToolStripContainer2, array_tools2) ''10/13 td''''List(Of ToolStripMenuItem)
+    Public Shared Tools_AlignmentFeatures As New ToolStripItemCollection(ToolStripContainer3, array_tools3) ''10/13 td''''List(Of ToolStripMenuItem)
     ''--Public Shared Tools_EditBackgroundMenu As New List(Of ToolStripMenuItem)
 
     Private Shared mod_operations As New Operations_EditElement ''Added 10/11/2019 td  
@@ -50,7 +58,8 @@ Public Class MenuCache_ElemFlds
         Dim boolPropertySet As Boolean ''Added 9/23/2019 td 
         Dim intExceptionCount As Integer  ''Added 9/23/2019 td
         Dim ex_AddEventHandler As New Exception("Routine initialization")  ''Added 9/23/2019 td
-        Dim boolProcedureNotUsed As Boolean ''Added 9/23/2019 thomas downes
+        Dim boolProcedureNotUsed As Boolean ''Added 9/23/2019 thomas downes 
+        Dim intCountLinkLabels As Integer ''Added 10/13/2019 thomas downes 
 
         ''objInfo = (TypeOf objClass1)
 
@@ -88,6 +97,13 @@ Public Class MenuCache_ElemFlds
             Dim each_link As New LinkLabel
             each_link.Visible = True
             each_link.Text = strMethodWithSpaces
+
+            ''Added 10/13/2019 td  
+            Dim each_toolMenuItem As New ToolStripMenuItem ''Added 10/13/2019 td
+
+            ''Added 10/13/2019 td  
+            each_toolMenuItem.Visible = True
+            each_toolMenuItem.Text = strMethodWithSpaces
 
             ''AddHandler each_link.LinkClicked, AddressOf each_member
 
@@ -136,6 +152,9 @@ Public Class MenuCache_ElemFlds
                 Dim type_LinkLabel As Type = mod_operations.MyLinkLabel.GetType
                 Dim event_linkClicked As Reflection.EventInfo
 
+                ''
+                ''Step 2 of 2:    LinkLabels  
+                ''
                 Try
                     event_linkClicked = type_LinkLabel.GetEvent("LinkClicked", objBindingFlags)
                     Dim my_click_handler As [Delegate]
@@ -146,6 +165,32 @@ Public Class MenuCache_ElemFlds
                     ''---link_clicked.AddEventHandler(mod_classMenuMethods.MyLinkLabel, my_handler)
 
                     event_linkClicked.AddEventHandler(each_link, my_click_handler)
+
+                Catch ex_AddEventHandler ''As Exception
+                    ''
+                    ''Added 9//23/2019 td 
+                    ''
+                    intExceptionCount += 1
+
+                End Try
+
+                ''
+                ''Step 2 of 2:    ToolstripMenuItem  
+                ''
+                Dim type_ToolstripItem As Type = mod_operations.MyToolstripItem.GetType
+                Dim event_toolClicked As Reflection.EventInfo
+
+                Try
+                    event_toolClicked = type_ToolstripItem.GetEvent("Click", objBindingFlags)
+                    Dim my_click_handler As [Delegate]
+                    my_click_handler = [Delegate].CreateDelegate(event_toolClicked.EventHandlerType,
+                                                                 mod_operations, each_methodInfo)
+
+                    ''---link_clicked.AddEventHandler(Me, my_handler) '', BindingFlags.Public)
+                    ''---link_clicked.AddEventHandler(mod_classMenuMethods, my_handler)
+                    ''---link_clicked.AddEventHandler(mod_classMenuMethods.MyLinkLabel, my_handler)
+
+                    event_toolClicked.AddEventHandler(each_link, my_click_handler)
 
                 Catch ex_AddEventHandler ''As Exception
                     ''
@@ -175,6 +220,12 @@ Public Class MenuCache_ElemFlds
 
             ''10/11/2019 td''FlowLayoutPanel1.Controls.Add(each_link)
             each_link.Visible = True
+            each_toolMenuItem.Visible = True ''Added 10/13/2019 td  
+
+            ''Added 10/13/2019 thomas downes
+            intCountLinkLabels += 1
+            MenuCache_ElemFlds.Links_EditElementMenu.Add(each_link)
+            MenuCache_ElemFlds.Tools_EditElementMenu.Add(each_toolMenuItem)
 
         Next each_methodInfo
 

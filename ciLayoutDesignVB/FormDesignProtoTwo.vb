@@ -32,7 +32,7 @@ Public Class FormDesignProtoTwo
     Public Property ElementsCache_Saved As New ClassElementsCache ''Added 9/16/2019 thomas downes
     Public Property ElementsCache_Edits As New ClassElementsCache ''Added 9/16/2019 thomas downes
 
-    Private mod_designer As New ciBadgeDesigner.ClassDesigner ''Added 10/3/2019 td
+    Private WithEvents mod_designer As New ciBadgeDesigner.ClassDesigner ''Added 10/3/2019 td
 
     ''#1 8-3-2019 td''Private WithEvents mod_moveAndResizeCtls_NA As New MoveAndResizeControls_Monem.ControlMove_RaiseEvents ''Added 8/3/2019 td  
     '' #2 8-3-2019 td''Private WithEvents mod_moveAndResizeCtls As New MoveAndResizeControls_Monem.ControlMove_GroupMove ''Added 8/3/2019 td  
@@ -289,7 +289,9 @@ Public Class FormDesignProtoTwo
         ''                           Me.ElementsCache_Saved.PicElement,
         ''                           False, False)
 
-    End Sub
+        MenuCache_ElemFlds.GenerateMenuItems()
+
+    End Sub ''End of "Private Sub Form_Load"  
 
     Public Sub RefreshElementsCache_Saved(par_cache As ClassElementsCache) Implements IDesignerForm.RefreshElementsCache_Saved
         ''
@@ -1238,4 +1240,16 @@ Public Class FormDesignProtoTwo
 
     End Sub ''End of "Private Sub ShowBadgeRecipientsToolStripMenuItem_Click"
 
+    Private Sub mod_designer_ElementRightClicked(par_control As CtlGraphicFldLabel) Handles mod_designer.ElementRightClicked
+        ''
+        ''Added 10/13/2019 thomas downes  
+        ''
+        ContextMenuStrip1.Items.Clear()
+
+        ContextMenuStrip1.Items.AddRange(MenuCache_ElemFlds.Tools_EditElementMenu)
+
+        ''10/13 td''ContextMenuStrip1.Show()
+        ContextMenuStrip1.Show(par_control, New Point(par_control.Left, par_control.Top))
+
+    End Sub
 End Class

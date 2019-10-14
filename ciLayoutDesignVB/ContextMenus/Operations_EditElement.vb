@@ -73,7 +73,7 @@ Public Class Operations_EditElement
 
     End Sub ''End of "Private Sub CreateMouseButton_Master(par_strText As String, par_handler As EventHandler)"
 
-    Private Sub Choose_Background_Color(sender As Object, e As EventArgs)
+    Public Sub Choose_Background_Color(sender As Object, e As EventArgs)
         ''---10/10/2019 td--Private Sub OpenDialog_Color(sender As Object, e As EventArgs)
         ''
         ''Added 7/30/2019 thomas downes
@@ -171,7 +171,7 @@ Public Class Operations_EditElement
 
     ''End Sub ''ENd of "Private Sub SwitchCtl_Down(sender As Object, e As EventArgs)"
 
-    Private Sub OpenDialog_Font(sender As Object, e As EventArgs)
+    Public Sub OpenDialog_Font(sender As Object, e As EventArgs)
         ''
         ''Added 7/30/2019 thomas downes
         ''
