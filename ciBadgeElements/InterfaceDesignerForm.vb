@@ -1,6 +1,7 @@
 ﻿''
 ''Added 10/13/2019 td 
 ''
+Imports ciBadgeInterfaces
 
 Public Interface IDesignerForm
     ''
@@ -8,5 +9,7 @@ Public Interface IDesignerForm
     ''
     ''----Sub RefreshElementsCache_Edited(par_cache As ClassElementsCache)
     Sub RefreshElementsCache_Saved(par_cache As ClassElementsCache)
+
+    Property BadgeLayout As BadgeLayoutClass ''Added 10/13/2019 td 
 
 End Interface

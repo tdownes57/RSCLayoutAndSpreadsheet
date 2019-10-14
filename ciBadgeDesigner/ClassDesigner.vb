@@ -191,7 +191,7 @@ Public Class ClassDesigner
         boolMissingAnyFieldElements = (Me.ElementsCache_Saved.MissingTheElementFields())
         If (boolMissingAnyFieldElements) Then
             ''10/1/2019 td''Me.ElementsCache_Saved.LoadFieldElements(Me.BackgroundBox)
-            Me.ElementsCache_Saved.LoadFieldElements(Me.BackgroundBox)
+            Me.ElementsCache_Saved.LoadFieldElements(Me.BackgroundBox, Me.BadgeLayout_Class)
         End If ''end of "If (boolMissingAnyFields) Then"
 
         ''Added 9/19/2019 td

@@ -23,6 +23,7 @@ Public Class FormDesignProtoTwo
     ''Added 7/18/2019 Thomas DOWNES
     ''
     Public Property PersonalityCache As ciBadgeCustomer.PersonalityCache ''Added 10/11/2019 td 
+    Public Property BadgeLayout As BadgeLayoutClass Implements IDesignerForm.BadgeLayout ''Added 10/13/2019 td
 
     ''Added 9/16/2019 thomas downes
     Public Property ElementsCache_Saved As New ClassElementsCache ''Added 9/16/2019 thomas downes
@@ -169,6 +170,11 @@ Public Class FormDesignProtoTwo
         ClassLabelToImage.ProportionsAreSlightlyOff(pictureBack, True)
         ClassLabelToImage.ProportionsAreSlightlyOff(picturePreview, True)
 
+        ''Added 10/13/2019 td
+        Me.BadgeLayout = New BadgeLayoutClass
+        Me.BadgeLayout.Height_Pixels = pictureBack.Height
+        Me.BadgeLayout.Width_Pixels = pictureBack.Width
+
         ''
         ''I forget, what was this going to do originally?  ---9/6/2019 td
         ''
@@ -244,7 +250,8 @@ Public Class FormDesignProtoTwo
             ''10/13/2019 td''Me.ElementsCache_Saved.LoadFields()
             ''10/13/2019 td''Me.ElementsCache_Saved.LoadFieldElements(pictureBack)
             Me.ElementsCache_Edits.LoadFields()
-            Me.ElementsCache_Edits.LoadFieldElements(pictureBack)
+            ''10/13/2019 td''Me.ElementsCache_Edits.LoadFieldElements(pictureBack, BadgeLayout)
+            Me.ElementsCache_Edits.LoadFieldElements(pictureBack, BadgeLayout)
         Else
             ''Added 10/10/2019 td  
             Dim objDeserialize As New ciBadgeSerialize.ClassDeserial ''Added 10/10/2019 td  
@@ -402,6 +409,11 @@ Public Class FormDesignProtoTwo
 
             ''10/10/2019 td''SaveFileDialog1.ShowDialog()
             ''10/10/2019 td''.PathToXML = SaveFileDialog1.FileName
+
+            ''Added 10/13/2019 td 
+            If (String.IsNullOrEmpty(Me.ElementsCache_Edits.PathToXml_Saved)) Then
+                Me.ElementsCache_Edits.PathToXml_Saved = DiskFiles.PathToFile_XML()
+            End If ''End of "If (String.IsNullOrEmpty(Me.ElementsCache_Edits.PathToXml_Saved)) Then"
 
             .PathToXML = Me.ElementsCache_Edits.PathToXml_Saved
 
@@ -607,6 +619,7 @@ Public Class FormDesignProtoTwo
         Dim dictonary_field_control As New Dictionary(Of ICIBFieldStandardOrCustom,
             CtlGraphicFldLabel)
         Dim dictonary_elmntObj_control As New Dictionary(Of ClassElementField, CtlGraphicFldLabel) ''Added 9/17/2019 td
+        Dim intControlCount As Integer ''Added 10/13/2019 td  
 
         ''
         ''Step 2 of 5.   Refresh the existing controls. 
@@ -636,6 +649,8 @@ Public Class FormDesignProtoTwo
             Dim each_field_control As CtlGraphicFldLabel = CType(each_control, CtlGraphicFldLabel)
             each_field_control.Refresh_Master()
             each_field_control.Refresh()
+
+            intControlCount += 1
 
             ''Added 9/6/2019 td 
             ''

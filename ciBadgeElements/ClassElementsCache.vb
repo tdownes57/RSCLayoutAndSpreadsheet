@@ -163,7 +163,7 @@ Public Class ClassElementsCache
 
     End Sub ''End of "Public Sub LoadFields(par_pictureBackground As PictureBox)"
 
-    Public Sub LoadFieldElements(par_pictureBackground As PictureBox)
+    Public Sub LoadFieldElements(par_pictureBackground As PictureBox, par_layout As BadgeLayoutClass)
         ''
         ''Added 9/16/2019 thomas d. 
         ''
@@ -240,6 +240,9 @@ Public Class ClassElementsCache
             new_elementField = New ClassElementField(each_field, intLeft_Pixels, intTop_Pixels, c_intHeight_Pixels)
             new_elementField.FieldInfo = each_field
             new_elementField.FieldEnum = each_field.FieldEnumValue ''Added 10/12/2019 td
+
+            ''Added 10/13/2019 td
+            new_elementField.BadgeLayout = par_layout
 
             ''Added 9/19/2019 td
             mod_listElementFields.Add(new_elementField)
