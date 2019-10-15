@@ -208,13 +208,13 @@ Partial Class FormDesignProtoTwo
         'StandardFieldsToolStripMenuItem
         '
         Me.StandardFieldsToolStripMenuItem.Name = "StandardFieldsToolStripMenuItem"
-        Me.StandardFieldsToolStripMenuItem.Size = New System.Drawing.Size(194, 26)
+        Me.StandardFieldsToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
         Me.StandardFieldsToolStripMenuItem.Text = "Standard Fields"
         '
         'CustomFieldsToolStripMenuItem
         '
         Me.CustomFieldsToolStripMenuItem.Name = "CustomFieldsToolStripMenuItem"
-        Me.CustomFieldsToolStripMenuItem.Size = New System.Drawing.Size(194, 26)
+        Me.CustomFieldsToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
         Me.CustomFieldsToolStripMenuItem.Text = "Custom Fields"
         '
         'DesignLayoutToolStripMenuItem
@@ -450,11 +450,10 @@ Partial Class FormDesignProtoTwo
         '
         'linkRemoveElements
         '
-        Me.linkRemoveElements.AutoSize = True
-        Me.linkRemoveElements.Location = New System.Drawing.Point(42, 555)
+        Me.linkRemoveElements.Location = New System.Drawing.Point(11, 495)
         Me.linkRemoveElements.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.linkRemoveElements.Name = "linkRemoveElements"
-        Me.linkRemoveElements.Size = New System.Drawing.Size(155, 22)
+        Me.linkRemoveElements.Size = New System.Drawing.Size(94, 72)
         Me.linkRemoveElements.TabIndex = 48
         Me.linkRemoveElements.TabStop = True
         Me.linkRemoveElements.Text = "Remove Elements"
@@ -482,12 +481,13 @@ Partial Class FormDesignProtoTwo
         '
         'flowFieldsNotListed
         '
+        Me.flowFieldsNotListed.AutoScroll = True
         Me.flowFieldsNotListed.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.flowFieldsNotListed.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.flowFieldsNotListed.Controls.Add(Me.lblFieldsNotCurrentlyShownHdr)
-        Me.flowFieldsNotListed.Location = New System.Drawing.Point(202, 494)
+        Me.flowFieldsNotListed.Location = New System.Drawing.Point(110, 494)
         Me.flowFieldsNotListed.Name = "flowFieldsNotListed"
-        Me.flowFieldsNotListed.Size = New System.Drawing.Size(337, 83)
+        Me.flowFieldsNotListed.Size = New System.Drawing.Size(429, 83)
         Me.flowFieldsNotListed.TabIndex = 52
         '
         'lblFieldsNotCurrentlyShownHdr

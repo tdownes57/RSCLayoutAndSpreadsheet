@@ -677,8 +677,24 @@ namespace ciBadgeGenerator
             //Example of call: 
             //   ResizeImage_WidthAndHeight(obj_image, par_badge_width_pixels, par_badge_height_pixels);
             //
+            const bool c_boolApplyWhiteBackground = true;   //Added 10/14/2019 td 
 
-            return new Bitmap(par_image, new Size(par_intNewWidth, par_intNewHeight));
+            // 10/14/2019 td// return new Bitmap(par_image, new Size(par_intNewWidth, par_intNewHeight));
+
+            if (c_boolApplyWhiteBackground)
+            {
+                Bitmap new_bmp = new Bitmap(par_image, new Size(par_intNewWidth, par_intNewHeight));
+                Bitmap white_background = new Bitmap(par_intNewWidth, par_intNewHeight);
+                //Graphics gr_white = white_background.grapho
+                Graphics gr_white = Graphics.FromImage(white_background);
+                gr_white.Clear(Color.White);
+                gr_white.DrawImage(new_bmp, 0, 0);  
+                return white_background; 
+            }
+            else
+            {
+                return new Bitmap(par_image, new Size(par_intNewWidth, par_intNewHeight));
+            }
 
         }
 

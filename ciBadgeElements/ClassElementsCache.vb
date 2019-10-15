@@ -23,21 +23,57 @@ Public Class ClassElementsCache
     Public Property ElementQRCode As ClassElementQRCode ''Added 10/8/2019 thomas d.  
     Public Property ElementSignature As ClassElementSignature ''Added 10/8/2019 thomas d.  
 
-    Private mod_listFields As New List(Of ClassFieldAny) ''Added 9/18/2019 td  
+    ''10/14/2019 td''Private mod_listFields As New List(Of ClassFieldAny) ''Added 9/18/2019 td  
+    Private mod_listFields_Standard As New List(Of ClassFieldStandard) ''Added 10/14/2019 td  
+    Private mod_listFields_Custom As New List(Of ClassFieldCustomized) ''Added 10/14/2019 td  
+
     Private mod_listElementFields As New List(Of ClassElementField)
     Private mod_listElementPics As New List(Of ClassElementPic)
     Private mod_listElementStatics As New List(Of ClassElementStaticText)
     Private mod_listElementLaysections As New List(Of ClassElementLaysection) ''Added 9/17/2019 thomas downes
 
-    Public Property ListOfFields As List(Of ClassFieldAny)
-        Get ''Added 9/28/2019 td
-            Return mod_listFields
+    ''10/14/2019 td''Public Property ListOfFields As List(Of ClassFieldAny)
+    ''    Get ''Added 9/28/2019 td
+    ''        Return mod_listFields
+    ''    End Get
+    ''    Set(value As List(Of ClassFieldAny))
+    ''        ''Added 9/28/2019 td
+    ''        mod_listFields = value
+    ''    End Set
+    ''End Property
+
+    Public Function ListOfFields_Any() As List(Of ClassFieldAny)
+        ''
+        ''Added 10/14/2019 thomas downes
+        ''
+        Dim obj_list As New List(Of ClassFieldAny)
+        obj_list.AddRange(ListOfFields_Standard)
+        obj_list.AddRange(ListOfFields_Custom)
+        Return obj_list
+
+    End Function ''End of "Public Function ListOfFields_Any() As List(Of ClassFieldAny)"
+
+    Public Property ListOfFields_Standard As List(Of ClassFieldStandard)
+        Get ''Added 10/14/2019 td
+            Return mod_listFields_Standard
         End Get
-        Set(value As List(Of ClassFieldAny))
-            ''Added 9/28/2019 td
-            mod_listFields = value
+        Set(value As List(Of ClassFieldStandard))
+            ''Added 10/14/2019 td td
+            mod_listFields_Standard = value
         End Set
     End Property
+
+    Public Property ListOfFields_Custom As List(Of ClassFieldCustomized)
+        Get ''Added 10/14/2019 td
+            Return mod_listFields_Custom
+        End Get
+        Set(value As List(Of ClassFieldCustomized))
+            ''Added 10/14/2019 td td
+            mod_listFields_Custom = value
+        End Set
+    End Property
+
+
 
     Public Property ListOfElementFields As List(Of ClassElementField)
         Get ''Added 9/28/2019 td
@@ -68,6 +104,7 @@ Public Class ClassElementsCache
             mod_listElementStatics = value
         End Set
     End Property
+
 
     Public Property BadgeLayout As ciBadgeInterfaces.BadgeLayoutClass ''Added 9/17/2019 thomas downes
 

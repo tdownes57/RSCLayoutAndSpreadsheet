@@ -871,7 +871,9 @@ Public Class FormDesignProtoTwo
         ''Added 8/19/2019 thomas downes
         '' 
         Dim frm_ToShow As New ListStandardFields()
-        frm_ToShow.ListOfFields = FormMain.GetCurrentPersonality_Fields_Standard()
+
+        ''10/14/2019 td''frm_ToShow.ListOfFields = FormMain.GetCurrentPersonality_Fields_Standard()
+        frm_ToShow.ListOfFields = Me.ElementsCache_Edits.ListOfFields_Standard()
         frm_ToShow.ShowDialog()
         RefreshTheSetOfDisplayedElements()
         pictureBack.SendToBack()
