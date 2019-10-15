@@ -263,6 +263,11 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             int delta_Left = 0;
             int delta_Top = 0;
 
+            //Added 10/14/2019 td
+            bool bMouseIsInRightEdge_Only = false;
+            bool bMouseIsInTopEdge_Only = false;
+            bool bMouseIsInBottomEdge_Only = false;
+            bool bMouseIsInLeftEdge_Only = false;
 
             if (!_resizing && !_moving)
             {
@@ -304,6 +309,8 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
                         //
                         //Left-hand edge only.  (No other edges are in play.) 
                         //
+                        bMouseIsInLeftEdge_Only = true; //Added 10/14/2019
+
                         par_control.Width -= (e.X - _cursorStartPoint.X);
                         par_control.Left += (e.X - _cursorStartPoint.X);
 
@@ -349,6 +356,8 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
                         //
                         //Only the right-hand edge is in play. 
                         //
+                        bMouseIsInRightEdge_Only = true; 
+
                         par_control.Width = (e.X - _cursorStartPoint.X) + _currentControlStartSize.Width;
 
                         //Added 8/2/2019 thomas downes 
@@ -360,6 +369,8 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
                     //
                     //Only the top edge is in play.  (No corners.) 
                     //
+                    bMouseIsInTopEdge_Only = true; //Added 10/14/2019
+
                     par_control.Height -= (e.Y - _cursorStartPoint.Y);
                     par_control.Top += (e.Y - _cursorStartPoint.Y);
 
@@ -372,6 +383,8 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
                     //
                     //Only the bottom edge is in play.  (No corners.) 
                     //
+                    bMouseIsInBottomEdge_Only = true; //Added 10/14/2019
+
                     par_control.Height = (e.Y - _cursorStartPoint.Y) + _currentControlStartSize.Height;
 
                     //Added 8/2/2019 thomas downes 
@@ -390,6 +403,16 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
                 //Fix whichever of the two is worse.  ---10/14
                 if (intAmtWrong_Height > intAmtWrong_Width)
                 {
+                    par_control.Height = (int)(par_control.Width / _proportionWH);
+                }
+                else if (bMouseIsInTopEdge_Only || bMouseIsInBottomEdge_Only)
+                {
+                    //Added 10/14/2019 td 
+                    par_control.Width = (int)(par_control.Height * _proportionWH);
+                }
+                else if (bMouseIsInLeftEdge_Only || bMouseIsInRightEdge_Only)
+                {
+                    //Added 10/14/2019 td 
                     par_control.Height = (int)(par_control.Width / _proportionWH);
                 }
                 else

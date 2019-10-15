@@ -552,7 +552,7 @@ Partial Class FormDesignProtoTwo
         Me.CtlGraphicPortrait_Lady.Location = New System.Drawing.Point(547, 96)
         Me.CtlGraphicPortrait_Lady.Margin = New System.Windows.Forms.Padding(4)
         Me.CtlGraphicPortrait_Lady.Name = "CtlGraphicPortrait_Lady"
-        Me.CtlGraphicPortrait_Lady.Size = New System.Drawing.Size(150, 182)
+        Me.CtlGraphicPortrait_Lady.Size = New System.Drawing.Size(142, 182)
         Me.CtlGraphicPortrait_Lady.TabIndex = 41
         '
         'OpenFileDialog1
@@ -625,7 +625,7 @@ Partial Class FormDesignProtoTwo
         'CtlGraphicSignature1
         '
         Me.CtlGraphicSignature1.Location = New System.Drawing.Point(247, 363)
-        Me.CtlGraphicSignature1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.CtlGraphicSignature1.Margin = New System.Windows.Forms.Padding(4)
         Me.CtlGraphicSignature1.Name = "CtlGraphicSignature1"
         Me.CtlGraphicSignature1.Size = New System.Drawing.Size(314, 105)
         Me.CtlGraphicSignature1.TabIndex = 66
