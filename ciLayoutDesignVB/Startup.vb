@@ -6,6 +6,7 @@ Option Infer On
 ''
 Imports ciBadgeInterfaces ''Added 10/11/2019 thomas d. 
 Imports ciBadgeElements ''Added 10/13/2019 thomas d. 
+Imports ciBadgeCustomer ''Added 10/14/2019 thomas d. 
 
 Public Class Startup
     ''
@@ -70,6 +71,17 @@ Public Class Startup
         Loop
 
     End Sub ''End of "Public Sub OpenLayoutDesigner_Loop()"
+
+    Private Shared Function LoadCachedData_Customer() As ciBadgeCustomer.ClassCustomerCache
+        ''
+        ''Added 10/14/2019 thomas d. 
+        ''
+        ''  Presuming that the Customer has two Personalities, 
+        ''  Student & Staff, let's load them both.  
+        ''
+
+
+    End Function ''End of "Private Shared Function LoadCachedData_Customer"
 
     Private Shared Function LoadCachedData(par_designForm As FormDesignProtoTwo,
                                            ByRef pboolNewFileXML As Boolean) As ClassElementsCache

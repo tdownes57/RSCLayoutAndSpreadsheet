@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="ClassCustomer.vb" />
     <Compile Include="BadgeLayoutCache.vb" />
+    <Compile Include="ClassCustomerCache.vb" />
     <Compile Include="PersonalityCache.vb" />
     <Compile Include="ClassPersonalityConfig.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />

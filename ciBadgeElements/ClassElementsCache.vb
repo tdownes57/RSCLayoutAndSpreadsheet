@@ -523,7 +523,7 @@ Public Class ClassElementsCache
         ''
         For Each each_field_Stan As ClassFieldStandard In mod_listFields_Standard
 
-            copy_ofField_Stan = each_field_Stan.Copy()
+            copy_ofField_Stan = each_field_Stan.Copy_FieldStandard()
             objCopyOfCache.ListOfFields_Standard.Add(copy_ofField_Stan)
             ListFields_NotUsed.Add(copy_ofField_Stan)
 
@@ -542,7 +542,7 @@ Public Class ClassElementsCache
         ''
         For Each each_field_Cust As ClassFieldCustomized In mod_listFields_Custom
 
-            copy_ofField_Cust = each_field_Cust.Copy()
+            copy_ofField_Cust = each_field_Cust.Copy_FieldCustom()
             objCopyOfCache.ListOfFields_Custom.Add(copy_ofField_Cust)
             ListFields_NotUsed.Add(copy_ofField_Cust)
 
@@ -613,7 +613,7 @@ Public Class ClassElementsCache
         Dim dictionaryFields As New Dictionary(Of ciBadgeInterfaces.EnumCIBFields, ClassFieldAny)
 
         ''Added 9/29/2019 thomas downes  
-        For Each each_field As ClassFieldAny In mod_listFields
+        For Each each_field As ClassFieldAny In ListOfFields_Any() ''10/14/2019 td''In mod_listFields
             Try
                 dictionaryFields.Add(each_field.FieldEnumValue, each_field)
             Catch ex_AddFailed As Exception
@@ -648,7 +648,8 @@ Public Class ClassElementsCache
 
     Public Function MissingTheFields() As Boolean
         ''Added 10/10/2019 td 
-        Return (0 = mod_listFields.Count)
+        ''10/14/2019 td''Return (0 = mod_listFields.Count)
+        Return (0 = mod_listFields_Standard.Count)
 
     End Function ''ENd of "Public Function MissingTheFields() As Boolean"
 
