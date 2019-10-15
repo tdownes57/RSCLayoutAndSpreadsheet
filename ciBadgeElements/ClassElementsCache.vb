@@ -111,13 +111,13 @@ Public Class ClassElementsCache
     <Xml.Serialization.XmlIgnore>
     Public Property Pic_InitialDefault As Image ''Added 9/23/2019 td 
 
-    Public Function ListFields() As List(Of ClassFieldAny)
-        ''
-        ''Added 9/19/2019 thomas downes
-        ''
-        Return mod_listFields
+    ''10/14/2019 td''Public Function ListFields_Denigrated() As List(Of ClassFieldAny)
+    ''    ''
+    ''    ''Added 9/19/2019 thomas downes
+    ''    ''
+    ''    Return mod_listFields
 
-    End Function ''End of "Public Function Fields() As List(Of ClassFieldAny)"
+    ''End Function ''End of "Public Function Fields() As List(Of ClassFieldAny)"
 
     Public Function ListFieldElements() As List(Of ClassElementField)
         ''
@@ -193,7 +193,8 @@ Public Class ClassElementsCache
         ''
         For Each each_field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students
 
-            mod_listFields.Add(each_field_standard)
+            ''10/14/2019 td''mod_listFields.Add(each_field_standard)
+            mod_listFields_Standard.Add(each_field_standard)
 
         Next each_field_standard
         ''----------------------------------------------------------------------------------------------------
@@ -203,7 +204,8 @@ Public Class ClassElementsCache
         ''
         For Each each_field_customized As ClassFieldCustomized In ClassFieldCustomized.ListOfFields_Students
 
-            mod_listFields.Add(each_field_customized)
+            ''10/14/2019 td''mod_listFields.Add(each_field_customized)
+            mod_listFields_Custom.Add(each_field_customized)
 
         Next each_field_customized
         ''----------------------------------------------------------------------------------------------------
@@ -271,7 +273,8 @@ Public Class ClassElementsCache
         Const c_intHeight_Pixels As Integer = 30 ''Added 9/18/2019 td
 
         ''Added 9/18/2019 td
-        For Each each_field As ClassFieldAny In mod_listFields
+        ''10/14/2019 td''For Each each_field As ClassFieldAny In mod_listFields
+        For Each each_field As ClassFieldAny In Me.ListOfFields_Any()
 
             ''Fields cannot link to elements.---9/18/2019 td''mod_listElementFields.Add(each_field.ElementFieldClass)
 
@@ -488,26 +491,71 @@ Public Class ClassElementsCache
         Dim objCopyOfCache As New ClassElementsCache
         Dim ListFields_NotUsed As New List(Of ClassFieldAny)
         Dim dictionaryFields As New Dictionary(Of ciBadgeInterfaces.EnumCIBFields, ClassFieldAny)
-        Dim copy_ofField As ClassFieldAny
+        ''10/14/2019 td''Dim copy_ofField As ClassFieldAny
+        Dim copy_ofField_Stan As ClassFieldStandard
+        Dim copy_ofField_Cust As ClassFieldCustomized
         Dim copy_ofElementField As ClassElementField ''Added 10/1/2019 td
 
         ''Added 10/13/2019 thomas d.
         objCopyOfCache.PathToXml_Saved = Me.PathToXml_Saved
 
         ''Added 9/29/2019 thomas downes  
-        For Each each_field As ClassFieldAny In mod_listFields
-            ''9/29/2019 td''objCopyOfCache.ListFields().Add(each_field.Copy())
-            copy_ofField = each_field.Copy()
-            objCopyOfCache.ListFields().Add(copy_ofField)
-            ListFields_NotUsed.Add(copy_ofField)
+        ''#1 10/14/2019 td''For Each each_field As ClassFieldAny In mod_listFields
+        '' #2 10/14/2019 td''For Each each_field As ClassFieldAny In Me.ListOfFields_Any()
+        ''
+        ''    ''9/29/2019 td''objCopyOfCache.ListFields().Add(each_field.Copy())
+        ''    copy_ofField = each_field.Copy()
+        ''    objCopyOfCache.ListFields().Add(copy_ofField)
+        ''    ListFields_NotUsed.Add(copy_ofField)
+        ''
+        ''    Try
+        ''        dictionaryFields.Add(copy_ofField.FieldEnumValue, copy_ofField)
+        ''    Catch ex_AddFailed As Exception
+        ''        ''Added 10/10/2019 td
+        ''        ''  The ID field is being added twice, for an unknown reason.  
+        ''        System.Diagnostics.Debugger.Break()
+        ''    End Try
+        ''
+        ''Next each_field
+
+        ''Added 10/14/2019 td 
+        ''  Copy the Standard fields. 
+        ''
+        For Each each_field_Stan As ClassFieldStandard In mod_listFields_Standard
+
+            copy_ofField_Stan = each_field_Stan.Copy()
+            objCopyOfCache.ListOfFields_Standard.Add(copy_ofField_Stan)
+            ListFields_NotUsed.Add(copy_ofField_Stan)
+
             Try
-                dictionaryFields.Add(copy_ofField.FieldEnumValue, copy_ofField)
+                dictionaryFields.Add(copy_ofField_Stan.FieldEnumValue, copy_ofField_Stan)
             Catch ex_AddFailed As Exception
                 ''Added 10/10/2019 td
                 ''  The ID field is being added twice, for an unknown reason.  
                 System.Diagnostics.Debugger.Break()
             End Try
-        Next each_field
+
+        Next each_field_Stan
+
+        ''Added 10/14/2019 td 
+        ''  Copy the Custom fields. 
+        ''
+        For Each each_field_Cust As ClassFieldCustomized In mod_listFields_Custom
+
+            copy_ofField_Cust = each_field_Cust.Copy()
+            objCopyOfCache.ListOfFields_Custom.Add(copy_ofField_Cust)
+            ListFields_NotUsed.Add(copy_ofField_Cust)
+
+            Try
+                dictionaryFields.Add(copy_ofField_Cust.FieldEnumValue, copy_ofField_Cust)
+            Catch ex_AddFailed As Exception
+                ''Added 10/10/2019 td
+                ''  The ID field is being added twice, for an unknown reason.  
+                System.Diagnostics.Debugger.Break()
+            End Try
+
+        Next each_field_Cust
+
 
         ''Added 9/17/2019 thomas downes  
         For Each each_elementField As ClassElementField In mod_listElementFields

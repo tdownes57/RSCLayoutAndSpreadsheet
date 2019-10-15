@@ -796,7 +796,58 @@ Public Class ClassFieldStandard
 
     ''End Function ''End of "Public Function GetValue_Recipient_TimesPrinted(par_enum As EnumCIBFields) As Integer"
 
+    Public Function Copy_FieldStandard() As ClassFieldStandard
+        ''
+        ''Added 10/14/2019 
+        ''
+        Dim objCopy_Stan As New ClassFieldStandard
 
+        ''9/30/2019 td''objCopy.LoadbyCopyingMembers(Me, Me)
+        ''10/14/2019 td''objCopy_Stan.LoadbyCopyingMembers(CType(Me, ICIBFieldStandardOrCustom))
 
+        objCopy_Stan.LoadbyCopyingMembers_Standard(Me)
 
-End Class
+        Return objCopy_Stan
+
+    End Function ''End of "Public Function Copy_FieldStandard() As ClassElementField"
+
+    Public Sub LoadbyCopyingMembers_Standard(par_objectClass As ClassFieldStandard)
+        ''
+        ''Added 10/14 & 9/30/2019 thomas downes
+        ''
+        ''--------------------------------------------------------------------------
+        ''Step 1 of 1 -- Field-related properties.
+        ''--------------------------------------------------------------------------
+        ''
+        Me.CIBadgeField = par_objectClass.CIBadgeField
+        Me.DataEntryText = par_objectClass.DataEntryText
+        Me.ExampleValue = par_objectClass.ExampleValue
+
+        ''Added 9/30/2019 thomas downes
+        Me.FieldEnumValue = par_objectClass.FieldEnumValue
+        Me.FieldIndex = par_objectClass.FieldIndex
+        Me.FieldLabelCaption = par_objectClass.FieldLabelCaption
+        Me.FieldType_TD = par_objectClass.FieldType_TD
+        Me.HasPresetValues = par_objectClass.HasPresetValues
+        Me.IsAdditionalField = par_objectClass.IsAdditionalField
+        Me.IsBarCode = par_objectClass.IsBarCode
+        Me.IsCustomizable = par_objectClass.IsCustomizable
+
+        ''Added 10/01/2019 thomas downes
+        Me.IsDateField = par_objectClass.IsDateField
+        Me.IsDisplayedForEdits = par_objectClass.IsDisplayedForEdits
+        Me.IsDisplayedOnBadge = par_objectClass.IsDisplayedOnBadge
+        Me.IsFieldForDates = par_objectClass.IsFieldForDates
+        Me.IsLinkedToSections = par_objectClass.IsLinkedToSections
+        Me.IsLocked = par_objectClass.IsLocked
+        Me.IsStandard = par_objectClass.IsStandard
+        Me.OtherDbField_Optional = par_objectClass.OtherDbField_Optional
+        Me.SublayoutLookup = par_objectClass.SublayoutLookup
+        Me.Text_orDate = par_objectClass.Text_orDate
+
+        ''Added 9/30/2019 thomas downes
+        ''10/01/2019 td''Throw New NotImplementedException("Not all the members are programmed yet (i.e. the commands for copying their values haven't been written yet).")
+
+    End Sub ''End of "Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base, .....)"
+
+End Class ''End of "Public Class ClassFieldStandard"
