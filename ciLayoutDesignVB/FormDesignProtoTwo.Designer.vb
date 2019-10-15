@@ -92,6 +92,7 @@ Partial Class FormDesignProtoTwo
         Me.CtlGraphicText1 = New ciBadgeDesigner.CtlGraphicText()
         Me.CtlGraphicSignature1 = New ciBadgeDesigner.CtlGraphicSignature()
         Me.CtlGraphicQRCode1 = New ciBadgeDesigner.CtlGraphicQRCode()
+        Me.LinkLabelOpenPreviewFile = New System.Windows.Forms.LinkLabel()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -615,12 +616,13 @@ Partial Class FormDesignProtoTwo
         '
         'CtlGraphicText1
         '
-        Me.CtlGraphicText1.Location = New System.Drawing.Point(150, 323)
+        Me.CtlGraphicText1.Location = New System.Drawing.Point(896, 481)
         Me.CtlGraphicText1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.CtlGraphicText1.Name = "CtlGraphicText1"
         Me.CtlGraphicText1.Size = New System.Drawing.Size(349, 32)
         Me.CtlGraphicText1.TabIndex = 67
         Me.CtlGraphicText1.TextToDisplay = "This is text which will be the same for everyone."
+        Me.CtlGraphicText1.Visible = False
         '
         'CtlGraphicSignature1
         '
@@ -638,11 +640,23 @@ Partial Class FormDesignProtoTwo
         Me.CtlGraphicQRCode1.Size = New System.Drawing.Size(95, 98)
         Me.CtlGraphicQRCode1.TabIndex = 65
         '
+        'LinkLabelOpenPreviewFile
+        '
+        Me.LinkLabelOpenPreviewFile.AutoSize = True
+        Me.LinkLabelOpenPreviewFile.Location = New System.Drawing.Point(1003, 439)
+        Me.LinkLabelOpenPreviewFile.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LinkLabelOpenPreviewFile.Name = "LinkLabelOpenPreviewFile"
+        Me.LinkLabelOpenPreviewFile.Size = New System.Drawing.Size(197, 22)
+        Me.LinkLabelOpenPreviewFile.TabIndex = 68
+        Me.LinkLabelOpenPreviewFile.TabStop = True
+        Me.LinkLabelOpenPreviewFile.Text = "Open Preview from File"
+        '
         'FormDesignProtoTwo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1245, 591)
+        Me.Controls.Add(Me.LinkLabelOpenPreviewFile)
         Me.Controls.Add(Me.CtlGraphicText1)
         Me.Controls.Add(Me.CtlGraphicSignature1)
         Me.Controls.Add(Me.CtlGraphicQRCode1)
@@ -755,4 +769,5 @@ Partial Class FormDesignProtoTwo
     Friend WithEvents BadgeRecipientsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ShowBadgeRecipientsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents CloseListOfRecipentsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents LinkLabelOpenPreviewFile As LinkLabel
 End Class

@@ -185,6 +185,7 @@
     </Compile>
     <Compile Include="Controls\modLayoutDesignMenu.vb" />
     <Compile Include="DiskFiles\DiskFiles.vb" />
+    <Compile Include="DiskFiles\DiskFolders.vb" />
     <Compile Include="FormDesignProtoThree.Designer.vb">
       <DependentUpon>FormDesignProtoThree.vb</DependentUpon>
     </Compile>

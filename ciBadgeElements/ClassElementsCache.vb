@@ -575,7 +575,8 @@ Public Class ClassElementsCache
 
     Public Function MissingTheElementTexts() As Boolean
         ''Added 10/11/2019 td 
-        Return (0 = mod_listElementStatics.Count)
+        ''10/14 td''Return (0 = mod_listElementStatics.Count)
+        Return True ''Added 10/14/2019 td 
 
     End Function ''ENd of "Public Function MissingTheElementTexts() As Boolean"
 

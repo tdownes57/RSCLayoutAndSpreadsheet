@@ -1265,4 +1265,30 @@ Public Class FormDesignProtoTwo
         ContextMenuStrip1.Show(par_control, New Point(0, 0))
 
     End Sub
+
+    Private Sub LinkLabelOpenPreviewFile_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelOpenPreviewFile.LinkClicked
+
+        ''Added 10/14 & 5/7/2019 td  
+        Dim img As System.Drawing.Image
+        Dim strOutputPathToFolder As String
+        Dim strOutputPathToFileBMP As String
+
+        img = picturePreview.Image
+
+        strOutputPathToFolder = DiskFolders.PathToFolder_Preview()
+
+        strOutputPathToFileBMP = (strOutputPathToFolder & "\Preview_" &
+            DateTime.Now.ToString("MMdd_hhmmss") & ".bmp")
+
+        ''5/7/2019 td''img.Save("Test.jpg", Imaging.ImageFormat.Png)
+        ''10/14/2019 td''img.Save("Test.bmp", Imaging.ImageFormat.Bmp)
+        img.Save(strOutputPathToFileBMP, Imaging.ImageFormat.Bmp)
+
+        '' 5/7/2019 td''System.Diagnostics.Process.Start("Test.jpg")
+        ''10/14/2019 td''System.Diagnostics.Process.Start("Test.bmp")
+
+        System.Diagnostics.Process.Start(strOutputPathToFileBMP)
+
+    End Sub ''End of " Private Sub LinkLabelOpenPreviewFile_LinkClicked"
+
 End Class
