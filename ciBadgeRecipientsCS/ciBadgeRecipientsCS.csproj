@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,10 +42,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="RecipientController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\ciBadgeForWeb\ciPictures_VB\ciPictures_VB.vbproj">
+      <Project>{a5fe9f7b-4075-43c5-892b-01e2cfec342c}</Project>
+      <Name>ciPictures_VB</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ciBadgeRecipients\ciBadgeRecipients.vbproj">
       <Project>{2f42efad-0baa-4057-a1b8-36412cf0e2c0}</Project>
       <Name>ciBadgeRecipients</Name>

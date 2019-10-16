@@ -22,9 +22,12 @@ Public Class ClassRecipient
     ''
     Public Shared mod_recipientList As IList(Of ClassRecipient) = New List(Of ClassRecipient) ''{New ClassRecipient() }
 
+    Property Picture As Image Implements IRecipient.Picture ''Added 10/16/2019 thomas d.  
+
     Public Property ID_Guid As System.Guid
 
     Public Property Customer_Guid As System.Guid
+    Public Property CustomerCode As System.String ''Added 10/16/2019 td  
 
     Public Property Personality_Guid As System.Guid
 

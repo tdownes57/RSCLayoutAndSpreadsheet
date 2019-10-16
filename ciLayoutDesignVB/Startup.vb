@@ -8,6 +8,7 @@ Imports ciBadgeInterfaces ''Added 10/11/2019 thomas d.
 Imports ciBadgeElements ''Added 10/13/2019 thomas d. 
 Imports ciBadgeCustomer ''Added 10/14/2019 thomas d. 
 Imports ciBadgeRecipients ''Added 10/16/2019 thomas d.  
+Imports ciBadgeRecipentsCS  ''Added 10/16/2019 td  
 
 Public Class Startup
     ''
@@ -91,7 +92,9 @@ Public Class Startup
         ''  Presuming that the Customer has two Personalities, 
         ''  Student & Staff, let's load the Students.  
         ''
-        Return ClassRecipient.mod_recipientList
+        ''10/16/2019 td''Return ClassRecipient.mod_recipientList
+
+        Return ciBadgeRecipientsCS.RecipientController.mod_recipientList
 
     End Function ''End of "Private Shared Function LoadCachedData_Customer"
 
