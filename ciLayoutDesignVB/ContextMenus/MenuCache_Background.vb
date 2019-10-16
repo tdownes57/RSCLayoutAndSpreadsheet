@@ -173,10 +173,6 @@ Public Class MenuCache_Background
                     my_click_handler = [Delegate].CreateDelegate(event_linkClicked.EventHandlerType,
                                                                  Operations_Back, each_methodInfo)
 
-                    ''---link_clicked.AddEventHandler(Me, my_handler) '', BindingFlags.Public)
-                    ''---link_clicked.AddEventHandler(mod_classMenuMethods, my_handler)
-                    ''---link_clicked.AddEventHandler(mod_classMenuMethods.MyLinkLabel, my_handler)
-
                     event_linkClicked.AddEventHandler(each_newLinkLabel, my_click_handler)
 
                     ''Added 10/14/2019 td 
@@ -258,7 +254,7 @@ Public Class MenuCache_Background
             ''Added 9/23/2019 thomas downes
             ''
             MessageBox.Show($"Making LinkLabels, a count of {intExceptionCount_LinkLabels} errors occurred.  The last error is as follows:  " & vbCrLf & vbCrLf &
-                            ex_AddEventHandler_LinkLbl.Message, "Generate_BasicEdits",
+                            ex_AddEventHandler_LinkLbl.Message, "MenuCache_Background - Generate_BasicEdits",
                             MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
 
         End If ''End of "If (intExceptionCount_LinkLabels > 1) Then"
@@ -267,7 +263,8 @@ Public Class MenuCache_Background
         If (intExceptionCount_Toolstrip > 0) Then
             ''Inform user of the error count. 
             MessageBox.Show($"Making ToolstripMenuItems, a count of {intExceptionCount_Toolstrip} errors occurred.  The last error is as follows:  " & vbCrLf & vbCrLf &
-                            ex_AddEventHandler_ToolItem.Message, "Generate_BasicEdits",
+                            ex_AddEventHandler_ToolItem.Message,
+                            "MenuCache_Background - Generate_BasicEdits",
                             MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
 
         End If ''End of "If (intExceptionCount_Toolstrip > 1) Then"
@@ -276,7 +273,8 @@ Public Class MenuCache_Background
         If ("" = strList_MenuItems) Then
             ''Added 10/14/2019 td 
             MessageBox.Show("The procedure to create links & context menu items failed completely. " &
-                            vbCrLf & vbCrLf & strList_MenuItems, "Generate_BasicEdits",
+                            vbCrLf & vbCrLf & strList_MenuItems,
+                            "MenuCache_Background - Generate_BasicEdits",
                              MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         Else
             ''MessageBox.Show("The following links & context menu items were created. " &

@@ -4,9 +4,11 @@ Option Infer Off
 ''
 ''Added 10/15/2019 td
 ''
+
 Imports ciBadgeInterfaces
 Imports ciBadgeDesigner
-''---10/15 td----Imports ciBadgeElements
+''---10/15 td----
+''----Imports ciBadgeElements
 
 Public Class Operations_EditBack
     ''
@@ -22,15 +24,15 @@ Public Class Operations_EditBack
     Public Property OpenFileDialog1 As OpenFileDialog ''Added 10/15/2019 td 
     Public Property GroupedElements As ClassGroupMove ''Added 10/15/2019 td
 
-    Public Sub Unselect_all_selected_Elements()
+    Public Sub Unselect_all_selected_Elements(sender As Object, e As EventArgs)
         ''
         ''Added 10/15/2019 td
         ''
-        Me.Designer.UnselectHighlightedElements
+        Me.Designer.UnselectHighlightedElements()
 
     End Sub ''End of "Public Sub Unselect_all_highlighted_Elements()"
 
-    Public Sub Change_Background_Image()
+    Public Sub Change_Background_Image(sender As Object, e As EventArgs)
         ''
         ''Added 10/15/2019 td
         ''

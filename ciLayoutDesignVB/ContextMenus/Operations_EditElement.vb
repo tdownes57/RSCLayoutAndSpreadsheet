@@ -7,7 +7,7 @@ Option Infer Off
 
 Imports ciBadgeInterfaces
 Imports ciBadgeDesigner
-Imports ciBadgeElements
+''----Imports ciBadgeElements
 
 Public Class Operations_EditElement
     ''
@@ -74,6 +74,7 @@ Public Class Operations_EditElement
     End Sub ''End of "Private Sub CreateMouseButton_Master(par_strText As String, par_handler As EventHandler)"
 
     Public Sub Choose_Background_Color(sender As Object, e As EventArgs)
+
         ''---10/10/2019 td--Private Sub OpenDialog_Color(sender As Object, e As EventArgs)
         ''
         ''Added 7/30/2019 thomas downes
