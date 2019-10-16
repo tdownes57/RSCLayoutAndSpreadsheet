@@ -49,6 +49,8 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ciSigPlus_NET45", "..\ciSig
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ciBadgeCustomer", "ciBadgeCustomer\ciBadgeCustomer.vbproj", "{02F14561-E867-47EA-9B91-990B0BBB597F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ciBadgeRecipientsCS", "ciBadgeRecipientsCS\ciBadgeRecipientsCS.csproj", "{717D4661-8A27-4C1E-A1DD-FDA12010DACA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -241,6 +243,14 @@ Global
 		{02F14561-E867-47EA-9B91-990B0BBB597F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{02F14561-E867-47EA-9B91-990B0BBB597F}.Release|x86.ActiveCfg = Release|Any CPU
 		{02F14561-E867-47EA-9B91-990B0BBB597F}.Release|x86.Build.0 = Release|Any CPU
+		{717D4661-8A27-4C1E-A1DD-FDA12010DACA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{717D4661-8A27-4C1E-A1DD-FDA12010DACA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{717D4661-8A27-4C1E-A1DD-FDA12010DACA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{717D4661-8A27-4C1E-A1DD-FDA12010DACA}.Debug|x86.Build.0 = Debug|Any CPU
+		{717D4661-8A27-4C1E-A1DD-FDA12010DACA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{717D4661-8A27-4C1E-A1DD-FDA12010DACA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{717D4661-8A27-4C1E-A1DD-FDA12010DACA}.Release|x86.ActiveCfg = Release|Any CPU
+		{717D4661-8A27-4C1E-A1DD-FDA12010DACA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

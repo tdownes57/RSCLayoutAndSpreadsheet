@@ -7,10 +7,11 @@ Option Infer On
 Imports ciBadgeInterfaces ''Added 10/11/2019 thomas d. 
 Imports ciBadgeElements ''Added 10/13/2019 thomas d. 
 Imports ciBadgeCustomer ''Added 10/14/2019 thomas d. 
+Imports ciBadgeRecipients ''Added 10/16/2019 thomas d.  
 
 Public Class Startup
     ''
-    ''Added 10/11/2019 td  
+    ''Added 10/11/2019 td    
     ''
     Public Shared Sub Main()
 
@@ -80,6 +81,17 @@ Public Class Startup
         ''  Student & Staff, let's load them both.  
         ''
 
+
+    End Function ''End of "Private Shared Function LoadCachedData_Customer"
+
+    Private Shared Function LoadData_Recipients_Students() As IList(Of ClassRecipient)
+        ''
+        ''Added 10/14/2019 thomas d. 
+        ''
+        ''  Presuming that the Customer has two Personalities, 
+        ''  Student & Staff, let's load the Students.  
+        ''
+        Return ClassRecipient.mod_recipientList
 
     End Function ''End of "Private Shared Function LoadCachedData_Customer"
 
