@@ -36,9 +36,9 @@ Public Class Operations_EditBack
         ''
         ''Added 10/15/2019 td
         ''
+        If OpenFileDialog1 Is Nothing Then OpenFileDialog1 = New OpenFileDialog
+
         OpenFileDialog1.ShowDialog()
-
-
 
     End Sub ''End of "Public Sub Change_Background_Image()"
 

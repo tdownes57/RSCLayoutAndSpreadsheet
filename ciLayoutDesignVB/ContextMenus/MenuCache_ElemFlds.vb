@@ -124,6 +124,22 @@ Public Class MenuCache_ElemFlds
             boolProcedureNotUsed = strMethodName.Contains("_NotUsed")
             If (boolProcedureNotUsed) Then Continue For ''---Exit For
 
+            Dim bPublicSubHasGoodParams As Boolean ''Added 10/15/2019 td
+            bPublicSubHasGoodParams = each_methodInfo.ToString.Contains("(System.Object, System.EventArgs)")
+            If (bPublicSubHasGoodParams) Then
+                ''
+                ''Great!!  The parameters of the Public Sub are (sender As Object, e As EventArgs)
+                ''   which is necessary.  ---10/15/2019 td
+                ''
+            Else
+                ''Added 10/15/2019 td
+                MessageBox.Show($"The Public Sub {each_methodInfo.Name} " &
+                                "must have params (sender As Object, e As EventArgs).",
+                                "MenuCache_ElemFlds - Generate_BasicEdits", MessageBoxButtons.OK,
+                                MessageBoxIcon.Exclamation)
+
+            End If ''End of "If (bPublicSubHasGoodParams) Then .... Else .."
+
             strMethodWithSpaces = strMethodName.Replace("_", " ")
 
             Dim each_newLinkLabel As New LinkLabel

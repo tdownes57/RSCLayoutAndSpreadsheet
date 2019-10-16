@@ -104,6 +104,23 @@ Public Class MenuCache_Background
             boolProcedureNotUsed = strMethodName.Contains("_NotUsed")
             If (boolProcedureNotUsed) Then Continue For ''---Exit For
 
+            ''Add 10/15/2019 thomas d.
+            Dim bPublicSubHasGoodParams As Boolean ''Added 10/15/2019 td
+            bPublicSubHasGoodParams = each_methodInfo.ToString.Contains("(System.Object, System.EventArgs)")
+            If (bPublicSubHasGoodParams) Then
+                ''
+                ''Great!!  The parameters of the Public Sub are (sender As Object, e As EventArgs)
+                ''   which is necessary.  ---10/15/2019 td
+                ''
+            Else
+                ''Added 10/15/2019 td
+                MessageBox.Show($"The Public Sub {each_methodInfo.Name} " &
+                                "must have params (sender As Object, e As EventArgs).",
+                                "MenuCache_Background - Generate_BasicEdits",
+                                MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+
+            End If ''End of "If (bPublicSubHasGoodParams) Then .... Else .."
+
             strMethodWithSpaces = strMethodName.Replace("_", " ")
 
             Dim each_newLinkLabel As New LinkLabel
@@ -241,8 +258,8 @@ Public Class MenuCache_Background
 
             ''Added 10/13/2019 thomas downes
             intCountLinkLabels += 1
-            MenuCache_ElemFlds.Links_EditElementMenu.Add(each_newLinkLabel)
-            MenuCache_ElemFlds.Tools_EditElementMenu.Add(each_toolMenuItem)
+            MenuCache_Background.Links_BackgroundMenu.Add(each_newLinkLabel)
+            MenuCache_Background.Tools_BackgroundMenu.Add(each_toolMenuItem)
 
         Next each_methodInfo
 
