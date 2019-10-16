@@ -104,6 +104,15 @@ ExitHandler:
             Return Nothing
         End If ''End if "If (0 = mod_images.Count) Then"
 
+        ''Added 9/24/2019 td
+        Dim boolIndexIsPastTheEnd As Boolean
+        boolIndexIsPastTheEnd = (mod_currentIndex > -1 + mod_images.Count)
+        If (boolIndexIsPastTheEnd) Then
+            ''We have to cycle back to the beginning of the set of Jpeg portraits.
+            ''     ---9/24/2019 td
+            mod_currentIndex -= mod_images.Count
+        End If ''End of "If (boolIndexIsPastTheEnd) Then"
+
         ''7/6/2019 td''Return mod_images.Where(Function(a_image) True).Last
         Return mod_images(mod_currentIndex)
 

@@ -9,6 +9,7 @@ Imports ciBadgeInterfaces
 Imports ciBadgeDesigner
 ''---10/15 td----
 ''----Imports ciBadgeElements
+Imports ciLayoutPrintLib ''Added 10/15/2019 thomas d. 
 
 Public Class Operations_EditBack
     ''
@@ -32,16 +33,37 @@ Public Class Operations_EditBack
 
     End Sub ''End of "Public Sub Unselect_all_highlighted_Elements()"
 
-    Public Sub Change_Background_Image(sender As Object, e As EventArgs)
+    Public Sub Try_next_background_image(sender As Object, e As EventArgs)
         ''
         ''Added 10/15/2019 td
         ''
-        If OpenFileDialog1 Is Nothing Then OpenFileDialog1 = New OpenFileDialog
+        Dim boolNoneFound As Boolean ''Added 10/15/2019 td 
 
-        OpenFileDialog1.ShowDialog()
+        BackImageExamples.CurrentIndex += 1
+        BackImageExamples.PathToFolderWithBacks = DiskFolders.PathToFolder_BackExamples
+        Me.Designer.BackgroundBox.Image = BackImageExamples.GetCurrentImage(boolNoneFound)
+
+
 
     End Sub ''End of "Public Sub Change_Background_Image()"
 
+    Public Sub Select_background_image(sender As Object, e As EventArgs)
+        ''
+        ''Added 10/15/2019 td
+        ''
+        Dim open_image As Bitmap ''Added 10/15/2019 thomas d. 
+        Dim strFullPathToBitmap As String
+
+        If OpenFileDialog1 Is Nothing Then OpenFileDialog1 = New OpenFileDialog
+        OpenFileDialog1.ShowDialog()
+        strFullPathToBitmap = OpenFileDialog1.FileName
+
+        If ("" <> strFullPathToBitmap) Then
+            open_image = New Bitmap(strFullPathToBitmap)
+            Me.Designer.BackgroundBox.Image = open_image
+        End If ''End of "If ("" = strFullPathToBitmap) Then"
+
+    End Sub ''End of "Public Sub Change_Background_Image()"
 
 
 
