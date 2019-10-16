@@ -20,6 +20,7 @@ Public Class ClassDesigner
     ''Added 10/1/2019 thomas downes 
     ''
     Public Event ElementRightClicked(par_control As CtlGraphicFldLabel) ''Added 10/1/2019 td
+    Public Event BackgroundRightClicked(par_mouse_x As Integer, par_mouse_y As Integer) ''Added 10/15/2019 td
 
     ''10/1/2019 td''Public Property LayoutFunctions As ILayoutFunctions
     ''10/4/2019 td''Public Property DesignerForm As Form
@@ -312,6 +313,14 @@ Public Class ClassDesigner
                                      mod_selectedCtls) ''Added 9/8/2019 thomas d. 
 
     End Sub ''End of "Private Sub FormDesignProtoTwo_Load"
+
+    Public Sub UnselectHighlightedElements()
+        ''
+        ''Added 10/15/2019 thomas d.  
+        ''
+        MsgBox("Okay, we will unselect the highlighted elements.", vbInformation)
+
+    End Sub ''End of "Public Sub UnselectHighlightedElements()"
 
     Private Sub ResizeLayoutBackgroundImage_ToFitPictureBox()
         ''
@@ -1688,6 +1697,14 @@ Public Class ClassDesigner
 
         ''Added 10/10/2019 td
         AutoPreview_IfChecked()
+
+    End Sub
+
+    Private Sub BackgroundBox_Click(sender As Object, e As MouseEventArgs) Handles BackgroundBox.MouseClick
+        ''
+        ''Added 10/15/2019 td  
+        ''
+        RaiseEvent BackgroundRightClicked(e.X, e.Y)
 
     End Sub
 

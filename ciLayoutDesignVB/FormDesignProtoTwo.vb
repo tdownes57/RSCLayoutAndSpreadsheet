@@ -296,6 +296,11 @@ Public Class FormDesignProtoTwo
         MenuCache_ElemFlds.SelectingElements = mod_designer
         MenuCache_ElemFlds.GenerateMenuItems_IfNeeded()
 
+        MenuCache_Background.ColorDialog1 = (New ColorDialog)
+        MenuCache_Background.Designer = mod_designer
+        MenuCache_Background.LayoutFunctions = mod_designer
+        MenuCache_Background.GenerateMenuItems_IfNeeded()
+
     End Sub ''End of "Private Sub Form_Load"  
 
     Public Sub RefreshElementsCache_Saved(par_cache As ClassElementsCache) Implements IDesignerForm.RefreshElementsCache_Saved
@@ -1293,4 +1298,12 @@ Public Class FormDesignProtoTwo
 
     End Sub ''End of " Private Sub LinkLabelOpenPreviewFile_LinkClicked"
 
+    Private Sub mod_designer_BackgroundRightClicked(par_mouse_x As Integer, par_mouse_y As Integer) Handles mod_designer.BackgroundRightClicked
+
+        ''Added 10/15/2019 td 
+        ContextMenuStrip1.Items.Clear()
+        ContextMenuStrip1.Items.AddRange(MenuCache_Background.Tools_BackgroundMenu)
+        ContextMenuStrip1.Show(pictureBack, New Point(par_mouse_x, par_mouse_y))
+
+    End Sub
 End Class
