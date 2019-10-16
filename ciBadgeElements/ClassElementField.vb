@@ -75,6 +75,10 @@ Public Class ClassElementField
     ''This is stored in FieldInfo.--9/18/2019 td''Public Property FieldLabelCaption As String Implements IElement_TextOnly.FieldLabelCaption
 
     ''7/25/2019 td''Prpoerty ExampleText As String ''Added 7/25/2019
+
+    ''
+    ''See also, "Public Function LabelText(par_isForLayoutPreview As Boolean) As String".  ---10/16/2019 td 
+    ''
     Public Property Text As String Implements IElement_TextOnly.Text ''E.g. "George Washington" for FullName. 
 
     ''--16----Replaced by a Shared Property of the same name.---10/16/2019 td
@@ -608,5 +612,57 @@ Public Class ClassElementField
         End If ''End of "If (boolImageRotated_0_180 and boolRotated) Then .... ElseIf ..."
 
     End Sub ''ENd of "Public Shared Sub CheckWidthVsLength_OfText()"
+
+    Public Function LabelText(par_isForLayoutPreview As Boolean) As String
+        ''
+        ''Added 10/16/2016 & 7/25/2019 thomas d 
+        ''
+        ''This was copied from CtlGraphicFldLabel.vb on 10/16/2019 td
+        ''
+        Dim bOkayToUseExampleValues As Boolean ''Added 10/16/2019 td  
+        bOkayToUseExampleValues = par_isForLayoutPreview
+
+        Select Case True
+
+            Case (ClassElementField.Recipient IsNot Nothing)
+                ''
+                ''Added 10/16/2019 thomas d. 
+                ''
+                Return ClassElementField.Recipient.GetTextValue(Me.FieldEnum)
+
+            ''Case (Me.ExampleTextToDisplay.Trim() <> "")
+            ''    ''
+            ''    ''Added 9/18/2019 td 
+            ''    ''
+            ''    Return Me.ExampleTextToDisplay
+
+            Case (Me.ExampleValue_ForElement <> "")
+                ''
+                ''Added 9/18/2019 td 
+                ''
+                Return Me.ExampleValue_ForElement
+
+            Case (bOkayToUseExampleValues And (Me.FieldInfo.ExampleValue <> ""))
+                ''10/16 td''Case (UseExampleValues And (Me.FieldInfo.ExampleValue <> ""))
+
+                ''Me.ElementInfo.Info.Text = Me.FieldInfo.ExampleValue
+                Return Me.FieldInfo.ExampleValue
+
+            Case (Me.FieldInfo.FieldLabelCaption <> "")
+
+                ''Me.ElementInfo.Info.Text = Me.FieldInfo.ExampleValue
+                Return Me.FieldInfo.FieldLabelCaption
+
+            Case Else
+
+                ''Default value.
+                ''7/29 td''Me.ElementInfo.Info.Text = $"Field #{Me.FieldInfo.FieldIndex}"
+                Return $"Field #{Me.FieldInfo.FieldIndex}"
+
+        End Select ''End of "Select Case True"
+
+        Return "Field Information"
+
+    End Function ''End of "Public Function LabelText(par_previewExample As Boolean) As String"
 
 End Class ''End of "Class ClassElementField"  

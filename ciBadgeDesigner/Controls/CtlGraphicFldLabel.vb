@@ -715,39 +715,42 @@ ExitHandler:
         ''
         ''Added 7/25/2019 thomas d 
         ''
-        Select Case True
+        Return Me.ElementClass_Obj.LabelText(True)
 
-            Case (Me.ExampleTextToDisplay.Trim() <> "")
-                ''
-                ''Added 9/18/2019 td 
-                ''
-                Return Me.ExampleTextToDisplay
+        ''---------------Obselete as of 10/16/2019 thomas d.-------------
+        ''Select Case True
 
-            Case (Me.ElementInfo_Field.ExampleValue_ForElement <> "")
-                ''
-                ''Added 9/18/2019 td 
-                ''
-                Return Me.ElementInfo_Field.ExampleValue_ForElement
+        ''    Case (Me.ExampleTextToDisplay.Trim() <> "")
+        ''        ''
+        ''        ''Added 9/18/2019 td 
+        ''        ''
+        ''        Return Me.ExampleTextToDisplay
 
-            Case (UseExampleValues And (Me.FieldInfo.ExampleValue <> ""))
+        ''    Case (Me.ElementInfo_Field.ExampleValue_ForElement <> "")
+        ''        ''
+        ''        ''Added 9/18/2019 td 
+        ''        ''
+        ''        Return Me.ElementInfo_Field.ExampleValue_ForElement
 
-                ''Me.ElementInfo.Info.Text = Me.FieldInfo.ExampleValue
-                Return Me.FieldInfo.ExampleValue
+        ''    Case (UseExampleValues And (Me.FieldInfo.ExampleValue <> ""))
 
-            Case (Me.FieldInfo.FieldLabelCaption <> "")
+        ''        ''Me.ElementInfo.Info.Text = Me.FieldInfo.ExampleValue
+        ''        Return Me.FieldInfo.ExampleValue
 
-                ''Me.ElementInfo.Info.Text = Me.FieldInfo.ExampleValue
-                Return Me.FieldInfo.FieldLabelCaption
+        ''    Case (Me.FieldInfo.FieldLabelCaption <> "")
 
-            Case Else
+        ''        ''Me.ElementInfo.Info.Text = Me.FieldInfo.ExampleValue
+        ''        Return Me.FieldInfo.FieldLabelCaption
 
-                ''Default value.
-                ''7/29 td''Me.ElementInfo.Info.Text = $"Field #{Me.FieldInfo.FieldIndex}"
-                Return $"Field #{Me.FieldInfo.FieldIndex}"
+        ''    Case Else
 
-        End Select ''End of "Select Case True"
+        ''        ''Default value.
+        ''        ''7/29 td''Me.ElementInfo.Info.Text = $"Field #{Me.FieldInfo.FieldIndex}"
+        ''        Return $"Field #{Me.FieldInfo.FieldIndex}"
 
-        Return "Field Information"
+        ''End Select ''End of "Select Case True"
+
+        ''Return "Field Information"
 
     End Function ''End of "Public Function LabelText() As String"
 

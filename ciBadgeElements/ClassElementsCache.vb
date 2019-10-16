@@ -9,6 +9,7 @@ Imports System.Windows.Forms ''Added 9/18/2019 td
 Imports ciBadgeInterfaces ''Added 9/16/2019 td 
 Imports ciBadgeFields ''Added 9/18/2019 td
 ''9/19/2019 td''Imports ciLayoutPrintLib ''Added 9/18/2019 td 
+Imports ciBadgeRecipients ''Added 10/16/2019 thomas d. 
 
 <Serializable>
 Public Class ClassElementsCache
@@ -470,17 +471,19 @@ Public Class ClassElementsCache
 
     End Sub ''End of "Public Sub LoadElement_Text(par_DisplayText As String, par_intLeft As Integer, ...., par_pictureBackground As PictureBox)"
 
-    Public Sub LoadRecipient(par_recipient As IRecipient)
+    Public Sub LoadRecipient(par_recipient As ClassRecipient)
+        ''10/16/2019 td''Public Sub LoadRecipient(par_recipient As IRecipient)
         ''
         ''Added 10/5/2019 thomas downwe
         ''
-        For Each each_elementField As ClassElementField In ListOfElementFields
-            ''
-            ''Attach the Recipient.  
-            ''
-            each_elementField.Recipient = par_recipient
+        ''10/16/2019 td''For Each each_elementField As ClassElementField In ListOfElementFields
+        ''     ''
+        ''     ''Attach the Recipient.  
+        ''     ''
+        ''     ''10/16/2019 td''each_elementField.Recipient = par_recipient
+        ClassElementField.Recipient = par_recipient
 
-        Next each_elementField
+        ''10/16/2019 td''Next each_elementField
 
     End Sub ''End of "Public Sub LoadRecipient(par_recipient As IRecipient)"
 
