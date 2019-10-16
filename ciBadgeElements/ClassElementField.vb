@@ -630,13 +630,14 @@ Public Class ClassElementField
                 ''
                 Return ClassElementField.Recipient.GetTextValue(Me.FieldEnum)
 
-            ''Case (Me.ExampleTextToDisplay.Trim() <> "")
-            ''    ''
-            ''    ''Added 9/18/2019 td 
-            ''    ''
-            ''    Return Me.ExampleTextToDisplay
+                ''Case (Me.ExampleTextToDisplay.Trim() <> "")
+                ''    ''
+                ''    ''Added 9/18/2019 td 
+                ''    ''
+                ''    Return Me.ExampleTextToDisplay
 
-            Case (Me.ExampleValue_ForElement <> "")
+            Case (bOkayToUseExampleValues And (Me.ExampleValue_ForElement <> ""))
+                ''10/16 td''Case (Me.ExampleValue_ForElement <> "")
                 ''
                 ''Added 9/18/2019 td 
                 ''
