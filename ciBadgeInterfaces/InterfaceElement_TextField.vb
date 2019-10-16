@@ -41,7 +41,10 @@ Public Interface IElement_TextField
 
     Property FieldEnum As EnumCIBFields ''Added 10/12/2019 thomas d.
 
-    Property Recipient As IRecipient ''Added 9/9/2019   
+    ''--16----Replaced by a Shared Property (of ciBadgeElements.ClassElementField)
+    ''--16----   and having the same name, "Recipient".---10/16/2019 td
+    ''--16--10/16/2019 td''Added 9/10/2019 td   
+    ''--16--10/16/2019 td''Property Recipient As IRecipient ''Added 9/9/2019   
 
     ''This is stored in FieldInfo.--9/18/2019 td''Property FieldInCardData As String
     ''This is stored in FieldInfo.--9/18/2019 td''Property FieldLabelCaption As String

@@ -9,6 +9,7 @@ Imports System.Windows.Forms ''Added 9/18/2019 td
 Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d. 8/14/2019 td  
 Imports ciBadgeFields ''Added 9/18/2019 td  
 Imports System.Xml.Serialization ''Added 9/24/2019 thomas d. 
+Imports ciBadgeRecipients ''Added 10/16/2019 thomas d. 
 
 Public Event ElementField_RightClicked(par_elementField As ClassElementField) ''Added 10/1/2019 td
 
@@ -22,6 +23,8 @@ Public Class ClassElementField
     ''7/29/2019 td''Public Property Info As IElementText
     ''
     ''-------------------------------------------------------------
+    <Xml.Serialization.XmlIgnore>
+    Public Shared Property Recipient As ClassRecipient ''Added 10/16/2019 td  
 
     Public Property Id_GUID As System.Guid ''Added 9/30/2019 td 
 
@@ -74,9 +77,10 @@ Public Class ClassElementField
     ''7/25/2019 td''Prpoerty ExampleText As String ''Added 7/25/2019
     Public Property Text As String Implements IElement_TextOnly.Text ''E.g. "George Washington" for FullName. 
 
-    ''Added 9/10/2019 td     <Xml.Serialization.XmlIgnore>
-    <Xml.Serialization.XmlIgnore>
-    Public Property Recipient As IRecipient Implements IElement_TextField.Recipient
+    ''--16----Replaced by a Shared Property of the same name.---10/16/2019 td
+    ''--16--10/16/2019 td''Added 9/10/2019 td     <Xml.Serialization.XmlIgnore>
+    ''--16--10/16/2019 td''<Xml.Serialization.XmlIgnore>
+    ''--16--10/16/2019 td''Public Property Recipient As IRecipient Implements IElement_TextField.Recipient
 
     ''Added 9/18/2019
     Public Property FieldObject As ClassFieldAny ''Added 9/18/2019 td
