@@ -98,7 +98,11 @@ Public Class Startup
         ''
         ''10/16/2019 td''Return ClassRecipient.mod_recipientList
 
+        ''Added 10/16/2019 td
         PictureExamples.PathToFolderOfImages = DiskFolders.PathToFolder_PicExamples
+
+        ''Added 10/16/2019 td
+        ''-----PictureExamples.CreateExamplePics_Numbered(10)
 
         Const c_boolCreate100ExamplePics As Boolean = True ''Added 10/16/2019 thomas d
         If (c_boolCreate100ExamplePics) Then
