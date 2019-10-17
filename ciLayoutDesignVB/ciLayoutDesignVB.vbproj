@@ -85,6 +85,7 @@
     <Compile Include="ContextMenus\MenuCache_ElemFlds.vb" />
     <Compile Include="ContextMenus\Operations_EditBack.vb" />
     <Compile Include="ContextMenus\Operations_EditElement.vb" />
+    <Compile Include="ContextMenus\Operations_EditGroup.vb" />
     <Compile Include="ContextMenus_Obselete\ClassMenuMethods.vb" />
     <Compile Include="ContextMenus_Obselete\ContextLayoutBackground.Designer.vb">
       <DependentUpon>ContextLayoutBackground.vb</DependentUpon>
