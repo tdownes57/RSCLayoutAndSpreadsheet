@@ -12,6 +12,13 @@ Imports ciBadgeElemImage ''Added 9/20/2019 td
 Imports System.Windows.Forms ''Added 10/1/2019 td
 Imports System.Drawing ''Added 10/1/2019 td  
 
+Public Enum EnumReminderMsg
+    Undetermined
+    NotCurrentlyInUse
+    TransparentBackground
+    OpaqueBackground
+End Enum ''ENd of "Public Enum EnumReminderMsg"
+
 Public Class CtlGraphicFldLabel
     ''
     ''Added 7/25/2019 thomas d 
@@ -108,7 +115,7 @@ Public Class CtlGraphicFldLabel
         ''   on the Badge.  ----9/20/2019 td 
         Dim bElementInvisibleOnBadge As Boolean
         bElementInvisibleOnBadge = (Not Me.ElementInfo_Base.Visible)
-        LinkInvisible.Visible = bElementInvisibleOnBadge
+        LinkMessageFYI.Visible = bElementInvisibleOnBadge
 
     End Sub ''ENd of "Public Sub New "
 
@@ -973,31 +980,38 @@ ExitHandler:
 
     End Sub
 
-    Private Sub LinkInvisible_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkInvisible.LinkClicked
+    Private Sub LinkMessageFYI_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkMessageFYI.LinkClicked
         ''
         ''Added 9/19/2019 td  
         ''
         Dim intResult As DialogResult
         Dim bUserDesiresTo_Display As Boolean
 
-        intResult = MessageBox.Show("Want this element to appear on the Badge?", "",
+        Select Case Me.Enum_ReminderMsg
+
+            Case EnumReminderMsg.NotCurrentlyUsed
+
+                intResult = MessageBox.Show("Want this element to appear on the Badge?", "",
                   MessageBoxButtons.OK, MessageBoxIcon.Question)
 
-        bUserDesiresTo_Display = (intResult = DialogResult.OK Or intResult = DialogResult.Yes)
+                bUserDesiresTo_Display = (intResult = DialogResult.OK Or intResult = DialogResult.Yes)
 
-        If (bUserDesiresTo_Display) Then
+                If (bUserDesiresTo_Display) Then
 
-            ''Added 9/20/2019 td 
-            ''   Add an alert to the user that the element is not rendered
-            ''   on the Badge.  ----9/20/2019 td
-            ''
-            Me.ElementInfo_Base.Visible = True
+                    ''Added 9/20/2019 td 
+                    ''   Add an alert to the user that the element is not rendered
+                    ''   on the Badge.  ----9/20/2019 td
+                    ''
+                    Me.ElementInfo_Base.Visible = True
 
-            Dim bElementInvisibleOnBadge As Boolean
-            bElementInvisibleOnBadge = False ''False, since invisible is the opposite of "Displayed". 
-            LinkInvisible.Visible = bElementInvisibleOnBadge ''Hide the link-label, it's not needed anymore. 
+                    Dim bElementInvisibleOnBadge As Boolean
+                    bElementInvisibleOnBadge = False ''False, since invisible is the opposite of "Displayed". 
+                    LinkMessageFYI.Visible = bElementInvisibleOnBadge ''Hide the link-label, it's not needed anymore. 
 
-        End If ''End of "If (bUserDesiresTo_Display) Then"
+                End If ''End of "If (bUserDesiresTo_Display) Then"
+
+
+        End Select  ''End of "Select Case Me.Enum_ReminderMsg"
 
     End Sub
 

@@ -253,16 +253,18 @@ Public Class Operations_EditElement
         ''
         ''Added 8/10/2019 thomas downes
         ''
-        With textTypeExample
+        ''10/17 td''With textTypeExample
+        With Me.CtlCurrentElement.Textbox_Example
+
             .Visible = True
-            .Text = Me.ElementInfo_Text.Text ''Added 8/16/2019 td
+            .Text = Me.CtlCurrentElement.ElementInfo_Text.Text ''Added 8/16/2019 td
             .SelectAll() ''Added 8/16/2019 td
 
             ''Added 9/10/2019 td 
             ''  Put the focus on the textbox. 
             .Select() ''Added 9/10/2019 td 
 
-        End With ''End of "With textTypeExample"
+        End With ''End of "With Me.CtlCurrentElement.Textbox_Example"
 
     End Sub ''End of "Private Sub ExampleValue_Edit"  
 
