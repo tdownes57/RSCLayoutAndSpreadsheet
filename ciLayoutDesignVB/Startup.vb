@@ -100,6 +100,12 @@ Public Class Startup
 
         PictureExamples.PathToFolderOfImages = DiskFolders.PathToFolder_PicExamples
 
+        Const c_boolCreate100ExamplePics As Boolean = True ''Added 10/16/2019 thomas d
+        If (c_boolCreate100ExamplePics) Then
+            ''Added 10/16/2019 td
+            PictureExamples.CreateExamplePics_Numbered(100)
+        End If ''End of "If (c_boolCreate100ExamplePics) Then"
+
         Return RecipientController.mod_recipientList
 
     End Function ''End of "Private Shared Function LoadCachedData_Customer"
@@ -265,6 +271,7 @@ Public Class Startup
         Return obj_cache_elements
 
     End Function ''End of "Private Sub LoadCachedData()"
+
 
 
 End Class ''end of Public Class Startup
