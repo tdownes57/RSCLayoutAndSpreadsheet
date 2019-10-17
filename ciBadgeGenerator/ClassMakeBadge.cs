@@ -8,6 +8,7 @@ using ciLayoutPrintLib; //Added 10/5/2019 td
 using ciBadgeElements;  //Added 10/5/2019 td
 using ciBadgeInterfaces; //Added 10/5/2019 td
 using ciBadgeElemImage; //Added 10/14/2019 td  
+using ciBadgeRecipients;  //Added 10/16/2019 td 
 
 namespace ciBadgeGenerator
 {
@@ -70,13 +71,14 @@ namespace ciBadgeGenerator
                                     ClassElementsCache par_cache,
                                     int par_badge_width_pixels,
                                     int par_badge_height_pixels,
-                                    IRecipient par_recipient,
+                                    ClassRecipient par_recipient,
                                     Image par_recipientPic)
         {
-            //
+            // 
             //Step #1:  Load the Recipient into the Elements Cache. 
             //
-            par_cache.LoadRecipient(par_recipient);
+            // 10-16-2019 td// par_cache.LoadRecipient(par_recipient);
+            ClassElementField.Recipient = par_recipient; 
 
             //
             //Step #2:  Create the image of the badge-card for the above recipient. 

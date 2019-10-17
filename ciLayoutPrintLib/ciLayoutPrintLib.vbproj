@@ -77,7 +77,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BackImageExamples.vb" />
+    <Compile Include="BackExamples\BackImageExamples.vb" />
     <Compile Include="CILayoutBadge.vb" />
     <Compile Include="ciLayoutColors.vb" />
     <Compile Include="CILayoutPic.vb" />
