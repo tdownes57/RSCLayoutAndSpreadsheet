@@ -107,7 +107,7 @@ Public Class Startup
         Const c_boolCreate100ExamplePics As Boolean = True ''Added 10/16/2019 thomas d
         If (c_boolCreate100ExamplePics) Then
             ''Added 10/16/2019 td
-            PictureExamples.CreateExamplePics_Numbered(100)
+            ''---This is only on my ASUS laptop at home.-----PictureExamples.CreateExamplePics_Numbered(100)
         End If ''End of "If (c_boolCreate100ExamplePics) Then"
 
         Return RecipientController.mod_recipientList
