@@ -8,7 +8,8 @@ Imports ciBadgeInterfaces ''Added 10/11/2019 thomas d.
 Imports ciBadgeElements ''Added 10/13/2019 thomas d. 
 Imports ciBadgeCustomer ''Added 10/14/2019 thomas d. 
 Imports ciBadgeRecipients ''Added 10/16/2019 thomas d.  
-Imports ciBadgeRecipentsCS  ''Added 10/16/2019 td  
+Imports ciBadgeRecipientsCS  ''Added 10/16/2019 td
+Imports ciPictures_VB ''----Added 10/16/2019 td   
 
 Public Class Startup
     ''
@@ -35,6 +36,9 @@ Public Class Startup
         ''
         ''
         Dim obj_formToShow As New FormDesignProtoTwo ''Added 10/11/2019 td 
+
+        ''Added 10/16/2019 td 
+        LoadData_Recipients_Students()
 
         ''
         ''Initialize a Customer Cache, or at least a Personality Cache.
@@ -94,7 +98,9 @@ Public Class Startup
         ''
         ''10/16/2019 td''Return ClassRecipient.mod_recipientList
 
-        Return ciBadgeRecipientsCS.RecipientController.mod_recipientList
+        PictureExamples.PathToFolderOfImages = DiskFolders.PathToFolder_PicExamples
+
+        Return RecipientController.mod_recipientList
 
     End Function ''End of "Private Shared Function LoadCachedData_Customer"
 
@@ -261,4 +267,4 @@ Public Class Startup
     End Function ''End of "Private Sub LoadCachedData()"
 
 
-End Class
+End Class ''end of Public Class Startup

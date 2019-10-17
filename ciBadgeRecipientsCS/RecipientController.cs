@@ -7,7 +7,6 @@ using ciBadgeRecipients;  //Added 10/16/2019 td
 using ciPictures_VB;   //Added 10/16/2019 td 
 using System.Drawing;  //Added 10/16/2019 td  
 
-
 namespace ciBadgeRecipientsCS
 {
     public class RecipientController  //:  Controller
@@ -149,6 +148,21 @@ namespace ciBadgeRecipientsCS
                         //new ClassRecipient() { CustomerCode = "CIS100", idfConfigID = 2, fstrID = "6", fstrFirstName = "Jimmy", fstrLastName = "A.", Picture = PictureExamples.GetExample()   },
                         //new ClassRecipient() { CustomerCode = "CIS100", idfConfigID = 2, fstrID = "7", fstrFirstName = "Thomas", fstrLastName = "D.", Picture = PictureExamples.GetExample()   }
         };
+
+        public RecipientController()
+        {
+            //
+            //Added 10/16/2019 Thomas downes 
+            //
+
+
+
+
+
+        }
+
+
+
 
     }
 
