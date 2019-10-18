@@ -163,8 +163,11 @@ Public Class ClassFieldStandard
     ''
     ''Added 7/16/2019 thomas d. 
     ''
-    Public Shared ListOfFields_Students As New List(Of ClassFieldStandard)
-    Public Shared ListOfFields_Staff As New List(Of ClassFieldStandard)
+    ''10/17 td''Public Shared ListOfFields_Students As New List(Of ClassFieldStandard)
+    ''10/17 td''Public Shared ListOfFields_Staff As New List(Of ClassFieldStandard)
+
+    Public Shared ListOfFields_Students As New HashSet(Of ClassFieldStandard)
+    Public Shared ListOfFields_Staff As New HashSet(Of ClassFieldStandard)
 
     Public Shared Function ListOfFieldInfos_Students() As List(Of ICIBFieldStandardOrCustom)
         ''Added 9/2/2019 Thomas DOWNES

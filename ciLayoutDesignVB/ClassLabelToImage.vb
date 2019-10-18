@@ -412,13 +412,13 @@ Public Class ClassLabelToImage
                 Case HorizontalAlignment.Left
 
                     ''9/8/2019 td''gr_element.DrawString(.Text, .Font_DrawingClass, Brushes.Black, singleOffsetX, singleOffsetY)
-                    gr_element.DrawString(.Text, font_scaled, Brushes.Black,
+                    gr_element.DrawString(.Text_Static, font_scaled, Brushes.Black,
                                           singleOffsetX, singleOffsetY)
 
                 Case HorizontalAlignment.Center
                     ''// Measure string.
                     ''9/8/2019 td''stringSize = gr_element.MeasureString(.Text, .Font_DrawingClass)
-                    stringSize = gr_element.MeasureString(.Text, font_scaled)
+                    stringSize = gr_element.MeasureString(.Text_Static, font_scaled)
 
                     Dim singleOffsetX_AlignRight As Single ''Added 8/18/2019 td 
                     ''Added 8/18/2019 td 
@@ -428,14 +428,14 @@ Public Class ClassLabelToImage
                     ''
                     ''9/8/2019 td''gr_element.DrawString(.Text, .Font_DrawingClass, Brushes.Black,
                     ''                            singleOffsetX_AlignRight, singleOffsetY)
-                    gr_element.DrawString(.Text, font_scaled, Brushes.Black,
+                    gr_element.DrawString(.Text_Static, font_scaled, Brushes.Black,
                                   singleOffsetX_AlignRight, singleOffsetY)
 
                 Case HorizontalAlignment.Right
                     ''// Measure string.
                     ''
                     ''9/8/2019 td''stringSize = gr_element.MeasureString(.Text, .Font_DrawingClass)
-                    stringSize = gr_element.MeasureString(.Text, font_scaled)
+                    stringSize = gr_element.MeasureString(.Text_Static, font_scaled)
 
                     Dim singleOffsetX_AlignRight As Single ''Added 8/18/2019 td 
                     singleOffsetX_AlignRight = (local_image.Width - stringSize.Width - singleOffsetX)
@@ -443,7 +443,7 @@ Public Class ClassLabelToImage
                     ''Added 8/18/2019 td 
                     ''9/8/2019 td''gr_element.DrawString(.Text, .Font_DrawingClass, Brushes.Black,
                     ''                           singleOffsetX_AlignRight, singleOffsetY)
-                    gr_element.DrawString(.Text, font_scaled, Brushes.Black,
+                    gr_element.DrawString(.Text_Static, font_scaled, Brushes.Black,
                                   singleOffsetX_AlignRight, singleOffsetY)
 
             End Select ''End of "Select Case par_design.TextAlignment"

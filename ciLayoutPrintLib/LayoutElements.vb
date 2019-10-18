@@ -637,6 +637,7 @@ ExitHandler:
         Dim gr_Badge As Graphics ''= Graphics.FromImage(img)
         Dim intEachIndex As Integer ''Added 8/24/2019 td
         Dim bOutputAllImages As Boolean ''Added 8/26/2019 thomas d. 
+        Dim strTextToDisplay As String ''Added 10/17/2019 thomas d. 
 
         ''9/8/2019 thomas d.
         ProportionsAreSlightlyOff(par_imageBadgeCard, True, "par_imageBadgeCard")
@@ -711,8 +712,13 @@ ExitHandler:
                     ''9/19/2019 td''image_textStandard =
                     ''9/19/2019 td''    .TextDisplay.GenerateImage_ByDesiredLayoutWidth(intDesiredLayout_Width)
 
+                    strTextToDisplay = each_elementField.LabelText_ToDisplay(False)
+
+                    ''10/17 td''image_textStandard =
+                    ''             modGenerate.TextImage_ByElemInfo(intDesiredLayout_Width,
+                    ''            each_elementField, each_elementField, False, False) ''9/20/2019 td'', True)
                     image_textStandard =
-                        modGenerate.TextImage_ByElemInfo(intDesiredLayout_Width,
+                        modGenerate.TextImage_ByElemInfo(strTextToDisplay, intDesiredLayout_Width,
                             each_elementField, each_elementField, False, False) ''9/20/2019 td'', True)
 
                     If (bOutputAllImages) Then par_listTextImages.Add(image_textStandard) ''Added 8/26/2019 td

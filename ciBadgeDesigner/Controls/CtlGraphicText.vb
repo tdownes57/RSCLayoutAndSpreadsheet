@@ -50,7 +50,7 @@ Public Class CtlGraphicText
             mod_strTextToDisplay = value
 
             If (Me.ElementInfo_TextOnly Is Nothing) Then Me.ElementInfo_TextOnly = Me.Element_StaticText
-            Me.ElementInfo_TextOnly.Text = value
+            Me.ElementInfo_TextOnly.Text_Static = value
 
             textTypeExample.Text = mod_strTextToDisplay
         End Set
@@ -119,7 +119,7 @@ Public Class CtlGraphicText
         ''Added 10/12/2019 td
         If (Me.ElementInfo_TextOnly Is Nothing) Then Me.ElementInfo_TextOnly = Me.Element_StaticText
 
-        ElementInfo_TextOnly.Text = LabelText()
+        ElementInfo_TextOnly.Text_Static = LabelText()
 
         ''Me.ElementInfo.Width = pictureLabel.Width
         ''Me.ElementInfo.Height = pictureLabel.Height
@@ -223,7 +223,8 @@ Public Class CtlGraphicText
         If (c_boolUseNewestProjectReference) Then
 
             newTextImage =
-            modGenerate.TextImage_ByElemInfo(intBadgeLayoutWidth,
+            modGenerate.TextImage_ByElemInfo(Me.Element_StaticText.Text_Static,
+                                             intBadgeLayoutWidth,
                                    Me.ElementInfo_TextOnly,
                                    Me.ElementInfo_Base,
                                    boolRotated, True)
@@ -345,7 +346,7 @@ ExitHandler:
         ''
         ''Added 7/25/2019 thomas d 
         ''
-        Return Me.ElementInfo_TextOnly.Text
+        Return Me.ElementInfo_TextOnly.Text_Static
 
     End Function ''End of "Public Function LabelText() As String"
 

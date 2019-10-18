@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;   //Added 10/5/2019 td
@@ -9,6 +9,7 @@ using ciBadgeElements;  //Added 10/5/2019 td
 using ciBadgeInterfaces; //Added 10/5/2019 td
 using ciBadgeElemImage; //Added 10/14/2019 td  
 using ciBadgeRecipients;  //Added 10/16/2019 td 
+using System.Linq;
 
 namespace ciBadgeGenerator
 {
@@ -168,19 +169,20 @@ namespace ciBadgeGenerator
                 ////Image recipient_pic_Image = par_recipient.GetPic();
                 //
                 //objPrintLibElems.LoadImageWithPortrait(obj_image.Width,
-                //                                    par_badge_width_pixels,
-                //                                    ref obj_image,
-                //                                    local_PicElementInfo_Base,
-                //                                    local_PicElementInfo_Pic,
-                //                                    ref par_recipientPic);
+                //                         par_badge_width_pixels,
+                //                         ref obj_image,
+                //                         local_PicElementInfo_Base,
+                //                         local_PicElementInfo_Pic,
+                //                         ref par_recipientPic);
             }
             else
             {
                 //
                 //Added 10/9/2019 thomas d. 
                 //
-                // 10/17/2019 td''ClassElementPic obj_elementPic = par_cache.ListPicElements()[0];
-                ClassElementPic obj_elementPic = par_cache.ListOfElementPics.GetEnumerator().Current;
+                //#1 10/17/2019 td''ClassElementPic obj_elementPic = par_cache.ListPicElements()[0];
+                // #2 10/17/2019 td''ClassElementPic obj_elementPic = par_cache.ListOfElementPics.GetEnumerator().Current;
+                ClassElementPic obj_elementPic = par_cache.ListOfElementPics.FirstOrDefault();
 
                 // 10/12/2019 td//objPrintLibElems.LoadImageWithPortrait(par_newBadge_width_pixels,
 
@@ -418,6 +420,7 @@ namespace ciBadgeGenerator
             Graphics gr_Badge;
             int intEachIndex = 0;
             bool bOutputAllImages;
+            string strTextToDisplay = ""; //Added 10/17/2019 thomas d
 
             //
             //    ''9/8/2019 thomas d.
@@ -450,6 +453,9 @@ namespace ciBadgeGenerator
                 //        intEachIndex += 1
 
                 intEachIndex += 1;
+
+                //Added 10/17/2019 td
+                strTextToDisplay = each_elementField.LabelText_ToDisplay(false);
 
                 //
                 //        ''9/3/2019 td''If (not each_elementField.IsDiplayedOnBadge) Then Continue for
@@ -544,12 +550,15 @@ namespace ciBadgeGenerator
                     //
                     bool boolRotated = false; //Added 10/14/2019 td  
 
+                    // 10-17-2019 image_textStandard =
+                    //       modGenerate.TextImage_ByElemInfo(intDesiredLayout_Width,
+                    //         each_elementField, each_elementField, ref boolRotated, false);  //''9/20/2019 td'', True)
                     image_textStandard =
-                           modGenerate.TextImage_ByElemInfo(intDesiredLayout_Width,
+                           modGenerate.TextImage_ByElemInfo(strTextToDisplay, intDesiredLayout_Width,
                              each_elementField, each_elementField, ref boolRotated, false);  //''9/20/2019 td'', True)
-                    //
-                    //                 If(bOutputAllImages) Then par_listTextImages.Add(image_textStandard) ''Added 8/26/2019 td
-                    
+                                                                                             //
+                                                                                             //                 If(bOutputAllImages) Then par_listTextImages.Add(image_textStandard) ''Added 8/26/2019 td
+
                     if (bOutputAllImages) par_listTextImages.Add(image_textStandard);
 
                     //

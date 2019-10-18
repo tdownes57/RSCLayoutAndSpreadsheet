@@ -20,7 +20,7 @@ namespace ciBadgeRecipientsCS
         //
         //Recipient = Student Or Employee receiving the Badge. 
         //
-        public static IList<ClassRecipient> mod_recipientList = new List<ClassRecipient>() {
+        public static List<ClassRecipient> mod_recipientList = new List<ClassRecipient>() {
     new ClassRecipient() { CustomerCode = "CIS100", idfConfigID = 1, fstrID = "001", fstrFirstName = "Johnny", fstrLastName = "Davidson", TextField01 = "Willcrest School", TextField02 = "Ms. Robinson", TextField03 = "9TH", DateField01 = DateTime.Parse("7/21/2003"), DateField02 = DateTime.Parse("7/21/2020") },    //---, Picture = PictureExamples.GetImageByRecipID("001")  },
     new ClassRecipient() { CustomerCode = "CIS100", idfConfigID = 1, fstrID = "002", fstrFirstName = "Stevie", fstrLastName = "Austin", TextField01 = "Woodbridge School", TextField02 = "Mr. Wilson", TextField03 = "9TH", DateField01 = DateTime.Parse("7/21/2003"), DateField02 = DateTime.Parse("7/21/2020") },    //---, Picture = PictureExamples.GetImageByRecipID("002") },
     new ClassRecipient() { CustomerCode = "CIS100", idfConfigID = 1, fstrID = "003", fstrFirstName = "Billy", fstrLastName = "Clinton", TextField01 = "Willcrest School", TextField02 = "Ms. Tennyson", TextField03 = "9TH", DateField01 = DateTime.Parse("7/21/2003"), DateField02 = DateTime.Parse("7/21/2020") },    //---, Picture = PictureExamples.GetImageByRecipID("003")   },

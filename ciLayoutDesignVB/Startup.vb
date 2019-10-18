@@ -29,6 +29,8 @@ Public Class Startup
         ''
         Dim boolNewFileXML As Boolean ''Added 10/10/2019 td  
         Dim obj_cache_layout As ClassElementsCache ''Added 10/13/2019 td 
+        Dim obj_personality As New PersonalityCache ''Added 10/17/2019 td  
+
         ''
         ''
         ''If we are emphasizing Layout Design, then open up the 
@@ -38,7 +40,7 @@ Public Class Startup
         Dim obj_formToShow As New FormDesignProtoTwo ''Added 10/11/2019 td 
 
         ''Added 10/16/2019 td 
-        LoadData_Recipients_Students()
+        obj_personality.ListOfRecipients = LoadData_Recipients_Students()
 
         ''
         ''Initialize a Customer Cache, or at least a Personality Cache.
@@ -62,6 +64,7 @@ Public Class Startup
             ''This is potentially an infinite loop.  Look for "Exit Do". 
             ''
             obj_formToShow.ElementsCache_Edits = obj_cache_layout
+            obj_formToShow.PersonalityCache = obj_personality
 
             obj_formToShow.ShowDialog() ''Added 10/11/2019 td 
 
@@ -89,7 +92,7 @@ Public Class Startup
 
     End Function ''End of "Private Shared Function LoadCachedData_Customer"
 
-    Private Shared Function LoadData_Recipients_Students() As IList(Of ClassRecipient)
+    Private Shared Function LoadData_Recipients_Students() As List(Of ClassRecipient)
         ''
         ''Added 10/14/2019 thomas d. 
         ''

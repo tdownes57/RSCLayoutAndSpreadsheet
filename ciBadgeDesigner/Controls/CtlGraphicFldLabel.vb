@@ -353,7 +353,7 @@ ExitHandler:
 
         Dim boolScaleFontSize As Boolean ''Added 9/15/2019 thomas d. 
 
-        ElementInfo_Text.Text = LabelText()
+        ElementInfo_Text.Text_Static = LabelText()
 
         ''Me.ElementInfo.Width = pictureLabel.Width
         ''Me.ElementInfo.Height = pictureLabel.Height
@@ -459,7 +459,8 @@ ExitHandler:
         If (c_boolUseNewestProjectReference) Then
 
             newTextImage =
-            modGenerate.TextImage_ByElemInfo(intBadgeLayoutWidth,
+            modGenerate.TextImage_ByElemInfo(Me.ElementClass_Obj.LabelText_ToDisplay(True),
+                                             intBadgeLayoutWidth,
                                    Me.ElementInfo_Text,
                                    Me.ElementInfo_Base,
                                    boolRotated, True)
@@ -731,7 +732,7 @@ ExitHandler:
         ''
         ''Added 7/25/2019 thomas d 
         ''
-        Return Me.ElementClass_Obj.LabelText(True)
+        Return Me.ElementClass_Obj.LabelText_ToDisplay(True)
 
         ''---------------Obselete as of 10/16/2019 thomas d.-------------
         ''Select Case True
@@ -972,7 +973,7 @@ ExitHandler:
         If (e.KeyCode = Keys.Enter) Then
 
             Me.FieldInfo.ExampleValue = textTypeExample.Text
-            Me.ElementInfo_Text.Text = textTypeExample.Text
+            Me.ElementInfo_Text.Text_Static = textTypeExample.Text
             Me.textTypeExample.Visible = False
 
             ''Added 9/20/2019 td  

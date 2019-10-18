@@ -576,6 +576,17 @@ Public Class FormDesignProtoTwo
 
     End Sub ''End of "Private Sub LinkSaveAndRefresh_LinkClicked"
 
+    Private Sub Recipient_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) ''10/17 td''Handles linkSaveAndRefresh.LinkClicked
+        ''
+        ''Added 10/17/2019 td
+        ''
+        Dim sender_link As LinkLabel
+        sender_link = CType(sender, LinkLabel)
+        ClassElementField.Recipient = CType(sender_link.Tag, ClassRecipient)
+        Me.mod_designer.RefreshPreview_Redux()
+
+    End Sub ''End of "Private Sub Recipient_LinkClicked"
+
     Private Sub RefreshTheSetOfDisplayedElements()
         ''
         ''Step 1 of 5.   Create a dictionary of elements. 
@@ -1248,12 +1259,19 @@ Public Class FormDesignProtoTwo
                 new_LinkLabel = New LinkLabel
                 With new_LinkLabel
                     .Visible = True
+                    .Tag = each_recip ''Added 10/17/2019 td
                     .Text = (each_recip.fstrFirstName & " " & each_recip.fstrLastName)
                 End With
 
+                ''Added 10/17/2019 td
+                .Controls.Add(new_LinkLabel)
+
+                ''Added 10/17/2019 td
+                AddHandler new_LinkLabel.LinkClicked, AddressOf Recipient_LinkClicked
+
             Next each_recip
 
-        End With
+        End With ''end of "With flowSidebar" 
 
     End Sub ''End of "Private Sub ShowBadgeRecipientsToolStripMenuItem_Click"
 

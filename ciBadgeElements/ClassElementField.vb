@@ -79,7 +79,8 @@ Public Class ClassElementField
     ''
     ''See also, "Public Function LabelText(par_isForLayoutPreview As Boolean) As String".  ---10/16/2019 td 
     ''
-    Public Property Text As String Implements IElement_TextOnly.Text ''E.g. "George Washington" for FullName. 
+    Public Property Text_Static As String Implements IElement_TextOnly.Text_Static ''E.g. "George Washington" for FullName. 
+    Public Property Text_Formula As String Implements IElement_TextOnly.Text_Formula ''E.g. "{fstrFirstName} {fstrLastName}" for FullName. 
 
     ''--16----Replaced by a Shared Property of the same name.---10/16/2019 td
     ''--16--10/16/2019 td''Added 9/10/2019 td     <Xml.Serialization.XmlIgnore>
@@ -502,7 +503,7 @@ Public Class ClassElementField
         ''    e.Graphics.DrawString("Sample Text", TextFont, Brushes.Black, 20, 150);
 
         gr.TextRenderingHint = TextRenderingHint.AntiAliasGridFit
-        gr.DrawString(par_elementInfo_Text.Text, par_elementInfo_Text.Font_DrawingClass, Brushes.Black, 20, 5)
+        gr.DrawString(par_elementInfo_Text.Text_Static, par_elementInfo_Text.Font_DrawingClass, Brushes.Black, 20, 5)
 
         Return par_image ''Return Nothing
 
@@ -613,14 +614,14 @@ Public Class ClassElementField
 
     End Sub ''ENd of "Public Shared Sub CheckWidthVsLength_OfText()"
 
-    Public Function LabelText(par_isForLayoutPreview As Boolean) As String
+    Public Function LabelText_ToDisplay(par_isForLayout_OrPreview As Boolean) As String
         ''
         ''Added 10/16/2016 & 7/25/2019 thomas d 
         ''
         ''This was copied from CtlGraphicFldLabel.vb on 10/16/2019 td
         ''
         Dim bOkayToUseExampleValues As Boolean ''Added 10/16/2019 td  
-        bOkayToUseExampleValues = par_isForLayoutPreview
+        bOkayToUseExampleValues = par_isForLayout_OrPreview
 
         Select Case True
 

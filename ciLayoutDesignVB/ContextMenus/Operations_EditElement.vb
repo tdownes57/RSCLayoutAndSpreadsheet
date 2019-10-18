@@ -193,6 +193,10 @@ Public Class Operations_EditElement
         If (boolExitEarly) Then Exit Sub ''Added 8/13/2019 td
 
         Me.FontDialog1.Font = Me.CtlCurrentElement.ElementClass_Obj.Font_DrawingClass ''Added 7/31/2019 td  
+
+        ''
+        ''Major call !!   Show the font-selection dialog to the user. 
+        '' 
         Me.FontDialog1.ShowDialog()
 
         ''Me.ElementInfo.Font_DrawingClass = FontDialog1.Font
@@ -204,7 +208,15 @@ Public Class Operations_EditElement
         If (Me.SelectingElements.LabelsList_IsItemUnselected(Me.CtlCurrentElement)) Then
 
             Me.CtlCurrentElement.ElementInfo_Text.Font_DrawingClass = Me.FontDialog1.Font
-            Me.CtlCurrentElement.ElementInfo_Text.FontSize_Pixels = Me.FontDialog1.Font.Size  ''Added 8/17/2019 td
+
+            ''Added 10/17/2019 td 
+            If (Me.FontDialog1.Font.Unit = GraphicsUnit.Pixel) Then
+                ''Added 10/17/2019 td 
+                MsgBox("Program error, unexpected Font Unit", MsgBoxStyle.Exclamation, "OpenDialog_Font")
+            Else
+                Me.CtlCurrentElement.ElementInfo_Text.FontSize_Pixels = Me.FontDialog1.Font.Size  ''Added 8/17/2019 td
+            End If ''End of "If (Me.FontDialog1.Font.Unit = GraphicsUnit.Pixel) Then ... Else ..."
+
             Application.DoEvents()
             Application.DoEvents()
 
@@ -217,7 +229,7 @@ Public Class Operations_EditElement
         ElseIf (Me.SelectingElements.LabelsList_IsItemIncluded(Me.CtlCurrentElement)) Then
 
             ''Added 8/3/2019 td 
-            Dim objElements As List(Of CtlGraphicFldLabel)
+            Dim objElements As HashSet(Of CtlGraphicFldLabel)
 
             ''10/3/2019 td''objElements = CType(Me.ParentForm, ISelectingElements).LabelsDesignList_AllItems
             objElements = Me.SelectingElements.LabelsDesignList_AllItems
@@ -228,7 +240,13 @@ Public Class Operations_EditElement
                 ''
                 With each_ctl
 
+                    ''Added 10/17/2019 td  
+                    If (FontDialog1.Font.Unit <> GraphicsUnit.Pixel) Then Throw New Exception("Unexpected Font Unit")
+
                     .ElementInfo_Text.Font_DrawingClass = FontDialog1.Font
+                    ''Added 10/17/2019 td  
+                    .ElementInfo_Text.FontSize_Pixels = FontDialog1.Font.Size
+
                     Application.DoEvents()
                     Application.DoEvents()
                     .Refresh_Image(True)
@@ -258,7 +276,7 @@ Public Class Operations_EditElement
         With Me.CtlCurrentElement.Textbox_ExampleValue
 
             .Visible = True
-            .Text = Me.CtlCurrentElement.ElementInfo_Text.Text ''Added 8/16/2019 td
+            .Text = Me.CtlCurrentElement.ElementInfo_Text.Text_Static ''Added 8/16/2019 td
             .SelectAll() ''Added 8/16/2019 td
 
             ''Added 9/10/2019 td 
@@ -319,7 +337,7 @@ Public Class Operations_EditElement
                 If (Me.SelectingElements.LabelsList_IsItemIncluded(Me.CtlCurrentElement)) Then
 
                     ''Added 8/18/2019 td 
-                    Dim objElements As List(Of CtlGraphicFldLabel)
+                    Dim objElements As HashSet(Of CtlGraphicFldLabel)
                     objElements = Me.SelectingElements.LabelsDesignList_AllItems
 
                     For Each each_ctl As CtlGraphicFldLabel In objElements
@@ -398,7 +416,7 @@ Public Class Operations_EditElement
                 If (Me.SelectingElements.LabelsList_IsItemIncluded(Me.CtlCurrentElement)) Then
 
                     ''Added 8/18/2019 td 
-                    Dim objElements As List(Of CtlGraphicFldLabel)
+                    Dim objElements As HashSet(Of CtlGraphicFldLabel)
                     objElements = Me.SelectingElements.LabelsDesignList_AllItems
 
                     For Each each_ctl As CtlGraphicFldLabel In objElements

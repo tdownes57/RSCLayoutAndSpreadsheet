@@ -39,7 +39,7 @@ Public Class FormMain
 
     End Function ''eNd of "Public Function GetCurrentPersonality_Fields_Custom() As List(Of ClassFieldCustomized)"
 
-    Public Shared Function GetCurrentPersonality_Fields_Standard() As List(Of ClassFieldStandard)
+    Public Shared Function GetCurrentPersonality_Fields_Standard() As HashSet(Of ClassFieldStandard)
         ''
         ''Added 7/26/2019 thomas downes
         ''
