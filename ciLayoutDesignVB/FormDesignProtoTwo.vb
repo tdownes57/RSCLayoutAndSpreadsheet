@@ -1247,9 +1247,11 @@ Public Class FormDesignProtoTwo
 
         With flowSidebar
 
-            .Width = 200
+            .Width = 100
             .Visible = True
             .Controls.Clear()
+            .BringToFront()
+            .AutoScroll = True
 
             list_recips = Me.PersonalityCache.ListOfRecipients
 

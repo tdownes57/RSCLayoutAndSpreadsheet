@@ -79,6 +79,8 @@ Public Class ClassElementStaticText
         End Set
     End Property
 
+    Public Property Text_Formula As String Implements IElement_TextOnly.Text_Formula ''Added 10/17/2019
+
     ''Added 9/10/2019 td 
     ''9/16 td''Public Property Recipient As IRecipient Implements IElement_StaticText.Recipient
 
