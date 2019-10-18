@@ -105,7 +105,9 @@ Public Class Startup
         PictureExamples.PathToFolderOfImages = DiskFolders.PathToFolder_PicExamples
 
         ''Added 10/16/2019 td
-        ''-----PictureExamples.CreateExamplePics_Numbered(10)
+        ''---#1 10/18/2019--PictureExamples.CreateExamplePics_Numbered(10)
+        ''----#2 10/18/2019--PictureExamples.CreateExamplePics_Numbered(100)
+        PictureExamples.CreateExamplePics_Numbered(100, System.Drawing.Imaging.ImageFormat.Bmp)
 
         Const c_boolCreate100ExamplePics As Boolean = True ''Added 10/16/2019 thomas d
         If (c_boolCreate100ExamplePics) Then
