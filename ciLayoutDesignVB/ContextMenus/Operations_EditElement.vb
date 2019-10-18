@@ -113,7 +113,8 @@ Public Class Operations_EditElement
             ''10/3/2019 td''ElseIf (LabelsList_IsItemIncluded(Me)) Then
 
             ''Added 8/3/2019 td 
-            Dim objElements As List(Of CtlGraphicFldLabel)
+            ''10/17/2019 td''Dim objElements As List(Of CtlGraphicFldLabel)
+            Dim objElements As HashSet(Of CtlGraphicFldLabel)
 
             ''8/4//2019 td'objElements = CType(Me.ParentForm, ISelectingElements).LabelsDesignList_AllItems
             ''10/3/2019 td''objElements = Me.SelectingElements.LabelsDesignList_AllItems
@@ -254,7 +255,7 @@ Public Class Operations_EditElement
         ''Added 8/10/2019 thomas downes
         ''
         ''10/17 td''With textTypeExample
-        With Me.CtlCurrentElement.Textbox_Example
+        With Me.CtlCurrentElement.Textbox_ExampleValue
 
             .Visible = True
             .Text = Me.CtlCurrentElement.ElementInfo_Text.Text ''Added 8/16/2019 td
@@ -273,77 +274,83 @@ Public Class Operations_EditElement
         ''Added 8/10/2019 thomas downes
         ''
         ''9/18/2019 td''Dim frm_ToShow As New DialogTextOffset
-        Dim frm_ToShow As New DialogTextOffset(Me.ElementClass_Obj, Me.ElementClass_Obj.Copy(), Me)
 
-        ''
-        ''Added 8/10/2019 thomas downes
-        ''
-        ''8/16/2019 td''frm_ToShow.LoadFieldAndForm(Me.FieldInfo, Me.FormDesigner, Me)
-        ''9/03/2019 td''frm_ToShow.LoadFieldAndForm(Me.ElementInfo_Text, Me.FieldInfo, Me.FormDesigner, Me)
-        ''9/18/2019 td''frm_ToShow.LoadFieldAndForm(Me.ElementInfo_Base, Me.ElementInfo_Text, Me.FieldInfo, Me.FormDesigner, Me)
-        ''9/19/2019 td''frm_ToShow.LoadFieldAndForm(Me.FormDesigner, Me)
-        frm_ToShow.LoadFieldAndForm(Me.LayoutFunctions, Me)
+        With Me.CtlCurrentElement
 
-        ''Major call !!
-        frm_ToShow.ShowDialog()
-
-        ''Refresh the form. ----8/17/2019 td
-        Dim boolUserPressedOK As Boolean
-        boolUserPressedOK = (frm_ToShow.DialogResult = DialogResult.OK)
-
-        If (boolUserPressedOK) Then '' ----8/17/2019 td
-
-            ''Obselete.---9/18/2019 td''Me.ElementInfo_Text.FontOffset_X = frm_ToShow.FontOffset_X
-            ''Obselete.---9/18/2019 td''Me.ElementInfo_Text.FontOffset_Y = frm_ToShow.FontOffset_Y
-            ''Obselete.---9/18/2019 td''Me.ElementInfo_Text.FontSize_Pixels = frm_ToShow.FontSize
-            ''Obselete.---9/18/2019 td''Me.ElementInfo_Text.Font_DrawingClass = frm_ToShow.Font_DrawingClass
-
-            If (frm_ToShow.UserConfirmed) Then
-
-                frm_ToShow.UpdateInfo_ViaInterfaces(Me.ElementInfo_Base, Me.ElementInfo_Text)
-                Me.Refresh_Image(True)
-
-            End If ''End of "If (frm_ToShow.UserConfirmed) Then"
+            Dim frm_ToShow As New DialogTextOffset(.ElementClass_Obj, .ElementClass_Obj.Copy(), Me.CtlCurrentElement)
 
             ''
+            ''Added 8/10/2019 thomas downes
             ''
-            ''Group Editimg
-            ''
-            ''
-            ''Added 8/18/2019 td 
-            If (Me.SelectingElements.LabelsList_IsItemIncluded(Me)) Then
+            ''8/16/2019 td''frm_ToShow.LoadFieldAndForm(Me.FieldInfo, Me.FormDesigner, Me)
+            ''9/03/2019 td''frm_ToShow.LoadFieldAndForm(Me.ElementInfo_Text, Me.FieldInfo, Me.FormDesigner, Me)
+            ''9/18/2019 td''frm_ToShow.LoadFieldAndForm(Me.ElementInfo_Base, Me.ElementInfo_Text, Me.FieldInfo, Me.FormDesigner, Me)
+            ''9/19/2019 td''frm_ToShow.LoadFieldAndForm(Me.FormDesigner, Me)
+            frm_ToShow.LoadFieldAndForm(Me.LayoutFunctions, Me.CtlCurrentElement)
 
+            ''Major call !!
+            frm_ToShow.ShowDialog()
+
+            ''Refresh the form. ----8/17/2019 td
+            Dim boolUserPressedOK As Boolean
+            boolUserPressedOK = (frm_ToShow.DialogResult = DialogResult.OK)
+
+            If (boolUserPressedOK) Then '' ----8/17/2019 td
+
+                ''Obselete.---9/18/2019 td''Me.ElementInfo_Text.FontOffset_X = frm_ToShow.FontOffset_X
+                ''Obselete.---9/18/2019 td''Me.ElementInfo_Text.FontOffset_Y = frm_ToShow.FontOffset_Y
+                ''Obselete.---9/18/2019 td''Me.ElementInfo_Text.FontSize_Pixels = frm_ToShow.FontSize
+                ''Obselete.---9/18/2019 td''Me.ElementInfo_Text.Font_DrawingClass = frm_ToShow.Font_DrawingClass
+
+                If (frm_ToShow.UserConfirmed) Then
+
+                    ''10/17/2019 td''frm_ToShow.UpdateInfo_ViaInterfaces(Me.ElementInfo_Base, Me.ElementInfo_Text)
+                    frm_ToShow.UpdateInfo_ViaInterfaces(.ElementInfo_Base, .ElementInfo_Text)
+                    .Refresh_Image(True)
+
+                End If ''End of "If (frm_ToShow.UserConfirmed) Then"
+
+                ''
+                ''
+                ''Group Editimg
+                ''
+                ''
                 ''Added 8/18/2019 td 
-                Dim objElements As List(Of CtlGraphicFldLabel)
-                objElements = Me.SelectingElements.LabelsDesignList_AllItems
+                If (Me.SelectingElements.LabelsList_IsItemIncluded(Me.CtlCurrentElement)) Then
 
-                For Each each_ctl As CtlGraphicFldLabel In objElements
-                    ''
-                    ''Added 8/3/2019 td  
-                    ''
-                    With each_ctl
-                        ''.ElementInfo.Alignment = frm_ToShow.Alignment  
-                        ''9/18/2019 td''.ElementInfo_Text.FontOffset_X = frm_ToShow.FontOffset_X
-                        ''9/18/2019 td''.ElementInfo_Text.FontOffset_Y = frm_ToShow.FontOffset_Y
-                        ''9/18/2019 td''.ElementInfo_Text.FontSize_Pixels = frm_ToShow.FontSize
+                    ''Added 8/18/2019 td 
+                    Dim objElements As List(Of CtlGraphicFldLabel)
+                    objElements = Me.SelectingElements.LabelsDesignList_AllItems
 
-                        ''Added 8/18/2019 thomas d.
-                        ''9/18/2019 td''.ElementInfo_Text.Font_DrawingClass = frm_ToShow.Font_DrawingClass
-                        ''9/18/2019 td''.ElementInfo_Text.TextAlignment = frm_ToShow.TextAlignment
-                        ''9/18/2019 td''.ElementInfo_Text.ExampleValue = frm_ToShow.TextExampleValue.Text
+                    For Each each_ctl As CtlGraphicFldLabel In objElements
+                        ''
+                        ''Added 8/3/2019 td  
+                        ''
+                        With each_ctl
+                            ''.ElementInfo.Alignment = frm_ToShow.Alignment  
+                            ''9/18/2019 td''.ElementInfo_Text.FontOffset_X = frm_ToShow.FontOffset_X
+                            ''9/18/2019 td''.ElementInfo_Text.FontOffset_Y = frm_ToShow.FontOffset_Y
+                            ''9/18/2019 td''.ElementInfo_Text.FontSize_Pixels = frm_ToShow.FontSize
 
-                        frm_ToShow.UpdateInfo_ViaInterfaces(.ElementInfo_Base, .ElementInfo_Text)
+                            ''Added 8/18/2019 thomas d.
+                            ''9/18/2019 td''.ElementInfo_Text.Font_DrawingClass = frm_ToShow.Font_DrawingClass
+                            ''9/18/2019 td''.ElementInfo_Text.TextAlignment = frm_ToShow.TextAlignment
+                            ''9/18/2019 td''.ElementInfo_Text.ExampleValue = frm_ToShow.TextExampleValue.Text
 
-                        .Refresh_Image(True)
-                        .Refresh()
+                            frm_ToShow.UpdateInfo_ViaInterfaces(.ElementInfo_Base, .ElementInfo_Text)
 
-                    End With ''End of " With each_ctl"
+                            .Refresh_Image(True)
+                            .Refresh()
 
-                Next each_ctl
+                        End With ''End of " With each_ctl"
 
-            End If ''ENdo f "If (Me.SelectingElements.LabelsList_IsItemIncluded(Me)) Then"
+                    Next each_ctl
 
-        End If ''End of "If (boolUserPressedOK) Then"
+                End If ''ENdo f "If (Me.SelectingElements.LabelsList_IsItemIncluded(Me)) Then"
+
+            End If ''End of "If (boolUserPressedOK) Then"
+
+        End With ''End of "With Me.CtlCurrentElement"
 
         ''Added 9/13/2019 td
         ''9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()
@@ -358,63 +365,67 @@ Public Class Operations_EditElement
         ''9/18/2019 td''Dim frm_ToShow As New DialogTextBorder
         ''9/18/2019 td''frm_ToShow.LoadFieldAndForm(Me.ElementInfo_Base, Me.ElementInfo_Text, Me.FieldInfo, Me.FormDesigner, Me)
 
-        Dim frm_ToShow As New DialogTextBorder(Me.ElementClass_Obj, Me.ElementClass_Obj.Copy())
-        ''Denigrated. 9/19 td''frm_ToShow.LoadFieldAndForm(Me.FormDesigner, Me)
-        frm_ToShow.LoadFieldAndForm(Me.LayoutFunctions, Me)
+        With Me.CtlCurrentElement ''Added 10/17/2019 td
 
-        ''Major call !!
-        frm_ToShow.ShowDialog()
+            Dim frm_ToShow As New DialogTextBorder(.ElementClass_Obj, .ElementClass_Obj.Copy())
+            ''Denigrated. 9/19 td''frm_ToShow.LoadFieldAndForm(Me.FormDesigner, Me)
+            frm_ToShow.LoadFieldAndForm(Me.LayoutFunctions, Me.CtlCurrentElement)
 
-        ''Refresh the form. ----8/17/2019 td
-        Dim boolUserPressedOK As Boolean
-        boolUserPressedOK = (frm_ToShow.DialogResult = DialogResult.OK)
+            ''Major call !!
+            frm_ToShow.ShowDialog()
 
-        If (boolUserPressedOK) Then '' ----8/17/2019 td
+            ''Refresh the form. ----8/17/2019 td
+            Dim boolUserPressedOK As Boolean
+            boolUserPressedOK = (frm_ToShow.DialogResult = DialogResult.OK)
 
-            ''9/18/2019 td''Me.ElementInfo_Base.Border_WidthInPixels = frm_ToShow.Border_SizeInPixels
-            ''9/18/2019 td''Me.ElementInfo_Base.Border_Color = frm_ToShow.Border_Color
-            ''9/18/2019 td''Me.ElementInfo_Base.Border_Displayed = frm_ToShow.Border_Displayed ''Added 9/9/2019 td
+            If (boolUserPressedOK) Then '' ----8/17/2019 td
 
-            ''Added 9/18/2019 td
-            frm_ToShow.UpdateInfo_ViaInterface(Me.ElementInfo_Base)
+                ''9/18/2019 td''Me.ElementInfo_Base.Border_WidthInPixels = frm_ToShow.Border_SizeInPixels
+                ''9/18/2019 td''Me.ElementInfo_Base.Border_Color = frm_ToShow.Border_Color
+                ''9/18/2019 td''Me.ElementInfo_Base.Border_Displayed = frm_ToShow.Border_Displayed ''Added 9/9/2019 td
 
-            Me.Refresh_Image(True)
+                ''Added 9/18/2019 td
+                frm_ToShow.UpdateInfo_ViaInterface(.ElementInfo_Base)
 
-            ''
-            ''
-            ''Group Editimg
-            ''
-            ''
-            ''Added 8/18/2019 td 
-            If (Me.SelectingElements.LabelsList_IsItemIncluded(Me)) Then
+                .Refresh_Image(True)
 
+                ''
+                ''
+                ''Group Editimg
+                ''
+                ''
                 ''Added 8/18/2019 td 
-                Dim objElements As List(Of CtlGraphicFldLabel)
-                objElements = Me.SelectingElements.LabelsDesignList_AllItems
+                If (Me.SelectingElements.LabelsList_IsItemIncluded(Me.CtlCurrentElement)) Then
 
-                For Each each_ctl As CtlGraphicFldLabel In objElements
-                    ''
-                    ''Added 8/3/2019 td  
-                    ''
-                    With each_ctl
+                    ''Added 8/18/2019 td 
+                    Dim objElements As List(Of CtlGraphicFldLabel)
+                    objElements = Me.SelectingElements.LabelsDesignList_AllItems
 
-                        ''9/18/2019 td''.ElementInfo_Base.Border_WidthInPixels = frm_ToShow.Border_SizeInPixels
-                        ''9/18/2019 td''.ElementInfo_Base.Border_Color = frm_ToShow.Border_Color
-                        ''9/18/2019 td''.ElementInfo_Base.Border_Displayed = frm_ToShow.Border_Displayed ''9/9 td
+                    For Each each_ctl As CtlGraphicFldLabel In objElements
+                        ''
+                        ''Added 8/3/2019 td  
+                        ''
+                        With each_ctl
 
-                        ''Added 9/18/2019 td 
-                        frm_ToShow.UpdateInfo_ViaInterface(.ElementInfo_Base)
+                            ''9/18/2019 td''.ElementInfo_Base.Border_WidthInPixels = frm_ToShow.Border_SizeInPixels
+                            ''9/18/2019 td''.ElementInfo_Base.Border_Color = frm_ToShow.Border_Color
+                            ''9/18/2019 td''.ElementInfo_Base.Border_Displayed = frm_ToShow.Border_Displayed ''9/9 td
 
-                        .Refresh_Image(True)
-                        .Refresh()
+                            ''Added 9/18/2019 td 
+                            frm_ToShow.UpdateInfo_ViaInterface(.ElementInfo_Base)
 
-                    End With
+                            .Refresh_Image(True)
+                            .Refresh()
 
-                Next each_ctl
+                        End With
 
-            End If ''End of "If (Me.SelectingElements.LabelsList_IsItemIncluded(Me)) Then"
+                    Next each_ctl
 
-        End If ''End of "If (boolUserPressedOK) Then"
+                End If ''End of "If (Me.SelectingElements.LabelsList_IsItemIncluded(Me)) Then"
+
+            End If ''End of "If (boolUserPressedOK) Then"
+
+        End With ''End of "With Me.CtlCurrentElement"
 
         ''Added 9/13/2019 td
         ''9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()
@@ -426,7 +437,7 @@ Public Class Operations_EditElement
         ''
         ''Added 8/17/2019 thomas downes
         ''  
-        With Me.ElementInfo_Base
+        With Me.CtlCurrentElement.ElementInfo_Base
 
             Select Case .OrientationToLayout
                 Case "", " ", "P"
@@ -460,7 +471,8 @@ Public Class Operations_EditElement
         '' 9/15 td''Refresh_Image()
         '' 9/23 td''Refresh_Image(True)
         '' 9/23 td''Me.Refresh()
-        Me.Refresh_Master()
+        ''10/17/2019 td''Me.Refresh_Master()
+        Me.CtlCurrentElement.Refresh_Master()
 
         ''Added 9/13/2019 td
         ''9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()

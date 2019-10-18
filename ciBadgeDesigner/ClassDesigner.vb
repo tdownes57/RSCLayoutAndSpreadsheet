@@ -1212,6 +1212,7 @@ Public Class ClassDesigner
     End Property ''End of "Public Property ControlBeingModified() As Control Implements ILayoutFunctions.ControlBeingModified"
 
     Public Property LabelsDesignList_AllItems As List(Of CtlGraphicFldLabel) Implements ISelectingElements.LabelsDesignList_AllItems
+        ''10/17/2019 td''Public Property LabelsDesignList_AllItems As List(Of CtlGraphicFldLabel) Implements ISelectingElements.LabelsDesignList_AllItems
         Get
             ''Added 8/3/2019 thomas downes
             Return mod_selectedCtls
@@ -1226,7 +1227,20 @@ Public Class ClassDesigner
         ''
         ''Added 8/3/2019 thomas downes
         ''
-        mod_selectedCtls.Add(par_control)
+        ''10/17/2019 td''mod_selectedCtls.Add(par_control)
+
+        If (mod_selectedCtls.Contains(par_control)) Then
+            ''
+            ''I think it's possible to cause problems by adding 
+            ''  a control more than once to the same list.
+            ''  Let's avoid that, shall we?  
+            ''  ---10/17/2019 td 
+            ''
+        Else
+
+            mod_selectedCtls.Add(par_control)
+
+        End If ''End of "If (mod_selectedCtls.Contains(par_control)) Then"
 
     End Sub
 

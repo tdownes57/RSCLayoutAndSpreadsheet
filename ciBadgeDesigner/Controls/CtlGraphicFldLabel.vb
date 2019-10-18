@@ -35,6 +35,8 @@ Public Class CtlGraphicFldLabel
     ''7/26/2019 td''Public ElementInfo As ClassElementText
     Public FieldInfo As ICIBFieldStandardOrCustom
 
+    Public Enum_ReminderMsg As EnumReminderMsg = EnumReminderMsg.NotCurrentlyInUse ''Added 10/17/2019 td 
+
     ''#1 8/29/2019 td''Public ElementInfo As ClassElementText
     '' #2 8/29/2019 td''Public ElementInfo_Text As ClassElementText
 
@@ -65,7 +67,7 @@ Public Class CtlGraphicFldLabel
     ''Private variables.  
     ''
 
-    Private mod_includedInGroupEdit As Boolean ''Added 8/1/2019 thomas downes 
+    ''10/17/2019 td''Private mod_includedInGroupEdit As Boolean ''Added 8/1/2019 thomas downes 
 
     Private Const mod_c_boolMustSetBackColor As Boolean = False ''False, since we have an alternate Boolean 
     ''   below which works fine (i.e. mod_c_bRefreshMustReinitializeImage = True).
@@ -79,6 +81,13 @@ Public Class CtlGraphicFldLabel
         Get
             ''Added 7/28/2019 td 
             Return Me.pictureLabel
+        End Get
+    End Property
+
+    Public ReadOnly Property Textbox_ExampleValue As TextBox
+        Get
+            ''Added 10/17/2019 td 
+            Return Me.textTypeExample
         End Get
     End Property
 
@@ -989,7 +998,7 @@ ExitHandler:
 
         Select Case Me.Enum_ReminderMsg
 
-            Case EnumReminderMsg.NotCurrentlyUsed
+            Case EnumReminderMsg.NotCurrentlyInUse
 
                 intResult = MessageBox.Show("Want this element to appear on the Badge?", "",
                   MessageBoxButtons.OK, MessageBoxIcon.Question)

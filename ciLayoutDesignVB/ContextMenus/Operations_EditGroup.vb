@@ -27,13 +27,14 @@ Public Class Operations_EditGroup
 
     Private mod_fauxMenuEditSingleton As CtlGraphPopMenuEditSingle ''Added 10/3/2019 td 
 
+    Private mod_strAlignmentTypeText As String ''Added 10/17/2019 tdhomas d
 
     Private Sub SwitchCtl__Up(sender As Object, e As EventArgs)
         ''
         ''Added 8/16/2019 thomas downes
         ''
         ''10/3/2019 td'Me.SelectingElements.SwitchControls___Up(Me)
-        Me.SelectingElements.SwitchControls___Up(Me)
+        Me.SelectingElements.SwitchControls___Up(Me.CtlCurrentElement)
 
         ''Added 9/13/2019 td
         ''9/19/2019 td'' Me.FormDesigner.AutoPreview_IfChecked()
@@ -46,7 +47,7 @@ Public Class Operations_EditGroup
         ''Added 8/16/2019 thomas downes
         ''
         ''10/3/2019 td'Me.SelectingElements.SwitchControls_Down(Me)
-        Me.SelectingElements.SwitchControls_Down(Me)
+        Me.SelectingElements.SwitchControls_Down(Me.CtlCurrentElement)
 
         ''Added 9/13/2019 td
         ''9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()
@@ -76,9 +77,10 @@ Public Class Operations_EditGroup
         ''
         ''Added 8/2/2019 td  
         ''
-        mod_includedInGroupEdit = True
+        ''10/17/2019 td''mod_includedInGroupEdit = True
+        ''10/17/2019 td''Me.CtlCurrentElement.GroupEdits.LabelsList_IsItemIncluded(Me.CtlCurrentElement)
 
-        Me.SelectingElements.LabelsDesignList_Add(Me) ''Added 8/1/2019 td
+        Me.SelectingElements.LabelsDesignList_Add(Me.CtlCurrentElement) ''Added 8/1/2019 td
 
         ''8/2/2019''Me.BackColor = Color.Yellow
         ''8/2/2019''pictureLabel.Top = 6
@@ -87,8 +89,8 @@ Public Class Operations_EditGroup
         ''8/2/2019''pictureLabel.Height = Me.Height - 2 * 6
 
         ''Added 8/2/2019 td 
-        Me.ElementInfo_Base.SelectedHighlighting = True
-        Me.Refresh_Image(True)
+        Me.CtlCurrentElement.ElementInfo_Base.SelectedHighlighting = True
+        Me.CtlCurrentElement.Refresh_Image(True)
 
     End Sub ''End of "Private Sub GroupEditElement_Add()"
 
@@ -106,9 +108,9 @@ Public Class Operations_EditGroup
         ''
         ''Undo the selection. 
         ''
-        mod_includedInGroupEdit = False
+        ''10/17/2019 td''mod_includedInGroupEdit = False
 
-        Me.SelectingElements.LabelsDesignList_Remove(Me) ''Added 8/1/2019 td
+        Me.SelectingElements.LabelsDesignList_Remove(Me.CtlCurrentElement) ''Added 8/1/2019 td
 
         ''Me.BackColor = Me.ElementInfo.BackColor
         ''pictureLabel.Top = 0
@@ -116,9 +118,11 @@ Public Class Operations_EditGroup
         ''pictureLabel.Width = Me.Width ''- 2 * 6
         ''pictureLabel.Height = Me.Height ''- 2 * 6
 
-        Me.SelectedHighlighting = False ''Added 8/3/2019 td  
-        Me.ElementInfo_Base.SelectedHighlighting = False
-        Me.Refresh_Image(True)
+        With Me.CtlCurrentElement
+            .SelectedHighlighting_Denigrated = False ''Added 8/3/2019 td  
+            .ElementInfo_Base.SelectedHighlighting = False
+            .Refresh_Image(True)
+        End With
 
     End Sub ''End of "Private Sub GroupEditElement_Omit( )"
 
@@ -126,7 +130,8 @@ Public Class Operations_EditGroup
         ''
         ''Added 8/5/2019 thomas downes
         ''
-        Dim objElements As List(Of CtlGraphicFldLabel)
+        ''10/17/2019 thomas d''Dim objElements As List(Of CtlGraphicFldLabel)
+        Dim objElements As HashSet(Of CtlGraphicFldLabel)
         Dim sender_toolItem As ToolStripItem
         Dim strAlignmentTypeText As String ''Added 8/14/2019 thomas 
         Dim boolExitEarly As Boolean ''Added 8/13/2019 td
@@ -151,7 +156,7 @@ Public Class Operations_EditGroup
             modFonts.AskedAlignmentQuestion = True ''Ask only once.  
         End If ''End of "If (Not modFonts.AskedAlignmentQuestion) Then"
 
-        CreateVisibleButton_Master("Choose a background color", AddressOf Alignment_Master, boolExitEarly, True)
+        ''10/17/2019 td''CreateVisibleButton_Master("Choose a background color", AddressOf Alignment_Master, boolExitEarly, True)
         ''Moved below.''If (boolExitEarly) Then Exit Sub ''Added 8/13/2019 td
 
         If (TypeOf sender Is ToolStripMenuItem) Then
@@ -208,29 +213,29 @@ Public Class Operations_EditGroup
 
                 Select Case strAlignmentTypeText ''8/14/2019 td''(sender_toolItem.Text)
 
-                    Case (_item_group_alignTop.Text)
+                    Case "Top" ''10/17/2019 td'' (_item_group_alignTop.Text)
 
                         ''Top 
-                        each_ctl.Top = CInt(IIf(boolAverage, intAverage_Top, Me.Top)) ''8/16 Me.Top
+                        each_ctl.Top = CInt(IIf(boolAverage, intAverage_Top, Me.CtlCurrentElement.Top)) ''8/16 Me.Top
                         ''8/29/2019 td''each_ctl.ElementInfo_Text.TopEdge_Pixels = each_ctl.Top ''8/16 Me.Top
                         each_ctl.ElementInfo_Base.TopEdge_Pixels = each_ctl.Top ''8/16 Me.Top
 
-                    Case (_item_group_alignLeft.Text)
+                    Case "Left"  ''10/17/2019 td'' (_item_group_alignLeft.Text)
 
                         ''Left
-                        each_ctl.Left = CInt(IIf(boolAverage, intAverage_Left, Me.Left)) ''8/16 Me.Left
+                        each_ctl.Left = CInt(IIf(boolAverage, intAverage_Left, Me.CtlCurrentElement.Left)) ''8/16 Me.Left
                         each_ctl.ElementInfo_Base.LeftEdge_Pixels = each_ctl.Left ''Me.Left
 
-                    Case (_item_group_alignWidth.Text)
+                    Case "Width"  ''10/17/2019 td'' (_item_group_alignWidth.Text)
 
                         ''Width
-                        each_ctl.Width = CInt(IIf(boolAverage, intAverage_Width, Me.Width)) ''8/16 Me.Width
+                        each_ctl.Width = CInt(IIf(boolAverage, intAverage_Width, Me.CtlCurrentElement.Width)) ''8/16 Me.Width
                         each_ctl.ElementInfo_Base.Width_Pixels = each_ctl.Width ''Me.Width
 
-                    Case (_item_group_alignHeight.Text)
+                    Case "Height"  ''10/17/2019 td'' (_item_group_alignHeight.Text)
 
                         ''Height  
-                        each_ctl.Height = CInt(IIf(boolAverage, intAverage_Height, Me.Height)) ''8/16 Me.Height
+                        each_ctl.Height = CInt(IIf(boolAverage, intAverage_Height, Me.CtlCurrentElement.Height)) ''8/16 Me.Height
                         each_ctl.ElementInfo_Base.Height_Pixels = each_ctl.Height ''Me.Height
 
                 End Select ''End of "Select Case strAlignmentTypeText"

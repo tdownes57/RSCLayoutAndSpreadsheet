@@ -19,7 +19,8 @@ Public Interface ISelectingElements
     ''
     ''Added 8/3/2019 thomas downes
     ''
-    Property LabelsDesignList_AllItems As List(Of CtlGraphicFldLabel)
+    ''10/17/2019 td''Property LabelsDesignList_AllItems As List(Of CtlGraphicFldLabel)
+    Property LabelsDesignList_AllItems As HashSet(Of CtlGraphicFldLabel)
 
     ''
     ''Added 8/16/2019 thomas downes
