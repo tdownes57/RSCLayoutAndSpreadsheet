@@ -727,7 +727,8 @@ Public Class ClassDesigner
         ''
         ''Added 9/17/2019 thomas d.  
         ''
-        Dim new_list As New List(Of ClassElementField)
+        ''10/17 td''Dim new_list As New List(Of ClassElementField)
+        Dim new_list As New HashSet(Of ClassElementField)
         Const c_bAddToMoveableClass As Boolean = True ''Added 9/8/2019 td 
 
         new_list.Add(par_elementField)
@@ -934,8 +935,8 @@ Public Class ClassDesigner
         ''Added 10/5/2019 & 8/24/2019 td 
         ''
         Dim objPrintLibElems As New ciLayoutPrintLib.LayoutElements
-        Dim listOfTextImages As New List(Of Image) ''Added 8/26/2019 thomas downes 
-        Dim listOfElementTextFields As List(Of ClassElementField)
+        Dim listOfTextImages As New HashSet(Of Image) ''Added 8/26/2019 thomas downes 
+        Dim listOfElementTextFields As HashSet(Of ClassElementField)
         Dim obj_image As Image ''Added 8/24 td
         Dim obj_image_clone As Image ''Added 8/24 td
         Dim obj_image_clone_resized As Image ''Added 8/24/2019 td
@@ -1003,8 +1004,11 @@ Public Class ClassDesigner
         ''Deprecated. 9/18/2019 td''Dim listOfElementText_Stdrd As List(Of IFieldInfo_ElementPositions)
         ''Deprecated. 9/18/2019 td''Dim listOfElementText_Custom As List(Of IFieldInfo_ElementPositions)
 
-        Dim listOfTextImages As New List(Of Image) ''Added 8/26/2019 thomas downes 
-        Dim listOfElementTextFields As List(Of ClassElementField)
+        ''10/17 ''Dim listOfTextImages As New List(Of Image) ''Added 8/26/2019 thomas downes 
+        ''10/17 ''Dim listOfElementTextFields As List(Of ClassElementField)
+
+        Dim listOfTextImages As New HashSet(Of Image) ''Added 8/26/2019 thomas downes 
+        Dim listOfElementTextFields As HashSet(Of ClassElementField)
 
         ''For Each field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students
 

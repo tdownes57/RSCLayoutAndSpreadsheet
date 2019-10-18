@@ -626,8 +626,8 @@ ExitHandler:
     End Sub ''End of ""Private Sub ApplyMemberPicToImage(ByRef par_image As Image)
 
     Public Sub LoadImageWithElements(ByRef par_imageBadgeCard As Image,
-                                   par_elements As List(Of ClassElementField),
-                                        Optional par_listTextImages As List(Of Image) = Nothing)
+                                   par_elements As HashSet(Of ClassElementField),
+                                        Optional par_listTextImages As HashSet(Of Image) = Nothing)
         ''9/18/2019 td---Public Sub LoadImageWithFieldValues(ByRef par_imageBadgeCard As Image,
         ''---                                par_standardFields As List(Of IFieldInfo_ElementPositions),
         ''---                                par_customFields As List(Of IFieldInfo_ElementPositions),

@@ -8,7 +8,8 @@ Imports ciBadgeFields ''Added 9/19/2019 td
 
 Public Class ListStandardFields
 
-    Public Property ListOfFields As List(Of ClassFieldStandard) ''Added 8/19/2019 thomas downes 
+    ''10/17 Public Property ListOfFields As List(Of ClassFieldStandard) ''Added 8/19/2019 thomas downes 
+    Public Property ListOfFields As HashSet(Of ClassFieldStandard) ''Added 8/19/2019 thomas downes 
     Public Property JustOneField_Index As Integer ''Added 7/30/2019 thomas d. 
 
     Private Const vbCrLf_Deux As String = (vbCrLf & vbCrLf)
@@ -39,7 +40,8 @@ Public Class ListStandardFields
         ''
         ''Added 8/19/2019
         ''
-        Dim list_local As List(Of ClassFieldStandard) = Nothing
+        ''10/17 td''Dim list_local As List(Of ClassFieldStandard) = Nothing
+        Dim list_local As HashSet(Of ClassFieldStandard) = Nothing
 
         If (ListOfFields IsNot Nothing) Then list_local = ListOfFields
 

@@ -124,8 +124,9 @@ namespace ciBadgeGenerator
             //    Dim listOfElementTextFields As List(Of ClassElementField)
             //    listOfElementTextFields = Me.ElementsCache_Edits.ListFieldElements()
 
-            List<ClassElementField> listOfElementTextFields;
-            listOfElementTextFields = par_cache.ListFieldElements();
+            // 10-17-2019 td //List<ClassElementField> listOfElementTextFields;
+            HashSet<ClassElementField> listOfElementFields; // <<<<<<<<<<<<<< I have removed the word "Text" from the name.   It's confusing since there are Static-Text controls. --10/17/2019
+            listOfElementFields = par_cache.ListFieldElements();
 
             const bool c_boolUseUntestedProc = false;  // true;  // false;  //Added 10/5/2019 td
             if (c_boolUseUntestedProc)
@@ -135,11 +136,11 @@ namespace ciBadgeGenerator
                 //   If I recall, it's rather long and I was experiencing fatigue from the 
                 //   late hour. ---10/9/2019 td
                 //
-                LoadImageWithElements(ref obj_image, listOfElementTextFields);
+                LoadImageWithElements(ref obj_image, listOfElementFields);
             }
             else
             {
-                objPrintLibElems.LoadImageWithElements(ref obj_image, listOfElementTextFields);
+                objPrintLibElems.LoadImageWithElements(ref obj_image, listOfElementFields);
             }
 
             //''
@@ -178,7 +179,8 @@ namespace ciBadgeGenerator
                 //
                 //Added 10/9/2019 thomas d. 
                 //
-                ClassElementPic obj_elementPic = par_cache.ListPicElements()[0];
+                // 10/17/2019 td''ClassElementPic obj_elementPic = par_cache.ListPicElements()[0];
+                ClassElementPic obj_elementPic = par_cache.ListOfElementPics.GetEnumerator().Current;
 
                 // 10/12/2019 td//objPrintLibElems.LoadImageWithPortrait(par_newBadge_width_pixels,
 
@@ -245,7 +247,7 @@ namespace ciBadgeGenerator
             //
             //Static-Text Elements 
             //
-            List<ClassElementStaticText> listOfElementStaticTexts;
+            HashSet<ClassElementStaticText> listOfElementStaticTexts;
             listOfElementStaticTexts = par_cache.ListOfElementTexts;
             LoadImageWithStaticTexts(ref obj_image, listOfElementStaticTexts);
 
@@ -394,8 +396,8 @@ namespace ciBadgeGenerator
         //    ''---                                     Optional par_listTextImages As List(Of Image) = Nothing)        
 
         public void LoadImageWithStaticTexts(ref Image par_imageBadgeCard,
-                              List<ClassElementStaticText> par_elements,
-                              List<Image> par_listTextImages = null)
+                              HashSet<ClassElementStaticText> par_elements,
+                              HashSet<Image> par_listTextImages = null)
         {
             //
             //Stubbed 10/14/2019 thomas d. 
@@ -404,8 +406,8 @@ namespace ciBadgeGenerator
         }
 
         public void LoadImageWithElements(ref Image par_imageBadgeCard,
-                                          List<ClassElementField> par_elements,
-                                          List<Image> par_listTextImages = null)
+                                          HashSet<ClassElementField> par_elements,
+                                          HashSet<Image> par_listTextImages = null)
         {
             //    ''Added 8/14/2019 td  
             //    ''
