@@ -104,11 +104,13 @@ Public Class ClassDesigner
     Private mod_rubberbandClass As ClassRubberbandSelector
 
     ''Added 9/20/2019 td  
-    Private mod_listOfFieldControls As New List(Of CtlGraphicFldLabel)
+    ''10/17/2019 td''Private mod_listOfFieldControls As New List(Of CtlGraphicFldLabel)
+    Private mod_listOfFieldControls As New HashSet(Of CtlGraphicFldLabel)
 
     Private vbCrLf_Deux As String = (vbCrLf & vbCrLf)
 
-    Public Function ListOfFieldLabels() As List(Of CtlGraphicFldLabel)
+    Public Function ListOfFieldLabels() As HashSet(Of CtlGraphicFldLabel)
+        ''10/17/2019 td''Public Function ListOfFieldLabels() As List(Of CtlGraphicFldLabel)
         ''Added 10/13/2019 thomas downes
         Return mod_listOfFieldControls
     End Function ''End of "Public Function ListOfFieldLabels() As List(Of CtlGraphicFldLabel)"
@@ -350,7 +352,9 @@ Public Class ClassDesigner
     End Sub ''End of Sub ResizeLayoutBackgroundImage_ToFitPictureBox()
 
     Private Sub LoadForm_LayoutElements(par_cache As ClassElementsCache,
-                                        ByRef par_listFieldCtls As List(Of CtlGraphicFldLabel))
+                                        ByRef par_listFieldCtls As HashSet(Of CtlGraphicFldLabel))
+        ''10/17/2019 td''Private Sub LoadForm_LayoutElements(par_cache As ClassElementsCache,
+        ''                                ByRef par_listFieldCtls As List(Of CtlGraphicFldLabel))
         ''9/20/2019 td''Private Sub LoadForm_LayoutElements(par_cache As ClassElementsCache)
         ''
         ''Added 9/17/2019 td
@@ -531,8 +535,10 @@ Public Class ClassDesigner
 
     End Sub ''End of "Private Sub LoadElements_Signature"
 
-    Private Sub Initiate_RubberbandSelector(par_elementControls_All As List(Of CtlGraphicFldLabel),
-                                            par_elementControls_GroupEdit As List(Of CtlGraphicFldLabel))
+    Private Sub Initiate_RubberbandSelector(par_elementControls_All As HashSet(Of CtlGraphicFldLabel),
+                                            par_elementControls_GroupEdit As HashSet(Of CtlGraphicFldLabel))
+        ''10/17/2019 td''Private Sub Initiate_RubberbandSelector(par_elementControls_All As HashSet(Of CtlGraphicFldLabel),
+        ''10/17/2019 td''     par_elementControls_GroupEdit As HashSet(Of CtlGraphicFldLabel))
         ''9/20 td''Private Sub Initiate_RubberbandSelector() 
         ''
         ''Added 9/8/2019 td
@@ -561,11 +567,11 @@ Public Class ClassDesigner
 
     End Sub ''End of "Private Sub InitiateRubberbandSelector"
 
-    Private Sub LoadFieldControls_ByListOfElements(par_listElements As List(Of ClassElementField),
+    Private Sub LoadFieldControls_ByListOfElements(par_listElements As HashSet(Of ClassElementField),
                                par_boolLoadingForm As Boolean,
                                Optional par_bUnloading As Boolean = False,
                                Optional par_bAddMoveability As Boolean = False,
-                                Optional ByRef par_listFieldCtls As List(Of CtlGraphicFldLabel) = Nothing)
+                                Optional ByRef par_listFieldCtls As HashSet(Of CtlGraphicFldLabel) = Nothing)
         ''
         ''Added 9/17/2019 thomas downes 
         ''
@@ -1158,7 +1164,8 @@ Public Class ClassDesigner
     ''-----------------------------------------------------------------------
     ''-----------------------------------------------------------------------
 
-    Private mod_selectedCtls As New List(Of CtlGraphicFldLabel)   ''Added 8/03/2019 thomas downes 
+    ''10/17/2019 td''Private mod_selectedCtls As New List(Of CtlGraphicFldLabel)   ''Added 8/03/2019 thomas downes 
+    Private mod_selectedCtls As New HashSet(Of CtlGraphicFldLabel)   ''Added 8/03/2019 thomas downes 
     Private mod_FieldControlLastTouched As CtlGraphicFldLabel   ''Added 8/09/2019 thomas downes 
     Private mod_ControlLastTouched As Control ''Added 8/12/2019 thomas d. 
     Private mod_ElementLastTouched As Control ''Let's change this to IElement_Base soon. ---Added 9/14/2019 td 
@@ -1211,7 +1218,7 @@ Public Class ClassDesigner
         End Set
     End Property ''End of "Public Property ControlBeingModified() As Control Implements ILayoutFunctions.ControlBeingModified"
 
-    Public Property LabelsDesignList_AllItems As List(Of CtlGraphicFldLabel) Implements ISelectingElements.LabelsDesignList_AllItems
+    Public Property LabelsDesignList_AllItems As HashSet(Of CtlGraphicFldLabel) Implements ISelectingElements.LabelsDesignList_AllItems
         ''10/17/2019 td''Public Property LabelsDesignList_AllItems As List(Of CtlGraphicFldLabel) Implements ISelectingElements.LabelsDesignList_AllItems
         Get
             ''Added 8/3/2019 thomas downes

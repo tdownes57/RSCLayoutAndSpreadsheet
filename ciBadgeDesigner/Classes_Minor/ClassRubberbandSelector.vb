@@ -22,8 +22,12 @@ Public Class ClassRubberbandSelector
     ''
     ''9/8/2019 td''Public ParentDesignForm As FormDesignProtoTwo
     Public PictureBack As PictureBox
-    Public FieldControls_GroupEdit As List(Of CtlGraphicFldLabel)
-    Public FieldControls_All As List(Of CtlGraphicFldLabel)
+
+    ''10/17 td''Public FieldControls_GroupEdit As List(Of CtlGraphicFldLabel)
+    ''10/17 td''Public FieldControls_All As List(Of CtlGraphicFldLabel)
+    Public FieldControls_GroupEdit As HashSet(Of CtlGraphicFldLabel)
+    Public FieldControls_All As HashSet(Of CtlGraphicFldLabel)
+
     Public LayoutFunctions As ILayoutFunctions ''Added 9/20/2019 thomas d
 
     ''

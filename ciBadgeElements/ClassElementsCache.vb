@@ -25,13 +25,22 @@ Public Class ClassElementsCache
     Public Property ElementSignature As ClassElementSignature ''Added 10/8/2019 thomas d.  
 
     ''10/14/2019 td''Private mod_listFields As New List(Of ClassFieldAny) ''Added 9/18/2019 td  
-    Private mod_listFields_Standard As New List(Of ClassFieldStandard) ''Added 10/14/2019 td  
-    Private mod_listFields_Custom As New List(Of ClassFieldCustomized) ''Added 10/14/2019 td  
 
-    Private mod_listElementFields As New List(Of ClassElementField)
-    Private mod_listElementPics As New List(Of ClassElementPic)
-    Private mod_listElementStatics As New List(Of ClassElementStaticText)
-    Private mod_listElementLaysections As New List(Of ClassElementLaysection) ''Added 9/17/2019 thomas downes
+    ''10/17 td''Private mod_listFields_Standard As New List(Of ClassFieldStandard) ''Added 10/14/2019 td  
+    ''10/17 td''Private mod_listFields_Custom As New List(Of ClassFieldCustomized) ''Added 10/14/2019 td  
+
+    ''10/17 td''Private mod_listElementFields As New List(Of ClassElementField)
+    ''10/17 td''Private mod_listElementPics As New List(Of ClassElementPic)
+    ''10/17 td''Private mod_listElementStatics As New List(Of ClassElementStaticText)
+    ''10/17 td''Private mod_listElementLaysections As New List(Of ClassElementLaysection) ''Added 9/17/2019 thomas downes
+
+    Private mod_listFields_Standard As New HashSet(Of ClassFieldStandard) ''Added 10/14/2019 td  
+    Private mod_listFields_Custom As New HashSet(Of ClassFieldCustomized) ''Added 10/14/2019 td  
+
+    Private mod_listElementFields As New HashSet(Of ClassElementField)
+    Private mod_listElementPics As New HashSet(Of ClassElementPic)
+    Private mod_listElementStatics As New HashSet(Of ClassElementStaticText)
+    Private mod_listElementLaysections As New HashSet(Of ClassElementLaysection) ''Added 9/17/2019 thomas downes
 
     ''10/14/2019 td''Public Property ListOfFields As List(Of ClassFieldAny)
     ''    Get ''Added 9/28/2019 td
@@ -54,21 +63,21 @@ Public Class ClassElementsCache
 
     End Function ''End of "Public Function ListOfFields_Any() As List(Of ClassFieldAny)"
 
-    Public Property ListOfFields_Standard As List(Of ClassFieldStandard)
+    Public Property ListOfFields_Standard As HashSet(Of ClassFieldStandard) ''10/17 ''As List(Of ClassFieldStandard)
         Get ''Added 10/14/2019 td
             Return mod_listFields_Standard
         End Get
-        Set(value As List(Of ClassFieldStandard))
+        Set(value As HashSet(Of ClassFieldStandard))
             ''Added 10/14/2019 td td
             mod_listFields_Standard = value
         End Set
     End Property
 
-    Public Property ListOfFields_Custom As List(Of ClassFieldCustomized)
+    Public Property ListOfFields_Custom As HashSet(Of ClassFieldCustomized) '' List(Of ClassFieldCustomized)
         Get ''Added 10/14/2019 td
             Return mod_listFields_Custom
         End Get
-        Set(value As List(Of ClassFieldCustomized))
+        Set(value As HashSet(Of ClassFieldCustomized)) '' List(Of ClassFieldCustomized))
             ''Added 10/14/2019 td td
             mod_listFields_Custom = value
         End Set
@@ -76,31 +85,31 @@ Public Class ClassElementsCache
 
 
 
-    Public Property ListOfElementFields As List(Of ClassElementField)
+    Public Property ListOfElementFields As HashSet(Of ClassElementField)  ''---List(Of ClassElementField)
         Get ''Added 9/28/2019 td
             Return mod_listElementFields
         End Get
-        Set(value As List(Of ClassElementField))
+        Set(value As HashSet(Of ClassElementField))  ''---List(Of ClassElementField))
             ''Added 9/28/2019 td
             mod_listElementFields = value
         End Set
     End Property
 
-    Public Property ListOfElementPics As List(Of ClassElementPic)
+    Public Property ListOfElementPics As HashSet(Of ClassElementPic)  ''---List(Of ClassElementPic)
         Get ''Added 10/13/2019 td
             Return mod_listElementPics
         End Get
-        Set(value As List(Of ClassElementPic))
+        Set(value As HashSet(Of ClassElementPic))  ''---List(Of ClassElementPic))
             ''Added 10/13/2019 td
             mod_listElementPics = value
         End Set
     End Property
 
-    Public Property ListOfElementTexts As List(Of ClassElementStaticText)
+    Public Property ListOfElementTexts As HashSet(Of ClassElementStaticText)  ''---List(Of ClassElementStaticText)
         Get ''Added 10/14/2019 td
             Return mod_listElementStatics
         End Get
-        Set(value As List(Of ClassElementStaticText))
+        Set(value As HashSet(Of ClassElementStaticText))  ''---List(Of ClassElementStaticText))
             ''Added 10/14/2019 td
             mod_listElementStatics = value
         End Set
@@ -120,7 +129,8 @@ Public Class ClassElementsCache
 
     ''End Function ''End of "Public Function Fields() As List(Of ClassFieldAny)"
 
-    Public Function ListFieldElements() As List(Of ClassElementField)
+    Public Function ListFieldElements() As HashSet(Of ClassElementField)
+        ''10/17 td''Public Function ListFieldElements() As List(Of ClassElementField)
         ''
         ''Added 9/16/2019 thomas downes
         ''
@@ -138,7 +148,7 @@ Public Class ClassElementsCache
 
     End Function ''End of "Public Function PicElement() As ClassElementPic"
 
-    Public Function ListPicElements() As List(Of ClassElementPic)
+    Public Function ListPicElements() As HashSet(Of ClassElementPic)  ''---List(Of ClassElementPic)
         ''
         ''Added 9/17/2019 thomas downes
         ''
@@ -146,7 +156,7 @@ Public Class ClassElementsCache
 
     End Function ''End of " Public Function ListPicElements() As List(Of ClassElementPic)"
 
-    Public Function ListStaticTextElements() As List(Of ClassElementStaticText)
+    Public Function ListStaticTextElements() As HashSet(Of ClassElementStaticText)  ''---List(Of ClassElementStaticText)
         ''
         ''Added 9/16/2019 thomas downes
         ''
@@ -154,7 +164,7 @@ Public Class ClassElementsCache
 
     End Function ''End of "Public Function ListStaticTextElements() As List(Of ClassElementStaticText)"
 
-    Public Function LaysectionElements() As List(Of ClassElementLaysection)
+    Public Function LaysectionElements() As HashSet(Of ClassElementLaysection)  ''---List(Of ClassElementLaysection)
         ''
         ''Added 9/17/2019 thomas downes
         ''
