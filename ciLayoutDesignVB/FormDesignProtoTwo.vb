@@ -1307,8 +1307,9 @@ Public Class FormDesignProtoTwo
         strOutputPathToFileBMP = (strOutputPathToFolder & "\Preview_" &
             DateTime.Now.ToString("MMdd_hhmmss") & ".bmp")
 
-        ''5/7/2019 td''img.Save("Test.jpg", Imaging.ImageFormat.Png)
+        '' 5/7/2019 td''img.Save("Test.jpg", Imaging.ImageFormat.Png)
         ''10/14/2019 td''img.Save("Test.bmp", Imaging.ImageFormat.Bmp)
+
         img.Save(strOutputPathToFileBMP, Imaging.ImageFormat.Bmp)
 
         '' 5/7/2019 td''System.Diagnostics.Process.Start("Test.jpg")
@@ -1324,6 +1325,41 @@ Public Class FormDesignProtoTwo
         ContextMenuStrip1.Items.Clear()
         ContextMenuStrip1.Items.AddRange(MenuCache_Background.Tools_BackgroundMenu)
         ContextMenuStrip1.Show(pictureBack, New Point(par_mouse_x, par_mouse_y))
+
+    End Sub
+
+    Private Sub PrintAllBadgesToFileFolderToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PrintAllBadgesToFileFolderToolStripMenuItem.Click
+        ''
+        ''Added 10/18/2019 thomas d.  
+        ''
+        Dim strPathToFolder As String
+        Dim strOutputPathToFileBMP As String
+        Dim img_Prod As Image
+        Dim strFolderSuffix As String
+
+        strFolderSuffix = DateTime.Now.ToString("MMdd_hhmmss")
+
+        strPathToFolder = DiskFolders.PathToFolder_Production(strFolderSuffix)
+
+        For Each each_recip As ClassRecipient In PersonalityCache.ListOfRecipients
+            ''
+            ''Added 10/18/2019 td 
+            ''
+            ClassElementField.Recipient = each_recip
+
+            mod_designer.RefreshPreview_Redux()
+
+            strOutputPathToFileBMP = System.IO.Path.Combine(strPathToFolder,
+                                    (each_recip.RecipientID() & ".bmp"))
+
+            img_prod = picturePreview.Image
+            img_prod.Save(strOutputPathToFileBMP, Imaging.ImageFormat.Bmp)
+
+        Next each_recip
+
+ExitHandler:
+        ClassElementField.Recipient = Nothing ''Clear out the member of data.   
+        System.Diagnostics.Process.Start(strPathToFolder)
 
     End Sub
 End Class

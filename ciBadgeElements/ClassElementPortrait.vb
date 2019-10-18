@@ -234,6 +234,22 @@ Public Class ClassElementPic ''May be renamed to ClassElementPortrait. ---10/8/2
 
     End Sub ''ENd of ""Public Sub New(par_rectangle As Rectangle, par_layout As PictureBox)""
 
+    Public Function GetStep3_Picture() As Image
+        ''
+        ''Added 10/18/2019 thomas d
+        ''
+        Dim strRecipID As String
+
+        If (ClassElementField.Recipient Is Nothing) Then Return Nothing
+
+        strRecipID = ClassElementField.Recipient.RecipientID()
+
+        If (strRecipID = "") Then Return Nothing
+
+        Return ciPictures_VB.PictureExamples.GetImageByRecipID(strRecipID)
+
+    End Function ''End of Public Function GetStep3_Picture  
+
     Public Function Copy() As ClassElementPic
         ''
         ''Added 9/17/2019 
