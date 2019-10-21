@@ -373,6 +373,7 @@
     <Compile Include="Version900_v101.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="WebAPIs_Etc\modQRCodes.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ContextMenus_Obselete\ContextLayoutBackground.resx">
