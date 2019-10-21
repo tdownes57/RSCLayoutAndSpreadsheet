@@ -50,6 +50,12 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ciCfg">
+      <HintPath>..\..\..\..\..\..\CI Solutions\CI Badge\ciCfg.dll</HintPath>
+    </Reference>
+    <Reference Include="ciQREncoding">
+      <HintPath>..\..\..\..\..\..\CI Solutions\CI Badge\ciQREncoding.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -717,6 +723,9 @@
     <Folder Include="__BlakemoreWebAPIs\" />
     <Folder Include="__ErrorLog\" />
     <Folder Include="__ProgressiveWebApp\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
