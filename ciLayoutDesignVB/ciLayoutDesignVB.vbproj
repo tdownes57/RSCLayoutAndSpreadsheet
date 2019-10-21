@@ -540,6 +540,8 @@
     </Content>
     <Content Include="Images\CI Logo.jpg" />
     <Content Include="Images\CISolutionsLogo.png" />
+    <Content Include="Notes\VBA_modWebServicesAPIs.txt" />
+    <Content Include="WebAPIs_Etc\VBA_modWebServicesAPIs.txt" />
     <None Include="Images\ContextMenu_non-grouped.png" />
     <None Include="Images\ContextMenu_grouped.png" />
     <None Include="Images\ContextMenu_AlignSubmenu.png" />

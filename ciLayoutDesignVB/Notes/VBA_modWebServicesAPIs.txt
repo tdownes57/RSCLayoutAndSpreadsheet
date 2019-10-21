@@ -1,0 +1,921 @@
+﻿Option Compare Database
+Option Explicit
+
+Private Declare Function CreateASAPAPIObject Lib "C:\CI Solutions\CI Badge\CIAPI.dll" () As Object
+
+Private Declare Function CreateCardSmithAPIObject Lib "C:\CI Solutions\CI Badge\CIAPI.dll" () As Object
+
+Private Declare Function CreateZonarAPIObject Lib "C:\CI Solutions\CI Badge\CIAPI.dll" () As Object
+
+Private Declare Function CreateTransfinderAPIObject Lib "C:\CI Solutions\CI Badge\CIAPI.dll" () As Object
+
+
+Public Function ShellRun(sPath As String, sCmd As String, sArgs As String) As String
+
+    Dim wsh As Object
+    Set wsh = VBA.CreateObject("WScript.Shell")
+    wsh.CurrentDirectory = sPath
+    wsh.Run Chr(34) & sPath & "\" & sCmd & Chr(34) & sArgs, 0, True
+    
+    Dim strFilename As String: strFilename = sPath & "\CIAPIResponse.txt"
+    Dim strFileContent As String
+    Dim iFile As Integer: iFile = FreeFile
+    Open strFilename For Input As #iFile
+    strFileContent = Input(LOF(iFile), iFile)
+    Close #iFile
+
+    ShellRun = strFileContent
+
+End Function
+
+Public Function pSearchBAMAPI(sId As String, fName As String, lName As String, eCount As Integer)
+
+    Call pUpdateAPISettings
+    
+    If (EnableBAM = True) Then
+        
+        Dim frmCtrls(0 To 19) As String
+        frmCtrls(0) = "Id"
+        frmCtrls(1) = "FirstName"
+        frmCtrls(2) = "LastName"
+        frmCtrls(3) = "MiddleName"
+        frmCtrls(4) = "MobilPhoneNumber"
+        frmCtrls(5) = "HomePhoneNumber"
+        frmCtrls(6) = "EmailAddress"
+        frmCtrls(7) = "HomeAddress1"
+        frmCtrls(8) = "HomeAddress2"
+        frmCtrls(9) = "HomeCity"
+        frmCtrls(10) = "HomeState"
+        frmCtrls(11) = "HomeZipCode"
+        frmCtrls(12) = "Gender"
+        frmCtrls(13) = "Ethnicity"
+        frmCtrls(14) = "MaritalStatus"
+        frmCtrls(15) = "DrLNumber"
+        frmCtrls(16) = "DrLState"
+        frmCtrls(17) = "DrLExpirationDate"
+        frmCtrls(18) = "Birthday"
+        frmCtrls(19) = "MatchedDate"
+        Dim intRecs As Integer
+        Dim attr As String
+        attr = "BAM_FIND ""client_id|" & sBAMclient_id _
+          & """ ""client_secret|" & sBAMclient_secret _
+          & """ ""username|" & sBAMusername _
+          & """ ""password|" & sBAMpassword _
+          & """ ""search_id|" & sId _
+          & """ ""search_firstname|" & fName _
+          & """ ""search_lastname|" & lName _
+          & """ ""cache_hours|" & sBAMcache_hours _
+          & """"
+        
+        'Run a search using BAM
+        Dim response As String
+        response = ShellRun("C:\CI Solutions\CI Badge", "CIAPI.exe", attr)
+        
+        If (EnableBAMDebug) Then
+            MsgBox_TS attr
+        End If
+        
+        
+        Dim resultParts() As String
+        Dim resultLine As String
+        Dim KeyValuePart As Variant
+        Dim KeyValuePair() As String
+        
+        Dim strFilename: strFilename = "C:\CI Solutions\CI Badge\CIAPIResponse.txt"
+        
+        If (eCount = 0) Then
+            ReDim gvarSearchChoices(0 To 2, 0 To 0)
+        End If
+                
+        Dim bResponse As New bamRsp
+        Dim bEmpty As New bamRsp
+        Dim lCnt As Integer: lCnt = 1
+        Dim iFile As Integer: iFile = FreeFile
+        Open strFilename For Input As #iFile
+        
+        Do Until EOF(1)
+            Line Input #1, resultLine
+            'Forech Result line
+            Set bResponse = Nothing
+            If (Len(resultLine) > 0 And InStr(resultLine, "|")) Then
+               resultParts = Split(resultLine, "|")
+                For Each KeyValuePart In resultParts
+                'Foreach Result Part
+                   Dim kvp As String
+                   kvp = CStr(KeyValuePart)
+                   If (Len(kvp) > 1) Then
+                     Dim key, val As String
+                     KeyValuePair = Split(kvp, ",")
+                     If (UBound(KeyValuePair) > -1) Then
+                       key = CStr(KeyValuePair(0))
+                       val = CStr(KeyValuePair(1))
+                       If (Len(key) > 0 And Len(val) > 0) Then
+                           CallByName bResponse, key, VbLet, val
+                       End If
+                     End If
+                   End If
+                Next KeyValuePart
+                If (Len(sId) > 0) Then
+                ' Return Volunteer
+                    intRecs = 1
+                    Forms!frmMain("txtID") = bResponse.Id
+                    Forms!frmMain("txtFirstName") = bResponse.FirstName
+                    Forms!frmMain("txtLastName") = bResponse.LastName
+                    Dim rs As DAO.Recordset
+                    Dim strSQL As String
+                    Dim cfgId As String
+                    cfgId = Forms!frmMain("idfConfigID")
+                    If (cfgId = "0") Then cfgId = "1"
+                    strSQL = "SELECT * FROM tblConfigBAMAPI IN '" & GlobalCfg.sCfgFile & "' WHERE fidfConfigID = " & cfgId
+                    Set rs = CurrentDb.OpenRecordset(strSQL)
+                    If rs.RecordCount > 0 Then
+                        Dim ctrlPos As Long
+                        For ctrlPos = LBound(frmCtrls) To UBound(frmCtrls)
+                            Dim currCtrl As String
+                            currCtrl = frmCtrls(ctrlPos)
+                            On Error Resume Next
+                            Dim controlName As String
+                            controlName = Nz(rs("fstr" + currCtrl + "Ctl"), "")
+                            If (controlName <> "") Then
+                                Dim fval As String
+                                fval = CallByName(bResponse, currCtrl, VbGet)
+                                Forms!frmMain(controlName) = fval
+                            End If
+                        Next ctrlPos
+                    End If
+                Else
+                ' Add Search Result
+                    Dim nextIndex As Integer: nextIndex = eCount + intRecs
+                    ReDim Preserve gvarSearchChoices(0 To 2, 0 To nextIndex)
+                    gvarSearchChoices(0, nextIndex) = bResponse.LastName ' Last
+                    gvarSearchChoices(1, nextIndex) = bResponse.FirstName ' First
+                    gvarSearchChoices(2, nextIndex) = bResponse.Id ' ID
+                    intRecs = intRecs + 1
+                End If
+            End If
+        Loop
+        Close #iFile
+        pSearchBAMAPI = intRecs
+    End If
+End Function
+
+Public Function pSearchASAPAPI(idNum As String)
+    
+    Call pUpdateAPISettings
+    
+    If (EnableASAP = True) Then
+        Dim frmCtrls(0 To 31) As String
+        frmCtrls(0) = "AccountID"
+        frmCtrls(1) = "CustomerAltID"
+        frmCtrls(2) = "CustomerType"
+        frmCtrls(3) = "ReferredBy"
+        frmCtrls(4) = "Email"
+        frmCtrls(5) = "PrimaryPhone"
+        frmCtrls(6) = "Gender"
+        frmCtrls(7) = "GradeLevel"
+        frmCtrls(8) = "Street"
+        frmCtrls(9) = "City"
+        frmCtrls(10) = "State"
+        frmCtrls(11) = "PostalCode"
+        frmCtrls(12) = "Country"
+        frmCtrls(13) = "BirthDate"
+        frmCtrls(14) = "EthnicityCd"
+        frmCtrls(15) = "LanguageCd"
+        frmCtrls(16) = "CustomerMedicalDemographicID"
+        frmCtrls(17) = "PrimaryPhysician"
+        frmCtrls(18) = "PhysicianPhone"
+        frmCtrls(19) = "Allergies"
+        frmCtrls(20) = "Medication"
+        frmCtrls(21) = "MedicationReason"
+        frmCtrls(22) = "OtherMedical"
+        frmCtrls(23) = "InsuranceProvider"
+        frmCtrls(24) = "InsurancePlanNumber"
+        frmCtrls(25) = "IsStudent"
+        frmCtrls(26) = "IsParent"
+        frmCtrls(27) = "EmployeeID"
+        frmCtrls(28) = "DepartmentName"
+        frmCtrls(29) = "EmployeeNo"
+        frmCtrls(30) = "JobTitle"
+        frmCtrls(31) = "MiddleName"
+        
+        
+        
+        
+        Dim ASAPAPI As Object
+        Set ASAPAPI = CreateASAPAPIObject
+        ASAPAPI.APIURL = sASAPURL
+        ASAPAPI.APIKey = sASAPKey
+        ASAPAPI.APIUser = sASAPUser
+        ASAPAPI.APIOrgID = sASAPOrgID
+        ASAPAPI.APIPassword = sASAPPassword
+        ASAPAPI.SearchStaff = ASAPSearchStaff
+        ASAPAPI.LocalTime = ASAPWorkstationTime
+        If (EnableASAPDebug = True) Then
+            MsgBox_TS "Searching for " + idNum
+        End If
+        Dim r As String
+        r = ASAPAPI.SearchByID(idNum)
+        If (EnableASAPDebug = True) Then
+            MsgBox_TS r
+        End If
+        If (ASAPAPI.found = True) Then
+            If (ASAPSearchStaff) Then
+                Forms!frmMain("txtID") = ASAPAPI.EmployeeID
+            Else
+                Forms!frmMain("txtID") = ASAPAPI.CustomerID
+            End If
+            Forms!frmMain("txtFirstName") = ASAPAPI.FirstName
+            Forms!frmMain("txtLastName") = ASAPAPI.LastName
+            Dim rs As DAO.Recordset
+            Dim strSQL As String
+            Dim cfgId As String
+            cfgId = Forms!frmMain("idfConfigID")
+            If (cfgId = "0") Then cfgId = "1"
+            strSQL = "SELECT * FROM tblConfigASAPAPI IN '" & GlobalCfg.sCfgFile & "' WHERE fidfConfigID = " & cfgId
+            Set rs = CurrentDb.OpenRecordset(strSQL)
+            If rs.RecordCount > 0 Then
+                Dim ctrlPos As Long
+                For ctrlPos = LBound(frmCtrls) To UBound(frmCtrls)
+                    Dim currCtrl As String
+                    currCtrl = frmCtrls(ctrlPos)
+                    On Error Resume Next
+                    Dim controlName As String
+                    controlName = Nz(rs("fstr" + currCtrl + "Ctl"), "")
+                    If (controlName <> "") Then
+                        Forms!frmMain(controlName) = CallByName(ASAPAPI, currCtrl, VbGet)
+                    End If
+                Next ctrlPos
+            End If
+        Else
+            MsgBox_TS "ID number could not be found in the ASAP system.  Check ID number and try again.", vbExclamation, "Invalid ID"
+        End If
+        Set ASAPAPI = Nothing
+        'rs.Close: Set rs = Nothing
+    End If
+End Function
+
+
+
+
+
+Public Function pSearchTransfinderAPI(par_lngConfigID As Long, _
+                                     sId As String, fName As String, lName As String, _
+                                     ByVal eCount_PriorSearchRecs As Integer, _
+                                      Optional pboolDontFillTheForm As Boolean = False) As Integer
+''8/17/2017 TD''Public Function pSearchTransfinderAPI(sId As String, fName As String, lName As String, eCount As Integer)
+''
+''From Mike Blakemore; ported to 9.0 on 8/10/2017 by Thomas Downes.
+''
+''   --------------------------------------------------------------------------------------------------------------------
+''   https://docs.google.com/document/d/1axZhwqVrLjdOpw-pfyGJUSR3mDW2Dx6CU7gx3SLMGJE/edit?invite=COCf85UH&ts=59441b66
+''   --------------------------------------------------------------------------------------------------------------------
+''   From: Mike Blakemore [mailto:mikeblakemore@gmail.com]
+''   Sent: Friday, June 16, 2017 11:10 AM
+''   To: Thomas Downes
+''   Cc: Jayce Phavorachith; Sammi Farrow
+''   Subject: RE: CI Badge 9.0 Development
+''
+''   Hi,
+''   i've shared a Google doc with the changes so far. The API config form for Transfinder is going to change and there will be changes made in modAPI .
+''   Thanks,
+''   Mike
+''   -------------------------------------------------------------------------------------------------------
+''
+''Important fix 8/17/2017 Thomas DOWNES:
+''
+''                      ''8/17/2017 #1 TD''cfgId = Forms!frmMain_v9_Main("idfConfigID")
+''                      ''8/17/2017 #1 TD''If (cfgId = "0") Then cfgId = "1"
+''                      ''8/17/2017 #2 TD''cfgId = gCurCfg.lCfgID
+''                      lngConfigIdForNewRecord = gCurCfg.lCfgID
+''                      strConfigIdForNewRecord = CStr(lngConfigIdForNewRecord)
+''
+''                      ''Added 8/17/2017 thomas downes
+''                      Forms!frmMain_v9_Main("idfConfigID") = lngConfigIdForNewRecord
+''
+''
+    ''7/9/2019 td''Call pUpdateAPISettings
+    Call pUpdateAPISettings(par_lngConfigID)
+
+    Dim boolAdminSupport As Boolean ''Added 9/05/2017 Thomas DOWNES
+    Static s_bRunOnceConfigErrMessage As Boolean ''Added 7/9/2019 td
+    
+'    ''Issue a one-time-per-day warning if needed.  ---9/13/2017 Thomas DOWNES
+'    Call pShowWarningRegardingAppPath(True)
+'
+'    ''Added 9/05/2017 Thomas DOWNES
+'    Select Case Operator.sUserName
+'        Case "Admin", "Support": boolAdminSupport = True
+'    End Select ''End of "Select Case Operator.sUserName"
+'
+'    ''Added 8/17/2017 Thomas D.
+'    If (pboolUiVersion90) Then
+'        ''
+'        ''Great !!
+'        ''
+'    Else
+'       ''
+'       ''Note the several references to "Forms!frmMain_v9_Main" below.  --8/17/2017 TD
+'       ''
+'        MsgBox "Warning, this function only works for Forms!frmMain_v9_Main.", vbExclamation
+'        pSearchTransfinderAPI = -1  ''Return a dummy/nonsense value.
+'        Exit Function
+'    End If ''End of "If (pboolUiVersion90) Then ... Else ..."
+    
+    If (EnableTransfinder) Then
+    
+       
+        Dim intRecs As Integer
+        
+        Dim frmCtrls(0 To 18) As String
+        frmCtrls(0) = "AMStreet"
+        frmCtrls(1) = "PMStreet"
+        frmCtrls(2) = "AMRouteString"
+        frmCtrls(3) = "AMStopString"
+        frmCtrls(4) = "PMRouteString"
+        frmCtrls(5) = "PMStopString"
+        frmCtrls(6) = "MainAMTrip"
+        frmCtrls(7) = "MainAMStop"
+        frmCtrls(8) = "MainPMTrip"
+        frmCtrls(9) = "MainPMStop"
+        frmCtrls(10) = "SchoolName"
+        frmCtrls(11) = "FirstName"
+        frmCtrls(12) = "Grade"
+        frmCtrls(13) = "Id"
+        frmCtrls(14) = "LastName"
+        frmCtrls(15) = "Sex"
+        frmCtrls(16) = "UserChar6"
+        frmCtrls(17) = "UserChar7"
+        frmCtrls(18) = "School"
+               
+        Dim TransfinderAPI As Object
+        Set TransfinderAPI = CreateTransfinderAPIObject
+        
+        
+  
+                
+        TransfinderAPI.APIClientID = sTransfinderclientid
+        TransfinderAPI.APIVendorID = sTransfindervendorid
+        TransfinderAPI.APIVendorKey = sTransfindervendorkey
+        TransfinderAPI.APIUsername = sTransfinderusername
+        TransfinderAPI.APIPassword = sTransfinderpassword
+        TransfinderAPI.APIURL = sTransfinderurl
+        TransfinderAPI.APIDatabaseID = sTransfinderdatabaseid
+        TransfinderAPI.cache_hours = sTransfindercache_hours
+        TransfinderAPI.DisableExceptions = TransfinderDisableExceptions
+        
+        If (EnableTransfinderDebug = True) Then
+            ''8/17 TD''MsgBox "Searching for " + sId
+            If (TransfinderAPI.DisableExceptions) Then
+                MsgBox "Searching for " + sId & vbCrLf & vbCrLf & _
+                  "----Transfinder API (Function pSearchTransfinderAPI, in debug mode, exceptions disabled)"
+            Else
+                MsgBox "Searching for " + sId & vbCrLf & vbCrLf & _
+                  "----Transfinder API (Function pSearchTransfinderAPI, in debug mode)"
+            End If
+
+        End If ''End of "If (EnableTransfinderDebug = True) Then"
+        
+        Dim r_strStudentInformationFromAPI As String
+        
+        TransfinderAPI.SearchId = sId
+        TransfinderAPI.SearchFirst = fName
+        TransfinderAPI.SearchLast = lName
+        
+        On Error Resume Next ''Handle the error, "A connection that was expected to be kept alive by the
+        ''   server was closed."  ----9/14/2017 Thomas DOWNES
+        r_strStudentInformationFromAPI = TransfinderAPI.FindStudent()
+        
+        If (Err.Number <> 0) Then ''9/14/2017 TD
+            ''9/14/2017 TD
+            If (Not s_bRunOnceConfigErrMessage) Then
+               ''Only inform the user once! Don't be annoying.---7/9/2019 td
+               s_bRunOnceConfigErrMessage = True
+               ''7/9/2019 TD''MsgBox "You may need to try the search again." & vbCrLf & vbCrLf &
+               MsgBox "There may be a configuration error in the Transfinder API." & vbCrLf & vbCrLf & _
+                  CStr(Err.Number) & "  " & Err.Description, vbExclamation
+            End If ''End of "If (Not s_bRunOnceConfigErrMessage) Then"
+        End If ''End of "If (Err.Number <> 0) Then"
+        
+        On Error GoTo 0 ''Resume normal error handling.--9/14/2017 TD
+        
+        ''9/5/2017 TD''If (EnableTransfinderDebug = True) Then
+        If (EnableTransfinderDebug And boolAdminSupport) Then ''Modified 9/05/2017 Thomas DOWNES
+            ''Sammi, email to T.D. 9/5/2017 -- "Also, [if] the debug is enabled the info appears."
+            ''    (In other words, "The setting information, such as password and other credentials."
+            ''     (This is from a follow-up email.  Sammi F. hopes that password info doesn't get
+            ''     shown to non-authorized personnel.)   ---9/5/2017 Thomas D.
+            ''8/17 TD''MsgBox r
+            MsgBox r_strStudentInformationFromAPI & _
+                   vbCrLf & vbCrLf & _
+                  "----Transfinder API (Function pSearchTransfinderAPI, in debug mode)", _
+                 vbInformation ''Modified 8/17/17 TD
+        End If ''end of "If (EnableTransfinderDebug And boolAdminSupport) Then"
+        
+        If (TransfinderAPI.found = True) Then
+
+            ''Added 8/17/2017 Thomas DOWNES
+            If (pboolDontFillTheForm) Then
+               ''Added 8/17/2017 Thomas DOWNES
+               intRecs = 1
+               pSearchTransfinderAPI = intRecs
+               Exit Function
+            End If ''End of "If (pboolDontFillTheForm) Then"
+
+            ''  This is required to clear out some of the global variables
+            ''  that contain the prior Recipient's data.
+            ''  Asana task:
+            ''      CI Badge v8.31 | Sticky Pics - Cards table tblPicsForPrint not refreshed when no pic exists.
+            ''      https://app.asana.com/0/491042595046854/1142880859081229/f
+            ''  ---Added 10/3/2019 thomas d.
+            ''
+            Call Forms("frmMain").PrepareToLoadRecipientsData(sId)
+
+            Dim responseLines() As String
+            Dim resultParts() As String
+            Dim resultLine As Variant
+            Dim KeyValuePart As Variant
+            Dim KeyValuePair() As String
+            
+            ''9/13/2017 Thomas D''Dim strFilename: strFilename = "C:\CI Solutions\CI Badge\CIAPIResponse.txt"
+            ''9/13/2017 Thomas D''strFilename = "C:\CI Solutions\CI Badge\CIAPIResponse.txt"
+            Dim strFilename As String
+            strFilename = GlobalCfg.sAppPath & "\CIAPIResponse.txt" ''Modified by Thomas DOWNES, 9/13/2017
+
+            If (eCount_PriorSearchRecs = 0) Then
+                ReDim gvarSearchChoices(0 To 2, 0 To 0)
+            End If ''eND OF "If (eCount_PriorSearchRecs = 0) Then"
+                    
+            Dim bResponse As New transfinderRsp
+            Dim bEmpty As New transfinderRsp
+            Dim lCnt As Integer: lCnt = 1
+            'Dim iFile As Integer: iFile = FreeFile
+            'Open strFilename For Input As #iFile
+            
+            ''8/17/2017 TD''responseLines = Split(r, vbLf)
+            responseLines = Split(r_strStudentInformationFromAPI, vbLf)
+            
+            For Each resultLine In responseLines
+            'Forech Result line
+                Set bResponse = Nothing
+                
+                If (Len(resultLine) > 0 And InStr(resultLine, "|")) Then
+                   
+                   resultParts = Split(resultLine, "|")
+                    For Each KeyValuePart In resultParts
+                    'Foreach Result Part
+                       Dim kvp As String
+                       kvp = CStr(KeyValuePart)
+                       If (Len(kvp) > 1) Then
+                         Dim key, val As String
+                         KeyValuePair = Split(kvp, ",")
+                         If (UBound(KeyValuePair) > -1) Then
+                           key = CStr(KeyValuePair(0))
+                           val = CStr(KeyValuePair(1))
+                           If (Len(key) > 0 And Len(val) > 0) Then
+                               ''8/17/2017 TD''CallByName bResponse, key, VbLet, val
+                               VBA.Interaction.CallByName bResponse, key, VbLet, val
+                           End If
+                         End If
+                       End If
+                    Next KeyValuePart
+                    
+                    If (Len(sId) > 0) Then
+                    ' Return Volunteer
+                        intRecs = 1
+                        
+                        Dim rsCfg As DAO.Recordset
+                        Dim strSQL As String
+                        ''8/17/2017 TD''Dim cfgId As String
+                        Dim strConfigIdForNewRecord As String ''Added8/17/2017td
+                        Dim lngConfigIdForNewRecord As Long ''Added8/17/2017td
+                        Dim boolLoadTextboxOrCombobox As Boolean ''Added8/17/2017td
+                        
+                        ''8/17/2017 #1 TD''cfgId = Forms!frmMain_v9_Main("idfConfigID")
+                        ''8/17/2017 #1 TD''If (cfgId = "0") Then cfgId = "1"
+                        ''8/17/2017 #2 TD''cfgId = gCurCfg.lCfgID
+                        lngConfigIdForNewRecord = gCurCfg.lCfgID
+                        strConfigIdForNewRecord = CStr(lngConfigIdForNewRecord)
+                       
+                        ''Added 8/17/2017 thomas downes
+                        Forms!frmMain("idfConfigID") = lngConfigIdForNewRecord
+                       
+                        Forms!frmMain("txtID") = bResponse.Id
+                        Forms!frmMain("txtFirstName") = bResponse.FirstName
+                        Forms!frmMain("txtLastName") = bResponse.LastName
+                                               
+                        ''8/17/2017 TD''strSQL = "SELECT * FROM tblConfigTransfinderAPI IN '" & GlobalCfg.sCfgFile & "' WHERE fidfConfigID = " & cfgId
+                        strSQL = "SELECT * FROM tblConfigTransfinderAPI          " & _
+                                 "    IN '" & GlobalCfg.sCfgFile & "'            " & _
+                                  "   WHERE fidfConfigID = " & strConfigIdForNewRecord & "   "
+                        
+                        Set rsCfg = CurrentDb.OpenRecordset(strSQL)
+                        
+                        If rsCfg.RecordCount > 0 Then
+                            Dim ctrlPos As Long
+                            For ctrlPos = LBound(frmCtrls) To UBound(frmCtrls)
+                                Dim currCtrl As String
+                                currCtrl = frmCtrls(ctrlPos)
+                                ''8/17/2017 Bad error-handling.  TD''On Error Resume Next
+                                Dim controlName As String
+                                controlName = Nz(rsCfg("fstr" + currCtrl), "")
+                                ''8/17/2017 TD''If (controlName <> "" And rsCfg("fboo" + currCtrl)) Then
+                                boolLoadTextboxOrCombobox = (controlName <> "" And rsCfg("fboo" + currCtrl))
+                                If (boolLoadTextboxOrCombobox) Then
+                                    Dim fval As String
+                                    ''8/17/2017 TD''fval = CallByName(bResponse, currCtrl, VbGet)
+                                    fval = VBA.Interaction.CallByName(bResponse, currCtrl, VbGet)
+                                    Forms!frmMain(controlName) = fval
+                                End If ''End of "If (boolLoadTextboxOrCombobox) Then"
+                            Next ctrlPos
+                        End If ''End of "If rsCfg.RecordCount > 0 Then"
+                    
+                    Else
+                    ' Add Search Result
+                        Dim nextIndex As Integer: nextIndex = eCount_PriorSearchRecs + intRecs
+                        ReDim Preserve gvarSearchChoices(0 To 2, 0 To nextIndex)
+                        gvarSearchChoices(0, nextIndex) = bResponse.LastName ' Last
+                        gvarSearchChoices(1, nextIndex) = bResponse.FirstName ' First
+                        gvarSearchChoices(2, nextIndex) = bResponse.Id ' ID
+                        intRecs = intRecs + 1
+                    End If ''End of "If (Len(sId) > 0) Then ... Else ..."
+                    
+                End If ''End of "If (Len(resultLine) > 0 And InStr(resultLine, "|")) Then"
+                
+            Next resultLine
+            
+    
+            pSearchTransfinderAPI = intRecs
+    
+        Else
+    
+            pSearchTransfinderAPI = 0
+        End If
+    Else
+        pSearchTransfinderAPI = 0
+    End If
+    
+ExitHandler:
+   On Error Resume Next ''Only okay because we are closing down this function.
+   rsCfg.Close
+   Set rsCfg = Nothing
+End Function ''End of "Public Function pSearchTransfinderAPI"
+
+
+
+Public Sub pUpdateAPISettings(Optional par_lngConfigID As Long = 0)
+   ''7/2/2019 td''Public Sub pUpdateAPISettings()
+
+    Dim rs As DAO.Recordset
+    Dim strSQL As String
+    Static s_bRunOnceConfigErrMessage As Boolean ''Added 7/9/2019 td
+    
+    ''When no configuration record is found, we needed to turn the API off!
+    ''   (Especially if multiple personalities exist on this installation, and
+    ''   so it may be active on one of those other Personalities (but not
+    ''   the present one.)   ---7/9/2019 td
+    Const c_bIfNoRecordThenDisable As Boolean = True ''True, since it should be turned off, if no configuration record is found. ''Added 7/9/2019 td
+        
+    ''Added 7/2/2019 td
+    If (0 = par_lngConfigID) Then
+       ''Added 7/2/2019 td
+       
+       par_lngConfigID = Forms!frmMain("idfConfigID")
+        
+        ''Added 7/9/2019 td
+        If (0 = par_lngConfigID) Then
+           par_lngConfigID = gCurCfg.lCfgID
+        End If ''End of "If (0 = par_lngConfigID) Then"
+    
+       ''Added 7/9/2019 td
+        If (0 = par_lngConfigID) Then
+           ''Added 7/9/2019 td
+           MsgBox "Program error. Cannot locate the current config. ID.", vbExclamation, "pUpdateAPISettings"
+           Exit Sub
+        End If ''End of "If (0 = par_lngConfigID) Then"
+    
+    End If ''End of "If (0 = par_lngConfigID) Then"
+          
+    ''-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      'Get Be A Mentor Config
+    ''-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    strSQL = "SELECT * FROM tblConfigBAMAPI IN '" & GlobalCfg.sCfgFile & "' WHERE fidfConfigID = " & CStr(par_lngConfigID) ''7/2/2019 td''Forms!frmMain("idfConfigID")
+    Set rs = CurrentDb.OpenRecordset(strSQL)
+    If rs.RecordCount > 0 Then
+        EnableBAM = Nz(rs("fbooEnabled"), "")
+        EnableBAMDebug = Nz(rs("fbooDebug"), "")
+        sBAMclient_id = Nz(rs("fstrAPIclient_id"), "")
+        sBAMclient_secret = Nz(rs("fstrAPIclient_secret"), "")
+        sBAMusername = Nz(rs("fstrAPIusername"), "")
+        sBAMpassword = Nz(rs("fstrAPIpassword"), "")
+        
+    ElseIf (c_bIfNoRecordThenDisable) Then ''Added 7/9/2019 td
+        ''Since no record is found, we needed to turn it off!  (Especially if
+        ''   multiple personalities exist on this installation, and it may be
+        ''   active on one of those other Personalities (but not the present one.)
+        ''   ---7/9/2019 td
+        EnableBAM = False ''Added 7/9/2019 td
+    End If
+    rs.Close ''Added 6/26/2019 td
+    
+    ''-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    ' Get ASAP Config
+    ''-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    strSQL = "SELECT * FROM tblConfigASAPAPI IN '" & GlobalCfg.sCfgFile & "' WHERE fidfConfigID = " & CStr(par_lngConfigID) ''7/2/2019 td''Forms!frmMain("idfConfigID")
+    Set rs = CurrentDb.OpenRecordset(strSQL)
+    If rs.RecordCount > 0 Then
+        EnableASAP = Nz(rs("fbooEnabled"), "")
+        EnableASAPPhotoUpload = Nz(rs("fbooUploadPhotos"), "")
+        EnableASAPDebug = Nz(rs("fbooDebug"), "")
+        sASAPURL = Nz(rs("fstrAPIURL"), "")
+        sASAPKey = Nz(rs("fstrAPIKey"), "")
+        sASAPUser = Nz(rs("fstrAPIUser"), "")
+        sASAPOrgID = Nz(rs("fstrAPIOrgID"), "")
+        sASAPPassword = Nz(rs("fstrAPIPassword"), "")
+        ASAPSearchStaff = Nz(rs("fbooSearchStaff"), "")
+        ASAPWorkstationTime = Nz(rs("fbooWorkstationTime"), "")
+        
+    ElseIf (c_bIfNoRecordThenDisable) Then ''Added 7/9/2019 td
+        ''Since no record is found, we needed to turn it off!  (Especially if
+        ''   multiple personalities exist on this installation, and it may be
+        ''   active on one of those other Personalities (but not the present one.)
+        ''   ---7/9/2019 td
+        EnableASAP = False ''Added 7/9/2019 td
+    End If ''End of "If rs.RecordCount > 0 Then .... ElseIf ..."
+    
+    rs.Close ''Added 6/26/2019 td
+    
+    ''-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    ' Get Transfinder Config
+    ''-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    Dim boolTransfinderMissingInfo As Boolean ''Added 7/9/2019 td
+    
+    strSQL = "SELECT * FROM tblConfigTransfinderAPI IN '" & GlobalCfg.sCfgFile & "' WHERE fidfConfigID = " & CStr(par_lngConfigID) ''7/2/2019 td''Forms!frmMain("idfConfigID")
+    Set rs = CurrentDb.OpenRecordset(strSQL)
+    
+    If rs.RecordCount > 0 Then
+        EnableTransfinder = Nz(rs("fbooEnabled"), "")
+        EnableTransfinderDebug = Nz(rs("fbooDebug"), "")
+        TransfinderDisableExceptions = Nz(rs("fbooDisableExceptions"), "") ''Added by Mike Blakemore, 9/12/2017 & 9/13/2017
+        sTransfinderclientid = Nz(rs("fstrAPIClientID"), "")
+        sTransfindervendorid = Nz(rs("fstrAPIVendorID"), "")
+        sTransfindervendorkey = Nz(rs("fstrAPIVendorKey"), "")
+        sTransfinderusername = Nz(rs("fstrAPIUsername"), "")
+        sTransfinderpassword = Nz(rs("fstrAPIPassword"), "")
+        sTransfinderurl = Nz(rs("fstrAPIURL"), "")
+        sTransfinderdatabaseid = Nz(rs("fstrAPIDatabaseID"), "")
+        sTransfindercache_hours = Nz(rs("fstrCacheHours"), "")
+        
+        ''Added 7/9/2019 thomas downes
+        If (EnableTransfinder) Then
+             ''#1 7/9 td''boolTransfinderMissingInfo = (sTransfinderclientid = "")
+             '' #2 7/9 td''boolTransfinderMissingInfo = (sTransfinderclientid = "" Or sTransfinderpassword = "")
+             boolTransfinderMissingInfo = (sTransfinderpassword = "")
+             ''Added 7/9/2019 thomas downes
+             If (boolTransfinderMissingInfo) Then
+                EnableTransfinder = False ''It's not going to work.
+                ''Issue a warning message, but one time only.
+                If (Not s_bRunOnceConfigErrMessage) Then ''Only inform the user once, don't be annoying.--7/9/2019 td
+                    s_bRunOnceConfigErrMessage = True ''Added 7/9/2019 td
+                    ''Added 7/9/2019 td
+                    MsgBox "Warning, Transfinder API is only partially configured.  Cannot enable Transfinder." & vbCrLf_Deux & _
+                         "(Password is missing.)", vbExclamation
+                End If ''Endof "If (Not s_bRunOnceConfigErrMessage) Then"
+             End If ''End of "If (boolTransfinderMissingInfoe) Then"
+        End If ''End of "If (sTransfinderclientid = "") Then"
+        
+    ElseIf (c_bIfNoRecordThenDisable) Then ''Added 7/9/2019 td
+        ''Since no record is found, we needed to turn it off!  (Especially if
+        ''   multiple personalities exist on this installation, and it may be
+        ''   active on one of those other Personalities (but not the present one.)
+        ''   ---7/9/2019 td
+        EnableTransfinder = False ''Added 7/9/2019 td
+        
+    End If ''End of "If rs.RecordCount > 0 Then"
+    
+    rs.Close ''Added 6/26/2019 td
+    
+    ''-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    'Get CardSmith Config
+    ''-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    strSQL = "SELECT * FROM tblConfigCardSmithAPI IN '" & GlobalCfg.sCfgFile & "' WHERE fidfConfigID = " & CStr(par_lngConfigID) ''7/2/2019 td''Forms!frmMain("idfConfigID")
+    Set rs = CurrentDb.OpenRecordset(strSQL)
+    If rs.RecordCount > 0 Then
+        EnableCardSmith = Nz(rs("fbooEnabled"), "")
+        EnableCardSmithDebug = Nz(rs("fbooDebug"), "")
+        sCardSmithAPIIssuerId = Nz(rs("fstrIssuerIdCtl"), "")
+        sCardSmithAPISeed = Nz(rs("fstrSeedCtl"), "")
+        sCardSmithAPIURL = Nz(rs("fstrAPIURL"), "")
+    ElseIf (c_bIfNoRecordThenDisable) Then ''Added 7/9/2019 td
+        ''Since no record is found, we needed to turn it off!  (Especially if
+        ''   multiple personalities exist on this installation, and it may be
+        ''   active on one of those other Personalities (but not the present one.)
+        ''   ---7/9/2019 td
+        EnableCardSmith = False ''Added 7/9/2019 td
+    End If
+    rs.Close ''Added 6/26/2019 td
+    
+    ''-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        'Get Zonar Config
+    ''-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    strSQL = "SELECT * FROM tblConfigZonarAPI IN '" & GlobalCfg.sCfgFile & "' WHERE fidfConfigID = " & CStr(par_lngConfigID) ''7/2/2019 td''Forms!frmMain("idfConfigID")
+    Set rs = CurrentDb.OpenRecordset(strSQL)
+    If rs.RecordCount > 0 Then
+        EnableZonar = Nz(rs("fbooEnabled"), "")
+        EnableZonarDebug = Nz(rs("fbooDebug"), "")
+        sZonarAccount = Nz(rs("fstrAPIAccount"), "")
+        sZonarUsername = Nz(rs("fstrAPIUsername"), "")
+        sZonarPassword = Nz(rs("fstrAPIPassword"), "")
+    ElseIf (c_bIfNoRecordThenDisable) Then ''Added 7/9/2019 td
+        ''Since no record is found, we needed to turn it off!  (Especially if
+        ''   multiple personalities exist on this installation, and it may be
+        ''   active on one of those other Personalities (but not the present one.)
+        ''   ---7/9/2019 td
+        EnableZonar = False ''Added 7/9/2019 td
+    End If
+    rs.Close ''Added 6/26/2019 td
+    
+ExitHandler:
+   On Error Resume Next ''Added 6/26/2019 td
+   rs.Close: Set rs = Nothing
+   
+End Sub ''End of "Public Sub pUpdateAPISettings(Optional par_lngConfigID As Long = 0)"
+
+
+Public Sub pUpdateAPI(par_lngConfigID As Long)
+   ''7/9/2019 td''Public Sub pUpdateAPI()
+   ' Sleep (500)
+
+
+   ' DoEvents: DoEvents
+
+    ''7/9/2019 td''Call pUpdateAPISettings
+    Call pUpdateAPISettings(par_lngConfigID)
+    
+    ' Upload photo to ASAP
+    If gFileExists(gPic(1).sFile) And EnableASAPPhotoUpload = True Then
+    
+        Dim ASAPAPI As Object
+        Set ASAPAPI = CreateASAPAPIObject
+        ASAPAPI.APIURL = sASAPURL
+        ASAPAPI.APIKey = sASAPKey
+        ASAPAPI.APIUser = sASAPUser
+        ASAPAPI.APIOrgID = sASAPOrgID
+        ASAPAPI.APIPassword = sASAPPassword
+        ASAPAPI.SearchStaff = ASAPSearchStaff
+        Dim r As String
+        r = ASAPAPI.UploadPhoto(Nz(Forms!frmMain("txtID"), ""), gPic(1).sFile)
+        If (EnableASAPDebug = True) Then
+            MsgBox_TS r
+        End If
+    
+    
+    End If
+    
+
+
+
+
+
+
+
+
+
+    'Optional CardSmith fields
+    Dim frmCtrls(0 To 19) As String
+    frmCtrls(0) = "MiddleInitial"
+    frmCtrls(1) = "Gender"
+    frmCtrls(2) = "DateOfBirth"
+    frmCtrls(3) = "Email"
+    frmCtrls(4) = "Phone"
+    frmCtrls(5) = "Department"
+    frmCtrls(6) = "Card"
+    frmCtrls(7) = "SecCode"
+    frmCtrls(8) = "CardExpiration"
+    frmCtrls(9) = "CustomCard"
+    frmCtrls(10) = "CardCount"
+    frmCtrls(11) = "Address1"
+    frmCtrls(12) = "Address2"
+    frmCtrls(13) = "City"
+    frmCtrls(14) = "State"
+    frmCtrls(15) = "Province"
+    frmCtrls(16) = "Zip"
+    frmCtrls(17) = "Country"
+    frmCtrls(18) = "CardholderActive"
+    frmCtrls(19) = "CardActive"
+    
+    
+    Dim CardSmithAPI As Object
+
+    Set CardSmithAPI = CreateCardSmithAPIObject
+    Dim rs As DAO.Recordset
+    Dim ctrlPos As Long
+    Dim strSQL As String
+
+    If EnableCardSmith = True Then
+        CardSmithAPI.issuerId = sCardSmithAPIIssuerId
+        CardSmithAPI.seed = sCardSmithAPISeed
+        CardSmithAPI.APIURL = sCardSmithAPIURL
+ 
+        CardSmithAPI.CardholderID = Nz(Forms!frmMain("txtID"), "")
+        CardSmithAPI.FirstName = Nz(Forms!frmMain("txtFirstName"), "")
+        CardSmithAPI.LastName = Nz(Forms!frmMain("txtLastName"), "")
+        CardSmithAPI.MiddleInitial = Left(Nz(Forms!frmMain("txtMidName"), ""), 1) ' Can override below with custom fields
+        CardSmithAPI.SendIdToCustomCardField = Nz(rs("fbooSendIdToCustomCard"), False)
+        CardSmithAPI.PadCustomCardLength = Nz(rs("fstrPadCustomCardLength"), "")
+        CardSmithAPI.PadCustomCardChar = Nz(rs("fstrPadCustomCardChar"), "")
+        
+        ''7/9/2019 td''strSQL = "SELECT * FROM tblConfigCardSmithAPI IN '" & GlobalCfg.sCfgFile & "' WHERE fidfConfigID = " & Forms!frmMain("idfConfigID")
+        strSQL = "SELECT * FROM tblConfigCardSmithAPI IN '" & GlobalCfg.sCfgFile & "' WHERE fidfConfigID = " & CStr(par_lngConfigID) & "   "
+        
+        Set rs = CurrentDb.OpenRecordset(strSQL)
+        If rs.RecordCount > 0 Then
+            
+            For ctrlPos = LBound(frmCtrls) To UBound(frmCtrls)
+                Dim currCtrl As String
+                currCtrl = frmCtrls(ctrlPos)
+                If rs("fbooUse" + currCtrl) Then
+                    CallByName CardSmithAPI, currCtrl, VbSet, Nz(Forms!frmMain(rs("fstr" + currCtrl + "Ctl")), "")
+                End If
+            Next ctrlPos
+        End If
+        
+        r = CardSmithAPI.UpdateCardSmith()
+       
+        If EnableCardSmithDebug = True Then
+          MsgBox_TS r
+        End If
+        
+        
+    End If
+    Set CardSmithAPI = Nothing
+    
+        
+    Dim frmCtrlsZonar(0 To 2) As String
+    frmCtrlsZonar(0) = "CardNo"
+    frmCtrlsZonar(1) = "UniqueID"
+    frmCtrlsZonar(2) = "GroupName"
+    
+    Dim ZonarAPI As Object
+
+    Set ZonarAPI = CreateZonarAPIObject
+    
+    
+   
+    If EnableZonar = True Then
+        ZonarAPI.APIAccount = sZonarAccount
+        ZonarAPI.APIUsername = sZonarUsername
+        ZonarAPI.APIPassword = sZonarPassword
+ 
+        ZonarAPI.UniqueID = Nz(Forms!frmMain("txtID"), "")
+        
+        ZonarAPI.FirstName = Nz(Forms!frmMain("txtFirstName"), "")
+        ZonarAPI.LastName = Nz(Forms!frmMain("txtLastName"), "")
+        
+   
+        ''7/9/2019 td''strSQL = "SELECT * FROM tblConfigZonarAPI IN '" & GlobalCfg.sCfgFile & "' WHERE fidfConfigID = " & Forms!frmMain("idfConfigID")
+        strSQL = "SELECT * FROM tblConfigZonarAPI IN '" & GlobalCfg.sCfgFile & "' WHERE fidfConfigID = " & CStr(par_lngConfigID) & "  "
+        
+        Set rs = CurrentDb.OpenRecordset(strSQL)
+        If rs.RecordCount > 0 Then
+          
+            For ctrlPos = LBound(frmCtrlsZonar) To UBound(frmCtrlsZonar)
+              
+                currCtrl = frmCtrlsZonar(ctrlPos)
+                If rs("fbooUse" + currCtrl) Then
+                    CallByName ZonarAPI, currCtrl, VbSet, Nz(Forms!frmMain(rs("fstr" + currCtrl + "Ctl")), "")
+                End If
+            Next ctrlPos
+        End If
+        
+        r = ZonarAPI.Upload()
+       
+        If EnableZonarDebug = True Or r <> "Success" Then
+          Dim mTitle As String
+          If ZonarAPI.ErrorCode <> "" Then
+            MsgBox_TS r, 0, ZonarAPI.ErrorCode
+          Else
+            MsgBox_TS r, 0, "Zonar API"
+          End If
+          
+        End If
+        
+        
+    End If
+    Set ZonarAPI = Nothing
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+   ' rs.Close: Set rs = Nothing
+End Sub
+

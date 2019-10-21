@@ -592,8 +592,8 @@ Public Class FormDesignProtoTwo
         ''Step 1 of 5.   Create a dictionary of elements. 
         ''
         Dim dictonary_elmntInfo_control As New Dictionary(Of IElement_Base, CtlGraphicFldLabel)
-        Dim dictonary_field_control As New Dictionary(Of ICIBFieldStandardOrCustom,
-            CtlGraphicFldLabel)
+
+        Dim dictonary_field_control As New Dictionary(Of ICIBFieldStandardOrCustom, CtlGraphicFldLabel)
         Dim dictonary_elmntObj_control As New Dictionary(Of ClassElementField, CtlGraphicFldLabel) ''Added 9/17/2019 td
         Dim intControlCount As Integer ''Added 10/13/2019 td  
 
@@ -632,19 +632,28 @@ Public Class FormDesignProtoTwo
             ''
             ''   Build a dictionary of control-element.
             ''
-            dictonary_elmntInfo_control.Add(each_field_control.ElementInfo_Base, each_field_control)
+            Try
+                dictonary_elmntInfo_control.Add(each_field_control.ElementClass_Obj, each_field_control)
+            Catch
+                MsgBox("Possible duplicate of element Interface/Information.", MsgBoxStyle.Exclamation, "RefreshTheSetOfDisplayedElements")
+            End Try
+
             dictonary_field_control.Add(each_field_control.FieldInfo, each_field_control)
 
             ''Added 9/17/2019 td
-            dictonary_elmntObj_control.Add(each_field_control.ElementClass_Obj, each_field_control)
+            Try
+                dictonary_elmntObj_control.Add(each_field_control.ElementClass_Obj, each_field_control)
+            Catch
+                MsgBox("Possible duplicate of Element Object.", MsgBoxStyle.Exclamation, "RefreshTheSetOfDisplayedElements")
+            End Try
 
         Next each_control
 
         ''
         ''Step 3 of 5.   Make a list of the elements which are not yet populated on the form. 
         ''
-        ''Dim list_fieldsNotLoadedYet_Custom As New List(Of ClassFieldCustomized)
-        ''Dim list_fieldsNotLoadedYet_Standrd As New List(Of ClassFieldStandard)
+        ''---Dim list_fieldsNotLoadedYet_Custom As New List(Of ClassFieldCustomized)
+        ''---Dim list_fieldsNotLoadedYet_Standrd As New List(Of ClassFieldStandard)
 
         Dim list_fieldsNotLoadedYet_Any As New List(Of ICIBFieldStandardOrCustom)
         Dim list_elementsNotLoadedYet_Any As New List(Of ClassElementField) ''Added 9/17/2019 td  

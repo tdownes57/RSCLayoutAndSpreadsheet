@@ -27,7 +27,7 @@ Public Class Operations_EditElement
 
     Private mod_fauxMenuEditSingleton As CtlGraphPopMenuEditSingle ''Added 10/3/2019 td 
 
-    Private Sub Open_Field_Of_Element(sender As Object, e As EventArgs)
+    Public Sub Open_Field_Of_Element(sender As Object, e As EventArgs)
         ''Private Sub OpenDialog_Field(sender As Object, e As EventArgs)
         ''
         ''Added 7/30/2019 thomas downes
@@ -148,7 +148,7 @@ Public Class Operations_EditElement
         ''9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()
         Me.LayoutFunctions.AutoPreview_IfChecked()
 
-    End Sub ''eNd of "Private Sub opendialog_Color()"
+    End Sub ''eNd of "Private Sub Open_Dialog_Color()"
 
     ''Private Sub SwitchCtl__Up(sender As Object, e As EventArgs)
     ''    ''
@@ -176,7 +176,7 @@ Public Class Operations_EditElement
 
     ''End Sub ''ENd of "Private Sub SwitchCtl_Down(sender As Object, e As EventArgs)"
 
-    Public Sub OpenDialog_Font(sender As Object, e As EventArgs)
+    Public Sub Open_Dialog_Font(sender As Object, e As EventArgs)
         ''
         ''Added 7/30/2019 thomas downes
         ''
@@ -262,13 +262,13 @@ Public Class Operations_EditElement
         ''9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()
         Me.LayoutFunctions.AutoPreview_IfChecked()
 
-    End Sub ''eNd of "Private Sub opendialog_Font()"
+    End Sub ''eNd of "Private Sub "Open_Dialog_Font()"
 
 
 
 
 
-    Private Sub ExampleValue_Edit(sender As Object, e As EventArgs)
+    Public Sub ExampleValue_Edit(sender As Object, e As EventArgs)
         ''
         ''Added 8/10/2019 thomas downes
         ''
@@ -287,7 +287,7 @@ Public Class Operations_EditElement
 
     End Sub ''End of "Private Sub ExampleValue_Edit"  
 
-    Private Sub Open_OffsetTextDialog(sender As Object, e As EventArgs)
+    Public Sub Open_OffsetText_Dialog(sender As Object, e As EventArgs)
         ''
         ''Added 8/10/2019 thomas downes
         ''
@@ -376,7 +376,7 @@ Public Class Operations_EditElement
 
     End Sub ''End of "Private Sub Open_OffsetTextDialog(sender As Object, e As EventArgs)"
 
-    Private Sub BorderDesign(sender As Object, e As EventArgs)
+    Public Sub Border_Design(sender As Object, e As EventArgs)
         ''
         ''Added 9/ 2/2019 thomas downes
         ''
@@ -451,7 +451,7 @@ Public Class Operations_EditElement
 
     End Sub ''End of "Private Sub Open_OffsetTextDialog(sender As Object, e As EventArgs)"
 
-    Private Sub Rotate90Degrees(sender As Object, e As EventArgs)
+    Public Sub Rotate90_Degrees(sender As Object, e As EventArgs)
         ''
         ''Added 8/17/2019 thomas downes
         ''  
@@ -496,7 +496,7 @@ Public Class Operations_EditElement
         ''9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()
         Me.LayoutFunctions.AutoPreview_IfChecked()
 
-    End Sub ''eNd of "Private Sub Rotate90Degrees()"
+    End Sub ''eNd of "Private Sub Rotate90_Degrees()"
 
 
 End Class

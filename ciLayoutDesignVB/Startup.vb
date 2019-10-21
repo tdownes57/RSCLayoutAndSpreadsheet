@@ -107,7 +107,7 @@ Public Class Startup
         ''Added 10/16/2019 td
         ''---#1 10/18/2019--PictureExamples.CreateExamplePics_Numbered(10)
         ''----#2 10/18/2019--PictureExamples.CreateExamplePics_Numbered(100)
-        PictureExamples.CreateExamplePics_Numbered(100, System.Drawing.Imaging.ImageFormat.Bmp)
+        ''-----#3 10/18/2019--PictureExamples.CreateExamplePics_Numbered(100, System.Drawing.Imaging.ImageFormat.Bmp)
 
         Const c_boolCreate100ExamplePics As Boolean = True ''Added 10/16/2019 thomas d
         If (c_boolCreate100ExamplePics) Then
