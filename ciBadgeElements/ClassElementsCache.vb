@@ -312,6 +312,45 @@ Public Class ClassElementsCache
 
     End Sub ''ENd of "Public Sub LoadFieldElements(par_pictureBackground As PictureBox)"
 
+    Public Sub LoadFieldElements(par_layout As BadgeLayoutClass)
+        ''
+        ''Added 11/15/2019 thomas d. 
+        ''
+        Dim new_elementField As ClassElementField ''Added 9/18/2019 td
+        Dim intFieldIndex As Integer ''Added 9/18/2019 td
+        Dim intLeft_Pixels As Integer ''Added 9/18/2019 td
+        Dim intTop_Pixels As Integer ''Added 9/18/2019 td
+        Const c_intHeight_Pixels As Integer = 30 ''Added 9/18/2019 td
+
+        ''Added 9/18/2019 td
+        ''10/14/2019 td''For Each each_field As ClassFieldAny In mod_listFields
+        For Each each_field As ClassFieldAny In Me.ListOfFields_Any()
+
+            ''Fields cannot link to elements.---9/18/2019 td''mod_listElementFields.Add(each_field.ElementFieldClass)
+
+            ''Added 9/16/2019 td  
+            ''Fields cannot link to elements.---9/18/2019 td''field_custom.ElementFieldClass.BadgeLayout = New BadgeLayoutClass(par_pictureBackground)
+
+            intFieldIndex += 1
+            ''9/18/2019 td''intLeft_Pixels = (30 * (intFieldIndex - 1))
+            'intTop_Pixels = (c_intHeight_Pixels * (intFieldIndex - 1))
+            intLeft_Pixels = intTop_Pixels ''Let's have a staircase effect!! 
+
+            ''Added 9/18/2019 td
+            new_elementField = New ClassElementField(each_field, intLeft_Pixels, intTop_Pixels, c_intHeight_Pixels)
+            new_elementField.FieldInfo = each_field
+            new_elementField.FieldEnum = each_field.FieldEnumValue ''Added 10/12/2019 td
+
+            ''Added 10/13/2019 td
+            new_elementField.BadgeLayout = par_layout
+
+            ''Added 9/19/2019 td
+            mod_listElementFields.Add(new_elementField)
+
+        Next each_field
+
+    End Sub ''ENd of "Public Sub LoadFieldElements(par_pictureBackground As Image)"
+
     Public Sub LoadElement_Pic(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)
         ''10/10/2019 td''Public Sub LoadPicElement(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)
         '' 
@@ -792,10 +831,179 @@ Public Class ClassElementsCache
 
     ''        ''Added 8/18/2019 td
     ''        .picturePortrait.Image = mod_imageLady
-
+    '' 
     ''    End With ''End of "With CtlGraphicPortrait1"
-
+    ''
     ''End Sub ''End of " Private Sub LoadElements_Picture()"
+
+    Public Shared Function GetLoadedCache(pstrPathToXML As String,
+                                          pboolNewFileXML As Boolean,
+                                          par_imageBack As Image) As ClassElementsCache
+        ''
+        ''Added 11/15/2019 td
+        ''
+        ''Added 10/10/2019 td
+        Dim strPathToXML As String = ""
+        ''---Dim boolNewFileXML As Boolean ''Added 10/10/2019 td  
+        Dim obj_cache_elements As ClassElementsCache ''Added 10/10/2019 td
+        ''11/15/2019 td''Dim boolNewFileXML As Boolean
+        Dim obj_designForm As New FormBadgeLayoutProto ''Added 11/15/2019 td 
+
+        ''Added 11/15/2019 td
+        obj_designForm.pictureBack.Image = par_imageBack
+
+        ''Added 10/10/2019 td
+        ''10/13/2019 td''strPathToXML = My.Settings.PathToXML_Saved
+        ''11/15/2019 td''strPathToXML = DiskFiles.PathToFile_XML
+
+        ''11/15/2019 td''If (pstrPathToXML = "") Then
+        ''11/15/2019 td''boolNewFileXML = True
+        ''10/12/2019 td''strPathToXML = (My.Application.Info.DirectoryPath & "\ciLayoutDesignVB_Saved.xml").Replace("\\", "\")
+        ''11/15/2019 td''strPathToXML = DiskFiles.PathToFile_XML
+        ''11/15/2019 td''My.Settings.PathToXML_Saved = strPathToXML
+        ''11/15/2019 td''My.Settings.Save()
+        ''11/15/2019 td''Else
+        pboolNewFileXML = (Not System.IO.File.Exists(pstrPathToXML))
+        ''11/15/2019 td''End If ''End of "If (strPathToXML <> "") Then .... Else ..."
+
+        ''
+        ''Major call!!
+        ''
+        If (pboolNewFileXML) Then ''Condition added 10/10/2019 td  
+            ''10/13/2019 td''Me.ElementsCache_Saved.LoadFields()
+            ''10/13/2019 td''Me.ElementsCache_Saved.LoadFieldElements(pictureBack)
+            ''----Me.ElementsCache_Edits.LoadFields()
+            ''10/13/2019 td''Me.ElementsCache_Edits.LoadFieldElements(pictureBack, BadgeLayout)
+            ''----Me.ElementsCache_Edits.LoadFieldElements(pictureBack, BadgeLayout)
+
+            ''Added 10/13/2019 td
+            obj_cache_elements = New ClassElementsCache
+            obj_cache_elements.PathToXml_Saved = strPathToXML
+
+            obj_cache_elements.LoadFields()
+            ''----uncomment on 11/16/2019 td''obj_cache_elements.LoadFieldElements(par_imageBack,
+            ''----uncomment on 11/16/2019 td''       New BadgeLayoutClass(par_imageBack))
+
+        Else
+            ''Added 10/10/2019 td  
+            Dim objDeserialize As New ciBadgeSerialize.ClassDeserial With {
+                .PathToXML = strPathToXML
+            } ''Added 10/10/2019 td  
+
+            ''10/13/2019 td''Me.ElementsCache_Saved = CType(objDeserialize.DeserializeFromXML(Me.ElementsCache_Saved.GetType(), False), ClassElementsCache)
+            ''-----Me.ElementsCache_Edits = CType(objDeserialize.DeserializeFromXML(Me.ElementsCache_Edits.GetType(), False), ClassElementsCache)
+
+            obj_cache_elements = New ClassElementsCache ''This may or may not be completely necessary,
+            ''   but I know of no other way to pass the object type.  Simply expressing the Type
+            ''   by typing its name doesn't work.  ---10/13/2019 td
+
+            obj_cache_elements = CType(objDeserialize.DeserializeFromXML(obj_cache_elements.GetType(), False), ClassElementsCache)
+
+            ''Added 10/12/2019 td
+            ''10/13/2019 td''Me.ElementsCache_Saved.LinkElementsToFields()
+            ''-----Me.ElementsCache_Edits.LinkElementsToFields()
+            obj_cache_elements.LinkElementsToFields()
+
+        End If ''End of "If (pboolNewFileXML) Then .... Else ..."
+
+        ''-------------------------------------------------------------
+        ''Added 9/19/2019 td
+        Dim intPicLeft As Integer
+        Dim intPicTop As Integer
+        Dim intPicWidth As Integer
+        Dim intPicHeight As Integer
+
+        ''Added 9/19/2019 td
+        With obj_designForm
+            ''Added 9/19/2019 td
+            intPicLeft = .picturePortrait.Left - .pictureBack.Left
+            intPicTop = .picturePortrait.Top - .pictureBack.Top
+            intPicWidth = .picturePortrait.Width
+            intPicHeight = .picturePortrait.Height
+        End With
+
+        ''-------------------------------------------------------------
+        ''Added 10/14/2019 td
+        Dim intLeft_QR As Integer
+        Dim intTop_QR As Integer
+        Dim intWidth_QR As Integer
+        Dim intHeight_QR As Integer
+
+        ''Added 10/14/2019 td
+        With obj_designForm
+            ''Added 10/14/2019 td
+            intLeft_QR = .pictureQRCode.Left - .pictureBack.Left
+            intTop_QR = .pictureQRCode.Top - .pictureBack.Top
+            intWidth_QR = .pictureQRCode.Width
+            intHeight_QR = .pictureQRCode.Height
+        End With
+
+        ''-------------------------------------------------------------
+        ''Added 10/14/2019 td
+        Dim intLeft_Sig As Integer
+        Dim intTop_Sig As Integer
+        Dim intWidth_Sig As Integer
+        Dim intHeight_Sig As Integer
+
+        ''Added 10/14/2019 td
+        With obj_designForm
+            ''Added 10/14/2019 td
+            intLeft_Sig = .pictureSignature.Left - .pictureBack.Left
+            intTop_Sig = .pictureSignature.Top - .pictureBack.Top
+            intWidth_Sig = .pictureSignature.Width
+            intHeight_Sig = .pictureSignature.Height
+        End With
+
+        ''-------------------------------------------------------------
+        ''Added 10/14/2019 td
+        Dim strStaticText As String
+        Dim intLeft_Text As Integer
+        Dim intTop_Text As Integer
+        Dim intWidth_Text As Integer
+        Dim intHeight_Text As Integer
+
+        ''Added 10/14/2019 td
+        With obj_designForm
+            ''Added 10/14/2019 td
+            strStaticText = "This is the same text for everyone."
+            intLeft_Text = .labelText1.Left - .pictureBack.Left
+            intTop_Text = .labelText1.Top - .pictureBack.Top
+            intWidth_Text = .labelText1.Width
+            intHeight_Text = .labelText1.Height
+        End With
+
+
+        ''9/19 td''Me.ElementsCache_Saved.LoadPicElement(CtlGraphicPortrait_Lady.picturePortrait, pictureBack) ''Added 9/19/2019 td
+        If (pboolNewFileXML) Then
+            ''10/10/2019 td''Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
+            ''10/13/2019 td''Me.ElementsCache_Saved.LoadElement_Pic(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
+            obj_cache_elements.LoadElement_Pic(intPicLeft, intPicTop, intPicWidth, intPicHeight,
+                                               obj_designForm.pictureBack) ''Added 9/19/2019 td
+
+            ''Added 10/14/2019 thomas d. 
+            obj_cache_elements.LoadElement_QRCode(intLeft_QR, intTop_QR, intWidth_QR, intHeight_QR,
+                                               obj_designForm.pictureBack) ''Added 10/14/2019 td
+
+            ''Added 10/14/2019 thomas d. 
+            obj_cache_elements.LoadElement_Signature(intLeft_Sig, intTop_Sig, intWidth_Sig, intHeight_Sig,
+                                               obj_designForm.pictureBack) ''Added 10/14/2019 td
+
+            ''Added 10/14/2019 thomas d. 
+            obj_cache_elements.LoadElement_Text(strStaticText,
+                                                intLeft_Text, intTop_Text,
+                                                intWidth_Text, intHeight_Text,
+                                               obj_designForm.pictureBack) ''Added 10/14/2019 td
+
+        End If ''End of "If (pboolNewFileXML) Then"
+
+        ''Added 9/24/2019 thomas 
+        ''Was just for testing. ---10/10/2019 td''Dim serial_tools As New ciBadgeSerialize.ClassSerial
+        ''Was just for testing. ---10/10/2019 td''serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
+        ''Was just for testing. ---10/10/2019 td''serial_tools.SerializeToXML(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved, False, True)
+
+        Return obj_cache_elements
+
+    End Function ''End of "Public Shared Function GetLoadedCache() As ClassElementsCache"
 
 
 End Class

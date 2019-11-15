@@ -74,6 +74,12 @@
     <Compile Include="ClassElementsCache.vb" />
     <Compile Include="ClassElementSignature.vb" />
     <Compile Include="ClassElementStaticText.vb" />
+    <Compile Include="FormBadgeLayoutProto.Designer.vb">
+      <DependentUpon>FormBadgeLayoutProto.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormBadgeLayoutProto.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="InterfaceDesignerForm.vb" />
     <Compile Include="modFonts.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -93,6 +99,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FormBadgeLayoutProto.resx">
+      <DependentUpon>FormBadgeLayoutProto.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
@@ -128,6 +137,13 @@
       <Project>{2f42efad-0baa-4057-a1b8-36412cf0e2c0}</Project>
       <Name>ciBadgeRecipients</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ciBadgeSerialize\ciBadgeSerialize.vbproj">
+      <Project>{59d5b213-e44b-432a-8237-53d91ec9c04a}</Project>
+      <Name>ciBadgeSerialize</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

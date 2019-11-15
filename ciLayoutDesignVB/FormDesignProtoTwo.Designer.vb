@@ -60,6 +60,7 @@ Partial Class FormDesignProtoTwo
         Me.BadgeRecipientsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ShowBadgeRecipientsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CloseListOfRecipentsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PrintAllBadgesToFileFolderToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.LinkLabelSave1 = New System.Windows.Forms.LinkLabel()
         Me.linkSaveAndRefresh = New System.Windows.Forms.LinkLabel()
@@ -93,7 +94,6 @@ Partial Class FormDesignProtoTwo
         Me.CtlGraphicSignature1 = New ciBadgeDesigner.CtlGraphicSignature()
         Me.CtlGraphicQRCode1 = New ciBadgeDesigner.CtlGraphicQRCode()
         Me.CtlGraphicPortrait_Lady = New ciBadgeDesigner.CtlGraphicPortrait()
-        Me.PrintAllBadgesToFileFolderToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -349,6 +349,12 @@ Partial Class FormDesignProtoTwo
         Me.CloseListOfRecipentsToolStripMenuItem.Name = "CloseListOfRecipentsToolStripMenuItem"
         Me.CloseListOfRecipentsToolStripMenuItem.Size = New System.Drawing.Size(318, 26)
         Me.CloseListOfRecipentsToolStripMenuItem.Text = "Close List of Recipents"
+        '
+        'PrintAllBadgesToFileFolderToolStripMenuItem
+        '
+        Me.PrintAllBadgesToFileFolderToolStripMenuItem.Name = "PrintAllBadgesToFileFolderToolStripMenuItem"
+        Me.PrintAllBadgesToFileFolderToolStripMenuItem.Size = New System.Drawing.Size(318, 26)
+        Me.PrintAllBadgesToFileFolderToolStripMenuItem.Text = "Print all Badges to File Folder"
         '
         'CheckBox1
         '
@@ -647,17 +653,11 @@ Partial Class FormDesignProtoTwo
         '
         'CtlGraphicPortrait_Lady
         '
-        Me.CtlGraphicPortrait_Lady.Location = New System.Drawing.Point(547, 96)
+        Me.CtlGraphicPortrait_Lady.Location = New System.Drawing.Point(48, 79)
         Me.CtlGraphicPortrait_Lady.Margin = New System.Windows.Forms.Padding(4)
         Me.CtlGraphicPortrait_Lady.Name = "CtlGraphicPortrait_Lady"
         Me.CtlGraphicPortrait_Lady.Size = New System.Drawing.Size(142, 182)
         Me.CtlGraphicPortrait_Lady.TabIndex = 41
-        '
-        'PrintAllBadgesToFileFolderToolStripMenuItem
-        '
-        Me.PrintAllBadgesToFileFolderToolStripMenuItem.Name = "PrintAllBadgesToFileFolderToolStripMenuItem"
-        Me.PrintAllBadgesToFileFolderToolStripMenuItem.Size = New System.Drawing.Size(318, 26)
-        Me.PrintAllBadgesToFileFolderToolStripMenuItem.Text = "Print all Badges to File Folder"
         '
         'FormDesignProtoTwo
         '
