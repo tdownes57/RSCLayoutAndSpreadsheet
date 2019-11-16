@@ -533,7 +533,7 @@ Public Class ClassElementsCache
         ''     ''Attach the Recipient.  
         ''     ''
         ''     ''10/16/2019 td''each_elementField.Recipient = par_recipient
-        ClassElementField.Recipient = par_recipient
+        ClassElementField.oRecipient = par_recipient
 
         ''10/16/2019 td''Next each_elementField
 
@@ -846,7 +846,7 @@ Public Class ClassElementsCache
         ''Added 11/15/2019 td
         ''
         ''Added 10/10/2019 td
-        Dim strPathToXML As String = ""
+        ''11/15/2019 td''Dim strPathToXML As String = ""
         ''---Dim boolNewFileXML As Boolean ''Added 10/10/2019 td  
         Dim obj_cache_elements As ClassElementsCache ''Added 10/10/2019 td
         ''11/15/2019 td''Dim boolNewFileXML As Boolean
@@ -881,7 +881,7 @@ Public Class ClassElementsCache
 
             ''Added 10/13/2019 td
             obj_cache_elements = New ClassElementsCache
-            obj_cache_elements.PathToXml_Saved = strPathToXML
+            obj_cache_elements.PathToXml_Saved = pstrPathToXML
 
             obj_cache_elements.LoadFields()
             ''----uncomment on 11/16/2019 td''obj_cache_elements.LoadFieldElements(par_imageBack,
@@ -890,7 +890,7 @@ Public Class ClassElementsCache
         Else
             ''Added 10/10/2019 td  
             Dim objDeserialize As New ciBadgeSerialize.ClassDeserial With {
-                .PathToXML = strPathToXML
+                .PathToXML = pstrPathToXML
             } ''Added 10/10/2019 td  
 
             ''10/13/2019 td''Me.ElementsCache_Saved = CType(objDeserialize.DeserializeFromXML(Me.ElementsCache_Saved.GetType(), False), ClassElementsCache)

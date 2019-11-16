@@ -72,12 +72,29 @@ namespace ciBadgeGenerator
                             ClassElementsCache par_cache,
                             int par_badge_width_pixels,
                             int par_badge_height_pixels,
-                            iRecipient par_recipient,
+                            ciBadgeInterfaces.IRecipient par_recipient,
                             Image par_recipientPic)
         {
+            //
+            //Added 11/16/2019 Thomas Downes  
+            //
+
+            // 
+            //Step #1:  Load the Recipient into the Elements Cache. 
+            //
+            ClassElementField.iRecipient = par_recipient;
+
+            //
+            //Step #2:  Create the image of the badge-card for the above recipient. 
+            //
+            return MakeBadgeImage(par_layout, par_backgroundImage, par_cache,
+                                    par_badge_width_pixels,
+                                    par_badge_height_pixels,
+                                    par_recipientPic);
+
         }
 
-            public Image MakeBadgeImage_ByRecipient(IBadgeLayout par_layout,
+        public Image MakeBadgeImage_ByRecipient(IBadgeLayout par_layout,
                                     Image par_backgroundImage,
                                     ClassElementsCache par_cache,
                                     int par_badge_width_pixels,
@@ -89,7 +106,8 @@ namespace ciBadgeGenerator
             //Step #1:  Load the Recipient into the Elements Cache. 
             //
             // 10-16-2019 td// par_cache.LoadRecipient(par_recipient);
-            ClassElementField.Recipient = par_recipient; 
+            // 11-16-2019 td// ClassElementField.oRecipient = par_recipient;
+            ClassElementField.oRecipient = par_recipient;
 
             //
             //Step #2:  Create the image of the badge-card for the above recipient. 

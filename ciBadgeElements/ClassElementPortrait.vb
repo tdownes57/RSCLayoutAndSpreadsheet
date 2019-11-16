@@ -240,9 +240,9 @@ Public Class ClassElementPic ''May be renamed to ClassElementPortrait. ---10/8/2
         ''
         Dim strRecipID As String
 
-        If (ClassElementField.Recipient Is Nothing) Then Return Nothing
+        If (ClassElementField.oRecipient Is Nothing) Then Return Nothing
 
-        strRecipID = ClassElementField.Recipient.RecipientID()
+        strRecipID = ClassElementField.oRecipient.RecipientID()
 
         If (strRecipID = "") Then Return Nothing
 

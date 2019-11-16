@@ -25,7 +25,8 @@ Public Class ClassElementField
     ''
     ''-------------------------------------------------------------
     <Xml.Serialization.XmlIgnore>
-    Public Shared Property Recipient As ClassRecipient ''Added 10/16/2019 td  
+    Public Shared Property oRecipient As ClassRecipient ''Added 10/16/2019 td  
+    ''11/16/2019 td''Public Shared Property Recipient As ClassRecipient ''Added 10/16/2019 td  
 
     <Xml.Serialization.XmlIgnore>
     Public Shared Property iRecipient As IRecipient ''Added 10/16/2019 td  
@@ -629,17 +630,23 @@ Public Class ClassElementField
 
         Select Case True
 
-            Case (ClassElementField.Recipient IsNot Nothing)
+            Case (ClassElementField.oRecipient IsNot Nothing)
                 ''
                 ''Added 10/16/2019 thomas d. 
                 ''
-                Return ClassElementField.Recipient.GetTextValue(Me.FieldEnum)
+                Return ClassElementField.oRecipient.GetTextValue(Me.FieldEnum)
 
                 ''Case (Me.ExampleTextToDisplay.Trim() <> "")
                 ''    ''
                 ''    ''Added 9/18/2019 td 
                 ''    ''
                 ''    Return Me.ExampleTextToDisplay
+
+            Case (ClassElementField.iRecipient IsNot Nothing)
+                ''
+                ''Added 11/16/2019 thomas d. 
+                ''
+                Return ClassElementField.iRecipient.GetTextValue(Me.FieldEnum)
 
             Case (bOkayToUseExampleValues And (Me.ExampleValue_ForElement <> ""))
                 ''10/16 td''Case (Me.ExampleValue_ForElement <> "")
