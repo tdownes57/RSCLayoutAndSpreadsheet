@@ -67,7 +67,17 @@ namespace ciBadgeGenerator
         public string PathToFile_Sig = ""; //Added 10/12/2019 td
         public Image ImageQRCode;   //Added 10/14/2019 td 
 
-        public Image MakeBadgeImage_ByRecipient(IBadgeLayout par_layout,
+        public Image MakeBadgeImage_ByIRecipient(IBadgeLayout par_layout,
+                            Image par_backgroundImage,
+                            ClassElementsCache par_cache,
+                            int par_badge_width_pixels,
+                            int par_badge_height_pixels,
+                            iRecipient par_recipient,
+                            Image par_recipientPic)
+        {
+        }
+
+            public Image MakeBadgeImage_ByRecipient(IBadgeLayout par_layout,
                                     Image par_backgroundImage,
                                     ClassElementsCache par_cache,
                                     int par_badge_width_pixels,

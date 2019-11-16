@@ -10,6 +10,7 @@ Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d. 8/14/2019 td
 Imports ciBadgeFields ''Added 9/18/2019 td  
 Imports System.Xml.Serialization ''Added 9/24/2019 thomas d. 
 Imports ciBadgeRecipients ''Added 10/16/2019 thomas d. 
+''Imports ciBadgeInterfaces ''Added 11/16/2019 thomas d. 
 
 Public Event ElementField_RightClicked(par_elementField As ClassElementField) ''Added 10/1/2019 td
 
@@ -26,7 +27,10 @@ Public Class ClassElementField
     <Xml.Serialization.XmlIgnore>
     Public Shared Property Recipient As ClassRecipient ''Added 10/16/2019 td  
 
-    Public Property Id_GUID As System.Guid ''Added 9/30/2019 td 
+    <Xml.Serialization.XmlIgnore>
+    Public Shared Property iRecipient As IRecipient ''Added 10/16/2019 td  
+
+    Public Property Id_GUID As System.Guid  ''Added 9/30/2019 td 
 
     <Xml.Serialization.XmlIgnore>
     Public Property Font_DrawingClass As System.Drawing.Font Implements IElement_TextOnly.Font_DrawingClass
