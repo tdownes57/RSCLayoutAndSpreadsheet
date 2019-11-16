@@ -114,9 +114,9 @@ Partial Class FormBadgeLayoutProto
 
     End Sub
 
-    Friend WithEvents pictureBack As Windows.Forms.PictureBox
-    Friend WithEvents picturePortrait As Windows.Forms.PictureBox
-    Friend WithEvents pictureQRCode As Windows.Forms.PictureBox
-    Friend WithEvents pictureSignature As Windows.Forms.PictureBox
-    Friend WithEvents labelText1 As Windows.Forms.PictureBox
+    Public WithEvents pictureBack As Windows.Forms.PictureBox
+    Public WithEvents picturePortrait As Windows.Forms.PictureBox
+    Public WithEvents pictureQRCode As Windows.Forms.PictureBox
+    Public WithEvents pictureSignature As Windows.Forms.PictureBox
+    Public WithEvents labelText1 As Windows.Forms.PictureBox
 End Class
