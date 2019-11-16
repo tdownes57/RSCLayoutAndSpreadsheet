@@ -16,6 +16,9 @@ Public Class ClassElementsCache
     ''
     ''Added 9/16/2019 thomas downes
     ''
+    Public Shared Singleton As ClassElementsCache ''Let's use
+    '' the pattern mentioned in https://en.wikipedia.org/wiki/Singleton_pattern
+
     Public Property Id_GUID As System.Guid ''Added 9/30/2019 td 
 
     ''10/10/2019 td''Public Property SaveToXmlPath As String ''Added 9/29/2019 td
