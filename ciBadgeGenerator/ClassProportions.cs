@@ -229,6 +229,25 @@ namespace ciBadgeGenerator
         //
         //End Sub ''End of "Public Shared Sub Proportions_FixTheWidth(par_control As Control)"
 
+        public static Image Proportions_FixLayout(Image par_image)
+        {
+            //
+            //Added 11/16/2019 td  
+            //
+            if (par_image.Width <= par_image.Height)
+            {
+                //Orientation is Portrait.  
+                return new Bitmap(par_image,
+                  new Size(par_image.Width,
+                    (int)(par_image.Width * LongSideToShortRatio())));
+            }
+
+            return new Bitmap(par_image,
+                new Size(par_image.Width,
+                (int)(par_image.Width / LongSideToShortRatio())));
+
+        }
+
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         //We won't convert the function above to C# since it references System.Windows.Forms.
         //   ---10/5/2019 Thomas D. 
