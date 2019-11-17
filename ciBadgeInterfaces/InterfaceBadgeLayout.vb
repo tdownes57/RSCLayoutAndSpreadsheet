@@ -36,6 +36,7 @@ Public Interface IBadgeLayout
 
 End Interface ''End of "Public Interface IBadgeLayout"
 
+<Serializable>
 Public Class BadgeLayoutClass
     Implements IBadgeLayout
     ''

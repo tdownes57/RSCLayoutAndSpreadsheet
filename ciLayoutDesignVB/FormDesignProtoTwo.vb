@@ -582,7 +582,7 @@ Public Class FormDesignProtoTwo
         ''
         Dim sender_link As LinkLabel
         sender_link = CType(sender, LinkLabel)
-        ClassElementField.Recipient = CType(sender_link.Tag, ClassRecipient)
+        ClassElementField.oRecipient = CType(sender_link.Tag, ClassRecipient)
         Me.mod_designer.RefreshPreview_Redux()
 
     End Sub ''End of "Private Sub Recipient_LinkClicked"
@@ -1354,7 +1354,7 @@ Public Class FormDesignProtoTwo
             ''
             ''Added 10/18/2019 td 
             ''
-            ClassElementField.Recipient = each_recip
+            ClassElementField.oRecipient = each_recip
 
             mod_designer.RefreshPreview_Redux()
 
@@ -1367,7 +1367,7 @@ Public Class FormDesignProtoTwo
         Next each_recip
 
 ExitHandler:
-        ClassElementField.Recipient = Nothing ''Clear out the member of data.   
+        ClassElementField.oRecipient = Nothing ''Clear out the member of data.   
         System.Diagnostics.Process.Start(strPathToFolder)
 
     End Sub

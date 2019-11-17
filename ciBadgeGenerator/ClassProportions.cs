@@ -107,7 +107,7 @@ namespace ciBadgeGenerator
 
             bool boolDiffersMoreThanPoint99 = (0.99 < doubleDifference_x100);
             bool boolReturnValue = boolDiffersMoreThanPoint99;
-            return boolReturnValue;
+             return boolReturnValue;
 
         } // ''End of "Public Shared Function RatioIsLikelyBad(par_doubleW_div_H As Double) As Boolean"
 

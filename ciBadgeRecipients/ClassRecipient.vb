@@ -35,9 +35,7 @@ Public Class ClassRecipient
         ''
         ''Added 10/11/2019 td 
         ''
-
-
-
+        If (Me.Picture IsNot Nothing) Then Return Me.Picture
 
     End Function ''End of "Public Function GetPortraitImage() As System.Drawing.Image"
 

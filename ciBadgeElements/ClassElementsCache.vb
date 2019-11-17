@@ -883,6 +883,11 @@ Public Class ClassElementsCache
             obj_cache_elements = New ClassElementsCache
             obj_cache_elements.PathToXml_Saved = pstrPathToXML
 
+            ''Added 11/16/2019 td
+            obj_cache_elements.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass()
+            obj_cache_elements.BadgeLayout.Width_Pixels = obj_designForm.pictureBack.Width
+            obj_cache_elements.BadgeLayout.Height_Pixels = obj_designForm.pictureBack.Height
+
             obj_cache_elements.LoadFields()
             ''----uncomment on 11/16/2019 td''obj_cache_elements.LoadFieldElements(par_imageBack,
             ''----uncomment on 11/16/2019 td''       New BadgeLayoutClass(par_imageBack))
