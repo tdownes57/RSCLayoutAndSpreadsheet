@@ -139,7 +139,7 @@ Public Class ClassLabelToImage
     Public Shared Sub Proportions_FixTheWidth(par_control As Control)
         ''
         ''Added 9/5/2019 thomas downes  
-        ''
+        '''
         par_control.Width = CInt(par_control.Height * LongSideToShortRatio())
 
     End Sub ''End of "Public Shared Sub Proportions_FixTheWidth(par_control As Control)"
