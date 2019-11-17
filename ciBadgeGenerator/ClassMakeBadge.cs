@@ -134,7 +134,7 @@ namespace ciBadgeGenerator
             //''Added 9 / 6 / 2019 td
             //    ClassLabelToImage.ProportionsAreSlightlyOff(Me.BackgroundBox.Image, True, "Background Image")
 
-            ClassProportions.Proportions_FixLayout(par_backgroundImage);
+            par_backgroundImage = ClassProportions.Proportions_FixLayout(par_backgroundImage);
             ClassProportions.ProportionsAreSlightlyOff(par_backgroundImage, true, "Background Image");
 
             LayoutElements objPrintLibElems = new LayoutElements();

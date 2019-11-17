@@ -234,7 +234,11 @@ namespace ciBadgeGenerator
             //
             //Added 11/16/2019 td  
             //
-            if (!(ProportionsAreSlightlyOff(par_image, false))) return par_image;
+            bool boolAllIsGood;
+
+            boolAllIsGood = (!(ProportionsAreSlightlyOff(par_image, false)));
+
+            if (boolAllIsGood) return par_image;
 
             if (par_image.Width <= par_image.Height)
             {
