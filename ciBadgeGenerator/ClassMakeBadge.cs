@@ -66,6 +66,7 @@ namespace ciBadgeGenerator
     {
         public string PathToFile_Sig = ""; //Added 10/12/2019 td
         public Image ImageQRCode;   //Added 10/14/2019 td 
+        public string Messages = ""; //Added 11/18/2019 td 
 
         public Image MakeBadgeImage_ByIRecipient(IBadgeLayout par_layout,
                             Image par_backgroundImage,
@@ -969,10 +970,18 @@ namespace ciBadgeGenerator
             //Example of call: 
             //   ResizeImage_WidthAndHeight(obj_image, par_badge_width_pixels, par_badge_height_pixels);
             //
-            decimal dec_proportionsHW = ((decimal)par_image.Height) / ((decimal)par_image.Width);
-            int intNewHeight = (int)(((decimal)par_intNewWidth) * dec_proportionsHW);
-
-            return new Bitmap(par_image, new Size(par_intNewWidth, intNewHeight));
+            try
+            {
+                decimal dec_proportionsHW = ((decimal)par_image.Height) / ((decimal)par_image.Width);
+                int intNewHeight = (int)(((decimal)par_intNewWidth) * dec_proportionsHW);
+                return new Bitmap(par_image, new Size(par_intNewWidth, intNewHeight));
+            }
+            catch (Exception ex_resize)
+            {
+                //Added 11/18/2019 td  
+                this.Messages += ("_______ " + ex_resize.Message);
+                return null;  
+            }
         }
 
 

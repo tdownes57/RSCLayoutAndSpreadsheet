@@ -619,14 +619,19 @@ Public Class ClassElementField
 
     End Sub ''ENd of "Public Shared Sub CheckWidthVsLength_OfText()"
 
-    Public Function LabelText_ToDisplay(par_isForLayout_OrPreview As Boolean) As String
+    Public Function LabelText_ToDisplay(par_isForLayout_OrPreview As Boolean,
+                                        Optional pbAllowExampleValues As Boolean = True) As String
         ''
         ''Added 10/16/2016 & 7/25/2019 thomas d 
         ''
         ''This was copied from CtlGraphicFldLabel.vb on 10/16/2019 td
         ''
         Dim bOkayToUseExampleValues As Boolean ''Added 10/16/2019 td  
-        bOkayToUseExampleValues = par_isForLayout_OrPreview
+
+        ''11/18/2019 td''bOkayToUseExampleValues = par_isForLayout_OrPreview
+        Dim boolNotAFinalPrint As Boolean ''Added 11/18/2019 td
+        boolNotAFinalPrint = par_isForLayout_OrPreview ''Added 11/18/2019 td
+        bOkayToUseExampleValues = (boolNotAFinalPrint And pbAllowExampleValues)
 
         Select Case True
 

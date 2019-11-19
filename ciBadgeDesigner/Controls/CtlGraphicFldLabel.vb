@@ -458,8 +458,15 @@ ExitHandler:
         Const c_boolUseNewestProjectReference As Boolean = True ''Added 9/20/2019 td 
         If (c_boolUseNewestProjectReference) Then
 
+            ''Added 11-18-2019 td 
+            Dim strTextToDisplay As String ''Added 11/18/2019 td
+            strTextToDisplay = Me.ElementClass_Obj.LabelText_ToDisplay(True,
+                         CtlGraphicFldLabel.UseExampleValues)
+
+            ''11/18 td''newTextImage =
+            ''   modGenerate.TextImage_ByElemInfo(Me.ElementClass_Obj.LabelText_ToDisplay(True),
             newTextImage =
-            modGenerate.TextImage_ByElemInfo(Me.ElementClass_Obj.LabelText_ToDisplay(True),
+            modGenerate.TextImage_ByElemInfo(strTextToDisplay,
                                              intBadgeLayoutWidth,
                                    Me.ElementInfo_Text,
                                    Me.ElementInfo_Base,

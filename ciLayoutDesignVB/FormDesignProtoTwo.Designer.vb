@@ -134,7 +134,7 @@ Partial Class FormDesignProtoTwo
         '
         Me.chkIncludeExampleValues.AutoCheck = False
         Me.chkIncludeExampleValues.AutoSize = True
-        Me.chkIncludeExampleValues.Location = New System.Drawing.Point(737, 464)
+        Me.chkIncludeExampleValues.Location = New System.Drawing.Point(548, 495)
         Me.chkIncludeExampleValues.Margin = New System.Windows.Forms.Padding(2)
         Me.chkIncludeExampleValues.Name = "chkIncludeExampleValues"
         Me.chkIncludeExampleValues.Size = New System.Drawing.Size(223, 26)
