@@ -1009,6 +1009,21 @@ Public Class ClassElementsCache
         ''Was just for testing. ---10/10/2019 td''serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
         ''Was just for testing. ---10/10/2019 td''serial_tools.SerializeToXML(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved, False, True)
 
+        ''Added 11/18/2019 td
+        With obj_cache_elements
+            ''Added 11/18/2019 td
+            If (.BadgeLayout Is Nothing) Then
+                Dim intBadgeWidth As Integer
+                Dim intBadgeHeight As Integer
+
+                intBadgeWidth = obj_cache_elements.ListFieldElements(0).BadgeLayout.Width_Pixels
+                intBadgeHeight = obj_cache_elements.ListFieldElements(0).BadgeLayout.Height_Pixels
+
+                .BadgeLayout = New BadgeLayoutClass(intBadgeWidth, intBadgeHeight)
+
+            End If ''End of "If (obj_cache_elements.BadgeLayout Is Nothing) Then
+        End With
+
         Return obj_cache_elements
 
     End Function ''End of "Public Shared Function GetLoadedCache() As ClassElementsCache"
