@@ -10,12 +10,12 @@ Imports ciBadgeFields ''Added 9/18/2019 td
 Imports ciBadgeRecipients ''Added 10/16/2019 thomas d. 
 
 <Serializable>
-Public Class ClassPersonality
+Public Class ClassPersonalityCache
     ''
     ''Added 11/24/2019 thomas downes
     ''  Copied from ClassElementsCache, on 11/24/2019 thomas downes
     ''
-    Public Shared Singleton As ClassPersonality ''Let's use
+    Public Shared Singleton As ClassPersonalityCache ''Let's use
     '' the pattern mentioned in https://en.wikipedia.org/wiki/Singleton_pattern
 
     Public Property Id_GUID As System.Guid ''Added 9/30/2019 td 
@@ -39,10 +39,11 @@ Public Class ClassPersonality
     Private mod_listFields_Standard As New HashSet(Of ClassFieldStandard) ''Added 10/14/2019 td  
     Private mod_listFields_Custom As New HashSet(Of ClassFieldCustomized) ''Added 10/14/2019 td  
 
-    Private mod_listElementFields As New HashSet(Of ClassElementField)
-    Private mod_listElementPics As New HashSet(Of ClassElementPic)
-    Private mod_listElementStatics As New HashSet(Of ClassElementStaticText)
-    Private mod_listElementLaysections As New HashSet(Of ClassElementLaysection) ''Added 9/17/2019 thomas downes
+    ''See ClassLayoutCache. 11/24 td''Private mod_listElementFields As New HashSet(Of ClassElementField)
+    ''See ClassLayoutCache. 11/24 td''Private mod_listElementPics As New HashSet(Of ClassElementPic)
+    ''See ClassLayoutCache. 11/24 td''Private mod_listElementStatics As New HashSet(Of ClassElementStaticText)
+    ''See ClassLayoutCache. 11/24 td''Private mod_listElementLaysections As New HashSet(Of ClassElementLaysection) ''Added 9/17/2019 thomas downes
+    Private mod_listLayouts As New HashSet(Of ClassLayoutCache) ''Added 11.24.2019 thomas d.
 
     ''10/14/2019 td''Public Property ListOfFields As List(Of ClassFieldAny)
     ''    Get ''Added 9/28/2019 td
@@ -164,17 +165,17 @@ Public Class ClassPersonality
 
     End Sub ''End of "Public Sub LoadRecipient(par_recipient As IRecipient)"
 
-    Public Function Copy() As ClassPersonality
+    Public Function Copy() As ClassPersonalityCache
         ''
         ''Added 11/24/2019 thomas downes  
         ''
-        Dim objCopyOfCache As New ClassPersonality
+        Dim objCopyOfCache As New ClassPersonalityCache
         Dim ListFields_NotUsed As New List(Of ClassFieldAny)
         Dim dictionaryFields As New Dictionary(Of ciBadgeInterfaces.EnumCIBFields, ClassFieldAny)
         ''10/14/2019 td''Dim copy_ofField As ClassFieldAny
         Dim copy_ofField_Stan As ClassFieldStandard
         Dim copy_ofField_Cust As ClassFieldCustomized
-        Dim copy_ofElementField As ClassElementField ''Added 10/1/2019 td
+        ''11/24/2019 td''Dim copy_ofElementField As ClassElementField ''Added 10/1/2019 td
 
         ''Added 10/13/2019 thomas d.
         objCopyOfCache.PathToXml_Saved = Me.PathToXml_Saved
@@ -237,40 +238,26 @@ Public Class ClassPersonality
         Next each_field_Cust
 
 
-        ''Added 9/17/2019 thomas downes  
-        For Each each_elementField As ClassElementField In mod_listElementFields
-            ''
-            ''Add a copy of the element-field.
-            ''
-            ''10/011/2019 td''objCopyOfCache.ListFieldElements().Add(each_elementField.Copy())
+        ''Added 11/24/2019 td 
+        ''  Copy the Layout Caches. 
+        ''
+        For Each each_layoutCache As ClassLayoutCache In mod_listLayouts
 
-            copy_ofElementField = each_elementField.Copy()
+            copy_ofLayoutCache = each_layoutCache.Copy_FieldCustom()
+            objCopyOfCache.ListOfFields_Custom.Add(copy_ofField_Cust)
+            ListFields_NotUsed.Add(copy_ofField_Cust)
 
-            ''
-            ''I need to utilize the dictionary object to fix the field reference of the 
-            ''  copied element. -----9/229/2019 td 
-            ''
-            ''10/1/2019 td''Throw New NotImplementedException("Fix the field reference!")
+            Try
+                dictionaryFields.Add(copy_ofField_Cust.FieldEnumValue, copy_ofField_Cust)
+            Catch ex_AddFailed As Exception
+                ''Added 10/10/2019 td
+                ''  The ID field is being added twice, for an unknown reason.  
+                System.Diagnostics.Debugger.Break()
+            End Try
 
-            ''10/12/2019 td''dictionaryFields.TryGetValue(each_elementField.FieldInfo.FieldEnumValue, copy_ofElementField.FieldObject)
-            dictionaryFields.TryGetValue(each_elementField.FieldEnum, copy_ofElementField.FieldObject)
+        Next each_field_Cust
 
-            ''Added 10/13/2019 td
-            copy_ofElementField.FieldInfo = CType(copy_ofElementField.FieldObject, ICIBFieldStandardOrCustom)
 
-            objCopyOfCache.ListFieldElements().Add(copy_ofElementField)
-
-        Next each_elementField
-
-        ''Added 9/17/2019 thomas downes  
-        For Each each_elementPic As ClassElementPic In mod_listElementPics
-            objCopyOfCache.ListPicElements().Add(each_elementPic.Copy())
-        Next each_elementPic
-
-        ''Added 9/17/2019 thomas downes  
-        For Each each_elementStaticText As ClassElementStaticText In mod_listElementStatics
-            objCopyOfCache.ListStaticTextElements().Add(each_elementStaticText.Copy())
-        Next each_elementStaticText
 
         ''Added 10/8/2019 thomas downes
         ''
