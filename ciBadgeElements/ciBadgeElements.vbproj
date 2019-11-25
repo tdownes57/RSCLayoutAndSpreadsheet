@@ -74,6 +74,8 @@
     <Compile Include="ClassElementsCache.vb" />
     <Compile Include="ClassElementSignature.vb" />
     <Compile Include="ClassElementStaticText.vb" />
+    <Compile Include="ClassLayoutCache.vb" />
+    <Compile Include="ClassPersonality.vb" />
     <Compile Include="FormBadgeLayoutProto.Designer.vb">
       <DependentUpon>FormBadgeLayoutProto.vb</DependentUpon>
     </Compile>

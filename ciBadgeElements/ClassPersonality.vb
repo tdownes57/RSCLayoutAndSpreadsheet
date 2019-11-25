@@ -2,21 +2,20 @@
 Option Strict On
 Option Infer Off
 ''
-''Added 9/16/2019 thomas downes
+''Added 11/24/2019 thomas downes
+''  Copied from ClassElementsCache, on 11/24/2019 thomas downes
 ''
-Imports System.Drawing ''Added 9/18/2019 td
-Imports System.Windows.Forms ''Added 9/18/2019 td
 Imports ciBadgeInterfaces ''Added 9/16/2019 td 
 Imports ciBadgeFields ''Added 9/18/2019 td
-''9/19/2019 td''Imports ciLayoutPrintLib ''Added 9/18/2019 td 
 Imports ciBadgeRecipients ''Added 10/16/2019 thomas d. 
 
 <Serializable>
-Public Class ClassElementsCache
+Public Class ClassPersonality
     ''
-    ''Added 9/16/2019 thomas downes
+    ''Added 11/24/2019 thomas downes
+    ''  Copied from ClassElementsCache, on 11/24/2019 thomas downes
     ''
-    Public Shared Singleton As ClassElementsCache ''Let's use
+    Public Shared Singleton As ClassPersonality ''Let's use
     '' the pattern mentioned in https://en.wikipedia.org/wiki/Singleton_pattern
 
     Public Property Id_GUID As System.Guid ''Added 9/30/2019 td 
@@ -88,92 +87,15 @@ Public Class ClassElementsCache
 
 
 
-    Public Property ListOfElementFields As HashSet(Of ClassElementField)  ''---List(Of ClassElementField)
-        Get ''Added 9/28/2019 td
-            Return mod_listElementFields
+    Public Property ListOfLayouts As HashSet(Of ClassLayoutCache)  ''Added 11/24/2019 td
+        Get ''Added 11/24
+            Return mod_listLayouts
         End Get
-        Set(value As HashSet(Of ClassElementField))  ''---List(Of ClassElementField))
-            ''Added 9/28/2019 td
-            mod_listElementFields = value
+        Set(value As HashSet(Of ClassLayoutCache))
+            ''Added 11/24/2019 td
+            mod_listLayouts = value
         End Set
     End Property
-
-    Public Property ListOfElementPics As HashSet(Of ClassElementPic)  ''---List(Of ClassElementPic)
-        Get ''Added 10/13/2019 td
-            Return mod_listElementPics
-        End Get
-        Set(value As HashSet(Of ClassElementPic))  ''---List(Of ClassElementPic))
-            ''Added 10/13/2019 td
-            mod_listElementPics = value
-        End Set
-    End Property
-
-    Public Property ListOfElementTexts As HashSet(Of ClassElementStaticText)  ''---List(Of ClassElementStaticText)
-        Get ''Added 10/14/2019 td
-            Return mod_listElementStatics
-        End Get
-        Set(value As HashSet(Of ClassElementStaticText))  ''---List(Of ClassElementStaticText))
-            ''Added 10/14/2019 td
-            mod_listElementStatics = value
-        End Set
-    End Property
-
-
-    Public Property BadgeLayout As ciBadgeInterfaces.BadgeLayoutClass ''Added 9/17/2019 thomas downes
-
-    <Xml.Serialization.XmlIgnore>
-    Public Property Pic_InitialDefault As Image ''Added 9/23/2019 td 
-
-    ''10/14/2019 td''Public Function ListFields_Denigrated() As List(Of ClassFieldAny)
-    ''    ''
-    ''    ''Added 9/19/2019 thomas downes
-    ''    ''
-    ''    Return mod_listFields
-
-    ''End Function ''End of "Public Function Fields() As List(Of ClassFieldAny)"
-
-    Public Function ListFieldElements() As HashSet(Of ClassElementField)
-        ''10/17 td''Public Function ListFieldElements() As List(Of ClassElementField)
-        ''
-        ''Added 9/16/2019 thomas downes
-        ''
-        Return mod_listElementFields
-
-    End Function ''End of "Public Function FieldElements() As List(Of ClassElementText)"
-
-    Public Function PicElement() As ClassElementPic
-        ''
-        ''Added 9/16/2019 thomas downes
-        ''
-        If (MissingTheElementPic()) Then Return Nothing ''Added 10/12/2019 td
-
-        Return mod_listElementPics(0)
-
-    End Function ''End of "Public Function PicElement() As ClassElementPic"
-
-    Public Function ListPicElements() As HashSet(Of ClassElementPic)  ''---List(Of ClassElementPic)
-        ''
-        ''Added 9/17/2019 thomas downes
-        ''
-        Return mod_listElementPics
-
-    End Function ''End of " Public Function ListPicElements() As List(Of ClassElementPic)"
-
-    Public Function ListStaticTextElements() As HashSet(Of ClassElementStaticText)  ''---List(Of ClassElementStaticText)
-        ''
-        ''Added 9/16/2019 thomas downes
-        ''
-        Return mod_listElementStatics
-
-    End Function ''End of "Public Function ListStaticTextElements() As List(Of ClassElementStaticText)"
-
-    Public Function LaysectionElements() As HashSet(Of ClassElementLaysection)  ''---List(Of ClassElementLaysection)
-        ''
-        ''Added 9/17/2019 thomas downes
-        ''
-        Return mod_listElementLaysections
-
-    End Function ''End of "Public Function StaticTextElements() As List(Of ClassElementStaticText)"
 
     Public Sub LoadFields()
         ''
@@ -226,303 +148,6 @@ Public Class ClassElementsCache
 
     End Sub ''End of "Public Sub LoadFields(par_pictureBackground As PictureBox)"
 
-    Public Sub LoadFieldElements(par_pictureBackground As PictureBox, par_layout As BadgeLayoutClass)
-        ''
-        ''Added 9/16/2019 thomas d. 
-        ''
-        ''----------------------------------------------------------------------------------------------------
-        ''
-        ''Part 1 of 2.  Initialize the lists. 
-        ''
-        ''----------------------------------------------------------------------------------------------------
-        ''Standard Fields (Initialize the list) 
-        ''
-        ''Moved to Public Sub LoadFields.---9/18 td''ClassFieldStandard.InitializeHardcodedList_Students(True)
-
-        ''----------------------------------------------------------------------------------------------------
-        ''Custom Fields (Initialize the list)  
-        ''
-        ''Moved to Public Sub LoadFields.---9/18 td''ClassFieldCustomized.InitializeHardcodedList_Students(True)
-
-        ''----------------------------------------------------------------------------------------------------
-        ''
-        ''End of "Part 1 of 2.  Initialize the lists." 
-        ''
-        ''----------------------------------------------------------------------------------------------------
-
-        ''----------------------------------------------------------------------------------------------------
-        ''
-        ''Part 2 of 2.  Collect the list items. 
-        ''
-        ''----------------------------------------------------------------------------------------------------
-        ''Standard Fields (Collect the list items)  
-        ''
-        ''For Each field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students
-
-        ''    mod_listElementFields.Add(field_standard.ElementFieldClass)
-
-        ''    ''Added 9/16/2019 td  
-        ''    field_standard.ElementFieldClass.BadgeLayout = New BadgeLayoutClass(par_pictureBackground)
-
-        ''Next field_standard
-        ''----------------------------------------------------------------------------------------------------
-
-        ''----------------------------------------------------------------------------------------------------
-        ''Custom Fields (Collect the list items) 
-        ''
-        ''For Each field_custom As ClassFieldCustomized In ClassFieldCustomized.ListOfFields_Students
-
-        ''    mod_listElementFields.Add(field_custom.ElementFieldClass)
-
-        ''    ''Added 9/16/2019 td  
-        ''    field_custom.ElementFieldClass.BadgeLayout = New BadgeLayoutClass(par_pictureBackground)
-
-        ''Next field_custom
-        ''----------------------------------------------------------------------------------------------------
-
-        Dim new_elementField As ClassElementField ''Added 9/18/2019 td
-        Dim intFieldIndex As Integer ''Added 9/18/2019 td
-        Dim intLeft_Pixels As Integer ''Added 9/18/2019 td
-        Dim intTop_Pixels As Integer ''Added 9/18/2019 td
-        Const c_intHeight_Pixels As Integer = 30 ''Added 9/18/2019 td
-
-        ''Added 9/18/2019 td
-        ''10/14/2019 td''For Each each_field As ClassFieldAny In mod_listFields
-        For Each each_field As ClassFieldAny In Me.ListOfFields_Any()
-
-            ''Fields cannot link to elements.---9/18/2019 td''mod_listElementFields.Add(each_field.ElementFieldClass)
-
-            ''Added 9/16/2019 td  
-            ''Fields cannot link to elements.---9/18/2019 td''field_custom.ElementFieldClass.BadgeLayout = New BadgeLayoutClass(par_pictureBackground)
-
-            intFieldIndex += 1
-            ''9/18/2019 td''intLeft_Pixels = (30 * (intFieldIndex - 1))
-            'intTop_Pixels = (c_intHeight_Pixels * (intFieldIndex - 1))
-            intLeft_Pixels = intTop_Pixels ''Let's have a staircase effect!! 
-
-            ''Added 9/18/2019 td
-            new_elementField = New ClassElementField(each_field, intLeft_Pixels, intTop_Pixels, c_intHeight_Pixels)
-            new_elementField.FieldInfo = each_field
-            new_elementField.FieldEnum = each_field.FieldEnumValue ''Added 10/12/2019 td
-
-            ''Added 10/13/2019 td
-            new_elementField.BadgeLayout = par_layout
-
-            ''Added 9/19/2019 td
-            mod_listElementFields.Add(new_elementField)
-
-        Next each_field
-
-    End Sub ''ENd of "Public Sub LoadFieldElements(par_pictureBackground As PictureBox)"
-
-    Public Sub LoadFieldElements(par_layout As BadgeLayoutClass)
-        ''
-        ''Added 11/15/2019 thomas d. 
-        ''
-        Dim new_elementField As ClassElementField ''Added 9/18/2019 td
-        Dim intFieldIndex As Integer ''Added 9/18/2019 td
-        Dim intLeft_Pixels As Integer ''Added 9/18/2019 td
-        Dim intTop_Pixels As Integer ''Added 9/18/2019 td
-        Const c_intHeight_Pixels As Integer = 30 ''Added 9/18/2019 td
-
-        ''Added 9/18/2019 td
-        ''10/14/2019 td''For Each each_field As ClassFieldAny In mod_listFields
-        For Each each_field As ClassFieldAny In Me.ListOfFields_Any()
-
-            ''Fields cannot link to elements.---9/18/2019 td''mod_listElementFields.Add(each_field.ElementFieldClass)
-
-            ''Added 9/16/2019 td  
-            ''Fields cannot link to elements.---9/18/2019 td''field_custom.ElementFieldClass.BadgeLayout = New BadgeLayoutClass(par_pictureBackground)
-
-            intFieldIndex += 1
-            ''9/18/2019 td''intLeft_Pixels = (30 * (intFieldIndex - 1))
-            'intTop_Pixels = (c_intHeight_Pixels * (intFieldIndex - 1))
-            intLeft_Pixels = intTop_Pixels ''Let's have a staircase effect!! 
-
-            ''Added 9/18/2019 td
-            new_elementField = New ClassElementField(each_field, intLeft_Pixels, intTop_Pixels, c_intHeight_Pixels)
-            new_elementField.FieldInfo = each_field
-            new_elementField.FieldEnum = each_field.FieldEnumValue ''Added 10/12/2019 td
-
-            ''Added 10/13/2019 td
-            new_elementField.BadgeLayout = par_layout
-
-            ''Added 9/19/2019 td
-            mod_listElementFields.Add(new_elementField)
-
-        Next each_field
-
-    End Sub ''ENd of "Public Sub LoadFieldElements(par_pictureBackground As Image)"
-
-    Public Sub LoadElement_Pic(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)
-        ''10/10/2019 td''Public Sub LoadPicElement(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)
-        '' 
-        ''Added 9/16/2019 td  
-        ''
-        Dim objElementPic As ClassElementPic ''Added 9/16/2019 td 
-        Dim objRectangle As Rectangle ''Added 9/16/2019 td  
-        Dim intLeft As Integer
-        Dim intTop As Integer
-
-        ciPictures_VB.PictureExamples.PathToFolderOfImages = (My.Application.Info.DirectoryPath & "\Images\PictureExamples")
-
-        intLeft = par_intLeft ''9/19 td''(par_picturePortrait.Left - par_pictureBackground.Left)
-        intTop = par_intTop ''9/19 td''(par_picturePortrait.Top - par_pictureBackground.Top)
-
-        ''9/19/2019 td''objRectangle = New Rectangle(intLeft, intTop, par_picturePortrait.Width, par_picturePortrait.Height)
-        objRectangle = New Rectangle(intLeft, intTop, par_intWidth, par_intHeight)
-
-        objElementPic = New ClassElementPic(objRectangle, par_pictureBackground)
-
-        objElementPic.PicFileIndex = 1
-
-        mod_listElementPics.Add(objElementPic)
-
-    End Sub ''End of "Public Sub LoadElement_Pic(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)"
-
-    Public Sub LoadElement_QRCode(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)
-        ''
-        ''Added 10/10/2019 td  
-        ''
-        Dim objElementQR As ClassElementQRCode ''Added 9/16/2019 td 
-        Dim objRectangle As Rectangle ''Added 9/16/2019 td  
-        Dim intLeft As Integer
-        Dim intTop As Integer
-
-        ciPictures_VB.PictureExamples.PathToFolderOfImages = (My.Application.Info.DirectoryPath & "\Images\QRCodes")
-
-        intLeft = par_intLeft ''9/19 td''(par_picturePortrait.Left - par_pictureBackground.Left)
-        intTop = par_intTop ''9/19 td''(par_picturePortrait.Top - par_pictureBackground.Top)
-
-        ''9/19/2019 td''objRectangle = New Rectangle(intLeft, intTop, par_picturePortrait.Width, par_picturePortrait.Height)
-        objRectangle = New Rectangle(intLeft, intTop, par_intWidth, par_intHeight)
-
-        objElementQR = New ClassElementQRCode(objRectangle, par_pictureBackground)
-
-        ''10/10/2019 td''objElementQR.PicFileIndex = 1
-        ''10/10/2019 td''mod_listElementPics.Add(objElementPic)
-
-        Me.ElementQRCode = objElementQR
-
-    End Sub ''End of "Public Sub LoadElement_QRCode(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)"
-
-    Public Sub LoadElement_Signature(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)
-        ''
-        ''Added 10/10/2019 td  
-        ''
-        Dim objElementSig As ClassElementSignature ''Added 10/10/2019 td 
-        Dim objRectangle As Rectangle ''Added 9/16/2019 td  
-        Dim intLeft As Integer
-        Dim intTop As Integer
-
-        ciPictures_VB.PictureExamples.PathToFolderOfImages = (My.Application.Info.DirectoryPath & "\Images\Signatures")
-
-        intLeft = par_intLeft ''9/19 td''(par_picturePortrait.Left - par_pictureBackground.Left)
-        intTop = par_intTop ''9/19 td''(par_picturePortrait.Top - par_pictureBackground.Top)
-
-        objRectangle = New Rectangle(intLeft, intTop, par_intWidth, par_intHeight)
-        objElementSig = New ClassElementSignature(objRectangle, par_pictureBackground)
-
-        Me.ElementSignature = objElementSig
-
-    End Sub ''End of "Public Sub LoadElement_Signature(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)"
-
-    Public Sub LoadElement_Portrait(par_picturePortrait As PictureBox, par_pictureBackground As PictureBox)
-        ''10/8/2019 td''Public Sub LoadPicElement(par_picturePortrait As PictureBox, par_pictureBackground As PictureBox)
-        ''
-        ''Added 9/16/2019 td  
-        ''
-        Dim objElementPic As ClassElementPic ''Added 9/16/2019 td 
-        Dim objRectangle As Rectangle ''Added 9/16/2019 td  
-        Dim intLeft As Integer
-        Dim intTop As Integer
-
-        ciPictures_VB.PictureExamples.PathToFolderOfImages = (My.Application.Info.DirectoryPath & "\Images\PictureExamples")
-
-        intLeft = (par_picturePortrait.Left - par_pictureBackground.Left)
-        intTop = (par_picturePortrait.Top - par_pictureBackground.Top)
-
-        objRectangle = New Rectangle(intLeft, intTop, par_picturePortrait.Width, par_picturePortrait.Height)
-
-        objElementPic = New ClassElementPic(objRectangle, par_pictureBackground)
-
-        objElementPic.PicFileIndex = 1
-
-        mod_listElementPics.Add(objElementPic)
-
-    End Sub ''End of "Public Sub LoadElement_Portrait(par_picturePortrait As PictureBox, par_pictureBackground As PictureBox)"
-
-    Public Sub LoadElement_Signature(par_picSignature As PictureBox, par_pictureBackground As PictureBox)
-        ''
-        ''Added 10/8/2019 & 9/16/2019 td  
-        ''
-        Dim objElementSig As ClassElementSignature ''Added 9/16/2019 td 
-        Dim objRectangle As Rectangle ''Added 9/16/2019 td  
-        Dim intLeft As Integer
-        Dim intTop As Integer
-
-        ciPictures_VB.PictureExamples.PathToFolderOfImages = (My.Application.Info.DirectoryPath & "\Images\PictureExamples")
-
-        intLeft = (par_picSignature.Left - par_pictureBackground.Left)
-        intTop = (par_picSignature.Top - par_pictureBackground.Top)
-
-        objRectangle = New Rectangle(intLeft, intTop, par_picSignature.Width, par_picSignature.Height)
-
-        objElementSig = New ClassElementSignature(objRectangle, par_pictureBackground)
-
-        objElementSig.SigFileIndex = 1
-
-        ''10/8/2019 td''mod_listElementPics.Add(objElementPic)
-        Me.ElementSignature = objElementSig
-
-    End Sub ''End of "Public Sub LoadElement_Signature(par_picSignature As PictureBox, par_pictureBackground As PictureBox)"
-
-    Public Sub LoadElement_QRCode(par_picQRCode As PictureBox, par_pictureBackground As PictureBox)
-        ''
-        ''Added 10/8/2019 & 9/16/2019 td  
-        ''
-        Dim objElementQR As ClassElementQRCode ''Added 9/16/2019 td 
-        Dim objRectangle As Rectangle ''Added 9/16/2019 td  
-        Dim intLeft As Integer
-        Dim intTop As Integer
-
-        ciPictures_VB.PictureExamples.PathToFolderOfImages = (My.Application.Info.DirectoryPath & "\Images\PictureExamples")
-
-        intLeft = (par_picQRCode.Left - par_pictureBackground.Left)
-        intTop = (par_picQRCode.Top - par_pictureBackground.Top)
-
-        objRectangle = New Rectangle(intLeft, intTop, par_picQRCode.Width, par_picQRCode.Height)
-
-        objElementQR = New ClassElementQRCode(objRectangle, par_pictureBackground)
-
-        ''10/8/2019 td''objElementQR.SigFileIndex = 1
-
-        ''10/8/2019 td''mod_listElementPics.Add(objElementPic)
-        Me.ElementQRCode = objElementQR
-
-    End Sub ''End of "Public Sub LoadElement_QRCode(par_picQRCode As PictureBox, par_pictureBackground As PictureBox)"
-
-    Public Sub LoadElement_Text(par_DisplayText As String, par_intLeft As Integer, par_intTop As Integer,
-                                par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)
-        ''
-        ''Added 10/10/2019 td  
-        ''
-        Dim objElementText As ClassElementStaticText ''Added 10/10/2019 td 
-        Dim objRectangle As Rectangle ''Added 10/10/2019 td  
-        Dim intLeft As Integer
-        Dim intTop As Integer
-
-        intLeft = (par_intLeft - par_pictureBackground.Left)
-        intTop = (par_intTop - par_pictureBackground.Top)
-
-        objRectangle = New Rectangle(intLeft, intTop, par_intWidth, par_intHeight)
-
-        objElementText = New ClassElementStaticText(par_DisplayText, intLeft, intTop, par_intHeight)
-
-        mod_listElementStatics.Add(objElementText)
-
-    End Sub ''End of "Public Sub LoadElement_Text(par_DisplayText As String, par_intLeft As Integer, ...., par_pictureBackground As PictureBox)"
-
     Public Sub LoadRecipient(par_recipient As ClassRecipient)
         ''10/16/2019 td''Public Sub LoadRecipient(par_recipient As IRecipient)
         ''
@@ -539,11 +164,11 @@ Public Class ClassElementsCache
 
     End Sub ''End of "Public Sub LoadRecipient(par_recipient As IRecipient)"
 
-    Public Function Copy() As ClassElementsCache
+    Public Function Copy() As ClassPersonality
         ''
-        ''Added 9/17/2019 thomas downes  
+        ''Added 11/24/2019 thomas downes  
         ''
-        Dim objCopyOfCache As New ClassElementsCache
+        Dim objCopyOfCache As New ClassPersonality
         Dim ListFields_NotUsed As New List(Of ClassFieldAny)
         Dim dictionaryFields As New Dictionary(Of ciBadgeInterfaces.EnumCIBFields, ClassFieldAny)
         ''10/14/2019 td''Dim copy_ofField As ClassFieldAny
@@ -1029,4 +654,5 @@ Public Class ClassElementsCache
     End Function ''End of "Public Shared Function GetLoadedCache() As ClassElementsCache"
 
 
-End Class ''End of ClassElementsCache 
+End Class ''End of Class ClassPersonality
+
