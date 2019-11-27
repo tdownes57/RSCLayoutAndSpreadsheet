@@ -68,7 +68,7 @@ Public Class ClassLayoutCache
     Public Property Pic_InitialDefault As Image ''Added 9/23/2019 td 
 
     <Xml.Serialization.XmlIgnore>
-    Public Property Personality As ClassPersonality ''Added 11/24/2019 td 
+    Public Property Personality As ClassPersonalityCache ''Added 11/24/2019 td 
 
     Public Function ListFieldElements() As HashSet(Of ClassElementField)
         ''10/17 td''Public Function ListFieldElements() As List(Of ClassElementField)

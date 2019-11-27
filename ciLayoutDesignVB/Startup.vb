@@ -50,6 +50,12 @@ Public Class Startup
         ''10/13/2019 td''obj_cache_layout = LoadCachedData(obj_formToShow)
         obj_cache_layout = LoadCachedData(obj_formToShow, boolNewFileXML)
 
+        ''Added 11/26/2019 thomas d
+        Dim boolTesting As Boolean
+        If (boolTesting) Then
+            obj_cache_layout = ClassElementsCache.GetLoadedCache("123.xml", True, obj_formToShow.pictureBack.Image)
+        End If
+
         obj_formToShow.NewFileXML = boolNewFileXML
 
         ''Not needed. 10/11/2019 td'obj_formToShow.CtlGraphicText1.LayoutFunctions = CType(obj_formToShow., ILayoutFunctions)

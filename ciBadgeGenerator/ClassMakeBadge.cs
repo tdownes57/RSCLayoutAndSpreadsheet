@@ -65,6 +65,7 @@ namespace ciBadgeGenerator
     public class ClassMakeBadge
     {
         public string PathToFile_Sig = ""; //Added 10/12/2019 td
+        public string PathToFile_QR = ""; //Added 11/26/2019 td
         public Image ImageQRCode;   //Added 10/14/2019 td 
         public string Messages = ""; //Added 11/18/2019 td 
 
