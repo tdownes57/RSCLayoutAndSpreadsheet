@@ -23,6 +23,7 @@ Public Class ClassElementsCache
 
     ''10/10/2019 td''Public Property SaveToXmlPath As String ''Added 9/29/2019 td
     Public Property PathToXml_Saved As String ''Added 9/29/2019 td
+    Public Property PathToXml_Binary As String ''Added 11/29/2019 td
 
     Public Property ElementQRCode As ClassElementQRCode ''Added 10/8/2019 thomas d.  
     Public Property ElementSignature As ClassElementSignature ''Added 10/8/2019 thomas d.  
@@ -840,9 +841,9 @@ Public Class ClassElementsCache
     ''End Sub ''End of " Private Sub LoadElements_Picture()"
 
     Public Shared Function GetLoadedCache(pstrPathToXML As String,
-                                          pboolNewFileXML As Boolean,
-                                          par_imageBack As Image,
-                                          ByRef pref_section As Integer) As ClassElementsCache
+                                    pboolNewFileXML As Boolean,
+                                    Optional par_imageBack As Image = Nothing,
+                                    Optional ByRef pref_section As Integer = 0) As ClassElementsCache
         ''
         ''Added 11/15/2019 td
         ''
@@ -859,7 +860,9 @@ Public Class ClassElementsCache
         obj_designForm.Show()
 
         ''Added 11/15/2019 td
-        obj_designForm.pictureBack.Image = par_imageBack
+        If (par_imageBack IsNot Nothing) Then
+            obj_designForm.pictureBack.Image = par_imageBack
+        End If ''End of "If (par_imageBack IsNot Nothing) Then"
 
         ''Added 10/10/2019 td
         ''10/13/2019 td''strPathToXML = My.Settings.PathToXML_Saved
