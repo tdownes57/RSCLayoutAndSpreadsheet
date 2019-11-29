@@ -13,7 +13,7 @@ Public Class ClassSerial
     ''
     ''   https://stackoverflow.com/questions/5005900/how-to-serialize-listt
     ''
-
+    Public Shared UseBinaryFormat As Boolean = False ''Added 11/29/2019 td 
 
     '' <summary>
     '' http://net-informations.com/faq/net/serialization.htm
@@ -23,7 +23,9 @@ Public Class ClassSerial
     ''9/1/2019 td''Public mod_c_sPathToBinary As String = "C:\Users\tdown\Documents\CIBadgeWeb\SerializeFile_Bin.txt"
 
     Public PathToXML As String = "" ''9/1/2019 td''  "C:\Users\tdown\Documents\CIBadgeWeb\SerializeFile_Xml.txt"
-    Public PathToBinary As String = "" ''9/1/2019 td''  "C:\Users\tdown\Documents\CIBadgeWeb\SerializeFile_Bin.ttxt"
+    ''11/29/2019 td''Public PathToBinary As String = "" ''9/1/2019 td''  "C:\Users\tdown\Documents\CIBadgeWeb\SerializeFile_Bin.ttxt"
+    Public PathToXML_Binary As String = "" ''9/1/2019 td''  "C:\Users\tdown\Documents\CIBadgeWeb\SerializeFile_Bin.ttxt"
+
     Public TypeOfObject As Type ''Added 9/1/2019 td 
     Public ObjectToSerialize As Object ''Added 9/12/2019 td 
 
@@ -95,13 +97,15 @@ Public Class ClassSerial
         ''
         Dim formatter_Bin As IFormatter = New System.Runtime.Serialization.Formatters.Binary.BinaryFormatter()
         ''9/24 td''Dim fileStream_Bin As Stream = New FileStream(mod_sPathToBinary, FileMode.Create, FileAccess.Write, FileShare.None)
-        Dim fileStream_Bin As Stream = New FileStream(Me.PathToBinary, FileMode.Create, FileAccess.Write, FileShare.None)
+        ''11/29/2019 td''Dim fileStream_Bin As Stream = New FileStream(Me.PathToBinary, FileMode.Create, FileAccess.Write, FileShare.None)
+        Dim fileStream_Bin As Stream = New FileStream(Me.PathToXML_Binary, FileMode.Create, FileAccess.Write, FileShare.None)
 
         ''9/24/2019 td''formatter_Bin.Serialize(fileStream_Bin, mod_objParent)
         formatter_Bin.Serialize(fileStream_Bin, par_objectToSerialize)
         fileStream_Bin.Close()
 
-        System.Diagnostics.Process.Start(Me.PathToBinary)
+        ''11/29/2019 td''System.Diagnostics.Process.Start(Me.PathToBinary)
+        System.Diagnostics.Process.Start(Me.PathToXML_Binary)
 
     End Sub ''End of "Private Sub SerializeToBinary(par_TypeOfObject As Type, par_objectToSerialize As Object)"
 

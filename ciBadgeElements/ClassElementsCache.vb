@@ -23,6 +23,7 @@ Public Class ClassElementsCache
 
     ''10/10/2019 td''Public Property SaveToXmlPath As String ''Added 9/29/2019 td
     Public Property PathToXml_Saved As String ''Added 9/29/2019 td
+    Public Property PathToXml_Binary As String ''Added 11/29/2019 td
 
     Public Property ElementQRCode As ClassElementQRCode ''Added 10/8/2019 thomas d.  
     Public Property ElementSignature As ClassElementSignature ''Added 10/8/2019 thomas d.  
@@ -841,7 +842,8 @@ Public Class ClassElementsCache
 
     Public Shared Function GetLoadedCache(pstrPathToXML As String,
                                           pboolNewFileXML As Boolean,
-                                          par_imageBack As Image) As ClassElementsCache
+                                          Optional par_imageBack As Image = Nothing) As ClassElementsCache
+        ''11/29/2019 td''Public Shared Function GetLoadedCache(pstrPathToXML As String, pboolNewFileXML As Boolean, par_imageBack As Image) As ClassElementsCache
         ''
         ''Added 11/15/2019 td
         ''
@@ -852,8 +854,10 @@ Public Class ClassElementsCache
         ''11/15/2019 td''Dim boolNewFileXML As Boolean
         Dim obj_designForm As New FormBadgeLayoutProto ''Added 11/15/2019 td 
 
-        ''Added 11/15/2019 td
-        obj_designForm.pictureBack.Image = par_imageBack
+        If (par_imageBack IsNot Nothing) Then ''Added 11/29/2019 td
+            ''Added 11/15/2019 td
+            obj_designForm.pictureBack.Image = par_imageBack
+        End If ''End of "If (par_imageBack IsNot Nothing) Then"
 
         ''Added 10/10/2019 td
         ''10/13/2019 td''strPathToXML = My.Settings.PathToXML_Saved
@@ -1028,5 +1032,36 @@ Public Class ClassElementsCache
 
     End Function ''End of "Public Shared Function GetLoadedCache() As ClassElementsCache"
 
+    Public Sub SaveToXML()
+        ''
+        ''Added 11/29/2019 thomas downes
+        ''
+        ''This code was copied from FormDesignProtoTwo.vb, Private Sub SaveLayout(), on 11/29/2019 td
+        ''
+        Dim objSerializationClass As New ciBadgeSerialize.ClassSerial
+
+        With objSerializationClass
+
+            ''10/13/2019 td''.PathToXML = Me.ElementsCache_Saved.PathToXml_Saved
+            .PathToXML = Me.PathToXml_Saved
+            .PathToXML_Binary = Me.PathToXml_Binary ''Added 11/29/2019 thomas d. 
+
+            ''Added 9/24/2019 thomas 
+            ''  ''11/29/2019 td''.SerializeToXML(Me.GetType, Me, False, True)
+
+            Dim boolSerializeToBinary As Boolean = False ''Added 9/30/2019 td
+
+            boolSerializeToBinary = ciBadgeSerialize.ClassSerial.UseBinaryFormat
+
+            If (boolSerializeToBinary) Then
+                .SerializeToBinary(Me.GetType, Me)
+            Else
+                .SerializeToXML(Me.GetType, Me, False, True)
+
+            End If ''End of "If (boolSerializeToBinary) Then ... Else"
+
+        End With ''End of "With objSerializationClass"
+
+    End Sub ''End of "Public Sub SaveToXML()"
 
 End Class ''End of ClassElementsCache 

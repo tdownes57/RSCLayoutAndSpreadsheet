@@ -18,7 +18,7 @@ Public Interface IBadgeLayout
     ''
     ''Added 9/11/2019 Never Forget 
     ''
-    ''This Is the width of the "canvas"/layout
+    ''This is the width of the "canvas"/layout
     ''   __within which__ the applicable text-label image resides.  Analogous to a child placing a sticker on 
     '    a school notebook, this is the width of the notebook (not the sticker width!!).  This provides sizing
     ''   context & scaling factors.   (Unfortunately, there might not be a good name to eliminate the 
