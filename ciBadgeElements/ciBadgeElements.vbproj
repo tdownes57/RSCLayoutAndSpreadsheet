@@ -44,6 +44,14 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ciBadgeRecipients, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ciBadgeRecipients\bin\Debug\ciBadgeRecipients.dll</HintPath>
+    </Reference>
+    <Reference Include="ciBadgeSerialize, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ciBadgeSerialize\bin\Debug\ciBadgeSerialize.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -134,14 +142,6 @@
     <ProjectReference Include="..\ciBadgeInterfaces\ciBadgeInterfaces.vbproj">
       <Project>{3d1acca6-585e-4c92-9a6d-9a51d2f72f5f}</Project>
       <Name>ciBadgeInterfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ciBadgeRecipients\ciBadgeRecipients.vbproj">
-      <Project>{2f42efad-0baa-4057-a1b8-36412cf0e2c0}</Project>
-      <Name>ciBadgeRecipients</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ciBadgeSerialize\ciBadgeSerialize.vbproj">
-      <Project>{59d5b213-e44b-432a-8237-53d91ec9c04a}</Project>
-      <Name>ciBadgeSerialize</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

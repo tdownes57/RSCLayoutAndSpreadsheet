@@ -367,14 +367,24 @@ Public Class FormDesignProtoTwo
             End If ''End of "If (String.IsNullOrEmpty(Me.ElementsCache_Edits.PathToXml_Saved)) Then"
 
             .PathToXML = Me.ElementsCache_Edits.PathToXml_Saved
+            .PathToXML_Binary = Me.ElementsCache_Edits.PathToXml_Binary ''Added 11/29/2019 thomas d.
 
             ''Added 9/24/2019  thomas 
-            ''10/13/2019 td''.SerializeToXML(Me.ElementsCache_Edits.GetType, Me.ElementsCache_Edits, False, True)
-            .SerializeToXML(Me.ElementsCache_Edits.GetType, Me.ElementsCache_Edits, False, False)
+            ''  ''10/13/2019 td''.SerializeToXML(Me.ElementsCache_Edits.GetType, Me.ElementsCache_Edits, False, True)
+            ''11/29/2019 td''.SerializeToXML(Me.ElementsCache_Edits.GetType, Me.ElementsCache_Edits, False, False)
 
-            Const c_SerializeToBinary As Boolean = False ''Added 9/30/2019 td
-            If (c_SerializeToBinary) Then _
-            .SerializeToBinary(Me.ElementsCache_Edits.GetType, Me.ElementsCache_Edits)
+            ''11/29/2019 td''Const c_SerializeToBinary As Boolean = False ''Added 9/30/2019 td
+            ''11/29/2019 td''If (c_SerializeToBinary) Then _
+            ''11/29/2019 td''.SerializeToBinary(Me.ElementsCache_Edits.GetType, Me.ElementsCache_Edits)
+
+            Dim boolUseBinary As Boolean ''Added 11/29/2019 td
+            boolUseBinary = ciBadgeSerialize.ClassSerial.UseBinaryFormat
+
+            If (boolUseBinary) Then
+                .SerializeToBinary(Me.ElementsCache_Edits.GetType, Me.ElementsCache_Edits)
+            Else
+                .SerializeToXML(Me.ElementsCache_Edits.GetType, Me.ElementsCache_Edits, False, False)
+            End If ''End of "If (boolUseBinary) Then ... Else ...."
 
         End With ''End of "With objSerializationClass"
 

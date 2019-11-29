@@ -64,6 +64,8 @@ Public Class ClassLayoutCache
 
     Public Property BadgeLayout As ciBadgeInterfaces.BadgeLayoutClass ''Added 9/17/2019 thomas downes
 
+    Public Property PathToBackgroundImageFile As String ''Added 11/29/2019 thomas downes
+
     <Xml.Serialization.XmlIgnore>
     Public Property Pic_InitialDefault As Image ''Added 9/23/2019 td 
 
