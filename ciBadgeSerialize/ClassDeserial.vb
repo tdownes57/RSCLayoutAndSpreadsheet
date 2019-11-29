@@ -12,6 +12,7 @@ Public Class ClassDeserial
     ''Added 9/29/2019 td 
     ''
     Public PathToXML As String = "" ''9/1/2019 td''  "C:\Users\tdown\Documents\CIBadgeWeb\SerializeFile_Xml.txt"
+    Public PathToXML_Binary As String = "" ''Added 11/29/2019 thomas d. 
 
     Public Function DeserializeFromXML(par_TypeOfObject As Type, pbVerboseSuccess As Boolean) As Object
         ''
