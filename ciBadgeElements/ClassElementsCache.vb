@@ -741,7 +741,7 @@ Public Class ClassElementsCache
 
     Public Function GetElementByFieldEnum(par_enum As EnumCIBFields) As ClassElementField
         ''
-        ''Added 10 / 13 / 2019 td
+        ''Added 10/13/2019 td
         ''
         For Each each_elementField As ClassElementField In mod_listElementFields
             With each_elementField
@@ -841,7 +841,8 @@ Public Class ClassElementsCache
 
     Public Shared Function GetLoadedCache(pstrPathToXML As String,
                                           pboolNewFileXML As Boolean,
-                                          par_imageBack As Image) As ClassElementsCache
+                                          par_imageBack As Image,
+                                          ByRef pref_section As Integer) As ClassElementsCache
         ''
         ''Added 11/15/2019 td
         ''
@@ -851,6 +852,11 @@ Public Class ClassElementsCache
         Dim obj_cache_elements As ClassElementsCache ''Added 10/10/2019 td
         ''11/15/2019 td''Dim boolNewFileXML As Boolean
         Dim obj_designForm As New FormBadgeLayoutProto ''Added 11/15/2019 td 
+
+        pref_section = 11 ''Added 11/27/2019 td
+
+        ''ADDED 11/28/2019 TD
+        obj_designForm.Show()
 
         ''Added 11/15/2019 td
         obj_designForm.pictureBack.Image = par_imageBack
@@ -879,6 +885,8 @@ Public Class ClassElementsCache
             ''10/13/2019 td''Me.ElementsCache_Edits.LoadFieldElements(pictureBack, BadgeLayout)
             ''----Me.ElementsCache_Edits.LoadFieldElements(pictureBack, BadgeLayout)
 
+            pref_section = 12 ''Added 11/27/2019 td
+
             ''Added 10/13/2019 td
             obj_cache_elements = New ClassElementsCache
             obj_cache_elements.PathToXml_Saved = pstrPathToXML
@@ -888,13 +896,24 @@ Public Class ClassElementsCache
             obj_cache_elements.BadgeLayout.Width_Pixels = obj_designForm.pictureBack.Width
             obj_cache_elements.BadgeLayout.Height_Pixels = obj_designForm.pictureBack.Height
 
+            pref_section = 13 ''Added 11/27/2019 td
+
             obj_cache_elements.LoadFields()
             ''----uncomment on 11/16/2019 td''obj_cache_elements.LoadFieldElements(par_imageBack,
             ''----uncomment on 11/16/2019 td''       New BadgeLayoutClass(par_imageBack))
 
+            pref_section = 14 ''Added 11/27/2019 td
+
         Else
             ''Added 10/10/2019 td  
-            Dim objDeserialize As New ciBadgeSerialize.ClassDeserial With {
+            ''//Dim objDeserialize As New ciBadgeSerialize.ClassDeserial With {
+            ''//    .PathToXML = pstrPathToXML
+            ''//} ''Added 10/10/2019 td  
+            Dim objDeserialize As ciBadgeSerialize.ClassDeserial
+
+            pref_section = 15 ''Added 11/27/2019 td
+
+            objDeserialize = New ciBadgeSerialize.ClassDeserial With {
                 .PathToXML = pstrPathToXML
             } ''Added 10/10/2019 td  
 
@@ -912,6 +931,8 @@ Public Class ClassElementsCache
             ''-----Me.ElementsCache_Edits.LinkElementsToFields()
             obj_cache_elements.LinkElementsToFields()
 
+            pref_section = 16 ''Added 11/27/2019 td
+
         End If ''End of "If (pboolNewFileXML) Then .... Else ..."
 
         ''-------------------------------------------------------------
@@ -920,6 +941,8 @@ Public Class ClassElementsCache
         Dim intPicTop As Integer
         Dim intPicWidth As Integer
         Dim intPicHeight As Integer
+
+        pref_section = 17 ''Added 11/27/2019 td
 
         ''Added 9/19/2019 td
         With obj_designForm
@@ -930,6 +953,7 @@ Public Class ClassElementsCache
             intPicHeight = .picturePortrait.Height
         End With
 
+        pref_section = 171 ''Added 11/27/2019 td
         ''-------------------------------------------------------------
         ''Added 10/14/2019 td
         Dim intLeft_QR As Integer
@@ -946,6 +970,7 @@ Public Class ClassElementsCache
             intHeight_QR = .pictureQRCode.Height
         End With
 
+        pref_section = 172 ''Added 11/27/2019 td
         ''-------------------------------------------------------------
         ''Added 10/14/2019 td
         Dim intLeft_Sig As Integer
@@ -962,6 +987,7 @@ Public Class ClassElementsCache
             intHeight_Sig = .pictureSignature.Height
         End With
 
+        pref_section = 173 ''Added 11/27/2019 td
         ''-------------------------------------------------------------
         ''Added 10/14/2019 td
         Dim strStaticText As String
@@ -980,29 +1006,40 @@ Public Class ClassElementsCache
             intHeight_Text = .labelText1.Height
         End With
 
+        pref_section = 18 ''Added 11/27/2019 td
 
         ''9/19 td''Me.ElementsCache_Saved.LoadPicElement(CtlGraphicPortrait_Lady.picturePortrait, pictureBack) ''Added 9/19/2019 td
         If (pboolNewFileXML) Then
+
+            pref_section = 19 ''Added 11/27/2019 td
+
             ''10/10/2019 td''Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
             ''10/13/2019 td''Me.ElementsCache_Saved.LoadElement_Pic(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
             obj_cache_elements.LoadElement_Pic(intPicLeft, intPicTop, intPicWidth, intPicHeight,
                                                obj_designForm.pictureBack) ''Added 9/19/2019 td
 
+            pref_section = 20 ''Added 11/27/2019 td
             ''Added 10/14/2019 thomas d. 
             obj_cache_elements.LoadElement_QRCode(intLeft_QR, intTop_QR, intWidth_QR, intHeight_QR,
                                                obj_designForm.pictureBack) ''Added 10/14/2019 td
 
+            pref_section = 21 ''Added 11/27/2019 td
             ''Added 10/14/2019 thomas d. 
             obj_cache_elements.LoadElement_Signature(intLeft_Sig, intTop_Sig, intWidth_Sig, intHeight_Sig,
                                                obj_designForm.pictureBack) ''Added 10/14/2019 td
 
+            pref_section = 22 ''Added 11/27/2019 td
             ''Added 10/14/2019 thomas d. 
             obj_cache_elements.LoadElement_Text(strStaticText,
                                                 intLeft_Text, intTop_Text,
                                                 intWidth_Text, intHeight_Text,
                                                obj_designForm.pictureBack) ''Added 10/14/2019 td
 
+            pref_section = 23 ''Added 11/27/2019 td
+
         End If ''End of "If (pboolNewFileXML) Then"
+
+        pref_section = 24 ''Added 11/27/2019 td
 
         ''Added 9/24/2019 thomas 
         ''Was just for testing. ---10/10/2019 td''Dim serial_tools As New ciBadgeSerialize.ClassSerial
@@ -1016,6 +1053,7 @@ Public Class ClassElementsCache
                 Dim intBadgeWidth As Integer
                 Dim intBadgeHeight As Integer
 
+                pref_section = 25 ''Added 11/27/2019 td
                 intBadgeWidth = obj_cache_elements.ListFieldElements(0).BadgeLayout.Width_Pixels
                 intBadgeHeight = obj_cache_elements.ListFieldElements(0).BadgeLayout.Height_Pixels
 
@@ -1023,6 +1061,10 @@ Public Class ClassElementsCache
 
             End If ''End of "If (obj_cache_elements.BadgeLayout Is Nothing) Then
         End With
+
+        ''ADDED 11/28/2019 TD
+        obj_designForm.Close()
+        obj_designForm.Dispose()
 
         Return obj_cache_elements
 
