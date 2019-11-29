@@ -1073,5 +1073,36 @@ Public Class ClassElementsCache
 
     End Function ''End of "Public Shared Function GetLoadedCache() As ClassElementsCache"
 
+    Public Sub SaveToXML()
+        ''
+        ''Added 11/29/2019 thomas downes
+        ''
+        ''This code was copied from FormDesignProtoTwo.vb, Private Sub SaveLayout(), on 11/29/2019 td
+        ''
+        Dim objSerializationClass As New ciBadgeSerialize.ClassSerial
+
+        With objSerializationClass
+
+            ''10/13/2019 td''.PathToXML = Me.ElementsCache_Saved.PathToXml_Saved
+            .PathToXML = Me.PathToXml_Saved
+            .PathToXML_Binary = Me.PathToXml_Binary ''Added 11/29/2019 thomas d. 
+
+            ''Added 9/24/2019 thomas 
+            ''  ''11/29/2019 td''.SerializeToXML(Me.GetType, Me, False, True)
+
+            Dim boolSerializeToBinary As Boolean = False ''Added 9/30/2019 td
+
+            boolSerializeToBinary = ciBadgeSerialize.ClassSerial.UseBinaryFormat
+
+            If (boolSerializeToBinary) Then
+                .SerializeToBinary(Me.GetType, Me)
+            Else
+                .SerializeToXML(Me.GetType, Me, False, True)
+
+            End If ''End of "If (boolSerializeToBinary) Then ... Else"
+
+        End With ''End of "With objSerializationClass"
+
+    End Sub ''End of "Public Sub SaveToXML()"
 
 End Class ''End of ClassElementsCache 
