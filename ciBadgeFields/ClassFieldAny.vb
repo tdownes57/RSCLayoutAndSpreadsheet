@@ -116,13 +116,14 @@ Public Class ClassFieldAny
 
     End Sub ''End of "Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base, .....)"
 
-    Public Function CurrentValue(Optional pbAllowExampleValues As Boolean = False) As String
+    Public Function CurrentRecipValue(Optional pbAllowExampleValues As Boolean = False) As String
         ''
         ''Added 12/01/2019 thomas d 
         ''
         ''This was copied from ClassElementField.vb's Public Function LabelText, on 12/01/2019 td
         ''
         Dim bOkayToUseExampleValues As Boolean ''Added 10/16/2019 td  
+        Dim strOutputValue As String ''Added 12/02/2019 td
 
         bOkayToUseExampleValues = pbAllowExampleValues
 
@@ -132,7 +133,12 @@ Public Class ClassFieldAny
                 ''
                 ''Added 12/01/2019 thomas d.    
                 ''
-                Return Me.iRecipientInfo.GetTextValue(Me.FieldEnumValue)
+                strOutputValue = Me.iRecipientInfo.GetTextValue(Me.FieldEnumValue)
+
+                ''Utilize the default value. 
+                If ("" = strOutputValue) Then strOutputValue = Me.DefaultValue
+
+                Return strOutputValue
 
             Case (bOkayToUseExampleValues And (Me.ExampleValue <> ""))
                 ''
@@ -153,7 +159,53 @@ Public Class ClassFieldAny
 
         Return "Field Information"
 
-    End Function ''End of "Public Function LabelText(par_previewExample As Boolean) As String"
+    End Function ''End of "Public Function CurrentRecipValue(pbAllowExampleValues As Boolean) As String"
+
+    Public Function CurrentRecipValue_DateString(Optional pbAllowExampleValues As Boolean = False) As String
+        ''
+        ''Added 12/01/2019 thomas d 
+        ''
+        ''This was copied from ClassElementField.vb's Public Function LabelText, on 12/01/2019 td
+        ''
+        Dim bOkayToUseExampleValues As Boolean ''Added 10/16/2019 td  
+        Dim strOutputValue As String ''Added 12/02/2019 td
+
+        bOkayToUseExampleValues = pbAllowExampleValues
+
+        Select Case True
+
+            Case (Me.iRecipientInfo IsNot Nothing)
+                ''
+                ''Added 12/01/2019 thomas d.    
+                ''
+                strOutputValue = Me.iRecipientInfo.GetDateValue(Me.FieldEnumValue).ToString("MM/dd/yyyy")
+
+                ''Utilize the default value. 
+                If ("" = strOutputValue) Then strOutputValue = Me.DefaultValue
+
+                Return strOutputValue
+
+            Case (bOkayToUseExampleValues And (Me.ExampleValue <> ""))
+                ''
+                ''Added 12/01/2019 td 
+                ''
+                Return Me.ExampleValue
+
+            Case (Me.DefaultValue <> "")
+
+                ''Added 12/1/2019 td  
+                Return Me.DefaultValue
+
+            Case Else
+
+                Return $"Undermined value, for Field #{Me.FieldIndex}"
+
+        End Select ''End of "Select Case True"
+
+        Return "Field Information"
+
+    End Function ''End of "Public Function CurrentRecipValue_DateString(pbAllowExampleValues As Boolean) As String"
+
 
 
     ''Fields cannot link to elements.---9/18/2019 td''Private mod_elementFieldClass As ClassElementField ''Added 9/3/2019 td   
