@@ -553,7 +553,7 @@ Public Class ClassLayoutCache
 
     Public Function GetElementByFieldEnum(par_enum As EnumCIBFields) As ClassElementField
         ''
-        ''Added 10 / 13 / 2019 td
+        ''Added 10/13/2019 td
         ''
         For Each each_elementField As ClassElementField In mod_listElementFields
             With each_elementField
