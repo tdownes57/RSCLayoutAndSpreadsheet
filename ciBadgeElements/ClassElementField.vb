@@ -660,15 +660,7 @@ Public Class ClassElementField
                 ''    Return Me.ExampleTextToDisplay
 
             Case (ClassElementField.iRecipientInfo IsNot Nothing)
-                '[='[==]'
 
-                '[''
-                '
-                ]\\
-                \
-\\]''][=[''[=['[=-==-=[=-==[[===[==[==[==[==[==[==[==[[==[[===[[=-==[[==[[==[[==[[==[[==[[==[[==[[==[[==[[==[[[==[==[[==[[==[[==[[==[[==[[==[[==[[==[[==[[==[[==[[==[[==[[===[[==[[==[=-==[[==[[==[[==[[==[[==]
-                '?
-                ''
                 Return ClassElementField.iRecipientInfo.GetTextValue(Me.FieldEnum)
 
             Case (bOkayToUseExampleValues And (Me.ExampleValue_ForElement <> ""))

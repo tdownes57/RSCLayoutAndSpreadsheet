@@ -84,6 +84,7 @@ namespace ciBadgeGenerator
             // 
             //Step #1:  Load the Recipient into the Elements Cache. 
             //
+            // 12/2/2019 td //ClassElementField.iRecipientInfo = par_recipient;
             ClassElementField.iRecipientInfo = par_recipient;
 
             //
