@@ -67,6 +67,25 @@ Public Class ClassElementsCache
 
     End Function ''End of "Public Function ListOfFields_Any() As List(Of ClassFieldAny)"
 
+    Public Function ListOfFields_Any(par_recipInfo As IRecipient) As List(Of ClassFieldAny)
+        ''
+        ''Added 10/14/2019 thomas downes
+        ''
+        Dim obj_list As New List(Of ClassFieldAny)
+        obj_list.AddRange(ListOfFields_Standard)
+        obj_list.AddRange(ListOfFields_Custom)
+
+        ''Added 12/1/2019 thomas d
+        For Each each_field As ClassFieldAny In obj_list
+
+            each_field.
+
+        Next each_field
+
+        Return obj_list
+
+    End Function ''End of "Public Function ListOfFields_Any(par_recipInfo As IRecipient) As List(Of ClassFieldAny)"
+
     Public Property ListOfFields_Standard As HashSet(Of ClassFieldStandard) ''10/17 ''As List(Of ClassFieldStandard)
         Get ''Added 10/14/2019 td
             Return mod_listFields_Standard

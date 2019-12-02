@@ -15,6 +15,8 @@ Public Class ClassFieldAny
     ''
     ''Added 9/16/2019 thomas d. 
     ''
+    <Xml.Serialization.XmlIgnore>
+    Public Property iRecipientInfo As IRecipient ''Added 12/01/2019 td
 
     Public Property IsStandard As Boolean = False Implements ICIBFieldStandardOrCustom.IsStandard ''Added 7/26/2019 td
     Public Property IsCustomizable As Boolean = False Implements ICIBFieldStandardOrCustom.IsCustomizable ''Added 7/26/2019 td
@@ -45,6 +47,7 @@ Public Class ClassFieldAny
     Public Property IsDisplayedOnBadge As Boolean Implements ICIBFieldStandardOrCustom.IsDisplayedOnBadge
     Public Property IsDisplayedForEdits As Boolean Implements ICIBFieldStandardOrCustom.IsDisplayedForEdits
 
+    Public Property DefaultValue As String Implements ICIBFieldStandardOrCustom.DefaultValue ''Added 12/1/2019 thomas downes
     Public Property ExampleValue As String Implements ICIBFieldStandardOrCustom.ExampleValue
 
     Public Property HasPresetValues As Boolean Implements ICIBFieldStandardOrCustom.HasPresetValues
@@ -112,6 +115,46 @@ Public Class ClassFieldAny
         ''10/01/2019 td''Throw New NotImplementedException("Not all the members are programmed yet (i.e. the commands for copying their values haven't been written yet).")
 
     End Sub ''End of "Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base, .....)"
+
+    Public Function CurrentValue(Optional pbAllowExampleValues As Boolean = False) As String
+        ''
+        ''Added 12/01/2019 thomas d 
+        ''
+        ''This was copied from ClassElementField.vb's Public Function LabelText, on 12/01/2019 td
+        ''
+        Dim bOkayToUseExampleValues As Boolean ''Added 10/16/2019 td  
+
+        bOkayToUseExampleValues = pbAllowExampleValues
+
+        Select Case True
+
+            Case (Me.iRecipientInfo IsNot Nothing)
+                ''
+                ''Added 12/01/2019 thomas d.    
+                ''
+                Return Me.iRecipientInfo.GetTextValue(Me.FieldEnumValue)
+
+            Case (bOkayToUseExampleValues And (Me.ExampleValue <> ""))
+                ''
+                ''Added 12/01/2019 td 
+                ''
+                Return Me.ExampleValue
+
+            Case (Me.DefaultValue <> "")
+
+                ''Added 12/1/2019 td  
+                Return Me.DefaultValue
+
+            Case Else
+
+                Return $"Undermined value, for Field #{Me.FieldIndex}"
+
+        End Select ''End of "Select Case True"
+
+        Return "Field Information"
+
+    End Function ''End of "Public Function LabelText(par_previewExample As Boolean) As String"
+
 
     ''Fields cannot link to elements.---9/18/2019 td''Private mod_elementFieldClass As ClassElementField ''Added 9/3/2019 td   
 

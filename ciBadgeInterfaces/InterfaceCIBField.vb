@@ -26,6 +26,7 @@ Public Interface ICIBFieldStandardOrCustom
     Property IsLocked As Boolean
 
     Property ExampleValue As String
+    Property DefaultValue As String ''Added 12/1/2019 thomas downes
 
     Property HasPresetValues As Boolean
 

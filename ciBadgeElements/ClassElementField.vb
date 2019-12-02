@@ -28,8 +28,20 @@ Public Class ClassElementField
     Public Shared Property oRecipient As ClassRecipient ''Added 10/16/2019 td  
     ''11/16/2019 td''Public Shared Property Recipient As ClassRecipient ''Added 10/16/2019 td  
 
+    Private Shared mod_sharedRecipInfo As IRecipient ''Added 12/01/2019 thomas d.
+
     <Xml.Serialization.XmlIgnore>
-    Public Shared Property iRecipient As IRecipient ''Added 10/16/2019 td  
+    Public Shared Property iRecipientInfo As IRecipient ''Added 10/16/2019 td  
+        Get
+            Return mod_sharedRecipInfo ''Added 12/01/2019 thomas d.  
+        End Get
+        Set(value As IRecipient)
+            ''Added 12/01/2019 td
+            mod_sharedRecipInfo = mod_sharedRecipInfo
+            ''----DIFFICULT AND CONFUSING------
+            oRecipient = Nothing ''Don't allow an object older reference to interfere with determining Recipient-related data. 12/01/2019 td
+        End Set
+    End Property
 
     Public Property Id_GUID As System.Guid  ''Added 9/30/2019 td 
 
@@ -647,11 +659,17 @@ Public Class ClassElementField
                 ''    ''
                 ''    Return Me.ExampleTextToDisplay
 
-            Case (ClassElementField.iRecipient IsNot Nothing)
+            Case (ClassElementField.iRecipientInfo IsNot Nothing)
+                '[='[==]'
+
+                '[''
+                '
+                ]\\
+                \
+\\]''][=[''[=['[=-==-=[=-==[[===[==[==[==[==[==[==[==[[==[[===[[=-==[[==[[==[[==[[==[[==[[==[[==[[==[[==[[==[[[==[==[[==[[==[[==[[==[[==[[==[[==[[==[[==[[==[[==[[==[[==[[===[[==[[==[=-==[[==[[==[[==[[==[[==]
+                '?
                 ''
-                ''Added 11/16/2019 thomas d. 
-                ''
-                Return ClassElementField.iRecipient.GetTextValue(Me.FieldEnum)
+                Return ClassElementField.iRecipientInfo.GetTextValue(Me.FieldEnum)
 
             Case (bOkayToUseExampleValues And (Me.ExampleValue_ForElement <> ""))
                 ''10/16 td''Case (Me.ExampleValue_ForElement <> "")

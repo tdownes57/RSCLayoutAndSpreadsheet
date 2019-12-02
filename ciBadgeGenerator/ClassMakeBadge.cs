@@ -84,7 +84,7 @@ namespace ciBadgeGenerator
             // 
             //Step #1:  Load the Recipient into the Elements Cache. 
             //
-            ClassElementField.iRecipient = par_recipient;
+            ClassElementField.iRecipientInfo = par_recipient;
 
             //
             //Step #2:  Create the image of the badge-card for the above recipient. 
