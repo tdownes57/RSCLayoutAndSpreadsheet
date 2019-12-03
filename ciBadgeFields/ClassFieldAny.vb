@@ -116,7 +116,26 @@ Public Class ClassFieldAny
 
     End Sub ''End of "Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base, .....)"
 
-    Public Function CurrentRecipValue(Optional pbAllowExampleValues As Boolean = False) As String
+    ''12/2/2019 td''Public Function CurrentRecipValue() As String
+    ''    ''
+    ''    ''Added 12/01/2019 thomas d 
+    ''    ''
+    ''    Return CurrentRecipValue_AllowEgs(False)
+    ''End Function ''ENd of"Public Function CurrentRecipValue() As String" 
+
+    Public Property CurrentRecipValue() As String
+        Get
+            ''Added 12/02/2019 thomas d 
+            Return CurrentRecipValue_AllowEgs(False)
+        End Get
+        Set(value As String)
+            ''Added 12/2/2019 td
+            DataEntryText = value ''Added 12/2/2019 td
+        End Set
+    End Property ''End of "Public Property CurrentRecipValue() As String"
+
+    Public Function CurrentRecipValue_AllowEgs(Optional pbAllowExampleValues As Boolean = True) As String
+        ''---11/2/2019 td''Public Function CurrentRecipValue(Optional pbAllowExampleValues As Boolean = False) As String
         ''
         ''Added 12/01/2019 thomas d 
         ''
@@ -159,9 +178,10 @@ Public Class ClassFieldAny
 
         Return "Field Information"
 
-    End Function ''End of "Public Function CurrentRecipValue(pbAllowExampleValues As Boolean) As String"
+    End Function ''End of "Public Function CurrentRecipValue_AllowEgs(pbAllowExampleValues As Boolean) As String"
 
-    Public Function CurrentRecipValue_DateString(Optional pbAllowExampleValues As Boolean = False) As String
+    Public Function CurrentRecipValue_DateString() As String
+        ''--12/01/2019 td--Public Function CurrentRecipValue_DateString(Optional pbAllowExampleValues As Boolean = False) As String
         ''
         ''Added 12/01/2019 thomas d 
         ''
@@ -170,7 +190,8 @@ Public Class ClassFieldAny
         Dim bOkayToUseExampleValues As Boolean ''Added 10/16/2019 td  
         Dim strOutputValue As String ''Added 12/02/2019 td
 
-        bOkayToUseExampleValues = pbAllowExampleValues
+        bOkayToUseExampleValues = False ''False, since Razor doesn't seem to accept Optional parameters, and a Date field 
+        ''   probably doesn't need an Example value.  ---12/02/2019 td'' pbAllowExampleValues
 
         Select Case True
 

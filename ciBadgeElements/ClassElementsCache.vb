@@ -71,17 +71,25 @@ Public Class ClassElementsCache
         ''
         ''Added 10/14/2019 thomas downes
         ''
+        ''Step 1 of 3.  Concatenate the Standard & Custom field-lists into a single list. 
+        ''
         Dim obj_list As New List(Of ClassFieldAny)
         obj_list.AddRange(ListOfFields_Standard)
         obj_list.AddRange(ListOfFields_Custom)
 
+        ''
+        ''Step 2 of 3.  Load the current recipient into each field. 
+        ''
         ''Added 12/1/2019 thomas d
         For Each each_field As ClassFieldAny In obj_list
 
-            each_field.
+            each_field.iRecipientInfo = CType(par_recipInfo, IRecipient)
 
         Next each_field
 
+        ''
+        ''Step 3 of 3.  Return the list.  
+        ''
         Return obj_list
 
     End Function ''End of "Public Function ListOfFields_Any(par_recipInfo As IRecipient) As List(Of ClassFieldAny)"
