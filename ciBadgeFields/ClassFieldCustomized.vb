@@ -7,7 +7,6 @@ Imports ciBadgeInterfaces ''Added 8/24/2019 thomas d.
 ''
 ''Added 7/16/2019 thomas downes  
 ''
-
 <Serializable>
 Public Class ClassFieldCustomized
     Inherits ClassFieldAny ''Added 9/16/2019 thomas d. 

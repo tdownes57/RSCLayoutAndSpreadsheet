@@ -134,6 +134,17 @@ Public Class ClassFieldAny
         End Set
     End Property ''End of "Public Property CurrentRecipValue() As String"
 
+    Public Property CurrentRecipValue_Date() As String
+        Get
+            ''Added 12/02/2019 thomas d 
+            Return CurrentRecipValue_DateString()
+        End Get
+        Set(value As String)
+            ''Added 12/2/2019 td
+            DataEntryText = value ''Added 12/2/2019 td
+        End Set
+    End Property ''End of "Public Property CurrentRecipValue_Date() As String"
+
     Public Function CurrentRecipValue_AllowEgs(Optional pbAllowExampleValues As Boolean = True) As String
         ''---11/2/2019 td''Public Function CurrentRecipValue(Optional pbAllowExampleValues As Boolean = False) As String
         ''
