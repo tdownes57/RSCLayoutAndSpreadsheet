@@ -37,7 +37,9 @@ Public Class ClassElementField
         End Get
         Set(value As IRecipient)
             ''Added 12/01/2019 td
-            mod_sharedRecipInfo = mod_sharedRecipInfo
+            ''1-15-2020 td''mod_sharedRecipInfo = mod_sharedRecipInfo
+            mod_sharedRecipInfo = value ''1-15-2020 td'' mod_sharedRecipInfo
+
             ''----DIFFICULT AND CONFUSING------
             oRecipient = Nothing ''Don't allow an object older reference to interfere with determining Recipient-related data. 12/01/2019 td
         End Set

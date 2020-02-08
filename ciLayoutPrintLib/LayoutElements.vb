@@ -22,6 +22,9 @@ Public Class LayoutElements
     Public Property RecipientName As String ''Added 6/13/2019
     Public Property RecipientPic As Image ''Added 6/20/2019 Thomas DOWNES
 
+    ''Added 1/15/2020 thomas downes
+    Public Property RecipientInfo As IRecipient ''Added 1/15/2020
+
     Public Property PanelLayout As System.Windows.Forms.Panel
 
     Public Property LabelControlForID As Label ''Added 6/13/2019
@@ -31,6 +34,21 @@ Public Class LayoutElements
     Public Property PicturePersonWithinLayout As PictureBox ''Added 6/13/2019
     Public Property PicturePersonImageLarge As PictureBox ''Added 6/13/2019
     Public Property PictureBoxReview As PictureBox ''Added 6/13/2019
+
+    Public Sub New()
+        ''
+        ''Added 1/15/2020 thomas downes
+        ''
+    End Sub ''End of Public Sub New
+
+    Public Sub New(par_iRecipientInfo As IRecipient)
+        ''
+        ''Added 1/15/2020 thomas downes
+        ''
+        RecipientInfo = par_iRecipientInfo
+        ciBadgeElements.ClassElementField.iRecipientInfo = par_iRecipientInfo
+
+    End Sub ''End of Public Sub New(par_iRecipientInfo As IRecipient)
 
     Public Shared Function LongSideToShortRatio() As Double
         ''

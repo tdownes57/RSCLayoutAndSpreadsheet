@@ -28,8 +28,12 @@ Public Class Startup
         ''Encapsulated 10/13/2019 td
         ''
         Dim boolNewFileXML As Boolean ''Added 10/10/2019 td  
-        Dim obj_cache_layout As ClassElementsCache ''Added 10/13/2019 td 
-        Dim obj_personality As New PersonalityCache ''Added 10/17/2019 td  
+
+        ''1/14/2020 td''Dim obj_cache_layout As ClassElementsCache_NotInUse ''Added 10/13/2019 td 
+        Dim obj_cache_layout_Elements As ClassElementsCache_Deprecated ''Added 10/13/2019 td
+
+        ''1/14/2019 td''Dim obj_personality As New PersonalityCache_NotInUse ''Added 10/17/2019 td  
+        Dim obj_personality As New ClassPersonalityCache ''Added 10/17/2019 td  
 
         ''
         ''
@@ -48,13 +52,17 @@ Public Class Startup
         ''   (Or, at the very bare minimum, a Badge Layout Cache.)  
         ''
         ''10/13/2019 td''obj_cache_layout = LoadCachedData(obj_formToShow)
-        obj_cache_layout = LoadCachedData(obj_formToShow, boolNewFileXML)
+        ''1/14/2019 td''obj_cache_layout = LoadCachedData(obj_formToShow, boolNewFileXML)
+        obj_cache_layout_Elements = LoadCachedData_Elements_Deprecated(obj_formToShow, boolNewFileXML)
+
+        obj_personality = LoadCachedData_Personality(obj_formToShow, boolNewFileXML)
 
         ''Added 11/26/2019 thomas d
         Dim boolTesting As Boolean
         If (boolTesting) Then
-            obj_cache_layout = ClassElementsCache.GetLoadedCache("123.xml", True, obj_formToShow.pictureBack.Image)
-        End If
+            obj_cache_layout_Elements =
+                ClassElementsCache_Deprecated.GetLoadedCache("123.xml", True, obj_formToShow.pictureBack.Image)
+        End If ''End of "If (boolTesting) Then"
 
         obj_formToShow.NewFileXML = boolNewFileXML
 
@@ -69,7 +77,7 @@ Public Class Startup
             ''
             ''This is potentially an infinite loop.  Look for "Exit Do". 
             ''
-            obj_formToShow.ElementsCache_Edits = obj_cache_layout
+            obj_formToShow.ElementsCache_Edits = obj_cache_layout_Elements
             obj_formToShow.PersonalityCache = obj_personality
 
             obj_formToShow.ShowDialog() ''Added 10/11/2019 td 
@@ -77,7 +85,7 @@ Public Class Startup
             ''Added 10/13/2019 td
             If (Not obj_formToShow.LetsRefresh_CloseForm) Then Exit Do
 
-            obj_cache_layout = obj_formToShow.ElementsCache_Saved
+            obj_cache_layout_Elements = obj_formToShow.ElementsCache_Saved
             obj_formToShow = New FormDesignProtoTwo
 
             ''
@@ -125,25 +133,20 @@ Public Class Startup
 
     End Function ''End of "Private Shared Function LoadCachedData_Customer"
 
-    Private Shared Function LoadCachedData(par_designForm As FormDesignProtoTwo,
-                                           ByRef pboolNewFileXML As Boolean) As ClassElementsCache
+    Private Shared Function LoadCachedData_Personality(par_designForm As FormDesignProtoTwo,
+                                           ByRef pboolNewFileXML As Boolean) As ClassPersonalityCache
         ''
-        ''Added 10/13/2019 td
+        ''Added 1/14/2019 td
         ''
-        ''Added 10/10/2019 td
         Dim strPathToXML As String = ""
-        ''---Dim boolNewFileXML As Boolean ''Added 10/10/2019 td  
-        Dim obj_cache_elements As ClassElementsCache ''Added 10/10/2019 td
+        Dim obj_cache_personality As ClassPersonalityCache
 
-        ''Added 10/10/2019 td
-        ''10/13/2019 td''strPathToXML = My.Settings.PathToXML_Saved
-        strPathToXML = DiskFiles.PathToFile_XML
+        strPathToXML = DiskFiles.PathToFile_XML_Personality
 
         If (strPathToXML = "") Then
             pboolNewFileXML = True
-            ''10/12/2019 td''strPathToXML = (My.Application.Info.DirectoryPath & "\ciLayoutDesignVB_Saved.xml").Replace("\\", "\")
-            strPathToXML = DiskFiles.PathToFile_XML
-            My.Settings.PathToXML_Saved = strPathToXML
+            strPathToXML = DiskFiles.PathToFile_XML_Personality
+            My.Settings.PathToXML_Saved_ElementsCache = strPathToXML
             My.Settings.Save()
         Else
             pboolNewFileXML = (Not System.IO.File.Exists(strPathToXML))
@@ -160,7 +163,173 @@ Public Class Startup
             ''----Me.ElementsCache_Edits.LoadFieldElements(pictureBack, BadgeLayout)
 
             ''Added 10/13/2019 td
-            obj_cache_elements = New ClassElementsCache
+            obj_cache_personality = New ClassPersonalityCache
+            obj_cache_personality.PathToXml_Saved = strPathToXML
+
+            obj_cache_personality.LoadFields()
+            ''1/14/2020 td''obj_cache_personality.LoadFieldElements(par_designForm.pictureBack,
+            ''                    New BadgeLayoutClass(par_designForm.pictureBack))
+
+        Else
+            ''Added 10/10/2019 td  
+            Dim objDeserialize As New ciBadgeSerialize.ClassDeserial ''Added 10/10/2019 td  
+            objDeserialize.PathToXML = strPathToXML
+
+            ''10/13/2019 td''Me.ElementsCache_Saved = CType(objDeserialize.DeserializeFromXML(Me.ElementsCache_Saved.GetType(), False), ClassElementsCache)
+            ''-----Me.ElementsCache_Edits = CType(objDeserialize.DeserializeFromXML(Me.ElementsCache_Edits.GetType(), False), ClassElementsCache)
+
+            obj_cache_personality = New ClassPersonalityCache ''This may or may not be completely necessary,
+            ''   but I know of no other way to pass the object type.  Simply expressing the Type
+            ''   by typing its name doesn't work.  ---10/13/2019 td
+
+            obj_cache_personality = CType(objDeserialize.DeserializeFromXML(obj_cache_personality.GetType(), False), ClassPersonalityCache)
+
+            ''Added 10/12/2019 td
+            ''10/13/2019 td''Me.ElementsCache_Saved.LinkElementsToFields()
+            ''-----Me.ElementsCache_Edits.LinkElementsToFields()
+            ''1/14/2020 td''obj_cache_personality.LinkElementsToFields()
+
+        End If ''End of "If (pboolNewFileXML) Then .... Else ..."
+
+        ''''-------------------------------------------------------------
+        ''''Added 9/19/2019 td
+        ''Dim intPicLeft As Integer
+        ''Dim intPicTop As Integer
+        ''Dim intPicWidth As Integer
+        ''Dim intPicHeight As Integer
+
+        ''''Added 9/19/2019 td
+        ''With par_designForm
+        ''    ''Added 9/19/2019 td
+        ''    intPicLeft = .CtlGraphicPortrait_Lady.Left - .pictureBack.Left
+        ''    intPicTop = .CtlGraphicPortrait_Lady.Top - .pictureBack.Top
+        ''    intPicWidth = .CtlGraphicPortrait_Lady.Width
+        ''    intPicHeight = .CtlGraphicPortrait_Lady.Height
+        ''End With
+
+        ''''-------------------------------------------------------------
+        ''''Added 10/14/2019 td
+        ''Dim intLeft_QR As Integer
+        ''Dim intTop_QR As Integer
+        ''Dim intWidth_QR As Integer
+        ''Dim intHeight_QR As Integer
+
+        ''''Added 10/14/2019 td
+        ''With par_designForm
+        ''    ''Added 10/14/2019 td
+        ''    intLeft_QR = .CtlGraphicQRCode1.Left - .pictureBack.Left
+        ''    intTop_QR = .CtlGraphicQRCode1.Top - .pictureBack.Top
+        ''    intWidth_QR = .CtlGraphicQRCode1.Width
+        ''    intHeight_QR = .CtlGraphicQRCode1.Height
+        ''End With
+
+        ''''-------------------------------------------------------------
+        ''''Added 10/14/2019 td
+        ''Dim intLeft_Sig As Integer
+        ''Dim intTop_Sig As Integer
+        ''Dim intWidth_Sig As Integer
+        ''Dim intHeight_Sig As Integer
+
+        ''''Added 10/14/2019 td
+        ''With par_designForm
+        ''    ''Added 10/14/2019 td
+        ''    intLeft_Sig = .CtlGraphicSignature1.Left - .pictureBack.Left
+        ''    intTop_Sig = .CtlGraphicSignature1.Top - .pictureBack.Top
+        ''    intWidth_Sig = .CtlGraphicSignature1.Width
+        ''    intHeight_Sig = .CtlGraphicSignature1.Height
+        ''End With
+
+        ''''-------------------------------------------------------------
+        ''''Added 10/14/2019 td
+        ''Dim strStaticText As String
+        ''Dim intLeft_Text As Integer
+        ''Dim intTop_Text As Integer
+        ''Dim intWidth_Text As Integer
+        ''Dim intHeight_Text As Integer
+
+        ''''Added 10/14/2019 td
+        ''With par_designForm
+        ''    ''Added 10/14/2019 td
+        ''    strStaticText = "This is the same text for everyone."
+        ''    intLeft_Text = .CtlGraphicText1.Left - .pictureBack.Left
+        ''    intTop_Text = .CtlGraphicText1.Top - .pictureBack.Top
+        ''    intWidth_Text = .CtlGraphicText1.Width
+        ''    intHeight_Text = .CtlGraphicText1.Height
+        ''End With
+
+
+        ''''9/19 td''Me.ElementsCache_Saved.LoadPicElement(CtlGraphicPortrait_Lady.picturePortrait, pictureBack) ''Added 9/19/2019 td
+        ''If (pboolNewFileXML) Then
+        ''    ''10/10/2019 td''Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
+        ''    ''10/13/2019 td''Me.ElementsCache_Saved.LoadElement_Pic(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
+        ''    obj_cache_personality.LoadElement_Pic(intPicLeft, intPicTop, intPicWidth, intPicHeight,
+        ''                                       par_designForm.pictureBack) ''Added 9/19/2019 td
+
+        ''    ''Added 10/14/2019 thomas d. 
+        ''    obj_cache_personality.LoadElement_QRCode(intLeft_QR, intTop_QR, intWidth_QR, intHeight_QR,
+        ''                                       par_designForm.pictureBack) ''Added 10/14/2019 td
+
+        ''    ''Added 10/14/2019 thomas d. 
+        ''    obj_cache_personality.LoadElement_Signature(intLeft_Sig, intTop_Sig, intWidth_Sig, intHeight_Sig,
+        ''                                       par_designForm.pictureBack) ''Added 10/14/2019 td
+
+        ''    ''Added 10/14/2019 thomas d. 
+        ''    obj_cache_personality.LoadElement_Text(strStaticText,
+        ''                                        intLeft_Text, intTop_Text,
+        ''                                        intWidth_Text, intHeight_Text,
+        ''                                       par_designForm.pictureBack) ''Added 10/14/2019 td
+
+        ''End If ''End of "If (pboolNewFileXML) Then"
+
+        ''Added 9/24/2019 thomas 
+        ''Was just for testing. ---10/10/2019 td''Dim serial_tools As New ciBadgeSerialize.ClassSerial
+        ''Was just for testing. ---10/10/2019 td''serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
+        ''Was just for testing. ---10/10/2019 td''serial_tools.SerializeToXML(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved, False, True)
+
+        Return obj_cache_personality
+
+    End Function ''End of "Private Sub LoadCachedData_Personality()"
+
+    Private Shared Function LoadCachedData_Elements_Deprecated(par_designForm As FormDesignProtoTwo,
+                                           ByRef pboolNewFileXML As Boolean) As ClassElementsCache_Deprecated
+        ''1/24 td''Private Shared Function LoadCachedData(par_designForm As FormDesignProtoTwo,
+        ''1/24 td''            ByRef pboolNewFileXML As Boolean) As ClassElementsCache_NotInUse
+        ''
+        ''Added 10/13/2019 td
+        ''
+        ''Added 10/10/2019 td
+        Dim strPathToXML As String = ""
+        ''---Dim boolNewFileXML As Boolean ''Added 10/10/2019 td  
+        Dim obj_cache_elements As ClassElementsCache_Deprecated ''Added 10/10/2019 td
+
+        ''Added 10/10/2019 td
+        ''10/13/2019 td''strPathToXML = My.Settings.PathToXML_Saved
+        ''1/14/2020''strPathToXML = DiskFiles.PathToFile_XML_ElementsCache
+        strPathToXML = DiskFiles.PathToFile_XML_ElementsCache
+
+        If (strPathToXML = "") Then
+            pboolNewFileXML = True
+            ''10/12/2019 td''strPathToXML = (My.Application.Info.DirectoryPath & "\ciLayoutDesignVB_Saved.xml").Replace("\\", "\")
+            ''1/14/2030 td''strPathToXML = DiskFiles.PathToFile_XML
+            strPathToXML = DiskFiles.PathToFile_XML_ElementsCache
+            My.Settings.PathToXML_Saved_ElementsCache = strPathToXML
+            My.Settings.Save()
+        Else
+            pboolNewFileXML = (Not System.IO.File.Exists(strPathToXML))
+        End If ''End of "If (strPathToXML <> "") Then .... Else ..."
+
+        ''
+        ''Major call!!
+        ''
+        If (pboolNewFileXML) Then ''Condition added 10/10/2019 td  
+            ''10/13/2019 td''Me.ElementsCache_Saved.LoadFields()
+            ''10/13/2019 td''Me.ElementsCache_Saved.LoadFieldElements(pictureBack)
+            ''----Me.ElementsCache_Edits.LoadFields()
+            ''10/13/2019 td''Me.ElementsCache_Edits.LoadFieldElements(pictureBack, BadgeLayout)
+            ''----Me.ElementsCache_Edits.LoadFieldElements(pictureBack, BadgeLayout)
+
+            ''Added 10/13/2019 td
+            obj_cache_elements = New ClassElementsCache_Deprecated
             obj_cache_elements.PathToXml_Saved = strPathToXML
 
             obj_cache_elements.LoadFields()
@@ -175,11 +344,11 @@ Public Class Startup
             ''10/13/2019 td''Me.ElementsCache_Saved = CType(objDeserialize.DeserializeFromXML(Me.ElementsCache_Saved.GetType(), False), ClassElementsCache)
             ''-----Me.ElementsCache_Edits = CType(objDeserialize.DeserializeFromXML(Me.ElementsCache_Edits.GetType(), False), ClassElementsCache)
 
-            obj_cache_elements = New ClassElementsCache ''This may or may not be completely necessary,
+            obj_cache_elements = New ClassElementsCache_Deprecated ''This may or may not be completely necessary,
             ''   but I know of no other way to pass the object type.  Simply expressing the Type
             ''   by typing its name doesn't work.  ---10/13/2019 td
 
-            obj_cache_elements = CType(objDeserialize.DeserializeFromXML(obj_cache_elements.GetType(), False), ClassElementsCache)
+            obj_cache_elements = CType(objDeserialize.DeserializeFromXML(obj_cache_elements.GetType(), False), ClassElementsCache_Deprecated)
 
             ''Added 10/12/2019 td
             ''10/13/2019 td''Me.ElementsCache_Saved.LinkElementsToFields()
@@ -285,7 +454,7 @@ Public Class Startup
 
         Return obj_cache_elements
 
-    End Function ''End of "Private Sub LoadCachedData()"
+    End Function ''End of "Private Sub LoadCachedData_Elements_Deprecated()"
 
 
 

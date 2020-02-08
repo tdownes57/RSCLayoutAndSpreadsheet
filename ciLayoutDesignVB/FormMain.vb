@@ -12,7 +12,7 @@ Public Class FormMain
 
     Private Shared mod_currentConfigID As Integer ''Added 7/23/2019 thomas downes  
 
-    Public Shared Sub OpenElementsCache(par_cache As ClassElementsCache)
+    Public Shared Sub OpenElementsCache(par_cache As ClassElementsCache_Deprecated)
         ''
         ''Added 9/30/2019 thomas downes
         ''

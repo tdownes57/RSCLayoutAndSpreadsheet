@@ -192,7 +192,7 @@
     <None Include="SigPlusLocal.ini" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ciBadgeForWeb\ciPictures_VB\ciPictures_VB.vbproj">
+    <ProjectReference Include="..\..\tdownes57\ciBadgeForWeb\ciPictures_VB\ciPictures_VB.vbproj">
       <Project>{a5fe9f7b-4075-43c5-892b-01e2cfec342c}</Project>
       <Name>ciPictures_VB</Name>
     </ProjectReference>

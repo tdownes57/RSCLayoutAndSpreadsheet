@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ciBadgeRecipients;  //Added 10/16/2019 td 
-using ciPictures_VB;   //Added 10/16/2019 td 
+//using ciPictures_VB;   //Added 10/16/2019 td 
 using System.Drawing;  //Added 10/16/2019 td  
 
 namespace ciBadgeRecipientsCS

@@ -12,6 +12,8 @@ Public Class LayoutExample
     ''7/5/2019 td''Private mod_form As New FormLayoutEg
     ''7/5/2019 td''Private mod_print As New ciLayoutPrintLib.LayoutPrint
 
+    Public Shared PathToFolderWithBacks As String ''Added 12/11/2019 td
+
     Private Shared mod_form As New FormLayoutEg
     Private Shared mod_print As New ciLayoutPrintLib.LayoutPrint
     Private Shared mod_backIndex As Integer ''Added 7/5/2019 td 
@@ -29,6 +31,17 @@ Public Class LayoutExample
     Sub New()
 
         mod_form.PicturePersonLarge.Image = Global.ciLayoutPrintLib.My.Resources.v9_lady
+
+        ''Added 1/12/2020 thomas d.
+        If (0 = mod_form.panelLayout.Width) Then
+            mod_form.Show()
+            mod_form.Visible = False ''User doesn't need to see the form. 
+            ''Added 1/12/2020 td 
+            If (0 = mod_form.panelLayout.Width) Then
+                ''Added 1/12/2020 thomas d.
+                Throw New Exception("Stubborn Panel Layout Width..... is still zero.")
+            End If ''End of "If (0 = mod_form.panelLayout.Width) Then"
+        End If ''End of "If (0 = mod_form.panelLayout.Width) Then"
 
         With mod_print
 
@@ -260,10 +273,17 @@ Public Class LayoutExample
 
             End If ''End of "If (0 <> Me.WidthInPixels_Land) Then"
 
+            ''added 12/11/2019
+            BackImageExamples.PathToFolderWithBacks = LayoutExample.PathToFolderWithBacks
+
             ''Added 7/5/2019 td
             ''7/6/2019 td''.PanelLayout.BackgroundImage = BackImageExamples.GetLatestImage()
             ''7/6/2019 td''.PanelLayout.BackgroundImage = BackImageExamples.GetLatestImage(pboolNoImagesLoaded)
             .PanelLayout.BackgroundImage = BackImageExamples.GetCurrentImage(pboolNoImagesLoaded)
+
+            ''Added 1/11/2020 td
+            If (.PanelLayout.Width = 0) Then Throw New Exception("Error, unluckily Panel Layout has zero width.")
+            If (.PanelLayout.Height = 0) Then Throw New Exception("Error, unluckily Panel Layout has zero height.")
 
             ''Added 7/6/2019 td
             If (pboolNoImagesLoaded) Then Return Nothing ''Exit Function

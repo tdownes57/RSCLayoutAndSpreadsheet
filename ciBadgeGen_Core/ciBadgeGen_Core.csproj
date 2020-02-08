@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Class1.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ImageProcessor" Version="2.8.0" />
+    <PackageReference Include="ImageProcessor.Web" Version="4.11.0" />
+    <PackageReference Include="ImageProcessor.Web.Config" Version="2.6.0" />
+  </ItemGroup>
+
+</Project>

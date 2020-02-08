@@ -12,11 +12,11 @@ Imports ciBadgeFields ''Added 9/18/2019 td
 Imports ciBadgeRecipients ''Added 10/16/2019 thomas d. 
 
 <Serializable>
-Public Class ClassElementsCache
+Public Class ClassElementsCache_Deprecated
     ''
     ''Added 9/16/2019 thomas downes
     ''
-    Public Shared Singleton As ClassElementsCache ''Let's use
+    Public Shared Singleton As ClassElementsCache_Deprecated ''Let's use
     '' the pattern mentioned in https://en.wikipedia.org/wiki/Singleton_pattern
 
     Public Property Id_GUID As System.Guid ''Added 9/30/2019 td 
@@ -25,8 +25,24 @@ Public Class ClassElementsCache
     Public Property PathToXml_Saved As String ''Added 9/29/2019 td
     Public Property PathToXml_Binary As String ''Added 11/29/2019 td
 
+    ''Added 2/04/2020 td
+    Public Property XmlFile_Path As String ''Added 2/04/2020 td
+    Public Property XmlFile_FTitle As String ''Added 2/04/2020 td
+
+    ''Added 1/14/2020 td
+    Public Property BackgroundImage_Path As String ''Added 1/14/2020 td
+    Public Property BackgroundImage_FTitle As String ''Added 1/14/2020 td
+
     Public Property ElementQRCode As ClassElementQRCode ''Added 10/8/2019 thomas d.  
     Public Property ElementSignature As ClassElementSignature ''Added 10/8/2019 thomas d.  
+
+    Public Property BadgeLayout As ciBadgeInterfaces.BadgeLayoutClass ''Added 9/17/2019 thomas downes
+
+    ''Added 1/12/2020 thomas d. 
+    Public Property PathToBackgroundImageFile_Deprecated As String ''Deprecated 2/4/2020 td.   Added 1/12/2019 thomas downes
+
+    <Xml.Serialization.XmlIgnore>
+    Public Property Pic_InitialDefault As Image ''Added 9/23/2019 td 
 
     ''10/14/2019 td''Private mod_listFields As New List(Of ClassFieldAny) ''Added 9/18/2019 td  
 
@@ -45,6 +61,13 @@ Public Class ClassElementsCache
     Private mod_listElementPics As New HashSet(Of ClassElementPic)
     Private mod_listElementStatics As New HashSet(Of ClassElementStaticText)
     Private mod_listElementLaysections As New HashSet(Of ClassElementLaysection) ''Added 9/17/2019 thomas downes
+
+    ''Added 1/14/2020 thomas dow nes
+    Private Structure BackTitleAndWidth
+        Dim sFileTitle As String
+        Dim iPixelsWidth As Integer
+    End Structure
+    Private mod_dictionaryBackImages As New Dictionary(Of BackTitleAndWidth, Image) ''Added 1/14/2020 thomas downes
 
     ''10/14/2019 td''Public Property ListOfFields As List(Of ClassFieldAny)
     ''    Get ''Added 9/28/2019 td
@@ -147,10 +170,13 @@ Public Class ClassElementsCache
     End Property
 
 
-    Public Property BadgeLayout As ciBadgeInterfaces.BadgeLayoutClass ''Added 9/17/2019 thomas downes
+    ''Moved up.  2/4/2020 td''Public Property BadgeLayout As ciBadgeInterfaces.BadgeLayoutClass ''Added 9/17/2019 thomas downes
 
-    <Xml.Serialization.XmlIgnore>
-    Public Property Pic_InitialDefault As Image ''Added 9/23/2019 td 
+    ''Added 1/12/2020 thomas d. 
+    ''Moved up.  2/4/2020 td''Public Property PathToBackgroundImageFile As String ''Added 1/12/2019 thomas downes
+
+    ''Moved up.  2/4/2020 t d''<Xml.Serialization.XmlIgnore>
+    ''Moved up.  2/4/2020 td''Public Property Pic_InitialDefault As Image ''Added 9/23/2019 td 
 
     ''10/14/2019 td''Public Function ListFields_Denigrated() As List(Of ClassFieldAny)
     ''    ''
@@ -567,11 +593,11 @@ Public Class ClassElementsCache
 
     End Sub ''End of "Public Sub LoadRecipient(par_recipient As IRecipient)"
 
-    Public Function Copy() As ClassElementsCache
+    Public Function Copy() As ClassElementsCache_Deprecated
         ''
         ''Added 9/17/2019 thomas downes  
         ''
-        Dim objCopyOfCache As New ClassElementsCache
+        Dim objCopyOfCache As New ClassElementsCache_Deprecated
         Dim ListFields_NotUsed As New List(Of ClassFieldAny)
         Dim dictionaryFields As New Dictionary(Of ciBadgeInterfaces.EnumCIBFields, ClassFieldAny)
         ''10/14/2019 td''Dim copy_ofField As ClassFieldAny
@@ -581,6 +607,13 @@ Public Class ClassElementsCache
 
         ''Added 10/13/2019 thomas d.
         objCopyOfCache.PathToXml_Saved = Me.PathToXml_Saved
+
+        ''Added 02/04/2020 thomas d.
+        objCopyOfCache.PathToXml_Binary = Me.PathToXml_Binary
+        objCopyOfCache.XmlFile_Path = Me.XmlFile_Path
+        objCopyOfCache.XmlFile_FTitle = Me.XmlFile_FTitle
+        objCopyOfCache.BackgroundImage_Path = Me.BackgroundImage_Path
+        objCopyOfCache.BackgroundImage_FTitle = Me.BackgroundImage_FTitle
 
         ''Added 9/29/2019 thomas downes  
         ''#1 10/14/2019 td''For Each each_field As ClassFieldAny In mod_listFields
@@ -870,21 +903,26 @@ Public Class ClassElementsCache
     Public Shared Function GetLoadedCache(pstrPathToXML As String,
                                     pboolNewFileXML As Boolean,
                                     Optional par_imageBack As Image = Nothing,
-                                    Optional ByRef pref_section As Integer = 0) As ClassElementsCache
+                                    Optional ByRef pref_section As Integer = 0) As ClassElementsCache_Deprecated
         ''
         ''Added 11/15/2019 td
         ''
         ''Added 10/10/2019 td
         ''11/15/2019 td''Dim strPathToXML As String = ""
         ''---Dim boolNewFileXML As Boolean ''Added 10/10/2019 td  
-        Dim obj_cache_elements As ClassElementsCache ''Added 10/10/2019 td
+        Dim obj_cache_elements As ClassElementsCache_Deprecated ''Added 10/10/2019 td
         ''11/15/2019 td''Dim boolNewFileXML As Boolean
         Dim obj_designForm As New FormBadgeLayoutProto ''Added 11/15/2019 td 
 
         pref_section = 11 ''Added 11/27/2019 td
 
         ''ADDED 11/28/2019 TD
-        obj_designForm.Show()
+        ''  Unfortunately we must call the .Show() method so that the size & location 
+        ''  values are not equal to zero(0).   ----1/14/2019 thomas downes  
+        Const c_bWeMustShowTheFormToAvoidZeroValues As Boolean = False ''2/3/2020 td'' True ''Added 1/14/2020 thomas downes
+        If (c_bWeMustShowTheFormToAvoidZeroValues) Then
+            obj_designForm.Show()
+        End If ''End of "If (c_bWeMustShowTheFormToAvoidZeroValues) Then"
 
         ''Added 11/15/2019 td
         If (par_imageBack IsNot Nothing) Then
@@ -918,13 +956,25 @@ Public Class ClassElementsCache
             pref_section = 12 ''Added 11/27/2019 td
 
             ''Added 10/13/2019 td
-            obj_cache_elements = New ClassElementsCache
+            obj_cache_elements = New ClassElementsCache_Deprecated
             obj_cache_elements.PathToXml_Saved = pstrPathToXML
+
+            ''Added 2/4/2020 thomas downes
+            obj_cache_elements.XmlFile_Path = pstrPathToXML
+            Try
+                IO.File.WriteAllText(pstrPathToXML, "new XML file")
+                obj_cache_elements.XmlFile_FTitle = (New IO.FileInfo(pstrPathToXML)).Name
+            Catch ex_CreateFile As System.IO.IOException
+                ''ErrorMessage &= vbCrLf & ex_CreateFile.Message
+                Throw
+            End Try
 
             ''Added 11/16/2019 td
             obj_cache_elements.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass()
-            obj_cache_elements.BadgeLayout.Width_Pixels = obj_designForm.pictureBack.Width
-            obj_cache_elements.BadgeLayout.Height_Pixels = obj_designForm.pictureBack.Height
+            ''---2/3/2020 td--obj_cache_elements.BadgeLayout.Width_Pixels = obj_designForm.pictureBack.Width
+            ''---2/3/2020 td--obj_cache_elements.BadgeLayout.Height_Pixels = obj_designForm.pictureBack.Height
+            obj_cache_elements.BadgeLayout.Width_Pixels = FormBadgeLayoutProto.pictureBack_Width ''---2/3/2020 td--obj_designForm.pictureBack.Width
+            obj_cache_elements.BadgeLayout.Height_Pixels = FormBadgeLayoutProto.pictureBack_Height ''---2/3/2020 td--obj_designForm.pictureBack.Height
 
             pref_section = 13 ''Added 11/27/2019 td
 
@@ -950,11 +1000,12 @@ Public Class ClassElementsCache
             ''10/13/2019 td''Me.ElementsCache_Saved = CType(objDeserialize.DeserializeFromXML(Me.ElementsCache_Saved.GetType(), False), ClassElementsCache)
             ''-----Me.ElementsCache_Edits = CType(objDeserialize.DeserializeFromXML(Me.ElementsCache_Edits.GetType(), False), ClassElementsCache)
 
-            obj_cache_elements = New ClassElementsCache ''This may or may not be completely necessary,
+            ''2/4/2020 td''obj_cache_elements = New ClassElementsCache_Deprecated ''This may or may not be completely necessary,
             ''   but I know of no other way to pass the object type.  Simply expressing the Type
             ''   by typing its name doesn't work.  ---10/13/2019 td
 
-            obj_cache_elements = CType(objDeserialize.DeserializeFromXML(obj_cache_elements.GetType(), False), ClassElementsCache)
+            ''2/4/2020 td''obj_cache_elements = CType(objDeserialize.DeserializeFromXML(obj_cache_elements.GetType(), False), ClassElementsCache_Deprecated)
+            obj_cache_elements = CType(objDeserialize.DeserializeFromXML(GetType(ClassElementsCache_Deprecated), False), ClassElementsCache_Deprecated)
 
             ''Added 10/12/2019 td
             ''10/13/2019 td''Me.ElementsCache_Saved.LinkElementsToFields()
@@ -962,6 +1013,14 @@ Public Class ClassElementsCache
             obj_cache_elements.LinkElementsToFields()
 
             pref_section = 16 ''Added 11/27/2019 td
+
+            ''Added 2/4/2020 thomas downes
+            With obj_cache_elements
+                .PathToXml_Saved = pstrPathToXML
+                .XmlFile_Path = pstrPathToXML
+                ''.XmlFile_FTitle = (New System.IO.FileInfo(pstrPathToXML)).Name
+                .XmlFile_FTitle = IO.Path.GetFileName(pstrPathToXML)
+            End With
 
         End If ''End of "If (pboolNewFileXML) Then .... Else ..."
 
@@ -977,10 +1036,14 @@ Public Class ClassElementsCache
         ''Added 9/19/2019 td
         With obj_designForm
             ''Added 9/19/2019 td
-            intPicLeft = .picturePortrait.Left - .pictureBack.Left
-            intPicTop = .picturePortrait.Top - .pictureBack.Top
-            intPicWidth = .picturePortrait.Width
-            intPicHeight = .picturePortrait.Height
+            ''2/3/2020 td''intPicLeft = .picturePortrait.Left - .pictureBack.Left
+            ''2/3/2020 td''intPicTop = .picturePortrait.Top - .pictureBack.Top
+            ''2/3/2020 td''intPicWidth = .picturePortrait.Width
+            ''2/3/2020 td''intPicHeight = .picturePortrait.Height
+            intPicLeft = .picturePortrait_Left - .pictureBack_Left
+            intPicTop = .picturePortrait_Top - .pictureBack_Top
+            intPicWidth = .picturePortrait_Width
+            intPicHeight = .picturePortrait_Height
         End With
 
         pref_section = 171 ''Added 11/27/2019 td
@@ -1090,7 +1153,11 @@ Public Class ClassElementsCache
                 .BadgeLayout = New BadgeLayoutClass(intBadgeWidth, intBadgeHeight)
 
             End If ''End of "If (obj_cache_elements.BadgeLayout Is Nothing) Then
-        End With
+
+            ''Added 1/14/2020 thomas downes 
+            .BackgroundImage_FTitle = "BackExample.jpg"
+
+        End With ''End of "With obj_cache_elements"
 
         ''ADDED 11/28/2019 TD
         obj_designForm.Close()
@@ -1131,5 +1198,57 @@ Public Class ClassElementsCache
         End With ''End of "With objSerializationClass"
 
     End Sub ''End of "Public Sub SaveToXML()"
+
+    Public Function GetBackgroundImage(pintWidth As Integer, pintHeight As Integer,
+                                       pstrPathToLikelyFolder As String) As Image
+        ''
+        ''Added 1/14/2020 thomas downes
+        ''
+        Dim structCurrent As New BackTitleAndWidth
+        Dim imageFound As Image = Nothing
+        Dim imageCreated1 As Image
+        Dim imageCreated2 As Image
+
+        structCurrent.iPixelsWidth = pintWidth
+        structCurrent.sFileTitle = BackgroundImage_FTitle
+        Try
+            imageFound = mod_dictionaryBackImages(structCurrent)
+        Catch ex_dict As Exception
+            If (ex_dict.Message.Contains("not present")) Then
+                ''
+                ''The image was not created and/or not saved. ---1/14/2020. 
+                ''
+            Else
+                Throw
+            End If ''End fo "If (ex_dict.Message.Contains("not present")) Then ... Else ..."
+        End Try
+
+        If (imageFound IsNot Nothing) Then
+            Return imageFound
+        Else
+            ''Added 1/14/2019 td 
+            BackgroundImage_RefreshPath(pstrPathToLikelyFolder) ''Added 1/14/2019 td 
+            imageCreated1 = New Bitmap(BackgroundImage_Path)
+            ''imageCreated.Dispose()
+            imageCreated2 = New Bitmap(imageCreated1, New Size(pintWidth, pintHeight))
+            mod_dictionaryBackImages.Add(structCurrent, imageCreated2)
+            imageCreated1.Dispose()
+            Return imageCreated2
+        End If  ''Endof "If (imageFound IsNot Nothing) Then ..... Else ...."
+
+    End Function ''End of "Public Function GetBackgroundImage(pintWidth As Integer, pintHeight As Integer) As Image"
+
+    Private Sub BackgroundImage_RefreshPath(pstrPathToBackgroundImagesFolder As String)
+        ''
+        ''Added 1/14/2019 thomas downes  
+        ''
+        If (Not String.IsNullOrEmpty(BackgroundImage_FTitle)) Then
+
+            ''1/15/2019 td''BackgroundImage_Path = System.IO.Path.Combine(pstrPathToBackgroundImagesFolder, BackgroundImage_Path)
+            BackgroundImage_Path = System.IO.Path.Combine(pstrPathToBackgroundImagesFolder, BackgroundImage_FTitle)
+
+        End If ''End of "If (Not String.IsNullOrEmpty(BackgroundImage_FTitle)) Then"
+
+    End Sub ''Private Sub BackgroundImage_RefreshPath(pstrPathToBackgroundImagesFolder As String)
 
 End Class ''End of ClassElementsCache 

@@ -50,8 +50,8 @@ Public Class ClassDesigner
     Public Property CtlGraphic_Signat As CtlGraphicSignature ''Added 10/10/2019 td
     Public Property CtlGraphic_QRCode As CtlGraphicQRCode ''Added 10/10/2019 td
 
-    Public Property ElementsCache_Saved As New ClassElementsCache ''Added 9/16/2019 thomas downes
-    Public Property ElementsCache_Edits As New ClassElementsCache ''Added 9/16/2019 thomas downes
+    Public Property ElementsCache_Saved As New ClassElementsCache_Deprecated ''Added 9/16/2019 thomas downes
+    Public Property ElementsCache_Edits As New ClassElementsCache_Deprecated ''Added 9/16/2019 thomas downes
 
     ''----Public Property ControlMoverOrResizer_TD As New MoveAndResizeControls_Monem.ControlMoverOrResizer_TD ''Added 10/1/2019 td
     ''----Public Property ControlMove_GroupMove_TD As New MoveAndResizeControls_Monem.ControlMove_GroupMove_TD ''Added 10/1/2019 td
@@ -351,7 +351,7 @@ Public Class ClassDesigner
 
     End Sub ''End of Sub ResizeLayoutBackgroundImage_ToFitPictureBox()
 
-    Private Sub LoadForm_LayoutElements(par_cache As ClassElementsCache,
+    Private Sub LoadForm_LayoutElements(par_cache As ClassElementsCache_Deprecated,
                                         ByRef par_listFieldCtls As HashSet(Of CtlGraphicFldLabel))
         ''10/17/2019 td''Private Sub LoadForm_LayoutElements(par_cache As ClassElementsCache,
         ''                                ByRef par_listFieldCtls As List(Of CtlGraphicFldLabel))

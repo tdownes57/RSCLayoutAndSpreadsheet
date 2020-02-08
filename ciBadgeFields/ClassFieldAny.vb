@@ -167,6 +167,7 @@ Public Class ClassFieldAny
 
                 ''Utilize the default value. 
                 If ("" = strOutputValue) Then strOutputValue = Me.DefaultValue
+                If (strOutputValue.StartsWith("Undermined value")) Then strOutputValue = Me.DefaultValue
 
                 Return strOutputValue
 
@@ -183,7 +184,8 @@ Public Class ClassFieldAny
 
             Case Else
 
-                Return $"Undermined value, for Field #{Me.FieldIndex}"
+                ''1/15/2020 td''Return $"Undermined value, for Field #{Me.FieldIndex}"
+                Return $"Undetermined value, for Field #{Me.FieldIndex}"
 
         End Select ''End of "Select Case True"
 
@@ -230,7 +232,8 @@ Public Class ClassFieldAny
 
             Case Else
 
-                Return $"Undermined value, for Field #{Me.FieldIndex}"
+                ''1/15/2020 td''Return $"Undetermined value, for Field #{Me.FieldIndex}"
+                Return $"Undetermined value, for Field #{Me.FieldIndex}"
 
         End Select ''End of "Select Case True"
 

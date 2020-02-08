@@ -5,7 +5,10 @@
     <Setting Name="controlLocations" Type="System.Collections.Specialized.StringCollection" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="PathToXML_Saved" Type="System.String" Scope="User">
+    <Setting Name="PathToXML_Saved_ElementsCache" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="PathToXML_Saved_Personality" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

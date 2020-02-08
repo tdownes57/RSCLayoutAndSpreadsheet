@@ -14,8 +14,8 @@ Public Class BadgeLayoutCache
 
     Public Property DoubleSided As Boolean ''Added 10/11/2019 td
 
-    Public Property Side1orFirst_Cache As ClassElementsCache ''The Front side. ----Added 10/11/2019 td 
-    Public Property Side2orSecond_Cache As ClassElementsCache ''The Back side of the badge, if applicable. ----Added 10/11/2019 td 
+    Public Property Side1orFirst_Cache As ClassElementsCache_Deprecated ''The Front side. ----Added 10/11/2019 td 
+    Public Property Side2orSecond_Cache As ClassElementsCache_Deprecated ''The Back side of the badge, if applicable. ----Added 10/11/2019 td 
 
     ''
     ''Conditional-Expression Design, so that a Personality does not

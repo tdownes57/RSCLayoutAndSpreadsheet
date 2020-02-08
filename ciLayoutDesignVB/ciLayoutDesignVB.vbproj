@@ -530,6 +530,9 @@
     <Content Include="Images\BackExamples\CI_Logo.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\BackExamples\ExampleBack.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\BackExamples\layout_BW.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -549,6 +552,7 @@
     <Content Include="Images\CISolutionsLogo.png" />
     <Content Include="Notes\VBA_modWebServicesAPIs.txt" />
     <Content Include="WebAPIs_Etc\VBA_modWebServicesAPIs.txt" />
+    <Content Include="XML\ciLayoutDesignVB_Saved - Deprecated.xml" />
     <None Include="Images\ContextMenu_non-grouped.png" />
     <None Include="Images\ContextMenu_grouped.png" />
     <None Include="Images\ContextMenu_AlignSubmenu.png" />
@@ -670,7 +674,7 @@
     <Content Include="test_of_embed_W_button.htm" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ciBadgeForWeb\ciPictures_VB\ciPictures_VB.vbproj">
+    <ProjectReference Include="..\..\tdownes57\ciBadgeForWeb\ciPictures_VB\ciPictures_VB.vbproj">
       <Project>{a5fe9f7b-4075-43c5-892b-01e2cfec342c}</Project>
       <Name>ciPictures_VB</Name>
     </ProjectReference>

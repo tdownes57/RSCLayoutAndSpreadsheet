@@ -13,8 +13,8 @@ Public Class FormDesignProtoThree
     ''
     ''Added 10/01/2019 Thomas DOWNES
     ''
-    Public Property ElementsCache_Saved As New ClassElementsCache ''Added 9/16/2019 thomas downes
-    Public Property ElementsCache_Edits As New ClassElementsCache ''Added 9/16/2019 thomas downes
+    Public Property ElementsCache_Saved As New ClassElementsCache_Deprecated ''Added 9/16/2019 thomas downes
+    Public Property ElementsCache_Edits As New ClassElementsCache_Deprecated ''Added 9/16/2019 thomas downes
 
     Private WithEvents mod_designer As ClassDesigner
 

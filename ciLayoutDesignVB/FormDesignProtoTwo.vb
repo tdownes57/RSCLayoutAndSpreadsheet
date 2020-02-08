@@ -25,12 +25,13 @@ Public Class FormDesignProtoTwo
     Public Property LetsRefresh_CloseForm As Boolean ''Added 10/13/2019 td  
     Public Property NewFileXML As Boolean ''Added 10/13/2019 td
 
-    Public Property PersonalityCache As ciBadgeCustomer.PersonalityCache ''Added 10/11/2019 td 
+    ''1/14/2020 td''Public Property PersonalityCache As ciBadgeCustomer.PersonalityCache_NotInUse ''Added 10/11/2019 td 
+    Public Property PersonalityCache As ciBadgeElements.ClassPersonalityCache ''Added 10/11/2019 td 
     Public Property BadgeLayout As BadgeLayoutClass Implements IDesignerForm.BadgeLayout ''Added 10/13/2019 td
 
     ''Added 9/16/2019 thomas downes
-    Public Property ElementsCache_Saved As New ClassElementsCache ''Added 9/16/2019 thomas downes
-    Public Property ElementsCache_Edits As New ClassElementsCache ''Added 9/16/2019 thomas downes
+    Public Property ElementsCache_Saved As New ClassElementsCache_Deprecated ''Added 9/16/2019 thomas downes
+    Public Property ElementsCache_Edits As New ClassElementsCache_Deprecated ''Added 9/16/2019 thomas downes
 
     Private WithEvents mod_designer As New ciBadgeDesigner.ClassDesigner ''Added 10/3/2019 td
 
@@ -303,7 +304,7 @@ Public Class FormDesignProtoTwo
 
     End Sub ''End of "Private Sub Form_Load"  
 
-    Public Sub RefreshElementsCache_Saved(par_cache As ClassElementsCache) Implements IDesignerForm.RefreshElementsCache_Saved
+    Public Sub RefreshElementsCache_Saved(par_cache As ClassElementsCache_Deprecated) Implements IDesignerForm.RefreshElementsCache_Saved
         ''
         ''Added 10/13/2019 td
         ''
@@ -363,7 +364,7 @@ Public Class FormDesignProtoTwo
 
             ''Added 10/13/2019 td 
             If (String.IsNullOrEmpty(Me.ElementsCache_Edits.PathToXml_Saved)) Then
-                Me.ElementsCache_Edits.PathToXml_Saved = DiskFiles.PathToFile_XML()
+                Me.ElementsCache_Edits.PathToXml_Saved = DiskFiles.PathToFile_XML_ElementsCache()
             End If ''End of "If (String.IsNullOrEmpty(Me.ElementsCache_Edits.PathToXml_Saved)) Then"
 
             .PathToXML = Me.ElementsCache_Edits.PathToXml_Saved
@@ -1182,7 +1183,7 @@ Public Class FormDesignProtoTwo
     Private Sub OpenToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OpenToolStripMenuItem.Click
 
         Static s_strFolder As String
-        Dim objCache As ClassElementsCache
+        Dim objCache As ClassElementsCache_Deprecated
 
         If (String.IsNullOrEmpty(s_strFolder)) Then s_strFolder = My.Application.Info.DirectoryPath
 
@@ -1199,7 +1200,7 @@ Public Class FormDesignProtoTwo
             ''9/30 td''     .DeserializeFromXML(GetType(ClassElementsCache), False)
 
             objCache =
-            CType(.DeserializeFromXML(GetType(ClassElementsCache), False), ClassElementsCache)
+            CType(.DeserializeFromXML(GetType(ClassElementsCache_Deprecated), False), ClassElementsCache_Deprecated)
 
         End With
 

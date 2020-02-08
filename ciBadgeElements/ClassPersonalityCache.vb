@@ -27,6 +27,8 @@ Public Class ClassPersonalityCache
     Public Property ElementQRCode As ClassElementQRCode ''Added 10/8/2019 thomas d.  
     Public Property ElementSignature As ClassElementSignature ''Added 10/8/2019 thomas d.  
 
+    Public Property ListOfRecipients As List(Of ClassRecipient) ''Added 1/14/2020 & 10/11/2019 td
+
     ''10/14/2019 td''Private mod_listFields As New List(Of ClassFieldAny) ''Added 9/18/2019 td  
 
     ''10/17 td''Private mod_listFields_Standard As New List(Of ClassFieldStandard) ''Added 10/14/2019 td  

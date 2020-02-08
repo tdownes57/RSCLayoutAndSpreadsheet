@@ -6,7 +6,7 @@ Imports ciBadgeElements ''Added 10/11/2019 td
 Imports ciBadgeRecipients ''Added 10/11/2019 td 
 
 <Serializable>
-Public Class PersonalityCache
+Public Class PersonalityCache_NotInUse
     ''
     ''Added 10/11/2019 td  
     ''

@@ -802,6 +802,10 @@ ExitHandler:
         ''
         Dim intNewWidth As Integer
 
+        ''Added 1/11/2019 thomas downes
+        If (0 = par_intHeight) Then Throw New Exception("Error, height parameter is zero.")
+        If (0 = InputImage.Width) Then Throw New Exception("Error, width of InputImage is zero.")
+
         intNewWidth = CInt(par_intHeight * (InputImage.Width / InputImage.Height))
 
         Return New Bitmap(InputImage, New Size(intNewWidth, par_intHeight))

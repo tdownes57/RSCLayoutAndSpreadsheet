@@ -13,7 +13,7 @@ Public Class ClassElementLaysection
     ''
     ''Added 9/17/2019 td  
     ''
-    Private mod_cache As ClassElementsCache
+    Private mod_cache As ClassElementsCache_Deprecated
 
     Public Property SubLayout As ciBadgeInterfaces.BadgeLayoutClass ''Added 9/17/2019 thomas downes
 
