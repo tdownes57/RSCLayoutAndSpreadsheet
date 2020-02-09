@@ -46,6 +46,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\CtlAddCustomField.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtlAddCustomField.Designer.cs">
+      <DependentUpon>CtlAddCustomField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtlAddStandardField.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtlAddStandardField.Designer.cs">
+      <DependentUpon>CtlAddStandardField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtlConfigFldCustom.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtlConfigFldCustom.Designer.cs">
+      <DependentUpon>CtlConfigFldCustom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtlConfigFldStandard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtlConfigFldStandard.Designer.cs">
+      <DependentUpon>CtlConfigFldStandard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DialogTextOffset.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DialogTextOffset.Designer.cs">
+      <DependentUpon>DialogTextOffset.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormDesignProtoTwo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDesignProtoTwo.Designer.cs">
+      <DependentUpon>FormDesignProtoTwo.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormFontAliasing.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -66,8 +102,14 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="DialogTextOffset.resx">
+      <DependentUpon>DialogTextOffset.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormBetterFontDraw.resx">
       <DependentUpon>FormBetterFontDraw.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDesignProtoTwo.resx">
+      <DependentUpon>FormDesignProtoTwo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormFontAliasing.resx">
       <DependentUpon>FormFontAliasing.cs</DependentUpon>
