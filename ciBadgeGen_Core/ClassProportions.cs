@@ -5,8 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 //Was I tired? 10/5/2019 td//using System.Drawing.Image; //''Added 7/17/2019
-using System.Drawing.Text; //''Added 7/30/2019
-using System.Drawing; //''Added 7/30/2019 td
+using System.Drawing.Text; //''Added 7/30/2019 td
+
+// 2-8-2020 td //using System.Drawing; //''Added 7/30/2019 td
+// 2-8-2020 td //using System.Drawing.Common; // Added 2/08/2020 td
+using System.Drawing;
+//using ImageProcessor;  //Added 2/8/2012 td
+
 //---=----Really needed? ---10/5/2019 td
 //---=--using System.Windows.Forms; //''Added 10/1/2019 td
 using ciBadgeInterfaces; //''Added 8/14/2019 thomas d.

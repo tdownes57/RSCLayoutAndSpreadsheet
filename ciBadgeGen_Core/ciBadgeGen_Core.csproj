@@ -9,9 +9,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ImageProcessor" Version="2.8.0" />
-    <PackageReference Include="ImageProcessor.Web" Version="4.11.0" />
-    <PackageReference Include="ImageProcessor.Web.Config" Version="2.6.0" />
+    <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ciBadgeElements\ciBadgeElements.vbproj" />
+    <ProjectReference Include="..\ciBadgeElemImage\ciBadgeElemImage.vbproj" />
+    <ProjectReference Include="..\ciBadgeInterfaces\ciBadgeInterfaces.vbproj" />
+    <ProjectReference Include="..\ciBadgeRecipients\ciBadgeRecipients.vbproj" />
+    <ProjectReference Include="..\ciLayoutPrintLib\ciLayoutPrintLib.vbproj" />
   </ItemGroup>
 
 </Project>
