@@ -15,6 +15,8 @@ Public Class ClassFieldAny
     ''
     ''Added 9/16/2019 thomas d. 
     ''
+    Public Shared LastUsedFieldIndex As Integer ''Added 4/22/2020 thomas d.
+
     <Xml.Serialization.XmlIgnore>
     Public Property iRecipientInfo As IRecipient ''Added 12/01/2019 td
 
@@ -47,8 +49,8 @@ Public Class ClassFieldAny
     Public Property IsDisplayedOnBadge As Boolean Implements ICIBFieldStandardOrCustom.IsDisplayedOnBadge
     Public Property IsDisplayedForEdits As Boolean Implements ICIBFieldStandardOrCustom.IsDisplayedForEdits
 
-    Public Property DefaultValue As String Implements ICIBFieldStandardOrCustom.DefaultValue ''Added 12/1/2019 thomas downes
-    Public Property ExampleValue As String Implements ICIBFieldStandardOrCustom.ExampleValue
+    Public Property DefaultValue As String = "" Implements ICIBFieldStandardOrCustom.DefaultValue ''Added 12/1/2019 thomas downes
+    Public Property ExampleValue As String = "" Implements ICIBFieldStandardOrCustom.ExampleValue
 
     Public Property HasPresetValues As Boolean Implements ICIBFieldStandardOrCustom.HasPresetValues
 
@@ -165,7 +167,7 @@ Public Class ClassFieldAny
                 ''
                 strOutputValue = Me.iRecipientInfo.GetTextValue(Me.FieldEnumValue)
 
-                ''Utilize the default value. 
+                ''Utilize the default value.  
                 If ("" = strOutputValue) Then strOutputValue = Me.DefaultValue
                 If (strOutputValue.StartsWith("Undermined value")) Then strOutputValue = Me.DefaultValue
 

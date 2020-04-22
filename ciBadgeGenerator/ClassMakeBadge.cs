@@ -155,8 +155,8 @@ namespace ciBadgeGenerator
             //    obj_image_clone = CType(obj_image.Clone(), Image)
             //
             //10-09-2019 td//Image obj_image_clone_resized = (Image)par_backgroundImage.Clone();
-            
-            const bool c_bSkipBackground = true;  // Added 1-16-2020 thomas downes
+
+            const bool c_bSkipBackground = false;  // true;  // Added 1-16-2020 thomas downes
             Image obj_imageOutput;  // Added 1-16-2020 thomas downes
 
             if (c_bSkipBackground)

@@ -169,6 +169,17 @@ Public Class ClassFieldStandard
     Public Shared ListOfFields_Students As New HashSet(Of ClassFieldStandard)
     Public Shared ListOfFields_Staff As New HashSet(Of ClassFieldStandard)
 
+    ''---4/22/2020 td----Private Shared ms_lastFieldIndex As Integer ''Added 4/22/2020 thomas downes
+
+    Public Sub New()
+        ''
+        ''Added 4/22/2020 thomas downes
+        ''
+        Me.FieldIndex = ClassFieldAny.LastUsedFieldIndex
+        ClassFieldAny.LastUsedFieldIndex += 1
+
+    End Sub
+
     Public Shared Function ListOfFieldInfos_Students() As List(Of ICIBFieldStandardOrCustom)
         ''Added 9/2/2019 Thomas DOWNES
         Dim new_list As New List(Of ICIBFieldStandardOrCustom)
@@ -242,6 +253,9 @@ Public Class ClassFieldStandard
         intFieldIndex = 1 ''Added 9/17/2019 td
         Dim new_objectField1 As New ClassFieldStandard
         With new_objectField1
+
+            .FieldIndex = intFieldIndex ''Added 4/22/2020 td
+
             .FieldEnumValue = EnumCIBFields.fstrID ''Added 9/16/2019 td
             ''N/A''.TextFieldId = 1 ''TextField01 
             .IsCustomizable = False ''Added 7/26/2019 td 
@@ -279,6 +293,9 @@ Public Class ClassFieldStandard
         intFieldIndex = 2 ''Added 9/17/2019 td
         Dim new_objectField2 As New ClassFieldStandard
         With new_objectField2
+
+            .FieldIndex = intFieldIndex ''Added 4/22/2020 td
+
             .FieldEnumValue = EnumCIBFields.fstrFirstName ''Added 9/16/2019 td
             ''N/A''.TextFieldId = 2 ''TextField02
             .IsCustomizable = False ''Added 7/26/2019 td 
@@ -313,6 +330,9 @@ Public Class ClassFieldStandard
         intFieldIndex = 3 ''Added 9/17/2019 td
         Dim new_object3 As New ClassFieldStandard
         With new_object3
+
+            .FieldIndex = intFieldIndex ''Added 4/22/2020 td
+
             .FieldEnumValue = EnumCIBFields.fstrLastName ''Added 9/16/2019 td
             ''N/A''.TextFieldId = 3 ''TextField03 
             .IsCustomizable = False ''Added 7/26/2019 td 
@@ -346,6 +366,9 @@ Public Class ClassFieldStandard
         intFieldIndex = 4 ''Added 9/17/2019 td
         Dim new_object4 As New ClassFieldStandard
         With new_object4
+
+            .FieldIndex = intFieldIndex ''Added 4/22/2020 td
+
             .FieldEnumValue = EnumCIBFields.fstrMidName ''Added 9/16/2019 td
             .IsCustomizable = False ''Added 7/26/2019 td 
             .FieldLabelCaption = "Middle Name"
@@ -369,6 +392,9 @@ Public Class ClassFieldStandard
         intFieldIndex = 5 ''Added 9/17/2019 td
         Dim new_object5 As New ClassFieldStandard
         With new_object5
+
+            .FieldIndex = intFieldIndex ''Added 4/22/2020 td
+
             .FieldEnumValue = EnumCIBFields.fstrBarCode ''Added 9/16/2019 td
             .IsCustomizable = False ''Added 7/26/2019 td 
             .FieldLabelCaption = "Barcode Value"
@@ -398,6 +424,9 @@ Public Class ClassFieldStandard
         intFieldIndex = 6 ''Added 9/17/2019 td
         Dim new_object6 As New ClassFieldStandard
         With new_object6
+
+            .FieldIndex = intFieldIndex ''Added 4/22/2020 td
+
             .FieldEnumValue = EnumCIBFields.fstrAddress ''Added 9/16/2019 td
             .IsCustomizable = False ''Added 7/26/2019 td 
             .FieldLabelCaption = "Address"
@@ -421,6 +450,9 @@ Public Class ClassFieldStandard
         intFieldIndex = 7 ''Added 9/17/2019 td
         Dim new_object7 As New ClassFieldStandard
         With new_object7
+
+            .FieldIndex = intFieldIndex ''Added 4/22/2020 td
+
             .FieldEnumValue = EnumCIBFields.fstrCity ''Added 9/16/2019 td
             .IsCustomizable = False ''Added 7/26/2019 td 
             .FieldLabelCaption = "City"
@@ -444,6 +476,9 @@ Public Class ClassFieldStandard
         intFieldIndex = 8 ''Added 9/17/2019 td
         Dim new_object8 As New ClassFieldStandard
         With new_object8
+
+            .FieldIndex = intFieldIndex ''Added 4/22/2020 td
+
             .FieldEnumValue = EnumCIBFields.fstrState ''Added 9/16/2019 td
             .IsCustomizable = False ''Added 7/26/2019 td 
             .FieldLabelCaption = "State"
@@ -467,6 +502,9 @@ Public Class ClassFieldStandard
         intFieldIndex = 9 ''Added 9/17/2019 td
         Dim new_object9 As New ClassFieldStandard
         With new_object9
+
+            .FieldIndex = intFieldIndex ''Added 4/22/2020 td
+
             .FieldEnumValue = EnumCIBFields.fstrZip ''Added 9/16/2019 td
             .IsCustomizable = False ''Added 7/26/2019 td 
             .FieldLabelCaption = "Zipcode"
@@ -487,6 +525,9 @@ Public Class ClassFieldStandard
         intFieldIndex = 10 ''Added 9/17/2019 td
         Dim new_object91 As New ClassFieldStandard
         With new_object91
+
+            .FieldIndex = intFieldIndex ''Added 4/22/2020 td
+
             .FieldEnumValue = EnumCIBFields.blnBatchPrint ''Added 9/16/2019 td
             .IsCustomizable = False ''Added 9/16/2019 td 
             .FieldLabelCaption = "Printed by Batch"
@@ -507,6 +548,9 @@ Public Class ClassFieldStandard
         intFieldIndex = 11 ''Added 9/17/2019 td
         Dim new_object92 As New ClassFieldStandard
         With new_object92
+
+            .FieldIndex = intFieldIndex ''Added 4/22/2020 td
+
             .FieldEnumValue = EnumCIBFields.idfConfigID ''Added 9/16/2019 td
             .IsCustomizable = False ''Added 7/26/2019 td 
             .FieldLabelCaption = "Personality ID"
@@ -527,6 +571,9 @@ Public Class ClassFieldStandard
         intFieldIndex = 12 ''Added 9/17/2019 td
         Dim new_object93 As New ClassFieldStandard
         With new_object93
+
+            .FieldIndex = intFieldIndex ''Added 4/22/2020 td
+
             .FieldEnumValue = EnumCIBFields.idfReportID ''Added 9/16/2019 td
             .IsCustomizable = False
             .FieldLabelCaption = "Badge Layout ID"
@@ -547,6 +594,9 @@ Public Class ClassFieldStandard
         intFieldIndex = 13 ''Added 9/17/2019 td
         Dim new_object94 As New ClassFieldStandard
         With new_object94
+
+            .FieldIndex = intFieldIndex ''Added 4/22/2020 td
+
             .FieldEnumValue = EnumCIBFields.fdateRecDate ''Added 9/16/2019 td
             .IsCustomizable = False
             .FieldLabelCaption = "Record Created"
@@ -567,6 +617,9 @@ Public Class ClassFieldStandard
         intFieldIndex = 14 ''Added 9/17/2019 td
         Dim new_object95 As New ClassFieldStandard
         With new_object95
+
+            .FieldIndex = intFieldIndex ''Added 4/22/2020 td
+
             .FieldEnumValue = EnumCIBFields.fdatTimeStamp ''Added 9/16/2019 td
             .IsCustomizable = False
             .FieldLabelCaption = "Record Updated"
@@ -587,6 +640,9 @@ Public Class ClassFieldStandard
         intFieldIndex = 15 ''Added 9/17/2019 td
         Dim new_object99 As New ClassFieldStandard
         With new_object99
+
+            .FieldIndex = intFieldIndex ''Added 4/22/2020 td
+
             .FieldEnumValue = EnumCIBFields.fstrRFID_Unique ''Added 9/16/2019 td
             .IsCustomizable = False ''Added 7/26/2019 td 
             .FieldLabelCaption = "RFID/UID Value"
@@ -613,13 +669,19 @@ Public Class ClassFieldStandard
         ''
         ''  Add Schoolname, Job Title, GradeLevel (if applicable). 
         ''
+        Dim intFieldIndex As Integer = 0 ''Added 4/22/2020 td 
+
         ''Added 7/23/2019 thomas
         With ListOfFields_Staff
             If (pboolOnlyIfNeeded And .Count > 0) Then Exit Sub
         End With
 
+        intFieldIndex = 101 ''Added 4/22/2020 td
         Dim new_object1 As New ClassFieldStandard
         With new_object1
+
+            .FieldIndex = intFieldIndex ''Added 4/22/2020 td
+
             ''N/A''.TextFieldId = 1
             .IsCustomizable = False ''Added 7/26/2019 td 
             .FieldLabelCaption = "Staffperson ID"
@@ -633,8 +695,12 @@ Public Class ClassFieldStandard
         End With
         ListOfFields_Staff.Add(new_object1)
 
+        intFieldIndex = 102 ''Added 4/22/2020 td
         Dim new_object2 As New ClassFieldStandard
         With new_object1
+
+            .FieldIndex = intFieldIndex ''Added 4/22/2020 td
+
             ''N/A''.TextFieldId = 2
             .IsCustomizable = False ''Added 7/26/2019 td 
             .FieldLabelCaption = "First Name"
@@ -647,8 +713,12 @@ Public Class ClassFieldStandard
         End With
         ListOfFields_Staff.Add(new_object2)
 
+        intFieldIndex = 103 ''Added 4/22/2020 td
         Dim new_object3 As New ClassFieldStandard
         With new_object3
+
+            .FieldIndex = intFieldIndex ''Added 4/22/2020 td
+
             ''N/A''.TextFieldId = 3
             .IsCustomizable = False ''Added 7/26/2019 td 
             .FieldLabelCaption = "Last Name"

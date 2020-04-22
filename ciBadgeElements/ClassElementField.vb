@@ -29,6 +29,7 @@ Public Class ClassElementField
     ''11/16/2019 td''Public Shared Property Recipient As ClassRecipient ''Added 10/16/2019 td  
 
     Private Shared mod_sharedRecipInfo As IRecipient ''Added 12/01/2019 thomas d.
+    ''---4/22/2020 td---Private Shared ms_lastFieldIndex As Integer ''Added 4/22/2020 thomas downes
 
     <Xml.Serialization.XmlIgnore>
     Public Shared Property iRecipientInfo As IRecipient ''Added 10/16/2019 td  
@@ -306,6 +307,9 @@ Public Class ClassElementField
         Me.LeftEdge_Pixels = par_intLeft_Pixels
         Me.TopEdge_Pixels = par_intTop_Pixels
         Me.Height_Pixels = par_intHeight_Pixels
+
+        ''---''Added 4/22/2020 thomas downes
+        ''---Me.FieldIndex`
 
     End Sub
 

@@ -90,30 +90,105 @@ Public Class ClassElementsCache_Deprecated
 
     End Function ''End of "Public Function ListOfFields_Any() As List(Of ClassFieldAny)"
 
-    Public Function ListOfFields_Any(par_recipInfo As IRecipient) As List(Of ClassFieldAny)
+    Public Function ListOfFields_ForEditing(par_recipInfo As IRecipient) As List(Of ClassFieldAny)
+        ''
+        ''Added 2/20/2020 thomas downes
+        ''
+        Const c_bEditablesOnly As Boolean = True
+
+        Return ListOfFields_Any(par_recipInfo, c_bEditablesOnly, False)
+
+    End Function
+
+    Public Function ListOfFields_Any(par_recipInfo As IRecipient,
+                                     Optional ByVal pboolEditablesOnly As Boolean = True,
+                                     Optional ByVal pboolRefreshList As Boolean = False) As List(Of ClassFieldAny)
         ''
         ''Added 10/14/2019 thomas downes
         ''
         ''Step 1 of 3.  Concatenate the Standard & Custom field-lists into a single list. 
         ''
-        Dim obj_list As New List(Of ClassFieldAny)
-        obj_list.AddRange(ListOfFields_Standard)
-        obj_list.AddRange(ListOfFields_Custom)
+        Static s_obj_listOutput As List(Of ClassFieldAny)
+        Dim obj_listRemove As New List(Of ClassFieldAny)
+        Dim bDisplayForEdits As Boolean ''Added 2/20/2020 thomas downes 
+        ''----Const c_boolRefreshList As Boolean = False ''Added 2/20/2020
+        Dim bReferenceNewRecipInfo As Boolean = True ''Added 2/20/2020
+
+        ''Added 2/20/2020
+        bReferenceNewRecipInfo = (par_recipInfo IsNot Nothing)
+
+        ''
+        ''Added 2/20/2020 thomas downes
+        ''
+        If (pboolRefreshList Or s_obj_listOutput Is Nothing) Then
+            ''Populate the list.  
+            s_obj_listOutput = New List(Of ClassFieldAny)
+            s_obj_listOutput.AddRange(ListOfFields_Standard)
+            s_obj_listOutput.AddRange(ListOfFields_Custom)
+
+        ElseIf (bReferenceNewRecipInfo) Then
+            ''
+            ''Add a reference to recipient info.
+            ''
+            For Each each_field As ClassFieldAny In s_obj_listOutput
+                ''Add a reference to recipient info. 
+                each_field.iRecipientInfo = CType(par_recipInfo, IRecipient)
+            Next each_field
+
+            ''Return the list, with the updated RecipientInfo.
+            Return s_obj_listOutput
+
+        Else
+            ''Probably won't ever execute, due to the "If" and "ElseIf" conditions above. 
+            Return s_obj_listOutput
+        End If ''End of "If (pboolRefreshList Or s_obj_listOutput Is Nothing) Then .... Else ...."
 
         ''
         ''Step 2 of 3.  Load the current recipient into each field. 
         ''
         ''Added 12/1/2019 thomas d
-        For Each each_field As ClassFieldAny In obj_list
+        For Each each_field As ClassFieldAny In s_obj_listOutput
 
-            each_field.iRecipientInfo = CType(par_recipInfo, IRecipient)
+            ''Added 2/20/2020 thomas downes  
+            bDisplayForEdits = (each_field.IsDisplayedForEdits)
+            If (bDisplayForEdits) Then
+                ''
+                ''Great!
+                ''
+            ElseIf (pboolEditablesOnly) Then
+                ''Added 2/20/2020 thomas downes  
+                obj_listRemove.Add(each_field)
+                Continue For
+            End If ''End of "If (bDisplayForEdits) Then ... Else ..."
 
         Next each_field
+
+
+        ''Added 2/20/2020 thomas d
+        ''
+        ''  Remove unneeded fields. 
+        ''
+        If (pboolEditablesOnly) Then
+            For Each each_field As ClassFieldAny In obj_listRemove
+                ''Added 2/20/2020 thomas downes  
+                s_obj_listOutput.Remove(each_field)
+            Next each_field
+        End If ''end of "If (pboolEditablesOnly) Then"
+
+        ''
+        ''Add a reference to recipient info. 
+        ''
+        If (bReferenceNewRecipInfo) Then
+            For Each each_field As ClassFieldAny In s_obj_listOutput
+                ''Add a reference to recipient info. 
+                each_field.iRecipientInfo = CType(par_recipInfo, IRecipient)
+            Next each_field
+        End If ''End of "If (c_bReferenceNewRecipInfo) Then"
 
         ''
         ''Step 3 of 3.  Return the list.  
         ''
-        Return obj_list
+        Return s_obj_listOutput
 
     End Function ''End of "Public Function ListOfFields_Any(par_recipInfo As IRecipient) As List(Of ClassFieldAny)"
 
@@ -1191,7 +1266,15 @@ Public Class ClassElementsCache_Deprecated
             If (boolSerializeToBinary) Then
                 .SerializeToBinary(Me.GetType, Me)
             Else
-                .SerializeToXML(Me.GetType, Me, False, True)
+                ''//---4/22/2020 td //.SerializeToXML(Me.GetType, Me, False, True)
+                Const c_boolAutoOpenByIE As Boolean = False ''Added 4/22/2020 thomas d.
+                ''//
+                ''// If the 2nd Boolean Is True, the following command
+                ''//         System.Diagnostics.Process.Start(Me.PathToXML)
+                ''//  will be used to open the file in Notepad.
+                ''//     ---4/22/2020 thomas downes
+                ''//
+                .SerializeToXML(Me.GetType, Me, False, c_boolAutoOpenByIE)
 
             End If ''End of "If (boolSerializeToBinary) Then ... Else"
 
@@ -1250,5 +1333,18 @@ Public Class ClassElementsCache_Deprecated
         End If ''End of "If (Not String.IsNullOrEmpty(BackgroundImage_FTitle)) Then"
 
     End Sub ''Private Sub BackgroundImage_RefreshPath(pstrPathToBackgroundImagesFolder As String)
+
+
+    Public Sub DisposePicImage_ByRecipID(pstrRecipID As String)
+        ''
+        ''Added 2/21/2020 thomas downes  
+        ''
+        ''Dim objRecip As ciBadgeRecipients.ClassRecipient
+        ''
+        ''objRecip = recip
+
+
+    End Sub ''End of "Public Sub DisposePicImage_ByRecipID(pstrRecipID As String)"
+
 
 End Class ''End of ClassElementsCache 

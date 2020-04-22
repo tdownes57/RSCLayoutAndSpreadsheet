@@ -170,6 +170,15 @@ Public Class ClassFieldCustomized
     Public Shared ListOfFields_Students As New List(Of ClassFieldCustomized)
     Public Shared ListOfFields_Staff As New List(Of ClassFieldCustomized)
 
+    Public Sub New()
+        ''
+        ''Added 4/22/2020 thomas downes
+        ''
+        Me.FieldIndex = ClassFieldAny.LastUsedFieldIndex
+        ClassFieldAny.LastUsedFieldIndex += 1
+
+    End Sub
+
     ''9/18/2019 td''Public Shared Function ListOfElementsText_Custom(Optional par_intLayoutWidth As Integer = 0) As List(Of IFieldInfo_ElementPositions)
     ''    ''9/4/2019 td''Public Shared Function ListOfElementsText_Custom() As List(Of IElementWithText)
     ''    ''
@@ -224,9 +233,12 @@ Public Class ClassFieldCustomized
         End With
 
 
-        intFieldIndex = 1 ''Added 9/17/2019 td
+        intFieldIndex = 201 ''Added 9/17/2019 td
         Dim new_objectField1 As New ClassFieldCustomized
         With new_objectField1
+
+            .FieldIndex = intFieldIndex ''Added 4/22/2020 td
+
             .FieldEnumValue = EnumCIBFields.TextField01
             ''9/16/2019 td''.TextFieldId = 1 ''TextField01 
             .IsCustomizable = True ''Added 7/26/2019 td 
@@ -257,9 +269,12 @@ Public Class ClassFieldCustomized
         ListOfFields_Students.Add(new_objectField1)
 
 
-        intFieldIndex = 2 ''Added 9/17/2019 td
+        intFieldIndex = 202 ''Added 9/17/2019 td
         Dim new_objectField2 As New ClassFieldCustomized
         With new_objectField2
+
+            .FieldIndex = intFieldIndex ''Added 4/22/2020 td
+
             .FieldEnumValue = EnumCIBFields.TextField02
             ''9/16/2019 td''.TextFieldId = 2 ''TextField02
             .IsCustomizable = True ''Added 7/26/2019 td 
@@ -288,9 +303,12 @@ Public Class ClassFieldCustomized
         ListOfFields_Students.Add(new_objectField2)
 
 
-        intFieldIndex = 3 ''Added 9/17/2019 td
+        intFieldIndex = 203 ''Added 9/17/2019 td
         Dim new_objectField3 As New ClassFieldCustomized
         With new_objectField3
+
+            .FieldIndex = intFieldIndex ''Added 4/22/2020 td
+
             .FieldEnumValue = EnumCIBFields.TextField03
             ''9/16/2019 td''.TextFieldId = 3 ''TextField03 
             .IsCustomizable = True ''Added 7/26/2019 td 
@@ -320,9 +338,12 @@ Public Class ClassFieldCustomized
 
 
         ''Added 9/16/2019 td
-        intFieldIndex = 4 ''Added 9/17/2019 td
+        intFieldIndex = 204 ''Added 9/17/2019 td
         Dim new_objectField61 As New ClassFieldCustomized
         With new_objectField61
+
+            .FieldIndex = intFieldIndex ''Added 4/22/2020 td
+
             .FieldEnumValue = EnumCIBFields.DateField01
             .IsCustomizable = True ''Added 7/26/2019 td 
             .FieldLabelCaption = "Date of Birth"
@@ -349,8 +370,12 @@ Public Class ClassFieldCustomized
 
 
         ''Added 9/16/2019 td
+        intFieldIndex = 205 ''Added 4/22/2020 td
         Dim new_objectField62 As New ClassFieldCustomized
         With new_objectField62
+
+            .FieldIndex = intFieldIndex ''Added 4/22/2020 td
+
             .FieldEnumValue = EnumCIBFields.DateField02
             .IsCustomizable = True
             .FieldLabelCaption = "ExpirationDate"
@@ -393,9 +418,12 @@ Public Class ClassFieldCustomized
         End With
 
 
-        intFieldIndex = 1 ''Added 9/17
+        intFieldIndex = 301 ''Added 9/17
         Dim new_objectField1 As New ClassFieldCustomized
         With new_objectField1
+
+            .FieldIndex = intFieldIndex ''Added 4/22/2020 td
+
             .FieldEnumValue = EnumCIBFields.TextField01
             ''9/16/2019 td''.TextFieldId = 1 ''TextField01 
             .IsCustomizable = True ''Added 7/26/2019 td 
@@ -426,9 +454,12 @@ Public Class ClassFieldCustomized
         ListOfFields_Staff.Add(new_objectField1)
 
 
-        intFieldIndex = 2 ''Added 9/17
+        intFieldIndex = 302 ''Added 9/17
         Dim new_objectField2 As New ClassFieldCustomized
         With new_objectField2
+
+            .FieldIndex = intFieldIndex ''Added 4/22/2020 td
+
             .FieldEnumValue = EnumCIBFields.TextField02
             ''9/16/2019 td''.TextFieldId = 2 ''TextField02 
             .IsCustomizable = True ''Added 7/26/2019 td 
@@ -457,9 +488,12 @@ Public Class ClassFieldCustomized
         ListOfFields_Staff.Add(new_objectField2)
 
 
-        intFieldIndex = 3 ''Added 9/17
+        intFieldIndex = 303 ''Added 9/17
         Dim new_objectField3 As New ClassFieldCustomized
         With new_objectField3
+
+            .FieldIndex = intFieldIndex ''Added 4/22/2020 td
+
             .FieldEnumValue = EnumCIBFields.TextField03
             ''9/16/2019 td''.TextFieldId = 3 ''TextField03 
             .IsCustomizable = True ''Added 7/26/2019 td 
