@@ -3,7 +3,13 @@ Option Strict On
 
 ''9/19/2019 td''Imports ciLayoutDesignVB
 Imports ciBadgeInterfaces ''Added 8/24/2019 thomas d.
-
+Imports System.Linq
+Imports System.Web
+Imports System.Web.Mvc ''//Added 4/22/2020 td
+Imports System.ComponentModel.DataAnnotations ''Added 4/22/2020 thomas downes 
+Imports System.Linq.Expressions  ''Added 4-22-2020 thomas downes
+''Imports System.Linq.Expressions  ''//Added 2-19-2020 thomas downes 
+Imports System.Web.Mvc.Html ''//Added 2/19/2020 td
 ''
 ''Added 9/16/2019 thomas downes  
 ''
@@ -39,8 +45,20 @@ Public Class ClassFieldAny
 
     Public Property FieldEnumValue As EnumCIBFields Implements ICIBFieldStandardOrCustom.FieldEnumValue ''Added 9/16/2019 td 
 
-    Public Property FieldIndex As Integer Implements ICIBFieldStandardOrCustom.FieldIndex
+    Private mod_fieldIndex As Integer ''Added 4/22/2020 thomas downes
 
+    <System.ComponentModel.DataAnnotations.Key>
+    <System.ComponentModel.DataAnnotations.Display(Name:="ID")>
+    Public Property FieldIndex As Integer Implements ICIBFieldStandardOrCustom.FieldIndex
+        Get
+            ''Added 4/22/2020 thomas downes
+            Return mod_fieldIndex
+        End Get
+        Set(value As Integer)
+            ''Added 4/22/2020 thomas downes
+            mod_fieldIndex = value
+        End Set
+    End Property
 
     Public Property IsFieldForDates As Boolean Implements ICIBFieldStandardOrCustom.IsFieldForDates
 
