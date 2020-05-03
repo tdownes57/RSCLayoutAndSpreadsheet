@@ -72,6 +72,72 @@ namespace ciBadgeGenerator
         public static bool IncludeQR = false; //Added 2/3/2020 thomas d. 
         public static bool IncludeSignature = false;  //Added 2/3/2020 thomas d.
 
+
+        public Image ElementFieldToImage(ClassElementField par_elementField,
+                                            IBadgeLayout par_layout)
+        {
+            //
+            //Encapsulated 5/3/2020 td
+            //
+            string strTextToDisplay = par_elementField.LabelText_ToDisplay(false);
+
+            Image image_textStandard;
+
+            if (0 == par_elementField.Width_Pixels)
+            {
+                // ''Added 9/4/2019 thomas downes
+                //MessageBox.Show("We cannot scale the placement of the image.", "LayoutPrint_Redux",
+                //     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                //End If ''ENd of "If (0 = .Position_BL.BadgeLayout.Width_Pixels) Then"
+            }
+
+            //
+            //Try
+            //
+            try
+            {
+                //     ''gr.DrawImage(.TextDisplay.GenerateImage(.Position_BL.Height_Pixels),
+                //     ''   .Position_BL.LeftEdge_Pixels, .Position_BL.TopEdge_Pixels,
+                //     ''   .Position_BL.Width_Pixels, .Position_BL.Height_Pixels)
+                //
+                //     ''#1 8/26/2019 td''image_textStandard = .TextDisplay.GenerateImage(.Position_BL.Height_Pixels)
+                //     '' #2 8/26/2019 td''image_textStandard = .TextDisplay.GenerateImage_ByHeight(.Position_BL.Height_Pixels)
+                //
+                //     ''9/5/2019 td''image_textStandard = .TextDisplay.GenerateImage_ByDesiredLayoutWidth(par_imageBadgeCard.Width)
+                //     ''9/8/2019 td''image_textStandard = .TextDisplay.GenerateImage_ByDesiredLayoutWidth(par_elementField.BadgeLayout_Width)
+                //
+                //     Dim intDesiredLayout_Width As Integer ''added 9/8/2019 td
+                //     intDesiredLayout_Width = par_imageBadgeCard.Width
+
+                //----5/3/2020 td----int intDesiredLayout_Width = par_imageBadgeCard.Width;
+                int intDesiredLayout_Width = par_layout.Width_Pixels;
+
+                //
+                //     ''9/19/2019 td''image_textStandard =
+                //     ''9/19/2019 td''    .TextDisplay.GenerateImage_ByDesiredLayoutWidth(intDesiredLayout_Width)
+                //
+                bool boolRotated = false; //Added 10/14/2019 td  
+
+                // 10-17-2019 image_textStandard =
+                //       modGenerate.TextImage_ByElemInfo(intDesiredLayout_Width,
+                //         par_elementField, par_elementField, ref boolRotated, false);  //''9/20/2019 td'', True)
+                image_textStandard =
+                       modGenerate.TextImage_ByElemInfo(strTextToDisplay, intDesiredLayout_Width,
+                         par_elementField, par_elementField, ref boolRotated, false);  //''9/20/2019 td'', True)
+
+            }
+            //            Catch ex_draw_invalid As InvalidOperationException
+            catch (InvalidOperationException ex_draw_invalid)
+            {
+                string strMessage_Invalid = ex_draw_invalid.Message;
+                throw new Exception("Let's throw the message.", ex_draw_invalid);
+
+            }
+
+            return image_textStandard;
+
+        }
+
         public Image MakeBadgeImage_ByIRecipient(IBadgeLayout par_layout,
                             Image par_backgroundImage,
                             ClassElementsCache_Deprecated par_cache,
@@ -515,7 +581,7 @@ namespace ciBadgeGenerator
             //    ''
             //    ''All Fields 
             //    ''
-            //    ''
+            //      ''
             //    ''9/18/2019 td''For Each each_elementField As IFieldInfo_ElementPositions In par_standardFields
             //    For Each each_elementField As ClassElementField In par_elements
 
