@@ -71,5 +71,9 @@
   <ItemGroup>
     <Content Include="ClassLabelToImage_VB.vb" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="CodeTemplates\EFModelFromDatabase\Context.cs.t4" />
+    <None Include="CodeTemplates\EFModelFromDatabase\EntityType.cs.t4" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

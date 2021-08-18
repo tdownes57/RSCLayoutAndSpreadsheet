@@ -118,7 +118,7 @@ ExitHandler:
 
     End Function ''End of "Public Shared Function GetCurrentImage(par_image As Image)"
 
-    Private Shared Function GetListOfImages() As List(Of Image)
+    Private Shared Function GetListOfImages(Optional par_pathToFolder As String = "") As List(Of Image)
         ''
         ''Added 6/13/2019 thomas downes 
         ''
@@ -132,8 +132,12 @@ ExitHandler:
         ''8/20/2019 td''strPathToFolderWithPics = "C:\CI Solutions\CI Badge Web\ciPictures_VB\BackExamples"
         ''8/21/2019 td''strPathToFolderWithPics = My.Application.Info.DirectoryPath & "\BackgroundEgs"
 
+        ''Added 5/10/2020 td 
+        If (par_pathToFolder = "") Then par_pathToFolder = PathToFolderWithBacks
+
         ''8/21/2019 td''strPathToFolderWithPics = My.Application.Info.DirectoryPath & "\BackgroundEgs"
-        strPathToFolderWithPics = PathToFolderWithBacks.Replace("\\", "\") ''10/5/2019 td'' & "\BackgroundEgs"
+        ''5/10/2020 td''strPathToFolderWithPics = PathToFolderWithBacks.Replace("\\", "\") ''10/5/2019 td'' & "\BackgroundEgs"
+        strPathToFolderWithPics = par_pathToFolder.Replace("\\", "\") ''10/5/2019 td'' & "\BackgroundEgs"
 
         all_Jpegs = (New System.IO.DirectoryInfo(strPathToFolderWithPics)).EnumerateFiles()
 
