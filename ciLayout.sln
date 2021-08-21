@@ -55,7 +55,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ciBadgeGen_Lib_Core", "ciBa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ciBadgeGen_App_Core", "ciBadgeGen_App_Core\ciBadgeGen_App_Core.csproj", "{656482DF-1871-4B8A-83FD-9EBF57F621D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "__Start__ciLayoutDesignVB", "__Start__ciLayoutDesignVB\__Start__ciLayoutDesignVB.csproj", "{EADC769E-D8A6-4A79-B6FC-C7C4184C029D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "__Start__abcLayoutDesignVB", "__Start__ciLayoutDesignVB\__Start__abcLayoutDesignVB.csproj", "{EADC769E-D8A6-4A79-B6FC-C7C4184C029D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

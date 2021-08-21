@@ -1,7 +1,7 @@
 ﻿Imports ciBadgeDesigner
 
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class FormDesignProtoTwo
+Partial Class Form__MainUI
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -25,7 +25,7 @@ Partial Class FormDesignProtoTwo
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormDesignProtoTwo))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form__MainUI))
         Me.LinkShowWebControls = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         Me.chkIncludeExampleValues = New System.Windows.Forms.CheckBox()
@@ -89,11 +89,13 @@ Partial Class FormDesignProtoTwo
         Me.picturePreview = New System.Windows.Forms.PictureBox()
         Me.pictureBack = New System.Windows.Forms.PictureBox()
         Me.graphicAdjuster = New System.Windows.Forms.PictureBox()
-        Me.LinkLabelOpenPreviewFile = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabelOpenPreviewFileBMP = New System.Windows.Forms.LinkLabel()
         Me.CtlGraphicText1 = New ciBadgeDesigner.CtlGraphicText()
         Me.CtlGraphicSignature1 = New ciBadgeDesigner.CtlGraphicSignature()
         Me.CtlGraphicQRCode1 = New ciBadgeDesigner.CtlGraphicQRCode()
         Me.CtlGraphicPortrait_Lady = New ciBadgeDesigner.CtlGraphicPortrait()
+        Me.LinkLabelOpenPreviewFileJPG = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabelEmailBadgeJPG = New System.Windows.Forms.LinkLabel()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -172,7 +174,7 @@ Partial Class FormDesignProtoTwo
         '
         Me.ToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenToolStripMenuItem, Me.FileSaveMenuItem, Me.FileSaveAsMenuItem, Me.ExitToolStripMenuItem})
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(46, 24)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(46, 26)
         Me.ToolStripMenuItem1.Text = "File"
         '
         'OpenToolStripMenuItem
@@ -203,7 +205,7 @@ Partial Class FormDesignProtoTwo
         '
         Me.ConfigurationOfFieldsEtcToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StandardFieldsToolStripMenuItem, Me.CustomFieldsToolStripMenuItem})
         Me.ConfigurationOfFieldsEtcToolStripMenuItem.Name = "ConfigurationOfFieldsEtcToolStripMenuItem"
-        Me.ConfigurationOfFieldsEtcToolStripMenuItem.Size = New System.Drawing.Size(204, 24)
+        Me.ConfigurationOfFieldsEtcToolStripMenuItem.Size = New System.Drawing.Size(204, 26)
         Me.ConfigurationOfFieldsEtcToolStripMenuItem.Text = "Configuration of Fields, Etc."
         '
         'StandardFieldsToolStripMenuItem
@@ -222,7 +224,7 @@ Partial Class FormDesignProtoTwo
         '
         Me.DesignLayoutToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenControlPanelToolStripMenuItem, Me.UploadBackgroundToolStripMenuItem, Me.PlaceElementsToolStripMenuItem, Me.AddGraphicsElementToolStripMenuItem, Me.AddSubsectionToolStripMenuItem, Me.ChangeOrientationToolStripMenuItem, Me.DoubleSidedToolStripMenuItem, Me.ModeV9ToolStripMenuItem, Me.ClearAllSelectedElementsToolStripMenuItem})
         Me.DesignLayoutToolStripMenuItem.Name = "DesignLayoutToolStripMenuItem"
-        Me.DesignLayoutToolStripMenuItem.Size = New System.Drawing.Size(117, 24)
+        Me.DesignLayoutToolStripMenuItem.Size = New System.Drawing.Size(117, 26)
         Me.DesignLayoutToolStripMenuItem.Text = "Design Layout"
         '
         'OpenControlPanelToolStripMenuItem
@@ -302,7 +304,7 @@ Partial Class FormDesignProtoTwo
         '
         Me.BackgroundImagesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.UploadNewToolStripMenuItem, Me.SelectFromExistingToolStripMenuItem})
         Me.BackgroundImagesToolStripMenuItem.Name = "BackgroundImagesToolStripMenuItem"
-        Me.BackgroundImagesToolStripMenuItem.Size = New System.Drawing.Size(154, 24)
+        Me.BackgroundImagesToolStripMenuItem.Size = New System.Drawing.Size(154, 26)
         Me.BackgroundImagesToolStripMenuItem.Text = "Background Images"
         '
         'UploadNewToolStripMenuItem
@@ -335,7 +337,7 @@ Partial Class FormDesignProtoTwo
         '
         Me.BadgeRecipientsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ShowBadgeRecipientsToolStripMenuItem, Me.CloseListOfRecipentsToolStripMenuItem, Me.PrintAllBadgesToFileFolderToolStripMenuItem})
         Me.BadgeRecipientsToolStripMenuItem.Name = "BadgeRecipientsToolStripMenuItem"
-        Me.BadgeRecipientsToolStripMenuItem.Size = New System.Drawing.Size(138, 24)
+        Me.BadgeRecipientsToolStripMenuItem.Size = New System.Drawing.Size(138, 26)
         Me.BadgeRecipientsToolStripMenuItem.Text = "Badge Recipients"
         '
         'ShowBadgeRecipientsToolStripMenuItem
@@ -614,16 +616,16 @@ Partial Class FormDesignProtoTwo
         Me.graphicAdjuster.TabStop = False
         Me.graphicAdjuster.Visible = False
         '
-        'LinkLabelOpenPreviewFile
+        'LinkLabelOpenPreviewFileBMP
         '
-        Me.LinkLabelOpenPreviewFile.AutoSize = True
-        Me.LinkLabelOpenPreviewFile.Location = New System.Drawing.Point(1003, 124)
-        Me.LinkLabelOpenPreviewFile.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.LinkLabelOpenPreviewFile.Name = "LinkLabelOpenPreviewFile"
-        Me.LinkLabelOpenPreviewFile.Size = New System.Drawing.Size(197, 22)
-        Me.LinkLabelOpenPreviewFile.TabIndex = 68
-        Me.LinkLabelOpenPreviewFile.TabStop = True
-        Me.LinkLabelOpenPreviewFile.Text = "Open Preview from File"
+        Me.LinkLabelOpenPreviewFileBMP.AutoSize = True
+        Me.LinkLabelOpenPreviewFileBMP.Location = New System.Drawing.Point(965, 96)
+        Me.LinkLabelOpenPreviewFileBMP.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LinkLabelOpenPreviewFileBMP.Name = "LinkLabelOpenPreviewFileBMP"
+        Me.LinkLabelOpenPreviewFileBMP.Size = New System.Drawing.Size(252, 22)
+        Me.LinkLabelOpenPreviewFileBMP.TabIndex = 68
+        Me.LinkLabelOpenPreviewFileBMP.TabStop = True
+        Me.LinkLabelOpenPreviewFileBMP.Text = "Open Preview from File (BMP)"
         '
         'CtlGraphicText1
         '
@@ -659,12 +661,36 @@ Partial Class FormDesignProtoTwo
         Me.CtlGraphicPortrait_Lady.Size = New System.Drawing.Size(142, 182)
         Me.CtlGraphicPortrait_Lady.TabIndex = 41
         '
-        'FormDesignProtoTwo
+        'LinkLabelOpenPreviewFileJPG
+        '
+        Me.LinkLabelOpenPreviewFileJPG.AutoSize = True
+        Me.LinkLabelOpenPreviewFileJPG.Location = New System.Drawing.Point(965, 118)
+        Me.LinkLabelOpenPreviewFileJPG.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LinkLabelOpenPreviewFileJPG.Name = "LinkLabelOpenPreviewFileJPG"
+        Me.LinkLabelOpenPreviewFileJPG.Size = New System.Drawing.Size(249, 22)
+        Me.LinkLabelOpenPreviewFileJPG.TabIndex = 69
+        Me.LinkLabelOpenPreviewFileJPG.TabStop = True
+        Me.LinkLabelOpenPreviewFileJPG.Text = "Open Preview from File (JPG)"
+        '
+        'LinkLabelEmailBadgeJPG
+        '
+        Me.LinkLabelEmailBadgeJPG.AutoSize = True
+        Me.LinkLabelEmailBadgeJPG.Location = New System.Drawing.Point(1027, 68)
+        Me.LinkLabelEmailBadgeJPG.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LinkLabelEmailBadgeJPG.Name = "LinkLabelEmailBadgeJPG"
+        Me.LinkLabelEmailBadgeJPG.Size = New System.Drawing.Size(187, 22)
+        Me.LinkLabelEmailBadgeJPG.TabIndex = 70
+        Me.LinkLabelEmailBadgeJPG.TabStop = True
+        Me.LinkLabelEmailBadgeJPG.Text = "Email Badge (as JPG)"
+        '
+        'Form__MainUI
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1245, 591)
-        Me.Controls.Add(Me.LinkLabelOpenPreviewFile)
+        Me.Controls.Add(Me.LinkLabelEmailBadgeJPG)
+        Me.Controls.Add(Me.LinkLabelOpenPreviewFileJPG)
+        Me.Controls.Add(Me.LinkLabelOpenPreviewFileBMP)
         Me.Controls.Add(Me.CtlGraphicText1)
         Me.Controls.Add(Me.CtlGraphicSignature1)
         Me.Controls.Add(Me.CtlGraphicQRCode1)
@@ -692,8 +718,8 @@ Partial Class FormDesignProtoTwo
         Me.Controls.Add(Me.graphicAdjuster)
         Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Margin = New System.Windows.Forms.Padding(2)
-        Me.Name = "FormDesignProtoTwo"
-        Me.Text = " "
+        Me.Name = "Form__MainUI"
+        Me.Text = " Good demo for Mark"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.ContextMenuStrip1.ResumeLayout(False)
@@ -777,6 +803,8 @@ Partial Class FormDesignProtoTwo
     Friend WithEvents BadgeRecipientsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ShowBadgeRecipientsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents CloseListOfRecipentsToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents LinkLabelOpenPreviewFile As LinkLabel
+    Friend WithEvents LinkLabelOpenPreviewFileBMP As LinkLabel
     Friend WithEvents PrintAllBadgesToFileFolderToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents LinkLabelOpenPreviewFileJPG As LinkLabel
+    Friend WithEvents LinkLabelEmailBadgeJPG As LinkLabel
 End Class

@@ -16,7 +16,7 @@ Imports ciBadgeDesigner ''Added 10/3/2019 td
 Imports ciBadgeRecipients ''Added 10/11/2019 thomas d.  
 Imports ciBadgeCustomer ''Added 10/11/2019 thomas d.  
 
-Public Class FormDesignProtoTwo
+Public Class Form__MainUI
     Implements IDesignerForm ''Added 10/13/2019 td 
     ''10/3/2019 td''Implements ILayoutFunctions ''-----, ISelectingElements, ILayoutFunctions
     ''
@@ -1313,7 +1313,7 @@ Public Class FormDesignProtoTwo
 
     End Sub
 
-    Private Sub LinkLabelOpenPreviewFile_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelOpenPreviewFile.LinkClicked
+    Private Sub LinkLabelOpenPreviewFile_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelOpenPreviewFileBMP.LinkClicked
 
         ''Added 10/14 & 5/7/2019 td  
         Dim img As System.Drawing.Image
