@@ -174,7 +174,7 @@ Partial Class Form__MainUI
         '
         Me.ToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenToolStripMenuItem, Me.FileSaveMenuItem, Me.FileSaveAsMenuItem, Me.ExitToolStripMenuItem})
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(46, 26)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(46, 24)
         Me.ToolStripMenuItem1.Text = "File"
         '
         'OpenToolStripMenuItem
@@ -205,7 +205,7 @@ Partial Class Form__MainUI
         '
         Me.ConfigurationOfFieldsEtcToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StandardFieldsToolStripMenuItem, Me.CustomFieldsToolStripMenuItem})
         Me.ConfigurationOfFieldsEtcToolStripMenuItem.Name = "ConfigurationOfFieldsEtcToolStripMenuItem"
-        Me.ConfigurationOfFieldsEtcToolStripMenuItem.Size = New System.Drawing.Size(204, 26)
+        Me.ConfigurationOfFieldsEtcToolStripMenuItem.Size = New System.Drawing.Size(204, 24)
         Me.ConfigurationOfFieldsEtcToolStripMenuItem.Text = "Configuration of Fields, Etc."
         '
         'StandardFieldsToolStripMenuItem
@@ -224,7 +224,7 @@ Partial Class Form__MainUI
         '
         Me.DesignLayoutToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenControlPanelToolStripMenuItem, Me.UploadBackgroundToolStripMenuItem, Me.PlaceElementsToolStripMenuItem, Me.AddGraphicsElementToolStripMenuItem, Me.AddSubsectionToolStripMenuItem, Me.ChangeOrientationToolStripMenuItem, Me.DoubleSidedToolStripMenuItem, Me.ModeV9ToolStripMenuItem, Me.ClearAllSelectedElementsToolStripMenuItem})
         Me.DesignLayoutToolStripMenuItem.Name = "DesignLayoutToolStripMenuItem"
-        Me.DesignLayoutToolStripMenuItem.Size = New System.Drawing.Size(117, 26)
+        Me.DesignLayoutToolStripMenuItem.Size = New System.Drawing.Size(117, 24)
         Me.DesignLayoutToolStripMenuItem.Text = "Design Layout"
         '
         'OpenControlPanelToolStripMenuItem
@@ -304,7 +304,7 @@ Partial Class Form__MainUI
         '
         Me.BackgroundImagesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.UploadNewToolStripMenuItem, Me.SelectFromExistingToolStripMenuItem})
         Me.BackgroundImagesToolStripMenuItem.Name = "BackgroundImagesToolStripMenuItem"
-        Me.BackgroundImagesToolStripMenuItem.Size = New System.Drawing.Size(154, 26)
+        Me.BackgroundImagesToolStripMenuItem.Size = New System.Drawing.Size(154, 24)
         Me.BackgroundImagesToolStripMenuItem.Text = "Background Images"
         '
         'UploadNewToolStripMenuItem
@@ -337,7 +337,7 @@ Partial Class Form__MainUI
         '
         Me.BadgeRecipientsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ShowBadgeRecipientsToolStripMenuItem, Me.CloseListOfRecipentsToolStripMenuItem, Me.PrintAllBadgesToFileFolderToolStripMenuItem})
         Me.BadgeRecipientsToolStripMenuItem.Name = "BadgeRecipientsToolStripMenuItem"
-        Me.BadgeRecipientsToolStripMenuItem.Size = New System.Drawing.Size(138, 26)
+        Me.BadgeRecipientsToolStripMenuItem.Size = New System.Drawing.Size(138, 24)
         Me.BadgeRecipientsToolStripMenuItem.Text = "Badge Recipients"
         '
         'ShowBadgeRecipientsToolStripMenuItem
@@ -622,10 +622,10 @@ Partial Class Form__MainUI
         Me.LinkLabelOpenPreviewFileBMP.Location = New System.Drawing.Point(965, 96)
         Me.LinkLabelOpenPreviewFileBMP.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LinkLabelOpenPreviewFileBMP.Name = "LinkLabelOpenPreviewFileBMP"
-        Me.LinkLabelOpenPreviewFileBMP.Size = New System.Drawing.Size(252, 22)
+        Me.LinkLabelOpenPreviewFileBMP.Size = New System.Drawing.Size(240, 22)
         Me.LinkLabelOpenPreviewFileBMP.TabIndex = 68
         Me.LinkLabelOpenPreviewFileBMP.TabStop = True
-        Me.LinkLabelOpenPreviewFileBMP.Text = "Open Preview from File (BMP)"
+        Me.LinkLabelOpenPreviewFileBMP.Text = "Open Badge from File (BMP)"
         '
         'CtlGraphicText1
         '
@@ -667,10 +667,10 @@ Partial Class Form__MainUI
         Me.LinkLabelOpenPreviewFileJPG.Location = New System.Drawing.Point(965, 118)
         Me.LinkLabelOpenPreviewFileJPG.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LinkLabelOpenPreviewFileJPG.Name = "LinkLabelOpenPreviewFileJPG"
-        Me.LinkLabelOpenPreviewFileJPG.Size = New System.Drawing.Size(249, 22)
+        Me.LinkLabelOpenPreviewFileJPG.Size = New System.Drawing.Size(237, 22)
         Me.LinkLabelOpenPreviewFileJPG.TabIndex = 69
         Me.LinkLabelOpenPreviewFileJPG.TabStop = True
-        Me.LinkLabelOpenPreviewFileJPG.Text = "Open Preview from File (JPG)"
+        Me.LinkLabelOpenPreviewFileJPG.Text = "Open Badge from File (JPG)"
         '
         'LinkLabelEmailBadgeJPG
         '

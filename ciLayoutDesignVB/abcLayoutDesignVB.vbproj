@@ -331,7 +331,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="modFonts.vb" />
-    <Compile Include="Notes\CodeDeletedFromProtoTwo.vb" />
+    <Compile Include="__Notes\CodeDeletedFromProtoTwo.vb" />
     <Compile Include="Startup.vb" />
     <Compile Include="Version830_v101.Designer.vb">
       <DependentUpon>Version830_v101.vb</DependentUpon>
@@ -550,7 +550,8 @@
     </Content>
     <Content Include="Images\CI Logo.jpg" />
     <Content Include="Images\CISolutionsLogo.png" />
-    <Content Include="Notes\VBA_modWebServicesAPIs.txt" />
+    <Content Include="__Notes\__Which form is Main.html" />
+    <Content Include="__Notes\VBA_modWebServicesAPIs.txt" />
     <Content Include="WebAPIs_Etc\VBA_modWebServicesAPIs.txt" />
     <Content Include="XML\ciLayoutDesignVB_Saved - Deprecated.xml" />
     <None Include="Images\ContextMenu_non-grouped.png" />
@@ -627,8 +628,8 @@
     <Content Include="Images\ValleyValleyColl.jpg" />
     <Content Include="Images\__UI for V831_v101.PNG" />
     <Content Include="Images\__UI for v900_v101.PNG" />
-    <Content Include="Notes\Have to do next %28ciBadgeWeb%29.txt" />
-    <Content Include="Notes\Have to do next %28ciLayout%29.txt" />
+    <Content Include="__Notes\Have to do next %28ciBadgeWeb%29.txt" />
+    <Content Include="__Notes\Have to do next %28ciLayout%29.txt" />
     <Content Include="ORO835 - OrovilleHS.PNG" />
     <None Include="Resources\C39FIRA.TTF">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

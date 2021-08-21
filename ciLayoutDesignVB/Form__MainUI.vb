@@ -47,6 +47,9 @@ Public Class Form__MainUI
     Private mod_imageLady As Image ''8/18/2019 td'' = CtlGraphicPortrait_Lady.picturePortrait.Image
     Private mod_imageSignature As Image ''Added 10/12/2019 td
 
+    ''Added 8/20/2021 thomas downes
+    Private mod_strRecipientID As String = "001" ''Added 8/20/2021 thomas downes
+
     ''Added 9/8/2019 td
     '' #2 10/3/2019 td''Private mod_rubberbandClass As ClassRubberbandSelector
 
@@ -1319,12 +1322,16 @@ Public Class Form__MainUI
         Dim img As System.Drawing.Image
         Dim strOutputPathToFolder As String
         Dim strOutputPathToFileBMP As String
+        Dim strStudentID As String = mod_strRecipientID ''Added 8/20/2021 thomas downes  
 
         img = picturePreview.Image
 
         strOutputPathToFolder = DiskFolders.PathToFolder_Preview()
 
-        strOutputPathToFileBMP = (strOutputPathToFolder & "\Preview_" &
+        ''8/20/2021 td''strOutputPathToFileBMP = (strOutputPathToFolder & "\Preview_" &
+        ''  DateTime.Now.ToString("MMdd_hhmmss") & ".bmp")
+        strOutputPathToFileBMP = (strOutputPathToFolder & "\Badge_" &
+            strStudentID & "_" &
             DateTime.Now.ToString("MMdd_hhmmss") & ".bmp")
 
         '' 5/7/2019 td''img.Save("Test.jpg", Imaging.ImageFormat.Png)
@@ -1369,17 +1376,74 @@ Public Class Form__MainUI
 
             mod_designer.RefreshPreview_Redux()
 
-            strOutputPathToFileBMP = System.IO.Path.Combine(strPathToFolder,
-                                    (each_recip.RecipientID() & ".bmp"))
+            ''
+            '' Include the recipient ID, a.k.a. student ID.  
+            ''
+            'strOutputPathToFileBMP = System.IO.Path.Combine(strPathToFolder,
+            '                        (each_recip.RecipientID() & ".bmp"))
+            mod_strRecipientID = each_recip.RecipientID.ToString
 
-            img_prod = picturePreview.Image
-            img_prod.Save(strOutputPathToFileBMP, Imaging.ImageFormat.Bmp)
+            Const c_strFileType As String = "jpg" '' "bmp"
+
+            If (c_strFileType = "bmp") Then
+                ''
+                ''Bitmap images. 
+                ''
+                strOutputPathToFileBMP = System.IO.Path.Combine(strPathToFolder,
+                                    (mod_strRecipientID & ".bmp"))
+
+                img_Prod = picturePreview.Image
+                img_Prod.Save(strOutputPathToFileBMP, Imaging.ImageFormat.Bmp)
+
+            Else
+                ''
+                ''Jpeg images. 
+                ''
+                strOutputPathToFileBMP = System.IO.Path.Combine(strPathToFolder,
+                                    (mod_strRecipientID & ".jpg"))
+
+                img_Prod = picturePreview.Image
+                img_Prod.Save(strOutputPathToFileBMP, Imaging.ImageFormat.Jpeg)
+
+            End If ''End of "If (c_strFileType = "bmp") Then .... Else ...."
 
         Next each_recip
 
 ExitHandler:
         ClassElementField.oRecipient = Nothing ''Clear out the member of data.   
         System.Diagnostics.Process.Start(strPathToFolder)
+
+    End Sub
+
+    Private Sub LinkLabelEmailBadgeJPG_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelEmailBadgeJPG.LinkClicked
+
+        ''//
+        ''//  Added 8/20/2021 Thomas Downes   
+        ''//
+        Call LinkLabelOpenPreviewFile_LinkClicked(sender, e)
+
+
+    End Sub
+
+    Private Sub LinkLabelOpenPreviewFileJPG_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelOpenPreviewFileJPG.LinkClicked
+        ''
+        ''Added 8/20/2021 td
+        ''
+        Dim img As System.Drawing.Image
+        Dim strOutputPathToFolder As String
+        Dim strOutputPathToFileJPG As String
+        Dim strStudentID As String = mod_strRecipientID ''Added 8/20/2021 thomas downes  
+
+        img = picturePreview.Image
+
+        strOutputPathToFolder = DiskFolders.PathToFolder_Preview()
+
+        strOutputPathToFileJPG = (strOutputPathToFolder & "\Badge_" &
+            strStudentID & "_" &
+            DateTime.Now.ToString("MMdd_hhmmss") & ".jpg")
+
+        img.Save(strOutputPathToFileJPG, Imaging.ImageFormat.Jpeg)
+        System.Diagnostics.Process.Start(strOutputPathToFileJPG)
 
     End Sub
 End Class
