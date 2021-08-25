@@ -18,7 +18,10 @@ namespace abcBundleBadgeImagesToEmail
         //    of Badge images/JPEGs. 
         //
         //
-
+        /// <summary>
+        /// Send Emails with ASP.NET Core in 5 EASY Steps – Guide
+        /// https://codewithmukesh.com/blog/send-emails-with-aspnet-core/
+        /// </summary>
 
 
     }
