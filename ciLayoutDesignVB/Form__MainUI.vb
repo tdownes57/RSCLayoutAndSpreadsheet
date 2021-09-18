@@ -15,6 +15,7 @@ Imports ciBadgeElements ''Added 9/18/2019 td
 Imports ciBadgeDesigner ''Added 10/3/2019 td
 Imports ciBadgeRecipients ''Added 10/11/2019 thomas d.  
 Imports ciBadgeCustomer ''Added 10/11/2019 thomas d.  
+Imports EmailingFilesViaGmail_Framework ''Added 9/17/2021 thomas downes 
 
 Public Class Form__MainUI
     Implements IDesignerForm ''Added 10/13/2019 td 
@@ -49,6 +50,8 @@ Public Class Form__MainUI
 
     ''Added 8/20/2021 thomas downes
     Private mod_strRecipientID As String = "001" ''Added 8/20/2021 thomas downes
+
+    Private mod_strEmailAddress As String = "tomdownes1@gmail.com" ''Added 9/17/2021 thomas downes
 
     ''Added 9/8/2019 td
     '' #2 10/3/2019 td''Private mod_rubberbandClass As ClassRubberbandSelector
@@ -1420,8 +1423,30 @@ ExitHandler:
         ''//
         ''//  Added 8/20/2021 Thomas Downes   
         ''//
-        Call LinkLabelOpenPreviewFile_LinkClicked(sender, e)
+        ''Call LinkLabelOpenPreviewFile_LinkClicked(sender, e)
 
+        Dim image_output As Image ''Added 9/18/2021 td 
+        Dim strOutputPathToFolder As String = ""
+        Dim strOutputPathToFileJPG As String = ""
+        Dim strStudentID As String
+
+        strStudentID = mod_strRecipientID ''Added 8/20/2021 thomas downes  
+
+        strOutputPathToFolder = DiskFolders.PathToFolder_Preview()
+        strOutputPathToFileJPG = (strOutputPathToFolder & "\Badge_" &
+            strStudentID & "_" &
+            DateTime.Now.ToString("MMdd_hhmmss") & ".jpg")
+
+        mod_designer.RefreshPreview_Redux()
+        image_output = picturePreview.Image
+        image_output.Save(strOutputPathToFileJPG, Imaging.ImageFormat.Jpeg)
+
+        EmailingFilesViaGmail_Framework.EmailingFiles.SmtpUsername = "tomdownes1@gmail.com"
+        EmailingFilesViaGmail_Framework.EmailingFiles.SmtpSpaghetti = "search#1957Bb"
+        EmailingFilesViaGmail_Framework.EmailingFiles.SmtpEnableSSL = True
+        EmailingFiles.SmtpServerAddress = "smtp.gmail.com"
+
+        EmailingFiles.SendViaEmail_OneFile(mod_strEmailAddress, strOutputPathToFileJPG)
 
     End Sub
 
@@ -1444,6 +1469,16 @@ ExitHandler:
 
         img.Save(strOutputPathToFileJPG, Imaging.ImageFormat.Jpeg)
         System.Diagnostics.Process.Start(strOutputPathToFileJPG)
+
+    End Sub
+
+    Private Sub EmailAddressToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EmailAddressToolStripMenuItem.Click
+        ''
+        '' Added 9/17/2021 thomas downes
+        ''
+        mod_strEmailAddress =
+        InputBox("Set the email address you want to use (to receive badge image files).",
+                 "Set email address", "tomdownes1@gmail.com")
 
     End Sub
 End Class

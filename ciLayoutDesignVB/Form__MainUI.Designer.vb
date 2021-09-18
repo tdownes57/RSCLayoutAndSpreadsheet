@@ -96,6 +96,7 @@ Partial Class Form__MainUI
         Me.CtlGraphicPortrait_Lady = New ciBadgeDesigner.CtlGraphicPortrait()
         Me.LinkLabelOpenPreviewFileJPG = New System.Windows.Forms.LinkLabel()
         Me.LinkLabelEmailBadgeJPG = New System.Windows.Forms.LinkLabel()
+        Me.EmailAddressToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -147,7 +148,7 @@ Partial Class Form__MainUI
         'MenuStrip1
         '
         Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RightClickMenuParent, Me.ToolStripMenuItem1, Me.ConfigurationOfFieldsEtcToolStripMenuItem, Me.DesignLayoutToolStripMenuItem, Me.BackgroundImagesToolStripMenuItem, Me.DemoModeVideoToolStripMenuItem, Me.BadgeRecipientsToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RightClickMenuParent, Me.ToolStripMenuItem1, Me.ConfigurationOfFieldsEtcToolStripMenuItem, Me.DesignLayoutToolStripMenuItem, Me.BackgroundImagesToolStripMenuItem, Me.DemoModeVideoToolStripMenuItem, Me.BadgeRecipientsToolStripMenuItem, Me.EmailAddressToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(1245, 28)
@@ -683,6 +684,12 @@ Partial Class Form__MainUI
         Me.LinkLabelEmailBadgeJPG.TabStop = True
         Me.LinkLabelEmailBadgeJPG.Text = "Email Badge (as JPG)"
         '
+        'EmailAddressToolStripMenuItem
+        '
+        Me.EmailAddressToolStripMenuItem.Name = "EmailAddressToolStripMenuItem"
+        Me.EmailAddressToolStripMenuItem.Size = New System.Drawing.Size(117, 24)
+        Me.EmailAddressToolStripMenuItem.Text = "Email Address"
+        '
         'Form__MainUI
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 20.0!)
@@ -807,4 +814,5 @@ Partial Class Form__MainUI
     Friend WithEvents PrintAllBadgesToFileFolderToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents LinkLabelOpenPreviewFileJPG As LinkLabel
     Friend WithEvents LinkLabelEmailBadgeJPG As LinkLabel
+    Friend WithEvents EmailAddressToolStripMenuItem As ToolStripMenuItem
 End Class

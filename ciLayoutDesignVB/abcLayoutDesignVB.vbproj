@@ -61,6 +61,9 @@
     <Reference Include="ciQREncoding">
       <HintPath>..\..\..\..\..\..\CI Solutions\CI Badge\ciQREncoding.dll</HintPath>
     </Reference>
+    <Reference Include="EmailingFilesViaGmail_Framework">
+      <HintPath>..\..\Framework_EmailingFiles\Framework_EmailingFiles_CS\bin\Debug\EmailingFilesViaGmail_Framework.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNetCore.Authentication.Abstractions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.Authentication.Abstractions.2.1.0\lib\netstandard2.0\Microsoft.AspNetCore.Authentication.Abstractions.dll</HintPath>
     </Reference>
