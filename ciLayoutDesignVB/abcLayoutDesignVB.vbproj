@@ -61,7 +61,8 @@
     <Reference Include="ciQREncoding">
       <HintPath>..\..\..\..\..\..\CI Solutions\CI Badge\ciQREncoding.dll</HintPath>
     </Reference>
-    <Reference Include="EmailingFilesViaGmail_Framework">
+    <Reference Include="EmailingFilesViaGmail_Framework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Framework_EmailingFiles\Framework_EmailingFiles_CS\bin\Debug\EmailingFilesViaGmail_Framework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNetCore.Authentication.Abstractions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
@@ -370,10 +371,10 @@
     <Compile Include="FormDesignProtoThree.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form__MainUI.Designer.vb">
-      <DependentUpon>Form__MainUI.vb</DependentUpon>
+    <Compile Include="Form__Main_Demo.Designer.vb">
+      <DependentUpon>Form__Main_Demo.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form__MainUI.vb">
+    <Compile Include="Form__Main_Demo.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormPartial_MDEv90_p1.Designer.vb">
@@ -430,10 +431,10 @@
     <Compile Include="DialogExampleValueEtc.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormMain.Designer.vb">
-      <DependentUpon>FormMain.vb</DependentUpon>
+    <Compile Include="Form__Main_PreDemo.Designer.vb">
+      <DependentUpon>Form__Main_PreDemo.vb</DependentUpon>
     </Compile>
-    <Compile Include="FormMain.vb">
+    <Compile Include="Form__Main_PreDemo.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormMainEntry_v82.Designer.vb">
@@ -601,8 +602,8 @@
     <EmbeddedResource Include="FormDesignProtoThree.resx">
       <DependentUpon>FormDesignProtoThree.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form__MainUI.resx">
-      <DependentUpon>Form__MainUI.vb</DependentUpon>
+    <EmbeddedResource Include="Form__Main_Demo.resx">
+      <DependentUpon>Form__Main_Demo.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormMainEntry_v90.resx">
       <DependentUpon>FormMainEntry_v90.vb</DependentUpon>
@@ -634,8 +635,8 @@
     <EmbeddedResource Include="DialogExampleValueEtc.resx">
       <DependentUpon>DialogExampleValueEtc.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormMain.resx">
-      <DependentUpon>FormMain.vb</DependentUpon>
+    <EmbeddedResource Include="Form__Main_PreDemo.resx">
+      <DependentUpon>Form__Main_PreDemo.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormMainEntry_v82.resx">
       <DependentUpon>FormMainEntry_v82.vb</DependentUpon>

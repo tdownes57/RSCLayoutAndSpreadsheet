@@ -41,7 +41,7 @@ Public Class Startup
         ''   form which currently demostrates Layout Design the best.  
         ''
         ''
-        Dim obj_formToShow As New Form__MainUI ''Added 10/11/2019 td 
+        Dim obj_formToShow As New Form__Main_Demo ''Added 10/11/2019 td 
 
         ''Added 10/16/2019 td 
         obj_personality.ListOfRecipients = LoadData_Recipients_Students()
@@ -86,7 +86,7 @@ Public Class Startup
             If (Not obj_formToShow.LetsRefresh_CloseForm) Then Exit Do
 
             obj_cache_layout_Elements = obj_formToShow.ElementsCache_Saved
-            obj_formToShow = New Form__MainUI
+            obj_formToShow = New Form__Main_Demo
 
             ''
             ''This is potentially an infinite loop.  Look for "Exit Do". 
@@ -133,7 +133,7 @@ Public Class Startup
 
     End Function ''End of "Private Shared Function LoadCachedData_Customer"
 
-    Private Shared Function LoadCachedData_Personality(par_designForm As Form__MainUI,
+    Private Shared Function LoadCachedData_Personality(par_designForm As Form__Main_Demo,
                                            ByRef pboolNewFileXML As Boolean) As ClassPersonalityCache
         ''
         ''Added 1/14/2019 td
@@ -290,7 +290,7 @@ Public Class Startup
 
     End Function ''End of "Private Sub LoadCachedData_Personality()"
 
-    Private Shared Function LoadCachedData_Elements_Deprecated(par_designForm As Form__MainUI,
+    Private Shared Function LoadCachedData_Elements_Deprecated(par_designForm As Form__Main_Demo,
                                            ByRef pboolNewFileXML As Boolean) As ClassElementsCache_Deprecated
         ''1/24 td''Private Shared Function LoadCachedData(par_designForm As FormDesignProtoTwo,
         ''1/24 td''            ByRef pboolNewFileXML As Boolean) As ClassElementsCache_NotInUse

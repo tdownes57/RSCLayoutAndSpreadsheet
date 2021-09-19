@@ -17,7 +17,7 @@ Imports ciBadgeRecipients ''Added 10/11/2019 thomas d.
 Imports ciBadgeCustomer ''Added 10/11/2019 thomas d.  
 Imports EmailingFilesViaGmail_Framework ''Added 9/17/2021 thomas downes 
 
-Public Class Form__MainUI
+Public Class Form__Main_Demo
     Implements IDesignerForm ''Added 10/13/2019 td 
     ''10/3/2019 td''Implements ILayoutFunctions ''-----, ISelectingElements, ILayoutFunctions
     ''
@@ -887,7 +887,7 @@ Public Class Form__MainUI
         Dim frm_ToShow As New ListCustomFieldsFlow()
 
         ''7/26/2019 td''frm_ToShow.ListOfFields = GetCurrentPersonality_Fields()
-        frm_ToShow.ListOfFields = FormMain.GetCurrentPersonality_Fields_Custom()
+        frm_ToShow.ListOfFields = Form__Main_PreDemo.GetCurrentPersonality_Fields_Custom()
         frm_ToShow.ShowDialog()
         RefreshTheSetOfDisplayedElements()
         pictureBack.SendToBack()
@@ -901,7 +901,7 @@ Public Class Form__MainUI
         Dim frm_ToShow As New ListCustomFieldsFlow()
 
         ''7/26/2019 td''frm_ToShow.ListOfFields = GetCurrentPersonality_Fields()
-        frm_ToShow.ListOfFields = FormMain.GetCurrentPersonality_Fields_Custom()
+        frm_ToShow.ListOfFields = Form__Main_PreDemo.GetCurrentPersonality_Fields_Custom()
         frm_ToShow.ShowDialog()
         RefreshTheSetOfDisplayedElements()
         pictureBack.SendToBack()
@@ -1213,7 +1213,7 @@ Public Class Form__MainUI
         ''
         ''Major call !!  
         ''
-        FormMain.OpenElementsCache(objCache)
+        Form__Main_PreDemo.OpenElementsCache(objCache)
 
     End Sub
 

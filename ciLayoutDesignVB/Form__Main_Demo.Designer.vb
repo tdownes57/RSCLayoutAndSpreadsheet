@@ -1,7 +1,7 @@
 ﻿Imports ciBadgeDesigner
 
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class Form__MainUI
+Partial Class Form__Main_Demo
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -25,7 +25,7 @@ Partial Class Form__MainUI
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form__MainUI))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form__Main_Demo))
         Me.LinkShowWebControls = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         Me.chkIncludeExampleValues = New System.Windows.Forms.CheckBox()
@@ -61,6 +61,7 @@ Partial Class Form__MainUI
         Me.ShowBadgeRecipientsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CloseListOfRecipentsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PrintAllBadgesToFileFolderToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EmailAddressToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.LinkLabelSave1 = New System.Windows.Forms.LinkLabel()
         Me.linkSaveAndRefresh = New System.Windows.Forms.LinkLabel()
@@ -96,7 +97,6 @@ Partial Class Form__MainUI
         Me.CtlGraphicPortrait_Lady = New ciBadgeDesigner.CtlGraphicPortrait()
         Me.LinkLabelOpenPreviewFileJPG = New System.Windows.Forms.LinkLabel()
         Me.LinkLabelEmailBadgeJPG = New System.Windows.Forms.LinkLabel()
-        Me.EmailAddressToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -358,6 +358,12 @@ Partial Class Form__MainUI
         Me.PrintAllBadgesToFileFolderToolStripMenuItem.Name = "PrintAllBadgesToFileFolderToolStripMenuItem"
         Me.PrintAllBadgesToFileFolderToolStripMenuItem.Size = New System.Drawing.Size(318, 26)
         Me.PrintAllBadgesToFileFolderToolStripMenuItem.Text = "Print all Badges to File Folder"
+        '
+        'EmailAddressToolStripMenuItem
+        '
+        Me.EmailAddressToolStripMenuItem.Name = "EmailAddressToolStripMenuItem"
+        Me.EmailAddressToolStripMenuItem.Size = New System.Drawing.Size(117, 24)
+        Me.EmailAddressToolStripMenuItem.Text = "Email Address"
         '
         'CheckBox1
         '
@@ -684,13 +690,7 @@ Partial Class Form__MainUI
         Me.LinkLabelEmailBadgeJPG.TabStop = True
         Me.LinkLabelEmailBadgeJPG.Text = "Email Badge (as JPG)"
         '
-        'EmailAddressToolStripMenuItem
-        '
-        Me.EmailAddressToolStripMenuItem.Name = "EmailAddressToolStripMenuItem"
-        Me.EmailAddressToolStripMenuItem.Size = New System.Drawing.Size(117, 24)
-        Me.EmailAddressToolStripMenuItem.Text = "Email Address"
-        '
-        'Form__MainUI
+        'Form__Main_Demo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -725,7 +725,7 @@ Partial Class Form__MainUI
         Me.Controls.Add(Me.graphicAdjuster)
         Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Margin = New System.Windows.Forms.Padding(2)
-        Me.Name = "Form__MainUI"
+        Me.Name = "Form__Main_Demo"
         Me.Text = " Good demo for Mark"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()

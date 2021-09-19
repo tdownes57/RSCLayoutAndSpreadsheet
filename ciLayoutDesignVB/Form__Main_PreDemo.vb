@@ -8,7 +8,7 @@ Imports ciBadgeInterfaces ''Added 9/2/2019 td
 Imports ciBadgeFields ''Added 9/19/2019 td
 Imports ciBadgeElements ''Added 9/30/2019 td  
 
-Public Class FormMain
+Public Class Form__Main_PreDemo
 
     Private Shared mod_currentConfigID As Integer ''Added 7/23/2019 thomas downes  
 

@@ -129,7 +129,7 @@ Public Class ListCustomFieldsFlow
                 ''8/29/2019 td''If (.NewlyAdded) Then FormMain.GetCurrentPersonality_Fields_Custom().Add(.Model)
                 If (.NewlyAdded) Then
                     ''9/2/2019 td''FormMain.GetCurrentPersonality_Fields_Custom().Add(.ModelFieldInfo)
-                    FormMain.GetCurrentPersonality_Fields_Custom().Add(.Field_Customized)
+                    Form__Main_PreDemo.GetCurrentPersonality_Fields_Custom().Add(.Field_Customized)
                 End If ''End of "If (.NewlyAdded) Then"
 
             End With ''End of "With each_ctl_configure_field"

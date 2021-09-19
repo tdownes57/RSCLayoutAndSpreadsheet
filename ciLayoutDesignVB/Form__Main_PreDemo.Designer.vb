@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class FormMain
+Partial Class Form__Main_PreDemo
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
