@@ -94,9 +94,7 @@
     <Compile Include="FormBadgeLayoutProto.Designer.vb">
       <DependentUpon>FormBadgeLayoutProto.vb</DependentUpon>
     </Compile>
-    <Compile Include="FormBadgeLayoutProto.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="FormBadgeLayoutProto.vb" />
     <Compile Include="InterfaceDesignerForm.vb" />
     <Compile Include="modFonts.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />

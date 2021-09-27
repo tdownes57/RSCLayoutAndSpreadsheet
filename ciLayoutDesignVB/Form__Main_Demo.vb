@@ -1481,4 +1481,35 @@ ExitHandler:
                  "Set email address", "tomdownes1@gmail.com")
 
     End Sub
+
+    Private Sub LinkLabelEmailBadgeJpeg_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelEmailBadgeJpeg.LinkClicked
+        ''
+        '' Added 9/27/2021 Thomas Downes  
+        ''
+        Dim image_output As Image ''Added 9/18/2021 td 
+
+        mod_designer.RefreshPreview_Redux()
+        image_output = picturePreview.Image
+        ''image_output.Save(strOutputPathToFileJPG, Imaging.ImageFormat.Jpeg)
+
+        EmailingFilesViaGmail_Framework.EmailingFiles.SmtpUsername = "tomdownes1@gmail.com"
+        ''EmailingFilesViaGmail_Framework.EmailingFiles.SmtpSpaghetti = "Dd"
+        EmailingFilesViaGmail_Framework.EmailingFiles.SmtpEnableSSL = True
+        EmailingFiles.SmtpServerAddress = "smtp.gmail.com"
+
+        ''EmailingFiles.SendViaEmail_OneFile(mod_strEmailAddress, strOutputPathToFileJPG)
+
+        Dim strTitleOfJpegImage As String
+        Dim strStudentID As String = mod_strRecipientID ''Added 8/20/2021 thomas downes  
+
+        strTitleOfJpegImage = ("Badge_" &
+            strStudentID & "_" &
+            DateTime.Now.ToString("MMdd_hhmmss") & ".jpg")
+
+        EmailingFiles.SendViaEmail_OneImage(mod_strEmailAddress,
+             image_output,
+             strTitleOfJpegImage,
+             "", "", "")
+
+    End Sub
 End Class
