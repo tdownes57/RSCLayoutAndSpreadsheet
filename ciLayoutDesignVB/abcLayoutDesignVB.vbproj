@@ -61,6 +61,9 @@
     <Reference Include="ciQREncoding">
       <HintPath>..\..\..\..\..\..\CI Solutions\CI Badge\ciQREncoding.dll</HintPath>
     </Reference>
+    <Reference Include="Dropbox.Api, Version=6.15.0.0, Culture=neutral, PublicKeyToken=310f0e82fbb45d01, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dropbox.Api.6.15.0\lib\netstandard2.0\Dropbox.Api.dll</HintPath>
+    </Reference>
     <Reference Include="EmailingFilesViaGmail_Framework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Framework_EmailingFiles\Framework_EmailingFiles_CS\bin\Debug\EmailingFilesViaGmail_Framework.dll</HintPath>
@@ -176,8 +179,8 @@
     <Reference Include="Microsoft.OpenApi, Version=1.2.3.0, Culture=neutral, PublicKeyToken=3f5743946376f042, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.OpenApi.1.2.3\lib\net46\Microsoft.OpenApi.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Swashbuckle.AspNetCore.Swagger, Version=6.1.5.0, Culture=neutral, PublicKeyToken=62657d7474907593, processorArchitecture=MSIL">
       <HintPath>..\packages\Swashbuckle.AspNetCore.Swagger.6.1.5\lib\netstandard2.0\Swashbuckle.AspNetCore.Swagger.dll</HintPath>

@@ -1493,7 +1493,7 @@ ExitHandler:
         ''image_output.Save(strOutputPathToFileJPG, Imaging.ImageFormat.Jpeg)
 
         EmailingFilesViaGmail_Framework.EmailingFiles.SmtpUsername = "tomdownes1@gmail.com"
-        ''EmailingFilesViaGmail_Framework.EmailingFiles.SmtpSpaghetti = "Dd"
+        EmailingFilesViaGmail_Framework.EmailingFiles.SmtpSpaghetti = "Dd"
         EmailingFilesViaGmail_Framework.EmailingFiles.SmtpEnableSSL = True
         EmailingFiles.SmtpServerAddress = "smtp.gmail.com"
 
@@ -1510,6 +1510,11 @@ ExitHandler:
              image_output,
              strTitleOfJpegImage,
              "", "", "")
+
+        ''Added 9/27/2021 Thomas Downes
+        MessageBox.Show("Check for emailed image (as attached Jpeg file).", "ABC Badge",
+                        MessageBoxButtons.OK,
+                       MessageBoxIcon.Information)
 
     End Sub
 End Class
