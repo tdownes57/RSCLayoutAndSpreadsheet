@@ -77,39 +77,57 @@
     <Compile Include="Controls\CtlGraphicFldLabel.designer.vb">
       <DependentUpon>CtlGraphicFldLabel.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CtlGraphicFldLabel.vb" />
+    <Compile Include="Controls\CtlGraphicFldLabel.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controls\CtlGraphicPortrait.designer.vb">
       <DependentUpon>CtlGraphicPortrait.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CtlGraphicPortrait.vb" />
+    <Compile Include="Controls\CtlGraphicPortrait.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controls\CtlGraphicQRCode.Designer.vb">
       <DependentUpon>CtlGraphicQRCode.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CtlGraphicQRCode.vb" />
+    <Compile Include="Controls\CtlGraphicQRCode.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controls\CtlGraphicSignature.Designer.vb">
       <DependentUpon>CtlGraphicSignature.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CtlGraphicSignature.vb" />
+    <Compile Include="Controls\CtlGraphicSignature.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controls\CtlGraphicText.designer.vb">
       <DependentUpon>CtlGraphicText.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CtlGraphicText.vb" />
+    <Compile Include="Controls\CtlGraphicText.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controls\CtlMainButton_v90.designer.vb">
       <DependentUpon>CtlMainButton_v90.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CtlMainButton_v90.vb" />
+    <Compile Include="Controls\CtlMainButton_v90.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controls\CtlMainEntryBox_v82.designer.vb">
       <DependentUpon>CtlMainEntryBox_v82.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CtlMainEntryBox_v82.vb" />
+    <Compile Include="Controls\CtlMainEntryBox_v82.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controls\CtlMainEntryBox_v90.designer.vb">
       <DependentUpon>CtlMainEntryBox_v90.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CtlMainEntryBox_v90.vb" />
+    <Compile Include="Controls\CtlMainEntryBox_v90.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controls\CtlPartial_HardText.designer.vb">
       <DependentUpon>CtlPartial_HardText.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CtlPartial_HardText.vb" />
+    <Compile Include="Controls\CtlPartial_HardText.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="InterfaceSelectingElements.vb" />
     <Compile Include="InterfaceSelectingElements_v90.vb" />
     <Compile Include="modFactoryControls.vb" />
