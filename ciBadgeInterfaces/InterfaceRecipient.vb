@@ -83,6 +83,7 @@ Public Interface IRecipient
     Function GetPortraitImage() As System.Drawing.Image ''Added 10/11/2019 td 
 
     Property Picture As System.Drawing.Image ''Added 10/16/2019 thomas d.  
+    Property BadgeImage As System.Drawing.Image ''Added 9/29/2021 thomas d.  
 
     Function GetTextValue(par_enum As EnumCIBFields) As String
 

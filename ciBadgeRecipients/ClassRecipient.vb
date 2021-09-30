@@ -23,6 +23,7 @@ Public Class ClassRecipient
     Public Shared mod_recipientList As IList(Of ClassRecipient) = New List(Of ClassRecipient) ''{New ClassRecipient() }
 
     Property Picture As Image Implements IRecipient.Picture ''Added 10/16/2019 thomas d.  
+    Property BadgeImage As Image Implements IRecipient.BadgeImage ''Added 9/29/2021 thomas d.  
 
     Public Property ID_Guid As System.Guid
 
