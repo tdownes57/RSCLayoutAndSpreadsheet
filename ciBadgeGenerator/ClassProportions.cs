@@ -24,12 +24,12 @@ namespace ciBadgeGenerator
 
     public class ClassProportions //10/5/2019 td'' public class ClassElementToImage
     {
-         //''
-         //''Added 10/5/2019 td
-         //''
-         //''    Modelled after the proportion functions in ClassLabelToImage, created 7/17/2019
-         //''
-         //Public Shared UseHighResolutionTips As Boolean = False ''Added 9/8/2019 td
+        //''
+        //''Added 10/5/2019 td
+        //''
+        //''    Modelled after the proportion functions in ClassLabelToImage, created 7/17/2019
+        //''
+        //Public Shared UseHighResolutionTips As Boolean = False ''Added 9/8/2019 td
 
         public static bool UseHighResolutionTips = false;
 
@@ -95,8 +95,13 @@ namespace ciBadgeGenerator
         //
         //End Function ''End of "Public Shared Function RatioIsLikelyBad(par_doubleW_div_H As Double) As Boolean"
 
-        public static bool RatioIsLikelyBad(double par_doubleW_div_H)
+
+        public static bool RatioIsLikelyBad(double par_doubleW_div_H, double par_percentDiffAllowed = 0.99)
         {
+            //---- public static bool RatioIsLikelyBad(double par_doubleW_div_H)
+            //
+            // Modified 11/3/2021 thomas downes
+            //
             double doubleExpectedRatio;
             double doubleDifference;
             double doubleDifference_x100;
@@ -105,11 +110,13 @@ namespace ciBadgeGenerator
             doubleDifference = Math.Abs(par_doubleW_div_H - doubleExpectedRatio);
             doubleDifference_x100 = (100 * doubleDifference);
 
-            bool boolDiffersMoreThanPoint99 = (0.99 < doubleDifference_x100);
+            //----bool boolDiffersMoreThanPoint99 = (0.99 < doubleDifference_x100);
+            bool boolDiffersMoreThanPoint99 = (doubleDifference_x100 > par_percentDiffAllowed);
             bool boolReturnValue = boolDiffersMoreThanPoint99;
-             return boolReturnValue;
+            return boolReturnValue;
 
         } // ''End of "Public Shared Function RatioIsLikelyBad(par_doubleW_div_H As Double) As Boolean"
+
 
         //Public Shared Function ProportionsAreSlightlyOff(par_image As Image, pboolVerbose As Boolean,
         //                                             Optional par_strNameOfImage As String = "") As Boolean
@@ -139,6 +146,7 @@ namespace ciBadgeGenerator
             return boolReturnValue;
 
         }
+
 
         //Public Shared Function ProportionsAreSlightlyOff(par_doubleW_div_H As Double, pboolVerbose As Boolean,
         //                                             Optional par_enum As EnumImageOrControl = EnumImageOrControl.Undetermined,
@@ -191,9 +199,10 @@ namespace ciBadgeGenerator
 
             boolRatioIsBad = RatioIsLikelyBad(par_doubleW_div_H);
 
-            switch (par_enum) {
+            switch (par_enum)
+            {
                 case EnumImageOrControl.Image: strObjectType = "(image)"; break;
-                case EnumImageOrControl.Contl : strObjectType = "(control)"; break;
+                case EnumImageOrControl.Contl: strObjectType = "(control)"; break;
                 default: strObjectType = par_strImageOrControl; break;
             }
 
@@ -289,6 +298,90 @@ namespace ciBadgeGenerator
         //''Added 7/17/2019 thomas downes
         //''
 
+
+        public static bool BackgroundIsDoubleSided(Image par_imageBackground)
+        {
+            //    ''
+            //    ''Added 11/3/2021 thomas downes  
+            //    ''
+            //    ''Let's check to see if the Background Image is meant to supply
+            //    ''   the background for each side--front-side & back-side of the badges. 
+            //    ''
+            //    ''The left-hand half of the image is for the front side of the badge. 
+            //    ''The right-hand half of the image is for the back side of the badge. 
+            //    ''
+            //double doubleW_div_H = ((double)par_image.Width / (double)par_image.Height);
+            //==double halfOfWidth_OneSide = par_imageBackground.Width / (double)(2.0);
+            //==double doubleW_div_H = (halfOfWidth_OneSide / (double)par_imageBackground.Height);
+
+            double doubleProportionW_div_H = ((double)par_imageBackground.Width / 
+                                    (double)par_imageBackground.Height);
+
+            double doubleProportion_Halved = (doubleProportionW_div_H / (double)2.0);
+            //bool bWidthIsDoubleExpected = ProportionsAreDoubleSided(doubleW_div_H);
+
+            bool bHalfWidthIsCorrectRatio = RatioOfSidesWithinRange_1point6(doubleProportion_Halved);
+            bool bBackgroundIsDoubleSided = bHalfWidthIsCorrectRatio;
+            return bBackgroundIsDoubleSided;
+
+        }
+
+
+        public static bool RatioOfSidesWithinRange_1point6(double par_doubleW_div_H, 
+                                double par_dblRangeEndLow = 1.55, 
+                                double par_dblRangeEndHigh = 1.65)
+        {
+            //
+            // Added 11/3/2021 thomas 
+            //
+            double doubleExpectedRatio_1point6;
+            //double doubleDifference; 
+            //double doubleDifference_x100;
+
+            doubleExpectedRatio_1point6 = LongSideToShortRatio(); // (27d / 17d);  //''Approx. 1.588, or  3.38 / 2.13
+            //doubleDifference = Math.Abs(par_doubleW_div_H - doubleExpectedRatio);
+            //doubleDifference_x100 = (100 * doubleDifference);
+
+            //----bool boolDiffersMoreThanPoint99 = (0.99 < doubleDifference_x100);
+            //---bool boolDiffersMoreThanPoint99 = (doubleDifference_x100 > par_percentDiffAllowed);
+            bool boolOkayRangePointLow = (par_doubleW_div_H >= par_dblRangeEndLow);
+            bool boolOkayRangePointHigh = (par_doubleW_div_H <= par_dblRangeEndHigh);
+
+            bool boolReturnValue = (boolOkayRangePointLow && boolOkayRangePointHigh);
+            return boolReturnValue;
+
+        } // ''End of "Public Shared Function RatioOfSidesWithinRange_1point6"
+
+
+        public static bool ProportionsAreDoubleSided(Image par_image)
+        {
+            //    ''
+            //    ''Added 11/3/2021 thomas downes  
+            //    ''
+            return BackgroundIsDoubleSided(par_image);
+
+        }
+
+
+        public static bool ProportionsAreDoubleSided(double par_doubleW_div_H)
+        {
+            //    ''
+            //    ''Added 11/3/2021 thomas downes  
+            //    ''
+            //bool boolOneSideIsSlightlyOff = (ProportionsAreSlightlyOff(doubleW_div_H, false, 
+            //          EnumImageOrControl.Image, "Parameterized image"));
+
+            double dbHalfOfWidth_div_Height = par_doubleW_div_H / (double)2.0;
+
+            //bool boolOneSideIsSlightlyOff = RatioIsLikelyBad(par_doubleW_div_H, 10);
+            bool boolOneSideIsSlightlyOff = RatioIsLikelyBad(dbHalfOfWidth_div_Height, 10);
+
+            bool boolOneSideIsPrettyOkay = (false == boolOneSideIsSlightlyOff);
+            bool boolDoublingWontHurt = boolOneSideIsPrettyOkay;
+            bool boolImageDisplaysTwoSides = boolDoublingWontHurt;
+            return boolImageDisplaysTwoSides;
+
+        }
 
 
 

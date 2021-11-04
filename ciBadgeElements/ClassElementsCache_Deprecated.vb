@@ -1283,7 +1283,8 @@ Public Class ClassElementsCache_Deprecated
     End Sub ''End of "Public Sub SaveToXML()"
 
     Public Function GetBackgroundImage(pintWidth As Integer, pintHeight As Integer,
-                                       pstrPathToLikelyFolder As String) As Image
+                                       pstrPathToLikelyFolder As String,
+                                       pbooWereTwoPropertiesRefreshed As Boolean) As Image
         ''
         ''Added 1/14/2020 thomas downes
         ''
@@ -1292,10 +1293,27 @@ Public Class ClassElementsCache_Deprecated
         Dim imageCreated1 As Image
         Dim imageCreated2 As Image
 
+        ''//
+        ''//  Have the following properties been recently refreshed?  ---11/2/2021 td
+        ''//
+        ''//     1) BackgroundImage_Path
+        ''//     2) BackgroundImage_FTitle
+        ''//
+        If (Not pbooWereTwoPropertiesRefreshed) Then
+            ''// Added 11/2/2021 thomas downes
+            ''--==Throw New Exception("Please confirm refresh of BackgroundImage_Path, BackgroundImage_FTitle.")
+
+            ''Added 11/2/2021 thomas downes
+            Throw New Exception(My.Resources.PlsConfirmRefresh)
+
+        End If ''End if "If (Not pbooWerePropertiesRefreshed) Then"
+
         structCurrent.iPixelsWidth = pintWidth
-        structCurrent.sFileTitle = BackgroundImage_FTitle
+        structCurrent.sFileTitle = Me.BackgroundImage_FTitle
+
         Try
             imageFound = mod_dictionaryBackImages(structCurrent)
+
         Catch ex_dict As Exception
             If (ex_dict.Message.Contains("not present")) Then
                 ''
@@ -1311,7 +1329,7 @@ Public Class ClassElementsCache_Deprecated
         Else
             ''Added 1/14/2019 td 
             BackgroundImage_RefreshPath(pstrPathToLikelyFolder) ''Added 1/14/2019 td 
-            imageCreated1 = New Bitmap(BackgroundImage_Path)
+            imageCreated1 = New Bitmap(Me.BackgroundImage_Path)
             ''imageCreated.Dispose()
             imageCreated2 = New Bitmap(imageCreated1, New Size(pintWidth, pintHeight))
             mod_dictionaryBackImages.Add(structCurrent, imageCreated2)

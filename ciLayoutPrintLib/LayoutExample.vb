@@ -157,6 +157,7 @@ Public Class LayoutExample
 
             ''Added 7/5/2019 td
             BackImageExamples.CurrentIndex = par_intChoice
+            ''Models.Background.CurrentlySelectedBackIndex = par_intChoice;  //Added 11/2/2021 Thomas Downes 
             mod_backIndex = par_intChoice
 
         Catch ex As Exception
