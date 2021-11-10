@@ -645,7 +645,11 @@ ExitHandler:
 
     Public Sub LoadImageWithElements(ByRef par_imageBadgeCard As Image,
                                    par_elements As HashSet(Of ClassElementField),
-                                        Optional par_listTextImages As HashSet(Of Image) = Nothing)
+                                        Optional par_listTextImages As HashSet(Of Image) = Nothing,
+                                     Optional pboolShowPopupMessages As Boolean = False,
+                                     Optional par_bOutputListsOfFields As Boolean = False,
+                                     Optional par_listFieldsIncluded As List(Of String) = Nothing,
+                                     Optional par_listFieldsNotIncluded As List(Of String) = Nothing)
         ''9/18/2019 td---Public Sub LoadImageWithFieldValues(ByRef par_imageBadgeCard As Image,
         ''---                                par_standardFields As List(Of IFieldInfo_ElementPositions),
         ''---                                par_customFields As List(Of IFieldInfo_ElementPositions),
@@ -663,6 +667,12 @@ ExitHandler:
         bOutputAllImages = (par_listTextImages IsNot Nothing) ''Added 8/26/2019 thomas d. 
 
         gr_Badge = Graphics.FromImage(par_imageBadgeCard)
+
+        ''Added 11/9/2021 Thomas Downes
+        If (par_bOutputListsOfFields) Then
+            par_listFieldsIncluded = New List(Of String)
+            par_listFieldsNotIncluded = New List(Of String)
+        End If ''End of "If (par_bOutputListsOfFields) Then"
 
         ''
         ''
@@ -702,15 +712,29 @@ ExitHandler:
                 ''9/20/2019 td''Dim intTop As Integer
 
                 ''9/3/2019 td''If (Not .IsDisplayedOnBadge) Then Continue For
-                If (.FieldInfo Is Nothing) Then Continue For ''Added 10/13/2019 td
-                If (Not .FieldInfo.IsDisplayedOnBadge) Then Continue For
+                Dim bWeWontIncludeField As Boolean = False ''Added 11/9/2021 td
+                If (.FieldInfo Is Nothing) Then bWeWontIncludeField = True ''11/9/2021 Continue For ''Added 10/13/2019 td
+                If (Not .FieldInfo.IsDisplayedOnBadge) Then bWeWontIncludeField = True ''11/9/2021 Continue For
+
+                If (bWeWontIncludeField) Then
+                    If (par_bOutputListsOfFields) Then
+                        ''List fields which are being skipped/omitted.
+                        par_listFieldsNotIncluded.Add(each_elementField.FieldInfo.CIBadgeField)
+                    End If ''End of "If (par_bListFieldsForOutput) Then"
+                    ''
+                    ''Skip this element.
+                    ''
+                    Continue For
+                End If ''End if "If (bWeWontIncludeField) Then"
 
                 ''Added 9/4/2019 thomas downes
                 ''9/12/2019 td''If (0 = .Position_BL.LayoutWidth_Pixels) Then
                 If (0 = .Width_Pixels) Then
                     ''Added 9/4/2019 thomas downes
-                    MessageBox.Show("We cannot scale the placement of the image.", "LayoutPrint_Redux",
+                    If (pboolShowPopupMessages) Then
+                        MessageBox.Show("We cannot scale the placement of the image.", "LayoutPrint_Redux",
                                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                    End If ''End of "If (pboolShowPopupMessages) Then"
                 End If ''ENd of "If (0 = .Position_BL.BadgeLayout.Width_Pixels) Then"
 
                 Try
@@ -775,6 +799,15 @@ ExitHandler:
 
                     gr_Badge.DrawImage(image_textStandard,
                                  New PointF(intDesiredLeft, intDesiredTop))
+
+                    ''
+                    ''List the element's field among the included fields.
+                    ''---11/9/2021 thomas
+                    ''
+                    If (par_bOutputListsOfFields) Then
+                        ''Add it to the list of included fields.
+                        par_listFieldsIncluded.Add(each_elementField.FieldInfo.CIBadgeField)
+                    End If ''End of "If (par_bOutputListsOfFields) Then"
 
                 Catch ex_draw_invalid As InvalidOperationException
                     ''Error:  Object not available.

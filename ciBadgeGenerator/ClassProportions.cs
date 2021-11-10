@@ -328,9 +328,10 @@ namespace ciBadgeGenerator
 
 
         public static bool RatioOfSidesWithinRange_1point6(double par_doubleW_div_H, 
-                                double par_dblRangeEndLow = 1.55, 
+                                double par_dblRangeEndLow = 1.52, 
                                 double par_dblRangeEndHigh = 1.65)
         {
+            //    // double par_dblRangeEndLow = 1.55,
             //
             // Added 11/3/2021 thomas 
             //

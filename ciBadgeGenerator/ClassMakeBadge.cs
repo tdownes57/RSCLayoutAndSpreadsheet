@@ -144,7 +144,10 @@ namespace ciBadgeGenerator
                             int par_badge_width_pixels,
                             int par_badge_height_pixels,
                             ciBadgeInterfaces.IRecipient par_recipient,
-                            Image par_recipientPic)
+                            Image par_recipientPic,
+                                    List<string> par_listMessages = null,
+                                    List<string> par_listFieldsIncluded = null,
+                                    List<string> par_listFieldsNotIncluded = null)
         {
             //
             //Added 11/16/2019 Thomas Downes  
@@ -163,7 +166,10 @@ namespace ciBadgeGenerator
             return MakeBadgeImage(par_layout, par_backgroundImage, par_cache,
                                     par_badge_width_pixels,
                                     par_badge_height_pixels,
-                                    par_recipientPic);
+                                    par_recipientPic,
+                                    par_listMessages,
+                                    par_listFieldsIncluded,
+                                    par_listFieldsNotIncluded);
 
         }
 
@@ -200,7 +206,10 @@ namespace ciBadgeGenerator
                                     ClassElementsCache_Deprecated par_cache,
                                     int par_newBadge_width_pixels,
                                     int par_newBadge_height_pixels,
-                                    Image par_recipientPic)
+                                    Image par_recipientPic, 
+                                    List<string> par_listMessages = null,
+                                    List<string> par_listFieldsIncluded = null, 
+                                    List<string> par_listFieldsNotIncluded = null)
         {
             //Dim objPrintLibElems As New ciLayoutPrintLib.LayoutElements
 
@@ -255,19 +264,32 @@ namespace ciBadgeGenerator
             HashSet<ClassElementField> listOfElementFields; // <<<<<<<<<<<<<< I have removed the word "Text" from the name.   It's confusing since there are Static-Text controls. --10/17/2019
             listOfElementFields = par_cache.ListFieldElements();
 
-            const bool c_boolUseUntestedProc = false;  // true;  // false;  //Added 10/5/2019 td
+            const bool c_boolUseUntestedProc = true;  // 11-9-2021 false;  // true;  // false;  //Added 10/5/2019 td
             if (c_boolUseUntestedProc)
             {
                 //
-                // I don't think this procedure (LoadImageWithElement) is fully converted to C# yet. 
+                // I think this procedure (LoadImageWithElement) is fully converted to C# yet. 
                 //   If I recall, it's rather long and I was experiencing fatigue from the 
                 //   late hour. ---10/9/2019 td
                 //
-                LoadImageWithElements(ref obj_imageOutput, listOfElementFields);
+                // I think this procedure is ready for testing. ---11/9/2021  
+                //
+                LoadImageWithElements(ref obj_imageOutput, listOfElementFields, 
+                        null, par_listMessages,
+                         par_listFieldsIncluded,
+                         par_listFieldsNotIncluded);
+
             }
             else
             {
-                objPrintLibElems.LoadImageWithElements(ref obj_imageOutput, listOfElementFields);
+                //
+                // Call a method from the namespace LayoutElements. 
+                //
+                //objPrintLibElems.LoadImageWithElements(ref obj_imageOutput, listOfElementFields);
+                objPrintLibElems.LoadImageWithElements(ref obj_imageOutput, listOfElementFields, 
+                         null, false, true, 
+                         par_listFieldsIncluded, 
+                         par_listFieldsNotIncluded);
             }
 
             //''
@@ -546,7 +568,10 @@ namespace ciBadgeGenerator
 
         public void LoadImageWithElements(ref Image par_imageBadgeCard,
                                           HashSet<ClassElementField> par_elements,
-                                          List<Image> par_listTextImages = null)
+                                          List<Image> par_listTextImages = null,
+                                          List<String> par_listMessages = null,
+                                          List<String> par_listFieldsIncluded = null,
+                                          List<String> par_listFieldsNotIncluded = null)
         {
             //    ''Added 8/14/2019 td  
             //    ''
@@ -594,7 +619,10 @@ namespace ciBadgeGenerator
 
                 //Encapsulated 10/17/2019 td  
                 AddElementFieldToImage(each_elementField, par_imageBadgeCard,
-                       gr_Badge, bOutputListOfAllImages, par_listTextImages);
+                       gr_Badge, bOutputListOfAllImages, par_listTextImages,
+                       par_listMessages, 
+                       par_listFieldsIncluded, 
+                       par_listFieldsNotIncluded);
 
                 ////Added 10/17/2019 td
                 //strTextToDisplay = each_elementField.LabelText_ToDisplay(false);
@@ -800,7 +828,10 @@ namespace ciBadgeGenerator
                                             Image par_imageBadgeCard,
                                             Graphics par_graphics,
                                             bool pboolReturnListOfImages,
-                                            List<Image> par_listTextImages)
+                                            List<Image> par_listTextImages,
+                                            List<String> par_listMessages = null,
+                                            List<String> par_listFieldsIncluded = null,
+                                            List<String> par_listFieldsNotIncluded = null)
         {
             //
             //Encapsulated 10/17/2019 td
@@ -841,6 +872,7 @@ namespace ciBadgeGenerator
 
             int intElementsBottomEdge = (par_elementField.TopEdge_Pixels +
                                         par_elementField.Height_Pixels);
+
             if (intElementsBottomEdge > par_imageBadgeCard.Height) return;  //10-17 continue;
 
 
@@ -862,7 +894,14 @@ namespace ciBadgeGenerator
             //          If(Not FieldInfo.IsDisplayedOnBadge) Then Continue For
 
             //Added 10/14/2019 td
-            if (!(par_elementField.IsDisplayedOnBadge_Visibly())) return;  //10-17 continue;
+            if (!(par_elementField.IsDisplayedOnBadge_Visibly()))
+            {
+                //Added 11/9/2021 td
+                if (par_listFieldsNotIncluded != null) 
+                    par_listFieldsNotIncluded.Add(par_elementField.FieldInfo.CIBadgeField 
+                        + " since !IsDisplayedOnBadge_Visibly().");
+                return;  //10-17 continue;
+            }
 
             //
             //            ''Added 9/4/2019 thomas downes
@@ -874,6 +913,10 @@ namespace ciBadgeGenerator
                 //MessageBox.Show("We cannot scale the placement of the image.", "LayoutPrint_Redux",
                 //                MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 //End If ''ENd of "If (0 = .Position_BL.BadgeLayout.Width_Pixels) Then"
+                if (par_listMessages != null)
+                          par_listMessages.Add("We cannot scale the placement of the image...." +
+                                  par_elementField.FieldInfo.CIBadgeField);
+
             }
 
             //
@@ -907,8 +950,8 @@ namespace ciBadgeGenerator
                 image_textStandard =
                        modGenerate.TextImage_ByElemInfo(strTextToDisplay, intDesiredLayout_Width,
                          par_elementField, par_elementField, ref boolRotated, false);  //''9/20/2019 td'', True)
-                                                                                         //
-                                                                                         //                 If(bOutputAllImages) Then par_listTextImages.Add(image_textStandard) ''Added 8/26/2019 td
+                        //
+                        //                 If(bOutputAllImages) Then par_listTextImages.Add(image_textStandard) ''Added 8/26/2019 td
 
                 if (pboolReturnListOfImages) par_listTextImages.Add(image_textStandard);
 
@@ -959,6 +1002,10 @@ namespace ciBadgeGenerator
                 par_graphics.DrawImage(image_textStandard,
                                    new PointF(intDesiredLeft, intDesiredTop));
 
+                //Added 11/9/2021 thomas downes
+                if (par_listFieldsIncluded != null)
+                par_listFieldsIncluded.Add(par_elementField.FieldInfo.CIBadgeField);
+
             }
             //            Catch ex_draw_invalid As InvalidOperationException
             catch (InvalidOperationException ex_draw_invalid)
@@ -967,12 +1014,20 @@ namespace ciBadgeGenerator
                 //                Dim strMessage_Invalid As String
                 //                strMessage_Invalid = ex_draw_invalid.Message
                 string strMessage_Invalid = ex_draw_invalid.Message;
-                throw new Exception("Let's throw the message.", ex_draw_invalid);
+
+                //---throw new Exception("Let's throw the message.", ex_draw_invalid);
+                if (par_listMessages != null)
+                par_listMessages.Add(ex_draw_invalid.Message + "..." + par_elementField.FieldInfo.CIBadgeField);
 
                 //                ''Added 8/24 thomas d.
                 //                MessageBox.Show(strMessage_Invalid, "10303",
-                //                                MessageBoxButtons.OK,
+                //                           MessageBoxButtons.OK,
                 //                                MessageBoxIcon.Exclamation)
+
+                //Added 11/9/2021 thomas downes
+                if (par_listFieldsNotIncluded != null)
+                    par_listFieldsNotIncluded.Add(par_elementField.FieldInfo.CIBadgeField);
+
             }
             //            Catch ex_draw_any As System.Exception
             catch (Exception ex_draw_any)
@@ -982,7 +1037,9 @@ namespace ciBadgeGenerator
                 //                strMessage_any = ex_draw_any.Message
                 string strMessage_any;
                 strMessage_any = ex_draw_any.Message;
-                throw new Exception("Let's throw the message.", ex_draw_any);
+                //---throw new Exception("Let's throw the message.", ex_draw_any);
+                if (par_listMessages != null)
+                par_listMessages.Add(ex_draw_any.Message + "..." + par_elementField.FieldInfo.CIBadgeField);
 
                 //                ''Added 8/24 thomas d.
                 //                MessageBox.Show(strMessage_any, "99943800",
@@ -990,6 +1047,10 @@ namespace ciBadgeGenerator
                 //                                MessageBoxIcon.Exclamation)
                 //            End Try
                 //        End With ''End of "With par_elementField"
+                //Added 11/9/2021 thomas downes
+                if (par_listFieldsNotIncluded != null)
+                par_listFieldsNotIncluded.Add(par_elementField.FieldInfo.CIBadgeField);
+
             }
             //
             //        ''---gr.Dispose()
