@@ -14,6 +14,27 @@ Imports ciBadgeRecipients ''Added 10/16/2019 thomas d.
 
 Public Event ElementField_RightClicked(par_elementField As ClassElementField) ''Added 10/1/2019 td
 
+Public Structure WhyOmitted ''Added 11/10/2021 thomas downes
+    Dim OmitElement As Boolean
+    Dim OmitField As Boolean
+    Dim OmitCoordinateX As Boolean
+    Dim OmitCoordinateY As Boolean
+    Dim OmitWidth As Boolean
+    Dim OmitHeight As Boolean
+    ''Dim increment1 = Function(x As Integer) x + 1
+    ''==Const OmitElement_Msg As String = " (Element Property not flagged as True)"
+    ''==Const OmitField_Msg As String = " (Field Property not flagged as True)"
+    Public Function OmitElementMsg() As String
+        If (OmitElement) Then Return " (Element Property not flagged as True)"
+        Return ""
+    End Function
+    Public Function OmitFieldMsg() As String
+        If (OmitField) Then Return " (Field Property not flagged as True)"
+        Return ""
+    End Function
+
+End Structure
+
 <Serializable>
 Public Class ClassElementField
     Implements IElement_Base, IElement_TextOnly, IElement_TextField
@@ -321,10 +342,20 @@ Public Class ClassElementField
 
     End Sub
 
-    Public Function IsDisplayedOnBadge_Visibly() As Boolean
+
+    Public Function FieldNm_CaptionText() As String
+        ''//Added 11/10/2021 thomas downes
+        Return (FieldInfo.CIBadgeField & "/" & FieldInfo.DataEntryText)
+    End Function
+
+    Public Function IsDisplayedOnBadge_Visibly(ByRef par_whyOmit As WhyOmitted) As Boolean
+        ''----Public Function IsDisplayedOnBadge_Visibly() As Boolean
         ''
         ''Added 9/19/2019 td  
         ''
+        par_whyOmit.OmitElement = (Not Me.Visible) ''Added 11/10/2021 td  
+        par_whyOmit.OmitField = (Not Me.FieldInfo.IsDisplayedOnBadge) ''Added 11/10/20121 td  
+
         Return (Me.FieldInfo.IsDisplayedOnBadge And Me.Visible)
 
     End Function ''End of "Public Function IsDisplayedOnBadge_Visibly() As Boolean"

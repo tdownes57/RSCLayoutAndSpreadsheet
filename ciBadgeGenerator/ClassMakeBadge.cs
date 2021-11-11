@@ -72,6 +72,7 @@ namespace ciBadgeGenerator
         public static bool IncludeQR = false; //Added 2/3/2020 thomas d. 
         public static bool IncludeSignature = false;  //Added 2/3/2020 thomas d.
 
+        public static bool OmitOutlyingElements = false;  // true; // Added 11/10/2021 td
 
         public Image ElementFieldToImage(ClassElementField par_elementField,
                                             IBadgeLayout par_layout)
@@ -838,6 +839,9 @@ namespace ciBadgeGenerator
             //
             string strTextToDisplay = par_elementField.LabelText_ToDisplay(false);
 
+            //Added 11/10/2021 td
+            WhyOmitted structWhyOmitted = new WhyOmitted();
+
             //
             //        ''9/3/2019 td''If (not par_elementField.IsDiplayedOnBadge) Then Continue for
             //n
@@ -853,19 +857,40 @@ namespace ciBadgeGenerator
             //                  Continue For
 
             // 10-17-2019 td // if (0 > par_elementField.LeftEdge_Pixels) continue;
-            if (0 > par_elementField.LeftEdge_Pixels) return;
+            if (OmitOutlyingElements && (0 > par_elementField.LeftEdge_Pixels)) //return;
+            {
+                // Added 11/10/2021
+                structWhyOmitted.OmitCoordinateX = true;  
+                if (par_listFieldsNotIncluded != null)
+                { par_listFieldsNotIncluded.Add(par_elementField.FieldNm_CaptionText() + " - LeftEdge < 0"); }
+                return;  //10-17 continue;
+            }
 
             //                Case(.TopEdge_Pixels< 0) ''Then
             //                  Continue For
 
-            if (0 > par_elementField.TopEdge_Pixels) return;  //10-17 continue;
+            if (OmitOutlyingElements && (0 > par_elementField.TopEdge_Pixels))
+            {
+                // Added 11/10/2021  
+                structWhyOmitted.OmitCoordinateY = true;
+                if (par_listFieldsNotIncluded != null)
+                { par_listFieldsNotIncluded.Add(par_elementField.FieldNm_CaptionText() + " - TopEdge < 0"); }
+                return;  //10-17 continue;
+            }
 
             //    Case(.LeftEdge_Pixels + .Width_Pixels > par_imageBadgeCard.Width) ''Then 
             //                    ''Continue For
 
             int intElementsRightEdge = (par_elementField.LeftEdge_Pixels +
                                         par_elementField.Width_Pixels);
-            if (intElementsRightEdge > par_imageBadgeCard.Width) return;  //10-17 continue;
+            if (OmitOutlyingElements && (intElementsRightEdge > par_imageBadgeCard.Width))
+            {
+                // Added 11/10/2021
+                structWhyOmitted.OmitWidth = true; 
+                if (par_listFieldsNotIncluded != null)
+                { par_listFieldsNotIncluded.Add(par_elementField.FieldNm_CaptionText() + " - RightEdge > BadgeWidth"); }
+                return;  //10-17 continue;
+            }
 
             //                Case(.TopEdge_Pixels + .Height_Pixels > par_imageBadgeCard.Height) ''Then 
             //                    ''Continue For
@@ -873,8 +898,14 @@ namespace ciBadgeGenerator
             int intElementsBottomEdge = (par_elementField.TopEdge_Pixels +
                                         par_elementField.Height_Pixels);
 
-            if (intElementsBottomEdge > par_imageBadgeCard.Height) return;  //10-17 continue;
-
+            if (OmitOutlyingElements && (intElementsBottomEdge > par_imageBadgeCard.Height)) //return;  //10-17 continue;
+            {
+                // Added 11/10/2021
+                structWhyOmitted.OmitHeight = true;
+                if (par_listFieldsNotIncluded != null)
+                { par_listFieldsNotIncluded.Add(par_elementField.FieldNm_CaptionText() + " - BottomEdge > BadgeHeight"); }
+                return;  //10-17 continue;
+            }
 
             //            End Select
             //        End With ''End of "With par_elementField"
@@ -894,12 +925,17 @@ namespace ciBadgeGenerator
             //          If(Not FieldInfo.IsDisplayedOnBadge) Then Continue For
 
             //Added 10/14/2019 td
-            if (!(par_elementField.IsDisplayedOnBadge_Visibly()))
+            //+++if (!(par_elementField.IsDisplayedOnBadge_Visibly(structWhyOmitted)))
+            bool bElementSuppressed = (!(par_elementField.IsDisplayedOnBadge_Visibly(ref structWhyOmitted)));
+            if (bElementSuppressed)
             {
                 //Added 11/9/2021 td
                 if (par_listFieldsNotIncluded != null) 
                     par_listFieldsNotIncluded.Add(par_elementField.FieldInfo.CIBadgeField 
-                        + " since !IsDisplayedOnBadge_Visibly().");
+                        + $"  - (\"{par_elementField.FieldInfo.DataEntryText}\") "
+                        + " since !IsDisplayedOnBadge_Visibly(). "
+                        + structWhyOmitted.OmitFieldMsg()
+                        + structWhyOmitted.OmitElementMsg());
                 return;  //10-17 continue;
             }
 
