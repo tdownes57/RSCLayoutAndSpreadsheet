@@ -90,6 +90,32 @@ Public Class ClassElementsCache_Deprecated
 
     End Function ''End of "Public Function ListOfFields_Any() As List(Of ClassFieldAny)"
 
+
+    Public Function ListOfFields_CreateCopies() As List(Of ClassFieldAny)
+        ''
+        ''Added 11/15/2021 thomas downes
+        ''
+        ''Create copies of the Field objects. 
+        ''
+        Dim obj_list As New List(Of ClassFieldAny)
+
+        ''11/15/2021 td'' obj_list.AddRange(ListOfFields_Standard)
+        For Each objFieldS As ClassFieldStandard In ListOfFields_Standard
+            ''Make a copy.
+            obj_list.Add(objFieldS.Copy())
+        Next objFieldS
+
+        ''11/15/2021 td'' obj_list.AddRange(ListOfFields_Custom)
+        For Each objFieldC As ClassFieldCustomized In ListOfFields_Custom
+            ''Make a copy.
+            obj_list.Add(objFieldC.Copy())
+        Next objFieldC
+
+        Return obj_list
+
+    End Function ''End of "Public Function ListOfFields_Any() As List(Of ClassFieldAny)"
+
+
     Public Function ListOfFields_ForEditing(par_recipInfo As IRecipient) As List(Of ClassFieldAny)
         ''
         ''Added 2/20/2020 thomas downes
@@ -355,11 +381,56 @@ Public Class ClassElementsCache_Deprecated
 
     End Sub ''End of "Public Sub LoadFields(par_pictureBackground As PictureBox)"
 
+
+    Public Sub LoadFields_FromList(par_list As List(Of ClassFieldAny))
+        ''
+        ''Added 11/15/2019 td
+        ''
+        ''Custom Fields (Initialize the list)  
+        ''
+        ''ClassFieldCustomized.InitializeHardcodedList_Students(True)
+        mod_listFields_Custom = Nothing
+        mod_listFields_Standard = Nothing
+
+        mod_listFields_Custom = New HashSet(Of ClassFieldCustomized)
+        mod_listFields_Standard = New HashSet(Of ClassFieldStandard)
+
+        ''
+        ''End of "Part 1 of 2.  Initialize the lists." 
+        ''
+
+        ''
+        ''Part 2 of 2.  Collect the list items. 
+        ''
+        ''Standard Fields (Collect the list items)  
+        ''
+        For Each each_field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students
+
+            ''10/14/2019 td''mod_listFields.Add(each_field_standard)
+            mod_listFields_Standard.Add(each_field_standard)
+
+        Next each_field_standard
+        ''----------------------------------------------------------------------------------------------------
+
+        ''----------------------------------------------------------------------------------------------------
+        ''Customized Fields (Collect the list items)  
+        ''
+        For Each each_field_customized As ClassFieldCustomized In ClassFieldCustomized.ListOfFields_Students
+
+            ''10/14/2019 td''mod_listFields.Add(each_field_customized)
+            mod_listFields_Custom.Add(each_field_customized)
+
+        Next each_field_customized
+        ''-------------------------------------------------------------------------------------
+
+    End Sub ''End of "Public Sub LoadFields(par_pictureBackground As PictureBox)"
+
+
     Public Sub LoadFieldElements(par_pictureBackground As PictureBox, par_layout As BadgeLayoutClass)
         ''
         ''Added 9/16/2019 thomas d. 
         ''
-        ''----------------------------------------------------------------------------------------------------
+        ''------------------------------------------------------------------------------------
         ''
         ''Part 1 of 2.  Initialize the lists. 
         ''
@@ -377,13 +448,13 @@ Public Class ClassElementsCache_Deprecated
         ''
         ''End of "Part 1 of 2.  Initialize the lists." 
         ''
-        ''----------------------------------------------------------------------------------------------------
+        ''---   ----------------------------------------------------------------------------------------
 
-        ''----------------------------------------------------------------------------------------------------
+        ''--------------------------------------------------------------------------------------
         ''
         ''Part 2 of 2.  Collect the list items. 
         ''
-        ''----------------------------------------------------------------------------------------------------
+        ''--------------------------------------------------------------------------------------
         ''Standard Fields (Collect the list items)  
         ''
         ''For Each field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students
@@ -394,9 +465,9 @@ Public Class ClassElementsCache_Deprecated
         ''    field_standard.ElementFieldClass.BadgeLayout = New BadgeLayoutClass(par_pictureBackground)
 
         ''Next field_standard
-        ''----------------------------------------------------------------------------------------------------
+        ''------------------------------------------------------------------------------------
 
-        ''----------------------------------------------------------------------------------------------------
+        ''---------------------------------------------------------------------------------------
         ''Custom Fields (Collect the list items) 
         ''
         ''For Each field_custom As ClassFieldCustomized In ClassFieldCustomized.ListOfFields_Students
@@ -407,7 +478,7 @@ Public Class ClassElementsCache_Deprecated
         ''    field_custom.ElementFieldClass.BadgeLayout = New BadgeLayoutClass(par_pictureBackground)
 
         ''Next field_custom
-        ''----------------------------------------------------------------------------------------------------
+        ''-------------------------------------------------------------------------------------
 
         Dim new_elementField As ClassElementField ''Added 9/18/2019 td
         Dim intFieldIndex As Integer ''Added 9/18/2019 td

@@ -75,14 +75,15 @@ namespace ciBadgeGenerator
         public static bool OmitOutlyingElements = false;  // true; // Added 11/10/2021 td
 
         public Image ElementFieldToImage(ClassElementField par_elementField,
-                                            IBadgeLayout par_layout)
+                                            IBadgeLayout par_layout, 
+                                            ref string par_bugmessage)
         {
             //
             //Encapsulated 5/3/2020 td
             //
             string strTextToDisplay = par_elementField.LabelText_ToDisplay(false);
 
-            Image image_textStandard;
+            Image image_textStandard = null;
 
             if (0 == par_elementField.Width_Pixels)
             {
@@ -130,8 +131,9 @@ namespace ciBadgeGenerator
             //            Catch ex_draw_invalid As InvalidOperationException
             catch (InvalidOperationException ex_draw_invalid)
             {
-                string strMessage_Invalid = ex_draw_invalid.Message;
-                throw new Exception("Let's throw the message.", ex_draw_invalid);
+                //string strMessage_Invalid = ex_draw_invalid.Message;
+                //throw new Exception("Let's throw the message.", ex_draw_invalid);
+                par_bugmessage = ex_draw_invalid.Message + " ... " + ex_draw_invalid.ToString();
 
             }
 
