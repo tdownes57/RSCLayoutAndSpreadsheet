@@ -414,6 +414,15 @@ Public Class ClassElementsCache_Deprecated
             End If
 
         Next each_field_standard
+
+        ''
+        '' Check!!   ---11/17/2021 thomas downes
+        ''
+        If (mod_listFields_Standard.Count = 0) Then
+            ''Added 11/17/2021 thomas downes
+            Throw New Exception("Load failed, the standard list of fields is empty!!")
+        End If ''end of "If (mod_listFields_Standard.Count = 0) Then"
+
         ''----------------------------------------------------------
 
         ''---------------------------------------------------------
@@ -430,6 +439,15 @@ Public Class ClassElementsCache_Deprecated
             End If
 
         Next each_field_custom
+
+        ''
+        '' Check!!   ---11/17/2021 thomas downes
+        ''
+        If (mod_listFields_Custom.Count = 0) Then
+            ''Added 11/17/2021 thomas downes
+            Throw New Exception("Load failed, the standard list of fields is empty!!")
+        End If ''end of "If (mod_listFields_Custom.Count = 0) Then"
+
         ''-------------------------------------------------------------------------------------
 
     End Sub ''End of "Public Sub LoadFields(par_pictureBackground As PictureBox)"
