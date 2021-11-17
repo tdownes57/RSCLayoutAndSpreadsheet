@@ -1,0 +1,53 @@
+﻿    ''//
+    ''// Auto-Mappers  
+    ''//   https://stackoverflow.com/questions/16534253/c-sharp-converting-base-class-to-child-class
+    ''//   https://dotnettutorials.net/lesson/automapper-in-c-sharp/
+    ''//   https://docs.automapper.org/en/latest/Setup.html
+    ''//
+    ''  In the class ClassElementField....
+    ''
+    <Xml.Serialization.XmlIgnore>
+    Private Shared _mapConfig_Pic As MapperConfiguration = New MapperConfiguration(Sub(cfg) cfg.CreateMap(Of IElementPic, ClassElementField)())
+    <Xml.Serialization.XmlIgnore>
+    Private Shared _mapConfig_TextField As MapperConfiguration = New MapperConfiguration(Sub(cfg) cfg.CreateMap(Of IElement_TextField, ClassElementField)())
+    <Xml.Serialization.XmlIgnore>
+    Private Shared _mapConfig_TextOnly As MapperConfiguration = New MapperConfiguration(Sub(cfg) cfg.CreateMap(Of IElement_TextOnly, ClassElementField)())
+    <Xml.Serialization.XmlIgnore>
+    Private Shared _mapConfig_Base As MapperConfiguration = New MapperConfiguration(Sub(cfg) cfg.CreateMap(Of IElement_Base, ClassElementField)())
+
+
+      Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base,
+                                    par_ElementInfo_Text As IElement_TextOnly,
+                                    par_ElementInfo_Field As IElement_TextField,
+                                    par_badgeLayout As BadgeLayoutClass)
+        ''
+        ''Added 9/13/2019 thomas downes
+        ''
+        ''--------------------------------------------------------------------------
+        ''Step 1 of 2 -- Base properties.
+        ''--------------------------------------------------------------------------
+        ''
+        ''//
+        ''// Auto-Mappers  
+        ''//   https://stackoverflow.com/questions/16534253/c-sharp-converting-base-class-to-child-class
+        ''//   https://dotnettutorials.net/lesson/automapper-in-c-sharp/
+        ''//   https://docs.automapper.org/en/latest/Setup.html
+        ''//
+        ''Dim objMapper As New Mapper(_mapConfig_Base)
+        ''objMapper.Map(Of ClassElementField)(par_ElementInfo_Base)
+
+        Me.Back_Color = par_ElementInfo_Base.Back_Color
+        Me.Back_Transparent = par_ElementInfo_Base.Back_Transparent
+        Me.BadgeLayout = par_ElementInfo_Base.BadgeLayout
+        Me.Border_Color = par_ElementInfo_Base.Border_Color
+        Me.Border_Displayed = par_ElementInfo_Base.Border_Displayed
+        Me.Border_WidthInPixels = par_ElementInfo_Base.Border_WidthInPixels
+        Me.Height_Pixels = par_ElementInfo_Base.Height_Pixels
+        Me.LeftEdge_Pixels = par_ElementInfo_Base.LeftEdge_Pixels
+        Me.OrientationInDegrees = par_ElementInfo_Base.OrientationInDegrees
+        Me.OrientationToLayout = par_ElementInfo_Base.OrientationToLayout
+        Me.PositionalMode = par_ElementInfo_Base.PositionalMode
+        Me.SelectedHighlighting = par_ElementInfo_Base.SelectedHighlighting
+        Me.TopEdge_Pixels = par_ElementInfo_Base.TopEdge_Pixels
+        Me.Width_Pixels = par_ElementInfo_Base.Width_Pixels
+
