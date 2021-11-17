@@ -11,6 +11,7 @@ Imports ciBadgeFields ''Added 9/18/2019 td
 Imports System.Xml.Serialization ''Added 9/24/2019 thomas d. 
 Imports ciBadgeRecipients ''Added 10/16/2019 thomas d. 
 ''Imports ciBadgeInterfaces ''Added 11/16/2019 thomas d. 
+Imports AutoMapper ''Added 11/17/2021 thomas d. 
 
 Public Event ElementField_RightClicked(par_elementField As ClassElementField) ''Added 10/1/2019 td
 
@@ -66,6 +67,27 @@ Public Class ClassElementField
             oRecipient = Nothing ''Don't allow an object older reference to interfere with determining Recipient-related data. 12/01/2019 td
         End Set
     End Property
+
+    Public Shared Function GetMapper() As AutoMapper.MapperConfiguration
+        ''
+        '' Added 11/17/2021 thomas downes
+        ''
+        ''//
+        ''//   https://stackoverflow.com/questions/16534253/c-sharp-converting-base-class-to-child-class
+        ''//   https://dotnettutorials.net/lesson/automapper-in-c-sharp/
+        ''//   https://docs.automapper.org/en/latest/Setup.html
+        ''//
+        ''
+        ''//Initialize the mapper
+        Dim config As MapperConfiguration
+
+        ''config = New MapperConfiguration(cfg => cfg.CreateMap(IElement_Base, IElementPic))
+        ''config = New MapperConfiguration(Sub(cfg) cfg.CreateMap(IElementPic, IElement_Base))
+        ''config = New MapperConfiguration()
+
+
+
+    End Function
 
     Public Property Id_GUID As System.Guid  ''Added 9/30/2019 td 
 
