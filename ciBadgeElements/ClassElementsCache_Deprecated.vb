@@ -14,7 +14,7 @@ Imports ciBadgeRecipients ''Added 10/16/2019 thomas d.
 <Serializable>
 Public Class ClassElementsCache_Deprecated
     ''
-    ''Added 9/16/2019 thomas downes
+    ''Added 9/16/2019 thomas downes....
     ''
     Public Shared Singleton As ClassElementsCache_Deprecated ''Let's use
     '' the pattern mentioned in https://en.wikipedia.org/wiki/Singleton_pattern
@@ -420,7 +420,7 @@ Public Class ClassElementsCache_Deprecated
         ''
         If (mod_listFields_Standard.Count = 0) Then
             ''Added 11/17/2021 thomas downes
-            Throw New Exception("Load failed, the standard list of fields is empty!!")
+            Throw New Exception("Load failed, the standard list of fields is empty.")
         End If ''end of "If (mod_listFields_Standard.Count = 0) Then"
 
         ''----------------------------------------------------------
@@ -445,12 +445,12 @@ Public Class ClassElementsCache_Deprecated
         ''
         If (mod_listFields_Custom.Count = 0) Then
             ''Added 11/17/2021 thomas downes
-            Throw New Exception("Load failed, the standard list of fields is empty!!")
+            Throw New Exception("Load failed, the standard list of fields is empty.")
         End If ''end of "If (mod_listFields_Custom.Count = 0) Then"
 
         ''-------------------------------------------------------------------------------------
 
-    End Sub ''End of "Public Sub LoadFields(par_pictureBackground As PictureBox)"
+    End Sub ''End of "Public Sub LoadFields_FromList(par_listFieldAny As As List(Of ClassFieldAny))"
 
 
     Public Sub LoadFieldElements(par_pictureBackground As PictureBox, par_layout As BadgeLayoutClass)
