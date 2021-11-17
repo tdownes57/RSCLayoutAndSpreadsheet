@@ -409,22 +409,27 @@ Public Class ClassElementsCache_Deprecated
 
             ''10/14/2019 td''mod_listFields.Add(each_field_standard)
             If (TypeOf each_field_standard Is ClassFieldStandard) Then
-                mod_listFields_Standard.Add(each_field_standard)
+                ''---mod_listFields_Standard.Add(each_field_standard)
+                mod_listFields_Standard.Add(CType(each_field_standard, ClassFieldStandard))
             End If
 
         Next each_field_standard
-        ''----------------------------------------------------------------------------------------
+        ''----------------------------------------------------------
 
-        ''----------------------------------------------------------------------------------------
+        ''---------------------------------------------------------
         ''Customized Fields (Collect the list items)  
         ''
         ''--For Each each_field_customized As ClassFieldCustomized In ClassFieldCustomized.ListOfFields_Students
-        For Each each_field_standard As ClassFieldAny In par_listFieldAny
+        For Each each_field_custom As ClassFieldAny In par_listFieldAny
 
-                ''10/14/2019 td''mod_listFields.Add(each_field_customized)
-                mod_listFields_Custom.Add(each_field_customized)
+            ''10/14/2019 td''mod_listFields.Add(each_field_customized)
+            ''11/17/2021''mod_listFields_Custom.Add(each_field_customized)
+            If (TypeOf each_field_custom Is ClassFieldCustomized) Then
+                ''---mod_listFields_Standard.Add(each_field_standard)
+                mod_listFields_Custom.Add(CType(each_field_custom, ClassFieldCustomized))
+            End If
 
-            Next each_field_customized
+        Next each_field_custom
         ''-------------------------------------------------------------------------------------
 
     End Sub ''End of "Public Sub LoadFields(par_pictureBackground As PictureBox)"
