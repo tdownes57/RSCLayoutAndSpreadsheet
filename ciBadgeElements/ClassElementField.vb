@@ -46,6 +46,22 @@ Public Class ClassElementField
     ''7/29/2019 td''Public Property Info As IElementText
     ''
     ''-------------------------------------------------------------
+    ''//
+    ''// Auto-Mappers  
+    ''//   https://stackoverflow.com/questions/16534253/c-sharp-converting-base-class-to-child-class
+    ''//   https://dotnettutorials.net/lesson/automapper-in-c-sharp/
+    ''//   https://docs.automapper.org/en/latest/Setup.html
+    ''//
+    ''
+    <Xml.Serialization.XmlIgnore>
+    Private Shared _mapConfig_Pic As MapperConfiguration = New MapperConfiguration(Sub(cfg) cfg.CreateMap(Of IElementPic, ClassElementField)())
+    <Xml.Serialization.XmlIgnore>
+    Private Shared _mapConfig_TextField As MapperConfiguration = New MapperConfiguration(Sub(cfg) cfg.CreateMap(Of IElement_TextField, ClassElementField)())
+    <Xml.Serialization.XmlIgnore>
+    Private Shared _mapConfig_TextOnly As MapperConfiguration = New MapperConfiguration(Sub(cfg) cfg.CreateMap(Of IElement_TextOnly, ClassElementField)())
+    <Xml.Serialization.XmlIgnore>
+    Private Shared _mapConfig_Base As MapperConfiguration = New MapperConfiguration(Sub(cfg) cfg.CreateMap(Of IElement_Base, ClassElementField)())
+
     <Xml.Serialization.XmlIgnore>
     Public Shared Property oRecipient As ClassRecipient ''Added 10/16/2019 td  
     ''11/16/2019 td''Public Shared Property Recipient As ClassRecipient ''Added 10/16/2019 td  
@@ -68,7 +84,7 @@ Public Class ClassElementField
         End Set
     End Property
 
-    Public Shared Function GetMapper() As AutoMapper.MapperConfiguration
+    Public Shared Function GetMapperConfiguration_Pic() As AutoMapper.MapperConfiguration
         ''
         '' Added 11/17/2021 thomas downes
         ''
@@ -79,15 +95,20 @@ Public Class ClassElementField
         ''//
         ''
         ''//Initialize the mapper
-        Dim config As MapperConfiguration
+        ''[[Dim config As MapperConfiguration
 
         ''config = New MapperConfiguration(cfg => cfg.CreateMap(IElement_Base, IElementPic))
         ''config = New MapperConfiguration(Sub(cfg) cfg.CreateMap(IElementPic, IElement_Base))
         ''config = New MapperConfiguration()
 
+        ''[[Dim actionX As Action(Of IMapperConfigurationExpression) = Sub(cfg) cfg.CreateMap(IElementPic, IElement_Base)
+        ''[[Dim actionX As Action(Of IMapperConfigurationExpression) = Sub(cfg) cfg.CreateMap(Of ClassElementPic, ClassElementField)()
+        ''___Dim config As MapperConfiguration
+        ''___config = New MapperConfiguration(Sub(cfg) cfg.CreateMap(Of IElementPic, IElement_Base)())
 
+        Return _mapConfig_Pic
 
-    End Function
+    End Function ''End of ""
 
     Public Property Id_GUID As System.Guid  ''Added 9/30/2019 td 
 
@@ -610,6 +631,15 @@ Public Class ClassElementField
         ''Step 1 of 2 -- Base properties.
         ''--------------------------------------------------------------------------
         ''
+        ''//
+        ''// Auto-Mappers  
+        ''//   https://stackoverflow.com/questions/16534253/c-sharp-converting-base-class-to-child-class
+        ''//   https://dotnettutorials.net/lesson/automapper-in-c-sharp/
+        ''//   https://docs.automapper.org/en/latest/Setup.html
+        ''//
+        ''Dim objMapper As New Mapper(_mapConfig_Base)
+        ''objMapper.Map(Of ClassElementField)(par_ElementInfo_Base)
+
         Me.Back_Color = par_ElementInfo_Base.Back_Color
         Me.Back_Transparent = par_ElementInfo_Base.Back_Transparent
         Me.BadgeLayout = par_ElementInfo_Base.BadgeLayout
