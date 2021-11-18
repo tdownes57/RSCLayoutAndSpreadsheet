@@ -12,6 +12,11 @@ Public Interface ICIBFieldStandardOrCustom
 
     Property FieldLabelCaption As String
 
+
+    Property IsRelevantToPersonality As Boolean ''Added 11/18/2021 td
+    Property IsDisplayedOnBadge As Boolean ''Added 8/29 & 8/22/2019 td
+    Property IsDisplayedForEdits As Boolean ''Added 8/29 & 8/22/2019 td
+
     Property IsStandard As Boolean ''Added 7/26/2019 thomas d. 
     Property IsCustomizable As Boolean ''Added 7/26/2019 thomas d. 
 
@@ -41,8 +46,8 @@ Public Interface ICIBFieldStandardOrCustom
     Property OtherDbField_Optional As String ''Added 7/21/2019 thomas downes
 
     ''Added 8/29 & 8/22/2019 td
-    Property IsDisplayedOnBadge As Boolean
-    Property IsDisplayedForEdits As Boolean
+    ''Moved above, on 11/18/2021 td''Property IsDisplayedOnBadge As Boolean
+    ''Moved above, on 11/18/2021 td''Property IsDisplayedForEdits As Boolean
 
     Property DataEntryText As String ''Added 9/9/2019 td 
 

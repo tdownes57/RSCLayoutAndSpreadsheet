@@ -26,6 +26,12 @@ Public Class ClassFieldAny
     <Xml.Serialization.XmlIgnore>
     Public Property iRecipientInfo As IRecipient ''Added 12/01/2019 td
 
+    ''Added 11/18/2021 Thomas Downes
+    Public Property IsRelevantToPersonality As Boolean Implements ICIBFieldStandardOrCustom.IsRelevantToPersonality
+
+    Public Property IsDisplayedOnBadge As Boolean Implements ICIBFieldStandardOrCustom.IsDisplayedOnBadge
+    Public Property IsDisplayedForEdits As Boolean Implements ICIBFieldStandardOrCustom.IsDisplayedForEdits
+
     Public Property IsStandard As Boolean = False Implements ICIBFieldStandardOrCustom.IsStandard ''Added 7/26/2019 td
     Public Property IsCustomizable As Boolean = False Implements ICIBFieldStandardOrCustom.IsCustomizable ''Added 7/26/2019 td
 
@@ -64,8 +70,8 @@ Public Class ClassFieldAny
 
     Public Property IsLocked As Boolean Implements ICIBFieldStandardOrCustom.IsLocked
 
-    Public Property IsDisplayedOnBadge As Boolean Implements ICIBFieldStandardOrCustom.IsDisplayedOnBadge
-    Public Property IsDisplayedForEdits As Boolean Implements ICIBFieldStandardOrCustom.IsDisplayedForEdits
+    ''Moved up 11/18/2021 td''Public Property IsDisplayedOnBadge As Boolean Implements ICIBFieldStandardOrCustom.IsDisplayedOnBadge
+    ''Moved up 11/18/2021 td''Public Property IsDisplayedForEdits As Boolean Implements ICIBFieldStandardOrCustom.IsDisplayedForEdits
 
     Public Property DefaultValue As String = "" Implements ICIBFieldStandardOrCustom.DefaultValue ''Added 12/1/2019 thomas downes
     Public Property ExampleValue As String = "" Implements ICIBFieldStandardOrCustom.ExampleValue
