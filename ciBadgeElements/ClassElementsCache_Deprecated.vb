@@ -1046,16 +1046,19 @@ Public Class ClassElementsCache_Deprecated
     End Function ''ENd of "Public Function GetFieldByFieldEnum  
 
 
-    Public Function GetElementIndexByFieldEnumIndex(pintFieldEnumIndex As Integer)
+    Public Function GetElementIndexByFieldIndex(pintFieldIndex As Integer) As Integer
         ''
         '' Added 11/17/2021 Thomas Downes 
         ''
         For Each objFldElement As ClassElementField In mod_listElementFields
             ''Find the right FieldElement, by it's enumerated field value.
-            If (objFldElement.FieldEnum = pintFieldEnumIndex) Then
-                Return objFldElement.ElementIndex()
+            If (objFldElement.FieldEnum = pintFieldIndex) Then
+                ''Added 11/17 td
+                Return objFldElement.ElementIndexIsFieldIndex()
             End If
         Next objFldElement
+
+        Throw New Exception("Can't find element w/ FieldIndex")
 
     End Function
 
