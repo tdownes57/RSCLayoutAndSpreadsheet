@@ -382,7 +382,33 @@ Public Class ClassElementsCache_Deprecated
     End Sub ''End of "Public Sub LoadFields(par_pictureBackground As PictureBox)"
 
 
-    Public Sub LoadFields_FromList(par_listFieldAny As List(Of ClassFieldAny))
+    Public Sub LoadFields_FromList(par_listStandard As List(Of ClassFieldStandard),
+                                   par_listCustom As List(Of ClassFieldCustomized))
+        ''
+        ''Added 11/17/2021 td 
+        ''
+        mod_listFields_Standard = New HashSet(Of ClassFieldStandard)(par_listStandard)
+        mod_listFields_Custom = New HashSet(Of ClassFieldCustomized)(par_listCustom)
+
+        ''
+        ''Added 11/17/2021 td 
+        ''
+        Dim each_element As ciBadgeElements.ClassElementField
+
+        For Each each_element In ListFieldElements()
+            ''
+            ''Refresh the .FieldObject & .FieldInfo properties.
+            ''
+            each_element.FieldObject = GetFieldByFieldEnum(each_element.FieldEnum)
+            each_element.FieldInfo = each_element.FieldObject
+
+        Next each_element
+
+    End Sub ''End of "Public Sub LoadFields_FromList"
+
+
+    Public Sub LoadFieldsFromList_Deprecated(par_listFieldAny As List(Of ClassFieldAny))
+        ''Public Sub LoadFields_FromList(par_listFieldAny As List(Of ClassFieldAny))
         ''
         ''Added 11/15/2019 td
         ''
@@ -988,11 +1014,32 @@ Public Class ClassElementsCache_Deprecated
 
     End Function ''ENd of "Public Function GetFieldByLabelCaptionpar_caption As String) As ClassFieldAny"
 
+
     Public Function GetFieldByLabelCaption(par_caption As String) As ClassFieldAny
         ''Added 10/10/2019 td 
         Return (Nothing)
 
-    End Function ''ENd of "Public Function GetFieldByLabelCaptionpar_caption As String) As ClassFieldAny"
+    End Function ''ENd of "Public Function GetFieldByLabelCaption(par_caption As String) As ClassFieldAny"
+
+
+    Public Function GetFieldByFieldEnum(par_enum As EnumCIBFields) As ClassFieldAny
+        ''
+        ''Added 11/17/2021 td
+        ''
+        ''First, check standard fields. 
+        For Each objFld As ClassFieldStandard In mod_listFields_Standard
+            ''Find the right field, by it's enumerated value.
+            If (objFld.FieldEnumValue = par_enum) Then Return objFld
+        Next
+
+        ''First, check custom fields. 
+        For Each objFld As ClassFieldCustomized In mod_listFields_Custom
+            ''Find the right field, by it's enumerated value.
+            If (objFld.FieldEnumValue = par_enum) Then Return objFld
+        Next
+
+    End Function ''ENd of "Public Function GetFieldByFieldEnum  
+
 
     Public Function GetElementByLabelCaption(par_caption As String) As ClassElementField
         ''Added 10/10/2019 td 
