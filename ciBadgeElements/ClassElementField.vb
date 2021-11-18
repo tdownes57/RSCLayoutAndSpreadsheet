@@ -357,6 +357,7 @@ Public Class ClassElementField
 
     End Sub
 
+
     Public Sub New(par_fieldInfo As ICIBFieldStandardOrCustom,
                    par_intLeft_Pixels As Integer, par_intTop_Pixels As Integer, par_intHeight_Pixels As Integer)
         ''9/17 td''Public Sub New(par_intLeft_Pixels As Integer, par_intTop_Pixels As Integer, par_intHeight_Pixels As Integer)
@@ -384,6 +385,16 @@ Public Class ClassElementField
         Me.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass ''Added 9/12/2019
 
     End Sub
+
+
+    Public Function ElementIndexIsFieldIndex() As Integer
+        ''//
+        ''// Added 11/18/2021 td 
+        ''//
+        Return FieldInfo.FieldIndex
+
+    End Function ''End of Public Function ElementIndexIsFieldIndex 
+
 
 
     Public Function FieldNm_CaptionText() As String

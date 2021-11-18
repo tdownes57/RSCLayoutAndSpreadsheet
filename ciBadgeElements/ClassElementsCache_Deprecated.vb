@@ -393,14 +393,19 @@ Public Class ClassElementsCache_Deprecated
         ''
         ''Added 11/17/2021 td 
         ''
+        ''Since the FieldElements rely heavily on the Fields,
+        ''   we must refresh the connections between the two. 
+        ''
         Dim each_element As ciBadgeElements.ClassElementField
+        Dim eachrelated_field As ciBadgeFields.ClassFieldAny
 
         For Each each_element In ListFieldElements()
             ''
             ''Refresh the .FieldObject & .FieldInfo properties.
             ''
-            each_element.FieldObject = GetFieldByFieldEnum(each_element.FieldEnum)
-            each_element.FieldInfo = each_element.FieldObject
+            eachrelated_field = GetFieldByFieldEnum(each_element.FieldEnum)
+            each_element.FieldObject = eachrelated_field
+            each_element.FieldInfo = CType(eachrelated_field, ICIBFieldStandardOrCustom)
 
         Next each_element
 
@@ -1032,13 +1037,27 @@ Public Class ClassElementsCache_Deprecated
             If (objFld.FieldEnumValue = par_enum) Then Return objFld
         Next
 
-        ''First, check custom fields. 
+        ''Second, check custom fields. 
         For Each objFld As ClassFieldCustomized In mod_listFields_Custom
             ''Find the right field, by it's enumerated value.
             If (objFld.FieldEnumValue = par_enum) Then Return objFld
         Next
 
     End Function ''ENd of "Public Function GetFieldByFieldEnum  
+
+
+    Public Function GetElementIndexByFieldEnumIndex(pintFieldEnumIndex As Integer)
+        ''
+        '' Added 11/17/2021 Thomas Downes 
+        ''
+        For Each objFldElement As ClassElementField In mod_listElementFields
+            ''Find the right FieldElement, by it's enumerated field value.
+            If (objFldElement.FieldEnum = pintFieldEnumIndex) Then
+                Return objFldElement.ElementIndex()
+            End If
+        Next objFldElement
+
+    End Function
 
 
     Public Function GetElementByLabelCaption(par_caption As String) As ClassElementField
