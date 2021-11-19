@@ -76,12 +76,14 @@ namespace ciBadgeGenerator
 
         public Image ElementFieldToImage(ClassElementField par_elementField,
                                             IBadgeLayout par_layout, 
-                                            ref string par_bugmessage)
+                                            ref string par_bugmessage, 
+                                            ref string par_textDisplayed)
         {
             //
             //Encapsulated 5/3/2020 td
             //
             string strTextToDisplay = par_elementField.LabelText_ToDisplay(false);
+            par_textDisplayed = strTextToDisplay; // Added 11/18/2021 thomas downes
 
             Image image_textStandard = null;
 
