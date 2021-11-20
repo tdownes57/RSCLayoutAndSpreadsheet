@@ -1017,7 +1017,7 @@ Public Class ClassElementsCache_Deprecated
 
         Return (Nothing)
 
-    End Function ''ENd of "Public Function GetFieldByLabelCaptionpar_caption As String) As ClassFieldAny"
+    End Function ''ENd of "Public Function GetElementByFieldEnum"
 
 
     Public Function GetFieldByLabelCaption(par_caption As String) As ClassFieldAny
@@ -1046,21 +1046,56 @@ Public Class ClassElementsCache_Deprecated
     End Function ''ENd of "Public Function GetFieldByFieldEnum  
 
 
-    Public Function GetElementIndexByFieldIndex(pintFieldIndex As Integer) As Integer
+    Public Function GetElementIndexByFieldIndex_1stTry(pintFieldIndex As Integer) As Integer
         ''
-        '' Added 11/17/2021 Thomas Downes 
+        ''Added 11/17/2021 Thomas Downes 
         ''
+        Throw New Exception("It sucks to compare FieldEnum & FieldIndex.")
+
         For Each objFldElement As ClassElementField In mod_listElementFields
-            ''Find the right FieldElement, by it's enumerated field value.
+            ''Find the right FieldElement, by it's enumerated
+            ''   field value.  ----11/19/2021 
             If (objFldElement.FieldEnum = pintFieldIndex) Then
                 ''Added 11/17 td
                 Return objFldElement.ElementIndexIsFieldIndex()
-            End If
+            End If ''End of "If (objFldElement.FieldEnum = pintFieldIndex) Then"
         Next objFldElement
 
         Throw New Exception("Can't find element w/ FieldIndex")
 
-    End Function
+    End Function ''End of "Public Function GetElementIndexByFieldIndex_ThisSucks"
+
+    Public Function GetElementIndexByFieldIndex_2ndTry(pintFieldIndex As Integer) As Integer
+        ''
+        ''Added 11/19/2021 Thomas Downes 
+        ''
+        Dim objRelevantFieldAny As ClassFieldAny = Nothing
+        Dim objElement As ClassElementField
+
+        ''This sucks''objField = (ListOfFields_Any()).Item(pintFieldIndex)
+
+        For Each each_field As ClassFieldAny In ListOfFields_Any()
+            If (each_field.FieldIndex = pintFieldIndex) Then
+                ''Get the matching field object. 
+                objRelevantFieldAny = each_field
+                Exit For
+            End If
+        Next each_field
+
+        For Each each_element As ClassElementField In mod_listElementFields
+            If (each_element.FieldInfo Is objRelevantFieldAny) Then
+                ''
+                ''Added 11/19 td
+                ''
+                ''---Return objFldElement.ElementIndexIsFieldIndex()
+                Return each_element.ElementIndexIsFieldIndex()
+
+            End If ''End of "If (objFldElement.FieldEnum = pintFieldIndex) Then"
+        Next each_element
+
+        Throw New Exception("Can't find element w/ matching Field.")
+
+    End Function ''End of "Public Function GetElementIndexByFieldIndex_ThisSucks"
 
 
     Public Function GetElementByLabelCaption(par_caption As String) As ClassElementField
@@ -1070,8 +1105,42 @@ Public Class ClassElementsCache_Deprecated
     End Function ''ENd of "Public Function GetFieldByLabelCaptionpar_caption As String) As ClassFieldAny"
 
     Public Function GetElementByField(par_field As ClassFieldAny) As ClassElementField
-        ''Added 10/10/2019 td 
-        Return (Nothing)
+        ''Added 11/19/2021 td 
+        ''Return (Nothing)
+
+        For Each each_element As ClassElementField In ListOfElementFields
+
+            If (each_element.FieldEnum = par_field.FieldEnumValue) Then Return each_element
+
+        Next each_element
+
+    End Function ''ENd of "Public Function GetElementByField As ClassElementField"
+
+    Public Function CheckAllElementsHaveCorrectFieldInfo(ByRef pbAllFine As Boolean,
+                                                         ByRef pstrMessage As String) As Boolean
+        ''
+        ''Added 11/19/2021 td 
+        '' 
+        Dim boolMatch As Boolean = False
+        Dim intCountBad As Integer = 0
+        Dim intCountAll As Integer = 0
+
+        pbAllFine = True
+        pstrMessage = ""
+
+        For Each each_element As ClassElementField In ListOfElementFields
+            intCountAll += 1
+            boolMatch = (each_element.FieldEnum = each_element.FieldInfo.FieldEnumValue)
+            ''We don't want to leave prematurely.''----If (Not boolMatch) Then Return False
+            ''--If (Not boolMatch) Then pbAllFine = False
+            pbAllFine = (boolMatch And pbAllFine)
+            If (Not boolMatch) Then intCountBad += 1
+        Next each_element
+
+        ''[[[pbAllFine = True
+        pstrMessage = $"Out of {intCountAll} elements, there are {intCountBad} misaligned fields."
+
+        Return True
 
     End Function ''ENd of "Public Function GetFieldByLabelCaptionpar_caption As String) As ClassFieldAny"
 
