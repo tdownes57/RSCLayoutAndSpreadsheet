@@ -105,7 +105,8 @@ Public Class CtlGraphicText
     Public Sub Refresh_Image(pbRefreshSize As Boolean,
                              Optional pboolResizeLabelControl As Boolean = True,
                              Optional pboolRefreshLabelControl As Boolean = True,
-                             Optional pboolRefreshUserControl As Boolean = False)
+                             Optional pboolRefreshUserControl As Boolean = False,
+                             Optional par_intBadgeLayoutWidth As Integer = 681)
         ''
         ''Added 7/25/2019 thomas d 
         ''
@@ -209,8 +210,14 @@ Public Class CtlGraphicText
         ''9/3/2019 td''LabelToImage.TextImage(pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
 
         Dim intBadgeLayoutWidth As Integer ''Added 9/3/2019 thomas d.
+
         ''9/19/2019 td''intLayoutWidth = Me.FormDesigner.Layout_Width_Pixels()
-        intBadgeLayoutWidth = Me.LayoutFunctions.Layout_Width_Pixels()
+        If (Me.LayoutFunctions IsNot Nothing) Then
+            intBadgeLayoutWidth = Me.LayoutFunctions.Layout_Width_Pixels()
+        Else
+            ''Added 11/24/2021 td
+            intBadgeLayoutWidth = par_intBadgeLayoutWidth
+        End If
 
         ''9/4/2019 td''LabelToImage.TextImage(intLayoutWidth, pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
 
@@ -219,7 +226,14 @@ Public Class CtlGraphicText
         ''
         Dim newTextImage As Image ''Added 9/20/2019 td  
 
-        Const c_boolUseNewestProjectReference As Boolean = True ''Added 9/20/2019 td 
+        ''Added 11/24/2021 thomas d. 
+        If (0 = Me.ElementInfo_Base.BadgeLayout.Width_Pixels) Then
+            ''Added 11/24/2021 thomas d. 
+            Me.ElementInfo_Base.BadgeLayout.Width_Pixels = 681
+            Me.ElementInfo_Base.BadgeLayout.Height_Pixels = 425
+        End If ''End of "If (0 = Me.ElementInfo_Base.BadgeLayout.Width_Pixels) Then"
+
+        Const c_boolUseNewestProjectReference As Boolean = True ''False ''True ''Added 9/20/2019 td 
         If (c_boolUseNewestProjectReference) Then
 
             newTextImage =
@@ -231,7 +245,8 @@ Public Class CtlGraphicText
         Else
             ''9/20/2019 td''pictureLabel.Image =
             newTextImage =
-            LabelToImage.TextImage_Field(intBadgeLayoutWidth, Me.ElementInfo_TextOnly,
+            LabelToImage.TextImage_Field(intBadgeLayoutWidth,
+                                    Me.ElementInfo_TextOnly,
                                    Me.ElementInfo_Base,
                                    boolRotated, True)
         End If ''End of "If (c_boolUseNewestProjectReference) Then ..... Else ...."

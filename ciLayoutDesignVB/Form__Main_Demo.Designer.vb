@@ -152,7 +152,7 @@ Partial Class Form__Main_Demo
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RightClickMenuParent, Me.ToolStripMenuItem1, Me.ConfigurationOfFieldsEtcToolStripMenuItem, Me.DesignLayoutToolStripMenuItem, Me.BackgroundImagesToolStripMenuItem, Me.DemoModeVideoToolStripMenuItem, Me.BadgeRecipientsToolStripMenuItem, Me.EmailAddressToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1245, 30)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1245, 28)
         Me.MenuStrip1.TabIndex = 39
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -176,7 +176,7 @@ Partial Class Form__Main_Demo
         '
         Me.ToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenToolStripMenuItem, Me.FileSaveMenuItem, Me.FileSaveAsMenuItem, Me.ExitToolStripMenuItem})
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(46, 26)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(46, 24)
         Me.ToolStripMenuItem1.Text = "File"
         '
         'OpenToolStripMenuItem
@@ -207,7 +207,7 @@ Partial Class Form__Main_Demo
         '
         Me.ConfigurationOfFieldsEtcToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StandardFieldsToolStripMenuItem, Me.CustomFieldsToolStripMenuItem})
         Me.ConfigurationOfFieldsEtcToolStripMenuItem.Name = "ConfigurationOfFieldsEtcToolStripMenuItem"
-        Me.ConfigurationOfFieldsEtcToolStripMenuItem.Size = New System.Drawing.Size(204, 26)
+        Me.ConfigurationOfFieldsEtcToolStripMenuItem.Size = New System.Drawing.Size(204, 24)
         Me.ConfigurationOfFieldsEtcToolStripMenuItem.Text = "Configuration of Fields, Etc."
         '
         'StandardFieldsToolStripMenuItem
@@ -226,7 +226,7 @@ Partial Class Form__Main_Demo
         '
         Me.DesignLayoutToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenControlPanelToolStripMenuItem, Me.UploadBackgroundToolStripMenuItem, Me.PlaceElementsToolStripMenuItem, Me.AddGraphicsElementToolStripMenuItem, Me.AddSubsectionToolStripMenuItem, Me.ChangeOrientationToolStripMenuItem, Me.DoubleSidedToolStripMenuItem, Me.ModeV9ToolStripMenuItem, Me.ClearAllSelectedElementsToolStripMenuItem})
         Me.DesignLayoutToolStripMenuItem.Name = "DesignLayoutToolStripMenuItem"
-        Me.DesignLayoutToolStripMenuItem.Size = New System.Drawing.Size(117, 26)
+        Me.DesignLayoutToolStripMenuItem.Size = New System.Drawing.Size(117, 24)
         Me.DesignLayoutToolStripMenuItem.Text = "Design Layout"
         '
         'OpenControlPanelToolStripMenuItem
@@ -306,7 +306,7 @@ Partial Class Form__Main_Demo
         '
         Me.BackgroundImagesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.UploadNewToolStripMenuItem, Me.SelectFromExistingToolStripMenuItem})
         Me.BackgroundImagesToolStripMenuItem.Name = "BackgroundImagesToolStripMenuItem"
-        Me.BackgroundImagesToolStripMenuItem.Size = New System.Drawing.Size(154, 26)
+        Me.BackgroundImagesToolStripMenuItem.Size = New System.Drawing.Size(154, 24)
         Me.BackgroundImagesToolStripMenuItem.Text = "Background Images"
         '
         'UploadNewToolStripMenuItem
@@ -339,7 +339,7 @@ Partial Class Form__Main_Demo
         '
         Me.BadgeRecipientsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ShowBadgeRecipientsToolStripMenuItem, Me.CloseListOfRecipentsToolStripMenuItem, Me.PrintAllBadgesToFileFolderToolStripMenuItem})
         Me.BadgeRecipientsToolStripMenuItem.Name = "BadgeRecipientsToolStripMenuItem"
-        Me.BadgeRecipientsToolStripMenuItem.Size = New System.Drawing.Size(138, 26)
+        Me.BadgeRecipientsToolStripMenuItem.Size = New System.Drawing.Size(138, 24)
         Me.BadgeRecipientsToolStripMenuItem.Text = "Badge Recipients"
         '
         'ShowBadgeRecipientsToolStripMenuItem
@@ -363,7 +363,7 @@ Partial Class Form__Main_Demo
         'EmailAddressToolStripMenuItem
         '
         Me.EmailAddressToolStripMenuItem.Name = "EmailAddressToolStripMenuItem"
-        Me.EmailAddressToolStripMenuItem.Size = New System.Drawing.Size(117, 26)
+        Me.EmailAddressToolStripMenuItem.Size = New System.Drawing.Size(117, 24)
         Me.EmailAddressToolStripMenuItem.Text = "Email Address"
         '
         'CheckBox1
@@ -535,9 +535,9 @@ Partial Class Form__Main_Demo
         Me.flowSidebar.BackColor = System.Drawing.SystemColors.Info
         Me.flowSidebar.Controls.Add(Me.LinkCloseSidebar)
         Me.flowSidebar.Dock = System.Windows.Forms.DockStyle.Right
-        Me.flowSidebar.Location = New System.Drawing.Point(1223, 30)
+        Me.flowSidebar.Location = New System.Drawing.Point(1223, 28)
         Me.flowSidebar.Name = "flowSidebar"
-        Me.flowSidebar.Size = New System.Drawing.Size(22, 561)
+        Me.flowSidebar.Size = New System.Drawing.Size(22, 563)
         Me.flowSidebar.TabIndex = 54
         Me.flowSidebar.Visible = False
         '
@@ -637,13 +637,13 @@ Partial Class Form__Main_Demo
         '
         'CtlGraphicText1
         '
-        Me.CtlGraphicText1.Location = New System.Drawing.Point(896, 481)
+        Me.CtlGraphicText1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.CtlGraphicText1.Location = New System.Drawing.Point(767, 476)
         Me.CtlGraphicText1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.CtlGraphicText1.Name = "CtlGraphicText1"
-        Me.CtlGraphicText1.Size = New System.Drawing.Size(349, 32)
+        Me.CtlGraphicText1.Size = New System.Drawing.Size(398, 32)
         Me.CtlGraphicText1.TabIndex = 67
         Me.CtlGraphicText1.TextToDisplay = "This is text which will be the same for everyone."
-        Me.CtlGraphicText1.Visible = False
         '
         'CtlGraphicSignature1
         '

@@ -21,7 +21,7 @@ Public Class ClassLabelToImage
     ''
     ''Added 7/17/2019
     ''
-    Public Shared UseHighResolutionTips As Boolean = False ''Added 9/8/2019 td
+    Public Shared UseHighResolutionTips As Boolean = True ''False ''Added 9/8/2019 td
 
     ''Public Shared Function LongSideToShortRatio() As Double
     ''    ''
@@ -394,6 +394,9 @@ Public Class ClassLabelToImage
         Dim font_scaled As System.Drawing.Font ''Added 9/8/2019 td
 
         With par_elementInfo_Text
+
+            ''Added 11/24/2021 thomas downes
+            If (.FontSize_Pixels < 10) Then Throw New Exception("Font Size is less than 10. Hard to read.")
 
             ''Added 9/15/2019 thomas d.
             If (.FontFamilyName Is Nothing) Then

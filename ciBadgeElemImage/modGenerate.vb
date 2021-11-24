@@ -78,6 +78,9 @@ Public Module modGenerate
         ''
         ''Copied from ClassElementText.GenerateImage_NotInUse, 9/3/2019 & 8/15/2019 thomas d. 
         ''
+        ''Added 11/24/2021 td
+        If (0 = par_elementInfo_Base.Height_Pixels) Then Throw New Exception("Division by 0 (par_elementInfo_Base.Height_Pixels)")
+
         doubleW_div_H = (par_elementInfo_Base.Width_Pixels / par_elementInfo_Base.Height_Pixels)
 
         ''Added 9/4/2019 thomas downes
@@ -87,6 +90,9 @@ Public Module modGenerate
         ''8/24 td''doubleScaling = (pintFinalLayoutWidth / par_element.LayoutWidth_Pixels)
         ''9/5/2019 td''doubleScaling = (pintDesiredLayoutWidth / par_elementInfo_Base.Width_Pixels)
         ''9/11/2019 td''doubleScaling = (pintDesiredLayoutWidth / par_elementInfo_Base.LayoutWidth_Pixels)
+
+        ''Added 11/24/2021 td
+        If (0 = par_elementInfo_Base.BadgeLayout.Width_Pixels) Then Throw New Exception("Division by 0 (par_elementInfo_Base.BadgeLayout.Width_Pixels)")
 
         doubleScaling = (pintDesiredLayoutWidth / par_elementInfo_Base.BadgeLayout.Width_Pixels)
 
@@ -112,7 +118,7 @@ Public Module modGenerate
         ''
         ''  https://stackoverflow.com/questions/2478502/when-creating-an-bitmap-image-from-scratch-in-vb-net-the-quality-stinks
         ''
-        Const c_UseHighResolutionTips As Boolean = False ''Hasn't been tested yet. ----Added 9/19/2019 td
+        Const c_UseHighResolutionTips As Boolean = True ''False ''Hasn't been tested yet. ----Added 9/19/2019 td
 
         If (c_UseHighResolutionTips) Then
 
@@ -287,6 +293,9 @@ Public Module modGenerate
         Dim font_scaled As System.Drawing.Font ''Added 9/8/2019 td
 
         With par_elementInfo_TextFld
+
+            ''Added 11/24/2021 thomas downes
+            If (.FontSize_Pixels < 10) Then Throw New Exception("Font Size is less than 10. Hard to read.")
 
             ''Added 9/15/2019 thomas d.
             If (.FontFamilyName Is Nothing) Then
