@@ -16,6 +16,8 @@ Public Class ClassElementStaticText
     ''Added 9/16/2019 thomas downes
     ''
     ''
+    Public Property BadgeDisplayIndex As Integer Implements IElement_Base.BadgeDisplayIndex ''Added 11/24/2021 td 
+
     <Xml.Serialization.XmlIgnore>
     Public Property Font_DrawingClass As System.Drawing.Font Implements IElement_TextOnly.Font_DrawingClass
 

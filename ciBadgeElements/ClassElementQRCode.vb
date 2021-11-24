@@ -26,6 +26,8 @@ Public Class ClassElementQRCode
     <Xml.Serialization.XmlIgnore>
     Public Property Info As IElementQRCode
 
+    Public Property BadgeDisplayIndex As Integer Implements IElement_Base.BadgeDisplayIndex ''Added 11/24/2021 td
+
     Public Property PositionalMode As String Implements IElement_Base.PositionalMode ''Added 8/14/2019 td 
 
     <Xml.Serialization.XmlIgnore>

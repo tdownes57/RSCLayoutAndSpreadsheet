@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.28922.388
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ciLayoutDesignCS", "ciLayoutDesign\ciLayoutDesignCS.csproj", "{A3A45502-64AE-40B2-B9A1-3DC1EF382191}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "abcLayoutDesignVB", "ciLayoutDesignVB\abcLayoutDesignVB.vbproj", "{FB60907F-05CD-474D-967E-831B7BA2D517}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "RSC ID LayoutDesign", "ciLayoutDesignVB\RSC ID LayoutDesign.vbproj", "{FB60907F-05CD-474D-967E-831B7BA2D517}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ciLayoutPrintLib", "ciLayoutPrintLib\ciLayoutPrintLib.vbproj", "{F8271E6C-5C26-4CEC-BD4C-AD3B10FEF6B9}"
 EndProject
@@ -55,9 +55,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ciBadgeGen_Lib_Core", "ciBa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ciBadgeGen_App_Core", "ciBadgeGen_App_Core\ciBadgeGen_App_Core.csproj", "{656482DF-1871-4B8A-83FD-9EBF57F621D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "__Start__abcLayoutDesignVB", "__Start__ciLayoutDesignVB\__Start__abcLayoutDesignVB.csproj", "{EADC769E-D8A6-4A79-B6FC-C7C4184C029D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "__Start__RSC ID LayoutDesignVB", "__Start__ciLayoutDesignVB\__Start__RSC ID LayoutDesignVB.csproj", "{EADC769E-D8A6-4A79-B6FC-C7C4184C029D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "abcBundleBadgeImagesToEmail_Core", "abcBundleBadgeImagesToEmail\abcBundleBadgeImagesToEmail_Core.csproj", "{158A604A-E8DA-4224-B919-FE425BAA2E23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "abcBundleBadgeImagesToEmail_Core", "abcBundleBadgeImagesToEmail\abcBundleBadgeImagesToEmail_Core.csproj", "{158A604A-E8DA-4224-B919-FE425BAA2E23}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

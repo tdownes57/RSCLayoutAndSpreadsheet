@@ -21,7 +21,7 @@ namespace abcBundleBadgeImagesToEmail_Core
         //   https://codewithmukesh.com/blog/file-upload-in-aspnet-core-mvc/
         //   https://codewithmukesh.com/blog/entity-framework-core-in-aspnet-core/
         //   
-        public List<IFormFile> Attachments { get; set; }
+        //public List<IFormFile> Attachments { get; set; }
 
     }
 }

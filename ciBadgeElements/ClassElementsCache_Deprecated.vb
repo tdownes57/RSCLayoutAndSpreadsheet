@@ -250,6 +250,39 @@ Public Class ClassElementsCache_Deprecated
         End Set
     End Property
 
+    Public Function BadgeDisplayElements_Fields() As List(Of ClassElementField)
+        ''
+        ''Added 11/24/2021 thomas downes 
+        ''
+        Return ListOfBadgeDisplayElements_Flds()
+    End Function
+
+    Public Function ListOfBadgeDisplayElements_Flds() As List(Of ClassElementField)
+        ''
+        ''Added 11/24/2021 tdownes
+        ''
+        ''  For each element, we check to see if it will be displayed on the Badge.
+        ''  If so, it's included on the output list.  
+        ''
+        Dim new_list As New List(Of ClassElementField)
+        Dim each_element As ClassElementField
+        Dim boolOnDisplay As Boolean
+        Dim structWhyOmit As New ciBadgeElements.WhyOmitted
+        Dim indexBadgeDisplay As Integer
+
+        For Each each_element In mod_listElementFields
+
+            boolOnDisplay = each_element.IsDisplayedOnBadge_Visibly(structWhyOmit)
+            If (boolOnDisplay) Then
+                new_list.Add(each_element)
+                indexBadgeDisplay += 1
+                each_element.BadgeDisplayIndex = indexBadgeDisplay
+            End If ''End of "If (boolOnDisplay) Then"
+        Next each_element
+
+    End Function ''End of "Public Function ListOfBadgeDisplayElements_Flds()"
+
+
     Public Property ListOfElementPics As HashSet(Of ClassElementPic)  ''---List(Of ClassElementPic)
         Get ''Added 10/13/2019 td
             Return mod_listElementPics
@@ -1096,6 +1129,18 @@ Public Class ClassElementsCache_Deprecated
         Throw New Exception("Can't find element w/ matching Field.")
 
     End Function ''End of "Public Function GetElementIndexByFieldIndex_ThisSucks"
+
+    Public Function MapElementIndex_OmitUnneeded(par_indexElement As Integer) As Integer
+        ''
+        ''  Added 11/24/2021 thomas downes
+        ''
+        ''---Throw New NotImplementedException("See BadgeSetupElements() instead.")
+        ''===Throw New NotImplementedException(My.Resources.ErrorUseBadgeSetupElements)
+        ''//Const strError_Msg As String = "See BadgeSetupElements() instead."
+        ''//Throw New NotImplementedException(strError_Msg)
+        Throw New NotImplementedException(My.Resources.ErrorUseBadgeSetupElements)
+
+    End Function ''End of "Public Function MapElementIndex_OmitUnneeded(int par_indexElement)"
 
 
     Public Function GetElementByLabelCaption(par_caption As String) As ClassElementField

@@ -33,6 +33,8 @@ Public Interface IElement_Base
     Property Width_Pixels As Integer
     Property Height_Pixels As Integer
 
+    Property BadgeDisplayIndex As Integer ''Added 11/24/2021 thomas d. 
+
     ''8/29/2019 td''Property Border_Pixels As Integer ''Renamed 8/29/2019 thomas d. 
     Property Border_Displayed As Boolean ''Added 9/9/2019 thomas d. 
     Property Border_WidthInPixels As Integer ''Resuffixed 8/29/2019 thomas d. 

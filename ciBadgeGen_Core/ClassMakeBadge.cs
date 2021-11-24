@@ -788,6 +788,7 @@ namespace ciBadgeGenerator
             //            Dim image_textStandard As Image
 
             Image image_textStandard;
+            WhyOmitted struct_omitted = new WhyOmitted(); //Added 11/24/2021 td 
 
             //            ''9/20/2019 td''Dim intLeft As Integer
             //            ''9/20/2019 td''Dim intTop As Integer
@@ -796,7 +797,8 @@ namespace ciBadgeGenerator
             //          If(Not FieldInfo.IsDisplayedOnBadge) Then Continue For
 
             //Added 10/14/2019 td
-            if (!(par_elementField.IsDisplayedOnBadge_Visibly())) return;  //10-17 continue;
+            //---if (!(par_elementField.IsDisplayedOnBadge_Visibly())) return;  //10-17 continue;
+            if (!(par_elementField.IsDisplayedOnBadge_Visibly(ref struct_omitted))) return;  //10-17 continue;
 
             //
             //            ''Added 9/4/2019 thomas downes

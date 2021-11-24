@@ -61,6 +61,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to See BadgeSetupElements() instead..
+        '''</summary>
+        Friend ReadOnly Property ErrorUseBadgeSetupElements() As String
+            Get
+                Return ResourceManager.GetString("ErrorUseBadgeSetupElements", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Please confirm refresh of BackgroundImage_Path, BackgroundImage_FTitle..
         '''</summary>
         Friend ReadOnly Property PlsConfirmRefresh() As String

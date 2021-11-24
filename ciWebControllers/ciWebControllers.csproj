@@ -77,5 +77,11 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\tdownes57\ciBadgeForWeb\ciPictures_VB\ciPictures_VB.vbproj">
+      <Project>{a5fe9f7b-4075-43c5-892b-01e2cfec342c}</Project>
+      <Name>ciPictures_VB</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

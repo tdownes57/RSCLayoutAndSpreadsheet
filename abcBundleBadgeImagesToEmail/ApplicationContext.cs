@@ -10,7 +10,7 @@ namespace abcBundleBadgeImagesToEmail_Core
     //
     //  https://codewithmukesh.com/blog/entity-framework-core-in-aspnet-core/
     //
-    public class ApplicationContext : DbContext, IApplicationContext
+    public class ApplicationContext : DbContext //, IApplicationContext
     {
         //
         //   https://codewithmukesh.com/blog/entity-framework-core-in-aspnet-core/

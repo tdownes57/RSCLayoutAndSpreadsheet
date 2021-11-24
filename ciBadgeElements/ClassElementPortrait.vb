@@ -26,6 +26,8 @@ Public Class ClassElementPic ''May be renamed to ClassElementPortrait. ---10/8/2
     Public Shared ElementPicture As ClassElementPic ''Added 7/31/2019 thomas d.
 
     Public Property Id_GUID As System.Guid ''Added 9/30/2019 td 
+    Public Property BadgeDisplayIndex As Integer Implements IElement_Base.BadgeDisplayIndex ''Added 11/24/2021 td 
+
 
     <Xml.Serialization.XmlIgnore>
     Public Property Info As IElementPic

@@ -15,6 +15,8 @@ Public Class ClassElementLaysection
     ''
     Private mod_cache As ClassElementsCache_Deprecated
 
+    Public Property BadgeDisplayIndex As Integer Implements IElement_Base.BadgeDisplayIndex ''Added 11/24/2021 td
+
     Public Property SubLayout As ciBadgeInterfaces.BadgeLayoutClass ''Added 9/17/2019 thomas downes
 
     Public Property FormControl As Control Implements IElement_Base.FormControl ''Added 7/19/2019  

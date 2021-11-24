@@ -16,6 +16,7 @@ Imports AutoMapper ''Added 11/17/2021 thomas d.
 Public Event ElementField_RightClicked(par_elementField As ClassElementField) ''Added 10/1/2019 td
 
 Public Structure WhyOmitted ''Added 11/10/2021 thomas downes
+    Dim NotRelevantField As Boolean ''Added 11/24/2021
     Dim OmitElement As Boolean
     Dim OmitField As Boolean
     Dim OmitCoordinateX As Boolean
@@ -25,6 +26,11 @@ Public Structure WhyOmitted ''Added 11/10/2021 thomas downes
     ''Dim increment1 = Function(x As Integer) x + 1
     ''==Const OmitElement_Msg As String = " (Element Property not flagged as True)"
     ''==Const OmitField_Msg As String = " (Field Property not flagged as True)"
+    Public Function NotRelevantMsg() As String
+        ''Added 11/24/2021 
+        If (NotRelevantField) Then Return " (Field not relevant to Personality)"
+        Return ""
+    End Function
     Public Function OmitElementMsg() As String
         If (OmitElement) Then Return " (Element Property not flagged as True)"
         Return ""
@@ -111,6 +117,8 @@ Public Class ClassElementField
     End Function ''End of ""
 
     Public Property Id_GUID As System.Guid  ''Added 9/30/2019 td 
+
+    Public Property BadgeDisplayIndex As Integer Implements IElement_Base.BadgeDisplayIndex ''Added 11/24/2021 td 
 
     <Xml.Serialization.XmlIgnore>
     Public Property Font_DrawingClass As System.Drawing.Font Implements IElement_TextOnly.Font_DrawingClass
@@ -407,6 +415,7 @@ Public Class ClassElementField
         ''
         ''Added 9/19/2019 td  
         ''
+        par_whyOmit.NotRelevantField = (Not Me.FieldInfo.IsRelevantToPersonality) ''Added 11/24/2021 
         par_whyOmit.OmitElement = (Not Me.Visible) ''Added 11/10/2021 td  
         par_whyOmit.OmitField = (Not Me.FieldInfo.IsDisplayedOnBadge) ''Added 11/10/20121 td  
 

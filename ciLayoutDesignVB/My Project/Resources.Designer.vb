@@ -348,6 +348,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to See BadgeSetupElements() instead..
+        '''</summary>
+        Friend ReadOnly Property UseBadgeSetupElements() As String
+            Get
+                Return ResourceManager.GetString("UseBadgeSetupElements", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property V381() As System.Drawing.Bitmap
