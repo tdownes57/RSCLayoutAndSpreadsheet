@@ -672,8 +672,10 @@ Public Class Form__Main_Demo
         ''---Dim list_fieldsNotLoadedYet_Custom As New List(Of ClassFieldCustomized)
         ''---Dim list_fieldsNotLoadedYet_Standrd As New List(Of ClassFieldStandard)
 
-        Dim list_fieldsNotLoadedYet_Any As New List(Of ICIBFieldStandardOrCustom)
-        Dim list_elementsNotLoadedYet_Any As New List(Of ClassElementField) ''Added 9/17/2019 td  
+        ''Dim list_fieldsNotLoadedYet_Any As New List(Of ICIBFieldStandardOrCustom)
+        ''Dim list_elementsNotLoadedYet_Any As New List(Of ClassElementField) ''Added 9/17/2019 td  
+        Dim list_fieldsNotLoadedYet_Any As New HashSet(Of ICIBFieldStandardOrCustom)
+        Dim list_elementsNotLoadedYet_Any As New HashSet(Of ClassElementField) ''Added 9/17/2019 td  
         Dim boolMissingFromForm As Boolean
         Dim boolNotDisplayed_ButShouldBe As Boolean
 
@@ -988,7 +990,8 @@ Public Class Form__Main_Demo
         ''Added 9/3/2019 thomas downes
         ''
         Dim each_controlField As CtlGraphicFldLabel
-        Dim list_controlFields As New List(Of CtlGraphicFldLabel)
+        ''Dim list_controlFields As New List(Of CtlGraphicFldLabel)
+        Dim list_controlFields As New HashSet(Of CtlGraphicFldLabel)
 
         ''Me.mod_ControlLastTouched = Nothing
         ''Me.mod_ElementLastTouched = Nothing ''9/14 td
@@ -1126,6 +1129,7 @@ Public Class Form__Main_Demo
 
             ''.TypeOfObject = (TypeOf List(Of ICIBFieldStandardOrCustom))
 
+            SaveFileDialog1.FileName = "" ''Added 11/24/2021 thomas downes
             SaveFileDialog1.ShowDialog()
             .PathToXML = SaveFileDialog1.FileName
 
@@ -1193,14 +1197,24 @@ Public Class Form__Main_Demo
 
         If (String.IsNullOrEmpty(s_strFolder)) Then s_strFolder = My.Application.Info.DirectoryPath
 
+        OpenFileDialog1.FileName = ""
         OpenFileDialog1.InitialDirectory = s_strFolder
         OpenFileDialog1.ShowDialog()
+
+        ''Added 11/24/2021 
+        Dim bConfirmFileExists As Boolean
+        bConfirmFileExists = System.IO.File.Exists(OpenFileDialog1.FileName)
+        If (Not bConfirmFileExists) Then Return
 
         Dim objDeserial As New ciBadgeSerialize.ClassDeserial
 
         With objDeserial
 
             .PathToXML = OpenFileDialog1.FileName
+
+            ''Added 11/24/2021 
+            bConfirmFileExists = System.IO.File.Exists(.PathToXML)
+            If (Not bConfirmFileExists) Then Return
 
             ''9/30 td''objCache =
             ''9/30 td''     .DeserializeFromXML(GetType(ClassElementsCache), False)

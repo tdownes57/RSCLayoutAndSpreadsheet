@@ -455,6 +455,12 @@ Public Class ClassElementStaticText
         ''
         If FontSize_ScaleToElementYesNo Then
 
+            ''Added 11/24/2021 thomas d. 
+            If (0 = FontSize_ScaleToElementRatio) Then
+                ''Added 11/24/2021 thomas d. 
+                FontSize_ScaleToElementRatio = 0.8
+            End If ''End of "If (0 = FontSize_ScaleToElementRatio) Then"
+
             FontSize_Pixels = CSng(FontSize_ScaleToElementRatio * par_intNewHeightInPixels)
             Font_DrawingClass = modFonts.SetFontSize_Pixels(Font_DrawingClass, FontSize_Pixels)
 

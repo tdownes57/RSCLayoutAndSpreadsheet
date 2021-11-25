@@ -233,7 +233,7 @@ Public Class CtlGraphicText
             Me.ElementInfo_Base.BadgeLayout.Height_Pixels = 425
         End If ''End of "If (0 = Me.ElementInfo_Base.BadgeLayout.Width_Pixels) Then"
 
-        Const c_boolUseNewestProjectReference As Boolean = True ''False ''True ''Added 9/20/2019 td 
+        Const c_boolUseNewestProjectReference As Boolean = True ''False ''True ''False ''True ''Added 9/20/2019 td 
         If (c_boolUseNewestProjectReference) Then
 
             newTextImage =

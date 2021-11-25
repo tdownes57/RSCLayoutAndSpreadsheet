@@ -148,7 +148,8 @@ ExitHandler:
         ''
         Dim new_font As Font
 
-        If (par_sizeInPixels < 7) Then par_sizeInPixels = 7
+        ''If (par_sizeInPixels < 7) Then par_sizeInPixels = 7
+        If (par_sizeInPixels < 5) Then Throw New Exception("The size in pixels is <5.")
 
         With par_font
 

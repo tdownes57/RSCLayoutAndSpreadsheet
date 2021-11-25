@@ -129,7 +129,7 @@ Public Module modGenerate
             ''  https://stackoverflow.com/questions/2478502/when-creating-an-bitmap-image-from-scratch-in-vb-net-the-quality-stinks
             ''
             ''9/4/2019 td''par_image.SetResolution(300, 300)
-            local_image.SetResolution(300, 300)
+            If (False) Then local_image.SetResolution(300, 300)
 
         Else
             local_image = New Bitmap(intNewElementWidth, intNewElementHeight)
@@ -295,7 +295,8 @@ Public Module modGenerate
         With par_elementInfo_TextFld
 
             ''Added 11/24/2021 thomas downes
-            If (.FontSize_Pixels < 10) Then Throw New Exception("Font Size is less than 10. Hard to read.")
+            '']]]If (.FontSize_Pixels < 5) Then .FontSize_Pixels = 7 ''Throw New Exception("Font Size is less than 10. Hard to read.")
+            ''//If (.FontSize_Pixels < 5) Then Throw New Exception("Font Size is less than 10. Hard to read.")
 
             ''Added 9/15/2019 thomas d.
             If (.FontFamilyName Is Nothing) Then

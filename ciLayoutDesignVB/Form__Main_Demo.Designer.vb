@@ -113,7 +113,7 @@ Partial Class Form__Main_Demo
         Me.LinkShowWebControls.AutoSize = True
         Me.LinkShowWebControls.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LinkShowWebControls.Location = New System.Drawing.Point(543, 519)
-        Me.LinkShowWebControls.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LinkShowWebControls.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
         Me.LinkShowWebControls.Name = "LinkShowWebControls"
         Me.LinkShowWebControls.Size = New System.Drawing.Size(360, 29)
         Me.LinkShowWebControls.TabIndex = 30
@@ -126,7 +126,7 @@ Partial Class Form__Main_Demo
         Me.LinkLabel1.AutoSize = True
         Me.LinkLabel1.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LinkLabel1.Location = New System.Drawing.Point(541, 553)
-        Me.LinkLabel1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LinkLabel1.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
         Me.LinkLabel1.Name = "LinkLabel1"
         Me.LinkLabel1.Size = New System.Drawing.Size(362, 29)
         Me.LinkLabel1.TabIndex = 31
@@ -138,10 +138,10 @@ Partial Class Form__Main_Demo
         '
         Me.chkIncludeExampleValues.AutoCheck = False
         Me.chkIncludeExampleValues.AutoSize = True
-        Me.chkIncludeExampleValues.Location = New System.Drawing.Point(548, 495)
-        Me.chkIncludeExampleValues.Margin = New System.Windows.Forms.Padding(2)
+        Me.chkIncludeExampleValues.Location = New System.Drawing.Point(549, 495)
+        Me.chkIncludeExampleValues.Margin = New System.Windows.Forms.Padding(1, 3, 1, 3)
         Me.chkIncludeExampleValues.Name = "chkIncludeExampleValues"
-        Me.chkIncludeExampleValues.Size = New System.Drawing.Size(223, 26)
+        Me.chkIncludeExampleValues.Size = New System.Drawing.Size(208, 24)
         Me.chkIncludeExampleValues.TabIndex = 32
         Me.chkIncludeExampleValues.Text = "Include example values."
         Me.chkIncludeExampleValues.UseVisualStyleBackColor = True
@@ -152,7 +152,8 @@ Partial Class Form__Main_Demo
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RightClickMenuParent, Me.ToolStripMenuItem1, Me.ConfigurationOfFieldsEtcToolStripMenuItem, Me.DesignLayoutToolStripMenuItem, Me.BackgroundImagesToolStripMenuItem, Me.DemoModeVideoToolStripMenuItem, Me.BadgeRecipientsToolStripMenuItem, Me.EmailAddressToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1245, 28)
+        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(9, 3, 0, 3)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1244, 30)
         Me.MenuStrip1.TabIndex = 39
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -370,9 +371,9 @@ Partial Class Form__Main_Demo
         '
         Me.CheckBox1.AutoSize = True
         Me.CheckBox1.Location = New System.Drawing.Point(733, 440)
-        Me.CheckBox1.Margin = New System.Windows.Forms.Padding(2)
+        Me.CheckBox1.Margin = New System.Windows.Forms.Padding(1, 3, 1, 3)
         Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(226, 26)
+        Me.CheckBox1.Size = New System.Drawing.Size(212, 24)
         Me.CheckBox1.TabIndex = 33
         Me.CheckBox1.Text = "Include Additional Fields"
         Me.CheckBox1.UseVisualStyleBackColor = True
@@ -381,10 +382,10 @@ Partial Class Form__Main_Demo
         'LinkLabelSave1
         '
         Me.LinkLabelSave1.AutoSize = True
-        Me.LinkLabelSave1.Location = New System.Drawing.Point(852, 33)
-        Me.LinkLabelSave1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LinkLabelSave1.Location = New System.Drawing.Point(851, 33)
+        Me.LinkLabelSave1.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
         Me.LinkLabelSave1.Name = "LinkLabelSave1"
-        Me.LinkLabelSave1.Size = New System.Drawing.Size(51, 22)
+        Me.LinkLabelSave1.Size = New System.Drawing.Size(46, 20)
         Me.LinkLabelSave1.TabIndex = 43
         Me.LinkLabelSave1.TabStop = True
         Me.LinkLabelSave1.Text = "Save"
@@ -392,10 +393,10 @@ Partial Class Form__Main_Demo
         'linkSaveAndRefresh
         '
         Me.linkSaveAndRefresh.AutoSize = True
-        Me.linkSaveAndRefresh.Location = New System.Drawing.Point(385, 33)
-        Me.linkSaveAndRefresh.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.linkSaveAndRefresh.Location = New System.Drawing.Point(384, 33)
+        Me.linkSaveAndRefresh.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
         Me.linkSaveAndRefresh.Name = "linkSaveAndRefresh"
-        Me.linkSaveAndRefresh.Size = New System.Drawing.Size(235, 22)
+        Me.linkSaveAndRefresh.Size = New System.Drawing.Size(218, 20)
         Me.linkSaveAndRefresh.TabIndex = 42
         Me.linkSaveAndRefresh.TabStop = True
         Me.linkSaveAndRefresh.Text = "Save && Refresh the Window"
@@ -434,10 +435,10 @@ Partial Class Form__Main_Demo
         'LinkRefreshPreview
         '
         Me.LinkRefreshPreview.AutoSize = True
-        Me.LinkRefreshPreview.Location = New System.Drawing.Point(735, 124)
-        Me.LinkRefreshPreview.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LinkRefreshPreview.Location = New System.Drawing.Point(734, 124)
+        Me.LinkRefreshPreview.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
         Me.LinkRefreshPreview.Name = "LinkRefreshPreview"
-        Me.LinkRefreshPreview.Size = New System.Drawing.Size(142, 22)
+        Me.LinkRefreshPreview.Size = New System.Drawing.Size(132, 20)
         Me.LinkRefreshPreview.TabIndex = 46
         Me.LinkRefreshPreview.TabStop = True
         Me.LinkRefreshPreview.Text = "Refresh Preview"
@@ -448,7 +449,7 @@ Partial Class Form__Main_Demo
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StatusLabel1, Me.StatusLabel2})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 683)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(1245, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(1244, 21)
         Me.StatusStrip1.TabIndex = 47
         Me.StatusStrip1.Text = "StatusStrip1"
         Me.StatusStrip1.Visible = False
@@ -456,19 +457,19 @@ Partial Class Form__Main_Demo
         'StatusLabel1
         '
         Me.StatusLabel1.Name = "StatusLabel1"
-        Me.StatusLabel1.Size = New System.Drawing.Size(93, 16)
+        Me.StatusLabel1.Size = New System.Drawing.Size(93, 15)
         Me.StatusLabel1.Text = "StatusLabel1"
         '
         'StatusLabel2
         '
         Me.StatusLabel2.Name = "StatusLabel2"
-        Me.StatusLabel2.Size = New System.Drawing.Size(93, 16)
+        Me.StatusLabel2.Size = New System.Drawing.Size(93, 15)
         Me.StatusLabel2.Text = "StatusLabel2"
         '
         'linkRemoveElements
         '
         Me.linkRemoveElements.Location = New System.Drawing.Point(11, 495)
-        Me.linkRemoveElements.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.linkRemoveElements.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
         Me.linkRemoveElements.Name = "linkRemoveElements"
         Me.linkRemoveElements.Size = New System.Drawing.Size(94, 72)
         Me.linkRemoveElements.TabIndex = 48
@@ -479,9 +480,9 @@ Partial Class Form__Main_Demo
         '
         Me.LinkLabelSave2.AutoSize = True
         Me.LinkLabelSave2.Location = New System.Drawing.Point(31, 36)
-        Me.LinkLabelSave2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LinkLabelSave2.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
         Me.LinkLabelSave2.Name = "LinkLabelSave2"
-        Me.LinkLabelSave2.Size = New System.Drawing.Size(51, 22)
+        Me.LinkLabelSave2.Size = New System.Drawing.Size(46, 20)
         Me.LinkLabelSave2.TabIndex = 50
         Me.LinkLabelSave2.TabStop = True
         Me.LinkLabelSave2.Text = "Save"
@@ -490,9 +491,9 @@ Partial Class Form__Main_Demo
         '
         Me.dropdownHowToLoadFlds.FormattingEnabled = True
         Me.dropdownHowToLoadFlds.Items.AddRange(New Object() {"...", "Load Standard & Custom Fields as different", "Load Standard & Custom Fields as same"})
-        Me.dropdownHowToLoadFlds.Location = New System.Drawing.Point(594, 30)
+        Me.dropdownHowToLoadFlds.Location = New System.Drawing.Point(594, 29)
         Me.dropdownHowToLoadFlds.Name = "dropdownHowToLoadFlds"
-        Me.dropdownHowToLoadFlds.Size = New System.Drawing.Size(229, 28)
+        Me.dropdownHowToLoadFlds.Size = New System.Drawing.Size(228, 28)
         Me.dropdownHowToLoadFlds.TabIndex = 51
         Me.dropdownHowToLoadFlds.Visible = False
         '
@@ -502,7 +503,7 @@ Partial Class Form__Main_Demo
         Me.flowFieldsNotListed.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.flowFieldsNotListed.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.flowFieldsNotListed.Controls.Add(Me.lblFieldsNotCurrentlyShownHdr)
-        Me.flowFieldsNotListed.Location = New System.Drawing.Point(110, 494)
+        Me.flowFieldsNotListed.Location = New System.Drawing.Point(110, 493)
         Me.flowFieldsNotListed.Name = "flowFieldsNotListed"
         Me.flowFieldsNotListed.Size = New System.Drawing.Size(429, 83)
         Me.flowFieldsNotListed.TabIndex = 52
@@ -522,7 +523,7 @@ Partial Class Form__Main_Demo
         Me.chkHighResolution.AutoSize = True
         Me.chkHighResolution.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.chkHighResolution.Location = New System.Drawing.Point(930, 28)
-        Me.chkHighResolution.Margin = New System.Windows.Forms.Padding(2)
+        Me.chkHighResolution.Margin = New System.Windows.Forms.Padding(1, 3, 1, 3)
         Me.chkHighResolution.Name = "chkHighResolution"
         Me.chkHighResolution.Size = New System.Drawing.Size(155, 22)
         Me.chkHighResolution.TabIndex = 53
@@ -535,9 +536,9 @@ Partial Class Form__Main_Demo
         Me.flowSidebar.BackColor = System.Drawing.SystemColors.Info
         Me.flowSidebar.Controls.Add(Me.LinkCloseSidebar)
         Me.flowSidebar.Dock = System.Windows.Forms.DockStyle.Right
-        Me.flowSidebar.Location = New System.Drawing.Point(1223, 28)
+        Me.flowSidebar.Location = New System.Drawing.Point(1223, 30)
         Me.flowSidebar.Name = "flowSidebar"
-        Me.flowSidebar.Size = New System.Drawing.Size(22, 563)
+        Me.flowSidebar.Size = New System.Drawing.Size(21, 561)
         Me.flowSidebar.TabIndex = 54
         Me.flowSidebar.Visible = False
         '
@@ -546,7 +547,7 @@ Partial Class Form__Main_Demo
         Me.LinkCloseSidebar.AutoSize = True
         Me.LinkCloseSidebar.Location = New System.Drawing.Point(3, 0)
         Me.LinkCloseSidebar.Name = "LinkCloseSidebar"
-        Me.LinkCloseSidebar.Size = New System.Drawing.Size(23, 242)
+        Me.LinkCloseSidebar.Size = New System.Drawing.Size(21, 240)
         Me.LinkCloseSidebar.TabIndex = 0
         Me.LinkCloseSidebar.TabStop = True
         Me.LinkCloseSidebar.Text = "Close sidebar"
@@ -558,7 +559,7 @@ Partial Class Form__Main_Demo
         Me.checkAutoPreview.CheckState = System.Windows.Forms.CheckState.Checked
         Me.checkAutoPreview.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.checkAutoPreview.Location = New System.Drawing.Point(739, 96)
-        Me.checkAutoPreview.Margin = New System.Windows.Forms.Padding(2)
+        Me.checkAutoPreview.Margin = New System.Windows.Forms.Padding(1, 3, 1, 3)
         Me.checkAutoPreview.Name = "checkAutoPreview"
         Me.checkAutoPreview.Size = New System.Drawing.Size(117, 22)
         Me.checkAutoPreview.TabIndex = 55
@@ -573,9 +574,9 @@ Partial Class Form__Main_Demo
         '
         Me.LinkRevertToLastSave.AutoSize = True
         Me.LinkRevertToLastSave.Location = New System.Drawing.Point(116, 36)
-        Me.LinkRevertToLastSave.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LinkRevertToLastSave.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
         Me.LinkRevertToLastSave.Name = "LinkRevertToLastSave"
-        Me.LinkRevertToLastSave.Size = New System.Drawing.Size(226, 22)
+        Me.LinkRevertToLastSave.Size = New System.Drawing.Size(211, 20)
         Me.LinkRevertToLastSave.TabIndex = 63
         Me.LinkRevertToLastSave.TabStop = True
         Me.LinkRevertToLastSave.Text = "Undo / Revert to Last Save"
@@ -585,7 +586,7 @@ Partial Class Form__Main_Demo
         Me.LabelPersonalityCurrent.AutoSize = True
         Me.LabelPersonalityCurrent.Location = New System.Drawing.Point(734, 68)
         Me.LabelPersonalityCurrent.Name = "LabelPersonalityCurrent"
-        Me.LabelPersonalityCurrent.Size = New System.Drawing.Size(214, 22)
+        Me.LabelPersonalityCurrent.Size = New System.Drawing.Size(196, 20)
         Me.LabelPersonalityCurrent.TabIndex = 64
         Me.LabelPersonalityCurrent.Text = "Personality:___________"
         Me.LabelPersonalityCurrent.Visible = False
@@ -596,7 +597,7 @@ Partial Class Form__Main_Demo
         Me.picturePreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.picturePreview.Location = New System.Drawing.Point(733, 149)
         Me.picturePreview.Name = "picturePreview"
-        Me.picturePreview.Size = New System.Drawing.Size(467, 276)
+        Me.picturePreview.Size = New System.Drawing.Size(466, 277)
         Me.picturePreview.TabIndex = 44
         Me.picturePreview.TabStop = False
         '
@@ -606,7 +607,7 @@ Partial Class Form__Main_Demo
         Me.pictureBack.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.pictureBack.Image = CType(resources.GetObject("pictureBack.Image"), System.Drawing.Image)
         Me.pictureBack.Location = New System.Drawing.Point(31, 64)
-        Me.pictureBack.Margin = New System.Windows.Forms.Padding(2)
+        Me.pictureBack.Margin = New System.Windows.Forms.Padding(1, 3, 1, 3)
         Me.pictureBack.Name = "pictureBack"
         Me.pictureBack.Size = New System.Drawing.Size(681, 425)
         Me.pictureBack.TabIndex = 21
@@ -618,7 +619,7 @@ Partial Class Form__Main_Demo
         Me.graphicAdjuster.Image = Global.ciLayoutDesignVB.My.Resources.Resources.AdjustWHColor_V103
         Me.graphicAdjuster.Location = New System.Drawing.Point(829, 515)
         Me.graphicAdjuster.Name = "graphicAdjuster"
-        Me.graphicAdjuster.Size = New System.Drawing.Size(433, 230)
+        Me.graphicAdjuster.Size = New System.Drawing.Size(433, 229)
         Me.graphicAdjuster.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.graphicAdjuster.TabIndex = 45
         Me.graphicAdjuster.TabStop = False
@@ -627,10 +628,10 @@ Partial Class Form__Main_Demo
         'LinkLabelOpenPreviewFileBMP
         '
         Me.LinkLabelOpenPreviewFileBMP.AutoSize = True
-        Me.LinkLabelOpenPreviewFileBMP.Location = New System.Drawing.Point(965, 96)
-        Me.LinkLabelOpenPreviewFileBMP.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LinkLabelOpenPreviewFileBMP.Location = New System.Drawing.Point(964, 96)
+        Me.LinkLabelOpenPreviewFileBMP.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
         Me.LinkLabelOpenPreviewFileBMP.Name = "LinkLabelOpenPreviewFileBMP"
-        Me.LinkLabelOpenPreviewFileBMP.Size = New System.Drawing.Size(240, 22)
+        Me.LinkLabelOpenPreviewFileBMP.Size = New System.Drawing.Size(227, 20)
         Me.LinkLabelOpenPreviewFileBMP.TabIndex = 68
         Me.LinkLabelOpenPreviewFileBMP.TabStop = True
         Me.LinkLabelOpenPreviewFileBMP.Text = "Open Badge from File (BMP)"
@@ -638,17 +639,18 @@ Partial Class Form__Main_Demo
         'CtlGraphicText1
         '
         Me.CtlGraphicText1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.CtlGraphicText1.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CtlGraphicText1.Location = New System.Drawing.Point(767, 476)
         Me.CtlGraphicText1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.CtlGraphicText1.Name = "CtlGraphicText1"
-        Me.CtlGraphicText1.Size = New System.Drawing.Size(398, 32)
+        Me.CtlGraphicText1.Size = New System.Drawing.Size(399, 32)
         Me.CtlGraphicText1.TabIndex = 67
         Me.CtlGraphicText1.TextToDisplay = "This is text which will be the same for everyone."
         '
         'CtlGraphicSignature1
         '
         Me.CtlGraphicSignature1.Location = New System.Drawing.Point(247, 363)
-        Me.CtlGraphicSignature1.Margin = New System.Windows.Forms.Padding(4)
+        Me.CtlGraphicSignature1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.CtlGraphicSignature1.Name = "CtlGraphicSignature1"
         Me.CtlGraphicSignature1.Size = New System.Drawing.Size(314, 105)
         Me.CtlGraphicSignature1.TabIndex = 66
@@ -658,24 +660,24 @@ Partial Class Form__Main_Demo
         Me.CtlGraphicQRCode1.Location = New System.Drawing.Point(594, 363)
         Me.CtlGraphicQRCode1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.CtlGraphicQRCode1.Name = "CtlGraphicQRCode1"
-        Me.CtlGraphicQRCode1.Size = New System.Drawing.Size(95, 98)
+        Me.CtlGraphicQRCode1.Size = New System.Drawing.Size(94, 99)
         Me.CtlGraphicQRCode1.TabIndex = 65
         '
         'CtlGraphicPortrait_Lady
         '
-        Me.CtlGraphicPortrait_Lady.Location = New System.Drawing.Point(48, 79)
-        Me.CtlGraphicPortrait_Lady.Margin = New System.Windows.Forms.Padding(4)
+        Me.CtlGraphicPortrait_Lady.Location = New System.Drawing.Point(49, 79)
+        Me.CtlGraphicPortrait_Lady.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.CtlGraphicPortrait_Lady.Name = "CtlGraphicPortrait_Lady"
-        Me.CtlGraphicPortrait_Lady.Size = New System.Drawing.Size(142, 182)
+        Me.CtlGraphicPortrait_Lady.Size = New System.Drawing.Size(141, 181)
         Me.CtlGraphicPortrait_Lady.TabIndex = 41
         '
         'LinkLabelOpenPreviewFileJPG
         '
         Me.LinkLabelOpenPreviewFileJPG.AutoSize = True
-        Me.LinkLabelOpenPreviewFileJPG.Location = New System.Drawing.Point(965, 118)
-        Me.LinkLabelOpenPreviewFileJPG.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LinkLabelOpenPreviewFileJPG.Location = New System.Drawing.Point(964, 117)
+        Me.LinkLabelOpenPreviewFileJPG.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
         Me.LinkLabelOpenPreviewFileJPG.Name = "LinkLabelOpenPreviewFileJPG"
-        Me.LinkLabelOpenPreviewFileJPG.Size = New System.Drawing.Size(237, 22)
+        Me.LinkLabelOpenPreviewFileJPG.Size = New System.Drawing.Size(223, 20)
         Me.LinkLabelOpenPreviewFileJPG.TabIndex = 69
         Me.LinkLabelOpenPreviewFileJPG.TabStop = True
         Me.LinkLabelOpenPreviewFileJPG.Text = "Open Badge from File (JPG)"
@@ -683,10 +685,10 @@ Partial Class Form__Main_Demo
         'LinkLabelEmailBadgeJPG
         '
         Me.LinkLabelEmailBadgeJPG.AutoSize = True
-        Me.LinkLabelEmailBadgeJPG.Location = New System.Drawing.Point(965, 46)
-        Me.LinkLabelEmailBadgeJPG.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LinkLabelEmailBadgeJPG.Location = New System.Drawing.Point(964, 45)
+        Me.LinkLabelEmailBadgeJPG.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
         Me.LinkLabelEmailBadgeJPG.Name = "LinkLabelEmailBadgeJPG"
-        Me.LinkLabelEmailBadgeJPG.Size = New System.Drawing.Size(215, 22)
+        Me.LinkLabelEmailBadgeJPG.Size = New System.Drawing.Size(204, 20)
         Me.LinkLabelEmailBadgeJPG.TabIndex = 70
         Me.LinkLabelEmailBadgeJPG.TabStop = True
         Me.LinkLabelEmailBadgeJPG.Text = "Email Badge (as JPG file)"
@@ -694,10 +696,10 @@ Partial Class Form__Main_Demo
         'LinkLabelEmailBadgeJpeg
         '
         Me.LinkLabelEmailBadgeJpeg.AutoSize = True
-        Me.LinkLabelEmailBadgeJpeg.Location = New System.Drawing.Point(965, 68)
-        Me.LinkLabelEmailBadgeJpeg.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LinkLabelEmailBadgeJpeg.Location = New System.Drawing.Point(964, 68)
+        Me.LinkLabelEmailBadgeJpeg.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
         Me.LinkLabelEmailBadgeJpeg.Name = "LinkLabelEmailBadgeJpeg"
-        Me.LinkLabelEmailBadgeJpeg.Size = New System.Drawing.Size(200, 22)
+        Me.LinkLabelEmailBadgeJpeg.Size = New System.Drawing.Size(189, 20)
         Me.LinkLabelEmailBadgeJpeg.TabIndex = 71
         Me.LinkLabelEmailBadgeJpeg.TabStop = True
         Me.LinkLabelEmailBadgeJpeg.Text = "Email Badge (as image)"
@@ -706,7 +708,7 @@ Partial Class Form__Main_Demo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1245, 591)
+        Me.ClientSize = New System.Drawing.Size(1244, 591)
         Me.Controls.Add(Me.LinkLabelEmailBadgeJpeg)
         Me.Controls.Add(Me.LinkLabelEmailBadgeJPG)
         Me.Controls.Add(Me.LinkLabelOpenPreviewFileJPG)
@@ -736,8 +738,8 @@ Partial Class Form__Main_Demo
         Me.Controls.Add(Me.LinkShowWebControls)
         Me.Controls.Add(Me.pictureBack)
         Me.Controls.Add(Me.graphicAdjuster)
-        Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Margin = New System.Windows.Forms.Padding(2)
+        Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Margin = New System.Windows.Forms.Padding(1, 3, 1, 3)
         Me.Name = "Form__Main_Demo"
         Me.Text = " Good demo for Mark"
         Me.MenuStrip1.ResumeLayout(False)
