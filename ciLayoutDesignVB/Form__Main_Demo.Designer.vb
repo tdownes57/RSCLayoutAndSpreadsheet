@@ -183,25 +183,25 @@ Partial Class Form__Main_Demo
         'OpenToolStripMenuItem
         '
         Me.OpenToolStripMenuItem.Name = "OpenToolStripMenuItem"
-        Me.OpenToolStripMenuItem.Size = New System.Drawing.Size(203, 26)
-        Me.OpenToolStripMenuItem.Text = "Open Layout....."
+        Me.OpenToolStripMenuItem.Size = New System.Drawing.Size(236, 26)
+        Me.OpenToolStripMenuItem.Text = "Open Layout XML....."
         '
         'FileSaveMenuItem
         '
         Me.FileSaveMenuItem.Name = "FileSaveMenuItem"
-        Me.FileSaveMenuItem.Size = New System.Drawing.Size(203, 26)
+        Me.FileSaveMenuItem.Size = New System.Drawing.Size(236, 26)
         Me.FileSaveMenuItem.Text = "Save"
         '
         'FileSaveAsMenuItem
         '
         Me.FileSaveAsMenuItem.Name = "FileSaveAsMenuItem"
-        Me.FileSaveAsMenuItem.Size = New System.Drawing.Size(203, 26)
-        Me.FileSaveAsMenuItem.Text = "Save Layout As...."
+        Me.FileSaveAsMenuItem.Size = New System.Drawing.Size(236, 26)
+        Me.FileSaveAsMenuItem.Text = "Save Layout As XML...."
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(203, 26)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(236, 26)
         Me.ExitToolStripMenuItem.Text = "Exit"
         '
         'ConfigurationOfFieldsEtcToolStripMenuItem
@@ -214,13 +214,13 @@ Partial Class Form__Main_Demo
         'StandardFieldsToolStripMenuItem
         '
         Me.StandardFieldsToolStripMenuItem.Name = "StandardFieldsToolStripMenuItem"
-        Me.StandardFieldsToolStripMenuItem.Size = New System.Drawing.Size(194, 26)
+        Me.StandardFieldsToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
         Me.StandardFieldsToolStripMenuItem.Text = "Standard Fields"
         '
         'CustomFieldsToolStripMenuItem
         '
         Me.CustomFieldsToolStripMenuItem.Name = "CustomFieldsToolStripMenuItem"
-        Me.CustomFieldsToolStripMenuItem.Size = New System.Drawing.Size(194, 26)
+        Me.CustomFieldsToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
         Me.CustomFieldsToolStripMenuItem.Text = "Custom Fields"
         '
         'DesignLayoutToolStripMenuItem
@@ -313,14 +313,14 @@ Partial Class Form__Main_Demo
         'UploadNewToolStripMenuItem
         '
         Me.UploadNewToolStripMenuItem.Name = "UploadNewToolStripMenuItem"
-        Me.UploadNewToolStripMenuItem.Size = New System.Drawing.Size(235, 26)
-        Me.UploadNewToolStripMenuItem.Text = "Upload new...."
+        Me.UploadNewToolStripMenuItem.Size = New System.Drawing.Size(337, 26)
+        Me.UploadNewToolStripMenuItem.Text = "Upload new background...."
         '
         'SelectFromExistingToolStripMenuItem
         '
         Me.SelectFromExistingToolStripMenuItem.Name = "SelectFromExistingToolStripMenuItem"
-        Me.SelectFromExistingToolStripMenuItem.Size = New System.Drawing.Size(235, 26)
-        Me.SelectFromExistingToolStripMenuItem.Text = "Select from existing...."
+        Me.SelectFromExistingToolStripMenuItem.Size = New System.Drawing.Size(337, 26)
+        Me.SelectFromExistingToolStripMenuItem.Text = "Select from uploaded backgrounds...."
         '
         'DemoModeVideoToolStripMenuItem
         '
@@ -650,7 +650,7 @@ Partial Class Form__Main_Demo
         'CtlGraphicSignature1
         '
         Me.CtlGraphicSignature1.Location = New System.Drawing.Point(247, 363)
-        Me.CtlGraphicSignature1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.CtlGraphicSignature1.Margin = New System.Windows.Forms.Padding(4)
         Me.CtlGraphicSignature1.Name = "CtlGraphicSignature1"
         Me.CtlGraphicSignature1.Size = New System.Drawing.Size(314, 105)
         Me.CtlGraphicSignature1.TabIndex = 66
@@ -666,7 +666,7 @@ Partial Class Form__Main_Demo
         'CtlGraphicPortrait_Lady
         '
         Me.CtlGraphicPortrait_Lady.Location = New System.Drawing.Point(49, 79)
-        Me.CtlGraphicPortrait_Lady.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.CtlGraphicPortrait_Lady.Margin = New System.Windows.Forms.Padding(4)
         Me.CtlGraphicPortrait_Lady.Name = "CtlGraphicPortrait_Lady"
         Me.CtlGraphicPortrait_Lady.Size = New System.Drawing.Size(141, 181)
         Me.CtlGraphicPortrait_Lady.TabIndex = 41

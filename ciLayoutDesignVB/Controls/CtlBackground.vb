@@ -1,0 +1,75 @@
+﻿
+Imports System.IO   ''Added 11/25/2021 Thomas Downes  
+
+Public Class CtlBackground
+    ''
+    ''Added 11/25/2021 Thomas Downes  
+    ''
+    Public ImageFilePath As String
+    Public ImageFileTitle As String
+    Public ImageFileInfo As System.IO.FileInfo
+    Public ImageIsSelected As Boolean
+    Public ParentListingForm As FormListBackgrounds
+    Private _boolSkipEvents As Boolean
+
+    Public Sub LoadIsSelectedValue(par_IsSelected As Boolean)
+        ''
+        ''Added 11/25/2021 Thomas Downes  
+        ''
+        Me.ImageIsSelected = par_IsSelected
+
+        Me.checkSelection.AutoEllipsis = True
+        _boolSkipEvents = True
+        Me.checkSelection.Checked = par_IsSelected
+        Application.DoEvents()
+        _boolSkipEvents = False ''Revert to the default value. 
+
+    End Sub
+
+    Public Sub LoadImageFileByFileInfo(par_fileInfo As FileInfo,
+                                       Optional par_isSelected As Boolean = False)
+        ''
+        ''Added 11/25/2021 Thomas Downes  
+        ''
+        ImageFilePath = par_fileInfo.FullName
+        ImageFileTitle = par_fileInfo.Name
+        LabelFileName.Text = par_fileInfo.Name
+        ''Display the image. 
+        picturePreview.ImageLocation = par_fileInfo.FullName
+
+        If (par_isSelected) Then
+            ''Implement the IsSelected = True parameter.
+            _boolSkipEvents = True
+            checkSelection.Checked = True
+            Application.DoEvents()
+            _boolSkipEvents = False ''Revert to default value. 
+            Me.ImageIsSelected = True
+        End If ''If (par_isSelected) Then 
+
+    End Sub ''End of "Public Sub LoadImageFileByFileInfo"
+
+    Private Sub CtlBackground_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+    End Sub
+
+    Private Sub picturePreview_Click(sender As Object, e As EventArgs) Handles picturePreview.Click
+
+    End Sub
+
+    Private Sub checkSelection_CheckedChanged(sender As Object, e As EventArgs) Handles checkSelection.CheckedChanged
+        ''
+        ''Added 11/25/2021 td 
+        ''
+        Dim boolSelected As Boolean
+
+        If (_boolSkipEvents) Then Exit Sub
+
+        boolSelected = checkSelection.Checked
+        Me.ImageIsSelected = boolSelected
+        If (boolSelected) Then
+            ''Me.ParentListingForm.TemporarySelectedFileInfo = Me.ImageFileInfo
+            Me.ParentListingForm.LoadSelection(Me)
+        End If ''End of "If (boolSelected) Then"
+
+    End Sub
+End Class

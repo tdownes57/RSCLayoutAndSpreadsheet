@@ -53,6 +53,13 @@ Public Class Form__Main_Demo
 
     Private mod_strEmailAddress As String = "tomdownes1@gmail.com" ''Added 9/17/2021 thomas downes
 
+    Private dictonary_elmntInfo_control As New Dictionary(Of IElement_Base, CtlGraphicFldLabel)
+
+    Private dictonary_field_control As New Dictionary(Of ICIBFieldStandardOrCustom, CtlGraphicFldLabel)
+    Private dictonary_elmntObj_control As New Dictionary(Of ClassElementField, CtlGraphicFldLabel) ''Added 9/17/2019 td
+    Private dictonary_elmntObj_captions As New Dictionary(Of String, CtlGraphicFldLabel) ''Added 11/24/2019 td
+
+
     ''Added 9/8/2019 td
     '' #2 10/3/2019 td''Private mod_rubberbandClass As ClassRubberbandSelector
 
@@ -608,10 +615,11 @@ Public Class Form__Main_Demo
         ''
         ''Step 1 of 5.   Create a dictionary of elements. 
         ''
-        Dim dictonary_elmntInfo_control As New Dictionary(Of IElement_Base, CtlGraphicFldLabel)
+        ''Dim dictonary_elmntInfo_control As New Dictionary(Of IElement_Base, CtlGraphicFldLabel)
 
-        Dim dictonary_field_control As New Dictionary(Of ICIBFieldStandardOrCustom, CtlGraphicFldLabel)
-        Dim dictonary_elmntObj_control As New Dictionary(Of ClassElementField, CtlGraphicFldLabel) ''Added 9/17/2019 td
+        ''Dim dictonary_field_control As New Dictionary(Of ICIBFieldStandardOrCustom, CtlGraphicFldLabel)
+        ''Dim dictonary_elmntObj_control As New Dictionary(Of ClassElementField, CtlGraphicFldLabel) ''Added 9/17/2019 td
+        ''Dim dictonary_elmntObj_captions As New Dictionary(Of String, CtlGraphicFldLabel) ''Added 11/24/2019 td
         Dim intControlCount As Integer ''Added 10/13/2019 td  
 
         ''
@@ -660,6 +668,11 @@ Public Class Form__Main_Demo
             ''Added 9/17/2019 td
             Try
                 dictonary_elmntObj_control.Add(each_field_control.ElementClass_Obj, each_field_control)
+
+                ''Added 11/24/21 thomas downes
+                ''  This will help to prevent duplicates. 
+                dictonary_elmntObj_captions.Add(each_field_control.ElementClass_Obj.FieldNm_CaptionText, each_field_control)
+
             Catch
                 MsgBox("Possible duplicate of Element Object.", MsgBoxStyle.Exclamation, "RefreshTheSetOfDisplayedElements")
             End Try
@@ -1529,6 +1542,52 @@ ExitHandler:
         MessageBox.Show("Check for emailed image (as attached Jpeg file).", "ABC Badge",
                         MessageBoxButtons.OK,
                        MessageBoxIcon.Information)
+
+    End Sub
+
+    Private Sub UploadNewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UploadNewToolStripMenuItem.Click
+        ''
+        ''Added 11/24/2021 thomas d. 
+        ''
+        Static s_strFolder As String
+        Dim objCache As ClassElementsCache_Deprecated
+
+        If (String.IsNullOrEmpty(s_strFolder)) Then s_strFolder = My.Application.Info.DirectoryPath
+
+        OpenFileDialog1.FileName = ""
+        OpenFileDialog1.InitialDirectory = s_strFolder
+        OpenFileDialog1.ShowDialog()
+
+        ''Added 11/24/2021 
+        Dim bConfirmFileExists As Boolean
+        bConfirmFileExists = System.IO.File.Exists(OpenFileDialog1.FileName)
+        If (Not bConfirmFileExists) Then Return
+
+
+
+
+    End Sub
+
+    Private Sub SelectFromExistingToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SelectFromExistingToolStripMenuItem.Click
+        ''
+        ''Added 11/24/2021 thomas d. 
+        ''
+        ''
+        ''Added 11/25/2021 td
+        ''
+        Dim objShow As New FormListBackgrounds
+        objShow.ShowDialog()
+        Dim strPathToFilename As String
+        strPathToFilename = objShow.ImageFileInfo.FullName
+
+    End Sub
+
+    Private Sub UploadBackgroundToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UploadBackgroundToolStripMenuItem.Click
+        ''
+        ''Added 11/25/2021 td
+        ''
+        Dim objShow As New FormListBackgrounds
+        objShow.Show()
 
     End Sub
 End Class

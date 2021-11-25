@@ -366,12 +366,30 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\modLayoutDesignMenu.vb" />
+    <Compile Include="Controls\CtlBackground.Designer.vb">
+      <DependentUpon>CtlBackground.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtlBackground.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="DiskFiles\DiskFiles.vb" />
     <Compile Include="DiskFiles\DiskFolders.vb" />
     <Compile Include="FormDesignProtoThree.Designer.vb">
       <DependentUpon>FormDesignProtoThree.vb</DependentUpon>
     </Compile>
     <Compile Include="FormDesignProtoThree.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormListBackgrounds.Designer.vb">
+      <DependentUpon>FormListBackgrounds.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormListBackgrounds.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormUploadBackground.Designer.vb">
+      <DependentUpon>FormUploadBackground.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormUploadBackground.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form__Main_Demo.Designer.vb">
@@ -599,11 +617,20 @@
     <EmbeddedResource Include="Controls\CtlPropertyUpDownvb.resx">
       <DependentUpon>CtlPropertyUpDownvb.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtlBackground.resx">
+      <DependentUpon>CtlBackground.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DialogTextBorder.resx">
       <DependentUpon>DialogTextBorder.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormDesignProtoThree.resx">
       <DependentUpon>FormDesignProtoThree.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormListBackgrounds.resx">
+      <DependentUpon>FormListBackgrounds.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormUploadBackground.resx">
+      <DependentUpon>FormUploadBackground.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form__Main_Demo.resx">
       <DependentUpon>Form__Main_Demo.vb</DependentUpon>
