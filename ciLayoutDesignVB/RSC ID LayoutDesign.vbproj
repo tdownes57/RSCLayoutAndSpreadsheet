@@ -285,6 +285,12 @@
     <Compile Include="Controls\CtlAddStandardField.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Controls\CtlAdjustImageOffset.Designer.vb">
+      <DependentUpon>CtlAdjustImageOffset.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtlAdjustImageOffset.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controls\CtlCustomer.Designer.vb">
       <DependentUpon>CtlCustomer.vb</DependentUpon>
     </Compile>
@@ -374,10 +380,10 @@
     </Compile>
     <Compile Include="DiskFiles\DiskFiles.vb" />
     <Compile Include="DiskFiles\DiskFolders.vb" />
-    <Compile Include="FormCroppingBackground.Designer.vb">
-      <DependentUpon>FormCroppingBackground.vb</DependentUpon>
+    <Compile Include="FormEditImagePlacement.Designer.vb">
+      <DependentUpon>FormEditImagePlacement.vb</DependentUpon>
     </Compile>
-    <Compile Include="FormCroppingBackground.vb">
+    <Compile Include="FormEditImagePlacement.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormDesignProtoThree.Designer.vb">
@@ -587,6 +593,9 @@
     <EmbeddedResource Include="Controls\CtlAddStandardField.resx">
       <DependentUpon>CtlAddStandardField.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtlAdjustImageOffset.resx">
+      <DependentUpon>CtlAdjustImageOffset.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlConfigFldStandard.resx">
       <DependentUpon>CtlConfigFldStandard.vb</DependentUpon>
     </EmbeddedResource>
@@ -629,8 +638,8 @@
     <EmbeddedResource Include="DialogTextBorder.resx">
       <DependentUpon>DialogTextBorder.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormCroppingBackground.resx">
-      <DependentUpon>FormCroppingBackground.vb</DependentUpon>
+    <EmbeddedResource Include="FormEditImagePlacement.resx">
+      <DependentUpon>FormEditImagePlacement.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormDesignProtoThree.resx">
       <DependentUpon>FormDesignProtoThree.vb</DependentUpon>
