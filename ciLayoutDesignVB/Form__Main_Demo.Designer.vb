@@ -25,7 +25,6 @@ Partial Class Form__Main_Demo
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form__Main_Demo))
         Me.LinkShowWebControls = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         Me.chkIncludeExampleValues = New System.Windows.Forms.CheckBox()
@@ -214,13 +213,13 @@ Partial Class Form__Main_Demo
         'StandardFieldsToolStripMenuItem
         '
         Me.StandardFieldsToolStripMenuItem.Name = "StandardFieldsToolStripMenuItem"
-        Me.StandardFieldsToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
+        Me.StandardFieldsToolStripMenuItem.Size = New System.Drawing.Size(194, 26)
         Me.StandardFieldsToolStripMenuItem.Text = "Standard Fields"
         '
         'CustomFieldsToolStripMenuItem
         '
         Me.CustomFieldsToolStripMenuItem.Name = "CustomFieldsToolStripMenuItem"
-        Me.CustomFieldsToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
+        Me.CustomFieldsToolStripMenuItem.Size = New System.Drawing.Size(194, 26)
         Me.CustomFieldsToolStripMenuItem.Text = "Custom Fields"
         '
         'DesignLayoutToolStripMenuItem
@@ -604,8 +603,9 @@ Partial Class Form__Main_Demo
         'pictureBack
         '
         Me.pictureBack.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.pictureBack.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.Native_drawing___Not_bad_40
+        Me.pictureBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.pictureBack.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pictureBack.Image = CType(resources.GetObject("pictureBack.Image"), System.Drawing.Image)
         Me.pictureBack.Location = New System.Drawing.Point(31, 64)
         Me.pictureBack.Margin = New System.Windows.Forms.Padding(1, 3, 1, 3)
         Me.pictureBack.Name = "pictureBack"

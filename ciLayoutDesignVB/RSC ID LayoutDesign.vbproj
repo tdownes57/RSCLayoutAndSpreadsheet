@@ -374,6 +374,12 @@
     </Compile>
     <Compile Include="DiskFiles\DiskFiles.vb" />
     <Compile Include="DiskFiles\DiskFolders.vb" />
+    <Compile Include="FormCroppingBackground.Designer.vb">
+      <DependentUpon>FormCroppingBackground.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormCroppingBackground.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormDesignProtoThree.Designer.vb">
       <DependentUpon>FormDesignProtoThree.vb</DependentUpon>
     </Compile>
@@ -623,6 +629,9 @@
     <EmbeddedResource Include="DialogTextBorder.resx">
       <DependentUpon>DialogTextBorder.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormCroppingBackground.resx">
+      <DependentUpon>FormCroppingBackground.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormDesignProtoThree.resx">
       <DependentUpon>FormDesignProtoThree.vb</DependentUpon>
     </EmbeddedResource>
@@ -749,6 +758,7 @@
     </Content>
     <Content Include="Images\CI Logo.jpg" />
     <Content Include="Images\CISolutionsLogo.png" />
+    <None Include="Resources\Native drawing - Not bad 40.jpg" />
     <Content Include="__Notes\__Which form is Main.html" />
     <Content Include="__Notes\VBA_modWebServicesAPIs.txt" />
     <Content Include="WebAPIs_Etc\VBA_modWebServicesAPIs.txt" />

@@ -335,6 +335,11 @@ Public Class ClassDesigner
         ''Added 8/24/2019 td
         obj_image = Me.BackgroundBox.Image
 
+        ''Added 11/26/2021 td
+        If (obj_image Is Nothing) Then
+            obj_image = Me.BackgroundBox.BackgroundImage
+        End If
+
         ''obj_image_clone = CType(obj_image.Clone(), Image)
 
         ''Dim gr_resize As Graphics = New Bitmap(obj_image_clone)
@@ -369,6 +374,9 @@ Public Class ClassDesigner
 
         boolMakeMoveableByUser = c_boolMakeMoveableASAP ''Added 9/20/2019 td  
 
+        ''
+        ''Major call !!
+        ''
         LoadFieldControls_ByListOfElements(par_cache.ListFieldElements(),
                                            c_boolLoadingForm,
                                            False, boolMakeMoveableByUser,
@@ -388,7 +396,13 @@ Public Class ClassDesigner
             ''
             ''Pretty big call!!   Allow the user to "click & drag" the control. 
             ''
-            MakeElementsMoveable_Fields()
+            Try
+                MakeElementsMoveable_Fields()
+            Catch ex_fields As Exception
+                ''Added 11/26/2021 thomas downes
+                MessageBox.Show(ex_fields.Message)
+                MessageBox.Show(ex_fields.ToString)
+            End Try
 
         End If ''ENd of "If (boolMakeMoveableByUser) Then"
 
@@ -952,8 +966,22 @@ Public Class ClassDesigner
         listOfElementTextFields = Me.ElementsCache_Edits.ListFieldElements()
 
         ''obj_image = ciBadgeGenerator.ClassMakeBadge
-        ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.BackgroundBox.Image, True, "RefreshPreview_Redux #1")
-        ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.PreviewBox, True, "RefreshPreview_Redux #2")
+        Try
+            ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.BackgroundBox.Image, True, "RefreshPreview_Redux #1")
+        Catch ex_bgbox As Exception
+            ''Added 11/26/2021 td
+            MessageBox.Show(ex_bgbox.Message)
+            MessageBox.Show(ex_bgbox.ToString)
+        End Try
+
+        Try
+            ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.PreviewBox, True, "RefreshPreview_Redux #2")
+        Catch ex_previewbox As Exception
+            ''Added 11/26/2021 td
+            MessageBox.Show(ex_previewbox.Message)
+            MessageBox.Show(ex_previewbox.ToString)
+        End Try
+
 
         ''Added 8/24/2019 td
         obj_image = Me.BackgroundBox.Image

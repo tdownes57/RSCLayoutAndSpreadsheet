@@ -63,6 +63,26 @@
       <IsLinkedToSections>false</IsLinkedToSections>
     </ClassFieldStandard>
     <ClassFieldStandard>
+      <!--Added November 26 2021-->
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>false</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>fstrFullName</CIBadgeField>
+      <FieldLabelCaption>Full Name</FieldLabelCaption>
+      <FieldType_TD>84</FieldType_TD>
+      <FieldEnumValue>fstrFullName</FieldEnumValue>
+      <FieldIndex>0</FieldIndex>
+      <IsFieldForDates>false</IsFieldForDates>
+      <IsLocked>false</IsLocked>
+      <IsDisplayedOnBadge>true</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>true</IsDisplayedForEdits>
+      <HasPresetValues>false</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <IsLinkedToSections>false</IsLinkedToSections>
+    </ClassFieldStandard>
+    <ClassFieldStandard>
       <IsStandard>false</IsStandard>
       <IsCustomizable>false</IsCustomizable>
       <IsDateField>false</IsDateField>
@@ -489,6 +509,58 @@
       <LeftEdge_Pixels>66</LeftEdge_Pixels>
       <Width_Pixels>225</Width_Pixels>
       <Height_Pixels>49</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Displayed>true</Border_Displayed>
+      <Border_Color>Black</Border_Color>
+      <Back_Transparent>false</Back_Transparent>
+      <Back_Color>#80FF80</Back_Color>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+    </ClassElementField>
+    <ClassElementField>
+      <Id_GUID>00000000-0000-0000-0000-000000000000</Id_GUID>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0.352112676056338</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <Text_Static>Full Name</Text_Static>
+      <FieldObject xsi:type="ClassFieldStandard">
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>false</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>fstrFullName</CIBadgeField>
+        <FieldLabelCaption>Full Name</FieldLabelCaption>
+        <FieldType_TD>84</FieldType_TD>
+        <FieldEnumValue>fstrFullName</FieldEnumValue>
+        <FieldIndex>0</FieldIndex>
+        <IsFieldForDates>false</IsFieldForDates>
+        <IsLocked>false</IsLocked>
+        <IsDisplayedOnBadge>true</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>true</IsDisplayedForEdits>
+        <HasPresetValues>false</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <IsLinkedToSections>false</IsLinkedToSections>
+      </FieldObject>
+      <FieldEnum>fstrFullName</FieldEnum>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>675</Width_Pixels>
+        <Height_Pixels>425</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>168</TopEdge_Pixels>
+      <LeftEdge_Pixels>131</LeftEdge_Pixels>
+      <Width_Pixels>370</Width_Pixels>
+      <Height_Pixels>71</Height_Pixels>
       <Border_WidthInPixels>1</Border_WidthInPixels>
       <Border_Displayed>true</Border_Displayed>
       <Border_Color>Black</Border_Color>

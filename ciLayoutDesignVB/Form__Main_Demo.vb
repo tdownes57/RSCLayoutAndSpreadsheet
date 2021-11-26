@@ -59,6 +59,8 @@ Public Class Form__Main_Demo
     Private dictonary_elmntObj_control As New Dictionary(Of ClassElementField, CtlGraphicFldLabel) ''Added 9/17/2019 td
     Private dictonary_elmntObj_captions As New Dictionary(Of String, CtlGraphicFldLabel) ''Added 11/24/2019 td
 
+    Private list_fieldsNotLoadedYet_Any As New HashSet(Of ICIBFieldStandardOrCustom)
+    Private list_elementsNotLoadedYet_Any As New HashSet(Of ClassElementField) ''Added 9/17/2019 td 
 
     ''Added 9/8/2019 td
     '' #2 10/3/2019 td''Private mod_rubberbandClass As ClassRubberbandSelector
@@ -324,6 +326,20 @@ Public Class Form__Main_Demo
         Me.ElementsCache_Saved = par_cache
 
     End Sub ''End of "Public Sub RefreshElementsCache_Saved"
+
+    Private Sub AutoPreview()
+        ''
+        ''Added 11/26/2021 thomas downes
+        ''
+        Try
+            mod_designer.AutoPreview_IfChecked()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+            MessageBox.Show(ex.ToString)
+        End Try
+
+    End Sub
+
 
     Private Sub SaveLayout()
         ''
@@ -611,7 +627,7 @@ Public Class Form__Main_Demo
 
     End Sub ''End of "Private Sub Recipient_LinkClicked"
 
-    Private Sub RefreshTheSetOfDisplayedElements()
+    Private Sub RefreshTheSetOfDisplayedElements(Optional pboolRemoveAndRebuild As Boolean = False)
         ''
         ''Step 1 of 5.   Create a dictionary of elements. 
         ''
@@ -621,6 +637,20 @@ Public Class Form__Main_Demo
         ''Dim dictonary_elmntObj_control As New Dictionary(Of ClassElementField, CtlGraphicFldLabel) ''Added 9/17/2019 td
         ''Dim dictonary_elmntObj_captions As New Dictionary(Of String, CtlGraphicFldLabel) ''Added 11/24/2019 td
         Dim intControlCount As Integer ''Added 10/13/2019 td  
+
+        ''Added 11/26/2021 
+        ''  Throw away the controls that are already on the form.  
+        ''
+        If (pboolRemoveAndRebuild) Then
+            For Each each_control As CtlGraphicFldLabel In dictonary_elmntInfo_control.Values
+                each_control.Visible = False
+                Me.Controls.Remove(each_control)
+            Next each_control
+            ''Added 11/26/2021 thomas downes
+            dictonary_elmntInfo_control.Clear()
+            dictonary_elmntObj_captions.Clear()
+            dictonary_field_control.Clear()
+        End If ''End of "If (pboolRemoveAndRebuild) Then"
 
         ''
         ''Step 2 of 5.   Refresh the existing controls. 
@@ -657,25 +687,29 @@ Public Class Form__Main_Demo
             ''
             ''   Build a dictionary of control-element.
             ''
-            Try
-                dictonary_elmntInfo_control.Add(each_field_control.ElementClass_Obj, each_field_control)
-            Catch
-                MsgBox("Possible duplicate of element Interface/Information.", MsgBoxStyle.Exclamation, "RefreshTheSetOfDisplayedElements")
-            End Try
+            If (pboolRemoveAndRebuild) Then ''Added 11/26/2021 
 
-            dictonary_field_control.Add(each_field_control.FieldInfo, each_field_control)
+                Try
+                    dictonary_elmntInfo_control.Add(each_field_control.ElementClass_Obj, each_field_control)
+                Catch
+                    MsgBox("Likely duplicate of element Interface/Information.", MsgBoxStyle.Exclamation, "RefreshTheSetOfDisplayedElements")
+                End Try
 
-            ''Added 9/17/2019 td
-            Try
-                dictonary_elmntObj_control.Add(each_field_control.ElementClass_Obj, each_field_control)
+                dictonary_field_control.Add(each_field_control.FieldInfo, each_field_control)
 
-                ''Added 11/24/21 thomas downes
-                ''  This will help to prevent duplicates. 
-                dictonary_elmntObj_captions.Add(each_field_control.ElementClass_Obj.FieldNm_CaptionText, each_field_control)
+                ''Added 9/17/2019 td
+                Try
+                    dictonary_elmntObj_control.Add(each_field_control.ElementClass_Obj, each_field_control)
 
-            Catch
-                MsgBox("Possible duplicate of Element Object.", MsgBoxStyle.Exclamation, "RefreshTheSetOfDisplayedElements")
-            End Try
+                    ''Added 11/24/21 thomas downes
+                    ''  This will help to prevent duplicates. 
+                    dictonary_elmntObj_captions.Add(each_field_control.ElementClass_Obj.FieldNm_CaptionText, each_field_control)
+
+                Catch
+                    MsgBox("Possible duplicate of Element Object.", MsgBoxStyle.Exclamation, "RefreshTheSetOfDisplayedElements")
+                End Try
+
+            End If ''end of "If (pboolRemoveAndRebuild) Then"
 
         Next each_control
 
@@ -687,8 +721,12 @@ Public Class Form__Main_Demo
 
         ''Dim list_fieldsNotLoadedYet_Any As New List(Of ICIBFieldStandardOrCustom)
         ''Dim list_elementsNotLoadedYet_Any As New List(Of ClassElementField) ''Added 9/17/2019 td  
-        Dim list_fieldsNotLoadedYet_Any As New HashSet(Of ICIBFieldStandardOrCustom)
-        Dim list_elementsNotLoadedYet_Any As New HashSet(Of ClassElementField) ''Added 9/17/2019 td  
+        ''Dim list_fieldsNotLoadedYet_Any As New HashSet(Of ICIBFieldStandardOrCustom)
+        ''Dim list_elementsNotLoadedYet_Any As New HashSet(Of ClassElementField) ''Added 9/17/2019 td  
+
+        list_fieldsNotLoadedYet_Any.Clear()
+        list_elementsNotLoadedYet_Any.Clear()
+
         Dim boolMissingFromForm As Boolean
         Dim boolNotDisplayed_ButShouldBe As Boolean
 
@@ -1189,7 +1227,8 @@ Public Class Form__Main_Demo
 
         ''Addded 9/13/2019 td
         ''10/8/2019 td''AutoPreview_IfChecked()
-        mod_designer.AutoPreview_IfChecked()
+        ''11/26/2021''mod_designer.AutoPreview_IfChecked()
+        AutoPreview
 
     End Sub
 
