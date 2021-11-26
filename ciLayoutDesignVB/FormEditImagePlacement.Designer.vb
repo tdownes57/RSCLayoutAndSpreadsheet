@@ -23,10 +23,10 @@ Partial Class FormEditImagePlacement
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Me.picturePreview = New System.Windows.Forms.PictureBox()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
-        Me.PictureBox3 = New System.Windows.Forms.PictureBox()
+        Me.pictureLayoutNone = New System.Windows.Forms.PictureBox()
+        Me.pictureLayoutCenter = New System.Windows.Forms.PictureBox()
+        Me.pictureLayoutZoom = New System.Windows.Forms.PictureBox()
+        Me.pictureLayoutStretch = New System.Windows.Forms.PictureBox()
         Me.LabelLayoutNone = New System.Windows.Forms.Label()
         Me.labelBackgroundCenter = New System.Windows.Forms.Label()
         Me.LabelBackgroundScarier = New System.Windows.Forms.Label()
@@ -36,63 +36,64 @@ Partial Class FormEditImagePlacement
         Me.RadioButton3 = New System.Windows.Forms.RadioButton()
         Me.RadioButton4 = New System.Windows.Forms.RadioButton()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.CtlAdjustImageOffset1 = New ciLayoutDesignVB.CtlAdjustImageOffset()
+        Me.controrlAdjustOffset = New ciLayoutDesignVB.CtlAdjustImageOffset()
         Me.buttonCancel = New System.Windows.Forms.Button()
         Me.buttonOK = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.RadioButton5 = New System.Windows.Forms.RadioButton()
-        Me.PictureBox4 = New System.Windows.Forms.PictureBox()
+        Me.picturePreview = New System.Windows.Forms.PictureBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel2 = New System.Windows.Forms.LinkLabel()
+        CType(Me.pictureLayoutNone, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pictureLayoutCenter, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pictureLayoutZoom, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pictureLayoutStretch, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'picturePreview
+        'pictureLayoutNone
         '
-        Me.picturePreview.BackColor = System.Drawing.Color.White
-        Me.picturePreview.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.picturePreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.picturePreview.Location = New System.Drawing.Point(38, 67)
-        Me.picturePreview.Name = "picturePreview"
-        Me.picturePreview.Size = New System.Drawing.Size(466, 277)
-        Me.picturePreview.TabIndex = 45
-        Me.picturePreview.TabStop = False
+        Me.pictureLayoutNone.BackColor = System.Drawing.Color.White
+        Me.pictureLayoutNone.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.pictureLayoutNone.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pictureLayoutNone.Location = New System.Drawing.Point(38, 67)
+        Me.pictureLayoutNone.Name = "pictureLayoutNone"
+        Me.pictureLayoutNone.Size = New System.Drawing.Size(466, 277)
+        Me.pictureLayoutNone.TabIndex = 45
+        Me.pictureLayoutNone.TabStop = False
         '
-        'PictureBox1
+        'pictureLayoutCenter
         '
-        Me.PictureBox1.BackColor = System.Drawing.Color.White
-        Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.PictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.PictureBox1.Location = New System.Drawing.Point(1104, 67)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(466, 277)
-        Me.PictureBox1.TabIndex = 46
-        Me.PictureBox1.TabStop = False
+        Me.pictureLayoutCenter.BackColor = System.Drawing.Color.White
+        Me.pictureLayoutCenter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.pictureLayoutCenter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pictureLayoutCenter.Location = New System.Drawing.Point(1104, 67)
+        Me.pictureLayoutCenter.Name = "pictureLayoutCenter"
+        Me.pictureLayoutCenter.Size = New System.Drawing.Size(466, 277)
+        Me.pictureLayoutCenter.TabIndex = 46
+        Me.pictureLayoutCenter.TabStop = False
         '
-        'PictureBox2
+        'pictureLayoutZoom
         '
-        Me.PictureBox2.BackColor = System.Drawing.Color.White
-        Me.PictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.PictureBox2.Location = New System.Drawing.Point(41, 392)
-        Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(466, 277)
-        Me.PictureBox2.TabIndex = 47
-        Me.PictureBox2.TabStop = False
+        Me.pictureLayoutZoom.BackColor = System.Drawing.Color.White
+        Me.pictureLayoutZoom.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pictureLayoutZoom.Location = New System.Drawing.Point(41, 392)
+        Me.pictureLayoutZoom.Name = "pictureLayoutZoom"
+        Me.pictureLayoutZoom.Size = New System.Drawing.Size(466, 277)
+        Me.pictureLayoutZoom.TabIndex = 47
+        Me.pictureLayoutZoom.TabStop = False
         '
-        'PictureBox3
+        'pictureLayoutStretch
         '
-        Me.PictureBox3.BackColor = System.Drawing.Color.White
-        Me.PictureBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.PictureBox3.Location = New System.Drawing.Point(1104, 392)
-        Me.PictureBox3.Name = "PictureBox3"
-        Me.PictureBox3.Size = New System.Drawing.Size(466, 277)
-        Me.PictureBox3.TabIndex = 48
-        Me.PictureBox3.TabStop = False
+        Me.pictureLayoutStretch.BackColor = System.Drawing.Color.White
+        Me.pictureLayoutStretch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pictureLayoutStretch.Location = New System.Drawing.Point(1104, 392)
+        Me.pictureLayoutStretch.Name = "pictureLayoutStretch"
+        Me.pictureLayoutStretch.Size = New System.Drawing.Size(466, 277)
+        Me.pictureLayoutStretch.TabIndex = 48
+        Me.pictureLayoutStretch.TabStop = False
         '
         'LabelLayoutNone
         '
@@ -184,13 +185,13 @@ Partial Class FormEditImagePlacement
         Me.Label1.TabIndex = 57
         Me.Label1.Text = "Select which Layout is best."
         '
-        'CtlAdjustImageOffset1
+        'controrlAdjustOffset
         '
-        Me.CtlAdjustImageOffset1.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.CtlAdjustImageOffset1.Location = New System.Drawing.Point(524, 8)
-        Me.CtlAdjustImageOffset1.Name = "CtlAdjustImageOffset1"
-        Me.CtlAdjustImageOffset1.Size = New System.Drawing.Size(552, 401)
-        Me.CtlAdjustImageOffset1.TabIndex = 58
+        Me.controrlAdjustOffset.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.controrlAdjustOffset.Location = New System.Drawing.Point(524, 8)
+        Me.controrlAdjustOffset.Name = "controrlAdjustOffset"
+        Me.controrlAdjustOffset.Size = New System.Drawing.Size(552, 401)
+        Me.controrlAdjustOffset.TabIndex = 58
         '
         'buttonCancel
         '
@@ -218,7 +219,7 @@ Partial Class FormEditImagePlacement
         Me.Button1.BackColor = System.Drawing.Color.GreenYellow
         Me.Button1.Location = New System.Drawing.Point(524, 654)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(252, 34)
+        Me.Button1.Size = New System.Drawing.Size(214, 34)
         Me.Button1.TabIndex = 61
         Me.Button1.Text = "Push Preview to All 5 Boxes"
         Me.ToolTip1.SetToolTip(Me.Button1, "This will allow you to make further adjustments.")
@@ -235,16 +236,16 @@ Partial Class FormEditImagePlacement
         Me.RadioButton5.Text = "Select above."
         Me.RadioButton5.UseVisualStyleBackColor = True
         '
-        'PictureBox4
+        'picturePreview
         '
-        Me.PictureBox4.BackColor = System.Drawing.Color.White
-        Me.PictureBox4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.PictureBox4.Location = New System.Drawing.Point(688, 415)
-        Me.PictureBox4.Name = "PictureBox4"
-        Me.PictureBox4.Size = New System.Drawing.Size(388, 231)
-        Me.PictureBox4.TabIndex = 64
-        Me.PictureBox4.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.PictureBox4, "Click the Preview box to update.")
+        Me.picturePreview.BackColor = System.Drawing.Color.White
+        Me.picturePreview.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.picturePreview.Location = New System.Drawing.Point(688, 415)
+        Me.picturePreview.Name = "picturePreview"
+        Me.picturePreview.Size = New System.Drawing.Size(388, 231)
+        Me.picturePreview.TabIndex = 64
+        Me.picturePreview.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.picturePreview, "Click the Preview box to update.")
         '
         'Label2
         '
@@ -268,19 +269,30 @@ Partial Class FormEditImagePlacement
         Me.LinkLabel1.TabStop = True
         Me.LinkLabel1.Text = "Click to update Preview"
         '
+        'LinkLabel2
+        '
+        Me.LinkLabel2.BackColor = System.Drawing.Color.Transparent
+        Me.LinkLabel2.Location = New System.Drawing.Point(744, 664)
+        Me.LinkLabel2.Name = "LinkLabel2"
+        Me.LinkLabel2.Size = New System.Drawing.Size(88, 31)
+        Me.LinkLabel2.TabIndex = 67
+        Me.LinkLabel2.TabStop = True
+        Me.LinkLabel2.Text = "Undo Push"
+        '
         'FormEditImagePlacement
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1609, 701)
+        Me.Controls.Add(Me.LinkLabel2)
         Me.Controls.Add(Me.LinkLabel1)
         Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.PictureBox4)
+        Me.Controls.Add(Me.picturePreview)
         Me.Controls.Add(Me.RadioButton5)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.buttonCancel)
         Me.Controls.Add(Me.buttonOK)
-        Me.Controls.Add(Me.CtlAdjustImageOffset1)
+        Me.Controls.Add(Me.controrlAdjustOffset)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.RadioButton4)
         Me.Controls.Add(Me.RadioButton3)
@@ -290,26 +302,26 @@ Partial Class FormEditImagePlacement
         Me.Controls.Add(Me.LabelBackgroundScarier)
         Me.Controls.Add(Me.labelBackgroundCenter)
         Me.Controls.Add(Me.LabelLayoutNone)
-        Me.Controls.Add(Me.PictureBox3)
-        Me.Controls.Add(Me.PictureBox2)
-        Me.Controls.Add(Me.PictureBox1)
-        Me.Controls.Add(Me.picturePreview)
+        Me.Controls.Add(Me.pictureLayoutStretch)
+        Me.Controls.Add(Me.pictureLayoutZoom)
+        Me.Controls.Add(Me.pictureLayoutCenter)
+        Me.Controls.Add(Me.pictureLayoutNone)
         Me.Name = "FormEditImagePlacement"
         Me.Text = "FormCroppingBackground"
+        CType(Me.pictureLayoutNone, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pictureLayoutCenter, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pictureLayoutZoom, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pictureLayoutStretch, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
 
-    Friend WithEvents picturePreview As PictureBox
-    Friend WithEvents PictureBox1 As PictureBox
-    Friend WithEvents PictureBox2 As PictureBox
-    Friend WithEvents PictureBox3 As PictureBox
+    Friend WithEvents pictureLayoutNone As PictureBox
+    Friend WithEvents pictureLayoutCenter As PictureBox
+    Friend WithEvents pictureLayoutZoom As PictureBox
+    Friend WithEvents pictureLayoutStretch As PictureBox
     Friend WithEvents LabelLayoutNone As Label
     Friend WithEvents labelBackgroundCenter As Label
     Friend WithEvents LabelBackgroundScarier As Label
@@ -319,13 +331,14 @@ Partial Class FormEditImagePlacement
     Friend WithEvents RadioButton3 As RadioButton
     Friend WithEvents RadioButton4 As RadioButton
     Friend WithEvents Label1 As Label
-    Friend WithEvents CtlAdjustImageOffset1 As CtlAdjustImageOffset
+    Friend WithEvents controrlAdjustOffset As CtlAdjustImageOffset
     Friend WithEvents buttonCancel As Button
     Friend WithEvents buttonOK As Button
     Friend WithEvents Button1 As Button
     Friend WithEvents RadioButton5 As RadioButton
-    Friend WithEvents PictureBox4 As PictureBox
+    Friend WithEvents picturePreview As PictureBox
     Friend WithEvents Label2 As Label
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents LinkLabel1 As LinkLabel
+    Friend WithEvents LinkLabel2 As LinkLabel
 End Class
