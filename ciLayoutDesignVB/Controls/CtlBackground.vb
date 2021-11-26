@@ -42,6 +42,7 @@ Public Class CtlBackground
         ''
         ImageFilePath = par_fileInfo.FullName
         ImageFileTitle = par_fileInfo.Name
+        ImageFileInfo = par_fileInfo
         LabelFileName.Text = par_fileInfo.Name
         ''Display the image. 
         picturePreview.ImageLocation = par_fileInfo.FullName

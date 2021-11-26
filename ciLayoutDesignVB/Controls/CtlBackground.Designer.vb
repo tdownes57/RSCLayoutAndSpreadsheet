@@ -39,7 +39,7 @@ Partial Class CtlBackground
         Me.picturePreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.picturePreview.Location = New System.Drawing.Point(3, 29)
         Me.picturePreview.Name = "picturePreview"
-        Me.picturePreview.Size = New System.Drawing.Size(830, 277)
+        Me.picturePreview.Size = New System.Drawing.Size(595, 277)
         Me.picturePreview.TabIndex = 45
         Me.picturePreview.TabStop = False
         '
@@ -67,7 +67,6 @@ Partial Class CtlBackground
         'checkSelection
         '
         Me.checkSelection.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.checkSelection.AutoEllipsis = True
         Me.checkSelection.AutoSize = True
         Me.checkSelection.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.checkSelection.Location = New System.Drawing.Point(3, 312)
@@ -86,7 +85,7 @@ Partial Class CtlBackground
         Me.Controls.Add(Me.labelHeading1)
         Me.Controls.Add(Me.picturePreview)
         Me.Name = "CtlBackground"
-        Me.Size = New System.Drawing.Size(858, 336)
+        Me.Size = New System.Drawing.Size(622, 336)
         CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()

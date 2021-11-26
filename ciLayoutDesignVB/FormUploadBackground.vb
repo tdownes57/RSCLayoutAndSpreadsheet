@@ -64,7 +64,22 @@
         strDestFilePath = DiskFolders.PathToFolder_BackExamples
 
         strDestFilePath = System.IO.Path.Combine(strDestFilePath, Me.ImageFileInfo.Name)
-        Me.ImageFileInfo.CopyTo(strDestFilePath)
+
+        Try
+            Me.ImageFileInfo.CopyTo(strDestFilePath)
+            Me.Close() ''Close the window. 
+        Catch ex_copy As Exception
+            ''Added 11/26/2021 thomas d.
+            If (ex_copy.Message.Contains("exists")) Then
+                ''Added 11/26/2021 thomas d.
+                MessageBox.Show("Please pick a file which is not already uploaded.",
+                    "Try again", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            Else
+                MessageBox.Show(ex_copy.Message, "Try again",
+                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            End If ''end of "If (ex_copy.Message.Contains("exists")) Then ... Else"
+        End Try
+
 
     End Sub
 
@@ -75,6 +90,12 @@
 
         ''The checkbox is not needed. 
         CtlBackground1.HideCheckbox()
+
+    End Sub
+
+    Private Sub buttonCancel_Click(sender As Object, e As EventArgs) Handles buttonCancel.Click
+
+        Me.Close() ''Added 11/26/2021 
 
     End Sub
 End Class

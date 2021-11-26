@@ -959,16 +959,16 @@ Public Class Form__Main_Demo
         ''10/3/2019 td''RefreshPreview()
         mod_designer.RefreshPreview_Redux()
 
-        '''8/24 td''Dim objPrintLib As New ciLayoutPrintLib.CILayoutBadge
+        ''8/24 td''Dim objPrintLib As New ciLayoutPrintLib.CILayoutBadge
         ''Dim objPrintLib As New ciLayoutPrintLib.LayoutPrint_Redux
         ''Dim listOfElementText_Stdrd As List(Of IElementWithText)
         ''Dim listOfElementText_Custom As List(Of IElementWithText)
 
-        '''For Each field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students
+        ''For Each field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students
 
-        '''objPrintLib.LoadImageWithFieldValues(picturePreview.Image,
-        '''      ClassFieldStandard.ListOfFields_Students,
-        '''      ClassFieldCustomized.ListOfFields_Students)
+        ''objPrintLib.LoadImageWithFieldValues(picturePreview.Image,
+        ''      ClassFieldStandard.ListOfFields_Students,
+        ''      ClassFieldCustomized.ListOfFields_Students)
 
         ''listOfElementText_Stdrd = ClassFieldStandard.ListOfElementsText_Stdrd()
         ''listOfElementText_Custom = ClassFieldCustomized.ListOfElementsText_Custom()
@@ -1549,22 +1549,22 @@ ExitHandler:
         ''
         ''Added 11/24/2021 thomas d. 
         ''
-        Static s_strFolder As String
-        Dim objCache As ClassElementsCache_Deprecated
+        ''Static s_strFolder As String
+        ''Dim objCache As ClassElementsCache_Deprecated
 
-        If (String.IsNullOrEmpty(s_strFolder)) Then s_strFolder = My.Application.Info.DirectoryPath
+        ''If (String.IsNullOrEmpty(s_strFolder)) Then s_strFolder = My.Application.Info.DirectoryPath
 
-        OpenFileDialog1.FileName = ""
-        OpenFileDialog1.InitialDirectory = s_strFolder
-        OpenFileDialog1.ShowDialog()
+        ''OpenFileDialog1.FileName = ""
+        ''OpenFileDialog1.InitialDirectory = s_strFolder
+        ''OpenFileDialog1.ShowDialog()
 
-        ''Added 11/24/2021 
-        Dim bConfirmFileExists As Boolean
-        bConfirmFileExists = System.IO.File.Exists(OpenFileDialog1.FileName)
-        If (Not bConfirmFileExists) Then Return
+        ''''Added 11/24/2021 
+        ''Dim bConfirmFileExists As Boolean
+        ''bConfirmFileExists = System.IO.File.Exists(OpenFileDialog1.FileName)
+        ''If (Not bConfirmFileExists) Then Return
 
-
-
+        Dim objShow As New FormUploadBackground
+        objShow.Show()
 
     End Sub
 
@@ -1578,7 +1578,11 @@ ExitHandler:
         Dim objShow As New FormListBackgrounds
         objShow.ShowDialog()
         Dim strPathToFilename As String
-        strPathToFilename = objShow.ImageFileInfo.FullName
+        If (objShow.ImageFileInfo IsNot Nothing) Then
+            strPathToFilename = objShow.ImageFileInfo.FullName
+            ''ClassElementsCache_Deprecated.Singleton.BackgroundImage_Path = strPathToFilename
+            pictureBack.ImageLocation = strPathToFilename
+        End If ''If (objShow.ImageFileInfo IsNot Nothing) Then
 
     End Sub
 
@@ -1586,7 +1590,9 @@ ExitHandler:
         ''
         ''Added 11/25/2021 td
         ''
-        Dim objShow As New FormListBackgrounds
+        ''Dim objShow As New FormListBackgrounds
+        ''objShow.Show()
+        Dim objShow As New FormUploadBackground
         objShow.Show()
 
     End Sub

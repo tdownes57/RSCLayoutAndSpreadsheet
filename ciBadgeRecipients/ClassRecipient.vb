@@ -78,6 +78,9 @@ Public Class ClassRecipient
             Case EnumCIBFields.fstrBarCode : Return Me.fstrBarCode
             Case EnumCIBFields.fstrRFID_Unique : Return Me.fstrRFID_Unique
 
+            ''Added 11/25/2021 Thomas Downes 
+            Case EnumCIBFields.fstrFullName : Return Me.fstrFullName
+
             Case Else
                 Return ""
 
