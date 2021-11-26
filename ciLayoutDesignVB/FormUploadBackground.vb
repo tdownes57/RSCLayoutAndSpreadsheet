@@ -55,17 +55,26 @@
         ''
         ''Added 11/25/2021 thomas downes
         ''
-        Me.Selected = CtlBackground1.Selected
+        Me.Selected = CtlBackground1.ImageIsSelected
         Me.ImageFileInfo = CtlBackground1.ImageFileInfo
         Dim strDestFilePath As String ''Dest = Destination
         Dim strDestFolderPath As String ''Dest = Destination
-        strDestFilePath = modFileFolders.ImageBackgroundFolder
+
+        ''---strDestFilePath = modFileFolders.ImageBackgroundFolder
+        strDestFilePath = DiskFolders.PathToFolder_BackExamples
+
         strDestFilePath = System.IO.Path.Combine(strDestFilePath, Me.ImageFileInfo.Name)
         Me.ImageFileInfo.CopyTo(strDestFilePath)
 
     End Sub
 
     Private Sub FormUploadBackground_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ''
+        ''Added 11/25/2021 thomas downes
+        ''
+
+        ''The checkbox is not needed. 
+        CtlBackground1.HideCheckbox()
 
     End Sub
 End Class

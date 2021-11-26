@@ -1,6 +1,8 @@
 ﻿''
 ''Added 11/25/2021 thomas downes
 ''
+Imports ciLayoutPrintLib ''added 11/25 
+
 Public Class FormListBackgrounds
 
     Public ImageFilePath As String
@@ -45,4 +47,22 @@ Public Class FormListBackgrounds
         Me.Close()
 
     End Sub
+
+
+    Private Sub LoadControlsFromFolderImagesBack()
+        ''
+        '' added 11/25
+        ''
+        Dim boolNoneFound As Boolean ''Added 10/15/2019 td 
+
+        BackImageExamples.CurrentIndex += 1
+        BackImageExamples.PathToFolderWithBacks = DiskFolders.PathToFolder_BackExamples
+
+        //------Me.Designer.BackgroundBox.Image = BackImageExamples.GetCurrentImage(boolNoneFound)
+
+    End Sub
+
+
+
+
 End Class

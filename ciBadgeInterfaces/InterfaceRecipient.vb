@@ -74,6 +74,9 @@ Public Enum EnumCIBFields
     fintRecPool
     fstrRFID_Unique
 
+    ''Added 11/25/2021 thomas downes
+    fstrFullName
+
 End Enum ''End of "Public Enum EnumCIBFields"
 
 Public Interface IRecipient
@@ -97,6 +100,9 @@ Public Interface IRecipient
     Property fstrFirstName As String
     Property fstrMidName As String
     Property fstrID As String
+
+    ''Added 11/25/2021 Thomas 
+    Property fstrFullName As String
 
     Property intTimesPrinted As Integer
 

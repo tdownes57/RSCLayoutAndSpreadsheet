@@ -123,6 +123,8 @@ Public Class ClassRecipient
     Property fstrMidName As String Implements IRecipient.fstrMidName
     Property fstrID As String Implements IRecipient.fstrID
 
+    ''Added 11/25/2021 thomas
+    Property fstrFullName As String Implements IRecipient.fstrFullName
 
     Property fstrBarcode As String Implements IRecipient.fstrBarcode
     Property fstrRFID_Unique As String Implements IRecipient.fstrRFID_Unique

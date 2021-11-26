@@ -12,6 +12,15 @@ Public Class CtlBackground
     Public ParentListingForm As FormListBackgrounds
     Private _boolSkipEvents As Boolean
 
+    Public Sub HideCheckbox()
+        ''
+        ''Added 11/25/2021 Thomas Downes  
+        ''
+        checkSelection.Visible = False
+
+    End Sub
+
+
     Public Sub LoadIsSelectedValue(par_IsSelected As Boolean)
         ''
         ''Added 11/25/2021 Thomas Downes  
