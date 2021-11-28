@@ -5,6 +5,8 @@ Option Strict On
 ''
 ''Added 7/18/2019 Thomas DOWNES
 ''
+Imports System.Collections.Generic
+Imports System.Linq
 Imports MoveAndResizeControls_Monem
 ''9/9/2019 td''Imports ControlManager
 Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d.  
@@ -1635,4 +1637,62 @@ ExitHandler:
         objShow.Show()
 
     End Sub
+
+    Private Sub CheckDupedElementsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CheckDupedElementsToolStripMenuItem.Click
+        ''
+        ''Added 11/28/2021 Thomas Downes  
+        ''
+        Dim strListedDataBuilder As New System.Text.StringBuilder(500)
+        ''Dim arrayElements As List(Of Control)
+        Dim arrayElemCaptions As New List(Of String)
+        Dim eachFieldLabel As CtlGraphicFldLabel
+
+        ''arrayElements = New List(Of Control)(CType(Me.Controls,
+        ''                      IEnumerable(Of Control)))
+
+        For Each eachControl As Control In Me.Controls ''arrayElements ''.OrderBy()
+
+            eachFieldLabel = CType(eachControl, CtlGraphicFldLabel)
+            ''strListedData.AppendLine(eachFieldLabel.FieldInfo.FieldLabelCaption)
+            arrayElemCaptions.Add(eachFieldLabel.FieldInfo.FieldLabelCaption)
+
+        Next eachControl
+
+        ''Sort alphabetically. 
+        arrayElemCaptions.Sort()
+
+        For Each eachCaption As String In arrayElemCaptions  ''arrayElements ''.OrderBy
+
+            strListedDataBuilder.AppendLine(eachCaption)
+
+        Next eachCaption
+
+        ''
+        ''Finishing up. 
+        ''
+        DisplayStringDataInNotepad(strListedDataBuilder.ToString())
+
+    End Sub
+
+
+    Private Sub DisplayStringDataInNotepad(par_stringData As String)
+        ''
+        ''Added 11/28/2021 thomas downes  
+        ''
+        Dim strRandomFolder As String
+        Dim strRandomFilePath As String
+        Dim strRandomTitle As String
+
+        strRandomFolder = DiskFolders.PathToFolder_Preview()
+        strRandomTitle = String.Format("Elements {0:HHmmss}.txt", DateTime.Now)
+        strRandomFilePath = System.IO.Path.Combine(strRandomFolder, strRandomTitle)
+        System.IO.File.WriteAllText(strRandomFilePath, par_stringData)
+        System.Diagnostics.Process.Start(strRandomFilePath)
+
+    End Sub ''ENd of "Private Sub DisplayStringDataInNotepad()"
+
+
+
+
+
 End Class

@@ -97,6 +97,7 @@ Partial Class Form__Main_Demo
         Me.LinkLabelOpenPreviewFileJPG = New System.Windows.Forms.LinkLabel()
         Me.LinkLabelEmailBadgeJPG = New System.Windows.Forms.LinkLabel()
         Me.LinkLabelEmailBadgeJpeg = New System.Windows.Forms.LinkLabel()
+        Me.CheckDupedElementsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -148,11 +149,11 @@ Partial Class Form__Main_Demo
         'MenuStrip1
         '
         Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RightClickMenuParent, Me.ToolStripMenuItem1, Me.ConfigurationOfFieldsEtcToolStripMenuItem, Me.DesignLayoutToolStripMenuItem, Me.BackgroundImagesToolStripMenuItem, Me.DemoModeVideoToolStripMenuItem, Me.BadgeRecipientsToolStripMenuItem, Me.EmailAddressToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RightClickMenuParent, Me.ToolStripMenuItem1, Me.ConfigurationOfFieldsEtcToolStripMenuItem, Me.DesignLayoutToolStripMenuItem, Me.BackgroundImagesToolStripMenuItem, Me.DemoModeVideoToolStripMenuItem, Me.BadgeRecipientsToolStripMenuItem, Me.EmailAddressToolStripMenuItem, Me.CheckDupedElementsToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(9, 3, 0, 3)
-        Me.MenuStrip1.Size = New System.Drawing.Size(1244, 30)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1298, 30)
         Me.MenuStrip1.TabIndex = 39
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -535,7 +536,7 @@ Partial Class Form__Main_Demo
         Me.flowSidebar.BackColor = System.Drawing.SystemColors.Info
         Me.flowSidebar.Controls.Add(Me.LinkCloseSidebar)
         Me.flowSidebar.Dock = System.Windows.Forms.DockStyle.Right
-        Me.flowSidebar.Location = New System.Drawing.Point(1223, 30)
+        Me.flowSidebar.Location = New System.Drawing.Point(1277, 30)
         Me.flowSidebar.Name = "flowSidebar"
         Me.flowSidebar.Size = New System.Drawing.Size(21, 561)
         Me.flowSidebar.TabIndex = 54
@@ -704,11 +705,17 @@ Partial Class Form__Main_Demo
         Me.LinkLabelEmailBadgeJpeg.TabStop = True
         Me.LinkLabelEmailBadgeJpeg.Text = "Email Badge (as image)"
         '
+        'CheckDupedElementsToolStripMenuItem
+        '
+        Me.CheckDupedElementsToolStripMenuItem.Name = "CheckDupedElementsToolStripMenuItem"
+        Me.CheckDupedElementsToolStripMenuItem.Size = New System.Drawing.Size(175, 24)
+        Me.CheckDupedElementsToolStripMenuItem.Text = "Check Duped Elements"
+        '
         'Form__Main_Demo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1244, 591)
+        Me.ClientSize = New System.Drawing.Size(1298, 591)
         Me.Controls.Add(Me.LinkLabelEmailBadgeJpeg)
         Me.Controls.Add(Me.LinkLabelEmailBadgeJPG)
         Me.Controls.Add(Me.LinkLabelOpenPreviewFileJPG)
@@ -831,4 +838,5 @@ Partial Class Form__Main_Demo
     Friend WithEvents LinkLabelEmailBadgeJPG As LinkLabel
     Friend WithEvents EmailAddressToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents LinkLabelEmailBadgeJpeg As LinkLabel
+    Friend WithEvents CheckDupedElementsToolStripMenuItem As ToolStripMenuItem
 End Class
