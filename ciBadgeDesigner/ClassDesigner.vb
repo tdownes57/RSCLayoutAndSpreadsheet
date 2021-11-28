@@ -374,10 +374,15 @@ Public Class ClassDesigner
 
         boolMakeMoveableByUser = c_boolMakeMoveableASAP ''Added 9/20/2019 td  
 
+        ''Added 11/27/2021 thomas downes
+        Dim objListBadgeElems As HashSet(Of ClassElementField)
+        objListBadgeElems = par_cache.ListOfBadgeDisplayElements_Flds(True)
+
         ''
         ''Major call !!
         ''
-        LoadFieldControls_ByListOfElements(par_cache.ListFieldElements(),
+        ''----LoadFieldControls_ByListOfElements(par_cache.ListFieldElements(),
+        LoadFieldControls_ByListOfElements(objListBadgeElems,
                                            c_boolLoadingForm,
                                            False, boolMakeMoveableByUser,
                                            par_listFieldCtls)
