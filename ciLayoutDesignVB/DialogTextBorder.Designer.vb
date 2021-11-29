@@ -28,7 +28,7 @@ Partial Class DialogTextBorder
         Me.ButtonCancel = New System.Windows.Forms.Button()
         Me.ButtonOK = New System.Windows.Forms.Button()
         Me.chkBorderDisplayed = New System.Windows.Forms.CheckBox()
-        Me.CtlGraphicFldLabel1 = New CtlGraphicFldLabel()
+        Me.CtlGraphicFldLabel1 = New CtlGraphicFldLabel("DialogTextBorder")
         Me.CtlBorderWidth = New ciLayoutDesignVB.CtlPropertyLeftRight()
         Me.SuspendLayout()
         '

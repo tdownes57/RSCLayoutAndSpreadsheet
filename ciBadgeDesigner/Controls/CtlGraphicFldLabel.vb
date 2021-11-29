@@ -49,6 +49,9 @@ Public Class CtlGraphicFldLabel
     Public SelectedHighlighting_Denigrated As Boolean ''Added 8/2/2019 td
     Public ExampleTextToDisplay As String = "" ''Added 9/19/2019 td
 
+    ''Added 11/28/2021 thomas downes
+    Public WhyWasICreated As String = "" ''Added 11/28/2021 td
+
     ''
     ''Added 8/5/2019 td
     ''   This is to store the initial Width & Height, when resizing.
@@ -91,7 +94,7 @@ Public Class CtlGraphicFldLabel
         End Get
     End Property
 
-    Public Sub New()
+    Public Sub New(pstrWhyCreated As String)
 
         ' This call is required by the designer.
         InitializeComponent()
@@ -99,10 +102,14 @@ Public Class CtlGraphicFldLabel
         ''Added 9/19/2019 td
         ''9/19/2019 td''Throw New NotImplementedException("This initializer is not allowed.  A element-of-field must be supplied.")
 
+        ''Added 11/28/2021 thomas d.
+        WhyWasICreated = pstrWhyCreated
+
     End Sub
 
     Public Sub New(par_elementField As ClassElementField,
-                  par_layout As ILayoutFunctions)
+                  par_layout As ILayoutFunctions,
+                   pstrWhyWasICreated As String)
 
         ' This call is required by the designer.
         InitializeComponent()
@@ -125,6 +132,9 @@ Public Class CtlGraphicFldLabel
         Dim bElementInvisibleOnBadge As Boolean
         bElementInvisibleOnBadge = (Not Me.ElementInfo_Base.Visible)
         LinkMessageFYI.Visible = bElementInvisibleOnBadge
+
+        ''Added 11/28/2021 thomas d.
+        WhyWasICreated = pstrWhyWasICreated
 
     End Sub ''ENd of "Public Sub New "
 

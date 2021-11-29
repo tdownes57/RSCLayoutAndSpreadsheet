@@ -222,12 +222,12 @@ Public Class Form__Main_Demo
         Me.ElementsCache_Edits.Pic_InitialDefault = mod_imageLady
 
         ''Added 10/13/2019 thomas d. 
-        mod_designer.CtlGraphic_Portrait = CtlGraphicPortrait_Lady
-        mod_designer.CtlGraphic_QRCode = CtlGraphicQRCode1
-        mod_designer.CtlGraphic_Signat = CtlGraphicSignature1
+        ''Encapsulated to Load_Designer. 11/28/2021''mod_designer.CtlGraphic_Portrait = CtlGraphicPortrait_Lady
+        ''Encapsulated to Load_Designer. 11/28/2021''mod_designer.CtlGraphic_QRCode = CtlGraphicQRCode1
+        ''Encapsulated to Load_Designer. 11/28/2021''mod_designer.CtlGraphic_Signat = CtlGraphicSignature1
 
         ''Added 10/13/2019 thomas d.
-        mod_designer.DesignerForm_Interface = CType(Me, IDesignerForm)
+        ''Encapsulated to Load_Designer. 11/28/2021''mod_designer.DesignerForm_Interface = CType(Me, IDesignerForm)
 
         Me.Controls.Remove(CtlGraphicPortrait_Lady) ''Added 7/31/2019 thomas d. 
         Me.Controls.Remove(CtlGraphicSignature1) ''Added 10/12/2019 thomas d. 
@@ -249,6 +249,61 @@ Public Class Form__Main_Demo
 
         ''10/13/2019 td''Me.ElementsCache_Edits = Me.ElementsCache_Saved.Copy()
         Me.ElementsCache_Saved = Me.ElementsCache_Edits.Copy()
+
+        ''
+        ''Encapsulated 11/28/2021 thomas downes
+        ''
+        Load_Designer()
+
+        ''
+        ''Major call!!  
+        ''
+        ''9/17/2019 td''LoadForm_LayoutElements()
+        ''9/20/2019 td''LoadForm_LayoutElements(Me.ElementsCache_Edits)
+        ''10/3/2019 td''LoadForm_LayoutElements(Me.ElementsCache_Edits, mod_listOfFieldControls)
+
+        ''Added 9/24/2019 thomas 
+        ''9/29/2019 td''serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
+        ''Was just for testing. ---10/10/2019 td''serial_tools.PathToXML = (My.Application.Info.DirectoryPath & "\Serialization_" & DateTime.Today.ToString("mmm_dd") & ".xml")
+        ''Was just for testing. ---10/10/2019 td''serial_tools.SerializeToXML(Me.ElementsCache_Saved.PicElement().GetType,
+        ''                           Me.ElementsCache_Saved.PicElement,
+        ''                           False, False)
+
+        MenuCache_ElemFlds.ColorDialog1 = (New ColorDialog)
+        MenuCache_ElemFlds.FontDialog1 = (New FontDialog)
+        MenuCache_ElemFlds.Designer = mod_designer
+        MenuCache_ElemFlds.LayoutFunctions = mod_designer
+        MenuCache_ElemFlds.SelectingElements = mod_designer
+        MenuCache_ElemFlds.GenerateMenuItems_IfNeeded()
+
+        MenuCache_Background.ColorDialog1 = (New ColorDialog)
+        MenuCache_Background.Designer = mod_designer
+        MenuCache_Background.LayoutFunctions = mod_designer
+        MenuCache_Background.GenerateMenuItems_IfNeeded()
+
+    End Sub ''End of "Private Sub Form_Load"  
+
+
+    Private Sub Unload_Designer()
+        ''
+        ''Added 11/28/2021 thomas downes
+        ''
+        mod_designer.UnloadDesigner()
+
+    End Sub
+
+
+    Private Sub Load_Designer()
+        ''
+        ''Encapsulated 11/28/2021 thomas downes
+        ''
+        ''Added 10/13/2019 thomas d. 
+        mod_designer.CtlGraphic_Portrait = CtlGraphicPortrait_Lady
+        mod_designer.CtlGraphic_QRCode = CtlGraphicQRCode1
+        mod_designer.CtlGraphic_Signat = CtlGraphicSignature1
+
+        ''Added 10/13/2019 thomas d.
+        mod_designer.DesignerForm_Interface = CType(Me, IDesignerForm)
 
         With mod_designer
 
@@ -289,37 +344,12 @@ Public Class Form__Main_Demo
             ''
             ''Major call !!! 
             ''
-            .LoadDesigner()
+            .LoadDesigner("Form__Main_Demo's Form_Load ")
 
         End With ''ENd of "With mod_designer"
 
-        ''
-        ''Major call!!  
-        ''
-        ''9/17/2019 td''LoadForm_LayoutElements()
-        ''9/20/2019 td''LoadForm_LayoutElements(Me.ElementsCache_Edits)
-        ''10/3/2019 td''LoadForm_LayoutElements(Me.ElementsCache_Edits, mod_listOfFieldControls)
+    End Sub ''End of "Private Sub LoadDesigner()"
 
-        ''Added 9/24/2019 thomas 
-        ''9/29/2019 td''serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
-        ''Was just for testing. ---10/10/2019 td''serial_tools.PathToXML = (My.Application.Info.DirectoryPath & "\Serialization_" & DateTime.Today.ToString("mmm_dd") & ".xml")
-        ''Was just for testing. ---10/10/2019 td''serial_tools.SerializeToXML(Me.ElementsCache_Saved.PicElement().GetType,
-        ''                           Me.ElementsCache_Saved.PicElement,
-        ''                           False, False)
-
-        MenuCache_ElemFlds.ColorDialog1 = (New ColorDialog)
-        MenuCache_ElemFlds.FontDialog1 = (New FontDialog)
-        MenuCache_ElemFlds.Designer = mod_designer
-        MenuCache_ElemFlds.LayoutFunctions = mod_designer
-        MenuCache_ElemFlds.SelectingElements = mod_designer
-        MenuCache_ElemFlds.GenerateMenuItems_IfNeeded()
-
-        MenuCache_Background.ColorDialog1 = (New ColorDialog)
-        MenuCache_Background.Designer = mod_designer
-        MenuCache_Background.LayoutFunctions = mod_designer
-        MenuCache_Background.GenerateMenuItems_IfNeeded()
-
-    End Sub ''End of "Private Sub Form_Load"  
 
     Public Sub RefreshElementsCache_Saved(par_cache As ClassElementsCache_Deprecated) Implements IDesignerForm.RefreshElementsCache_Saved
         ''
@@ -629,7 +659,7 @@ Public Class Form__Main_Demo
 
     End Sub ''End of "Private Sub Recipient_LinkClicked"
 
-    Private Sub RefreshTheSetOfDisplayedElements(Optional pboolRemoveAndRebuild As Boolean = False)
+    Private Sub RefreshTheSetOfDisplayedElements_Deprecated(Optional pboolRemoveAndRebuild As Boolean = False)
         ''
         ''Step 1 of 5.   Create a dictionary of elements. 
         ''
@@ -756,24 +786,37 @@ Public Class Form__Main_Demo
         ''
         ''Step #3(b)  List the undisplayed elements.    ---Added 9/17/2019 td
         ''
-        For Each each_element As ClassElementField In Me.ElementsCache_Edits.ListFieldElements()
+        Dim bWeCanCheckPriorLoad As Boolean ''Added 11/28/2021 thomas downes
+        Dim each_element As ClassElementField ''Added 11/28/2021 td
+        bWeCanCheckPriorLoad = (0 < dictonary_elmntInfo_control.Count)
+
+        If (bWeCanCheckPriorLoad) Then
             ''
-            ''Added 9/17/2019 td
+            ''We have a list of the field-elements previously added, so therefore
+            ''   we can check the current list against that list (and see if there
+            ''   are field-elements which need to exist, but don't exist yet). 
+            ''   ---11/28/2021 
             ''
-            ''9/17/2019 td''boolMissingFromForm = (Not dictonary_elmntInfo_control.ContainsKey(each_element))
-            boolMissingFromForm = (Not dictonary_elmntObj_control.ContainsKey(each_element))
-
-            boolNotDisplayed_ButShouldBe = (boolMissingFromForm And each_element.FieldInfo.IsDisplayedOnBadge)
-
-            If (boolNotDisplayed_ButShouldBe) Then
+            For Each each_element In Me.ElementsCache_Edits.ListFieldElements()
                 ''
-                ''Add it to a list. 
+                ''Added 9/17/2019 td
                 ''
-                list_elementsNotLoadedYet_Any.Add(each_element)
+                ''9/17/2019 td''boolMissingFromForm = (Not dictonary_elmntInfo_control.ContainsKey(each_element))
+                boolMissingFromForm = (Not dictonary_elmntObj_control.ContainsKey(each_element))
 
-            End If ''End of "If (boolNotDisplayed_ButShouldBe) Then"
+                boolNotDisplayed_ButShouldBe = (boolMissingFromForm And each_element.FieldInfo.IsDisplayedOnBadge)
 
-        Next each_element
+                If (boolNotDisplayed_ButShouldBe) Then
+                    ''
+                    ''Add it to a list. 
+                    ''
+                    list_elementsNotLoadedYet_Any.Add(each_element)
+
+                End If ''End of "If (boolNotDisplayed_ButShouldBe) Then"
+
+            Next each_element
+
+        End If ''End of "If (bWeCanCheckPriorLoad) Then"
 
         ''
         ''Step 4 of 5.   Load the missing elements onto the form, if any.  
@@ -789,7 +832,13 @@ Public Class Form__Main_Demo
             ''9/17/2019 td''                            True, False, True)
             ''10/3/2019 tdLoadFieldControls_ByListOfElements(list_elementsNotLoadedYet_Any, True, False, True)
 
-            mod_designer.LoadDesigner()
+            Dim strWhyCalled As String
+            strWhyCalled = "RefreshTheSetOfDisplayedElements - bSomeDisplayableFieldsAreNotLoaded"
+
+            ''#1_11/28/2021 td''mod_designer.LoadDesigner()
+            '' #2_11/28/2021 td''mod_designer.LoadDesigner(strWhyCalled)
+            mod_designer.LoadFieldControls_ByListOfElements(list_elementsNotLoadedYet_Any,
+                          True, False, True)
 
         End If ''End of "If (bSomeDisplayableFieldsAreNotLoaded) Then"
 
@@ -1230,7 +1279,7 @@ Public Class Form__Main_Demo
         ''Addded 9/13/2019 td
         ''10/8/2019 td''AutoPreview_IfChecked()
         ''11/26/2021''mod_designer.AutoPreview_IfChecked()
-        AutoPreview
+        AutoPreview()
 
     End Sub
 
@@ -1646,15 +1695,20 @@ ExitHandler:
         ''Dim arrayElements As List(Of Control)
         Dim arrayElemCaptions As New List(Of String)
         Dim eachFieldLabel As CtlGraphicFldLabel
+        Dim boolIsFieldElement As Boolean
 
         ''arrayElements = New List(Of Control)(CType(Me.Controls,
         ''                      IEnumerable(Of Control)))
 
         For Each eachControl As Control In Me.Controls ''arrayElements ''.OrderBy()
 
-            eachFieldLabel = CType(eachControl, CtlGraphicFldLabel)
-            ''strListedData.AppendLine(eachFieldLabel.FieldInfo.FieldLabelCaption)
-            arrayElemCaptions.Add(eachFieldLabel.FieldInfo.FieldLabelCaption)
+            boolIsFieldElement = (TypeOf eachControl Is CtlGraphicFldLabel)
+            If boolIsFieldElement Then
+                eachFieldLabel = CType(eachControl, CtlGraphicFldLabel)
+                ''strListedData.AppendLine(eachFieldLabel.FieldInfo.FieldLabelCaption)
+                arrayElemCaptions.Add(eachFieldLabel.FieldInfo.FieldLabelCaption &
+                                      "..." & eachFieldLabel.WhyWasICreated)
+            End If ''End of "If boolIsFieldElement Then"
 
         Next eachControl
 

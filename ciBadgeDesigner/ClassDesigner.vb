@@ -115,7 +115,7 @@ Public Class ClassDesigner
         Return mod_listOfFieldControls
     End Function ''End of "Public Function ListOfFieldLabels() As List(Of CtlGraphicFldLabel)"
 
-    Public Sub LoadDesigner() ''10/1/2019 td''sender As Object, e As EventArgs) Handles MyBase.Load
+    Public Sub LoadDesigner(pstrWhyCalled As String) ''10/1/2019 td''sender As Object, e As EventArgs) Handles MyBase.Load
         ''10/1/2019 td''Private Sub Form_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
         ''Added 7/18/2019 thomas downes 
@@ -199,6 +199,20 @@ Public Class ClassDesigner
             Me.ElementsCache_Saved.LoadFieldElements(Me.BackgroundBox, Me.BadgeLayout_Class)
         End If ''end of "If (boolMissingAnyFields) Then"
 
+
+
+
+        ''
+        ''Major call!!  
+        ''
+        ''9/17/2019 td''LoadForm_LayoutElements()
+        ''9/20/2019 td''LoadForm_LayoutElements(Me.ElementsCache_Edits)
+        LoadForm_LayoutElements(Me.ElementsCache_Edits, mod_listOfFieldControls,
+              "ClassDesigner.LoadDesigner " & pstrWhyCalled)
+
+
+
+
         ''Added 9/19/2019 td
         Dim intPicLeft As Integer
         Dim intPicTop As Integer
@@ -260,7 +274,8 @@ Public Class ClassDesigner
         ''
         ''9/17/2019 td''LoadForm_LayoutElements()
         ''9/20/2019 td''LoadForm_LayoutElements(Me.ElementsCache_Edits)
-        LoadForm_LayoutElements(Me.ElementsCache_Edits, mod_listOfFieldControls)
+        ''Moved upward in procedure. 11/28/2021''LoadForm_LayoutElements(Me.ElementsCache_Edits, mod_listOfFieldControls,
+        ''Moved upward in procedure. 11/28/2021''      "ClassDesigner.LoadDesigner " & pstrWhyCalled)
 
         ''Added 9/24/2019 thomas 
         ''9/29/2019 td''serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
@@ -357,7 +372,8 @@ Public Class ClassDesigner
     End Sub ''End of Sub ResizeLayoutBackgroundImage_ToFitPictureBox()
 
     Private Sub LoadForm_LayoutElements(par_cache As ClassElementsCache_Deprecated,
-                                        ByRef par_listFieldCtls As HashSet(Of CtlGraphicFldLabel))
+                                        ByRef par_listFieldCtls As HashSet(Of CtlGraphicFldLabel),
+                                        pstrWhyCalled As String)
         ''10/17/2019 td''Private Sub LoadForm_LayoutElements(par_cache As ClassElementsCache,
         ''                                ByRef par_listFieldCtls As List(Of CtlGraphicFldLabel))
         ''9/20/2019 td''Private Sub LoadForm_LayoutElements(par_cache As ClassElementsCache)
@@ -385,7 +401,8 @@ Public Class ClassDesigner
         LoadFieldControls_ByListOfElements(objListBadgeElems,
                                            c_boolLoadingForm,
                                            False, boolMakeMoveableByUser,
-                                           par_listFieldCtls)
+                                           par_listFieldCtls,
+                            "ClassDesigner.LoadForm_LayoutElements " & pstrWhyCalled)
 
         LoadElements_Picture(par_cache.PicElement())
         LoadElements_Signature(par_cache.ElementSignature) ''Added 10/12/2019 thomas d.
@@ -590,7 +607,8 @@ Public Class ClassDesigner
                                par_boolLoadingForm As Boolean,
                                Optional par_bUnloading As Boolean = False,
                                Optional par_bAddMoveability As Boolean = False,
-                                Optional ByRef par_listFieldCtls As HashSet(Of CtlGraphicFldLabel) = Nothing)
+                                Optional ByRef par_listFieldCtls As HashSet(Of CtlGraphicFldLabel) = Nothing,
+                               Optional pstrWhyCalled As String = "")
         ''
         ''Added 9/17/2019 thomas downes 
         ''
@@ -664,7 +682,8 @@ Public Class ClassDesigner
 
             ''#1 9/4/2019 td''label_control = New CtlGraphicFldLabel(each_field, Me)
             '' #2 9/4/2019 td''label_control = New CtlGraphicFldLabel(each_field, new_element_text, Me)
-            label_control = New CtlGraphicFldLabel(each_element, Me)
+            ''----label_control = New CtlGraphicFldLabel(each_element, Me)
+            label_control = New CtlGraphicFldLabel(each_element, Me, "WhyWasICreated? LoadFieldControls_ByListOfElements: " & pstrWhyCalled)
 
             ''Moved below. 9/5 td''label_control.Refresh_Master()
             label_control.Visible = each_element.FieldInfo.IsDisplayedOnBadge ''BL = Badge Layout

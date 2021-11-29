@@ -42,7 +42,8 @@ Public Class FormDesignProtoThree
             .Initial_Pic_Width = Me.CtlGraphicPortrait_Lady.Width
             .Initial_Pic_Height = Me.CtlGraphicPortrait_Lady.Height
 
-            .LoadDesigner()
+            ''11/28/2021''.LoadDesigner()
+            .LoadDesigner("FormDesignProtoThree's Form_Load ")
 
         End With ''End of "With mod_designer"
 
