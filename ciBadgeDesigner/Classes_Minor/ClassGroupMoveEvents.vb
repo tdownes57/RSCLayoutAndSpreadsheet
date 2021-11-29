@@ -18,7 +18,8 @@ Public Class ClassGroupMoveEvents
     ''Added 8/3/2019 thomas downes
     Public Event Resizing_Start()
     Public Event Resizing_End()
-    Public Event Moving_End() ''Added 9/13/2019 td  
+    ''Modified 11/29/2021 td''Public Event Moving_End() ''Added 9/13/2019 td
+    Public Event Moving_End(par_control As Control) ''Added 9/13/2019 td  
 
     ''9/20/2019 td''Public ParentLayoutForm As FormDesignProtoTwo ''Added 8/4/2019
     Public LayoutFunctions As ILayoutFunctions ''Added 9/20/2019 td
@@ -84,10 +85,11 @@ Public Class ClassGroupMoveEvents
 
     End Sub
 
-    Public Sub Moving_Terminate() Implements InterfaceEvents.Moving_Terminate
+    Public Sub Moving_Terminate(par_control As Control) Implements InterfaceEvents.Moving_Terminate
 
         ''Added 9/13/2019 td  
-        RaiseEvent Moving_End()
+        ''11/29/2021''RaiseEvent Moving_End()
+        RaiseEvent Moving_End(par_control)
 
     End Sub
 

@@ -504,7 +504,7 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             if (bWasResizing) mod_events.Resizing_Terminate();
 
             //Added 10/14 & 9/13/2019 thomas downes
-            if (!(bWasResizing)) mod_events.Moving_Terminate();
+            if (!(bWasResizing)) mod_events.Moving_Terminate(par_control);
 
         }
 

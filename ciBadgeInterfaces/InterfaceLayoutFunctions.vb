@@ -26,8 +26,10 @@ Public Interface ILayoutFunctions
     Property ControlBeingModified() As Control ''Added 9/19/2019 td 
     Property ControlBeingMoved() As Control ''Added 9/20/2019 td 
 
-    Function OkayToShowFauxContextMenu() As Boolean ''Added 9/19/2019 td 
-    Sub AutoPreview_IfChecked() ''Added 9/19/2019 td 
+    Function OkayToShowFauxContextMenu() As Boolean ''Added 9/19/2019 td
+    ''
+    ''11/29/2021 td''Sub AutoPreview_IfChecked() ''Added 9/19/2019 td 
+    Sub AutoPreview_IfChecked(Optional par_controlElement As Control = Nothing) ''Added 9/19/2019 td 
 
     Function RightClickMenu_Parent() As ToolStripMenuItem ''Added 9/19/2019 td 
 

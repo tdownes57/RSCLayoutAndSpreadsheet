@@ -51,6 +51,8 @@ Partial Class Form__Main_Demo
         Me.DoubleSidedToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ModeV9ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ClearAllSelectedElementsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.UnloadDesignerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ReloadDesignerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BackgroundImagesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.UploadNewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SelectFromExistingToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -61,6 +63,7 @@ Partial Class Form__Main_Demo
         Me.CloseListOfRecipentsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PrintAllBadgesToFileFolderToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EmailAddressToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CheckDupedElementsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.LinkLabelSave1 = New System.Windows.Forms.LinkLabel()
         Me.linkSaveAndRefresh = New System.Windows.Forms.LinkLabel()
@@ -71,8 +74,8 @@ Partial Class Form__Main_Demo
         Me.ContextBackClearSelection = New System.Windows.Forms.ToolStripMenuItem()
         Me.LinkRefreshPreview = New System.Windows.Forms.LinkLabel()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
-        Me.StatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.StatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.StatusLabelMovingElement = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.StatusLabelNameOfElement = New System.Windows.Forms.ToolStripStatusLabel()
         Me.linkRemoveElements = New System.Windows.Forms.LinkLabel()
         Me.LinkLabelSave2 = New System.Windows.Forms.LinkLabel()
         Me.dropdownHowToLoadFlds = New System.Windows.Forms.ComboBox()
@@ -90,14 +93,13 @@ Partial Class Form__Main_Demo
         Me.pictureBack = New System.Windows.Forms.PictureBox()
         Me.graphicAdjuster = New System.Windows.Forms.PictureBox()
         Me.LinkLabelOpenPreviewFileBMP = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabelOpenPreviewFileJPG = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabelEmailBadgeJPG = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabelEmailBadgeJpeg = New System.Windows.Forms.LinkLabel()
         Me.CtlGraphicText1 = New ciBadgeDesigner.CtlGraphicText()
         Me.CtlGraphicSignature1 = New ciBadgeDesigner.CtlGraphicSignature()
         Me.CtlGraphicQRCode1 = New ciBadgeDesigner.CtlGraphicQRCode()
         Me.CtlGraphicPortrait_Lady = New ciBadgeDesigner.CtlGraphicPortrait()
-        Me.LinkLabelOpenPreviewFileJPG = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabelEmailBadgeJPG = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabelEmailBadgeJpeg = New System.Windows.Forms.LinkLabel()
-        Me.CheckDupedElementsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -225,7 +227,7 @@ Partial Class Form__Main_Demo
         '
         'DesignLayoutToolStripMenuItem
         '
-        Me.DesignLayoutToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenControlPanelToolStripMenuItem, Me.UploadBackgroundToolStripMenuItem, Me.PlaceElementsToolStripMenuItem, Me.AddGraphicsElementToolStripMenuItem, Me.AddSubsectionToolStripMenuItem, Me.ChangeOrientationToolStripMenuItem, Me.DoubleSidedToolStripMenuItem, Me.ModeV9ToolStripMenuItem, Me.ClearAllSelectedElementsToolStripMenuItem})
+        Me.DesignLayoutToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenControlPanelToolStripMenuItem, Me.UploadBackgroundToolStripMenuItem, Me.PlaceElementsToolStripMenuItem, Me.AddGraphicsElementToolStripMenuItem, Me.AddSubsectionToolStripMenuItem, Me.ChangeOrientationToolStripMenuItem, Me.DoubleSidedToolStripMenuItem, Me.ModeV9ToolStripMenuItem, Me.ClearAllSelectedElementsToolStripMenuItem, Me.UnloadDesignerToolStripMenuItem, Me.ReloadDesignerToolStripMenuItem})
         Me.DesignLayoutToolStripMenuItem.Name = "DesignLayoutToolStripMenuItem"
         Me.DesignLayoutToolStripMenuItem.Size = New System.Drawing.Size(117, 24)
         Me.DesignLayoutToolStripMenuItem.Text = "Design Layout"
@@ -303,6 +305,18 @@ Partial Class Form__Main_Demo
         Me.ClearAllSelectedElementsToolStripMenuItem.Size = New System.Drawing.Size(292, 26)
         Me.ClearAllSelectedElementsToolStripMenuItem.Text = "Clear all selected Elements"
         '
+        'UnloadDesignerToolStripMenuItem
+        '
+        Me.UnloadDesignerToolStripMenuItem.Name = "UnloadDesignerToolStripMenuItem"
+        Me.UnloadDesignerToolStripMenuItem.Size = New System.Drawing.Size(292, 26)
+        Me.UnloadDesignerToolStripMenuItem.Text = "Unload Designer"
+        '
+        'ReloadDesignerToolStripMenuItem
+        '
+        Me.ReloadDesignerToolStripMenuItem.Name = "ReloadDesignerToolStripMenuItem"
+        Me.ReloadDesignerToolStripMenuItem.Size = New System.Drawing.Size(292, 26)
+        Me.ReloadDesignerToolStripMenuItem.Text = "Reload Designer"
+        '
         'BackgroundImagesToolStripMenuItem
         '
         Me.BackgroundImagesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.UploadNewToolStripMenuItem, Me.SelectFromExistingToolStripMenuItem})
@@ -366,6 +380,12 @@ Partial Class Form__Main_Demo
         Me.EmailAddressToolStripMenuItem.Name = "EmailAddressToolStripMenuItem"
         Me.EmailAddressToolStripMenuItem.Size = New System.Drawing.Size(117, 24)
         Me.EmailAddressToolStripMenuItem.Text = "Email Address"
+        '
+        'CheckDupedElementsToolStripMenuItem
+        '
+        Me.CheckDupedElementsToolStripMenuItem.Name = "CheckDupedElementsToolStripMenuItem"
+        Me.CheckDupedElementsToolStripMenuItem.Size = New System.Drawing.Size(175, 24)
+        Me.CheckDupedElementsToolStripMenuItem.Text = "Check Duped Elements"
         '
         'CheckBox1
         '
@@ -446,25 +466,26 @@ Partial Class Form__Main_Demo
         'StatusStrip1
         '
         Me.StatusStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StatusLabel1, Me.StatusLabel2})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 683)
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StatusLabelMovingElement, Me.StatusLabelNameOfElement})
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 594)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(1244, 21)
+        Me.StatusStrip1.Size = New System.Drawing.Size(1298, 22)
         Me.StatusStrip1.TabIndex = 47
         Me.StatusStrip1.Text = "StatusStrip1"
-        Me.StatusStrip1.Visible = False
         '
-        'StatusLabel1
+        'StatusLabelMovingElement
         '
-        Me.StatusLabel1.Name = "StatusLabel1"
-        Me.StatusLabel1.Size = New System.Drawing.Size(93, 15)
-        Me.StatusLabel1.Text = "StatusLabel1"
+        Me.StatusLabelMovingElement.Name = "StatusLabelMovingElement"
+        Me.StatusLabelMovingElement.Size = New System.Drawing.Size(129, 20)
+        Me.StatusLabelMovingElement.Text = "Moving element...."
+        Me.StatusLabelMovingElement.Visible = False
         '
-        'StatusLabel2
+        'StatusLabelNameOfElement
         '
-        Me.StatusLabel2.Name = "StatusLabel2"
-        Me.StatusLabel2.Size = New System.Drawing.Size(93, 15)
-        Me.StatusLabel2.Text = "StatusLabel2"
+        Me.StatusLabelNameOfElement.Name = "StatusLabelNameOfElement"
+        Me.StatusLabelNameOfElement.Size = New System.Drawing.Size(93, 20)
+        Me.StatusLabelNameOfElement.Text = "StatusLabel2"
+        Me.StatusLabelNameOfElement.Visible = False
         '
         'linkRemoveElements
         '
@@ -538,7 +559,7 @@ Partial Class Form__Main_Demo
         Me.flowSidebar.Dock = System.Windows.Forms.DockStyle.Right
         Me.flowSidebar.Location = New System.Drawing.Point(1277, 30)
         Me.flowSidebar.Name = "flowSidebar"
-        Me.flowSidebar.Size = New System.Drawing.Size(21, 561)
+        Me.flowSidebar.Size = New System.Drawing.Size(21, 564)
         Me.flowSidebar.TabIndex = 54
         Me.flowSidebar.Visible = False
         '
@@ -637,6 +658,39 @@ Partial Class Form__Main_Demo
         Me.LinkLabelOpenPreviewFileBMP.TabStop = True
         Me.LinkLabelOpenPreviewFileBMP.Text = "Open Badge from File (BMP)"
         '
+        'LinkLabelOpenPreviewFileJPG
+        '
+        Me.LinkLabelOpenPreviewFileJPG.AutoSize = True
+        Me.LinkLabelOpenPreviewFileJPG.Location = New System.Drawing.Point(964, 117)
+        Me.LinkLabelOpenPreviewFileJPG.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
+        Me.LinkLabelOpenPreviewFileJPG.Name = "LinkLabelOpenPreviewFileJPG"
+        Me.LinkLabelOpenPreviewFileJPG.Size = New System.Drawing.Size(223, 20)
+        Me.LinkLabelOpenPreviewFileJPG.TabIndex = 69
+        Me.LinkLabelOpenPreviewFileJPG.TabStop = True
+        Me.LinkLabelOpenPreviewFileJPG.Text = "Open Badge from File (JPG)"
+        '
+        'LinkLabelEmailBadgeJPG
+        '
+        Me.LinkLabelEmailBadgeJPG.AutoSize = True
+        Me.LinkLabelEmailBadgeJPG.Location = New System.Drawing.Point(964, 45)
+        Me.LinkLabelEmailBadgeJPG.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
+        Me.LinkLabelEmailBadgeJPG.Name = "LinkLabelEmailBadgeJPG"
+        Me.LinkLabelEmailBadgeJPG.Size = New System.Drawing.Size(204, 20)
+        Me.LinkLabelEmailBadgeJPG.TabIndex = 70
+        Me.LinkLabelEmailBadgeJPG.TabStop = True
+        Me.LinkLabelEmailBadgeJPG.Text = "Email Badge (as JPG file)"
+        '
+        'LinkLabelEmailBadgeJpeg
+        '
+        Me.LinkLabelEmailBadgeJpeg.AutoSize = True
+        Me.LinkLabelEmailBadgeJpeg.Location = New System.Drawing.Point(964, 68)
+        Me.LinkLabelEmailBadgeJpeg.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
+        Me.LinkLabelEmailBadgeJpeg.Name = "LinkLabelEmailBadgeJpeg"
+        Me.LinkLabelEmailBadgeJpeg.Size = New System.Drawing.Size(189, 20)
+        Me.LinkLabelEmailBadgeJpeg.TabIndex = 71
+        Me.LinkLabelEmailBadgeJpeg.TabStop = True
+        Me.LinkLabelEmailBadgeJpeg.Text = "Email Badge (as image)"
+        '
         'CtlGraphicText1
         '
         Me.CtlGraphicText1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
@@ -672,50 +726,11 @@ Partial Class Form__Main_Demo
         Me.CtlGraphicPortrait_Lady.Size = New System.Drawing.Size(141, 181)
         Me.CtlGraphicPortrait_Lady.TabIndex = 41
         '
-        'LinkLabelOpenPreviewFileJPG
-        '
-        Me.LinkLabelOpenPreviewFileJPG.AutoSize = True
-        Me.LinkLabelOpenPreviewFileJPG.Location = New System.Drawing.Point(964, 117)
-        Me.LinkLabelOpenPreviewFileJPG.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
-        Me.LinkLabelOpenPreviewFileJPG.Name = "LinkLabelOpenPreviewFileJPG"
-        Me.LinkLabelOpenPreviewFileJPG.Size = New System.Drawing.Size(223, 20)
-        Me.LinkLabelOpenPreviewFileJPG.TabIndex = 69
-        Me.LinkLabelOpenPreviewFileJPG.TabStop = True
-        Me.LinkLabelOpenPreviewFileJPG.Text = "Open Badge from File (JPG)"
-        '
-        'LinkLabelEmailBadgeJPG
-        '
-        Me.LinkLabelEmailBadgeJPG.AutoSize = True
-        Me.LinkLabelEmailBadgeJPG.Location = New System.Drawing.Point(964, 45)
-        Me.LinkLabelEmailBadgeJPG.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
-        Me.LinkLabelEmailBadgeJPG.Name = "LinkLabelEmailBadgeJPG"
-        Me.LinkLabelEmailBadgeJPG.Size = New System.Drawing.Size(204, 20)
-        Me.LinkLabelEmailBadgeJPG.TabIndex = 70
-        Me.LinkLabelEmailBadgeJPG.TabStop = True
-        Me.LinkLabelEmailBadgeJPG.Text = "Email Badge (as JPG file)"
-        '
-        'LinkLabelEmailBadgeJpeg
-        '
-        Me.LinkLabelEmailBadgeJpeg.AutoSize = True
-        Me.LinkLabelEmailBadgeJpeg.Location = New System.Drawing.Point(964, 68)
-        Me.LinkLabelEmailBadgeJpeg.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
-        Me.LinkLabelEmailBadgeJpeg.Name = "LinkLabelEmailBadgeJpeg"
-        Me.LinkLabelEmailBadgeJpeg.Size = New System.Drawing.Size(189, 20)
-        Me.LinkLabelEmailBadgeJpeg.TabIndex = 71
-        Me.LinkLabelEmailBadgeJpeg.TabStop = True
-        Me.LinkLabelEmailBadgeJpeg.Text = "Email Badge (as image)"
-        '
-        'CheckDupedElementsToolStripMenuItem
-        '
-        Me.CheckDupedElementsToolStripMenuItem.Name = "CheckDupedElementsToolStripMenuItem"
-        Me.CheckDupedElementsToolStripMenuItem.Size = New System.Drawing.Size(175, 24)
-        Me.CheckDupedElementsToolStripMenuItem.Text = "Check Duped Elements"
-        '
         'Form__Main_Demo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1298, 591)
+        Me.ClientSize = New System.Drawing.Size(1298, 616)
         Me.Controls.Add(Me.LinkLabelEmailBadgeJpeg)
         Me.Controls.Add(Me.LinkLabelEmailBadgeJPG)
         Me.Controls.Add(Me.LinkLabelOpenPreviewFileJPG)
@@ -809,8 +824,8 @@ Partial Class Form__Main_Demo
     Friend WithEvents DemoModeActiveToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents CustomFieldsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents StatusStrip1 As StatusStrip
-    Friend WithEvents StatusLabel1 As ToolStripStatusLabel
-    Friend WithEvents StatusLabel2 As ToolStripStatusLabel
+    Friend WithEvents StatusLabelMovingElement As ToolStripStatusLabel
+    Friend WithEvents StatusLabelNameOfElement As ToolStripStatusLabel
     Friend WithEvents linkRemoveElements As LinkLabel
     Friend WithEvents LinkLabelSave2 As LinkLabel
     Friend WithEvents dropdownHowToLoadFlds As ComboBox
@@ -839,4 +854,6 @@ Partial Class Form__Main_Demo
     Friend WithEvents EmailAddressToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents LinkLabelEmailBadgeJpeg As LinkLabel
     Friend WithEvents CheckDupedElementsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents UnloadDesignerToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ReloadDesignerToolStripMenuItem As ToolStripMenuItem
 End Class

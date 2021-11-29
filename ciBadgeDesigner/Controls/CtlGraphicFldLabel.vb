@@ -590,6 +590,12 @@ ExitHandler:
         Me.ElementInfo_Base.TopEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Top_Omit(Me.Top)
         Me.ElementInfo_Base.LeftEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Left_Omit(Me.Left)
 
+        ''Added 11/29/2021 td
+        Me.ElementClass_Obj.DateUpdated = Now ''Added 11/29/2021 td
+        Dim intPixelsTop As Integer = Me.ElementClass_Obj.TopEdge_Pixels
+        Dim intPixelsLeft As Integer = Me.ElementClass_Obj.LeftEdge_Pixels
+        Dim intSum As Integer = (intPixelsTop + intPixelsLeft)
+
         ''
         ''Width & Height
         ''

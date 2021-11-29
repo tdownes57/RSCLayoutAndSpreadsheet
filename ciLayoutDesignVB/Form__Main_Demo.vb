@@ -222,12 +222,16 @@ Public Class Form__Main_Demo
         Me.ElementsCache_Edits.Pic_InitialDefault = mod_imageLady
 
         ''Added 10/13/2019 thomas d. 
-        ''Encapsulated to Load_Designer. 11/28/2021''mod_designer.CtlGraphic_Portrait = CtlGraphicPortrait_Lady
-        ''Encapsulated to Load_Designer. 11/28/2021''mod_designer.CtlGraphic_QRCode = CtlGraphicQRCode1
-        ''Encapsulated to Load_Designer. 11/28/2021''mod_designer.CtlGraphic_Signat = CtlGraphicSignature1
+        ''11/28/2021 Encapsulated to Load_Designer. 11/28/2021''
+        mod_designer.CtlGraphic_Portrait = CtlGraphicPortrait_Lady
+        ''11/28/2021 Encapsulated to Load_Designer. 11/28/2021''
+        mod_designer.CtlGraphic_QRCode = CtlGraphicQRCode1
+        ''11/28/2021 Encapsulated to Load_Designer. 11/28/2021''
+        mod_designer.CtlGraphic_Signat = CtlGraphicSignature1
 
         ''Added 10/13/2019 thomas d.
-        ''Encapsulated to Load_Designer. 11/28/2021''mod_designer.DesignerForm_Interface = CType(Me, IDesignerForm)
+        ''11/28/2021 Encapsulated to Load_Designer. 11/28/2021''
+        mod_designer.DesignerForm_Interface = CType(Me, IDesignerForm)
 
         Me.Controls.Remove(CtlGraphicPortrait_Lady) ''Added 7/31/2019 thomas d. 
         Me.Controls.Remove(CtlGraphicSignature1) ''Added 10/12/2019 thomas d. 
@@ -290,7 +294,7 @@ Public Class Form__Main_Demo
         ''
         mod_designer.UnloadDesigner()
 
-    End Sub
+    End Sub ''End of "Private Sub Unload_Designer()"  
 
 
     Private Sub Load_Designer()
@@ -370,7 +374,7 @@ Public Class Form__Main_Demo
             MessageBox.Show(ex.ToString)
         End Try
 
-    End Sub
+    End Sub ''Private Sub AutoPreview()
 
 
     Private Sub SaveLayout()
@@ -659,6 +663,22 @@ Public Class Form__Main_Demo
 
     End Sub ''End of "Private Sub Recipient_LinkClicked"
 
+    Private Sub RefreshTheSetOfDisplayedElements() ''_WontPreview()
+        ''
+        ''Added 11/28/2021 Thomas Downes 
+        ''
+        If (mod_designer IsNot Nothing) Then
+            ''Major call!!  
+            ''----mod_designer.UnloadDesigner__()
+            Unload_Designer()
+        End If ''End of "If (mod_designer IsNot Nothing) Then"
+
+        mod_designer = New ClassDesigner()
+        Load_Designer()
+
+    End Sub ''End of "Private Sub RefreshTheSetOfDisplayedElements()"
+
+
     Private Sub RefreshTheSetOfDisplayedElements_Deprecated(Optional pboolRemoveAndRebuild As Boolean = False)
         ''
         ''Step 1 of 5.   Create a dictionary of elements. 
@@ -837,8 +857,8 @@ Public Class Form__Main_Demo
 
             ''#1_11/28/2021 td''mod_designer.LoadDesigner()
             '' #2_11/28/2021 td''mod_designer.LoadDesigner(strWhyCalled)
-            mod_designer.LoadFieldControls_ByListOfElements(list_elementsNotLoadedYet_Any,
-                          True, False, True)
+            '' #2_11/28/2021 td''mod_designer.LoadFieldControls_ByListOfElements(list_elementsNotLoadedYet_Any, True, False, True)
+            mod_designer.LoadDesigner(strWhyCalled)
 
         End If ''End of "If (bSomeDisplayableFieldsAreNotLoaded) Then"
 
@@ -1745,8 +1765,20 @@ ExitHandler:
 
     End Sub ''ENd of "Private Sub DisplayStringDataInNotepad()"
 
+    Private Sub UnloadDesignerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UnloadDesignerToolStripMenuItem.Click
 
+        ''Added 11/28/2021 td
+        Unload_Designer()
 
+    End Sub
 
+    Private Sub ReloadDesignerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReloadDesignerToolStripMenuItem.Click
 
+        ''Added 11/28/2021 td
+        ''--Unload_Designer()
+        ''--mod_designer = New ClassDesigner()
+        ''--Load_Designer()
+        RefreshTheSetOfDisplayedElements()
+
+    End Sub
 End Class

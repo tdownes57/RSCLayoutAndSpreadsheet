@@ -76,6 +76,7 @@ Public Class ClassDesigner
     Public Property Initial_Text_Width As Integer = 350 ''Default value added 10/1/2019 thomas downes
     Public Property Initial_Text_Height As Integer = 30 ''Default value added 10/1/2019 thomas downes
 
+
     ''#1 8-3-2019 td''Private WithEvents mod_moveAndResizeCtls_NA As New MoveAndResizeControls_Monem.ControlMove_RaiseEvents ''Added 8/3/2019 td  
     '' #2 8-3-2019 td''Private WithEvents mod_moveAndResizeCtls As New MoveAndResizeControls_Monem.ControlMove_GroupMove ''Added 8/3/2019 td  
     ''#1 10/1/2019 td''Private WithEvents mod_groupedMove As New ClassGroupMove(Me) ''8/4/2019 td''New ClassGroupMove
@@ -106,6 +107,14 @@ Public Class ClassDesigner
     ''Added 9/20/2019 td  
     ''10/17/2019 td''Private mod_listOfFieldControls As New List(Of CtlGraphicFldLabel)
     Private mod_listOfFieldControls As New HashSet(Of CtlGraphicFldLabel)
+    ''Added 11/28/2021 thomas downes
+    ''   Let's keep track of every control created by this object (Of ClassDesigner). 
+    Private mod_listOfDesignerControls As New HashSet(Of Control)
+
+    ''Added 11/29/2021 td  
+    Private Const mc_bUseNonStaticMovers As Boolean = True ''Added 11/29/2021 td 
+    Private mod_dictyControlMoveFields As New Dictionary(Of CtlGraphicFldLabel, ControlMove_Group_NonStatic)
+    Private mod_dictyControlMoveBoxesEtc As New Dictionary(Of Control, ControlMove_NonStatic_TD)
 
     Private vbCrLf_Deux As String = (vbCrLf & vbCrLf)
 
@@ -114,6 +123,56 @@ Public Class ClassDesigner
         ''Added 10/13/2019 thomas downes
         Return mod_listOfFieldControls
     End Function ''End of "Public Function ListOfFieldLabels() As List(Of CtlGraphicFldLabel)"
+
+
+    Public Sub UnloadDesigner()
+        ''
+        ''Added 11/28/2021 Thomas Downes
+        ''
+        Dim listFormControls As Control.ControlCollection
+        listFormControls = Me.DesignerForm.Controls
+
+        Dim intFormControlCount As Integer
+        intFormControlCount = listFormControls.Count ''Initialize. 
+        Dim bConfirmDeleted As Boolean '' = False
+        Dim bRemovalHadToBeDoneThisPass As Boolean
+
+        For intPassthroughIndex As Integer = 1 To 2
+            ''
+            ''Run this loop twice, for good measure!! 
+            ''
+            bRemovalHadToBeDoneThisPass = False ''Refresh.
+
+            For Each eachCtl As Control In mod_listOfDesignerControls
+                ''Shut down the control (created by this designer object)
+                ''   and, finally, remove it from the parent form.
+                eachCtl.Visible = False
+                eachCtl.Dispose()
+                If (listFormControls.Contains(eachCtl)) Then
+                    bRemovalHadToBeDoneThisPass = True
+                    Me.DesignerForm.Controls.Remove(eachCtl)
+                    bConfirmDeleted = (listFormControls.Count = (-1 + intFormControlCount))
+                    If (Not bConfirmDeleted) Then Throw New Exception("Should be 1 less.")
+                End If ''End of "If (listFormControls.Contains(eachCtl)) Then"
+
+                ''Prepare for next iteration.
+                intFormControlCount = (listFormControls.Count)
+            Next eachCtl
+        Next intPassthroughIndex
+
+        ''Added 11/28/2021 td
+        Dim bRemovalWorkCompletedAtFirstPass As Boolean
+        bRemovalWorkCompletedAtFirstPass = (Not bRemovalHadToBeDoneThisPass)
+        If (bRemovalWorkCompletedAtFirstPass) Then
+            mod_listOfDesignerControls.Clear()
+        Else
+            MessageBox.Show("Unfortunately, it's not clear that the designer has fully unloaded.")
+        End If ''End of "If (bRemovalWorkCompletedAtFirstPass) Then"
+
+        FlowFieldsNotListed.Controls.Clear()
+
+    End Sub ''End of "Public Sub UnloadDesigner__()"
+
 
     Public Sub LoadDesigner(pstrWhyCalled As String) ''10/1/2019 td''sender As Object, e As EventArgs) Handles MyBase.Load
         ''10/1/2019 td''Private Sub Form_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -309,8 +368,17 @@ Public Class ClassDesigner
         ''Badge Preview is also moveable/sizeable, mostly to impress
         ''    management.  ----9/8/2019 td
         ''
-        ControlMoverOrResizer_TD.Init(Me.PreviewBox, Me.PreviewBox, 10, False,
-                          c_boolBreakpoint) ''Added 9/08/2019 thomas downes
+        If (mc_bUseNonStaticMovers) Then
+            ''Added 11/29/2021 td 
+            Dim objMover As New ControlMove_NonStatic_TD
+            objMover.Init(Me.PreviewBox, Me.PreviewBox, 10, False,
+                              c_boolBreakpoint)
+            mod_dictyControlMoveBoxesEtc.Add(Me.PreviewBox, objMover)
+
+        Else
+            ControlMoverOrResizer_TD.Init(Me.PreviewBox, Me.PreviewBox, 10, False,
+                              c_boolBreakpoint) ''Added 9/08/2019 thomas downes
+        End If ''End of "If (mc_bUseNonStaticMovers) Then .... Else If...."
 
         ''If it won't conflict with the Rubber-Band Selector, 
         ''    then let's make the Badge Layout Background 
@@ -318,16 +386,23 @@ Public Class ClassDesigner
         ''    ----9/8/2019 td
         ''
         Const c_LayoutBackIsMoveable As Boolean = False ''Added 9/8/2019 td 
-        If (c_LayoutBackIsMoveable) Then
+
+        If (c_LayoutBackIsMoveable And mc_bUseNonStaticMovers) Then
+            ''Badge Layout Background is also moveable/sizeable.
+            Dim objMover As New ControlMove_NonStatic_TD
+            objMover.Init(Me.BackgroundBox,
+                          Me.BackgroundBox, 10, False,
+                          c_boolBreakpoint) ''Added 9/08/2019 thomas downes
+        ElseIf (c_LayoutBackIsMoveable) Then
             ''Badge Layout Background is also moveable/sizeable.
             ControlMoverOrResizer_TD.Init(Me.BackgroundBox,
-                          Me.PreviewBox, 10, False,
-                          c_boolBreakpoint) ''Added 9/08/2019 thomas downes
+                              Me.BackgroundBox, 10, False,
+                              c_boolBreakpoint) ''Added 9/08/2019 thomas downes
         End If ''End of "If (c_LayoutBackIsMoveable) Then"
 
         ''Moved from above, 9/20/2019 td 
         Initiate_RubberbandSelector(mod_listOfFieldControls,
-                                     mod_selectedCtls) ''Added 9/8/2019 thomas d. 
+                                 mod_selectedCtls) ''Added 9/8/2019 thomas d. 
 
     End Sub ''End of "Private Sub FormDesignProtoTwo_Load"
 
@@ -492,13 +567,27 @@ Public Class ClassDesigner
 
     End Sub ''End of "Private Sub MakeElementsMoveable()"
 
+
     Private Sub ControlMoverResizer_AddFieldCtl(par_graphicFieldCtl As CtlGraphicFldLabel)
         ''
         ''Encapsulated 9/7/2019 thomas d
         ''
         Const c_bRepaintAfterResize As Boolean = True ''Added 7/31/2019 td 
 
-        If (mc_boolAllowGroupMovements) Then
+        If (mc_bUseNonStaticMovers And mc_boolAllowGroupMovements) Then
+            ''
+            ''Added 11/29/2021 td
+            ''
+            Dim objNonStatic As New ControlMove_Group_NonStatic
+            objNonStatic.Init(par_graphicFieldCtl.Picture_Box,
+              par_graphicFieldCtl, 10, c_bRepaintAfterResize,
+              mod_groupedMove, mc_boolAllowGroupMovements)
+            mod_dictyControlMoveFields.Add(par_graphicFieldCtl, objNonStatic)
+
+        ElseIf (mc_boolAllowGroupMovements) Then
+            ''
+            ''This is essentially deprecated as of 11/29/2021 
+            ''
             ControlMove_GroupMove_TD.Init(par_graphicFieldCtl.Picture_Box,
                           par_graphicFieldCtl, 10, c_bRepaintAfterResize,
                           mod_groupedMove, mc_boolAllowGroupMovements) ''Added 8/3/2019 td 
@@ -524,6 +613,9 @@ Public Class ClassDesigner
 
         ''10/1/2019 td''Me.Controls.Add(CtlGraphicPortrait_Lady)
         Me.DesignerForm.Controls.Add(CtlGraphic_Portrait)
+
+        ''Added 11/28/2021 td
+        mod_listOfDesignerControls.Add(CtlGraphic_Portrait)
 
         With CtlGraphic_Portrait
 
@@ -555,6 +647,9 @@ Public Class ClassDesigner
         CtlGraphic_Signat = New CtlGraphicSignature(par_elementSig, Me, Me.PathToSigFile)
 
         Me.DesignerForm.Controls.Add(CtlGraphic_Signat)
+
+        ''Added 11/28/2021 td
+        mod_listOfDesignerControls.Add(CtlGraphic_Signat)
 
         With CtlGraphic_Signat
 
@@ -723,6 +818,9 @@ Public Class ClassDesigner
                 Me.DesignerForm.Controls.Add(label_control)
                 par_listFieldCtls.Add(label_control) ''Added 9/20/2019 td
 
+                ''Added 11/28/2021 td
+                mod_listOfDesignerControls.Add(label_control)
+
                 label_control.Visible = True
                 label_control.BringToFront() ''Added 9/7/2019 thomas d.  
                 ''9/5/2019''label_control.Refresh_Image(True)
@@ -736,6 +834,7 @@ Public Class ClassDesigner
                 ''Major call !!  ----Thomas DOWNES
                 ''
                 label_control.Refresh_Master()
+                label_control.Refresh() ''Added 11/29/2021 td  
 
                 ''Added 9/8/2019 td
                 If (par_bAddMoveability) Then ControlMoverResizer_AddFieldCtl(label_control)
@@ -920,7 +1019,7 @@ Public Class ClassDesigner
 
     End Sub ''End of "PRivate Sub SaveLayout()"  
 
-    Private Sub SaveControlPositionsToElement()
+    Private Sub SaveControlPositionsToElement(Optional par_ctlElement As Control = Nothing)
         ''
         ''Save location & sizing data each element that corresponds to each designer control.
         ''  ----10/10/2019 td 
@@ -932,43 +1031,70 @@ Public Class ClassDesigner
         Dim each_ctl_Signat As CtlGraphicSignature ''Added 10/14/2019 td
         Dim each_ctl_Text As CtlGraphicText ''Added 10/14/2019 td
 
-        For Each each_control As Control In Me.DesignerForm.Controls
-
-            If (TypeOf each_control Is CtlGraphicFldLabel) Then
-
-                each_graphicalFieldCtl = CType(each_control, CtlGraphicFldLabel)
-
+        If (par_ctlElement IsNot Nothing) Then
+            ''
+            ''Save the position of the specified control.  
+            ''
+            If (TypeOf par_ctlElement Is CtlGraphicFldLabel) Then
+                each_graphicalFieldCtl = CType(par_ctlElement, CtlGraphicFldLabel)
                 each_graphicalFieldCtl.SaveToModel()
-
-            ElseIf (TypeOf each_control Is CtlGraphicPortrait) Then
-                ''
-                ''Added 7/31/2019 thomas downes  
-                ''
-                each_portraitControl = CType(each_control, CtlGraphicPortrait)
+            ElseIf (TypeOf par_ctlElement Is CtlGraphicPortrait) Then
+                each_portraitControl = CType(par_ctlElement, CtlGraphicPortrait)
                 each_portraitControl.SaveToModel()
-
-            ElseIf (TypeOf each_control Is CtlGraphicQRCode) Then
-                ''Added 10/14/2019 thomas downes  
-                each_ctl_QRCode = CType(each_control, CtlGraphicQRCode)
+            ElseIf (TypeOf par_ctlElement Is CtlGraphicQRCode) Then
+                each_ctl_QRCode = CType(par_ctlElement, CtlGraphicQRCode)
                 each_ctl_QRCode.SaveToModel()
-
-            ElseIf (TypeOf each_control Is CtlGraphicQRCode) Then
-                ''Added 10/14/2019 thomas downes  
-                each_ctl_Signat = CType(each_control, CtlGraphicSignature)
+            ElseIf (TypeOf par_ctlElement Is CtlGraphicSignature) Then
+                each_ctl_Signat = CType(par_ctlElement, CtlGraphicSignature)
                 each_ctl_Signat.SaveToModel()
-
-            ElseIf (TypeOf each_control Is CtlGraphicText) Then
-                ''Added 10/14/2019 thomas downes  
-                each_ctl_Text = CType(each_control, CtlGraphicText)
+            ElseIf (TypeOf par_ctlElement Is CtlGraphicText) Then
+                each_ctl_Text = CType(par_ctlElement, CtlGraphicText)
                 each_ctl_Text.SaveToModel()
+            End If
 
-            End If ''end of "If (TypeOf each_control Is GraphicFieldLabel) Then .... ElseIf ..."
+        Else
+            ''
+            ''Save the position of _all_ the moveable controls. 
+            ''
+            ''---For Each each_control As Control In Me.DesignerForm.Controls
+            For Each each_control As Control In mod_listOfDesignerControls
 
-        Next each_control
+                If (TypeOf each_control Is CtlGraphicFldLabel) Then
+
+                    each_graphicalFieldCtl = CType(each_control, CtlGraphicFldLabel)
+                    each_graphicalFieldCtl.SaveToModel()
+
+                ElseIf (TypeOf each_control Is CtlGraphicPortrait) Then
+                    ''
+                    ''Added 7/31/2019 thomas downes  
+                    ''
+                    each_portraitControl = CType(each_control, CtlGraphicPortrait)
+                    each_portraitControl.SaveToModel()
+
+                ElseIf (TypeOf each_control Is CtlGraphicQRCode) Then
+                    ''Added 10/14/2019 thomas downes  
+                    each_ctl_QRCode = CType(each_control, CtlGraphicQRCode)
+                    each_ctl_QRCode.SaveToModel()
+
+                ElseIf (TypeOf each_control Is CtlGraphicQRCode) Then
+                    ''Added 10/14/2019 thomas downes  
+                    each_ctl_Signat = CType(each_control, CtlGraphicSignature)
+                    each_ctl_Signat.SaveToModel()
+
+                ElseIf (TypeOf each_control Is CtlGraphicText) Then
+                    ''Added 10/14/2019 thomas downes  
+                    each_ctl_Text = CType(each_control, CtlGraphicText)
+                    each_ctl_Text.SaveToModel()
+
+                End If ''end of "If (TypeOf each_control Is GraphicFieldLabel) Then .... ElseIf ..."
+
+            Next each_control
+
+        End If ''end of "If (par_ctlElement IsNot Nothing) Then ... Else ..."
 
     End Sub ''End of "Private Sub SaveControlPositionsToElement()"
 
-    Public Sub RefreshPreview_Redux()
+    Public Sub RefreshPreview_Redux(Optional par_recentlyMoved As ClassElementField = Nothing)
         ''
         ''Added 10/5/2019 & 8/24/2019 td 
         ''
@@ -987,6 +1113,9 @@ Public Class ClassDesigner
         obj_generator.PathToFile_Sig = Me.PathToSigFile ''Added 10/12/2019 td
         obj_generator.ImageQRCode = CtlGraphic_QRCode.pictureQRCode.Image ''Added 10/14 td
 
+        ''
+        ''How is the following list used?   ---11/29/2021 td 
+        ''
         listOfElementTextFields = Me.ElementsCache_Edits.ListFieldElements()
 
         ''obj_image = ciBadgeGenerator.ClassMakeBadge
@@ -1034,9 +1163,14 @@ Public Class ClassDesigner
         ''  #3 10/09/2019 td''obj_image = obj_generator.MakeBadgeImage(obj_image_clone_resized, Me.ElementsCache_Edits,
         ''           Me.PreviewBox.Width, Me.PreviewBox.Height,
         ''           Me.CtlGraphicPortrait_Lady.picturePortrait.Image)
-        obj_image = obj_generator.MakeBadgeImage(Me.BadgeLayout_Class, obj_image_clone_resized, Me.ElementsCache_Edits,
-                                                  Me.PreviewBox.Width, Me.PreviewBox.Height,
-                                                  Me.CtlGraphic_Portrait.picturePortrait.Image)
+        obj_image = obj_generator.MakeBadgeImage(Me.BadgeLayout_Class, obj_image_clone_resized,
+                                                  Me.PreviewBox.Width,
+                                                  Me.PreviewBox.Height,
+                                                  Me.CtlGraphic_Portrait.picturePortrait.Image,
+                                                  Me.ElementsCache_Edits,
+                                                  listOfElementTextFields,
+                                                  Nothing, Nothing, Nothing,
+                                                  par_recentlyMoved)
 
         ClassFixTheControlWidth.ProportionsAreSlightlyOff(obj_image, True, "RefreshPreview_Redux #4")
 
@@ -1513,12 +1647,22 @@ Public Class ClassDesigner
 
     End Sub ''End of "Private Sub Resizing_End() Handles mod_groupedMove.Resizing_End"
 
-    Private Sub MovingElement_End() Handles mod_groupedMove.Moving_End
+    Private Sub MovingElement_End(par_ctlElement As Control) Handles mod_groupedMove.Moving_End
+        ''11/29/2021 ''Private Sub MovingElement_End() Handles mod_groupedMove.Moving_End
+
+        ''Added 11/29/2021 thomas d. 
+        If (TypeOf par_ctlElement Is PictureBox) Then
+            ''Let the programmer know that the control type 
+            ''  should be a custom-control, e.g. ctlGraphicLabel.
+            ''  ----11/29/2021 td 
+            Throw New Exception("The Element-Control is NOT supposed to be a PictureBox!")
+        End If ''End of "If (TypeOf par_ctlElement Is PictureBox) Then"
 
         ''Added 9/13/2019 td 
-        AutoPreview_IfChecked()
+        ''11/29/2021 td''AutoPreview_IfChecked()
+        AutoPreview_IfChecked(par_ctlElement)
 
-    End Sub
+    End Sub ''End of "Private Sub MovingElement_End(par_control As Control)"
 
     Private Sub SwitchControls_Down(par_ctl As CtlGraphicFldLabel) Implements ISelectingElements.SwitchControls_Down
         ''
@@ -1674,15 +1818,27 @@ Public Class ClassDesigner
 
     End Function ''End of "Public Function OkayToShowFauxContextMenu() As Boolean"
 
-    Public Sub AutoPreview_IfChecked() Implements ILayoutFunctions.AutoPreview_IfChecked
+    Public Sub AutoPreview_IfChecked(Optional par_controlElement As Control = Nothing) Implements ILayoutFunctions.AutoPreview_IfChecked
         ''
         ''Refresh the preview picture box. 
         ''
         If (CheckboxAutoPreview.Checked) Then
             ''--o----No longer needed. The preview is driven by Me.ElementsCache_Edits.---10/10/2019 td
             ''--o--SaveLayout()
-            SaveControlPositionsToElement() ''Added 10/10/2019 td
-            RefreshPreview_Redux()
+            ''11/29/2021 td''SaveControlPositionsToElement() ''Added 10/10/2019 td
+            SaveControlPositionsToElement(par_controlElement) ''Added 10/10/2019 td
+
+            ''Refresh the Preview Box (a PictureBox control).
+            If (TypeOf par_controlElement Is CtlGraphicFldLabel) Then
+                ''Added 11/29/2021 td
+                Dim objElementField As ClassElementField
+                objElementField = CType(par_controlElement,
+                                     CtlGraphicFldLabel).ElementClass_Obj
+                RefreshPreview_Redux(objElementField)
+            Else
+                RefreshPreview_Redux()
+            End If ''End of "If (TypeOf par_controlElement Is CtlGraphicFldLabel) Then... Else"
+
         End If ''End of "If (checkAutoPreview.Checked) Then"
 
     End Sub ''End of  "Private Sub AutoPreview_IfChecked()"

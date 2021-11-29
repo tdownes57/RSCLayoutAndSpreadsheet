@@ -168,10 +168,11 @@ namespace ciBadgeGenerator
             //
             //Step #2:  Create the image of the badge-card for the above recipient. 
             //
-            return MakeBadgeImage(par_layout, par_backgroundImage, par_cache,
+            return MakeBadgeImage(par_layout, par_backgroundImage, 
                                     par_badge_width_pixels,
                                     par_badge_height_pixels,
                                     par_recipientPic,
+                                    par_cache, null,
                                     par_listMessages,
                                     par_listFieldsIncluded,
                                     par_listFieldsNotIncluded);
@@ -199,22 +200,27 @@ namespace ciBadgeGenerator
             //Step #2:  Create the image of the badge-card for the above recipient. 
             //
             //10-09-2019 td //return MakeBadgeImage(par_backgroundImage, par_cache, par_badge_width_pixels, par_recipientPic);
-            return MakeBadgeImage(par_layout, par_backgroundImage, par_cache,
+            return MakeBadgeImage(par_layout, 
+                                    par_backgroundImage, 
                                     par_badge_width_pixels,
                                     par_badge_height_pixels,
-                                    par_recipientPic);
+                                    par_recipientPic,
+                                    par_cache);
 
         }
 
+
         public Image MakeBadgeImage(IBadgeLayout par_layout,
                                     Image par_backgroundImage,
-                                    ClassElementsCache_Deprecated par_cache,
                                     int par_newBadge_width_pixels,
                                     int par_newBadge_height_pixels,
-                                    Image par_recipientPic, 
+                                    Image par_recipientPic,
+                                    ClassElementsCache_Deprecated par_cache,
+                                    HashSet<ClassElementField> par_listElementFields = null,
                                     List<string> par_listMessages = null,
                                     List<string> par_listFieldsIncluded = null, 
-                                    List<string> par_listFieldsNotIncluded = null)
+                                    List<string> par_listFieldsNotIncluded = null,
+                                    ClassElementField par_recentlyMoved = null)
         {
             //Dim objPrintLibElems As New ciLayoutPrintLib.LayoutElements
 
@@ -267,7 +273,9 @@ namespace ciBadgeGenerator
 
             // 10-17-2019 td //List<ClassElementField> listOfElementTextFields;
             HashSet<ClassElementField> listOfElementFields; // <<<<<<<<<<<<<< I have removed the word "Text" from the name.   It's confusing since there are Static-Text controls. --10/17/2019
-            listOfElementFields = par_cache.ListFieldElements();
+            // Nov. 29 2021 //listOfElementFields = par_cache.ListFieldElements();
+            if (par_listElementFields != null) listOfElementFields = par_listElementFields;
+            else listOfElementFields = par_cache.ListFieldElements();
 
             const bool c_boolUseUntestedProc = true;  // 11-9-2021 false;  // true;  // false;  //Added 10/5/2019 td
             if (c_boolUseUntestedProc)
@@ -277,12 +285,20 @@ namespace ciBadgeGenerator
                 //   If I recall, it's rather long and I was experiencing fatigue from the 
                 //   late hour. ---10/9/2019 td
                 //
+                DateTime dateMostRecentUpdate = DateTime.MinValue;  // Default value.
+
                 // I think this procedure is ready for testing. ---11/9/2021  
                 //
-                LoadImageWithElements(ref obj_imageOutput, listOfElementFields, 
+                LoadImageWithElements(ref obj_imageOutput, 
+                        ref dateMostRecentUpdate,
+                        listOfElementFields, 
                         null, par_listMessages,
                          par_listFieldsIncluded,
-                         par_listFieldsNotIncluded);
+                         par_listFieldsNotIncluded, 
+                         par_recentlyMoved);
+
+                //Added 11/29/2021 td  
+                string strLastUpdate = dateMostRecentUpdate.ToString();
 
             }
             else
@@ -572,11 +588,13 @@ namespace ciBadgeGenerator
         }
 
         public void LoadImageWithElements(ref Image par_imageBadgeCard,
+                                          ref DateTime par_datetimeLastUpdated,
                                           HashSet<ClassElementField> par_elements,
                                           List<Image> par_listTextImages = null,
                                           List<String> par_listMessages = null,
                                           List<String> par_listFieldsIncluded = null,
-                                          List<String> par_listFieldsNotIncluded = null)
+                                          List<String> par_listFieldsNotIncluded = null,
+                                          ClassElementField par_recentlyMoved = null)
         {
             //    ''Added 8/14/2019 td  
             //    ''
@@ -619,6 +637,11 @@ namespace ciBadgeGenerator
             {
                 //
                 //        intEachIndex += 1
+                par_datetimeLastUpdated = MaxDateTime(each_elementField.DateUpdated,
+                    par_datetimeLastUpdated);
+
+                // Added 11/29/2021 td  
+                if (each_elementField == par_recentlyMoved) System.Diagnostics.Debugger.Break();
 
                 intEachIndex += 1;
 
@@ -1183,7 +1206,12 @@ namespace ciBadgeGenerator
             }
         }
 
-
+        private DateTime MaxDateTime(DateTime pdatetime1, DateTime pdatetime2)
+        {
+            //Added 11/29/2021 td
+            if (pdatetime1 >= pdatetime2) return pdatetime1;
+            return pdatetime2;
+        }
 
 
     }

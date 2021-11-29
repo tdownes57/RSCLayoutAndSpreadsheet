@@ -44,6 +44,8 @@ Public Class ClassElementsCache_Deprecated
     <Xml.Serialization.XmlIgnore>
     Public Property Pic_InitialDefault As Image ''Added 9/23/2019 td 
 
+    Public Property DateAndTimeUpdated As DateTime ''Added 11/29/2021 thomas d. 
+
     ''10/14/2019 td''Private mod_listFields As New List(Of ClassFieldAny) ''Added 9/18/2019 td  
 
     ''10/17 td''Private mod_listFields_Standard As New List(Of ClassFieldStandard) ''Added 10/14/2019 td  

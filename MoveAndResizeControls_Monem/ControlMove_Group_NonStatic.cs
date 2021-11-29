@@ -1,41 +1,30 @@
 ﻿using System;
+//using System.Collections.Generic;
+using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
+using System.Windows.Forms; // Added 11/29/2021 thomas downes
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
-using System.Linq;
-using System.Windows.Forms;
-
-/***
-    ''
-    ''   by Seyyed Hamed Monem
-    ''
-    '' https://www.codeproject.com/tips/709121/move-and-resize-controls-on-a-form-at-runtime-with 
-    ''
-    ''    Move And Resize Controls on a Form at Runtime(With Mouse)
-    ''
-    ''seyyed hamed monem
-    ''
-    ''Rate this :  
-    ''
-    ''
-    ''4.97 (47 votes) 
-    ''
-    ''13 Jan 2014
-    ''CPOL
-    ''Move And resize controls on a form at runtime (with mouse)
-    ''
-    ''   https://www.codeproject.com/tips/709121/move-and-resize-controls-on-a-form-at-runtime-with 
-    ''
-    ''   https://www.codeproject.com/info/cpol10.aspx
-    ''
-***/
-
+//
+//  This class is a copy of class ControlMove_GroupMove_TD,  
+//    with the keyword "static" removed.  
+//    ----11/29/2021 thomas downes
+//
 namespace MoveAndResizeControls_Monem
+
 {
-    public class ControlMove_GroupMove_TD
+    //
+    // Added 11/29/2021 thomas downes 
+    //
+    public class ControlMove_Group_NonStatic
     {
         //
-        //  internal class ControlMove_GroupMove
+        //  Class ControlMove_Group_NonStatic
+        //     was copied from ControlMove_GroupMove_TD. 
+        //     The keyword "static" was removed. 
+        //     ----11/29/2021 
         //
         //  Class primarily authored by Seyyed Hamed Monem 
         //       https://www.codeproject.com/tips/709121/move-and-resize-controls-on-a-form-at-runtime-with 
@@ -43,28 +32,28 @@ namespace MoveAndResizeControls_Monem
         //  This class was modified in August 2019 by Thomas C. Downes
         //
 
-        private static bool _moving;
-        private static bool _repaintAfterResize;  // Added 7/31/2019 td  
+        private bool _moving;
+        private bool _repaintAfterResize;  // Added 7/31/2019 td  
         /// </summary>
-        private static Point _cursorStartPoint;
-        private static bool _moveIsInterNal;
-        private static bool _resizing;
-        private static Size _currentControlStartSize;
+        private Point _cursorStartPoint;
+        private bool _moveIsInterNal;
+        private bool _resizing;
+        private Size _currentControlStartSize;
 
-        private static Control _controlCurrent; // Added 11/29/2021 td
-        private static Control _controlPictureBox;  // = par_controlPictureB;
-        private static Control _controlMoveableElement; // = par_containerElement;
+        private Control _controlCurrent; // Added 11/29/2021 td
+        private Control _controlPictureBox;  // = par_controlPictureB;
+        private Control _controlMoveableElement; // = par_containerElement;
 
         //Added 7/18/2019 thomas downes
         //
-        private static int _margin; //Added 7/18/2019 thomas downes
+        private int _margin; //Added 7/18/2019 thomas downes
 
-        internal static bool MouseIsInLeftEdge { get; set; }
-        internal static bool MouseIsInRightEdge { get; set; }
-        internal static bool MouseIsInTopEdge { get; set; }
-        internal static bool MouseIsInBottomEdge { get; set; }
+        internal bool MouseIsInLeftEdge { get; set; }
+        internal bool MouseIsInRightEdge { get; set; }
+        internal bool MouseIsInTopEdge { get; set; }
+        internal bool MouseIsInBottomEdge { get; set; }
 
-        internal static bool SetBreakpoint_AfterMove { get; set; } //Added 9/13/2019 td 
+        internal bool SetBreakpoint_AfterMove { get; set; } //Added 9/13/2019 td 
 
         internal enum MoveOrResize
         {
@@ -75,11 +64,11 @@ namespace MoveAndResizeControls_Monem
 
         //Added 8/03/2019 thomas downes
         //
-        internal static InterfaceEvents mod_groupedctl_events;
+        internal InterfaceEvents mod_groupedctl_events;
 
-        internal static MoveOrResize WorkType { get; set; }
+        internal MoveOrResize WorkType { get; set; }
 
-        public static void Init(Control par_controlA, int par_margin, bool pbRepaintAfterResize, 
+        public void Init(Control par_controlA, int par_margin, bool pbRepaintAfterResize,
                                  InterfaceEvents par_events, bool pbSetBreakpoint_AfterMove)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
@@ -96,13 +85,12 @@ namespace MoveAndResizeControls_Monem
             //Not needed here. 9/13 td.//SetBreakpoint_AfterMove = pbSetBreakpoint_AfterMove;  //Added 9/13/2019 td 
 
             // 9-13-2019 td//Init(control, control, par_margin, pbRepaintAfterResize, par_events);
-            Init(par_controlA, par_controlA, par_margin, pbRepaintAfterResize, par_events, SetBreakpoint_AfterMove );
+            Init(par_controlA, par_controlA, par_margin, pbRepaintAfterResize, par_events, SetBreakpoint_AfterMove);
 
         }
 
-        public static void Init(Control par_controlImage, 
-                                Control par_containerElement, 
-                                int par_margin, bool pbRepaintAfterResize, 
+        public void Init(Control par_controlPictureB, Control par_containerElement, 
+                               int par_margin, bool pbRepaintAfterResize,
                                InterfaceEvents par_events, bool pbSetBreakpoint_AfterMove)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
@@ -137,18 +125,18 @@ namespace MoveAndResizeControls_Monem
             MouseIsInBottomEdge = false;
             WorkType = MoveOrResize.MoveAndResize;
 
-            par_controlImage.MouseDown += (sender, e) => StartMovingOrResizing(par_controlImage, e);
-            par_controlImage.MouseUp += (sender, e) => StopDragOrResizing(par_controlImage);
-            par_controlImage.MouseMove += (sender, e) => MoveControl(par_containerElement, e);
+            par_controlPictureB.MouseDown += (sender, e) => StartMovingOrResizing(par_controlPictureB, e);
+            par_controlPictureB.MouseUp += (sender, e) => StopDragOrResizing(par_controlPictureB);
+            par_controlPictureB.MouseMove += (sender, e) => MoveControl(par_containerElement, e);
 
             //Added 11/29/2021 td
-            _controlCurrent = par_controlImage;
+            _controlCurrent = par_controlPictureB;
+            _controlPictureBox = par_controlPictureB;
             _controlMoveableElement = par_containerElement;
-            _controlPictureBox = par_controlImage;
 
         }
 
-        private static void UpdateMouseEdgeProperties(Control par_controlC, Point mouseLocationInControl)
+        private void UpdateMouseEdgeProperties(Control par_controlC, Point mouseLocationInControl)
         {
             if (WorkType == MoveOrResize.Move)
             {
@@ -170,7 +158,7 @@ namespace MoveAndResizeControls_Monem
 
         }
 
-        private static void UpdateMouseCursor(Control par_controlD)
+        private void UpdateMouseCursor(Control par_controlD)
         {
             if (WorkType == MoveOrResize.Move)
             {
@@ -220,7 +208,7 @@ namespace MoveAndResizeControls_Monem
 
         }
 
-        private static void StartMovingOrResizing(Control par_controlE, MouseEventArgs e)
+        private void StartMovingOrResizing(Control par_controlE, MouseEventArgs e)
         {
             if (_moving || _resizing)
             {
@@ -261,7 +249,7 @@ namespace MoveAndResizeControls_Monem
 
         }
 
-        private static void MoveControl(Control par_controlF, MouseEventArgs e)
+        private void MoveControl(Control par_controlF, MouseEventArgs e)
         {
             //
             //Added 8/3/2019 thomas downes
@@ -274,7 +262,7 @@ namespace MoveAndResizeControls_Monem
 
         }
 
-        private static void MoveControl_GroupMove(Control par_controlG, MouseEventArgs e)
+        private void MoveControl_GroupMove(Control par_controlG, MouseEventArgs e)
         {
             //
             //Modified 8/2/2019 thomas downes  
@@ -416,16 +404,16 @@ namespace MoveAndResizeControls_Monem
 
             }
 
-            if (_moving && (delta_Left != 0 || delta_Top != 0 ))
+            if (_moving && (delta_Left != 0 || delta_Top != 0))
             {
-                   //
-                   //Allow a group of controls to be affected in unison.   
-                   //
-                   mod_groupedctl_events.ControlBeingMoved(par_controlG);
-                   delta_Width = 0;
-                   delta_Height = 0; 
-                   // 8-5-2019 td //mod_events.GroupMove(delta_Left, delta_Top, delta_Width, delta_Height);
-                   mod_groupedctl_events.GroupMove_Change(delta_Left, delta_Top, delta_Width, delta_Height);
+                //
+                //Allow a group of controls to be affected in unison.   
+                //
+                mod_groupedctl_events.ControlBeingMoved(par_controlG);
+                delta_Width = 0;
+                delta_Height = 0;
+                // 8-5-2019 td //mod_events.GroupMove(delta_Left, delta_Top, delta_Width, delta_Height);
+                mod_groupedctl_events.GroupMove_Change(delta_Left, delta_Top, delta_Width, delta_Height);
 
             }
 
@@ -446,7 +434,7 @@ namespace MoveAndResizeControls_Monem
         }
 
 
-        private static void MoveControl_NoEvents(Control par_controlH, MouseEventArgs e)
+        private void MoveControl_NoEvents(Control par_controlH, MouseEventArgs e)
         {
             if (!_resizing && !_moving)
             {
@@ -525,7 +513,7 @@ namespace MoveAndResizeControls_Monem
 
         }
 
-        private static void StopDragOrResizing(Control par_controlJ)
+        private void StopDragOrResizing(Control par_controlJ)
         {
             bool bWasResizing = _resizing; // Added 7/31/2019 td
 
@@ -548,7 +536,8 @@ namespace MoveAndResizeControls_Monem
             if (bWasResizing) mod_groupedctl_events.Resizing_Terminate();
 
             //Added 9/13/2019 thomas downes
-            // Nov. 29 2021 //if (!(bWasResizing)) mod_groupedctl_events.Moving_Terminate();
+            // #1 Nov. 29 2021 //if (!(bWasResizing)) mod_groupedctl_events.Moving_Terminate();
+            // #2 Nov. 29 2021 //if (!(bWasResizing)) mod_groupedctl_events.Moving_Terminate(par_controlJ);
             if (!(bWasResizing)) mod_groupedctl_events.Moving_Terminate(_controlMoveableElement);
 
             //Added 11/29/2021 td
@@ -559,14 +548,14 @@ namespace MoveAndResizeControls_Monem
 
         #region Save And Load
 
-        private static List<Control> GetAllChildControls(Control control, List<Control> list)
+        private List<Control> GetAllChildControls(Control control, List<Control> list)
         {
             List<Control> controls = control.Controls.Cast<Control>().ToList();
             list.AddRange(controls);
             return controls.SelectMany(ctrl => GetAllChildControls(ctrl, list)).ToList();
         }
 
-        internal static string GetSizeAndPositionOfControlsToString(Control container)
+        internal string GetSizeAndPositionOfControlsToString(Control container)
         {
             List<Control> controls = new List<Control>();
             GetAllChildControls(container, controls);
@@ -579,7 +568,7 @@ namespace MoveAndResizeControls_Monem
             }
             return info;
         }
-        internal static void SetSizeAndPositionOfControlsFromString(Control container, string controlsInfoStr)
+        internal void SetSizeAndPositionOfControlsFromString(Control container, string controlsInfoStr)
         {
             List<Control> controls = new List<Control>();
             GetAllChildControls(container, controls);
@@ -606,7 +595,6 @@ namespace MoveAndResizeControls_Monem
         }
 
         #endregion
+
     }
 }
-
-
