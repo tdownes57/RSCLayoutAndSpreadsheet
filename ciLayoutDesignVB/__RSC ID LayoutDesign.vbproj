@@ -256,6 +256,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Batch_Printing\ClassBatchPrint.vb" />
+    <Compile Include="ClassDesignerListenToMover.vb" />
     <Compile Include="ClassGroupMove.vb" />
     <Compile Include="ClassLabelToImage.vb" />
     <Compile Include="ClassLoopedOperations.vb" />

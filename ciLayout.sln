@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.28922.388
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ciLayoutDesignCS", "ciLayoutDesign\ciLayoutDesignCS.csproj", "{A3A45502-64AE-40B2-B9A1-3DC1EF382191}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "RSC ID LayoutDesign", "ciLayoutDesignVB\RSC ID LayoutDesign.vbproj", "{FB60907F-05CD-474D-967E-831B7BA2D517}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "__RSC ID LayoutDesign", "ciLayoutDesignVB\__RSC ID LayoutDesign.vbproj", "{FB60907F-05CD-474D-967E-831B7BA2D517}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ciLayoutPrintLib", "ciLayoutPrintLib\ciLayoutPrintLib.vbproj", "{F8271E6C-5C26-4CEC-BD4C-AD3B10FEF6B9}"
 EndProject
