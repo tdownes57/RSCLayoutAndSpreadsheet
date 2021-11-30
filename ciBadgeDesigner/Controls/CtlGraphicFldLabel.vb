@@ -29,6 +29,8 @@ Public Class CtlGraphicFldLabel
     ''Added 9/13/2019 td  
     Public Shared UseExampleValues As Boolean
 
+    Public DatetimeSaved As Date ''Added 11/29/2021 
+
     Public Event ElementField_RightClicked(par_control As CtlGraphicFldLabel) ''Added 10/1/2019 td
 
     ''7/26/2019 td''Public FieldInfo As ClassFieldCustomized
@@ -591,7 +593,7 @@ ExitHandler:
         Me.ElementInfo_Base.LeftEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Left_Omit(Me.Left)
 
         ''Added 11/29/2021 td
-        Me.ElementClass_Obj.DateUpdated = Now ''Added 11/29/2021 td
+        Me.ElementClass_Obj.DatetimeUpdated = Now ''Added 11/29/2021 td
         Dim intPixelsTop As Integer = Me.ElementClass_Obj.TopEdge_Pixels
         Dim intPixelsLeft As Integer = Me.ElementClass_Obj.LeftEdge_Pixels
         Dim intSum As Integer = (intPixelsTop + intPixelsLeft)

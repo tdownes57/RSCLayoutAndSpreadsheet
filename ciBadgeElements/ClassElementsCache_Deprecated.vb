@@ -296,7 +296,11 @@ Public Class ClassElementsCache_Deprecated
                 ''Added 11/26/2021 thomas downes
                 If (pboolSkip13 And indexBadgeDisplay = 13) Then indexBadgeDisplay = 14
                 If (pboolSkip14 And indexBadgeDisplay = 14) Then indexBadgeDisplay = 15
+
                 each_element.BadgeDisplayIndex = indexBadgeDisplay
+                ''Added 11/29/2021 td
+                each_element.DatetimeUpdated = DateTime.Now
+
             End If ''End of "If (boolOnDisplay) Then"
         Next each_element
 
@@ -621,6 +625,9 @@ Public Class ClassElementsCache_Deprecated
             ''Added 10/13/2019 td
             new_elementField.BadgeLayout = par_layout
 
+            ''Added 11/29/2021 td
+            new_elementField.DatetimeUpdated = Now
+
             ''Added 9/19/2019 td
             mod_listElementFields.Add(new_elementField)
 
@@ -659,6 +666,9 @@ Public Class ClassElementsCache_Deprecated
 
             ''Added 10/13/2019 td
             new_elementField.BadgeLayout = par_layout
+
+            ''Added 11/29/2021 td
+            new_elementField.DatetimeUpdated = DateTime.Now
 
             ''Added 9/19/2019 td
             mod_listElementFields.Add(new_elementField)
@@ -904,6 +914,7 @@ Public Class ClassElementsCache_Deprecated
 
             Try
                 dictionaryFields.Add(copy_ofField_Stan.FieldEnumValue, copy_ofField_Stan)
+
             Catch ex_AddFailed As Exception
                 ''Added 10/10/2019 td
                 ''  The ID field is being added twice, for an unknown reason.  

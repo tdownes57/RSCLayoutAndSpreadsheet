@@ -354,7 +354,7 @@ Public Class ClassElementField
 
     Public Property Visible As Boolean = True Implements IElement_Base.Visible ''Added 9/19/2019 td  
 
-    Public Property DateUpdated As DateTime = DateTime.MinValue ''Added 11/29/2021 thomas downes
+    Public Property DatetimeUpdated As DateTime = DateTime.MinValue ''Added 11/29/2021 thomas downes
 
     ''9/18/2019 td''Private _labelToImage As New ClassLabelToImage ''Added 9/3/2019 td  
     ''Moved up. 9/30/2019 td''Public Property Id_GUID As System.Guid ''Added 9/30/2019 td 

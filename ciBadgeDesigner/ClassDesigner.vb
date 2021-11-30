@@ -52,6 +52,7 @@ Public Class ClassDesigner
 
     Public Property CtlGraphic_Signat As CtlGraphicSignature ''Added 10/10/2019 td
     Public Property CtlGraphic_QRCode As CtlGraphicQRCode ''Added 10/10/2019 td
+    Public Property CtlGraphic_Text As CtlGraphicText ''Added 11/29/2019 td
 
     Public Property ElementsCache_Saved As New ClassElementsCache_Deprecated ''Added 9/16/2019 thomas downes
     Public Property ElementsCache_Edits As New ClassElementsCache_Deprecated ''Added 9/16/2019 thomas downes
@@ -472,6 +473,8 @@ Public Class ClassDesigner
         Const c_boolLoadingForm As Boolean = True ''Added 8/28/2019 thomas downes 
         Dim boolMakeMoveableByUser As Boolean ''Added 9/20/2019 td 
         Const c_boolMakeMoveableASAP As Boolean = False ''added 9/20/2019 td
+
+        ElementsCache_Edits = par_cache ''Added 11/30/2021 
 
         ''#1 9/17/2019 td''LoadElements_Fields_Master(c_boolLoadingForm, par_cache.FieldElements())
         '' #2 9/17/2019 td''LoadElements_ByListOfFields(ClassFields.ListAllFields())
@@ -1051,8 +1054,14 @@ Public Class ClassDesigner
             ''Save the position of the specified control.  
             ''
             If (TypeOf par_ctlElement Is CtlGraphicFldLabel) Then
+                ''
+                ''Save the Top & Left positional information, for example. 
+                ''
                 each_graphicalFieldCtl = CType(par_ctlElement, CtlGraphicFldLabel)
                 each_graphicalFieldCtl.SaveToModel()
+                ''Added 11/29/2021 td  
+                each_graphicalFieldCtl.DatetimeSaved = DateTime.Now
+
             ElseIf (TypeOf par_ctlElement Is CtlGraphicPortrait) Then
                 each_portraitControl = CType(par_ctlElement, CtlGraphicPortrait)
                 each_portraitControl.SaveToModel()
@@ -1121,6 +1130,8 @@ Public Class ClassDesigner
         Dim obj_image_clone_resized As Image ''Added 8/24/2019 td
         ''10/14/2019 td''Dim obj_generator As New ciBadgeGenerator.ClassMakeBadge
         Static obj_generator As ciBadgeGenerator.ClassMakeBadge
+        Dim bMatchesElementInCache As Boolean ''Added 11/30/2021 thomas d.
+        Dim intCountMatchedElements As Integer ''Added 11/30/2021 thomas d.
 
         ''Added 10/14/2019 td 
         If (obj_generator Is Nothing) Then obj_generator = New ciBadgeGenerator.ClassMakeBadge
@@ -1131,7 +1142,22 @@ Public Class ClassDesigner
         ''
         ''How is the following list used?   ---11/29/2021 td 
         ''
-        listOfElementTextFields = Me.ElementsCache_Edits.ListFieldElements()
+        ''11/29/2021 td''listOfElementTextFields = Me.ElementsCache_Edits.ListFieldElements()
+
+        ''Pull the Element objects from the CtlGraphicFldLabel Controls.
+        ''     ---11/29/2021 td 
+        listOfElementTextFields = New HashSet(Of ClassElementField)
+
+        For Each eachCtlField As CtlGraphicFldLabel In mod_listOfFieldControls
+            ''Add to the list which will be given to the function MakeBadge.
+            listOfElementTextFields.Add(eachCtlField.ElementClass_Obj)
+
+            ''Debug code.....
+            bMatchesElementInCache =
+                Me.ElementsCache_Edits.ListOfElementFields.Contains(eachCtlField.ElementClass_Obj)
+            If (bMatchesElementInCache) Then intCountMatchedElements += 1
+
+        Next eachCtlField
 
         ''obj_image = ciBadgeGenerator.ClassMakeBadge
         Try
@@ -1181,9 +1207,13 @@ Public Class ClassDesigner
         obj_image = obj_generator.MakeBadgeImage(Me.BadgeLayout_Class, obj_image_clone_resized,
                                                   Me.PreviewBox.Width,
                                                   Me.PreviewBox.Height,
-                                                  Me.CtlGraphic_Portrait.picturePortrait.Image,
+                                                 Me.CtlGraphic_Portrait.picturePortrait.Image,
                                                   Me.ElementsCache_Edits,
                                                   listOfElementTextFields,
+                                                  Me.CtlGraphic_Portrait.ElementClass_Obj,
+                                                  Me.CtlGraphic_QRCode.ElementClass_Obj,
+                                                  Me.CtlGraphic_Signat.ElementClass_Obj,
+                                                  Me.CtlGraphic_Text.Element_StaticText,
                                                   Nothing, Nothing, Nothing,
                                                   par_recentlyMoved)
 

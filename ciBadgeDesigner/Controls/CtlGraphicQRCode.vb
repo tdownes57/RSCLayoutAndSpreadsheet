@@ -18,8 +18,10 @@ Public Class CtlGraphicQRCode
     ''7/31/2019 td''Public FieldInfo As ICIBFieldStandardOrCustom
     ''7/31/2019 td''Public ElementInfo As ClassElementPic
 
-    Public ElementClass_Obj As ClassElementPic ''Added 9/17/2019 thomas downes
-    Public ElementInfo_Pic As IElementPic ''Added 7/31/2019 thomas d 
+    ''---Nov29 2021''Public ElementClass_Obj As ClassElementPic ''Added 9/17/2019 thomas downes
+    Public ElementClass_Obj As ClassElementQRCode ''Added 9/17/2019 thomas downes
+    ''---Nov29 2021''Public ElementInfo_Pic As IElementPic ''Added 7/31/2019 thomas d 
+    Public ElementInfo_QR As IElementQRCode ''Modified 11/29/2021 thomas d 
     Public ElementInfo_Base As IElement_Base ''Added 7/31/2019 thomas d 
 
     Public Event ElementPic_RightClicked(par_control As CtlGraphicPortrait) ''Added 10/10/2019 td
@@ -44,7 +46,8 @@ Public Class CtlGraphicQRCode
 
     End Sub
 
-    Public Sub New(par_elementPic As ClassElementPic, par_formLayout As ILayoutFunctions)
+    Public Sub New(par_elementQR As ClassElementQRCode, par_formLayout As ILayoutFunctions)
+        ''Public Sub New(par_elementPic As ClassElementPic, par_formLayout As ILayoutFunctions)
         ''
         ''Added 9/17/2019 td
         ''
@@ -54,9 +57,11 @@ Public Class CtlGraphicQRCode
         ''9/17/2019 td''Me.ElementInfo_Base = par_infoForPic_Base
         ''9/17/2019 td''Me.ElementInfo_Pic = par_infoForPic_Pic
 
-        Me.ElementClass_Obj = par_elementPic
-        Me.ElementInfo_Base = CType(par_elementPic, IElement_Base)
-        Me.ElementInfo_Pic = CType(par_elementPic, IElementPic)
+        Me.ElementClass_Obj = par_elementQR ''par_elementPic
+        Me.ElementInfo_Base = CType(par_elementQR, IElement_Base)
+        ''Me.ElementInfo_Pic = CType(par_elementPic, IElementPic)
+        Me.ElementInfo_QR = CType(par_elementQR, IElementQRCode)
+
         ''9/20/2019 td''Me.FormDesigner = par_formLayout ''Added 9/4/2019 td
         Me.LayoutFunctions = par_formLayout ''Added 9/4/2019 td
 
@@ -74,7 +79,7 @@ Public Class CtlGraphicQRCode
         ''    ciPictures_VB.PictureExamples.GetImageByIndex(par_elementPic.PicFileIndex, strErrorMessage)
 
         ''Added 9/23/2019 thomas d. 
-        Me.Pic_CloneOfInitialImage = CType(ciPictures_VB.PictureExamples.GetImageByIndex(par_elementPic.PicFileIndex, strErrorMessage).Clone(), Image)
+        ''Me.Pic_CloneOfInitialImage = CType(ciPictures_VB.PictureExamples.GetImageByIndex(par_elementPic.PicFileIndex, strErrorMessage).Clone(), Image)
         pictureQRCode.Image = CType(Me.Pic_CloneOfInitialImage.Clone(), Image)
 
         If ("" <> strErrorMessage) Then
@@ -93,15 +98,19 @@ Public Class CtlGraphicQRCode
 
     End Sub ''End of "Public Sub New(par_elementPic As ClassElementPic, par_formLayout As ILayoutFunctions)"
 
-    Public Sub New_Deprecated(par_infoForPic_Base As IElement_Base, par_infoForPic_Pic As IElementPic, par_formLayout As ILayoutFunctions)
+    Public Sub New_Deprecated(par_infoForQR_Base As IElement_Base,
+                              par_infoFor_QR As IElementQRCode,
+                              par_formLayout As ILayoutFunctions)
         ''
         ''Added 7/31/2019 td
         ''
         ' This call is required by the designer.
         InitializeComponent()
 
-        Me.ElementInfo_Base = par_infoForPic_Base
-        Me.ElementInfo_Pic = par_infoForPic_Pic
+        ''Me.ElementInfo_Base = par_infoForPic_Base
+        Me.ElementInfo_Base = par_infoForQR_Base
+        ''Me.ElementInfo_Pic = par_infoForPic_Pic
+        Me.ElementInfo_QR = par_infoFor_QR
 
         ''9/20/2019 td''Me.FormDesigner = par_formLayout ''Added 9/4/2019 td
         Me.LayoutFunctions = par_formLayout ''Added 9/4/2019 td
@@ -112,8 +121,8 @@ Public Class CtlGraphicQRCode
         ''8/22/2019 td''picturePortrait.Image = ciPictures_VB.PictureExamples.GetImageByIndex(par_infoForPic_Pic.PicFileIndex)
 
         Dim strErrorMessage As String = "" ''Added 8/22/2019 td
-        pictureQRCode.Image =
-            ciPictures_VB.PictureExamples.GetImageByIndex(par_infoForPic_Pic.PicFileIndex, strErrorMessage)
+        ''pictureQRCode.Image =
+        ''    ciPictures_VB.PictureExamples.GetImageByIndex(par_infoFor_QR.PicFileIndex, strErrorMessage)
 
         If ("" <> strErrorMessage) Then
             ''Added 8/22/2019  
@@ -175,12 +184,12 @@ Public Class CtlGraphicQRCode
         ''
         ''Added 8/18/2019 td
         ''
-        Me.ElementInfo_Pic.PicFileIndex += 1
+        ''---Me.ElementInfo_Pic.PicFileIndex += 1
 
         ''8/22/2019 td''picturePortrait.Image = ciPictures_VB.PictureExamples.GetImageByIndex(Me.ElementInfo_Pic.PicFileIndex)
 
         Dim strErrorMessage As String = ""
-        pictureQRCode.Image = ciPictures_VB.PictureExamples.GetImageByIndex(Me.ElementInfo_Pic.PicFileIndex, strErrorMessage)
+        ''pictureQRCode.Image = ciPictures_VB.PictureExamples.GetImageByIndex(Me.ElementInfo_QR.PicFileIndex, strErrorMessage)
 
         ''Added 9/20/2019 td
         Me.LayoutFunctions.AutoPreview_IfChecked()
@@ -235,18 +244,24 @@ Public Class CtlGraphicQRCode
         ''Refactored 7/25/2019 thomas d 
         ''
         Const c_boolUse_ciBadgeElemImage As Boolean = True
-        Dim imgPortrait_withRotationIfAny As Image ''Added 9/24/2019 td
+        ''Dim imgPortrait_withRotationIfAny As Image ''Added 9/24/2019 td
+        Dim imageQRCode As Image ''Added 11/29/2019 td
 
         If (c_boolUse_ciBadgeElemImage) Then
             ''
             ''Added 9/23/2019 td 
             ''
-            imgPortrait_withRotationIfAny =
-            ciBadgeElemImage.modGenerate.PicImage_ByElement(ElementClass_Obj,
-                                                            Me.Pic_CloneOfInitialImage)
+            ''--If (TypeOf ElementClass_Obj Is ClassElementPic) Then
+            ''Try to pull out the image. 
+            ''imgPortrait_withRotationIfAny =
+            ''ciBadgeElemImage.modGenerate.PicImage_ByElement(ElementClass_Obj,
+            ''                                   Me.Pic_CloneOfInitialImage)
+            imageQRCode = Me.pictureQRCode.Image
+            ''--End If ''end of "If (TypeOf ElementClass_Obj Is ClassElementPic) Then"
 
             ''Added 9/24/2019 td
-            pictureQRCode.Image = imgPortrait_withRotationIfAny
+            ''Nov29 2021''pictureQRCode.Image = imgPortrait_withRotationIfAny
+            pictureQRCode.Image = imageQRCode
 
             ''Added 9/24/2019 td
             SwitchControl_WidthAndHeight_Master()

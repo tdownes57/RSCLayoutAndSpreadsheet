@@ -228,6 +228,8 @@ Public Class Form__Main_Demo
         mod_designer.CtlGraphic_QRCode = CtlGraphicQRCode1
         ''11/28/2021 Encapsulated to Load_Designer. 11/28/2021''
         mod_designer.CtlGraphic_Signat = CtlGraphicSignature1
+        ''Added 11/29/2021 thomas downes
+        mod_designer.CtlGraphic_Text = CtlGraphicText1
 
         ''Added 10/13/2019 thomas d.
         ''11/28/2021 Encapsulated to Load_Designer. 11/28/2021''
@@ -305,6 +307,7 @@ Public Class Form__Main_Demo
         mod_designer.CtlGraphic_Portrait = CtlGraphicPortrait_Lady
         mod_designer.CtlGraphic_QRCode = CtlGraphicQRCode1
         mod_designer.CtlGraphic_Signat = CtlGraphicSignature1
+        mod_designer.CtlGraphic_Text = CtlGraphicText1 ''Added 11/30/2021 td
 
         ''Added 10/13/2019 thomas d.
         mod_designer.DesignerForm_Interface = CType(Me, IDesignerForm)
@@ -1314,9 +1317,12 @@ Public Class Form__Main_Demo
     End Sub
 
     Private Sub OpenToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OpenToolStripMenuItem.Click
-
+        ''
+        ''Menu item "File" | "Open Layout XML..."  
+        ''
+        ''This allows the user to select the XML file of their choosing. 
+        ''
         Static s_strFolder As String
-        Dim objCache As ClassElementsCache_Deprecated
 
         If (String.IsNullOrEmpty(s_strFolder)) Then s_strFolder = My.Application.Info.DirectoryPath
 
@@ -1326,33 +1332,69 @@ Public Class Form__Main_Demo
 
         ''Added 11/24/2021 
         Dim bConfirmFileExists As Boolean
-        bConfirmFileExists = System.IO.File.Exists(OpenFileDialog1.FileName)
-        If (Not bConfirmFileExists) Then Return
+        Dim strPathToXML As String ''Added 11/30/2021 td
 
+        strPathToXML = OpenFileDialog1.FileName ''Added 11/30/2021 td
+        bConfirmFileExists = System.IO.File.Exists(strPathToXML)
+        If (Not bConfirmFileExists) Then
+            ''Added 11/30/2021
+            MessageBox.Show("Unable to open the file, unfortunately.", "",
+                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            Return
+        End If ''End of "If (Not bConfirmFileExists) Then"
+
+        ''
+        ''Encapsulated 11/30/2021
+        ''
+        LoadBothCachesUsingSamePathToXML(strPathToXML)
+
+    End Sub
+
+
+    Private Sub LoadBothCachesUsingSamePathToXML(par_strPathToXml As String,
+                                           Optional ByRef pboolFailed As Boolean = False)
+        ''
+        ''Encapsulated 11/30/2021
+        ''
         Dim objDeserial As New ciBadgeSerialize.ClassDeserial
+        Dim bConfirmFileExists As Boolean
+        ''11/30/2021 td''Dim objCache As ClassDesignerListenToMover_Deprecated
+        Dim objCache_FromXml_1 As ClassElementsCache_Deprecated
+        Dim objCache_FromXml_2 As ClassElementsCache_Deprecated
 
         With objDeserial
 
-            .PathToXML = OpenFileDialog1.FileName
+            .PathToXML = par_strPathToXml ''OpenFileDialog1.FileName
 
             ''Added 11/24/2021 
             bConfirmFileExists = System.IO.File.Exists(.PathToXML)
-            If (Not bConfirmFileExists) Then Return
+            If (Not bConfirmFileExists) Then
+                pboolFailed = True
+                Return
+            End If
 
             ''9/30 td''objCache =
             ''9/30 td''     .DeserializeFromXML(GetType(ClassElementsCache), False)
 
-            objCache =
+            objCache_FromXml_1 =
             CType(.DeserializeFromXML(GetType(ClassElementsCache_Deprecated), False), ClassElementsCache_Deprecated)
 
-        End With
+            objCache_FromXml_2 =
+            CType(.DeserializeFromXML(GetType(ClassElementsCache_Deprecated), False), ClassElementsCache_Deprecated)
+
+        End With ''End of "With objDeserial"
 
         ''
         ''Major call !!  
         ''
-        Form__Main_PreDemo.OpenElementsCache(objCache)
+        ''++/++Does nothing. 11/30/2021 td
+        ''++Form__Main_PreDemo.OpenElementsCache(objCache)
 
-    End Sub
+        ''Added 11/30/2021 thomas d. 
+        Me.ElementsCache_Saved = objCache_FromXml_1
+        Me.ElementsCache_Edits = objCache_FromXml_2
+
+    End Sub ''End of "Private Sub LoadBothCachesUsingSamePathToXML"
 
     Private Sub LinkRevertToLastSave_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkRevertToLastSave.LinkClicked
         ''
