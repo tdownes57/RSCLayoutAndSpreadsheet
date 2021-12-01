@@ -53,9 +53,18 @@ Public Class Startup
         ''
         ''10/13/2019 td''obj_cache_layout = LoadCachedData(obj_formToShow)
         ''1/14/2019 td''obj_cache_layout = LoadCachedData(obj_formToShow, boolNewFileXML)
-        obj_cache_layout_Elements = LoadCachedData_Elements_Deprecated(obj_formToShow, boolNewFileXML)
 
-        obj_personality = LoadCachedData_Personality(obj_formToShow, boolNewFileXML)
+        Const c_boolStillUsingElementsCache As Boolean = True ''Added 11/30/2021 td
+        If (c_boolStillUsingElementsCache) Then
+            ''Function called in the line below is suffixed w/ "_Deprecated", but
+            ''   it's still in used today.  ---11/30/2021 td 
+            obj_cache_layout_Elements = LoadCachedData_Elements_Deprecated(obj_formToShow, boolNewFileXML)
+
+        Else
+            ''Function called in the line below was suffixed w/ "_FutureUse"
+            ''   today.  ---11/30/2021 td 
+            obj_personality = LoadCachedData_Personality_FutureUse(obj_formToShow, boolNewFileXML)
+        End If ''end of "If (c_boolStillUsingElementsCache) Then ... Else ..."
 
         ''Added 11/26/2019 thomas d
         Dim boolTesting As Boolean
@@ -77,8 +86,19 @@ Public Class Startup
             ''
             ''This is potentially an infinite loop.  Look for "Exit Do". 
             ''
-            obj_formToShow.ElementsCache_Edits = obj_cache_layout_Elements
-            obj_formToShow.PersonalityCache = obj_personality
+            If (c_boolStillUsingElementsCache) Then ''Added 11/30/2021
+                ''
+                ''Still in use, even though it's Q4 of 2021. 
+                ''
+                obj_formToShow.ElementsCache_Edits = obj_cache_layout_Elements
+            Else
+                ''
+                ''This is for future use, say approaching Spring of 2022. 
+                ''  ----11/30/2022 
+                ''
+                obj_formToShow.PersonalityCache_FutureUse = obj_personality
+
+            End If ''End of "If (c_boolStillUsingElementsCache) Then ... Else"
 
             obj_formToShow.ShowDialog() ''Added 10/11/2019 td 
 
@@ -95,14 +115,15 @@ Public Class Startup
 
     End Sub ''End of "Public Sub OpenLayoutDesigner_Loop()"
 
-    Private Shared Function LoadCachedData_Customer() As ciBadgeCustomer.ClassCustomerCache
+    Private Shared Function LoadCachedData_Customer_FutureUse() As ciBadgeCustomer.ClassCustomerCache
         ''
         ''Added 10/14/2019 thomas d. 
+        ''Suffixed "_FutureUse" on 11/30/2021 td
         ''
         ''  Presuming that the Customer has two Personalities, 
         ''  Student & Staff, let's load them both.  
         ''
-
+        Throw New NotImplementedException("Not coded yet.")
 
     End Function ''End of "Private Shared Function LoadCachedData_Customer"
 
@@ -133,10 +154,11 @@ Public Class Startup
 
     End Function ''End of "Private Shared Function LoadCachedData_Customer"
 
-    Private Shared Function LoadCachedData_Personality(par_designForm As Form__Main_Demo,
+    Public Shared Function LoadCachedData_Personality_FutureUse(par_designForm As Form__Main_Demo,
                                            ByRef pboolNewFileXML As Boolean) As ClassPersonalityCache
         ''
         ''Added 1/14/2019 td
+        ''Suffixed 11/30/2021 with "_FutureUse".
         ''
         Dim strPathToXML As String = ""
         Dim obj_cache_personality As ClassPersonalityCache
@@ -190,6 +212,9 @@ Public Class Startup
             ''1/14/2020 td''obj_cache_personality.LinkElementsToFields()
 
         End If ''End of "If (pboolNewFileXML) Then .... Else ..."
+
+        ''Moved here from Line 292. ---Thomas 11/30/2021 
+        Return obj_cache_personality
 
         ''''-------------------------------------------------------------
         ''''Added 9/19/2019 td
@@ -286,25 +311,29 @@ Public Class Startup
         ''Was just for testing. ---10/10/2019 td''serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
         ''Was just for testing. ---10/10/2019 td''serial_tools.SerializeToXML(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved, False, True)
 
-        Return obj_cache_personality
+        ''Moved above 11/30/2021 td''Return obj_cache_personality
 
     End Function ''End of "Private Sub LoadCachedData_Personality()"
 
-    Private Shared Function LoadCachedData_Elements_Deprecated(par_designForm As Form__Main_Demo,
+    Public Shared Function LoadCachedData_Elements_Deprecated(par_designForm As Form__Main_Demo,
                                            ByRef pboolNewFileXML As Boolean) As ClassElementsCache_Deprecated
+
         ''1/24 td''Private Shared Function LoadCachedData(par_designForm As FormDesignProtoTwo,
         ''1/24 td''            ByRef pboolNewFileXML As Boolean) As ClassElementsCache_NotInUse
+        ''
+        ''Publicized 11/30/2021 thomas downes
         ''
         ''Added 10/13/2019 td
         ''
         ''Added 10/10/2019 td
+        ''
         Dim strPathToXML As String = ""
         ''---Dim boolNewFileXML As Boolean ''Added 10/10/2019 td  
         Dim obj_cache_elements As ClassElementsCache_Deprecated ''Added 10/10/2019 td
 
         ''Added 10/10/2019 td
-        ''10/13/2019 td''strPathToXML = My.Settings.PathToXML_Saved
-        ''1/14/2020''strPathToXML = DiskFiles.PathToFile_XML_ElementsCache
+        ''  10/13/2019 td''strPathToXML = My.Settings.PathToXML_Saved
+        ''  1/14/2020''strPathToXML = DiskFiles.PathToFile_XML_ElementsCache
         strPathToXML = DiskFiles.PathToFile_XML_ElementsCache
 
         If (strPathToXML = "") Then
@@ -452,9 +481,12 @@ Public Class Startup
         ''Was just for testing. ---10/10/2019 td''serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
         ''Was just for testing. ---10/10/2019 td''serial_tools.SerializeToXML(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved, False, True)
 
+        ''Added 11/30/2021 thomas downes
+        obj_cache_elements.Id_GUID = New Guid() ''Generates a new & unique ID. 
+
         Return obj_cache_elements
 
-    End Function ''End of "Private Sub LoadCachedData_Elements_Deprecated()"
+    End Function ''End of "Public Sub LoadCachedData_Elements_Deprecated()"
 
 
 

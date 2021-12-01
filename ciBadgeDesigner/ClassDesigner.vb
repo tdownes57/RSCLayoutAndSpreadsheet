@@ -141,6 +141,14 @@ Public Class ClassDesigner
         Dim bConfirmDeleted As Boolean '' = False
         Dim bRemovalHadToBeDoneThisPass As Boolean
 
+        ''Added 11/30/2021 td
+        ''CtlGraphicQRCode.RemoveHandler
+        ''RemoveHandler CtlGraphic_QRCode.Picture_Box.MouseDown,
+        ''    AddressOf mod_designerListener.mod_dictyControlMoveBoxesEtc(CtlGraphic_QRCode).
+        Dim objListenerQR As MoveAndResizeControls_Monem.ControlMove_NonStatic_TD
+        objListenerQR = mod_designerListener.mod_dictyControlMoveBoxesEtc(CtlGraphic_QRCode)
+        objListenerQR.RemoveEventHandlers()
+
         For intPassthroughIndex As Integer = 1 To 2
             ''
             ''Run this loop twice, for good measure!! 
@@ -330,7 +338,11 @@ Public Class ClassDesigner
         ''  10/1/2019 td''serial_tools.PathToXML = (System.IO.Path.GetRandomFileName() & ".xml")
         ''  10/1/2019 td''serial_tools.SerializeToXML(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved, False, True)
 
-        Me.ElementsCache_Edits = Me.ElementsCache_Saved.Copy()
+        ''[[-[[ Let the main form handle this sort of thing.
+        ''[[-[[    The designer should not mess around with these
+        ''[[-[[    objects, unless 100% necessary. ----11/30/2021 td
+        ''[[Me.ElementsCache_Edits = Me.ElementsCache_Saved.Copy()
+
 
         ''
         ''Major call!!  

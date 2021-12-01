@@ -29,7 +29,7 @@ Public Class Form__Main_Demo
     Public Property NewFileXML As Boolean ''Added 10/13/2019 td
 
     ''1/14/2020 td''Public Property PersonalityCache As ciBadgeCustomer.PersonalityCache_NotInUse ''Added 10/11/2019 td 
-    Public Property PersonalityCache As ciBadgeElements.ClassPersonalityCache ''Added 10/11/2019 td 
+    Public Property PersonalityCache_FutureUse As ciBadgeElements.ClassPersonalityCache ''Added 10/11/2019 td 
     Public Property BadgeLayout As BadgeLayoutClass Implements IDesignerForm.BadgeLayout ''Added 10/13/2019 td
 
     ''Added 9/16/2019 thomas downes
@@ -254,7 +254,15 @@ Public Class Form__Main_Demo
         ''-------------------------------------------------------------------------
 
         ''10/13/2019 td''Me.ElementsCache_Edits = Me.ElementsCache_Saved.Copy()
+
+        ''Why? Simply to have a separate copy? To keep a wall
+        ''   between edits and the non-edited version, in case
+        ''   the user elects to dump their work.  (Not every
+        ''   work session bears fruit.  Often we are dissatisfied
+        ''   with our work.  Consider a writer who throws away
+        ''   a type-written page.  ----11/30/2021
         Me.ElementsCache_Saved = Me.ElementsCache_Edits.Copy()
+        Me.ElementsCache_Saved.Id_GUID = New Guid() ''Generates a new GUID. 
 
         ''
         ''Encapsulated 11/28/2021 thomas downes
@@ -677,6 +685,16 @@ Public Class Form__Main_Demo
         End If ''End of "If (mod_designer IsNot Nothing) Then"
 
         mod_designer = New ClassDesigner()
+
+        ''Added 11/30/2021 td
+        Dim boolNew As Boolean
+        Me.ElementsCache_Edits = Startup.LoadCachedData_Elements_Deprecated(Me, boolNew)
+        Me.ElementsCache_Saved = Me.ElementsCache_Edits.Copy(False)
+        Me.ElementsCache_Saved.Id_GUID = New Guid() ''Generate a new Guid.
+
+        ''
+        ''Major call!!
+        ''
         Load_Designer()
 
     End Sub ''End of "Private Sub RefreshTheSetOfDisplayedElements()"
@@ -1458,7 +1476,8 @@ Public Class Form__Main_Demo
             .BringToFront()
             .AutoScroll = True
 
-            list_recips = Me.PersonalityCache.ListOfRecipients
+            ''11/30/2021 td''list_recips = Me.PersonalityCache.ListOfRecipients
+            list_recips = Me.PersonalityCache_FutureUse.ListOfRecipients
 
             For Each each_recip In list_recips
 
@@ -1550,7 +1569,7 @@ Public Class Form__Main_Demo
 
         strPathToFolder = DiskFolders.PathToFolder_Production(strFolderSuffix)
 
-        For Each each_recip As ClassRecipient In PersonalityCache.ListOfRecipients
+        For Each each_recip As ClassRecipient In PersonalityCache_FutureUse.ListOfRecipients
             ''
             ''Added 10/18/2019 td 
             ''
@@ -1823,4 +1842,5 @@ ExitHandler:
         RefreshTheSetOfDisplayedElements()
 
     End Sub
+
 End Class

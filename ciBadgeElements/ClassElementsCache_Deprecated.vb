@@ -862,17 +862,20 @@ Public Class ClassElementsCache_Deprecated
 
     End Sub ''End of "Public Sub LoadRecipient(par_recipient As IRecipient)"
 
-    Public Function Copy() As ClassElementsCache_Deprecated
+    Public Function Copy(Optional pboolCopyGuid As Boolean = False) As ClassElementsCache_Deprecated
         ''
         ''Added 9/17/2019 thomas downes  
         ''
-        Dim objCopyOfCache As New ClassElementsCache_Deprecated
+        Dim objCopyOfCache As ClassElementsCache_Deprecated
         Dim ListFields_NotUsed As New List(Of ClassFieldAny)
         Dim dictionaryFields As New Dictionary(Of ciBadgeInterfaces.EnumCIBFields, ClassFieldAny)
         ''10/14/2019 td''Dim copy_ofField As ClassFieldAny
         Dim copy_ofField_Stan As ClassFieldStandard
         Dim copy_ofField_Cust As ClassFieldCustomized
         Dim copy_ofElementField As ClassElementField ''Added 10/1/2019 td
+
+        ''Added 11/30/2021 td 
+        objCopyOfCache = New ClassElementsCache_Deprecated
 
         ''Added 10/13/2019 thomas d.
         objCopyOfCache.PathToXml_Saved = Me.PathToXml_Saved
@@ -987,6 +990,9 @@ Public Class ClassElementsCache_Deprecated
 
         ''Added 10/10/2019 thomas downes
         objCopyOfCache.PathToXml_Saved = Me.PathToXml_Saved
+
+        ''Added 11/30/2021 td
+        If (pboolCopyGuid) Then objCopyOfCache.Id_GUID = Me.Id_GUID
 
         Return objCopyOfCache
 

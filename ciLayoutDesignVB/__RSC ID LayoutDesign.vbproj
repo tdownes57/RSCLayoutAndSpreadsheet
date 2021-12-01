@@ -769,6 +769,7 @@
     <Content Include="Images\CI Logo.jpg" />
     <Content Include="Images\CISolutionsLogo.png" />
     <None Include="Resources\Native drawing - Not bad 40.jpg" />
+    <Content Include="__Notes\Output-Build Nov30.txt" />
     <Content Include="__Notes\__Which form is Main.html" />
     <Content Include="__Notes\VBA_modWebServicesAPIs.txt" />
     <Content Include="WebAPIs_Etc\VBA_modWebServicesAPIs.txt" />

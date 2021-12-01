@@ -44,7 +44,7 @@ Public Class ClassDesignerEventListener
     ''Added 11/29/2021 td  
     Private Const mc_bUseNonStaticMovers As Boolean = True ''Added 11/29/2021 td 
     Private mod_dictyControlMoveFields As New Dictionary(Of CtlGraphicFldLabel, ControlMove_Group_NonStatic)
-    Private mod_dictyControlMoveBoxesEtc As New Dictionary(Of Control, ControlMove_NonStatic_TD)
+    Public mod_dictyControlMoveBoxesEtc As New Dictionary(Of Control, ControlMove_NonStatic_TD)
 
     ''Added 10/12/2019 td 
     Private mod_sizing_portrait As New ControlResizeProportionally_TD

@@ -135,6 +135,24 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             par_control.MouseDown += (sender, e) => StartMovingOrResizing(par_control, e);
             par_control.MouseUp += (sender, e) => StopDragOrResizing(par_control);
             par_control.MouseMove += (sender, e) => MoveControl(par_container, e);
+
+            // Added 11/30/2021 thomas downes
+            _controlCurrent = par_control;
+            _controlMoveableElement = par_container;
+            _controlPictureBox = par_control; 
+
+        }
+
+
+        public void RemoveEventHandlers()
+        {
+            //
+            // Added 11/30/2021 Thomas Downes  
+            //
+            par_control.MouseDown -= (sender, e) => StartMovingOrResizing(par_control, e);
+            par_control.MouseUp -= (sender, e) => StopDragOrResizing(par_control);
+            par_control.MouseMove -= (sender, e) => MoveControl(par_container, e);
+
         }
 
         private void UpdateMouseEdgeProperties(Control control, Point mouseLocationInControl)
@@ -297,6 +315,7 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
                 }
             }
         }
+
 
         private void StopDragOrResizing(Control par_control)
         {
