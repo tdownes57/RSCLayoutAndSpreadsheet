@@ -1843,4 +1843,14 @@ ExitHandler:
 
     End Sub
 
+    Private Sub CtlGraphicQRCode1_Click(sender As Object, e As EventArgs) Handles CtlGraphicQRCode1.Click
+
+    End Sub
+
+    Private Sub CtlGraphicQRCode1_Load(sender As Object, e As EventArgs) Handles CtlGraphicQRCode1.Load
+
+        Dim objQR As New CtlGraphicQRCode
+
+
+    End Sub
 End Class

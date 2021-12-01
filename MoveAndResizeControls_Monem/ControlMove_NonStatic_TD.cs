@@ -134,7 +134,16 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
 
             par_control.MouseDown += (sender, e) => StartMovingOrResizing(par_control, e);
             par_control.MouseUp += (sender, e) => StopDragOrResizing(par_control);
-            par_control.MouseMove += (sender, e) => MoveControl(par_container, e);
+
+            //==-== Likely bug.  Notice that it references "par_container"
+            //   which conflicts with "par_control" (unless the other Init() signature
+            //   was utilized... in which the par_container parameter doesn't exist...
+            //   That other Init() passes par_control in both parameters of this
+            //   signature of Init()... namely, par_control & par_container).
+            //   ---12/1/2021 thomas downes
+            //
+            //==//par_control.MouseMove += (sender, e) => MoveControl(par_container, e);
+            par_control.MouseMove += (sender, e) => MoveControl(par_control, e);
 
             // Added 11/30/2021 thomas downes
             _controlCurrent = par_control;
@@ -149,9 +158,23 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             //
             // Added 11/30/2021 Thomas Downes  
             //
-            par_control.MouseDown -= (sender, e) => StartMovingOrResizing(par_control, e);
-            par_control.MouseUp -= (sender, e) => StopDragOrResizing(par_control);
-            par_control.MouseMove -= (sender, e) => MoveControl(par_container, e);
+
+            //''The minimal listing. 
+            _controlCurrent.MouseDown -= (sender, e) => StartMovingOrResizing(_controlCurrent, e);
+            _controlCurrent.MouseUp -= (sender, e) => StopDragOrResizing(_controlCurrent);
+            _controlCurrent.MouseMove -= (sender, e) => MoveControl(_controlCurrent, e);
+
+            //''
+            //''More extensive listing. May fail, since not all of these
+            //''   event handlers are created. 
+            //''  
+            _controlMoveableElement.MouseDown -= (sender, e) => StartMovingOrResizing(_controlMoveableElement, e);
+            _controlMoveableElement.MouseUp -= (sender, e) => StopDragOrResizing(_controlMoveableElement);
+            _controlMoveableElement.MouseMove -= (sender, e) => MoveControl(_controlMoveableElement, e);
+
+            _controlPictureBox.MouseDown -= (sender, e) => StartMovingOrResizing(_controlPictureBox, e);
+            _controlPictureBox.MouseUp -= (sender, e) => StopDragOrResizing(_controlPictureBox);
+            _controlPictureBox.MouseMove -= (sender, e) => MoveControl(_controlPictureBox, e);
 
         }
 

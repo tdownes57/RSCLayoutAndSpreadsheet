@@ -98,8 +98,10 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
                 pbSetBreakpoint_AfterMove);
 
         }
+        
 
-        public static void Init(Control par_control, Control par_container, int par_margin, bool pbRepaintAfterResize, bool pbSetBreakpoint_AfterMove)
+        public static void Init(Control par_control, Control par_containerElement,
+            int par_margin, bool pbRepaintAfterResize, bool pbSetBreakpoint_AfterMove)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
             //     the preferred background color.)   ----7/31/2019 td
@@ -130,7 +132,21 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
 
             par_control.MouseDown += (sender, e) => StartMovingOrResizing(par_control, e);
             par_control.MouseUp += (sender, e) => StopDragOrResizing(par_control);
-            par_control.MouseMove += (sender, e) => MoveControl(par_container, e);
+
+            //==-== Likely bug?? Notice that, toward the end of the line, it references
+            //   the parameter "par_containerElement".... which conflicts with "par_control"
+            //   (unless the other Init() signature was utilized... in which the parameter par_container
+            //   doesn't exist...
+            //      That other Init() passes par_control in both parameters of this
+            //   signature of Init()... namely, par_control & par_container).
+            //==      On the other hand, it's the container's Top & Left properties
+            //==    which has to be adjusted, in order to move both the container &
+            //==    the graphic PictureBox control inside.  Confusing!! 
+            //   ---12/1/2021 thomas downes
+            //
+            //==//par_control.MouseMove += (sender, e) => MoveControl(par_containerElement, e);
+            par_control.MouseMove += (sender, e) => MoveControl(par_containerElement, e);
+        
         }
 
         private static void UpdateMouseEdgeProperties(Control control, Point mouseLocationInControl)
@@ -236,6 +252,9 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
 
         private static void MoveControl(Control par_control, MouseEventArgs e)
         {
+            //   Should the PictureBox control be passed here, or the user-control
+            //   which contains the PictureBox control??  ---12/1/2021 td
+            //
             if (!_resizing && !_moving)
             {
                 UpdateMouseEdgeProperties(par_control, new Point(e.X, e.Y));

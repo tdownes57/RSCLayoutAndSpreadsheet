@@ -372,6 +372,18 @@
     <Compile Include="Controls\CtlPropertyUpDownvb.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Controls\CtlQRCode.Designer.vb">
+      <DependentUpon>CtlQRCode.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtlQRCode.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtlSignature.Designer.vb">
+      <DependentUpon>CtlSignature.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtlSignature.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controls\modLayoutDesignMenu.vb" />
     <Compile Include="Controls\CtlBackground.Designer.vb">
       <DependentUpon>CtlBackground.vb</DependentUpon>
@@ -636,6 +648,12 @@
     <EmbeddedResource Include="Controls\CtlBackground.resx">
       <DependentUpon>CtlBackground.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtlQRCode.resx">
+      <DependentUpon>CtlQRCode.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtlSignature.resx">
+      <DependentUpon>CtlSignature.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DialogTextBorder.resx">
       <DependentUpon>DialogTextBorder.vb</DependentUpon>
     </EmbeddedResource>
@@ -769,6 +787,7 @@
     <Content Include="Images\CI Logo.jpg" />
     <Content Include="Images\CISolutionsLogo.png" />
     <None Include="Resources\Native drawing - Not bad 40.jpg" />
+    <Content Include="Images\QRCodes\QR Code Example - Copy.PNG" />
     <Content Include="__Notes\Output-Build Nov30.txt" />
     <Content Include="__Notes\__Which form is Main.html" />
     <Content Include="__Notes\VBA_modWebServicesAPIs.txt" />

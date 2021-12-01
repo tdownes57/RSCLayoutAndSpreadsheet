@@ -45,6 +45,7 @@ Public Class ClassDesignerEventListener
     Private Const mc_bUseNonStaticMovers As Boolean = True ''Added 11/29/2021 td 
     Private mod_dictyControlMoveFields As New Dictionary(Of CtlGraphicFldLabel, ControlMove_Group_NonStatic)
     Public mod_dictyControlMoveBoxesEtc As New Dictionary(Of Control, ControlMove_NonStatic_TD)
+    Public mod_dictyControlResizing As New Dictionary(Of Control, ControlResizeProportionally_TD)
 
     ''Added 10/12/2019 td 
     Private mod_sizing_portrait As New ControlResizeProportionally_TD
@@ -91,6 +92,9 @@ Public Class ClassDesignerEventListener
 
         If (mc_bUseNonStaticMovers) Then
             ''Added 11/29/2021 td 
+            ''
+            ''This will use an object instance ("New") to manage movement.
+            ''
             Dim objMover As New ControlMove_NonStatic_TD
             ''objMover.Init(Me.PreviewBox, Me.PreviewBox, 10, False,
             ''                  c_boolBreakpoint)
@@ -117,6 +121,8 @@ Public Class ClassDesignerEventListener
             objMover.Init(mod_designer.BackgroundBox,
                           mod_designer.BackgroundBox, 10, False,
                           c_boolBreakpoint) ''Added 9/08/2019 thomas downes
+            ''Added 12/1/2021 td
+            mod_dictyControlMoveBoxesEtc.Add(mod_designer.BackgroundBox, objMover)
 
         ElseIf (c_LayoutBackIsMoveable) Then
             ''Badge Layout Background is also moveable/sizeable.
@@ -170,18 +176,27 @@ Public Class ClassDesignerEventListener
         mod_sizing_portrait.Init(mod_designer.CtlGraphic_Portrait.picturePortrait,
                 mod_designer.CtlGraphic_Portrait, 10, True,
                 mod_sizingEvents_Pics, False)
+        ''Added 12/1/2021 td 
+        mod_dictyControlResizing.Add(mod_designer.CtlGraphic_Portrait,
+            mod_sizing_portrait)
 
         ''mod_sizing_QR.Init(Me.CtlGraphic_QRCode.pictureQRCode, Me.CtlGraphic_QRCode,
         ''                   10, True, mod_sizingEvents_QR, False)
         mod_sizing_QR.Init(mod_designer.CtlGraphic_QRCode.pictureQRCode,
                            mod_designer.CtlGraphic_QRCode, 10, True,
                            mod_sizingEvents_QR, False)
+        ''Added 12/1/2021 td 
+        mod_dictyControlResizing.Add(mod_designer.CtlGraphic_Portrait,
+            mod_sizing_QR)
 
         ''mod_sizing_signature.Init(Me.CtlGraphic_Signat.pictureSignature,
         ''        Me.CtlGraphic_Signat, 10, True, mod_sizingEvents_Sig, False)
         mod_sizing_signature.Init(mod_designer.CtlGraphic_Signat.pictureSignature,
                                   mod_designer.CtlGraphic_Signat, 10, True,
                                   mod_sizingEvents_Sig, False)
+        ''Added 12/1/2021 td 
+        mod_dictyControlResizing.Add(mod_designer.CtlGraphic_Portrait,
+             mod_sizing_signature)
 
 
         ''Dim boolMakeMoveableByUser As Boolean ''Added 9/20/2019 td 

@@ -127,6 +127,22 @@ namespace MoveAndResizeControls_Monem
 
             par_controlPictureB.MouseDown += (sender, e) => StartMovingOrResizing(par_controlPictureB, e);
             par_controlPictureB.MouseUp += (sender, e) => StopDragOrResizing(par_controlPictureB);
+
+            //==-== Likely bug??  Notice that, toward the end of the line, it references
+            //==   the parameter "par_containerElement".... which conflicts with "par_control"
+            //==   (unless the other Init() signature was utilized... in which the parameter par_container
+            //==   doesn't exist...
+            //==      That other Init() passes par_control in both parameters of this
+            //==   signature of Init()... namely, par_control & par_container).
+            //==   ---12/1/2021 thomas downes
+            //==      On the other hand, it's the container's Top & Left properties
+            //==    which has to be adjusted, in order to move both the container &
+            //==    the graphic PictureBox control inside.  Confusing!! 
+            //==   ---12/1/2021 thomas downes
+            //
+            //==//par_controlPictureB.MouseMove += (sender, e) => MoveControl(par_containerElement, e);
+            //
+            //--Helpful??? 12/1/2021--par_containerElement.MouseMove += (sender, e) => MoveControl(par_containerElement, e);
             par_controlPictureB.MouseMove += (sender, e) => MoveControl(par_containerElement, e);
 
             //Added 11/29/2021 td
@@ -253,6 +269,9 @@ namespace MoveAndResizeControls_Monem
         {
             //
             //Added 8/3/2019 thomas downes
+            //
+            //   Should the PictureBox control be passed here, or the user-control
+            //   which contains the PictureBox control??  ---12/1/2021 td
             //
             if (mod_groupedctl_events != null) MoveControl_GroupMove(par_controlF, e);
             if (mod_groupedctl_events == null) MoveControl_NoEvents(par_controlF, e);

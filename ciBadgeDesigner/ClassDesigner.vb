@@ -146,7 +146,10 @@ Public Class ClassDesigner
         ''RemoveHandler CtlGraphic_QRCode.Picture_Box.MouseDown,
         ''    AddressOf mod_designerListener.mod_dictyControlMoveBoxesEtc(CtlGraphic_QRCode).
         Dim objListenerQR As MoveAndResizeControls_Monem.ControlMove_NonStatic_TD
+
         objListenerQR = mod_designerListener.mod_dictyControlMoveBoxesEtc(CtlGraphic_QRCode)
+        objListenerQR = mod_designerListener.mod_dictyControlMoveBoxesEtc(CtlGraphic_QRCode)
+
         objListenerQR.RemoveEventHandlers()
 
         For intPassthroughIndex As Integer = 1 To 2

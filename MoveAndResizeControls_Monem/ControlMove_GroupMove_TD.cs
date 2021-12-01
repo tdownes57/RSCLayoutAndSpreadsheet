@@ -139,6 +139,19 @@ namespace MoveAndResizeControls_Monem
 
             par_controlImage.MouseDown += (sender, e) => StartMovingOrResizing(par_controlImage, e);
             par_controlImage.MouseUp += (sender, e) => StopDragOrResizing(par_controlImage);
+
+            //==-== Likely bug??  Notice that, toward the end of the line, it references
+            //==   the parameter "par_containerElement".... which conflicts with "par_control"
+            //==   (unless the other Init() signature was utilized... in which the parameter par_container
+            //==   doesn't exist...
+            //==      That other Init() passes par_control in both parameters of this
+            //==   signature of Init()... namely, par_control & par_container).
+            //==      On the other hand, it's the container's Top & Left properties
+            //==    which has to be adjusted, in order to move both the container &
+            //==    the graphic PictureBox control inside.  Confusing!! 
+            //==         ---12/1/2021 thomas downes
+            //
+            //==//par_controlImage.MouseMove += (sender, e) => MoveControl(par_containerElement, e);
             par_controlImage.MouseMove += (sender, e) => MoveControl(par_containerElement, e);
 
             //Added 11/29/2021 td

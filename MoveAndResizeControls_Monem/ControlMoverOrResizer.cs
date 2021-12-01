@@ -79,7 +79,18 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             WorkType = MoveOrResize.MoveAndResize;
             control.MouseDown += (sender, e) => StartMovingOrResizing(control, e);
             control.MouseUp += (sender, e) => StopDragOrResizing(control);
+
+            //==-== Likely bug??  Notice that, toward the end of the line, it references
+            //   the parameter "par_containerElement".... which conflicts with "par_control"
+            //   (unless the other Init() signature was utilized... in which the parameter par_container
+            //   doesn't exist...
+            //      That other Init() passes par_control in both parameters of this
+            //   signature of Init()... namely, par_control & par_container).
+            //   ---12/1/2021 thomas downes
+            //
+            //==//control.MouseMove += (sender, e) => MoveControl(container, e);
             control.MouseMove += (sender, e) => MoveControl(container, e);
+
         }
 
         private static void UpdateMouseEdgeProperties(Control control, Point mouseLocationInControl)
