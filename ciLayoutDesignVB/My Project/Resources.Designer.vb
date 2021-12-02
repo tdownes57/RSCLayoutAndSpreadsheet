@@ -121,6 +121,16 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property Badge001() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Badge001", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized resource of type System.Byte[].
         '''</summary>
         Friend ReadOnly Property C39FIRA() As Byte()
@@ -300,6 +310,16 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property PVC_Cards__MS_Bing_() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("PVC_Cards__MS_Bing_", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property QR_Code_BK() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("QR_Code_BK", resourceCulture)
@@ -313,6 +333,16 @@ Namespace My.Resources
         Friend ReadOnly Property QR_Code_Example() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("QR_Code_Example", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property Ratio_of_27_to_17() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Ratio_of_27_to_17", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

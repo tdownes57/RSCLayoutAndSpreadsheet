@@ -384,6 +384,12 @@
     <Compile Include="Controls\CtlSignature.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Controls\CtlWidthHeight.Designer.vb">
+      <DependentUpon>CtlWidthHeight.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtlWidthHeight.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controls\modLayoutDesignMenu.vb" />
     <Compile Include="Controls\CtlBackground.Designer.vb">
       <DependentUpon>CtlBackground.vb</DependentUpon>
@@ -393,10 +399,16 @@
     </Compile>
     <Compile Include="DiskFiles\DiskFiles.vb" />
     <Compile Include="DiskFiles\DiskFolders.vb" />
-    <Compile Include="FormEditImagePlacement.Designer.vb">
-      <DependentUpon>FormEditImagePlacement.vb</DependentUpon>
+    <Compile Include="FormUploadDimensionsMsg.Designer.vb">
+      <DependentUpon>FormUploadDimensionsMsg.vb</DependentUpon>
     </Compile>
-    <Compile Include="FormEditImagePlacement.vb">
+    <Compile Include="FormUploadDimensionsMsg.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormUploadEditingImage.Designer.vb">
+      <DependentUpon>FormUploadEditingImage.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormUploadEditingImage.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormDesignProtoThree.Designer.vb">
@@ -654,11 +666,17 @@
     <EmbeddedResource Include="Controls\CtlSignature.resx">
       <DependentUpon>CtlSignature.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtlWidthHeight.resx">
+      <DependentUpon>CtlWidthHeight.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DialogTextBorder.resx">
       <DependentUpon>DialogTextBorder.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormEditImagePlacement.resx">
-      <DependentUpon>FormEditImagePlacement.vb</DependentUpon>
+    <EmbeddedResource Include="FormUploadDimensionsMsg.resx">
+      <DependentUpon>FormUploadDimensionsMsg.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormUploadEditingImage.resx">
+      <DependentUpon>FormUploadEditingImage.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormDesignProtoThree.resx">
       <DependentUpon>FormDesignProtoThree.vb</DependentUpon>
@@ -787,7 +805,12 @@
     <Content Include="Images\CI Logo.jpg" />
     <Content Include="Images\CISolutionsLogo.png" />
     <None Include="Resources\Native drawing - Not bad 40.jpg" />
+    <Content Include="Images\PVC Cards %28MS Bing%29.JPG" />
     <Content Include="Images\QRCodes\QR Code Example - Copy.PNG" />
+    <None Include="Resources\PVC Cards %28MS Bing%29.JPG" />
+    <None Include="Resources\Ratio of 27 to 17.PNG" />
+    <None Include="Resources\Badge001.jpg" />
+    <Content Include="__Notes\Dimensions of PVC card 1.58685.png" />
     <Content Include="__Notes\Output-Build Nov30.txt" />
     <Content Include="__Notes\__Which form is Main.html" />
     <Content Include="__Notes\VBA_modWebServicesAPIs.txt" />

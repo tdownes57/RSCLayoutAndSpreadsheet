@@ -1999,7 +1999,13 @@ Public Class ClassDesigner
         ''
         ''Added 10/15/2019 td  
         ''
-        RaiseEvent BackgroundRightClicked(e.X, e.Y)
+
+        ''Added condition on 12/01/2021 thomas downes
+        If (e.Button = MouseButtons.Right) Then
+
+            RaiseEvent BackgroundRightClicked(e.X, e.Y)
+
+        End If ''End of ""If (e.Button = MouseButtons.Right) Then
 
     End Sub
 

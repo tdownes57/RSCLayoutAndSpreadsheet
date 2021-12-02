@@ -1112,9 +1112,6 @@ Public Class Form__Main_Demo
 
     End Sub
 
-    Private Sub PictureBack_Click(sender As Object, e As EventArgs) Handles pictureBack.Click
-
-    End Sub
 
     Private Sub LinkLabelSave1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) _
         Handles LinkLabelSave1.LinkClicked,
@@ -1852,5 +1849,33 @@ ExitHandler:
         Dim objQR As New CtlGraphicQRCode
 
 
+    End Sub
+
+    Private Sub zz(sender As Object, e As EventArgs) Handles MyBase.Click
+
+    End Sub
+
+    Private Sub pictureBack_Click(sender As Object, e As EventArgs) Handles pictureBack.Click
+        ''
+        ''See "Private Sub BackgroundBox_Click(...)" in module ClassDesigner.
+        ''    ("RaiseEvent BackgroundRightClicked(e.X, e.Y)")
+        ''   ----12/1/2021 thomas
+        ''
+    End Sub
+
+    Private Sub pictureBack_MouseClick(sender As Object, e As MouseEventArgs) Handles pictureBack.MouseClick
+        ''
+        ''See "Private Sub BackgroundBox_Click(...)" in module ClassDesigner.
+        ''    ("RaiseEvent BackgroundRightClicked(e.X, e.Y)")
+        ''   ----12/1/2021 thomas
+        ''
+    End Sub
+
+    Private Sub pictureBack_MouseDown(sender As Object, e As MouseEventArgs) Handles pictureBack.MouseDown
+        ''
+        ''See "Private Sub BackgroundBox_Click(...)" in module ClassDesigner.
+        ''    ("RaiseEvent BackgroundRightClicked(e.X, e.Y)")
+        ''   ----12/1/2021 thomas
+        ''
     End Sub
 End Class

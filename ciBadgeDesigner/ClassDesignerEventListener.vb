@@ -186,7 +186,7 @@ Public Class ClassDesignerEventListener
                            mod_designer.CtlGraphic_QRCode, 10, True,
                            mod_sizingEvents_QR, False)
         ''Added 12/1/2021 td 
-        mod_dictyControlResizing.Add(mod_designer.CtlGraphic_Portrait,
+        mod_dictyControlResizing.Add(mod_designer.CtlGraphic_QRCode,
             mod_sizing_QR)
 
         ''mod_sizing_signature.Init(Me.CtlGraphic_Signat.pictureSignature,
@@ -194,8 +194,9 @@ Public Class ClassDesignerEventListener
         mod_sizing_signature.Init(mod_designer.CtlGraphic_Signat.pictureSignature,
                                   mod_designer.CtlGraphic_Signat, 10, True,
                                   mod_sizingEvents_Sig, False)
+
         ''Added 12/1/2021 td 
-        mod_dictyControlResizing.Add(mod_designer.CtlGraphic_Portrait,
+        mod_dictyControlResizing.Add(mod_designer.CtlGraphic_Signat,
              mod_sizing_signature)
 
 
