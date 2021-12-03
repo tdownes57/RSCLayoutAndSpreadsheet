@@ -34,6 +34,8 @@ namespace MoveAndResizeControls_Monem
             this.buttonContainer = new System.Windows.Forms.Button();
             this.buttonControl = new System.Windows.Forms.Button();
             this.labelHeading1 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // textBox1
@@ -76,11 +78,33 @@ namespace MoveAndResizeControls_Monem
             this.labelHeading1.TabIndex = 3;
             this.labelHeading1.Text = "Hooking up the MouseMove Event";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(450, 301);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(161, 36);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Works well";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(450, 361);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(402, 36);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Can\'t move QR nor Signature";
+            // 
             // FormContainerVsPicture
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(723, 444);
+            this.ClientSize = new System.Drawing.Size(864, 444);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.labelHeading1);
             this.Controls.Add(this.buttonControl);
             this.Controls.Add(this.buttonContainer);
@@ -99,5 +123,7 @@ namespace MoveAndResizeControls_Monem
         private System.Windows.Forms.Button buttonContainer;
         private System.Windows.Forms.Button buttonControl;
         private System.Windows.Forms.Label labelHeading1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }

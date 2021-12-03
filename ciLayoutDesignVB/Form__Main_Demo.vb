@@ -311,6 +311,20 @@ Public Class Form__Main_Demo
         ''
         ''Encapsulated 11/28/2021 thomas downes
         ''
+        If (CtlGraphicQRCode1 Is Nothing) Then
+            ''Added 12/3/2021 td  
+            CtlGraphicQRCode1 = New CtlGraphicQRCode
+            CtlGraphicQRCode1.Visible = True
+            Me.Controls.Add(CtlGraphicQRCode1)
+        End If ''End of "If (CtlGraphicQRCode1 = Nothing) Then"
+
+        ''Added 12/3/2021 thomas downes
+        If (Me.PersonalityCache_FutureUse Is Nothing) Then
+            Me.PersonalityCache_FutureUse = New ciBadgeElements.ClassElementsCache_Deprecated()
+            Dim boolDummy As Boolean
+            Me.PersonalityCache_FutureUse = LoadCachedData_Personality_FutureUse(Me, boolDummy)
+        End If ''End of "If (Me.PersonalityCache_FutureUse Is Nothing) Then"
+
         ''Added 10/13/2019 thomas d. 
         mod_designer.CtlGraphic_Portrait = CtlGraphicPortrait_Lady
         mod_designer.CtlGraphic_QRCode = CtlGraphicQRCode1
@@ -1474,6 +1488,15 @@ Public Class Form__Main_Demo
             .AutoScroll = True
 
             ''11/30/2021 td''list_recips = Me.PersonalityCache.ListOfRecipients
+            If (Me.PersonalityCache_FutureUse Is Nothing) Then
+                ''
+                ''Added 12/3/2021 thomas downes 
+                ''
+                Dim boolNewFileXML As Boolean
+                Me.PersonalityCache_FutureUse = Startup.LoadCachedData_Personality_FutureUse(Me, boolNewFileXML)
+
+            End If ''end of "If (Me.PersonalityCache_FutureUse Is Nothing) Then"
+
             list_recips = Me.PersonalityCache_FutureUse.ListOfRecipients
 
             For Each each_recip In list_recips

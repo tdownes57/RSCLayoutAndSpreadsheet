@@ -66,6 +66,18 @@ Public Class CtlBackground
     End Sub
 
     Private Sub picturePreview_Click(sender As Object, e As EventArgs) Handles picturePreview.Click
+        ''
+        ''Added 12/2/2021 td 
+        ''
+        Dim intReply As DialogResult
+
+        intReply = MessageBox.Show("Please confirm your selection.", "", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)
+
+        If (intReply = DialogResult.Yes Or intReply = DialogResult.OK) Then
+
+            checkSelection.Checked = True
+
+        End If
 
     End Sub
 

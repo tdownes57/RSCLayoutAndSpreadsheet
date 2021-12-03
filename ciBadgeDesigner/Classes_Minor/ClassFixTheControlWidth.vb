@@ -66,6 +66,8 @@ Public Class ClassFixTheControlWidth
         ''
         Dim doubleW_div_H As Double
 
+        If (par_image Is Nothing) Then Return False ''Added 12/2/2021 td
+
         doubleW_div_H = (par_image.Width / par_image.Height)
 
         ''9/6 td''Return ProportionsAreSlightlyOff(doubleW_div_H, pboolVerbose, par_strNameOfImage)

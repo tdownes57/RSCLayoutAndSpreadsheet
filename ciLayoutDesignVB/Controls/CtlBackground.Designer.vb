@@ -31,15 +31,13 @@ Partial Class CtlBackground
         '
         'picturePreview
         '
-        Me.picturePreview.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.picturePreview.BackColor = System.Drawing.Color.Transparent
+        Me.picturePreview.BackColor = System.Drawing.Color.White
         Me.picturePreview.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.picturePreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.picturePreview.Location = New System.Drawing.Point(3, 29)
+        Me.picturePreview.Dock = System.Windows.Forms.DockStyle.Right
+        Me.picturePreview.Location = New System.Drawing.Point(86, 0)
         Me.picturePreview.Name = "picturePreview"
-        Me.picturePreview.Size = New System.Drawing.Size(595, 277)
+        Me.picturePreview.Size = New System.Drawing.Size(664, 393)
         Me.picturePreview.TabIndex = 45
         Me.picturePreview.TabStop = False
         '
@@ -69,7 +67,7 @@ Partial Class CtlBackground
         Me.checkSelection.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.checkSelection.AutoSize = True
         Me.checkSelection.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.checkSelection.Location = New System.Drawing.Point(3, 312)
+        Me.checkSelection.Location = New System.Drawing.Point(3, 369)
         Me.checkSelection.Name = "checkSelection"
         Me.checkSelection.Size = New System.Drawing.Size(578, 21)
         Me.checkSelection.TabIndex = 48
@@ -80,12 +78,13 @@ Partial Class CtlBackground
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.Controls.Add(Me.checkSelection)
         Me.Controls.Add(Me.LabelFileName)
         Me.Controls.Add(Me.labelHeading1)
         Me.Controls.Add(Me.picturePreview)
         Me.Name = "CtlBackground"
-        Me.Size = New System.Drawing.Size(622, 336)
+        Me.Size = New System.Drawing.Size(750, 393)
         CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()

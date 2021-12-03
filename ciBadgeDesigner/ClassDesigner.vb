@@ -121,6 +121,7 @@ Public Class ClassDesigner
     ''Private mod_dictyControlMoveBoxesEtc As New Dictionary(Of Control, ControlMove_NonStatic_TD)
 
     Private vbCrLf_Deux As String = (vbCrLf & vbCrLf)
+    Private mod_bMessageRedux1 As Boolean ''Added 12/02/2021 thomas downes
 
     Public Function ListOfFieldLabels() As HashSet(Of CtlGraphicFldLabel)
         ''10/17/2019 td''Public Function ListOfFieldLabels() As List(Of CtlGraphicFldLabel)
@@ -186,6 +187,13 @@ Public Class ClassDesigner
         End If ''End of "If (bRemovalWorkCompletedAtFirstPass) Then"
 
         FlowFieldsNotListed.Controls.Clear()
+
+        ''Clear the background of the badge. 
+        Me.BackgroundBox.BackgroundImage.Dispose()
+        Me.BackgroundBox.BackgroundImage = Nothing
+        Me.BackgroundBox.Image.Dispose()
+        Me.BackgroundBox.Image = Nothing
+        Me.BackgroundBox.Refresh()
 
     End Sub ''End of "Public Sub UnloadDesigner__()"
 
@@ -379,6 +387,8 @@ Public Class ClassDesigner
         ''10/1/2019 td''Me.BackgroundBox.SendToBack()
         Me.PreviewBox.SendToBack()
         Me.BackgroundBox.SendToBack()
+
+
 
         ResizeLayoutBackgroundImage_ToFitPictureBox() ''Added 8/25/2019 td
         RefreshPreview_Redux() ''Added 8/24/2019 td
@@ -1178,14 +1188,17 @@ Public Class ClassDesigner
         ''obj_image = ciBadgeGenerator.ClassMakeBadge
         Try
             ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.BackgroundBox.Image, True, "RefreshPreview_Redux #1")
+
         Catch ex_bgbox As Exception
             ''Added 11/26/2021 td
-            MessageBox.Show(ex_bgbox.Message)
-            MessageBox.Show(ex_bgbox.ToString)
+            If (Not mod_bMessageRedux1) Then MessageBox.Show(ex_bgbox.Message)
+            mod_bMessageRedux1 = True ''Added 12/02/2021 thomas downes 
+            If (False) Then MessageBox.Show(ex_bgbox.ToString)
         End Try
 
         Try
             ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.PreviewBox, True, "RefreshPreview_Redux #2")
+
         Catch ex_previewbox As Exception
             ''Added 11/26/2021 td
             MessageBox.Show(ex_previewbox.Message)

@@ -26,6 +26,8 @@ Partial Class FormUploadDimensionsMsg
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.PanelDimensionsAreOff = New System.Windows.Forms.Panel()
+        Me.CtlWidthHeightInputWidth = New ciLayoutDesignVB.CtlWidthHeight()
+        Me.CtlWidthHeightInputHeight = New ciLayoutDesignVB.CtlWidthHeight()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.LabelHeading1 = New System.Windows.Forms.Label()
@@ -39,8 +41,6 @@ Partial Class FormUploadDimensionsMsg
         Me.pictureAnchorOnly = New System.Windows.Forms.PictureBox()
         Me.LabelLossOfPixelsMaximum = New System.Windows.Forms.Label()
         Me.CtlWidthHeightUploaded = New ciLayoutDesignVB.CtlWidthHeight()
-        Me.CtlWidthHeightInputWidth = New ciLayoutDesignVB.CtlWidthHeight()
-        Me.CtlWidthHeightInputHeight = New ciLayoutDesignVB.CtlWidthHeight()
         Me.LabelDimensionsAreAllOkay = New System.Windows.Forms.Label()
         Me.PanelDimensionsAreOff.SuspendLayout()
         CType(Me.picturePVCCards, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -87,6 +87,24 @@ Partial Class FormUploadDimensionsMsg
         Me.PanelDimensionsAreOff.Name = "PanelDimensionsAreOff"
         Me.PanelDimensionsAreOff.Size = New System.Drawing.Size(621, 294)
         Me.PanelDimensionsAreOff.TabIndex = 5
+        '
+        'CtlWidthHeightInputWidth
+        '
+        Me.CtlWidthHeightInputWidth.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CtlWidthHeightInputWidth.Location = New System.Drawing.Point(73, 196)
+        Me.CtlWidthHeightInputWidth.Margin = New System.Windows.Forms.Padding(5)
+        Me.CtlWidthHeightInputWidth.Name = "CtlWidthHeightInputWidth"
+        Me.CtlWidthHeightInputWidth.Size = New System.Drawing.Size(543, 93)
+        Me.CtlWidthHeightInputWidth.TabIndex = 13
+        '
+        'CtlWidthHeightInputHeight
+        '
+        Me.CtlWidthHeightInputHeight.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CtlWidthHeightInputHeight.Location = New System.Drawing.Point(73, 44)
+        Me.CtlWidthHeightInputHeight.Margin = New System.Windows.Forms.Padding(5)
+        Me.CtlWidthHeightInputHeight.Name = "CtlWidthHeightInputHeight"
+        Me.CtlWidthHeightInputHeight.Size = New System.Drawing.Size(543, 106)
+        Me.CtlWidthHeightInputHeight.TabIndex = 12
         '
         'Label5
         '
@@ -204,6 +222,7 @@ Partial Class FormUploadDimensionsMsg
         Me.pictureAnchorOnly.Size = New System.Drawing.Size(270, 237)
         Me.pictureAnchorOnly.TabIndex = 17
         Me.pictureAnchorOnly.TabStop = False
+        Me.pictureAnchorOnly.Visible = False
         '
         'LabelLossOfPixelsMaximum
         '
@@ -224,24 +243,6 @@ Partial Class FormUploadDimensionsMsg
         Me.CtlWidthHeightUploaded.Name = "CtlWidthHeightUploaded"
         Me.CtlWidthHeightUploaded.Size = New System.Drawing.Size(551, 75)
         Me.CtlWidthHeightUploaded.TabIndex = 11
-        '
-        'CtlWidthHeightInputWidth
-        '
-        Me.CtlWidthHeightInputWidth.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CtlWidthHeightInputWidth.Location = New System.Drawing.Point(73, 196)
-        Me.CtlWidthHeightInputWidth.Margin = New System.Windows.Forms.Padding(5)
-        Me.CtlWidthHeightInputWidth.Name = "CtlWidthHeightInputWidth"
-        Me.CtlWidthHeightInputWidth.Size = New System.Drawing.Size(543, 93)
-        Me.CtlWidthHeightInputWidth.TabIndex = 13
-        '
-        'CtlWidthHeightInputHeight
-        '
-        Me.CtlWidthHeightInputHeight.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CtlWidthHeightInputHeight.Location = New System.Drawing.Point(73, 44)
-        Me.CtlWidthHeightInputHeight.Margin = New System.Windows.Forms.Padding(5)
-        Me.CtlWidthHeightInputHeight.Name = "CtlWidthHeightInputHeight"
-        Me.CtlWidthHeightInputHeight.Size = New System.Drawing.Size(543, 106)
-        Me.CtlWidthHeightInputHeight.TabIndex = 12
         '
         'LabelDimensionsAreAllOkay
         '

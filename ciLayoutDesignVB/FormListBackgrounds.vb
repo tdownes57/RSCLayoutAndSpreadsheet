@@ -46,6 +46,16 @@ Public Class FormListBackgrounds
         ''
         Me.ImageFileInfo = Me.TemporarySelectedFileInfo
         Me.ImageFilePath = Me.TemporarySelectedFileInfo.FullName
+
+        ''
+        ''Open the dialog for addressing dimensional ratios.
+        ''---12/2/2021 thomas d.
+        ''
+        Dim objChildDialog As New FormUploadDimensionsMsg
+        objChildDialog.UploadedImageFile(Me.ImageFilePath)
+        objChildDialog.ShowDialog()
+
+        ''Close the form.  
         Me.Close()
 
     End Sub

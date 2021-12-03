@@ -79,10 +79,11 @@ Partial Class FormUploadBackground
         Me.CtlBackground1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.CtlBackground1.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.CtlBackground1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.CtlBackground1.Location = New System.Drawing.Point(12, 69)
         Me.CtlBackground1.Name = "CtlBackground1"
-        Me.CtlBackground1.Size = New System.Drawing.Size(761, 340)
+        Me.CtlBackground1.Size = New System.Drawing.Size(688, 340)
         Me.CtlBackground1.TabIndex = 0
         '
         'FormUploadBackground

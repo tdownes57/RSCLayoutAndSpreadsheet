@@ -44,7 +44,8 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
         //       https://www.codeproject.com/info/cpol10.aspx
         //  This class was modified in August 2019 by Thomas C. Downes
         //
-        //
+        private static bool MouseMove_DontAskAgain = false; // Added 12/2/2021 td
+        private static bool MouseMove_Container = false;    // Added 12/2/2021 td
 
         private  bool _moving;
         private  bool _repaintAfterResize;  // Added 7/31/2019 td  
@@ -155,12 +156,24 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             //   signature of Init()... namely, par_control & par_container).
             //   ---12/1/2021 thomas downes
             //
-            bool bPassContainer = FormContainerVsPicture.LetsPassElementContainerToMouseControl();
-            if (bPassContainer) 
+            bool bPassContainer; // Added 12/2/2021 td
+
+            if (MouseMove_DontAskAgain) bPassContainer = MouseMove_Container;
+            else bPassContainer = FormContainerVsPicture.LetsPassElementContainerToMouseControl();
+            
+            if (bPassContainer)
+            {
                 par_control.MouseMove += (sender, e) => MoveControl(par_container, e);
-            else 
+                MouseMove_DontAskAgain = true;
+                MouseMove_Container = true;
+            }
+            else
+            {
                 par_control.MouseMove += (sender, e) => MoveControl(par_control, e);
-                
+                MouseMove_DontAskAgain = true;
+                MouseMove_Container = false;
+            }
+
             par_control.MouseDown += (sender, e) => StartMovingOrResizing(par_control, e);
             par_control.MouseUp += (sender, e) => StopDragOrResizing(par_control);
 
