@@ -757,7 +757,17 @@ ExitHandler:
         ''
         ''Added 7/25/2019 thomas d 
         ''
-        Return Me.ElementClass_Obj.LabelText_ToDisplay(True)
+        ''----Return Me.ElementClass_Obj.LabelText_ToDisplay(True)
+        If (Me.ElementClass_Obj Is Nothing) Then
+
+            ''Added 12/2/2021 thomas downes
+            MessageBox.Show("Error, ElementClassObject is null.")
+            Return "Error, ElementClassObject is null."
+
+        Else
+            Return Me.ElementClass_Obj.LabelText_ToDisplay(True)
+
+        End If
 
         ''---------------Obselete as of 10/16/2019 thomas d.-------------
         ''Select Case True

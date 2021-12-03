@@ -100,6 +100,7 @@ Partial Class Form__Main_Demo
         Me.CtlGraphicSignature1 = New ciBadgeDesigner.CtlGraphicSignature()
         Me.CtlGraphicQRCode1 = New ciBadgeDesigner.CtlGraphicQRCode()
         Me.CtlGraphicPortrait_Lady = New ciBadgeDesigner.CtlGraphicPortrait()
+        Me.checkInstantPreview = New System.Windows.Forms.CheckBox()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -726,11 +727,22 @@ Partial Class Form__Main_Demo
         Me.CtlGraphicPortrait_Lady.Size = New System.Drawing.Size(141, 181)
         Me.CtlGraphicPortrait_Lady.TabIndex = 41
         '
+        'checkInstantPreview
+        '
+        Me.checkInstantPreview.AutoSize = True
+        Me.checkInstantPreview.Location = New System.Drawing.Point(1205, 149)
+        Me.checkInstantPreview.Name = "checkInstantPreview"
+        Me.checkInstantPreview.Size = New System.Drawing.Size(81, 24)
+        Me.checkInstantPreview.TabIndex = 72
+        Me.checkInstantPreview.Text = "Instant"
+        Me.checkInstantPreview.UseVisualStyleBackColor = True
+        '
         'Form__Main_Demo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1298, 616)
+        Me.Controls.Add(Me.checkInstantPreview)
         Me.Controls.Add(Me.LinkLabelEmailBadgeJpeg)
         Me.Controls.Add(Me.LinkLabelEmailBadgeJPG)
         Me.Controls.Add(Me.LinkLabelOpenPreviewFileJPG)
@@ -856,4 +868,5 @@ Partial Class Form__Main_Demo
     Friend WithEvents CheckDupedElementsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents UnloadDesignerToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ReloadDesignerToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents checkInstantPreview As CheckBox
 End Class

@@ -20,6 +20,8 @@ Public Class ClassGroupMoveEvents
     Public Event Resizing_End()
     ''Modified 11/29/2021 td''Public Event Moving_End() ''Added 9/13/2019 td
     Public Event Moving_End(par_control As Control) ''Added 9/13/2019 td  
+    ''Added 12/2/2021 Thomas Downes
+    Public Event Moving_InProgress(par_control As Control) ''Added 12/02/2021 td  
 
     ''9/20/2019 td''Public ParentLayoutForm As FormDesignProtoTwo ''Added 8/4/2019
     Public LayoutFunctions As ILayoutFunctions ''Added 9/20/2019 td
