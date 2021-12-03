@@ -11,7 +11,7 @@
         ''Added 11/25/2021 Thomas Downes
         ''
         Static s_strFolder As String
-        Dim objCache As ciBadgeElements.ClassElementsCache_Deprecated
+        ''Dim objCache As ciBadgeElements.ClassElementsCache_Deprecated
 
         If (String.IsNullOrEmpty(s_strFolder)) Then s_strFolder = My.Application.Info.DirectoryPath
 
@@ -43,6 +43,14 @@
 
             objImageFileInfo = New IO.FileInfo(strImageFilePath)
             CtlBackground1.LoadImageFileByFileInfo(objImageFileInfo)
+
+            ''
+            ''Open the dialog for addressing dimensional ratios.
+            ''---12/2/2021 thomas d.
+            ''
+            Dim objChildDialog As New FormUploadDimensionsMsg
+            objChildDialog.UploadedImageFile(strImageFilePath)
+            objChildDialog.ShowDialog()
 
         Else
             ''Exit the Sub. 

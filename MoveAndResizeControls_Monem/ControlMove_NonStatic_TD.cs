@@ -132,9 +132,6 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             MouseIsInBottomEdge = false;
             WorkType = MoveOrResize.MoveAndResize;
 
-            par_control.MouseDown += (sender, e) => StartMovingOrResizing(par_control, e);
-            par_control.MouseUp += (sender, e) => StopDragOrResizing(par_control);
-
             //==-== Likely bug.  Notice that it references "par_container"
             //   which conflicts with "par_control" (unless the other Init() signature
             //   was utilized... in which the par_container parameter doesn't exist...
@@ -144,6 +141,8 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             //
             //==//par_control.MouseMove += (sender, e) => MoveControl(par_container, e);
             par_control.MouseMove += (sender, e) => MoveControl(par_control, e);
+            par_control.MouseDown += (sender, e) => StartMovingOrResizing(par_control, e);
+            par_control.MouseUp += (sender, e) => StopDragOrResizing(par_control);
 
             // Added 11/30/2021 thomas downes
             _controlCurrent = par_control;

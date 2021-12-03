@@ -50,8 +50,19 @@
     <Compile Include="ControlMove_Group_NonStatic.cs" />
     <Compile Include="ControlMove_RaiseEvents.cs" />
     <Compile Include="ControlResizeProportionally_TD.cs" />
+    <Compile Include="FormContainerVsPicture.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormContainerVsPicture.Designer.cs">
+      <DependentUpon>FormContainerVsPicture.cs</DependentUpon>
+    </Compile>
     <Compile Include="InterfaceEvents.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FormContainerVsPicture.resx">
+      <DependentUpon>FormContainerVsPicture.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

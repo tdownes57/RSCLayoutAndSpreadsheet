@@ -117,4 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="textBox1.Text" xml:space="preserve">
+    <value>           // Hook up the event handlers.  
+            //==-== Likely bug.  Notice that it references "par_container"
+            //   which conflicts with "par_control" (unless the other Init() signature
+            //   was utilized... in which the par_container parameter doesn't exist...
+            //   That other Init() passes par_control in both parameters of this
+            //   signature of Init()... namely, par_control &amp; par_container).
+            //   ---12/1/2021 thomas downes
+            //
+            //==//par_control.MouseMove += (sender, e) =&gt; MoveControl(par_container, e);
+            par_control.MouseMove += (sender, e) =&gt; MoveControl(par_control, e);</value>
+  </data>
 </root>

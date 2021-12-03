@@ -36,7 +36,6 @@ Partial Class FormUploadEditingImage
         Me.RadioButton3 = New System.Windows.Forms.RadioButton()
         Me.RadioButton4 = New System.Windows.Forms.RadioButton()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.controrlAdjustOffset = New ciLayoutDesignVB.CtlAdjustImageOffset()
         Me.buttonCancel = New System.Windows.Forms.Button()
         Me.buttonOK = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
@@ -46,6 +45,7 @@ Partial Class FormUploadEditingImage
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel2 = New System.Windows.Forms.LinkLabel()
+        Me.controrlAdjustOffset = New ciLayoutDesignVB.CtlAdjustImageOffset()
         CType(Me.pictureLayoutNone, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureLayoutCenter, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureLayoutZoom, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -185,14 +185,6 @@ Partial Class FormUploadEditingImage
         Me.Label1.TabIndex = 57
         Me.Label1.Text = "Select which Layout is best."
         '
-        'controrlAdjustOffset
-        '
-        Me.controrlAdjustOffset.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.controrlAdjustOffset.Location = New System.Drawing.Point(524, 8)
-        Me.controrlAdjustOffset.Name = "controrlAdjustOffset"
-        Me.controrlAdjustOffset.Size = New System.Drawing.Size(552, 401)
-        Me.controrlAdjustOffset.TabIndex = 58
-        '
         'buttonCancel
         '
         Me.buttonCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -279,7 +271,15 @@ Partial Class FormUploadEditingImage
         Me.LinkLabel2.TabStop = True
         Me.LinkLabel2.Text = "Undo Push"
         '
-        'FormEditImagePlacement
+        'controrlAdjustOffset
+        '
+        Me.controrlAdjustOffset.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.controrlAdjustOffset.Location = New System.Drawing.Point(524, 8)
+        Me.controrlAdjustOffset.Name = "controrlAdjustOffset"
+        Me.controrlAdjustOffset.Size = New System.Drawing.Size(552, 401)
+        Me.controrlAdjustOffset.TabIndex = 58
+        '
+        'FormUploadEditingImage
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -306,7 +306,7 @@ Partial Class FormUploadEditingImage
         Me.Controls.Add(Me.pictureLayoutZoom)
         Me.Controls.Add(Me.pictureLayoutCenter)
         Me.Controls.Add(Me.pictureLayoutNone)
-        Me.Name = "FormEditImagePlacement"
+        Me.Name = "FormUploadEditingImage"
         Me.Text = "FormCroppingBackground"
         CType(Me.pictureLayoutNone, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pictureLayoutCenter, System.ComponentModel.ISupportInitialize).EndInit()

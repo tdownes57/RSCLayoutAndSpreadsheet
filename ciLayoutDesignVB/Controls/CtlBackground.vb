@@ -44,8 +44,11 @@ Public Class CtlBackground
         ImageFileTitle = par_fileInfo.Name
         ImageFileInfo = par_fileInfo
         LabelFileName.Text = par_fileInfo.Name
+
         ''Display the image. 
-        picturePreview.ImageLocation = par_fileInfo.FullName
+        ''---picturePreview.ImageLocation = par_fileInfo.FullName
+        picturePreview.BackgroundImage = (New Bitmap(par_fileInfo.FullName))
+        picturePreview.BackgroundImageLayout = ImageLayout.Zoom
 
         If (par_isSelected) Then
             ''Implement the IsSelected = True parameter.

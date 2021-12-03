@@ -145,10 +145,11 @@ Public Class ClassDesigner
         ''CtlGraphicQRCode.RemoveHandler
         ''RemoveHandler CtlGraphic_QRCode.Picture_Box.MouseDown,
         ''    AddressOf mod_designerListener.mod_dictyControlMoveBoxesEtc(CtlGraphic_QRCode).
-        Dim objListenerQR As MoveAndResizeControls_Monem.ControlMove_NonStatic_TD
+        ''---Dim objListenerQR As MoveAndResizeControls_Monem.ControlMove_NonStatic_TD
+        Dim objListenerQR As MoveAndResizeControls_Monem.ControlResizeProportionally_TD
 
-        objListenerQR = mod_designerListener.mod_dictyControlMoveBoxesEtc(CtlGraphic_QRCode)
-        objListenerQR = mod_designerListener.mod_dictyControlMoveBoxesEtc(CtlGraphic_QRCode)
+        ''---objListenerQR = mod_designerListener.mod_dictyControlMoveBoxesEtc(CtlGraphic_QRCode)
+        objListenerQR = mod_designerListener.mod_dictyControlResizing(CtlGraphic_QRCode)
 
         objListenerQR.RemoveEventHandlers()
 

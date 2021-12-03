@@ -77,7 +77,11 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             MoveAndResize
         }
 
-        internal  MoveOrResize WorkType { get; set; }
+        private Control _controlCurrent; // Added 12/02/2021 td
+        private Control _controlPictureBox;  // = par_controlPictureB;
+        private Control _controlMoveableElement; // = par_containerElement;
+
+        internal MoveOrResize WorkType { get; set; }
 
         public  void Init_NotInUse(Control par_control, int par_margin, bool pbRepaintAfterResize,
                                 InterfaceEvents par_events, bool pbSetBreakpoint_AfterMove)
@@ -138,9 +142,29 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             MouseIsInBottomEdge = false;
             WorkType = MoveOrResize.MoveAndResize;
 
+            //Added 12/2/2021 thomas downes 
+            _controlCurrent = par_control;
+            _controlMoveableElement = par_container;
+            _controlPictureBox = par_control;
+
+            // Hook up the event handlers.  
+            //==-== Likely bug.  Notice that it references "par_container"
+            //   which conflicts with "par_control" (unless the other Init() signature
+            //   was utilized... in which the par_container parameter doesn't exist...
+            //   That other Init() passes par_control in both parameters of this
+            //   signature of Init()... namely, par_control & par_container).
+            //   ---12/1/2021 thomas downes
+            //
+            bool bPassContainer = FormContainerVsPicture.LetsPassElementContainerToMouseControl();
+            if (bPassContainer) 
+                par_control.MouseMove += (sender, e) => MoveControl(par_container, e);
+            else 
+                par_control.MouseMove += (sender, e) => MoveControl(par_control, e);
+                
             par_control.MouseDown += (sender, e) => StartMovingOrResizing(par_control, e);
             par_control.MouseUp += (sender, e) => StopDragOrResizing(par_control);
-            par_control.MouseMove += (sender, e) => MoveControl(par_container, e);
+
+
         }
 
         private  void UpdateMouseEdgeProperties(Control control, Point mouseLocationInControl)
@@ -207,6 +231,33 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
                 control.Cursor = Cursors.Default;
             }
         }
+
+
+        public void RemoveEventHandlers()
+        {
+            //
+            // Added 11/30/2021 Thomas Downes  
+            //
+
+            //''The minimal listing. 
+            _controlCurrent.MouseDown -= (sender, e) => StartMovingOrResizing(_controlCurrent, e);
+            _controlCurrent.MouseUp -= (sender, e) => StopDragOrResizing(_controlCurrent);
+            _controlCurrent.MouseMove -= (sender, e) => MoveControl(_controlCurrent, e);
+
+            //''
+            //''More extensive listing. May fail, since not all of these
+            //''   event handlers are created. 
+            //''  
+            _controlMoveableElement.MouseDown -= (sender, e) => StartMovingOrResizing(_controlMoveableElement, e);
+            _controlMoveableElement.MouseUp -= (sender, e) => StopDragOrResizing(_controlMoveableElement);
+            _controlMoveableElement.MouseMove -= (sender, e) => MoveControl(_controlMoveableElement, e);
+
+            _controlPictureBox.MouseDown -= (sender, e) => StartMovingOrResizing(_controlPictureBox, e);
+            _controlPictureBox.MouseUp -= (sender, e) => StopDragOrResizing(_controlPictureBox);
+            _controlPictureBox.MouseMove -= (sender, e) => MoveControl(_controlPictureBox, e);
+
+        }
+
 
         private  void StartMovingOrResizing(Control par_control, MouseEventArgs e)
         {
