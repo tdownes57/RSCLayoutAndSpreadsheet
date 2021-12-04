@@ -95,32 +95,32 @@ Public Class Form__Main_Demo
 
     ''Public Function Layout_Width_Pixels() As Integer Implements ILayoutFunctions.Layout_Width_Pixels
     ''    ''Added 9/3/2019 thomas downes
-    ''    Return pictureBack.Width
+    ''    Return ctlBackgroundZoom1.Width
     ''End Function ''End of "Public Function Layout_Width_Pixels() As Integer"
 
     ''Public Function Layout_Height_Pixels() As Integer Implements ILayoutFunctions.Layout_Height_Pixels
     ''    ''Added 9/11/2019 Never Forget 
-    ''    Return pictureBack.Height
+    ''    Return ctlBackgroundZoom1.Height
     ''End Function ''End of "Public Function Layout_Height_Pixels() As Integer"
 
     ''Public Function Layout_Margin_Left_Omit(par_intPixelsLeft As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Left_Omit
     ''    ''Added 9/5/2019 thomas downes
-    ''    Return (par_intPixelsLeft - pictureBack.Left)
+    ''    Return (par_intPixelsLeft - ctlBackgroundZoom1.Left)
     ''End Function ''End of "Public Function Layout_Margin_Left_Omit() As Integer"
 
     ''Public Function Layout_Margin_Left_Add(par_intPixelsLeft As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Left_Add
     ''    ''Added 9/5/2019 thomas downes
-    ''    Return (par_intPixelsLeft + pictureBack.Left)
+    ''    Return (par_intPixelsLeft + ctlBackgroundZoom1.Left)
     ''End Function ''End of "Public Function Layout_Margin_Left_Add() As Integer"
 
     ''Public Function Layout_Margin_Top_Omit(par_intPixelsTop As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Top_Omit
     ''    ''Added 9/5/2019 thomas downes
-    ''    Return (par_intPixelsTop - pictureBack.Top)
+    ''    Return (par_intPixelsTop - ctlBackgroundZoom1.Top)
     ''End Function ''End of "Public Function Layout_Margin_Top_Omit() As Integer"
 
     ''Public Function Layout_Margin_Top_Add(par_intPixelsTop As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Top_Add
     ''    ''Added 9/5/2019 thomas downes
-    ''    Return (par_intPixelsTop + pictureBack.Top)
+    ''    Return (par_intPixelsTop + ctlBackgroundZoom1.Top)
     ''End Function ''End of "Public Function Layout_Margin_Top_Add() As Integer"
 
     ''Public Function OkayToShowFauxContextMenu() As Boolean Implements ILayoutFunctions.OkayToShowFauxContextMenu
@@ -157,7 +157,7 @@ Public Class Form__Main_Demo
                     Me.ElementsCache_Edits.LoadElement_Signature(0, 0,
                                 CtlGraphicSignature1.Width,
                                 CtlGraphicSignature1.Height,
-                                pictureBack.PictureBackgroundBox)
+                                CtlBackgroundZoom1.PictureBackgroundBox)
                 End If ''End of "If (Me.ElementsCache_Edits.MissingTheSignature()) Then"
 
                 .ElementClass_Obj = Me.ElementsCache_Edits.ElementSignature
@@ -184,17 +184,17 @@ Public Class Form__Main_Demo
         ''
         ''9/8/2019 td''ClassLabelToImage.Proportions_CorrectWidth(pictureBack)
         ''9/8/2019 td''ClassLabelToImage.Proportions_CorrectWidth(picturePreview)
-        ClassLabelToImage.Proportions_FixTheWidth(pictureBack)
+        ClassLabelToImage.Proportions_FixTheWidth(CtlBackgroundZoom1)
         ClassLabelToImage.Proportions_FixTheWidth(picturePreview)
 
         ''Double-check the proportions are correct. ---9/6/2019 td
-        ClassLabelToImage.ProportionsAreSlightlyOff(pictureBack, True)
+        ClassLabelToImage.ProportionsAreSlightlyOff(CtlBackgroundZoom1, True)
         ClassLabelToImage.ProportionsAreSlightlyOff(picturePreview, True)
 
         ''Added 10/13/2019 td
         Me.BadgeLayout = New BadgeLayoutClass
-        Me.BadgeLayout.Height_Pixels = pictureBack.Height
-        Me.BadgeLayout.Width_Pixels = pictureBack.Width
+        Me.BadgeLayout.Height_Pixels = CtlBackgroundZoom1.Height
+        Me.BadgeLayout.Width_Pixels = CtlBackgroundZoom1.Width
 
         ''
         ''I forget, what was this going to do originally?  ---9/6/2019 td
@@ -296,7 +296,7 @@ Public Class Form__Main_Demo
         MenuCache_Background.GenerateMenuItems_IfNeeded()
 
         ''Added 12/3/2021 td
-        pictureBack.Refresh()
+        CtlBackgroundZoom1.Refresh()
 
     End Sub ''End of "Private Sub Form_Load"  
 
@@ -344,7 +344,7 @@ Public Class Form__Main_Demo
 
             ''Modified 12/3/2021 td 
             ''12/3/2021 td''.BackgroundBox = Me.pictureBack
-            .BackgroundBox = Me.pictureBack.PictureBackgroundBox
+            .BackgroundBox = Me.CtlBackgroundZoom1.PictureBackgroundBox
 
             ''Added 12/3/2021 thomas downes
             Dim objectBackgroundImage As Bitmap
@@ -377,8 +377,8 @@ Public Class Form__Main_Demo
             .ExampleImage_Signature = mod_imageSignature ''Added 10/12/2019 td
             .PathToSigFile = DiskFiles.PathToFile_Sig() ''Added 10/12/2019 td
 
-            ''10/1/2019''intPicLeft = CtlGraphicPortrait_Lady.Left - pictureBack.Left
-            ''10/1/2019''intPicTop = CtlGraphicPortrait_Lady.Top - pictureBack.Top
+            ''10/1/2019''intPicLeft = CtlGraphicPortrait_Lady.Left - ctlBackgroundZoom1.Left
+            ''10/1/2019''intPicTop = CtlGraphicPortrait_Lady.Top - ctlBackgroundZoom1.Top
             ''10/1/2019''intPicWidth = CtlGraphicPortrait_Lady.Width
             ''10/1/2019''intPicHeight = CtlGraphicPortrait_Lady.Height
 
@@ -537,18 +537,18 @@ Public Class Form__Main_Demo
     ''    listOfElementTextFields = Me.ElementsCache_Edits.ListFieldElements()
     ''
     ''    ''8/24 td''picturePreview.SizeMode = PictureBoxSizeMode.Zoom
-    ''    ''8/24 td''picturePreview.Image = pictureBack.Image
-    ''    ''8/24 td''picturePreview.Image = CType(pictureBack.Image.Clone(), Image)
+    ''    ''8/24 td''picturePreview.Image = ctlBackgroundZoom1.Image
+    ''    ''8/24 td''picturePreview.Image = CType(ctlBackgroundZoom1.Image.Clone(), Image)
     ''
     ''    Dim obj_image As Image ''Added 8/24 td
     ''    Dim obj_image_clone As Image ''Added 8/24 td
     ''    Dim obj_image_clone_resized As Image ''Added 8/24/2019 td
     ''
     ''    ''Added 9/6/2019 td 
-    ''    ClassLabelToImage.ProportionsAreSlightlyOff(pictureBack.Image, True, "Background Image")
+    ''    ClassLabelToImage.ProportionsAreSlightlyOff(ctlBackgroundZoom1.Image, True, "Background Image")
     ''
     ''    ''Added 8/24/2019 td
-    ''    obj_image = pictureBack.Image
+    ''    obj_image = ctlBackgroundZoom1.Image
     ''    obj_image_clone = CType(obj_image.Clone(), Image)
     ''
     ''    ''Dim gr_resize As Graphics = New Bitmap(obj_image_clone)
@@ -606,7 +606,7 @@ Public Class Form__Main_Demo
     ''    End If ''End of "If (c_bHelpProgrammer And c_bTestingReview) Then"
     ''
     ''    ''Added 9/6/2019 td 
-    ''    ClassLabelToImage.ProportionsAreSlightlyOff(pictureBack.Image, True, "Clone Resized #1")
+    ''    ClassLabelToImage.ProportionsAreSlightlyOff(ctlBackgroundZoom1.Image, True, "Clone Resized #1")
     ''
     ''    ''8/26 td''picturePreview.Image = obj_image_clone_resized
     ''    picturePreview.Image = obj_image_clone_resized
@@ -1076,7 +1076,7 @@ Public Class Form__Main_Demo
         frm_ToShow.ListOfFields = Form__Main_PreDemo.GetCurrentPersonality_Fields_Custom()
         frm_ToShow.ShowDialog()
         RefreshTheSetOfDisplayedElements()
-        pictureBack.SendToBack()
+        CtlBackgroundZoom1.SendToBack()
 
     End Sub
 
@@ -1090,7 +1090,7 @@ Public Class Form__Main_Demo
         frm_ToShow.ListOfFields = Form__Main_PreDemo.GetCurrentPersonality_Fields_Custom()
         frm_ToShow.ShowDialog()
         RefreshTheSetOfDisplayedElements()
-        pictureBack.SendToBack()
+        CtlBackgroundZoom1.SendToBack()
 
     End Sub
 
@@ -1104,7 +1104,7 @@ Public Class Form__Main_Demo
         frm_ToShow.ListOfFields = Me.ElementsCache_Edits.ListOfFields_Standard()
         frm_ToShow.ShowDialog()
         RefreshTheSetOfDisplayedElements()
-        pictureBack.SendToBack()
+        CtlBackgroundZoom1.SendToBack()
 
     End Sub
 
@@ -1117,12 +1117,12 @@ Public Class Form__Main_Demo
         ''
         ''Check that the proportions are correct. 
         ''
-        ClassLabelToImage.ProportionsAreSlightlyOff(pictureBack, True)
+        ClassLabelToImage.ProportionsAreSlightlyOff(CtlBackgroundZoom1, True)
         ClassLabelToImage.ProportionsAreSlightlyOff(picturePreview, True)
 
         ''Added 9/8/2019 td
-        ''12/3/2021 td''ClassLabelToImage.ProportionsAreSlightlyOff(pictureBack.Image, True)
-        ClassLabelToImage.ProportionsAreSlightlyOff(pictureBack.BackgroundImage, True)
+        ''12/3/2021 td''ClassLabelToImage.ProportionsAreSlightlyOff(ctlBackgroundZoom1.Image, True)
+        ClassLabelToImage.ProportionsAreSlightlyOff(CtlBackgroundZoom1.BackgroundImage, True)
         ClassLabelToImage.ProportionsAreSlightlyOff(picturePreview.Image, True)
 
         ''
@@ -1146,7 +1146,7 @@ Public Class Form__Main_Demo
         ''listOfElementText_Custom = ClassFieldCustomized.ListOfElementsText_Custom()
 
         ''picturePreview.SizeMode = PictureBoxSizeMode.Zoom
-        ''picturePreview.Image = pictureBack.Image
+        ''picturePreview.Image = ctlBackgroundZoom1.Image
 
         ''objPrintLib.LoadImageWithFieldValues(picturePreview.Image,
         ''                                     listOfElementText_Stdrd,
@@ -1242,7 +1242,7 @@ Public Class Form__Main_Demo
     '''9/8/2019 td''Private _pClickStop As New Point '-- The place where the mouse button went 'up'.
     '''9/8/2019 td''Private _pNow As New Point '-- Holds the current mouse location to make the shape appear to follow the mouse cursor.
 
-    ''Private Sub Layout_MouseDown(sender As Object, e As MouseEventArgs) Handles pictureBack.MouseDown ''----Me.MouseDown
+    ''Private Sub Layout_MouseDown(sender As Object, e As MouseEventArgs) Handles ctlBackgroundZoom1.MouseDown ''----Me.MouseDown
     ''    ''
     ''    ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
     ''    ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
@@ -1251,7 +1251,7 @@ Public Class Form__Main_Demo
 
     ''End Sub
 
-    ''Private Sub Layout_MouseMove(sender As Object, e As MouseEventArgs) Handles pictureBack.MouseMove ''----Me.MouseMove
+    ''Private Sub Layout_MouseMove(sender As Object, e As MouseEventArgs) Handles ctlBackgroundZoom1.MouseMove ''----Me.MouseMove
     ''    ''
     ''    ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
     ''    ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
@@ -1262,7 +1262,7 @@ Public Class Form__Main_Demo
 
     ''End Sub
 
-    ''Private Sub Layout_MouseUp(sender As Object, e As MouseEventArgs) Handles pictureBack.MouseUp ''----Me.MouseUp
+    ''Private Sub Layout_MouseUp(sender As Object, e As MouseEventArgs) Handles ctlBackgroundZoom1.MouseUp ''----Me.MouseUp
     ''    ''
     ''    ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
     ''    ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
@@ -1271,7 +1271,7 @@ Public Class Form__Main_Demo
 
     ''End Sub
 
-    ''Private Sub Layout_Paint(sender As Object, e As PaintEventArgs) Handles pictureBack.Paint ''----Me.Paint
+    ''Private Sub Layout_Paint(sender As Object, e As PaintEventArgs) Handles ctlBackgroundZoom1.Paint ''----Me.Paint
     ''    ''
     ''    ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
     ''    ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
@@ -1606,7 +1606,7 @@ Public Class Form__Main_Demo
         ''Added 10/15/2019 td 
         ContextMenuStrip1.Items.Clear()
         ContextMenuStrip1.Items.AddRange(MenuCache_Background.Tools_BackgroundMenu)
-        ContextMenuStrip1.Show(pictureBack, New Point(par_mouse_x, par_mouse_y))
+        ContextMenuStrip1.Show(CtlBackgroundZoom1, New Point(par_mouse_x, par_mouse_y))
 
     End Sub
 
@@ -1668,7 +1668,7 @@ Public Class Form__Main_Demo
                                     (mod_strRecipientID & ".jpg"))
 
                 img_Prod = picturePreview.Image
-                img_Prod = objBadgeGenerator.MakeBadgeImage_ByRecipient(Me.BadgeLayout, pictureBack.BackgroundImage,
+                img_Prod = objBadgeGenerator.MakeBadgeImage_ByRecipient(Me.BadgeLayout, CtlBackgroundZoom1.BackgroundImage,
                                                                         Me.ElementsCache_Edits,
                                                                         Me.BadgeLayout.Width_Pixels,
                                                                         Me.BadgeLayout.Height_Pixels, each_recip, Nothing)
@@ -1830,8 +1830,8 @@ ExitHandler:
         If (objShow.ImageFileInfo IsNot Nothing) Then
             strPathToFilename = objShow.ImageFileInfo.FullName
             ''ClassElementsCache_Deprecated.Singleton.BackgroundImage_Path = strPathToFilename
-            '' 12/3/2021 td''pictureBack.ImageLocation = strPathToFilename
-            pictureBack.BackgroundImageLocation = strPathToFilename
+            '' 12/3/2021 td''ctlBackgroundZoom1.ImageLocation = strPathToFilename
+            CtlBackgroundZoom1.BackgroundImageLocation = strPathToFilename
         End If ''If (objShow.ImageFileInfo IsNot Nothing) Then
 
     End Sub
@@ -1937,7 +1937,7 @@ ExitHandler:
 
     End Sub
 
-    Private Sub pictureBack_Click(sender As Object, e As EventArgs) Handles pictureBack.Click
+    Private Sub pictureBack_Click(sender As Object, e As EventArgs)
         ''
         ''See "Private Sub BackgroundBox_Click(...)" in module ClassDesigner.
         ''    ("RaiseEvent BackgroundRightClicked(e.X, e.Y)")
@@ -1945,7 +1945,7 @@ ExitHandler:
         ''
     End Sub
 
-    Private Sub pictureBack_MouseClick(sender As Object, e As MouseEventArgs) Handles pictureBack.MouseClick
+    Private Sub pictureBack_MouseClick(sender As Object, e As MouseEventArgs)
         ''
         ''See "Private Sub BackgroundBox_Click(...)" in module ClassDesigner.
         ''    ("RaiseEvent BackgroundRightClicked(e.X, e.Y)")
@@ -1953,7 +1953,7 @@ ExitHandler:
         ''
     End Sub
 
-    Private Sub pictureBack_MouseDown(sender As Object, e As MouseEventArgs) Handles pictureBack.MouseDown
+    Private Sub pictureBack_MouseDown(sender As Object, e As MouseEventArgs)
         ''
         ''See "Private Sub BackgroundBox_Click(...)" in module ClassDesigner.
         ''    ("RaiseEvent BackgroundRightClicked(e.X, e.Y)")
