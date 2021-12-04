@@ -157,7 +157,7 @@ Public Class Form__Main_Demo
                     Me.ElementsCache_Edits.LoadElement_Signature(0, 0,
                                 CtlGraphicSignature1.Width,
                                 CtlGraphicSignature1.Height,
-                                CtlBackgroundZoom1.PictureBackgroundBox)
+                                PictureBox1)
                 End If ''End of "If (Me.ElementsCache_Edits.MissingTheSignature()) Then"
 
                 .ElementClass_Obj = Me.ElementsCache_Edits.ElementSignature
@@ -184,17 +184,17 @@ Public Class Form__Main_Demo
         ''
         ''9/8/2019 td''ClassLabelToImage.Proportions_CorrectWidth(pictureBack)
         ''9/8/2019 td''ClassLabelToImage.Proportions_CorrectWidth(picturePreview)
-        ClassLabelToImage.Proportions_FixTheWidth(CtlBackgroundZoom1)
+        ClassLabelToImage.Proportions_FixTheWidth(PictureBox1)
         ClassLabelToImage.Proportions_FixTheWidth(picturePreview)
 
         ''Double-check the proportions are correct. ---9/6/2019 td
-        ClassLabelToImage.ProportionsAreSlightlyOff(CtlBackgroundZoom1, True)
+        ClassLabelToImage.ProportionsAreSlightlyOff(PictureBox1, True)
         ClassLabelToImage.ProportionsAreSlightlyOff(picturePreview, True)
 
         ''Added 10/13/2019 td
         Me.BadgeLayout = New BadgeLayoutClass
-        Me.BadgeLayout.Height_Pixels = CtlBackgroundZoom1.Height
-        Me.BadgeLayout.Width_Pixels = CtlBackgroundZoom1.Width
+        Me.BadgeLayout.Height_Pixels = PictureBox1.Height
+        Me.BadgeLayout.Width_Pixels = PictureBox1.Width
 
         ''
         ''I forget, what was this going to do originally?  ---9/6/2019 td
@@ -296,7 +296,7 @@ Public Class Form__Main_Demo
         MenuCache_Background.GenerateMenuItems_IfNeeded()
 
         ''Added 12/3/2021 td
-        CtlBackgroundZoom1.Refresh()
+        PictureBox1.Refresh()
 
     End Sub ''End of "Private Sub Form_Load"  
 
@@ -344,7 +344,7 @@ Public Class Form__Main_Demo
 
             ''Modified 12/3/2021 td 
             ''12/3/2021 td''.BackgroundBox = Me.pictureBack
-            .BackgroundBox = Me.CtlBackgroundZoom1.PictureBackgroundBox
+            .BackgroundBox = Me.PictureBox1
 
             ''Added 12/3/2021 thomas downes
             Dim objectBackgroundImage As Bitmap
@@ -1076,7 +1076,7 @@ Public Class Form__Main_Demo
         frm_ToShow.ListOfFields = Form__Main_PreDemo.GetCurrentPersonality_Fields_Custom()
         frm_ToShow.ShowDialog()
         RefreshTheSetOfDisplayedElements()
-        CtlBackgroundZoom1.SendToBack()
+        PictureBox1.SendToBack()
 
     End Sub
 
@@ -1090,7 +1090,7 @@ Public Class Form__Main_Demo
         frm_ToShow.ListOfFields = Form__Main_PreDemo.GetCurrentPersonality_Fields_Custom()
         frm_ToShow.ShowDialog()
         RefreshTheSetOfDisplayedElements()
-        CtlBackgroundZoom1.SendToBack()
+        PictureBox1.SendToBack()
 
     End Sub
 
@@ -1104,7 +1104,7 @@ Public Class Form__Main_Demo
         frm_ToShow.ListOfFields = Me.ElementsCache_Edits.ListOfFields_Standard()
         frm_ToShow.ShowDialog()
         RefreshTheSetOfDisplayedElements()
-        CtlBackgroundZoom1.SendToBack()
+        PictureBox1.SendToBack()
 
     End Sub
 
@@ -1117,12 +1117,12 @@ Public Class Form__Main_Demo
         ''
         ''Check that the proportions are correct. 
         ''
-        ClassLabelToImage.ProportionsAreSlightlyOff(CtlBackgroundZoom1, True)
+        ClassLabelToImage.ProportionsAreSlightlyOff(PictureBox1, True)
         ClassLabelToImage.ProportionsAreSlightlyOff(picturePreview, True)
 
         ''Added 9/8/2019 td
         ''12/3/2021 td''ClassLabelToImage.ProportionsAreSlightlyOff(ctlBackgroundZoom1.Image, True)
-        ClassLabelToImage.ProportionsAreSlightlyOff(CtlBackgroundZoom1.BackgroundImage, True)
+        ClassLabelToImage.ProportionsAreSlightlyOff(PictureBox1.BackgroundImage, True)
         ClassLabelToImage.ProportionsAreSlightlyOff(picturePreview.Image, True)
 
         ''
@@ -1606,7 +1606,7 @@ Public Class Form__Main_Demo
         ''Added 10/15/2019 td 
         ContextMenuStrip1.Items.Clear()
         ContextMenuStrip1.Items.AddRange(MenuCache_Background.Tools_BackgroundMenu)
-        ContextMenuStrip1.Show(CtlBackgroundZoom1, New Point(par_mouse_x, par_mouse_y))
+        ContextMenuStrip1.Show(PictureBox1, New Point(par_mouse_x, par_mouse_y))
 
     End Sub
 
@@ -1668,7 +1668,7 @@ Public Class Form__Main_Demo
                                     (mod_strRecipientID & ".jpg"))
 
                 img_Prod = picturePreview.Image
-                img_Prod = objBadgeGenerator.MakeBadgeImage_ByRecipient(Me.BadgeLayout, CtlBackgroundZoom1.BackgroundImage,
+                img_Prod = objBadgeGenerator.MakeBadgeImage_ByRecipient(Me.BadgeLayout, PictureBox1.BackgroundImage,
                                                                         Me.ElementsCache_Edits,
                                                                         Me.BadgeLayout.Width_Pixels,
                                                                         Me.BadgeLayout.Height_Pixels, each_recip, Nothing)
@@ -1831,7 +1831,8 @@ ExitHandler:
             strPathToFilename = objShow.ImageFileInfo.FullName
             ''ClassElementsCache_Deprecated.Singleton.BackgroundImage_Path = strPathToFilename
             '' 12/3/2021 td''ctlBackgroundZoom1.ImageLocation = strPathToFilename
-            CtlBackgroundZoom1.BackgroundImageLocation = strPathToFilename
+            '' 12/3/2021 td''PictureBox1.ImageLocation = strPathToFilename
+            PictureBox1.BackgroundImage = (New Bitmap(strPathToFilename))
         End If ''If (objShow.ImageFileInfo IsNot Nothing) Then
 
     End Sub

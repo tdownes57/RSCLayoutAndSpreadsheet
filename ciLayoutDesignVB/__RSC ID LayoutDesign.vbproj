@@ -292,12 +292,6 @@
     <Compile Include="Controls\CtlAdjustImageOffset.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\ctlBackgroundZoom.Designer.vb">
-      <DependentUpon>ctlBackgroundZoom.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ctlBackgroundZoom.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="Controls\CtlCustomer.Designer.vb">
       <DependentUpon>CtlCustomer.vb</DependentUpon>
     </Compile>
@@ -626,9 +620,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlAdjustImageOffset.resx">
       <DependentUpon>CtlAdjustImageOffset.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\ctlBackgroundZoom.resx">
-      <DependentUpon>ctlBackgroundZoom.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlConfigFldStandard.resx">
       <DependentUpon>CtlConfigFldStandard.vb</DependentUpon>

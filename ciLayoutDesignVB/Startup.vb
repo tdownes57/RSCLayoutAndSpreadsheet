@@ -70,7 +70,7 @@ Public Class Startup
         Dim boolTesting As Boolean
         If (boolTesting) Then
             obj_cache_layout_Elements =
-                ClassElementsCache_Deprecated.GetLoadedCache("123.xml", True, obj_formToShow.pictureBack.BackgroundImage)
+                ClassElementsCache_Deprecated.GetLoadedCache("123.xml", True, obj_formToShow.PictureBox1.BackgroundImage)
         End If ''End of "If (boolTesting) Then"
 
         obj_formToShow.NewFileXML = boolNewFileXML
@@ -227,8 +227,8 @@ Public Class Startup
         ''''Added 9/19/2019 td
         ''With par_designForm
         ''    ''Added 9/19/2019 td
-        ''    intPicLeft = .CtlGraphicPortrait_Lady.Left - .pictureBack.Left
-        ''    intPicTop = .CtlGraphicPortrait_Lady.Top - .pictureBack.Top
+        ''    intPicLeft = .CtlGraphicPortrait_Lady.Left - .ctlBackgroundZoom1.Left
+        ''    intPicTop = .CtlGraphicPortrait_Lady.Top - .ctlBackgroundZoom1.Top
         ''    intPicWidth = .CtlGraphicPortrait_Lady.Width
         ''    intPicHeight = .CtlGraphicPortrait_Lady.Height
         ''End With
@@ -243,8 +243,8 @@ Public Class Startup
         ''''Added 10/14/2019 td
         ''With par_designForm
         ''    ''Added 10/14/2019 td
-        ''    intLeft_QR = .CtlGraphicQRCode1.Left - .pictureBack.Left
-        ''    intTop_QR = .CtlGraphicQRCode1.Top - .pictureBack.Top
+        ''    intLeft_QR = .CtlGraphicQRCode1.Left - .ctlBackgroundZoom1.Left
+        ''    intTop_QR = .CtlGraphicQRCode1.Top - .ctlBackgroundZoom1.Top
         ''    intWidth_QR = .CtlGraphicQRCode1.Width
         ''    intHeight_QR = .CtlGraphicQRCode1.Height
         ''End With
@@ -259,8 +259,8 @@ Public Class Startup
         ''''Added 10/14/2019 td
         ''With par_designForm
         ''    ''Added 10/14/2019 td
-        ''    intLeft_Sig = .CtlGraphicSignature1.Left - .pictureBack.Left
-        ''    intTop_Sig = .CtlGraphicSignature1.Top - .pictureBack.Top
+        ''    intLeft_Sig = .CtlGraphicSignature1.Left - .ctlBackgroundZoom1.Left
+        ''    intTop_Sig = .CtlGraphicSignature1.Top - .ctlBackgroundZoom1.Top
         ''    intWidth_Sig = .CtlGraphicSignature1.Width
         ''    intHeight_Sig = .CtlGraphicSignature1.Height
         ''End With
@@ -277,8 +277,8 @@ Public Class Startup
         ''With par_designForm
         ''    ''Added 10/14/2019 td
         ''    strStaticText = "This is the same text for everyone."
-        ''    intLeft_Text = .CtlGraphicText1.Left - .pictureBack.Left
-        ''    intTop_Text = .CtlGraphicText1.Top - .pictureBack.Top
+        ''    intLeft_Text = .CtlGraphicText1.Left - .ctlBackgroundZoom1.Left
+        ''    intTop_Text = .CtlGraphicText1.Top - .ctlBackgroundZoom1.Top
         ''    intWidth_Text = .CtlGraphicText1.Width
         ''    intHeight_Text = .CtlGraphicText1.Height
         ''End With
@@ -363,8 +363,8 @@ Public Class Startup
             obj_cache_elements.PathToXml_Saved = strPathToXML
 
             obj_cache_elements.LoadFields()
-            obj_cache_elements.LoadFieldElements(par_designForm.pictureBack.PictureBackgroundBox,
-                                New BadgeLayoutClass(par_designForm.pictureBack.PictureBackgroundBox))
+            obj_cache_elements.LoadFieldElements(par_designForm.PictureBox1,
+                                New BadgeLayoutClass(par_designForm.PictureBox1))
 
         Else
             ''Added 10/10/2019 td  
@@ -397,8 +397,8 @@ Public Class Startup
         ''Added 9/19/2019 td
         With par_designForm
             ''Added 9/19/2019 td
-            intPicLeft = .CtlGraphicPortrait_Lady.Left - .pictureBack.Left
-            intPicTop = .CtlGraphicPortrait_Lady.Top - .pictureBack.Top
+            intPicLeft = .CtlGraphicPortrait_Lady.Left - .PictureBox1.Left
+            intPicTop = .CtlGraphicPortrait_Lady.Top - .PictureBox1.Top
             intPicWidth = .CtlGraphicPortrait_Lady.Width
             intPicHeight = .CtlGraphicPortrait_Lady.Height
         End With
@@ -413,8 +413,8 @@ Public Class Startup
         ''Added 10/14/2019 td
         With par_designForm
             ''Added 10/14/2019 td
-            intLeft_QR = .CtlGraphicQRCode1.Left - .pictureBack.Left
-            intTop_QR = .CtlGraphicQRCode1.Top - .pictureBack.Top
+            intLeft_QR = .CtlGraphicQRCode1.Left - .PictureBox1.Left
+            intTop_QR = .CtlGraphicQRCode1.Top - .PictureBox1.Top
             intWidth_QR = .CtlGraphicQRCode1.Width
             intHeight_QR = .CtlGraphicQRCode1.Height
         End With
@@ -429,8 +429,8 @@ Public Class Startup
         ''Added 10/14/2019 td
         With par_designForm
             ''Added 10/14/2019 td
-            intLeft_Sig = .CtlGraphicSignature1.Left - .pictureBack.Left
-            intTop_Sig = .CtlGraphicSignature1.Top - .pictureBack.Top
+            intLeft_Sig = .CtlGraphicSignature1.Left - .PictureBox1.Left
+            intTop_Sig = .CtlGraphicSignature1.Top - .PictureBox1.Top
             intWidth_Sig = .CtlGraphicSignature1.Width
             intHeight_Sig = .CtlGraphicSignature1.Height
         End With
@@ -447,8 +447,8 @@ Public Class Startup
         With par_designForm
             ''Added 10/14/2019 td
             strStaticText = "This is the same text for everyone."
-            intLeft_Text = .CtlGraphicText1.Left - .pictureBack.Left
-            intTop_Text = .CtlGraphicText1.Top - .pictureBack.Top
+            intLeft_Text = .CtlGraphicText1.Left - .PictureBox1.Left
+            intTop_Text = .CtlGraphicText1.Top - .PictureBox1.Top
             intWidth_Text = .CtlGraphicText1.Width
             intHeight_Text = .CtlGraphicText1.Height
         End With
@@ -459,21 +459,21 @@ Public Class Startup
             ''10/10/2019 td''Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
             ''10/13/2019 td''Me.ElementsCache_Saved.LoadElement_Pic(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
             obj_cache_elements.LoadElement_Pic(intPicLeft, intPicTop, intPicWidth, intPicHeight,
-                                               par_designForm.pictureBack.PictureBackgroundBox) ''Added 9/19/2019 td
+                                               par_designForm.PictureBox1) ''Added 9/19/2019 td
 
             ''Added 10/14/2019 thomas d. 
             obj_cache_elements.LoadElement_QRCode(intLeft_QR, intTop_QR, intWidth_QR, intHeight_QR,
-                                               par_designForm.pictureBack.PictureBackgroundBox) ''Added 10/14/2019 td
+                                               par_designForm.PictureBox1) ''Added 10/14/2019 td
 
             ''Added 10/14/2019 thomas d. 
             obj_cache_elements.LoadElement_Signature(intLeft_Sig, intTop_Sig, intWidth_Sig, intHeight_Sig,
-                                               par_designForm.pictureBack.PictureBackgroundBox) ''Added 10/14/2019 td
+                                               par_designForm.PictureBox1) ''Added 10/14/2019 td
 
             ''Added 10/14/2019 thomas d. 
             obj_cache_elements.LoadElement_Text(strStaticText,
                                                 intLeft_Text, intTop_Text,
                                                 intWidth_Text, intHeight_Text,
-                                               par_designForm.pictureBack.PictureBackgroundBox) ''Added 10/14/2019 td
+                                               par_designForm.PictureBox1) ''Added 10/14/2019 td
 
         End If ''End of "If (pboolNewFileXML) Then"
 
