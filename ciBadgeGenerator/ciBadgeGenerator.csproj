@@ -47,6 +47,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ciBadgeCachingPersonality\ciBadgeCachePersonality.vbproj">
+      <Project>{4c1b73a0-7c02-4ff4-96f2-acfa1306cce4}</Project>
+      <Name>ciBadgeCachePersonality</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ciBadgeElements\ciBadgeElements.vbproj">
       <Project>{e7eb43c4-358c-4880-9c9b-206127b57722}</Project>
       <Name>ciBadgeElements</Name>

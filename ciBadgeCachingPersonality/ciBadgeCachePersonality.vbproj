@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{4C1B73A0-7C02-4FF4-96F2-ACFA1306CCE4}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>ciBadgeCachingPersonality</RootNamespace>
-    <AssemblyName>ciBadgeCachingPersonality</AssemblyName>
+    <RootNamespace>ciBadgeCachePersonality</RootNamespace>
+    <AssemblyName>ciBadgeCachePersonality</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -19,7 +19,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>ciBadgeCachingPersonality.xml</DocumentationFile>
+    <DocumentationFile>ciBadgeCachePersonality.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -28,7 +28,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>ciBadgeCachingPersonality.xml</DocumentationFile>
+    <DocumentationFile>ciBadgeCachePersonality.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -70,10 +70,12 @@
     <Compile Include="ClassElementsCache_Deprecated.vb" />
     <Compile Include="ClassCacheLayout.vb" />
     <Compile Include="ClassCachePersonality.vb" />
+    <Compile Include="InterfaceDesignerForm.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>

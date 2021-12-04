@@ -10,12 +10,12 @@ Imports ciBadgeFields ''Added 9/18/2019 td
 Imports ciBadgeRecipients ''Added 10/16/2019 thomas d. 
 
 <Serializable>
-Public Class ClassPersonalityCache
+Public Class ClassPersonalityCache_DontUse
     ''
     ''Added 11/24/2019 thomas downes
     ''  Copied from ClassElementsCache, on 11/24/2019 thomas downes
     ''
-    Public Shared Singleton As ClassPersonalityCache ''Let's use
+    Public Shared Singleton As ClassPersonalityCache_DontUse ''Let's use
     '' the pattern mentioned in https://en.wikipedia.org/wiki/Singleton_pattern
 
     Public Property Id_GUID As System.Guid ''Added 9/30/2019 td 
@@ -168,11 +168,11 @@ Public Class ClassPersonalityCache
 
     End Sub ''End of "Public Sub LoadRecipient(par_recipient As IRecipient)"
 
-    Public Function Copy() As ClassPersonalityCache
+    Public Function Copy() As ClassPersonalityCache_DontUse
         ''
         ''Added 11/24/2019 thomas downes  
         ''
-        Dim objCopyOfCache As New ClassPersonalityCache
+        Dim objCopyOfCache As New ClassPersonalityCache_DontUse
         Dim ListFields_NotUsed As New List(Of ClassFieldAny)
         Dim dictionaryFields As New Dictionary(Of ciBadgeInterfaces.EnumCIBFields, ClassFieldAny)
         ''10/14/2019 td''Dim copy_ofField As ClassFieldAny
@@ -286,11 +286,11 @@ Public Class ClassPersonalityCache
 
 
     Public Shared Function GetLoadedCache(pstrPathToXML As String,
-                                          pboolNewFileXML As Boolean) As ClassPersonalityCache
+                                          pboolNewFileXML As Boolean) As ClassPersonalityCache_DontUse
         ''
         ''Added 11/24/2019 td
         ''
-        Dim obj_cache_personality As ClassPersonalityCache ''Added 10/10/2019 td
+        Dim obj_cache_personality As ClassPersonalityCache_DontUse ''Added 10/10/2019 td
         Dim obj_designForm As New FormBadgeLayoutProto ''Added 11/15/2019 td 
 
         pboolNewFileXML = (Not System.IO.File.Exists(pstrPathToXML))
@@ -300,7 +300,7 @@ Public Class ClassPersonalityCache
         ''
         If (pboolNewFileXML) Then ''Condition added 10/10/2019 td  
 
-            obj_cache_personality = New ClassPersonalityCache
+            obj_cache_personality = New ClassPersonalityCache_DontUse
             obj_cache_personality.PathToXml_Saved = pstrPathToXML
 
             obj_cache_personality.LoadFields()
@@ -311,11 +311,11 @@ Public Class ClassPersonalityCache
                 .PathToXML = pstrPathToXML
             } ''Added 10/10/2019 td  
 
-            obj_cache_personality = New ClassPersonalityCache ''This may or may not be completely necessary,
+            obj_cache_personality = New ClassPersonalityCache_DontUse ''This may or may not be completely necessary,
             ''   but I know of no other way to pass the object type.  Simply expressing the Type
             ''   by typing its name doesn't work.  ---10/13/2019 td
 
-            obj_cache_personality = CType(objDeserialize.DeserializeFromXML(obj_cache_personality.GetType(), False), ClassPersonalityCache)
+            obj_cache_personality = CType(objDeserialize.DeserializeFromXML(obj_cache_personality.GetType(), False), ClassPersonalityCache_DontUse)
 
             ''obj_cache_personality.LinkElementsToFields()
 

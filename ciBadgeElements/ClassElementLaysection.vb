@@ -13,7 +13,7 @@ Public Class ClassElementLaysection
     ''
     ''Added 9/17/2019 td  
     ''
-    Private mod_cache As ClassElementsCache_Deprecated
+    Private mod_cache As ClassElementsCache_DontUse
 
     Public Property BadgeDisplayIndex As Integer Implements IElement_Base.BadgeDisplayIndex ''Added 11/24/2021 td
 

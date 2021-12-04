@@ -70,7 +70,7 @@ Public Class ClassCacheLayout_DontUse
     Public Property Pic_InitialDefault As Image ''Added 9/23/2019 td 
 
     <Xml.Serialization.XmlIgnore>
-    Public Property Personality As ClassPersonalityCache ''Added 11/24/2019 td 
+    Public Property Personality As ClassPersonalityCache_DontUse ''Added 11/24/2019 td 
 
     Public Function ListFieldElements() As HashSet(Of ClassElementField)
         ''10/17 td''Public Function ListFieldElements() As List(Of ClassElementField)
@@ -653,14 +653,14 @@ Public Class ClassCacheLayout_DontUse
 
     Public Shared Function GetLoadedCache(pstrPathToXML As String,
                                           pboolNewFileXML As Boolean,
-                                          par_imageBack As Image) As ClassElementsCache_Deprecated
+                                          par_imageBack As Image) As ClassElementsCache_DontUse
         ''
         ''Added 11/15/2019 td
         ''
         ''Added 10/10/2019 td
         ''11/15/2019 td''Dim strPathToXML As String = ""
         ''---Dim boolNewFileXML As Boolean ''Added 10/10/2019 td  
-        Dim obj_cache_elements As ClassElementsCache_Deprecated ''Added 10/10/2019 td
+        Dim obj_cache_elements As ClassElementsCache_DontUse ''Added 10/10/2019 td
         ''11/15/2019 td''Dim boolNewFileXML As Boolean
         Dim obj_designForm As New FormBadgeLayoutProto ''Added 11/15/2019 td 
 
@@ -692,7 +692,7 @@ Public Class ClassCacheLayout_DontUse
             ''----Me.ElementsCache_Edits.LoadFieldElements(pictureBack, BadgeLayout)
 
             ''Added 10/13/2019 td
-            obj_cache_elements = New ClassElementsCache_Deprecated
+            obj_cache_elements = New ClassElementsCache_DontUse
             obj_cache_elements.PathToXml_Saved = pstrPathToXML
 
             ''Added 02/04/2020 thomas downes
@@ -719,11 +719,11 @@ Public Class ClassCacheLayout_DontUse
             ''10/13/2019 td''Me.ElementsCache_Saved = CType(objDeserialize.DeserializeFromXML(Me.ElementsCache_Saved.GetType(), False), ClassElementsCache)
             ''-----Me.ElementsCache_Edits = CType(objDeserialize.DeserializeFromXML(Me.ElementsCache_Edits.GetType(), False), ClassElementsCache)
 
-            obj_cache_elements = New ClassElementsCache_Deprecated ''This may or may not be completely necessary,
+            obj_cache_elements = New ClassElementsCache_DontUse ''This may or may not be completely necessary,
             ''   but I know of no other way to pass the object type.  Simply expressing the Type
             ''   by typing its name doesn't work.  ---10/13/2019 td
 
-            obj_cache_elements = CType(objDeserialize.DeserializeFromXML(obj_cache_elements.GetType(), False), ClassElementsCache_Deprecated)
+            obj_cache_elements = CType(objDeserialize.DeserializeFromXML(obj_cache_elements.GetType(), False), ClassElementsCache_DontUse)
 
             ''Added 10/12/2019 td
             ''10/13/2019 td''Me.ElementsCache_Saved.LinkElementsToFields()

@@ -18,6 +18,7 @@ Imports ciBadgeDesigner ''Added 10/3/2019 td
 Imports ciBadgeRecipients ''Added 10/11/2019 thomas d.  
 Imports ciBadgeCustomer ''Added 10/11/2019 thomas d.  
 Imports EmailingFilesViaGmail_Framework ''Added 9/17/2021 thomas downes 
+Imports ciBadgeCachingPersonality ''Added 12/4/2021 thomas downes  
 
 Public Class Form__Main_Demo
     Implements IDesignerForm ''Added 10/13/2019 td 

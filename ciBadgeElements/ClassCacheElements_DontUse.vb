@@ -16,7 +16,7 @@ Public Class ClassElementsCache_DontUse
     ''
     ''Added 9/16/2019 thomas downes....
     ''
-    Public Shared Singleton As ClassElementsCache_Deprecated ''Let's use
+    Public Shared Singleton As ClassElementsCache_DontUse ''Let's use
     '' the pattern mentioned in https://en.wikipedia.org/wiki/Singleton_pattern
 
     Public Property Id_GUID As System.Guid ''Added 9/30/2019 td 
@@ -862,11 +862,11 @@ Public Class ClassElementsCache_DontUse
 
     End Sub ''End of "Public Sub LoadRecipient(par_recipient As IRecipient)"
 
-    Public Function Copy(Optional pboolCopyGuid As Boolean = False) As ClassElementsCache_Deprecated
+    Public Function Copy(Optional pboolCopyGuid As Boolean = False) As ClassElementsCache_DontUse
         ''
         ''Added 9/17/2019 thomas downes  
         ''
-        Dim objCopyOfCache As ClassElementsCache_Deprecated
+        Dim objCopyOfCache As ClassElementsCache_DontUse
         Dim ListFields_NotUsed As New List(Of ClassFieldAny)
         Dim dictionaryFields As New Dictionary(Of ciBadgeInterfaces.EnumCIBFields, ClassFieldAny)
         ''10/14/2019 td''Dim copy_ofField As ClassFieldAny
@@ -875,7 +875,7 @@ Public Class ClassElementsCache_DontUse
         Dim copy_ofElementField As ClassElementField ''Added 10/1/2019 td
 
         ''Added 11/30/2021 td 
-        objCopyOfCache = New ClassElementsCache_Deprecated
+        objCopyOfCache = New ClassElementsCache_DontUse
 
         ''Added 10/13/2019 thomas d.
         objCopyOfCache.PathToXml_Saved = Me.PathToXml_Saved
@@ -1312,14 +1312,14 @@ Public Class ClassElementsCache_DontUse
     Public Shared Function GetLoadedCache(pstrPathToXML As String,
                                     pboolNewFileXML As Boolean,
                                     Optional par_imageBack As Image = Nothing,
-                                    Optional ByRef pref_section As Integer = 0) As ClassElementsCache_Deprecated
+                                    Optional ByRef pref_section As Integer = 0) As ClassElementsCache_DontUse
         ''
         ''Added 11/15/2019 td
         ''
         ''Added 10/10/2019 td
         ''11/15/2019 td''Dim strPathToXML As String = ""
         ''---Dim boolNewFileXML As Boolean ''Added 10/10/2019 td  
-        Dim obj_cache_elements As ClassElementsCache_Deprecated ''Added 10/10/2019 td
+        Dim obj_cache_elements As ClassElementsCache_DontUse ''Added 10/10/2019 td
         ''11/15/2019 td''Dim boolNewFileXML As Boolean
         Dim obj_designForm As New FormBadgeLayoutProto ''Added 11/15/2019 td 
 
@@ -1365,7 +1365,7 @@ Public Class ClassElementsCache_DontUse
             pref_section = 12 ''Added 11/27/2019 td
 
             ''Added 10/13/2019 td
-            obj_cache_elements = New ClassElementsCache_Deprecated
+            obj_cache_elements = New ClassElementsCache_DontUse
             obj_cache_elements.PathToXml_Saved = pstrPathToXML
 
             ''Added 2/4/2020 thomas downes
@@ -1414,7 +1414,7 @@ Public Class ClassElementsCache_DontUse
             ''   by typing its name doesn't work.  ---10/13/2019 td
 
             ''2/4/2020 td''obj_cache_elements = CType(objDeserialize.DeserializeFromXML(obj_cache_elements.GetType(), False), ClassElementsCache_Deprecated)
-            obj_cache_elements = CType(objDeserialize.DeserializeFromXML(GetType(ClassElementsCache_Deprecated), False), ClassElementsCache_Deprecated)
+            obj_cache_elements = CType(objDeserialize.DeserializeFromXML(GetType(ClassElementsCache_DontUse), False), ClassElementsCache_DontUse)
 
             ''Added 10/12/2019 td
             ''10/13/2019 td''Me.ElementsCache_Saved.LinkElementsToFields()

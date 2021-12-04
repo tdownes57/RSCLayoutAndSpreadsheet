@@ -942,6 +942,10 @@
       <Project>{a5fe9f7b-4075-43c5-892b-01e2cfec342c}</Project>
       <Name>ciPictures_VB</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ciBadgeCachingPersonality\ciBadgeCachePersonality.vbproj">
+      <Project>{4c1b73a0-7c02-4ff4-96f2-acfa1306cce4}</Project>
+      <Name>ciBadgeCachePersonality</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ciBadgeCustomer\ciBadgeCustomer.vbproj">
       <Project>{02f14561-e867-47ea-9b91-990b0bbb597f}</Project>
       <Name>ciBadgeCustomer</Name>
