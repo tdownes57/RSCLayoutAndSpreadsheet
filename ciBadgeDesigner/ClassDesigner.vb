@@ -495,7 +495,8 @@ Public Class ClassDesigner
 
         obj_image_clone_resized = LayoutPrint.ResizeBackground_ToFitBox(obj_image, Me.BackgroundBox, True)
 
-        Me.BackgroundBox.Image = obj_image_clone_resized
+        ''-----Dec.3 2021 ---Me.BackgroundBox.Image = obj_image_clone_resized
+        Me.BackgroundBox.BackgroundImage = obj_image_clone_resized
 
     End Sub ''End of Sub ResizeLayoutBackgroundImage_ToFitPictureBox()
 
@@ -1219,7 +1220,8 @@ Public Class ClassDesigner
 
 
         ''Added 8/24/2019 td
-        obj_image = Me.BackgroundBox.Image
+        ''----Dec.3, 2021---obj_image = Me.BackgroundBox.Image
+        obj_image = Me.BackgroundBox.BackgroundImage
         obj_image_clone = CType(obj_image.Clone(), Image)
 
         ''Dim gr_resize As Graphics = New Bitmap(obj_image_clone)

@@ -691,6 +691,7 @@ Partial Class Form__Main_Demo
         '
         'PictureBox1
         '
+        Me.PictureBox1.BackColor = System.Drawing.Color.White
         Me.PictureBox1.Location = New System.Drawing.Point(21, 90)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(641, 380)
@@ -724,7 +725,7 @@ Partial Class Form__Main_Demo
         'CtlGraphicText1
         '
         Me.CtlGraphicText1.Location = New System.Drawing.Point(792, 434)
-        Me.CtlGraphicText1.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.CtlGraphicText1.Margin = New System.Windows.Forms.Padding(5)
         Me.CtlGraphicText1.Name = "CtlGraphicText1"
         Me.CtlGraphicText1.Size = New System.Drawing.Size(376, 46)
         Me.CtlGraphicText1.TabIndex = 75
