@@ -78,6 +78,9 @@ Public Class CtlConfigFldCustom
             checkDisplayOnBadge.Checked = .IsDisplayedOnBadge
             checkDisplayForEdits.Checked = .IsDisplayedForEdits
 
+            ''Added 12//3/2021 thomas downes
+            checkRelevantToPersonality.Checked = .IsRelevantToPersonality
+
         End With ''End of "With par_info"  
 
 ExitHandler:
@@ -108,6 +111,9 @@ ExitHandler:
             ''
             .IsDisplayedForEdits = checkDisplayForEdits.Checked
             .IsDisplayedOnBadge = checkDisplayOnBadge.Checked
+
+            ''Added 12//3/2021 thomas downes
+            .IsRelevantToPersonality = checkRelevantToPersonality.Checked
 
         End With ''End of "With par_info"  
 

@@ -1073,6 +1073,7 @@ Public Class Form__Main_Demo
         Dim frm_ToShow As New ListCustomFieldsFlow()
 
         ''7/26/2019 td''frm_ToShow.ListOfFields = GetCurrentPersonality_Fields()
+        ''12/4/2021 td''frm_ToShow.ListOfFields = Form__Main_PreDemo.GetCurrentPersonality_Fields_Custom()
         frm_ToShow.ListOfFields = Form__Main_PreDemo.GetCurrentPersonality_Fields_Custom()
         frm_ToShow.ShowDialog()
         RefreshTheSetOfDisplayedElements()
@@ -1085,12 +1086,95 @@ Public Class Form__Main_Demo
         ''Added 7/17/2019 thomas downes
         ''
         Dim frm_ToShow As New ListCustomFieldsFlow()
+        Dim each_field As ciBadgeFields.ClassFieldCustomized
+        Dim each_element As ciBadgeElements.ClassElementField
+        Dim strListOfBadgeFields As String = ""
+        ''Dim why_omit As New WhyOmitted
 
         ''7/26/2019 td''frm_ToShow.ListOfFields = GetCurrentPersonality_Fields()
-        frm_ToShow.ListOfFields = Form__Main_PreDemo.GetCurrentPersonality_Fields_Custom()
+        ''12/4/2021 td''frm_ToShow.ListOfFields = Form__Main_PreDemo.GetCurrentPersonality_Fields_Custom()
+
+        ''frm_ToShow.ListOfFields.Clear()
+        frm_ToShow.ListOfFields = New List(Of ClassFieldCustomized)
+
+        For Each each_field In Me.ElementsCache_Edits.ListOfFields_Custom()
+            ''Allow the field to be displayed & edited.
+            frm_ToShow.ListOfFields.Add(each_field)
+        Next each_field
+
+        ''
+        ''
+        ''
+        ''
+        ''
+        ''Show the user & allow edits!!
+        ''
+        ''
+        ''
+        ''
+        ''
         frm_ToShow.ShowDialog()
+
+        ''
+        ''
+        ''Double-check what has been saved. ----12/4/2021 td
+        ''
+        ''
+        Dim each_field_edited As ClassFieldCustomized
+        Dim each_field_saved As ClassFieldAny
+        Dim ListFieldsAdded As New List(Of ClassFieldCustomized)
+        Dim ListFieldsRemoved As New List(Of ClassFieldCustomized)
+
+        For Each each_field In Me.ElementsCache_Edits.ListOfFields_Custom()
+            ''
+            ''
+            ''Is the field in danger of needing an element (but not having one)?
+            ''
+            ''
+            each_field_edited = each_field
+            each_field_saved = Me.ElementsCache_Saved.GetFieldByLabelCaption(each_field_edited.FieldLabelCaption)
+            boolDiffer = 
+
+            If (each_field.IsDisplayedOnBadge) Then
+                ''
+                ''Added 12/4/2021
+                ''
+                strListOfBadgeFields += (each_field.FieldLabelCaption & vbCrLf &
+                    "     Is the field relevant? " & each_field.IsRelevantToPersonality.ToString() & vbCrLf)
+
+                ''Find the element.
+                each_element = Me.ElementsCache_Edits.GetElementByField(each_field)
+
+                If (each_element Is Nothing) Then
+                    ''
+                    ''No element exists to be a wrapper for the field. 
+                    ''
+                    strListOfBadgeFields += ("   No wrapper element exists." & vbCrLf)
+
+                Else
+                    ''The element exists.  
+                    Dim why_omit As New WhyOmitted
+                    Dim boolElemDisplayed As Boolean
+                    boolElemDisplayed = each_element.IsDisplayedOnBadge_Visibly(why_omit)
+
+                    strListOfBadgeFields += ("   Wrapper element: " & each_element.FieldNm_CaptionText() &
+                        "  Is it displayed? " &
+                        boolElemDisplayed.ToString() & vbCrLf)
+
+                End If ''End of "If (each_element Is Nothing) Then .... Else ...."
+
+            End If ''End of "If (each_field.IsDisplayedOnBadge) Then"
+
+        Next each_field
+
+        ''RefreshTheSetOfDisplayedElements()
+        ''PictureBox1.SendToBack()
+
+        ''Me.mod_designer.UnloadDesigner()
+        ''Me.mod_designer = Nothing
+
+        ''SaveLayout()
         RefreshTheSetOfDisplayedElements()
-        PictureBox1.SendToBack()
 
     End Sub
 
