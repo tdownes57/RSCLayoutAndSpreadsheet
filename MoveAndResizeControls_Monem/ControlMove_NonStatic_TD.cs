@@ -85,7 +85,7 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
 
         internal MoveOrResize WorkType { get; set; }
 
-        public void Init(Control control, int par_margin, bool pbRepaintAfterResize, bool pbSetBreakpoint_AfterMove)
+        public void Init(Control control, int par_margin, bool pbRepaintAfterResize, InterfaceEvents par_events, bool pbSetBreakpoint_AfterMove)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
             //     the preferred background color.)   ----7/31/2019 td
@@ -98,12 +98,15 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
 
             // 9-13-2019 td----Init(control, control, par_margin, pbRepaintAfterResize);
 
+            // Dec. 3, 2021 //Init(control, control, par_margin, pbRepaintAfterResize,
+            // Dec. 3, 2021 //       pbSetBreakpoint_AfterMove);
+            
             Init(control, control, par_margin, pbRepaintAfterResize,
-                pbSetBreakpoint_AfterMove);
+                   par_events, pbSetBreakpoint_AfterMove);
 
         }
 
-        public void Init(Control par_control, Control par_container, int par_margin, bool pbRepaintAfterResize, bool pbSetBreakpoint_AfterMove)
+        public void Init(Control par_control, Control par_container, int par_margin, bool pbRepaintAfterResize, InterfaceEvents par_events, bool pbSetBreakpoint_AfterMove)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
             //     the preferred background color.)   ----7/31/2019 td
@@ -113,6 +116,8 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             //
             //   internal void Init(Control control, Control container)
             //
+
+            mod_eventsInterface = par_events;  // 12/3/2021 thomas downes   
 
             _moving = false;
             _repaintAfterResize = pbRepaintAfterResize; //Added 7/31/2019 td 

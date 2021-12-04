@@ -32,6 +32,7 @@ Public Class ClassDesignerEventListener
     ''#1 10/1/2019 td''Private WithEvents mod_groupedMove As New ClassGroupMove(Me) ''8/4/2019 td''New ClassGroupMove
     '' #2 10/1/2019 td''Private WithEvents mod_groupedMove As New ClassGroupMove(Me.LayoutFunctions) ''8/4/2019 td''New ClassGroupMove
     Private WithEvents mod_groupedMove As ClassGroupMoveEvents ''(Me) ''8/4/2019 td''New ClassGroupMove
+    Private WithEvents mod_singletonMove As ClassGroupMoveEvents ''Added 12/3/2021  
 
     Private WithEvents mod_sizingEvents_Pics As ClassGroupMoveEvents ''(Me) ''Added 10/9/2019 td  
     Private WithEvents mod_sizingEvents_QR As ClassGroupMoveEvents ''(Me) ''Added 10/12/2019 td  
@@ -64,6 +65,7 @@ Public Class ClassDesignerEventListener
 
         ''Added 11/29/2021 td
         mod_groupedMove = New ClassGroupMoveEvents(par_designer)
+        mod_singletonMove = New ClassGroupMoveEvents(par_designer)
         mod_sizingEvents_Pics = New ClassGroupMoveEvents(par_designer)
         mod_sizingEvents_QR = New ClassGroupMoveEvents(par_designer)
         mod_sizingEvents_Sig = New ClassGroupMoveEvents(par_designer)
@@ -101,7 +103,7 @@ Public Class ClassDesignerEventListener
             ''mod_dictyControlMoveBoxesEtc.Add(Me.PreviewBox, objMover)
             objMover.Init(mod_designer.PreviewBox,
                           mod_designer.PreviewBox, 10, False,
-                           c_boolBreakpoint)
+                           mod_singletonMove, c_boolBreakpoint)
             mod_dictyControlMoveBoxesEtc.Add(mod_designer.PreviewBox, objMover)
 
         Else
@@ -120,7 +122,7 @@ Public Class ClassDesignerEventListener
             ''              c_boolBreakpoint) ''Added 9/08/2019 thomas downes
             objMover.Init(mod_designer.BackgroundBox,
                           mod_designer.BackgroundBox, 10, False,
-                          c_boolBreakpoint) ''Added 9/08/2019 thomas downes
+                          mod_singletonMove, c_boolBreakpoint) ''Added 9/08/2019 thomas downes
             ''Added 12/1/2021 td
             mod_dictyControlMoveBoxesEtc.Add(mod_designer.BackgroundBox, objMover)
 
