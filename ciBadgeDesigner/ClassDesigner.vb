@@ -190,9 +190,9 @@ Public Class ClassDesigner
         FlowFieldsNotListed.Controls.Clear()
 
         ''Clear the background of the badge. 
-        Me.BackgroundBox.BackgroundImage.Dispose()
+        If (Me.BackgroundBox.BackgroundImage IsNot Nothing) Then Me.BackgroundBox.BackgroundImage.Dispose()
         Me.BackgroundBox.BackgroundImage = Nothing
-        Me.BackgroundBox.Image.Dispose()
+        If (Me.BackgroundBox.Image IsNot Nothing) Then Me.BackgroundBox.Image.Dispose()
         Me.BackgroundBox.Image = Nothing
         Me.BackgroundBox.Refresh()
 
@@ -987,6 +987,8 @@ Public Class ClassDesigner
         ''
         ''Added 7/29/2019 td
         ''
+        Me.DesignerForm.UseWaitCursor = True
+
         Dim each_ctl_field As CtlGraphicFldLabel
         Dim each_ctl_portrait As CtlGraphicPortrait ''Added 7/31/2019 td
         ''10/14 td''Dim each_ctl_qrcode As CtlGraphicQRCode ''Added 10/14/2019 td
@@ -1073,6 +1075,9 @@ Public Class ClassDesigner
             End With ''End of "With objSerializationClass"
 
         End If ''End of "If (par_bSerializeToDisk) Then"
+
+        ''Added 12/3/2021 td
+        Me.DesignerForm.UseWaitCursor = False
 
     End Sub ''End of "PRivate Sub SaveLayout()"  
 

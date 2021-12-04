@@ -1833,6 +1833,15 @@ ExitHandler:
             '' 12/3/2021 td''ctlBackgroundZoom1.ImageLocation = strPathToFilename
             '' 12/3/2021 td''PictureBox1.ImageLocation = strPathToFilename
             PictureBox1.BackgroundImage = (New Bitmap(strPathToFilename))
+            PictureBox1.BackgroundImageLayout = ImageLayout.Zoom
+
+            ''Added 12/3/2021 td
+            Me.ElementsCache_Edits.BackgroundImage_Path = strPathToFilename
+            Me.ElementsCache_Edits.BackgroundImage_FTitle = objShow.ImageFileInfo.Name
+
+            ''Added 12/3/2021 td
+            Me.mod_designer.AutoPreview_IfChecked()
+
         End If ''If (objShow.ImageFileInfo IsNot Nothing) Then
 
     End Sub
