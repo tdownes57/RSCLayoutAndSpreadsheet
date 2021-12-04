@@ -7,18 +7,18 @@ Option Strict On
 ''
 Imports System.Collections.Generic
 Imports System.Linq
-Imports MoveAndResizeControls_Monem
-''9/9/2019 td''Imports ControlManager
-Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d.  
+Imports ciBadgeCachingPersonality ''Added 12/4/2021 thomas downes  
+Imports ciBadgeCustomer ''Added 10/11/2019 thomas d.  
+Imports ciBadgeDesigner ''Added 10/3/2019 td
+Imports ciBadgeElements ''Added 9/18/2019 td
 ''10/3/2019 td''Imports ciLayoutPrintLib ''Added 8/28/2019 thomas d. 
 ''10/3/2019 td''Imports System.Collections.Generic ''Added 9.6.2019 td
 Imports ciBadgeFields ''Added 9/18/2019 td 
-Imports ciBadgeElements ''Added 9/18/2019 td
-Imports ciBadgeDesigner ''Added 10/3/2019 td
+''9/9/2019 td''Imports ControlManager
+Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d.  
 Imports ciBadgeRecipients ''Added 10/11/2019 thomas d.  
-Imports ciBadgeCustomer ''Added 10/11/2019 thomas d.  
 Imports EmailingFilesViaGmail_Framework ''Added 9/17/2021 thomas downes 
-Imports ciBadgeCachingPersonality ''Added 12/4/2021 thomas downes  
+Imports MoveAndResizeControls_Monem
 
 Public Class Form__Main_Demo
     Implements IDesignerForm ''Added 10/13/2019 td 
@@ -30,7 +30,8 @@ Public Class Form__Main_Demo
     Public Property NewFileXML As Boolean ''Added 10/13/2019 td
 
     ''1/14/2020 td''Public Property PersonalityCache As ciBadgeCustomer.PersonalityCache_NotInUse ''Added 10/11/2019 td 
-    Public Property PersonalityCache_Recipients As ciBadgeElements.ClassPersonalityCache ''Added 10/11/2019 td 
+    ''12/4/2021''Public Property PersonalityCache_Recipients As ciBadgeElements.ClassPersonalityCache ''Added 10/11/2019 td 
+    Public Property PersonalityCache_Recipients As ciBadgeCachePersonality.ClassCachePersonality ''Added 10/11/2019 td 
     Public Property BadgeLayout As BadgeLayoutClass Implements IDesignerForm.BadgeLayout ''Added 10/13/2019 td
 
     ''Added 9/16/2019 thomas downes
@@ -1091,6 +1092,7 @@ Public Class Form__Main_Demo
         Dim each_element As ciBadgeElements.ClassElementField
         Dim strListOfBadgeFields As String = ""
         ''Dim why_omit As New WhyOmitted
+        Dim boolDiffer As Boolean ''Added 12/4/2021 td  
 
         ''7/26/2019 td''frm_ToShow.ListOfFields = GetCurrentPersonality_Fields()
         ''12/4/2021 td''frm_ToShow.ListOfFields = Form__Main_PreDemo.GetCurrentPersonality_Fields_Custom()
@@ -1134,7 +1136,7 @@ Public Class Form__Main_Demo
             ''
             each_field_edited = each_field
             each_field_saved = Me.ElementsCache_Saved.GetFieldByLabelCaption(each_field_edited.FieldLabelCaption)
-            boolDiffer = 
+            boolDiffer = (each_field_edited.IsDisplayedOnBadge <> each_field_saved.IsDisplayedOnBadge)
 
             If (each_field.IsDisplayedOnBadge) Then
                 ''

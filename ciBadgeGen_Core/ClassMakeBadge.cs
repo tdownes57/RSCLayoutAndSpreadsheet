@@ -9,6 +9,7 @@ using ciBadgeElements;  //Added 10/5/2019 td
 using ciBadgeInterfaces; //Added 10/5/2019 td
 using ciBadgeElemImage; //Added 10/14/2019 td  
 using ciBadgeRecipients;  //Added 10/16/2019 td 
+using ciBadgeCachePersonality;  //Added 12/4/2021 td 
 using System.Linq;
 
 namespace ciBadgeGenerator

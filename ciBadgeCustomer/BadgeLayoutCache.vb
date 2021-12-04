@@ -2,7 +2,8 @@
 ''
 ''Added 10/11/2019 thomas downes
 ''
-Imports ciBadgeElements
+''//---Imports ciBadgeElements
+Imports ciBadgeCachePersonality
 
 Public Class BadgeLayoutCache
     ''

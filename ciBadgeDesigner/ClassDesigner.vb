@@ -11,6 +11,7 @@ Imports System.Drawing ''Added 10/1/2019 thomas downes
 Imports ciLayoutPrintLib ''Added 10/1/2019 td
 ''Imports MoveAndResizeControls_Monem ''Added 10/3/2019 td
 ''Imports ciBadgeGenerator ''Added 10/5/2019 thomas d. 
+Imports ciBadgeCachePersonality ''Added 12/4/2021 thomas d. 
 Imports System.IO ''Added 12/3/2021 thomas d.
 
 ''10/1/2019 td''Public Event ElementField_Clicked(par_elementField As ClassElementField)
