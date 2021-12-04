@@ -46,7 +46,7 @@ Public Class ClassPersonalityCache
     ''See ClassLayoutCache. 11/24 td''Private mod_listElementPics As New HashSet(Of ClassElementPic)
     ''See ClassLayoutCache. 11/24 td''Private mod_listElementStatics As New HashSet(Of ClassElementStaticText)
     ''See ClassLayoutCache. 11/24 td''Private mod_listElementLaysections As New HashSet(Of ClassElementLaysection) ''Added 9/17/2019 thomas downes
-    Private mod_listLayouts As New HashSet(Of ClassLayoutCache) ''Added 11.24.2019 thomas d.
+    Private mod_listLayouts As New HashSet(Of ClassCacheLayout_DontUse) ''Added 11.24.2019 thomas d.
 
     ''10/14/2019 td''Public Property ListOfFields As List(Of ClassFieldAny)
     ''    Get ''Added 9/28/2019 td
@@ -91,11 +91,11 @@ Public Class ClassPersonalityCache
 
 
 
-    Public Property ListOfLayouts As HashSet(Of ClassLayoutCache)  ''Added 11/24/2019 td
+    Public Property ListOfLayouts As HashSet(Of ClassCacheLayout_DontUse)  ''Added 11/24/2019 td
         Get ''Added 11/24
             Return mod_listLayouts
         End Get
-        Set(value As HashSet(Of ClassLayoutCache))
+        Set(value As HashSet(Of ClassCacheLayout_DontUse))
             ''Added 11/24/2019 td
             mod_listLayouts = value
         End Set
@@ -244,9 +244,9 @@ Public Class ClassPersonalityCache
         ''Added 11/24/2019 td 
         ''  Copy the Layout Caches. 
         ''
-        Dim copy_ofLayoutCache As ClassLayoutCache ''Added 11.24.2019 thomas d. 
+        Dim copy_ofLayoutCache As ClassCacheLayout_DontUse ''Added 11.24.2019 thomas d. 
 
-        For Each each_layoutCache As ClassLayoutCache In mod_listLayouts
+        For Each each_layoutCache As ClassCacheLayout_DontUse In mod_listLayouts
 
             copy_ofLayoutCache = each_layoutCache.Copy()
             objCopyOfCache.ListOfLayouts.Add(copy_ofLayoutCache)
@@ -269,7 +269,7 @@ Public Class ClassPersonalityCache
     End Function ''End of "Public Function Copy() As ClassElementsCache"
 
 
-    Public Function GetLayoutByGUID(par_guid As System.Guid) As ClassLayoutCache
+    Public Function GetLayoutByGUID(par_guid As System.Guid) As ClassCacheLayout_DontUse
         ''
         ''Added 11/24/2019 td  
         ''

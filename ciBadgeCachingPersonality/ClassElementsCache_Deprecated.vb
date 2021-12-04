@@ -10,6 +10,7 @@ Imports ciBadgeInterfaces ''Added 9/16/2019 td
 Imports ciBadgeFields ''Added 9/18/2019 td
 ''9/19/2019 td''Imports ciLayoutPrintLib ''Added 9/18/2019 td 
 Imports ciBadgeRecipients ''Added 10/16/2019 thomas d. 
+Imports ciBadgeElements ''Added 12/4/2021 thomas downes  
 
 <Serializable>
 Public Class ClassElementsCache_Deprecated

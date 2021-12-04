@@ -59,6 +59,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "__Start__RSC ID LayoutDesig
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "abcBundleBadgeImagesToEmail_Core", "abcBundleBadgeImagesToEmail\abcBundleBadgeImagesToEmail_Core.csproj", "{158A604A-E8DA-4224-B919-FE425BAA2E23}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ciBadgeCachePersonality", "ciBadgeCachingPersonality\ciBadgeCachePersonality.vbproj", "{4C1B73A0-7C02-4FF4-96F2-ACFA1306CCE4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -291,6 +293,14 @@ Global
 		{158A604A-E8DA-4224-B919-FE425BAA2E23}.Release|Any CPU.Build.0 = Release|Any CPU
 		{158A604A-E8DA-4224-B919-FE425BAA2E23}.Release|x86.ActiveCfg = Release|Any CPU
 		{158A604A-E8DA-4224-B919-FE425BAA2E23}.Release|x86.Build.0 = Release|Any CPU
+		{4C1B73A0-7C02-4FF4-96F2-ACFA1306CCE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C1B73A0-7C02-4FF4-96F2-ACFA1306CCE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C1B73A0-7C02-4FF4-96F2-ACFA1306CCE4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4C1B73A0-7C02-4FF4-96F2-ACFA1306CCE4}.Debug|x86.Build.0 = Debug|Any CPU
+		{4C1B73A0-7C02-4FF4-96F2-ACFA1306CCE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C1B73A0-7C02-4FF4-96F2-ACFA1306CCE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C1B73A0-7C02-4FF4-96F2-ACFA1306CCE4}.Release|x86.ActiveCfg = Release|Any CPU
+		{4C1B73A0-7C02-4FF4-96F2-ACFA1306CCE4}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

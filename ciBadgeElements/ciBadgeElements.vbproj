@@ -90,11 +90,11 @@
     <Compile Include="ClassElementLaysection.vb" />
     <Compile Include="ClassElementPortrait.vb" />
     <Compile Include="ClassElementQRCode.vb" />
-    <Compile Include="ClassElementsCache_Deprecated.vb" />
+    <Compile Include="ClassCacheElements_DontUse.vb" />
     <Compile Include="ClassElementSignature.vb" />
     <Compile Include="ClassElementStaticText.vb" />
-    <Compile Include="ClassLayoutCache.vb" />
-    <Compile Include="ClassPersonalityCache.vb" />
+    <Compile Include="ClassCacheLayout_DontUse.vb" />
+    <Compile Include="ClassCachePersonality_DontUse.vb" />
     <Compile Include="FormBadgeLayoutProto.Designer.vb">
       <DependentUpon>FormBadgeLayoutProto.vb</DependentUpon>
     </Compile>

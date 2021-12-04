@@ -10,9 +10,10 @@ Imports System.Windows.Forms ''Added 9/18/2019 td
 Imports ciBadgeInterfaces ''Added 9/16/2019 td 
 Imports ciBadgeFields ''Added 9/18/2019 td
 Imports ciBadgeRecipients
+Imports ciBadgeElements ''Added 12/4/2021 td 
 
 <Serializable>
-Public Class ClassLayoutCache
+Public Class ClassCacheLayout
     ''
     ''Added 11/24/2019 thomas downes
     ''  Created from a copy of ClassElementsCache, 11/24/2019 td. 
@@ -70,7 +71,7 @@ Public Class ClassLayoutCache
     Public Property Pic_InitialDefault As Image ''Added 9/23/2019 td 
 
     <Xml.Serialization.XmlIgnore>
-    Public Property Personality As ClassPersonalityCache ''Added 11/24/2019 td 
+    Public Property Personality As ClassCachePersonality ''Added 11/24/2019 td 
 
     Public Function ListFieldElements() As HashSet(Of ClassElementField)
         ''10/17 td''Public Function ListFieldElements() As List(Of ClassElementField)
@@ -426,11 +427,11 @@ Public Class ClassLayoutCache
 
     End Sub ''End of "Public Sub LoadRecipient(par_recipient As IRecipient)"
 
-    Public Function Copy() As ClassLayoutCache
+    Public Function Copy() As ClassCacheLayout
         ''
         ''Added 9/17/2019 thomas downes  
         ''
-        Dim objCopyOfCache As New ClassLayoutCache
+        Dim objCopyOfCache As New ClassCacheLayout
         Dim copy_ofElementField As ClassElementField ''Added 10/1/2019 td
 
         For Each each_elementField As ClassElementField In mod_listElementFields
