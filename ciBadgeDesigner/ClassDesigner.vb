@@ -10,7 +10,8 @@ Imports ciBadgeElements ''Added 10/1/2019 thomas downes
 Imports System.Drawing ''Added 10/1/2019 thomas downes 
 Imports ciLayoutPrintLib ''Added 10/1/2019 td
 ''Imports MoveAndResizeControls_Monem ''Added 10/3/2019 td
-Imports ciBadgeGenerator ''Added 10/5/2019 thomas d. 
+''Imports ciBadgeGenerator ''Added 10/5/2019 thomas d. 
+Imports System.IO ''Added 12/3/2021 thomas d.
 
 ''10/1/2019 td''Public Event ElementField_Clicked(par_elementField As ClassElementField)
 
@@ -455,21 +456,32 @@ Public Class ClassDesigner
 
     End Sub ''End of "Public Sub UnselectHighlightedElements()"
 
+
     Private Sub ResizeLayoutBackgroundImage_ToFitPictureBox()
         ''
         ''Added 8/25/2019 td 
         ''
-        Dim obj_image As Image ''Added 8/24 td
+        Dim obj_image As Image = Nothing ''Added 8/24 td
         ''Dim obj_image_clone As Image ''Added 8/24 td
         Dim obj_image_clone_resized As Image ''Added 8/24/2019 td
 
         ''Added 8/24/2019 td
-        obj_image = Me.BackgroundBox.Image
+        ''---obj_image = Me.BackgroundBox.Image
+        If (Me.BackgroundBox.BackgroundImage Is Nothing) Then
+            If File.Exists(Me.ElementsCache_Edits.BackgroundImage_Path) Then
+                Try
+                    obj_image = (New Bitmap(Me.ElementsCache_Edits.BackgroundImage_Path))
+                    Me.BackgroundBox.BackgroundImage = obj_image
+                Catch Ex_image As Exception
+                    MessageBox.Show(Ex_image.ToString)
+                End Try
+            End If ''End of " If File.Exists(Me.ElementsCache_Edits.BackgroundImage_Path)) Then"
+        End If ''End of "If (Me.BackgroundBox.BackgroundImage Is Nothing) Then"
 
         ''Added 11/26/2021 td
         If (obj_image Is Nothing) Then
             obj_image = Me.BackgroundBox.BackgroundImage
-        End If
+        End If ''End of "If (obj_image Is Nothing) Then"
 
         ''obj_image_clone = CType(obj_image.Clone(), Image)
 

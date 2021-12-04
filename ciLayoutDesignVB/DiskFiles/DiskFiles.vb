@@ -1,5 +1,7 @@
 ﻿Option Explicit On
 Option Strict On
+
+Imports System.IO ''Added 12/3/2021 thomas downes
 ''
 ''Added 10/12/2019 Thomas Downes    
 ''
@@ -7,6 +9,21 @@ Public Class DiskFiles
     ''
     ''Added 10/12/2019 Thomas Downes    
     ''
+    Public Shared Function PathToFile_Background_FirstOrDefault(Optional ByRef pstrFileTitle As String = "") As String
+        ''
+        ''Added 12/03/2021 Thomas Downes    
+        ''
+        ''Return My.Application.Info.DirectoryPath & "\Images\Signatures\Declaration_bmp.bmp"
+        ''Return System.IO.Path.Combine(DiskFolders.PathToFolder_BackExamples(), "Declaration_bmp.bmp")
+
+        Dim objFolderInfo As New DirectoryInfo(DiskFolders.PathToFolder_BackExamples())
+        Dim objFileInfo As FileInfo
+        objFileInfo = objFolderInfo.GetFiles().FirstOrDefault
+        pstrFileTitle = objFileInfo.Name ''Save the file title, i.e. the file's name (without the path preceding it).
+        Return objFileInfo.FullName
+
+    End Function ''Endo f "Public Shared Function PathToFile_Sig() As String"
+
     Public Shared Function PathToFile_Sig() As String
         ''
         ''Added 10/12/2019 Thomas Downes    

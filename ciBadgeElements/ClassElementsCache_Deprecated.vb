@@ -26,12 +26,12 @@ Public Class ClassElementsCache_Deprecated
     Public Property PathToXml_Binary As String ''Added 11/29/2019 td
 
     ''Added 2/04/2020 td
-    Public Property XmlFile_Path As String ''Added 2/04/2020 td
-    Public Property XmlFile_FTitle As String ''Added 2/04/2020 td
+    Public Property XmlFile_Path As String = "" ''Added 2/04/2020 td
+    Public Property XmlFile_FTitle As String = "" ''Added 2/04/2020 td
 
     ''Added 1/14/2020 td
-    Public Property BackgroundImage_Path As String ''Added 1/14/2020 td
-    Public Property BackgroundImage_FTitle As String ''Added 1/14/2020 td
+    Public Property BackgroundImage_Path As String = "" ''Added 1/14/2020 td
+    Public Property BackgroundImage_FTitle As String = "" ''Added 1/14/2020 td
 
     Public Property ElementQRCode As ClassElementQRCode ''Added 10/8/2019 thomas d.  
     Public Property ElementSignature As ClassElementSignature ''Added 10/8/2019 thomas d.  

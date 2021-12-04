@@ -292,6 +292,12 @@
     <Compile Include="Controls\CtlAdjustImageOffset.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Controls\ctlBackgroundZoom.Designer.vb">
+      <DependentUpon>ctlBackgroundZoom.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ctlBackgroundZoom.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controls\CtlCustomer.Designer.vb">
       <DependentUpon>CtlCustomer.vb</DependentUpon>
     </Compile>
@@ -620,6 +626,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlAdjustImageOffset.resx">
       <DependentUpon>CtlAdjustImageOffset.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ctlBackgroundZoom.resx">
+      <DependentUpon>ctlBackgroundZoom.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlConfigFldStandard.resx">
       <DependentUpon>CtlConfigFldStandard.vb</DependentUpon>
@@ -961,6 +970,10 @@
     <ProjectReference Include="..\ciBadgeFields\ciBadgeFields.vbproj">
       <Project>{ef9acec9-841e-4397-bfcb-917c814c4b8c}</Project>
       <Name>ciBadgeFields</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ciBadgeGenerator\ciBadgeGenerator.csproj">
+      <Project>{42468695-2856-4336-8bca-c5af2ea8178e}</Project>
+      <Name>ciBadgeGenerator</Name>
     </ProjectReference>
     <ProjectReference Include="..\ciBadgeInterfaces\ciBadgeInterfaces.vbproj">
       <Project>{3d1acca6-585e-4c92-9a6d-9a51d2f72f5f}</Project>

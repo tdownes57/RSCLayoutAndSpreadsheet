@@ -5,7 +5,7 @@ Partial Class Form__Main_Demo
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -22,7 +22,7 @@ Partial Class Form__Main_Demo
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.LinkShowWebControls = New System.Windows.Forms.LinkLabel()
@@ -90,24 +90,22 @@ Partial Class Form__Main_Demo
         Me.LinkRevertToLastSave = New System.Windows.Forms.LinkLabel()
         Me.LabelPersonalityCurrent = New System.Windows.Forms.Label()
         Me.picturePreview = New System.Windows.Forms.PictureBox()
-        Me.pictureBack = New System.Windows.Forms.PictureBox()
         Me.graphicAdjuster = New System.Windows.Forms.PictureBox()
         Me.LinkLabelOpenPreviewFileBMP = New System.Windows.Forms.LinkLabel()
         Me.LinkLabelOpenPreviewFileJPG = New System.Windows.Forms.LinkLabel()
         Me.LinkLabelEmailBadgeJPG = New System.Windows.Forms.LinkLabel()
         Me.LinkLabelEmailBadgeJpeg = New System.Windows.Forms.LinkLabel()
+        Me.checkInstantPreview = New System.Windows.Forms.CheckBox()
         Me.CtlGraphicText1 = New ciBadgeDesigner.CtlGraphicText()
         Me.CtlGraphicSignature1 = New ciBadgeDesigner.CtlGraphicSignature()
         Me.CtlGraphicQRCode1 = New ciBadgeDesigner.CtlGraphicQRCode()
         Me.CtlGraphicPortrait_Lady = New ciBadgeDesigner.CtlGraphicPortrait()
-        Me.checkInstantPreview = New System.Windows.Forms.CheckBox()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.flowFieldsNotListed.SuspendLayout()
         Me.flowSidebar.SuspendLayout()
         CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.pictureBack, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.graphicAdjuster, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -623,19 +621,6 @@ Partial Class Form__Main_Demo
         Me.picturePreview.TabIndex = 44
         Me.picturePreview.TabStop = False
         '
-        'pictureBack
-        '
-        Me.pictureBack.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.pictureBack.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.Native_drawing___Not_bad_40
-        Me.pictureBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.pictureBack.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pictureBack.Location = New System.Drawing.Point(31, 64)
-        Me.pictureBack.Margin = New System.Windows.Forms.Padding(1, 3, 1, 3)
-        Me.pictureBack.Name = "pictureBack"
-        Me.pictureBack.Size = New System.Drawing.Size(681, 425)
-        Me.pictureBack.TabIndex = 21
-        Me.pictureBack.TabStop = False
-        '
         'graphicAdjuster
         '
         Me.graphicAdjuster.BackColor = System.Drawing.Color.White
@@ -692,6 +677,16 @@ Partial Class Form__Main_Demo
         Me.LinkLabelEmailBadgeJpeg.TabStop = True
         Me.LinkLabelEmailBadgeJpeg.Text = "Email Badge (as image)"
         '
+        'checkInstantPreview
+        '
+        Me.checkInstantPreview.AutoSize = True
+        Me.checkInstantPreview.Location = New System.Drawing.Point(1205, 149)
+        Me.checkInstantPreview.Name = "checkInstantPreview"
+        Me.checkInstantPreview.Size = New System.Drawing.Size(81, 24)
+        Me.checkInstantPreview.TabIndex = 72
+        Me.checkInstantPreview.Text = "Instant"
+        Me.checkInstantPreview.UseVisualStyleBackColor = True
+        '
         'CtlGraphicText1
         '
         Me.CtlGraphicText1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
@@ -727,16 +722,6 @@ Partial Class Form__Main_Demo
         Me.CtlGraphicPortrait_Lady.Size = New System.Drawing.Size(141, 181)
         Me.CtlGraphicPortrait_Lady.TabIndex = 41
         '
-        'checkInstantPreview
-        '
-        Me.checkInstantPreview.AutoSize = True
-        Me.checkInstantPreview.Location = New System.Drawing.Point(1205, 149)
-        Me.checkInstantPreview.Name = "checkInstantPreview"
-        Me.checkInstantPreview.Size = New System.Drawing.Size(81, 24)
-        Me.checkInstantPreview.TabIndex = 72
-        Me.checkInstantPreview.Text = "Instant"
-        Me.checkInstantPreview.UseVisualStyleBackColor = True
-        '
         'Form__Main_Demo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 20.0!)
@@ -770,7 +755,6 @@ Partial Class Form__Main_Demo
         Me.Controls.Add(Me.chkIncludeExampleValues)
         Me.Controls.Add(Me.LinkLabel1)
         Me.Controls.Add(Me.LinkShowWebControls)
-        Me.Controls.Add(Me.pictureBack)
         Me.Controls.Add(Me.graphicAdjuster)
         Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Margin = New System.Windows.Forms.Padding(1, 3, 1, 3)
@@ -786,14 +770,12 @@ Partial Class Form__Main_Demo
         Me.flowSidebar.ResumeLayout(False)
         Me.flowSidebar.PerformLayout()
         CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.pictureBack, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.graphicAdjuster, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
 
-    Friend WithEvents pictureBack As PictureBox
     Friend WithEvents LinkShowWebControls As LinkLabel
     Friend WithEvents LinkLabel1 As LinkLabel
     Friend WithEvents chkIncludeExampleValues As CheckBox

@@ -29,7 +29,7 @@ Public Class Form__Main_Demo
     Public Property NewFileXML As Boolean ''Added 10/13/2019 td
 
     ''1/14/2020 td''Public Property PersonalityCache As ciBadgeCustomer.PersonalityCache_NotInUse ''Added 10/11/2019 td 
-    Public Property PersonalityCache_FutureUse As ciBadgeElements.ClassPersonalityCache ''Added 10/11/2019 td 
+    Public Property PersonalityCache_Recipients As ciBadgeElements.ClassPersonalityCache ''Added 10/11/2019 td 
     Public Property BadgeLayout As BadgeLayoutClass Implements IDesignerForm.BadgeLayout ''Added 10/13/2019 td
 
     ''Added 9/16/2019 thomas downes
@@ -157,7 +157,7 @@ Public Class Form__Main_Demo
                     Me.ElementsCache_Edits.LoadElement_Signature(0, 0,
                                 CtlGraphicSignature1.Width,
                                 CtlGraphicSignature1.Height,
-                                pictureBack)
+                                pictureBack.PictureBackgroundBox)
                 End If ''End of "If (Me.ElementsCache_Edits.MissingTheSignature()) Then"
 
                 .ElementClass_Obj = Me.ElementsCache_Edits.ElementSignature
@@ -295,6 +295,9 @@ Public Class Form__Main_Demo
         MenuCache_Background.LayoutFunctions = mod_designer
         MenuCache_Background.GenerateMenuItems_IfNeeded()
 
+        ''Added 12/3/2021 td
+        pictureBack.Refresh()
+
     End Sub ''End of "Private Sub Form_Load"  
 
 
@@ -319,10 +322,10 @@ Public Class Form__Main_Demo
         End If ''End of "If (CtlGraphicQRCode1 = Nothing) Then"
 
         ''Added 12/3/2021 thomas downes
-        If (Me.PersonalityCache_FutureUse Is Nothing) Then
-            Me.PersonalityCache_FutureUse = New ciBadgeElements.ClassElementsCache_Deprecated()
+        If (Me.PersonalityCache_Recipients Is Nothing) Then
+            ''----Me.PersonalityCache_FutureUse = New ciBadgeElements.ClassElementsCache_Deprecated()
             Dim boolDummy As Boolean
-            Me.PersonalityCache_FutureUse = LoadCachedData_Personality_FutureUse(Me, boolDummy)
+            Me.PersonalityCache_Recipients = Startup.LoadCachedData_Personality_FutureUse(Me, boolDummy)
         End If ''End of "If (Me.PersonalityCache_FutureUse Is Nothing) Then"
 
         ''Added 10/13/2019 thomas d. 
@@ -339,7 +342,31 @@ Public Class Form__Main_Demo
             .ElementsCache_Edits = Me.ElementsCache_Edits ''Added 10/10/2019 td 
             .ElementsCache_Saved = Me.ElementsCache_Saved ''Added 10/10/2019 td 
 
-            .BackgroundBox = Me.pictureBack
+            ''Modified 12/3/2021 td 
+            ''12/3/2021 td''.BackgroundBox = Me.pictureBack
+            .BackgroundBox = Me.pictureBack.PictureBackgroundBox
+
+            ''Added 12/3/2021 thomas downes
+            Dim objectBackgroundImage As Bitmap
+            Dim strBackgroundImage_Path As String = ""
+            Dim strBackgroundImage_Title As String = ""
+
+            strBackgroundImage_Path = .ElementsCache_Edits.BackgroundImage_Path
+            If (strBackgroundImage_Path Is Nothing) Then strBackgroundImage_Path = ""
+
+            If ("" = strBackgroundImage_Path) Then
+                strBackgroundImage_Path = DiskFiles.PathToFile_Background_FirstOrDefault(strBackgroundImage_Title)
+                .ElementsCache_Saved.BackgroundImage_FTitle = strBackgroundImage_Title
+                .ElementsCache_Saved.BackgroundImage_Path = strBackgroundImage_Path
+                .ElementsCache_Edits.BackgroundImage_FTitle = strBackgroundImage_Title
+                .ElementsCache_Edits.BackgroundImage_Path = strBackgroundImage_Path
+            End If ''End of ''If ("" = strBackgroundImage_Path) The
+
+            If (System.IO.File.Exists(strBackgroundImage_Path)) Then
+                objectBackgroundImage = New Bitmap(strBackgroundImage_Path)
+                .BackgroundBox.BackgroundImage = objectBackgroundImage
+            End If ''End of "If (System.IO.File.Exists(strBackgroundImage_Path)) Then"
+
             .PreviewBox = Me.picturePreview
             .DesignerForm = Me
             .FlowFieldsNotListed = Me.flowFieldsNotListed
@@ -1094,7 +1121,8 @@ Public Class Form__Main_Demo
         ClassLabelToImage.ProportionsAreSlightlyOff(picturePreview, True)
 
         ''Added 9/8/2019 td
-        ClassLabelToImage.ProportionsAreSlightlyOff(pictureBack.Image, True)
+        ''12/3/2021 td''ClassLabelToImage.ProportionsAreSlightlyOff(pictureBack.Image, True)
+        ClassLabelToImage.ProportionsAreSlightlyOff(pictureBack.BackgroundImage, True)
         ClassLabelToImage.ProportionsAreSlightlyOff(picturePreview.Image, True)
 
         ''
@@ -1488,16 +1516,22 @@ Public Class Form__Main_Demo
             .AutoScroll = True
 
             ''11/30/2021 td''list_recips = Me.PersonalityCache.ListOfRecipients
-            If (Me.PersonalityCache_FutureUse Is Nothing) Then
+            If (Me.PersonalityCache_Recipients Is Nothing) Then
                 ''
                 ''Added 12/3/2021 thomas downes 
                 ''
                 Dim boolNewFileXML As Boolean
-                Me.PersonalityCache_FutureUse = Startup.LoadCachedData_Personality_FutureUse(Me, boolNewFileXML)
+                Me.PersonalityCache_Recipients = Startup.LoadCachedData_Personality_FutureUse(Me, boolNewFileXML)
 
             End If ''end of "If (Me.PersonalityCache_FutureUse Is Nothing) Then"
 
-            list_recips = Me.PersonalityCache_FutureUse.ListOfRecipients
+            list_recips = Me.PersonalityCache_Recipients.ListOfRecipients
+            ''Added 12/3/2021 td
+            If (list_recips Is Nothing) Then
+                ''Added 12/3/2021 td
+                list_recips = Startup.LoadData_Recipients_Students()
+                Me.PersonalityCache_Recipients.ListOfRecipients = list_recips
+            End If ''End of "If (list_recips Is Nothing) Then"
 
             For Each each_recip In list_recips
 
@@ -1580,16 +1614,26 @@ Public Class Form__Main_Demo
         ''
         ''Added 10/18/2019 thomas d.  
         ''
+        ''Encapsulated 12/3/2021 Thomas Downes
+        MakeBadgeImageFilesInFolder()
+
+    End Sub
+
+    Private Sub MakeBadgeImageFilesInFolder()
+        ''
+        ''Encapsulated 12/3/2021 Thomas Downes
+        ''
         Dim strPathToFolder As String
         Dim strOutputPathToFileBMP As String
         Dim img_Prod As Image
         Dim strFolderSuffix As String
+        Dim objBadgeGenerator As New ciBadgeGenerator.ClassMakeBadge ''Added 12/3/2021 Thomas Downes
 
         strFolderSuffix = DateTime.Now.ToString("MMdd_hhmmss")
 
         strPathToFolder = DiskFolders.PathToFolder_Production(strFolderSuffix)
 
-        For Each each_recip As ClassRecipient In PersonalityCache_FutureUse.ListOfRecipients
+        For Each each_recip As ClassRecipient In PersonalityCache_Recipients.ListOfRecipients
             ''
             ''Added 10/18/2019 td 
             ''
@@ -1624,6 +1668,10 @@ Public Class Form__Main_Demo
                                     (mod_strRecipientID & ".jpg"))
 
                 img_Prod = picturePreview.Image
+                img_Prod = objBadgeGenerator.MakeBadgeImage_ByRecipient(Me.BadgeLayout, pictureBack.BackgroundImage,
+                                                                        Me.ElementsCache_Edits,
+                                                                        Me.BadgeLayout.Width_Pixels,
+                                                                        Me.BadgeLayout.Height_Pixels, each_recip, Nothing)
                 img_Prod.Save(strOutputPathToFileBMP, Imaging.ImageFormat.Jpeg)
 
             End If ''End of "If (c_strFileType = "bmp") Then .... Else ...."
@@ -1755,7 +1803,17 @@ ExitHandler:
         ''If (Not bConfirmFileExists) Then Return
 
         Dim objShow As New FormUploadBackground
-        objShow.Show()
+        '' 12/3/2021 td''objShow.Show()
+        objShow.ShowDialog()
+
+        ''Added 12/3/2021 td
+        Dim bConfirmFileExists As Boolean ''Added 12/3/2021 td
+        bConfirmFileExists = System.IO.File.Exists(objShow.ImageFilePath)
+        If (Not bConfirmFileExists) Then Return ''Added 12/3/2021 td
+
+        ''Added 12/3/2021 td
+        Me.ElementsCache_Edits.BackgroundImage_Path = objShow.ImageFilePath
+        Me.ElementsCache_Edits.BackgroundImage_Path = objShow.ImageFileInfo.Name
 
     End Sub
 
@@ -1772,7 +1830,8 @@ ExitHandler:
         If (objShow.ImageFileInfo IsNot Nothing) Then
             strPathToFilename = objShow.ImageFileInfo.FullName
             ''ClassElementsCache_Deprecated.Singleton.BackgroundImage_Path = strPathToFilename
-            pictureBack.ImageLocation = strPathToFilename
+            '' 12/3/2021 td''pictureBack.ImageLocation = strPathToFilename
+            pictureBack.BackgroundImageLocation = strPathToFilename
         End If ''If (objShow.ImageFileInfo IsNot Nothing) Then
 
     End Sub

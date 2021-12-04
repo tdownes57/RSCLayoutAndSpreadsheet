@@ -366,12 +366,18 @@ namespace ciBadgeGenerator
                 Image img_Step3Picture = obj_elementPic.GetStep3_Picture();
                 if (img_Step3Picture == null) img_Step3Picture = par_recipientPic;
 
-                LoadImageWithPortrait(img_Step3Picture,
+                if (img_Step3Picture != null) 
+                { 
+                    LoadImageWithPortrait(img_Step3Picture,
                                         par_newBadge_width_pixels,
                                         par_layout.Width_Pixels,
                                         ref obj_imageOutput,
                                         (IElement_Base)obj_elementPic,
                                         (IElementPic)obj_elementPic);
+                    //
+                    // End of "if (img_Step3Picture != null)"
+                    //
+                }
                 //10-18 td  ref par_recipientPic);
             }
 

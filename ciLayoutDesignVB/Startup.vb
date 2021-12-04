@@ -70,7 +70,7 @@ Public Class Startup
         Dim boolTesting As Boolean
         If (boolTesting) Then
             obj_cache_layout_Elements =
-                ClassElementsCache_Deprecated.GetLoadedCache("123.xml", True, obj_formToShow.pictureBack.Image)
+                ClassElementsCache_Deprecated.GetLoadedCache("123.xml", True, obj_formToShow.pictureBack.BackgroundImage)
         End If ''End of "If (boolTesting) Then"
 
         obj_formToShow.NewFileXML = boolNewFileXML
@@ -96,7 +96,7 @@ Public Class Startup
                 ''This is for future use, say approaching Spring of 2022. 
                 ''  ----11/30/2022 
                 ''
-                obj_formToShow.PersonalityCache_FutureUse = obj_personality
+                obj_formToShow.PersonalityCache_Recipients = obj_personality
 
             End If ''End of "If (c_boolStillUsingElementsCache) Then ... Else"
 
@@ -127,9 +127,10 @@ Public Class Startup
 
     End Function ''End of "Private Shared Function LoadCachedData_Customer"
 
-    Private Shared Function LoadData_Recipients_Students() As List(Of ClassRecipient)
+    Public Shared Function LoadData_Recipients_Students() As List(Of ClassRecipient)
         ''
         ''Added 10/14/2019 thomas d. 
+        ''Publicized 12/3/2021 thomas d. 
         ''
         ''  Presuming that the Customer has two Personalities, 
         ''  Student & Staff, let's load the Students.  
@@ -152,7 +153,7 @@ Public Class Startup
 
         Return RecipientController.mod_recipientList
 
-    End Function ''End of "Private Shared Function LoadCachedData_Customer"
+    End Function ''End of "Private Shared Function LoadData_Recipients_Students"
 
     Public Shared Function LoadCachedData_Personality_FutureUse(par_designForm As Form__Main_Demo,
                                            ByRef pboolNewFileXML As Boolean) As ClassPersonalityCache
@@ -362,8 +363,8 @@ Public Class Startup
             obj_cache_elements.PathToXml_Saved = strPathToXML
 
             obj_cache_elements.LoadFields()
-            obj_cache_elements.LoadFieldElements(par_designForm.pictureBack,
-                                New BadgeLayoutClass(par_designForm.pictureBack))
+            obj_cache_elements.LoadFieldElements(par_designForm.pictureBack.PictureBackgroundBox,
+                                New BadgeLayoutClass(par_designForm.pictureBack.PictureBackgroundBox))
 
         Else
             ''Added 10/10/2019 td  
@@ -458,21 +459,21 @@ Public Class Startup
             ''10/10/2019 td''Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
             ''10/13/2019 td''Me.ElementsCache_Saved.LoadElement_Pic(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
             obj_cache_elements.LoadElement_Pic(intPicLeft, intPicTop, intPicWidth, intPicHeight,
-                                               par_designForm.pictureBack) ''Added 9/19/2019 td
+                                               par_designForm.pictureBack.PictureBackgroundBox) ''Added 9/19/2019 td
 
             ''Added 10/14/2019 thomas d. 
             obj_cache_elements.LoadElement_QRCode(intLeft_QR, intTop_QR, intWidth_QR, intHeight_QR,
-                                               par_designForm.pictureBack) ''Added 10/14/2019 td
+                                               par_designForm.pictureBack.PictureBackgroundBox) ''Added 10/14/2019 td
 
             ''Added 10/14/2019 thomas d. 
             obj_cache_elements.LoadElement_Signature(intLeft_Sig, intTop_Sig, intWidth_Sig, intHeight_Sig,
-                                               par_designForm.pictureBack) ''Added 10/14/2019 td
+                                               par_designForm.pictureBack.PictureBackgroundBox) ''Added 10/14/2019 td
 
             ''Added 10/14/2019 thomas d. 
             obj_cache_elements.LoadElement_Text(strStaticText,
                                                 intLeft_Text, intTop_Text,
                                                 intWidth_Text, intHeight_Text,
-                                               par_designForm.pictureBack) ''Added 10/14/2019 td
+                                               par_designForm.pictureBack.PictureBackgroundBox) ''Added 10/14/2019 td
 
         End If ''End of "If (pboolNewFileXML) Then"
 
