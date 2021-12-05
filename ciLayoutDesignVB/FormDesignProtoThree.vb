@@ -8,7 +8,7 @@ Option Strict On
 Imports ciBadgeDesigner
 Imports ciBadgeInterfaces
 Imports ciBadgeElements
-Imports ciBadgeCachingPersonality ''Added 12/4/2021 td 
+Imports ciBadgeCachePersonality ''Added 12/4/2021 td 
 
 Public Class FormDesignProtoThree
     ''

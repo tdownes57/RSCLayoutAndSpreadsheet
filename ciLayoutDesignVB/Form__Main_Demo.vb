@@ -7,7 +7,7 @@ Option Strict On
 ''
 Imports System.Collections.Generic
 Imports System.Linq
-Imports ciBadgeCachingPersonality ''Added 12/4/2021 thomas downes  
+Imports ciBadgeCachePersonality ''Added 12/4/2021 thomas downes  
 Imports ciBadgeCustomer ''Added 10/11/2019 thomas d.  
 Imports ciBadgeDesigner ''Added 10/3/2019 td
 Imports ciBadgeElements ''Added 9/18/2019 td

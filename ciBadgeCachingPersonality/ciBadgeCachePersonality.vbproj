@@ -6,7 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{4C1B73A0-7C02-4FF4-96F2-ACFA1306CCE4}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>ciBadgeCachePersonality</RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <AssemblyName>ciBadgeCachePersonality</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>

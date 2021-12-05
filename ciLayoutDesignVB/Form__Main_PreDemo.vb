@@ -7,6 +7,7 @@ Option Strict On
 Imports ciBadgeInterfaces ''Added 9/2/2019 td
 Imports ciBadgeFields ''Added 9/19/2019 td
 Imports ciBadgeElements ''Added 9/30/2019 td  
+Imports ciBadgeCachePersonality ''Added 12/4/2021 thomas d. 
 
 Public Class Form__Main_PreDemo
 
