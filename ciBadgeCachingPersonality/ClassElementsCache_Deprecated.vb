@@ -1215,7 +1215,10 @@ Namespace ciBadgeCachePersonality
 
             Next each_element
 
+            Return Nothing
+
         End Function ''ENd of "Public Function GetElementByField As ClassElementField"
+
 
         Public Function CheckAllElementsHaveCorrectFieldInfo(ByRef pbAllFine As Boolean,
                                                          ByRef pstrMessage As String) As Boolean
