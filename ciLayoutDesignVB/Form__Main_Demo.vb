@@ -1123,52 +1123,7 @@ Public Class Form__Main_Demo
         ''Double-check what has been saved. ----12/4/2021 td
         ''
         ''
-        Dim each_field_edited As ClassFieldCustomized
-        Dim each_field_saved As ClassFieldAny
-        Dim ListFieldsAdded As New List(Of ClassFieldCustomized)
-        Dim ListFieldsRemoved As New List(Of ClassFieldCustomized)
-
-        For Each each_field In Me.ElementsCache_Edits.ListOfFields_Custom()
-            ''
-            ''
-            ''Is the field in danger of needing an element (but not having one)?
-            ''
-            ''
-            each_field_edited = each_field
-            each_field_saved = Me.ElementsCache_Saved.GetFieldByLabelCaption(each_field_edited.FieldLabelCaption)
-            boolDiffer = (each_field_edited.IsDisplayedOnBadge <> each_field_saved.IsDisplayedOnBadge)
-
-            If (each_field.IsDisplayedOnBadge) Then
-                ''
-                ''Added 12/4/2021
-                ''
-                strListOfBadgeFields += (each_field.FieldLabelCaption & vbCrLf &
-                    "     Is the field relevant? " & each_field.IsRelevantToPersonality.ToString() & vbCrLf)
-
-                ''Find the element.
-                each_element = Me.ElementsCache_Edits.GetElementByField(each_field)
-
-                If (each_element Is Nothing) Then
-                    ''
-                    ''No element exists to be a wrapper for the field. 
-                    ''
-                    strListOfBadgeFields += ("   No wrapper element exists." & vbCrLf)
-
-                Else
-                    ''The element exists.  
-                    Dim why_omit As New WhyOmitted
-                    Dim boolElemDisplayed As Boolean
-                    boolElemDisplayed = each_element.IsDisplayedOnBadge_Visibly(why_omit)
-
-                    strListOfBadgeFields += ("   Wrapper element: " & each_element.FieldNm_CaptionText() &
-                        "  Is it displayed? " &
-                        boolElemDisplayed.ToString() & vbCrLf)
-
-                End If ''End of "If (each_element Is Nothing) Then .... Else ...."
-
-            End If ''End of "If (each_field.IsDisplayedOnBadge) Then"
-
-        Next each_field
+        mod_caches.CheckEditedFieldsHaveElementsIfNeeded()
 
         ''RefreshTheSetOfDisplayedElements()
         ''PictureBox1.SendToBack()
