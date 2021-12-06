@@ -1083,13 +1083,28 @@ Public Class Form__Main_Demo
         ''
         Dim frm_ToShow As New ListCustomFieldsFlow()
 
+        ''Dec. 6, 2021 td
+        Me.ElementsCache_ManageBoth.OutputToTextFile_CustomFields(Me.ElementsCache_Edits.ListOfFields_Custom, "Prior to editing")
+
         ''7/26/2019 td''frm_ToShow.ListOfFields = GetCurrentPersonality_Fields()
         ''12/4/2021 td''frm_ToShow.ListOfFields = Form__Main_PreDemo.GetCurrentPersonality_Fields_Custom()
         ''12/5/2021 td''frm_ToShow.ListOfFields = Form__Main_PreDemo.GetCurrentPersonality_Fields_Custom()
         frm_ToShow.ListOfFields = Me.ElementsCache_Edits.ListOfFields_Custom
+        frm_ToShow.CacheManager = Me.ElementsCache_ManageBoth ''Added 12/6/2021 td 
         frm_ToShow.ShowDialog()
         RefreshTheSetOfDisplayedElements()
         PictureBox1.SendToBack()
+
+        ''Dec. 6, 2021 td 
+        If (frm_ToShow.ClosingOK_SoSaveWork) Then
+            ''Dec. 6, 2021 td 
+            Me.ElementsCache_ManageBoth.Save()
+            ''--Me.ElementsCache_Saved = Me.ElementsCache_ManageBoth.CacheSaved()
+
+        End If ''ENd of "If (frm_ToShow.ClosingOK_SoSaveWork) Then"
+
+        ''Dec. 6, 2021 td
+        Me.ElementsCache_ManageBoth.OutputToTextFile_CustomFields(Me.ElementsCache_Edits.ListOfFields_Custom, "After editing")
 
     End Sub
 
@@ -1115,20 +1130,31 @@ Public Class Form__Main_Demo
         ''Dec.5 2021''    frm_ToShow.ListOfFields.Add(each_field)
         ''Dec.5 2021''Next each_field
 
-        frm_ToShow.ListOfFields = Me.ElementsCache_Edits.ListOfFields_Custom
+        ''12/6/2021 td''frm_ToShow.ListOfFields = Me.ElementsCache_Edits.ListOfFields_Custom
+        frm_ToShow.CacheManager = Me.ElementsCache_ManageBoth ''Added 12/6/2021 td 
+        frm_ToShow.ListOfFields = Me.ElementsCache_ManageBoth.CacheForEditing.ListOfFields_Custom
 
-        ''
-        ''
-        ''
+        ''Dec. 6, 2021 td
+        Me.ElementsCache_ManageBoth.OutputToTextFile_CustomFields(Me.ElementsCache_Edits.ListOfFields_Custom,
+                "Before Dialog, ElementsCache_Edits")
+
         ''
         ''
         ''Show the user & allow edits!!
         ''
         ''
-        ''
-        ''
-        ''
         frm_ToShow.ShowDialog()
+
+        ''Dec. 6, 2021 td
+        Me.ElementsCache_ManageBoth.OutputToTextFile_CustomFields(Me.ElementsCache_Edits.ListOfFields_Custom,
+                                                                  "After Dialog, ElementsCache_Edits")
+
+        ''Dec. 6, 2021 td
+        If (frm_ToShow.ClosingOK_SoSaveWork) Then
+
+            Me.ElementsCache_ManageBoth.Save()
+
+        End If ''End of "If (frm_ToShow.ClosingSoSaveWork) Then"
 
         ''
         ''

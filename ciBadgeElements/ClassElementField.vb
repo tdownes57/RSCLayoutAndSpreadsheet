@@ -18,11 +18,13 @@ Public Event ElementField_RightClicked(par_elementField As ClassElementField) ''
 Public Structure WhyOmitted ''Added 11/10/2021 thomas downes
     Dim NotRelevantField As Boolean ''Added 11/24/2021
     Dim OmitElement As Boolean
+    Dim ElementVisibleIsFalse As Boolean ''Added 12/6/2021 
     Dim OmitField As Boolean
     Dim OmitCoordinateX As Boolean
     Dim OmitCoordinateY As Boolean
     Dim OmitWidth As Boolean
     Dim OmitHeight As Boolean
+
     ''Dim increment1 = Function(x As Integer) x + 1
     ''==Const OmitElement_Msg As String = " (Element Property not flagged as True)"
     ''==Const OmitField_Msg As String = " (Field Property not flagged as True)"
@@ -418,7 +420,8 @@ Public Class ClassElementField
         ''Added 9/19/2019 td  
         ''
         par_whyOmit.NotRelevantField = (Not Me.FieldInfo.IsRelevantToPersonality) ''Added 11/24/2021 
-        par_whyOmit.OmitElement = (Not Me.Visible) ''Added 11/10/2021 td  
+        par_whyOmit.OmitElement = (Not Me.Visible) ''Added 11/10/2021 td
+        par_whyOmit.ElementVisibleIsFalse = (Not Me.Visible) ''Added 12/6/2021 thomas d. 
         par_whyOmit.OmitField = (Not Me.FieldInfo.IsDisplayedOnBadge) ''Added 11/10/20121 td  
 
         Return (Me.FieldInfo.IsDisplayedOnBadge And Me.Visible)

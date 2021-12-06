@@ -10,7 +10,8 @@ Public Class ListCustomFieldsGrid
 
     Public Shared FieldsList_Static As New List(Of ClassFieldCustomized)
 
-    Public Property ListOfFields As List(Of ClassFieldCustomized)
+    ''Dec6 2021 ''Public Property ListOfFields As List(Of ClassFieldCustomized)
+    Public Property ListOfFields As HashSet(Of ClassFieldCustomized)
 
     Private Sub FormCustomFields_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''

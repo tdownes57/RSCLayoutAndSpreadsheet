@@ -52,6 +52,10 @@ Namespace ciBadgeCachePersonality
             ''
             mod_cacheEdits.SaveToXML()
 
+            ''Added 12/6/2021 td  
+            ''----Dec.6 2021 ----mod_cacheSaved = mod_cacheEdits
+            mod_cacheSaved = mod_cacheEdits.Copy()
+
         End Sub
 
 
@@ -171,7 +175,7 @@ Namespace ciBadgeCachePersonality
             ''System.IO.Path.Combine(
 
             pstrListOfFields = strListOfBadgeFields
-            DiskFilesVB.DisplayStringDataInNotepad(strListOfBadgeFields)
+            If (False) Then DiskFilesVB.DisplayStringDataInNotepad(strListOfBadgeFields)
 
         End Sub ''End of "Public Sub CheckEditedFieldsHaveElementsIfNeeded()"
 
@@ -193,16 +197,18 @@ Namespace ciBadgeCachePersonality
                 ''
                 ''No element exists to be a wrapper for the field. 
                 ''
-                par_strListOfFields += ("   No wrapper element exists." & vbCrLf)
+                par_strListOfFields &= ("   No wrapper element exists." & vbCrLf)
 
             Else
                 ''The element exists.  
                 Dim why_omit As New WhyOmitted
                 Dim boolElemDisplayedOnBadge As Boolean
 
+                elementForField.Visible = par_fieldToDisplay.IsDisplayedOnBadge
+
                 boolElemDisplayedOnBadge = elementForField.IsDisplayedOnBadge_Visibly(why_omit)
 
-                par_strListOfFields += ("   Good, a wrapper element exists: " & elementForField.FieldNm_CaptionText() &
+                par_strListOfFields &= ("   Good, a wrapper element exists: " & elementForField.FieldNm_CaptionText() &
                         "  Is it displayed on the badge? " &
                         boolElemDisplayedOnBadge.ToString() & vbCrLf &
                         String.Format("  Pixels Top & Left: {0}, {1} ",
@@ -213,7 +219,7 @@ Namespace ciBadgeCachePersonality
             ''
             ''Exiting...
             ''
-            par_strListOfFields += vbCrLf
+            par_strListOfFields &= vbCrLf
 
 
         End Sub ''End of "Public Sub FieldsEditedSoBuildElementsIfNeeded()"
@@ -230,6 +236,45 @@ Namespace ciBadgeCachePersonality
 
 
         End Sub ''End of "Public Sub FieldsEditedSoBuildElementsIfNeeded()"
+
+
+        Public Sub OutputToTextFile_CustomFields(par_listOfFields As HashSet(Of ClassFieldCustomized),
+                                                 Optional pstrHeading As String = "")
+            ''
+            ''Added 12/6/2021 thomas downes
+            ''
+            Dim each_field As ClassFieldAny
+            Dim strListOfBadgeFields As String
+
+            strListOfBadgeFields = "List of Custom Fields - " & pstrHeading & vbCrLf_Deux
+            strListOfBadgeFields &= "    Time: " & DateTime.Now.ToString("HH:mm:ss")
+
+            For Each each_field In par_listOfFields
+                ''
+                ''
+                ''List the main field values. 
+                ''
+                ''
+                With each_field
+                    strListOfBadgeFields += (vbCrLf & .CIBadgeField & vbCrLf &
+                        .FieldLabelCaption & vbCrLf &
+                    "     Is the field relevant to the Personality? " & .IsRelevantToPersonality.ToString() & vbCrLf &
+                    "     Is the field-value to be displayed on the badge? " & .IsDisplayedOnBadge.ToString() & vbCrLf)
+                End With
+
+            Next each_field
+
+            ''
+            ''Exiting....
+            ''
+            DiskFilesVB.DisplayStringDataInNotepad(strListOfBadgeFields)
+
+
+
+
+        End Sub ''End of " Public Sub OutputToTextFile_CustomFields"
+
+
 
 
 

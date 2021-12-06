@@ -12,6 +12,9 @@ Public Class ListCustomFieldsFlow
     ''12/5/2021 td''Public Property ListOfFields As List(Of ClassFieldCustomized) ''Added 7/23/2019 thomas downes 
     Public Property ListOfFields As HashSet(Of ClassFieldCustomized) ''Added 7/23/2019 thomas downes 
     Public Property JustOneField_Index As Integer ''Added 7/30/2019 thomas d. 
+    Public Property CacheManager As ciBadgeCachePersonality.ClassCacheManagement
+
+    Public Property ClosingOK_SoSaveWork As Boolean ''Added 12/6/2021 thomas downes
 
     Private Const vbCrLf_Deux As String = (vbCrLf & vbCrLf)
 
@@ -32,17 +35,21 @@ Public Class ListCustomFieldsFlow
         ''
         '' 7/21 td''ClassCustomField.InitializeHardcodedList_Students()
 
-        LoadCustomFields_All()
+        ''Dec. 6, 2021 td
+        ''---Me.CacheManager.OutputToTextFile_CustomFields(Me.ListOfFields)
+
+        ''Dec. 6 2021''LoadCustomFields_All()
+        LoadCustomFields_All(Me.ListOfFields)
 
     End Sub
 
-    Private Sub LoadCustomFields_All()
+    Private Sub LoadCustomFields_All(par_listFields As HashSet(Of ClassFieldCustomized))
         ''
         ''Added 7.21.2019
         ''
-        Dim list_local As List(Of ClassFieldCustomized) = Nothing
-
-        If (ListOfFields IsNot Nothing) Then list_local = ListOfFields
+        ''#1 12/6/2021 td''Dim list_local As List(Of ClassFieldCustomized) = Nothing
+        ''#2 12/6/2021 td''Dim list_local As HashSet(Of ClassFieldCustomized) = Nothing
+        ''#2 12/6/2021 td''If (ListOfFields IsNot Nothing) Then list_local = ListOfFields
 
         ''Dec.5 2021''If (list_local Is Nothing) Then
         ''Dec.5 2021''    ClassFieldCustomized.InitializeHardcodedList_Students(True)
@@ -51,7 +58,7 @@ Public Class ListCustomFieldsFlow
 
         FlowLayoutPanel1.Controls.Clear()
 
-        For Each each_customField As ClassFieldCustomized In list_local ''ClassCustomField.ListOfFields_Students
+        For Each each_customField As ClassFieldCustomized In par_listFields ''ClassCustomField.ListOfFields_Students
             ''
             ''Add 7/21/2019
             ''
@@ -103,7 +110,12 @@ Public Class ListCustomFieldsFlow
                                      MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)
 
         If (dia_result = DialogResult.Cancel) Then e.Cancel = True
-        If (dia_result = DialogResult.Yes) Then SaveControls()
+
+        If (dia_result = DialogResult.Yes) Then
+            SaveControls()
+            ''Added 12/6/2021 td
+            Me.ClosingOK_SoSaveWork = True
+        End If ''End of "If (dia_result = DialogResult.Yes) Then"
 
     End Sub
 
@@ -150,7 +162,9 @@ Public Class ListCustomFieldsFlow
         ''Added 7/27/2019 td
         SaveControls()
         FlowLayoutPanel1.Controls.Clear()
-        LoadCustomFields_All()
+
+        ''Dec.6, 2021''LoadCustomFields_All(Me.ListOfFields)
+        LoadCustomFields_All(Me.ListOfFields)
 
     End Sub
 
@@ -158,6 +172,9 @@ Public Class ListCustomFieldsFlow
 
         ''Added 7/30/2019 td
         SaveControls()
+
+        ''Added 12/6/2021 td
+        Me.ClosingOK_SoSaveWork = True
 
         MessageBox.Show("Saved.", "ciLayoutDesign", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
@@ -175,8 +192,8 @@ Public Class ListCustomFieldsFlow
 
         If (dia_result = DialogResult.Yes) Then ''LoadCustomFields_All()
             FlowLayoutPanel1.Controls.Clear()
-            LoadCustomFields_All()
-        End If
+            LoadCustomFields_All(Me.ListOfFields)
+        End If ''End of "If (dia_result = DialogResult.Yes) Then"
 
     End Sub
 End Class

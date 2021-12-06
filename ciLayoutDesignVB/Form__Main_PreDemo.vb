@@ -26,7 +26,7 @@ Public Class Form__Main_PreDemo
 
     End Sub ''End of "Public Shared Function OpenElementsCache(par_cache As classel)"
 
-    Public Shared Function GetCurrentPersonality_Fields_Custom() As List(Of ClassFieldCustomized)
+    Public Shared Function GetCurrentPersonality_Fields_Custom() As HashSet(Of ClassFieldCustomized) ''Dec6 2021''List(Of ClassFieldCustomized)
         ''
         ''Added 7/23/2019 thomas downes
         ''
