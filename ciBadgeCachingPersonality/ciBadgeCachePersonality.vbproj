@@ -71,7 +71,9 @@
     <Compile Include="ClassElementsCache_Deprecated.vb" />
     <Compile Include="ClassCacheLayout.vb" />
     <Compile Include="ClassCachePersonality.vb" />
+    <Compile Include="DiskFolders.vb" />
     <Compile Include="InterfaceDesignerForm.vb" />
+    <Compile Include="DiskFilesVB.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

@@ -37,6 +37,8 @@ Partial Class CtlConfigFldCustom
         Me.checkDisplayOnBadge = New System.Windows.Forms.CheckBox()
         Me.checkDisplayForEdits = New System.Windows.Forms.CheckBox()
         Me.checkRelevantToPersonality = New System.Windows.Forms.CheckBox()
+        Me.LabelDatabaseFieldname = New System.Windows.Forms.Label()
+        Me.LabelDateEdited = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'textFieldLabel
@@ -158,7 +160,7 @@ Partial Class CtlConfigFldCustom
         '
         Me.LabelHeaderTop.AutoSize = True
         Me.LabelHeaderTop.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelHeaderTop.Location = New System.Drawing.Point(5, 12)
+        Me.LabelHeaderTop.Location = New System.Drawing.Point(3, 2)
         Me.LabelHeaderTop.Name = "LabelHeaderTop"
         Me.LabelHeaderTop.Size = New System.Drawing.Size(177, 31)
         Me.LabelHeaderTop.TabIndex = 4
@@ -204,12 +206,32 @@ Partial Class CtlConfigFldCustom
         Me.checkRelevantToPersonality.Text = "Relevant to this Personality"
         Me.checkRelevantToPersonality.UseVisualStyleBackColor = True
         '
+        'LabelDatabaseFieldname
+        '
+        Me.LabelDatabaseFieldname.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelDatabaseFieldname.Location = New System.Drawing.Point(4, 34)
+        Me.LabelDatabaseFieldname.Name = "LabelDatabaseFieldname"
+        Me.LabelDatabaseFieldname.Size = New System.Drawing.Size(180, 25)
+        Me.LabelDatabaseFieldname.TabIndex = 25
+        Me.LabelDatabaseFieldname.Text = "Database Field Name"
+        '
+        'LabelDateEdited
+        '
+        Me.LabelDateEdited.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelDateEdited.Location = New System.Drawing.Point(6, 117)
+        Me.LabelDateEdited.Name = "LabelDateEdited"
+        Me.LabelDateEdited.Size = New System.Drawing.Size(250, 20)
+        Me.LabelDateEdited.TabIndex = 26
+        Me.LabelDateEdited.Text = "[ Date Edited ]"
+        '
         'CtlConfigFldCustom
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.LightCyan
         Me.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Controls.Add(Me.LabelDateEdited)
+        Me.Controls.Add(Me.LabelDatabaseFieldname)
         Me.Controls.Add(Me.checkRelevantToPersonality)
         Me.Controls.Add(Me.checkDisplayOnBadge)
         Me.Controls.Add(Me.checkDisplayForEdits)
@@ -248,4 +270,6 @@ Partial Class CtlConfigFldCustom
     Friend WithEvents checkDisplayOnBadge As CheckBox
     Friend WithEvents checkDisplayForEdits As CheckBox
     Friend WithEvents checkRelevantToPersonality As CheckBox
+    Friend WithEvents LabelDatabaseFieldname As Label
+    Friend WithEvents LabelDateEdited As Label
 End Class

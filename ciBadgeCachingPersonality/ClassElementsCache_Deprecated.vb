@@ -1097,7 +1097,20 @@ Namespace ciBadgeCachePersonality
 
         Public Function GetFieldByLabelCaption(par_caption As String) As ClassFieldAny
             ''Added 10/10/2019 td 
-            Return (Nothing)
+            ''Return (Nothing)
+
+            Dim boolMatchesSearch As Boolean
+
+            Dim each_fieldAny As ClassFieldAny
+
+            For Each each_fieldAny In ListOfFields_Any()
+
+                boolMatchesSearch = (each_fieldAny.FieldLabelCaption = par_caption)
+                If (boolMatchesSearch) Then Return each_fieldAny
+
+            Next each_fieldAny
+
+            Return Nothing
 
         End Function ''ENd of "Public Function GetFieldByLabelCaption(par_caption As String) As ClassFieldAny"
 

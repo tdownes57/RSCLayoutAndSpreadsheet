@@ -37,6 +37,7 @@ Public Class Form__Main_Demo
     ''Added 9/16/2019 thomas downes
     Public Property ElementsCache_Saved As New ClassElementsCache_Deprecated ''Added 9/16/2019 thomas downes
     Public Property ElementsCache_Edits As New ClassElementsCache_Deprecated ''Added 9/16/2019 thomas downes
+    Public Property ElementsCache_ManageBoth As ClassCacheManagement ''Added 12/5/2021 thomas downes
 
     Private WithEvents mod_designer As New ciBadgeDesigner.ClassDesigner ''Added 10/3/2019 td
 
@@ -169,7 +170,7 @@ Public Class Form__Main_Demo
             ''
             ''Set the path to the Signature File. 
             ''
-            .ElementClass_Obj.SigFilePath = DiskFiles.PathToFile_Sig()
+            .ElementClass_Obj.SigFilePath = DiskFilesVB.PathToFile_Sig()
 
         End With ''End of "With CtlGraphicSignature1"
 
@@ -223,6 +224,10 @@ Public Class Form__Main_Demo
         Me.ElementsCache_Saved.Pic_InitialDefault = mod_imageLady
         Me.ElementsCache_Edits.Pic_InitialDefault = mod_imageLady
 
+        ''Added 12/5/2021 thomas d. 
+        ''----++Moved below from here at 8:21 p.m. 12/5/2021 thomas downes
+        ''----Me.ElementsCache_ManageBoth = New ClassCacheManagement(Me.ElementsCache_Edits, Me.ElementsCache_Saved)
+
         ''Added 10/13/2019 thomas d. 
         ''11/28/2021 Encapsulated to Load_Designer. 11/28/2021''
         mod_designer.CtlGraphic_Portrait = CtlGraphicPortrait_Lady
@@ -265,6 +270,10 @@ Public Class Form__Main_Demo
         ''   a type-written page.  ----11/30/2021
         Me.ElementsCache_Saved = Me.ElementsCache_Edits.Copy()
         Me.ElementsCache_Saved.Id_GUID = New Guid() ''Generates a new GUID. 
+
+        ''Added 12/5/2021 thomas d. 
+        ''   Moved here from at 8:21 p.m. 12/5/2021 thomas downes
+        Me.ElementsCache_ManageBoth = New ClassCacheManagement(Me.ElementsCache_Edits, Me.ElementsCache_Saved)
 
         ''
         ''Encapsulated 11/28/2021 thomas downes
@@ -357,7 +366,7 @@ Public Class Form__Main_Demo
             If (strBackgroundImage_Path Is Nothing) Then strBackgroundImage_Path = ""
 
             If ("" = strBackgroundImage_Path) Then
-                strBackgroundImage_Path = DiskFiles.PathToFile_Background_FirstOrDefault(strBackgroundImage_Title)
+                strBackgroundImage_Path = DiskFilesVB.PathToFile_Background_FirstOrDefault(strBackgroundImage_Title)
                 .ElementsCache_Saved.BackgroundImage_FTitle = strBackgroundImage_Title
                 .ElementsCache_Saved.BackgroundImage_Path = strBackgroundImage_Path
                 .ElementsCache_Edits.BackgroundImage_FTitle = strBackgroundImage_Title
@@ -377,7 +386,7 @@ Public Class Form__Main_Demo
             .ExampleImage_Portrait = mod_imageLady
 
             .ExampleImage_Signature = mod_imageSignature ''Added 10/12/2019 td
-            .PathToSigFile = DiskFiles.PathToFile_Sig() ''Added 10/12/2019 td
+            .PathToSigFile = DiskFilesVB.PathToFile_Sig() ''Added 10/12/2019 td
 
             ''10/1/2019''intPicLeft = CtlGraphicPortrait_Lady.Left - ctlBackgroundZoom1.Left
             ''10/1/2019''intPicTop = CtlGraphicPortrait_Lady.Top - ctlBackgroundZoom1.Top
@@ -483,7 +492,7 @@ Public Class Form__Main_Demo
 
             ''Added 10/13/2019 td 
             If (String.IsNullOrEmpty(Me.ElementsCache_Edits.PathToXml_Saved)) Then
-                Me.ElementsCache_Edits.PathToXml_Saved = DiskFiles.PathToFile_XML_ElementsCache()
+                Me.ElementsCache_Edits.PathToXml_Saved = DiskFilesVB.PathToFile_XML_ElementsCache()
             End If ''End of "If (String.IsNullOrEmpty(Me.ElementsCache_Edits.PathToXml_Saved)) Then"
 
             .PathToXML = Me.ElementsCache_Edits.PathToXml_Saved
@@ -1076,7 +1085,8 @@ Public Class Form__Main_Demo
 
         ''7/26/2019 td''frm_ToShow.ListOfFields = GetCurrentPersonality_Fields()
         ''12/4/2021 td''frm_ToShow.ListOfFields = Form__Main_PreDemo.GetCurrentPersonality_Fields_Custom()
-        frm_ToShow.ListOfFields = Form__Main_PreDemo.GetCurrentPersonality_Fields_Custom()
+        ''12/5/2021 td''frm_ToShow.ListOfFields = Form__Main_PreDemo.GetCurrentPersonality_Fields_Custom()
+        frm_ToShow.ListOfFields = Me.ElementsCache_Edits.ListOfFields_Custom
         frm_ToShow.ShowDialog()
         RefreshTheSetOfDisplayedElements()
         PictureBox1.SendToBack()
@@ -1089,21 +1099,23 @@ Public Class Form__Main_Demo
         ''
         Dim frm_ToShow As New ListCustomFieldsFlow()
         Dim each_field As ciBadgeFields.ClassFieldCustomized
-        Dim each_element As ciBadgeElements.ClassElementField
+        ''Dim each_element As ciBadgeElements.ClassElementField
         Dim strListOfBadgeFields As String = ""
         ''Dim why_omit As New WhyOmitted
-        Dim boolDiffer As Boolean ''Added 12/4/2021 td  
+        ''Dim boolDiffer As Boolean ''Added 12/4/2021 td  
 
         ''7/26/2019 td''frm_ToShow.ListOfFields = GetCurrentPersonality_Fields()
         ''12/4/2021 td''frm_ToShow.ListOfFields = Form__Main_PreDemo.GetCurrentPersonality_Fields_Custom()
 
         ''frm_ToShow.ListOfFields.Clear()
-        frm_ToShow.ListOfFields = New List(Of ClassFieldCustomized)
+        ''Dec.5 2021''frm_ToShow.ListOfFields = New List(Of ClassFieldCustomized)
 
-        For Each each_field In Me.ElementsCache_Edits.ListOfFields_Custom()
-            ''Allow the field to be displayed & edited.
-            frm_ToShow.ListOfFields.Add(each_field)
-        Next each_field
+        ''Dec.5 2021''For Each each_field In Me.ElementsCache_Edits.ListOfFields_Custom()
+        ''Dec.5 2021''    ''Allow the field to be displayed & edited.
+        ''Dec.5 2021''    frm_ToShow.ListOfFields.Add(each_field)
+        ''Dec.5 2021''Next each_field
+
+        frm_ToShow.ListOfFields = Me.ElementsCache_Edits.ListOfFields_Custom
 
         ''
         ''
@@ -1123,7 +1135,14 @@ Public Class Form__Main_Demo
         ''Double-check what has been saved. ----12/4/2021 td
         ''
         ''
-        mod_caches.CheckEditedFieldsHaveElementsIfNeeded()
+        ''Me.ElementsCache_ManageBoth.CheckEditedFieldsHaveElementsIfNeeded(pstrErrorMessage)
+        Dim strErrorMessage As String = ""
+        Dim strListOfCustomFields As String = ""
+        Me.ElementsCache_ManageBoth.CheckEditedFieldsHaveElementsIfNeeded_Custom(strListOfCustomFields, strErrorMessage)
+        DisplayStringDataInNotepad(strListOfBadgeFields)
+
+        ''Added 12/5/2021 thomas downes
+        If (strErrorMessage <> "") Then MessageBox.Show(strErrorMessage, "", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         ''RefreshTheSetOfDisplayedElements()
         ''PictureBox1.SendToBack()

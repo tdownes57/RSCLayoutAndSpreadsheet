@@ -1,4 +1,4 @@
-﻿Public Class FormDisplay
+﻿Public Class FormDisplayBadge
 
     Public ImageLarge_OrientLandscape As Image
     Public ImageSmall_OrientPortrait As Image

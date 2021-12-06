@@ -5,7 +5,7 @@ Imports System.IO ''Added 12/3/2021 thomas downes
 ''
 ''Added 10/12/2019 Thomas Downes    
 ''
-Public Class DiskFiles
+Public Class DiskFilesVB
     ''
     ''Added 10/12/2019 Thomas Downes    
     ''
@@ -70,6 +70,23 @@ Public Class DiskFiles
 
     End Function ''End of "Public Shared Function PathToFile_XML_ElementsCache() As String"
 
+
+    Public Shared Sub DisplayStringDataInNotepad(par_stringData As String)
+        ''
+        ''Copied from Form__Main_Demo.vb on 12/5/2021 td   
+        ''Added 11/28/2021 thomas downes  
+        ''
+        Dim strRandomFolder As String
+        Dim strRandomFilePath As String
+        Dim strRandomTitle As String
+
+        strRandomFolder = DiskFolders.PathToFolder_Preview()
+        strRandomTitle = String.Format("Elements {0:HHmmss}.txt", DateTime.Now)
+        strRandomFilePath = System.IO.Path.Combine(strRandomFolder, strRandomTitle)
+        System.IO.File.WriteAllText(strRandomFilePath, par_stringData)
+        System.Diagnostics.Process.Start(strRandomFilePath)
+
+    End Sub ''ENd of "Public Shared Sub DisplayStringDataInNotepad()"
 
 
 End Class ''eND OF "Public Class DiskFiles"

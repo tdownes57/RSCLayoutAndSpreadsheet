@@ -9,7 +9,8 @@ Imports ciBadgeFields ''Added 9/19/2019 td
 
 Public Class ListCustomFieldsFlow
 
-    Public Property ListOfFields As List(Of ClassFieldCustomized) ''Added 7/23/2019 thomas downes 
+    ''12/5/2021 td''Public Property ListOfFields As List(Of ClassFieldCustomized) ''Added 7/23/2019 thomas downes 
+    Public Property ListOfFields As HashSet(Of ClassFieldCustomized) ''Added 7/23/2019 thomas downes 
     Public Property JustOneField_Index As Integer ''Added 7/30/2019 thomas d. 
 
     Private Const vbCrLf_Deux As String = (vbCrLf & vbCrLf)
@@ -43,10 +44,10 @@ Public Class ListCustomFieldsFlow
 
         If (ListOfFields IsNot Nothing) Then list_local = ListOfFields
 
-        If (list_local Is Nothing) Then
-            ClassFieldCustomized.InitializeHardcodedList_Students(True)
-            list_local = ClassFieldCustomized.ListOfFields_Students
-        End If ''end of "If (list_local Is Nothing) Then"
+        ''Dec.5 2021''If (list_local Is Nothing) Then
+        ''Dec.5 2021''    ClassFieldCustomized.InitializeHardcodedList_Students(True)
+        ''Dec.5 2021''    list_local = ClassFieldCustomized.ListOfFields_Students
+        ''Dec.5 2021''End If ''end of "If (list_local Is Nothing) Then"
 
         FlowLayoutPanel1.Controls.Clear()
 
@@ -129,14 +130,20 @@ Public Class ListCustomFieldsFlow
                 ''8/29/2019 td''If (.NewlyAdded) Then FormMain.GetCurrentPersonality_Fields_Custom().Add(.Model)
                 If (.NewlyAdded) Then
                     ''9/2/2019 td''FormMain.GetCurrentPersonality_Fields_Custom().Add(.ModelFieldInfo)
-                    Form__Main_PreDemo.GetCurrentPersonality_Fields_Custom().Add(.Field_Customized)
+                    ''12/5/2021 td''Form__Main_PreDemo.GetCurrentPersonality_Fields_Custom().Add(.Field_Customized)
+                    Form__Main_Demo.ElementsCache_Edits.ListOfFields_Custom.Add(.Field_Customized)
+
                 End If ''End of "If (.NewlyAdded) Then"
 
             End With ''End of "With each_ctl_configure_field"
 
         Next each_control
 
-    End Sub
+        ''
+        ''Exit procedure.....
+        ''
+
+    End Sub ''End of "Private Sub SaveControls" 
 
     Private Sub LinkLabelRefresh_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles linkLabelRefresh.LinkClicked
 

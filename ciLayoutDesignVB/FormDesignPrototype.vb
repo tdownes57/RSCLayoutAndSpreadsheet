@@ -356,7 +356,7 @@ ExitHandler:
         ''
         If (checkboxDisplayWindow.Checked) Then
 
-            Dim objFormToShow As New FormDisplay
+            Dim objFormToShow As New FormDisplayBadge
             Dim image_Landscape As Image = Nothing
             Dim image_SmallPortrait As Image = Nothing
 

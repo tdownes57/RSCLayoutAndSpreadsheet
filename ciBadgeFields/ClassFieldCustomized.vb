@@ -167,8 +167,11 @@ Public Class ClassFieldCustomized
     ''
     ''Added 7/16/2019 thomas d. 
     ''
-    Public Shared ListOfFields_Students As New List(Of ClassFieldCustomized)
-    Public Shared ListOfFields_Staff As New List(Of ClassFieldCustomized)
+    ''--Dec.5 2021--Public Shared ListOfFields_Students As New List(Of ClassFieldCustomized)
+    ''--Dec.5 2021--Public Shared ListOfFields_Staff As New List(Of ClassFieldCustomized)
+
+    Public Shared ListOfFields_Students As New HashSet(Of ClassFieldCustomized)
+    Public Shared ListOfFields_Staff As New HashSet(Of ClassFieldCustomized)
 
     Public Sub New()
         ''
@@ -632,6 +635,11 @@ Public Class ClassFieldCustomized
         Me.IsLocked = par_info.IsLocked
         Me.IsStandard = par_info.IsStandard
 
+        ''Added 12/5/2021 thomas downes
+        Me.IsRelevantToPersonality = par_info.IsRelevantToPersonality
+        Me.DateEdited = par_info.DateEdited
+        Me.DateSaved = par_info.DateSaved
+
         Me.OtherDbField_Optional = par_info.OtherDbField_Optional  ''Added 7/23/2019 td 
 
     End Sub ''End of "Public Sub Load_ByCopyingMembers(par_info As ICIBFieldStandardOrCustom)"
@@ -732,6 +740,10 @@ Public Class ClassFieldCustomized
         Me.OtherDbField_Optional = par_objectClass.OtherDbField_Optional
         Me.SublayoutLookup = par_objectClass.SublayoutLookup
         Me.Text_orDate = par_objectClass.Text_orDate
+
+        ''Added 12/5/2021 thomas downes
+        Me.IsRelevantToPersonality = par_objectClass.IsRelevantToPersonality
+        Me.DateSaved = par_objectClass.DateSaved
 
         ''Added 10/14/2019 thomas downes
         ''

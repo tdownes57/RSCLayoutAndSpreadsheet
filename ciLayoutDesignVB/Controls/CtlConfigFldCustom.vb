@@ -49,6 +49,8 @@ Public Class CtlConfigFldCustom
         mod_model_copy.Load_ByCopyingMembers(par_field)
 
         LabelHeaderTop.Text = mod_model_copy.FieldLabelCaption
+        LabelDatabaseFieldname.Text = mod_model_copy.CIBadgeField ''Added 12/5/2021 Thomas Downes 
+        LabelDateEdited.Text = mod_model.DateEdited.ToString("mm/dd/yy HH:mm")
 
         ''If a fieldname is missing, then display the field index. 
         If (LabelHeaderTop.Text = "") Then If (mod_model_copy.FieldIndex > 0) Then LabelHeaderTop.Text = "Field # " & CStr(mod_model_copy.FieldIndex)
@@ -115,11 +117,17 @@ ExitHandler:
             ''Added 12//3/2021 thomas downes
             .IsRelevantToPersonality = checkRelevantToPersonality.Checked
 
-        End With ''End of "With par_info"  
+            ''Added 12/5/2021 thomas downes
+            .DateSaved = DateTime.Now
+
+        End With ''End of "With mod_model"  
 
         ''Added 7/27/2019 td  
         ''8/29/2019 td''Me.Model = mod_model
         Me.ModelFieldInfo = mod_model
+
+        ''Added 12/5/2021 thomas downes
+        mod_model_copy = mod_model.Copy_FieldCustom()
 
     End Sub ''End of "Public Sub Save_CustomControl()" 
 
@@ -250,6 +258,40 @@ ExitHandler:
         ''7/27/ td''LabelFieldLabelCaption.Text = CType(sender, TextBox).Text
 
         LabelHeaderTop.Text = CType(sender, TextBox).Text
+
+    End Sub
+
+    Private Sub checkIsFieldForDates_CheckedChanged(sender As Object, e As EventArgs) Handles checkIsFieldForDates.CheckedChanged
+
+        If (mod_model IsNot Nothing) Then mod_model.DateEdited = Now ''Added 12/5/2021 td 
+    End Sub
+
+    Private Sub checkIsLocked_CheckedChanged(sender As Object, e As EventArgs) Handles checkIsLocked.CheckedChanged
+
+        If (mod_model IsNot Nothing) Then mod_model.DateEdited = Now ''Added 12/5/2021 td 
+    End Sub
+
+    Private Sub checkHasPresetValues_CheckedChanged(sender As Object, e As EventArgs) Handles checkHasPresetValues.CheckedChanged
+
+        If (mod_model IsNot Nothing) Then mod_model.DateEdited = Now ''Added 12/5/2021 td 
+
+    End Sub
+
+    Private Sub checkRelevantToPersonality_CheckedChanged(sender As Object, e As EventArgs) Handles checkRelevantToPersonality.CheckedChanged
+
+        If (mod_model IsNot Nothing) Then mod_model.DateEdited = Now ''Added 12/5/2021 td 
+
+    End Sub
+
+    Private Sub checkDisplayOnBadge_CheckedChanged(sender As Object, e As EventArgs) Handles checkDisplayOnBadge.CheckedChanged
+
+        If (mod_model IsNot Nothing) Then mod_model.DateEdited = Now ''Added 12/5/2021 td 
+
+    End Sub
+
+    Private Sub checkDisplayForEdits_CheckedChanged(sender As Object, e As EventArgs) Handles checkDisplayForEdits.CheckedChanged
+
+        If (mod_model IsNot Nothing) Then mod_model.DateEdited = Now ''Added 12/5/2021 td 
 
     End Sub
 End Class

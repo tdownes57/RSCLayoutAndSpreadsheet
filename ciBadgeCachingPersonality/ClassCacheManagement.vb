@@ -16,7 +16,7 @@ Namespace ciBadgeCachePersonality
         Private mod_cacheSaved As ClassElementsCache_Deprecated
         Private mod_strPathToSavedFileXML As String
 
-        Public ReadOnly Property Cache() As ClassElementsCache_Deprecated
+        Public ReadOnly Property CacheForEditing() As ClassElementsCache_Deprecated
             ''
             ''Added 12/4/2021 thomas downes  
             ''
@@ -93,7 +93,7 @@ Namespace ciBadgeCachePersonality
         End Sub ''End of "Public Sub LinkElementsToFields()"
 
 
-        Public Sub CheckEditedFieldsHaveElementsIfNeeded()
+        Public Sub CheckEditedFieldsHaveElementsIfNeeded_Custom(ByRef pstrListOfFields As String, ByRef pstrErrorMessage As String)
             ''
             ''
             ''Double-check what has been saved. ----12/4/2021 td
@@ -119,6 +119,11 @@ Namespace ciBadgeCachePersonality
 
                 Dim fieldConfirmedToBeEdited As ClassFieldCustomized = Nothing
                 each_field_saved = mod_cacheSaved.GetFieldByLabelCaption(each_field_possiblyEdited.FieldLabelCaption)
+                If (each_field_saved Is Nothing) Then
+                    pstrErrorMessage = "Corresponding Saved field not found!"
+                    Return
+                End If ''End of "If (each_field_saved Is Nothing) Then"
+
                 boolDifferingSoEdited = (each_field_possiblyEdited.IsDisplayedOnBadge <> each_field_saved.IsDisplayedOnBadge)
                 If (boolDifferingSoEdited) Then fieldConfirmedToBeEdited = each_field_possiblyEdited
 
@@ -151,14 +156,22 @@ Namespace ciBadgeCachePersonality
                         ''
                         ''Major call !! 
                         ''
-                        FieldEdited_SoDeleteElementsIfNeeded(fieldConfirmedToBeEdited)
+                        FieldEdited_SoDeleteElementsIfNeeded(fieldConfirmedToBeEdited, strListOfBadgeFields)
 
                     End If ''End of "If (boolFieldIsNowRemoved) Then"
 
                 End If ''End of "If (each_field.IsDisplayedOnBadge) Then"
 
-
             Next each_field_possiblyEdited
+
+            ''
+            ''Exiting....
+            ''
+            ''TextDisplay
+            ''System.IO.Path.Combine(
+
+            pstrListOfFields = strListOfBadgeFields
+            DiskFilesVB.DisplayStringDataInNotepad(strListOfBadgeFields)
 
         End Sub ''End of "Public Sub CheckEditedFieldsHaveElementsIfNeeded()"
 
@@ -185,27 +198,34 @@ Namespace ciBadgeCachePersonality
             Else
                 ''The element exists.  
                 Dim why_omit As New WhyOmitted
-                Dim boolElemDisplayed As Boolean
+                Dim boolElemDisplayedOnBadge As Boolean
 
-                boolElemDisplayed = elementForField.IsDisplayedOnBadge_Visibly(why_omit)
+                boolElemDisplayedOnBadge = elementForField.IsDisplayedOnBadge_Visibly(why_omit)
 
-                par_strListOfFields += ("   Wrapper element: " & elementForField.FieldNm_CaptionText() &
-                        "  Is it displayed? " &
-                        boolElemDisplayed.ToString() & vbCrLf)
+                par_strListOfFields += ("   Good, a wrapper element exists: " & elementForField.FieldNm_CaptionText() &
+                        "  Is it displayed on the badge? " &
+                        boolElemDisplayedOnBadge.ToString() & vbCrLf &
+                        String.Format("  Pixels Top & Left: {0}, {1} ",
+                        elementForField.TopEdge_Pixels, elementForField.LeftEdge_Pixels) & vbCrLf)
 
             End If ''End of "If (each_element Is Nothing) Then .... Else ...."
 
-
-
+            ''
+            ''Exiting...
+            ''
+            par_strListOfFields += vbCrLf
 
 
         End Sub ''End of "Public Sub FieldsEditedSoBuildElementsIfNeeded()"
 
 
-        Public Sub FieldEdited_SoDeleteElementsIfNeeded()
+        Public Sub FieldEdited_SoDeleteElementsIfNeeded(par_fieldToDisplay As ClassFieldCustomized,
+                                                               ByRef par_strListOfFields As String)
             ''
             ''Added 12/4/2021 
             ''
+
+
 
 
 

@@ -56,4 +56,7 @@ Public Interface ICIBFieldStandardOrCustom
 
     ''Moved to InterfaceElementBase. ----9/19 td''Property Visible As Boolean ''Added 9/19/2019 td
 
+    Property DateEdited As Date ''Added 12/5/2021 thomas downes  
+    Property DateSaved As Date ''Added 12/5/2021 thomas downes  
+
 End Interface

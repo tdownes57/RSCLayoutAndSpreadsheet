@@ -165,11 +165,11 @@ Public Class Startup
         Dim strPathToXML As String = ""
         Dim obj_cache_personality As ClassCachePersonality ''Dec.4, 2021 '' As ClassPersonalityCache
 
-        strPathToXML = DiskFiles.PathToFile_XML_Personality
+        strPathToXML = DiskFilesVB.PathToFile_XML_Personality
 
         If (strPathToXML = "") Then
             pboolNewFileXML = True
-            strPathToXML = DiskFiles.PathToFile_XML_Personality
+            strPathToXML = DiskFilesVB.PathToFile_XML_Personality
             My.Settings.PathToXML_Saved_ElementsCache = strPathToXML
             My.Settings.Save()
         Else
@@ -336,13 +336,13 @@ Public Class Startup
         ''Added 10/10/2019 td
         ''  10/13/2019 td''strPathToXML = My.Settings.PathToXML_Saved
         ''  1/14/2020''strPathToXML = DiskFiles.PathToFile_XML_ElementsCache
-        strPathToXML = DiskFiles.PathToFile_XML_ElementsCache
+        strPathToXML = DiskFilesVB.PathToFile_XML_ElementsCache
 
         If (strPathToXML = "") Then
             pboolNewFileXML = True
             ''10/12/2019 td''strPathToXML = (My.Application.Info.DirectoryPath & "\ciLayoutDesignVB_Saved.xml").Replace("\\", "\")
             ''1/14/2030 td''strPathToXML = DiskFiles.PathToFile_XML
-            strPathToXML = DiskFiles.PathToFile_XML_ElementsCache
+            strPathToXML = DiskFilesVB.PathToFile_XML_ElementsCache
             My.Settings.PathToXML_Saved_ElementsCache = strPathToXML
             My.Settings.Save()
         Else

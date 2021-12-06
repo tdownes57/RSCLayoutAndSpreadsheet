@@ -397,7 +397,7 @@
     <Compile Include="Controls\CtlBackground.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="DiskFiles\DiskFiles.vb" />
+    <Compile Include="DiskFiles\DiskFilesVB.vb" />
     <Compile Include="DiskFiles\DiskFolders.vb" />
     <Compile Include="FormUploadDimensionsMsg.Designer.vb">
       <DependentUpon>FormUploadDimensionsMsg.vb</DependentUpon>
@@ -545,10 +545,10 @@
       <DependentUpon>FormDesignPrototype.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormDisplay.Designer.vb">
-      <DependentUpon>FormDisplay.vb</DependentUpon>
+    <Compile Include="FormDisplayBadge.Designer.vb">
+      <DependentUpon>FormDisplayBadge.vb</DependentUpon>
     </Compile>
-    <Compile Include="FormDisplay.vb">
+    <Compile Include="FormDisplayBadge.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DialogTextBorder.Designer.vb">
@@ -705,8 +705,8 @@
     <EmbeddedResource Include="FormDesignPrototype.resx">
       <DependentUpon>FormDesignPrototype.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormDisplay.resx">
-      <DependentUpon>FormDisplay.vb</DependentUpon>
+    <EmbeddedResource Include="FormDisplayBadge.resx">
+      <DependentUpon>FormDisplayBadge.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DialogDisplayColor.resx">
       <DependentUpon>DialogDisplayColor.vb</DependentUpon>
@@ -776,6 +776,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="DiskFiles\DiskFilesCS.cs" />
     <Content Include="Images\Adjust width &amp; height.jpg" />
     <Content Include="Images\Adjust width &amp; height.png" />
     <Content Include="Images\AdjustWHColor_V101.jpg" />

@@ -40,6 +40,13 @@ Public Class Form__Main_PreDemo
 
     End Function ''eNd of "Public Function GetCurrentPersonality_Fields_Custom() As List(Of ClassFieldCustomized)"
 
+    Public Shared Function GetCurrentPersonality_Fields_Custom_HashSet() As HashSet(Of ClassFieldCustomized)
+        ''
+        ''Added 12/5/2019 thomas downes
+        ''
+
+    End Function
+
     Public Shared Function GetCurrentPersonality_Fields_Standard() As HashSet(Of ClassFieldStandard)
         ''
         ''Added 7/26/2019 thomas downes
@@ -118,7 +125,8 @@ Public Class Form__Main_PreDemo
         ''
         Dim frm_ToShow As New ListCustomFieldsFlow()
         ''7/26/2019 td''frm_ToShow.ListOfFields = GetCurrentPersonality_Fields()
-        frm_ToShow.ListOfFields = GetCurrentPersonality_Fields_Custom()
+        ''12/5/2021 td''frm_ToShow.ListOfFields = GetCurrentPersonality_Fields_Custom()
+        frm_ToShow.ListOfFields = GetCurrentPersonality_Fields_Custom_Hashset()
         frm_ToShow.Show()
 
     End Sub

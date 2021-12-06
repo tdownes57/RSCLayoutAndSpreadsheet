@@ -90,6 +90,10 @@ Public Class ClassFieldAny
     <Xml.Serialization.XmlIgnore>
     Public Property SublayoutLookup As Dictionary(Of String, Integer) = Nothing Implements ICIBFieldStandardOrCustom.SublayoutLookup ''Added 9/17/2019 td
 
+    Public Property DateEdited As Date = Date.MinValue Implements ICIBFieldStandardOrCustom.DateEdited ''Added 12/5/2021 thomas downes  
+    Public Property DateSaved As Date = Date.MinValue Implements ICIBFieldStandardOrCustom.DateSaved ''Added 12/5/2021 thomas downes  
+
+
     Public Overridable Function Copy() As ClassFieldAny
         ''
         ''Added 9/30/2019 
