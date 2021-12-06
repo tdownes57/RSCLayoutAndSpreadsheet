@@ -251,6 +251,16 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property feather_logo_RSC() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("feather_logo_RSC", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to {\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}{\f1\fnil\fcharset0 Code39FiveRedA;}}
         '''{\*\generator Riched20 10.0.18362}\viewkind4\uc1 
         '''\pard\sa200\sl276\slmult1\f0\fs22\lang9\par

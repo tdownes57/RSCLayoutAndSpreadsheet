@@ -132,6 +132,7 @@ Public Class ClassRecipient
     Property fstrBarcode As String Implements IRecipient.fstrBarcode
     Property fstrRFID_Unique As String Implements IRecipient.fstrRFID_Unique
 
+    Property fstrCity As String Implements IRecipient.fstrCity ''Added 12/6/2021 td 
 
     Property intTimesPrinted As Integer Implements IRecipient.intTimesPrinted
 

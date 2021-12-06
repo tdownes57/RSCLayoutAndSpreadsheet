@@ -109,6 +109,8 @@ Public Interface IRecipient
     Property fstrBarcode As String ''Added 10/11/2019 td
     Property fstrRFID_Unique As String ''Added 10/11/2019 td
 
+    Property fstrCity As String ''Added 12/6/2021 td 
+
     ''-------------------------------------------------------
     ''Custom fields 
     ''   ----10/4/2019 thomas d
