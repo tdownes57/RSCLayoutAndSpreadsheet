@@ -8,13 +8,26 @@ Imports ciBadgeInterfaces
 Imports ciBadgeFields ''Added 9/19/2019 td   
 
 Public Class ListCustomFieldsFlow
+    Implements InterfaceShowListFields ''Added 12/6/2021 td 
 
     ''12/5/2021 td''Public Property ListOfFields As List(Of ClassFieldCustomized) ''Added 7/23/2019 thomas downes 
-    Public Property ListOfFields As HashSet(Of ClassFieldCustomized) ''Added 7/23/2019 thomas downes 
-    Public Property JustOneField_Index As Integer ''Added 7/30/2019 thomas d. 
-    Public Property CacheManager As ciBadgeCachePersonality.ClassCacheManagement
+    Public Property ListOfFields_Custom As HashSet(Of ClassFieldCustomized) Implements InterfaceShowListFields.ListOfFields_Custom ''Added 7/23/2019 thomas downes 
 
-    Public Property ClosingOK_SoSaveWork As Boolean ''Added 12/6/2021 thomas downes
+    Public Property ListOfFields_Standard As HashSet(Of ClassFieldStandard) Implements InterfaceShowListFields.ListOfFields_Standard ''Not in use.  Added 12/6/2021 thomas downes 
+
+    Public Property JustOneField_Index As Integer Implements InterfaceShowListFields.JustOneField_Index ''Added 7/30/2019 thomas d. 
+    Public Property CacheManager As ciBadgeCachePersonality.ClassCacheManagement Implements InterfaceShowListFields.CacheManager
+
+    Public Property ClosingOK_SoSaveWork As Boolean Implements InterfaceShowListFields.ClosingOK_SoSaveWork ''Added 12/6/2021 thomas downes
+
+    Public Overloads Function ShowDialog() As DialogResult Implements InterfaceShowListFields.ShowDialog
+        ''
+        ''Added 12/6/2021 td
+        ''
+        Return CType(Me, Form).ShowDialog()
+    End Function
+
+
 
     Private Const vbCrLf_Deux As String = (vbCrLf & vbCrLf)
 
@@ -39,7 +52,7 @@ Public Class ListCustomFieldsFlow
         ''---Me.CacheManager.OutputToTextFile_CustomFields(Me.ListOfFields)
 
         ''Dec. 6 2021''LoadCustomFields_All()
-        LoadCustomFields_All(Me.ListOfFields)
+        LoadCustomFields_All(Me.ListOfFields_Custom)
 
     End Sub
 
@@ -164,7 +177,7 @@ Public Class ListCustomFieldsFlow
         FlowLayoutPanel1.Controls.Clear()
 
         ''Dec.6, 2021''LoadCustomFields_All(Me.ListOfFields)
-        LoadCustomFields_All(Me.ListOfFields)
+        LoadCustomFields_All(Me.ListOfFields_Custom)
 
     End Sub
 
@@ -192,7 +205,8 @@ Public Class ListCustomFieldsFlow
 
         If (dia_result = DialogResult.Yes) Then ''LoadCustomFields_All()
             FlowLayoutPanel1.Controls.Clear()
-            LoadCustomFields_All(Me.ListOfFields)
+            ''Major call!!
+            LoadCustomFields_All(Me.ListOfFields_Custom)
         End If ''End of "If (dia_result = DialogResult.Yes) Then"
 
     End Sub

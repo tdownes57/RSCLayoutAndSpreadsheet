@@ -119,14 +119,16 @@ Public Class Form__Main_PreDemo
 
     End Sub
 
-    Private Sub UserControlsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UserControlsToolStripMenuItem.Click
+    Private Sub CustomFields_PreDemo_Click(sender As Object, e As EventArgs) Handles UserControlsToolStripMenuItem.Click
         ''
         ''Added 7/17/2019 thomas downes
         ''
         Dim frm_ToShow As New ListCustomFieldsFlow()
+
         ''7/26/2019 td''frm_ToShow.ListOfFields = GetCurrentPersonality_Fields()
         ''12/5/2021 td''frm_ToShow.ListOfFields = GetCurrentPersonality_Fields_Custom()
-        frm_ToShow.ListOfFields = GetCurrentPersonality_Fields_Custom_Hashset()
+
+        frm_ToShow.ListOfFields_Custom = GetCurrentPersonality_Fields_Custom_HashSet()
         frm_ToShow.Show()
 
     End Sub
@@ -148,7 +150,7 @@ Public Class Form__Main_PreDemo
         ''
         Dim frm_ToShow As New ListCustomFieldsFlow()
         ClassFieldCustomized.InitializeHardcodedList_Students(True)
-        frm_ToShow.ListOfFields = ClassFieldCustomized.ListOfFields_Students
+        frm_ToShow.ListOfFields_Custom = ClassFieldCustomized.ListOfFields_Students
         frm_ToShow.Show()
 
     End Sub
@@ -159,7 +161,7 @@ Public Class Form__Main_PreDemo
         ''
         Dim frm_ToShow As New ListCustomFieldsFlow()
         ClassFieldCustomized.InitializeHardcodedList_Staff(True)
-        frm_ToShow.ListOfFields = ClassFieldCustomized.ListOfFields_Staff
+        frm_ToShow.ListOfFields_Custom = ClassFieldCustomized.ListOfFields_Staff
         frm_ToShow.Show()
 
     End Sub

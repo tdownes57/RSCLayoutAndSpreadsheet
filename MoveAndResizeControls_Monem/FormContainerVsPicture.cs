@@ -22,10 +22,10 @@ namespace MoveAndResizeControls_Monem
         {
             // Added 12/2/2021 thomas downes
             //
-            var objFormToShow = new FormContainerVsPicture();
-
-            objFormToShow.ShowDialog();
-            return objFormToShow.LetsPassToMouseUp_ElementContainer;
+            //var objFormToShow = new FormContainerVsPicture();
+            //objFormToShow.ShowDialog();
+            //return objFormToShow.LetsPassToMouseUp_ElementContainer;
+            return true; 
 
         }
 

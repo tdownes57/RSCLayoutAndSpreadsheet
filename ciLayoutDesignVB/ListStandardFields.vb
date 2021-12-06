@@ -7,10 +7,27 @@ Imports ciBadgeInterfaces
 Imports ciBadgeFields ''Added 9/19/2019 td 
 
 Public Class ListStandardFields
+    Implements InterfaceShowListFields ''Added 12/6/2021 td 
 
     ''10/17 Public Property ListOfFields As List(Of ClassFieldStandard) ''Added 8/19/2019 thomas downes 
-    Public Property ListOfFields As HashSet(Of ClassFieldStandard) ''Added 8/19/2019 thomas downes 
-    Public Property JustOneField_Index As Integer ''Added 7/30/2019 thomas d. 
+    ''12/6/2021''Public Property ListOfFields As HashSet(Of ClassFieldStandard) ''Added 8/19/2019 thomas downes 
+
+    Public Property ListOfFields_Custom As HashSet(Of ClassFieldCustomized) Implements InterfaceShowListFields.ListOfFields_Custom ''Added 7/23/2019 thomas downes 
+
+    Public Property ListOfFields_Standard As HashSet(Of ClassFieldStandard) Implements InterfaceShowListFields.ListOfFields_Standard ''Not in use.  Added 12/6/2021 thomas downes 
+
+    Public Property JustOneField_Index As Integer Implements InterfaceShowListFields.JustOneField_Index ''Added 7/30/2019 thomas d. 
+    Public Property CacheManager As ciBadgeCachePersonality.ClassCacheManagement Implements InterfaceShowListFields.CacheManager
+
+    Public Property ClosingOK_SoSaveWork As Boolean Implements InterfaceShowListFields.ClosingOK_SoSaveWork ''Added 12/6/2021 thomas downes
+
+    Public Overloads Function ShowDialog() As DialogResult Implements InterfaceShowListFields.ShowDialog
+        ''
+        ''Added 12/6/2021 td
+        ''
+        Return CType(Me, Form).ShowDialog()
+
+    End Function
 
     Private Const vbCrLf_Deux As String = (vbCrLf & vbCrLf)
 
@@ -43,7 +60,7 @@ Public Class ListStandardFields
         ''10/17 td''Dim list_local As List(Of ClassFieldStandard) = Nothing
         Dim list_local As HashSet(Of ClassFieldStandard) = Nothing
 
-        If (ListOfFields IsNot Nothing) Then list_local = ListOfFields
+        If (ListOfFields_Standard IsNot Nothing) Then list_local = ListOfFields_Standard
 
         If (list_local Is Nothing) Then
             ClassFieldStandard.InitializeHardcodedList_Students(True)

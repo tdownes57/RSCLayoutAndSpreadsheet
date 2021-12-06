@@ -453,6 +453,7 @@
     <Compile Include="FormSimpleDataEntry.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="InterfaceShowListFields.vb" />
     <Compile Include="ListCustomFieldsFlow.Designer.vb">
       <DependentUpon>ListCustomFieldsFlow.vb</DependentUpon>
     </Compile>
@@ -558,6 +559,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="modFonts.vb" />
+    <Compile Include="Modules\modAllowFieldEdits.vb" />
     <Compile Include="__Notes\CodeDeletedFromProtoTwo.vb" />
     <Compile Include="Startup.vb" />
     <Compile Include="Version830_v101.Designer.vb">

@@ -48,6 +48,7 @@ Public Class Form__Main_Demo
 
     Private Const mc_boolAllowGroupMovements As Boolean = True ''False ''True ''False ''Added 8/3/2019 td  
     Private Const mc_boolBreakpoints As Boolean = True
+    Private mod_boolDebugMode As Boolean = True ''Added 12/6/2021 thomas downes
 
     ''Added 8/18/2019 td
     Private mod_imageLady As Image ''8/18/2019 td'' = CtlGraphicPortrait_Lady.picturePortrait.Image
@@ -1077,123 +1078,116 @@ Public Class Form__Main_Demo
 
     End Sub
 
-    Private Sub UserControlsToolStripMenuItem_Click(sender As Object, e As EventArgs)
+    ''Private Sub UserControlsToolStripMenuItem_Click(sender As Object, e As EventArgs)
+    ''    ''
+    ''    ''Added 7/17/2019 thomas downes
+    ''    ''
+    ''    Dim frm_ToShow As New ListCustomFieldsFlow()
+
+    ''    ''Dec. 6, 2021 td
+    ''    ''Me.ElementsCache_ManageBoth.OutputToTextFile_CustomFields(Me.ElementsCache_Edits.ListOfFields_Custom, "Prior to editing")
+
+    ''    ''7/26/2019 td''frm_ToShow.ListOfFields = GetCurrentPersonality_Fields()
+    ''    ''12/4/2021 td''frm_ToShow.ListOfFields = Form__Main_PreDemo.GetCurrentPersonality_Fields_Custom()
+    ''    ''12/5/2021 td''frm_ToShow.ListOfFields = Form__Main_PreDemo.GetCurrentPersonality_Fields_Custom()
+    ''    frm_ToShow.ListOfFields = Me.ElementsCache_Edits.ListOfFields_Custom
+    ''    frm_ToShow.CacheManager = Me.ElementsCache_ManageBoth ''Added 12/6/2021 td 
+    ''    frm_ToShow.ShowDialog()
+    ''    RefreshTheSetOfDisplayedElements()
+    ''    PictureBox1.SendToBack()
+
+    ''    ''Dec. 6, 2021 td 
+    ''    If (frm_ToShow.ClosingOK_SoSaveWork) Then
+    ''        ''Dec. 6, 2021 td 
+    ''        Me.ElementsCache_ManageBoth.Save()
+    ''        ''--Me.ElementsCache_Saved = Me.ElementsCache_ManageBoth.CacheSaved()
+
+    ''    End If ''ENd of "If (frm_ToShow.ClosingOK_SoSaveWork) Then"
+
+    ''    ''Dec. 6, 2021 td
+    ''    Me.ElementsCache_ManageBoth.OutputToTextFile_CustomFields(Me.ElementsCache_Edits.ListOfFields_Custom, "After editing")
+
+    ''End Sub
+
+    Private Sub CustomFields_Click(sender As Object, e As EventArgs) Handles CustomFieldsToolStripMenuItem.Click
         ''
         ''Added 7/17/2019 thomas downes
+        ''Encapsulated 12/6/2021 thomas downes
         ''
-        Dim frm_ToShow As New ListCustomFieldsFlow()
-
-        ''Dec. 6, 2021 td
-        Me.ElementsCache_ManageBoth.OutputToTextFile_CustomFields(Me.ElementsCache_Edits.ListOfFields_Custom, "Prior to editing")
-
-        ''7/26/2019 td''frm_ToShow.ListOfFields = GetCurrentPersonality_Fields()
-        ''12/4/2021 td''frm_ToShow.ListOfFields = Form__Main_PreDemo.GetCurrentPersonality_Fields_Custom()
-        ''12/5/2021 td''frm_ToShow.ListOfFields = Form__Main_PreDemo.GetCurrentPersonality_Fields_Custom()
-        frm_ToShow.ListOfFields = Me.ElementsCache_Edits.ListOfFields_Custom
-        frm_ToShow.CacheManager = Me.ElementsCache_ManageBoth ''Added 12/6/2021 td 
-        frm_ToShow.ShowDialog()
-        RefreshTheSetOfDisplayedElements()
-        PictureBox1.SendToBack()
-
-        ''Dec. 6, 2021 td 
-        If (frm_ToShow.ClosingOK_SoSaveWork) Then
-            ''Dec. 6, 2021 td 
-            Me.ElementsCache_ManageBoth.Save()
-            ''--Me.ElementsCache_Saved = Me.ElementsCache_ManageBoth.CacheSaved()
-
-        End If ''ENd of "If (frm_ToShow.ClosingOK_SoSaveWork) Then"
-
-        ''Dec. 6, 2021 td
-        Me.ElementsCache_ManageBoth.OutputToTextFile_CustomFields(Me.ElementsCache_Edits.ListOfFields_Custom, "After editing")
+        ShowFieldsToEdit_Custom()
 
     End Sub
 
-    Private Sub CustomFieldsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CustomFieldsToolStripMenuItem.Click
+    Private Sub ShowFieldsToEdit_Custom()
         ''
-        ''Added 7/17/2019 thomas downes
+        ''Encapsulated 12/6/2021 thomas downes
         ''
-        Dim frm_ToShow As New ListCustomFieldsFlow()
-        Dim each_field As ciBadgeFields.ClassFieldCustomized
-        ''Dim each_element As ciBadgeElements.ClassElementField
-        Dim strListOfBadgeFields As String = ""
-        ''Dim why_omit As New WhyOmitted
-        ''Dim boolDiffer As Boolean ''Added 12/4/2021 td  
+        Const c_boolDebugMode As Boolean = True ''Added 12/6/2021 td 
 
-        ''7/26/2019 td''frm_ToShow.ListOfFields = GetCurrentPersonality_Fields()
-        ''12/4/2021 td''frm_ToShow.ListOfFields = Form__Main_PreDemo.GetCurrentPersonality_Fields_Custom()
+        ''Major call !!
+        modAllowFieldEdits.ShowFieldsToEdit_Custom(Me.ElementsCache_ManageBoth, Me.ElementsCache_Edits, c_boolDebugMode)
 
-        ''frm_ToShow.ListOfFields.Clear()
-        ''Dec.5 2021''frm_ToShow.ListOfFields = New List(Of ClassFieldCustomized)
-
-        ''Dec.5 2021''For Each each_field In Me.ElementsCache_Edits.ListOfFields_Custom()
-        ''Dec.5 2021''    ''Allow the field to be displayed & edited.
-        ''Dec.5 2021''    frm_ToShow.ListOfFields.Add(each_field)
-        ''Dec.5 2021''Next each_field
-
-        ''12/6/2021 td''frm_ToShow.ListOfFields = Me.ElementsCache_Edits.ListOfFields_Custom
-        frm_ToShow.CacheManager = Me.ElementsCache_ManageBoth ''Added 12/6/2021 td 
-        frm_ToShow.ListOfFields = Me.ElementsCache_ManageBoth.CacheForEditing.ListOfFields_Custom
-
-        ''Dec. 6, 2021 td
-        Me.ElementsCache_ManageBoth.OutputToTextFile_CustomFields(Me.ElementsCache_Edits.ListOfFields_Custom,
-                "Before Dialog, ElementsCache_Edits")
-
-        ''
-        ''
-        ''Show the user & allow edits!!
-        ''
-        ''
-        frm_ToShow.ShowDialog()
-
-        ''Dec. 6, 2021 td
-        Me.ElementsCache_ManageBoth.OutputToTextFile_CustomFields(Me.ElementsCache_Edits.ListOfFields_Custom,
-                                                                  "After Dialog, ElementsCache_Edits")
-
-        ''Dec. 6, 2021 td
-        If (frm_ToShow.ClosingOK_SoSaveWork) Then
-
-            Me.ElementsCache_ManageBoth.Save()
-
-        End If ''End of "If (frm_ToShow.ClosingSoSaveWork) Then"
-
-        ''
-        ''
-        ''Double-check what has been saved. ----12/4/2021 td
-        ''
-        ''
-        ''Me.ElementsCache_ManageBoth.CheckEditedFieldsHaveElementsIfNeeded(pstrErrorMessage)
-        Dim strErrorMessage As String = ""
-        Dim strListOfCustomFields As String = ""
-        Me.ElementsCache_ManageBoth.CheckEditedFieldsHaveElementsIfNeeded_Custom(strListOfCustomFields, strErrorMessage)
-        DisplayStringDataInNotepad(strListOfBadgeFields)
-
-        ''Added 12/5/2021 thomas downes
-        If (strErrorMessage <> "") Then MessageBox.Show(strErrorMessage, "", MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-        ''RefreshTheSetOfDisplayedElements()
-        ''PictureBox1.SendToBack()
-
-        ''Me.mod_designer.UnloadDesigner()
-        ''Me.mod_designer = Nothing
-
-        ''SaveLayout()
-        RefreshTheSetOfDisplayedElements()
-
-    End Sub
-
-    Private Sub StandardFieldsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StandardFieldsToolStripMenuItem.Click
-        ''
-        ''Added 8/19/2019 thomas downes
-        '' 
-        Dim frm_ToShow As New ListStandardFields()
-
-        ''10/14/2019 td''frm_ToShow.ListOfFields = FormMain.GetCurrentPersonality_Fields_Standard()
-        frm_ToShow.ListOfFields = Me.ElementsCache_Edits.ListOfFields_Standard()
-        frm_ToShow.ShowDialog()
+        ''Refresh the form.  
         RefreshTheSetOfDisplayedElements()
         PictureBox1.SendToBack()
 
     End Sub
+
+
+    Private Sub ShowFieldsToEdit_Custom_Deprecated()
+        ''
+        ''Rendered obselete 12/6/2021 thomas downes
+        ''
+        ''See module modAllowFieldEdits for the same-named procedure.
+        '' (Highlight all of the code and hit the "Uncomment" button twice.)
+        ''    ---12/6/2021 td
+        ''
+    End Sub ''End of "Private Sub ShowFieldsToEdit_Custom" 
+
+    ''Private Sub StandardFieldsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StandardFieldsToolStripMenuItem.Click
+    ''    ''
+    ''    ''Added 8/19/2019 thomas downes
+    ''    '' 
+    ''    Dim frm_ToShow As New ListStandardFields()
+    ''
+    ''    ''10/14/2019 td''frm_ToShow.ListOfFields = FormMain.GetCurrentPersonality_Fields_Standard()
+    ''    frm_ToShow.ListOfFields = Me.ElementsCache_Edits.ListOfFields_Standard()
+    ''    frm_ToShow.ShowDialog()
+    ''    RefreshTheSetOfDisplayedElements()
+    ''    PictureBox1.SendToBack()
+    ''
+    ''End Sub
+
+    Private Sub StandardFields_Click(sender As Object, e As EventArgs) Handles StandardFieldsToolStripMenuItem.Click
+        ''
+        ''Encapsulated 12/6/2021 td 
+        ''
+        ShowFieldsToEdit_Standard()
+
+        ''    Dim frm_ToShow As New ListStandardFields()
+        ''    ''10/14/2019 td''frm_ToShow.ListOfFields = FormMain.GetCurrentPersonality_Fields_Standard()
+        ''    frm_ToShow.ListOfFields = Me.ElementsCache_Edits.ListOfFields_Standard()
+        ''    frm_ToShow.ShowDialog()
+        ''    RefreshTheSetOfDisplayedElements()
+        ''    PictureBox1.SendToBack()
+
+    End Sub
+
+    Private Sub ShowFieldsToEdit_Standard()
+        ''
+        ''Encapsulated 12/6/2021 thomas downes  
+        ''Modified 12/6/2021 thomas d. 
+        ''
+        Const c_boolDebugMode As Boolean = True ''Added 12/6/2021 td 
+
+        ''Major call !!
+        modAllowFieldEdits.ShowFieldsToEdit_Standard(Me.ElementsCache_ManageBoth, Me.ElementsCache_Edits, c_boolDebugMode)
+
+        ''Refresh the form.  
+        RefreshTheSetOfDisplayedElements()
+        PictureBox1.SendToBack()
+
+    End Sub ''End of "Private Sub ShowFieldsToEdit_Standard" 
 
     Private Sub LinkRefreshPreview_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkRefreshPreview.LinkClicked
         ''
@@ -1913,6 +1907,7 @@ ExitHandler:
         ''
         Dim objShow As New FormListBackgrounds
         objShow.ShowDialog()
+
         Dim strPathToFilename As String
         If (objShow.ImageFileInfo IsNot Nothing) Then
             strPathToFilename = objShow.ImageFileInfo.FullName
@@ -1981,7 +1976,7 @@ ExitHandler:
         ''
         ''Finishing up. 
         ''
-        DisplayStringDataInNotepad(strListedDataBuilder.ToString())
+        If (False) Then DisplayStringDataInNotepad(strListedDataBuilder.ToString())
 
     End Sub
 
