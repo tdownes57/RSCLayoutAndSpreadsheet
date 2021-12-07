@@ -26,7 +26,7 @@ Public Class CtlConfigFldStandard
     Private mod_s_OtherDbField As String '' = .OtherDbField_Optional
     Private mod_s_ExampleValue As String '' = .ExampleValue
 
-    Private mod_loading As Boolean = True ''Added 7/27/2019 td
+    Private mod_isLoading As Boolean = True ''Added 7/27/2019 td
 
     Public ReadOnly Property Field_Standard() As ClassFieldStandard
         Get
@@ -73,12 +73,19 @@ Public Class CtlConfigFldStandard
             checkDisplayOnBadge.Checked = .IsDisplayedOnBadge
             checkDisplayForEdits.Checked = .IsDisplayedForEdits
 
+            ''Added 12/7/2021 thomas d.
+            checkRelevantToPersonality.Checked = .IsRelevantToPersonality
+
+            ''Added 12/6/2021 thomas downes
+            ''  Make it pretty clear to user that there's a ON-OFF relationship here. 
+            checkDisplayForEdits.Enabled = .IsRelevantToPersonality ''False
+            checkDisplayOnBadge.Enabled = .IsRelevantToPersonality ''False
 
         End With ''End of "With par_info"  
 
 ExitHandler:
         ''Added 7/27/2019 thomas downes
-        mod_loading = False
+        mod_isLoading = False
 
     End Sub ''End of "Public Sub Load_StandardControl"
 
@@ -92,6 +99,9 @@ ExitHandler:
             .FieldLabelCaption = textFieldLabel.Text
             .IsFieldForDates = checkIsFieldForDates.Checked
             .IsLocked = checkIsLocked.Checked
+
+            ''Added 12/7/2021 Thomas Downes
+            .IsRelevantToPersonality = checkRelevantToPersonality.Checked
 
             ''Added 8/22/2019 Thomas DOWNES
             .IsDisplayedOnBadge = checkDisplayOnBadge.Checked
@@ -111,6 +121,77 @@ ExitHandler:
         Me.ModelFieldInfo = mod_model
 
     End Sub ''End of "Public Sub Save_StandardControl()" 
+
+    Private Sub CtlConfigFldStandard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ''
+        ''Hello, my name is Thomas!
+        ''
+
+    End Sub
+
+    Private Sub checkRelevantToPersonality_CheckedChanged(sender As Object, e As EventArgs) Handles checkRelevantToPersonality.Click
+
+        ''Added 12/6/2021 thomas d.
+        Dim dresult As DialogResult
+        Dim boolPriorValueChecked As Boolean
+        Dim checkboxSender As CheckBox = CType(sender, CheckBox)
+
+        If (mod_isLoading) Then Exit Sub ''Added 12/7/2021 thomas downes
+
+        If (checkboxSender.AutoCheck = False) Then
+            ''
+            ''Auto-check is False, so we have to programmatically decide whether to put the checkmark on the control. 
+            ''
+            boolPriorValueChecked = checkboxSender.Checked
+            If (boolPriorValueChecked) Then
+                ''Added 12/6/2021 td 
+                dresult = MessageBox.Show("Are you sure you want to remove this field from the Personality (both Badge & Edit)?", "Relevant?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
+            Else
+                dresult = DialogResult.OK
+            End If ''Endof "If boolPriorValueChecked Then... Else ..."
+
+            If (boolPriorValueChecked And dresult = DialogResult.OK) Then
+                mod_isLoading = True ''Suppress this event. 
+                checkboxSender.Checked = False
+                Application.DoEvents()
+                mod_isLoading = False ''Return to default. 
+                If (mod_model IsNot Nothing) Then mod_model.DateEdited = Now ''Added 12/5/2021 td
+                checkDisplayForEdits.Enabled = False
+                checkDisplayOnBadge.Enabled = False
+
+            ElseIf (Not boolPriorValueChecked And dresult = DialogResult.OK) Then
+                ''
+                ''Check the Relevant checkboxes.
+                ''
+                ''Also turn on, or enable, the related, or relevant, checkboxes.  
+                ''
+                mod_isLoading = True ''Suppress this event. 
+                checkboxSender.Checked = True ''False
+                Application.DoEvents()
+                mod_isLoading = False ''Return to default. 
+                If (mod_model IsNot Nothing) Then mod_model.DateEdited = Now ''Added 12/5/2021 td
+                checkDisplayForEdits.Enabled = True ''False
+                checkDisplayOnBadge.Enabled = True ''False
+
+            End If ''End of "If (boolPriorValueChecked And dresult = DialogResult.OK) Then"
+
+        ElseIf (checkboxSender.Checked = False) Then
+            ''
+            ''Added 12/6/2021 td 
+            ''
+            MessageBox.Show("This field is removed from any operations in the current Personality Configuration (both Badge & Edit).",
+                            "Not Relevant",
+                            MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
+
+        Else
+            ''
+            ''The user has turned the "Relevant" checkbox ---ON---.  That's fine. 
+            ''
+
+        End If ''End of "If (CType(sender, CheckBox).AutoCheck) Then .... Else ...."
+
+
+    End Sub
 
 
 End Class

@@ -282,7 +282,7 @@ ExitHandler:
 
     End Sub
 
-    Private Sub checkRelevantToPersonality_CheckedChanged(sender As Object, e As EventArgs) Handles checkRelevantToPersonality.CheckedChanged
+    Private Sub checkRelevantToPersonality_CheckedChanged(sender As Object, e As EventArgs) Handles checkRelevantToPersonality.Click
 
         ''Moved below.'''If (mod_model IsNot Nothing) Then mod_model.DateEdited = Now ''Added 12/5/2021 td 
 
@@ -292,12 +292,13 @@ ExitHandler:
         ''Added 12/6/2021 thomas d.
         Dim dresult As DialogResult
         Dim boolPriorValueChecked As Boolean
+        Dim checkboxSender As CheckBox = CType(sender, CheckBox)
 
-        If (CType(sender, CheckBox).AutoCheck) Then
+        If (checkboxSender.AutoCheck = False) Then
             ''
-            ''Auto-check applies, so we have to programmatically decide whether to put the checkmark on the control. 
+            ''Auto-check is False, so we have to programmatically decide whether to put the checkmark on the control. 
             ''
-            boolPriorValueChecked = CType(sender, CheckBox).Checked
+            boolPriorValueChecked = checkboxSender.Checked
             If (boolPriorValueChecked) Then
                 ''Added 12/6/2021 td 
                 dresult = MessageBox.Show("Are you sure you want to remove this field from the Personality (both Badge & Edit)?", "Relevant?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
@@ -317,13 +318,13 @@ ExitHandler:
                 ''
                 ''Also turn on, or enable, the related, or relevant, checkboxes.  
                 ''
-                CType(sender, CheckBox).Checked = True ''False
+                checkboxSender.Checked = True ''False
                 If (mod_model IsNot Nothing) Then mod_model.DateEdited = Now ''Added 12/5/2021 td
                 checkDisplayForEdits.Enabled = True ''False
                 checkDisplayOnBadge.Enabled = True ''False
             End If ''End of "If (boolPriorValueChecked And dresult = DialogResult.OK) Then"
 
-        ElseIf (CType(sender, checkbox).Checked) Then
+        ElseIf (checkboxSender.Checked) Then
             ''
             ''Added 12/6/2021 td 
             ''
