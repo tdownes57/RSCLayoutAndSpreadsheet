@@ -110,6 +110,9 @@ Public Interface IRecipient
     Property fstrRFID_Unique As String ''Added 10/11/2019 td
 
     Property fstrCity As String ''Added 12/6/2021 td 
+    Property fstrAddress As String ''Added 12/7/2021 td 
+    Property fstrState As String ''Added 12/7/2021 td 
+    Property fstrZip As String ''Added 12/7/2021 td 
 
     ''-------------------------------------------------------
     ''Custom fields 

@@ -81,8 +81,16 @@ Public Class ClassRecipient
             ''Added 11/25/2021 Thomas Downes 
             Case EnumCIBFields.fstrFullName : Return Me.fstrFullName
 
+                ''Added 12/7/2021 Thomas Downes 
+            Case EnumCIBFields.fstrAddress : Return Me.fstrAddress
+            Case EnumCIBFields.fstrCity : Return Me.fstrCity
+            Case EnumCIBFields.fstrState : Return Me.fstrState
+            Case EnumCIBFields.fstrZip : Return Me.fstrZip
+
             Case Else
-                Return ""
+                ''#1 12/7/2021 td''Return ""
+                ''#2 12/7/2021 td''Return "This Case Else."
+                Throw New Exception("This Case Else should not be the case.")
 
         End Select ''End of "Select Case par_enum"
 
@@ -132,7 +140,10 @@ Public Class ClassRecipient
     Property fstrBarcode As String Implements IRecipient.fstrBarcode
     Property fstrRFID_Unique As String Implements IRecipient.fstrRFID_Unique
 
+    Property fstrAddress As String Implements IRecipient.fstrAddress ''Added 12/7/2021 td 
     Property fstrCity As String Implements IRecipient.fstrCity ''Added 12/6/2021 td 
+    Property fstrState As String Implements IRecipient.fstrState ''Added 12/7/2021 td 
+    Property fstrZip As String Implements IRecipient.fstrZip ''Added 12/7/2021 td 
 
     Property intTimesPrinted As Integer Implements IRecipient.intTimesPrinted
 
