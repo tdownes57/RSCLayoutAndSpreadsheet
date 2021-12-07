@@ -246,7 +246,27 @@ Public Class ClassDesigner
         ''10/1/2019 td''mod_imageExamplePortrait = Me.ExamplePortraitImage ''Added 10/1/2019 td
         mod_imageExamplePortrait = Me.ExampleImage_Portrait ''Added 10/1/2019 td
         mod_imageExampleSignat = Me.CtlGraphic_Signat.pictureSignature.Image ''Added 10/14/2019 td
+        ''---Dec.7 2021---mod_imageExampleQRCode = Me.CtlGraphic_QRCode.pictureQRCode.Image ''Added 10/14/2019 td
+
+        ''Added 12/7/2021 thomas downes
+        ''
+        ''     Refresh the QR Code control.
+        ''      1. Destroy the existing control.
+        ''      2. Create a new one & add it to the designer form. 
+        ''
+        Me.CtlGraphic_QRCode.Dispose()
+        Me.DesignerForm.Controls.Remove(Me.CtlGraphic_QRCode)
+        ''Load a brand-new QR-code control. ---12/7/2021 td  
+        Me.CtlGraphic_QRCode = New CtlGraphicQRCode(Me.ElementsCache_Edits.ElementQRCode,
+                                                    CType(Me, ILayoutFunctions))
+        Me.DesignerForm.Controls.Add(Me.CtlGraphic_QRCode)
+        Me.CtlGraphic_QRCode.Visible = True ''Dec. 7, 2021 
+        Me.BackgroundBox.SendToBack() ''Dec. 7
         mod_imageExampleQRCode = Me.CtlGraphic_QRCode.pictureQRCode.Image ''Added 10/14/2019 td
+        With Me.ElementsCache_Edits.ElementQRCode
+            ''Populate the Element-Field object with a reference to the image.  ---Dec. 7 2021 
+            If (.Image_BL Is Nothing) Then .Image_BL = mod_imageExampleQRCode
+        End With ''end of "With Me.ElementsCache_Edits.ElementQRCode"
 
         ''Added 9/23/2019 td 
         ''

@@ -71,7 +71,7 @@ namespace ciBadgeGenerator
         public Image ImageQRCode;   //Added 10/14/2019 td 
         public string Messages = ""; //Added 11/18/2019 td 
 
-        public static bool IncludeQR = false; //Added 2/3/2020 thomas d. 
+        public static bool IncludeQR = true;  // Dec.7 2021 td //false; //Added 2/3/2020 thomas d. 
         public static bool IncludeSignature = false;  //Added 2/3/2020 thomas d.
 
         public static bool OmitOutlyingElements = false;  // true; // Added 11/10/2021 td
@@ -281,7 +281,8 @@ namespace ciBadgeGenerator
             HashSet<ClassElementField> listOfElementFields; // <<<<<<<<<<<<<< I have removed the word "Text" from the name.   It's confusing since there are Static-Text controls. --10/17/2019
             // Nov. 29 2021 //listOfElementFields = par_cache.ListFieldElements();
             if (par_listElementFields != null) listOfElementFields = par_listElementFields;
-            else listOfElementFields = par_cache.ListFieldElements();
+            // Dec. 7 2021  //else listOfElementFields = par_cache.ListFieldElements();
+            else listOfElementFields = par_cache.ListOfBadgeDisplayElements_Flds(false);
 
             const bool c_boolUseUntestedProc = true;  // 11-9-2021 false;  // true;  // false;  //Added 10/5/2019 td
             if (c_boolUseUntestedProc)
@@ -433,6 +434,9 @@ namespace ciBadgeGenerator
                 ClassElementQRCode obj_elementQR = par_cache.ElementQRCode;
                 //Added 11/29/2021 td
                 if (par_elementQR != null) obj_elementQR = par_elementQR;
+
+                // Added 127/2021 thomas d.
+                if (this.ImageQRCode == null) this.ImageQRCode = obj_elementQR.Image_BL;
 
                 //string strPathToFile_QR = ""; //this.PathToFile_QR; //Added 10/14/2019 td
 

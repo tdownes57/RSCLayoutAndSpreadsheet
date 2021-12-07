@@ -80,7 +80,23 @@ Public Class CtlGraphicQRCode
 
         ''Added 9/23/2019 thomas d. 
         ''Me.Pic_CloneOfInitialImage = CType(ciPictures_VB.PictureExamples.GetImageByIndex(par_elementPic.PicFileIndex, strErrorMessage).Clone(), Image)
-        pictureQRCode.Image = CType(Me.Pic_CloneOfInitialImage.Clone(), Image)
+        Dim bUseForegroundImageOfBox As Boolean ''Added 12/7/2021 td 
+        Dim bUseBackgroundImageOfBox As Boolean ''Added 12/7/2021 td 
+
+        bUseForegroundImageOfBox = (Me.pictureQRCode.Image IsNot Nothing)
+        bUseBackgroundImageOfBox = (Me.pictureQRCode.BackgroundImage IsNot Nothing)
+
+        ''Not sure this is helpful.---12/7/2021 td''pictureQRCode.Image = CType(Me.Pic_CloneOfInitialImage.Clone(), Image)
+        If (bUseForegroundImageOfBox) Then
+            ''Try #1 of 2. Let's clone the Foreground Image. 
+            Me.Pic_CloneOfInitialImage = CType(Me.pictureQRCode.Image.Clone(), Image)
+        ElseIf (bUseBackgroundImageOfBox) Then
+            ''Try #2 of 2. Let's clone the Background Image. 
+            Me.Pic_CloneOfInitialImage = CType(Me.pictureQRCode.BackgroundImage.Clone(), Image)
+        Else
+            ''Added 12/7/2021 td 
+            Throw New Exception("We need a way to get the Image of the QR code.")
+        End If
 
         If ("" <> strErrorMessage) Then
             ''Added 8/22/2019  

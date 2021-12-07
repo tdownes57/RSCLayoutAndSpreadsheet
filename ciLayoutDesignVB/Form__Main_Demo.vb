@@ -328,7 +328,9 @@ Public Class Form__Main_Demo
         ''
         If (CtlGraphicQRCode1 Is Nothing) Then
             ''Added 12/3/2021 td  
-            CtlGraphicQRCode1 = New CtlGraphicQRCode
+            ''----Dec6, 2021----CtlGraphicQRCode1 = New CtlGraphicQRCode
+            If (ElementsCache_Edits.ElementQRCode Is Nothing) Then Throw New Exception("The QR element is a null reference.")
+            CtlGraphicQRCode1 = New CtlGraphicQRCode(ElementsCache_Edits.ElementQRCode, mod_designer)
             CtlGraphicQRCode1.Visible = True
             Me.Controls.Add(CtlGraphicQRCode1)
         End If ''End of "If (CtlGraphicQRCode1 = Nothing) Then"

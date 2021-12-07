@@ -93,7 +93,14 @@ Public Class CtlBackground
         Me.ImageIsSelected = boolSelected
         If (boolSelected) Then
             ''Me.ParentListingForm.TemporarySelectedFileInfo = Me.ImageFileInfo
-            Me.ParentListingForm.LoadSelection(Me)
+            ''Dec.7 2021 ''Me.ParentListingForm.LoadSelection(Me)
+            If (Me.ParentListingForm Is Nothing) Then
+                ''Dec. 7 2021 thomas downes
+                MessageBox.Show("Unfortunately the image selected cannot be fully selected")
+                Throw New Exception("Unfortunately we don't have a link to the parent form!!")
+            Else
+                Me.ParentListingForm.LoadSelection(Me)
+            End If ''End of "If (Me.ParentListingForm Is Nothing) Then .... Else ..."
         End If ''End of "If (boolSelected) Then"
 
     End Sub

@@ -105,7 +105,7 @@ Public Class FormListBackgrounds
             new_ctlBack.ParentListingForm = Me
         Next eachFileInfo
 
-    End Sub
+    End Sub ''End of "Private Sub LoadControlsFromFolderImagesBack()"
 
     Private Sub buttonCancel_Click(sender As Object, e As EventArgs) Handles buttonCancel.Click
 

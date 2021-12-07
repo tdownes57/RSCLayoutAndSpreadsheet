@@ -226,4 +226,7 @@
   <data name="feather_logo_RSC" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\feather logo RSC.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="CodeNinjas_in_NB" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CodeNinjas in NB.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

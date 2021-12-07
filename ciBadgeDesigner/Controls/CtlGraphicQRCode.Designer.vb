@@ -30,21 +30,23 @@ Partial Class CtlGraphicQRCode
         '
         Me.pictureQRCode.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.pictureQRCode.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pictureQRCode.Image = Global.ciBadgeDesigner.My.Resources.Resources.QR_Code_BK
+        Me.pictureQRCode.Image = Global.ciBadgeDesigner.My.Resources.Resources.CodeNinjas_in_NB
         Me.pictureQRCode.Location = New System.Drawing.Point(0, 0)
+        Me.pictureQRCode.Margin = New System.Windows.Forms.Padding(4)
         Me.pictureQRCode.Name = "pictureQRCode"
-        Me.pictureQRCode.Size = New System.Drawing.Size(136, 138)
+        Me.pictureQRCode.Size = New System.Drawing.Size(166, 168)
         Me.pictureQRCode.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.pictureQRCode.TabIndex = 2
         Me.pictureQRCode.TabStop = False
         '
         'CtlGraphicQRCode
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.pictureQRCode)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "CtlGraphicQRCode"
-        Me.Size = New System.Drawing.Size(136, 138)
+        Me.Size = New System.Drawing.Size(166, 168)
         CType(Me.pictureQRCode, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 

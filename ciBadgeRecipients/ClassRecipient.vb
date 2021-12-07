@@ -87,10 +87,12 @@ Public Class ClassRecipient
             Case EnumCIBFields.fstrState : Return Me.fstrState
             Case EnumCIBFields.fstrZip : Return Me.fstrZip
 
+            Case EnumCIBFields.blnBatchPrint : Return "blnBatchPrint" ''False.ToString()
+
             Case Else
                 ''#1 12/7/2021 td''Return ""
                 ''#2 12/7/2021 td''Return "This Case Else."
-                Throw New Exception("This Case Else should not be the case.")
+                Throw New Exception("This Case Else should not be the case.... par_enum = " & par_enum.ToString)
 
         End Select ''End of "Select Case par_enum"
 
