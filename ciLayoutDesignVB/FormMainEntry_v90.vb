@@ -116,7 +116,8 @@ Public Class FormMainEntry_v90
 
     End Function ''End of "Public Function OkayToShowFauxContextMenu() As Boolean"
 
-    Public Sub AutoPreview_IfChecked(Optional par_ctlElement As Control = Nothing) Implements ILayoutFunctions.AutoPreview_IfChecked
+    Public Sub AutoPreview_IfChecked(Optional par_ctlElement As Control = Nothing,
+                                     Optional par_isMoving As Boolean = False) Implements ILayoutFunctions.AutoPreview_IfChecked
         ''
         ''Added 9/19/2019 td 
         ''

@@ -64,7 +64,8 @@ namespace MoveAndResizeControls_Monem
 
         //Added 8/03/2019 thomas downes
         //
-        internal InterfaceEvents mod_groupedctl_events;
+        //---internal InterfaceEvents mod_groupedctl_events;
+        public InterfaceEvents mod_groupedctl_events;
 
         internal MoveOrResize WorkType { get; set; }
 
@@ -273,7 +274,14 @@ namespace MoveAndResizeControls_Monem
             //   Should the PictureBox control be passed here, or the user-control
             //   which contains the PictureBox control??  ---12/1/2021 td
             //
-            if (mod_groupedctl_events != null) MoveControl_GroupMove(par_controlF, e);
+            if (mod_groupedctl_events != null)
+            {
+                MoveControl_GroupMove(par_controlF, e);
+
+                //Added 12/6/2021 td
+                mod_groupedctl_events.Control_IsMoving();
+
+            }
             if (mod_groupedctl_events == null) MoveControl_NoEvents(par_controlF, e);
 
             //Added 11/29/2021 td
@@ -401,6 +409,9 @@ namespace MoveAndResizeControls_Monem
                     //Added 8/2/2019 thomas downes 
                     delta_Left = (e.X - _cursorStartPoint.X);
                     delta_Top = (e.Y - _cursorStartPoint.Y);
+
+                    //Added 12/6/2021 td 
+                    mod_groupedctl_events.ControlBeingMoved(par_controlG);
 
                 }
             }

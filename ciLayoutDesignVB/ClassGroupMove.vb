@@ -19,6 +19,8 @@ Public Class ClassGroupMove
     Public Event Resizing_End()
     ''11/29/2021 td''Public Event Moving_End() ''Added 9/13/2019 td  
     Public Event Moving_End(par_control As Control) ''Added 9/13/2019 td  
+    ''Added 12/6/2021 thomas d. 
+    Public Event ControlIsMoving()
 
     ''9/20/2019 td''Public ParentLayoutForm As FormDesignProtoTwo ''Added 8/4/2019
     Public LayoutFunctions As ILayoutFunctions ''Added 9/20/2019 td
@@ -76,7 +78,20 @@ Public Class ClassGroupMove
         ''9/20/2019 td''ParentLayoutForm.ControlBeingMoved = par_control
         LayoutFunctions.ControlBeingMoved = par_control
 
+        ''------Added 12/6/2021 td  
+        ''----RaiseEvent ControlIsMoving()
+
     End Sub
+
+
+    Public Sub Control_IsMoving() Implements InterfaceEvents.Control_IsMoving
+        ''
+        ''Added 12/6/2021 td
+        ''
+        RaiseEvent ControlIsMoving()
+
+    End Sub
+
 
     Public Sub Resizing_Terminate() Implements InterfaceEvents.Resizing_Terminate
 

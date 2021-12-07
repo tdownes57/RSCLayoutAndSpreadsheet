@@ -73,6 +73,9 @@ Public Class ClassDesignerEventListener
         ''Added 11/29/2021 td
         m_bAddBorderOnlyWhileResizing = p_bAddBorderOnlyWhileResizing
 
+        ''Added 12/6/2021 td
+        AddHandler mod_groupedMove.ControlIsMoving, AddressOf mod_ControlIsMoving
+
     End Sub ''End of Public Sub New
 
 
@@ -320,6 +323,7 @@ Public Class ClassDesignerEventListener
               mod_groupedMove, mc_boolAllowGroupMovements)
             mod_dictyControlMoveFields.Add(par_graphicFieldCtl, objNonStatic)
 
+
         ElseIf (mc_boolAllowGroupMovements) Then
             ''
             ''This is essentially deprecated as of 11/29/2021 
@@ -479,6 +483,12 @@ Public Class ClassDesignerEventListener
             End With ''End of "With each_control"
 
         Next each_control
+
+        ''
+        ''Only update the preview if both "Auto Preview" and "Instant" is checked. 
+        ''   ---12/6/2021 td
+        ''
+        mod_designer.AutoPreview_IfChecked(Nothing, True)
 
     End Sub ''End of "Private Sub MoveInUnison"
 
@@ -652,6 +662,37 @@ Public Class ClassDesignerEventListener
 
         ''Added 10/10/2019 td
         mod_designer.AutoPreview_IfChecked()
+
+    End Sub
+
+    Private Sub mod_groupedMove_Moving_InProgress(par_control As Control) Handles mod_groupedMove.Moving_InProgress
+        ''
+        ''Added 12/6/2021 thomas downes 
+        ''
+        ''Added 10/10/2019 td
+        mod_designer.AutoPreview_IfChecked(Nothing, True)
+
+    End Sub
+
+
+    Private Sub mod_ControlIsMoving() Handles mod_groupedMove.ControlIsMoving
+        ''
+        ''Added 12/6/2021 thomas downes 
+        ''
+        ''Added 10/10/2019 td
+        mod_designer.AutoPreview_IfChecked(Nothing, True)
+
+    End Sub
+
+
+    Private Sub mod_ControlBeingMoved() '''Dec.6, 2021''Handles mod_groupedMove.ControlBeingMoved
+        ''
+        ''Added 12/6/2021 thomas downes 
+        ''
+        ''See Public Sub New for the "AddressOf mod_ControlBeingMoved" statement. ---12/6/2021 td 
+        ''
+        ''Added 10/10/2019 td
+        mod_designer.AutoPreview_IfChecked(Nothing, True)
 
     End Sub
 

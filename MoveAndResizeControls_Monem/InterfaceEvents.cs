@@ -32,6 +32,10 @@ namespace MoveAndResizeControls_Monem
         void Resizing_Initiate();
         void Resizing_Terminate();
         void Moving_Terminate(Control par_control); //Modified 11/29/2021 //Added 9/13/2019 td 
+        //
+        //Added 12-6-2021 thomas downes
+        //
+        void Control_IsMoving();
 
     }
 }

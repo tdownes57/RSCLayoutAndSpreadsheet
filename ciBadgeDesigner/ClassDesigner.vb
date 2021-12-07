@@ -40,6 +40,7 @@ Public Class ClassDesigner
     Public WithEvents PreviewBox As PictureBox
 
     Public CheckboxAutoPreview As CheckBox ''Added 10/1/2019 td
+    Public CheckboxInstantPreview As CheckBox ''Added 12/6/2021 td
     Public DesignerForm_Interface As IDesignerForm ''Added 10/13/2019 td  
 
     Public Property ExampleImage_Portrait As Image ''Added 10/1/2019 td 
@@ -1914,11 +1915,25 @@ Public Class ClassDesigner
 
     End Function ''End of "Public Function OkayToShowFauxContextMenu() As Boolean"
 
-    Public Sub AutoPreview_IfChecked(Optional par_controlElement As Control = Nothing) Implements ILayoutFunctions.AutoPreview_IfChecked
+    Public Sub AutoPreview_IfChecked(Optional par_controlElement As Control = Nothing, Optional par_stillMoving As Boolean = False) Implements ILayoutFunctions.AutoPreview_IfChecked
         ''
         ''Refresh the preview picture box. 
         ''
-        If (CheckboxAutoPreview.Checked) Then
+        Dim bProceedWithRefresh As Boolean ''Added 12/6/2021 thomas d.
+
+        ''Added 12/6/2021 td
+        If (par_stillMoving) Then
+            ''The control being moved is still in motion, so let's see if "Instant Preview" is checked. 
+            bProceedWithRefresh = (CheckboxAutoPreview.Checked And CheckBoxInstantPreview.Checked)
+        Else
+            bProceedWithRefresh = CheckboxAutoPreview.Checked
+        End If ''End of "if (par_stillMoving) then ... Else ...."
+
+        ''
+        ''Proceed, if applicable.
+        ''
+        ''---Dec.6 2021---If (CheckboxAutoPreview.Checked) Then
+        If (bProceedWithRefresh) Then
             ''--o----No longer needed. The preview is driven by Me.ElementsCache_Edits.---10/10/2019 td
             ''--o--SaveLayout()
             ''11/29/2021 td''SaveControlPositionsToElement() ''Added 10/10/2019 td

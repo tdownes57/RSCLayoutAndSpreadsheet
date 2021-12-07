@@ -339,7 +339,18 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
                     int x = (e.X - _cursorStartPoint.X) + par_control.Left;
                     int y = (e.Y - _cursorStartPoint.Y) + par_control.Top;
                     par_control.Location = new Point(x, y);
+
+                    //Added 12/6/2021 td
+                    int intDeltaLeft = (e.X - _cursorStartPoint.X);
+                    int intDeltaTop = (e.Y - _cursorStartPoint.Y);   
+                    //mod_eventsInterface.GroupMove_Change(intDeltaLeft, intDeltaTop, 0, 0);
+
                 }
+
+                //Added 12/6/2021 thomas d. 
+                //----mod_eventsInterface.Moving_InProgress();
+                mod_eventsInterface.ControlBeingMoved(par_control);
+
             }
         }
 

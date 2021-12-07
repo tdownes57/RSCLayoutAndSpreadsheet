@@ -383,6 +383,7 @@ Public Class Form__Main_Demo
             .DesignerForm = Me
             .FlowFieldsNotListed = Me.flowFieldsNotListed
             .CheckboxAutoPreview = Me.checkAutoPreview
+            .CheckboxInstantPreview = Me.checkInstantPreview ''Added 12/6/2021 thomas d.
             ''10/10/2019 td''.ExamplePortraitImage = mod_imageLady
             .ExampleImage_Portrait = mod_imageLady
 

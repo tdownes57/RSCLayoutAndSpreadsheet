@@ -29,7 +29,8 @@ Public Interface ILayoutFunctions
     Function OkayToShowFauxContextMenu() As Boolean ''Added 9/19/2019 td
     ''
     ''11/29/2021 td''Sub AutoPreview_IfChecked() ''Added 9/19/2019 td 
-    Sub AutoPreview_IfChecked(Optional par_controlElement As Control = Nothing) ''Added 9/19/2019 td 
+    ''---Dec6 2021---Sub AutoPreview_IfChecked(Optional par_controlElement As Control = Nothing) ''Added 9/19/2019 td 
+    Sub AutoPreview_IfChecked(Optional par_controlElement As Control = Nothing, Optional par_stillMoving As Boolean = False) ''Modified 12/06/2019 td 
 
     Function RightClickMenu_Parent() As ToolStripMenuItem ''Added 9/19/2019 td 
 

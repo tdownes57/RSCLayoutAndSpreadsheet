@@ -22,6 +22,8 @@ Public Class ClassGroupMoveEvents
     Public Event Moving_End(par_control As Control) ''Added 9/13/2019 td  
     ''Added 12/2/2021 Thomas Downes
     Public Event Moving_InProgress(par_control As Control) ''Added 12/02/2021 td  
+    ''Added 12/6/2021 Thomas Downes
+    Public Event ControlIsMoving() ''Added 12/6/2021  
 
     ''9/20/2019 td''Public ParentLayoutForm As FormDesignProtoTwo ''Added 8/4/2019
     Public LayoutFunctions As ILayoutFunctions ''Added 9/20/2019 td
@@ -92,6 +94,13 @@ Public Class ClassGroupMoveEvents
         ''Added 9/13/2019 td  
         ''11/29/2021''RaiseEvent Moving_End()
         RaiseEvent Moving_End(par_control)
+
+    End Sub
+
+    Public Sub Control_IsMoving() Implements InterfaceEvents.Control_IsMoving
+
+        ''Added 12/6/2021 td  
+        RaiseEvent ControlIsMoving()
 
     End Sub
 
