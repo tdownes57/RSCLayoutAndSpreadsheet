@@ -257,10 +257,18 @@ Public Class ClassDesigner
         Me.CtlGraphic_QRCode.Dispose()
         Me.DesignerForm.Controls.Remove(Me.CtlGraphic_QRCode)
         ''Load a brand-new QR-code control. ---12/7/2021 td  
-        Me.CtlGraphic_QRCode = New CtlGraphicQRCode(Me.ElementsCache_Edits.ElementQRCode,
-                                                    CType(Me, ILayoutFunctions))
+        Dim elementQRCode As ClassElementQRCode = Me.ElementsCache_Edits.ElementQRCode
+        Me.CtlGraphic_QRCode = New CtlGraphicQRCode(elementQRCode, CType(Me, ILayoutFunctions))
         Me.DesignerForm.Controls.Add(Me.CtlGraphic_QRCode)
-        Me.CtlGraphic_QRCode.Visible = True ''Dec. 7, 2021 
+        With Me.CtlGraphic_QRCode
+            ''Me.CtlGraphic_QRCode.Visible = True ''Dec. 7, 2021
+            .Visible = True
+            .Left = elementQRCode.LeftEdge_Pixels
+            .Top = elementQRCode.TopEdge_Pixels
+            .Width = elementQRCode.Width_Pixels
+            .Height = elementQRCode.Height_Pixels
+        End With ''End of "With Me.CtlGraphic_QRCode"
+
         Me.BackgroundBox.SendToBack() ''Dec. 7
         mod_imageExampleQRCode = Me.CtlGraphic_QRCode.pictureQRCode.Image ''Added 10/14/2019 td
         With Me.ElementsCache_Edits.ElementQRCode
