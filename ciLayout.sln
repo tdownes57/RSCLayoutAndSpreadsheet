@@ -11,7 +11,7 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ciLayoutPrintLib", "ciLayou
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoveAndResizeControls_Monem", "MoveAndResizeControls_Monem\MoveAndResizeControls_Monem.csproj", "{3D6A51A2-395E-467F-A3C4-8D6ED1DA961E}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SerializationTesting", "SerializationTesting\SerializationTesting.vbproj", "{819F6F4C-9DCB-4465-8EA7-C039D4ADB2EC}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Can_SerializationTesting", "SerializationTesting\Can_SerializationTesting.vbproj", "{819F6F4C-9DCB-4465-8EA7-C039D4ADB2EC}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ciBadgeDesktop", "ciBadgeDesktop\ciBadgeDesktop.vbproj", "{52DDC035-5A57-41D9-BA1C-32369B762F4B}"
 EndProject
@@ -60,6 +60,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "abcBundleBadgeImagesToEmail_Core", "abcBundleBadgeImagesToEmail\abcBundleBadgeImagesToEmail_Core.csproj", "{158A604A-E8DA-4224-B919-FE425BAA2E23}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ciBadgeCachePersonality", "ciBadgeCachingPersonality\ciBadgeCachePersonality.vbproj", "{4C1B73A0-7C02-4FF4-96F2-ACFA1306CCE4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Can_HashSets_Be_Serialized", "Can_HashSets_Be_Serialized\Can_HashSets_Be_Serialized.csproj", "{6A203802-4B73-4C03-B30D-B206CB677945}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -301,6 +303,14 @@ Global
 		{4C1B73A0-7C02-4FF4-96F2-ACFA1306CCE4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4C1B73A0-7C02-4FF4-96F2-ACFA1306CCE4}.Release|x86.ActiveCfg = Release|Any CPU
 		{4C1B73A0-7C02-4FF4-96F2-ACFA1306CCE4}.Release|x86.Build.0 = Release|Any CPU
+		{6A203802-4B73-4C03-B30D-B206CB677945}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A203802-4B73-4C03-B30D-B206CB677945}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A203802-4B73-4C03-B30D-B206CB677945}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6A203802-4B73-4C03-B30D-B206CB677945}.Debug|x86.Build.0 = Debug|Any CPU
+		{6A203802-4B73-4C03-B30D-B206CB677945}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A203802-4B73-4C03-B30D-B206CB677945}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A203802-4B73-4C03-B30D-B206CB677945}.Release|x86.ActiveCfg = Release|Any CPU
+		{6A203802-4B73-4C03-B30D-B206CB677945}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

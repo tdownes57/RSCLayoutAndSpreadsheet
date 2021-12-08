@@ -16,6 +16,8 @@ Public Interface ICIBFieldStandardOrCustom
     Property IsRelevantToPersonality As Boolean ''Added 11/18/2021 td
     Property IsDisplayedOnBadge As Boolean ''Added 8/29 & 8/22/2019 td
     Property IsDisplayedForEdits As Boolean ''Added 8/29 & 8/22/2019 td
+    Property IsDisplayedOnBadge_Front As Boolean ''Added 12/8/2021 td
+    Property IsDisplayedOnBadge_Backside As Boolean ''Added 12/8/2021 td
 
     Property IsStandard As Boolean ''Added 7/26/2019 thomas d. 
     Property IsCustomizable As Boolean ''Added 7/26/2019 thomas d. 

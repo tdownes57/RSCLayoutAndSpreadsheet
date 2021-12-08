@@ -62,18 +62,26 @@ Namespace ciBadgeCachePersonality
         Private mod_listFields_Standard As New HashSet(Of ClassFieldStandard) ''Added 10/14/2019 td  
         Private mod_listFields_Custom As New HashSet(Of ClassFieldCustomized) ''Added 10/14/2019 td  
 
-        Private mod_listElementFields As New HashSet(Of ClassElementField)
-        Private mod_listElementPics As New HashSet(Of ClassElementPic)
-        Private mod_listElementStatics As New HashSet(Of ClassElementStaticText)
-        Private mod_listElementLaysections As New HashSet(Of ClassElementLaysection) ''Added 9/17/2019 thomas downes
-        Private mod_listBadgeElements As New HashSet(Of ClassElementField) ''Added 11/26/2021 td
+        ''Front side of ID Card / Badge Card
+        Private mod_listElementFields_Front As New HashSet(Of ClassElementField)
+        Private mod_listElementPics_Front As New HashSet(Of ClassElementPic)
+        Private mod_listElementStatics_Front As New HashSet(Of ClassElementStaticText)
+        Private mod_listElementLaysections_Front As New HashSet(Of ClassElementLaysection) ''Added 9/17/2019 thomas downes
+        Private mod_listBadgeElements_Front As New HashSet(Of ClassElementField) ''Added 11/26/2021 td
+
+        ''Back side of ID Card / Badge Card
+        Private mod_listElementFields_Backside As HashSet(Of ClassElementField)
+        Private mod_listElementPics_Backside As HashSet(Of ClassElementPic)
+        Private mod_listElementStatics_Backside As HashSet(Of ClassElementStaticText)
+        Private mod_listElementLaysections_Backside As HashSet(Of ClassElementLaysection) ''Added 9/17/2019 thomas downes
+        Private mod_listBadgeElements_Backside As HashSet(Of ClassElementField) ''Added 11/26/2021 td
 
         ''Added 1/14/2020 thomas dow nes
-        Private Structure BackTitleAndWidth
+        Private Structure BackgroundTitleAndWidth
             Dim sFileTitle As String
             Dim iPixelsWidth As Integer
         End Structure
-        Private mod_dictionaryBackImages As New Dictionary(Of BackTitleAndWidth, Image) ''Added 1/14/2020 thomas downes
+        Private mod_dictionaryBackgroundImages As New Dictionary(Of BackgroundTitleAndWidth, Image) ''Added 1/14/2020 thomas downes
 
         ''10/14/2019 td''Public Property ListOfFields As List(Of ClassFieldAny)
         ''    Get ''Added 9/28/2019 td
@@ -248,11 +256,11 @@ Namespace ciBadgeCachePersonality
 
         Public Property ListOfElementFields As HashSet(Of ClassElementField)  ''---List(Of ClassElementField)
             Get ''Added 9/28/2019 td
-                Return mod_listElementFields
+                Return mod_listElementFields_Front
             End Get
             Set(value As HashSet(Of ClassElementField))  ''---List(Of ClassElementField))
                 ''Added 9/28/2019 td
-                mod_listElementFields = value
+                mod_listElementFields_Front = value
             End Set
         End Property
 
@@ -260,24 +268,30 @@ Namespace ciBadgeCachePersonality
             ''
             ''Added 11/24/2021 thomas downes 
             ''
-            Return ListOfBadgeDisplayElements_Flds(pboolRefresh)
+            Return ListOfBadgeDisplayElements_Flds_Front(pboolRefresh)
 
         End Function
 
-        Public Function ListOfBadgeDisplayElements_Flds(pboolRefresh As Boolean) As HashSet(Of ClassElementField)
+        Public Function ListOfBadgeDisplayElements_Flds_Front(pboolRefresh As Boolean) As HashSet(Of ClassElementField)
+            ''---Dec.8 2021--Public Function ListOfBadgeDisplayElements_Flds(pboolRefresh As Boolean) As HashSet(Of ClassElementField)
             ''
             ''Added 11/26/2021  
             ''
-            If (pboolRefresh Or (mod_listBadgeElements Is Nothing)) Then
-                RefreshListOfBadgeDisplayElements_Flds()
-            End If
-            Return mod_listBadgeElements
+            If (pboolRefresh Or (mod_listBadgeElements_Front Is Nothing)) Then
+                ''----Dec.8 2021---RefreshListOfBadgeDisplayElements_Flds()
+                RefreshListOfBadgeDisplayElements_Flds_Front()
 
-        End Function ''end of "Public Function ListOfBadgeDisplayElements_Flds()"
+            End If ''End of "If (pboolRefresh Or (mod_listBadgeElements_Front Is Nothing)) Then"
 
-        Public Sub RefreshListOfBadgeDisplayElements_Flds(Optional pboolSkip13 As Boolean = True,
+            Return mod_listBadgeElements_Front
+
+        End Function ''end of "Public Function ListOfBadgeDisplayElements_Flds_Front()"
+
+
+        Public Sub RefreshListOfBadgeDisplayElements_Flds_Front(Optional pboolSkip13 As Boolean = True,
                                                       Optional pboolSkip14 As Boolean = True)
             ''                                          As List(Of ClassElementField)
+            ''--Dec.8 2021--Public Sub RefreshListOfBadgeDisplayElements_Flds
             ''
             ''Added 11/24/2021 tdownes
             ''
@@ -290,7 +304,7 @@ Namespace ciBadgeCachePersonality
             Dim structWhyOmit As New ciBadgeElements.WhyOmitted
             Dim indexBadgeDisplay As Integer
 
-            For Each each_element In mod_listElementFields
+            For Each each_element In mod_listElementFields_Front
                 ''Major call. 
                 boolOnDisplay = each_element.IsDisplayedOnBadge_Visibly(structWhyOmit)
                 If (boolOnDisplay) Then
@@ -307,28 +321,28 @@ Namespace ciBadgeCachePersonality
                 End If ''End of "If (boolOnDisplay) Then"
             Next each_element
 
-            mod_listBadgeElements = new_list
+            mod_listBadgeElements_Front = new_list
 
         End Sub ''End of "Public Sub RefreshListOfBadgeDisplayElements_Flds()"
 
 
         Public Property ListOfElementPics As HashSet(Of ClassElementPic)  ''---List(Of ClassElementPic)
             Get ''Added 10/13/2019 td
-                Return mod_listElementPics
+                Return mod_listElementPics_Front
             End Get
             Set(value As HashSet(Of ClassElementPic))  ''---List(Of ClassElementPic))
                 ''Added 10/13/2019 td
-                mod_listElementPics = value
+                mod_listElementPics_Front = value
             End Set
         End Property
 
         Public Property ListOfElementTexts As HashSet(Of ClassElementStaticText)  ''---List(Of ClassElementStaticText)
             Get ''Added 10/14/2019 td
-                Return mod_listElementStatics
+                Return mod_listElementStatics_Front
             End Get
             Set(value As HashSet(Of ClassElementStaticText))  ''---List(Of ClassElementStaticText))
                 ''Added 10/14/2019 td
-                mod_listElementStatics = value
+                mod_listElementStatics_Front = value
             End Set
         End Property
 
@@ -354,7 +368,7 @@ Namespace ciBadgeCachePersonality
             ''
             ''Added 9/16/2019 thomas downes
             ''
-            Return mod_listElementFields
+            Return mod_listElementFields_Front
 
         End Function ''End of "Public Function FieldElements() As List(Of ClassElementText)"
 
@@ -364,7 +378,7 @@ Namespace ciBadgeCachePersonality
             ''
             If (MissingTheElementPic()) Then Return Nothing ''Added 10/12/2019 td
 
-            Return mod_listElementPics(0)
+            Return mod_listElementPics_Front(0)
 
         End Function ''End of "Public Function PicElement() As ClassElementPic"
 
@@ -372,7 +386,7 @@ Namespace ciBadgeCachePersonality
             ''
             ''Added 9/17/2019 thomas downes
             ''
-            Return mod_listElementPics
+            Return mod_listElementPics_Front
 
         End Function ''End of " Public Function ListPicElements() As List(Of ClassElementPic)"
 
@@ -380,7 +394,7 @@ Namespace ciBadgeCachePersonality
             ''
             ''Added 9/16/2019 thomas downes
             ''
-            Return mod_listElementStatics
+            Return mod_listElementStatics_Front
 
         End Function ''End of "Public Function ListStaticTextElements() As List(Of ClassElementStaticText)"
 
@@ -388,7 +402,7 @@ Namespace ciBadgeCachePersonality
             ''
             ''Added 9/17/2019 thomas downes
             ''
-            Return mod_listElementLaysections
+            Return mod_listElementLaysections_Front
 
         End Function ''End of "Public Function StaticTextElements() As List(Of ClassElementStaticText)"
 
@@ -632,7 +646,7 @@ Namespace ciBadgeCachePersonality
                 new_elementField.DatetimeUpdated = Now
 
                 ''Added 9/19/2019 td
-                mod_listElementFields.Add(new_elementField)
+                mod_listElementFields_Front.Add(new_elementField)
 
             Next each_field
 
@@ -674,7 +688,7 @@ Namespace ciBadgeCachePersonality
                 new_elementField.DatetimeUpdated = DateTime.Now
 
                 ''Added 9/19/2019 td
-                mod_listElementFields.Add(new_elementField)
+                mod_listElementFields_Front.Add(new_elementField)
 
             Next each_field
 
@@ -702,7 +716,7 @@ Namespace ciBadgeCachePersonality
 
             objElementPic.PicFileIndex = 1
 
-            mod_listElementPics.Add(objElementPic)
+            mod_listElementPics_Front.Add(objElementPic)
 
         End Sub ''End of "Public Sub LoadElement_Pic(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)"
 
@@ -774,7 +788,7 @@ Namespace ciBadgeCachePersonality
 
             objElementPic.PicFileIndex = 1
 
-            mod_listElementPics.Add(objElementPic)
+            mod_listElementPics_Front.Add(objElementPic)
 
         End Sub ''End of "Public Sub LoadElement_Portrait(par_picturePortrait As PictureBox, par_pictureBackground As PictureBox)"
 
@@ -845,7 +859,7 @@ Namespace ciBadgeCachePersonality
 
             objElementText = New ClassElementStaticText(par_DisplayText, intLeft, intTop, par_intHeight)
 
-            mod_listElementStatics.Add(objElementText)
+            mod_listElementStatics_Front.Add(objElementText)
 
         End Sub ''End of "Public Sub LoadElement_Text(par_DisplayText As String, par_intLeft As Integer, ...., par_pictureBackground As PictureBox)"
 
@@ -950,7 +964,7 @@ Namespace ciBadgeCachePersonality
 
 
             ''Added 9/17/2019 thomas downes  
-            For Each each_elementField As ClassElementField In mod_listElementFields
+            For Each each_elementField As ClassElementField In mod_listElementFields_Front
                 ''
                 ''Add a copy of the element-field.
                 ''
@@ -975,12 +989,12 @@ Namespace ciBadgeCachePersonality
             Next each_elementField
 
             ''Added 9/17/2019 thomas downes  
-            For Each each_elementPic As ClassElementPic In mod_listElementPics
+            For Each each_elementPic As ClassElementPic In mod_listElementPics_Front
                 objCopyOfCache.ListPicElements().Add(each_elementPic.Copy())
             Next each_elementPic
 
             ''Added 9/17/2019 thomas downes  
-            For Each each_elementStaticText As ClassElementStaticText In mod_listElementStatics
+            For Each each_elementStaticText As ClassElementStaticText In mod_listElementStatics_Front
                 objCopyOfCache.ListStaticTextElements().Add(each_elementStaticText.Copy())
             Next each_elementStaticText
 
@@ -1019,7 +1033,7 @@ Namespace ciBadgeCachePersonality
 
             Dim found_field As ClassFieldAny ''Added 10/12/2019 td
 
-            For Each each_elementField As ClassElementField In mod_listElementFields
+            For Each each_elementField As ClassElementField In mod_listElementFields_Front
 
                 found_field = Nothing ''Initialize. ----10/12/2019 td
 
@@ -1050,7 +1064,7 @@ Namespace ciBadgeCachePersonality
 
         Public Function MissingTheElementFields() As Boolean
             ''Added 10/10/2019 td 
-            Return (0 = mod_listElementFields.Count)
+            Return (0 = mod_listElementFields_Front.Count)
 
         End Function ''ENd of "Public Function MissingTheElementFields() As Boolean"
 
@@ -1063,7 +1077,7 @@ Namespace ciBadgeCachePersonality
 
         Public Function MissingTheElementPic() As Boolean
             ''Added 10/10/2019 td 
-            Return (0 = mod_listElementPics.Count)
+            Return (0 = mod_listElementPics_Front.Count)
 
         End Function ''ENd of "Public Function MissingTheElementPic() As Boolean"
 
@@ -1083,7 +1097,7 @@ Namespace ciBadgeCachePersonality
             ''
             ''Added 10/13/2019 td
             ''
-            For Each each_elementField As ClassElementField In mod_listElementFields
+            For Each each_elementField As ClassElementField In mod_listElementFields_Front
                 With each_elementField
                     .FieldEnum = .FieldObject.FieldEnumValue ''This is a double-check that the Enum value matches. 
                     If (.FieldEnum = par_enum) Then Return each_elementField
@@ -1140,7 +1154,7 @@ Namespace ciBadgeCachePersonality
             ''
             Throw New Exception("It sucks to compare FieldEnum & FieldIndex.")
 
-            For Each objFldElement As ClassElementField In mod_listElementFields
+            For Each objFldElement As ClassElementField In mod_listElementFields_Front
                 ''Find the right FieldElement, by it's enumerated
                 ''   field value.  ----11/19/2021 
                 If (objFldElement.FieldEnum = pintFieldIndex) Then
@@ -1170,7 +1184,7 @@ Namespace ciBadgeCachePersonality
                 End If
             Next each_field
 
-            For Each each_element As ClassElementField In mod_listElementFields
+            For Each each_element As ClassElementField In mod_listElementFields_Front
                 If (each_element.FieldInfo Is objRelevantFieldAny) Then
                     ''
                     ''Added 11/19 td
@@ -1202,8 +1216,8 @@ Namespace ciBadgeCachePersonality
             Dim boolMatch As Boolean
             Dim indexDisplay As Integer
 
-            For indexDisplay = 0 To mod_listBadgeElements.Count - 1
-                boolMatch = (par_indexElement = mod_listBadgeElements(indexDisplay).ElementIndexIsFieldIndex())
+            For indexDisplay = 0 To mod_listBadgeElements_Front.Count - 1
+                boolMatch = (par_indexElement = mod_listBadgeElements_Front(indexDisplay).ElementIndexIsFieldIndex())
                 If (boolMatch) Then Return indexDisplay
             Next indexDisplay
 
@@ -1641,7 +1655,7 @@ Namespace ciBadgeCachePersonality
             ''
             ''Added 1/14/2020 thomas downes
             ''
-            Dim structCurrent As New BackTitleAndWidth
+            Dim structCurrent As New BackgroundTitleAndWidth
             Dim imageFound As Image = Nothing
             Dim imageCreated1 As Image
             Dim imageCreated2 As Image
@@ -1665,7 +1679,7 @@ Namespace ciBadgeCachePersonality
             structCurrent.sFileTitle = Me.BackgroundImage_FTitle
 
             Try
-                imageFound = mod_dictionaryBackImages(structCurrent)
+                imageFound = mod_dictionaryBackgroundImages(structCurrent)
 
             Catch ex_dict As Exception
                 If (ex_dict.Message.Contains("not present")) Then
@@ -1685,7 +1699,7 @@ Namespace ciBadgeCachePersonality
                 imageCreated1 = New Bitmap(Me.BackgroundImage_Path)
                 ''imageCreated.Dispose()
                 imageCreated2 = New Bitmap(imageCreated1, New Size(pintWidth, pintHeight))
-                mod_dictionaryBackImages.Add(structCurrent, imageCreated2)
+                mod_dictionaryBackgroundImages.Add(structCurrent, imageCreated2)
                 imageCreated1.Dispose()
                 Return imageCreated2
             End If  ''Endof "If (imageFound IsNot Nothing) Then ..... Else ...."

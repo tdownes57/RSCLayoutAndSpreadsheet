@@ -545,7 +545,7 @@ Public Class ClassDesigner
 
         ''Added 11/27/2021 thomas downes
         Dim objListBadgeElems As HashSet(Of ClassElementField)
-        objListBadgeElems = par_cache.ListOfBadgeDisplayElements_Flds(True)
+        objListBadgeElems = par_cache.ListOfBadgeDisplayElements_Flds_Front(True)
 
         ''
         ''Major call !!

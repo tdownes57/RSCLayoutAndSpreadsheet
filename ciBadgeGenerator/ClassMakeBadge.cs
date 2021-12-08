@@ -282,7 +282,7 @@ namespace ciBadgeGenerator
             // Nov. 29 2021 //listOfElementFields = par_cache.ListFieldElements();
             if (par_listElementFields != null) listOfElementFields = par_listElementFields;
             // Dec. 7 2021  //else listOfElementFields = par_cache.ListFieldElements();
-            else listOfElementFields = par_cache.ListOfBadgeDisplayElements_Flds(false);
+            else listOfElementFields = par_cache.ListOfBadgeDisplayElements_Flds_Front(false);
 
             const bool c_boolUseUntestedProc = true;  // 11-9-2021 false;  // true;  // false;  //Added 10/5/2019 td
             if (c_boolUseUntestedProc)

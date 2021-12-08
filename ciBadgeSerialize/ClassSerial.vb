@@ -66,7 +66,8 @@ Public Class ClassSerial
         ''Formatter.Serialize(fileStream_Xml, srObj)
         ''9/12/2019 td''Dim writer As New System.Xml.Serialization.XmlSerializer(GetType(ClassParent))
         ''9/24/2019 td''Dim writer As New System.Xml.Serialization.XmlSerializer(par_TypeOfObject)
-        Dim writer As New System.Xml.Serialization.XmlSerializer(par_TypeOfObject)
+        ''12/8/2021 td''Dim writer As New System.Xml.Serialization.XmlSerializer(par_TypeOfObject)
+        Dim writer As New XmlSerializer(par_TypeOfObject)
 
         ''Dim file As New System.IO.StreamWriter("c:\temp\SerializationOverview.xml")
         ''

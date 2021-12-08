@@ -32,6 +32,11 @@ Public Class ClassFieldAny
     Public Property IsDisplayedOnBadge As Boolean Implements ICIBFieldStandardOrCustom.IsDisplayedOnBadge
     Public Property IsDisplayedForEdits As Boolean Implements ICIBFieldStandardOrCustom.IsDisplayedForEdits
 
+    ''Added 12/8/2021 thomas downes 
+    Public Property IsDisplayedOnBadge_Front As Boolean Implements ICIBFieldStandardOrCustom.IsDisplayedOnBadge_Front  ''Added 12/8/2021 thomas downes 
+    Public Property IsDisplayedOnBadge_Backside As Boolean Implements ICIBFieldStandardOrCustom.IsDisplayedOnBadge_Backside ''Added 12/8/2021 thomas downes 
+
+
     Public Property IsStandard As Boolean = False Implements ICIBFieldStandardOrCustom.IsStandard ''Added 7/26/2019 td
     Public Property IsCustomizable As Boolean = False Implements ICIBFieldStandardOrCustom.IsCustomizable ''Added 7/26/2019 td
 
