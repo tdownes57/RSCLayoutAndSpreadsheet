@@ -2055,4 +2055,12 @@ ExitHandler:
         ''   ----12/1/2021 thomas
         ''
     End Sub
+
+    Private Sub checkAutoPreview_CheckedChanged(sender As Object, e As EventArgs) Handles checkAutoPreview.CheckedChanged
+
+        ''Added 12/8/2021 thomas downes
+        ''   Do something to indicate a "sine qua non" relationship.
+        checkInstantPreview.Enabled = checkAutoPreview.Checked
+
+    End Sub
 End Class

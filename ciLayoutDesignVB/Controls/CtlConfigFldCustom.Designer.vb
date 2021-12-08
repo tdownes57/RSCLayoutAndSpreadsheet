@@ -39,6 +39,8 @@ Partial Class CtlConfigFldCustom
         Me.checkRelevantToPersonality = New System.Windows.Forms.CheckBox()
         Me.LabelDatabaseFieldname = New System.Windows.Forms.Label()
         Me.LabelDateEdited = New System.Windows.Forms.Label()
+        Me.checkBadgeFront = New System.Windows.Forms.CheckBox()
+        Me.checkBadgeBackside = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         'textFieldLabel
@@ -172,7 +174,7 @@ Partial Class CtlConfigFldCustom
         Me.checkDisplayOnBadge.AutoSize = True
         Me.checkDisplayOnBadge.Checked = True
         Me.checkDisplayOnBadge.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.checkDisplayOnBadge.Location = New System.Drawing.Point(703, 34)
+        Me.checkDisplayOnBadge.Location = New System.Drawing.Point(680, 46)
         Me.checkDisplayOnBadge.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.checkDisplayOnBadge.Name = "checkDisplayOnBadge"
         Me.checkDisplayOnBadge.Size = New System.Drawing.Size(192, 21)
@@ -185,7 +187,7 @@ Partial Class CtlConfigFldCustom
         Me.checkDisplayForEdits.AutoSize = True
         Me.checkDisplayForEdits.Checked = True
         Me.checkDisplayForEdits.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.checkDisplayForEdits.Location = New System.Drawing.Point(703, 60)
+        Me.checkDisplayForEdits.Location = New System.Drawing.Point(680, 27)
         Me.checkDisplayForEdits.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.checkDisplayForEdits.Name = "checkDisplayForEdits"
         Me.checkDisplayForEdits.Size = New System.Drawing.Size(201, 21)
@@ -198,7 +200,7 @@ Partial Class CtlConfigFldCustom
         Me.checkRelevantToPersonality.AutoSize = True
         Me.checkRelevantToPersonality.Checked = True
         Me.checkRelevantToPersonality.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.checkRelevantToPersonality.Location = New System.Drawing.Point(682, 9)
+        Me.checkRelevantToPersonality.Location = New System.Drawing.Point(662, 2)
         Me.checkRelevantToPersonality.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.checkRelevantToPersonality.Name = "checkRelevantToPersonality"
         Me.checkRelevantToPersonality.Size = New System.Drawing.Size(202, 21)
@@ -224,12 +226,40 @@ Partial Class CtlConfigFldCustom
         Me.LabelDateEdited.TabIndex = 26
         Me.LabelDateEdited.Text = "[ Date Edited ]"
         '
+        'checkBadgeFront
+        '
+        Me.checkBadgeFront.AutoSize = True
+        Me.checkBadgeFront.Checked = True
+        Me.checkBadgeFront.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.checkBadgeFront.Location = New System.Drawing.Point(702, 63)
+        Me.checkBadgeFront.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.checkBadgeFront.Name = "checkBadgeFront"
+        Me.checkBadgeFront.Size = New System.Drawing.Size(63, 21)
+        Me.checkBadgeFront.TabIndex = 27
+        Me.checkBadgeFront.Text = "Front"
+        Me.checkBadgeFront.UseVisualStyleBackColor = True
+        '
+        'checkBadgeBackside
+        '
+        Me.checkBadgeBackside.AutoSize = True
+        Me.checkBadgeBackside.Checked = True
+        Me.checkBadgeBackside.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.checkBadgeBackside.Location = New System.Drawing.Point(771, 63)
+        Me.checkBadgeBackside.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.checkBadgeBackside.Name = "checkBadgeBackside"
+        Me.checkBadgeBackside.Size = New System.Drawing.Size(87, 21)
+        Me.checkBadgeBackside.TabIndex = 28
+        Me.checkBadgeBackside.Text = "Backside"
+        Me.checkBadgeBackside.UseVisualStyleBackColor = True
+        '
         'CtlConfigFldCustom
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.LightCyan
         Me.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Controls.Add(Me.checkBadgeBackside)
+        Me.Controls.Add(Me.checkBadgeFront)
         Me.Controls.Add(Me.LabelDateEdited)
         Me.Controls.Add(Me.LabelDatabaseFieldname)
         Me.Controls.Add(Me.checkRelevantToPersonality)
@@ -272,4 +302,6 @@ Partial Class CtlConfigFldCustom
     Friend WithEvents checkRelevantToPersonality As CheckBox
     Friend WithEvents LabelDatabaseFieldname As Label
     Friend WithEvents LabelDateEdited As Label
+    Friend WithEvents checkBadgeFront As CheckBox
+    Friend WithEvents checkBadgeBackside As CheckBox
 End Class

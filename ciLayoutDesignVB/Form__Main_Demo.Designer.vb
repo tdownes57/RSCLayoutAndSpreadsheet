@@ -101,6 +101,8 @@ Partial Class Form__Main_Demo
         Me.CtlGraphicPortrait_Lady = New ciBadgeDesigner.CtlGraphicPortrait()
         Me.CtlGraphicSignature1 = New ciBadgeDesigner.CtlGraphicSignature()
         Me.CtlGraphicText1 = New ciBadgeDesigner.CtlGraphicText()
+        Me.labelProceedToBackside = New System.Windows.Forms.Label()
+        Me.LabelReturnToFrontSide = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -456,7 +458,7 @@ Partial Class Form__Main_Demo
         'LinkRefreshPreview
         '
         Me.LinkRefreshPreview.AutoSize = True
-        Me.LinkRefreshPreview.Location = New System.Drawing.Point(734, 124)
+        Me.LinkRefreshPreview.Location = New System.Drawing.Point(690, 124)
         Me.LinkRefreshPreview.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
         Me.LinkRefreshPreview.Name = "LinkRefreshPreview"
         Me.LinkRefreshPreview.Size = New System.Drawing.Size(132, 20)
@@ -682,11 +684,11 @@ Partial Class Form__Main_Demo
         'checkInstantPreview
         '
         Me.checkInstantPreview.AutoSize = True
-        Me.checkInstantPreview.Location = New System.Drawing.Point(1205, 149)
+        Me.checkInstantPreview.Location = New System.Drawing.Point(829, 123)
         Me.checkInstantPreview.Name = "checkInstantPreview"
-        Me.checkInstantPreview.Size = New System.Drawing.Size(81, 24)
+        Me.checkInstantPreview.Size = New System.Drawing.Size(121, 24)
         Me.checkInstantPreview.TabIndex = 72
-        Me.checkInstantPreview.Text = "Instant"
+        Me.checkInstantPreview.Text = "Auto-Motion"
         Me.checkInstantPreview.UseVisualStyleBackColor = True
         '
         'PictureBox1
@@ -701,7 +703,7 @@ Partial Class Form__Main_Demo
         'CtlGraphicQRCode1
         '
         Me.CtlGraphicQRCode1.Location = New System.Drawing.Point(549, 352)
-        Me.CtlGraphicQRCode1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.CtlGraphicQRCode1.Margin = New System.Windows.Forms.Padding(4)
         Me.CtlGraphicQRCode1.Name = "CtlGraphicQRCode1"
         Me.CtlGraphicQRCode1.Size = New System.Drawing.Size(94, 99)
         Me.CtlGraphicQRCode1.TabIndex = 65
@@ -731,11 +733,34 @@ Partial Class Form__Main_Demo
         Me.CtlGraphicText1.TabIndex = 75
         Me.CtlGraphicText1.TextToDisplay = "This is text which will be the same for everyone."
         '
+        'labelProceedToBackside
+        '
+        Me.labelProceedToBackside.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.labelProceedToBackside.ForeColor = System.Drawing.Color.Navy
+        Me.labelProceedToBackside.Location = New System.Drawing.Point(307, 64)
+        Me.labelProceedToBackside.Name = "labelProceedToBackside"
+        Me.labelProceedToBackside.Size = New System.Drawing.Size(365, 23)
+        Me.labelProceedToBackside.TabIndex = 76
+        Me.labelProceedToBackside.Tag = ">>> Show backside of ID Card."
+        Me.labelProceedToBackside.Text = ">>> Add backside of ID Card."
+        '
+        'LabelReturnToFrontSide
+        '
+        Me.LabelReturnToFrontSide.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelReturnToFrontSide.ForeColor = System.Drawing.Color.Navy
+        Me.LabelReturnToFrontSide.Location = New System.Drawing.Point(12, 65)
+        Me.LabelReturnToFrontSide.Name = "LabelReturnToFrontSide"
+        Me.LabelReturnToFrontSide.Size = New System.Drawing.Size(392, 23)
+        Me.LabelReturnToFrontSide.TabIndex = 77
+        Me.LabelReturnToFrontSide.Text = "<<< Return to front of ID Card."
+        Me.LabelReturnToFrontSide.Visible = False
+        '
         'Form__Main_Demo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1298, 616)
+        Me.Controls.Add(Me.labelProceedToBackside)
         Me.Controls.Add(Me.checkInstantPreview)
         Me.Controls.Add(Me.LinkLabelEmailBadgeJpeg)
         Me.Controls.Add(Me.LinkLabelEmailBadgeJPG)
@@ -766,6 +791,7 @@ Partial Class Form__Main_Demo
         Me.Controls.Add(Me.CtlGraphicSignature1)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.CtlGraphicText1)
+        Me.Controls.Add(Me.LabelReturnToFrontSide)
         Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Margin = New System.Windows.Forms.Padding(1, 3, 1, 3)
         Me.Name = "Form__Main_Demo"
@@ -863,4 +889,6 @@ Partial Class Form__Main_Demo
     Friend WithEvents checkInstantPreview As CheckBox
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents CtlGraphicText1 As ciBadgeDesigner.CtlGraphicText
+    Friend WithEvents labelProceedToBackside As Label
+    Friend WithEvents LabelReturnToFrontSide As Label
 End Class

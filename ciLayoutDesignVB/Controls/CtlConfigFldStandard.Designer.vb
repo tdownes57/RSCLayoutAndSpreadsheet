@@ -31,6 +31,8 @@ Partial Class CtlConfigFldStandard
         Me.checkDisplayOnBadge = New System.Windows.Forms.CheckBox()
         Me.checkIsFieldForDates = New System.Windows.Forms.CheckBox()
         Me.checkRelevantToPersonality = New System.Windows.Forms.CheckBox()
+        Me.checkBadgeBackside = New System.Windows.Forms.CheckBox()
+        Me.checkBadgeFront = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         'LinkSupplementary
@@ -86,7 +88,7 @@ Partial Class CtlConfigFldStandard
         'checkDisplayForEdits
         '
         Me.checkDisplayForEdits.AutoSize = True
-        Me.checkDisplayForEdits.Location = New System.Drawing.Point(51, 121)
+        Me.checkDisplayForEdits.Location = New System.Drawing.Point(73, 109)
         Me.checkDisplayForEdits.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.checkDisplayForEdits.Name = "checkDisplayForEdits"
         Me.checkDisplayForEdits.Size = New System.Drawing.Size(201, 21)
@@ -97,7 +99,7 @@ Partial Class CtlConfigFldStandard
         'checkDisplayOnBadge
         '
         Me.checkDisplayOnBadge.AutoSize = True
-        Me.checkDisplayOnBadge.Location = New System.Drawing.Point(51, 104)
+        Me.checkDisplayOnBadge.Location = New System.Drawing.Point(73, 132)
         Me.checkDisplayOnBadge.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.checkDisplayOnBadge.Name = "checkDisplayOnBadge"
         Me.checkDisplayOnBadge.Size = New System.Drawing.Size(195, 21)
@@ -128,11 +130,39 @@ Partial Class CtlConfigFldStandard
         Me.checkRelevantToPersonality.Text = "Relevant to this Personality"
         Me.checkRelevantToPersonality.UseVisualStyleBackColor = True
         '
+        'checkBadgeBackside
+        '
+        Me.checkBadgeBackside.AutoSize = True
+        Me.checkBadgeBackside.Checked = True
+        Me.checkBadgeBackside.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.checkBadgeBackside.Location = New System.Drawing.Point(335, 132)
+        Me.checkBadgeBackside.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.checkBadgeBackside.Name = "checkBadgeBackside"
+        Me.checkBadgeBackside.Size = New System.Drawing.Size(87, 21)
+        Me.checkBadgeBackside.TabIndex = 30
+        Me.checkBadgeBackside.Text = "Backside"
+        Me.checkBadgeBackside.UseVisualStyleBackColor = True
+        '
+        'checkBadgeFront
+        '
+        Me.checkBadgeFront.AutoSize = True
+        Me.checkBadgeFront.Checked = True
+        Me.checkBadgeFront.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.checkBadgeFront.Location = New System.Drawing.Point(274, 132)
+        Me.checkBadgeFront.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.checkBadgeFront.Name = "checkBadgeFront"
+        Me.checkBadgeFront.Size = New System.Drawing.Size(63, 21)
+        Me.checkBadgeFront.TabIndex = 29
+        Me.checkBadgeFront.Text = "Front"
+        Me.checkBadgeFront.UseVisualStyleBackColor = True
+        '
         'CtlConfigFldStandard
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.PowderBlue
+        Me.Controls.Add(Me.checkBadgeBackside)
+        Me.Controls.Add(Me.checkBadgeFront)
         Me.Controls.Add(Me.checkRelevantToPersonality)
         Me.Controls.Add(Me.checkIsFieldForDates)
         Me.Controls.Add(Me.checkDisplayOnBadge)
@@ -144,7 +174,7 @@ Partial Class CtlConfigFldStandard
         Me.Controls.Add(Me.textFieldLabel)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "CtlConfigFldStandard"
-        Me.Size = New System.Drawing.Size(749, 144)
+        Me.Size = New System.Drawing.Size(749, 155)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -159,4 +189,6 @@ Partial Class CtlConfigFldStandard
     Friend WithEvents checkDisplayOnBadge As CheckBox
     Friend WithEvents checkIsFieldForDates As CheckBox
     Friend WithEvents checkRelevantToPersonality As CheckBox
+    Friend WithEvents checkBadgeBackside As CheckBox
+    Friend WithEvents checkBadgeFront As CheckBox
 End Class
