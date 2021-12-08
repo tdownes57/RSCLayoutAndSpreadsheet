@@ -154,9 +154,14 @@ Public Class ClassDesigner
 
         ''---objListenerQR = mod_designerListener.mod_dictyControlMoveBoxesEtc(CtlGraphic_QRCode)
         objListenerQR = mod_designerListener.mod_dictyControlResizing(CtlGraphic_QRCode)
-
         objListenerQR.RemoveEventHandlers()
+        CtlGraphic_QRCode.Dispose() ''Added Dec. 8, 2021
+        Me.DesignerForm.Controls.Remove(CtlGraphic_QRCode) ''Added Dec. 8, 2021
+        mod_listOfDesignerControls.Remove(CtlGraphic_QRCode) ''Added Dec. 8, 2021
 
+        ''
+        ''Address the controls that are contained in mod_listOfDesignerControls.
+        ''
         For intPassthroughIndex As Integer = 1 To 2
             ''
             ''Run this loop twice, for good measure!! 
@@ -260,11 +265,16 @@ Public Class ClassDesigner
         Dim elementQRCode As ClassElementQRCode = Me.ElementsCache_Edits.ElementQRCode
         Me.CtlGraphic_QRCode = New CtlGraphicQRCode(elementQRCode, CType(Me, ILayoutFunctions))
         Me.DesignerForm.Controls.Add(Me.CtlGraphic_QRCode)
+        mod_listOfDesignerControls.Add(Me.CtlGraphic_QRCode) ''Added 12/8/2021 td
+
         With Me.CtlGraphic_QRCode
             ''Me.CtlGraphic_QRCode.Visible = True ''Dec. 7, 2021
             .Visible = True
-            .Left = elementQRCode.LeftEdge_Pixels
-            .Top = elementQRCode.TopEdge_Pixels
+
+            ''Dec.8 2021''.Left = elementQRCode.LeftEdge_Pixels
+            ''Dec.8 2021''.Top = elementQRCode.TopEdge_Pixels
+            .Left = Me.Layout_Margin_Left_Add(elementQRCode.LeftEdge_Pixels)
+            .Top = Me.Layout_Margin_Top_Add(elementQRCode.TopEdge_Pixels)
             .Width = elementQRCode.Width_Pixels
             .Height = elementQRCode.Height_Pixels
         End With ''End of "With Me.CtlGraphic_QRCode"
