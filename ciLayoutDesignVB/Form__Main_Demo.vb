@@ -161,7 +161,7 @@ Public Class Form__Main_Demo
                     Me.ElementsCache_Edits.LoadElement_Signature(0, 0,
                                 CtlGraphicSignature1.Width,
                                 CtlGraphicSignature1.Height,
-                                PictureBox1)
+                                pictureBackgroundFront)
                 End If ''End of "If (Me.ElementsCache_Edits.MissingTheSignature()) Then"
 
                 .ElementClass_Obj = Me.ElementsCache_Edits.ElementSignature
@@ -188,17 +188,17 @@ Public Class Form__Main_Demo
         ''
         ''9/8/2019 td''ClassLabelToImage.Proportions_CorrectWidth(pictureBack)
         ''9/8/2019 td''ClassLabelToImage.Proportions_CorrectWidth(picturePreview)
-        ClassLabelToImage.Proportions_FixTheWidth(PictureBox1)
+        ClassLabelToImage.Proportions_FixTheWidth(pictureBackgroundFront)
         ClassLabelToImage.Proportions_FixTheWidth(picturePreview)
 
         ''Double-check the proportions are correct. ---9/6/2019 td
-        ClassLabelToImage.ProportionsAreSlightlyOff(PictureBox1, True)
+        ClassLabelToImage.ProportionsAreSlightlyOff(pictureBackgroundFront, True)
         ClassLabelToImage.ProportionsAreSlightlyOff(picturePreview, True)
 
         ''Added 10/13/2019 td
         Me.BadgeLayout = New BadgeLayoutClass
-        Me.BadgeLayout.Height_Pixels = PictureBox1.Height
-        Me.BadgeLayout.Width_Pixels = PictureBox1.Width
+        Me.BadgeLayout.Height_Pixels = pictureBackgroundFront.Height
+        Me.BadgeLayout.Width_Pixels = pictureBackgroundFront.Width
 
         ''
         ''I forget, what was this going to do originally?  ---9/6/2019 td
@@ -308,7 +308,7 @@ Public Class Form__Main_Demo
         MenuCache_Background.GenerateMenuItems_IfNeeded()
 
         ''Added 12/3/2021 td
-        PictureBox1.Refresh()
+        pictureBackgroundFront.Refresh()
 
     End Sub ''End of "Private Sub Form_Load"  
 
@@ -358,7 +358,7 @@ Public Class Form__Main_Demo
 
             ''Modified 12/3/2021 td 
             ''12/3/2021 td''.BackgroundBox = Me.pictureBack
-            .BackgroundBox = Me.PictureBox1
+            .BackgroundBox = Me.pictureBackgroundFront
 
             ''Added 12/3/2021 thomas downes
             Dim objectBackgroundImage As Bitmap
@@ -1132,7 +1132,7 @@ Public Class Form__Main_Demo
 
         ''Refresh the form.  
         RefreshTheSetOfDisplayedElements()
-        PictureBox1.SendToBack()
+        pictureBackgroundFront.SendToBack()
 
     End Sub
 
@@ -1188,7 +1188,7 @@ Public Class Form__Main_Demo
 
         ''Refresh the form.  
         RefreshTheSetOfDisplayedElements()
-        PictureBox1.SendToBack()
+        pictureBackgroundFront.SendToBack()
 
     End Sub ''End of "Private Sub ShowFieldsToEdit_Standard" 
 
@@ -1201,12 +1201,12 @@ Public Class Form__Main_Demo
         ''
         ''Check that the proportions are correct. 
         ''
-        ClassLabelToImage.ProportionsAreSlightlyOff(PictureBox1, True)
+        ClassLabelToImage.ProportionsAreSlightlyOff(pictureBackgroundFront, True)
         ClassLabelToImage.ProportionsAreSlightlyOff(picturePreview, True)
 
         ''Added 9/8/2019 td
         ''12/3/2021 td''ClassLabelToImage.ProportionsAreSlightlyOff(ctlBackgroundZoom1.Image, True)
-        ClassLabelToImage.ProportionsAreSlightlyOff(PictureBox1.BackgroundImage, True)
+        ClassLabelToImage.ProportionsAreSlightlyOff(pictureBackgroundFront.BackgroundImage, True)
         ClassLabelToImage.ProportionsAreSlightlyOff(picturePreview.Image, True)
 
         ''
@@ -1317,14 +1317,14 @@ Public Class Form__Main_Demo
 
     ''End Sub ''End of "Private Sub AddField_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)"
 
-    '''
-    '''  Simple Drawing Selection Shape (Or Rubberband Shape)       
-    '''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
-    '''
-    '''9/8/2019 td''Private _bRubberBandingOn As Boolean = False '-- State to control if we are drawing the rubber banding object
-    '''9/8/2019 td''Private _pClickStart As New Point '-- The place where the mouse button went 'down'.
-    '''9/8/2019 td''Private _pClickStop As New Point '-- The place where the mouse button went 'up'.
-    '''9/8/2019 td''Private _pNow As New Point '-- Holds the current mouse location to make the shape appear to follow the mouse cursor.
+    ''
+    ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
+    ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
+    ''
+    ''9/8/2019 td''Private _bRubberBandingOn As Boolean = False '-- State to control if we are drawing the rubber banding object
+    ''9/8/2019 td''Private _pClickStart As New Point '-- The place where the mouse button went 'down'.
+    ''9/8/2019 td''Private _pClickStop As New Point '-- The place where the mouse button went 'up'.
+    ''9/8/2019 td''Private _pNow As New Point '-- Holds the current mouse location to make the shape appear to follow the mouse cursor.
 
     ''Private Sub Layout_MouseDown(sender As Object, e As MouseEventArgs) Handles ctlBackgroundZoom1.MouseDown ''----Me.MouseDown
     ''    ''
@@ -1690,7 +1690,7 @@ Public Class Form__Main_Demo
         ''Added 10/15/2019 td 
         ContextMenuStrip1.Items.Clear()
         ContextMenuStrip1.Items.AddRange(MenuCache_Background.Tools_BackgroundMenu)
-        ContextMenuStrip1.Show(PictureBox1, New Point(par_mouse_x, par_mouse_y))
+        ContextMenuStrip1.Show(pictureBackgroundFront, New Point(par_mouse_x, par_mouse_y))
 
     End Sub
 
@@ -1752,7 +1752,7 @@ Public Class Form__Main_Demo
                                     (mod_strRecipientID & ".jpg"))
 
                 img_Prod = picturePreview.Image
-                img_Prod = objBadgeGenerator.MakeBadgeImage_ByRecipient(Me.BadgeLayout, PictureBox1.BackgroundImage,
+                img_Prod = objBadgeGenerator.MakeBadgeImage_ByRecipient(Me.BadgeLayout, pictureBackgroundFront.BackgroundImage,
                                                                         Me.ElementsCache_Edits,
                                                                         Me.BadgeLayout.Width_Pixels,
                                                                         Me.BadgeLayout.Height_Pixels, each_recip, Nothing)
@@ -1917,8 +1917,8 @@ ExitHandler:
             ''ClassElementsCache_Deprecated.Singleton.BackgroundImage_Path = strPathToFilename
             '' 12/3/2021 td''ctlBackgroundZoom1.ImageLocation = strPathToFilename
             '' 12/3/2021 td''PictureBox1.ImageLocation = strPathToFilename
-            PictureBox1.BackgroundImage = (New Bitmap(strPathToFilename))
-            PictureBox1.BackgroundImageLayout = ImageLayout.Zoom
+            pictureBackgroundFront.BackgroundImage = (New Bitmap(strPathToFilename))
+            pictureBackgroundFront.BackgroundImageLayout = ImageLayout.Zoom
 
             ''Added 12/3/2021 td
             Me.ElementsCache_Edits.BackgroundImage_Path = strPathToFilename
@@ -2061,6 +2061,57 @@ ExitHandler:
         ''Added 12/8/2021 thomas downes
         ''   Do something to indicate a "sine qua non" relationship.
         checkInstantPreview.Enabled = checkAutoPreview.Checked
+
+    End Sub
+
+    Private Sub labelProceedToBackside_Click(sender As Object, e As EventArgs) Handles labelProceedToBackside.Click
+        ''
+        ''Added 12/8/2021 thomas downes 
+        ''
+        ''  Show the backside of the card. 
+        ''
+        labelProceedToBackside.Text = labelProceedToBackside.Tag.ToString()
+        Unload_Designer()
+        pictureBackgroundBackside.Visible = True ''By default, when the form opens, this control is invisible. 
+        pictureBackgroundFront.SendToBack()
+        Dim boolSuccess As Boolean
+
+        mod_designer.SwitchSideOfCard(boolSuccess)
+        mod_designer.BackgroundBox = pictureBackgroundBackside
+
+        If (boolSuccess) Then
+            labelProceedToBackside.Visible = False
+            LabelReturnToFrontSide.Visible = True
+        End If ''End of "If (boolSuccess) Then"
+
+    End Sub
+
+    Private Sub ExitRecipientModeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitRecipientModeToolStripMenuItem.Click
+        ''
+        ''Added 12/8/2021 thomas downes
+        ''
+        flowSidebar.Visible = False
+        ClassElementField.iRecipientInfo = Nothing
+        ClassElementField.oRecipient = Nothing
+        mod_designer.RefreshPreview_Redux()
+
+    End Sub
+
+    Private Sub LabelReturnToFrontSide_Click(sender As Object, e As EventArgs) Handles LabelReturnToFrontSide.Click
+        ''
+        ''Added 12/8/2021 thomas downes 
+        ''
+        ''  Return to the frontside of the card. 
+        ''
+        Dim boolSuccess As Boolean
+        Unload_Designer()
+        mod_designer.SwitchSideOfCard(boolSuccess)
+        If (boolSuccess) Then
+            labelProceedToBackside.Visible = True ''If the user is seeing the Front, they may change minds and want to see the Back again. 
+            LabelReturnToFrontSide.Visible = False
+        End If ''End of "If (boolSuccess) Then"
+        pictureBackgroundBackside.SendToBack()
+        mod_designer.BackgroundBox = pictureBackgroundFront
 
     End Sub
 End Class

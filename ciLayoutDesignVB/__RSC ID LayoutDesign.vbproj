@@ -558,7 +558,8 @@
     <Compile Include="DialogTextBorder.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="modFonts.vb" />
+    <Compile Include="Modules\modEnums.vb" />
+    <Compile Include="Modules\modFonts.vb" />
     <Compile Include="Modules\modAllowFieldEdits.vb" />
     <Compile Include="__Notes\CodeDeletedFromProtoTwo.vb" />
     <Compile Include="Startup.vb" />
@@ -570,11 +571,11 @@
     </Compile>
     <Compile Include="InterfaceCIBField_NotInUse.vb" />
     <Compile Include="LayoutSerialization.vb" />
-    <Compile Include="modAdjustmentBoxes_V101.vb" />
-    <Compile Include="modAdjustmentBoxes_V102.vb" />
-    <Compile Include="modConvertWinLabelsToDrawing.vb" />
-    <Compile Include="modConvertWinLabelsToWebCSS.vb" />
-    <Compile Include="ModuleMonem.vb" />
+    <Compile Include="Modules\modAdjustmentBoxes_V101.vb" />
+    <Compile Include="Modules\modAdjustmentBoxes_V102.vb" />
+    <Compile Include="Modules\modConvertWinLabelsToDrawing.vb" />
+    <Compile Include="Modules\modConvertWinLabelsToWebCSS.vb" />
+    <Compile Include="Modules\ModuleMonem.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

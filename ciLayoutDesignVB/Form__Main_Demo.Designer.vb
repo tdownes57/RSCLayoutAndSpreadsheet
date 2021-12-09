@@ -96,13 +96,15 @@ Partial Class Form__Main_Demo
         Me.LinkLabelEmailBadgeJPG = New System.Windows.Forms.LinkLabel()
         Me.LinkLabelEmailBadgeJpeg = New System.Windows.Forms.LinkLabel()
         Me.checkInstantPreview = New System.Windows.Forms.CheckBox()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.pictureBackgroundFront = New System.Windows.Forms.PictureBox()
+        Me.labelProceedToBackside = New System.Windows.Forms.Label()
+        Me.LabelReturnToFrontSide = New System.Windows.Forms.Label()
+        Me.ExitRecipientModeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CtlGraphicQRCode1 = New ciBadgeDesigner.CtlGraphicQRCode()
         Me.CtlGraphicPortrait_Lady = New ciBadgeDesigner.CtlGraphicPortrait()
         Me.CtlGraphicSignature1 = New ciBadgeDesigner.CtlGraphicSignature()
         Me.CtlGraphicText1 = New ciBadgeDesigner.CtlGraphicText()
-        Me.labelProceedToBackside = New System.Windows.Forms.Label()
-        Me.LabelReturnToFrontSide = New System.Windows.Forms.Label()
+        Me.pictureBackgroundBackside = New System.Windows.Forms.PictureBox()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -110,7 +112,8 @@ Partial Class Form__Main_Demo
         Me.flowSidebar.SuspendLayout()
         CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.graphicAdjuster, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pictureBackgroundFront, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pictureBackgroundBackside, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'LinkShowWebControls
@@ -355,7 +358,7 @@ Partial Class Form__Main_Demo
         '
         'BadgeRecipientsToolStripMenuItem
         '
-        Me.BadgeRecipientsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ShowBadgeRecipientsToolStripMenuItem, Me.CloseListOfRecipentsToolStripMenuItem, Me.PrintAllBadgesToFileFolderToolStripMenuItem})
+        Me.BadgeRecipientsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ShowBadgeRecipientsToolStripMenuItem, Me.CloseListOfRecipentsToolStripMenuItem, Me.PrintAllBadgesToFileFolderToolStripMenuItem, Me.ExitRecipientModeToolStripMenuItem})
         Me.BadgeRecipientsToolStripMenuItem.Name = "BadgeRecipientsToolStripMenuItem"
         Me.BadgeRecipientsToolStripMenuItem.Size = New System.Drawing.Size(138, 24)
         Me.BadgeRecipientsToolStripMenuItem.Text = "Badge Recipients"
@@ -691,14 +694,42 @@ Partial Class Form__Main_Demo
         Me.checkInstantPreview.Text = "Auto-Motion"
         Me.checkInstantPreview.UseVisualStyleBackColor = True
         '
-        'PictureBox1
+        'pictureBackgroundFront
         '
-        Me.PictureBox1.BackColor = System.Drawing.Color.White
-        Me.PictureBox1.Location = New System.Drawing.Point(21, 90)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(641, 380)
-        Me.PictureBox1.TabIndex = 74
-        Me.PictureBox1.TabStop = False
+        Me.pictureBackgroundFront.BackColor = System.Drawing.Color.White
+        Me.pictureBackgroundFront.Location = New System.Drawing.Point(15, 96)
+        Me.pictureBackgroundFront.Name = "pictureBackgroundFront"
+        Me.pictureBackgroundFront.Size = New System.Drawing.Size(641, 380)
+        Me.pictureBackgroundFront.TabIndex = 74
+        Me.pictureBackgroundFront.TabStop = False
+        '
+        'labelProceedToBackside
+        '
+        Me.labelProceedToBackside.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.labelProceedToBackside.ForeColor = System.Drawing.Color.Navy
+        Me.labelProceedToBackside.Location = New System.Drawing.Point(307, 64)
+        Me.labelProceedToBackside.Name = "labelProceedToBackside"
+        Me.labelProceedToBackside.Size = New System.Drawing.Size(365, 23)
+        Me.labelProceedToBackside.TabIndex = 76
+        Me.labelProceedToBackside.Tag = ">>> Show backside of ID Card."
+        Me.labelProceedToBackside.Text = ">>> Add backside of ID Card."
+        '
+        'LabelReturnToFrontSide
+        '
+        Me.LabelReturnToFrontSide.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelReturnToFrontSide.ForeColor = System.Drawing.Color.Navy
+        Me.LabelReturnToFrontSide.Location = New System.Drawing.Point(12, 65)
+        Me.LabelReturnToFrontSide.Name = "LabelReturnToFrontSide"
+        Me.LabelReturnToFrontSide.Size = New System.Drawing.Size(392, 23)
+        Me.LabelReturnToFrontSide.TabIndex = 77
+        Me.LabelReturnToFrontSide.Text = "<<< Return to front of ID Card."
+        Me.LabelReturnToFrontSide.Visible = False
+        '
+        'ExitRecipientModeToolStripMenuItem
+        '
+        Me.ExitRecipientModeToolStripMenuItem.Name = "ExitRecipientModeToolStripMenuItem"
+        Me.ExitRecipientModeToolStripMenuItem.Size = New System.Drawing.Size(318, 26)
+        Me.ExitRecipientModeToolStripMenuItem.Text = "Exit Recipient Mode"
         '
         'CtlGraphicQRCode1
         '
@@ -733,27 +764,15 @@ Partial Class Form__Main_Demo
         Me.CtlGraphicText1.TabIndex = 75
         Me.CtlGraphicText1.TextToDisplay = "This is text which will be the same for everyone."
         '
-        'labelProceedToBackside
+        'pictureBackgroundBackside
         '
-        Me.labelProceedToBackside.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.labelProceedToBackside.ForeColor = System.Drawing.Color.Navy
-        Me.labelProceedToBackside.Location = New System.Drawing.Point(307, 64)
-        Me.labelProceedToBackside.Name = "labelProceedToBackside"
-        Me.labelProceedToBackside.Size = New System.Drawing.Size(365, 23)
-        Me.labelProceedToBackside.TabIndex = 76
-        Me.labelProceedToBackside.Tag = ">>> Show backside of ID Card."
-        Me.labelProceedToBackside.Text = ">>> Add backside of ID Card."
-        '
-        'LabelReturnToFrontSide
-        '
-        Me.LabelReturnToFrontSide.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelReturnToFrontSide.ForeColor = System.Drawing.Color.Navy
-        Me.LabelReturnToFrontSide.Location = New System.Drawing.Point(12, 65)
-        Me.LabelReturnToFrontSide.Name = "LabelReturnToFrontSide"
-        Me.LabelReturnToFrontSide.Size = New System.Drawing.Size(392, 23)
-        Me.LabelReturnToFrontSide.TabIndex = 77
-        Me.LabelReturnToFrontSide.Text = "<<< Return to front of ID Card."
-        Me.LabelReturnToFrontSide.Visible = False
+        Me.pictureBackgroundBackside.BackColor = System.Drawing.Color.White
+        Me.pictureBackgroundBackside.Location = New System.Drawing.Point(31, 107)
+        Me.pictureBackgroundBackside.Name = "pictureBackgroundBackside"
+        Me.pictureBackgroundBackside.Size = New System.Drawing.Size(641, 380)
+        Me.pictureBackgroundBackside.TabIndex = 78
+        Me.pictureBackgroundBackside.TabStop = False
+        Me.pictureBackgroundBackside.Visible = False
         '
         'Form__Main_Demo
         '
@@ -789,9 +808,10 @@ Partial Class Form__Main_Demo
         Me.Controls.Add(Me.LinkShowWebControls)
         Me.Controls.Add(Me.graphicAdjuster)
         Me.Controls.Add(Me.CtlGraphicSignature1)
-        Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.CtlGraphicText1)
         Me.Controls.Add(Me.LabelReturnToFrontSide)
+        Me.Controls.Add(Me.pictureBackgroundFront)
+        Me.Controls.Add(Me.pictureBackgroundBackside)
         Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Margin = New System.Windows.Forms.Padding(1, 3, 1, 3)
         Me.Name = "Form__Main_Demo"
@@ -807,7 +827,8 @@ Partial Class Form__Main_Demo
         Me.flowSidebar.PerformLayout()
         CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.graphicAdjuster, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pictureBackgroundFront, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pictureBackgroundBackside, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -887,8 +908,10 @@ Partial Class Form__Main_Demo
     Friend WithEvents UnloadDesignerToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ReloadDesignerToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents checkInstantPreview As CheckBox
-    Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents pictureBackgroundFront As PictureBox
     Friend WithEvents CtlGraphicText1 As ciBadgeDesigner.CtlGraphicText
     Friend WithEvents labelProceedToBackside As Label
     Friend WithEvents LabelReturnToFrontSide As Label
+    Friend WithEvents ExitRecipientModeToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents pictureBackgroundBackside As PictureBox
 End Class

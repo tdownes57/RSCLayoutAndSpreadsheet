@@ -16,6 +16,16 @@ Module modFactoryControls
 
     End Enum
 
+    ''
+    ''Added 12/8/2021 Thomas 
+    ''
+    Public Enum EnumWhichSideOfCard
+        Undetermined
+        EnumFrontside
+        EnumBackside
+
+    End Enum
+
     ''Public Function GetFieldControl_Generic(par_enum As EnumControlsMode) As ICtlElementFieldCtl
 
 

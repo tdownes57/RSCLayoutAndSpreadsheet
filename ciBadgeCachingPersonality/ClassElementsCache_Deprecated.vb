@@ -272,6 +272,7 @@ Namespace ciBadgeCachePersonality
 
         End Function
 
+
         Public Function ListOfBadgeDisplayElements_Flds_Front(pboolRefresh As Boolean) As HashSet(Of ClassElementField)
             ''---Dec.8 2021--Public Function ListOfBadgeDisplayElements_Flds(pboolRefresh As Boolean) As HashSet(Of ClassElementField)
             ''
@@ -286,6 +287,21 @@ Namespace ciBadgeCachePersonality
             Return mod_listBadgeElements_Front
 
         End Function ''end of "Public Function ListOfBadgeDisplayElements_Flds_Front()"
+
+
+        Public Function ListOfBadgeDisplayElements_Flds_Backside(pboolRefresh As Boolean) As HashSet(Of ClassElementField)
+            ''
+            ''Added 12/08/2021  
+            ''
+            If (pboolRefresh Or (mod_listBadgeElements_Backside Is Nothing)) Then
+                ''Major call!!
+                RefreshListOfBadgeDisplayElements_Flds_Backside()
+
+            End If ''End of "If (pboolRefresh Or (mod_listBadgeElements_Back Is Nothing)) Then"
+
+            Return mod_listBadgeElements_Backside
+
+        End Function ''end of "Public Function ListOfBadgeDisplayElements_Flds_Backside()"
 
 
         Public Sub RefreshListOfBadgeDisplayElements_Flds_Front(Optional pboolSkip13 As Boolean = True,
@@ -311,6 +327,8 @@ Namespace ciBadgeCachePersonality
                     new_list.Add(each_element)
                     indexBadgeDisplay += 1
                     ''Added 11/26/2021 thomas downes
+                    ''   Let's accomodate the fact that the webside has Badge Display #s 1, 2, 3, ... 12 and 15 ... 19.
+                    ''   (Notice that #s 13 & 14 are not in use, as an obselete gap between standard & custom fields.) 
                     If (pboolSkip13 And indexBadgeDisplay = 13) Then indexBadgeDisplay = 14
                     If (pboolSkip14 And indexBadgeDisplay = 14) Then indexBadgeDisplay = 15
 
@@ -323,7 +341,50 @@ Namespace ciBadgeCachePersonality
 
             mod_listBadgeElements_Front = new_list
 
-        End Sub ''End of "Public Sub RefreshListOfBadgeDisplayElements_Flds()"
+        End Sub ''End of "Public Sub RefreshListOfBadgeDisplayElements_Flds_Front()"
+
+
+        Public Sub RefreshListOfBadgeDisplayElements_Flds_Backside(Optional pboolSkip13 As Boolean = True,
+                                                      Optional pboolSkip14 As Boolean = True)
+            ''                                          As List(Of ClassElementField)
+            ''--Dec.8 2021--Public Sub RefreshListOfBadgeDisplayElements_Flds
+            ''
+            ''Added 12/8/2021 tdownes
+            ''
+            ''  For each element, we check to see if it will be displayed on the Badge.
+            ''  If so, it's included on the output list.  
+            ''
+            Dim new_list As New HashSet(Of ClassElementField)  ''End of "List(Of ClassElementField)"
+            Dim each_element As ClassElementField
+            Dim boolOnDisplay As Boolean
+            Dim structWhyOmit As New ciBadgeElements.WhyOmitted
+            Dim indexBadgeDisplay As Integer
+
+            If (mod_listElementFields_Backside Is Nothing) Then mod_listElementFields_Backside = New HashSet(Of ClassElementField)
+
+            For Each each_element In mod_listElementFields_Backside
+                ''Major call. 
+                boolOnDisplay = each_element.IsDisplayedOnBadge_Visibly(structWhyOmit)
+                If (boolOnDisplay) Then
+                    new_list.Add(each_element)
+                    indexBadgeDisplay += 1
+                    ''Added 11/26/2021 thomas downes
+                    ''   Let's accomodate the fact that the webside has Badge Display #s 1, 2, 3, ... 12 and 15 ... 19.
+                    ''   (Notice that #s 13 & 14 are not in use, as an obselete gap between standard & custom fields.) 
+                    If (pboolSkip13 And indexBadgeDisplay = 13) Then indexBadgeDisplay = 14
+                    If (pboolSkip14 And indexBadgeDisplay = 14) Then indexBadgeDisplay = 15
+
+                    each_element.BadgeDisplayIndex = indexBadgeDisplay
+                    ''Added 11/29/2021 td
+                    each_element.DatetimeUpdated = DateTime.Now
+
+                End If ''End of "If (boolOnDisplay) Then"
+            Next each_element
+
+            ''Save to the module-level list, suffixed "_Backside". 
+            mod_listBadgeElements_Backside = new_list
+
+        End Sub ''End of "Public Sub RefreshListOfBadgeDisplayElements_Flds_Backside()"
 
 
         Public Property ListOfElementPics As HashSet(Of ClassElementPic)  ''---List(Of ClassElementPic)

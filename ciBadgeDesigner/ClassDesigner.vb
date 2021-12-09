@@ -32,6 +32,8 @@ Public Class ClassDesigner
 
     ''Added 11/29/2021 thomas downes
     Private mod_designerListener As ClassDesignerEventListener
+    ''Added 12/8/2021 thomas downes
+    Private mod_enumSideOfCard As EnumWhichSideOfCard = EnumWhichSideOfCard.EnumFrontside ''Added 12/8/2021 Thomas downes  
 
     Public Property PreviewLayoutAsImage As Boolean = True ''Added 10.1.2019 thomas d. 
     Public BadgeLayout_Class As ciBadgeInterfaces.BadgeLayoutClass ''Added 10/9/2019 td  
@@ -331,7 +333,9 @@ Public Class ClassDesigner
         ''
         ''9/17/2019 td''LoadForm_LayoutElements()
         ''9/20/2019 td''LoadForm_LayoutElements(Me.ElementsCache_Edits)
-        LoadForm_LayoutElements(Me.ElementsCache_Edits, mod_listOfFieldControls,
+        ''12/8/2021 td''LoadForm_LayoutElements(Me.ElementsCache_Edits, mod_listOfFieldControls,
+        ''12/8/2021 td''      "ClassDesigner.LoadDesigner " & pstrWhyCalled)
+        LoadForm_LayoutElements(mod_enumSideOfCard, Me.ElementsCache_Edits, mod_listOfFieldControls,
               "ClassDesigner.LoadDesigner " & pstrWhyCalled)
 
 
@@ -540,7 +544,8 @@ Public Class ClassDesigner
 
     End Sub ''End of Sub ResizeLayoutBackgroundImage_ToFitPictureBox()
 
-    Private Sub LoadForm_LayoutElements(par_cache As ClassElementsCache_Deprecated,
+    Private Sub LoadForm_LayoutElements(par_enumSideOfCard As EnumWhichSideOfCard,
+                                        par_cache As ClassElementsCache_Deprecated,
                                         ByRef par_listFieldCtls As HashSet(Of CtlGraphicFldLabel),
                                         pstrWhyCalled As String)
         ''10/17/2019 td''Private Sub LoadForm_LayoutElements(par_cache As ClassElementsCache,
@@ -563,7 +568,14 @@ Public Class ClassDesigner
 
         ''Added 11/27/2021 thomas downes
         Dim objListBadgeElems As HashSet(Of ClassElementField)
-        objListBadgeElems = par_cache.ListOfBadgeDisplayElements_Flds_Front(True)
+
+        If (par_enumSideOfCard = EnumWhichSideOfCard.EnumBackside) Then
+            ''Back side of the card.
+            objListBadgeElems = par_cache.ListOfBadgeDisplayElements_Flds_Backside(True)
+        Else
+            ''Front side of the card. 
+            objListBadgeElems = par_cache.ListOfBadgeDisplayElements_Flds_Front(True)
+        End If ''End of "If (par_enumSideOfCard = ....) Then ... Else ..."
 
         ''
         ''Major call !!
@@ -575,8 +587,13 @@ Public Class ClassDesigner
                                            par_listFieldCtls,
                             "ClassDesigner.LoadForm_LayoutElements " & pstrWhyCalled)
 
-        LoadElements_Picture(par_cache.PicElement())
-        LoadElements_Signature(par_cache.ElementSignature) ''Added 10/12/2019 thomas d.
+        If (par_enumSideOfCard = EnumWhichSideOfCard.EnumBackside) Then
+            ''For now, omit the picture and the signature from the back side of the card. 
+            ''   ----12/8/2021 td
+        Else
+            LoadElements_Picture(par_cache.PicElement())
+            LoadElements_Signature(par_cache.ElementSignature) ''Added 10/12/2019 thomas d.
+        End If ''End of "If (par_enumSideOfCard = EnumWhichSideOfCard.EnumBackside) Then ... Else..."
 
         ''Added 10/12/2019 td 
         ''mod_sizing_portrait.Init(Me.CtlGraphic_Portrait.picturePortrait, Me.CtlGraphic_Portrait, 10, True, mod_sizingEvents_Pics, False)
@@ -2095,5 +2112,32 @@ Public Class ClassDesigner
         End If ''End of ""If (e.Button = MouseButtons.Right) Then
 
     End Sub
+
+
+    Public Sub SwitchSideOfCard(ByRef pref_success As Boolean)
+        ''
+        ''Added 12/8/2021 thomas downes
+        ''
+        If (mod_enumSideOfCard = EnumWhichSideOfCard.EnumFrontside) Then
+            ''Go to backside. 
+            mod_enumSideOfCard = EnumWhichSideOfCard.EnumBackside
+        ElseIf (mod_enumSideOfCard = EnumWhichSideOfCard.EnumBackside) Then
+            ''Go to backside. 
+            mod_enumSideOfCard = EnumWhichSideOfCard.EnumFrontside
+        ElseIf (mod_enumSideOfCard = EnumWhichSideOfCard.Undetermined) Then
+            ''Go to frontside. 
+            mod_enumSideOfCard = EnumWhichSideOfCard.EnumBackside
+        End If
+
+        UnloadDesigner()
+
+        LoadDesigner("Called from SwitchSideOfCard")
+
+        ''Exit Handler.......
+        pref_success = True
+
+    End Sub ''End of "Public Sub SwitchSideOfCard()"
+
+
 
 End Class ''End of "Public Class ClassDesigner"
