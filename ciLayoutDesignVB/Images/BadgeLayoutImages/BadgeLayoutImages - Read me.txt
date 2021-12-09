@@ -1,0 +1,24 @@
+
+Badge Layout Images - Read Me 
+
+This folder (Images\BadgeLayoutImages) is for storing badge layouts, not in XML, 
+  but in Image form (Jpeg).
+
+This will allow the user to quickly see what the Layout looks like, in particular 
+   when reviewing multiple layouts.  
+
+This will allow the user to pick among >1 attempt at designing the right badge, 
+   with the look & information that is required.  Especially if a year has gone 
+   by since the previous year's badge. 
+
+The images will probably be full-sized and will probably be named via the 6-digit Guid 
+   which is associated with the Elements (or perhaps "Layout") cache.
+   
+
+
+
+
+
+
+
+

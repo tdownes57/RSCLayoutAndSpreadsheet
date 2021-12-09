@@ -47,6 +47,31 @@ Public Class DiskFolders
     End Function ''End of "Public Shared Function PathToFolder_PicExamples() As String"
 
 
+    Public Shared Function PathToFolder_BadgeLayoutImages() As String
+        ''
+        ''Added 12/09/2021 Thomas Downes    
+        ''
+        ''        Badge Layout Images - Read Me 
+        ''
+        ''This folder (Images\BadgeLayoutImages) Is for storing badge layouts, Not in XML,
+        ''  but in Image form (Jpeg).
+        ''
+        ''This will allow the user To quickly see what the Layout looks Like, in particular 
+        ''   when reviewing multiple layouts.  
+        ''
+        ''This will allow the user To pick among >1 attempt at designing the right badge, 
+        ''   With the look & information that Is required.  Especially If a year has gone 
+        ''   by since the previous year's badge. 
+        ''
+        ''            The images will probably be full-sized And will probably be named via the 6-digit Guid 
+        ''   which Is associated with the Elements (Or perhaps "Layout") cache.
+        ''
+        ''-----12/9/2021 thomas downes
+        ''
+        Return System.IO.Path.Combine(My.Application.Info.DirectoryPath, "Images\BadgeLayoutImages")
+
+    End Function ''End of "Public Shared Function PathToFolder_PicExamples() As String"
+
 
 
 End Class ''eND OF "Public Class DiskFolders"
