@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClassElementField.vb" />
+    <Compile Include="ClassElementGraphic.vb" />
     <Compile Include="ClassElementLaysection.vb" />
     <Compile Include="ClassElementPortrait.vb" />
     <Compile Include="ClassElementQRCode.vb" />

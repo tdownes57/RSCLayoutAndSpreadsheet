@@ -14,3 +14,6 @@ Public Interface IElementQRCode
 
 
 End Interface ''End of "Public Interface IElementQRCode"
+
+
+

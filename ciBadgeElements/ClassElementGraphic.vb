@@ -1,4 +1,6 @@
-﻿Option Infer On
+﻿''---Public Class ClassElementGraphic
+
+Option Infer On
 Option Explicit On
 Option Strict On
 
@@ -12,19 +14,22 @@ Imports System.Xml.Serialization ''Added 9/24/2019 td
 ''imports system.serial
 
 <Serializable>
-Public Class ClassElementQRCode
+Public Class ClassElementGraphic
     ''
-    ''Added 9/30/2019 thomas downes 
+    ''Added 12/08/2021 thomas downes 
     ''
-    Implements IElement_Base, IElementQRCode
+    ''This is closely modelled after ClassElementQRCode. ---12/08/2021 td
+    ''
+    ''Dec.8, 2021 td''Implements IElement_Base, IElementQRCode
+    Implements IElement_Base, IElementGraphic
     ''
     ''Added 9/30/2019 thomas downes
     ''
-    ''
+    ''What is this for? ---12/8/2021 thomas downes
     Public Shared ElementQRCode As ClassElementQRCode ''Added 9/30/2019 thomas d.
 
     <Xml.Serialization.XmlIgnore>
-    Public Property Info As IElementQRCode
+    Public Property Info As IElementGraphic ''Dec8 2021 ''IElementQRCode
 
     Public Property BadgeDisplayIndex As Integer Implements IElement_Base.BadgeDisplayIndex ''Added 11/24/2021 td
 
@@ -177,7 +182,7 @@ Public Class ClassElementQRCode
 
     Public Property Visible As Boolean Implements IElement_Base.Visible ''Added 9/19/2019 td  
 
-    Public Property QRFormula As String Implements IElementQRCode.QRFormula ''Added 9/30/2019 td  
+    ''Dec.8 2021''Public Property QRFormula As String Implements IElementQRCode.QRFormula ''Added 9/30/2019 td  
 
     Public Sub New(par_control As Control)
 
@@ -211,18 +216,20 @@ Public Class ClassElementQRCode
 
     End Sub ''ENd of ""Public Sub New(par_rectangle As Rectangle, par_layout As PictureBox)""
 
-    Public Function Copy() As ClassElementQRCode
+    Public Function Copy() As ClassElementGraphic ''Dec8 2021'' ClassElementQRCode
         ''
         ''Added 9/30/2019 
         ''
-        Dim objCopy As New ClassElementQRCode
+        ''Dec.8 2021 td''Dim objCopy As New ClassElementQRCode
+        Dim objCopy As New ClassElementGraphic
+
         objCopy.LoadbyCopyingMembers(Me, Me)
         Return objCopy
 
     End Function ''End of "Public Function Copy() As ClassElementQRCode"
 
     Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base,
-                                  par_ElementInfo_QR As IElementQRCode)
+                                  par_ElementInfo_Graphic As IElementGraphic) ''Dec.8 2021''As IElementQRCode)
         ''
         ''Added 9/30/2019 thomas downes
         ''
@@ -250,7 +257,7 @@ Public Class ClassElementQRCode
         ''
         ''Next, QR Code-related information.
         '' 
-        Me.QRFormula = par_ElementInfo_QR.QRFormula
+        ''Dec.8 2021''Me.QRFormula = par_ElementInfo_QR.QRFormula
 
     End Sub ''End of "Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base, .....)"
 

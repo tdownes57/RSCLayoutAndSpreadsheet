@@ -53,6 +53,11 @@ Public Interface IElement_Base
 
     Property OrientationInDegrees As Integer ''Default is 0, normal.  90 would be 1/4 turn clockwise.  180 is upside-down.  270 is the printing on the spine of a book sitting on the bookshelf.
 
+    ''
+    ''What does BL stand for?  ----12/8/2021 
+    ''Does BL stand for Badge Layout?  (See "Property BadgeLayout As BadgeLayoutClass" above.)
+    ''  ----12/8/2021 td 
+    ''
     Property Image_BL As Image ''Added 8/29 & 8/27/2019 td 
 
     Property Visible As Boolean ''Added 9/19/2019 td
