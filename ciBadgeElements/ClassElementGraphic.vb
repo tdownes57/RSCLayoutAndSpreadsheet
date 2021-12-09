@@ -182,7 +182,14 @@ Public Class ClassElementGraphic
 
     Public Property Visible As Boolean Implements IElement_Base.Visible ''Added 9/19/2019 td  
 
-    ''Dec.8 2021''Public Property QRFormula As String Implements IElementQRCode.QRFormula ''Added 9/30/2019 td  
+    ''Dec.8 2021''Public Property QRFormula As String Implements IElementQRCode.QRFormula ''Added 9/30/2019 td
+    ''
+    Public Property GraphicImage As Image Implements IElementGraphic.GraphicImage ''Added 12/8/2021 td
+    Public Property GraphicImageName As String Implements IElementGraphic.GraphicImageName ''Added 12/8/2021 td
+    Public Property BackgroundIsTransparent As Boolean Implements IElementGraphic.BackgroundIsTransparent ''Added 12/8/2021 td
+
+
+
 
     Public Sub New(par_control As Control)
 
@@ -275,6 +282,18 @@ Public Class ClassElementGraphic
         End If ''End of "If (boolImageRotated_0_180 and boolRotated) Then .... ElseIf ..."
 
     End Sub ''ENd of "Public Shared Sub CheckWidthVsLength_OfPic()"
+
+
+    Public Sub LoadGraphic() Implements IElementGraphic.LoadGraphicImage
+        ''
+        ''Stubbed 12/8/2021 thomas downes 
+        ''
+        ''This procedure should provide a substantive value for the current
+        ''  class's implementation of property IElementGraphic.GraphicImage. 
+        ''
+        Throw New NotImplementedException("Not coded yet")
+
+    End Sub ''End of "Public Sub LoadGraphic() "
 
 End Class
 

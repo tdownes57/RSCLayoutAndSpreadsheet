@@ -15,7 +15,7 @@ Public Interface IElementGraphic ''Dec.8 2021''InterfaceElementGraphic
     ''
     ''            Or maybe an small photograph of a building.  
     ''
-    Property GraphicImageName As Image
+    Property GraphicImageName As String
     Property GraphicImage As Image
 
     Property BackgroundIsTransparent As Boolean ''Added 12/8/2021  
