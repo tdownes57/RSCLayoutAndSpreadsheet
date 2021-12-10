@@ -52,6 +52,15 @@ Namespace ciBadgeCachePersonality
             ''
             mod_cacheEdits.SaveToXML()
 
+            ''
+            ''Added 12/10/2021 thomas downes 
+            ''   Create and save the Badge-Layout Image file.
+            Dim strTitleOfXML As String
+            Dim strPathToFileJpg As String
+            strTitleOfXML = mod_cacheEdits.XmlFile_FTitle
+            strPathToFileJpg = mod_cacheEdits.PathToXml_Binary.Replace(".xml", ".jpg")
+            ''This code may work better in the calling procedure.----12/10/2021 td''CreateBadgeLayoutImage() 
+
             ''Added 12/6/2021 td  
             ''----Dec.6 2021 ----mod_cacheSaved = mod_cacheEdits
             mod_cacheSaved = mod_cacheEdits.Copy()

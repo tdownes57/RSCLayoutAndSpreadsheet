@@ -521,6 +521,11 @@ Public Class Form__Main_Demo
 
         End With ''End of "With objSerializationClass"
 
+        ''
+        ''Added 12/10/2021 thomas downes
+        ''
+
+
     End Sub ''End of "PRivate Sub SaveLayout()"  
 
     ''Private Sub RefreshPreview()
@@ -2003,7 +2008,19 @@ ExitHandler:
     Private Sub UnloadDesignerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UnloadDesignerToolStripMenuItem.Click
 
         ''Added 11/28/2021 td
+        ''
+        ''Major call!  
+        ''
         Unload_Designer()
+
+        ''Added 12/10/2021 thomas downes
+        ''
+        ''  The designer, when unloaded, will switch back to the frontside
+        ''   of the card.  
+        ''
+        labelProceedToBackside.Visible = True ''The lable should be visible when the //front// of the badge is displayed. 
+        labelBacksideOfBadgecard.Visible = False
+        LabelReturnToFrontSide.Visible = False
 
     End Sub
 
@@ -2014,6 +2031,11 @@ ExitHandler:
         ''--mod_designer = New ClassDesigner()
         ''--Load_Designer()
         RefreshTheSetOfDisplayedElements()
+
+        ''Added 12/10/2021
+        labelBacksideOfBadgecard.Visible = False
+        LabelReturnToFrontSide.Visible = False
+        labelProceedToBackside.Visible = True
 
     End Sub
 
@@ -2060,9 +2082,11 @@ ExitHandler:
 
         ''Added 12/8/2021 thomas downes
         ''   Do something to indicate a "sine qua non" relationship.
+        ''
         checkInstantPreview.Enabled = checkAutoPreview.Checked
 
     End Sub
+
 
     Private Sub labelProceedToBackside_Click(sender As Object, e As EventArgs) Handles labelProceedToBackside.Click
         ''
@@ -2082,9 +2106,11 @@ ExitHandler:
         If (boolSuccess) Then
             labelProceedToBackside.Visible = False
             LabelReturnToFrontSide.Visible = True
+            labelBacksideOfBadgecard.Visible = True ''Added 12/10/2021 thomas
         End If ''End of "If (boolSuccess) Then"
 
     End Sub
+
 
     Private Sub ExitRecipientModeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitRecipientModeToolStripMenuItem.Click
         ''
@@ -2109,6 +2135,7 @@ ExitHandler:
         If (boolSuccess) Then
             labelProceedToBackside.Visible = True ''If the user is seeing the Front, they may change minds and want to see the Back again. 
             LabelReturnToFrontSide.Visible = False
+            labelBacksideOfBadgecard.Visible = False ''Added 12/10/2021 thomas
         End If ''End of "If (boolSuccess) Then"
         pictureBackgroundBackside.SendToBack()
         mod_designer.BackgroundBox = pictureBackgroundFront

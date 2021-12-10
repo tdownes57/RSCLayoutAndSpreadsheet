@@ -62,6 +62,7 @@ Partial Class Form__Main_Demo
         Me.ShowBadgeRecipientsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CloseListOfRecipentsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PrintAllBadgesToFileFolderToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ExitRecipientModeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EmailAddressToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CheckDupedElementsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
@@ -99,12 +100,12 @@ Partial Class Form__Main_Demo
         Me.pictureBackgroundFront = New System.Windows.Forms.PictureBox()
         Me.labelProceedToBackside = New System.Windows.Forms.Label()
         Me.LabelReturnToFrontSide = New System.Windows.Forms.Label()
-        Me.ExitRecipientModeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CtlGraphicQRCode1 = New ciBadgeDesigner.CtlGraphicQRCode()
         Me.CtlGraphicPortrait_Lady = New ciBadgeDesigner.CtlGraphicPortrait()
         Me.CtlGraphicSignature1 = New ciBadgeDesigner.CtlGraphicSignature()
         Me.CtlGraphicText1 = New ciBadgeDesigner.CtlGraphicText()
         Me.pictureBackgroundBackside = New System.Windows.Forms.PictureBox()
+        Me.labelBacksideOfBadgecard = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -380,6 +381,12 @@ Partial Class Form__Main_Demo
         Me.PrintAllBadgesToFileFolderToolStripMenuItem.Name = "PrintAllBadgesToFileFolderToolStripMenuItem"
         Me.PrintAllBadgesToFileFolderToolStripMenuItem.Size = New System.Drawing.Size(318, 26)
         Me.PrintAllBadgesToFileFolderToolStripMenuItem.Text = "Print all Badges to File Folder"
+        '
+        'ExitRecipientModeToolStripMenuItem
+        '
+        Me.ExitRecipientModeToolStripMenuItem.Name = "ExitRecipientModeToolStripMenuItem"
+        Me.ExitRecipientModeToolStripMenuItem.Size = New System.Drawing.Size(318, 26)
+        Me.ExitRecipientModeToolStripMenuItem.Text = "Exit Recipient Mode"
         '
         'EmailAddressToolStripMenuItem
         '
@@ -713,6 +720,7 @@ Partial Class Form__Main_Demo
         Me.labelProceedToBackside.TabIndex = 76
         Me.labelProceedToBackside.Tag = ">>> Show backside of ID Card."
         Me.labelProceedToBackside.Text = ">>> Add backside of ID Card."
+        Me.labelProceedToBackside.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'LabelReturnToFrontSide
         '
@@ -724,12 +732,6 @@ Partial Class Form__Main_Demo
         Me.LabelReturnToFrontSide.TabIndex = 77
         Me.LabelReturnToFrontSide.Text = "<<< Return to front of ID Card."
         Me.LabelReturnToFrontSide.Visible = False
-        '
-        'ExitRecipientModeToolStripMenuItem
-        '
-        Me.ExitRecipientModeToolStripMenuItem.Name = "ExitRecipientModeToolStripMenuItem"
-        Me.ExitRecipientModeToolStripMenuItem.Size = New System.Drawing.Size(318, 26)
-        Me.ExitRecipientModeToolStripMenuItem.Text = "Exit Recipient Mode"
         '
         'CtlGraphicQRCode1
         '
@@ -767,12 +769,25 @@ Partial Class Form__Main_Demo
         'pictureBackgroundBackside
         '
         Me.pictureBackgroundBackside.BackColor = System.Drawing.Color.White
-        Me.pictureBackgroundBackside.Location = New System.Drawing.Point(31, 107)
+        Me.pictureBackgroundBackside.Location = New System.Drawing.Point(17, 96)
         Me.pictureBackgroundBackside.Name = "pictureBackgroundBackside"
         Me.pictureBackgroundBackside.Size = New System.Drawing.Size(641, 380)
         Me.pictureBackgroundBackside.TabIndex = 78
         Me.pictureBackgroundBackside.TabStop = False
         Me.pictureBackgroundBackside.Visible = False
+        '
+        'labelBacksideOfBadgecard
+        '
+        Me.labelBacksideOfBadgecard.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.labelBacksideOfBadgecard.ForeColor = System.Drawing.Color.Navy
+        Me.labelBacksideOfBadgecard.Location = New System.Drawing.Point(363, 64)
+        Me.labelBacksideOfBadgecard.Name = "labelBacksideOfBadgecard"
+        Me.labelBacksideOfBadgecard.Size = New System.Drawing.Size(295, 23)
+        Me.labelBacksideOfBadgecard.TabIndex = 79
+        Me.labelBacksideOfBadgecard.Tag = "▼ backside of card ▼"
+        Me.labelBacksideOfBadgecard.Text = "▼ backside of card ▼"
+        Me.labelBacksideOfBadgecard.TextAlign = System.Drawing.ContentAlignment.TopRight
+        Me.labelBacksideOfBadgecard.Visible = False
         '
         'Form__Main_Demo
         '
@@ -812,6 +827,7 @@ Partial Class Form__Main_Demo
         Me.Controls.Add(Me.LabelReturnToFrontSide)
         Me.Controls.Add(Me.pictureBackgroundFront)
         Me.Controls.Add(Me.pictureBackgroundBackside)
+        Me.Controls.Add(Me.labelBacksideOfBadgecard)
         Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Margin = New System.Windows.Forms.Padding(1, 3, 1, 3)
         Me.Name = "Form__Main_Demo"
@@ -914,4 +930,5 @@ Partial Class Form__Main_Demo
     Friend WithEvents LabelReturnToFrontSide As Label
     Friend WithEvents ExitRecipientModeToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents pictureBackgroundBackside As PictureBox
+    Friend WithEvents labelBacksideOfBadgecard As Label
 End Class

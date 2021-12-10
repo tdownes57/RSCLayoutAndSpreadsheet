@@ -135,7 +135,7 @@ Public Class ClassDesigner
     End Function ''End of "Public Function ListOfFieldLabels() As List(Of CtlGraphicFldLabel)"
 
 
-    Public Sub UnloadDesigner()
+    Public Sub UnloadDesigner(pboolResetToFrontOfCard As Boolean)
         ''
         ''Added 11/28/2021 Thomas Downes
         ''
@@ -204,6 +204,13 @@ Public Class ClassDesigner
         If (Me.BackgroundBox.Image IsNot Nothing) Then Me.BackgroundBox.Image.Dispose()
         Me.BackgroundBox.Image = Nothing
         Me.BackgroundBox.Refresh()
+
+        ''Added 12/10/2021 td
+        ''  Go back to the front side of the card. 
+        ''
+        If (pboolResetToFrontOfCard) Then
+            mod_enumSideOfCard = EnumWhichSideOfCard.EnumFrontside
+        End If ''End of "If (pboolResetToFrontOfCard) Then"
 
     End Sub ''End of "Public Sub UnloadDesigner__()"
 
@@ -2129,7 +2136,8 @@ Public Class ClassDesigner
             mod_enumSideOfCard = EnumWhichSideOfCard.EnumBackside
         End If
 
-        UnloadDesigner()
+        ''Dec.10 2021''UnloadDesigner()
+        UnloadDesigner(False)
 
         LoadDesigner("Called from SwitchSideOfCard")
 

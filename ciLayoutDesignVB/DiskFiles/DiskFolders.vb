@@ -64,7 +64,9 @@ Public Class DiskFolders
         ''   by since the previous year's badge. 
         ''
         ''            The images will probably be full-sized And will probably be named via the 6-digit Guid 
-        ''   which Is associated with the Elements (Or perhaps "Layout") cache.
+        ''   which is associated with the Elements (Or perhaps "Layout") cache.  On second thought, why not
+        ''   simply name the image the same as the XML file of the cache?  E.g. "Yellow and black.jpg" for 
+        ''   "Yellow and black.xml" or "Seniors 2021.jpg" for "Seniors 2021.xml".  
         ''
         ''-----12/9/2021 thomas downes
         ''

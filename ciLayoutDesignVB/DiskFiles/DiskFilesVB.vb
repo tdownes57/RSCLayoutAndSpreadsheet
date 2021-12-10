@@ -28,6 +28,8 @@ Public Class DiskFilesVB
         ''
         ''Added 10/12/2019 Thomas Downes    
         ''
+        '' "Declaration" = "Declaration of Independence" = John Hancock's famous big signature. 
+        ''
         Return My.Application.Info.DirectoryPath & "\Images\Signatures\Declaration_bmp.bmp"
 
     End Function ''Endo f "Public Shared Function PathToFile_Sig() As String"
@@ -87,6 +89,24 @@ Public Class DiskFilesVB
         System.Diagnostics.Process.Start(strRandomFilePath)
 
     End Sub ''ENd of "Public Shared Sub DisplayStringDataInNotepad()"
+
+
+    Public Shared Function PathToFile_BadgeLayout(pstrFileTitleOfCacheXML As String) As String
+        ''
+        ''Added 10/12/2019 Thomas Downes    
+        ''
+        ''  Let's assume, as an organizational rule, that the image of the badge-layout design (which will be
+        ''  used to represent the XML file which is the serialization of the elements cache) will be saved with
+        ''  the same name as the XML file--e.g. the image file representing "CI Badge Dec.2021.xml" will be 
+        ''  named "CI Badge Dec.2021.jpg".   ---12/10/2021 thomas d.
+        ''
+        Dim strFileTitleJPG As String
+
+        strFileTitleJPG = (pstrFileTitleOfCacheXML.Replace(".xml", "") & ".jpg")
+
+        Return Path.Combine(DiskFolders.PathToFolder_BadgeLayoutImages, strFileTitleJPG)
+
+    End Function ''End of "Public Shared Function PathToFile_BadgeLayout() As String"
 
 
 End Class ''eND OF "Public Class DiskFiles"
