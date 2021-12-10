@@ -313,11 +313,11 @@ Public Class Form__Main_Demo
     End Sub ''End of "Private Sub Form_Load"  
 
 
-    Private Sub Unload_Designer()
+    Private Sub Unload_Designer(pboolResetToFrontOfCard As Boolean)
         ''
         ''Added 11/28/2021 thomas downes
         ''
-        mod_designer.UnloadDesigner()
+        mod_designer.UnloadDesigner(pboolResetToFrontOfCard)
 
     End Sub ''End of "Private Sub Unload_Designer()"  
 
@@ -718,7 +718,8 @@ Public Class Form__Main_Demo
             ''
             ''Step 3 of 3.  Refresh the representation of the elements on the form. 
             ''
-            RefreshTheSetOfDisplayedElements()
+            ''Dec. 10, 2021''RefreshTheSetOfDisplayedElements()
+            RefreshTheSetOfDisplayedElements(False)
 
         End If ''End of "If (c_boolStartNewWindow) Then  ..... Else .."
 
@@ -735,14 +736,16 @@ Public Class Form__Main_Demo
 
     End Sub ''End of "Private Sub Recipient_LinkClicked"
 
-    Private Sub RefreshTheSetOfDisplayedElements() ''_WontPreview()
+    Private Sub RefreshTheSetOfDisplayedElements(pboolResetToFrontOfCard As Boolean) ''_WontPreview()
         ''
         ''Added 11/28/2021 Thomas Downes 
         ''
         If (mod_designer IsNot Nothing) Then
             ''Major call!!  
             ''----mod_designer.UnloadDesigner__()
-            Unload_Designer()
+            ''Dec.10 2021''Unload_Designer()
+            Unload_Designer(pboolResetToFrontOfCard)
+
         End If ''End of "If (mod_designer IsNot Nothing) Then"
 
         mod_designer = New ClassDesigner()
@@ -1136,7 +1139,8 @@ Public Class Form__Main_Demo
         modAllowFieldEdits.ShowFieldsToEdit_Custom(Me.ElementsCache_ManageBoth, Me.ElementsCache_Edits, c_boolDebugMode)
 
         ''Refresh the form.  
-        RefreshTheSetOfDisplayedElements()
+        ''Dec.10, 2021''RefreshTheSetOfDisplayedElements()
+        RefreshTheSetOfDisplayedElements(False)
         pictureBackgroundFront.SendToBack()
 
     End Sub
@@ -1192,7 +1196,8 @@ Public Class Form__Main_Demo
         modAllowFieldEdits.ShowFieldsToEdit_Standard(Me.ElementsCache_ManageBoth, Me.ElementsCache_Edits, c_boolDebugMode)
 
         ''Refresh the form.  
-        RefreshTheSetOfDisplayedElements()
+        ''Dec. 10, 2021''RefreshTheSetOfDisplayedElements()
+        RefreshTheSetOfDisplayedElements(False)
         pictureBackgroundFront.SendToBack()
 
     End Sub ''End of "Private Sub ShowFieldsToEdit_Standard" 
@@ -1443,7 +1448,8 @@ Public Class Form__Main_Demo
         chkIncludeExampleValues.Checked = (Not chkIncludeExampleValues.Checked)
         CtlGraphicFldLabel.UseExampleValues = chkIncludeExampleValues.Checked
         SaveLayout()
-        RefreshTheSetOfDisplayedElements()
+        ''Dec. 10, 2021''RefreshTheSetOfDisplayedElements()
+        RefreshTheSetOfDisplayedElements(False)
 
         ''Addded 9/13/2019 td
         ''10/8/2019 td''AutoPreview_IfChecked()
@@ -1582,7 +1588,8 @@ Public Class Form__Main_Demo
             ''
             ''Step 4 of 4.  Refresh the representation of the elements on the form. 
             ''
-            RefreshTheSetOfDisplayedElements()
+            ''Dec.10 2021''RefreshTheSetOfDisplayedElements()
+            RefreshTheSetOfDisplayedElements(True)
 
         End If ''End of "If (intConfirm = DialogResult.Yes) Then"
 
@@ -2011,7 +2018,7 @@ ExitHandler:
         ''
         ''Major call!  
         ''
-        Unload_Designer()
+        Unload_Designer(True)
 
         ''Added 12/10/2021 thomas downes
         ''
@@ -2030,7 +2037,8 @@ ExitHandler:
         ''--Unload_Designer()
         ''--mod_designer = New ClassDesigner()
         ''--Load_Designer()
-        RefreshTheSetOfDisplayedElements()
+        ''Dec. 10 2021''RefreshTheSetOfDisplayedElements()
+        RefreshTheSetOfDisplayedElements(True)
 
         ''Added 12/10/2021
         labelBacksideOfBadgecard.Visible = False
@@ -2095,7 +2103,8 @@ ExitHandler:
         ''  Show the backside of the card. 
         ''
         labelProceedToBackside.Text = labelProceedToBackside.Tag.ToString()
-        Unload_Designer()
+        ''Dec.10 2021 thomas downes
+        Unload_Designer(False)
         pictureBackgroundBackside.Visible = True ''By default, when the form opens, this control is invisible. 
         pictureBackgroundFront.SendToBack()
         Dim boolSuccess As Boolean
@@ -2130,7 +2139,8 @@ ExitHandler:
         ''  Return to the frontside of the card. 
         ''
         Dim boolSuccess As Boolean
-        Unload_Designer()
+        ''Dec.10 2021''Unload_Designer()
+        Unload_Designer(False)
         mod_designer.SwitchSideOfCard(boolSuccess)
         If (boolSuccess) Then
             labelProceedToBackside.Visible = True ''If the user is seeing the Front, they may change minds and want to see the Back again. 

@@ -11,6 +11,20 @@ Public Class CtlBackground
     Public ImageIsSelected As Boolean
     Public ParentListingForm As FormListBackgrounds
     Private _boolSkipEvents As Boolean
+    Private _isNotDisplayedAsListItem As Boolean
+
+    Public Property IsNotSelectableItemOfAList() As Boolean
+        Get
+            ''Added 12/10/2021
+            Return _isNotDisplayedAsListItem
+        End Get
+        Set(value As Boolean)
+            ''Added 12/10/2021
+            _isNotDisplayedAsListItem = value
+            If (checkSelection.Visible And (value)) Then checkSelection.Visible = False
+        End Set
+    End Property
+
 
     Public Sub HideCheckbox()
         ''
@@ -70,14 +84,23 @@ Public Class CtlBackground
         ''Added 12/2/2021 td 
         ''
         Dim intReply As DialogResult
+        Dim strNameOfImage As String ''----12/10/2021 td
 
-        intReply = MessageBox.Show("Please confirm your selection.", "", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)
+        If (_isNotDisplayedAsListItem) Then Return ''added 12/10/2021 
+
+        strNameOfImage = Me.ImageFileTitle ''----12/10/2021 td
+
+        ''This may help to prevent odd shifting after the selection is confirmed. ''----12/10/2021 td 
+        Me.Parent.Focus() ''----12/10/2021 td
+
+        intReply = MessageBox.Show("Please confirm your selection." & vbCrLf_Deux & strNameOfImage, "",
+                                   MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)
 
         If (intReply = DialogResult.Yes Or intReply = DialogResult.OK) Then
 
             checkSelection.Checked = True
 
-        End If
+        End If ''end of " If (intReply = DialogResult.Yes Or intReply = DialogResult.OK) Then"
 
     End Sub
 

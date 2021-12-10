@@ -109,4 +109,81 @@ Public Class DiskFilesVB
     End Function ''End of "Public Shared Function PathToFile_BadgeLayout() As String"
 
 
+    Public Shared Function IncrementFileTitle_UntilFree(pstrPathToFolder As String, pstrFileTitle_OriginalTry As String,
+                                                        Optional ByRef pstrFullPathToNewFile As String = "") As String
+        ''
+        ''Added 12/10/2021 thomas downes
+        ''
+        ''Added 12/10/2021 td
+        ''Dim strFileTitle_Original As String = ""
+        Dim strFileTitle_Incremented As String = ""
+        Dim bFilePathIsFree_Good As Boolean
+        Dim strDestinationFilePath_Try As String = ""
+        Dim strFileExtension As String = ""
+        Dim objFileInfo As FileInfo
+        Dim bOriginalTryFileIsNew_SoWeAreDone As Boolean
+
+        bOriginalTryFileIsNew_SoWeAreDone = (Not File.Exists(IO.Path.Combine(pstrPathToFolder, pstrFileTitle_OriginalTry)))
+
+        If (bOriginalTryFileIsNew_SoWeAreDone) Then
+            pstrFullPathToNewFile = IO.Path.Combine(pstrPathToFolder, pstrFileTitle_OriginalTry)
+            Return pstrFileTitle_OriginalTry
+        Else
+            ''
+            ''The "Original Try" file exists, so let's create an object to represent the existing file. 
+            ''
+            objFileInfo = New FileInfo(IO.Path.Combine(pstrPathToFolder, pstrFileTitle_OriginalTry))
+            strFileExtension = objFileInfo.Extension
+
+        End If ''End of " If (bOriginalTryFileIsNew_SoWeAreDone) Then"
+
+        ''strFileTitle_Original = pstrFileTitle_OriginalTry ''Me.ImageFileInfo.Name
+        strFileExtension = objFileInfo.Extension
+
+        For intTryForNewFile As Integer = 1 To 10
+            ''strDestFilePath = System.IO.Path.Combine(strDestFilePath, Me.ImageFileInfo.Name)
+            strFileTitle_Incremented = DiskFilesVB.IncrementFileTitle(pstrFileTitle_OriginalTry, strFileExtension, intTryForNewFile)
+            strDestinationFilePath_Try = System.IO.Path.Combine(pstrPathToFolder, strFileTitle_Incremented)
+            bFilePathIsFree_Good = Not IO.File.Exists(strDestinationFilePath_Try)
+            If (bFilePathIsFree_Good) Then Exit For
+        Next intTryForNewFile
+
+        If (bFilePathIsFree_Good) Then
+            pstrFullPathToNewFile = strDestinationFilePath_Try
+            Return strFileTitle_Incremented
+        End If ''End of "If (bFilePathIsFree_Good) Then"
+
+        Throw New Exception("Cannot find a free (unused) file path & title.")  ''--Return ""
+
+    End Function ''End of "Public Shared Function IncrementFileTitle_UntilFree()"
+
+
+    Public Shared Function IncrementFileTitle(pstrFileTitle As String, pstrFileExtension As String,
+                                              pintIncrement As Integer) As String
+        ''
+        ''Added 12/10/2021 thomas downes 
+        ''
+        ''  If the input string is "Thomas Downes.jpg", the function may return "Thomas Downes (4).jpg". 
+        ''
+        Dim intLengthOfFileExtension As Integer
+
+        ''Dim objNewFileInfo As New FileInfo(pstrFileTitle)
+        ''Dim strFileExention As String
+        ''strFileExtension = objNewFileInfo.Extension
+
+        Dim strOutputFileTitle_Format As String
+        Dim strFileTitle_NoExt As String
+        Dim strOutputFileTitle As String
+
+        strFileTitle_NoExt = ...s.s.s..ss..s.s.s.  ss.s. s.s.s. ss 
+
+        strOutputFileTitle_Format = (strFileTitle_NoExt & " ({0})." & pstrFileExtension)
+
+        strOutputFileTitle = String.Format(strOutputFileTitle_Format, pintIncrement)
+        Return strOutputFileTitle
+
+    End Function
+
+
+
 End Class ''eND OF "Public Class DiskFiles"

@@ -5,6 +5,7 @@
     Public ImageFilePath As String
     Public ImageFileInfo As System.IO.FileInfo
     Public Selected As Boolean
+    Public AutoShowOpenFileDialog As Boolean ''Added 12/10/2021 thomas downes
 
     Private Sub buttonUpload_Click(sender As Object, e As EventArgs) Handles buttonUpload.Click
         ''
@@ -67,17 +68,33 @@
         Me.ImageFileInfo = CtlBackground1.ImageFileInfo
         Dim strDestFilePath As String ''Dest = Destination
         Dim strDestFolderPath As String ''Dest = Destination
+        Dim strFileTitle_Original As String
+        Dim strFileTitle_Incremented As String
+        Dim bFilePathIsFree_Good As Boolean
 
         ''---strDestFilePath = modFileFolders.ImageBackgroundFolder
         strDestFilePath = DiskFolders.PathToFolder_BackExamples
 
-        strDestFilePath = System.IO.Path.Combine(strDestFilePath, Me.ImageFileInfo.Name)
+        ''Added 12/10/2021 td
+        strFileTitle_Original = Me.ImageFileInfo.Name
+        For intTryForNewFile As Integer = 1 To 10
+            ''strDestFilePath = System.IO.Path.Combine(strDestFilePath, Me.ImageFileInfo.Name)
+            strFileTitle_Incremented = DiskFilesVB.IncrementFileTitle(strFileTitle_Original, intTryForNewFile)
+            strDestFilePath = System.IO.Path.Combine(strDestFilePath, strFileTitle_Incremented)
+            bFilePathIsFree_Good = Not IO.File.Exists(strDestFilePath)
+            If (bFilePathIsFree_Good) Then Exit For
+        Next intTryForNewFile
 
+        ''
+        ''Ready to save the file. 
+        ''
         Try
             Me.ImageFileInfo.CopyTo(strDestFilePath)
             Me.Close() ''Close the window. 
         Catch ex_copy As Exception
+            ''
             ''Added 11/26/2021 thomas d.
+            ''
             If (ex_copy.Message.Contains("exists")) Then
                 ''Added 11/26/2021 thomas d.
                 MessageBox.Show("Please pick a file which is not already uploaded.",
@@ -91,13 +108,17 @@
 
     End Sub
 
+
     Private Sub FormUploadBackground_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
         ''Added 11/25/2021 thomas downes
         ''
-
         ''The checkbox is not needed. 
         CtlBackground1.HideCheckbox()
+        CtlBackground1.IsNotSelectableItemOfAList = True ''Added 12/10/2021 td
+
+        ''Added 12/10/2021 
+        If (Me.AutoShowOpenFileDialog) Then buttonUpload.PerformClick()
 
     End Sub
 

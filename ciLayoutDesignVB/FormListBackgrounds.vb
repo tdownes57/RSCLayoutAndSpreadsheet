@@ -112,4 +112,29 @@ Public Class FormListBackgrounds
         Me.Close() ''Added 11/26/2021 thomas downes 
 
     End Sub
+
+    Private Sub CtlBackground2_Load(sender As Object, e As EventArgs) Handles CtlBackground2.Load
+
+    End Sub
+
+    Private Sub CtlBackground_Click(sender As Object, e As EventArgs) Handles CtlBackground2.Click
+        ''
+        ''Added 12/10/2021 thomas downes 
+        ''
+        ''Dim objControl As CtlBackground
+        ''objControl = sender
+        ''objControl.SetFocus  
+
+
+    End Sub
+
+    Private Sub buttonUpload_Click(sender As Object, e As EventArgs) Handles buttonUpload.Click
+        ''
+        ''Added 12/10/2021 thomas downes
+        ''
+        Dim objFormToShow As New FormUploadBackground
+        objFormToShow.AutoShowOpenFileDialog = True
+        objFormToShow.ShowDialog()
+
+    End Sub
 End Class

@@ -23,12 +23,13 @@ Partial Class FormListBackgrounds
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
-        Me.CtlBackground2 = New ciLayoutDesignVB.CtlBackground()
-        Me.CtlBackground3 = New ciLayoutDesignVB.CtlBackground()
-        Me.CtlBackground1 = New ciLayoutDesignVB.CtlBackground()
         Me.Labelesding1 = New System.Windows.Forms.Label()
         Me.buttonCancel = New System.Windows.Forms.Button()
         Me.buttonOK = New System.Windows.Forms.Button()
+        Me.CtlBackground2 = New ciLayoutDesignVB.CtlBackground()
+        Me.CtlBackground3 = New ciLayoutDesignVB.CtlBackground()
+        Me.CtlBackground1 = New ciLayoutDesignVB.CtlBackground()
+        Me.buttonUpload = New System.Windows.Forms.Button()
         Me.FlowLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -50,27 +51,6 @@ Partial Class FormListBackgrounds
         Me.FlowLayoutPanel1.Size = New System.Drawing.Size(1024, 434)
         Me.FlowLayoutPanel1.TabIndex = 13
         Me.FlowLayoutPanel1.WrapContents = False
-        '
-        'CtlBackground2
-        '
-        Me.CtlBackground2.Location = New System.Drawing.Point(3, 3)
-        Me.CtlBackground2.Name = "CtlBackground2"
-        Me.CtlBackground2.Size = New System.Drawing.Size(838, 323)
-        Me.CtlBackground2.TabIndex = 1
-        '
-        'CtlBackground3
-        '
-        Me.CtlBackground3.Location = New System.Drawing.Point(3, 332)
-        Me.CtlBackground3.Name = "CtlBackground3"
-        Me.CtlBackground3.Size = New System.Drawing.Size(838, 323)
-        Me.CtlBackground3.TabIndex = 2
-        '
-        'CtlBackground1
-        '
-        Me.CtlBackground1.Location = New System.Drawing.Point(3, 661)
-        Me.CtlBackground1.Name = "CtlBackground1"
-        Me.CtlBackground1.Size = New System.Drawing.Size(838, 323)
-        Me.CtlBackground1.TabIndex = 0
         '
         'Labelesding1
         '
@@ -102,11 +82,46 @@ Partial Class FormListBackgrounds
         Me.buttonOK.Text = "OK"
         Me.buttonOK.UseVisualStyleBackColor = True
         '
+        'CtlBackground2
+        '
+        Me.CtlBackground2.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.CtlBackground2.Location = New System.Drawing.Point(3, 3)
+        Me.CtlBackground2.Name = "CtlBackground2"
+        Me.CtlBackground2.Size = New System.Drawing.Size(838, 323)
+        Me.CtlBackground2.TabIndex = 1
+        '
+        'CtlBackground3
+        '
+        Me.CtlBackground3.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.CtlBackground3.Location = New System.Drawing.Point(3, 332)
+        Me.CtlBackground3.Name = "CtlBackground3"
+        Me.CtlBackground3.Size = New System.Drawing.Size(838, 323)
+        Me.CtlBackground3.TabIndex = 2
+        '
+        'CtlBackground1
+        '
+        Me.CtlBackground1.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.CtlBackground1.Location = New System.Drawing.Point(3, 661)
+        Me.CtlBackground1.Name = "CtlBackground1"
+        Me.CtlBackground1.Size = New System.Drawing.Size(838, 323)
+        Me.CtlBackground1.TabIndex = 0
+        '
+        'buttonUpload
+        '
+        Me.buttonUpload.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.buttonUpload.Location = New System.Drawing.Point(704, 27)
+        Me.buttonUpload.Name = "buttonUpload"
+        Me.buttonUpload.Size = New System.Drawing.Size(311, 34)
+        Me.buttonUpload.TabIndex = 17
+        Me.buttonUpload.Text = "Select Background Image From File System"
+        Me.buttonUpload.UseVisualStyleBackColor = True
+        '
         'FormListBackgrounds
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1068, 593)
+        Me.Controls.Add(Me.buttonUpload)
         Me.Controls.Add(Me.buttonCancel)
         Me.Controls.Add(Me.buttonOK)
         Me.Controls.Add(Me.Labelesding1)
@@ -126,4 +141,5 @@ Partial Class FormListBackgrounds
     Friend WithEvents Labelesding1 As Label
     Friend WithEvents buttonCancel As Button
     Friend WithEvents buttonOK As Button
+    Friend WithEvents buttonUpload As Button
 End Class
