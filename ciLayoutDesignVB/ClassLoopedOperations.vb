@@ -11,11 +11,11 @@ Public Enum LoopedOperation
 
     Undetermined
 
-    UnselectHighlighting
-    SelectHighlightAll
+    UnselectHighlighting '' "Unselect all highlighted elements"
+    SelectHighlightAll ''   "Select highlight all"
 
-    RemoveAllFromUse
-    RestoreAllToUsage
+    RemoveAllFromUse   '' "Remove all from use"
+    RestoreAllToUsage   '' "Restore all to usage" 
 
     MakeAllTransparent
     MakeAllOpaque

@@ -324,6 +324,19 @@ ExitHandler:
 
     End Function ''End of "Private Sub ReverseRectangle_IfNeeded(ByRef par_rect As Rectangle)"
 
+
+    Public Sub Terminate()
+        ''
+        ''Added 12/11/2021 td 
+        ''
+        _bRubberBandingOn = False
+
+
+
+    End Sub ''End of " Public Sub Terminate()"
+
+
+
     ''
     ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
     ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/

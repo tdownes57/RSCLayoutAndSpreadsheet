@@ -72,7 +72,7 @@ namespace ciBadgeGenerator
         public string Messages = ""; //Added 11/18/2019 td 
 
         public static bool IncludeQR = true;  // Dec.7 2021 td //false; //Added 2/3/2020 thomas d. 
-        public static bool IncludeSignature = false;  //Added 2/3/2020 thomas d.
+        public static bool IncludeSignature = true; //Dec.11 2021 //false;  //Added 2/3/2020 thomas d.
 
         public static bool OmitOutlyingElements = false;  // true; // Added 11/10/2021 td
 
@@ -418,39 +418,12 @@ namespace ciBadgeGenerator
 
             //
             //Added 10/14/2019 thomas d. 
+            //Encapsulated 12/11/2021 thomas 
             //
-            //--Nov.29 2021--if (par_cache.MissingTheQRCode())
-            if (par_cache.MissingTheQRCode() && (par_elementQR == null))
-            {
-                //
-                //There is not any QR Code to display.
-                //
-            }
-            else if (ClassMakeBadge.IncludeQR)
-            {
-                //
-                //Add the QR Code. 
-                //
-                ClassElementQRCode obj_elementQR = par_cache.ElementQRCode;
-                //Added 11/29/2021 td
-                if (par_elementQR != null) obj_elementQR = par_elementQR;
+            LoadImageWithQRCode_IfNeeded(par_cache, par_elementQR, 
+                                         par_layout.Width_Pixels, par_layout, 
+                                         ref obj_imageOutput);
 
-                // Added 127/2021 thomas d.
-                if (this.ImageQRCode == null) this.ImageQRCode = obj_elementQR.Image_BL;
-
-                //string strPathToFile_QR = ""; //this.PathToFile_QR; //Added 10/14/2019 td
-
-                //strPathToFile_QR = obj_elementQR.PathToFile_
-
-                LoadImageWithQRCode(par_newBadge_width_pixels,
-                                    par_layout.Width_Pixels,
-                                    ref obj_imageOutput,
-                                    (IElement_Base)obj_elementQR,
-                                    (IElementQRCode)obj_elementQR,
-                                    ref this.ImageQRCode);
-                // 10-12-2019 td //ref par_recipientPic);
-
-            }
 
             //
             //Static-Text Elements 
@@ -561,6 +534,55 @@ namespace ciBadgeGenerator
             gr_Badge.Dispose();
 
         }  // End Sub ''end of "Public Sub LoadImageWithSignature()"
+
+
+
+        public void LoadImageWithQRCode_IfNeeded(ClassElementsCache_Deprecated par_cache,
+                                                 ClassElementQRCode par_elementQR, 
+                                                 int par_newBadge_width_pixels, 
+                                                 IBadgeLayout par_infoBadgeLayout, 
+                                                 ref Image pref_imageOutput)
+        {
+            //
+            // Added 12/11/2021 thomas downes 
+            //
+
+            //--Nov.29 2021--if (par_cache.MissingTheQRCode())
+            if (par_cache.MissingTheQRCode() && (par_elementQR == null))
+            {
+                //
+                //There is not any QR Code to display.
+                //
+            }
+            else if (ClassMakeBadge.IncludeQR)
+            {
+                //
+                //Add the QR Code. 
+                //
+                ClassElementQRCode obj_elementQR = par_cache.ElementQRCode;
+                //Added 11/29/2021 td
+                if (par_elementQR != null) obj_elementQR = par_elementQR;
+
+                // Added 127/2021 thomas d.
+                if (this.ImageQRCode == null) this.ImageQRCode = obj_elementQR.Image_BL;
+
+                //string strPathToFile_QR = ""; //this.PathToFile_QR; //Added 10/14/2019 td
+
+                //strPathToFile_QR = obj_elementQR.PathToFile_
+
+                LoadImageWithQRCode(par_newBadge_width_pixels,
+                                    par_infoBadgeLayout.Width_Pixels,
+                                    ref pref_imageOutput,
+                                    (IElement_Base)obj_elementQR,
+                                    (IElementQRCode)obj_elementQR,
+                                    ref this.ImageQRCode);
+                // 10-12-2019 td //ref par_recipientPic);
+
+            }
+
+
+        }
+
 
         public void LoadImageWithQRCode(int pintDesiredLayoutWidth,
                                  int pintDesignedLayoutWidth,

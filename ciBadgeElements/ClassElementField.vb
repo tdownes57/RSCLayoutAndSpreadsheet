@@ -307,7 +307,13 @@ Public Class ClassElementField
     End Property
 
 
-    Public Function Width_Pixels_Step2TextHandler() As Integer
+    Public Function Width_Pixels_MoveableDivImage(Optional psingleScaling As Single = 1.0) As Integer
+        ''Added 12/11/2021 
+        Return Width_Pixels_Step2TextHandler(psingleScaling)
+
+    End Function
+
+    Public Function Width_Pixels_Step2TextHandler(Optional psingleScaling As Single = 1.0) As Integer
         ''
         ''Added 12/10/2021 Thomas Downes  
         ''
@@ -319,22 +325,35 @@ Public Class ClassElementField
                 ''   can show the element in its proper sizing. 
                 ''   ---12/10/2021 td   
                 ''Dec.10 2021 ''Return mod_width_pixels 
-                Return mod_height_pixels
+                ''Dec.11 2021 ''Return mod_height_pixels
+                Return CInt(CSng(mod_height_pixels) * psingleScaling)
 
             Case Else '' Case 0, 180, 360
 
-                Return mod_width_pixels
+                ''Dec.11 2021 ''Return mod_width_pixels 
+                Return CInt(CSng(mod_width_pixels) * psingleScaling)
 
         End Select
 
     End Function ''End of "Public Function Width_Pixels_Step2TextHandler"
 
 
-    Public Function Height_Pixels_Step2TextHandler() As Integer
+    Public Function Height_Pixels_MoveableDivImage(Optional psingleScaling As Single = 1.0) As Integer
+        ''Added 12/11/2021 
+        Return Height_Pixels_Step2TextHandler(psingleScaling)
+    End Function
+
+
+    Public Function Height_Pixels_Step2TextHandler(Optional psingleScaling As Single = 1.0) As Integer
         ''
         ''Added 12/10/2021 Thomas Downes  
         ''
-        Select Case RotatedSwitch_WidthHeight() ''(Me.OrientationInDegrees)
+        Dim blIsRotatedSoSwitchWH As Boolean ''Added 12/11/2021 
+
+        blIsRotatedSoSwitchWH = IsRotated_SwitchWidthHeight() ''Added 12/11/2021 
+
+        Select Case blIsRotatedSoSwitchWH ''RotatedSwitch_WidthHeight() ''(Me.OrientationInDegrees)
+
             Case True '' 90, 270
 
                 ''Switch the values of Width & Height, so that the
@@ -342,11 +361,13 @@ Public Class ClassElementField
                 ''   can show the element in its proper sizing. 
                 ''   ---12/10/2021 td   
                 ''Dec.10 2021 ''Return mod_height_pixels 
-                Return mod_width_pixels
+                ''Dec.11 2021 ''Return mod_width_pixels
+                Return CInt(CSng(mod_width_pixels) * psingleScaling)
 
             Case Else '' Case 0, 180, 360
 
-                Return mod_height_pixels
+                ''Dec.11 2021 ''Return mod_height_pixels
+                Return CInt(CSng(mod_height_pixels) * psingleScaling)
 
         End Select ''End of "Select Case RotatedSwitch_WidthHeight()"
 
@@ -369,7 +390,8 @@ Public Class ClassElementField
     End Function ''End of "Public Function Height_Pixels_Step2TextHandler"
 
 
-    Public Function RotatedSwitch_WidthHeight() As Boolean
+    Public Function IsRotated_SwitchWidthHeight() As Boolean
+        ''---Dec11 2021---Public Function RotatedSwitch_WidthHeight() As Boolean
         ''
         ''Added 12/10/2021 Thomas Downes  
         ''

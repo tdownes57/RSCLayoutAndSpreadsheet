@@ -1213,11 +1213,13 @@ Public Class Form__Main_Demo
         ''Check that the proportions are correct. 
         ''
         ClassLabelToImage.ProportionsAreSlightlyOff(pictureBackgroundFront, True)
+        ClassLabelToImage.ProportionsAreSlightlyOff(pictureBackgroundBackside, True) ''Added 12/11/2021 td 
         ClassLabelToImage.ProportionsAreSlightlyOff(picturePreview, True)
 
         ''Added 9/8/2019 td
         ''12/3/2021 td''ClassLabelToImage.ProportionsAreSlightlyOff(ctlBackgroundZoom1.Image, True)
         ClassLabelToImage.ProportionsAreSlightlyOff(pictureBackgroundFront.BackgroundImage, True)
+        ClassLabelToImage.ProportionsAreSlightlyOff(pictureBackgroundBackside.BackgroundImage, True) ''Added 12/11//2021 td 
         ClassLabelToImage.ProportionsAreSlightlyOff(picturePreview.Image, True)
 
         ''

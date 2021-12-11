@@ -1279,7 +1279,9 @@ Public Class ClassDesigner
         listOfElementTextFields = New HashSet(Of ClassElementField)
 
         For Each eachCtlField As CtlGraphicFldLabel In mod_listOfFieldControls
+            ''
             ''Add to the list which will be given to the function MakeBadge.
+            ''
             listOfElementTextFields.Add(eachCtlField.ElementClass_Obj)
 
             ''Debug code.....
@@ -1319,7 +1321,7 @@ Public Class ClassDesigner
 
         If (obj_image Is Nothing) Then
             ''Clear the Preview image, since we don't have a background available. ---12/10/2021 
-            Me.PreviewBox.Image.Dispose()
+            If (Me.PreviewBox.Image IsNot Nothing) Then Me.PreviewBox.Image.Dispose() ''Added 12/11/2021 td 
             Me.PreviewBox.Image = Nothing
             Me.PreviewBox.Refresh()
             Return
