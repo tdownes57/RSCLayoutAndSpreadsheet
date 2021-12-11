@@ -307,6 +307,94 @@ Public Class ClassElementField
     End Property
 
 
+    Public Function Width_Pixels_Step2TextHandler() As Integer
+        ''
+        ''Added 12/10/2021 Thomas Downes  
+        ''
+        Select Case (Me.OrientationInDegrees)
+            Case 90, 270
+
+                ''Switch the values of Width & Height, so that the
+                ''   website's BadgeLayoutDesigner / Step2TextHandler
+                ''   can show the element in its proper sizing. 
+                ''   ---12/10/2021 td   
+                ''Dec.10 2021 ''Return mod_width_pixels 
+                Return mod_height_pixels
+
+            Case Else '' Case 0, 180, 360
+
+                Return mod_width_pixels
+
+        End Select
+
+    End Function ''End of "Public Function Width_Pixels_Step2TextHandler"
+
+
+    Public Function Height_Pixels_Step2TextHandler() As Integer
+        ''
+        ''Added 12/10/2021 Thomas Downes  
+        ''
+        Select Case RotatedSwitch_WidthHeight() ''(Me.OrientationInDegrees)
+            Case True '' 90, 270
+
+                ''Switch the values of Width & Height, so that the
+                ''   website's BadgeLayoutDesigner / Step2TextHandler
+                ''   can show the element in its proper sizing. 
+                ''   ---12/10/2021 td   
+                ''Dec.10 2021 ''Return mod_height_pixels 
+                Return mod_width_pixels
+
+            Case Else '' Case 0, 180, 360
+
+                Return mod_height_pixels
+
+        End Select ''End of "Select Case RotatedSwitch_WidthHeight()"
+
+        ''Select Case (Me.OrientationInDegrees)
+        ''    Case 90, 270
+        ''
+        ''        ''Switch the values of Width & Height, so that the
+        ''        ''   website's BadgeLayoutDesigner / Step2TextHandler
+        ''        ''   can show the element in its proper sizing. 
+        ''        ''   ---12/10/2021 td   
+        ''        ''Dec.10 2021 ''Return mod_height_pixels 
+        ''        Return mod_width_pixels
+        ''
+        ''    Case Else '' Case 0, 180, 360
+        ''
+        ''        Return mod_height_pixels
+        ''
+        ''End Select
+
+    End Function ''End of "Public Function Height_Pixels_Step2TextHandler"
+
+
+    Public Function RotatedSwitch_WidthHeight() As Boolean
+        ''
+        ''Added 12/10/2021 Thomas Downes  
+        ''
+        Select Case (Me.OrientationInDegrees)
+            Case 90, 270
+
+                ''Switch the values of Width & Height, so that the
+                ''   website's BadgeLayoutDesigner / Step2TextHandler
+                ''   can show the element in its proper sizing. 
+                ''   ---12/10/2021 td   
+                ''Dec.10 2021 ''Return mod_height_pixels 
+                ''Dec.10 2021 ''Return mod_width_pixels
+                Return True
+
+            Case Else '' Case 0, 180, 360
+
+                ''----Return mod_height_pixels
+                Return False
+
+        End Select ''End of "Select Case (Me.OrientationInDegrees)"
+
+    End Function ''End of "Public Function RotatedSwitch_WidthHeight"
+
+
+
     ''8/29/2019 td''Public Property Border_Pixels As Integer Implements IElement_Base.Border_Pixels
     Public Property Border_WidthInPixels As Integer = 1 Implements IElement_Base.Border_WidthInPixels
 
