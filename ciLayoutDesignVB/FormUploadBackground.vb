@@ -66,30 +66,65 @@
         ''
         Me.Selected = CtlBackground1.ImageIsSelected
         Me.ImageFileInfo = CtlBackground1.ImageFileInfo
-        Dim strDestFilePath As String ''Dest = Destination
+        Dim strDestPathToFileJPG_Proposed As String = "" ''Dest = Destination
+        Dim strDestPathToFileJPG_Old As String = "" ''Dest = Destination
+        Dim strDestPathToFileJPG_New As String = "" ''Dest = Destination
         Dim strDestFolderPath As String ''Dest = Destination
         Dim strFileTitle_Original As String
         Dim strFileTitle_Incremented As String
         Dim bFilePathIsFree_Good As Boolean
+        Dim strFileExtension As String
 
         ''---strDestFilePath = modFileFolders.ImageBackgroundFolder
-        strDestFilePath = DiskFolders.PathToFolder_BackExamples
+        strDestFolderPath = DiskFolders.PathToFolder_BackExamples
 
         ''Added 12/10/2021 td
         strFileTitle_Original = Me.ImageFileInfo.Name
-        For intTryForNewFile As Integer = 1 To 10
-            ''strDestFilePath = System.IO.Path.Combine(strDestFilePath, Me.ImageFileInfo.Name)
-            strFileTitle_Incremented = DiskFilesVB.IncrementFileTitle(strFileTitle_Original, intTryForNewFile)
-            strDestFilePath = System.IO.Path.Combine(strDestFilePath, strFileTitle_Incremented)
-            bFilePathIsFree_Good = Not IO.File.Exists(strDestFilePath)
-            If (bFilePathIsFree_Good) Then Exit For
-        Next intTryForNewFile
+
+        ''For intTryForNewFile As Integer = 1 To 10
+        ''    ''strDestFilePath = System.IO.Path.Combine(strDestFilePath, Me.ImageFileInfo.Name)
+        ''    strFileTitle_Incremented = DiskFilesVB.IncrementFileTitle(strFileTitle_Original, strFileExtension, intTryForNewFile)
+        strDestPathToFileJPG_Proposed = System.IO.Path.Combine(strDestFolderPath, strFileTitle_Original)
+
+        ''    bFilePathIsFree_Good = Not IO.File.Exists(strDestFilePath)
+        ''    If (bFilePathIsFree_Good) Then Exit For
+        ''Next intTryForNewFile
+
+        Dim bIncrementingNeeded As Boolean = False ''Added 12/10/2021 td
+
+        bIncrementingNeeded = IO.File.Exists(strDestPathToFileJPG_Proposed)
+
+        If (bIncrementingNeeded) Then
+            strFileTitle_Incremented = DiskFilesVB.IncrementFileTitle_UntilFree(strDestFolderPath,
+                                                                            strFileTitle_Original,
+                                                                            strDestPathToFileJPG_New)
+        End If  '''end of "If (bIncrementingNeeded) Then"                   ''   bIncrementingNeeded)
+
+        ''Added 12/10/2021 thomas downese
+        Dim boolFilePathConfirmed As Boolean
+        Dim bUserWantsToMakeOriginalCurrent As Boolean
+        Dim bUserWantsToSaveTheNewFile As Boolean
+        Dim bUserWantsToReplaceOldWithNew As Boolean
+
+        If (bIncrementingNeeded) Then
+            ''
+            ''Important call.
+            ''
+            bUserWantsToSaveTheNewFile =
+                FormUploadBackgroundNewVsExisting.ShowExistingVsNew(strDestPathToFileJPG_Old,
+                                        strDestPathToFileJPG_New,
+                                        bUserWantsToReplaceOldWithNew)
+
+        Else
+            strDestPathToFileJPG_New = strDestPathToFileJPG_Proposed
+        End If ''End of "If (bIncrementingNeeded) Then ... Else"
 
         ''
         ''Ready to save the file. 
         ''
         Try
-            Me.ImageFileInfo.CopyTo(strDestFilePath)
+            ''Dec.10 2021''Me.ImageFileInfo.CopyTo(strDestPathToFileJPG_New)
+            Me.ImageFileInfo.CopyTo(strDestPathToFileJPG_New, bUserWantsToReplaceOldWithNew)
             Me.Close() ''Close the window. 
         Catch ex_copy As Exception
             ''

@@ -27,7 +27,7 @@ Public Class FormDesignProtoThree
 
         With mod_designer
 
-            .BackgroundBox = Me.pictureBack
+            .BackgroundBox_Front = Me.pictureBack
             .PreviewBox = Me.picturePreview
             .DesignerForm = Me
             .FlowFieldsNotListed = Me.flowFieldsNotListed

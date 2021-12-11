@@ -36,6 +36,10 @@ Namespace ciBadgeCachePersonality
         Public Property BackgroundImage_Path As String = "" ''Added 1/14/2020 td
         Public Property BackgroundImage_FTitle As String = "" ''Added 1/14/2020 td
 
+        ''Added 12/10/2020 td
+        Public Property BackgroundImage_Backside_Path As String = "" ''Added 12/10/2020 td
+        Public Property BackgroundImage_Backside_FTitle As String = "" ''Added 12/10/2020 td
+
         Public Property ElementQRCode As ClassElementQRCode ''Added 10/8/2019 thomas d.  
         Public Property ElementSignature As ClassElementSignature ''Added 10/8/2019 thomas d.  
 

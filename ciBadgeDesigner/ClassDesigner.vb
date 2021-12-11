@@ -28,12 +28,14 @@ Public Class ClassDesigner
     ''10/4/2019 td''Public Property DesignerForm As Form
     ''10/4/2019 td''Public Property BackgroundBox As PictureBox
     Public WithEvents DesignerForm As Form
-    Public WithEvents BackgroundBox As PictureBox
+    Public WithEvents BackgroundBox_Front As PictureBox
+    Public WithEvents BackgroundBox_Backside As PictureBox ''Added 12/10/2021 thomas downes
 
     ''Added 11/29/2021 thomas downes
     Private mod_designerListener As ClassDesignerEventListener
     ''Added 12/8/2021 thomas downes
-    Private mod_enumSideOfCard As EnumWhichSideOfCard = EnumWhichSideOfCard.EnumFrontside ''Added 12/8/2021 Thomas downes  
+    ''---Private mod_enumSideOfCard As EnumWhichSideOfCard = EnumWhichSideOfCard.EnumFrontside ''Added 12/8/2021 Thomas downes  
+    Public EnumSideOfCard As EnumWhichSideOfCard = EnumWhichSideOfCard.EnumFrontside ''Added 12/8/2021 Thomas downes  
 
     Public Property PreviewLayoutAsImage As Boolean = True ''Added 10.1.2019 thomas d. 
     Public BadgeLayout_Class As ciBadgeInterfaces.BadgeLayoutClass ''Added 10/9/2019 td  
@@ -128,6 +130,11 @@ Public Class ClassDesigner
     Private vbCrLf_Deux As String = (vbCrLf & vbCrLf)
     Private mod_bMessageRedux1 As Boolean ''Added 12/02/2021 thomas downes
 
+    Public Function ShowingTheBackside() As Boolean
+        ''Added 12/10/2021 td
+        Return (EnumSideOfCard = EnumWhichSideOfCard.EnumBackside)
+    End Function
+
     Public Function ListOfFieldLabels() As HashSet(Of CtlGraphicFldLabel)
         ''10/17/2019 td''Public Function ListOfFieldLabels() As List(Of CtlGraphicFldLabel)
         ''Added 10/13/2019 thomas downes
@@ -199,17 +206,17 @@ Public Class ClassDesigner
         FlowFieldsNotListed.Controls.Clear()
 
         ''Clear the background of the badge. 
-        If (Me.BackgroundBox.BackgroundImage IsNot Nothing) Then Me.BackgroundBox.BackgroundImage.Dispose()
-        Me.BackgroundBox.BackgroundImage = Nothing
-        If (Me.BackgroundBox.Image IsNot Nothing) Then Me.BackgroundBox.Image.Dispose()
-        Me.BackgroundBox.Image = Nothing
-        Me.BackgroundBox.Refresh()
+        If (Me.BackgroundBox_Front.BackgroundImage IsNot Nothing) Then Me.BackgroundBox_Front.BackgroundImage.Dispose()
+        Me.BackgroundBox_Front.BackgroundImage = Nothing
+        If (Me.BackgroundBox_Front.Image IsNot Nothing) Then Me.BackgroundBox_Front.Image.Dispose()
+        Me.BackgroundBox_Front.Image = Nothing
+        Me.BackgroundBox_Front.Refresh()
 
         ''Added 12/10/2021 td
         ''  Go back to the front side of the card. 
         ''
         If (pboolResetToFrontOfCard) Then
-            mod_enumSideOfCard = EnumWhichSideOfCard.EnumFrontside
+            EnumSideOfCard = EnumWhichSideOfCard.EnumFrontside
         End If ''End of "If (pboolResetToFrontOfCard) Then"
 
     End Sub ''End of "Public Sub UnloadDesigner__()"
@@ -231,18 +238,20 @@ Public Class ClassDesigner
         ''10/5/2019 td''ClassLabelToImage.Proportions_FixTheWidth(Me.BackgroundBox) ''----- Me.BackgroundBox)
         ''10/5/2019 td''ClassLabelToImage.Proportions_FixTheWidth(Me.PreviewBox) ''---- Me.PreviewBox)
 
-        ClassFixTheControlWidth.Proportions_FixTheWidth(Me.BackgroundBox)
+        ClassFixTheControlWidth.Proportions_FixTheWidth(Me.BackgroundBox_Front)
+        ClassFixTheControlWidth.Proportions_FixTheWidth(Me.BackgroundBox_Backside) ''Added 12/10/2021 td 
         ClassFixTheControlWidth.Proportions_FixTheWidth(Me.PreviewBox)
 
         ''Double-check the proportions are correct. ---9/6/2019 td
         ''10/5/2019 td''ClassLabelToImage.ProportionsAreSlightlyOff(Me.BackgroundBox, True) ''-----Me.BackgroundBox, True)
         ''10/5/2019 td''ClassLabelToImage.ProportionsAreSlightlyOff(Me.PreviewBox, True) ''-----(Me.PreviewBox, True)
 
-        ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.BackgroundBox, True) ''-----Me.BackgroundBox, True)
+        ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.BackgroundBox_Front, True) ''-----Me.BackgroundBox, True)
+        ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.BackgroundBox_Backside, True) ''-----Me.BackgroundBox, True)
         ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.PreviewBox, True) ''-----(Me.PreviewBox, True)
 
         ''Added 10/9/2019 td  
-        Me.BadgeLayout_Class = New ciBadgeInterfaces.BadgeLayoutClass(Me.BackgroundBox.Width, Me.BackgroundBox.Height)
+        Me.BadgeLayout_Class = New ciBadgeInterfaces.BadgeLayoutClass(Me.BackgroundBox_Front.Width, Me.BackgroundBox_Front.Height)
 
         ''
         ''I forget, what was this going to do originally?  ---9/6/2019 td
@@ -288,7 +297,12 @@ Public Class ClassDesigner
             .Height = elementQRCode.Height_Pixels
         End With ''End of "With Me.CtlGraphic_QRCode"
 
-        Me.BackgroundBox.SendToBack() ''Dec. 7
+        Me.BackgroundBox_Front.SendToBack() ''Dec. 7
+        If (ShowingTheBackside()) Then
+            Me.BackgroundBox_Backside.SendToBack() ''Added 12/10/2021 td
+            Me.BackgroundBox_Front.SendToBack() ''Added 12/10/2021 td
+        End If ''End of "If (ShowingBackside()) Then"
+
         mod_imageExampleQRCode = Me.CtlGraphic_QRCode.pictureQRCode.Image ''Added 10/14/2019 td
         With Me.ElementsCache_Edits.ElementQRCode
             ''Populate the Element-Field object with a reference to the image.  ---Dec. 7 2021 
@@ -329,7 +343,7 @@ Public Class ClassDesigner
         boolMissingAnyFieldElements = (Me.ElementsCache_Saved.MissingTheElementFields())
         If (boolMissingAnyFieldElements) Then
             ''10/1/2019 td''Me.ElementsCache_Saved.LoadFieldElements(Me.BackgroundBox)
-            Me.ElementsCache_Saved.LoadFieldElements(Me.BackgroundBox, Me.BadgeLayout_Class)
+            Me.ElementsCache_Saved.LoadFieldElements(Me.BackgroundBox_Front, Me.BadgeLayout_Class)
         End If ''end of "If (boolMissingAnyFields) Then"
 
 
@@ -342,7 +356,7 @@ Public Class ClassDesigner
         ''9/20/2019 td''LoadForm_LayoutElements(Me.ElementsCache_Edits)
         ''12/8/2021 td''LoadForm_LayoutElements(Me.ElementsCache_Edits, mod_listOfFieldControls,
         ''12/8/2021 td''      "ClassDesigner.LoadDesigner " & pstrWhyCalled)
-        LoadForm_LayoutElements(mod_enumSideOfCard, Me.ElementsCache_Edits, mod_listOfFieldControls,
+        LoadForm_LayoutElements(EnumSideOfCard, Me.ElementsCache_Edits, mod_listOfFieldControls,
               "ClassDesigner.LoadDesigner " & pstrWhyCalled)
 
 
@@ -372,21 +386,21 @@ Public Class ClassDesigner
         If (Me.ElementsCache_Saved.MissingTheElementPic) Then ''Added 10/10/2019 td
             ''10/10/2019 td''Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, Me.BackgroundBox) ''Added 9/19/2019 td
             Me.ElementsCache_Saved.LoadElement_Pic(intPicLeft, intPicTop,
-                                                   intPicWidth, intPicHeight, Me.BackgroundBox) ''Added 9/19/2019 td
+                                                   intPicWidth, intPicHeight, Me.BackgroundBox_Front) ''Added 9/19/2019 td
         End If ''End of "If (Me.ElementsCache_Saved.MissingTheElementPic) Then"
 
         ''Added 10/10/2019 td
         If (Me.ElementsCache_Saved.MissingTheQRCode) Then ''Added 10/10/2019 td
             ''Added 10/10/2019 td
             Me.ElementsCache_Saved.LoadElement_QRCode(Initial_QR_Left, Initial_QR_Top,
-                                                   Initial_QR_Width, Initial_QR_Height, Me.BackgroundBox) ''Added 9/19/2019 td
+                                                   Initial_QR_Width, Initial_QR_Height, Me.BackgroundBox_Front) ''Added 9/19/2019 td
         End If ''End of "If (Me.ElementsCache_Saved.MissingTheElementPic) Then"
 
         ''Added 10/10/2019 td
         If (Me.ElementsCache_Saved.MissingTheSignature) Then ''Added 10/10/2019 td
             ''Added 10/10/2019 td
             Me.ElementsCache_Saved.LoadElement_Signature(Initial_Sig_Left, Initial_Sig_Top,
-                                                   Initial_Sig_Width, Initial_Sig_Height, Me.BackgroundBox) ''Added 9/19/2019 td
+                                                   Initial_Sig_Width, Initial_Sig_Height, Me.BackgroundBox_Front) ''Added 9/19/2019 td
         End If ''End of "If (Me.ElementsCache_Saved.MissingTheSignature) Then"
 
         ''Added 10/10/2019 td
@@ -394,7 +408,7 @@ Public Class ClassDesigner
             ''Added 10/10/2019 td
             Me.ElementsCache_Saved.LoadElement_Text("This is text which will be the same for everyone.",
                                                     Initial_Text_Left, Initial_Text_Top,
-                                                   Initial_Text_Width, Initial_Text_Height, Me.BackgroundBox) ''Added 9/19/2019 td
+                                                   Initial_Text_Width, Initial_Text_Height, Me.BackgroundBox_Front) ''Added 9/19/2019 td
         End If ''End of "If (Me.ElementsCache_Saved.MissingTheElementTexts) Then"
 
         ''Added 9/24/2019 thomas 
@@ -438,9 +452,17 @@ Public Class ClassDesigner
         ''10/1/2019 td''Me.PreviewBox.SendToBack()
         ''10/1/2019 td''Me.BackgroundBox.SendToBack()
         Me.PreviewBox.SendToBack()
-        Me.BackgroundBox.SendToBack()
 
-
+        ''Dec10 2021 td''Me.BackgroundBox_Front.SendToBack()
+        If (ShowingTheBackside()) Then
+            ''Show the backside of card. 
+            Me.BackgroundBox_Backside.SendToBack() ''Added 12/10/2021 td
+            Me.BackgroundBox_Front.SendToBack() ''Added 12/10/2021 td
+        Else
+            ''Show the frontside of card. 
+            Me.BackgroundBox_Front.SendToBack() ''Added 12/10/2021 td
+            Me.BackgroundBox_Backside.SendToBack() ''Added 12/10/2021 td
+        End If ''End of "If (ShowingBackside()) Then ... Else ..."
 
         ResizeLayoutBackgroundImage_ToFitPictureBox() ''Added 8/25/2019 td
         RefreshPreview_Redux() ''Added 8/24/2019 td
@@ -518,11 +540,11 @@ Public Class ClassDesigner
 
         ''Added 8/24/2019 td
         ''---obj_image = Me.BackgroundBox.Image
-        If (Me.BackgroundBox.BackgroundImage Is Nothing) Then
+        If (Me.BackgroundBox_Front.BackgroundImage Is Nothing) Then
             If File.Exists(Me.ElementsCache_Edits.BackgroundImage_Path) Then
                 Try
                     obj_image = (New Bitmap(Me.ElementsCache_Edits.BackgroundImage_Path))
-                    Me.BackgroundBox.BackgroundImage = obj_image
+                    Me.BackgroundBox_Front.BackgroundImage = obj_image
                 Catch Ex_image As Exception
                     MessageBox.Show(Ex_image.ToString)
                 End Try
@@ -531,7 +553,7 @@ Public Class ClassDesigner
 
         ''Added 11/26/2021 td
         If (obj_image Is Nothing) Then
-            obj_image = Me.BackgroundBox.BackgroundImage
+            obj_image = Me.BackgroundBox_Front.BackgroundImage
         End If ''End of "If (obj_image Is Nothing) Then"
 
         ''obj_image_clone = CType(obj_image.Clone(), Image)
@@ -544,10 +566,10 @@ Public Class ClassDesigner
         ''8/26/2019 td''obj_image_clone_resized = ciLayoutPrintLib.LayoutPrint.ResizeImage_ToWidth(obj_image,
         ''8/26/2019 td''       Me.BackgroundBox.Width)
 
-        obj_image_clone_resized = LayoutPrint.ResizeBackground_ToFitBox(obj_image, Me.BackgroundBox, True)
+        obj_image_clone_resized = LayoutPrint.ResizeBackground_ToFitBox(obj_image, Me.BackgroundBox_Front, True)
 
         ''-----Dec.3 2021 ---Me.BackgroundBox.Image = obj_image_clone_resized
-        Me.BackgroundBox.BackgroundImage = obj_image_clone_resized
+        Me.BackgroundBox_Front.BackgroundImage = obj_image_clone_resized
 
     End Sub ''End of Sub ResizeLayoutBackgroundImage_ToFitPictureBox()
 
@@ -629,7 +651,7 @@ Public Class ClassDesigner
         ''
         ''    Make sure that the Badge Background is in the background. 
         ''
-        Me.BackgroundBox.SendToBack()
+        Me.BackgroundBox_Front.SendToBack()
         ''10/1/2019 td''graphicAdjuster.SendToBack() ''Added 8/12/2019 td
         Me.PreviewBox.SendToBack() ''Added 8/12/2019 td
 
@@ -800,7 +822,7 @@ Public Class ClassDesigner
         With mod_rubberbandClass
 
             ''10/1/2019 td''.Me.BackgroundBox = Me.Me.BackgroundBox
-            .PictureBack = Me.BackgroundBox
+            .PictureBack = Me.BackgroundBox_Front
 
             ''Added 9/20/2019 td  
             .FieldControls_All = par_elementControls_All
@@ -920,7 +942,7 @@ Public Class ClassDesigner
             ''
             If (0 = each_element.TopEdge_Pixels) Then
                 ''Added 9/6/2019 thomas downes 
-                label_control.Width = CInt(Me.BackgroundBox.Width / 3)
+                label_control.Width = CInt(Me.BackgroundBox_Front.Width / 3)
                 With each_element
                     .Width_Pixels = label_control.Width
                     .Height_Pixels = label_control.Height
@@ -971,7 +993,7 @@ Public Class ClassDesigner
         ''
         ''Added 8/27/2019 thomas downes
         ''
-        Me.BackgroundBox.SendToBack() ''Added 9/7/2019 thomas d.
+        Me.BackgroundBox_Front.SendToBack() ''Added 9/7/2019 thomas d.
 
         ''10/1/2019 td''Me.Refresh() ''Added 8/28/2019 td   
         Me.DesignerForm.Refresh() ''Added 8/28/2019 td   
@@ -1269,7 +1291,7 @@ Public Class ClassDesigner
 
         ''obj_image = ciBadgeGenerator.ClassMakeBadge
         Try
-            ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.BackgroundBox.Image, True, "RefreshPreview_Redux #1")
+            ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.BackgroundBox_Front.Image, True, "RefreshPreview_Redux #1")
 
         Catch ex_bgbox As Exception
             ''Added 11/26/2021 td
@@ -1290,8 +1312,20 @@ Public Class ClassDesigner
 
         ''Added 8/24/2019 td
         ''----Dec.3, 2021---obj_image = Me.BackgroundBox.Image
-        obj_image = Me.BackgroundBox.BackgroundImage
-        obj_image_clone = CType(obj_image.Clone(), Image)
+        Dim bBacksideOfCard As Boolean ''Added 12/10/2021 thomas downes
+        bBacksideOfCard = (EnumSideOfCard = EnumWhichSideOfCard.EnumBackside)
+        obj_image = Me.BackgroundBox_Front.BackgroundImage
+        If (bBacksideOfCard) Then obj_image = Me.BackgroundBox_Backside.BackgroundImage
+
+        If (obj_image Is Nothing) Then
+            ''Clear the Preview image, since we don't have a background available. ---12/10/2021 
+            Me.PreviewBox.Image.Dispose()
+            Me.PreviewBox.Image = Nothing
+            Me.PreviewBox.Refresh()
+            Return
+        Else
+            obj_image_clone = CType(obj_image.Clone(), Image)
+        End If ''End of "If (obj_image IsNot Nothing) Then"
 
         ''Dim gr_resize As Graphics = New Bitmap(obj_image_clone)
 
@@ -1377,11 +1411,11 @@ Public Class ClassDesigner
 
         ''Added 9/6/2019 td 
         ''10/5/2019 td''ClassLabelToImage.ProportionsAreSlightlyOff(Me.BackgroundBox.Image, True, "Background Image")
-        ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.BackgroundBox.Image, True, "Background Image")
-        ClassFixTheControlWidth.ImageSizeDiffersFromControl(Me.BackgroundBox, Me.BackgroundBox.Image, True) ''Added 10/9/2019 td  
+        ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.BackgroundBox_Front.Image, True, "Background Image")
+        ClassFixTheControlWidth.ImageSizeDiffersFromControl(Me.BackgroundBox_Front, Me.BackgroundBox_Front.Image, True) ''Added 10/9/2019 td  
 
         ''Added 8/24/2019 td
-        obj_image = Me.BackgroundBox.Image
+        obj_image = Me.BackgroundBox_Front.Image
         obj_image_clone = CType(obj_image.Clone(), Image)
 
         ''Dim gr_resize As Graphics = New Bitmap(obj_image_clone)
@@ -1442,7 +1476,7 @@ Public Class ClassDesigner
 
         ''Added 9/6/2019 td 
         ''10/5/2019 td''ClassLabelToImage.ProportionsAreSlightlyOff(Me.BackgroundBox.Image, True, "Clone Resized #1")
-        ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.BackgroundBox.Image, True, "Clone Resized #1")
+        ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.BackgroundBox_Front.Image, True, "Clone Resized #1")
 
         ''8/26 td''Me.PreviewBox.Image = obj_image_clone_resized
         Me.PreviewBox.Image = obj_image_clone_resized
@@ -1459,7 +1493,7 @@ Public Class ClassDesigner
     ''9/8/2019 td''Private _pClickStop As New Point '-- The place where the mouse button went 'up'.
     ''9/8/2019 td''Private _pNow As New Point '-- Holds the current mouse location to make the shape appear to follow the mouse cursor.
 
-    Private Sub Layout_MouseDown(sender As Object, e As MouseEventArgs) Handles BackgroundBox.MouseDown  ''me.pictureBack.MouseDown ''----Me.MouseDown
+    Private Sub Layout_MouseDown(sender As Object, e As MouseEventArgs) Handles BackgroundBox_Front.MouseDown  ''me.pictureBack.MouseDown ''----Me.MouseDown
         ''
         ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
         ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
@@ -1468,7 +1502,7 @@ Public Class ClassDesigner
 
     End Sub
 
-    Private Sub Layout_MouseMove(sender As Object, e As MouseEventArgs) Handles BackgroundBox.MouseMove ''----Me.MouseMove
+    Private Sub Layout_MouseMove(sender As Object, e As MouseEventArgs) Handles BackgroundBox_Front.MouseMove ''----Me.MouseMove
         ''
         ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
         ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
@@ -1479,7 +1513,7 @@ Public Class ClassDesigner
 
     End Sub
 
-    Private Sub Layout_MouseUp(sender As Object, e As MouseEventArgs) Handles BackgroundBox.MouseUp ''10/4 td''pictureBack.MouseUp ''----Me.MouseUp
+    Private Sub Layout_MouseUp(sender As Object, e As MouseEventArgs) Handles BackgroundBox_Front.MouseUp ''10/4 td''pictureBack.MouseUp ''----Me.MouseUp
         ''
         ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
         ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
@@ -1488,7 +1522,7 @@ Public Class ClassDesigner
 
     End Sub
 
-    Private Sub Layout_Paint(sender As Object, e As PaintEventArgs) Handles BackgroundBox.Paint ''10/4 td''pictureBack.Paint ''----Me.Paint
+    Private Sub Layout_Paint(sender As Object, e As PaintEventArgs) Handles BackgroundBox_Front.Paint ''10/4 td''pictureBack.Paint ''----Me.Paint
         ''
         ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
         ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
@@ -1939,32 +1973,32 @@ Public Class ClassDesigner
 
     Public Function Layout_Width_Pixels() As Integer Implements ILayoutFunctions.Layout_Width_Pixels
         ''Added 9/3/2019 thomas downes
-        Return Me.BackgroundBox.Width
+        Return Me.BackgroundBox_Front.Width
     End Function ''End of "Public Function Layout_Width_Pixels() As Integer"
 
     Public Function Layout_Height_Pixels() As Integer Implements ILayoutFunctions.Layout_Height_Pixels
         ''Added 9/11/2019 Never Forget 
-        Return Me.BackgroundBox.Height
+        Return Me.BackgroundBox_Front.Height
     End Function ''End of "Public Function Layout_Height_Pixels() As Integer"
 
     Public Function Layout_Margin_Left_Omit(par_intPixelsLeft As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Left_Omit
         ''Added 9/5/2019 thomas downes
-        Return (par_intPixelsLeft - Me.BackgroundBox.Left)
+        Return (par_intPixelsLeft - Me.BackgroundBox_Front.Left)
     End Function ''End of "Public Function Layout_Margin_Left_Omit() As Integer"
 
     Public Function Layout_Margin_Left_Add(par_intPixelsLeft As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Left_Add
         ''Added 9/5/2019 thomas downes
-        Return (par_intPixelsLeft + Me.BackgroundBox.Left)
+        Return (par_intPixelsLeft + Me.BackgroundBox_Front.Left)
     End Function ''End of "Public Function Layout_Margin_Left_Add() As Integer"
 
     Public Function Layout_Margin_Top_Omit(par_intPixelsTop As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Top_Omit
         ''Added 9/5/2019 thomas downes
-        Return (par_intPixelsTop - Me.BackgroundBox.Top)
+        Return (par_intPixelsTop - Me.BackgroundBox_Front.Top)
     End Function ''End of "Public Function Layout_Margin_Top_Omit() As Integer"
 
     Public Function Layout_Margin_Top_Add(par_intPixelsTop As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Top_Add
         ''Added 9/5/2019 thomas downes
-        Return (par_intPixelsTop + Me.BackgroundBox.Top)
+        Return (par_intPixelsTop + Me.BackgroundBox_Front.Top)
     End Function ''End of "Public Function Layout_Margin_Top_Add() As Integer"
 
     Public Function OkayToShowFauxContextMenu() As Boolean Implements ILayoutFunctions.OkayToShowFauxContextMenu
@@ -1986,7 +2020,7 @@ Public Class ClassDesigner
         ''Added 12/6/2021 td
         If (par_stillMoving) Then
             ''The control being moved is still in motion, so let's see if "Instant Preview" is checked. 
-            bProceedWithRefresh = (CheckboxAutoPreview.Checked And CheckBoxInstantPreview.Checked)
+            bProceedWithRefresh = (CheckboxAutoPreview.Checked And CheckboxInstantPreview.Checked)
         Else
             bProceedWithRefresh = CheckboxAutoPreview.Checked
         End If ''End of "if (par_stillMoving) then ... Else ...."
@@ -2106,7 +2140,7 @@ Public Class ClassDesigner
 
     ''End Sub
 
-    Private Sub BackgroundBox_Click(sender As Object, e As MouseEventArgs) Handles BackgroundBox.MouseClick
+    Private Sub BackgroundBox_Click(sender As Object, e As MouseEventArgs) Handles BackgroundBox_Front.MouseClick
         ''
         ''Added 10/15/2019 td  
         ''
@@ -2125,15 +2159,15 @@ Public Class ClassDesigner
         ''
         ''Added 12/8/2021 thomas downes
         ''
-        If (mod_enumSideOfCard = EnumWhichSideOfCard.EnumFrontside) Then
+        If (EnumSideOfCard = EnumWhichSideOfCard.EnumFrontside) Then
             ''Go to backside. 
-            mod_enumSideOfCard = EnumWhichSideOfCard.EnumBackside
-        ElseIf (mod_enumSideOfCard = EnumWhichSideOfCard.EnumBackside) Then
+            EnumSideOfCard = EnumWhichSideOfCard.EnumBackside
+        ElseIf (EnumSideOfCard = EnumWhichSideOfCard.EnumBackside) Then
             ''Go to backside. 
-            mod_enumSideOfCard = EnumWhichSideOfCard.EnumFrontside
-        ElseIf (mod_enumSideOfCard = EnumWhichSideOfCard.Undetermined) Then
+            EnumSideOfCard = EnumWhichSideOfCard.EnumFrontside
+        ElseIf (EnumSideOfCard = EnumWhichSideOfCard.Undetermined) Then
             ''Go to frontside. 
-            mod_enumSideOfCard = EnumWhichSideOfCard.EnumBackside
+            EnumSideOfCard = EnumWhichSideOfCard.EnumBackside
         End If
 
         ''Dec.10 2021''UnloadDesigner()

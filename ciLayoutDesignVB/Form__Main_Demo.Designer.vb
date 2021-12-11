@@ -100,12 +100,12 @@ Partial Class Form__Main_Demo
         Me.pictureBackgroundFront = New System.Windows.Forms.PictureBox()
         Me.labelProceedToBackside = New System.Windows.Forms.Label()
         Me.LabelReturnToFrontSide = New System.Windows.Forms.Label()
+        Me.pictureBackgroundBackside = New System.Windows.Forms.PictureBox()
+        Me.labelBacksideOfBadgecard = New System.Windows.Forms.Label()
         Me.CtlGraphicQRCode1 = New ciBadgeDesigner.CtlGraphicQRCode()
         Me.CtlGraphicPortrait_Lady = New ciBadgeDesigner.CtlGraphicPortrait()
         Me.CtlGraphicSignature1 = New ciBadgeDesigner.CtlGraphicSignature()
         Me.CtlGraphicText1 = New ciBadgeDesigner.CtlGraphicText()
-        Me.pictureBackgroundBackside = New System.Windows.Forms.PictureBox()
-        Me.labelBacksideOfBadgecard = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -223,13 +223,13 @@ Partial Class Form__Main_Demo
         'StandardFieldsToolStripMenuItem
         '
         Me.StandardFieldsToolStripMenuItem.Name = "StandardFieldsToolStripMenuItem"
-        Me.StandardFieldsToolStripMenuItem.Size = New System.Drawing.Size(194, 26)
+        Me.StandardFieldsToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
         Me.StandardFieldsToolStripMenuItem.Text = "Standard Fields"
         '
         'CustomFieldsToolStripMenuItem
         '
         Me.CustomFieldsToolStripMenuItem.Name = "CustomFieldsToolStripMenuItem"
-        Me.CustomFieldsToolStripMenuItem.Size = New System.Drawing.Size(194, 26)
+        Me.CustomFieldsToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
         Me.CustomFieldsToolStripMenuItem.Text = "Custom Fields"
         '
         'DesignLayoutToolStripMenuItem
@@ -733,6 +733,29 @@ Partial Class Form__Main_Demo
         Me.LabelReturnToFrontSide.Text = "<<< Return to front of ID Card."
         Me.LabelReturnToFrontSide.Visible = False
         '
+        'pictureBackgroundBackside
+        '
+        Me.pictureBackgroundBackside.BackColor = System.Drawing.Color.Black
+        Me.pictureBackgroundBackside.Location = New System.Drawing.Point(17, 96)
+        Me.pictureBackgroundBackside.Name = "pictureBackgroundBackside"
+        Me.pictureBackgroundBackside.Size = New System.Drawing.Size(641, 380)
+        Me.pictureBackgroundBackside.TabIndex = 78
+        Me.pictureBackgroundBackside.TabStop = False
+        Me.pictureBackgroundBackside.Visible = False
+        '
+        'labelBacksideOfBadgecard
+        '
+        Me.labelBacksideOfBadgecard.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.labelBacksideOfBadgecard.ForeColor = System.Drawing.Color.Navy
+        Me.labelBacksideOfBadgecard.Location = New System.Drawing.Point(363, 64)
+        Me.labelBacksideOfBadgecard.Name = "labelBacksideOfBadgecard"
+        Me.labelBacksideOfBadgecard.Size = New System.Drawing.Size(295, 23)
+        Me.labelBacksideOfBadgecard.TabIndex = 79
+        Me.labelBacksideOfBadgecard.Tag = "▼ backside of card ▼"
+        Me.labelBacksideOfBadgecard.Text = "▼ backside of card ▼"
+        Me.labelBacksideOfBadgecard.TextAlign = System.Drawing.ContentAlignment.TopRight
+        Me.labelBacksideOfBadgecard.Visible = False
+        '
         'CtlGraphicQRCode1
         '
         Me.CtlGraphicQRCode1.Location = New System.Drawing.Point(549, 352)
@@ -765,29 +788,6 @@ Partial Class Form__Main_Demo
         Me.CtlGraphicText1.Size = New System.Drawing.Size(376, 46)
         Me.CtlGraphicText1.TabIndex = 75
         Me.CtlGraphicText1.TextToDisplay = "This is text which will be the same for everyone."
-        '
-        'pictureBackgroundBackside
-        '
-        Me.pictureBackgroundBackside.BackColor = System.Drawing.Color.White
-        Me.pictureBackgroundBackside.Location = New System.Drawing.Point(17, 96)
-        Me.pictureBackgroundBackside.Name = "pictureBackgroundBackside"
-        Me.pictureBackgroundBackside.Size = New System.Drawing.Size(641, 380)
-        Me.pictureBackgroundBackside.TabIndex = 78
-        Me.pictureBackgroundBackside.TabStop = False
-        Me.pictureBackgroundBackside.Visible = False
-        '
-        'labelBacksideOfBadgecard
-        '
-        Me.labelBacksideOfBadgecard.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.labelBacksideOfBadgecard.ForeColor = System.Drawing.Color.Navy
-        Me.labelBacksideOfBadgecard.Location = New System.Drawing.Point(363, 64)
-        Me.labelBacksideOfBadgecard.Name = "labelBacksideOfBadgecard"
-        Me.labelBacksideOfBadgecard.Size = New System.Drawing.Size(295, 23)
-        Me.labelBacksideOfBadgecard.TabIndex = 79
-        Me.labelBacksideOfBadgecard.Tag = "▼ backside of card ▼"
-        Me.labelBacksideOfBadgecard.Text = "▼ backside of card ▼"
-        Me.labelBacksideOfBadgecard.TextAlign = System.Drawing.ContentAlignment.TopRight
-        Me.labelBacksideOfBadgecard.Visible = False
         '
         'Form__Main_Demo
         '
@@ -825,9 +825,9 @@ Partial Class Form__Main_Demo
         Me.Controls.Add(Me.CtlGraphicSignature1)
         Me.Controls.Add(Me.CtlGraphicText1)
         Me.Controls.Add(Me.LabelReturnToFrontSide)
+        Me.Controls.Add(Me.labelBacksideOfBadgecard)
         Me.Controls.Add(Me.pictureBackgroundFront)
         Me.Controls.Add(Me.pictureBackgroundBackside)
-        Me.Controls.Add(Me.labelBacksideOfBadgecard)
         Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Margin = New System.Windows.Forms.Padding(1, 3, 1, 3)
         Me.Name = "Form__Main_Demo"

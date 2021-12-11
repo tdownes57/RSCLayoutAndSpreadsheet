@@ -175,14 +175,17 @@ Public Class DiskFilesVB
         Dim strFileTitle_NoExt As String
         Dim strOutputFileTitle As String
 
-        strFileTitle_NoExt = ...s.s.s..ss..s.s.s.  ss.s. s.s.s. ss 
+        ''Save a string without the file extension.  
+        strFileTitle_NoExt = pstrFileTitle.Replace("." & pstrFileExtension, "")
 
+        ''E.g. "Thomas Downes ({0}).jpg" will become
+        ''     "Thomas Downes (4).jpg".  
         strOutputFileTitle_Format = (strFileTitle_NoExt & " ({0})." & pstrFileExtension)
 
         strOutputFileTitle = String.Format(strOutputFileTitle_Format, pintIncrement)
         Return strOutputFileTitle
 
-    End Function
+    End Function ''End of "Public Shared Function IncrementFileTitle"
 
 
 

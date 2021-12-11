@@ -358,7 +358,8 @@ Public Class Form__Main_Demo
 
             ''Modified 12/3/2021 td 
             ''12/3/2021 td''.BackgroundBox = Me.pictureBack
-            .BackgroundBox = Me.pictureBackgroundFront
+            .BackgroundBox_Front = Me.pictureBackgroundFront
+            .BackgroundBox_Backside = Me.pictureBackgroundBackside ''Added 12/10/2021 thomas downes
 
             ''Added 12/3/2021 thomas downes
             Dim objectBackgroundImage As Bitmap
@@ -378,7 +379,7 @@ Public Class Form__Main_Demo
 
             If (System.IO.File.Exists(strBackgroundImage_Path)) Then
                 objectBackgroundImage = New Bitmap(strBackgroundImage_Path)
-                .BackgroundBox.BackgroundImage = objectBackgroundImage
+                .BackgroundBox_Front.BackgroundImage = objectBackgroundImage
             End If ''End of "If (System.IO.File.Exists(strBackgroundImage_Path)) Then"
 
             .PreviewBox = Me.picturePreview
@@ -1924,17 +1925,30 @@ ExitHandler:
         objShow.ShowDialog()
 
         Dim strPathToFilename As String
+        Dim bBacksideOfCard As Boolean ''Added 12/10/2021 td
+
         If (objShow.ImageFileInfo IsNot Nothing) Then
             strPathToFilename = objShow.ImageFileInfo.FullName
             ''ClassElementsCache_Deprecated.Singleton.BackgroundImage_Path = strPathToFilename
             '' 12/3/2021 td''ctlBackgroundZoom1.ImageLocation = strPathToFilename
             '' 12/3/2021 td''PictureBox1.ImageLocation = strPathToFilename
-            pictureBackgroundFront.BackgroundImage = (New Bitmap(strPathToFilename))
-            pictureBackgroundFront.BackgroundImageLayout = ImageLayout.Zoom
 
-            ''Added 12/3/2021 td
-            Me.ElementsCache_Edits.BackgroundImage_Path = strPathToFilename
-            Me.ElementsCache_Edits.BackgroundImage_FTitle = objShow.ImageFileInfo.Name
+            bBacksideOfCard = (mod_designer.EnumSideOfCard = modFactoryControls.EnumWhichSideOfCard.EnumBackside)
+            If (bBacksideOfCard) Then
+                ''Backside of Card.  
+                pictureBackgroundBackside.BackgroundImage = (New Bitmap(strPathToFilename))
+                pictureBackgroundBackside.BackgroundImageLayout = ImageLayout.Zoom
+                Me.ElementsCache_Edits.BackgroundImage_Backside_Path = strPathToFilename
+                Me.ElementsCache_Edits.BackgroundImage_Backside_FTitle = objShow.ImageFileInfo.Name
+            Else
+                ''Frontside of card. 
+                pictureBackgroundFront.BackgroundImage = (New Bitmap(strPathToFilename))
+                pictureBackgroundFront.BackgroundImageLayout = ImageLayout.Zoom
+                ''Added 12/3/2021 td
+                Me.ElementsCache_Edits.BackgroundImage_Path = strPathToFilename
+                Me.ElementsCache_Edits.BackgroundImage_FTitle = objShow.ImageFileInfo.Name
+            End If ''eNd of "If (bBacksideOfCard) Then ,,,, Else ..."
+
 
             ''Added 12/3/2021 td
             Me.mod_designer.AutoPreview_IfChecked()
@@ -2110,7 +2124,7 @@ ExitHandler:
         Dim boolSuccess As Boolean
 
         mod_designer.SwitchSideOfCard(boolSuccess)
-        mod_designer.BackgroundBox = pictureBackgroundBackside
+        mod_designer.BackgroundBox_Front = pictureBackgroundBackside
 
         If (boolSuccess) Then
             labelProceedToBackside.Visible = False
@@ -2148,7 +2162,7 @@ ExitHandler:
             labelBacksideOfBadgecard.Visible = False ''Added 12/10/2021 thomas
         End If ''End of "If (boolSuccess) Then"
         pictureBackgroundBackside.SendToBack()
-        mod_designer.BackgroundBox = pictureBackgroundFront
+        mod_designer.BackgroundBox_Front = pictureBackgroundFront
 
     End Sub
 End Class

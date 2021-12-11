@@ -41,7 +41,7 @@ Public Class Operations_EditBack
 
         BackImageExamples.CurrentIndex += 1
         BackImageExamples.PathToFolderWithBacks = DiskFolders.PathToFolder_BackExamples
-        Me.Designer.BackgroundBox.Image = BackImageExamples.GetCurrentImage(boolNoneFound)
+        Me.Designer.BackgroundBox_Front.Image = BackImageExamples.GetCurrentImage(boolNoneFound)
 
 
 
@@ -60,7 +60,7 @@ Public Class Operations_EditBack
 
         If ("" <> strFullPathToBitmap) Then
             open_image = New Bitmap(strFullPathToBitmap)
-            Me.Designer.BackgroundBox.Image = open_image
+            Me.Designer.BackgroundBox_Front.Image = open_image
         End If ''End of "If ("" = strFullPathToBitmap) Then"
 
     End Sub ''End of "Public Sub Change_Background_Image()"

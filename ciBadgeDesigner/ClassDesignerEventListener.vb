@@ -123,19 +123,19 @@ Public Class ClassDesignerEventListener
             ''objMover.Init(Me.BackgroundBox,
             ''              Me.BackgroundBox, 10, False,
             ''              c_boolBreakpoint) ''Added 9/08/2019 thomas downes
-            objMover.Init(mod_designer.BackgroundBox,
-                          mod_designer.BackgroundBox, 10, False,
+            objMover.Init(mod_designer.BackgroundBox_Front,
+                          mod_designer.BackgroundBox_Front, 10, False,
                           mod_singletonMove, c_boolBreakpoint) ''Added 9/08/2019 thomas downes
             ''Added 12/1/2021 td
-            mod_dictyControlMoveBoxesEtc.Add(mod_designer.BackgroundBox, objMover)
+            mod_dictyControlMoveBoxesEtc.Add(mod_designer.BackgroundBox_Front, objMover)
 
         ElseIf (c_LayoutBackIsMoveable) Then
             ''Badge Layout Background is also moveable/sizeable.
             ''ControlMoverOrResizer_TD.Init(Me.BackgroundBox,
             ''                  Me.BackgroundBox, 10, False,
             ''                  c_boolBreakpoint) ''Added 9/08/2019 thomas downes
-            ControlMoverOrResizer_TD.Init(mod_designer.BackgroundBox,
-                              mod_designer.BackgroundBox, 10, False,
+            ControlMoverOrResizer_TD.Init(mod_designer.BackgroundBox_Front,
+                              mod_designer.BackgroundBox_Front, 10, False,
                               c_boolBreakpoint) ''Added 9/08/2019 thomas downes
 
         End If ''End of "If (c_LayoutBackIsMoveable) Then"

@@ -2,7 +2,8 @@
 ''Added 10/2/2019 thomas downes
 ''
 
-Module modFactoryControls
+Public Module modFactoryControls
+    ''Dec.10 2021 Thomas Downes''----Module modFactoryControls  
 
     Public Enum EnumControlsMode
 
