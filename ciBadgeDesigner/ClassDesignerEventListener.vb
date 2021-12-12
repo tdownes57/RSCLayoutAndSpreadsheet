@@ -633,6 +633,7 @@ Public Class ClassDesignerEventListener
     Private Sub mod_sizingSig_events_Moving_End() Handles mod_sizingEvents_Sig.Moving_End
 
         ''Added 10/9/2019 td 
+        mod_designer.CtlGraphic_Signat.SaveToModel() ''Added 12/11/2021 td 
         mod_designer.AutoPreview_IfChecked()
 
     End Sub

@@ -1218,9 +1218,15 @@ Public Class Form__Main_Demo
 
         ''Added 9/8/2019 td
         ''12/3/2021 td''ClassLabelToImage.ProportionsAreSlightlyOff(ctlBackgroundZoom1.Image, True)
-        ClassLabelToImage.ProportionsAreSlightlyOff(pictureBackgroundFront.BackgroundImage, True)
-        ClassLabelToImage.ProportionsAreSlightlyOff(pictureBackgroundBackside.BackgroundImage, True) ''Added 12/11//2021 td 
-        ClassLabelToImage.ProportionsAreSlightlyOff(picturePreview.Image, True)
+        If pictureBackgroundFront.BackgroundImage IsNot Nothing Then
+            ClassLabelToImage.ProportionsAreSlightlyOff(pictureBackgroundFront.BackgroundImage, True)
+        End If
+        If pictureBackgroundBackside.BackgroundImage IsNot Nothing Then
+            ClassLabelToImage.ProportionsAreSlightlyOff(pictureBackgroundBackside.BackgroundImage, True) ''Added 12/11//2021 td 
+        End If
+        If picturePreview.Image IsNot Nothing Then
+            ClassLabelToImage.ProportionsAreSlightlyOff(picturePreview.Image, True)
+        End If
 
         ''
         ''Refresh the preview picture box. 

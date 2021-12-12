@@ -420,8 +420,11 @@ namespace ciBadgeGenerator
             //Added 10/14/2019 thomas d. 
             //Encapsulated 12/11/2021 thomas 
             //
-            LoadImageWithQRCode_IfNeeded(par_cache, par_elementQR, 
-                                         par_layout.Width_Pixels, par_layout, 
+            //Dec.11 2021 ''LoadImageWithQRCode_IfNeeded(par_cache, par_elementQR, 
+            //                             par_layout.Width_Pixels, par_layout, 
+            //                             ref obj_imageOutput);
+            LoadImageWithQRCode_IfNeeded(par_cache, par_elementQR,
+                                         par_newBadge_width_pixels, par_layout,
                                          ref obj_imageOutput);
 
 

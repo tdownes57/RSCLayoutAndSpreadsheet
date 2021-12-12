@@ -987,9 +987,9 @@
       <Project>{ef9acec9-841e-4397-bfcb-917c814c4b8c}</Project>
       <Name>ciBadgeFields</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ciBadgeGenerator\ciBadgeGenerator.csproj">
+    <ProjectReference Include="..\ciBadgeGenerator\ciBadgeGeneratorCS.csproj">
       <Project>{42468695-2856-4336-8bca-c5af2ea8178e}</Project>
-      <Name>ciBadgeGenerator</Name>
+      <Name>ciBadgeGeneratorCS</Name>
     </ProjectReference>
     <ProjectReference Include="..\ciBadgeInterfaces\ciBadgeInterfaces.vbproj">
       <Project>{3d1acca6-585e-4c92-9a6d-9a51d2f72f5f}</Project>
