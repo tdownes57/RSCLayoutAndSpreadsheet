@@ -328,6 +328,69 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to .
+        '''</summary>
+        Friend ReadOnly Property PathToSavedXML_Last() As String
+            Get
+                Return ResourceManager.GetString("PathToSavedXML_Last", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to .
+        '''</summary>
+        Friend ReadOnly Property PathToSavedXML_Prior1() As String
+            Get
+                Return ResourceManager.GetString("PathToSavedXML_Prior1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to .
+        '''</summary>
+        Friend ReadOnly Property PathToSavedXML_Prior2() As String
+            Get
+                Return ResourceManager.GetString("PathToSavedXML_Prior2", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to .
+        '''</summary>
+        Friend ReadOnly Property PathToSavedXML_Prior3() As String
+            Get
+                Return ResourceManager.GetString("PathToSavedXML_Prior3", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to .
+        '''</summary>
+        Friend ReadOnly Property PathToSavedXML_Prior4() As String
+            Get
+                Return ResourceManager.GetString("PathToSavedXML_Prior4", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to .
+        '''</summary>
+        Friend ReadOnly Property PathToSavedXML_Prior5() As String
+            Get
+                Return ResourceManager.GetString("PathToSavedXML_Prior5", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to .
+        '''</summary>
+        Friend ReadOnly Property PathToSavedXML_Prior6() As String
+            Get
+                Return ResourceManager.GetString("PathToSavedXML_Prior6", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property PVC_Cards__MS_Bing_() As System.Drawing.Bitmap

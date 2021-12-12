@@ -415,13 +415,13 @@ Partial Class Form__Main_Demo
         'LinkLabelSave1
         '
         Me.LinkLabelSave1.AutoSize = True
-        Me.LinkLabelSave1.Location = New System.Drawing.Point(851, 33)
+        Me.LinkLabelSave1.Location = New System.Drawing.Point(1090, 431)
         Me.LinkLabelSave1.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
         Me.LinkLabelSave1.Name = "LinkLabelSave1"
-        Me.LinkLabelSave1.Size = New System.Drawing.Size(46, 20)
+        Me.LinkLabelSave1.Size = New System.Drawing.Size(97, 20)
         Me.LinkLabelSave1.TabIndex = 43
         Me.LinkLabelSave1.TabStop = True
-        Me.LinkLabelSave1.Text = "Save"
+        Me.LinkLabelSave1.Text = "Save to File"
         '
         'linkSaveAndRefresh
         '
@@ -513,13 +513,13 @@ Partial Class Form__Main_Demo
         'LinkLabelSave2
         '
         Me.LinkLabelSave2.AutoSize = True
-        Me.LinkLabelSave2.Location = New System.Drawing.Point(31, 36)
+        Me.LinkLabelSave2.Location = New System.Drawing.Point(17, 36)
         Me.LinkLabelSave2.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
         Me.LinkLabelSave2.Name = "LinkLabelSave2"
-        Me.LinkLabelSave2.Size = New System.Drawing.Size(46, 20)
+        Me.LinkLabelSave2.Size = New System.Drawing.Size(97, 20)
         Me.LinkLabelSave2.TabIndex = 50
         Me.LinkLabelSave2.TabStop = True
-        Me.LinkLabelSave2.Text = "Save"
+        Me.LinkLabelSave2.Text = "Save to File"
         '
         'dropdownHowToLoadFlds
         '
@@ -706,7 +706,7 @@ Partial Class Form__Main_Demo
         Me.pictureBackgroundFront.BackColor = System.Drawing.Color.White
         Me.pictureBackgroundFront.Location = New System.Drawing.Point(15, 96)
         Me.pictureBackgroundFront.Name = "pictureBackgroundFront"
-        Me.pictureBackgroundFront.Size = New System.Drawing.Size(641, 380)
+        Me.pictureBackgroundFront.Size = New System.Drawing.Size(603, 380)
         Me.pictureBackgroundFront.TabIndex = 74
         Me.pictureBackgroundFront.TabStop = False
         '
@@ -714,7 +714,7 @@ Partial Class Form__Main_Demo
         '
         Me.labelProceedToBackside.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.labelProceedToBackside.ForeColor = System.Drawing.Color.Navy
-        Me.labelProceedToBackside.Location = New System.Drawing.Point(307, 64)
+        Me.labelProceedToBackside.Location = New System.Drawing.Point(253, 64)
         Me.labelProceedToBackside.Name = "labelProceedToBackside"
         Me.labelProceedToBackside.Size = New System.Drawing.Size(365, 23)
         Me.labelProceedToBackside.TabIndex = 76
@@ -747,7 +747,7 @@ Partial Class Form__Main_Demo
         '
         Me.labelBacksideOfBadgecard.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.labelBacksideOfBadgecard.ForeColor = System.Drawing.Color.Navy
-        Me.labelBacksideOfBadgecard.Location = New System.Drawing.Point(363, 64)
+        Me.labelBacksideOfBadgecard.Location = New System.Drawing.Point(323, 64)
         Me.labelBacksideOfBadgecard.Name = "labelBacksideOfBadgecard"
         Me.labelBacksideOfBadgecard.Size = New System.Drawing.Size(295, 23)
         Me.labelBacksideOfBadgecard.TabIndex = 79
@@ -782,7 +782,7 @@ Partial Class Form__Main_Demo
         '
         'CtlGraphicText1
         '
-        Me.CtlGraphicText1.Location = New System.Drawing.Point(792, 434)
+        Me.CtlGraphicText1.Location = New System.Drawing.Point(792, 456)
         Me.CtlGraphicText1.Margin = New System.Windows.Forms.Padding(5)
         Me.CtlGraphicText1.Name = "CtlGraphicText1"
         Me.CtlGraphicText1.Size = New System.Drawing.Size(376, 46)

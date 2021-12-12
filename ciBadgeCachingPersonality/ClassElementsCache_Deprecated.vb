@@ -53,6 +53,9 @@ Namespace ciBadgeCachePersonality
 
         Public Property DateAndTimeUpdated As DateTime ''Added 11/29/2021 thomas d. 
 
+        ''Added 12/12/2021 Thomas Downes
+        Public Property BadgeHasTwoSidesOfCard As Boolean ''Added 12/12/2021 td  
+
         ''10/14/2019 td''Private mod_listFields As New List(Of ClassFieldAny) ''Added 9/18/2019 td  
 
         ''10/17 td''Private mod_listFields_Standard As New List(Of ClassFieldStandard) ''Added 10/14/2019 td  
@@ -968,6 +971,9 @@ Namespace ciBadgeCachePersonality
             objCopyOfCache.XmlFile_FTitle = Me.XmlFile_FTitle
             objCopyOfCache.BackgroundImage_Path = Me.BackgroundImage_Path
             objCopyOfCache.BackgroundImage_FTitle = Me.BackgroundImage_FTitle
+
+            ''Added 12/12/2021 td
+            objCopyOfCache.BadgeHasTwoSidesOfCard = Me.BadgeHasTwoSidesOfCard
 
             ''Added 9/29/2019 thomas downes  
             ''#1 10/14/2019 td''For Each each_field As ClassFieldAny In mod_listFields

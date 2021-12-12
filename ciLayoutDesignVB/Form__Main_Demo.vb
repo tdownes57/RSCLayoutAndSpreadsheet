@@ -177,7 +177,7 @@ Public Class Form__Main_Demo
 
     End Sub ''End of "Public Sub New"
 
-    Private Sub FormDesignProtoTwo_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub Form__Main_Demo_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
         ''Added 7/18/2019 thomas downes 
         ''
@@ -335,6 +335,14 @@ Public Class Form__Main_Demo
             Me.Controls.Add(CtlGraphicQRCode1)
         End If ''End of "If (CtlGraphicQRCode1 = Nothing) Then"
 
+        ''Added 12/12/2021 thomas  
+        CtlGraphicQRCode1.Visible = True
+        If (Controls.Contains(CtlGraphicQRCode1)) Then
+            If (False) Then MessageBox.Show("Let's not add a 2nd reference to the QR code.")
+        Else
+            Me.Controls.Add(CtlGraphicQRCode1)
+        End If ''ENd of "If (Controls.Contains(CtlGraphicQRCode1)) Then ... Else ..."
+
         ''Added 12/3/2021 thomas downes
         If (Me.PersonalityCache_Recipients Is Nothing) Then
             ''----Me.PersonalityCache_FutureUse = New ciBadgeElements.ClassElementsCache_Deprecated()
@@ -413,6 +421,13 @@ Public Class Form__Main_Demo
 
             End If ''End of "If (Me.NewFileXML) Then .... Else ..."
 
+            ''Added 12/12/2021
+            If (Me.ElementsCache_Edits.BadgeHasTwoSidesOfCard) Then
+                ''Added 12/12/2021
+                ''  Change ">>> Add backside of ID Card." to ">>> Show backside of ID Card.".
+                labelProceedToBackside.Text = labelProceedToBackside.Tag.ToString()
+            End If ''end of "If (Me.ElementsCache_Edits.BadgeHasTwoSidesOfCard) Then"
+
             ''
             ''Major call !!! 
             ''
@@ -455,7 +470,11 @@ Public Class Form__Main_Demo
         ''
         ''Step #1 of 2. 
         ''
-        mod_designer.SaveLayout(False)
+        Const c_serializeToDisk_Initially As Boolean = False
+        Const c_serializeToDisk_Ultimately As Boolean = True
+
+        ''12/12/2021 td''mod_designer.SaveLayout(False)
+        mod_designer.SaveLayout(c_serializeToDisk_Initially)
 
         ''For Each each_control As Control In Me.Controls
         ''
@@ -484,48 +503,49 @@ Public Class Form__Main_Demo
         Me.ElementsCache_Saved = Me.ElementsCache_Edits.Copy()
 
         ''
-        ''Serialize !!  
+        ''Serialize to disk (if constant is True) !!  
         ''
-        Dim objSerializationClass As New ciBadgeSerialize.ClassSerial
+        If (c_serializeToDisk_Ultimately) Then
+            ''
+            ''Serialize to disk. 
+            ''
+            Dim objSerializationClass As New ciBadgeSerialize.ClassSerial
 
-        With objSerializationClass
+            With objSerializationClass
 
-            ''.TypeOfObject = (TypeOf List(Of ICIBFieldStandardOrCustom))
+                ''.TypeOfObject = (TypeOf List(Of ICIBFieldStandardOrCustom))
 
-            ''10/10/2019 td''SaveFileDialog1.ShowDialog()
-            ''10/10/2019 td''.PathToXML = SaveFileDialog1.FileName
+                ''10/10/2019 td''SaveFileDialog1.ShowDialog()
+                ''10/10/2019 td''.PathToXML = SaveFileDialog1.FileName
 
-            ''Added 10/13/2019 td 
-            If (String.IsNullOrEmpty(Me.ElementsCache_Edits.PathToXml_Saved)) Then
-                Me.ElementsCache_Edits.PathToXml_Saved = DiskFilesVB.PathToFile_XML_ElementsCache()
-            End If ''End of "If (String.IsNullOrEmpty(Me.ElementsCache_Edits.PathToXml_Saved)) Then"
+                ''Added 10/13/2019 td 
+                If (String.IsNullOrEmpty(Me.ElementsCache_Edits.PathToXml_Saved)) Then
+                    Me.ElementsCache_Edits.PathToXml_Saved = DiskFilesVB.PathToFile_XML_ElementsCache()
+                End If ''End of "If (String.IsNullOrEmpty(Me.ElementsCache_Edits.PathToXml_Saved)) Then"
 
-            .PathToXML = Me.ElementsCache_Edits.PathToXml_Saved
-            .PathToXML_Binary = Me.ElementsCache_Edits.PathToXml_Binary ''Added 11/29/2019 thomas d.
+                .PathToXML = Me.ElementsCache_Edits.PathToXml_Saved
+                .PathToXML_Binary = Me.ElementsCache_Edits.PathToXml_Binary ''Added 11/29/2019 thomas d.
 
-            ''Added 9/24/2019  thomas 
-            ''  ''10/13/2019 td''.SerializeToXML(Me.ElementsCache_Edits.GetType, Me.ElementsCache_Edits, False, True)
-            ''11/29/2019 td''.SerializeToXML(Me.ElementsCache_Edits.GetType, Me.ElementsCache_Edits, False, False)
+                ''Added 9/24/2019  thomas 
+                ''  ''10/13/2019 td''.SerializeToXML(Me.ElementsCache_Edits.GetType, Me.ElementsCache_Edits, False, True)
+                ''11/29/2019 td''.SerializeToXML(Me.ElementsCache_Edits.GetType, Me.ElementsCache_Edits, False, False)
 
-            ''11/29/2019 td''Const c_SerializeToBinary As Boolean = False ''Added 9/30/2019 td
-            ''11/29/2019 td''If (c_SerializeToBinary) Then _
-            ''11/29/2019 td''.SerializeToBinary(Me.ElementsCache_Edits.GetType, Me.ElementsCache_Edits)
+                ''11/29/2019 td''Const c_SerializeToBinary As Boolean = False ''Added 9/30/2019 td
+                ''11/29/2019 td''If (c_SerializeToBinary) Then _
+                ''11/29/2019 td''.SerializeToBinary(Me.ElementsCache_Edits.GetType, Me.ElementsCache_Edits)
 
-            Dim boolUseBinary As Boolean ''Added 11/29/2019 td
-            boolUseBinary = ciBadgeSerialize.ClassSerial.UseBinaryFormat
+                Dim boolUseBinary As Boolean ''Added 11/29/2019 td
+                boolUseBinary = ciBadgeSerialize.ClassSerial.UseBinaryFormat
 
-            If (boolUseBinary) Then
-                .SerializeToBinary(Me.ElementsCache_Edits.GetType, Me.ElementsCache_Edits)
-            Else
-                .SerializeToXML(Me.ElementsCache_Edits.GetType, Me.ElementsCache_Edits, False, False)
-            End If ''End of "If (boolUseBinary) Then ... Else ...."
+                If (boolUseBinary) Then
+                    .SerializeToBinary(Me.ElementsCache_Edits.GetType, Me.ElementsCache_Edits)
+                Else
+                    .SerializeToXML(Me.ElementsCache_Edits.GetType, Me.ElementsCache_Edits, False, False)
+                End If ''End of "If (boolUseBinary) Then ... Else ...."
 
-        End With ''End of "With objSerializationClass"
+            End With ''End of "With objSerializationClass"
 
-        ''
-        ''Added 12/10/2021 thomas downes
-        ''
-
+        End If ''Endof "If (c_serializeToDisk_Ultimately) Then"
 
     End Sub ''End of "PRivate Sub SaveLayout()"  
 
@@ -2122,8 +2142,28 @@ ExitHandler:
         ''
         ''Added 12/8/2021 thomas downes 
         ''
-        ''  Show the backside of the card. 
+        ''  If confirmed, show the backside of the card. 
         ''
+        Dim bTwoSidesExist As Boolean = (Me.ElementsCache_Edits.BadgeHasTwoSidesOfCard)
+
+        If (bTwoSidesExist) Then
+            ''
+            ''Proceed with the procedure, display the backside of the badge.
+            ''   ---12/12/2021 td
+            ''
+        Else
+            ''Added 12/12/2021 thomas downes
+            Dim diag_result As DialogResult
+            diag_result = MessageBox.Show("Are you sure you want to add a 2nd side?", "Confirm",
+                                          MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question,
+                                           MessageBoxDefaultButton.Button3)
+            If (diag_result <> DialogResult.Yes) Then Return ''Exit the procedure.
+            Me.ElementsCache_Edits.BadgeHasTwoSidesOfCard = True
+        End If ''End of "If (bTwoSidesExist) Then ... Else ..."
+
+        ''Display the text ">>> Show backside of card" 
+        ''  instead of ">>> Add backside of card".
+        ''  ---12/12/2021 
         labelProceedToBackside.Text = labelProceedToBackside.Tag.ToString()
         ''Dec.10 2021 thomas downes
         Unload_Designer(False)

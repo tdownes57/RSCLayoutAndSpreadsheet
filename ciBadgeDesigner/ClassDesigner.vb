@@ -206,11 +206,22 @@ Public Class ClassDesigner
         FlowFieldsNotListed.Controls.Clear()
 
         ''Clear the background of the badge. 
-        If (Me.BackgroundBox_Front.BackgroundImage IsNot Nothing) Then Me.BackgroundBox_Front.BackgroundImage.Dispose()
-        Me.BackgroundBox_Front.BackgroundImage = Nothing
-        If (Me.BackgroundBox_Front.Image IsNot Nothing) Then Me.BackgroundBox_Front.Image.Dispose()
-        Me.BackgroundBox_Front.Image = Nothing
-        Me.BackgroundBox_Front.Refresh()
+        ''  If (Me.BackgroundBox_Front.BackgroundImage IsNot Nothing) Then Me.BackgroundBox_Front.BackgroundImage.Dispose()
+        ''  Me.BackgroundBox_Front.BackgroundImage = Nothing
+        ''  If (Me.BackgroundBox_Front.Image IsNot Nothing) Then Me.BackgroundBox_Front.Image.Dispose()
+        ''  Me.BackgroundBox_Front.Image = Nothing
+        ''  Me.BackgroundBox_Front.Refresh()
+
+        ''Added 12/12/2021 td
+        ''  Clear the background of the badge--front & back sides. 
+        Dim objPictureBox As PictureBox
+        For Each objPictureBox In New PictureBox() {Me.BackgroundBox_Front, Me.BackgroundBox_Backside}
+            If (objPictureBox.BackgroundImage IsNot Nothing) Then objPictureBox.BackgroundImage.Dispose()
+            objPictureBox.BackgroundImage = Nothing
+            If (objPictureBox.Image IsNot Nothing) Then objPictureBox.Image.Dispose()
+            objPictureBox.Image = Nothing
+            objPictureBox.Refresh()
+        Next objPictureBox
 
         ''Added 12/10/2021 td
         ''  Go back to the front side of the card. 

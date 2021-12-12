@@ -831,6 +831,7 @@
     <None Include="Resources\feather logo RSC.jpg" />
     <None Include="Resources\CodeNinjas in NB.png" />
     <Content Include="XML\CodeNinjas_Dec8.xml" />
+    <Content Include="__Notes\Dimensions of PVC card 0.63.png" />
     <Content Include="__Notes\Dimensions of PVC card 1.58685.png" />
     <Content Include="__Notes\Output-Build Nov30.txt" />
     <Content Include="__Notes\__Which form is Main.html" />
