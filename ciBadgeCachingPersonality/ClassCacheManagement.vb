@@ -12,6 +12,8 @@ Namespace ciBadgeCachePersonality
         ''
         ''Added 12/4/2021 thomas downes 
         ''
+        Public Shared LatestCacheOfEdits_Guid6 As String = "" ''This is a 6-character GUID. ---12/12/2021 td
+
         Private mod_cacheEdits As ClassElementsCache_Deprecated
         Private mod_cacheSaved As ClassElementsCache_Deprecated
         Private mod_strPathToSavedFileXML As String
@@ -42,6 +44,10 @@ Namespace ciBadgeCachePersonality
             ''
             mod_cacheEdits = par_edits
             mod_cacheSaved = par_saved
+
+            ''Added 12/12/2021 
+            ''Dec.12 2021''If (LatestCacheOfEdits_Guid6 = "") Then LatestCacheOfEdits_Guid6 = mod_cacheEdits.Id_GUID6
+            LatestCacheOfEdits_Guid6 = mod_cacheEdits.Id_GUID6
 
         End Sub ''End of "Public Sub New"
 
@@ -85,6 +91,18 @@ Namespace ciBadgeCachePersonality
 
 
         End Sub ''End of "Public Sub CheckForOrphanedElements()"
+
+
+        Public Sub CheckCacheIsLatestForEdits(ByRef pref_pIsLatest As Boolean,
+                                               Optional ByRef pref_IsACopyOfLatest As Boolean = False)
+            ''
+            ''Added 12/12/2021 thomas 
+            ''
+            ''---pref_pIsLatest = (Me.Id_GUID6 = ClassCacheManagement.LatestCacheOfEdits_Guid6)
+            ''---pref_IsACopyOfLatest = (Me.Id_GUID6_CopiedFrom = ClassCacheManagement.LatestCacheOfEdits_Guid6)
+            Me.CacheForEditing.CheckCacheIsLatestForEdits(pref_pIsLatest, pref_IsACopyOfLatest)
+
+        End Sub ''End of "Public Sub CheckCacheIsLatestForEdits()"
 
 
         Public Function CheckAllElementsHaveCorrectFieldInfo(ByRef pbAllFine As Boolean,

@@ -270,7 +270,12 @@ Public Class Form__Main_Demo
         ''   with our work.  Consider a writer who throws away
         ''   a type-written page.  ----11/30/2021
         Me.ElementsCache_Saved = Me.ElementsCache_Edits.Copy()
-        Me.ElementsCache_Saved.Id_GUID = New Guid() ''Generates a new GUID. 
+
+        ''Dec12 2021''Me.ElementsCache_Saved.Id_GUID = New Guid() ''Generates a new GUID.
+        With Me.ElementsCache_Saved
+            .Id_GUID = New Guid() ''Generates a new GUID. 
+            .Id_GUID6 = .Id_GUID.ToString().Substring(0, 6) ''Added 12/12/2021  
+        End With ''eND OF "With Me.ElementsCache_Saved"
 
         ''Added 12/5/2021 thomas d. 
         ''   Moved here from at 8:21 p.m. 12/5/2021 thomas downes
@@ -300,6 +305,8 @@ Public Class Form__Main_Demo
         MenuCache_ElemFlds.Designer = mod_designer
         MenuCache_ElemFlds.LayoutFunctions = mod_designer
         MenuCache_ElemFlds.SelectingElements = mod_designer
+        MenuCache_ElemFlds.CacheOfFieldsEtc = Me.ElementsCache_Edits ''Added 12/12/2021 thomas d.
+        Me.ElementsCache_ManageBoth.CheckEditsCacheIsLatest() ''Added 12/12/2021 thomas d.
         MenuCache_ElemFlds.GenerateMenuItems_IfNeeded()
 
         MenuCache_Background.ColorDialog1 = (New ColorDialog)
@@ -775,7 +782,12 @@ Public Class Form__Main_Demo
         Dim boolNew As Boolean
         Me.ElementsCache_Edits = Startup.LoadCachedData_Elements_Deprecated(Me, boolNew)
         Me.ElementsCache_Saved = Me.ElementsCache_Edits.Copy(False)
-        Me.ElementsCache_Saved.Id_GUID = New Guid() ''Generate a new Guid.
+
+        ''Dec12 2021''Me.ElementsCache_Saved.Id_GUID = New Guid() ''Generates a new GUID.
+        With Me.ElementsCache_Saved
+            .Id_GUID = New Guid() ''Generates a new GUID. 
+            .Id_GUID6 = .Id_GUID.ToString().Substring(0, 6) ''Added 12/12/2021  
+        End With ''eND OF "With Me.ElementsCache_Saved"
 
         ''
         ''Major call!!

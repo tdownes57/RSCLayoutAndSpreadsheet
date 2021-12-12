@@ -13,6 +13,8 @@ Public Class Operations_EditElement
     ''
     ''Added 10/1/2019 td
     ''
+    Public Property Parent_MenuCache As MenuCache_ElemFlds ''Added 12/12/2021 td 
+
     Public WithEvents MyLinkLabel As New LinkLabel ''Added 10/11/2019 td 
     Public WithEvents MyToolstripItem As New ToolStripMenuItem ''Added 10/11/2019 td 
 
@@ -24,6 +26,11 @@ Public Class Operations_EditElement
 
     ''---not needed 10/3/2019 td----Public Property GroupEdits As ClassGroupMove ''Added 10/3/2019 td 
     Public Property SelectingElements As ISelectingElements ''Added 10/3/2019 td 
+
+    ''Added 12/12/2021 thomas 
+    ''Public Property ListOfFields_Standard As HashSet(Of ciBadgeFields.ClassFieldStandard)
+    ''Public Property ListOfFields_Custom As HashSet(Of ciBadgeFields.ClassFieldCustomized)
+    Public Property CacheOfFieldsEtc As ciBadgeCachePersonality.ClassElementsCache_Deprecated
 
     Private mod_fauxMenuEditSingleton As CtlGraphPopMenuEditSingle ''Added 10/3/2019 td 
 
@@ -42,6 +49,10 @@ Public Class Operations_EditElement
         ''Can (should) we just show a single field? ''form_ToShow.JustOneField = Me.FieldInfo
         ''10/2/2019 td''form_ToShow.JustOneField_Index = Me.FieldInfo.FieldIndex
         form_ToShow.JustOneField_Index = CtlCurrentElement.FieldInfo.FieldIndex
+
+        ''Added 12/12/2021 td
+        form_ToShow.ListOfFields_Custom = MenuCache_ElemFlds.CacheOfFieldsEtc.ListOfFields_Custom
+        form_ToShow.ListOfFields_Standard = MenuCache_ElemFlds.CacheOfFieldsEtc.ListOfFields_Standard
 
         form_ToShow.Show()
 
@@ -382,6 +393,8 @@ Public Class Operations_EditElement
         ''
         ''9/18/2019 td''Dim frm_ToShow As New DialogTextBorder
         ''9/18/2019 td''frm_ToShow.LoadFieldAndForm(Me.ElementInfo_Base, Me.ElementInfo_Text, Me.FieldInfo, Me.FormDesigner, Me)
+
+        Me.Parent_MenuCache.Cache.CheckEditsCacheIsLatest()
 
         With Me.CtlCurrentElement ''Added 10/17/2019 td
 

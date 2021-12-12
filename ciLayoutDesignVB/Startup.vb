@@ -363,6 +363,12 @@ Public Class Startup
             obj_cache_elements = New ClassElementsCache_Deprecated
             obj_cache_elements.PathToXml_Saved = strPathToXML
 
+            ''Added 12/12/2021 td
+            With obj_cache_elements
+                .Id_GUID = New Guid()
+                .Id_GUID6 = .Id_GUID.ToString().Substring(0, 6)
+            End With
+
             obj_cache_elements.LoadFields()
             obj_cache_elements.LoadFieldElements(par_designForm.pictureBackgroundFront,
                                 New BadgeLayoutClass(par_designForm.pictureBackgroundFront))
@@ -484,7 +490,11 @@ Public Class Startup
         ''Was just for testing. ---10/10/2019 td''serial_tools.SerializeToXML(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved, False, True)
 
         ''Added 11/30/2021 thomas downes
-        obj_cache_elements.Id_GUID = New Guid() ''Generates a new & unique ID. 
+        ''Dec12 2021''obj_cache_elements.Id_GUID = New Guid() ''Generates a new & unique ID.
+        With obj_cache_elements
+            .Id_GUID = New Guid() ''Generates a new GUID. 
+            .Id_GUID6 = .Id_GUID.ToString().Substring(0, 6) ''Added 12/12/2021  
+        End With ''eND OF "With obj_cache_elements"
 
         Return obj_cache_elements
 

@@ -36,9 +36,13 @@ Public Class MenuCache_ElemFlds
     ''---not needed 10/3/2019 td----Public Property GroupEdits As ClassGroupMove ''Added 10/3/2019 td 
     Public Shared Property SelectingElements As ISelectingElements ''Added 10/3/2019 td 
 
+    ''Added 12/12/2021 td 
+    ''Public Shared Property CacheOfFieldsEtc As ciBadgeCachePersonality.ClassElementsCache_Deprecated ''Added 12/12/2021 td
+
     Public Shared Operations_Edit As New Operations_EditElement ''Added 10/11/2019 td  
 
-    Public Shared Sub GenerateMenuItems_IfNeeded()
+    Public Shared Sub GenerateMenuItems_IfNeeded(par_cacheFieldsEtc As ciBadgeCachePersonality.ClassElementsCache_Deprecated)
+        ''Dec.12 2021 ''Public Shared Sub GenerateMenuItems_IfNeeded()
         ''
         ''Added 10/2/2019 thomas downes  
         ''
@@ -60,6 +64,18 @@ Public Class MenuCache_ElemFlds
             .FontDialog1 = FontDialog1
             .LayoutFunctions = LayoutFunctions
             .SelectingElements = SelectingElements
+
+            ''Added 12/12/2021 td
+            ''.Parent_MenuCache = (New MenuCache_ElemFlds())
+            ''.ListOfFields_Custom = CacheOfFieldsEtc.ListOfFields_Custom
+            ''.ListOfFields_Standard = CacheOfFieldsEtc.ListOfFields_Standard
+            .CacheOfFieldsEtc = par_cacheOfFieldsEtc
+
+            ''Added 12/12/2021 td
+            Dim bIsLatestCache As Boolean ''Added 12/12/2021 td 
+            par_cacheOfFieldsEtc.CheckCacheIsLatestForEdits(bIsLatestCache)
+            If (Not bIsLatestCache) Then MessageBox.Show("This cache is not the latest cache.")
+
         End With ''End of "With Operations_Edit"
 
     End Sub ''End of "Public Shared Sub GenerateMenuItems_IfNeeded()"

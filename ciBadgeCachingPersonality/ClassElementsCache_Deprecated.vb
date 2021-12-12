@@ -23,6 +23,8 @@ Namespace ciBadgeCachePersonality
         '' the pattern mentioned in https://en.wikipedia.org/wiki/Singleton_pattern
 
         Public Property Id_GUID As System.Guid ''Added 9/30/2019 td 
+        Public Property Id_GUID6 As String ''Added 12/12/2021 td 
+        Public Property Id_GUID6_CopiedFrom As String ''Added 12/12/2021 td 
 
         ''10/10/2019 td''Public Property SaveToXmlPath As String ''Added 9/29/2019 td
         Public Property PathToXml_Saved As String ''Added 9/29/2019 td
@@ -1080,11 +1082,33 @@ Namespace ciBadgeCachePersonality
             objCopyOfCache.PathToXml_Saved = Me.PathToXml_Saved
 
             ''Added 11/30/2021 td
-            If (pboolCopyGuid) Then objCopyOfCache.Id_GUID = Me.Id_GUID
+            If (pboolCopyGuid) Then
+                objCopyOfCache.Id_GUID = Me.Id_GUID
+                objCopyOfCache.Id_GUID6 = Me.Id_GUID6 ''Added 12/12/2021 td 
+                objCopyOfCache.Id_GUID6_CopiedFrom = Me.Id_GUID6 ''Added 12/12/2021 td
+                Throw New NotImplementedException("Not a good idea. Instead, check property Id_GUID6_CopiedFrom.")
+            Else
+                ''Added 12/12/2021 Thomas Downes 
+                objCopyOfCache.Id_GUID6_CopiedFrom = Me.Id_GUID6 ''Added 12/12/2021 td
+                objCopyOfCache.Id_GUID = New Guid()
+                objCopyOfCache.Id_GUID6 = objCopyOfCache.Id_GUID.ToString().Substring(0, 6)
+
+            End If ''End of "If (pboolCopyGuid) Then ... Else..."
 
             Return objCopyOfCache
 
         End Function ''End of "Public Function Copy() As ClassElementsCache"
+
+        Public Sub CheckCacheIsLatestForEdits(ByRef pref_pIsLatest As Boolean,
+                                               Optional ByRef pref_IsACopyOfLatest As Boolean = False)
+            ''
+            ''Added 12/12/2021 thomas 
+            ''
+            pref_pIsLatest = (Me.Id_GUID6 = ClassCacheManagement.LatestCacheOfEdits_Guid6)
+            pref_IsACopyOfLatest = (Me.Id_GUID6_CopiedFrom = ClassCacheManagement.LatestCacheOfEdits_Guid6)
+
+        End Sub ''End of "Public Sub CheckCacheIsLatestForEdits()"
+
 
         Public Sub LinkElementsToFields()
             ''
