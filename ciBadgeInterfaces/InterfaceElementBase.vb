@@ -62,4 +62,6 @@ Public Interface IElement_Base
 
     Property Visible As Boolean ''Added 9/19/2019 td
 
+    Property WhichSideOfCard As EnumWhichSideOfCard ''Added 12/13/2021 thomas downes
+
 End Interface

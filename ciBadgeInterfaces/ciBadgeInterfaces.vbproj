@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AClassOrTwo\ClassFixTheControlWidth.vb" />
+    <Compile Include="Enums\ModuleEnums.vb" />
     <Compile Include="InterfaceQRCode.vb" />
     <Compile Include="InterfaceSigMenu.vb" />
     <Compile Include="InterfaceBadgeLayout.vb" />

@@ -263,8 +263,10 @@
     <Compile Include="ClassRubberbandSelector.vb" />
     <Compile Include="ContextMenus\MenuCache_Background.vb" />
     <Compile Include="ContextMenus\MenuCache_ElemFlds.vb" />
+    <Compile Include="ContextMenus\MenuCache_GraphicElements.vb" />
     <Compile Include="ContextMenus\Operations_EditBackground.vb" />
     <Compile Include="ContextMenus\Operations_EditElement.vb" />
+    <Compile Include="ContextMenus\Operations_EditGraphic.vb" />
     <Compile Include="ContextMenus\Operations_EditGroup.vb" />
     <Compile Include="ContextMenus\Operations_EditQR.vb" />
     <Compile Include="ContextMenus\Operations_EditSignature.vb" />
@@ -792,6 +794,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="DiskFiles\DiskFilesCS.cs" />
+    <Content Include="ContextMenus\How_Context_Menus_Are_Generated.txt" />
     <Content Include="Images\Adjust width &amp; height.jpg" />
     <Content Include="Images\Adjust width &amp; height.png" />
     <Content Include="Images\AdjustWHColor_V101.jpg" />

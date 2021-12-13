@@ -15,6 +15,8 @@ Public Interface InterfaceShowListFields
     Property CacheManager As ClassCacheManagement
 
     Property JustOneField_Index As Integer
+    Property JustOneField_Object As ClassFieldAny ''Added 12/13/2021 thomas downes
+
     Property ClosingOK_SoSaveWork As Boolean
 
     ''Added 12/6/2021 thomas downes 

@@ -13,6 +13,17 @@ Public Class Operations_EditElement
     ''
     ''Added 10/1/2019 td
     ''
+    ''Names of procedures in this module: 
+    ''  Public Sub Open_Field_Of_Element_EE1011(sender As Object, e As EventArgs)
+    ''  Public Sub Choose_Background_Color_EE1010(sender As Object, e As EventArgs)
+    ''  Public Sub Open_Dialog_Font_EE1009(sender As Object, e As EventArgs)
+    ''  Public Sub ExampleValue_Edit_EE1006(sender As Object, e As EventArgs)
+    ''   Public Sub Open_OffsetText_Dialog_EE1007(sender As Object, e As EventArgs)
+    ''  Public Sub Border_Design_EE1000(sender As Object, e As EventArgs)
+    ''  Public Sub Rotate90_Degrees_EE1001(sender As Object, e As EventArgs)
+    ''  Public Sub How_Context_Menus_Are_Generated_EE1002(sender As Object, e As EventArgs) 
+    ''   --- Private Sub CreateVisibleButtonMaster(par_strText As String,
+    ''
     Public Property Parent_MenuCache As MenuCache_ElemFlds ''Added 12/12/2021 td 
 
     Public WithEvents MyLinkLabel As New LinkLabel ''Added 10/11/2019 td 
@@ -34,6 +45,18 @@ Public Class Operations_EditElement
 
     Private mod_fauxMenuEditSingleton As CtlGraphPopMenuEditSingle ''Added 10/3/2019 td 
 
+    ''Names of procedures in this module: 
+    ''  Public Sub Open_Field_Of_Element_EE1011(sender As Object, e As EventArgs)
+    ''  Public Sub Choose_Background_Color_EE1010(sender As Object, e As EventArgs)
+    ''  Public Sub Open_Dialog_Font_EE1009(sender As Object, e As EventArgs)
+    ''  Public Sub ExampleValue_Edit_EE1006(sender As Object, e As EventArgs)
+    ''   Public Sub Open_OffsetText_Dialog_EE1007(sender As Object, e As EventArgs)
+    ''  Public Sub Border_Design_EE1000(sender As Object, e As EventArgs)
+    ''  Public Sub Rotate90_Degrees_EE1001(sender As Object, e As EventArgs)
+    ''  Public Sub How_Context_Menus_Are_Generated_EE1002(sender As Object, e As EventArgs) 
+    ''   --- Private Sub CreateVisibleButtonMaster(par_strText As String,
+    ''
+
     Public Sub Open_Field_Of_Element_EE1011(sender As Object, e As EventArgs)
         ''Private Sub OpenDialog_Field(sender As Object, e As EventArgs)
         ''
@@ -50,41 +73,18 @@ Public Class Operations_EditElement
         ''10/2/2019 td''form_ToShow.JustOneField_Index = Me.FieldInfo.FieldIndex
         form_ToShow.JustOneField_Index = CtlCurrentElement.FieldInfo.FieldIndex
 
+        ''Added 12/13/2021 thomas downes
+        form_ToShow.JustOneField_Object = CtlCurrentElement.ElementClass_Obj.FieldObject
+
         ''Added 12/12/2021 td
-        ''form_ToShow.ListOfFields_Custom = MenuCache_ElemFlds.CacheOfFieldsEtc.ListOfFields_Custom
-        ''form_ToShow.ListOfFields_Standard = MenuCache_ElemFlds.CacheOfFieldsEtc.ListOfFields_Standard
-        form_ToShow.ListOfFields_Custom = Me.CacheOfFieldsEtc.ListOfFields_Custom
-        form_ToShow.ListOfFields_Standard = Me.CacheOfFieldsEtc.ListOfFields_Standard
+        ''--form_ToShow.ListOfFields_Custom = MenuCache_ElemFlds.CacheOfFieldsEtc.ListOfFields_Custom
+        ''--form_ToShow.ListOfFields_Standard = MenuCache_ElemFlds.CacheOfFieldsEtc.ListOfFields_Standard
+        form_ToShow.ListOfFields_Custom = Me.CacheOfFieldsEtc.ListOfFields_Custom ''--MenuCache_ElemFlds.CacheOfFieldsEtc.ListOfFields_Custom
+        form_ToShow.ListOfFields_Standard = Me.CacheOfFieldsEtc.ListOfFields_Standard ''--MenuCache_ElemFlds.CacheOfFieldsEtc.ListOfFields_Standard
 
         form_ToShow.Show()
 
     End Sub ''eNd of "Public Sub Open_Field_Of_Element_EE1011(sender As Object, e As EventArgs)"
-
-    Private Sub CreateVisibleButtonMaster(par_strText As String, par_handler As EventHandler, ByRef pboolExitEarly As Boolean,
-                                           Optional pboolAlignment As Boolean = False)
-        ''10/10/2019 td''Private Sub CreateVisibleButton_Master(
-        ''
-        ''Added 8/13/2019 td  
-        ''
-        ''10/2/2019 td''If (mod_bBypassCreateButton) Then
-        ''    ''Added 8/13/2019 td  
-        ''    pboolExitEarly = False  ''Reinitialize. 
-        ''    mod_bBypassCreateButton = False ''Reinitialize. 
-
-        ''10/2/2019 td''ElseIf (Me.LayoutFunctions.OkayToShowFauxContextMenu()) Then
-        ''    ''8/14/2019 td''ElseIf (mc_CreateVisibleButtonForDemo) Then
-        ''    ''9/19/2019 td''ElseIf (Me.FormDesigner.OkayToShowFauxContextMenu()) Then
-        ''    ''
-        ''    ''Added 8 / 13 / 2019 td 
-        ''    ''
-        ''    ''8/14/2019 td''CreateVisibleButton(par_strText, par_handler)
-        ''    CreateFauxContextMenu(par_strText, par_handler, pboolAlignment)
-        ''    mod_bBypassCreateButton = True ''Reinitialize. 
-        ''    pboolExitEarly = True
-
-        ''End If ''End of "If (mod_bBypassCreateButton) Then .... ElseIf (mc_CreateVisibleButtonForDemo) Then ...."
-
-    End Sub ''End of "Private Sub CreateMouseButton_Master(par_strText As String, par_handler As EventHandler)"
 
 
     Public Sub Choose_Background_Color_EE1010(sender As Object, e As EventArgs)
@@ -534,6 +534,32 @@ Public Class Operations_EditElement
 
     End Sub ''end of "Public Sub How_Context_Menus_Are_Generated_EE1002(sender As Object, e As EventArgs)"
 
+
+    Private Sub CreateVisibleButtonMaster(par_strText As String, par_handler As EventHandler, ByRef pboolExitEarly As Boolean,
+                                           Optional pboolAlignment As Boolean = False)
+        ''10/10/2019 td''Private Sub CreateVisibleButton_Master(
+        ''
+        ''Added 8/13/2019 td  
+        ''
+        ''10/2/2019 td''If (mod_bBypassCreateButton) Then
+        ''    ''Added 8/13/2019 td  
+        ''    pboolExitEarly = False  ''Reinitialize. 
+        ''    mod_bBypassCreateButton = False ''Reinitialize. 
+
+        ''10/2/2019 td''ElseIf (Me.LayoutFunctions.OkayToShowFauxContextMenu()) Then
+        ''    ''8/14/2019 td''ElseIf (mc_CreateVisibleButtonForDemo) Then
+        ''    ''9/19/2019 td''ElseIf (Me.FormDesigner.OkayToShowFauxContextMenu()) Then
+        ''    ''
+        ''    ''Added 8 / 13 / 2019 td 
+        ''    ''
+        ''    ''8/14/2019 td''CreateVisibleButton(par_strText, par_handler)
+        ''    CreateFauxContextMenu(par_strText, par_handler, pboolAlignment)
+        ''    mod_bBypassCreateButton = True ''Reinitialize. 
+        ''    pboolExitEarly = True
+
+        ''End If ''End of "If (mod_bBypassCreateButton) Then .... ElseIf (mc_CreateVisibleButtonForDemo) Then ...."
+
+    End Sub ''End of "Private Sub CreateMouseButton_Master(par_strText As String, par_handler As EventHandler)"
 
 
 End Class
