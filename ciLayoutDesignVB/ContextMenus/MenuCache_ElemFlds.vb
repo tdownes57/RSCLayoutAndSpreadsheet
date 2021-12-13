@@ -27,6 +27,9 @@ Public Class MenuCache_ElemFlds
     Public Shared Tools_AlignmentFeatures As New ToolStripItemCollection(ToolStripContainer3, array_tools3) ''10/13 td''''List(Of ToolStripMenuItem)
     ''--Public Shared Tools_EditBackgroundMenu As New List(Of ToolStripMenuItem)
 
+    Public Shared Tools_MenuHeader1 As ToolStripItem ''Added 12/12/2021
+    Public Shared Tools_MenuHeader2 As ToolStripItem ''Added 12/12/2021 
+
     Public Shared Property CtlCurrentElement As ciBadgeDesigner.CtlGraphicFldLabel ''CtlGraphicFldLabel
     Public Shared Property LayoutFunctions As ILayoutFunctions ''Added 10/3/2019 td 
     Public Shared Property Designer As ciBadgeDesigner.ClassDesigner
@@ -116,6 +119,8 @@ Public Class MenuCache_ElemFlds
         ''toolMenuItemHeader1 = toolMenuItemHeader1
         MenuCache_ElemFlds.Tools_EditElementMenu.Add(toolMenuItemHeader1)
         MenuCache_ElemFlds.Tools_EditElementMenu.Add(toolMenuItemHeader2)
+        MenuCache_ElemFlds.Tools_MenuHeader1 = toolMenuItemHeader1
+        MenuCache_ElemFlds.Tools_MenuHeader2 = toolMenuItemHeader2
 
         ''objInfo = (TypeOf objClass1)
 

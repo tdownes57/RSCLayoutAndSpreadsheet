@@ -34,7 +34,7 @@ Public Class Operations_EditElement
 
     Private mod_fauxMenuEditSingleton As CtlGraphPopMenuEditSingle ''Added 10/3/2019 td 
 
-    Public Sub Open_Field_Of_Element(sender As Object, e As EventArgs)
+    Public Sub Open_Field_Of_Element_EE1011(sender As Object, e As EventArgs)
         ''Private Sub OpenDialog_Field(sender As Object, e As EventArgs)
         ''
         ''Added 7/30/2019 thomas downes
@@ -58,7 +58,7 @@ Public Class Operations_EditElement
 
         form_ToShow.Show()
 
-    End Sub ''eNd of "Private Sub Open_Field_Of_Element()"
+    End Sub ''eNd of "Public Sub Open_Field_Of_Element_EE1011(sender As Object, e As EventArgs)"
 
     Private Sub CreateVisibleButtonMaster(par_strText As String, par_handler As EventHandler, ByRef pboolExitEarly As Boolean,
                                            Optional pboolAlignment As Boolean = False)
@@ -86,7 +86,8 @@ Public Class Operations_EditElement
 
     End Sub ''End of "Private Sub CreateMouseButton_Master(par_strText As String, par_handler As EventHandler)"
 
-    Public Sub Choose_Background_Color(sender As Object, e As EventArgs)
+
+    Public Sub Choose_Background_Color_EE1010(sender As Object, e As EventArgs)
 
         ''---10/10/2019 td--Private Sub OpenDialog_Color(sender As Object, e As EventArgs)
         ''
@@ -161,7 +162,8 @@ Public Class Operations_EditElement
         ''9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()
         Me.LayoutFunctions.AutoPreview_IfChecked()
 
-    End Sub ''eNd of "Private Sub Open_Dialog_Color()"
+    End Sub ''eNd of "Public Sub Choose_Background_Color_EE1010(sender As Object, e As EventArgs)"
+
 
     ''Private Sub SwitchCtl__Up(sender As Object, e As EventArgs)
     ''    ''
@@ -176,6 +178,7 @@ Public Class Operations_EditElement
 
     ''End Sub ''End of "Private Sub SwitchCtl__Up(sender As Object, e As EventArgs)"
 
+
     ''Private Sub SwitchCtl_Down(sender As Object, e As EventArgs)
     ''    ''
     ''    ''Added 8/16/2019 thomas downes
@@ -189,7 +192,8 @@ Public Class Operations_EditElement
 
     ''End Sub ''ENd of "Private Sub SwitchCtl_Down(sender As Object, e As EventArgs)"
 
-    Public Sub Open_Dialog_Font(sender As Object, e As EventArgs)
+
+    Public Sub Open_Dialog_Font_EE1009(sender As Object, e As EventArgs)
         ''
         ''Added 7/30/2019 thomas downes
         ''
@@ -275,13 +279,10 @@ Public Class Operations_EditElement
         ''9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()
         Me.LayoutFunctions.AutoPreview_IfChecked()
 
-    End Sub ''eNd of "Private Sub "Open_Dialog_Font()"
+    End Sub ''eNd of "Private Sub "Open_Dialog_Font_EE1009(sender As Object, e As EventArgs)"
 
 
-
-
-
-    Public Sub ExampleValue_Edit(sender As Object, e As EventArgs)
+    Public Sub ExampleValue_Edit_EE1006(sender As Object, e As EventArgs)
         ''
         ''Added 8/10/2019 thomas downes
         ''
@@ -298,9 +299,9 @@ Public Class Operations_EditElement
 
         End With ''End of "With Me.CtlCurrentElement.Textbox_Example"
 
-    End Sub ''End of "Private Sub ExampleValue_Edit"  
+    End Sub ''End of "Public Sub ExampleValue_Edit_EE1006(sender As Object, e As EventArgs)"  
 
-    Public Sub Open_OffsetText_Dialog(sender As Object, e As EventArgs)
+    Public Sub Open_OffsetText_Dialog_EE1007(sender As Object, e As EventArgs)
         ''
         ''Added 8/10/2019 thomas downes
         ''
@@ -387,9 +388,9 @@ Public Class Operations_EditElement
         ''9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()
         Me.LayoutFunctions.AutoPreview_IfChecked()
 
-    End Sub ''End of "Private Sub Open_OffsetTextDialog(sender As Object, e As EventArgs)"
+    End Sub ''End of "Public Sub Open_OffsetTextDialog_EE1005(sender As Object, e As EventArgs)"
 
-    Public Sub Border_Design(sender As Object, e As EventArgs)
+    Public Sub Border_Design_EE1000(sender As Object, e As EventArgs)
         ''
         ''Added 9/ 2/2019 thomas downes
         ''
@@ -470,9 +471,9 @@ Public Class Operations_EditElement
         ''9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()
         Me.LayoutFunctions.AutoPreview_IfChecked()
 
-    End Sub ''End of "Private Sub Open_OffsetTextDialog(sender As Object, e As EventArgs)"
+    End Sub ''End of "Public Sub Border_Design_EE1000(sender As Object, e As EventArgs)"
 
-    Public Sub Rotate90_Degrees(sender As Object, e As EventArgs)
+    Public Sub Rotate90_Degrees_EE1001(sender As Object, e As EventArgs)
         ''
         ''Added 8/17/2019 thomas downes
         ''  
@@ -517,10 +518,10 @@ Public Class Operations_EditElement
         ''9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()
         Me.LayoutFunctions.AutoPreview_IfChecked()
 
-    End Sub ''eNd of "Private Sub Rotate90_Degrees()"
+    End Sub ''eNd of "Public Sub Rotate90_Degrees_EE1001(sender As Object, e As EventArgs)"
 
 
-    Private Sub How_Context_Menus_Are_Generated(sender As Object, e As EventArgs)
+    Public Sub How_Context_Menus_Are_Generated_EE1002(sender As Object, e As EventArgs)
         ''
         ''Added 12/12/2021 thomas downes  
         ''
@@ -531,7 +532,7 @@ Public Class Operations_EditElement
         strPathToNotesFileTXT = DiskFilesVB.PathToNotes_HowContextMenusAreGenerated()
         System.Diagnostics.Process.Start(strPathToNotesFileTXT)
 
-    End Sub ''end of "Private Sub Explain_How_Context_Menus_Are_Generated(ender As Object, e As EventArgs)"
+    End Sub ''end of "Public Sub How_Context_Menus_Are_Generated_EE1002(sender As Object, e As EventArgs)"
 
 
 

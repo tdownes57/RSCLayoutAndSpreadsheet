@@ -14,6 +14,7 @@ Namespace ciBadgeCachePersonality
 
     <Serializable>
     Public Class ClassCachePersonality
+        ''Dec.13 2021''Implements ciBadgeInterfaces.InterfacePersonality ''Added 12/12/2021 Thomas Downes
         ''
         ''Added 11/24/2019 thomas downes
         ''  Copied from ClassElementsCache, on 11/24/2019 thomas downes
@@ -21,11 +22,25 @@ Namespace ciBadgeCachePersonality
         Public Shared Singleton As ClassCachePersonality ''Let's use
         '' the pattern mentioned in https://en.wikipedia.org/wiki/Singleton_pattern
 
-        Public Property Id_GUID As System.Guid ''Added 9/30/2019 td 
+        Public Property Id_GUID As System.Guid ''Dec.13 2021''Implements InterfacePersonality.Id_GUID ''Added 9/30/2019 td 
+        Public Property Id_GUID6 As String ''Dec.13 2021''Implements InterfacePersonality.Id_GUID6 ''Added 12/12/2021 td 
+
+        Public Property PersonalityConfig As ClassPersonalityConfig ''Added 12/13/2021 td 
+
+        ''Dec13 2021 td''Public Property CustomerNumber As String Implements InterfacePersonality.CustomerNumber ''Added 12/12/2021 td
+        ''Dec13 2021 td''Public Property ConfigID As Integer Implements InterfacePersonality.ConfigID ''Added 12/12/2021 td
+        ''Dec13 2021 td''Public Property IsVisitorManagement As Boolean Implements InterfacePersonality.IsVisitorManagement ''Added 12/12/2021 td
+
+        ''Dec13 2021 td''Public Property Name_Description As String Implements InterfacePersonality.Name_PersonalityDescription ''Added 12/12/2021
+        ''Dec13 2021 td''Public Property Name_ReferringToThem_Plural As String Implements InterfacePersonality.Name_ReferringToThem_Plural ''Added 12/12/2021
+        ''Dec13 2021 td''Public Property Name_ReferringToOne_Singular As String Implements InterfacePersonality.Name_ReferringToOne_Singular ''Added 12/12/2021
 
         ''10/10/2019 td''Public Property SaveToXmlPath As String ''Added 9/29/2019 td
         Public Property PathToXml_Saved As String ''Added 9/29/2019 td
         Public Property PathToXml_Binary As String ''Added 11/29/2019 td
+
+        ''Added 12/12/2021 thomas downes
+
 
         Public Property ElementQRCode As ClassElementQRCode ''Added 10/8/2019 thomas d.  
         Public Property ElementSignature As ClassElementSignature ''Added 10/8/2019 thomas d.  

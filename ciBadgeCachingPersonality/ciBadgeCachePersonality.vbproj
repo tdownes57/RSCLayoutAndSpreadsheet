@@ -67,10 +67,13 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BadgeLayoutCache.vb" />
     <Compile Include="ClassCacheManagement.vb" />
+    <Compile Include="ClassCustomerCache.vb" />
     <Compile Include="ClassElementsCache_Deprecated.vb" />
     <Compile Include="ClassCacheLayout.vb" />
     <Compile Include="ClassCachePersonality.vb" />
+    <Compile Include="ClassPersonalityConfig.vb" />
     <Compile Include="DiskFolders.vb" />
     <Compile Include="InterfaceDesignerForm.vb" />
     <Compile Include="DiskFilesVB.vb" />
@@ -90,6 +93,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="PersonalityCache_NotInUse.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -114,6 +118,10 @@
     <ProjectReference Include="..\..\tdownes57\ciBadgeForWeb\ciPictures_VB\ciPictures_VB.vbproj">
       <Project>{a5fe9f7b-4075-43c5-892b-01e2cfec342c}</Project>
       <Name>ciPictures_VB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ciBadgeCustomer\ciBadgeCustomer.vbproj">
+      <Project>{02f14561-e867-47ea-9b91-990b0bbb597f}</Project>
+      <Name>ciBadgeCustomer</Name>
     </ProjectReference>
     <ProjectReference Include="..\ciBadgeElements\ciBadgeElements.vbproj">
       <Project>{e7eb43c4-358c-4880-9c9b-206127b57722}</Project>

@@ -116,7 +116,7 @@ Public Class Startup
 
     End Sub ''End of "Public Sub OpenLayoutDesigner_Loop()"
 
-    Private Shared Function LoadCachedData_Customer_FutureUse() As ciBadgeCustomer.ClassCustomerCache
+    Private Shared Function LoadCachedData_Customer_FutureUse() As ClassCustomerCache ''12/13/2021 ''ciBadgeCustomer.ClassCustomerCache
         ''
         ''Added 10/14/2019 thomas d. 
         ''Suffixed "_FutureUse" on 11/30/2021 td

@@ -94,13 +94,19 @@ Namespace ciBadgeCachePersonality
 
 
         Public Sub CheckCacheIsLatestForEdits(ByRef pref_pIsLatest As Boolean,
-                                               Optional ByRef pref_IsACopyOfLatest As Boolean = False)
+                                               Optional ByRef pref_IsACopyOfLatest As Boolean = False,
+                                              Optional ByVal par_IssueMessageBox As Boolean = False)
             ''
             ''Added 12/12/2021 thomas 
             ''
             ''---pref_pIsLatest = (Me.Id_GUID6 = ClassCacheManagement.LatestCacheOfEdits_Guid6)
             ''---pref_IsACopyOfLatest = (Me.Id_GUID6_CopiedFrom = ClassCacheManagement.LatestCacheOfEdits_Guid6)
             Me.CacheForEditing.CheckCacheIsLatestForEdits(pref_pIsLatest, pref_IsACopyOfLatest)
+
+            ''Added 12/12/2021 td
+            If (pref_pIsLatest = False And par_IssueMessageBox) Then
+                Windows.Forms.MessageBox.Show("The proposed cache is __NOT___ the latest & greatest.")
+            End If ''End of "If (pref_pIsLatest = False And par_IssueMessageBox) Then"
 
         End Sub ''End of "Public Sub CheckCacheIsLatestForEdits()"
 

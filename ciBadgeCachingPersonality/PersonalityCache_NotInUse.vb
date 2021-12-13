@@ -21,7 +21,7 @@ Public Class PersonalityCache_NotInUse
     Public Property ElementFields_DataEntry_V8 As List(Of ClassElementField)
     Public Property ElementFields_DataEntry_V9 As List(Of ClassElementField)
 
-    ''Dec. 13 2021''Public Property ListOfLayouts As List(Of BadgeLayoutCache) ''Added 10/11/2019 td
+    Public Property ListOfLayouts As List(Of BadgeLayoutCache) ''Added 10/11/2019 td
 
 
 

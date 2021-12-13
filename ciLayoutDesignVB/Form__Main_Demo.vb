@@ -305,9 +305,10 @@ Public Class Form__Main_Demo
         MenuCache_ElemFlds.Designer = mod_designer
         MenuCache_ElemFlds.LayoutFunctions = mod_designer
         MenuCache_ElemFlds.SelectingElements = mod_designer
-        MenuCache_ElemFlds.CacheOfFieldsEtc = Me.ElementsCache_Edits ''Added 12/12/2021 thomas d.
-        Me.ElementsCache_ManageBoth.CheckEditsCacheIsLatest() ''Added 12/12/2021 thomas d.
-        MenuCache_ElemFlds.GenerateMenuItems_IfNeeded()
+        ''Dec.12 2021''MenuCache_ElemFlds.CacheOfFieldsEtc = Me.ElementsCache_Edits ''Added 12/12/2021 thomas d.
+        Dim bool1, bool2 As Boolean  ''Added 12/12/2021 thomas d.
+        Me.ElementsCache_ManageBoth.CheckCacheIsLatestForEdits(bool1, bool2, True) ''Added 12/12/2021 thomas d.
+        MenuCache_ElemFlds.GenerateMenuItems_IfNeeded(Me.ElementsCache_Edits)
 
         MenuCache_Background.ColorDialog1 = (New ColorDialog)
         MenuCache_Background.Designer = mod_designer
