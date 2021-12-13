@@ -1700,6 +1700,8 @@ Public Class Form__Main_Demo
         MenuCache_ElemFlds.Operations_Edit.CtlCurrentElement = par_control ''Added 10/14/2019 td
 
         ContextMenuStrip1.Items.Clear()
+        ContextMenuStrip1.Items.Add(MenuCache_ElemFlds.Tools_MenuHeader1)
+        ContextMenuStrip1.Items.Add(MenuCache_ElemFlds.Tools_MenuHeader2)
         ContextMenuStrip1.Items.AddRange(MenuCache_ElemFlds.Tools_EditElementMenu)
 
         ''10/13 td''ContextMenuStrip1.Show()

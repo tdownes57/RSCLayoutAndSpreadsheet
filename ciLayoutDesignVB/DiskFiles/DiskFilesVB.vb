@@ -34,6 +34,15 @@ Public Class DiskFilesVB
 
     End Function ''Endo f "Public Shared Function PathToFile_Sig() As String"
 
+    Public Shared Function PathToNotes_HowContextMenusAreGenerated() As String
+        ''
+        ''Added 12/12/2021 Thomas Downes    
+        ''
+        ''
+        Return IO.Path.Combine(DiskFolders.PathToFolder_Notes, "How_Context_Menus_Are_Generated.txt")
+
+    End Function ''Endo f "Public Shared Function PathToNotes_HowContextMenusAreGenerated() As String"
+
     Public Shared Function PathToFile_XML_Personality() As String
         ''
         ''Added 1/14/2020 Thomas Downes    

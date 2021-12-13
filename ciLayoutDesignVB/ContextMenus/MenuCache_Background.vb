@@ -16,7 +16,7 @@ Public Class MenuCache_Background
     Public Shared Property LayoutFunctions As ILayoutFunctions ''Added 10/15/2019 td 
     Public Shared Property Designer As ciBadgeDesigner.ClassDesigner
     Public Shared Property ColorDialog1 As ColorDialog ''Added 10/15/2019 td 
-    Public Shared Operations_Back As New Operations_EditBack ''Added 10/15/2019 td  
+    Public Shared Operations_Back As New Operations_EditBackground ''Added 10/15/2019 td  
 
     Public Shared Sub GenerateMenuItems_IfNeeded()
         ''

@@ -11,7 +11,7 @@ Imports ciBadgeDesigner
 ''----Imports ciBadgeElements
 Imports ciLayoutPrintLib ''Added 10/15/2019 thomas d. 
 
-Public Class Operations_EditBack
+Public Class Operations_EditBackground
     ''
     ''Added 10/15/2019 td
     ''

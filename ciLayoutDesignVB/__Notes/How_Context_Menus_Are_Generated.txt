@@ -1,0 +1,23 @@
+
+
+Steps to add an additional context-menu item to a context menu:
+
+1.  Go to the Solution Explorer.
+2.  Find the folder "ContextMenus".
+3.  Find the following Classes:
+       Operations_EditBack
+       Operations_EditElement
+       Operations_EditGroup
+       Operations_EditQR
+       Operations_EditSignature
+       Operations_EditStaticText
+4.  Select one of the aforementioned classes. 
+5.  Open the code module.
+6.  Notice that the procedure names have underscores in the Sub names. 
+7.  Create a new Public Sub procedure, with a descriptive name & underscores separating the 
+      words in the descriptive name.
+8.  The parameters of the Sub must be (sender As Object, e As EventArgs), otherwise it won't work. 
+8.  Place appropriate code into the class, to accomplish what you need to accomplish.  
+
+-----12.12.2021 Thomas Downes
+

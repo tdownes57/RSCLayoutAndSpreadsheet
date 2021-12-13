@@ -51,8 +51,10 @@ Public Class Operations_EditElement
         form_ToShow.JustOneField_Index = CtlCurrentElement.FieldInfo.FieldIndex
 
         ''Added 12/12/2021 td
-        form_ToShow.ListOfFields_Custom = MenuCache_ElemFlds.CacheOfFieldsEtc.ListOfFields_Custom
-        form_ToShow.ListOfFields_Standard = MenuCache_ElemFlds.CacheOfFieldsEtc.ListOfFields_Standard
+        ''form_ToShow.ListOfFields_Custom = MenuCache_ElemFlds.CacheOfFieldsEtc.ListOfFields_Custom
+        ''form_ToShow.ListOfFields_Standard = MenuCache_ElemFlds.CacheOfFieldsEtc.ListOfFields_Standard
+        form_ToShow.ListOfFields_Custom = Me.CacheOfFieldsEtc.ListOfFields_Custom
+        form_ToShow.ListOfFields_Standard = Me.CacheOfFieldsEtc.ListOfFields_Standard
 
         form_ToShow.Show()
 
@@ -394,7 +396,13 @@ Public Class Operations_EditElement
         ''9/18/2019 td''Dim frm_ToShow As New DialogTextBorder
         ''9/18/2019 td''frm_ToShow.LoadFieldAndForm(Me.ElementInfo_Base, Me.ElementInfo_Text, Me.FieldInfo, Me.FormDesigner, Me)
 
-        Me.Parent_MenuCache.Cache.CheckEditsCacheIsLatest()
+        ''Dec.12 2021''Me.Parent_MenuCache.Cache.CheckEditsCacheIsLatest()
+        Dim boolIsLatest As Boolean ''Dec. 12, 2021 td
+        Dim boolIsCopyOfLatest As Boolean ''Dec. 12, 2021 td
+
+        ''Added 12/12/2021 thomas downes
+        Me.CacheOfFieldsEtc.CheckCacheIsLatestForEdits(boolIsLatest, boolIsCopyOfLatest)
+        If (Not boolIsLatest) Then Throw New Exception("This is not the latest cache of edits.")
 
         With Me.CtlCurrentElement ''Added 10/17/2019 td
 
@@ -510,6 +518,21 @@ Public Class Operations_EditElement
         Me.LayoutFunctions.AutoPreview_IfChecked()
 
     End Sub ''eNd of "Private Sub Rotate90_Degrees()"
+
+
+    Private Sub How_Context_Menus_Are_Generated(sender As Object, e As EventArgs)
+        ''
+        ''Added 12/12/2021 thomas downes  
+        ''
+        Dim strPathToNotesFolder As String
+        Dim strPathToNotesFileTXT As String
+
+        strPathToNotesFolder = DiskFolders.PathToFolder_Notes()
+        strPathToNotesFileTXT = DiskFilesVB.PathToNotes_HowContextMenusAreGenerated()
+        System.Diagnostics.Process.Start(strPathToNotesFileTXT)
+
+    End Sub ''end of "Private Sub Explain_How_Context_Menus_Are_Generated(ender As Object, e As EventArgs)"
+
 
 
 End Class

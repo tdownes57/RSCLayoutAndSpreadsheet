@@ -41,7 +41,7 @@ Public Class MenuCache_ElemFlds
 
     Public Shared Operations_Edit As New Operations_EditElement ''Added 10/11/2019 td  
 
-    Public Shared Sub GenerateMenuItems_IfNeeded(par_cacheFieldsEtc As ciBadgeCachePersonality.ClassElementsCache_Deprecated)
+    Public Shared Sub GenerateMenuItems_IfNeeded(par_cacheOfFieldsEtc As ciBadgeCachePersonality.ClassElementsCache_Deprecated)
         ''Dec.12 2021 ''Public Shared Sub GenerateMenuItems_IfNeeded()
         ''
         ''Added 10/2/2019 thomas downes  
@@ -107,6 +107,16 @@ Public Class MenuCache_ElemFlds
         Dim intCountLinkLabels As Integer ''Added 10/13/2019 thomas downes 
         Dim intCountMethodsAndMembers As Integer ''Added 10/14/2019 td 
 
+        Dim toolMenuItemHeader1 As New ToolStripMenuItem ''Added 12/13/2021 td
+        Dim toolMenuItemHeader2 As New ToolStripMenuItem ''Added 12/13/2021 td
+
+        ''Added 12/13/2021 td
+        toolMenuItemHeader1.Text = "ContextMenus\MenuCache_ElemFlds.vb"
+        toolMenuItemHeader2.Text = "     ...\Operations_EditElement.vb"
+        ''toolMenuItemHeader1 = toolMenuItemHeader1
+        MenuCache_ElemFlds.Tools_EditElementMenu.Add(toolMenuItemHeader1)
+        MenuCache_ElemFlds.Tools_EditElementMenu.Add(toolMenuItemHeader2)
+
         ''objInfo = (TypeOf objClass1)
 
         objBindingFlags = (BindingFlags.Public Or BindingFlags.Instance)
@@ -114,11 +124,15 @@ Public Class MenuCache_ElemFlds
         ''// Using Reflection to get information of an Assembly  
         ''System.Reflection.Assembly info = TypeOf (System.Int32).Assembly;
 
-        Dim t As Type = Operations_Edit.GetType
+        ''Dec12 2021''Dim t As Type = Operations_Edit.GetType
+        Dim typeOperationsElement As Type = Operations_Edit.GetType
 
         ''10/11/2019 td''mod_methods.ParentForm = Me
 
-        For Each each_methodInfo In t.GetMethods()
+        ''
+        ''
+        ''
+        For Each each_methodInfo In typeOperationsElement.GetMethods()
 
             intCountMethodsAndMembers += 1 ''Added 10/14/2019 td
 
