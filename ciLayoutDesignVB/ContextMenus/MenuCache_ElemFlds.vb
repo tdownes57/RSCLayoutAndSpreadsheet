@@ -4,6 +4,7 @@
 Imports System.Reflection ''Added 10/11/2019 td
 Imports ciBadgeInterfaces ''Added 10/14/2019 td 
 Imports ciBadgeDesigner ''Added 10/14/2019 td
+Imports ciBadgeFields ''Added 12/13/2021 thomas d. 
 
 Public Class MenuCache_ElemFlds
     ''
@@ -27,8 +28,11 @@ Public Class MenuCache_ElemFlds
     Public Shared Tools_AlignmentFeatures As New ToolStripItemCollection(ToolStripContainer3, array_tools3) ''10/13 td''''List(Of ToolStripMenuItem)
     ''--Public Shared Tools_EditBackgroundMenu As New List(Of ToolStripMenuItem)
 
+    Public Shared Tools_MenuHeader0 As ToolStripItem ''Added 12/13/2021
     Public Shared Tools_MenuHeader1 As ToolStripItem ''Added 12/12/2021
     Public Shared Tools_MenuHeader2 As ToolStripItem ''Added 12/12/2021 
+    Public Shared Tools_MenuHeader3 As ToolStripItem ''Added 12/13/2021
+    Public Shared Tools_MenuSeparator As ToolStripItem ''Added 12/13/2021 
 
     Public Shared Property CtlCurrentElement As ciBadgeDesigner.CtlGraphicFldLabel ''CtlGraphicFldLabel
     Public Shared Property LayoutFunctions As ILayoutFunctions ''Added 10/3/2019 td 
@@ -53,6 +57,7 @@ Public Class MenuCache_ElemFlds
         boolAlreadyPopulated = (0 <> Links_EditElementMenu.Count)
         If (boolAlreadyPopulated) Then Exit Sub
 
+        ''12/13/2021''Generate_BasicEdits()
         Generate_BasicEdits()
         Generate_Grouped()
         Generate_Aligning()
@@ -83,7 +88,7 @@ Public Class MenuCache_ElemFlds
 
     End Sub ''End of "Public Shared Sub GenerateMenuItems_IfNeeded()"
 
-    Private Shared Sub Generate_BasicEdits()
+    Private Shared Sub Generate_BasicEdits() ''Dec.13 2021'' (par_fieldAny As ciBadgeFields.ClassFieldAny)
         ''
         ''We will use Reflection to build this cache of menu controls. 
         ''
@@ -110,17 +115,35 @@ Public Class MenuCache_ElemFlds
         Dim intCountLinkLabels As Integer ''Added 10/13/2019 thomas downes 
         Dim intCountMethodsAndMembers As Integer ''Added 10/14/2019 td 
 
-        Dim toolMenuItemHeader1 As New ToolStripMenuItem ''Added 12/13/2021 td
-        Dim toolMenuItemHeader2 As New ToolStripMenuItem ''Added 12/13/2021 td
+        Dim toolMenuItemHeader0 As New ToolStripMenuItem ''Added 12/12/2021 td
+        Dim toolMenuItemHeader1 As New ToolStripMenuItem ''Added 12/12/2021 td
+        Dim toolMenuItemHeader2 As New ToolStripMenuItem ''Added 12/12/2021 td
+        Dim toolMenuItemHeader3 As New ToolStripMenuItem ''Added 12/13/2021 td
+        Dim toolMenuItemSeparator As New ToolStripMenuItem ''Added 12/13/2021 td
 
         ''Added 12/13/2021 td
-        toolMenuItemHeader1.Text = "ContextMenus\MenuCache_ElemFlds.vb"
-        toolMenuItemHeader2.Text = "     ...\Operations_EditElement.vb"
+        ''   Dec.12 2021 td''toolMenuItemHeader1.Text = ("Field " & par_fieldAny.Caption)
+        ''
+        toolMenuItemHeader0.Text = ("Context-Menu for Control: {0}")
+        toolMenuItemHeader0.Tag = ("Context-Menu for Control: {0}")  ''More important to set .Tag than .Text, due to using String.Format function.
+        toolMenuItemHeader1.Text = ("Field: {0} ({1})")
+        toolMenuItemHeader1.Tag = ("Field: {0} ({1})") ''More important to set .Tag than .Text here, due to using String.Format function elsewhere.
+        toolMenuItemHeader2.Text = "ContextMenus\MenuCache_ElemFlds.vb"
+        toolMenuItemHeader3.Text = "     ...\Operations_EditElement.vb"
+        toolMenuItemSeparator.Text = "-------" ''Perhaps this will produce a separator line, just like in the old VB6 days. 
+
         ''toolMenuItemHeader1 = toolMenuItemHeader1
+        MenuCache_ElemFlds.Tools_EditElementMenu.Add(toolMenuItemHeader0)
         MenuCache_ElemFlds.Tools_EditElementMenu.Add(toolMenuItemHeader1)
         MenuCache_ElemFlds.Tools_EditElementMenu.Add(toolMenuItemHeader2)
+        MenuCache_ElemFlds.Tools_EditElementMenu.Add(toolMenuItemHeader3)
+        MenuCache_ElemFlds.Tools_EditElementMenu.Add(toolMenuItemSeparator)
+
+        MenuCache_ElemFlds.Tools_MenuHeader0 = toolMenuItemHeader0
         MenuCache_ElemFlds.Tools_MenuHeader1 = toolMenuItemHeader1
         MenuCache_ElemFlds.Tools_MenuHeader2 = toolMenuItemHeader2
+        MenuCache_ElemFlds.Tools_MenuHeader3 = toolMenuItemHeader3
+        MenuCache_ElemFlds.Tools_MenuSeparator = toolMenuItemSeparator
 
         ''objInfo = (TypeOf objClass1)
 

@@ -9,21 +9,23 @@ Public Class MenuCache_GraphicElements
     ''
     ''Added 12/13/2021 thomas downes  
     ''
-    Public Shared Links_Graphics As New List(Of LinkLabel)
+    Public Shared Links_GraphicsMenu As New List(Of LinkLabel)
     Public Shared ToolStripGraphics As New ToolStrip
     Public Shared array_toolsGraphics() As ToolStripMenuItem = New ToolStripMenuItem() {}
     Public Shared Tools_GraphicsMenu As New ToolStripItemCollection(ToolStripGraphics, array_toolsGraphics) ''10/15 td''List(Of ToolStripMenuItem)
     Public Shared Property LayoutFunctions As ILayoutFunctions ''Added 10/15/2019 td 
     Public Shared Property Designer As ciBadgeDesigner.ClassDesigner
     ''---Dec13 2021 td----Public Shared Property ColorDialog1 As ColorDialog ''Added 10/15/2019 td 
+    Public Shared Property ColorDialog1 As ColorDialog ''Added 12/13/2021 td 
+
     Public Shared Operations_Graphic As New Operations_EditGraphic ''Added 10/15/2019 td  
 
-    Public Shared Sub GenerateMenuItems_IfNeeded()
+    Public Shared Sub GenerateMenuItems_IfNeeded(par_cacheOfFieldsEtc As ciBadgeCachePersonality.ClassElementsCache_Deprecated)
         ''
         ''Added 10/2/2019 thomas downes  
         ''
         Dim boolAlreadyPopulated As Boolean ''Added 10/14/2019 thomas downes
-        boolAlreadyPopulated = (0 <> Links_Graphics.Count)
+        boolAlreadyPopulated = (0 <> Links_GraphicsMenu.Count)
         If (boolAlreadyPopulated) Then Exit Sub
 
         Generate_BasicEdits()
@@ -33,14 +35,14 @@ Public Class MenuCache_GraphicElements
         '' 
         ''Added 10/1/4/2019 td
         ''
-        With Operations_Back
+        With Operations_Graphic
             .ColorDialog1 = ColorDialog1
             ''-----.CtlCurrentElement = CtlCurrentElement
             .Designer = Designer
             ''----.FontDialog1 = FontDialog1
             .LayoutFunctions = LayoutFunctions
             ''----.SelectingElements = SelectingElements
-        End With ''End of "With Operations_Edit"
+        End With ''End of "With Operations_EditGraphic"
 
     End Sub ''End of "Public Shared Sub GenerateMenuItems_IfNeeded()"
 
@@ -78,11 +80,11 @@ Public Class MenuCache_GraphicElements
         ''// Using Reflection to get information of an Assembly  
         ''System.Reflection.Assembly info = TypeOf (System.Int32).Assembly;
 
-        Dim t As Type = Operations_Back.GetType
+        Dim t_typeOperationsEditGraphic As Type = Operations_Graphic.GetType
 
         ''10/11/2019 td''mod_methods.ParentForm = Me
 
-        For Each each_methodInfo In t.GetMethods()
+        For Each each_methodInfo In t_typeOperationsEditGraphic.GetMethods()
 
             intCountMethodsAndMembers += 1 ''Added 10/14/2019 td
 
@@ -116,7 +118,7 @@ Public Class MenuCache_GraphicElements
                 ''Added 10/15/2019 td
                 MessageBox.Show($"The Public Sub {each_methodInfo.Name} " &
                                 "must have params (sender As Object, e As EventArgs).",
-                                "MenuCache_Background - Generate_BasicEdits",
+                                "MenuCache_GraphicElements - Generate_BasicEdits",
                                 MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
 
             End If ''End of "If (bPublicSubHasGoodParams) Then .... Else .."
@@ -178,7 +180,7 @@ Public Class MenuCache_GraphicElements
                 ''
                 ''   https://stackoverflow.com/questions/1121441/addeventhandler-using-reflection
                 ''
-                Dim type_LinkLabel As Type = Operations_Back.MyLinkLabel.GetType
+                Dim type_LinkLabel As Type = Operations_Graphic.MyLinkLabel.GetType
                 Dim event_linkClicked As Reflection.EventInfo
 
                 ''
@@ -188,7 +190,7 @@ Public Class MenuCache_GraphicElements
                     event_linkClicked = type_LinkLabel.GetEvent("LinkClicked", objBindingFlags)
                     Dim my_click_handler As [Delegate]
                     my_click_handler = [Delegate].CreateDelegate(event_linkClicked.EventHandlerType,
-                                                                 Operations_Back, each_methodInfo)
+                                                                 Operations_Graphic, each_methodInfo)
 
                     event_linkClicked.AddEventHandler(each_newLinkLabel, my_click_handler)
 
@@ -207,7 +209,7 @@ Public Class MenuCache_GraphicElements
                 ''
                 ''Step 2 of 2:    ToolstripMenuItem  
                 ''
-                Dim type_ToolstripItem As Type = Operations_Back.MyToolstripItem.GetType
+                Dim type_ToolstripItem As Type = Operations_Graphic.MyToolstripItem.GetType
                 Dim event_toolClicked As Reflection.EventInfo
                 Dim boolSuccess_LinkLabel As Boolean = False ''Added 10/14/2019 td
 
@@ -215,7 +217,7 @@ Public Class MenuCache_GraphicElements
                     event_toolClicked = type_ToolstripItem.GetEvent("Click", objBindingFlags)
                     Dim my_click_handler As [Delegate]
                     my_click_handler = [Delegate].CreateDelegate(event_toolClicked.EventHandlerType,
-                                                                 Operations_Back, each_methodInfo)
+                                                                 Operations_Graphic, each_methodInfo)
 
                     ''---link_clicked.AddEventHandler(Me, my_handler) '', BindingFlags.Public)
                     ''---link_clicked.AddEventHandler(mod_classMenuMethods, my_handler)
@@ -258,8 +260,10 @@ Public Class MenuCache_GraphicElements
 
             ''Added 10/13/2019 thomas downes
             intCountLinkLabels += 1
-            MenuCache_Background.Links_BackgroundMenu.Add(each_newLinkLabel)
-            MenuCache_Background.Tools_BackgroundMenu.Add(each_toolMenuItem)
+            ''Dec. 13 2021''MenuCache_GraphicElements.Links_BackgroundMenu.Add(each_newLinkLabel)
+            ''Dec. 13 2021''MenuCache_GraphicElements.Tools_BackgroundMenu.Add(each_toolMenuItem)
+            MenuCache_GraphicElements.Links_GraphicsMenu.Add(each_newLinkLabel)
+            MenuCache_GraphicElements.Tools_GraphicsMenu.Add(each_toolMenuItem)
 
         Next each_methodInfo
 
@@ -271,7 +275,7 @@ Public Class MenuCache_GraphicElements
             ''Added 9/23/2019 thomas downes
             ''
             MessageBox.Show($"Making LinkLabels, a count of {intExceptionCount_LinkLabels} errors occurred.  The last error is as follows:  " & vbCrLf & vbCrLf &
-                            ex_AddEventHandler_LinkLbl.Message, "MenuCache_Background - Generate_BasicEdits",
+                            ex_AddEventHandler_LinkLbl.Message, "MenuCache_GraphicElements - Generate_BasicEdits",
                             MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
 
         End If ''End of "If (intExceptionCount_LinkLabels > 1) Then"
@@ -281,7 +285,7 @@ Public Class MenuCache_GraphicElements
             ''Inform user of the error count. 
             MessageBox.Show($"Making ToolstripMenuItems, a count of {intExceptionCount_Toolstrip} errors occurred.  The last error is as follows:  " & vbCrLf & vbCrLf &
                             ex_AddEventHandler_ToolItem.Message,
-                            "MenuCache_Background - Generate_BasicEdits",
+                            "MenuCache_GraphicElements - Generate_BasicEdits",
                             MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
 
         End If ''End of "If (intExceptionCount_Toolstrip > 1) Then"
@@ -291,7 +295,7 @@ Public Class MenuCache_GraphicElements
             ''Added 10/14/2019 td 
             MessageBox.Show("The procedure to create links & context menu items failed completely. " &
                             vbCrLf & vbCrLf & strList_MenuItems,
-                            "MenuCache_Background - Generate_BasicEdits",
+                            "MenuCache_GraphicElements - Generate_BasicEdits",
                              MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         Else
             ''MessageBox.Show("The following links & context menu items were created. " &

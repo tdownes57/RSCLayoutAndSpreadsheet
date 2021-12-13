@@ -32,6 +32,7 @@ Public Class ClassElementGraphic
     Public Property Info As IElementGraphic ''Dec8 2021 ''IElementQRCode
 
     Public Property BadgeDisplayIndex As Integer Implements IElement_Base.BadgeDisplayIndex ''Added 11/24/2021 td
+    Public Property WhichSideOfCard As EnumWhichSideOfCard Implements IElement_Base.WhichSideOfCard ''Added 12/13/2021 td
 
     Public Property PositionalMode As String Implements IElement_Base.PositionalMode ''Added 8/14/2019 td 
 

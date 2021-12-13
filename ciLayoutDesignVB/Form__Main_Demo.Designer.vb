@@ -106,6 +106,7 @@ Partial Class Form__Main_Demo
         Me.CtlGraphicPortrait_Lady = New ciBadgeDesigner.CtlGraphicPortrait()
         Me.CtlGraphicSignature1 = New ciBadgeDesigner.CtlGraphicSignature()
         Me.CtlGraphicText1 = New ciBadgeDesigner.CtlGraphicText()
+        Me.AddExtraHeadersToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -158,7 +159,7 @@ Partial Class Form__Main_Demo
         'MenuStrip1
         '
         Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RightClickMenuParent, Me.ToolStripMenuItem1, Me.ConfigurationOfFieldsEtcToolStripMenuItem, Me.DesignLayoutToolStripMenuItem, Me.BackgroundImagesToolStripMenuItem, Me.DemoModeVideoToolStripMenuItem, Me.BadgeRecipientsToolStripMenuItem, Me.EmailAddressToolStripMenuItem, Me.CheckDupedElementsToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1, Me.ConfigurationOfFieldsEtcToolStripMenuItem, Me.DesignLayoutToolStripMenuItem, Me.BackgroundImagesToolStripMenuItem, Me.DemoModeVideoToolStripMenuItem, Me.BadgeRecipientsToolStripMenuItem, Me.EmailAddressToolStripMenuItem, Me.RightClickMenuParent, Me.CheckDupedElementsToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(9, 3, 0, 3)
@@ -168,18 +169,17 @@ Partial Class Form__Main_Demo
         '
         'RightClickMenuParent
         '
-        Me.RightClickMenuParent.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ShowRightclickMenuHereToolStripMenuItem})
+        Me.RightClickMenuParent.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ShowRightclickMenuHereToolStripMenuItem, Me.AddExtraHeadersToolStripMenuItem})
         Me.RightClickMenuParent.Name = "RightClickMenuParent"
         Me.RightClickMenuParent.Size = New System.Drawing.Size(136, 24)
         Me.RightClickMenuParent.Text = "Right-Click Menu"
-        Me.RightClickMenuParent.Visible = False
         '
         'ShowRightclickMenuHereToolStripMenuItem
         '
         Me.ShowRightclickMenuHereToolStripMenuItem.Checked = True
         Me.ShowRightclickMenuHereToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
         Me.ShowRightclickMenuHereToolStripMenuItem.Name = "ShowRightclickMenuHereToolStripMenuItem"
-        Me.ShowRightclickMenuHereToolStripMenuItem.Size = New System.Drawing.Size(272, 26)
+        Me.ShowRightclickMenuHereToolStripMenuItem.Size = New System.Drawing.Size(353, 26)
         Me.ShowRightclickMenuHereToolStripMenuItem.Text = "Show right-click menu here"
         '
         'ToolStripMenuItem1
@@ -223,13 +223,13 @@ Partial Class Form__Main_Demo
         'StandardFieldsToolStripMenuItem
         '
         Me.StandardFieldsToolStripMenuItem.Name = "StandardFieldsToolStripMenuItem"
-        Me.StandardFieldsToolStripMenuItem.Size = New System.Drawing.Size(194, 26)
+        Me.StandardFieldsToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
         Me.StandardFieldsToolStripMenuItem.Text = "Standard Fields"
         '
         'CustomFieldsToolStripMenuItem
         '
         Me.CustomFieldsToolStripMenuItem.Name = "CustomFieldsToolStripMenuItem"
-        Me.CustomFieldsToolStripMenuItem.Size = New System.Drawing.Size(194, 26)
+        Me.CustomFieldsToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
         Me.CustomFieldsToolStripMenuItem.Text = "Custom Fields"
         '
         'DesignLayoutToolStripMenuItem
@@ -789,6 +789,14 @@ Partial Class Form__Main_Demo
         Me.CtlGraphicText1.TabIndex = 75
         Me.CtlGraphicText1.TextToDisplay = "This is text which will be the same for everyone."
         '
+        'AddExtraHeadersToolStripMenuItem
+        '
+        Me.AddExtraHeadersToolStripMenuItem.Checked = True
+        Me.AddExtraHeadersToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.AddExtraHeadersToolStripMenuItem.Name = "AddExtraHeadersToolStripMenuItem"
+        Me.AddExtraHeadersToolStripMenuItem.Size = New System.Drawing.Size(353, 26)
+        Me.AddExtraHeadersToolStripMenuItem.Text = "Add extra headers for right-click menus"
+        '
         'Form__Main_Demo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 20.0!)
@@ -931,4 +939,5 @@ Partial Class Form__Main_Demo
     Friend WithEvents ExitRecipientModeToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents pictureBackgroundBackside As PictureBox
     Friend WithEvents labelBacksideOfBadgecard As Label
+    Friend WithEvents AddExtraHeadersToolStripMenuItem As ToolStripMenuItem
 End Class

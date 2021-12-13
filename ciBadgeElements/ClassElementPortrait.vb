@@ -27,6 +27,7 @@ Public Class ClassElementPic ''May be renamed to ClassElementPortrait. ---10/8/2
 
     Public Property Id_GUID As System.Guid ''Added 9/30/2019 td 
     Public Property BadgeDisplayIndex As Integer Implements IElement_Base.BadgeDisplayIndex ''Added 11/24/2021 td 
+    Public Property WhichSideOfCard As EnumWhichSideOfCard Implements IElement_Base.WhichSideOfCard ''Added 12/13/2021 td
 
 
     <Xml.Serialization.XmlIgnore>

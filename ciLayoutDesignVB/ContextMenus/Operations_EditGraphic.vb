@@ -23,6 +23,7 @@ Public Class Operations_EditGraphic
     Public Property Designer As ciBadgeDesigner.ClassDesigner
     ''----Public Property ColorDialog1 As ColorDialog ''Added 10/3/2019 td 
     Public Property OpenFileDialog1 As OpenFileDialog ''Added 10/15/2019 td 
+    Public Property ColorDialog1 As ColorDialog ''Added 12/13/2021 td 
 
 
     Public Sub Select_graphics_image__EG1001(sender As Object, e As EventArgs)
