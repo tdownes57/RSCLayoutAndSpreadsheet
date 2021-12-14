@@ -2282,4 +2282,13 @@ ExitHandler:
         mod_designer.BackgroundBox_Front = pictureBackgroundFront
 
     End Sub
+
+    Private Sub CloseListOfRecipentsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CloseListOfRecipentsToolStripMenuItem.Click
+
+        ''Added 12/14/2021 td 
+        ''---ExitRecipientModeToolStripMenuItem.PerformClick()
+        ExitRecipientModeToolStripMenuItem_Click(sender, e)
+
+    End Sub
+
 End Class

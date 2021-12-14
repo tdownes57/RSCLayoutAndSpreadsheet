@@ -908,7 +908,7 @@ Public Class ClassElementField
                 ''
                 ''Added 12/14/2021 thomas d. 
                 ''
-                Return {{{{{{tttktktktk ''ClassElementField.oRecipient.GetTextValue(Me.FieldEnum)
+                Return par_iRecipInfo.GetTextValue(Me.FieldEnum)
 
             Case (ClassElementField.oRecipient IsNot Nothing)
                 ''

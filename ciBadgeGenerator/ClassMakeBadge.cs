@@ -150,7 +150,7 @@ namespace ciBadgeGenerator
                             ClassElementsCache_Deprecated par_cache,
                             int par_badge_width_pixels,
                             int par_badge_height_pixels,
-                            ciBadgeInterfaces.IRecipient par_recipient,
+                            ciBadgeInterfaces.IRecipient par_iRecipientInfo,
                             Image par_recipientPic,
                                     List<string> par_listMessages = null,
                                     List<string> par_listFieldsIncluded = null,
@@ -164,7 +164,7 @@ namespace ciBadgeGenerator
             //Step #1:  Load the Recipient into the Elements Cache. 
             //
             // 12/2/2019 td //ClassElementField.iRecipientInfo = par_recipient;
-            ClassElementField.iRecipientInfo = par_recipient;
+            ClassElementField.iRecipientInfo = par_iRecipientInfo;
             //ClassElementField.oRecipient = par_recipient; //Added 1/15/2020 td
 
             //
@@ -174,7 +174,8 @@ namespace ciBadgeGenerator
                                     par_badge_width_pixels,
                                     par_badge_height_pixels,
                                     par_recipientPic,
-                                    par_cache, null, null, null, null, null,
+                                    par_cache, par_iRecipientInfo, 
+                                    null, null, null, null, null,
                                     par_listMessages,
                                     par_listFieldsIncluded,
                                     par_listFieldsNotIncluded);
@@ -219,7 +220,7 @@ namespace ciBadgeGenerator
                                     int par_newBadge_height_pixels,
                                     Image par_recipientPic,
                                     ClassElementsCache_Deprecated par_cache,
-                                    ClassRecipient par_recipient = null, 
+                                    IRecipient par_iRecipientInfo = null, 
                                     HashSet<ClassElementField> par_listElementFields = null,
                                     ClassElementPic par_elementPic = null,
                                     ClassElementQRCode par_elementQR = null,
@@ -245,7 +246,7 @@ namespace ciBadgeGenerator
             // 1-15-2020 td //LayoutElements objPrintLibElems = new LayoutElements();
             // 12-14-2021 td //LayoutElements objPrintLibElems = new LayoutElements(ClassElementField.iRecipientInfo);
             LayoutElements objPrintLibElems = null;
-            if (par_recipient != null) objPrintLibElems = new LayoutElements(par_recipient);
+            if (par_iRecipientInfo != null) objPrintLibElems = new LayoutElements(par_iRecipientInfo);
             else objPrintLibElems = new LayoutElements(ClassElementField.iRecipientInfo);
 
             //    obj_image = Me.BackgroundBox.Image
@@ -304,10 +305,11 @@ namespace ciBadgeGenerator
                 LoadImageWithElements(ref obj_imageOutput,
                         ref dateMostRecentUpdate,
                         listOfElementFields,
-                        null, par_listMessages,
+                          par_iRecipientInfo, null, 
+                          par_listMessages,
                          par_listFieldsIncluded,
                          par_listFieldsNotIncluded,
-                         par_recentlyMoved);
+                             par_recentlyMoved);
 
                 //Added 11/29/2021 td  
                 string strLastUpdate = dateMostRecentUpdate.ToString();
@@ -655,7 +657,7 @@ namespace ciBadgeGenerator
         public void LoadImageWithElements(ref Image par_imageBadgeCard,
                                           ref DateTime par_datetimeLastUpdated,
                                           HashSet<ClassElementField> par_elements,
-                                          ClassRecipient par_recipient = null,
+                                          IRecipient par_iRecipientInfo = null,
                                           List<Image> par_listTextImages = null,
                                           List<String> par_listMessages = null,
                                           List<String> par_listFieldsIncluded = null,
@@ -713,7 +715,8 @@ namespace ciBadgeGenerator
 
                 //Encapsulated 10/17/2019 td  
                 AddElementFieldToImage(each_elementField, par_imageBadgeCard,
-                       gr_Badge, bOutputListOfAllImages, par_listTextImages,
+                       gr_Badge, bOutputListOfAllImages,  par_listTextImages,
+                       par_iRecipientInfo,
                        par_listMessages,
                        par_listFieldsIncluded,
                        par_listFieldsNotIncluded);
@@ -923,12 +926,13 @@ namespace ciBadgeGenerator
 
         }
 
+
         private void AddElementFieldToImage(ClassElementField par_elementField,
                                             Image par_imageBadgeCard,
                                             Graphics par_graphics,
                                             bool pboolReturnListOfImages,
                                             List<Image> par_listTextImages,
-                                            ClassRecipient par_recipient = null,
+                                            IRecipient par_iRecipientInfo = null,
                                             List<String> par_listMessages = null,
                                             List<String> par_listFieldsIncluded = null,
                                             List<String> par_listFieldsNotIncluded = null)
@@ -937,7 +941,7 @@ namespace ciBadgeGenerator
             //Encapsulated 10/17/2019 td
             //
             // Dec14 2021 // string strTextToDisplay = par_elementField.LabelText_ToDisplay(false);
-            string strTextToDisplay = par_elementField.LabelText_ToDisplay(false, par_recipient);
+            string strTextToDisplay = par_elementField.LabelText_ToDisplay(false,  par_iRecipientInfo, false);
 
             //Added 11/10/2021 td
             WhyOmitted structWhyOmitted = new WhyOmitted();

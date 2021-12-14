@@ -1364,11 +1364,13 @@ Public Class ClassDesigner
         ''  #3 10/09/2019 td''obj_image = obj_generator.MakeBadgeImage(obj_image_clone_resized, Me.ElementsCache_Edits,
         ''           Me.PreviewBox.Width, Me.PreviewBox.Height,
         ''           Me.CtlGraphicPortrait_Lady.picturePortrait.Image)
+
         obj_image = obj_generator.MakeBadgeImage(Me.BadgeLayout_Class, obj_image_clone_resized,
                                                   Me.PreviewBox.Width,
                                                   Me.PreviewBox.Height,
                                                  Me.CtlGraphic_Portrait.picturePortrait.Image,
                                                   Me.ElementsCache_Edits,
+                                                  par_recipient,
                                                   listOfElementTextFields,
                                                   Me.CtlGraphic_Portrait.ElementClass_Obj,
                                                   Me.CtlGraphic_QRCode.ElementClass_Obj,

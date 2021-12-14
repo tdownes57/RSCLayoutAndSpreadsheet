@@ -472,7 +472,7 @@ ExitHandler:
 
             ''Added 11-18-2019 td 
             Dim strTextToDisplay As String ''Added 11/18/2019 td
-            strTextToDisplay = Me.ElementClass_Obj.LabelText_ToDisplay(True,
+            strTextToDisplay = Me.ElementClass_Obj.LabelText_ToDisplay(True, Nothing,
                          CtlGraphicFldLabel.UseExampleValues)
 
             ''11/18 td''newTextImage =
