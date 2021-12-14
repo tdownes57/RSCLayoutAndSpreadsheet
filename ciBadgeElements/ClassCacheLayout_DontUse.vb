@@ -450,7 +450,7 @@ Public Class ClassCacheLayout_DontUse
             ''Probably not needed. ---11/24 td''dictionaryFields.TryGetValue(each_elementField.FieldEnum, copy_ofElementField.FieldObject)
 
             ''Added 10/13/2019 td
-            copy_ofElementField.FieldInfo = CType(copy_ofElementField.FieldObject, ICIBFieldStandardOrCustom)
+            copy_ofElementField.FieldInfo = CType(copy_ofElementField.FieldObjectAny, ICIBFieldStandardOrCustom)
 
             objCopyOfCache.ListFieldElements().Add(copy_ofElementField)
 
@@ -504,8 +504,9 @@ Public Class ClassCacheLayout_DontUse
 
             dictionaryFields.TryGetValue(each_elementField.FieldEnum, found_field)
 
-            each_elementField.FieldObject = found_field
+            each_elementField.FieldObjectAny = found_field
             each_elementField.FieldInfo = found_field
+            each_elementField.LoadFieldAny(found_field) ''Added 12/13/2021 td 
 
         Next each_elementField
 
@@ -555,10 +556,18 @@ Public Class ClassCacheLayout_DontUse
         ''
         ''Added 10/13/2019 td
         ''
+        Dim bUnexpectedMismatch As Boolean ''Added 12/13/2021 thomas downes
+
         For Each each_elementField As ClassElementField In mod_listElementFields
             With each_elementField
-                .FieldEnum = .FieldObject.FieldEnumValue ''This is a double-check that the Enum value matches. 
+
+                ''Dec13 2021 ''.FieldEnum = .FieldObjectAny.FieldEnumValue ''This is a double-check that the Enum value matches. 
+                ''Added 12/13/2021 td
+                bUnexpectedMismatch = (.FieldEnum <> .FieldObjectAny.FieldEnumValue)
+                If (bUnexpectedMismatch) Then Throw New Exception("Mismatch") '' "Unexpected mismatch of FieldEnum.")
+
                 If (.FieldEnum = par_enum) Then Return each_elementField
+
             End With ''End of "With each_elementField"
         Next each_elementField
 

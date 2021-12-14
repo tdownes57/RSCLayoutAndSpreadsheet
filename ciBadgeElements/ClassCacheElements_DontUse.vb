@@ -463,8 +463,11 @@ Public Class ClassElementsCache_DontUse
             ''Refresh the .FieldObject & .FieldInfo properties.
             ''
             eachrelated_field = GetFieldByFieldEnum(each_element.FieldEnum)
-            each_element.FieldObject = eachrelated_field
+            each_element.FieldObjectAny = eachrelated_field
             each_element.FieldInfo = CType(eachrelated_field, ICIBFieldStandardOrCustom)
+
+            ''Added 12/13/2021 thomas downes
+            each_element.LoadFieldAny(eachrelated_field) ''Added 12/13/2021 thomas downes
 
         Next each_element
 
@@ -962,10 +965,10 @@ Public Class ClassElementsCache_DontUse
             ''10/1/2019 td''Throw New NotImplementedException("Fix the field reference!")
 
             ''10/12/2019 td''dictionaryFields.TryGetValue(each_elementField.FieldInfo.FieldEnumValue, copy_ofElementField.FieldObject)
-            dictionaryFields.TryGetValue(each_elementField.FieldEnum, copy_ofElementField.FieldObject)
+            dictionaryFields.TryGetValue(each_elementField.FieldEnum, copy_ofElementField.FieldObjectAny)
 
             ''Added 10/13/2019 td
-            copy_ofElementField.FieldInfo = CType(copy_ofElementField.FieldObject, ICIBFieldStandardOrCustom)
+            copy_ofElementField.FieldInfo = CType(copy_ofElementField.FieldObjectAny, ICIBFieldStandardOrCustom)
 
             objCopyOfCache.ListFieldElements().Add(copy_ofElementField)
 
@@ -1022,8 +1025,9 @@ Public Class ClassElementsCache_DontUse
 
             dictionaryFields.TryGetValue(each_elementField.FieldEnum, found_field)
 
-            each_elementField.FieldObject = found_field
-            each_elementField.FieldInfo = found_field
+            ''Dec. 13, 2021 td''each_elementField.FieldObjectAny = found_field
+            ''Dec. 13, 2021 td''each_elementField.FieldInfo = found_field
+            each_elementField.LoadFieldAny(found_field)
 
         Next each_elementField
 
@@ -1082,7 +1086,7 @@ Public Class ClassElementsCache_DontUse
         ''
         For Each each_elementField As ClassElementField In mod_listElementFields
             With each_elementField
-                .FieldEnum = .FieldObject.FieldEnumValue ''This is a double-check that the Enum value matches. 
+                .FieldEnum = .FieldObjectAny.FieldEnumValue ''This is a double-check that the Enum value matches. 
                 If (.FieldEnum = par_enum) Then Return each_elementField
             End With ''End of "With each_elementField"
         Next each_elementField

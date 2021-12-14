@@ -74,7 +74,7 @@ Public Class Operations_EditElement
         form_ToShow.JustOneField_Index = CtlCurrentElement.FieldInfo.FieldIndex
 
         ''Added 12/13/2021 thomas downes
-        form_ToShow.JustOneField_Any = CtlCurrentElement.ElementClass_Obj.FieldObject
+        form_ToShow.JustOneField_Any = CtlCurrentElement.ElementClass_Obj.FieldObjectAny
         form_ToShow.JustOneField_Custom = CtlCurrentElement.ElementClass_Obj.FieldObjectCustom
         form_ToShow.JustOneField_Standard = CtlCurrentElement.ElementClass_Obj.FieldObjectStandard
 

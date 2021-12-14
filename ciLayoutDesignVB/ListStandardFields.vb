@@ -18,7 +18,11 @@ Public Class ListStandardFields
 
     Public Property CacheManager As ciBadgeCachePersonality.ClassCacheManagement Implements InterfaceShowListFields.CacheManager
     Public Property JustOneField_Index As Integer Implements InterfaceShowListFields.JustOneField_Index ''Added 7/30/2019 thomas d. 
-    Public Property JustOneField_Object As ClassFieldAny Implements InterfaceShowListFields.JustOneField_Object ''Added 12/13/2021 thomas d. 
+
+    ''Dec. 13 2021''Public Property JustOneField_Object As ClassFieldAny Implements InterfaceShowListFields.JustOneField_Object ''Added 12/13/2021 thomas d. 
+    Public Property JustOneField_Any As ClassFieldAny Implements InterfaceShowListFields.JustOneField_Any ''Added 12/13/2021 thomas d. 
+    Public Property JustOneField_Custom As ClassFieldCustomized Implements InterfaceShowListFields.JustOneField_Custom ''Added 12/13/2021 thomas d. 
+    Public Property JustOneField_Standard As ClassFieldStandard Implements InterfaceShowListFields.JustOneField_Standard ''Added 12/13/2021 thomas d. 
 
     Public Property ClosingOK_SoSaveWork As Boolean Implements InterfaceShowListFields.ClosingOK_SoSaveWork ''Added 12/6/2021 thomas downes
 

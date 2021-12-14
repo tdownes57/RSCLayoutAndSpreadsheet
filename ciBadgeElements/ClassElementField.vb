@@ -183,7 +183,9 @@ Public Class ClassElementField
     ''--16--10/16/2019 td''Public Property Recipient As IRecipient Implements IElement_TextField.Recipient
 
     ''Added 9/18/2019
-    Public Property FieldObject As ClassFieldAny ''Added 9/18/2019 td
+    Public Property FieldObjectAny As ClassFieldAny ''Added 9/18/2019 td
+    Public Property FieldObjectCustom As ClassFieldCustomized ''Added 12/13/2021 td
+    Public Property FieldObjectStandard As ClassFieldStandard ''Added 12/13/2021 td
 
     ''Added 10/12/2019 thomas downes
     Public Property FieldEnum As EnumCIBFields Implements IElement_TextField.FieldEnum
@@ -510,6 +512,28 @@ Public Class ClassElementField
     End Sub
 
 
+    Public Sub LoadFieldAny(parFieldAny As ClassFieldAny)
+        ''
+        ''Added 12/13/2021 Thomas Downes  
+        ''
+        Me.FieldInfo = CType(parFieldAny, ICIBFieldStandardOrCustom) ''par_fieldAny
+        Me.FieldObjectAny = parFieldAny
+        Me.FieldEnum = parFieldAny.FieldEnumValue ''ADded 12/13/2021 td
+
+        ''Added 12/13/2021 thomas downes
+        If (TypeOf parFieldAny Is ClassFieldCustomized) Then
+
+            Me.FieldObjectCustom = CType(parFieldAny, ClassFieldCustomized) ''Added 12/13/2021 td
+
+        ElseIf (TypeOf parFieldAny Is ClassFieldStandard) Then
+
+            Me.FieldObjectStandard = CType(parFieldAny, ClassFieldStandard) ''Added 12/13/2021 td
+
+        End If
+
+    End Sub ''End of "Public Sub LoadFieldAny(par_fieldAny As ClassFieldAny)"
+
+
     Public Function ElementIndexIsFieldIndex() As Integer
         ''//
         ''// Added 11/18/2021 td 
@@ -750,13 +774,15 @@ Public Class ClassElementField
 
         ''10/12/2019 td''objCopy.LoadbyCopyingMembers(Me, Me)
         ''10/13/2019 td''objCopy.LoadbyCopyingMembers(Me, Me, Me)
-        objCopy.LoadbyCopyingMembers(Me, Me, Me, Me.BadgeLayout)
+        ''12/13/2021 td''objCopy.LoadbyCopyingMembers(Me, Me, Me, Me.BadgeLayout)
+        objCopy.LoadbyCopyingMembers(Me, Me, Me, Me, Me.BadgeLayout)
 
         Return objCopy
 
     End Function ''End of "Public Function Copy() As ClassElementField"
 
-    Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base,
+    Public Sub LoadbyCopyingMembers(par_objectElement As ClassElementField,
+                                    par_ElementInfo_Base As IElement_Base,
                                     par_ElementInfo_Text As IElement_TextOnly,
                                     par_ElementInfo_Field As IElement_TextField,
                                     par_badgeLayout As BadgeLayoutClass)
@@ -799,6 +825,11 @@ Public Class ClassElementField
         ''See FieldInfo. ---9/18/2019 td''Me.FieldInCardData = par_ElementInfo_TextFld.FieldInCardData
         ''See FieldInfo. ---9/18/2019 td''Me.FieldLabelCaption = par_ElementInfo_TextFld.FieldLabelCaption
         Me.FieldInfo = par_ElementInfo_Field.FieldInfo ''Added 9/18/2019 td 
+
+        ''Added 12/13/2021 
+        Me.FieldObjectAny = par_objectElement.FieldObjectAny
+        Me.FieldObjectCustom = par_objectElement.FieldObjectCustom
+        Me.FieldObjectStandard = par_objectElement.FieldObjectStandard
 
         ''Added 10/13/2019 td
         Me.FieldEnum = par_ElementInfo_Field.FieldEnum

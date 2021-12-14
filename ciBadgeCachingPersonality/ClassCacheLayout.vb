@@ -453,7 +453,7 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
                 ''Probably not needed. ---11/24 td''dictionaryFields.TryGetValue(each_elementField.FieldEnum, copy_ofElementField.FieldObject)
 
                 ''Added 10/13/2019 td
-                copy_ofElementField.FieldInfo = CType(copy_ofElementField.FieldObject, ICIBFieldStandardOrCustom)
+                ''Not needed. ---12/13/2021''copy_ofElementField.FieldInfo = CType(copy_ofElementField.FieldObjectAny, ICIBFieldStandardOrCustom)
 
                 objCopyOfCache.ListFieldElements().Add(copy_ofElementField)
 
@@ -507,8 +507,9 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
 
                 dictionaryFields.TryGetValue(each_elementField.FieldEnum, found_field)
 
-                each_elementField.FieldObject = found_field
+                each_elementField.FieldObjectAny = found_field
                 each_elementField.FieldInfo = found_field
+                each_elementField.LoadFieldAny(found_field) ''Added 12/13/2021 thomas d. 
 
             Next each_elementField
 
@@ -560,8 +561,13 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
             ''
             For Each each_elementField As ClassElementField In mod_listElementFields
                 With each_elementField
-                    .FieldEnum = .FieldObject.FieldEnumValue ''This is a double-check that the Enum value matches. 
+                    ''Run a double-check of data alignment. 
+                    If (.FieldEnum <> .FieldObjectAny.FieldEnumValue) Then
+                        Throw New DataMisalignedException() ''This is a double-check that the Enum value matches. 
+                    End If
+
                     If (.FieldEnum = par_enum) Then Return each_elementField
+
                 End With ''End of "With each_elementField"
             Next each_elementField
 

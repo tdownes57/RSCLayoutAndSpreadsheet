@@ -550,8 +550,9 @@ Namespace ciBadgeCachePersonality
                 ''Refresh the .FieldObject & .FieldInfo properties.
                 ''
                 eachrelated_field = GetFieldByFieldEnum(each_element.FieldEnum)
-                each_element.FieldObject = eachrelated_field
+                each_element.FieldObjectAny = eachrelated_field
                 each_element.FieldInfo = CType(eachrelated_field, ICIBFieldStandardOrCustom)
+                each_element.LoadFieldAny(eachrelated_field) ''Added 12/13/2021 td
 
             Next each_element
 
@@ -1052,10 +1053,10 @@ Namespace ciBadgeCachePersonality
                 ''10/1/2019 td''Throw New NotImplementedException("Fix the field reference!")
 
                 ''10/12/2019 td''dictionaryFields.TryGetValue(each_elementField.FieldInfo.FieldEnumValue, copy_ofElementField.FieldObject)
-                dictionaryFields.TryGetValue(each_elementField.FieldEnum, copy_ofElementField.FieldObject)
+                dictionaryFields.TryGetValue(each_elementField.FieldEnum, copy_ofElementField.FieldObjectAny)
 
                 ''Added 10/13/2019 td
-                copy_ofElementField.FieldInfo = CType(copy_ofElementField.FieldObject, ICIBFieldStandardOrCustom)
+                copy_ofElementField.FieldInfo = CType(copy_ofElementField.FieldObjectAny, ICIBFieldStandardOrCustom)
 
                 objCopyOfCache.ListFieldElements().Add(copy_ofElementField)
 
@@ -1134,8 +1135,9 @@ Namespace ciBadgeCachePersonality
 
                 dictionaryFields.TryGetValue(each_elementField.FieldEnum, found_field)
 
-                each_elementField.FieldObject = found_field
+                each_elementField.FieldObjectAny = found_field
                 each_elementField.FieldInfo = found_field
+                each_elementField.LoadFieldAny(found_field) ''Added 12/13/2021 td 
 
             Next each_elementField
 
@@ -1192,10 +1194,19 @@ Namespace ciBadgeCachePersonality
             ''
             ''Added 10/13/2019 td
             ''
+            Dim bMisaligned As Boolean ''Added 12/13/2021 td
+
             For Each each_elementField As ClassElementField In mod_listElementFields_Front
                 With each_elementField
-                    .FieldEnum = .FieldObject.FieldEnumValue ''This is a double-check that the Enum value matches. 
+
+                    ''Dec13 2021''.FieldEnum = .FieldObjectAny.FieldEnumValue ''This is a double-check that the Enum value matches. 
+                    bMisaligned = (.FieldEnum <> .FieldObjectAny.FieldEnumValue)
+                    If (bMisaligned) Then
+                        Throw New DataMisalignedException()
+                    End If ''end of "If (bMisaligned) Then"
+
                     If (.FieldEnum = par_enum) Then Return each_elementField
+
                 End With ''End of "With each_elementField"
             Next each_elementField
 
