@@ -16,9 +16,13 @@ Public Class ListCustomFieldsFlow
     Public Property ListOfFields_Standard As HashSet(Of ClassFieldStandard) Implements InterfaceShowListFields.ListOfFields_Standard ''Not in use.  Added 12/6/2021 thomas downes 
 
     Public Property JustOneField_Index As Integer Implements InterfaceShowListFields.JustOneField_Index ''Added 7/30/2019 thomas d. 
-    Public Property JustOneField_Object As ClassFieldAny Implements InterfaceShowListFields.JustOneField_Object ''Added 12/13/2021 thomas d. 
+    Public Property JustOneField_Any As ClassFieldAny Implements InterfaceShowListFields.JustOneField_Any ''Added 12/13/2021 thomas d. 
+    Public Property JustOneField_Custom As ClassFieldCustomized Implements InterfaceShowListFields.JustOneField_Custom ''Added 12/13/2021 thomas d. 
+    Public Property JustOneField_Standard As ClassFieldStandard Implements InterfaceShowListFields.JustOneField_Standard ''Added 12/13/2021 thomas d. 
 
     Public Property CacheManager As ciBadgeCachePersonality.ClassCacheManagement Implements InterfaceShowListFields.CacheManager ''Added 12/??/2021 td
+
+    Public Property PersonalityConfig As ClassPersonalityConfig ''Added 12/13/2021 thomas downes
 
     Public Property ClosingOK_SoSaveWork As Boolean Implements InterfaceShowListFields.ClosingOK_SoSaveWork ''Added 12/6/2021 thomas downes
 
@@ -54,11 +58,14 @@ Public Class ListCustomFieldsFlow
         ''---Me.CacheManager.OutputToTextFile_CustomFields(Me.ListOfFields)
 
         ''Dec. 6 2021''LoadCustomFields_All()
-        LoadCustomFields_All(Me.ListOfFields_Custom)
+        ''Dec. 13 2021''LoadCustomFields_All(Me.ListOfFields_Custom)
+        LoadCustomFields_All(Me.ListOfFields_Custom, Me.JustOneField_Custom)
 
     End Sub
 
-    Private Sub LoadCustomFields_All(par_listFields As HashSet(Of ClassFieldCustomized))
+    Private Sub LoadCustomFields_All(par_listFields As HashSet(Of ClassFieldCustomized),
+                                     Optional par_JustOneField As ClassFieldCustomized = Nothing)
+        ''---Dec13 2021---Private Sub LoadCustomFields_All(par_listFields As HashSet(Of ClassFieldCustomized))
         ''
         ''Added 7.21.2019
         ''
@@ -72,12 +79,21 @@ Public Class ListCustomFieldsFlow
         ''Dec.5 2021''End If ''end of "If (list_local Is Nothing) Then"
 
         FlowLayoutPanel1.Controls.Clear()
+        Dim boolProceed As Boolean ''Added 12/13/2021 td 
 
         For Each each_customField As ClassFieldCustomized In par_listFields ''ClassCustomField.ListOfFields_Students
             ''
             ''Add 7/21/2019
             ''
-            LoadCustomField_Each(each_customField)
+            boolProceed = (par_JustOneField Is Nothing Or
+                (par_JustOneField Is each_customField))
+
+            If (boolProceed) Then
+                ''
+                ''Major call!!
+                ''
+                LoadCustomField_Each(each_customField)
+            End If ''End of "If (boolProceed) Then"
 
         Next each_customField
 

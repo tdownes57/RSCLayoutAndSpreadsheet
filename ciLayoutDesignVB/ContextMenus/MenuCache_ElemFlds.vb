@@ -130,7 +130,7 @@ Public Class MenuCache_ElemFlds
         toolMenuItemHeader1.Tag = ("Field: {0} ({1})") ''More important to set .Tag than .Text here, due to using String.Format function elsewhere.
         toolMenuItemHeader2.Text = "ContextMenus\MenuCache_ElemFlds.vb"
         toolMenuItemHeader3.Text = "     ...\Operations_EditElement.vb"
-        toolMenuItemSeparator.Text = "-------" ''Perhaps this will produce a separator line, just like in the old VB6 days. 
+        toolMenuItemSeparator.Text = "-----Editing Operations follow------" ''Perhaps this will produce a separator line, just like in the old VB6 days. 
 
         ''toolMenuItemHeader1 = toolMenuItemHeader1
         MenuCache_ElemFlds.Tools_EditElementMenu.Add(toolMenuItemHeader0)

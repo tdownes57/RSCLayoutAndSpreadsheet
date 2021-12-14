@@ -1722,12 +1722,16 @@ Public Class Form__Main_Demo
         ''Added header items. 
         If (bool_addExtraHeadersToContextMenus) Then
             ''Added 12/13/2021 
-            Dim objMenuHeader3_1 As New ToolStripMenuItem("mod_designer_ElementRightClicked(...")
-            Dim objMenuHeader3_2 As New ToolStripMenuItem("   ... Handles mod_designer.ElementRightClicked")
             ContextMenuStrip1.Items.Add(MenuCache_ElemFlds.Tools_MenuHeader2) ''Added 12/12/2021 
             ContextMenuStrip1.Items.Add(MenuCache_ElemFlds.Tools_MenuHeader3) ''Added 12/13/2021 
+
+            Dim objMenuHeader3_1 As New ToolStripMenuItem("mod_designer_ElementRightClicked(...")
+            Dim objMenuHeader3_2 As New ToolStripMenuItem("   ... Handles mod_designer.ElementRightClicked")
             ContextMenuStrip1.Items.Add(objMenuHeader3_1) ''Added 12/13/2021 
-            ContextMenuStrip1.Items.Add(objMenuHeader3_2) ''Added 12/13/2021 
+            ''Dec.13 ''ContextMenuStrip1.Items.Add(objMenuHeader3_2) ''Added 12/13/2021 
+            ''  Make 3_2 a sub-item under 3_1. ---12/13/2021 td 
+            objMenuHeader3_1.DropDownItems.Add(objMenuHeader3_2)
+
         End If ''End of "If (mod_letsAddExtraHeadersForContextMenus) Then"
 
         ''Let's add a separator bar. 
