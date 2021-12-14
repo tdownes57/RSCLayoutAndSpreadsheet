@@ -63,6 +63,33 @@ Public Class Operations_EditElement
         ''Added 7/30/2019 thomas downes
         ''
         ''7/30/2019 td''ColorDialog1.ShowDialog()
+        Dim bIsCustomField As Boolean ''Added 12/14/2021 
+        Const c_boolTryNewSub As Boolean = True ''Added 12/14/2021 td
+
+        bIsCustomField = (CtlCurrentElement.ElementClass_Obj.FieldObjectCustom IsNot Nothing)
+
+        If (bIsCustomField And c_boolTryNewSub) Then
+
+            ''Added 12/14/2021 thomas d. 
+            Open_FieldStandard_OrCustom(New ListCustomFieldsFlow())
+
+        ElseIf (bIsCustomField) Then
+            ''Encapsulated 12/14/2021 thomas d. 
+            Open_FieldCustomized()
+
+        Else
+            ''Added 12/14/2021 thomas d. 
+            Open_FieldStandard_OrCustom(New ListStandardFields())
+
+        End If ''End of "End of "If (bIsCustomField) Then ... Else ..."
+
+    End Sub ''eNd of "Public Sub Open_Field_Of_Element_EE1011(sender As Object, e As EventArgs)"
+
+
+    Private Sub Open_FieldCustomized()
+        ''
+        ''Encapsulated 12/14/2021 thomas d. 
+        ''
         Dim form_ToShow As New ListCustomFieldsFlow
 
         Dim boolExitEarly As Boolean ''Added 8/13/2019 td
@@ -86,7 +113,39 @@ Public Class Operations_EditElement
 
         form_ToShow.Show()
 
-    End Sub ''eNd of "Public Sub Open_Field_Of_Element_EE1011(sender As Object, e As EventArgs)"
+    End Sub ''eNd of "Public Sub Open_FieldCustomized()"
+
+
+    Private Sub Open_FieldStandard_OrCustom(par_form_ToShow As InterfaceShowListFields)
+        ''
+        ''Encapsulated 12/14/2021 thomas d. 
+        ''
+        ''Dec14 2021''Dim form_ToShow As New ListStandardFields
+
+        Dim boolExitEarly As Boolean ''Added 8/13/2019 td
+        ''10/10/2019 td''CreateVisibleButton_Master("Choose a background color", AddressOf OpenDialog_Color, boolExitEarly)
+        If (boolExitEarly) Then Exit Sub ''Added 8/13/2019 td
+
+        ''Can (should) we just show a single field? ''form_ToShow.JustOneField = Me.FieldInfo
+        ''10/2/2019 td''form_ToShow.JustOneField_Index = Me.FieldInfo.FieldIndex
+        par_form_ToShow.JustOneField_Index = CtlCurrentElement.FieldInfo.FieldIndex
+
+        ''Added 12/13/2021 thomas downes
+        par_form_ToShow.JustOneField_Any = CtlCurrentElement.ElementClass_Obj.FieldObjectAny
+        par_form_ToShow.JustOneField_Custom = CtlCurrentElement.ElementClass_Obj.FieldObjectCustom
+        par_form_ToShow.JustOneField_Standard = CtlCurrentElement.ElementClass_Obj.FieldObjectStandard
+
+        ''Added 12/12/2021 td
+        ''--form_ToShow.ListOfFields_Custom = MenuCache_ElemFlds.CacheOfFieldsEtc.ListOfFields_Custom
+        ''--form_ToShow.ListOfFields_Standard = MenuCache_ElemFlds.CacheOfFieldsEtc.ListOfFields_Standard
+        par_form_ToShow.ListOfFields_Custom = Me.CacheOfFieldsEtc.ListOfFields_Custom ''--MenuCache_ElemFlds.CacheOfFieldsEtc.ListOfFields_Custom
+        par_form_ToShow.ListOfFields_Standard = Me.CacheOfFieldsEtc.ListOfFields_Standard ''--MenuCache_ElemFlds.CacheOfFieldsEtc.ListOfFields_Standard
+
+        ''Dec. 14 2021 td''par_form_ToShow.Show()
+        par_form_ToShow.ShowDialog()
+
+    End Sub ''eNd of "Public Sub Open_FieldStandard_OrCustom()"
+
 
 
     Public Sub Choose_Background_Color_EE1010(sender As Object, e As EventArgs)

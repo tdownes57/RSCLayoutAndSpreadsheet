@@ -25,4 +25,7 @@ Public Interface InterfaceShowListFields
     ''Added 12/6/2021 thomas downes 
     Function ShowDialog() As DialogResult
 
+    ''Added 12/14/2021 thomas downes 
+    Sub Show() ''12/14 td''As DialogResult
+
 End Interface

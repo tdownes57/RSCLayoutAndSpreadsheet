@@ -552,9 +552,9 @@ Public Class ClassDesigner
         ''Added 8/24/2019 td
         ''---obj_image = Me.BackgroundBox.Image
         If (Me.BackgroundBox_Front.BackgroundImage Is Nothing) Then
-            If File.Exists(Me.ElementsCache_Edits.BackgroundImage_Path) Then
+            If File.Exists(Me.ElementsCache_Edits.BackgroundImage_Front_Path) Then
                 Try
-                    obj_image = (New Bitmap(Me.ElementsCache_Edits.BackgroundImage_Path))
+                    obj_image = (New Bitmap(Me.ElementsCache_Edits.BackgroundImage_Front_Path))
                     Me.BackgroundBox_Front.BackgroundImage = obj_image
                 Catch Ex_image As Exception
                     MessageBox.Show(Ex_image.ToString)

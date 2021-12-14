@@ -34,9 +34,12 @@ Namespace ciBadgeCachePersonality
         Public Property XmlFile_Path As String = "" ''Added 2/04/2020 td
         Public Property XmlFile_FTitle As String = "" ''Added 2/04/2020 td
 
+        ''Added 12/14/2021 thomas
+        Public Property Personality As ClassPersonalityConfig ''Added 12/14/2021 thomas
+
         ''Added 1/14/2020 td
-        Public Property BackgroundImage_Path As String = "" ''Added 1/14/2020 td
-        Public Property BackgroundImage_FTitle As String = "" ''Added 1/14/2020 td
+        Public Property BackgroundImage_Front_Path As String = "" ''Added 1/14/2020 td
+        Public Property BackgroundImage_Front_FTitle As String = "" ''Added 1/14/2020 td
 
         ''Added 12/10/2020 td
         Public Property BackgroundImage_Backside_Path As String = "" ''Added 12/10/2020 td
@@ -972,8 +975,8 @@ Namespace ciBadgeCachePersonality
             objCopyOfCache.PathToXml_Binary = Me.PathToXml_Binary
             objCopyOfCache.XmlFile_Path = Me.XmlFile_Path
             objCopyOfCache.XmlFile_FTitle = Me.XmlFile_FTitle
-            objCopyOfCache.BackgroundImage_Path = Me.BackgroundImage_Path
-            objCopyOfCache.BackgroundImage_FTitle = Me.BackgroundImage_FTitle
+            objCopyOfCache.BackgroundImage_Front_Path = Me.BackgroundImage_Front_Path
+            objCopyOfCache.BackgroundImage_Front_FTitle = Me.BackgroundImage_Front_FTitle
 
             ''Added 12/12/2021 td
             objCopyOfCache.BadgeHasTwoSidesOfCard = Me.BadgeHasTwoSidesOfCard
@@ -1703,7 +1706,7 @@ Namespace ciBadgeCachePersonality
                 End If ''End of "If (obj_cache_elements.BadgeLayout Is Nothing) Then
 
                 ''Added 1/14/2020 thomas downes 
-                .BackgroundImage_FTitle = "BackExample.jpg"
+                .BackgroundImage_Front_FTitle = "BackExample.jpg"
 
             End With ''End of "With obj_cache_elements"
 
@@ -1782,7 +1785,7 @@ Namespace ciBadgeCachePersonality
             End If ''End if "If (Not pbooWerePropertiesRefreshed) Then"
 
             structCurrent.iPixelsWidth = pintWidth
-            structCurrent.sFileTitle = Me.BackgroundImage_FTitle
+            structCurrent.sFileTitle = Me.BackgroundImage_Front_FTitle
 
             Try
                 imageFound = mod_dictionaryBackgroundImages(structCurrent)
@@ -1802,7 +1805,7 @@ Namespace ciBadgeCachePersonality
             Else
                 ''Added 1/14/2019 td 
                 BackgroundImage_RefreshPath(pstrPathToLikelyFolder) ''Added 1/14/2019 td 
-                imageCreated1 = New Bitmap(Me.BackgroundImage_Path)
+                imageCreated1 = New Bitmap(Me.BackgroundImage_Front_Path)
                 ''imageCreated.Dispose()
                 imageCreated2 = New Bitmap(imageCreated1, New Size(pintWidth, pintHeight))
                 mod_dictionaryBackgroundImages.Add(structCurrent, imageCreated2)
@@ -1816,10 +1819,10 @@ Namespace ciBadgeCachePersonality
             ''
             ''Added 1/14/2019 thomas downes  
             ''
-            If (Not String.IsNullOrEmpty(BackgroundImage_FTitle)) Then
+            If (Not String.IsNullOrEmpty(BackgroundImage_Front_FTitle)) Then
 
                 ''1/15/2019 td''BackgroundImage_Path = System.IO.Path.Combine(pstrPathToBackgroundImagesFolder, BackgroundImage_Path)
-                BackgroundImage_Path = System.IO.Path.Combine(pstrPathToBackgroundImagesFolder, BackgroundImage_FTitle)
+                BackgroundImage_Front_Path = System.IO.Path.Combine(pstrPathToBackgroundImagesFolder, BackgroundImage_Front_FTitle)
 
             End If ''End of "If (Not String.IsNullOrEmpty(BackgroundImage_FTitle)) Then"
 

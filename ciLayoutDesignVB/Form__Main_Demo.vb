@@ -391,15 +391,15 @@ Public Class Form__Main_Demo
             Dim strBackgroundImage_Path As String = ""
             Dim strBackgroundImage_Title As String = ""
 
-            strBackgroundImage_Path = .ElementsCache_Edits.BackgroundImage_Path
+            strBackgroundImage_Path = .ElementsCache_Edits.BackgroundImage_Front_Path
             If (strBackgroundImage_Path Is Nothing) Then strBackgroundImage_Path = ""
 
             If ("" = strBackgroundImage_Path) Then
                 strBackgroundImage_Path = DiskFilesVB.PathToFile_Background_FirstOrDefault(strBackgroundImage_Title)
-                .ElementsCache_Saved.BackgroundImage_FTitle = strBackgroundImage_Title
-                .ElementsCache_Saved.BackgroundImage_Path = strBackgroundImage_Path
-                .ElementsCache_Edits.BackgroundImage_FTitle = strBackgroundImage_Title
-                .ElementsCache_Edits.BackgroundImage_Path = strBackgroundImage_Path
+                .ElementsCache_Saved.BackgroundImage_Front_FTitle = strBackgroundImage_Title
+                .ElementsCache_Saved.BackgroundImage_Front_Path = strBackgroundImage_Path
+                .ElementsCache_Edits.BackgroundImage_Front_FTitle = strBackgroundImage_Title
+                .ElementsCache_Edits.BackgroundImage_Front_Path = strBackgroundImage_Path
             End If ''End of ''If ("" = strBackgroundImage_Path) The
 
             If (System.IO.File.Exists(strBackgroundImage_Path)) Then
@@ -2003,8 +2003,8 @@ ExitHandler:
         If (Not bConfirmFileExists) Then Return ''Added 12/3/2021 td
 
         ''Added 12/3/2021 td
-        Me.ElementsCache_Edits.BackgroundImage_Path = objShow.ImageFilePath
-        Me.ElementsCache_Edits.BackgroundImage_Path = objShow.ImageFileInfo.Name
+        Me.ElementsCache_Edits.BackgroundImage_Front_Path = objShow.ImageFilePath
+        Me.ElementsCache_Edits.BackgroundImage_Front_Path = objShow.ImageFileInfo.Name
 
     End Sub
 
@@ -2041,8 +2041,8 @@ ExitHandler:
                 pictureBackgroundFront.BackgroundImage = (New Bitmap(strPathToFilename))
                 pictureBackgroundFront.BackgroundImageLayout = ImageLayout.Zoom
                 ''Added 12/3/2021 td
-                Me.ElementsCache_Edits.BackgroundImage_Path = strPathToFilename
-                Me.ElementsCache_Edits.BackgroundImage_FTitle = objShow.ImageFileInfo.Name
+                Me.ElementsCache_Edits.BackgroundImage_Front_Path = strPathToFilename
+                Me.ElementsCache_Edits.BackgroundImage_Front_FTitle = objShow.ImageFileInfo.Name
             End If ''eNd of "If (bBacksideOfCard) Then ,,,, Else ..."
 
 

@@ -32,7 +32,17 @@ Public Class ListStandardFields
         ''
         Return CType(Me, Form).ShowDialog()
 
-    End Function
+    End Function ''End of "Public Overloads Function ShowDialog()"
+
+
+    Public Overloads Sub Show() Implements InterfaceShowListFields.Show
+        ''
+        ''Added 12/14/2021 td
+        ''
+        CType(Me, Form).Show()
+
+    End Sub ''End of "Public Overloads Sub Show()"
+
 
     Private Const vbCrLf_Deux As String = (vbCrLf & vbCrLf)
 
@@ -54,16 +64,20 @@ Public Class ListStandardFields
         ''
         '' 7/21 td''ClassCustomField.InitializeHardcodedList_Students()
 
-        LoadStandardFields_All()
+        ''Dec14 2021 td''LoadStandardFields_All()
+        LoadStandardFields_All(Me.ListOfFields_Standard, Me.JustOneField_Standard)
 
     End Sub
 
-    Private Sub LoadStandardFields_All()
+    Private Sub LoadStandardFields_All(par_listFields As HashSet(Of ClassFieldStandard),
+                                     Optional par_JustOneField As ClassFieldStandard = Nothing)
+        ''Dec. 14, 2021 td''Private Sub LoadStandardFields_All()
         ''
         ''Added 8/19/2019
         ''
         ''10/17 td''Dim list_local As List(Of ClassFieldStandard) = Nothing
         Dim list_local As HashSet(Of ClassFieldStandard) = Nothing
+        Dim boolProceed As Boolean ''Added 12/14/2021 td
 
         If (ListOfFields_Standard IsNot Nothing) Then list_local = ListOfFields_Standard
 
@@ -78,7 +92,19 @@ Public Class ListStandardFields
 
             ''Add 8/19/2019 td
             ''8/22/2019 td''LoadCustomField_Each(each_standardField)
-            LoadStandardField_Each(each_standardField)
+            ''12/14/2021 td''LoadStandardField_Each(each_standardField)
+
+            ''
+            ''Add 7/21/2019
+            ''
+            boolProceed = (par_JustOneField Is Nothing Or
+                (par_JustOneField Is each_standardField))
+
+            If (boolProceed) Then
+
+                LoadStandardField_Each(each_standardField)
+
+            End If ''end of " If (boolProceed) Then"
 
         Next each_standardField
 
@@ -158,7 +184,9 @@ Public Class ListStandardFields
         FlowLayoutPanel1.Controls.Clear()
 
         ''8/22/2019 td''LoadCustomFields_All()
-        LoadStandardFields_All()
+        ''#1 Dec14 2021''LoadStandardFields_All()
+        ''#2 Dec14 2021''LoadStandardFields_All(Me.ListOfFields_Standard)
+        LoadStandardFields_All(Me.ListOfFields_Standard, Me.JustOneField_Standard)
 
     End Sub
 
@@ -184,7 +212,8 @@ Public Class ListStandardFields
         If (dia_result = DialogResult.Yes) Then ''LoadCustomFields_All()
             FlowLayoutPanel1.Controls.Clear()
             ''8/22/2019 td''LoadCustomFields_All()
-            LoadStandardFields_All()
+            ''Dec14 2021''LoadStandardFields_All()
+            LoadStandardFields_All(Me.ListOfFields_Standard, Me.JustOneField_Standard)
         End If ''End of "If (dia_result = DialogResult.Yes) Then"
 
     End Sub
