@@ -1259,7 +1259,8 @@ Public Class ClassDesigner
 
     End Sub ''End of "Private Sub SaveControlPositionsToElement()"
 
-    Public Sub RefreshPreview_Redux(Optional par_recentlyMoved As ClassElementField = Nothing)
+    Public Sub RefreshPreview_Redux(Optional par_recentlyMoved As ClassElementField = Nothing,
+                                    Optional par_recipient As ciBadgeRecipients.ClassRecipient = Nothing)
         ''
         ''Added 10/5/2019 & 8/24/2019 td 
         ''

@@ -770,7 +770,8 @@ Public Class Form__Main_Demo
         Dim sender_link As LinkLabel
         sender_link = CType(sender, LinkLabel)
         ClassElementField.oRecipient = CType(sender_link.Tag, ClassRecipient)
-        Me.mod_designer.RefreshPreview_Redux()
+        ''Dec.14 2021''Me.mod_designer.RefreshPreview_Redux()
+        Me.mod_designer.RefreshPreview_Redux(Nothing, ClassElementField.oRecipient)
 
     End Sub ''End of "Private Sub Recipient_LinkClicked"
 

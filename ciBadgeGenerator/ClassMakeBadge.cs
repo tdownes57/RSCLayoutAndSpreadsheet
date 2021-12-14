@@ -207,7 +207,8 @@ namespace ciBadgeGenerator
                                     par_badge_width_pixels,
                                     par_badge_height_pixels,
                                     par_recipientPic,
-                                    par_cache);
+                                    par_cache, 
+                                    par_recipient);
 
         }
 
@@ -218,6 +219,7 @@ namespace ciBadgeGenerator
                                     int par_newBadge_height_pixels,
                                     Image par_recipientPic,
                                     ClassElementsCache_Deprecated par_cache,
+                                    ClassRecipient par_recipient = null, 
                                     HashSet<ClassElementField> par_listElementFields = null,
                                     ClassElementPic par_elementPic = null,
                                     ClassElementQRCode par_elementQR = null,
@@ -241,7 +243,10 @@ namespace ciBadgeGenerator
             ClassProportions.ProportionsAreSlightlyOff(par_backgroundImage, true, "Background Image");
 
             // 1-15-2020 td //LayoutElements objPrintLibElems = new LayoutElements();
-            LayoutElements objPrintLibElems = new LayoutElements(ClassElementField.iRecipientInfo);
+            // 12-14-2021 td //LayoutElements objPrintLibElems = new LayoutElements(ClassElementField.iRecipientInfo);
+            LayoutElements objPrintLibElems = null;
+            if (par_recipient != null) objPrintLibElems = new LayoutElements(par_recipient);
+            else objPrintLibElems = new LayoutElements(ClassElementField.iRecipientInfo);
 
             //    obj_image = Me.BackgroundBox.Image
             //    obj_image_clone = CType(obj_image.Clone(), Image)
@@ -284,8 +289,8 @@ namespace ciBadgeGenerator
             // Dec. 7 2021  //else listOfElementFields = par_cache.ListFieldElements();
             else listOfElementFields = par_cache.ListOfBadgeDisplayElements_Flds_Front(false);
 
-            const bool c_boolUseUntestedProc = true;  // 11-9-2021 false;  // true;  // false;  //Added 10/5/2019 td
-            if (c_boolUseUntestedProc)
+            const bool c_boolUseLocalProc = true;  // 11-9-2021 false;  // true;  // false;  //Added 10/5/2019 td
+            if (c_boolUseLocalProc)
             {
                 //
                 // I think this procedure (LoadImageWithElement) is fully converted to C# yet. 
@@ -650,6 +655,7 @@ namespace ciBadgeGenerator
         public void LoadImageWithElements(ref Image par_imageBadgeCard,
                                           ref DateTime par_datetimeLastUpdated,
                                           HashSet<ClassElementField> par_elements,
+                                          ClassRecipient par_recipient = null,
                                           List<Image> par_listTextImages = null,
                                           List<String> par_listMessages = null,
                                           List<String> par_listFieldsIncluded = null,
@@ -922,6 +928,7 @@ namespace ciBadgeGenerator
                                             Graphics par_graphics,
                                             bool pboolReturnListOfImages,
                                             List<Image> par_listTextImages,
+                                            ClassRecipient par_recipient = null,
                                             List<String> par_listMessages = null,
                                             List<String> par_listFieldsIncluded = null,
                                             List<String> par_listFieldsNotIncluded = null)
@@ -929,7 +936,8 @@ namespace ciBadgeGenerator
             //
             //Encapsulated 10/17/2019 td
             //
-            string strTextToDisplay = par_elementField.LabelText_ToDisplay(false);
+            // Dec14 2021 // string strTextToDisplay = par_elementField.LabelText_ToDisplay(false);
+            string strTextToDisplay = par_elementField.LabelText_ToDisplay(false, par_recipient);
 
             //Added 11/10/2021 td
             WhyOmitted structWhyOmitted = new WhyOmitted();

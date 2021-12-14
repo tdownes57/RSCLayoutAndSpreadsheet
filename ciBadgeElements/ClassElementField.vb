@@ -888,6 +888,7 @@ Public Class ClassElementField
     End Sub ''ENd of "Public Shared Sub CheckWidthVsLength_OfText()"
 
     Public Function LabelText_ToDisplay(par_isForLayout_OrPreview As Boolean,
+                                        Optional par_iRecipInfo As IRecipient = Nothing,
                                         Optional pbAllowExampleValues As Boolean = True) As String
         ''
         ''Added 10/16/2016 & 7/25/2019 thomas d 
@@ -902,6 +903,12 @@ Public Class ClassElementField
         bOkayToUseExampleValues = (boolNotAFinalPrint And pbAllowExampleValues)
 
         Select Case True
+
+            Case (par_iRecipInfo IsNot Nothing)
+                ''
+                ''Added 12/14/2021 thomas d. 
+                ''
+                Return {{{{{{tttktktktk ''ClassElementField.oRecipient.GetTextValue(Me.FieldEnum)
 
             Case (ClassElementField.oRecipient IsNot Nothing)
                 ''
