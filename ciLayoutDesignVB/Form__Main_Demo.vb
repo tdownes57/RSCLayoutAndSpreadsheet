@@ -1522,16 +1522,51 @@ Public Class Form__Main_Demo
         End If ''ENdof "If (IO.File.Exists(SaveFileDialog1.FileName)) Then ... Else ..."
 
         ''Added 12/14/2021 td
-        ElementsCache_Edits.PathToXml_Saved = SaveFileDialog1.FileName ''Save the file path. ---12/14/2021 td
+        Dim strSaveFileAs_FullFileName As String
+        strSaveFileAs_FullFileName = (SaveFileDialog1.FileName & ".xml").Replace(".xml.xml", ".xml")
+
+        ElementsCache_Edits.PathToXml_Saved = strSaveFileAs_FullFileName  ''Save the file path. ---12/14/2021 td
+        ElementsCache_Edits.XmlFile_Path_Deprecated = strSaveFileAs_FullFileName ''Save the full file path. ---12/14/2021 td
+        Me.ElementsCache_PathToXML = strSaveFileAs_FullFileName  ''Save the file path. ----12/14/2021 td 
         Const c_bSaveToFileXML As Boolean = True
-        ElementsCache_ManageBoth.Save(c_bSaveToFileXML, SaveFileDialog1.FileName)
+        ElementsCache_ManageBoth.Save(c_bSaveToFileXML, strSaveFileAs_FullFileName)
 
         ''Added 12/14/2021 td 
-        If (IO.File.Exists(SaveFileDialog1.FileName)) Then
-            Me.ElementsCache_PathToXML = SaveFileDialog1.FileName
+        Dim boolSavedWell_Exists As Boolean
+        Dim boolSavedWell_JustNow As Boolean
+        Dim objFileInfo As IO.FileInfo
+        Dim dateModified As Date
+        ''Dim dateDiff As dateDifference
+
+        ''Dec14 2021''boolSavedWell_Exists = (IO.File.Exists(SaveFileDialog1.FileName))
+        boolSavedWell_Exists = (IO.File.Exists(strSaveFileAs_FullFileName))
+
+        If (boolSavedWell_Exists) Then
+
+            ''--objFileInfo = New IO.FileInfo(SaveFileDialog1.FileName)
+            objFileInfo = New IO.FileInfo(strSaveFileAs_FullFileName)
+            dateModified = objFileInfo.LastWriteTime()
+            boolSavedWell_JustNow = ((DateTime.Now - dateModified).TotalSeconds < 15)
+
+            If (Not boolSavedWell_JustNow) Then
+                Throw New IO.FileNotFoundException("Why is the XML file-modify date " & dateModified.ToString("MM/dd HH:mm"))
+            End If ''End of "If (Not boolSavedWell_JustNow) Then"
+
+            ''Dec14 2021''Me.ElementsCache_PathToXML = SaveFileDialog1.FileName
+            Me.ElementsCache_PathToXML = strSaveFileAs_FullFileName ''SaveFileDialog1.FileName
+            Me.ElementsCache_Edits.XmlFile_FTitle_Deprecated = objFileInfo.Name ''Added 12/14/2021 
+
         Else
             Throw New IO.FileNotFoundException("where is XML file? file was not saved?")
-        End If
+        End If ''End of "If (boolSavedWell_Exists) Then ... Else ..."
+
+        ''
+        ''Specify the XML cache file, in the Window caption. ---12/14/2021 td 
+        ''
+        Dim strFileTitleXML As String ''Added 12/1/4/2021 td
+        strFileTitleXML = (New IO.FileInfo(SaveFileDialog1.FileName)).Name
+        Me.Text = String.Format("RSC ID Card - Desktop - {0} - {1}",
+                                            strFileTitleXML, SaveFileDialog1.FileName)
 
         ''Not sure if this will be useful. ---12/14/2021 td
         ''My.Resources.PathToSavedXML_Prior6 = My.Resources.PathToSavedXML_Prior5
@@ -1610,10 +1645,11 @@ Public Class Form__Main_Demo
 
         ''Added 11/24/2021 
         Dim bConfirmFileExists As Boolean
-        Dim strPathToXML As String ''Added 11/30/2021 td
+        Dim strFullPathToXML As String ''Added 11/30/2021 td
 
-        strPathToXML = OpenFileDialog1.FileName ''Added 11/30/2021 td
-        bConfirmFileExists = System.IO.File.Exists(strPathToXML)
+        strFullPathToXML = OpenFileDialog1.FileName ''Added 11/30/2021 td
+        bConfirmFileExists = System.IO.File.Exists(strFullPathToXML)
+
         If (Not bConfirmFileExists) Then
             ''Added 11/30/2021
             MessageBox.Show("Unable to open the file, unfortunately.", "",
@@ -1624,7 +1660,20 @@ Public Class Form__Main_Demo
         ''
         ''Encapsulated 11/30/2021
         ''
-        LoadBothCachesUsingSamePathToXML(strPathToXML)
+        LoadBothCachesUsingSamePathToXML(strFullPathToXML)
+
+        ''
+        ''Save the file path to the form's String Property.
+        ''
+        Me.ElementsCache_PathToXML = strFullPathToXML
+
+        ''
+        ''Specify the XML cache file, in the Window caption. ---12/14/2021 td 
+        ''
+        Dim strFileTitleXML As String ''Added 12/1/4/2021 td
+        strFileTitleXML = (New IO.FileInfo(strFullPathToXML)).Name
+        Me.Text = String.Format("RSC ID Card - Desktop - {0} - {1}",
+                          strFileTitleXML, strFullPathToXML)
 
     End Sub
 

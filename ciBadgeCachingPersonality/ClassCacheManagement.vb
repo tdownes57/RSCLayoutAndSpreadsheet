@@ -101,6 +101,7 @@ Namespace ciBadgeCachePersonality
 
         End Function
 
+
         Public Sub Save(pboolSaveToFileXML As Boolean, Optional ByRef pstrPathToFileXML As String = "")
             ''Dec14 2021''Public Sub Save(pboolSaveToFileXML As Boolean)
             ''
@@ -113,34 +114,76 @@ Namespace ciBadgeCachePersonality
                 ''
                 If (pstrPathToFileXML <> "") Then mod_cacheEdits.PathToXml_Saved = pstrPathToFileXML
                 If (pstrPathToFileXML = "") Then pstrPathToFileXML = mod_cacheEdits.PathToXml_Saved
+                If (pstrPathToFileXML = "") Then pstrPathToFileXML = mod_cacheEdits.PathToXml_Opened ''Added 12/14/2021 td
+                mod_cacheEdits.PathToXml_Saved = pstrPathToFileXML ''Added 12/14/2021 td 
+                mod_cacheEdits.XmlFile_Path_Deprecated = pstrPathToFileXML ''Added 12/14/2021 
                 mod_cacheEdits.SaveToXML(pstrPathToFileXML)
 
+                ''
+                ''Added 12/10/2021 thomas downes 
+                ''   Create and save the Badge-Layout Image file.
+                ''
+                Dim strTitleOfXML As String
+                Dim strPathToFileJpg As String
+                Dim strPathToXml_Binary As String ''Added 12/14/2021 td
+
+                ''Dec14 2021''strTitleOfXML = mod_cacheEdits.XmlFile_FTitle
+                mod_cacheEdits.XmlFile_Path_Deprecated = pstrPathToFileXML
+                mod_cacheEdits.XmlFile_FTitle_Deprecated = (New IO.FileInfo(pstrPathToFileXML)).Name ''Only the file title, e.g. "Thomas.xml".
+
+                ''Dec14 2021''strPathToFileJpg = mod_cacheEdits.PathToXml_Binary.Replace(".xml", ".jpg")
+                strPathToXml_Binary = mod_cacheEdits.PathToXml_Binary
+                If (Not String.IsNullOrEmpty(strPathToXml_Binary)) Then
+                    strPathToFileJpg = strPathToXml_Binary.Replace(".xml", ".jpg")
+                End If ''End of "If (Not String.IsNullOrEmpty(...)) Then"
+                ''This code may work better in the calling procedure.----12/10/2021 td''CreateBadgeLayoutImage() 
+
+                ''Added 12/6/2021 td  
+                ''----Dec.6 2021 ----mod_cacheSaved = mod_cacheEdits
+                ''----Dec.14 2021 ----mod_cacheSaved = mod_cacheEdits.Copy()
+                If (pstrPathToFileXML = "") Then pstrPathToFileXML = mod_cacheEdits.PathToXml_Saved
+
+                ''
+                ''Load the Saved cache. ---Dec. 14, 2021 
+                ''
+                mod_cacheSaved = GetLoadedCacheUsingPathToXML(pstrPathToFileXML)
+
             Else
-                mod_cacheEdits.SaveToXML()
+                ''
+                ''Wait, I don't think we should call the Sub .SaveToXML() !! --12/14/2021 td''--mod_cacheEdits.SaveToXML()
+                ''
+                ''So, let's leverage the two-cache system.
+                ''
+                Dim strPathToXML As String ''Added 12/14/2021 td
+                strPathToXML = mod_cacheEdits.PathToXml_Opened
+                If (String.IsNullOrEmpty(strPathToXML)) Then strPathToXML = mod_cacheEdits.PathToXml_Saved
+                ''----12/14/2021''mod_cacheEdits = mod_cacheSaved
+                ''----12/14/2021''mod_cacheSaved = GetLoadedCacheUsingPathToXML(strPathToXML)
+                mod_cacheSaved = mod_cacheEdits
+                mod_cacheEdits = CopyViaSerializeDeserialize(mod_cacheEdits)
 
             End If ''End of "If (pboolSaveToFileXML) Then.... Else"
 
-            ''
-            ''Added 12/10/2021 thomas downes 
-            ''   Create and save the Badge-Layout Image file.
-            ''
-            Dim strTitleOfXML As String
-            Dim strPathToFileJpg As String
-            strTitleOfXML = mod_cacheEdits.XmlFile_FTitle
-            strPathToFileJpg = mod_cacheEdits.PathToXml_Binary.Replace(".xml", ".jpg")
-            ''This code may work better in the calling procedure.----12/10/2021 td''CreateBadgeLayoutImage() 
-
-            ''Added 12/6/2021 td  
-            ''----Dec.6 2021 ----mod_cacheSaved = mod_cacheEdits
-            ''----Dec.14 2021 ----mod_cacheSaved = mod_cacheEdits.Copy()
-            If (pstrPathToFileXML = "") Then pstrPathToFileXML = mod_cacheEdits.PathToXml_Saved
-
-            ''
-            ''Load the Saved cache. ---Dec. 14, 2021 
-            ''
-            mod_cacheSaved = GetLoadedCacheUsingPathToXML(pstrPathToFileXML)
-
         End Sub ''End of "Public Sub Save()"
+
+
+        Public Function CopyViaSerializeDeserialize(par_cache As ClassElementsCache_Deprecated) As ClassElementsCache_Deprecated
+            ''
+            ''Added 12/14/2021 td 
+            ''
+            Dim objCacheOutput As ClassElementsCache_Deprecated
+            Dim strTemporaryFilePath As String
+
+            strTemporaryFilePath = DiskFilesVB.Path_TemporaryFileXML()
+
+            par_cache.SaveToXML(strTemporaryFilePath)
+            Threading.Thread.Sleep(3000)
+            objCacheOutput = GetLoadedCacheUsingPathToXML(strTemporaryFilePath)
+            objCacheOutput.Check_LinkElementsToFields()
+            IO.File.Delete(strTemporaryFilePath)
+            Return objCacheOutput
+
+        End Function ''End of "Public Function CopyViaSerializeDeserialize"
 
 
         Public Function UndoEdits(pboolUseCacheSaved As Boolean) As ClassElementsCache_Deprecated
@@ -215,10 +258,18 @@ Namespace ciBadgeCachePersonality
             ''
             ''Added 12/4/2021 & 10/12/2019 thomas d. 
             ''
-            mod_cacheEdits.LinkElementsToFields()
+            mod_cacheEdits.Check_LinkElementsToFields()
 
         End Sub ''End of "Public Sub LinkElementsToFields()"
 
+        Public Sub Check_LinkElementsToFields(Optional pboolOverride As Boolean = True,
+                                             Optional ByRef pref_strReport As String = "")
+            ''
+            ''Added 12/14/2021 thomas downes
+            ''
+            mod_cacheEdits.Check_LinkElementsToFields(pboolOverride, pref_strReport)
+
+        End Sub
 
         Public Sub CheckEditedFieldsHaveElementsIfNeeded_Custom(ByRef pstrListOfFields As String, ByRef pstrErrorMessage As String)
             ''
@@ -453,6 +504,14 @@ Namespace ciBadgeCachePersonality
             Me.mod_cacheEdits = objCache_FromXml_1
             Me.mod_cacheSaved = objCache_FromXml_2
 
+            ''Added 11/30/2021 thomas d. 
+            Me.mod_cacheEdits.Check_LinkElementsToFields()
+            Me.mod_cacheSaved.Check_LinkElementsToFields()
+
+            ''Added 12/14/2021 thomas d. 
+            Me.mod_cacheEdits.PathToXml_Opened = objDeserial.PathToXML
+            Me.mod_cacheSaved.PathToXml_Opened = objDeserial.PathToXML
+
             Return mod_cacheEdits
 
         End Function ''End of "Public Function LoadBothCachesUsingSamePathToXML"
@@ -482,8 +541,11 @@ Namespace ciBadgeCachePersonality
                 ''9/30 td''objCache =
                 ''9/30 td''     .DeserializeFromXML(GetType(ClassElementsCache), False)
 
-                objCache_FromXml =
-            CType(.DeserializeFromXML(GetType(ClassElementsCache_Deprecated), False), ClassElementsCache_Deprecated)
+                objCache_FromXml = CType(.DeserializeFromXML(GetType(ClassElementsCache_Deprecated), False),
+                                            ClassElementsCache_Deprecated)
+
+                ''Added 12/14/2021 td
+                objCache_FromXml.Check_LinkElementsToFields()
 
                 Return objCache_FromXml
 

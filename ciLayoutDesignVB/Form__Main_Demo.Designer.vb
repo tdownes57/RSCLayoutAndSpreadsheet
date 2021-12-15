@@ -839,7 +839,8 @@ Partial Class Form__Main_Demo
         Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Margin = New System.Windows.Forms.Padding(1, 3, 1, 3)
         Me.Name = "Form__Main_Demo"
-        Me.Text = " Good demo for Mark"
+        Me.Tag = "RSC ID Card - {0} - {1}"
+        Me.Text = "RSC ID Card - {0} - {1}"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.ContextMenuStrip1.ResumeLayout(False)

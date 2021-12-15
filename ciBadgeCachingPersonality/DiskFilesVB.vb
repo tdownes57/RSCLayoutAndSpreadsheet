@@ -29,4 +29,40 @@ Module DiskFilesVB
     End Sub ''ENd of "Public Shared Sub DisplayStringDataInNotepad()"
 
 
+    Public Function Path_RandomFileXML() As String
+        ''
+        ''Added 12/14/2021 td
+        ''
+        Dim strPathToFolder As String
+        Dim strFileTitleTemporary As String
+        Dim strFullFilePath As String
+
+        ''Dec14 2021''strPathToFolder = DiskFolders.PathToFolder_XML()
+        ''strFileTitleTemporary = IO.Path.GetTempFileName()
+        strFileTitleTemporary = (IO.Path.GetRandomFileName() & ".xml")
+
+        ''strFullFilePath = IO.Path.GetTempFileName()
+        strPathToFolder = DiskFolders.PathToFolder_XML()
+        strFullFilePath = IO.Path.Combine(strPathToFolder, strFileTitleTemporary)
+
+        ''Return strFileTitleTemporary
+        Return strFullFilePath
+
+    End Function ''End of "Public Function Path_TemporaryFileXML() As String"
+
+
+    Public Function Path_TemporaryFile() As String
+        ''
+        ''Added 12/14/2021 td
+        ''
+        ''Dim strPathToFolder As String
+        Dim strFileTitleTemporary As String
+
+        ''Dec14 2021''strPathToFolder = DiskFolders.PathToFolder_XML()
+        strFileTitleTemporary = IO.Path.GetTempFileName()
+        Return strFileTitleTemporary
+
+    End Function ''End of "Public Function Path_TemporaryFile() As String"
+
+
 End Module

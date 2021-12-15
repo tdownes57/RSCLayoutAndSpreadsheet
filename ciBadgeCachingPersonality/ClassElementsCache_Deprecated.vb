@@ -28,11 +28,13 @@ Namespace ciBadgeCachePersonality
 
         ''10/10/2019 td''Public Property SaveToXmlPath As String ''Added 9/29/2019 td
         Public Property PathToXml_Saved As String ''Added 9/29/2019 td
+        Public Property PathToXml_Opened As String ''Added 12/14/2021 td
         Public Property PathToXml_Binary As String ''Added 11/29/2019 td
 
         ''Added 2/04/2020 td
-        Public Property XmlFile_Path As String = "" ''Added 2/04/2020 td
-        Public Property XmlFile_FTitle As String = "" ''Added 2/04/2020 td
+        ''Deprecated 12/14/2021 thoams downes
+        Public Property XmlFile_Path_Deprecated As String = "" ''Added 2/04/2020 td
+        Public Property XmlFile_FTitle_Deprecated As String = "" ''Added 2/04/2020 td
 
         ''Added 12/14/2021 thomas
         Public Property Personality As ClassPersonalityConfig ''Added 12/14/2021 thomas
@@ -973,8 +975,8 @@ Namespace ciBadgeCachePersonality
 
             ''Added 02/04/2020 thomas d.
             objCopyOfCache.PathToXml_Binary = Me.PathToXml_Binary
-            objCopyOfCache.XmlFile_Path = Me.XmlFile_Path
-            objCopyOfCache.XmlFile_FTitle = Me.XmlFile_FTitle
+            objCopyOfCache.XmlFile_Path_Deprecated = Me.XmlFile_Path_Deprecated
+            objCopyOfCache.XmlFile_FTitle_Deprecated = Me.XmlFile_FTitle_Deprecated
             objCopyOfCache.BackgroundImage_Front_Path = Me.BackgroundImage_Front_Path
             objCopyOfCache.BackgroundImage_Front_FTitle = Me.BackgroundImage_Front_FTitle
 
@@ -1117,11 +1119,16 @@ Namespace ciBadgeCachePersonality
         End Sub ''End of "Public Sub CheckCacheIsLatestForEdits()"
 
 
-        Public Sub LinkElementsToFields()
+        Public Sub Check_LinkElementsToFields(Optional pboolOverride As Boolean = True,
+                                             Optional ByRef pref_strReport As String = "")
             ''
             ''Added 10/12/2019 thomas d. 
             ''
             Dim dictionaryFields As New Dictionary(Of ciBadgeInterfaces.EnumCIBFields, ClassFieldAny)
+            ''Dim pstrReport As String
+
+            ''Added 12/14/2021 td 
+            pref_strReport = "Addressed field-related references for {0} of {1} elements."
 
             ''Added 9/29/2019 thomas downes  
             For Each each_field As ClassFieldAny In ListOfFields_Any() ''10/14/2019 td''In mod_listFields
@@ -1141,13 +1148,32 @@ Namespace ciBadgeCachePersonality
 
                 dictionaryFields.TryGetValue(each_elementField.FieldEnum, found_field)
 
-                each_elementField.FieldObjectAny = found_field
-                each_elementField.FieldInfo = found_field
-                each_elementField.LoadFieldAny(found_field) ''Added 12/13/2021 td 
+                ''
+                ''Fill in the missing links !!!  ---comment 12/14/2021 td
+                ''
+                With each_elementField ''Added 12/14/2021 td
+                    If ((.FieldInfo Is Nothing) Or pboolOverride) Then ''Added 12/14/2021 td
+
+                        .FieldInfo = found_field
+                        .FieldObjectAny = found_field
+                        .LoadFieldAny(found_field) ''Added 12/13/2021 td
+
+                    End If ''End of "If ((.FieldInfo Is Nothing) Or pboolOverride) Then"
+                End With ''End of "With each_elementField"
 
             Next each_elementField
 
         End Sub ''End of "Public Sub LinkElementsToFields()"
+
+
+        Public Sub LinkElementsToFields(Optional pboolOverride As Boolean = True,
+                                             Optional ByRef pref_strReport As String = "")
+            ''
+            ''Added 12/14/2021 td 
+            ''
+            Check_LinkElementsToFields(pboolOverride, pref_strReport)
+
+        End Sub
 
         Public Function GetElementByGUID(par_guid As System.Guid) As ClassElementField
             ''
@@ -1514,13 +1540,15 @@ Namespace ciBadgeCachePersonality
                 obj_cache_elements.PathToXml_Saved = pstrPathToXML
 
                 ''Added 2/4/2020 thomas downes
-                obj_cache_elements.XmlFile_Path = pstrPathToXML
+                obj_cache_elements.XmlFile_Path_Deprecated = pstrPathToXML
                 Try
                     IO.File.WriteAllText(pstrPathToXML, "new XML file")
-                    obj_cache_elements.XmlFile_FTitle = (New IO.FileInfo(pstrPathToXML)).Name
+                    obj_cache_elements.XmlFile_FTitle_Deprecated = (New IO.FileInfo(pstrPathToXML)).Name
+
                 Catch ex_CreateFile As System.IO.IOException
                     ''ErrorMessage &= vbCrLf & ex_CreateFile.Message
-                    Throw
+                    Throw New Exception("We weren't able to execute IO.File.WriteAllText.", ex_CreateFile)
+
                 End Try
 
                 ''Added 11/16/2019 td
@@ -1564,17 +1592,18 @@ Namespace ciBadgeCachePersonality
                 ''Added 10/12/2019 td
                 ''10/13/2019 td''Me.ElementsCache_Saved.LinkElementsToFields()
                 ''-----Me.ElementsCache_Edits.LinkElementsToFields()
-                obj_cache_elements.LinkElementsToFields()
+                obj_cache_elements.Check_LinkElementsToFields()
 
                 pref_section = 16 ''Added 11/27/2019 td
 
                 ''Added 2/4/2020 thomas downes
                 With obj_cache_elements
                     .PathToXml_Saved = pstrPathToXML
-                    .XmlFile_Path = pstrPathToXML
+                    .XmlFile_Path_Deprecated = pstrPathToXML
                     ''.XmlFile_FTitle = (New System.IO.FileInfo(pstrPathToXML)).Name
-                    .XmlFile_FTitle = IO.Path.GetFileName(pstrPathToXML)
-                End With
+                    .XmlFile_FTitle_Deprecated = IO.Path.GetFileName(pstrPathToXML)
+
+                End With ''End of "With obj_cache_elements"
 
             End If ''End of "If (pboolNewFileXML) Then .... Else ..."
 

@@ -47,6 +47,13 @@ Public Class DiskFolders
     End Function ''End of "Public Shared Function PathToFolder_PicExamples() As String"
 
 
+    Public Shared Function PathToFolder_XML() As String
+        ''
+        ''Added 12/14/2021 thomas 
+        ''
+        Return My.Application.Info.DirectoryPath
+
+    End Function ''End of "Public Shared Function PathToFolder_XML() As String"
 
 
 End Class ''eND OF "Public Class DiskFolders"

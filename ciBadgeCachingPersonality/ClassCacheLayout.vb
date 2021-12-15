@@ -705,9 +705,9 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
                 obj_cache_elements.PathToXml_Saved = pstrPathToXML
 
                 ''Added 02/04/2020 thomas downes
-                obj_cache_elements.XmlFile_Path = pstrPathToXML
+                obj_cache_elements.XmlFile_Path_Deprecated = pstrPathToXML
                 If (IO.File.Exists(pstrPathToXML)) Then
-                    obj_cache_elements.XmlFile_FTitle = (New IO.FileInfo(pstrPathToXML)).Name
+                    obj_cache_elements.XmlFile_FTitle_Deprecated = (New IO.FileInfo(pstrPathToXML)).Name
                 End If ''End of "If (IO.File.Exists(pstrPathToXML)) Then"
 
                 ''Added 11/16/2019 td
@@ -737,7 +737,7 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
                 ''Added 10/12/2019 td
                 ''10/13/2019 td''Me.ElementsCache_Saved.LinkElementsToFields()
                 ''-----Me.ElementsCache_Edits.LinkElementsToFields()
-                obj_cache_elements.LinkElementsToFields()
+                obj_cache_elements.Check_LinkElementsToFields()
 
             End If ''End of "If (pboolNewFileXML) Then .... Else ..."
 

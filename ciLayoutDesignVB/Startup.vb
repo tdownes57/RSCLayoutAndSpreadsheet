@@ -60,6 +60,7 @@ Public Class Startup
         If (c_boolStillUsingElementsCache) Then
             ''Function called in the line below is suffixed w/ "_Deprecated", but
             ''   it's still in used today.  ---11/30/2021 td 
+            strPathToElementsCacheXML = My.Settings.PathToXML_Saved_ElementsCache ''Added 12/14/2021 
             obj_cache_layout_Elements = LoadCachedData_Elements_Deprecated(obj_formToShow, boolNewFileXML,
                    strPathToElementsCacheXML)
 
@@ -77,6 +78,8 @@ Public Class Startup
         End If ''End of "If (boolTesting) Then"
 
         obj_formToShow.NewFileXML = boolNewFileXML
+        ''Added 12/14/2021 td
+        obj_formToShow.ElementsCache_PathToXML = strPathToElementsCacheXML
 
         ''Not needed. 10/11/2019 td'obj_formToShow.CtlGraphicText1.LayoutFunctions = CType(obj_formToShow., ILayoutFunctions)
 
@@ -105,6 +108,15 @@ Public Class Startup
                 obj_formToShow.PersonalityCache_Recipients = obj_personality
 
             End If ''End of "If (c_boolStillUsingElementsCache) Then ... Else"
+
+            ''
+            ''Specify the XML cache file, in the Window caption. ---12/14/2021 td 
+            ''
+            Dim strFileTitleXML As String ''Added 12/1/4/2021 td
+            strFileTitleXML = (New IO.FileInfo(strPathToElementsCacheXML)).Name
+            obj_formToShow.Text = String.Format("RSC ID Card - Desktop - {0} - {1}",
+                                                strFileTitleXML, strPathToElementsCacheXML)
+
 
             ''
             ''Show the main form!!!    Huge!!!! 
@@ -360,8 +372,13 @@ Public Class Startup
             Else
                 strPathToXML = DiskFilesVB.PathToFile_XML_ElementsCache
             End If
+
+        ElseIf ("" <> My.Settings.PathToXML_Saved_ElementsCache) Then ''Added 12/14/2021 td
+            ''Added 12/14/2021 td
+            strPathToXML = My.Settings.PathToXML_Saved_ElementsCache
         Else
-            DiskFilesVB.PathToFile_XML_ElementsCache()
+            strPathToXML = DiskFilesVB.PathToFile_XML_ElementsCache()
+
         End If ''end of "If (pstrPathToElementsCacheXML <> "") Then ... Else ..."
 
         If (strPathToXML = "") Then
@@ -419,7 +436,7 @@ Public Class Startup
             ''Added 10/12/2019 td
             ''10/13/2019 td''Me.ElementsCache_Saved.LinkElementsToFields()
             ''-----Me.ElementsCache_Edits.LinkElementsToFields()
-            obj_cache_elements.LinkElementsToFields()
+            obj_cache_elements.Check_LinkElementsToFields()
 
         End If ''End of "If (pboolNewFileXML) Then .... Else ..."
 
