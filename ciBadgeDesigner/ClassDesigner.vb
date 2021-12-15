@@ -61,8 +61,9 @@ Public Class ClassDesigner
     Public Property CtlGraphic_QRCode As CtlGraphicQRCode ''Added 10/10/2019 td
     Public Property CtlGraphic_Text As CtlGraphicText ''Added 11/29/2019 td
 
-    Public Property ElementsCache_Saved As New ClassElementsCache_Deprecated ''Added 9/16/2019 thomas downes
-    Public Property ElementsCache_Edits As New ClassElementsCache_Deprecated ''Added 9/16/2019 thomas downes
+    ''Dec14 2021''Public Property ElementsCache_Saved As New ClassElementsCache_Deprecated ''Added 9/16/2019 thomas downes
+    Public Property ElementsCache_UseEdits As ClassElementsCache_Deprecated ''Added 9/16/2019 thomas downes
+    Public Property ElementsCache_Manager As ClassCacheManagement ''Added 12/14/2021 td
 
     ''----Public Property ControlMoverOrResizer_TD As New MoveAndResizeControls_Monem.ControlMoverOrResizer_TD ''Added 10/1/2019 td
     ''----Public Property ControlMove_GroupMove_TD As New MoveAndResizeControls_Monem.ControlMove_GroupMove_TD ''Added 10/1/2019 td
@@ -291,7 +292,7 @@ Public Class ClassDesigner
         Me.CtlGraphic_QRCode.Dispose()
         Me.DesignerForm.Controls.Remove(Me.CtlGraphic_QRCode)
         ''Load a brand-new QR-code control. ---12/7/2021 td  
-        Dim elementQRCode As ClassElementQRCode = Me.ElementsCache_Edits.ElementQRCode
+        Dim elementQRCode As ClassElementQRCode = Me.ElementsCache_UseEdits.ElementQRCode
         Me.CtlGraphic_QRCode = New CtlGraphicQRCode(elementQRCode, CType(Me, ILayoutFunctions))
         Me.DesignerForm.Controls.Add(Me.CtlGraphic_QRCode)
         mod_listOfDesignerControls.Add(Me.CtlGraphic_QRCode) ''Added 12/8/2021 td
@@ -315,7 +316,7 @@ Public Class ClassDesigner
         End If ''End of "If (ShowingBackside()) Then"
 
         mod_imageExampleQRCode = Me.CtlGraphic_QRCode.pictureQRCode.Image ''Added 10/14/2019 td
-        With Me.ElementsCache_Edits.ElementQRCode
+        With Me.ElementsCache_UseEdits.ElementQRCode
             ''Populate the Element-Field object with a reference to the image.  ---Dec. 7 2021 
             If (.Image_BL Is Nothing) Then .Image_BL = mod_imageExampleQRCode
         End With ''end of "With Me.ElementsCache_Edits.ElementQRCode"
@@ -327,8 +328,9 @@ Public Class ClassDesigner
         ''   can have an image to utilize, instead of requiring that the image
         ''   be passed as an parameter.  ---9/23/2019 td
         ''
-        Me.ElementsCache_Saved.Pic_InitialDefault = mod_imageExamplePortrait
-        Me.ElementsCache_Edits.Pic_InitialDefault = mod_imageExamplePortrait
+        ''Dec14 2021 td''Me.ElementsCache_Saved.Pic_InitialDefault = mod_imageExamplePortrait
+        ''Dec14 2021 td''Me.ElementsCache_UseEdits.Pic_InitialDefault = mod_imageExamplePortrait
+        Me.ElementsCache_Manager.LoadPic_InitialDefault(mod_imageExamplePortrait)
 
         ''10/1/2019 td''Me.Controls.Remove(CtlGraphicPortrait_Lady) ''Added 7/31/2019 thomas d. 
 
@@ -342,19 +344,19 @@ Public Class ClassDesigner
         ''Major call!!
         ''
         Dim boolMissingAnyFields As Boolean ''Added 10/10/2019 td 
-        boolMissingAnyFields = (Me.ElementsCache_Saved.MissingTheFields())
+        boolMissingAnyFields = (Me.ElementsCache_UseEdits.MissingTheFields())
         If (boolMissingAnyFields) Then
             ''Load the fields (which are //_not_// the elements (the thing which 
             ''   appears on the badge layout); importantly, the fields are //referenced// 
             ''   by the elements). ----10/10/2019 td
-            Me.ElementsCache_Saved.LoadFields()
+            Me.ElementsCache_UseEdits.LoadFields()
         End If ''end of "If (boolMissingAnyFields) Then"
 
         Dim boolMissingAnyFieldElements As Boolean ''Added 10/10/2019 td 
-        boolMissingAnyFieldElements = (Me.ElementsCache_Saved.MissingTheElementFields())
+        boolMissingAnyFieldElements = (Me.ElementsCache_UseEdits.MissingTheElementFields())
         If (boolMissingAnyFieldElements) Then
             ''10/1/2019 td''Me.ElementsCache_Saved.LoadFieldElements(Me.BackgroundBox)
-            Me.ElementsCache_Saved.LoadFieldElements(Me.BackgroundBox_Front, Me.BadgeLayout_Class)
+            Me.ElementsCache_UseEdits.LoadFieldElements(Me.BackgroundBox_Front, Me.BadgeLayout_Class)
         End If ''end of "If (boolMissingAnyFields) Then"
 
 
@@ -367,7 +369,7 @@ Public Class ClassDesigner
         ''9/20/2019 td''LoadForm_LayoutElements(Me.ElementsCache_Edits)
         ''12/8/2021 td''LoadForm_LayoutElements(Me.ElementsCache_Edits, mod_listOfFieldControls,
         ''12/8/2021 td''      "ClassDesigner.LoadDesigner " & pstrWhyCalled)
-        LoadForm_LayoutElements(EnumSideOfCard, Me.ElementsCache_Edits, mod_listOfFieldControls,
+        LoadForm_LayoutElements(EnumSideOfCard, Me.ElementsCache_UseEdits, mod_listOfFieldControls,
               "ClassDesigner.LoadDesigner " & pstrWhyCalled)
 
 
@@ -394,30 +396,30 @@ Public Class ClassDesigner
         ''9/19 td''Me.ElementsCache_Saved.LoadPicElement(CtlGraphicPortrait_Lady.picturePortrait, Me.BackgroundBox) ''Added 9/19/2019 td
         ''10/1/2019 td''Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, Me.BackgroundBox) ''Added 9/19/2019 td
 
-        If (Me.ElementsCache_Saved.MissingTheElementPic) Then ''Added 10/10/2019 td
+        If (Me.ElementsCache_UseEdits.MissingTheElementPic) Then ''Added 10/10/2019 td
             ''10/10/2019 td''Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, Me.BackgroundBox) ''Added 9/19/2019 td
-            Me.ElementsCache_Saved.LoadElement_Pic(intPicLeft, intPicTop,
+            Me.ElementsCache_UseEdits.LoadElement_Pic(intPicLeft, intPicTop,
                                                    intPicWidth, intPicHeight, Me.BackgroundBox_Front) ''Added 9/19/2019 td
         End If ''End of "If (Me.ElementsCache_Saved.MissingTheElementPic) Then"
 
         ''Added 10/10/2019 td
-        If (Me.ElementsCache_Saved.MissingTheQRCode) Then ''Added 10/10/2019 td
+        If (Me.ElementsCache_UseEdits.MissingTheQRCode) Then ''Added 10/10/2019 td
             ''Added 10/10/2019 td
-            Me.ElementsCache_Saved.LoadElement_QRCode(Initial_QR_Left, Initial_QR_Top,
+            Me.ElementsCache_UseEdits.LoadElement_QRCode(Initial_QR_Left, Initial_QR_Top,
                                                    Initial_QR_Width, Initial_QR_Height, Me.BackgroundBox_Front) ''Added 9/19/2019 td
         End If ''End of "If (Me.ElementsCache_Saved.MissingTheElementPic) Then"
 
         ''Added 10/10/2019 td
-        If (Me.ElementsCache_Saved.MissingTheSignature) Then ''Added 10/10/2019 td
+        If (Me.ElementsCache_UseEdits.MissingTheSignature) Then ''Added 10/10/2019 td
             ''Added 10/10/2019 td
-            Me.ElementsCache_Saved.LoadElement_Signature(Initial_Sig_Left, Initial_Sig_Top,
+            Me.ElementsCache_UseEdits.LoadElement_Signature(Initial_Sig_Left, Initial_Sig_Top,
                                                    Initial_Sig_Width, Initial_Sig_Height, Me.BackgroundBox_Front) ''Added 9/19/2019 td
         End If ''End of "If (Me.ElementsCache_Saved.MissingTheSignature) Then"
 
         ''Added 10/10/2019 td
-        If (Me.ElementsCache_Saved.MissingTheElementTexts) Then ''Added 10/10/2019 td
+        If (Me.ElementsCache_UseEdits.MissingTheElementTexts) Then ''Added 10/10/2019 td
             ''Added 10/10/2019 td
-            Me.ElementsCache_Saved.LoadElement_Text("This is text which will be the same for everyone.",
+            Me.ElementsCache_UseEdits.LoadElement_Text("This is text which will be the same for everyone.",
                                                     Initial_Text_Left, Initial_Text_Top,
                                                    Initial_Text_Width, Initial_Text_Height, Me.BackgroundBox_Front) ''Added 9/19/2019 td
         End If ''End of "If (Me.ElementsCache_Saved.MissingTheElementTexts) Then"
@@ -552,9 +554,9 @@ Public Class ClassDesigner
         ''Added 8/24/2019 td
         ''---obj_image = Me.BackgroundBox.Image
         If (Me.BackgroundBox_Front.BackgroundImage Is Nothing) Then
-            If File.Exists(Me.ElementsCache_Edits.BackgroundImage_Front_Path) Then
+            If File.Exists(Me.ElementsCache_UseEdits.BackgroundImage_Front_Path) Then
                 Try
-                    obj_image = (New Bitmap(Me.ElementsCache_Edits.BackgroundImage_Front_Path))
+                    obj_image = (New Bitmap(Me.ElementsCache_UseEdits.BackgroundImage_Front_Path))
                     Me.BackgroundBox_Front.BackgroundImage = obj_image
                 Catch Ex_image As Exception
                     MessageBox.Show(Ex_image.ToString)
@@ -598,7 +600,7 @@ Public Class ClassDesigner
         Dim boolMakeMoveableByUser As Boolean ''Added 9/20/2019 td 
         Const c_boolMakeMoveableASAP As Boolean = False ''added 9/20/2019 td
 
-        ElementsCache_Edits = par_cache ''Added 11/30/2021 
+        ElementsCache_UseEdits = par_cache ''Added 11/30/2021 
 
         ''#1 9/17/2019 td''LoadElements_Fields_Master(c_boolLoadingForm, par_cache.FieldElements())
         '' #2 9/17/2019 td''LoadElements_ByListOfFields(ClassFields.ListAllFields())
@@ -1138,10 +1140,23 @@ Public Class ClassDesigner
         ''
         ''   Create a clone of the current-latest edits. 
         ''
-        Me.ElementsCache_Saved = Me.ElementsCache_Edits.Copy()
+        ''Dec14 2021 td''Me.ElementsCache_Saved = Me.ElementsCache_Edits.Copy()
+        ''Const c_boolUseDeprecatedFun As Boolean = False
+        ''If (c_boolUseDeprecatedFun) Then
+        ''    Me.ElementsCache_Saved = Me.ElementsCache_UseEdits.Copy_Deprecated()
+        ''ElseIf (Not par_bSerializeToDisk) Then
+        ''    ''Not sure, but I think maybe we need to use the Copy_Deprecated() procedure,
+        ''    ''  since we won't be saving to a (permanent) disk file.
+        ''    ''I wonder, we might instead save to a temporary disk file, de-serialize 
+        ''    ''  from the temporary disk file, and then delete that temporary disk file.
+        ''    ''   ---12/14/2021 td 
+        ''    Me.ElementsCache_Saved = Me.ElementsCache_UseEdits.Copy_Deprecated()
+        ''Else
+        ''    Me.ElementsCache_Saved = Nothing
+        ''End If
 
         ''Added 10/13/2019 td
-        Me.DesignerForm_Interface.RefreshElementsCache_Saved(Me.ElementsCache_Saved)
+        ''Moved to bottom of this procedure. 12/14/2021''Me.DesignerForm_Interface.RefreshElementsCache_Saved(Me.ElementsCache_Saved)
 
         ''
         ''Step #3 of 3
@@ -1150,31 +1165,43 @@ Public Class ClassDesigner
         ''
         If (par_bSerializeToDisk) Then
 
-            Dim objSerializationClass As New ciBadgeSerialize.ClassSerial
+            ''Encapsulated 12/14/2021 td
+            Me.ElementsCache_Manager.Save(par_bSerializeToDisk)
 
-            With objSerializationClass
+            ''Dim objSerializationClass As New ciBadgeSerialize.ClassSerial
 
-                ''.TypeOfObject = (TypeOf List(Of ICIBFieldStandardOrCustom))
+            ''With objSerializationClass
 
-                ''10/10/2019 td''SaveFileDialog1.ShowDialog()
-                ''10/10/2019 td''.PathToXML = SaveFileDialog1.FileName
+            ''    ''.TypeOfObject = (TypeOf List(Of ICIBFieldStandardOrCustom))
 
-                ''10/13/2019 td''.PathToXML = Me.ElementsCache_Saved.PathToXml_Saved
-                .PathToXML = Me.ElementsCache_Edits.PathToXml_Saved
+            ''    ''10/10/2019 td''SaveFileDialog1.ShowDialog()
+            ''    ''10/10/2019 td''.PathToXML = SaveFileDialog1.FileName
 
-                ''Added 9/24/2019 thomas 
-                .SerializeToXML(Me.ElementsCache_Edits.GetType, Me.ElementsCache_Edits, False, True)
+            ''    ''10/13/2019 td''.PathToXML = Me.ElementsCache_Saved.PathToXml_Saved
+            ''    .PathToXML = Me.ElementsCache_Edits.PathToXml_Saved
 
-                Const c_SerializeToBinary As Boolean = False ''Added 9/30/2019 td
-                If (c_SerializeToBinary) Then _
-                .SerializeToBinary(Me.ElementsCache_Edits.GetType, Me.ElementsCache_Edits)
+            ''    ''Added 9/24/2019 thomas 
+            ''    .SerializeToXML(Me.ElementsCache_Edits.GetType, Me.ElementsCache_Edits, False, True)
 
-            End With ''End of "With objSerializationClass"
+            ''    Const c_SerializeToBinary As Boolean = False ''Added 9/30/2019 td
+            ''    If (c_SerializeToBinary) Then _
+            ''    .SerializeToBinary(Me.ElementsCache_Edits.GetType, Me.ElementsCache_Edits)
+
+            ''End With ''End of "With objSerializationClass"
 
         End If ''End of "If (par_bSerializeToDisk) Then"
 
+        ''
+        ''If appropriate, de-serialize to the "Saved" cache. 
+        ''
+        ''-----Dec.14 2021---Me.ElementsCache_Saved = Me.ElementsCache_Manager.LoadCache....
+
         ''Added 12/3/2021 td
         Me.DesignerForm.UseWaitCursor = False
+
+        ''Moved from above on 12/14/2021 td
+        ''  Added 10/13/2019 td
+        ''Obselete. ---12/14/2021 td''Me.DesignerForm_Interface.RefreshElementsCache_Saved(Me.ElementsCache_UseEdits)
 
     End Sub ''End of "PRivate Sub SaveLayout()"  
 
@@ -1298,7 +1325,7 @@ Public Class ClassDesigner
 
             ''Debug code.....
             bMatchesElementInCache =
-                Me.ElementsCache_Edits.ListOfElementFields.Contains(eachCtlField.ElementClass_Obj)
+                Me.ElementsCache_UseEdits.ListOfElementFields.Contains(eachCtlField.ElementClass_Obj)
             If (bMatchesElementInCache) Then intCountMatchedElements += 1
 
         Next eachCtlField
@@ -1369,7 +1396,7 @@ Public Class ClassDesigner
                                                   Me.PreviewBox.Width,
                                                   Me.PreviewBox.Height,
                                                  Me.CtlGraphic_Portrait.picturePortrait.Image,
-                                                  Me.ElementsCache_Edits,
+                                                  Me.ElementsCache_UseEdits,
                                                   par_recipient,
                                                   listOfElementTextFields,
                                                   Me.CtlGraphic_Portrait.ElementClass_Obj,
@@ -1415,7 +1442,7 @@ Public Class ClassDesigner
         ''Deprecated. 9/18/2019 td''listOfElementText_Stdrd = ClassFieldStandard.ListOfElementsText_Stdrd(Me.Layout_Width_Pixels())
         ''Deprecated. 9/18/2019 td''listOfElementText_Custom = ClassFieldCustomized.ListOfElementsText_Custom(Me.Layout_Width_Pixels())
 
-        listOfElementTextFields = Me.ElementsCache_Edits.ListFieldElements()
+        listOfElementTextFields = Me.ElementsCache_UseEdits.ListFieldElements()
 
         ''8/24 td''Me.PreviewBox.SizeMode = PictureBoxSizeMode.Zoom
         ''8/24 td''Me.PreviewBox.Image = Me.BackgroundBox.Image

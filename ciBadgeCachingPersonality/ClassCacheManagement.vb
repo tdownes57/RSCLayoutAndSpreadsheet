@@ -58,7 +58,7 @@ Namespace ciBadgeCachePersonality
 
 
         Public Sub New(par_cacheForEdits As ClassElementsCache_Deprecated,
-                       pboolAllowCacheToBeCopied As Boolean,
+                       pboolAllowCacheToBeCopied_Deprecated As Boolean,
                        Optional pstrPathToSavedFileXML As String = "")
             ''
             ''Added 12/14/2021 td
@@ -68,9 +68,9 @@ Namespace ciBadgeCachePersonality
             ''Dec. 14 2021''mod_cacheSaved = par_cacheForEdits.Copy()
 
             ''Added 12/14/2021 td
-            If (pboolAllowCacheToBeCopied) Then
+            If (pboolAllowCacheToBeCopied_Deprecated) Then
                 ''Use the Copy() command.
-                mod_cacheSaved = par_cacheForEdits.Copy()
+                mod_cacheSaved = par_cacheForEdits.Copy_Deprecated()
             ElseIf (pstrPathToSavedFileXML <> "") Then
 
                 ''Added 12/14/2021 td
@@ -101,7 +101,8 @@ Namespace ciBadgeCachePersonality
 
         End Function
 
-        Public Sub Save(pboolSaveToFileXML As Boolean)
+        Public Sub Save(pboolSaveToFileXML As Boolean, Optional ByRef pstrPathToFileXML As String = "")
+            ''Dec14 2021''Public Sub Save(pboolSaveToFileXML As Boolean)
             ''
             ''Added 12/4/2021 thomas downes  
             ''
@@ -110,9 +111,14 @@ Namespace ciBadgeCachePersonality
                 ''
                 ''Serialize to XML & use an IO procedure to save to the PC's disk system.
                 ''
+                If (pstrPathToFileXML <> "") Then mod_cacheEdits.PathToXml_Saved = pstrPathToFileXML
+                If (pstrPathToFileXML = "") Then pstrPathToFileXML = mod_cacheEdits.PathToXml_Saved
+                mod_cacheEdits.SaveToXML(pstrPathToFileXML)
+
+            Else
                 mod_cacheEdits.SaveToXML()
 
-            End If ''End of "If (pboolSaveToFileXML) Then"
+            End If ''End of "If (pboolSaveToFileXML) Then.... Else"
 
             ''
             ''Added 12/10/2021 thomas downes 
@@ -126,19 +132,42 @@ Namespace ciBadgeCachePersonality
 
             ''Added 12/6/2021 td  
             ''----Dec.6 2021 ----mod_cacheSaved = mod_cacheEdits
-            mod_cacheSaved = mod_cacheEdits.Copy()
+            ''----Dec.14 2021 ----mod_cacheSaved = mod_cacheEdits.Copy()
+            If (pstrPathToFileXML = "") Then pstrPathToFileXML = mod_cacheEdits.PathToXml_Saved
+
+            ''
+            ''Load the Saved cache. ---Dec. 14, 2021 
+            ''
+            mod_cacheSaved = GetLoadedCacheUsingPathToXML(pstrPathToFileXML)
 
         End Sub ''End of "Public Sub Save()"
 
 
-        Public Function UndoEdits() As ClassElementsCache_Deprecated
+        Public Function UndoEdits(pboolUseCacheSaved As Boolean) As ClassElementsCache_Deprecated
             ''----Dec14 2021----Public Sub UndoEdits()
             ''
             ''Added 12/4/2021 thomas downes  
             ''
             ''Dec.14, 2021 td''mod_cacheEdits = mod_cacheSaved.Copy
 
-            LoadBothCachesUsingSamePathToXML()
+            If (pboolUseCacheSaved) Then ''Added 12/14/2021 td
+
+                ''Added 12/14/2021 td
+                mod_cacheEdits = mod_cacheSaved
+                ''Get a back-up copy from the disk. 
+                mod_cacheSaved = GetLoadedCacheUsingPathToXML(mod_cacheEdits.PathToXml_Saved)
+
+            ElseIf (mod_cacheSaved.PathToXml_Saved <> "") Then
+                ''
+                ''Provide the path. 
+                ''
+                LoadBothCachesUsingSamePathToXML(mod_cacheSaved.PathToXml_Saved)
+
+            Else
+                LoadBothCachesUsingSamePathToXML()
+
+            End If ''End of 'If (...) then ... elseif (...) ... Else ..."
+
             Return mod_cacheEdits
 
         End Function ''End of "Public Function UndoEdits() as ClassElementsCache_Deprecated"
@@ -369,7 +398,8 @@ Namespace ciBadgeCachePersonality
         End Sub ''End of " Public Sub OutputToTextFile_CustomFields"
 
 
-        Public Function LoadBothCachesUsingSamePathToXML() As ClassElementsCache_Deprecated ''Dec14 2021''(par_strPathToXml As String,
+        Public Function LoadBothCachesUsingSamePathToXML(Optional par_strPathToXml As String = "") As ClassElementsCache_Deprecated
+            ''Dec14 2021''(par_strPathToXml As String,
             ''Dec14 2021''     Optional ByRef pboolFailed As Boolean = False)
             ''
             ''Encapsulated 11/30/2021
@@ -383,7 +413,16 @@ Namespace ciBadgeCachePersonality
             With objDeserial
 
                 ''12/14/2021 td''.PathToXML = par_strPathToXml ''OpenFileDialog1.FileName
-                .PathToXML = Me.CacheForEditing.PathToXml_Saved
+                If (par_strPathToXml = "" And Me.CacheForEditing IsNot Nothing) Then ''Added 12/14/2021 td
+                    ''We have confirmed that we need (& can probably rely on) the object Me.CacheForEditing 
+                    ''  to know the right path. ---12/14/2021 
+                    .PathToXML = mod_cacheEdits.PathToXml_Saved
+                ElseIf (par_strPathToXml = "") Then
+                    ''Used the "Saved" version of the cache. 
+                    .PathToXML = mod_cacheSaved.PathToXml_Saved
+                Else
+                    .PathToXML = par_strPathToXml ''Added 12/14/2021 td 
+                End If
 
                 ''Added 11/24/2021 
                 bConfirmFileExists = System.IO.File.Exists(.PathToXML)
@@ -454,6 +493,16 @@ Namespace ciBadgeCachePersonality
 
 
 
-    End Class
+        Public Sub LoadPic_InitialDefault(par_imageExamplePortrait As System.Drawing.Image)
+            ''
+            ''Added 12/14/2021 td 
+            ''
+            mod_cacheEdits.Pic_InitialDefault = par_imageExamplePortrait
+            mod_cacheSaved.Pic_InitialDefault = par_imageExamplePortrait
+
+        End Sub ''End of "Public Sub LoadPic_InitialDefault"
+
+
+    End Class ''End of "Public Class ClassCacheManagement"
 
 End Namespace

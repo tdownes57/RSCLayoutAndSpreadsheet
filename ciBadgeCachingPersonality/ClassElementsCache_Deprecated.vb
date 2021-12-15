@@ -953,7 +953,7 @@ Namespace ciBadgeCachePersonality
 
         End Sub ''End of "Public Sub LoadRecipient(par_recipient As IRecipient)"
 
-        Public Function Copy(Optional pboolCopyGuid As Boolean = False) As ClassElementsCache_Deprecated
+        Public Function Copy_Deprecated(Optional pboolCopyGuid As Boolean = False) As ClassElementsCache_Deprecated
             ''
             ''Added 9/17/2019 thomas downes  
             ''
@@ -1721,7 +1721,7 @@ Namespace ciBadgeCachePersonality
 
         End Function ''End of "Public Shared Function GetLoadedCache() As ClassElementsCache"
 
-        Public Sub SaveToXML()
+        Public Sub SaveToXML(Optional ByVal pstrPathToXML As String = "")
             ''
             ''Added 11/29/2019 thomas downes
             ''
@@ -1734,6 +1734,9 @@ Namespace ciBadgeCachePersonality
                 ''10/13/2019 td''.PathToXML = Me.ElementsCache_Saved.PathToXml_Saved
                 .PathToXML = Me.PathToXml_Saved
                 .PathToXML_Binary = Me.PathToXml_Binary ''Added 11/29/2019 thomas d. 
+
+                ''Added 12/14/2021 td 
+                If (pstrPathToXML <> "") Then .PathToXML = pstrPathToXML
 
                 ''Added 9/24/2019 thomas 
                 ''  ''11/29/2019 td''.SerializeToXML(Me.GetType, Me, False, True)
@@ -1843,6 +1846,17 @@ Namespace ciBadgeCachePersonality
 
         End Sub ''End of "Public Sub DisposePicImage_ByRecipID(pstrRecipID As String)"
 
+
+        Public Function GetBackgroundImage_Path(par_enumSideOfCard As EnumWhichSideOfCard) As String
+            ''Added 12/14/2021 td
+            If (par_enumSideOfCard = EnumWhichSideOfCard.EnumBackside) Then
+                Return BackgroundImage_Backside_Path
+                ''End If
+            Else
+                Return BackgroundImage_Front_Path
+            End If
+
+        End Function
 
     End Class ''End of ClassElementsCache 
 

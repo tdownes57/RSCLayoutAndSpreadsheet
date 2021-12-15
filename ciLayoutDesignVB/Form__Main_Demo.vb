@@ -347,6 +347,9 @@ Public Class Form__Main_Demo
         ''
         ''Encapsulated 11/28/2021 thomas downes
         ''
+        Dim boolBacksideOfCard As Boolean ''Added 12/14/2021 td
+        boolBacksideOfCard = (mod_designer.EnumSideOfCard = EnumWhichSideOfCard.EnumBackside)
+
         If (CtlGraphicQRCode1 Is Nothing) Then
             ''Added 12/3/2021 td  
             ''----Dec6, 2021----CtlGraphicQRCode1 = New CtlGraphicQRCode
@@ -382,8 +385,9 @@ Public Class Form__Main_Demo
 
         With mod_designer
 
-            .ElementsCache_Edits = Me.ElementsCache_Edits ''Added 10/10/2019 td 
+            .ElementsCache_UseEdits = Me.ElementsCache_Edits ''Added 10/10/2019 td 
             ''12/14/2021 td''.ElementsCache_Saved = Me.ElementsCache_Saved ''Added 10/10/2019 td 
+            .ElementsCache_Manager = Me.ElementsCache_ManageBoth ''Added 12/14/2021 td
 
             ''Modified 12/3/2021 td 
             ''12/3/2021 td''.BackgroundBox = Me.pictureBack
@@ -395,20 +399,25 @@ Public Class Form__Main_Demo
             Dim strBackgroundImage_Path As String = ""
             Dim strBackgroundImage_Title As String = ""
 
-            strBackgroundImage_Path = .ElementsCache_Edits.BackgroundImage_Front_Path
+            ''12/14/2021''strBackgroundImage_Path = .ElementsCache_UseEdits.BackgroundImage_Front_Path
+            strBackgroundImage_Path = .ElementsCache_UseEdits.GetBackgroundImage_Path(.EnumSideOfCard)
             If (strBackgroundImage_Path Is Nothing) Then strBackgroundImage_Path = ""
 
             If ("" = strBackgroundImage_Path) Then
                 strBackgroundImage_Path = DiskFilesVB.PathToFile_Background_FirstOrDefault(strBackgroundImage_Title)
-                .ElementsCache_Saved.BackgroundImage_Front_FTitle = strBackgroundImage_Title
-                .ElementsCache_Saved.BackgroundImage_Front_Path = strBackgroundImage_Path
-                .ElementsCache_Edits.BackgroundImage_Front_FTitle = strBackgroundImage_Title
-                .ElementsCache_Edits.BackgroundImage_Front_Path = strBackgroundImage_Path
+                ''.ElementsCache_Saved.BackgroundImage_Front_FTitle = strBackgroundImage_Title
+                ''.ElementsCache_Saved.BackgroundImage_Front_Path = strBackgroundImage_Path
+                .ElementsCache_UseEdits.BackgroundImage_Front_FTitle = strBackgroundImage_Title
+                .ElementsCache_UseEdits.BackgroundImage_Front_Path = strBackgroundImage_Path
             End If ''End of ''If ("" = strBackgroundImage_Path) The
 
             If (System.IO.File.Exists(strBackgroundImage_Path)) Then
                 objectBackgroundImage = New Bitmap(strBackgroundImage_Path)
-                .BackgroundBox_Front.BackgroundImage = objectBackgroundImage
+                If (boolBacksideOfCard) Then
+                    .BackgroundBox_Backside.BackgroundImage = objectBackgroundImage
+                Else
+                    .BackgroundBox_Front.BackgroundImage = objectBackgroundImage
+                End If ''end of "If (boolBacksideOfCard) Then... Else ..."
             End If ''End of "If (System.IO.File.Exists(strBackgroundImage_Path)) Then"
 
             .PreviewBox = Me.picturePreview
@@ -1515,7 +1524,14 @@ Public Class Form__Main_Demo
         ''Added 12/14/2021 td
         ElementsCache_Edits.PathToXml_Saved = SaveFileDialog1.FileName ''Save the file path. ---12/14/2021 td
         Const c_bSaveToFileXML As Boolean = True
-        ElementsCache_ManageBoth.Save(c_bSaveToFileXML)
+        ElementsCache_ManageBoth.Save(c_bSaveToFileXML, SaveFileDialog1.FileName)
+
+        ''Added 12/14/2021 td 
+        If (IO.File.Exists(SaveFileDialog1.FileName)) Then
+            Me.ElementsCache_PathToXML = SaveFileDialog1.FileName
+        Else
+            Throw New IO.FileNotFoundException("where is XML file? file was not saved?")
+        End If
 
         ''Not sure if this will be useful. ---12/14/2021 td
         ''My.Resources.PathToSavedXML_Prior6 = My.Resources.PathToSavedXML_Prior5
@@ -1681,10 +1697,11 @@ Public Class Form__Main_Demo
 
             ''Step 2. Copy the saved work, to become the new starting point.
             ''Dec. 14 2021 td''Me.ElementsCache_Edits = Me.ElementsCache_Saved.Copy()
-            Me.ElementsCache_Edits = Me.ElementsCache_ManageBoth.UndoEdits()
+            Const c_boolUseSavedCache As Boolean = True ''Added 12/14/2021 td
+            Me.ElementsCache_Edits = Me.ElementsCache_ManageBoth.UndoEdits(c_boolUseSavedCache)
 
             ''Added 10/13/2019 td
-            mod_designer.ElementsCache_Edits = Me.ElementsCache_Edits
+            mod_designer.ElementsCache_UseEdits = Me.ElementsCache_Edits
 
             ''
             ''Step 3 of 4.  Relink all of the elements to the controls. 
