@@ -59,7 +59,7 @@ Public Class ClassDesigner
 
     Public Property CtlGraphic_Signat As CtlGraphicSignature ''Added 10/10/2019 td
     Public Property CtlGraphic_QRCode As CtlGraphicQRCode ''Added 10/10/2019 td
-    Public Property CtlGraphic_Text As CtlGraphicText ''Added 11/29/2019 td
+    Public Property CtlGraphic_StaticText1 As CtlGraphicStaticText ''Added 11/29/2019 td
 
     ''Dec14 2021''Public Property ElementsCache_Saved As New ClassElementsCache_Deprecated ''Added 9/16/2019 thomas downes
     Public Property ElementsCache_UseEdits As ClassElementsCache_Deprecated ''Added 9/16/2019 thomas downes
@@ -169,6 +169,11 @@ Public Class ClassDesigner
         Me.DesignerForm.Controls.Remove(CtlGraphic_QRCode) ''Added Dec. 8, 2021
         mod_listOfDesignerControls.Remove(CtlGraphic_QRCode) ''Added Dec. 8, 2021
 
+        ''Encapsulated 12/14/2021 td
+        UnloadDesigner_QRCode()
+        UnloadDesigner_Signature()
+        UnloadDesigner_StaticText()
+
         ''
         ''Address the controls that are contained in mod_listOfDesignerControls.
         ''
@@ -232,6 +237,64 @@ Public Class ClassDesigner
         End If ''End of "If (pboolResetToFrontOfCard) Then"
 
     End Sub ''End of "Public Sub UnloadDesigner__()"
+
+
+    Public Sub UnloadDesigner_QRCode()
+        ''
+        ''Encapsulated 12/14/2021 td 
+        ''
+        ''Added 11/30/2021 td
+        ''CtlGraphicQRCode.RemoveHandler
+        ''RemoveHandler CtlGraphic_QRCode.Picture_Box.MouseDown,
+        ''    AddressOf mod_designerListener.mod_dictyControlMoveBoxesEtc(CtlGraphic_QRCode).
+        ''---Dim objListenerQR As MoveAndResizeControls_Monem.ControlMove_NonStatic_TD
+        Dim objListenerQR As MoveAndResizeControls_Monem.ControlResizeProportionally_TD
+
+        ''---objListenerQR = mod_designerListener.mod_dictyControlMoveBoxesEtc(CtlGraphic_QRCode)
+        objListenerQR = mod_designerListener.mod_dictyControlResizing(CtlGraphic_QRCode)
+        objListenerQR.RemoveEventHandlers()
+        CtlGraphic_QRCode.Dispose() ''Added Dec. 8, 2021
+        Me.DesignerForm.Controls.Remove(CtlGraphic_QRCode) ''Added Dec. 8, 2021
+        mod_listOfDesignerControls.Remove(CtlGraphic_QRCode) ''Added Dec. 8, 2021
+
+    End Sub ''End of "Public Sub UnloadDesigner_QRCode()"
+
+
+    Public Sub UnloadDesigner_Signature()
+        ''
+        ''Added 12/14/2021 td 
+        ''
+        Dim objListenerSig As MoveAndResizeControls_Monem.ControlResizeProportionally_TD
+        objListenerSig = mod_designerListener.mod_dictyControlResizing(CtlGraphic_Signat)
+        objListenerSig.RemoveEventHandlers()
+        CtlGraphic_Signat.Dispose() ''Added Dec. 8, 2021
+        Me.DesignerForm.Controls.Remove(CtlGraphic_Signat) ''Added Dec. 8, 2021
+        mod_listOfDesignerControls.Remove(CtlGraphic_Signat) ''Added Dec. 8, 2021
+
+    End Sub ''End of "Public Sub UnloadDesigner_Signature()"
+
+
+    Public Sub UnloadDesigner_StaticText()
+        ''
+        ''Added 12/14/2021 td 
+        ''
+        Dim objListenerStaticText As MoveAndResizeControls_Monem.ControlResizeProportionally_TD
+        Dim boolListenerFound As Boolean ''Added 12/15/2021 td 
+
+        boolListenerFound = Not mod_designerListener.mod_dictyControlResizing.ContainsKey(CtlGraphic_StaticText1)
+        If (boolListenerFound) Then
+            objListenerStaticText = mod_designerListener.mod_dictyControlResizing(CtlGraphic_StaticText1)
+            objListenerStaticText.RemoveEventHandlers()
+        Else
+            MessageBox.Show("We don't see the event-listener for the StaticText control.")
+
+        End If ''End of "If (boolListenerFound) Then ... Else ..."
+
+        CtlGraphic_StaticText1.Dispose() ''Added Dec. 8, 2021
+        Me.DesignerForm.Controls.Remove(CtlGraphic_StaticText1) ''Added Dec. 8, 2021
+        mod_listOfDesignerControls.Remove(CtlGraphic_StaticText1) ''Added Dec. 8, 2021
+
+    End Sub ''End of "Public Sub UnloadDesigner_StaticText()"
 
 
     Public Sub LoadDesigner(pstrWhyCalled As String) ''10/1/2019 td''sender As Object, e As EventArgs) Handles MyBase.Load
@@ -1215,7 +1278,7 @@ Public Class ClassDesigner
 
         Dim each_ctl_QRCode As CtlGraphicQRCode ''Added 10/14/2019 td
         Dim each_ctl_Signat As CtlGraphicSignature ''Added 10/14/2019 td
-        Dim each_ctl_Text As CtlGraphicText ''Added 10/14/2019 td
+        Dim each_ctl_Text As CtlGraphicStaticText ''Added 10/14/2019 td
 
         If (par_ctlElement IsNot Nothing) Then
             ''
@@ -1239,8 +1302,8 @@ Public Class ClassDesigner
             ElseIf (TypeOf par_ctlElement Is CtlGraphicSignature) Then
                 each_ctl_Signat = CType(par_ctlElement, CtlGraphicSignature)
                 each_ctl_Signat.SaveToModel()
-            ElseIf (TypeOf par_ctlElement Is CtlGraphicText) Then
-                each_ctl_Text = CType(par_ctlElement, CtlGraphicText)
+            ElseIf (TypeOf par_ctlElement Is CtlGraphicStaticText) Then
+                each_ctl_Text = CType(par_ctlElement, CtlGraphicStaticText)
                 each_ctl_Text.SaveToModel()
             End If
 
@@ -1273,9 +1336,9 @@ Public Class ClassDesigner
                     each_ctl_Signat = CType(each_control, CtlGraphicSignature)
                     each_ctl_Signat.SaveToModel()
 
-                ElseIf (TypeOf each_control Is CtlGraphicText) Then
+                ElseIf (TypeOf each_control Is CtlGraphicStaticText) Then
                     ''Added 10/14/2019 thomas downes  
-                    each_ctl_Text = CType(each_control, CtlGraphicText)
+                    each_ctl_Text = CType(each_control, CtlGraphicStaticText)
                     each_ctl_Text.SaveToModel()
 
                 End If ''end of "If (TypeOf each_control Is GraphicFieldLabel) Then .... ElseIf ..."
@@ -1402,7 +1465,7 @@ Public Class ClassDesigner
                                                   Me.CtlGraphic_Portrait.ElementClass_Obj,
                                                   Me.CtlGraphic_QRCode.ElementClass_Obj,
                                                   Me.CtlGraphic_Signat.ElementClass_Obj,
-                                                  Me.CtlGraphic_Text.Element_StaticText,
+                                                  Me.CtlGraphic_StaticText1.Element_StaticText,
                                                   Nothing, Nothing, Nothing,
                                                   par_recentlyMoved)
 

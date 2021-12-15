@@ -25,6 +25,13 @@ Public Class Operations_EditBackground
     Public Property OpenFileDialog1 As OpenFileDialog ''Added 10/15/2019 td 
     Public Property GroupedElements As ClassGroupMove ''Added 10/15/2019 td
 
+    Public Shared Tools_MenuHeader0 As ToolStripItem ''Added 12/15/2021
+    Public Shared Tools_MenuHeader1 As ToolStripItem ''Added 12/15/2021
+    Public Shared Tools_MenuHeader2 As ToolStripItem ''Added 12/15/2021 
+    Public Shared Tools_MenuHeader3 As ToolStripItem ''Added 12/15/2021
+    Public Shared Tools_MenuSeparator As ToolStripItem ''Added 12/15/2021
+
+
     Public Sub Unselect_all_selected_Elements(sender As Object, e As EventArgs)
         ''
         ''Added 10/15/2019 td

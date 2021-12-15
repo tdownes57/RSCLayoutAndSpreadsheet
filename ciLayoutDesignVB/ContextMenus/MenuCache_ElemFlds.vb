@@ -124,10 +124,16 @@ Public Class MenuCache_ElemFlds
         ''Added 12/13/2021 td
         ''   Dec.12 2021 td''toolMenuItemHeader1.Text = ("Field " & par_fieldAny.Caption)
         ''
+        toolMenuItemHeader0.BackColor = Color.Aqua
         toolMenuItemHeader0.Text = ("Context-Menu for Control: {0}")
         toolMenuItemHeader0.Tag = ("Context-Menu for Control: {0}")  ''More important to set .Tag than .Text, due to using String.Format function.
+        toolMenuItemHeader1.BackColor = Color.Aqua
         toolMenuItemHeader1.Text = ("Field: {0} ({1})")
         toolMenuItemHeader1.Tag = ("Field: {0} ({1})") ''More important to set .Tag than .Text here, due to using String.Format function elsewhere.
+
+        toolMenuItemHeader2.BackColor = Color.Aqua
+        toolMenuItemHeader3.BackColor = Color.Aqua
+        toolMenuItemSeparator.BackColor = Color.Aqua
         toolMenuItemHeader2.Text = "ContextMenus\MenuCache_ElemFlds.vb"
         toolMenuItemHeader3.Text = "     ...\Operations_EditElement.vb"
         toolMenuItemSeparator.Text = "-----Editing Operations follow------" ''Perhaps this will produce a separator line, just like in the old VB6 days. 

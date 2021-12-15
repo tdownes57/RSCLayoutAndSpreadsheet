@@ -145,7 +145,7 @@ Public Class Form__Main_Demo
         ' Add any initialization after the InitializeComponent() call.
 
         ''Added 10/12/2019 td
-        CtlGraphicText1.LayoutFunctions = CType(mod_designer, ILayoutFunctions)
+        CtlGraphicStaticText1.LayoutFunctions = CType(mod_designer, ILayoutFunctions)
 
         ''Added 10/12/2019 td
         With CtlGraphicSignature1
@@ -240,7 +240,7 @@ Public Class Form__Main_Demo
         ''11/28/2021 Encapsulated to Load_Designer. 11/28/2021''
         mod_designer.CtlGraphic_Signat = CtlGraphicSignature1
         ''Added 11/29/2021 thomas downes
-        mod_designer.CtlGraphic_Text = CtlGraphicText1
+        mod_designer.CtlGraphic_StaticText1 = CtlGraphicStaticText1
 
         ''Added 10/13/2019 thomas d.
         ''11/28/2021 Encapsulated to Load_Designer. 11/28/2021''
@@ -250,7 +250,7 @@ Public Class Form__Main_Demo
         Me.Controls.Remove(CtlGraphicSignature1) ''Added 10/12/2019 thomas d. 
 
         ''Added 10/11/2019 thomas downes 
-        Me.CtlGraphicText1.LayoutFunctions = CType(mod_designer, ILayoutFunctions)
+        Me.CtlGraphicStaticText1.LayoutFunctions = CType(mod_designer, ILayoutFunctions)
 
         ''Encapsulated 7/31/2019 td
         ''
@@ -340,6 +340,11 @@ Public Class Form__Main_Demo
         ''
         mod_designer.UnloadDesigner(pboolResetToFrontOfCard)
 
+        ''Added 12/14/20021 td 
+        Me.CtlGraphicQRCode1 = Nothing
+        Me.CtlGraphicSignature1 = Nothing
+        Me.CtlGraphicStaticText1 = Nothing
+
     End Sub ''End of "Private Sub Unload_Designer()"  
 
 
@@ -378,7 +383,7 @@ Public Class Form__Main_Demo
         mod_designer.CtlGraphic_Portrait = CtlGraphicPortrait_Lady
         mod_designer.CtlGraphic_QRCode = CtlGraphicQRCode1
         mod_designer.CtlGraphic_Signat = CtlGraphicSignature1
-        mod_designer.CtlGraphic_Text = CtlGraphicText1 ''Added 11/30/2021 td
+        mod_designer.CtlGraphic_StaticText1 = CtlGraphicStaticText1 ''Added 11/30/2021 td
 
         ''Added 10/13/2019 thomas d.
         mod_designer.DesignerForm_Interface = CType(Me, IDesignerForm)
@@ -538,8 +543,8 @@ Public Class Form__Main_Demo
         ''---Me.ElementsCache_Saved = Me.ElementsCache_Edits.Copy()
 
         ''Dec14 2021''Me.ElementsCache_ManageBoth.Save()
-        Const c_bCacheManagerSerializes As Boolean = False
-        Me.ElementsCache_ManageBoth.Save(c_bCacheManagerSerializes)
+        ''Moved to "Else" below. ''Const c_bCacheManagerSerializes As Boolean = False
+        ''Moved to "Else" below. ''Me.ElementsCache_ManageBoth.Save(c_bCacheManagerSerializes)
 
         ''
         ''Serialize to disk (if constant is True) !!  
@@ -584,7 +589,19 @@ Public Class Form__Main_Demo
 
             End With ''End of "With objSerializationClass"
 
-        End If ''Endof "If (c_serializeToDisk_Ultimately) Then"
+            ''
+            ''Added 12/14/2021 td
+            ''
+            Dim strPathToXML As String
+            strPathToXML = objSerializationClass.PathToXML
+            Me.ElementsCache_ManageBoth.RefreshSaved_ViaPathXML(strPathToXML)
+
+        Else
+            ''Moved from above, Dec14 2021 td
+            Const c_bCacheManagerSerializes As Boolean = False
+            Me.ElementsCache_ManageBoth.Save(c_bCacheManagerSerializes)
+
+        End If ''Endof "If (c_serializeToDisk_Ultimately) Then ... Else ..."
 
     End Sub ''End of "PRivate Sub SaveLayout()"  
 
@@ -1663,9 +1680,11 @@ Public Class Form__Main_Demo
         LoadBothCachesUsingSamePathToXML(strFullPathToXML)
 
         ''
-        ''Save the file path to the form's String Property.
+        ''Save the file path to the form's String Property. ---12/15/2021 
         ''
         Me.ElementsCache_PathToXML = strFullPathToXML
+        My.Settings.PathToXML_Saved_ElementsCache = strFullPathToXML
+        My.Settings.Save()
 
         ''
         ''Specify the XML cache file, in the Window caption. ---12/14/2021 td 
@@ -1686,7 +1705,8 @@ Public Class Form__Main_Demo
         ''Dec14 2021 ''Throw New NotImplementedException("Use ElementsCache_ManageBoth.")
 
         With Me.ElementsCache_ManageBoth
-            Me.ElementsCache_Edits = .LoadBothCachesUsingSamePathToXML()
+            ''12/15/2021 td''Me.ElementsCache_Edits = .LoadBothCachesUsingSamePathToXML()
+            Me.ElementsCache_Edits = .LoadBothCachesUsingSamePathToXML(par_strPathToXml)
         End With
 
         ''Dim objDeserial As New ciBadgeSerialize.ClassDeserial

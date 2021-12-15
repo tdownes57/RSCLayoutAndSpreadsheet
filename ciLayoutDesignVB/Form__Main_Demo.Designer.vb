@@ -106,7 +106,7 @@ Partial Class Form__Main_Demo
         Me.CtlGraphicQRCode1 = New ciBadgeDesigner.CtlGraphicQRCode()
         Me.CtlGraphicPortrait_Lady = New ciBadgeDesigner.CtlGraphicPortrait()
         Me.CtlGraphicSignature1 = New ciBadgeDesigner.CtlGraphicSignature()
-        Me.CtlGraphicText1 = New ciBadgeDesigner.CtlGraphicText()
+        Me.CtlGraphicStaticText1 = New ciBadgeDesigner.CtlGraphicStaticText()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -788,14 +788,14 @@ Partial Class Form__Main_Demo
         Me.CtlGraphicSignature1.Size = New System.Drawing.Size(314, 105)
         Me.CtlGraphicSignature1.TabIndex = 66
         '
-        'CtlGraphicText1
+        'CtlGraphicStaticText1
         '
-        Me.CtlGraphicText1.Location = New System.Drawing.Point(792, 456)
-        Me.CtlGraphicText1.Margin = New System.Windows.Forms.Padding(5)
-        Me.CtlGraphicText1.Name = "CtlGraphicText1"
-        Me.CtlGraphicText1.Size = New System.Drawing.Size(376, 46)
-        Me.CtlGraphicText1.TabIndex = 75
-        Me.CtlGraphicText1.TextToDisplay = "This is text which will be the same for everyone."
+        Me.CtlGraphicStaticText1.Location = New System.Drawing.Point(792, 456)
+        Me.CtlGraphicStaticText1.Margin = New System.Windows.Forms.Padding(5)
+        Me.CtlGraphicStaticText1.Name = "CtlGraphicStaticText1"
+        Me.CtlGraphicStaticText1.Size = New System.Drawing.Size(376, 46)
+        Me.CtlGraphicStaticText1.TabIndex = 75
+        Me.CtlGraphicStaticText1.TextToDisplay = "This is text which will be the same for everyone."
         '
         'Form__Main_Demo
         '
@@ -831,7 +831,7 @@ Partial Class Form__Main_Demo
         Me.Controls.Add(Me.LinkShowWebControls)
         Me.Controls.Add(Me.graphicAdjuster)
         Me.Controls.Add(Me.CtlGraphicSignature1)
-        Me.Controls.Add(Me.CtlGraphicText1)
+        Me.Controls.Add(Me.CtlGraphicStaticText1)
         Me.Controls.Add(Me.LabelReturnToFrontSide)
         Me.Controls.Add(Me.labelBacksideOfBadgecard)
         Me.Controls.Add(Me.pictureBackgroundFront)
@@ -934,7 +934,7 @@ Partial Class Form__Main_Demo
     Friend WithEvents ReloadDesignerToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents checkInstantPreview As CheckBox
     Friend WithEvents pictureBackgroundFront As PictureBox
-    Friend WithEvents CtlGraphicText1 As ciBadgeDesigner.CtlGraphicText
+    Friend WithEvents CtlGraphicStaticText1 As ciBadgeDesigner.CtlGraphicStaticText
     Friend WithEvents labelProceedToBackside As Label
     Friend WithEvents LabelReturnToFrontSide As Label
     Friend WithEvents ExitRecipientModeToolStripMenuItem As ToolStripMenuItem

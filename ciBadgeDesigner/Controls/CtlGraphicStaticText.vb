@@ -8,7 +8,7 @@ Imports System.Windows.Forms ''Added 10/1/2019 thomas d.
 Imports System.Drawing ''Added 10/1/2019 td 
 Imports ciBadgeElemImage ''Added 10/12/2019 td
 
-Public Class CtlGraphicText
+Public Class CtlGraphicStaticText
     ''
     ''Added 8/01/2019 thomas d 
     ''

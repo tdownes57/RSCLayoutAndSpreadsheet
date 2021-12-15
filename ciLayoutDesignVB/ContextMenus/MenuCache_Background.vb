@@ -18,6 +18,12 @@ Public Class MenuCache_Background
     Public Shared Property ColorDialog1 As ColorDialog ''Added 10/15/2019 td 
     Public Shared Operations_Back As New Operations_EditBackground ''Added 10/15/2019 td  
 
+    Public Shared Tools_MenuHeader0 As ToolStripItem ''Added 12/13/2021
+    Public Shared Tools_MenuHeader1 As ToolStripItem ''Added 12/12/2021
+    Public Shared Tools_MenuHeader2 As ToolStripItem ''Added 12/12/2021 
+    Public Shared Tools_MenuHeader3 As ToolStripItem ''Added 12/13/2021
+    Public Shared Tools_MenuSeparator As ToolStripItem ''Added 12/13/2021 
+
     Public Shared Sub GenerateMenuItems_IfNeeded()
         ''
         ''Added 10/2/2019 thomas downes  
@@ -70,6 +76,42 @@ Public Class MenuCache_Background
         Dim boolProcedureNotUsed As Boolean ''Added 9/23/2019 thomas downes 
         Dim intCountLinkLabels As Integer ''Added 10/13/2019 thomas downes 
         Dim intCountMethodsAndMembers As Integer ''Added 10/14/2019 td 
+
+        Dim toolMenuItemHeader0 As New ToolStripMenuItem ''Added 12/12/2021 td
+        Dim toolMenuItemHeader1 As New ToolStripMenuItem ''Added 12/12/2021 td
+        Dim toolMenuItemHeader2 As New ToolStripMenuItem ''Added 12/12/2021 td
+        Dim toolMenuItemHeader3 As New ToolStripMenuItem ''Added 12/13/2021 td
+        Dim toolMenuItemSeparator As New ToolStripMenuItem ''Added 12/13/2021 td
+
+        ''Added 12/13/2021 td
+        ''   Dec.12 2021 td''toolMenuItemHeader1.Text = ("Field " & par_fieldAny.Caption)
+        ''
+        toolMenuItemHeader0.BackColor = Color.Aqua
+        toolMenuItemHeader0.Text = ("Context-Menu for Control: {0}")
+        toolMenuItemHeader0.Tag = ("Context-Menu for Control: {0}")  ''More important to set .Tag than .Text, due to using String.Format function.
+        toolMenuItemHeader1.BackColor = Color.Aqua
+        toolMenuItemHeader1.Text = "" '' ("Field: {0} ({1})")
+        toolMenuItemHeader1.Tag = "" '' ("Field: {0} ({1})") ''More important to set .Tag than .Text here, due to using String.Format function elsewhere.
+
+        toolMenuItemHeader2.BackColor = Color.Aqua
+        toolMenuItemHeader3.BackColor = Color.Aqua
+        toolMenuItemSeparator.BackColor = Color.Aqua
+        toolMenuItemHeader2.Text = "ContextMenus\MenuCache_Background.vb"
+        toolMenuItemHeader3.Text = "     ...\Operations_EditBackground.vb"
+        toolMenuItemSeparator.Text = "-----Editing Operations follow------" ''Perhaps this will produce a separator line, just like in the old VB6 days. 
+
+        ''toolMenuItemHeader1 = toolMenuItemHeader1
+        MenuCache_Background.Tools_BackgroundMenu.Add(toolMenuItemHeader0)
+        MenuCache_Background.Tools_BackgroundMenu.Add(toolMenuItemHeader1)
+        MenuCache_Background.Tools_BackgroundMenu.Add(toolMenuItemHeader2)
+        MenuCache_Background.Tools_BackgroundMenu.Add(toolMenuItemHeader3)
+        MenuCache_Background.Tools_BackgroundMenu.Add(toolMenuItemSeparator)
+
+        MenuCache_Background.Tools_MenuHeader0 = toolMenuItemHeader0
+        MenuCache_Background.Tools_MenuHeader1 = toolMenuItemHeader1
+        MenuCache_Background.Tools_MenuHeader2 = toolMenuItemHeader2
+        MenuCache_Background.Tools_MenuHeader3 = toolMenuItemHeader3
+        MenuCache_Background.Tools_MenuSeparator = toolMenuItemSeparator
 
         ''objInfo = (TypeOf objClass1)
 

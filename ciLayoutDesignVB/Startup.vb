@@ -500,10 +500,10 @@ Public Class Startup
         With par_designForm
             ''Added 10/14/2019 td
             strStaticText = "This is the same text for everyone."
-            intLeft_Text = .CtlGraphicText1.Left - .pictureBackgroundFront.Left
-            intTop_Text = .CtlGraphicText1.Top - .pictureBackgroundFront.Top
-            intWidth_Text = .CtlGraphicText1.Width
-            intHeight_Text = .CtlGraphicText1.Height
+            intLeft_Text = .CtlGraphicStaticText1.Left - .pictureBackgroundFront.Left
+            intTop_Text = .CtlGraphicStaticText1.Top - .pictureBackgroundFront.Top
+            intWidth_Text = .CtlGraphicStaticText1.Width
+            intHeight_Text = .CtlGraphicStaticText1.Height
         End With
 
 

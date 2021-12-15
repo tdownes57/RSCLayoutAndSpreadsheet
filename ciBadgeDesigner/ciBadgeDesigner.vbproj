@@ -99,10 +99,10 @@
     <Compile Include="Controls\CtlGraphicSignature.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\CtlGraphicText.designer.vb">
-      <DependentUpon>CtlGraphicText.vb</DependentUpon>
+    <Compile Include="Controls\CtlGraphicStaticText.designer.vb">
+      <DependentUpon>CtlGraphicStaticText.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CtlGraphicText.vb">
+    <Compile Include="Controls\CtlGraphicStaticText.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\CtlMainButton_v90.designer.vb">
@@ -161,8 +161,8 @@
     <EmbeddedResource Include="Controls\CtlGraphicSignature.resx">
       <DependentUpon>CtlGraphicSignature.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\CtlGraphicText.resx">
-      <DependentUpon>CtlGraphicText.vb</DependentUpon>
+    <EmbeddedResource Include="Controls\CtlGraphicStaticText.resx">
+      <DependentUpon>CtlGraphicStaticText.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlMainButton_v90.resx">
       <DependentUpon>CtlMainButton_v90.vb</DependentUpon>

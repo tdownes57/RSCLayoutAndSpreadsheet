@@ -167,6 +167,15 @@ Namespace ciBadgeCachePersonality
         End Sub ''End of "Public Sub Save()"
 
 
+        Public Sub RefreshSaved_ViaPathXML(pstrPathToXML As String)
+            ''
+            ''Added 12/14/2021 td
+            ''
+            mod_cacheSaved = GetLoadedCacheUsingPathToXML(pstrPathToXML)
+
+        End Sub ''End of "Public Sub RefreshSaved_ViaPathXML(pstrPathToXML As String)"
+
+
         Public Function CopyViaSerializeDeserialize(par_cache As ClassElementsCache_Deprecated) As ClassElementsCache_Deprecated
             ''
             ''Added 12/14/2021 td 
@@ -174,10 +183,11 @@ Namespace ciBadgeCachePersonality
             Dim objCacheOutput As ClassElementsCache_Deprecated
             Dim strTemporaryFilePath As String
 
-            strTemporaryFilePath = DiskFilesVB.Path_TemporaryFileXML()
+            ''12/14/2021 td''strTemporaryFilePath = DiskFilesVB.Path_TemporaryFileXML()
+            strTemporaryFilePath = DiskFilesVB.Path_RandomFileXML()
 
             par_cache.SaveToXML(strTemporaryFilePath)
-            Threading.Thread.Sleep(3000)
+            Threading.Thread.Sleep(3000) ''Wait 3 seconds.
             objCacheOutput = GetLoadedCacheUsingPathToXML(strTemporaryFilePath)
             objCacheOutput.Check_LinkElementsToFields()
             IO.File.Delete(strTemporaryFilePath)
