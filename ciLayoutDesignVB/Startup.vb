@@ -43,6 +43,7 @@ Public Class Startup
         ''
         ''
         Dim obj_formToShow As New Form__Main_Demo ''Added 10/11/2019 td 
+        Dim strPathToElementsCacheXML As String ''Added 12/14/2021 td 
 
         ''Added 10/16/2019 td 
         obj_personality.ListOfRecipients = LoadData_Recipients_Students()
@@ -59,7 +60,8 @@ Public Class Startup
         If (c_boolStillUsingElementsCache) Then
             ''Function called in the line below is suffixed w/ "_Deprecated", but
             ''   it's still in used today.  ---11/30/2021 td 
-            obj_cache_layout_Elements = LoadCachedData_Elements_Deprecated(obj_formToShow, boolNewFileXML)
+            obj_cache_layout_Elements = LoadCachedData_Elements_Deprecated(obj_formToShow, boolNewFileXML,
+                   strPathToElementsCacheXML)
 
         Else
             ''Function called in the line below was suffixed w/ "_FutureUse"
@@ -92,6 +94,9 @@ Public Class Startup
                 ''Still in use, even though it's Q4 of 2021. 
                 ''
                 obj_formToShow.ElementsCache_Edits = obj_cache_layout_Elements
+                ''Added 12/14/2021 td
+                obj_formToShow.ElementsCache_PathToXML = strPathToElementsCacheXML ''Added 12/14/2021 td 
+
             Else
                 ''
                 ''This is for future use, say approaching Spring of 2022. 
@@ -101,12 +106,20 @@ Public Class Startup
 
             End If ''End of "If (c_boolStillUsingElementsCache) Then ... Else"
 
+            ''
+            ''Show the main form!!!    Huge!!!! 
+            ''
             obj_formToShow.ShowDialog() ''Added 10/11/2019 td 
+
+            ''Added 12/14/2021 thomas downes
+            My.Settings.PathToXML_Saved_ElementsCache = obj_formToShow.ElementsCache_PathToXML
+            My.Settings.Save() ''Added 12/14/2021 thomas downes
 
             ''Added 10/13/2019 td
             If (Not obj_formToShow.LetsRefresh_CloseForm) Then Exit Do
 
-            obj_cache_layout_Elements = obj_formToShow.ElementsCache_Saved
+            ''12/14/2021''obj_cache_layout_Elements = obj_formToShow.ElementsCache_Saved
+            obj_cache_layout_Elements = obj_formToShow.ElementsCache_ManageBoth.GetCacheForSaving(True)
             obj_formToShow = New Form__Main_Demo
 
             ''
@@ -318,7 +331,8 @@ Public Class Startup
     End Function ''End of "Private Sub LoadCachedData_Personality()"
 
     Public Shared Function LoadCachedData_Elements_Deprecated(par_designForm As Form__Main_Demo,
-                                           ByRef pboolNewFileXML As Boolean) As ClassElementsCache_Deprecated
+                                           ByRef pboolNewFileXML As Boolean,
+                                           Optional ByRef pstrPathToElementsCacheXML As String = "") As ClassElementsCache_Deprecated
 
         ''1/24 td''Private Shared Function LoadCachedData(par_designForm As FormDesignProtoTwo,
         ''1/24 td''            ByRef pboolNewFileXML As Boolean) As ClassElementsCache_NotInUse
@@ -336,7 +350,19 @@ Public Class Startup
         ''Added 10/10/2019 td
         ''  10/13/2019 td''strPathToXML = My.Settings.PathToXML_Saved
         ''  1/14/2020''strPathToXML = DiskFiles.PathToFile_XML_ElementsCache
-        strPathToXML = DiskFilesVB.PathToFile_XML_ElementsCache
+
+        ''Dec14 2021 td''strPathToXML = DiskFilesVB.PathToFile_XML_ElementsCache
+
+        ''Added 12/14/2021 td
+        If (pstrPathToElementsCacheXML <> "") Then
+            If (IO.File.Exists(pstrPathToElementsCacheXML)) Then
+                strPathToXML = pstrPathToElementsCacheXML ''Allow the parameter to override.
+            Else
+                strPathToXML = DiskFilesVB.PathToFile_XML_ElementsCache
+            End If
+        Else
+            DiskFilesVB.PathToFile_XML_ElementsCache()
+        End If ''end of "If (pstrPathToElementsCacheXML <> "") Then ... Else ..."
 
         If (strPathToXML = "") Then
             pboolNewFileXML = True
@@ -345,6 +371,9 @@ Public Class Startup
             strPathToXML = DiskFilesVB.PathToFile_XML_ElementsCache
             My.Settings.PathToXML_Saved_ElementsCache = strPathToXML
             My.Settings.Save()
+            ''Added 12/14/2021 td
+            pstrPathToElementsCacheXML = strPathToXML
+
         Else
             pboolNewFileXML = (Not System.IO.File.Exists(strPathToXML))
         End If ''End of "If (strPathToXML <> "") Then .... Else ..."

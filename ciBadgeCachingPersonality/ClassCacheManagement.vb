@@ -34,11 +34,16 @@ Namespace ciBadgeCachePersonality
             ''
             mod_strPathToSavedFileXML = pstrPathToSavedFileXML
 
+            ''Dec14 2021''LoadBothCachesUsingSamePathToXML(pstrPathToSavedFileXML)
+
+            ''Added Dec14 2021 
+            mod_cacheEdits = GetLoadedCacheUsingPathToXML(pstrPathToSavedFileXML)
+            mod_cacheSaved = GetLoadedCacheUsingPathToXML(pstrPathToSavedFileXML)
 
         End Sub ''End of " Public Sub New"
 
 
-        Public Sub New(par_edits As ClassElementsCache_Deprecated, par_saved As ClassElementsCache_Deprecated)
+        Public Sub New_Deprecated(par_edits As ClassElementsCache_Deprecated, par_saved As ClassElementsCache_Deprecated)
             ''
             ''Added 12/4/2021 thomas downes  
             ''
@@ -49,18 +54,70 @@ Namespace ciBadgeCachePersonality
             ''Dec.12 2021''If (LatestCacheOfEdits_Guid6 = "") Then LatestCacheOfEdits_Guid6 = mod_cacheEdits.Id_GUID6
             LatestCacheOfEdits_Guid6 = mod_cacheEdits.Id_GUID6
 
-        End Sub ''End of "Public Sub New"
+        End Sub ''End of "Public Sub New_Deprecated"
 
 
-        Public Sub Save()
+        Public Sub New(par_cacheForEdits As ClassElementsCache_Deprecated,
+                       pboolAllowCacheToBeCopied As Boolean,
+                       Optional pstrPathToSavedFileXML As String = "")
+            ''
+            ''Added 12/14/2021 td
+            ''
+            ''Me.ElementsCache_Saved = par_cacheForEdits.Copy()
+            mod_cacheEdits = par_cacheForEdits
+            ''Dec. 14 2021''mod_cacheSaved = par_cacheForEdits.Copy()
+
+            ''Added 12/14/2021 td
+            If (pboolAllowCacheToBeCopied) Then
+                ''Use the Copy() command.
+                mod_cacheSaved = par_cacheForEdits.Copy()
+            ElseIf (pstrPathToSavedFileXML <> "") Then
+
+                ''Added 12/14/2021 td
+                ''Dec14 2021''LoadSavedCacheUsingPathToXML(pstrPathToSavedFileXML)
+                mod_cacheSaved = GetLoadedCacheUsingPathToXML(pstrPathToSavedFileXML)
+
+            End If ''End of " If (pboolAllowCacheToBeCopied) Then ... ElseIf ...
+
+            ''Dec12 2021''Me.ElementsCache_Saved.Id_GUID = New Guid() ''Generates a new GUID.
+            With mod_cacheSaved
+                .Id_GUID = New Guid() ''Generates a new GUID. 
+                .Id_GUID6 = .Id_GUID.ToString().Substring(0, 6) ''Added 12/12/2021  
+            End With ''eND OF "With mod_cacheSaved"
+
+            ''Added 12/12/2021 
+            ''Dec.12 2021''If (LatestCacheOfEdits_Guid6 = "") Then LatestCacheOfEdits_Guid6 = mod_cacheEdits.Id_GUID6
+            LatestCacheOfEdits_Guid6 = mod_cacheEdits.Id_GUID6
+
+        End Sub ''End of Public Sub New(par_cacheForEdits As ClassElementsCache_Deprecated)
+
+
+        Public Function GetCacheForSaving(pboolMajorSortOfRefresh As Boolean) As ClassElementsCache_Deprecated
+            ''
+            ''Added 12/14/2021 
+            ''
+            If (Not pboolMajorSortOfRefresh) Then Throw New Exception("Don't use unless a big type of refresh is taking place.")
+            Return mod_cacheSaved
+
+        End Function
+
+        Public Sub Save(pboolSaveToFileXML As Boolean)
             ''
             ''Added 12/4/2021 thomas downes  
             ''
-            mod_cacheEdits.SaveToXML()
+            ''Dec14 2021 ''mod_cacheEdits.SaveToXML()
+            If (pboolSaveToFileXML) Then
+                ''
+                ''Serialize to XML & use an IO procedure to save to the PC's disk system.
+                ''
+                mod_cacheEdits.SaveToXML()
+
+            End If ''End of "If (pboolSaveToFileXML) Then"
 
             ''
             ''Added 12/10/2021 thomas downes 
             ''   Create and save the Badge-Layout Image file.
+            ''
             Dim strTitleOfXML As String
             Dim strPathToFileJpg As String
             strTitleOfXML = mod_cacheEdits.XmlFile_FTitle
@@ -71,16 +128,20 @@ Namespace ciBadgeCachePersonality
             ''----Dec.6 2021 ----mod_cacheSaved = mod_cacheEdits
             mod_cacheSaved = mod_cacheEdits.Copy()
 
-        End Sub
+        End Sub ''End of "Public Sub Save()"
 
 
-        Public Sub UndoEdits()
+        Public Function UndoEdits() As ClassElementsCache_Deprecated
+            ''----Dec14 2021----Public Sub UndoEdits()
             ''
             ''Added 12/4/2021 thomas downes  
             ''
-            mod_cacheEdits = mod_cacheSaved.Copy
+            ''Dec.14, 2021 td''mod_cacheEdits = mod_cacheSaved.Copy
 
-        End Sub ''End of "Public Sub UndoEdits()"
+            LoadBothCachesUsingSamePathToXML()
+            Return mod_cacheEdits
+
+        End Function ''End of "Public Function UndoEdits() as ClassElementsCache_Deprecated"
 
 
         Public Sub CheckForOrphanedElements()
@@ -308,7 +369,88 @@ Namespace ciBadgeCachePersonality
         End Sub ''End of " Public Sub OutputToTextFile_CustomFields"
 
 
+        Public Function LoadBothCachesUsingSamePathToXML() As ClassElementsCache_Deprecated ''Dec14 2021''(par_strPathToXml As String,
+            ''Dec14 2021''     Optional ByRef pboolFailed As Boolean = False)
+            ''
+            ''Encapsulated 11/30/2021
+            ''
+            Dim objDeserial As New ciBadgeSerialize.ClassDeserial
+            Dim bConfirmFileExists As Boolean
+            ''11/30/2021 td''Dim objCache As ClassDesignerListenToMover_Deprecated
+            Dim objCache_FromXml_1 As ClassElementsCache_Deprecated
+            Dim objCache_FromXml_2 As ClassElementsCache_Deprecated
 
+            With objDeserial
+
+                ''12/14/2021 td''.PathToXML = par_strPathToXml ''OpenFileDialog1.FileName
+                .PathToXML = Me.CacheForEditing.PathToXml_Saved
+
+                ''Added 11/24/2021 
+                bConfirmFileExists = System.IO.File.Exists(.PathToXML)
+                If (Not bConfirmFileExists) Then
+                    ''pboolFailed = True
+                    ''Return
+                    Throw New IO.FileNotFoundException("Unable to locate the XML file.")
+                End If ''ENd of "If (Not bConfirmFileExists) Then"
+
+                ''9/30 td''objCache =
+                ''9/30 td''     .DeserializeFromXML(GetType(ClassElementsCache), False)
+
+                objCache_FromXml_1 =
+            CType(.DeserializeFromXML(GetType(ClassElementsCache_Deprecated), False), ClassElementsCache_Deprecated)
+
+                objCache_FromXml_2 =
+            CType(.DeserializeFromXML(GetType(ClassElementsCache_Deprecated), False), ClassElementsCache_Deprecated)
+
+            End With ''End of "With objDeserial"
+
+            ''
+            ''Major call !!  
+            ''
+            ''++/++Does nothing. 11/30/2021 td
+            ''++Form__Main_PreDemo.OpenElementsCache(objCache)
+
+            ''Added 11/30/2021 thomas d. 
+            Me.mod_cacheEdits = objCache_FromXml_1
+            Me.mod_cacheSaved = objCache_FromXml_2
+
+            Return mod_cacheEdits
+
+        End Function ''End of "Public Function LoadBothCachesUsingSamePathToXML"
+
+
+        Private Function GetLoadedCacheUsingPathToXML(pstrPathToCacheFileXML As String) As ClassElementsCache_Deprecated
+            ''
+            ''Encapsulated 12/14/2021
+            ''
+            Dim objDeserial As New ciBadgeSerialize.ClassDeserial
+            Dim bConfirmFileExists As Boolean
+            Dim objCache_FromXml As ClassElementsCache_Deprecated
+
+            With objDeserial
+
+                ''12/14/2021 td''.PathToXML = par_strPathToXml ''OpenFileDialog1.FileName
+                .PathToXML = Me.CacheForEditing.PathToXml_Saved
+
+                ''Added 11/24/2021 
+                bConfirmFileExists = System.IO.File.Exists(.PathToXML)
+                If (Not bConfirmFileExists) Then
+                    ''pboolFailed = True
+                    ''Return
+                    Throw New IO.FileNotFoundException("Unable to locate the XML file.")
+                End If ''ENd of "If (Not bConfirmFileExists) Then"
+
+                ''9/30 td''objCache =
+                ''9/30 td''     .DeserializeFromXML(GetType(ClassElementsCache), False)
+
+                objCache_FromXml =
+            CType(.DeserializeFromXML(GetType(ClassElementsCache_Deprecated), False), ClassElementsCache_Deprecated)
+
+                Return objCache_FromXml
+
+            End With ''End of "With objDeserial"
+
+        End Function ''End of "Public Function LoadBothCachesUsingSamePathToXML"
 
 
 

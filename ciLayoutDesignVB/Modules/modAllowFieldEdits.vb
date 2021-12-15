@@ -108,7 +108,9 @@ Module modAllowFieldEdits
             boolOkayToSave = frm_ToShowFields.ClosingOK_SoSaveWork
             If (boolOkayToSave) Then
 
-                par_ElementsCache_Manage.Save()
+                ''Dec14 2021''par_ElementsCache_Manage.Save()
+                Const c_SaveToFile As Boolean = True
+                par_ElementsCache_Manage.Save(c_SaveToFile)
 
             End If ''End of "If (boolOkayToSave) Then"
 

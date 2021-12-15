@@ -1085,6 +1085,9 @@ Namespace ciBadgeCachePersonality
             ''Added 10/10/2019 thomas downes
             objCopyOfCache.PathToXml_Saved = Me.PathToXml_Saved
 
+            ''Added 12/14/2021 thomas downes
+            objCopyOfCache.Pic_InitialDefault = Me.Pic_InitialDefault
+
             ''Added 11/30/2021 td
             If (pboolCopyGuid) Then
                 objCopyOfCache.Id_GUID = Me.Id_GUID

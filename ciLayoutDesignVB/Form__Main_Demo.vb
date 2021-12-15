@@ -35,9 +35,10 @@ Public Class Form__Main_Demo
     Public Property BadgeLayout As BadgeLayoutClass Implements IDesignerForm.BadgeLayout ''Added 10/13/2019 td
 
     ''Added 9/16/2019 thomas downes
-    Public Property ElementsCache_Saved As New ClassElementsCache_Deprecated ''Added 9/16/2019 thomas downes
+    ''Dec14 2021 td''Public Property ElementsCache_Saved As New ClassElementsCache_Deprecated ''Added 9/16/2019 thomas downes
     Public Property ElementsCache_Edits As New ClassElementsCache_Deprecated ''Added 9/16/2019 thomas downes
     Public Property ElementsCache_ManageBoth As ClassCacheManagement ''Added 12/5/2021 thomas downes
+    Public Property ElementsCache_PathToXML As String ''Added 12/14/2021 thomas Downes
 
     Private WithEvents mod_designer As New ciBadgeDesigner.ClassDesigner ''Added 10/3/2019 td
 
@@ -189,10 +190,12 @@ Public Class Form__Main_Demo
         ''9/8/2019 td''ClassLabelToImage.Proportions_CorrectWidth(pictureBack)
         ''9/8/2019 td''ClassLabelToImage.Proportions_CorrectWidth(picturePreview)
         ClassLabelToImage.Proportions_FixTheWidth(pictureBackgroundFront)
+        ClassLabelToImage.Proportions_FixTheWidth(pictureBackgroundBackside) ''Added Dec. 14 2021
         ClassLabelToImage.Proportions_FixTheWidth(picturePreview)
 
         ''Double-check the proportions are correct. ---9/6/2019 td
         ClassLabelToImage.ProportionsAreSlightlyOff(pictureBackgroundFront, True)
+        ClassLabelToImage.ProportionsAreSlightlyOff(pictureBackgroundBackside, True) ''Added Dec. 14 2021
         ClassLabelToImage.ProportionsAreSlightlyOff(picturePreview, True)
 
         ''Added 10/13/2019 td
@@ -222,7 +225,7 @@ Public Class Form__Main_Demo
         ''   can have an image to utilize, instead of requiring that the image
         ''   be passed as an parameter.  ---9/23/2019 td
         ''
-        Me.ElementsCache_Saved.Pic_InitialDefault = mod_imageLady
+        ''Dec.14 2021 td''Me.ElementsCache_Saved.Pic_InitialDefault = mod_imageLady
         Me.ElementsCache_Edits.Pic_InitialDefault = mod_imageLady
 
         ''Added 12/5/2021 thomas d. 
@@ -269,17 +272,18 @@ Public Class Form__Main_Demo
         ''   work session bears fruit.  Often we are dissatisfied
         ''   with our work.  Consider a writer who throws away
         ''   a type-written page.  ----11/30/2021
-        Me.ElementsCache_Saved = Me.ElementsCache_Edits.Copy()
+        ''Dec14 2021''Me.ElementsCache_Saved = Me.ElementsCache_Edits.Copy()
 
         ''Dec12 2021''Me.ElementsCache_Saved.Id_GUID = New Guid() ''Generates a new GUID.
-        With Me.ElementsCache_Saved
-            .Id_GUID = New Guid() ''Generates a new GUID. 
-            .Id_GUID6 = .Id_GUID.ToString().Substring(0, 6) ''Added 12/12/2021  
-        End With ''eND OF "With Me.ElementsCache_Saved"
+        ''Dec14 2021''With Me.ElementsCache_Saved
+        ''    .Id_GUID = New Guid() ''Generates a new GUID. 
+        ''    .Id_GUID6 = .Id_GUID.ToString().Substring(0, 6) ''Added 12/12/2021  
+        ''End With ''eND OF "With Me.ElementsCache_Saved"
 
         ''Added 12/5/2021 thomas d. 
         ''   Moved here from at 8:21 p.m. 12/5/2021 thomas downes
-        Me.ElementsCache_ManageBoth = New ClassCacheManagement(Me.ElementsCache_Edits, Me.ElementsCache_Saved)
+        ''----Dec14 2021---Me.ElementsCache_ManageBoth = New ClassCacheManagement(Me.ElementsCache_Edits, Me.ElementsCache_Saved)
+        Me.ElementsCache_ManageBoth = New ClassCacheManagement(Me.ElementsCache_Edits, False, Me.ElementsCache_PathToXML) ''Added 12/14/2021 thomas d. 
 
         ''
         ''Encapsulated 11/28/2021 thomas downes
@@ -379,7 +383,7 @@ Public Class Form__Main_Demo
         With mod_designer
 
             .ElementsCache_Edits = Me.ElementsCache_Edits ''Added 10/10/2019 td 
-            .ElementsCache_Saved = Me.ElementsCache_Saved ''Added 10/10/2019 td 
+            ''12/14/2021 td''.ElementsCache_Saved = Me.ElementsCache_Saved ''Added 10/10/2019 td 
 
             ''Modified 12/3/2021 td 
             ''12/3/2021 td''.BackgroundBox = Me.pictureBack
@@ -459,7 +463,11 @@ Public Class Form__Main_Demo
         ''
         ''Added 10/13/2019 td
         ''
-        Me.ElementsCache_Saved = par_cache
+        ''#1 12/14/2021 td''Me.ElementsCache_Saved = par_cache
+        ''#1 12/14/2021 td''Me.ElementsCache_ManageBoth.RefreshElementsCache_Saved()
+
+        ''Added Dec. 14 2021
+        Throw New NotImplementedException("I am unclear what this is for. In any case, call an existing or new Sub of ElementsCache_ManageBoth.")
 
     End Sub ''End of "Public Sub RefreshElementsCache_Saved"
 
@@ -516,8 +524,13 @@ Public Class Form__Main_Demo
         ''
         ''Step #2 of 3.
         ''
-        Me.ElementsCache_Edits = mod_designer.ElementsCache_Edits
-        Me.ElementsCache_Saved = Me.ElementsCache_Edits.Copy()
+        ''**-**Probably not needed, they are object references pointing to the same object.
+        ''**Me.ElementsCache_Edits = mod_designer.ElementsCache_Edits
+        ''---Me.ElementsCache_Saved = Me.ElementsCache_Edits.Copy()
+
+        ''Dec14 2021''Me.ElementsCache_ManageBoth.Save()
+        Const c_bCacheManagerSerializes As Boolean = False
+        Me.ElementsCache_ManageBoth.Save(c_bCacheManagerSerializes)
 
         ''
         ''Serialize to disk (if constant is True) !!  
@@ -791,14 +804,21 @@ Public Class Form__Main_Demo
 
         ''Added 11/30/2021 td
         Dim boolNew As Boolean
-        Me.ElementsCache_Edits = Startup.LoadCachedData_Elements_Deprecated(Me, boolNew)
-        Me.ElementsCache_Saved = Me.ElementsCache_Edits.Copy(False)
+        Me.ElementsCache_Edits = Nothing ''Dump the current cache. ---12/14/2021 td
+
+        ''Dec14 2021''Me.ElementsCache_Edits = Startup.LoadCachedData_Elements_Deprecated(Me, boolNew)
+        Me.ElementsCache_Edits = Startup.LoadCachedData_Elements_Deprecated(Me, boolNew, Me.ElementsCache_PathToXML)
+
+        ''Dec14 2021''Me.ElementsCache_Saved = Me.ElementsCache_Edits.Copy(False)
+        ''Added Dec14 2021
+        ''12/14/2021 td''Me.ElementsCache_ManageBoth = New ClassCacheManagement(Me.ElementsCache_Edits)
+        Me.ElementsCache_ManageBoth = New ClassCacheManagement(Me.ElementsCache_Edits, False, Me.ElementsCache_PathToXML)
 
         ''Dec12 2021''Me.ElementsCache_Saved.Id_GUID = New Guid() ''Generates a new GUID.
-        With Me.ElementsCache_Saved
-            .Id_GUID = New Guid() ''Generates a new GUID. 
-            .Id_GUID6 = .Id_GUID.ToString().Substring(0, 6) ''Added 12/12/2021  
-        End With ''eND OF "With Me.ElementsCache_Saved"
+        ''Dec14 2021 td''With Me.ElementsCache_Saved
+        ''    .Id_GUID = New Guid() ''Generates a new GUID. 
+        ''    .Id_GUID6 = .Id_GUID.ToString().Substring(0, 6) ''Added 12/12/2021  
+        ''End With ''eND OF "With Me.ElementsCache_Saved"
 
         ''
         ''Major call!!
@@ -1451,24 +1471,62 @@ Public Class Form__Main_Demo
         ''
         ''Added 9/9/2019 thomas downes 
         ''
-        Dim objSerializationClass As New ciBadgeSerialize.ClassSerial
+        ''Dim objSerializationClass As New ciBadgeSerialize.ClassSerial
+        ''With objSerializationClass
 
-        With objSerializationClass
+        ''    ''.TypeOfObject = (TypeOf List(Of ICIBFieldStandardOrCustom))
+        ''
+        ''    SaveFileDialog1.FileName = "" ''Added 11/24/2021 thomas downes
+        ''    SaveFileDialog1.ShowDialog()
+        ''    .PathToXML = SaveFileDialog1.FileName
+        ''
+        ''    ''Added 9/24/2019 thomas 
+        ''    .SerializeToXML(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved, False, True)
+        ''
+        ''    Const c_SerializeToBinary As Boolean = False ''Added 9/30/2019 td
+        ''    If (c_SerializeToBinary) Then _
+        ''    .SerializeToBinary(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved)
+        ''
+        ''End With ''End of "With objSerializationClass"
 
-            ''.TypeOfObject = (TypeOf List(Of ICIBFieldStandardOrCustom))
+        SaveFileDialog1.FileName = "" ''Added 11/24/2021 thomas downes
+        SaveFileDialog1.ShowDialog()
 
-            SaveFileDialog1.FileName = "" ''Added 11/24/2021 thomas downes
-            SaveFileDialog1.ShowDialog()
-            .PathToXML = SaveFileDialog1.FileName
+        ''Added 12/14/2021 td
+        If (IO.File.Exists(SaveFileDialog1.FileName)) Then
 
-            ''Added 9/24/2019 thomas 
-            .SerializeToXML(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved, False, True)
+            ''Added 12/14/2021 td
+            Dim bConfirmOverwrite As Boolean
+            bConfirmOverwrite = (DialogResult.Yes = MessageBox.Show("Confirm overwrite?" &
+                                                                    vbCrLf_Deux & SaveFileDialog1.FileName, "Confirm?",
+                         MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question))
 
-            Const c_SerializeToBinary As Boolean = False ''Added 9/30/2019 td
-            If (c_SerializeToBinary) Then _
-            .SerializeToBinary(Me.ElementsCache_Saved.GetType, Me.ElementsCache_Saved)
+            If (Not bConfirmOverwrite) Then MessageBox.Show("Confirmation incomplete.", "", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            If (Not bConfirmOverwrite) Then Return
 
-        End With ''End of "With objSerializationClass"
+        ElseIf (Not IO.Directory.Exists(IO.Path.GetDirectoryName(SaveFileDialog1.FileName))) Then
+
+            ''Added 12/14/2021 td 
+            MessageBox.Show("Folder path is not recognized as an existing folder.", "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            Return
+
+        End If ''ENdof "If (IO.File.Exists(SaveFileDialog1.FileName)) Then ... Else ..."
+
+        ''Added 12/14/2021 td
+        ElementsCache_Edits.PathToXml_Saved = SaveFileDialog1.FileName ''Save the file path. ---12/14/2021 td
+        Const c_bSaveToFileXML As Boolean = True
+        ElementsCache_ManageBoth.Save(c_bSaveToFileXML)
+
+        ''Not sure if this will be useful. ---12/14/2021 td
+        ''My.Resources.PathToSavedXML_Prior6 = My.Resources.PathToSavedXML_Prior5
+        ''My.Resources.PathToSavedXML_Prior5 = My.Resources.PathToSavedXML_Prior4
+        ''My.Resources.PathToSavedXML_Prior4 = My.Resources.PathToSavedXML_Prior3
+        ''My.Resources.PathToSavedXML_Prior3 = My.Resources.PathToSavedXML_Prior2
+        ''My.Resources.PathToSavedXML_Prior2 = My.Resources.PathToSavedXML_Prior1
+        ''My.Resources.PathToSavedXML_Prior1 = My.Resources.PathToSavedXML_Last
+        ''My.Resources.PathToSavedXML_Last = SaveFileDialog1.FileName
+
+        ''End If ''End of "If (IO.File.Exists(SaveFileDialog1.FileName)) Then"
 
     End Sub
 
@@ -1560,43 +1618,49 @@ Public Class Form__Main_Demo
         ''
         ''Encapsulated 11/30/2021
         ''
-        Dim objDeserial As New ciBadgeSerialize.ClassDeserial
-        Dim bConfirmFileExists As Boolean
-        ''11/30/2021 td''Dim objCache As ClassDesignerListenToMover_Deprecated
-        Dim objCache_FromXml_1 As ClassElementsCache_Deprecated
-        Dim objCache_FromXml_2 As ClassElementsCache_Deprecated
+        ''Dec14 2021 ''Throw New NotImplementedException("Use ElementsCache_ManageBoth.")
 
-        With objDeserial
+        With Me.ElementsCache_ManageBoth
+            Me.ElementsCache_Edits = .LoadBothCachesUsingSamePathToXML()
+        End With
 
-            .PathToXML = par_strPathToXml ''OpenFileDialog1.FileName
+        ''Dim objDeserial As New ciBadgeSerialize.ClassDeserial
+        ''Dim bConfirmFileExists As Boolean
+        ''''11/30/2021 td''Dim objCache As ClassDesignerListenToMover_Deprecated
+        ''Dim objCache_FromXml_1 As ClassElementsCache_Deprecated
+        ''Dim objCache_FromXml_2 As ClassElementsCache_Deprecated
 
-            ''Added 11/24/2021 
-            bConfirmFileExists = System.IO.File.Exists(.PathToXML)
-            If (Not bConfirmFileExists) Then
-                pboolFailed = True
-                Return
-            End If
+        ''With objDeserial
 
-            ''9/30 td''objCache =
-            ''9/30 td''     .DeserializeFromXML(GetType(ClassElementsCache), False)
+        ''    .PathToXML = par_strPathToXml ''OpenFileDialog1.FileName
 
-            objCache_FromXml_1 =
-            CType(.DeserializeFromXML(GetType(ClassElementsCache_Deprecated), False), ClassElementsCache_Deprecated)
+        ''    ''Added 11/24/2021 
+        ''    bConfirmFileExists = System.IO.File.Exists(.PathToXML)
+        ''    If (Not bConfirmFileExists) Then
+        ''        pboolFailed = True
+        ''        Return
+        ''    End If
 
-            objCache_FromXml_2 =
-            CType(.DeserializeFromXML(GetType(ClassElementsCache_Deprecated), False), ClassElementsCache_Deprecated)
+        ''    ''9/30 td''objCache =
+        ''    ''9/30 td''     .DeserializeFromXML(GetType(ClassElementsCache), False)
 
-        End With ''End of "With objDeserial"
+        ''    objCache_FromXml_1 =
+        ''    CType(.DeserializeFromXML(GetType(ClassElementsCache_Deprecated), False), ClassElementsCache_Deprecated)
 
-        ''
-        ''Major call !!  
-        ''
-        ''++/++Does nothing. 11/30/2021 td
-        ''++Form__Main_PreDemo.OpenElementsCache(objCache)
+        ''    objCache_FromXml_2 =
+        ''    CType(.DeserializeFromXML(GetType(ClassElementsCache_Deprecated), False), ClassElementsCache_Deprecated)
 
-        ''Added 11/30/2021 thomas d. 
-        Me.ElementsCache_Saved = objCache_FromXml_1
-        Me.ElementsCache_Edits = objCache_FromXml_2
+        ''End With ''End of "With objDeserial"
+
+        ''''
+        ''''Major call !!  
+        ''''
+        ''''++/++Does nothing. 11/30/2021 td
+        ''''++Form__Main_PreDemo.OpenElementsCache(objCache)
+
+        ''''Added 11/30/2021 thomas d. 
+        ''Me.ElementsCache_Saved = objCache_FromXml_1
+        ''Me.ElementsCache_Edits = objCache_FromXml_2
 
     End Sub ''End of "Private Sub LoadBothCachesUsingSamePathToXML"
 
@@ -1616,7 +1680,8 @@ Public Class Form__Main_Demo
             Me.ElementsCache_Edits = Nothing
 
             ''Step 2. Copy the saved work, to become the new starting point.
-            Me.ElementsCache_Edits = Me.ElementsCache_Saved.Copy()
+            ''Dec. 14 2021 td''Me.ElementsCache_Edits = Me.ElementsCache_Saved.Copy()
+            Me.ElementsCache_Edits = Me.ElementsCache_ManageBoth.UndoEdits()
 
             ''Added 10/13/2019 td
             mod_designer.ElementsCache_Edits = Me.ElementsCache_Edits
