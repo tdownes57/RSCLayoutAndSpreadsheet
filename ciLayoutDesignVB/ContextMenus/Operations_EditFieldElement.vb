@@ -61,6 +61,9 @@ Public Class Operations_EditFieldElement
         ''Private Sub OpenDialog_Field(sender As Object, e As EventArgs)
         ''
         ''Added 7/30/2019 thomas downes
+        ''       ''
+        ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
+        ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
         ''
         ''7/30/2019 td''ColorDialog1.ShowDialog()
         Dim bIsCustomField As Boolean ''Added 12/14/2021 
@@ -257,6 +260,9 @@ Public Class Operations_EditFieldElement
     Public Sub Open_Dialog_Font_EE1009(sender As Object, e As EventArgs)
         ''
         ''Added 7/30/2019 thomas downes
+        ''       ''
+        ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
+        ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
         ''
         Dim boolExitEarly As Boolean ''Added 8/13/2019 td
 
@@ -346,6 +352,9 @@ Public Class Operations_EditFieldElement
     Public Sub ExampleValue_Edit_EE1006(sender As Object, e As EventArgs)
         ''
         ''Added 8/10/2019 thomas downes
+        ''       ''
+        ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
+        ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
         ''
         ''10/17 td''With textTypeExample
         With Me.CtlCurrentElement.Textbox_ExampleValue
@@ -365,6 +374,9 @@ Public Class Operations_EditFieldElement
     Public Sub Open_OffsetText_Dialog_EE1007(sender As Object, e As EventArgs)
         ''
         ''Added 8/10/2019 thomas downes
+        ''       ''
+        ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
+        ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
         ''
         ''9/18/2019 td''Dim frm_ToShow As New DialogTextOffset
 
@@ -537,7 +549,10 @@ Public Class Operations_EditFieldElement
     Public Sub Rotate90_Degrees_EE1001(sender As Object, e As EventArgs)
         ''
         ''Added 8/17/2019 thomas downes
-        ''  
+        ''         ''
+        ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
+        ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
+        ''
         With Me.CtlCurrentElement.ElementInfo_Base
 
             Select Case .OrientationToLayout
@@ -606,6 +621,10 @@ Public Class Operations_EditFieldElement
         ''---Dec15 2021--Public Sub How_Context_Menus_Are_Generated_EE1001
         ''
         ''Added 12/12/2021 thomas downes  
+        ''
+        ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
+        ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
+        ''
         ''
         Dim strPathToNotesFolder As String
         Dim strPathToNotesFileTXT As String

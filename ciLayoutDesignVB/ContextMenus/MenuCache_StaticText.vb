@@ -50,7 +50,7 @@ Public Class MenuCache_StaticText
         ''
         ''We will use Reflection to build this cache of menu controls. 
         ''
-        ''   We will convert the procedures in class Methods_EditElement to clickable LinkLabels.
+        ''   We will convert the procedures in class Operations_EditStaticText to clickable LinkLabels.
         ''
         Dim strList_MenuItems As String = ""
 

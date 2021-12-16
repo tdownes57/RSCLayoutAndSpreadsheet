@@ -35,6 +35,9 @@ Public Class Operations_EditBackground
     Public Sub Unselect_all_selected_Elements_EB102(sender As Object, e As EventArgs)
         ''
         ''Added 10/15/2019 td
+        ''       ''
+        ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
+        ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
         ''
         Me.Designer.UnselectHighlightedElements()
 
@@ -43,6 +46,9 @@ Public Class Operations_EditBackground
     Public Sub Try_next_background_image_EB101(sender As Object, e As EventArgs)
         ''
         ''Added 10/15/2019 td
+        ''       ''
+        ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
+        ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
         ''
         Dim boolNoneFound As Boolean ''Added 10/15/2019 td 
 
@@ -57,6 +63,9 @@ Public Class Operations_EditBackground
     Public Sub Select_background_image_EB100(sender As Object, e As EventArgs)
         ''
         ''Added 10/15/2019 td
+        ''       ''
+        ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
+        ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
         ''
         Dim open_image As Bitmap ''Added 10/15/2019 thomas d. 
         Dim strFullPathToBitmap As String
@@ -76,6 +85,9 @@ Public Class Operations_EditBackground
     Public Sub How_Context_Menus_Are_Generated_EB9001(sender As Object, e As EventArgs)
         ''
         ''Added 12/15/2021 thomas downes  
+        ''       ''
+        ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
+        ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
         ''
         Dim strPathToNotesFolder As String
         Dim strPathToNotesFileTXT As String

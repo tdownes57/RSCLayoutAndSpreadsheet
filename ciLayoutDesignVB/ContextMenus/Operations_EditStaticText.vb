@@ -29,9 +29,12 @@ Public Class Operations_EditStaticText
     Public Property CacheOfFieldsEtc As ciBadgeCachePersonality.ClassElementsCache_Deprecated
 
 
-    Private Sub GiveSizeInfo_Field(sender As Object, e As EventArgs)
+    Private Sub GiveSizeInfo_Field_EST100(sender As Object, e As EventArgs)
         ''
         ''Added 7/31/2019 thomas downes
+        ''       ''
+        ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
+        ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
         ''
         Dim strMessageToUser As String = ""
 
@@ -44,9 +47,12 @@ Public Class Operations_EditStaticText
 
     End Sub ''End of "Private Sub GiveSizeInfo_Field(sender As Object, e As EventArgs)"
 
-    Private Sub OpenDialog_Color(sender As Object, e As EventArgs)
+    Private Sub OpenDialog_Color_EST101(sender As Object, e As EventArgs)
         ''
         ''Added 7/30/2019 thomas downes
+        ''       ''
+        ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
+        ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
         ''
         ColorDialog1.ShowDialog()
 

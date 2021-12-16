@@ -94,7 +94,8 @@ Public Class MenuCache_FieldElements
         ''   ("Dim each_methodInfo As Reflection.MethodInfo") 
         ''   ("For Each each_methodInfo In typeOperationsElement.GetMethods()")
         ''
-        ''   We will convert the procedures in class Methods_EditElement to clickable LinkLabels.
+        ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
+        ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
         ''
         Dim strList_MenuItems As String = ""
 
