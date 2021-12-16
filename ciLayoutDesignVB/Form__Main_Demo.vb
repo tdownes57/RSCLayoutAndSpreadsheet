@@ -307,15 +307,15 @@ Public Class Form__Main_Demo
         ''
         ''Context Menus!!  ----12/13/2021 td 
         ''
-        MenuCache_ElemFlds.ColorDialog1 = (New ColorDialog)
-        MenuCache_ElemFlds.FontDialog1 = (New FontDialog)
-        MenuCache_ElemFlds.Designer = mod_designer
-        MenuCache_ElemFlds.LayoutFunctions = mod_designer
-        MenuCache_ElemFlds.SelectingElements = mod_designer
+        MenuCache_FieldElements.ColorDialog1 = (New ColorDialog)
+        MenuCache_FieldElements.FontDialog1 = (New FontDialog)
+        MenuCache_FieldElements.Designer = mod_designer
+        MenuCache_FieldElements.LayoutFunctions = mod_designer
+        MenuCache_FieldElements.SelectingElements = mod_designer
         ''Dec.12 2021''MenuCache_ElemFlds.CacheOfFieldsEtc = Me.ElementsCache_Edits ''Added 12/12/2021 thomas d.
         Dim bool1, bool2 As Boolean  ''Added 12/12/2021 thomas d.
         Me.ElementsCache_ManageBoth.CheckCacheIsLatestForEdits(bool1, bool2, True) ''Added 12/12/2021 thomas d.
-        MenuCache_ElemFlds.GenerateMenuItems_IfNeeded(Me.ElementsCache_Edits)
+        MenuCache_FieldElements.GenerateMenuItems_IfNeeded(Me.ElementsCache_Edits)
 
         ''Added 12/13/2021 td
         MenuCache_GraphicElements.ColorDialog1 = (New ColorDialog)
@@ -327,6 +327,12 @@ Public Class Form__Main_Demo
         MenuCache_Background.Designer = mod_designer
         MenuCache_Background.LayoutFunctions = mod_designer
         MenuCache_Background.GenerateMenuItems_IfNeeded()
+
+        ''Added 12/15/2021 td
+        MenuCache_StaticText.ColorDialog1 = (New ColorDialog)
+        MenuCache_StaticText.Designer = mod_designer
+        MenuCache_StaticText.LayoutFunctions = mod_designer
+        MenuCache_StaticText.GenerateMenuItems_IfNeeded(Me.ElementsCache_Edits)
 
         ''Added 12/3/2021 td
         pictureBackgroundFront.Refresh()
@@ -1854,19 +1860,19 @@ Public Class Form__Main_Demo
 
     End Sub ''End of "Private Sub ShowBadgeRecipientsToolStripMenuItem_Click"
 
-    Private Sub mod_designer_ElementRightClicked(par_control As CtlGraphicFldLabel) Handles mod_designer.ElementRightClicked
+    Private Sub mod_designer_ElementRightClicked(par_control As CtlGraphicFldLabel) Handles mod_designer.ElementFieldRightClicked
         ''
         ''Added 10/13/2019 thomas downes  
         ''
-        MenuCache_ElemFlds.CtlCurrentElement = par_control ''Added 10/14/2019 td  
-        MenuCache_ElemFlds.Operations_Edit.CtlCurrentElement = par_control ''Added 10/14/2019 td
+        MenuCache_FieldElements.CtlCurrentElement = par_control ''Added 10/14/2019 td  
+        MenuCache_FieldElements.Operations_Edit.CtlCurrentElement = par_control ''Added 10/14/2019 td
 
         ContextMenuStrip1.Items.Clear()
 
         ''Add a ToolStripMenuItem which will tell which Field is being displayed 
         ''  on the selected (right-clicked) control. 
-        ContextMenuStrip1.Items.Add(MenuCache_ElemFlds.Tools_MenuHeader0) ''Added 12/13/2021 
-        ContextMenuStrip1.Items.Add(MenuCache_ElemFlds.Tools_MenuHeader1) ''Added 12/12/2021 
+        ContextMenuStrip1.Items.Add(MenuCache_FieldElements.Tools_MenuHeader0) ''Added 12/13/2021 
+        ContextMenuStrip1.Items.Add(MenuCache_FieldElements.Tools_MenuHeader1) ''Added 12/12/2021 
 
         Dim bool_addExtraHeadersToContextMenus As Boolean ''Added 12/13/2021 td
         bool_addExtraHeadersToContextMenus = AddExtraHeadersToolStripMenuItem.Checked
@@ -1874,8 +1880,8 @@ Public Class Form__Main_Demo
         ''Added header items. 
         If (bool_addExtraHeadersToContextMenus) Then
             ''Added 12/13/2021 
-            ContextMenuStrip1.Items.Add(MenuCache_ElemFlds.Tools_MenuHeader2) ''Added 12/12/2021 
-            ContextMenuStrip1.Items.Add(MenuCache_ElemFlds.Tools_MenuHeader3) ''Added 12/13/2021 
+            ContextMenuStrip1.Items.Add(MenuCache_FieldElements.Tools_MenuHeader2) ''Added 12/12/2021 
+            ContextMenuStrip1.Items.Add(MenuCache_FieldElements.Tools_MenuHeader3) ''Added 12/13/2021 
 
             Dim objMenuHeader3_1 As New ToolStripMenuItem("mod_designer_ElementRightClicked(...")
             Dim objMenuHeader3_2 As New ToolStripMenuItem("   ... Handles mod_designer.ElementRightClicked")
@@ -1887,16 +1893,16 @@ Public Class Form__Main_Demo
         End If ''End of "If (mod_letsAddExtraHeadersForContextMenus) Then"
 
         ''Let's add a separator bar. 
-        ContextMenuStrip1.Items.Add(MenuCache_ElemFlds.Tools_MenuSeparator) ''Added 12/13/2021
+        ContextMenuStrip1.Items.Add(MenuCache_FieldElements.Tools_MenuSeparator) ''Added 12/13/2021
 
         ''
         ''Major step!!!   Add all the editing-related menu items!!
         ''
-        ContextMenuStrip1.Items.AddRange(MenuCache_ElemFlds.Tools_EditElementMenu)
+        ContextMenuStrip1.Items.AddRange(MenuCache_FieldElements.Tools_EditElementMenu)
 
         ''Added 12/13/2021 td
         ''  Change the text "Field: {0} ({1})" to "Field: School Name (fstrField1)".
-        With MenuCache_ElemFlds.Tools_MenuHeader1
+        With MenuCache_FieldElements.Tools_MenuHeader1
             ''Dim objHeader1 As ToolStripItem = MenuCache_ElemFlds.Tools_MenuHeader1
             .Text = String.Format(.Tag.ToString(), par_control.FieldInfo.FieldLabelCaption,
                                                     par_control.FieldInfo.CIBadgeField)
@@ -1904,7 +1910,7 @@ Public Class Form__Main_Demo
 
         ''Added 12/13/2021 td
         ''  Change the text "Context-Menu for Control: {0}" to "Context-Menu for Control: ....".
-        With MenuCache_ElemFlds.Tools_MenuHeader0
+        With MenuCache_FieldElements.Tools_MenuHeader0
             .Text = String.Format(.Tag.ToString(), par_control.Name)
         End With ''End of "With MenuCache_ElemFlds.Tools_MenuHeader0"
 
@@ -2320,9 +2326,6 @@ ExitHandler:
 
     End Sub
 
-    Private Sub zz(sender As Object, e As EventArgs) Handles MyBase.Click
-
-    End Sub
 
     Private Sub pictureBack_Click(sender As Object, e As EventArgs)
         ''

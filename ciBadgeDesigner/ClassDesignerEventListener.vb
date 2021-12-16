@@ -199,11 +199,15 @@ Public Class ClassDesignerEventListener
         mod_sizing_signature.Init(mod_designer.CtlGraphic_Signat.pictureSignature,
                                   mod_designer.CtlGraphic_Signat, 10, True,
                                   mod_sizingEvents_Sig, False)
-
-        ''Added 12/1/2021 td 
         mod_dictyControlResizing.Add(mod_designer.CtlGraphic_Signat,
-             mod_sizing_signature)
+             mod_sizing_signature) ''Added 12/1/2021 td
 
+        ''Added 12/15/2021 td 
+        ''mod_dictyControlResizing.Add(mod_designer.CtlGraphic_StaticText1,
+        ''     mod_sizing_statictext1)
+        ''mod_sizing_statictext1.Init(mod_designer.CtlGraphic_StaticText1.pictureLabel,
+        ''                          mod_designer.CtlGraphic_StaticText1, 10, True,
+        ''                          mod_sizingEvents_StaticText, False)
 
         ''Dim boolMakeMoveableByUser As Boolean ''Added 9/20/2019 td 
         ''Const c_boolMakeMoveableASAP As Boolean = False ''added 9/20/2019 td

@@ -32,7 +32,7 @@ Public Class Operations_EditBackground
     Public Shared Tools_MenuSeparator As ToolStripItem ''Added 12/15/2021
 
 
-    Public Sub Unselect_all_selected_Elements(sender As Object, e As EventArgs)
+    Public Sub Unselect_all_selected_Elements_EB102(sender As Object, e As EventArgs)
         ''
         ''Added 10/15/2019 td
         ''
@@ -40,7 +40,7 @@ Public Class Operations_EditBackground
 
     End Sub ''End of "Public Sub Unselect_all_highlighted_Elements()"
 
-    Public Sub Try_next_background_image(sender As Object, e As EventArgs)
+    Public Sub Try_next_background_image_EB101(sender As Object, e As EventArgs)
         ''
         ''Added 10/15/2019 td
         ''
@@ -54,7 +54,7 @@ Public Class Operations_EditBackground
 
     End Sub ''End of "Public Sub Change_Background_Image()"
 
-    Public Sub Select_background_image(sender As Object, e As EventArgs)
+    Public Sub Select_background_image_EB100(sender As Object, e As EventArgs)
         ''
         ''Added 10/15/2019 td
         ''
@@ -73,6 +73,18 @@ Public Class Operations_EditBackground
     End Sub ''End of "Public Sub Change_Background_Image()"
 
 
+    Public Sub How_Context_Menus_Are_Generated_EB9001(sender As Object, e As EventArgs)
+        ''
+        ''Added 12/15/2021 thomas downes  
+        ''
+        Dim strPathToNotesFolder As String
+        Dim strPathToNotesFileTXT As String
+
+        strPathToNotesFolder = DiskFolders.PathToFolder_Notes()
+        strPathToNotesFileTXT = DiskFilesVB.PathToNotes_HowContextMenusAreGenerated()
+        System.Diagnostics.Process.Start(strPathToNotesFileTXT)
+
+    End Sub ''end of "Public Sub How_Context_Menus_Are_Generated_EE1002(sender As Object, e As EventArgs)"
 
 
 

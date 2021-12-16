@@ -21,7 +21,10 @@ Public Class ClassDesigner
     ''
     ''Added 10/1/2019 thomas downes 
     ''
-    Public Event ElementRightClicked(par_control As CtlGraphicFldLabel) ''Added 10/1/2019 td
+    Public Event ElementFieldRightClicked(par_control As CtlGraphicFldLabel) ''Added 10/1/2019 td
+    Public Event ElementQRCodeRightClicked(par_control As CtlGraphicQRCode) ''Added 12/15/2021 td
+    Public Event ElementSignatRightClicked(par_control As CtlGraphicSignature) ''Added 12/15/2021 td
+    Public Event ElementStaticTextRightClicked(par_control As CtlGraphicStaticText) ''Added 12/15/2021 td
     Public Event BackgroundRightClicked(par_mouse_x As Integer, par_mouse_y As Integer) ''Added 10/15/2019 td
 
     ''10/1/2019 td''Public Property LayoutFunctions As ILayoutFunctions
@@ -160,14 +163,14 @@ Public Class ClassDesigner
         ''RemoveHandler CtlGraphic_QRCode.Picture_Box.MouseDown,
         ''    AddressOf mod_designerListener.mod_dictyControlMoveBoxesEtc(CtlGraphic_QRCode).
         ''---Dim objListenerQR As MoveAndResizeControls_Monem.ControlMove_NonStatic_TD
-        Dim objListenerQR As MoveAndResizeControls_Monem.ControlResizeProportionally_TD
+        ''Dim objListenerQR As MoveAndResizeControls_Monem.ControlResizeProportionally_TD
 
-        ''---objListenerQR = mod_designerListener.mod_dictyControlMoveBoxesEtc(CtlGraphic_QRCode)
-        objListenerQR = mod_designerListener.mod_dictyControlResizing(CtlGraphic_QRCode)
-        objListenerQR.RemoveEventHandlers()
-        CtlGraphic_QRCode.Dispose() ''Added Dec. 8, 2021
-        Me.DesignerForm.Controls.Remove(CtlGraphic_QRCode) ''Added Dec. 8, 2021
-        mod_listOfDesignerControls.Remove(CtlGraphic_QRCode) ''Added Dec. 8, 2021
+        ''''---objListenerQR = mod_designerListener.mod_dictyControlMoveBoxesEtc(CtlGraphic_QRCode)
+        ''objListenerQR = mod_designerListener.mod_dictyControlResizing(CtlGraphic_QRCode)
+        ''objListenerQR.RemoveEventHandlers()
+        ''CtlGraphic_QRCode.Dispose() ''Added Dec. 8, 2021
+        ''Me.DesignerForm.Controls.Remove(CtlGraphic_QRCode) ''Added Dec. 8, 2021
+        ''mod_listOfDesignerControls.Remove(CtlGraphic_QRCode) ''Added Dec. 8, 2021
 
         ''Encapsulated 12/14/2021 td
         UnloadDesigner_QRCode()
@@ -356,21 +359,25 @@ Public Class ClassDesigner
         Me.DesignerForm.Controls.Remove(Me.CtlGraphic_QRCode)
         ''Load a brand-new QR-code control. ---12/7/2021 td  
         Dim elementQRCode As ClassElementQRCode = Me.ElementsCache_UseEdits.ElementQRCode
-        Me.CtlGraphic_QRCode = New CtlGraphicQRCode(elementQRCode, CType(Me, ILayoutFunctions))
-        Me.DesignerForm.Controls.Add(Me.CtlGraphic_QRCode)
-        mod_listOfDesignerControls.Add(Me.CtlGraphic_QRCode) ''Added 12/8/2021 td
+        If (elementQRCode.WhichSideOfCard = EnumWhichSideOfCard.Undetermined) Then elementQRCode.WhichSideOfCard = EnumWhichSideOfCard.EnumFrontside ''Added 12/15/2021
 
-        With Me.CtlGraphic_QRCode
-            ''Me.CtlGraphic_QRCode.Visible = True ''Dec. 7, 2021
-            .Visible = True
+        If (elementQRCode.WhichSideOfCard = Me.EnumSideOfCard) Then ''Added 12/15/2021
+            Me.CtlGraphic_QRCode = New CtlGraphicQRCode(elementQRCode, CType(Me, ILayoutFunctions))
+            Me.DesignerForm.Controls.Add(Me.CtlGraphic_QRCode)
+            mod_listOfDesignerControls.Add(Me.CtlGraphic_QRCode) ''Added 12/8/2021 td
 
-            ''Dec.8 2021''.Left = elementQRCode.LeftEdge_Pixels
-            ''Dec.8 2021''.Top = elementQRCode.TopEdge_Pixels
-            .Left = Me.Layout_Margin_Left_Add(elementQRCode.LeftEdge_Pixels)
-            .Top = Me.Layout_Margin_Top_Add(elementQRCode.TopEdge_Pixels)
-            .Width = elementQRCode.Width_Pixels
-            .Height = elementQRCode.Height_Pixels
-        End With ''End of "With Me.CtlGraphic_QRCode"
+            With Me.CtlGraphic_QRCode
+                ''Me.CtlGraphic_QRCode.Visible = True ''Dec. 7, 2021
+                .Visible = True
+
+                ''Dec.8 2021''.Left = elementQRCode.LeftEdge_Pixels
+                ''Dec.8 2021''.Top = elementQRCode.TopEdge_Pixels
+                .Left = Me.Layout_Margin_Left_Add(elementQRCode.LeftEdge_Pixels)
+                .Top = Me.Layout_Margin_Top_Add(elementQRCode.TopEdge_Pixels)
+                .Width = elementQRCode.Width_Pixels
+                .Height = elementQRCode.Height_Pixels
+            End With ''End of "With Me.CtlGraphic_QRCode"
+        End If ''End of "If (elementQRCode.WhichSideOfCard = Me.EnumSideOfCard) Then"
 
         Me.BackgroundBox_Front.SendToBack() ''Dec. 7
         If (ShowingTheBackside()) Then
@@ -856,6 +863,10 @@ Public Class ClassDesigner
 
         End With ''End of "With CtlGraphicPortrait1"
 
+        ''Added 12/15/2021 td
+        ''   Pass on the event of right-clicking a element-field control. 
+        ''----AddHandler label_control.ElementPic_RightClicked, AddressOf ElementPic_Clicked
+
     End Sub ''End of " Private Sub LoadElements_Picture()"
 
     Private Sub LoadElements_Signature(par_elementSig As ClassElementSignature)
@@ -882,6 +893,12 @@ Public Class ClassDesigner
             .Refresh_Master()
 
         End With ''End of "With CtlGraphic_Signat"
+
+        ''Added 12/15/2021 td
+        ''   Pass on the event of right-clicking a element-signature control.
+        ''   
+        AddHandler CtlGraphic_Signat.ElementSig_RightClicked, AddressOf ElementSig_Clicked
+
 
     End Sub ''End of "Private Sub LoadElements_Signature"
 
@@ -2179,13 +2196,43 @@ Public Class ClassDesigner
         ''Not needed. ---9/23 td''Application.DoEvents()
     End Sub
 
+
     Private Sub ElementField_Clicked(par_control As CtlGraphicFldLabel)
         ''
         ''Added 10/1/2019 thomas d.
         ''
-        RaiseEvent ElementRightClicked(par_control)
+        ''Dec15 2021''RaiseEvent ElementRightClicked(par_control)
+        RaiseEvent ElementFieldRightClicked(par_control)
 
     End Sub
+
+
+    Private Sub ElementStatic_Clicked(par_control As CtlGraphicStaticText)
+        ''
+        ''Added 12/15/2021 thomas d.
+        ''
+        RaiseEvent ElementStaticTextRightClicked(par_control)
+
+    End Sub
+
+
+    Private Sub ElementQR_Clicked(par_control As CtlGraphicQRCode)
+        ''
+        ''Added 12/15/2021 thomas d.
+        ''
+        RaiseEvent ElementQRCodeRightClicked(par_control)
+
+    End Sub
+
+
+    Private Sub ElementSig_Clicked(par_control As CtlGraphicSignature)
+        ''
+        ''Added 12/15/2021 thomas d.
+        ''
+        RaiseEvent ElementSignatRightClicked(par_control)
+
+    End Sub
+
 
     ''Private Sub mod_sizingPic_events_Moving_End() Handles mod_sizingEvents_Pics.Moving_End
     ''    ''Added 10/9/2019 td 

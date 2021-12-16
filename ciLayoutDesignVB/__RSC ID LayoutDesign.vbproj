@@ -262,10 +262,11 @@
     <Compile Include="ClassLoopedOperations.vb" />
     <Compile Include="ClassRubberbandSelector.vb" />
     <Compile Include="ContextMenus\MenuCache_Background.vb" />
-    <Compile Include="ContextMenus\MenuCache_ElemFlds.vb" />
+    <Compile Include="ContextMenus\MenuCache_FieldElements.vb" />
     <Compile Include="ContextMenus\MenuCache_GraphicElements.vb" />
+    <Compile Include="ContextMenus\MenuCache_StaticText.vb" />
     <Compile Include="ContextMenus\Operations_EditBackground.vb" />
-    <Compile Include="ContextMenus\Operations_EditElement.vb" />
+    <Compile Include="ContextMenus\Operations_EditFieldElement.vb" />
     <Compile Include="ContextMenus\Operations_EditGraphic.vb" />
     <Compile Include="ContextMenus\Operations_EditGroup.vb" />
     <Compile Include="ContextMenus\Operations_EditQR.vb" />
@@ -697,6 +698,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormDesignProtoThree.resx">
       <DependentUpon>FormDesignProtoThree.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FormListBackgrounds.resx">
       <DependentUpon>FormListBackgrounds.vb</DependentUpon>
@@ -712,6 +714,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormSimpleDataEntry.resx">
       <DependentUpon>FormSimpleDataEntry.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ListCustomFieldsFlow.resx">
       <DependentUpon>ListCustomFieldsFlow.vb</DependentUpon>
@@ -721,6 +724,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormDesignPrototype.resx">
       <DependentUpon>FormDesignPrototype.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FormDisplayBadge.resx">
       <DependentUpon>FormDisplayBadge.vb</DependentUpon>

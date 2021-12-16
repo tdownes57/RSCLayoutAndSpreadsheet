@@ -157,6 +157,17 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
         }
 
 
+        public void UnloadEventHandlers()
+        {
+            //
+            //Added 12/15/2021 td 
+            //   This "alias" function provides a 2nd name for forgetful programmers. 
+            //
+            RemoveEventHandlers();
+
+        }
+
+
         public void RemoveEventHandlers()
         {
             //

@@ -9,7 +9,7 @@ Imports ciBadgeInterfaces
 Imports ciBadgeDesigner
 ''----Imports ciBadgeElements
 
-Public Class Operations_EditElement
+Public Class Operations_EditFieldElement
     ''
     ''Added 10/1/2019 td
     ''
@@ -24,7 +24,7 @@ Public Class Operations_EditElement
     ''  Public Sub How_Context_Menus_Are_Generated_EE1002(sender As Object, e As EventArgs) 
     ''   --- Private Sub CreateVisibleButtonMaster(par_strText As String,
     ''
-    Public Property Parent_MenuCache As MenuCache_ElemFlds ''Added 12/12/2021 td 
+    Public Property Parent_MenuCache As MenuCache_FieldElements ''Added 12/12/2021 td 
 
     Public WithEvents MyLinkLabel As New LinkLabel ''Added 10/11/2019 td 
     Public WithEvents MyToolstripItem As New ToolStripMenuItem ''Added 10/11/2019 td 
@@ -582,7 +582,28 @@ Public Class Operations_EditElement
     End Sub ''eNd of "Public Sub Rotate90_Degrees_EE1001(sender As Object, e As EventArgs)"
 
 
-    Public Sub How_Context_Menus_Are_Generated_EE1002(sender As Object, e As EventArgs)
+    Public Sub Enable_DragAndDrop_EE1012(sender As Object, e As EventArgs)
+        ''
+        ''Added 12/15/2021 thomas downes
+        ''  Remove drag-and-drop functionality, if requested.  
+        ''  
+
+
+    End Sub
+
+
+    Public Sub Disable_DragAndDrop_EE1013(sender As Object, e As EventArgs)
+        ''
+        ''Added 12/15/2021 thomas downes
+        ''  Reactivate drag-and-drop functionality, if needed.  
+        ''
+
+
+    End Sub
+
+
+    Public Sub How_Context_Menus_Are_Generated_EE9001(sender As Object, e As EventArgs)
+        ''---Dec15 2021--Public Sub How_Context_Menus_Are_Generated_EE1001
         ''
         ''Added 12/12/2021 thomas downes  
         ''

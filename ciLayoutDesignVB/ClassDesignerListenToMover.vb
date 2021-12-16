@@ -1,4 +1,7 @@
-﻿Public Class ClassDesignerListenToMover_Deprecated
+﻿Option Explicit On
+Option Strict On
+
+Public Class ClassDesignerListenToMover_Deprecated
     ''
     ''Added 11/29/2021 thomas Downes
     ''

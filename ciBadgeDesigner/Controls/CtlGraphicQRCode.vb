@@ -24,7 +24,7 @@ Public Class CtlGraphicQRCode
     Public ElementInfo_QR As IElementQRCode ''Modified 11/29/2021 thomas d 
     Public ElementInfo_Base As IElement_Base ''Added 7/31/2019 thomas d 
 
-    Public Event ElementPic_RightClicked(par_control As CtlGraphicPortrait) ''Added 10/10/2019 td
+    Public Event ElementQR_RightClicked(par_control As CtlGraphicPortrait) ''Added 10/10/2019 td
 
     ''9/9/2019 td''Public FormDesigner As FormDesignProtoTwo ''Added 9/4/2019 td
     ''9/20/2019 td''Public FormDesigner As ILayoutFunctions ''Modified 9/9/2019 td

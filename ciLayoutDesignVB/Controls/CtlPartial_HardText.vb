@@ -5,7 +5,7 @@ Option Strict On ''Added 8/16/2019 td
 ''
 Imports ciBadgeInterfaces ''Added 10/3/2019 td 
 
-Partial Public Class CtlGraphicText
+Partial Public Class CtlGraphicStaticText ''Dec.15, 2021 ''CtlGraphicText
     ''
     ''Added 9/3/2019 td
     ''

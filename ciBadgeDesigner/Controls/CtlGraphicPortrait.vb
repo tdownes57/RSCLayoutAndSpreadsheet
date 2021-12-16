@@ -630,6 +630,11 @@ ExitHandler:
         ''
         Dim boolRightClick As Boolean
 
+        Dim new_item_menuHeader1 As ToolStripMenuItem ''Added 12/15/2021 td
+        Dim new_item_menuHeader2 As ToolStripMenuItem ''Added 12/15/2021 td
+        Dim new_item_menuHeader3 As ToolStripMenuItem ''Added 12/15/2021 td
+        Dim new_item_separator As ToolStripMenuItem ''Added 12/15/2021 td
+
         Dim new_item_rotate90 As ToolStripMenuItem
         Dim new_item_changePic As ToolStripMenuItem
 
@@ -643,14 +648,40 @@ ExitHandler:
 
             If (0 = ContextMenuStrip1.Items.Count) Then
 
-                new_item_rotate90 = New ToolStripMenuItem("Rotate 90 Degrees")
+                ''Dec15 2021''new_item_rotate90 = New ToolStripMenuItem("Rotate 90 Degrees")
                 ''Added 8/18/2019 td
-                new_item_changePic = New ToolStripMenuItem("Change Example Pic")
+                ''Dec15 2021''new_item_changePic = New ToolStripMenuItem("Change Example Pic")
+                ''Modified 12/15/2021 thomas d.
+
+                ''
+                ''Information about programmatical context. 
+                ''
+                new_item_menuHeader1 = New ToolStripMenuItem("CtlGraphicPortrait.vb")
+                new_item_menuHeader2 = New ToolStripMenuItem("  (in ciBadgeDesigner\Controls\ )")
+                new_item_menuHeader3 = New ToolStripMenuItem("  (Private Sub picturePortrait_MouseClick)")
+                new_item_separator = New ToolStripMenuItem("-----------")
+
+                new_item_menuHeader1.BackColor = Color.Aqua
+                new_item_menuHeader2.BackColor = Color.Aqua
+                new_item_menuHeader3.BackColor = Color.Aqua
+                new_item_separator.BackColor = Color.Aqua
+
+                ''
+                ''Action Items. 
+                ''
+                new_item_rotate90 = New ToolStripMenuItem("Rotate 90 Degrees - EP100")
+                new_item_changePic = New ToolStripMenuItem("Change Example Pic - EP101")
 
                 AddHandler new_item_rotate90.Click, AddressOf Rotate90Degrees
 
                 ''Added 8/18/2019 td
                 AddHandler new_item_changePic.Click, AddressOf DisplayAnotherImage
+
+                ''Added 12/15/2021 td
+                ContextMenuStrip1.Items.Add(new_item_menuHeader1) ''Added 12/15/2021 thomas d. 
+                ContextMenuStrip1.Items.Add(new_item_menuHeader2) ''Added 12/15/2021 thomas d. 
+                ContextMenuStrip1.Items.Add(new_item_menuHeader3) ''Added 12/15/2021 thomas d. 
+                ContextMenuStrip1.Items.Add(new_item_separator) ''Added 12/15/2021 thomas d. 
 
                 ContextMenuStrip1.Items.Add(new_item_rotate90)
                 ContextMenuStrip1.Items.Add(new_item_changePic) ''Added 8/18/2019 td

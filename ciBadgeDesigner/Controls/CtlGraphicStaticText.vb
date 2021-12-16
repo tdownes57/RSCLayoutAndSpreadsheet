@@ -23,6 +23,8 @@ Public Class CtlGraphicStaticText
 
     Public ParentDesignForm As ISelectingElements ''Added 7/31/2019 thomas downes  
 
+    Public Event ElementStatic_RightClicked(par_control As CtlGraphicStaticText) ''Added 12/15/2021 td
+
     Private Const mod_c_boolMustSetBackColor As Boolean = False ''False, since we have an alternate Boolean 
     ''   below which works fine (i.e. mod_c_bRefreshMustReinitializeImage = True).
     ''   We don't need to set the Background Color of the PictureBox control.  ----7/31/2019 thomas d. 
@@ -387,6 +389,7 @@ ExitHandler:
 
     End Sub ''End of "Private Sub RefreshElement_Field(sender As Object, e As EventArgs)"
 
+
     Private Sub GiveSizeInfo_Field(sender As Object, e As EventArgs)
         ''
         ''Added 7/31/2019 thomas downes
@@ -400,7 +403,7 @@ ExitHandler:
 
         MessageBox.Show(strMessageToUser, "994938", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-    End Sub ''End of "Private Sub RefreshElement_Field(sender As Object, e As EventArgs)"
+    End Sub ''End of "Private Sub GiveSizeInfo_Field(sender As Object, e As EventArgs)"
 
     Private Sub OpenDialog_Color(sender As Object, e As EventArgs)
         ''
@@ -439,6 +442,7 @@ ExitHandler:
         Me.Refresh()
 
     End Sub ''eNd of "Private Sub opendialog_Color()"
+
 
     Private Sub PictureLabel_MouseClick(sender As Object, e As MouseEventArgs) Handles pictureLabel.MouseClick
         ''
@@ -490,7 +494,9 @@ ExitHandler:
 
             End If ''End of "If (0 = ContextMenuStrip1.Items.Count) Then"
 
-            ContextMenuStrip1.Show(e.Location.X + Me.ParentForm.Left,
+            ''Dec.15 2021''ContextMenuStrip1.Show(e.Location.X + Me.ParentForm.Left,
+            ''Dec.15 2021''                       e.Location.Y + Me.Top + Me.ParentForm.Top)
+            ContextMenuStrip1.Show(e.Location.X + Me.Left + Me.ParentForm.Left,
                                    e.Location.Y + Me.Top + Me.ParentForm.Top)
 
 
@@ -539,8 +545,11 @@ ExitHandler:
 
     Private Sub PictureLabel_Click(sender As Object, e As EventArgs) Handles pictureLabel.Click
 
-
-
+        ''Added 12/15/2021 td
+        ''
+        ''  See "Handles pictureLabel.MouseClick()".  ----12/15/2021 td 
+        ''
+        If (False) Then PictureLabel_MouseClick(sender, e)
 
     End Sub
 End Class

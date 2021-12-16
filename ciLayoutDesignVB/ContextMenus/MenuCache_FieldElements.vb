@@ -1,22 +1,32 @@
 ﻿''
-''Added 10/15/2019 thomas downes  
+''Added 10/2/2019 thomas downes  
 ''
 Imports System.Reflection ''Added 10/11/2019 td
 Imports ciBadgeInterfaces ''Added 10/14/2019 td 
-''---10/15 td---Imports ciBadgeDesigner ''Added 10/14/2019 td
+Imports ciBadgeDesigner ''Added 10/14/2019 td
+Imports ciBadgeFields ''Added 12/13/2021 thomas d. 
 
-Public Class MenuCache_Background
+Public Class MenuCache_FieldElements
     ''
-    ''Added 10/15/2019 thomas downes  
+    ''Added 10/2/2019 thomas downes  
     ''
-    Public Shared Links_BackgroundMenu As New List(Of LinkLabel)
-    Public Shared ToolStripBackground As New ToolStrip
-    Public Shared array_toolsBack() As ToolStripMenuItem = New ToolStripMenuItem() {}
-    Public Shared Tools_BackgroundMenu As New ToolStripItemCollection(ToolStripBackground, array_toolsBack) ''10/15 td''List(Of ToolStripMenuItem)
-    Public Shared Property LayoutFunctions As ILayoutFunctions ''Added 10/15/2019 td 
-    Public Shared Property Designer As ciBadgeDesigner.ClassDesigner
-    Public Shared Property ColorDialog1 As ColorDialog ''Added 10/15/2019 td 
-    Public Shared Operations_Back As New Operations_EditBackground ''Added 10/15/2019 td  
+    Public Shared Links_EditElementMenu As New List(Of LinkLabel)
+    Public Shared Links_ManageGroupedCtls As New List(Of LinkLabel)
+    Public Shared Links_AlignmentFeatures As New List(Of LinkLabel)
+    ''---Public Shared Links_EditBackgroundMenu As New List(Of LinkLabel)
+
+    Public Shared ToolStripContainer1 As New ToolStrip
+    Public Shared ToolStripContainer2 As New ToolStrip
+    Public Shared ToolStripContainer3 As New ToolStrip
+
+    Public Shared array_tools1() As ToolStripMenuItem = New ToolStripMenuItem() {}
+    Public Shared array_tools2() As ToolStripMenuItem = New ToolStripMenuItem() {}
+    Public Shared array_tools3() As ToolStripMenuItem = New ToolStripMenuItem() {}
+
+    Public Shared Tools_EditElementMenu As New ToolStripItemCollection(ToolStripContainer1, array_tools1) ''10/13 td''List(Of ToolStripMenuItem)
+    Public Shared Tools_ManageGroupedCtls As New ToolStripItemCollection(ToolStripContainer2, array_tools2) ''10/13 td''''List(Of ToolStripMenuItem)
+    Public Shared Tools_AlignmentFeatures As New ToolStripItemCollection(ToolStripContainer3, array_tools3) ''10/13 td''''List(Of ToolStripMenuItem)
+    ''--Public Shared Tools_EditBackgroundMenu As New List(Of ToolStripMenuItem)
 
     Public Shared Tools_MenuHeader0 As ToolStripItem ''Added 12/13/2021
     Public Shared Tools_MenuHeader1 As ToolStripItem ''Added 12/12/2021
@@ -24,35 +34,65 @@ Public Class MenuCache_Background
     Public Shared Tools_MenuHeader3 As ToolStripItem ''Added 12/13/2021
     Public Shared Tools_MenuSeparator As ToolStripItem ''Added 12/13/2021 
 
-    Public Shared Sub GenerateMenuItems_IfNeeded()
+    Public Shared Property CtlCurrentElement As ciBadgeDesigner.CtlGraphicFldLabel ''CtlGraphicFldLabel
+    Public Shared Property LayoutFunctions As ILayoutFunctions ''Added 10/3/2019 td 
+    Public Shared Property Designer As ciBadgeDesigner.ClassDesigner
+    Public Shared Property ColorDialog1 As ColorDialog ''Added 10/3/2019 td 
+    Public Shared Property FontDialog1 As FontDialog ''Added 10/3/2019 td 
+
+    ''---not needed 10/3/2019 td----Public Property GroupEdits As ClassGroupMove ''Added 10/3/2019 td 
+    Public Shared Property SelectingElements As ISelectingElements ''Added 10/3/2019 td 
+
+    ''Added 12/12/2021 td 
+    ''Public Shared Property CacheOfFieldsEtc As ciBadgeCachePersonality.ClassElementsCache_Deprecated ''Added 12/12/2021 td
+
+    Public Shared Operations_Edit As New Operations_EditFieldElement ''Added 10/11/2019 td  
+
+    Public Shared Sub GenerateMenuItems_IfNeeded(par_cacheOfFieldsEtc As ciBadgeCachePersonality.ClassElementsCache_Deprecated)
+        ''Dec.12 2021 ''Public Shared Sub GenerateMenuItems_IfNeeded()
         ''
         ''Added 10/2/2019 thomas downes  
         ''
         Dim boolAlreadyPopulated As Boolean ''Added 10/14/2019 thomas downes
-        boolAlreadyPopulated = (0 <> Links_BackgroundMenu.Count)
+        boolAlreadyPopulated = (0 <> Links_EditElementMenu.Count)
         If (boolAlreadyPopulated) Then Exit Sub
 
+        ''12/13/2021''Generate_BasicEdits()
         Generate_BasicEdits()
-        ''----Generate_Grouped()
-        ''----Generate_Aligning()
+        Generate_Grouped()
+        Generate_Aligning()
 
-        '' 
+        ''
         ''Added 10/1/4/2019 td
         ''
-        With Operations_Back
+        With Operations_Edit
             .ColorDialog1 = ColorDialog1
-            ''-----.CtlCurrentElement = CtlCurrentElement
+            .CtlCurrentElement = CtlCurrentElement
             .Designer = Designer
-            ''----.FontDialog1 = FontDialog1
+            .FontDialog1 = FontDialog1
             .LayoutFunctions = LayoutFunctions
-            ''----.SelectingElements = SelectingElements
+            .SelectingElements = SelectingElements
+
+            ''Added 12/12/2021 td
+            ''.Parent_MenuCache = (New MenuCache_ElemFlds())
+            ''.ListOfFields_Custom = CacheOfFieldsEtc.ListOfFields_Custom
+            ''.ListOfFields_Standard = CacheOfFieldsEtc.ListOfFields_Standard
+            .CacheOfFieldsEtc = par_cacheOfFieldsEtc
+
+            ''Added 12/12/2021 td
+            Dim bIsLatestCache As Boolean ''Added 12/12/2021 td 
+            par_cacheOfFieldsEtc.CheckCacheIsLatestForEdits(bIsLatestCache)
+            If (Not bIsLatestCache) Then MessageBox.Show("This cache is not the latest cache.")
+
         End With ''End of "With Operations_Edit"
 
     End Sub ''End of "Public Shared Sub GenerateMenuItems_IfNeeded()"
 
-    Private Shared Sub Generate_BasicEdits()
+    Private Shared Sub Generate_BasicEdits() ''Dec.13 2021'' (par_fieldAny As ciBadgeFields.ClassFieldAny)
         ''
-        ''We will use Reflection to build this cache of menu controls. 
+        ''We will use Reflection to build this cache of menu controls.
+        ''   ("Dim each_methodInfo As Reflection.MethodInfo") 
+        ''   ("For Each each_methodInfo In typeOperationsElement.GetMethods()")
         ''
         ''   We will convert the procedures in class Methods_EditElement to clickable LinkLabels.
         ''
@@ -81,6 +121,8 @@ Public Class MenuCache_Background
         Dim toolMenuItemHeader1 As New ToolStripMenuItem ''Added 12/12/2021 td
         Dim toolMenuItemHeader2 As New ToolStripMenuItem ''Added 12/12/2021 td
         Dim toolMenuItemHeader3 As New ToolStripMenuItem ''Added 12/13/2021 td
+        Dim toolMenuItemHeader4a As New ToolStripMenuItem ''Added 12/15/2021 td
+        Dim toolMenuItemHeader4b As New ToolStripMenuItem ''Added 12/15/2021 td
         Dim toolMenuItemSeparator As New ToolStripMenuItem ''Added 12/13/2021 td
 
         ''Added 12/13/2021 td
@@ -89,29 +131,38 @@ Public Class MenuCache_Background
         toolMenuItemHeader0.BackColor = Color.Aqua
         toolMenuItemHeader0.Text = ("Context-Menu for Control: {0}")
         toolMenuItemHeader0.Tag = ("Context-Menu for Control: {0}")  ''More important to set .Tag than .Text, due to using String.Format function.
-        toolMenuItemHeader1.BackColor = Color.Aqua ''Aqua = color of water. 
-        toolMenuItemHeader1.Text = "" '' ("Field: {0} ({1})")
-        toolMenuItemHeader1.Tag = "" '' ("Field: {0} ({1})") ''More important to set .Tag than .Text here, due to using String.Format function elsewhere.
+        toolMenuItemHeader1.BackColor = Color.Aqua
+        toolMenuItemHeader1.Text = ("Field: {0} ({1})")
+        toolMenuItemHeader1.Tag = ("Field: {0} ({1})") ''More important to set .Tag than .Text here, due to using String.Format function elsewhere.
 
-        toolMenuItemHeader2.BackColor = Color.Aqua ''Aqua = color of water. 
-        toolMenuItemHeader3.BackColor = Color.Aqua ''Aqua = color of water. 
-        toolMenuItemSeparator.BackColor = Color.Aqua ''Aqua = color of water. 
-        toolMenuItemHeader2.Text = "ContextMenus\MenuCache_Background.vb"
-        toolMenuItemHeader3.Text = "     ...\Operations_EditBackground.vb"
+        toolMenuItemHeader2.BackColor = Color.Aqua
+        toolMenuItemHeader3.BackColor = Color.Aqua
+        toolMenuItemSeparator.BackColor = Color.Aqua
+
+        ''Added 12/15/2021 td 
+        toolMenuItemHeader2.Text = "ContextMenus\MenuCache_ElemFlds.vb"
+        toolMenuItemHeader3.Text = "       & ...\Operations_EditElement.vb"
+        toolMenuItemHeader4a.Text = "Sub MenuCache_ElemFlds.Generate_BasicEdits()"
+        toolMenuItemHeader4b.Text = "... uses Reflection to build the menu below."
+        toolMenuItemHeader4a.BackColor = Color.Aqua
+        toolMenuItemHeader4b.BackColor = Color.Aqua
+
         toolMenuItemSeparator.Text = "-----Editing Operations follow------" ''Perhaps this will produce a separator line, just like in the old VB6 days. 
 
         ''toolMenuItemHeader1 = toolMenuItemHeader1
-        MenuCache_Background.Tools_BackgroundMenu.Add(toolMenuItemHeader0)
-        MenuCache_Background.Tools_BackgroundMenu.Add(toolMenuItemHeader1)
-        MenuCache_Background.Tools_BackgroundMenu.Add(toolMenuItemHeader2)
-        MenuCache_Background.Tools_BackgroundMenu.Add(toolMenuItemHeader3)
-        MenuCache_Background.Tools_BackgroundMenu.Add(toolMenuItemSeparator)
+        MenuCache_FieldElements.Tools_EditElementMenu.Add(toolMenuItemHeader0)
+        MenuCache_FieldElements.Tools_EditElementMenu.Add(toolMenuItemHeader1)
+        MenuCache_FieldElements.Tools_EditElementMenu.Add(toolMenuItemHeader2)
+        MenuCache_FieldElements.Tools_EditElementMenu.Add(toolMenuItemHeader3)
+        MenuCache_FieldElements.Tools_EditElementMenu.Add(toolMenuItemHeader4a)
+        MenuCache_FieldElements.Tools_EditElementMenu.Add(toolMenuItemHeader4b)
+        MenuCache_FieldElements.Tools_EditElementMenu.Add(toolMenuItemSeparator)
 
-        MenuCache_Background.Tools_MenuHeader0 = toolMenuItemHeader0
-        MenuCache_Background.Tools_MenuHeader1 = toolMenuItemHeader1
-        MenuCache_Background.Tools_MenuHeader2 = toolMenuItemHeader2
-        MenuCache_Background.Tools_MenuHeader3 = toolMenuItemHeader3
-        MenuCache_Background.Tools_MenuSeparator = toolMenuItemSeparator
+        MenuCache_FieldElements.Tools_MenuHeader0 = toolMenuItemHeader0
+        MenuCache_FieldElements.Tools_MenuHeader1 = toolMenuItemHeader1
+        MenuCache_FieldElements.Tools_MenuHeader2 = toolMenuItemHeader2
+        MenuCache_FieldElements.Tools_MenuHeader3 = toolMenuItemHeader3
+        MenuCache_FieldElements.Tools_MenuSeparator = toolMenuItemSeparator
 
         ''objInfo = (TypeOf objClass1)
 
@@ -120,11 +171,16 @@ Public Class MenuCache_Background
         ''// Using Reflection to get information of an Assembly  
         ''System.Reflection.Assembly info = TypeOf (System.Int32).Assembly;
 
-        Dim t As Type = Operations_Back.GetType
+        ''Dec12 2021''Dim t As Type = Operations_Edit.GetType
+        Dim typeOperationsElement As Type = Operations_Edit.GetType
 
         ''10/11/2019 td''mod_methods.ParentForm = Me
 
-        For Each each_methodInfo In t.GetMethods()
+        ''
+        ''Iterate through each procedure of Operations_EditFieldElement.vb. 
+        '' ----12/15/2021 td
+        ''
+        For Each each_methodInfo In typeOperationsElement.GetMethods()
 
             intCountMethodsAndMembers += 1 ''Added 10/14/2019 td
 
@@ -146,7 +202,6 @@ Public Class MenuCache_Background
             boolProcedureNotUsed = strMethodName.Contains("_NotUsed")
             If (boolProcedureNotUsed) Then Continue For ''---Exit For
 
-            ''Add 10/15/2019 thomas d.
             Dim bPublicSubHasGoodParams As Boolean ''Added 10/15/2019 td
             bPublicSubHasGoodParams = each_methodInfo.ToString.Contains("(System.Object, System.EventArgs)")
             If (bPublicSubHasGoodParams) Then
@@ -158,8 +213,8 @@ Public Class MenuCache_Background
                 ''Added 10/15/2019 td
                 MessageBox.Show($"The Public Sub {each_methodInfo.Name} " &
                                 "must have params (sender As Object, e As EventArgs).",
-                                "MenuCache_Background - Generate_BasicEdits",
-                                MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                                "MenuCache_ElemFlds - Generate_BasicEdits", MessageBoxButtons.OK,
+                                MessageBoxIcon.Exclamation)
 
             End If ''End of "If (bPublicSubHasGoodParams) Then .... Else .."
 
@@ -176,12 +231,7 @@ Public Class MenuCache_Background
             each_toolMenuItem.Visible = True
             each_toolMenuItem.Text = strMethodWithSpaces
 
-            ''Added 12/15/2021 thomas d
-            Dim boolInformative As Boolean
-            boolInformative = strMethodWithSpaces.Contains("EE9")
-            If (boolInformative) Then each_toolMenuItem.BackColor = Color.Aquamarine ''vs. Color.Aqua (used above)
-
-            ''---AddHandler each_link.LinkClicked, AddressOf each_member
+            ''AddHandler each_link.LinkClicked, AddressOf each_member
 
             ''Dim tt As Type = each_link.GetType
 
@@ -225,7 +275,7 @@ Public Class MenuCache_Background
                 ''
                 ''   https://stackoverflow.com/questions/1121441/addeventhandler-using-reflection
                 ''
-                Dim type_LinkLabel As Type = Operations_Back.MyLinkLabel.GetType
+                Dim type_LinkLabel As Type = Operations_Edit.MyLinkLabel.GetType
                 Dim event_linkClicked As Reflection.EventInfo
 
                 ''
@@ -235,7 +285,11 @@ Public Class MenuCache_Background
                     event_linkClicked = type_LinkLabel.GetEvent("LinkClicked", objBindingFlags)
                     Dim my_click_handler As [Delegate]
                     my_click_handler = [Delegate].CreateDelegate(event_linkClicked.EventHandlerType,
-                                                                 Operations_Back, each_methodInfo)
+                                                                 Operations_Edit, each_methodInfo)
+
+                    ''---link_clicked.AddEventHandler(Me, my_handler) '', BindingFlags.Public)
+                    ''---link_clicked.AddEventHandler(mod_classMenuMethods, my_handler)
+                    ''---link_clicked.AddEventHandler(mod_classMenuMethods.MyLinkLabel, my_handler)
 
                     event_linkClicked.AddEventHandler(each_newLinkLabel, my_click_handler)
 
@@ -254,7 +308,7 @@ Public Class MenuCache_Background
                 ''
                 ''Step 2 of 2:    ToolstripMenuItem  
                 ''
-                Dim type_ToolstripItem As Type = Operations_Back.MyToolstripItem.GetType
+                Dim type_ToolstripItem As Type = Operations_Edit.MyToolstripItem.GetType
                 Dim event_toolClicked As Reflection.EventInfo
                 Dim boolSuccess_LinkLabel As Boolean = False ''Added 10/14/2019 td
 
@@ -262,7 +316,7 @@ Public Class MenuCache_Background
                     event_toolClicked = type_ToolstripItem.GetEvent("Click", objBindingFlags)
                     Dim my_click_handler As [Delegate]
                     my_click_handler = [Delegate].CreateDelegate(event_toolClicked.EventHandlerType,
-                                                                 Operations_Back, each_methodInfo)
+                                                                 Operations_Edit, each_methodInfo)
 
                     ''---link_clicked.AddEventHandler(Me, my_handler) '', BindingFlags.Public)
                     ''---link_clicked.AddEventHandler(mod_classMenuMethods, my_handler)
@@ -303,10 +357,15 @@ Public Class MenuCache_Background
             each_newLinkLabel.Visible = True
             each_toolMenuItem.Visible = True ''Added 10/13/2019 td  
 
+            ''Added 12/15/2021 thomas d
+            Dim boolInformative As Boolean
+            boolInformative = strMethodWithSpaces.Contains("EE9")
+            If (boolInformative) Then each_toolMenuItem.BackColor = Color.Aquamarine ''vs. Color.Aqua (used above)
+
             ''Added 10/13/2019 thomas downes
             intCountLinkLabels += 1
-            MenuCache_Background.Links_BackgroundMenu.Add(each_newLinkLabel)
-            MenuCache_Background.Tools_BackgroundMenu.Add(each_toolMenuItem)
+            MenuCache_FieldElements.Links_EditElementMenu.Add(each_newLinkLabel)
+            MenuCache_FieldElements.Tools_EditElementMenu.Add(each_toolMenuItem)
 
         Next each_methodInfo
 
@@ -318,7 +377,7 @@ Public Class MenuCache_Background
             ''Added 9/23/2019 thomas downes
             ''
             MessageBox.Show($"Making LinkLabels, a count of {intExceptionCount_LinkLabels} errors occurred.  The last error is as follows:  " & vbCrLf & vbCrLf &
-                            ex_AddEventHandler_LinkLbl.Message, "MenuCache_Background - Generate_BasicEdits",
+                            ex_AddEventHandler_LinkLbl.Message, "Generate_BasicEdits",
                             MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
 
         End If ''End of "If (intExceptionCount_LinkLabels > 1) Then"
@@ -327,8 +386,7 @@ Public Class MenuCache_Background
         If (intExceptionCount_Toolstrip > 0) Then
             ''Inform user of the error count. 
             MessageBox.Show($"Making ToolstripMenuItems, a count of {intExceptionCount_Toolstrip} errors occurred.  The last error is as follows:  " & vbCrLf & vbCrLf &
-                            ex_AddEventHandler_ToolItem.Message,
-                            "MenuCache_Background - Generate_BasicEdits",
+                            ex_AddEventHandler_ToolItem.Message, "Generate_BasicEdits",
                             MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
 
         End If ''End of "If (intExceptionCount_Toolstrip > 1) Then"
@@ -337,8 +395,7 @@ Public Class MenuCache_Background
         If ("" = strList_MenuItems) Then
             ''Added 10/14/2019 td 
             MessageBox.Show("The procedure to create links & context menu items failed completely. " &
-                            vbCrLf & vbCrLf & strList_MenuItems,
-                            "MenuCache_Background - Generate_BasicEdits",
+                            vbCrLf & vbCrLf & strList_MenuItems, "Generate_BasicEdits",
                              MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         Else
             ''MessageBox.Show("The following links & context menu items were created. " &
@@ -348,7 +405,23 @@ Public Class MenuCache_Background
 
     End Sub ''End of "Private Shared Sub Generate_BasicEdits()"
 
+    Private Shared Sub Generate_Grouped()
+        ''
+        ''We will use Reflection to build this cache of menu controls. 
+        ''
+        ''   We will convert the procedures in class ElementEditingMethods to clickable LinkLabels.
+        ''
+        ''
 
+    End Sub
+    Private Shared Sub Generate_Aligning()
+        ''
+        ''We will use Reflection to build this cache of menu controls. 
+        ''
+        ''   We will convert the procedures in class Methods_EditElement to clickable LinkLabels.
+        ''
+        ''
 
+    End Sub
 
-End Class ''End of "Public Class MenuCache_Background"  
+End Class

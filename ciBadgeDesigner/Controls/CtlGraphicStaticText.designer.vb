@@ -73,14 +73,14 @@ Partial Class CtlGraphicStaticText
         Me.pictureLabel.TabIndex = 1
         Me.pictureLabel.TabStop = False
         '
-        'CtlGraphicText
+        'CtlGraphicStaticText
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.LinkInvisible)
         Me.Controls.Add(Me.pictureLabel)
         Me.Controls.Add(Me.textTypeExample)
-        Me.Name = "CtlGraphicText"
+        Me.Name = "CtlGraphicStaticText"
         Me.Size = New System.Drawing.Size(356, 32)
         CType(Me.pictureLabel, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)

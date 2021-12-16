@@ -25,7 +25,8 @@ Public Class CtlGraphicSignature
     Public ElementInfo_Sig As IElementSig ''Added 10/12/2019 thomas d 
     Public ElementInfo_Base As IElement_Base ''Added 7/31/2019 thomas d 
 
-    Public Event ElementPic_RightClicked(par_control As CtlGraphicPortrait) ''Added 10/10/2019 td
+    ''Dec15 2021''Public Event ElementSig_RightClicked(par_control As CtlGraphicPortrait) ''Added 10/10/2019 td
+    Public Event ElementSig_RightClicked(par_control As CtlGraphicSignature) ''Added 10/10/2019 td
 
     ''9/9/2019 td''Public FormDesigner As FormDesignProtoTwo ''Added 9/4/2019 td
     ''9/20/2019 td''Public FormDesigner As ILayoutFunctions ''Modified 9/9/2019 td

@@ -576,9 +576,34 @@ namespace MoveAndResizeControls_Monem
 
         }
 
-        #region Save And Load
 
-        private List<Control> GetAllChildControls(Control control, List<Control> list)
+        public void UnloadEventHandlers()
+        {
+            //
+            //Added 12/15/2021 td 
+            //   This "alias" function provides a 2nd name for forgetful programmers. 
+            //
+            RemoveEventHandlers();
+
+        }
+
+        public void RemoveEventHandlers()
+        {
+            //
+            // Added 12/15/2021 copied from 11/30/2021 code. --- Thomas Downes  
+            //
+
+            //''The minimal listing. 
+            _controlCurrent.MouseDown -= (sender, e) => StartMovingOrResizing(_controlCurrent, e);
+            _controlCurrent.MouseUp -= (sender, e) => StopDragOrResizing(_controlCurrent);
+            _controlCurrent.MouseMove -= (sender, e) => MoveControl(_controlCurrent, e);
+
+        }
+
+
+            #region Save And Load
+
+            private List<Control> GetAllChildControls(Control control, List<Control> list)
         {
             List<Control> controls = control.Controls.Cast<Control>().ToList();
             list.AddRange(controls);
