@@ -37,6 +37,7 @@ Public Class ClassDesignerEventListener
     Private WithEvents mod_sizingEvents_Pics As ClassGroupMoveEvents ''(Me) ''Added 10/9/2019 td  
     Private WithEvents mod_sizingEvents_QR As ClassGroupMoveEvents ''(Me) ''Added 10/12/2019 td  
     Private WithEvents mod_sizingEvents_Sig As ClassGroupMoveEvents ''(Me) ''Added 10/12/2019 td  
+    Private WithEvents mod_sizingEvents_StaticText As ClassGroupMoveEvents ''(Me) ''Added 10/12/2019 td  
 
     Private Const mc_boolAllowGroupMovements As Boolean = True ''False ''True ''False ''Added 8/3/2019 td  
     Private Const mc_boolBreakpoints As Boolean = True
@@ -52,6 +53,8 @@ Public Class ClassDesignerEventListener
     Private mod_sizing_portrait As New ControlResizeProportionally_TD
     Private mod_sizing_signature As New ControlResizeProportionally_TD
     Private mod_sizing_QR As New ControlResizeProportionally_TD
+    ''Added 12/16/2021 td
+    Private mod_sizing_staticText As New ControlResizeProportionally_TD
 
     ''Added 11/29/2021 td 
     Private mod_designer As ClassDesigner
@@ -69,6 +72,7 @@ Public Class ClassDesignerEventListener
         mod_sizingEvents_Pics = New ClassGroupMoveEvents(par_designer)
         mod_sizingEvents_QR = New ClassGroupMoveEvents(par_designer)
         mod_sizingEvents_Sig = New ClassGroupMoveEvents(par_designer)
+        mod_sizingEvents_StaticText = New ClassGroupMoveEvents(par_designer)
 
         ''Added 11/29/2021 td
         m_bAddBorderOnlyWhileResizing = p_bAddBorderOnlyWhileResizing
@@ -203,11 +207,11 @@ Public Class ClassDesignerEventListener
              mod_sizing_signature) ''Added 12/1/2021 td
 
         ''Added 12/15/2021 td 
-        ''mod_dictyControlResizing.Add(mod_designer.CtlGraphic_StaticText1,
-        ''     mod_sizing_statictext1)
-        ''mod_sizing_statictext1.Init(mod_designer.CtlGraphic_StaticText1.pictureLabel,
-        ''                          mod_designer.CtlGraphic_StaticText1, 10, True,
-        ''                          mod_sizingEvents_StaticText, False)
+        mod_dictyControlResizing.Add(mod_designer.CtlGraphic_StaticText1,
+             mod_sizing_staticText)
+        mod_sizing_staticText.Init(mod_designer.CtlGraphic_StaticText1.pictureLabel,
+                                  mod_designer.CtlGraphic_StaticText1, 10, True,
+                                  mod_sizingEvents_StaticText, False)
 
         ''Dim boolMakeMoveableByUser As Boolean ''Added 9/20/2019 td 
         ''Const c_boolMakeMoveableASAP As Boolean = False ''added 9/20/2019 td

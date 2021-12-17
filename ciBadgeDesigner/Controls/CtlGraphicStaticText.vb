@@ -454,6 +454,11 @@ ExitHandler:
         ''8/1/2019 td''Dim new_item_fieldname As ToolStripMenuItem
         ''8/1/2019 td''Dim new_item_field As ToolStripMenuItem
 
+        Dim new_item_menuHeader1 As ToolStripMenuItem ''Added 12/15/2021 td
+        Dim new_item_menuHeader2 As ToolStripMenuItem ''Added 12/15/2021 td
+        Dim new_item_menuHeader3 As ToolStripMenuItem ''Added 12/15/2021 td
+        Dim new_item_separator As ToolStripMenuItem ''Added 12/15/2021 td
+
         Dim new_item_colors As ToolStripMenuItem
         Dim new_item_font As ToolStripMenuItem
         Dim new_item_refresh As ToolStripMenuItem ''Added 7/31/2019 td
@@ -473,18 +478,36 @@ ExitHandler:
             ''ContextMenuStrip1.Items.Clear()
 
             If (0 = ContextMenuStrip1.Items.Count) Then
+                ''
+                ''Information about programmatical context. 
+                ''
+                new_item_menuHeader1 = New ToolStripMenuItem("CtlGraphicStaticText.vb")
+                new_item_menuHeader2 = New ToolStripMenuItem("  (in ciBadgeDesigner\Controls\ )")
+                new_item_menuHeader3 = New ToolStripMenuItem("  (Private Sub pictureLabel_MouseClick)")
+                new_item_separator = New ToolStripMenuItem("-----------")
 
-                new_item_refresh = New ToolStripMenuItem("Refresh Element") ''Added 7/31/2019 td
-                new_item_sizeInfo = New ToolStripMenuItem("Size Information") ''Added 7/31/2019 td
+                new_item_menuHeader1.BackColor = Color.Aqua
+                new_item_menuHeader2.BackColor = Color.Aqua
+                new_item_menuHeader3.BackColor = Color.Aqua
+                new_item_separator.BackColor = Color.Aqua
 
-                new_item_colors = New ToolStripMenuItem("Set Colors")
-                new_item_font = New ToolStripMenuItem("Set Font")
+                new_item_refresh = New ToolStripMenuItem("Refresh Element - EST100") ''Added 7/31/2019 td
+                new_item_sizeInfo = New ToolStripMenuItem("Size Information - EST101") ''Added 7/31/2019 td
+
+                new_item_colors = New ToolStripMenuItem("Set Colors - EST102")
+                new_item_font = New ToolStripMenuItem("Set Font - EST103")
 
                 AddHandler new_item_colors.Click, AddressOf OpenDialog_Color
                 AddHandler new_item_font.Click, AddressOf OpenDialog_Font
 
                 AddHandler new_item_refresh.Click, AddressOf RefreshElement_Field ''Added 7/31/2019 thomas d.
                 AddHandler new_item_sizeInfo.Click, AddressOf GiveSizeInfo_Field ''Added 7/31/2019 thomas d.
+
+                ''Added 12/15/2021 td
+                ContextMenuStrip1.Items.Add(new_item_menuHeader1) ''Added 12/15/2021 thomas d. 
+                ContextMenuStrip1.Items.Add(new_item_menuHeader2) ''Added 12/15/2021 thomas d. 
+                ContextMenuStrip1.Items.Add(new_item_menuHeader3) ''Added 12/15/2021 thomas d. 
+                ContextMenuStrip1.Items.Add(new_item_separator) ''Added 12/15/2021 thomas d.
 
                 ContextMenuStrip1.Items.Add(new_item_colors)
                 ContextMenuStrip1.Items.Add(new_item_font)

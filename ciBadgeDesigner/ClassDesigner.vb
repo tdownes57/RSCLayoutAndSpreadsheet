@@ -284,7 +284,7 @@ Public Class ClassDesigner
         Dim objListenerStaticText As MoveAndResizeControls_Monem.ControlResizeProportionally_TD
         Dim boolListenerFound As Boolean ''Added 12/15/2021 td 
 
-        boolListenerFound = Not mod_designerListener.mod_dictyControlResizing.ContainsKey(CtlGraphic_StaticText1)
+        boolListenerFound = mod_designerListener.mod_dictyControlResizing.ContainsKey(CtlGraphic_StaticText1)
         If (boolListenerFound) Then
             objListenerStaticText = mod_designerListener.mod_dictyControlResizing(CtlGraphic_StaticText1)
             objListenerStaticText.RemoveEventHandlers()
