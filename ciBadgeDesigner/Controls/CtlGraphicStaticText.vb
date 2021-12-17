@@ -9,6 +9,7 @@ Imports System.Drawing ''Added 10/1/2019 td
 Imports ciBadgeElemImage ''Added 10/12/2019 td
 
 Public Class CtlGraphicStaticText
+    Implements ISaveToModel ''Added 12/17/2021 td 
     ''
     ''Added 8/01/2019 thomas d 
     ''
@@ -338,7 +339,7 @@ ExitHandler:
     End Sub ''End of Public Sub Refresh_Image
 
 
-    Public Sub SaveToModel()
+    Public Sub SaveToModel() Implements ISaveToModel.SaveToModel
         ''
         ''Added 8/01/2019 thomas d 
         ''

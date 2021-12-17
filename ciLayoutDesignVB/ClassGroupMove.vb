@@ -1,4 +1,6 @@
-﻿''
+﻿Option Explicit On ''Added 12/17/2021 
+Option Strict On ''Added 12/17/2021
+''
 '' <summary>
 ''
 ''  Added 8/3/2019 thomas downes
@@ -100,7 +102,8 @@ Public Class ClassGroupMove
 
     End Sub
 
-    Public Sub Moving_Terminate(par_control As Control) Implements InterfaceEvents.Moving_Terminate
+    Public Sub Moving_Terminate(par_control As Control, par_iSave As ISaveToModel) Implements InterfaceEvents.Moving_Terminate
+        ''Dec17 2021''Public Sub Moving_Terminate(par_control As Control) Implements InterfaceEvents.Moving_Terminate
 
         ''Added 9/13/2019 td  
         ''11/2/2021 td''RaiseEvent Moving_End()

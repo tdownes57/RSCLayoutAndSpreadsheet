@@ -20,6 +20,7 @@ Public Enum EnumReminderMsg
 End Enum ''ENd of "Public Enum EnumReminderMsg"
 
 Public Class CtlGraphicFldLabel
+    Implements ISaveToModel ''Added 12/17/2021 td 
     ''
     ''Added 7/25/2019 thomas d 
     ''
@@ -575,7 +576,7 @@ ExitHandler:
 
     End Sub ''End of Public Sub Refresh_Image
 
-    Public Sub SaveToModel()
+    Public Sub SaveToModel() Implements ISaveToModel.SaveToModel
         ''
         ''Added 7/29/2019 thomas d 
         ''

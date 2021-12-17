@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
+using ciBadgeInterfaces; // Added Dec17 2021 
 
 /***
     ''
@@ -57,6 +58,7 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
         private static Control _controlCurrent; // Added 11/29/2021 td
         private static Control _controlPictureBox;  // = par_controlPictureB;
         private static Control _controlMoveableElement; // = par_containerElement;
+        private static ISaveToModel _iSaveToModel;  // Added 12/17/2021 td
 
         //Added 7/18/2019 thomas downes
         //
@@ -81,7 +83,8 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
 
         internal static MoveOrResize WorkType { get; set; }
 
-        public static void Init(Control control, int par_margin, bool pbRepaintAfterResize, bool pbSetBreakpoint_AfterMove)
+        public static void Init(Control control, int par_margin, bool pbRepaintAfterResize, bool pbSetBreakpoint_AfterMove, 
+                ISaveToModel par_iSave)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
             //     the preferred background color.)   ----7/31/2019 td
@@ -95,13 +98,14 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             // 9-13-2019 td----Init(control, control, par_margin, pbRepaintAfterResize);
 
             Init(control, control, par_margin, pbRepaintAfterResize,
-                pbSetBreakpoint_AfterMove);
+                pbSetBreakpoint_AfterMove, par_iSave);
 
         }
         
 
         public static void Init(Control par_control, Control par_containerElement,
-            int par_margin, bool pbRepaintAfterResize, bool pbSetBreakpoint_AfterMove)
+            int par_margin, bool pbRepaintAfterResize, bool pbSetBreakpoint_AfterMove, 
+            ISaveToModel par_iSave)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
             //     the preferred background color.)   ----7/31/2019 td
@@ -112,6 +116,7 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             //   internal static void Init(Control control, Control container)
             //
 
+            _iSaveToModel = par_iSave;  // Added Dec17 2021
             _moving = false;
             _repaintAfterResize = pbRepaintAfterResize; //Added 7/31/2019 td 
             _resizing = false;
@@ -242,7 +247,8 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             //Added 9/13/2019 thomas downes
             // #1 Nov. 29 2021 //if (!(bWasResizing)) mod_groupedctl_events.Moving_Terminate();
             // #2 Nov. 29 2021 //if (!(bWasResizing)) mod_groupedctl_events.Moving_Terminate(par_controlJ);
-            if (!(bWasResizing)) mod_eventsInterface.Moving_Terminate(_controlMoveableElement);
+            // Dec17 2021 //if (!(bWasResizing)) mod_eventsInterface.Moving_Terminate(_controlMoveableElement);
+            if (!(bWasResizing)) mod_eventsInterface.Moving_Terminate(_controlMoveableElement, _iSaveToModel);
 
             //Added 11/29/2021 td
             //  Remove the object reference.

@@ -11,6 +11,7 @@ Imports System.Windows.Forms ''Added 10/01/2019 td
 Imports System.Drawing ''Added 10/01/2019 td 
 
 Public Class CtlGraphicPortrait
+    Implements ISaveToModel ''Added 12/17/2021 td 
     ''
     ''Added 7/31/2019 thomas d 
     ''
@@ -249,7 +250,7 @@ Public Class CtlGraphicPortrait
             picturePortrait.Image = imgPortrait_withRotationIfAny
 
             ''Added 9/24/2019 td
-            SwitchControl_WidthAndHeight_Master
+            SwitchControl_WidthAndHeight_Master()
 
             picturePortrait.SizeMode = PictureBoxSizeMode.Zoom
             picturePortrait.Refresh()
@@ -273,14 +274,14 @@ Public Class CtlGraphicPortrait
             If (s_Landscape_Prior) Then
                 ''Fine, no change.
             Else
-                SwitchControl_WidthAndHeight_Sub
+                SwitchControl_WidthAndHeight_Sub()
                 s_Landscape_Prior = True ''Retain for the next call to this procedure. 
             End If
         Else
             If (Not s_Landscape_Prior) Then
                 ''Fine, no change. 
             Else
-                SwitchControl_WidthAndHeight_Sub
+                SwitchControl_WidthAndHeight_Sub()
                 s_Landscape_Prior = False ''Retain for the next call to this procedure. 
             End If
         End If ''eNd of "If (boolRotatedToLandscape) Then"
@@ -390,7 +391,7 @@ Public Class CtlGraphicPortrait
 
     End Sub ''End of Public Sub RefreshImage_NoMajorCalls
 
-    Public Sub SaveToModel()
+    Public Sub SaveToModel() Implements ISaveToModel.SaveToModel
         ''
         ''Added 7/31/2019 thomas d 
         ''

@@ -69,6 +69,7 @@
     <Compile Include="AClassOrTwo\ClassFixTheControlWidth.vb" />
     <Compile Include="Enums\ModuleEnums.vb" />
     <Compile Include="InterfaceQRCode.vb" />
+    <Compile Include="InterfaceSaveToModel.vb" />
     <Compile Include="InterfaceSigMenu.vb" />
     <Compile Include="InterfaceBadgeLayout.vb" />
     <Compile Include="InterfaceCIBField.vb" />

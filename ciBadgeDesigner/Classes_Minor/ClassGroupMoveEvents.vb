@@ -18,8 +18,11 @@ Public Class ClassGroupMoveEvents
     ''Added 8/3/2019 thomas downes
     Public Event Resizing_Start()
     Public Event Resizing_End()
+
     ''Modified 11/29/2021 td''Public Event Moving_End() ''Added 9/13/2019 td
-    Public Event Moving_End(par_control As Control) ''Added 9/13/2019 td  
+    ''12/17/2021 td''Public Event Moving_End(par_control As Control) ''Added 9/13/2019 td  
+    Public Event Moving_End(par_control As Control, par_iSaveToModel As ISaveToModel) ''Modified 12/17/2021 td  
+
     ''Added 12/2/2021 Thomas Downes
     Public Event Moving_InProgress(par_control As Control) ''Added 12/02/2021 td  
     ''Added 12/6/2021 Thomas Downes
@@ -89,11 +92,14 @@ Public Class ClassGroupMoveEvents
 
     End Sub
 
-    Public Sub Moving_Terminate(par_control As Control) Implements InterfaceEvents.Moving_Terminate
+
+    Public Sub Moving_Terminate(par_control As Control, par_iSave As ISaveToModel) Implements InterfaceEvents.Moving_Terminate
+        ''12/17/2021 td''Public Sub Moving_Terminate(par_control As Control) Implements InterfaceEvents.Moving_Terminate
 
         ''Added 9/13/2019 td  
         ''11/29/2021''RaiseEvent Moving_End()
-        RaiseEvent Moving_End(par_control)
+        ''12/17/2021''RaiseEvent Moving_End(par_control)
+        RaiseEvent Moving_End(par_control, par_iSave)
 
     End Sub
 

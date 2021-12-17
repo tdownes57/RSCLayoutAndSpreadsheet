@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
+using ciBadgeInterfaces; // Added 12/17/2021 td
 
 /***
     //
@@ -79,13 +80,15 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
         private Control _controlCurrent; // Added 11/29/2021 td
         private Control _controlPictureBox;  // = par_controlPictureB;
         private Control _controlMoveableElement; // = par_containerElement;
+        private ISaveToModel _iSaveToModel;  //added 12/17/2021 td
 
         //Added 11/29/2021 thomas downes
         internal InterfaceEvents mod_eventsInterface;
 
         internal MoveOrResize WorkType { get; set; }
 
-        public void Init(Control control, int par_margin, bool pbRepaintAfterResize, InterfaceEvents par_events, bool pbSetBreakpoint_AfterMove)
+        public void Init(Control control, int par_margin, bool pbRepaintAfterResize, InterfaceEvents par_events, 
+            bool pbSetBreakpoint_AfterMove, ISaveToModel par_iSave)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
             //     the preferred background color.)   ----7/31/2019 td
@@ -102,11 +105,13 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             // Dec. 3, 2021 //       pbSetBreakpoint_AfterMove);
             
             Init(control, control, par_margin, pbRepaintAfterResize,
-                   par_events, pbSetBreakpoint_AfterMove);
+                   par_events, pbSetBreakpoint_AfterMove, par_iSave);
 
         }
 
-        public void Init(Control par_control, Control par_container, int par_margin, bool pbRepaintAfterResize, InterfaceEvents par_events, bool pbSetBreakpoint_AfterMove)
+        public void Init(Control par_control, Control par_container, int par_margin, 
+            bool pbRepaintAfterResize, InterfaceEvents par_events, bool pbSetBreakpoint_AfterMove, 
+            ISaveToModel par_iSave)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
             //     the preferred background color.)   ----7/31/2019 td
@@ -116,6 +121,7 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             //
             //   internal void Init(Control control, Control container)
             //
+            _iSaveToModel = par_iSave;  // Dec17 2021 thomas d
 
             mod_eventsInterface = par_events;  // 12/3/2021 thomas downes   
 
@@ -391,7 +397,8 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             //Added 9/13/2019 thomas downes
             // #1 Nov. 29 2021 //if (!(bWasResizing)) mod_groupedctl_events.Moving_Terminate();
             // #2 Nov. 29 2021 //if (!(bWasResizing)) mod_groupedctl_events.Moving_Terminate(par_controlJ);
-            if (!(bWasResizing)) mod_eventsInterface.Moving_Terminate(_controlMoveableElement);
+            // Dec17 2021 // if (!(bWasResizing)) mod_eventsInterface.Moving_Terminate(_controlMoveableElement);
+            if (!(bWasResizing)) mod_eventsInterface.Moving_Terminate(_controlMoveableElement, _iSaveToModel);
 
             //Added 11/29/2021 td
             //  Remove the object reference.

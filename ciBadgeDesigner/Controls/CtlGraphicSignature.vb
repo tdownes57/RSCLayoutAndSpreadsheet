@@ -14,6 +14,7 @@ Imports System.Windows.Forms ''Added 10/01/2019 td
 Imports System.Drawing ''Added 10/01/2019 td 
 
 Public Class CtlGraphicSignature
+    Implements ISaveToModel ''Added 12/17/2021 td 
     ''
     ''Added 10/10/2019 thomas d 
     ''
@@ -407,7 +408,7 @@ Public Class CtlGraphicSignature
 
     End Sub ''End of Public Sub RefreshImage_NoMajorCalls
 
-    Public Sub SaveToModel()
+    Public Sub SaveToModel() Implements ISaveToModel.SaveToModel
         ''
         ''Added 7/31/2019 thomas d 
         ''

@@ -1178,6 +1178,7 @@ Public Class ClassDesigner
         Me.CtlGraphic_Portrait.SaveToModel()
         Me.CtlGraphic_QRCode.SaveToModel()
         Me.CtlGraphic_Signat.SaveToModel()
+        Me.CtlGraphic_StaticText1.SaveToModel() ''Added 12/16/2021 thomas downes
 
         ''
         ''Step #1 of 2. 

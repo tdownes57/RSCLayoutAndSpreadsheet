@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
 using System.Windows.Forms; //added 8/4/2019 td
+using ciBadgeInterfaces;  //Added 12/17/2021 td
 
 namespace MoveAndResizeControls_Monem
 {
@@ -31,7 +32,10 @@ namespace MoveAndResizeControls_Monem
         //
         void Resizing_Initiate();
         void Resizing_Terminate();
-        void Moving_Terminate(Control par_control); //Modified 11/29/2021 //Added 9/13/2019 td 
+
+        // Dec17 2021 td//void Moving_Terminate(Control par_control); //Modified 11/29/2021 //Added 9/13/2019 td 
+        void Moving_Terminate(Control par_control, ISaveToModel par_iSave); //Modified 12/17/2021 //Added 9/13/2019 td 
+
         //
         //Added 12-6-2021 thomas downes
         //

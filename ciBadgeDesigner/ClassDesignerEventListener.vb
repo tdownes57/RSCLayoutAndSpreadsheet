@@ -5,7 +5,7 @@ Option Infer Off
 ''Added 10/1/2019 thomas downes 
 ''
 Imports System.Windows.Forms ''Added 10/1/2019 thomas downes 
-''Imports ciBadgeInterfaces ''Added 10/1/2019 thomas downes 
+Imports ciBadgeInterfaces ''Added 10/1/2019 thomas downes 
 ''Imports ciBadgeElements ''Added 10/1/2019 thomas downes 
 ''Imports System.Drawing ''Added 10/1/2019 thomas downes 
 ''Imports ciLayoutPrintLib ''Added 10/1/2019 td
@@ -110,13 +110,13 @@ Public Class ClassDesignerEventListener
             ''mod_dictyControlMoveBoxesEtc.Add(Me.PreviewBox, objMover)
             objMover.Init(mod_designer.PreviewBox,
                           mod_designer.PreviewBox, 10, False,
-                           mod_singletonMove, c_boolBreakpoint)
+                           mod_singletonMove, c_boolBreakpoint, Nothing)
             mod_dictyControlMoveBoxesEtc.Add(mod_designer.PreviewBox, objMover)
 
         Else
             ControlMoverOrResizer_TD.Init(mod_designer.PreviewBox,
                                           mod_designer.PreviewBox, 10, False,
-                              c_boolBreakpoint) ''Added 9/08/2019 thomas downes
+                              c_boolBreakpoint, Nothing) ''Added 9/08/2019 thomas downes
         End If ''End of "If (mc_bUseNonStaticMovers) Then .... Else If...."
 
         Const c_LayoutBackIsMoveable As Boolean = False ''Added 9/8/2019 td 
@@ -129,7 +129,7 @@ Public Class ClassDesignerEventListener
             ''              c_boolBreakpoint) ''Added 9/08/2019 thomas downes
             objMover.Init(mod_designer.BackgroundBox_Front,
                           mod_designer.BackgroundBox_Front, 10, False,
-                          mod_singletonMove, c_boolBreakpoint) ''Added 9/08/2019 thomas downes
+                          mod_singletonMove, c_boolBreakpoint, Nothing) ''Added 9/08/2019 thomas downes
             ''Added 12/1/2021 td
             mod_dictyControlMoveBoxesEtc.Add(mod_designer.BackgroundBox_Front, objMover)
 
@@ -140,7 +140,7 @@ Public Class ClassDesignerEventListener
             ''                  c_boolBreakpoint) ''Added 9/08/2019 thomas downes
             ControlMoverOrResizer_TD.Init(mod_designer.BackgroundBox_Front,
                               mod_designer.BackgroundBox_Front, 10, False,
-                              c_boolBreakpoint) ''Added 9/08/2019 thomas downes
+                              c_boolBreakpoint, Nothing) ''Added 9/08/2019 thomas downes
 
         End If ''End of "If (c_LayoutBackIsMoveable) Then"
 
@@ -184,7 +184,8 @@ Public Class ClassDesignerEventListener
         ''              Me.CtlGraphic_Portrait, 10, True, mod_sizingEvents_Pics, False)
         mod_sizing_portrait.Init(mod_designer.CtlGraphic_Portrait.picturePortrait,
                 mod_designer.CtlGraphic_Portrait, 10, True,
-                mod_sizingEvents_Pics, False)
+                mod_sizingEvents_Pics, False,
+                mod_designer.CtlGraphic_Portrait)
         ''Added 12/1/2021 td 
         mod_dictyControlResizing.Add(mod_designer.CtlGraphic_Portrait,
             mod_sizing_portrait)
@@ -193,7 +194,9 @@ Public Class ClassDesignerEventListener
         ''                   10, True, mod_sizingEvents_QR, False)
         mod_sizing_QR.Init(mod_designer.CtlGraphic_QRCode.pictureQRCode,
                            mod_designer.CtlGraphic_QRCode, 10, True,
-                           mod_sizingEvents_QR, False)
+                           mod_sizingEvents_QR, False,
+                           mod_designer.CtlGraphic_QRCode)
+
         ''Added 12/1/2021 td 
         mod_dictyControlResizing.Add(mod_designer.CtlGraphic_QRCode,
             mod_sizing_QR)
@@ -202,7 +205,9 @@ Public Class ClassDesignerEventListener
         ''        Me.CtlGraphic_Signat, 10, True, mod_sizingEvents_Sig, False)
         mod_sizing_signature.Init(mod_designer.CtlGraphic_Signat.pictureSignature,
                                   mod_designer.CtlGraphic_Signat, 10, True,
-                                  mod_sizingEvents_Sig, False)
+                                  mod_sizingEvents_Sig, False,
+                                  mod_designer.CtlGraphic_Signat)
+
         mod_dictyControlResizing.Add(mod_designer.CtlGraphic_Signat,
              mod_sizing_signature) ''Added 12/1/2021 td
 
@@ -211,7 +216,8 @@ Public Class ClassDesignerEventListener
              mod_sizing_staticText)
         mod_sizing_staticText.Init(mod_designer.CtlGraphic_StaticText1.pictureLabel,
                                   mod_designer.CtlGraphic_StaticText1, 10, True,
-                                  mod_sizingEvents_StaticText, False)
+                                  mod_sizingEvents_StaticText, False,
+                                    mod_designer.CtlGraphic_StaticText1)
 
         ''Dim boolMakeMoveableByUser As Boolean ''Added 9/20/2019 td 
         ''Const c_boolMakeMoveableASAP As Boolean = False ''added 9/20/2019 td
@@ -328,7 +334,9 @@ Public Class ClassDesignerEventListener
             Dim objNonStatic As New ControlMove_Group_NonStatic
             objNonStatic.Init(par_graphicFieldCtl.Picture_Box,
               par_graphicFieldCtl, 10, c_bRepaintAfterResize,
-              mod_groupedMove, mc_boolAllowGroupMovements)
+              mod_groupedMove, mc_boolAllowGroupMovements,
+              par_graphicFieldCtl)
+
             mod_dictyControlMoveFields.Add(par_graphicFieldCtl, objNonStatic)
 
 
@@ -338,11 +346,15 @@ Public Class ClassDesignerEventListener
             ''
             ControlMove_GroupMove_TD.Init(par_graphicFieldCtl.Picture_Box,
                           par_graphicFieldCtl, 10, c_bRepaintAfterResize,
-                          mod_groupedMove, mc_boolAllowGroupMovements) ''Added 8/3/2019 td 
+                          mod_groupedMove, mc_boolAllowGroupMovements,
+                          par_graphicFieldCtl) ''Added 8/3/2019 td 
+
         Else
             ControlMoverOrResizer_TD.Init(par_graphicFieldCtl.Picture_Box,
                           par_graphicFieldCtl, 10,
-                          c_bRepaintAfterResize, mc_boolBreakpoints) ''Added 7/28/2019 thomas downes
+                          c_bRepaintAfterResize, mc_boolBreakpoints,
+                          par_graphicFieldCtl) ''Added 7/28/2019 thomas downes
+
         End If ''End of "If (boolAllowGroupMovements) Then ...... Else ..."
 
     End Sub ''End of "Private Sub ControlMoverResizer_AddField"
@@ -589,7 +601,8 @@ Public Class ClassDesignerEventListener
 
     End Sub ''End of "Private Sub Resizing_End() Handles mod_groupedMove.Resizing_End"
 
-    Private Sub MovingElement_End(par_ctlElement As Control) Handles mod_groupedMove.Moving_End
+    Private Sub MovingElement_End(par_ctlElement As Control, par_iSave As ISaveToModel) Handles mod_groupedMove.Moving_End
+        ''12/17/2021 td''Private Sub MovingElement_End(par_ctlElement As Control) Handles mod_groupedMove.Moving_End
         ''11/29/2021 ''Private Sub MovingElement_End() Handles mod_groupedMove.Moving_End
 
         ''Added 11/29/2021 thomas d. 
@@ -604,6 +617,9 @@ Public Class ClassDesignerEventListener
         ''11/29/2021 td''AutoPreview_IfChecked()
         ''AutoPreview_IfChecked(par_ctlElement)
 
+        ''==/==Needed? ---12/17/2021 td
+        ''==par_interfaceSaveToModel.SaveToModel()
+        par_iSave.SaveToModel() ''Added 12/17/2021 td  
         mod_designer.AutoPreview_IfChecked(par_ctlElement)
 
     End Sub ''End of "Private Sub MovingElement_End(par_control As Control)"
@@ -611,7 +627,8 @@ Public Class ClassDesignerEventListener
 
     Private Sub mod_sizingPic_events_Moving_End() Handles mod_sizingEvents_Pics.Moving_End
 
-        ''Added 10/9/2019 td 
+        ''Added 10/9/2019 td
+        mod_designer.CtlGraphic_Portrait.SaveToModel() ''Added 12/16/2021 td 
         mod_designer.AutoPreview_IfChecked()
 
     End Sub
@@ -619,6 +636,7 @@ Public Class ClassDesignerEventListener
     Private Sub mod_sizingPic_events_Resizing_End() Handles mod_sizingEvents_Pics.Resizing_End
 
         ''Added 10/9/2019 td 
+        mod_designer.CtlGraphic_Portrait.SaveToModel() ''Added 12/16/2021 td
         mod_designer.AutoPreview_IfChecked()
 
     End Sub
@@ -634,6 +652,7 @@ Public Class ClassDesignerEventListener
     Private Sub mod_sizingQR_events_Resizing_End() Handles mod_sizingEvents_QR.Resizing_End
 
         ''Added 10/9/2019 td 
+        mod_designer.CtlGraphic_QRCode.SaveToModel() ''Added 12/16/2021 td 
         mod_designer.AutoPreview_IfChecked()
 
     End Sub
@@ -649,6 +668,7 @@ Public Class ClassDesignerEventListener
     Private Sub mod_sizingSig_events_Resizing_End() Handles mod_sizingEvents_Sig.Resizing_End
 
         ''Added 10/9/2019 td 
+        mod_designer.CtlGraphic_Signat.SaveToModel() ''Added 12/16/2021 td 
         mod_designer.AutoPreview_IfChecked()
 
     End Sub
