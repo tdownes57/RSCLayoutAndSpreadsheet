@@ -144,7 +144,8 @@ namespace MoveAndResizeControls_Monem
             WorkType = MoveOrResize.MoveAndResize;
 
             par_controlImage.MouseDown += (sender, e) => StartMovingOrResizing(par_controlImage, e);
-            par_controlImage.MouseUp += (sender, e) => StopDragOrResizing(par_controlImage);
+            // Dec17 2021 //par_controlImage.MouseUp += (sender, e) => StopDragOrResizing(par_controlImage);
+            par_controlImage.MouseUp += (sender, e) => StopDragOrResizing(par_controlImage, _iSaveToModel);
 
             //==-== Likely bug??  Notice that, toward the end of the line, it references
             //==   the parameter "par_containerElement".... which conflicts with "par_control"
@@ -398,7 +399,8 @@ namespace MoveAndResizeControls_Monem
                 }
                 else
                 {
-                    StopDragOrResizing(par_controlG);
+                    //Dec17 2021 //StopDragOrResizing(par_controlG);
+                    StopDragOrResizing(par_controlG, _iSaveToModel);
                 }
             }
             else if (_moving)
@@ -525,7 +527,8 @@ namespace MoveAndResizeControls_Monem
                 }
                 else
                 {
-                    StopDragOrResizing(par_controlH);
+                    //Dec17 2021 //StopDragOrResizing(par_controlH);
+                    StopDragOrResizing(par_controlH, _iSaveToModel);
                 }
             }
             else if (_moving)
@@ -544,7 +547,7 @@ namespace MoveAndResizeControls_Monem
 
         }
 
-        private static void StopDragOrResizing(Control par_controlJ)
+        private static void StopDragOrResizing(Control par_controlJ, ISaveToModel par_iSave)
         {
             bool bWasResizing = _resizing; // Added 7/31/2019 td
 
@@ -564,7 +567,8 @@ namespace MoveAndResizeControls_Monem
             //if (SetBreakpoint_AfterMove) System.Diagnostics.Debugger.Break();
 
             //Added 8/5/2019 thomas downes
-            if (bWasResizing) mod_groupedctl_events.Resizing_Terminate();
+            // Dec17 2021//if (bWasResizing) mod_groupedctl_events.Resizing_Terminate();
+            if (bWasResizing) mod_groupedctl_events.Resizing_Terminate(par_iSave);
 
             //Added 9/13/2019 thomas downes
             // Nov. 29 2021 //if (!(bWasResizing)) mod_groupedctl_events.Moving_Terminate();

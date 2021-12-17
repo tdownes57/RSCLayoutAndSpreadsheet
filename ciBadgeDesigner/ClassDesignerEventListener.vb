@@ -34,10 +34,11 @@ Public Class ClassDesignerEventListener
     Private WithEvents mod_groupedMove As ClassGroupMoveEvents ''(Me) ''8/4/2019 td''New ClassGroupMove
     Private WithEvents mod_singletonMove As ClassGroupMoveEvents ''Added 12/3/2021  
 
-    Private WithEvents mod_sizingEvents_Pics As ClassGroupMoveEvents ''(Me) ''Added 10/9/2019 td  
-    Private WithEvents mod_sizingEvents_QR As ClassGroupMoveEvents ''(Me) ''Added 10/12/2019 td  
-    Private WithEvents mod_sizingEvents_Sig As ClassGroupMoveEvents ''(Me) ''Added 10/12/2019 td  
-    Private WithEvents mod_sizingEvents_StaticText As ClassGroupMoveEvents ''(Me) ''Added 10/12/2019 td  
+    ''Dec17 2021''Private WithEvents mod_sizingEvents_Pics As ClassGroupMoveEvents ''(Me) ''Added 10/9/2019 td  
+    ''Dec17 2021''Private WithEvents mod_sizingEvents_QR As ClassGroupMoveEvents ''(Me) ''Added 10/12/2019 td  
+    ''Dec17 2021''Private WithEvents mod_sizingEvents_Sig As ClassGroupMoveEvents ''(Me) ''Added 10/12/2019 td  
+    ''Dec17 2021''Private WithEvents mod_sizingEvents_StaticText As ClassGroupMoveEvents ''(Me) ''Added 10/12/2019 td  
+    Public WithEvents SizingElementEvents As ClassGroupMoveEvents ''(Me) ''Added 12/17/2021 td  
 
     Private Const mc_boolAllowGroupMovements As Boolean = True ''False ''True ''False ''Added 8/3/2019 td  
     Private Const mc_boolBreakpoints As Boolean = True
@@ -47,7 +48,7 @@ Public Class ClassDesignerEventListener
     Private Const mc_bUseNonStaticMovers As Boolean = True ''Added 11/29/2021 td 
     Private mod_dictyControlMoveFields As New Dictionary(Of CtlGraphicFldLabel, ControlMove_Group_NonStatic)
     Public mod_dictyControlMoveBoxesEtc As New Dictionary(Of Control, ControlMove_NonStatic_TD)
-    Public mod_dictyControlResizing As New Dictionary(Of Control, ControlResizeProportionally_TD)
+    Public DictyControlResizing As New Dictionary(Of Control, ControlResizeProportionally_TD)
 
     ''Added 10/12/2019 td 
     Private mod_sizing_portrait As New ControlResizeProportionally_TD
@@ -69,10 +70,11 @@ Public Class ClassDesignerEventListener
         ''Added 11/29/2021 td
         mod_groupedMove = New ClassGroupMoveEvents(par_designer)
         mod_singletonMove = New ClassGroupMoveEvents(par_designer)
-        mod_sizingEvents_Pics = New ClassGroupMoveEvents(par_designer)
-        mod_sizingEvents_QR = New ClassGroupMoveEvents(par_designer)
-        mod_sizingEvents_Sig = New ClassGroupMoveEvents(par_designer)
-        mod_sizingEvents_StaticText = New ClassGroupMoveEvents(par_designer)
+        ''Dec17 2021''mod_sizingEvents_Pics = New ClassGroupMoveEvents(par_designer)
+        ''Dec17 2021''mod_sizingEvents_QR = New ClassGroupMoveEvents(par_designer)
+        ''Dec17 2021''mod_sizingEvents_Sig = New ClassGroupMoveEvents(par_designer)
+        ''Dec17 2021''mod_sizingEvents_StaticText = New ClassGroupMoveEvents(par_designer)
+        SizingElementEvents = New ClassGroupMoveEvents(par_designer)
 
         ''Added 11/29/2021 td
         m_bAddBorderOnlyWhileResizing = p_bAddBorderOnlyWhileResizing
@@ -182,42 +184,52 @@ Public Class ClassDesignerEventListener
         ''Added 10/12/2019 td 
         ''mod_sizing_portrait.Init(Me.CtlGraphic_Portrait.picturePortrait,
         ''              Me.CtlGraphic_Portrait, 10, True, mod_sizingEvents_Pics, False)
-        mod_sizing_portrait.Init(mod_designer.CtlGraphic_Portrait.picturePortrait,
-                mod_designer.CtlGraphic_Portrait, 10, True,
-                mod_sizingEvents_Pics, False,
-                mod_designer.CtlGraphic_Portrait)
-        ''Added 12/1/2021 td 
-        mod_dictyControlResizing.Add(mod_designer.CtlGraphic_Portrait,
-            mod_sizing_portrait)
+        ''mod_sizing_portrait.Init(mod_designer.CtlGraphic_Portrait.picturePortrait,
+        ''        mod_designer.CtlGraphic_Portrait, 10, True,
+        ''        SizingElementEvents, False,
+        ''        mod_designer.CtlGraphic_Portrait)
+        ''''Added 12/1/2021 td 
+        ''DictyControlResizing.Add(mod_designer.CtlGraphic_Portrait,
+        ''    mod_sizing_portrait)
+
+        ''Dec17 2021 td''mod_designer.Add_Moveability(mod_designer.CtlGraphic_Portrait)
+        mod_designer.Add_Moveability(mod_designer.CtlGraphic_Portrait, mod_designer.CtlGraphic_Portrait, mod_designer.CtlGraphic_Portrait)
 
         ''mod_sizing_QR.Init(Me.CtlGraphic_QRCode.pictureQRCode, Me.CtlGraphic_QRCode,
         ''                   10, True, mod_sizingEvents_QR, False)
-        mod_sizing_QR.Init(mod_designer.CtlGraphic_QRCode.pictureQRCode,
-                           mod_designer.CtlGraphic_QRCode, 10, True,
-                           mod_sizingEvents_QR, False,
-                           mod_designer.CtlGraphic_QRCode)
+        ''mod_sizing_QR.Init(mod_designer.CtlGraphic_QRCode.pictureQRCode,
+        ''                   mod_designer.CtlGraphic_QRCode, 10, True,
+        ''                   SizingElementEvents, False,
+        ''                   mod_designer.CtlGraphic_QRCode)
 
         ''Added 12/1/2021 td 
-        mod_dictyControlResizing.Add(mod_designer.CtlGraphic_QRCode,
-            mod_sizing_QR)
+        ''DictyControlResizing.Add(mod_designer.CtlGraphic_QRCode,
+        ''   mod_sizing_QR)
+        mod_designer.Add_Moveability(mod_designer.CtlGraphic_QRCode, mod_designer.CtlGraphic_QRCode,
+                                     mod_designer.CtlGraphic_QRCode)
+
 
         ''mod_sizing_signature.Init(Me.CtlGraphic_Signat.pictureSignature,
         ''        Me.CtlGraphic_Signat, 10, True, mod_sizingEvents_Sig, False)
-        mod_sizing_signature.Init(mod_designer.CtlGraphic_Signat.pictureSignature,
-                                  mod_designer.CtlGraphic_Signat, 10, True,
-                                  mod_sizingEvents_Sig, False,
-                                  mod_designer.CtlGraphic_Signat)
-
-        mod_dictyControlResizing.Add(mod_designer.CtlGraphic_Signat,
-             mod_sizing_signature) ''Added 12/1/2021 td
+        ''mod_sizing_signature.Init(mod_designer.CtlGraphic_Signat.pictureSignature,
+        ''                          mod_designer.CtlGraphic_Signat, 10, True,
+        ''                          SizingElementEvents, False,
+        ''                          mod_designer.CtlGraphic_Signat)
+        ''DictyControlResizing.Add(mod_designer.CtlGraphic_Signat,
+        ''     mod_sizing_signature) ''Added 12/1/2021 td
+        mod_designer.Add_Moveability(mod_designer.CtlGraphic_Signat, mod_designer.CtlGraphic_Signat,
+                                     mod_designer.CtlGraphic_Signat)
 
         ''Added 12/15/2021 td 
-        mod_dictyControlResizing.Add(mod_designer.CtlGraphic_StaticText1,
-             mod_sizing_staticText)
-        mod_sizing_staticText.Init(mod_designer.CtlGraphic_StaticText1.pictureLabel,
-                                  mod_designer.CtlGraphic_StaticText1, 10, True,
-                                  mod_sizingEvents_StaticText, False,
-                                    mod_designer.CtlGraphic_StaticText1)
+        ''mod_sizing_staticText.Init(mod_designer.CtlGraphic_StaticText1.pictureLabel,
+        ''                          mod_designer.CtlGraphic_StaticText1, 10, True,
+        ''                          SizingElementEvents, False,
+        ''                            mod_designer.CtlGraphic_StaticText1)
+        ''DictyControlResizing.Add(mod_designer.CtlGraphic_StaticText1,
+        ''     mod_sizing_staticText)
+        mod_designer.Add_Moveability(mod_designer.CtlGraphic_StaticText1, mod_designer.CtlGraphic_StaticText1,
+                                     mod_designer.CtlGraphic_StaticText1)
+
 
         ''Dim boolMakeMoveableByUser As Boolean ''Added 9/20/2019 td 
         ''Const c_boolMakeMoveableASAP As Boolean = False ''added 9/20/2019 td
@@ -627,7 +639,7 @@ Public Class ClassDesignerEventListener
     End Sub ''End of "Private Sub MovingElement_End(par_control As Control)"
 
 
-    Private Sub mod_sizingPic_events_Moving_End(par_control As Control, par_iSave As ISaveToModel) Handles mod_sizingEvents_Pics.Moving_End
+    Private Sub mod_sizing_events_Moving_End(par_control As Control, par_iSave As ISaveToModel) Handles SizingElementEvents.Moving_End
         ''Dec17 2021    Private Sub mod_sizingPic_events_Moving_End() Handles mod_sizingEvents_Pics.Moving_End
 
         ''Added 10/9/2019 td
@@ -643,17 +655,20 @@ Public Class ClassDesignerEventListener
 
     End Sub
 
-    Private Sub mod_sizingPic_events_Resizing_End() Handles mod_sizingEvents_Pics.Resizing_End
+    Private Sub mod_sizingEvents_Resizing_End(par_iSave As ISaveToModel) Handles SizingElementEvents.Resizing_End
+        ''Dec12 2021 td''Handles mod_sizingEvents_Pic.Resizing_End
 
         ''Added 10/9/2019 td 
-        mod_designer.CtlGraphic_Portrait.SaveToModel() ''Added 12/16/2021 td
+        ''Not needed. 12/17/2021 td''mod_designer.CtlGraphic_Portrait.SaveToModel() ''Added 12/16/2021 td
+
+        par_iSave.SaveToModel() ''Added 12/172021
 
         ''Update what the user sees (preview).
         mod_designer.AutoPreview_IfChecked()
 
     End Sub
 
-    Private Sub mod_sizingQR_events_Moving_End(par_control As Control, par_iSave As ISaveToModel) Handles mod_sizingEvents_QR.Moving_End
+    Private Sub mod_sizingQR_events_Moving_End(par_control As Control, par_iSave As ISaveToModel) Handles SizingElementEvents.Moving_End
 
         ''Added 10/9/2019 td 
         ''12/17/2021 td''mod_designer.CtlGraphic_QRCode.SaveToModel()
@@ -668,17 +683,21 @@ Public Class ClassDesignerEventListener
 
     End Sub
 
-    Private Sub Move_sizingQR_events_Resizing_End() Handles mod_sizingEvents_QR.Resizing_End
+    Private Sub Move_sizingEvents_Resizing_End(par_iSave As ISaveToModel)
+        ''#1 12/17/21 td''Handles mod_sizingElementEvents.Resizing_End
+        ''#2 12/17/21 td''Handles mod_sizing_QR_Events.Resizing_End
 
         ''Added 10/9/2019 td 
         mod_designer.CtlGraphic_QRCode.SaveToModel() ''Added 12/16/2021 td 
+        par_iSave.SaveToModel() ''Added 12/172021
 
         ''Update what the user sees (preview).
         mod_designer.AutoPreview_IfChecked()
 
     End Sub
 
-    Private Sub Move_sizingSig_events_Moving_End(par_control As Control, par_iSave As ISaveToModel) Handles mod_sizingEvents_Sig.Moving_End
+    Private Sub Move_sizingSig_events_Moving_End(par_control As Control, par_iSave As ISaveToModel) ''Handles mod_sizingEvents_Sig.Moving_End
+        ''12/17/2021 td''Handles mod_sizingEvents_Sig.Moving_End 
 
         ''Added 10/9/2019 td 
         ''12/17/2021 ''mod_designer.CtlGraphic_Signat.SaveToModel() ''Added 12/11/2021 td 
@@ -693,7 +712,7 @@ Public Class ClassDesignerEventListener
 
     End Sub
 
-    Private Sub Move_sizingSig_events_Resizing_End() Handles mod_sizingEvents_Sig.Resizing_End
+    Private Sub Move_sizingSig_events_Resizing_End() ''12/17/2021''Handles mod_sizingEvents_Sig.Resizing_End
 
         ''Added 10/9/2019 td 
         mod_designer.CtlGraphic_Signat.SaveToModel() ''Added 12/16/2021 td 
@@ -701,21 +720,26 @@ Public Class ClassDesignerEventListener
 
     End Sub
 
-    Private Sub Move_sizingPic_events_MoveInUnison(deltaLeft As Integer, deltaTop As Integer, deltaWidth As Integer, deltaHeight As Integer) Handles mod_sizingEvents_Pics.MoveInUnison
+    Private Sub Move_sizing_events_MoveInUnison(deltaLeft As Integer, deltaTop As Integer, deltaWidth As Integer, deltaHeight As Integer) Handles SizingElementEvents.MoveInUnison
+        ''12/17/2021 td''Private Sub mod_sizingPic_events_MoveInUnison
+        ''12/17/2021 td''   Handles mod_sizingEvents_Pics.MoveInUnison
 
         ''Added 10/10/2019 td
         mod_designer.AutoPreview_IfChecked()
 
     End Sub
 
-    Private Sub mod_sizingQR_events_MoveInUnison(deltaLeft As Integer, deltaTop As Integer, deltaWidth As Integer, deltaHeight As Integer) Handles mod_sizingEvents_QR.MoveInUnison
+    Private Sub mod_sizingQR_events_MoveInUnison(deltaLeft As Integer, deltaTop As Integer, deltaWidth As Integer, deltaHeight As Integer) ''12/17 ''Handles mod_sizingElementEvents.MoveInUnison
+        ''12/17/2021 td''Private Sub mod_sizingQR_events_MoveInUnison
+        ''12/17/2021 td''   Handles mod_sizingEvents_QR.MoveInUnison
 
         ''Added 10/10/2019 td
         mod_designer.AutoPreview_IfChecked()
 
     End Sub
 
-    Private Sub mod_sizingSig_events_MoveInUnison(deltaLeft As Integer, deltaTop As Integer, deltaWidth As Integer, deltaHeight As Integer) Handles mod_sizingEvents_Sig.MoveInUnison
+    Private Sub mod_sizingSig_events_MoveInUnison(deltaLeft As Integer, deltaTop As Integer, deltaWidth As Integer, deltaHeight As Integer) ''12/17 td''Handles mod_sizingEvents_Sig.MoveInUnison
+        ''12/17/2021 td''Handles mod_sizingEvents_Sig.MoveInUnison
 
         ''Added 10/10/2019 td
         mod_designer.AutoPreview_IfChecked()

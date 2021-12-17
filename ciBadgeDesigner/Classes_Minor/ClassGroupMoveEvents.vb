@@ -16,8 +16,8 @@ Public Class ClassGroupMoveEvents
     Public Event MoveInUnison(deltaLeft As Integer, deltaTop As Integer, deltaWidth As Integer, deltaHeight As Integer)
 
     ''Added 8/3/2019 thomas downes
-    Public Event Resizing_Start()
-    Public Event Resizing_End()
+    Public Event Resizing_Start() ''12/17 td''par_iSaveToModel As ISaveToModel) ''Modified/added parameter 12/17/2021 td  
+    Public Event Resizing_End(par_iSaveToModel As ISaveToModel) ''Modified/added parameter 12/17/2021 td 
 
     ''Modified 11/29/2021 td''Public Event Moving_End() ''Added 9/13/2019 td
     ''12/17/2021 td''Public Event Moving_End(par_control As Control) ''Added 9/13/2019 td  
@@ -85,10 +85,11 @@ Public Class ClassGroupMoveEvents
 
     End Sub
 
-    Public Sub Resizing_Terminate() Implements InterfaceEvents.Resizing_Terminate
+    Public Sub Resizing_Terminate(par_iSave As ISaveToModel) Implements InterfaceEvents.Resizing_Terminate
+        ''Dec17 2021''Public Sub Resizing_Terminate() Implements InterfaceEvents.Resizing_Terminate
 
         ''Added 8/4/2019 td  
-        RaiseEvent Resizing_End()
+        RaiseEvent Resizing_End(par_iSave)
 
     End Sub
 

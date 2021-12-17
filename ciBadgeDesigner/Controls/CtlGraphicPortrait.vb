@@ -11,7 +11,9 @@ Imports System.Windows.Forms ''Added 10/01/2019 td
 Imports System.Drawing ''Added 10/01/2019 td 
 
 Public Class CtlGraphicPortrait
-    Implements ISaveToModel ''Added 12/17/2021 td 
+    Implements ISaveToModel
+    Implements IMoveableElement ''Added 12/17/2021 td
+    Implements IClickableElement ''Added 12/17/2021 td 
     ''
     ''Added 7/31/2019 thomas d 
     ''
@@ -695,6 +697,41 @@ ExitHandler:
         End If ''End of "If (boolRightClick) Then"
 
     End Sub
+
+    Public Sub EnableDragAndDrop_Moveable() Implements IMoveableElement.EnableDragAndDrop_Moveable
+        Throw New NotImplementedException()
+    End Sub
+
+    Public Sub DisableDragAndDrop_Unmoveable() Implements IMoveableElement.DisableDragAndDrop_Unmoveable
+        Throw New NotImplementedException()
+    End Sub
+
+
+    Public Function GetPictureBox() As PictureBox Implements IMoveableElement.GetPictureBox
+
+        ''Added 12/17/2021 td  
+        Return picturePortrait
+
+    End Function
+
+
+    Public Sub DisableRightClickMenu() Implements IClickableElement.DisableRightClickMenu
+        Throw New NotImplementedException()
+    End Sub
+
+    Public Sub EnableRightClickMenu() Implements IClickableElement.EnableRightClickMenu
+        Throw New NotImplementedException()
+    End Sub
+
+    Private mod_formRecordLastTouched As IRecordElementLastTouched ''Added 12/17/2021 td
+    Private Sub CtlGraphicPortrait_MouseDown(sender As Object, e As MouseEventArgs) Handles Me.MouseDown
+        ''
+        ''Added 12/17/2021 td
+        ''
+        mod_formRecordLastTouched.RecordElementLastTouched(Me, Me)
+
+    End Sub
+
 
 End Class ''End of Public Class CtlGraphicPortrait 
 

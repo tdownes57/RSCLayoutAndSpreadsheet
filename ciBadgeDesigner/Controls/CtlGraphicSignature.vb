@@ -15,6 +15,8 @@ Imports System.Drawing ''Added 10/01/2019 td
 
 Public Class CtlGraphicSignature
     Implements ISaveToModel ''Added 12/17/2021 td 
+    Implements IClickableElement ''Added 12/17/2021 td
+    Implements IMoveableElement ''Added 12/17/2021 td 
     ''
     ''Added 10/10/2019 thomas d 
     ''
@@ -679,6 +681,35 @@ ExitHandler:
         SigMenu1.DisplaySigMenu()
 
     End Sub ''End of "Public Sub OpenSignaturePad()"
+
+    Public Sub DisableRightClickMenu() Implements IClickableElement.DisableRightClickMenu
+        ''Added 12/17/2021 td  
+        Throw New NotImplementedException()
+    End Sub
+
+    Public Sub EnableRightClickMenu() Implements IClickableElement.EnableRightClickMenu
+        ''Added 12/17/2021 td  
+        Throw New NotImplementedException()
+    End Sub
+
+    Public Sub EnableDragAndDrop_Moveable() Implements IMoveableElement.EnableDragAndDrop_Moveable
+        ''Added 12/17/2021 td  
+        Throw New NotImplementedException()
+    End Sub
+
+    Public Sub DisableDragAndDrop_Unmoveable() Implements IMoveableElement.DisableDragAndDrop_Unmoveable
+        ''Added 12/17/2021 td  
+        Throw New NotImplementedException()
+    End Sub
+
+
+    Public Function GetPictureBox() As PictureBox Implements IMoveableElement.GetPictureBox
+
+        ''Added 12/17/2021 td  
+        Return pictureSignature
+
+    End Function
+
 
 End Class ''End of "Public Class CtlGraphicSignaturePad"  
 

@@ -10,6 +10,7 @@ Imports ciBadgeElemImage ''Added 10/12/2019 td
 
 Public Class CtlGraphicStaticText
     Implements ISaveToModel ''Added 12/17/2021 td 
+    Implements IMoveableElement ''Added 12/17/2021 td
     ''
     ''Added 8/01/2019 thomas d 
     ''
@@ -576,4 +577,21 @@ ExitHandler:
         If (False) Then PictureLabel_MouseClick(sender, e)
 
     End Sub
+
+    Public Sub EnableDragAndDrop_Moveable() Implements IMoveableElement.EnableDragAndDrop_Moveable
+        ''Added 12/17/2021 td  
+        Throw New NotImplementedException()
+    End Sub
+
+    Public Sub DisableDragAndDrop_Unmoveable() Implements IMoveableElement.DisableDragAndDrop_Unmoveable
+        ''Added 12/17/2021 td  
+        Throw New NotImplementedException()
+    End Sub
+
+    Public Function GetPictureBox() As PictureBox Implements IMoveableElement.GetPictureBox
+        ''Added 12/17/2021 td  
+        ''---Throw New NotImplementedException()
+        Return pictureLabel
+
+    End Function
 End Class

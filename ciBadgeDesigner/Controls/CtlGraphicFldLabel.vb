@@ -1096,6 +1096,14 @@ ExitHandler:
 
     End Sub
 
+
+    Public Function GetPictureBox() As PictureBox Implements IMoveableElement.GetPictureBox
+        ''Added 12/17/2021 td  
+        Return pictureLabel
+
+    End Function
+
+
     Public Sub DisableRightClickMenu() Implements IClickableElement.DisableRightClickMenu
         ''
         ''Added 12/17/2021 td
@@ -1119,5 +1127,9 @@ ExitHandler:
         mod_formRecordLastTouched.RecordElementLastTouched(Me, Me)
 
     End Sub
+
+
+
+
 
 End Class

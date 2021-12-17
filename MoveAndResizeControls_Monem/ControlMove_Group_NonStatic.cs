@@ -132,7 +132,8 @@ namespace MoveAndResizeControls_Monem
             WorkType = MoveOrResize.MoveAndResize;
 
             par_controlPictureB.MouseDown += (sender, e) => StartMovingOrResizing(par_controlPictureB, e);
-            par_controlPictureB.MouseUp += (sender, e) => StopDragOrResizing(par_controlPictureB);
+            //Dec17 2021 td//par_controlPictureB.MouseUp += (sender, e) => StopDragOrResizing(par_controlPictureB);
+            par_controlPictureB.MouseUp += (sender, e) => StopDragOrResizing(par_controlPictureB, _iSaveToModel);
 
             //==-== Likely bug??  Notice that, toward the end of the line, it references
             //==   the parameter "par_containerElement".... which conflicts with "par_control"
@@ -399,7 +400,8 @@ namespace MoveAndResizeControls_Monem
                 }
                 else
                 {
-                    StopDragOrResizing(par_controlG);
+                    // Dec17 2021 //StopDragOrResizing(par_controlG);
+                    StopDragOrResizing(par_controlG, _iSaveToModel);
                 }
             }
             else if (_moving)
@@ -529,7 +531,8 @@ namespace MoveAndResizeControls_Monem
                 }
                 else
                 {
-                    StopDragOrResizing(par_controlH);
+                    //Dec17 2021 td//StopDragOrResizing(par_controlH);
+                    StopDragOrResizing(par_controlH, _iSaveToModel);
                 }
             }
             else if (_moving)
@@ -548,7 +551,7 @@ namespace MoveAndResizeControls_Monem
 
         }
 
-        private void StopDragOrResizing(Control par_controlJ)
+        private void StopDragOrResizing(Control par_controlJ, ISaveToModel par_iSave)
         {
             bool bWasResizing = _resizing; // Added 7/31/2019 td
 
@@ -568,7 +571,7 @@ namespace MoveAndResizeControls_Monem
             //if (SetBreakpoint_AfterMove) System.Diagnostics.Debugger.Break();
 
             //Added 8/5/2019 thomas downes
-            if (bWasResizing) mod_groupedctl_events.Resizing_Terminate();
+            if (bWasResizing) mod_groupedctl_events.Resizing_Terminate(par_iSave);
 
             //Added 9/13/2019 thomas downes
             // #1 Nov. 29 2021 //if (!(bWasResizing)) mod_groupedctl_events.Moving_Terminate();
@@ -601,7 +604,8 @@ namespace MoveAndResizeControls_Monem
 
             //''The minimal listing. 
             _controlCurrent.MouseDown -= (sender, e) => StartMovingOrResizing(_controlCurrent, e);
-            _controlCurrent.MouseUp -= (sender, e) => StopDragOrResizing(_controlCurrent);
+            // Dec17 2021//_controlCurrent.MouseUp -= (sender, e) => StopDragOrResizing(_controlCurrent);
+            _controlCurrent.MouseUp -= (sender, e) => StopDragOrResizing(_controlCurrent, _iSaveToModel);
             _controlCurrent.MouseMove -= (sender, e) => MoveControl(_controlCurrent, e);
 
         }

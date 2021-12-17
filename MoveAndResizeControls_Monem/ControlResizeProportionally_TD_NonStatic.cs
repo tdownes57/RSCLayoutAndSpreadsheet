@@ -580,7 +580,7 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             if (SetBreakpoint_AfterMove) System.Diagnostics.Debugger.Break();
 
             //Added 10/14 & 8/5/2019 thomas downes
-            if (bWasResizing) mod_events.Resizing_Terminate();
+            if (bWasResizing) mod_events.Resizing_Terminate(_iSaveToModel);
 
             //Added 10/14 & 9/13/2019 thomas downes
             // 12/17/2021 td //if (!(bWasResizing)) mod_events.Moving_Terminate(par_control);

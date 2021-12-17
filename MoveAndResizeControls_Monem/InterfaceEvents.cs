@@ -31,7 +31,9 @@ namespace MoveAndResizeControls_Monem
         //Added 8-5-2019 thomas downes
         //
         void Resizing_Initiate();
-        void Resizing_Terminate();
+
+        // Dec17 2021//void Resizing_Terminate(); 
+        void Resizing_Terminate(ISaveToModel par_iSave);
 
         // Dec17 2021 td//void Moving_Terminate(Control par_control); //Modified 11/29/2021 //Added 9/13/2019 td 
         void Moving_Terminate(Control par_control, ISaveToModel par_iSave); //Modified 12/17/2021 //Added 9/13/2019 td 

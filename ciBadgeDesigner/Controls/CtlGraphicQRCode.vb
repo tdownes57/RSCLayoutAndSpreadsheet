@@ -12,6 +12,8 @@ Imports System.Drawing ''Added 10/01/2019 td
 
 Public Class CtlGraphicQRCode
     Implements ISaveToModel ''Added 12/17/2021 td 
+    Implements IClickableElement ''Added 12/17/2021 td
+    Implements IMoveableElement ''Added 12/17/2021 td
     ''
     ''Added 10/10/2019 thomas d 
     ''
@@ -659,6 +661,47 @@ ExitHandler:
     Private Sub PictureLabel_MouseClick(sender As Object, e As MouseEventArgs) Handles pictureQRCode.MouseClick
 
     End Sub
+
+    Public Sub DisableRightClickMenu() Implements IClickableElement.DisableRightClickMenu
+        ''
+        ''Added 12/17/2021 td
+        ''
+        Throw New NotImplementedException()
+    End Sub
+
+    Public Sub EnableRightClickMenu() Implements IClickableElement.EnableRightClickMenu
+        ''
+        ''Added 12/17/2021 td
+        ''
+        Throw New NotImplementedException()
+    End Sub
+
+
+    Public Sub EnableDragAndDrop_Moveable() Implements IMoveableElement.EnableDragAndDrop_Moveable
+        ''
+        ''Added 12/17/2021 td
+        ''
+        Throw New NotImplementedException()
+
+    End Sub
+
+    Public Sub DisableDragAndDrop_Unmoveable() Implements IMoveableElement.DisableDragAndDrop_Unmoveable
+        ''
+        ''Added 12/17/2021 td
+        ''
+        Throw New NotImplementedException()
+
+    End Sub
+
+
+    Public Function GetPictureBox() As PictureBox Implements IMoveableElement.GetPictureBox
+
+        ''Added 12/17/2021 td  
+        Return pictureQRCode
+
+    End Function
+
+
 
 End Class ''End of Public Class CtlGraphicQRCode 
 

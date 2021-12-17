@@ -17,7 +17,7 @@ Imports System.IO ''Added 12/3/2021 thomas d.
 ''10/1/2019 td''Public Event ElementField_Clicked(par_elementField As ClassElementField)
 
 Public Class ClassDesigner
-    Implements ILayoutFunctions, ISelectingElements
+    Implements ILayoutFunctions, ISelectingElements, IRecordElementLastTouched
     ''
     ''Added 10/1/2019 thomas downes 
     ''
@@ -254,8 +254,10 @@ Public Class ClassDesigner
         Dim objListenerQR As MoveAndResizeControls_Monem.ControlResizeProportionally_TD
 
         ''---objListenerQR = mod_designerListener.mod_dictyControlMoveBoxesEtc(CtlGraphic_QRCode)
-        objListenerQR = mod_designerListener.mod_dictyControlResizing(CtlGraphic_QRCode)
+        objListenerQR = mod_designerListener.DictyControlResizing(CtlGraphic_QRCode)
         objListenerQR.RemoveEventHandlers()
+        mod_designerListener.DictyControlResizing.Remove(CtlGraphic_QRCode) ''Added 12/17/2021 td
+
         CtlGraphic_QRCode.Dispose() ''Added Dec. 8, 2021
         Me.DesignerForm.Controls.Remove(CtlGraphic_QRCode) ''Added Dec. 8, 2021
         mod_listOfDesignerControls.Remove(CtlGraphic_QRCode) ''Added Dec. 8, 2021
@@ -268,8 +270,10 @@ Public Class ClassDesigner
         ''Added 12/14/2021 td 
         ''
         Dim objListenerSig As MoveAndResizeControls_Monem.ControlResizeProportionally_TD
-        objListenerSig = mod_designerListener.mod_dictyControlResizing(CtlGraphic_Signat)
+        objListenerSig = mod_designerListener.DictyControlResizing(CtlGraphic_Signat)
         objListenerSig.RemoveEventHandlers()
+        mod_designerListener.DictyControlResizing.Remove(CtlGraphic_Signat) ''Added 12/17/2021 td
+
         CtlGraphic_Signat.Dispose() ''Added Dec. 8, 2021
         Me.DesignerForm.Controls.Remove(CtlGraphic_Signat) ''Added Dec. 8, 2021
         mod_listOfDesignerControls.Remove(CtlGraphic_Signat) ''Added Dec. 8, 2021
@@ -284,10 +288,11 @@ Public Class ClassDesigner
         Dim objListenerStaticText As MoveAndResizeControls_Monem.ControlResizeProportionally_TD
         Dim boolListenerFound As Boolean ''Added 12/15/2021 td 
 
-        boolListenerFound = mod_designerListener.mod_dictyControlResizing.ContainsKey(CtlGraphic_StaticText1)
+        boolListenerFound = mod_designerListener.DictyControlResizing.ContainsKey(CtlGraphic_StaticText1)
         If (boolListenerFound) Then
-            objListenerStaticText = mod_designerListener.mod_dictyControlResizing(CtlGraphic_StaticText1)
+            objListenerStaticText = mod_designerListener.DictyControlResizing(CtlGraphic_StaticText1)
             objListenerStaticText.RemoveEventHandlers()
+            mod_designerListener.DictyControlResizing.Remove(CtlGraphic_StaticText1) ''Added 12/17/2021 td
         Else
             MessageBox.Show("We don't see the event-listener for the StaticText control.")
 
@@ -1014,7 +1019,7 @@ Public Class ClassDesigner
             ''#1 9/4/2019 td''label_control = New CtlGraphicFldLabel(each_field, Me)
             '' #2 9/4/2019 td''label_control = New CtlGraphicFldLabel(each_field, new_element_text, Me)
             ''----label_control = New CtlGraphicFldLabel(each_element, Me)
-            label_control = New CtlGraphicFldLabel(each_element, Me, "WhyWasICreated? LoadFieldControls_ByListOfElements: " & pstrWhyCalled)
+            label_control = New CtlGraphicFldLabel(each_element, Me, "WhyWasICreated? LoadFieldControls_ByListOfElements: " & pstrWhyCalled, Me)
 
             ''Moved below. 9/5 td''label_control.Refresh_Master()
             label_control.Visible = each_element.FieldInfo.IsDisplayedOnBadge ''BL = Badge Layout
@@ -2334,6 +2339,71 @@ Public Class ClassDesigner
 
     End Sub ''End of "Public Sub SwitchSideOfCard()"
 
+    Public Property LastTouchedMoveableElement As IMoveableElement ''Added 12/17/2021 td
+    Public Property LastTouchedClickableElement As IClickableElement ''Added 12/17/2021 td
+
+    Public Sub RecordElementLastTouched(par_elementMoved As IMoveableElement, par_elementClicked As IClickableElement) Implements IRecordElementLastTouched.RecordElementLastTouched
+        ''
+        ''Added 12/17/2021 td
+        ''
+        ''----Throw New NotImplementedException()
+        Me.LastTouchedClickableElement = par_elementClicked
+        Me.LastTouchedMoveableElement = par_elementMoved
+
+    End Sub
+
+    ''Private Sub IRecordElementLastTouched_RecordElementLastTouched(par_elementMoved As IMoveableElement, par_elementClicked As IClickableElement) Implements IRecordElementLastTouched.RecordElementLastTouched
+    ''    Throw New NotImplementedException()
+    ''End Sub
+
+    Public Sub Add_Moveability(par_control As Control, par_iSave As ISaveToModel, par_elementMoved As IMoveableElement) Implements IRecordElementLastTouched.Add_Moveability
+        ''
+        ''Added 12/17/2021 td
+        ''
+        ''--Throw New NotImplementedException()
+        ''mod_sizing_portrait.Init(mod_designer.CtlGraphic_Portrait.picturePortrait,
+        ''  mod_designer.CtlGraphic_Portrait, 10, True,
+        ''  mod_sizingElementEvents, False,
+        ''  mod_designer.CtlGraphic_Portrait)
+        ''''Added 12/1/2021 td 
+        ''mod_dictyControlResizing.Add(mod_designer.CtlGraphic_Portrait,
+        ''    mod_sizing_portrait)
+
+        Dim objResize As New MoveAndResizeControls_Monem.ControlResizeProportionally_TD()
+
+        objResize.Init(par_control,
+                par_elementMoved.GetPictureBox(), 10, True,
+                mod_designerListener.SizingElementEvents, False,
+                par_iSave)
+
+        ''Added 12/1/2021 td 
+        mod_designerListener.DictyControlResizing.Add(par_control, objResize)
+
+    End Sub
+
+    Public Sub Add_Clickability(par_elementClicked As IClickableElement) Implements IRecordElementLastTouched.Add_Clickability
+        ''
+        ''Added 12/17/2021 td
+        ''
+        ''--Throw New NotImplementedException()
+
+    End Sub
+
+    Public Sub Remove_Moveability(par_elementMoved As IMoveableElement) Implements IRecordElementLastTouched.Remove_Moveability
+        ''
+        ''Added 12/17/2021 td
+        ''
+        Throw New NotImplementedException()
+
+    End Sub
+
+    Public Sub Remove_Clickability(par_elementClicked As IClickableElement) Implements IRecordElementLastTouched.Remove_Clickability
+        ''
+        ''Added 12/17/2021 td
+        ''
+        Throw New NotImplementedException()
+
+    End Sub
 
 
 End Class ''End of "Public Class ClassDesigner"

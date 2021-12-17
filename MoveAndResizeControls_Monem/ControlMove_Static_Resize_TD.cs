@@ -242,7 +242,7 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             control.Capture = true;
 
             //Added 11/29/2021 thomas downes
-            if (bWasResizing) mod_eventsInterface.Resizing_Terminate();
+            if (bWasResizing) mod_eventsInterface.Resizing_Terminate(_iSaveToModel);
 
             //Added 9/13/2019 thomas downes
             // #1 Nov. 29 2021 //if (!(bWasResizing)) mod_groupedctl_events.Moving_Terminate();
