@@ -21,6 +21,8 @@ End Enum ''ENd of "Public Enum EnumReminderMsg"
 
 Public Class CtlGraphicFldLabel
     Implements ISaveToModel ''Added 12/17/2021 td 
+    Implements IMoveableElement ''Added 12/17/2021 td
+    Implements IClickableElement ''Added 12/17/2021 td 
     ''
     ''Added 7/25/2019 thomas d 
     ''
@@ -112,7 +114,8 @@ Public Class CtlGraphicFldLabel
 
     Public Sub New(par_elementField As ClassElementField,
                   par_layout As ILayoutFunctions,
-                   pstrWhyWasICreated As String)
+                   pstrWhyWasICreated As String,
+                   par_formRecordLastTouched As IRecordElementLastTouched)
 
         ' This call is required by the designer.
         InitializeComponent()
@@ -138,6 +141,9 @@ Public Class CtlGraphicFldLabel
 
         ''Added 11/28/2021 thomas d.
         WhyWasICreated = pstrWhyWasICreated
+
+        ''Added 12/17/2021 td
+        mod_formRecordLastTouched = par_formRecordLastTouched
 
     End Sub ''ENd of "Public Sub New "
 
@@ -1072,4 +1078,46 @@ ExitHandler:
         End If ''end of "If (e.Button = MouseButtons.Right) Then"
 
     End Sub
+
+    Public Sub EnableDragAndDrop_Moveable() Implements IMoveableElement.EnableDragAndDrop_Moveable
+        ''
+        ''Added 12/17/2021 td
+        ''
+        Throw New NotImplementedException()
+
+
+    End Sub
+
+    Public Sub DisableDragAndDrop_Unmoveable() Implements IMoveableElement.DisableDragAndDrop_Unmoveable
+        ''
+        ''Added 12/17/2021 td
+        ''
+        Throw New NotImplementedException()
+
+    End Sub
+
+    Public Sub DisableRightClickMenu() Implements IClickableElement.DisableRightClickMenu
+        ''
+        ''Added 12/17/2021 td
+        ''
+        Throw New NotImplementedException()
+    End Sub
+
+    Public Sub EnableRightClickMenu() Implements IClickableElement.EnableRightClickMenu
+        ''
+        ''Added 12/17/2021 td
+        ''
+        Throw New NotImplementedException()
+
+    End Sub
+
+    Private mod_formRecordLastTouched As IRecordElementLastTouched ''Added 12/17/2021 td
+    Private Sub CtlGraphicFldLabel_MouseDown(sender As Object, e As MouseEventArgs) Handles Me.MouseDown
+        ''
+        ''Added 12/17/2021 td
+        ''
+        mod_formRecordLastTouched.RecordElementLastTouched(Me, Me)
+
+    End Sub
+
 End Class

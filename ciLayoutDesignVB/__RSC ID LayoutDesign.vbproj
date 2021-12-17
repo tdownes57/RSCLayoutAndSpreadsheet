@@ -465,7 +465,12 @@
     <Compile Include="FormSimpleDataEntry.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="InterfaceShowListFields.vb" />
+    <Compile Include="Interfaces\InterfaceClickableElement.vb" />
+    <Compile Include="Interfaces\Interface_MoveableClickable.vb" />
+    <Compile Include="Interfaces\InterfaceMoveableElement.vb" />
+    <Compile Include="Interfaces\InterfaceRecallLastTouched_NotUsed.vb" />
+    <Compile Include="Interfaces\InterfaceRecallMoveable_NotUsed.vb" />
+    <Compile Include="Interfaces\InterfaceShowListFields.vb" />
     <Compile Include="ListCustomFieldsFlow.Designer.vb">
       <DependentUpon>ListCustomFieldsFlow.vb</DependentUpon>
     </Compile>
@@ -581,7 +586,7 @@
     <Compile Include="Version830_v101.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="InterfaceCIBField_NotInUse.vb" />
+    <Compile Include="Interfaces\InterfaceCIBField_NotInUse.vb" />
     <Compile Include="LayoutSerialization.vb" />
     <Compile Include="Modules\modAdjustmentBoxes_V101.vb" />
     <Compile Include="Modules\modAdjustmentBoxes_V102.vb" />

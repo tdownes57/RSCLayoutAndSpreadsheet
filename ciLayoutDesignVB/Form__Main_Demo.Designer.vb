@@ -107,6 +107,8 @@ Partial Class Form__Main_Demo
         Me.CtlGraphicPortrait_Lady = New ciBadgeDesigner.CtlGraphicPortrait()
         Me.CtlGraphicSignature1 = New ciBadgeDesigner.CtlGraphicSignature()
         Me.CtlGraphicStaticText1 = New ciBadgeDesigner.CtlGraphicStaticText()
+        Me.LinkLabel2 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel3 = New System.Windows.Forms.LinkLabel()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -488,7 +490,7 @@ Partial Class Form__Main_Demo
         '
         Me.StatusStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StatusLabelMovingElement, Me.StatusLabelNameOfElement})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 594)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 587)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Size = New System.Drawing.Size(1298, 22)
         Me.StatusStrip1.TabIndex = 47
@@ -547,7 +549,7 @@ Partial Class Form__Main_Demo
         Me.flowFieldsNotListed.Controls.Add(Me.lblFieldsNotCurrentlyShownHdr)
         Me.flowFieldsNotListed.Location = New System.Drawing.Point(110, 493)
         Me.flowFieldsNotListed.Name = "flowFieldsNotListed"
-        Me.flowFieldsNotListed.Size = New System.Drawing.Size(429, 83)
+        Me.flowFieldsNotListed.Size = New System.Drawing.Size(429, 55)
         Me.flowFieldsNotListed.TabIndex = 52
         '
         'lblFieldsNotCurrentlyShownHdr
@@ -580,7 +582,7 @@ Partial Class Form__Main_Demo
         Me.flowSidebar.Dock = System.Windows.Forms.DockStyle.Right
         Me.flowSidebar.Location = New System.Drawing.Point(1277, 30)
         Me.flowSidebar.Name = "flowSidebar"
-        Me.flowSidebar.Size = New System.Drawing.Size(21, 564)
+        Me.flowSidebar.Size = New System.Drawing.Size(21, 557)
         Me.flowSidebar.TabIndex = 54
         Me.flowSidebar.Visible = False
         '
@@ -647,7 +649,7 @@ Partial Class Form__Main_Demo
         '
         Me.graphicAdjuster.BackColor = System.Drawing.Color.White
         Me.graphicAdjuster.Image = Global.ciLayoutDesignVB.My.Resources.Resources.AdjustWHColor_V103
-        Me.graphicAdjuster.Location = New System.Drawing.Point(829, 515)
+        Me.graphicAdjuster.Location = New System.Drawing.Point(694, 153)
         Me.graphicAdjuster.Name = "graphicAdjuster"
         Me.graphicAdjuster.Size = New System.Drawing.Size(433, 229)
         Me.graphicAdjuster.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -797,11 +799,34 @@ Partial Class Form__Main_Demo
         Me.CtlGraphicStaticText1.TabIndex = 75
         Me.CtlGraphicStaticText1.TextToDisplay = "This is text which will be the same for everyone."
         '
+        'LinkLabel2
+        '
+        Me.LinkLabel2.Location = New System.Drawing.Point(825, 507)
+        Me.LinkLabel2.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
+        Me.LinkLabel2.Name = "LinkLabel2"
+        Me.LinkLabel2.Size = New System.Drawing.Size(372, 29)
+        Me.LinkLabel2.TabIndex = 80
+        Me.LinkLabel2.TabStop = True
+        Me.LinkLabel2.Text = "Turn on context menu for last-touched element."
+        '
+        'LinkLabel3
+        '
+        Me.LinkLabel3.Location = New System.Drawing.Point(825, 532)
+        Me.LinkLabel3.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
+        Me.LinkLabel3.Name = "LinkLabel3"
+        Me.LinkLabel3.Size = New System.Drawing.Size(372, 29)
+        Me.LinkLabel3.TabIndex = 81
+        Me.LinkLabel3.TabStop = True
+        Me.LinkLabel3.Text = "Turn on drag-&&-drop for last-touched element."
+        '
         'Form__Main_Demo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1298, 616)
+        Me.ClientSize = New System.Drawing.Size(1298, 609)
+        Me.Controls.Add(Me.graphicAdjuster)
+        Me.Controls.Add(Me.LinkLabel3)
+        Me.Controls.Add(Me.LinkLabel2)
         Me.Controls.Add(Me.labelProceedToBackside)
         Me.Controls.Add(Me.checkInstantPreview)
         Me.Controls.Add(Me.LinkLabelEmailBadgeJpeg)
@@ -829,7 +854,6 @@ Partial Class Form__Main_Demo
         Me.Controls.Add(Me.chkIncludeExampleValues)
         Me.Controls.Add(Me.LinkLabel1)
         Me.Controls.Add(Me.LinkShowWebControls)
-        Me.Controls.Add(Me.graphicAdjuster)
         Me.Controls.Add(Me.CtlGraphicSignature1)
         Me.Controls.Add(Me.CtlGraphicStaticText1)
         Me.Controls.Add(Me.LabelReturnToFrontSide)
@@ -941,4 +965,6 @@ Partial Class Form__Main_Demo
     Friend WithEvents pictureBackgroundBackside As PictureBox
     Friend WithEvents labelBacksideOfBadgecard As Label
     Friend WithEvents AddExtraHeadersToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents LinkLabel2 As LinkLabel
+    Friend WithEvents LinkLabel3 As LinkLabel
 End Class

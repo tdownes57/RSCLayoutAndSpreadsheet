@@ -131,6 +131,9 @@
     </Compile>
     <Compile Include="InterfaceSelectingElements.vb" />
     <Compile Include="InterfaceSelectingElements_v90.vb" />
+    <Compile Include="Interfaces\InterfaceClickableElement.vb" />
+    <Compile Include="Interfaces\InterfaceMoveableElement.vb" />
+    <Compile Include="Interfaces\InterfaceRecallLastTouched.vb" />
     <Compile Include="modFactoryControls.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">

@@ -22,6 +22,8 @@ Imports MoveAndResizeControls_Monem
 
 Public Class Form__Main_Demo
     Implements IDesignerForm ''Added 10/13/2019 td 
+    Implements IRecallClickable
+
     ''10/3/2019 td''Implements ILayoutFunctions ''-----, ISelectingElements, ILayoutFunctions
     ''
     ''Added 7/18/2019 Thomas DOWNES
@@ -39,6 +41,9 @@ Public Class Form__Main_Demo
     Public Property ElementsCache_Edits As New ClassElementsCache_Deprecated ''Added 9/16/2019 thomas downes
     Public Property ElementsCache_ManageBoth As ClassCacheManagement ''Added 12/5/2021 thomas downes
     Public Property ElementsCache_PathToXML As String ''Added 12/14/2021 thomas Downes
+
+    Public Property LastTouchedMoveableElement As IMoveableElement ''Added 12/17/2021 td
+    Public Property LastTouchedClickableElement As IClickableElement ''Added 12/17/2021 td
 
     Private WithEvents mod_designer As New ciBadgeDesigner.ClassDesigner ''Added 10/3/2019 td
 
@@ -2444,5 +2449,17 @@ ExitHandler:
         ExitRecipientModeToolStripMenuItem_Click(sender, e)
 
     End Sub
+
+    Public Sub RecordElementLastTouched(par_elementMoved As IMoveableElement, par_elementClicked As IClickableElement) Implements IRecallClickable.RecordElementLastTouched
+        ''
+        ''Added 12/17/2021 td
+        ''
+        ''----Throw New NotImplementedException()
+        Me.LastTouchedClickableElement = par_elementClicked
+        Me.LastTouchedMoveableElement = par_elementMoved
+
+    End Sub
+
+
 
 End Class

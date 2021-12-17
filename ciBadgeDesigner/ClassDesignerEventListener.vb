@@ -620,15 +620,25 @@ Public Class ClassDesignerEventListener
         ''==/==Needed? ---12/17/2021 td
         ''==par_interfaceSaveToModel.SaveToModel()
         par_iSave.SaveToModel() ''Added 12/17/2021 td  
+
+        ''Update what the user sees (preview).
         mod_designer.AutoPreview_IfChecked(par_ctlElement)
 
     End Sub ''End of "Private Sub MovingElement_End(par_control As Control)"
 
 
-    Private Sub mod_sizingPic_events_Moving_End() Handles mod_sizingEvents_Pics.Moving_End
+    Private Sub mod_sizingPic_events_Moving_End(par_control As Control, par_iSave As ISaveToModel) Handles mod_sizingEvents_Pics.Moving_End
+        ''Dec17 2021    Private Sub mod_sizingPic_events_Moving_End() Handles mod_sizingEvents_Pics.Moving_End
 
         ''Added 10/9/2019 td
-        mod_designer.CtlGraphic_Portrait.SaveToModel() ''Added 12/16/2021 td 
+        ''12/17/2021 ''mod_designer.CtlGraphic_Portrait.SaveToModel() ''Added 12/16/2021 td 
+        If (par_iSave Is Nothing) Then
+            mod_designer.CtlGraphic_Portrait.SaveToModel() ''Added 12/16/2021 td 
+        Else
+            par_iSave.SaveToModel() ''Added 12/17/2021 td
+        End If
+
+        ''Update what the user sees (preview).
         mod_designer.AutoPreview_IfChecked()
 
     End Sub
@@ -637,35 +647,53 @@ Public Class ClassDesignerEventListener
 
         ''Added 10/9/2019 td 
         mod_designer.CtlGraphic_Portrait.SaveToModel() ''Added 12/16/2021 td
+
+        ''Update what the user sees (preview).
         mod_designer.AutoPreview_IfChecked()
 
     End Sub
 
-    Private Sub mod_sizingQR_events_Moving_End() Handles mod_sizingEvents_QR.Moving_End
+    Private Sub mod_sizingQR_events_Moving_End(par_control As Control, par_iSave As ISaveToModel) Handles mod_sizingEvents_QR.Moving_End
 
         ''Added 10/9/2019 td 
-        mod_designer.CtlGraphic_QRCode.SaveToModel()
+        ''12/17/2021 td''mod_designer.CtlGraphic_QRCode.SaveToModel()
+        If (par_iSave Is Nothing) Then
+            mod_designer.CtlGraphic_QRCode.SaveToModel() ''Added 12/16/2021 td 
+        Else
+            par_iSave.SaveToModel() ''Added 12/17/2021 td
+        End If
+
+        ''Update what the user sees (preview).
         mod_designer.AutoPreview_IfChecked()
 
     End Sub
 
-    Private Sub mod_sizingQR_events_Resizing_End() Handles mod_sizingEvents_QR.Resizing_End
+    Private Sub Move_sizingQR_events_Resizing_End() Handles mod_sizingEvents_QR.Resizing_End
 
         ''Added 10/9/2019 td 
         mod_designer.CtlGraphic_QRCode.SaveToModel() ''Added 12/16/2021 td 
+
+        ''Update what the user sees (preview).
         mod_designer.AutoPreview_IfChecked()
 
     End Sub
 
-    Private Sub mod_sizingSig_events_Moving_End() Handles mod_sizingEvents_Sig.Moving_End
+    Private Sub Move_sizingSig_events_Moving_End(par_control As Control, par_iSave As ISaveToModel) Handles mod_sizingEvents_Sig.Moving_End
 
         ''Added 10/9/2019 td 
-        mod_designer.CtlGraphic_Signat.SaveToModel() ''Added 12/11/2021 td 
+        ''12/17/2021 ''mod_designer.CtlGraphic_Signat.SaveToModel() ''Added 12/11/2021 td 
+        If (par_iSave Is Nothing) Then
+            mod_designer.CtlGraphic_QRCode.SaveToModel() ''Added 12/16/2021 td 
+        Else
+            par_iSave.SaveToModel() ''Added 12/17/2021 td
+        End If
+
+        ''Update what the user sees (preview).
         mod_designer.AutoPreview_IfChecked()
 
     End Sub
 
-    Private Sub mod_sizingSig_events_Resizing_End() Handles mod_sizingEvents_Sig.Resizing_End
+    Private Sub Move_sizingSig_events_Resizing_End() Handles mod_sizingEvents_Sig.Resizing_End
 
         ''Added 10/9/2019 td 
         mod_designer.CtlGraphic_Signat.SaveToModel() ''Added 12/16/2021 td 
@@ -673,7 +701,7 @@ Public Class ClassDesignerEventListener
 
     End Sub
 
-    Private Sub mod_sizingPic_events_MoveInUnison(deltaLeft As Integer, deltaTop As Integer, deltaWidth As Integer, deltaHeight As Integer) Handles mod_sizingEvents_Pics.MoveInUnison
+    Private Sub Move_sizingPic_events_MoveInUnison(deltaLeft As Integer, deltaTop As Integer, deltaWidth As Integer, deltaHeight As Integer) Handles mod_sizingEvents_Pics.MoveInUnison
 
         ''Added 10/10/2019 td
         mod_designer.AutoPreview_IfChecked()
