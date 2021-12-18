@@ -51,11 +51,16 @@ Public Class ClassDesignerEventListener
     Public DictyControlResizing As New Dictionary(Of Control, ControlResizeProportionally_TD)
 
     ''Added 10/12/2019 td 
-    Private mod_sizing_portrait As New ControlResizeProportionally_TD
-    Private mod_sizing_signature As New ControlResizeProportionally_TD
-    Private mod_sizing_QR As New ControlResizeProportionally_TD
-    ''Added 12/16/2021 td
-    Private mod_sizing_staticText As New ControlResizeProportionally_TD
+    ''Dec12 2021''Private mod_sizing_portrait As New ControlResizeProportionally_TD ''Added 10/12/2019 td 
+    ''Dec12 2021''Private mod_sizing_signature As New ControlResizeProportionally_TD ''Added 10/12/2019 td 
+    ''Dec12 2021''Private mod_sizing_QR As New ControlResizeProportionally_TD ''Added 10/12/2019 td 
+    ''Dec12 2021''Private mod_sizing_staticText As New ControlResizeProportionally_TD ''Added 12/16/2021 td
+
+    ''Added 12/17/2021 td
+    Public Sizing_portrait As ControlResizeProportionally_TD
+    Public Sizing_signature As ControlResizeProportionally_TD
+    Public Sizing_QR As ControlResizeProportionally_TD
+    Public Sizing_staticText As ControlResizeProportionally_TD
 
     ''Added 11/29/2021 td 
     Private mod_designer As ClassDesigner
@@ -182,8 +187,6 @@ Public Class ClassDesignerEventListener
         ''
 
         ''Added 10/12/2019 td 
-        ''mod_sizing_portrait.Init(Me.CtlGraphic_Portrait.picturePortrait,
-        ''              Me.CtlGraphic_Portrait, 10, True, mod_sizingEvents_Pics, False)
         ''mod_sizing_portrait.Init(mod_designer.CtlGraphic_Portrait.picturePortrait,
         ''        mod_designer.CtlGraphic_Portrait, 10, True,
         ''        SizingElementEvents, False,
@@ -193,10 +196,10 @@ Public Class ClassDesignerEventListener
         ''    mod_sizing_portrait)
 
         ''Dec17 2021 td''mod_designer.Add_Moveability(mod_designer.CtlGraphic_Portrait)
-        mod_designer.Add_Moveability(mod_designer.CtlGraphic_Portrait, mod_designer.CtlGraphic_Portrait, mod_designer.CtlGraphic_Portrait)
+        mod_designer.Add_Moveability(mod_designer.CtlGraphic_Portrait,
+                                     mod_designer.CtlGraphic_Portrait,
+                                     mod_designer.CtlGraphic_Portrait)
 
-        ''mod_sizing_QR.Init(Me.CtlGraphic_QRCode.pictureQRCode, Me.CtlGraphic_QRCode,
-        ''                   10, True, mod_sizingEvents_QR, False)
         ''mod_sizing_QR.Init(mod_designer.CtlGraphic_QRCode.pictureQRCode,
         ''                   mod_designer.CtlGraphic_QRCode, 10, True,
         ''                   SizingElementEvents, False,
@@ -209,8 +212,6 @@ Public Class ClassDesignerEventListener
                                      mod_designer.CtlGraphic_QRCode)
 
 
-        ''mod_sizing_signature.Init(Me.CtlGraphic_Signat.pictureSignature,
-        ''        Me.CtlGraphic_Signat, 10, True, mod_sizingEvents_Sig, False)
         ''mod_sizing_signature.Init(mod_designer.CtlGraphic_Signat.pictureSignature,
         ''                          mod_designer.CtlGraphic_Signat, 10, True,
         ''                          SizingElementEvents, False,
@@ -696,7 +697,7 @@ Public Class ClassDesignerEventListener
 
     End Sub
 
-    Private Sub Move_sizingSig_events_Moving_End(par_control As Control, par_iSave As ISaveToModel) ''Handles mod_sizingEvents_Sig.Moving_End
+    Private Sub Move_sizingSig_events_Moving_End(par_control As Control, par_iSave As ISaveToModel) Handles SizingElementEvents.Moving_End
         ''12/17/2021 td''Handles mod_sizingEvents_Sig.Moving_End 
 
         ''Added 10/9/2019 td 
@@ -725,7 +726,8 @@ Public Class ClassDesignerEventListener
         ''12/17/2021 td''   Handles mod_sizingEvents_Pics.MoveInUnison
 
         ''Added 10/10/2019 td
-        mod_designer.AutoPreview_IfChecked()
+        ''Dec17 2021 td''mod_designer.AutoPreview_IfChecked(True)
+        mod_designer.AutoPreview_IfChecked(Nothing, True)
 
     End Sub
 
@@ -734,7 +736,8 @@ Public Class ClassDesignerEventListener
         ''12/17/2021 td''   Handles mod_sizingEvents_QR.MoveInUnison
 
         ''Added 10/10/2019 td
-        mod_designer.AutoPreview_IfChecked()
+        ''Dec17 2021 td''mod_designer.AutoPreview_IfChecked()
+        mod_designer.AutoPreview_IfChecked(Nothing, True)
 
     End Sub
 
@@ -742,7 +745,8 @@ Public Class ClassDesignerEventListener
         ''12/17/2021 td''Handles mod_sizingEvents_Sig.MoveInUnison
 
         ''Added 10/10/2019 td
-        mod_designer.AutoPreview_IfChecked()
+        ''Dec17 2021 td''mod_designer.AutoPreview_IfChecked()
+        mod_designer.AutoPreview_IfChecked(Nothing, True)
 
     End Sub
 
@@ -766,7 +770,7 @@ Public Class ClassDesignerEventListener
     End Sub
 
 
-    Private Sub mod_ControlBeingMoved() '''Dec.6, 2021''Handles mod_groupedMove.ControlBeingMoved
+    Private Sub mod_ControlBeingMoved() ''Dec.6, 2021''Handles mod_groupedMove.ControlBeingMoved
         ''
         ''Added 12/6/2021 thomas downes 
         ''

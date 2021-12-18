@@ -18,7 +18,9 @@ Public Class ClassGroupMove
 
     ''Added 8/3/2019 thomas downes
     Public Event Resizing_Start()
-    Public Event Resizing_End()
+    ''12/17/2021 td''Public Event Resizing_End()
+    Public Event Resizing_End(par_iSave As ISaveToModel)
+
     ''11/29/2021 td''Public Event Moving_End() ''Added 9/13/2019 td  
     Public Event Moving_End(par_control As Control) ''Added 9/13/2019 td  
     ''Added 12/6/2021 thomas d. 
@@ -95,10 +97,13 @@ Public Class ClassGroupMove
     End Sub
 
 
-    Public Sub Resizing_Terminate() Implements InterfaceEvents.Resizing_Terminate
+    Public Sub Resizing_Terminate(par_iSave As ISaveToModel) Implements InterfaceEvents.Resizing_Terminate
+        ''Dec17 2021''Public Sub Resizing_Terminate()
+        ''Dec17 2021''     Implements InterfaceEvents.Resizing_Terminate
 
         ''Added 8/4/2019 td  
-        RaiseEvent Resizing_End()
+        ''Dec17 2021''RaiseEvent Resizing_End()
+        RaiseEvent Resizing_End(par_iSave)
 
     End Sub
 

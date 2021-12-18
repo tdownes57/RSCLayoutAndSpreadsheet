@@ -344,8 +344,22 @@ ExitHandler:
         ''
         ''Added 8/01/2019 thomas d 
         ''
-        Me.ElementInfo_Base.TopEdge_Pixels = Me.Top
-        Me.ElementInfo_Base.LeftEdge_Pixels = Me.Left
+        ''Dec17 2021''Me.ElementInfo_Base.TopEdge_Pixels = Me.Top
+        ''Dec17 2021''Me.ElementInfo_Base.LeftEdge_Pixels = Me.Left
+
+        ''Added 12/17/2021 td 
+        Dim strLeftEdge_WasBefore As String = ""
+        strLeftEdge_WasBefore = Me.ElementInfo_Base.LeftEdge_Pixels.ToString
+
+        Me.ElementInfo_Base.TopEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Top_Omit(Me.Top)
+        Me.ElementInfo_Base.LeftEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Left_Omit(Me.Left)
+
+        Dim strLeftEdge_IsNow As String = ""
+        strLeftEdge_IsNow = Me.ElementInfo_Base.LeftEdge_Pixels.ToString
+
+        ''Added 12/17/2021 td
+        MessageBox.Show(String.Format("The left edge was {0}, is now {1}.",
+                                      strLeftEdge_WasBefore, strLeftEdge_IsNow))
 
         Me.ElementInfo_Base.Width_Pixels = Me.Width
         Me.ElementInfo_Base.Height_Pixels = Me.Height
@@ -428,6 +442,7 @@ ExitHandler:
 
     End Sub ''eNd of "Private Sub opendialog_Color()"
 
+
     Private Sub OpenDialog_Font(sender As Object, e As EventArgs)
         ''
         ''Added 7/30/2019 thomas downes
@@ -444,6 +459,15 @@ ExitHandler:
         Me.Refresh()
 
     End Sub ''eNd of "Private Sub opendialog_Color()"
+
+
+    Private Sub SaveInfo_ToModel(sender As Object, e As EventArgs)
+        ''
+        ''Added 12/17/2019 thomas downes
+        ''
+        SaveToModel()
+
+    End Sub ''eNd of "Private Sub Save_ToModel()"
 
 
     Private Sub PictureLabel_MouseClick(sender As Object, e As MouseEventArgs) Handles pictureLabel.MouseClick
@@ -465,6 +489,7 @@ ExitHandler:
         Dim new_item_font As ToolStripMenuItem
         Dim new_item_refresh As ToolStripMenuItem ''Added 7/31/2019 td
         Dim new_item_sizeInfo As ToolStripMenuItem ''Added 7/31/2019 td
+        Dim new_item_saveToModel As ToolStripMenuItem ''Added 12/17/2021 td
 
         boolRightClick = (e.Button = MouseButtons.Right)
 
@@ -495,6 +520,7 @@ ExitHandler:
 
                 new_item_refresh = New ToolStripMenuItem("Refresh Element - EST100") ''Added 7/31/2019 td
                 new_item_sizeInfo = New ToolStripMenuItem("Size Information - EST101") ''Added 7/31/2019 td
+                new_item_saveToModel = New ToolStripMenuItem("Save Position To Model - EST102") ''Added 12/13/2021 td
 
                 new_item_colors = New ToolStripMenuItem("Set Colors - EST102")
                 new_item_font = New ToolStripMenuItem("Set Font - EST103")
@@ -504,6 +530,9 @@ ExitHandler:
 
                 AddHandler new_item_refresh.Click, AddressOf RefreshElement_Field ''Added 7/31/2019 thomas d.
                 AddHandler new_item_sizeInfo.Click, AddressOf GiveSizeInfo_Field ''Added 7/31/2019 thomas d.
+
+                ''Added 12/17/2021 td
+                AddHandler new_item_saveToModel.Click, AddressOf SaveInfo_ToModel ''Added 12/17/2021 thomas d.
 
                 ''Added 12/15/2021 td
                 ContextMenuStrip1.Items.Add(new_item_menuHeader1) ''Added 12/15/2021 thomas d. 
@@ -516,6 +545,7 @@ ExitHandler:
 
                 ContextMenuStrip1.Items.Add(new_item_refresh) ''Added 7/31/2019 thomas d.  
                 ContextMenuStrip1.Items.Add(new_item_sizeInfo) ''Added 7/31/2019 thomas d.  
+                ContextMenuStrip1.Items.Add(new_item_saveToModel) ''Added 12/17/2021 thomas d.  
 
             End If ''End of "If (0 = ContextMenuStrip1.Items.Count) Then"
 

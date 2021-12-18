@@ -84,11 +84,11 @@ Namespace ciBadgeCachePersonality
         Private mod_listBadgeElements_Front As New HashSet(Of ClassElementField) ''Added 11/26/2021 td
 
         ''Back side of ID Card / Badge Card
-        Private mod_listElementFields_Backside As HashSet(Of ClassElementField)
-        Private mod_listElementPics_Backside As HashSet(Of ClassElementPic)
-        Private mod_listElementStatics_Backside As HashSet(Of ClassElementStaticText)
-        Private mod_listElementLaysections_Backside As HashSet(Of ClassElementLaysection) ''Added 9/17/2019 thomas downes
-        Private mod_listBadgeElements_Backside As HashSet(Of ClassElementField) ''Added 11/26/2021 td
+        Private mod_listElementFields_Backside As New HashSet(Of ClassElementField)
+        Private mod_listElementPics_Backside As New HashSet(Of ClassElementPic)
+        Private mod_listElementStatics_Backside As New HashSet(Of ClassElementStaticText)
+        Private mod_listElementLaysections_Backside As New HashSet(Of ClassElementLaysection) ''Added 9/17/2019 thomas downes
+        Private mod_listBadgeElements_Backside As New HashSet(Of ClassElementField) ''Added 11/26/2021 td
 
         ''Added 1/14/2020 thomas dow nes
         Private Structure BackgroundTitleAndWidth
@@ -918,8 +918,11 @@ Namespace ciBadgeCachePersonality
 
         End Sub ''End of "Public Sub LoadElement_QRCode(par_picQRCode As PictureBox, par_pictureBackground As PictureBox)"
 
-        Public Sub LoadElement_Text(par_DisplayText As String, par_intLeft As Integer, par_intTop As Integer,
-                                par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)
+        Public Sub LoadElement_StaticText_IfNeeded(par_DisplayText As String,
+                                    par_intLeft As Integer, par_intTop As Integer,
+                                    par_intWidth As Integer, par_intHeight As Integer,
+                                    par_pictureBackground As PictureBox)
+            ''---Dec17 2021---Public Sub LoadElement_Text
             ''
             ''Added 10/10/2019 td  
             ''
@@ -927,15 +930,27 @@ Namespace ciBadgeCachePersonality
             Dim objRectangle As Rectangle ''Added 10/10/2019 td  
             Dim intLeft As Integer
             Dim intTop As Integer
+            Dim bMissingBack As Boolean ''Added 12/17/2021 td
+            Dim bMissingFront As Boolean ''Added 12/17/2021 td
+            Dim bMissingBackAndFront As Boolean ''Added 12/17/2021 td
 
-            intLeft = (par_intLeft - par_pictureBackground.Left)
-            intTop = (par_intTop - par_pictureBackground.Top)
+            ''Added 12/17/2021 td
+            bMissingFront = (0 = mod_listElementStatics_Front.Count)
+            bMissingBack = (0 = mod_listElementStatics_Backside.Count)
+            bMissingBackAndFront = (bMissingFront And bMissingBack)
 
-            objRectangle = New Rectangle(intLeft, intTop, par_intWidth, par_intHeight)
+            If bMissingBackAndFront Then ''Added 12/17/2021 td 
 
-            objElementText = New ClassElementStaticText(par_DisplayText, intLeft, intTop, par_intHeight)
+                intLeft = (par_intLeft - par_pictureBackground.Left)
+                intTop = (par_intTop - par_pictureBackground.Top)
 
-            mod_listElementStatics_Front.Add(objElementText)
+                objRectangle = New Rectangle(intLeft, intTop, par_intWidth, par_intHeight)
+
+                objElementText = New ClassElementStaticText(par_DisplayText, intLeft, intTop, par_intHeight)
+
+                mod_listElementStatics_Front.Add(objElementText)
+
+            End If ''end of "If (0 = mod_listElementStatics_Front.Count) Then"
 
         End Sub ''End of "Public Sub LoadElement_Text(par_DisplayText As String, par_intLeft As Integer, ...., par_pictureBackground As PictureBox)"
 
@@ -1192,21 +1207,53 @@ Namespace ciBadgeCachePersonality
         End Function ''ENd of "Public Function MissingTheFields() As Boolean"
 
         Public Function MissingTheElementFields() As Boolean
-            ''Added 10/10/2019 td 
-            Return (0 = mod_listElementFields_Front.Count)
+            ''
+            ''Added 10/10/2019 td
+            ''
+            ''Dec17 2021 td''Return (0 = mod_listElementFields_Front.Count)
+            Return (0 = mod_listElementFields_Front.Count And
+                    0 = mod_listElementFields_Backside.Count)
 
         End Function ''ENd of "Public Function MissingTheElementFields() As Boolean"
 
         Public Function MissingTheElementTexts() As Boolean
             ''Added 10/11/2019 td 
+
             ''10/14 td''Return (0 = mod_listElementStatics.Count)
-            Return True ''Added 10/14/2019 td 
+            ''Dec17 2021 td''Return True ''Added 10/14/2019 td 
+            ''Dec17 2021 td''Return (Me.ElementStaticText1 Is Nothing)
+
+            ''Dec17 2021''Return (0 = mod_listElementStatics_Front.Count And
+            ''                    0 = mod_listElementStatics_Backside.Count)
+            Dim bMissingBack As Boolean ''Added 12/17/2021 td
+            Dim bMissingFront As Boolean ''Added 12/17/2021 td
+            Dim bMissingBackAndFront As Boolean ''Added 12/17/2021 td
+
+            ''Added 12/17/2021 td
+            Dim intCountFrontside As Integer = mod_listElementStatics_Front.Count
+            Dim intCountBackside As Integer = mod_listElementStatics_Backside.Count
+
+            bMissingFront = (0 = intCountFrontside)
+            bMissingBack = (0 = intCountBackside)
+            bMissingBackAndFront = (bMissingFront And bMissingBack)
+
+            ''Added 12/17/2021 td
+            Dim strCountOfBothSides As String = ""
+            strCountOfBothSides = String.Format("There are {0} static-texts in front, {1} on the backside!!!!!!!!!!!!",
+              intCountFrontside, intCountBackside)
+            MessageBox.Show(strCountOfBothSides)
+
+            Return bMissingBackAndFront
 
         End Function ''ENd of "Public Function MissingTheElementTexts() As Boolean"
 
         Public Function MissingTheElementPic() As Boolean
-            ''Added 10/10/2019 td 
-            Return (0 = mod_listElementPics_Front.Count)
+            ''
+            ''Added 10/10/2019 td
+            ''
+            ''Dec17 2021 td''Return (0 = mod_listElementPics_Front.Count)
+            Return (0 = mod_listElementPics_Front.Count And
+                    0 = mod_listElementPics_Backside.Count)
 
         End Function ''ENd of "Public Function MissingTheElementPic() As Boolean"
 
@@ -1705,15 +1752,16 @@ Namespace ciBadgeCachePersonality
                                                obj_designForm.pictureBack) ''Added 10/14/2019 td
 
                 pref_section = 22 ''Added 11/27/2019 td
-                ''Added 10/14/2019 thomas d. 
-                obj_cache_elements.LoadElement_Text(strStaticText,
+
+            End If ''End of "If (pboolNewFileXML) Then"
+
+            pref_section = 23 ''Added 11/27/2019 td
+            ''Added 10/14/2019 thomas d. 
+            ''Dec17 2021 td''obj_cache_elements.LoadElement_Text(strStaticText,
+            obj_cache_elements.LoadElement_StaticText_IfNeeded(strStaticText,
                                                 intLeft_Text, intTop_Text,
                                                 intWidth_Text, intHeight_Text,
                                                obj_designForm.pictureBack) ''Added 10/14/2019 td
-
-                pref_section = 23 ''Added 11/27/2019 td
-
-            End If ''End of "If (pboolNewFileXML) Then"
 
             pref_section = 24 ''Added 11/27/2019 td
 

@@ -494,7 +494,8 @@ Public Class ClassDesigner
         ''Added 10/10/2019 td
         If (Me.ElementsCache_UseEdits.MissingTheElementTexts) Then ''Added 10/10/2019 td
             ''Added 10/10/2019 td
-            Me.ElementsCache_UseEdits.LoadElement_Text("This is text which will be the same for everyone.",
+            ''Dec17 2021''Me.ElementsCache_UseEdits.LoadElement_Text("This is text which will be the same for everyone.",
+            Me.ElementsCache_UseEdits.LoadElement_StaticText_IfNeeded("This is text which will be the same for everyone.",
                                                     Initial_Text_Left, Initial_Text_Top,
                                                    Initial_Text_Width, Initial_Text_Height, Me.BackgroundBox_Front) ''Added 9/19/2019 td
         End If ''End of "If (Me.ElementsCache_Saved.MissingTheElementTexts) Then"
@@ -2112,7 +2113,10 @@ Public Class ClassDesigner
 
     Public Function Layout_Margin_Left_Omit(par_intPixelsLeft As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Left_Omit
         ''Added 9/5/2019 thomas downes
+
+        ''Added 9/05/2019 td 
         Return (par_intPixelsLeft - Me.BackgroundBox_Front.Left)
+
     End Function ''End of "Public Function Layout_Margin_Left_Omit() As Integer"
 
     Public Function Layout_Margin_Left_Add(par_intPixelsLeft As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Left_Add
@@ -2371,13 +2375,23 @@ Public Class ClassDesigner
 
         Dim objResize As New MoveAndResizeControls_Monem.ControlResizeProportionally_TD()
 
-        objResize.Init(par_control,
-                par_elementMoved.GetPictureBox(), 10, True,
-                mod_designerListener.SizingElementEvents, False,
-                par_iSave)
+        Const c_bRepaintAfterResize As Boolean = True ''Added 7/31/2019 td 
+
+        objResize.Init(par_elementMoved.GetPictureBox(),
+                       par_control, 10, c_bRepaintAfterResize,
+                    mod_designerListener.SizingElementEvents, False,
+                    par_iSave)
 
         ''Added 12/1/2021 td 
         mod_designerListener.DictyControlResizing.Add(par_control, objResize)
+
+        ''Added 12/17/2021 td
+        If (par_control Is CtlGraphic_Portrait) Then mod_designerListener.Sizing_portrait = objResize
+        If (par_control Is CtlGraphic_QRCode) Then mod_designerListener.Sizing_QR = objResize
+        If (par_control Is CtlGraphic_Signat) Then mod_designerListener.Sizing_signature = objResize
+        If (par_control Is CtlGraphic_StaticText1) Then mod_designerListener.Sizing_staticText = objResize
+
+
 
     End Sub
 

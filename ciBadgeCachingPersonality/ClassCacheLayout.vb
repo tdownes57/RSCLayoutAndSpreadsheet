@@ -823,13 +823,14 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
                 obj_cache_elements.LoadElement_Signature(intLeft_Sig, intTop_Sig, intWidth_Sig, intHeight_Sig,
                                                obj_designForm.pictureBack) ''Added 10/14/2019 td
 
-                ''Added 10/14/2019 thomas d. 
-                obj_cache_elements.LoadElement_Text(strStaticText,
+            End If ''End of "If (pboolNewFileXML) Then"
+
+            ''Added 10/14/2019 thomas d. 
+            ''Dec17 2021 ''obj_cache_elements.LoadElement_Text(strStaticText,
+            obj_cache_elements.LoadElement_StaticText_IfNeeded(strStaticText,
                                                 intLeft_Text, intTop_Text,
                                                 intWidth_Text, intHeight_Text,
                                                obj_designForm.pictureBack) ''Added 10/14/2019 td
-
-            End If ''End of "If (pboolNewFileXML) Then"
 
             ''Added 9/24/2019 thomas 
             ''Was just for testing. ---10/10/2019 td''Dim serial_tools As New ciBadgeSerialize.ClassSerial

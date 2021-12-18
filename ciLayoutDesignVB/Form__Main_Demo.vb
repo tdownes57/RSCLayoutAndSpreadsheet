@@ -1529,6 +1529,9 @@ Public Class Form__Main_Demo
         SaveFileDialog1.FileName = "" ''Added 11/24/2021 thomas downes
         SaveFileDialog1.ShowDialog()
 
+        ''Added 12/17/2021 td 
+        If (String.IsNullOrEmpty(SaveFileDialog1.FileName)) Then Return
+
         ''Added 12/14/2021 td
         If (IO.File.Exists(SaveFileDialog1.FileName)) Then
 
