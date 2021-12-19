@@ -62,7 +62,9 @@ Public Class ClassDesigner
 
     Public Property CtlGraphic_Signat As CtlGraphicSignature ''Added 10/10/2019 td
     Public Property CtlGraphic_QRCode As CtlGraphicQRCode ''Added 10/10/2019 td
-    Public Property CtlGraphic_StaticText1 As CtlGraphicStaticText ''Added 11/29/2019 td
+    Public Property CtlGraphic_StaticText_temp As CtlGraphicStaticText ''Added 11/29/2019 td
+    Public Property ListCtlGraphic_StaticTexts As New HashSet(Of CtlGraphicStaticText) ''Added 12/18/2021 td
+
 
     ''Dec14 2021''Public Property ElementsCache_Saved As New ClassElementsCache_Deprecated ''Added 9/16/2019 thomas downes
     Public Property ElementsCache_UseEdits As ClassElementsCache_Deprecated ''Added 9/16/2019 thomas downes
@@ -175,7 +177,7 @@ Public Class ClassDesigner
         ''Encapsulated 12/14/2021 td
         UnloadDesigner_QRCode()
         UnloadDesigner_Signature()
-        UnloadDesigner_StaticText()
+        UnloadDesigner_StaticTexts()
 
         ''
         ''Address the controls that are contained in mod_listOfDesignerControls.
@@ -285,26 +287,54 @@ Public Class ClassDesigner
     End Sub ''End of "Public Sub UnloadDesigner_Signature()"
 
 
-    Public Sub UnloadDesigner_StaticText()
+    Public Sub UnloadDesigner_StaticTexts()
         ''
         ''Added 12/14/2021 td 
         ''
         Dim objListenerStaticText As MoveAndResizeControls_Monem.ControlResizeProportionally_TD
         Dim boolListenerFound As Boolean ''Added 12/15/2021 td 
 
-        boolListenerFound = mod_designerListener.DictyControlResizing.ContainsKey(CtlGraphic_StaticText1)
+        boolListenerFound = mod_designerListener.DictyControlResizing.ContainsKey(CtlGraphic_StaticText_temp)
         If (boolListenerFound) Then
-            objListenerStaticText = mod_designerListener.DictyControlResizing(CtlGraphic_StaticText1)
+            objListenerStaticText = mod_designerListener.DictyControlResizing(CtlGraphic_StaticText_temp)
             objListenerStaticText.RemoveEventHandlers()
-            mod_designerListener.DictyControlResizing.Remove(CtlGraphic_StaticText1) ''Added 12/17/2021 td
+            mod_designerListener.DictyControlResizing.Remove(CtlGraphic_StaticText_temp) ''Added 12/17/2021 td
         Else
             MessageBox.Show("We don't see the event-listener for the StaticText control.")
 
         End If ''End of "If (boolListenerFound) Then ... Else ..."
 
-        CtlGraphic_StaticText1.Dispose() ''Added Dec. 8, 2021
-        Me.DesignerForm.Controls.Remove(CtlGraphic_StaticText1) ''Added Dec. 8, 2021
-        mod_listOfDesignerControls.Remove(CtlGraphic_StaticText1) ''Added Dec. 8, 2021
+        CtlGraphic_StaticText_temp.Dispose() ''Added Dec. 8, 2021
+        CtlGraphic_StaticText_temp.Visible = False ''Added Dec. 18, 2021
+        Me.DesignerForm.Controls.Remove(CtlGraphic_StaticText_temp) ''Added Dec. 8, 2021
+        mod_listOfDesignerControls.Remove(CtlGraphic_StaticText_temp) ''Added Dec. 8, 2021
+        CtlGraphic_StaticText_temp = Nothing
+
+        ''
+        ''Added 12/18/2021 thomas 
+        ''
+        For Each each_control As CtlGraphicStaticText In ListCtlGraphic_StaticTexts
+
+            boolListenerFound = mod_designerListener.DictyControlResizing.ContainsKey(each_control)
+            If (boolListenerFound) Then
+                objListenerStaticText = mod_designerListener.DictyControlResizing(each_control)
+                objListenerStaticText.RemoveEventHandlers()
+                mod_designerListener.DictyControlResizing.Remove(each_control) ''Added 12/17/2021 td
+            Else
+                MessageBox.Show("We don't see the event-listener for the StaticText control.")
+
+            End If ''End of "If (boolListenerFound) Then ... Else ..."
+
+            each_control.Dispose() ''Added Dec. 8, 2021
+            each_control.Visible = False ''Added Dec. 18, 2021
+            Me.DesignerForm.Controls.Remove(each_control) ''Added Dec. 8, 2021
+            mod_listOfDesignerControls.Remove(each_control) ''Added Dec. 8, 2021
+            each_control = Nothing
+
+        Next each_control
+
+        ''added 12/18/2021
+        Me.ListCtlGraphic_StaticTexts.Clear()
 
     End Sub ''End of "Public Sub UnloadDesigner_StaticText()"
 
@@ -715,6 +745,11 @@ Public Class ClassDesigner
         Else
             LoadElements_Picture(par_cache.PicElement())
             LoadElements_Signature(par_cache.ElementSignature) ''Added 10/12/2019 thomas d.
+            ''Added 12/18/2021 td 
+            ''Dec18 2021''LoadElements_StaticText1(par_cache.ListOfElementTexts_Front.GetEnumerator().Current) ''Added 10/12/2019 thomas d.
+            ListCtlGraphic_StaticTexts = New HashSet(Of CtlGraphicStaticText) ''Added 12/18/2021 thomas d. 
+            LoadElements_StaticTexts(par_cache.ListOfElementTexts_Front) ''Added 12/18/2021 thomas d.
+
         End If ''End of "If (par_enumSideOfCard = EnumWhichSideOfCard.EnumBackside) Then ... Else..."
 
         ''Added 10/12/2019 td 
@@ -879,6 +914,7 @@ Public Class ClassDesigner
 
     End Sub ''End of " Private Sub LoadElements_Picture()"
 
+
     Private Sub LoadElements_Signature(par_elementSig As ClassElementSignature)
         ''
         ''Added 10/12/2019 thomas d. 
@@ -911,6 +947,44 @@ Public Class ClassDesigner
 
 
     End Sub ''End of "Private Sub LoadElements_Signature"
+
+
+    Private Sub LoadElements_StaticTexts(par_listStaticTexts As HashSet(Of ClassElementStaticText))
+        ''
+        ''Added 12/18/2021 thomas d. 
+        ''
+        For Each each_element_static As ClassElementStaticText In par_listStaticTexts
+
+            ''Dec18 2021''CtlGraphic_StaticTexts.Add = New CtlGraphicStaticText(each_element_static)
+            CtlGraphic_StaticText_temp = New CtlGraphicStaticText(each_element_static)
+            ListCtlGraphic_StaticTexts.Add(CtlGraphic_StaticText_temp) ''Added 12/18/2021 td
+
+            Me.DesignerForm.Controls.Add(CtlGraphic_Signat)
+
+            ''Added 11/28/2021 td
+            mod_listOfDesignerControls.Add(CtlGraphic_Signat)
+
+            With CtlGraphic_StaticText_temp
+
+                .Top = each_element_static.TopEdge_Pixels
+                .Left = each_element_static.LeftEdge_Pixels
+                .Width = each_element_static.Width_Pixels
+                .Height = each_element_static.Height_Pixels
+
+                ''.pictureSignature.Image = mod_imageExampleSignat
+                .Refresh_Master()
+
+            End With ''End of "With CtlGraphic_StaticText1"
+
+            ''Added 12/15/2021 td
+            ''   Pass on the event of right-clicking a element-signature control.
+            ''   
+            AddHandler CtlGraphic_StaticText_temp.Element_RightClicked, AddressOf ElementStatic_Clicked
+
+        Next each_element_static
+
+    End Sub ''End of "Private Sub LoadElements_StaticTexts"
+
 
     Private Sub Initiate_RubberbandSelector(par_elementControls_All As HashSet(Of CtlGraphicFldLabel),
                                             par_elementControls_GroupEdit As HashSet(Of CtlGraphicFldLabel))
@@ -1188,7 +1262,7 @@ Public Class ClassDesigner
         Me.CtlGraphic_Portrait.SaveToModel()
         Me.CtlGraphic_QRCode.SaveToModel()
         Me.CtlGraphic_Signat.SaveToModel()
-        Me.CtlGraphic_StaticText1.SaveToModel() ''Added 12/16/2021 thomas downes
+        Me.CtlGraphic_StaticText_temp.SaveToModel() ''Added 12/16/2021 thomas downes
 
         ''
         ''Step #1 of 2. 
@@ -1498,7 +1572,7 @@ Public Class ClassDesigner
                                                   Me.CtlGraphic_Portrait.ElementClass_Obj,
                                                   Me.CtlGraphic_QRCode.ElementClass_Obj,
                                                   Me.CtlGraphic_Signat.ElementClass_Obj,
-                                                  Me.CtlGraphic_StaticText1.Element_StaticText,
+                                                  Me.CtlGraphic_StaticText_temp.Element_StaticText,
                                                   Nothing, Nothing, Nothing,
                                                   par_recentlyMoved)
 
@@ -2398,7 +2472,7 @@ Public Class ClassDesigner
         If (par_control Is CtlGraphic_Portrait) Then mod_designerListener.Sizing_portrait = objResize
         If (par_control Is CtlGraphic_QRCode) Then mod_designerListener.Sizing_QR = objResize
         If (par_control Is CtlGraphic_Signat) Then mod_designerListener.Sizing_signature = objResize
-        If (par_control Is CtlGraphic_StaticText1) Then mod_designerListener.Sizing_staticText = objResize
+        If (par_control Is CtlGraphic_StaticText_temp) Then mod_designerListener.Sizing_staticText = objResize
 
 
 

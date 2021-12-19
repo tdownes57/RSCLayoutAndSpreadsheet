@@ -115,6 +115,7 @@ Namespace ciBadgeCachePersonality
                 If (pstrPathToFileXML <> "") Then mod_cacheEdits.PathToXml_Saved = pstrPathToFileXML
                 If (pstrPathToFileXML = "") Then pstrPathToFileXML = mod_cacheEdits.PathToXml_Saved
                 If (pstrPathToFileXML = "") Then pstrPathToFileXML = mod_cacheEdits.PathToXml_Opened ''Added 12/14/2021 td
+
                 mod_cacheEdits.PathToXml_Saved = pstrPathToFileXML ''Added 12/14/2021 td 
                 mod_cacheEdits.XmlFile_Path_Deprecated = pstrPathToFileXML ''Added 12/14/2021 
                 mod_cacheEdits.SaveToXML(pstrPathToFileXML)
@@ -123,7 +124,7 @@ Namespace ciBadgeCachePersonality
                 ''Added 12/10/2021 thomas downes 
                 ''   Create and save the Badge-Layout Image file.
                 ''
-                Dim strTitleOfXML As String
+                Dim strTitleOfXML As String = ""
                 Dim strPathToFileJpg As String
                 Dim strPathToXml_Binary As String ''Added 12/14/2021 td
 

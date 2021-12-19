@@ -228,8 +228,8 @@ Public Class ClassDesignerEventListener
         ''                            mod_designer.CtlGraphic_StaticText1)
         ''DictyControlResizing.Add(mod_designer.CtlGraphic_StaticText1,
         ''     mod_sizing_staticText)
-        mod_designer.Add_Moveability(mod_designer.CtlGraphic_StaticText1, mod_designer.CtlGraphic_StaticText1,
-                                     mod_designer.CtlGraphic_StaticText1)
+        mod_designer.Add_Moveability(mod_designer.CtlGraphic_StaticText_temp, mod_designer.CtlGraphic_StaticText_temp,
+                                     mod_designer.CtlGraphic_StaticText_temp)
 
 
         ''Dim boolMakeMoveableByUser As Boolean ''Added 9/20/2019 td 

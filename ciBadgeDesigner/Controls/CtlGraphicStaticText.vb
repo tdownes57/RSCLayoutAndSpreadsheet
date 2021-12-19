@@ -73,6 +73,22 @@ Public Class CtlGraphicStaticText
 
     End Sub
 
+    Public Sub New(par_element As ClassElementStaticText)
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        ''_Deprecated 9/18/2019 td''''Me.ElementInfo_Text = par_field.ElementFieldClass
+        ''9/18/2019 td''Me.ElementInfo_Text = par_element
+
+        ''Added 12/18/2021 Thomas Downes  
+        Me.ElementInfo_TextOnly = par_element
+        Me.ElementInfo_Base = par_element
+        Me.Element_StaticText = par_element
+
+    End Sub ''End of "Public Sub New(par_element As ClassElementStaticText)"
+
     Public Sub New_Deprecated(par_element As ClassElementStaticText)
 
         ' This call is required by the designer.
@@ -353,6 +369,9 @@ ExitHandler:
 
         Me.ElementInfo_Base.TopEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Top_Omit(Me.Top)
         Me.ElementInfo_Base.LeftEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Left_Omit(Me.Left)
+
+        ''Added 12/18/2021 td
+        Me.ElementInfo_Base.DateSaved = DateTime.Now
 
         Dim strLeftEdge_IsNow As String = ""
         strLeftEdge_IsNow = Me.ElementInfo_Base.LeftEdge_Pixels.ToString
