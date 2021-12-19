@@ -959,12 +959,15 @@ Public Class ClassDesigner
             CtlGraphic_StaticText_temp = New CtlGraphicStaticText(each_element_static)
             ListCtlGraphic_StaticTexts.Add(CtlGraphic_StaticText_temp) ''Added 12/18/2021 td
 
-            Me.DesignerForm.Controls.Add(CtlGraphic_Signat)
+            Me.DesignerForm.Controls.Add(CtlGraphic_StaticText_temp)
 
             ''Added 11/28/2021 td
-            mod_listOfDesignerControls.Add(CtlGraphic_Signat)
+            mod_listOfDesignerControls.Add(CtlGraphic_StaticText_temp)
 
             With CtlGraphic_StaticText_temp
+
+                ''Added 12/18/2021 td
+                .LayoutFunctions = CType(Me, ILayoutFunctions)
 
                 .Top = each_element_static.TopEdge_Pixels
                 .Left = each_element_static.LeftEdge_Pixels
@@ -979,7 +982,8 @@ Public Class ClassDesigner
             ''Added 12/15/2021 td
             ''   Pass on the event of right-clicking a element-signature control.
             ''   
-            AddHandler CtlGraphic_StaticText_temp.Element_RightClicked, AddressOf ElementStatic_Clicked
+            AddHandler CtlGraphic_StaticText_temp.ElementStatic_RightClicked,
+                AddressOf ElementStatic_Clicked
 
         Next each_element_static
 

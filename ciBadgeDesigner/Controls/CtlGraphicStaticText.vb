@@ -121,6 +121,28 @@ Public Class CtlGraphicStaticText
     ''
     ''End Sub
 
+    Public Sub Refresh_Master()
+        ''
+        ''Added 9/17 & 9/5/2019 thomas d 
+        ''
+        Refresh_PositionAndSize()
+        Refresh_Image(True)
+
+    End Sub ''End of "Public Sub Refresh_Master()"
+
+    Public Sub Refresh_PositionAndSize()
+        ''
+        ''Added 9/17 & 9/5/2019 thomas d 
+        ''
+
+        Me.Left = Me.LayoutFunctions.Layout_Margin_Left_Add(Me.ElementInfo_Base.LeftEdge_Pixels)
+        Me.Top = Me.LayoutFunctions.Layout_Margin_Top_Add(Me.ElementInfo_Base.TopEdge_Pixels)
+
+        Me.Width = Me.ElementInfo_Base.Width_Pixels
+        Me.Height = Me.ElementInfo_Base.Height_Pixels
+
+    End Sub ''End of "Public Sub Refresh_PositionAndSize()"
+
 
     Public Sub Refresh_Image(pbRefreshSize As Boolean,
                              Optional pboolResizeLabelControl As Boolean = True,

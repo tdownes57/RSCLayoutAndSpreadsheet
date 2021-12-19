@@ -149,6 +149,7 @@ Public Class CtlGraphicSignature
 
     End Sub ''End of "Public Sub New_Deprecated(par_infoForPic_Base As IElement_Base, par_infoForPic_Pic As IElementPic, par_formLayout As ILayoutFunctions)"
 
+
     Public Sub Refresh_Master()
         ''
         ''Added 9/17 & 9/5/2019 thomas d 
@@ -178,6 +179,7 @@ Public Class CtlGraphicSignature
         Me.Height = Me.ElementInfo_Base.Height_Pixels
 
     End Sub ''End of "Public Sub Refresh_PositionAndSize()"
+
 
     Public Sub Refresh_Image_NotInUse(pbRefreshSize As Boolean)
         ''
