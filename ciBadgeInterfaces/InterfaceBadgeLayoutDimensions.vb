@@ -14,7 +14,8 @@ Public Enum EnumImageOrControl
     Contl
 End Enum
 
-Public Interface IBadgeLayout
+Public Interface IBadgeLayoutDimensions
+    ''---Dec18 2021 td''Public Interface IBadgeLayout
     ''
     ''Added 9/11/2019 Never Forget 
     ''
@@ -38,14 +39,14 @@ End Interface ''End of "Public Interface IBadgeLayout"
 
 <Serializable>
 Public Class BadgeLayoutClass
-    Implements IBadgeLayout
+    Implements IBadgeLayoutDimensions ''Dec18 2021''IBadgeLayout  
     ''
     ''Added 9/11/2019 Never Forget 
     ''
 
-    Public Property Width_Pixels As Integer Implements IBadgeLayout.Width_Pixels
+    Public Property Width_Pixels As Integer Implements IBadgeLayoutDimensions.Width_Pixels
 
-    Public Property Height_Pixels As Integer Implements IBadgeLayout.Height_Pixels
+    Public Property Height_Pixels As Integer Implements IBadgeLayoutDimensions.Height_Pixels
 
     Public Sub New()
         ''

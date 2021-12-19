@@ -821,7 +821,7 @@ Public Class Form__Main_Demo
         sender_link = CType(sender, LinkLabel)
         ClassElementField.oRecipient = CType(sender_link.Tag, ClassRecipient)
         ''Dec.14 2021''Me.mod_designer.RefreshPreview_Redux()
-        Me.mod_designer.RefreshPreview_Redux(Nothing, ClassElementField.oRecipient)
+        Me.mod_designer.RefreshPreview_Redux_Front(Nothing, ClassElementField.oRecipient)
 
     End Sub ''End of "Private Sub Recipient_LinkClicked"
 
@@ -1332,7 +1332,7 @@ Public Class Form__Main_Demo
         ''Refresh the preview picture box. 
         ''
         ''10/3/2019 td''RefreshPreview()
-        mod_designer.RefreshPreview_Redux()
+        mod_designer.RefreshPreview_Redux_Front()
 
         ''8/24 td''Dim objPrintLib As New ciLayoutPrintLib.CILayoutBadge
         ''Dim objPrintLib As New ciLayoutPrintLib.LayoutPrint_Redux
@@ -1996,7 +1996,7 @@ Public Class Form__Main_Demo
             ''
             ClassElementField.oRecipient = each_recip
 
-            mod_designer.RefreshPreview_Redux()
+            mod_designer.RefreshPreview_Redux_Front()
 
             ''
             '' Include the recipient ID, a.k.a. student ID.  
@@ -2025,10 +2025,14 @@ Public Class Form__Main_Demo
                                     (mod_strRecipientID & ".jpg"))
 
                 img_Prod = picturePreview.Image
-                img_Prod = objBadgeGenerator.MakeBadgeImage_ByRecipient(Me.BadgeLayout, pictureBackgroundFront.BackgroundImage,
-                                                                        Me.ElementsCache_Edits,
-                                                                        Me.BadgeLayout.Width_Pixels,
-                                                                        Me.BadgeLayout.Height_Pixels, each_recip, Nothing)
+
+                '' Dec18 2021 td''img_Prod = objBadgeGenerator.MakeBadgeImage_ByRecipient(Me.BadgeLayout,
+                img_Prod = objBadgeGenerator.MakeBadgeImage_ByRecipient_Front(Me.BadgeLayout,
+                                        pictureBackgroundFront.BackgroundImage,
+                                        Me.ElementsCache_Edits,
+                                        Me.BadgeLayout.Width_Pixels,
+                                        Me.BadgeLayout.Height_Pixels, each_recip, Nothing)
+
                 img_Prod.Save(strOutputPathToFileBMP, Imaging.ImageFormat.Jpeg)
 
             End If ''End of "If (c_strFileType = "bmp") Then .... Else ...."
@@ -2060,7 +2064,7 @@ ExitHandler:
             strStudentID & "_" &
             DateTime.Now.ToString("MMdd_hhmmss") & ".jpg")
 
-        mod_designer.RefreshPreview_Redux()
+        mod_designer.RefreshPreview_Redux_Front()
         image_output = picturePreview.Image
         image_output.Save(strOutputPathToFileJPG, Imaging.ImageFormat.Jpeg)
 
@@ -2111,7 +2115,7 @@ ExitHandler:
         ''
         Dim image_output As Image ''Added 9/18/2021 td 
 
-        mod_designer.RefreshPreview_Redux()
+        mod_designer.RefreshPreview_Redux_Front()
         image_output = picturePreview.Image
         ''image_output.Save(strOutputPathToFileJPG, Imaging.ImageFormat.Jpeg)
 
@@ -2421,7 +2425,7 @@ ExitHandler:
         flowSidebar.Visible = False
         ClassElementField.iRecipientInfo = Nothing
         ClassElementField.oRecipient = Nothing
-        mod_designer.RefreshPreview_Redux()
+        mod_designer.RefreshPreview_Redux_Front()
 
     End Sub
 

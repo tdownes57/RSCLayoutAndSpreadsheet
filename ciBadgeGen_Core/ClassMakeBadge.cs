@@ -73,7 +73,7 @@ namespace ciBadgeGenerator
         public static bool IncludeQR = false; //Added 2/3/2020 thomas d. 
         public static bool IncludeSignature = false;  //Added 2/3/2020 thomas d.
 
-        public Image MakeBadgeImage_ByIRecipient(IBadgeLayout par_layout,
+        public Image MakeBadgeImage_ByIRecipient(IBadgeLayoutDimensions par_layoutDims,
                             Image par_backgroundImage,
                             ClassElementsCache_Deprecated par_cache,
                             int par_badge_width_pixels,
@@ -95,14 +95,16 @@ namespace ciBadgeGenerator
             //
             //Step #2:  Create the image of the badge-card for the above recipient. 
             //
-            return MakeBadgeImage(par_layout, par_backgroundImage, par_cache,
+            //Dec18 2021 td//return MakeBadgeImage(par_layout, par_backgroundImage, par_cache,
+            return MakeBadgeImage_Front(par_layoutDims, par_backgroundImage, par_cache,
                                     par_badge_width_pixels,
                                     par_badge_height_pixels,
                                     par_recipientPic);
 
         }
 
-        public Image MakeBadgeImage_ByRecipient(IBadgeLayout par_layout,
+
+        public Image MakeBadgeImage_ByRecipient_Front(IBadgeLayoutDimensions par_layoutDims,
                                     Image par_backgroundImage,
                                     ClassElementsCache_Deprecated par_cache,
                                     int par_badge_width_pixels,
@@ -110,12 +112,13 @@ namespace ciBadgeGenerator
                                     ClassRecipient par_recipient,
                                     Image par_recipientPic)
         {
-            // 
+            //Dec18 2021 td//public Image MakeBadgeImage_ByRecipient(IBadgeLayout par_layout 
+            //
             //Step #1:  Load the Recipient into the Elements Cache. 
             //
             // 10-16-2019 td// par_cache.LoadRecipient(par_recipient);
             // 11-16-2019 td// ClassElementField.oRecipient = par_recipient;
-      
+
             ClassElementField.oRecipient = par_recipient;
             ClassElementField.iRecipientInfo = par_recipient;   //Added 1/15/2020 thomas d.
 
@@ -123,20 +126,24 @@ namespace ciBadgeGenerator
             //Step #2:  Create the image of the badge-card for the above recipient. 
             //
             //10-09-2019 td //return MakeBadgeImage(par_backgroundImage, par_cache, par_badge_width_pixels, par_recipientPic);
-            return MakeBadgeImage(par_layout, par_backgroundImage, par_cache,
+            // Dec18 2021 td//return MakeBadgeImage(par_layout, par_backgroundImage, par_cache,
+            return MakeBadgeImage_Front(par_layoutDims, par_backgroundImage, par_cache,
                                     par_badge_width_pixels,
                                     par_badge_height_pixels,
                                     par_recipientPic);
 
         }
 
-        public Image MakeBadgeImage(IBadgeLayout par_layout,
+
+        public Image MakeBadgeImage_Front(IBadgeLayoutDimensions par_layout,
                                     Image par_backgroundImage,
                                     ClassElementsCache_Deprecated par_cache,
                                     int par_newBadge_width_pixels,
                                     int par_newBadge_height_pixels,
                                     Image par_recipientPic)
         {
+            // Dec18 2021 //public Image MakeBadgeImage(IBadgeLayout par_layout
+            //
             //Dim objPrintLibElems As New ciLayoutPrintLib.LayoutElements
 
             //Image obj_imageWithElementFlds; //Added 10/9/2019 td 
@@ -243,7 +250,7 @@ namespace ciBadgeGenerator
                 //
                 //#1 10/17/2019 td''ClassElementPic obj_elementPic = par_cache.ListPicElements()[0];
                 // #2 10/17/2019 td''ClassElementPic obj_elementPic = par_cache.ListOfElementPics.GetEnumerator().Current;
-                ClassElementPic obj_elementPic = par_cache.ListOfElementPics.FirstOrDefault();
+                ClassElementPic obj_elementPic = par_cache.ListOfElementPics_Front.FirstOrDefault();
 
                 // 10/12/2019 td//objPrintLibElems.LoadImageWithPortrait(par_newBadge_width_pixels,
 
@@ -321,7 +328,10 @@ namespace ciBadgeGenerator
             //Static-Text Elements 
             //
             HashSet<ClassElementStaticText> listOfElementStaticTexts;
-            listOfElementStaticTexts = par_cache.ListOfElementTexts;
+            
+            // Dec18 2021 td//listOfElementStaticTexts = par_cache.ListOfElementTexts;
+            listOfElementStaticTexts = par_cache.ListOfElementTexts_Front;
+
             LoadImageWithStaticTexts(ref obj_imageOutput, listOfElementStaticTexts);
 
             // 10-9-2019 td // return null;

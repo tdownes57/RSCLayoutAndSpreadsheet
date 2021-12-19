@@ -77,7 +77,7 @@ namespace ciBadgeGenerator
         public static bool OmitOutlyingElements = false;  // true; // Added 11/10/2021 td
 
         public Image ElementFieldToImage(ClassElementField par_elementField,
-                                            IBadgeLayout par_layout,
+                                            IBadgeLayoutDimensions par_layoutDimensions,
                                             ref string par_bugmessage,
                                             ref string par_textDisplayed)
         {
@@ -116,7 +116,7 @@ namespace ciBadgeGenerator
                 //     intDesiredLayout_Width = par_imageBadgeCard.Width
 
                 //----5/3/2020 td----int intDesiredLayout_Width = par_imageBadgeCard.Width;
-                int intDesiredLayout_Width = par_layout.Width_Pixels;
+                int intDesiredLayout_Width = par_layoutDimensions.Width_Pixels;
 
                 //
                 //     ''9/19/2019 td''image_textStandard =
@@ -145,7 +145,8 @@ namespace ciBadgeGenerator
 
         }
 
-        public Image MakeBadgeImage_ByIRecipient(IBadgeLayout par_layout,
+
+        public Image MakeBadgeImage_ByIRecipient_Front(IBadgeLayoutDimensions par_layoutDims,
                             Image par_backgroundImage,
                             ClassElementsCache_Deprecated par_cache,
                             int par_badge_width_pixels,
@@ -156,6 +157,7 @@ namespace ciBadgeGenerator
                                     List<string> par_listFieldsIncluded = null,
                                     List<string> par_listFieldsNotIncluded = null)
         {
+            //---Dec18 2021 ---public Image MakeBadgeImage_ByIRecipient
             //
             //Added 11/16/2019 Thomas Downes  
             //
@@ -170,7 +172,8 @@ namespace ciBadgeGenerator
             //
             //Step #2:  Create the image of the badge-card for the above recipient. 
             //
-            return MakeBadgeImage(par_layout, par_backgroundImage,
+            // Dec18 2021 //return MakeBadgeImage(par_layout, par_backgroundImage,
+            return MakeBadgeImage_Front(par_layoutDims, par_backgroundImage,
                                     par_badge_width_pixels,
                                     par_badge_height_pixels,
                                     par_recipientPic,
@@ -182,7 +185,7 @@ namespace ciBadgeGenerator
 
         }
 
-        public Image MakeBadgeImage_ByRecipient(IBadgeLayout par_layout,
+        public Image MakeBadgeImage_ByRecipient_Front(IBadgeLayoutDimensions par_layoutDims,
                                     Image par_backgroundImage,
                                     ClassElementsCache_Deprecated par_cache,
                                     int par_badge_width_pixels,
@@ -190,7 +193,8 @@ namespace ciBadgeGenerator
                                     ClassRecipient par_recipient,
                                     Image par_recipientPic)
         {
-            // 
+            //---Dec18 2021 td---public Image MakeBadgeImage_ByRecipient_Front(IBadgeLayout par_layout 
+            //
             //Step #1:  Load the Recipient into the Elements Cache. 
             //
             // 10-16-2019 td// par_cache.LoadRecipient(par_recipient);
@@ -203,7 +207,9 @@ namespace ciBadgeGenerator
             //Step #2:  Create the image of the badge-card for the above recipient. 
             //
             //10-09-2019 td //return MakeBadgeImage(par_backgroundImage, par_cache, par_badge_width_pixels, par_recipientPic);
-            return MakeBadgeImage(par_layout,
+
+            //12-18-2021 td //return MakeBadgeImage(par_layout, ...
+            return MakeBadgeImage_Front(par_layoutDims,
                                     par_backgroundImage,
                                     par_badge_width_pixels,
                                     par_badge_height_pixels,
@@ -214,7 +220,250 @@ namespace ciBadgeGenerator
         }
 
 
-        public Image MakeBadgeImage(IBadgeLayout par_layout,
+        public Image MakeBadgeImage_AnySide(IBadgeLayoutDimensions par_layoutDims,
+                                    IBadgeSideLayoutElements par_layoutElements,
+                                    int par_newBadge_width_pixels,
+                                    int par_newBadge_height_pixels,
+                                    IRecipient par_iRecipientInfo = null,
+                                    List<string> par_listMessages = null,
+                                    List<string> par_listFieldsIncluded = null,
+                                    List<string> par_listFieldsNotIncluded = null,
+                                    ClassElementField par_recentlyMoved = null)
+        {
+            //
+            // Added 12/18/2021 td
+            //
+            par_layoutElements.BackgroundImage =
+                ClassProportions.Proportions_FixLayout(par_layoutElements.BackgroundImage);
+
+            ClassProportions.ProportionsAreSlightlyOff(par_layoutElements.BackgroundImage, true, "Background Image");
+
+            // 1-15-2020 td //LayoutElements objPrintLibElems = new LayoutElements();
+            // 12-14-2021 td //LayoutElements objPrintLibElems = new LayoutElements(ClassElementField.iRecipientInfo);
+            LayoutElements objPrintLibElems = null;
+            if (par_iRecipientInfo != null) objPrintLibElems = new LayoutElements(par_iRecipientInfo);
+            else objPrintLibElems = new LayoutElements(ClassElementField.iRecipientInfo);
+
+            //    obj_image = Me.BackgroundBox.Image
+            //    obj_image_clone = CType(obj_image.Clone(), Image)
+            //
+            //10-09-2019 td//Image obj_image_clone_resized = (Image)par_backgroundImage.Clone();
+
+            const bool c_bSkipBackground = false;  // true;  // Added 1-16-2020 thomas downes
+            Image obj_imageOutput;  // Added 1-16-2020 thomas downes
+
+            if (c_bSkipBackground)
+            {
+                //Added 1-16-2020 thomas downes
+                obj_imageOutput = new Bitmap(par_newBadge_width_pixels,
+                                             par_newBadge_height_pixels);
+                //Added 1-16-2020 thomas downes
+                Graphics g = Graphics.FromImage(obj_imageOutput);
+                g.Clear(Color.White);
+            }
+            else
+            {
+                //Dec18 2021 td//obj_imageOutput = (Image)par_backgroundImage.Clone();
+                obj_imageOutput = (Image)par_layoutElements.BackgroundImage.Clone();
+
+                //
+                //    obj_image_clone_resized =
+                //        LayoutPrint.ResizeBackground_ToFitBox(obj_image, Me.PreviewBox, True)
+
+                Image obj_image_resized = ResizeImage_WidthAndHeight(obj_imageOutput,
+                    par_newBadge_width_pixels, par_newBadge_height_pixels);
+
+                obj_imageOutput = obj_image_resized;
+            }
+
+            //
+            // Field-Related Elements
+            //
+            HashSet<ClassElementField> listOfElementFields; // <<<<<<<<<<<<<< I have removed the word "Text" from the name.   It's confusing since there are Static-Text controls. --10/17/2019
+
+            //Dec18 2021//if (par_listElementFields != null) listOfElementFields = par_listElementFields;
+            listOfElementFields = par_layoutElements.ListElementFields;
+
+            //Dec18 2021//else listOfElementFields = par_cache.ListOfBadgeDisplayElements_Flds_Front(false);
+
+            const bool c_boolUseLocalProc = true;  // 11-9-2021 false;  // true;  // false;  //Added 10/5/2019 td
+            if (c_boolUseLocalProc)
+            {
+                //
+                // I think this procedure (LoadImageWithElement) is fully converted to C# yet. 
+                //   If I recall, it's rather long and I was experiencing fatigue from the 
+                //   late hour. ---10/9/2019 td
+                //
+                DateTime dateMostRecentUpdate = DateTime.MinValue;  // Default value.
+
+                // I think this procedure is ready for testing. ---11/9/2021  
+                //
+                LoadImageWithElements(ref obj_imageOutput,
+                        ref dateMostRecentUpdate,
+                        listOfElementFields,
+                          par_iRecipientInfo, null,
+                          par_listMessages,
+                         par_listFieldsIncluded,
+                         par_listFieldsNotIncluded,
+                             par_recentlyMoved);
+
+                //Added 11/29/2021 td  
+                string strLastUpdate = dateMostRecentUpdate.ToString();
+
+            }
+            else
+            {
+                //
+                // Call a method from the namespace LayoutElements. 
+                //
+                //objPrintLibElems.LoadImageWithElements(ref obj_imageOutput, listOfElementFields);
+                objPrintLibElems.LoadImageWithElements(ref obj_imageOutput, listOfElementFields,
+                         null, false, true,
+                         par_listFieldsIncluded,
+                         par_listFieldsNotIncluded);
+            }
+
+            //''
+            //''Major call, let's show the portrait !!  ---9/9/2019 td  
+            //''
+            //objPrintLibElems.LoadImageWithPortrait(obj_image_clone_resized.Width,
+            //                    par_badge_width_pixels,
+            //                    obj_image_clone_resized,
+            //                    CtlGraphicPortrait_Lady.ElementInfo_Base,
+            //                    CtlGraphicPortrait_Lady.ElementInfo_Pic,
+            //                    CtlGraphicPortrait_Lady.picturePortrait.Image);
+
+            const bool c_bIgnorePicDataInCache = false; //Added 10/9/2019 thomas d. 
+
+            if (c_bIgnorePicDataInCache)
+            {
+                //ClassElementPic objElementPic = new ClassElementPic();
+                //
+                //// Added 10/8/2019 td  
+                //objElementPic.Width_Pixels = par_recipientPic.Width;
+                //objElementPic.Height_Pixels = par_recipientPic.Height;
+                //
+                //IElement_Base local_PicElementInfo_Base = (IElement_Base)objElementPic;
+                //IElementPic local_PicElementInfo_Pic = (IElementPic)objElementPic;
+                ////Image recipient_pic_Image = par_recipient.GetPic();
+                //
+                //objPrintLibElems.LoadImageWithPortrait(obj_image.Width,
+                //                         par_badge_width_pixels,
+                //                         ref obj_image,
+                //                         local_PicElementInfo_Base,
+                //                         local_PicElementInfo_Pic,
+                //                         ref par_recipientPic);
+            }
+            else
+            {
+                //
+                //Added 10/9/2019 thomas d. 
+                //
+                //#1 10/17/2019 td''ClassElementPic obj_elementPic = par_cache.ListPicElements()[0];
+                // #2 10/17/2019 td''ClassElementPic obj_elementPic = par_cache.ListOfElementPics.GetEnumerator().Current;
+
+                // Nov. 29 2021 //ClassElementPic obj_elementPic = par_cache.ListOfElementPics.FirstOrDefault();
+                ClassElementPic obj_elementPic = null;
+                if (par_layoutElements.ElementPic != null) obj_elementPic = par_layoutElements.ElementPic;
+                // Dec18 2021 td// else obj_elementPic = par_cache.ListOfElementPics_Front.FirstOrDefault();
+
+                // 10/12/2019 td//objPrintLibElems.LoadImageWithPortrait(par_newBadge_width_pixels,
+
+                //Image img_Step3Picture = obj_elementPic.GetStep3_Picture();
+                //if (img_Step3Picture == null) img_Step3Picture = par_recipientPic;
+                Image img_Step3Picture = par_layoutElements.RecipientPic;
+
+                if (img_Step3Picture != null)
+                {
+                    LoadImageWithPortrait(img_Step3Picture,
+                                        par_newBadge_width_pixels,
+                                        par_layoutDims.Width_Pixels,
+                                        ref obj_imageOutput,
+                                        (IElement_Base)obj_elementPic,
+                                        (IElementPic)obj_elementPic);
+                    //
+                    // End of "if (img_Step3Picture != null)"
+                    //
+                }
+                //10-18 td  ref par_recipientPic);
+            }
+
+            //
+            //Added 10/9/2019 thomas d. 
+            //
+            //--Nov. 29 2021--//if (par_cache.MissingTheSignature())
+            //--Dec18 2021 //if (par_cache.MissingTheSignature() && (par_elementSig == null))
+            if (par_layoutElements.ElementSig  == null)
+            {
+                //
+                //There is not any Signature to display.
+                //
+            }
+            else if (ClassMakeBadge.IncludeSignature)
+            {
+                //
+                //Add the Signature. 
+                //
+                ClassElementSignature obj_elementSig = par_layoutElements.ElementSig;
+                //Added 11/29/2021 td
+                if (par_layoutElements.ElementSig != null) obj_elementSig = par_layoutElements.ElementSig;
+
+                string strPathToSigFile = this.PathToFile_Sig; //Added 10/12/2019 td
+
+                LoadImageWithSignature(par_newBadge_width_pixels,
+                                    par_layoutDims.Width_Pixels,
+                                    ref obj_imageOutput,
+                                    (IElement_Base)obj_elementSig,
+                                    (IElementSig)obj_elementSig,
+                                    strPathToSigFile);
+
+                // 10-12-2019 td //ref par_recipientPic);
+
+            }
+
+            //
+            //Added 10/14/2019 thomas d. 
+            //Encapsulated 12/11/2021 thomas 
+            //
+            //Dec.11 2021 ''LoadImageWithQRCode_IfNeeded(par_cache, par_elementQR, 
+            //                             par_layout.Width_Pixels, par_layout, 
+            //                             ref obj_imageOutput);
+            //Dec.18 2021 ''LoadImageWithQRCode_IfNeeded(par_cache, par_elementQR,
+            //                             par_newBadge_width_pixels, par_layoutDims,
+            //                             ref obj_imageOutput);
+            LoadImageWithQRCode_IfNeeded(null, 
+                                         par_layoutElements.ElementQR,
+                                         par_newBadge_width_pixels, par_layoutDims,
+                                         ref obj_imageOutput);
+
+
+            //
+            //Static-Text Elements 
+            //
+            HashSet<ClassElementStaticText> listOfElementStaticTexts;
+            //Dec18 2021 //listOfElementStaticTexts = par_cache.ListOfElementTexts_Front;
+            listOfElementStaticTexts = par_layoutElements.ListElementStaticTexts;
+
+            //Added 11/29/2021 td
+            //if (par_elemStaticText != null)
+            //{
+            //    listOfElementStaticTexts = new HashSet<ClassElementStaticText>();
+            //    listOfElementStaticTexts.Add(par_elemStaticText);
+            //}
+
+            LoadImageWithStaticTexts(ref obj_imageOutput, listOfElementStaticTexts);
+
+            // 10-9-2019 td // return null;
+            return obj_imageOutput;
+
+
+
+
+
+        }
+
+
+        public Image MakeBadgeImage_Front(IBadgeLayoutDimensions par_layoutDims,
                                     Image par_backgroundImage,
                                     int par_newBadge_width_pixels,
                                     int par_newBadge_height_pixels,
@@ -369,7 +618,7 @@ namespace ciBadgeGenerator
                 // Nov. 29 2021 //ClassElementPic obj_elementPic = par_cache.ListOfElementPics.FirstOrDefault();
                 ClassElementPic obj_elementPic;
                 if (par_elementPic != null) obj_elementPic = par_elementPic;
-                else obj_elementPic = par_cache.ListOfElementPics.FirstOrDefault();
+                else obj_elementPic = par_cache.ListOfElementPics_Front.FirstOrDefault();
 
                 // 10/12/2019 td//objPrintLibElems.LoadImageWithPortrait(par_newBadge_width_pixels,
 
@@ -380,7 +629,7 @@ namespace ciBadgeGenerator
                 { 
                     LoadImageWithPortrait(img_Step3Picture,
                                         par_newBadge_width_pixels,
-                                        par_layout.Width_Pixels,
+                                        par_layoutDims.Width_Pixels,
                                         ref obj_imageOutput,
                                         (IElement_Base)obj_elementPic,
                                         (IElementPic)obj_elementPic);
@@ -413,7 +662,7 @@ namespace ciBadgeGenerator
                 string strPathToSigFile = this.PathToFile_Sig; //Added 10/12/2019 td
 
                 LoadImageWithSignature(par_newBadge_width_pixels,
-                                    par_layout.Width_Pixels,
+                                    par_layoutDims.Width_Pixels,
                                     ref obj_imageOutput,
                                     (IElement_Base)obj_elementSig,
                                     (IElementSig)obj_elementSig,
@@ -431,7 +680,7 @@ namespace ciBadgeGenerator
             //                             par_layout.Width_Pixels, par_layout, 
             //                             ref obj_imageOutput);
             LoadImageWithQRCode_IfNeeded(par_cache, par_elementQR,
-                                         par_newBadge_width_pixels, par_layout,
+                                         par_newBadge_width_pixels, par_layoutDims,
                                          ref obj_imageOutput);
 
 
@@ -439,7 +688,7 @@ namespace ciBadgeGenerator
             //Static-Text Elements 
             //
             HashSet<ClassElementStaticText> listOfElementStaticTexts;
-            listOfElementStaticTexts = par_cache.ListOfElementTexts;
+            listOfElementStaticTexts = par_cache.ListOfElementTexts_Front;
 
             //Added 11/29/2021 td
             if (par_elemStaticText != null) 
@@ -550,7 +799,7 @@ namespace ciBadgeGenerator
         public void LoadImageWithQRCode_IfNeeded(ClassElementsCache_Deprecated par_cache,
                                                  ClassElementQRCode par_elementQR, 
                                                  int par_newBadge_width_pixels, 
-                                                 IBadgeLayout par_infoBadgeLayout, 
+                                                 IBadgeLayoutDimensions par_infoBadgeLayoutDims, 
                                                  ref Image pref_imageOutput)
         {
             //
@@ -581,7 +830,7 @@ namespace ciBadgeGenerator
                 //strPathToFile_QR = obj_elementQR.PathToFile_
 
                 LoadImageWithQRCode(par_newBadge_width_pixels,
-                                    par_infoBadgeLayout.Width_Pixels,
+                                    par_infoBadgeLayoutDims.Width_Pixels,
                                     ref pref_imageOutput,
                                     (IElement_Base)obj_elementQR,
                                     (IElementQRCode)obj_elementQR,

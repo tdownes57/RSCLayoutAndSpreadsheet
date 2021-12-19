@@ -71,7 +71,7 @@
     <Compile Include="InterfaceQRCode.vb" />
     <Compile Include="InterfaceSaveToModel.vb" />
     <Compile Include="InterfaceSigMenu.vb" />
-    <Compile Include="InterfaceBadgeLayout.vb" />
+    <Compile Include="InterfaceBadgeLayoutDimensions.vb" />
     <Compile Include="InterfaceCIBField.vb" />
     <Compile Include="InterfaceCIVisit.vb" />
     <Compile Include="InterfaceCtlElementField.vb" />

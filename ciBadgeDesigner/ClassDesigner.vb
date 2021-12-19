@@ -253,9 +253,13 @@ Public Class ClassDesigner
         ''---Dim objListenerQR As MoveAndResizeControls_Monem.ControlMove_NonStatic_TD
         Dim objListenerQR As MoveAndResizeControls_Monem.ControlResizeProportionally_TD
 
+        Dim intCountKeys As Integer ''Added 12/18/2021
+        intCountKeys = mod_designerListener.DictyControlResizing.Keys.Count ''Added 12/18/2021
+
         ''---objListenerQR = mod_designerListener.mod_dictyControlMoveBoxesEtc(CtlGraphic_QRCode)
         objListenerQR = mod_designerListener.DictyControlResizing(CtlGraphic_QRCode)
         objListenerQR.RemoveEventHandlers()
+
         mod_designerListener.DictyControlResizing.Remove(CtlGraphic_QRCode) ''Added 12/17/2021 td
 
         CtlGraphic_QRCode.Dispose() ''Added Dec. 8, 2021
@@ -554,7 +558,7 @@ Public Class ClassDesigner
         End If ''End of "If (ShowingBackside()) Then ... Else ..."
 
         ResizeLayoutBackgroundImage_ToFitPictureBox() ''Added 8/25/2019 td
-        RefreshPreview_Redux() ''Added 8/24/2019 td
+        RefreshPreview_Redux_Front() ''Added 8/24/2019 td
 
         ''Const c_boolBreakpoint As Boolean = True  ''Added 9//13/2019 td
 
@@ -1373,8 +1377,10 @@ Public Class ClassDesigner
 
     End Sub ''End of "Private Sub SaveControlPositionsToElement()"
 
-    Public Sub RefreshPreview_Redux(Optional par_recentlyMoved As ClassElementField = Nothing,
+
+    Public Sub RefreshPreview_Redux_Front(Optional par_recentlyMoved As ClassElementField = Nothing,
                                     Optional par_recipient As ciBadgeRecipients.ClassRecipient = Nothing)
+        ''---Dec18 2021 td----Public Sub RefreshPreview_Redux
         ''
         ''Added 10/5/2019 & 8/24/2019 td 
         ''
@@ -1411,8 +1417,10 @@ Public Class ClassDesigner
             listOfElementTextFields.Add(eachCtlField.ElementClass_Obj)
 
             ''Debug code.....
+            ''Dec18 2021 td''bMatchesElementInCache = Me.ElementsCache_UseEdits.ListOfElementFields.Contains(eachCtlField.ElementClass_Obj)
             bMatchesElementInCache =
-                Me.ElementsCache_UseEdits.ListOfElementFields.Contains(eachCtlField.ElementClass_Obj)
+                Me.ElementsCache_UseEdits.ListOfElementFields_Bothsides().Contains(eachCtlField.ElementClass_Obj)
+
             If (bMatchesElementInCache) Then intCountMatchedElements += 1
 
         Next eachCtlField
@@ -1479,7 +1487,8 @@ Public Class ClassDesigner
         ''           Me.PreviewBox.Width, Me.PreviewBox.Height,
         ''           Me.CtlGraphicPortrait_Lady.picturePortrait.Image)
 
-        obj_image = obj_generator.MakeBadgeImage(Me.BadgeLayout_Class, obj_image_clone_resized,
+        obj_image = obj_generator.MakeBadgeImage_Front(Me.BadgeLayout_Class,
+                                                 obj_image_clone_resized,
                                                   Me.PreviewBox.Width,
                                                   Me.PreviewBox.Height,
                                                  Me.CtlGraphic_Portrait.picturePortrait.Image,
@@ -2174,9 +2183,9 @@ Public Class ClassDesigner
                 Dim objElementField As ClassElementField
                 objElementField = CType(par_controlElement,
                                      CtlGraphicFldLabel).ElementClass_Obj
-                RefreshPreview_Redux(objElementField)
+                RefreshPreview_Redux_Front(objElementField)
             Else
-                RefreshPreview_Redux()
+                RefreshPreview_Redux_Front()
             End If ''End of "If (TypeOf par_controlElement Is CtlGraphicFldLabel) Then... Else"
 
         End If ''End of "If (checkAutoPreview.Checked) Then"

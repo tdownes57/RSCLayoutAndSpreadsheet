@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BadgeLayoutCache.vb" />
+    <Compile Include="ClassBadgeSideLayout.vb" />
     <Compile Include="ClassCacheManagement.vb" />
     <Compile Include="ClassCustomerCache.vb" />
     <Compile Include="ClassElementsCache_Deprecated.vb" />
@@ -75,7 +76,8 @@
     <Compile Include="ClassCachePersonality.vb" />
     <Compile Include="ClassPersonalityConfig.vb" />
     <Compile Include="DiskFolders.vb" />
-    <Compile Include="InterfaceDesignerForm.vb" />
+    <Compile Include="Interfaces\InterfaceBadgeSideLayoutElements.vb" />
+    <Compile Include="Interfaces\InterfaceDesignerForm.vb" />
     <Compile Include="DiskFilesVB.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
