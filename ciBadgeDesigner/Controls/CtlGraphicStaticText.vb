@@ -399,8 +399,8 @@ ExitHandler:
         strLeftEdge_IsNow = Me.ElementInfo_Base.LeftEdge_Pixels.ToString
 
         ''Added 12/17/2021 td
-        MessageBox.Show(String.Format("The left edge was {0}, is now {1}.",
-                                      strLeftEdge_WasBefore, strLeftEdge_IsNow))
+        '' Dec19 2021 td''MessageBox.Show(String.Format("The left edge was {0}, is now {1}.",
+        ''                   strLeftEdge_WasBefore, strLeftEdge_IsNow))
 
         Me.ElementInfo_Base.Width_Pixels = Me.Width
         Me.ElementInfo_Base.Height_Pixels = Me.Height

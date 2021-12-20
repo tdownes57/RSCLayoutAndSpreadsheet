@@ -191,8 +191,14 @@ Public Class ClassElementGraphic
     Public Property GraphicImageName As String Implements IElementGraphic.GraphicImageName ''Added 12/8/2021 td
     Public Property BackgroundIsTransparent As Boolean Implements IElementGraphic.BackgroundIsTransparent ''Added 12/8/2021 td
 
-
-
+    Public Property ZOrder As Integer Implements IElement_Base.ZOrder
+        Get
+            Throw New NotImplementedException()
+        End Get
+        Set(value As Integer)
+            Throw New NotImplementedException()
+        End Set
+    End Property
 
     Public Sub New(par_control As Control)
 
@@ -298,6 +304,9 @@ Public Class ClassElementGraphic
 
     End Sub ''End of "Public Sub LoadGraphic() "
 
+    Public Function ImageForBadgeImage(par_recipient As IRecipient) As Image Implements IElement_Base.ImageForBadgeImage
+        Throw New NotImplementedException()
+    End Function
 End Class
 
 

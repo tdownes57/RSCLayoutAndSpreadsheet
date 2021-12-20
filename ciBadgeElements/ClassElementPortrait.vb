@@ -197,6 +197,14 @@ Public Class ClassElementPic ''May be renamed to ClassElementPortrait. ---10/8/2
     <Xml.Serialization.XmlIgnore>
     Public Property Recipient As IRecipient Implements IElementPic.Recipient ''Added 9/10/2019 td
 
+    Public Property ZOrder As Integer Implements IElement_Base.ZOrder
+        Get
+            Return DirectCast(ElementPicture, IElement_Base).ZOrder
+        End Get
+        Set(value As Integer)
+            DirectCast(ElementPicture, IElement_Base).ZOrder = value
+        End Set
+    End Property
 
     Public Sub New(par_control As Control)
 
@@ -318,6 +326,9 @@ Public Class ClassElementPic ''May be renamed to ClassElementPortrait. ---10/8/2
 
     End Sub ''ENd of "Public Shared Sub CheckWidthVsLength_OfPic()"
 
+    Public Function ImageForBadgeImage(par_recipient As IRecipient) As Image Implements IElement_Base.ImageForBadgeImage
+        Return DirectCast(ElementPicture, IElement_Base).ImageForBadgeImage(par_recipient)
+    End Function
 End Class
 
 

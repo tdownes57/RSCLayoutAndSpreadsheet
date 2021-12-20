@@ -253,6 +253,7 @@ Public Class Form__Main_Demo
 
         Me.Controls.Remove(CtlGraphicPortrait_Lady) ''Added 7/31/2019 thomas d. 
         Me.Controls.Remove(CtlGraphicSignature1) ''Added 10/12/2019 thomas d. 
+        Me.Controls.Remove(CtlGraphicStaticText1) ''Added 12/19/2021 thomas d. 
 
         ''Added 10/11/2019 thomas downes 
         Me.CtlGraphicStaticText1.LayoutFunctions = CType(mod_designer, ILayoutFunctions)

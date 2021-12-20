@@ -55,4 +55,16 @@ Public Class ClassElementLaysection
 
     Public Property Visible As Boolean Implements IElement_Base.Visible ''Added 9/18/2019 td  
 
+    Public Property ZOrder As Integer Implements IElement_Base.ZOrder
+        Get
+            Throw New NotImplementedException()
+        End Get
+        Set(value As Integer)
+            Throw New NotImplementedException()
+        End Set
+    End Property
+
+    Public Function ImageForBadgeImage(par_recipient As IRecipient) As Image Implements IElement_Base.ImageForBadgeImage
+        Throw New NotImplementedException()
+    End Function
 End Class ''ENd of "Public Class ClassElementLaysection"

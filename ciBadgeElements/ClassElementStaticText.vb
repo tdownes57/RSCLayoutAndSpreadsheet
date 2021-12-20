@@ -164,6 +164,15 @@ Public Class ClassElementStaticText
 
     Public Property SelectedHighlighting As Boolean Implements IElement_Base.SelectedHighlighting ''Added 8/2/2019 td  
 
+    Public Property ZOrder As Integer Implements IElement_Base.ZOrder
+        Get
+            Throw New NotImplementedException()
+        End Get
+        Set(value As Integer)
+            Throw New NotImplementedException()
+        End Set
+    End Property
+
     ''9/18/2019 td''Private _labelToImage As New ClassLabelToImage ''Added 9/3/2019 td  
 
     Public Sub New(par_control As Control)
@@ -471,6 +480,8 @@ Public Class ClassElementStaticText
 
     End Sub ''End of "Public Sub Font_ScaleAdjustment()" 
 
-
+    Public Function ImageForBadgeImage(par_recipient As IRecipient) As Image Implements IElement_Base.ImageForBadgeImage
+        Throw New NotImplementedException()
+    End Function
 End Class ''End of "Class ClassElementStaticText"  
 

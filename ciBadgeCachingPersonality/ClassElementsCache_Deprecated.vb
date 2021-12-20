@@ -1293,9 +1293,14 @@ Namespace ciBadgeCachePersonality
 
             ''Added 12/17/2021 td
             Dim strCountOfBothSides As String = ""
-            strCountOfBothSides = String.Format("There are {0} static-texts in front, {1} on the backside!!!!!!!!!!!!",
+            Dim bRandomness As Boolean ''Added 12/17/2021 td
+            bRandomness = (2 = CType((New Random(3)).Next(0, 4), Integer))
+            If bRandomness Then
+                strCountOfBothSides = String.Format("There are {0} static-texts in front, {1} on the backside.",
               intCountFrontside, intCountBackside)
-            MessageBox.Show(strCountOfBothSides)
+                MessageBox.Show(strCountOfBothSides, "", MessageBoxButtons.OKCancel,
+                                MessageBoxIcon.Exclamation)
+            End If ''End of "If bRandomness Then" 
 
             Return bMissingBackAndFront
 

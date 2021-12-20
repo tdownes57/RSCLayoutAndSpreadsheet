@@ -200,6 +200,14 @@ Public Class ClassElementSignature
     <Xml.Serialization.XmlIgnore>
     Public Property Recipient As IRecipient Implements IElementSig.Recipient ''Added 9/10/2019 td
 
+    Public Property ZOrder As Integer Implements IElement_Base.ZOrder
+        Get
+            Return DirectCast(ElementSignature, IElement_Base).ZOrder
+        End Get
+        Set(value As Integer)
+            DirectCast(ElementSignature, IElement_Base).ZOrder = value
+        End Set
+    End Property
 
     Public Sub New(par_control As Control)
 
@@ -328,6 +336,9 @@ Public Class ClassElementSignature
 
     End Sub ''ENd of "Public Shared Sub CheckWidthVsLength_OfSig()"
 
+    Public Function ImageForBadgeImage(par_recipient As IRecipient) As Image Implements IElement_Base.ImageForBadgeImage
+        Return DirectCast(ElementSignature, IElement_Base).ImageForBadgeImage(par_recipient)
+    End Function
 End Class
 
 

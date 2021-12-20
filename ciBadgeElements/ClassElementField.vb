@@ -473,6 +473,15 @@ Public Class ClassElementField
 
     Public Property DatetimeUpdated As DateTime = DateTime.MinValue ''Added 11/29/2021 thomas downes
 
+    Public Property ZOrder As Integer Implements IElement_Base.ZOrder
+        Get
+            Throw New NotImplementedException()
+        End Get
+        Set(value As Integer)
+            Throw New NotImplementedException()
+        End Set
+    End Property
+
     ''9/18/2019 td''Private _labelToImage As New ClassLabelToImage ''Added 9/3/2019 td  
     ''Moved up. 9/30/2019 td''Public Property Id_GUID As System.Guid ''Added 9/30/2019 td 
 
@@ -958,4 +967,7 @@ Public Class ClassElementField
 
     End Function ''End of "Public Function LabelText(par_previewExample As Boolean) As String"
 
+    Public Function ImageForBadgeImage(par_recipient As IRecipient) As Image Implements IElement_Base.ImageForBadgeImage
+        Throw New NotImplementedException()
+    End Function
 End Class ''End of "Class ClassElementField"  

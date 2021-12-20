@@ -256,13 +256,18 @@ Public Class ClassDesigner
         Dim objListenerQR As MoveAndResizeControls_Monem.ControlResizeProportionally_TD
 
         Dim intCountKeys As Integer ''Added 12/18/2021
-        intCountKeys = mod_designerListener.DictyControlResizing.Keys.Count ''Added 12/18/2021
 
-        ''---objListenerQR = mod_designerListener.mod_dictyControlMoveBoxesEtc(CtlGraphic_QRCode)
-        objListenerQR = mod_designerListener.DictyControlResizing(CtlGraphic_QRCode)
-        objListenerQR.RemoveEventHandlers()
+        With mod_designerListener
 
-        mod_designerListener.DictyControlResizing.Remove(CtlGraphic_QRCode) ''Added 12/17/2021 td
+            intCountKeys = .DictyControlResizing.Keys.Count ''Added 12/18/2021
+            ''---objListenerQR = .mod_dictyControlMoveBoxesEtc(CtlGraphic_QRCode)
+            If (.DictyControlResizing.ContainsKey(CtlGraphic_QRCode)) Then
+                objListenerQR = .DictyControlResizing(CtlGraphic_QRCode)
+                objListenerQR.RemoveEventHandlers()
+                .DictyControlResizing.Remove(CtlGraphic_QRCode) ''Added 12/17/2021 td
+            End If ''End of "If (.DictyControlResizing.ContainsKey(CtlGraphic_QRCode)) Then"
+
+        End With ''End of "With mod_designerListener"
 
         CtlGraphic_QRCode.Dispose() ''Added Dec. 8, 2021
         Me.DesignerForm.Controls.Remove(CtlGraphic_QRCode) ''Added Dec. 8, 2021

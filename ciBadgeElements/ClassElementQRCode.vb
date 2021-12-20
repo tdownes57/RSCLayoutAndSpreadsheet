@@ -182,6 +182,15 @@ Public Class ClassElementQRCode
 
     Public Property QRFormula As String Implements IElementQRCode.QRFormula ''Added 9/30/2019 td  
 
+    Public Property ZOrder As Integer Implements IElement_Base.ZOrder
+    ''    Get
+    ''        ''Return DirectCast(ElementQRCode, IElement_Base).ZOrder
+    ''    End Get
+    ''    Set(value As Integer)
+    ''        ''DirectCast(ElementQRCode, IElement_Base).ZOrder = value
+    ''    End Set
+    ''End Property
+
     Public Sub New(par_control As Control)
 
         ''Added 7/19/2019 td
@@ -272,6 +281,9 @@ Public Class ClassElementQRCode
 
     End Sub ''ENd of "Public Shared Sub CheckWidthVsLength_OfPic()"
 
+    Public Function ImageForBadgeImage(par_recipient As IRecipient) As Image Implements IElement_Base.ImageForBadgeImage
+        Return DirectCast(ElementQRCode, IElement_Base).ImageForBadgeImage(par_recipient)
+    End Function
 End Class
 
 
