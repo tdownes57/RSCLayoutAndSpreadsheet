@@ -197,5 +197,39 @@ Public Class DiskFilesVB
     End Function ''End of "Public Shared Function IncrementFileTitle"
 
 
+    Public Shared Function FullPathToTimestampedXML() As String
+        ''
+        ''Added 12/19/2021 thomas downes
+        ''
+
+    End Function ''End of "Public Shared Function FullPathToTimestampedXML() As String"
+
+
+    Public Shared Function IsXMLFileMissing_OrEmpty(pstrPathToElementsCacheXML As String) As Boolean
+        ''Dec19 2021 ''Public Shared Function IsXMLFileEmpty
+        ''
+        ''Added 12/19/2021 thomas downes
+        ''
+        Dim boolNewFileXML As Boolean
+
+        If (String.IsNullOrEmpty(pstrPathToElementsCacheXML)) Then Return True
+
+        boolNewFileXML = (Not System.IO.File.Exists(pstrPathToElementsCacheXML))
+        If (boolNewFileXML) Then Return True
+
+        ''Added 12/19/2021 thomas downes
+        Dim strTextOfFile As String
+        strTextOfFile = IO.File.ReadAllText(pstrPathToElementsCacheXML)
+
+        If (String.IsNullOrEmpty(strTextOfFile)) Then Return True
+
+        Return False
+
+    End Function ''ENd of "Public Shared Function IsXMLFileEmpty"
+
+
+
+
+
 
 End Class ''eND OF "Public Class DiskFiles"

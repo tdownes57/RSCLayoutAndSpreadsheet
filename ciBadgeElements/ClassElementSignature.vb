@@ -201,13 +201,13 @@ Public Class ClassElementSignature
     Public Property Recipient As IRecipient Implements IElementSig.Recipient ''Added 9/10/2019 td
 
     Public Property ZOrder As Integer Implements IElement_Base.ZOrder
-        Get
-            Return DirectCast(ElementSignature, IElement_Base).ZOrder
-        End Get
-        Set(value As Integer)
-            DirectCast(ElementSignature, IElement_Base).ZOrder = value
-        End Set
-    End Property
+    ''    Get
+    ''        Return DirectCast(ElementSignature, IElement_Base).ZOrder
+    ''    End Get
+    ''    Set(value As Integer)
+    ''        DirectCast(ElementSignature, IElement_Base).ZOrder = value
+    ''    End Set
+    ''End Property
 
     Public Sub New(par_control As Control)
 

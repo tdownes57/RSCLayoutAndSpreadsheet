@@ -230,24 +230,24 @@
     <value>..\Resources\CodeNinjas in NB.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="PathToSavedXML_Last" xml:space="preserve">
-    <value />
+    <value>See settings instead.</value>
   </data>
   <data name="PathToSavedXML_Prior1" xml:space="preserve">
-    <value />
+    <value>See settings instead.</value>
   </data>
   <data name="PathToSavedXML_Prior2" xml:space="preserve">
-    <value />
+    <value>See settings instead.</value>
   </data>
   <data name="PathToSavedXML_Prior3" xml:space="preserve">
-    <value />
+    <value>See settings instead.</value>
   </data>
   <data name="PathToSavedXML_Prior4" xml:space="preserve">
-    <value />
+    <value>See settings instead.</value>
   </data>
   <data name="PathToSavedXML_Prior5" xml:space="preserve">
-    <value />
+    <value>See settings instead.</value>
   </data>
   <data name="PathToSavedXML_Prior6" xml:space="preserve">
-    <value />
+    <value>See settings instead.</value>
   </data>
 </root>

@@ -15,7 +15,7 @@ Option Explicit On
 Namespace My
     
     <Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute(),  _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.4.0.0"),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0"),  _
      Global.System.ComponentModel.EditorBrowsableAttribute(Global.System.ComponentModel.EditorBrowsableState.Advanced)>  _
     Partial Friend NotInheritable Class MySettings
         Inherits Global.System.Configuration.ApplicationSettingsBase
@@ -86,6 +86,54 @@ Namespace My
             End Get
             Set
                 Me("PathToXML_Saved_Personality") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property PathToSavedXML_Last() As String
+            Get
+                Return CType(Me("PathToSavedXML_Last"),String)
+            End Get
+            Set
+                Me("PathToSavedXML_Last") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property PathToSavedXML_Prior1() As String
+            Get
+                Return CType(Me("PathToSavedXML_Prior1"),String)
+            End Get
+            Set
+                Me("PathToSavedXML_Prior1") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property PathToSavedXML_Prior2() As String
+            Get
+                Return CType(Me("PathToSavedXML_Prior2"),String)
+            End Get
+            Set
+                Me("PathToSavedXML_Prior2") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property PathToSavedXML_Prior3() As String
+            Get
+                Return CType(Me("PathToSavedXML_Prior3"),String)
+            End Get
+            Set
+                Me("PathToSavedXML_Prior3") = value
             End Set
         End Property
     End Class

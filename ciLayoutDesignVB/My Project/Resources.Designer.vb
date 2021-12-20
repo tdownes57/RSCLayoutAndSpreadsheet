@@ -328,7 +328,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to .
+        '''  Looks up a localized string similar to See settings instead..
         '''</summary>
         Friend ReadOnly Property PathToSavedXML_Last() As String
             Get
@@ -337,7 +337,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to .
+        '''  Looks up a localized string similar to See settings instead..
         '''</summary>
         Friend ReadOnly Property PathToSavedXML_Prior1() As String
             Get
@@ -346,7 +346,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to .
+        '''  Looks up a localized string similar to See settings instead..
         '''</summary>
         Friend ReadOnly Property PathToSavedXML_Prior2() As String
             Get
@@ -355,7 +355,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to .
+        '''  Looks up a localized string similar to See settings instead..
         '''</summary>
         Friend ReadOnly Property PathToSavedXML_Prior3() As String
             Get
@@ -364,7 +364,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to .
+        '''  Looks up a localized string similar to See settings instead..
         '''</summary>
         Friend ReadOnly Property PathToSavedXML_Prior4() As String
             Get
@@ -373,7 +373,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to .
+        '''  Looks up a localized string similar to See settings instead..
         '''</summary>
         Friend ReadOnly Property PathToSavedXML_Prior5() As String
             Get
@@ -382,7 +382,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to .
+        '''  Looks up a localized string similar to See settings instead..
         '''</summary>
         Friend ReadOnly Property PathToSavedXML_Prior6() As String
             Get

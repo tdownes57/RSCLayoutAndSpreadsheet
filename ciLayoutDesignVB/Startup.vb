@@ -61,20 +61,45 @@ Public Class Startup
             ''Function called in the line below is suffixed w/ "_Deprecated", but
             ''   it's still in used today.  ---11/30/2021 td 
             strPathToElementsCacheXML = My.Settings.PathToXML_Saved_ElementsCache ''Added 12/14/2021 
-            obj_cache_layout_Elements = LoadCachedData_Elements_Deprecated(obj_formToShow, boolNewFileXML,
+
+            If (DiskFilesVB.DisplayStringDataInNotepad(strPathToElementsCacheXML)) Then
+                ''
+                ''Added 12/19/2021 thomas downes
+                ''
+                Dim objShow As New FormDisplayCacheLayouts ''Added 12/19/2021 Thomas Downes
+                Dim bGoodChoice As Boolean ''Added 12/19/2021 Thomas Downes
+                Dim bUserWantsABlankSlate As Boolean ''Added 12/19/2021 td
+                Do
+                    objShow.ShowDialog()
+                    strPathToElementsCacheXML = objShow.PathToElementsCacheXML
+                    bUserWantsABlankSlate = objShow.UserChoosesBlankSlate
+                    bGoodChoice = (bUserWantsABlankSlate And (Not DiskFilesVB.IsXMLFileMissing_OrEmpty(strPathToElementsCacheXML)))
+
+                Loop Until (bGoodChoice)
+
+            Else
+                obj_cache_layout_Elements = LoadCachedData_Elements_Deprecated(obj_formToShow, boolNewFileXML,
                    strPathToElementsCacheXML)
 
+            End If ''End of "If (DiskFilesVB.IsXMLFileEmpty(strPathToElementsCacheXML)) Then ... Else ..."
+
         Else
-            ''Function called in the line below was suffixed w/ "_FutureUse"
-            ''   today.  ---11/30/2021 td 
-            obj_personality = LoadCachedData_Personality_FutureUse(obj_formToShow, boolNewFileXML)
+                ''Function called in the line below was suffixed w/ "_FutureUse"
+                ''   today.  ---11/30/2021 td 
+                obj_personality = LoadCachedData_Personality_FutureUse(obj_formToShow, boolNewFileXML)
         End If ''end of "If (c_boolStillUsingElementsCache) Then ... Else ..."
 
         ''Added 11/26/2019 thomas d
         Dim boolTesting As Boolean
         If (boolTesting) Then
+
+            ''Added 12/19/2021 thomas downes
+            Dim imageBackground As Image ''Added 12/19/2021 thomas downes
+            imageBackground = obj_formToShow.pictureBackgroundFront.BackgroundImage
+
             obj_cache_layout_Elements =
-                ClassElementsCache_Deprecated.GetLoadedCache("123.xml", True, obj_formToShow.pictureBackgroundFront.BackgroundImage)
+                ClassElementsCache_Deprecated.GetLoadedCache("123.xml", True, imageBackground)
+
         End If ''End of "If (boolTesting) Then"
 
         obj_formToShow.NewFileXML = boolNewFileXML
@@ -393,6 +418,12 @@ Public Class Startup
 
         Else
             pboolNewFileXML = (Not System.IO.File.Exists(strPathToXML))
+
+            ''Added 12/19/2021 thomas downes
+            Dim strTextOfFile As String
+            strTextOfFile = IO.File.ReadAllText(strPathToXML)
+            If (String.IsNullOrEmpty(strTextOfFile)) Then pboolNewFileXML = True
+
         End If ''End of "If (strPathToXML <> "") Then .... Else ..."
 
         ''
