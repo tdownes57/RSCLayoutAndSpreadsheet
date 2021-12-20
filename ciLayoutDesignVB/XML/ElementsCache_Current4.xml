@@ -1,0 +1,2613 @@
+<?xml version="1.0"?>
+<ClassElementsCache_Deprecated xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Id_GUID>00000000-0000-0000-0000-000000000000</Id_GUID>
+  <Id_GUID6>000000</Id_GUID6>
+  <PathToXml_Saved>C:\Users\tdown\OneDrive\___Serious\___Serious Professional\RSC ID Card\ElementsCache_Current4.xml</PathToXml_Saved>
+  <PathToXml_Opened>C:\Users\tdown\OneDrive\___Serious\___Serious Professional\RSC ID Card\ElementsCache_Current3.xml</PathToXml_Opened>
+  <XmlFile_Path_Deprecated>C:\Users\tdown\OneDrive\___Serious\___Serious Professional\RSC ID Card\ElementsCache_Current4.xml</XmlFile_Path_Deprecated>
+  <XmlFile_FTitle_Deprecated>ElementsCache_Current4.xml</XmlFile_FTitle_Deprecated>
+  <BackgroundImage_Front_Path>C:\Users\tdown\source\repos\ciLayout\ciLayoutDesignVB\bin\Debug\Images\BackExamples\1961.jpg</BackgroundImage_Front_Path>
+  <BackgroundImage_Front_FTitle>1961.jpg</BackgroundImage_Front_FTitle>
+  <BackgroundImage_Backside_Path />
+  <BackgroundImage_Backside_FTitle />
+  <ElementQRCode>
+    <BadgeDisplayIndex>0</BadgeDisplayIndex>
+    <WhichSideOfCard>EnumFrontside</WhichSideOfCard>
+    <BadgeLayout>
+      <Width_Pixels>604</Width_Pixels>
+      <Height_Pixels>380</Height_Pixels>
+    </BadgeLayout>
+    <TopEdge_Pixels>221</TopEdge_Pixels>
+    <LeftEdge_Pixels>491</LeftEdge_Pixels>
+    <Width_Pixels>94</Width_Pixels>
+    <Height_Pixels>99</Height_Pixels>
+    <Border_WidthInPixels>0</Border_WidthInPixels>
+    <Border_Color />
+    <Border_Displayed>false</Border_Displayed>
+    <Back_Transparent>false</Back_Transparent>
+    <Back_Color />
+    <SelectedHighlighting>false</SelectedHighlighting>
+    <OrientationInDegrees>0</OrientationInDegrees>
+    <Visible>false</Visible>
+  </ElementQRCode>
+  <ElementSignature>
+    <Id_GUID>00000000-0000-0000-0000-000000000000</Id_GUID>
+    <BadgeDisplayIndex>0</BadgeDisplayIndex>
+    <WhichSideOfCard>Undetermined</WhichSideOfCard>
+    <BadgeLayout>
+      <Width_Pixels>604</Width_Pixels>
+      <Height_Pixels>380</Height_Pixels>
+    </BadgeLayout>
+    <TopEdge_Pixels>298</TopEdge_Pixels>
+    <LeftEdge_Pixels>16</LeftEdge_Pixels>
+    <Width_Pixels>218</Width_Pixels>
+    <Height_Pixels>73</Height_Pixels>
+    <Border_WidthInPixels>0</Border_WidthInPixels>
+    <Border_Color />
+    <Border_Displayed>false</Border_Displayed>
+    <Back_Transparent>false</Back_Transparent>
+    <Back_Color />
+    <SelectedHighlighting>false</SelectedHighlighting>
+    <SigFilePath>C:\Users\tdown\source\repos\ciLayout\ciLayoutDesignVB\bin\Debug\Images\Signatures\Declaration_bmp.bmp</SigFilePath>
+    <SigFileIndex>0</SigFileIndex>
+    <OrientationInDegrees>0</OrientationInDegrees>
+    <Visible>false</Visible>
+  </ElementSignature>
+  <DateAndTimeUpdated>0001-01-01T00:00:00</DateAndTimeUpdated>
+  <BadgeHasTwoSidesOfCard>true</BadgeHasTwoSidesOfCard>
+  <ListOfFields_Standard>
+    <ClassFieldStandard>
+      <IsRelevantToPersonality>false</IsRelevantToPersonality>
+      <IsDisplayedOnBadge>true</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>true</IsDisplayedForEdits>
+      <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+      <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>false</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>fstrID</CIBadgeField>
+      <FieldLabelCaption>Student ID</FieldLabelCaption>
+      <FieldType_TD>84</FieldType_TD>
+      <FieldEnumValue>fstrID</FieldEnumValue>
+      <FieldIndex>1</FieldIndex>
+      <IsFieldForDates>false</IsFieldForDates>
+      <IsLocked>true</IsLocked>
+      <DefaultValue />
+      <ExampleValue>12345</ExampleValue>
+      <HasPresetValues>false</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <DataEntryText>Undetermined value, for Field #1</DataEntryText>
+      <IsLinkedToSections>false</IsLinkedToSections>
+      <DateEdited>0001-01-01T00:00:00</DateEdited>
+      <DateSaved>0001-01-01T00:00:00</DateSaved>
+      <CurrentRecipValue>Undetermined value, for Field #1</CurrentRecipValue>
+      <CurrentRecipValue_Date>Undetermined value, for Field #1</CurrentRecipValue_Date>
+    </ClassFieldStandard>
+    <ClassFieldStandard>
+      <IsRelevantToPersonality>false</IsRelevantToPersonality>
+      <IsDisplayedOnBadge>true</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>true</IsDisplayedForEdits>
+      <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+      <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>false</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>fstrFirstName</CIBadgeField>
+      <FieldLabelCaption>First Name</FieldLabelCaption>
+      <FieldType_TD>84</FieldType_TD>
+      <FieldEnumValue>fstrFirstName</FieldEnumValue>
+      <FieldIndex>2</FieldIndex>
+      <IsFieldForDates>false</IsFieldForDates>
+      <IsLocked>false</IsLocked>
+      <DefaultValue />
+      <ExampleValue>Thomas Clifton Downes</ExampleValue>
+      <HasPresetValues>false</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <DataEntryText>Undetermined value, for Field #2</DataEntryText>
+      <IsLinkedToSections>false</IsLinkedToSections>
+      <DateEdited>0001-01-01T00:00:00</DateEdited>
+      <DateSaved>0001-01-01T00:00:00</DateSaved>
+      <CurrentRecipValue>Undetermined value, for Field #2</CurrentRecipValue>
+      <CurrentRecipValue_Date>Undetermined value, for Field #2</CurrentRecipValue_Date>
+    </ClassFieldStandard>
+    <ClassFieldStandard>
+      <IsRelevantToPersonality>false</IsRelevantToPersonality>
+      <IsDisplayedOnBadge>true</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>true</IsDisplayedForEdits>
+      <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+      <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>false</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>fstrLastName</CIBadgeField>
+      <FieldLabelCaption>Last Name</FieldLabelCaption>
+      <FieldType_TD>84</FieldType_TD>
+      <FieldEnumValue>fstrLastName</FieldEnumValue>
+      <FieldIndex>3</FieldIndex>
+      <IsFieldForDates>false</IsFieldForDates>
+      <IsLocked>false</IsLocked>
+      <DefaultValue />
+      <ExampleValue />
+      <HasPresetValues>false</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <DataEntryText>Undetermined value, for Field #3</DataEntryText>
+      <IsLinkedToSections>false</IsLinkedToSections>
+      <DateEdited>0001-01-01T00:00:00</DateEdited>
+      <DateSaved>0001-01-01T00:00:00</DateSaved>
+      <CurrentRecipValue>Undetermined value, for Field #3</CurrentRecipValue>
+      <CurrentRecipValue_Date>Undetermined value, for Field #3</CurrentRecipValue_Date>
+    </ClassFieldStandard>
+    <ClassFieldStandard>
+      <IsRelevantToPersonality>false</IsRelevantToPersonality>
+      <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>false</IsDisplayedForEdits>
+      <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+      <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>false</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>fstrMidName</CIBadgeField>
+      <FieldLabelCaption>Middle Name</FieldLabelCaption>
+      <FieldType_TD>84</FieldType_TD>
+      <FieldEnumValue>fstrMidName</FieldEnumValue>
+      <FieldIndex>4</FieldIndex>
+      <IsFieldForDates>false</IsFieldForDates>
+      <IsLocked>false</IsLocked>
+      <DefaultValue />
+      <ExampleValue />
+      <HasPresetValues>false</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <DataEntryText>Undetermined value, for Field #4</DataEntryText>
+      <IsLinkedToSections>false</IsLinkedToSections>
+      <DateEdited>0001-01-01T00:00:00</DateEdited>
+      <DateSaved>0001-01-01T00:00:00</DateSaved>
+      <CurrentRecipValue>Undetermined value, for Field #4</CurrentRecipValue>
+      <CurrentRecipValue_Date>Undetermined value, for Field #4</CurrentRecipValue_Date>
+    </ClassFieldStandard>
+    <ClassFieldStandard>
+      <IsRelevantToPersonality>false</IsRelevantToPersonality>
+      <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>false</IsDisplayedForEdits>
+      <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+      <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>false</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>fstrBarcode</CIBadgeField>
+      <FieldLabelCaption>Barcode Value</FieldLabelCaption>
+      <FieldType_TD>84</FieldType_TD>
+      <FieldEnumValue>fstrBarCode</FieldEnumValue>
+      <FieldIndex>5</FieldIndex>
+      <IsFieldForDates>false</IsFieldForDates>
+      <IsLocked>false</IsLocked>
+      <DefaultValue />
+      <ExampleValue>1234567890</ExampleValue>
+      <HasPresetValues>false</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <DataEntryText>Undetermined value, for Field #5</DataEntryText>
+      <IsLinkedToSections>false</IsLinkedToSections>
+      <DateEdited>0001-01-01T00:00:00</DateEdited>
+      <DateSaved>0001-01-01T00:00:00</DateSaved>
+      <CurrentRecipValue>Undetermined value, for Field #5</CurrentRecipValue>
+      <CurrentRecipValue_Date>Undetermined value, for Field #5</CurrentRecipValue_Date>
+    </ClassFieldStandard>
+    <ClassFieldStandard>
+      <IsRelevantToPersonality>false</IsRelevantToPersonality>
+      <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>false</IsDisplayedForEdits>
+      <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+      <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>false</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>fstrAddress</CIBadgeField>
+      <FieldLabelCaption>Address</FieldLabelCaption>
+      <FieldType_TD>84</FieldType_TD>
+      <FieldEnumValue>fstrAddress</FieldEnumValue>
+      <FieldIndex>6</FieldIndex>
+      <IsFieldForDates>false</IsFieldForDates>
+      <IsLocked>false</IsLocked>
+      <DefaultValue />
+      <ExampleValue />
+      <HasPresetValues>false</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <DataEntryText>Undetermined value, for Field #6</DataEntryText>
+      <IsLinkedToSections>false</IsLinkedToSections>
+      <DateEdited>0001-01-01T00:00:00</DateEdited>
+      <DateSaved>0001-01-01T00:00:00</DateSaved>
+      <CurrentRecipValue>Undetermined value, for Field #6</CurrentRecipValue>
+      <CurrentRecipValue_Date>Undetermined value, for Field #6</CurrentRecipValue_Date>
+    </ClassFieldStandard>
+    <ClassFieldStandard>
+      <IsRelevantToPersonality>false</IsRelevantToPersonality>
+      <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>false</IsDisplayedForEdits>
+      <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+      <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>false</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>fstrCity</CIBadgeField>
+      <FieldLabelCaption>City</FieldLabelCaption>
+      <FieldType_TD>84</FieldType_TD>
+      <FieldEnumValue>fstrCity</FieldEnumValue>
+      <FieldIndex>7</FieldIndex>
+      <IsFieldForDates>false</IsFieldForDates>
+      <IsLocked>false</IsLocked>
+      <DefaultValue />
+      <ExampleValue />
+      <HasPresetValues>false</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <DataEntryText>Undetermined value, for Field #7</DataEntryText>
+      <IsLinkedToSections>false</IsLinkedToSections>
+      <DateEdited>0001-01-01T00:00:00</DateEdited>
+      <DateSaved>0001-01-01T00:00:00</DateSaved>
+      <CurrentRecipValue>Undetermined value, for Field #7</CurrentRecipValue>
+      <CurrentRecipValue_Date>Undetermined value, for Field #7</CurrentRecipValue_Date>
+    </ClassFieldStandard>
+    <ClassFieldStandard>
+      <IsRelevantToPersonality>false</IsRelevantToPersonality>
+      <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>false</IsDisplayedForEdits>
+      <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+      <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>false</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>fstrState</CIBadgeField>
+      <FieldLabelCaption>State</FieldLabelCaption>
+      <FieldType_TD>84</FieldType_TD>
+      <FieldEnumValue>fstrState</FieldEnumValue>
+      <FieldIndex>8</FieldIndex>
+      <IsFieldForDates>false</IsFieldForDates>
+      <IsLocked>false</IsLocked>
+      <DefaultValue />
+      <ExampleValue />
+      <HasPresetValues>false</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <DataEntryText>Undetermined value, for Field #8</DataEntryText>
+      <IsLinkedToSections>false</IsLinkedToSections>
+      <DateEdited>0001-01-01T00:00:00</DateEdited>
+      <DateSaved>0001-01-01T00:00:00</DateSaved>
+      <CurrentRecipValue>Undetermined value, for Field #8</CurrentRecipValue>
+      <CurrentRecipValue_Date>Undetermined value, for Field #8</CurrentRecipValue_Date>
+    </ClassFieldStandard>
+    <ClassFieldStandard>
+      <IsRelevantToPersonality>false</IsRelevantToPersonality>
+      <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>false</IsDisplayedForEdits>
+      <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+      <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>false</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>fstrZip</CIBadgeField>
+      <FieldLabelCaption>Zipcode</FieldLabelCaption>
+      <FieldType_TD>84</FieldType_TD>
+      <FieldEnumValue>fstrZip</FieldEnumValue>
+      <FieldIndex>9</FieldIndex>
+      <IsFieldForDates>false</IsFieldForDates>
+      <IsLocked>false</IsLocked>
+      <DefaultValue />
+      <ExampleValue />
+      <HasPresetValues>false</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <DataEntryText>Undetermined value, for Field #9</DataEntryText>
+      <IsLinkedToSections>false</IsLinkedToSections>
+      <DateEdited>0001-01-01T00:00:00</DateEdited>
+      <DateSaved>0001-01-01T00:00:00</DateSaved>
+      <CurrentRecipValue>Undetermined value, for Field #9</CurrentRecipValue>
+      <CurrentRecipValue_Date>Undetermined value, for Field #9</CurrentRecipValue_Date>
+    </ClassFieldStandard>
+    <ClassFieldStandard>
+      <IsRelevantToPersonality>false</IsRelevantToPersonality>
+      <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>false</IsDisplayedForEdits>
+      <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+      <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>false</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>blnBatchPrint</CIBadgeField>
+      <FieldLabelCaption>Printed by Batch</FieldLabelCaption>
+      <FieldType_TD>66</FieldType_TD>
+      <FieldEnumValue>blnBatchPrint</FieldEnumValue>
+      <FieldIndex>10</FieldIndex>
+      <IsFieldForDates>false</IsFieldForDates>
+      <IsLocked>true</IsLocked>
+      <DefaultValue />
+      <ExampleValue />
+      <HasPresetValues>false</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <DataEntryText>Undetermined value, for Field #10</DataEntryText>
+      <IsLinkedToSections>false</IsLinkedToSections>
+      <DateEdited>0001-01-01T00:00:00</DateEdited>
+      <DateSaved>0001-01-01T00:00:00</DateSaved>
+      <CurrentRecipValue>Undetermined value, for Field #10</CurrentRecipValue>
+      <CurrentRecipValue_Date>Undetermined value, for Field #10</CurrentRecipValue_Date>
+    </ClassFieldStandard>
+    <ClassFieldStandard>
+      <IsRelevantToPersonality>false</IsRelevantToPersonality>
+      <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>false</IsDisplayedForEdits>
+      <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+      <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>false</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>idfConfigID</CIBadgeField>
+      <FieldLabelCaption>Personality ID</FieldLabelCaption>
+      <FieldType_TD>73</FieldType_TD>
+      <FieldEnumValue>idfConfigID</FieldEnumValue>
+      <FieldIndex>11</FieldIndex>
+      <IsFieldForDates>false</IsFieldForDates>
+      <IsLocked>true</IsLocked>
+      <DefaultValue />
+      <ExampleValue />
+      <HasPresetValues>false</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <DataEntryText>Undetermined value, for Field #11</DataEntryText>
+      <IsLinkedToSections>false</IsLinkedToSections>
+      <DateEdited>0001-01-01T00:00:00</DateEdited>
+      <DateSaved>0001-01-01T00:00:00</DateSaved>
+      <CurrentRecipValue>Undetermined value, for Field #11</CurrentRecipValue>
+      <CurrentRecipValue_Date>Undetermined value, for Field #11</CurrentRecipValue_Date>
+    </ClassFieldStandard>
+    <ClassFieldStandard>
+      <IsRelevantToPersonality>false</IsRelevantToPersonality>
+      <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>false</IsDisplayedForEdits>
+      <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+      <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>false</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>idfReportID</CIBadgeField>
+      <FieldLabelCaption>Badge Layout ID</FieldLabelCaption>
+      <FieldType_TD>73</FieldType_TD>
+      <FieldEnumValue>idfReportID</FieldEnumValue>
+      <FieldIndex>12</FieldIndex>
+      <IsFieldForDates>false</IsFieldForDates>
+      <IsLocked>true</IsLocked>
+      <DefaultValue />
+      <ExampleValue />
+      <HasPresetValues>false</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <DataEntryText>Undetermined value, for Field #12</DataEntryText>
+      <IsLinkedToSections>false</IsLinkedToSections>
+      <DateEdited>0001-01-01T00:00:00</DateEdited>
+      <DateSaved>0001-01-01T00:00:00</DateSaved>
+      <CurrentRecipValue>Undetermined value, for Field #12</CurrentRecipValue>
+      <CurrentRecipValue_Date>Undetermined value, for Field #12</CurrentRecipValue_Date>
+    </ClassFieldStandard>
+    <ClassFieldStandard>
+      <IsRelevantToPersonality>false</IsRelevantToPersonality>
+      <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>false</IsDisplayedForEdits>
+      <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+      <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>false</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>fdateRecDate</CIBadgeField>
+      <FieldLabelCaption>Record Created</FieldLabelCaption>
+      <FieldType_TD>68</FieldType_TD>
+      <FieldEnumValue>fdateRecDate</FieldEnumValue>
+      <FieldIndex>13</FieldIndex>
+      <IsFieldForDates>true</IsFieldForDates>
+      <IsLocked>true</IsLocked>
+      <DefaultValue />
+      <ExampleValue />
+      <HasPresetValues>false</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <DataEntryText>Undetermined value, for Field #13</DataEntryText>
+      <IsLinkedToSections>false</IsLinkedToSections>
+      <DateEdited>0001-01-01T00:00:00</DateEdited>
+      <DateSaved>0001-01-01T00:00:00</DateSaved>
+      <CurrentRecipValue>Undetermined value, for Field #13</CurrentRecipValue>
+      <CurrentRecipValue_Date>Undetermined value, for Field #13</CurrentRecipValue_Date>
+    </ClassFieldStandard>
+    <ClassFieldStandard>
+      <IsRelevantToPersonality>false</IsRelevantToPersonality>
+      <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>false</IsDisplayedForEdits>
+      <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+      <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>false</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>fdatTimeStamp</CIBadgeField>
+      <FieldLabelCaption>Record Updated</FieldLabelCaption>
+      <FieldType_TD>68</FieldType_TD>
+      <FieldEnumValue>fdatTimeStamp</FieldEnumValue>
+      <FieldIndex>14</FieldIndex>
+      <IsFieldForDates>true</IsFieldForDates>
+      <IsLocked>true</IsLocked>
+      <DefaultValue />
+      <ExampleValue />
+      <HasPresetValues>false</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <DataEntryText>Undetermined value, for Field #14</DataEntryText>
+      <IsLinkedToSections>false</IsLinkedToSections>
+      <DateEdited>0001-01-01T00:00:00</DateEdited>
+      <DateSaved>0001-01-01T00:00:00</DateSaved>
+      <CurrentRecipValue>Undetermined value, for Field #14</CurrentRecipValue>
+      <CurrentRecipValue_Date>Undetermined value, for Field #14</CurrentRecipValue_Date>
+    </ClassFieldStandard>
+    <ClassFieldStandard>
+      <IsRelevantToPersonality>false</IsRelevantToPersonality>
+      <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>false</IsDisplayedForEdits>
+      <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+      <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>false</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>fstrRFID_Unique</CIBadgeField>
+      <FieldLabelCaption>RFID/UID Value</FieldLabelCaption>
+      <FieldType_TD>84</FieldType_TD>
+      <FieldEnumValue>fstrRFID_Unique</FieldEnumValue>
+      <FieldIndex>15</FieldIndex>
+      <IsFieldForDates>false</IsFieldForDates>
+      <IsLocked>false</IsLocked>
+      <DefaultValue />
+      <ExampleValue />
+      <HasPresetValues>false</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <DataEntryText>Undetermined value, for Field #15</DataEntryText>
+      <IsLinkedToSections>false</IsLinkedToSections>
+      <DateEdited>0001-01-01T00:00:00</DateEdited>
+      <DateSaved>0001-01-01T00:00:00</DateSaved>
+      <CurrentRecipValue>Undetermined value, for Field #15</CurrentRecipValue>
+      <CurrentRecipValue_Date>Undetermined value, for Field #15</CurrentRecipValue_Date>
+    </ClassFieldStandard>
+  </ListOfFields_Standard>
+  <ListOfFields_Custom>
+    <ClassFieldCustomized>
+      <IsRelevantToPersonality>false</IsRelevantToPersonality>
+      <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>false</IsDisplayedForEdits>
+      <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+      <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>true</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>TextField01</CIBadgeField>
+      <FieldLabelCaption>School Name</FieldLabelCaption>
+      <FieldType_TD>84</FieldType_TD>
+      <FieldEnumValue>TextField01</FieldEnumValue>
+      <FieldIndex>201</FieldIndex>
+      <IsFieldForDates>false</IsFieldForDates>
+      <IsLocked>false</IsLocked>
+      <DefaultValue />
+      <ExampleValue>Willcrest School</ExampleValue>
+      <HasPresetValues>true</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <DataEntryText>Undetermined value, for Field #201</DataEntryText>
+      <IsLinkedToSections>false</IsLinkedToSections>
+      <DateEdited>0001-01-01T00:00:00</DateEdited>
+      <DateSaved>0001-01-01T00:00:00</DateSaved>
+      <CurrentRecipValue>Undetermined value, for Field #201</CurrentRecipValue>
+      <CurrentRecipValue_Date>Undetermined value, for Field #201</CurrentRecipValue_Date>
+      <ArrayOfValues>
+        <string>Willcrest School</string>
+        <string>Woodbridge School</string>
+      </ArrayOfValues>
+    </ClassFieldCustomized>
+    <ClassFieldCustomized>
+      <IsRelevantToPersonality>false</IsRelevantToPersonality>
+      <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>false</IsDisplayedForEdits>
+      <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+      <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>true</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>TextField02</CIBadgeField>
+      <FieldLabelCaption>Teacher Name</FieldLabelCaption>
+      <FieldType_TD>84</FieldType_TD>
+      <FieldEnumValue>TextField02</FieldEnumValue>
+      <FieldIndex>202</FieldIndex>
+      <IsFieldForDates>false</IsFieldForDates>
+      <IsLocked>false</IsLocked>
+      <DefaultValue />
+      <ExampleValue />
+      <HasPresetValues>true</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <DataEntryText>Undetermined value, for Field #202</DataEntryText>
+      <IsLinkedToSections>false</IsLinkedToSections>
+      <DateEdited>0001-01-01T00:00:00</DateEdited>
+      <DateSaved>0001-01-01T00:00:00</DateSaved>
+      <CurrentRecipValue>Undetermined value, for Field #202</CurrentRecipValue>
+      <CurrentRecipValue_Date>Undetermined value, for Field #202</CurrentRecipValue_Date>
+      <ArrayOfValues>
+        <string>Mrs. Ross</string>
+        <string>Mr. Smudge</string>
+        <string>Ms. Randall</string>
+      </ArrayOfValues>
+    </ClassFieldCustomized>
+    <ClassFieldCustomized>
+      <IsRelevantToPersonality>false</IsRelevantToPersonality>
+      <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>false</IsDisplayedForEdits>
+      <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+      <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>true</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>TextField03</CIBadgeField>
+      <FieldLabelCaption>Grade Level</FieldLabelCaption>
+      <FieldType_TD>84</FieldType_TD>
+      <FieldEnumValue>TextField03</FieldEnumValue>
+      <FieldIndex>203</FieldIndex>
+      <IsFieldForDates>false</IsFieldForDates>
+      <IsLocked>false</IsLocked>
+      <DefaultValue />
+      <ExampleValue />
+      <HasPresetValues>true</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <DataEntryText>Undetermined value, for Field #203</DataEntryText>
+      <IsLinkedToSections>false</IsLinkedToSections>
+      <DateEdited>0001-01-01T00:00:00</DateEdited>
+      <DateSaved>0001-01-01T00:00:00</DateSaved>
+      <CurrentRecipValue>Undetermined value, for Field #203</CurrentRecipValue>
+      <CurrentRecipValue_Date>Undetermined value, for Field #203</CurrentRecipValue_Date>
+      <ArrayOfValues>
+        <string>9th</string>
+        <string>10th</string>
+        <string>11th</string>
+        <string>12th</string>
+      </ArrayOfValues>
+    </ClassFieldCustomized>
+    <ClassFieldCustomized>
+      <IsRelevantToPersonality>false</IsRelevantToPersonality>
+      <IsDisplayedOnBadge>true</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>true</IsDisplayedForEdits>
+      <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+      <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>true</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>DateField01</CIBadgeField>
+      <FieldLabelCaption>Date of Birth</FieldLabelCaption>
+      <FieldType_TD>68</FieldType_TD>
+      <FieldEnumValue>DateField01</FieldEnumValue>
+      <FieldIndex>204</FieldIndex>
+      <IsFieldForDates>true</IsFieldForDates>
+      <IsLocked>false</IsLocked>
+      <DefaultValue />
+      <ExampleValue />
+      <HasPresetValues>false</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <DataEntryText>Undetermined value, for Field #204</DataEntryText>
+      <IsLinkedToSections>false</IsLinkedToSections>
+      <DateEdited>0001-01-01T00:00:00</DateEdited>
+      <DateSaved>0001-01-01T00:00:00</DateSaved>
+      <CurrentRecipValue>Undetermined value, for Field #204</CurrentRecipValue>
+      <CurrentRecipValue_Date>Undetermined value, for Field #204</CurrentRecipValue_Date>
+    </ClassFieldCustomized>
+    <ClassFieldCustomized>
+      <IsRelevantToPersonality>false</IsRelevantToPersonality>
+      <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+      <IsDisplayedForEdits>false</IsDisplayedForEdits>
+      <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+      <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+      <IsStandard>false</IsStandard>
+      <IsCustomizable>true</IsCustomizable>
+      <IsDateField>false</IsDateField>
+      <Text_orDate>Text</Text_orDate>
+      <CIBadgeField>DateField02</CIBadgeField>
+      <FieldLabelCaption>ExpirationDate</FieldLabelCaption>
+      <FieldType_TD>68</FieldType_TD>
+      <FieldEnumValue>DateField02</FieldEnumValue>
+      <FieldIndex>205</FieldIndex>
+      <IsFieldForDates>true</IsFieldForDates>
+      <IsLocked>false</IsLocked>
+      <DefaultValue />
+      <ExampleValue />
+      <HasPresetValues>false</HasPresetValues>
+      <IsAdditionalField>false</IsAdditionalField>
+      <IsBarCode>false</IsBarCode>
+      <DataEntryText>Undetermined value, for Field #205</DataEntryText>
+      <IsLinkedToSections>false</IsLinkedToSections>
+      <DateEdited>0001-01-01T00:00:00</DateEdited>
+      <DateSaved>0001-01-01T00:00:00</DateSaved>
+      <CurrentRecipValue>Undetermined value, for Field #205</CurrentRecipValue>
+      <CurrentRecipValue_Date>Undetermined value, for Field #205</CurrentRecipValue_Date>
+    </ClassFieldCustomized>
+  </ListOfFields_Custom>
+  <ListOfElementFields>
+    <ClassElementField>
+      <Id_GUID>00000000-0000-0000-0000-000000000000</Id_GUID>
+      <BadgeDisplayIndex>1</BadgeDisplayIndex>
+      <WhichSideOfCard>Undetermined</WhichSideOfCard>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0.75757575757575757</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <Text_Static>12345</Text_Static>
+      <FieldObjectAny xsi:type="ClassFieldStandard">
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>true</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>true</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>false</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>fstrID</CIBadgeField>
+        <FieldLabelCaption>Student ID</FieldLabelCaption>
+        <FieldType_TD>84</FieldType_TD>
+        <FieldEnumValue>fstrID</FieldEnumValue>
+        <FieldIndex>1</FieldIndex>
+        <IsFieldForDates>false</IsFieldForDates>
+        <IsLocked>true</IsLocked>
+        <DefaultValue />
+        <ExampleValue>12345</ExampleValue>
+        <HasPresetValues>false</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #1</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #1</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #1</CurrentRecipValue_Date>
+      </FieldObjectAny>
+      <FieldObjectStandard>
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>true</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>true</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>false</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>fstrID</CIBadgeField>
+        <FieldLabelCaption>Student ID</FieldLabelCaption>
+        <FieldType_TD>84</FieldType_TD>
+        <FieldEnumValue>fstrID</FieldEnumValue>
+        <FieldIndex>1</FieldIndex>
+        <IsFieldForDates>false</IsFieldForDates>
+        <IsLocked>true</IsLocked>
+        <DefaultValue />
+        <ExampleValue>12345</ExampleValue>
+        <HasPresetValues>false</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #1</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #1</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #1</CurrentRecipValue_Date>
+      </FieldObjectStandard>
+      <FieldEnum>fstrID</FieldEnum>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>604</Width_Pixels>
+        <Height_Pixels>380</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>62</TopEdge_Pixels>
+      <LeftEdge_Pixels>185</LeftEdge_Pixels>
+      <Width_Pixels>201</Width_Pixels>
+      <Height_Pixels>33</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Displayed>true</Border_Displayed>
+      <Border_Color>Black</Border_Color>
+      <Back_Transparent>false</Back_Transparent>
+      <Back_Color>White</Back_Color>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+      <DatetimeUpdated>2021-12-17T16:11:20.3807895-08:00</DatetimeUpdated>
+    </ClassElementField>
+    <ClassElementField>
+      <Id_GUID>00000000-0000-0000-0000-000000000000</Id_GUID>
+      <BadgeDisplayIndex>2</BadgeDisplayIndex>
+      <WhichSideOfCard>Undetermined</WhichSideOfCard>
+      <ExampleValue_ForElement>Thomas Clifton Downes</ExampleValue_ForElement>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0.83333333333333337</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <Text_Static>Thomas Clifton Downes</Text_Static>
+      <FieldObjectAny xsi:type="ClassFieldStandard">
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>true</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>true</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>false</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>fstrFirstName</CIBadgeField>
+        <FieldLabelCaption>First Name</FieldLabelCaption>
+        <FieldType_TD>84</FieldType_TD>
+        <FieldEnumValue>fstrFirstName</FieldEnumValue>
+        <FieldIndex>2</FieldIndex>
+        <IsFieldForDates>false</IsFieldForDates>
+        <IsLocked>false</IsLocked>
+        <DefaultValue />
+        <ExampleValue>Thomas Clifton Downes</ExampleValue>
+        <HasPresetValues>false</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #2</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #2</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #2</CurrentRecipValue_Date>
+      </FieldObjectAny>
+      <FieldObjectStandard>
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>true</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>true</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>false</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>fstrFirstName</CIBadgeField>
+        <FieldLabelCaption>First Name</FieldLabelCaption>
+        <FieldType_TD>84</FieldType_TD>
+        <FieldEnumValue>fstrFirstName</FieldEnumValue>
+        <FieldIndex>2</FieldIndex>
+        <IsFieldForDates>false</IsFieldForDates>
+        <IsLocked>false</IsLocked>
+        <DefaultValue />
+        <ExampleValue>Thomas Clifton Downes</ExampleValue>
+        <HasPresetValues>false</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #2</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #2</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #2</CurrentRecipValue_Date>
+      </FieldObjectStandard>
+      <FieldEnum>fstrFirstName</FieldEnum>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>604</Width_Pixels>
+        <Height_Pixels>380</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>22</TopEdge_Pixels>
+      <LeftEdge_Pixels>286</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Displayed>true</Border_Displayed>
+      <Border_Color>Black</Border_Color>
+      <Back_Transparent>false</Back_Transparent>
+      <Back_Color>White</Back_Color>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+      <DatetimeUpdated>2021-12-17T16:11:20.3807895-08:00</DatetimeUpdated>
+    </ClassElementField>
+    <ClassElementField>
+      <Id_GUID>00000000-0000-0000-0000-000000000000</Id_GUID>
+      <BadgeDisplayIndex>3</BadgeDisplayIndex>
+      <WhichSideOfCard>Undetermined</WhichSideOfCard>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0.83333333333333337</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <Text_Static>Last Name</Text_Static>
+      <FieldObjectAny xsi:type="ClassFieldStandard">
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>true</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>true</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>false</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>fstrLastName</CIBadgeField>
+        <FieldLabelCaption>Last Name</FieldLabelCaption>
+        <FieldType_TD>84</FieldType_TD>
+        <FieldEnumValue>fstrLastName</FieldEnumValue>
+        <FieldIndex>3</FieldIndex>
+        <IsFieldForDates>false</IsFieldForDates>
+        <IsLocked>false</IsLocked>
+        <DefaultValue />
+        <ExampleValue />
+        <HasPresetValues>false</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #3</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #3</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #3</CurrentRecipValue_Date>
+      </FieldObjectAny>
+      <FieldObjectStandard>
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>true</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>true</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>false</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>fstrLastName</CIBadgeField>
+        <FieldLabelCaption>Last Name</FieldLabelCaption>
+        <FieldType_TD>84</FieldType_TD>
+        <FieldEnumValue>fstrLastName</FieldEnumValue>
+        <FieldIndex>3</FieldIndex>
+        <IsFieldForDates>false</IsFieldForDates>
+        <IsLocked>false</IsLocked>
+        <DefaultValue />
+        <ExampleValue />
+        <HasPresetValues>false</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #3</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #3</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #3</CurrentRecipValue_Date>
+      </FieldObjectStandard>
+      <FieldEnum>fstrLastName</FieldEnum>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>604</Width_Pixels>
+        <Height_Pixels>380</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>122</TopEdge_Pixels>
+      <LeftEdge_Pixels>340</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Displayed>true</Border_Displayed>
+      <Border_Color>Black</Border_Color>
+      <Back_Transparent>false</Back_Transparent>
+      <Back_Color>White</Back_Color>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+      <DatetimeUpdated>2021-12-17T16:11:20.3807895-08:00</DatetimeUpdated>
+    </ClassElementField>
+    <ClassElementField>
+      <Id_GUID>00000000-0000-0000-0000-000000000000</Id_GUID>
+      <BadgeDisplayIndex>0</BadgeDisplayIndex>
+      <WhichSideOfCard>Undetermined</WhichSideOfCard>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <FieldObjectAny xsi:type="ClassFieldStandard">
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>false</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>false</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>fstrMidName</CIBadgeField>
+        <FieldLabelCaption>Middle Name</FieldLabelCaption>
+        <FieldType_TD>84</FieldType_TD>
+        <FieldEnumValue>fstrMidName</FieldEnumValue>
+        <FieldIndex>4</FieldIndex>
+        <IsFieldForDates>false</IsFieldForDates>
+        <IsLocked>false</IsLocked>
+        <DefaultValue />
+        <ExampleValue />
+        <HasPresetValues>false</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #4</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #4</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #4</CurrentRecipValue_Date>
+      </FieldObjectAny>
+      <FieldObjectStandard>
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>false</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>false</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>fstrMidName</CIBadgeField>
+        <FieldLabelCaption>Middle Name</FieldLabelCaption>
+        <FieldType_TD>84</FieldType_TD>
+        <FieldEnumValue>fstrMidName</FieldEnumValue>
+        <FieldIndex>4</FieldIndex>
+        <IsFieldForDates>false</IsFieldForDates>
+        <IsLocked>false</IsLocked>
+        <DefaultValue />
+        <ExampleValue />
+        <HasPresetValues>false</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #4</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #4</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #4</CurrentRecipValue_Date>
+      </FieldObjectStandard>
+      <FieldEnum>fstrMidName</FieldEnum>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>603</Width_Pixels>
+        <Height_Pixels>380</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>0</TopEdge_Pixels>
+      <LeftEdge_Pixels>0</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Displayed>true</Border_Displayed>
+      <Border_Color>Black</Border_Color>
+      <Back_Transparent>false</Back_Transparent>
+      <Back_Color>White</Back_Color>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+      <DatetimeUpdated>2021-12-14T20:22:55.0460556-08:00</DatetimeUpdated>
+    </ClassElementField>
+    <ClassElementField>
+      <Id_GUID>00000000-0000-0000-0000-000000000000</Id_GUID>
+      <BadgeDisplayIndex>0</BadgeDisplayIndex>
+      <WhichSideOfCard>Undetermined</WhichSideOfCard>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <FieldObjectAny xsi:type="ClassFieldStandard">
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>false</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>false</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>fstrBarcode</CIBadgeField>
+        <FieldLabelCaption>Barcode Value</FieldLabelCaption>
+        <FieldType_TD>84</FieldType_TD>
+        <FieldEnumValue>fstrBarCode</FieldEnumValue>
+        <FieldIndex>5</FieldIndex>
+        <IsFieldForDates>false</IsFieldForDates>
+        <IsLocked>false</IsLocked>
+        <DefaultValue />
+        <ExampleValue>1234567890</ExampleValue>
+        <HasPresetValues>false</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #5</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #5</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #5</CurrentRecipValue_Date>
+      </FieldObjectAny>
+      <FieldObjectStandard>
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>false</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>false</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>fstrBarcode</CIBadgeField>
+        <FieldLabelCaption>Barcode Value</FieldLabelCaption>
+        <FieldType_TD>84</FieldType_TD>
+        <FieldEnumValue>fstrBarCode</FieldEnumValue>
+        <FieldIndex>5</FieldIndex>
+        <IsFieldForDates>false</IsFieldForDates>
+        <IsLocked>false</IsLocked>
+        <DefaultValue />
+        <ExampleValue>1234567890</ExampleValue>
+        <HasPresetValues>false</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #5</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #5</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #5</CurrentRecipValue_Date>
+      </FieldObjectStandard>
+      <FieldEnum>fstrBarCode</FieldEnum>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>603</Width_Pixels>
+        <Height_Pixels>380</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>0</TopEdge_Pixels>
+      <LeftEdge_Pixels>0</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Displayed>true</Border_Displayed>
+      <Border_Color>Black</Border_Color>
+      <Back_Transparent>false</Back_Transparent>
+      <Back_Color>White</Back_Color>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+      <DatetimeUpdated>2021-12-14T20:22:55.0460556-08:00</DatetimeUpdated>
+    </ClassElementField>
+    <ClassElementField>
+      <Id_GUID>00000000-0000-0000-0000-000000000000</Id_GUID>
+      <BadgeDisplayIndex>0</BadgeDisplayIndex>
+      <WhichSideOfCard>Undetermined</WhichSideOfCard>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <FieldObjectAny xsi:type="ClassFieldStandard">
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>false</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>false</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>fstrAddress</CIBadgeField>
+        <FieldLabelCaption>Address</FieldLabelCaption>
+        <FieldType_TD>84</FieldType_TD>
+        <FieldEnumValue>fstrAddress</FieldEnumValue>
+        <FieldIndex>6</FieldIndex>
+        <IsFieldForDates>false</IsFieldForDates>
+        <IsLocked>false</IsLocked>
+        <DefaultValue />
+        <ExampleValue />
+        <HasPresetValues>false</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #6</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #6</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #6</CurrentRecipValue_Date>
+      </FieldObjectAny>
+      <FieldObjectStandard>
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>false</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>false</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>fstrAddress</CIBadgeField>
+        <FieldLabelCaption>Address</FieldLabelCaption>
+        <FieldType_TD>84</FieldType_TD>
+        <FieldEnumValue>fstrAddress</FieldEnumValue>
+        <FieldIndex>6</FieldIndex>
+        <IsFieldForDates>false</IsFieldForDates>
+        <IsLocked>false</IsLocked>
+        <DefaultValue />
+        <ExampleValue />
+        <HasPresetValues>false</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #6</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #6</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #6</CurrentRecipValue_Date>
+      </FieldObjectStandard>
+      <FieldEnum>fstrAddress</FieldEnum>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>603</Width_Pixels>
+        <Height_Pixels>380</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>0</TopEdge_Pixels>
+      <LeftEdge_Pixels>0</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Displayed>true</Border_Displayed>
+      <Border_Color>Black</Border_Color>
+      <Back_Transparent>false</Back_Transparent>
+      <Back_Color>White</Back_Color>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+      <DatetimeUpdated>2021-12-14T20:22:55.0460556-08:00</DatetimeUpdated>
+    </ClassElementField>
+    <ClassElementField>
+      <Id_GUID>00000000-0000-0000-0000-000000000000</Id_GUID>
+      <BadgeDisplayIndex>0</BadgeDisplayIndex>
+      <WhichSideOfCard>Undetermined</WhichSideOfCard>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <FieldObjectAny xsi:type="ClassFieldStandard">
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>false</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>false</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>fstrCity</CIBadgeField>
+        <FieldLabelCaption>City</FieldLabelCaption>
+        <FieldType_TD>84</FieldType_TD>
+        <FieldEnumValue>fstrCity</FieldEnumValue>
+        <FieldIndex>7</FieldIndex>
+        <IsFieldForDates>false</IsFieldForDates>
+        <IsLocked>false</IsLocked>
+        <DefaultValue />
+        <ExampleValue />
+        <HasPresetValues>false</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #7</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #7</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #7</CurrentRecipValue_Date>
+      </FieldObjectAny>
+      <FieldObjectStandard>
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>false</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>false</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>fstrCity</CIBadgeField>
+        <FieldLabelCaption>City</FieldLabelCaption>
+        <FieldType_TD>84</FieldType_TD>
+        <FieldEnumValue>fstrCity</FieldEnumValue>
+        <FieldIndex>7</FieldIndex>
+        <IsFieldForDates>false</IsFieldForDates>
+        <IsLocked>false</IsLocked>
+        <DefaultValue />
+        <ExampleValue />
+        <HasPresetValues>false</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #7</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #7</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #7</CurrentRecipValue_Date>
+      </FieldObjectStandard>
+      <FieldEnum>fstrCity</FieldEnum>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>603</Width_Pixels>
+        <Height_Pixels>380</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>0</TopEdge_Pixels>
+      <LeftEdge_Pixels>0</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Displayed>true</Border_Displayed>
+      <Border_Color>Black</Border_Color>
+      <Back_Transparent>false</Back_Transparent>
+      <Back_Color>White</Back_Color>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+      <DatetimeUpdated>2021-12-14T20:22:55.0460556-08:00</DatetimeUpdated>
+    </ClassElementField>
+    <ClassElementField>
+      <Id_GUID>00000000-0000-0000-0000-000000000000</Id_GUID>
+      <BadgeDisplayIndex>0</BadgeDisplayIndex>
+      <WhichSideOfCard>Undetermined</WhichSideOfCard>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <FieldObjectAny xsi:type="ClassFieldStandard">
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>false</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>false</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>fstrState</CIBadgeField>
+        <FieldLabelCaption>State</FieldLabelCaption>
+        <FieldType_TD>84</FieldType_TD>
+        <FieldEnumValue>fstrState</FieldEnumValue>
+        <FieldIndex>8</FieldIndex>
+        <IsFieldForDates>false</IsFieldForDates>
+        <IsLocked>false</IsLocked>
+        <DefaultValue />
+        <ExampleValue />
+        <HasPresetValues>false</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #8</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #8</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #8</CurrentRecipValue_Date>
+      </FieldObjectAny>
+      <FieldObjectStandard>
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>false</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>false</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>fstrState</CIBadgeField>
+        <FieldLabelCaption>State</FieldLabelCaption>
+        <FieldType_TD>84</FieldType_TD>
+        <FieldEnumValue>fstrState</FieldEnumValue>
+        <FieldIndex>8</FieldIndex>
+        <IsFieldForDates>false</IsFieldForDates>
+        <IsLocked>false</IsLocked>
+        <DefaultValue />
+        <ExampleValue />
+        <HasPresetValues>false</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #8</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #8</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #8</CurrentRecipValue_Date>
+      </FieldObjectStandard>
+      <FieldEnum>fstrState</FieldEnum>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>603</Width_Pixels>
+        <Height_Pixels>380</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>0</TopEdge_Pixels>
+      <LeftEdge_Pixels>0</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Displayed>true</Border_Displayed>
+      <Border_Color>Black</Border_Color>
+      <Back_Transparent>false</Back_Transparent>
+      <Back_Color>White</Back_Color>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+      <DatetimeUpdated>2021-12-14T20:22:55.0460556-08:00</DatetimeUpdated>
+    </ClassElementField>
+    <ClassElementField>
+      <Id_GUID>00000000-0000-0000-0000-000000000000</Id_GUID>
+      <BadgeDisplayIndex>0</BadgeDisplayIndex>
+      <WhichSideOfCard>Undetermined</WhichSideOfCard>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <FieldObjectAny xsi:type="ClassFieldStandard">
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>false</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>false</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>fstrZip</CIBadgeField>
+        <FieldLabelCaption>Zipcode</FieldLabelCaption>
+        <FieldType_TD>84</FieldType_TD>
+        <FieldEnumValue>fstrZip</FieldEnumValue>
+        <FieldIndex>9</FieldIndex>
+        <IsFieldForDates>false</IsFieldForDates>
+        <IsLocked>false</IsLocked>
+        <DefaultValue />
+        <ExampleValue />
+        <HasPresetValues>false</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #9</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #9</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #9</CurrentRecipValue_Date>
+      </FieldObjectAny>
+      <FieldObjectStandard>
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>false</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>false</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>fstrZip</CIBadgeField>
+        <FieldLabelCaption>Zipcode</FieldLabelCaption>
+        <FieldType_TD>84</FieldType_TD>
+        <FieldEnumValue>fstrZip</FieldEnumValue>
+        <FieldIndex>9</FieldIndex>
+        <IsFieldForDates>false</IsFieldForDates>
+        <IsLocked>false</IsLocked>
+        <DefaultValue />
+        <ExampleValue />
+        <HasPresetValues>false</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #9</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #9</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #9</CurrentRecipValue_Date>
+      </FieldObjectStandard>
+      <FieldEnum>fstrZip</FieldEnum>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>603</Width_Pixels>
+        <Height_Pixels>380</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>0</TopEdge_Pixels>
+      <LeftEdge_Pixels>0</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Displayed>true</Border_Displayed>
+      <Border_Color>Black</Border_Color>
+      <Back_Transparent>false</Back_Transparent>
+      <Back_Color>White</Back_Color>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+      <DatetimeUpdated>2021-12-14T20:22:55.0460556-08:00</DatetimeUpdated>
+    </ClassElementField>
+    <ClassElementField>
+      <Id_GUID>00000000-0000-0000-0000-000000000000</Id_GUID>
+      <BadgeDisplayIndex>0</BadgeDisplayIndex>
+      <WhichSideOfCard>Undetermined</WhichSideOfCard>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <FieldObjectAny xsi:type="ClassFieldStandard">
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>false</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>false</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>blnBatchPrint</CIBadgeField>
+        <FieldLabelCaption>Printed by Batch</FieldLabelCaption>
+        <FieldType_TD>66</FieldType_TD>
+        <FieldEnumValue>blnBatchPrint</FieldEnumValue>
+        <FieldIndex>10</FieldIndex>
+        <IsFieldForDates>false</IsFieldForDates>
+        <IsLocked>true</IsLocked>
+        <DefaultValue />
+        <ExampleValue />
+        <HasPresetValues>false</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #10</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #10</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #10</CurrentRecipValue_Date>
+      </FieldObjectAny>
+      <FieldObjectStandard>
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>false</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>false</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>blnBatchPrint</CIBadgeField>
+        <FieldLabelCaption>Printed by Batch</FieldLabelCaption>
+        <FieldType_TD>66</FieldType_TD>
+        <FieldEnumValue>blnBatchPrint</FieldEnumValue>
+        <FieldIndex>10</FieldIndex>
+        <IsFieldForDates>false</IsFieldForDates>
+        <IsLocked>true</IsLocked>
+        <DefaultValue />
+        <ExampleValue />
+        <HasPresetValues>false</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #10</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #10</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #10</CurrentRecipValue_Date>
+      </FieldObjectStandard>
+      <FieldEnum>blnBatchPrint</FieldEnum>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>603</Width_Pixels>
+        <Height_Pixels>380</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>0</TopEdge_Pixels>
+      <LeftEdge_Pixels>0</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Displayed>true</Border_Displayed>
+      <Border_Color>Black</Border_Color>
+      <Back_Transparent>false</Back_Transparent>
+      <Back_Color>White</Back_Color>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+      <DatetimeUpdated>2021-12-14T20:22:55.0460556-08:00</DatetimeUpdated>
+    </ClassElementField>
+    <ClassElementField>
+      <Id_GUID>00000000-0000-0000-0000-000000000000</Id_GUID>
+      <BadgeDisplayIndex>0</BadgeDisplayIndex>
+      <WhichSideOfCard>Undetermined</WhichSideOfCard>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <FieldObjectAny xsi:type="ClassFieldStandard">
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>false</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>false</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>idfConfigID</CIBadgeField>
+        <FieldLabelCaption>Personality ID</FieldLabelCaption>
+        <FieldType_TD>73</FieldType_TD>
+        <FieldEnumValue>idfConfigID</FieldEnumValue>
+        <FieldIndex>11</FieldIndex>
+        <IsFieldForDates>false</IsFieldForDates>
+        <IsLocked>true</IsLocked>
+        <DefaultValue />
+        <ExampleValue />
+        <HasPresetValues>false</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #11</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #11</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #11</CurrentRecipValue_Date>
+      </FieldObjectAny>
+      <FieldObjectStandard>
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>false</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>false</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>idfConfigID</CIBadgeField>
+        <FieldLabelCaption>Personality ID</FieldLabelCaption>
+        <FieldType_TD>73</FieldType_TD>
+        <FieldEnumValue>idfConfigID</FieldEnumValue>
+        <FieldIndex>11</FieldIndex>
+        <IsFieldForDates>false</IsFieldForDates>
+        <IsLocked>true</IsLocked>
+        <DefaultValue />
+        <ExampleValue />
+        <HasPresetValues>false</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #11</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #11</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #11</CurrentRecipValue_Date>
+      </FieldObjectStandard>
+      <FieldEnum>idfConfigID</FieldEnum>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>603</Width_Pixels>
+        <Height_Pixels>380</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>0</TopEdge_Pixels>
+      <LeftEdge_Pixels>0</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Displayed>true</Border_Displayed>
+      <Border_Color>Black</Border_Color>
+      <Back_Transparent>false</Back_Transparent>
+      <Back_Color>White</Back_Color>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+      <DatetimeUpdated>2021-12-14T20:22:55.0460556-08:00</DatetimeUpdated>
+    </ClassElementField>
+    <ClassElementField>
+      <Id_GUID>00000000-0000-0000-0000-000000000000</Id_GUID>
+      <BadgeDisplayIndex>0</BadgeDisplayIndex>
+      <WhichSideOfCard>Undetermined</WhichSideOfCard>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <FieldObjectAny xsi:type="ClassFieldStandard">
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>false</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>false</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>idfReportID</CIBadgeField>
+        <FieldLabelCaption>Badge Layout ID</FieldLabelCaption>
+        <FieldType_TD>73</FieldType_TD>
+        <FieldEnumValue>idfReportID</FieldEnumValue>
+        <FieldIndex>12</FieldIndex>
+        <IsFieldForDates>false</IsFieldForDates>
+        <IsLocked>true</IsLocked>
+        <DefaultValue />
+        <ExampleValue />
+        <HasPresetValues>false</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #12</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #12</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #12</CurrentRecipValue_Date>
+      </FieldObjectAny>
+      <FieldObjectStandard>
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>false</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>false</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>idfReportID</CIBadgeField>
+        <FieldLabelCaption>Badge Layout ID</FieldLabelCaption>
+        <FieldType_TD>73</FieldType_TD>
+        <FieldEnumValue>idfReportID</FieldEnumValue>
+        <FieldIndex>12</FieldIndex>
+        <IsFieldForDates>false</IsFieldForDates>
+        <IsLocked>true</IsLocked>
+        <DefaultValue />
+        <ExampleValue />
+        <HasPresetValues>false</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #12</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #12</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #12</CurrentRecipValue_Date>
+      </FieldObjectStandard>
+      <FieldEnum>idfReportID</FieldEnum>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>603</Width_Pixels>
+        <Height_Pixels>380</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>0</TopEdge_Pixels>
+      <LeftEdge_Pixels>0</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Displayed>true</Border_Displayed>
+      <Border_Color>Black</Border_Color>
+      <Back_Transparent>false</Back_Transparent>
+      <Back_Color>White</Back_Color>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+      <DatetimeUpdated>2021-12-14T20:22:55.0460556-08:00</DatetimeUpdated>
+    </ClassElementField>
+    <ClassElementField>
+      <Id_GUID>00000000-0000-0000-0000-000000000000</Id_GUID>
+      <BadgeDisplayIndex>0</BadgeDisplayIndex>
+      <WhichSideOfCard>Undetermined</WhichSideOfCard>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <FieldObjectAny xsi:type="ClassFieldStandard">
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>false</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>false</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>fdateRecDate</CIBadgeField>
+        <FieldLabelCaption>Record Created</FieldLabelCaption>
+        <FieldType_TD>68</FieldType_TD>
+        <FieldEnumValue>fdateRecDate</FieldEnumValue>
+        <FieldIndex>13</FieldIndex>
+        <IsFieldForDates>true</IsFieldForDates>
+        <IsLocked>true</IsLocked>
+        <DefaultValue />
+        <ExampleValue />
+        <HasPresetValues>false</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #13</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #13</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #13</CurrentRecipValue_Date>
+      </FieldObjectAny>
+      <FieldObjectStandard>
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>false</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>false</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>fdateRecDate</CIBadgeField>
+        <FieldLabelCaption>Record Created</FieldLabelCaption>
+        <FieldType_TD>68</FieldType_TD>
+        <FieldEnumValue>fdateRecDate</FieldEnumValue>
+        <FieldIndex>13</FieldIndex>
+        <IsFieldForDates>true</IsFieldForDates>
+        <IsLocked>true</IsLocked>
+        <DefaultValue />
+        <ExampleValue />
+        <HasPresetValues>false</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #13</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #13</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #13</CurrentRecipValue_Date>
+      </FieldObjectStandard>
+      <FieldEnum>fdateRecDate</FieldEnum>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>603</Width_Pixels>
+        <Height_Pixels>380</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>0</TopEdge_Pixels>
+      <LeftEdge_Pixels>0</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Displayed>true</Border_Displayed>
+      <Border_Color>Black</Border_Color>
+      <Back_Transparent>false</Back_Transparent>
+      <Back_Color>White</Back_Color>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+      <DatetimeUpdated>2021-12-14T20:22:55.0460556-08:00</DatetimeUpdated>
+    </ClassElementField>
+    <ClassElementField>
+      <Id_GUID>00000000-0000-0000-0000-000000000000</Id_GUID>
+      <BadgeDisplayIndex>0</BadgeDisplayIndex>
+      <WhichSideOfCard>Undetermined</WhichSideOfCard>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <FieldObjectAny xsi:type="ClassFieldStandard">
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>false</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>false</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>fdatTimeStamp</CIBadgeField>
+        <FieldLabelCaption>Record Updated</FieldLabelCaption>
+        <FieldType_TD>68</FieldType_TD>
+        <FieldEnumValue>fdatTimeStamp</FieldEnumValue>
+        <FieldIndex>14</FieldIndex>
+        <IsFieldForDates>true</IsFieldForDates>
+        <IsLocked>true</IsLocked>
+        <DefaultValue />
+        <ExampleValue />
+        <HasPresetValues>false</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #14</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #14</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #14</CurrentRecipValue_Date>
+      </FieldObjectAny>
+      <FieldObjectStandard>
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>false</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>false</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>fdatTimeStamp</CIBadgeField>
+        <FieldLabelCaption>Record Updated</FieldLabelCaption>
+        <FieldType_TD>68</FieldType_TD>
+        <FieldEnumValue>fdatTimeStamp</FieldEnumValue>
+        <FieldIndex>14</FieldIndex>
+        <IsFieldForDates>true</IsFieldForDates>
+        <IsLocked>true</IsLocked>
+        <DefaultValue />
+        <ExampleValue />
+        <HasPresetValues>false</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #14</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #14</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #14</CurrentRecipValue_Date>
+      </FieldObjectStandard>
+      <FieldEnum>fdatTimeStamp</FieldEnum>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>603</Width_Pixels>
+        <Height_Pixels>380</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>0</TopEdge_Pixels>
+      <LeftEdge_Pixels>0</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Displayed>true</Border_Displayed>
+      <Border_Color>Black</Border_Color>
+      <Back_Transparent>false</Back_Transparent>
+      <Back_Color>White</Back_Color>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+      <DatetimeUpdated>2021-12-14T20:22:55.0460556-08:00</DatetimeUpdated>
+    </ClassElementField>
+    <ClassElementField>
+      <Id_GUID>00000000-0000-0000-0000-000000000000</Id_GUID>
+      <BadgeDisplayIndex>0</BadgeDisplayIndex>
+      <WhichSideOfCard>Undetermined</WhichSideOfCard>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <FieldObjectAny xsi:type="ClassFieldStandard">
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>false</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>false</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>fstrRFID_Unique</CIBadgeField>
+        <FieldLabelCaption>RFID/UID Value</FieldLabelCaption>
+        <FieldType_TD>84</FieldType_TD>
+        <FieldEnumValue>fstrRFID_Unique</FieldEnumValue>
+        <FieldIndex>15</FieldIndex>
+        <IsFieldForDates>false</IsFieldForDates>
+        <IsLocked>false</IsLocked>
+        <DefaultValue />
+        <ExampleValue />
+        <HasPresetValues>false</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #15</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #15</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #15</CurrentRecipValue_Date>
+      </FieldObjectAny>
+      <FieldObjectStandard>
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>false</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>false</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>fstrRFID_Unique</CIBadgeField>
+        <FieldLabelCaption>RFID/UID Value</FieldLabelCaption>
+        <FieldType_TD>84</FieldType_TD>
+        <FieldEnumValue>fstrRFID_Unique</FieldEnumValue>
+        <FieldIndex>15</FieldIndex>
+        <IsFieldForDates>false</IsFieldForDates>
+        <IsLocked>false</IsLocked>
+        <DefaultValue />
+        <ExampleValue />
+        <HasPresetValues>false</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #15</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #15</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #15</CurrentRecipValue_Date>
+      </FieldObjectStandard>
+      <FieldEnum>fstrRFID_Unique</FieldEnum>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>603</Width_Pixels>
+        <Height_Pixels>380</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>0</TopEdge_Pixels>
+      <LeftEdge_Pixels>0</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Displayed>true</Border_Displayed>
+      <Border_Color>Black</Border_Color>
+      <Back_Transparent>false</Back_Transparent>
+      <Back_Color>White</Back_Color>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+      <DatetimeUpdated>2021-12-14T20:22:55.0460556-08:00</DatetimeUpdated>
+    </ClassElementField>
+    <ClassElementField>
+      <Id_GUID>00000000-0000-0000-0000-000000000000</Id_GUID>
+      <BadgeDisplayIndex>0</BadgeDisplayIndex>
+      <WhichSideOfCard>Undetermined</WhichSideOfCard>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <FieldObjectAny xsi:type="ClassFieldCustomized">
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>false</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>true</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>TextField01</CIBadgeField>
+        <FieldLabelCaption>School Name</FieldLabelCaption>
+        <FieldType_TD>84</FieldType_TD>
+        <FieldEnumValue>TextField01</FieldEnumValue>
+        <FieldIndex>201</FieldIndex>
+        <IsFieldForDates>false</IsFieldForDates>
+        <IsLocked>false</IsLocked>
+        <DefaultValue />
+        <ExampleValue>Willcrest School</ExampleValue>
+        <HasPresetValues>true</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #201</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #201</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #201</CurrentRecipValue_Date>
+        <ArrayOfValues>
+          <string>Willcrest School</string>
+          <string>Woodbridge School</string>
+        </ArrayOfValues>
+      </FieldObjectAny>
+      <FieldObjectCustom>
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>false</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>true</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>TextField01</CIBadgeField>
+        <FieldLabelCaption>School Name</FieldLabelCaption>
+        <FieldType_TD>84</FieldType_TD>
+        <FieldEnumValue>TextField01</FieldEnumValue>
+        <FieldIndex>201</FieldIndex>
+        <IsFieldForDates>false</IsFieldForDates>
+        <IsLocked>false</IsLocked>
+        <DefaultValue />
+        <ExampleValue>Willcrest School</ExampleValue>
+        <HasPresetValues>true</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #201</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #201</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #201</CurrentRecipValue_Date>
+        <ArrayOfValues>
+          <string>Willcrest School</string>
+          <string>Woodbridge School</string>
+        </ArrayOfValues>
+      </FieldObjectCustom>
+      <FieldEnum>TextField01</FieldEnum>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>603</Width_Pixels>
+        <Height_Pixels>380</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>0</TopEdge_Pixels>
+      <LeftEdge_Pixels>0</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Displayed>true</Border_Displayed>
+      <Border_Color>Black</Border_Color>
+      <Back_Transparent>false</Back_Transparent>
+      <Back_Color>White</Back_Color>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+      <DatetimeUpdated>2021-12-14T20:22:55.0460556-08:00</DatetimeUpdated>
+    </ClassElementField>
+    <ClassElementField>
+      <Id_GUID>00000000-0000-0000-0000-000000000000</Id_GUID>
+      <BadgeDisplayIndex>0</BadgeDisplayIndex>
+      <WhichSideOfCard>Undetermined</WhichSideOfCard>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <FieldObjectAny xsi:type="ClassFieldCustomized">
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>false</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>true</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>TextField02</CIBadgeField>
+        <FieldLabelCaption>Teacher Name</FieldLabelCaption>
+        <FieldType_TD>84</FieldType_TD>
+        <FieldEnumValue>TextField02</FieldEnumValue>
+        <FieldIndex>202</FieldIndex>
+        <IsFieldForDates>false</IsFieldForDates>
+        <IsLocked>false</IsLocked>
+        <DefaultValue />
+        <ExampleValue />
+        <HasPresetValues>true</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #202</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #202</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #202</CurrentRecipValue_Date>
+        <ArrayOfValues>
+          <string>Mrs. Ross</string>
+          <string>Mr. Smudge</string>
+          <string>Ms. Randall</string>
+        </ArrayOfValues>
+      </FieldObjectAny>
+      <FieldObjectCustom>
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>false</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>true</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>TextField02</CIBadgeField>
+        <FieldLabelCaption>Teacher Name</FieldLabelCaption>
+        <FieldType_TD>84</FieldType_TD>
+        <FieldEnumValue>TextField02</FieldEnumValue>
+        <FieldIndex>202</FieldIndex>
+        <IsFieldForDates>false</IsFieldForDates>
+        <IsLocked>false</IsLocked>
+        <DefaultValue />
+        <ExampleValue />
+        <HasPresetValues>true</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #202</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #202</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #202</CurrentRecipValue_Date>
+        <ArrayOfValues>
+          <string>Mrs. Ross</string>
+          <string>Mr. Smudge</string>
+          <string>Ms. Randall</string>
+        </ArrayOfValues>
+      </FieldObjectCustom>
+      <FieldEnum>TextField02</FieldEnum>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>603</Width_Pixels>
+        <Height_Pixels>380</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>0</TopEdge_Pixels>
+      <LeftEdge_Pixels>0</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Displayed>true</Border_Displayed>
+      <Border_Color>Black</Border_Color>
+      <Back_Transparent>false</Back_Transparent>
+      <Back_Color>White</Back_Color>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+      <DatetimeUpdated>2021-12-14T20:22:55.0460556-08:00</DatetimeUpdated>
+    </ClassElementField>
+    <ClassElementField>
+      <Id_GUID>00000000-0000-0000-0000-000000000000</Id_GUID>
+      <BadgeDisplayIndex>0</BadgeDisplayIndex>
+      <WhichSideOfCard>Undetermined</WhichSideOfCard>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <FieldObjectAny xsi:type="ClassFieldCustomized">
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>false</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>true</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>TextField03</CIBadgeField>
+        <FieldLabelCaption>Grade Level</FieldLabelCaption>
+        <FieldType_TD>84</FieldType_TD>
+        <FieldEnumValue>TextField03</FieldEnumValue>
+        <FieldIndex>203</FieldIndex>
+        <IsFieldForDates>false</IsFieldForDates>
+        <IsLocked>false</IsLocked>
+        <DefaultValue />
+        <ExampleValue />
+        <HasPresetValues>true</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #203</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #203</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #203</CurrentRecipValue_Date>
+        <ArrayOfValues>
+          <string>9th</string>
+          <string>10th</string>
+          <string>11th</string>
+          <string>12th</string>
+        </ArrayOfValues>
+      </FieldObjectAny>
+      <FieldObjectCustom>
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>false</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>true</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>TextField03</CIBadgeField>
+        <FieldLabelCaption>Grade Level</FieldLabelCaption>
+        <FieldType_TD>84</FieldType_TD>
+        <FieldEnumValue>TextField03</FieldEnumValue>
+        <FieldIndex>203</FieldIndex>
+        <IsFieldForDates>false</IsFieldForDates>
+        <IsLocked>false</IsLocked>
+        <DefaultValue />
+        <ExampleValue />
+        <HasPresetValues>true</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #203</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #203</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #203</CurrentRecipValue_Date>
+        <ArrayOfValues>
+          <string>9th</string>
+          <string>10th</string>
+          <string>11th</string>
+          <string>12th</string>
+        </ArrayOfValues>
+      </FieldObjectCustom>
+      <FieldEnum>TextField03</FieldEnum>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>603</Width_Pixels>
+        <Height_Pixels>380</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>0</TopEdge_Pixels>
+      <LeftEdge_Pixels>0</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Displayed>true</Border_Displayed>
+      <Border_Color>Black</Border_Color>
+      <Back_Transparent>false</Back_Transparent>
+      <Back_Color>White</Back_Color>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+      <DatetimeUpdated>2021-12-14T20:22:55.0460556-08:00</DatetimeUpdated>
+    </ClassElementField>
+    <ClassElementField>
+      <Id_GUID>00000000-0000-0000-0000-000000000000</Id_GUID>
+      <BadgeDisplayIndex>4</BadgeDisplayIndex>
+      <WhichSideOfCard>Undetermined</WhichSideOfCard>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0.83333333333333337</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <Text_Static>Date of Birth</Text_Static>
+      <FieldObjectAny xsi:type="ClassFieldCustomized">
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>true</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>true</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>true</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>DateField01</CIBadgeField>
+        <FieldLabelCaption>Date of Birth</FieldLabelCaption>
+        <FieldType_TD>68</FieldType_TD>
+        <FieldEnumValue>DateField01</FieldEnumValue>
+        <FieldIndex>204</FieldIndex>
+        <IsFieldForDates>true</IsFieldForDates>
+        <IsLocked>false</IsLocked>
+        <DefaultValue />
+        <ExampleValue />
+        <HasPresetValues>false</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #204</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #204</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #204</CurrentRecipValue_Date>
+      </FieldObjectAny>
+      <FieldObjectCustom>
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>true</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>true</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>true</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>DateField01</CIBadgeField>
+        <FieldLabelCaption>Date of Birth</FieldLabelCaption>
+        <FieldType_TD>68</FieldType_TD>
+        <FieldEnumValue>DateField01</FieldEnumValue>
+        <FieldIndex>204</FieldIndex>
+        <IsFieldForDates>true</IsFieldForDates>
+        <IsLocked>false</IsLocked>
+        <DefaultValue />
+        <ExampleValue />
+        <HasPresetValues>false</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #204</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #204</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #204</CurrentRecipValue_Date>
+      </FieldObjectCustom>
+      <FieldEnum>DateField01</FieldEnum>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>604</Width_Pixels>
+        <Height_Pixels>380</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>160</TopEdge_Pixels>
+      <LeftEdge_Pixels>343</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Displayed>true</Border_Displayed>
+      <Border_Color>Black</Border_Color>
+      <Back_Transparent>false</Back_Transparent>
+      <Back_Color>White</Back_Color>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+      <DatetimeUpdated>2021-12-17T16:11:20.3807895-08:00</DatetimeUpdated>
+    </ClassElementField>
+    <ClassElementField>
+      <Id_GUID>00000000-0000-0000-0000-000000000000</Id_GUID>
+      <BadgeDisplayIndex>0</BadgeDisplayIndex>
+      <WhichSideOfCard>Undetermined</WhichSideOfCard>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <FieldObjectAny xsi:type="ClassFieldCustomized">
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>false</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>true</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>DateField02</CIBadgeField>
+        <FieldLabelCaption>ExpirationDate</FieldLabelCaption>
+        <FieldType_TD>68</FieldType_TD>
+        <FieldEnumValue>DateField02</FieldEnumValue>
+        <FieldIndex>205</FieldIndex>
+        <IsFieldForDates>true</IsFieldForDates>
+        <IsLocked>false</IsLocked>
+        <DefaultValue />
+        <ExampleValue />
+        <HasPresetValues>false</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #205</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #205</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #205</CurrentRecipValue_Date>
+      </FieldObjectAny>
+      <FieldObjectCustom>
+        <IsRelevantToPersonality>false</IsRelevantToPersonality>
+        <IsDisplayedOnBadge>false</IsDisplayedOnBadge>
+        <IsDisplayedForEdits>false</IsDisplayedForEdits>
+        <IsDisplayedOnBadge_Front>false</IsDisplayedOnBadge_Front>
+        <IsDisplayedOnBadge_Backside>false</IsDisplayedOnBadge_Backside>
+        <IsStandard>false</IsStandard>
+        <IsCustomizable>true</IsCustomizable>
+        <IsDateField>false</IsDateField>
+        <Text_orDate>Text</Text_orDate>
+        <CIBadgeField>DateField02</CIBadgeField>
+        <FieldLabelCaption>ExpirationDate</FieldLabelCaption>
+        <FieldType_TD>68</FieldType_TD>
+        <FieldEnumValue>DateField02</FieldEnumValue>
+        <FieldIndex>205</FieldIndex>
+        <IsFieldForDates>true</IsFieldForDates>
+        <IsLocked>false</IsLocked>
+        <DefaultValue />
+        <ExampleValue />
+        <HasPresetValues>false</HasPresetValues>
+        <IsAdditionalField>false</IsAdditionalField>
+        <IsBarCode>false</IsBarCode>
+        <DataEntryText>Undetermined value, for Field #205</DataEntryText>
+        <IsLinkedToSections>false</IsLinkedToSections>
+        <DateEdited>0001-01-01T00:00:00</DateEdited>
+        <DateSaved>0001-01-01T00:00:00</DateSaved>
+        <CurrentRecipValue>Undetermined value, for Field #205</CurrentRecipValue>
+        <CurrentRecipValue_Date>Undetermined value, for Field #205</CurrentRecipValue_Date>
+      </FieldObjectCustom>
+      <FieldEnum>DateField02</FieldEnum>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>603</Width_Pixels>
+        <Height_Pixels>380</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>0</TopEdge_Pixels>
+      <LeftEdge_Pixels>0</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>30</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Displayed>true</Border_Displayed>
+      <Border_Color>Black</Border_Color>
+      <Back_Transparent>false</Back_Transparent>
+      <Back_Color>White</Back_Color>
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <Visible>true</Visible>
+      <DatetimeUpdated>2021-12-14T20:22:55.0460556-08:00</DatetimeUpdated>
+    </ClassElementField>
+  </ListOfElementFields>
+  <ListOfElementPics>
+    <ClassElementPic>
+      <Id_GUID>00000000-0000-0000-0000-000000000000</Id_GUID>
+      <BadgeDisplayIndex>0</BadgeDisplayIndex>
+      <WhichSideOfCard>Undetermined</WhichSideOfCard>
+      <BadgeLayout>
+        <Width_Pixels>604</Width_Pixels>
+        <Height_Pixels>380</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>14</TopEdge_Pixels>
+      <LeftEdge_Pixels>14</LeftEdge_Pixels>
+      <Width_Pixels>141</Width_Pixels>
+      <Height_Pixels>181</Height_Pixels>
+      <Border_WidthInPixels>0</Border_WidthInPixels>
+      <Border_Color />
+      <Border_Displayed>false</Border_Displayed>
+      <Back_Transparent>false</Back_Transparent>
+      <Back_Color />
+      <SelectedHighlighting>false</SelectedHighlighting>
+      <PicFileIndex>1</PicFileIndex>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <Visible>false</Visible>
+    </ClassElementPic>
+  </ListOfElementPics>
+  <ListOfElementTexts>
+    <ClassElementStaticText>
+      <BadgeDisplayIndex>0</BadgeDisplayIndex>
+      <WhichSideOfCard>Undetermined</WhichSideOfCard>
+      <FontColor />
+      <FontSize_Pixels>25</FontSize_Pixels>
+      <FontBold>false</FontBold>
+      <FontItalics>false</FontItalics>
+      <FontUnderline>false</FontUnderline>
+      <FontFamilyName>Times New Roman</FontFamilyName>
+      <FontSize_ScaleToElementRatio>0</FontSize_ScaleToElementRatio>
+      <FontSize_ScaleToElementYesNo>true</FontSize_ScaleToElementYesNo>
+      <FontOffset_X>0</FontOffset_X>
+      <FontOffset_Y>0</FontOffset_Y>
+      <Text_Static>This is the same text for everyone.</Text_Static>
+      <TextAlignment>Left</TextAlignment>
+      <OrientationInDegrees>0</OrientationInDegrees>
+      <Visible>false</Visible>
+      <ElementType>Text</ElementType>
+      <BadgeLayout>
+        <Width_Pixels>0</Width_Pixels>
+        <Height_Pixels>0</Height_Pixels>
+      </BadgeLayout>
+      <TopEdge_Pixels>264</TopEdge_Pixels>
+      <LeftEdge_Pixels>762</LeftEdge_Pixels>
+      <Width_Pixels>253</Width_Pixels>
+      <Height_Pixels>46</Height_Pixels>
+      <Border_WidthInPixels>1</Border_WidthInPixels>
+      <Border_Color>Black</Border_Color>
+      <Border_Displayed>true</Border_Displayed>
+      <Back_Color>White</Back_Color>
+      <Back_Transparent>false</Back_Transparent>
+      <SelectedHighlighting>false</SelectedHighlighting>
+    </ClassElementStaticText>
+  </ListOfElementTexts>
+</ClassElementsCache_Deprecated>

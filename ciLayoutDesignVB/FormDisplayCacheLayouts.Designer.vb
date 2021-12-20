@@ -27,11 +27,12 @@ Partial Class FormDisplayCacheLayouts
         Me.LabelHeader3 = New System.Windows.Forms.Label()
         Me.LabelFullPathToXML = New System.Windows.Forms.Label()
         Me.ButtonOpenLayout = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.Button = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.ButtonSelectDrive = New System.Windows.Forms.Button()
+        Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         CType(Me.pictureBackgroundFront, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.FlowLayoutPanel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -86,15 +87,15 @@ Partial Class FormDisplayCacheLayouts
         Me.ButtonOpenLayout.Text = "Open This Layout ►►"
         Me.ButtonOpenLayout.UseVisualStyleBackColor = True
         '
-        'Button2
+        'Button
         '
-        Me.Button2.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button2.Location = New System.Drawing.Point(26, 12)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(171, 89)
-        Me.Button2.TabIndex = 82
-        Me.Button2.Text = "Open New Blank Layout"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.Button.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button.Location = New System.Drawing.Point(26, 12)
+        Me.Button.Name = "Button"
+        Me.Button.Size = New System.Drawing.Size(171, 89)
+        Me.Button.TabIndex = 82
+        Me.Button.Text = "Open New Blank Layout"
+        Me.Button.UseVisualStyleBackColor = True
         '
         'Label1
         '
@@ -142,6 +143,10 @@ Partial Class FormDisplayCacheLayouts
         Me.ButtonSelectDrive.Text = "Find Layout in Drive(s)"
         Me.ButtonSelectDrive.UseVisualStyleBackColor = True
         '
+        'OpenFileDialog1
+        '
+        Me.OpenFileDialog1.FileName = "OpenFileDialog1"
+        '
         'FormDisplayCacheLayouts
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -150,7 +155,7 @@ Partial Class FormDisplayCacheLayouts
         Me.Controls.Add(Me.ButtonSelectDrive)
         Me.Controls.Add(Me.FlowLayoutPanel1)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.Button2)
+        Me.Controls.Add(Me.Button)
         Me.Controls.Add(Me.ButtonOpenLayout)
         Me.Controls.Add(Me.LabelFullPathToXML)
         Me.Controls.Add(Me.LabelHeader3)
@@ -171,9 +176,10 @@ Partial Class FormDisplayCacheLayouts
     Friend WithEvents LabelHeader3 As Label
     Friend WithEvents LabelFullPathToXML As Label
     Friend WithEvents ButtonOpenLayout As Button
-    Friend WithEvents Button2 As Button
+    Friend WithEvents Button As Button
     Friend WithEvents Label1 As Label
     Friend WithEvents FlowLayoutPanel1 As FlowLayoutPanel
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents ButtonSelectDrive As Button
+    Friend WithEvents OpenFileDialog1 As OpenFileDialog
 End Class

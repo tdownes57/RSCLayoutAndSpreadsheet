@@ -38,11 +38,21 @@ Public Class DiskFolders
 
     End Function ''End of "Public Shared Function PathToFolder_BackExamples() As String"
 
+
     Public Shared Function PathToFolder_PicExamples() As String
         ''
         ''Added 10/12/2019 Thomas Downes    
         ''
         Return System.IO.Path.Combine(My.Application.Info.DirectoryPath, "Images\PictureExamples")
+
+    End Function ''End of "Public Shared Function PathToFolder_PicExamples() As String"
+
+
+    Public Shared Function PathToFolder_XML() As String
+        ''
+        ''Added 12/20/2021 Thomas Downes    
+        ''
+        Return System.IO.Path.Combine(My.Application.Info.DirectoryPath, "XML")
 
     End Function ''End of "Public Shared Function PathToFolder_PicExamples() As String"
 

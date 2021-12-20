@@ -61,8 +61,9 @@ Public Class Startup
             ''Function called in the line below is suffixed w/ "_Deprecated", but
             ''   it's still in used today.  ---11/30/2021 td 
             strPathToElementsCacheXML = My.Settings.PathToXML_Saved_ElementsCache ''Added 12/14/2021 
+            Const c_bAlwaysAlwaysUserToChooseNew As Boolean = True ''Added 12/20/2021 
 
-            If (DiskFilesVB.DisplayStringDataInNotepad(strPathToElementsCacheXML)) Then
+            If (c_bAlwaysAlwaysUserToChooseNew Or DiskFilesVB.IsXMLFileMissing_OrEmpty(strPathToElementsCacheXML)) Then
                 ''
                 ''Added 12/19/2021 thomas downes
                 ''
@@ -70,9 +71,10 @@ Public Class Startup
                 Dim bGoodChoice As Boolean ''Added 12/19/2021 Thomas Downes
                 Dim bUserWantsABlankSlate As Boolean ''Added 12/19/2021 td
                 Do
+                    objShow.PathToElementsCacheXML = strPathToElementsCacheXML ''Added 12/20/2021 td
                     objShow.ShowDialog()
                     strPathToElementsCacheXML = objShow.PathToElementsCacheXML
-                    bUserWantsABlankSlate = objShow.UserChoosesBlankSlate
+                    bUserWantsABlankSlate = objShow.UserChoosesABlankSlate
                     bGoodChoice = (bUserWantsABlankSlate And (Not DiskFilesVB.IsXMLFileMissing_OrEmpty(strPathToElementsCacheXML)))
 
                 Loop Until (bGoodChoice)
@@ -81,7 +83,7 @@ Public Class Startup
                 obj_cache_layout_Elements = LoadCachedData_Elements_Deprecated(obj_formToShow, boolNewFileXML,
                    strPathToElementsCacheXML)
 
-            End If ''End of "If (DiskFilesVB.IsXMLFileEmpty(strPathToElementsCacheXML)) Then ... Else ..."
+            End If ''End of "If (c_bAlwaysAlwaysUserToChooseNew Or DiskFilesVB.IsXMLFileEmpty(strPathToElementsCacheXML)) Then ... Else ..."
 
         Else
                 ''Function called in the line below was suffixed w/ "_FutureUse"
