@@ -431,6 +431,20 @@ Namespace ciBadgeCachePersonality
         End Sub ''End of "Public Sub RefreshListOfBadgeDisplayElements_Flds_Backside()"
 
 
+        Public Property ListOfElementPics As HashSet(Of ClassElementPic)  ''---List(Of ClassElementPic)
+            Get ''Added 10/13/2019 td
+                ''
+                ''This property is Deprecated, so return Nothing. ----12/20/2021 thomas d.
+                ''
+                Return Nothing ''Dec20 2021''mod_listElementPics_Front
+            End Get
+            Set(value As HashSet(Of ClassElementPic))  ''---List(Of ClassElementPic))
+                ''Added 10/13/2019 td
+                mod_listElementPics_Front = value
+            End Set
+        End Property
+
+
         Public Property ListOfElementPics_Front As HashSet(Of ClassElementPic)  ''---List(Of ClassElementPic)
             Get ''Added 10/13/2019 td
                 Return mod_listElementPics_Front
@@ -449,6 +463,20 @@ Namespace ciBadgeCachePersonality
             Set(value As HashSet(Of ClassElementPic))  ''---List(Of ClassElementPic))
                 ''Added 12/18/2021 td
                 mod_listElementPics_Backside = value
+            End Set
+        End Property
+
+
+        Public Property ListOfElementTexts As HashSet(Of ClassElementStaticText)  ''---List(Of ClassElementPic)
+            Get ''Added 12/20/2021 td
+                ''
+                ''This property is Deprecated, so return Nothing. ----12/20/2021 thomas d.
+                ''
+                Return Nothing ''Dec20 2021''mod_listElementPics_Front
+            End Get
+            Set(value As HashSet(Of ClassElementStaticText))  ''---List(Of ClassElementPic))
+                ''Added 12/20/2021 td
+                mod_listElementStatics_Front = value
             End Set
         End Property
 
@@ -500,7 +528,7 @@ Namespace ciBadgeCachePersonality
 
         End Function ''End of "Public Function FieldElements() As List(Of ClassElementText)"
 
-        Public Function PicElement() As ClassElementPic
+        Public Function PicElement_Front() As ClassElementPic
             ''
             ''Added 9/16/2019 thomas downes
             ''
@@ -510,7 +538,7 @@ Namespace ciBadgeCachePersonality
 
         End Function ''End of "Public Function PicElement() As ClassElementPic"
 
-        Public Function ListPicElements() As HashSet(Of ClassElementPic)  ''---List(Of ClassElementPic)
+        Public Function ListPicElements_Front() As HashSet(Of ClassElementPic)  ''---List(Of ClassElementPic)
             ''
             ''Added 9/17/2019 thomas downes
             ''
@@ -518,13 +546,20 @@ Namespace ciBadgeCachePersonality
 
         End Function ''End of " Public Function ListPicElements() As List(Of ClassElementPic)"
 
-        Public Function ListStaticTextElements() As HashSet(Of ClassElementStaticText)  ''---List(Of ClassElementStaticText)
+        Public Function ListStaticTextElements_Front() As HashSet(Of ClassElementStaticText)  ''---List(Of ClassElementStaticText)
             ''
             ''Added 9/16/2019 thomas downes
             ''
             Return mod_listElementStatics_Front
 
-        End Function ''End of "Public Function ListStaticTextElements() As List(Of ClassElementStaticText)"
+        End Function ''End of "Public Function ListStaticTextElements_Front() As List(Of ClassElementStaticText)"
+
+
+        Public Function ListStaticTextElements_Backside() As HashSet(Of ClassElementStaticText)  ''---List(Of ClassElementStaticText)
+            ''Added 12/20/2021 thomas downes
+            Return mod_listElementStatics_Backside
+        End Function ''End of "Public Function ListStaticTextElements_Backside() As List(Of ClassElementStaticText)"
+
 
         Public Function LaysectionElements() As HashSet(Of ClassElementLaysection)  ''---List(Of ClassElementLaysection)
             ''
@@ -1138,12 +1173,17 @@ Namespace ciBadgeCachePersonality
 
             ''Added 9/17/2019 thomas downes  
             For Each each_elementPic As ClassElementPic In mod_listElementPics_Front
-                objCopyOfCache.ListPicElements().Add(each_elementPic.Copy())
+                objCopyOfCache.ListPicElements_Front().Add(each_elementPic.Copy())
             Next each_elementPic
 
             ''Added 9/17/2019 thomas downes  
             For Each each_elementStaticText As ClassElementStaticText In mod_listElementStatics_Front
-                objCopyOfCache.ListStaticTextElements().Add(each_elementStaticText.Copy())
+                objCopyOfCache.ListStaticTextElements_Front().Add(each_elementStaticText.Copy())
+            Next each_elementStaticText
+
+            ''Added 12/20/2021 thomas downes  
+            For Each each_elementStaticText As ClassElementStaticText In mod_listElementStatics_Backside
+                objCopyOfCache.ListStaticTextElements_Backside().Add(each_elementStaticText.Copy())
             Next each_elementStaticText
 
             ''Added 10/8/2019 thomas downes

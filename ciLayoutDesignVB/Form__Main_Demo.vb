@@ -231,6 +231,10 @@ Public Class Form__Main_Demo
         ''   be passed as an parameter.  ---9/23/2019 td
         ''
         ''Dec.14 2021 td''Me.ElementsCache_Saved.Pic_InitialDefault = mod_imageLady
+        If (Me.ElementsCache_Edits Is Nothing) Then
+            MessageBox.Show("No cache is detected.", "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation) ''Added 12/20/2021 td
+            Return
+        End If ''End of "If (Me.ElementsCache_Edits Is Nothing) Then"
         Me.ElementsCache_Edits.Pic_InitialDefault = mod_imageLady
 
         ''Added 12/5/2021 thomas d. 
@@ -461,10 +465,18 @@ Public Class Form__Main_Demo
             Else
                 ''Added for deserialization from a saved XML file. 
                 ''  ---10/10/2019 td
-                .Initial_Pic_Left = Me.ElementsCache_Edits.PicElement().LeftEdge_Pixels
-                .Initial_Pic_Top = Me.ElementsCache_Edits.PicElement().TopEdge_Pixels
-                .Initial_Pic_Width = Me.ElementsCache_Edits.PicElement().Width_Pixels
-                .Initial_Pic_Height = Me.ElementsCache_Edits.PicElement().Height_Pixels
+                Dim objElementPic As ClassElementPic
+                objElementPic = Me.ElementsCache_Edits.ListOfElementPics_Front().GetEnumerator.Current
+                If (objElementPic Is Nothing) Then System.Diagnostics.Debugger.Break()
+
+                ''.Initial_Pic_Left = Me.ElementsCache_Edits.PicElement_Front().LeftEdge_Pixels
+                ''.Initial_Pic_Top = Me.ElementsCache_Edits.PicElement_Front().TopEdge_Pixels
+                ''.Initial_Pic_Width = Me.ElementsCache_Edits.PicElement_Front().Width_Pixels
+                ''.Initial_Pic_Height = Me.ElementsCache_Edits.PicElement_Front().Height_Pixels
+                .Initial_Pic_Left = objElementPic.LeftEdge_Pixels
+                .Initial_Pic_Top = objElementPic.TopEdge_Pixels
+                .Initial_Pic_Width = objElementPic.Width_Pixels
+                .Initial_Pic_Height = objElementPic.Height_Pixels
 
             End If ''End of "If (Me.NewFileXML) Then .... Else ..."
 

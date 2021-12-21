@@ -61,29 +61,57 @@ Public Class Startup
             ''Function called in the line below is suffixed w/ "_Deprecated", but
             ''   it's still in used today.  ---11/30/2021 td 
             strPathToElementsCacheXML = My.Settings.PathToXML_Saved_ElementsCache ''Added 12/14/2021 
-            Const c_bAlwaysAlwaysUserToChooseNew As Boolean = True ''Added 12/20/2021 
+            Const c_bAlwaysAllowUserToChooseNew As Boolean = True ''Added 12/20/2021 
+            Dim bMissingOrEmptyXML As Boolean
+            bMissingOrEmptyXML = DiskFilesVB.IsXMLFileMissing_OrEmpty(strPathToElementsCacheXML)
 
-            If (c_bAlwaysAlwaysUserToChooseNew Or DiskFilesVB.IsXMLFileMissing_OrEmpty(strPathToElementsCacheXML)) Then
+            If (c_bAlwaysAllowUserToChooseNew Or bMissingOrEmptyXML) Then
                 ''
                 ''Added 12/19/2021 thomas downes
                 ''
                 Dim objShow As New FormDisplayCacheLayouts ''Added 12/19/2021 Thomas Downes
                 Dim bGoodChoice As Boolean ''Added 12/19/2021 Thomas Downes
                 Dim bUserWantsABlankSlate As Boolean ''Added 12/19/2021 td
+                Dim bUserCancelled As Boolean ''Added 12/20/2021 td
+
+                ''Added 12/20/2021 thomas downes
+                objShow.PathToLastDirectoryForXMLFile = My.Settings.PathToLastDirectoryForXMLFile
+
                 Do
                     objShow.PathToElementsCacheXML = strPathToElementsCacheXML ''Added 12/20/2021 td
                     objShow.ShowDialog()
                     strPathToElementsCacheXML = objShow.PathToElementsCacheXML
                     bUserWantsABlankSlate = objShow.UserChoosesABlankSlate
-                    bGoodChoice = (bUserWantsABlankSlate And (Not DiskFilesVB.IsXMLFileMissing_OrEmpty(strPathToElementsCacheXML)))
+                    bGoodChoice = (bUserWantsABlankSlate Or (Not DiskFilesVB.IsXMLFileMissing_OrEmpty(strPathToElementsCacheXML)))
+                    bUserCancelled = objShow.UserHasSelectedCancel
 
-                Loop Until (bGoodChoice)
+                Loop Until (bGoodChoice Or bUserCancelled) ''Dec20 2021''Loop Until (bGoodChoice) 
+
+                ''Added 12/20/2021 td
+                If (bGoodChoice) Then
+                    ''Added 12/20/2021 td
+                    My.Settings.PathToSavedXML_Last = objShow.PathToElementsCacheXML
+                    My.Settings.PathToLastDirectoryForXMLFile = objShow.PathToLastDirectoryForXMLFile
+                    My.Settings.Save()
+                End If ''End of "If (bGoodChoice) Then"
 
             Else
-                obj_cache_layout_Elements = LoadCachedData_Elements_Deprecated(obj_formToShow, boolNewFileXML,
-                   strPathToElementsCacheXML)
+                ''    ''
+                ''    ''We can use the saved XML path to load the cached elements data. ---12/20/2021 td
+                ''    ''
+                ''Moved below.Dec20 2021---obj_cache_layout_Elements = LoadCachedData_Elements_Deprecated(obj_formToShow, 
+                ''       boolNewFileXML, strPathToElementsCacheXML)
 
             End If ''End of "If (c_bAlwaysAlwaysUserToChooseNew Or DiskFilesVB.IsXMLFileEmpty(strPathToElementsCacheXML)) Then ... Else ..."
+
+            ''
+            ''We can use the saved and/or selected XML path to load the cached elements data. 
+            ''   Open the cache of elements, through the magic of deserialization.
+            ''   ---12/20/2021 td
+            ''
+            obj_cache_layout_Elements = LoadCachedData_Elements_Deprecated(obj_formToShow, boolNewFileXML,
+                   strPathToElementsCacheXML)
+
 
         Else
                 ''Function called in the line below was suffixed w/ "_FutureUse"
@@ -104,6 +132,9 @@ Public Class Startup
 
         End If ''End of "If (boolTesting) Then"
 
+        ''
+        ''Prepare the designer form. 
+        ''
         obj_formToShow.NewFileXML = boolNewFileXML
         ''Added 12/14/2021 td
         obj_formToShow.ElementsCache_PathToXML = strPathToElementsCacheXML
@@ -123,6 +154,8 @@ Public Class Startup
                 ''
                 ''Still in use, even though it's Q4 of 2021. 
                 ''
+                If (obj_cache_layout_Elements Is Nothing) Then Throw New Exception("Cache is null/nothing.")
+
                 obj_formToShow.ElementsCache_Edits = obj_cache_layout_Elements
                 ''Added 12/14/2021 td
                 obj_formToShow.ElementsCache_PathToXML = strPathToElementsCacheXML ''Added 12/14/2021 td 
@@ -441,6 +474,11 @@ Public Class Startup
             ''Added 10/13/2019 td
             obj_cache_elements = New ClassElementsCache_Deprecated
             obj_cache_elements.PathToXml_Saved = strPathToXML
+
+            ''Added 12/20/2021 td
+            My.Settings.PathToXML_Saved_ElementsCache = strPathToXML
+            My.Settings.PathToSavedXML_Last = strPathToXML
+            My.Settings.Save()
 
             ''Added 12/12/2021 td
             With obj_cache_elements

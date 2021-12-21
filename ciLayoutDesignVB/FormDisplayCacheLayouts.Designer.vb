@@ -26,13 +26,15 @@ Partial Class FormDisplayCacheLayouts
         Me.LabelCaptionPathToTheFileXML = New System.Windows.Forms.Label()
         Me.LabelHeader3 = New System.Windows.Forms.Label()
         Me.LabelFullPathToXML = New System.Windows.Forms.Label()
-        Me.ButtonOpenLayout = New System.Windows.Forms.Button()
-        Me.Button = New System.Windows.Forms.Button()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.ButtonOpenCurrentLayout = New System.Windows.Forms.Button()
+        Me.ButtonOpenNewBlank = New System.Windows.Forms.Button()
+        Me.LabelPriorLayoutsHdr = New System.Windows.Forms.Label()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.ButtonSelectDrive = New System.Windows.Forms.Button()
+        Me.ButtonSelectLayoutFromDrive = New System.Windows.Forms.Button()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
+        Me.LabelWarningMessage = New System.Windows.Forms.Label()
+        Me.ButtonUserCancels = New System.Windows.Forms.Button()
         CType(Me.pictureBackgroundFront, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.FlowLayoutPanel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -51,7 +53,7 @@ Partial Class FormDisplayCacheLayouts
         '
         Me.LabelCaptionPathToTheFileXML.AutoSize = True
         Me.LabelCaptionPathToTheFileXML.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelCaptionPathToTheFileXML.Location = New System.Drawing.Point(211, 41)
+        Me.LabelCaptionPathToTheFileXML.Location = New System.Drawing.Point(212, 12)
         Me.LabelCaptionPathToTheFileXML.Name = "LabelCaptionPathToTheFileXML"
         Me.LabelCaptionPathToTheFileXML.Size = New System.Drawing.Size(140, 18)
         Me.LabelCaptionPathToTheFileXML.TabIndex = 77
@@ -71,56 +73,56 @@ Partial Class FormDisplayCacheLayouts
         '
         Me.LabelFullPathToXML.AutoSize = True
         Me.LabelFullPathToXML.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelFullPathToXML.Location = New System.Drawing.Point(241, 68)
+        Me.LabelFullPathToXML.Location = New System.Drawing.Point(241, 44)
         Me.LabelFullPathToXML.Name = "LabelFullPathToXML"
         Me.LabelFullPathToXML.Size = New System.Drawing.Size(168, 18)
         Me.LabelFullPathToXML.TabIndex = 79
         Me.LabelFullPathToXML.Text = "\\.....Path to the XML file."
         '
-        'ButtonOpenLayout
+        'ButtonOpenCurrentLayout
         '
-        Me.ButtonOpenLayout.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonOpenLayout.Location = New System.Drawing.Point(26, 117)
-        Me.ButtonOpenLayout.Name = "ButtonOpenLayout"
-        Me.ButtonOpenLayout.Size = New System.Drawing.Size(171, 89)
-        Me.ButtonOpenLayout.TabIndex = 80
-        Me.ButtonOpenLayout.Text = "Open This Layout ►►"
-        Me.ButtonOpenLayout.UseVisualStyleBackColor = True
+        Me.ButtonOpenCurrentLayout.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonOpenCurrentLayout.Location = New System.Drawing.Point(26, 117)
+        Me.ButtonOpenCurrentLayout.Name = "ButtonOpenCurrentLayout"
+        Me.ButtonOpenCurrentLayout.Size = New System.Drawing.Size(171, 89)
+        Me.ButtonOpenCurrentLayout.TabIndex = 80
+        Me.ButtonOpenCurrentLayout.Text = "Open This Layout ►►"
+        Me.ButtonOpenCurrentLayout.UseVisualStyleBackColor = True
         '
-        'Button
+        'ButtonOpenNewBlank
         '
-        Me.Button.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button.Location = New System.Drawing.Point(26, 12)
-        Me.Button.Name = "Button"
-        Me.Button.Size = New System.Drawing.Size(171, 89)
-        Me.Button.TabIndex = 82
-        Me.Button.Text = "Open New Blank Layout"
-        Me.Button.UseVisualStyleBackColor = True
+        Me.ButtonOpenNewBlank.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonOpenNewBlank.Location = New System.Drawing.Point(26, 12)
+        Me.ButtonOpenNewBlank.Name = "ButtonOpenNewBlank"
+        Me.ButtonOpenNewBlank.Size = New System.Drawing.Size(171, 89)
+        Me.ButtonOpenNewBlank.TabIndex = 82
+        Me.ButtonOpenNewBlank.Text = "Open New Blank Layout"
+        Me.ButtonOpenNewBlank.UseVisualStyleBackColor = True
         '
-        'Label1
+        'LabelPriorLayoutsHdr
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(816, 12)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(95, 18)
-        Me.Label1.TabIndex = 83
-        Me.Label1.Text = "Prior layouts:"
+        Me.LabelPriorLayoutsHdr.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LabelPriorLayoutsHdr.AutoSize = True
+        Me.LabelPriorLayoutsHdr.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelPriorLayoutsHdr.Location = New System.Drawing.Point(1042, 9)
+        Me.LabelPriorLayoutsHdr.Name = "LabelPriorLayoutsHdr"
+        Me.LabelPriorLayoutsHdr.Size = New System.Drawing.Size(95, 18)
+        Me.LabelPriorLayoutsHdr.TabIndex = 83
+        Me.LabelPriorLayoutsHdr.Text = "Prior layouts:"
         '
         'FlowLayoutPanel1
         '
-        Me.FlowLayoutPanel1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.FlowLayoutPanel1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.FlowLayoutPanel1.AutoScroll = True
         Me.FlowLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.FlowLayoutPanel1.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.FlowLayoutPanel1.Controls.Add(Me.PictureBox1)
         Me.FlowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
-        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(844, 41)
+        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(1045, 41)
         Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(349, 444)
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(349, 385)
         Me.FlowLayoutPanel1.TabIndex = 84
         Me.FlowLayoutPanel1.WrapContents = False
         '
@@ -129,34 +131,59 @@ Partial Class FormDisplayCacheLayouts
         Me.PictureBox1.BackColor = System.Drawing.Color.White
         Me.PictureBox1.Location = New System.Drawing.Point(3, 3)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(312, 183)
+        Me.PictureBox1.Size = New System.Drawing.Size(319, 205)
         Me.PictureBox1.TabIndex = 76
         Me.PictureBox1.TabStop = False
         '
-        'ButtonSelectDrive
+        'ButtonSelectLayoutFromDrive
         '
-        Me.ButtonSelectDrive.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonSelectDrive.Location = New System.Drawing.Point(26, 396)
-        Me.ButtonSelectDrive.Name = "ButtonSelectDrive"
-        Me.ButtonSelectDrive.Size = New System.Drawing.Size(171, 89)
-        Me.ButtonSelectDrive.TabIndex = 85
-        Me.ButtonSelectDrive.Text = "Find Layout in Drive(s)"
-        Me.ButtonSelectDrive.UseVisualStyleBackColor = True
+        Me.ButtonSelectLayoutFromDrive.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonSelectLayoutFromDrive.Location = New System.Drawing.Point(26, 396)
+        Me.ButtonSelectLayoutFromDrive.Name = "ButtonSelectLayoutFromDrive"
+        Me.ButtonSelectLayoutFromDrive.Size = New System.Drawing.Size(171, 89)
+        Me.ButtonSelectLayoutFromDrive.TabIndex = 85
+        Me.ButtonSelectLayoutFromDrive.Text = "Find Layout in Drive(s)"
+        Me.ButtonSelectLayoutFromDrive.UseVisualStyleBackColor = True
         '
         'OpenFileDialog1
         '
         Me.OpenFileDialog1.FileName = "OpenFileDialog1"
         '
+        'LabelWarningMessage
+        '
+        Me.LabelWarningMessage.AutoSize = True
+        Me.LabelWarningMessage.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelWarningMessage.ForeColor = System.Drawing.Color.Red
+        Me.LabelWarningMessage.Location = New System.Drawing.Point(241, 62)
+        Me.LabelWarningMessage.Name = "LabelWarningMessage"
+        Me.LabelWarningMessage.Size = New System.Drawing.Size(149, 18)
+        Me.LabelWarningMessage.TabIndex = 86
+        Me.LabelWarningMessage.Text = "[warning message]"
+        Me.LabelWarningMessage.Visible = False
+        '
+        'ButtonUserCancels
+        '
+        Me.ButtonUserCancels.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ButtonUserCancels.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonUserCancels.Location = New System.Drawing.Point(1223, 443)
+        Me.ButtonUserCancels.Name = "ButtonUserCancels"
+        Me.ButtonUserCancels.Size = New System.Drawing.Size(171, 42)
+        Me.ButtonUserCancels.TabIndex = 87
+        Me.ButtonUserCancels.Text = "Cancel"
+        Me.ButtonUserCancels.UseVisualStyleBackColor = True
+        '
         'FormDisplayCacheLayouts
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1205, 503)
-        Me.Controls.Add(Me.ButtonSelectDrive)
+        Me.ClientSize = New System.Drawing.Size(1406, 503)
+        Me.Controls.Add(Me.ButtonUserCancels)
+        Me.Controls.Add(Me.LabelWarningMessage)
+        Me.Controls.Add(Me.ButtonSelectLayoutFromDrive)
         Me.Controls.Add(Me.FlowLayoutPanel1)
-        Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.Button)
-        Me.Controls.Add(Me.ButtonOpenLayout)
+        Me.Controls.Add(Me.LabelPriorLayoutsHdr)
+        Me.Controls.Add(Me.ButtonOpenNewBlank)
+        Me.Controls.Add(Me.ButtonOpenCurrentLayout)
         Me.Controls.Add(Me.LabelFullPathToXML)
         Me.Controls.Add(Me.LabelHeader3)
         Me.Controls.Add(Me.LabelCaptionPathToTheFileXML)
@@ -175,11 +202,13 @@ Partial Class FormDisplayCacheLayouts
     Friend WithEvents LabelCaptionPathToTheFileXML As Label
     Friend WithEvents LabelHeader3 As Label
     Friend WithEvents LabelFullPathToXML As Label
-    Friend WithEvents ButtonOpenLayout As Button
-    Friend WithEvents Button As Button
-    Friend WithEvents Label1 As Label
+    Friend WithEvents ButtonOpenCurrentLayout As Button
+    Friend WithEvents ButtonOpenNewBlank As Button
+    Friend WithEvents LabelPriorLayoutsHdr As Label
     Friend WithEvents FlowLayoutPanel1 As FlowLayoutPanel
     Friend WithEvents PictureBox1 As PictureBox
-    Friend WithEvents ButtonSelectDrive As Button
+    Friend WithEvents ButtonSelectLayoutFromDrive As Button
     Friend WithEvents OpenFileDialog1 As OpenFileDialog
+    Friend WithEvents LabelWarningMessage As Label
+    Friend WithEvents ButtonUserCancels As Button
 End Class

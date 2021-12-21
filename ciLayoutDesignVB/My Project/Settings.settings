@@ -23,5 +23,8 @@
     <Setting Name="PathToSavedXML_Prior3" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="PathToLastDirectoryForXMLFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

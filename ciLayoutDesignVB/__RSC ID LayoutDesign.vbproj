@@ -483,16 +483,16 @@
     <Compile Include="Interfaces\InterfaceRecallLastTouched_NotUsed.vb" />
     <Compile Include="Interfaces\InterfaceRecallMoveable_NotUsed.vb" />
     <Compile Include="Interfaces\InterfaceShowListFields.vb" />
-    <Compile Include="ListCustomFieldsFlow.Designer.vb">
+    <Compile Include="FlowDialogs\ListCustomFieldsFlow.Designer.vb">
       <DependentUpon>ListCustomFieldsFlow.vb</DependentUpon>
     </Compile>
-    <Compile Include="ListCustomFieldsFlow.vb">
+    <Compile Include="FlowDialogs\ListCustomFieldsFlow.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ListCustomFieldsGrid.Designer.vb">
+    <Compile Include="FlowDialogs\ListCustomFieldsGrid.Designer.vb">
       <DependentUpon>ListCustomFieldsGrid.vb</DependentUpon>
     </Compile>
-    <Compile Include="ListCustomFieldsGrid.vb">
+    <Compile Include="FlowDialogs\ListCustomFieldsGrid.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DialogDisplayColor.Designer.vb">
@@ -549,10 +549,10 @@
     <Compile Include="DialogPresetValues.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ListStandardFields.Designer.vb">
+    <Compile Include="FlowDialogs\ListStandardFields.Designer.vb">
       <DependentUpon>ListStandardFields.vb</DependentUpon>
     </Compile>
-    <Compile Include="ListStandardFields.vb">
+    <Compile Include="FlowDialogs\ListStandardFields.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DialogSubsection.Designer.vb">
@@ -591,7 +591,7 @@
     <Compile Include="Modules\modFonts.vb" />
     <Compile Include="Modules\modAllowFieldEdits.vb" />
     <Compile Include="__Notes\CodeDeletedFromProtoTwo.vb" />
-    <Compile Include="Startup.vb" />
+    <Compile Include="___Startup\Startup.vb" />
     <Compile Include="Version830_v101.Designer.vb">
       <DependentUpon>Version830_v101.vb</DependentUpon>
     </Compile>
@@ -739,10 +739,10 @@
       <DependentUpon>FormSimpleDataEntry.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ListCustomFieldsFlow.resx">
+    <EmbeddedResource Include="FlowDialogs\ListCustomFieldsFlow.resx">
       <DependentUpon>ListCustomFieldsFlow.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ListCustomFieldsGrid.resx">
+    <EmbeddedResource Include="FlowDialogs\ListCustomFieldsGrid.resx">
       <DependentUpon>ListCustomFieldsGrid.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormDesignPrototype.resx">
@@ -776,7 +776,7 @@
     <EmbeddedResource Include="DialogPresetValues.resx">
       <DependentUpon>DialogPresetValues.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ListStandardFields.resx">
+    <EmbeddedResource Include="FlowDialogs\ListStandardFields.resx">
       <DependentUpon>ListStandardFields.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DialogSubsection.resx">

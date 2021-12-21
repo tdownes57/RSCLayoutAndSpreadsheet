@@ -136,6 +136,18 @@ Namespace My
                 Me("PathToSavedXML_Prior3") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property PathToLastDirectoryForXMLFile() As String
+            Get
+                Return CType(Me("PathToLastDirectoryForXMLFile"),String)
+            End Get
+            Set
+                Me("PathToLastDirectoryForXMLFile") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

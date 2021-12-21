@@ -748,7 +748,7 @@ Public Class ClassDesigner
             ''For now, omit the picture and the signature from the back side of the card. 
             ''   ----12/8/2021 td
         Else
-            LoadElements_Picture(par_cache.PicElement())
+            LoadElements_Picture(par_cache.PicElement_Front())
             LoadElements_Signature(par_cache.ElementSignature) ''Added 10/12/2019 thomas d.
             ''Added 12/18/2021 td 
             ''Dec18 2021''LoadElements_StaticText1(par_cache.ListOfElementTexts_Front.GetEnumerator().Current) ''Added 10/12/2019 thomas d.
