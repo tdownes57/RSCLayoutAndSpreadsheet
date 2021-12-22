@@ -151,6 +151,7 @@ Public Class ClassDesigner
         Return (EnumSideOfCard = EnumWhichSideOfCard.EnumBackside)
     End Function
 
+
     Public Function ListOfFieldLabels() As HashSet(Of CtlGraphicFldLabel)
         ''10/17/2019 td''Public Function ListOfFieldLabels() As List(Of CtlGraphicFldLabel)
         ''Added 10/13/2019 thomas downes

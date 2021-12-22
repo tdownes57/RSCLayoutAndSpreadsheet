@@ -90,8 +90,12 @@ Public Class Startup
                 ''Added 12/20/2021 td
                 If (bGoodChoice) Then
                     ''Added 12/20/2021 td
+                    My.Settings.PathToSavedXML_Prior3 = My.Settings.PathToSavedXML_Prior2
+                    My.Settings.PathToSavedXML_Prior2 = My.Settings.PathToSavedXML_Prior1
+                    My.Settings.PathToSavedXML_Prior1 = My.Settings.PathToSavedXML_Last
                     My.Settings.PathToSavedXML_Last = objShow.PathToElementsCacheXML
                     My.Settings.PathToLastDirectoryForXMLFile = objShow.PathToLastDirectoryForXMLFile
+                    My.Settings.PathToXML_Saved_ElementsCache = objShow.PathToElementsCacheXML
                     My.Settings.Save()
                 End If ''End of "If (bGoodChoice) Then"
 
@@ -476,6 +480,9 @@ Public Class Startup
             obj_cache_elements.PathToXml_Saved = strPathToXML
 
             ''Added 12/20/2021 td
+            My.Settings.PathToSavedXML_Prior3 = My.Settings.PathToSavedXML_Prior2
+            My.Settings.PathToSavedXML_Prior2 = My.Settings.PathToSavedXML_Prior1
+            My.Settings.PathToSavedXML_Prior1 = My.Settings.PathToSavedXML_Last
             My.Settings.PathToXML_Saved_ElementsCache = strPathToXML
             My.Settings.PathToSavedXML_Last = strPathToXML
             My.Settings.Save()

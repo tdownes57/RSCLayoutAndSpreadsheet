@@ -1620,6 +1620,19 @@ Public Class Form__Main_Demo
         End If ''End of "If (boolSavedWell_Exists) Then ... Else ..."
 
         ''
+        ''
+        ''Save the new file XML in the Settings. 
+        ''
+        ''
+        My.Settings.PathToLastDirectoryForXMLFile = objFileInfo.DirectoryName
+        My.Settings.PathToSavedXML_Prior3 = My.Settings.PathToSavedXML_Prior2
+        My.Settings.PathToSavedXML_Prior2 = My.Settings.PathToSavedXML_Prior1
+        My.Settings.PathToSavedXML_Prior1 = My.Settings.PathToSavedXML_Last
+        My.Settings.PathToSavedXML_Last = strSaveFileAs_FullFileName
+        My.Settings.PathToXML_Saved_ElementsCache = strSaveFileAs_FullFileName
+        My.Settings.Save()
+
+        ''
         ''Specify the XML cache file, in the Window caption. ---12/14/2021 td 
         ''
         Dim strFileTitleXML As String ''Added 12/1/4/2021 td
