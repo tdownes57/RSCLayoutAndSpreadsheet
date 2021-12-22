@@ -109,6 +109,7 @@ Partial Class Form__Main_Demo
         Me.CtlGraphicStaticText1 = New ciBadgeDesigner.CtlGraphicStaticText()
         Me.LinkLabel2 = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel3 = New System.Windows.Forms.LinkLabel()
+        Me.StatusLabelWarningError = New System.Windows.Forms.ToolStripStatusLabel()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -489,10 +490,10 @@ Partial Class Form__Main_Demo
         'StatusStrip1
         '
         Me.StatusStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StatusLabelMovingElement, Me.StatusLabelNameOfElement})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 587)
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StatusLabelMovingElement, Me.StatusLabelNameOfElement, Me.StatusLabelWarningError})
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 583)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(1298, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(1298, 26)
         Me.StatusStrip1.TabIndex = 47
         Me.StatusStrip1.Text = "StatusStrip1"
         '
@@ -506,8 +507,8 @@ Partial Class Form__Main_Demo
         'StatusLabelNameOfElement
         '
         Me.StatusLabelNameOfElement.Name = "StatusLabelNameOfElement"
-        Me.StatusLabelNameOfElement.Size = New System.Drawing.Size(93, 20)
-        Me.StatusLabelNameOfElement.Text = "StatusLabel2"
+        Me.StatusLabelNameOfElement.Size = New System.Drawing.Size(195, 20)
+        Me.StatusLabelNameOfElement.Text = "StatusLabelNameOfElement"
         Me.StatusLabelNameOfElement.Visible = False
         '
         'linkRemoveElements
@@ -582,7 +583,7 @@ Partial Class Form__Main_Demo
         Me.flowSidebar.Dock = System.Windows.Forms.DockStyle.Right
         Me.flowSidebar.Location = New System.Drawing.Point(1277, 30)
         Me.flowSidebar.Name = "flowSidebar"
-        Me.flowSidebar.Size = New System.Drawing.Size(21, 557)
+        Me.flowSidebar.Size = New System.Drawing.Size(21, 553)
         Me.flowSidebar.TabIndex = 54
         Me.flowSidebar.Visible = False
         '
@@ -819,6 +820,12 @@ Partial Class Form__Main_Demo
         Me.LinkLabel3.TabStop = True
         Me.LinkLabel3.Text = "Turn on drag-&&-drop for last-touched element."
         '
+        'StatusLabelWarningError
+        '
+        Me.StatusLabelWarningError.Name = "StatusLabelWarningError"
+        Me.StatusLabelWarningError.Size = New System.Drawing.Size(172, 20)
+        Me.StatusLabelWarningError.Text = "StatusLabelWarningError"
+        '
         'Form__Main_Demo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 20.0!)
@@ -967,4 +974,5 @@ Partial Class Form__Main_Demo
     Friend WithEvents AddExtraHeadersToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents LinkLabel2 As LinkLabel
     Friend WithEvents LinkLabel3 As LinkLabel
+    Friend WithEvents StatusLabelWarningError As ToolStripStatusLabel
 End Class

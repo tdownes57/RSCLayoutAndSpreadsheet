@@ -22,6 +22,7 @@ Public Class ClassDesigner
     ''Added 10/1/2019 thomas downes 
     ''
     Public Event ElementFieldRightClicked(par_control As CtlGraphicFldLabel) ''Added 10/1/2019 td
+    Public Event ElementPortraitRightClicked(par_control As CtlGraphicPortrait) ''Added 12/22/2021 td
     Public Event ElementQRCodeRightClicked(par_control As CtlGraphicQRCode) ''Added 12/15/2021 td
     Public Event ElementSignatRightClicked(par_control As CtlGraphicSignature) ''Added 12/15/2021 td
     Public Event ElementStaticTextRightClicked(par_control As CtlGraphicStaticText) ''Added 12/15/2021 td
@@ -55,6 +56,7 @@ Public Class ClassDesigner
     Public Property ExampleImage_Signature As Image ''Added 10/10/2019 td 
 
     Public Property FlowFieldsNotListed As FlowLayoutPanel ''Added 10/1/2019 td
+    Public Property StatusLabelWarningLabel As ToolStripStatusLabel ''Added 12/22/2021 td
 
     Public Property CtlGraphic_Portrait As CtlGraphicPortrait ''Added 10/1/2019 td
 
@@ -337,7 +339,8 @@ Public Class ClassDesigner
                 objListenerStaticText.RemoveEventHandlers()
                 mod_designerListener.DictyControlResizing.Remove(each_control) ''Added 12/17/2021 td
             Else
-                MessageBox.Show("We don't see the event-listener for the StaticText control.")
+                ''---MessageBox.Show("We don't see the event-listener for the StaticText control.")
+                StatusLabelWarningLabel.Text = "We don't see the event-listener for the StaticText control."
 
             End If ''End of "If (boolListenerFound) Then ... Else ..."
 
@@ -923,11 +926,12 @@ Public Class ClassDesigner
             ''Added 9/17/2019 td
             .Refresh_Master()
 
-        End With ''End of "With CtlGraphicPortrait1"
+        End With ''End of "With CtlGraphic_Portrait"
 
         ''Added 12/15/2021 td
         ''   Pass on the event of right-clicking a element-field control. 
         ''----AddHandler label_control.ElementPic_RightClicked, AddressOf ElementPic_Clicked
+        AddHandler CtlGraphic_Portrait.ElementPic_RightClicked, AddressOf ElementPic_Clicked
 
     End Sub ''End of " Private Sub LoadElements_Picture()"
 
@@ -2337,13 +2341,14 @@ Public Class ClassDesigner
     End Sub
 
 
-    Private Sub ElementStatic_Clicked(par_control As CtlGraphicStaticText)
+    Private Sub ElementPic_Clicked(par_control As CtlGraphicPortrait)
         ''
-        ''Added 12/15/2021 thomas d.
+        ''Added 12/22/2021 thomas d.
         ''
-        RaiseEvent ElementStaticTextRightClicked(par_control)
+        RaiseEvent ElementPortraitRightClicked(par_control)
 
     End Sub
+
 
 
     Private Sub ElementQR_Clicked(par_control As CtlGraphicQRCode)
@@ -2360,6 +2365,15 @@ Public Class ClassDesigner
         ''Added 12/15/2021 thomas d.
         ''
         RaiseEvent ElementSignatRightClicked(par_control)
+
+    End Sub
+
+
+    Private Sub ElementStatic_Clicked(par_control As CtlGraphicStaticText)
+        ''
+        ''Added 12/15/2021 thomas d.
+        ''
+        RaiseEvent ElementStaticTextRightClicked(par_control)
 
     End Sub
 
