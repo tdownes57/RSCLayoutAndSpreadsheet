@@ -465,23 +465,38 @@ Public Class Form__Main_Demo
             Else
                 ''Added for deserialization from a saved XML file. 
                 ''  ---10/10/2019 td
-                Dim objElementPic As ClassElementPic
-                objElementPic = Me.ElementsCache_Edits.ListOfElementPics_Front().GetEnumerator.Current
+                Dim objElementPic As ClassElementPic ''Prior to 12/21/2021 td
+
+                ''Fun with enumeration!!! 
+                Const c_bEnumerationTechnicalWay As Boolean = True
+                Const c_bEnumerationCleverWay As Boolean = False
+                If (c_bEnumerationTechnicalWay) Then
+                    Dim enumeratorPics As IEnumerator(Of ClassElementPic) ''Prior to 12/21/2021 td
+                    enumeratorPics = Me.ElementsCache_Edits.ListOfElementPics_Front().GetEnumerator() ''Added 12/21/2021 td
+                    If (enumeratorPics.Current Is Nothing) Then enumeratorPics.MoveNext() ''Added 12/21/2021 td
+                    objElementPic = enumeratorPics.Current() ''Added 12/21/2021 td
+                ElseIf (c_bEnumerationCleverWay) Then
+                    For Each objElementPic In Me.ElementsCache_Edits.ListOfElementPics_Front()
+                        ''The var. objElementPic is now assigned to the first object in the list. ---12/21/21
+                        Exit For
+                    Next objElementPic
+                End If ''End of "If (c_bEnumerationTechnicalWay) Then ... ElseIf ..."
+
                 If (objElementPic Is Nothing) Then System.Diagnostics.Debugger.Break()
 
-                ''.Initial_Pic_Left = Me.ElementsCache_Edits.PicElement_Front().LeftEdge_Pixels
-                ''.Initial_Pic_Top = Me.ElementsCache_Edits.PicElement_Front().TopEdge_Pixels
-                ''.Initial_Pic_Width = Me.ElementsCache_Edits.PicElement_Front().Width_Pixels
-                ''.Initial_Pic_Height = Me.ElementsCache_Edits.PicElement_Front().Height_Pixels
-                .Initial_Pic_Left = objElementPic.LeftEdge_Pixels
-                .Initial_Pic_Top = objElementPic.TopEdge_Pixels
-                .Initial_Pic_Width = objElementPic.Width_Pixels
-                .Initial_Pic_Height = objElementPic.Height_Pixels
+                    ''.Initial_Pic_Left = Me.ElementsCache_Edits.PicElement_Front().LeftEdge_Pixels
+                    ''.Initial_Pic_Top = Me.ElementsCache_Edits.PicElement_Front().TopEdge_Pixels
+                    ''.Initial_Pic_Width = Me.ElementsCache_Edits.PicElement_Front().Width_Pixels
+                    ''.Initial_Pic_Height = Me.ElementsCache_Edits.PicElement_Front().Height_Pixels
+                    .Initial_Pic_Left = objElementPic.LeftEdge_Pixels
+                    .Initial_Pic_Top = objElementPic.TopEdge_Pixels
+                    .Initial_Pic_Width = objElementPic.Width_Pixels
+                    .Initial_Pic_Height = objElementPic.Height_Pixels
 
-            End If ''End of "If (Me.NewFileXML) Then .... Else ..."
+                End If ''End of "If (Me.NewFileXML) Then .... Else ..."
 
-            ''Added 12/12/2021
-            If (Me.ElementsCache_Edits.BadgeHasTwoSidesOfCard) Then
+                ''Added 12/12/2021
+                If (Me.ElementsCache_Edits.BadgeHasTwoSidesOfCard) Then
                 ''Added 12/12/2021
                 ''  Change ">>> Add backside of ID Card." to ">>> Show backside of ID Card.".
                 labelProceedToBackside.Text = labelProceedToBackside.Tag.ToString()

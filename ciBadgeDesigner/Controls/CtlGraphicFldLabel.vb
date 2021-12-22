@@ -482,6 +482,9 @@ ExitHandler:
             strTextToDisplay = Me.ElementClass_Obj.LabelText_ToDisplay(True, Nothing,
                          CtlGraphicFldLabel.UseExampleValues)
 
+            ''Added 12/21/2021 td
+            strTextToDisplay = (strTextToDisplay & (" " & Me.ElementClass_Obj.CaptionSuffixIfNeeded).TrimEnd())
+
             ''11/18 td''newTextImage =
             ''   modGenerate.TextImage_ByElemInfo(Me.ElementClass_Obj.LabelText_ToDisplay(True),
             newTextImage =
@@ -980,7 +983,7 @@ ExitHandler:
                 ''   sequence, since it supports a "UserGraphicsControl-->Element" flow.   That 
                 ''   flow (UserGraphicsControl-->Element) is maybe okay in some respects, !perhaps!, 
                 ''   but probably not here.
-                ''   -----9/23 td
+                ''   -----9/23/2019 td
                 ''
             Else
 

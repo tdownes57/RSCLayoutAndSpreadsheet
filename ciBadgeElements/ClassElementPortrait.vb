@@ -199,10 +199,10 @@ Public Class ClassElementPic ''May be renamed to ClassElementPortrait. ---10/8/2
 
     Public Property ZOrder As Integer Implements IElement_Base.ZOrder
         Get
-            Return DirectCast(ElementPicture, IElement_Base).ZOrder
+            Return 0 ''Return DirectCast(ElementPicture, IElement_Base).ZOrder
         End Get
         Set(value As Integer)
-            DirectCast(ElementPicture, IElement_Base).ZOrder = value
+            Return ''DirectCast(ElementPicture, IElement_Base).ZOrder = value
         End Set
     End Property
 

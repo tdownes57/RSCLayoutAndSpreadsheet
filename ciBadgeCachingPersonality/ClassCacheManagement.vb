@@ -538,8 +538,12 @@ Namespace ciBadgeCachePersonality
 
             With objDeserial
 
+                ''Added 12/21/2021 td
+                .PathToXML = pstrPathToCacheFileXML ''Added 12/21/2021 td
+
                 ''12/14/2021 td''.PathToXML = par_strPathToXml ''OpenFileDialog1.FileName
-                .PathToXML = Me.CacheForEditing.PathToXml_Saved
+                ''12/21/2021 td''.PathToXML = Me.CacheForEditing.PathToXml_Saved
+                If (.PathToXML = "") Then .PathToXML = Me.CacheForEditing.PathToXml_Saved
 
                 ''Added 11/24/2021 
                 bConfirmFileExists = System.IO.File.Exists(.PathToXML)

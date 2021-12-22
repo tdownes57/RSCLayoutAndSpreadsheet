@@ -621,22 +621,38 @@ ExitHandler:
         ''
         If (Me.ElementInfo_Base IsNot Nothing) Then
 
-            Me.ElementInfo_Base.Width_Pixels = Me.Width
-            Me.ElementInfo_Base.Height_Pixels = Me.Height
+            Const c_bAvoidAntiflowDesign As Boolean = True ''Avoid "BadDesign" / "bad design".  ---Added 12/21/2021 & 9/23/2019 td
 
-            ''Added 9/4/2019 td
-            ''9/12/2019 td''Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.Layout_Width_Pixels()
-            ''10/01/2019 td''Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.FormDesigner.Layout_Width_Pixels()
-            ''10/01/2019 td''Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.FormDesigner.Layout_Height_Pixels()
+            If (c_bAvoidAntiflowDesign) Then
 
-            If (Me.LayoutFunctions IsNot Nothing) Then
-                Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.LayoutFunctions.Layout_Width_Pixels()
-                Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
-            End If ''End of "If (Me.LayoutFunctions IsNot Nothing) Then"
+                ''The "Else" code (below) violates the "Fields-->Elements-->UserGraphicsControl-->Layout"
+                ''   sequence, since it supports a "UserGraphicsControl-->Element" flow.   That 
+                ''   flow (UserGraphicsControl-->Element) is maybe okay in some respects, !perhaps!, 
+                ''   but probably not here.
+                ''   -----12/21/2021 & 9/23/2019 td
+                ''
+            Else
 
-            Me.Refresh_Image(True)
+                Me.ElementInfo_Base.Width_Pixels = Me.Width
+                Me.ElementInfo_Base.Height_Pixels = Me.Height
+
+                ''Added 9/4/2019 td
+                ''9/12/2019 td''Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.Layout_Width_Pixels()
+                ''10/01/2019 td''Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.FormDesigner.Layout_Width_Pixels()
+                ''10/01/2019 td''Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.FormDesigner.Layout_Height_Pixels()
+
+                If (Me.LayoutFunctions IsNot Nothing) Then
+                    Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.LayoutFunctions.Layout_Width_Pixels()
+                    Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
+                End If ''End of "If (Me.LayoutFunctions IsNot Nothing) Then"
+
+                ''12/21/2021''Me.Refresh_Image(True)
+                Me.Refresh_Image(False, False, False, False)
+
+            End If ''End of "If (c_bAvoidAntiflowDesign) Then ... Else ...."
 
         End If ''End of "If (Me.ElementInfo_Base IsNot Nothing) Then"
+
     End Sub
 
     Private Sub PictureLabel_Click(sender As Object, e As EventArgs) Handles pictureLabel.Click

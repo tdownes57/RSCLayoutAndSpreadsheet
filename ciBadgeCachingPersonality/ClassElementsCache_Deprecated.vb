@@ -267,6 +267,24 @@ Namespace ciBadgeCachePersonality
         End Property
 
 
+        ''This is deprecated!!  Use ListOfElementFields_Front instead. ---12/21/2021 td
+        <Xml.Serialization.XmlIgnore>
+        Public Property ListOfElementFields As HashSet(Of ClassElementField)  ''---List(Of ClassElementField)
+            Get ''Added 9/28/2019 td
+                ''
+                ''This is deprecated!!  Use ListOfElementFields_Front instead. ---12/21/2021 td
+                ''
+                Return mod_listElementFields_Front
+            End Get
+            Set(value As HashSet(Of ClassElementField))  ''---List(Of ClassElementField))
+                ''Added 9/28/2019 td
+                ''
+                ''This is deprecated!!  Use ListOfElementFields_Front instead. ---12/21/2021 td
+                ''
+                mod_listElementFields_Front = value
+            End Set
+        End Property
+
 
         Public Property ListOfElementFields_Front As HashSet(Of ClassElementField)  ''---List(Of ClassElementField)
             Get ''Added 9/28/2019 td
@@ -431,15 +449,20 @@ Namespace ciBadgeCachePersonality
         End Sub ''End of "Public Sub RefreshListOfBadgeDisplayElements_Flds_Backside()"
 
 
+        ''This is deprecated!!  Use ListOfElementPics_Front instead. ---12/21/2021 td
+        <Xml.Serialization.XmlIgnore>
         Public Property ListOfElementPics As HashSet(Of ClassElementPic)  ''---List(Of ClassElementPic)
             Get ''Added 10/13/2019 td
                 ''
                 ''This property is Deprecated, so return Nothing. ----12/20/2021 thomas d.
                 ''
-                Return Nothing ''Dec20 2021''mod_listElementPics_Front
+                Return mod_listElementPics_Front ''Nothing ''Dec20 2021''mod_listElementPics_Front
             End Get
             Set(value As HashSet(Of ClassElementPic))  ''---List(Of ClassElementPic))
                 ''Added 10/13/2019 td
+                ''
+                ''This is deprecated!!  Use ListOfElementFields_Front instead. ---12/21/2021 td
+                ''
                 mod_listElementPics_Front = value
             End Set
         End Property
@@ -467,12 +490,14 @@ Namespace ciBadgeCachePersonality
         End Property
 
 
+        ''This is deprecated!!  Use ListOfElementTexts_Front instead. ---12/21/2021 td
+        <Xml.Serialization.XmlIgnore>
         Public Property ListOfElementTexts As HashSet(Of ClassElementStaticText)  ''---List(Of ClassElementPic)
             Get ''Added 12/20/2021 td
                 ''
                 ''This property is Deprecated, so return Nothing. ----12/20/2021 thomas d.
                 ''
-                Return Nothing ''Dec20 2021''mod_listElementPics_Front
+                Return mod_listElementStatics_Front ''--Nothing ''Dec20 2021''mod_listElementPics_Front
             End Get
             Set(value As HashSet(Of ClassElementStaticText))  ''---List(Of ClassElementPic))
                 ''Added 12/20/2021 td

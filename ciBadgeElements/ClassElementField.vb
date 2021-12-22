@@ -472,13 +472,14 @@ Public Class ClassElementField
     Public Property Visible As Boolean = True Implements IElement_Base.Visible ''Added 9/19/2019 td  
 
     Public Property DatetimeUpdated As DateTime = DateTime.MinValue ''Added 11/29/2021 thomas downes
+    Public Property CaptionSuffixIfNeeded As String = "" ''Added 12/21/2021 thomas downes
 
     Public Property ZOrder As Integer Implements IElement_Base.ZOrder
         Get
-            Throw New NotImplementedException()
+            Return 0 ''Throw New NotImplementedException()
         End Get
         Set(value As Integer)
-            Throw New NotImplementedException()
+            Return ''---Throw New NotImplementedException()
         End Set
     End Property
 

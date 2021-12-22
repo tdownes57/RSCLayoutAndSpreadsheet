@@ -166,10 +166,10 @@ Public Class ClassElementStaticText
 
     Public Property ZOrder As Integer Implements IElement_Base.ZOrder
         Get
-            Throw New NotImplementedException()
+            Return 0 ''Throw New NotImplementedException()
         End Get
         Set(value As Integer)
-            Throw New NotImplementedException()
+            Return ''Throw New NotImplementedException()
         End Set
     End Property
 

@@ -93,6 +93,16 @@ Public Class ClassDesigner
     Public Property Initial_Text_Width As Integer = 350 ''Default value added 10/1/2019 thomas downes
     Public Property Initial_Text_Height As Integer = 30 ''Default value added 10/1/2019 thomas downes
 
+    ''10/17/2019 td''Private mod_selectedCtls As New List(Of CtlGraphicFldLabel)   ''Added 8/03/2019 thomas downes 
+    Public mod_selectedCtls As New HashSet(Of CtlGraphicFldLabel)   ''Publicized 11/29/2021 ''Added 8/03/2019 thomas downes 
+    Public mod_FieldControlLastTouched As CtlGraphicFldLabel  ''Publicized 11/29/2021 ''Added 8/09/2019 thomas downes 
+
+    ''11/29/2012 ''Private mod_ControlLastTouched As Control ''Added 8/12/2019 thomas d. 
+    Public mod_ControlLastTouched As Control ''Publicized 11/29/2021 td''Added 8/12/2019 thomas d. 
+    Private mod_ElementLastTouched As Control ''Let's change this to IElement_Base soon. ---Added 9/14/2019 td 
+    Private mod_IMoveableElementLastTouched As IMoveableElement ''Added 12/21/2021 td
+    Private mod_ISaveableElementLastTouched As ISaveToModel ''Added 12/21/2021 td
+    Private Const mc_bAddBorderOnlyWhileResizing As Boolean = True ''Added 9/11/2019 thomas d. 
 
     ''#1 8-3-2019 td''Private WithEvents mod_moveAndResizeCtls_NA As New MoveAndResizeControls_Monem.ControlMove_RaiseEvents ''Added 8/3/2019 td  
     '' #2 8-3-2019 td''Private WithEvents mod_moveAndResizeCtls As New MoveAndResizeControls_Monem.ControlMove_GroupMove ''Added 8/3/2019 td  
@@ -738,7 +748,8 @@ Public Class ClassDesigner
         ''Major call !!
         ''
         ''----LoadFieldControls_ByListOfElements(par_cache.ListFieldElements(),
-        LoadFieldControls_ByListOfElements(objListBadgeElems,
+        '' Dec21 2021 ''LoadFieldControls_ByListOfElements(objListBadgeElems, 
+        LoadElements_FieldElements(objListBadgeElems,
                                            c_boolLoadingForm,
                                            False, boolMakeMoveableByUser,
                                            par_listFieldCtls,
@@ -1027,12 +1038,13 @@ Public Class ClassDesigner
 
     End Sub ''End of "Private Sub InitiateRubberbandSelector"
 
-    Private Sub LoadFieldControls_ByListOfElements(par_listElements As HashSet(Of ClassElementField),
+    Private Sub LoadElements_FieldElements(par_listElements As HashSet(Of ClassElementField),
                                par_boolLoadingForm As Boolean,
                                Optional par_bUnloading As Boolean = False,
                                Optional par_bAddMoveability As Boolean = False,
                                 Optional ByRef par_listFieldCtls As HashSet(Of CtlGraphicFldLabel) = Nothing,
                                Optional pstrWhyCalled As String = "")
+        ''---Dec21 2021 td''Private Sub LoadFieldControls_ByListOfElements(par_listElements As HashSet(Of ClassElementField), ...
         ''
         ''Added 9/17/2019 thomas downes 
         ''
@@ -1040,9 +1052,14 @@ Public Class ClassDesigner
         Dim boolIncludeOnBadge As Boolean = False ''Added 9/03/2019 td
         Dim intStagger As Integer = 0 ''Added 9.6.2019 td 
         Dim intUndeterminedField As Integer = 0 ''Added 10/13/2019 td  
+        Dim dictionaryOfCaptions As New ClassDictionaryOfCaptions() ''Added 12/21/2021 td
 
         ''9/17/2019 td''For Each each_field As ICIBFieldStandardOrCustom In par_list  
         For Each each_element As ClassElementField In par_listElements
+
+            ''Added 12/21/2021 td
+            ''  Let's track the count of the element per repeated caption, e.g. "#4" to make "Last Name #4". 
+            each_element.CaptionSuffixIfNeeded = dictionaryOfCaptions.AddCaption_GetSuffix(each_element.FieldNm_CaptionText)
 
             Dim label_control As CtlGraphicFldLabel
 
@@ -1200,7 +1217,7 @@ Public Class ClassDesigner
         new_list.Add(par_elementField)
 
         ''9/24/2019 td''LoadFieldControls_ByListOfElements(new_list, True, False, c_bAddToMoveableClass)
-        LoadFieldControls_ByListOfElements(new_list, True, False, c_bAddToMoveableClass, mod_listOfFieldControls)
+        LoadElements_FieldElements(new_list, True, False, c_bAddToMoveableClass, mod_listOfFieldControls)
 
     End Sub ''End of "Private Sub LoadFieldControl_JustOne(par_elementField As ClassElementField)"
 
@@ -1768,13 +1785,15 @@ Public Class ClassDesigner
     ''-----------------------------------------------------------------------
 
     ''10/17/2019 td''Private mod_selectedCtls As New List(Of CtlGraphicFldLabel)   ''Added 8/03/2019 thomas downes 
-    Public mod_selectedCtls As New HashSet(Of CtlGraphicFldLabel)   ''Publicized 11/29/2021 ''Added 8/03/2019 thomas downes 
-    Public mod_FieldControlLastTouched As CtlGraphicFldLabel  ''Publicized 11/29/2021 ''Added 8/09/2019 thomas downes 
+    ''See Line 100.12/21/21'' Public mod_selectedCtls As New HashSet(Of CtlGraphicFldLabel)   ''Publicized 11/29/2021 ''Added 8/03/2019 thomas downes 
+    ''See Line 101.12/21/21'' Public mod_FieldControlLastTouched As CtlGraphicFldLabel  ''Publicized 11/29/2021 ''Added 8/09/2019 thomas downes 
 
-    ''11/29/2012 ''Private mod_ControlLastTouched As Control ''Added 8/12/2019 thomas d. 
-    Public mod_ControlLastTouched As Control ''Publicized 11/29/2021 td''Added 8/12/2019 thomas d. 
-    Private mod_ElementLastTouched As Control ''Let's change this to IElement_Base soon. ---Added 9/14/2019 td 
-    Private Const mc_bAddBorderOnlyWhileResizing As Boolean = True ''Added 9/11/2019 thomas d. 
+    ''''11/29/2012 ''Private mod_ControlLastTouched As Control ''Added 8/12/2019 thomas d. 
+    ''See Line 102.12/21/21'' Public mod_ControlLastTouched As Control ''Publicized 11/29/2021 td''Added 8/12/2019 thomas d. 
+    ''See Line 103.12/21/21'' Private mod_ElementLastTouched As Control ''Let's change this to IElement_Base soon. ---Added 9/14/2019 td 
+    ''See Line 104.12/21/21'' Private mod_IMoveableElementLastTouched As IMoveableElement ''Added 12/21/2021 td
+    ''See Line 105.12/21/21'' Private mod_ISaveableElementLastTouched As ISaveToModel ''Added 12/21/2021 td
+    ''See Line 106.12/21/21'' Private Const mc_bAddBorderOnlyWhileResizing As Boolean = True ''Added 9/11/2019 thomas d. 
 
     Public Property ControlBeingMoved() As Control Implements ILayoutFunctions.ControlBeingMoved ''Added 8/4/2019 td
         Get
@@ -1785,9 +1804,17 @@ Public Class ClassDesigner
             ''Added 8/9/2019 td
             Try
                 ''9/9/2019 td''mod_FieldControlLastTouched = value
-                mod_FieldControlLastTouched = CType(value, CtlGraphicFldLabel)
+                ''Dec21 2021''mod_FieldControlLastTouched = CType(value, CtlGraphicFldLabel)
+                mod_FieldControlLastTouched = Nothing
+                If (TypeOf value Is CtlGraphicFldLabel) Then mod_FieldControlLastTouched = CType(value, CtlGraphicFldLabel)
                 mod_ElementLastTouched = CType(value, Control) ''Added 9/14 
                 mod_ControlLastTouched = value ''Added 8/1/2019 
+                ''Added 12/21/2021 td
+                mod_IMoveableElementLastTouched = Nothing
+                If (TypeOf value Is IMoveableElement) Then mod_IMoveableElementLastTouched = CType(value, IMoveableElement)
+                mod_ISaveableElementLastTouched = Nothing
+                If (TypeOf value Is ISaveToModel) Then mod_ISaveableElementLastTouched = CType(value, ISaveToModel)
+
             Catch
                 ''Added 8/12/2019 td  
                 mod_ControlLastTouched = value
