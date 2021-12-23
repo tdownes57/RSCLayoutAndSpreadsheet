@@ -1,8 +1,10 @@
 ﻿Option Strict On
 Option Explicit On
+
 Imports System.Drawing
 Imports ciBadgeElements
 Imports ciBadgeInterfaces
+
 ''
 ''Added 12/18/2021 td 
 ''

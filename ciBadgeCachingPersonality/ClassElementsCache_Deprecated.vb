@@ -107,6 +107,42 @@ Namespace ciBadgeCachePersonality
         ''    End Set
         ''End Property
 
+
+        Public Function GetBadgeSideLayout(par_enum As EnumWhichSideOfCard) As ClassBadgeSideLayout
+            ''
+            ''Added 12/22/2021 thomas downes
+            ''
+            Dim objSide As New ClassBadgeSideLayout
+            Dim bBackside As Boolean
+
+            bBackside = (par_enum = EnumWhichSideOfCard.EnumBackside)
+
+            If (bBackside) Then
+
+                objSide.BackgroundImage = Me.GetBackgroundImage(par_enum)
+                objSide.ElementPic = Me.ListOfElementPics_Back().FirstOrDefault()
+                objSide.ElementQR = Me.ElementQRCode
+                objSide.ElementSig = Me.ElementSignature
+                objSide.ListElementFields = Me.ListOfElementFields_Backside
+                objSide.ListElementGraphics = Nothing
+                objSide.ListElementStaticTexts = Me.ListOfElementTexts_Backside
+
+            Else
+                objSide.BackgroundImage = Me.GetBackgroundImage()
+                objSide.ElementPic = Me.ListOfElementPics_Front().FirstOrDefault()
+                objSide.ElementQR = Me.ElementQRCode
+                objSide.ElementSig = Me.ElementSignature
+                objSide.ListElementFields = Me.ListOfElementFields_Front
+                objSide.ListElementGraphics = Nothing
+                objSide.ListElementStaticTexts = Me.ListOfElementTexts_Front
+
+            End If ''End of "If (bBackside) Then ... Else ..."
+
+            Return objSide
+
+        End Function ''End of "Public Function GetBadgeSideLayout"
+
+
         Public Function ListOfFields_Any() As List(Of ClassFieldAny)
             ''
             ''Added 10/14/2019 thomas downes
@@ -1978,16 +2014,28 @@ Namespace ciBadgeCachePersonality
 
         End Sub ''End of "Public Sub SaveToXML()"
 
-        Public Function GetBackgroundImage(pintWidth As Integer, pintHeight As Integer,
-                                       pstrPathToLikelyFolder As String,
-                                       pbooWereTwoPropertiesRefreshed As Boolean) As Image
+        Public Function GetBackgroundImage(par_enum As EnumWhichSideOfCard) As Image
+            ''
+            ''Added 12/23/2021 thomas downes
+            ''
+
+
+        End Function
+
+
+        Public Function GetBackgroundImage(par_enum As EnumWhichSideOfCard,
+                                           pintWidth As Integer, pintHeight As Integer,
+                                       Optional pstrPathToLikelyFolder As String = "",
+                                       Optional pbooWereTwoPropertiesRefreshed As Boolean = False) As Image
             ''
             ''Added 1/14/2020 thomas downes
             ''
             Dim structCurrent As New BackgroundTitleAndWidth
             Dim imageFound As Image = Nothing
-            Dim imageCreated1 As Image
-            Dim imageCreated2 As Image
+            Dim imageCreated1 As Image = Nothing
+            Dim imageCreated2 As Image = Nothing
+            Dim bBackside As Boolean = (par_enum = EnumWhichSideOfCard.EnumBackside) ''Added 12/23/2021
+            Dim bFrontside As Boolean = (par_enum <> EnumWhichSideOfCard.EnumBackside) ''Added 12/23/2021
 
             ''//
             ''//  Have the following properties been recently refreshed?  ---11/2/2021 td
@@ -2005,7 +2053,10 @@ Namespace ciBadgeCachePersonality
             End If ''End if "If (Not pbooWerePropertiesRefreshed) Then"
 
             structCurrent.iPixelsWidth = pintWidth
-            structCurrent.sFileTitle = Me.BackgroundImage_Front_FTitle
+
+            ''Dec23 2021 td''structCurrent.sFileTitle = Me.BackgroundImage_Front_FTitle
+            If (bFrontside) Then structCurrent.sFileTitle = Me.BackgroundImage_Front_FTitle
+            If (bBackside) Then structCurrent.sFileTitle = Me.BackgroundImage_Backside_FTitle
 
             Try
                 imageFound = mod_dictionaryBackgroundImages(structCurrent)
@@ -2025,7 +2076,10 @@ Namespace ciBadgeCachePersonality
             Else
                 ''Added 1/14/2019 td 
                 BackgroundImage_RefreshPath(pstrPathToLikelyFolder) ''Added 1/14/2019 td 
-                imageCreated1 = New Bitmap(Me.BackgroundImage_Front_Path)
+                ''Dec23 2021 td''imageCreated1 = New Bitmap(Me.BackgroundImage_Front_Path)
+                If (bFrontside) Then imageCreated1 = New Bitmap(Me.BackgroundImage_Front_Path)
+                If (bBackside) Then imageCreated1 = New Bitmap(Me.BackgroundImage_Backside_Path)
+
                 ''imageCreated.Dispose()
                 imageCreated2 = New Bitmap(imageCreated1, New Size(pintWidth, pintHeight))
                 mod_dictionaryBackgroundImages.Add(structCurrent, imageCreated2)

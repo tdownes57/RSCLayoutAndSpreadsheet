@@ -766,7 +766,7 @@ Public Class ClassDesigner
         LoadElements_Picture(iBadgeSideElements.ElementPic)
 
         ''12/22/2021 td''LoadElements_Signature(par_cache.ElementSignature) ''Added 10/12/2019 thomas d.
-        LoadElements_Signature(iBadgeSideElements.ElementSignature) ''Modified 12/22/2021 thomas d.
+        LoadElements_Signature(iBadgeSideElements.ElementSig) ''Modified 12/22/2021 thomas d.
 
         ''Added 12/18/2021 td 
         ''Dec18 2021''LoadElements_StaticText1(par_cache.ListOfElementTexts_Front.GetEnumerator().Current) ''Added 10/12/2019 thomas d.
@@ -940,19 +940,21 @@ Public Class ClassDesigner
     End Sub ''End of " Private Sub LoadElements_Picture()"
 
 
-    Private Sub LoadElements_QRCode()
-        ''--Dec22 2021 td''--Private Sub LoadDesigner_QRCode()
+    Private Sub LoadElements_QRCode(par_elementQR As ClassElementQRCode)
+        ''--#2 Dec22 2021 td''--Private Sub LoadElements_QRCode()
+        ''--#1 Dec22 2021 td''--Private Sub LoadDesigner_QRCode()
         ''
         ''Added 12/22/2021 thomas downes
         ''
         Me.CtlGraphic_QRCode.Dispose()
         Me.DesignerForm.Controls.Remove(Me.CtlGraphic_QRCode)
         ''Load a brand-new QR-code control. ---12/7/2021 td  
-        Dim elementQRCode As ClassElementQRCode = Me.ElementsCache_UseEdits.ElementQRCode
-        If (elementQRCode.WhichSideOfCard = EnumWhichSideOfCard.Undetermined) Then elementQRCode.WhichSideOfCard = EnumWhichSideOfCard.EnumFrontside ''Added 12/15/2021
+        ''12/22/2021 td''Dim elementQRCode As ClassElementQRCode = Me.ElementsCache_UseEdits.ElementQRCode
 
-        If (elementQRCode.WhichSideOfCard = Me.EnumSideOfCard) Then ''Added 12/15/2021
-            Me.CtlGraphic_QRCode = New CtlGraphicQRCode(elementQRCode, CType(Me, ILayoutFunctions))
+        ''12/22/2021 td''If (elementQRCode.WhichSideOfCard = EnumWhichSideOfCard.Undetermined) Then elementQRCode.WhichSideOfCard = EnumWhichSideOfCard.EnumFrontside ''Added 12/15/2021
+
+        If (par_elementQR.WhichSideOfCard = Me.EnumSideOfCard) Then ''Added 12/15/2021
+            Me.CtlGraphic_QRCode = New CtlGraphicQRCode(par_elementQR, CType(Me, ILayoutFunctions))
             Me.DesignerForm.Controls.Add(Me.CtlGraphic_QRCode)
             mod_listOfDesignerControls.Add(Me.CtlGraphic_QRCode) ''Added 12/8/2021 td
 
@@ -962,10 +964,11 @@ Public Class ClassDesigner
 
                 ''Dec.8 2021''.Left = elementQRCode.LeftEdge_Pixels
                 ''Dec.8 2021''.Top = elementQRCode.TopEdge_Pixels
-                .Left = Me.Layout_Margin_Left_Add(elementQRCode.LeftEdge_Pixels)
-                .Top = Me.Layout_Margin_Top_Add(elementQRCode.TopEdge_Pixels)
-                .Width = elementQRCode.Width_Pixels
-                .Height = elementQRCode.Height_Pixels
+                .Left = Me.Layout_Margin_Left_Add(par_elementQR.LeftEdge_Pixels)
+                .Top = Me.Layout_Margin_Top_Add(par_elementQR.TopEdge_Pixels)
+                .Width = par_elementQR.Width_Pixels
+                .Height = par_elementQR.Height_Pixels
+
             End With ''End of "With Me.CtlGraphic_QRCode"
         End If ''End of "If (elementQRCode.WhichSideOfCard = Me.EnumSideOfCard) Then"
 
