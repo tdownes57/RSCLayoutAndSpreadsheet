@@ -130,6 +130,12 @@
     <Compile Include="Controls\CtlPartial_HardText.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Controls\MoveableControl.Designer.vb">
+      <DependentUpon>MoveableControl.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MoveableControl.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="InterfaceSelectingElements.vb" />
     <Compile Include="InterfaceSelectingElements_v90.vb" />
     <Compile Include="Interfaces\InterfaceClickableElement.vb" />
@@ -176,6 +182,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlMainEntryBox_v90.resx">
       <DependentUpon>CtlMainEntryBox_v90.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\MoveableControl.resx">
+      <DependentUpon>MoveableControl.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

@@ -413,35 +413,13 @@ Public Class ClassDesigner
         ''      1. Destroy the existing control.
         ''      2. Create a new one & add it to the designer form. 
         ''
-        Me.CtlGraphic_QRCode.Dispose()
-        Me.DesignerForm.Controls.Remove(Me.CtlGraphic_QRCode)
-        ''Load a brand-new QR-code control. ---12/7/2021 td  
-        Dim elementQRCode As ClassElementQRCode = Me.ElementsCache_UseEdits.ElementQRCode
-        If (elementQRCode.WhichSideOfCard = EnumWhichSideOfCard.Undetermined) Then elementQRCode.WhichSideOfCard = EnumWhichSideOfCard.EnumFrontside ''Added 12/15/2021
+        LoadDesigner_QRCode()
 
-        If (elementQRCode.WhichSideOfCard = Me.EnumSideOfCard) Then ''Added 12/15/2021
-            Me.CtlGraphic_QRCode = New CtlGraphicQRCode(elementQRCode, CType(Me, ILayoutFunctions))
-            Me.DesignerForm.Controls.Add(Me.CtlGraphic_QRCode)
-            mod_listOfDesignerControls.Add(Me.CtlGraphic_QRCode) ''Added 12/8/2021 td
-
-            With Me.CtlGraphic_QRCode
-                ''Me.CtlGraphic_QRCode.Visible = True ''Dec. 7, 2021
-                .Visible = True
-
-                ''Dec.8 2021''.Left = elementQRCode.LeftEdge_Pixels
-                ''Dec.8 2021''.Top = elementQRCode.TopEdge_Pixels
-                .Left = Me.Layout_Margin_Left_Add(elementQRCode.LeftEdge_Pixels)
-                .Top = Me.Layout_Margin_Top_Add(elementQRCode.TopEdge_Pixels)
-                .Width = elementQRCode.Width_Pixels
-                .Height = elementQRCode.Height_Pixels
-            End With ''End of "With Me.CtlGraphic_QRCode"
-        End If ''End of "If (elementQRCode.WhichSideOfCard = Me.EnumSideOfCard) Then"
-
-        Me.BackgroundBox_Front.SendToBack() ''Dec. 7
-        If (ShowingTheBackside()) Then
-            Me.BackgroundBox_Backside.SendToBack() ''Added 12/10/2021 td
-            Me.BackgroundBox_Front.SendToBack() ''Added 12/10/2021 td
-        End If ''End of "If (ShowingBackside()) Then"
+        ''++=++See below. Dec22 2021 ''Me.BackgroundBox_Front.SendToBack() ''Dec. 7
+        ''++If (ShowingTheBackside()) Then
+        ''++    Me.BackgroundBox_Backside.SendToBack() ''Added 12/10/2021 td
+        ''++    Me.BackgroundBox_Front.SendToBack() ''Added 12/10/2021 td
+        ''++End If ''End of "If (ShowingBackside()) Then"
 
         mod_imageExampleQRCode = Me.CtlGraphic_QRCode.pictureQRCode.Image ''Added 10/14/2019 td
         With Me.ElementsCache_UseEdits.ElementQRCode
@@ -662,6 +640,72 @@ Public Class ClassDesigner
                                           mod_listOfDesignerControls)
 
     End Sub ''End of "Public Sub LoadDesigner"
+
+
+    Private Sub LoadDesigner_QRCode()
+        ''
+        ''Added 12/22/2021 thomas downes
+        ''
+        Me.CtlGraphic_QRCode.Dispose()
+        Me.DesignerForm.Controls.Remove(Me.CtlGraphic_QRCode)
+        ''Load a brand-new QR-code control. ---12/7/2021 td  
+        Dim elementQRCode As ClassElementQRCode = Me.ElementsCache_UseEdits.ElementQRCode
+        If (elementQRCode.WhichSideOfCard = EnumWhichSideOfCard.Undetermined) Then elementQRCode.WhichSideOfCard = EnumWhichSideOfCard.EnumFrontside ''Added 12/15/2021
+
+        If (elementQRCode.WhichSideOfCard = Me.EnumSideOfCard) Then ''Added 12/15/2021
+            Me.CtlGraphic_QRCode = New CtlGraphicQRCode(elementQRCode, CType(Me, ILayoutFunctions))
+            Me.DesignerForm.Controls.Add(Me.CtlGraphic_QRCode)
+            mod_listOfDesignerControls.Add(Me.CtlGraphic_QRCode) ''Added 12/8/2021 td
+
+            With Me.CtlGraphic_QRCode
+                ''Me.CtlGraphic_QRCode.Visible = True ''Dec. 7, 2021
+                .Visible = True
+
+                ''Dec.8 2021''.Left = elementQRCode.LeftEdge_Pixels
+                ''Dec.8 2021''.Top = elementQRCode.TopEdge_Pixels
+                .Left = Me.Layout_Margin_Left_Add(elementQRCode.LeftEdge_Pixels)
+                .Top = Me.Layout_Margin_Top_Add(elementQRCode.TopEdge_Pixels)
+                .Width = elementQRCode.Width_Pixels
+                .Height = elementQRCode.Height_Pixels
+            End With ''End of "With Me.CtlGraphic_QRCode"
+        End If ''End of "If (elementQRCode.WhichSideOfCard = Me.EnumSideOfCard) Then"
+
+    End Sub ''ENd of "Private Sub LoadDesigner_QRCode"
+
+
+    Private Sub LoadDesigner_Signat()
+        ''
+        ''Added 12/22/2021 thomas downes
+        ''
+        Me.CtlGraphic_Signat.Dispose()
+        Me.DesignerForm.Controls.Remove(Me.CtlGraphic_Signat)
+        ''Load a brand-new QR-code control. ---12/7/2021 td  
+        Dim elementSignat As ClassElementSignature = Me.ElementsCache_UseEdits.ElementSignature
+        If (elementSignat.WhichSideOfCard = EnumWhichSideOfCard.Undetermined) Then elementSignat.WhichSideOfCard = EnumWhichSideOfCard.EnumFrontside
+
+        If (elementSignat.WhichSideOfCard = Me.EnumSideOfCard) Then ''Added 12/15/2021
+            ''
+            ''Added 12/22/2021 thomas downes
+            ''
+            Dim strPathToSigFile As String
+            strPathToSigFile = 
+
+            Me.CtlGraphic_Signat = New CtlGraphicSignature(elementSignat, CType(Me, ILayoutFunctions),
+                        strPathToSigFile)
+            Me.DesignerForm.Controls.Add(Me.CtlGraphic_Signat)
+            mod_listOfDesignerControls.Add(Me.CtlGraphic_Signat) ''Added 12/22/2021 td
+
+            With Me.CtlGraphic_Signat
+                .Visible = True
+                .Left = Me.Layout_Margin_Left_Add(elementSignat.LeftEdge_Pixels)
+                .Top = Me.Layout_Margin_Top_Add(elementSignat.TopEdge_Pixels)
+                .Width = elementSignat.Width_Pixels
+                .Height = elementSignat.Height_Pixels
+            End With ''End of "With Me.CtlGraphic_QRCode"
+        End If ''End of "If (elementQRCode.WhichSideOfCard = Me.EnumSideOfCard) Then"
+
+    End Sub ''ENd of "Private Sub LoadDesigner_QRCode"
+
 
     Public Sub UnselectHighlightedElements()
         ''
