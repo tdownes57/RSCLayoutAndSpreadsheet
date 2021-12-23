@@ -413,7 +413,7 @@ Public Class ClassDesigner
         ''      1. Destroy the existing control.
         ''      2. Create a new one & add it to the designer form. 
         ''
-        LoadDesigner_QRCode()
+        ''Moved to LoadForm_LayoutElements(). Dec22 2021''LoadDesigner_QRCode()
 
         ''++=++See below. Dec22 2021 ''Me.BackgroundBox_Front.SendToBack() ''Dec. 7
         ''++If (ShowingTheBackside()) Then
@@ -529,7 +529,12 @@ Public Class ClassDesigner
             Me.ElementsCache_UseEdits.LoadElement_StaticText_IfNeeded("This is text which will be the same for everyone.",
                                                     Initial_Text_Left, Initial_Text_Top,
                                                    Initial_Text_Width, Initial_Text_Height, Me.BackgroundBox_Front) ''Added 9/19/2019 td
-        End If ''End of "If (Me.ElementsCache_Saved.MissingTheElementTexts) Then"
+        Else
+            ''Added 12/22/2021 thomas downes
+            ''--Dec22 2021 td--LoadDesigner_StaticTexts
+            ''--Moved to Sub LoadForm_LayoutElements().---Dec22 2021 td--LoadElements_StaticTexts()
+
+        End If ''End of "If (Me.ElementsCache_Saved.MissingTheElementTexts) Then .... Else ..."
 
         ''Added 9/24/2019 thomas 
         ''  10/1/2019 td''Dim serial_tools As New ciBadgeSerialize.ClassSerial
@@ -642,71 +647,6 @@ Public Class ClassDesigner
     End Sub ''End of "Public Sub LoadDesigner"
 
 
-    Private Sub LoadDesigner_QRCode()
-        ''
-        ''Added 12/22/2021 thomas downes
-        ''
-        Me.CtlGraphic_QRCode.Dispose()
-        Me.DesignerForm.Controls.Remove(Me.CtlGraphic_QRCode)
-        ''Load a brand-new QR-code control. ---12/7/2021 td  
-        Dim elementQRCode As ClassElementQRCode = Me.ElementsCache_UseEdits.ElementQRCode
-        If (elementQRCode.WhichSideOfCard = EnumWhichSideOfCard.Undetermined) Then elementQRCode.WhichSideOfCard = EnumWhichSideOfCard.EnumFrontside ''Added 12/15/2021
-
-        If (elementQRCode.WhichSideOfCard = Me.EnumSideOfCard) Then ''Added 12/15/2021
-            Me.CtlGraphic_QRCode = New CtlGraphicQRCode(elementQRCode, CType(Me, ILayoutFunctions))
-            Me.DesignerForm.Controls.Add(Me.CtlGraphic_QRCode)
-            mod_listOfDesignerControls.Add(Me.CtlGraphic_QRCode) ''Added 12/8/2021 td
-
-            With Me.CtlGraphic_QRCode
-                ''Me.CtlGraphic_QRCode.Visible = True ''Dec. 7, 2021
-                .Visible = True
-
-                ''Dec.8 2021''.Left = elementQRCode.LeftEdge_Pixels
-                ''Dec.8 2021''.Top = elementQRCode.TopEdge_Pixels
-                .Left = Me.Layout_Margin_Left_Add(elementQRCode.LeftEdge_Pixels)
-                .Top = Me.Layout_Margin_Top_Add(elementQRCode.TopEdge_Pixels)
-                .Width = elementQRCode.Width_Pixels
-                .Height = elementQRCode.Height_Pixels
-            End With ''End of "With Me.CtlGraphic_QRCode"
-        End If ''End of "If (elementQRCode.WhichSideOfCard = Me.EnumSideOfCard) Then"
-
-    End Sub ''ENd of "Private Sub LoadDesigner_QRCode"
-
-
-    Private Sub LoadDesigner_Signat()
-        ''
-        ''Added 12/22/2021 thomas downes
-        ''
-        Me.CtlGraphic_Signat.Dispose()
-        Me.DesignerForm.Controls.Remove(Me.CtlGraphic_Signat)
-        ''Load a brand-new QR-code control. ---12/7/2021 td  
-        Dim elementSignat As ClassElementSignature = Me.ElementsCache_UseEdits.ElementSignature
-        If (elementSignat.WhichSideOfCard = EnumWhichSideOfCard.Undetermined) Then elementSignat.WhichSideOfCard = EnumWhichSideOfCard.EnumFrontside
-
-        If (elementSignat.WhichSideOfCard = Me.EnumSideOfCard) Then ''Added 12/15/2021
-            ''
-            ''Added 12/22/2021 thomas downes
-            ''
-            Dim strPathToSigFile As String
-            strPathToSigFile = 
-
-            Me.CtlGraphic_Signat = New CtlGraphicSignature(elementSignat, CType(Me, ILayoutFunctions),
-                        strPathToSigFile)
-            Me.DesignerForm.Controls.Add(Me.CtlGraphic_Signat)
-            mod_listOfDesignerControls.Add(Me.CtlGraphic_Signat) ''Added 12/22/2021 td
-
-            With Me.CtlGraphic_Signat
-                .Visible = True
-                .Left = Me.Layout_Margin_Left_Add(elementSignat.LeftEdge_Pixels)
-                .Top = Me.Layout_Margin_Top_Add(elementSignat.TopEdge_Pixels)
-                .Width = elementSignat.Width_Pixels
-                .Height = elementSignat.Height_Pixels
-            End With ''End of "With Me.CtlGraphic_QRCode"
-        End If ''End of "If (elementQRCode.WhichSideOfCard = Me.EnumSideOfCard) Then"
-
-    End Sub ''ENd of "Private Sub LoadDesigner_QRCode"
-
-
     Public Sub UnselectHighlightedElements()
         ''
         ''Added 10/15/2019 thomas d.  
@@ -803,18 +743,38 @@ Public Class ClassDesigner
                                            par_listFieldCtls,
                             "ClassDesigner.LoadForm_LayoutElements " & pstrWhyCalled)
 
-        If (par_enumSideOfCard = EnumWhichSideOfCard.EnumBackside) Then
-            ''For now, omit the picture and the signature from the back side of the card. 
-            ''   ----12/8/2021 td
-        Else
-            LoadElements_Picture(par_cache.PicElement_Front())
-            LoadElements_Signature(par_cache.ElementSignature) ''Added 10/12/2019 thomas d.
-            ''Added 12/18/2021 td 
-            ''Dec18 2021''LoadElements_StaticText1(par_cache.ListOfElementTexts_Front.GetEnumerator().Current) ''Added 10/12/2019 thomas d.
-            ListCtlGraphic_StaticTexts = New HashSet(Of CtlGraphicStaticText) ''Added 12/18/2021 thomas d. 
-            LoadElements_StaticTexts(par_cache.ListOfElementTexts_Front) ''Added 12/18/2021 thomas d.
+        ''
+        ''Load the non-Field Elements. ---12/22/2021 thomas d. 
+        ''
+        Dim iBadgeSideElements As IBadgeSideLayoutElements
+        iBadgeSideElements = par_cache.GetBadgeSideLayout(par_enumSideOfCard)
 
-        End If ''End of "If (par_enumSideOfCard = EnumWhichSideOfCard.EnumBackside) Then ... Else..."
+        ''12/22/2021 td''If (par_enumSideOfCard = EnumWhichSideOfCard.EnumBackside) Then
+        ''12/22/2021 td''     ''For now, omit the picture and the signature from the back side of the card. 
+        ''12/22/2021 td''     ''   ----12/8/2021 td
+        ''12/22/2021 td''Else
+
+        ''Added 12/7/2021 thomas downes
+        ''
+        ''Refresh the QR Code control.
+        ''   1. Destroy the existing control.
+        ''   2. Create a new one & add it to the designer form. 
+        ''
+        LoadElements_QRCode(iBadgeSideElements.ElementQR) ''Dec22 2021 td''LoadDesigner_QRCode()
+
+        ''12/22/2021 td''LoadElements_Picture(par_cache.PicElement_Front())
+        LoadElements_Picture(iBadgeSideElements.ElementPic)
+
+        ''12/22/2021 td''LoadElements_Signature(par_cache.ElementSignature) ''Added 10/12/2019 thomas d.
+        LoadElements_Signature(iBadgeSideElements.ElementSignature) ''Modified 12/22/2021 thomas d.
+
+        ''Added 12/18/2021 td 
+        ''Dec18 2021''LoadElements_StaticText1(par_cache.ListOfElementTexts_Front.GetEnumerator().Current) ''Added 10/12/2019 thomas d.
+        ''Dec22 2021''ListCtlGraphic_StaticTexts = New HashSet(Of CtlGraphicStaticText) ''Added 12/18/2021 thomas d. 
+        ''Dec22 2021''LoadElements_StaticTexts(par_cache.ListOfElementTexts_Front) ''Added 12/18/2021 thomas d.
+        LoadElements_StaticTexts(iBadgeSideElements.ListElementStaticTexts) ''Added 12/22/2021 thomas d.
+
+        ''12/22/2021 td''End If ''End of "If (par_enumSideOfCard = EnumWhichSideOfCard.EnumBackside) Then ... Else..."
 
         ''Added 10/12/2019 td 
         ''mod_sizing_portrait.Init(Me.CtlGraphic_Portrait.picturePortrait, Me.CtlGraphic_Portrait, 10, True, mod_sizingEvents_Pics, False)
@@ -980,6 +940,38 @@ Public Class ClassDesigner
     End Sub ''End of " Private Sub LoadElements_Picture()"
 
 
+    Private Sub LoadElements_QRCode()
+        ''--Dec22 2021 td''--Private Sub LoadDesigner_QRCode()
+        ''
+        ''Added 12/22/2021 thomas downes
+        ''
+        Me.CtlGraphic_QRCode.Dispose()
+        Me.DesignerForm.Controls.Remove(Me.CtlGraphic_QRCode)
+        ''Load a brand-new QR-code control. ---12/7/2021 td  
+        Dim elementQRCode As ClassElementQRCode = Me.ElementsCache_UseEdits.ElementQRCode
+        If (elementQRCode.WhichSideOfCard = EnumWhichSideOfCard.Undetermined) Then elementQRCode.WhichSideOfCard = EnumWhichSideOfCard.EnumFrontside ''Added 12/15/2021
+
+        If (elementQRCode.WhichSideOfCard = Me.EnumSideOfCard) Then ''Added 12/15/2021
+            Me.CtlGraphic_QRCode = New CtlGraphicQRCode(elementQRCode, CType(Me, ILayoutFunctions))
+            Me.DesignerForm.Controls.Add(Me.CtlGraphic_QRCode)
+            mod_listOfDesignerControls.Add(Me.CtlGraphic_QRCode) ''Added 12/8/2021 td
+
+            With Me.CtlGraphic_QRCode
+                ''Me.CtlGraphic_QRCode.Visible = True ''Dec. 7, 2021
+                .Visible = True
+
+                ''Dec.8 2021''.Left = elementQRCode.LeftEdge_Pixels
+                ''Dec.8 2021''.Top = elementQRCode.TopEdge_Pixels
+                .Left = Me.Layout_Margin_Left_Add(elementQRCode.LeftEdge_Pixels)
+                .Top = Me.Layout_Margin_Top_Add(elementQRCode.TopEdge_Pixels)
+                .Width = elementQRCode.Width_Pixels
+                .Height = elementQRCode.Height_Pixels
+            End With ''End of "With Me.CtlGraphic_QRCode"
+        End If ''End of "If (elementQRCode.WhichSideOfCard = Me.EnumSideOfCard) Then"
+
+    End Sub ''ENd of "Private Sub LoadElements_QRCode"
+
+
     Private Sub LoadElements_Signature(par_elementSig As ClassElementSignature)
         ''
         ''Added 10/12/2019 thomas d. 
@@ -1087,6 +1079,7 @@ Public Class ClassDesigner
 
     End Sub ''End of "Private Sub InitiateRubberbandSelector"
 
+
     Private Sub LoadElements_FieldElements(par_listElements As HashSet(Of ClassElementField),
                                par_boolLoadingForm As Boolean,
                                Optional par_bUnloading As Boolean = False,
@@ -1155,12 +1148,21 @@ Public Class ClassDesigner
 
             ''Added 9/15/2019 td
             With each_element
-                .FontFamilyName = "Times New Roman" ''Added 9/15/2019 thomas d. 
-                .FontSize_Pixels = 25
+
+                If (.FontFamilyName = "") Then
+                    .FontFamilyName = "Times New Roman" ''Added 9/15/2019 thomas d. 
+                End If ''End of "If (.FontFamilyName = "") Then"
+
+                If (.FontSize_Pixels = 0) Then
+                    .FontSize_Pixels = 25
+                End If ''End of "If (.FontSize_Pixels = 0) Then"
+
                 ''Added 9/12/2019 td 
                 ''9/12/2019 td''.FontSize_IsLocked = True 
-                .FontSize_ScaleToElementRatio = (.FontSize_Pixels / .Height_Pixels)
-                .FontSize_ScaleToElementYesNo = True
+                If (.FontSize_ScaleToElementRatio = 0) Then
+                    .FontSize_ScaleToElementRatio = (.FontSize_Pixels / .Height_Pixels)
+                    ''----.FontSize_ScaleToElementYesNo = True
+                End If ''End of "If (.FontSize_ScaleToElementRatio = 0) Then"
 
             End With 'End of "With each_element"
 

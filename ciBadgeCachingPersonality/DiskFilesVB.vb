@@ -5,7 +5,7 @@ Option Strict On ''Added 12/5/2021 thomas downes
 ''
 Imports System.IO ''Added 12/5/2021 thomas downes
 
-Module DiskFilesVB
+Public Module DiskFilesVB
     ''
     ''Added 12/5/2021 thomas downes 
     ''
@@ -64,5 +64,17 @@ Module DiskFilesVB
 
     End Function ''End of "Public Function Path_TemporaryFile() As String"
 
+
+    Public Function Path_ToSignatureImageFile() As String
+        ''
+        ''Added 12/22/2021 thomas downes
+        ''
+        Dim strPathToFolderForSigs As String
+
+        strPathToFolderForSigs = DiskFolders.PathToFolder_Signatures
+
+        Return IO.Path.Combine(strPathToFolderForSigs, "Declaration_jpg.jpg")
+
+    End Function ''End of "Public Function Path_ToSignatureImageFile()"
 
 End Module
