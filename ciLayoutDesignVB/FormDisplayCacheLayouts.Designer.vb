@@ -35,6 +35,9 @@ Partial Class FormDisplayCacheLayouts
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.LabelWarningMessage = New System.Windows.Forms.Label()
         Me.ButtonUserCancels = New System.Windows.Forms.Button()
+        Me.ButtonExitApp = New System.Windows.Forms.Button()
+        Me.ButtonOK = New System.Windows.Forms.Button()
+        Me.ButtonFindLayout = New System.Windows.Forms.Button()
         CType(Me.pictureBackgroundFront, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.FlowLayoutPanel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -45,7 +48,7 @@ Partial Class FormDisplayCacheLayouts
         Me.pictureBackgroundFront.BackColor = System.Drawing.Color.White
         Me.pictureBackgroundFront.Location = New System.Drawing.Point(214, 117)
         Me.pictureBackgroundFront.Name = "pictureBackgroundFront"
-        Me.pictureBackgroundFront.Size = New System.Drawing.Size(603, 368)
+        Me.pictureBackgroundFront.Size = New System.Drawing.Size(655, 380)
         Me.pictureBackgroundFront.TabIndex = 75
         Me.pictureBackgroundFront.TabStop = False
         '
@@ -122,7 +125,7 @@ Partial Class FormDisplayCacheLayouts
         Me.FlowLayoutPanel1.Location = New System.Drawing.Point(1045, 41)
         Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(349, 385)
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(349, 399)
         Me.FlowLayoutPanel1.TabIndex = 84
         Me.FlowLayoutPanel1.WrapContents = False
         '
@@ -137,10 +140,11 @@ Partial Class FormDisplayCacheLayouts
         '
         'ButtonSelectLayoutFromDrive
         '
-        Me.ButtonSelectLayoutFromDrive.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonSelectLayoutFromDrive.Location = New System.Drawing.Point(26, 396)
+        Me.ButtonSelectLayoutFromDrive.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ButtonSelectLayoutFromDrive.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonSelectLayoutFromDrive.Location = New System.Drawing.Point(980, 456)
         Me.ButtonSelectLayoutFromDrive.Name = "ButtonSelectLayoutFromDrive"
-        Me.ButtonSelectLayoutFromDrive.Size = New System.Drawing.Size(171, 89)
+        Me.ButtonSelectLayoutFromDrive.Size = New System.Drawing.Size(228, 44)
         Me.ButtonSelectLayoutFromDrive.TabIndex = 85
         Me.ButtonSelectLayoutFromDrive.Text = "Find Layout in Drive(s)"
         Me.ButtonSelectLayoutFromDrive.UseVisualStyleBackColor = True
@@ -165,18 +169,53 @@ Partial Class FormDisplayCacheLayouts
         '
         Me.ButtonUserCancels.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonUserCancels.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonUserCancels.Location = New System.Drawing.Point(1223, 443)
+        Me.ButtonUserCancels.Location = New System.Drawing.Point(1223, 457)
         Me.ButtonUserCancels.Name = "ButtonUserCancels"
         Me.ButtonUserCancels.Size = New System.Drawing.Size(171, 42)
         Me.ButtonUserCancels.TabIndex = 87
         Me.ButtonUserCancels.Text = "Cancel"
         Me.ButtonUserCancels.UseVisualStyleBackColor = True
         '
+        'ButtonExitApp
+        '
+        Me.ButtonExitApp.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.ButtonExitApp.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonExitApp.Location = New System.Drawing.Point(26, 425)
+        Me.ButtonExitApp.Name = "ButtonExitApp"
+        Me.ButtonExitApp.Size = New System.Drawing.Size(182, 72)
+        Me.ButtonExitApp.TabIndex = 88
+        Me.ButtonExitApp.Text = "Exit Application"
+        Me.ButtonExitApp.UseVisualStyleBackColor = True
+        '
+        'ButtonOK
+        '
+        Me.ButtonOK.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonOK.Location = New System.Drawing.Point(875, 392)
+        Me.ButtonOK.Name = "ButtonOK"
+        Me.ButtonOK.Size = New System.Drawing.Size(77, 105)
+        Me.ButtonOK.TabIndex = 89
+        Me.ButtonOK.Text = "OK"
+        Me.ButtonOK.UseVisualStyleBackColor = True
+        '
+        'ButtonFindLayout
+        '
+        Me.ButtonFindLayout.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ButtonFindLayout.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonFindLayout.Location = New System.Drawing.Point(26, 333)
+        Me.ButtonFindLayout.Name = "ButtonFindLayout"
+        Me.ButtonFindLayout.Size = New System.Drawing.Size(144, 86)
+        Me.ButtonFindLayout.TabIndex = 90
+        Me.ButtonFindLayout.Text = "Find Layout using Open File"
+        Me.ButtonFindLayout.UseVisualStyleBackColor = True
+        '
         'FormDisplayCacheLayouts
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1406, 503)
+        Me.ClientSize = New System.Drawing.Size(1406, 517)
+        Me.Controls.Add(Me.ButtonFindLayout)
+        Me.Controls.Add(Me.ButtonOK)
+        Me.Controls.Add(Me.ButtonExitApp)
         Me.Controls.Add(Me.ButtonUserCancels)
         Me.Controls.Add(Me.LabelWarningMessage)
         Me.Controls.Add(Me.ButtonSelectLayoutFromDrive)
@@ -211,4 +250,7 @@ Partial Class FormDisplayCacheLayouts
     Friend WithEvents OpenFileDialog1 As OpenFileDialog
     Friend WithEvents LabelWarningMessage As Label
     Friend WithEvents ButtonUserCancels As Button
+    Friend WithEvents ButtonExitApp As Button
+    Friend WithEvents ButtonOK As Button
+    Friend WithEvents ButtonFindLayout As Button
 End Class

@@ -120,6 +120,10 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             //
             //   internal  void Init(Control control, Control container)
             //
+            bool bControlIsStaticText = par_control.Name.Contains("Text") || par_container.Name.Contains("Text") ||
+                par_control.Name.Contains("Static") || par_container.Name.Contains("Static");
+            if (bControlIsStaticText) System.Diagnostics.Debugger.Break();
+
 
             _iSaveToModel = par_iSave;  // Dec17 2021 
             _moving = false;

@@ -60,7 +60,8 @@ Public Class ClassDesignerEventListener
     Public Sizing_portrait As ControlResizeProportionally_TD
     Public Sizing_signature As ControlResizeProportionally_TD
     Public Sizing_QR As ControlResizeProportionally_TD
-    Public Sizing_staticText As ControlResizeProportionally_TD
+    ''12/23/2021 td''Public Sizing_staticText As ControlResizeProportionally_TD
+    Public Sizing_staticText As ControlMove_Group_NonStatic ''Modified 12/23/2021 td
 
     ''Added 11/29/2021 td 
     Private mod_designer As ClassDesigner
@@ -170,12 +171,12 @@ Public Class ClassDesignerEventListener
         ''
         ''Major call!!
         ''
-        LoadForm_LayoutElements(par_listDesignerControls)
+        LoadForm_LayoutElements_Moveability(par_listDesignerControls)
 
     End Sub ''End of Public Sub LoadDesigner
 
 
-    Private Sub LoadForm_LayoutElements(par_listDesignerControls As HashSet(Of Control))
+    Private Sub LoadForm_LayoutElements_Moveability(par_listDesignerControls As HashSet(Of Control))
         ''                par_cache As ClassElementsCache_Deprecated,
         ''                ByRef par_listFieldCtls As HashSet(Of CtlGraphicFldLabel),
         ''                pstrWhyCalled As String)
@@ -196,9 +197,11 @@ Public Class ClassDesignerEventListener
         ''    mod_sizing_portrait)
 
         ''Dec17 2021 td''mod_designer.Add_Moveability(mod_designer.CtlGraphic_Portrait)
-        mod_designer.Add_Moveability(mod_designer.CtlGraphic_Portrait,
+        If (mod_designer.LetEventListenerAddMoveability) Then
+            mod_designer.Add_Moveability(mod_designer.CtlGraphic_Portrait,
                                      mod_designer.CtlGraphic_Portrait,
                                      mod_designer.CtlGraphic_Portrait)
+        End If
 
         ''mod_sizing_QR.Init(mod_designer.CtlGraphic_QRCode.pictureQRCode,
         ''                   mod_designer.CtlGraphic_QRCode, 10, True,
@@ -208,9 +211,11 @@ Public Class ClassDesignerEventListener
         ''Added 12/1/2021 td 
         ''DictyControlResizing.Add(mod_designer.CtlGraphic_QRCode,
         ''   mod_sizing_QR)
-        mod_designer.Add_Moveability(mod_designer.CtlGraphic_QRCode, mod_designer.CtlGraphic_QRCode,
+        If (mod_designer.LetEventListenerAddMoveability) Then
+            ''Add moveability - QR Code
+            mod_designer.Add_Moveability(mod_designer.CtlGraphic_QRCode, mod_designer.CtlGraphic_QRCode,
                                      mod_designer.CtlGraphic_QRCode)
-
+        End If
 
         ''mod_sizing_signature.Init(mod_designer.CtlGraphic_Signat.pictureSignature,
         ''                          mod_designer.CtlGraphic_Signat, 10, True,
@@ -218,8 +223,10 @@ Public Class ClassDesignerEventListener
         ''                          mod_designer.CtlGraphic_Signat)
         ''DictyControlResizing.Add(mod_designer.CtlGraphic_Signat,
         ''     mod_sizing_signature) ''Added 12/1/2021 td
-        mod_designer.Add_Moveability(mod_designer.CtlGraphic_Signat, mod_designer.CtlGraphic_Signat,
+        If (mod_designer.LetEventListenerAddMoveability) Then
+            mod_designer.Add_Moveability(mod_designer.CtlGraphic_Signat, mod_designer.CtlGraphic_Signat,
                                      mod_designer.CtlGraphic_Signat)
+        End If
 
         ''Added 12/15/2021 td 
         ''mod_sizing_staticText.Init(mod_designer.CtlGraphic_StaticText1.pictureLabel,
@@ -228,9 +235,10 @@ Public Class ClassDesignerEventListener
         ''                            mod_designer.CtlGraphic_StaticText1)
         ''DictyControlResizing.Add(mod_designer.CtlGraphic_StaticText1,
         ''     mod_sizing_staticText)
-        mod_designer.Add_Moveability(mod_designer.CtlGraphic_StaticText_temp, mod_designer.CtlGraphic_StaticText_temp,
-                                     mod_designer.CtlGraphic_StaticText_temp)
-
+        If (mod_designer.LetEventListenerAddMoveability) Then
+            mod_designer.Add_Moveability(mod_designer.CtlGraphic_StaticText_temp, mod_designer.CtlGraphic_StaticText_temp,
+                                         mod_designer.CtlGraphic_StaticText_temp)
+        End If
 
         ''Dim boolMakeMoveableByUser As Boolean ''Added 9/20/2019 td 
         ''Const c_boolMakeMoveableASAP As Boolean = False ''added 9/20/2019 td
@@ -244,14 +252,16 @@ Public Class ClassDesignerEventListener
         ''
         ''Pretty big call!!   Allow the user to "click & drag" the control. 
         ''
-        Try
-            MakeElementsMoveable_Fields(par_listDesignerControls)
+        If (mod_designer.LetEventListenerAddMoveability) Then
+            Try
+                MakeElementsMoveable_Fields(par_listDesignerControls)
 
-        Catch ex_fields As Exception
-            ''Added 11/26/2021 thomas downes
-            MessageBox.Show(ex_fields.Message)
-            MessageBox.Show(ex_fields.ToString)
-        End Try
+            Catch ex_fields As Exception
+                ''Added 11/26/2021 thomas downes
+                MessageBox.Show(ex_fields.Message)
+                MessageBox.Show(ex_fields.ToString)
+            End Try
+        End If
 
         ''End If ''ENd of "If (boolMakeMoveableByUser) Then
 

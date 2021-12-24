@@ -128,7 +128,7 @@ Namespace ciBadgeCachePersonality
                 objSide.ListElementStaticTexts = Me.ListOfElementTexts_Backside
 
             Else
-                objSide.BackgroundImage = Me.GetBackgroundImage()
+                objSide.BackgroundImage = Me.GetBackgroundImage(par_enum)
                 objSide.ElementPic = Me.ListOfElementPics_Front().FirstOrDefault()
                 objSide.ElementQR = Me.ElementQRCode
                 objSide.ElementSig = Me.ElementSignature
@@ -1387,21 +1387,27 @@ Namespace ciBadgeCachePersonality
             ''Added 12/17/2021 td
             Dim intCountFrontside As Integer = mod_listElementStatics_Front.Count
             Dim intCountBackside As Integer = mod_listElementStatics_Backside.Count
+            Dim intCountBacksideAndFront As Integer ''Added 12/23/2021 Thomas Downes
 
             bMissingFront = (0 = intCountFrontside)
             bMissingBack = (0 = intCountBackside)
+            intCountBacksideAndFront = (intCountBackside + intCountFrontside) ''Added 12/23/2021 thomas downes
             bMissingBackAndFront = (bMissingFront And bMissingBack)
 
-            ''Added 12/17/2021 td
-            Dim strCountOfBothSides As String = ""
-            Dim bRandomness As Boolean ''Added 12/17/2021 td
-            bRandomness = (2 = CType((New Random(3)).Next(0, 4), Integer))
-            If bRandomness Then
-                strCountOfBothSides = String.Format("There are {0} static-texts in front, {1} on the backside.",
-              intCountFrontside, intCountBackside)
-                MessageBox.Show(strCountOfBothSides, "", MessageBoxButtons.OKCancel,
-                                MessageBoxIcon.Exclamation)
-            End If ''End of "If bRandomness Then" 
+            If (1 <> intCountBacksideAndFront) Then
+
+                ''Added 12/17/2021 td
+                Dim strCountOfBothSides As String = ""
+                Dim bRandomness As Boolean ''Added 12/17/2021 td
+                bRandomness = (2 = CType((New Random(3)).Next(0, 4), Integer))
+                If bRandomness Then
+                    strCountOfBothSides = String.Format("There are {0} static-texts in front, {1} on the backside.",
+                  intCountFrontside, intCountBackside)
+                    MessageBox.Show(strCountOfBothSides, "", MessageBoxButtons.OKCancel,
+                                    MessageBoxIcon.Exclamation)
+                End If ''End of "If bRandomness Then" 
+
+            End If ''End of "If (1 <> intCountBacksideAndFront) Then"
 
             Return bMissingBackAndFront
 

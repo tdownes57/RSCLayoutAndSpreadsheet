@@ -55,6 +55,8 @@ Public Class FormDisplayCacheLayouts
 
         ''Double-check the proportions are correct. ---9/6/2019 td
         ''ClassLabelToImage.ProportionsAreSlightlyOff(pictureBackgroundFront, True)
+
+        ClassLabelToImage.Proportions_FixTheWidth(pictureBackgroundFront) ''Added 12/23/2021 td 
         ClassLabelToImage.ProportionsAreSlightlyOff(pictureBackgroundFront, True) ''Added Dec. 20 2021
 
         ''Added 12/20/2021 thomas downes
@@ -131,6 +133,27 @@ Public Class FormDisplayCacheLayouts
         ''
         Me.UserHasSelectedCancel = True
         Me.Close()
+
+    End Sub
+
+    Private Sub ButtonExitApp_Click(sender As Object, e As EventArgs) Handles ButtonExitApp.Click
+
+        ''Added 12/23/2021 thomas downes
+        Application.Exit()
+
+    End Sub
+
+    Private Sub ButtonOK_Click(sender As Object, e As EventArgs) Handles ButtonOK.Click
+
+        ''Added 12/23/2021 thomas downes
+        ButtonOpenCurrentLayout.PerformClick()
+
+    End Sub
+
+    Private Sub ButtonFindLayout_Click(sender As Object, e As EventArgs) Handles ButtonFindLayout.Click
+
+        ''Added 12/23/2021 
+        ButtonSelectLayoutFromDrive.PerformClick()
 
     End Sub
 End Class

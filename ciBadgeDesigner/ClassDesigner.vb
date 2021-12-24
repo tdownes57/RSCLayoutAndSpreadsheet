@@ -37,6 +37,8 @@ Public Class ClassDesigner
 
     ''Added 11/29/2021 thomas downes
     Private mod_designerListener As ClassDesignerEventListener
+    Public LetEventListenerAddMoveability As Boolean = True ''Added 12/23/2021 td  
+
     ''Added 12/8/2021 thomas downes
     ''---Private mod_enumSideOfCard As EnumWhichSideOfCard = EnumWhichSideOfCard.EnumFrontside ''Added 12/8/2021 Thomas downes  
     Public EnumSideOfCard As EnumWhichSideOfCard = EnumWhichSideOfCard.EnumFrontside ''Added 12/8/2021 Thomas downes  
@@ -293,10 +295,28 @@ Public Class ClassDesigner
         ''
         ''Added 12/14/2021 td 
         ''
-        Dim objListenerSig As MoveAndResizeControls_Monem.ControlResizeProportionally_TD
-        objListenerSig = mod_designerListener.DictyControlResizing(CtlGraphic_Signat)
-        objListenerSig.RemoveEventHandlers()
-        mod_designerListener.DictyControlResizing.Remove(CtlGraphic_Signat) ''Added 12/17/2021 td
+        Dim objListenerSig1 As MoveAndResizeControls_Monem.ControlResizeProportionally_TD
+        Dim objListenerSig2 As MoveAndResizeControls_Monem.ControlMove_NonStatic_TD
+        Dim boolListenerFound1 As Boolean ''Added 12/23/2021 td
+        Dim boolListenerFound2 As Boolean ''Added 12/23/2021 td
+
+        ''Added 12/23/2021 td
+        boolListenerFound1 = mod_designerListener.DictyControlResizing.ContainsKey(CtlGraphic_Signat)
+        boolListenerFound2 = mod_designerListener.mod_dictyControlMoveBoxesEtc.ContainsKey(CtlGraphic_Signat)
+
+        If (boolListenerFound1) Then
+            objListenerSig1 = mod_designerListener.DictyControlResizing(CtlGraphic_Signat)
+            objListenerSig1.RemoveEventHandlers()
+            mod_designerListener.DictyControlResizing.Remove(CtlGraphic_Signat) ''Added 12/17/2021 td
+        ElseIf (boolListenerFound2) Then
+            ''Added 12/23/2021 td
+            objListenerSig2 = mod_designerListener.mod_dictyControlMoveBoxesEtc(CtlGraphic_Signat)
+            objListenerSig2.RemoveEventHandlers()
+            mod_designerListener.mod_dictyControlMoveBoxesEtc.Remove(CtlGraphic_Signat) ''Added 12/17/2021 td
+        Else
+            StatusLabelWarningLabel.Text = "Signature's event listener not found."
+
+        End If ''End of "If (boolListenerFound1) Then ... ElseIf (...) ... Else ..."
 
         CtlGraphic_Signat.Dispose() ''Added Dec. 8, 2021
         Me.DesignerForm.Controls.Remove(CtlGraphic_Signat) ''Added Dec. 8, 2021
@@ -937,6 +957,23 @@ Public Class ClassDesigner
         ''----AddHandler label_control.ElementPic_RightClicked, AddressOf ElementPic_Clicked
         AddHandler CtlGraphic_Portrait.ElementPic_RightClicked, AddressOf ElementPic_Clicked
 
+        ''
+        ''Moveability 
+        ''
+        If (Me.LetEventListenerAddMoveability) Then
+            ''
+            ''See ClassDesignerEventListener.LoadForm_LayoutElements_Moveability() ---12/23/2021
+            ''
+        Else
+            ''
+            ''Add moveability - Static Texts
+            ''
+            Dim bKeepWidthHeightProportional As Boolean = True ''added 12/23/2021
+            Add_Moveability(CtlGraphic_Portrait, CtlGraphic_Portrait,
+                                 CtlGraphic_Portrait, bKeepWidthHeightProportional)
+
+        End If ''End of "If (Me.LetEventListenerAddMoveability) Then ... Else ..."
+
     End Sub ''End of " Private Sub LoadElements_Picture()"
 
 
@@ -970,6 +1007,23 @@ Public Class ClassDesigner
                 .Height = par_elementQR.Height_Pixels
 
             End With ''End of "With Me.CtlGraphic_QRCode"
+
+            ''
+            ''Moveability 
+            ''
+            If (Me.LetEventListenerAddMoveability) Then
+                ''
+                ''See ClassDesignerEventListener.LoadForm_LayoutElements_Moveability() ---12/23/2021
+                ''
+            Else
+                ''
+                ''Add moveability - QR Code
+                ''
+                Add_Moveability(CtlGraphic_QRCode, CtlGraphic_QRCode,
+                                     CtlGraphic_QRCode)
+
+            End If ''End of "If (Me.LetEventListenerAddMoveability) Then ... Else ..."
+
         End If ''End of "If (elementQRCode.WhichSideOfCard = Me.EnumSideOfCard) Then"
 
     End Sub ''ENd of "Private Sub LoadElements_QRCode"
@@ -1005,6 +1059,21 @@ Public Class ClassDesigner
         ''   
         AddHandler CtlGraphic_Signat.ElementSig_RightClicked, AddressOf ElementSig_Clicked
 
+        ''
+        ''Moveability 
+        ''
+        If (Me.LetEventListenerAddMoveability) Then
+            ''
+            ''See ClassDesignerEventListener.LoadForm_LayoutElements_Moveability() ---12/23/2021
+            ''
+        Else
+            ''
+            ''Add moveability - Signature
+            ''
+            Add_Moveability(CtlGraphic_Signat, CtlGraphic_Signat,
+                                 CtlGraphic_Signat)
+
+        End If ''End of "If (Me.LetEventListenerAddMoveability) Then ... Else ..."
 
     End Sub ''End of "Private Sub LoadElements_Signature"
 
@@ -1044,6 +1113,25 @@ Public Class ClassDesigner
             ''   
             AddHandler CtlGraphic_StaticText_temp.ElementStatic_RightClicked,
                 AddressOf ElementStatic_Clicked
+
+            ''
+            ''Moveability 
+            ''
+            If (Me.LetEventListenerAddMoveability) Then
+                ''
+                ''See ClassDesignerEventListener.LoadForm_LayoutElements_Moveability() ---12/23/2021
+                ''
+            Else
+                ''
+                ''Add moveability - Static Texts
+                ''
+                Const c_boolResizeProportionally As Boolean = False ''Inappropropriate for Static Texts!!
+
+                Add_Moveability(CtlGraphic_StaticText_temp, CtlGraphic_StaticText_temp,
+                                     CtlGraphic_StaticText_temp,
+                                     c_boolResizeProportionally)
+
+            End If ''End of "If (Me.LetEventListenerAddMoveability) Then ... Else ..."
 
         Next each_element_static
 
@@ -2543,7 +2631,7 @@ Public Class ClassDesigner
     ''    Throw New NotImplementedException()
     ''End Sub
 
-    Public Sub Add_Moveability(par_control As Control, par_iSave As ISaveToModel, par_elementMoved As IMoveableElement) Implements IRecordElementLastTouched.Add_Moveability
+    Public Sub Add_Moveability(par_control As Control, par_iSave As ISaveToModel, par_elementMoved As IMoveableElement, par_keepProportions As Boolean) Implements IRecordElementLastTouched.Add_Moveability
         ''
         ''Added 12/17/2021 td
         ''
@@ -2556,24 +2644,58 @@ Public Class ClassDesigner
         ''mod_dictyControlResizing.Add(mod_designer.CtlGraphic_Portrait,
         ''    mod_sizing_portrait)
 
-        Dim objResize As New MoveAndResizeControls_Monem.ControlResizeProportionally_TD()
+        Dim objResizeProply As New MoveAndResizeControls_Monem.ControlResizeProportionally_TD()
+        Dim objMove As New MoveAndResizeControls_Monem.ControlMove_Group_NonStatic
 
         Const c_bRepaintAfterResize As Boolean = True ''Added 7/31/2019 td 
 
-        objResize.Init(par_elementMoved.GetPictureBox(),
+        If (par_keepProportions) Then
+            ''
+            ''We __do__ care about keeping the Width-Height ratio intact. 
+            ''Use class ControlResizeProportionally_TD 
+            ''
+            objResizeProply.Init(par_elementMoved.GetPictureBox(),
+                       par_control, 10, c_bRepaintAfterResize,
+                    mod_designerListener.SizingElementEvents, False,
+                    par_iSave)
+        Else
+            ''We __don't__ care about keeping the Width-Height ratio intact. 
+            objMove.Init(par_elementMoved.GetPictureBox(),
                        par_control, 10, c_bRepaintAfterResize,
                     mod_designerListener.SizingElementEvents, False,
                     par_iSave)
 
+        End If ''End of "If (par_keepProportions) Then ... Else ..."
+
         ''Added 12/1/2021 td 
-        mod_designerListener.DictyControlResizing.Add(par_control, objResize)
+        mod_designerListener.DictyControlResizing.Add(par_control, objResizeProply)
 
         ''Added 12/17/2021 td
-        If (par_control Is CtlGraphic_Portrait) Then mod_designerListener.Sizing_portrait = objResize
-        If (par_control Is CtlGraphic_QRCode) Then mod_designerListener.Sizing_QR = objResize
-        If (par_control Is CtlGraphic_Signat) Then mod_designerListener.Sizing_signature = objResize
-        If (par_control Is CtlGraphic_StaticText_temp) Then mod_designerListener.Sizing_staticText = objResize
+        If (par_control Is CtlGraphic_Portrait) Then mod_designerListener.Sizing_portrait = objResizeProply
+        If (par_control Is CtlGraphic_QRCode) Then mod_designerListener.Sizing_QR = objResizeProply
+        If (par_control Is CtlGraphic_Signat) Then mod_designerListener.Sizing_signature = objResizeProply
 
+        ''Do we care about keeing the Width-Height ratio the same?  ("proportionality")
+        ''   For the following three(3) controls, Yes, we do.   ---12/23/2021 td 
+        Dim bControlProportionedWidthHeight As Boolean = False
+        If (par_control Is CtlGraphic_Portrait) Then bControlProportionedWidthHeight = True
+        If (par_control Is CtlGraphic_Portrait) Then bControlProportionedWidthHeight = True
+        If (par_control Is CtlGraphic_Portrait) Then bControlProportionedWidthHeight = True
+
+        ''--If (bControlProportionedWidthHeight And (par_keepProportions)) Then
+        If (bControlProportionedWidthHeight And (objResizeProply Is Nothing)) Then
+
+            Throw New ArgumentException("Boolean parameter par_keepProportions should be False.")
+
+        End If  ''End of "If (bControlProportionedWidthHeight And (objResizeProply Is Nothing)) Then"
+
+        ''12/23/2021 td''If (par_control Is CtlGraphic_StaticText_temp) Then mod_designerListener.Sizing_staticText = objResize
+        If (par_control Is CtlGraphic_StaticText_temp) Then
+
+            If (objMove Is Nothing) Then Throw New ArgumentException("Boolean parameter should be False.")
+            mod_designerListener.Sizing_staticText = objMove
+
+        End If ''End of "If (par_control Is CtlGraphic_StaticText_temp) Then"
 
 
     End Sub

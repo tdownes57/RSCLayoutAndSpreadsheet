@@ -17,7 +17,9 @@ Public Interface IRecordElementLastTouched
     Sub Remove_Clickability(par_elementClicked As IClickableElement)
 
     ''Added 12/17/2021 td''Sub Add_Moveability(par_elementMoved As IMoveableElement)
-    Sub Add_Moveability(par_control As Control, par_iSave As ISaveToModel, par_elementMoved As IMoveableElement)
+    ''Dec23 2021 ''Sub Add_Moveability(par_control As Control, par_iSave As ISaveToModel, par_elementMoved As IMoveableElement)
+    Sub Add_Moveability(par_control As Control, par_iSave As ISaveToModel, par_elementMoved As IMoveableElement, par_resizeProportionally As Boolean)
+
     Sub Add_Clickability(par_elementClicked As IClickableElement)
 
 

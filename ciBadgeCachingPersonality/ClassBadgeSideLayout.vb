@@ -43,13 +43,13 @@ Public Class ClassBadgeSideLayout
     ''End Property
 
     Public Property ListElementStaticTexts As HashSet(Of ClassElementStaticText) Implements IBadgeSideLayoutElements.ListElementStaticTexts
-        Get
-            Throw New NotImplementedException()
-        End Get
-        Set(value As HashSet(Of ClassElementStaticText))
-            Throw New NotImplementedException()
-        End Set
-    End Property
+    ''    Get
+    ''        Throw New NotImplementedException()
+    ''    End Get
+    ''    Set(value As HashSet(Of ClassElementStaticText))
+    ''        Throw New NotImplementedException()
+    ''    End Set
+    ''End Property
 
     Public Property ListElementGraphics As HashSet(Of ClassElementGraphic) Implements IBadgeSideLayoutElements.ListElementGraphics
     ''    Get

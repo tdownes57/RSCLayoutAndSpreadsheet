@@ -32,7 +32,7 @@ using System.Windows.Forms;
 
 namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManager
 {
-    public class ControlMove_Static_Resizer
+    public class ControlMove_Static_Resizer_Deprecated
     {
         //
         //  internal class ControlMoverOrResizer

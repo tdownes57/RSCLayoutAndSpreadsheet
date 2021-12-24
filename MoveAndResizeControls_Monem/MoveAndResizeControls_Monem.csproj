@@ -44,9 +44,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControlMove_NonStatic_TD.cs" />
-    <Compile Include="ControlMove_Static_Resize_TD.cs" />
-    <Compile Include="ControlMove_Static_Resizer.cs" />
-    <Compile Include="ControlMove_GroupMove_TD_Static.cs" />
+    <Compile Include="ControlMove_Static_Resize_TD_Deprecated.cs" />
+    <Compile Include="ControlMove_Static_Resizer_Deprecated.cs" />
+    <Compile Include="ControlMove_GroupMove_Static_Deprecated.cs" />
     <Compile Include="ControlMove_Group_NonStatic.cs" />
     <Compile Include="ControlMove_RaiseEvents_NotUsed.cs" />
     <Compile Include="ControlResizeProportionally_TD_NonStatic.cs" />
