@@ -1016,11 +1016,10 @@ Public Class ClassDesigner
                 ''See ClassDesignerEventListener.LoadForm_LayoutElements_Moveability() ---12/23/2021
                 ''
             Else
-                ''
                 ''Add moveability - QR Code
-                ''
+
                 Add_Moveability(CtlGraphic_QRCode, CtlGraphic_QRCode,
-                                     CtlGraphic_QRCode)
+                                     CtlGraphic_QRCode, True)
 
             End If ''End of "If (Me.LetEventListenerAddMoveability) Then ... Else ..."
 
@@ -1071,7 +1070,7 @@ Public Class ClassDesigner
             ''Add moveability - Signature
             ''
             Add_Moveability(CtlGraphic_Signat, CtlGraphic_Signat,
-                                 CtlGraphic_Signat)
+                                 CtlGraphic_Signat, True)
 
         End If ''End of "If (Me.LetEventListenerAddMoveability) Then ... Else ..."
 

@@ -200,7 +200,7 @@ Public Class ClassDesignerEventListener
         If (mod_designer.LetEventListenerAddMoveability) Then
             mod_designer.Add_Moveability(mod_designer.CtlGraphic_Portrait,
                                      mod_designer.CtlGraphic_Portrait,
-                                     mod_designer.CtlGraphic_Portrait)
+                                     mod_designer.CtlGraphic_Portrait, False)
         End If
 
         ''mod_sizing_QR.Init(mod_designer.CtlGraphic_QRCode.pictureQRCode,
@@ -214,7 +214,7 @@ Public Class ClassDesignerEventListener
         If (mod_designer.LetEventListenerAddMoveability) Then
             ''Add moveability - QR Code
             mod_designer.Add_Moveability(mod_designer.CtlGraphic_QRCode, mod_designer.CtlGraphic_QRCode,
-                                     mod_designer.CtlGraphic_QRCode)
+                                     mod_designer.CtlGraphic_QRCode, True)
         End If
 
         ''mod_sizing_signature.Init(mod_designer.CtlGraphic_Signat.pictureSignature,
@@ -225,7 +225,7 @@ Public Class ClassDesignerEventListener
         ''     mod_sizing_signature) ''Added 12/1/2021 td
         If (mod_designer.LetEventListenerAddMoveability) Then
             mod_designer.Add_Moveability(mod_designer.CtlGraphic_Signat, mod_designer.CtlGraphic_Signat,
-                                     mod_designer.CtlGraphic_Signat)
+                                     mod_designer.CtlGraphic_Signat, True)
         End If
 
         ''Added 12/15/2021 td 
@@ -237,7 +237,7 @@ Public Class ClassDesignerEventListener
         ''     mod_sizing_staticText)
         If (mod_designer.LetEventListenerAddMoveability) Then
             mod_designer.Add_Moveability(mod_designer.CtlGraphic_StaticText_temp, mod_designer.CtlGraphic_StaticText_temp,
-                                         mod_designer.CtlGraphic_StaticText_temp)
+                                         mod_designer.CtlGraphic_StaticText_temp, False)
         End If
 
         ''Dim boolMakeMoveableByUser As Boolean ''Added 9/20/2019 td 
