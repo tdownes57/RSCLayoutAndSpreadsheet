@@ -1728,20 +1728,54 @@ Public Class ClassDesigner
         ''           Me.PreviewBox.Width, Me.PreviewBox.Height,
         ''           Me.CtlGraphicPortrait_Lady.picturePortrait.Image)
 
-        obj_image = obj_generator.MakeBadgeImage_Front(Me.BadgeLayout_Class,
-                                                 obj_image_clone_resized,
-                                                  Me.PreviewBox.Width,
-                                                  Me.PreviewBox.Height,
-                                                 Me.CtlGraphic_Portrait.picturePortrait.Image,
-                                                  Me.ElementsCache_UseEdits,
-                                                  par_recipient,
-                                                  listOfElementTextFields,
-                                                  Me.CtlGraphic_Portrait.ElementClass_Obj,
-                                                  Me.CtlGraphic_QRCode.ElementClass_Obj,
-                                                  Me.CtlGraphic_Signat.ElementClass_Obj,
-                                                  Me.CtlGraphic_StaticText_temp.Element_StaticText,
-                                                  Nothing, Nothing, Nothing,
-                                                  par_recentlyMoved)
+        Const c_boolUseFunction2021 As Boolean = False ''Added 12/26/2021 td
+        Const c_boolUseFunction2022 As Boolean = True ''Added 12/26/2021 td
+
+        If (c_boolUseFunction2021) Then
+            ''
+            ''This was the function we used through most of 2000 & 2021, maybe 1999 as well.
+            ''
+            obj_image = obj_generator.MakeBadgeImage_Front(Me.BadgeLayout_Class,
+                                                     obj_image_clone_resized,
+                                                      Me.PreviewBox.Width,
+                                                      Me.PreviewBox.Height,
+                                                     Me.CtlGraphic_Portrait.picturePortrait.Image,
+                                                      Me.ElementsCache_UseEdits,
+                                                      par_recipient,
+                                                      listOfElementTextFields,
+                                                      Me.CtlGraphic_Portrait.ElementClass_Obj,
+                                                      Me.CtlGraphic_QRCode.ElementClass_Obj,
+                                                      Me.CtlGraphic_Signat.ElementClass_Obj,
+                                                      Me.CtlGraphic_StaticText_temp.Element_StaticText,
+                                                      Nothing, Nothing, Nothing,
+                                                      par_recentlyMoved)
+
+        ElseIf (c_boolUseFunction2022) Then
+            ''
+            ''This was the function we started using 12/26/2021, to accomodate
+            ''   either side of the badgecard.  ---12/26/2021 td
+            ''
+            Dim objMakeBadgeElements As ClassBadgeSideLayout ''Added 12/26/2021 td
+
+            ''
+            ''Major call !!
+            ''
+            objMakeBadgeElements = Me.ElementsCache_UseEdits.GetBadgeSideLayout(EnumWhichSideOfCard.EnumFrontside)
+
+            ''
+            ''Major call !!
+            ''
+            obj_image = obj_generator.MakeBadgeImage_AnySide(Me.BadgeLayout_Class,
+                               objMakeBadgeElements,
+                               Me.PreviewBox.Width,
+                               Me.PreviewBox.Height,
+                               Nothing,
+                               Nothing, Nothing, Nothing, par_recentlyMoved)
+
+        End If ''End of "If (Function2021) Then ... ElseIf (Function2022) Then ..."
+
+
+
 
         ClassFixTheControlWidth.ProportionsAreSlightlyOff(obj_image, True, "RefreshPreview_Redux #4")
 
