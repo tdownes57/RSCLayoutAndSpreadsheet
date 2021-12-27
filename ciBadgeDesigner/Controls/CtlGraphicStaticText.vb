@@ -87,6 +87,14 @@ Public Class CtlGraphicStaticText
         Me.ElementInfo_Base = par_element
         Me.Element_StaticText = par_element
 
+        ''Added 12/27/2021 thomas downes
+        Dim bInvisibleOnBadge As Boolean
+
+        ''Added 12/27/2021 thomas downes
+        bInvisibleOnBadge = (Not par_element.Visible)
+        LinkInvisible.Visible = bInvisibleOnBadge
+
+
     End Sub ''End of "Public Sub New(par_element As ClassElementStaticText)"
 
     Public Sub New_Deprecated(par_element As ClassElementStaticText)

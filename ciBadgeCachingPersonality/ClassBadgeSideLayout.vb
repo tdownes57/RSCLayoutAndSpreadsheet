@@ -13,8 +13,11 @@ Public Class ClassBadgeSideLayout
     ''
     ''Added 12/18/2021 td 
     ''
+    <System.Xml.Serialization.XmlIgnore>
     Public Property BackgroundImage As Image Implements IBadgeSideLayoutElements.BackgroundImage
 
+
+    <System.Xml.Serialization.XmlIgnore>
     Public Property RecipientPic As Image Implements IBadgeSideLayoutElements.RecipientPic
     ''    Get
     ''        Throw New NotImplementedException()

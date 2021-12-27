@@ -108,6 +108,7 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
 
         }
 
+
         public  void Init(Control par_control, Control par_container, int par_margin, bool pbRepaintAfterResize, 
                                   InterfaceEvents par_events, bool pbSetBreakpoint_AfterMove,
                                   ISaveToModel par_iSave)
