@@ -9,6 +9,8 @@ Public Class FormDisplayCacheLayouts
     Public UserChoosesABlankSlate As Boolean ''Added 12/20/2021 thomas downes  
     Public UserHasSelectedCancel As Boolean ''Added 12/20/2021 thomas downes
     Public PathToLastDirectoryForXMLFile As String ''Added 12/20/2021 thomas downes
+    ''Added 12/26/2021
+    Public ShowMessageForIllformedXML As Boolean ''Added 12/26/2021 thomas downes
 
     Public Shared Function FullPathToTimestampedXML() As String
 
@@ -61,6 +63,18 @@ Public Class FormDisplayCacheLayouts
 
         ''Added 12/20/2021 thomas downes
         CheckingXmlFile_IsOkay(LabelFullPathToXML, LabelWarningMessage)
+
+        ''Added 12/26/2021 thomas downes
+        If (LabelWarningMessage.Visible = False) Then
+
+            If (Me.ShowMessageForIllformedXML) Then
+
+                LabelWarningMessage.Visible = True
+                LabelWarningMessage.Text = "XML file is ill-formed internally, e.g. unterminated elements."
+
+            End If ''end of "If (Me.ShowMessageForIllformedXML) Then"
+
+        End If ''End of "If (LabelWarningMessage.Visible = False) Then"
 
     End Sub
 

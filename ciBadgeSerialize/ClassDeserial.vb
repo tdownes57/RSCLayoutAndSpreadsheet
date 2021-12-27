@@ -28,14 +28,21 @@ Public Class ClassDeserial
         ''9/29/2019 td''Dim srObj As ClassParent
         Dim srObj As Object
 
-        Using serialStream = New FileStream(Me.PathToXML, FileMode.Open, FileAccess.Read, FileShare.Read)
+        Try
+            Using serialStream = New FileStream(Me.PathToXML, FileMode.Open, FileAccess.Read, FileShare.Read)
 
-            ''#1 9/29/2019 td''srObj = DirectCast(obj_serializer.Deserialize(serialStream), ClassParent)
-            '' #2 9/29/2019 td''srObj = DirectCast(obj_serializer.Deserialize(serialStream), par_TypeOfObject)
+                ''#1 9/29/2019 td''srObj = DirectCast(obj_serializer.Deserialize(serialStream), ClassParent)
+                '' #2 9/29/2019 td''srObj = DirectCast(obj_serializer.Deserialize(serialStream), par_TypeOfObject)
 
-            srObj = obj_serializer.Deserialize(serialStream)
+                srObj = obj_serializer.Deserialize(serialStream)
 
-        End Using
+            End Using
+        Catch ex_Try As Exception
+            MsgBox("Deserialization failed, Message:  " & ex_Try.Message, vbInformation)
+            MsgBox("Deserialization failed, ToString:  " & ex_Try.ToString, vbInformation)
+            pbVerboseSuccess = False
+            Return Nothing
+        End Try
 
         If (pbVerboseSuccess) Then
             ''Added 9/29/2019 Thomas D. 

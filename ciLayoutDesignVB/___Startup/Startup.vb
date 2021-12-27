@@ -31,7 +31,7 @@ Public Class Startup
         Dim boolNewFileXML As Boolean ''Added 10/10/2019 td  
 
         ''1/14/2020 td''Dim obj_cache_layout As ClassElementsCache_NotInUse ''Added 10/13/2019 td 
-        Dim obj_cache_layout_Elements As ClassElementsCache_Deprecated ''Added 10/13/2019 td
+        Dim obj_cache_layout_Elements As ClassElementsCache_Deprecated = Nothing ''Added 10/13/2019 td
 
         ''1/14/2019 td''Dim obj_personality As New PersonalityCache_NotInUse ''Added 10/17/2019 td  
         Dim obj_personality As New ClassCachePersonality ''Dec4 2021'' As ClassPersonalityCache ''Added 10/17/2019 td  
@@ -85,6 +85,16 @@ Public Class Startup
                     bGoodChoice = (bUserWantsABlankSlate Or (Not DiskFilesVB.IsXMLFileMissing_OrEmpty(strPathToElementsCacheXML)))
                     bUserCancelled = objShow.UserHasSelectedCancel
 
+                    ''Added 12/26/2021
+                    If (bGoodChoice And Not bUserCancelled) Then
+                        ''Added 12/26/2021
+                        Dim obj_formDemo As New Form__Main_Demo ''Added 12/26/2021 
+                        obj_cache_layout_Elements = LoadCachedData_Elements_Deprecated(obj_formDemo,
+                                                               boolNewFileXML, strPathToElementsCacheXML)
+                        bGoodChoice = (obj_cache_layout_Elements IsNot Nothing)
+                        If (Not bGoodChoice) Then objShow.ShowMessageForIllformedXML = True
+                    End If ''End of "If (bGoodChoice And Not bUserCancelled) Then"
+
                 Loop Until (bGoodChoice Or bUserCancelled) ''Dec20 2021''Loop Until (bGoodChoice) 
 
                 ''Added 12/20/2021 td
@@ -113,9 +123,11 @@ Public Class Startup
             ''   Open the cache of elements, through the magic of deserialization.
             ''   ---12/20/2021 td
             ''
-            obj_cache_layout_Elements = LoadCachedData_Elements_Deprecated(obj_formToShow, boolNewFileXML,
+            If (obj_cache_layout_Elements Is Nothing) Then
+                ''Open the cache from the XML. 
+                obj_cache_layout_Elements = LoadCachedData_Elements_Deprecated(obj_formToShow, boolNewFileXML,
                    strPathToElementsCacheXML)
-
+            End If ''End of "If (obj_cache_layout_Elements Is Nothing) Then"
 
         Else
                 ''Function called in the line below was suffixed w/ "_FutureUse"
@@ -510,6 +522,9 @@ Public Class Startup
             ''   by typing its name doesn't work.  ---10/13/2019 td
 
             obj_cache_elements = CType(objDeserialize.DeserializeFromXML(obj_cache_elements.GetType(), False), ClassElementsCache_Deprecated)
+
+            ''Added 12/26/2021 thomas d.
+            If (obj_cache_elements Is Nothing) Then Return Nothing
 
             ''Added 10/12/2019 td
             ''10/13/2019 td''Me.ElementsCache_Saved.LinkElementsToFields()
