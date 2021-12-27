@@ -108,7 +108,7 @@ Namespace ciBadgeCachePersonality
         ''End Property
 
 
-        Public Function GetBadgeSideLayout(par_enum As EnumWhichSideOfCard) As ClassBadgeSideLayout
+        Public Function GetAllBadgeSideLayoutElements(par_enum As EnumWhichSideOfCard) As ClassBadgeSideLayout
             ''
             ''Added 12/22/2021 thomas downes
             ''

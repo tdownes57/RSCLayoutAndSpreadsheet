@@ -431,10 +431,14 @@ namespace ciBadgeGenerator
             //Dec.18 2021 ''LoadImageWithQRCode_IfNeeded(par_cache, par_elementQR,
             //                             par_newBadge_width_pixels, par_layoutDims,
             //                             ref obj_imageOutput);
-            LoadImageWithQRCode_IfNeeded(null, 
-                                         par_layoutElements.ElementQR,
-                                         par_newBadge_width_pixels, par_layoutDims,
-                                         ref obj_imageOutput);
+            //Dec.26 2021 ''LoadImageWithQRCode_IfNeeded(null, 
+            //                           par_layoutElements.ElementQR,
+            //                             par_newBadge_width_pixels, par_layoutDims,
+            //                             ref obj_imageOutput);
+            LoadImageWithQRCode_IfNeeded(par_layoutElements,
+                               par_layoutElements.ElementQR,
+                               par_newBadge_width_pixels, par_layoutDims,
+                               ref obj_imageOutput);
 
 
             //
@@ -843,6 +847,43 @@ namespace ciBadgeGenerator
         }
 
 
+        public void LoadImageWithQRCode_IfNeeded(IBadgeSideLayoutElements par_infoBadgeCache,
+                                         ClassElementQRCode par_elementQR,
+                                         int par_newBadge_width_pixels,
+                                         IBadgeLayoutDimensions par_infoBadgeLayoutDims,
+                                         ref Image pref_imageOutput)
+        {
+            //
+            // Added 12/26/2021 thomas downes 
+            //
+
+            if (par_elementQR == null)
+            {
+                //
+                //There is not any QR Code to display.
+                //
+            }
+            else  
+            {
+                //
+                //Add the QR Code. 
+                //
+                ClassElementQRCode obj_elementQR = par_elementQR;
+
+                this.ImageQRCode = obj_elementQR.Image_BL;
+
+                LoadImageWithQRCode(par_newBadge_width_pixels,
+                                    par_infoBadgeLayoutDims.Width_Pixels,
+                                    ref pref_imageOutput,
+                                    (IElement_Base)obj_elementQR,
+                                    (IElementQRCode)obj_elementQR,
+                                    ref this.ImageQRCode);
+
+            }
+
+        }
+
+
         public void LoadImageWithQRCode(int pintDesiredLayoutWidth,
                                  int pintDesignedLayoutWidth,
                                  ref Image par_imageBadgeCard,
@@ -900,6 +941,23 @@ namespace ciBadgeGenerator
             //
             //Stubbed 10/14/2019 thomas d. 
             //
+            Graphics gr_Badge;
+            int intEachIndex = 0;
+            bool bOutputListOfAllImages;
+            ClassProportions.ProportionsAreSlightlyOff(par_imageBadgeCard, true, "par_imageBadgeCard");
+            bOutputListOfAllImages = (par_listTextImages != null);
+            gr_Badge = Graphics.FromImage(par_imageBadgeCard);
+
+            foreach (ClassElementStaticText each_elementStatic in par_elements)
+            {
+                intEachIndex += 1;
+
+                AddElementStaticToImage(each_elementStatic, par_imageBadgeCard,
+                       gr_Badge, bOutputListOfAllImages, par_listTextImages);
+
+            }
+
+            gr_Badge.Dispose();
 
         }
 
@@ -1445,6 +1503,126 @@ namespace ciBadgeGenerator
             //        ''---gr.Dispose()
             //
             //    Next par_elementField
+        }
+
+
+        private void AddElementStaticToImage(ClassElementStaticText par_elementStatic,
+                                    Image par_imageBadgeCard,
+                                    Graphics par_graphics,
+                                    bool pboolReturnListOfImages,
+                                    HashSet<Image> par_listTextImages,
+                                    List<String> par_listMessages = null)
+        {
+            //
+            //Added 12/26/2021 td
+            //
+            string strTextToDisplay = par_elementStatic.Text_Static;
+
+            WhyOmitted structWhyOmitted = new WhyOmitted();
+
+            if (OmitOutlyingElements && (0 > par_elementStatic.LeftEdge_Pixels)) //return;
+            {
+                // Added 11/10/2021
+                structWhyOmitted.OmitCoordinateX = true;
+                return;   
+            }
+
+            if (OmitOutlyingElements && (0 > par_elementStatic.TopEdge_Pixels))
+            {
+                // Added 11/10/2021  
+                structWhyOmitted.OmitCoordinateY = true;
+                return;   
+            }
+            
+            int intElementsRightEdge = (par_elementStatic.LeftEdge_Pixels +
+                                        par_elementStatic.Width_Pixels);
+
+            if (OmitOutlyingElements && (intElementsRightEdge > par_imageBadgeCard.Width))
+            {
+                // Added 11/10/2021
+                structWhyOmitted.OmitWidth = true;
+                return;   
+            }
+
+            int intElementsBottomEdge = (par_elementStatic.TopEdge_Pixels +
+                                        par_elementStatic.Height_Pixels);
+
+            if (OmitOutlyingElements && (intElementsBottomEdge > par_imageBadgeCard.Height)) //return;  //10-17 continue;
+            {
+                // Added 11/10/2021
+                structWhyOmitted.OmitHeight = true;
+                return;  //10-17 continue;
+            }
+
+            Image image_textStandard;
+            bool bElementSuppressed = (!(par_elementStatic.Visible));
+            if (bElementSuppressed)
+            {
+                return;  
+            }
+
+            if (0 == par_elementStatic.Width_Pixels)
+            {
+                if (par_listMessages != null)
+                    par_listMessages.Add("We cannot scale the placement of the image...." +
+                            par_elementStatic.Text_Static);
+
+            }
+
+            try
+            {
+
+                int intDesiredLayout_Width = par_imageBadgeCard.Width;
+
+                bool boolRotated = false; //Added 10/14/2019 td  
+
+                image_textStandard =
+                    modGenerate.TextImage_ByElemInfo(strTextToDisplay, intDesiredLayout_Width,
+                         par_elementStatic, par_elementStatic, ref boolRotated, false);  
+
+                if (pboolReturnListOfImages) par_listTextImages.Add(image_textStandard);
+
+                par_elementStatic.Image_BL = image_textStandard;
+
+                decimal decScalingFactor = ((decimal)par_imageBadgeCard.Width /
+                                             par_elementStatic.BadgeLayout.Width_Pixels);
+
+                int intDesignedLeft = par_elementStatic.LeftEdge_Pixels;  //Added 10/14/2019 td 
+                int intDesignedTop = par_elementStatic.TopEdge_Pixels;  //Added 10/14/2019 td
+
+                int intDesiredLeft = (int)(intDesignedLeft * decScalingFactor);
+                int intDesiredTop = (int)(intDesignedTop * decScalingFactor);
+
+                par_graphics.DrawImage(image_textStandard,
+                                   new PointF(intDesiredLeft, intDesiredTop));
+
+                //''---if (par_listFieldsIncluded != null)
+                //''---    par_listFieldsIncluded.Add(par_elementField.FieldInfo.CIBadgeField);
+
+            }
+            catch (InvalidOperationException ex_draw_invalid)
+            {
+                string strMessage_Invalid = ex_draw_invalid.Message;
+
+                if (par_listMessages != null)
+                    par_listMessages.Add(ex_draw_invalid.Message + "..." + par_elementStatic.Text_Static);
+
+                //if (par_listFieldsNotIncluded != null)
+                //    par_listFieldsNotIncluded.Add(par_elementField.FieldInfo.CIBadgeField);
+
+            }
+            catch (Exception ex_draw_any)
+            {
+                string strMessage_any;
+                strMessage_any = ex_draw_any.Message;
+                if (par_listMessages != null)
+                    par_listMessages.Add(ex_draw_any.Message + "..." + par_elementStatic.Text_Static);
+
+                //''if (par_listFieldsNotIncluded != null)
+                //''    par_listFieldsNotIncluded.Add(par_elementField.FieldInfo.CIBadgeField);
+
+            }
+
         }
 
 

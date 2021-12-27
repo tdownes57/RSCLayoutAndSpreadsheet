@@ -767,7 +767,7 @@ Public Class ClassDesigner
         ''Load the non-Field Elements. ---12/22/2021 thomas d. 
         ''
         Dim iBadgeSideElements As IBadgeSideLayoutElements
-        iBadgeSideElements = par_cache.GetBadgeSideLayout(par_enumSideOfCard)
+        iBadgeSideElements = par_cache.GetAllBadgeSideLayoutElements(par_enumSideOfCard)
 
         ''12/22/2021 td''If (par_enumSideOfCard = EnumWhichSideOfCard.EnumBackside) Then
         ''12/22/2021 td''     ''For now, omit the picture and the signature from the back side of the card. 
@@ -1760,7 +1760,10 @@ Public Class ClassDesigner
             ''
             ''Major call !!
             ''
-            objMakeBadgeElements = Me.ElementsCache_UseEdits.GetBadgeSideLayout(EnumWhichSideOfCard.EnumFrontside)
+            objMakeBadgeElements = Me.ElementsCache_UseEdits.GetAllBadgeSideLayoutElements(EnumWhichSideOfCard.EnumFrontside)
+
+            ''Added 12/26/2021 td
+            objMakeBadgeElements.BackgroundImage = obj_image_clone_resized
 
             ''
             ''Major call !!
