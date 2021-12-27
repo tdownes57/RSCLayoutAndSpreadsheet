@@ -23,7 +23,8 @@ Public Class CtlGraphicStaticText
     ''9/18/2019 td''Public ElementInfo_Text As ciBadgeInterfaces.IElement_TextField ''Added 8/29/2019 td
     Public ElementInfo_TextOnly As ciBadgeInterfaces.IElement_TextOnly ''Added 8/29/2019 td
 
-    Public ParentDesignForm As ISelectingElements ''Added 7/31/2019 thomas downes  
+    Public ParentDesignForm_Selecting As ISelectingElements ''Added 7/31/2019 thomas downes  
+    Public ParentDesignForm_RefreshPreview As IRefreshPreview ''Added 12/27/2021 thomas downes  
 
     Public Event ElementStatic_RightClicked(par_control As CtlGraphicStaticText) ''Added 12/15/2021 td
 
@@ -36,6 +37,8 @@ Public Class CtlGraphicStaticText
     ''  (enlarged via user click-and-drag), unfortunately.  ----7/31/2019 thomas d.  
 
     Private mod_strTextToDisplay As String = "This is text which will be the same for everyone." ''Added 10/10/2019 td 
+
+    Private mod_bDisplayVisibilityLink As Boolean = False ''Added 12/27/2021 td
 
     Public ReadOnly Property Picture_Box As PictureBox
         Get
@@ -71,6 +74,9 @@ Public Class CtlGraphicStaticText
         Me.ElementInfo_Base = CType(Me.Element_StaticText, IElement_Base)
         Me.ElementInfo_TextOnly = CType(Me.Element_StaticText, IElement_TextOnly)
 
+        ''Added 12/27/2021 td 
+        Me.LinkInvisible.Text = Me.LinkInvisible.Tag.ToString()
+
     End Sub
 
     Public Sub New(par_element As ClassElementStaticText)
@@ -92,8 +98,15 @@ Public Class CtlGraphicStaticText
 
         ''Added 12/27/2021 thomas downes
         bInvisibleOnBadge = (Not par_element.Visible)
+        mod_bDisplayVisibilityLink = bInvisibleOnBadge ''Added 12/27/2021 
         LinkInvisible.Visible = bInvisibleOnBadge
 
+        ''Added 12/27/2021 td 
+        If (bInvisibleOnBadge) Then
+            Me.LinkInvisible.Text = Me.LinkInvisible.Tag.ToString()
+        Else
+            Me.LinkInvisible.Text = "Visible on badge."
+        End If ''End of "If (bInvisibleOnBadge) Then... Else ..."
 
     End Sub ''End of "Public Sub New(par_element As ClassElementStaticText)"
 
@@ -689,4 +702,52 @@ ExitHandler:
         Return pictureLabel
 
     End Function
+
+    Private Sub LinkInvisible_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkInvisible.LinkClicked
+        ''
+        ''Confirm, then render visible on the Badge. 
+        ''
+        Dim diagReply As DialogResult
+        Dim bPriorlyInvisible As Boolean
+
+        If (bPriorlyInvisible) Then
+
+            ''Added 12/27/2021 td
+            diagReply = MessageBox.Show("Confirm via Yes (or OK) that you want this element to be rendered visibly on the Badge.", "", MessageBoxButtons.YesNoCancel,
+               MessageBoxIcon.Question)
+
+            If (diagReply = DialogResult.OK) Then diagReply = DialogResult.Yes
+
+            If (diagReply = DialogResult.Yes) Then
+
+                LinkInvisible.Text = "Now visible."
+                ElementInfo_Base.Visible = True
+                ''Added 12/27/2021 td
+                ParentDesignForm_RefreshPreview.RefreshPreview()
+
+            End If ''End of "If (diagReply = DialogResult.Yes) Then"
+
+        Else
+
+            ''Added 12/27/2021 td
+            diagReply = MessageBox.Show("Confirm via Yes (or OK) that you want this element to be NOT! repeat NOT! rendered (display) on the Badge.", "", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)
+
+            If (diagReply = DialogResult.OK) Then diagReply = DialogResult.Yes
+
+            If (diagReply = DialogResult.Yes) Then
+
+                LinkInvisible.Text = LinkInvisible.Tag.ToString() ''Says "Won't appear on ID Card".
+                ElementInfo_Base.Visible = False
+                ''Added 12/27/2021 td
+                ParentDesignForm_RefreshPreview.RefreshPreview()
+
+            End If ''End of "If (diagReply = DialogResult.Yes) Then"
+
+        End If ''End of "If (bPriorlyInvisible) Then ... Else ..."
+
+    End Sub
+
+    Private Sub LinkInvisible_DpiChangedAfterParent(sender As Object, e As EventArgs) Handles LinkInvisible.DpiChangedAfterParent
+
+    End Sub
 End Class

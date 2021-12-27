@@ -43,13 +43,15 @@ Partial Class CtlGraphicStaticText
         'LinkInvisible
         '
         Me.LinkInvisible.AutoSize = True
+        Me.LinkInvisible.BackColor = System.Drawing.Color.Transparent
         Me.LinkInvisible.Location = New System.Drawing.Point(35, 17)
         Me.LinkInvisible.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LinkInvisible.Name = "LinkInvisible"
-        Me.LinkInvisible.Size = New System.Drawing.Size(164, 17)
+        Me.LinkInvisible.Size = New System.Drawing.Size(162, 17)
         Me.LinkInvisible.TabIndex = 4
         Me.LinkInvisible.TabStop = True
-        Me.LinkInvisible.Text = "Won't appear in preview."
+        Me.LinkInvisible.Tag = "Won't appear on Badge."
+        Me.LinkInvisible.Text = "Won't appear on Badge."
         Me.LinkInvisible.Visible = False
         '
         'textTypeExample
@@ -71,7 +73,7 @@ Partial Class CtlGraphicStaticText
         Me.pictureLabel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pictureLabel.Image = Global.ciBadgeDesigner.My.Resources.Resources.Static_Text
         Me.pictureLabel.Location = New System.Drawing.Point(0, 0)
-        Me.pictureLabel.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.pictureLabel.Margin = New System.Windows.Forms.Padding(4)
         Me.pictureLabel.Name = "pictureLabel"
         Me.pictureLabel.Size = New System.Drawing.Size(475, 39)
         Me.pictureLabel.TabIndex = 1
@@ -84,7 +86,7 @@ Partial Class CtlGraphicStaticText
         Me.Controls.Add(Me.LinkInvisible)
         Me.Controls.Add(Me.pictureLabel)
         Me.Controls.Add(Me.textTypeExample)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "CtlGraphicStaticText"
         Me.Size = New System.Drawing.Size(475, 39)
         CType(Me.pictureLabel, System.ComponentModel.ISupportInitialize).EndInit()

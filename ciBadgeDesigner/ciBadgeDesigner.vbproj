@@ -136,8 +136,9 @@
     <Compile Include="Controls\MoveableControl.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="InterfaceSelectingElements.vb" />
-    <Compile Include="InterfaceSelectingElements_v90.vb" />
+    <Compile Include="Interfaces\InterfaceRefreshPreview.vb" />
+    <Compile Include="Interfaces\InterfaceSelectingElements.vb" />
+    <Compile Include="Interfaces\InterfaceSelectingElements_v90.vb" />
     <Compile Include="Interfaces\InterfaceClickableElement.vb" />
     <Compile Include="Interfaces\InterfaceMoveableElement.vb" />
     <Compile Include="Interfaces\InterfaceRecordElementLastTouched.vb" />

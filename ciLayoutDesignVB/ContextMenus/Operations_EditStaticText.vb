@@ -109,6 +109,26 @@ Public Class Operations_EditStaticText
     End Sub ''End of "Public Sub Disable_DragAndDrop_EE1013(sender As Object, e As EventArgs)"
 
 
+    Public Sub Visibility_Link_To_Be_Displayed_EE1014(sender As Object, e As EventArgs)
+        ''
+        ''Added 12/27/2021 thomas downes
+        ''  Show the link which controls the Visibility of the Element.  
+        ''
+
+
+    End Sub ''End of "Public Sub Visibility_Link_To_Be_Displayed_EE1014(sender As Object, e As EventArgs)"
+
+
+    Public Sub Visibility_Link_To_Be_Hidden_EE1015(sender As Object, e As EventArgs)
+        ''
+        ''Added 12/27/2021 thomas downes
+        ''  Hide the link which controls the Visibility of the Element.  
+        ''
+
+
+    End Sub ''End of "Public Sub Visibility_Link_To_Be_Hidden_EE1014(sender As Object, e As EventArgs)"
+
+
     Public Sub How_Context_Menus_Are_Generated_EE1002(sender As Object, e As EventArgs)
         ''
         ''Added 12/12/2021 thomas downes  
