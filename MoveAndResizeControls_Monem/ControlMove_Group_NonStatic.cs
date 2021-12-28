@@ -108,6 +108,7 @@ namespace MoveAndResizeControls_Monem
             //   internal static void Init(Control control, Control container)
             //
             _iSaveToModel = par_iSave; //Added 12/17/2021 td
+            _controlPictureBox = par_controlPictureB; //Added 12/27/2021 td
 
             SetBreakpoint_AfterMove = pbSetBreakpoint_AfterMove;  //Added 9/13/2019 td 
 

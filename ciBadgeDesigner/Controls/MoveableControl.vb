@@ -15,7 +15,7 @@ Public Class MoveableControl
     Private mod_movingInAGroup As ControlMove_Group_NonStatic
     Private mod_boolResizeProportionally As Boolean
     Private mod_events As New ClassGroupMoveEvents ''InterfaceEvents
-    Private mod_iSave As iSaveToModel
+    Private mod_iSaveToModel As ISaveToModel
 
     Public Sub New()
 
@@ -24,39 +24,62 @@ Public Class MoveableControl
 
         ' Add any initialization after the InitializeComponent() call.
 
-    End Sub
-
-    Public Sub New(pboolResizeProportionally As Boolean, par_iSaveToModel As ISaveToModel)
-        ' This call is required by the designer.
-        InitializeComponent()
-
         ''Encapsulated 12/22/2021 thomas downes
-        InitializeMoveability(pboolResizeProportionally, par_iSaveToModel)
+        ''Dec27 2021''InitializeMoveability(False, New ClassSaveToModel)
+
+        Dim objLayoutFun As New ClassDesigner ''Added Dec27 2021
+        InitializeMoveability(False, New ClassSaveToModel, New ClassDesigner())
 
         ''Encapsulated 12/22/2021 thomas downes
         InitializeClickability()
 
     End Sub
 
-    Private Sub InitializeMoveability(pboolResizeProportionally As Boolean, par_iSaveToModel As ISaveToModel)
+    Public Sub New(pboolResizeProportionally As Boolean,
+                   par_iSaveToModel As ISaveToModel,
+                   par_iLayoutFun As ILayoutFunctions)
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ''Encapsulated 12/22/2021 thomas downes
+        ''====InitializeMoveability(pboolResizeProportionally, par_iSaveToModel)
+        InitializeMoveability(pboolResizeProportionally, par_iSaveToModel, par_iLayoutFun)
+
+        ''Encapsulated 12/22/2021 thomas downes
+        InitializeClickability()
+
+    End Sub
+
+    Public Sub InitializeMoveability(pboolResizeProportionally As Boolean,
+                                     par_iSaveToModel As ISaveToModel,
+                                     par_iLayoutFunctions As ILayoutFunctions)
         ''
         ''Added 12/22/2021 thomas downes
         ''
         ' Add any initialization after the InitializeComponent() call.
         mod_boolResizeProportionally = pboolResizeProportionally ''Added 12/22/2021 td
-        mod_iSave = par_iSaveToModel
+        mod_iSaveToModel = par_iSaveToModel
         Const c_bRepaintAfterResize As Boolean = True ''Added 7/31/2019 td
 
         If pboolResizeProportionally Then
 
             mod_resizingProportionally = New MoveAndResizeControls_Monem.ControlResizeProportionally_TD()
+            mod_events.LayoutFunctions = par_iLayoutFunctions ''Added 12/27/2021
             mod_resizingProportionally.Init(Me, Me, 10, c_bRepaintAfterResize,
-                                            mod_events, False, mod_iSave)
+                                            mod_events, False, mod_iSaveToModel)
+            ''---mod_resizingProportionally.LayoutFunctions = par_iLayoutFunctions 
 
         Else
             mod_movingInAGroup = New MoveAndResizeControls_Monem.ControlMove_Group_NonStatic()
+
+            ''mod_iLayoutFunctions = par_iLayoutFunctions
+            ''mod_movingInAGroup.LayoutFunctions = par_iLayoutFunctions
+
+            mod_events.LayoutFunctions = par_iLayoutFunctions ''Added 12/27/2021
+
             mod_movingInAGroup.Init(Me, Me, 10, c_bRepaintAfterResize,
-                                    mod_events, False, mod_iSave)
+                                    mod_events, False, mod_iSaveToModel)
 
         End If ''End of "If pboolResizeProportionally Then .... Else ..."
 

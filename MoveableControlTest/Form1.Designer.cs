@@ -35,7 +35,7 @@ namespace MoveableControlTest
             // moveableControl1
             // 
             this.moveableControl1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.moveableControl1.Location = new System.Drawing.Point(54, 34);
+            this.moveableControl1.Location = new System.Drawing.Point(118, 73);
             this.moveableControl1.Name = "moveableControl1";
             this.moveableControl1.Size = new System.Drawing.Size(304, 150);
             this.moveableControl1.TabIndex = 0;
@@ -48,6 +48,7 @@ namespace MoveableControlTest
             this.Controls.Add(this.moveableControl1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
 
         }

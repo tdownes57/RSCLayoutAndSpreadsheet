@@ -28,6 +28,7 @@ Partial Class MoveableControl
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.Name = "MoveableControl"
         Me.ResumeLayout(False)
 
