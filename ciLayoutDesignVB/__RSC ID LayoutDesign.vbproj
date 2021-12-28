@@ -261,11 +261,13 @@
     <Compile Include="ClassLabelToImage.vb" />
     <Compile Include="ClassLoopedOperations.vb" />
     <Compile Include="ClassRubberbandSelector.vb" />
+    <Compile Include="ContextMenus\ClassDisplayContextMenu.vb" />
     <Compile Include="ContextMenus\MenuCache_Background.vb" />
     <Compile Include="ContextMenus\MenuCache_FieldElements.vb" />
     <Compile Include="ContextMenus\MenuCache_GraphicElements.vb" />
     <Compile Include="ContextMenus\MenuCache_Portrait.vb" />
     <Compile Include="ContextMenus\MenuCache_StaticText.vb" />
+    <Compile Include="ContextMenus\ModDisplayContextMenu.vb" />
     <Compile Include="ContextMenus\Operations_EditBackground.vb" />
     <Compile Include="ContextMenus\Operations_EditFieldElement.vb" />
     <Compile Include="ContextMenus\Operations_EditGraphic.vb" />

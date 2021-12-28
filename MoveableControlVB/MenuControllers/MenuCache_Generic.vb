@@ -35,7 +35,9 @@ Public Class MenuCache_Generic
     Public Shared Tools_MenuHeader3 As ToolStripItem ''Added 12/13/2021
     Public Shared Tools_MenuSeparator As ToolStripItem ''Added 12/13/2021 
 
-    Public Shared Property CtlCurrentElement As ciBadgeDesigner.CtlGraphicFldLabel ''CtlGraphicFldLabel
+    ''12/28/2021 td''Public Shared Property CtlCurrentElement As ciBadgeDesigner.CtlGraphicFldLabel ''CtlGraphicFldLabel
+    Public Shared Property CtlCurrentElement As MoveableControlVB ''CtlGraphicFldLabel
+
     Public Shared Property LayoutFunctions As ILayoutFunctions ''Added 10/3/2019 td 
     Public Shared Property Designer As ciBadgeDesigner.ClassDesigner
     Public Shared Property ColorDialog1 As ColorDialog ''Added 10/3/2019 td 
@@ -49,7 +51,7 @@ Public Class MenuCache_Generic
 
     Public Shared Operations_Edit As New Operations_Generic ''Added 10/11/2019 td  
 
-    Public Shared Sub GenerateMenuItems_IfNeeded(par_cacheOfFieldsEtc As ciBadgeCachePersonality.ClassElementsCache_Deprecated)
+    Public Shared Sub GenerateMenuItems_IfNeeded() ''Dec28 2021 td''(par_cacheOfFieldsEtc As ciBadgeCachePersonality.ClassElementsCache_Deprecated)
         ''Dec.12 2021 ''Public Shared Sub GenerateMenuItems_IfNeeded()
         ''
         ''Added 10/2/2019 thomas downes  
@@ -78,12 +80,12 @@ Public Class MenuCache_Generic
             ''.Parent_MenuCache = (New MenuCache_ElemFlds())
             ''.ListOfFields_Custom = CacheOfFieldsEtc.ListOfFields_Custom
             ''.ListOfFields_Standard = CacheOfFieldsEtc.ListOfFields_Standard
-            .CacheOfFieldsEtc = par_cacheOfFieldsEtc
+            ''Dec28 2021 td''.CacheOfFieldsEtc = par_cacheOfFieldsEtc
 
             ''Added 12/12/2021 td
             Dim bIsLatestCache As Boolean ''Added 12/12/2021 td 
-            par_cacheOfFieldsEtc.CheckCacheIsLatestForEdits(bIsLatestCache)
-            If (Not bIsLatestCache) Then MessageBox.Show("This cache is not the latest cache.")
+            ''Dec28 2021 td''par_cacheOfFieldsEtc.CheckCacheIsLatestForEdits(bIsLatestCache)
+            ''Dec28 2021 td''If (Not bIsLatestCache) Then MessageBox.Show("This cache is not the latest cache.")
 
         End With ''End of "With Operations_Edit"
 

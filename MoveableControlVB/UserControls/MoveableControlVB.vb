@@ -21,7 +21,9 @@ Public Class MoveableControlVB
     Private mod_boolResizeProportionally As Boolean
     Private WithEvents mod_events As New ClassGroupMoveEvents ''InterfaceEvents
     Private mod_iSaveToModel As ISaveToModel
-    Private WithEvents mod_designer As New ClassDesigner ''Added 12/27/2021 td
+    ''Dec28 2021 td''Private WithEvents mod_designer As New ClassDesigner ''Added 12/27/2021 td
+    Private WithEvents ContextMenuStrip1 As New ContextMenuStrip ''Added 12/28/2021 thomas downes
+    Private Const mc_AddExtraHeadersForContextMenuStrip As Boolean = True ''Added 12/28/2021 thomas d.
 
     Public Sub New()
 
@@ -114,7 +116,9 @@ Public Class MoveableControlVB
         ''
         ''Added 12/22/2021 thomas downes
         ''
-        mod_designer = par_designer
+        ''Dec28, 2021 td''mod_designer = par_designer
+
+
 
     End Sub ''End of "Private Sub InitializeClickability()"
 
@@ -182,9 +186,15 @@ Public Class MoveableControlVB
 
     Protected Sub MoveableControl_MouseClick(sender As Object, e As Windows.Forms.MouseEventArgs) Handles MyBase.MouseClick
         ''
-        ''Added 12/22/2021 td  
+        ''Added 12/28/2021 td  
         ''
+        If (e.Button = MouseButtons.Right) Then
+            ''
+            ''Added 12/28/2021 td
+            ''
+            mod_designer_ElementRightClicked(e.X, e.Y)
 
+        End If ''End of "If (e.Button = MouseButtons.Right) Then"
 
     End Sub
 
@@ -230,63 +240,80 @@ Public Class MoveableControlVB
     End Sub
 
 
-    Private Sub mod_designer_ElementRightClicked(par_control As CtlGraphicFldLabel) Handles mod_designer.ElementFieldRightClicked
+    Private Sub mod_designer_ElementRightClicked(par_intX As Integer, par_intY As Integer) '' par_control As CtlGraphicFldLabel) ''Handles mod_designer.ElementFieldRightClicked
         ''
         ''Added 10/13/2019 thomas downes  
         ''
-        ''MenuCache_FieldElements.CtlCurrentElement = par_control ''Added 10/14/2019 td  
-        ''MenuCache_FieldElements.Operations_Edit.CtlCurrentElement = par_control ''Added 10/14/2019 td
+        MenuCache_Generic.CtlCurrentElement = Me ''par_control ''Added 10/14/2019 td  
+        MenuCache_Generic.Operations_Edit.CtlCurrentElement = Me ''par_control ''Added 10/14/2019 td
 
-        ''ContextMenuStrip1.Items.Clear()
+        ContextMenuStrip1.Items.Clear()
 
-        ''''Add a ToolStripMenuItem which will tell which Field is being displayed 
-        ''''  on the selected (right-clicked) control. 
-        ''ContextMenuStrip1.Items.Add(MenuCache_FieldElements.Tools_MenuHeader0) ''Added 12/13/2021 
-        ''ContextMenuStrip1.Items.Add(MenuCache_FieldElements.Tools_MenuHeader1) ''Added 12/12/2021 
+        ''Add a ToolStripMenuItem which will tell which Field is being displayed 
+        ''  on the selected (right-clicked) control. 
+        ContextMenuStrip1.Items.Add(MenuCache_Generic.Tools_MenuHeader0) ''Added 12/13/2021 
+        ContextMenuStrip1.Items.Add(MenuCache_Generic.Tools_MenuHeader1) ''Added 12/12/2021 
 
-        ''Dim bool_addExtraHeadersToContextMenus As Boolean ''Added 12/13/2021 td
-        ''bool_addExtraHeadersToContextMenus = AddExtraHeadersToolStripMenuItem.Checked
+        Dim bool_addExtraHeadersToContextMenus As Boolean ''Added 12/13/2021 td
+        ''Dec.28 2021 td''bool_addExtraHeadersToContextMenus = AddExtraHeadersToolStripMenuItem.Checked
+        bool_addExtraHeadersToContextMenus = mc_AddExtraHeadersForContextMenuStrip
 
-        ''''Added header items. 
-        ''If (bool_addExtraHeadersToContextMenus) Then
-        ''    ''Added 12/13/2021 
-        ''    ContextMenuStrip1.Items.Add(MenuCache_FieldElements.Tools_MenuHeader2) ''Added 12/12/2021 
-        ''    ContextMenuStrip1.Items.Add(MenuCache_FieldElements.Tools_MenuHeader3) ''Added 12/13/2021 
+        ''Added header items. 
+        If (bool_addExtraHeadersToContextMenus) Then
+            ''Added 12/13/2021 
+            ContextMenuStrip1.Items.Add(MenuCache_Generic.Tools_MenuHeader2) ''Added 12/12/2021 
+            ContextMenuStrip1.Items.Add(MenuCache_Generic.Tools_MenuHeader3) ''Added 12/13/2021 
 
-        ''    Dim objMenuHeader3_1 As New ToolStripMenuItem("mod_designer_ElementRightClicked(...")
-        ''    Dim objMenuHeader3_2 As New ToolStripMenuItem("   ... Handles mod_designer.ElementRightClicked")
-        ''    ContextMenuStrip1.Items.Add(objMenuHeader3_1) ''Added 12/13/2021 
-        ''    ''Dec.13 ''ContextMenuStrip1.Items.Add(objMenuHeader3_2) ''Added 12/13/2021 
-        ''    ''  Make 3_2 a sub-item under 3_1. ---12/13/2021 td 
-        ''    objMenuHeader3_1.DropDownItems.Add(objMenuHeader3_2)
+            Dim objMenuHeader3_1 As New ToolStripMenuItem("mod_designer_ElementRightClicked(...")
+            Dim objMenuHeader3_2 As New ToolStripMenuItem("   ... Handles mod_designer.ElementRightClicked")
+            ContextMenuStrip1.Items.Add(objMenuHeader3_1) ''Added 12/13/2021 
+            ''Dec.13 ''ContextMenuStrip1.Items.Add(objMenuHeader3_2) ''Added 12/13/2021 
+            ''  Make 3_2 a sub-item under 3_1. ---12/13/2021 td 
+            objMenuHeader3_1.DropDownItems.Add(objMenuHeader3_2)
 
-        ''End If ''End of "If (mod_letsAddExtraHeadersForContextMenus) Then"
+        End If ''End of "If (mod_letsAddExtraHeadersForContextMenus) Then"
 
-        ''''Let's add a separator bar. 
-        ''ContextMenuStrip1.Items.Add(MenuCache_FieldElements.Tools_MenuSeparator) ''Added 12/13/2021
+        ''Let's add a separator bar. 
+        ContextMenuStrip1.Items.Add(MenuCache_Generic.Tools_MenuSeparator) ''Added 12/13/2021
 
-        ''''
-        ''''Major step!!!   Add all the editing-related menu items!!
-        ''''
-        ''ContextMenuStrip1.Items.AddRange(MenuCache_FieldElements.Tools_EditElementMenu)
+        ''
+        ''Major step!!!   Add all the editing-related menu items!!
+        ''
+        ContextMenuStrip1.Items.AddRange(MenuCache_Generic.Tools_EditElementMenu)
 
-        ''''Added 12/13/2021 td
-        ''''  Change the text "Field: {0} ({1})" to "Field: School Name (fstrField1)".
-        ''With MenuCache_FieldElements.Tools_MenuHeader1
-        ''    ''Dim objHeader1 As ToolStripItem = MenuCache_ElemFlds.Tools_MenuHeader1
-        ''    .Text = String.Format(.Tag.ToString(), par_control.FieldInfo.FieldLabelCaption,
-        ''                                            par_control.FieldInfo.CIBadgeField)
-        ''End With ''End of "With MenuCache_ElemFlds.Tools_MenuHeader1"
+        ''Added 12/13/2021 td
+        ''  Change the text "Field: {0} ({1})" to "Field: School Name (fstrField1)".
+        With MenuCache_Generic.Tools_MenuHeader1
+            ''Dim objHeader1 As ToolStripItem = MenuCache_ElemFlds.Tools_MenuHeader1
+            ''Dec28 2021 td''.Text = String.Format(.Tag.ToString(), par_control.FieldInfo.FieldLabelCaption,
+            ''Dec28 2021 td''          par_control.FieldInfo.CIBadgeField)
+            .Text = String.Format(.Tag.ToString(), Me.Name, "[CI Badge Field is n/a]")
+        End With ''End of "With MenuCache_ElemFlds.Tools_MenuHeader1"
 
-        ''''Added 12/13/2021 td
-        ''''  Change the text "Context-Menu for Control: {0}" to "Context-Menu for Control: ....".
-        ''With MenuCache_FieldElements.Tools_MenuHeader0
-        ''    .Text = String.Format(.Tag.ToString(), par_control.Name)
-        ''End With ''End of "With MenuCache_ElemFlds.Tools_MenuHeader0"
+        ''Added 12/13/2021 td
+        ''  Change the text "Context-Menu for Control: {0}" to "Context-Menu for Control: ....".
+        With MenuCache_Generic.Tools_MenuHeader0
+            ''Dec28 2021''.Text = String.Format(.Tag.ToString(), par_control.Name)
+            .Text = String.Format(.Tag.ToString(), Me.Name)
+        End With ''End of "With MenuCache_ElemFlds.Tools_MenuHeader0"
 
-        ''''10/13 td''ContextMenuStrip1.Show()
-        ''''10/13 td''ContextMenuStrip1.Show(par_control, New Point(par_control.Left, par_control.Top))
-        ''ContextMenuStrip1.Show(par_control, New Point(0, 0))
+        ''10/13 td''ContextMenuStrip1.Show()
+        ''10/13 td''ContextMenuStrip1.Show(par_control, New Point(par_control.Left, par_control.Top))
+        ''12/28/2021 td''ContextMenuStrip1.Show(par_control, New Point(0, 0))
+        ''Added 12/28/2021 Thomas Downes
+        Dim objDisplayMenu As New ClassDisplayContextMenu(ContextMenuStrip1)
+        Const c_intRandom As Integer = 5
+        With objDisplayMenu
+            If (c_intRandom = 1) Then .ContextMenuDisplay(Me, New Point(par_intX, par_intY))
+            If (c_intRandom = 2) Then .ContextMenuOpen(Me, New Point(par_intX, par_intY))
+            If (c_intRandom = 3) Then .ContextMenuShow(Me, New Point(par_intX, par_intY))
+            If (c_intRandom = 4) Then .DisplayContextMenu(Me, New Point(par_intX, par_intY))
+            If (c_intRandom = 5) Then .DisplayPopupMenu(Me, New Point(par_intX, par_intY))
+            If (c_intRandom = 6) Then .DisplayRightclickMenu(Me, New Point(par_intX, par_intY))
+            If (c_intRandom = 7) Then .OpenContextMenu(Me, New Point(par_intX, par_intY))
+            If (c_intRandom = 8) Then .OpenPopupMenu(Me, New Point(par_intX, par_intY))
+            If (c_intRandom = 9) Then .OpenRightclickMenu(Me, New Point(par_intX, par_intY))
+        End With ''End of "With objDisplayMenu"
 
     End Sub ''End of "Private Sub mod_designer_ElementRightClicked"
 

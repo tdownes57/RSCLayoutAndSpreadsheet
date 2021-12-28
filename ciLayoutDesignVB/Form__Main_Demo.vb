@@ -1978,7 +1978,22 @@ Public Class Form__Main_Demo
 
         ''10/13 td''ContextMenuStrip1.Show()
         ''10/13 td''ContextMenuStrip1.Show(par_control, New Point(par_control.Left, par_control.Top))
-        ContextMenuStrip1.Show(par_control, New Point(0, 0))
+        ''12/28/2021 TD''ContextMenuStrip1.Show(par_control, New Point(0, 0))
+
+        ''Added 12/28/2021 Thomas Downes
+        Dim objDisplayMenu As New ClassDisplayContextMenu(ContextMenuStrip1)
+        Const c_intRandom As Integer = 5
+        With objDisplayMenu
+            If (c_intRandom = 1) Then .ContextMenuDisplay(par_control)
+            If (c_intRandom = 2) Then .ContextMenuOpen(par_control)
+            If (c_intRandom = 3) Then .ContextMenuShow(par_control)
+            If (c_intRandom = 4) Then .DisplayContextMenu(par_control)
+            If (c_intRandom = 5) Then .DisplayPopupMenu(par_control)
+            If (c_intRandom = 6) Then .DisplayRightclickMenu(par_control)
+            If (c_intRandom = 7) Then .OpenContextMenu(par_control)
+            If (c_intRandom = 8) Then .OpenPopupMenu(par_control)
+            If (c_intRandom = 9) Then .OpenRightclickMenu(par_control)
+        End With ''End of "With objDisplayMenu"
 
     End Sub ''End of "Private Sub mod_designer_ElementRightClicked"
 
@@ -2036,7 +2051,22 @@ Public Class Form__Main_Demo
             .Text = String.Format(.Tag.ToString(), par_control.Name)
         End With ''End of "With MenuCache_ElemFlds.Tools_MenuHeader0"
 
-        ContextMenuStrip1.Show(par_control, New Point(0, 0))
+        ''12/28/2021 TD''ContextMenuStrip1.Show(par_control, New Point(0, 0))
+
+        ''Added 12/28/2021 Thomas Downes
+        Dim objDisplayMenu As New ClassDisplayContextMenu(ContextMenuStrip1)
+        Const c_intRandom As Integer = 5
+        With objDisplayMenu
+            If (c_intRandom = 1) Then .ContextMenuDisplay(par_control)
+            If (c_intRandom = 2) Then .ContextMenuOpen(par_control)
+            If (c_intRandom = 3) Then .ContextMenuShow(par_control)
+            If (c_intRandom = 4) Then .DisplayContextMenu(par_control)
+            If (c_intRandom = 5) Then .DisplayPopupMenu(par_control)
+            If (c_intRandom = 6) Then .DisplayRightclickMenu(par_control)
+            If (c_intRandom = 7) Then .OpenContextMenu(par_control)
+            If (c_intRandom = 8) Then .OpenPopupMenu(par_control)
+            If (c_intRandom = 9) Then .OpenRightclickMenu(par_control)
+        End With ''End of "With objDisplayMenu"
 
     End Sub ''End of "Private Sub mod_designer_ElementRightClicked"
 
