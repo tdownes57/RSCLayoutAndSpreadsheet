@@ -4,6 +4,7 @@ Option Strict On
 Imports MoveAndResizeControls_Monem ''Added 12/22/2021 td
 Imports ciBadgeInterfaces ''Added 12/22/2021 td
 Imports windows.Forms ''Added 12/22/2021
+Imports System.Windows.Forms
 ''
 ''Added 12/22/2021 td  
 ''
@@ -14,7 +15,7 @@ Public Class MoveableControl
     Private mod_resizingProportionally As ControlResizeProportionally_TD
     Private mod_movingInAGroup As ControlMove_Group_NonStatic
     Private mod_boolResizeProportionally As Boolean
-    Private mod_events As New ClassGroupMoveEvents ''InterfaceEvents
+    Private WithEvents mod_events As New ClassGroupMoveEvents ''InterfaceEvents
     Private mod_iSaveToModel As ISaveToModel
 
     Public Sub New()
@@ -196,6 +197,37 @@ Public Class MoveableControl
         ''Added 12/22/2021 thomas downes
         ''
     End Sub
+
+    Private Sub mod_events_Moving_End(par_control As Control, par_iSaveToModel As ISaveToModel) Handles mod_events.Moving_End '', mod_events.Resizing_End, mod_events.Moving_InProgress
+        ''
+        ''Added 12/27/2021 td 
+        ''
+        ''----mod_iSaveToModel.SaveToModel()
+        par_iSaveToModel.SaveToModel()
+
+    End Sub
+
+    Private Sub mod_events_Resizing_End(par_iSaveToModel As ISaveToModel) Handles mod_events.Resizing_End
+        ''
+        ''Added 12/27/2021 td 
+        ''
+        ''---mod_iSaveToModel.SaveToModel()
+        par_iSaveToModel.SaveToModel()
+
+    End Sub
+
+    Private Sub mod_events_MovingInProgress(par_control As Control) Handles mod_events.Moving_InProgress
+        ''
+        ''Added 12/27/2021 td 
+        ''
+        ''---mod_iSaveToModel.SaveToModel()
+        ''---par_iSaveToModel.SaveToModel()
+        mod_iSaveToModel.SaveToModel()
+
+    End Sub
+
+
+
 
 
 End Class
