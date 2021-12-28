@@ -65,7 +65,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Can_HashSets_Be_Serialized"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoveableControlTestCS", "MoveableControlTest\MoveableControlTestCS.csproj", "{88B665E0-1C79-44E3-A4C0-6855C2D847E1}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ciBadgeDesignerMenus", "ciBadgeDesignerMenus\ciBadgeDesignerMenus.vbproj", "{79D5D867-F08A-4B2D-A3EE-C607BAECAA43}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ciBadgeDesignerMenus_NotInUse", "ciBadgeDesignerMenus\ciBadgeDesignerMenus_NotInUse.vbproj", "{79D5D867-F08A-4B2D-A3EE-C607BAECAA43}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "MoveableControlTestVB", "MoveableControlVB\MoveableControlTestVB.vbproj", "{74050388-F6C4-4E0A-BA5C-ADB0BD403C95}"
 EndProject

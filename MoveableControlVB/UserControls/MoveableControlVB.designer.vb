@@ -24,12 +24,13 @@ Partial Class MoveableControlVB
     Private Sub InitializeComponent()
         Me.SuspendLayout()
         '
-        'MoveableControl
+        'MoveableControlVB
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.Name = "MoveableControl"
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.Name = "MoveableControlVB"
+        Me.Size = New System.Drawing.Size(331, 150)
         Me.ResumeLayout(False)
 
     End Sub

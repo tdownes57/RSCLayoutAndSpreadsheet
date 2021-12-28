@@ -5,6 +5,8 @@ Imports MoveAndResizeControls_Monem ''Added 12/22/2021 td
 Imports ciBadgeInterfaces ''Added 12/22/2021 td
 ''--Imports windows.Forms ''Added 12/22/2021
 Imports System.Windows.Forms
+Imports ciBadgeDesigner ''Added 12/27/2021 td 
+
 ''
 ''Added 12/22/2021 td  
 ''
@@ -33,7 +35,7 @@ Public Class MoveableControlVB
         InitializeMoveability(False, New ClassSaveToModel, New ClassDesigner())
 
         ''Encapsulated 12/22/2021 thomas downes
-        InitializeClickability()
+        InitializeClickability(New ClassDesigner())
 
     End Sub
 

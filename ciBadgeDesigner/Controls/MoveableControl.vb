@@ -33,7 +33,7 @@ Public Class MoveableControl
         InitializeMoveability(False, New ClassSaveToModel, New ClassDesigner())
 
         ''Encapsulated 12/22/2021 thomas downes
-        InitializeClickability()
+        InitializeClickability(New ClassDesigner())
 
     End Sub
 

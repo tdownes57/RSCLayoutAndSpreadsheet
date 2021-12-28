@@ -23,6 +23,7 @@ Partial Class Form1
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.MoveableControl1 = New ciBadgeDesigner.MoveableControl()
+        Me.MoveableControlVB1 = New MoveableControlTestVB.MoveableControlVB()
         Me.SuspendLayout()
         '
         'MoveableControl1
@@ -33,11 +34,20 @@ Partial Class Form1
         Me.MoveableControl1.Size = New System.Drawing.Size(308, 109)
         Me.MoveableControl1.TabIndex = 0
         '
+        'MoveableControlVB1
+        '
+        Me.MoveableControlVB1.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.MoveableControlVB1.Location = New System.Drawing.Point(428, 49)
+        Me.MoveableControlVB1.Name = "MoveableControlVB1"
+        Me.MoveableControlVB1.Size = New System.Drawing.Size(262, 108)
+        Me.MoveableControlVB1.TabIndex = 1
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.Controls.Add(Me.MoveableControlVB1)
         Me.Controls.Add(Me.MoveableControl1)
         Me.Name = "Form1"
         Me.Text = "Form1"
@@ -46,4 +56,5 @@ Partial Class Form1
     End Sub
 
     Friend WithEvents MoveableControl1 As ciBadgeDesigner.MoveableControl
+    Friend WithEvents MoveableControlVB1 As MoveableControlVB
 End Class
