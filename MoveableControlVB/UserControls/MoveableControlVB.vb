@@ -16,6 +16,8 @@ Public Class MoveableControlVB
     ''
     Public Shared LastControlTouched As MoveableControlVB
 
+    Public MyToolstripItemCollection As ToolStripItemCollection ''Added 12/28/2021 td 
+
     Private mod_resizingProportionally As ControlResizeProportionally_TD
     Private mod_movingInAGroup As ControlMove_Group_NonStatic
     Private mod_boolResizeProportionally As Boolean
@@ -46,7 +48,8 @@ Public Class MoveableControlVB
     Public Sub New(pboolResizeProportionally As Boolean,
                    par_iSaveToModel As ISaveToModel,
                    par_iLayoutFun As ILayoutFunctions,
-                   par_designer As ClassDesigner)
+                   par_designer As ClassDesigner,
+                   par_toolstrip As ToolStripItemCollection)
 
         ' This call is required by the designer.
         InitializeComponent()
@@ -56,6 +59,7 @@ Public Class MoveableControlVB
         InitializeMoveability(pboolResizeProportionally, par_iSaveToModel, par_iLayoutFun)
 
         ''Encapsulated 12/22/2021 thomas downes
+        Me.MyToolstripItemCollection = par_toolstrip ''Added 12/28/2021 td
         InitializeClickability(par_designer)
 
     End Sub
@@ -245,7 +249,8 @@ Public Class MoveableControlVB
         ''Added 10/13/2019 thomas downes  
         ''
         MenuCache_Generic.CtlCurrentElement = Me ''par_control ''Added 10/14/2019 td  
-        MenuCache_Generic.Operations_Edit.CtlCurrentElement = Me ''par_control ''Added 10/14/2019 td
+        ''#1 Dec28 2021 td''MenuCache_Generic.Operations_Edit.CtlCurrentElement = Me ''par_control ''Added 10/14/2019 td
+        ''#2 Dec28 2021 td''mod_operationsGenericEdits.CtlCurrentElement = Me ''Modified 12/28/2021 td
 
         ContextMenuStrip1.Items.Clear()
 
@@ -279,7 +284,11 @@ Public Class MoveableControlVB
         ''
         ''Major step!!!   Add all the editing-related menu items!!
         ''
-        ContextMenuStrip1.Items.AddRange(MenuCache_Generic.Tools_EditElementMenu)
+        ''Dec28, 2021 td''ContextMenuStrip1.Items.AddRange(MenuCache_Generic.Tools_EditElementMenu)
+        ''#2 Dec28 2021 td''ContextMenuStrip1.Items.AddRange(MenuCache_Generic.Get_EditElementMenu(EnumElementType.Field))
+
+        If (Me.MyToolstripItemCollection Is Nothing) Then Throw New Exception("333 3 3 3 3 3 1966")
+        ContextMenuStrip1.Items.AddRange(Me.MyToolstripItemCollection)
 
         ''Added 12/13/2021 td
         ''  Change the text "Field: {0} ({1})" to "Field: School Name (fstrField1)".

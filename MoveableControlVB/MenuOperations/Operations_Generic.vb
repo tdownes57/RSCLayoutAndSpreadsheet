@@ -26,22 +26,24 @@ Public Class Operations_Generic
     ''
     Public Property Parent_MenuCache As MenuCache_Generic ''Added 12/12/2021 td 
 
-    Public WithEvents MyLinkLabel As New LinkLabel ''Added 10/11/2019 td 
-    Public WithEvents MyToolstripItem As New ToolStripMenuItem ''Added 10/11/2019 td 
+    ''Dec28 2021 td''Public WithEvents MyLinkLabel As New LinkLabel ''Added 10/11/2019 td 
+    ''Dec28 2021 td''Public WithEvents MyToolstripItem As New ToolStripMenuItem ''Added 10/11/2019 td 
+    Public MyLinkLabel As New LinkLabel ''Added 10/11/2019 td 
+    Public MyToolstripItem As New ToolStripMenuItem ''Added 10/11/2019 td 
 
     Public Property CtlCurrentElement As MoveableControlVB ''Dec28 2021''ciBadgeDesigner.CtlGraphicFldLabel ''CtlGraphicFldLabel
-    Public Property LayoutFunctions As ILayoutFunctions ''Added 10/3/2019 td 
-    Public Property Designer As ciBadgeDesigner.ClassDesigner
-    Public Property ColorDialog1 As ColorDialog ''Added 10/3/2019 td 
-    Public Property FontDialog1 As FontDialog ''Added 10/3/2019 td 
+    ''Public Property LayoutFunctions As ILayoutFunctions ''Added 10/3/2019 td 
+    ''Public Property Designer As ciBadgeDesigner.ClassDesigner
+    ''Public Property ColorDialog1 As ColorDialog ''Added 10/3/2019 td 
+    ''Public Property FontDialog1 As FontDialog ''Added 10/3/2019 td 
 
-    ''---not needed 10/3/2019 td----Public Property GroupEdits As ClassGroupMove ''Added 10/3/2019 td 
-    Public Property SelectingElements As ISelectingElements ''Added 10/3/2019 td 
+    ''''---not needed 10/3/2019 td----Public Property GroupEdits As ClassGroupMove ''Added 10/3/2019 td 
+    ''Public Property SelectingElements As ISelectingElements ''Added 10/3/2019 td 
 
     ''Added 12/12/2021 thomas 
     ''Public Property ListOfFields_Standard As HashSet(Of ciBadgeFields.ClassFieldStandard)
     ''Public Property ListOfFields_Custom As HashSet(Of ciBadgeFields.ClassFieldCustomized)
-    Public Property CacheOfFieldsEtc As ciBadgeCachePersonality.ClassElementsCache_Deprecated
+    ''12/28/2021 thomas''Public Property CacheOfFieldsEtc As ciBadgeCachePersonality.ClassElementsCache_Deprecated
 
     Private mod_fauxMenuEditSingleton As CtlGraphPopMenuEditSingle ''Added 10/3/2019 td 
 
@@ -56,6 +58,25 @@ Public Class Operations_Generic
     ''  Public Sub How_Context_Menus_Are_Generated_EE1002(sender As Object, e As EventArgs) 
     ''   --- Private Sub CreateVisibleButtonMaster(par_strText As String,
     ''
+    Public Sub This_Is_A_Generic_Operation_GG7001(sender As Object, e As EventArgs)
+        ''
+        ''Added 12/28/2021 thomas downes  
+        ''
+
+    End Sub
+
+    Public Sub This_Is_A_Generic_Operation_GG7002(sender As Object, e As EventArgs)
+        ''
+        ''Added 12/28/2021 thomas downes  
+        ''
+
+    End Sub
+    Public Sub This_Is_A_Generic_Operation_GG7003(sender As Object, e As EventArgs)
+        ''
+        ''Added 12/28/2021 thomas downes  
+        ''
+
+    End Sub
 
 
     Public Sub How_Context_Menus_Are_Generated_EE9001(sender As Object, e As EventArgs)
@@ -77,7 +98,8 @@ Public Class Operations_Generic
     End Sub ''end of "Public Sub How_Context_Menus_Are_Generated_EE1002(sender As Object, e As EventArgs)"
 
 
-    Private Sub CreateVisibleButtonMaster(par_strText As String, par_handler As EventHandler, ByRef pboolExitEarly As Boolean,
+    Private Sub CreateVisibleButtonMaster(par_strText As String, par_handler As EventHandler,
+                                          ByRef pboolExitEarly As Boolean,
                                            Optional pboolAlignment As Boolean = False)
         ''10/10/2019 td''Private Sub CreateVisibleButton_Master(
         ''

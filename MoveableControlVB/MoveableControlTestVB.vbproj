@@ -81,8 +81,11 @@
       <DependentUpon>FormTestingVB.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Interfaces\InterfaceCurrentElement.vb" />
     <Compile Include="MenuControllers\MenuCache_Generic.vb" />
+    <Compile Include="MenuControllers\MenuCache_NonShared.vb" />
     <Compile Include="MenuOperations\Operations_Generic.vb" />
+    <Compile Include="MenuOperations\Operations_Useless.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -113,6 +116,7 @@
     </Compile>
     <Compile Include="Utilities\DiskFilesVB.vb" />
     <Compile Include="Utilities\DiskFolders.vb" />
+    <Compile Include="Utilities\Module1Enumerationsvb.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="FormTestingVB.resx">
@@ -161,9 +165,7 @@
       <Name>MoveAndResizeControls_Monem</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="__Notes\How_Context_Menus_Are_Generated.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
