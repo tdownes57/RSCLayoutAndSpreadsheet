@@ -84,8 +84,10 @@
     <Compile Include="Interfaces\InterfaceCurrentElement.vb" />
     <Compile Include="MenuControllers\MenuCache_Generic.vb" />
     <Compile Include="MenuControllers\MenuCache_NonShared.vb" />
-    <Compile Include="MenuOperations\Operations_Generic.vb" />
-    <Compile Include="MenuOperations\Operations_Useless.vb" />
+    <Compile Include="MenuOperations\Operations_Field.vb" />
+    <Compile Include="MenuOperations\Operations__Generic.vb" />
+    <Compile Include="MenuOperations\Operations_StaticText.vb" />
+    <Compile Include="MenuOperations\Operations__Useless.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

@@ -17,14 +17,18 @@ Public Class MoveableControlVB
     Public Shared LastControlTouched As MoveableControlVB
 
     Public MyToolstripItemCollection As ToolStripItemCollection ''Added 12/28/2021 td 
-
-    Private mod_resizingProportionally As ControlResizeProportionally_TD
-    Private mod_movingInAGroup As ControlMove_Group_NonStatic
     Private mod_boolResizeProportionally As Boolean
+
+    ''Depending on the above Boolean, one of the following will be instantiated. 
+    Private mod_resizingProportionally As ControlResizeProportionally_TD = Nothing
+    Private mod_movingInAGroup As ControlMove_Group_NonStatic = Nothing
+
     Private WithEvents mod_events As New ClassGroupMoveEvents ''InterfaceEvents
     Private mod_iSaveToModel As ISaveToModel
     ''Dec28 2021 td''Private WithEvents mod_designer As New ClassDesigner ''Added 12/27/2021 td
     Private WithEvents ContextMenuStrip1 As New ContextMenuStrip ''Added 12/28/2021 thomas downes
+    Private mod_iLayoutFunctions As ILayoutFunctions ''Added 12/28/2021 td
+    Private mod_designer As ClassDesigner ''Added 12/28/2021 td 
     Private Const mc_AddExtraHeadersForContextMenuStrip As Boolean = True ''Added 12/28/2021 thomas d.
 
     Public Sub New()
@@ -56,13 +60,62 @@ Public Class MoveableControlVB
 
         ''Encapsulated 12/22/2021 thomas downes
         ''====InitializeMoveability(pboolResizeProportionally, par_iSaveToModel)
-        InitializeMoveability(pboolResizeProportionally, par_iSaveToModel, par_iLayoutFun)
+        mod_iSaveToModel = par_iSaveToModel ''Added 12/28/2021 td
+        mod_boolResizeProportionally = pboolResizeProportionally ''Added 12/28/2021 td
+        mod_iLayoutFunctions = par_iLayoutFun
+        ''12/28/2021 td''InitializeMoveability(pboolResizeProportionally, par_iSaveToModel, par_iLayoutFun)
+        AddMoveability()
 
         ''Encapsulated 12/22/2021 thomas downes
         Me.MyToolstripItemCollection = par_toolstrip ''Added 12/28/2021 td
-        InitializeClickability(par_designer)
+        mod_designer = par_designer
+        ''Dec28_2021 td''InitializeClickability(par_designer)
+        AddClickability()
 
     End Sub
+
+
+    Public Sub AddMoveability()
+        ''
+        ''Added 12/28/2021 td
+        ''
+        InitializeMoveability(mod_boolResizeProportionally, mod_iSaveToModel, mod_iLayoutFunctions)
+
+    End Sub
+
+
+    Public Sub RemoveMoveability()
+        ''
+        ''Added 12/28/2021 td
+        ''
+        If (True Or Not mod_boolResizeProportionally) Then mod_movingInAGroup = Nothing
+        If (True Or mod_boolResizeProportionally) Then mod_resizingProportionally = Nothing
+
+    End Sub ''End of "Public Sub RemoveMoveability()"
+
+
+    Public Sub AddClickability()
+        ''
+        ''Added 12/28/2021 td
+        ''
+        ''Dec28 2021''InitializeClickability(mod_designer)
+        Init_ForRightClicked()
+
+    End Sub ''End of "Public Sub AddClickability()"
+
+
+    Public Sub RemoveClickability()
+        ''
+        ''Added 12/28/2021 td
+        ''
+        Me.ContextMenuStrip1 = Nothing
+        Me.mod_objOperationsGeneric = Nothing
+        Me.mod_objOperationsUseless = Nothing
+        Me.mod_resizingProportionally = Nothing
+        Me.mod_movingInAGroup = Nothing
+
+    End Sub ''End of "Public Sub AddClickability()"
+
 
     Public Sub InitializeMoveability(pboolResizeProportionally As Boolean,
                                      par_iSaveToModel As ISaveToModel,
@@ -75,6 +128,16 @@ Public Class MoveableControlVB
         mod_iSaveToModel = par_iSaveToModel
         Const c_bRepaintAfterResize As Boolean = True ''Added 7/31/2019 td
 
+        ''Added 12/28/2021 td
+        ''  Prepare for the next steps.
+        ''
+        mod_resizingProportionally = Nothing
+        mod_movingInAGroup = Nothing
+        mod_events.LayoutFunctions = par_iLayoutFunctions
+
+        ''
+        ''Instantiate the Resizing or Moving modules (instances).
+        ''
         If pboolResizeProportionally Then
 
             mod_resizingProportionally = New MoveAndResizeControls_Monem.ControlResizeProportionally_TD()
@@ -116,12 +179,58 @@ Public Class MoveableControlVB
     End Sub ''End of "Public Sub New(pboolResizeProportionally As Boolean, par_iSaveToModel As ISaveToModel)"
 
 
-    Private Sub InitializeClickability(par_designer As ClassDesigner)
+    ''Added 12/28/2021 td  
+    Private mod_menuCacheNonShared As MenuCache_NonShared = Nothing ''New Operations_Generic(Me)
+    ''Dec28 2021 td''Private mod_menuCacheUseless As MenuCache_NonShared = Nothing ''New Operations_Useless(Me)
+    Private mod_objOperationsGeneric As Operations__Generic = Nothing ''New Operations_Generic(Me)
+    Private mod_objOperationsUseless As Operations__Useless = Nothing ''New Operations_Useless(Me)
+
+    Private Sub InitializeClickability(par_designer As ClassDesigner, par_enum As EnumElementType)
         ''
         ''Added 12/22/2021 thomas downes
         ''
         ''Dec28, 2021 td''mod_designer = par_designer
+        ''
+        mod_objOperationsGeneric = New Operations__Generic(Me)
+        mod_objOperationsUseless = New Operations__Useless(Me)
 
+        ''mod_menuCacheGeneric = New MenuCache_NonShared(EnumElementType.Field,
+        ''                                               mod_objOperationsGeneric.GetType(),
+        ''                                               mod_objOperationsGeneric)
+
+        Select Case par_enum
+
+            Case EnumElementType.Field
+                mod_menuCacheNonShared = New MenuCache_NonShared(EnumElementType.Field,
+                                                       mod_objOperationsGeneric.GetType(),
+                                                       mod_objOperationsGeneric)
+
+            Case EnumElementType.Portrait
+                mod_menuCacheNonShared = New MenuCache_NonShared(EnumElementType.Portrait,
+                                                       mod_objOperationsUseless.GetType(),
+                                                       mod_objOperationsUseless)
+
+            Case EnumElementType.QRCode
+                mod_menuCacheNonShared = New MenuCache_NonShared(EnumElementType.QRCode,
+                                                       mod_objOperationsGeneric.GetType(),
+                                                       mod_objOperationsGeneric)
+
+            Case EnumElementType.Signature
+                mod_menuCacheNonShared = New MenuCache_NonShared(EnumElementType.Signature,
+                                                       mod_objOperationsUseless.GetType(),
+                                                       mod_objOperationsUseless)
+
+            Case EnumElementType.StaticGraphic
+                mod_menuCacheNonShared = New MenuCache_NonShared(EnumElementType.StaticGraphic,
+                                                       mod_objOperationsGeneric.GetType(),
+                                                       mod_objOperationsGeneric)
+
+            Case EnumElementType.StaticText
+                mod_menuCacheNonShared = New MenuCache_NonShared(EnumElementType.StaticText,
+                                                       mod_objOperationsUseless.GetType(),
+                                                       mod_objOperationsUseless)
+
+        End Select ''End of "Select Case par_enum"
 
 
     End Sub ''End of "Private Sub InitializeClickability()"
@@ -243,8 +352,13 @@ Public Class MoveableControlVB
 
     End Sub
 
+    Private Sub Init_ForRightClicked()
+        ''
+        ''Adapted from the formerly-existing Private Sub mod_designer_ElementRightClicked(par_intX As Integer, par_intY As Integer) on 12/28/2021 td 
+        ''
+        Me.ContextMenuStrip1 = New ContextMenuStrip()
 
-    Private Sub mod_designer_ElementRightClicked(par_intX As Integer, par_intY As Integer) '' par_control As CtlGraphicFldLabel) ''Handles mod_designer.ElementFieldRightClicked
+        ''Dec28 2021 td''Private Sub mod_designer_ElementRightClicked(par_intX As Integer, par_intY As Integer) '' par_control As CtlGraphicFldLabel) ''Handles mod_designer.ElementFieldRightClicked
         ''
         ''Added 10/13/2019 thomas downes  
         ''
@@ -310,6 +424,27 @@ Public Class MoveableControlVB
         ''10/13 td''ContextMenuStrip1.Show(par_control, New Point(par_control.Left, par_control.Top))
         ''12/28/2021 td''ContextMenuStrip1.Show(par_control, New Point(0, 0))
         ''Added 12/28/2021 Thomas Downes
+        ''Dim objDisplayMenu As New ClassDisplayContextMenu(ContextMenuStrip1)
+        ''Const c_intRandom As Integer = 5
+        ''With objDisplayMenu
+        ''    If (c_intRandom = 1) Then .ContextMenuDisplay(Me, New Point(par_intX, par_intY))
+        ''    If (c_intRandom = 2) Then .ContextMenuOpen(Me, New Point(par_intX, par_intY))
+        ''    If (c_intRandom = 3) Then .ContextMenuShow(Me, New Point(par_intX, par_intY))
+        ''    If (c_intRandom = 4) Then .DisplayContextMenu(Me, New Point(par_intX, par_intY))
+        ''    If (c_intRandom = 5) Then .DisplayPopupMenu(Me, New Point(par_intX, par_intY))
+        ''    If (c_intRandom = 6) Then .DisplayRightclickMenu(Me, New Point(par_intX, par_intY))
+        ''    If (c_intRandom = 7) Then .OpenContextMenu(Me, New Point(par_intX, par_intY))
+        ''    If (c_intRandom = 8) Then .OpenPopupMenu(Me, New Point(par_intX, par_intY))
+        ''    If (c_intRandom = 9) Then .OpenRightclickMenu(Me, New Point(par_intX, par_intY))
+        ''End With ''End of "With objDisplayMenu"
+
+    End Sub ''End of "Private Sub Init_ForRightClicked"
+
+
+    Private Sub mod_designer_ElementRightClicked(par_intX As Integer, par_intY As Integer)
+        ''
+        ''Encapsulated 12/28/2021 td
+        ''
         Dim objDisplayMenu As New ClassDisplayContextMenu(ContextMenuStrip1)
         Const c_intRandom As Integer = 5
         With objDisplayMenu
@@ -324,9 +459,7 @@ Public Class MoveableControlVB
             If (c_intRandom = 9) Then .OpenRightclickMenu(Me, New Point(par_intX, par_intY))
         End With ''End of "With objDisplayMenu"
 
-    End Sub ''End of "Private Sub mod_designer_ElementRightClicked"
-
-
+    End Sub ''End of Private Sub mod_designer_ElementRightClicked(par_intX As Integer, par_intY As Integer)
 
 
 

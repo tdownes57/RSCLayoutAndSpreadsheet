@@ -9,7 +9,8 @@ Imports ciBadgeInterfaces
 Imports ciBadgeDesigner
 ''----Imports ciBadgeElements
 
-Public Class Operations_Generic
+Public Class Operations__Generic
+    Implements ICurrentElement ''Added 12/28/2021 td
     ''
     ''Added 10/1/2019 td
     ''
@@ -31,7 +32,10 @@ Public Class Operations_Generic
     Public MyLinkLabel As New LinkLabel ''Added 10/11/2019 td 
     Public MyToolstripItem As New ToolStripMenuItem ''Added 10/11/2019 td 
 
-    Public Property CtlCurrentElement As MoveableControlVB ''Dec28 2021''ciBadgeDesigner.CtlGraphicFldLabel ''CtlGraphicFldLabel
+    ''Dec28 2021''Public Property CtlCurrentElement As MoveableControlVB ''#1 Dec282021 td
+    Public Property CtlCurrentElement As MoveableControlVB Implements ICurrentElement.CtlCurrentElement
+
+    ''2021''ciBadgeDesigner.CtlGraphicFldLabel ''CtlGraphicFldLabel
     ''Public Property LayoutFunctions As ILayoutFunctions ''Added 10/3/2019 td 
     ''Public Property Designer As ciBadgeDesigner.ClassDesigner
     ''Public Property ColorDialog1 As ColorDialog ''Added 10/3/2019 td 
@@ -46,6 +50,14 @@ Public Class Operations_Generic
     ''12/28/2021 thomas''Public Property CacheOfFieldsEtc As ciBadgeCachePersonality.ClassElementsCache_Deprecated
 
     Private mod_fauxMenuEditSingleton As CtlGraphPopMenuEditSingle ''Added 10/3/2019 td 
+
+    Public Sub New(par_currentControlVB As MoveableControlVB)
+        ''
+        ''Added 12/28/2021 td
+        ''
+        Me.CtlCurrentElement = par_currentControlVB
+
+    End Sub ''End of "Public Sub New(par_currentControlVB As MoveableControlVB)"
 
     ''Names of procedures in this module: 
     ''  Public Sub Open_Field_Of_Element_EE1011(sender As Object, e As EventArgs)
@@ -65,18 +77,58 @@ Public Class Operations_Generic
 
     End Sub
 
+
     Public Sub This_Is_A_Generic_Operation_GG7002(sender As Object, e As EventArgs)
         ''
         ''Added 12/28/2021 thomas downes  
         ''
 
     End Sub
+
+
     Public Sub This_Is_A_Generic_Operation_GG7003(sender As Object, e As EventArgs)
         ''
         ''Added 12/28/2021 thomas downes  
         ''
 
     End Sub
+
+
+    Public Sub Moveability_Add_GG7004(sender As Object, e As EventArgs)
+        ''
+        ''Added 12/28/2021 thomas downes  
+        ''
+        CtlCurrentElement.AddMoveability()
+
+    End Sub
+
+
+    Public Sub Moveability_Remove_GG7005(sender As Object, e As EventArgs)
+        ''
+        ''Added 12/28/2021 thomas downes  
+        ''
+        CtlCurrentElement.RemoveMoveability()
+
+    End Sub
+
+
+    Public Sub RightClickability_Add_GG7006(sender As Object, e As EventArgs)
+        ''
+        ''Added 12/28/2021 thomas downes  
+        ''
+        CtlCurrentElement.AddClickability()
+
+    End Sub
+
+
+    Public Sub RightClickability_Remove_GG7007(sender As Object, e As EventArgs)
+        ''
+        ''Added 12/28/2021 thomas downes  
+        ''
+        CtlCurrentElement.RemoveClickability()
+
+    End Sub
+
 
 
     Public Sub How_Context_Menus_Are_Generated_EE9001(sender As Object, e As EventArgs)
