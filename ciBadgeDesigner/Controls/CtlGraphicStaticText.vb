@@ -23,8 +23,9 @@ Public Class CtlGraphicStaticText
     ''9/18/2019 td''Public ElementInfo_Text As ciBadgeInterfaces.IElement_TextField ''Added 8/29/2019 td
     Public ElementInfo_TextOnly As ciBadgeInterfaces.IElement_TextOnly ''Added 8/29/2019 td
 
-    Public ParentDesignForm_Selecting As ISelectingElements ''Added 7/31/2019 thomas downes  
-    Public ParentDesignForm_RefreshPreview As IRefreshPreview ''Added 12/27/2021 thomas downes  
+    ''These properties are making use of the Dependency Injection pattern.
+    Public ParentDesignForm_iSelecting As ISelectingElements ''Added 7/31/2019 thomas downes  
+    Public ReadOnly ParentDesignForm_iRefreshPreview As IRefreshPreview ''Added 12/27/2021 thomas downes  
 
     Public Event ElementStatic_RightClicked(par_control As CtlGraphicStaticText) ''Added 12/15/2021 td
 
@@ -79,12 +80,13 @@ Public Class CtlGraphicStaticText
 
     End Sub
 
-    Public Sub New(par_element As ClassElementStaticText)
+    Public Sub New(par_element As ClassElementStaticText, par_iRefreshPreview As IRefreshPreview)
 
         ' This call is required by the designer.
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
+
         ''_Deprecated 9/18/2019 td''''Me.ElementInfo_Text = par_field.ElementFieldClass
         ''9/18/2019 td''Me.ElementInfo_Text = par_element
 
@@ -94,6 +96,8 @@ Public Class CtlGraphicStaticText
         Me.Element_StaticText = par_element
 
         ''Added 12/27/2021 thomas downes
+        ''   This is making use of the Dependency Injection pattern.
+        ParentDesignForm_iRefreshPreview = par_iRefreshPreview
         Dim bInvisibleOnBadge As Boolean
 
         ''Added 12/27/2021 thomas downes
@@ -710,6 +714,8 @@ ExitHandler:
         Dim diagReply As DialogResult
         Dim bPriorlyInvisible As Boolean
 
+        bPriorlyInvisible = (Not ElementInfo_Base.Visible)
+
         If (bPriorlyInvisible) Then
 
             ''Added 12/27/2021 td
@@ -723,7 +729,8 @@ ExitHandler:
                 LinkInvisible.Text = "Now visible."
                 ElementInfo_Base.Visible = True
                 ''Added 12/27/2021 td
-                ParentDesignForm_RefreshPreview.RefreshPreview()
+                ''   This is making use of the Dependency Injection pattern.
+                ParentDesignForm_iRefreshPreview.RefreshPreview()
 
             End If ''End of "If (diagReply = DialogResult.Yes) Then"
 
@@ -739,7 +746,8 @@ ExitHandler:
                 LinkInvisible.Text = LinkInvisible.Tag.ToString() ''Says "Won't appear on ID Card".
                 ElementInfo_Base.Visible = False
                 ''Added 12/27/2021 td
-                ParentDesignForm_RefreshPreview.RefreshPreview()
+                ''   This is making use of the Dependency Injection pattern.
+                ParentDesignForm_iRefreshPreview.RefreshPreview()
 
             End If ''End of "If (diagReply = DialogResult.Yes) Then"
 
@@ -747,7 +755,7 @@ ExitHandler:
 
     End Sub
 
-    Private Sub LinkInvisible_DpiChangedAfterParent(sender As Object, e As EventArgs) Handles LinkInvisible.DpiChangedAfterParent
+    Private Sub LinkInvisible_DpiChangedAfterParent(sender As Object, e As EventArgs) ''---Handles LinkInvisible.DpiChangedAfterParent
 
     End Sub
 End Class

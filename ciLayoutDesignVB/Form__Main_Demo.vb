@@ -521,9 +521,21 @@ Public Class Form__Main_Demo
         ''#1 12/14/2021 td''Me.ElementsCache_ManageBoth.RefreshElementsCache_Saved()
 
         ''Added Dec. 14 2021
-        Throw New NotImplementedException("I am unclear what this is for. In any case, call an existing or new Sub of ElementsCache_ManageBoth.")
+        ''----Throw New NotImplementedException("I am unclear what this is for. In any case, call an existing or new Sub of ElementsCache_ManageBoth.")
+
+        ElementsCache_ManageBoth.LoadBothCachesUsingSamePathToXML()
 
     End Sub ''End of "Public Sub RefreshElementsCache_Saved"
+
+
+    Public Sub RefreshPreview() Implements IDesignerForm.RefreshPreview
+
+        ''Added 12/27/2021
+        mod_designer.RefreshPreview()
+
+    End Sub
+
+
 
     Private Sub AutoPreview()
         ''

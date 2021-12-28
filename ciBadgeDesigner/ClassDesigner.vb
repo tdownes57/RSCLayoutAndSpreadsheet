@@ -17,7 +17,7 @@ Imports System.IO ''Added 12/3/2021 thomas d.
 ''10/1/2019 td''Public Event ElementField_Clicked(par_elementField As ClassElementField)
 
 Public Class ClassDesigner
-    Implements ILayoutFunctions, ISelectingElements, IRecordElementLastTouched
+    Implements ILayoutFunctions, ISelectingElements, IRecordElementLastTouched, IRefreshPreview
     ''
     ''Added 10/1/2019 thomas downes 
     ''
@@ -1084,7 +1084,9 @@ Public Class ClassDesigner
         For Each each_element_static As ClassElementStaticText In par_listStaticTexts
 
             ''Dec18 2021''CtlGraphic_StaticTexts.Add = New CtlGraphicStaticText(each_element_static)
-            CtlGraphic_StaticText_temp = New CtlGraphicStaticText(each_element_static)
+            ''Dec27 2021''CtlGraphic_StaticText_temp = New CtlGraphicStaticText(each_element_static)
+            CtlGraphic_StaticText_temp = New CtlGraphicStaticText(each_element_static, Me)
+
             ListCtlGraphic_StaticTexts.Add(CtlGraphic_StaticText_temp) ''Added 12/18/2021 td
 
             Me.DesignerForm.Controls.Add(CtlGraphic_StaticText_temp)
@@ -1618,6 +1620,16 @@ Public Class ClassDesigner
 
     End Sub ''End of "Private Sub SaveControlPositionsToElement()"
 
+
+    Public Sub RefreshPreview_EitherSide(par_sideLayout As IBadgeSideLayoutElements,
+                                         Optional par_recentlyMoved As ClassElementField = Nothing,
+                                    Optional par_recipient As ciBadgeRecipients.ClassRecipient = Nothing)
+        ''
+        ''Stubbed 12/27/2021
+        ''
+        RefreshPreview_Redux_Front(par_recentlyMoved, par_recipient)
+
+    End Sub
 
     Public Sub RefreshPreview_Redux_Front(Optional par_recentlyMoved As ClassElementField = Nothing,
                                     Optional par_recipient As ciBadgeRecipients.ClassRecipient = Nothing)
@@ -2760,5 +2772,23 @@ Public Class ClassDesigner
 
     End Sub
 
+    Public Sub RefreshPreview() Implements IRefreshPreview.RefreshPreview
+        ''Throw New NotImplementedException()
 
+        ''Added 12/27/2021 thomas downes 
+        ''
+        ''RefreshPreview_Redux_Front()
+        ''---Me.DesignerForm_Interface.RefreshPreview()
+        If (Me.EnumSideOfCard = EnumWhichSideOfCard.EnumBackside) Then
+
+            ''---RefreshPreview_Redux_Backside()
+            RefreshPreview_EitherSide(New ClassBadgeSideLayout())
+
+        Else
+
+            RefreshPreview_Redux_Front()
+
+        End If
+
+    End Sub
 End Class ''End of "Public Class ClassDesigner"
