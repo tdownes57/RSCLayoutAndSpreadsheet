@@ -14,6 +14,8 @@ Public Class MoveableControlVB
     ''
     ''Added 12/22/2021 td  
     ''
+    Public Shared LastControlTouched As MoveableControlVB
+
     Private mod_resizingProportionally As ControlResizeProportionally_TD
     Private mod_movingInAGroup As ControlMove_Group_NonStatic
     Private mod_boolResizeProportionally As Boolean

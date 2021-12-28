@@ -73,13 +73,15 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.vb">
+    <Compile Include="FormTestingVB.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.vb">
-      <DependentUpon>Form1.vb</DependentUpon>
+    <Compile Include="FormTestingVB.Designer.vb">
+      <DependentUpon>FormTestingVB.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="MenuControllers\MenuCache_Generic.vb" />
+    <Compile Include="MenuOperations\Operations_Generic.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -96,22 +98,33 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="UserControls\CtlGraphPopMenuEditSingle.designer.vb">
+      <DependentUpon>CtlGraphPopMenuEditSingle.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\CtlGraphPopMenuEditSingle.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="UserControls\MoveableControlVB.designer.vb">
       <DependentUpon>MoveableControlVB.vb</DependentUpon>
     </Compile>
     <Compile Include="UserControls\MoveableControlVB.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Utilities\DiskFilesVB.vb" />
+    <Compile Include="Utilities\DiskFolders.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.vb</DependentUpon>
+    <EmbeddedResource Include="FormTestingVB.resx">
+      <DependentUpon>FormTestingVB.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\CtlGraphPopMenuEditSingle.resx">
+      <DependentUpon>CtlGraphPopMenuEditSingle.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\MoveableControlVB.resx">
       <DependentUpon>MoveableControlVB.vb</DependentUpon>
@@ -130,6 +143,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ciBadgeCachingPersonality\ciBadgeCachePersonality.vbproj">
+      <Project>{4c1b73a0-7c02-4ff4-96f2-acfa1306cce4}</Project>
+      <Name>ciBadgeCachePersonality</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ciBadgeDesigner\ciBadgeDesigner.vbproj">
       <Project>{3a21a08c-c694-4f11-9838-91fff99a5d82}</Project>
       <Name>ciBadgeDesigner</Name>
@@ -146,8 +163,6 @@
   <ItemGroup>
     <Folder Include="Classes\" />
     <Folder Include="Interfaces\" />
-    <Folder Include="MenuControllers\" />
-    <Folder Include="MenuOperations\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
