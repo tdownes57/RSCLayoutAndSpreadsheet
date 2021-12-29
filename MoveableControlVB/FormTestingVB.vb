@@ -74,22 +74,53 @@ Public Class FormTestingVB
         MoveableControlVB3 = Nothing
         MoveableControlVB4 = Nothing
 
-        ''Control #1 of 4. 
+        ''Control #1 of 3. 
         Dim objSaveToModel1 As New ClassSaveToModel
-        Dim objOperations As New Operations__Useless()
+        Dim objOperations1 As New Operations__Useless()
         MoveableControlVB1 = New MoveableControlVB(EnumElementType.Undetermined, False,
                                                    objSaveToModel1,
                                                    CType(mod_designer, ILayoutFunctions),
-                                                   mod_designer, objOperations.GetType(),
-                                                   objOperations)
-        objOperations.CtlCurrentElement = MoveableControlVB1
+                                                   mod_designer, objOperations1.GetType(),
+                                                   objOperations1)
+        objOperations1.CtlCurrentElement = MoveableControlVB1
         MoveableControlVB1.Left = 0
         MoveableControlVB1.Top = 0
         MoveableControlVB1.Visible = True
-        ''Try again w/ this line, after compiling. ''MoveableControl1.AddMoveability()
-        ''Try again w/ this line, after compiling. ''MoveableControl1.AddClickability()
-        Me.Controls.Add(MoveableControl1)
+        MoveableControlVB1.AddMoveability()
+        MoveableControlVB1.AddClickability()
+        Me.Controls.Add(MoveableControlVB1)
 
+        ''Control #2 of 3. 
+        Dim objSaveToModel2 As New ClassSaveToModel
+        Dim objOperations2 As New Operations__Generic()
+        MoveableControlVB2 = New MoveableControlVB(EnumElementType.Undetermined, False,
+                                                   objSaveToModel1,
+                                                   CType(mod_designer, ILayoutFunctions),
+                                                   mod_designer, objOperations2.GetType(),
+                                                   objOperations2)
+        objOperations2.CtlCurrentElement = MoveableControlVB2
+        MoveableControlVB2.Left = 0
+        MoveableControlVB2.Top = 10 + (MoveableControlVB1.Top + MoveableControlVB1.Height)
+        MoveableControlVB2.Visible = True
+        MoveableControlVB2.AddMoveability()
+        MoveableControlVB2.AddClickability()
+        Me.Controls.Add(MoveableControlVB2)
+
+        ''Control #3 of 3. 
+        Dim objSaveToModel3 As New ClassSaveToModel
+        Dim objOperations3 As New Operations__Useless()
+        MoveableControlVB3 = New MoveableControlVB(EnumElementType.Undetermined, False,
+                                                   objSaveToModel3,
+                                                   CType(mod_designer, ILayoutFunctions),
+                                                   mod_designer, objOperations3.GetType(),
+                                                   objOperations3)
+        objOperations3.CtlCurrentElement = MoveableControlVB3
+        MoveableControlVB3.Left = 0
+        MoveableControlVB3.Top = 10 + (MoveableControlVB2.Top + MoveableControlVB2.Height)
+        MoveableControlVB3.Visible = True
+        MoveableControlVB3.AddMoveability()
+        MoveableControlVB3.AddClickability()
+        Me.Controls.Add(MoveableControlVB3)
 
 
 

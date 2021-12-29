@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="Classes\ClassDisplayContextMenu.vb" />
     <Compile Include="Classes\ClassSaveToModel.vb" />
+    <Compile Include="Classes\MessageBoxTD.vb" />
     <Compile Include="FormTestingVB.vb">
       <SubType>Form</SubType>
     </Compile>

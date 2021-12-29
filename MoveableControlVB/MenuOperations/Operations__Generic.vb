@@ -51,6 +51,16 @@ Public Class Operations__Generic
 
     Private mod_fauxMenuEditSingleton As CtlGraphPopMenuEditSingle ''Added 10/3/2019 td 
 
+
+    Public Sub New() ''Dec28, 2021''par_currentControlVB As MoveableControlVB)
+        ''
+        ''Added 12/28/2021 td
+        ''
+        ''Dec28, 2021''Me.CtlCurrentElement = par_currentControlVB
+
+    End Sub ''End of "Public Sub New(par_currentControlVB As MoveableControlVB)"
+
+
     Public Sub New(par_currentControlVB As MoveableControlVB)
         ''
         ''Added 12/28/2021 td
@@ -70,6 +80,15 @@ Public Class Operations__Generic
     ''  Public Sub How_Context_Menus_Are_Generated_EE1002(sender As Object, e As EventArgs) 
     ''   --- Private Sub CreateVisibleButtonMaster(par_strText As String,
     ''
+    Public Sub Name_Of_This_Control_GG7011(sender As Object, e As EventArgs)
+        ''
+        ''Added 12/28/2021 thomas downes  
+        ''
+        MessageBoxTD.Show_Statement("The name of this control is: " & Me.CtlCurrentElement.Name)
+
+    End Sub
+
+
     Public Sub This_Is_A_Generic_Operation_GG7001(sender As Object, e As EventArgs)
         ''
         ''Added 12/28/2021 thomas downes  

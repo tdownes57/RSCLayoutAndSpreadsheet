@@ -167,8 +167,8 @@ Friend Class MenuCache_NonShared
         ''Dim objBindingFlags As System.Reflection.BindingFlags ''Added 9/23/2019 td  
         ''Dim boolPropertyGet As Boolean ''Added 9/23/2019 td 
         ''Dim boolPropertySet As Boolean ''Added 9/23/2019 td 
-        Dim intExceptionCount_LinkLabels As Integer  ''Added 9/23/2019 td
-        Dim intExceptionCount_Toolstrip As Integer  ''Added 9/23/2019 td
+        ''Dim intExceptionCount_LinkLabels As Integer  ''Added 9/23/2019 td
+        ''Dim intExceptionCount_Toolstrip As Integer  ''Added 9/23/2019 td
         Dim ex_AddEventHandler_LinkLbl As New Exception("Routine initialization")  ''Added 9/23/2019 td
         Dim ex_AddEventHandler_ToolItem As New Exception("Routine initialization")  ''Added 9/23/2019 td
         ''Dim boolProcedureNotUsed As Boolean ''Added 9/23/2019 thomas downes 
@@ -229,39 +229,6 @@ Friend Class MenuCache_NonShared
                                 Links_EditElementMenu,
                                 Tools_EditElementMenu)
 
-        ''
-        ''Added 9/23/2019 thomas downes
-        ''
-        If (intExceptionCount_LinkLabels > 0) Then
-            ''
-            ''Added 9/23/2019 thomas downes
-            ''
-            MessageBox.Show($"Making LinkLabels, a count of {intExceptionCount_LinkLabels} errors occurred.  The last error is as follows:  " & vbCrLf & vbCrLf &
-                            ex_AddEventHandler_LinkLbl.Message, "Generate_BasicEdits",
-                            MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-
-        End If ''End of "If (intExceptionCount_LinkLabels > 1) Then"
-
-        ''Added 10/14/2019 thomas downes
-        If (intExceptionCount_Toolstrip > 0) Then
-            ''Inform user of the error count. 
-            MessageBox.Show($"Making ToolstripMenuItems, a count of {intExceptionCount_Toolstrip} errors occurred.  The last error is as follows:  " & vbCrLf & vbCrLf &
-                            ex_AddEventHandler_ToolItem.Message, "Generate_BasicEdits",
-                            MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-
-        End If ''End of "If (intExceptionCount_Toolstrip > 1) Then"
-
-        ''Modified 10/14/2019 td
-        If ("" = strList_MenuItems) Then
-            ''Added 10/14/2019 td 
-            MessageBox.Show("The procedure to create links & context menu items failed completely. " &
-                            vbCrLf & vbCrLf & strList_MenuItems, "Generate_BasicEdits",
-                             MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-        Else
-            ''MessageBox.Show("The following links & context menu items were created. " &
-            ''                vbCrLf & vbCrLf & strList_MenuItems, "Generate_BasicEdits",
-            ''                 MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-        End If
 
     End Sub ''End of "Private Sub Generate_BasicEdits()"
 
@@ -498,6 +465,46 @@ Friend Class MenuCache_NonShared
             par_listToolItems.Add(each_toolMenuItem)
 
         Next each_methodInfo
+
+        ''
+        ''
+        ''
+        ''Let's take an inventory of the output of our [For Each--Next] loop above. 
+        ''
+        ''
+        ''
+        ''Added 9/23/2019 thomas downes
+        ''
+        If (intExceptionCount_LinkLabels > 0) Then
+            ''
+            ''Added 9/23/2019 thomas downes
+            ''
+            MessageBox.Show($"Making LinkLabels, a count of {intExceptionCount_LinkLabels} errors occurred.  The last error is as follows:  " & vbCrLf & vbCrLf &
+                            ex_AddEventHandler_LinkLbl.Message, "Generate_BasicEdits",
+                            MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+
+        End If ''End of "If (intExceptionCount_LinkLabels > 1) Then"
+
+        ''Added 10/14/2019 thomas downes
+        If (intExceptionCount_Toolstrip > 0) Then
+            ''Inform user of the error count. 
+            MessageBox.Show($"Making ToolstripMenuItems, a count of {intExceptionCount_Toolstrip} errors occurred.  The last error is as follows:  " & vbCrLf & vbCrLf &
+                            ex_AddEventHandler_ToolItem.Message, "Generate_BasicEdits",
+                            MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+
+        End If ''End of "If (intExceptionCount_Toolstrip > 1) Then"
+
+        ''Modified 10/14/2019 td
+        If ("" = strList_MenuItems) Then
+            ''Added 10/14/2019 td 
+            MessageBox.Show("The procedure to create links & context menu items failed completely. " &
+                            vbCrLf & vbCrLf & strList_MenuItems, "Generate_BasicEdits",
+                             MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        Else
+            ''MessageBox.Show("The following links & context menu items were created. " &
+            ''                vbCrLf & vbCrLf & strList_MenuItems, "Generate_BasicEdits",
+            ''                 MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        End If
 
     End Sub ''End of "Private Sub Generate_ReflectionWork()
 

@@ -103,8 +103,17 @@ Public Class MoveableControlVB
         ''
         ''Added 12/28/2021 td
         ''
-        If (True Or Not mod_boolResizeProportionally) Then mod_movingInAGroup = Nothing
-        If (True Or mod_boolResizeProportionally) Then mod_resizingProportionally = Nothing
+        If (True Or Not mod_boolResizeProportionally) Then
+            ''mod_movingInAGroup.UndloadEventHandlers()
+            mod_movingInAGroup.RemoveEventHandlers()
+            mod_movingInAGroup = Nothing
+        End If ''End of "If (True Or Not mod_boolResizeProportionally) Then"
+
+        If (True Or mod_boolResizeProportionally) Then
+            mod_resizingProportionally.UnloadEventHandlers()
+            mod_resizingProportionally.RemoveEventHandlers()
+            mod_resizingProportionally = Nothing
+        End If ''ENd of "If (True Or mod_boolResizeProportionally) Then"
 
     End Sub ''End of "Public Sub RemoveMoveability()"
 
@@ -326,14 +335,14 @@ Public Class MoveableControlVB
 
     End Sub
 
-    Protected Sub MoveableControl_MouseDown(sender As Object, e As Windows.Forms.MouseEventArgs) Handles MyBase.MouseDown
+    Protected Sub MoveableControl_MouseDown(sender As Object, e As Windows.Forms.MouseEventArgs) ''Handles MyBase.MouseDown
         ''
         ''Added 12/22/2021 thomas downes
         ''
     End Sub
 
 
-    Protected Sub MoveableControl_MouseUp(sender As Object, e As Windows.Forms.MouseEventArgs) Handles MyBase.MouseUp
+    Protected Sub MoveableControl_MouseUp(sender As Object, e As Windows.Forms.MouseEventArgs) ''Handles MyBase.MouseUp
         ''
         ''Added 12/22/2021 thomas downes
         ''
@@ -363,7 +372,7 @@ Public Class MoveableControlVB
         ''
         ''---mod_iSaveToModel.SaveToModel()
         ''---par_iSaveToModel.SaveToModel()
-        mod_iSaveToModel.SaveToModel()
+        ''---mod_iSaveToModel.SaveToModel()
 
     End Sub
 
@@ -402,9 +411,12 @@ Public Class MoveableControlVB
 
         ''Added header items. 
         If (bool_addExtraHeadersToContextMenus) Then
+
             ''Added 12/13/2021 
-            ContextMenuStrip1.Items.Add(MenuCache_Generic.Tools_MenuHeader2) ''Added 12/12/2021 
-            ContextMenuStrip1.Items.Add(MenuCache_Generic.Tools_MenuHeader3) ''Added 12/13/2021 
+            ''Dec28 2021''ContextMenuStrip1.Items.Add(MenuCache_Generic.Tools_MenuHeader2) ''Added 12/12/2021 
+            ''Dec28 2021''ContextMenuStrip1.Items.Add(MenuCache_Generic.Tools_MenuHeader3) ''Added 12/13/2021 
+            ContextMenuStrip1.Items.Add(mod_menuCacheNonShared.Tools_MenuHeader2) ''Added 12/12/2021 
+            ContextMenuStrip1.Items.Add(mod_menuCacheNonShared.Tools_MenuHeader3) ''Added 12/13/2021 
 
             Dim objMenuHeader3_1 As New ToolStripMenuItem("mod_designer_ElementRightClicked(...")
             Dim objMenuHeader3_2 As New ToolStripMenuItem("   ... Handles mod_designer.ElementRightClicked")
@@ -416,7 +428,8 @@ Public Class MoveableControlVB
         End If ''End of "If (mod_letsAddExtraHeadersForContextMenus) Then"
 
         ''Let's add a separator bar. 
-        ContextMenuStrip1.Items.Add(MenuCache_Generic.Tools_MenuSeparator) ''Added 12/13/2021
+        ''Dec28 2021 td''ContextMenuStrip1.Items.Add(MenuCache_Generic.Tools_MenuSeparator) ''Added 12/13/2021
+        ContextMenuStrip1.Items.Add(mod_menuCacheNonShared.Tools_MenuSeparator) ''Added 12/13/2021
 
         ''
         ''Major step!!!   Add all the editing-related menu items!!
@@ -424,21 +437,25 @@ Public Class MoveableControlVB
         ''Dec28, 2021 td''ContextMenuStrip1.Items.AddRange(MenuCache_Generic.Tools_EditElementMenu)
         ''#2 Dec28 2021 td''ContextMenuStrip1.Items.AddRange(MenuCache_Generic.Get_EditElementMenu(EnumElementType.Field))
 
+        Me.MyToolstripItemCollection = mod_menuCacheNonShared.Tools_EditElementMenu ''Added 12/28/2021 td 
         If (Me.MyToolstripItemCollection Is Nothing) Then Throw New Exception("333 3 3 3 3 3 1966")
         ContextMenuStrip1.Items.AddRange(Me.MyToolstripItemCollection)
 
         ''Added 12/13/2021 td
         ''  Change the text "Field: {0} ({1})" to "Field: School Name (fstrField1)".
-        With MenuCache_Generic.Tools_MenuHeader1
+        ''Dec28 2021''With MenuCache_Generic.Tools_MenuHeader1
+        With mod_menuCacheNonShared.Tools_MenuHeader1
             ''Dim objHeader1 As ToolStripItem = MenuCache_ElemFlds.Tools_MenuHeader1
             ''Dec28 2021 td''.Text = String.Format(.Tag.ToString(), par_control.FieldInfo.FieldLabelCaption,
             ''Dec28 2021 td''          par_control.FieldInfo.CIBadgeField)
             .Text = String.Format(.Tag.ToString(), Me.Name, "[CI Badge Field is n/a]")
-        End With ''End of "With MenuCache_ElemFlds.Tools_MenuHeader1"
+        End With ''End of "With mod_menuCacheNonShared.Tools_MenuHeader1"
 
         ''Added 12/13/2021 td
         ''  Change the text "Context-Menu for Control: {0}" to "Context-Menu for Control: ....".
-        With MenuCache_Generic.Tools_MenuHeader0
+        ''
+        ''Dec28 2021 td''With MenuCache_Generic.Tools_MenuHeader0
+        With mod_menuCacheNonShared.Tools_MenuHeader0
             ''Dec28 2021''.Text = String.Format(.Tag.ToString(), par_control.Name)
             .Text = String.Format(.Tag.ToString(), Me.Name)
         End With ''End of "With MenuCache_ElemFlds.Tools_MenuHeader0"
