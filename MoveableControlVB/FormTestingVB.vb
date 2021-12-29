@@ -93,7 +93,9 @@ Public Class FormTestingVB
                                                    mod_designer, objOperations1.GetType(),
                                                    objOperations1,
                                                    c_bAddMoveabilityWithinConstructor,
-                                                    c_bAddClickabilityWithinConstructor)
+                                                    c_bAddClickabilityWithinConstructor,
+                                                    mod_iControlLastTouched)
+
         objOperations1.CtlCurrentElement = MoveableControlVB1
         MoveableControlVB1.Left = 0
         MoveableControlVB1.Top = 0
@@ -112,7 +114,9 @@ Public Class FormTestingVB
                                                    mod_designer, objOperations2.GetType(),
                                                    objOperations2,
                                                     c_bAddMoveabilityWithinConstructor,
-                                                    c_bAddClickabilityWithinConstructor)
+                                                    c_bAddClickabilityWithinConstructor,
+                                                    mod_iControlLastTouched)
+
         objOperations2.CtlCurrentElement = MoveableControlVB2
         MoveableControlVB2.Left = 0
         MoveableControlVB2.Top = 10 + (MoveableControlVB1.Top + MoveableControlVB1.Height)
@@ -131,7 +135,8 @@ Public Class FormTestingVB
                                                    mod_designer, objOperations3.GetType(),
                                                    objOperations3,
                                                     c_bAddMoveabilityWithinConstructor,
-                                                    c_bAddClickabilityWithinConstructor)
+                                                    c_bAddClickabilityWithinConstructor,
+                                                    mod_iControlLastTouched)
         objOperations3.CtlCurrentElement = MoveableControlVB3
         MoveableControlVB3.Left = 0
         MoveableControlVB3.Top = 10 + (MoveableControlVB2.Top + MoveableControlVB2.Height)
@@ -154,7 +159,8 @@ Public Class FormTestingVB
                                                    mod_designer, objOperations41.GetType(),
                                                    objOperations41,
                                                     c_bAddMoveabilityWithinConstructor,
-                                                    c_bAddClickabilityWithinConstructor)
+                                                    c_bAddClickabilityWithinConstructor,
+                                                    mod_iControlLastTouched)
         objOperations41.CtlCurrentElement = MoveableControlVB41
         With MoveableControlVB41
             MoveableControlJane.Visible = False
@@ -192,7 +198,8 @@ Public Class FormTestingVB
                                                    mod_designer, objOperationsBack.GetType(),
                                                    objOperationsBack,
                                                     c_bAddMoveabilityForBackground,
-                                                    c_bAddClickabilityWithinConstructor)
+                                                    c_bAddClickabilityWithinConstructor,
+                                                    mod_iControlLastTouched)
         objOperationsBack.CtlCurrentElement = MoveableControlVBBack
         With MoveableControlVBBack
             .Left = tempBack.Left ''0
@@ -214,6 +221,6 @@ Public Class FormTestingVB
         Me.Controls.Add(MoveableControlVBBack)
 
 
-    End Sub
+    End Sub ''End of "Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load"
 
 End Class

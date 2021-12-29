@@ -4,80 +4,56 @@
 Imports System.Reflection ''Added 10/11/2019 td
 Imports ciBadgeInterfaces ''Added 10/14/2019 td 
 Imports ciBadgeDesigner ''Added 10/14/2019 td
-''----Imports ciBadgeFields ''Added 12/13/2021 thomas d. 
+Imports ciBadgeFields ''Added 12/13/2021 thomas d. 
 
-Friend Class MenuCache_NonShared
-    Implements ICurrentElement
+Public Class MenuCache_Generic
     ''
     ''Added 12/27/2021 thomas downes
     ''Added 10/2/2019 thomas downes  
     ''
-    Public Links_EditElementMenu As New List(Of LinkLabel)
-    ''[[[Public Links_ManageGroupedCtls As New List(Of LinkLabel)
-    ''[[[Public Links_AlignmentFeatures As New List(Of LinkLabel)
-    ''---Public Links_EditBackgroundMenu As New List(Of LinkLabel)
+    Public Shared Links_EditElementMenu As New List(Of LinkLabel)
+    Public Shared Links_ManageGroupedCtls As New List(Of LinkLabel)
+    Public Shared Links_AlignmentFeatures As New List(Of LinkLabel)
+    ''---Public Shared Links_EditBackgroundMenu As New List(Of LinkLabel)
 
-    Public ToolStripContainer1 As New ToolStrip
-    ''[[[Public ToolStripContainer2 As New ToolStrip
-    ''[[[Public ToolStripContainer3 As New ToolStrip
+    Public Shared ToolStripContainer1 As New ToolStrip
+    Public Shared ToolStripContainer2 As New ToolStrip
+    Public Shared ToolStripContainer3 As New ToolStrip
 
-    Public array_tools1() As ToolStripMenuItem = New ToolStripMenuItem() {}
-    ''[[[Public array_tools2() As ToolStripMenuItem = New ToolStripMenuItem() {}
-    ''[[[Public array_tools3() As ToolStripMenuItem = New ToolStripMenuItem() {}
+    Public Shared array_tools1() As ToolStripMenuItem = New ToolStripMenuItem() {}
+    Public Shared array_tools2() As ToolStripMenuItem = New ToolStripMenuItem() {}
+    Public Shared array_tools3() As ToolStripMenuItem = New ToolStripMenuItem() {}
 
-    Public Tools_EditElementMenu As New ToolStripItemCollection(ToolStripContainer1, array_tools1) ''10/13 td''List(Of ToolStripMenuItem)
-    ''[[[Public Tools_ManageGroupedCtls As New ToolStripItemCollection(ToolStripContainer2, array_tools2) ''10/13 td''''List(Of ToolStripMenuItem)
-    ''[[[Public Tools_AlignmentFeatures As New ToolStripItemCollection(ToolStripContainer3, array_tools3) ''10/13 td''''List(Of ToolStripMenuItem)
-    ''--Public Tools_EditBackgroundMenu As New List(Of ToolStripMenuItem)
+    Public Shared Tools_EditElementMenu As New ToolStripItemCollection(ToolStripContainer1, array_tools1) ''10/13 td''List(Of ToolStripMenuItem)
+    Public Shared Tools_ManageGroupedCtls As New ToolStripItemCollection(ToolStripContainer2, array_tools2) ''10/13 td''''List(Of ToolStripMenuItem)
+    Public Shared Tools_AlignmentFeatures As New ToolStripItemCollection(ToolStripContainer3, array_tools3) ''10/13 td''''List(Of ToolStripMenuItem)
+    ''--Public Shared Tools_EditBackgroundMenu As New List(Of ToolStripMenuItem)
 
-    Friend Tools_MenuHeader0 As ToolStripItem ''Added 12/13/2021
-    Friend Tools_MenuHeader1 As ToolStripItem ''Added 12/12/2021
-    Friend Tools_MenuHeader2 As ToolStripItem ''Added 12/12/2021 
-    Friend Tools_MenuHeader3 As ToolStripItem ''Added 12/13/2021
-    Friend Tools_MenuSeparator As ToolStripItem ''Added 12/13/2021 
+    Public Shared Tools_MenuHeader0 As ToolStripItem ''Added 12/13/2021
+    Public Shared Tools_MenuHeader1 As ToolStripItem ''Added 12/12/2021
+    Public Shared Tools_MenuHeader2 As ToolStripItem ''Added 12/12/2021 
+    Public Shared Tools_MenuHeader3 As ToolStripItem ''Added 12/13/2021
+    Public Shared Tools_MenuSeparator As ToolStripItem ''Added 12/13/2021 
 
-    ''12/28/2021 td''Public Property CtlCurrentElement As ciBadgeDesigner.CtlGraphicFldLabel ''CtlGraphicFldLabel
-    Public Property CtlCurrentElement As RSCMoveableControlVB Implements ICurrentElement.CtlCurrentElement ''CtlGraphicFldLabel
+    ''12/28/2021 td''Public Shared Property CtlCurrentElement As ciBadgeDesigner.CtlGraphicFldLabel ''CtlGraphicFldLabel
+    Public Shared Property CtlCurrentElement As MoveableControlVB ''CtlGraphicFldLabel
 
-    Public MyLinkLabel As New LinkLabel ''Added 12/28/2021 td 
-    Public MyToolstripItem As New ToolStripMenuItem ''Added 12/28/2021 td 
-
-    Public Property LayoutFunctions As ILayoutFunctions ''Added 10/3/2019 td 
-    ''[[[Public Property Designer As ciBadgeDesigner.ClassDesigner
-    ''[[[Public Property ColorDialog1 As ColorDialog ''Added 10/3/2019 td 
-    ''[[[Public Property FontDialog1 As FontDialog ''Added 10/3/2019 td 
+    Public Shared Property LayoutFunctions As ILayoutFunctions ''Added 10/3/2019 td 
+    Public Shared Property Designer As ciBadgeDesigner.ClassDesigner
+    Public Shared Property ColorDialog1 As ColorDialog ''Added 10/3/2019 td 
+    Public Shared Property FontDialog1 As FontDialog ''Added 10/3/2019 td 
 
     ''---not needed 10/3/2019 td----Public Property GroupEdits As ClassGroupMove ''Added 10/3/2019 td 
-    ''[[[Public Property SelectingElements As ISelectingElements ''Added 10/3/2019 td 
+    Public Shared Property SelectingElements As ISelectingElements ''Added 10/3/2019 td 
 
     ''Added 12/12/2021 td 
-    ''Public Property CacheOfFieldsEtc As ciBadgeCachePersonality.ClassElementsCache_Deprecated ''Added 12/12/2021 td
+    ''Public Shared Property CacheOfFieldsEtc As ciBadgeCachePersonality.ClassElementsCache_Deprecated ''Added 12/12/2021 td
 
-    Public Enum_ElementType As EnumElementType ''Added 12/28/2021 thomas d.
-    Public OperationsType As Type ''Added 12/28/2021 thomas d.
-    ''12/28/2021 td''Private mod_iCtlCurrentElement As ICurrentElement
-    ''Dec28 2021 td''Private Shared mod_operationsGenericEdits As New Operations_Generic ''Added 10/11/2019 td  
-    Private Shared mod_operationsGenericEdits As Object ''Added 10/11/2019 td  
-
-    ''[[[Private mod_operationsGenericEdits As New Operations_Generic ''Added 10/11/2019 td  
-
-    Public Sub New(par_enum As EnumElementType, par_typeOperations As Type,
-                   par_initializedOperations As Object)
-        ''         ''Dec28 2021 td''par_iCurrentElementControl As ICurrentElement,
-        ''
-        ''Added 12/28/2021 thomas downes
-        ''
-        Enum_ElementType = par_enum '' par_typeOperations
-        OperationsType = par_typeOperations
-        ''12/28/2021 td''mod_iCtlCurrentElement = par_iCurrentElementControl
-        mod_operationsGenericEdits = par_initializedOperations
-
-        Get_EditElementMenu(par_enum)
-
-    End Sub ''End of "Public Sub New(par_enum As EnumElementType, par_typeOperations As Type)"
+    ''Dec28 2021''Private Shared mod_operationsGenericEdits As New Operations_Generic ''Added 10/11/2019 td  
+    Private Shared mod_operationsGenericEdits As Operations__Generic ''Added 10/11/2019 td  
 
 
-    Friend Function Get_EditElementMenu(par_enum As EnumElementType) As ToolStripItemCollection
+    Friend Shared Function Get_EditElementMenu(par_enum As EnumElementType) As ToolStripItemCollection
         ''
         ''Added 12/28/2021 thomas downes  
         ''
@@ -96,11 +72,11 @@ Friend Class MenuCache_NonShared
 
         End If ''End of "If (par_enum = EnumElementType.Field) Then"
 
-    End Function ''End of "Private Function Get_EditElementMenu"
+    End Function ''End of "Private Shared Function Get_EditElementMenu"
 
 
-    Public Sub GenerateMenuItems_IfNeeded() ''Dec28 2021 td''(par_cacheOfFieldsEtc As ciBadgeCachePersonality.ClassElementsCache_Deprecated)
-        ''Dec.12 2021 ''Public Sub GenerateMenuItems_IfNeeded()
+    Public Shared Sub GenerateMenuItems_IfNeeded() ''Dec28 2021 td''(par_cacheOfFieldsEtc As ciBadgeCachePersonality.ClassElementsCache_Deprecated)
+        ''Dec.12 2021 ''Public Shared Sub GenerateMenuItems_IfNeeded()
         ''
         ''Added 10/2/2019 thomas downes  
         ''
@@ -108,9 +84,11 @@ Friend Class MenuCache_NonShared
         boolAlreadyPopulated = (0 <> Links_EditElementMenu.Count)
         If (boolAlreadyPopulated) Then Exit Sub
 
+        ''Added 12/28/2021 thomas downes
+        mod_operationsGenericEdits = New Operations__Generic(CtlCurrentElement)
+
         ''12/13/2021''Generate_BasicEdits()
-        ''12/28/2021''Generate_BasicEdits(mod_operationsGenericEdits.GetType())
-        Generate_BasicEdits(Me.OperationsType)
+        Generate_BasicEdits(mod_operationsGenericEdits.GetType())
         Generate_Grouped()
         Generate_Aligning()
 
@@ -118,13 +96,9 @@ Friend Class MenuCache_NonShared
         ''Added 10/1/4/2019 td
         ''
         ''Dec28 2021''With Operations_Edit
-        ''#2 Dec28 2021''With mod_operationsGenericEdits
-        ''#3 Dec28 2021''With mod_iCtlCurrentElement
-        With Me ''#4 Dec28 2021''.CtlCurrentElement
-
+        With mod_operationsGenericEdits
             ''Not needed for _Generic. Dec28 2021''.ColorDialog1 = ColorDialog1
-            ''#5 Dec28 2021''.CtlCurrentElement = CtlCurrentElement
-
+            .CtlCurrentElement = CtlCurrentElement
             ''Not needed for _Generic. Dec28 2021''.Designer = Designer
             ''Not needed for _Generic. Dec28 2021''.FontDialog1 = FontDialog1
             ''Not needed for _Generic. Dec28 2021''.LayoutFunctions = LayoutFunctions
@@ -143,9 +117,9 @@ Friend Class MenuCache_NonShared
 
         End With ''End of "With Operations_Edit"
 
-    End Sub ''End of "Public Sub GenerateMenuItems_IfNeeded()"
+    End Sub ''End of "Public Shared Sub GenerateMenuItems_IfNeeded()"
 
-    Private Sub Generate_BasicEdits(par_typeOperations As Type) ''Dec.13 2021'' (par_fieldAny As ciBadgeFields.ClassFieldAny)
+    Private Shared Sub Generate_BasicEdits(par_typeOperations As Type) ''Dec.13 2021'' (par_fieldAny As ciBadgeFields.ClassFieldAny)
         ''
         ''We will use Reflection to build this cache of menu controls.
         ''   ("Dim each_methodInfo As Reflection.MethodInfo") 
@@ -157,7 +131,7 @@ Friend Class MenuCache_NonShared
         Dim strList_MenuItems As String = ""
 
         ''Dim objInfo As Type ''System.Reflection.Assembly
-        ''Encapsulated Dec28 2021 td''Dim each_methodInfo As Reflection.MethodInfo
+        ''Dim each_methodInfo As Reflection.MethodInfo
         ''Dim each_eventInfo As Reflection.EventInfo
 
         ''Dim objClass1 As New ClassMethods
@@ -208,32 +182,31 @@ Friend Class MenuCache_NonShared
         toolMenuItemSeparator.Text = "-----Editing Operations follow------" ''Perhaps this will produce a separator line, just like in the old VB6 days. 
 
         ''toolMenuItemHeader1 = toolMenuItemHeader1
-        Tools_EditElementMenu.Add(toolMenuItemHeader0)
-        Tools_EditElementMenu.Add(toolMenuItemHeader1)
-        Tools_EditElementMenu.Add(toolMenuItemHeader2)
-        Tools_EditElementMenu.Add(toolMenuItemHeader3)
-        Tools_EditElementMenu.Add(toolMenuItemHeader4a)
-        Tools_EditElementMenu.Add(toolMenuItemHeader4b)
-        Tools_EditElementMenu.Add(toolMenuItemSeparator)
+        MenuCache_Generic.Tools_EditElementMenu.Add(toolMenuItemHeader0)
+        MenuCache_Generic.Tools_EditElementMenu.Add(toolMenuItemHeader1)
+        MenuCache_Generic.Tools_EditElementMenu.Add(toolMenuItemHeader2)
+        MenuCache_Generic.Tools_EditElementMenu.Add(toolMenuItemHeader3)
+        MenuCache_Generic.Tools_EditElementMenu.Add(toolMenuItemHeader4a)
+        MenuCache_Generic.Tools_EditElementMenu.Add(toolMenuItemHeader4b)
+        MenuCache_Generic.Tools_EditElementMenu.Add(toolMenuItemSeparator)
 
-        Tools_MenuHeader0 = toolMenuItemHeader0
-        Tools_MenuHeader1 = toolMenuItemHeader1
-        Tools_MenuHeader2 = toolMenuItemHeader2
-        Tools_MenuHeader3 = toolMenuItemHeader3
-        Tools_MenuSeparator = toolMenuItemSeparator
+        MenuCache_Generic.Tools_MenuHeader0 = toolMenuItemHeader0
+        MenuCache_Generic.Tools_MenuHeader1 = toolMenuItemHeader1
+        MenuCache_Generic.Tools_MenuHeader2 = toolMenuItemHeader2
+        MenuCache_Generic.Tools_MenuHeader3 = toolMenuItemHeader3
+        MenuCache_Generic.Tools_MenuSeparator = toolMenuItemSeparator
 
         ''objInfo = (TypeOf objClass1)
 
         ''Dec28, 2021''Generate_ReflectionWork(mod_operationsGenericEdits.GetType())
         Generate_ReflectionWork(par_typeOperations,
-                                Links_EditElementMenu,
-                                Tools_EditElementMenu)
+                                MenuCache_Generic.Links_EditElementMenu,
+                                MenuCache_Generic.Tools_EditElementMenu)
+
+    End Sub ''End of "Private Shared Sub Generate_BasicEdits()"
 
 
-    End Sub ''End of "Private Sub Generate_BasicEdits()"
-
-
-    Private Sub Generate_ReflectionWork(par_typeOperations As Type,
+    Private Shared Sub Generate_ReflectionWork(par_typeOperations As Type,
                                                ByRef par_listLinklabels As List(Of LinkLabel),
                                                ByRef par_listToolItems As ToolStripItemCollection)
         ''
@@ -368,8 +341,7 @@ Friend Class MenuCache_NonShared
                 ''
                 ''   https://stackoverflow.com/questions/1121441/addeventhandler-using-reflection
                 ''
-                ''Dec28 2021 td''Dim type_LinkLabel As Type = mod_operationsGenericEdits.MyLinkLabel.GetType
-                Dim type_LinkLabel As Type = Me.MyLinkLabel.GetType
+                Dim type_LinkLabel As Type = mod_operationsGenericEdits.MyLinkLabel.GetType
                 Dim event_linkClicked As Reflection.EventInfo
 
                 ''
@@ -402,8 +374,7 @@ Friend Class MenuCache_NonShared
                 ''
                 ''Step 2 of 2:    ToolstripMenuItem  
                 ''
-                ''Dec28 2021 td''Dim type_ToolstripItem As Type = mod_operationsGenericEdits.MyToolstripItem.GetType
-                Dim type_ToolstripItem As Type = MyToolstripItem.GetType
+                Dim type_ToolstripItem As Type = mod_operationsGenericEdits.MyToolstripItem.GetType
                 Dim event_toolClicked As Reflection.EventInfo
                 Dim boolSuccess_LinkLabel As Boolean = False ''Added 10/14/2019 td
 
@@ -468,9 +439,7 @@ Friend Class MenuCache_NonShared
 
         ''
         ''
-        ''
-        ''Let's take an inventory of the output of our [For Each--Next] loop above. 
-        ''
+        ''Let's take an inventory of our work. ----12/28/2021 td
         ''
         ''
         ''Added 9/23/2019 thomas downes
@@ -506,11 +475,11 @@ Friend Class MenuCache_NonShared
             ''                 MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         End If
 
-    End Sub ''End of "Private Sub Generate_ReflectionWork()
+    End Sub ''End of "Private Shared Sub Generate_ReflectionWork()
 
 
 
-    Private Sub Generate_Grouped()
+    Private Shared Sub Generate_Grouped()
         ''
         ''We will use Reflection to build this cache of menu controls. 
         ''
@@ -519,7 +488,7 @@ Friend Class MenuCache_NonShared
         ''
 
     End Sub
-    Private Sub Generate_Aligning()
+    Private Shared Sub Generate_Aligning()
         ''
         ''We will use Reflection to build this cache of menu controls. 
         ''
@@ -530,4 +499,3 @@ Friend Class MenuCache_NonShared
     End Sub
 
 End Class
-

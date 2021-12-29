@@ -10,11 +10,11 @@ Imports ciBadgeDesigner ''Added 12/27/2021 td
 ''
 ''Added 12/22/2021 td  
 ''
-Public Class RSCMoveableControl
+Public Class RSCMoveableControlVB
     ''
     ''Added 12/22/2021 td  
     ''
-    Public Shared LastControlTouched As RSCMoveableControl
+    Public Shared LastControlTouched As RSCMoveableControlVB
 
     Public MyToolstripItemCollection As ToolStripItemCollection ''Added 12/28/2021 td 
     Private mod_boolResizeProportionally As Boolean
@@ -24,7 +24,8 @@ Public Class RSCMoveableControl
     ''Let's rename. 12/28/2021 td''Private mod_resizeProportionally As ControlResizeProportionally_TD = Nothing
     Private mod_moveInAGroup As ControlMove_Group_NonStatic = Nothing
     Private mod_moveResizeKeepRatio As ControlResizeProportionally_TD = Nothing
-    Private mod_iMoveOrResize As InterfaceMoveOrResize ''Added 12/28/2021 td
+    ''Dec29 2021''Private mod_iMoveOrResize As InterfaceMoveOrResize ''Added 12/28/2021 td
+    Private mod_iMoveOrResize As IMoveOrResizeFunctionality ''Added 12/28/2021 td
 
     Private WithEvents mod_events As New ClassGroupMoveEvents ''InterfaceEvents
     Private mod_iSaveToModel As ISaveToModel
