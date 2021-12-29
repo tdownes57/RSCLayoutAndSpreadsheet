@@ -34,7 +34,7 @@ using ciBadgeInterfaces;  // Dec17 2021
 
 namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManager
 {
-    public class ControlResizeProportionally_TD : InterfaceMoveOrResize
+    public class ControlResizeProportionally_TD : IMoveOrResizeFunctionality  // InterfaceMoveOrResize
     {
         //
         //  internal class ControlResizeProportionally_TD
@@ -54,6 +54,13 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             get;
             set;
         }
+
+        public bool RemoveSizeability // = false;  //Added 12/28/2021 //
+        {
+            get;
+            set;
+        }
+
 
         private bool _moving;
         private bool _repaintAfterResize;  // Added 7/31/2019 td  

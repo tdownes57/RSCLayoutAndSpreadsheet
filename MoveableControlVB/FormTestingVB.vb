@@ -16,12 +16,16 @@ Public Class FormTestingVB
     ''Added 12/28/2021 thomas
     Private mod_designer As New ClassDesigner()
     Private MoveableControlVB41 As MoveableControlVB
+    Private mod_iControlLastTouched As ILastControlTouched ''Added 12/28/2021 td
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
         ''Added 12/28/2021 thomas d.
         ''
         ''MenuCache_Generic.GenerateMenuItems_IfNeeded() ''Dec28 2021 td'' (Nothing)
+
+        Dim objCtlLastTouched As New ClassLastControlTouched ''Added 12/28/2021 td
+        mod_iControlLastTouched = objCtlLastTouched ''Added 12/28/2021 td
 
         ''''Added 12/28/2021 thomas d.
         ''Dim operationsField As New Operations_Generic ''Operations_Field

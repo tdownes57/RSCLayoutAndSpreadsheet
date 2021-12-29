@@ -11,7 +11,7 @@ namespace MoveAndResizeControls_Monem //.Interfaces
     //
     //Added 12/28/2021 td 
     //
-    public interface InterfaceMoveOrResize
+    public interface IMoveOrResizeFunctionality // Dec28 2021 //InterfaceMoveOrResize
     {
         //
         //Added 12/28/2021 td 
@@ -28,6 +28,15 @@ namespace MoveAndResizeControls_Monem //.Interfaces
             get;
             set;
         }
+
+
+        bool RemoveSizeability
+        {
+            //Added 12/28/2021 thomas downes
+            get;
+            set;
+        }
+
 
     }
 }

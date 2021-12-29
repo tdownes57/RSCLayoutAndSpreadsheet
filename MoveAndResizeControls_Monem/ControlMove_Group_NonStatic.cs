@@ -19,7 +19,7 @@ namespace MoveAndResizeControls_Monem
     //
     // Added 11/29/2021 thomas downes 
     //
-    public class ControlMove_Group_NonStatic : InterfaceMoveOrResize
+    public class ControlMove_Group_NonStatic : IMoveOrResizeFunctionality // InterfaceMoveOrResize
     {
         //
         //  Class ControlMove_Group_NonStatic
@@ -34,6 +34,12 @@ namespace MoveAndResizeControls_Monem
         //
         // Dec28 2021 //public bool RemoveAllFunctionality = false; //Added 12/28/2021 td
         public bool RemoveAllFunctionality // = false;  //Added 12/28/2021 //
+        {
+            get;
+            set;
+        }
+
+        public bool RemoveSizeability // = false;  //Added 12/28/2021 //
         {
             get;
             set;

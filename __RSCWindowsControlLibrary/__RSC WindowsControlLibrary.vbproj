@@ -71,21 +71,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MenuCache_NonShared.vb" />
-    <Compile Include="MoveableControlVB.designer.vb">
-      <DependentUpon>MoveableControlVB.vb</DependentUpon>
+    <Compile Include="RSCMoveableControl.designer.vb">
+      <DependentUpon>RSCMoveableControl.vb</DependentUpon>
     </Compile>
-    <Compile Include="MoveableControlVB.vb">
+    <Compile Include="RSCMoveableControl.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
-    </Compile>
-    <Compile Include="UserControl1.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControl1.Designer.vb">
-      <DependentUpon>UserControl1.vb</DependentUpon>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Resources.Designer.vb">
@@ -100,8 +94,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MoveableControlVB.resx">
-      <DependentUpon>MoveableControlVB.vb</DependentUpon>
+    <EmbeddedResource Include="RSCMoveableControl.resx">
+      <DependentUpon>RSCMoveableControl.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -141,6 +135,10 @@
       <Project>{3d6a51a2-395e-467f-a3c4-8d6ed1da961e}</Project>
       <Name>MoveAndResizeControls_Monem</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+    <Folder Include="RSCMoveableControl\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

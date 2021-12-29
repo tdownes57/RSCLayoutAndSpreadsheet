@@ -10,11 +10,11 @@ Imports ciBadgeDesigner ''Added 12/27/2021 td
 ''
 ''Added 12/22/2021 td  
 ''
-Public Class MoveableControlVB
+Public Class RSCMoveableControl
     ''
     ''Added 12/22/2021 td  
     ''
-    Public Shared LastControlTouched As MoveableControlVB
+    Public Shared LastControlTouched As RSCMoveableControl
 
     Public MyToolstripItemCollection As ToolStripItemCollection ''Added 12/28/2021 td 
     Private mod_boolResizeProportionally As Boolean
