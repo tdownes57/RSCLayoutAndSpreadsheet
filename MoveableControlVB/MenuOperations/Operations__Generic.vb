@@ -80,14 +80,6 @@ Public Class Operations__Generic
     ''  Public Sub How_Context_Menus_Are_Generated_EE1002(sender As Object, e As EventArgs) 
     ''   --- Private Sub CreateVisibleButtonMaster(par_strText As String,
     ''
-    Public Sub Name_Of_This_Control_GG7011(sender As Object, e As EventArgs)
-        ''
-        ''Added 12/28/2021 thomas downes  
-        ''
-        MessageBoxTD.Show_Statement("The name of this control is: " & Me.CtlCurrentElement.Name)
-
-    End Sub
-
 
     Public Sub This_Is_A_Generic_Operation_GG7001(sender As Object, e As EventArgs)
         ''
@@ -148,6 +140,14 @@ Public Class Operations__Generic
 
     End Sub
 
+
+    Public Sub Name_Of_This_Control_GG7008(sender As Object, e As EventArgs)
+        ''
+        ''Added 12/28/2021 thomas downes  
+        ''
+        MessageBoxTD.Show_Statement("The name of this control is: " & Me.CtlCurrentElement.Name)
+
+    End Sub
 
 
     Public Sub How_Context_Menus_Are_Generated_EE9001(sender As Object, e As EventArgs)

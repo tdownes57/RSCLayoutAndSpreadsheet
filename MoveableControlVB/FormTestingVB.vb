@@ -15,7 +15,7 @@ Public Class FormTestingVB
 
     ''Added 12/28/2021 thomas
     Private mod_designer As New ClassDesigner()
-
+    Private MoveableControlVB41 As MoveableControlVB
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
@@ -74,6 +74,12 @@ Public Class FormTestingVB
         MoveableControlVB3 = Nothing
         MoveableControlVB4 = Nothing
 
+        ''Added 12/28/2021 thomas
+        Const c_bAddMoveabilityWithinConstructor As Boolean = False
+        Const c_bAddClickabilityWithinConstructor As Boolean = False
+        Const c_bAddMoveabilityAfterConstructor As Boolean = True
+        Const c_bAddClickabilityAfterConstructor As Boolean = True
+
         ''Control #1 of 3. 
         Dim objSaveToModel1 As New ClassSaveToModel
         Dim objOperations1 As New Operations__Useless()
@@ -81,14 +87,17 @@ Public Class FormTestingVB
                                                    objSaveToModel1,
                                                    CType(mod_designer, ILayoutFunctions),
                                                    mod_designer, objOperations1.GetType(),
-                                                   objOperations1)
+                                                   objOperations1,
+                                                   c_bAddMoveabilityWithinConstructor,
+                                                    c_bAddClickabilityWithinConstructor)
         objOperations1.CtlCurrentElement = MoveableControlVB1
         MoveableControlVB1.Left = 0
         MoveableControlVB1.Top = 0
         MoveableControlVB1.Visible = True
-        MoveableControlVB1.AddMoveability()
-        MoveableControlVB1.AddClickability()
+        If (c_bAddMoveabilityAfterConstructor) Then MoveableControlVB1.AddMoveability()
+        If (c_bAddClickabilityAfterConstructor) Then MoveableControlVB1.AddClickability()
         Me.Controls.Add(MoveableControlVB1)
+        MoveableControlVB1.Name = "MoveableControlVB1"
 
         ''Control #2 of 3. 
         Dim objSaveToModel2 As New ClassSaveToModel
@@ -97,14 +106,17 @@ Public Class FormTestingVB
                                                    objSaveToModel1,
                                                    CType(mod_designer, ILayoutFunctions),
                                                    mod_designer, objOperations2.GetType(),
-                                                   objOperations2)
+                                                   objOperations2,
+                                                    c_bAddMoveabilityWithinConstructor,
+                                                    c_bAddClickabilityWithinConstructor)
         objOperations2.CtlCurrentElement = MoveableControlVB2
         MoveableControlVB2.Left = 0
         MoveableControlVB2.Top = 10 + (MoveableControlVB1.Top + MoveableControlVB1.Height)
         MoveableControlVB2.Visible = True
-        MoveableControlVB2.AddMoveability()
-        MoveableControlVB2.AddClickability()
+        If (c_bAddMoveabilityAfterConstructor) Then MoveableControlVB2.AddMoveability()
+        If (c_bAddClickabilityAfterConstructor) Then MoveableControlVB2.AddClickability()
         Me.Controls.Add(MoveableControlVB2)
+        MoveableControlVB2.Name = "MoveableControlVB2"
 
         ''Control #3 of 3. 
         Dim objSaveToModel3 As New ClassSaveToModel
@@ -113,16 +125,51 @@ Public Class FormTestingVB
                                                    objSaveToModel3,
                                                    CType(mod_designer, ILayoutFunctions),
                                                    mod_designer, objOperations3.GetType(),
-                                                   objOperations3)
+                                                   objOperations3,
+                                                    c_bAddMoveabilityWithinConstructor,
+                                                    c_bAddClickabilityWithinConstructor)
         objOperations3.CtlCurrentElement = MoveableControlVB3
         MoveableControlVB3.Left = 0
         MoveableControlVB3.Top = 10 + (MoveableControlVB2.Top + MoveableControlVB2.Height)
         MoveableControlVB3.Visible = True
-        MoveableControlVB3.AddMoveability()
-        MoveableControlVB3.AddClickability()
+        If (c_bAddMoveabilityAfterConstructor) Then MoveableControlVB3.AddMoveability()
+        If (c_bAddClickabilityAfterConstructor) Then MoveableControlVB3.AddClickability()
         Me.Controls.Add(MoveableControlVB3)
+        MoveableControlVB3.Name = "MoveableControlVB3"
 
 
+        ''
+        ''Resize-Proportionally (Per Ratio Width-Height) Control #1 of 2.
+        ''
+        Const c_bResizeProportionally As Boolean = True
+        Dim objSaveToModel41 As New ClassSaveToModel
+        Dim objOperations41 As New Operations__Useless()
+        MoveableControlVB41 = New MoveableControlVB(EnumElementType.Undetermined, c_bResizeProportionally,
+                                                   objSaveToModel41,
+                                                   CType(mod_designer, ILayoutFunctions),
+                                                   mod_designer, objOperations41.GetType(),
+                                                   objOperations41,
+                                                    c_bAddMoveabilityWithinConstructor,
+                                                    c_bAddClickabilityWithinConstructor)
+        objOperations41.CtlCurrentElement = MoveableControlVB41
+        With MoveableControlVB41
+            MoveableControlJane.Visible = False
+            .Left = MoveableControlJane.Left ''0
+            .Width = MoveableControlJane.Width
+            .Height = MoveableControlJane.Height
+            ''Dec28 ''.Top = 10 + (MoveableControlVB3.Top + MoveableControlVB3.Height)
+            .Top = MoveableControlJane.Top
+            .BackgroundImage = My.Resources.JaneMulvey
+            .BackgroundImageLayout = ImageLayout.Zoom
+            Dim singleRatioWtoH As Single
+            singleRatioWtoH = CType(.BackgroundImage.Width, Single) / .BackgroundImage.Height
+            .Width = (.Height * singleRatioWtoH)
+            .Visible = True
+            If (c_bAddMoveabilityAfterConstructor) Then .AddMoveability()
+            If (c_bAddClickabilityAfterConstructor) Then .AddClickability()
+            .Name = "MoveableControlVB41"
+        End With
+        Me.Controls.Add(MoveableControlVB41)
 
 
 

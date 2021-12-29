@@ -19,7 +19,7 @@ namespace MoveAndResizeControls_Monem
     //
     // Added 11/29/2021 thomas downes 
     //
-    public class ControlMove_Group_NonStatic
+    public class ControlMove_Group_NonStatic : InterfaceMoveOrResize
     {
         //
         //  Class ControlMove_Group_NonStatic
@@ -32,6 +32,12 @@ namespace MoveAndResizeControls_Monem
         //       https://www.codeproject.com/info/cpol10.aspx
         //  This class was modified in August 2019 by Thomas C. Downes
         //
+        // Dec28 2021 //public bool RemoveAllFunctionality = false; //Added 12/28/2021 td
+        public bool RemoveAllFunctionality // = false;  //Added 12/28/2021 //
+        {
+            get;
+            set;
+        }
 
         private bool _moving;
         private bool _repaintAfterResize;  // Added 7/31/2019 td  
@@ -71,9 +77,11 @@ namespace MoveAndResizeControls_Monem
 
         internal MoveOrResize WorkType { get; set; }
 
+
         public void Init(Control par_controlA, int par_margin, bool pbRepaintAfterResize,
                                  InterfaceEvents par_events, bool pbSetBreakpoint_AfterMove,
-                                 ISaveToModel par_iSave)
+                                 ISaveToModel par_iSave, 
+                                 bool pbUndoAndReverseEverything = false)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
             //     the preferred background color.)   ----7/31/2019 td
@@ -89,14 +97,17 @@ namespace MoveAndResizeControls_Monem
             //Not needed here. 9/13 td.//SetBreakpoint_AfterMove = pbSetBreakpoint_AfterMove;  //Added 9/13/2019 td 
 
             // 9-13-2019 td//Init(control, control, par_margin, pbRepaintAfterResize, par_events);
-            Init(par_controlA, par_controlA, par_margin, pbRepaintAfterResize, par_events, SetBreakpoint_AfterMove, par_iSave);
+            // Dec28 2021 td//Init(par_controlA, par_controlA, par_margin, pbRepaintAfterResize, par_events, SetBreakpoint_AfterMove, par_iSave);
+            Init(par_controlA, par_controlA, par_margin, pbRepaintAfterResize, par_events, SetBreakpoint_AfterMove, 
+                par_iSave, pbUndoAndReverseEverything);
 
         }
+
 
         public void Init(Control par_controlPictureB, Control par_containerElement, 
                                int par_margin, bool pbRepaintAfterResize,
                                InterfaceEvents par_events, bool pbSetBreakpoint_AfterMove, 
-                               ISaveToModel par_iSave)
+                               ISaveToModel par_iSave, bool pbUndoAndReverseEverything = false)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
             //     the preferred background color.)   ----7/31/2019 td
@@ -107,12 +118,19 @@ namespace MoveAndResizeControls_Monem
             //
             //   internal static void Init(Control control, Control container)
             //
-            _iSaveToModel = par_iSave; //Added 12/17/2021 td
-            _controlPictureBox = par_controlPictureB; //Added 12/27/2021 td
+            //Dec28 //_iSaveToModel = par_iSave; //Added 12/17/2021 td
+            if (pbUndoAndReverseEverything) _iSaveToModel = null; //Added 12/28/2021
+            else _iSaveToModel = par_iSave;  //Added 12/28/2021
+
+            //Dec28 //_controlPictureBox = par_controlPictureB; //Added 12/27/2021 td
+            if (pbUndoAndReverseEverything) _controlPictureBox = null; //Added 12/28/2021
+            else _controlPictureBox = par_controlPictureB; //Added 12/28/2021
 
             SetBreakpoint_AfterMove = pbSetBreakpoint_AfterMove;  //Added 9/13/2019 td 
 
-            mod_groupedctl_events = par_events;  // 8/3/2019 thomas downes   
+            //Dec28 2021 //mod_groupedctl_events = par_events;  // 8/3/2019 thomas downes   
+            if (pbUndoAndReverseEverything) mod_groupedctl_events = null; //Added 12/28/2021
+            else mod_groupedctl_events = par_events; //Added 12/28/2021
 
             _moving = false;
             _repaintAfterResize = pbRepaintAfterResize; //Added 7/31/2019 td 
@@ -132,9 +150,18 @@ namespace MoveAndResizeControls_Monem
             MouseIsInBottomEdge = false;
             WorkType = MoveOrResize.MoveAndResize;
 
-            par_controlPictureB.MouseDown += (sender, e) => StartMovingOrResizing(par_controlPictureB, e);
-            //Dec17 2021 td//par_controlPictureB.MouseUp += (sender, e) => StopDragOrResizing(par_controlPictureB);
-            par_controlPictureB.MouseUp += (sender, e) => StopDragOrResizing(par_controlPictureB, _iSaveToModel);
+            if (pbUndoAndReverseEverything)
+            {
+                // Remove these EventHandlers. ---12/28/2021 td
+                par_controlPictureB.MouseDown -= (sender, e) => StartMovingOrResizing(par_controlPictureB, e);
+                par_controlPictureB.MouseUp -= (sender, e) => StopDragOrResizing(par_controlPictureB, _iSaveToModel);
+            }
+            else
+            {
+                par_controlPictureB.MouseDown += (sender, e) => StartMovingOrResizing(par_controlPictureB, e);
+                //Dec17 2021 td//par_controlPictureB.MouseUp += (sender, e) => StopDragOrResizing(par_controlPictureB);
+                par_controlPictureB.MouseUp += (sender, e) => StopDragOrResizing(par_controlPictureB, _iSaveToModel);
+            }
 
             //==-== Likely bug??  Notice that, toward the end of the line, it references
             //==   the parameter "par_containerElement".... which conflicts with "par_control"
@@ -151,14 +178,56 @@ namespace MoveAndResizeControls_Monem
             //==//par_controlPictureB.MouseMove += (sender, e) => MoveControl(par_containerElement, e);
             //
             //--Helpful??? 12/1/2021--par_containerElement.MouseMove += (sender, e) => MoveControl(par_containerElement, e);
-            par_controlPictureB.MouseMove += (sender, e) => MoveControl(par_containerElement, e);
+            //Dec28 2021 //par_controlPictureB.MouseMove += (sender, e) => MoveControl(par_containerElement, e);
+            if (pbUndoAndReverseEverything)
+            {
+                //Remove the event handler.
+                par_controlPictureB.MouseMove -= (sender, e) => MoveControl(par_containerElement, e);
+            }
+            else
+            {
+                par_controlPictureB.MouseMove += (sender, e) => MoveControl(par_containerElement, e);
+            }
 
             //Added 11/29/2021 td
-            _controlCurrent = par_controlPictureB;
-            _controlPictureBox = par_controlPictureB;
-            _controlMoveableElement = par_containerElement;
+            if (pbUndoAndReverseEverything)
+            {
+                // Remove the object references. ---Dec28 2021  
+                _controlCurrent = null;  // par_controlPictureB;
+                _controlPictureBox = null; // par_controlPictureB;
+                _controlMoveableElement = null; // par_containerElement;
+            }
+            else
+            {
+                _controlCurrent = par_controlPictureB;
+                _controlPictureBox = par_controlPictureB;
+                _controlMoveableElement = par_containerElement;
+            }
 
         }
+
+
+        public void Reverse_Init()
+        {
+            //
+            //Added 12/28/2021 td
+            //
+            const bool c_bReverseEverything = true;
+
+            //Major call !!
+            Init(_controlPictureBox, _controlMoveableElement, 0, _repaintAfterResize,
+                mod_groupedctl_events, false, _iSaveToModel, c_bReverseEverything);
+
+            //Null out the references. ----12/28/2021 td 
+            _controlPictureBox = null;
+            _controlMoveableElement = null;
+            _controlCurrent = null;
+            mod_groupedctl_events = null;
+            _iSaveToModel = null;
+
+
+        }
+
 
         private void UpdateMouseEdgeProperties(Control par_controlC, Point mouseLocationInControl)
         {
@@ -234,6 +303,11 @@ namespace MoveAndResizeControls_Monem
 
         private void StartMovingOrResizing(Control par_controlE, MouseEventArgs e)
         {
+            //
+            //Added 12/28/2021 thomas downes
+            //
+            if (RemoveAllFunctionality) return; 
+
             if (_moving || _resizing)
             {
                 //
@@ -582,7 +656,9 @@ namespace MoveAndResizeControls_Monem
 
             //Added 11/29/2021 td
             //  Remove the object reference.
-            _controlCurrent = null;
+            //
+            //--((--UnloadEventHandlers needs this reference.---Dec28 2021 td
+            //--controlCurrent = null;
 
         }
 
@@ -605,6 +681,7 @@ namespace MoveAndResizeControls_Monem
 
             //''The minimal listing. 
             _controlCurrent.MouseDown -= (sender, e) => StartMovingOrResizing(_controlCurrent, e);
+
             // Dec17 2021//_controlCurrent.MouseUp -= (sender, e) => StopDragOrResizing(_controlCurrent);
             _controlCurrent.MouseUp -= (sender, e) => StopDragOrResizing(_controlCurrent, _iSaveToModel);
             _controlCurrent.MouseMove -= (sender, e) => MoveControl(_controlCurrent, e);

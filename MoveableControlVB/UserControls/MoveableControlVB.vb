@@ -20,8 +20,11 @@ Public Class MoveableControlVB
     Private mod_boolResizeProportionally As Boolean
 
     ''Depending on the above Boolean, one of the following will be instantiated. 
-    Private mod_resizingProportionally As ControlResizeProportionally_TD = Nothing
-    Private mod_movingInAGroup As ControlMove_Group_NonStatic = Nothing
+    ''Let's rename. 12/28/2021 td''Private mod_movingInAGroup As ControlMove_Group_NonStatic = Nothing
+    ''Let's rename. 12/28/2021 td''Private mod_resizeProportionally As ControlResizeProportionally_TD = Nothing
+    Private mod_moveInAGroup As ControlMove_Group_NonStatic = Nothing
+    Private mod_moveResizeKeepRatio As ControlResizeProportionally_TD = Nothing
+    Private mod_iMoveOrResize As InterfaceMoveOrResize ''Added 12/28/2021 td
 
     Private WithEvents mod_events As New ClassGroupMoveEvents ''InterfaceEvents
     Private mod_iSaveToModel As ISaveToModel
@@ -61,7 +64,9 @@ Public Class MoveableControlVB
                    par_iLayoutFun As ILayoutFunctions,
                    par_designer As ClassDesigner,
                    par_operationsType As Type,
-                   par_operationsAny As Object) ''----As IOperations)
+                   par_operationsAny As Object,
+                   pboolAddMoveability As Boolean,
+                   pboolAddClickability As Boolean) ''----As IOperations)
 
         ''12/28/2021 td''par_toolstrip As ToolStripItemCollection)
 
@@ -74,7 +79,8 @@ Public Class MoveableControlVB
         mod_boolResizeProportionally = pboolResizeProportionally ''Added 12/28/2021 td
         mod_iLayoutFunctions = par_iLayoutFun
         ''12/28/2021 td''InitializeMoveability(pboolResizeProportionally, par_iSaveToModel, par_iLayoutFun)
-        AddMoveability()
+        ''#2 Dec28_2021 td''AddMoveability()
+        If (pboolAddMoveability) Then AddMoveability()
 
         ''Encapsulated 12/22/2021 thomas downes
         ''Dec28 2021 td''Me.MyToolstripItemCollection = par_toolstrip ''Added 12/28/2021 td
@@ -85,7 +91,8 @@ Public Class MoveableControlVB
         mod_typeOperations = par_operationsType
 
         ''Dec28_2021 td''InitializeClickability(par_designer)
-        AddClickability()
+        ''#2 Dec28_2021 td''AddClickability()
+        If (pboolAddClickability) Then AddClickability()
 
     End Sub
 
@@ -94,25 +101,59 @@ Public Class MoveableControlVB
         ''
         ''Added 12/28/2021 td
         ''
-        InitializeMoveability(mod_boolResizeProportionally, mod_iSaveToModel, mod_iLayoutFunctions)
+        ''Dec28 2021''InitializeMoveability(mod_boolResizeProportionally, mod_iSaveToModel, mod_iLayoutFunctions)
+
+        Dim boolInstantiated As Boolean ''Added 12/28/2021 td
+        boolInstantiated = (mod_moveInAGroup IsNot Nothing) OrElse (mod_moveResizeKeepRatio IsNot Nothing)
+
+        If (boolInstantiated) Then ''Added 12/28/2021 td
+            ''Added 12/28/2021 td
+            ''  If instantiated, then set the Boolean property to false. 
+            If (mod_moveInAGroup IsNot Nothing) Then mod_moveInAGroup.RemoveAllFunctionality = False
+            If (mod_moveResizeKeepRatio IsNot Nothing) Then mod_moveResizeKeepRatio.RemoveAllFunctionality = False
+
+        Else
+            InitializeMoveability(mod_boolResizeProportionally, mod_iSaveToModel, mod_iLayoutFunctions)
+
+        End If ''End of "If (boolInstantiated) Then ... Else ...."
 
     End Sub
 
 
-    Public Sub RemoveMoveability()
+    Public Sub RemoveMoveability(Optional pboolUseEasyWay As Boolean = True)
         ''
         ''Added 12/28/2021 td
         ''
         If (True Or Not mod_boolResizeProportionally) Then
             ''mod_movingInAGroup.UndloadEventHandlers()
-            mod_movingInAGroup.RemoveEventHandlers()
-            mod_movingInAGroup = Nothing
+            If (mod_moveInAGroup IsNot Nothing) Then
+                ''Doesn't work well. ''mod_movingInAGroup.RemoveEventHandlers()
+                ''#1 Dec28 2021 td''mod_movingInAGroup.Reverse_Init() ''Added 12/28/2021 td
+                ''#2 Dec28 2021 td''mod_moveInAGroup.RemoveAllFunctionality = True ''Added 12/28/2021 td
+
+                If (Not pboolUseEasyWay) Then mod_moveInAGroup.Reverse_Init() ''Added 12/28/2021 td
+                If (pboolUseEasyWay) Then mod_moveInAGroup.RemoveAllFunctionality = True ''Added 12/28/2021 td
+
+                ''Dec28 2021 td''mod_movingInAGroup.Dispose() ''Added 12/28/2021 td
+
+            End If ''End of "If (mod_movingInAGroup IsNot Nothing) Then"
+            ''Doesn't work well. Dec28 2021 td''mod_movingInAGroup = Nothing
         End If ''End of "If (True Or Not mod_boolResizeProportionally) Then"
 
         If (True Or mod_boolResizeProportionally) Then
-            mod_resizingProportionally.UnloadEventHandlers()
-            mod_resizingProportionally.RemoveEventHandlers()
-            mod_resizingProportionally = Nothing
+            ''mod_resizingProportionally.UnloadEventHandlers()
+            If (mod_moveResizeKeepRatio IsNot Nothing) Then
+                ''Doesn't work well. Dec28 2021 td''mod_resizingProportionally.RemoveEventHandlers()
+                ''#2 Dec28 2021 td''mod_moveResizeKeepRatio.RemoveAllFunctionality = True ''Added 12/28/2021 td
+
+                If (Not pboolUseEasyWay) Then mod_moveResizeKeepRatio.Reverse_Init() ''Added 12/28/2021 td
+                If (pboolUseEasyWay) Then mod_moveResizeKeepRatio.RemoveAllFunctionality = True ''Added 12/28/2021 td
+
+                ''Dec28 2021 td''mod_movingInAGroup.Dispose() ''Added 12/28/2021 td
+
+            End If ''end of "If (mod_resizingProportionally IsNot Nothing) Then"
+            ''Doesn't work well. Dec28 2021 td''mod_resizingProportionally = Nothing
+
         End If ''ENd of "If (True Or mod_boolResizeProportionally) Then"
 
     End Sub ''End of "Public Sub RemoveMoveability()"
@@ -135,8 +176,8 @@ Public Class MoveableControlVB
         Me.ContextMenuStrip1 = Nothing
         Me.mod_objOperationsGeneric = Nothing
         Me.mod_objOperationsUseless = Nothing
-        Me.mod_resizingProportionally = Nothing
-        Me.mod_movingInAGroup = Nothing
+        Me.mod_moveResizeKeepRatio = Nothing
+        Me.mod_moveInAGroup = Nothing
 
     End Sub ''End of "Public Sub AddClickability()"
 
@@ -155,8 +196,8 @@ Public Class MoveableControlVB
         ''Added 12/28/2021 td
         ''  Prepare for the next steps.
         ''
-        mod_resizingProportionally = Nothing
-        mod_movingInAGroup = Nothing
+        mod_moveResizeKeepRatio = Nothing
+        mod_moveInAGroup = Nothing
         mod_events.LayoutFunctions = par_iLayoutFunctions
 
         ''
@@ -164,22 +205,26 @@ Public Class MoveableControlVB
         ''
         If pboolResizeProportionally Then
 
-            mod_resizingProportionally = New MoveAndResizeControls_Monem.ControlResizeProportionally_TD()
             mod_events.LayoutFunctions = par_iLayoutFunctions ''Added 12/27/2021
-            mod_resizingProportionally.Init(Me, Me, 10, c_bRepaintAfterResize,
+
+            mod_moveResizeKeepRatio = New MoveAndResizeControls_Monem.ControlResizeProportionally_TD()
+            mod_moveResizeKeepRatio.Init(Me, Me, 10, c_bRepaintAfterResize,
                                             mod_events, False, mod_iSaveToModel)
             ''---mod_resizingProportionally.LayoutFunctions = par_iLayoutFunctions 
+            mod_iMoveOrResize = mod_moveResizeKeepRatio ''Added 12/28/2021 td
 
         Else
-            mod_movingInAGroup = New MoveAndResizeControls_Monem.ControlMove_Group_NonStatic()
+            mod_moveInAGroup = New MoveAndResizeControls_Monem.ControlMove_Group_NonStatic()
 
             ''mod_iLayoutFunctions = par_iLayoutFunctions
             ''mod_movingInAGroup.LayoutFunctions = par_iLayoutFunctions
 
             mod_events.LayoutFunctions = par_iLayoutFunctions ''Added 12/27/2021
 
-            mod_movingInAGroup.Init(Me, Me, 10, c_bRepaintAfterResize,
+            mod_moveInAGroup.Init(Me, Me, 10, c_bRepaintAfterResize,
                                     mod_events, False, mod_iSaveToModel)
+
+            mod_iMoveOrResize = mod_moveInAGroup ''Added 12/28/2021 td
 
         End If ''End of "If pboolResizeProportionally Then .... Else ..."
 

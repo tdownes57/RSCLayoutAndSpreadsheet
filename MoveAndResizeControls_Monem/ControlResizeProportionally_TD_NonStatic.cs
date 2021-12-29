@@ -34,7 +34,7 @@ using ciBadgeInterfaces;  // Dec17 2021
 
 namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManager
 {
-    public class ControlResizeProportionally_TD
+    public class ControlResizeProportionally_TD : InterfaceMoveOrResize
     {
         //
         //  internal class ControlResizeProportionally_TD
@@ -45,31 +45,38 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
         //       https://www.codeproject.com/info/cpol10.aspx
         //  This class was modified in August 2019 by Thomas C. Downes
         //
-        private static bool MouseMove_DontAskAgain = false; // Added 12/2/2021 td
-        private static bool MouseMove_Container = false;    // Added 12/2/2021 td
+        //Moved below. 12/28/2021 //private static bool MouseMove_DontAskAgain = false; // Added 12/2/2021 td
+        //Moved below. 12/28/2021 //private static bool MouseMove_Container = false;    // Added 12/2/2021 td
 
-        private  bool _moving;
-        private  bool _repaintAfterResize;  // Added 7/31/2019 td  
+        // Dec28 2021 //public bool RemoveAllFunctionality = false; //Added 12/28/2021 td
+        public bool RemoveAllFunctionality // = false;  //Added 12/28/2021 //
+        {
+            get;
+            set;
+        }
+
+        private bool _moving;
+        private bool _repaintAfterResize;  // Added 7/31/2019 td  
         /// </summary>
-        private  Point _cursorStartPoint;
-        private  bool _moveIsInterNal;
-        private  bool _resizing;
-        private  Size _currentControlStartSize;
+        private Point _cursorStartPoint;
+        private bool _moveIsInterNal;
+        private bool _resizing;
+        private Size _currentControlStartSize;
 
         //Added 7/18/2019 thomas downes
         //
-        private  int _margin; //Added 7/18/2019 thomas downes
+        private int _margin; //Added 7/18/2019 thomas downes
 
         //Added 10/9/2019 thomas downes
         //
-        private  decimal _proportionWH; //Added 10/9/2019 thomas downes
-        internal  InterfaceEvents mod_events; //Added 10/9/2019 thomas downes
+        private decimal _proportionWH; //Added 10/9/2019 thomas downes
+        internal InterfaceEvents mod_events; //Added 10/9/2019 thomas downes
 
-        internal  bool MouseIsInLeftEdge { get; set; }
-        internal  bool MouseIsInRightEdge { get; set; }
-        internal  bool MouseIsInTopEdge { get; set; }
-        internal  bool MouseIsInBottomEdge { get; set; }
-        internal  bool SetBreakpoint_AfterMove { get; set; } //Added 9/13/2019 td 
+        internal bool MouseIsInLeftEdge { get; set; }
+        internal bool MouseIsInRightEdge { get; set; }
+        internal bool MouseIsInTopEdge { get; set; }
+        internal bool MouseIsInBottomEdge { get; set; }
+        internal bool SetBreakpoint_AfterMove { get; set; } //Added 9/13/2019 td 
 
 
         internal enum MoveOrResize
@@ -86,7 +93,10 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
 
         internal MoveOrResize WorkType { get; set; }
 
-        public  void Init_NotInUse(Control par_control, int par_margin, bool pbRepaintAfterResize,
+        private static bool MouseMove_DontAskAgain = false; // Added 12/2/2021 td
+        private static bool MouseMove_Container = false;    // Added 12/2/2021 td
+
+        public void Init_NotInUse(Control par_control, int par_margin, bool pbRepaintAfterResize,
                                 InterfaceEvents par_events, bool pbSetBreakpoint_AfterMove,
                                 ISaveToModel par_iSave)
         {
@@ -109,9 +119,9 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
         }
 
 
-        public  void Init(Control par_control, Control par_container, int par_margin, bool pbRepaintAfterResize, 
+        public void Init(Control par_control, Control par_container, int par_margin, bool pbRepaintAfterResize,
                                   InterfaceEvents par_events, bool pbSetBreakpoint_AfterMove,
-                                  ISaveToModel par_iSave)
+                                  ISaveToModel par_iSave, bool pbRemoveAnyHandlers = false)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
             //     the preferred background color.)   ----7/31/2019 td
@@ -141,7 +151,7 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             //
             //Added 10/09/2019 thomas downes 
             //
-            _proportionWH = (decimal)par_container.Width / 
+            _proportionWH = (decimal)par_container.Width /
                             (decimal)par_container.Height;
 
             mod_events = par_events;  // 10/09/2019 thomas downes   
@@ -170,12 +180,29 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
 
             if (MouseMove_DontAskAgain) bPassContainer = MouseMove_Container;
             else bPassContainer = FormContainerVsPicture.LetsPassElementContainerToMouseControl();
-            
-            if (bPassContainer)
+
+            if (bPassContainer && !pbRemoveAnyHandlers) // Dec28 2021 //(bPassContainer)
             {
                 par_control.MouseMove += (sender, e) => MoveControl(par_container, e);
                 MouseMove_DontAskAgain = true;
                 MouseMove_Container = true;
+            }
+            else if (bPassContainer && pbRemoveAnyHandlers)
+            {
+                //Added 12/28/2021 td
+                par_control.MouseMove -= (sender, e) => MoveControl(par_container, e);
+            }
+            else if ((!bPassContainer) && (!pbRemoveAnyHandlers))
+            {
+                // Added 12/28/2021 td
+                par_control.MouseMove += (sender, e) => MoveControl(par_control, e);
+                MouseMove_DontAskAgain = true;
+                MouseMove_Container = false;
+            }
+            else if (pbRemoveAnyHandlers)
+            {
+                // Added 12/28/2021 td
+                par_control.MouseMove -= (sender, e) => MoveControl(par_control, e);
             }
             else
             {
@@ -184,13 +211,14 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
                 MouseMove_Container = false;
             }
 
+
             par_control.MouseDown += (sender, e) => StartMovingOrResizing(par_control, e);
             par_control.MouseUp += (sender, e) => StopDragOrResizing(par_control);
 
 
         }
 
-        private  void UpdateMouseEdgeProperties(Control control, Point mouseLocationInControl)
+        private void UpdateMouseEdgeProperties(Control control, Point mouseLocationInControl)
         {
             if (WorkType == MoveOrResize.Move)
             {
@@ -209,7 +237,7 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
 
         }
 
-        private  void UpdateMouseCursor(Control control)
+        private void UpdateMouseCursor(Control control)
         {
             if (WorkType == MoveOrResize.Move)
             {
@@ -271,24 +299,45 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             //
             // Added 11/30/2021 Thomas Downes  
             //
+            Reverse_Init();  //Added 12/28/2021 td 
 
-            //''The minimal listing. 
-            _controlCurrent.MouseDown -= (sender, e) => StartMovingOrResizing(_controlCurrent, e);
-            _controlCurrent.MouseUp -= (sender, e) => StopDragOrResizing(_controlCurrent);
-            _controlCurrent.MouseMove -= (sender, e) => MoveControl(_controlCurrent, e);
+            if (false)
+            {
+                //
+                // This way doesn't seem to work very well. ---12/28/2021 td 
+                //
+                //''The minimal listing. 
+                _controlCurrent.MouseDown -= (sender, e) => StartMovingOrResizing(_controlCurrent, e);
+                _controlCurrent.MouseUp -= (sender, e) => StopDragOrResizing(_controlCurrent);
+                _controlCurrent.MouseMove -= (sender, e) => MoveControl(_controlCurrent, e);
 
-            //''
-            //''More extensive listing. May fail, since not all of these
-            //''   event handlers are created. 
-            //''  
-            _controlMoveableElement.MouseDown -= (sender, e) => StartMovingOrResizing(_controlMoveableElement, e);
-            _controlMoveableElement.MouseUp -= (sender, e) => StopDragOrResizing(_controlMoveableElement);
-            _controlMoveableElement.MouseMove -= (sender, e) => MoveControl(_controlMoveableElement, e);
+                //''
+                //''More extensive listing. May fail, since not all of these
+                //''   event handlers are created. 
+                //''  
+                _controlMoveableElement.MouseDown -= (sender, e) => StartMovingOrResizing(_controlMoveableElement, e);
+                _controlMoveableElement.MouseUp -= (sender, e) => StopDragOrResizing(_controlMoveableElement);
+                _controlMoveableElement.MouseMove -= (sender, e) => MoveControl(_controlMoveableElement, e);
 
-            _controlPictureBox.MouseDown -= (sender, e) => StartMovingOrResizing(_controlPictureBox, e);
-            _controlPictureBox.MouseUp -= (sender, e) => StopDragOrResizing(_controlPictureBox);
-            _controlPictureBox.MouseMove -= (sender, e) => MoveControl(_controlPictureBox, e);
+                _controlPictureBox.MouseDown -= (sender, e) => StartMovingOrResizing(_controlPictureBox, e);
+                _controlPictureBox.MouseUp -= (sender, e) => StopDragOrResizing(_controlPictureBox);
+                _controlPictureBox.MouseMove -= (sender, e) => MoveControl(_controlPictureBox, e);
+            }
 
+        }
+
+
+        public void Reverse_Init()
+        {
+            //
+            // Added 12/28/2021 Thomas Downes  
+            //
+            const bool c_bRemoveHandlers = true; //Added 12/28/2021 td
+            
+            //Added 12/28/2021 td
+            Init(_controlPictureBox, _controlMoveableElement, _margin,
+                _repaintAfterResize, mod_events, false, _iSaveToModel,
+                c_bRemoveHandlers);
         }
 
 
@@ -297,6 +346,8 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             //
             //Added 10/09/2019 thomas downes 
             //
+            if (RemoveAllFunctionality) return;  // Added 12/28/2021 td 
+
             const bool c_bRefreshProportion  = false; //False, not needed here. ----Added 10/9/2019 td
             if (c_bRefreshProportion) _proportionWH = (decimal)par_control.Width /
                             (decimal)par_control.Height;
