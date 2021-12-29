@@ -30,11 +30,12 @@ Partial Class FormTestingVB
         Me.MoveableControlVB3 = New MoveableControlTestVB.MoveableControlVB()
         Me.MoveableControlVB2 = New MoveableControlTestVB.MoveableControlVB()
         Me.MoveableControlVB1 = New MoveableControlTestVB.MoveableControlVB()
+        Me.MoveableControlVBBack = New MoveableControlTestVB.MoveableControlVB()
         Me.SuspendLayout()
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(1004, 255)
+        Me.Button1.Location = New System.Drawing.Point(128, 482)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(367, 32)
         Me.Button1.TabIndex = 2
@@ -44,7 +45,7 @@ Partial Class FormTestingVB
         'MoveableControlObselete2
         '
         Me.MoveableControlObselete2.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.MoveableControlObselete2.Location = New System.Drawing.Point(631, 318)
+        Me.MoveableControlObselete2.Location = New System.Drawing.Point(628, 382)
         Me.MoveableControlObselete2.Name = "MoveableControlObselete2"
         Me.MoveableControlObselete2.Size = New System.Drawing.Size(308, 109)
         Me.MoveableControlObselete2.TabIndex = 4
@@ -52,7 +53,7 @@ Partial Class FormTestingVB
         'MoveableControlObselete1
         '
         Me.MoveableControlObselete1.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.MoveableControlObselete1.Location = New System.Drawing.Point(975, 318)
+        Me.MoveableControlObselete1.Location = New System.Drawing.Point(975, 382)
         Me.MoveableControlObselete1.Name = "MoveableControlObselete1"
         Me.MoveableControlObselete1.Size = New System.Drawing.Size(308, 109)
         Me.MoveableControlObselete1.TabIndex = 0
@@ -104,6 +105,17 @@ Partial Class FormTestingVB
         Me.MoveableControlVB1.Size = New System.Drawing.Size(262, 108)
         Me.MoveableControlVB1.TabIndex = 1
         '
+        'MoveableControlVBBack
+        '
+        Me.MoveableControlVBBack.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.MoveableControlVBBack.BackgroundImage = Global.MoveableControlTestVB.My.Resources.Resources.layout_cyanDiag
+        Me.MoveableControlVBBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.MoveableControlVBBack.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.MoveableControlVBBack.Location = New System.Drawing.Point(578, 12)
+        Me.MoveableControlVBBack.Name = "MoveableControlVBBack"
+        Me.MoveableControlVBBack.Size = New System.Drawing.Size(766, 437)
+        Me.MoveableControlVBBack.TabIndex = 8
+        '
         'FormTestingVB
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -117,6 +129,7 @@ Partial Class FormTestingVB
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.MoveableControlVB1)
         Me.Controls.Add(Me.MoveableControlObselete1)
+        Me.Controls.Add(Me.MoveableControlVBBack)
         Me.Name = "FormTestingVB"
         Me.Text = "Form1"
         Me.ResumeLayout(False)
@@ -131,4 +144,5 @@ Partial Class FormTestingVB
     Friend WithEvents MoveableControlVB3 As MoveableControlVB
     Friend WithEvents MoveableControlVB4 As MoveableControlVB
     Friend WithEvents MoveableControlJane As MoveableControlVB
+    Friend WithEvents MoveableControlVBBack As MoveableControlVB
 End Class

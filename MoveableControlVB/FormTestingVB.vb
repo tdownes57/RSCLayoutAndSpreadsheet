@@ -173,5 +173,41 @@ Public Class FormTestingVB
 
 
 
+        ''
+        ''Resize-Proportionally (Per Ratio Width-Height) Control #1 of 2.
+        ''
+        Dim objSaveToModelBack As New ClassSaveToModel
+        Dim objOperationsBack As New Operations__Useless()
+        Me.Controls.Remove(MoveableControlVBBack)
+        MoveableControlVBBack.Visible = True
+        Dim tempBack As MoveableControlVB = MoveableControlVBBack
+        MoveableControlVBBack = New MoveableControlVB(EnumElementType.Undetermined, c_bResizeProportionally,
+                                                   objSaveToModelBack,
+                                                   CType(mod_designer, ILayoutFunctions),
+                                                   mod_designer, objOperationsBack.GetType(),
+                                                   objOperationsBack,
+                                                    c_bAddMoveabilityWithinConstructor,
+                                                    c_bAddClickabilityWithinConstructor)
+        objOperationsBack.CtlCurrentElement = MoveableControlVBBack
+        With MoveableControlVBBack
+            .Left = tempBack.Left ''0
+            .Width = tempBack.Width
+            .Height = tempBack.Height
+            ''Dec28 ''.Top = 10 + (MoveableControlVB3.Top + MoveableControlVB3.Height)
+            .Top = tempBack.Top
+            .BackgroundImage = My.Resources.layout_cyanDiag
+            .BackgroundImageLayout = ImageLayout.Zoom
+            Dim singleRatioWtoH As Single
+            singleRatioWtoH = CType(.BackgroundImage.Width, Single) / .BackgroundImage.Height
+            .Width = (.Height * singleRatioWtoH)
+            .Visible = True
+            If (c_bAddMoveabilityAfterConstructor) Then .AddMoveability()
+            If (c_bAddClickabilityAfterConstructor) Then .AddClickability()
+            .Name = "MoveableControlVBBack"
+        End With
+        Me.Controls.Add(MoveableControlVBBack)
+
+
     End Sub
+
 End Class

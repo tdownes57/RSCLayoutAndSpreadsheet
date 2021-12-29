@@ -174,6 +174,7 @@
   <ItemGroup>
     <None Include="Resources\IMG-20191210-WA0000-209x300 %281%29.jpg" />
     <None Include="Resources\JaneMulvey.jpg" />
+    <None Include="Resources\layout_cyanDiag.png" />
     <Content Include="__Notes\How_Context_Menus_Are_Generated.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
