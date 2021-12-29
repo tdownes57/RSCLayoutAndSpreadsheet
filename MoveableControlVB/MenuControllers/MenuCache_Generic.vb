@@ -49,7 +49,8 @@ Public Class MenuCache_Generic
     ''Added 12/12/2021 td 
     ''Public Shared Property CacheOfFieldsEtc As ciBadgeCachePersonality.ClassElementsCache_Deprecated ''Added 12/12/2021 td
 
-    Private Shared mod_operationsGenericEdits As New Operations_Generic ''Added 10/11/2019 td  
+    ''Dec28 2021''Private Shared mod_operationsGenericEdits As New Operations_Generic ''Added 10/11/2019 td  
+    Private Shared mod_operationsGenericEdits As Operations__Generic ''Added 10/11/2019 td  
 
 
     Friend Shared Function Get_EditElementMenu(par_enum As EnumElementType) As ToolStripItemCollection
@@ -82,6 +83,9 @@ Public Class MenuCache_Generic
         Dim boolAlreadyPopulated As Boolean ''Added 10/14/2019 thomas downes
         boolAlreadyPopulated = (0 <> Links_EditElementMenu.Count)
         If (boolAlreadyPopulated) Then Exit Sub
+
+        ''Added 12/28/2021 thomas downes
+        mod_operationsGenericEdits = New Operations__Generic(CtlCurrentElement)
 
         ''12/13/2021''Generate_BasicEdits()
         Generate_BasicEdits(mod_operationsGenericEdits.GetType())

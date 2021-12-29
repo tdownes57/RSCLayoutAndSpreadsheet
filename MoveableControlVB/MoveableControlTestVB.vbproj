@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\ClassDisplayContextMenu.vb" />
+    <Compile Include="Classes\ClassSaveToModel.vb" />
     <Compile Include="FormTestingVB.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -82,6 +83,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Interfaces\InterfaceCurrentElement.vb" />
+    <Compile Include="Interfaces\InterfaceOperations.vb" />
     <Compile Include="MenuControllers\MenuCache_Generic.vb" />
     <Compile Include="MenuControllers\MenuCache_NonShared.vb" />
     <Compile Include="MenuOperations\Operations_Field.vb" />

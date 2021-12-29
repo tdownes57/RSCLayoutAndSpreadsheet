@@ -31,6 +31,11 @@ Public Class MoveableControlVB
     Private mod_designer As ClassDesigner ''Added 12/28/2021 td 
     Private Const mc_AddExtraHeadersForContextMenuStrip As Boolean = True ''Added 12/28/2021 thomas d.
 
+    ''Added 12/28/2021 td
+    Private mod_objOperationsAny As Object ''Added 12/28/2021 td
+    Private mod_typeOperations As Type ''Added 12/28/2021 td
+    Private mod_enumElementType As EnumElementType ''Added 12/28/2021 td
+
     Public Sub New()
 
         ' This call is required by the designer.
@@ -45,15 +50,20 @@ Public Class MoveableControlVB
         InitializeMoveability(False, New ClassSaveToModel, New ClassDesigner())
 
         ''Encapsulated 12/22/2021 thomas downes
-        InitializeClickability(New ClassDesigner())
+        ''Dec28 2021 td''InitializeClickability(New ClassDesigner())
+        InitializeClickability(New ClassDesigner(), EnumElementType.Undetermined)
 
     End Sub
 
-    Public Sub New(pboolResizeProportionally As Boolean,
+    Friend Sub New(par_enumElementType As EnumElementType,
+                  pboolResizeProportionally As Boolean,
                    par_iSaveToModel As ISaveToModel,
                    par_iLayoutFun As ILayoutFunctions,
                    par_designer As ClassDesigner,
-                   par_toolstrip As ToolStripItemCollection)
+                   par_operationsType As Type,
+                   par_operationsAny As Object) ''----As IOperations)
+
+        ''12/28/2021 td''par_toolstrip As ToolStripItemCollection)
 
         ' This call is required by the designer.
         InitializeComponent()
@@ -67,8 +77,13 @@ Public Class MoveableControlVB
         AddMoveability()
 
         ''Encapsulated 12/22/2021 thomas downes
-        Me.MyToolstripItemCollection = par_toolstrip ''Added 12/28/2021 td
+        ''Dec28 2021 td''Me.MyToolstripItemCollection = par_toolstrip ''Added 12/28/2021 td
         mod_designer = par_designer
+
+        mod_enumElementType = par_enumElementType
+        mod_objOperationsAny = par_operationsAny
+        mod_typeOperations = par_operationsType
+
         ''Dec28_2021 td''InitializeClickability(par_designer)
         AddClickability()
 
@@ -366,12 +381,20 @@ Public Class MoveableControlVB
         ''#1 Dec28 2021 td''MenuCache_Generic.Operations_Edit.CtlCurrentElement = Me ''par_control ''Added 10/14/2019 td
         ''#2 Dec28 2021 td''mod_operationsGenericEdits.CtlCurrentElement = Me ''Modified 12/28/2021 td
 
+        ''Added 12/28/2021 thomas downes
+        mod_menuCacheNonShared = New MenuCache_NonShared(mod_enumElementType,
+                                                         mod_objOperationsAny.GetType(), mod_objOperationsAny)
+        ''Added 12/28/2021 thomas downes
+        mod_menuCacheNonShared.GenerateMenuItems_IfNeeded()
+
         ContextMenuStrip1.Items.Clear()
 
         ''Add a ToolStripMenuItem which will tell which Field is being displayed 
         ''  on the selected (right-clicked) control. 
-        ContextMenuStrip1.Items.Add(MenuCache_Generic.Tools_MenuHeader0) ''Added 12/13/2021 
-        ContextMenuStrip1.Items.Add(MenuCache_Generic.Tools_MenuHeader1) ''Added 12/12/2021 
+        ''Dec28 ''ContextMenuStrip1.Items.Add(MenuCache_Generic.Tools_MenuHeader0) ''Added 12/13/2021 
+        ''Dec28 ''ContextMenuStrip1.Items.Add(MenuCache_Generic.Tools_MenuHeader1) ''Added 12/12/2021 
+        ContextMenuStrip1.Items.Add(mod_menuCacheNonShared.Tools_MenuHeader0) ''Added 12/13/2021 
+        ContextMenuStrip1.Items.Add(mod_menuCacheNonShared.Tools_MenuHeader1) ''Added 12/12/2021 
 
         Dim bool_addExtraHeadersToContextMenus As Boolean ''Added 12/13/2021 td
         ''Dec.28 2021 td''bool_addExtraHeadersToContextMenus = AddExtraHeadersToolStripMenuItem.Checked

@@ -30,11 +30,11 @@ Friend Class MenuCache_NonShared
     ''[[[Public Tools_AlignmentFeatures As New ToolStripItemCollection(ToolStripContainer3, array_tools3) ''10/13 td''''List(Of ToolStripMenuItem)
     ''--Public Tools_EditBackgroundMenu As New List(Of ToolStripMenuItem)
 
-    Private Tools_MenuHeader0 As ToolStripItem ''Added 12/13/2021
-    Private Tools_MenuHeader1 As ToolStripItem ''Added 12/12/2021
-    Private Tools_MenuHeader2 As ToolStripItem ''Added 12/12/2021 
-    Private Tools_MenuHeader3 As ToolStripItem ''Added 12/13/2021
-    Private Tools_MenuSeparator As ToolStripItem ''Added 12/13/2021 
+    Friend Tools_MenuHeader0 As ToolStripItem ''Added 12/13/2021
+    Friend Tools_MenuHeader1 As ToolStripItem ''Added 12/12/2021
+    Friend Tools_MenuHeader2 As ToolStripItem ''Added 12/12/2021 
+    Friend Tools_MenuHeader3 As ToolStripItem ''Added 12/13/2021
+    Friend Tools_MenuSeparator As ToolStripItem ''Added 12/13/2021 
 
     ''12/28/2021 td''Public Property CtlCurrentElement As ciBadgeDesigner.CtlGraphicFldLabel ''CtlGraphicFldLabel
     Public Property CtlCurrentElement As MoveableControlVB Implements ICurrentElement.CtlCurrentElement ''CtlGraphicFldLabel
@@ -208,26 +208,26 @@ Friend Class MenuCache_NonShared
         toolMenuItemSeparator.Text = "-----Editing Operations follow------" ''Perhaps this will produce a separator line, just like in the old VB6 days. 
 
         ''toolMenuItemHeader1 = toolMenuItemHeader1
-        MenuCache_Generic.Tools_EditElementMenu.Add(toolMenuItemHeader0)
-        MenuCache_Generic.Tools_EditElementMenu.Add(toolMenuItemHeader1)
-        MenuCache_Generic.Tools_EditElementMenu.Add(toolMenuItemHeader2)
-        MenuCache_Generic.Tools_EditElementMenu.Add(toolMenuItemHeader3)
-        MenuCache_Generic.Tools_EditElementMenu.Add(toolMenuItemHeader4a)
-        MenuCache_Generic.Tools_EditElementMenu.Add(toolMenuItemHeader4b)
-        MenuCache_Generic.Tools_EditElementMenu.Add(toolMenuItemSeparator)
+        Tools_EditElementMenu.Add(toolMenuItemHeader0)
+        Tools_EditElementMenu.Add(toolMenuItemHeader1)
+        Tools_EditElementMenu.Add(toolMenuItemHeader2)
+        Tools_EditElementMenu.Add(toolMenuItemHeader3)
+        Tools_EditElementMenu.Add(toolMenuItemHeader4a)
+        Tools_EditElementMenu.Add(toolMenuItemHeader4b)
+        Tools_EditElementMenu.Add(toolMenuItemSeparator)
 
-        MenuCache_Generic.Tools_MenuHeader0 = toolMenuItemHeader0
-        MenuCache_Generic.Tools_MenuHeader1 = toolMenuItemHeader1
-        MenuCache_Generic.Tools_MenuHeader2 = toolMenuItemHeader2
-        MenuCache_Generic.Tools_MenuHeader3 = toolMenuItemHeader3
-        MenuCache_Generic.Tools_MenuSeparator = toolMenuItemSeparator
+        Tools_MenuHeader0 = toolMenuItemHeader0
+        Tools_MenuHeader1 = toolMenuItemHeader1
+        Tools_MenuHeader2 = toolMenuItemHeader2
+        Tools_MenuHeader3 = toolMenuItemHeader3
+        Tools_MenuSeparator = toolMenuItemSeparator
 
         ''objInfo = (TypeOf objClass1)
 
         ''Dec28, 2021''Generate_ReflectionWork(mod_operationsGenericEdits.GetType())
         Generate_ReflectionWork(par_typeOperations,
-                                MenuCache_Generic.Links_EditElementMenu,
-                                MenuCache_Generic.Tools_EditElementMenu)
+                                Links_EditElementMenu,
+                                Tools_EditElementMenu)
 
         ''
         ''Added 9/23/2019 thomas downes
@@ -435,7 +435,8 @@ Friend Class MenuCache_NonShared
                 ''
                 ''Step 2 of 2:    ToolstripMenuItem  
                 ''
-                Dim type_ToolstripItem As Type = mod_operationsGenericEdits.MyToolstripItem.GetType
+                ''Dec28 2021 td''Dim type_ToolstripItem As Type = mod_operationsGenericEdits.MyToolstripItem.GetType
+                Dim type_ToolstripItem As Type = MyToolstripItem.GetType
                 Dim event_toolClicked As Reflection.EventInfo
                 Dim boolSuccess_LinkLabel As Boolean = False ''Added 10/14/2019 td
 

@@ -7,6 +7,14 @@
     ''Added 12/28/2021 td
     Public Property CtlCurrentElement As MoveableControlVB Implements ICurrentElement.CtlCurrentElement
 
+    Public Sub New()
+        ''
+        ''Added 12/28/2021 td
+        ''
+        ''Dec.28 2021''---Me.CtlCurrentElement = par_currentControlVB
+
+    End Sub ''End of "Public Sub New()"
+
     Public Sub New(par_currentControlVB As MoveableControlVB)
         ''
         ''Added 12/28/2021 td
