@@ -186,20 +186,19 @@ Public Class MoveableControlVB
         Me.mod_moveResizeKeepRatio = Nothing
         Me.mod_moveInAGroup = Nothing
 
-    End Sub ''End of "Public Sub AddClickability()"
+    End Sub ''End of "Public Sub RemoveClickability()"
 
 
     Public Sub AddSizeability(Optional pboolUseEasyWay As Boolean = True)
         ''
         ''Added 12/28/2021 td
         ''
-        ''---If (Not pboolUseEasyWay) Then mod_iMoveOrResizeFunctionality.Reverse_Init() ''Added 12/28/2021 td
-        ''---If (pboolUseEasyWay) Then mod_iMoveOrResizeFunctionality.RemoveAllFunctionality = True ''Added 12/28/2021 td
+        Dim bAddSizing As Boolean = True ''True, because we want sizing.''Dec 29 2021 td
 
-        ''mod_iMoveOrResizeFunctionality.RemoveSizeability = False ''Added 12/28/2021 td
-
-        ''Undo the following Property Setting.  
-        mod_iMoveOrResizeFunctionality.RemoveSizeability = False ''Added 12/28/2021 td
+        ''----DIFFICULT & CONFUSING-------
+        ''     We need to negate the Boolean variable (Not bAddSizing).
+        ''
+        mod_iMoveOrResizeFunctionality.RemoveSizeability = (Not bAddSizing) ''Added 12/28/2021 td
 
     End Sub
 
@@ -208,13 +207,12 @@ Public Class MoveableControlVB
         ''
         ''Added 12/28/2021 td
         ''
-        ''---If (Not pboolUseEasyWay) Then mod_iMoveOrResizeFunctionality.Reverse_Init() ''Added 12/28/2021 td
-        ''---If (pboolUseEasyWay) Then mod_iMoveOrResizeFunctionality.RemoveAllFunctionality = True ''Added 12/28/2021 td
+        Dim bAddSizing As Boolean = False ''False, as we are stopping sizing. ---Dec 29 2021 td
 
-        ''mod_iMoveOrResizeFunctionality.RemoveSizeability = True ''Added 12/28/2021 td
-
-        ''Remove the Sizeability function. 
-        mod_iMoveOrResizeFunctionality.RemoveSizeability = True ''Added 12/28/2021 td
+        ''----DIFFICULT & CONFUSING-------
+        ''     We need to negate the Boolean variable (Not bAddSizing).
+        ''
+        mod_iMoveOrResizeFunctionality.RemoveSizeability = (Not bAddSizing) ''Added 12/28/2021 td
 
     End Sub
 

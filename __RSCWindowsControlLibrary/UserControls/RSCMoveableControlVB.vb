@@ -25,7 +25,7 @@ Public Class RSCMoveableControlVB
     Private mod_moveInAGroup As ControlMove_Group_NonStatic = Nothing
     Private mod_moveResizeKeepRatio As ControlResizeProportionally_TD = Nothing
     ''Dec29 2021''Private mod_iMoveOrResize As InterfaceMoveOrResize ''Added 12/28/2021 td
-    Private mod_iMoveOrResize As IMoveOrResizeFunctionality ''Added 12/28/2021 td
+    Private mod_iMoveOrResizeFunctionality As IMoveOrResizeFunctionality ''Added 12/28/2021 td
 
     Private WithEvents mod_events As New ClassGroupMoveEvents ''InterfaceEvents
     Private mod_iSaveToModel As ISaveToModel
@@ -183,6 +183,39 @@ Public Class RSCMoveableControlVB
     End Sub ''End of "Public Sub AddClickability()"
 
 
+    Public Sub AddSizeability(Optional pboolUseEasyWay As Boolean = True)
+        ''
+        ''Added 12/28/2021 td
+        ''
+        Dim bAddSizing As Boolean = True ''True, because we want sizing.''Dec 29 2021 td
+
+        ''----DIFFICULT & CONFUSING-------
+        ''     We need to negate the Boolean variable (Not bAddSizing).
+        ''
+        mod_iMoveOrResizeFunctionality.RemoveSizeability = (Not bAddSizing) ''Added 12/28/2021 td
+
+    End Sub
+
+
+    Public Sub RemoveSizeability(Optional pboolUseEasyWay As Boolean = True)
+        ''
+        ''Added 12/28/2021 td
+        ''
+        Dim bAddSizing As Boolean = False ''False, as we are stopping sizing. ---Dec 29 2021 td
+
+        ''----DIFFICULT & CONFUSING-------
+        ''     We need to negate the Boolean variable (Not bAddSizing).
+        ''
+        mod_iMoveOrResizeFunctionality.RemoveSizeability = (Not bAddSizing) ''Added 12/28/2021 td
+
+    End Sub
+
+
+
+
+
+
+
     Public Sub InitializeMoveability(pboolResizeProportionally As Boolean,
                                      par_iSaveToModel As ISaveToModel,
                                      par_iLayoutFunctions As ILayoutFunctions)
@@ -212,7 +245,7 @@ Public Class RSCMoveableControlVB
             mod_moveResizeKeepRatio.Init(Me, Me, 10, c_bRepaintAfterResize,
                                             mod_events, False, mod_iSaveToModel)
             ''---mod_resizingProportionally.LayoutFunctions = par_iLayoutFunctions 
-            mod_iMoveOrResize = mod_moveResizeKeepRatio ''Added 12/28/2021 td
+            mod_iMoveOrResizeFunctionality = mod_moveResizeKeepRatio ''Added 12/28/2021 td
 
         Else
             mod_moveInAGroup = New MoveAndResizeControls_Monem.ControlMove_Group_NonStatic()
@@ -225,7 +258,7 @@ Public Class RSCMoveableControlVB
             mod_moveInAGroup.Init(Me, Me, 10, c_bRepaintAfterResize,
                                     mod_events, False, mod_iSaveToModel)
 
-            mod_iMoveOrResize = mod_moveInAGroup ''Added 12/28/2021 td
+            mod_iMoveOrResizeFunctionality = mod_moveInAGroup ''Added 12/28/2021 td
 
         End If ''End of "If pboolResizeProportionally Then .... Else ..."
 
