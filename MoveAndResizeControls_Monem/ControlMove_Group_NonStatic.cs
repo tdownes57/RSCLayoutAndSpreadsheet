@@ -263,14 +263,19 @@ namespace MoveAndResizeControls_Monem
             {
                 return;
             }
+
             if (MouseIsInLeftEdge)
             {
+                if (RemoveSizeability) return; //Return, i.e. Stop the resizing process!!  Added 12/29/2021 td
+
                 if (MouseIsInTopEdge)
                 {
+                    //Mouse is at the Left Edge & Top Edge... i.e. the TopLeft corner.
                     par_controlD.Cursor = Cursors.SizeNWSE;
                 }
                 else if (MouseIsInBottomEdge)
                 {
+                    //Mouse is at the Left Edge & Bottom Edge... i.e. the BottomLeft corner.
                     par_controlD.Cursor = Cursors.SizeNESW;
                 }
                 else
@@ -280,12 +285,16 @@ namespace MoveAndResizeControls_Monem
             }
             else if (MouseIsInRightEdge)
             {
+                if (RemoveSizeability) return; //Return, i.e. Stop the resizing process!!  Added 12/29/2021 td
+
                 if (MouseIsInTopEdge)
                 {
+                    //Mouse is at the Right Edge & Top Edge... i.e. the TopRight corner.
                     par_controlD.Cursor = Cursors.SizeNESW;
                 }
                 else if (MouseIsInBottomEdge)
                 {
+                    //Mouse is at the Right Edge & Bottom Edge... i.e. the BottomRight corner.
                     par_controlD.Cursor = Cursors.SizeNWSE;
                 }
                 else
@@ -295,10 +304,14 @@ namespace MoveAndResizeControls_Monem
             }
             else if (MouseIsInTopEdge || MouseIsInBottomEdge)
             {
+                if (RemoveSizeability) return; //Return, i.e. Stop the resizing process!!  Added 12/29/2021 td
+
+                //Mouse is at the Top & Bottom Edge... i.e. the TopRight corner.
                 par_controlD.Cursor = Cursors.SizeNS;
             }
             else
             {
+                //Mouse is at the Right Edge & Bottom Edge... i.e. the BottomRight corner.
                 par_controlD.Cursor = Cursors.Default;
             }
 
@@ -310,9 +323,9 @@ namespace MoveAndResizeControls_Monem
         private void StartMovingOrResizing(Control par_controlE, MouseEventArgs e)
         {
             //
-            //Added 12/28/2021 thomas downes
+            //Added by the programmer Monem, long before 12/28/2021.  ---12/28/2021 thomas downes
             //
-            if (RemoveAllFunctionality) return; 
+            if (RemoveAllFunctionality) return; //Added 12/28/2021 td
 
             if (_moving || _resizing)
             {
@@ -321,16 +334,19 @@ namespace MoveAndResizeControls_Monem
                 //
                 return;
             }
+
             if (WorkType != MoveOrResize.Move &&
                 (MouseIsInRightEdge || MouseIsInLeftEdge || MouseIsInTopEdge || MouseIsInBottomEdge))
             {
                 //
                 //We need to initiate the Resizing process. 
                 //
+                if (RemoveSizeability) return; //Return, i.e. Stop the resizing process!!  Added 12/29/2021 td
                 _resizing = true;
                 _currentControlStartSize = par_controlE.Size;
                 mod_groupedctl_events.Resizing_Initiate(); //Added 8/5/2019 td 
             }
+
             else if (WorkType != MoveOrResize.Resize)
             {
                 //

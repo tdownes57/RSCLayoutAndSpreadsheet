@@ -198,6 +198,9 @@ Public Class MoveableControlVB
 
         ''mod_iMoveOrResizeFunctionality.RemoveSizeability = False ''Added 12/28/2021 td
 
+        ''Undo the following Property Setting.  
+        mod_iMoveOrResizeFunctionality.RemoveSizeability = False ''Added 12/28/2021 td
+
     End Sub
 
 
@@ -209,6 +212,9 @@ Public Class MoveableControlVB
         ''---If (pboolUseEasyWay) Then mod_iMoveOrResizeFunctionality.RemoveAllFunctionality = True ''Added 12/28/2021 td
 
         ''mod_iMoveOrResizeFunctionality.RemoveSizeability = True ''Added 12/28/2021 td
+
+        ''Remove the Sizeability function. 
+        mod_iMoveOrResizeFunctionality.RemoveSizeability = True ''Added 12/28/2021 td
 
     End Sub
 

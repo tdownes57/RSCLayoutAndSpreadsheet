@@ -36,7 +36,7 @@ Public Class MenuCache_Generic
     Public Shared Tools_MenuSeparator As ToolStripItem ''Added 12/13/2021 
 
     ''12/28/2021 td''Public Shared Property CtlCurrentElement As ciBadgeDesigner.CtlGraphicFldLabel ''CtlGraphicFldLabel
-    Public Shared Property CtlCurrentElement As MoveableControlVB ''CtlGraphicFldLabel
+    Public Shared Property CtlCurrentElement As RSCMoveableControlVB ''CtlGraphicFldLabel
 
     Public Shared Property LayoutFunctions As ILayoutFunctions ''Added 10/3/2019 td 
     Public Shared Property Designer As ciBadgeDesigner.ClassDesigner

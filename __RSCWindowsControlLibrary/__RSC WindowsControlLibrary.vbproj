@@ -70,6 +70,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\ClassDisplayContextMenu.vb" />
     <Compile Include="Classes\MenuCache_Generic.vb" />
     <Compile Include="Classes\MenuCache_NonShared.vb" />
     <Compile Include="Classes\MessageBoxTD.vb" />

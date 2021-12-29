@@ -141,6 +141,25 @@ Public Class Operations__Generic
     End Sub
 
 
+    Public Sub Sizeability_Add_GU8008(sender As Object, e As EventArgs)
+        ''
+        ''Added 12/28/2021 thomas downes  
+        ''
+        CtlCurrentElement.AddSizeability()
+
+    End Sub
+
+
+    Public Sub Sizeability_Remove_GU8009(sender As Object, e As EventArgs)
+        ''
+        ''Added 12/28/2021 thomas downes  
+        ''
+        CtlCurrentElement.RemoveSizeability()
+
+    End Sub
+
+
+
     Public Sub Name_Of_This_Control_GG7008(sender As Object, e As EventArgs)
         ''
         ''Added 12/28/2021 thomas downes  
