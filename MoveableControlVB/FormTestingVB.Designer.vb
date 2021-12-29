@@ -31,6 +31,7 @@ Partial Class FormTestingVB
         Me.MoveableControlVB2 = New MoveableControlTestVB.MoveableControlVB()
         Me.MoveableControlVB1 = New MoveableControlTestVB.MoveableControlVB()
         Me.MoveableControlVBBack = New MoveableControlTestVB.MoveableControlVB()
+        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         Me.SuspendLayout()
         '
         'Button1
@@ -45,7 +46,7 @@ Partial Class FormTestingVB
         'MoveableControlObselete2
         '
         Me.MoveableControlObselete2.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.MoveableControlObselete2.Location = New System.Drawing.Point(628, 382)
+        Me.MoveableControlObselete2.Location = New System.Drawing.Point(628, 294)
         Me.MoveableControlObselete2.Name = "MoveableControlObselete2"
         Me.MoveableControlObselete2.Size = New System.Drawing.Size(308, 109)
         Me.MoveableControlObselete2.TabIndex = 4
@@ -53,7 +54,7 @@ Partial Class FormTestingVB
         'MoveableControlObselete1
         '
         Me.MoveableControlObselete1.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.MoveableControlObselete1.Location = New System.Drawing.Point(975, 382)
+        Me.MoveableControlObselete1.Location = New System.Drawing.Point(972, 294)
         Me.MoveableControlObselete1.Name = "MoveableControlObselete1"
         Me.MoveableControlObselete1.Size = New System.Drawing.Size(308, 109)
         Me.MoveableControlObselete1.TabIndex = 0
@@ -116,11 +117,23 @@ Partial Class FormTestingVB
         Me.MoveableControlVBBack.Size = New System.Drawing.Size(766, 437)
         Me.MoveableControlVBBack.TabIndex = 8
         '
+        'LinkLabel1
+        '
+        Me.LinkLabel1.AutoSize = True
+        Me.LinkLabel1.Location = New System.Drawing.Point(582, 456)
+        Me.LinkLabel1.Name = "LinkLabel1"
+        Me.LinkLabel1.Size = New System.Drawing.Size(543, 17)
+        Me.LinkLabel1.TabIndex = 9
+        Me.LinkLabel1.TabStop = True
+        Me.LinkLabel1.Text = "The Background Image will be locked into place until unlocked by the rightclick m" &
+    "enu."
+        '
         'FormTestingVB
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1401, 562)
+        Me.Controls.Add(Me.LinkLabel1)
         Me.Controls.Add(Me.MoveableControlJane)
         Me.Controls.Add(Me.MoveableControlVB4)
         Me.Controls.Add(Me.MoveableControlVB3)
@@ -133,6 +146,7 @@ Partial Class FormTestingVB
         Me.Name = "FormTestingVB"
         Me.Text = "Form1"
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -145,4 +159,5 @@ Partial Class FormTestingVB
     Friend WithEvents MoveableControlVB4 As MoveableControlVB
     Friend WithEvents MoveableControlJane As MoveableControlVB
     Friend WithEvents MoveableControlVBBack As MoveableControlVB
+    Friend WithEvents LinkLabel1 As LinkLabel
 End Class
