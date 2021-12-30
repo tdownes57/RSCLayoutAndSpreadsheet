@@ -83,10 +83,10 @@
     <Compile Include="Modules\DiskFilesVB.vb" />
     <Compile Include="Modules\DiskFolders.vb" />
     <Compile Include="Modules\Module1Enumerationsvb.vb" />
-    <Compile Include="UserControls\RSCMoveableControlVB.designer.vb">
+    <Compile Include="RSCMoveableControl\RSCMoveableControlVB.designer.vb">
       <DependentUpon>RSCMoveableControlVB.vb</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\RSCMoveableControlVB.vb">
+    <Compile Include="RSCMoveableControl\RSCMoveableControlVB.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="My Project\Application.Designer.vb">
@@ -104,15 +104,15 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="UserControls\RSC_IDEditor.Designer.vb">
+    <Compile Include="RSCEditableControl\RSC_IDEditor.Designer.vb">
       <DependentUpon>RSC_IDEditor.vb</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\RSC_IDEditor.vb">
+    <Compile Include="RSCEditableControl\RSC_IDEditor.vb">
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="UserControls\RSCMoveableControlVB.resx">
+    <EmbeddedResource Include="RSCMoveableControl\RSCMoveableControlVB.resx">
       <DependentUpon>RSCMoveableControlVB.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -121,7 +121,7 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\RSC_IDEditor.resx">
+    <EmbeddedResource Include="RSCEditableControl\RSC_IDEditor.resx">
       <DependentUpon>RSC_IDEditor.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
@@ -157,8 +157,6 @@
       <Name>MoveAndResizeControls_Monem</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="RSCMoveableControl\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

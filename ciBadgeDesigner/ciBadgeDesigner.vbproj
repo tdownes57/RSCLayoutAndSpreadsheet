@@ -101,6 +101,12 @@
     <Compile Include="Controls\CtlGraphicSignature.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Controls\CtlGraphicStaticGraphic.Designer.vb">
+      <DependentUpon>CtlGraphicStaticGraphic.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtlGraphicStaticGraphic.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controls\CtlGraphicStaticText.designer.vb">
       <DependentUpon>CtlGraphicStaticText.vb</DependentUpon>
     </Compile>
@@ -172,6 +178,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlGraphicSignature.resx">
       <DependentUpon>CtlGraphicSignature.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtlGraphicStaticGraphic.resx">
+      <DependentUpon>CtlGraphicStaticGraphic.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlGraphicStaticText.resx">
       <DependentUpon>CtlGraphicStaticText.vb</DependentUpon>
