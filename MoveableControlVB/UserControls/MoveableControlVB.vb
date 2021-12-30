@@ -109,7 +109,8 @@ Public Class MoveableControlVB
     Private mod_moveResizeKeepRatio As ControlResizeProportionally_TD = Nothing
     Private mod_iMoveOrResizeFunctionality As IMoveOrResizeFunctionality ''InterfaceMoveOrResize ''Added 12/28/2021 td
 
-    Private WithEvents mod_events As New ClassGroupMoveEvents ''InterfaceEvents
+    Private WithEvents mod_eventsDesigner As New ciBadgeDesigner.ClassGroupMoveEvents ''InterfaceEvents
+    Private WithEvents mod_eventsRSC As New __RSCWindowsControlLibrary.ClassGroupMoveEvents ''InterfaceEvents
     Private mod_iSaveToModel As ISaveToModel
     ''Dec28 2021 td''Private WithEvents mod_designer As New ClassDesigner ''Added 12/27/2021 td
     Private WithEvents ContextMenuStrip1 As New ContextMenuStrip ''Added 12/28/2021 thomas downes
@@ -326,7 +327,9 @@ Public Class MoveableControlVB
         ''
         mod_moveResizeKeepRatio = Nothing
         mod_moveInAGroup = Nothing
-        mod_events.LayoutFunctions = par_iLayoutFunctions
+
+        mod_eventsDesigner.LayoutFunctions = par_iLayoutFunctions
+        mod_eventsRSC.LayoutFunctions = par_iLayoutFunctions
 
         ''
         ''Instantiate the Resizing or Moving modules (instances).
@@ -536,7 +539,7 @@ Public Class MoveableControlVB
         ''
     End Sub
 
-    Private Sub mod_events_Moving_End(par_control As Control, par_iSaveToModel As ISaveToModel) Handles mod_events.Moving_End '', mod_events.Resizing_End, mod_events.Moving_InProgress
+    Private Sub mod_events_Moving_End(par_control As Control, par_iSaveToModel As ISaveToModel) Handles mod_eventsDesigner.Moving_End '', mod_events.Resizing_End, mod_events.Moving_InProgress
         ''
         ''Added 12/27/2021 td 
         ''
@@ -545,7 +548,8 @@ Public Class MoveableControlVB
 
     End Sub
 
-    Private Sub mod_events_Resizing_End(par_iSaveToModel As ISaveToModel) Handles mod_events.Resizing_End
+
+    Private Sub mod_events_Resizing_End(par_iSaveToModel As ISaveToModel) Handles mod_eventsDesigner.Resizing_End
         ''
         ''Added 12/27/2021 td 
         ''
@@ -554,7 +558,7 @@ Public Class MoveableControlVB
 
     End Sub
 
-    Private Sub mod_events_MovingInProgress(par_control As Control) Handles mod_events.Moving_InProgress
+    Private Sub mod_events_MovingInProgress(par_control As Control) Handles mod_eventsDesigner.Moving_InProgress
         ''
         ''Added 12/27/2021 td 
         ''

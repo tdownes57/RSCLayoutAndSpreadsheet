@@ -39,12 +39,14 @@ Public Class MenuCache_Generic
     Public Shared Property CtlCurrentElement As RSCMoveableControlVB ''CtlGraphicFldLabel
 
     Public Shared Property LayoutFunctions As ILayoutFunctions ''Added 10/3/2019 td 
-    Public Shared Property Designer As ciBadgeDesigner.ClassDesigner
+
+    ''Dec29 2021 td''Public Shared Property Designer As ciBadgeDesigner.ClassDesigner
+
     Public Shared Property ColorDialog1 As ColorDialog ''Added 10/3/2019 td 
     Public Shared Property FontDialog1 As FontDialog ''Added 10/3/2019 td 
 
     ''---not needed 10/3/2019 td----Public Property GroupEdits As ClassGroupMove ''Added 10/3/2019 td 
-    Public Shared Property SelectingElements As ISelectingElements ''Added 10/3/2019 td 
+    ''Dec29 2021 td''Public Shared Property SelectingElements As ISelectingElements ''Added 10/3/2019 td 
 
     ''Added 12/12/2021 td 
     ''Public Shared Property CacheOfFieldsEtc As ciBadgeCachePersonality.ClassElementsCache_Deprecated ''Added 12/12/2021 td

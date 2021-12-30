@@ -71,6 +71,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\ClassDisplayContextMenu.vb" />
+    <Compile Include="Classes\ClassGroupMoveEvents.vb" />
+    <Compile Include="Classes\ClassLayoutFunctions.vb" />
+    <Compile Include="Classes\ClassSaveToModel.vb" />
     <Compile Include="Classes\MenuCache_Generic.vb" />
     <Compile Include="Classes\MenuCache_NonShared.vb" />
     <Compile Include="Classes\MessageBoxTD.vb" />
@@ -143,10 +146,6 @@
     <ProjectReference Include="..\ciBadgeCachingPersonality\ciBadgeCachePersonality.vbproj">
       <Project>{4c1b73a0-7c02-4ff4-96f2-acfa1306cce4}</Project>
       <Name>ciBadgeCachePersonality</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ciBadgeDesigner\ciBadgeDesigner.vbproj">
-      <Project>{3a21a08c-c694-4f11-9838-91fff99a5d82}</Project>
-      <Name>ciBadgeDesigner</Name>
     </ProjectReference>
     <ProjectReference Include="..\ciBadgeInterfaces\ciBadgeInterfaces.vbproj">
       <Project>{3d1acca6-585e-4c92-9a6d-9a51d2f72f5f}</Project>

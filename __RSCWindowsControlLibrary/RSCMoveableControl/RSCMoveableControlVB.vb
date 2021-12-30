@@ -17,11 +17,12 @@ Public Class RSCMoveableControlVB
     Public Shared LastControlTouched_Deprecated As RSCMoveableControlVB
 
     Public Shared Function GetControl(par_enum As EnumElementType,
-                                par_nameOfControl As String,
+                                      par_nameOfControl As String,
+                                      par_iLayoutFun As ILayoutFunctions,
                                       par_bProportionSizing As Boolean,
                                       par_iSaveToModel As ISaveToModel,
-                                      par_designer As ClassDesigner,
                                 par_iControlLastTouched As ILastControlTouched) As RSCMoveableControlVB
+        ''                      ''Dec29 2021 td'' par_designer As ClassDesigner,
         ''
         ''Added 12/29/2021 td
         ''
@@ -65,8 +66,7 @@ Public Class RSCMoveableControlVB
         ''Create the control. 
         Dim MoveableControlVB1 = New RSCMoveableControlVB(par_enum, par_bProportionSizing,
                                                    par_iSaveToModel,
-                                                   par_designer,
-                                                   par_designer,
+                                                   par_iLayoutFun,
                                                    typeOps,
                                                    objOperations,
                                                    bAddFunctionalitySooner,
@@ -107,7 +107,7 @@ Public Class RSCMoveableControlVB
     ''Dec28 2021 td''Private WithEvents mod_designer As New ClassDesigner ''Added 12/27/2021 td
     Private WithEvents ContextMenuStrip1 As New ContextMenuStrip ''Added 12/28/2021 thomas downes
     Private mod_iLayoutFunctions As ILayoutFunctions ''Added 12/28/2021 td
-    Private mod_designer As ClassDesigner ''Added 12/28/2021 td 
+    ''Dec29 2021''Private mod_designer As ClassDesigner ''Added 12/28/2021 td 
     Private Const mc_AddExtraHeadersForContextMenuStrip As Boolean = True ''Added 12/28/2021 thomas d.
 
     ''Added 12/28/2021 td
@@ -125,12 +125,14 @@ Public Class RSCMoveableControlVB
         ''Encapsulated 12/22/2021 thomas downes
         ''Dec27 2021''InitializeMoveability(False, New ClassSaveToModel)
 
-        Dim objLayoutFun As New ClassDesigner ''Added Dec27 2021
-        InitializeMoveability(False, New ClassSaveToModel, New ClassDesigner())
+        ''12/29/2021 td''Dim objLayoutFun As New ClassDesigner ''Added Dec27 2021
+        ''12/29/2021 td''InitializeMoveability(False, New ClassSaveToModel, New ClassDesigner())
+        InitializeMoveability(False, New ClassSaveToModel, New ClassLayoutFunctions())
 
         ''Encapsulated 12/22/2021 thomas downes
         ''Dec28 2021 td''InitializeClickability(New ClassDesigner())
-        InitializeClickability(New ClassDesigner(), EnumElementType.Undetermined)
+        ''Dec29 2021 td''InitializeClickability(New ClassDesigner(), EnumElementType.Undetermined)
+        InitializeClickability(EnumElementType.Undetermined)
 
     End Sub
 
@@ -138,12 +140,12 @@ Public Class RSCMoveableControlVB
                   pboolResizeProportionally As Boolean,
                    par_iSaveToModel As ISaveToModel,
                    par_iLayoutFun As ILayoutFunctions,
-                   par_designer As ClassDesigner,
                    par_operationsType As Type,
                    par_operationsAny As Object,
                    pboolAddMoveability As Boolean,
                    pboolAddClickability As Boolean,
                    par_iLastTouched As ILastControlTouched) ''----As IOperations)
+        ''         ''Dec29 2021 ''par_designer As ClassDesigner,
 
         ''12/28/2021 td''par_toolstrip As ToolStripItemCollection)
 
@@ -163,7 +165,7 @@ Public Class RSCMoveableControlVB
 
         ''Encapsulated 12/22/2021 thomas downes
         ''Dec28 2021 td''Me.MyToolstripItemCollection = par_toolstrip ''Added 12/28/2021 td
-        mod_designer = par_designer
+        ''Dec29 2021 td''mod_designer = par_designer
 
         mod_enumElementType = par_enumElementType
         mod_objOperationsAny = par_operationsAny
@@ -366,7 +368,9 @@ Public Class RSCMoveableControlVB
     Private mod_objOperationsGeneric As Operations__Generic = Nothing ''New Operations_Generic(Me)
     Private mod_objOperationsUseless As Operations__Useless = Nothing ''New Operations_Useless(Me)
 
-    Private Sub InitializeClickability(par_designer As ClassDesigner, par_enum As EnumElementType)
+    Private Sub InitializeClickability(par_enum As EnumElementType)
+        ''Dec29 2021 td''Private Sub InitializeClickability(par_designer As ClassDesigner,
+        ''     par_enum As EnumElementType)
         ''
         ''Added 12/22/2021 thomas downes
         ''
