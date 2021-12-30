@@ -18,6 +18,11 @@ Public Class FormTestingVB
     Private MoveableControlVB41 As MoveableControlVB
     Private mod_iControlLastTouched As ILastControlTouched ''Added 12/28/2021 td
 
+    Private Const mc_bAddMoveabilityWithinConstructor As Boolean = False
+    Private Const mc_bAddClickabilityWithinConstructor As Boolean = False
+    Private Const mc_bAddMoveabilityAfterConstructor As Boolean = True
+    Private Const mc_bAddClickabilityAfterConstructor As Boolean = True
+
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
         ''Added 12/28/2021 thomas d.
@@ -58,6 +63,19 @@ Public Class FormTestingVB
         ''MoveableControlVB1.MyToolstripItemCollection = MenuCache_NonShared_Field.Tools_EditElementMenu
         ''MoveableControlVB2.MyToolstripItemCollection = MenuCache_NonShared_Portrait.Tools_EditElementMenu
 
+        Step1_Unload_DesignTimeControls()
+
+        ''Load Runtime Controls (MoveableControlVB)   
+        Step2a_Load_RuntimeControls_NonProportional()
+        Step2b_Load_RuntimeControls_ResizeProportionally()
+
+
+    End Sub ''End of "Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load"
+
+    Private Sub Step1_Unload_DesignTimeControls()
+        ''
+        ''Encapsulated 12/29/2021 thomas downes
+        ''
         MoveableControlVB1.Visible = False
         MoveableControlVB2.Visible = False
         MoveableControlVB3.Visible = False
@@ -78,11 +96,17 @@ Public Class FormTestingVB
         MoveableControlVB3 = Nothing
         MoveableControlVB4 = Nothing
 
+    End Sub ''End of "Private Sub Unload_DesignTimeControls"
+
+    Private Sub Step2a_Load_RuntimeControls_NonProportional()
+        ''
+        ''Encapsulated 12/29/2021 thomas downes
+        ''
         ''Added 12/28/2021 thomas
-        Const c_bAddMoveabilityWithinConstructor As Boolean = False
-        Const c_bAddClickabilityWithinConstructor As Boolean = False
-        Const c_bAddMoveabilityAfterConstructor As Boolean = True
-        Const c_bAddClickabilityAfterConstructor As Boolean = True
+        ''Const c_bAddMoveabilityWithinConstructor As Boolean = False
+        ''Const c_bAddClickabilityWithinConstructor As Boolean = False
+        ''Const c_bAddMoveabilityAfterConstructor As Boolean = True
+        ''Const c_bAddClickabilityAfterConstructor As Boolean = True
 
         ''Control #1 of 3. 
         Dim objSaveToModel1 As New ClassSaveToModel
@@ -92,16 +116,16 @@ Public Class FormTestingVB
                                                    CType(mod_designer, ILayoutFunctions),
                                                    mod_designer, objOperations1.GetType(),
                                                    objOperations1,
-                                                   c_bAddMoveabilityWithinConstructor,
-                                                    c_bAddClickabilityWithinConstructor,
+                                                   mc_bAddMoveabilityWithinConstructor,
+                                                    mc_bAddClickabilityWithinConstructor,
                                                     mod_iControlLastTouched)
 
         objOperations1.CtlCurrentElement = MoveableControlVB1
         MoveableControlVB1.Left = 0
         MoveableControlVB1.Top = 0
         MoveableControlVB1.Visible = True
-        If (c_bAddMoveabilityAfterConstructor) Then MoveableControlVB1.AddMoveability()
-        If (c_bAddClickabilityAfterConstructor) Then MoveableControlVB1.AddClickability()
+        If (mc_bAddMoveabilityAfterConstructor) Then MoveableControlVB1.AddMoveability()
+        If (mc_bAddClickabilityAfterConstructor) Then MoveableControlVB1.AddClickability()
         Me.Controls.Add(MoveableControlVB1)
         MoveableControlVB1.Name = "MoveableControlVB1"
 
@@ -113,16 +137,16 @@ Public Class FormTestingVB
                                                    CType(mod_designer, ILayoutFunctions),
                                                    mod_designer, objOperations2.GetType(),
                                                    objOperations2,
-                                                    c_bAddMoveabilityWithinConstructor,
-                                                    c_bAddClickabilityWithinConstructor,
+                                                    mc_bAddMoveabilityWithinConstructor,
+                                                    mc_bAddClickabilityWithinConstructor,
                                                     mod_iControlLastTouched)
 
         objOperations2.CtlCurrentElement = MoveableControlVB2
         MoveableControlVB2.Left = 0
         MoveableControlVB2.Top = 10 + (MoveableControlVB1.Top + MoveableControlVB1.Height)
         MoveableControlVB2.Visible = True
-        If (c_bAddMoveabilityAfterConstructor) Then MoveableControlVB2.AddMoveability()
-        If (c_bAddClickabilityAfterConstructor) Then MoveableControlVB2.AddClickability()
+        If (mc_bAddMoveabilityAfterConstructor) Then MoveableControlVB2.AddMoveability()
+        If (mc_bAddClickabilityAfterConstructor) Then MoveableControlVB2.AddClickability()
         Me.Controls.Add(MoveableControlVB2)
         MoveableControlVB2.Name = "MoveableControlVB2"
 
@@ -134,23 +158,30 @@ Public Class FormTestingVB
                                                    CType(mod_designer, ILayoutFunctions),
                                                    mod_designer, objOperations3.GetType(),
                                                    objOperations3,
-                                                    c_bAddMoveabilityWithinConstructor,
-                                                    c_bAddClickabilityWithinConstructor,
+                                                    mc_bAddMoveabilityWithinConstructor,
+                                                    mc_bAddClickabilityWithinConstructor,
                                                     mod_iControlLastTouched)
         objOperations3.CtlCurrentElement = MoveableControlVB3
         MoveableControlVB3.Left = 0
         MoveableControlVB3.Top = 10 + (MoveableControlVB2.Top + MoveableControlVB2.Height)
         MoveableControlVB3.Visible = True
-        If (c_bAddMoveabilityAfterConstructor) Then MoveableControlVB3.AddMoveability()
-        If (c_bAddClickabilityAfterConstructor) Then MoveableControlVB3.AddClickability()
+        If (mc_bAddMoveabilityAfterConstructor) Then MoveableControlVB3.AddMoveability()
+        If (mc_bAddClickabilityAfterConstructor) Then MoveableControlVB3.AddClickability()
         Me.Controls.Add(MoveableControlVB3)
         MoveableControlVB3.Name = "MoveableControlVB3"
 
+    End Sub ''End of "Private Sub Step2a_Load_RuntimeControls_NonProportional()"
+
+
+    Private Sub Step2b_Load_RuntimeControls_ResizeProportionally()
+        ''
+        ''Encapsulated 12/29/2021 thomas downes
+        ''
+        Const c_bResizeProportionally As Boolean = True
 
         ''
         ''Resize-Proportionally (Per Ratio Width-Height) Control #1 of 2.
         ''
-        Const c_bResizeProportionally As Boolean = True
         Dim objSaveToModel41 As New ClassSaveToModel
         Dim objOperations41 As New Operations__Useless()
         MoveableControlVB41 = New MoveableControlVB(EnumElementType.Undetermined, c_bResizeProportionally,
@@ -158,8 +189,8 @@ Public Class FormTestingVB
                                                    CType(mod_designer, ILayoutFunctions),
                                                    mod_designer, objOperations41.GetType(),
                                                    objOperations41,
-                                                    c_bAddMoveabilityWithinConstructor,
-                                                    c_bAddClickabilityWithinConstructor,
+                                                    mc_bAddMoveabilityWithinConstructor,
+                                                    mc_bAddClickabilityWithinConstructor,
                                                     mod_iControlLastTouched)
         objOperations41.CtlCurrentElement = MoveableControlVB41
         With MoveableControlVB41
@@ -175,8 +206,8 @@ Public Class FormTestingVB
             singleRatioWtoH = CType(.BackgroundImage.Width, Single) / .BackgroundImage.Height
             .Width = (.Height * singleRatioWtoH)
             .Visible = True
-            If (c_bAddMoveabilityAfterConstructor) Then .AddMoveability()
-            If (c_bAddClickabilityAfterConstructor) Then .AddClickability()
+            If (mc_bAddMoveabilityAfterConstructor) Then .AddMoveability()
+            If (mc_bAddClickabilityAfterConstructor) Then .AddClickability()
             .Name = "MoveableControlVB41"
         End With
         Me.Controls.Add(MoveableControlVB41)
@@ -184,7 +215,9 @@ Public Class FormTestingVB
 
 
         ''
-        ''Resize-Proportionally (Per Ratio Width-Height) Control #1 of 2.
+        ''Background Image, for the Front of Badge 
+        ''
+        ''   Resize-Proportionally (Per Ratio Width-Height) Control #1 of 2.
         ''
         Const c_bAddMoveabilityForBackground As Boolean = False ''Added 12/28/2021 td 
         Dim objSaveToModelBack As New ClassSaveToModel
@@ -198,7 +231,7 @@ Public Class FormTestingVB
                                                    mod_designer, objOperationsBack.GetType(),
                                                    objOperationsBack,
                                                     c_bAddMoveabilityForBackground,
-                                                    c_bAddClickabilityWithinConstructor,
+                                                    mc_bAddClickabilityWithinConstructor,
                                                     mod_iControlLastTouched)
         objOperationsBack.CtlCurrentElement = MoveableControlVBBack
         With MoveableControlVBBack
@@ -213,14 +246,14 @@ Public Class FormTestingVB
             singleRatioWtoH = CType(.BackgroundImage.Width, Single) / .BackgroundImage.Height
             .Width = (.Height * singleRatioWtoH)
             .Visible = True
-            If (c_bAddMoveabilityForBackground And c_bAddMoveabilityAfterConstructor) Then .AddMoveability()
-            If (c_bAddClickabilityAfterConstructor) Then .AddClickability()
+            If (c_bAddMoveabilityForBackground And mc_bAddMoveabilityAfterConstructor) Then .AddMoveability()
+            If (mc_bAddClickabilityAfterConstructor) Then .AddClickability()
             .Name = "MoveableControlVBBack"
         End With
         ''Add it to the form.  
         Me.Controls.Add(MoveableControlVBBack)
 
 
-    End Sub ''End of "Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load"
+    End Sub ''End of "Private Sub Step2b_Load_RuntimeControls_ResizeProportionally"
 
 End Class
