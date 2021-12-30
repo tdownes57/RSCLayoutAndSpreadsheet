@@ -113,6 +113,12 @@
     <Compile Include="Controls\CtlGraphicStaticText.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Controls\CtlGraphPopMenuEditSingle.designer.vb">
+      <DependentUpon>CtlGraphPopMenuEditSingle.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtlGraphPopMenuEditSingle.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controls\CtlMainButton_v90.designer.vb">
       <DependentUpon>CtlMainButton_v90.vb</DependentUpon>
     </Compile>
@@ -143,12 +149,23 @@
     <Compile Include="Controls\MoveableControl_Obselete.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Interfaces\InterfaceCurrentElement.vb" />
     <Compile Include="Interfaces\InterfaceRefreshPreview.vb" />
     <Compile Include="Interfaces\InterfaceSelectingElements.vb" />
     <Compile Include="Interfaces\InterfaceSelectingElements_v90.vb" />
     <Compile Include="Interfaces\InterfaceClickableElement.vb" />
     <Compile Include="Interfaces\InterfaceMoveableElement.vb" />
     <Compile Include="Interfaces\InterfaceRecordElementLastTouched.vb" />
+    <Compile Include="Interfaces\InterfaceShowListFields.vb" />
+    <Compile Include="MenuOperations\MenuCache_FieldElements_NotInUse.vb" />
+    <Compile Include="MenuOperations\MenuCache_Generic.vb" />
+    <Compile Include="MenuOperations\Operations_Background.vb" />
+    <Compile Include="MenuOperations\Operations_FieldElement.vb" />
+    <Compile Include="MenuOperations\Operations_Graphic.vb" />
+    <Compile Include="MenuOperations\Operations_Group.vb" />
+    <Compile Include="MenuOperations\Operations_QRCode.vb" />
+    <Compile Include="MenuOperations\Operations_Signature.vb" />
+    <Compile Include="MenuOperations\Operations_StaticText.vb" />
     <Compile Include="modFactoryControls.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -184,6 +201,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlGraphicStaticText.resx">
       <DependentUpon>CtlGraphicStaticText.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtlGraphPopMenuEditSingle.resx">
+      <DependentUpon>CtlGraphPopMenuEditSingle.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlMainButton_v90.resx">
       <DependentUpon>CtlMainButton_v90.vb</DependentUpon>
@@ -233,6 +253,10 @@
       <Project>{86b509fc-8c1a-4d30-b431-ef576de25fc4}</Project>
       <Name>ciBadgeElemImage</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ciBadgeFields\ciBadgeFields.vbproj">
+      <Project>{ef9acec9-841e-4397-bfcb-917c814c4b8c}</Project>
+      <Name>ciBadgeFields</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ciBadgeGenerator\ciBadgeGeneratorCS.csproj">
       <Project>{42468695-2856-4336-8bca-c5af2ea8178e}</Project>
       <Name>ciBadgeGeneratorCS</Name>
@@ -256,6 +280,10 @@
     <ProjectReference Include="..\MoveAndResizeControls_Monem\MoveAndResizeControls_Monem.csproj">
       <Project>{3d6a51a2-395e-467f-a3c4-8d6ed1da961e}</Project>
       <Name>MoveAndResizeControls_Monem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\__RSCWindowsControlLibrary\__RSC WindowsControlLibrary.vbproj">
+      <Project>{31515965-90e3-4352-9f01-61141129b29f}</Project>
+      <Name>__RSC WindowsControlLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

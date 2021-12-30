@@ -7,11 +7,12 @@ Option Infer Off
 
 Imports ciBadgeInterfaces
 Imports ciBadgeDesigner
+Imports System.Windows.Forms ''Added 12/30/2021 td 
 ''---10/15 td----
 ''----Imports ciBadgeElements
 Imports ciLayoutPrintLib ''Added 10/15/2019 thomas d. 
 
-Public Class Operations_EditBackground
+Public Class Operations_Background
     ''
     ''Added 10/15/2019 td
     ''
@@ -23,7 +24,7 @@ Public Class Operations_EditBackground
     Public Property Designer As ciBadgeDesigner.ClassDesigner
     Public Property ColorDialog1 As ColorDialog ''Added 10/3/2019 td 
     Public Property OpenFileDialog1 As OpenFileDialog ''Added 10/15/2019 td 
-    Public Property GroupedElements As ClassGroupMoveEvents ''Added 10/15/2019 td
+    Public Property GroupedElements As ClassGroupMoveEvents ''ClassGroupMove ''Renamed 12/30/2021 td ''Added 10/15/2019 td
 
     Public Shared Tools_MenuHeader0 As ToolStripItem ''Added 12/15/2021
     Public Shared Tools_MenuHeader1 As ToolStripItem ''Added 12/15/2021

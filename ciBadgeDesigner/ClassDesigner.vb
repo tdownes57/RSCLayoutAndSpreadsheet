@@ -991,7 +991,10 @@ Public Class ClassDesigner
         ''12/22/2021 td''If (elementQRCode.WhichSideOfCard = EnumWhichSideOfCard.Undetermined) Then elementQRCode.WhichSideOfCard = EnumWhichSideOfCard.EnumFrontside ''Added 12/15/2021
 
         If (par_elementQR.WhichSideOfCard = Me.EnumSideOfCard) Then ''Added 12/15/2021
-            Me.CtlGraphic_QRCode = New CtlGraphicQRCode(par_elementQR, CType(Me, ILayoutFunctions))
+
+            ''12/30/2021 td''Me.CtlGraphic_QRCode = New CtlGraphicQRCode(par_elementQR, CType(Me, ILayoutFunctions))
+            Me.CtlGraphic_QRCode = CtlGraphicQRCode.Get(par_elementQR, CType(Me, ILayoutFunctions))
+
             Me.DesignerForm.Controls.Add(Me.CtlGraphic_QRCode)
             mod_listOfDesignerControls.Add(Me.CtlGraphic_QRCode) ''Added 12/8/2021 td
 

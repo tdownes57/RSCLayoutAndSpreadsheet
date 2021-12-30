@@ -90,7 +90,9 @@
     <Compile Include="Interfaces\InterfaceSelectedControls.vb" />
     <Compile Include="MenuControllers\MenuCache_Generic.vb" />
     <Compile Include="MenuControllers\MenuCache_NonShared.vb" />
+    <Compile Include="MenuOperations\MenuCache_NonShared.vb" />
     <Compile Include="MenuOperations\Operations_Field.vb" />
+    <Compile Include="MenuOperations\Operations__Desktop.vb" />
     <Compile Include="MenuOperations\Operations__Generic.vb" />
     <Compile Include="MenuOperations\Operations_StaticText.vb" />
     <Compile Include="MenuOperations\Operations__Useless.vb" />

@@ -87,7 +87,7 @@ Public Class RSCMoveableControlVB
 
         Return MoveableControlVB1
 
-    End Function ''End of Public Shared Function BuildControl
+    End Function ''End of Public Shared Function GetControl
 
 
     Public LastControlTouched_Info As ILastControlTouched ''Added 12/28/2021 thomas d. 
@@ -130,13 +130,14 @@ Public Class RSCMoveableControlVB
         InitializeMoveability(False, New ClassSaveToModel, New ClassLayoutFunctions())
 
         ''Encapsulated 12/22/2021 thomas downes
-        ''Dec28 2021 td''InitializeClickability(New ClassDesigner())
-        ''Dec29 2021 td''InitializeClickability(New ClassDesigner(), EnumElementType.Undetermined)
+        ''  Dec28 2021 td''InitializeClickability(New ClassDesigner())
+        ''  Dec29 2021 td''InitializeClickability(New ClassDesigner(), EnumElementType.Undetermined)
         InitializeClickability(EnumElementType.Undetermined)
 
     End Sub
 
-    Friend Sub New(par_enumElementType As EnumElementType,
+
+    Public Sub New(par_enumElementType As EnumElementType,
                   pboolResizeProportionally As Boolean,
                    par_iSaveToModel As ISaveToModel,
                    par_iLayoutFun As ILayoutFunctions,

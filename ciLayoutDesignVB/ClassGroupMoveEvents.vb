@@ -10,7 +10,7 @@ Option Strict On ''Added 12/17/2021
 Imports MoveAndResizeControls_Monem
 Imports ciBadgeInterfaces ''Added 9/20/2019 td  
 
-Public Class ClassGroupMove
+Public Class ClassGroupMoveEvents
     Implements InterfaceEvents
 
     ''Added 8/3/2019 thomas downes

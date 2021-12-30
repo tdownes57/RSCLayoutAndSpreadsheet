@@ -13,7 +13,7 @@ Public Class FormMainEntry_v90
     ''
     ''Added 9/8/2019 thomas downes
     ''
-    Private WithEvents mod_groupedMove As New ClassGroupMove(CType(Me, ILayoutFunctions)) ''Added 9/17/2019 td
+    Private WithEvents mod_groupedMove As New ClassGroupMoveEvents(CType(Me, ILayoutFunctions)) ''Added 9/17/2019 td
     Private mod_ElementLastTouched As CtlMainEntryBox_v90 ''Added 9/19/2019 td
     Private Const mc_bAddBorderOnlyWhileResizing As Boolean = True ''Added 9/19/2019 td 
 

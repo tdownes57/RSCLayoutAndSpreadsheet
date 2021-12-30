@@ -9,8 +9,10 @@ Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d.
 Imports ciBadgeElements ''Added 9/18/2019 td 
 Imports System.Windows.Forms ''Added 10/01/2019 td 
 Imports System.Drawing ''Added 10/01/2019 td 
+Imports __RSCWindowsControlLibrary ''Added 12/30/2021 thomas downes
 
 Public Class CtlGraphicQRCode
+    ''See the Partial Class.Dec30 2021''Inherits RSCMoveableControlVB ''Added 12/30/2021 thomas
     Implements ISaveToModel ''Added 12/17/2021 td 
     Implements IClickableElement ''Added 12/17/2021 td
     Implements IMoveableElement ''Added 12/17/2021 td
@@ -35,12 +37,85 @@ Public Class CtlGraphicQRCode
 
     Public Pic_CloneOfInitialImage As Image ''Added 9/23/2019 thomas downes. 
 
+
+    Public Shared Function GetQRCode(par_elementQRCode As ClassElementQRCode,
+                                      par_nameOfControl As String,
+                                      par_iLayoutFun As ILayoutFunctions,
+                                      par_bProportionSizing As Boolean,
+                                      par_iSaveToModel As ISaveToModel,
+                                par_iControlLastTouched As ILastControlTouched) As CtlGraphicQRCode
+        ''
+        ''Added 12/29/2021 td
+        ''
+        Const enumElemType As EnumElementType = EnumElementType.QRCode
+        Const bAddFunctionalitySooner As Boolean = False
+        Const bAddFunctionalityLater As Boolean = True
+
+        Dim typeOps As Type
+        Dim objOperations As Object ''Added 12/29/2021 td 
+        Dim objOperations1Gen As Operations__Generic = Nothing
+        Dim objOperations2Use As Operations__Useless = Nothing
+
+        ''Instantiate the Operations Object. 
+        If (enumElemType = EnumElementType.QRCode) Then objOperations1Gen = New Operations_QRCode()
+        If (enumElemType = EnumElementType.Signature) Then objOperations2Use = New Operations__Useless()
+        If (enumElemType = EnumElementType.StaticGraphic) Then objOperations1Gen = New Operations__Generic()
+        If (enumElemType = EnumElementType.StaticText) Then objOperations2Use = New Operations__Useless()
+
+        ''Assign to typeOps. 
+        If (par_enum = EnumElementType.Field) Then typeOps = objOperations1Gen.GetType()
+        If (par_enum = EnumElementType.Portrait) Then typeOps = objOperations2Use.GetType()
+        If (par_enum = EnumElementType.QRCode) Then typeOps = objOperations1Gen.GetType()
+        If (par_enum = EnumElementType.Signature) Then typeOps = objOperations2Use.GetType()
+        If (par_enum = EnumElementType.StaticGraphic) Then typeOps = objOperations1Gen.GetType()
+        If (par_enum = EnumElementType.StaticText) Then typeOps = objOperations2Use.GetType()
+
+        ''Assign to objOperations. 
+        If (par_enum = EnumElementType.Field) Then objOperations = objOperations1Gen
+        If (par_enum = EnumElementType.Portrait) Then objOperations = objOperations2Use
+        If (par_enum = EnumElementType.QRCode) Then objOperations = objOperations1Gen
+        If (par_enum = EnumElementType.Signature) Then objOperations = objOperations2Use
+        If (par_enum = EnumElementType.StaticGraphic) Then objOperations = objOperations1Gen
+        If (par_enum = EnumElementType.StaticText) Then objOperations = objOperations2Use
+
+        If (objOperations Is Nothing) Then
+            ''Added 12/29/2021
+            Throw New Exception("Ops is Nothing, so I guess Element Type is Undetermined.")
+        End If ''end of "If (objOperations Is Nothing) Then"
+
+        ''Create the control. 
+        Dim CtlQRCode1 = New CtlGraphicQRCode(par_elementQRCode, par_iLayoutFun,
+                                                   par_enum, par_bProportionSizing,
+                                                   par_iSaveToModel, typeOps,
+                                                   objOperations,
+                                                   bAddFunctionalitySooner,
+                                                   bAddFunctionalitySooner,
+                                                   par_iControlLastTouched)
+
+        With CtlQRCode1
+            .Name = par_nameOfControl
+            If (bAddFunctionalityLater) Then .AddMoveability()
+            If (bAddFunctionalityLater) Then .AddClickability()
+        End With ''eNd of "With CtlQRCode1"
+
+        ''
+        ''Specify the current element to the Operations object. 
+        ''
+        Dim infoOps = CType(objOperations, ICurrentElement) ''.CtlCurrentElement = MoveableControlVB1
+        infoOps.CtlCurrentElement = CtlQRCode1
+
+        Return CtlQRCode1
+
+    End Function ''end of "Public Shared Function GetQRCode() As CtlGraphicQRCode"
+
+
     Public ReadOnly Property Picture_Box As PictureBox
         Get
             ''Added 7/31/2019 td 
             Return Me.pictureQRCode
         End Get
     End Property
+
 
     Public Sub New()
 
@@ -49,7 +124,41 @@ Public Class CtlGraphicQRCode
 
     End Sub
 
-    Public Sub New(par_elementQR As ClassElementQRCode, par_formLayout As ILayoutFunctions)
+
+    Public Sub New(par_elementQR As ClassElementQRCode,
+                   par_iLayoutFun As ILayoutFunctions,
+                   par_enumElementType As EnumElementType,
+                  pboolResizeProportionally As Boolean,
+                   par_iSaveToModel As ISaveToModel,
+                   par_operationsType As Type,
+                   par_operationsAny As Object,
+                   pboolAddMoveability As Boolean,
+                   pboolAddClickability As Boolean,
+                   par_iLastTouched As ILastControlTouched)
+
+        ''
+        ''Added 12/30/2021 td
+        ''
+        MyBase.New(par_enumElementType, pboolResizeProportionally,
+                       par_iSaveToModel, par_iLayoutFun,
+                        par_operationsType, par_operationsAny,
+                        pboolAddMoveability, pboolAddClickability,
+                        par_iLastTouched)
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+
+        ''Encapsulated 12/30/2021 td
+        New_QRCode(par_elementQR, par_iLayoutFun)
+
+    End Sub
+
+
+
+    Public Sub New_QRCode(par_elementQR As ClassElementQRCode, par_iLayoutFunctions As ILayoutFunctions)
+        ''Dec30 2021 td''Public Sub New(par_elementPic As ClassElementPic, par_formLayout As ILayoutFunctions)
         ''Public Sub New(par_elementPic As ClassElementPic, par_formLayout As ILayoutFunctions)
         ''
         ''Added 9/17/2019 td
@@ -66,7 +175,7 @@ Public Class CtlGraphicQRCode
         Me.ElementInfo_QR = CType(par_elementQR, IElementQRCode)
 
         ''9/20/2019 td''Me.FormDesigner = par_formLayout ''Added 9/4/2019 td
-        Me.LayoutFunctions = par_formLayout ''Added 9/4/2019 td
+        Me.LayoutFunctions = par_iLayoutFunctions ''Added 9/4/2019 td
 
         ''
         ''Added 8/12/2019 thomas downes 

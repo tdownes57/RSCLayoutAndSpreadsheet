@@ -3,10 +3,13 @@
 ''
 Imports System.Reflection ''Added 10/11/2019 td
 Imports ciBadgeInterfaces ''Added 10/14/2019 td 
-Imports ciBadgeDesigner ''Added 10/14/2019 td
+''----Imports ciBadgeDesigner ''Added 10/14/2019 td
 ''----Imports ciBadgeFields ''Added 12/13/2021 thomas d. 
+Imports System.Windows.Forms ''Added 12/30/2021 td
+Imports System.Drawing ''Added 12/30/2021 td
+Imports __RSCWindowsControlLibrary ''Added 12/30/2021 td
 
-Friend Class MenuCache_NonShared
+Public Class MenuCache_Generic ''Renamed 12/30/2021 ''MenuCache_NonShared 
     Implements ICurrentElement
     ''
     ''Added 12/27/2021 thomas downes
@@ -37,7 +40,7 @@ Friend Class MenuCache_NonShared
     Friend Tools_MenuSeparator As ToolStripItem ''Added 12/13/2021 
 
     ''12/28/2021 td''Public Property CtlCurrentElement As ciBadgeDesigner.CtlGraphicFldLabel ''CtlGraphicFldLabel
-    Public Property CtlCurrentElement As MoveableControlVB Implements ICurrentElement.CtlCurrentElement ''CtlGraphicFldLabel
+    Public Property CtlCurrentElement As RSCMoveableControlVB Implements ICurrentElement.CtlCurrentElement ''Modified 12/30/20021 td 
 
     Public MyLinkLabel As New LinkLabel ''Added 12/28/2021 td 
     Public MyToolstripItem As New ToolStripMenuItem ''Added 12/28/2021 td 
