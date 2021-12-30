@@ -155,6 +155,8 @@ Public Class RSCMoveableControlVB
         mod_iSaveToModel = par_iSaveToModel ''Added 12/28/2021 td
         mod_boolResizeProportionally = pboolResizeProportionally ''Added 12/28/2021 td
         mod_iLayoutFunctions = par_iLayoutFun
+        Me.LastControlTouched_Info = par_iLastTouched ''Added 12/29/2021 thomas d. 
+
         ''12/28/2021 td''InitializeMoveability(pboolResizeProportionally, par_iSaveToModel, par_iLayoutFun)
         ''#2 Dec28_2021 td''AddMoveability()
         If (pboolAddMoveability) Then AddMoveability()

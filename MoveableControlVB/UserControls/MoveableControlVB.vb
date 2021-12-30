@@ -6,6 +6,7 @@ Imports ciBadgeInterfaces ''Added 12/22/2021 td
 ''--Imports windows.Forms ''Added 12/22/2021
 Imports System.Windows.Forms
 Imports ciBadgeDesigner ''Added 12/27/2021 td 
+Imports __RSCWindowsControlLibrary ''Added 12/29/2021 thomas d. 
 
 ''
 ''Added 12/22/2021 td  

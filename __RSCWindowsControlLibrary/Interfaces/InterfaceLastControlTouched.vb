@@ -10,8 +10,9 @@ Public Interface ILastControlTouched
     ''     ----12/28/2021 thomas d. 
     ''
     ''Dec29 2021 td''Property LastControlTouched As MoveableControlVB
-    Property LastControlTouched As RSCMoveableControlVB ''Dec29 2021 
+    ''Dec29 2021 td''Property LastControlTouched As RSCMoveableControlVB ''Dec29 2021 
 
+    Property LastControlTouched As Control ''Dec29 2021''RSCMoveableControlVB ''Dec29 2021 
 
 
 End Interface

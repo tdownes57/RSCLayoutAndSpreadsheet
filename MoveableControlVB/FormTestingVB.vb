@@ -3,6 +3,8 @@
 ''
 Imports ciBadgeDesigner ''Added 12/28 
 Imports ciBadgeInterfaces ''Added 12/28/2021 
+Imports __RSCWindowsControlLibrary ''Added 12/29/2021 thomas d. 
+
 
 Public Class FormTestingVB
 
@@ -77,8 +79,10 @@ Public Class FormTestingVB
         ''
         ''Load the Runtime Controls (MoveableControlVB)
         ''
-        Step2a_Load_RuntimeControls_NonProportional()
-        Step2b_Load_RuntimeControls_ResizeProportionally()
+        Step2a_Load_RuntimeControls_NonProportional_Local()
+        Const c_bProportion_False As Boolean = False
+        Step2b_Load_RuntimeControls_NonProportional_RSC(c_bProportion_False)
+        Step2c_Load_RuntimeControls_ResizeProportionally()
 
 
     End Sub ''End of "Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load"
@@ -117,22 +121,26 @@ Public Class FormTestingVB
         ''
         RscMoveableControlVB1.Visible = False
         RscMoveableControlVB2.Visible = False
+        RscMoveableControlVB3.Visible = False
 
         RscMoveableControlVB1.Dispose()
         RscMoveableControlVB2.Dispose()
+        RscMoveableControlVB3.Dispose()
 
         Me.Controls.Remove(RscMoveableControlVB1)
         Me.Controls.Remove(RscMoveableControlVB2)
+        Me.Controls.Remove(RscMoveableControlVB3)
 
         RscMoveableControlVB1 = Nothing
         RscMoveableControlVB2 = Nothing
+        RscMoveableControlVB3 = Nothing
 
 
     End Sub ''End of "Private Sub Step1b_Unload_DesignTimeControls_RSCMoveable"
 
 
 
-    Private Sub Step2a_Load_RuntimeControls_NonProportional()
+    Private Sub Step2a_Load_RuntimeControls_NonProportional_Local()
         ''
         ''Encapsulated 12/29/2021 thomas downes
         ''
@@ -215,10 +223,36 @@ Public Class FormTestingVB
         Me.Controls.Add(MoveableControlVB3)
         MoveableControlVB3.Name = "MoveableControlVB3"
 
-    End Sub ''End of "Private Sub Step2a_Load_RuntimeControls_NonProportional()"
+
+    End Sub
 
 
-    Private Sub Step2b_Load_RuntimeControls_ResizeProportionally()
+    Private Sub Step2b_Load_RuntimeControls_NonProportional_RSC(par_proportionSize As Boolean)
+        ''
+        ''Encapsulated 12/29/2021 thomas downes
+        ''
+        '' RSC Controls
+        ''
+        ''
+        ''Control #1 of 3. 
+        Dim objSaveToModelRSC As New ClassSaveToModel
+        ''Const c_bProportion_False As Boolean = False
+        Dim objSaveToModel1 As New ClassSaveToModel
+
+        Dim RSCMoveableControlVB11 = RSCMoveableControlVB.GetControl(EnumElementType.Field,
+                                "RSCMoveableControlVB1", par_proportionSize,
+                                objSaveToModel1, mod_designer,
+                                mod_iControlLastTouched)
+        RSCMoveableControlVB11.Left = 0
+        RSCMoveableControlVB11.Top = 0
+        RSCMoveableControlVB11.Visible = True
+        Me.Controls.Add(RSCMoveableControlVB11)
+
+
+    End Sub ''End of "Private Sub Step2b_Load_RuntimeControls_NonProportional_RSC()"
+
+
+    Private Sub Step2c_Load_RuntimeControls_ResizeProportionally()
         ''
         ''Encapsulated 12/29/2021 thomas downes
         ''
@@ -300,6 +334,6 @@ Public Class FormTestingVB
         Me.Controls.Add(MoveableControlVBBack)
 
 
-    End Sub ''End of "Private Sub Step2b_Load_RuntimeControls_ResizeProportionally"
+    End Sub ''End of "Private Sub Step2c_Load_RuntimeControls_ResizeProportionally"
 
 End Class
