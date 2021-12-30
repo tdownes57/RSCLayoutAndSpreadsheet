@@ -137,10 +137,10 @@
     <Compile Include="Controls\CtlPartial_HardText.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\MoveableControl.Designer.vb">
-      <DependentUpon>MoveableControl.vb</DependentUpon>
+    <Compile Include="Controls\MoveableControl_Obselete.Designer.vb">
+      <DependentUpon>MoveableControl_Obselete.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\MoveableControl.vb">
+    <Compile Include="Controls\MoveableControl_Obselete.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Interfaces\InterfaceRefreshPreview.vb" />
@@ -194,8 +194,8 @@
     <EmbeddedResource Include="Controls\CtlMainEntryBox_v90.resx">
       <DependentUpon>CtlMainEntryBox_v90.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\MoveableControl.resx">
-      <DependentUpon>MoveableControl.vb</DependentUpon>
+    <EmbeddedResource Include="Controls\MoveableControl_Obselete.resx">
+      <DependentUpon>MoveableControl_Obselete.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

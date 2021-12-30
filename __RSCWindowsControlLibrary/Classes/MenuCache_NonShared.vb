@@ -110,7 +110,7 @@ Friend Class MenuCache_NonShared
 
         ''12/13/2021''Generate_BasicEdits()
         ''12/28/2021''Generate_BasicEdits(mod_operationsGenericEdits.GetType())
-        Generate_BasicEdits(Me.OperationsType)
+        Generate_BasicEdits(Me.OperationsType, True)
         Generate_Grouped()
         Generate_Aligning()
 
@@ -145,7 +145,8 @@ Friend Class MenuCache_NonShared
 
     End Sub ''End of "Public Sub GenerateMenuItems_IfNeeded()"
 
-    Private Sub Generate_BasicEdits(par_typeOperations As Type) ''Dec.13 2021'' (par_fieldAny As ciBadgeFields.ClassFieldAny)
+
+    Private Sub Generate_BasicEdits(par_typeOperations As Type, pbIncludeHeaders As Boolean) ''Dec.13 2021'' (par_fieldAny As ciBadgeFields.ClassFieldAny)
         ''
         ''We will use Reflection to build this cache of menu controls.
         ''   ("Dim each_methodInfo As Reflection.MethodInfo") 
@@ -169,12 +170,35 @@ Friend Class MenuCache_NonShared
         ''Dim boolPropertySet As Boolean ''Added 9/23/2019 td 
         ''Dim intExceptionCount_LinkLabels As Integer  ''Added 9/23/2019 td
         ''Dim intExceptionCount_Toolstrip As Integer  ''Added 9/23/2019 td
-        Dim ex_AddEventHandler_LinkLbl As New Exception("Routine initialization")  ''Added 9/23/2019 td
-        Dim ex_AddEventHandler_ToolItem As New Exception("Routine initialization")  ''Added 9/23/2019 td
+        '';;;;Dec30 2021--Dim ex_AddEventHandler_LinkLbl As New Exception("Routine initialization")  ''Added 9/23/2019 td
+        '';;;;Dec30 2021---Dim ex_AddEventHandler_ToolItem As New Exception("Routine initialization")  ''Added 9/23/2019 td
         ''Dim boolProcedureNotUsed As Boolean ''Added 9/23/2019 thomas downes 
         ''Dim intCountLinkLabels As Integer ''Added 10/13/2019 thomas downes 
         ''Dim intCountMethodsAndMembers As Integer ''Added 10/14/2019 td 
 
+        ''Encapsulated 12/30/2021 thomas
+        If (pbIncludeHeaders) Then
+            ''
+            ''Add breadcrumbs for other programmers, such as myself, LOL. 
+            ''
+            Const c_AddHeadersToMenu As Boolean = True ''12/30 td
+            Generate_Headers(c_AddHeadersToMenu) ''12/30 td
+
+        End If ''End of "If (pbIncludeHeaders) Then"
+
+        ''Dec28, 2021''Generate_ReflectionWork(mod_operationsGenericEdits.GetType())
+        Generate_ReflectionWork(par_typeOperations,
+                                Links_EditElementMenu,
+                                Tools_EditElementMenu)
+
+
+    End Sub ''End of Sub "Private Sub Generate_BasicEdits"
+
+
+    Private Sub Generate_Headers(Optional pboolAddHeadersToMenu As Boolean = True)
+        ''
+        ''Encapsulated 12/30/2021 thomas
+        ''
         Dim toolMenuItemHeader0 As New ToolStripMenuItem ''Added 12/12/2021 td
         Dim toolMenuItemHeader1 As New ToolStripMenuItem ''Added 12/12/2021 td
         Dim toolMenuItemHeader2 As New ToolStripMenuItem ''Added 12/12/2021 td
@@ -187,9 +211,10 @@ Friend Class MenuCache_NonShared
         ''   Dec.12 2021 td''toolMenuItemHeader1.Text = ("Field " & par_fieldAny.Caption)
         ''
         toolMenuItemHeader0.BackColor = Color.Aqua
-        toolMenuItemHeader0.Text = ("Context-Menu for Control: {0}")
-        toolMenuItemHeader0.Tag = ("Context-Menu for Control: {0}")  ''More important to set .Tag than .Text, due to using String.Format function.
-        toolMenuItemHeader1.BackColor = Color.Aqua
+        ''toolMenuItemHeader0.Text = ("Context-Menu for Control: {0}")
+        ''toolMenuItemHeader0.Tag = ("Context-Menu for Control: {0}")  ''More important to set .Tag than .Text, due to using String.Format function.
+        toolMenuItemHeader0.Text = ("{0} - Control")
+        toolMenuItemHeader0.Tag = ("{0} - Control")  ''More important to set .Tag than .Text, due         toolMenuItemHeader1.BackColor = Color.Aqua
         toolMenuItemHeader1.Text = ("Field: {0} ({1})")
         toolMenuItemHeader1.Tag = ("Field: {0} ({1})") ''More important to set .Tag than .Text here, due to using String.Format function elsewhere.
 
@@ -198,23 +223,31 @@ Friend Class MenuCache_NonShared
         toolMenuItemSeparator.BackColor = Color.Aqua
 
         ''Added 12/15/2021 td 
-        toolMenuItemHeader2.Text = "ContextMenus\MenuCache_ElemFlds.vb"
-        toolMenuItemHeader3.Text = "       & ...\Operations_EditElement.vb"
-        toolMenuItemHeader4a.Text = "Sub MenuCache_ElemFlds.Generate_BasicEdits()"
+        ''toolMenuItemHeader2.Text = "ContextMenus\MenuCache_ElemFlds.vb"
+        ''toolMenuItemHeader3.Text = "       & ...\Operations_EditElement.vb"
+        ''toolMenuItemHeader4a.Text = "Sub MenuCache_ElemFlds.Generate_BasicEdits()"
+        toolMenuItemHeader2.Text = "MenuCache_NonShared - a class"
+        toolMenuItemHeader3.Text = "Operations__Generic - a class"
+        toolMenuItemHeader4a.Text = "Generate_ReflectionWork - a Sub"
         toolMenuItemHeader4b.Text = "... uses Reflection to build the menu below."
         toolMenuItemHeader4a.BackColor = Color.Aqua
         toolMenuItemHeader4b.BackColor = Color.Aqua
 
         toolMenuItemSeparator.Text = "-----Editing Operations follow------" ''Perhaps this will produce a separator line, just like in the old VB6 days. 
 
-        ''toolMenuItemHeader1 = toolMenuItemHeader1
-        Tools_EditElementMenu.Add(toolMenuItemHeader0)
-        Tools_EditElementMenu.Add(toolMenuItemHeader1)
-        Tools_EditElementMenu.Add(toolMenuItemHeader2)
-        Tools_EditElementMenu.Add(toolMenuItemHeader3)
-        Tools_EditElementMenu.Add(toolMenuItemHeader4a)
-        Tools_EditElementMenu.Add(toolMenuItemHeader4b)
-        Tools_EditElementMenu.Add(toolMenuItemSeparator)
+        If (pboolAddHeadersToMenu) Then
+            ''
+            ''Allow the user to see the menu headers.----12/30/2021 td
+            ''
+            ''toolMenuItemHeader1 = toolMenuItemHeader1
+            Tools_EditElementMenu.Add(toolMenuItemHeader0)
+            Tools_EditElementMenu.Add(toolMenuItemHeader1)
+            Tools_EditElementMenu.Add(toolMenuItemHeader2)
+            Tools_EditElementMenu.Add(toolMenuItemHeader3)
+            Tools_EditElementMenu.Add(toolMenuItemHeader4a)
+            Tools_EditElementMenu.Add(toolMenuItemHeader4b)
+            Tools_EditElementMenu.Add(toolMenuItemSeparator)
+        End If ''End of "If (pboolAddHeadersToMenu) Then"
 
         Tools_MenuHeader0 = toolMenuItemHeader0
         Tools_MenuHeader1 = toolMenuItemHeader1
@@ -224,13 +257,9 @@ Friend Class MenuCache_NonShared
 
         ''objInfo = (TypeOf objClass1)
 
-        ''Dec28, 2021''Generate_ReflectionWork(mod_operationsGenericEdits.GetType())
-        Generate_ReflectionWork(par_typeOperations,
-                                Links_EditElementMenu,
-                                Tools_EditElementMenu)
 
+    End Sub ''End of "Private Sub Generate_Headers()"
 
-    End Sub ''End of "Private Sub Generate_BasicEdits()"
 
 
     Private Sub Generate_ReflectionWork(par_typeOperations As Type,

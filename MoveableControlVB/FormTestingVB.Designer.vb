@@ -24,17 +24,16 @@ Partial Class FormTestingVB
     Private Sub InitializeComponent()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
-        Me.RscMoveableControlVB3 = New __RSCWindowsControlLibrary.RSCMoveableControlVB()
-        Me.RscMoveableControlVB2 = New __RSCWindowsControlLibrary.RSCMoveableControlVB()
-        Me.RscMoveableControlVB1 = New __RSCWindowsControlLibrary.RSCMoveableControlVB()
-        Me.MoveableControlObselete2 = New ciBadgeDesigner.MoveableControl()
-        Me.MoveableControlObselete1 = New ciBadgeDesigner.MoveableControl()
         Me.MoveableControlVB4 = New MoveableControlTestVB.MoveableControlVB()
         Me.MoveableControlVB3 = New MoveableControlTestVB.MoveableControlVB()
         Me.MoveableControlVB2 = New MoveableControlTestVB.MoveableControlVB()
         Me.MoveableControlVB1 = New MoveableControlTestVB.MoveableControlVB()
         Me.MoveableControlLiz = New MoveableControlTestVB.MoveableControlVB()
         Me.MoveableControlVBBack = New MoveableControlTestVB.MoveableControlVB()
+        Me.RscClickableDesktop = New __RSCWindowsControlLibrary.RSCMoveableControlVB()
+        Me.RscMoveableControlVB3 = New __RSCWindowsControlLibrary.RSCMoveableControlVB()
+        Me.RscMoveableControlVB2 = New __RSCWindowsControlLibrary.RSCMoveableControlVB()
+        Me.RscMoveableControlVB1 = New __RSCWindowsControlLibrary.RSCMoveableControlVB()
         Me.SuspendLayout()
         '
         'Button1
@@ -56,49 +55,6 @@ Partial Class FormTestingVB
         Me.LinkLabel1.TabStop = True
         Me.LinkLabel1.Text = "The Background Image will be locked into place until unlocked by the rightclick m" &
     "enu."
-        '
-        'RscMoveableControlVB3
-        '
-        Me.RscMoveableControlVB3.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.RscMoveableControlVB3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.RscMoveableControlVB3.Location = New System.Drawing.Point(324, 268)
-        Me.RscMoveableControlVB3.Name = "RscMoveableControlVB3"
-        Me.RscMoveableControlVB3.Size = New System.Drawing.Size(248, 122)
-        Me.RscMoveableControlVB3.TabIndex = 12
-        '
-        'RscMoveableControlVB2
-        '
-        Me.RscMoveableControlVB2.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.RscMoveableControlVB2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.RscMoveableControlVB2.Location = New System.Drawing.Point(324, 140)
-        Me.RscMoveableControlVB2.Name = "RscMoveableControlVB2"
-        Me.RscMoveableControlVB2.Size = New System.Drawing.Size(248, 122)
-        Me.RscMoveableControlVB2.TabIndex = 11
-        '
-        'RscMoveableControlVB1
-        '
-        Me.RscMoveableControlVB1.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.RscMoveableControlVB1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.RscMoveableControlVB1.Location = New System.Drawing.Point(324, 12)
-        Me.RscMoveableControlVB1.Name = "RscMoveableControlVB1"
-        Me.RscMoveableControlVB1.Size = New System.Drawing.Size(248, 122)
-        Me.RscMoveableControlVB1.TabIndex = 10
-        '
-        'MoveableControlObselete2
-        '
-        Me.MoveableControlObselete2.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.MoveableControlObselete2.Location = New System.Drawing.Point(628, 313)
-        Me.MoveableControlObselete2.Name = "MoveableControlObselete2"
-        Me.MoveableControlObselete2.Size = New System.Drawing.Size(84, 109)
-        Me.MoveableControlObselete2.TabIndex = 4
-        '
-        'MoveableControlObselete1
-        '
-        Me.MoveableControlObselete1.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.MoveableControlObselete1.Location = New System.Drawing.Point(730, 313)
-        Me.MoveableControlObselete1.Name = "MoveableControlObselete1"
-        Me.MoveableControlObselete1.Size = New System.Drawing.Size(88, 109)
-        Me.MoveableControlObselete1.TabIndex = 0
         '
         'MoveableControlVB4
         '
@@ -158,11 +114,50 @@ Partial Class FormTestingVB
         Me.MoveableControlVBBack.Size = New System.Drawing.Size(766, 437)
         Me.MoveableControlVBBack.TabIndex = 8
         '
+        'RscClickableDesktop
+        '
+        Me.RscClickableDesktop.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.RscClickableDesktop.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.RscClickableDesktop.Location = New System.Drawing.Point(29, 482)
+        Me.RscClickableDesktop.Name = "RscClickableDesktop"
+        Me.RscClickableDesktop.Size = New System.Drawing.Size(30, 25)
+        Me.RscClickableDesktop.TabIndex = 13
+        Me.RscClickableDesktop.Tag = "Used for right-clicking desktop."
+        Me.RscClickableDesktop.Visible = False
+        '
+        'RscMoveableControlVB3
+        '
+        Me.RscMoveableControlVB3.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.RscMoveableControlVB3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.RscMoveableControlVB3.Location = New System.Drawing.Point(324, 268)
+        Me.RscMoveableControlVB3.Name = "RscMoveableControlVB3"
+        Me.RscMoveableControlVB3.Size = New System.Drawing.Size(248, 122)
+        Me.RscMoveableControlVB3.TabIndex = 12
+        '
+        'RscMoveableControlVB2
+        '
+        Me.RscMoveableControlVB2.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.RscMoveableControlVB2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.RscMoveableControlVB2.Location = New System.Drawing.Point(324, 140)
+        Me.RscMoveableControlVB2.Name = "RscMoveableControlVB2"
+        Me.RscMoveableControlVB2.Size = New System.Drawing.Size(248, 122)
+        Me.RscMoveableControlVB2.TabIndex = 11
+        '
+        'RscMoveableControlVB1
+        '
+        Me.RscMoveableControlVB1.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.RscMoveableControlVB1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.RscMoveableControlVB1.Location = New System.Drawing.Point(324, 12)
+        Me.RscMoveableControlVB1.Name = "RscMoveableControlVB1"
+        Me.RscMoveableControlVB1.Size = New System.Drawing.Size(248, 122)
+        Me.RscMoveableControlVB1.TabIndex = 10
+        '
         'FormTestingVB
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1401, 562)
+        Me.Controls.Add(Me.RscClickableDesktop)
         Me.Controls.Add(Me.RscMoveableControlVB3)
         Me.Controls.Add(Me.RscMoveableControlVB2)
         Me.Controls.Add(Me.RscMoveableControlVB1)
@@ -170,11 +165,9 @@ Partial Class FormTestingVB
         Me.Controls.Add(Me.MoveableControlLiz)
         Me.Controls.Add(Me.MoveableControlVB4)
         Me.Controls.Add(Me.MoveableControlVB3)
-        Me.Controls.Add(Me.MoveableControlObselete2)
         Me.Controls.Add(Me.MoveableControlVB2)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.MoveableControlVB1)
-        Me.Controls.Add(Me.MoveableControlObselete1)
         Me.Controls.Add(Me.MoveableControlVBBack)
         Me.Name = "FormTestingVB"
         Me.Text = "Form1"
@@ -183,11 +176,11 @@ Partial Class FormTestingVB
 
     End Sub
 
-    Friend WithEvents MoveableControlObselete1 As ciBadgeDesigner.MoveableControl
+    ''Friend WithEvents MoveableControlObselete1 As ciBadgeDesigner.MoveableControl_Obselete
     Friend WithEvents MoveableControlVB1 As MoveableControlVB
     Friend WithEvents Button1 As Button
     Friend WithEvents MoveableControlVB2 As MoveableControlVB
-    Friend WithEvents MoveableControlObselete2 As ciBadgeDesigner.MoveableControl
+    ''Friend WithEvents MoveableControlObselete2 As ciBadgeDesigner.MoveableControl_Obselete
     Friend WithEvents MoveableControlVB3 As MoveableControlVB
     Friend WithEvents MoveableControlVB4 As MoveableControlVB
     Friend WithEvents MoveableControlLiz As MoveableControlVB
@@ -196,4 +189,5 @@ Partial Class FormTestingVB
     Friend WithEvents RscMoveableControlVB1 As __RSCWindowsControlLibrary.RSCMoveableControlVB
     Friend WithEvents RscMoveableControlVB2 As __RSCWindowsControlLibrary.RSCMoveableControlVB
     Friend WithEvents RscMoveableControlVB3 As __RSCWindowsControlLibrary.RSCMoveableControlVB
+    Friend WithEvents RscClickableDesktop As __RSCWindowsControlLibrary.RSCMoveableControlVB
 End Class

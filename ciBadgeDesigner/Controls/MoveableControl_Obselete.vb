@@ -8,7 +8,7 @@ Imports System.Windows.Forms
 ''
 ''Added 12/22/2021 td  
 ''
-Public Class MoveableControl
+Public Class MoveableControl_Obselete
     ''
     ''Added 12/22/2021 td  
     ''

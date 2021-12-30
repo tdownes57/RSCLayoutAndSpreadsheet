@@ -29,7 +29,7 @@ namespace MoveableControlTest
         /// </summary>
         private void InitializeComponent()
         {
-            this.moveableControl1 = new ciBadgeDesigner.MoveableControl();
+            this.moveableControl1 = new ciBadgeDesigner.MoveableControl_Obselete();
             this.SuspendLayout();
             // 
             // moveableControl1
@@ -55,7 +55,7 @@ namespace MoveableControlTest
 
         #endregion
 
-        private ciBadgeDesigner.MoveableControl moveableControl1;
+        private ciBadgeDesigner.MoveableControl_Obselete moveableControl1;
     }
 }
 

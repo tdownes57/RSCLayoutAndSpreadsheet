@@ -11,7 +11,7 @@ using ciBadgeDesigner; //Added 12/27/2021 td
 
 namespace MoveableControlTest
 {
-    public partial class UserControl1 : MoveableControl //UserControl
+    public partial class UserControl1 : MoveableControl_Obselete //UserControl
     {
         public UserControl1()
         {

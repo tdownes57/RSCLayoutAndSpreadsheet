@@ -18,6 +18,7 @@ Public Class FormTestingVB
     ''Added 12/28/2021 thomas
     Private mod_designer As New ClassDesigner()
     Private MoveableControlVB41 As MoveableControlVB
+    Private mod_desktop_RSCClickable As RSCMoveableControlVB ''Added 12/30/2021 td
 
     Private mod_iControlLastTouched As ILastControlTouched ''Added 12/28/2021 td
     Private mod_objControlLastTouched As ILastControlTouched ''Added 12/29/2021 td
@@ -138,6 +139,13 @@ Public Class FormTestingVB
         RscMoveableControlVB2 = Nothing
         RscMoveableControlVB3 = Nothing
 
+        ''
+        ''Clickable desktop....
+        ''
+        RscClickableDesktop.Visible = False ''12/30/2021
+        RscClickableDesktop.Dispose() ''12/30/2021
+        Me.Controls.Remove(RscClickableDesktop) ''.Dispose() ''12/30/2021
+        RscClickableDesktop = Nothing ''Added 12/30/2021 td
 
     End Sub ''End of "Private Sub Step1b_Unload_DesignTimeControls_RSCMoveable"
 
@@ -153,9 +161,10 @@ Public Class FormTestingVB
         ''Const c_bAddMoveabilityAfterConstructor As Boolean = True
         ''Const c_bAddClickabilityAfterConstructor As Boolean = True
 
+        Const c_bProportion_False As Boolean = False
+
         ''Control #1 of 3. 
         Dim objSaveToModel1 As New ClassSaveToModel
-        Const c_bProportion_False As Boolean = False
 
         MoveableControlVB1 = MoveableControlVB.GetControl(EnumElementType.Field,
                                 "MoveableControlVB1", c_bProportion_False,
@@ -166,6 +175,34 @@ Public Class FormTestingVB
         MoveableControlVB1.Visible = True
         MoveableControlVB1.LastControlTouched_Obj = mod_objControlLastTouched ''Added 12/29/2021 td
         Me.Controls.Add(MoveableControlVB1)
+
+
+        ''Control #2 of 3. 
+        Dim objSaveToModel2 As New ClassSaveToModel
+
+        MoveableControlVB2 = MoveableControlVB.GetControl(EnumElementType.Field,
+                                "MoveableControlVB2", c_bProportion_False,
+                                objSaveToModel2, mod_designer,
+                                mod_iControlLastTouched)
+        MoveableControlVB2.Left = 0
+        MoveableControlVB2.Top = 0
+        MoveableControlVB2.Visible = True
+        MoveableControlVB2.LastControlTouched_Obj = mod_objControlLastTouched ''Added 12/29/2021 td
+        Me.Controls.Add(MoveableControlVB2)
+
+
+        ''Control #3 of 3. 
+        Dim objSaveToModel3 As New ClassSaveToModel
+
+        MoveableControlVB3 = MoveableControlVB.GetControl(EnumElementType.Field,
+                                "MoveableControlVB3", c_bProportion_False,
+                                objSaveToModel3, mod_designer,
+                                mod_iControlLastTouched)
+        MoveableControlVB3.Left = 0
+        MoveableControlVB3.Top = 0
+        MoveableControlVB3.Visible = True
+        MoveableControlVB3.LastControlTouched_Obj = mod_objControlLastTouched ''Added 12/29/2021 td
+        Me.Controls.Add(MoveableControlVB3)
 
 
         ''Dim objOperations1 As New Operations__Useless()
@@ -188,47 +225,47 @@ Public Class FormTestingVB
         ''MoveableControlVB1.Name = "MoveableControlVB1"
 
         ''Control #2 of 3. 
-        Dim objSaveToModel2 As New ClassSaveToModel
-        Dim objOperations2 As New Operations__Generic()
-        MoveableControlVB2 = New MoveableControlVB(EnumElementType.Undetermined, False,
-                                                   objSaveToModel1,
-                                                   CType(mod_designer, ILayoutFunctions),
-                                                   mod_designer, objOperations2.GetType(),
-                                                   objOperations2,
-                                                    mc_bAddMoveabilityWithinConstructor,
-                                                    mc_bAddClickabilityWithinConstructor,
-                                                    mod_iControlLastTouched)
+        ''Dim objSaveToModel2 As New ClassSaveToModel
+        ''Dim objOperations2 As New Operations__Generic()
+        ''MoveableControlVB2 = New MoveableControlVB(EnumElementType.Undetermined, False,
+        ''                                           objSaveToModel1,
+        ''                                           CType(mod_designer, ILayoutFunctions),
+        ''                                           mod_designer, objOperations2.GetType(),
+        ''                                           objOperations2,
+        ''                                            mc_bAddMoveabilityWithinConstructor,
+        ''                                            mc_bAddClickabilityWithinConstructor,
+        ''                                            mod_iControlLastTouched)
 
-        objOperations2.CtlCurrentElement = MoveableControlVB2
-        MoveableControlVB2.Left = 0
-        MoveableControlVB2.Top = 10 + (MoveableControlVB1.Top + MoveableControlVB1.Height)
-        MoveableControlVB2.Visible = True
-        MoveableControlVB2.LastControlTouched_Obj = mod_objControlLastTouched ''Added 12/29/2021 td
-        If (mc_bAddMoveabilityAfterConstructor) Then MoveableControlVB2.AddMoveability()
-        If (mc_bAddClickabilityAfterConstructor) Then MoveableControlVB2.AddClickability()
-        Me.Controls.Add(MoveableControlVB2)
-        MoveableControlVB2.Name = "MoveableControlVB2"
+        ''objOperations2.CtlCurrentElement = MoveableControlVB2
+        ''MoveableControlVB2.Left = 0
+        ''MoveableControlVB2.Top = 10 + (MoveableControlVB1.Top + MoveableControlVB1.Height)
+        ''MoveableControlVB2.Visible = True
+        ''MoveableControlVB2.LastControlTouched_Obj = mod_objControlLastTouched ''Added 12/29/2021 td
+        ''If (mc_bAddMoveabilityAfterConstructor) Then MoveableControlVB2.AddMoveability()
+        ''If (mc_bAddClickabilityAfterConstructor) Then MoveableControlVB2.AddClickability()
+        ''Me.Controls.Add(MoveableControlVB2)
+        ''MoveableControlVB2.Name = "MoveableControlVB2"
 
         ''Control #3 of 3. 
-        Dim objSaveToModel3 As New ClassSaveToModel
-        Dim objOperations3 As New Operations__Useless()
-        MoveableControlVB3 = New MoveableControlVB(EnumElementType.Undetermined, False,
-                                                   objSaveToModel3,
-                                                   CType(mod_designer, ILayoutFunctions),
-                                                   mod_designer, objOperations3.GetType(),
-                                                   objOperations3,
-                                                    mc_bAddMoveabilityWithinConstructor,
-                                                    mc_bAddClickabilityWithinConstructor,
-                                                    mod_iControlLastTouched)
-        objOperations3.CtlCurrentElement = MoveableControlVB3
-        MoveableControlVB3.Left = 0
-        MoveableControlVB3.Top = 10 + (MoveableControlVB2.Top + MoveableControlVB2.Height)
-        MoveableControlVB3.Visible = True
-        MoveableControlVB3.LastControlTouched_Obj = mod_objControlLastTouched ''Added 12/29/2021 td
-        If (mc_bAddMoveabilityAfterConstructor) Then MoveableControlVB3.AddMoveability()
-        If (mc_bAddClickabilityAfterConstructor) Then MoveableControlVB3.AddClickability()
-        Me.Controls.Add(MoveableControlVB3)
-        MoveableControlVB3.Name = "MoveableControlVB3"
+        ''Dim objSaveToModel3 As New ClassSaveToModel
+        ''Dim objOperations3 As New Operations__Useless()
+        ''MoveableControlVB3 = New MoveableControlVB(EnumElementType.Undetermined, False,
+        ''                                           objSaveToModel3,
+        ''                                           CType(mod_designer, ILayoutFunctions),
+        ''                                           mod_designer, objOperations3.GetType(),
+        ''                                           objOperations3,
+        ''                                            mc_bAddMoveabilityWithinConstructor,
+        ''                                            mc_bAddClickabilityWithinConstructor,
+        ''                                            mod_iControlLastTouched)
+        ''objOperations3.CtlCurrentElement = MoveableControlVB3
+        ''MoveableControlVB3.Left = 0
+        ''MoveableControlVB3.Top = 10 + (MoveableControlVB2.Top + MoveableControlVB2.Height)
+        ''MoveableControlVB3.Visible = True
+        ''MoveableControlVB3.LastControlTouched_Obj = mod_objControlLastTouched ''Added 12/29/2021 td
+        ''If (mc_bAddMoveabilityAfterConstructor) Then MoveableControlVB3.AddMoveability()
+        ''If (mc_bAddClickabilityAfterConstructor) Then MoveableControlVB3.AddClickability()
+        ''Me.Controls.Add(MoveableControlVB3)
+        ''MoveableControlVB3.Name = "MoveableControlVB3"
 
 
     End Sub
@@ -243,18 +280,31 @@ Public Class FormTestingVB
         ''
         ''Control #1 of 3. 
         Dim objSaveToModelRSC As New ClassSaveToModel
-        ''Const c_bProportion_False As Boolean = False
-        Dim objSaveToModel1 As New ClassSaveToModel
-
         Dim RSCMoveableControlVB11 = RSCMoveableControlVB.GetControl(EnumElementType.Field,
-                                "RSCMoveableControlVB1", par_proportionSize,
-                                objSaveToModel1, mod_designer,
+                                "RSCMoveableControlVB1", mod_designer, par_proportionSize,
+                                objSaveToModelRSC,
                                 mod_iControlLastTouched)
 
         RSCMoveableControlVB11.Left = RSCMoveableControlVB11.Width
         RSCMoveableControlVB11.Top = 0
         RSCMoveableControlVB11.Visible = True
         Me.Controls.Add(RSCMoveableControlVB11)
+
+        ''
+        ''Hidden, for right-clicking the desktop.  
+        ''
+        Dim desktop_objSaveToModelRSC As New ClassSaveToModel
+        mod_desktop_RSCClickable = RSCMoveableControlVB.GetControl(EnumElementType.Field,
+                                "desktop_RSC_Clickable", mod_designer, par_proportionSize,
+                                desktop_objSaveToModelRSC,
+                                mod_iControlLastTouched)
+
+        mod_desktop_RSCClickable.Left = 0
+        mod_desktop_RSCClickable.Top = 0
+        mod_desktop_RSCClickable.Width = 10
+        mod_desktop_RSCClickable.Height = 10
+        mod_desktop_RSCClickable.Visible = False
+        Me.Controls.Add(mod_desktop_RSCClickable)
 
 
     End Sub ''End of "Private Sub Step2b_Load_RuntimeControls_NonProportional_RSC()"
@@ -344,4 +394,12 @@ Public Class FormTestingVB
 
     End Sub ''End of "Private Sub Step2c_Load_RuntimeControls_ResizeProportionally"
 
+    Private Sub FormTestingVB_MouseClick(sender As Object, e As MouseEventArgs) Handles MyBase.MouseClick
+        ''
+        ''Added 12/30/2021 td
+        ''
+        mod_desktop_RSCClickable.PerformRightClick(e.X, e.Y)
+
+
+    End Sub
 End Class

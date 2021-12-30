@@ -689,4 +689,15 @@ Public Class RSCMoveableControlVB
     End Sub
 
 
+    Public Sub PerformRightClick(par_e_X As Integer, par_e_Y As Integer)
+        ''
+        ''Added 12/30/2021 td
+        ''
+        mod_designer_ElementRightClicked(par_e_X, par_e_Y)
+
+    End Sub ''End of "Public Sub PerformRightClick"
+
+
+
+
 End Class
