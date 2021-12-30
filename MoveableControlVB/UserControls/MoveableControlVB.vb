@@ -90,8 +90,14 @@ Public Class MoveableControlVB
 
     End Function ''End of Public Shared Function BuildControl
 
+    ''Added 12/29/2021 thomas
+    Public AbleMoveable As Boolean
+    Public AbleRightClickable As Boolean
+    Public AbleSizeable As Boolean
+    Public AbleSelectable As Boolean
 
     Public LastControlTouched_Info As ILastControlTouched ''Added 12/28/2021 thomas d. 
+    Public LastControlTouched_Obj As ClassLastControlTouched ''Added 12/29/2021 thomas d. 
 
     Public MyToolstripItemCollection As ToolStripItemCollection ''Added 12/28/2021 td 
     Private mod_boolResizeProportionally As Boolean
@@ -156,7 +162,9 @@ Public Class MoveableControlVB
         mod_iSaveToModel = par_iSaveToModel ''Added 12/28/2021 td
         mod_boolResizeProportionally = pboolResizeProportionally ''Added 12/28/2021 td
         mod_iLayoutFunctions = par_iLayoutFun
+
         Me.LastControlTouched_Info = par_iLastTouched ''Added 12/29/2021 thomas d. 
+        ''Dec29 2021 td''Me.LastControlTouched_Obj = par_objLastTouched ''Added 12/29/2021 thomas d. 
 
         ''12/28/2021 td''InitializeMoveability(pboolResizeProportionally, par_iSaveToModel, par_iLayoutFun)
         ''#2 Dec28_2021 td''AddMoveability()
@@ -189,13 +197,18 @@ Public Class MoveableControlVB
         If (boolInstantiated) Then ''Added 12/28/2021 td
             ''Added 12/28/2021 td
             ''  If instantiated, then set the Boolean property to false. 
-            If (mod_moveInAGroup IsNot Nothing) Then mod_moveInAGroup.RemoveAllFunctionality = False
-            If (mod_moveResizeKeepRatio IsNot Nothing) Then mod_moveResizeKeepRatio.RemoveAllFunctionality = False
+            ''
+            ''--If (mod_moveInAGroup IsNot Nothing) Then mod_moveInAGroup.RemoveAllFunctionality = False
+            ''--If (mod_moveResizeKeepRatio IsNot Nothing) Then mod_moveResizeKeepRatio.RemoveAllFunctionality = False
+            mod_iMoveOrResizeFunctionality.RemoveAllFunctionality = False
 
         Else
             InitializeMoveability(mod_boolResizeProportionally, mod_iSaveToModel, mod_iLayoutFunctions)
 
         End If ''End of "If (boolInstantiated) Then ... Else ...."
+
+        ''Dec29
+        AbleMoveable = True
 
     End Sub
 
@@ -206,6 +219,8 @@ Public Class MoveableControlVB
         ''
         If (Not pboolUseEasyWay) Then mod_iMoveOrResizeFunctionality.Reverse_Init() ''Added 12/28/2021 td
         If (pboolUseEasyWay) Then mod_iMoveOrResizeFunctionality.RemoveAllFunctionality = True ''Added 12/28/2021 td
+
+        AbleMoveable = False ''Added dec29
 
         ''If (True Or Not mod_boolResizeProportionally) Then
         ''    ''mod_movingInAGroup.UndloadEventHandlers()
@@ -248,6 +263,7 @@ Public Class MoveableControlVB
         ''
         ''Dec28 2021''InitializeClickability(mod_designer)
         Init_ForRightClicked()
+        AbleRightClickable = True ''Dec29
 
     End Sub ''End of "Public Sub AddClickability()"
 
@@ -261,6 +277,7 @@ Public Class MoveableControlVB
         Me.mod_objOperationsUseless = Nothing
         Me.mod_moveResizeKeepRatio = Nothing
         Me.mod_moveInAGroup = Nothing
+        AbleRightClickable = False ''dec29
 
     End Sub ''End of "Public Sub RemoveClickability()"
 
@@ -490,7 +507,17 @@ Public Class MoveableControlVB
         Else
 
             ''Added 12/29/2021 td
-            Me.LastControlTouched_Info.LastControlTouched = Me
+            With Me.LastControlTouched_Obj
+                ''Dec29 2021 td''Me.LastControlTouched_Info.LastControlTouched = Me
+                .LastControlTouched = Me
+
+                ''Added 12/29/2021 td
+                If (.ReactivateMenu) Then
+                    AddClickability()
+                    mod_designer_ElementRightClicked(e.X, e.Y)
+                End If ''End of "If (.ReactivateMenu) Then"
+
+            End With
 
         End If ''End of "If (e.Button = MouseButtons.Right) Then ... Else ...."
 
@@ -646,6 +673,12 @@ Public Class MoveableControlVB
         ''
         ''Encapsulated 12/28/2021 td
         ''
+        If (ContextMenuStrip1 Is Nothing) Then
+            ''Added 12/29/2021 thomas downes
+            MessageBoxTD.Show_Statement("It's possible that the Right-Click menu has been de-activated.")
+            Return
+        End If ''end of "If (ContextMenuStrip1 Is Nothing) Then"
+
         Dim objDisplayMenu As New ClassDisplayContextMenu(ContextMenuStrip1)
         Const c_intRandom As Integer = 5
         With objDisplayMenu

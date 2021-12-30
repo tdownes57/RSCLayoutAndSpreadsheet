@@ -18,7 +18,9 @@ Public Class FormTestingVB
     ''Added 12/28/2021 thomas
     Private mod_designer As New ClassDesigner()
     Private MoveableControlVB41 As MoveableControlVB
+
     Private mod_iControlLastTouched As ILastControlTouched ''Added 12/28/2021 td
+    Private mod_objControlLastTouched As ILastControlTouched ''Added 12/29/2021 td
 
     Private Const mc_bAddMoveabilityWithinConstructor As Boolean = False
     Private Const mc_bAddClickabilityWithinConstructor As Boolean = False
@@ -33,6 +35,7 @@ Public Class FormTestingVB
 
         Dim objCtlLastTouched As New ClassLastControlTouched ''Added 12/28/2021 td
         mod_iControlLastTouched = objCtlLastTouched ''Added 12/28/2021 td
+        mod_objControlLastTouched = objCtlLastTouched ''Added 12/29/2021 td
 
         ''''Added 12/28/2021 thomas d.
         ''Dim operationsField As New Operations_Generic ''Operations_Field
@@ -161,7 +164,9 @@ Public Class FormTestingVB
         MoveableControlVB1.Left = 0
         MoveableControlVB1.Top = 0
         MoveableControlVB1.Visible = True
+        MoveableControlVB1.LastControlTouched_Obj = mod_objControlLastTouched ''Added 12/29/2021 td
         Me.Controls.Add(MoveableControlVB1)
+
 
         ''Dim objOperations1 As New Operations__Useless()
         ''MoveableControlVB1 = New MoveableControlVB(EnumElementType.Undetermined, False,
@@ -198,6 +203,7 @@ Public Class FormTestingVB
         MoveableControlVB2.Left = 0
         MoveableControlVB2.Top = 10 + (MoveableControlVB1.Top + MoveableControlVB1.Height)
         MoveableControlVB2.Visible = True
+        MoveableControlVB2.LastControlTouched_Obj = mod_objControlLastTouched ''Added 12/29/2021 td
         If (mc_bAddMoveabilityAfterConstructor) Then MoveableControlVB2.AddMoveability()
         If (mc_bAddClickabilityAfterConstructor) Then MoveableControlVB2.AddClickability()
         Me.Controls.Add(MoveableControlVB2)
@@ -218,6 +224,7 @@ Public Class FormTestingVB
         MoveableControlVB3.Left = 0
         MoveableControlVB3.Top = 10 + (MoveableControlVB2.Top + MoveableControlVB2.Height)
         MoveableControlVB3.Visible = True
+        MoveableControlVB3.LastControlTouched_Obj = mod_objControlLastTouched ''Added 12/29/2021 td
         If (mc_bAddMoveabilityAfterConstructor) Then MoveableControlVB3.AddMoveability()
         If (mc_bAddClickabilityAfterConstructor) Then MoveableControlVB3.AddClickability()
         Me.Controls.Add(MoveableControlVB3)
@@ -243,7 +250,8 @@ Public Class FormTestingVB
                                 "RSCMoveableControlVB1", par_proportionSize,
                                 objSaveToModel1, mod_designer,
                                 mod_iControlLastTouched)
-        RSCMoveableControlVB11.Left = 0
+
+        RSCMoveableControlVB11.Left = RSCMoveableControlVB11.Width
         RSCMoveableControlVB11.Top = 0
         RSCMoveableControlVB11.Visible = True
         Me.Controls.Add(RSCMoveableControlVB11)

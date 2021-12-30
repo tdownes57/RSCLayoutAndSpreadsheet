@@ -642,9 +642,16 @@ Public Class RSCMoveableControlVB
         ''
         ''Encapsulated 12/28/2021 td
         ''
+        If (ContextMenuStrip1 Is Nothing) Then
+            ''Added 12/29/2021 thomas downes
+            MessageBoxTD.Show_Statement("It's possible that the Right-Click menu has been de-activated.")
+            Return
+        End If ''end of "If (ContextMenuStrip1 Is Nothing) Then"
+
         Dim objDisplayMenu As New ClassDisplayContextMenu(ContextMenuStrip1)
         Const c_intRandom As Integer = 5
         With objDisplayMenu
+
             If (c_intRandom = 1) Then .ContextMenuDisplay(Me, New Point(par_intX, par_intY))
             If (c_intRandom = 2) Then .ContextMenuOpen(Me, New Point(par_intX, par_intY))
             If (c_intRandom = 3) Then .ContextMenuShow(Me, New Point(par_intX, par_intY))
@@ -654,19 +661,26 @@ Public Class RSCMoveableControlVB
             If (c_intRandom = 7) Then .OpenContextMenu(Me, New Point(par_intX, par_intY))
             If (c_intRandom = 8) Then .OpenPopupMenu(Me, New Point(par_intX, par_intY))
             If (c_intRandom = 9) Then .OpenRightclickMenu(Me, New Point(par_intX, par_intY))
+
         End With ''End of "With objDisplayMenu"
 
     End Sub ''End of Private Sub mod_designer_ElementRightClicked(par_intX As Integer, par_intY As Integer)
 
 
-    Private Sub MoveableControlVB_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub RSCMoveableControlVB_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ''
+        ''Added 12/29/2021 td 
+        ''
 
     End Sub
 
-    Private Sub MoveableControlVB_Click(sender As Object, e As EventArgs) Handles Me.Click
+    Private Sub RSCMoveableControlVB_Click(sender As Object, e As EventArgs) Handles Me.Click
 
         ''Added 12/29/2021 td
         Me.LastControlTouched_Info.LastControlTouched = Me
+
+        ''Added 12/29/2021 td
+        ''Not ready yet.''If Me.LastControlTouched_Info.ReactivateMenu Then AddClickability()
 
     End Sub
 
