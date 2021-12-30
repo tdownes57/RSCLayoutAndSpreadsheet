@@ -33,7 +33,7 @@ Partial Class FormTestingVB
         Me.MoveableControlVB3 = New MoveableControlTestVB.MoveableControlVB()
         Me.MoveableControlVB2 = New MoveableControlTestVB.MoveableControlVB()
         Me.MoveableControlVB1 = New MoveableControlTestVB.MoveableControlVB()
-        Me.MoveableControlJane = New MoveableControlTestVB.MoveableControlVB()
+        Me.MoveableControlLiz = New MoveableControlTestVB.MoveableControlVB()
         Me.MoveableControlVBBack = New MoveableControlTestVB.MoveableControlVB()
         Me.SuspendLayout()
         '
@@ -136,16 +136,16 @@ Partial Class FormTestingVB
         Me.MoveableControlVB1.Size = New System.Drawing.Size(206, 108)
         Me.MoveableControlVB1.TabIndex = 1
         '
-        'MoveableControlJane
+        'MoveableControlLiz
         '
-        Me.MoveableControlJane.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.MoveableControlJane.BackgroundImage = Global.MoveableControlTestVB.My.Resources.Resources.Liz_20_percent
-        Me.MoveableControlJane.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.MoveableControlJane.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.MoveableControlJane.Location = New System.Drawing.Point(760, 12)
-        Me.MoveableControlJane.Name = "MoveableControlJane"
-        Me.MoveableControlJane.Size = New System.Drawing.Size(198, 295)
-        Me.MoveableControlJane.TabIndex = 7
+        Me.MoveableControlLiz.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.MoveableControlLiz.BackgroundImage = Global.MoveableControlTestVB.My.Resources.Resources.Liz_20_percent
+        Me.MoveableControlLiz.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.MoveableControlLiz.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.MoveableControlLiz.Location = New System.Drawing.Point(760, 12)
+        Me.MoveableControlLiz.Name = "MoveableControlLiz"
+        Me.MoveableControlLiz.Size = New System.Drawing.Size(198, 295)
+        Me.MoveableControlLiz.TabIndex = 7
         '
         'MoveableControlVBBack
         '
@@ -167,7 +167,7 @@ Partial Class FormTestingVB
         Me.Controls.Add(Me.RscMoveableControlVB2)
         Me.Controls.Add(Me.RscMoveableControlVB1)
         Me.Controls.Add(Me.LinkLabel1)
-        Me.Controls.Add(Me.MoveableControlJane)
+        Me.Controls.Add(Me.MoveableControlLiz)
         Me.Controls.Add(Me.MoveableControlVB4)
         Me.Controls.Add(Me.MoveableControlVB3)
         Me.Controls.Add(Me.MoveableControlObselete2)
@@ -190,7 +190,7 @@ Partial Class FormTestingVB
     Friend WithEvents MoveableControlObselete2 As ciBadgeDesigner.MoveableControl
     Friend WithEvents MoveableControlVB3 As MoveableControlVB
     Friend WithEvents MoveableControlVB4 As MoveableControlVB
-    Friend WithEvents MoveableControlJane As MoveableControlVB
+    Friend WithEvents MoveableControlLiz As MoveableControlVB
     Friend WithEvents MoveableControlVBBack As MoveableControlVB
     Friend WithEvents LinkLabel1 As LinkLabel
     Friend WithEvents RscMoveableControlVB1 As __RSCWindowsControlLibrary.RSCMoveableControlVB

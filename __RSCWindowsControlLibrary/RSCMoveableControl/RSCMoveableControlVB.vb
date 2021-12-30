@@ -14,8 +14,83 @@ Public Class RSCMoveableControlVB
     ''
     ''Added 12/22/2021 td  
     ''
-    Public Shared LastControlTouched As RSCMoveableControlVB
+    Public Shared LastControlTouched_Deprecated As RSCMoveableControlVB
 
+    Public Shared Function GetControl(par_enum As EnumElementType,
+                                par_nameOfControl As String,
+                                      par_bProportionSizing As Boolean,
+                                      par_iSaveToModel As ISaveToModel,
+                                      par_designer As ClassDesigner,
+                                par_iControlLastTouched As ILastControlTouched) As RSCMoveableControlVB
+        ''
+        ''Added 12/29/2021 td
+        ''
+        Const bAddFunctionalitySooner As Boolean = False
+        Const bAddFunctionalityLater As Boolean = True
+
+        Dim typeOps As Type
+        Dim objOperations As Object ''Added 12/29/2021 td 
+        Dim objOperations1Gen As Operations__Generic = Nothing
+        Dim objOperations2Use As Operations__Useless = Nothing
+
+        ''Instantiate the Operations Object. 
+        If (par_enum = EnumElementType.Field) Then objOperations1Gen = New Operations__Generic()
+        If (par_enum = EnumElementType.Portrait) Then objOperations2Use = New Operations__Useless()
+        If (par_enum = EnumElementType.QRCode) Then objOperations1Gen = New Operations__Generic()
+        If (par_enum = EnumElementType.Signature) Then objOperations2Use = New Operations__Useless()
+        If (par_enum = EnumElementType.StaticGraphic) Then objOperations1Gen = New Operations__Generic()
+        If (par_enum = EnumElementType.StaticText) Then objOperations2Use = New Operations__Useless()
+
+        ''Assign to typeOps. 
+        If (par_enum = EnumElementType.Field) Then typeOps = objOperations1Gen.GetType()
+        If (par_enum = EnumElementType.Portrait) Then typeOps = objOperations2Use.GetType()
+        If (par_enum = EnumElementType.QRCode) Then typeOps = objOperations1Gen.GetType()
+        If (par_enum = EnumElementType.Signature) Then typeOps = objOperations2Use.GetType()
+        If (par_enum = EnumElementType.StaticGraphic) Then typeOps = objOperations1Gen.GetType()
+        If (par_enum = EnumElementType.StaticText) Then typeOps = objOperations2Use.GetType()
+
+        ''Assign to objOperations. 
+        If (par_enum = EnumElementType.Field) Then objOperations = objOperations1Gen
+        If (par_enum = EnumElementType.Portrait) Then objOperations = objOperations2Use
+        If (par_enum = EnumElementType.QRCode) Then objOperations = objOperations1Gen
+        If (par_enum = EnumElementType.Signature) Then objOperations = objOperations2Use
+        If (par_enum = EnumElementType.StaticGraphic) Then objOperations = objOperations1Gen
+        If (par_enum = EnumElementType.StaticText) Then objOperations = objOperations2Use
+
+        If (objOperations Is Nothing) Then
+            ''Added 12/29/2021
+            Throw New Exception("Ops is Nothing, so I guess Element Type is Undetermined.")
+        End If ''end of "If (objOperations Is Nothing) Then"
+
+        ''Create the control. 
+        Dim MoveableControlVB1 = New RSCMoveableControlVB(par_enum, par_bProportionSizing,
+                                                   par_iSaveToModel,
+                                                   par_designer,
+                                                   par_designer,
+                                                   typeOps,
+                                                   objOperations,
+                                                   bAddFunctionalitySooner,
+                                                   bAddFunctionalitySooner,
+                                                   par_iControlLastTouched)
+
+        With MoveableControlVB1
+            .Name = par_nameOfControl
+            If (bAddFunctionalityLater) Then .AddMoveability()
+            If (bAddFunctionalityLater) Then .AddClickability()
+        End With ''eNd of "With MoveableControlVB1"
+
+        ''
+        ''Specify the current element to the Operations object. 
+        ''
+        Dim infoOps = CType(objOperations, ICurrentElement) ''.CtlCurrentElement = MoveableControlVB1
+        infoOps.CtlCurrentElement = MoveableControlVB1
+
+        Return MoveableControlVB1
+
+    End Function ''End of Public Shared Function BuildControl
+
+
+    Public LastControlTouched_Info As ILastControlTouched ''Added 12/28/2021 thomas d. 
     Public MyToolstripItemCollection As ToolStripItemCollection ''Added 12/28/2021 td 
     Private mod_boolResizeProportionally As Boolean
 
@@ -67,7 +142,8 @@ Public Class RSCMoveableControlVB
                    par_operationsType As Type,
                    par_operationsAny As Object,
                    pboolAddMoveability As Boolean,
-                   pboolAddClickability As Boolean) ''----As IOperations)
+                   pboolAddClickability As Boolean,
+                   par_iLastTouched As ILastControlTouched) ''----As IOperations)
 
         ''12/28/2021 td''par_toolstrip As ToolStripItemCollection)
 
@@ -580,6 +656,17 @@ Public Class RSCMoveableControlVB
 
     End Sub ''End of Private Sub mod_designer_ElementRightClicked(par_intX As Integer, par_intY As Integer)
 
+
+    Private Sub MoveableControlVB_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+    End Sub
+
+    Private Sub MoveableControlVB_Click(sender As Object, e As EventArgs) Handles Me.Click
+
+        ''Added 12/29/2021 td
+        Me.LastControlTouched_Info.LastControlTouched = Me
+
+    End Sub
 
 
 End Class

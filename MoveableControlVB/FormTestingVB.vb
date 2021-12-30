@@ -239,13 +239,14 @@ Public Class FormTestingVB
                                                     mod_iControlLastTouched)
         objOperations41.CtlCurrentElement = MoveableControlVB41
         With MoveableControlVB41
-            MoveableControlJane.Visible = False
-            .Left = MoveableControlJane.Left ''0
-            .Width = MoveableControlJane.Width
-            .Height = MoveableControlJane.Height
+            MoveableControlLiz.Visible = False
+            .Left = MoveableControlLiz.Left ''0
+            .Width = MoveableControlLiz.Width
+            .Height = MoveableControlLiz.Height
             ''Dec28 ''.Top = 10 + (MoveableControlVB3.Top + MoveableControlVB3.Height)
-            .Top = MoveableControlJane.Top
-            .BackgroundImage = My.Resources.JaneMulvey
+            .Top = MoveableControlLiz.Top
+            ''Dec29 2021 ''.BackgroundImage = My.Resources.JaneMulvey
+            .BackgroundImage = My.Resources.Liz_20_percent
             .BackgroundImageLayout = ImageLayout.Zoom
             Dim singleRatioWtoH As Single
             singleRatioWtoH = CType(.BackgroundImage.Width, Single) / .BackgroundImage.Height

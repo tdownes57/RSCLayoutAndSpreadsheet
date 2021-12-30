@@ -82,7 +82,7 @@
     <Compile Include="Interfaces\InterfaceSelectedControls.vb" />
     <Compile Include="Modules\DiskFilesVB.vb" />
     <Compile Include="Modules\DiskFolders.vb" />
-    <Compile Include="Modules\Module1Enumerationsvb.vb" />
+    <Compile Include="Modules\Module1Enumerations.vb" />
     <Compile Include="RSCMoveableControl\RSCMoveableControlVB.designer.vb">
       <DependentUpon>RSCMoveableControlVB.vb</DependentUpon>
     </Compile>

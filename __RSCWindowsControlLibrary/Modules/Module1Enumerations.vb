@@ -1,5 +1,7 @@
-﻿Module Module1Enumerationsvb
-
+﻿Public Module Module1Enumerations
+    ''
+    ''Added 12/28/2021 thomas downes
+    ''
     Public Enum EnumElementType
 
         Undetermined
