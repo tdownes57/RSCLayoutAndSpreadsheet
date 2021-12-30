@@ -23,18 +23,18 @@ Partial Class FormTestingVB
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.Button1 = New System.Windows.Forms.Button()
+        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
+        Me.RscMoveableControlVB3 = New __RSCWindowsControlLibrary.RSCMoveableControlVB()
+        Me.RscMoveableControlVB2 = New __RSCWindowsControlLibrary.RSCMoveableControlVB()
+        Me.RscMoveableControlVB1 = New __RSCWindowsControlLibrary.RSCMoveableControlVB()
         Me.MoveableControlObselete2 = New ciBadgeDesigner.MoveableControl()
         Me.MoveableControlObselete1 = New ciBadgeDesigner.MoveableControl()
-        Me.MoveableControlJane = New MoveableControlTestVB.MoveableControlVB()
         Me.MoveableControlVB4 = New MoveableControlTestVB.MoveableControlVB()
         Me.MoveableControlVB3 = New MoveableControlTestVB.MoveableControlVB()
         Me.MoveableControlVB2 = New MoveableControlTestVB.MoveableControlVB()
         Me.MoveableControlVB1 = New MoveableControlTestVB.MoveableControlVB()
+        Me.MoveableControlJane = New MoveableControlTestVB.MoveableControlVB()
         Me.MoveableControlVBBack = New MoveableControlTestVB.MoveableControlVB()
-        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
-        Me.RscMoveableControlVB1 = New __RSCWindowsControlLibrary.RSCMoveableControlVB()
-        Me.RscMoveableControlVB2 = New __RSCWindowsControlLibrary.RSCMoveableControlVB()
-        Me.RscMoveableControlVB3 = New __RSCWindowsControlLibrary.RSCMoveableControlVB()
         Me.SuspendLayout()
         '
         'Button1
@@ -45,6 +45,44 @@ Partial Class FormTestingVB
         Me.Button1.TabIndex = 2
         Me.Button1.Text = "Show Pop-Up Menu for last Control Touched"
         Me.Button1.UseVisualStyleBackColor = True
+        '
+        'LinkLabel1
+        '
+        Me.LinkLabel1.AutoSize = True
+        Me.LinkLabel1.Location = New System.Drawing.Point(582, 456)
+        Me.LinkLabel1.Name = "LinkLabel1"
+        Me.LinkLabel1.Size = New System.Drawing.Size(543, 17)
+        Me.LinkLabel1.TabIndex = 9
+        Me.LinkLabel1.TabStop = True
+        Me.LinkLabel1.Text = "The Background Image will be locked into place until unlocked by the rightclick m" &
+    "enu."
+        '
+        'RscMoveableControlVB3
+        '
+        Me.RscMoveableControlVB3.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.RscMoveableControlVB3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.RscMoveableControlVB3.Location = New System.Drawing.Point(324, 268)
+        Me.RscMoveableControlVB3.Name = "RscMoveableControlVB3"
+        Me.RscMoveableControlVB3.Size = New System.Drawing.Size(248, 122)
+        Me.RscMoveableControlVB3.TabIndex = 12
+        '
+        'RscMoveableControlVB2
+        '
+        Me.RscMoveableControlVB2.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.RscMoveableControlVB2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.RscMoveableControlVB2.Location = New System.Drawing.Point(324, 140)
+        Me.RscMoveableControlVB2.Name = "RscMoveableControlVB2"
+        Me.RscMoveableControlVB2.Size = New System.Drawing.Size(248, 122)
+        Me.RscMoveableControlVB2.TabIndex = 11
+        '
+        'RscMoveableControlVB1
+        '
+        Me.RscMoveableControlVB1.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.RscMoveableControlVB1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.RscMoveableControlVB1.Location = New System.Drawing.Point(324, 12)
+        Me.RscMoveableControlVB1.Name = "RscMoveableControlVB1"
+        Me.RscMoveableControlVB1.Size = New System.Drawing.Size(248, 122)
+        Me.RscMoveableControlVB1.TabIndex = 10
         '
         'MoveableControlObselete2
         '
@@ -61,17 +99,6 @@ Partial Class FormTestingVB
         Me.MoveableControlObselete1.Name = "MoveableControlObselete1"
         Me.MoveableControlObselete1.Size = New System.Drawing.Size(88, 109)
         Me.MoveableControlObselete1.TabIndex = 0
-        '
-        'MoveableControlJane
-        '
-        Me.MoveableControlJane.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.MoveableControlJane.BackgroundImage = Global.MoveableControlTestVB.My.Resources.Resources.IMG_20191210_WA0000_209x300__1_
-        Me.MoveableControlJane.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.MoveableControlJane.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.MoveableControlJane.Location = New System.Drawing.Point(760, 12)
-        Me.MoveableControlJane.Name = "MoveableControlJane"
-        Me.MoveableControlJane.Size = New System.Drawing.Size(206, 295)
-        Me.MoveableControlJane.TabIndex = 7
         '
         'MoveableControlVB4
         '
@@ -109,6 +136,17 @@ Partial Class FormTestingVB
         Me.MoveableControlVB1.Size = New System.Drawing.Size(206, 108)
         Me.MoveableControlVB1.TabIndex = 1
         '
+        'MoveableControlJane
+        '
+        Me.MoveableControlJane.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.MoveableControlJane.BackgroundImage = Global.MoveableControlTestVB.My.Resources.Resources.Liz_20_percent
+        Me.MoveableControlJane.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.MoveableControlJane.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.MoveableControlJane.Location = New System.Drawing.Point(760, 12)
+        Me.MoveableControlJane.Name = "MoveableControlJane"
+        Me.MoveableControlJane.Size = New System.Drawing.Size(198, 295)
+        Me.MoveableControlJane.TabIndex = 7
+        '
         'MoveableControlVBBack
         '
         Me.MoveableControlVBBack.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
@@ -119,44 +157,6 @@ Partial Class FormTestingVB
         Me.MoveableControlVBBack.Name = "MoveableControlVBBack"
         Me.MoveableControlVBBack.Size = New System.Drawing.Size(766, 437)
         Me.MoveableControlVBBack.TabIndex = 8
-        '
-        'LinkLabel1
-        '
-        Me.LinkLabel1.AutoSize = True
-        Me.LinkLabel1.Location = New System.Drawing.Point(582, 456)
-        Me.LinkLabel1.Name = "LinkLabel1"
-        Me.LinkLabel1.Size = New System.Drawing.Size(543, 17)
-        Me.LinkLabel1.TabIndex = 9
-        Me.LinkLabel1.TabStop = True
-        Me.LinkLabel1.Text = "The Background Image will be locked into place until unlocked by the rightclick m" &
-    "enu."
-        '
-        'RscMoveableControlVB1
-        '
-        Me.RscMoveableControlVB1.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.RscMoveableControlVB1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.RscMoveableControlVB1.Location = New System.Drawing.Point(324, 12)
-        Me.RscMoveableControlVB1.Name = "RscMoveableControlVB1"
-        Me.RscMoveableControlVB1.Size = New System.Drawing.Size(248, 122)
-        Me.RscMoveableControlVB1.TabIndex = 10
-        '
-        'RscMoveableControlVB2
-        '
-        Me.RscMoveableControlVB2.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.RscMoveableControlVB2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.RscMoveableControlVB2.Location = New System.Drawing.Point(324, 140)
-        Me.RscMoveableControlVB2.Name = "RscMoveableControlVB2"
-        Me.RscMoveableControlVB2.Size = New System.Drawing.Size(248, 122)
-        Me.RscMoveableControlVB2.TabIndex = 11
-        '
-        'RscMoveableControlVB3
-        '
-        Me.RscMoveableControlVB3.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.RscMoveableControlVB3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.RscMoveableControlVB3.Location = New System.Drawing.Point(324, 268)
-        Me.RscMoveableControlVB3.Name = "RscMoveableControlVB3"
-        Me.RscMoveableControlVB3.Size = New System.Drawing.Size(248, 122)
-        Me.RscMoveableControlVB3.TabIndex = 12
         '
         'FormTestingVB
         '

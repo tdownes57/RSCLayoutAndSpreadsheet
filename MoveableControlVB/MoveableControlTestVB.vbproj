@@ -182,6 +182,9 @@
     <None Include="Resources\IMG-20191210-WA0000-209x300 %281%29.jpg" />
     <None Include="Resources\JaneMulvey.jpg" />
     <None Include="Resources\layout_cyanDiag.png" />
+    <None Include="Resources\great photo of ER.BAK.PNG" />
+    <None Include="Resources\IMG_8118.JPG" />
+    <None Include="Resources\Liz 20 percent.jpg" />
     <Content Include="__Notes\How_Context_Menus_Are_Generated.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

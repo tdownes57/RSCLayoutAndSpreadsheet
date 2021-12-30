@@ -63,16 +63,28 @@ Public Class FormTestingVB
         ''MoveableControlVB1.MyToolstripItemCollection = MenuCache_NonShared_Field.Tools_EditElementMenu
         ''MoveableControlVB2.MyToolstripItemCollection = MenuCache_NonShared_Portrait.Tools_EditElementMenu
 
-        Step1_Unload_DesignTimeControls()
 
-        ''Load Runtime Controls (MoveableControlVB)   
+        ''************************************************************************
+        ''Created the following Subs
+        ''     Step1_Unload_DesignTimeControls()
+        ''     Step2a_Load_RuntimeControls_NonProportional()
+        ''     Step2b_Load_RuntimeControls_ResizeProportionally()
+        ''*************************************************************************
+
+        Step1a_Unload_DesignTimeControls_Moveable()
+        Step1b_Unload_DesignTimeControls_RSCMoveable()
+
+        ''
+        ''Load the Runtime Controls (MoveableControlVB)
+        ''
         Step2a_Load_RuntimeControls_NonProportional()
         Step2b_Load_RuntimeControls_ResizeProportionally()
 
 
     End Sub ''End of "Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load"
 
-    Private Sub Step1_Unload_DesignTimeControls()
+
+    Private Sub Step1a_Unload_DesignTimeControls_Moveable()
         ''
         ''Encapsulated 12/29/2021 thomas downes
         ''
@@ -98,6 +110,28 @@ Public Class FormTestingVB
 
     End Sub ''End of "Private Sub Unload_DesignTimeControls"
 
+
+    Private Sub Step1b_Unload_DesignTimeControls_RSCMoveable()
+        ''
+        ''Encapsulated 12/29/2021 thomas downes
+        ''
+        RscMoveableControlVB1.Visible = False
+        RscMoveableControlVB2.Visible = False
+
+        RscMoveableControlVB1.Dispose()
+        RscMoveableControlVB2.Dispose()
+
+        Me.Controls.Remove(RscMoveableControlVB1)
+        Me.Controls.Remove(RscMoveableControlVB2)
+
+        RscMoveableControlVB1 = Nothing
+        RscMoveableControlVB2 = Nothing
+
+
+    End Sub ''End of "Private Sub Step1b_Unload_DesignTimeControls_RSCMoveable"
+
+
+
     Private Sub Step2a_Load_RuntimeControls_NonProportional()
         ''
         ''Encapsulated 12/29/2021 thomas downes
@@ -110,24 +144,35 @@ Public Class FormTestingVB
 
         ''Control #1 of 3. 
         Dim objSaveToModel1 As New ClassSaveToModel
-        Dim objOperations1 As New Operations__Useless()
-        MoveableControlVB1 = New MoveableControlVB(EnumElementType.Undetermined, False,
-                                                   objSaveToModel1,
-                                                   CType(mod_designer, ILayoutFunctions),
-                                                   mod_designer, objOperations1.GetType(),
-                                                   objOperations1,
-                                                   mc_bAddMoveabilityWithinConstructor,
-                                                    mc_bAddClickabilityWithinConstructor,
-                                                    mod_iControlLastTouched)
+        Const c_bProportion_False As Boolean = False
 
-        objOperations1.CtlCurrentElement = MoveableControlVB1
+        MoveableControlVB1 = MoveableControlVB.GetControl(EnumElementType.Field,
+                                "MoveableControlVB1", c_bProportion_False,
+                                objSaveToModel1, mod_designer,
+                                mod_iControlLastTouched)
         MoveableControlVB1.Left = 0
         MoveableControlVB1.Top = 0
         MoveableControlVB1.Visible = True
-        If (mc_bAddMoveabilityAfterConstructor) Then MoveableControlVB1.AddMoveability()
-        If (mc_bAddClickabilityAfterConstructor) Then MoveableControlVB1.AddClickability()
         Me.Controls.Add(MoveableControlVB1)
-        MoveableControlVB1.Name = "MoveableControlVB1"
+
+        ''Dim objOperations1 As New Operations__Useless()
+        ''MoveableControlVB1 = New MoveableControlVB(EnumElementType.Undetermined, False,
+        ''                                           objSaveToModel1,
+        ''                                           CType(mod_designer, ILayoutFunctions),
+        ''                                           mod_designer, objOperations1.GetType(),
+        ''                                           objOperations1,
+        ''                                           mc_bAddMoveabilityWithinConstructor,
+        ''                                            mc_bAddClickabilityWithinConstructor,
+        ''                                            mod_iControlLastTouched)
+
+        ''objOperations1.CtlCurrentElement = MoveableControlVB1
+        ''Moved up.......MoveableControlVB1.Left = 0
+        ''Moved up.......MoveableControlVB1.Top = 0
+        ''Moved up.......MoveableControlVB1.Visible = True
+        ''Moved up.......Me.Controls.Add(MoveableControlVB1)
+        ''If (mc_bAddMoveabilityAfterConstructor) Then MoveableControlVB1.AddMoveability()
+        ''If (mc_bAddClickabilityAfterConstructor) Then MoveableControlVB1.AddClickability()
+        ''MoveableControlVB1.Name = "MoveableControlVB1"
 
         ''Control #2 of 3. 
         Dim objSaveToModel2 As New ClassSaveToModel

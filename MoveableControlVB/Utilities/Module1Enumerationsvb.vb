@@ -1,4 +1,4 @@
-﻿Module Module1Enumerationsvb
+﻿Public Module Module1Enumerationsvb
 
     Public Enum EnumElementType
 
