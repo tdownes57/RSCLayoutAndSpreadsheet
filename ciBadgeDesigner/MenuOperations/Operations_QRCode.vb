@@ -9,6 +9,7 @@ Imports ciBadgeDesigner
 ''----Imports ciBadgeElements
 
 Public Class Operations_QRCode
+    Inherits Operations__Graphic
     ''
     ''Added 12/12/2021 td
     ''

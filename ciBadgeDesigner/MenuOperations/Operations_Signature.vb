@@ -10,6 +10,7 @@ Imports ciBadgeDesigner
 Imports System.Windows.Forms ''Added 12/30/2021 td
 
 Public Class Operations_Signature
+    Inherits Operations__Graphic
     ''
     ''Added 12/12/2021 td
     ''

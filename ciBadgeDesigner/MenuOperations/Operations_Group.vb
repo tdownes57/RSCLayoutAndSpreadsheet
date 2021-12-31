@@ -146,11 +146,13 @@ Public Class Operations_Group
 
         If (Not modFonts.AskedAlignmentQuestion) Then
             ''Added 8/16/2019 td  
-            diag_answer = MessageBox.Show("When aligning elements, how do you want to determine the alignment line? " & vbCrLf_Deux &
-                                          "Yes = Line elements up with the element which was mouse-clicked. " & vbCrLf &
-                                          "No = Line elements up using an average-line which includes all selected items." & vbCrLf_Deux &
-                                          "(This is a one-time message.  It won't be asked again during this session.)",
-                                           "", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)
+            diag_answer =
+                MessageBox.Show("When aligning elements, how do you want to determine the alignment line? " &
+                vbCrLf_Deux &
+                "Yes = Line elements up with the element which was mouse-clicked. " & vbCrLf &
+                "No = Line elements up using an average-line which includes all selected items." & vbCrLf_Deux &
+                "(This is a one-time message.  It won't be asked again during this session.)",
+                "", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)
             ''Added 8/16/2019 td  
             modFonts.UseAverageLineForAlignment = (diag_answer = DialogResult.No)
             If (diag_answer = DialogResult.Cancel) Then Exit Sub

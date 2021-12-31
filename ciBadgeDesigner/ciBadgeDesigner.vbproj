@@ -20,7 +20,9 @@
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
     <DocumentationFile>ciBadgeDesigner.xml</DocumentationFile>
-    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <NoWarn>
+    </NoWarn>
+    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,7 +31,9 @@
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DocumentationFile>ciBadgeDesigner.xml</DocumentationFile>
-    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <NoWarn>
+    </NoWarn>
+    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup>
     <OptionExplicit>On</OptionExplicit>
@@ -38,7 +42,7 @@
     <OptionCompare>Binary</OptionCompare>
   </PropertyGroup>
   <PropertyGroup>
-    <OptionStrict>Off</OptionStrict>
+    <OptionStrict>On</OptionStrict>
   </PropertyGroup>
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
@@ -65,6 +69,7 @@
     <Import Include="System.Data" />
     <Import Include="System.Diagnostics" />
     <Import Include="System.Linq" />
+    <Import Include="System.Windows.Forms" />
     <Import Include="System.Xml.Linq" />
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
@@ -143,11 +148,59 @@
     <Compile Include="Controls\CtlPartial_HardText.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Controls\CtlPropertyLeftRight.designer.vb">
+      <DependentUpon>CtlPropertyLeftRight.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtlPropertyLeftRight.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtlPropertyUpDownvb.designer.vb">
+      <DependentUpon>CtlPropertyUpDownvb.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtlPropertyUpDownvb.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controls\MoveableControl_Obselete.Designer.vb">
       <DependentUpon>MoveableControl_Obselete.vb</DependentUpon>
     </Compile>
     <Compile Include="Controls\MoveableControl_Obselete.vb">
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dialogs\DialogDisplayColor.Designer.vb">
+      <DependentUpon>DialogDisplayColor.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\DialogDisplayColor.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\DialogExampleValueEtc.Designer.vb">
+      <DependentUpon>DialogExampleValueEtc.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\DialogExampleValueEtc.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\DialogPresetValues.Designer.vb">
+      <DependentUpon>DialogPresetValues.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\DialogPresetValues.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\DialogSubsection.Designer.vb">
+      <DependentUpon>DialogSubsection.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\DialogSubsection.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\DialogTextBorder.Designer.vb">
+      <DependentUpon>DialogTextBorder.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\DialogTextBorder.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\DialogTextOffset.Designer.vb">
+      <DependentUpon>DialogTextOffset.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\DialogTextOffset.vb">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Interfaces\InterfaceCurrentElement.vb" />
     <Compile Include="Interfaces\InterfaceRefreshPreview.vb" />
@@ -161,16 +214,20 @@
     <Compile Include="MenuOperations\MenuCache_Generic.vb" />
     <Compile Include="MenuOperations\Operations_Background.vb" />
     <Compile Include="MenuOperations\Operations_FieldElement.vb" />
-    <Compile Include="MenuOperations\Operations_Graphic.vb" />
+    <Compile Include="MenuOperations\Operations_StaticGraphic.vb" />
     <Compile Include="MenuOperations\Operations_Group.vb" />
     <Compile Include="MenuOperations\Operations_QRCode.vb" />
     <Compile Include="MenuOperations\Operations_Signature.vb" />
     <Compile Include="MenuOperations\Operations_StaticText.vb" />
+    <Compile Include="MenuOperations\Operations__Base.vb" />
+    <Compile Include="MenuOperations\Operations__Graphic.vb" />
+    <Compile Include="MenuOperations\Operations__Text.vb" />
     <Compile Include="modFactoryControls.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -214,8 +271,32 @@
     <EmbeddedResource Include="Controls\CtlMainEntryBox_v90.resx">
       <DependentUpon>CtlMainEntryBox_v90.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtlPropertyLeftRight.resx">
+      <DependentUpon>CtlPropertyLeftRight.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtlPropertyUpDownvb.resx">
+      <DependentUpon>CtlPropertyUpDownvb.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\MoveableControl_Obselete.resx">
       <DependentUpon>MoveableControl_Obselete.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\DialogDisplayColor.resx">
+      <DependentUpon>DialogDisplayColor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\DialogExampleValueEtc.resx">
+      <DependentUpon>DialogExampleValueEtc.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\DialogPresetValues.resx">
+      <DependentUpon>DialogPresetValues.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\DialogSubsection.resx">
+      <DependentUpon>DialogSubsection.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\DialogTextBorder.resx">
+      <DependentUpon>DialogTextBorder.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\DialogTextOffset.resx">
+      <DependentUpon>DialogTextOffset.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

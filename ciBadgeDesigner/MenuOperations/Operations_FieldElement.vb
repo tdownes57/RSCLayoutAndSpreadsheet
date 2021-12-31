@@ -11,6 +11,7 @@ Imports ciBadgeDesigner
 Imports System.Windows.Forms ''Added 12/30/2021 
 
 Public Class Operations_FieldElement
+    Inherits Operations__Text
     ''
     ''Added 10/1/2019 td
     ''

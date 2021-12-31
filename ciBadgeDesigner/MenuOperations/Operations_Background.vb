@@ -11,8 +11,10 @@ Imports System.Windows.Forms ''Added 12/30/2021 td
 ''---10/15 td----
 ''----Imports ciBadgeElements
 Imports ciLayoutPrintLib ''Added 10/15/2019 thomas d. 
+Imports System.Drawing ''Added 12/30/20021 td
 
 Public Class Operations_Background
+    Inherits Operations__Graphic
     ''
     ''Added 10/15/2019 td
     ''
