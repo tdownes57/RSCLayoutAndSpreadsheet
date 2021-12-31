@@ -75,10 +75,10 @@
     <Compile Include="ClassCacheLayout.vb" />
     <Compile Include="ClassCachePersonality.vb" />
     <Compile Include="ClassPersonalityConfig.vb" />
-    <Compile Include="DiskFolders.vb" />
+    <Compile Include="Utilities\DiskFolders.vb" />
     <Compile Include="Interfaces\InterfaceBadgeSideLayoutElements.vb" />
     <Compile Include="Interfaces\InterfaceDesignerForm.vb" />
-    <Compile Include="DiskFilesVB.vb" />
+    <Compile Include="Utilities\DiskFilesVB.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -150,8 +150,6 @@
       <Name>ciBadgeSerialize</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Utilities\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

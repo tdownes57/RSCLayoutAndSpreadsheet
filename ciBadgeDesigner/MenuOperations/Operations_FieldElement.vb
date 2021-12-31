@@ -294,14 +294,14 @@ Public Class Operations_FieldElement
 
         If (Me.SelectingElements.LabelsList_IsItemUnselected(Me.CtlCurrentElement)) Then
 
-            Me.CtlCurrentElement.ElementInfo_Text.Font_DrawingClass = Me.FontDialog1.Font
+            Me.CtlCurrentElement.ElementInfo_TextOnly.Font_DrawingClass = Me.FontDialog1.Font
 
             ''Added 10/17/2019 td 
             If (Me.FontDialog1.Font.Unit = GraphicsUnit.Pixel) Then
                 ''Added 10/17/2019 td 
                 MsgBox("Program error, unexpected Font Unit", MsgBoxStyle.Exclamation, "OpenDialog_Font")
             Else
-                Me.CtlCurrentElement.ElementInfo_Text.FontSize_Pixels = Me.FontDialog1.Font.Size  ''Added 8/17/2019 td
+                Me.CtlCurrentElement.ElementInfo_TextOnly.FontSize_Pixels = Me.FontDialog1.Font.Size  ''Added 8/17/2019 td
             End If ''End of "If (Me.FontDialog1.Font.Unit = GraphicsUnit.Pixel) Then ... Else ..."
 
             Application.DoEvents()
@@ -330,9 +330,9 @@ Public Class Operations_FieldElement
                     ''Added 10/17/2019 td  
                     If (FontDialog1.Font.Unit <> GraphicsUnit.Pixel) Then Throw New Exception("Unexpected Font Unit")
 
-                    .ElementInfo_Text.Font_DrawingClass = FontDialog1.Font
+                    .ElementInfo_TextOnly.Font_DrawingClass = FontDialog1.Font
                     ''Added 10/17/2019 td  
-                    .ElementInfo_Text.FontSize_Pixels = FontDialog1.Font.Size
+                    .ElementInfo_TextOnly.FontSize_Pixels = FontDialog1.Font.Size
 
                     Application.DoEvents()
                     Application.DoEvents()
@@ -363,7 +363,7 @@ Public Class Operations_FieldElement
         With Me.CtlCurrentElement.Textbox_ExampleValue
 
             .Visible = True
-            .Text = Me.CtlCurrentElement.ElementInfo_Text.Text_Static ''Added 8/16/2019 td
+            .Text = Me.CtlCurrentElement.ElementInfo_TextOnly.Text_Static ''Added 8/16/2019 td
             .SelectAll() ''Added 8/16/2019 td
 
             ''Added 9/10/2019 td 
@@ -413,7 +413,7 @@ Public Class Operations_FieldElement
                 If (frm_ToShow.UserConfirmed) Then
 
                     ''10/17/2019 td''frm_ToShow.UpdateInfo_ViaInterfaces(Me.ElementInfo_Base, Me.ElementInfo_Text)
-                    frm_ToShow.UpdateInfo_ViaInterfaces(.ElementInfo_Base, .ElementInfo_Text)
+                    frm_ToShow.UpdateInfo_ViaInterfaces(.ElementInfo_Base, .ElementInfo_TextOnly)
                     .Refresh_Image(True)
 
                 End If ''End of "If (frm_ToShow.UserConfirmed) Then"
@@ -445,7 +445,7 @@ Public Class Operations_FieldElement
                             ''9/18/2019 td''.ElementInfo_Text.TextAlignment = frm_ToShow.TextAlignment
                             ''9/18/2019 td''.ElementInfo_Text.ExampleValue = frm_ToShow.TextExampleValue.Text
 
-                            frm_ToShow.UpdateInfo_ViaInterfaces(.ElementInfo_Base, .ElementInfo_Text)
+                            frm_ToShow.UpdateInfo_ViaInterfaces(.ElementInfo_Base, .ElementInfo_TextOnly)
 
                             .Refresh_Image(True)
                             .Refresh()

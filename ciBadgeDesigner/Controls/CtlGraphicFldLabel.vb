@@ -46,9 +46,10 @@ Public Class CtlGraphicFldLabel
     '' #2 8/29/2019 td''Public ElementInfo_Text As ClassElementText
 
     Public ElementClass_Obj As ClassElementField ''Added 9/4/2019 thomas downes
-    Public ElementInfo_Text As ciBadgeInterfaces.IElement_TextOnly ''Modifield 10/12/2019
+    Public ElementInfo_TextOnly As ciBadgeInterfaces.IElement_TextOnly ''Modifield 10/12/2019
     Public ElementInfo_Base As ciBadgeInterfaces.IElement_Base
-    Public ElementInfo_Field As ciBadgeInterfaces.IElement_TextField ''Added 10/12/2019 td
+    ''12/31/2021 td''Public ElementInfo_Field As ciBadgeInterfaces.IElement_TextField ''Added 10/12/2019 td
+    Public ElementInfo_TextField As ciBadgeInterfaces.IElement_TextField ''Added 12/31/2021 td
 
     Public GroupEdits As ISelectingElements ''Added 7/31/2019 thomas downes  
     Public SelectedHighlighting_Denigrated As Boolean ''Added 8/2/2019 td
@@ -126,7 +127,7 @@ Public Class CtlGraphicFldLabel
         Me.ElementClass_Obj = par_elementField
         Me.ElementInfo_Base = CType(par_elementField, IElement_Base)
         ''10/12/2019 td''Me.ElementInfo_Text = CType(par_elementField, IElement_TextField)
-        Me.ElementInfo_Text = CType(par_elementField, IElement_TextOnly) ''Modified 10/12/2019 td
+        Me.ElementInfo_TextOnly = CType(par_elementField, IElement_TextOnly) ''Modified 10/12/2019 td
         Me.ElementInfo_Field = CType(par_elementField, IElement_TextField) ''Added 10/12/2019 td
 
         Me.LayoutFunctions = par_layout
@@ -372,7 +373,7 @@ ExitHandler:
 
         Dim boolScaleFontSize As Boolean ''Added 9/15/2019 thomas d. 
 
-        ElementInfo_Text.Text_Static = LabelText()
+        ElementInfo_TextOnly.Text_Static = LabelText()
 
         ''Me.ElementInfo.Width = pictureLabel.Width
         ''Me.ElementInfo.Height = pictureLabel.Height
@@ -380,20 +381,20 @@ ExitHandler:
         ''7/30/2019 td''Me.ElementInfo.Font_DrawingClass = Me.ParentForm.Font ''Me.Font
         ''7/30/2019 td''Me.ElementInfo.Font_DrawingClass = New Font("Times New Roman", 25, FontStyle.Italic)
 
-        boolScaleFontSize = (Me.ElementInfo_Text.FontSize_ScaleToElementYesNo)
+        boolScaleFontSize = (Me.ElementInfo_TextOnly.FontSize_ScaleToElementYesNo)
         If (boolScaleFontSize And Me.ElementClass_Obj Is Nothing) Then
             ''Added 9/19/2019 td 
             MessageBox.Show("Where is the Element-Field Class???   We will need it to scale the Font.", "",
                             MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         End If ''End of "If (boolScaleFontSize) Then"
 
-        If (Me.ElementInfo_Text.Font_DrawingClass Is Nothing) Then
+        If (Me.ElementInfo_TextOnly.Font_DrawingClass Is Nothing) Then
             ''
             ''Initialize the font. 
             ''
             ''9/6/2019 tdMe.ElementInfo_Text.Font_DrawingClass = New Font("Times New Roman", 15, FontStyle.Regular)
 
-            With Me.ElementInfo_Text
+            With Me.ElementInfo_TextOnly
                 ''9/6/2019 td''.FontSize = 15
                 .FontSize_Pixels = 25 ''9/6/2019 ''15
                 .FontBold = False
@@ -420,7 +421,7 @@ ExitHandler:
             pictureLabel.Height = Me.ElementInfo_Base.Height_Pixels
 
             ''Added 9/15/2019 thomas d.
-            boolScaleFontSize = (Me.ElementInfo_Text.FontSize_ScaleToElementYesNo)
+            boolScaleFontSize = (Me.ElementInfo_TextOnly.FontSize_ScaleToElementYesNo)
             If (boolScaleFontSize) Then
                 ''Added 9/15/2019 thomas d.
                 Me.ElementClass_Obj.Font_ScaleAdjustment(Me.ElementInfo_Base.Height_Pixels)
@@ -490,13 +491,13 @@ ExitHandler:
             newTextImage =
             modGenerate.TextImage_ByElemInfo(strTextToDisplay,
                                              intBadgeLayoutWidth,
-                                   Me.ElementInfo_Text,
+                                   Me.ElementInfo_TextOnly,
                                    Me.ElementInfo_Base,
                                    boolRotated, True)
         Else
             ''9/20/2019 td''pictureLabel.Image =
             newTextImage =
-            LabelToImage.TextImage_Field(intBadgeLayoutWidth, Me.ElementInfo_Text,
+            LabelToImage.TextImage_Field(intBadgeLayoutWidth, Me.ElementInfo_TextOnly,
                                    Me.ElementInfo_Base,
                                    boolRotated, True)
         End If ''End of "If (c_boolUseNewestProjectReference) Then ..... Else ...."
@@ -555,7 +556,7 @@ ExitHandler:
         End If ''End of "If (par_boolResizeLabelControl) Then ..... Else ...."
 
         ''Added 7/31/2019 td
-        If (mod_c_boolMustSetBackColor And (ElementInfo_Text IsNot Nothing)) Then
+        If (mod_c_boolMustSetBackColor And (ElementInfo_TextOnly IsNot Nothing)) Then
             ''
             ''A desperate attempt to get the background color to extend to the full, resized control.
             ''
@@ -1018,7 +1019,7 @@ ExitHandler:
         If (e.KeyCode = Keys.Enter) Then
 
             Me.FieldInfo.ExampleValue = textTypeExample.Text
-            Me.ElementInfo_Text.Text_Static = textTypeExample.Text
+            Me.ElementInfo_TextOnly.Text_Static = textTypeExample.Text
             Me.textTypeExample.Visible = False
 
             ''Added 9/20/2019 td  

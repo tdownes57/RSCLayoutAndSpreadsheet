@@ -202,7 +202,8 @@ Public Class CtlPropertyUpDownvb
 
                 Case (.StartsWith("Font"))
 
-                    mod_iPropertyValue = par_Text.FontSize_Pixels ''= par_value
+                    ''Dec31 2021''mod_iPropertyValue = par_Text.FontSize_Pixels ''= par_value
+                    mod_iPropertyValue = CInt(par_Text.FontSize_Pixels) ''= par_value
 
                 Case (.StartsWith("Total") Or .StartsWith("Label"))
 

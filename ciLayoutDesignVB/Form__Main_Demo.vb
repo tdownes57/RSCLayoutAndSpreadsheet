@@ -1437,7 +1437,7 @@ Public Class Form__Main_Demo
                 each_controlField.Parent = Nothing
                 each_controlField.FieldInfo = Nothing
                 each_controlField.ElementInfo_Base = Nothing
-                each_controlField.ElementInfo_Text = Nothing
+                each_controlField.ElementInfo_TextOnly = Nothing
 
                 ''Add it to the list.   (Important!) 
                 list_controlFields.Add(each_controlField)
@@ -1852,7 +1852,7 @@ Public Class Form__Main_Demo
                 each_ctl.ElementClass_Obj = each_element
                 each_ctl.ElementInfo_Base = each_element
                 each_ctl.ElementInfo_Field = each_element
-                each_ctl.ElementInfo_Text = each_element
+                each_ctl.ElementInfo_TextOnly = each_element
 
             Next each_ctl
 

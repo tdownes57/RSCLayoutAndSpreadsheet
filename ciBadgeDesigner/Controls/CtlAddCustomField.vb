@@ -7,7 +7,8 @@ Public Class CtlAddCustomField
 
     Private Sub ButtonAddField_Click(sender As Object, e As EventArgs) Handles buttonAddField.Click
 
-        If (mod_MyParentContainer Is Nothing) Then mod_MyParentContainer = Me.Parent
+        ''Dec31 2021'If (mod_MyParentContainer Is Nothing) Then mod_MyParentContainer = Me.Parent
+        If (mod_MyParentContainer Is Nothing) Then mod_MyParentContainer = CType(Me.Parent, FlowLayoutPanel)
 
         Me.Parent.Controls.Remove(Me)
 

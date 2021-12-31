@@ -17,7 +17,7 @@ Public Class FormTestingVB
 
     ''Added 12/28/2021 thomas
     Private mod_designer As New ClassDesigner()
-    Private MoveableControlVB41 As MoveableControlVB
+    Private moveableControlLizRiley As MoveableControlVB
     Private mod_desktop_RSCClickable As RSCMoveableControlVB ''Added 12/30/2021 td
 
     Private mod_iControlLastTouched As ILastControlTouched ''Added 12/28/2021 td
@@ -321,7 +321,7 @@ Public Class FormTestingVB
         ''
         Dim objSaveToModel41 As New ClassSaveToModel
         Dim objOperations41 As New Operations__Useless()
-        MoveableControlVB41 = New MoveableControlVB(EnumElementType.Undetermined, c_bResizeProportionally,
+        moveableControlLizRiley = New MoveableControlVB(EnumElementType.Undetermined, c_bResizeProportionally,
                                                    objSaveToModel41,
                                                    CType(mod_designer, ILayoutFunctions),
                                                    mod_designer, objOperations41.GetType(),
@@ -329,9 +329,10 @@ Public Class FormTestingVB
                                                     mc_bAddMoveabilityWithinConstructor,
                                                     mc_bAddClickabilityWithinConstructor,
                                                     mod_iControlLastTouched)
-        objOperations41.CtlCurrentElement = MoveableControlVB41
-        With MoveableControlVB41
-            MoveableControlLiz.Visible = False
+        objOperations41.CtlCurrentElement = moveableControlLizRiley
+        With moveableControlLizRiley
+            .LastControlTouched_Obj = mod_objControlLastTouched ''Added 12/31/2021 td
+            MoveableControlLiz.Visible = False ''Hide the design-time control. 
             .Left = MoveableControlLiz.Left ''0
             .Width = MoveableControlLiz.Width
             .Height = MoveableControlLiz.Height
@@ -343,12 +344,12 @@ Public Class FormTestingVB
             Dim singleRatioWtoH As Single
             singleRatioWtoH = CType(.BackgroundImage.Width, Single) / .BackgroundImage.Height
             .Width = (.Height * singleRatioWtoH)
-            .Visible = True
+            .Visible = True ''Show the run-time control. 
             If (mc_bAddMoveabilityAfterConstructor) Then .AddMoveability()
             If (mc_bAddClickabilityAfterConstructor) Then .AddClickability()
-            .Name = "MoveableControlVB41"
+            .Name = "moveableControlLizRiley"
         End With
-        Me.Controls.Add(MoveableControlVB41)
+        Me.Controls.Add(moveableControlLizRiley)
 
 
 

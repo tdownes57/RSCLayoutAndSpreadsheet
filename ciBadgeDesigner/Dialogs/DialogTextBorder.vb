@@ -37,7 +37,9 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
     End Property
 
     ''8/29/2019 td''Public ElementInfo As ciBadgeInterfaces.IElementText ''Added 8/16/2019 td
-    Public ElementCopy_Info_Text As ciBadgeInterfaces.IElement_TextField ''Added 8/16/2019 td
+    ''12/31/2021 td''Public ElementCopy_Info_Text As ciBadgeInterfaces.IElement_TextField ''Added 8/16/2019 td
+    Public ElementCopy_Info_TextField As ciBadgeInterfaces.IElement_TextField ''Added 8/16/2019 td
+    Public ElementCopy_Info_TextOnly As ciBadgeInterfaces.IElement_TextOnly ''Added 12/31/2021 td
     Public ElementCopy_Info_Base As ciBadgeInterfaces.IElement_Base ''Added 8/16/2019 td
 
     Public ElementObject_ForLayout_NotUsed As ClassElementField ''Added 9/18/2019 td
@@ -71,7 +73,7 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
 
         ''Added 9/18/2019 td 
         Me.ElementCopy_Info_Base = CType(Me.ElementObject_Copy, IElement_Base)
-        Me.ElementCopy_Info_Text = CType(Me.ElementObject_Copy, IElement_TextField)
+        Me.ElementCopy_Info_TextField = CType(Me.ElementObject_Copy, IElement_TextField)
 
     End Sub ''ENd of "Public Sub New(par_element_fromLayout As ClassElementField, par_element_copy As ClassElementField)"
 
@@ -124,7 +126,9 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
 
             ''Added 9/18/2019 td 
             .ElementInfo_Base = Me.ElementCopy_Info_Base
-            .ElementInfo_Text = Me.ElementCopy_Info_Text
+            ''12/31/2021 td''.ElementInfo_Text = Me.ElementCopy_Info_Text
+            .ElementInfo_TextOnly = Me.ElementCopy_Info_TextOnly
+            .ElementInfo_TextField = Me.ElementCopy_Info_TextField ''Added 12/31/2021 thomas downes
 
             ''Denigrated. 9/19/2019 td''.FormDesigner = par_formDesigner
             .LayoutFunctions = par_layoutFun ''Added 9/19/2019 td 
@@ -137,7 +141,9 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
 
         ''Added 9/13/2019 thomas downes
         Me.CtlBorderWidth.ElementInfo_Base = Me.ElementCopy_Info_Base
-        Me.CtlBorderWidth.ElementInfo_Text = Me.ElementCopy_Info_Text
+        ''12/31/2021 ''Me.CtlBorderWidth.ElementInfo_Text = Me.ElementCopy_Info_Text
+        Me.CtlBorderWidth.ElementInfo_TextOnly = Me.ElementCopy_Info_TextOnly ''added 12/31/2021
+        Me.CtlBorderWidth.ElementInfo_TextField = Me.ElementCopy_Info_TextField ''added 12/31/2021
 
         ''Position it at the center horizontally. 
         CenterTheFieldControl()

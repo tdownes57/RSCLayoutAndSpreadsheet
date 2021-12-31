@@ -77,6 +77,7 @@ Public Class RSCMoveableControlVB
             .Name = par_nameOfControl
             If (bAddFunctionalityLater) Then .AddMoveability()
             If (bAddFunctionalityLater) Then .AddClickability()
+            ''In the constructor. Dec31 2021 ''.LastControlTouched_Info = par_iControlLastTouched ''Added 12/31/2021 td
         End With ''eNd of "With MoveableControlVB1"
 
         ''

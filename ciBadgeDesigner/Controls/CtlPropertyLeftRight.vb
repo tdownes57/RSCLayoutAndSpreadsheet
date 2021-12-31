@@ -14,7 +14,9 @@ Public Class CtlPropertyLeftRight
 
     Public ElementInfo_Base As IElement_Base
     ''10/12/2019 td''Public ElementInfo_Text As IElement_TextField
-    Public ElementInfo_Text As IElement_TextOnly
+    ''12/31/2021 td''Public ElementInfo_Text As IElement_TextOnly
+    Public ElementInfo_TextOnly As IElement_TextOnly
+    Public ElementInfo_TextField As IElement_TextField
 
     Public Event EventUpdateRequest()
 
@@ -56,7 +58,7 @@ Public Class CtlPropertyLeftRight
     Private Sub ButtonDecrease_Click(sender As Object, e As EventArgs) Handles ButtonDecrease.Click
 
         ''9/18/2019 td''mod_iPropertyValue -= 1
-        mod_iPropertyValue -= Numeric1.Value
+        mod_iPropertyValue -= CInt(Numeric1.Value) ''Numeric1.Value 
 
         ''9/18/2019 td''If (mod_iPropertyValue < 0) Then mod_iPropertyValue = 0
         If (mod_iPropertyValue < Me.MinimumValue) Then mod_iPropertyValue = Me.MinimumValue
@@ -74,7 +76,7 @@ Public Class CtlPropertyLeftRight
     Private Sub ButtonIncrease_Click(sender As Object, e As EventArgs) Handles ButtonIncrease.Click
 
         ''9/18/2019 td''mod_iPropertyValue += 1
-        mod_iPropertyValue += Numeric1.Value
+        mod_iPropertyValue += CInt(Numeric1.Value) ''12/2021 Numeric1.Value
 
         ''9/18/2019 td''If (mod_iPropertyValue < 0) Then mod_iPropertyValue = 0
         If (mod_iPropertyValue < Me.MinimumValue) Then mod_iPropertyValue = Me.MinimumValue
@@ -157,7 +159,8 @@ Public Class CtlPropertyLeftRight
 
                 Case (.StartsWith("Font"))
 
-                    mod_iPropertyValue = par_Text.FontSize_Pixels ''= par_value
+                    ''Dec31 2021''mod_iPropertyValue = par_Text.FontSize_Pixels ''= par_value
+                    mod_iPropertyValue = CInt(par_Text.FontSize_Pixels) ''= par_value
 
                 Case (.StartsWith("Total") Or .StartsWith("Label"))
 

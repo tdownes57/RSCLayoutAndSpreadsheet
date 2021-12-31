@@ -124,7 +124,7 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
 
             ''Added 9/18/2019 td 
             .ElementInfo_Base = Me.ElementCopy_Info_Base
-            .ElementInfo_Text = Me.ElementCopy_Info_Text
+            .ElementInfo_TextOnly = Me.ElementCopy_Info_Text
 
             ''Denigrated. 9/19/2019 td''.FormDesigner = par_formDesigner
             .LayoutFunctions = par_layoutFun ''Added 9/19/2019 td 

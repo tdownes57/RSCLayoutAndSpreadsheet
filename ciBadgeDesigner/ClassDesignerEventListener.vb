@@ -604,7 +604,7 @@ Public Class ClassDesignerEventListener
                 End If ''End of "If (.Rotated_180_360) Then"
 
                 ''Added 9/12/2019 td  
-                With .ElementInfo_Text
+                With .ElementInfo_TextOnly
                     If .FontSize_ScaleToElementYesNo Then
                         ''Change the Font Size, to account for the new Height of the Element !!
                         ''  ---9/12/2019 td 
