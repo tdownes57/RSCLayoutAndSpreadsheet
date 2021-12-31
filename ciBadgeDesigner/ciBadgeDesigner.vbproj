@@ -82,6 +82,30 @@
     <Compile Include="Classes_Minor\ClassLabelToImage_NotInUse.vb" />
     <Compile Include="Classes_Minor\ClassRubberbandSelector.vb" />
     <Compile Include="Classes_Minor\ClassSaveToModel.vb" />
+    <Compile Include="Controls\CtlAddCustomField.designer.vb">
+      <DependentUpon>CtlAddCustomField.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtlAddCustomField.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtlAddStandardField.designer.vb">
+      <DependentUpon>CtlAddStandardField.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtlAddStandardField.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtlConfigFldCustom.designer.vb">
+      <DependentUpon>CtlConfigFldCustom.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtlConfigFldCustom.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtlConfigFldStandard.designer.vb">
+      <DependentUpon>CtlConfigFldStandard.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtlConfigFldStandard.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controls\CtlGraphicFldLabel.designer.vb">
       <DependentUpon>CtlGraphicFldLabel.vb</DependentUpon>
     </Compile>
@@ -202,6 +226,18 @@
     <Compile Include="Dialogs\DialogTextOffset.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Dialogs\ListCustomFieldsFlow.Designer.vb">
+      <DependentUpon>ListCustomFieldsFlow.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ListCustomFieldsFlow.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ListStandardFields.Designer.vb">
+      <DependentUpon>ListStandardFields.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ListStandardFields.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Interfaces\InterfaceCurrentElement.vb" />
     <Compile Include="Interfaces\InterfaceRefreshPreview.vb" />
     <Compile Include="Interfaces\InterfaceSelectingElements.vb" />
@@ -241,6 +277,18 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Controls\CtlAddCustomField.resx">
+      <DependentUpon>CtlAddCustomField.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtlAddStandardField.resx">
+      <DependentUpon>CtlAddStandardField.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtlConfigFldCustom.resx">
+      <DependentUpon>CtlConfigFldCustom.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtlConfigFldStandard.resx">
+      <DependentUpon>CtlConfigFldStandard.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlGraphicFldLabel.resx">
       <DependentUpon>CtlGraphicFldLabel.vb</DependentUpon>
     </EmbeddedResource>
@@ -297,6 +345,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\DialogTextOffset.resx">
       <DependentUpon>DialogTextOffset.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\ListCustomFieldsFlow.resx">
+      <DependentUpon>ListCustomFieldsFlow.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\ListStandardFields.resx">
+      <DependentUpon>ListStandardFields.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

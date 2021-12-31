@@ -11,6 +11,8 @@ Imports ciBadgeInterfaces
 ''----Imports ciBadgeElements
 ''Imports ciLayoutPrintLib ''Added 10/15/2019 thomas d. 
 Imports System.Windows.Forms ''Added 12/30/2021 
+Imports System.Drawing ''Added 12/31/2021 td 
+
 
 Public Class Operations_StaticGraphic
     Inherits Operations__Graphic

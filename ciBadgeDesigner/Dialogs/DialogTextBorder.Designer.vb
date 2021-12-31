@@ -29,7 +29,7 @@ Partial Class DialogTextBorder
         Me.ButtonOK = New System.Windows.Forms.Button()
         Me.chkBorderDisplayed = New System.Windows.Forms.CheckBox()
         Me.CtlGraphicFldLabel1 = New CtlGraphicFldLabel("DialogTextBorder")
-        Me.CtlBorderWidth = New ciLayoutDesignVB.CtlPropertyLeftRight()
+        Me.CtlBorderWidth = New CtlPropertyLeftRight()
         Me.SuspendLayout()
         '
         'LabelHeader1

@@ -55,12 +55,13 @@ Public Class CtlGraphicQRCode
         Dim objOperations As Object ''Added 12/29/2021 td 
         Dim objOperations1Gen As Operations__Generic = Nothing
         Dim objOperations2Use As Operations__Useless = Nothing
+        Dim objOperationsQR As Operations_QRCode ''Added 12/31/2021 td 
 
         ''Instantiate the Operations Object. 
-        If (enumElemType = EnumElementType.QRCode) Then objOperations1Gen = New Operations_QRCode()
-        If (enumElemType = EnumElementType.Signature) Then objOperations2Use = New Operations__Useless()
-        If (enumElemType = EnumElementType.StaticGraphic) Then objOperations1Gen = New Operations__Generic()
-        If (enumElemType = EnumElementType.StaticText) Then objOperations2Use = New Operations__Useless()
+        ''//If (enumElemType = EnumElementType.Signature) Then objOperations2Use = New Operations__Useless()
+        ''//If (enumElemType = EnumElementType.StaticGraphic) Then objOperations1Gen = New Operations__Generic()
+        ''//If (enumElemType = EnumElementType.StaticText) Then objOperations2Use = New Operations__Useless()
+        If (enumElemType = EnumElementType.QRCode) Then objOperationsQR = New Operations_QRCode()
 
         ''Assign to typeOps. 
         If (par_enum = EnumElementType.Field) Then typeOps = objOperations1Gen.GetType()
