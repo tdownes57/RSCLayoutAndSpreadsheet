@@ -26,6 +26,21 @@ Public Class ListStandardFields
 
     Public Property ClosingOK_SoSaveWork As Boolean Implements InterfaceShowListFields.ClosingOK_SoSaveWork ''Added 12/6/2021 thomas downes
 
+    ''Jan2 2022 td''Private mod_listFields As List(Of ClassFieldStandard) ''Added 1/2/2022 td
+
+    ''Public Sub New(par_listFields As List(Of ClassFieldStandard))
+    ''    ''
+    ''    ''Added 1/2/2022 thomas downes
+    ''    ''
+    ''    ' This call is required by the designer.
+    ''    InitializeComponent()
+
+    ''    ' Add any initialization after the InitializeComponent() call.
+    ''    ''Jan2 2022 td''mod_listFields = par_listFields
+
+    ''End Sub
+
+
     Public Overloads Function ShowDialog() As DialogResult Implements InterfaceShowListFields.ShowDialog
         ''
         ''Added 12/6/2021 td
@@ -168,7 +183,11 @@ Public Class ListStandardFields
 
                 ''8/22/2019 td''If (.NewlyAdded) Then FormMain.GetCurrentPersonality_Fields_Custom().Add(.Model)
                 If (.NewlyAdded) Then
-                    Form__Main_PreDemo.GetCurrentPersonality_Fields_Standard().Add(.Field_Standard)
+
+                    ''#1 1/2/2022 td''Form__Main_PreDemo.GetCurrentPersonality_Fields_Standard().Add(.Field_Standard)
+                    ''#2 1/2/2022 td''mod_ListOfFields.Add(.Field_Standard)
+                    Me.ListOfFields_Standard.Add(.Field_Standard)
+
                 End If ''End of "If (.NewlyAdded) Then"
 
             End With ''End of "With each_ctl_configure_field"

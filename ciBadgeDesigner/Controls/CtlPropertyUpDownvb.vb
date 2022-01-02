@@ -132,8 +132,11 @@ Public Class CtlPropertyUpDownvb
         Dim boolVeryLongName As Boolean ''Added 9/19/2019 td
         boolVeryLongName = (mod_sPropertyName.Length >= "Total Height of Label".Length)
         If (boolVeryLongName) Then ''Added 9/19/2019 td
-            ''Make the label font smaller. 
+            ''
+            ''Make the label font smaller, by adding -1 em-size. 
+            ''
             LabelProperty.Font = modFonts.SetFontSize(LabelProperty.Font, -1 + LabelProperty.Font.Size)
+
         End If ''End of "If (boolVeryLongName) Then"
 
         Me.Refresh()

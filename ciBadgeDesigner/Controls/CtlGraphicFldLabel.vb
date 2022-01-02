@@ -128,7 +128,8 @@ Public Class CtlGraphicFldLabel
         Me.ElementInfo_Base = CType(par_elementField, IElement_Base)
         ''10/12/2019 td''Me.ElementInfo_Text = CType(par_elementField, IElement_TextField)
         Me.ElementInfo_TextOnly = CType(par_elementField, IElement_TextOnly) ''Modified 10/12/2019 td
-        Me.ElementInfo_Field = CType(par_elementField, IElement_TextField) ''Added 10/12/2019 td
+        ''1/2/2022 td''Me.ElementInfo_Field = CType(par_elementField, IElement_TextField) ''Added 10/12/2019 td
+        Me.ElementInfo_TextField = CType(par_elementField, IElement_TextField) ''Added 10/12/2019 td
 
         Me.LayoutFunctions = par_layout
         Me.LayoutFunctions = par_layout
@@ -1023,7 +1024,8 @@ ExitHandler:
             Me.textTypeExample.Visible = False
 
             ''Added 9/20/2019 td  
-            Me.ElementInfo_Field.ExampleValue_ForElement = textTypeExample.Text
+            ''Jan2 2022 td''Me.ElementInfo_Field.ExampleValue_ForElement = textTypeExample.Text
+            Me.ElementInfo_TextField.ExampleValue_ForElement = textTypeExample.Text
             Me.ElementClass_Obj.ExampleValue_ForElement = textTypeExample.Text ''Redundant command. 
 
             ''Added 9/10/2019 td

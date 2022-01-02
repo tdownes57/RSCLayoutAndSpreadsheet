@@ -151,7 +151,8 @@ Public Class DialogTextOffset
             .ElementClass_Obj = Me.ElementObject_CopyForEditing ''Added 9/19/2019 td 
             .ElementInfo_Base = Me.ElementCopy_Info_Base
             .ElementInfo_TextOnly = Me.ElementCopy_Info_Text
-            .ElementInfo_Field = Me.ElementCopy_Info_Field ''Added 10/12/2019 td
+            ''1/2/2022 td''.ElementInfo_Field = Me.ElementCopy_Info_Field ''Added 10/12/2019 td
+            .ElementInfo_TextField = Me.ElementCopy_Info_Field ''Added 10/12/2019 td
 
             ''9/19/2019 td''.FormDesigner = par_formDesigner
             ''9/19/2019 td''.LayoutFunctions = CType(par_formDesigner, ILayoutFunctions) ''Added 9/19/2019 td 
@@ -179,7 +180,8 @@ Public Class DialogTextOffset
         Me.CtlElementHeight.InitiateLocalValue() ''Added 9/19/2019 td
 
         Me.CtlElementWidth.ElementInfo_Base = Me.ElementCopy_Info_Base
-        Me.CtlElementWidth.ElementInfo_Text = Me.ElementCopy_Info_Text
+        ''1/2/2022 td''Me.CtlElementWidth.ElementInfo_Text = Me.ElementCopy_Info_Text
+        Me.CtlElementWidth.ElementInfo_TextOnly = Me.ElementCopy_Info_Text
         Me.CtlElementWidth.InitiateLocalValue() ''Added 9/19/2019 td
 
         Me.CtlFontSize.ElementInfo_Base = Me.ElementCopy_Info_Base
@@ -187,7 +189,8 @@ Public Class DialogTextOffset
         Me.CtlFontSize.InitiateLocalValue() ''Added 9/19/2019 td
 
         Me.CtlTextOffsetX.ElementInfo_Base = Me.ElementCopy_Info_Base
-        Me.CtlTextOffsetX.ElementInfo_Text = Me.ElementCopy_Info_Text
+        ''Jan2 2022 td''Me.CtlTextOffsetX.ElementInfo_Text = Me.ElementCopy_Info_Text
+        Me.CtlTextOffsetX.ElementInfo_TextOnly = Me.ElementCopy_Info_Text
         Me.CtlTextOffsetX.InitiateLocalValue() ''Added 9/19/2019 td
 
         Me.ctlTextOffsetY.ElementInfo_Base = Me.ElementCopy_Info_Base

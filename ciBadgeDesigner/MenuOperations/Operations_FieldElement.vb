@@ -9,6 +9,7 @@ Imports ciBadgeInterfaces
 Imports ciBadgeDesigner
 ''----Imports ciBadgeElements
 Imports System.Windows.Forms ''Added 12/30/2021 
+Imports System.Drawing ''Added 1/2/2022 td
 
 Public Class Operations_FieldElement
     Inherits Operations__Text

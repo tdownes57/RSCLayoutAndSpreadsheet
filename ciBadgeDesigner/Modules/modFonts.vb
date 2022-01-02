@@ -88,7 +88,9 @@ ExitHandler:
 
     End Function ''End of "Public Function MakeItBold(ByRef par_font As Font) As Font"
 
-    Public Function SetFontSize(ByRef par_font As Font, par_intSize As Integer) As Font
+    Public Function SetFontSize(ByRef par_font As Font, par_sing_emSize As Single) As Font
+        ''
+        ''1/2/2022 td''Public Function SetFontSize(ByRef par_font As Font, par_intSize As Integer) As Font
         ''
         ''Added 8/16/2019 td  
         ''
@@ -99,11 +101,13 @@ ExitHandler:
 
         Dim new_font As Font
 
-        If (par_intSize < 7) Then par_intSize = 7
+        ''1/2/2022 ''If (par_intSize < 7) Then par_intSize = 7
+        If (par_sing_emSize < 7) Then par_sing_emSize = 7
 
         With par_font
 
-            new_font = New Font(.FontFamily, par_intSize, .Style)
+            ''1/2/2022 td''new_font = New Font(.FontFamily, par_int_emSize, .Style)
+            new_font = New Font(.FontFamily, par_sing_emSize, .Style)
 
         End With
 

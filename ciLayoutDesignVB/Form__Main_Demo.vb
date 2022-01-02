@@ -371,22 +371,25 @@ Public Class Form__Main_Demo
         Dim boolBacksideOfCard As Boolean ''Added 12/14/2021 td
         boolBacksideOfCard = (mod_designer.EnumSideOfCard = EnumWhichSideOfCard.EnumBackside)
 
-        If (CtlGraphicQRCode1 Is Nothing) Then
-            ''Added 12/3/2021 td  
-            ''----Dec6, 2021----CtlGraphicQRCode1 = New CtlGraphicQRCode
-            If (ElementsCache_Edits.ElementQRCode Is Nothing) Then Throw New Exception("The QR element is a null reference.")
-            CtlGraphicQRCode1 = New CtlGraphicQRCode(ElementsCache_Edits.ElementQRCode, mod_designer)
-            CtlGraphicQRCode1.Visible = True
-            Me.Controls.Add(CtlGraphicQRCode1)
-        End If ''End of "If (CtlGraphicQRCode1 = Nothing) Then"
-
-        ''Added 12/12/2021 thomas  
-        CtlGraphicQRCode1.Visible = True
-        If (Controls.Contains(CtlGraphicQRCode1)) Then
-            If (False) Then MessageBox.Show("Let's not add a 2nd reference to the QR code.")
-        Else
-            Me.Controls.Add(CtlGraphicQRCode1)
-        End If ''ENd of "If (Controls.Contains(CtlGraphicQRCode1)) Then ... Else ..."
+        ''If (CtlGraphicQRCode1 Is Nothing) Then
+        ''    ''Added 12/3/2021 td  
+        ''    ''----Dec6, 2021----CtlGraphicQRCode1 = New CtlGraphicQRCode
+        ''    If (ElementsCache_Edits.ElementQRCode Is Nothing) Then Throw New Exception("The QR element is a null reference.")
+        ''    ''1/2/2022 td''CtlGraphicQRCode1 = New CtlGraphicQRCode(ElementsCache_Edits.ElementQRCode, mod_designer)
+        ''    CtlGraphicQRCode1 = CtlGraphicQRCode.GetQRCode(ElementsCache_Edits.ElementQRCode,
+        ''                                   "CtlGraphicQRCode1", mod_designer, c_proportionalQR,
+        ''                                    Nothing, LastControlTouched)
+        ''    CtlGraphicQRCode1.Visible = True
+        ''    Me.Controls.Add(CtlGraphicQRCode1)
+        ''End If ''End of "If (CtlGraphicQRCode1 = Nothing) Then"
+        ''
+        ''''Added 12/12/2021 thomas  
+        ''CtlGraphicQRCode1.Visible = True
+        ''If (Controls.Contains(CtlGraphicQRCode1)) Then
+        ''    If (False) Then MessageBox.Show("Let's not add a 2nd reference to the QR code.")
+        ''Else
+        ''    Me.Controls.Add(CtlGraphicQRCode1)
+        ''End If ''ENd of "If (Controls.Contains(CtlGraphicQRCode1)) Then ... Else ..."
 
         ''Added 12/3/2021 thomas downes
         If (Me.PersonalityCache_Recipients Is Nothing) Then
@@ -1851,7 +1854,8 @@ Public Class Form__Main_Demo
                 each_element = Me.ElementsCache_Edits.GetElementByFieldEnum(each_ctl.FieldInfo.FieldEnumValue)
                 each_ctl.ElementClass_Obj = each_element
                 each_ctl.ElementInfo_Base = each_element
-                each_ctl.ElementInfo_Field = each_element
+                ''Jan2 2022 td''each_ctl.ElementInfo_Field = each_element
+                each_ctl.ElementInfo_TextField = each_element
                 each_ctl.ElementInfo_TextOnly = each_element
 
             Next each_ctl

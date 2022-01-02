@@ -98,7 +98,8 @@ Public Class CtlPropertyLeftRight
 
     End Sub
 
-    Private Sub UpdateElementInfo(par_value As Integer)
+
+    Private Sub UpdateElementInfo(par_value As Single)  ''Jan2 2022 '' Integer)
         ''
         ''Added 9/13/2019 thomas d. 
         ''
@@ -108,20 +109,23 @@ Public Class CtlPropertyLeftRight
 
                 Case (.StartsWith("Text") Or .StartsWith("Off"))
 
-                    Me.ElementInfo_Text.FontOffset_X = par_value
+                    ''Jan2 2022''Me.ElementInfo_Text.FontOffset_X = par_value
+                    Me.ElementInfo_TextOnly.FontOffset_X = CInt(par_value)
+
 
                 Case (.StartsWith("Font"))
 
-                    Me.ElementInfo_Text.FontSize_Pixels = par_value
+                    ''Jan2 2022''Me.ElementInfo_Text.FontSize_Pixels = par_value
+                    Me.ElementInfo_TextOnly.FontSize_Pixels = CSng(par_value)
 
                 Case (.StartsWith("Total") Or .StartsWith("Label"))
 
-                    Me.ElementInfo_Base.Width_Pixels = par_value
+                    Me.ElementInfo_Base.Width_Pixels = CInt(par_value)
 
                 Case (.StartsWith("Border"))
 
                     ''Added 9/14/2019 td  
-                    Me.ElementInfo_Base.Border_WidthInPixels = par_value
+                    Me.ElementInfo_Base.Border_WidthInPixels = CInt(par_value)
 
                 Case Else
 
@@ -140,7 +144,8 @@ Public Class CtlPropertyLeftRight
         ''
         ''Added 9/14/2019 td
         ''
-        InitiateLocalValue(Me.ElementInfo_Base, Me.ElementInfo_Text)
+        ''Jan2 2022 td''InitiateLocalValue(Me.ElementInfo_Base, Me.ElementInfo_Text)
+        InitiateLocalValue(Me.ElementInfo_Base, Me.ElementInfo_TextOnly)
 
     End Sub
 

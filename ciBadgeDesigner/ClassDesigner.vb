@@ -13,11 +13,13 @@ Imports ciLayoutPrintLib ''Added 10/1/2019 td
 ''Imports ciBadgeGenerator ''Added 10/5/2019 thomas d. 
 Imports ciBadgeCachePersonality ''Added 12/4/2021 thomas d. 
 Imports System.IO ''Added 12/3/2021 thomas d.
+Imports __RSCWindowsControlLibrary ''Added 1/02/2022 thomas d. 
 
 ''10/1/2019 td''Public Event ElementField_Clicked(par_elementField As ClassElementField)
 
 Public Class ClassDesigner
     Implements ILayoutFunctions, ISelectingElements, IRecordElementLastTouched, IRefreshPreview
+    Implements ILastControlTouchedRSC ''Added 1/2/2022 td 
     ''
     ''Added 10/1/2019 thomas downes 
     ''
@@ -103,6 +105,7 @@ Public Class ClassDesigner
 
     ''11/29/2012 ''Private mod_ControlLastTouched As Control ''Added 8/12/2019 thomas d. 
     Public mod_ControlLastTouched As Control ''Publicized 11/29/2021 td''Added 8/12/2019 thomas d. 
+    ''Jan2 2022''Public mod_IControlLastTouched As New ClassLastControlTouched ''Added 1/02/2021 thomas d. 
     Private mod_ElementLastTouched As Control ''Let's change this to IElement_Base soon. ---Added 9/14/2019 td 
     Private mod_IMoveableElementLastTouched As IMoveableElement ''Added 12/21/2021 td
     Private mod_ISaveableElementLastTouched As ISaveToModel ''Added 12/21/2021 td
@@ -992,8 +995,14 @@ Public Class ClassDesigner
 
         If (par_elementQR.WhichSideOfCard = Me.EnumSideOfCard) Then ''Added 12/15/2021
 
+            Dim dummySaveToModel As ClassSaveToModel = Nothing ''This is just a placeholder. 1/2/2022 td
+            Const c_proportional As Boolean = True ''Added 1/2/2022 td
+
             ''12/30/2021 td''Me.CtlGraphic_QRCode = New CtlGraphicQRCode(par_elementQR, CType(Me, ILayoutFunctions))
-            Me.CtlGraphic_QRCode = CtlGraphicQRCode.Get(par_elementQR, CType(Me, ILayoutFunctions))
+            Me.CtlGraphic_QRCode = CtlGraphicQRCode.GetQRCode(par_elementQR, "CtlGraphic_QRCode",
+                                                              CType(Me, ILayoutFunctions), c_proportional,
+                                                              dummySaveToModel,
+                                                              CType(Me, ILastControlTouched))
 
             Me.DesignerForm.Controls.Add(Me.CtlGraphic_QRCode)
             mod_listOfDesignerControls.Add(Me.CtlGraphic_QRCode) ''Added 12/8/2021 td
@@ -2667,6 +2676,16 @@ Public Class ClassDesigner
 
     Public Property LastTouchedMoveableElement As IMoveableElement ''Added 12/17/2021 td
     Public Property LastTouchedClickableElement As IClickableElement ''Added 12/17/2021 td
+
+    Public Property LastControlTouchedRSC As RSCMoveableControlVB Implements ILastControlTouchedRSC.LastControlTouchedRSC
+        Get
+            ''Throw New NotImplementedException()
+            Return CType(mod_ControlLastTouched, RSCMoveableControlVB)
+        End Get
+        Set(value As RSCMoveableControlVB)
+            Throw New NotImplementedException()
+        End Set
+    End Property
 
     Public Sub RecordElementLastTouched(par_elementMoved As IMoveableElement, par_elementClicked As IClickableElement) Implements IRecordElementLastTouched.RecordElementLastTouched
         ''

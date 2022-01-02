@@ -31,7 +31,7 @@ Partial Class CtlPropertyUpDownvb
         '
         Me.ButtonIncrease.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.ButtonIncrease.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonIncrease.Image = Global.ciLayoutDesignVB.My.Resources.Resources.IncreaseY
+        Me.ButtonIncrease.Image = My.Resources.Resources.IncreaseY
         Me.ButtonIncrease.Location = New System.Drawing.Point(7, 73)
         Me.ButtonIncrease.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.ButtonIncrease.Name = "ButtonIncrease"
@@ -43,7 +43,7 @@ Partial Class CtlPropertyUpDownvb
         '
         Me.ButtonDecrease.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.ButtonDecrease.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonDecrease.Image = Global.ciLayoutDesignVB.My.Resources.Resources.DecreaseY
+        Me.ButtonDecrease.Image = My.Resources.Resources.DecreaseY
         Me.ButtonDecrease.Location = New System.Drawing.Point(7, 42)
         Me.ButtonDecrease.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.ButtonDecrease.Name = "ButtonDecrease"

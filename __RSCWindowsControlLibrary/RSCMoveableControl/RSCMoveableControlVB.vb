@@ -11,6 +11,8 @@ Imports ciBadgeDesigner ''Added 12/27/2021 td
 ''Added 12/22/2021 td  
 ''
 Public Class RSCMoveableControlVB
+    Implements ISaveToModel ''Added 1/2/2022 td 
+
     ''
     ''Added 12/22/2021 td  
     ''
@@ -65,13 +67,13 @@ Public Class RSCMoveableControlVB
 
         ''Create the control. 
         Dim MoveableControlVB1 = New RSCMoveableControlVB(par_enum, par_bProportionSizing,
-                                                   par_iSaveToModel,
                                                    par_iLayoutFun,
                                                    typeOps,
                                                    objOperations,
                                                    bAddFunctionalitySooner,
                                                    bAddFunctionalitySooner,
                                                    par_iControlLastTouched)
+        ''                                         ''Jan2 2022 ''par_iSaveToModel,
 
         With MoveableControlVB1
             .Name = par_nameOfControl
@@ -104,7 +106,9 @@ Public Class RSCMoveableControlVB
     Private mod_iMoveOrResizeFunctionality As IMoveOrResizeFunctionality ''Added 12/28/2021 td
 
     Private WithEvents mod_events As New ClassGroupMoveEvents ''InterfaceEvents
-    Private mod_iSaveToModel As ISaveToModel
+    ''#1 Jan2 2022''Private mod_iSaveToModel As ISaveToModel 
+    ''#2 Jan2 2022''Private mod_iSaveToModel_Deprecated As ISaveToModel = New ClassSaveToModel() ''Suffixed _Deprecated 1/2/2022 td
+    ''#3 Jan2 2022''Private mod_iSaveToModel As ISaveToModel = New ClassSaveToModel() 
     ''Dec28 2021 td''Private WithEvents mod_designer As New ClassDesigner ''Added 12/27/2021 td
     Private WithEvents ContextMenuStrip1 As New ContextMenuStrip ''Added 12/28/2021 thomas downes
     Private mod_iLayoutFunctions As ILayoutFunctions ''Added 12/28/2021 td
@@ -140,13 +144,13 @@ Public Class RSCMoveableControlVB
 
     Public Sub New(par_enumElementType As EnumElementType,
                   pboolResizeProportionally As Boolean,
-                   par_iSaveToModel As ISaveToModel,
                    par_iLayoutFun As ILayoutFunctions,
                    par_operationsType As Type,
                    par_operationsAny As Object,
                    pboolAddMoveability As Boolean,
                    pboolAddClickability As Boolean,
                    par_iLastTouched As ILastControlTouched) ''----As IOperations)
+        ''         ''Jan2 2022 ''par_iSaveToModel As ISaveToModel,
         ''         ''Dec29 2021 ''par_designer As ClassDesigner,
 
         ''12/28/2021 td''par_toolstrip As ToolStripItemCollection)
@@ -156,7 +160,7 @@ Public Class RSCMoveableControlVB
 
         ''Encapsulated 12/22/2021 thomas downes
         ''====InitializeMoveability(pboolResizeProportionally, par_iSaveToModel)
-        mod_iSaveToModel = par_iSaveToModel ''Added 12/28/2021 td
+        ''Jan2 2022 td''mod_iSaveToModel = par_iSaveToModel ''Added 12/28/2021 td
         mod_boolResizeProportionally = pboolResizeProportionally ''Added 12/28/2021 td
         mod_iLayoutFunctions = par_iLayoutFun
         Me.LastControlTouched_Info = par_iLastTouched ''Added 12/29/2021 thomas d. 
@@ -196,7 +200,8 @@ Public Class RSCMoveableControlVB
             If (mod_moveResizeKeepRatio IsNot Nothing) Then mod_moveResizeKeepRatio.RemoveAllFunctionality = False
 
         Else
-            InitializeMoveability(mod_boolResizeProportionally, mod_iSaveToModel, mod_iLayoutFunctions)
+            ''Added 1/2/2022 td''InitializeMoveability(mod_boolResizeProportionally, mod_iSaveToModel, mod_iLayoutFunctions)
+            InitializeMoveability(mod_boolResizeProportionally, Me, mod_iLayoutFunctions)
 
         End If ''End of "If (boolInstantiated) Then ... Else ...."
 
@@ -306,7 +311,7 @@ Public Class RSCMoveableControlVB
         ''
         ' Add any initialization after the InitializeComponent() call.
         mod_boolResizeProportionally = pboolResizeProportionally ''Added 12/22/2021 td
-        mod_iSaveToModel = par_iSaveToModel
+        ''Jan2 2022 td''mod_iSaveToModel = par_iSaveToModel
         Const c_bRepaintAfterResize As Boolean = True ''Added 7/31/2019 td
 
         ''Added 12/28/2021 td
@@ -325,7 +330,8 @@ Public Class RSCMoveableControlVB
 
             mod_moveResizeKeepRatio = New MoveAndResizeControls_Monem.ControlResizeProportionally_TD()
             mod_moveResizeKeepRatio.Init(Me, Me, 10, c_bRepaintAfterResize,
-                                            mod_events, False, mod_iSaveToModel)
+                                            mod_events, False, Me)
+            ''                            ''1/2/2022 td '' mod_events, False, mod_iSaveToModel)
             ''---mod_resizingProportionally.LayoutFunctions = par_iLayoutFunctions 
             mod_iMoveOrResizeFunctionality = mod_moveResizeKeepRatio ''Added 12/28/2021 td
 
@@ -338,7 +344,7 @@ Public Class RSCMoveableControlVB
             mod_events.LayoutFunctions = par_iLayoutFunctions ''Added 12/27/2021
 
             mod_moveInAGroup.Init(Me, Me, 10, c_bRepaintAfterResize,
-                                    mod_events, False, mod_iSaveToModel)
+                                    mod_events, False, Me) ''1/2/2022 td''mod_iSaveToModel)
 
             mod_iMoveOrResizeFunctionality = mod_moveInAGroup ''Added 12/28/2021 td
 
@@ -699,7 +705,13 @@ Public Class RSCMoveableControlVB
 
     End Sub ''End of "Public Sub PerformRightClick"
 
+    Public Overridable Sub SaveToModel() Implements ISaveToModel.SaveToModel
+        ''
+        ''Added 1/2/2022 td 
+        ''
+        ''1/2/2022 td''DirectCast(LastControlTouched_Deprecated, ISaveToModel).SaveToModel()
+        MessageBoxTD.Show_Statement("SaveToModel(). Programmer must override this base-class method.")
 
-
+    End Sub
 
 End Class

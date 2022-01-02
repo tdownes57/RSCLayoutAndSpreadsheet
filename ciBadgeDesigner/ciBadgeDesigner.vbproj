@@ -80,6 +80,7 @@
     <Compile Include="Classes_Minor\ClassFixTheControlWidth.vb" />
     <Compile Include="Classes_Minor\ClassGroupMoveEvents.vb" />
     <Compile Include="Classes_Minor\ClassLabelToImage_NotInUse.vb" />
+    <Compile Include="Classes_Minor\ClassLastControlTouched.vb" />
     <Compile Include="Classes_Minor\ClassRubberbandSelector.vb" />
     <Compile Include="Classes_Minor\ClassSaveToModel.vb" />
     <Compile Include="Controls\CtlAddCustomField.designer.vb">
@@ -239,6 +240,8 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Interfaces\InterfaceCurrentElement.vb" />
+    <Compile Include="Interfaces\InterfaceLastControlTouched.vb" />
+    <Compile Include="Interfaces\InterfaceLastControlTouchedRSC.vb" />
     <Compile Include="Interfaces\InterfaceRefreshPreview.vb" />
     <Compile Include="Interfaces\InterfaceSelectingElements.vb" />
     <Compile Include="Interfaces\InterfaceSelectingElements_v90.vb" />
@@ -446,6 +449,8 @@
     <None Include="Resources\Declaration_jpg.jpg" />
     <None Include="Resources\Static_Text.png" />
     <None Include="Resources\CodeNinjas in NB.jpg" />
+    <None Include="Resources\DecreaseY.png" />
+    <None Include="Resources\IncreaseY.png" />
     <Content Include="SigPlusNET.dll" />
   </ItemGroup>
   <ItemGroup>

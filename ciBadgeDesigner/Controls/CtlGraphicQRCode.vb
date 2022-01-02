@@ -86,9 +86,14 @@ Public Class CtlGraphicQRCode
             Throw New Exception("Ops is Nothing, so I guess Element Type is Undetermined.")
         End If ''end of "If (objOperations Is Nothing) Then"
 
+        ''Added 12/2/2022 td
+        Dim enumElementType_Enum As EnumElementType = EnumElementType.QRCode
+
         ''Create the control. 
+        ''Jan2 2022''Dim CtlQRCode1 = New CtlGraphicQRCode(par_elementQRCode, par_iLayoutFun,
+        ''Jan2 2022''                        enumElementType_Enum, par_bProportionSizing,
         Dim CtlQRCode1 = New CtlGraphicQRCode(par_elementQRCode, par_iLayoutFun,
-                                                   par_enum, par_bProportionSizing,
+                                                   par_bProportionSizing,
                                                    par_iSaveToModel, typeOps,
                                                    objOperations,
                                                    bAddFunctionalitySooner,
@@ -130,7 +135,6 @@ Public Class CtlGraphicQRCode
 
     Public Sub New(par_elementQR As ClassElementQRCode,
                    par_iLayoutFun As ILayoutFunctions,
-                   par_enumElementType As EnumElementType,
                   pboolResizeProportionally As Boolean,
                    par_iSaveToModel As ISaveToModel,
                    par_operationsType As Type,
@@ -138,15 +142,17 @@ Public Class CtlGraphicQRCode
                    pboolAddMoveability As Boolean,
                    pboolAddClickability As Boolean,
                    par_iLastTouched As ILastControlTouched)
-
+        ''         ''Not needed. 1/2/2022'' par_enumElementType As EnumElementType,
         ''
         ''Added 12/30/2021 td
         ''
-        MyBase.New(par_enumElementType, pboolResizeProportionally,
-                       par_iSaveToModel, par_iLayoutFun,
+        ''Jan1 2022 td''MyBase.New(par_enumElementType, pboolResizeProportionally,
+        MyBase.New(EnumElementType.QRCode, pboolResizeProportionally,
+                        par_iLayoutFun,
                         par_operationsType, par_operationsAny,
                         pboolAddMoveability, pboolAddClickability,
                         par_iLastTouched)
+        ''          Jan2 2022'' par_iSaveToModel, par_iLayoutFun,
 
         ' This call is required by the designer.
         InitializeComponent()
@@ -536,7 +542,7 @@ Public Class CtlGraphicQRCode
 
     End Sub ''End of Public Sub RefreshImage_NoMajorCalls
 
-    Public Sub SaveToModel() Implements ISaveToModel.SaveToModel
+    Public Overrides Sub SaveToModel() Implements ISaveToModel.SaveToModel
         ''
         ''Added 7/31/2019 thomas d 
         ''

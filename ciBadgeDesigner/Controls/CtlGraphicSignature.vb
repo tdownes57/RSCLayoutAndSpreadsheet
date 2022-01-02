@@ -12,8 +12,10 @@ Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d.
 Imports ciBadgeElements ''Added 9/18/2019 td 
 Imports System.Windows.Forms ''Added 10/01/2019 td 
 Imports System.Drawing ''Added 10/01/2019 td 
+Imports __RSCWindowsControlLibrary ''Added 1/2/2022 td
 
 Public Class CtlGraphicSignature
+    Inherits RSCMoveableControlVB ''Added 1/02/2022 td
     Implements ISaveToModel ''Added 12/17/2021 td 
     Implements IClickableElement ''Added 12/17/2021 td
     Implements IMoveableElement ''Added 12/17/2021 td 
@@ -412,7 +414,7 @@ Public Class CtlGraphicSignature
 
     End Sub ''End of Public Sub RefreshImage_NoMajorCalls
 
-    Public Sub SaveToModel() Implements ISaveToModel.SaveToModel
+    Public Overrides Sub SaveToModel() Implements ISaveToModel.SaveToModel
         ''
         ''Added 7/31/2019 thomas d 
         ''
