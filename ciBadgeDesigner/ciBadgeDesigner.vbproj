@@ -259,6 +259,10 @@
     <Compile Include="MenuOperations\Operations__Graphic.vb" />
     <Compile Include="MenuOperations\Operations__Text.vb" />
     <Compile Include="modFactoryControls.vb" />
+    <Compile Include="Modules\modAllowFieldEdits.vb" />
+    <Compile Include="Modules\modConvertWinLabelsToDrawing.vb" />
+    <Compile Include="Modules\modEnums.vb" />
+    <Compile Include="Modules\modFonts.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -443,6 +447,9 @@
     <None Include="Resources\Static_Text.png" />
     <None Include="Resources\CodeNinjas in NB.jpg" />
     <Content Include="SigPlusNET.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Utilities\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

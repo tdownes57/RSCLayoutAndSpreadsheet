@@ -52,7 +52,8 @@ Public Class DialogPresetValues
 
         ''Added 7/28/2019 td  
         With LinkCreateSubsection
-            .Text = String.Format(.Tag, strNewPresetValue)
+            ''Jan1 2022 thomas d''.Text = String.Format(.Tag, strNewPresetValue)
+            .Text = String.Format(.Tag.ToString(), strNewPresetValue)
             .Visible = True
         End With
 

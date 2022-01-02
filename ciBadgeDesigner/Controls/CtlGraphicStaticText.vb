@@ -680,13 +680,17 @@ ExitHandler:
 
     End Sub
 
-    Private Sub PictureLabel_Click(sender As Object, e As EventArgs) Handles pictureLabel.Click
+    Private Sub PictureLabel_Click(sender As Object, par_event As EventArgs) Handles pictureLabel.Click
 
         ''Added 12/15/2021 td
         ''
         ''  See "Handles pictureLabel.MouseClick()".  ----12/15/2021 td 
         ''
-        If (False) Then PictureLabel_MouseClick(sender, e)
+        Dim objArgs As New MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0) ''Added 1/1/2022 td
+        ''objArgs.X = par_event.
+
+        ''Jan1 2022 td''If (False) Then PictureLabel_MouseClick(sender, e))
+        If (False) Then PictureLabel_MouseClick(sender, CType(par_event, MouseEventArgs))
 
     End Sub
 

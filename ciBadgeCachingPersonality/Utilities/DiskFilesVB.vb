@@ -77,7 +77,7 @@ Public Module DiskFilesVB
 
     End Function ''End of "Public Function Path_ToSignatureImageFile()"
 
-    Public Shared Function PathToNotes_HowContextMenusAreGenerated() As String
+    Public Function PathToNotes_HowContextMenusAreGenerated() As String
         ''
         ''Added 12/12/2021 Thomas Downes    
         ''

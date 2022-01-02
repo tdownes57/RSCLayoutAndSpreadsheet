@@ -47,7 +47,7 @@ Public Class CtlGraphicQRCode
         ''
         ''Added 12/29/2021 td
         ''
-        Const enumElemType As EnumElementType = EnumElementType.QRCode
+        Const c_enumElemType As EnumElementType = EnumElementType.QRCode
         Const bAddFunctionalitySooner As Boolean = False
         Const bAddFunctionalityLater As Boolean = True
 
@@ -61,23 +61,25 @@ Public Class CtlGraphicQRCode
         ''//If (enumElemType = EnumElementType.Signature) Then objOperations2Use = New Operations__Useless()
         ''//If (enumElemType = EnumElementType.StaticGraphic) Then objOperations1Gen = New Operations__Generic()
         ''//If (enumElemType = EnumElementType.StaticText) Then objOperations2Use = New Operations__Useless()
-        If (enumElemType = EnumElementType.QRCode) Then objOperationsQR = New Operations_QRCode()
+        objOperationsQR = New Operations_QRCode() ''Added 1/1/2022 td
+        If (c_enumElemType = EnumElementType.QRCode) Then objOperationsQR = New Operations_QRCode()
 
         ''Assign to typeOps. 
-        If (par_enum = EnumElementType.Field) Then typeOps = objOperations1Gen.GetType()
-        If (par_enum = EnumElementType.Portrait) Then typeOps = objOperations2Use.GetType()
-        If (par_enum = EnumElementType.QRCode) Then typeOps = objOperations1Gen.GetType()
-        If (par_enum = EnumElementType.Signature) Then typeOps = objOperations2Use.GetType()
-        If (par_enum = EnumElementType.StaticGraphic) Then typeOps = objOperations1Gen.GetType()
-        If (par_enum = EnumElementType.StaticText) Then typeOps = objOperations2Use.GetType()
+        ''If (par_enum = EnumElementType.Field) Then typeOps = objOperations1Gen.GetType()
+        ''If (par_enum = EnumElementType.Portrait) Then typeOps = objOperations2Use.GetType()
+        ''If (par_enum = EnumElementType.QRCode) Then typeOps = objOperations1Gen.GetType()
+        ''If (par_enum = EnumElementType.Signature) Then typeOps = objOperations2Use.GetType()
+        ''If (par_enum = EnumElementType.StaticGraphic) Then typeOps = objOperations1Gen.GetType()
+        ''If (par_enum = EnumElementType.StaticText) Then typeOps = objOperations2Use.GetType()
+        typeOps = objOperationsQR.GetType()
 
         ''Assign to objOperations. 
-        If (par_enum = EnumElementType.Field) Then objOperations = objOperations1Gen
-        If (par_enum = EnumElementType.Portrait) Then objOperations = objOperations2Use
-        If (par_enum = EnumElementType.QRCode) Then objOperations = objOperations1Gen
-        If (par_enum = EnumElementType.Signature) Then objOperations = objOperations2Use
-        If (par_enum = EnumElementType.StaticGraphic) Then objOperations = objOperations1Gen
-        If (par_enum = EnumElementType.StaticText) Then objOperations = objOperations2Use
+        ''If (par_enum = EnumElementType.Field) Then objOperations = objOperations1Gen
+        ''If (par_enum = EnumElementType.Portrait) Then objOperations = objOperations2Use
+        If (c_enumElemType = EnumElementType.QRCode) Then objOperations = objOperationsQR
+        ''If (par_enum = EnumElementType.Signature) Then objOperations = objOperations2Use
+        ''If (par_enum = EnumElementType.StaticGraphic) Then objOperations = objOperations1Gen
+        ''If (par_enum = EnumElementType.StaticText) Then objOperations = objOperations2Use
 
         If (objOperations Is Nothing) Then
             ''Added 12/29/2021

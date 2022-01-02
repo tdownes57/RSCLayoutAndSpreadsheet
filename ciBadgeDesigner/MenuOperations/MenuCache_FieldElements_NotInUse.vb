@@ -6,6 +6,7 @@ Imports ciBadgeInterfaces ''Added 10/14/2019 td
 Imports ciBadgeDesigner ''Added 10/14/2019 td
 Imports ciBadgeFields ''Added 12/13/2021 thomas d. 
 Imports System.Windows.Forms ''Added 12/30/2021 td 
+Imports System.Drawing ''Added 1/1/2022 td 
 
 Public Class MenuCache_FieldElements_NotInUse
     ''
