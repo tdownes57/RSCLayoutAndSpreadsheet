@@ -39,6 +39,87 @@ Public Class CtlGraphicSignature
 
     Public Pic_CloneOfInitialImage As Image ''Added 9/23/2019 thomas downes. 
 
+    Public Shared Function GetSignature(par_elementSig As ClassElementSignature,
+                                      par_nameOfControl As String,
+                                      par_iLayoutFun As ILayoutFunctions,
+                                      par_bProportionSizing As Boolean,
+                                par_iControlLastTouched As ILastControlTouched,
+                                        par_strPathToSigFile As String) As CtlGraphicSignature
+        ''
+        ''Added 1/02/2022 td
+        ''
+        Const c_enumElemType As EnumElementType = EnumElementType.Signature
+        Const bAddFunctionalitySooner As Boolean = False
+        Const bAddFunctionalityLater As Boolean = True
+
+        Dim typeOps As Type
+        Dim objOperations As Object ''Added 12/29/2021 td 
+        Dim objOperations1Gen As Operations__Generic = Nothing
+        Dim objOperations2Use As Operations__Useless = Nothing
+        Dim objOperationsSig As Operations_Signature ''Added 1/02/2022 td 
+
+        ''Instantiate the Operations Object. 
+        ''//If (enumElemType = EnumElementType.Signature) Then objOperations2Use = New Operations__Useless()
+        ''//If (enumElemType = EnumElementType.StaticGraphic) Then objOperations1Gen = New Operations__Generic()
+        ''//If (enumElemType = EnumElementType.StaticText) Then objOperations2Use = New Operations__Useless()
+        ''====If (c_enumElemType = EnumElementType.QRCode) Then objOperationsQR = New Operations_QRCode()
+
+        ''Assign to typeOps. 
+        ''If (par_enum = EnumElementType.Field) Then typeOps = objOperations1Gen.GetType()
+        ''If (par_enum = EnumElementType.Portrait) Then typeOps = objOperations2Use.GetType()
+        ''====If (par_enum = EnumElementType.QRCode) Then typeOps = objOperationsQR.GetType()
+        ''If (par_enum = EnumElementType.Signature) Then typeOps = objOperations2Use.GetType()
+        ''If (par_enum = EnumElementType.StaticGraphic) Then typeOps = objOperations1Gen.GetType()
+        ''If (par_enum = EnumElementType.StaticText) Then typeOps = objOperations2Use.GetType()
+
+        ''Assign to objOperations. 
+        ''====If (c_enumElemType = EnumElementType.QRCode) Then objOperations = objOperationsQR
+        ''If (par_enum = EnumElementType.Signature) Then objOperations = objOperations2Use
+        ''If (par_enum = EnumElementType.StaticGraphic) Then objOperations = objOperations1Gen
+        ''If (par_enum = EnumElementType.StaticText) Then objOperations = objOperations2Use
+
+        ''Modified 1/2/2022 td
+        objOperationsSig = New Operations_Signature() ''Added 1/1/2022 td
+        typeOps = objOperationsSig.GetType()
+        objOperations = objOperationsSig
+
+        If (objOperations Is Nothing) Then
+            ''Added 12/29/2021
+            Throw New Exception("Ops is Nothing, so I guess Element Type is Undetermined.")
+        End If ''end of "If (objOperations Is Nothing) Then"
+
+        ''Added 12/2/2022 td
+        Dim enumElementType_Enum As EnumElementType = EnumElementType.Signature
+
+        ''Create the control. 
+        ''Jan2 2022''Dim CtlQRCode1 = New CtlGraphicQRCode(par_elementQRCode, par_iLayoutFun,
+        ''Jan2 2022''                        enumElementType_Enum, par_bProportionSizing,
+        Dim CtlSignature1 = New CtlGraphicSignature(par_elementSig, par_iLayoutFun,
+                                                   par_bProportionSizing,
+                                                   typeOps, objOperations,
+                                                   bAddFunctionalitySooner,
+                                                   bAddFunctionalitySooner,
+                                                   par_iControlLastTouched,
+                                                    par_strPathToSigFile)
+        ''Jan2 2022 ''                       ''Jan2 2022 ''par_iSaveToModel, typeOps,
+
+        With CtlSignature1
+            .Name = par_nameOfControl
+            If (bAddFunctionalityLater) Then .AddMoveability()
+            If (bAddFunctionalityLater) Then .AddClickability()
+        End With ''eNd of "With CtlQRCode1"
+
+        ''
+        ''Specify the current element to the Operations object. 
+        ''
+        Dim infoOps = CType(objOperations, ICurrentElement) ''.CtlCurrentElement = MoveableControlVB1
+        infoOps.CtlCurrentElement = CtlSignature1
+
+        Return CtlSignature1
+
+    End Function ''end of "Public Shared Function GetQRCode() As CtlGraphicQRCode"
+
+
     Public ReadOnly Property Picture_Box As PictureBox
         Get
             ''Added 7/31/2019 td 
@@ -53,7 +134,42 @@ Public Class CtlGraphicSignature
 
     End Sub
 
+
     Public Sub New(par_elementSig As ClassElementSignature,
+                   par_iLayoutFun As ILayoutFunctions,
+                  pboolResizeProportionally As Boolean,
+                   par_operationsType As Type,
+                   par_operationsAny As Object,
+                   pboolAddMoveability As Boolean,
+                   pboolAddClickability As Boolean,
+                   par_iLastTouched As ILastControlTouched,
+                   par_strPathToSigFile As String)
+        ''         ''Not needed. 1/2/2022'' par_iSaveToModel As ISaveToModel,
+        ''         ''Not needed. 1/2/2022'' par_enumElementType As EnumElementType,
+        ''
+        ''Added 12/30/2021 td
+        ''
+        ''Jan1 2022 td''MyBase.New(par_enumElementType, pboolResizeProportionally,
+        MyBase.New(EnumElementType.Signature, pboolResizeProportionally,
+                        par_iLayoutFun,
+                        par_operationsType, par_operationsAny,
+                        pboolAddMoveability, pboolAddClickability,
+                        par_iLastTouched)
+        ''          Jan2 2022'' par_iSaveToModel, par_iLayoutFun,
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+
+        ''Encapsulated 12/30/2021 td
+        New_Signature(par_elementSig, par_iLayoutFun, par_strPathToSigFile)
+
+    End Sub ''End of "Public Sub New"
+
+
+
+    Public Sub New_Signature(par_elementSig As ClassElementSignature,
                    par_formLayout As ILayoutFunctions,
                    par_strPathToSigFile As String)
         ''

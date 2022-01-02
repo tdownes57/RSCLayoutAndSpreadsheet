@@ -12,6 +12,7 @@ Imports __RSCWindowsControlLibrary ''Added 12/29/2021 thomas d.
 ''Added 12/22/2021 td  
 ''
 Public Class MoveableControlVB
+    Implements ISaveToModel ''Added 1/2/2022 td
     ''
     ''Added 12/22/2021 td  
     ''
@@ -20,9 +21,9 @@ Public Class MoveableControlVB
     Public Shared Function GetControl(par_enum As EnumElementType,
                                 par_nameOfControl As String,
                                       par_bProportionSizing As Boolean,
-                                      par_iSaveToModel As ISaveToModel,
                                       par_designer As ClassDesigner,
                                 par_iControlLastTouched As ILastControlTouched) As MoveableControlVB
+        ''Jan2 2022 ''     par_iSaveToModel As ISaveToModel,
         ''
         ''Added 12/29/2021 td
         ''
@@ -65,7 +66,6 @@ Public Class MoveableControlVB
 
         ''Create the control. 
         Dim MoveableControlVB1 = New MoveableControlVB(par_enum, par_bProportionSizing,
-                                                   par_iSaveToModel,
                                                    par_designer,
                                                    par_designer,
                                                    typeOps,
@@ -73,6 +73,7 @@ Public Class MoveableControlVB
                                                    bAddFunctionalitySooner,
                                                    bAddFunctionalitySooner,
                                                    par_iControlLastTouched)
+        ''                           ''Jan2 2022''      par_iSaveToModel,
 
         With MoveableControlVB1
             .Name = par_nameOfControl
@@ -144,7 +145,6 @@ Public Class MoveableControlVB
 
     Friend Sub New(par_enumElementType As EnumElementType,
                   pboolResizeProportionally As Boolean,
-                   par_iSaveToModel As ISaveToModel,
                    par_iLayoutFun As ILayoutFunctions,
                    par_designer As ClassDesigner,
                    par_operationsType As Type,
@@ -153,6 +153,7 @@ Public Class MoveableControlVB
                    pboolAddClickability As Boolean,
                    par_iLastTouched As ILastControlTouched) ''----As IOperations)
 
+        ''Jan2 2022 td ''par_iSaveToModel As ISaveToModel,
         ''12/28/2021 td''par_toolstrip As ToolStripItemCollection)
 
         ' This call is required by the designer.
@@ -160,7 +161,7 @@ Public Class MoveableControlVB
 
         ''Encapsulated 12/22/2021 thomas downes
         ''====InitializeMoveability(pboolResizeProportionally, par_iSaveToModel)
-        mod_iSaveToModel = par_iSaveToModel ''Added 12/28/2021 td
+        ''Jan2 2022 td''mod_iSaveToModel = par_iSaveToModel ''Added 12/28/2021 td
         mod_boolResizeProportionally = pboolResizeProportionally ''Added 12/28/2021 td
         mod_iLayoutFunctions = par_iLayoutFun
 
@@ -707,6 +708,13 @@ Public Class MoveableControlVB
 
         ''Added 12/29/2021 td
         Me.LastControlTouched_Info.LastControlTouched = Me
+
+    End Sub
+
+    Public Overridable Sub SaveToModel() Implements ISaveToModel.SaveToModel
+
+        ''Throw New NotImplementedException()
+        MessageBoxTD.Show_Statement("Programmer will override base-class method SaveToModel, using the keyword Overrides.")
 
     End Sub
 End Class

@@ -126,18 +126,26 @@ Public Class FormTestingVB
         RscMoveableControlVB1.Visible = False
         RscMoveableControlVB2.Visible = False
         RscMoveableControlVB3.Visible = False
+        CtlGraphicQRCode1.Visible = False ''Added Jan2 2022
+        CtlGraphicSignature1.Visible = False ''Added Jan2 2022
 
         RscMoveableControlVB1.Dispose()
         RscMoveableControlVB2.Dispose()
         RscMoveableControlVB3.Dispose()
+        CtlGraphicSignature1.Dispose() ''Added Jan2 2022
+        CtlGraphicSignature1.Dispose() ''Added Jan2 2022
 
         Me.Controls.Remove(RscMoveableControlVB1)
         Me.Controls.Remove(RscMoveableControlVB2)
         Me.Controls.Remove(RscMoveableControlVB3)
+        Me.Controls.Remove(CtlGraphicQRCode1) ''Added Jan2 2022
+        Me.Controls.Remove(CtlGraphicSignature1) ''Added Jan2 2022
 
         RscMoveableControlVB1 = Nothing
         RscMoveableControlVB2 = Nothing
         RscMoveableControlVB3 = Nothing
+        CtlGraphicQRCode1 = Nothing ''Added Jan2 2022
+        CtlGraphicSignature1 = Nothing ''Added Jan2 2022
 
         ''
         ''Clickable desktop....
@@ -164,12 +172,13 @@ Public Class FormTestingVB
         Const c_bProportion_False As Boolean = False
 
         ''Control #1 of 3. 
-        Dim objSaveToModel1 As New ClassSaveToModel
-
+        ''Jan2 2022''Dim objSaveToModel1 As New ClassSaveToModel
         MoveableControlVB1 = MoveableControlVB.GetControl(EnumElementType.Field,
                                 "MoveableControlVB1", c_bProportion_False,
-                                objSaveToModel1, mod_designer,
+                                mod_designer,
                                 mod_iControlLastTouched)
+        ''Jan2 2022''          objSaveToModel1, mod_designer,
+
         MoveableControlVB1.Left = 0
         MoveableControlVB1.Top = 0
         MoveableControlVB1.Visible = True
@@ -178,12 +187,13 @@ Public Class FormTestingVB
 
 
         ''Control #2 of 3. 
-        Dim objSaveToModel2 As New ClassSaveToModel
-
+        ''Jan2 2022 td''Dim objSaveToModel2 As New ClassSaveToModel
         MoveableControlVB2 = MoveableControlVB.GetControl(EnumElementType.Field,
                                 "MoveableControlVB2", c_bProportion_False,
-                                objSaveToModel2, mod_designer,
+                                mod_designer,
                                 mod_iControlLastTouched)
+        ''Jan2 2022 td''   objSaveToModel2, mod_designer,
+
         MoveableControlVB2.Left = 0
         MoveableControlVB2.Top = 0
         MoveableControlVB2.Visible = True
@@ -192,12 +202,13 @@ Public Class FormTestingVB
 
 
         ''Control #3 of 3. 
-        Dim objSaveToModel3 As New ClassSaveToModel
-
+        ''Jan2 2022 td''Dim objSaveToModel3 As New ClassSaveToModel
         MoveableControlVB3 = MoveableControlVB.GetControl(EnumElementType.Field,
                                 "MoveableControlVB3", c_bProportion_False,
-                                objSaveToModel3, mod_designer,
+                                mod_designer,
                                 mod_iControlLastTouched)
+        ''Jan2 2022 td''   objSaveToModel3, mod_designer,
+
         MoveableControlVB3.Left = 0
         MoveableControlVB3.Top = 0
         MoveableControlVB3.Visible = True
@@ -279,10 +290,9 @@ Public Class FormTestingVB
         ''
         ''
         ''Control #1 of 3. 
-        Dim objSaveToModelRSC As New ClassSaveToModel
+        ''Jan2 2022 td''Dim objSaveToModelRSC As New ClassSaveToModel
         Dim RSCMoveableControlVB11 = RSCMoveableControlVB.GetControl(EnumElementType.Field,
                                 "RSCMoveableControlVB1", mod_designer, par_proportionSize,
-                                objSaveToModelRSC,
                                 mod_iControlLastTouched)
 
         RSCMoveableControlVB11.Left = RSCMoveableControlVB11.Width
@@ -293,10 +303,9 @@ Public Class FormTestingVB
         ''
         ''Hidden, for right-clicking the desktop.  
         ''
-        Dim desktop_objSaveToModelRSC As New ClassSaveToModel
+        ''1/2/2022 td''Dim desktop_objSaveToModelRSC As New ClassSaveToModel
         mod_desktop_RSCClickable = RSCMoveableControlVB.GetControl(EnumElementType.Field,
                                 "desktop_RSC_Clickable", mod_designer, par_proportionSize,
-                                desktop_objSaveToModelRSC,
                                 mod_iControlLastTouched)
 
         mod_desktop_RSCClickable.Left = 0
@@ -319,16 +328,17 @@ Public Class FormTestingVB
         ''
         ''Resize-Proportionally (Per Ratio Width-Height) Control #1 of 2.
         ''
-        Dim objSaveToModel41 As New ClassSaveToModel
+        ''Jan2 2022''Dim objSaveToModel41 As New ClassSaveToModel
         Dim objOperations41 As New Operations__Useless()
-        moveableControlLizRiley = New MoveableControlVB(EnumElementType.Undetermined, c_bResizeProportionally,
-                                                   objSaveToModel41,
+        moveableControlLizRiley = New MoveableControlVB(EnumElementType.Undetermined,
+                                                         c_bResizeProportionally,
                                                    CType(mod_designer, ILayoutFunctions),
                                                    mod_designer, objOperations41.GetType(),
                                                    objOperations41,
                                                     mc_bAddMoveabilityWithinConstructor,
                                                     mc_bAddClickabilityWithinConstructor,
                                                     mod_iControlLastTouched)
+
         objOperations41.CtlCurrentElement = moveableControlLizRiley
         With moveableControlLizRiley
             .LastControlTouched_Obj = mod_objControlLastTouched ''Added 12/31/2021 td
@@ -359,13 +369,13 @@ Public Class FormTestingVB
         ''   Resize-Proportionally (Per Ratio Width-Height) Control #1 of 2.
         ''
         Const c_bAddMoveabilityForBackground As Boolean = False ''Added 12/28/2021 td 
-        Dim objSaveToModelBack As New ClassSaveToModel
+        ''1/2 2022 td''Dim objSaveToModelBack As New ClassSaveToModel
         Dim objOperationsBack As New Operations__Useless()
         Me.Controls.Remove(MoveableControlVBBack)
         MoveableControlVBBack.Visible = True
         Dim tempBack As MoveableControlVB = MoveableControlVBBack
-        MoveableControlVBBack = New MoveableControlVB(EnumElementType.Undetermined, c_bResizeProportionally,
-                                                   objSaveToModelBack,
+        MoveableControlVBBack = New MoveableControlVB(EnumElementType.Undetermined,
+                                                      c_bResizeProportionally,
                                                    CType(mod_designer, ILayoutFunctions),
                                                    mod_designer, objOperationsBack.GetType(),
                                                    objOperationsBack,
@@ -391,6 +401,27 @@ Public Class FormTestingVB
         End With
         ''Add it to the form.  
         Me.Controls.Add(MoveableControlVBBack)
+
+        ''
+        ''Added 1/2/2022 thomas downes
+        ''
+        Dim CtlQrcode1 As CtlGraphicQRCode
+        Dim elementQR As New ciBadgeElements.ClassElementQRCode()
+        CtlQrcode1 = CtlGraphicQRCode.GetQRCode(elementQR, "CtlQrcode1", mod_designer, True,
+                                                mod_iControlLastTouched)
+        CtlQrcode1.Visible = True
+        Me.Controls.Add(CtlQrcode1)
+
+
+        ''
+        ''Added 1/2/2022 thomas downes
+        ''
+        Dim CtlSignature1 As CtlGraphicSignature
+        Dim elementSig As New ciBadgeElements.ClassElementSignature()
+        CtlSignature1 = CtlGraphicSignature.GetSignature(elementSig, "CtlSignature1", mod_designer, True,
+                                                mod_iControlLastTouched)
+        CtlSignature1.Visible = True
+        Me.Controls.Add(CtlSignature1)
 
 
     End Sub ''End of "Private Sub Step2c_Load_RuntimeControls_ResizeProportionally"

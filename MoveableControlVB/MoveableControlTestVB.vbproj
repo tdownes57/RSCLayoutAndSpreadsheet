@@ -165,6 +165,10 @@
       <Project>{3a21a08c-c694-4f11-9838-91fff99a5d82}</Project>
       <Name>ciBadgeDesigner</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ciBadgeElements\ciBadgeElements.vbproj">
+      <Project>{e7eb43c4-358c-4880-9c9b-206127b57722}</Project>
+      <Name>ciBadgeElements</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ciBadgeInterfaces\ciBadgeInterfaces.vbproj">
       <Project>{3d1acca6-585e-4c92-9a6d-9a51d2f72f5f}</Project>
       <Name>ciBadgeInterfaces</Name>

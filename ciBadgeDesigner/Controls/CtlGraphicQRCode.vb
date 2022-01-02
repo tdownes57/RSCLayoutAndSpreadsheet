@@ -42,8 +42,8 @@ Public Class CtlGraphicQRCode
                                       par_nameOfControl As String,
                                       par_iLayoutFun As ILayoutFunctions,
                                       par_bProportionSizing As Boolean,
-                                      par_iSaveToModel As ISaveToModel,
                                 par_iControlLastTouched As ILastControlTouched) As CtlGraphicQRCode
+        ''              1/2/2022 td''par_iSaveToModel As ISaveToModel,
         ''
         ''Added 12/29/2021 td
         ''
@@ -61,25 +61,26 @@ Public Class CtlGraphicQRCode
         ''//If (enumElemType = EnumElementType.Signature) Then objOperations2Use = New Operations__Useless()
         ''//If (enumElemType = EnumElementType.StaticGraphic) Then objOperations1Gen = New Operations__Generic()
         ''//If (enumElemType = EnumElementType.StaticText) Then objOperations2Use = New Operations__Useless()
-        objOperationsQR = New Operations_QRCode() ''Added 1/1/2022 td
-        If (c_enumElemType = EnumElementType.QRCode) Then objOperationsQR = New Operations_QRCode()
+        ''====If (c_enumElemType = EnumElementType.QRCode) Then objOperationsQR = New Operations_QRCode()
 
         ''Assign to typeOps. 
         ''If (par_enum = EnumElementType.Field) Then typeOps = objOperations1Gen.GetType()
         ''If (par_enum = EnumElementType.Portrait) Then typeOps = objOperations2Use.GetType()
-        ''If (par_enum = EnumElementType.QRCode) Then typeOps = objOperations1Gen.GetType()
+        ''====If (par_enum = EnumElementType.QRCode) Then typeOps = objOperationsQR.GetType()
         ''If (par_enum = EnumElementType.Signature) Then typeOps = objOperations2Use.GetType()
         ''If (par_enum = EnumElementType.StaticGraphic) Then typeOps = objOperations1Gen.GetType()
         ''If (par_enum = EnumElementType.StaticText) Then typeOps = objOperations2Use.GetType()
-        typeOps = objOperationsQR.GetType()
 
         ''Assign to objOperations. 
-        ''If (par_enum = EnumElementType.Field) Then objOperations = objOperations1Gen
-        ''If (par_enum = EnumElementType.Portrait) Then objOperations = objOperations2Use
-        If (c_enumElemType = EnumElementType.QRCode) Then objOperations = objOperationsQR
+        ''====If (c_enumElemType = EnumElementType.QRCode) Then objOperations = objOperationsQR
         ''If (par_enum = EnumElementType.Signature) Then objOperations = objOperations2Use
         ''If (par_enum = EnumElementType.StaticGraphic) Then objOperations = objOperations1Gen
         ''If (par_enum = EnumElementType.StaticText) Then objOperations = objOperations2Use
+
+        ''Modified 1/2/2022 td
+        objOperationsQR = New Operations_QRCode() ''Added 1/1/2022 td
+        typeOps = objOperationsQR.GetType()
+        objOperations = objOperationsQR
 
         If (objOperations Is Nothing) Then
             ''Added 12/29/2021
@@ -94,11 +95,11 @@ Public Class CtlGraphicQRCode
         ''Jan2 2022''                        enumElementType_Enum, par_bProportionSizing,
         Dim CtlQRCode1 = New CtlGraphicQRCode(par_elementQRCode, par_iLayoutFun,
                                                    par_bProportionSizing,
-                                                   par_iSaveToModel, typeOps,
-                                                   objOperations,
+                                                   typeOps, objOperations,
                                                    bAddFunctionalitySooner,
                                                    bAddFunctionalitySooner,
                                                    par_iControlLastTouched)
+        ''Jan2 2022 ''                       ''Jan2 2022 ''par_iSaveToModel, typeOps,
 
         With CtlQRCode1
             .Name = par_nameOfControl
@@ -136,12 +137,12 @@ Public Class CtlGraphicQRCode
     Public Sub New(par_elementQR As ClassElementQRCode,
                    par_iLayoutFun As ILayoutFunctions,
                   pboolResizeProportionally As Boolean,
-                   par_iSaveToModel As ISaveToModel,
                    par_operationsType As Type,
                    par_operationsAny As Object,
                    pboolAddMoveability As Boolean,
                    pboolAddClickability As Boolean,
                    par_iLastTouched As ILastControlTouched)
+        ''         ''Not needed. 1/2/2022'' par_iSaveToModel As ISaveToModel,
         ''         ''Not needed. 1/2/2022'' par_enumElementType As EnumElementType,
         ''
         ''Added 12/30/2021 td

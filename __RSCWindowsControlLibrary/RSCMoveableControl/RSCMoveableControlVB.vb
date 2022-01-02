@@ -22,8 +22,8 @@ Public Class RSCMoveableControlVB
                                       par_nameOfControl As String,
                                       par_iLayoutFun As ILayoutFunctions,
                                       par_bProportionSizing As Boolean,
-                                      par_iSaveToModel As ISaveToModel,
                                 par_iControlLastTouched As ILastControlTouched) As RSCMoveableControlVB
+        ''                      ''Jan2 2022 td''  par_iSaveToModel As ISaveToModel,
         ''                      ''Dec29 2021 td'' par_designer As ClassDesigner,
         ''
         ''Added 12/29/2021 td
@@ -710,7 +710,7 @@ Public Class RSCMoveableControlVB
         ''Added 1/2/2022 td 
         ''
         ''1/2/2022 td''DirectCast(LastControlTouched_Deprecated, ISaveToModel).SaveToModel()
-        MessageBoxTD.Show_Statement("SaveToModel(). Programmer must override this base-class method.")
+        MessageBoxTD.Show_Statement("SaveToModel(). Programmer must override this base-class method, using the keyword Overrides.")
 
     End Sub
 

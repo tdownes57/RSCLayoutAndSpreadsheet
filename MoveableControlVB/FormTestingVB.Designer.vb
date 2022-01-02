@@ -34,6 +34,8 @@ Partial Class FormTestingVB
         Me.RscMoveableControlVB3 = New __RSCWindowsControlLibrary.RSCMoveableControlVB()
         Me.RscMoveableControlVB2 = New __RSCWindowsControlLibrary.RSCMoveableControlVB()
         Me.RscMoveableControlVB1 = New __RSCWindowsControlLibrary.RSCMoveableControlVB()
+        Me.CtlGraphicQRCode1 = New ciBadgeDesigner.CtlGraphicQRCode()
+        Me.CtlGraphicSignature1 = New ciBadgeDesigner.CtlGraphicSignature()
         Me.SuspendLayout()
         '
         'Button1
@@ -152,11 +154,33 @@ Partial Class FormTestingVB
         Me.RscMoveableControlVB1.Size = New System.Drawing.Size(248, 122)
         Me.RscMoveableControlVB1.TabIndex = 10
         '
+        'CtlGraphicQRCode1
+        '
+        Me.CtlGraphicQRCode1.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.CtlGraphicQRCode1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.CtlGraphicQRCode1.Location = New System.Drawing.Point(280, 55)
+        Me.CtlGraphicQRCode1.Margin = New System.Windows.Forms.Padding(4)
+        Me.CtlGraphicQRCode1.Name = "CtlGraphicQRCode1"
+        Me.CtlGraphicQRCode1.Size = New System.Drawing.Size(164, 163)
+        Me.CtlGraphicQRCode1.TabIndex = 14
+        '
+        'CtlGraphicSignature1
+        '
+        Me.CtlGraphicSignature1.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.CtlGraphicSignature1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.CtlGraphicSignature1.Location = New System.Drawing.Point(346, 288)
+        Me.CtlGraphicSignature1.Margin = New System.Windows.Forms.Padding(4)
+        Me.CtlGraphicSignature1.Name = "CtlGraphicSignature1"
+        Me.CtlGraphicSignature1.Size = New System.Drawing.Size(392, 133)
+        Me.CtlGraphicSignature1.TabIndex = 15
+        '
         'FormTestingVB
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1401, 562)
+        Me.Controls.Add(Me.CtlGraphicSignature1)
+        Me.Controls.Add(Me.CtlGraphicQRCode1)
         Me.Controls.Add(Me.RscClickableDesktop)
         Me.Controls.Add(Me.RscMoveableControlVB3)
         Me.Controls.Add(Me.RscMoveableControlVB2)
@@ -190,4 +214,6 @@ Partial Class FormTestingVB
     Friend WithEvents RscMoveableControlVB2 As __RSCWindowsControlLibrary.RSCMoveableControlVB
     Friend WithEvents RscMoveableControlVB3 As __RSCWindowsControlLibrary.RSCMoveableControlVB
     Friend WithEvents RscClickableDesktop As __RSCWindowsControlLibrary.RSCMoveableControlVB
+    Friend WithEvents CtlGraphicQRCode1 As ciBadgeDesigner.CtlGraphicQRCode
+    Friend WithEvents CtlGraphicSignature1 As ciBadgeDesigner.CtlGraphicSignature
 End Class

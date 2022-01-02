@@ -995,14 +995,14 @@ Public Class ClassDesigner
 
         If (par_elementQR.WhichSideOfCard = Me.EnumSideOfCard) Then ''Added 12/15/2021
 
-            Dim dummySaveToModel As ClassSaveToModel = Nothing ''This is just a placeholder. 1/2/2022 td
+            ''Jan2 2022 td''Dim dummySaveToModel As ClassSaveToModel = Nothing ''This is just a placeholder. 1/2/2022 td
             Const c_proportional As Boolean = True ''Added 1/2/2022 td
 
             ''12/30/2021 td''Me.CtlGraphic_QRCode = New CtlGraphicQRCode(par_elementQR, CType(Me, ILayoutFunctions))
             Me.CtlGraphic_QRCode = CtlGraphicQRCode.GetQRCode(par_elementQR, "CtlGraphic_QRCode",
                                                               CType(Me, ILayoutFunctions), c_proportional,
-                                                              dummySaveToModel,
                                                               CType(Me, ILastControlTouched))
+            ''1/2/2022 td''                                   ''Jan2 2022 td''dummySaveToModel,
 
             Me.DesignerForm.Controls.Add(Me.CtlGraphic_QRCode)
             mod_listOfDesignerControls.Add(Me.CtlGraphic_QRCode) ''Added 12/8/2021 td
@@ -1044,8 +1044,15 @@ Public Class ClassDesigner
         ''
         ''Added 10/12/2019 thomas d. 
         ''
+        Const c_proportional As Boolean = True ''Added 1/2/2022 td
+
         ''10//12/2019 td''CtlGraphic_Signat = New CtlGraphicSignature(par_elementSig, Me)
-        CtlGraphic_Signat = New CtlGraphicSignature(par_elementSig, Me, Me.PathToSigFile)
+        ''1/2/2022 td''CtlGraphic_Signat = New CtlGraphicSignature(par_elementSig, Me, Me.PathToSigFile)
+        CtlGraphic_Signat = CtlGraphicSignature.GetSignature(par_elementSig, "CtlGraphic_Signat",
+                                                CType(Me, ILayoutFunctions), c_proportional,
+                                                CType(Me, ILastControlTouched),
+                                                Me.PathToSigFile)
+        ''1/2/2022 td''                                   ''Jan2 2022 td''dummySaveToModel,
 
         Me.DesignerForm.Controls.Add(CtlGraphic_Signat)
 
