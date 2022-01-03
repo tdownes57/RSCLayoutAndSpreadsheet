@@ -8,7 +8,7 @@ using ciBadgeInterfaces;  //Added 12/17/2021 td
 
 namespace MoveAndResizeControls_Monem
 {
-    public interface InterfaceEvents
+    public interface InterfaceEvents_NotInUse
     {
         //
         // Added 8/3/2019 thomas downes. 

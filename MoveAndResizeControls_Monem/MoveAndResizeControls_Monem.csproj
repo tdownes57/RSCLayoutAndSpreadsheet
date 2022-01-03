@@ -50,7 +50,7 @@
     <Compile Include="ControlMove_Group_NonStatic.cs" />
     <Compile Include="ControlMove_RaiseEvents_NotUsed.cs" />
     <Compile Include="ControlResizeProportionally_TD_NonStatic.cs" />
-    <Compile Include="Events\ClassGroupMoveEvents.cs" />
+    <Compile Include="Events\ClassGroupMoveEvents_NotUsed.cs" />
     <Compile Include="FormContainerVsPicture.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -9,7 +9,7 @@ using ciBadgeInterfaces; //Added 1/3/2022 thomas d.
 namespace MoveAndResizeControls_Monem
 {
     //Added 1/3/2022 thomas d.
-    class ClassGroupMoveEvents : InterfaceEvents
+    class ClassGroupMoveEvents_NotUsed : InterfaceEvents
     {
         //Added 1/3/2022 thomas d.
         public delegate void DelegateMoveInUnison(int deltaLeft, int deltaTop, int deltaWidth, int deltaHeight);
@@ -28,7 +28,7 @@ namespace MoveAndResizeControls_Monem
         public ILayoutFunctions LayoutFunctions;  // = null; // As ILayoutFunctions ''Added 9/20/2019 td
 
 
-        public ClassGroupMoveEvents(ILayoutFunctions par_layoutFun)
+        public ClassGroupMoveEvents_NotUsed(ILayoutFunctions par_layoutFun)
         {
             //''
             //''Added 9/20/2019 td  
@@ -39,7 +39,7 @@ namespace MoveAndResizeControls_Monem
         } // End Sub
 
 
-        public ClassGroupMoveEvents()
+        public ClassGroupMoveEvents_NotUsed()
         {
             //Default constructor. ----1/3/2022 td  
         }

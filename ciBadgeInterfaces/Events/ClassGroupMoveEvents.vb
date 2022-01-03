@@ -11,8 +11,8 @@ Imports MoveAndResizeControls_Monem
 Imports ciBadgeInterfaces ''Added 9/20/2019 td  
 Imports System.Windows.Forms ''Added 1/3/2022 td 
 
-Public Class ClassGroupMoveEventsVB_Denigrated
-    ''Implements InterfaceEvents
+Public Class ClassGroupMoveEvents
+    Implements InterfaceEvents
 
     ''Added 8/3/2019 thomas downes
     Public Event MoveInUnison(deltaLeft As Integer, deltaTop As Integer, deltaWidth As Integer, deltaHeight As Integer)
@@ -23,7 +23,11 @@ Public Class ClassGroupMoveEventsVB_Denigrated
     Public Event Resizing_End(par_iSave As ISaveToModel)
 
     ''11/29/2021 td''Public Event Moving_End() ''Added 9/13/2019 td  
-    Public Event Moving_End(par_control As Control) ''Added 9/13/2019 td  
+    Public Event Moving_End(par_control As Control, par_iSaveToModel As ISaveToModel) ''Added 9/13/2019 td  
+
+    ''Added 12/2/2021 Thomas Downes
+    Public Event Moving_InProgress(par_control As Control) ''Added 12/02/2021 td
+
     ''Added 12/6/2021 thomas d. 
     Public Event ControlIsMoving()
 
@@ -55,7 +59,7 @@ Public Class ClassGroupMoveEventsVB_Denigrated
 
     End Sub
 
-    Public Sub Resizing_Initiate() ''Implements InterfaceEvents.Resizing_Initiate
+    Public Sub Resizing_Initiate() Implements InterfaceEvents.Resizing_Initiate
 
         ''Added 8/4/2019 td  
         RaiseEvent Resizing_Start()
@@ -63,7 +67,7 @@ Public Class ClassGroupMoveEventsVB_Denigrated
     End Sub
 
     Public Sub GroupMove_Change(deltaLeft As Integer, deltaTop As Integer, deltaWidth As Integer, deltaHeight As Integer) _
-        ''Implements InterfaceEvents.GroupMove_Change
+        Implements InterfaceEvents.GroupMove_Change
 
         ''
         ''Added 8/3/2019 td
@@ -76,7 +80,7 @@ Public Class ClassGroupMoveEventsVB_Denigrated
 
     End Sub ''End of "Public Sub GroupMove_Change"
 
-    Public Sub ControlBeingMoved(par_control As Control) ''Implements InterfaceEvents.ControlBeingMoved
+    Public Sub ControlBeingMoved(par_control As Control) Implements InterfaceEvents.ControlBeingMoved
         ''
         ''Added 8/4/2019 td
         ''
@@ -89,7 +93,7 @@ Public Class ClassGroupMoveEventsVB_Denigrated
     End Sub
 
 
-    Public Sub Control_IsMoving() ''Implements InterfaceEvents.Control_IsMoving
+    Public Sub Control_IsMoving() Implements InterfaceEvents.Control_IsMoving
         ''
         ''Added 12/6/2021 td
         ''
@@ -98,7 +102,7 @@ Public Class ClassGroupMoveEventsVB_Denigrated
     End Sub
 
 
-    Public Sub Resizing_Terminate(par_iSave As ISaveToModel) ''Implements InterfaceEvents.Resizing_Terminate
+    Public Sub Resizing_Terminate(par_iSave As ISaveToModel) Implements InterfaceEvents.Resizing_Terminate
         ''Dec17 2021''Public Sub Resizing_Terminate()
         ''Dec17 2021''     Implements InterfaceEvents.Resizing_Terminate
 
@@ -108,12 +112,13 @@ Public Class ClassGroupMoveEventsVB_Denigrated
 
     End Sub
 
-    Public Sub Moving_Terminate(par_control As Control, par_iSave As ISaveToModel) ''Implements InterfaceEvents.Moving_Terminate
+    Public Sub Moving_Terminate(par_control As Control, par_iSave As ISaveToModel) Implements InterfaceEvents.Moving_Terminate
         ''Dec17 2021''Public Sub Moving_Terminate(par_control As Control) Implements InterfaceEvents.Moving_Terminate
 
         ''Added 9/13/2019 td  
         ''11/2/2021 td''RaiseEvent Moving_End()
-        RaiseEvent Moving_End(par_control)
+        ''01/3/2021 td''RaiseEvent Moving_End(par_control)
+        RaiseEvent Moving_End(par_control, par_iSave)
 
     End Sub
 
