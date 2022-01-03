@@ -92,6 +92,13 @@ Public Class RSCMoveableControlVB
 
     End Function ''End of Public Shared Function GetControl
 
+    Public WriteOnly Property MoveabilityEvents As ClassGroupMoveEvents
+        Set(value As ClassGroupMoveEvents)
+            ''Added 1/3/2022 td  
+            mod_events = value
+        End Set
+    End Property
+
 
     Public LastControlTouched_Info As ILastControlTouched ''Added 12/28/2021 thomas d. 
     Public MyToolstripItemCollection As ToolStripItemCollection ''Added 12/28/2021 td 

@@ -9,7 +9,7 @@ Imports MoveAndResizeControls_Monem
 Imports ciBadgeInterfaces ''Added 9/20/2019 td  
 Imports System.Windows.Forms ''Added 10/1/2019 td 
 
-Public Class ClassGroupMoveEvents
+Public Class ClassGroupMoveEvents_NotInUse
     Implements InterfaceEvents
 
     ''Added 8/3/2019 thomas downes

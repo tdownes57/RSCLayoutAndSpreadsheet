@@ -23,7 +23,8 @@ Partial Class FormTestChildControls
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.ProportionalRSCControl1 = New MoveableControlTestVB.ProportionalRSCControl()
-        Me.SimpleChildOfRSCControl1 = New MoveableControlTestVB.SimpleChildOfRSCControl()
+        Me.SimpleChildOfRSCControl1 = New MoveableControlTestVB.SimpleChildOfRSCControl1()
+        Me.SimpleChildOfRSCControl21 = New MoveableControlTestVB.SimpleChildOfRSCControl2()
         Me.SuspendLayout()
         '
         'ProportionalRSCControl1
@@ -44,11 +45,21 @@ Partial Class FormTestChildControls
         Me.SimpleChildOfRSCControl1.Size = New System.Drawing.Size(499, 61)
         Me.SimpleChildOfRSCControl1.TabIndex = 4
         '
+        'SimpleChildOfRSCControl21
+        '
+        Me.SimpleChildOfRSCControl21.BackColor = System.Drawing.Color.Thistle
+        Me.SimpleChildOfRSCControl21.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.SimpleChildOfRSCControl21.Location = New System.Drawing.Point(358, 193)
+        Me.SimpleChildOfRSCControl21.Name = "SimpleChildOfRSCControl21"
+        Me.SimpleChildOfRSCControl21.Size = New System.Drawing.Size(309, 150)
+        Me.SimpleChildOfRSCControl21.TabIndex = 6
+        '
         'FormTestChildControls
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.Controls.Add(Me.SimpleChildOfRSCControl21)
         Me.Controls.Add(Me.ProportionalRSCControl1)
         Me.Controls.Add(Me.SimpleChildOfRSCControl1)
         Me.Name = "FormTestChildControls"
@@ -58,5 +69,6 @@ Partial Class FormTestChildControls
     End Sub
 
     Friend WithEvents ProportionalRSCControl1 As ProportionalRSCControl
-    Friend WithEvents SimpleChildOfRSCControl1 As SimpleChildOfRSCControl
+    Friend WithEvents SimpleChildOfRSCControl1 As SimpleChildOfRSCControl1
+    Friend WithEvents SimpleChildOfRSCControl21 As SimpleChildOfRSCControl2
 End Class

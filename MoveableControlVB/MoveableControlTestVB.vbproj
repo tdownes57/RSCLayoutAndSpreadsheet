@@ -141,10 +141,16 @@
     <Compile Include="UserControls\ProportionalRSCControl.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\SimpleChildOfRSCControl.Designer.vb">
-      <DependentUpon>SimpleChildOfRSCControl.vb</DependentUpon>
+    <Compile Include="UserControls\SimpleChildOfRSCControl1.Designer.vb">
+      <DependentUpon>SimpleChildOfRSCControl1.vb</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\SimpleChildOfRSCControl.vb">
+    <Compile Include="UserControls\SimpleChildOfRSCControl1.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\SimpleChildOfRSCControl2.Designer.vb">
+      <DependentUpon>SimpleChildOfRSCControl2.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SimpleChildOfRSCControl2.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Utilities\DiskFilesVB.vb" />
@@ -176,8 +182,11 @@
     <EmbeddedResource Include="UserControls\ProportionalRSCControl.resx">
       <DependentUpon>ProportionalRSCControl.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\SimpleChildOfRSCControl.resx">
-      <DependentUpon>SimpleChildOfRSCControl.vb</DependentUpon>
+    <EmbeddedResource Include="UserControls\SimpleChildOfRSCControl1.resx">
+      <DependentUpon>SimpleChildOfRSCControl1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\SimpleChildOfRSCControl2.resx">
+      <DependentUpon>SimpleChildOfRSCControl2.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

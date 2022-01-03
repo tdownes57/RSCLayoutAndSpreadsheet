@@ -24,7 +24,7 @@ Partial Class FormTestQRCode
     Private Sub InitializeComponent()
         Me.CtlQRCode1 = New ciBadgeDesigner.CtlGraphicQRCode()
         Me.RscMoveableControlVB1 = New __RSCWindowsControlLibrary.RSCMoveableControlVB()
-        Me.SimpleChildOfRSCControl1 = New MoveableControlTestVB.SimpleChildOfRSCControl()
+        Me.SimpleChildOfRSCControl1 = New MoveableControlTestVB.SimpleChildOfRSCControl1()
         Me.ProportionalRSCControl1 = New MoveableControlTestVB.ProportionalRSCControl()
         Me.SuspendLayout()
         '
@@ -82,6 +82,6 @@ Partial Class FormTestQRCode
 
     Friend WithEvents CtlQRCode1 As ciBadgeDesigner.CtlGraphicQRCode
     Friend WithEvents RscMoveableControlVB1 As __RSCWindowsControlLibrary.RSCMoveableControlVB
-    Friend WithEvents SimpleChildOfRSCControl1 As SimpleChildOfRSCControl
+    Friend WithEvents SimpleChildOfRSCControl1 As SimpleChildOfRSCControl1
     Friend WithEvents ProportionalRSCControl1 As ProportionalRSCControl
 End Class

@@ -71,7 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\ClassDisplayContextMenu.vb" />
-    <Compile Include="Classes\ClassGroupMoveEvents.vb" />
+    <Compile Include="Classes\ClassGroupMoveEvents_Deprecated.vb" />
     <Compile Include="Classes\ClassLayoutFunctions.vb" />
     <Compile Include="Classes\ClassSaveToModel.vb" />
     <Compile Include="Classes\MenuCache_Generic.vb" />

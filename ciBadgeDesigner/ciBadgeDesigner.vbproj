@@ -78,7 +78,7 @@
     <Compile Include="ClassDesignerEventListener.vb" />
     <Compile Include="ClassDictionaryOfCaptions.vb" />
     <Compile Include="Classes_Minor\ClassFixTheControlWidth.vb" />
-    <Compile Include="Classes_Minor\ClassGroupMoveEvents.vb" />
+    <Compile Include="Classes_Minor\ClassGroupMoveEvents_NotInUse.vb" />
     <Compile Include="Classes_Minor\ClassLabelToImage_NotInUse.vb" />
     <Compile Include="Classes_Minor\ClassLastControlTouched.vb" />
     <Compile Include="Classes_Minor\ClassRubberbandSelector.vb" />
