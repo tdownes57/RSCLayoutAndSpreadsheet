@@ -13,8 +13,8 @@ Public Class FormTestQRCode
     Private mod_objControlLastTouched As New ClassLastControlTouched ''ILastControlTouched ''Added 12/29/2021 td
     Private mod_designer As New ClassDesigner()
 
-    ''Private CtlQrcode1 As CtlGraphicQRCode
-    ''Private RSCMoveable1 As RSCMoveableControlVB
+    Private CtlQrcode_Runtime As CtlGraphicQRCode
+    Private RSCMoveable_Runtime As RSCMoveableControlVB
 
 
     Private Sub FormTestQRCode_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -23,13 +23,36 @@ Public Class FormTestQRCode
         ''
         mod_iControlLastTouched = mod_objControlLastTouched
 
+        ''Added 1/3/2022 thomas downes
+        Const c_unloadDesignTime As Boolean = False
+        If (c_unloadDesignTime) Then Unload_DesignTimeControls()
+        If (Not c_unloadDesignTime) Then RscMoveableControlVB1.LastControlTouched_Info = mod_iControlLastTouched
+        If (Not c_unloadDesignTime) Then SimpleChildOfRSCControl1.LastControlTouched_Info = mod_iControlLastTouched
+
         ''Encapsulated 1/3/2022 thomas downes
-        Load_Controls()
+        Load_RunTimeControls()
 
     End Sub
 
 
-    Private Sub Load_Controls()
+    Private Sub Unload_DesignTimeControls()
+        ''
+        ''Added 1/3/2022 td
+        ''
+        CtlQRCode1.Dispose()
+        Me.Controls.Remove(CtlQRCode1)
+
+        RscMoveableControlVB1.Dispose()
+        Me.Controls.Remove(RscMoveableControlVB1)
+
+        Me.Refresh()
+
+    End Sub
+
+
+
+
+    Private Sub Load_RunTimeControls()
         ''
         ''Encapsulated 1/3/2022 td
         ''
@@ -39,16 +62,18 @@ Public Class FormTestQRCode
         ''----CtlQrcode1 = CtlGraphicQRCode.GetQRCode(elementQR, "CtlQrcode1", mod_designer, True,
         ''     mod_iControlLastTouched)
 
-        CtlQRCode1 = CtlGraphicQRCode.GetQRCode(elementQR, "CtlQrcode1", mod_designer, False,
+        CtlQrcode_Runtime = CtlGraphicQRCode.GetQRCode(elementQR,
+                                                       "CtlQrcode_Runtime", mod_designer, False,
                                                 mod_iControlLastTouched)
         ''CtlQrcode1.Visible = True
-        With CtlQRCode1
+        With CtlQrcode_Runtime
             .Visible = True
+            .BackColor = Color.Gray
             .Width = (3 * .Height)
             .Top = 10  ''CInt(0.7 * .Width) ''2 * .Width
             .AddMoveability()
         End With
-        Me.Controls.Add(CtlQRCode1)
+        Me.Controls.Add(CtlQrcode_Runtime)
 
 
         ''
@@ -58,19 +83,20 @@ Public Class FormTestQRCode
         ''Dim elementQR As New ciBadgeElements.ClassElementQRCode()
         ''CtlQrcode1 = CtlGraphicQRCode.GetQRCode(elementQR, "CtlQrcode1", mod_designer, True,
         ''     mod_iControlLastTouched)
-        RscMoveableControlVB1 = RSCMoveableControlVB.GetControl(Module1Enumerations.EnumElementType.Field,
-                                                       "CtlQrcode1",
+        RSCMoveable_Runtime = RSCMoveableControlVB.GetControl(Module1Enumerations.EnumElementType.Field,
+                                                       "RscMoveable_Runtime",
                                                        mod_designer, False,
                                                        mod_iControlLastTouched)
         ''CtlQrcode1.Visible = True
-        With RscMoveableControlVB1
+        With RSCMoveable_Runtime
             .Visible = True
+            .BackColor = Color.Black
             .Width = (3 * .Height)
             .Left = .Width
             .Top = .Height  ''CInt(0.7 * .Width) ''2 * .Width
             .AddMoveability()
         End With
-        Me.Controls.Add(RscMoveableControlVB1)
+        Me.Controls.Add(RSCMoveable_Runtime)
 
 
     End Sub

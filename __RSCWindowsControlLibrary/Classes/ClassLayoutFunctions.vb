@@ -8,7 +8,7 @@ Public Class ClassLayoutFunctions
             Throw New NotImplementedException()
         End Get
         Set(value As Control)
-            Throw New NotImplementedException()
+            ''Throw New NotImplementedException()
         End Set
     End Property
 
@@ -17,7 +17,7 @@ Public Class ClassLayoutFunctions
             Throw New NotImplementedException()
         End Get
         Set(value As Control)
-            Throw New NotImplementedException()
+            ''Throw New NotImplementedException()
         End Set
     End Property
 

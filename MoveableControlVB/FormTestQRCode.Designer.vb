@@ -24,6 +24,7 @@ Partial Class FormTestQRCode
     Private Sub InitializeComponent()
         Me.CtlQRCode1 = New ciBadgeDesigner.CtlGraphicQRCode()
         Me.RscMoveableControlVB1 = New __RSCWindowsControlLibrary.RSCMoveableControlVB()
+        Me.SimpleChildOfRSCControl1 = New MoveableControlTestVB.SimpleChildOfRSCControl()
         Me.SuspendLayout()
         '
         'CtlQRCode1
@@ -45,11 +46,21 @@ Partial Class FormTestQRCode
         Me.RscMoveableControlVB1.Size = New System.Drawing.Size(353, 103)
         Me.RscMoveableControlVB1.TabIndex = 1
         '
+        'SimpleChildOfRSCControl1
+        '
+        Me.SimpleChildOfRSCControl1.BackColor = System.Drawing.Color.White
+        Me.SimpleChildOfRSCControl1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.SimpleChildOfRSCControl1.Location = New System.Drawing.Point(44, 203)
+        Me.SimpleChildOfRSCControl1.Name = "SimpleChildOfRSCControl1"
+        Me.SimpleChildOfRSCControl1.Size = New System.Drawing.Size(499, 61)
+        Me.SimpleChildOfRSCControl1.TabIndex = 2
+        '
         'FormTestQRCode
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.Controls.Add(Me.SimpleChildOfRSCControl1)
         Me.Controls.Add(Me.RscMoveableControlVB1)
         Me.Controls.Add(Me.CtlQRCode1)
         Me.Name = "FormTestQRCode"
@@ -60,4 +71,5 @@ Partial Class FormTestQRCode
 
     Friend WithEvents CtlQRCode1 As ciBadgeDesigner.CtlGraphicQRCode
     Friend WithEvents RscMoveableControlVB1 As __RSCWindowsControlLibrary.RSCMoveableControlVB
+    Friend WithEvents SimpleChildOfRSCControl1 As SimpleChildOfRSCControl
 End Class

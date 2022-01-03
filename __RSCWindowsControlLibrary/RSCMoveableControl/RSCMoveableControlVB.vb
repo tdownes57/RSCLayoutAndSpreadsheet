@@ -140,6 +140,9 @@ Public Class RSCMoveableControlVB
         ''  Dec29 2021 td''InitializeClickability(New ClassDesigner(), EnumElementType.Undetermined)
         InitializeClickability(EnumElementType.Undetermined)
 
+        ''Added 1/3/2022 td
+        ''Jan3 2022 td''LastControlTouched_Info = New ClassLast
+
     End Sub
 
 
