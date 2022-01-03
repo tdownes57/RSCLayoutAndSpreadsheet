@@ -132,7 +132,8 @@ Public Class RSCMoveableControlVB
 
         ''12/29/2021 td''Dim objLayoutFun As New ClassDesigner ''Added Dec27 2021
         ''12/29/2021 td''InitializeMoveability(False, New ClassSaveToModel, New ClassDesigner())
-        InitializeMoveability(False, New ClassSaveToModel, New ClassLayoutFunctions())
+        ''01/02/2022 ''InitializeMoveability(False, New ClassSaveToModel, New ClassLayoutFunctions())
+        InitializeMoveability(False, New ClassLayoutFunctions())
 
         ''Encapsulated 12/22/2021 thomas downes
         ''  Dec28 2021 td''InitializeClickability(New ClassDesigner())
@@ -201,7 +202,8 @@ Public Class RSCMoveableControlVB
 
         Else
             ''Added 1/2/2022 td''InitializeMoveability(mod_boolResizeProportionally, mod_iSaveToModel, mod_iLayoutFunctions)
-            InitializeMoveability(mod_boolResizeProportionally, Me, mod_iLayoutFunctions)
+            ''Jan2 2022 ''InitializeMoveability(mod_boolResizeProportionally, Me, mod_iLayoutFunctions)
+            InitializeMoveability(mod_boolResizeProportionally, mod_iLayoutFunctions)
 
         End If ''End of "If (boolInstantiated) Then ... Else ...."
 

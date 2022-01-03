@@ -263,7 +263,13 @@ Public Class ClassElementSignature
         Try
             obj_bitmap = New Bitmap(Me.SigFilePath)
         Catch ex_Bitmap As Exception
-            pref_strErrorMessage = ex_Bitmap.Message
+            ''Modified 1/2/2022 td
+            ''   --pref_strErrorMessage = ex_Bitmap.Message
+            pref_strErrorMessage = "The following signature file path is not valid. " & vbCrLf_Deux &
+                    Me.SigFilePath & vbCrLf_Deux &
+                    "Function GetImage_Signature, ClassElementSignature" & vbCrLf_Deux &
+                    "Project ciBadgeElements. Message: " & ex_Bitmap.Message
+
         End Try
 
         Return CType(obj_bitmap, Image)

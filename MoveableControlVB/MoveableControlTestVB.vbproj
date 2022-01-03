@@ -190,6 +190,7 @@
     <None Include="Resources\great photo of ER.BAK.PNG" />
     <None Include="Resources\IMG_8118.JPG" />
     <None Include="Resources\Liz 20 percent.jpg" />
+    <Content Include="Images\Signatures\Declaration_bmp.bmp" />
     <Content Include="__Notes\How_Context_Menus_Are_Generated.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
