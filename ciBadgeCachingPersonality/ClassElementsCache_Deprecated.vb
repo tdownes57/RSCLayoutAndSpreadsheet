@@ -1977,6 +1977,63 @@ Namespace ciBadgeCachePersonality
 
         End Function ''End of "Public Shared Function GetLoadedCache() As ClassElementsCache"
 
+
+        Public Sub SaveFieldViaReplacing_Stan(par_fieldToSave As ciBadgeFields.ClassFieldStandard)
+            ''
+            ''The suffix _Stan = "Standard". 
+            ''
+            ''Added 1/3/2022 thomas downes  
+            ''
+            ''Check to see if any work needs to be done.
+            ''  (If the module-level list contains the field object
+            ''   already, we can stop here. ---1/3/2022 td)
+            ''
+            If (ListOfFields_Standard.Contains(par_fieldToSave)) Then
+                ''Nothing needs to be done, i.e. nothing needs
+                ''  to be replaced. ---1/3/2022 td
+                Return
+            End If ''End of "If (ListOfFields_Standard.Contains(par_fieldToSave)) Then"
+
+            Dim enumCIBadgeField As EnumCIBFields
+            enumCIBadgeField = par_fieldToSave.FieldEnumValue
+
+            Dim objFieldToReplace As ClassFieldStandard
+            objFieldToReplace = CType(GetFieldByFieldEnum(enumCIBadgeField), ClassFieldStandard)
+
+            ListOfFields_Standard.Remove(objFieldToReplace) ''Remove the field we are replacing. 
+            ListOfFields_Standard.Add(par_fieldToSave) ''Insert the field which will be the replacement.
+
+        End Sub ''End of Public Sub SaveFieldViaReplacing(par_fieldToSave As ciBadgeFields.ClassFieldStandard)
+
+
+        Public Sub SaveFieldViaReplacing_Cust(par_fieldToSave As ciBadgeFields.ClassFieldCustomized)
+            ''
+            ''The suffix _Cust = "Standard". 
+            ''
+            ''Added 1/3/2022 thomas downes  
+            ''
+            ''Check to see if any work needs to be done.
+            ''  (If the module-level list contains the field object
+            ''   already, we can stop here. ---1/3/2022 td)
+            ''
+            If (ListOfFields_Custom.Contains(par_fieldToSave)) Then
+                ''Nothing needs to be done, i.e. nothing needs
+                ''  to be replaced. ---1/3/2022 td
+                Return
+            End If ''End of "If (ListOfFields_Standard.Contains(par_fieldToSave)) Then"
+
+            Dim enumCIBadgeField As EnumCIBFields
+            enumCIBadgeField = par_fieldToSave.FieldEnumValue
+
+            Dim objFieldToReplace As ClassFieldCustomized
+            objFieldToReplace = CType(GetFieldByFieldEnum(enumCIBadgeField), ClassFieldCustomized)
+
+            ListOfFields_Custom.Remove(objFieldToReplace) ''Remove the field we are replacing. 
+            ListOfFields_Custom.Add(par_fieldToSave) ''Insert the field which will be the replacement.
+
+        End Sub ''End of Public Sub SaveFieldViaReplacing(par_fieldToSave As ciBadgeFields.ClassFieldCustomized)
+
+
         Public Sub SaveToXML(Optional ByVal pstrPathToXML As String = "")
             ''
             ''Added 11/29/2019 thomas downes

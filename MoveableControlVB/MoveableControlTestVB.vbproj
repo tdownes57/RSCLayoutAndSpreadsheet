@@ -84,6 +84,12 @@
       <DependentUpon>FormTestingVB.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FormTestQRCode.Designer.vb">
+      <DependentUpon>FormTestQRCode.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormTestQRCode.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Interfaces\InterfaceCurrentElement.vb" />
     <Compile Include="Interfaces\InterfaceLastControlTouched.vb" />
     <Compile Include="Interfaces\InterfaceOperations.vb" />
@@ -130,6 +136,9 @@
   <ItemGroup>
     <EmbeddedResource Include="FormTestingVB.resx">
       <DependentUpon>FormTestingVB.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTestQRCode.resx">
+      <DependentUpon>FormTestQRCode.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -190,7 +199,9 @@
     <None Include="Resources\great photo of ER.BAK.PNG" />
     <None Include="Resources\IMG_8118.JPG" />
     <None Include="Resources\Liz 20 percent.jpg" />
-    <Content Include="Images\Signatures\Declaration_bmp.bmp" />
+    <Content Include="Images\Signatures\Declaration_bmp.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="__Notes\How_Context_Menus_Are_Generated.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

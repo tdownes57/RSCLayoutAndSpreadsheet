@@ -83,7 +83,7 @@ Public Class FormTestingVB
         ''
         ''Load the Runtime Controls (MoveableControlVB)
         ''
-        Step2a_Load_RuntimeControls_NonProportional_Local()
+        ''===Step2a_Load_RuntimeControls_NonProportional_Local()
         Const c_bProportion_False As Boolean = False
         Step2b_Load_RuntimeControls_NonProportional_RSC(c_bProportion_False)
         Step2c_Load_RuntimeControls_ResizeProportionally()
@@ -298,6 +298,7 @@ Public Class FormTestingVB
         RSCMoveableControlVB11.Left = RSCMoveableControlVB11.Width
         RSCMoveableControlVB11.Top = 0
         RSCMoveableControlVB11.Visible = True
+        RSCMoveableControlVB11.BackColor = Color.NavajoWhite
         Me.Controls.Add(RSCMoveableControlVB11)
 
         ''
@@ -312,7 +313,7 @@ Public Class FormTestingVB
         mod_desktop_RSCClickable.Top = 0
         mod_desktop_RSCClickable.Width = 10
         mod_desktop_RSCClickable.Height = 10
-        mod_desktop_RSCClickable.Visible = False
+        mod_desktop_RSCClickable.Visible = False ''Hidden, for right-clicking the desktop.
         Me.Controls.Add(mod_desktop_RSCClickable)
 
 
@@ -407,9 +408,17 @@ Public Class FormTestingVB
         ''
         Dim CtlQrcode1 As CtlGraphicQRCode
         Dim elementQR As New ciBadgeElements.ClassElementQRCode()
-        CtlQrcode1 = CtlGraphicQRCode.GetQRCode(elementQR, "CtlQrcode1", mod_designer, True,
+        ''CtlQrcode1 = CtlGraphicQRCode.GetQRCode(elementQR, "CtlQrcode1", mod_designer, True,
+        ''     mod_iControlLastTouched)
+        CtlQrcode1 = CtlGraphicQRCode.GetQRCode(elementQR, "CtlQrcode1", mod_designer, False,
                                                 mod_iControlLastTouched)
-        CtlQrcode1.Visible = True
+        ''CtlQrcode1.Visible = True
+        With CtlQrcode1
+            .Visible = True
+            .Width = (3 * .Height)
+            .Top = (0.7 * .Width) ''2 * .Width
+            .AddMoveability()
+        End With
         Me.Controls.Add(CtlQrcode1)
 
 
@@ -418,7 +427,10 @@ Public Class FormTestingVB
         ''
         Dim CtlSignature1 As CtlGraphicSignature
         Dim elementSig As New ciBadgeElements.ClassElementSignature()
-        CtlSignature1 = CtlGraphicSignature.GetSignature(elementSig, "CtlSignature1", mod_designer, True,
+        ''CtlSignature1 = CtlGraphicSignature.GetSignature(elementSig, "CtlSignature1", mod_designer, True,
+        ''                                        mod_iControlLastTouched,
+        ''                                          DiskFilesVB.PathToFile_Sig())
+        CtlSignature1 = CtlGraphicSignature.GetSignature(elementSig, "CtlSignature1", mod_designer, False,
                                                 mod_iControlLastTouched,
                                                   DiskFilesVB.PathToFile_Sig())
         CtlSignature1.Visible = True
@@ -431,7 +443,11 @@ Public Class FormTestingVB
         ''
         ''Added 12/30/2021 td
         ''
-        mod_desktop_RSCClickable.PerformRightClick(e.X, e.Y)
+        If (e.Button = MouseButtons.Right) Then
+
+            mod_desktop_RSCClickable.PerformRightClick(e.X, e.Y)
+
+        End If ''End of "If (e.Button = MouseButtons.Right) Then"
 
 
     End Sub

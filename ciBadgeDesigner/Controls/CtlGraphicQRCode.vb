@@ -777,9 +777,6 @@ ExitHandler:
 
     End Function ''End of "Public Function Rotated_180_360() As Boolean"
 
-    Private Sub PictureLabel_MouseClick(sender As Object, e As MouseEventArgs) Handles pictureQRCode.MouseClick
-
-    End Sub
 
     Public Sub DisableRightClickMenu() Implements IClickableElement.DisableRightClickMenu
         ''
@@ -820,7 +817,18 @@ ExitHandler:
 
     End Function
 
+    Private Sub PictureLabel_MouseClick(sender As Object, e As MouseEventArgs) Handles pictureQRCode.MouseClick, MyBase.MouseClick
+
+        ''Added 1/3/2022 thomas downes
+        ''Not needed. 1/3/2022 td''MyBase.PerformRightClick(e.X + pictureQRCode.Left, e.Y + pictureQRCode.Top)
+
+    End Sub
+
+    Private Sub pictureQRCode_MouseMove(sender As Object, e As MouseEventArgs) Handles pictureQRCode.MouseMove
+
+        ''Added 1/3/2022 thomas downes
 
 
+    End Sub
 End Class ''End of Public Class CtlGraphicQRCode 
 

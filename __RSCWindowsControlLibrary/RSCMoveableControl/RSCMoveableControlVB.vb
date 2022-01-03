@@ -159,6 +159,29 @@ Public Class RSCMoveableControlVB
         ' This call is required by the designer.
         InitializeComponent()
 
+        ''Encapsulated 1/3/2022 td 
+        Load_Functionality(par_enumElementType, pboolResizeProportionally,
+                            par_iLayoutFun,
+                            par_operationsType,
+                            par_operationsAny,
+                            pboolAddMoveability,
+                            pboolAddClickability,
+                            par_iLastTouched)
+
+    End Sub ''End of "Public Sub New"
+
+
+    Public Sub Load_Functionality(par_enumElementType As EnumElementType,
+                  pboolResizeProportionally As Boolean,
+                   par_iLayoutFun As ILayoutFunctions,
+                   par_operationsType As Type,
+                   par_operationsAny As Object,
+                   pboolAddMoveability As Boolean,
+                   pboolAddClickability As Boolean,
+                   par_iLastTouched As ILastControlTouched)
+        ''
+        ''Encapsulated 1/3/2022
+        ''
         ''Encapsulated 12/22/2021 thomas downes
         ''====InitializeMoveability(pboolResizeProportionally, par_iSaveToModel)
         ''Jan2 2022 td''mod_iSaveToModel = par_iSaveToModel ''Added 12/28/2021 td
@@ -182,7 +205,7 @@ Public Class RSCMoveableControlVB
         ''#2 Dec28_2021 td''AddClickability()
         If (pboolAddClickability) Then AddClickability()
 
-    End Sub
+    End Sub ''End of "Public Sub Load_Functionality()"
 
 
     Public Sub AddMoveability()
