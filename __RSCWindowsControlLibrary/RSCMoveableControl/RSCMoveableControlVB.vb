@@ -304,8 +304,8 @@ Public Class RSCMoveableControlVB
 
 
     Public Sub InitializeMoveability(pboolResizeProportionally As Boolean,
-                                     par_iSaveToModel As ISaveToModel,
                                      par_iLayoutFunctions As ILayoutFunctions)
+        ''Jan2 2022''       par_iSaveToModel As ISaveToModel,
         ''
         ''Added 12/22/2021 thomas downes
         ''

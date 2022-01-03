@@ -419,7 +419,8 @@ Public Class FormTestingVB
         Dim CtlSignature1 As CtlGraphicSignature
         Dim elementSig As New ciBadgeElements.ClassElementSignature()
         CtlSignature1 = CtlGraphicSignature.GetSignature(elementSig, "CtlSignature1", mod_designer, True,
-                                                mod_iControlLastTouched)
+                                                mod_iControlLastTouched,
+                                                  DiskFilesVB.PathToFile_Sig())
         CtlSignature1.Visible = True
         Me.Controls.Add(CtlSignature1)
 

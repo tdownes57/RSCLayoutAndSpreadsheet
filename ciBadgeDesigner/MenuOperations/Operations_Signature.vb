@@ -8,11 +8,20 @@ Imports ciBadgeInterfaces
 Imports ciBadgeDesigner
 ''----Imports ciBadgeElements
 Imports System.Windows.Forms ''Added 12/30/2021 td
+Imports __RSCWindowsControlLibrary ''Added 1/2/2022 thomas d. 
+
 
 Public Class Operations_Signature
     Inherits Operations__Graphic
+    Implements ICurrentElement ''Added 12/28/2021 td
+
+    Public Property CtlCurrentElement As RSCMoveableControlVB Implements ICurrentElement.CtlCurrentElement
     ''
     ''Added 12/12/2021 td
     ''
+
+
+
+
 
 End Class

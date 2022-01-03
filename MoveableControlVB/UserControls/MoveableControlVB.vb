@@ -112,7 +112,7 @@ Public Class MoveableControlVB
 
     Private WithEvents mod_eventsDesigner As New ciBadgeDesigner.ClassGroupMoveEvents ''InterfaceEvents
     Private WithEvents mod_eventsRSC As New __RSCWindowsControlLibrary.ClassGroupMoveEvents ''InterfaceEvents
-    Private mod_iSaveToModel As ISaveToModel
+    Private mod_iSaveToModel_Deprecated As ISaveToModel
     ''Dec28 2021 td''Private WithEvents mod_designer As New ClassDesigner ''Added 12/27/2021 td
     Private WithEvents ContextMenuStrip1 As New ContextMenuStrip ''Added 12/28/2021 thomas downes
     Private mod_iLayoutFunctions As ILayoutFunctions ''Added 12/28/2021 td
@@ -135,7 +135,8 @@ Public Class MoveableControlVB
         ''Dec27 2021''InitializeMoveability(False, New ClassSaveToModel)
 
         Dim objLayoutFun As New ClassDesigner ''Added Dec27 2021
-        InitializeMoveability(False, New ClassSaveToModel, New ClassDesigner())
+        ''jan2 2022''InitializeMoveability(False, New ClassSaveToModel, New ClassDesigner())
+        InitializeMoveability(False, New ClassDesigner())
 
         ''Encapsulated 12/22/2021 thomas downes
         ''Dec28 2021 td''InitializeClickability(New ClassDesigner())
@@ -205,7 +206,10 @@ Public Class MoveableControlVB
             mod_iMoveOrResizeFunctionality.RemoveAllFunctionality = False
 
         Else
-            InitializeMoveability(mod_boolResizeProportionally, mod_iSaveToModel, mod_iLayoutFunctions)
+            ''#1 Jan2 2022 td''InitializeMoveability(mod_boolResizeProportionally, mod_iSaveToModel, mod_iLayoutFunctions)
+            ''#2 Jan2 2022 td''InitializeMoveability(mod_boolResizeProportionally, Me, mod_iLayoutFunctions)
+
+            InitializeMoveability(mod_boolResizeProportionally, mod_iLayoutFunctions)
 
         End If ''End of "If (boolInstantiated) Then ... Else ...."
 
@@ -313,14 +317,15 @@ Public Class MoveableControlVB
 
 
     Public Sub InitializeMoveability(pboolResizeProportionally As Boolean,
-                                     par_iSaveToModel As ISaveToModel,
                                      par_iLayoutFunctions As ILayoutFunctions)
+        ''           Jan2 2022 td''  par_iSaveToModel As ISaveToModel,
         ''
         ''Added 12/22/2021 thomas downes
         ''
         ' Add any initialization after the InitializeComponent() call.
         mod_boolResizeProportionally = pboolResizeProportionally ''Added 12/22/2021 td
-        mod_iSaveToModel = par_iSaveToModel
+        ''Jan2 2022''mod_iSaveToModel = par_iSaveToModel
+
         Const c_bRepaintAfterResize As Boolean = True ''Added 7/31/2019 td
 
         ''Added 12/28/2021 td
@@ -341,7 +346,7 @@ Public Class MoveableControlVB
 
             mod_moveResizeKeepRatio = New MoveAndResizeControls_Monem.ControlResizeProportionally_TD()
             mod_moveResizeKeepRatio.Init(Me, Me, 10, c_bRepaintAfterResize,
-                                            mod_eventsDesigner, False, mod_iSaveToModel)
+                                            mod_eventsDesigner, False, Me)  ''1/2/2022 td''mod_iSaveToModel)
             ''---mod_resizingProportionally.LayoutFunctions = par_iLayoutFunctions 
             mod_iMoveOrResizeFunctionality = mod_moveResizeKeepRatio ''Added 12/28/2021 td
 
@@ -354,7 +359,7 @@ Public Class MoveableControlVB
             mod_eventsDesigner.LayoutFunctions = par_iLayoutFunctions ''Added 12/27/2021
 
             mod_moveInAGroup.Init(Me, Me, 10, c_bRepaintAfterResize,
-                                    mod_eventsDesigner, False, mod_iSaveToModel)
+                                    mod_eventsDesigner, False, Me) ''Jan2 2022'' mod_iSaveToModel)
 
             mod_iMoveOrResizeFunctionality = mod_moveInAGroup ''Added 12/28/2021 td
 
@@ -377,7 +382,7 @@ Public Class MoveableControlVB
 
         Next each_control
 
-    End Sub ''End of "Public Sub New(pboolResizeProportionally As Boolean, par_iSaveToModel As ISaveToModel)"
+    End Sub ''End of "Public Sub InitializeMoveability"
 
 
     ''Added 12/28/2021 td  
@@ -545,7 +550,8 @@ Public Class MoveableControlVB
         ''Added 12/27/2021 td 
         ''
         ''----mod_iSaveToModel.SaveToModel()
-        par_iSaveToModel.SaveToModel()
+        ''Jan2 2022 thomas downes''par_iSaveToModel.SaveToModel()
+        SaveToModel()
 
     End Sub
 
