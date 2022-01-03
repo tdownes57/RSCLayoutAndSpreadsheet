@@ -77,6 +77,12 @@
     <Compile Include="Classes\ClassLastControlTouched.vb" />
     <Compile Include="Classes\ClassSaveToModel.vb" />
     <Compile Include="Classes\MessageBoxTD.vb" />
+    <Compile Include="FormTestChildControls.Designer.vb">
+      <DependentUpon>FormTestChildControls.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormTestChildControls.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormTestingVB.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -146,6 +152,9 @@
     <Compile Include="Utilities\Module1Enumerationsvb.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FormTestChildControls.resx">
+      <DependentUpon>FormTestChildControls.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormTestingVB.resx">
       <DependentUpon>FormTestingVB.vb</DependentUpon>
     </EmbeddedResource>
