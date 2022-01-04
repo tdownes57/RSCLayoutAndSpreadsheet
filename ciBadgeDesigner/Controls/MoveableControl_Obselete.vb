@@ -15,7 +15,7 @@ Public Class MoveableControl_Obselete
     Private mod_resizingProportionally As ControlResizeProportionally_TD
     Private mod_movingInAGroup As ControlMove_Group_NonStatic
     Private mod_boolResizeProportionally As Boolean
-    Private WithEvents mod_events As New ClassGroupMoveEvents ''InterfaceEvents
+    Private WithEvents mod_events As New GroupMoveEvents_Singleton ''InterfaceEvents
     Private mod_iSaveToModel As ISaveToModel
     Private WithEvents mod_designer As New ClassDesigner ''Added 12/27/2021 td
 

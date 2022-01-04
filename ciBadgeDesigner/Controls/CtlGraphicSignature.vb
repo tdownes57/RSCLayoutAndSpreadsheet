@@ -44,6 +44,7 @@ Public Class CtlGraphicSignature
                                       par_iLayoutFun As ILayoutFunctions,
                                       par_bProportionSizing As Boolean,
                                 par_iControlLastTouched As ILastControlTouched,
+                                        par_oMoveEvents As GroupMoveEvents_Singleton,
                                         par_strPathToSigFile As String) As CtlGraphicSignature
         ''
         ''Added 1/02/2022 td
@@ -100,12 +101,13 @@ Public Class CtlGraphicSignature
                                                    bAddFunctionalitySooner,
                                                    bAddFunctionalitySooner,
                                                    par_iControlLastTouched,
+                                                   par_oMoveEvents,
                                                     par_strPathToSigFile)
         ''Jan2 2022 ''                       ''Jan2 2022 ''par_iSaveToModel, typeOps,
 
         With CtlSignature1
             .Name = par_nameOfControl
-            If (bAddFunctionalityLater) Then .AddMoveability()
+            If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEvents, par_iLayoutFun)
             If (bAddFunctionalityLater) Then .AddClickability()
         End With ''eNd of "With CtlQRCode1"
 
@@ -143,6 +145,7 @@ Public Class CtlGraphicSignature
                    pboolAddMoveability As Boolean,
                    pboolAddClickability As Boolean,
                    par_iLastTouched As ILastControlTouched,
+                   par_oMoveEvents As GroupMoveEvents_Singleton,
                    par_strPathToSigFile As String)
         ''         ''Not needed. 1/2/2022'' par_iSaveToModel As ISaveToModel,
         ''         ''Not needed. 1/2/2022'' par_enumElementType As EnumElementType,
@@ -154,7 +157,7 @@ Public Class CtlGraphicSignature
                         par_iLayoutFun,
                         par_operationsType, par_operationsAny,
                         pboolAddMoveability, pboolAddClickability,
-                        par_iLastTouched)
+                        par_iLastTouched, par_oMoveEvents)
         ''          Jan2 2022'' par_iSaveToModel, par_iLayoutFun,
 
         ' This call is required by the designer.

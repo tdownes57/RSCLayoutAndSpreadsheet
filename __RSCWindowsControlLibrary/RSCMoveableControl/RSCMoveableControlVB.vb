@@ -22,7 +22,8 @@ Public Class RSCMoveableControlVB
                                       par_nameOfControl As String,
                                       par_iLayoutFun As ILayoutFunctions,
                                       par_bProportionSizing As Boolean,
-                                par_iControlLastTouched As ILastControlTouched) As RSCMoveableControlVB
+                                par_iControlLastTouched As ILastControlTouched,
+                                      par_oMoveEventsFromForm As GroupMoveEvents_Singleton) As RSCMoveableControlVB
         ''                      ''Jan2 2022 td''  par_iSaveToModel As ISaveToModel,
         ''                      ''Dec29 2021 td'' par_designer As ClassDesigner,
         ''
@@ -72,12 +73,14 @@ Public Class RSCMoveableControlVB
                                                    objOperations,
                                                    bAddFunctionalitySooner,
                                                    bAddFunctionalitySooner,
-                                                   par_iControlLastTouched)
+                                                   par_iControlLastTouched,
+                                                   par_oMoveEventsFromForm)
         ''                                         ''Jan2 2022 ''par_iSaveToModel,
 
         With MoveableControlVB1
             .Name = par_nameOfControl
-            If (bAddFunctionalityLater) Then .AddMoveability()
+            ''Jan4 2022''If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEventsFromForm)
+            If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEventsFromForm, par_iLayoutFun)
             If (bAddFunctionalityLater) Then .AddClickability()
             ''In the constructor. Dec31 2021 ''.LastControlTouched_Info = par_iControlLastTouched ''Added 12/31/2021 td
         End With ''eNd of "With MoveableControlVB1"
@@ -92,8 +95,8 @@ Public Class RSCMoveableControlVB
 
     End Function ''End of Public Shared Function GetControl
 
-    Public WriteOnly Property MoveabilityEvents As ClassGroupMoveEvents
-        Set(value As ClassGroupMoveEvents)
+    Public WriteOnly Property MoveabilityEvents As GroupMoveEvents_Singleton
+        Set(value As GroupMoveEvents_Singleton)
             ''Added 1/3/2022 td  
             mod_events = value
         End Set
@@ -112,7 +115,9 @@ Public Class RSCMoveableControlVB
     ''Dec29 2021''Private mod_iMoveOrResize As InterfaceMoveOrResize ''Added 12/28/2021 td
     Private mod_iMoveOrResizeFunctionality As IMoveOrResizeFunctionality ''Added 12/28/2021 td
 
-    Private WithEvents mod_events As New ClassGroupMoveEvents ''InterfaceEvents
+    ''1/3/2022 td''Private WithEvents mod_events As New GroupMoveEvents_Singleton ''InterfaceEvents
+    Private WithEvents mod_events As GroupMoveEvents_Singleton ''InterfaceEvents
+
     ''#1 Jan2 2022''Private mod_iSaveToModel As ISaveToModel 
     ''#2 Jan2 2022''Private mod_iSaveToModel_Deprecated As ISaveToModel = New ClassSaveToModel() ''Suffixed _Deprecated 1/2/2022 td
     ''#3 Jan2 2022''Private mod_iSaveToModel As ISaveToModel = New ClassSaveToModel() 
@@ -140,12 +145,18 @@ Public Class RSCMoveableControlVB
         ''12/29/2021 td''Dim objLayoutFun As New ClassDesigner ''Added Dec27 2021
         ''12/29/2021 td''InitializeMoveability(False, New ClassSaveToModel, New ClassDesigner())
         ''01/02/2022 ''InitializeMoveability(False, New ClassSaveToModel, New ClassLayoutFunctions())
-        InitializeMoveability(False, New ClassLayoutFunctions())
+        ''01/03/2022 ''InitializeMoveability(False, New ClassLayoutFunctions())
 
         ''Encapsulated 12/22/2021 thomas downes
         ''  Dec28 2021 td''InitializeClickability(New ClassDesigner())
         ''  Dec29 2021 td''InitializeClickability(New ClassDesigner(), EnumElementType.Undetermined)
-        InitializeClickability(EnumElementType.Undetermined)
+        ''Jan4 2022 td''InitializeClickability(EnumElementType.Undetermined)
+
+        ''Don't expect the Moveability to work, we are sending the events
+        ''   into a blackhole!!  ---1/4/2022 td
+        Dim dummyLayout As New ClassLayoutFunctions
+        Dim oEventkillingBlackhole As New GroupMoveEvents_Singleton(dummyLayout, True)
+        InitializeClickability(EnumElementType.Undetermined, oEventkillingBlackhole)
 
         ''Added 1/3/2022 td
         ''Jan3 2022 td''LastControlTouched_Info = New ClassLast
@@ -160,7 +171,8 @@ Public Class RSCMoveableControlVB
                    par_operationsAny As Object,
                    pboolAddMoveability As Boolean,
                    pboolAddClickability As Boolean,
-                   par_iLastTouched As ILastControlTouched) ''----As IOperations)
+                   par_iLastTouched As ILastControlTouched,
+                   par_oMoveabilityEvents As GroupMoveEvents_Singleton) ''----As IOperations)
         ''         ''Jan2 2022 ''par_iSaveToModel As ISaveToModel,
         ''         ''Dec29 2021 ''par_designer As ClassDesigner,
 
@@ -176,7 +188,8 @@ Public Class RSCMoveableControlVB
                             par_operationsAny,
                             pboolAddMoveability,
                             pboolAddClickability,
-                            par_iLastTouched)
+                            par_iLastTouched,
+                            par_oMoveabilityEvents)
 
     End Sub ''End of "Public Sub New"
 
@@ -188,7 +201,8 @@ Public Class RSCMoveableControlVB
                    par_operationsAny As Object,
                    pboolAddMoveability As Boolean,
                    pboolAddClickability As Boolean,
-                   par_iLastTouched As ILastControlTouched)
+                   par_iLastTouched As ILastControlTouched,
+                   par_oMoveEventsFromForm As GroupMoveEvents_Singleton)
         ''
         ''Encapsulated 1/3/2022
         ''
@@ -201,7 +215,9 @@ Public Class RSCMoveableControlVB
 
         ''12/28/2021 td''InitializeMoveability(pboolResizeProportionally, par_iSaveToModel, par_iLayoutFun)
         ''#2 Dec28_2021 td''AddMoveability()
-        If (pboolAddMoveability) Then AddMoveability()
+        ''Jan4 2022 td''If (pboolAddMoveability) Then AddMoveability()
+        ''#2 Jan4 2022 td''If (pboolAddMoveability) Then AddMoveability(par_oMoveEventsFromForm)
+        If (pboolAddMoveability) Then AddMoveability(par_oMoveEventsFromForm, par_iLayoutFun)
 
         ''Encapsulated 12/22/2021 thomas downes
         ''Dec28 2021 td''Me.MyToolstripItemCollection = par_toolstrip ''Added 12/28/2021 td
@@ -218,7 +234,9 @@ Public Class RSCMoveableControlVB
     End Sub ''End of "Public Sub Load_Functionality()"
 
 
-    Public Sub AddMoveability()
+    Public Sub AddMoveability(par_objEventsMove As GroupMoveEvents_Singleton,
+                              par_iLayoutFunctions As ILayoutFunctions)
+        ''Jan3 2022 ''Public Sub AddMoveability()
         ''
         ''Added 12/28/2021 td
         ''
@@ -230,54 +248,83 @@ Public Class RSCMoveableControlVB
         If (boolInstantiated) Then ''Added 12/28/2021 td
             ''Added 12/28/2021 td
             ''  If instantiated, then set the Boolean property to false. 
+            ''
+            mod_iMoveOrResizeFunctionality.RemoveAllFunctionality = False
             If (mod_moveInAGroup IsNot Nothing) Then mod_moveInAGroup.RemoveAllFunctionality = False
             If (mod_moveResizeKeepRatio IsNot Nothing) Then mod_moveResizeKeepRatio.RemoveAllFunctionality = False
+
+            ''Added 1/3/2022 td
+            ''  Refresh the module-level reference with the
+            ''  object reference from the Designer-Form itself. 
+            ''  ---1/4/2022 td  
+            If (par_objEventsMove IsNot Nothing) Then Me.MoveabilityEvents = par_objEventsMove
 
         Else
             ''Added 1/2/2022 td''InitializeMoveability(mod_boolResizeProportionally, mod_iSaveToModel, mod_iLayoutFunctions)
             ''Jan2 2022 ''InitializeMoveability(mod_boolResizeProportionally, Me, mod_iLayoutFunctions)
-            InitializeMoveability(mod_boolResizeProportionally, mod_iLayoutFunctions)
+            ''Jan3 2022 ''InitializeMoveability(mod_boolResizeProportionally, mod_iLayoutFunctions)
+            If (mod_iLayoutFunctions Is Nothing) Then mod_iLayoutFunctions = par_iLayoutFunctions
+            InitializeMoveability(mod_boolResizeProportionally, mod_iLayoutFunctions, par_objEventsMove)
 
         End If ''End of "If (boolInstantiated) Then ... Else ...."
 
     End Sub
 
 
-    Public Sub RemoveMoveability(Optional pboolUseEasyWay As Boolean = True)
+    Public Sub RemoveMoveability(Optional pboolUseEasyWay As Boolean = True,
+                                 Optional pbBlackholeMethed As Boolean = False)
         ''
         ''Added 12/28/2021 td
         ''
-        If (True Or Not mod_boolResizeProportionally) Then
-            ''mod_movingInAGroup.UndloadEventHandlers()
-            If (mod_moveInAGroup IsNot Nothing) Then
-                ''Doesn't work well. ''mod_movingInAGroup.RemoveEventHandlers()
-                ''#1 Dec28 2021 td''mod_movingInAGroup.Reverse_Init() ''Added 12/28/2021 td
-                ''#2 Dec28 2021 td''mod_moveInAGroup.RemoveAllFunctionality = True ''Added 12/28/2021 td
+        If (Not pboolUseEasyWay And pbBlackholeMethed) Then
+            ''Added 1/3/2022 td
+            ''//Great for removing functionality!  
+            ''//  (But potentially depressing, since your app won't work
+            ''//       (& you won't know why)!!)
+            ''//   ----1/3/2022 td 
+            ''//
+            mod_iMoveOrResizeFunctionality.KillAllEvents_Blackhole()
 
-                If (Not pboolUseEasyWay) Then mod_moveInAGroup.Reverse_Init() ''Added 12/28/2021 td
-                If (pboolUseEasyWay) Then mod_moveInAGroup.RemoveAllFunctionality = True ''Added 12/28/2021 td
+        ElseIf (Not pboolUseEasyWay) Then
+            mod_iMoveOrResizeFunctionality.Reverse_Init() ''Added 12/28/2021 td
 
-                ''Dec28 2021 td''mod_movingInAGroup.Dispose() ''Added 12/28/2021 td
+        ElseIf (pboolUseEasyWay) Then
+            mod_iMoveOrResizeFunctionality.RemoveAllFunctionality = True ''Added 12/28/2021 td
 
-            End If ''End of "If (mod_movingInAGroup IsNot Nothing) Then"
-            ''Doesn't work well. Dec28 2021 td''mod_movingInAGroup = Nothing
-        End If ''End of "If (True Or Not mod_boolResizeProportionally) Then"
+        End If
 
-        If (True Or mod_boolResizeProportionally) Then
-            ''mod_resizingProportionally.UnloadEventHandlers()
-            If (mod_moveResizeKeepRatio IsNot Nothing) Then
-                ''Doesn't work well. Dec28 2021 td''mod_resizingProportionally.RemoveEventHandlers()
-                ''#2 Dec28 2021 td''mod_moveResizeKeepRatio.RemoveAllFunctionality = True ''Added 12/28/2021 td
 
-                If (Not pboolUseEasyWay) Then mod_moveResizeKeepRatio.Reverse_Init() ''Added 12/28/2021 td
-                If (pboolUseEasyWay) Then mod_moveResizeKeepRatio.RemoveAllFunctionality = True ''Added 12/28/2021 td
+        ''If (True Or Not mod_boolResizeProportionally) Then
+        ''    ''mod_movingInAGroup.UndloadEventHandlers()
+        ''    If (mod_moveInAGroup IsNot Nothing) Then
+        ''        ''Doesn't work well. ''mod_movingInAGroup.RemoveEventHandlers()
+        ''        ''#1 Dec28 2021 td''mod_movingInAGroup.Reverse_Init() ''Added 12/28/2021 td
+        ''        ''#2 Dec28 2021 td''mod_moveInAGroup.RemoveAllFunctionality = True ''Added 12/28/2021 td
 
-                ''Dec28 2021 td''mod_movingInAGroup.Dispose() ''Added 12/28/2021 td
+        ''        If (Not pboolUseEasyWay) Then mod_moveInAGroup.Reverse_Init() ''Added 12/28/2021 td
+        ''        If (pboolUseEasyWay) Then mod_moveInAGroup.RemoveAllFunctionality = True ''Added 12/28/2021 td
 
-            End If ''end of "If (mod_resizingProportionally IsNot Nothing) Then"
-            ''Doesn't work well. Dec28 2021 td''mod_resizingProportionally = Nothing
+        ''        ''Dec28 2021 td''mod_movingInAGroup.Dispose() ''Added 12/28/2021 td
 
-        End If ''ENd of "If (True Or mod_boolResizeProportionally) Then"
+        ''    End If ''End of "If (mod_movingInAGroup IsNot Nothing) Then"
+        ''    ''Doesn't work well. Dec28 2021 td''mod_movingInAGroup = Nothing
+        ''End If ''End of "If (True Or Not mod_boolResizeProportionally) Then"
+
+        ''If (True Or mod_boolResizeProportionally) Then
+        ''    ''mod_resizingProportionally.UnloadEventHandlers()
+        ''    If (mod_moveResizeKeepRatio IsNot Nothing) Then
+        ''        ''Doesn't work well. Dec28 2021 td''mod_resizingProportionally.RemoveEventHandlers()
+        ''        ''#2 Dec28 2021 td''mod_moveResizeKeepRatio.RemoveAllFunctionality = True ''Added 12/28/2021 td
+
+        ''        If (Not pboolUseEasyWay) Then mod_moveResizeKeepRatio.Reverse_Init() ''Added 12/28/2021 td
+        ''        If (pboolUseEasyWay) Then mod_moveResizeKeepRatio.RemoveAllFunctionality = True ''Added 12/28/2021 td
+
+        ''        ''Dec28 2021 td''mod_movingInAGroup.Dispose() ''Added 12/28/2021 td
+
+        ''    End If ''end of "If (mod_resizingProportionally IsNot Nothing) Then"
+        ''    ''Doesn't work well. Dec28 2021 td''mod_resizingProportionally = Nothing
+
+        ''End If ''ENd of "If (True Or mod_boolResizeProportionally) Then"
 
     End Sub ''End of "Public Sub RemoveMoveability()"
 
@@ -339,7 +386,8 @@ Public Class RSCMoveableControlVB
 
 
     Public Sub InitializeMoveability(pboolResizeProportionally As Boolean,
-                                     par_iLayoutFunctions As ILayoutFunctions)
+                                     par_iLayoutFunctions As ILayoutFunctions,
+                                     par_objMoveEvents As GroupMoveEvents_Singleton)
         ''Jan2 2022''       par_iSaveToModel As ISaveToModel,
         ''
         ''Added 12/22/2021 thomas downes
@@ -354,6 +402,8 @@ Public Class RSCMoveableControlVB
         ''
         mod_moveResizeKeepRatio = Nothing
         mod_moveInAGroup = Nothing
+
+        mod_events = par_objMoveEvents ''Added 1/3/2022 thomas 
         mod_events.LayoutFunctions = par_iLayoutFunctions
 
         ''
@@ -366,7 +416,8 @@ Public Class RSCMoveableControlVB
             mod_moveResizeKeepRatio = New MoveAndResizeControls_Monem.ControlResizeProportionally_TD()
             mod_moveResizeKeepRatio.Init(Me, Me, 10, c_bRepaintAfterResize,
                                             mod_events, False, Me)
-            ''                            ''1/2/2022 td '' mod_events, False, mod_iSaveToModel)
+
+            ''            ''1/2/2022 td '' mod_events, False, mod_iSaveToModel)
             ''---mod_resizingProportionally.LayoutFunctions = par_iLayoutFunctions 
             mod_iMoveOrResizeFunctionality = mod_moveResizeKeepRatio ''Added 12/28/2021 td
 
@@ -411,7 +462,9 @@ Public Class RSCMoveableControlVB
     Private mod_objOperationsGeneric As Operations__Generic = Nothing ''New Operations_Generic(Me)
     Private mod_objOperationsUseless As Operations__Useless = Nothing ''New Operations_Useless(Me)
 
-    Private Sub InitializeClickability(par_enum As EnumElementType)
+    Private Sub InitializeClickability(par_enum As EnumElementType,
+                                       par_moveabilityEvents As GroupMoveEvents_Singleton)
+        ''Jan4 2022 td''Private Sub InitializeClickability(par_enum As EnumElementType)
         ''Dec29 2021 td''Private Sub InitializeClickability(par_designer As ClassDesigner,
         ''     par_enum As EnumElementType)
         ''
@@ -419,8 +472,13 @@ Public Class RSCMoveableControlVB
         ''
         ''Dec28, 2021 td''mod_designer = par_designer
         ''
-        mod_objOperationsGeneric = New Operations__Generic(Me)
-        mod_objOperationsUseless = New Operations__Useless(Me)
+        ''Jan4 2022 td''mod_objOperationsGeneric = New Operations__Generic(Me)
+        ''Jan4 2022 td''mod_objOperationsUseless = New Operations__Useless(Me)
+
+        ''#2 Jan4 ''mod_objOperationsGeneric = New Operations__Generic(Me, par_moveabilityEvents)
+        ''#2 Jan4 ''mod_objOperationsUseless = New Operations__Useless(Me, par_moveabilityEvents)
+        mod_objOperationsGeneric = New Operations__Generic(Me, par_moveabilityEvents, mod_iLayoutFunctions)
+        mod_objOperationsUseless = New Operations__Useless(Me, par_moveabilityEvents, mod_iLayoutFunctions)
 
         ''mod_menuCacheGeneric = New MenuCache_NonShared(EnumElementType.Field,
         ''                                               mod_objOperationsGeneric.GetType(),

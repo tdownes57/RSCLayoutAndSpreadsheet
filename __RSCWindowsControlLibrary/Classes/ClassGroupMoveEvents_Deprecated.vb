@@ -10,7 +10,7 @@ Imports ciBadgeInterfaces ''Added 9/20/2019 td
 Imports System.Windows.Forms ''Added 10/1/2019 td 
 
 Public Class ClassGroupMoveEvents_Deprecated
-    Implements InterfaceEvents
+    Implements InterfaceMoveEvents
 
     ''Added 8/3/2019 thomas downes
     Public Event MoveInUnison(deltaLeft As Integer, deltaTop As Integer, deltaWidth As Integer, deltaHeight As Integer)
@@ -55,7 +55,7 @@ Public Class ClassGroupMoveEvents_Deprecated
 
     End Sub
 
-    Public Sub Resizing_Initiate() Implements InterfaceEvents.Resizing_Initiate
+    Public Sub Resizing_Initiate() Implements InterfaceMoveEvents.Resizing_Initiate
 
         ''Added 8/4/2019 td  
         RaiseEvent Resizing_Start()
@@ -63,7 +63,7 @@ Public Class ClassGroupMoveEvents_Deprecated
     End Sub
 
     Public Sub GroupMove_Change(deltaLeft As Integer, deltaTop As Integer, deltaWidth As Integer, deltaHeight As Integer) _
-        Implements InterfaceEvents.GroupMove_Change
+        Implements InterfaceMoveEvents.GroupMove_Change
 
         ''
         ''Added 8/3/2019 td
@@ -76,7 +76,7 @@ Public Class ClassGroupMoveEvents_Deprecated
 
     End Sub ''End of "Public Sub GroupMove_Change"
 
-    Public Sub ControlBeingMoved(par_control As Control) Implements InterfaceEvents.ControlBeingMoved
+    Public Sub ControlBeingMoved(par_control As Control) Implements InterfaceMoveEvents.ControlBeingMoved
         ''
         ''Added 8/4/2019 td
         ''
@@ -85,7 +85,7 @@ Public Class ClassGroupMoveEvents_Deprecated
 
     End Sub
 
-    Public Sub Resizing_Terminate(par_iSave As ISaveToModel) Implements InterfaceEvents.Resizing_Terminate
+    Public Sub Resizing_Terminate(par_iSave As ISaveToModel) Implements InterfaceMoveEvents.Resizing_Terminate
         ''Dec17 2021''Public Sub Resizing_Terminate() Implements InterfaceEvents.Resizing_Terminate
 
         ''Added 8/4/2019 td  
@@ -94,7 +94,7 @@ Public Class ClassGroupMoveEvents_Deprecated
     End Sub
 
 
-    Public Sub Moving_Terminate(par_control As Control, par_iSave As ISaveToModel) Implements InterfaceEvents.Moving_Terminate
+    Public Sub Moving_Terminate(par_control As Control, par_iSave As ISaveToModel) Implements InterfaceMoveEvents.Moving_Terminate
         ''12/17/2021 td''Public Sub Moving_Terminate(par_control As Control) Implements InterfaceEvents.Moving_Terminate
 
         ''Added 9/13/2019 td  
@@ -104,7 +104,8 @@ Public Class ClassGroupMoveEvents_Deprecated
 
     End Sub
 
-    Public Sub Control_IsMoving() Implements InterfaceEvents.Control_IsMoving
+
+    Public Sub Control_IsMoving() Implements InterfaceMoveEvents.Control_IsMoving
 
         ''Added 12/6/2021 td  
         RaiseEvent ControlIsMoving()

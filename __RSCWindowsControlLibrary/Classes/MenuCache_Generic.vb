@@ -55,7 +55,9 @@ Public Class MenuCache_Generic
     Private Shared mod_operationsGenericEdits As Operations__Generic ''Added 10/11/2019 td  
 
 
-    Friend Shared Function Get_EditElementMenu(par_enum As EnumElementType) As ToolStripItemCollection
+    Friend Shared Function Get_EditElementMenu(par_enum As EnumElementType,
+                                   par_moveableEvents As GroupMoveEvents_Singleton,
+                                               par_iLayoutFun As ILayoutFunctions) As ToolStripItemCollection
         ''
         ''Added 12/28/2021 thomas downes  
         ''
@@ -66,7 +68,9 @@ Public Class MenuCache_Generic
 
                 ''Dec28 2021 td''GenerateMenuItems_IfNeeded()
                 ''#2 Dec28 2021 td''Tools_EditElementMenu = GenerateMenuItems_IfNeeded()
-                GenerateMenuItems_IfNeeded()
+                ''Jan3 2022 td''GenerateMenuItems_IfNeeded()
+                ''Jan4 2022 td''GenerateMenuItems_IfNeeded(par_moveableEvents)
+                GenerateMenuItems_IfNeeded(par_moveableEvents, par_iLayoutFun)
 
             End If ''end of "If (Tools_EditElementMenu Is Nothing) Then"
 
@@ -77,7 +81,8 @@ Public Class MenuCache_Generic
     End Function ''End of "Private Shared Function Get_EditElementMenu"
 
 
-    Public Shared Sub GenerateMenuItems_IfNeeded() ''Dec28 2021 td''(par_cacheOfFieldsEtc As ciBadgeCachePersonality.ClassElementsCache_Deprecated)
+    Public Shared Sub GenerateMenuItems_IfNeeded(par_eventsForMove As GroupMoveEvents_Singleton,
+                                                 par_iLayoutFunctions As ILayoutFunctions) ''Dec28 2021 td''(par_cacheOfFieldsEtc As ciBadgeCachePersonality.ClassElementsCache_Deprecated)
         ''Dec.12 2021 ''Public Shared Sub GenerateMenuItems_IfNeeded()
         ''
         ''Added 10/2/2019 thomas downes  
@@ -87,7 +92,11 @@ Public Class MenuCache_Generic
         If (boolAlreadyPopulated) Then Exit Sub
 
         ''Added 12/28/2021 thomas downes
-        mod_operationsGenericEdits = New Operations__Generic(CtlCurrentElement)
+        ''Jan4 2022 td''mod_operationsGenericEdits = New Operations__Generic(CtlCurrentElement)
+        ''#2 Jan4 2022 td''mod_operationsGenericEdits = New Operations__Generic(CtlCurrentElement, par_eventsForMove)
+        mod_operationsGenericEdits = New Operations__Generic(CtlCurrentElement,
+                                                             par_eventsForMove,
+                                                             par_iLayoutFunctions)
 
         ''12/13/2021''Generate_BasicEdits()
         Generate_BasicEdits(mod_operationsGenericEdits.GetType())

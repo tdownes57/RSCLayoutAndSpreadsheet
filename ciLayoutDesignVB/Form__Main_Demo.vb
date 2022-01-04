@@ -52,6 +52,8 @@ Public Class Form__Main_Demo
     ''#1 10/3/2019 td''Private WithEvents mod_groupedMove As New ClassGroupMove(Me) ''8/4/2019 td''New ClassGroupMove
     '' #2 10/3/2019 td''Private WithEvents mod_groupedMove As New ClassGroupMove(mod_designer) ''8/4/2019 td''New ClassGroupMove
 
+    Private mod_oGroupMoveEvents As New GroupMoveEvents_Singleton(mod_designer, False) ''Added 1/4/2022 td  
+
     Private Const mc_boolAllowGroupMovements As Boolean = True ''False ''True ''False ''Added 8/3/2019 td  
     Private Const mc_boolBreakpoints As Boolean = True
     Private mod_boolDebugMode As Boolean = True ''Added 12/6/2021 thomas downes
@@ -509,7 +511,8 @@ Public Class Form__Main_Demo
             ''
             ''Major call !!! 
             ''
-            .LoadDesigner("Form__Main_Demo's Form_Load ")
+            ''Jan4 2022 td''.LoadDesigner("Form__Main_Demo's Form_Load ", mod_oGroupMoveEvents)
+            .LoadDesigner("Form__Main_Demo's Form_Load ", mod_oGroupMoveEvents)
 
         End With ''ENd of "With mod_designer"
 

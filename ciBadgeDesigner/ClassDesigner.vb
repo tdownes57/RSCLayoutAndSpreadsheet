@@ -105,6 +105,8 @@ Public Class ClassDesigner
 
     ''11/29/2012 ''Private mod_ControlLastTouched As Control ''Added 8/12/2019 thomas d. 
     Public mod_ControlLastTouched As Control ''Publicized 11/29/2021 td''Added 8/12/2019 thomas d. 
+
+    Private mod_oGroupMoveEvents As GroupMoveEvents_Singleton ''Added 1/4/2022 thomas d.
     ''Jan2 2022''Public mod_IControlLastTouched As New ClassLastControlTouched ''Added 1/02/2021 thomas d. 
     Private mod_ElementLastTouched As Control ''Let's change this to IElement_Base soon. ---Added 9/14/2019 td 
     Private mod_IMoveableElementLastTouched As IMoveableElement ''Added 12/21/2021 td
@@ -381,12 +383,15 @@ Public Class ClassDesigner
     End Sub ''End of "Public Sub UnloadDesigner_StaticText()"
 
 
-    Public Sub LoadDesigner(pstrWhyCalled As String) ''10/1/2019 td''sender As Object, e As EventArgs) Handles MyBase.Load
+    Public Sub LoadDesigner(pstrWhyCalled As String,
+                            par_oMoveEvents As GroupMoveEvents_Singleton) ''10/1/2019 td''sender As Object, e As EventArgs) Handles MyBase.Load
         ''10/1/2019 td''Private Sub Form_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
         ''Added 7/18/2019 thomas downes 
         ''
         ''Moved below.  9/20 td''Initiate_RubberbandSelector() ''Added 9/8/2019 thomas d. 
+
+        mod_oGroupMoveEvents = par_oMoveEvents ''Added 1/4/2022 td
 
         ''
         ''Check that the proportions are correct. 
@@ -499,7 +504,7 @@ Public Class ClassDesigner
         ''12/8/2021 td''LoadForm_LayoutElements(Me.ElementsCache_Edits, mod_listOfFieldControls,
         ''12/8/2021 td''      "ClassDesigner.LoadDesigner " & pstrWhyCalled)
         LoadForm_LayoutElements(EnumSideOfCard, Me.ElementsCache_UseEdits, mod_listOfFieldControls,
-              "ClassDesigner.LoadDesigner " & pstrWhyCalled)
+                                par_oMoveEvents, "ClassDesigner.LoadDesigner " & pstrWhyCalled)
 
 
 
@@ -725,6 +730,7 @@ Public Class ClassDesigner
     Private Sub LoadForm_LayoutElements(par_enumSideOfCard As EnumWhichSideOfCard,
                                         par_cache As ClassElementsCache_Deprecated,
                                         ByRef par_listFieldCtls As HashSet(Of CtlGraphicFldLabel),
+                                        par_oMoveEvents As GroupMoveEvents_Singleton,
                                         pstrWhyCalled As String)
         ''10/17/2019 td''Private Sub LoadForm_LayoutElements(par_cache As ClassElementsCache,
         ''                                ByRef par_listFieldCtls As List(Of CtlGraphicFldLabel))
@@ -783,13 +789,15 @@ Public Class ClassDesigner
         ''   1. Destroy the existing control.
         ''   2. Create a new one & add it to the designer form. 
         ''
-        LoadElements_QRCode(iBadgeSideElements.ElementQR) ''Dec22 2021 td''LoadDesigner_QRCode()
+        ''Jan3 2022 td''LoadElements_QRCode(iBadgeSideElements.ElementQR) ''Dec22 2021 td''LoadDesigner_QRCode()
+        LoadElements_QRCode(iBadgeSideElements.ElementQR, par_oMoveEvents) ''Dec22 2021 td''LoadDesigner_QRCode()
 
         ''12/22/2021 td''LoadElements_Picture(par_cache.PicElement_Front())
         LoadElements_Picture(iBadgeSideElements.ElementPic)
 
         ''12/22/2021 td''LoadElements_Signature(par_cache.ElementSignature) ''Added 10/12/2019 thomas d.
-        LoadElements_Signature(iBadgeSideElements.ElementSig) ''Modified 12/22/2021 thomas d.
+        ''1/4/2022 td''LoadElements_Signature(iBadgeSideElements.ElementSig) ''Modified 12/22/2021 thomas d.
+        LoadElements_Signature(iBadgeSideElements.ElementSig, par_oMoveEvents) ''Modified 12/22/2021 thomas d.
 
         ''Added 12/18/2021 td 
         ''Dec18 2021''LoadElements_StaticText1(par_cache.ListOfElementTexts_Front.GetEnumerator().Current) ''Added 10/12/2019 thomas d.
@@ -980,7 +988,8 @@ Public Class ClassDesigner
     End Sub ''End of " Private Sub LoadElements_Picture()"
 
 
-    Private Sub LoadElements_QRCode(par_elementQR As ClassElementQRCode)
+    Private Sub LoadElements_QRCode(par_elementQR As ClassElementQRCode,
+                                    par_oMoveEvents As GroupMoveEvents_Singleton)
         ''--#2 Dec22 2021 td''--Private Sub LoadElements_QRCode()
         ''--#1 Dec22 2021 td''--Private Sub LoadDesigner_QRCode()
         ''
@@ -1001,7 +1010,8 @@ Public Class ClassDesigner
             ''12/30/2021 td''Me.CtlGraphic_QRCode = New CtlGraphicQRCode(par_elementQR, CType(Me, ILayoutFunctions))
             Me.CtlGraphic_QRCode = CtlGraphicQRCode.GetQRCode(par_elementQR, "CtlGraphic_QRCode",
                                                               CType(Me, ILayoutFunctions), c_proportional,
-                                                              CType(Me, ILastControlTouched))
+                                                              CType(Me, ILastControlTouched),
+                                                              par_oMoveEvents)
             ''1/2/2022 td''                                   ''Jan2 2022 td''dummySaveToModel,
 
             Me.DesignerForm.Controls.Add(Me.CtlGraphic_QRCode)
@@ -1040,7 +1050,8 @@ Public Class ClassDesigner
     End Sub ''ENd of "Private Sub LoadElements_QRCode"
 
 
-    Private Sub LoadElements_Signature(par_elementSig As ClassElementSignature)
+    Private Sub LoadElements_Signature(par_elementSig As ClassElementSignature,
+                                       par_oMoveEvents As GroupMoveEvents_Singleton)
         ''
         ''Added 10/12/2019 thomas d. 
         ''
@@ -1051,6 +1062,7 @@ Public Class ClassDesigner
         CtlGraphic_Signat = CtlGraphicSignature.GetSignature(par_elementSig, "CtlGraphic_Signat",
                                                 CType(Me, ILayoutFunctions), c_proportional,
                                                 CType(Me, ILastControlTouched),
+                                                par_oMoveEvents,
                                                 Me.PathToSigFile)
         ''1/2/2022 td''                                   ''Jan2 2022 td''dummySaveToModel,
 
@@ -2674,7 +2686,8 @@ Public Class ClassDesigner
         ''Dec.10 2021''UnloadDesigner()
         UnloadDesigner(False)
 
-        LoadDesigner("Called from SwitchSideOfCard")
+        ''1/4/2022 td''LoadDesigner("Called from SwitchSideOfCard")
+        LoadDesigner("Called from SwitchSideOfCard", mod_oGroupMoveEvents)
 
         ''Exit Handler.......
         pref_success = True

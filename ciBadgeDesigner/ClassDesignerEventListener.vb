@@ -31,14 +31,14 @@ Public Class ClassDesignerEventListener
     '' #2 8-3-2019 td''Private WithEvents mod_moveAndResizeCtls As New MoveAndResizeControls_Monem.ControlMove_GroupMove ''Added 8/3/2019 td  
     ''#1 10/1/2019 td''Private WithEvents mod_groupedMove As New ClassGroupMove(Me) ''8/4/2019 td''New ClassGroupMove
     '' #2 10/1/2019 td''Private WithEvents mod_groupedMove As New ClassGroupMove(Me.LayoutFunctions) ''8/4/2019 td''New ClassGroupMove
-    Private WithEvents mod_groupedMove As ClassGroupMoveEvents ''(Me) ''8/4/2019 td''New ClassGroupMove
-    Private WithEvents mod_singletonMove As ClassGroupMoveEvents ''Added 12/3/2021  
+    Private WithEvents mod_groupedMove As GroupMoveEvents_Singleton ''(Me) ''8/4/2019 td''New ClassGroupMove
+    Private WithEvents mod_singletonMove As GroupMoveEvents_Singleton ''Added 12/3/2021  
 
     ''Dec17 2021''Private WithEvents mod_sizingEvents_Pics As ClassGroupMoveEvents ''(Me) ''Added 10/9/2019 td  
     ''Dec17 2021''Private WithEvents mod_sizingEvents_QR As ClassGroupMoveEvents ''(Me) ''Added 10/12/2019 td  
     ''Dec17 2021''Private WithEvents mod_sizingEvents_Sig As ClassGroupMoveEvents ''(Me) ''Added 10/12/2019 td  
     ''Dec17 2021''Private WithEvents mod_sizingEvents_StaticText As ClassGroupMoveEvents ''(Me) ''Added 10/12/2019 td  
-    Public WithEvents SizingElementEvents As ClassGroupMoveEvents ''(Me) ''Added 12/17/2021 td  
+    Public WithEvents SizingElementEvents As GroupMoveEvents_Singleton ''(Me) ''Added 12/17/2021 td  
 
     Private Const mc_boolAllowGroupMovements As Boolean = True ''False ''True ''False ''Added 8/3/2019 td  
     Private Const mc_boolBreakpoints As Boolean = True
@@ -74,13 +74,13 @@ Public Class ClassDesignerEventListener
         mod_designer = par_designer
 
         ''Added 11/29/2021 td
-        mod_groupedMove = New ClassGroupMoveEvents(par_designer)
-        mod_singletonMove = New ClassGroupMoveEvents(par_designer)
+        mod_groupedMove = New GroupMoveEvents_Singleton(par_designer)
+        mod_singletonMove = New GroupMoveEvents_Singleton(par_designer)
         ''Dec17 2021''mod_sizingEvents_Pics = New ClassGroupMoveEvents(par_designer)
         ''Dec17 2021''mod_sizingEvents_QR = New ClassGroupMoveEvents(par_designer)
         ''Dec17 2021''mod_sizingEvents_Sig = New ClassGroupMoveEvents(par_designer)
         ''Dec17 2021''mod_sizingEvents_StaticText = New ClassGroupMoveEvents(par_designer)
-        SizingElementEvents = New ClassGroupMoveEvents(par_designer)
+        SizingElementEvents = New GroupMoveEvents_Singleton(par_designer)
 
         ''Added 11/29/2021 td
         m_bAddBorderOnlyWhileResizing = p_bAddBorderOnlyWhileResizing

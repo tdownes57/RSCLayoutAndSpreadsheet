@@ -9,7 +9,7 @@ using ciBadgeInterfaces; //Added 1/3/2022 thomas d.
 namespace MoveAndResizeControls_Monem
 {
     //Added 1/3/2022 thomas d.
-    class ClassGroupMoveEvents_NotUsed : InterfaceEvents
+    class ClassGroupMoveEvents_NotUsed : InterfaceMoveEvents
     {
         //Added 1/3/2022 thomas d.
         public delegate void DelegateMoveInUnison(int deltaLeft, int deltaTop, int deltaWidth, int deltaHeight);

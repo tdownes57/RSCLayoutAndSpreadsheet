@@ -77,12 +77,13 @@ namespace MoveAndResizeControls_Monem
 
         //Added 8/03/2019 thomas downes
         //
-        internal static InterfaceEvents mod_groupedctl_events;
+        // Jan3 2022 td//internal static InterfaceEvents mod_groupedctl_events;
+        internal static InterfaceMoveEvents mod_groupedctl_events;
 
         internal static MoveOrResize WorkType { get; set; }
 
         public static void Init(Control par_controlA, int par_margin, bool pbRepaintAfterResize, 
-                                 InterfaceEvents par_events, bool pbSetBreakpoint_AfterMove,
+                                 InterfaceMoveEvents par_events, bool pbSetBreakpoint_AfterMove,
                                  ISaveToModel par_iSave)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
@@ -107,7 +108,7 @@ namespace MoveAndResizeControls_Monem
         public static void Init(Control par_controlImage, 
                                 Control par_containerElement, 
                                 int par_margin, bool pbRepaintAfterResize, 
-                               InterfaceEvents par_events, bool pbSetBreakpoint_AfterMove, 
+                               InterfaceMoveEvents par_events, bool pbSetBreakpoint_AfterMove, 
                                ISaveToModel par_iSave)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 

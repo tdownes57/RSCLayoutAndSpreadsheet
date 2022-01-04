@@ -23,7 +23,7 @@ Public Class Operations_EditBackground
     Public Property Designer As ciBadgeDesigner.ClassDesigner
     Public Property ColorDialog1 As ColorDialog ''Added 10/3/2019 td 
     Public Property OpenFileDialog1 As OpenFileDialog ''Added 10/15/2019 td 
-    Public Property GroupedElements As ClassGroupMoveEvents ''Added 10/15/2019 td
+    Public Property GroupedElements As GroupMoveEvents_Singleton ''Added 10/15/2019 td
 
     Public Shared Tools_MenuHeader0 As ToolStripItem ''Added 12/15/2021
     Public Shared Tools_MenuHeader1 As ToolStripItem ''Added 12/15/2021

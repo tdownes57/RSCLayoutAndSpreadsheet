@@ -79,13 +79,13 @@ namespace MoveAndResizeControls_Monem
         //Added 8/03/2019 thomas downes
         //
         //---internal InterfaceEvents mod_groupedctl_events;
-        public InterfaceEvents mod_groupedctl_events;
+        public InterfaceMoveEvents mod_groupedctl_events;
 
         internal MoveOrResize WorkType { get; set; }
 
 
         public void Init(Control par_controlA, int par_margin, bool pbRepaintAfterResize,
-                                 InterfaceEvents par_events, bool pbSetBreakpoint_AfterMove,
+                                 InterfaceMoveEvents par_events, bool pbSetBreakpoint_AfterMove,
                                  ISaveToModel par_iSave, 
                                  bool pbUndoAndReverseEverything = false)
         {
@@ -112,7 +112,7 @@ namespace MoveAndResizeControls_Monem
 
         public void Init(Control par_controlPictureB, Control par_containerElement, 
                                int par_margin, bool pbRepaintAfterResize,
-                               InterfaceEvents par_events, bool pbSetBreakpoint_AfterMove, 
+                               InterfaceMoveEvents par_events, bool pbSetBreakpoint_AfterMove, 
                                ISaveToModel par_iSave, bool pbUndoAndReverseEverything = false)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
@@ -231,6 +231,41 @@ namespace MoveAndResizeControls_Monem
             mod_groupedctl_events = null;
             _iSaveToModel = null;
 
+
+        }
+
+
+        public void KillAllEvents_Blackhole()
+        {
+            //
+            // Added 1/3/2022 thomas downes
+            //
+            // We create a new event-killing blackhole, by 
+            //   replacing the universal-shared events object with
+            //   a free-standing events object.
+            //   ("United we stand, divided we fall.")
+            //   ----1/3/2022 td
+            //
+            const bool c_yesBlackhole = true;
+            var event_blackhole = new GroupMoveEvents_Singleton(new DummyLayout(), c_yesBlackhole);
+
+            //Let's put the blackhole into action!!  
+            mod_groupedctl_events = event_blackhole; 
+
+        }
+
+
+        private void KillTheBlackhole(InterfaceMoveEvents par_sharedEventsObject)
+        {
+            //
+            // Added 1/3/2022 thomas downes
+            //
+            // We remove ("kill") the event-killing blackhole, by 
+            //   replacing the blackhole with a universally-shared
+            //   events object. 
+            //   ----1/3/2022 td
+            //
+            mod_groupedctl_events = par_sharedEventsObject;
 
         }
 

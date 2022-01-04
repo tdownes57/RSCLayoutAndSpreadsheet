@@ -34,6 +34,8 @@ Public Class Operations__Generic
 
     ''Dec28 2021''Public Property CtlCurrentElement As MoveableControlVB ''#1 Dec282021 td
     Public Property CtlCurrentElement As RSCMoveableControlVB Implements ICurrentElement.CtlCurrentElement
+    Public Property EventsForMoveability As GroupMoveEvents_Singleton ''Added 1/3/2022 td 
+    Public Property LayoutFunctions As ILayoutFunctions ''Added 1/4/2022 td
 
     ''2021''ciBadgeDesigner.CtlGraphicFldLabel ''CtlGraphicFldLabel
     ''Public Property LayoutFunctions As ILayoutFunctions ''Added 10/3/2019 td 
@@ -61,11 +63,15 @@ Public Class Operations__Generic
     End Sub ''End of "Public Sub New(par_currentControlVB As MoveableControlVB)"
 
 
-    Public Sub New(par_currentControlVB As RSCMoveableControlVB)
+    Public Sub New(par_currentControlVB As RSCMoveableControlVB,
+                   par_eventsForMoveability As GroupMoveEvents_Singleton,
+                   par_iLayoutFunctions As ILayoutFunctions)
         ''
         ''Added 12/28/2021 td
         ''
         Me.CtlCurrentElement = par_currentControlVB
+        Me.EventsForMoveability = par_eventsForMoveability ''Added 1/3/2022 thomas d. 
+        Me.LayoutFunctions = par_iLayoutFunctions ''Added 1/4/2022 td
 
     End Sub ''End of "Public Sub New(par_currentControlVB As MoveableControlVB)"
 
@@ -109,7 +115,10 @@ Public Class Operations__Generic
         ''
         ''Added 12/28/2021 thomas downes  
         ''
-        CtlCurrentElement.AddMoveability()
+        ''Jan4 2022 td''CtlCurrentElement.AddMoveability()
+        ''#2 Jan4 2022 td''CtlCurrentElement.AddMoveability(Me.EventsForMoveability)
+        ''#3 Jan4 2022 td''CtlCurrentElement.AddMoveability(Me.EventsForMoveability, Me.Designer)
+        CtlCurrentElement.AddMoveability(Me.EventsForMoveability, Me.LayoutFunctions)
 
     End Sub
 

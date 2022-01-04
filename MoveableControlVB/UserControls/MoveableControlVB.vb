@@ -110,8 +110,10 @@ Public Class MoveableControlVB
     Private mod_moveResizeKeepRatio As ControlResizeProportionally_TD = Nothing
     Private mod_iMoveOrResizeFunctionality As IMoveOrResizeFunctionality ''InterfaceMoveOrResize ''Added 12/28/2021 td
 
-    Private WithEvents mod_eventsDesigner As New ciBadgeDesigner.ClassGroupMoveEvents ''InterfaceEvents
-    Private WithEvents mod_eventsRSC As New __RSCWindowsControlLibrary.ClassGroupMoveEvents ''InterfaceEvents
+    ''[[Private WithEvents mod_eventsDesigner As New ciBadgeDesigner.ClassGroupMoveEvents ''InterfaceEvents
+    ''[[Private WithEvents mod_eventsRSC As New __RSCWindowsControlLibrary.ClassGroupMoveEvents ''InterfaceEvents
+    Private WithEvents mod_eventsMove As New ciBadgeInterfaces.GroupMoveEvents_Singleton ''InterfaceEvents
+
     Private mod_iSaveToModel_Deprecated As ISaveToModel
     ''Dec28 2021 td''Private WithEvents mod_designer As New ClassDesigner ''Added 12/27/2021 td
     Private WithEvents ContextMenuStrip1 As New ContextMenuStrip ''Added 12/28/2021 thomas downes
@@ -334,19 +336,19 @@ Public Class MoveableControlVB
         mod_moveResizeKeepRatio = Nothing
         mod_moveInAGroup = Nothing
 
-        mod_eventsDesigner.LayoutFunctions = par_iLayoutFunctions
-        mod_eventsRSC.LayoutFunctions = par_iLayoutFunctions
+        ''Not needed. 1/3/2022 td''mod_eventsDesigner.LayoutFunctions = par_iLayoutFunctions
+        ''Not needed. 1/3/2022 td''mod_eventsRSC.LayoutFunctions = par_iLayoutFunctions
 
         ''
         ''Instantiate the Resizing or Moving modules (instances).
         ''
         If pboolResizeProportionally Then
 
-            mod_eventsDesigner.LayoutFunctions = par_iLayoutFunctions ''Added 12/27/2021
+            ''Not needed. This command should happen at the form level. 1/3/2022 td''mod_eventsDesigner.LayoutFunctions = par_iLayoutFunctions ''Added 12/27/2021
 
             mod_moveResizeKeepRatio = New MoveAndResizeControls_Monem.ControlResizeProportionally_TD()
             mod_moveResizeKeepRatio.Init(Me, Me, 10, c_bRepaintAfterResize,
-                                            mod_eventsDesigner, False, Me)  ''1/2/2022 td''mod_iSaveToModel)
+                                            mod_eventsMove, False, Me)  ''1/2/2022 td''mod_iSaveToModel)
             ''---mod_resizingProportionally.LayoutFunctions = par_iLayoutFunctions 
             mod_iMoveOrResizeFunctionality = mod_moveResizeKeepRatio ''Added 12/28/2021 td
 
@@ -356,10 +358,12 @@ Public Class MoveableControlVB
             ''mod_iLayoutFunctions = par_iLayoutFunctions
             ''mod_movingInAGroup.LayoutFunctions = par_iLayoutFunctions
 
-            mod_eventsDesigner.LayoutFunctions = par_iLayoutFunctions ''Added 12/27/2021
+            ''Not needed. This command should happen at the form level. 1/3/2022 td''mod_eventsDesigner.LayoutFunctions = par_iLayoutFunctions ''Added 12/27/2021
 
+            ''Jan3 2022 td''mod_moveInAGroup.Init(Me, Me, 10, c_bRepaintAfterResize,
+            ''                   mod_eventsDesigner, False, Me) ''Jan2 2022'' mod_iSaveToModel)
             mod_moveInAGroup.Init(Me, Me, 10, c_bRepaintAfterResize,
-                                    mod_eventsDesigner, False, Me) ''Jan2 2022'' mod_iSaveToModel)
+                                    mod_eventsMove, False, Me) ''Jan2 2022'' mod_iSaveToModel)
 
             mod_iMoveOrResizeFunctionality = mod_moveInAGroup ''Added 12/28/2021 td
 
@@ -545,7 +549,7 @@ Public Class MoveableControlVB
         ''
     End Sub
 
-    Private Sub mod_events_Moving_End(par_control As Control, par_iSaveToModel As ISaveToModel) Handles mod_eventsDesigner.Moving_End '', mod_events.Resizing_End, mod_events.Moving_InProgress
+    Private Sub mod_events_Moving_End(par_control As Control, par_iSaveToModel As ISaveToModel) Handles mod_eventsMove.Moving_End '', mod_events.Resizing_End, mod_events.Moving_InProgress
         ''
         ''Added 12/27/2021 td 
         ''
@@ -556,7 +560,7 @@ Public Class MoveableControlVB
     End Sub
 
 
-    Private Sub mod_events_Resizing_End(par_iSaveToModel As ISaveToModel) Handles mod_eventsDesigner.Resizing_End
+    Private Sub mod_events_Resizing_End(par_iSaveToModel As ISaveToModel) Handles mod_eventsMove.Resizing_End
         ''
         ''Added 12/27/2021 td 
         ''
@@ -565,7 +569,7 @@ Public Class MoveableControlVB
 
     End Sub
 
-    Private Sub mod_events_MovingInProgress(par_control As Control) Handles mod_eventsDesigner.Moving_InProgress
+    Private Sub mod_events_MovingInProgress(par_control As Control) Handles mod_eventsMove.Moving_InProgress
         ''
         ''Added 12/27/2021 td 
         ''

@@ -17,6 +17,7 @@ Public Class FormTestingVB
 
     ''Added 12/28/2021 thomas
     Private mod_designer As New ClassDesigner()
+    Private mod_oGroupMoveEvents As New GroupMoveEvents_Singleton(mod_designer, False) ''Added 1/4/2022 thomas downes
     Private moveableControlLizRiley As MoveableControlVB
     Private mod_desktop_RSCClickable As RSCMoveableControlVB ''Added 12/30/2021 td
 
@@ -85,7 +86,8 @@ Public Class FormTestingVB
         ''
         ''===Step2a_Load_RuntimeControls_NonProportional_Local()
         Const c_bProportion_False As Boolean = False
-        Step2b_Load_RuntimeControls_NonProportional_RSC(c_bProportion_False)
+        ''Jan4 2022 td''Step2b_Load_RuntimeControls_NonProportional_RSC(c_bProportion_False)
+        Step2b_Load_RuntimeControls_NonProportional_RSC(c_bProportion_False, mod_oGroupMoveEvents)
         Step2c_Load_RuntimeControls_ResizeProportionally()
 
 
@@ -282,7 +284,8 @@ Public Class FormTestingVB
     End Sub
 
 
-    Private Sub Step2b_Load_RuntimeControls_NonProportional_RSC(par_proportionSize As Boolean)
+    Private Sub Step2b_Load_RuntimeControls_NonProportional_RSC(par_proportionSize As Boolean,
+                                   par_oMoveEvents As GroupMoveEvents_Singleton)
         ''
         ''Encapsulated 12/29/2021 thomas downes
         ''
@@ -293,7 +296,7 @@ Public Class FormTestingVB
         ''Jan2 2022 td''Dim objSaveToModelRSC As New ClassSaveToModel
         Dim RSCMoveableControlVB11 = RSCMoveableControlVB.GetControl(EnumElementType.Field,
                                 "RSCMoveableControlVB1", mod_designer, par_proportionSize,
-                                mod_iControlLastTouched)
+                                mod_iControlLastTouched, mod_objControlLastTouched)
 
         RSCMoveableControlVB11.Left = RSCMoveableControlVB11.Width
         RSCMoveableControlVB11.Top = 0
@@ -307,7 +310,7 @@ Public Class FormTestingVB
         ''1/2/2022 td''Dim desktop_objSaveToModelRSC As New ClassSaveToModel
         mod_desktop_RSCClickable = RSCMoveableControlVB.GetControl(EnumElementType.Field,
                                 "desktop_RSC_Clickable", mod_designer, par_proportionSize,
-                                mod_iControlLastTouched)
+                                mod_iControlLastTouched, mod_oGroupMoveEvents)
 
         mod_desktop_RSCClickable.Left = 0
         mod_desktop_RSCClickable.Top = 0
@@ -411,13 +414,15 @@ Public Class FormTestingVB
         ''CtlQrcode1 = CtlGraphicQRCode.GetQRCode(elementQR, "CtlQrcode1", mod_designer, True,
         ''     mod_iControlLastTouched)
         CtlQrcode1 = CtlGraphicQRCode.GetQRCode(elementQR, "CtlQrcode1", mod_designer, False,
-                                                mod_iControlLastTouched)
+                                                mod_iControlLastTouched, mod_oGroupMoveEvents)
+
         ''CtlQrcode1.Visible = True
         With CtlQrcode1
             .Visible = True
             .Width = (3 * .Height)
             .Top = (0.7 * .Width) ''2 * .Width
-            .AddMoveability()
+            ''Jan4 2022 td''.AddMoveability()
+            .AddMoveability(mod_oGroupMoveEvents, mod_designer)
         End With
         Me.Controls.Add(CtlQrcode1)
 
@@ -431,7 +436,7 @@ Public Class FormTestingVB
         ''                                        mod_iControlLastTouched,
         ''                                          DiskFilesVB.PathToFile_Sig())
         CtlSignature1 = CtlGraphicSignature.GetSignature(elementSig, "CtlSignature1", mod_designer, False,
-                                                mod_iControlLastTouched,
+                                                mod_iControlLastTouched, mod_oGroupMoveEvents,
                                                   DiskFilesVB.PathToFile_Sig())
         CtlSignature1.Visible = True
         Me.Controls.Add(CtlSignature1)

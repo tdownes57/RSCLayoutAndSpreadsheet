@@ -79,7 +79,7 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
         }
 
         //Added 11/29/2021 thomas downes
-        internal static InterfaceEvents mod_eventsInterface;
+        internal static InterfaceMoveEvents mod_eventsInterface;
 
         internal static MoveOrResize WorkType { get; set; }
 

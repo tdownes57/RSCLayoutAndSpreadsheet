@@ -83,11 +83,11 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
         private ISaveToModel _iSaveToModel;  //added 12/17/2021 td
 
         //Added 11/29/2021 thomas downes
-        internal InterfaceEvents mod_eventsInterface;
+        internal InterfaceMoveEvents mod_eventsInterface;
 
         internal MoveOrResize WorkType { get; set; }
 
-        public void Init(Control control, int par_margin, bool pbRepaintAfterResize, InterfaceEvents par_events, 
+        public void Init(Control control, int par_margin, bool pbRepaintAfterResize, InterfaceMoveEvents par_events, 
             bool pbSetBreakpoint_AfterMove, ISaveToModel par_iSave)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
@@ -110,7 +110,7 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
         }
 
         public void Init(Control par_control, Control par_container, int par_margin, 
-            bool pbRepaintAfterResize, InterfaceEvents par_events, bool pbSetBreakpoint_AfterMove, 
+            bool pbRepaintAfterResize, InterfaceMoveEvents par_events, bool pbSetBreakpoint_AfterMove, 
             ISaveToModel par_iSave)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 

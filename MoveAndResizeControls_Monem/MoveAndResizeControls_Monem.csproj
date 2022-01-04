@@ -59,6 +59,7 @@
     </Compile>
     <Compile Include="Interfaces\InterfaceEvents.cs" />
     <Compile Include="Interfaces\InterfaceMoveOrResizeFunctionality.cs" />
+    <Compile Include="MinorClasses\DummyLayout.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

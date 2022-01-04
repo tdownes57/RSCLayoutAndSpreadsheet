@@ -3,7 +3,7 @@ Option Strict On
 
 Imports __RSCWindowsControlLibrary ''Added 1/3/2022 thomas downes
 Imports ciBadgeDesigner ''Added 1/3/2022 thomas downes
-''Imports ciBadgeInterfaces ''Added 1/3/2022 thomas downes
+Imports ciBadgeInterfaces ''Added 1/3/2022 thomas downes
 
 Public Class FormTestQRCode
     ''
@@ -12,6 +12,7 @@ Public Class FormTestQRCode
     Private mod_iControlLastTouched As ILastControlTouched ''Added 12/28/2021 td
     Private mod_objControlLastTouched As New ClassLastControlTouched ''ILastControlTouched ''Added 12/29/2021 td
     Private mod_designer As New ClassDesigner()
+    Private mod_oGroupMoveEvents As New GroupMoveEvents_Singleton(mod_designer, False)
 
     Private CtlQrcode_Runtime As CtlGraphicQRCode
     Private RSCMoveable_Runtime As RSCMoveableControlVB
@@ -64,14 +65,15 @@ Public Class FormTestQRCode
 
         CtlQrcode_Runtime = CtlGraphicQRCode.GetQRCode(elementQR,
                                                        "CtlQrcode_Runtime", mod_designer, False,
-                                                mod_iControlLastTouched)
+                                                mod_iControlLastTouched, mod_oGroupMoveEvents)
         ''CtlQrcode1.Visible = True
         With CtlQrcode_Runtime
             .Visible = True
             .BackColor = Color.Gray
             .Width = (3 * .Height)
             .Top = 10  ''CInt(0.7 * .Width) ''2 * .Width
-            .AddMoveability()
+            ''Jan4 2022 td''.AddMoveability()
+            .AddMoveability(mod_oGroupMoveEvents, mod_designer)
         End With
         Me.Controls.Add(CtlQrcode_Runtime)
 
@@ -86,7 +88,9 @@ Public Class FormTestQRCode
         RSCMoveable_Runtime = RSCMoveableControlVB.GetControl(Module1Enumerations.EnumElementType.Field,
                                                        "RscMoveable_Runtime",
                                                        mod_designer, False,
-                                                       mod_iControlLastTouched)
+                                                       mod_iControlLastTouched,
+                                                       mod_oGroupMoveEvents)
+
         ''CtlQrcode1.Visible = True
         With RSCMoveable_Runtime
             .Visible = True
@@ -94,8 +98,9 @@ Public Class FormTestQRCode
             .Width = (3 * .Height)
             .Left = .Width
             .Top = .Height  ''CInt(0.7 * .Width) ''2 * .Width
-            .AddMoveability()
-        End With
+            ''Jan4 2022 td''.AddMoveability()
+            .AddMoveability(mod_oGroupMoveEvents, mod_designer)
+        End With ''End of "With RSCMoveable_Runtime"
         Me.Controls.Add(RSCMoveable_Runtime)
 
 

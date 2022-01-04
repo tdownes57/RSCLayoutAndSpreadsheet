@@ -42,7 +42,8 @@ Public Class CtlGraphicQRCode
                                       par_nameOfControl As String,
                                       par_iLayoutFun As ILayoutFunctions,
                                       par_bProportionSizing As Boolean,
-                                par_iControlLastTouched As ILastControlTouched) As CtlGraphicQRCode
+                                par_iControlLastTouched As ILastControlTouched,
+                                     par_oMoveEvents As GroupMoveEvents_Singleton) As CtlGraphicQRCode
         ''              1/2/2022 td''par_iSaveToModel As ISaveToModel,
         ''
         ''Added 12/29/2021 td
@@ -98,12 +99,13 @@ Public Class CtlGraphicQRCode
                                                    typeOps, objOperations,
                                                    bAddFunctionalitySooner,
                                                    bAddFunctionalitySooner,
-                                                   par_iControlLastTouched)
+                                                   par_iControlLastTouched,
+                                                    par_oMoveEvents)
         ''Jan2 2022 ''                       ''Jan2 2022 ''par_iSaveToModel, typeOps,
 
         With CtlQRCode1
             .Name = par_nameOfControl
-            If (bAddFunctionalityLater) Then .AddMoveability()
+            If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEvents, par_iLayoutFun)
             If (bAddFunctionalityLater) Then .AddClickability()
         End With ''eNd of "With CtlQRCode1"
 
@@ -141,7 +143,8 @@ Public Class CtlGraphicQRCode
                    par_operationsAny As Object,
                    pboolAddMoveability As Boolean,
                    pboolAddClickability As Boolean,
-                   par_iLastTouched As ILastControlTouched)
+                   par_iLastTouched As ILastControlTouched,
+                   par_oMoveEvents As GroupMoveEvents_Singleton)
         ''         ''Not needed. 1/2/2022'' par_iSaveToModel As ISaveToModel,
         ''         ''Not needed. 1/2/2022'' par_enumElementType As EnumElementType,
         ''
@@ -152,7 +155,7 @@ Public Class CtlGraphicQRCode
                         par_iLayoutFun,
                         par_operationsType, par_operationsAny,
                         pboolAddMoveability, pboolAddClickability,
-                        par_iLastTouched)
+                        par_iLastTouched, par_oMoveEvents)
         ''          Jan2 2022'' par_iSaveToModel, par_iLayoutFun,
 
         ' This call is required by the designer.

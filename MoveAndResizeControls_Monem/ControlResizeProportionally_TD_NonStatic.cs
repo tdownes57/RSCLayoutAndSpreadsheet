@@ -87,7 +87,7 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
         //Added 10/9/2019 thomas downes
         //
         private decimal _proportionWH; //Added 10/9/2019 thomas downes
-        internal InterfaceEvents mod_events; //Added 10/9/2019 thomas downes
+        internal InterfaceMoveEvents mod_events; //Added 10/9/2019 thomas downes
 
         internal bool MouseIsInLeftEdge { get; set; }
         internal bool MouseIsInRightEdge { get; set; }
@@ -114,7 +114,7 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
         private static bool MouseMove_Container = false;    // Added 12/2/2021 td
 
         public void Init_NotInUse(Control par_control, int par_margin, bool pbRepaintAfterResize,
-                                InterfaceEvents par_events, bool pbSetBreakpoint_AfterMove,
+                                InterfaceMoveEvents par_events, bool pbSetBreakpoint_AfterMove,
                                 ISaveToModel par_iSave)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
@@ -137,7 +137,7 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
 
 
         public void Init(Control par_control, Control par_container, int par_margin, bool pbRepaintAfterResize,
-                                  InterfaceEvents par_events, bool pbSetBreakpoint_AfterMove,
+                                  InterfaceMoveEvents par_events, bool pbSetBreakpoint_AfterMove,
                                   ISaveToModel par_iSave, bool pbRemoveAnyHandlers = false)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
@@ -370,6 +370,44 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
                 _repaintAfterResize, mod_events, false, _iSaveToModel,
                 c_bRemoveHandlers);
         }
+
+
+        public void KillAllEvents_Blackhole()
+        {
+            //
+            // Added 1/3/2022 thomas downes
+            //
+            // We create a new event-killing blackhole, by 
+            //   replacing the universal-shared events object with
+            //   a free-standing events object.
+            //   ("United we stand, divided we fall.")
+            //   ----1/3/2022 td
+            //
+            const bool c_yesBlackhole = true;
+            var event_blackhole = new GroupMoveEvents_Singleton(new DummyLayout(), c_yesBlackhole);
+
+            //Let's put the blackhole into action!!  
+            mod_events = event_blackhole;
+
+        }
+
+
+        private void KillTheBlackhole(InterfaceMoveEvents par_sharedEventsObject)
+        {
+            //
+            // Added 1/3/2022 thomas downes
+            //
+            // We remove ("kill") the event-killing blackhole, by 
+            //   replacing the blackhole with a universally-shared
+            //   events object. 
+            //   ----1/3/2022 td
+            //
+            //Jan3 2002 td //mod_groupedctl_events = par_sharedEventsObject;
+            mod_events = par_sharedEventsObject;
+
+        }
+
+
 
 
         private void StartMovingOrResizing(Control par_control, MouseEventArgs e)
