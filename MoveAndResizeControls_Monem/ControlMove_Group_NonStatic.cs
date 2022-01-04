@@ -55,7 +55,8 @@ namespace MoveAndResizeControls_Monem
 
         private Control _controlCurrent; // Added 11/29/2021 td
         //''1/4/2022 td''private Control _controlPictureBox;  // = par_controlPictureB;
-        private PictureBox _controlPictureBox;  // = par_controlPictureB;
+        private PictureBox _controlPictureBox1;  // = par_controlPictureB;
+        private PictureBox _controlPictureBox2;  // = par_controlPictureB;
         private Control _controlMoveableElement; // = par_containerElement;
         private ISaveToModel _iSaveToModel;  // Added 12/17/2021 td
         private Label _labelIfNeeded;  //Added 1/04/2022 thomas d.
@@ -133,8 +134,8 @@ namespace MoveAndResizeControls_Monem
             else _iSaveToModel = par_iSave;  //Added 12/28/2021
 
             //Dec28 //_controlPictureBox = par_controlPictureB; //Added 12/27/2021 td
-            if (pbUndoAndReverseEverything) _controlPictureBox = null; //Added 12/28/2021
-            else _controlPictureBox = par_controlPictureB; //Added 12/28/2021
+            if (pbUndoAndReverseEverything) _controlPictureBox1 = null; //Added 12/28/2021
+            else _controlPictureBox1 = par_controlPictureB; //Added 12/28/2021
 
             SetBreakpoint_AfterMove = pbSetBreakpoint_AfterMove;  //Added 9/13/2019 td 
 
@@ -211,14 +212,17 @@ namespace MoveAndResizeControls_Monem
             {
                 //Remove the event handler.
                 //''par_controlPictureB.MouseMove -= (sender, e) => MoveControl(par_containerElement, e);
-                if (par_controlPictureB == null) par_containerElement.MouseMove -= (sender, e) => MoveControl(par_containerElement, e);
-                else par_controlPictureB.MouseMove -= (sender, e) => MoveControl(par_containerElement, e);
+                if (par_controlPictureB == null) par_containerElement.MouseMove -= (sender, e) => MoveParentControl(par_containerElement, e);
+                // Yes, MoveParentControl(par_containterElement is correct.... Jan4 2022 td
+                else par_controlPictureB.MouseMove -= (sender, e) => MoveParentControl(par_containerElement, e);
             }
             else
             {
+                // Yes, MoveParentControl(par_containterElement is correct.... Jan4 2022 td
                 //''par_controlPictureB.MouseMove += (sender, e) => MoveControl(par_containerElement, e);
-                if (par_controlPictureB == null) par_containerElement.MouseMove += (sender, e) => MoveControl(par_containerElement, e);
-                else par_controlPictureB.MouseMove += (sender, e) => MoveControl(par_containerElement, e);
+                if (par_controlPictureB == null) par_containerElement.MouseMove += (sender, e) => MoveParentControl(par_containerElement, e);
+                // Yes, MoveParentControl(par_containterElement is correct.... Jan4 2022 td
+                else par_controlPictureB.MouseMove += (sender, e) => MoveParentControl(par_containerElement, e);
             }
 
             //Added 11/29/2021 td
@@ -226,14 +230,15 @@ namespace MoveAndResizeControls_Monem
             {
                 // Remove the object references. ---Dec28 2021  
                 _controlCurrent = null;  // par_controlPictureB;
-                _controlPictureBox = null; // par_controlPictureB;
+                _controlPictureBox1 = null; // par_controlPictureB;
+                _controlPictureBox2 = null; // par_controlPictureB;
                 _controlMoveableElement = null; // par_containerElement;
                 _labelIfNeeded = null;  //Added 1/4/2022 td
             }
             else
             {
                 _controlCurrent = par_controlPictureB;
-                _controlPictureBox = par_controlPictureB;
+                _controlPictureBox1 = par_controlPictureB;
                 _controlMoveableElement = par_containerElement;
             }
 
@@ -246,7 +251,8 @@ namespace MoveAndResizeControls_Monem
                 if (_labelIfNeeded != null) 
                 {
                     _labelIfNeeded.MouseDown -= (sender, e) => StartMovingOrResizing(_labelIfNeeded, e);
-                    _labelIfNeeded.MouseMove -= (sender, e) => MoveControl(_controlMoveableElement, e);
+                    // Yes, MoveParentControl(_controlMoveableElement is correct.... Jan4 2022 td
+                    _labelIfNeeded.MouseMove -= (sender, e) => MoveParentControl(_controlMoveableElement, e);
                     _labelIfNeeded.MouseUp -= (sender, e) => StopDragOrResizing(_labelIfNeeded, _iSaveToModel);
                 }
             }
@@ -263,7 +269,8 @@ namespace MoveAndResizeControls_Monem
             //
             _labelIfNeeded = par_label;
             _labelIfNeeded.MouseDown += (sender, e) => StartMovingOrResizing(_labelIfNeeded, e);
-            _labelIfNeeded.MouseMove += (sender, e) => MoveControl(_controlMoveableElement, e);
+            // Yes, MoveParentControl(_controlMoveableElement is correct.... Jan4 2022 td
+            _labelIfNeeded.MouseMove += (sender, e) => MoveParentControl(_controlMoveableElement, e);
             _labelIfNeeded.MouseUp += (sender, e) => StopDragOrResizing(_labelIfNeeded, _iSaveToModel);
 
         }
@@ -274,10 +281,11 @@ namespace MoveAndResizeControls_Monem
             //
             // Added 1/4/2022 td 
             //
-            _controlPictureBox = par_pictureBox;
-            _controlPictureBox.MouseDown += (sender, e) => StartMovingOrResizing(_controlPictureBox, e);
-            _controlPictureBox.MouseMove += (sender, e) => MoveControl(_controlMoveableElement, e);  // Yes, MoveControl(_controlMoveableElement
-            _controlPictureBox.MouseUp += (sender, e) => StopDragOrResizing(_controlPictureBox, _iSaveToModel);
+            _controlPictureBox2 = par_pictureBox;
+            _controlPictureBox2.MouseDown += (sender, e) => StartMovingOrResizing(_controlPictureBox2, e);
+            // Yes, MoveParentControl(_controlMoveableElement is correct.... Jan4 2022 td
+            _controlPictureBox2.MouseMove += (sender, e) => MoveParentControl(_controlMoveableElement, e);  // Yes, MoveParentControl(_controlMoveableElement
+            _controlPictureBox2.MouseUp += (sender, e) => StopDragOrResizing(_controlPictureBox2, _iSaveToModel);
 
         }
 
@@ -290,11 +298,12 @@ namespace MoveAndResizeControls_Monem
             const bool c_bReverseEverything = true;
 
             //Major call !!
-            Init(_controlPictureBox, _controlMoveableElement, 0, _repaintAfterResize,
+            Init(_controlPictureBox1, _controlMoveableElement, 0, _repaintAfterResize,
                 mod_groupedctl_events, false, _iSaveToModel, c_bReverseEverything);
 
             //Null out the references. ----12/28/2021 td 
-            _controlPictureBox = null;
+            _controlPictureBox1 = null;
+            _controlPictureBox2 = null;
             _controlMoveableElement = null;
             _controlCurrent = null;
             mod_groupedctl_events = null;
@@ -324,12 +333,12 @@ namespace MoveAndResizeControls_Monem
         }
 
 
-        private void KillTheBlackhole(InterfaceMoveEvents par_sharedEventsObject)
+        private void FillTheBlackhole(InterfaceMoveEvents par_sharedEventsObject)
         {
             //
             // Added 1/3/2022 thomas downes
             //
-            // We remove ("kill") the event-killing blackhole, by 
+            // We remove ("Fill") the event-killing blackhole, by 
             //   replacing the blackhole with a universally-shared
             //   events object. 
             //   ----1/3/2022 td
@@ -473,26 +482,29 @@ namespace MoveAndResizeControls_Monem
 
         }
 
-        private void MoveControl(Control par_controlF, MouseEventArgs e)
+        private void MoveParentControl(Control par_controlParentF, MouseEventArgs e)
         {
+            //--Jan4 2022---private void MoveControl(Control par_control, MouseEventArgs e)
             //
+            //Renamed 1/4/2022 td
             //Added 8/3/2019 thomas downes
             //
-            //   Should the PictureBox control be passed here, or the user-control
-            //   which contains the PictureBox control??  ---12/1/2021 td
+            //   Should the PictureBox control be passed here (above parameter), or the user-control
+            //   which contains the PictureBox control??  The latter, let's pass the user-control
+            //   which is the Parent of the PictureBox. ---12/1/2021 td
             //
             if (mod_groupedctl_events != null)
             {
-                MoveControl_GroupMove(par_controlF, e);
+                MoveControl_GroupMove(par_controlParentF, e);
 
                 //Added 12/6/2021 td
                 mod_groupedctl_events.Control_IsMoving();
 
             }
-            if (mod_groupedctl_events == null) MoveControl_NoEvents(par_controlF, e);
+            if (mod_groupedctl_events == null) MoveControl_NoEvents(par_controlParentF, e);
 
             //Added 11/29/2021 td
-            _controlCurrent = par_controlF;
+            _controlCurrent = par_controlParentF;
 
         }
 
@@ -810,11 +822,16 @@ namespace MoveAndResizeControls_Monem
 
             // Dec17 2021//_controlCurrent.MouseUp -= (sender, e) => StopDragOrResizing(_controlCurrent);
             _controlCurrent.MouseUp -= (sender, e) => StopDragOrResizing(_controlCurrent, _iSaveToModel);
-            _controlCurrent.MouseMove -= (sender, e) => MoveControl(_controlCurrent, e);
+            _controlCurrent.MouseMove -= (sender, e) => MoveParentControl(_controlCurrent, e);
 
             //Added 1/4/2022 td
-            _controlPictureBox.MouseUp -= (sender, e) => StopDragOrResizing(_controlCurrent, _iSaveToModel);
-            _controlPictureBox.MouseMove -= (sender, e) => MoveControl(_controlCurrent, e);
+
+            _controlPictureBox1.MouseUp -= (sender, e) => StopDragOrResizing(_controlPictureBox1, _iSaveToModel);
+            _controlPictureBox1.MouseMove -= (sender, e) => MoveParentControl(_controlPictureBox1, e);
+
+            //Added 1/4/2022 td
+            _controlPictureBox2.MouseUp -= (sender, e) => StopDragOrResizing(_controlPictureBox2, _iSaveToModel);
+            _controlPictureBox2.MouseMove -= (sender, e) => MoveParentControl(_controlPictureBox2, e);
 
         }
 

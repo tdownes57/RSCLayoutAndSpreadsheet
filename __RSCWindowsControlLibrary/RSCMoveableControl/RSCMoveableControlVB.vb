@@ -412,6 +412,8 @@ Public Class RSCMoveableControlVB
         ''
         ''Added 12/22/2021 thomas downes
         ''
+        Dim objPictureBox As PictureBox
+
         ' Add any initialization after the InitializeComponent() call.
         mod_boolResizeProportionally = pboolResizeProportionally ''Added 12/22/2021 td
         ''Jan2 2022 td''mod_iSaveToModel = par_iSaveToModel
@@ -434,9 +436,14 @@ Public Class RSCMoveableControlVB
             mod_events.LayoutFunctions = par_iLayoutFunctions ''Added 12/27/2021
 
             mod_moveResizeKeepRatio = New MoveAndResizeControls_Monem.ControlResizeProportionally_TD()
-            ''Jan4 2022 ''mod_moveResizeKeepRatio.Init(Me, Me, 10, c_bRepaintAfterResize,
+            ''#1 Jan4 2022 ''mod_moveResizeKeepRatio.Init(Me, Me, 10, c_bRepaintAfterResize,
             ''                mod_events, False, Me)
-            mod_moveResizeKeepRatio.Init(Nothing, Me, 10, c_bRepaintAfterResize,
+            ''#2 Jan4 2022 ''mod_moveResizeKeepRatio.Init(Nothing, Me, 10, c_bRepaintAfterResize,
+            ''                mod_events, False, Me)
+
+            ''Added 1/4/2022 td
+            objPictureBox = Find_PictureBox()
+            mod_moveResizeKeepRatio.Init(objPictureBox, Me, 10, c_bRepaintAfterResize,
                                             mod_events, False, Me)
 
             ''            ''1/2/2022 td '' mod_events, False, mod_iSaveToModel)
@@ -451,10 +458,15 @@ Public Class RSCMoveableControlVB
 
             mod_events.LayoutFunctions = par_iLayoutFunctions ''Added 12/27/2021
 
-            ''Jan4 2022''mod_moveInAGroup.Init(Me, Me, 10, c_bRepaintAfterResize,
+            ''#1 Jan4 2022''mod_moveInAGroup.Init(Me, Me, 10, c_bRepaintAfterResize,
             ''                        mod_events, False, Me) ''1/2/2022 td''mod_iSaveToModel)
-            mod_moveInAGroup.Init(Nothing, Me, 10, c_bRepaintAfterResize,
-                                    mod_events, False, Me) ''1/2/2022 td''mod_iSaveToModel)
+            ''#2 Jan4 2022''mod_moveInAGroup.Init(Nothing, Me, 10, c_bRepaintAfterResize,
+            ''                        mod_events, False, Me) ''1/2/2022 td''mod_iSaveToModel)
+
+            ''Added 1/4/2022 td
+            objPictureBox = Find_PictureBox()
+            mod_moveInAGroup.Init(objPictureBox, Me, 10, c_bRepaintAfterResize,
+                                            mod_events, False, Me)
 
             mod_iMoveOrResizeFunctionality = mod_moveInAGroup ''Added 12/28/2021 td
 
@@ -830,5 +842,36 @@ Public Class RSCMoveableControlVB
         MessageBoxTD.Show_Statement("SaveToModel(). Programmer must override this base-class method, using the keyword Overrides.")
 
     End Sub
+
+
+    Public Function Find_Label() As Label
+        ''
+        ''Added 1/4/2022 td
+        ''
+        For Each objControl As Control In Me.Controls
+
+            If TypeOf objControl Is Label Then Return CType(objControl, Label)
+
+        Next objControl
+
+    End Function ''Endof "Public Function Find_PictureBox() As Label"
+
+
+    Public Function Find_PictureBox() As PictureBox
+        ''
+        ''Added 1/4/2022 td
+        ''
+        ''Hopefully this will capture the PictureBox in the 
+        ''  child classes CtlGraphicQRCode & CtlGraphicSignature. 
+        ''
+        For Each objControl As Control In Me.Controls
+
+            If TypeOf objControl Is PictureBox Then Return CType(objControl, PictureBox)
+
+        Next objControl
+
+    End Function ''Endof "Public Function Find_PictureBox() As PictureBox"
+
+
 
 End Class
