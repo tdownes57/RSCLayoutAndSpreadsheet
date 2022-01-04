@@ -116,14 +116,16 @@ Public Class RSCMoveableControlVB
     Private mod_iMoveOrResizeFunctionality As IMoveOrResizeFunctionality ''Added 12/28/2021 td
 
     ''1/3/2022 td''Private WithEvents mod_events As New GroupMoveEvents_Singleton ''InterfaceEvents
-    Private WithEvents mod_events As GroupMoveEvents_Singleton ''InterfaceEvents
+    ''Jan4 2022''Private WithEvents mod_events As GroupMoveEvents_Singleton ''InterfaceEvents
+    Protected WithEvents mod_events As GroupMoveEvents_Singleton ''InterfaceEvents
 
     ''#1 Jan2 2022''Private mod_iSaveToModel As ISaveToModel 
     ''#2 Jan2 2022''Private mod_iSaveToModel_Deprecated As ISaveToModel = New ClassSaveToModel() ''Suffixed _Deprecated 1/2/2022 td
     ''#3 Jan2 2022''Private mod_iSaveToModel As ISaveToModel = New ClassSaveToModel() 
     ''Dec28 2021 td''Private WithEvents mod_designer As New ClassDesigner ''Added 12/27/2021 td
     Private WithEvents ContextMenuStrip1 As New ContextMenuStrip ''Added 12/28/2021 thomas downes
-    Private mod_iLayoutFunctions As ILayoutFunctions ''Added 12/28/2021 td
+    ''Jan4 2022''Private mod_iLayoutFunctions As ILayoutFunctions ''Added 12/28/2021 td
+    Protected mod_iLayoutFunctions As ILayoutFunctions ''Added 12/28/2021 td
     ''Dec29 2021''Private mod_designer As ClassDesigner ''Added 12/28/2021 td 
     Private Const mc_AddExtraHeadersForContextMenuStrip As Boolean = True ''Added 12/28/2021 thomas d.
 
@@ -235,7 +237,8 @@ Public Class RSCMoveableControlVB
 
 
     Public Sub AddMoveability(par_objEventsMove As GroupMoveEvents_Singleton,
-                              par_iLayoutFunctions As ILayoutFunctions)
+                              par_iLayoutFunctions As ILayoutFunctions,
+                              Optional pbAddProportionality As Boolean = False)
         ''Jan3 2022 ''Public Sub AddMoveability()
         ''
         ''Added 12/28/2021 td
@@ -264,6 +267,15 @@ Public Class RSCMoveableControlVB
             ''Jan2 2022 ''InitializeMoveability(mod_boolResizeProportionally, Me, mod_iLayoutFunctions)
             ''Jan3 2022 ''InitializeMoveability(mod_boolResizeProportionally, mod_iLayoutFunctions)
             If (mod_iLayoutFunctions Is Nothing) Then mod_iLayoutFunctions = par_iLayoutFunctions
+
+            ''Added 1/4/2022 td
+            If (pbAddProportionality) Then
+                mod_boolResizeProportionally = pbAddProportionality ''Added 1/4/2022 td
+            End If ''end if "If (pbAddProportionality) Then"
+
+            ''
+            ''Major call !!
+            ''
             InitializeMoveability(mod_boolResizeProportionally, mod_iLayoutFunctions, par_objEventsMove)
 
         End If ''End of "If (boolInstantiated) Then ... Else ...."

@@ -41,6 +41,7 @@ Partial Class ProportionalRSCControl
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.Label1)
         Me.Name = "ProportionalRSCControl"
+        Me.Size = New System.Drawing.Size(327, 202)
         Me.ResumeLayout(False)
 
     End Sub

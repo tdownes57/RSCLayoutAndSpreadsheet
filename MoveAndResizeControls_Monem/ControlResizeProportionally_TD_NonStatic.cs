@@ -153,8 +153,19 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             //
             //   internal  void Init(Control control, Control container)
             //
-            bool bControlIsStaticText = par_ctlPictureBox.Name.Contains("Text") || par_container.Name.Contains("Text") ||
-                par_ctlPictureBox.Name.Contains("Static") || par_container.Name.Contains("Static");
+            bool bControlIsStaticText = false; // par_ctlPictureBox.Name.Contains("Text") || par_container.Name.Contains("Text") ||
+            //    par_ctlPictureBox.Name.Contains("Static") || par_container.Name.Contains("Static");
+            if (par_ctlPictureBox != null) //Added 1/4/2022 td
+            {
+                bControlIsStaticText = par_ctlPictureBox.Name.Contains("Text") || par_container.Name.Contains("Text") ||
+                    par_ctlPictureBox.Name.Contains("Static") || par_container.Name.Contains("Static");
+            }
+            else
+            {
+                //Added 1/4/2022 td
+                bControlIsStaticText = par_container.Name.Contains("Text") ||
+                    par_container.Name.Contains("Static");
+            }
 
             if (bControlIsStaticText) System.Diagnostics.Debugger.Break();
 
@@ -191,58 +202,82 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             _controlMoveableElement = par_container;
             _controlPictureBox1 = par_ctlPictureBox;
 
+            //
+            //Encapsulated 1/4/2022 td
+            //
+            if (par_ctlPictureBox != null)
+            {
+                HookUpEventHandlers(par_ctlPictureBox, par_container, par_iSave, pbRemoveAnyHandlers);
+            }
+
+            //Added Jan4 2022 td
+            if (par_container != null)
+            {
+                HookUpEventHandlers(par_container, par_container, par_iSave, pbRemoveAnyHandlers);
+            }
+
+        }
+
+
+        private void HookUpEventHandlers(Control par_controlToHook, Control par_container, 
+                       ISaveToModel par_iSave, bool pbRemoveAnyHandlers)
+        { 
+            //
             // Hook up the event handlers.  
-            //==-== Likely bug.  Notice that it references "par_container"
-            //   which conflicts with "par_control" (unless the other Init() signature
+            //
+            //Notice that it references "par_container"
+            //   which is different from "par_control" (unless the other Init() signature
             //   was utilized... in which the par_container parameter doesn't exist...
             //   That other Init() passes par_control in both parameters of this
             //   signature of Init()... namely, par_control & par_container).
             //   ---12/1/2021 thomas downes
             //
-            bool bPassContainer; // Added 12/2/2021 td
+            bool bPassParentContainer; // Added 12/2/2021 td
 
-            if (MouseMove_DontAskAgain) bPassContainer = MouseMove_Container;
-            else bPassContainer = FormContainerVsPicture.LetsPassElementContainerToMouseControl();
+            if (MouseMove_DontAskAgain) bPassParentContainer = MouseMove_Container;
+            else bPassParentContainer = FormContainerVsPicture.LetsPassElementContainerToMouseControl();
 
-            if (bPassContainer && !pbRemoveAnyHandlers) // Dec28 2021 //(bPassContainer)
+            if (bPassParentContainer && !pbRemoveAnyHandlers) // Dec28 2021 //(bPassContainer)
             {
                 // Yes, MoveParentControl(_controlMoveableElement is correct.... Jan4 2022 td
-                par_ctlPictureBox.MouseMove += (sender, e) => MoveParentControl(par_container, e);
+                par_controlToHook.MouseMove += (sender, e) => MoveParentControl(par_container, e);
                 MouseMove_DontAskAgain = true;
                 MouseMove_Container = true;
             }
-            else if (bPassContainer && pbRemoveAnyHandlers)
+            else if (bPassParentContainer && pbRemoveAnyHandlers)
             {
                 //Added 12/28/2021   
                 // Yes, MoveParentControl(_controlMoveableElement is correct.... Jan4 2022 td
-                par_ctlPictureBox.MouseMove -= (sender, e) => MoveParentControl(par_container, e);
+                par_controlToHook.MouseMove -= (sender, e) => MoveParentControl(par_container, e);
+
             }
-            else if ((!bPassContainer) && (!pbRemoveAnyHandlers))
+            else if ((!bPassParentContainer) && (!pbRemoveAnyHandlers))
             {
                 // Added 12/28/2021 td
                 //    We don't have the parent container to pass to MoveParentControl(), unfortunately. Jan4 2022 td
-                par_ctlPictureBox.MouseMove += (sender, e) => MoveParentControl(par_ctlPictureBox, e);
+                //
+                par_controlToHook.MouseMove += (sender, e) => MoveParentControl(par_controlToHook, e);
                 MouseMove_DontAskAgain = true;
                 MouseMove_Container = false;
             }
             else if (pbRemoveAnyHandlers)
             {
                 // Added 12/28/2021 td
-                //    We don't have the parent container to pass to MoveParentControl(), unfortunately. Jan4 2022 td
-                par_ctlPictureBox.MouseMove -= (sender, e) => MoveParentControl(par_ctlPictureBox, e);
+                //    We don't have the parent container to pass to MoveParentControl(), unfortunately & surprisingly. Jan4 2022 td
+                par_controlToHook.MouseMove -= (sender, e) => MoveParentControl(par_controlToHook, e);
             }
             else
             {
-                //    We don't have the parent container to pass to MoveParentControl(), unfortunately. Jan4 2022 td
-                par_ctlPictureBox.MouseMove += (sender, e) => MoveParentControl(par_ctlPictureBox, e);
+                //    We don't have the parent container to pass to MoveParentControl(), unfortunately & surprisingly. Jan4 2022 td
+                par_controlToHook.MouseMove += (sender, e) => MoveParentControl(par_controlToHook, e);
                 MouseMove_DontAskAgain = true;
                 MouseMove_Container = false;
             }
 
 
-            par_ctlPictureBox.MouseDown += (sender, e) => StartMovingOrResizing(par_ctlPictureBox, e);
+            par_controlToHook.MouseDown += (sender, e) => StartMovingOrResizing(par_controlToHook, e);
             //Jan4 2022 //par_control.MouseUp += (sender, e) => StopDragOrResizing(par_control);
-            par_ctlPictureBox.MouseUp += (sender, e) => StopDragOrResizing(par_ctlPictureBox, par_iSave);
+            par_controlToHook.MouseUp += (sender, e) => StopDragOrResizing(par_controlToHook, par_iSave);
 
 
         }

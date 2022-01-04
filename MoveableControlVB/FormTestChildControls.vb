@@ -10,6 +10,16 @@ Public Class FormTestChildControls
     ''Jan3 2022 td''Private mod_eventsMoveMaster As New ciBadgeInterfaces.ClassGroupMoveEvents
     Private mod_eventsMoveMaster As New ciBadgeInterfaces.GroupMoveEvents_Singleton(mod_designer, True)
 
+    Public Sub New()
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        ProportionalRSCControl1.EventsSingleton = mod_eventsMoveMaster
+
+    End Sub
+
 
     Private Sub FormTestChildControls_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -35,7 +45,9 @@ Public Class FormTestChildControls
         SimpleChildOfRSCControl21.AddMoveability(mod_eventsMoveMaster, mod_designer)
 
         ''Added 1/4/2022 td
+        ProportionalRSCControl1.EventsSingleton = mod_eventsMoveMaster
         ProportionalRSCControl1.AddMoveability_ViaLabel()
+
 
 
     End Sub

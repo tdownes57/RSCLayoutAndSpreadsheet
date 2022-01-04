@@ -161,38 +161,69 @@ namespace MoveAndResizeControls_Monem
             MouseIsInBottomEdge = false;
             WorkType = MoveOrResize.MoveAndResize;
 
+            //Added 11/29/2021 td
             if (pbUndoAndReverseEverything)
             {
-                // Remove these EventHandlers. ---12/28/2021 td
-                if (par_controlPictureB == null)
-                {
-                    par_containerElement.MouseDown -= (sender, e) => StartMovingOrResizing(par_containerElement, e);
-                    par_containerElement.MouseUp -= (sender, e) => StopDragOrResizing(par_containerElement, _iSaveToModel);
-                }
-                else
-                {
-                    par_controlPictureB.MouseDown -= (sender, e) => StartMovingOrResizing(par_controlPictureB, e);
-                    par_controlPictureB.MouseUp -= (sender, e) => StopDragOrResizing(par_controlPictureB, _iSaveToModel);
-                }
+                // Remove the object references. ---Dec28 2021  
+                _controlCurrent = null;  // par_controlPictureB;
+                _controlPictureBox1 = null; // par_controlPictureB;
+                _controlPictureBox2 = null; // par_controlPictureB;
+                _controlMoveableElement = null; // par_containerElement;
+                _labelIfNeeded = null;  //Added 1/4/2022 td
             }
             else
             {
-                if (par_controlPictureB == null)
-                {
-                    //Added 1/4/2022 td
-                    par_containerElement.MouseDown += (sender, e) => StartMovingOrResizing(par_containerElement, e);
-                    par_containerElement.MouseUp += (sender, e) => StopDragOrResizing(par_containerElement, _iSaveToModel);
-                }
-                else
-                {
-                    par_controlPictureB.MouseDown += (sender, e) => StartMovingOrResizing(par_controlPictureB, e);
-                    //Dec17 2021 td//par_controlPictureB.MouseUp += (sender, e) => StopDragOrResizing(par_controlPictureB);
-                    //Jan4 2022 //if (par_controlPictureB.MouseUp != null) throw new Exception("This MouseUp may already be assigned.");
-                    par_controlPictureB.MouseUp += (sender, e) => StopDragOrResizing(par_controlPictureB, _iSaveToModel);
-                }
+                //Added 1/4/2022 //_controlCurrent = par_controlPictureB;
+                _controlCurrent = par_containerElement;
+                _controlPictureBox1 = par_controlPictureB;
+                _controlMoveableElement = par_containerElement;
+                //Added 1/4/2022 td
+                //---if (_controlCurrent == null) _controlCurrent = par_containerElement;
+                if (_controlCurrent == null) _controlCurrent = par_controlPictureB;
+
             }
 
-            //==-== Likely bug??  Notice that, toward the end of the line, it references
+            //
+            //Encapsulated 1/4/2022 td
+            //
+            if (par_controlPictureB != null)
+            {
+                HookUpEventHandlers(par_controlPictureB, par_containerElement, 
+                    par_iSave, pbUndoAndReverseEverything);
+            }
+            //Added Jan4 2022 td
+            if (par_containerElement != null)
+            {
+                HookUpEventHandlers(par_containerElement, par_containerElement,
+                 par_iSave, pbUndoAndReverseEverything);
+            }
+
+        }
+
+
+        private void HookUpEventHandlers(Control par_controlToHook, Control par_container,
+                       ISaveToModel par_iSave, bool pbUndoAndReverseEverything)
+        {
+            //
+            // Hook up the event handlers.  
+            //
+            if (pbUndoAndReverseEverything)
+            {
+                // Remove these EventHandlers. ---12/28/2021 td
+                par_controlToHook.MouseDown -= (sender, e) => StartMovingOrResizing(par_controlToHook, e);
+                par_controlToHook.MouseUp -= (sender, e) => StopDragOrResizing(par_controlToHook, _iSaveToModel);
+                
+            }
+            else
+            {
+                par_controlToHook.MouseDown += (sender, e) => StartMovingOrResizing(par_controlToHook, e);
+                //Dec17 2021 td//par_controlPictureB.MouseUp += (sender, e) => StopDragOrResizing(par_controlToHook);
+                //Jan4 2022 //if (par_controlToHook.MouseUp != null) throw new Exception("This MouseUp may already be assigned.");
+                par_controlToHook.MouseUp += (sender, e) => StopDragOrResizing(par_controlToHook, _iSaveToModel);
+                
+            }
+
+            //==     Notice that, toward the end of the line, it references
             //==   the parameter "par_containerElement".... which conflicts with "par_control"
             //==   (unless the other Init() signature was utilized... in which the parameter par_container
             //==   doesn't exist...
@@ -208,38 +239,16 @@ namespace MoveAndResizeControls_Monem
             //
             //--Helpful??? 12/1/2021--par_containerElement.MouseMove += (sender, e) => MoveControl(par_containerElement, e);
             //Dec28 2021 //par_controlPictureB.MouseMove += (sender, e) => MoveControl(par_containerElement, e);
+            
             if (pbUndoAndReverseEverything)
             {
                 //Remove the event handler.
-                //''par_controlPictureB.MouseMove -= (sender, e) => MoveControl(par_containerElement, e);
-                if (par_controlPictureB == null) par_containerElement.MouseMove -= (sender, e) => MoveParentControl(par_containerElement, e);
-                // Yes, MoveParentControl(par_containterElement is correct.... Jan4 2022 td
-                else par_controlPictureB.MouseMove -= (sender, e) => MoveParentControl(par_containerElement, e);
+                par_controlToHook.MouseMove -= (sender, e) => MoveParentControl(par_container, e);
             }
             else
             {
                 // Yes, MoveParentControl(par_containterElement is correct.... Jan4 2022 td
-                //''par_controlPictureB.MouseMove += (sender, e) => MoveControl(par_containerElement, e);
-                if (par_controlPictureB == null) par_containerElement.MouseMove += (sender, e) => MoveParentControl(par_containerElement, e);
-                // Yes, MoveParentControl(par_containterElement is correct.... Jan4 2022 td
-                else par_controlPictureB.MouseMove += (sender, e) => MoveParentControl(par_containerElement, e);
-            }
-
-            //Added 11/29/2021 td
-            if (pbUndoAndReverseEverything)
-            {
-                // Remove the object references. ---Dec28 2021  
-                _controlCurrent = null;  // par_controlPictureB;
-                _controlPictureBox1 = null; // par_controlPictureB;
-                _controlPictureBox2 = null; // par_controlPictureB;
-                _controlMoveableElement = null; // par_containerElement;
-                _labelIfNeeded = null;  //Added 1/4/2022 td
-            }
-            else
-            {
-                _controlCurrent = par_controlPictureB;
-                _controlPictureBox1 = par_controlPictureB;
-                _controlMoveableElement = par_containerElement;
+                par_controlToHook.MouseMove += (sender, e) => MoveParentControl(par_container, e);
             }
 
             //Added 1/4/2022 td
