@@ -28,6 +28,7 @@ Partial Class ProportionalRSCControl
         '
         'Label1
         '
+        Me.Label1.BackColor = System.Drawing.Color.White
         Me.Label1.Location = New System.Drawing.Point(15, 28)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(118, 109)

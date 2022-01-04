@@ -24,10 +24,18 @@ Public Class FormTestChildControls
         ProportionalRSCControl1.MoveabilityEvents = mod_eventsMoveMaster
         SimpleChildOfRSCControl21.MoveabilityEvents = mod_eventsMoveMaster
 
+        ''Added 1/4/2022 td
+        SimpleChildOfRSCControl1.RemoveMoveability(False)
+        ProportionalRSCControl1.RemoveMoveability(False)
+        SimpleChildOfRSCControl21.RemoveMoveability(False)
+
         ''Added 1/3/2022 td
         SimpleChildOfRSCControl1.AddMoveability(mod_eventsMoveMaster, mod_designer)
         ProportionalRSCControl1.AddMoveability(mod_eventsMoveMaster, mod_designer)
         SimpleChildOfRSCControl21.AddMoveability(mod_eventsMoveMaster, mod_designer)
+
+        ''Added 1/4/2022 td
+        ProportionalRSCControl1.AddMoveability_ViaLabel()
 
 
     End Sub

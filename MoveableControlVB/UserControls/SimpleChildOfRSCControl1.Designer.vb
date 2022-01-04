@@ -29,18 +29,19 @@ Partial Class SimpleChildOfRSCControl1
         'Label1
         '
         Me.Label1.AutoSize = True
+        Me.Label1.BackColor = System.Drawing.Color.White
         Me.Label1.Location = New System.Drawing.Point(11, 7)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(390, 17)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "a simple child of RSCMoveableControlVB - No proportionality"
         '
-        'SimpleChildOfRSCControl
+        'SimpleChildOfRSCControl1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.Label1)
-        Me.Name = "SimpleChildOfRSCControl"
+        Me.Name = "SimpleChildOfRSCControl1"
         Me.Size = New System.Drawing.Size(499, 65)
         Me.ResumeLayout(False)
         Me.PerformLayout()

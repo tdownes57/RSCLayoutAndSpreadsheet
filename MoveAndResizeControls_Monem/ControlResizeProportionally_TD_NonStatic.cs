@@ -104,9 +104,11 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
         }
 
         private Control _controlCurrent; // Added 12/02/2021 td
-        private Control _controlPictureBox;  // = par_controlPictureB;
+        // Jan4 2022 //private Control _controlPictureBox;  // = par_controlPictureB;
+        private PictureBox _controlPictureBox;  // = par_controlPictureB;
         private Control _controlMoveableElement; // = par_containerElement;
         private ISaveToModel _iSaveToModel; //Added 12-17-2021
+        private Label _labelIfNeeded;  //Added 1/04/2022 thomas d.
 
         internal MoveOrResize WorkType { get; set; }
 
@@ -130,13 +132,15 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
 
             Control obj_container = par_control; //Added 10/9/2019 td;;
 
-            Init(par_control, obj_container, par_margin, pbRepaintAfterResize,
+            // Jan4 2022''Init(par_control, obj_container, par_margin, pbRepaintAfterResize,
+            //    par_events, pbSetBreakpoint_AfterMove, par_iSave);
+            Init(null, obj_container, par_margin, pbRepaintAfterResize,
                 par_events, pbSetBreakpoint_AfterMove, par_iSave);
 
         }
 
 
-        public void Init(Control par_control, Control par_container, int par_margin, bool pbRepaintAfterResize,
+        public void Init(PictureBox par_control, Control par_container, int par_margin, bool pbRepaintAfterResize,
                                   InterfaceMoveEvents par_events, bool pbSetBreakpoint_AfterMove,
                                   ISaveToModel par_iSave, bool pbRemoveAnyHandlers = false)
         {
@@ -230,10 +234,38 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
 
 
             par_control.MouseDown += (sender, e) => StartMovingOrResizing(par_control, e);
-            par_control.MouseUp += (sender, e) => StopDragOrResizing(par_control);
+            //Jan4 2022 //par_control.MouseUp += (sender, e) => StopDragOrResizing(par_control);
+            par_control.MouseUp += (sender, e) => StopDragOrResizing(par_control, par_iSave);
 
 
         }
+
+
+        public void AddMoveability_ViaLabel(Label par_label)
+        {
+            //
+            // Added 1/4/2022 td 
+            //
+            _labelIfNeeded = par_label;
+            _labelIfNeeded.MouseDown += (sender, e) => StartMovingOrResizing(_labelIfNeeded, e);
+            _labelIfNeeded.MouseMove += (sender, e) => MoveControl(_controlMoveableElement, e);
+            _labelIfNeeded.MouseUp += (sender, e) => StopDragOrResizing(_labelIfNeeded, _iSaveToModel);
+
+        }
+
+
+        public void AddMoveability_ViaPictureBox(PictureBox par_pictureBox)
+        {
+            //
+            // Added 1/4/2022 td 
+            //
+            _controlPictureBox = par_pictureBox;
+            _controlPictureBox.MouseDown += (sender, e) => StartMovingOrResizing(_controlPictureBox, e);
+            _controlPictureBox.MouseMove += (sender, e) => MoveControl(_controlMoveableElement, e);  // Yes, MoveControl(_controlMoveableElement
+            _controlPictureBox.MouseUp += (sender, e) => StopDragOrResizing(_controlPictureBox, _iSaveToModel);
+
+        }
+
 
         private void UpdateMouseEdgeProperties(Control control, Point mouseLocationInControl)
         {
@@ -339,7 +371,8 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
                 //
                 //''The minimal listing. 
                 _controlCurrent.MouseDown -= (sender, e) => StartMovingOrResizing(_controlCurrent, e);
-                _controlCurrent.MouseUp -= (sender, e) => StopDragOrResizing(_controlCurrent);
+                // Jan4 2022 //_controlCurrent.MouseUp -= (sender, e) => StopDragOrResizing(_controlCurrent);
+                _controlCurrent.MouseUp -= (sender, e) => StopDragOrResizing(_controlCurrent, _iSaveToModel);
                 _controlCurrent.MouseMove -= (sender, e) => MoveControl(_controlCurrent, e);
 
                 //''
@@ -347,11 +380,11 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
                 //''   event handlers are created. 
                 //''  
                 _controlMoveableElement.MouseDown -= (sender, e) => StartMovingOrResizing(_controlMoveableElement, e);
-                _controlMoveableElement.MouseUp -= (sender, e) => StopDragOrResizing(_controlMoveableElement);
+                _controlMoveableElement.MouseUp -= (sender, e) => StopDragOrResizing(_controlMoveableElement, _iSaveToModel);
                 _controlMoveableElement.MouseMove -= (sender, e) => MoveControl(_controlMoveableElement, e);
 
                 _controlPictureBox.MouseDown -= (sender, e) => StartMovingOrResizing(_controlPictureBox, e);
-                _controlPictureBox.MouseUp -= (sender, e) => StopDragOrResizing(_controlPictureBox);
+                _controlPictureBox.MouseUp -= (sender, e) => StopDragOrResizing(_controlPictureBox, _iSaveToModel);
                 _controlPictureBox.MouseMove -= (sender, e) => MoveControl(_controlPictureBox, e);
             }
 
@@ -610,7 +643,8 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
                 }
                 else
                 {
-                    StopDragOrResizing(par_control);
+                    // Jan4 2022 td//StopDragOrResizing(par_control);
+                    StopDragOrResizing(par_control, _iSaveToModel);
                 }
 
                 //Control the proportionality.
@@ -755,8 +789,10 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
 
 
 
-        private void StopDragOrResizing(Control par_control)
+        private void StopDragOrResizing(Control par_control, ISaveToModel par_iSave)
         {
+            //---Jan4 2022--private void StopDragOrResizing(Control par_control)
+            //
             bool bWasResizing = _resizing; // Added 7/31/2019 td
 
             _resizing = false;
@@ -775,11 +811,13 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             if (SetBreakpoint_AfterMove) System.Diagnostics.Debugger.Break();
 
             //Added 10/14 & 8/5/2019 thomas downes
-            if (bWasResizing) mod_events.Resizing_Terminate(_iSaveToModel);
+            //---if (bWasResizing) mod_events.Resizing_Terminate(_iSaveToModel);
+            if (bWasResizing) mod_events.Resizing_Terminate(par_iSave);
 
             //Added 10/14 & 9/13/2019 thomas downes
             // 12/17/2021 td //if (!(bWasResizing)) mod_events.Moving_Terminate(par_control);
-            if (!(bWasResizing)) mod_events.Moving_Terminate(par_control, _iSaveToModel);
+            // 1/04/2022 td //if (!(bWasResizing)) mod_events.Moving_Terminate(par_control, _iSaveToModel);
+            if (!(bWasResizing)) mod_events.Moving_Terminate(par_control, par_iSave);
 
         }
 

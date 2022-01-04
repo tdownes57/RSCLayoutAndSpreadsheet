@@ -347,7 +347,9 @@ Public Class MoveableControlVB
             ''Not needed. This command should happen at the form level. 1/3/2022 td''mod_eventsDesigner.LayoutFunctions = par_iLayoutFunctions ''Added 12/27/2021
 
             mod_moveResizeKeepRatio = New MoveAndResizeControls_Monem.ControlResizeProportionally_TD()
-            mod_moveResizeKeepRatio.Init(Me, Me, 10, c_bRepaintAfterResize,
+            ''Jan4 2022''mod_moveResizeKeepRatio.Init(Me, Me, 10, c_bRepaintAfterResize,
+            ''              mod_eventsMove, False, Me)  ''1/2/2022 td''mod_iSaveToModel)
+            mod_moveResizeKeepRatio.Init(Nothing, Me, 10, c_bRepaintAfterResize,
                                             mod_eventsMove, False, Me)  ''1/2/2022 td''mod_iSaveToModel)
             ''---mod_resizingProportionally.LayoutFunctions = par_iLayoutFunctions 
             mod_iMoveOrResizeFunctionality = mod_moveResizeKeepRatio ''Added 12/28/2021 td
@@ -362,7 +364,9 @@ Public Class MoveableControlVB
 
             ''Jan3 2022 td''mod_moveInAGroup.Init(Me, Me, 10, c_bRepaintAfterResize,
             ''                   mod_eventsDesigner, False, Me) ''Jan2 2022'' mod_iSaveToModel)
-            mod_moveInAGroup.Init(Me, Me, 10, c_bRepaintAfterResize,
+            ''Jan4 2022 ''mod_moveInAGroup.Init(Me, Me, 10, c_bRepaintAfterResize,
+            ''                        mod_eventsMove, False, Me) ''Jan2 2022'' mod_iSaveToModel)
+            mod_moveInAGroup.Init(Nothing, Me, 10, c_bRepaintAfterResize,
                                     mod_eventsMove, False, Me) ''Jan2 2022'' mod_iSaveToModel)
 
             mod_iMoveOrResizeFunctionality = mod_moveInAGroup ''Added 12/28/2021 td

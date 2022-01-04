@@ -54,9 +54,11 @@ namespace MoveAndResizeControls_Monem
         private Size _currentControlStartSize;
 
         private Control _controlCurrent; // Added 11/29/2021 td
-        private Control _controlPictureBox;  // = par_controlPictureB;
+        //''1/4/2022 td''private Control _controlPictureBox;  // = par_controlPictureB;
+        private PictureBox _controlPictureBox;  // = par_controlPictureB;
         private Control _controlMoveableElement; // = par_containerElement;
         private ISaveToModel _iSaveToModel;  // Added 12/17/2021 td
+        private Label _labelIfNeeded;  //Added 1/04/2022 thomas d.
 
         //Added 7/18/2019 thomas downes
         //
@@ -104,13 +106,15 @@ namespace MoveAndResizeControls_Monem
 
             // 9-13-2019 td//Init(control, control, par_margin, pbRepaintAfterResize, par_events);
             // Dec28 2021 td//Init(par_controlA, par_controlA, par_margin, pbRepaintAfterResize, par_events, SetBreakpoint_AfterMove, par_iSave);
-            Init(par_controlA, par_controlA, par_margin, pbRepaintAfterResize, par_events, SetBreakpoint_AfterMove, 
+            //''Jan4 2022''Init(par_controlA, par_controlA, par_margin, pbRepaintAfterResize, par_events, SetBreakpoint_AfterMove,
+            //''    par_iSave, pbUndoAndReverseEverything);
+            Init(null, par_controlA, par_margin, pbRepaintAfterResize, par_events, SetBreakpoint_AfterMove,
                 par_iSave, pbUndoAndReverseEverything);
 
         }
 
 
-        public void Init(Control par_controlPictureB, Control par_containerElement, 
+        public void Init(PictureBox par_controlPictureB, Control par_containerElement, 
                                int par_margin, bool pbRepaintAfterResize,
                                InterfaceMoveEvents par_events, bool pbSetBreakpoint_AfterMove, 
                                ISaveToModel par_iSave, bool pbUndoAndReverseEverything = false)
@@ -159,14 +163,32 @@ namespace MoveAndResizeControls_Monem
             if (pbUndoAndReverseEverything)
             {
                 // Remove these EventHandlers. ---12/28/2021 td
-                par_controlPictureB.MouseDown -= (sender, e) => StartMovingOrResizing(par_controlPictureB, e);
-                par_controlPictureB.MouseUp -= (sender, e) => StopDragOrResizing(par_controlPictureB, _iSaveToModel);
+                if (par_controlPictureB == null)
+                {
+                    par_containerElement.MouseDown -= (sender, e) => StartMovingOrResizing(par_containerElement, e);
+                    par_containerElement.MouseUp -= (sender, e) => StopDragOrResizing(par_containerElement, _iSaveToModel);
+                }
+                else
+                {
+                    par_controlPictureB.MouseDown -= (sender, e) => StartMovingOrResizing(par_controlPictureB, e);
+                    par_controlPictureB.MouseUp -= (sender, e) => StopDragOrResizing(par_controlPictureB, _iSaveToModel);
+                }
             }
             else
             {
-                par_controlPictureB.MouseDown += (sender, e) => StartMovingOrResizing(par_controlPictureB, e);
-                //Dec17 2021 td//par_controlPictureB.MouseUp += (sender, e) => StopDragOrResizing(par_controlPictureB);
-                par_controlPictureB.MouseUp += (sender, e) => StopDragOrResizing(par_controlPictureB, _iSaveToModel);
+                if (par_controlPictureB == null)
+                {
+                    //Added 1/4/2022 td
+                    par_containerElement.MouseDown += (sender, e) => StartMovingOrResizing(par_containerElement, e);
+                    par_containerElement.MouseUp += (sender, e) => StopDragOrResizing(par_containerElement, _iSaveToModel);
+                }
+                else
+                {
+                    par_controlPictureB.MouseDown += (sender, e) => StartMovingOrResizing(par_controlPictureB, e);
+                    //Dec17 2021 td//par_controlPictureB.MouseUp += (sender, e) => StopDragOrResizing(par_controlPictureB);
+                    //Jan4 2022 //if (par_controlPictureB.MouseUp != null) throw new Exception("This MouseUp may already be assigned.");
+                    par_controlPictureB.MouseUp += (sender, e) => StopDragOrResizing(par_controlPictureB, _iSaveToModel);
+                }
             }
 
             //==-== Likely bug??  Notice that, toward the end of the line, it references
@@ -188,11 +210,15 @@ namespace MoveAndResizeControls_Monem
             if (pbUndoAndReverseEverything)
             {
                 //Remove the event handler.
-                par_controlPictureB.MouseMove -= (sender, e) => MoveControl(par_containerElement, e);
+                //''par_controlPictureB.MouseMove -= (sender, e) => MoveControl(par_containerElement, e);
+                if (par_controlPictureB == null) par_containerElement.MouseMove -= (sender, e) => MoveControl(par_containerElement, e);
+                else par_controlPictureB.MouseMove -= (sender, e) => MoveControl(par_containerElement, e);
             }
             else
             {
-                par_controlPictureB.MouseMove += (sender, e) => MoveControl(par_containerElement, e);
+                //''par_controlPictureB.MouseMove += (sender, e) => MoveControl(par_containerElement, e);
+                if (par_controlPictureB == null) par_containerElement.MouseMove += (sender, e) => MoveControl(par_containerElement, e);
+                else par_controlPictureB.MouseMove += (sender, e) => MoveControl(par_containerElement, e);
             }
 
             //Added 11/29/2021 td
@@ -202,6 +228,7 @@ namespace MoveAndResizeControls_Monem
                 _controlCurrent = null;  // par_controlPictureB;
                 _controlPictureBox = null; // par_controlPictureB;
                 _controlMoveableElement = null; // par_containerElement;
+                _labelIfNeeded = null;  //Added 1/4/2022 td
             }
             else
             {
@@ -209,6 +236,48 @@ namespace MoveAndResizeControls_Monem
                 _controlPictureBox = par_controlPictureB;
                 _controlMoveableElement = par_containerElement;
             }
+
+            //Added 1/4/2022 td
+            //
+            //  Remove the functionality of moving the Element Control via a Label Control. 
+            //
+            if (pbUndoAndReverseEverything)
+            {
+                if (_labelIfNeeded != null) 
+                {
+                    _labelIfNeeded.MouseDown -= (sender, e) => StartMovingOrResizing(_labelIfNeeded, e);
+                    _labelIfNeeded.MouseMove -= (sender, e) => MoveControl(_controlMoveableElement, e);
+                    _labelIfNeeded.MouseUp -= (sender, e) => StopDragOrResizing(_labelIfNeeded, _iSaveToModel);
+                }
+            }
+
+
+
+        }
+
+
+        public void AddMoveability_ViaLabel(Label par_label)
+        {
+            //
+            // Added 1/4/2022 td 
+            //
+            _labelIfNeeded = par_label;
+            _labelIfNeeded.MouseDown += (sender, e) => StartMovingOrResizing(_labelIfNeeded, e);
+            _labelIfNeeded.MouseMove += (sender, e) => MoveControl(_controlMoveableElement, e);
+            _labelIfNeeded.MouseUp += (sender, e) => StopDragOrResizing(_labelIfNeeded, _iSaveToModel);
+
+        }
+
+
+        public void AddMoveability_ViaPictureBox(PictureBox par_pictureBox)
+        {
+            //
+            // Added 1/4/2022 td 
+            //
+            _controlPictureBox = par_pictureBox;
+            _controlPictureBox.MouseDown += (sender, e) => StartMovingOrResizing(_controlPictureBox, e);
+            _controlPictureBox.MouseMove += (sender, e) => MoveControl(_controlMoveableElement, e);  // Yes, MoveControl(_controlMoveableElement
+            _controlPictureBox.MouseUp += (sender, e) => StopDragOrResizing(_controlPictureBox, _iSaveToModel);
 
         }
 
@@ -743,12 +812,16 @@ namespace MoveAndResizeControls_Monem
             _controlCurrent.MouseUp -= (sender, e) => StopDragOrResizing(_controlCurrent, _iSaveToModel);
             _controlCurrent.MouseMove -= (sender, e) => MoveControl(_controlCurrent, e);
 
+            //Added 1/4/2022 td
+            _controlPictureBox.MouseUp -= (sender, e) => StopDragOrResizing(_controlCurrent, _iSaveToModel);
+            _controlPictureBox.MouseMove -= (sender, e) => MoveControl(_controlCurrent, e);
+
         }
 
 
-            #region Save And Load
+        #region Save And Load
 
-            private List<Control> GetAllChildControls(Control control, List<Control> list)
+        private List<Control> GetAllChildControls(Control control, List<Control> list)
         {
             List<Control> controls = control.Controls.Cast<Control>().ToList();
             list.AddRange(controls);

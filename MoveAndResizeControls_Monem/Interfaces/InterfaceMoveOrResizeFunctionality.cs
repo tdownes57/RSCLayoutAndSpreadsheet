@@ -16,7 +16,8 @@ namespace MoveAndResizeControls_Monem //.Interfaces
         //
         //Added 12/28/2021 td 
         //
-        void Init(Control par_control, Control par_container, int par_margin, bool pbRepaintAfterResize,
+        //Jan4 2022 ''void Init(Control par_control, Control par_container, int par_margin, bool pbRepaintAfterResize,
+        void Init(PictureBox par_pictureBox, Control par_container, int par_margin, bool pbRepaintAfterResize,
                                   InterfaceMoveEvents par_events, bool pbSetBreakpoint_AfterMove,
                                   ISaveToModel par_iSave, bool pbRemoveAnyHandlers = false);
 
@@ -42,6 +43,14 @@ namespace MoveAndResizeControls_Monem //.Interfaces
         //    & you won't know why!)
         //          ----1/3/2022 td 
         void KillAllEvents_Blackhole();
+
+        //
+        //Add a Label, or a PictureBox, to be a possible target of a user's Click-and-Drag.
+        //   ----1/4/2022 td 
+        //
+        void AddMoveability_ViaLabel(Label par_label);
+        void AddMoveability_ViaPictureBox(PictureBox par_label);
+
 
     }
 }

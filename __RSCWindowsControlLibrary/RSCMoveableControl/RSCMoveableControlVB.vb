@@ -268,6 +268,24 @@ Public Class RSCMoveableControlVB
 
         End If ''End of "If (boolInstantiated) Then ... Else ...."
 
+    End Sub ''End of Public Sub AddMoveability 
+
+
+    Public Sub AddMoveability_ViaLabel(par_Label As Label)
+        ''
+        ''Added 1/4/2022 td
+        ''
+        mod_iMoveOrResizeFunctionality.AddMoveability_ViaLabel(par_Label)
+
+    End Sub
+
+
+    Public Sub AddMoveability_ViaPictureBox(par_PictureBox As PictureBox)
+        ''
+        ''Added 1/4/2022 td
+        ''
+
+
     End Sub
 
 
@@ -276,6 +294,8 @@ Public Class RSCMoveableControlVB
         ''
         ''Added 12/28/2021 td
         ''
+        If (mod_iMoveOrResizeFunctionality Is Nothing) Then Return ''Added 1/4/2022 td
+
         If (Not pboolUseEasyWay And pbBlackholeMethed) Then
             ''Added 1/3/2022 td
             ''//Great for removing functionality!  
@@ -414,7 +434,9 @@ Public Class RSCMoveableControlVB
             mod_events.LayoutFunctions = par_iLayoutFunctions ''Added 12/27/2021
 
             mod_moveResizeKeepRatio = New MoveAndResizeControls_Monem.ControlResizeProportionally_TD()
-            mod_moveResizeKeepRatio.Init(Me, Me, 10, c_bRepaintAfterResize,
+            ''Jan4 2022 ''mod_moveResizeKeepRatio.Init(Me, Me, 10, c_bRepaintAfterResize,
+            ''                mod_events, False, Me)
+            mod_moveResizeKeepRatio.Init(Nothing, Me, 10, c_bRepaintAfterResize,
                                             mod_events, False, Me)
 
             ''            ''1/2/2022 td '' mod_events, False, mod_iSaveToModel)
@@ -429,7 +451,9 @@ Public Class RSCMoveableControlVB
 
             mod_events.LayoutFunctions = par_iLayoutFunctions ''Added 12/27/2021
 
-            mod_moveInAGroup.Init(Me, Me, 10, c_bRepaintAfterResize,
+            ''Jan4 2022''mod_moveInAGroup.Init(Me, Me, 10, c_bRepaintAfterResize,
+            ''                        mod_events, False, Me) ''1/2/2022 td''mod_iSaveToModel)
+            mod_moveInAGroup.Init(Nothing, Me, 10, c_bRepaintAfterResize,
                                     mod_events, False, Me) ''1/2/2022 td''mod_iSaveToModel)
 
             mod_iMoveOrResizeFunctionality = mod_moveInAGroup ''Added 12/28/2021 td

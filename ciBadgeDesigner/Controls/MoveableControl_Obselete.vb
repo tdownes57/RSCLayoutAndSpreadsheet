@@ -69,7 +69,9 @@ Public Class MoveableControl_Obselete
 
             mod_resizingProportionally = New MoveAndResizeControls_Monem.ControlResizeProportionally_TD()
             mod_events.LayoutFunctions = par_iLayoutFunctions ''Added 12/27/2021
-            mod_resizingProportionally.Init(Me, Me, 10, c_bRepaintAfterResize,
+            ''Jan4 2022''mod_resizingProportionally.Init(Me, Me, 10, c_bRepaintAfterResize,
+            ''          mod_events, False, mod_iSaveToModel)
+            mod_resizingProportionally.Init(Nothing, Me, 10, c_bRepaintAfterResize,
                                             mod_events, False, mod_iSaveToModel)
             ''---mod_resizingProportionally.LayoutFunctions = par_iLayoutFunctions 
 
@@ -81,7 +83,9 @@ Public Class MoveableControl_Obselete
 
             mod_events.LayoutFunctions = par_iLayoutFunctions ''Added 12/27/2021
 
-            mod_movingInAGroup.Init(Me, Me, 10, c_bRepaintAfterResize,
+            ''Jan4 2022''mod_movingInAGroup.Init(Me, Me, 10, c_bRepaintAfterResize,
+            ''               mod_events, False, mod_iSaveToModel)
+            mod_movingInAGroup.Init(Nothing, Me, 10, c_bRepaintAfterResize,
                                     mod_events, False, mod_iSaveToModel)
 
         End If ''End of "If pboolResizeProportionally Then .... Else ..."

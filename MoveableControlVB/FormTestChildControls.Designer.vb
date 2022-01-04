@@ -38,7 +38,7 @@ Partial Class FormTestChildControls
         '
         'SimpleChildOfRSCControl1
         '
-        Me.SimpleChildOfRSCControl1.BackColor = System.Drawing.Color.White
+        Me.SimpleChildOfRSCControl1.BackColor = System.Drawing.Color.Gainsboro
         Me.SimpleChildOfRSCControl1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.SimpleChildOfRSCControl1.Location = New System.Drawing.Point(151, 108)
         Me.SimpleChildOfRSCControl1.Name = "SimpleChildOfRSCControl1"
