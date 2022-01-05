@@ -264,7 +264,8 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             }
         }
 
-        private void StartMovingOrResizing(Control control, MouseEventArgs e)
+
+        public void StartMovingOrResizing(Control control, MouseEventArgs e)
         {
             if (_moving || _resizing)
             {
@@ -283,9 +284,11 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             }
             _cursorStartPoint = new Point(e.X, e.Y);
             control.Capture = true;
+        
         }
 
-        private void MoveControl(Control par_control, MouseEventArgs e)
+
+        public void MoveControl(Control par_control, MouseEventArgs e)
         {
             if (!_resizing && !_moving)
             {
@@ -372,7 +375,7 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
         }
 
 
-        private void StopDragOrResizing(Control par_control)
+        public void StopDragOrResizing(Control par_control)
         {
             bool bWasResizing = _resizing; // Added 7/31/2019 td
 

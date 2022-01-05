@@ -1,4 +1,30 @@
-﻿using System;
+﻿/***
+    ''
+    ''   by Seyyed Hamed Monem
+    ''     (modified by Thomas Downes) 
+    ''
+    '' https://www.codeproject.com/tips/709121/move-and-resize-controls-on-a-form-at-runtime-with 
+    ''
+    ''    Move And Resize Controls on a Form at Runtime(With Mouse)
+    ''
+    ''seyyed hamed monem
+    ''
+    ''Rate this :  
+    ''
+    ''
+    ''4.97 (47 votes) 
+    ''
+    ''13 Jan 2014
+    ''CPOL
+    ''Move And resize controls on a form at runtime (with mouse)
+    ''
+    ''   https://www.codeproject.com/tips/709121/move-and-resize-controls-on-a-form-at-runtime-with 
+    ''
+    ''   https://www.codeproject.com/info/cpol10.aspx
+    ''
+***/
+
+using System;
 //using System.Collections.Generic;
 using System.Linq;
 //using System.Text;
@@ -90,7 +116,8 @@ namespace MoveAndResizeControls_Monem
         public void Init(Control par_controlA, int par_margin, bool pbRepaintAfterResize,
                                  InterfaceMoveEvents par_events, bool pbSetBreakpoint_AfterMove,
                                  ISaveToModel par_iSave, 
-                                 bool pbUndoAndReverseEverything = false)
+                                 bool pbUndoAndReverseEverything = false,
+                                 bool pbHookUpEventHandlers = true)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
             //     the preferred background color.)   ----7/31/2019 td
@@ -109,8 +136,9 @@ namespace MoveAndResizeControls_Monem
             // Dec28 2021 td//Init(par_controlA, par_controlA, par_margin, pbRepaintAfterResize, par_events, SetBreakpoint_AfterMove, par_iSave);
             //''Jan4 2022''Init(par_controlA, par_controlA, par_margin, pbRepaintAfterResize, par_events, SetBreakpoint_AfterMove,
             //''    par_iSave, pbUndoAndReverseEverything);
-            Init(null, par_controlA, par_margin, pbRepaintAfterResize, par_events, SetBreakpoint_AfterMove,
-                par_iSave, pbUndoAndReverseEverything);
+            Init(null, par_controlA, par_margin, pbRepaintAfterResize, par_events, 
+                SetBreakpoint_AfterMove,
+                par_iSave, pbUndoAndReverseEverything, pbHookUpEventHandlers);
 
         }
 
@@ -118,7 +146,9 @@ namespace MoveAndResizeControls_Monem
         public void Init(PictureBox par_controlPictureB, Control par_containerElement, 
                                int par_margin, bool pbRepaintAfterResize,
                                InterfaceMoveEvents par_events, bool pbSetBreakpoint_AfterMove, 
-                               ISaveToModel par_iSave, bool pbUndoAndReverseEverything = false)
+                               ISaveToModel par_iSave, 
+                               bool pbUndoAndReverseEverything = false,
+                               bool pbHookUpEventHandlers = true)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
             //     the preferred background color.)   ----7/31/2019 td
@@ -186,16 +216,19 @@ namespace MoveAndResizeControls_Monem
             //
             //Encapsulated 1/4/2022 td
             //
-            if (par_controlPictureB != null)
+            if (pbHookUpEventHandlers)
             {
-                HookUpEventHandlers(par_controlPictureB, par_containerElement, 
-                    par_iSave, pbUndoAndReverseEverything);
-            }
-            //Added Jan4 2022 td
-            if (par_containerElement != null)
-            {
-                HookUpEventHandlers(par_containerElement, par_containerElement,
-                 par_iSave, pbUndoAndReverseEverything);
+                if (par_controlPictureB != null)
+                {
+                    HookUpEventHandlers(par_controlPictureB, par_containerElement,
+                        par_iSave, pbUndoAndReverseEverything);
+                }
+                //Added Jan4 2022 td
+                if (par_containerElement != null)
+                {
+                    HookUpEventHandlers(par_containerElement, par_containerElement,
+                     par_iSave, pbUndoAndReverseEverything);
+                }
             }
 
         }
@@ -442,7 +475,8 @@ namespace MoveAndResizeControls_Monem
 
         }
 
-        private void StartMovingOrResizing(Control par_controlE, MouseEventArgs e)
+
+        public void StartMovingOrResizing(Control par_controlE, MouseEventArgs e)
         {
             //
             //Added by the programmer Monem, long before 12/28/2021.  ---12/28/2021 thomas downes
@@ -491,7 +525,7 @@ namespace MoveAndResizeControls_Monem
 
         }
 
-        private void MoveParentControl(Control par_controlParentF, MouseEventArgs e)
+        public void MoveParentControl(Control par_controlParentF, MouseEventArgs e)
         {
             //--Jan4 2022---private void MoveControl(Control par_control, MouseEventArgs e)
             //
@@ -773,7 +807,8 @@ namespace MoveAndResizeControls_Monem
 
         }
 
-        private void StopDragOrResizing(Control par_controlJ, ISaveToModel par_iSave)
+
+        public void StopDragOrResizing(Control par_controlJ, ISaveToModel par_iSave)
         {
             bool bWasResizing = _resizing; // Added 7/31/2019 td
 

@@ -19,7 +19,8 @@ namespace MoveAndResizeControls_Monem //.Interfaces
         //Jan4 2022 ''void Init(Control par_control, Control par_container, int par_margin, bool pbRepaintAfterResize,
         void Init(PictureBox par_pictureBox, Control par_container, int par_margin, bool pbRepaintAfterResize,
                                   InterfaceMoveEvents par_events, bool pbSetBreakpoint_AfterMove,
-                                  ISaveToModel par_iSave, bool pbRemoveAnyHandlers = false);
+                                  ISaveToModel par_iSave, bool pbRemoveAnyHandlers = false, 
+                                  bool pbHookUpEventHandlers = true);
 
         void Reverse_Init();
         void RemoveEventHandlers();
@@ -51,6 +52,10 @@ namespace MoveAndResizeControls_Monem //.Interfaces
         void AddMoveability_ViaLabel(Label par_label);
         void AddMoveability_ViaPictureBox(PictureBox par_label);
 
+        // Added 1/4/2022 thomas downes
+        void StartMovingOrResizing(Control control, MouseEventArgs e);
+        void MoveParentControl(Control par_controlParent, MouseEventArgs e);
+        void StopDragOrResizing(Control par_control, ISaveToModel par_iSave);
 
     }
 }

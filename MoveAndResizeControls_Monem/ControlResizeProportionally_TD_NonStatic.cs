@@ -118,7 +118,8 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
 
         public void Init_NotInUse(Control par_control, int par_margin, bool pbRepaintAfterResize,
                                 InterfaceMoveEvents par_events, bool pbSetBreakpoint_AfterMove,
-                                ISaveToModel par_iSave)
+                                ISaveToModel par_iSave,
+                               bool pbHookUpEventHandlers = true)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
             //     the preferred background color.)   ----7/31/2019 td
@@ -136,14 +137,15 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             // Jan4 2022''Init(par_control, obj_container, par_margin, pbRepaintAfterResize,
             //    par_events, pbSetBreakpoint_AfterMove, par_iSave);
             Init(null, obj_container, par_margin, pbRepaintAfterResize,
-                par_events, pbSetBreakpoint_AfterMove, par_iSave);
+                par_events, pbSetBreakpoint_AfterMove, par_iSave, pbHookUpEventHandlers);
 
         }
 
 
         public void Init(PictureBox par_ctlPictureBox, Control par_container, int par_margin, bool pbRepaintAfterResize,
                                   InterfaceMoveEvents par_events, bool pbSetBreakpoint_AfterMove,
-                                  ISaveToModel par_iSave, bool pbRemoveAnyHandlers = false)
+                                  ISaveToModel par_iSave, bool pbRemoveAnyHandlers = false,
+                               bool pbHookUpEventHandlers = true)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
             //     the preferred background color.)   ----7/31/2019 td
@@ -205,16 +207,32 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             //
             //Encapsulated 1/4/2022 td
             //
-            if (par_ctlPictureBox != null)
+            if (pbHookUpEventHandlers)
             {
-                HookUpEventHandlers(par_ctlPictureBox, par_container, par_iSave, pbRemoveAnyHandlers);
+                //
+                // We won't try to capture the MouseClick events at the form level.
+                //   ----1/4/2022 td 
+                //
+                if (par_ctlPictureBox != null)
+                {
+                    HookUpEventHandlers(par_ctlPictureBox, par_container, par_iSave, pbRemoveAnyHandlers);
+                }
+
+                //Added Jan4 2022 td
+                if (par_container != null)
+                {
+                    HookUpEventHandlers(par_container, par_container, par_iSave, pbRemoveAnyHandlers);
+                }
+            }
+            else
+            {
+                //
+                // We will try to capture the MouseClick events at the form level, and then call
+                //    the appropriate Public function on this class.
+                //   ----1/4/2022 td 
+                //
             }
 
-            //Added Jan4 2022 td
-            if (par_container != null)
-            {
-                HookUpEventHandlers(par_container, par_container, par_iSave, pbRemoveAnyHandlers);
-            }
 
         }
 
@@ -497,7 +515,7 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
 
 
 
-        private void StartMovingOrResizing(Control par_control, MouseEventArgs e)
+        public void StartMovingOrResizing(Control par_control, MouseEventArgs e)
         {
             //
             //Added 10/09/2019 thomas downes 
@@ -534,7 +552,7 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
         }
 
 
-        private void MoveParentControl(Control par_control, MouseEventArgs e)
+        public void MoveParentControl(Control par_control, MouseEventArgs e)
         {
             //--Jan4 2022---private void MoveControl(Control par_control, MouseEventArgs e)
             //
@@ -844,7 +862,7 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
 
 
 
-        private void StopDragOrResizing(Control par_control, ISaveToModel par_iSave)
+        public void StopDragOrResizing(Control par_control, ISaveToModel par_iSave)
         {
             //---Jan4 2022--private void StopDragOrResizing(Control par_control)
             //
