@@ -827,10 +827,26 @@ ExitHandler:
 
     End Sub
 
-    Private Sub pictureQRCode_MouseMove(sender As Object, e As MouseEventArgs) Handles pictureQRCode.MouseMove
+    Private Sub pictureQRCode_MouseMove(sender As Object, par_e As MouseEventArgs) Handles pictureQRCode.MouseMove '', Me.MouseMove
 
         ''Added 1/3/2022 thomas downes
+        MyBase.MoveableControl_MouseMove(sender, par_e)
 
+    End Sub
+
+    Private Sub pictureQRCode_MouseDown(sender As Object, par_e As MouseEventArgs) Handles pictureQRCode.MouseDown '', Me.MouseDown
+        ''
+        ''Added 1/4/2022 td 
+        ''
+        MyBase.MoveableControl_MouseDown(sender, par_e)
+
+    End Sub
+
+    Private Sub pictureQRCode_MouseUp(sender As Object, par_e As MouseEventArgs) Handles pictureQRCode.MouseUp '', Me.MouseDown
+        ''
+        ''Added 1/4/2022 td 
+        ''
+        MyBase.MoveableControl_MouseUp(sender, par_e)
 
     End Sub
 End Class ''End of Public Class CtlGraphicQRCode 

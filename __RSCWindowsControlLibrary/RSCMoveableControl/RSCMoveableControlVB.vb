@@ -112,13 +112,18 @@ Public Class RSCMoveableControlVB
     Public MyToolstripItemCollection As ToolStripItemCollection ''Added 12/28/2021 td 
     Private mod_boolResizeProportionally As Boolean
 
+    ''Added 1/4/2022 thomas d. 
+    Const mod_bHandleMouseMoveEvents As Boolean = True
+    Const mod_bLetMonemHandleTheMouse As Boolean = False
+
     ''Depending on the above Boolean, one of the following will be instantiated. 
     ''Let's rename. 12/28/2021 td''Private mod_movingInAGroup As ControlMove_Group_NonStatic = Nothing
     ''Let's rename. 12/28/2021 td''Private mod_resizeProportionally As ControlResizeProportionally_TD = Nothing
     Private mod_moveInAGroup As ControlMove_Group_NonStatic = Nothing
     Private mod_moveResizeKeepRatio As ControlResizeProportionally_TD = Nothing
+
     ''Dec29 2021''Private mod_iMoveOrResize As InterfaceMoveOrResize ''Added 12/28/2021 td
-    Private mod_iMoveOrResizeFunctionality As IMoveOrResizeFunctionality ''Added 12/28/2021 td
+    Protected mod_iMoveOrResizeFunctionality As IMoveOrResizeFunctionality ''Added 12/28/2021 td
 
     ''1/3/2022 td''Private WithEvents mod_events As New GroupMoveEvents_Singleton ''InterfaceEvents
     ''Jan4 2022''Private WithEvents mod_events As GroupMoveEvents_Singleton ''InterfaceEvents
@@ -417,11 +422,6 @@ Public Class RSCMoveableControlVB
     End Sub
 
 
-
-
-
-
-
     Public Sub InitializeMoveability(pboolResizeProportionally As Boolean,
                                      par_iLayoutFunctions As ILayoutFunctions,
                                      par_objMoveEvents As GroupMoveEvents_Singleton)
@@ -463,7 +463,8 @@ Public Class RSCMoveableControlVB
             ''1/4/2022 td''mod_moveResizeKeepRatio.Init(objPictureBox, Me, 10, c_bRepaintAfterResize,
             ''      mod_events, False, Me)
             mod_moveResizeKeepRatio.Init(objPictureBox, Me, 10, c_bRepaintAfterResize,
-                                            mod_events, False, Me)
+                                            mod_events, False, Me, False,
+                                            mod_bHandleMouseMoveEvents)
 
             ''            ''1/2/2022 td '' mod_events, False, mod_iSaveToModel)
             ''---mod_resizingProportionally.LayoutFunctions = par_iLayoutFunctions 
@@ -485,7 +486,8 @@ Public Class RSCMoveableControlVB
             ''Added 1/4/2022 td
             objPictureBox = Find_PictureBox()
             mod_moveInAGroup.Init(objPictureBox, Me, 10, c_bRepaintAfterResize,
-                                            mod_events, False, Me)
+                                            mod_events, False, Me, False,
+                                                mod_bLetMomemHandleTheMouse)
 
             mod_iMoveOrResizeFunctionality = mod_moveInAGroup ''Added 12/28/2021 td
 
@@ -637,33 +639,6 @@ Public Class RSCMoveableControlVB
     ''
     ''End Sub ''End of "Private Sub mod_designer_ElementRightClicked"
 
-
-    Protected Sub MoveableControl_MouseClick(sender As Object, e As Windows.Forms.MouseEventArgs) Handles MyBase.MouseClick
-        ''
-        ''Added 12/28/2021 td  
-        ''
-        If (e.Button = MouseButtons.Right) Then
-            ''
-            ''Added 12/28/2021 td
-            ''
-            mod_designer_ElementRightClicked(e.X, e.Y)
-
-        End If ''End of "If (e.Button = MouseButtons.Right) Then"
-
-    End Sub
-
-    Protected Sub MoveableControl_MouseDown(sender As Object, e As Windows.Forms.MouseEventArgs) ''Handles MyBase.MouseDown
-        ''
-        ''Added 12/22/2021 thomas downes
-        ''
-    End Sub
-
-
-    Protected Sub MoveableControl_MouseUp(sender As Object, e As Windows.Forms.MouseEventArgs) ''Handles MyBase.MouseUp
-        ''
-        ''Added 12/22/2021 thomas downes
-        ''
-    End Sub
 
     Private Sub mod_events_Moving_End(par_control As Control, par_iSaveToModel As ISaveToModel) Handles mod_events.Moving_End '', mod_events.Resizing_End, mod_events.Moving_InProgress
         ''
@@ -891,6 +866,64 @@ Public Class RSCMoveableControlVB
 
     End Function ''Endof "Public Function Find_PictureBox() As PictureBox"
 
+
+    Protected Sub MoveableControl_MouseClick(sender As Object, e As Windows.Forms.MouseEventArgs) Handles MyBase.MouseClick
+        ''
+        ''Added 12/28/2021 td  
+        ''
+        If (e.Button = MouseButtons.Right) Then
+            ''
+            ''Added 12/28/2021 td
+            ''
+            mod_designer_ElementRightClicked(e.X, e.Y)
+
+        End If ''End of "If (e.Button = MouseButtons.Right) Then"
+
+    End Sub
+
+
+    Protected Sub MoveableControl_MouseDown(sender As Object, par_e As MouseEventArgs) Handles Me.MouseDown
+        ''
+        ''Added 1/4/2022 thomas d.
+        ''
+        If (mod_bHandleMouseMoveEvents AndAlso (par_e.Button = MouseButtons.Left)) Then
+            ''
+            ''It's a Left-Hand click. 
+            ''
+            ''Let the module know that a MouseMove took place. 
+            mod_iMoveOrResizeFunctionality.StartMovingOrResizing(CType(sender, Control), par_e)
+
+        End If ''End of "If (mod_bHandleMouseMoveEvents And par_e.Button = MouseButtons.Left) Then"
+
+    End Sub
+
+
+    Protected Sub MoveableControl_MouseMove(sender As Object, par_e As MouseEventArgs) Handles MyBase.MouseMove
+        ''
+        ''Added 1/4/2022 thomas d.
+        ''
+        If (mod_bHandleMouseMoveEvents AndAlso (par_e.Button = MouseButtons.Left)) Then
+            ''Let the module know that a MouseMove took place. 
+            mod_iMoveOrResizeFunctionality.MoveParentControl(CType(sender, Control), par_e)
+        End If
+
+    End Sub
+
+
+    Protected Sub MoveableControl_MouseUp(sender As Object, par_e As MouseEventArgs) Handles Me.MouseUp
+        ''
+        ''Added 1/4/2022 thomas d.
+        ''
+        If (mod_bHandleMouseMoveEvents AndAlso (par_e.Button = MouseButtons.Left)) Then
+            ''
+            ''It's a Left-Hand click. 
+            ''
+            ''Let the module know that a MouseUp took place. 
+            mod_iMoveOrResizeFunctionality.StopDragOrResizing(CType(sender, Control), Me)
+
+        End If ''End of "If (mod_bHandleMouseMoveEvents And par_e.Button = MouseButtons.Left) Then"
+
+    End Sub
 
 
 End Class
