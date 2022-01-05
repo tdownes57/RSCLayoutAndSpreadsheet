@@ -32,7 +32,7 @@ Partial Class ProportionalRSCControl
         Me.Label1.BackColor = System.Drawing.Color.White
         Me.Label1.Location = New System.Drawing.Point(15, 41)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(118, 109)
+        Me.Label1.Size = New System.Drawing.Size(79, 112)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "This child of RSCMoveableControl is complex in that it resizes proportionally."
         '
@@ -43,6 +43,7 @@ Partial Class ProportionalRSCControl
         Me.lblSavedCount.Name = "lblSavedCount"
         Me.lblSavedCount.Size = New System.Drawing.Size(91, 17)
         Me.lblSavedCount.TabIndex = 1
+        Me.lblSavedCount.Tag = "0"
         Me.lblSavedCount.Text = "Saved count:"
         '
         'ProportionalRSCControl

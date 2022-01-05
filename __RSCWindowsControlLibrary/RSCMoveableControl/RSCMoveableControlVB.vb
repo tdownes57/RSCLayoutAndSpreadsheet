@@ -119,6 +119,14 @@ Public Class RSCMoveableControlVB
     ''Depending on the above Boolean, one of the following will be instantiated. 
     ''Let's rename. 12/28/2021 td''Private mod_movingInAGroup As ControlMove_Group_NonStatic = Nothing
     ''Let's rename. 12/28/2021 td''Private mod_resizeProportionally As ControlResizeProportionally_TD = Nothing
+    ''
+    '' Let's reference two modules written by Seyyed Hamed Monem
+    ''     (modified & bifurcated into two, by Thomas C. Downes) 
+    ''
+    '' https://www.codeproject.com/tips/709121/move-and-resize-controls-on-a-form-at-runtime-with 
+    ''
+    ''    Move And Resize Controls on a Form at Runtime(With Mouse)
+    ''
     Private mod_moveInAGroup As ControlMove_Group_NonStatic = Nothing
     Private mod_moveResizeKeepRatio As ControlResizeProportionally_TD = Nothing
 
@@ -487,7 +495,7 @@ Public Class RSCMoveableControlVB
             objPictureBox = Find_PictureBox()
             mod_moveInAGroup.Init(objPictureBox, Me, 10, c_bRepaintAfterResize,
                                             mod_events, False, Me, False,
-                                                mod_bLetMomemHandleTheMouse)
+                                                mod_bLetMonemHandleTheMouse)
 
             mod_iMoveOrResizeFunctionality = mod_moveInAGroup ''Added 12/28/2021 td
 

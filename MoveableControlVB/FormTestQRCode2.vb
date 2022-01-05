@@ -10,6 +10,9 @@ Public Class FormTestQRCode2
     Private mod_eventsSingleton As New GroupMoveEvents_Singleton(mod_designer)
     Private mod_ctlLasttouched As New ClassLastControlTouched
 
+    Private mod_ctlSignat As ciBadgeDesigner.CtlGraphicSignature
+    Private mod_ctlPropRSC As ProportionalRSCControl
+
     Private Sub FormTestQRCode2_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
         ''Added 1/4/2022 thomas d. 
@@ -23,6 +26,8 @@ Public Class FormTestQRCode2
 
         InstantiateQRCode()
         InstantiateSignature()
+        InstantiateRSC_Proportional()
+        InstantiateRSC_SimpleChild2()
 
     End Sub
 
@@ -51,22 +56,55 @@ Public Class FormTestQRCode2
         ''
         ''Added 1/4/2022 td 
         ''
-        Dim ctlSignat As ciBadgeDesigner.CtlGraphicSignature
+        ''Dim ctlSignat As ciBadgeDesigner.CtlGraphicSignature
         Dim objElement As New ciBadgeElements.ClassElementSignature
 
         objElement.BadgeLayout = mod_designer.BadgeLayout_Class
 
-        ctlSignat = CtlGraphicSignature.GetSignature(objElement, "ctlSignat",
+        mod_ctlSignat = CtlGraphicSignature.GetSignature(objElement, "ctlSignat",
           mod_designer, True, mod_ctlLasttouched, mod_eventsSingleton,
           DiskFilesVB.PathToFile_Sig())
 
-        ctlSignat.Visible = True
-        Me.Controls.Add(ctlSignat)
+        mod_ctlSignat.Visible = True
+        Me.Controls.Add(mod_ctlSignat)
 
         PictureBox_BadgeFront.SendToBack()
 
     End Sub
 
 
+    Private Sub InstantiateRSC_Proportional()
+        ''
+        ''Added 1/4/2022 td
+        ''
+        Dim ctlPropRSC As ProportionalRSCControl
+
+        mod_ctlPropRSC = ProportionalRSCControl.GetRSCControl(mod_designer,
+                                                          mod_eventsSingleton,
+                                                          mod_ctlLasttouched)
+        mod_ctlPropRSC.Visible = True
+        mod_ctlPropRSC.Left = mod_ctlSignat.Width
+        Me.Controls.Add(mod_ctlPropRSC)
+        PictureBox_BadgeFront.SendToBack()
+
+    End Sub
+
+
+    Private Sub InstantiateRSC_SimpleChild2()
+        ''
+        ''Added 1/4/2022 td
+        ''
+        Dim ctlSimple2RSC As SimpleChildOfRSCControl2
+
+        ctlSimple2RSC = SimpleChildOfRSCControl2.GetRSCControl(mod_designer,
+                                                          mod_eventsSingleton,
+                                                          mod_ctlLasttouched)
+        ctlSimple2RSC.Visible = True
+        ctlSimple2RSC.Left = mod_ctlSignat.Width
+        ctlSimple2RSC.Top = mod_ctlPropRSC.Height
+        Me.Controls.Add(ctlSimple2RSC)
+        PictureBox_BadgeFront.SendToBack()
+
+    End Sub
 
 End Class

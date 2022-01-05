@@ -47,6 +47,7 @@ Public Class ClassDesigner
 
     Public Property PreviewLayoutAsImage As Boolean = True ''Added 10.1.2019 thomas d. 
     Public BadgeLayout_Class As ciBadgeInterfaces.BadgeLayoutClass ''Added 10/9/2019 td  
+    Private mod_ctlLasttouched As New ClassLastControlTouched ''Added 1/4/2022 td
 
     ''10/4/2019 td''Public Property PreviewBox As PictureBox
     Public WithEvents PreviewBox As PictureBox
@@ -1298,7 +1299,14 @@ Public Class ClassDesigner
             ''#1 9/4/2019 td''label_control = New CtlGraphicFldLabel(each_field, Me)
             '' #2 9/4/2019 td''label_control = New CtlGraphicFldLabel(each_field, new_element_text, Me)
             ''----label_control = New CtlGraphicFldLabel(each_element, Me)
-            label_control = New CtlGraphicFldLabel(each_element, Me, "WhyWasICreated? LoadFieldControls_ByListOfElements: " & pstrWhyCalled, Me)
+            ''1/4/2022 td''label_control = New CtlGraphicFldLabel(each_element, Me,
+            ''            "WhyWasICreated? LoadFieldControls_ByListOfElements: " & pstrWhyCalled, Me)
+
+            ''Added 1/4/2022 td
+            Dim strNameOfControl As String = "Ctl" + each_element.FieldEnum.ToString()
+            label_control = CtlGraphicFldLabel.GetFieldElement(each_element, strNameOfControl,
+                                                        Me, Me, mod_ctlLasttouched,
+                                                        mod_oGroupMoveEvents)
 
             ''Moved below. 9/5 td''label_control.Refresh_Master()
             label_control.Visible = each_element.FieldInfo.IsDisplayedOnBadge ''BL = Badge Layout

@@ -15,13 +15,41 @@ Public Class ProportionalRSCControl
     Public WithEvents MyTimerOneSecond As Timer ''Added 1/4/2022 td 
     Private mod_runSaveToModel_1secAgo As Boolean ''Added 1/4/2022 td
 
-    Public Shared Function GetRSCControl() As ProportionalRSCControl
+    Public Sub New()
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+
+    End Sub
+
+
+    Public Sub New(par_iLayoutFunctions As ILayoutFunctions,
+                   par_events As GroupMoveEvents_Singleton,
+                   par_iLastControlTouched As ILastControlTouched)
+        ''
+        ''Added 1/4/2022 thomas downes 
+        ''
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        mod_iLayoutFunctions = par_iLayoutFunctions
+        mod_events = par_events
+        Me.LastControlTouched_Info = par_iLastControlTouched
+
+    End Sub
+
+
+    Public Shared Function GetRSCControl(par_iLayoutFunctions As ILayoutFunctions,
+                                         par_events As GroupMoveEvents_Singleton,
+                                         par_iLastControlTouched As ILastControlTouched) As ProportionalRSCControl
         ''
         ''Added 1/4/2022 thomas downes 
         ''
         Dim ctlRSC As ProportionalRSCControl
 
-        ctlRSC = New ProportionalRSCControl()
+        ctlRSC = New ProportionalRSCControl(par_iLayoutFunctions, par_events, par_iLastControlTouched)
         Return ctlRSC
 
     End Function ''End of "Public Shared Function GetRSCControl() As ProportionalRSCControl"
@@ -43,6 +71,12 @@ Public Class ProportionalRSCControl
         If (MyBase.mod_events Is Nothing) Then MyBase.mod_events = Me.MoveabilityEvents
 
         MyBase.AddMoveability(MyBase.mod_events, MyBase.mod_iLayoutFunctions, True)
+
+        ''Added 1/4/2022
+        ''---lblSavedCount.Tag = 0 '' "0"
+
+        MyTimerOneSecond = New Timer
+        MyTimerOneSecond.Interval = 1000
 
     End Sub
 
@@ -66,10 +100,23 @@ Public Class ProportionalRSCControl
         ''--MessageBoxTD.Show_Statement("SaveToModel(). Programmer must override this base-class method, using the keyword Overrides.")
 
         If (Not mod_runSaveToModel_1secAgo) Then
+
             mod_runSaveToModel_1secAgo = True
             ''MessageBoxTD.Show_Statement("SaveToModel() is executed.")
-            lblSavedCount.Tag = CInt(lblSavedCount.Tag) + 1
+
+            ''Added 1/4/2022 td 
+            If (lblSavedCount Is Nothing) Then
+                lblSavedCount = New Label()
+                lblSavedCount.Tag = 0
+                lblSavedCount.Text = "Saved count:"
+                Me.Controls.Add(lblSavedCount)
+            End If ''end of "If (lblSavedCount Is Nothing) Then"
+
+            lblSavedCount.Tag = CInt(lblSavedCount.Tag.ToString()) + 1
             lblSavedCount.Text = ("Saved count: " & lblSavedCount.Tag.ToString())
+            lblSavedCount.Visible = True
+            MyTimerOneSecond.Enabled = True ''Set the timer for one(1) second, to prevent multiple calls to this procedure
+            ''   from causing multiple increments of lblSavedCount.Tag. ----1/4/2022 td
 
         End If ''End of If (Not mod_runSaveToModel_1secAgo) Then
 
@@ -79,6 +126,7 @@ Public Class ProportionalRSCControl
 
         ''Added 1/4/2022 td
         mod_runSaveToModel_1secAgo = False ''Refresh. 
+        MyTimerOneSecond.Enabled = False ''Just one iteration!!
 
     End Sub
 End Class
