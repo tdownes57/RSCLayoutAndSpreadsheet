@@ -835,6 +835,12 @@ Public Class Form__Main_Demo
         ''
         SaveLayout()
 
+        ''Added 1/5/2022 thomas d.
+        ''My.Settings.PathToXML_Saved_ElementsCache = Me.ElementsCache_PathToXML
+        ''My.Settings.PathToSavedXML_Last = Me.ElementsCache_PathToXML
+        ''My.Settings.Save()
+        Startup.SaveFullPathToFileXML(Me.ElementsCache_PathToXML)
+
         ''
         ''Step 2 of 3.  Decide the next step. 
         ''
@@ -1091,7 +1097,8 @@ Public Class Form__Main_Demo
             ''#1_11/28/2021 td''mod_designer.LoadDesigner()
             '' #2_11/28/2021 td''mod_designer.LoadDesigner(strWhyCalled)
             '' #2_11/28/2021 td''mod_designer.LoadFieldControls_ByListOfElements(list_elementsNotLoadedYet_Any, True, False, True)
-            mod_designer.LoadDesigner(strWhyCalled)
+            ''1/5/2022''mod_designer.LoadDesigner(strWhyCalled)
+            mod_designer.LoadDesigner(strWhyCalled, mod_oGroupMoveEvents)
 
         End If ''End of "If (bSomeDisplayableFieldsAreNotLoaded) Then"
 
@@ -1643,13 +1650,14 @@ Public Class Form__Main_Demo
         ''Save the new file XML in the Settings. 
         ''
         ''
-        My.Settings.PathToLastDirectoryForXMLFile = objFileInfo.DirectoryName
-        My.Settings.PathToSavedXML_Prior3 = My.Settings.PathToSavedXML_Prior2
-        My.Settings.PathToSavedXML_Prior2 = My.Settings.PathToSavedXML_Prior1
-        My.Settings.PathToSavedXML_Prior1 = My.Settings.PathToSavedXML_Last
-        My.Settings.PathToSavedXML_Last = strSaveFileAs_FullFileName
-        My.Settings.PathToXML_Saved_ElementsCache = strSaveFileAs_FullFileName
-        My.Settings.Save()
+        ''My.Settings.PathToLastDirectoryForXMLFile = objFileInfo.DirectoryName
+        ''My.Settings.PathToSavedXML_Prior3 = My.Settings.PathToSavedXML_Prior2
+        ''My.Settings.PathToSavedXML_Prior2 = My.Settings.PathToSavedXML_Prior1
+        ''My.Settings.PathToSavedXML_Prior1 = My.Settings.PathToSavedXML_Last
+        ''My.Settings.PathToSavedXML_Last = strSaveFileAs_FullFileName
+        ''My.Settings.PathToXML_Saved_ElementsCache = strSaveFileAs_FullFileName
+        ''My.Settings.Save()
+        Startup.SaveFullPathToFileXML(strSaveFileAs_FullFileName)
 
         ''
         ''Specify the XML cache file, in the Window caption. ---12/14/2021 td 
@@ -1728,6 +1736,9 @@ Public Class Form__Main_Demo
         ''
         Static s_strFolder As String
 
+        ''Added 1/5/2022 thomas downes
+        s_strFolder = My.Settings.PathToLastDirectoryForXMLFile
+
         If (String.IsNullOrEmpty(s_strFolder)) Then s_strFolder = My.Application.Info.DirectoryPath
 
         OpenFileDialog1.FileName = ""
@@ -1757,8 +1768,9 @@ Public Class Form__Main_Demo
         ''Save the file path to the form's String Property. ---12/15/2021 
         ''
         Me.ElementsCache_PathToXML = strFullPathToXML
-        My.Settings.PathToXML_Saved_ElementsCache = strFullPathToXML
-        My.Settings.Save()
+        ''My.Settings.PathToXML_Saved_ElementsCache = strFullPathToXML
+        ''My.Settings.Save()
+        Startup.SaveFullPathToFileXML(strFullPathToXML)
 
         ''
         ''Specify the XML cache file, in the Window caption. ---12/14/2021 td 

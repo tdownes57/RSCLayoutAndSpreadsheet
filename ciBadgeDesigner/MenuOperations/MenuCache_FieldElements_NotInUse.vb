@@ -69,7 +69,7 @@ Public Class MenuCache_FieldElements_NotInUse
         ''
         With Operations_Edit
             .ColorDialog1 = ColorDialog1
-            .CtlCurrentElement = CtlCurrentElement
+            .CtlCurrentElementField = CtlCurrentElement
             .Designer = Designer
             .FontDialog1 = FontDialog1
             .LayoutFunctions = LayoutFunctions

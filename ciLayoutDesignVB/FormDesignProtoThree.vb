@@ -18,6 +18,7 @@ Public Class FormDesignProtoThree
     Public Property ElementsCache_Edits As New ClassElementsCache_Deprecated ''Added 9/16/2019 thomas downes
 
     Private WithEvents mod_designer As ClassDesigner
+    Private mod_eventsSingleton As New GroupMoveEvents_Singleton ''Added 1/5/2022 td
 
     Private Sub FormDesignProtoThree_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
@@ -44,7 +45,8 @@ Public Class FormDesignProtoThree
             .Initial_Pic_Height = Me.CtlGraphicPortrait_Lady.Height
 
             ''11/28/2021''.LoadDesigner()
-            .LoadDesigner("FormDesignProtoThree's Form_Load ")
+            '' 1/02/2022'' .LoadDesigner("FormDesignProtoThree's Form_Load ")
+            .LoadDesigner("FormDesignProtoThree's Form_Load ", mod_eventsSingleton)
 
         End With ''End of "With mod_designer"
 

@@ -891,7 +891,17 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             //Added 10/14 & 9/13/2019 thomas downes
             // 12/17/2021 td //if (!(bWasResizing)) mod_events.Moving_Terminate(par_control);
             // 1/04/2022 td //if (!(bWasResizing)) mod_events.Moving_Terminate(par_control, _iSaveToModel);
-            if (!(bWasResizing)) mod_events.Moving_Terminate(par_control, par_iSave);
+            if (!(bWasResizing))
+            {
+                //''mod_events.Moving_Terminate(par_control, par_iSave);
+                if (par_control is PictureBox)
+                {
+                    // Don't send the PictureBox, send the Parent control. ---1/5/2022
+                    mod_events.Moving_Terminate(_controlMoveableElement, par_iSave);
+                }
+                else mod_events.Moving_Terminate(par_control, par_iSave);
+
+            }
 
         }
 

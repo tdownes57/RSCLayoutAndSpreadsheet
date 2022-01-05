@@ -133,6 +133,11 @@ Public Class FormDisplayCacheLayouts
         Me.PathToElementsCacheXML = strPathToXML
         Me.PathToLastDirectoryForXMLFile = (New IO.FileInfo(strPathToXML)).DirectoryName
 
+        ''Added 1/5/2022 thomas d.
+        ''Jan5 2022 t. downes''My.Settings.PathToXML_Saved_ElementsCache = strPathToXML
+        ''Jan5 2022 t. downes''My.Settings.Save()
+        Startup.SaveFullPathToFileXML(strPathToXML)
+
         Me.Close()
 
     End Sub

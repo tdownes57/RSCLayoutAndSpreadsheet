@@ -67,6 +67,7 @@ Public Class ClassDesignerEventListener
     Private mod_designer As ClassDesigner
 
     Public Sub New(par_designer As ClassDesigner,
+                   par_eventsGroupMove As GroupMoveEvents_Singleton,
                    p_bAddBorderOnlyWhileResizing As Boolean)
         ''
         ''Added 11/29/2021 td
@@ -74,13 +75,18 @@ Public Class ClassDesignerEventListener
         mod_designer = par_designer
 
         ''Added 11/29/2021 td
-        mod_groupedMove = New GroupMoveEvents_Singleton(par_designer)
-        mod_singletonMove = New GroupMoveEvents_Singleton(par_designer)
+        ''Jan5 2022 td''mod_groupedMove = New GroupMoveEvents_Singleton(par_designer)
+        ''Jan5 2022 td''mod_singletonMove = New GroupMoveEvents_Singleton(par_designer)
+
+        mod_groupedMove = par_eventsGroupMove
+        mod_singletonMove = par_eventsGroupMove
+
         ''Dec17 2021''mod_sizingEvents_Pics = New ClassGroupMoveEvents(par_designer)
         ''Dec17 2021''mod_sizingEvents_QR = New ClassGroupMoveEvents(par_designer)
         ''Dec17 2021''mod_sizingEvents_Sig = New ClassGroupMoveEvents(par_designer)
         ''Dec17 2021''mod_sizingEvents_StaticText = New ClassGroupMoveEvents(par_designer)
-        SizingElementEvents = New GroupMoveEvents_Singleton(par_designer)
+        ''Jan5 2022 td''SizingElementEvents = New GroupMoveEvents_Singleton(par_designer)
+        SizingElementEvents = par_eventsGroupMove
 
         ''Added 11/29/2021 td
         m_bAddBorderOnlyWhileResizing = p_bAddBorderOnlyWhileResizing

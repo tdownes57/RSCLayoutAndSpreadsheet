@@ -668,7 +668,9 @@ Public Class ClassDesigner
         ''
         ''Added 11/29/2021
         ''
-        mod_designerListener = New ClassDesignerEventListener(Me, mc_bAddBorderOnlyWhileResizing)
+        ''Jan5 2022''mod_designerListener = New ClassDesignerEventListener(Me, mc_bAddBorderOnlyWhileResizing)
+        mod_designerListener = New ClassDesignerEventListener(Me, mod_oGroupMoveEvents,
+                                                              mc_bAddBorderOnlyWhileResizing)
 
         ''
         ''Major call !!
@@ -1017,7 +1019,7 @@ Public Class ClassDesigner
             ''12/30/2021 td''Me.CtlGraphic_QRCode = New CtlGraphicQRCode(par_elementQR, CType(Me, ILayoutFunctions))
             Me.CtlGraphic_QRCode = CtlGraphicQRCode.GetQRCode(par_elementQR, "CtlGraphic_QRCode",
                                                               CType(Me, ILayoutFunctions), c_proportional,
-                                                              CType(Me, ILastControlTouched),
+                                                              mod_ctlLasttouched,
                                                               par_oMoveEvents)
             ''1/2/2022 td''                                   ''Jan2 2022 td''dummySaveToModel,
 
@@ -1068,10 +1070,9 @@ Public Class ClassDesigner
         ''1/2/2022 td''CtlGraphic_Signat = New CtlGraphicSignature(par_elementSig, Me, Me.PathToSigFile)
         CtlGraphic_Signat = CtlGraphicSignature.GetSignature(par_elementSig, "CtlGraphic_Signat",
                                                 CType(Me, ILayoutFunctions), c_proportional,
-                                                CType(Me, ILastControlTouched),
-                                                par_oMoveEvents,
+                                                mod_ctlLasttouched, par_oMoveEvents,
                                                 Me.PathToSigFile)
-        ''1/2/2022 td''                                   ''Jan2 2022 td''dummySaveToModel,
+        ''1/2/2022 td''              ''Jan2 2022 td''dummySaveToModel,
 
         Me.DesignerForm.Controls.Add(CtlGraphic_Signat)
 
@@ -1821,6 +1822,15 @@ Public Class ClassDesigner
 
             ''Added 12/26/2021 td
             objMakeBadgeElements.BackgroundImage = obj_image_clone_resized
+
+            ''Added 12/26/2021 td
+            ''
+            ''  Get the Portrait Image from the Element-Portrait control. ---1/5/2022
+            ''
+            If (objMakeBadgeElements.RecipientPic Is Nothing) Then
+                ''Take the picture from the Element Control. ---1/5/2022 
+                objMakeBadgeElements.RecipientPic = CtlGraphic_Portrait.Pic_CloneOfInitialImage
+            End If ''End of "If (objMakeBadgeElements.ElementPic Is Nothing) Then"
 
             ''
             ''Major call !!

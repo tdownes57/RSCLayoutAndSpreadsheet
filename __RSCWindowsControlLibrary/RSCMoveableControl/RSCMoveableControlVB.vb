@@ -270,6 +270,13 @@ Public Class RSCMoveableControlVB
         ''#2 Dec28_2021 td''AddClickability()
         If (pboolAddClickability) Then AddClickability()
 
+        ''Added 1/5/2022 td
+        ''  Trying to prevent multiple event-handler connections. 
+        RemoveHandler mod_events.Moving_End, AddressOf mod_events_Moving_End
+        RemoveHandler mod_events.Moving_End, AddressOf mod_events_Moving_End
+        RemoveHandler mod_events.Moving_End, AddressOf mod_events_Moving_End
+        AddHandler mod_events.Moving_End, AddressOf mod_events_Moving_End
+
     End Sub ''End of "Public Sub Load_Functionality()"
 
 
@@ -573,8 +580,8 @@ Public Class RSCMoveableControlVB
 
         ''#2 Jan4 ''mod_objOperationsGeneric = New Operations__Generic(Me, par_moveabilityEvents)
         ''#2 Jan4 ''mod_objOperationsUseless = New Operations__Useless(Me, par_moveabilityEvents)
-        mod_objOperationsGeneric = New Operations__Generic(Me, par_moveabilityEvents, mod_iLayoutFunctions)
-        mod_objOperationsUseless = New Operations__Useless(Me, par_moveabilityEvents, mod_iLayoutFunctions)
+        ''#3 Jan4 ''mod_objOperationsGeneric = New Operations__Generic(Me, par_moveabilityEvents, mod_iLayoutFunctions)
+        ''#3 Jan4 ''mod_objOperationsUseless = New Operations__Useless(Me, par_moveabilityEvents, mod_iLayoutFunctions)
 
         ''mod_menuCacheGeneric = New MenuCache_NonShared(EnumElementType.Field,
         ''                                               mod_objOperationsGeneric.GetType(),
@@ -685,6 +692,12 @@ Public Class RSCMoveableControlVB
         ''
         ''----mod_iSaveToModel.SaveToModel()
         par_iSaveToModel.SaveToModel()
+
+        ''Added 1/5/2022 td
+        ''  Trying to prevent multiple calls. 
+        RemoveHandler mod_events.Moving_End, AddressOf mod_events_Moving_End
+        RemoveHandler mod_events.Moving_End, AddressOf mod_events_Moving_End
+        AddHandler mod_events.Moving_End, AddressOf mod_events_Moving_End
 
     End Sub
 

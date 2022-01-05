@@ -70,13 +70,22 @@ Public Class ProportionalRSCControl
         ''Jan4 2022 ''If (MyBase.mod_events Is Nothing) Then MyBase.mod_events = Me.EventsSingleton
         If (MyBase.mod_events Is Nothing) Then MyBase.mod_events = Me.MoveabilityEvents
 
+        ''If (False) Then
         MyBase.AddMoveability(MyBase.mod_events, MyBase.mod_iLayoutFunctions, True)
+        ''End If
 
         ''Added 1/4/2022
         ''---lblSavedCount.Tag = 0 '' "0"
 
         MyTimerOneSecond = New Timer
         MyTimerOneSecond.Interval = 1000
+
+        ''Added 1/5/2022 td
+        ''  Trying to prevent multiple event-handler connections. 
+        ''RemoveHandler mod_events.Moving_End, AddressOf mod_events_Moving_End
+        ''RemoveHandler mod_events.Moving_End, AddressOf mod_events_Moving_End
+        ''RemoveHandler mod_events.Moving_End, AddressOf mod_events_Moving_End
+        ''AddHandler mod_events.Moving_End, AddressOf mod_events_Moving_End
 
     End Sub
 
