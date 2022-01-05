@@ -2,10 +2,11 @@
 
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class CtlGraphicFldLabel
-    Inherits System.Windows.Forms.UserControl
+    Inherits __RSCWindowsControlLibrary.RSCMoveableControlVB
+    ''Jan4 2022 td''Inherits System.Windows.Forms.UserControl
 
     'UserControl overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -22,7 +23,7 @@ Partial Class CtlGraphicFldLabel
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.pictureLabel = New System.Windows.Forms.PictureBox()
@@ -41,8 +42,9 @@ Partial Class CtlGraphicFldLabel
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pictureLabel.BackColor = System.Drawing.Color.White
         Me.pictureLabel.Location = New System.Drawing.Point(0, 0)
+        Me.pictureLabel.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.pictureLabel.Name = "pictureLabel"
-        Me.pictureLabel.Size = New System.Drawing.Size(253, 33)
+        Me.pictureLabel.Size = New System.Drawing.Size(337, 41)
         Me.pictureLabel.TabIndex = 0
         Me.pictureLabel.TabStop = False
         '
@@ -56,20 +58,22 @@ Partial Class CtlGraphicFldLabel
         '
         Me.textTypeExample.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textTypeExample.BackColor = System.Drawing.Color.White
         Me.textTypeExample.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.textTypeExample.Location = New System.Drawing.Point(0, 0)
-        Me.textTypeExample.Margin = New System.Windows.Forms.Padding(2)
+        Me.textTypeExample.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.textTypeExample.Name = "textTypeExample"
-        Me.textTypeExample.Size = New System.Drawing.Size(253, 27)
+        Me.textTypeExample.Size = New System.Drawing.Size(336, 32)
         Me.textTypeExample.TabIndex = 1
         Me.textTypeExample.Visible = False
         '
         'LinkMessageFYI
         '
         Me.LinkMessageFYI.AutoSize = True
-        Me.LinkMessageFYI.Location = New System.Drawing.Point(153, 0)
+        Me.LinkMessageFYI.Location = New System.Drawing.Point(204, 0)
+        Me.LinkMessageFYI.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LinkMessageFYI.Name = "LinkMessageFYI"
-        Me.LinkMessageFYI.Size = New System.Drawing.Size(97, 13)
+        Me.LinkMessageFYI.Size = New System.Drawing.Size(130, 17)
         Me.LinkMessageFYI.TabIndex = 2
         Me.LinkMessageFYI.TabStop = True
         Me.LinkMessageFYI.Text = "Reminder message"
@@ -77,13 +81,15 @@ Partial Class CtlGraphicFldLabel
         '
         'CtlGraphicFldLabel
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.Color.Transparent
         Me.Controls.Add(Me.LinkMessageFYI)
         Me.Controls.Add(Me.textTypeExample)
         Me.Controls.Add(Me.pictureLabel)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "CtlGraphicFldLabel"
-        Me.Size = New System.Drawing.Size(253, 33)
+        Me.Size = New System.Drawing.Size(337, 41)
         CType(Me.pictureLabel, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()

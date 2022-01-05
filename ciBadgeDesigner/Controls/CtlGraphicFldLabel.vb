@@ -11,6 +11,7 @@ Imports ciBadgeElements ''Added 9/18/2019 td
 Imports ciBadgeElemImage ''Added 9/20/2019 td 
 Imports System.Windows.Forms ''Added 10/1/2019 td
 Imports System.Drawing ''Added 10/1/2019 td  
+Imports __RSCWindowsControlLibrary ''Added 1/4/2022 thomas d. 
 
 Public Enum EnumReminderMsg
     Undetermined
@@ -18,6 +19,7 @@ Public Enum EnumReminderMsg
     TransparentBackground
     OpaqueBackground
 End Enum ''ENd of "Public Enum EnumReminderMsg"
+
 
 Public Class CtlGraphicFldLabel
     Implements ISaveToModel ''Added 12/17/2021 td 
@@ -31,6 +33,72 @@ Public Class CtlGraphicFldLabel
 
     ''Added 9/13/2019 td  
     Public Shared UseExampleValues As Boolean
+
+    Public Shared Function GetFieldElement(par_elementFld As ClassElementField,
+                                      par_nameOfControl As String,
+                                      par_iLayoutFun As ILayoutFunctions,
+                                par_iRecordLastTouched As IRecordElementLastTouched,
+                                par_iControlLastTouched As ILastControlTouched,
+                                     par_oMoveEvents As GroupMoveEvents_Singleton) As CtlGraphicFldLabel
+        ''
+        ''Added 1/04/2021 td
+        ''
+        ''//Const c_enumElemType As EnumElementType = EnumElementType.Field
+        Const bAddFunctionalitySooner As Boolean = False
+        Const bAddFunctionalityLater As Boolean = True
+
+        Dim typeOps As Type
+        Dim objOperations As Object ''Added 12/29/2021 td 
+        Dim objOperationsFldElem As Operations_FieldElement ''Added 12/31/2021 td 
+
+        ''Instantiate the Operations Object. 
+        objOperationsFldElem = New Operations_FieldElement() ''Added 1/1/2022 td
+        typeOps = objOperationsFldElem.GetType()
+        objOperations = objOperationsFldElem
+
+        If (objOperations Is Nothing) Then
+            ''Added 12/29/2021
+            Throw New Exception("Ops is Nothing, so I guess Element Type is Undetermined.")
+        End If ''end of "If (objOperations Is Nothing) Then"
+
+        ''Added 12/2/2022 td
+        Dim enumElementType_Enum As EnumElementType = EnumElementType.Field
+
+        ''Create the control.
+        Dim CtlFieldElem1 As CtlGraphicFldLabel
+
+        ''Public Sub New(par_elementField As ClassElementField,
+        ''                par_layout As ILayoutFunctions,
+        ''                pstrWhyWasICreated As String,
+        ''                par_formRecordLastTouched As IRecordElementLastTouched)
+
+        CtlFieldElem1 = New CtlGraphicFldLabel(par_elementFld, par_iLayoutFun,
+                                                   "Called by GetFieldElement.",
+                                                   typeOps, objOperations,
+                                                   bAddFunctionalitySooner,
+                                                   bAddFunctionalitySooner,
+                                                   par_iRecordLastTouched,
+                                                   par_iControlLastTouched,
+                                                    par_oMoveEvents)
+        ''Jan2 2022 ''                       ''Jan2 2022 ''par_iSaveToModel, typeOps,
+
+        With CtlFieldElem1
+            .Name = par_nameOfControl
+            If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEvents, par_iLayoutFun)
+            If (bAddFunctionalityLater) Then .AddClickability()
+        End With ''eNd of "With CtlQRCode1"
+
+        ''
+        ''Specify the current element to the Operations object. 
+        ''
+        Dim infoOps As ICurrentElement = CType(objOperations, ICurrentElement)
+        infoOps.CtlCurrentElement = CtlFieldElem1
+
+        Return CtlFieldElem1
+
+
+    End Function ''end of "Public Shared Function GetFieldElement() As CtlGraphicFldLabel"
+
 
     Public DatetimeSaved As Date ''Added 11/29/2021 
 
@@ -114,9 +182,23 @@ Public Class CtlGraphicFldLabel
     End Sub
 
     Public Sub New(par_elementField As ClassElementField,
-                  par_layout As ILayoutFunctions,
+                  par_iLayoutFun As ILayoutFunctions,
                    pstrWhyWasICreated As String,
-                   par_formRecordLastTouched As IRecordElementLastTouched)
+                   par_operationsType As Type,
+                   par_operationsAny As Object,
+                   pboolAddMoveability As Boolean,
+                   pboolAddClickability As Boolean,
+                   par_iRecordLastTouched As IRecordElementLastTouched,
+                   par_iLastTouched As ILastControlTouched,
+                   par_oMoveEvents As GroupMoveEvents_Singleton)
+        ''Jan4 2022'' par_formRecordLastTouched As IRecordElementLastTouched,
+
+        ''Added 1/4/2022 td
+        MyBase.New(EnumElementType.Field, False,
+                        par_iLayoutFun,
+                        par_operationsType, par_operationsAny,
+                        pboolAddMoveability, pboolAddClickability,
+                        par_iLastTouched, par_oMoveEvents)
 
         ' This call is required by the designer.
         InitializeComponent()
@@ -131,8 +213,8 @@ Public Class CtlGraphicFldLabel
         ''1/2/2022 td''Me.ElementInfo_Field = CType(par_elementField, IElement_TextField) ''Added 10/12/2019 td
         Me.ElementInfo_TextField = CType(par_elementField, IElement_TextField) ''Added 10/12/2019 td
 
-        Me.LayoutFunctions = par_layout
-        Me.LayoutFunctions = par_layout
+        Me.LayoutFunctions = par_iLayoutFun
+        Me.LayoutFunctions = par_iLayoutFun
 
         ''Added 9/20/2019 td 
         ''   Add an alert to the user that the element is not rendered
@@ -145,7 +227,7 @@ Public Class CtlGraphicFldLabel
         WhyWasICreated = pstrWhyWasICreated
 
         ''Added 12/17/2021 td
-        mod_formRecordLastTouched = par_formRecordLastTouched
+        mod_formRecordLastTouched = par_iRecordLastTouched
 
     End Sub ''ENd of "Public Sub New "
 

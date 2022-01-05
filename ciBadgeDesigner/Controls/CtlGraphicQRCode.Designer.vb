@@ -29,7 +29,7 @@ Partial Class CtlGraphicQRCode
         '
         'pictureQRCode
         '
-        Me.pictureQRCode.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.pictureQRCode.BackColor = System.Drawing.Color.Transparent
         Me.pictureQRCode.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pictureQRCode.Image = Global.ciBadgeDesigner.My.Resources.Resources.CodeNinjas_in_NB
         Me.pictureQRCode.Location = New System.Drawing.Point(0, 0)
@@ -44,7 +44,7 @@ Partial Class CtlGraphicQRCode
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.White
+        Me.BackColor = System.Drawing.Color.Transparent
         Me.Controls.Add(Me.pictureQRCode)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "CtlGraphicQRCode"

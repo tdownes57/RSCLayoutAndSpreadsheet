@@ -29,11 +29,11 @@ Partial Class CtlGraphicSignature
         '
         'pictureSignature
         '
-        Me.pictureSignature.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.pictureSignature.BackColor = System.Drawing.Color.Transparent
         Me.pictureSignature.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pictureSignature.Image = CType(resources.GetObject("pictureSignature.Image"), System.Drawing.Image)
         Me.pictureSignature.Location = New System.Drawing.Point(0, 0)
-        Me.pictureSignature.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.pictureSignature.Margin = New System.Windows.Forms.Padding(4)
         Me.pictureSignature.Name = "pictureSignature"
         Me.pictureSignature.Size = New System.Drawing.Size(559, 185)
         Me.pictureSignature.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -44,8 +44,9 @@ Partial Class CtlGraphicSignature
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.Color.Transparent
         Me.Controls.Add(Me.pictureSignature)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "CtlGraphicSignature"
         Me.Size = New System.Drawing.Size(559, 185)
         CType(Me.pictureSignature, System.ComponentModel.ISupportInitialize).EndInit()

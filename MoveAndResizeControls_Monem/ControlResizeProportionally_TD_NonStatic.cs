@@ -710,21 +710,21 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
                 //Fix whichever of the two is worse.  ---10/14
                 if (intAmtWrong_Height > intAmtWrong_Width)
                 {
-                    par_control.Height = (int)(par_control.Width / _proportionWH);
+                    par_control.Height = (int)((decimal)par_control.Width / _proportionWH);
                 }
                 else if (bMouseIsInTopEdge_Only || bMouseIsInBottomEdge_Only)
                 {
                     //Added 10/14/2019 td 
-                    par_control.Width = (int)(par_control.Height * _proportionWH);
+                    par_control.Width = (int)((decimal)par_control.Height * _proportionWH);
                 }
                 else if (bMouseIsInLeftEdge_Only || bMouseIsInRightEdge_Only)
                 {
                     //Added 10/14/2019 td 
-                    par_control.Height = (int)(par_control.Width / _proportionWH);
+                    par_control.Height = (int)((decimal)par_control.Width / _proportionWH);
                 }
                 else
                 {
-                    par_control.Width = (int)(par_control.Height * _proportionWH);
+                    par_control.Width = (int)((decimal)par_control.Height * _proportionWH);
                 }
 
             }

@@ -14,15 +14,27 @@ Public Class FormTestQRCode2
         ''
         ''Added 1/4/2022 thomas d. 
         ''
-        Dim ctlQRCode As ciBadgeDesigner.CtlGraphicQRCode
         Dim propRSC As ProportionalRSCControl
-        Dim objElement As New ciBadgeElements.ClassElementQRCode
 
         mod_designer.BadgeLayout_Class = New BadgeLayoutClass()
-        objElement.BadgeLayout = mod_designer.BadgeLayout_Class
 
         mod_designer.BackgroundBox_Front = PictureBox_BadgeFront
         mod_designer.BackgroundBox_Backside = PictureBox_BadgeFront
+
+        InstantiateQRCode()
+        InstantiateSignature()
+
+    End Sub
+
+
+    Private Sub InstantiateQRCode()
+        ''
+        ''Added 1/4/2022 td 
+        ''
+        Dim ctlQRCode As ciBadgeDesigner.CtlGraphicQRCode
+        Dim objElement As New ciBadgeElements.ClassElementQRCode
+
+        objElement.BadgeLayout = mod_designer.BadgeLayout_Class
 
         ctlQRCode = CtlGraphicQRCode.GetQRCode(objElement, "ctlQRCode",
           mod_designer, True, mod_ctlLasttouched, mod_eventsSingleton)
@@ -33,4 +45,28 @@ Public Class FormTestQRCode2
         PictureBox_BadgeFront.SendToBack()
 
     End Sub
+
+
+    Private Sub InstantiateSignature()
+        ''
+        ''Added 1/4/2022 td 
+        ''
+        Dim ctlSignat As ciBadgeDesigner.CtlGraphicSignature
+        Dim objElement As New ciBadgeElements.ClassElementSignature
+
+        objElement.BadgeLayout = mod_designer.BadgeLayout_Class
+
+        ctlSignat = CtlGraphicSignature.GetSignature(objElement, "ctlSignat",
+          mod_designer, True, mod_ctlLasttouched, mod_eventsSingleton,
+          DiskFilesVB.PathToFile_Sig())
+
+        ctlSignat.Visible = True
+        Me.Controls.Add(ctlSignat)
+
+        PictureBox_BadgeFront.SendToBack()
+
+    End Sub
+
+
+
 End Class

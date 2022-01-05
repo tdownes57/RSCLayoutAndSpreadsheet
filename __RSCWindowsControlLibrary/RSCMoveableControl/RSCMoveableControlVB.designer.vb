@@ -28,7 +28,7 @@ Partial Class RSCMoveableControlVB
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.BackColor = System.Drawing.Color.White
         Me.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Name = "RSCMoveableControlVB"
         Me.Size = New System.Drawing.Size(329, 148)

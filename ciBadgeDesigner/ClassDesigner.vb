@@ -1958,7 +1958,9 @@ Public Class ClassDesigner
         ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
         ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
         ''
-        mod_rubberbandClass.MouseDown(sender, e)
+        If (mod_rubberbandClass IsNot Nothing) Then
+            mod_rubberbandClass.MouseDown(sender, e)
+        End If ''End of "If (mod_rubberbandClass IsNot Nothing) Then"
 
     End Sub
 

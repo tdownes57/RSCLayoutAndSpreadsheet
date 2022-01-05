@@ -460,6 +460,8 @@ Public Class RSCMoveableControlVB
 
             ''Added 1/4/2022 td
             objPictureBox = Find_PictureBox()
+            ''1/4/2022 td''mod_moveResizeKeepRatio.Init(objPictureBox, Me, 10, c_bRepaintAfterResize,
+            ''      mod_events, False, Me)
             mod_moveResizeKeepRatio.Init(objPictureBox, Me, 10, c_bRepaintAfterResize,
                                             mod_events, False, Me)
 
