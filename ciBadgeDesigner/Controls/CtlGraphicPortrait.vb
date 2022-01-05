@@ -7,8 +7,9 @@ Option Strict On ''Added 7/31/2019 td
 Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d. 
 ''10/1/2019 td''Imports ciBadgeFields ''Added 9/18/2019 td 
 Imports ciBadgeElements ''Added 9/18/2019 td 
-Imports System.Windows.Forms ''Added 10/01/2019 td 
+''Jan4 2022 td''Imports System.Windows.Forms ''Added 10/01/2019 td 
 Imports System.Drawing ''Added 10/01/2019 td 
+Imports __RSCWindowsControlLibrary ''Added 1/4/2022 td
 
 Public Class CtlGraphicPortrait
     Implements ISaveToModel
@@ -32,6 +33,71 @@ Public Class CtlGraphicPortrait
     Public LayoutFunctions As ILayoutFunctions ''Modified 9/9/2019 td
 
     Public Pic_CloneOfInitialImage As Image ''Added 9/23/2019 thomas downes. 
+    Private mod_formRecordLastTouched As IRecordElementLastTouched ''Added 12/17/2021 td
+
+    Public Shared Function GetPortrait(par_elementPortrait As ClassElementPic,
+                                      par_nameOfControl As String,
+                                      par_iLayoutFun As ILayoutFunctions,
+                                      par_bProportionSizing As Boolean,
+                                      par_iControlLastTouched As ILastControlTouched,
+                                     par_iRecordLastControl As IRecordElementLastTouched,
+                                     par_oMoveEvents As GroupMoveEvents_Singleton) As CtlGraphicPortrait
+        ''
+        ''Added 1/04/2022 td
+        ''
+        Const c_enumElemType As EnumElementType = EnumElementType.Portrait
+        Const bAddFunctionalitySooner As Boolean = False
+        Const bAddFunctionalityLater As Boolean = True
+
+        Dim typeOps As Type
+        Dim objOperations As Object ''Added 12/29/2021 td 
+        Dim objOperationsPortrait As Operations_Portrait ''Added 1/04/2022 td 
+
+        ''Instantiate the Operations Object. 
+        ''//If (enumElemType = EnumElementType.Signature) Then objOperations2Use = New Operations__Useless()
+        ''//If (enumElemType = EnumElementType.StaticGraphic) Then objOperations1Gen = New Operations__Generic()
+        ''//If (enumElemType = EnumElementType.StaticText) Then objOperations2Use = New Operations__Useless()
+        ''====If (c_enumElemType = EnumElementType.QRCode) Then objOperationsQR = New Operations_QRCode()
+
+        ''Modified 1/2/2022 td
+        objOperationsGraphic = New Operations_StaticGraphic() ''Added 1/1/2022 td
+        typeOps = objOperationsGraphic.GetType()
+        objOperations = objOperationsGraphic
+
+        If (objOperations Is Nothing) Then
+            ''Added 12/29/2021
+            Throw New Exception("Ops is Nothing, so I guess Element Type is Undetermined.")
+        End If ''end of "If (objOperations Is Nothing) Then"
+
+        ''Added 12/2/2022 td
+        Dim enumElementType_Enum As EnumElementType = EnumElementType.Portrait
+
+        ''Create the control. 
+        Dim CtlPortrait1 = New CtlGraphicPortrait(par_elementPortrait, par_iLayoutFun,
+                                                   par_bProportionSizing,
+                                                   typeOps, objOperations,
+                                                   bAddFunctionalitySooner,
+                                                   bAddFunctionalitySooner,
+                                                   par_iControlLastTouched,
+                                                    par_oMoveEvents)
+        ''Jan2 2022 ''                       ''Jan2 2022 ''par_iSaveToModel, typeOps,
+
+        With CtlPortrait1
+            .Name = par_nameOfControl
+            If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEvents, par_iLayoutFun)
+            If (bAddFunctionalityLater) Then .AddClickability()
+        End With ''eNd of "With CtlPortrait1"
+
+        ''
+        ''Specify the current element to the Operations object. 
+        ''
+        Dim infoOps = CType(objOperations, ICurrentElement) ''.CtlCurrentElement = MoveableControlVB1
+        infoOps.CtlCurrentElement = CtlPortrait1
+
+        Return CtlPortrait1
+
+    End Function ''end of "Public Shared Function GetPortrait() As CtlGraphicPortrait"
+
 
     Public ReadOnly Property Picture_Box As PictureBox
         Get
@@ -47,7 +113,108 @@ Public Class CtlGraphicPortrait
 
     End Sub
 
-    Public Sub New(par_elementPic As ClassElementPic, par_formLayout As ILayoutFunctions)
+
+    Public Sub New(par_elementPic As ClassElementPic,
+                   par_iLayoutFun As ILayoutFunctions,
+                  pboolResizeProportionally As Boolean,
+                   par_operationsType As Type,
+                   par_operationsAny As Object,
+                   pboolAddMoveability As Boolean,
+                   pboolAddClickability As Boolean,
+                   par_iLastTouched As ILastControlTouched,
+                   par_oMoveEvents As GroupMoveEvents_Singleton)
+        ''         ''Not needed. 1/2/2022'' par_iSaveToModel As ISaveToModel,
+        ''         ''Not needed. 1/2/2022'' par_enumElementType As EnumElementType,
+        ''
+        ''Added 1/04/2022 td
+        ''
+        ''Jan1 2022 td''MyBase.New(par_enumElementType, pboolResizeProportionally,
+        MyBase.New(EnumElementType.Portrait, pboolResizeProportionally,
+                        par_iLayoutFun,
+                        par_operationsType, par_operationsAny,
+                        pboolAddMoveability, pboolAddClickability,
+                        par_iLastTouched, par_oMoveEvents,
+                        CSng(172 / 170))
+        ''          Jan2 2022'' par_iSaveToModel, par_iLayoutFun,
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+
+        ''Encapsulated 12/30/2021 td
+        New_Portrait(par_elementPic, par_iLayoutFun)
+
+    End Sub
+
+
+
+    Public Sub New_Potrait(par_elementPic As ClassElementPic, par_iLayoutFunctions As ILayoutFunctions)
+        ''
+        ''Added 9/17/2019 td
+        ''
+        ''9/17/2019 td''Me.ElementInfo_Base = par_infoForPic_Base
+        ''9/17/2019 td''Me.ElementInfo_Pic = par_infoForPic_Pic
+
+        Me.ElementClass_Obj = par_elementPic ''par_elementPic
+        Me.ElementInfo_Base = CType(par_elementPic, IElement_Base)
+        ''Me.ElementInfo_Pic = CType(par_elementPic, IElementPic)
+        Me.ElementInfo_Pic = CType(par_elementPic, IElementPic)
+
+        ''9/20/2019 td''Me.FormDesigner = par_formLayout ''Added 9/4/2019 td
+        Me.LayoutFunctions = par_iLayoutFunctions ''Added 9/4/2019 td
+
+        ''
+        ''Added 1/04/2022 thomas downes 
+        ''
+        ''8/22/2019 td''picturePortrait.Image = ciPictures_VB.PictureExamples.GetImageByIndex(par_infoForPic_Pic.PicFileIndex)
+
+        Dim strErrorMessage As String = "" ''Added 8/22/2019 td
+
+        ''9/17/2019 td''picturePortrait.Image =
+        ''   ciPictures_VB.PictureExamples.GetImageByIndex(par_infoForPic_Pic.PicFileIndex, strErrorMessage)
+
+        ''9/23/2019 td''picturePortrait.Image =
+        ''    ciPictures_VB.PictureExamples.GetImageByIndex(par_elementPic.PicFileIndex, strErrorMessage)
+
+        ''Added 9/23/2019 thomas d. 
+        ''Me.Pic_CloneOfInitialImage = CType(ciPictures_VB.PictureExamples.GetImageByIndex(par_elementPic.PicFileIndex, strErrorMessage).Clone(), Image)
+        Dim bUseForegroundImageOfBox As Boolean ''Added 12/7/2021 td 
+        Dim bUseBackgroundImageOfBox As Boolean ''Added 12/7/2021 td 
+
+        bUseForegroundImageOfBox = (Me.picturePortrait.Image IsNot Nothing)
+        bUseBackgroundImageOfBox = (Me.picturePortrait.BackgroundImage IsNot Nothing)
+
+        ''Not sure this is helpful.---12/7/2021 td''pictureQRCode.Image = CType(Me.Pic_CloneOfInitialImage.Clone(), Image)
+        If (bUseForegroundImageOfBox) Then
+            ''Try #1 of 2. Let's clone the Foreground Image. 
+            Me.Pic_CloneOfInitialImage = CType(Me.picturePortrait.Image.Clone(), Image)
+        ElseIf (bUseBackgroundImageOfBox) Then
+            ''Try #2 of 2. Let's clone the Background Image. 
+            Me.Pic_CloneOfInitialImage = CType(Me.picturePortrait.BackgroundImage.Clone(), Image)
+        Else
+            ''Added 12/7/2021 td 
+            Throw New Exception("We need a way to get the Portrait Image.")
+        End If
+
+        If ("" <> strErrorMessage) Then
+            ''Added 8/22/2019  
+            MessageBox.Show(strErrorMessage, "192939 #4",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Exclamation)
+            Exit Sub
+        End If ''End of "If ("" <> strErrorMessage) Then"
+
+        ''
+        ''Rotate the image 90 degrees, as many times as needed.  ---8/12/2019 td  
+        ''
+        ''9/23/2019 td''Me.RefreshImage_NoMajorCalls()
+        Me.RefreshImage_ViaElemImage()
+
+    End Sub ''End of "Public Sub New"
+
+
+    Public Sub New_Deprecated(par_elementPic As ClassElementPic, par_formLayout As ILayoutFunctions)
         ''
         ''Added 9/17/2019 td
         ''
@@ -723,7 +890,6 @@ ExitHandler:
         Throw New NotImplementedException()
     End Sub
 
-    Private mod_formRecordLastTouched As IRecordElementLastTouched ''Added 12/17/2021 td
     Private Sub CtlGraphicPortrait_MouseDown(sender As Object, e As MouseEventArgs) Handles Me.MouseDown
         ''
         ''Added 12/17/2021 td
@@ -731,6 +897,7 @@ ExitHandler:
         mod_formRecordLastTouched.RecordElementLastTouched(Me, Me)
 
     End Sub
+
 
 
 End Class ''End of Public Class CtlGraphicPortrait 

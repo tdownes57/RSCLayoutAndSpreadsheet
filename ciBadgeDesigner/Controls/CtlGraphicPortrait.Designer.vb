@@ -1,7 +1,7 @@
 ﻿Imports System.Windows.Forms
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class CtlGraphicPortrait
-    Inherits System.Windows.Forms.UserControl
+    Inherits __RSCWindowsControlLibrary.RSCMoveableControlVB
 
     'UserControl overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -24,24 +24,10 @@ Partial Class CtlGraphicPortrait
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(CtlGraphicPortrait))
-        Me.picturePortrait = New System.Windows.Forms.PictureBox()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.picturePortrait = New System.Windows.Forms.PictureBox()
         CType(Me.picturePortrait, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'picturePortrait
-        '
-        Me.picturePortrait.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.picturePortrait.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.picturePortrait.Image = CType(resources.GetObject("picturePortrait.Image"), System.Drawing.Image)
-        Me.picturePortrait.Location = New System.Drawing.Point(0, 0)
-        Me.picturePortrait.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.picturePortrait.Name = "picturePortrait"
-        Me.picturePortrait.Size = New System.Drawing.Size(177, 224)
-        Me.picturePortrait.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.picturePortrait.TabIndex = 1
-        Me.picturePortrait.TabStop = False
         '
         'ContextMenuStrip1
         '
@@ -49,14 +35,27 @@ Partial Class CtlGraphicPortrait
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
         Me.ContextMenuStrip1.Size = New System.Drawing.Size(61, 4)
         '
+        'picturePortrait
+        '
+        Me.picturePortrait.BackColor = System.Drawing.Color.Transparent
+        Me.picturePortrait.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.picturePortrait.Image = Global.ciBadgeDesigner.My.Resources.Resources.Liz_20_percent
+        Me.picturePortrait.Location = New System.Drawing.Point(0, 0)
+        Me.picturePortrait.Margin = New System.Windows.Forms.Padding(4)
+        Me.picturePortrait.Name = "picturePortrait"
+        Me.picturePortrait.Size = New System.Drawing.Size(156, 230)
+        Me.picturePortrait.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.picturePortrait.TabIndex = 1
+        Me.picturePortrait.TabStop = False
+        '
         'CtlGraphicPortrait
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.picturePortrait)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "CtlGraphicPortrait"
-        Me.Size = New System.Drawing.Size(177, 224)
+        Me.Size = New System.Drawing.Size(156, 230)
         CType(Me.picturePortrait, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 

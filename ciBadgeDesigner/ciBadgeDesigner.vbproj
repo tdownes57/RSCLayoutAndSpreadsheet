@@ -137,6 +137,12 @@
     <Compile Include="Controls\CtlGraphicStaticGraphic.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Controls\CtlGraphicStaticGraphic_Notes.Designer.vb">
+      <DependentUpon>CtlGraphicStaticGraphic_Notes.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtlGraphicStaticGraphic_Notes.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controls\CtlGraphicStaticText.designer.vb">
       <DependentUpon>CtlGraphicStaticText.vb</DependentUpon>
     </Compile>
@@ -253,6 +259,7 @@
     <Compile Include="MenuOperations\MenuCache_Generic.vb" />
     <Compile Include="MenuOperations\Operations_Background.vb" />
     <Compile Include="MenuOperations\Operations_FieldElement.vb" />
+    <Compile Include="MenuOperations\Operations_Portrait.vb" />
     <Compile Include="MenuOperations\Operations_StaticGraphic.vb" />
     <Compile Include="MenuOperations\Operations_Group.vb" />
     <Compile Include="MenuOperations\Operations_QRCode.vb" />
@@ -310,6 +317,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlGraphicStaticGraphic.resx">
       <DependentUpon>CtlGraphicStaticGraphic.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtlGraphicStaticGraphic_Notes.resx">
+      <DependentUpon>CtlGraphicStaticGraphic_Notes.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlGraphicStaticText.resx">
       <DependentUpon>CtlGraphicStaticText.vb</DependentUpon>
@@ -451,6 +461,9 @@
     <None Include="Resources\CodeNinjas in NB.jpg" />
     <None Include="Resources\DecreaseY.png" />
     <None Include="Resources\IncreaseY.png" />
+    <None Include="Resources\Liz 20 percent.jpg" />
+    <None Include="Resources\code-ninjas-logo.jpg" />
+    <None Include="Resources\code-ninjas-logo_png.png" />
     <Content Include="SigPlusNET.dll" />
   </ItemGroup>
   <ItemGroup>

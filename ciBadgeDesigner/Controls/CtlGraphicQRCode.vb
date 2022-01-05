@@ -178,7 +178,7 @@ Public Class CtlGraphicQRCode
         ''Added 9/17/2019 td
         ''
         ' This call is required by the designer.
-        InitializeComponent()
+        ''1/4/2022 td''InitializeComponent()
 
         ''9/17/2019 td''Me.ElementInfo_Base = par_infoForPic_Base
         ''9/17/2019 td''Me.ElementInfo_Pic = par_infoForPic_Pic
@@ -238,7 +238,8 @@ Public Class CtlGraphicQRCode
         ''9/23/2019 td''Me.RefreshImage_NoMajorCalls()
         Me.RefreshImage_ViaElemImage()
 
-    End Sub ''End of "Public Sub New(par_elementPic As ClassElementPic, par_formLayout As ILayoutFunctions)"
+    End Sub ''End of "Public Sub New_QRCode(par_elementPic As ClassElementPic, par_formLayout As ILayoutFunctions)"
+
 
     Public Sub New_Deprecated(par_infoForQR_Base As IElement_Base,
                               par_infoFor_QR As IElementQRCode,
