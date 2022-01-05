@@ -240,6 +240,7 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             if (bPassParentContainer && !pbRemoveAnyHandlers) // Dec28 2021 //(bPassContainer)
             {
                 // Yes, MoveParentControl(_controlMoveableElement is correct.... Jan4 2022 td
+                //----if (par_controlToHook.MouseMove != null)
                 par_controlToHook.MouseMove += (sender, e) => MoveParentControl(par_container, e);
                 MouseMove_DontAskAgain = true;
                 MouseMove_Container = true;

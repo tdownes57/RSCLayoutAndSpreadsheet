@@ -24,27 +24,40 @@ Partial Class ProportionalRSCControl
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.lblSavedCount = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'Label1
         '
         Me.Label1.BackColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(15, 28)
+        Me.Label1.Location = New System.Drawing.Point(15, 41)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(118, 109)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "This child of RSCMoveableControl is complex in that it resizes proportionally."
         '
+        'lblSavedCount
+        '
+        Me.lblSavedCount.AutoSize = True
+        Me.lblSavedCount.Location = New System.Drawing.Point(3, 10)
+        Me.lblSavedCount.Name = "lblSavedCount"
+        Me.lblSavedCount.Size = New System.Drawing.Size(91, 17)
+        Me.lblSavedCount.TabIndex = 1
+        Me.lblSavedCount.Text = "Saved count:"
+        '
         'ProportionalRSCControl
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.Controls.Add(Me.lblSavedCount)
         Me.Controls.Add(Me.Label1)
         Me.Name = "ProportionalRSCControl"
         Me.Size = New System.Drawing.Size(327, 202)
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
     Friend WithEvents Label1 As Label
+    Friend WithEvents lblSavedCount As Label
 End Class

@@ -70,9 +70,6 @@ Partial Class FormTestQRCode
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
-        Me.Controls.Add(Me.ProportionalRSCControl1)
-        Me.Controls.Add(Me.SimpleChildOfRSCControl1)
-        Me.Controls.Add(Me.RscMoveableControlVB1)
         Me.Controls.Add(Me.CtlQRCode1)
         Me.Name = "FormTestQRCode"
         Me.Text = "FormTestQRCode"

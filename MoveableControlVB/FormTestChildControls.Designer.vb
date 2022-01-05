@@ -59,9 +59,6 @@ Partial Class FormTestChildControls
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
-        Me.Controls.Add(Me.SimpleChildOfRSCControl21)
-        Me.Controls.Add(Me.ProportionalRSCControl1)
-        Me.Controls.Add(Me.SimpleChildOfRSCControl1)
         Me.Name = "FormTestChildControls"
         Me.Text = "FormTestChildControls"
         Me.ResumeLayout(False)

@@ -182,17 +182,8 @@ Partial Class FormTestingVB
         Me.Controls.Add(Me.CtlGraphicSignature1)
         Me.Controls.Add(Me.CtlGraphicQRCode1)
         Me.Controls.Add(Me.RscClickableDesktop)
-        Me.Controls.Add(Me.RscMoveableControlVB3)
-        Me.Controls.Add(Me.RscMoveableControlVB2)
-        Me.Controls.Add(Me.RscMoveableControlVB1)
         Me.Controls.Add(Me.LinkLabel1)
-        Me.Controls.Add(Me.MoveableControlLiz)
-        Me.Controls.Add(Me.MoveableControlVB4)
-        Me.Controls.Add(Me.MoveableControlVB3)
-        Me.Controls.Add(Me.MoveableControlVB2)
         Me.Controls.Add(Me.Button1)
-        Me.Controls.Add(Me.MoveableControlVB1)
-        Me.Controls.Add(Me.MoveableControlVBBack)
         Me.Name = "FormTestingVB"
         Me.Text = "Form1"
         Me.ResumeLayout(False)
@@ -205,15 +196,7 @@ Partial Class FormTestingVB
     Friend WithEvents Button1 As Button
     Friend WithEvents MoveableControlVB2 As MoveableControlVB
     ''Friend WithEvents MoveableControlObselete2 As ciBadgeDesigner.MoveableControl_Obselete
-    Friend WithEvents MoveableControlVB3 As MoveableControlVB
-    Friend WithEvents MoveableControlVB4 As MoveableControlVB
-    Friend WithEvents MoveableControlLiz As MoveableControlVB
-    Friend WithEvents MoveableControlVBBack As MoveableControlVB
     Friend WithEvents LinkLabel1 As LinkLabel
-    Friend WithEvents RscMoveableControlVB1 As __RSCWindowsControlLibrary.RSCMoveableControlVB
-    Friend WithEvents RscMoveableControlVB2 As __RSCWindowsControlLibrary.RSCMoveableControlVB
-    Friend WithEvents RscMoveableControlVB3 As __RSCWindowsControlLibrary.RSCMoveableControlVB
-    Friend WithEvents RscClickableDesktop As __RSCWindowsControlLibrary.RSCMoveableControlVB
     Friend WithEvents CtlGraphicQRCode1 As ciBadgeDesigner.CtlGraphicQRCode
     Friend WithEvents CtlGraphicSignature1 As ciBadgeDesigner.CtlGraphicSignature
 End Class

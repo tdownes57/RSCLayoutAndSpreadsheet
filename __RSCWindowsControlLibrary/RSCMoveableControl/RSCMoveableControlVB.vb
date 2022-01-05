@@ -95,7 +95,12 @@ Public Class RSCMoveableControlVB
 
     End Function ''End of Public Shared Function GetControl
 
-    Public WriteOnly Property MoveabilityEvents As GroupMoveEvents_Singleton
+    Public Property MoveabilityEvents As GroupMoveEvents_Singleton
+        ''Jan4 2022''Public WriteOnly Property MoveabilityEvents As GroupMoveEvents_Singleton
+        Get
+            ''Added 1/4/2022 td 
+            Return mod_events
+        End Get
         Set(value As GroupMoveEvents_Singleton)
             ''Added 1/3/2022 td  
             mod_events = value

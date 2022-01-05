@@ -77,23 +77,10 @@
     <Compile Include="Classes\ClassLastControlTouched.vb" />
     <Compile Include="Classes\ClassSaveToModel.vb" />
     <Compile Include="Classes\MessageBoxTD.vb" />
-    <Compile Include="FormTestChildControls.Designer.vb">
-      <DependentUpon>FormTestChildControls.vb</DependentUpon>
+    <Compile Include="FormTestQRCode2.Designer.vb">
+      <DependentUpon>FormTestQRCode2.vb</DependentUpon>
     </Compile>
-    <Compile Include="FormTestChildControls.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormTestingVB.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormTestingVB.Designer.vb">
-      <DependentUpon>FormTestingVB.vb</DependentUpon>
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormTestQRCode.Designer.vb">
-      <DependentUpon>FormTestQRCode.vb</DependentUpon>
-    </Compile>
-    <Compile Include="FormTestQRCode.vb">
+    <Compile Include="FormTestQRCode2.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Interfaces\InterfaceCurrentElement.vb" />
@@ -158,14 +145,8 @@
     <Compile Include="Utilities\Module1Enumerationsvb.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="FormTestChildControls.resx">
-      <DependentUpon>FormTestChildControls.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormTestingVB.resx">
-      <DependentUpon>FormTestingVB.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormTestQRCode.resx">
-      <DependentUpon>FormTestQRCode.vb</DependentUpon>
+    <EmbeddedResource Include="FormTestQRCode2.resx">
+      <DependentUpon>FormTestQRCode2.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
