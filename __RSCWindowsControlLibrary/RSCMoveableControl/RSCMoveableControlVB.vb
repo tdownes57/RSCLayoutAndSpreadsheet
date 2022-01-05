@@ -23,7 +23,8 @@ Public Class RSCMoveableControlVB
                                       par_iLayoutFun As ILayoutFunctions,
                                       par_bProportionSizing As Boolean,
                                 par_iControlLastTouched As ILastControlTouched,
-                                      par_oMoveEventsFromForm As GroupMoveEvents_Singleton) As RSCMoveableControlVB
+                                      par_oMoveEventsFromForm As GroupMoveEvents_Singleton,
+                           Optional par_ratioWH_ifApplicable As Single = 0) As RSCMoveableControlVB
         ''                      ''Jan2 2022 td''  par_iSaveToModel As ISaveToModel,
         ''                      ''Dec29 2021 td'' par_designer As ClassDesigner,
         ''
@@ -74,7 +75,8 @@ Public Class RSCMoveableControlVB
                                                    bAddFunctionalitySooner,
                                                    bAddFunctionalitySooner,
                                                    par_iControlLastTouched,
-                                                   par_oMoveEventsFromForm)
+                                                   par_oMoveEventsFromForm,
+                                                   par_ratioWH_ifApplicable)
         ''                                         ''Jan2 2022 ''par_iSaveToModel,
 
         With MoveableControlVB1
@@ -109,7 +111,8 @@ Public Class RSCMoveableControlVB
 
 
     Public LastControlTouched_Info As ILastControlTouched ''Added 12/28/2021 thomas d. 
-    Public MyToolstripItemCollection As ToolStripItemCollection ''Added 12/28/2021 td 
+    Public MyToolstripItemCollection As ToolStripItemCollection ''Added 12/28/2021 td
+    Public ExpectedProportionWH As Single = 0 ''Added 1/4/2022 td  
     Private mod_boolResizeProportionally As Boolean
 
     ''Added 1/4/2022 thomas d. 
@@ -192,7 +195,9 @@ Public Class RSCMoveableControlVB
                    pboolAddMoveability As Boolean,
                    pboolAddClickability As Boolean,
                    par_iLastTouched As ILastControlTouched,
-                   par_oMoveabilityEvents As GroupMoveEvents_Singleton) ''----As IOperations)
+                   par_oMoveabilityEvents As GroupMoveEvents_Singleton,
+                   par_proportionWH_IfNeeded As Single) ''----As IOperations)
+        ''
         ''         ''Jan2 2022 ''par_iSaveToModel As ISaveToModel,
         ''         ''Dec29 2021 ''par_designer As ClassDesigner,
 
@@ -200,6 +205,9 @@ Public Class RSCMoveableControlVB
 
         ' This call is required by the designer.
         InitializeComponent()
+
+        ''Added 1/4/2022 td
+        Me.ExpectedProportionWH = par_proportionWH_IfNeeded
 
         ''Encapsulated 1/3/2022 td 
         Load_Functionality(par_enumElementType, pboolResizeProportionally,
@@ -468,11 +476,23 @@ Public Class RSCMoveableControlVB
 
             ''Added 1/4/2022 td
             objPictureBox = Find_PictureBox()
+
+            ''Added 1/4/2022 td
+            Dim singleProportionWH As Single = 0 ''Added 1/4/2022 td
+            ''Added 1/4/2022 td
+            If (Me.ExpectedProportionWH <> 0) Then
+                singleProportionWH = Me.ExpectedProportionWH
+                Me.Width = CInt(Me.Height * Me.ExpectedProportionWH) ''Added 1/4/2022
+            ElseIf (objPictureBox IsNot Nothing) Then
+                singleProportionWH = CSng(objPictureBox.Width / objPictureBox.Height)
+            End If ''end of "If (objPictureBox IsNot Nothing) Then"
+
             ''1/4/2022 td''mod_moveResizeKeepRatio.Init(objPictureBox, Me, 10, c_bRepaintAfterResize,
             ''      mod_events, False, Me)
             mod_moveResizeKeepRatio.Init(objPictureBox, Me, 10, c_bRepaintAfterResize,
                                             mod_events, False, Me, False,
-                                            mod_bHandleMouseMoveEvents)
+                                            mod_bHandleMouseMoveEvents,
+                                            singleProportionWH)
 
             ''            ''1/2/2022 td '' mod_events, False, mod_iSaveToModel)
             ''---mod_resizingProportionally.LayoutFunctions = par_iLayoutFunctions 

@@ -20,7 +20,7 @@ namespace MoveAndResizeControls_Monem //.Interfaces
         void Init(PictureBox par_pictureBox, Control par_container, int par_margin, bool pbRepaintAfterResize,
                                   InterfaceMoveEvents par_events, bool pbSetBreakpoint_AfterMove,
                                   ISaveToModel par_iSave, bool pbRemoveAnyHandlers = false, 
-                                  bool pbHookUpEventHandlers = true);
+                                  bool pbHookUpEventHandlers = true, float par_proportionWH = 0);
 
         void Reverse_Init();
         void RemoveEventHandlers();

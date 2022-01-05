@@ -148,7 +148,8 @@ namespace MoveAndResizeControls_Monem
                                InterfaceMoveEvents par_events, bool pbSetBreakpoint_AfterMove, 
                                ISaveToModel par_iSave, 
                                bool pbUndoAndReverseEverything = false,
-                               bool pbHookUpEventHandlers = true)
+                               bool pbHookUpEventHandlers = true,
+                               float par_unused = 0)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
             //     the preferred background color.)   ----7/31/2019 td

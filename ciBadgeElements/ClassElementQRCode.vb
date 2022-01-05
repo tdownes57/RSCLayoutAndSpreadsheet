@@ -68,8 +68,9 @@ Public Class ClassElementQRCode
             ''
             Dim boolShorterThanWidth As Boolean ''Added 9/23/2019 thomas downes
             Dim boolGiveDisallowedMsg As Boolean ''Added 9/23/2019 thomas downes
-            ''9/23 td''boolShorterThanWidth = (mod_height_pixels < mod_width_pixels) ''value)
-            boolShorterThanWidth = (mod_height_pixels < value)
+            ''9/23/19 td''boolShorterThanWidth = (mod_height_pixels < mod_width_pixels) ''value)
+            ''1/04/22 td''boolShorterThanWidth = (mod_height_pixels < value)
+            boolShorterThanWidth = (mod_height_pixels + 5 < value)
             boolGiveDisallowedMsg = boolShorterThanWidth
             If (boolGiveDisallowedMsg) Then
                 Throw New Exception("The Height cannot be less than the width #1 (rotation is _not_ an exception to this).")
@@ -107,7 +108,7 @@ Public Class ClassElementQRCode
             Dim boolGiveDisallowedMsg As Boolean ''Added 9/23/2019 thomas downes
             ''Added 9/23/2019 thomas downes
             ''9/23/2019 td''boolTallerThanWidth = (mod_height_pixels > mod_width_pixels)
-            boolShorterThanWidth = (mod_height_pixels < mod_width_pixels)
+            boolShorterThanWidth = (mod_height_pixels + 5 < mod_width_pixels)
             boolGiveDisallowedMsg = boolShorterThanWidth
             If (boolGiveDisallowedMsg) Then
                 Throw New Exception("The Height cannot be less than the width #2 (rotation is _not_ an exception to this).")
@@ -271,7 +272,7 @@ Public Class ClassElementQRCode
         ''Double-check the orientation.  ----9/23/2019 td
         ''
         Dim boolTextImageRotated_0_180 As Boolean = (intWidth < intHeight) ''Vs. Textual comparison, (intWidth > intHeight)
-        Dim boolTextImageRotated_90_270 As Boolean = (intWidth > intHeight) ''Vs. Textual comparison, (intWidth < intHeight)
+        Dim boolTextImageRotated_90_270 As Boolean = (intWidth > intHeight + 5) ''Vs. Textual comparison, (intWidth < intHeight)
 
         If (boolTextImageRotated_0_180 And boolRotated) Then
             Throw New Exception("Image dimensions are not expected. (Rotation of pic expected)")

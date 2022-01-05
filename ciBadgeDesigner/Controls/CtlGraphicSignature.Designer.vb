@@ -30,6 +30,7 @@ Partial Class CtlGraphicSignature
         'pictureSignature
         '
         Me.pictureSignature.BackColor = System.Drawing.Color.Transparent
+        Me.pictureSignature.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.pictureSignature.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pictureSignature.Image = CType(resources.GetObject("pictureSignature.Image"), System.Drawing.Image)
         Me.pictureSignature.Location = New System.Drawing.Point(0, 0)

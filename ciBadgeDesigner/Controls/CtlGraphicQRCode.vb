@@ -155,7 +155,8 @@ Public Class CtlGraphicQRCode
                         par_iLayoutFun,
                         par_operationsType, par_operationsAny,
                         pboolAddMoveability, pboolAddClickability,
-                        par_iLastTouched, par_oMoveEvents)
+                        par_iLastTouched, par_oMoveEvents,
+                        CSng(172 / 170))
         ''          Jan2 2022'' par_iSaveToModel, par_iLayoutFun,
 
         ' This call is required by the designer.
@@ -847,6 +848,10 @@ ExitHandler:
         ''Added 1/4/2022 td 
         ''
         MyBase.MoveableControl_MouseUp(sender, par_e)
+
+    End Sub
+
+    Private Sub pictureQRCode_Click(sender As Object, e As EventArgs) Handles pictureQRCode.Click
 
     End Sub
 End Class ''End of Public Class CtlGraphicQRCode 

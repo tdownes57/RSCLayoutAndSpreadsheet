@@ -157,7 +157,8 @@ Public Class CtlGraphicSignature
                         par_iLayoutFun,
                         par_operationsType, par_operationsAny,
                         pboolAddMoveability, pboolAddClickability,
-                        par_iLastTouched, par_oMoveEvents)
+                        par_iLastTouched, par_oMoveEvents,
+                        559 / 185)
         ''          Jan2 2022'' par_iSaveToModel, par_iLayoutFun,
 
         ' This call is required by the designer.

@@ -145,7 +145,7 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
         public void Init(PictureBox par_ctlPictureBox, Control par_container, int par_margin, bool pbRepaintAfterResize,
                                   InterfaceMoveEvents par_events, bool pbSetBreakpoint_AfterMove,
                                   ISaveToModel par_iSave, bool pbRemoveAnyHandlers = false,
-                               bool pbHookUpEventHandlers = true)
+                               bool pbHookUpEventHandlers = true, float par_proportionWH = 0)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
             //     the preferred background color.)   ----7/31/2019 td
@@ -187,7 +187,8 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             //
             //Added 10/09/2019 thomas downes 
             //
-            _proportionWH = (decimal)par_container.Width /
+            if (par_proportionWH != 0) _proportionWH = (decimal)par_proportionWH;
+            else _proportionWH = (decimal)par_container.Width /
                             (decimal)par_container.Height;
 
             mod_events = par_events;  // 10/09/2019 thomas downes   

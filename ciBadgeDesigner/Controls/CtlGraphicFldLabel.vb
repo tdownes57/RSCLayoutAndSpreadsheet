@@ -153,6 +153,7 @@ Public Class CtlGraphicFldLabel
     Private Const mod_c_bRefreshMustResizeImage As Boolean = True ''True, since otherwise the background color 
     ''  is (frustratingly) limited to the original control size, _NOT_ the resized control's full area
     ''  (enlarged via user click-and-drag), unfortunately.  ----7/31/2019 thomas d.  
+    Private mod_singleDummy As Single = 0 ''Added 1/4/2022 td
 
     Public ReadOnly Property Picture_Box As PictureBox
         Get
@@ -190,15 +191,19 @@ Public Class CtlGraphicFldLabel
                    pboolAddClickability As Boolean,
                    par_iRecordLastTouched As IRecordElementLastTouched,
                    par_iLastTouched As ILastControlTouched,
-                   par_oMoveEvents As GroupMoveEvents_Singleton)
+                   par_oMoveEvents As GroupMoveEvents_Singleton,
+                   Optional par_singleDummy As Single = 0)
         ''Jan4 2022'' par_formRecordLastTouched As IRecordElementLastTouched,
+
+        ''Dim singleDummy As Single = 0 ''Added 1/4/2022 td 
 
         ''Added 1/4/2022 td
         MyBase.New(EnumElementType.Field, False,
                         par_iLayoutFun,
                         par_operationsType, par_operationsAny,
                         pboolAddMoveability, pboolAddClickability,
-                        par_iLastTouched, par_oMoveEvents)
+                        par_iLastTouched, par_oMoveEvents,
+                        par_singleDummy) ''---mod_singleDummy)
 
         ' This call is required by the designer.
         InitializeComponent()
