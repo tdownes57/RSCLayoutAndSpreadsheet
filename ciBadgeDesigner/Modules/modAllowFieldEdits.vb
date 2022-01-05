@@ -58,7 +58,7 @@ Module modAllowFieldEdits
             Dim frm_ToShowFields As InterfaceShowListFields ''ListCustomFieldsFlow()
 
             If (boolStandard) Then frm_ToShowFields = New ListStandardFields
-            If (bool__Custom) Then frm_ToShowFields = New ListCustomFieldsFlow
+            If (bool__Custom) Then frm_ToShowFields = New ListCustomFields
 
             ''Dim each_field As ciBadgeFields.ClassFieldCustomized
             ''Dim each_element As ciBadgeElements.ClassElementField

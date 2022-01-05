@@ -319,32 +319,40 @@ Public Class Form__Main_Demo
         ''
         ''Context Menus!!  ----12/13/2021 td 
         ''
-        MenuCache_FieldElements.ColorDialog1 = (New ColorDialog)
-        MenuCache_FieldElements.FontDialog1 = (New FontDialog)
-        MenuCache_FieldElements.Designer = mod_designer
-        MenuCache_FieldElements.LayoutFunctions = mod_designer
-        MenuCache_FieldElements.SelectingElements = mod_designer
-        ''Dec.12 2021''MenuCache_ElemFlds.CacheOfFieldsEtc = Me.ElementsCache_Edits ''Added 12/12/2021 thomas d.
-        Dim bool1, bool2 As Boolean  ''Added 12/12/2021 thomas d.
-        Me.ElementsCache_ManageBoth.CheckCacheIsLatestForEdits(bool1, bool2, True) ''Added 12/12/2021 thomas d.
-        MenuCache_FieldElements.GenerateMenuItems_IfNeeded(Me.ElementsCache_Edits)
+        Const c_bBaseControlWillLoadMenuCaches As Boolean = True ''True. See project __RSCWindowControlLibrary,
+        ''  folder RSCMoveableControlVB, Sub AddClickability().  --1/5/2022 td
+        Const c_bFormWillLoadMenuCaches As Boolean = False ''Added 1/5/2022 td
 
-        ''Added 12/13/2021 td
-        MenuCache_GraphicElements.ColorDialog1 = (New ColorDialog)
-        MenuCache_GraphicElements.Designer = mod_designer
-        MenuCache_GraphicElements.LayoutFunctions = mod_designer
-        MenuCache_GraphicElements.GenerateMenuItems_IfNeeded(Me.ElementsCache_Edits)
+        If (c_bFormWillLoadMenuCaches) Then ''Added 1/5/2022 td
 
-        MenuCache_Background.ColorDialog1 = (New ColorDialog)
-        MenuCache_Background.Designer = mod_designer
-        MenuCache_Background.LayoutFunctions = mod_designer
-        MenuCache_Background.GenerateMenuItems_IfNeeded()
+            MenuCache_FieldElements.ColorDialog1 = (New ColorDialog)
+            MenuCache_FieldElements.FontDialog1 = (New FontDialog)
+            MenuCache_FieldElements.Designer = mod_designer
+            MenuCache_FieldElements.LayoutFunctions = mod_designer
+            MenuCache_FieldElements.SelectingElements = mod_designer
+            ''Dec.12 2021''MenuCache_ElemFlds.CacheOfFieldsEtc = Me.ElementsCache_Edits ''Added 12/12/2021 thomas d.
+            Dim bool1, bool2 As Boolean  ''Added 12/12/2021 thomas d.
+            Me.ElementsCache_ManageBoth.CheckCacheIsLatestForEdits(bool1, bool2, True) ''Added 12/12/2021 thomas d.
+            MenuCache_FieldElements.GenerateMenuItems_IfNeeded(Me.ElementsCache_Edits)
 
-        ''Added 12/15/2021 td
-        MenuCache_StaticText.ColorDialog1 = (New ColorDialog)
-        MenuCache_StaticText.Designer = mod_designer
-        MenuCache_StaticText.LayoutFunctions = mod_designer
-        MenuCache_StaticText.GenerateMenuItems_IfNeeded(Me.ElementsCache_Edits)
+            ''Added 12/13/2021 td
+            MenuCache_GraphicElements.ColorDialog1 = (New ColorDialog)
+            MenuCache_GraphicElements.Designer = mod_designer
+            MenuCache_GraphicElements.LayoutFunctions = mod_designer
+            MenuCache_GraphicElements.GenerateMenuItems_IfNeeded(Me.ElementsCache_Edits)
+
+            MenuCache_Background.ColorDialog1 = (New ColorDialog)
+            MenuCache_Background.Designer = mod_designer
+            MenuCache_Background.LayoutFunctions = mod_designer
+            MenuCache_Background.GenerateMenuItems_IfNeeded()
+
+            ''Added 12/15/2021 td
+            MenuCache_StaticText.ColorDialog1 = (New ColorDialog)
+            MenuCache_StaticText.Designer = mod_designer
+            MenuCache_StaticText.LayoutFunctions = mod_designer
+            MenuCache_StaticText.GenerateMenuItems_IfNeeded(Me.ElementsCache_Edits)
+
+        End If ''End of ""If (c_bFormWillLoadMenuCaches) Then""
 
         ''Added 12/3/2021 td
         pictureBackgroundFront.Refresh()
@@ -657,7 +665,8 @@ Public Class Form__Main_Demo
         Else
             ''Moved from above, Dec14 2021 td
             Const c_bCacheManagerSerializes As Boolean = False
-            Me.ElementsCache_ManageBoth.Save(c_bCacheManagerSerializes)
+            ''Jan5 2022 td''Me.ElementsCache_ManageBoth.Save(c_bCacheManagerSerializes)
+            Me.ElementsCache_ManageBoth.Save(c_bCacheManagerSerializes, "", picturePreview.Image)
 
         End If ''Endof "If (c_serializeToDisk_Ultimately) Then ... Else ..."
 
@@ -1614,7 +1623,9 @@ Public Class Form__Main_Demo
         ElementsCache_Edits.XmlFile_Path_Deprecated = strSaveFileAs_FullFileName ''Save the full file path. ---12/14/2021 td
         Me.ElementsCache_PathToXML = strSaveFileAs_FullFileName  ''Save the file path. ----12/14/2021 td 
         Const c_bSaveToFileXML As Boolean = True
-        ElementsCache_ManageBoth.Save(c_bSaveToFileXML, strSaveFileAs_FullFileName)
+        ''Jan5 2022''ElementsCache_ManageBoth.Save(c_bSaveToFileXML, strSaveFileAs_FullFileName)
+        ElementsCache_ManageBoth.Save(c_bSaveToFileXML, strSaveFileAs_FullFileName,
+             picturePreview.Image)
 
         ''Added 12/14/2021 td 
         Dim boolSavedWell_Exists As Boolean

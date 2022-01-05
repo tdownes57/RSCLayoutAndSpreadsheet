@@ -39,7 +39,8 @@ Public Class ClassDesigner
 
     ''Added 11/29/2021 thomas downes
     Private mod_designerListener As ClassDesignerEventListener
-    Public LetEventListenerAddMoveability As Boolean = True ''Added 12/23/2021 td  
+    Public LetEventListenerAddMoveability As Boolean = False ''1/5/2022 td''True ''Added 12/23/2021 td  
+    Public LetBaseControlAddMoveability As Boolean = True ''True. See __RSC WindowsControlLibrary\RSCMoveableControlVB.  ---Added 1/05/2022 td  
 
     ''Added 12/8/2021 thomas downes
     ''---Private mod_enumSideOfCard As EnumWhichSideOfCard = EnumWhichSideOfCard.EnumFrontside ''Added 12/8/2021 Thomas downes  
@@ -51,6 +52,7 @@ Public Class ClassDesigner
 
     ''Use an instance of ClassDesigner instead!!!!! ---1/4/2022 td 
     Private mod_iRecLastTouched_UseDesignerInstead As New ClassRecordLastTouched ''Added 1/4/2022 td
+    Private Const mod_bAddHandlersForRightClick As Boolean = False ''Added 1/5/2022 td
 
     ''10/4/2019 td''Public Property PreviewBox As PictureBox
     Public WithEvents PreviewBox As PictureBox
@@ -340,6 +342,8 @@ Public Class ClassDesigner
         ''
         Dim objListenerStaticText As MoveAndResizeControls_Monem.ControlResizeProportionally_TD
         Dim boolListenerFound As Boolean ''Added 12/15/2021 td 
+
+        If (CtlGraphic_StaticText_temp Is Nothing) Then Return ''Don't bother proceeding.--1/5/2022
 
         boolListenerFound = mod_designerListener.DictyControlResizing.ContainsKey(CtlGraphic_StaticText_temp)
         If (boolListenerFound) Then
@@ -799,7 +803,8 @@ Public Class ClassDesigner
         LoadElements_QRCode(iBadgeSideElements.ElementQR, par_oMoveEvents) ''Dec22 2021 td''LoadDesigner_QRCode()
 
         ''12/22/2021 td''LoadElements_Picture(par_cache.PicElement_Front())
-        LoadElements_Picture(iBadgeSideElements.ElementPic)
+        ''01/5/2022 td''LoadElements_Picture(iBadgeSideElements.ElementPic)
+        LoadElements_Picture(iBadgeSideElements.ElementPic, True)
 
         ''12/22/2021 td''LoadElements_Signature(par_cache.ElementSignature) ''Added 10/12/2019 thomas d.
         ''1/4/2022 td''LoadElements_Signature(iBadgeSideElements.ElementSig) ''Modified 12/22/2021 thomas d.
@@ -931,7 +936,7 @@ Public Class ClassDesigner
 
     ''End Sub ''End of "Private Sub ControlMoverResizer_AddField"
 
-    Private Sub LoadElements_Picture(par_elementPic As ClassElementPic)
+    Private Sub LoadElements_Picture(par_elementPic As ClassElementPic, pbIfNothingThenExit As Boolean)
         ''
         ''Added 7/31/2019 thomas downes
         ''Parameter par_elementPic added 9/17/2019 td
@@ -940,6 +945,12 @@ Public Class ClassDesigner
 
         ''Added 8/22/2019 THOMAS D.
         ciPictures_VB.PictureExamples.PathToFolderOfImages = (My.Application.Info.DirectoryPath & "\Images\PictureExamples")
+
+        ''Added 1/5/2022 td
+        If (par_elementPic Is Nothing) Then
+            If (pbIfNothingThenExit) Then Return ''Exit smoothly. ---1/5/22
+            Throw New Exception("The Element is missing!")
+        End If ''End of "If (par_elementPic Is Nothing) Then"
 
         ''Jan4 2022 td''CtlGraphic_Portrait = New CtlGraphicPortrait(par_elementPic, Me)
         CtlGraphic_Portrait = CtlGraphicPortrait.GetPortrait(par_elementPic, "CtlGraphic_Portrait",
@@ -975,7 +986,9 @@ Public Class ClassDesigner
         ''Added 12/15/2021 td
         ''   Pass on the event of right-clicking a element-field control. 
         ''----AddHandler label_control.ElementPic_RightClicked, AddressOf ElementPic_Clicked
-        AddHandler CtlGraphic_Portrait.ElementPic_RightClicked, AddressOf ElementPic_Clicked
+        If (mod_bAddHandlersForRightClick) Then
+            AddHandler CtlGraphic_Portrait.ElementPic_RightClicked, AddressOf ElementPic_Clicked
+        End If ''End of "If (mod_bAddHandlersForRightClick) Then"
 
         ''
         ''Moveability 
@@ -984,11 +997,16 @@ Public Class ClassDesigner
             ''
             ''See ClassDesignerEventListener.LoadForm_LayoutElements_Moveability() ---12/23/2021
             ''
+        ElseIf (Me.LetBaseControlAddMoveability) Then ''--Added 1/5/2022
+            ''
+            ''The element control's base class will add moveability. --Added 1/5/2022
+            ''  (See project/subfolder __RSC_WindowsControlLibrary/RSCMoveableControl)
+            ''
         Else
-            ''
-            ''Add moveability - Static Texts
-            ''
-            Dim bKeepWidthHeightProportional As Boolean = True ''added 12/23/2021
+                ''
+                ''Add moveability - Static Texts
+                ''
+                Dim bKeepWidthHeightProportional As Boolean = True ''added 12/23/2021
             Add_Moveability(CtlGraphic_Portrait, CtlGraphic_Portrait,
                                  CtlGraphic_Portrait, bKeepWidthHeightProportional)
 
@@ -1046,10 +1064,15 @@ Public Class ClassDesigner
                 ''
                 ''See ClassDesignerEventListener.LoadForm_LayoutElements_Moveability() ---12/23/2021
                 ''
+            ElseIf (Me.LetBaseControlAddMoveability) Then ''--Added 1/5/2022
+                ''
+                ''The element control's base class will add moveability. --Added 1/5/2022
+                ''  (See project/subfolder __RSC_WindowsControlLibrary/RSCMoveableControl)
+                ''
             Else
-                ''Add moveability - QR Code
+                    ''Add moveability - QR Code
 
-                Add_Moveability(CtlGraphic_QRCode, CtlGraphic_QRCode,
+                    Add_Moveability(CtlGraphic_QRCode, CtlGraphic_QRCode,
                                      CtlGraphic_QRCode, True)
 
             End If ''End of "If (Me.LetEventListenerAddMoveability) Then ... Else ..."
@@ -1095,7 +1118,9 @@ Public Class ClassDesigner
         ''Added 12/15/2021 td
         ''   Pass on the event of right-clicking a element-signature control.
         ''   
-        AddHandler CtlGraphic_Signat.ElementSig_RightClicked, AddressOf ElementSig_Clicked
+        If (mod_bAddHandlersForRightClick) Then
+            AddHandler CtlGraphic_Signat.ElementSig_RightClicked, AddressOf ElementSig_Clicked
+        End If ''End of "If (mod_bAddHandlersForRightClick) Then"
 
         ''
         ''Moveability 
@@ -1103,6 +1128,11 @@ Public Class ClassDesigner
         If (Me.LetEventListenerAddMoveability) Then
             ''
             ''See ClassDesignerEventListener.LoadForm_LayoutElements_Moveability() ---12/23/2021
+            ''
+        ElseIf (Me.LetBaseControlAddMoveability) Then ''--Added 1/5/2022
+            ''
+            ''The element control's base class will add moveability. --Added 1/5/2022
+            ''  (See project/subfolder __RSC_WindowsControlLibrary/RSCMoveableControl)
             ''
         Else
             ''
@@ -1151,8 +1181,10 @@ Public Class ClassDesigner
             ''Added 12/15/2021 td
             ''   Pass on the event of right-clicking a element-signature control.
             ''   
-            AddHandler CtlGraphic_StaticText_temp.ElementStatic_RightClicked,
-                AddressOf ElementStatic_Clicked
+            If (mod_bAddHandlersForRightClick) Then
+                AddHandler CtlGraphic_StaticText_temp.ElementStatic_RightClicked,
+                     AddressOf ElementStatic_Clicked
+            End If ''End of "If (mod_bAddHandlersForRightClick) Then"
 
             ''
             ''Moveability 
@@ -1160,6 +1192,11 @@ Public Class ClassDesigner
             If (Me.LetEventListenerAddMoveability) Then
                 ''
                 ''See ClassDesignerEventListener.LoadForm_LayoutElements_Moveability() ---12/23/2021
+                ''
+            ElseIf (Me.LetBaseControlAddMoveability) Then ''--Added 1/5/2022
+                ''
+                ''The element control's base class will add moveability. --Added 1/5/2022
+                ''  (See project/subfolder __RSC_WindowsControlLibrary/RSCMoveableControl)
                 ''
             Else
                 ''
@@ -1322,7 +1359,10 @@ Public Class ClassDesigner
 
             ''Added 10/1/2019 td
             ''   Pass on the event of right-clicking a element-field control. 
-            AddHandler label_control.ElementField_RightClicked, AddressOf ElementField_Clicked
+            ''
+            If (mod_bAddHandlersForRightClick) Then
+                AddHandler label_control.ElementField_RightClicked, AddressOf ElementField_Clicked
+            End If ''End of "If (mod_bAddHandlersForRightClick) Then"
 
             ''9/8 td''label_control.BorderStyle = BorderStyle.FixedSingle
 
@@ -1472,18 +1512,30 @@ Public Class ClassDesigner
         ''10/14 td''Dim each_ctl_qrcode As CtlGraphicQRCode ''Added 10/14/2019 td
         ''10/14 td''Dim each_ctl_signat As CtlGraphicSignature ''Added 10/14/2019 td
         Dim each_element_field As ClassElementField ''Added 10/14/2019 thomas d.  
+        Dim each_infoSaveToModel As ISaveToModel ''Added 1/5/2022 td
 
         ''Added 10/14/2019 td 
-        Me.CtlGraphic_Portrait.SaveToModel()
-        Me.CtlGraphic_QRCode.SaveToModel()
-        Me.CtlGraphic_Signat.SaveToModel()
-        Me.CtlGraphic_StaticText_temp.SaveToModel() ''Added 12/16/2021 thomas downes
+        ''See the For Each loop, Step #1a, below.---1/5/2022 td''Me.CtlGraphic_Portrait.SaveToModel()
+        ''See the For Each loop, Step #1a, below.---1/5/2022 td''Me.CtlGraphic_QRCode.SaveToModel()
+        ''See the For Each loop, Step #1a, below.---1/5/2022 td''Me.CtlGraphic_Signat.SaveToModel()
+        ''See the For Each loop, Step #1a, below.---1/5/2022 td''Me.CtlGraphic_StaticText_temp.SaveToModel() ''Added 12/16/2021 thomas downes
 
         ''
         ''Step #1 of 2. 
         ''
         For Each each_control As Control In Me.DesignerForm.Controls
+            ''
+            ''Step #1a. Save the control's position to its corresponding 
+            ''   element object. ----1/5/2022 td
+            ''
+            If (TypeOf each_control Is ISaveToModel) Then
+                each_infoSaveToModel = CType(each_control, ISaveToModel)
+                each_infoSaveToModel.SaveToModel()
+            End If ''End of "If (TypeOf each_control Is ISaveToModel) Then"
 
+            ''
+            ''Step #1b. Clear any highlighting. 
+            ''
             If (TypeOf each_control Is CtlGraphicFldLabel) Then
 
                 each_ctl_field = CType(each_control, CtlGraphicFldLabel)
@@ -1547,26 +1599,27 @@ Public Class ClassDesigner
 
             ''Encapsulated 12/14/2021 td
             Me.ElementsCache_Manager.Save(par_bSerializeToDisk)
+            Me.ElementsCache_Manager.Save(par_bSerializeToDisk, "", Me.PreviewBox.Image)
 
             ''Dim objSerializationClass As New ciBadgeSerialize.ClassSerial
-
+            ''
             ''With objSerializationClass
-
+            ''
             ''    ''.TypeOfObject = (TypeOf List(Of ICIBFieldStandardOrCustom))
-
+            ''
             ''    ''10/10/2019 td''SaveFileDialog1.ShowDialog()
             ''    ''10/10/2019 td''.PathToXML = SaveFileDialog1.FileName
-
+            ''
             ''    ''10/13/2019 td''.PathToXML = Me.ElementsCache_Saved.PathToXml_Saved
             ''    .PathToXML = Me.ElementsCache_Edits.PathToXml_Saved
-
+            ''
             ''    ''Added 9/24/2019 thomas 
             ''    .SerializeToXML(Me.ElementsCache_Edits.GetType, Me.ElementsCache_Edits, False, True)
-
+            ''
             ''    Const c_SerializeToBinary As Boolean = False ''Added 9/30/2019 td
             ''    If (c_SerializeToBinary) Then _
             ''    .SerializeToBinary(Me.ElementsCache_Edits.GetType, Me.ElementsCache_Edits)
-
+            ''
             ''End With ''End of "With objSerializationClass"
 
         End If ''End of "If (par_bSerializeToDisk) Then"

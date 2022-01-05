@@ -75,7 +75,7 @@ Public Class Operations_EditFieldElement
         If (bIsCustomField And c_boolTryNewSub) Then
 
             ''Added 12/14/2021 thomas d. 
-            Open_FieldStandard_OrCustom(New ListCustomFieldsFlow())
+            Open_FieldStandard_OrCustom(New ListCustomFields())
 
         ElseIf (bIsCustomField) Then
             ''Encapsulated 12/14/2021 thomas d. 
@@ -94,7 +94,7 @@ Public Class Operations_EditFieldElement
         ''
         ''Encapsulated 12/14/2021 thomas d. 
         ''
-        Dim form_ToShow As New ListCustomFieldsFlow
+        Dim form_ToShow As New ListCustomFields
 
         Dim boolExitEarly As Boolean ''Added 8/13/2019 td
         ''10/10/2019 td''CreateVisibleButton_Master("Choose a background color", AddressOf OpenDialog_Color, boolExitEarly)

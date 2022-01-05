@@ -53,6 +53,9 @@ Public Class CtlGraphicPortrait
         Dim objOperations As Object ''Added 12/29/2021 td 
         Dim objOperationsPortrait As Operations_Portrait ''Added 1/04/2022 td 
 
+        ''Added 1/5/2022 td
+        If (par_elementPortrait Is Nothing) Then Throw New Exception("The Element is missing!")
+
         ''Instantiate the Operations Object. 
         ''//If (enumElemType = EnumElementType.Signature) Then objOperations2Use = New Operations__Useless()
         ''//If (enumElemType = EnumElementType.StaticGraphic) Then objOperations1Gen = New Operations__Generic()
@@ -406,6 +409,9 @@ Public Class CtlGraphicPortrait
         Const c_boolUse_ciBadgeElemImage As Boolean = True
         Dim imgPortrait_withRotationIfAny As Image ''Added 9/24/2019 td
 
+        ''Added 1/5/2022 td
+        If (ElementClass_Obj Is Nothing) Then Throw New Exception("The Element is missing!")
+
         If (c_boolUse_ciBadgeElemImage) Then
             ''
             ''Added 9/23/2019 td 
@@ -466,6 +472,18 @@ Public Class CtlGraphicPortrait
         Me.Height = intWidth
 
     End Sub ''ENd of "Private Sub SwitchControl_WidthAndHeight_Sub()"
+
+
+    Public Function FullNameOfMyBaseClass() As String
+        ''
+        ''Added 1/5/2022 thomas downes
+        ''
+        ''  Should return "__RSC_WindowsControlLibrary.RSCMoveableControl".
+        ''
+        Return MyBase.FullNameOfThisBaseClass()
+
+    End Function ''Added Public Function FullNameOfThisBaseClass() As String
+
 
     Private Sub RefreshImage_NoMajorCalls()
         ''

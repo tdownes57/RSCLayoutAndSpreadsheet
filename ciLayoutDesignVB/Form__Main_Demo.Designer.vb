@@ -78,6 +78,7 @@ Partial Class Form__Main_Demo
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.StatusLabelMovingElement = New System.Windows.Forms.ToolStripStatusLabel()
         Me.StatusLabelNameOfElement = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.StatusLabelWarningError = New System.Windows.Forms.ToolStripStatusLabel()
         Me.linkRemoveElements = New System.Windows.Forms.LinkLabel()
         Me.LinkLabelSave2 = New System.Windows.Forms.LinkLabel()
         Me.dropdownHowToLoadFlds = New System.Windows.Forms.ComboBox()
@@ -109,7 +110,6 @@ Partial Class Form__Main_Demo
         Me.CtlGraphicStaticText1 = New ciBadgeDesigner.CtlGraphicStaticText()
         Me.LinkLabel2 = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel3 = New System.Windows.Forms.LinkLabel()
-        Me.StatusLabelWarningError = New System.Windows.Forms.ToolStripStatusLabel()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -511,6 +511,12 @@ Partial Class Form__Main_Demo
         Me.StatusLabelNameOfElement.Text = "StatusLabelNameOfElement"
         Me.StatusLabelNameOfElement.Visible = False
         '
+        'StatusLabelWarningError
+        '
+        Me.StatusLabelWarningError.Name = "StatusLabelWarningError"
+        Me.StatusLabelWarningError.Size = New System.Drawing.Size(172, 20)
+        Me.StatusLabelWarningError.Text = "StatusLabelWarningError"
+        '
         'linkRemoveElements
         '
         Me.linkRemoveElements.Location = New System.Drawing.Point(11, 495)
@@ -769,24 +775,33 @@ Partial Class Form__Main_Demo
         '
         'CtlGraphicQRCode1
         '
+        Me.CtlGraphicQRCode1.BackColor = System.Drawing.Color.Transparent
+        Me.CtlGraphicQRCode1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.CtlGraphicQRCode1.Location = New System.Drawing.Point(549, 352)
         Me.CtlGraphicQRCode1.Margin = New System.Windows.Forms.Padding(4)
+        Me.CtlGraphicQRCode1.MoveabilityEvents = Nothing
         Me.CtlGraphicQRCode1.Name = "CtlGraphicQRCode1"
         Me.CtlGraphicQRCode1.Size = New System.Drawing.Size(94, 99)
         Me.CtlGraphicQRCode1.TabIndex = 65
         '
         'CtlGraphicPortrait_Lady
         '
+        Me.CtlGraphicPortrait_Lady.BackColor = System.Drawing.Color.White
+        Me.CtlGraphicPortrait_Lady.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.CtlGraphicPortrait_Lady.Location = New System.Drawing.Point(35, 117)
         Me.CtlGraphicPortrait_Lady.Margin = New System.Windows.Forms.Padding(4)
+        Me.CtlGraphicPortrait_Lady.MoveabilityEvents = Nothing
         Me.CtlGraphicPortrait_Lady.Name = "CtlGraphicPortrait_Lady"
         Me.CtlGraphicPortrait_Lady.Size = New System.Drawing.Size(141, 181)
         Me.CtlGraphicPortrait_Lady.TabIndex = 41
         '
         'CtlGraphicSignature1
         '
+        Me.CtlGraphicSignature1.BackColor = System.Drawing.Color.Transparent
+        Me.CtlGraphicSignature1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.CtlGraphicSignature1.Location = New System.Drawing.Point(49, 346)
         Me.CtlGraphicSignature1.Margin = New System.Windows.Forms.Padding(4)
+        Me.CtlGraphicSignature1.MoveabilityEvents = Nothing
         Me.CtlGraphicSignature1.Name = "CtlGraphicSignature1"
         Me.CtlGraphicSignature1.Size = New System.Drawing.Size(314, 105)
         Me.CtlGraphicSignature1.TabIndex = 66
@@ -819,12 +834,6 @@ Partial Class Form__Main_Demo
         Me.LinkLabel3.TabIndex = 81
         Me.LinkLabel3.TabStop = True
         Me.LinkLabel3.Text = "Turn on drag-&&-drop for last-touched element."
-        '
-        'StatusLabelWarningError
-        '
-        Me.StatusLabelWarningError.Name = "StatusLabelWarningError"
-        Me.StatusLabelWarningError.Size = New System.Drawing.Size(172, 20)
-        Me.StatusLabelWarningError.Text = "StatusLabelWarningError"
         '
         'Form__Main_Demo
         '

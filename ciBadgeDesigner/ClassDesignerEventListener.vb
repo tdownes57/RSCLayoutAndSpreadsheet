@@ -124,7 +124,7 @@ Public Class ClassDesignerEventListener
             ''mod_dictyControlMoveBoxesEtc.Add(Me.PreviewBox, objMover)
             objMover.Init(mod_designer.PreviewBox,
                           mod_designer.PreviewBox, 10, False,
-                           mod_singletonMove, c_boolBreakpoint, Nothing)
+                           mod_singletonMove, c_boolBreakpoint, Nothing, True)
             mod_dictyControlMoveBoxesEtc.Add(mod_designer.PreviewBox, objMover)
 
         Else
@@ -242,9 +242,10 @@ Public Class ClassDesignerEventListener
         ''DictyControlResizing.Add(mod_designer.CtlGraphic_StaticText1,
         ''     mod_sizing_staticText)
         If (mod_designer.LetEventListenerAddMoveability) Then
-            mod_designer.Add_Moveability(mod_designer.CtlGraphic_StaticText_temp, mod_designer.CtlGraphic_StaticText_temp,
+            mod_designer.Add_Moveability(mod_designer.CtlGraphic_StaticText_temp,
+                                         mod_designer.CtlGraphic_StaticText_temp,
                                          mod_designer.CtlGraphic_StaticText_temp, False)
-        End If
+        End If ''End of "If (mod_designer.LetEventListenerAddMoveability) Then"
 
         ''Dim boolMakeMoveableByUser As Boolean ''Added 9/20/2019 td 
         ''Const c_boolMakeMoveableASAP As Boolean = False ''added 9/20/2019 td

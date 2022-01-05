@@ -22,7 +22,6 @@ Partial Class FormDisplayCacheLayouts
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.pictureBackgroundFront = New System.Windows.Forms.PictureBox()
         Me.LabelCaptionPathToTheFileXML = New System.Windows.Forms.Label()
         Me.LabelHeader3 = New System.Windows.Forms.Label()
         Me.LabelFullPathToXML = New System.Windows.Forms.Label()
@@ -38,19 +37,11 @@ Partial Class FormDisplayCacheLayouts
         Me.ButtonExitApp = New System.Windows.Forms.Button()
         Me.ButtonOK = New System.Windows.Forms.Button()
         Me.ButtonFindLayout = New System.Windows.Forms.Button()
-        CType(Me.pictureBackgroundFront, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.picturePreview = New System.Windows.Forms.PictureBox()
         Me.FlowLayoutPanel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'pictureBackgroundFront
-        '
-        Me.pictureBackgroundFront.BackColor = System.Drawing.Color.White
-        Me.pictureBackgroundFront.Location = New System.Drawing.Point(214, 117)
-        Me.pictureBackgroundFront.Name = "pictureBackgroundFront"
-        Me.pictureBackgroundFront.Size = New System.Drawing.Size(655, 380)
-        Me.pictureBackgroundFront.TabIndex = 75
-        Me.pictureBackgroundFront.TabStop = False
         '
         'LabelCaptionPathToTheFileXML
         '
@@ -208,11 +199,22 @@ Partial Class FormDisplayCacheLayouts
         Me.ButtonFindLayout.Text = "Find Layout using Open File"
         Me.ButtonFindLayout.UseVisualStyleBackColor = True
         '
+        'picturePreview
+        '
+        Me.picturePreview.BackColor = System.Drawing.Color.White
+        Me.picturePreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.picturePreview.Location = New System.Drawing.Point(215, 117)
+        Me.picturePreview.Name = "picturePreview"
+        Me.picturePreview.Size = New System.Drawing.Size(466, 277)
+        Me.picturePreview.TabIndex = 91
+        Me.picturePreview.TabStop = False
+        '
         'FormDisplayCacheLayouts
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1406, 517)
+        Me.Controls.Add(Me.picturePreview)
         Me.Controls.Add(Me.ButtonFindLayout)
         Me.Controls.Add(Me.ButtonOK)
         Me.Controls.Add(Me.ButtonExitApp)
@@ -226,18 +228,15 @@ Partial Class FormDisplayCacheLayouts
         Me.Controls.Add(Me.LabelFullPathToXML)
         Me.Controls.Add(Me.LabelHeader3)
         Me.Controls.Add(Me.LabelCaptionPathToTheFileXML)
-        Me.Controls.Add(Me.pictureBackgroundFront)
         Me.Name = "FormDisplayCacheLayouts"
         Me.Text = "FormDisplayCacheLayouts"
-        CType(Me.pictureBackgroundFront, System.ComponentModel.ISupportInitialize).EndInit()
         Me.FlowLayoutPanel1.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-
-    Friend WithEvents pictureBackgroundFront As PictureBox
     Friend WithEvents LabelCaptionPathToTheFileXML As Label
     Friend WithEvents LabelHeader3 As Label
     Friend WithEvents LabelFullPathToXML As Label
@@ -253,4 +252,5 @@ Partial Class FormDisplayCacheLayouts
     Friend WithEvents ButtonExitApp As Button
     Friend WithEvents ButtonOK As Button
     Friend WithEvents ButtonFindLayout As Button
+    Friend WithEvents picturePreview As PictureBox
 End Class

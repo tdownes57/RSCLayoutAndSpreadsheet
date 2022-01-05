@@ -80,9 +80,27 @@ Public Class ListStandardFields
         '' 7/21 td''ClassCustomField.InitializeHardcodedList_Students()
 
         ''Dec14 2021 td''LoadStandardFields_All()
-        LoadStandardFields_All(Me.ListOfFields_Standard, Me.JustOneField_Standard)
+        ''Jan5 2022 td''LoadStandardFields_All(Me.ListOfFields_Standard, Me.JustOneField_Standard)
 
-    End Sub
+        ''Added 1/5/2022 thomas d.
+        If (Me.ListOfFields_Standard Is Nothing) Then
+            If (Me.JustOneField_Standard Is Nothing) Then
+
+                ''Added 1/5/2022 thomas d.
+                Dim objListOfJustOneField = New HashSet(Of ClassFieldStandard)
+                objListOfJustOneField.Add(Me.JustOneField_Standard)
+                LoadStandardFields_All(objListOfJustOneField, Me.JustOneField_Standard)
+
+            End If ''End of "If (Me.JustOneField_Standard Is Nothing) Then"
+
+        Else
+            ''Dec14 2021 td''LoadStandardFields_All()
+            LoadStandardFields_All(Me.ListOfFields_Standard, Me.JustOneField_Standard)
+
+        End If ''End of "If (Me.ListOfFields_Standard Is Nothing) Then ... Else ..."
+
+
+    End Sub ''End of Private Sub Form_Load  
 
     Private Sub LoadStandardFields_All(par_listFields As HashSet(Of ClassFieldStandard),
                                      Optional par_JustOneField As ClassFieldStandard = Nothing)

@@ -51,7 +51,7 @@ Public Class Operations_FieldElement
     ''Added 12/12/2021 thomas 
     ''Public Property ListOfFields_Standard As HashSet(Of ciBadgeFields.ClassFieldStandard)
     ''Public Property ListOfFields_Custom As HashSet(Of ciBadgeFields.ClassFieldCustomized)
-    Public Property CacheOfFieldsEtc As ciBadgeCachePersonality.ClassElementsCache_Deprecated
+    Public Property CacheOfFieldsEtc_Deprecated As ciBadgeCachePersonality.ClassElementsCache_Deprecated
 
     Private mod_fauxMenuEditSingleton As CtlGraphPopMenuEditSingle ''Added 10/3/2019 td 
 
@@ -84,7 +84,7 @@ Public Class Operations_FieldElement
         If (bIsCustomField And c_boolTryNewSub) Then
 
             ''Added 12/14/2021 thomas d. 
-            Open_FieldStandard_OrCustom(New ListCustomFieldsFlow())
+            Open_FieldStandard_OrCustom(New ListCustomFields())
 
         ElseIf (bIsCustomField) Then
             ''Encapsulated 12/14/2021 thomas d. 
@@ -103,7 +103,7 @@ Public Class Operations_FieldElement
         ''
         ''Encapsulated 12/14/2021 thomas d. 
         ''
-        Dim form_ToShow As New ListCustomFieldsFlow
+        Dim form_ToShow As New ListCustomFields
 
         Dim boolExitEarly As Boolean ''Added 8/13/2019 td
         ''10/10/2019 td''CreateVisibleButton_Master("Choose a background color", AddressOf OpenDialog_Color, boolExitEarly)
@@ -121,8 +121,12 @@ Public Class Operations_FieldElement
         ''Added 12/12/2021 td
         ''--form_ToShow.ListOfFields_Custom = MenuCache_ElemFlds.CacheOfFieldsEtc.ListOfFields_Custom
         ''--form_ToShow.ListOfFields_Standard = MenuCache_ElemFlds.CacheOfFieldsEtc.ListOfFields_Standard
-        form_ToShow.ListOfFields_Custom = Me.CacheOfFieldsEtc.ListOfFields_Custom ''--MenuCache_ElemFlds.CacheOfFieldsEtc.ListOfFields_Custom
-        form_ToShow.ListOfFields_Standard = Me.CacheOfFieldsEtc.ListOfFields_Standard ''--MenuCache_ElemFlds.CacheOfFieldsEtc.ListOfFields_Standard
+
+        Const c_bFormMustSeeEntireListOfFields As Boolean = False ''False, since the form only needs one(1) Field. ---Added 1/5/2022 td
+        If (c_bFormMustSeeEntireListOfFields) Then ''Added 1/5/2022 td
+            form_ToShow.ListOfFields_Custom = Me.CacheOfFieldsEtc_Deprecated.ListOfFields_Custom ''--MenuCache_ElemFlds.CacheOfFieldsEtc.ListOfFields_Custom
+            form_ToShow.ListOfFields_Standard = Me.CacheOfFieldsEtc_Deprecated.ListOfFields_Standard ''--MenuCache_ElemFlds.CacheOfFieldsEtc.ListOfFields_Standard
+        End If ''End of "If (c_bFormMustSeeEntireListOfFields) Then"
 
         form_ToShow.Show()
 
@@ -151,8 +155,13 @@ Public Class Operations_FieldElement
         ''Added 12/12/2021 td
         ''--form_ToShow.ListOfFields_Custom = MenuCache_ElemFlds.CacheOfFieldsEtc.ListOfFields_Custom
         ''--form_ToShow.ListOfFields_Standard = MenuCache_ElemFlds.CacheOfFieldsEtc.ListOfFields_Standard
-        par_form_ToShow.ListOfFields_Custom = Me.CacheOfFieldsEtc.ListOfFields_Custom ''--MenuCache_ElemFlds.CacheOfFieldsEtc.ListOfFields_Custom
-        par_form_ToShow.ListOfFields_Standard = Me.CacheOfFieldsEtc.ListOfFields_Standard ''--MenuCache_ElemFlds.CacheOfFieldsEtc.ListOfFields_Standard
+
+        If (Me.CacheOfFieldsEtc_Deprecated IsNot Nothing) Then ''Added 1/5/2022 td  
+
+            par_form_ToShow.ListOfFields_Custom = Me.CacheOfFieldsEtc_Deprecated.ListOfFields_Custom ''--MenuCache_ElemFlds.CacheOfFieldsEtc.ListOfFields_Custom
+            par_form_ToShow.ListOfFields_Standard = Me.CacheOfFieldsEtc_Deprecated.ListOfFields_Standard ''--MenuCache_ElemFlds.CacheOfFieldsEtc.ListOfFields_Standard
+
+        End If ''End of "If (Me.CacheOfFieldsEtc_Deprecated IsNot Nothing) Then"
 
         ''Dec. 14 2021 td''par_form_ToShow.Show()
         par_form_ToShow.ShowDialog()
@@ -485,7 +494,8 @@ Public Class Operations_FieldElement
         Dim boolIsCopyOfLatest As Boolean ''Dec. 12, 2021 td
 
         ''Added 12/12/2021 thomas downes
-        Me.CacheOfFieldsEtc.CheckCacheIsLatestForEdits(boolIsLatest, boolIsCopyOfLatest)
+        ''#1 1/5/2022 td''Me.CacheOfFieldsEtc.CheckCacheIsLatestForEdits(boolIsLatest, boolIsCopyOfLatest)
+        ''#2 1/5/2022 td''Me.CtlCurrentElement.CheckCacheIsLatestForEdits(boolIsLatest, boolIsCopyOfLatest)
         If (Not boolIsLatest) Then Throw New Exception("This is not the latest cache of edits.")
 
         With Me.CtlCurrentElementField ''Added 10/17/2019 td

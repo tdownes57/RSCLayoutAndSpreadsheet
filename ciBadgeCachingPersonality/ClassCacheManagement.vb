@@ -102,7 +102,10 @@ Namespace ciBadgeCachePersonality
         End Function
 
 
-        Public Sub Save(pboolSaveToFileXML As Boolean, Optional ByRef pstrPathToFileXML As String = "")
+        Public Sub Save(pboolSaveToFileXML As Boolean,
+                        Optional ByRef pstrPathToFileXML As String = "",
+                        Optional par_BadgeImage As System.Drawing.Image = Nothing)
+            ''
             ''Dec14 2021''Public Sub Save(pboolSaveToFileXML As Boolean)
             ''
             ''Added 12/4/2021 thomas downes  
@@ -134,15 +137,27 @@ Namespace ciBadgeCachePersonality
 
                 ''Dec14 2021''strPathToFileJpg = mod_cacheEdits.PathToXml_Binary.Replace(".xml", ".jpg")
                 strPathToXml_Binary = mod_cacheEdits.PathToXml_Binary
-                If (Not String.IsNullOrEmpty(strPathToXml_Binary)) Then
-                    strPathToFileJpg = strPathToXml_Binary.Replace(".xml", ".jpg")
-                End If ''End of "If (Not String.IsNullOrEmpty(...)) Then"
-                ''This code may work better in the calling procedure.----12/10/2021 td''CreateBadgeLayoutImage() 
 
-                ''Added 12/6/2021 td  
-                ''----Dec.6 2021 ----mod_cacheSaved = mod_cacheEdits
-                ''----Dec.14 2021 ----mod_cacheSaved = mod_cacheEdits.Copy()
-                If (pstrPathToFileXML = "") Then pstrPathToFileXML = mod_cacheEdits.PathToXml_Saved
+                ''Added 12/10/2022 thomas d. 
+                If (Not String.IsNullOrEmpty(pstrPathToFileXML)) Then
+                    strPathToFileJpg = pstrPathToFileXML.Replace(".xml", ".jpg")
+                End If ''End of "If (Not String.IsNullOrEmpty(...)) Then"
+
+                ''This code may work better in the calling procedure.----12/10/2021 td
+                If (par_BadgeImage IsNot Nothing) Then
+                    ''
+                    ''Create an image file (in JPEG form).  
+                    ''
+                    If (Not String.IsNullOrEmpty(strPathToFileJpg)) Then
+                        ''Create an image file (in JPEG form). ---1/5/2022 td 
+                        CreateBadgeLayoutImageFile(par_BadgeImage, strPathToFileJpg)
+                    End If ''End of "If (Not String.IsNullOrEmpty(strPathToFileJpg)) Then"
+                End If ''End of "If (par_BadgeImage IsNot Nothing) Then"
+
+                    ''Added 12/6/2021 td  
+                    ''----Dec.6 2021 ----mod_cacheSaved = mod_cacheEdits
+                    ''----Dec.14 2021 ----mod_cacheSaved = mod_cacheEdits.Copy()
+                    If (pstrPathToFileXML = "") Then pstrPathToFileXML = mod_cacheEdits.PathToXml_Saved
 
                 ''
                 ''Load the Saved cache. ---Dec. 14, 2021 
@@ -166,6 +181,17 @@ Namespace ciBadgeCachePersonality
             End If ''End of "If (pboolSaveToFileXML) Then.... Else"
 
         End Sub ''End of "Public Sub Save()"
+
+
+        Private Sub CreateBadgeLayoutImageFile(par_BadgeImage As System.Drawing.Image,
+                                               par_strPathToProposedJpeg As String)
+            ''
+            ''Added 1/5/2022 thomas downes 
+            ''
+            par_BadgeImage.Save(par_strPathToProposedJpeg,
+                                System.Drawing.Imaging.ImageFormat.Jpeg)
+
+        End Sub ''End of "Private Sub CreateBadgeLayoutImage(pstrPathToJpeg As String)"
 
 
         Public Sub RefreshSaved_ViaPathXML(pstrPathToXML As String)

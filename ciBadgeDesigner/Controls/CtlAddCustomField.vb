@@ -23,7 +23,7 @@ Public Class CtlAddCustomField
         newfieldControl.NewlyAdded = True ''Added 7/27/2019 td 
         newfieldControl.Load_CustomControl(new_field)
 
-        CType(Me.ParentForm, ListCustomFieldsFlow).AdjustHeightOfWindow()
+        CType(Me.ParentForm, ListCustomFields).AdjustHeightOfWindow()
 
         mod_MyParentContainer.ScrollControlIntoView(Me)
 

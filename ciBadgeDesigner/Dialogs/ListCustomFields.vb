@@ -7,7 +7,7 @@ Option Infer Off
 Imports ciBadgeInterfaces
 Imports ciBadgeFields ''Added 9/19/2019 td   
 
-Public Class ListCustomFieldsFlow
+Public Class ListCustomFields
     Implements InterfaceShowListFields ''Added 12/6/2021 td 
 
     ''12/5/2021 td''Public Property ListOfFields As List(Of ClassFieldCustomized) ''Added 7/23/2019 thomas downes 
@@ -67,7 +67,25 @@ Public Class ListCustomFieldsFlow
 
         ''Dec. 6 2021''LoadCustomFields_All()
         ''Dec. 13 2021''LoadCustomFields_All(Me.ListOfFields_Custom)
-        LoadCustomFields_All(Me.ListOfFields_Custom, Me.JustOneField_Custom)
+        ''Jan5 2022 td''LoadCustomFields_All(Me.ListOfFields_Custom, Me.JustOneField_Custom)
+
+        ''Added 1/5/2022 thomas d.
+        If (Me.ListOfFields_Custom Is Nothing) Then
+            If (Me.JustOneField_Custom Is Nothing) Then
+
+                ''Added 1/5/2022 thomas d.
+                Dim objListOfJustOneField As New HashSet(Of ClassFieldCustomized)
+                objListOfJustOneField.Add(Me.JustOneField_Custom)
+                LoadCustomFields_All(objListOfJustOneField, Me.JustOneField_Custom)
+
+            End If ''End of "If (Me.JustOneField_Custom Is Nothing) Then"
+
+        Else
+            ''Dec14 2021 td''LoadCustomFields_All()
+            LoadCustomFields_All(Me.ListOfFields_Custom, Me.JustOneField_Custom)
+
+        End If ''End of "If (Me.ListOfFields_Custom Is Nothing) Then ... Else ..."
+
 
     End Sub
 

@@ -233,6 +233,17 @@ Public Class RSCMoveableControlVB
     End Sub ''End of "Public Sub New"
 
 
+    Public Function FullNameOfThisBaseClass() As String
+        ''
+        ''Added 1/5/2022 thomas downes
+        ''
+        ''  Should return "__RSC_WindowsControlLibrary.RSCMoveableControl".
+        ''
+        Return Me.GetType().FullName
+
+    End Function ''Added Public Function FullNameOfThisBaseClass() As String
+
+
     Public Sub Load_Functionality(par_enumElementType As EnumElementType,
                   pboolResizeProportionally As Boolean,
                    par_iLayoutFun As ILayoutFunctions,

@@ -382,6 +382,16 @@ Public Class CtlGraphicQRCode
     ''
     ''End Sub
 
+    Public Function FullNameOfMyBaseClass() As String
+        ''
+        ''Added 1/5/2022 thomas downes
+        ''
+        ''  Should return "__RSC_WindowsControlLibrary.RSCMoveableControl".
+        ''
+        Return MyBase.FullNameOfThisBaseClass()
+
+    End Function ''Added Public Function FullNameOfThisBaseClass() As String
+
     Public Sub RefreshImage_ViaElemImage()
         ''
         ''Refactored 7/25/2019 thomas d 

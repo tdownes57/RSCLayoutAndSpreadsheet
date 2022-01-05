@@ -79,7 +79,7 @@ Public Class MenuCache_FieldElements_NotInUse
             ''.Parent_MenuCache = (New MenuCache_ElemFlds())
             ''.ListOfFields_Custom = CacheOfFieldsEtc.ListOfFields_Custom
             ''.ListOfFields_Standard = CacheOfFieldsEtc.ListOfFields_Standard
-            .CacheOfFieldsEtc = par_cacheOfFieldsEtc
+            .CacheOfFieldsEtc_Deprecated = par_cacheOfFieldsEtc
 
             ''Added 12/12/2021 td
             Dim bIsLatestCache As Boolean ''Added 12/12/2021 td 

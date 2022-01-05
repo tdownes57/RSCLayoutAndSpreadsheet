@@ -44,22 +44,19 @@ Public Class FormDisplayCacheLayouts
     End Function ''End of "Private Function CheckingXmlFile_IsOkay"
 
 
-
-    Private Sub pictureBackgroundFront_Click(sender As Object, e As EventArgs) Handles pictureBackgroundFront.Click
-
-    End Sub
-
     Private Sub FormDisplayCacheLayouts_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
         ''Added 12/20/2021 td
         ''
+        Dim strPathToBadgeLayoutJPG As String ''Added 1/5/2022 td 
+
         LabelFullPathToXML.Text = Me.PathToElementsCacheXML
 
         ''Double-check the proportions are correct. ---9/6/2019 td
         ''ClassLabelToImage.ProportionsAreSlightlyOff(pictureBackgroundFront, True)
 
-        ClassLabelToImage.Proportions_FixTheWidth(pictureBackgroundFront) ''Added 12/23/2021 td 
-        ClassLabelToImage.ProportionsAreSlightlyOff(pictureBackgroundFront, True) ''Added Dec. 20 2021
+        ClassLabelToImage.Proportions_FixTheWidth(picturePreview) ''Added 12/23/2021 td 
+        ClassLabelToImage.ProportionsAreSlightlyOff(picturePreview, True) ''Added Dec. 20 2021
 
         ''Added 12/20/2021 thomas downes
         CheckingXmlFile_IsOkay(LabelFullPathToXML, LabelWarningMessage)
@@ -76,7 +73,14 @@ Public Class FormDisplayCacheLayouts
 
         End If ''End of "If (LabelWarningMessage.Visible = False) Then"
 
-    End Sub
+        ''
+        ''Display the saved Badge-Layout Jpeg Image. ---1/5/2022 td
+        ''
+        strPathToBadgeLayoutJPG = Me.PathToElementsCacheXML.Replace(".xml", ".jpg")
+        Me.picturePreview.ImageLocation = strPathToBadgeLayoutJPG
+        Me.picturePreview.SizeMode = PictureBoxSizeMode.Zoom
+
+    End Sub ''edn of "Public Sub Form_Load"
 
     Private Sub ButtonOpenLayout_Click(sender As Object, e As EventArgs) Handles ButtonOpenCurrentLayout.Click
         ''
@@ -173,6 +177,13 @@ Public Class FormDisplayCacheLayouts
 
         ''Added 12/23/2021 
         ButtonSelectLayoutFromDrive.PerformClick()
+
+    End Sub
+
+    Private Sub picturePreview_Click(sender As Object, e As EventArgs) Handles picturePreview.Click
+
+        ''Added 1/5/2022 td
+        ButtonOpenCurrentLayout.PerformClick()
 
     End Sub
 End Class

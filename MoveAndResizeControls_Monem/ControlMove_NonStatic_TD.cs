@@ -81,6 +81,7 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
         private Control _controlPictureBox;  // = par_controlPictureB;
         private Control _controlMoveableElement; // = par_containerElement;
         private ISaveToModel _iSaveToModel;  //added 12/17/2021 td
+        private bool _bSaveToModelIsNotNeeded;  //Added 1/5/2022 td  
 
         //Added 11/29/2021 thomas downes
         internal InterfaceMoveEvents mod_eventsInterface;
@@ -109,9 +110,10 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
 
         }
 
+
         public void Init(Control par_control, Control par_container, int par_margin, 
             bool pbRepaintAfterResize, InterfaceMoveEvents par_events, bool pbSetBreakpoint_AfterMove, 
-            ISaveToModel par_iSave)
+            ISaveToModel par_iSave, bool par_bSaveToModelIsNotNeeded = false)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
             //     the preferred background color.)   ----7/31/2019 td
@@ -122,6 +124,7 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             //   internal void Init(Control control, Control container)
             //
             _iSaveToModel = par_iSave;  // Dec17 2021 thomas d
+            _bSaveToModelIsNotNeeded = par_bSaveToModelIsNotNeeded; // Added 1/5/2022 td  
 
             mod_eventsInterface = par_events;  // 12/3/2021 thomas downes   
 
@@ -401,7 +404,14 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             // #1 Nov. 29 2021 //if (!(bWasResizing)) mod_groupedctl_events.Moving_Terminate();
             // #2 Nov. 29 2021 //if (!(bWasResizing)) mod_groupedctl_events.Moving_Terminate(par_controlJ);
             // Dec17 2021 // if (!(bWasResizing)) mod_eventsInterface.Moving_Terminate(_controlMoveableElement);
-            if (!(bWasResizing)) mod_eventsInterface.Moving_Terminate(_controlMoveableElement, _iSaveToModel);
+            if (!(bWasResizing))
+            {
+                //Check to see if we are going to try to update the "model" (the element object).---1/5/2022 td
+                if (!(_bSaveToModelIsNotNeeded))
+                {
+                    mod_eventsInterface.Moving_Terminate(_controlMoveableElement, _iSaveToModel);
+                }
+            }
 
             //Added 11/29/2021 td
             //  Remove the object reference.

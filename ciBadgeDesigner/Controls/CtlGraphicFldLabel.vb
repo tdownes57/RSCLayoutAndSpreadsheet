@@ -1042,6 +1042,18 @@ ExitHandler:
 
     End Sub ''End of "Private Sub RefreshElement_Field(sender As Object, e As EventArgs)"
 
+
+    Public Function FullNameOfMyBaseClass() As String
+        ''
+        ''Added 1/5/2022 thomas downes
+        ''
+        ''  Should return "__RSC_WindowsControlLibrary.RSCMoveableControl".
+        ''
+        Return MyBase.FullNameOfThisBaseClass()
+
+    End Function ''Added Public Function FullNameOfThisBaseClass() As String
+
+
     Private Sub GiveSizeInfo_Field(sender As Object, e As EventArgs)
         ''
         ''Added 7/31/2019 thomas downes

@@ -162,7 +162,7 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
                 bControlIsStaticText = par_ctlPictureBox.Name.Contains("Text") || par_container.Name.Contains("Text") ||
                     par_ctlPictureBox.Name.Contains("Static") || par_container.Name.Contains("Static");
             }
-            else
+            else if (par_container != null)
             {
                 //Added 1/4/2022 td
                 bControlIsStaticText = par_container.Name.Contains("Text") ||
@@ -470,6 +470,11 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             // Added 12/28/2021 Thomas Downes  
             //
             const bool c_bRemoveHandlers = true; //Added 12/28/2021 td
+
+            //Added 1/5/2022 td
+            //   If the MoveableElement is Null, we probably don't need to 
+            //   bother with removing the event handlers.  
+            if (_controlMoveableElement == null) return; 
 
             //Added 12/28/2021 td
             Init(_controlPictureBox1, _controlMoveableElement, _margin,

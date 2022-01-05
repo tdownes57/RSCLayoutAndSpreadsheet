@@ -234,10 +234,10 @@
     <Compile Include="Dialogs\DialogTextOffset.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\ListCustomFieldsFlow.Designer.vb">
-      <DependentUpon>ListCustomFieldsFlow.vb</DependentUpon>
+    <Compile Include="Dialogs\ListCustomFields.Designer.vb">
+      <DependentUpon>ListCustomFields.vb</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\ListCustomFieldsFlow.vb">
+    <Compile Include="Dialogs\ListCustomFields.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Dialogs\ListStandardFields.Designer.vb">
@@ -364,8 +364,8 @@
     <EmbeddedResource Include="Dialogs\DialogTextOffset.resx">
       <DependentUpon>DialogTextOffset.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\ListCustomFieldsFlow.resx">
-      <DependentUpon>ListCustomFieldsFlow.vb</DependentUpon>
+    <EmbeddedResource Include="Dialogs\ListCustomFields.resx">
+      <DependentUpon>ListCustomFields.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\ListStandardFields.resx">
       <DependentUpon>ListStandardFields.vb</DependentUpon>

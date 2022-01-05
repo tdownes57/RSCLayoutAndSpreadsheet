@@ -860,5 +860,16 @@ ExitHandler:
     End Sub
 
 
+    Public Function FullNameOfMyBaseClass() As String
+        ''
+        ''Added 1/5/2022 thomas downes
+        ''
+        ''  Should return "__RSC_WindowsControlLibrary.RSCMoveableControl".
+        ''
+        Return MyBase.FullNameOfThisBaseClass()
+
+    End Function ''Added Public Function FullNameOfThisBaseClass() As String
+
+
 End Class ''End of "Public Class CtlGraphicSignaturePad"  
 
