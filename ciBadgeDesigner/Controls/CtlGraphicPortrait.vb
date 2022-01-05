@@ -60,9 +60,9 @@ Public Class CtlGraphicPortrait
         ''====If (c_enumElemType = EnumElementType.QRCode) Then objOperationsQR = New Operations_QRCode()
 
         ''Modified 1/2/2022 td
-        objOperationsGraphic = New Operations_StaticGraphic() ''Added 1/1/2022 td
-        typeOps = objOperationsGraphic.GetType()
-        objOperations = objOperationsGraphic
+        objOperationsPortrait = New Operations_Portrait() ''Added 1/1/2022 td
+        typeOps = objOperationsPortrait.GetType()
+        objOperations = objOperationsPortrait
 
         If (objOperations Is Nothing) Then
             ''Added 12/29/2021
@@ -134,7 +134,7 @@ Public Class CtlGraphicPortrait
                         par_operationsType, par_operationsAny,
                         pboolAddMoveability, pboolAddClickability,
                         par_iLastTouched, par_oMoveEvents,
-                        CSng(172 / 170))
+                        CSng(100 / 150))
         ''          Jan2 2022'' par_iSaveToModel, par_iLayoutFun,
 
         ' This call is required by the designer.
@@ -149,16 +149,15 @@ Public Class CtlGraphicPortrait
 
 
 
-    Public Sub New_Potrait(par_elementPic As ClassElementPic, par_iLayoutFunctions As ILayoutFunctions)
+    Public Sub New_Portrait(par_elementPic As ClassElementPic, par_iLayoutFunctions As ILayoutFunctions)
         ''
-        ''Added 9/17/2019 td
+        ''Added 1/5/2022 & 9/17/2019 td
         ''
         ''9/17/2019 td''Me.ElementInfo_Base = par_infoForPic_Base
         ''9/17/2019 td''Me.ElementInfo_Pic = par_infoForPic_Pic
 
         Me.ElementClass_Obj = par_elementPic ''par_elementPic
         Me.ElementInfo_Base = CType(par_elementPic, IElement_Base)
-        ''Me.ElementInfo_Pic = CType(par_elementPic, IElementPic)
         Me.ElementInfo_Pic = CType(par_elementPic, IElementPic)
 
         ''9/20/2019 td''Me.FormDesigner = par_formLayout ''Added 9/4/2019 td

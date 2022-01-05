@@ -81,6 +81,7 @@
     <Compile Include="Classes_Minor\ClassGroupMoveEvents_NotInUse.vb" />
     <Compile Include="Classes_Minor\ClassLabelToImage_NotInUse.vb" />
     <Compile Include="Classes_Minor\ClassLastControlTouched.vb" />
+    <Compile Include="Classes_Minor\ClassRecordLastTouched.vb" />
     <Compile Include="Classes_Minor\ClassRubberbandSelector.vb" />
     <Compile Include="Classes_Minor\ClassSaveToModel.vb" />
     <Compile Include="Controls\CtlAddCustomField.designer.vb">

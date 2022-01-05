@@ -49,6 +49,9 @@ Public Class ClassDesigner
     Public BadgeLayout_Class As ciBadgeInterfaces.BadgeLayoutClass ''Added 10/9/2019 td  
     Private mod_ctlLasttouched As New ClassLastControlTouched ''Added 1/4/2022 td
 
+    ''Use an instance of ClassDesigner instead!!!!! ---1/4/2022 td 
+    Private mod_iRecLastTouched_UseDesignerInstead As New ClassRecordLastTouched ''Added 1/4/2022 td
+
     ''10/4/2019 td''Public Property PreviewBox As PictureBox
     Public WithEvents PreviewBox As PictureBox
 
@@ -936,7 +939,10 @@ Public Class ClassDesigner
         ''Added 8/22/2019 THOMAS D.
         ciPictures_VB.PictureExamples.PathToFolderOfImages = (My.Application.Info.DirectoryPath & "\Images\PictureExamples")
 
-        CtlGraphic_Portrait = New CtlGraphicPortrait(par_elementPic, Me)
+        ''Jan4 2022 td''CtlGraphic_Portrait = New CtlGraphicPortrait(par_elementPic, Me)
+        CtlGraphic_Portrait = CtlGraphicPortrait.GetPortrait(par_elementPic, "CtlGraphic_Portrait",
+                                                             Me, True, mod_ctlLasttouched, Me,
+                                                                mod_oGroupMoveEvents)
 
         ''10/1/2019 td''Me.Controls.Add(CtlGraphicPortrait_Lady)
         Me.DesignerForm.Controls.Add(CtlGraphic_Portrait)

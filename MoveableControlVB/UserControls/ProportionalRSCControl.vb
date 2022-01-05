@@ -99,18 +99,18 @@ Public Class ProportionalRSCControl
 
         ''--MessageBoxTD.Show_Statement("SaveToModel(). Programmer must override this base-class method, using the keyword Overrides.")
 
-        If (Not mod_runSaveToModel_1secAgo) Then
+        If (True) Then ''If (Not mod_runSaveToModel_1secAgo) Then
 
             mod_runSaveToModel_1secAgo = True
             ''MessageBoxTD.Show_Statement("SaveToModel() is executed.")
 
             ''Added 1/4/2022 td 
-            If (lblSavedCount Is Nothing) Then
-                lblSavedCount = New Label()
-                lblSavedCount.Tag = 0
-                lblSavedCount.Text = "Saved count:"
-                Me.Controls.Add(lblSavedCount)
-            End If ''end of "If (lblSavedCount Is Nothing) Then"
+            ''If (lblSavedCount Is Nothing) Then
+            ''    lblSavedCount = New Label()
+            ''    lblSavedCount.Tag = 0
+            ''    lblSavedCount.Text = "Saved count:"
+            ''    Me.Controls.Add(lblSavedCount)
+            ''End If ''end of "If (lblSavedCount Is Nothing) Then"
 
             lblSavedCount.Tag = CInt(lblSavedCount.Tag.ToString()) + 1
             lblSavedCount.Text = ("Saved count: " & lblSavedCount.Tag.ToString())
