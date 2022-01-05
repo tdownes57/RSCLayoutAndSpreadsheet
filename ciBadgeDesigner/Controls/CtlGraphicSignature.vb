@@ -15,7 +15,6 @@ Imports System.Drawing ''Added 10/01/2019 td
 Imports __RSCWindowsControlLibrary ''Added 1/2/2022 td
 
 Public Class CtlGraphicSignature
-    Inherits RSCMoveableControlVB ''Added 1/02/2022 td
     Implements ISaveToModel ''Added 12/17/2021 td 
     Implements IClickableElement ''Added 12/17/2021 td
     Implements IMoveableElement ''Added 12/17/2021 td 
@@ -180,7 +179,7 @@ Public Class CtlGraphicSignature
         ''Added 9/17/2019 td
         ''
         ' This call is required by the designer.
-        InitializeComponent()
+        ''Redundant. Jan5 2022''InitializeComponent()
 
         ''9/17/2019 td''Me.ElementInfo_Base = par_infoForPic_Base
         ''9/17/2019 td''Me.ElementInfo_Pic = par_infoForPic_Pic
@@ -832,7 +831,33 @@ ExitHandler:
         ''Added 12/17/2021 td  
         Return pictureSignature
 
-    End Function
+    End Function ''End of Public Function GetPictureBox() 
+
+    Private Sub picture_MouseMove(sender As Object, par_e As MouseEventArgs) Handles pictureSignature.MouseMove
+
+        ''Added 1/3/2022 thomas downes
+        ''---MyBase.MoveableControl_MouseMove(sender, par_e)
+        MyBase.MoveableControl_MouseMove(Me, par_e)
+
+    End Sub
+
+    Private Sub picture_MouseDown(sender As Object, par_e As MouseEventArgs) Handles pictureSignature.MouseDown
+        ''
+        ''Added 1/4/2022 td 
+        ''
+        ''---MyBase.MoveableControl_MouseDown(sender, par_e)
+        MyBase.MoveableControl_MouseDown(Me, par_e)
+
+    End Sub
+
+    Private Sub picture_MouseUp(sender As Object, par_e As MouseEventArgs) Handles pictureSignature.MouseUp
+        ''
+        ''Added 1/4/2022 td 
+        ''
+        ''---MyBase.MoveableControl_MouseUp(sender, par_e)
+        MyBase.MoveableControl_MouseUp(Me, par_e)
+
+    End Sub
 
 
 End Class ''End of "Public Class CtlGraphicSignaturePad"  

@@ -829,10 +829,12 @@ ExitHandler:
 
     End Sub
 
+
     Private Sub pictureQRCode_MouseMove(sender As Object, par_e As MouseEventArgs) Handles pictureQRCode.MouseMove '', Me.MouseMove
 
         ''Added 1/3/2022 thomas downes
-        MyBase.MoveableControl_MouseMove(sender, par_e)
+        ''---MyBase.MoveableControl_MouseMove(sender, par_e)
+        MyBase.MoveableControl_MouseMove(Me, par_e)
 
     End Sub
 
@@ -840,7 +842,8 @@ ExitHandler:
         ''
         ''Added 1/4/2022 td 
         ''
-        MyBase.MoveableControl_MouseDown(sender, par_e)
+        ''---MyBase.MoveableControl_MouseDown(sender, par_e)
+        MyBase.MoveableControl_MouseDown(Me, par_e)
 
     End Sub
 
@@ -848,12 +851,12 @@ ExitHandler:
         ''
         ''Added 1/4/2022 td 
         ''
-        MyBase.MoveableControl_MouseUp(sender, par_e)
+        ''---MyBase.MoveableControl_MouseUp(sender, par_e)
+        MyBase.MoveableControl_MouseUp(Me, par_e)
 
     End Sub
 
-    Private Sub pictureQRCode_Click(sender As Object, e As EventArgs) Handles pictureQRCode.Click
 
-    End Sub
+
 End Class ''End of Public Class CtlGraphicQRCode 
 

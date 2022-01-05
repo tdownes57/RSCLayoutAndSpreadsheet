@@ -116,8 +116,12 @@ Public Class RSCMoveableControlVB
     Private mod_boolResizeProportionally As Boolean
 
     ''Added 1/4/2022 thomas d. 
-    Const mod_bHandleMouseMoveEvents As Boolean = True
-    Const mod_bLetMonemHandleTheMouse As Boolean = False
+    '' Monem = Seyyed Hamed Monem
+    '' https://www.codeproject.com/tips/709121/move-and-resize-controls-on-a-form-at-runtime-with 
+    ''
+    Protected Const mod_bHandleMouseMoveEvents_Monem As Boolean = False
+    Protected Const mod_bHandleMouseMoveEvents_ByForm As Boolean = True ''True, let's handler Mouse-Move events 
+    ''   the old-fashioned way--by handling events on the Windows form (e.g. VB6-style).
 
     ''Depending on the above Boolean, one of the following will be instantiated. 
     ''Let's rename. 12/28/2021 td''Private mod_movingInAGroup As ControlMove_Group_NonStatic = Nothing
@@ -208,6 +212,7 @@ Public Class RSCMoveableControlVB
 
         ''Added 1/4/2022 td
         Me.ExpectedProportionWH = par_proportionWH_IfNeeded
+        mod_events = par_oMoveabilityEvents
 
         ''Encapsulated 1/3/2022 td 
         Load_Functionality(par_enumElementType, pboolResizeProportionally,
@@ -218,6 +223,12 @@ Public Class RSCMoveableControlVB
                             pboolAddClickability,
                             par_iLastTouched,
                             par_oMoveabilityEvents)
+
+        ''Added 1/5/2022 td
+        RemoveHandler mod_events.Moving_End, AddressOf mod_events_Moving_End
+        RemoveHandler mod_events.Moving_End, AddressOf mod_events_Moving_End
+        RemoveHandler mod_events.Moving_End, AddressOf mod_events_Moving_End
+        AddHandler mod_events.Moving_End, AddressOf mod_events_Moving_End
 
     End Sub ''End of "Public Sub New"
 
@@ -491,7 +502,7 @@ Public Class RSCMoveableControlVB
             ''      mod_events, False, Me)
             mod_moveResizeKeepRatio.Init(objPictureBox, Me, 10, c_bRepaintAfterResize,
                                             mod_events, False, Me, False,
-                                            mod_bHandleMouseMoveEvents,
+                                            mod_bHandleMouseMoveEvents_Monem,
                                             singleProportionWH)
 
             ''            ''1/2/2022 td '' mod_events, False, mod_iSaveToModel)
@@ -515,7 +526,7 @@ Public Class RSCMoveableControlVB
             objPictureBox = Find_PictureBox()
             mod_moveInAGroup.Init(objPictureBox, Me, 10, c_bRepaintAfterResize,
                                             mod_events, False, Me, False,
-                                                mod_bLetMonemHandleTheMouse)
+                                                mod_bHandleMouseMoveEvents_Monem)
 
             mod_iMoveOrResizeFunctionality = mod_moveInAGroup ''Added 12/28/2021 td
 
@@ -668,7 +679,7 @@ Public Class RSCMoveableControlVB
     ''End Sub ''End of "Private Sub mod_designer_ElementRightClicked"
 
 
-    Private Sub mod_events_Moving_End(par_control As Control, par_iSaveToModel As ISaveToModel) Handles mod_events.Moving_End '', mod_events.Resizing_End, mod_events.Moving_InProgress
+    Private Sub mod_events_Moving_End(par_control As Control, par_iSaveToModel As ISaveToModel) ''Handles mod_events.Moving_End '', mod_events.Resizing_End, mod_events.Moving_InProgress
         ''
         ''Added 12/27/2021 td 
         ''
@@ -914,7 +925,7 @@ Public Class RSCMoveableControlVB
         ''
         ''Added 1/4/2022 thomas d.
         ''
-        If (mod_bHandleMouseMoveEvents AndAlso (par_e.Button = MouseButtons.Left)) Then
+        If (mod_bHandleMouseMoveEvents_ByForm AndAlso (par_e.Button = MouseButtons.Left)) Then
             ''
             ''It's a Left-Hand click. 
             ''
@@ -930,7 +941,7 @@ Public Class RSCMoveableControlVB
         ''
         ''Added 1/4/2022 thomas d.
         ''
-        If (mod_bHandleMouseMoveEvents AndAlso (par_e.Button = MouseButtons.Left)) Then
+        If (mod_bHandleMouseMoveEvents_ByForm AndAlso (par_e.Button = MouseButtons.Left)) Then
             ''Let the module know that a MouseMove took place. 
             mod_iMoveOrResizeFunctionality.MoveParentControl(CType(sender, Control), par_e)
         End If
@@ -942,7 +953,7 @@ Public Class RSCMoveableControlVB
         ''
         ''Added 1/4/2022 thomas d.
         ''
-        If (mod_bHandleMouseMoveEvents AndAlso (par_e.Button = MouseButtons.Left)) Then
+        If (mod_bHandleMouseMoveEvents_ByForm AndAlso (par_e.Button = MouseButtons.Left)) Then
             ''
             ''It's a Left-Hand click. 
             ''
