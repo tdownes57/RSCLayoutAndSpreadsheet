@@ -124,6 +124,13 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
 
             .FieldInfo = Me.ElementObject_Copy.FieldInfo
 
+            ''Added 1/5/2022 td
+            ''  Populate the handy interface references.
+            ''  
+            Me.ElementCopy_Info_Base = Me.ElementObject_Copy
+            Me.ElementCopy_Info_TextOnly = Me.ElementObject_Copy
+            Me.ElementCopy_Info_TextField = Me.ElementObject_Copy
+
             ''Added 9/18/2019 td 
             .ElementInfo_Base = Me.ElementCopy_Info_Base
             ''12/31/2021 td''.ElementInfo_Text = Me.ElementCopy_Info_Text
@@ -135,7 +142,9 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
 
             .Width = .ElementInfo_Base.Width_Pixels
             .Height = .ElementInfo_Base.Height_Pixels
-            .Refresh_Image(True)
+
+            ''Jan5 2022 td''.Refresh_Image(True)
+            .Refresh_Image(True, True, True, True, Me.ElementObject_Copy)
 
         End With ''End of "With CtlGraphicFldLabel1"
 

@@ -43,43 +43,45 @@ Public Class DiskFilesVB
 
     End Function ''Endo f "Public Shared Function PathToNotes_HowContextMenusAreGenerated() As String"
 
-    ''Public Shared Function PathToFile_XML_Personality() As String
-    ''    ''
-    ''    ''Added 1/14/2020 Thomas Downes    
-    ''    ''
-    ''    Dim strPathToXML As String
 
-    ''    ''The following line will allow the File | Save As....
-    ''    ''   menu item to be effective. ----10/13/2019 td
-    ''    strPathToXML = My.Settings.PathToXML_Saved_Personality
+    Public Shared Function PathToFile_XML_Personality() As String
+        ''
+        ''Added 1/14/2020 Thomas Downes    
+        ''
+        Dim strPathToXML As String
 
-    ''    If ("" = strPathToXML) Then
-    ''        ''1/24 td''strPathToXML = (My.Application.Info.DirectoryPath & "\ciLayoutDesignVB_Saved.xml").Replace("\\", "\")
-    ''        strPathToXML = (My.Application.Info.DirectoryPath & "\ciPersonality_Saved.xml").Replace("\\", "\")
-    ''    End If ''End of "If ("" = strPathToXML) Then"
+        ''The following line will allow the File | Save As....
+        ''   menu item to be effective. ----10/13/2019 td
+        strPathToXML = My.Settings.PathToXML_Saved_Personality
 
-    ''    Return strPathToXML
+        If ("" = strPathToXML) Then
+            ''1/24 td''strPathToXML = (My.Application.Info.DirectoryPath & "\ciLayoutDesignVB_Saved.xml").Replace("\\", "\")
+            strPathToXML = (My.Application.Info.DirectoryPath & "\ciPersonality_Saved.xml").Replace("\\", "\")
+        End If ''End of "If ("" = strPathToXML) Then"
 
-    ''End Function ''End of "Public Shared Function PathToFile_XML_Personality() As String"
+        Return strPathToXML
 
-    ''Public Shared Function PathToFile_XML_ElementsCache() As String
-    ''    ''1/14/2020 td'Public Shared Function PathToFile_XML_ElementsCache() As String
-    ''    ''
-    ''    ''Added 10/12/2019 Thomas Downes    
-    ''    ''
-    ''    Dim strPathToXML As String
+    End Function ''End of "Public Shared Function PathToFile_XML_Personality() As String"
 
-    ''    ''The following line will allow the File | Save As....
-    ''    ''   menu item to be effective. ----10/13/2019 td
-    ''    strPathToXML = My.Settings.PathToXML_Saved_ElementsCache
 
-    ''    If ("" = strPathToXML) Then
-    ''        strPathToXML = (My.Application.Info.DirectoryPath & "\ciLayoutDesignVB_Saved.xml").Replace("\\", "\")
-    ''    End If ''End of "If ("" = strPathToXML) Then"
+    Public Shared Function PathToFile_XML_ElementsCache() As String
+        ''1/14/2020 td'Public Shared Function PathToFile_XML_ElementsCache() As String
+        ''
+        ''Added 10/12/2019 Thomas Downes    
+        ''
+        Dim strPathToXML As String
 
-    ''    Return strPathToXML
+        ''The following line will allow the File | Save As....
+        ''   menu item to be effective. ----10/13/2019 td
+        strPathToXML = My.Settings.PathToXML_Saved_ElementsCache
 
-    ''End Function ''End of "Public Shared Function PathToFile_XML_ElementsCache() As String"
+        If ("" = strPathToXML) Then
+            strPathToXML = (My.Application.Info.DirectoryPath & "\ciLayoutDesignVB_Saved.xml").Replace("\\", "\")
+        End If ''End of "If ("" = strPathToXML) Then"
+
+        Return strPathToXML
+
+    End Function ''End of "Public Shared Function PathToFile_XML_ElementsCache() As String"
 
 
     Public Shared Sub DisplayStringDataInNotepad(par_stringData As String)

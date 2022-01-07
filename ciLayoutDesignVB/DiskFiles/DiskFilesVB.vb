@@ -43,6 +43,7 @@ Public Class DiskFilesVB
 
     End Function ''Endo f "Public Shared Function PathToNotes_HowContextMenusAreGenerated() As String"
 
+
     Public Shared Function PathToFile_XML_Personality() As String
         ''
         ''Added 1/14/2020 Thomas Downes    
@@ -61,6 +62,7 @@ Public Class DiskFilesVB
         Return strPathToXML
 
     End Function ''End of "Public Shared Function PathToFile_XML_Personality() As String"
+
 
     Public Shared Function PathToFile_XML_ElementsCache() As String
         ''1/14/2020 td'Public Shared Function PathToFile_XML_ElementsCache() As String

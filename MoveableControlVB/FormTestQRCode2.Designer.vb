@@ -31,11 +31,13 @@ Partial Class FormTestQRCode2
         '
         Me.LabelHeader1.AutoSize = True
         Me.LabelHeader1.Font = New System.Drawing.Font("Microsoft Sans Serif", 28.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelHeader1.ForeColor = System.Drawing.Color.Gray
         Me.LabelHeader1.Location = New System.Drawing.Point(12, 19)
         Me.LabelHeader1.Name = "LabelHeader1"
         Me.LabelHeader1.Size = New System.Drawing.Size(844, 54)
         Me.LabelHeader1.TabIndex = 0
         Me.LabelHeader1.Text = "Run the application to test the QR Code"
+        Me.LabelHeader1.Visible = False
         '
         'PictureBox_BadgeFront
         '

@@ -490,12 +490,16 @@ Public Class Operations_FieldElement
         ''9/18/2019 td''frm_ToShow.LoadFieldAndForm(Me.ElementInfo_Base, Me.ElementInfo_Text, Me.FieldInfo, Me.FormDesigner, Me)
 
         ''Dec.12 2021''Me.Parent_MenuCache.Cache.CheckEditsCacheIsLatest()
-        Dim boolIsLatest As Boolean ''Dec. 12, 2021 td
+        Dim boolIsLatest As Boolean '' = True ''Dec. 12, 2021 td
         Dim boolIsCopyOfLatest As Boolean ''Dec. 12, 2021 td
 
         ''Added 12/12/2021 thomas downes
         ''#1 1/5/2022 td''Me.CacheOfFieldsEtc.CheckCacheIsLatestForEdits(boolIsLatest, boolIsCopyOfLatest)
         ''#2 1/5/2022 td''Me.CtlCurrentElement.CheckCacheIsLatestForEdits(boolIsLatest, boolIsCopyOfLatest)
+        Dim objCacheOfFieldsEtc As ciBadgeCachePersonality.ClassElementsCache_Deprecated ''Added 1/5/2022
+        Me.CtlCurrentElementField = CType(Me.CtlCurrentElement, CtlGraphicFldLabel)
+        objCacheOfFieldsEtc = Me.CtlCurrentElementField.ParentDesigner.ElementsCache_UseEdits
+        objCacheOfFieldsEtc.CheckCacheIsLatestForEdits(boolIsLatest, boolIsCopyOfLatest)
         If (Not boolIsLatest) Then Throw New Exception("This is not the latest cache of edits.")
 
         With Me.CtlCurrentElementField ''Added 10/17/2019 td

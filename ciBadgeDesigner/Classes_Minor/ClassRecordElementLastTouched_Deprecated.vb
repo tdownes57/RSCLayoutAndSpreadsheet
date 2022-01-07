@@ -2,20 +2,20 @@
 Option Strict On
 Imports ciBadgeInterfaces
 
-Public Class ClassRecordLastTouched
+Public Class ClassRecordElementLastTouched_Deprecated
     Implements IRecordElementLastTouched
     ''
     ''Added 1/4/2022 td 
     ''
-    ''    Use a reference to an instance of ClassDesigner, instead of this class. 
+    ''    Deprecated. Use a reference to an instance of ClassDesigner, instead of this class. 
     ''
-    ''    Use a reference to an instance of ClassDesigner, instead of this class. 
+    ''    Deprecated. Use a reference to an instance of ClassDesigner, instead of this class. 
     ''
-    ''    Use a reference to an instance of ClassDesigner, instead of this class. 
+    ''    Deprecated. Use a reference to an instance of ClassDesigner, instead of this class. 
     ''
-    ''    Use a reference to an instance of ClassDesigner, instead of this class. 
+    ''    Deprecated. Use a reference to an instance of ClassDesigner, instead of this class. 
     ''
-    ''    Use a reference to an instance of ClassDesigner, instead of this class. 
+    ''    Deprecated. Use a reference to an instance of ClassDesigner, instead of this class. 
     ''
     ''
     Public Sub RecordElementLastTouched(par_elementMoved As IMoveableElement, par_elementClicked As IClickableElement) Implements IRecordElementLastTouched.RecordElementLastTouched

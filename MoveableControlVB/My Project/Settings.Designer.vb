@@ -53,6 +53,102 @@ Namespace My
                 Return defaultInstance
             End Get
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property controlLocations() As String
+            Get
+                Return CType(Me("controlLocations"),String)
+            End Get
+            Set
+                Me("controlLocations") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property PathToXML_Saved_ElementsCache() As String
+            Get
+                Return CType(Me("PathToXML_Saved_ElementsCache"),String)
+            End Get
+            Set
+                Me("PathToXML_Saved_ElementsCache") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property PathToXML_Saved_Personality() As String
+            Get
+                Return CType(Me("PathToXML_Saved_Personality"),String)
+            End Get
+            Set
+                Me("PathToXML_Saved_Personality") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property PathToSavedXML_Last() As String
+            Get
+                Return CType(Me("PathToSavedXML_Last"),String)
+            End Get
+            Set
+                Me("PathToSavedXML_Last") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property PathToSavedXML_Prior1() As String
+            Get
+                Return CType(Me("PathToSavedXML_Prior1"),String)
+            End Get
+            Set
+                Me("PathToSavedXML_Prior1") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property PathToSavedXML_Prior2() As String
+            Get
+                Return CType(Me("PathToSavedXML_Prior2"),String)
+            End Get
+            Set
+                Me("PathToSavedXML_Prior2") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property PathToSavedXML_Prior3() As String
+            Get
+                Return CType(Me("PathToSavedXML_Prior3"),String)
+            End Get
+            Set
+                Me("PathToSavedXML_Prior3") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property PathToLastDirectoryForXMLFile() As String
+            Get
+                Return CType(Me("PathToLastDirectoryForXMLFile"),String)
+            End Get
+            Set
+                Me("PathToLastDirectoryForXMLFile") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

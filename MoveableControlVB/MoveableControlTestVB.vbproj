@@ -6,11 +6,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{74050388-F6C4-4E0A-BA5C-ADB0BD403C95}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>MoveableControlTestVB.My.MyApplication</StartupObject>
+    <StartupObject>Sub Main</StartupObject>
     <RootNamespace>MoveableControlTestVB</RootNamespace>
     <AssemblyName>MoveableControlTestVB</AssemblyName>
     <FileAlignment>512</FileAlignment>
-    <MyType>WindowsForms</MyType>
+    <MyType>WindowsFormsWithCustomSubMain</MyType>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -77,6 +77,19 @@
     <Compile Include="Classes\ClassLastControlTouched.vb" />
     <Compile Include="Classes\ClassSaveToModel.vb" />
     <Compile Include="Classes\MessageBoxTD.vb" />
+    <Compile Include="Classes\PictureExamples.vb" />
+    <Compile Include="FormDisplayCacheLayouts.designer.vb">
+      <DependentUpon>FormDisplayCacheLayouts.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormDisplayCacheLayouts.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormFieldsAndPortrait.Designer.vb">
+      <DependentUpon>FormFieldsAndPortrait.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormFieldsAndPortrait.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormTestQRCode2.Designer.vb">
       <DependentUpon>FormTestQRCode2.vb</DependentUpon>
     </Compile>
@@ -110,6 +123,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Startup.vb" />
     <Compile Include="UserControls\CtlGraphPopMenuEditSingle.designer.vb">
       <DependentUpon>CtlGraphPopMenuEditSingle.vb</DependentUpon>
     </Compile>
@@ -145,6 +159,12 @@
     <Compile Include="Utilities\Module1Enumerationsvb.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FormDisplayCacheLayouts.resx">
+      <DependentUpon>FormDisplayCacheLayouts.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormFieldsAndPortrait.resx">
+      <DependentUpon>FormFieldsAndPortrait.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormTestQRCode2.resx">
       <DependentUpon>FormTestQRCode2.vb</DependentUpon>
     </EmbeddedResource>
@@ -198,6 +218,18 @@
     <ProjectReference Include="..\ciBadgeInterfaces\ciBadgeInterfaces.vbproj">
       <Project>{3d1acca6-585e-4c92-9a6d-9a51d2f72f5f}</Project>
       <Name>ciBadgeInterfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ciBadgeRecipientsCS\ciBadgeRecipientsCS.csproj">
+      <Project>{717d4661-8a27-4c1e-a1dd-fda12010daca}</Project>
+      <Name>ciBadgeRecipientsCS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ciBadgeRecipients\ciBadgeRecipients.vbproj">
+      <Project>{2f42efad-0baa-4057-a1b8-36412cf0e2c0}</Project>
+      <Name>ciBadgeRecipients</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ciBadgeSerialize\ciBadgeSerialize.vbproj">
+      <Project>{59d5b213-e44b-432a-8237-53d91ec9c04a}</Project>
+      <Name>ciBadgeSerialize</Name>
     </ProjectReference>
     <ProjectReference Include="..\MoveAndResizeControls_Monem\MoveAndResizeControls_Monem.csproj">
       <Project>{3d6a51a2-395e-467f-a3c4-8d6ed1da961e}</Project>

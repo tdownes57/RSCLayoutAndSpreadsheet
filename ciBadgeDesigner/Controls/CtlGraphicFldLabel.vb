@@ -35,6 +35,7 @@ Public Class CtlGraphicFldLabel
     Public Shared UseExampleValues As Boolean
 
     Public Shared Function GetFieldElement(par_elementFld As ClassElementField,
+                                           par_oDesigner As ClassDesigner,
                                       par_nameOfControl As String,
                                       par_iLayoutFun As ILayoutFunctions,
                                 par_iRecordLastTouched As IRecordElementLastTouched,
@@ -72,7 +73,7 @@ Public Class CtlGraphicFldLabel
         ''                pstrWhyWasICreated As String,
         ''                par_formRecordLastTouched As IRecordElementLastTouched)
 
-        CtlFieldElem1 = New CtlGraphicFldLabel(par_elementFld, par_iLayoutFun,
+        CtlFieldElem1 = New CtlGraphicFldLabel(par_elementFld, par_oDesigner, par_iLayoutFun,
                                                    "Called by GetFieldElement.",
                                                    typeOps, objOperations,
                                                    bAddFunctionalitySooner,
@@ -114,6 +115,7 @@ Public Class CtlGraphicFldLabel
     '' #2 8/29/2019 td''Public ElementInfo_Text As ClassElementText
 
     Public ElementClass_Obj As ClassElementField ''Added 9/4/2019 thomas downes
+    ''Jan5 2022''Public ElementClass_Obj_Copy As ClassElementField ''Added 1/05/2022 thomas downes
     Public ElementInfo_TextOnly As ciBadgeInterfaces.IElement_TextOnly ''Modifield 10/12/2019
     Public ElementInfo_Base As ciBadgeInterfaces.IElement_Base
     ''12/31/2021 td''Public ElementInfo_Field As ciBadgeInterfaces.IElement_TextField ''Added 10/12/2019 td
@@ -132,6 +134,7 @@ Public Class CtlGraphicFldLabel
     ''
     ''Denigrated. 9/19/2019 td''Public FormDesigner As FormDesignProtoTwo ''Added 8/9/2019 td  
     Public LayoutFunctions As ciBadgeInterfaces.ILayoutFunctions ''Added 8/9/2019 td  
+    Public ParentDesigner As ClassDesigner = Nothing ''Added 1/5/2022 td
 
     Public TempResizeInfo_W As Integer = 0 ''Intial resizing width.  (Before any adjustment is made.)
     Public TempResizeInfo_H As Integer = 0 ''Intial resizing height.  (Before any adjustment is made.)
@@ -183,6 +186,7 @@ Public Class CtlGraphicFldLabel
     End Sub
 
     Public Sub New(par_elementField As ClassElementField,
+                   par_oDesigner As ClassDesigner,
                   par_iLayoutFun As ILayoutFunctions,
                    pstrWhyWasICreated As String,
                    par_operationsType As Type,
@@ -210,6 +214,7 @@ Public Class CtlGraphicFldLabel
 
         ' Add any initialization after the InitializeComponent() call.
         Me.FieldInfo = par_elementField.FieldInfo
+        Me.ParentDesigner = par_oDesigner ''Added 1/5/2022 td
 
         Me.ElementClass_Obj = par_elementField
         Me.ElementInfo_Base = CType(par_elementField, IElement_Base)
@@ -450,7 +455,8 @@ ExitHandler:
     Public Sub Refresh_Image(pbRefreshSize As Boolean,
                              Optional pboolResizeLabelControl As Boolean = True,
                              Optional pboolRefreshLabelControl As Boolean = True,
-                             Optional pboolRefreshUserControl As Boolean = False)
+                             Optional pboolRefreshUserControl As Boolean = False,
+                             Optional pobjElementField As ClassElementField = Nothing)
         ''
         ''Added 7/25/2019 thomas d 
         ''
@@ -461,7 +467,14 @@ ExitHandler:
 
         Dim boolScaleFontSize As Boolean ''Added 9/15/2019 thomas d. 
 
-        ElementInfo_TextOnly.Text_Static = LabelText()
+        ''Added 1/5/2022 td
+        Dim info_TextOnly As IElement_TextOnly ''Added 1/5/2022 
+
+        info_TextOnly = Me.ElementInfo_TextOnly ''Added 1/5/2022
+        ''-----If (info_TextOnly Is Nothing) Then info_TextOnly = 
+
+        ''1/5/2022 td''ElementInfo_TextOnly.Text_Static = LabelText()
+        ElementInfo_TextOnly.Text_Static = LabelText(pobjElementField)
 
         ''Me.ElementInfo.Width = pictureLabel.Width
         ''Me.ElementInfo.Height = pictureLabel.Height
@@ -852,21 +865,27 @@ ExitHandler:
 
     End Function ''End of "Public Function Rotated_180_360() As Boolean"
 
-    Public Function LabelText() As String
+    Public Function LabelText(Optional par_objElementCopy As ClassElementField = Nothing) As String
         ''
         ''Added 7/25/2019 thomas d 
         ''
         ''----Return Me.ElementClass_Obj.LabelText_ToDisplay(True)
         If (Me.ElementClass_Obj Is Nothing) Then
 
-            ''Added 12/2/2021 thomas downes
-            MessageBox.Show("Error, ElementClassObject is null.")
-            Return "Error, ElementClassObject is null."
+            If (par_objElementCopy Is Nothing) Then
+                ''Added 12/2/2021 thomas downes
+                MessageBox.Show("Error, ElementClassObject is null.")
+                Return "Error, ElementClassObject is null."
+            Else
+                ''Added 1/5/2022 td 
+                Return par_objElementCopy.LabelText_ToDisplay(True)
+
+            End If ''End of "If (par_objElementCopy Is Nothing) Then ... Else ...."
 
         Else
             Return Me.ElementClass_Obj.LabelText_ToDisplay(True)
 
-        End If
+        End If ''ENd of "If (Me.ElementClass_Obj Is Nothing) Then ... Else ...."
 
         ''---------------Obselete as of 10/16/2019 thomas d.-------------
         ''Select Case True

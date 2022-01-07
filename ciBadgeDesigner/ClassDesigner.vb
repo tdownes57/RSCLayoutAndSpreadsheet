@@ -51,7 +51,7 @@ Public Class ClassDesigner
     Private mod_ctlLasttouched As New ClassLastControlTouched ''Added 1/4/2022 td
 
     ''Use an instance of ClassDesigner instead!!!!! ---1/4/2022 td 
-    Private mod_iRecLastTouched_UseDesignerInstead As New ClassRecordLastTouched ''Added 1/4/2022 td
+    ''----Jan6 2022---Private mod_iRecLastTouched_UseDesignerInstead As New ClassRecordElementLastTouched_Deprecated ''Added 1/4/2022 td
     Private Const mod_bAddHandlersForRightClick As Boolean = False ''Added 1/5/2022 td
 
     ''10/4/2019 td''Public Property PreviewBox As PictureBox
@@ -1348,7 +1348,7 @@ Public Class ClassDesigner
 
             ''Added 1/4/2022 td
             Dim strNameOfControl As String = "Ctl" + each_element.FieldEnum.ToString()
-            label_control = CtlGraphicFldLabel.GetFieldElement(each_element, strNameOfControl,
+            label_control = CtlGraphicFldLabel.GetFieldElement(each_element, Me, strNameOfControl,
                                                         Me, Me, mod_ctlLasttouched,
                                                         mod_oGroupMoveEvents)
 
@@ -2057,7 +2057,10 @@ Public Class ClassDesigner
         ''  Simple Drawing Selection Shape (Or Rubberband Shape)       
         ''  https://www.dreamincode.net/forums/topic/59049-simple-drawing-selection-shape-or-rubberband-shape/
         ''
-        mod_rubberbandClass.MouseUp(sender, e)
+        ''Jan6 2022 td''mod_rubberbandClass.MouseUp(sender, e)
+        If (mod_rubberbandClass IsNot Nothing) Then
+            mod_rubberbandClass.MouseUp(sender, e)
+        End If ''End of "If (mod_rubberbandClass IsNot Nothing) Then"
 
     End Sub
 
