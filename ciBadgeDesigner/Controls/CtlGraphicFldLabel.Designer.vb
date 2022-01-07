@@ -42,7 +42,7 @@ Partial Class CtlGraphicFldLabel
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pictureLabel.BackColor = System.Drawing.Color.White
         Me.pictureLabel.Location = New System.Drawing.Point(0, 0)
-        Me.pictureLabel.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.pictureLabel.Margin = New System.Windows.Forms.Padding(4)
         Me.pictureLabel.Name = "pictureLabel"
         Me.pictureLabel.Size = New System.Drawing.Size(337, 41)
         Me.pictureLabel.TabIndex = 0
@@ -87,7 +87,7 @@ Partial Class CtlGraphicFldLabel
         Me.Controls.Add(Me.LinkMessageFYI)
         Me.Controls.Add(Me.textTypeExample)
         Me.Controls.Add(Me.pictureLabel)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "CtlGraphicFldLabel"
         Me.Size = New System.Drawing.Size(337, 41)
         CType(Me.pictureLabel, System.ComponentModel.ISupportInitialize).EndInit()

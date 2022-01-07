@@ -686,6 +686,8 @@ Public Class Startup
 
         My.Settings.PathToLastDirectoryForXMLFile = objFileInfo.DirectoryName
 
+        My.Settings.Save() ''Added 1/7/2022 td
+
     End Sub ''End of "Public Shared Sub SaveFullPathToFileXML()"
 
 

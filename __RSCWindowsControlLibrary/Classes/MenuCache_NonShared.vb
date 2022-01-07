@@ -182,7 +182,8 @@ Friend Class MenuCache_NonShared
             ''Add breadcrumbs for other programmers, such as myself, LOL. 
             ''
             Const c_AddHeadersToMenu As Boolean = True ''12/30 td
-            Generate_Headers(c_AddHeadersToMenu) ''12/30 td
+            ''Jan7 2022 td ''Generate_Headers(c_AddHeadersToMenu) ''12/30 td
+            Generate_Headers(c_AddHeadersToMenu, par_typeOperations.Name) ''12/30 td
 
         End If ''End of "If (pbIncludeHeaders) Then"
 
@@ -195,7 +196,8 @@ Friend Class MenuCache_NonShared
     End Sub ''End of Sub "Private Sub Generate_BasicEdits"
 
 
-    Private Sub Generate_Headers(Optional pboolAddHeadersToMenu As Boolean = True)
+    Private Sub Generate_Headers(Optional pboolAddHeadersToMenu As Boolean = True,
+                                 Optional pstrOperationsTypeName As String = "")
         ''
         ''Encapsulated 12/30/2021 thomas
         ''
@@ -227,7 +229,16 @@ Friend Class MenuCache_NonShared
         ''toolMenuItemHeader3.Text = "       & ...\Operations_EditElement.vb"
         ''toolMenuItemHeader4a.Text = "Sub MenuCache_ElemFlds.Generate_BasicEdits()"
         toolMenuItemHeader2.Text = "MenuCache_NonShared - a class"
-        toolMenuItemHeader3.Text = "Operations__Generic - a class"
+        ''--Jan7 2022--''toolMenuItemHeader3.Text = "Operations__Generic - a class"
+
+        ''Added 1/7/2022  thomas d.
+        If (Not String.IsNullOrEmpty(pstrOperationsTypeName)) Then
+            ''Added 1/7/2022  thomas d.
+            toolMenuItemHeader3.Text = (pstrOperationsTypeName & " - a class")
+        Else
+            toolMenuItemHeader3.Text = "Operations__Generic - a class"
+        End If ''End of "If (String.IsNullOrEmpty(pstrOperationsTypeName)) Then ... Else ..."
+
         toolMenuItemHeader4a.Text = "Generate_ReflectionWork - a Sub"
         toolMenuItemHeader4b.Text = "... uses Reflection to build the menu below."
         toolMenuItemHeader4a.BackColor = Color.Aqua

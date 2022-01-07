@@ -915,7 +915,26 @@ ExitHandler:
 
     End Sub
 
+    Private Sub picturePortrait_MouseDown(sender As Object, par_e As MouseEventArgs) Handles picturePortrait.MouseDown
+        ''
+        ''Added 1/07/2022 td 
+        ''
+        MyBase.MoveableControl_MouseDown(Me, par_e)
 
+    End Sub
 
+    Private Sub picturePortrait_MouseMove(sender As Object, par_e As MouseEventArgs) Handles picturePortrait.MouseMove
+
+        ''Added 1/07/2022 thomas downes
+        MyBase.MoveableControl_MouseMove(Me, par_e)
+
+    End Sub
+
+    Private Sub picturePortrait_MouseUp(sender As Object, par_e As MouseEventArgs) Handles picturePortrait.MouseUp
+
+        ''Added 1/07/2022 thomas downes
+        MyBase.MoveableControl_MouseUp(Me, par_e)
+
+    End Sub
 End Class ''End of Public Class CtlGraphicPortrait 
 

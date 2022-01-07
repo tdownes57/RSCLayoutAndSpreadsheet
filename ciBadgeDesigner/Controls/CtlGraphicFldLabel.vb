@@ -1252,8 +1252,25 @@ ExitHandler:
 
     End Sub
 
+    Private Sub pictureLabel_MouseDown(sender As Object, par_e As MouseEventArgs) Handles pictureLabel.MouseDown
+        ''
+        ''Added 1/07/2022 td 
+        ''
+        MyBase.MoveableControl_MouseDown(Me, par_e)
 
+    End Sub
 
+    Private Sub pictureLabel_MouseMove(sender As Object, par_e As MouseEventArgs) Handles pictureLabel.MouseMove
 
+        ''Added 1/07/2022 thomas downes
+        MyBase.MoveableControl_MouseMove(Me, par_e)
 
+    End Sub
+
+    Private Sub pictureLabel_MouseUp(sender As Object, par_e As MouseEventArgs) Handles pictureLabel.MouseUp
+
+        ''Added 1/07/2022 thomas downes
+        MyBase.MoveableControl_MouseUp(Me, par_e)
+
+    End Sub
 End Class

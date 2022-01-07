@@ -78,6 +78,7 @@
     <Compile Include="Classes\ClassSaveToModel.vb" />
     <Compile Include="Classes\MessageBoxTD.vb" />
     <Compile Include="Classes\PictureExamples.vb" />
+    <Compile Include="ClassLabelToImage.vb" />
     <Compile Include="FormDisplayCacheLayouts.designer.vb">
       <DependentUpon>FormDisplayCacheLayouts.vb</DependentUpon>
     </Compile>
@@ -107,6 +108,7 @@
     <Compile Include="MenuOperations\Operations__Generic.vb" />
     <Compile Include="MenuOperations\Operations_StaticText.vb" />
     <Compile Include="MenuOperations\Operations__Useless.vb" />
+    <Compile Include="modFonts.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -230,6 +232,10 @@
     <ProjectReference Include="..\ciBadgeSerialize\ciBadgeSerialize.vbproj">
       <Project>{59d5b213-e44b-432a-8237-53d91ec9c04a}</Project>
       <Name>ciBadgeSerialize</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ciLayoutPrintLib\ciLayoutPrintLib.vbproj">
+      <Project>{f8271e6c-5c26-4cec-bd4c-ad3b10fef6b9}</Project>
+      <Name>ciLayoutPrintLib</Name>
     </ProjectReference>
     <ProjectReference Include="..\MoveAndResizeControls_Monem\MoveAndResizeControls_Monem.csproj">
       <Project>{3d6a51a2-395e-467f-a3c4-8d6ed1da961e}</Project>
