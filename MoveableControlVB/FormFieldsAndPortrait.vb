@@ -208,9 +208,8 @@ Public Class FormFieldsAndPortrait
         ''  mod_designer, True, mod_ctlLasttouched, mod_eventsSingleton,
         ''  DiskFilesVB.PathToFile_Sig())
 
-        mod_ctlStaticText = CtlGraphicStaticText.GetQRCode(objElement, "mod_ctlStaticText",
-          mod_designer, True, mod_ctlLasttouched, mod_designer,
-          mod_eventsSingleton)
+        mod_ctlStaticText = CtlGraphicStaticText.GetStaticText(objElement, "mod_ctlStaticText",
+          mod_designer, True, mod_ctlLasttouched, mod_eventsSingleton)
 
         mod_ctlStaticText.Visible = True
         mod_ctlStaticText.Left = mod_ctlQRCode.Width

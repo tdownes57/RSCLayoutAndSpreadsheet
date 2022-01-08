@@ -167,7 +167,8 @@ Public Class CtlGraphicStaticText
 
     Public Sub New(par_elementST As ClassElementStaticText,
                    par_iLayoutFun As ILayoutFunctions,
-                  pboolResizeProportionally As Boolean,
+                   par_iRefreshPreview As IRefreshPreview,
+                   pboolResizeProportionally As Boolean,
                    par_operationsType As Type,
                    par_operationsAny As Object,
                    pboolAddMoveability As Boolean,
@@ -193,7 +194,7 @@ Public Class CtlGraphicStaticText
         ' Add any initialization after the InitializeComponent() call.
 
         ''Encapsulated 12/30/2021 td
-        New_StaticText(par_elementST, par_iLayoutFun)
+        New_StaticText(par_elementST, par_iRefreshPreview)
 
     End Sub
 

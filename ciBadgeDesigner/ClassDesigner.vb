@@ -74,7 +74,8 @@ Public Class ClassDesigner
 
     Public Property CtlGraphic_Signat As CtlGraphicSignature ''Added 10/10/2019 td
     Public Property CtlGraphic_QRCode As CtlGraphicQRCode ''Added 10/10/2019 td
-    Public Property CtlGraphic_StaticText_temp As CtlGraphicStaticText ''Added 11/29/2019 td
+
+    ''Jan7 2022 td''Public Property CtlGraphic_StaticText_temp As CtlGraphicStaticText ''Added 11/29/2019 td
     Public Property ListCtlGraphic_StaticTexts As New HashSet(Of CtlGraphicStaticText) ''Added 12/18/2021 td
 
 
@@ -149,6 +150,9 @@ Public Class ClassDesigner
     ''Added 9/20/2019 td  
     ''10/17/2019 td''Private mod_listOfFieldControls As New List(Of CtlGraphicFldLabel)
     Private mod_listOfFieldControls As New HashSet(Of CtlGraphicFldLabel)
+    Private mod_listOfTextControls As New HashSet(Of CtlGraphicStaticText) ''Added Jan8 2022 td
+    Private mod_listOfGraphicControls As New HashSet(Of CtlGraphicStaticGraphic) ''Added Jan8 2022 td
+
     ''Added 11/28/2021 thomas downes
     ''   Let's keep track of every control created by this object (Of ClassDesigner). 
     Private mod_listOfDesignerControls As New HashSet(Of Control)
@@ -342,50 +346,40 @@ Public Class ClassDesigner
         ''
         Dim objListenerStaticText As MoveAndResizeControls_Monem.ControlResizeProportionally_TD
         Dim boolListenerFound As Boolean ''Added 12/15/2021 td 
+        Dim each_ctlStaticText As CtlGraphicStaticText ''Added 12/15/2021 td
 
-        If (CtlGraphic_StaticText_temp Is Nothing) Then Return ''Don't bother proceeding.--1/5/2022
+        ''1/8/2022''If (CtlGraphic_StaticText_temp Is Nothing) Then Return ''Don't bother proceeding.--1/5/2022
 
-        boolListenerFound = mod_designerListener.DictyControlResizing.ContainsKey(CtlGraphic_StaticText_temp)
-        If (boolListenerFound) Then
-            objListenerStaticText = mod_designerListener.DictyControlResizing(CtlGraphic_StaticText_temp)
-            objListenerStaticText.RemoveEventHandlers()
-            mod_designerListener.DictyControlResizing.Remove(CtlGraphic_StaticText_temp) ''Added 12/17/2021 td
-        Else
-            MessageBox.Show("We don't see the event-listener for the StaticText control.")
-
-        End If ''End of "If (boolListenerFound) Then ... Else ..."
-
-        CtlGraphic_StaticText_temp.Dispose() ''Added Dec. 8, 2021
-        CtlGraphic_StaticText_temp.Visible = False ''Added Dec. 18, 2021
-        Me.DesignerForm.Controls.Remove(CtlGraphic_StaticText_temp) ''Added Dec. 8, 2021
-        mod_listOfDesignerControls.Remove(CtlGraphic_StaticText_temp) ''Added Dec. 8, 2021
-        CtlGraphic_StaticText_temp = Nothing
+        If (ListCtlGraphic_StaticTexts Is Nothing) Then Return ''There are no static texts. --1/8/2022
 
         ''
         ''Added 12/18/2021 thomas 
         ''
-        For Each each_control As CtlGraphicStaticText In ListCtlGraphic_StaticTexts
+        For Each each_ctlStaticText In ListCtlGraphic_StaticTexts
 
-            boolListenerFound = mod_designerListener.DictyControlResizing.ContainsKey(each_control)
+            boolListenerFound = mod_designerListener.DictyControlResizing.ContainsKey(each_ctlStaticText)
             If (boolListenerFound) Then
-                objListenerStaticText = mod_designerListener.DictyControlResizing(each_control)
+                objListenerStaticText = mod_designerListener.DictyControlResizing(each_ctlStaticText)
                 objListenerStaticText.RemoveEventHandlers()
-                mod_designerListener.DictyControlResizing.Remove(each_control) ''Added 12/17/2021 td
+                mod_designerListener.DictyControlResizing.Remove(each_ctlStaticText) ''Added 12/17/2021 td
             Else
                 ''---MessageBox.Show("We don't see the event-listener for the StaticText control.")
                 StatusLabelWarningLabel.Text = "We don't see the event-listener for the StaticText control."
 
             End If ''End of "If (boolListenerFound) Then ... Else ..."
 
-            each_control.Dispose() ''Added Dec. 8, 2021
-            each_control.Visible = False ''Added Dec. 18, 2021
-            Me.DesignerForm.Controls.Remove(each_control) ''Added Dec. 8, 2021
-            mod_listOfDesignerControls.Remove(each_control) ''Added Dec. 8, 2021
-            each_control = Nothing
+            each_ctlStaticText.Dispose() ''Added Dec. 8, 2021
+            each_ctlStaticText.Visible = False ''Added Dec. 18, 2021
+            Me.DesignerForm.Controls.Remove(each_ctlStaticText) ''Added Dec. 8, 2021
+            mod_listOfDesignerControls.Remove(each_ctlStaticText) ''Added Dec. 8, 2021
+            each_ctlStaticText = Nothing
 
-        Next each_control
+        Next each_ctlStaticText
 
         ''added 12/18/2021
+        ''
+        ''Unload all of the object references. 
+        ''
         Me.ListCtlGraphic_StaticTexts.Clear()
 
     End Sub ''End of "Public Sub UnloadDesigner_StaticText()"
@@ -1003,10 +997,10 @@ Public Class ClassDesigner
             ''  (See project/subfolder __RSC_WindowsControlLibrary/RSCMoveableControl)
             ''
         Else
-                ''
-                ''Add moveability - Static Texts
-                ''
-                Dim bKeepWidthHeightProportional As Boolean = True ''added 12/23/2021
+            ''
+            ''Add moveability - Static Texts
+            ''
+            Dim bKeepWidthHeightProportional As Boolean = True ''added 12/23/2021
             Add_Moveability(CtlGraphic_Portrait, CtlGraphic_Portrait,
                                  CtlGraphic_Portrait, bKeepWidthHeightProportional)
 
@@ -1070,10 +1064,10 @@ Public Class ClassDesigner
                 ''  (See project/subfolder __RSC_WindowsControlLibrary/RSCMoveableControl)
                 ''
             Else
-                    ''Add moveability - QR Code
+                ''Add moveability - QR Code
 
-                    Add_Moveability(CtlGraphic_QRCode, CtlGraphic_QRCode,
-                                     CtlGraphic_QRCode, True)
+                Add_Moveability(CtlGraphic_QRCode, CtlGraphic_QRCode,
+                                 CtlGraphic_QRCode, True)
 
             End If ''End of "If (Me.LetEventListenerAddMoveability) Then ... Else ..."
 
@@ -1150,20 +1144,26 @@ Public Class ClassDesigner
         ''
         ''Added 12/18/2021 thomas d. 
         ''
+        Dim each_ctlStaticText As CtlGraphicStaticText ''Added 1/8/2022 td
+        Dim indexControl As Integer = 0 ''Added 1/8/2022 td
+
         For Each each_element_static As ClassElementStaticText In par_listStaticTexts
 
             ''Dec18 2021''CtlGraphic_StaticTexts.Add = New CtlGraphicStaticText(each_element_static)
             ''Dec27 2021''CtlGraphic_StaticText_temp = New CtlGraphicStaticText(each_element_static)
-            CtlGraphic_StaticText_temp = New CtlGraphicStaticText(each_element_static, Me)
+            ''Jan8 2022 td''CtlGraphic_StaticText_temp = New CtlGraphicStaticText(each_element_static, Me)
+            each_ctlStaticText = CtlGraphicStaticText.GetStaticText(each_element_static,
+                    String.Format("CtlGraphicStaticText{0}", indexControl),
+                    Me, False, mod_ctlLasttouched, mod_oGroupMoveEvents)
 
-            ListCtlGraphic_StaticTexts.Add(CtlGraphic_StaticText_temp) ''Added 12/18/2021 td
+            ListCtlGraphic_StaticTexts.Add(each_ctlStaticText)
 
-            Me.DesignerForm.Controls.Add(CtlGraphic_StaticText_temp)
+            Me.DesignerForm.Controls.Add(each_ctlStaticText)
 
             ''Added 11/28/2021 td
-            mod_listOfDesignerControls.Add(CtlGraphic_StaticText_temp)
+            mod_listOfDesignerControls.Add(each_ctlStaticText)
 
-            With CtlGraphic_StaticText_temp
+            With each_ctlStaticText
 
                 ''Added 12/18/2021 td
                 .LayoutFunctions = CType(Me, ILayoutFunctions)
@@ -1182,7 +1182,7 @@ Public Class ClassDesigner
             ''   Pass on the event of right-clicking a element-signature control.
             ''   
             If (mod_bAddHandlersForRightClick) Then
-                AddHandler CtlGraphic_StaticText_temp.ElementStatic_RightClicked,
+                AddHandler each_ctlStaticText.ElementStatic_RightClicked,
                      AddressOf ElementStatic_Clicked
             End If ''End of "If (mod_bAddHandlersForRightClick) Then"
 
@@ -1204,8 +1204,8 @@ Public Class ClassDesigner
                 ''
                 Const c_boolResizeProportionally As Boolean = False ''Inappropropriate for Static Texts!!
 
-                Add_Moveability(CtlGraphic_StaticText_temp, CtlGraphic_StaticText_temp,
-                                     CtlGraphic_StaticText_temp,
+                Add_Moveability(each_ctlStaticText, each_ctlStaticText,
+                                     each_ctlStaticText,
                                      c_boolResizeProportionally)
 
             End If ''End of "If (Me.LetEventListenerAddMoveability) Then ... Else ..."
@@ -1739,6 +1739,9 @@ Public Class ClassDesigner
         Dim objPrintLibElems As New ciLayoutPrintLib.LayoutElements
         Dim listOfTextImages As New HashSet(Of Image) ''Added 8/26/2019 thomas downes 
         Dim listOfElementTextFields As HashSet(Of ClassElementField)
+        Dim listOfElementStaticTexts As HashSet(Of ClassElementStaticText) ''Added 1/8/2022 td
+        Dim listOfElementGraphics As HashSet(Of ClassElementGraphic) ''Added 1/8/2022 td
+
         Dim obj_image As Image ''Added 8/24 td
         Dim obj_image_clone As Image ''Added 8/24 td
         Dim obj_image_clone_resized As Image ''Added 8/24/2019 td
@@ -1776,6 +1779,20 @@ Public Class ClassDesigner
             If (bMatchesElementInCache) Then intCountMatchedElements += 1
 
         Next eachCtlField
+
+        ''Pull the Element-StaticText objects from the CtlGraphicStaticText Controls.
+        ''     ---11/29/2021 td 
+        listOfElementStaticTexts = New HashSet(Of ClassElementStaticText)
+        For Each eachCtlStaticText As CtlGraphicStaticText In mod_listOfTextControls
+            listOfElementStaticTexts.Add(eachCtlStaticText.ElementClass_Obj)
+        Next eachCtlStaticText
+
+        ''Pull the Element-Graphic objects from the CtlGraphicStaticGraphic Controls.
+        ''     ---11/29/2021 td 
+        listOfElementGraphics = New HashSet(Of ClassElementGraphic)
+        For Each eachCtlGraphic As CtlGraphicStaticGraphic In mod_listOfGraphicControls
+            listOfElementGraphics.Add(eachCtlGraphic.ElementClass_Obj)
+        Next eachCtlGraphic
 
         ''obj_image = ciBadgeGenerator.ClassMakeBadge
         Try
@@ -1854,10 +1871,11 @@ Public Class ClassDesigner
                                                       Me.ElementsCache_UseEdits,
                                                       par_recipient,
                                                       listOfElementTextFields,
+                                                      listOfElementStaticTexts,
+                                                      listOfElementGraphics,
                                                       Me.CtlGraphic_Portrait.ElementClass_Obj,
                                                       Me.CtlGraphic_QRCode.ElementClass_Obj,
                                                       Me.CtlGraphic_Signat.ElementClass_Obj,
-                                                      Me.CtlGraphic_StaticText_temp.Element_StaticText,
                                                       Nothing, Nothing, Nothing,
                                                       par_recentlyMoved)
 
