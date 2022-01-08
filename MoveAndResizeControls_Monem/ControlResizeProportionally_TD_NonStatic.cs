@@ -62,7 +62,7 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
         }
 
 
-        private bool _moving;
+        private bool _moving = false; // Default value added 1/7/2022 td
         private bool _repaintAfterResize;  // Added 7/31/2019 td  
         /// </summary>
         /// 
@@ -71,7 +71,7 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
         private Point _cursorPoint_MoveControl;  //Added 12/29/2021 thomas downes
 
         private bool _moveIsInterNal;
-        private bool _resizing;
+        private bool _resizing = false;  // Default value added 1/7/2022 td
         private Size _currentControlStartSize;
 
         //Debugging information. ----12/29/2021 thomas downes
@@ -521,7 +521,7 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
 
 
 
-        public void StartMovingOrResizing(Control par_control, MouseEventArgs e)
+        public void StartMovingOrResizing(Control par_control, MouseEventArgs par_eMouse)
         {
             //
             //Added 10/09/2019 thomas downes 
@@ -538,6 +538,17 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
                 //We don't need to do any initiating work. We've already initiated. 
                 return;
             }
+
+            // Added 1/7/2022 thomas downes
+            // Let's update the following values:
+            //
+            //    MouseIsInRightEdge
+            //    MouseIsInLeftEdge
+            //    MouseIsInTopEdge
+            //    MouseIsInBottomEdge
+            //
+            UpdateMouseEdgeProperties(par_control, new Point(par_eMouse.X, par_eMouse.Y));
+
             if (WorkType != MoveOrResize.Move &&
                 (MouseIsInRightEdge || MouseIsInLeftEdge || MouseIsInTopEdge || MouseIsInBottomEdge))
             {
@@ -553,8 +564,9 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
                 par_control.Cursor = Cursors.Hand;
             }
 
-            _cursorPoint_StartOfDrag = new Point(e.X, e.Y);
+            _cursorPoint_StartOfDrag = new Point(par_eMouse.X, par_eMouse.Y);
             par_control.Capture = true;
+
         }
 
 
@@ -601,6 +613,14 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
 
             if (!_resizing && !_moving)
             {
+                // Added 1/7/2022 thomas downes
+                // Let's update the following values:
+                //
+                //    MouseIsInRightEdge
+                //    MouseIsInLeftEdge
+                //    MouseIsInTopEdge
+                //    MouseIsInBottomEdge
+                //
                 UpdateMouseEdgeProperties(par_control, new Point(par_eMouse.X, par_eMouse.Y));
                 UpdateMouseCursor(par_control);
             }

@@ -24,7 +24,8 @@ Public Class RSCMoveableControlVB
                                       par_bProportionSizing As Boolean,
                                 par_iControlLastTouched As ILastControlTouched,
                                       par_oMoveEventsFromForm As GroupMoveEvents_Singleton,
-                           Optional par_ratioWH_ifApplicable As Single = 0) As RSCMoveableControlVB
+                           Optional par_ratioWH_ifApplicable As Single = 0,
+                           Optional pbHandleMouseEventsThroughFormVB6 As Boolean = True) As RSCMoveableControlVB
         ''                      ''Jan2 2022 td''  par_iSaveToModel As ISaveToModel,
         ''                      ''Dec29 2021 td'' par_designer As ClassDesigner,
         ''
@@ -76,7 +77,8 @@ Public Class RSCMoveableControlVB
                                                    bAddFunctionalitySooner,
                                                    par_iControlLastTouched,
                                                    par_oMoveEventsFromForm,
-                                                   par_ratioWH_ifApplicable)
+                                                   par_ratioWH_ifApplicable,
+                                                   pbHandleMouseEventsThroughFormVB6)
         ''                                         ''Jan2 2022 ''par_iSaveToModel,
 
         With MoveableControlVB1
@@ -119,8 +121,8 @@ Public Class RSCMoveableControlVB
     '' Monem = Seyyed Hamed Monem
     '' https://www.codeproject.com/tips/709121/move-and-resize-controls-on-a-form-at-runtime-with 
     ''
-    Protected Const mod_bHandleMouseMoveEvents_Monem As Boolean = False
-    Protected Const mod_bHandleMouseMoveEvents_ByForm As Boolean = True ''True, let's handler Mouse-Move events 
+    Protected mod_bHandleMouseMoveEvents_Monem As Boolean = False
+    Protected mod_bHandleMouseMoveEvents_ByForm As Boolean = True ''True, let's handler Mouse-Move events 
     ''   the old-fashioned way--by handling events on the Windows form (e.g. VB6-style).
 
     ''Depending on the above Boolean, one of the following will be instantiated. 
@@ -188,7 +190,7 @@ Public Class RSCMoveableControlVB
         ''Added 1/3/2022 td
         ''Jan3 2022 td''LastControlTouched_Info = New ClassLast
 
-    End Sub
+    End Sub ''End of "Public Sub New()"
 
 
     Public Sub New(par_enumElementType As EnumElementType,
@@ -200,7 +202,8 @@ Public Class RSCMoveableControlVB
                    pboolAddClickability As Boolean,
                    par_iLastTouched As ILastControlTouched,
                    par_oMoveabilityEvents As GroupMoveEvents_Singleton,
-                   par_proportionWH_IfNeeded As Single) ''----As IOperations)
+                   par_proportionWH_IfNeeded As Single,
+                   Optional pbHandleMouseEventsThroughFormVB6 As Boolean = True) ''----As IOperations)
         ''
         ''         ''Jan2 2022 ''par_iSaveToModel As ISaveToModel,
         ''         ''Dec29 2021 ''par_designer As ClassDesigner,
@@ -222,7 +225,8 @@ Public Class RSCMoveableControlVB
                             pboolAddMoveability,
                             pboolAddClickability,
                             par_iLastTouched,
-                            par_oMoveabilityEvents)
+                            par_oMoveabilityEvents,
+                            pbHandleMouseEventsThroughFormVB6)
 
         ''Added 1/5/2022 td
         RemoveHandler mod_events.Moving_End, AddressOf mod_events_Moving_End
@@ -252,7 +256,8 @@ Public Class RSCMoveableControlVB
                    pboolAddMoveability As Boolean,
                    pboolAddClickability As Boolean,
                    par_iLastTouched As ILastControlTouched,
-                   par_oMoveEventsFromForm As GroupMoveEvents_Singleton)
+                   par_oMoveEventsFromForm As GroupMoveEvents_Singleton,
+                   Optional pbHandleMouseEventsThroughFormVB6 As Boolean = True)
         ''
         ''Encapsulated 1/3/2022
         ''
@@ -267,7 +272,12 @@ Public Class RSCMoveableControlVB
         ''#2 Dec28_2021 td''AddMoveability()
         ''Jan4 2022 td''If (pboolAddMoveability) Then AddMoveability()
         ''#2 Jan4 2022 td''If (pboolAddMoveability) Then AddMoveability(par_oMoveEventsFromForm)
-        If (pboolAddMoveability) Then AddMoveability(par_oMoveEventsFromForm, par_iLayoutFun)
+        If (pboolAddMoveability) Then
+            ''Jan7 2022 td''AddMoveability(par_oMoveEventsFromForm, par_iLayoutFun)
+            AddMoveability(par_oMoveEventsFromForm, par_iLayoutFun,
+                           pboolResizeProportionally,
+                           pbHandleMouseEventsThroughFormVB6)
+        End If ''EDNOF "If (pboolAddMoveability) Then"
 
         ''Encapsulated 12/22/2021 thomas downes
         ''Dec28 2021 td''Me.MyToolstripItemCollection = par_toolstrip ''Added 12/28/2021 td
@@ -293,7 +303,8 @@ Public Class RSCMoveableControlVB
 
     Public Sub AddMoveability(par_objEventsMove As GroupMoveEvents_Singleton,
                               par_iLayoutFunctions As ILayoutFunctions,
-                              Optional pbAddProportionality As Boolean = False)
+                              Optional pbAddProportionality As Boolean = False,
+                              Optional pbHandleMouseEventsThroughFormVB6 As Boolean = True)
         ''Jan3 2022 ''Public Sub AddMoveability()
         ''
         ''Added 12/28/2021 td
@@ -331,7 +342,8 @@ Public Class RSCMoveableControlVB
             ''
             ''Major call !!
             ''
-            InitializeMoveability(mod_boolResizeProportionally, mod_iLayoutFunctions, par_objEventsMove)
+            InitializeMoveability(mod_boolResizeProportionally, mod_iLayoutFunctions,
+                                  par_objEventsMove, pbHandleMouseEventsThroughFormVB6)
 
         End If ''End of "If (boolInstantiated) Then ... Else ...."
 
@@ -469,7 +481,9 @@ Public Class RSCMoveableControlVB
 
     Public Sub InitializeMoveability(pboolResizeProportionally As Boolean,
                                      par_iLayoutFunctions As ILayoutFunctions,
-                                     par_objMoveEvents As GroupMoveEvents_Singleton)
+                                     par_objMoveEvents As GroupMoveEvents_Singleton,
+                      Optional pbHandleMouseEventsThroughFormVB6 As Boolean = True)
+        ''
         ''Jan2 2022''       par_iSaveToModel As ISaveToModel,
         ''
         ''Added 12/22/2021 thomas downes
@@ -540,24 +554,33 @@ Public Class RSCMoveableControlVB
             ''#2 Jan4 2022''mod_moveInAGroup.Init(Nothing, Me, 10, c_bRepaintAfterResize,
             ''                        mod_events, False, Me) ''1/2/2022 td''mod_iSaveToModel)
 
+            ''Added 1/7/2022 thomas d. 
+            If (pbHandleMouseEventsThroughFormVB6) Then
+                mod_bHandleMouseMoveEvents_ByForm = True
+                mod_bHandleMouseMoveEvents_Monem = False
+            Else
+                mod_bHandleMouseMoveEvents_ByForm = False
+                mod_bHandleMouseMoveEvents_Monem = True
+            End If ''eNd of "If (pbHandleMouseEventsThroughFormVB6) Then ... Else"
+
             ''Added 1/4/2022 td
             objPictureBox = Find_PictureBox()
-            mod_moveInAGroup.Init(objPictureBox, Me, 10, c_bRepaintAfterResize,
+                mod_moveInAGroup.Init(objPictureBox, Me, 10, c_bRepaintAfterResize,
                                             mod_events, False, Me, False,
                                                 mod_bHandleMouseMoveEvents_Monem)
 
-            mod_iMoveOrResizeFunctionality = mod_moveInAGroup ''Added 12/28/2021 td
+                mod_iMoveOrResizeFunctionality = mod_moveInAGroup ''Added 12/28/2021 td
 
-        End If ''End of "If pboolResizeProportionally Then .... Else ..."
+            End If ''End of "If pboolResizeProportionally Then .... Else ..."
 
-        ''
-        ''  User Control Click - Windows Forms
-        ''  https://stackoverflow.com/questions/1071579/user-control-click-windows-forms
-        ''  User control's click event won't fire when another control is clicked on the user control. 
-        ''  need to manually bind each element's click event. You can do this with a simple loop on
-        ''  the user control's codebehind:
-        ''
-        Dim each_control As Windows.Forms.Control
+            ''
+            ''  User Control Click - Windows Forms
+            ''  https://stackoverflow.com/questions/1071579/user-control-click-windows-forms
+            ''  User control's click event won't fire when another control is clicked on the user control. 
+            ''  need to manually bind each element's click event. You can do this with a simple loop on
+            ''  the user control's codebehind:
+            ''
+            Dim each_control As Windows.Forms.Control
         For Each each_control In Me.Controls
 
             ''// I am assuming MyUserControl_Click handles the click event of the user control.
@@ -965,10 +988,20 @@ Public Class RSCMoveableControlVB
         ''
         ''Added 1/4/2022 thomas d.
         ''
-        If (mod_bHandleMouseMoveEvents_ByForm AndAlso (par_e.Button = MouseButtons.Left)) Then
+        ''1/7/2022 td''If (mod_bHandleMouseMoveEvents_ByForm AndAlso (par_e.Button = MouseButtons.Left)) Then
+
+        Dim boolButtonIsOkay As Boolean ''Added 1/7/2022 td
+
+        ''1/7/2022 td''boolButtonIsOkay = (par_e.Button = MouseButtons.Left)
+        boolButtonIsOkay = ((par_e.Button = MouseButtons.Left) Or
+            (par_e.Button = MouseButtons.None)) ''Added 1/7/2022 td
+
+        If (mod_bHandleMouseMoveEvents_ByForm And boolButtonIsOkay) Then
+
             ''Let the module know that a MouseMove took place. 
             mod_iMoveOrResizeFunctionality.MoveParentControl(CType(sender, Control), par_e)
-        End If
+
+        End If ''Endof "If (mod_bHandleMouseMoveEvents_ByForm) Then"
 
     End Sub
 

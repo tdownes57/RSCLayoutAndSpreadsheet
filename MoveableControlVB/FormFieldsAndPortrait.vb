@@ -86,11 +86,19 @@ Public Class FormFieldsAndPortrait
         ''
         ''Dim ctlQRCode As ciBadgeDesigner.CtlGraphicQRCode
         Dim objElement As New ciBadgeElements.ClassElementQRCode
+        Dim bHandleMouseEventsThroughFormVB6 As Boolean ''Added 1/7/2022 td
 
         objElement.BadgeLayout = mod_designer.BadgeLayout_Class
 
+        ''Added 1/7/2022
+        bHandleMouseEventsThroughFormVB6 = RadioEventHandlersHookedThruForm.Checked ''Added 1/7/2022
+
+        ''
+        ''Added 1/7/2022 Thomas DOWNES
+        ''
         mod_ctlQRCode = CtlGraphicQRCode.GetQRCode(objElement, "ctlQRCode",
-          mod_designer, True, mod_ctlLasttouched, mod_eventsSingleton)
+          mod_designer, True, mod_ctlLasttouched, mod_eventsSingleton,
+          bHandleMouseEventsThroughFormVB6)
 
         mod_ctlQRCode.Visible = True
         mod_ctlQRCode.Left = 0
@@ -163,6 +171,37 @@ Public Class FormFieldsAndPortrait
     End Sub
 
 
+    Private Sub UnloadTheElementControls()
+        ''
+        ''Added 1/7/2022 thomas downes 
+        ''
+        mod_ctlField1.Dispose()
+        mod_ctlPortrait.Dispose()
+        mod_ctlQRCode.Dispose()
+
+        mod_ctlField1.Visible = False
+        mod_ctlPortrait.Visible = False
+        mod_ctlQRCode.Visible = False
+
+        Me.Controls.Remove(mod_ctlField1)
+        Me.Controls.Remove(mod_ctlPortrait)
+        Me.Controls.Remove(mod_ctlQRCode)
+
+    End Sub
 
 
+    Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles RadioEventHandlersHookedThruForm.CheckedChanged
+
+
+
+    End Sub
+
+    Private Sub ButtonRefreshTheForm_Click(sender As Object, e As EventArgs) Handles ButtonRefreshTheForm.Click
+
+        ''Added 1/7/2022
+        UnloadTheElementControls()
+        InstantiateElementControls()
+
+
+    End Sub
 End Class

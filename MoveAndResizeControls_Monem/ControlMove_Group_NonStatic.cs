@@ -71,12 +71,12 @@ namespace MoveAndResizeControls_Monem
             set;
         }
 
-        private bool _moving;
+        private bool _moving = false; // Default value added 1/7/2022 td
         private bool _repaintAfterResize;  // Added 7/31/2019 td  
         /// </summary>
         private Point _cursorStartPoint;
         private bool _moveIsInterNal;
-        private bool _resizing;
+        private bool _resizing = false; // Default value added 1/7/2022 td
         private Size _currentControlStartSize;
 
         private Control _controlCurrent; // Added 11/29/2021 td
@@ -492,6 +492,16 @@ namespace MoveAndResizeControls_Monem
                 return;
             }
 
+            // Added 1/7/2022 thomas downes
+            // Let's update the following values:
+            //
+            //    MouseIsInRightEdge
+            //    MouseIsInLeftEdge
+            //    MouseIsInTopEdge
+            //    MouseIsInBottomEdge
+            //
+            UpdateMouseEdgeProperties(par_controlE, new Point(e.X, e.Y));
+
             if (WorkType != MoveOrResize.Move &&
                 (MouseIsInRightEdge || MouseIsInLeftEdge || MouseIsInTopEdge || MouseIsInBottomEdge))
             {
@@ -562,9 +572,16 @@ namespace MoveAndResizeControls_Monem
             int delta_Left = 0;
             int delta_Top = 0;
 
-
             if (!_resizing && !_moving)
             {
+                // Added 1/7/2022 thomas downes
+                // Let's update the following values:
+                //
+                //    MouseIsInRightEdge
+                //    MouseIsInLeftEdge
+                //    MouseIsInTopEdge
+                //    MouseIsInBottomEdge
+                //
                 UpdateMouseEdgeProperties(par_controlG, new Point(e.X, e.Y));
                 UpdateMouseCursor(par_controlG);
             }

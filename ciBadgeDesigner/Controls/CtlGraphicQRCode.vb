@@ -43,7 +43,8 @@ Public Class CtlGraphicQRCode
                                       par_iLayoutFun As ILayoutFunctions,
                                       par_bProportionSizing As Boolean,
                                 par_iControlLastTouched As ILastControlTouched,
-                                     par_oMoveEvents As GroupMoveEvents_Singleton) As CtlGraphicQRCode
+                                     par_oMoveEvents As GroupMoveEvents_Singleton,
+                                     Optional pbHandleMouseEventsThroughFormVB6 As Boolean = True) As CtlGraphicQRCode
         ''              1/2/2022 td''par_iSaveToModel As ISaveToModel,
         ''
         ''Added 12/29/2021 td
@@ -100,7 +101,8 @@ Public Class CtlGraphicQRCode
                                                    bAddFunctionalitySooner,
                                                    bAddFunctionalitySooner,
                                                    par_iControlLastTouched,
-                                                    par_oMoveEvents)
+                                                    par_oMoveEvents,
+                                                    pbHandleMouseEventsThroughFormVB6)
         ''Jan2 2022 ''                       ''Jan2 2022 ''par_iSaveToModel, typeOps,
 
         With CtlQRCode1
@@ -144,7 +146,8 @@ Public Class CtlGraphicQRCode
                    pboolAddMoveability As Boolean,
                    pboolAddClickability As Boolean,
                    par_iLastTouched As ILastControlTouched,
-                   par_oMoveEvents As GroupMoveEvents_Singleton)
+                   par_oMoveEvents As GroupMoveEvents_Singleton,
+                   Optional pbHandleMouseEventsThroughFormVB6 As Boolean = True)
         ''         ''Not needed. 1/2/2022'' par_iSaveToModel As ISaveToModel,
         ''         ''Not needed. 1/2/2022'' par_enumElementType As EnumElementType,
         ''
@@ -156,7 +159,8 @@ Public Class CtlGraphicQRCode
                         par_operationsType, par_operationsAny,
                         pboolAddMoveability, pboolAddClickability,
                         par_iLastTouched, par_oMoveEvents,
-                        CSng(172 / 170))
+                        CSng(172 / 170),
+                        pbHandleMouseEventsThroughFormVB6)
         ''          Jan2 2022'' par_iSaveToModel, par_iLayoutFun,
 
         ' This call is required by the designer.
