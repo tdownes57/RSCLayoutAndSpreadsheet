@@ -17,6 +17,7 @@ Public Class ClassElementPic ''May be renamed to ClassElementPortrait. ---10/8/2
     ''
     ''Added 7/18/2019 thomas downes 
     ''
+    Inherits ClassElementBase ''Added 1/8/2022 Thomas Downes
     Implements IElement_Base, IElementPic
     ''
     ''Added 7/18/2019 thomas downes

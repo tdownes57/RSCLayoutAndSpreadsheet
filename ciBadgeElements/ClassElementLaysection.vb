@@ -9,6 +9,7 @@ Imports System.Windows.Forms ''Added 9/18/2019 td
 Imports ciBadgeInterfaces
 
 Public Class ClassElementLaysection
+    Inherits ClassElementBase ''Added 1/8/2022 Thomas Downes
     Implements IElement_Base
     ''
     ''Added 9/17/2019 td  
@@ -67,4 +68,6 @@ Public Class ClassElementLaysection
     Public Function ImageForBadgeImage(par_recipient As IRecipient) As Image Implements IElement_Base.ImageForBadgeImage
         Throw New NotImplementedException()
     End Function
+
+
 End Class ''ENd of "Public Class ClassElementLaysection"

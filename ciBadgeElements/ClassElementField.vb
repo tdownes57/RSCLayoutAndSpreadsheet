@@ -46,6 +46,7 @@ End Structure
 
 <Serializable>
 Public Class ClassElementField
+    Inherits ClassElementBase ''Added 1/8/2022 Thomas Downes
     Implements IElement_Base, IElement_TextOnly, IElement_TextField
     ''
     ''Added 7/18/2019 thomas downes

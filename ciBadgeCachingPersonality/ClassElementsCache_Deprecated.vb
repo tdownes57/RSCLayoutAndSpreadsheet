@@ -76,19 +76,26 @@ Namespace ciBadgeCachePersonality
         Private mod_listFields_Standard As New HashSet(Of ClassFieldStandard) ''Added 10/14/2019 td  
         Private mod_listFields_Custom As New HashSet(Of ClassFieldCustomized) ''Added 10/14/2019 td  
 
+        ''
+        ''Badge Elements -- Includes Pics & Graphics, Static Texts & Fields
+        ''
+        ''Jan8 2022 td''Private mod_listBadgeElements_Front As New HashSet(Of ClassElementField) ''Added 11/26/2021 td
+        Private mod_listBadgeElements_Front As New HashSet(Of ClassElementBase) ''Modified 1/8/2022 ---Added 11/26/2021 td
+        Private mod_listBadgeElements_Backside As New HashSet(Of ClassElementBase) ''Modified 1/8/2022 td  ---Added 11/26/2021 td
+
         ''Front side of ID Card / Badge Card
         Private mod_listElementFields_Front As New HashSet(Of ClassElementField)
         Private mod_listElementPics_Front As New HashSet(Of ClassElementPic)
         Private mod_listElementStatics_Front As New HashSet(Of ClassElementStaticText)
+        Private mod_listElementGraphics_Front As New HashSet(Of ClassElementGraphic) ''Added 1/8/2022 td
         Private mod_listElementLaysections_Front As New HashSet(Of ClassElementLaysection) ''Added 9/17/2019 thomas downes
-        Private mod_listBadgeElements_Front As New HashSet(Of ClassElementField) ''Added 11/26/2021 td
 
         ''Back side of ID Card / Badge Card
         Private mod_listElementFields_Backside As New HashSet(Of ClassElementField)
         Private mod_listElementPics_Backside As New HashSet(Of ClassElementPic)
         Private mod_listElementStatics_Backside As New HashSet(Of ClassElementStaticText)
+        Private mod_listElementGraphics_Backside As New HashSet(Of ClassElementGraphic) ''Added 1/8/2022 td
         Private mod_listElementLaysections_Backside As New HashSet(Of ClassElementLaysection) ''Added 9/17/2019 thomas downes
-        Private mod_listBadgeElements_Backside As New HashSet(Of ClassElementField) ''Added 11/26/2021 td
 
         ''Added 1/14/2020 thomas dow nes
         Private Structure BackgroundTitleAndWidth
@@ -350,7 +357,8 @@ Namespace ciBadgeCachePersonality
             ''
             Dim objHashset As HashSet(Of ClassElementField)
 
-            objHashset = New HashSet(Of ClassElementField)(mod_listBadgeElements_Front)
+            ''1/8/2022 td''objHashset = New HashSet(Of ClassElementField)(mod_listBadgeElements_Front)
+            objHashset = New HashSet(Of ClassElementField)(mod_listElementFields_Front)
 
             ''Added any elements currently on the backside of the card. 
             For Each each_elemBack As ClassElementField In mod_listElementFields_Backside
@@ -362,44 +370,48 @@ Namespace ciBadgeCachePersonality
         End Function
 
 
-        Public Function BadgeDisplayElements_Fields(pboolRefresh As Boolean) As HashSet(Of ClassElementField)
-            ''
-            ''Added 11/24/2021 thomas downes 
-            ''
-            Return ListOfBadgeDisplayElements_Flds_Front(pboolRefresh)
-
-        End Function
-
-
-        Public Function ListOfBadgeDisplayElements_Flds_Front(pboolRefresh As Boolean) As HashSet(Of ClassElementField)
-            ''---Dec.8 2021--Public Function ListOfBadgeDisplayElements_Flds(pboolRefresh As Boolean) As HashSet(Of ClassElementField)
-            ''
-            ''Added 11/26/2021  
-            ''
-            If (pboolRefresh Or (mod_listBadgeElements_Front Is Nothing)) Then
-                ''----Dec.8 2021---RefreshListOfBadgeDisplayElements_Flds()
-                RefreshListOfBadgeDisplayElements_Flds_Front()
-
-            End If ''End of "If (pboolRefresh Or (mod_listBadgeElements_Front Is Nothing)) Then"
-
-            Return mod_listBadgeElements_Front
-
-        End Function ''end of "Public Function ListOfBadgeDisplayElements_Flds_Front()"
+        ''Public Function BadgeDisplayElements_Fields(pboolRefresh As Boolean) As HashSet(Of ClassElementField)
+        ''    ''
+        ''    ''Added 11/24/2021 thomas downes 
+        ''    ''
+        ''    Return ListOfBadgeDisplayElements_Flds_Front(pboolRefresh)
+        ''
+        ''End Function
 
 
-        Public Function ListOfBadgeDisplayElements_Flds_Backside(pboolRefresh As Boolean) As HashSet(Of ClassElementField)
-            ''
-            ''Added 12/08/2021  
-            ''
-            If (pboolRefresh Or (mod_listBadgeElements_Backside Is Nothing)) Then
-                ''Major call!!
-                RefreshListOfBadgeDisplayElements_Flds_Backside()
+        ''Public Function ListOfBadgeDisplayElements_Flds_Front(pboolRefresh As Boolean) As HashSet(Of ClassElementField)
+        ''    ''---Dec.8 2021--Public Function ListOfBadgeDisplayElements_Flds(pboolRefresh As Boolean) As HashSet(Of ClassElementField)
+        ''    ''
+        ''    ''Added 11/26/2021  
+        ''    ''
+        ''    ''Jan8 2022 td''If (pboolRefresh Or (mod_listBadgeElements_Front Is Nothing)) Then
+        ''    If (pboolRefresh Or (mod_listElementFields_Front Is Nothing)) Then
 
-            End If ''End of "If (pboolRefresh Or (mod_listBadgeElements_Back Is Nothing)) Then"
+        ''        ''----Dec.8 2021---RefreshListOfBadgeDisplayElements_Flds()
+        ''        RefreshListOfBadgeDisplayElements_Flds_Front()
 
-            Return mod_listBadgeElements_Backside
+        ''    End If ''End of "If (pboolRefresh Or (mod_listBadgeElements_Front Is Nothing)) Then"
 
-        End Function ''end of "Public Function ListOfBadgeDisplayElements_Flds_Backside()"
+        ''    ''Jan8 2022''---Return mod_listBadgeElements_Front
+        ''    Return mod_listElementFields_Front
+
+        ''End Function ''end of "Public Function ListOfBadgeDisplayElements_Flds_Front()"
+
+
+        ''Public Function ListOfBadgeDisplayElements_Flds_Backside(pboolRefresh As Boolean) As HashSet(Of ClassElementField)
+        ''    ''
+        ''    ''Added 12/08/2021  
+        ''    ''
+        ''    If (pboolRefresh Or (mod_listBadgeElements_Backside Is Nothing)) Then
+        ''        ''Major call!!
+        ''        RefreshListOfBadgeDisplayElements_Flds_Backside()
+
+        ''    End If ''End of "If (pboolRefresh Or (mod_listBadgeElements_Back Is Nothing)) Then"
+
+        ''    ''Jan8 2022 td''Return mod_listBadgeElements_Backside
+        ''    Return mod_listElementFields_Backside
+
+        ''End Function ''end of "Public Function ListOfBadgeDisplayElements_Flds_Backside()"
 
 
         Public Sub RefreshListOfBadgeDisplayElements_Flds_Front(Optional pboolSkip13 As Boolean = True,
@@ -560,6 +572,36 @@ Namespace ciBadgeCachePersonality
             Set(value As HashSet(Of ClassElementStaticText))  ''---List(Of ClassElementStaticText))
                 ''Added 12/18/2021 td
                 mod_listElementStatics_Backside = value
+            End Set
+        End Property
+
+
+        ''Added 1/8/2022. ---1/08/2022 td
+        Public Property ListOfElementGraphics_Front As HashSet(Of ClassElementGraphic)
+            Get ''Added 1/08/2022 td
+                ''
+                ''Added 1/00/2022 thomas d.
+                ''
+                Return mod_listElementGraphics_Front
+            End Get
+            Set(value As HashSet(Of ClassElementGraphic))
+                ''Added 1/08/2028 td
+                mod_listElementGraphics_Front = value
+            End Set
+        End Property
+
+
+        ''Added 1/8/2022. ---1/08/2022 td
+        Public Property ListOfElementGraphics_Back As HashSet(Of ClassElementGraphic)
+            Get ''Added 1/08/2022 td
+                ''
+                ''Added 1/00/2022 thomas d.
+                ''
+                Return mod_listElementGraphics_Back
+            End Get
+            Set(value As HashSet(Of ClassElementGraphic))
+                ''Added 1/08/2028 td
+                mod_listElementGraphics_Back = value
             End Set
         End Property
 

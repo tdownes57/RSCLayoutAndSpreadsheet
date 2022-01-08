@@ -178,7 +178,10 @@ namespace ciBadgeGenerator
                                     par_badge_height_pixels,
                                     par_recipientPic,
                                     par_cache, par_iRecipientInfo, 
-                                    null, null, null, null, null,
+                                    par_cache.ListOfElementFields, 
+                                    par_cache.ListOfElementTexts, 
+                                    par_cache.ListOfElementGraphics, 
+                                    null, null, null,
                                     par_listMessages,
                                     par_listFieldsIncluded,
                                     par_listFieldsNotIncluded);
@@ -692,17 +695,18 @@ namespace ciBadgeGenerator
             //
             //Static-Text Elements 
             //
-            HashSet<ClassElementStaticText> listOfElementStaticTexts;
-            listOfElementStaticTexts = par_cache.ListOfElementTexts_Front;
+            //Jan8 2022 td // HashSet<ClassElementStaticText> listOfElementStaticTexts;
+            //Jan8 2022 td // listOfElementStaticTexts = par_cache.ListOfElementTexts_Front;
 
-            //Added 11/29/2021 td
-            if (par_elemStaticText != null) 
-            {
-                listOfElementStaticTexts = new HashSet<ClassElementStaticText>();
-                listOfElementStaticTexts.Add(par_elemStaticText);
-             }
+            //Jan8 2022 td // Added 11/29/2021 td
+            //Jan8 2022 td // if (par_elemStaticText != null) 
+            //Jan8 2022 td // {
+            //    listOfElementStaticTexts = new HashSet<ClassElementStaticText>();
+            //    listOfElementStaticTexts.Add(par_elemStaticText);
+            // }
 
-            LoadImageWithStaticTexts(ref obj_imageOutput, listOfElementStaticTexts);
+            // Jan8 2022 //LoadImageWithStaticTexts(ref obj_imageOutput, listOfElementStaticTexts);
+            LoadImageWithStaticTexts(ref obj_imageOutput, par_listElementTexts);
 
             // 10-9-2019 td // return null;
             return obj_imageOutput;

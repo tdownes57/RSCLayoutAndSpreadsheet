@@ -11,6 +11,7 @@ Imports System.Xml.Serialization ''Added 10/13/2019 thomas d.
 
 <Serializable>
 Public Class ClassElementStaticText
+    Inherits ClassElementBase ''Added 1/8/2022 Thomas Downes
     Implements IElement_Base, IElement_TextOnly
     ''
     ''Added 9/16/2019 thomas downes

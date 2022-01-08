@@ -86,6 +86,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassElementBase.vb" />
     <Compile Include="ClassElementField.vb" />
     <Compile Include="ClassElementGraphic.vb" />
     <Compile Include="ClassElementLaysection.vb" />

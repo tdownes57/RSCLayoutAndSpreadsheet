@@ -23,10 +23,13 @@ Public Class CtlGraphicStaticText
     Public ElementInfo_Base As ciBadgeInterfaces.IElement_Base ''Added 8/29/2019 td
     ''9/18/2019 td''Public ElementInfo_Text As ciBadgeInterfaces.IElement_TextField ''Added 8/29/2019 td
     Public ElementInfo_TextOnly As ciBadgeInterfaces.IElement_TextOnly ''Added 8/29/2019 td
+    Public ElementClass_Obj As ClassElementStaticText ''Added 8/29/2019 td
 
     ''These properties are making use of the Dependency Injection pattern.
     Public ParentDesignForm_iSelecting As ISelectingElements ''Added 7/31/2019 thomas downes  
-    Public ReadOnly ParentDesignForm_iRefreshPreview As IRefreshPreview ''Added 12/27/2021 thomas downes  
+
+    ''1/8/2022 td''Public ReadOnly ParentDesignForm_iRefreshPreview As IRefreshPreview ''Added 12/27/2021 thomas downes  
+    Public ParentDesignForm_iRefreshPreview As IRefreshPreview ''Added 12/27/2021 thomas downes  
 
     Public Event ElementStatic_RightClicked(par_control As CtlGraphicStaticText) ''Added 12/15/2021 td
 
@@ -158,6 +161,7 @@ Public Class CtlGraphicStaticText
         Me.Element_StaticText = New ClassElementStaticText
         Me.ElementInfo_Base = CType(Me.Element_StaticText, IElement_Base)
         Me.ElementInfo_TextOnly = CType(Me.Element_StaticText, IElement_TextOnly)
+        Me.ElementClass_Obj = Me.Element_StaticText ''Added 1/8/2022 td
 
         ''Added 12/27/2021 td 
         Me.LinkInvisible.Text = Me.LinkInvisible.Tag.ToString()
@@ -213,9 +217,11 @@ Public Class CtlGraphicStaticText
         Me.ElementInfo_TextOnly = par_element
         Me.ElementInfo_Base = par_element
         Me.Element_StaticText = par_element
+        Me.ElementClass_Obj = par_element ''Added 1/8/2022 td
 
         ''Added 12/27/2021 thomas downes
         ''   This is making use of the Dependency Injection pattern.
+        ''
         ParentDesignForm_iRefreshPreview = par_iRefreshPreview
         Dim bInvisibleOnBadge As Boolean
 

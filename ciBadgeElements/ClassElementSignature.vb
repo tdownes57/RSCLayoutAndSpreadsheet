@@ -16,6 +16,7 @@ Public Class ClassElementSignature
     ''
     ''Added 10/8/2019 & 7/18/2019 thomas downes 
     ''
+    Inherits ClassElementBase ''Added 1/8/2022 Thomas Downes
     Implements IElement_Base, IElementSig
     ''
     ''Added 10/8/2019 & 7/18/2019 thomas downes

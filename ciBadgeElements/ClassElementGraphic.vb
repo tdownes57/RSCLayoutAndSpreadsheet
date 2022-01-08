@@ -15,6 +15,7 @@ Imports System.Xml.Serialization ''Added 9/24/2019 td
 
 <Serializable>
 Public Class ClassElementGraphic
+    Inherits ClassElementBase ''Added 1/8/2022 Thomas Downes
     ''
     ''Added 12/08/2021 thomas downes 
     ''
