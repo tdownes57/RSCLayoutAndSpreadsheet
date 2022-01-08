@@ -25,6 +25,8 @@ Public Class FormFieldsAndPortrait
     Private mod_ctlField1 As ciBadgeDesigner.CtlGraphicFldLabel
     Private mod_ctlField2 As ciBadgeDesigner.CtlGraphicFldLabel
     Private mod_ctlPortrait As ciBadgeDesigner.CtlGraphicPortrait
+    Private mod_ctlStaticGraphic As ciBadgeDesigner.CtlGraphicStaticGraphic
+    Private mod_ctlStaticText As ciBadgeDesigner.CtlGraphicStaticText
 
     Public Property BadgeLayout As BadgeLayoutClass Implements IDesignerForm.BadgeLayout
     ''    Get
@@ -169,6 +171,56 @@ Public Class FormFieldsAndPortrait
 
 
     End Sub
+
+
+    Private Sub InstantiateStatic()
+        ''
+        ''Added 1/6/2022 td 
+        ''
+        Dim objElement As New ciBadgeElements.ClassElementStatic
+        objElement.BadgeLayout = mod_designer.BadgeLayout_Class
+
+        ''mod_ctlPortrait = CtlGraphicSignature.GetSignature(objElement, "ctlSignature",
+        ''  mod_designer, True, mod_ctlLasttouched, mod_eventsSingleton,
+        ''  DiskFilesVB.PathToFile_Sig())
+
+        mod_ctlPortrait = CtlGraphicPortrait.GetPortrait(objElement, "mod_ctlStatic",
+          mod_designer, True, mod_ctlLasttouched, mod_designer,
+          mod_eventsSingleton)
+
+        mod_ctlStatic.Visible = True
+        mod_ctlStatic.Left = mod_ctlQRCode.Width
+        mod_ctlStatic.Top = mod_ctlQRCode.Height
+        Me.Controls.Add(mod_ctlStatic)
+
+        pictureBackgroundFront.SendToBack()
+
+    End Sub ''End of Private sub InstantiateStatic() 
+
+
+    Private Sub InstantiateStatic()
+        ''
+        ''Added 1/6/2022 td 
+        ''
+        Dim objElement As New ciBadgeElements.ClassElementStatic
+        objElement.BadgeLayout = mod_designer.BadgeLayout_Class
+
+        ''mod_ctlPortrait = CtlGraphicSignature.GetSignature(objElement, "ctlSignature",
+        ''  mod_designer, True, mod_ctlLasttouched, mod_eventsSingleton,
+        ''  DiskFilesVB.PathToFile_Sig())
+
+        mod_ctlPortrait = CtlGraphicPortrait.GetPortrait(objElement, "mod_ctlStatic",
+          mod_designer, True, mod_ctlLasttouched, mod_designer,
+          mod_eventsSingleton)
+
+        mod_ctlStatic.Visible = True
+        mod_ctlStatic.Left = mod_ctlQRCode.Width
+        mod_ctlStatic.Top = mod_ctlQRCode.Height
+        Me.Controls.Add(mod_ctlStatic)
+
+        pictureBackgroundFront.SendToBack()
+
+    End Sub ''End of Private sub InstantiateStatic() 
 
 
     Private Sub UnloadTheElementControls()

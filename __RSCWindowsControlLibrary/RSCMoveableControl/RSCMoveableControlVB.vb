@@ -124,6 +124,8 @@ Public Class RSCMoveableControlVB
     Protected mod_bHandleMouseMoveEvents_Monem As Boolean = False
     Protected mod_bHandleMouseMoveEvents_ByForm As Boolean = True ''True, let's handler Mouse-Move events 
     ''   the old-fashioned way--by handling events on the Windows form (e.g. VB6-style).
+    Protected mod_bHandleMouseMoveEvents_BaseClass As Boolean = True ''Added 1/7/2022
+    Protected mod_bHandleMouseMoveEvents_ChildClass As Boolean = False ''Added 1/7/2022
 
     ''Depending on the above Boolean, one of the following will be instantiated. 
     ''Let's rename. 12/28/2021 td''Private mod_movingInAGroup As ControlMove_Group_NonStatic = Nothing
@@ -565,32 +567,62 @@ Public Class RSCMoveableControlVB
 
             ''Added 1/4/2022 td
             objPictureBox = Find_PictureBox()
-                mod_moveInAGroup.Init(objPictureBox, Me, 10, c_bRepaintAfterResize,
-                                            mod_events, False, Me, False,
-                                                mod_bHandleMouseMoveEvents_Monem)
+            mod_moveInAGroup.Init(objPictureBox, Me, 10, c_bRepaintAfterResize,
+                                        mod_events, False, Me, False,
+                                            mod_bHandleMouseMoveEvents_Monem)
 
-                mod_iMoveOrResizeFunctionality = mod_moveInAGroup ''Added 12/28/2021 td
+            mod_iMoveOrResizeFunctionality = mod_moveInAGroup ''Added 12/28/2021 td
 
-            End If ''End of "If pboolResizeProportionally Then .... Else ..."
+        End If ''End of "If pboolResizeProportionally Then .... Else ..."
 
-            ''
-            ''  User Control Click - Windows Forms
-            ''  https://stackoverflow.com/questions/1071579/user-control-click-windows-forms
-            ''  User control's click event won't fire when another control is clicked on the user control. 
-            ''  need to manually bind each element's click event. You can do this with a simple loop on
-            ''  the user control's codebehind:
-            ''
-            Dim each_control As Windows.Forms.Control
-        For Each each_control In Me.Controls
 
-            ''// I am assuming MyUserControl_Click handles the click event of the user control.
-            AddHandler each_control.MouseClick, AddressOf MoveableControl_MouseClick
-            AddHandler each_control.MouseDown, AddressOf MoveableControl_MouseDown
-            AddHandler each_control.MouseUp, AddressOf MoveableControl_MouseUp
+        ''
+        ''Add Handlers to the Picture Box control /// IN THE CHILD USER CONTROL CLASS !! //
+        ''
+        If (mod_bHandleMouseMoveEvents_ByForm) Then
 
-        Next each_control
+            AddHandlersToPictureBoxInChildControl()
 
-    End Sub ''End of "Public Sub New(pboolResizeProportionally As Boolean, par_iSaveToModel As ISaveToModel)"
+        End If ''End of 'If (mod_bHandleMouseMoveEvents_ByForm) Then'
+
+    End Sub ''End of "Public Sub InitializeMoveability(..., ..., ...., ....)"
+
+    Private Sub AddHandlersToPictureBoxInChildControl()
+        ''
+        ''  User Control Click - Windows Forms
+        ''  https://stackoverflow.com/questions/1071579/user-control-click-windows-forms
+        ''  User control's click event won't fire when another control is clicked on the user control. 
+        ''  need to manually bind each element's click event. You can do this with a simple loop on
+        ''  the user control's codebehind:
+        ''
+        Dim each_control As Windows.Forms.Control
+
+        If (mod_bHandleMouseMoveEvents_ByForm) Then
+
+            If (mod_bHandleMouseMoveEvents_BaseClass) Then
+
+                For Each each_control In Me.Controls
+
+                    If (TypeOf each_control Is PictureBox) Then
+                        ''
+                        ''This control is 99% likely to be in the child (derived) user control,
+                        ''   not in this base user control (the parent class).  ---1/7/2022 td
+                        ''
+                        ''// I am assuming MyUserControl_Click handles the click event of the user control.
+                        AddHandler each_control.MouseClick, AddressOf MoveableControl_MouseClick
+                        AddHandler each_control.MouseDown, AddressOf MoveableControl_MouseDown
+                        AddHandler each_control.MouseMove, AddressOf MoveableControl_MouseMove
+                        AddHandler each_control.MouseUp, AddressOf MoveableControl_MouseUp
+
+                    End If ''end of "For Each each_control In Me.Controls"
+
+                Next each_control
+
+            End If ''End of 'If (mod_bHandleMouseMoveEvents_ByBaseClass) Then'
+
+        End If ''ENd of "If (mod_bHandleMouseMoveEvents_ByForm) Then"
+
+    End Sub ''End of "Public Sub InitializeMoveability(..., ..., ...., ....)"
 
 
     ''Added 12/28/2021 td  
@@ -1003,7 +1035,7 @@ Public Class RSCMoveableControlVB
 
         End If ''Endof "If (mod_bHandleMouseMoveEvents_ByForm) Then"
 
-    End Sub
+    End Sub ''ENd of "Protected Sub MoveableControl_MouseMove"
 
 
     Protected Sub MoveableControl_MouseUp(sender As Object, par_e As MouseEventArgs) Handles Me.MouseUp
