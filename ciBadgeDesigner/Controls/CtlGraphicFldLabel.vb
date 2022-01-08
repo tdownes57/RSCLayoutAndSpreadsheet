@@ -1256,21 +1256,39 @@ ExitHandler:
         ''
         ''Added 1/07/2022 td 
         ''
-        MyBase.MoveableControl_MouseDown(Me, par_e)
+        If mod_bHandleMouseMoveEvents_ByForm Then
+            If mod_bHandleMouseMoveEvents_ChildClass Then
+                MyBase.MoveableControl_MouseDown(Me, par_e)
+            End If
+        End If
 
     End Sub
 
     Private Sub pictureLabel_MouseMove(sender As Object, par_e As MouseEventArgs) Handles pictureLabel.MouseMove
 
-        ''Added 1/07/2022 thomas downes
-        MyBase.MoveableControl_MouseMove(Me, par_e)
+        If mod_bHandleMouseMoveEvents_ByForm Then
+            If mod_bHandleMouseMoveEvents_ChildClass Then
+                ''Added 1/07/2022 thomas downes
+                MyBase.MoveableControl_MouseMove(Me, par_e)
+            End If
+        End If
 
     End Sub
 
     Private Sub pictureLabel_MouseUp(sender As Object, par_e As MouseEventArgs) Handles pictureLabel.MouseUp
 
-        ''Added 1/07/2022 thomas downes
-        MyBase.MoveableControl_MouseUp(Me, par_e)
+        If mod_bHandleMouseMoveEvents_ByForm Then
+            If mod_bHandleMouseMoveEvents_ChildClass Then
+                ''Added 1/07/2022 thomas downes
+                MyBase.MoveableControl_MouseUp(Me, par_e)
+            End If
+        End If
 
+    End Sub
+
+    Private Sub See_MouseDown_Events(sender As Object, e As EventArgs) Handles pictureLabel.Click
+        ''
+        ''
+        ''
     End Sub
 End Class

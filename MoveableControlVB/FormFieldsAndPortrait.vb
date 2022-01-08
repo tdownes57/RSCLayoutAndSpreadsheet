@@ -173,54 +173,53 @@ Public Class FormFieldsAndPortrait
     End Sub
 
 
-    Private Sub InstantiateStatic()
+    Private Sub InstantiateStaticGraph()
         ''
         ''Added 1/6/2022 td 
         ''
-        Dim objElement As New ciBadgeElements.ClassElementStatic
+        Dim objElement As New ciBadgeElements.ClassElementGraphic
         objElement.BadgeLayout = mod_designer.BadgeLayout_Class
 
         ''mod_ctlPortrait = CtlGraphicSignature.GetSignature(objElement, "ctlSignature",
         ''  mod_designer, True, mod_ctlLasttouched, mod_eventsSingleton,
         ''  DiskFilesVB.PathToFile_Sig())
 
-        mod_ctlPortrait = CtlGraphicPortrait.GetPortrait(objElement, "mod_ctlStatic",
-          mod_designer, True, mod_ctlLasttouched, mod_designer,
-          mod_eventsSingleton)
+        mod_ctlStaticGraphic = CtlGraphicStaticGraphic.GetStaticGraphic(objElement, "mod_ctlStaticGraphic", mod_designer, True, mod_ctlLasttouched,
+           mod_eventsSingleton)
 
-        mod_ctlStatic.Visible = True
-        mod_ctlStatic.Left = mod_ctlQRCode.Width
-        mod_ctlStatic.Top = mod_ctlQRCode.Height
-        Me.Controls.Add(mod_ctlStatic)
+        mod_ctlStaticGraphic.Visible = True
+        mod_ctlStaticGraphic.Left = mod_ctlQRCode.Width
+        mod_ctlStaticGraphic.Top = mod_ctlQRCode.Height
+        Me.Controls.Add(mod_ctlStaticGraphic)
 
         pictureBackgroundFront.SendToBack()
 
-    End Sub ''End of Private sub InstantiateStatic() 
+    End Sub ''End of Private sub InstantiateStaticGraphic() 
 
 
-    Private Sub InstantiateStatic()
+    Private Sub InstantiateStaticText()
         ''
         ''Added 1/6/2022 td 
         ''
-        Dim objElement As New ciBadgeElements.ClassElementStatic
+        Dim objElement As New ciBadgeElements.ClassElementStaticText
         objElement.BadgeLayout = mod_designer.BadgeLayout_Class
 
         ''mod_ctlPortrait = CtlGraphicSignature.GetSignature(objElement, "ctlSignature",
         ''  mod_designer, True, mod_ctlLasttouched, mod_eventsSingleton,
         ''  DiskFilesVB.PathToFile_Sig())
 
-        mod_ctlPortrait = CtlGraphicPortrait.GetPortrait(objElement, "mod_ctlStatic",
+        mod_ctlStaticText = CtlGraphicStaticText.GetQRCode(objElement, "mod_ctlStaticText",
           mod_designer, True, mod_ctlLasttouched, mod_designer,
           mod_eventsSingleton)
 
-        mod_ctlStatic.Visible = True
-        mod_ctlStatic.Left = mod_ctlQRCode.Width
-        mod_ctlStatic.Top = mod_ctlQRCode.Height
-        Me.Controls.Add(mod_ctlStatic)
+        mod_ctlStaticText.Visible = True
+        mod_ctlStaticText.Left = mod_ctlQRCode.Width
+        mod_ctlStaticText.Top = mod_ctlQRCode.Height
+        Me.Controls.Add(mod_ctlStaticText)
 
         pictureBackgroundFront.SendToBack()
 
-    End Sub ''End of Private sub InstantiateStatic() 
+    End Sub ''End of Private sub InstantiateStaticText() 
 
 
     Private Sub UnloadTheElementControls()

@@ -66,25 +66,25 @@ Public Class CtlGraphicStaticText
     End Property
 
 
-    Public Shared Function GetQRCode(par_elementQRCode As ClassElementQRCode,
+    Public Shared Function GetStaticText(par_elementText As ClassElementStaticText,
                                       par_nameOfControl As String,
                                       par_iLayoutFun As ILayoutFunctions,
                                       par_bProportionSizing As Boolean,
                                 par_iControlLastTouched As ILastControlTouched,
-                                     par_oMoveEvents As GroupMoveEvents_Singleton) As CtlGraphicQRCode
+                                     par_oMoveEvents As GroupMoveEvents_Singleton) As CtlGraphicStaticText
         ''              1/2/2022 td''par_iSaveToModel As ISaveToModel,
         ''
-        ''Added 12/29/2021 td
+        ''Added 1/07/2021 td
         ''
-        Const c_enumElemType As EnumElementType = EnumElementType.QRCode
+        Const c_enumElemType As EnumElementType = EnumElementType.StaticText
         Const bAddFunctionalitySooner As Boolean = False
         Const bAddFunctionalityLater As Boolean = True
 
         Dim typeOps As Type
         Dim objOperations As Object ''Added 12/29/2021 td 
-        Dim objOperations1Gen As Operations__Generic = Nothing
-        Dim objOperations2Use As Operations__Useless = Nothing
-        Dim objOperationsQR As Operations_QRCode ''Added 12/31/2021 td 
+        ''Dim objOperations1Gen As Operations__Generic = Nothing
+        ''Dim objOperations2Use As Operations__Useless = Nothing
+        Dim objOperationsST As Operations_StaticText ''Added 12/31/2021 td 
 
         ''Instantiate the Operations Object. 
         ''//If (enumElemType = EnumElementType.Signature) Then objOperations2Use = New Operations__Useless()
@@ -107,9 +107,9 @@ Public Class CtlGraphicStaticText
         ''If (par_enum = EnumElementType.StaticText) Then objOperations = objOperations2Use
 
         ''Modified 1/2/2022 td
-        objOperationsQR = New Operations_QRCode() ''Added 1/1/2022 td
-        typeOps = objOperationsQR.GetType()
-        objOperations = objOperationsQR
+        objOperationsST = New Operations_StaticText() ''Added 1/1/2022 td
+        typeOps = objOperationsST.GetType()
+        objOperations = objOperationsST
 
         If (objOperations Is Nothing) Then
             ''Added 12/29/2021
@@ -117,25 +117,25 @@ Public Class CtlGraphicStaticText
         End If ''end of "If (objOperations Is Nothing) Then"
 
         ''Added 12/2/2022 td
-        Dim enumElementType_Enum As EnumElementType = EnumElementType.QRCode
+        Dim enumElementType_Enum As EnumElementType = EnumElementType.StaticText
 
         ''Create the control. 
         ''Jan2 2022''Dim CtlQRCode1 = New CtlGraphicQRCode(par_elementQRCode, par_iLayoutFun,
         ''Jan2 2022''                        enumElementType_Enum, par_bProportionSizing,
-        Dim CtlQRCode1 = New CtlGraphicQRCode(par_elementQRCode, par_iLayoutFun,
+        Dim CtlStaticText1 = New CtlGraphicStaticText(par_elementText, par_iLayoutFun,
                                                    par_bProportionSizing,
                                                    typeOps, objOperations,
                                                    bAddFunctionalitySooner,
                                                    bAddFunctionalitySooner,
                                                    par_iControlLastTouched,
                                                     par_oMoveEvents)
-        ''Jan2 2022 ''                       ''Jan2 2022 ''par_iSaveToModel, typeOps,
+        ''Jan2 2022 ''          --------''Jan2 2022 ''par_iSaveToModel, typeOps,
 
-        With CtlQRCode1
+        With CtlStaticText1
             .Name = par_nameOfControl
             If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEvents, par_iLayoutFun)
             If (bAddFunctionalityLater) Then .AddClickability()
-        End With ''eNd of "With CtlQRCode1"
+        End With ''eNd of "With CtlStaticText1"
 
         ''
         ''Specify the current element to the Operations object. 
@@ -164,10 +164,44 @@ Public Class CtlGraphicStaticText
 
     End Sub
 
-    Public Sub New(par_element As ClassElementStaticText, par_iRefreshPreview As IRefreshPreview)
+
+    Public Sub New(par_elementST As ClassElementStaticText,
+                   par_iLayoutFun As ILayoutFunctions,
+                  pboolResizeProportionally As Boolean,
+                   par_operationsType As Type,
+                   par_operationsAny As Object,
+                   pboolAddMoveability As Boolean,
+                   pboolAddClickability As Boolean,
+                   par_iLastTouched As ILastControlTouched,
+                   par_oMoveEvents As GroupMoveEvents_Singleton,
+                   Optional pbHandleMouseEventsThroughFormVB6 As Boolean = True)
+        ''
+        ''Added 1/07/2022 td
+        ''
+        ''Jan1 2022 td''MyBase.New(par_enumElementType, pboolResizeProportionally,
+        MyBase.New(EnumElementType.StaticText, pboolResizeProportionally,
+                        par_iLayoutFun,
+                        par_operationsType, par_operationsAny,
+                        pboolAddMoveability, pboolAddClickability,
+                        par_iLastTouched, par_oMoveEvents, 0,
+                        pbHandleMouseEventsThroughFormVB6)
+        ''          Jan2 2022'' par_iSaveToModel, par_iLayoutFun,
 
         ' This call is required by the designer.
         InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+
+        ''Encapsulated 12/30/2021 td
+        New_StaticText(par_elementST, par_iLayoutFun)
+
+    End Sub
+
+
+    Public Sub New_StaticText(par_element As ClassElementStaticText, par_iRefreshPreview As IRefreshPreview)
+
+        ' This call is required by the designer.
+        ''Jan7 2022 td''InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
 

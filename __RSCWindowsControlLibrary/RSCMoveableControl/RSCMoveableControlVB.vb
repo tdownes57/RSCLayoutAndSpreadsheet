@@ -126,6 +126,7 @@ Public Class RSCMoveableControlVB
     ''   the old-fashioned way--by handling events on the Windows form (e.g. VB6-style).
     Protected mod_bHandleMouseMoveEvents_BaseClass As Boolean = True ''Added 1/7/2022
     Protected mod_bHandleMouseMoveEvents_ChildClass As Boolean = False ''Added 1/7/2022
+    Protected mod_bHandleMouseMoveEvents_RemoveAll As Boolean = True ''Added 1/7/2022
 
     ''Depending on the above Boolean, one of the following will be instantiated. 
     ''Let's rename. 12/28/2021 td''Private mod_movingInAGroup As ControlMove_Group_NonStatic = Nothing
@@ -609,7 +610,7 @@ Public Class RSCMoveableControlVB
                         ''   not in this base user control (the parent class).  ---1/7/2022 td
                         ''
                         ''// I am assuming MyUserControl_Click handles the click event of the user control.
-                        AddHandler each_control.MouseClick, AddressOf MoveableControl_MouseClick
+                        ''Jan7 2022''AddHandler each_control.MouseClick, AddressOf MoveableControl_MouseClick
                         AddHandler each_control.MouseDown, AddressOf MoveableControl_MouseDown
                         AddHandler each_control.MouseMove, AddressOf MoveableControl_MouseMove
                         AddHandler each_control.MouseUp, AddressOf MoveableControl_MouseUp
@@ -985,19 +986,21 @@ Public Class RSCMoveableControlVB
     End Function ''Endof "Public Function Find_PictureBox() As PictureBox"
 
 
-    Protected Sub MoveableControl_MouseClick(sender As Object, e As Windows.Forms.MouseEventArgs) Handles MyBase.MouseClick
-        ''
-        ''Added 12/28/2021 td  
-        ''
-        If (e.Button = MouseButtons.Right) Then
-            ''
-            ''Added 12/28/2021 td
-            ''
-            mod_designer_ElementRightClicked(e.X, e.Y)
+    ''Protected Sub MoveableControl_MouseClick(sender As Object, e As Windows.Forms.MouseEventArgs) Handles MyBase.MouseClick
+    ''    ''
+    ''    ''Added 12/28/2021 td  
+    ''    ''
+    ''    If (mod_bHandleMouseMoveEvents_ByForm) Then
+    ''        If (e.Button = MouseButtons.Right) Then
+    ''            ''
+    ''            ''Added 12/28/2021 td
+    ''            ''
+    ''            mod_designer_ElementRightClicked(e.X, e.Y)
 
-        End If ''End of "If (e.Button = MouseButtons.Right) Then"
+    ''        End If ''End of "If (e.Button = MouseButtons.Right) Then"
+    ''    End If
 
-    End Sub
+    ''End Sub
 
 
     Protected Sub MoveableControl_MouseDown(sender As Object, par_e As MouseEventArgs) Handles Me.MouseDown
@@ -1048,6 +1051,12 @@ Public Class RSCMoveableControlVB
             ''
             ''Let the module know that a MouseUp took place. 
             mod_iMoveOrResizeFunctionality.StopDragOrResizing(CType(sender, Control), Me)
+
+        ElseIf (e.Button = MouseButtons.Right) Then
+            ''            ''
+            ''            ''Added 12/28/2021 td
+            ''            ''
+            mod_designer_ElementRightClicked(par_e.X, par_e.Y)
 
         End If ''End of "If (mod_bHandleMouseMoveEvents And par_e.Button = MouseButtons.Left) Then"
 

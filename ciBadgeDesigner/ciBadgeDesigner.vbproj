@@ -144,6 +144,12 @@
     <Compile Include="Controls\CtlGraphicStaticGraphic_Notes.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Controls\CtlGraphicStaticQR.Designer.vb">
+      <DependentUpon>CtlGraphicStaticQR.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtlGraphicStaticQR.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controls\CtlGraphicStaticText.designer.vb">
       <DependentUpon>CtlGraphicStaticText.vb</DependentUpon>
     </Compile>
@@ -321,6 +327,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlGraphicStaticGraphic_Notes.resx">
       <DependentUpon>CtlGraphicStaticGraphic_Notes.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtlGraphicStaticQR.resx">
+      <DependentUpon>CtlGraphicStaticQR.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlGraphicStaticText.resx">
       <DependentUpon>CtlGraphicStaticText.vb</DependentUpon>
