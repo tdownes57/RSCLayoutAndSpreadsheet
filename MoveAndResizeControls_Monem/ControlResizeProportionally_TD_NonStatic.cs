@@ -159,8 +159,14 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             //    par_ctlPictureBox.Name.Contains("Static") || par_container.Name.Contains("Static");
             if (par_ctlPictureBox != null) //Added 1/4/2022 td
             {
-                bControlIsStaticText = par_ctlPictureBox.Name.Contains("Text") || par_container.Name.Contains("Text") ||
-                    par_ctlPictureBox.Name.Contains("Static") || par_container.Name.Contains("Static");
+                //Jan8 2022 td''bControlIsStaticText = par_ctlPictureBox.Name.Contains("Text") || par_container.Name.Contains("Text") ||
+                //Jan8 2022 td''     par_ctlPictureBox.Name.Contains("Static") || par_container.Name.Contains("Static");
+
+                //Added 1/8/2022 thomas downes 
+                bool bControlNameText = par_ctlPictureBox.Name.Contains("Text") || par_container.Name.Contains("Text");
+                bool bControlNameStatic = par_ctlPictureBox.Name.Contains("Static") || par_container.Name.Contains("Static");
+                bControlIsStaticText = (bControlNameText && bControlNameStatic);
+
             }
             else if (par_container != null)
             {

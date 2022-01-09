@@ -1155,9 +1155,10 @@ Public Class ClassDesigner
             ''Dec18 2021''CtlGraphic_StaticTexts.Add = New CtlGraphicStaticText(each_element_static)
             ''Dec27 2021''CtlGraphic_StaticText_temp = New CtlGraphicStaticText(each_element_static)
             ''Jan8 2022 td''CtlGraphic_StaticText_temp = New CtlGraphicStaticText(each_element_static, Me)
+
             each_ctlStaticText = CtlGraphicStaticText.GetStaticText(each_element_static,
                     String.Format("CtlGraphicStaticText{0}", indexControl),
-                    Me, Me, False, mod_ctlLasttouched, mod_oGroupMoveEvents)
+                    Me, Me, mod_ctlLasttouched, mod_oGroupMoveEvents)
 
             ListCtlGraphic_StaticTexts.Add(each_ctlStaticText)
 
@@ -1169,7 +1170,7 @@ Public Class ClassDesigner
             With each_ctlStaticText
 
                 ''Added 12/18/2021 td
-                .LayoutFunctions = CType(Me, ILayoutFunctions)
+                ''Not needed here. Jan8 2022''.LayoutFunctions = CType(Me, ILayoutFunctions)
 
                 .Top = each_element_static.TopEdge_Pixels
                 .Left = each_element_static.LeftEdge_Pixels

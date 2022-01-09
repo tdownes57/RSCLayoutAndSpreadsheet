@@ -8,9 +8,15 @@ Imports ciBadgeInterfaces
 Imports ciBadgeDesigner
 ''----Imports ciBadgeElements
 Imports System.Windows.Forms ''Added 12/30/2021 td
+Imports __RSCWindowsControlLibrary ''Added 1/08/2022 thomas d.
 
 Public Class Operations_StaticText
     Inherits Operations__Text
+    Implements ICurrentElement ''Added 12/28/2021 td
+
+    ''Jan8 2022 td''Public Property CtlCurrentElement As ciBadgeDesigner.CtlGraphicStaticText ''CtlGraphicFldLabel
+    Public Property CtlCurrentElement As RSCMoveableControlVB Implements ICurrentElement.CtlCurrentElement
+
     ''
     ''Added 12/12/2021 td
     ''
@@ -20,7 +26,6 @@ Public Class Operations_StaticText
     Public WithEvents MyLinkLabel As New LinkLabel ''Added 10/11/2019 td 
     Public WithEvents MyToolstripItem As New ToolStripMenuItem ''Added 10/11/2019 td 
 
-    Public Property CtlCurrentElement As ciBadgeDesigner.CtlGraphicStaticText ''CtlGraphicFldLabel
     Public Property LayoutFunctions As ILayoutFunctions ''Added 10/3/2019 td 
     Public Property Designer As ciBadgeDesigner.ClassDesigner
     Public Property ColorDialog1 As ColorDialog ''Added 10/3/2019 td 

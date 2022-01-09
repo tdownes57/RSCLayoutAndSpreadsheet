@@ -50,6 +50,15 @@ Public Class ClassElementGraphic
     Public Property TopEdge_Pixels As Integer Implements IElement_Base.TopEdge_Pixels
     Public Property LeftEdge_Pixels As Integer Implements IElement_Base.LeftEdge_Pixels
 
+    ''
+    ''If applicable, inform software developer of programming which violates design expectations.
+    ''
+    ''Set the Boolean constant to False.  That's because, for general graphics, we do //NOT// have
+    ''   portrait-vs-landscape expectations. ---1/8/2022 td
+    ''
+    Private Const mc_bPortraitVsLandscapeExpectations As Boolean = False ''Added 1/8/2022 td
+
+
     Private mod_width_pixels As Integer ''Added 9/23/2019 td 
     Public Property Width_Pixels As Integer Implements IElement_Base.Width_Pixels
         Get
@@ -70,23 +79,33 @@ Public Class ClassElementGraphic
             If (boolLikelyInitializing) Then Exit Property ''Added 9/23/2019 td 
 
             ''
-            ''Inform software developer of programming which violates design expectations.
+            ''If applicable, inform software developer of programming which violates design expectations.
             ''
-            Dim boolShorterThanWidth As Boolean ''Added 9/23/2019 thomas downes
-            Dim boolGiveDisallowedMsg As Boolean ''Added 9/23/2019 thomas downes
-            ''9/23 td''boolShorterThanWidth = (mod_height_pixels < mod_width_pixels) ''value)
-            boolShorterThanWidth = (mod_height_pixels < value)
-            boolGiveDisallowedMsg = boolShorterThanWidth
-            If (boolGiveDisallowedMsg) Then
-                Throw New Exception("The Height cannot be less than the width #1 (rotation is _not_ an exception to this).")
-            End If ''End of "If (boolGiveDisallowedMsg) Then"
+            ''Set the Boolean constant to False.  That's because, for general graphics, we do //NOT// have
+            ''   portrait-vs-landscape expectations. ---1/8/2022 td
+            ''
+            ''Modularized Jan8 2022''Const c_bPortraitVsLandscapeExpectations As Boolean = False ''Added 1/8/2022 td
 
-            ''Added 9/23/2019 td
-            Const c_False_RegardlessOfRotation As Boolean = False
-            CheckWidthVsLength_OfPic(mod_width_pixels, mod_height_pixels, c_False_RegardlessOfRotation)
+            If (mc_bPortraitVsLandscapeExpectations) Then ''Added 1/8/2022 td
+
+                Dim boolShorterThanWidth As Boolean ''Added 9/23/2019 thomas downes
+                Dim boolGiveDisallowedMsg As Boolean ''Added 9/23/2019 thomas downes
+                ''9/23 td''boolShorterThanWidth = (mod_height_pixels < mod_width_pixels) ''value)
+                boolShorterThanWidth = (mod_height_pixels < value)
+                boolGiveDisallowedMsg = boolShorterThanWidth
+                If (boolGiveDisallowedMsg) Then
+                    Throw New Exception("The Height cannot be less than the width #1 (rotation is _not_ an exception to this).")
+                End If ''End of "If (boolGiveDisallowedMsg) Then"
+
+                ''Added 9/23/2019 td
+                Const c_False_RegardlessOfRotation As Boolean = False
+                CheckWidthVsLength_OfPic(mod_width_pixels, mod_height_pixels, c_False_RegardlessOfRotation)
+
+            End If ''End of "If (mc_bPortraitVsLandscapeExpectations) Then"
 
         End Set
     End Property
+
 
     Private mod_height_pixels As Integer ''Added 9/23/2019 td 
     Public Property Height_Pixels As Integer Implements IElement_Base.Height_Pixels
@@ -107,21 +126,30 @@ Public Class ClassElementGraphic
             If (boolLikelyInitializing) Then Exit Property ''Added 9/23/2019 td 
 
             ''
-            ''Inform software developer of programming which violates design expectations.
+            ''If applicable, inform software developer of programming which violates design expectations.
             ''
-            Dim boolShorterThanWidth As Boolean ''Added 9/23/2019 thomas downes
-            Dim boolGiveDisallowedMsg As Boolean ''Added 9/23/2019 thomas downes
-            ''Added 9/23/2019 thomas downes
-            ''9/23/2019 td''boolTallerThanWidth = (mod_height_pixels > mod_width_pixels)
-            boolShorterThanWidth = (mod_height_pixels < mod_width_pixels)
-            boolGiveDisallowedMsg = boolShorterThanWidth
-            If (boolGiveDisallowedMsg) Then
-                Throw New Exception("The Height cannot be less than the width #2 (rotation is _not_ an exception to this).")
-            End If ''End of "If (boolGiveDisallowedMsg) Then"
+            ''Set the Boolean constant to False.  That's because, for general graphics, we do //NOT// have
+            ''   portrait-vs-landscape expectations. ---1/8/2022 td
+            ''
+            ''Modularized Jan8 2022''Const c_bPortraitVsLandscapeExpectations As Boolean = False ''Added 1/8/2022 td
 
-            ''Added 9/23/2019 td
-            Const c_False_RegardlessOfRotation As Boolean = False
-            CheckWidthVsLength_OfPic(mod_width_pixels, mod_height_pixels, c_False_RegardlessOfRotation)
+            If (mc_bPortraitVsLandscapeExpectations) Then ''Added 1/8/2022 td
+
+                Dim boolShorterThanWidth As Boolean ''Added 9/23/2019 thomas downes
+                Dim boolGiveDisallowedMsg As Boolean ''Added 9/23/2019 thomas downes
+                ''Added 9/23/2019 thomas downes
+                ''9/23/2019 td''boolTallerThanWidth = (mod_height_pixels > mod_width_pixels)
+                boolShorterThanWidth = (mod_height_pixels < mod_width_pixels)
+                boolGiveDisallowedMsg = boolShorterThanWidth
+                If (boolGiveDisallowedMsg) Then
+                    Throw New Exception("The Height cannot be less than the width #2 (rotation is _not_ an exception to this).")
+                End If ''End of "If (boolGiveDisallowedMsg) Then"
+
+                ''Added 9/23/2019 td
+                Const c_False_RegardlessOfRotation As Boolean = False
+                CheckWidthVsLength_OfPic(mod_width_pixels, mod_height_pixels, c_False_RegardlessOfRotation)
+
+            End If ''End of "If (mc_bPortraitVsLandscapeExpectations) Then"
 
         End Set
     End Property

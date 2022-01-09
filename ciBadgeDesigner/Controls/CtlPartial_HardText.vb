@@ -12,7 +12,7 @@ Partial Public Class CtlGraphicStaticText
     ''   This is to store the initial Width & Height, when resizing.
     ''
     ''10/1/2019 td''Public FormDesigner As FormDesignProtoTwo ''Added 8/9/2019 td  
-    Public LayoutFunctions As ILayoutFunctions ''Added 10/1/2019 td  
+    ''Jan8 2022 td''Public LayoutFunctions As ILayoutFunctions ''Added 10/1/2019 td  
 
     Public TempResizeInfo_W As Integer = 0 ''Intial resizing width.  (Before any adjustment is made.)
     Public TempResizeInfo_H As Integer = 0 ''Intial resizing height.  (Before any adjustment is made.)

@@ -44,6 +44,8 @@ Public Class CtlGraphicStaticText
     Private mod_strTextToDisplay As String = "This is text which will be the same for everyone." ''Added 10/10/2019 td 
 
     Private mod_bDisplayVisibilityLink As Boolean = False ''Added 12/27/2021 td
+    Private Const mod_c_bResizeProportionally As Boolean = False ''Added 1/8/2022 thomas d. 
+
 
     Public ReadOnly Property Picture_Box As PictureBox
         Get
@@ -73,10 +75,10 @@ Public Class CtlGraphicStaticText
                                       par_nameOfControl As String,
                                       par_iLayoutFun As ILayoutFunctions,
                                          par_iRefreshPreview As IRefreshPreview,
-                                      par_bProportionSizing As Boolean,
                                 par_iControlLastTouched As ILastControlTouched,
                                      par_oMoveEvents As GroupMoveEvents_Singleton) As CtlGraphicStaticText
-        ''              1/2/2022 td''par_iSaveToModel As ISaveToModel,
+        ''              1/6/2022 td'' par_bProportionSizing As Boolean,
+        ''              1/2/2022 td'' par_iSaveToModel As ISaveToModel,
         ''
         ''Added 1/07/2021 td
         ''
@@ -132,12 +134,12 @@ Public Class CtlGraphicStaticText
         Dim CtlStaticText1 = New CtlGraphicStaticText(par_elementText,
                                                       par_iLayoutFun,
                                                       par_iRefreshPreview,
-                                                   par_bProportionSizing,
                                                    typeOps, objOperations,
                                                    bAddFunctionalitySooner,
                                                    bAddFunctionalitySooner,
                                                    par_iControlLastTouched,
                                                     par_oMoveEvents)
+        ''Jan8 2022 td''         par_bProportionSizing,
         ''Jan2 2022 ''          --------''Jan2 2022 ''par_iSaveToModel, typeOps,
 
         With CtlStaticText1
@@ -178,7 +180,6 @@ Public Class CtlGraphicStaticText
     Public Sub New(par_elementST As ClassElementStaticText,
                    par_iLayoutFun As ILayoutFunctions,
                    par_iRefreshPreview As IRefreshPreview,
-                   pboolResizeProportionally As Boolean,
                    par_operationsType As Type,
                    par_operationsAny As Object,
                    pboolAddMoveability As Boolean,
@@ -186,11 +187,12 @@ Public Class CtlGraphicStaticText
                    par_iLastTouched As ILastControlTouched,
                    par_oMoveEvents As GroupMoveEvents_Singleton,
                    Optional pbHandleMouseEventsThroughFormVB6 As Boolean = True)
+        ''Jan8 2022 td''      pboolResizeProportionally As Boolean,
         ''
         ''Added 1/07/2022 td
         ''
         ''Jan1 2022 td''MyBase.New(par_enumElementType, pboolResizeProportionally,
-        MyBase.New(EnumElementType.StaticText, pboolResizeProportionally,
+        MyBase.New(EnumElementType.StaticText, mod_c_bResizeProportionally,
                         par_iLayoutFun,
                         par_operationsType, par_operationsAny,
                         pboolAddMoveability, pboolAddClickability,
@@ -291,8 +293,10 @@ Public Class CtlGraphicStaticText
         ''Added 9/17 & 9/5/2019 thomas d 
         ''
 
-        Me.Left = Me.LayoutFunctions.Layout_Margin_Left_Add(Me.ElementInfo_Base.LeftEdge_Pixels)
-        Me.Top = Me.LayoutFunctions.Layout_Margin_Top_Add(Me.ElementInfo_Base.TopEdge_Pixels)
+        ''Jan8 2022''Me.Left = Me.LayoutFunctions.Layout_Margin_Left_Add(Me.ElementInfo_Base.LeftEdge_Pixels)
+        ''Jan8 2022''Me.Top = Me.LayoutFunctions.Layout_Margin_Top_Add(Me.ElementInfo_Base.TopEdge_Pixels)
+        Me.Left = mod_iLayoutFunctions.Layout_Margin_Left_Add(Me.ElementInfo_Base.LeftEdge_Pixels)
+        Me.Top = mod_iLayoutFunctions.Layout_Margin_Top_Add(Me.ElementInfo_Base.TopEdge_Pixels)
 
         Me.Width = Me.ElementInfo_Base.Width_Pixels
         Me.Height = Me.ElementInfo_Base.Height_Pixels
@@ -410,12 +414,15 @@ Public Class CtlGraphicStaticText
         Dim intBadgeLayoutWidth As Integer ''Added 9/3/2019 thomas d.
 
         ''9/19/2019 td''intLayoutWidth = Me.FormDesigner.Layout_Width_Pixels()
-        If (Me.LayoutFunctions IsNot Nothing) Then
-            intBadgeLayoutWidth = Me.LayoutFunctions.Layout_Width_Pixels()
+        ''1/08/2022 td''If (Me.LayoutFunctions IsNot Nothing) Then
+        ''1/08/2022 td''   intBadgeLayoutWidth = Me.LayoutFunctions.Layout_Width_Pixels()
+
+        If (mod_iLayoutFunctions IsNot Nothing) Then
+            intBadgeLayoutWidth = mod_iLayoutFunctions.Layout_Width_Pixels()
         Else
             ''Added 11/24/2021 td
             intBadgeLayoutWidth = par_intBadgeLayoutWidth
-        End If
+        End If ''End of "If (mod_iLayoutFunctions IsNot Nothing) Then ... Else ...."
 
         ''9/4/2019 td''LabelToImage.TextImage(intLayoutWidth, pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
 
@@ -545,8 +552,10 @@ ExitHandler:
         Dim strLeftEdge_WasBefore As String = ""
         strLeftEdge_WasBefore = Me.ElementInfo_Base.LeftEdge_Pixels.ToString
 
-        Me.ElementInfo_Base.TopEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Top_Omit(Me.Top)
-        Me.ElementInfo_Base.LeftEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Left_Omit(Me.Left)
+        ''Jan8 2022''Me.ElementInfo_Base.TopEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Top_Omit(Me.Top)
+        ''Jan8 2022''Me.ElementInfo_Base.LeftEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Left_Omit(Me.Left)
+        Me.ElementInfo_Base.TopEdge_Pixels = mod_iLayoutFunctions.Layout_Margin_Top_Omit(Me.Top)
+        Me.ElementInfo_Base.LeftEdge_Pixels = mod_iLayoutFunctions.Layout_Margin_Left_Omit(Me.Left)
 
         ''Added 12/18/2021 td
         Me.ElementInfo_Base.DateSaved = DateTime.Now
@@ -567,8 +576,11 @@ ExitHandler:
         ''10/01/2019 td''Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.FormDesigner.Layout_Width_Pixels()
         ''10/01/2019 td''Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.FormDesigner.Layout_Height_Pixels()
 
-        Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.LayoutFunctions.Layout_Width_Pixels()
-        Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
+        ''1/08/2022 td''Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.LayoutFunctions.Layout_Width_Pixels()
+        ''1/08/2022 td''Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
+
+        Me.ElementInfo_Base.BadgeLayout.Width_Pixels = mod_iLayoutFunctions.Layout_Width_Pixels()
+        Me.ElementInfo_Base.BadgeLayout.Height_Pixels = mod_iLayoutFunctions.Layout_Height_Pixels()
 
     End Sub ''End of Public Sub SaveToModel
 
@@ -592,8 +604,10 @@ ExitHandler:
         ''10/01/2019 td''Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.FormDesigner.Layout_Width_Pixels()
         ''10/01/2019 td''Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.FormDesigner.Layout_Height_Pixels()
 
-        Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.LayoutFunctions.Layout_Width_Pixels()
-        Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
+        ''#1 Jan8 2022''Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.LayoutFunctions.Layout_Width_Pixels()
+        ''#1 Jan8 2022''Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
+        Me.ElementInfo_Base.BadgeLayout.Width_Pixels = mod_iLayoutFunctions.Layout_Width_Pixels()
+        Me.ElementInfo_Base.BadgeLayout.Height_Pixels = mod_iLayoutFunctions.Layout_Height_Pixels()
 
         Application.DoEvents()
         Me.Refresh_Image(True)
@@ -797,10 +811,15 @@ ExitHandler:
                 ''10/01/2019 td''Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.FormDesigner.Layout_Width_Pixels()
                 ''10/01/2019 td''Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.FormDesigner.Layout_Height_Pixels()
 
-                If (Me.LayoutFunctions IsNot Nothing) Then
-                    Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.LayoutFunctions.Layout_Width_Pixels()
-                    Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
-                End If ''End of "If (Me.LayoutFunctions IsNot Nothing) Then"
+                ''Jan8 2022 td''If (Me.LayoutFunctions IsNot Nothing) Then
+                ''Jan8 2022 td''   Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.LayoutFunctions.Layout_Width_Pixels()
+                ''Jan8 2022 td''   Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
+                ''Jan8 2022 td''End If ''End of "If (Me.LayoutFunctions IsNot Nothing) Then"
+
+                If (mod_iLayoutFunctions IsNot Nothing) Then
+                    Me.ElementInfo_Base.BadgeLayout.Width_Pixels = mod_iLayoutFunctions.Layout_Width_Pixels()
+                    Me.ElementInfo_Base.BadgeLayout.Height_Pixels = mod_iLayoutFunctions.Layout_Height_Pixels()
+                End If ''End of "If (mod_iLayoutFunctions IsNot Nothing) Then"
 
                 ''12/21/2021''Me.Refresh_Image(True)
                 Me.Refresh_Image(False, False, False, False)
