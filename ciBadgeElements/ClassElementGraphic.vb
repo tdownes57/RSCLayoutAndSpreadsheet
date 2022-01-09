@@ -222,10 +222,10 @@ Public Class ClassElementGraphic
 
     Public Property ZOrder As Integer Implements IElement_Base.ZOrder
         Get
-            Throw New NotImplementedException()
+            Return 0 ''--Throw New NotImplementedException()
         End Get
         Set(value As Integer)
-            Throw New NotImplementedException()
+            ''Throw New NotImplementedException()
         End Set
     End Property
 

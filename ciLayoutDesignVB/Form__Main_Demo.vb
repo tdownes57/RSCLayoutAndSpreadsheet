@@ -152,7 +152,7 @@ Public Class Form__Main_Demo
         ' Add any initialization after the InitializeComponent() call.
 
         ''Added 10/12/2019 td
-        CtlGraphicStaticText1.LayoutFunctions = CType(mod_designer, ILayoutFunctions)
+        ''Jan9 2022 td''CtlGraphicStaticText1.LayoutFunctions = CType(mod_designer, ILayoutFunctions)
 
         ''Added 10/12/2019 td
         With CtlGraphicSignature1
@@ -264,7 +264,7 @@ Public Class Form__Main_Demo
         Me.Controls.Remove(CtlGraphicStaticText1) ''Added 12/19/2021 thomas d. 
 
         ''Added 10/11/2019 thomas downes 
-        Me.CtlGraphicStaticText1.LayoutFunctions = CType(mod_designer, ILayoutFunctions)
+        ''Jan9 2022 td''Me.CtlGraphicStaticText1.LayoutFunctions = CType(mod_designer, ILayoutFunctions)
 
         ''Encapsulated 7/31/2019 td
         ''
@@ -501,16 +501,19 @@ Public Class Form__Main_Demo
 
                 If (objElementPic Is Nothing) Then System.Diagnostics.Debugger.Break()
 
-                    ''.Initial_Pic_Left = Me.ElementsCache_Edits.PicElement_Front().LeftEdge_Pixels
-                    ''.Initial_Pic_Top = Me.ElementsCache_Edits.PicElement_Front().TopEdge_Pixels
-                    ''.Initial_Pic_Width = Me.ElementsCache_Edits.PicElement_Front().Width_Pixels
-                    ''.Initial_Pic_Height = Me.ElementsCache_Edits.PicElement_Front().Height_Pixels
+                ''.Initial_Pic_Left = Me.ElementsCache_Edits.PicElement_Front().LeftEdge_Pixels
+                ''.Initial_Pic_Top = Me.ElementsCache_Edits.PicElement_Front().TopEdge_Pixels
+                ''.Initial_Pic_Width = Me.ElementsCache_Edits.PicElement_Front().Width_Pixels
+                ''.Initial_Pic_Height = Me.ElementsCache_Edits.PicElement_Front().Height_Pixels
+
+                If (objElementPic IsNot Nothing) Then ''Added 1/9/2022 thomas d. 
                     .Initial_Pic_Left = objElementPic.LeftEdge_Pixels
                     .Initial_Pic_Top = objElementPic.TopEdge_Pixels
                     .Initial_Pic_Width = objElementPic.Width_Pixels
                     .Initial_Pic_Height = objElementPic.Height_Pixels
+                End If ''End of "If (objElementPic IsNot Nothing) Then"
 
-                End If ''End of "If (Me.NewFileXML) Then .... Else ..."
+            End If ''End of "If (Me.NewFileXML) Then .... Else ..."
 
                 ''Added 12/12/2021
                 If (Me.ElementsCache_Edits.BadgeHasTwoSidesOfCard) Then

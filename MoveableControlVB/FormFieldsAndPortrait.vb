@@ -56,6 +56,9 @@ Public Class FormFieldsAndPortrait
         Me.BadgeLayout.Height_Pixels = pictureBackgroundFront.Height
         Me.BadgeLayout.Width_Pixels = pictureBackgroundFront.Width
 
+        ''Added 1/9/2022 td
+        Me.ElementsCache_ManageBoth = New ClassCacheManagement(Me.ElementsCache_Edits, False, Me.ElementsCache_PathToXML) ''Added 12/14/2021 thomas d
+
         mod_designer = New ClassDesigner() ''Added 1/7/2022 td
         mod_designer.ElementsCache_UseEdits = Me.ElementsCache_Edits
         mod_designer.ElementsCache_Manager = Me.ElementsCache_ManageBoth
@@ -64,7 +67,7 @@ Public Class FormFieldsAndPortrait
         mod_designer.BackgroundBox_Backside = pictureBackgroundFront
 
         ''
-        ''Instantiate element controls. 
+        ''Major call!!   Instantiate element controls. 
         ''
         InstantiateElementControls()
 
@@ -76,8 +79,8 @@ Public Class FormFieldsAndPortrait
         ''Added 1/7/2022 thomas downes
         ''
         InstantiateQRCode()
-        InstantiatePortrait()
-        InstantiateField1()
+        ''InstantiatePortrait()
+        ''InstantiateField1()
 
         ''Added 1/8/2022 thomas downes
         InstantiateStaticText()
@@ -184,12 +187,17 @@ Public Class FormFieldsAndPortrait
         Dim objElement As New ciBadgeElements.ClassElementGraphic
         objElement.BadgeLayout = mod_designer.BadgeLayout_Class
 
+        ''Added 1/9/2022 td
+        If (0 = ElementsCache_Edits.ListOfElementGraphics_Front.Count) Then
+            ElementsCache_Edits.ListOfElementGraphics_Front.Add(objElement)
+            ElementsCache_ManageBoth.Save(True)
+        End If ''End of "If (0 = ElementsCache_Edits.ListOfElementGraphics_Front.Count) Then"
+
         ''mod_ctlPortrait = CtlGraphicSignature.GetSignature(objElement, "ctlSignature",
         ''  mod_designer, True, mod_ctlLasttouched, mod_eventsSingleton,
         ''  DiskFilesVB.PathToFile_Sig())
 
-        mod_ctlStaticGraphic = CtlGraphicStaticGraphic.GetStaticGraphic(objElement, "mod_ctlStaticGraphic", mod_designer, True, mod_ctlLasttouched,
-           mod_eventsSingleton)
+        mod_ctlStaticGraphic = CtlGraphicStaticGraphic.GetStaticGraphic(objElement, "mod_ctlStaticGraphic", mod_designer, True, mod_ctlLasttouched, mod_eventsSingleton)
 
         mod_ctlStaticGraphic.Visible = True
         mod_ctlStaticGraphic.Width = (5 * mod_ctlStaticGraphic.Height) ''Added 1/08/2022 td

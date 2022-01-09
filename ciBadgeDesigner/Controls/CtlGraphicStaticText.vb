@@ -166,10 +166,12 @@ Public Class CtlGraphicStaticText
 
         ''Added 10/11/2019 thomas downes
         ''
-        Me.Element_StaticText = New ClassElementStaticText
-        Me.ElementInfo_Base = CType(Me.Element_StaticText, IElement_Base)
-        Me.ElementInfo_TextOnly = CType(Me.Element_StaticText, IElement_TextOnly)
-        Me.ElementClass_Obj = Me.Element_StaticText ''Added 1/8/2022 td
+        If (False) Then ''Added 1/9/2022 to see if it helps w/ Moveability.
+            Me.Element_StaticText = New ClassElementStaticText
+            Me.ElementInfo_Base = CType(Me.Element_StaticText, IElement_Base)
+            Me.ElementInfo_TextOnly = CType(Me.Element_StaticText, IElement_TextOnly)
+            Me.ElementClass_Obj = Me.Element_StaticText ''Added 1/8/2022 td
+        End If
 
         ''Added 12/27/2021 td 
         Me.LinkInvisible.Text = Me.LinkInvisible.Tag.ToString()

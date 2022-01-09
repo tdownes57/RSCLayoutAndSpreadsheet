@@ -46,9 +46,9 @@ Public Class CtlGraphicStaticGraphic
 
         Dim typeOps As Type
         Dim objOperations As Object ''Added 12/29/2021 td 
-        Dim objOperations1Gen As Operations__Generic = Nothing
-        Dim objOperations2Use As Operations__Useless = Nothing
-        Dim objOperationsQR As Operations_StaticGraphic ''Added 12/31/2021 td 
+        ''Dim objOperations1Gen As Operations__Generic = Nothing
+        ''Dim objOperations2Use As Operations__Useless = Nothing
+        Dim objOperationsSG As Operations_StaticGraphic ''Added 12/31/2021 td 
 
         ''Instantiate the Operations Object. 
         ''//If (enumElemType = EnumElementType.Signature) Then objOperations2Use = New Operations__Useless()
@@ -71,9 +71,9 @@ Public Class CtlGraphicStaticGraphic
         ''If (par_enum = EnumElementType.StaticText) Then objOperations = objOperations2Use
 
         ''Modified 1/2/2022 td
-        objOperationsQR = New Operations_StaticGraphic() ''Added 1/1/2022 td
-        typeOps = objOperationsQR.GetType()
-        objOperations = objOperationsQR
+        objOperationsSG = New Operations_StaticGraphic() ''Added 1/1/2022 td
+        typeOps = objOperationsSG.GetType()
+        objOperations = objOperationsSG
 
         If (objOperations Is Nothing) Then
             ''Added 12/29/2021
@@ -86,6 +86,7 @@ Public Class CtlGraphicStaticGraphic
         ''Create the control. 
         ''Jan2 2022''Dim CtlStaticGraphic1 = New CtlGraphicStaticGraphic(par_elementStaticGraphic, par_iLayoutFun,
         ''Jan2 2022''                        enumElementType_Enum, par_bProportionSizing,
+
         Dim CtlStaticGraphic1 = New CtlGraphicStaticGraphic(par_elementStaticGraphic, par_iLayoutFun,
                                                    par_bProportionSizing,
                                                    typeOps, objOperations,
@@ -93,7 +94,7 @@ Public Class CtlGraphicStaticGraphic
                                                    bAddFunctionalitySooner,
                                                    par_iControlLastTouched,
                                                     par_oMoveEvents)
-        ''Jan2 2022 ''                       ''Jan2 2022 ''par_iSaveToModel, typeOps,
+        ''Jan2 2022 ''         ''Jan2 2022 ''par_iSaveToModel, typeOps,
 
         With CtlStaticGraphic1
             .Name = par_nameOfControl
