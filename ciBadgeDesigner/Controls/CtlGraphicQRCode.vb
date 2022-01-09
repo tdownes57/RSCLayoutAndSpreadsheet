@@ -871,6 +871,5 @@ ExitHandler:
     End Sub
 
 
-
 End Class ''End of Public Class CtlGraphicQRCode 
 

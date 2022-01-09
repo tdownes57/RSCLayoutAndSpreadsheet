@@ -192,6 +192,7 @@ Public Class FormFieldsAndPortrait
            mod_eventsSingleton)
 
         mod_ctlStaticGraphic.Visible = True
+        mod_ctlStaticGraphic.Width = (5 * mod_ctlStaticGraphic.Height) ''Added 1/08/2022 td
         mod_ctlStaticGraphic.Left = mod_ctlQRCode.Width
         mod_ctlStaticGraphic.Top = mod_ctlQRCode.Height
         Me.Controls.Add(mod_ctlStaticGraphic)

@@ -836,6 +836,7 @@ ExitHandler:
 
     End Sub
 
+
     Private Sub pictureStaticGraphic_MouseUp(sender As Object, par_e As MouseEventArgs) Handles pictureStaticGraphic.MouseUp '', Me.MouseDown
         ''
         ''Added 1/4/2022 td 
@@ -844,9 +845,20 @@ ExitHandler:
 
     End Sub
 
-    Private Sub pictureStaticGraphic_Click(sender As Object, e As EventArgs) Handles pictureStaticGraphic.Click
+
+    Private Sub pictureStaticGraphic_Click(sender As Object, par_event As EventArgs) Handles pictureStaticGraphic.Click
+        ''
+        ''  See "Handles pictureLabel.MouseClick()".  ----12/15/2021 td 
+        ''
+        Dim objArgs As New MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0) ''Added 1/1/2022 td
+        ''objArgs.X = par_event.
+
+        ''Jan1 2022 td''If (False) Then PictureLabel_MouseClick(sender, e))
+        If (False) Then PictureLabel_MouseClick(sender, CType(par_event, MouseEventArgs))
 
     End Sub
+
+
 End Class ''End of Public Class CtlGraphicStaticGraphic 
 
 
