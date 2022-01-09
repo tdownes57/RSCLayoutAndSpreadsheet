@@ -72,6 +72,7 @@ Public Class CtlGraphicStaticText
     Public Shared Function GetStaticText(par_elementText As ClassElementStaticText,
                                       par_nameOfControl As String,
                                       par_iLayoutFun As ILayoutFunctions,
+                                         par_iRefreshPreview As IRefreshPreview,
                                       par_bProportionSizing As Boolean,
                                 par_iControlLastTouched As ILastControlTouched,
                                      par_oMoveEvents As GroupMoveEvents_Singleton) As CtlGraphicStaticText
@@ -122,10 +123,15 @@ Public Class CtlGraphicStaticText
         ''Added 12/2/2022 td
         Dim enumElementType_Enum As EnumElementType = EnumElementType.StaticText
 
+        ''
         ''Create the control. 
+        ''
         ''Jan2 2022''Dim CtlQRCode1 = New CtlGraphicQRCode(par_elementQRCode, par_iLayoutFun,
-        ''Jan2 2022''                        enumElementType_Enum, par_bProportionSizing,
-        Dim CtlStaticText1 = New CtlGraphicStaticText(par_elementText, par_iLayoutFun,
+        ''Jan2 2022''           enumElementType_Enum, par_bProportionSizing,
+
+        Dim CtlStaticText1 = New CtlGraphicStaticText(par_elementText,
+                                                      par_iLayoutFun,
+                                                      par_iRefreshPreview,
                                                    par_bProportionSizing,
                                                    typeOps, objOperations,
                                                    bAddFunctionalitySooner,
@@ -144,11 +150,11 @@ Public Class CtlGraphicStaticText
         ''Specify the current element to the Operations object. 
         ''
         Dim infoOps = CType(objOperations, ICurrentElement) ''.CtlCurrentElement = MoveableControlVB1
-        infoOps.CtlCurrentElement = CtlQRCode1
+        infoOps.CtlCurrentElement = CtlStaticText1
 
-        Return CtlQRCode1
+        Return CtlStaticText1
 
-    End Function ''end of "Public Shared Function GetQRCode() As CtlGraphicQRCode"
+    End Function ''end of "Public Shared Function GetStaticText() As CtlGraphicStaticText"
 
 
     Public Sub New()

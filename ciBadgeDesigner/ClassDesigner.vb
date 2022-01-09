@@ -755,11 +755,13 @@ Public Class ClassDesigner
         boolMakeMoveableByUser = c_boolMakeMoveableASAP ''Added 9/20/2019 td  
 
         ''Added 11/27/2021 thomas downes
-        Dim objListBadgeElems As HashSet(Of ClassElementField)
+        ''Jan8 2022''Dim objListBadgeElems As HashSet(Of ClassElementField)
+        Dim objListBadgeElems As List(Of ClassElementField)
 
         If (par_enumSideOfCard = EnumWhichSideOfCard.EnumBackside) Then
             ''Back side of the card.
             objListBadgeElems = par_cache.ListOfBadgeDisplayElements_Flds_Backside(True)
+
         Else
             ''Front side of the card. 
             objListBadgeElems = par_cache.ListOfBadgeDisplayElements_Flds_Front(True)
@@ -769,7 +771,8 @@ Public Class ClassDesigner
         ''Major call !!
         ''
         ''----LoadFieldControls_ByListOfElements(par_cache.ListFieldElements(),
-        '' Dec21 2021 ''LoadFieldControls_ByListOfElements(objListBadgeElems, 
+        ''--- Dec21 2021 ''LoadFieldControls_ByListOfElements(objListBadgeElems, 
+
         LoadElements_FieldElements(objListBadgeElems,
                                            c_boolLoadingForm,
                                            False, boolMakeMoveableByUser,
@@ -1154,7 +1157,7 @@ Public Class ClassDesigner
             ''Jan8 2022 td''CtlGraphic_StaticText_temp = New CtlGraphicStaticText(each_element_static, Me)
             each_ctlStaticText = CtlGraphicStaticText.GetStaticText(each_element_static,
                     String.Format("CtlGraphicStaticText{0}", indexControl),
-                    Me, False, mod_ctlLasttouched, mod_oGroupMoveEvents)
+                    Me, Me, False, mod_ctlLasttouched, mod_oGroupMoveEvents)
 
             ListCtlGraphic_StaticTexts.Add(each_ctlStaticText)
 
@@ -1248,7 +1251,7 @@ Public Class ClassDesigner
     End Sub ''End of "Private Sub InitiateRubberbandSelector"
 
 
-    Private Sub LoadElements_FieldElements(par_listElements As HashSet(Of ClassElementField),
+    Private Sub LoadElements_FieldElements(par_listElements As List(Of ClassElementField),
                                par_boolLoadingForm As Boolean,
                                Optional par_bUnloading As Boolean = False,
                                Optional par_bAddMoveability As Boolean = False,
@@ -1440,7 +1443,10 @@ Public Class ClassDesigner
         ''Added 9/17/2019 thomas d.  
         ''
         ''10/17 td''Dim new_list As New List(Of ClassElementField)
-        Dim new_list As New HashSet(Of ClassElementField)
+        ''1/8/2022 td''Dim new_list As New HashSet(Of ClassElementField)
+
+        Dim new_list As New List(Of ClassElementField)
+
         Const c_bAddToMoveableClass As Boolean = True ''Added 9/8/2019 td 
 
         new_list.Add(par_elementField)
@@ -2880,15 +2886,17 @@ Public Class ClassDesigner
         End If  ''End of "If (bControlProportionedWidthHeight And (objResizeProply Is Nothing)) Then"
 
         ''12/23/2021 td''If (par_control Is CtlGraphic_StaticText_temp) Then mod_designerListener.Sizing_staticText = objResize
-        If (par_control Is CtlGraphic_StaticText_temp) Then
 
-            If (objMove Is Nothing) Then Throw New ArgumentException("Boolean parameter should be False.")
-            mod_designerListener.Sizing_staticText = objMove
+        ''===00==I have removed object-reference CtlGraphic_StaticText_temp from this module, as I
+        ''===00==    feel that a List of potentially several controls of type CtlGraphicStaticText
+        ''===00==    is more appropriate.   ----1/8/2022 td
+        ''===If (par_control Is CtlGraphic_StaticText_temp) Then
+        ''===
+        ''===If (objMove Is Nothing) Then Throw New ArgumentException("Boolean parameter should be False.")
+        ''===      mod_designerListener.Sizing_staticText = objMove
+        ''===End If ''End of "If (par_control Is CtlGraphic_StaticText_temp) Then"
 
-        End If ''End of "If (par_control Is CtlGraphic_StaticText_temp) Then"
-
-
-    End Sub
+    End Sub ''end of Sub Add_Moveability
 
     Public Sub Add_Clickability(par_elementClicked As IClickableElement) Implements IRecordElementLastTouched.Add_Clickability
         ''

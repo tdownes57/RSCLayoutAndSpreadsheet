@@ -79,9 +79,9 @@ Namespace ciBadgeCachePersonality
         ''
         ''Badge Elements -- Includes Pics & Graphics, Static Texts & Fields
         ''
-        ''Jan8 2022 td''Private mod_listBadgeElements_Front As New HashSet(Of ClassElementField) ''Added 11/26/2021 td
-        Private mod_listBadgeElements_Front As New HashSet(Of ClassElementBase) ''Modified 1/8/2022 ---Added 11/26/2021 td
-        Private mod_listBadgeElements_Backside As New HashSet(Of ClassElementBase) ''Modified 1/8/2022 td  ---Added 11/26/2021 td
+        ''#1 Jan8 2022 td''Private mod_listBadgeElements_Front As New HashSet(Of ClassElementField) ''Added 11/26/2021 td
+        ''#2 Jan8 2022 td''Private mod_listBadgeElements_Front As New HashSet(Of ClassElementBase) ''Modified 1/8/2022 ---Added 11/26/2021 td
+        ''#2 Jan8 2022 td''Private mod_listBadgeElements_Backside As New HashSet(Of ClassElementBase) ''Modified 1/8/2022 td  ---Added 11/26/2021 td
 
         ''Front side of ID Card / Badge Card
         Private mod_listElementFields_Front As New HashSet(Of ClassElementField)
@@ -370,6 +370,8 @@ Namespace ciBadgeCachePersonality
         End Function
 
 
+
+
         ''Public Function BadgeDisplayElements_Fields(pboolRefresh As Boolean) As HashSet(Of ClassElementField)
         ''    ''
         ''    ''Added 11/24/2021 thomas downes 
@@ -377,6 +379,18 @@ Namespace ciBadgeCachePersonality
         ''    Return ListOfBadgeDisplayElements_Flds_Front(pboolRefresh)
         ''
         ''End Function
+
+        Public Function BadgeDisplayElements_Fields_Front() As IEnumerable(Of ClassElementField)
+            ''
+            ''Added 1/08/2022 thomas downes 
+            ''
+            ''Return ListOfBadgeDisplayElements_Flds_Front(pboolRefresh)
+
+            With mod_listElementFields_Front
+                Return .Where(Function(objEl) objEl.IsDisplayedOnBadge_Visibly())
+            End With
+
+        End Function ''End of "Public Function BadgeDisplayElements_Fields_Front"
 
 
         ''Public Function ListOfBadgeDisplayElements_Flds_Front(pboolRefresh As Boolean) As HashSet(Of ClassElementField)
@@ -414,9 +428,11 @@ Namespace ciBadgeCachePersonality
         ''End Function ''end of "Public Function ListOfBadgeDisplayElements_Flds_Backside()"
 
 
-        Public Sub RefreshListOfBadgeDisplayElements_Flds_Front(Optional pboolSkip13 As Boolean = True,
-                                                      Optional pboolSkip14 As Boolean = True)
-            ''                                          As List(Of ClassElementField)
+        Public Function ListOfBadgeDisplayElements_Flds_Front(Optional pboolSkip13 As Boolean = True,
+                                            Optional pboolSkip14 As Boolean = True) _
+                                            As List(Of ClassElementField)
+            ''
+            ''--Jan.8 2022--Public Sub RefreshListOfBadgeDisplayElements_Flds_Front
             ''--Dec.8 2021--Public Sub RefreshListOfBadgeDisplayElements_Flds
             ''
             ''Added 11/24/2021 tdownes
@@ -424,7 +440,8 @@ Namespace ciBadgeCachePersonality
             ''  For each element, we check to see if it will be displayed on the Badge.
             ''  If so, it's included on the output list.  
             ''
-            Dim new_list As New HashSet(Of ClassElementField)  ''End of "List(Of ClassElementField)"
+            ''Jan08 2022 ''Dim new_list As New HashSet(Of ClassElementField)  ''End of "List(Of ClassElementField)"
+            Dim new_list As New List(Of ClassElementField)  ''End of "List(Of ClassElementField)"
             Dim each_element As ClassElementField
             Dim boolOnDisplay As Boolean
             Dim structWhyOmit As New ciBadgeElements.WhyOmitted
@@ -449,14 +466,16 @@ Namespace ciBadgeCachePersonality
                 End If ''End of "If (boolOnDisplay) Then"
             Next each_element
 
-            mod_listBadgeElements_Front = new_list
+            ''Jan.8 2022''mod_listBadgeElements_Front = new_list
+            Return new_list
 
-        End Sub ''End of "Public Sub RefreshListOfBadgeDisplayElements_Flds_Front()"
+        End Function ''End of "Public Function RefreshListOfBadgeDisplayElements_Flds_Front()"
 
 
-        Public Sub RefreshListOfBadgeDisplayElements_Flds_Backside(Optional pboolSkip13 As Boolean = True,
-                                                      Optional pboolSkip14 As Boolean = True)
-            ''                                          As List(Of ClassElementField)
+        Public Function ListOfBadgeDisplayElements_Flds_Backside(Optional pboolSkip13 As Boolean = True,
+                                                      Optional pboolSkip14 As Boolean = True) _
+                                                     As List(Of ClassElementField)
+            ''--Jan.8 2022--Public Sub RefreshListOfBadgeDisplayElements_Flds_Backside
             ''--Dec.8 2021--Public Sub RefreshListOfBadgeDisplayElements_Flds
             ''
             ''Added 12/8/2021 tdownes
@@ -464,7 +483,8 @@ Namespace ciBadgeCachePersonality
             ''  For each element, we check to see if it will be displayed on the Badge.
             ''  If so, it's included on the output list.  
             ''
-            Dim new_list As New HashSet(Of ClassElementField)  ''End of "List(Of ClassElementField)"
+            ''Jan8 2022 td''Dim new_list As New HashSet(Of ClassElementField)  ''End of "List(Of ClassElementField)"
+            Dim new_list As New List(Of ClassElementField)  ''End of "List(Of ClassElementField)"
             Dim each_element As ClassElementField
             Dim boolOnDisplay As Boolean
             Dim structWhyOmit As New ciBadgeElements.WhyOmitted
@@ -492,9 +512,10 @@ Namespace ciBadgeCachePersonality
             Next each_element
 
             ''Save to the module-level list, suffixed "_Backside". 
-            mod_listBadgeElements_Backside = new_list
+            ''Jan8 2022''mod_listBadgeElements_Backside = new_list
+            Return new_list
 
-        End Sub ''End of "Public Sub RefreshListOfBadgeDisplayElements_Flds_Backside()"
+        End Function ''End of "Public Function ListOfBadgeDisplayElements_Flds_Backside()"
 
 
         ''This is deprecated!!  Use ListOfElementPics_Front instead. ---12/21/2021 td
@@ -597,11 +618,11 @@ Namespace ciBadgeCachePersonality
                 ''
                 ''Added 1/00/2022 thomas d.
                 ''
-                Return mod_listElementGraphics_Back
+                Return mod_listElementGraphics_Backside
             End Get
             Set(value As HashSet(Of ClassElementGraphic))
                 ''Added 1/08/2028 td
-                mod_listElementGraphics_Back = value
+                mod_listElementGraphics_Backside = value
             End Set
         End Property
 
@@ -1593,7 +1614,8 @@ Namespace ciBadgeCachePersonality
         End Function ''End of "Public Function GetElementIndexByFieldIndex_ThisSucks"
 
 
-        Public Function MapElementIndex_OmitUnneeded(par_indexElement As Integer) As Integer
+        Public Function MapElementFieldIndex_OmitUnneeded(par_indexElementField As Integer) As Integer
+            ''Jan8 2022 ''Public Function MapElementIndex_OmitUnneeded(par_indexElement As Integer) As Integer
             ''
             ''  Added 11/24/2021 thomas downes
             ''
@@ -1608,10 +1630,18 @@ Namespace ciBadgeCachePersonality
 
             Dim boolMatch As Boolean
             Dim indexDisplay As Integer
+            Dim listBadgeElements_Front As List(Of ClassElementField) ''Added 1/8/2022 td
+            Dim each_elementField As ClassElementField ''Added 1/8/2022 thomas d.  
 
-            For indexDisplay = 0 To mod_listBadgeElements_Front.Count - 1
-                boolMatch = (par_indexElement = mod_listBadgeElements_Front(indexDisplay).ElementIndexIsFieldIndex())
+            listBadgeElements_Front = ListOfBadgeDisplayElements_Flds_Front()
+
+            ''Jan8 2022 td''For indexDisplay = 0 To mod_listBadgeElements_Front.Count - 1
+            For indexDisplay = 0 To listBadgeElements_Front.Count - 1
+
+                each_elementField = listBadgeElements_Front(indexDisplay)
+                boolMatch = (par_indexElementField = each_elementField.ElementIndexIsFieldIndex())
                 If (boolMatch) Then Return indexDisplay
+
             Next indexDisplay
 
             Return -1

@@ -11,6 +11,7 @@ Imports ciBadgeDesigner
 ''----Imports ciBadgeElements
 Imports ciLayoutPrintLib ''Added 10/15/2019 thomas d. 
 Imports System.Windows.Forms ''Added 12/27/2021 td 
+Imports System.Drawing ''Added 1/08/2022 td
 
 
 Public Class Operations_EditBackground
@@ -71,7 +72,7 @@ Public Class Operations_EditBackground
         ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
         ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
         ''
-        Dim open_image As Bitmap ''Added 10/15/2019 thomas d. 
+        Dim open_image As System.Drawing.Bitmap ''Added 10/15/2019 thomas d. 
         Dim strFullPathToBitmap As String
 
         If OpenFileDialog1 Is Nothing Then OpenFileDialog1 = New OpenFileDialog

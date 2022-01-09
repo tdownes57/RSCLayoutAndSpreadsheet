@@ -5,6 +5,7 @@ Imports System.Reflection ''Added 10/11/2019 td
 Imports ciBadgeInterfaces ''Added 10/14/2019 td 
 ''---10/15 td---Imports ciBadgeDesigner ''Added 10/14/2019 td
 Imports System.Windows.Forms ''Added 12/27/2021 td 
+Imports System.Drawing ''Added 1/8/2022 td
 
 Public Class MenuCache_Background
     ''

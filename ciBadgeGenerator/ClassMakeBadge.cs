@@ -178,9 +178,9 @@ namespace ciBadgeGenerator
                                     par_badge_height_pixels,
                                     par_recipientPic,
                                     par_cache, par_iRecipientInfo, 
-                                    par_cache.ListOfElementFields, 
-                                    par_cache.ListOfElementTexts, 
-                                    par_cache.ListOfElementGraphics, 
+                                    par_cache.ListOfElementFields_Front, 
+                                    par_cache.ListOfElementTexts_Front, 
+                                    par_cache.ListOfElementGraphics_Front, 
                                     null, null, null,
                                     par_listMessages,
                                     par_listFieldsIncluded,
@@ -541,11 +541,15 @@ namespace ciBadgeGenerator
             //    listOfElementTextFields = Me.ElementsCache_Edits.ListFieldElements()
 
             // 10-17-2019 td //List<ClassElementField> listOfElementTextFields;
-            HashSet<ClassElementField> listOfElementFields; // <<<<<<<<<<<<<< I have removed the word "Text" from the name.   It's confusing since there are Static-Text controls. --10/17/2019
+            // Jan8 2022 //HashSet<ClassElementField> listOfElementFields; // <<<<<<<<<<<<<< I have removed the word "Text" from the name.   It's confusing since there are Static-Text controls. --10/17/2019
+            IEnumerable<ClassElementField> listOfElementFields; // <<<<<<<<<<<<<< I have removed the word "Text" from the name.   It's confusing since there are Static-Text controls. --10/17/2019
+
             // Nov. 29 2021 //listOfElementFields = par_cache.ListFieldElements();
             if (par_listElementFields != null) listOfElementFields = par_listElementFields;
             // Dec. 7 2021  //else listOfElementFields = par_cache.ListFieldElements();
-            else listOfElementFields = par_cache.ListOfBadgeDisplayElements_Flds_Front(false);
+            // #1 Jan8 2022 td //else listOfElementFields = par_cache.ListOfBadgeDisplayElements_Flds_Front(false);
+            // #2 Jan8 2022 td //else listOfElementFields = par_cache.ListOfElementFields_Front;
+            else listOfElementFields = par_cache.BadgeDisplayElements_Fields_Front();
 
             const bool c_boolUseLocalProc = true;  // 11-9-2021 false;  // true;  // false;  //Added 10/5/2019 td
             if (c_boolUseLocalProc)
@@ -968,7 +972,7 @@ namespace ciBadgeGenerator
 
         public void LoadImageWithElements(ref Image par_imageBadgeCard,
                                           ref DateTime par_datetimeLastUpdated,
-                                          HashSet<ClassElementField> par_elements,
+                                          IEnumerable<ClassElementField> par_elements,
                                           IRecipient par_iRecipientInfo = null,
                                           List<Image> par_listTextImages = null,
                                           List<String> par_listMessages = null,

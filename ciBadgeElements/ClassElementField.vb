@@ -562,6 +562,17 @@ Public Class ClassElementField
         Return (FieldInfo.CIBadgeField & "/" & FieldInfo.DataEntryText)
     End Function
 
+
+    Public Function IsDisplayedOnBadge_Visibly() As Boolean
+        ''
+        ''Added 1/8/2022 thomas downes
+        ''
+        Dim structWhyOmit As New WhyOmitted
+        Return IsDisplayedOnBadge_Visibly(structWhyOmit)
+
+    End Function ''End of "Public Function IsDisplayedOnBadge_Visibly"
+
+
     Public Function IsDisplayedOnBadge_Visibly(ByRef par_whyOmit As WhyOmitted) As Boolean
         ''----Public Function IsDisplayedOnBadge_Visibly() As Boolean
         ''

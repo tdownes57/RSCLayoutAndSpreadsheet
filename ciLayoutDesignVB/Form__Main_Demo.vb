@@ -250,8 +250,10 @@ Public Class Form__Main_Demo
         mod_designer.CtlGraphic_QRCode = CtlGraphicQRCode1
         ''11/28/2021 Encapsulated to Load_Designer. 11/28/2021''
         mod_designer.CtlGraphic_Signat = CtlGraphicSignature1
+
         ''Added 11/29/2021 thomas downes
-        mod_designer.CtlGraphic_StaticText_temp = CtlGraphicStaticText1
+        ''++++/++++ I have removed the object reference from the mod_designer class.---1/8/2022 td
+        ''++++mod_designer.CtlGraphic_StaticText_temp = CtlGraphicStaticText1
 
         ''Added 10/13/2019 thomas d.
         ''11/28/2021 Encapsulated to Load_Designer. 11/28/2021''
@@ -412,7 +414,8 @@ Public Class Form__Main_Demo
         mod_designer.CtlGraphic_Portrait = CtlGraphicPortrait_Lady
         mod_designer.CtlGraphic_QRCode = CtlGraphicQRCode1
         mod_designer.CtlGraphic_Signat = CtlGraphicSignature1
-        mod_designer.CtlGraphic_StaticText_temp = CtlGraphicStaticText1 ''Added 11/30/2021 td
+        ''+++/+++ I have removed this object reference from the mod_designer class. Jan8 2022 td
+        ''+++mod_designer.CtlGraphic_StaticText_temp = CtlGraphicStaticText1 ''Added 11/30/2021 td
 
         ''Added 10/13/2019 thomas d.
         mod_designer.DesignerForm_Interface = CType(Me, IDesignerForm)

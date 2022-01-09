@@ -1047,20 +1047,21 @@ Public Class RSCMoveableControlVB
         ''
         If (mod_bHandleMouseMoveEvents_ByForm AndAlso (par_e.Button = MouseButtons.Left)) Then
             ''
-            ''It's a Left-Hand click. 
+            ''It's a Left-Button click.    (i.e. a Click-And-Drag action by user)
             ''
             ''Let the module know that a MouseUp took place. 
             mod_iMoveOrResizeFunctionality.StopDragOrResizing(CType(sender, Control), Me)
 
-        ElseIf (e.Button = MouseButtons.Right) Then
+        ElseIf (par_e.Button = MouseButtons.Right) Then
             ''            ''
-            ''            ''Added 12/28/2021 td
+            ''  Right-Button click, i.e. a context-menu request by user.          
+            ''            ''-----Added 12/28/2021 td
             ''            ''
             mod_designer_ElementRightClicked(par_e.X, par_e.Y)
 
         End If ''End of "If (mod_bHandleMouseMoveEvents And par_e.Button = MouseButtons.Left) Then"
 
-    End Sub
+    End Sub ''End of Protected Sub MoveableControl_MouseUp
 
 
 End Class

@@ -9,12 +9,14 @@ Imports ciBadgeInterfaces
 Imports ciBadgeDesigner
 ''----Imports ciBadgeElements
 Imports System.Windows.Forms ''Added 12/27/2021 td 
+Imports System.Drawing ''Added 1/8/2022 thomas d. 
 
 Public Class Operations_EditFieldElement
     ''
     ''Added 10/1/2019 td
     ''
     ''Names of procedures in this module: 
+    ''
     ''  Public Sub Open_Field_Of_Element_EE1011(sender As Object, e As EventArgs)
     ''  Public Sub Choose_Background_Color_EE1010(sender As Object, e As EventArgs)
     ''  Public Sub Open_Dialog_Font_EE1009(sender As Object, e As EventArgs)
@@ -185,6 +187,7 @@ Public Class Operations_EditFieldElement
 
             ''9/15/2019 td ''Refresh_Image()
             ''10/3/2019 td ''Refresh_Image(True)
+
             Me.CtlCurrentElement.Refresh_Image(True)
             Me.CtlCurrentElement.Refresh()
 

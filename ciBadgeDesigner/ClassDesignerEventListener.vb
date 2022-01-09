@@ -204,6 +204,7 @@ Public Class ClassDesignerEventListener
 
         ''Dec17 2021 td''mod_designer.Add_Moveability(mod_designer.CtlGraphic_Portrait)
         If (mod_designer.LetEventListenerAddMoveability) Then
+            ''Portrait control. 
             mod_designer.Add_Moveability(mod_designer.CtlGraphic_Portrait,
                                      mod_designer.CtlGraphic_Portrait,
                                      mod_designer.CtlGraphic_Portrait, False)
@@ -221,7 +222,7 @@ Public Class ClassDesignerEventListener
             ''Add moveability - QR Code
             mod_designer.Add_Moveability(mod_designer.CtlGraphic_QRCode, mod_designer.CtlGraphic_QRCode,
                                      mod_designer.CtlGraphic_QRCode, True)
-        End If
+        End If ''End of ""If (mod_designer.LetEventListenerAddMoveability) Then""
 
         ''mod_sizing_signature.Init(mod_designer.CtlGraphic_Signat.pictureSignature,
         ''                          mod_designer.CtlGraphic_Signat, 10, True,
@@ -230,9 +231,10 @@ Public Class ClassDesignerEventListener
         ''DictyControlResizing.Add(mod_designer.CtlGraphic_Signat,
         ''     mod_sizing_signature) ''Added 12/1/2021 td
         If (mod_designer.LetEventListenerAddMoveability) Then
+            ''Signature control 
             mod_designer.Add_Moveability(mod_designer.CtlGraphic_Signat, mod_designer.CtlGraphic_Signat,
                                      mod_designer.CtlGraphic_Signat, True)
-        End If
+        End If ''End of ""If (mod_designer.LetEventListenerAddMoveability) Then""
 
         ''Added 12/15/2021 td 
         ''mod_sizing_staticText.Init(mod_designer.CtlGraphic_StaticText1.pictureLabel,
@@ -242,9 +244,17 @@ Public Class ClassDesignerEventListener
         ''DictyControlResizing.Add(mod_designer.CtlGraphic_StaticText1,
         ''     mod_sizing_staticText)
         If (mod_designer.LetEventListenerAddMoveability) Then
-            mod_designer.Add_Moveability(mod_designer.CtlGraphic_StaticText_temp,
-                                         mod_designer.CtlGraphic_StaticText_temp,
-                                         mod_designer.CtlGraphic_StaticText_temp, False)
+
+            ''Jan8 2022 td''mod_designer.Add_Moveability(mod_designer.CtlGraphic_StaticText_Temp,
+            ''Jan8 2022 td''                             mod_designer.CtlGraphic_StaticText_Temp,
+            ''Jan8 2022 td''                             mod_designer.CtlGraphic_StaticText_Temp, False)
+
+            For Each each_controlST As CtlGraphicStaticText In mod_designer.ListCtlGraphic_StaticTexts
+
+                mod_designer.Add_Moveability(each_controlST, each_controlST, each_controlST, False)
+
+            Next each_controlST
+
         End If ''End of "If (mod_designer.LetEventListenerAddMoveability) Then"
 
         ''Dim boolMakeMoveableByUser As Boolean ''Added 9/20/2019 td 

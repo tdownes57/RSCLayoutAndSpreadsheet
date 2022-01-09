@@ -643,8 +643,9 @@ ExitHandler:
 
     End Sub ''End of ""Private Sub ApplyMemberPicToImage(ByRef par_image As Image)
 
+
     Public Sub LoadImageWithElements(ByRef par_imageBadgeCard As Image,
-                                   par_elements As HashSet(Of ClassElementField),
+                                   par_elements As IEnumerable(Of ClassElementField),
                                         Optional par_listTextImages As HashSet(Of Image) = Nothing,
                                      Optional pboolShowPopupMessages As Boolean = False,
                                      Optional par_bOutputListsOfFields As Boolean = False,

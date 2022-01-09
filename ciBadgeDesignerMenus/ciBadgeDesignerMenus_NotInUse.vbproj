@@ -46,6 +46,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -65,6 +66,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BackImageExamples.vb" />
     <Compile Include="MenuCache_Background.vb" />
     <Compile Include="MenuCache_FieldElements.vb" />
     <Compile Include="MenuCache_GraphicElements.vb" />
@@ -125,9 +127,17 @@
       <Project>{e7eb43c4-358c-4880-9c9b-206127b57722}</Project>
       <Name>ciBadgeElements</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ciBadgeFields\ciBadgeFields.vbproj">
+      <Project>{ef9acec9-841e-4397-bfcb-917c814c4b8c}</Project>
+      <Name>ciBadgeFields</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ciBadgeInterfaces\ciBadgeInterfaces.vbproj">
       <Project>{3d1acca6-585e-4c92-9a6d-9a51d2f72f5f}</Project>
       <Name>ciBadgeInterfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\__RSCWindowsControlLibrary\__RSC WindowsControlLibrary.vbproj">
+      <Project>{31515965-90e3-4352-9f01-61141129b29f}</Project>
+      <Name>__RSC WindowsControlLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
