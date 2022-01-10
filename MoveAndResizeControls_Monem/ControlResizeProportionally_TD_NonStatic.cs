@@ -55,7 +55,14 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             set;
         }
 
+
         public bool RemoveSizeability // = false;  //Added 12/28/2021 td//
+        {
+            get;
+            set;
+        }
+
+        public bool RemoveProportionality // = false;  //Added 1/10/2022 td//
         {
             get;
             set;
@@ -553,7 +560,9 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             //    MouseIsInTopEdge
             //    MouseIsInBottomEdge
             //
-            UpdateMouseEdgeProperties(par_control, new Point(par_eMouse.X, par_eMouse.Y));
+            // ''//''Might be causing moveability problems. Jan10 2022
+            // ==//UpdateMouseEdgeProperties(par_control, new Point(par_eMouse.X,
+            // ==//           ''   par_eMouse.Y));
 
             if (WorkType != MoveOrResize.Move &&
                 (MouseIsInRightEdge || MouseIsInLeftEdge || MouseIsInTopEdge || MouseIsInBottomEdge))
@@ -754,28 +763,46 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
 
                 //Control the proportionality.
                 //    ----10/14/2019
-                decimal intAmtWrong_Width = Math.Abs(par_control.Width - (par_control.Height * _proportionWH));
-                decimal intAmtWrong_Height = Math.Abs(par_control.Height - (par_control.Width / _proportionWH));
-
-                //Fix whichever of the two is worse.  ---10/14
-                if (intAmtWrong_Height > intAmtWrong_Width)
+                //
+                if (this.RemoveProportionality)
                 {
-                    par_control.Height = (int)((decimal)par_control.Width / _proportionWH);
-                }
-                else if (bMouseIsInTopEdge_Only || bMouseIsInBottomEdge_Only)
-                {
-                    //Added 10/14/2019 td 
-                    par_control.Width = (int)((decimal)par_control.Height * _proportionWH);
-                }
-                else if (bMouseIsInLeftEdge_Only || bMouseIsInRightEdge_Only)
-                {
-                    //Added 10/14/2019 td 
-                    par_control.Height = (int)((decimal)par_control.Width / _proportionWH);
+                    //
+                    // Don't enforce (control, check) proportionalilty of Width & Height.
+                    //    ----1/10/2022 thomas d. 
+                    //
                 }
                 else
-                {
-                    par_control.Width = (int)((decimal)par_control.Height * _proportionWH);
+                { 
+                    //
+                    //Encapsulated 1/10/2022 td
+                    //
+                    ControlProportionality(par_control,
+                            bMouseIsInTopEdge_Only, bMouseIsInBottomEdge_Only,
+                            bMouseIsInLeftEdge_Only, bMouseIsInRightEdge_Only);
                 }
+
+                //decimal intAmtWrong_Width = Math.Abs(par_control.Width - (par_control.Height * _proportionWH));
+                //decimal intAmtWrong_Height = Math.Abs(par_control.Height - (par_control.Width / _proportionWH));
+
+                ////Fix whichever of the two is worse.  ---10/14
+                //if (intAmtWrong_Height > intAmtWrong_Width)
+                //{
+                //    par_control.Height = (int)((decimal)par_control.Width / _proportionWH);
+                //}
+                //else if (bMouseIsInTopEdge_Only || bMouseIsInBottomEdge_Only)
+                //{
+                //    //Added 10/14/2019 td 
+                //    par_control.Width = (int)((decimal)par_control.Height * _proportionWH);
+                //}
+                //else if (bMouseIsInLeftEdge_Only || bMouseIsInRightEdge_Only)
+                //{
+                //    //Added 10/14/2019 td 
+                //    par_control.Height = (int)((decimal)par_control.Width / _proportionWH);
+                //}
+                //else
+                //{
+                //    par_control.Width = (int)((decimal)par_control.Height * _proportionWH);
+                //}
 
             }
             else if (_moving)
@@ -856,7 +883,47 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             //    if (GroupMove != null) GroupMove.Invoke(delta_Left, delta_Top, delta_Width, delta_Height);
             //}
 
-        }
+        }  //End of "private void MoveControl_IssueEvents"
+
+
+
+        private void ControlProportionality(Control par_control, 
+                    bool pbMouseIsInTopEdge_Only, bool pbMouseIsInBottomEdge_Only, 
+                    bool pbMouseIsInLeftEdge_Only, bool pbMouseIsInRightEdge_Only)
+        {
+            //
+            //Encapsulated 1/10/2022 thomas d.
+            //
+            //Control the proportionality.
+            //    ----10/14/2019
+            //
+            decimal intAmtWrong_Width = Math.Abs(par_control.Width - (par_control.Height * _proportionWH));
+            decimal intAmtWrong_Height = Math.Abs(par_control.Height - (par_control.Width / _proportionWH));
+
+            //Fix whichever of the two is worse.  ---10/14
+            if (intAmtWrong_Height > intAmtWrong_Width)
+            {
+                par_control.Height = (int)((decimal)par_control.Width / _proportionWH);
+            }
+
+            else if (pbMouseIsInTopEdge_Only || pbMouseIsInBottomEdge_Only)
+            {
+                //Added 10/14/2019 td 
+                par_control.Width = (int)((decimal)par_control.Height * _proportionWH);
+            }
+
+            else if (pbMouseIsInLeftEdge_Only || pbMouseIsInRightEdge_Only)
+            {
+                //Added 10/14/2019 td 
+                par_control.Height = (int)((decimal)par_control.Width / _proportionWH);
+            }
+            else
+            {
+                par_control.Width = (int)((decimal)par_control.Height * _proportionWH);
+            }
+
+
+        } //End of "private void CheckProportionality()"
 
 
         private void LogDebuggingInformation(string par_header, int deltaLeft, int deltaTop, int deltaWidth, int deltaHeight)

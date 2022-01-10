@@ -148,8 +148,8 @@ Public Class CtlGraphicStaticGraphic
                         par_iLayoutFun,
                         par_operationsType, par_operationsAny,
                         pboolAddMoveability, pboolAddClickability,
-                        par_iLastTouched, par_oMoveEvents,
-                        CSng(172 / 170))
+                        par_iLastTouched, par_oMoveEvents, 0, True)
+        ''Jan9 2022 td ''CSng(177/ 170)
         ''          Jan2 2022'' par_iSaveToModel, par_iLayoutFun,
 
         ' This call is required by the designer.
@@ -172,7 +172,8 @@ Public Class CtlGraphicStaticGraphic
         ''Added 9/17/2019 td
         ''
         ' This call is required by the designer.
-        InitializeComponent()
+        ''{{{{+{{''Already called from the calling function.---1/9/2022
+        ''{{{{InitializeComponent()
 
         ''9/17/2019 td''Me.ElementInfo_Base = par_infoForPic_Base
         ''9/17/2019 td''Me.ElementInfo_Pic = par_infoForPic_Pic

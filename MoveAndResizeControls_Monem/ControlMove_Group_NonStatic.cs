@@ -477,7 +477,7 @@ namespace MoveAndResizeControls_Monem
         }
 
 
-        public void StartMovingOrResizing(Control par_controlE, MouseEventArgs e)
+        public void StartMovingOrResizing(Control par_controlE, MouseEventArgs par_eMouse)
         {
             //
             //Added by the programmer Monem, long before 12/28/2021.  ---12/28/2021 thomas downes
@@ -500,7 +500,9 @@ namespace MoveAndResizeControls_Monem
             //    MouseIsInTopEdge
             //    MouseIsInBottomEdge
             //
-            UpdateMouseEdgeProperties(par_controlE, new Point(e.X, e.Y));
+            // ''//''Might be causing moveability problems. Jan10 2022
+            // ==//UpdateMouseEdgeProperties(par_controlE, new Point(par_eMouse.X,
+            // ==//           ''   par_eMouse.Y));
 
             if (WorkType != MoveOrResize.Move &&
                 (MouseIsInRightEdge || MouseIsInLeftEdge || MouseIsInTopEdge || MouseIsInBottomEdge))
@@ -523,7 +525,7 @@ namespace MoveAndResizeControls_Monem
                 par_controlE.Cursor = Cursors.Hand;
             }
 
-            _cursorStartPoint = new Point(e.X, e.Y);
+            _cursorStartPoint = new Point(par_eMouse.X, par_eMouse.Y);
             par_controlE.Capture = true;
 
             //
