@@ -159,8 +159,9 @@ Public Class RSCMoveableControlVB
     ''
     ''    Move And Resize Controls on a Form at Runtime(With Mouse)
     ''
-    Private mod_moveInAGroup As ControlMove_Group_NonStatic = Nothing
-    Private mod_moveResizeKeepRatio As ControlResizeProportionally_TD = Nothing
+    ''Jan10 2022''Private mod_moveInAGroup As ControlMove_Group_NonStatic = Nothing
+    ''Jan10 2022''Private mod_moveResizeKeepRatio As ControlResizeProportionally_TD = Nothing
+    Private mod_moveability_Monem As ControlMove_Group_NonStatic = Nothing
 
     ''Dec29 2021''Private mod_iMoveOrResize As InterfaceMoveOrResize ''Added 12/28/2021 td
     Protected mod_iMoveOrResizeFunctionality As IMoveOrResizeFunctionality ''Added 12/28/2021 td
@@ -414,8 +415,13 @@ Public Class RSCMoveableControlVB
             ''
             ''Major call !!
             ''
+            ''Jan10 2022 td''InitializeMoveability(mod_boolResizeProportionally, mod_iLayoutFunctions,
+            ''      par_objEventsMoveGroupOfCtls, pbHandleMouseEventsThroughFormVB6,
+            ''      pbUseMonemProportionalityClass)
             InitializeMoveability(mod_boolResizeProportionally, mod_iLayoutFunctions,
-                                  par_objEventsMoveGroupOfCtls, pbHandleMouseEventsThroughFormVB6,
+                                  par_objEventsMoveGroupOfCtls,
+                                  par_objEventsMoveSingleControl,
+                                  pbHandleMouseEventsThroughFormVB6,
                                   pbUseMonemProportionalityClass)
 
         End If ''End of "If (boolInstantiated) Then ... Else ...."
@@ -726,9 +732,11 @@ Public Class RSCMoveableControlVB
         ''  (NOT object mod_moveInAGroup, class ControlMove_Group_NonStatic).
         ''  ----1/10/2022 td
         ''
-        mod_events.LayoutFunctions = par_iLayoutFunctions ''Added 12/27/2021
+        ''1/10/2022 td''mod_events.LayoutFunctions = par_iLayoutFunctions ''Added 12/27/2021
+        mod_eventsForSingleMove.LayoutFunctions = par_iLayoutFunctions ''Added 12/27/2021
 
-        mod_moveResizeKeepRatio = New MoveAndResizeControls_Monem.ControlResizeProportionally_TD()
+        ''1/10/2022 td''mod_moveResizeKeepRatio = New MoveAndResizeControls_Monem.ControlResizeProportionally_TD()
+        mod_moveability_MonemClass = New MoveAndResizeControls_Monem.ControlMove_Group_NonStatic()
 
         ''#1 Jan4 2022 ''mod_moveResizeKeepRatio.Init(Me, Me, 10, c_bRepaintAfterResize,
         ''                mod_events, False, Me)
@@ -945,7 +953,7 @@ Public Class RSCMoveableControlVB
 
     End Sub
 
-    Private Sub mod_events_Resizing_End(par_iSaveToModel As ISaveToModel) Handles mod_events.Resizing_End
+    Private Sub mod_events_Resizing_End(par_iSaveToModel As ISaveToModel) Handles mod_eventsForSingleMove.Resizing_End
         ''
         ''Added 12/27/2021 td 
         ''
@@ -954,7 +962,7 @@ Public Class RSCMoveableControlVB
 
     End Sub
 
-    Private Sub mod_events_MovingInProgress(par_control As Control) Handles mod_events.Moving_InProgress
+    Private Sub mod_events_MovingInProgress(par_control As Control) Handles mod_eventsForSingleMove.Moving_InProgress
         ''
         ''Added 12/27/2021 td 
         ''
@@ -965,7 +973,7 @@ Public Class RSCMoveableControlVB
     End Sub
 
 
-    Private Sub mod_events_MoveInUnison(deltaLeft As Integer, deltaTop As Integer, deltaWidth As Integer, deltaHeight As Integer) Handles mod_events.MoveInUnison
+    Private Sub mod_events_MoveInUnison(deltaLeft As Integer, deltaTop As Integer, deltaWidth As Integer, deltaHeight As Integer) Handles mod_eventsForSingleMove.MoveInUnison
         ''
         ''Added 1/10/2022 thomas downes
         ''

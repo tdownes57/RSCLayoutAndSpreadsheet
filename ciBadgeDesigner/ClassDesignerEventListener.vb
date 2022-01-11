@@ -31,8 +31,9 @@ Public Class ClassDesignerEventListener
     '' #2 8-3-2019 td''Private WithEvents mod_moveAndResizeCtls As New MoveAndResizeControls_Monem.ControlMove_GroupMove ''Added 8/3/2019 td  
     ''#1 10/1/2019 td''Private WithEvents mod_groupedMove As New ClassGroupMove(Me) ''8/4/2019 td''New ClassGroupMove
     '' #2 10/1/2019 td''Private WithEvents mod_groupedMove As New ClassGroupMove(Me.LayoutFunctions) ''8/4/2019 td''New ClassGroupMove
-    Private WithEvents mod_groupedMove As GroupMoveEvents_Singleton ''(Me) ''8/4/2019 td''New ClassGroupMove
-    Private WithEvents mod_singletonMove As GroupMoveEvents_Singleton ''Added 12/3/2021  
+    Private WithEvents mod_eventsGroupedMove As GroupMoveEvents_Singleton ''(Me) ''8/4/2019 td''New ClassGroupMove
+
+    ''Not needed''Private WithEvents mod_singletonMove As GroupMoveEvents_Singleton ''Added 12/3/2021  
 
     ''Dec17 2021''Private WithEvents mod_sizingEvents_Pics As ClassGroupMoveEvents ''(Me) ''Added 10/9/2019 td  
     ''Dec17 2021''Private WithEvents mod_sizingEvents_QR As ClassGroupMoveEvents ''(Me) ''Added 10/12/2019 td  
@@ -47,8 +48,9 @@ Public Class ClassDesignerEventListener
     ''Added 11/29/2021 td  
     Private Const mc_bUseNonStaticMovers As Boolean = True ''Added 11/29/2021 td 
     Private mod_dictyControlMoveFields As New Dictionary(Of CtlGraphicFldLabel, ControlMove_Group_NonStatic)
-    Public mod_dictyControlMoveBoxesEtc As New Dictionary(Of Control, ControlMove_NonStatic_TD)
-    Public DictyControlResizing As New Dictionary(Of Control, ControlResizeProportionally_TD)
+    ''1/10/2022 td''Public mod_dictyControlMoveBoxesEtc As New Dictionary(Of Control, ControlMove_NonStatic_TD)
+    ''1/10/2022 td''Public DictyControlResizing As New Dictionary(Of Control, ControlResizeProportionally_TD)
+    Public mod_dictyControlGroupMoveEvents As New Dictionary(Of Control, ControlMove_Group_NonStatic)
 
     ''Added 10/12/2019 td 
     ''Dec12 2021''Private mod_sizing_portrait As New ControlResizeProportionally_TD ''Added 10/12/2019 td 
@@ -78,8 +80,8 @@ Public Class ClassDesignerEventListener
         ''Jan5 2022 td''mod_groupedMove = New GroupMoveEvents_Singleton(par_designer)
         ''Jan5 2022 td''mod_singletonMove = New GroupMoveEvents_Singleton(par_designer)
 
-        mod_groupedMove = par_eventsGroupMove
-        mod_singletonMove = par_eventsGroupMove
+        mod_eventsGroupedMove = par_eventsGroupMove
+        ''Not needed. Jan10 2022''mod_singletonMove = par_eventsGroupMove
 
         ''Dec17 2021''mod_sizingEvents_Pics = New ClassGroupMoveEvents(par_designer)
         ''Dec17 2021''mod_sizingEvents_QR = New ClassGroupMoveEvents(par_designer)
@@ -92,7 +94,7 @@ Public Class ClassDesignerEventListener
         m_bAddBorderOnlyWhileResizing = p_bAddBorderOnlyWhileResizing
 
         ''Added 12/6/2021 td
-        AddHandler mod_groupedMove.ControlIsMoving, AddressOf mod_ControlIsMoving
+        AddHandler mod_eventsGroupedMove.ControlIsMoving, AddressOf mod_ControlIsMoving
 
     End Sub ''End of Public Sub New
 
@@ -111,52 +113,53 @@ Public Class ClassDesignerEventListener
         ''Badge Preview is also moveable/sizeable, mostly to impress
         ''    management.  ----9/8/2019 td
         ''
-        Const c_boolBreakpoint As Boolean = True  ''Added 9//13/2019 td
+        ''Const c_boolBreakpoint As Boolean = True  ''Added 9//13/2019 td
+        ''
+        ''If (mc_bUseNonStaticMovers) Then
+        ''    ''Added 11/29/2021 td 
+        ''    ''
+        ''    ''This will use an object instance ("New") to manage movement.
+        ''    ''
+        ''    Dim objMover As New ControlMove_Group_NonStatic
 
-        If (mc_bUseNonStaticMovers) Then
-            ''Added 11/29/2021 td 
-            ''
-            ''This will use an object instance ("New") to manage movement.
-            ''
-            Dim objMover As New ControlMove_NonStatic_TD
-            ''objMover.Init(Me.PreviewBox, Me.PreviewBox, 10, False,
-            ''                  c_boolBreakpoint)
-            ''mod_dictyControlMoveBoxesEtc.Add(Me.PreviewBox, objMover)
-            objMover.Init(mod_designer.PreviewBox,
-                          mod_designer.PreviewBox, 10, False,
-                           mod_singletonMove, c_boolBreakpoint, Nothing, True)
-            mod_dictyControlMoveBoxesEtc.Add(mod_designer.PreviewBox, objMover)
+        ''    ''objMover.Init(Me.PreviewBox, Me.PreviewBox, 10, False,
+        ''    ''                  c_boolBreakpoint)
+        ''    ''mod_dictyControlMoveBoxesEtc.Add(Me.PreviewBox, objMover)
+        ''    objMover.Init(mod_designer.PreviewBox,
+        ''                  mod_designer.PreviewBox, 10, False,
+        ''                   mod_singletonMove, c_boolBreakpoint, Nothing, True)
+        ''    mod_dictyControlMoveBoxesEtc.Add(mod_designer.PreviewBox, objMover)
 
-        Else
-            ControlMoverOrResizer_TD.Init(mod_designer.PreviewBox,
-                                          mod_designer.PreviewBox, 10, False,
-                              c_boolBreakpoint, Nothing) ''Added 9/08/2019 thomas downes
-        End If ''End of "If (mc_bUseNonStaticMovers) Then .... Else If...."
-
-        Const c_LayoutBackIsMoveable As Boolean = False ''Added 9/8/2019 td 
-
-        If (c_LayoutBackIsMoveable And mc_bUseNonStaticMovers) Then
-            ''Badge Layout Background is also moveable/sizeable.
-            Dim objMover As New ControlMove_NonStatic_TD
-            ''objMover.Init(Me.BackgroundBox,
-            ''              Me.BackgroundBox, 10, False,
-            ''              c_boolBreakpoint) ''Added 9/08/2019 thomas downes
-            objMover.Init(mod_designer.BackgroundBox_Front,
-                          mod_designer.BackgroundBox_Front, 10, False,
-                          mod_singletonMove, c_boolBreakpoint, Nothing) ''Added 9/08/2019 thomas downes
-            ''Added 12/1/2021 td
-            mod_dictyControlMoveBoxesEtc.Add(mod_designer.BackgroundBox_Front, objMover)
-
-        ElseIf (c_LayoutBackIsMoveable) Then
-            ''Badge Layout Background is also moveable/sizeable.
-            ''ControlMoverOrResizer_TD.Init(Me.BackgroundBox,
-            ''                  Me.BackgroundBox, 10, False,
-            ''                  c_boolBreakpoint) ''Added 9/08/2019 thomas downes
-            ControlMoverOrResizer_TD.Init(mod_designer.BackgroundBox_Front,
-                              mod_designer.BackgroundBox_Front, 10, False,
-                              c_boolBreakpoint, Nothing) ''Added 9/08/2019 thomas downes
-
-        End If ''End of "If (c_LayoutBackIsMoveable) Then"
+        ''Else
+        ''    ControlMoverOrResizer_TD.Init(mod_designer.PreviewBox,
+        ''                                  mod_designer.PreviewBox, 10, False,
+        ''                      c_boolBreakpoint, Nothing) ''Added 9/08/2019 thomas downes
+        ''End If ''End of "If (mc_bUseNonStaticMovers) Then .... Else If...."
+        ''
+        ''Const c_LayoutBackIsMoveable As Boolean = False ''Added 9/8/2019 td 
+        ''
+        ''If (c_LayoutBackIsMoveable And mc_bUseNonStaticMovers) Then
+        ''    ''Badge Layout Background is also moveable/sizeable.
+        ''    Dim objMover As New ControlMove_NonStatic_TD
+        ''    ''objMover.Init(Me.BackgroundBox,
+        ''    ''              Me.BackgroundBox, 10, False,
+        ''    ''              c_boolBreakpoint) ''Added 9/08/2019 thomas downes
+        ''    objMover.Init(mod_designer.BackgroundBox_Front,
+        ''                  mod_designer.BackgroundBox_Front, 10, False,
+        ''                  mod_singletonMove, c_boolBreakpoint, Nothing) ''Added 9/08/2019 thomas downes
+        ''    ''Added 12/1/2021 td
+        ''    mod_dictyControlMoveBoxesEtc.Add(mod_designer.BackgroundBox_Front, objMover)
+        ''
+        ''ElseIf (c_LayoutBackIsMoveable) Then
+        ''    ''Badge Layout Background is also moveable/sizeable.
+        ''    ''ControlMoverOrResizer_TD.Init(Me.BackgroundBox,
+        ''    ''                  Me.BackgroundBox, 10, False,
+        ''    ''                  c_boolBreakpoint) ''Added 9/08/2019 thomas downes
+        ''    ControlMoverOrResizer_TD.Init(mod_designer.BackgroundBox_Front,
+        ''                      mod_designer.BackgroundBox_Front, 10, False,
+        ''                      c_boolBreakpoint, Nothing) ''Added 9/08/2019 thomas downes
+        ''
+        ''End If ''End of "If (c_LayoutBackIsMoveable) Then"
 
 
         ''
@@ -203,12 +206,12 @@ Public Class ClassDesignerEventListener
         ''    mod_sizing_portrait)
 
         ''Dec17 2021 td''mod_designer.Add_Moveability(mod_designer.CtlGraphic_Portrait)
-        If (mod_designer.LetEventListenerAddMoveability) Then
-            ''Portrait control. 
-            mod_designer.Add_Moveability(mod_designer.CtlGraphic_Portrait,
-                                     mod_designer.CtlGraphic_Portrait,
-                                     mod_designer.CtlGraphic_Portrait, False)
-        End If
+        ''Jan10 2022 td''If (mod_designer.LetEventListenerAddMoveability) Then
+        ''    ''Portrait control. 
+        ''    mod_designer.Add_Moveability(mod_designer.CtlGraphic_Portrait,
+        ''                             mod_designer.CtlGraphic_Portrait,
+        ''                             mod_designer.CtlGraphic_Portrait, False)
+        ''End If
 
         ''mod_sizing_QR.Init(mod_designer.CtlGraphic_QRCode.pictureQRCode,
         ''                   mod_designer.CtlGraphic_QRCode, 10, True,
@@ -218,11 +221,11 @@ Public Class ClassDesignerEventListener
         ''Added 12/1/2021 td 
         ''DictyControlResizing.Add(mod_designer.CtlGraphic_QRCode,
         ''   mod_sizing_QR)
-        If (mod_designer.LetEventListenerAddMoveability) Then
-            ''Add moveability - QR Code
-            mod_designer.Add_Moveability(mod_designer.CtlGraphic_QRCode, mod_designer.CtlGraphic_QRCode,
-                                     mod_designer.CtlGraphic_QRCode, True)
-        End If ''End of ""If (mod_designer.LetEventListenerAddMoveability) Then""
+        ''Jan10 2022 td''If (mod_designer.LetEventListenerAddMoveability) Then
+        ''    ''Add moveability - QR Code
+        ''    mod_designer.Add_Moveability(mod_designer.CtlGraphic_QRCode, mod_designer.CtlGraphic_QRCode,
+        ''                             mod_designer.CtlGraphic_QRCode, True)
+        ''End If ''End of ""If (mod_designer.LetEventListenerAddMoveability) Then""
 
         ''mod_sizing_signature.Init(mod_designer.CtlGraphic_Signat.pictureSignature,
         ''                          mod_designer.CtlGraphic_Signat, 10, True,
@@ -230,11 +233,11 @@ Public Class ClassDesignerEventListener
         ''                          mod_designer.CtlGraphic_Signat)
         ''DictyControlResizing.Add(mod_designer.CtlGraphic_Signat,
         ''     mod_sizing_signature) ''Added 12/1/2021 td
-        If (mod_designer.LetEventListenerAddMoveability) Then
-            ''Signature control 
-            mod_designer.Add_Moveability(mod_designer.CtlGraphic_Signat, mod_designer.CtlGraphic_Signat,
-                                     mod_designer.CtlGraphic_Signat, True)
-        End If ''End of ""If (mod_designer.LetEventListenerAddMoveability) Then""
+        ''jan10 2022 td''If (mod_designer.LetEventListenerAddMoveability) Then
+        ''    ''Signature control 
+        ''    mod_designer.Add_Moveability(mod_designer.CtlGraphic_Signat, mod_designer.CtlGraphic_Signat,
+        ''                             mod_designer.CtlGraphic_Signat, True)
+        ''End If ''End of ""If (mod_designer.LetEventListenerAddMoveability) Then""
 
         ''Added 12/15/2021 td 
         ''mod_sizing_staticText.Init(mod_designer.CtlGraphic_StaticText1.pictureLabel,
@@ -243,19 +246,19 @@ Public Class ClassDesignerEventListener
         ''                            mod_designer.CtlGraphic_StaticText1)
         ''DictyControlResizing.Add(mod_designer.CtlGraphic_StaticText1,
         ''     mod_sizing_staticText)
-        If (mod_designer.LetEventListenerAddMoveability) Then
+        ''Jan10 2022 td''If (mod_designer.LetEventListenerAddMoveability) Then
 
-            ''Jan8 2022 td''mod_designer.Add_Moveability(mod_designer.CtlGraphic_StaticText_Temp,
-            ''Jan8 2022 td''                             mod_designer.CtlGraphic_StaticText_Temp,
-            ''Jan8 2022 td''                             mod_designer.CtlGraphic_StaticText_Temp, False)
+        ''    ''Jan8 2022 td''mod_designer.Add_Moveability(mod_designer.CtlGraphic_StaticText_Temp,
+        ''    ''Jan8 2022 td''                             mod_designer.CtlGraphic_StaticText_Temp,
+        ''    ''Jan8 2022 td''                             mod_designer.CtlGraphic_StaticText_Temp, False)
 
-            For Each each_controlST As CtlGraphicStaticText In mod_designer.ListCtlGraphic_StaticTexts
+        ''    For Each each_controlST As CtlGraphicStaticText In mod_designer.ListCtlGraphic_StaticTexts
 
-                mod_designer.Add_Moveability(each_controlST, each_controlST, each_controlST, False)
+        ''        mod_designer.Add_Moveability(each_controlST, each_controlST, each_controlST, False)
 
-            Next each_controlST
+        ''    Next each_controlST
 
-        End If ''End of "If (mod_designer.LetEventListenerAddMoveability) Then"
+        ''End If ''End of "If (mod_designer.LetEventListenerAddMoveability) Then"
 
         ''Dim boolMakeMoveableByUser As Boolean ''Added 9/20/2019 td 
         ''Const c_boolMakeMoveableASAP As Boolean = False ''added 9/20/2019 td
@@ -269,16 +272,16 @@ Public Class ClassDesignerEventListener
         ''
         ''Pretty big call!!   Allow the user to "click & drag" the control. 
         ''
-        If (mod_designer.LetEventListenerAddMoveability) Then
-            Try
-                MakeElementsMoveable_Fields(par_listDesignerControls)
+        ''Jan10 2022 td''If (mod_designer.LetEventListenerAddMoveability) Then
+        ''    Try
+        ''        MakeElementsMoveable_Fields(par_listDesignerControls)
 
-            Catch ex_fields As Exception
-                ''Added 11/26/2021 thomas downes
-                MessageBox.Show(ex_fields.Message)
-                MessageBox.Show(ex_fields.ToString)
-            End Try
-        End If
+        ''    Catch ex_fields As Exception
+        ''        ''Added 11/26/2021 thomas downes
+        ''        MessageBox.Show(ex_fields.Message)
+        ''        MessageBox.Show(ex_fields.ToString)
+        ''    End Try
+        ''End If
 
         ''End If ''ENd of "If (boolMakeMoveableByUser) Then
 
@@ -365,42 +368,42 @@ Public Class ClassDesignerEventListener
         ''
         ''Encapsulated 9/7/2019 thomas d
         ''
-        Const c_bRepaintAfterResize As Boolean = True ''Added 7/31/2019 td 
+        ''Const c_bRepaintAfterResize As Boolean = True ''Added 7/31/2019 td 
 
-        If (mc_bUseNonStaticMovers And mc_boolAllowGroupMovements) Then
-            ''
-            ''Added 11/29/2021 td
-            ''
-            Dim objNonStatic As New ControlMove_Group_NonStatic
-            objNonStatic.Init(par_graphicFieldCtl.Picture_Box,
-              par_graphicFieldCtl, 10, c_bRepaintAfterResize,
-              mod_groupedMove, mc_boolAllowGroupMovements,
-              par_graphicFieldCtl)
+        ''Jan10 2022''If (mc_bUseNonStaticMovers And mc_boolAllowGroupMovements) Then
+        ''    ''
+        ''    ''Added 11/29/2021 td
+        ''    ''
+        ''    Dim objNonStatic As New ControlMove_Group_NonStatic
+        ''    objNonStatic.Init(par_graphicFieldCtl.Picture_Box,
+        ''      par_graphicFieldCtl, 10, c_bRepaintAfterResize,
+        ''      mod_eventsGroupedMove, mc_boolAllowGroupMovements,
+        ''      par_graphicFieldCtl)
 
-            mod_dictyControlMoveFields.Add(par_graphicFieldCtl, objNonStatic)
+        ''    mod_dictyControlMoveFields.Add(par_graphicFieldCtl, objNonStatic)
 
 
-        ElseIf (mc_boolAllowGroupMovements) Then
-            ''
-            ''This is essentially deprecated as of 11/29/2021 
-            ''
-            ControlMove_GroupMove_TD.Init(par_graphicFieldCtl.Picture_Box,
-                          par_graphicFieldCtl, 10, c_bRepaintAfterResize,
-                          mod_groupedMove, mc_boolAllowGroupMovements,
-                          par_graphicFieldCtl) ''Added 8/3/2019 td 
+        ''Jan10 2022''ElseIf (mc_boolAllowGroupMovements) Then
+        ''    ''
+        ''    ''This is essentially deprecated as of 11/29/2021 
+        ''    ''
+        ''    ControlMove_GroupMove_TD.Init(par_graphicFieldCtl.Picture_Box,
+        ''                  par_graphicFieldCtl, 10, c_bRepaintAfterResize,
+        ''                  mod_eventsGroupedMove, mc_boolAllowGroupMovements,
+        ''                  par_graphicFieldCtl) ''Added 8/3/2019 td 
 
-        Else
-            ControlMoverOrResizer_TD.Init(par_graphicFieldCtl.Picture_Box,
-                          par_graphicFieldCtl, 10,
-                          c_bRepaintAfterResize, mc_boolBreakpoints,
-                          par_graphicFieldCtl) ''Added 7/28/2019 thomas downes
+        ''Else
+        ''    ControlMoverOrResizer_TD.Init(par_graphicFieldCtl.Picture_Box,
+        ''                  par_graphicFieldCtl, 10,
+        ''                  c_bRepaintAfterResize, mc_boolBreakpoints,
+        ''                  par_graphicFieldCtl) ''Added 7/28/2019 thomas downes
 
-        End If ''End of "If (boolAllowGroupMovements) Then ...... Else ..."
+        ''End If ''End of "If (boolAllowGroupMovements) Then ...... Else ..."
 
     End Sub ''End of "Private Sub ControlMoverResizer_AddField"
 
 
-    Private Sub Resizing_Start() Handles mod_groupedMove.Resizing_Start
+    Private Sub Resizing_Start() Handles mod_eventsGroupedMove.Resizing_Start
         ''
         ''Added 8/5/2019 thomas downes  
         ''
@@ -429,7 +432,7 @@ Public Class ClassDesignerEventListener
     End Sub ''End of "Private Sub Resizing_Start"  
 
 
-    Private Sub Move_GroupMove_Continue(DeltaLeft As Integer, DeltaTop As Integer, DeltaWidth As Integer, DeltaHeight As Integer) Handles mod_groupedMove.MoveInUnison
+    Private Sub Move_GroupMove_Continue(DeltaLeft As Integer, DeltaTop As Integer, DeltaWidth As Integer, DeltaHeight As Integer) Handles mod_eventsGroupedMove.MoveInUnison
         ''
         ''Added 8/3/2019 thomas downes  
         ''
@@ -553,7 +556,7 @@ Public Class ClassDesignerEventListener
 
     End Sub ''End of "Private Sub MoveInUnison"
 
-    Private Sub Resizing_End() Handles mod_groupedMove.Resizing_End
+    Private Sub Resizing_End() Handles mod_eventsGroupedMove.Resizing_End
         ''
         ''Added 8/5/2019 thomas downes  
         ''
@@ -642,7 +645,7 @@ Public Class ClassDesignerEventListener
 
     End Sub ''End of "Private Sub Resizing_End() Handles mod_groupedMove.Resizing_End"
 
-    Private Sub MovingElement_End(par_ctlElement As Control, par_iSave As ISaveToModel) Handles mod_groupedMove.Moving_End
+    Private Sub MovingElement_End(par_ctlElement As Control, par_iSave As ISaveToModel) Handles mod_eventsGroupedMove.Moving_End
         ''12/17/2021 td''Private Sub MovingElement_End(par_ctlElement As Control) Handles mod_groupedMove.Moving_End
         ''11/29/2021 ''Private Sub MovingElement_End() Handles mod_groupedMove.Moving_End
 
@@ -778,7 +781,7 @@ Public Class ClassDesignerEventListener
 
     End Sub
 
-    Private Sub mod_groupedMove_Moving_InProgress(par_control As Control) Handles mod_groupedMove.Moving_InProgress
+    Private Sub mod_groupedMove_Moving_InProgress(par_control As Control) Handles mod_eventsGroupedMove.Moving_InProgress
         ''
         ''Added 12/6/2021 thomas downes 
         ''
@@ -788,7 +791,7 @@ Public Class ClassDesignerEventListener
     End Sub
 
 
-    Private Sub mod_ControlIsMoving() Handles mod_groupedMove.ControlIsMoving
+    Private Sub mod_ControlIsMoving() Handles mod_eventsGroupedMove.ControlIsMoving
         ''
         ''Added 12/6/2021 thomas downes 
         ''

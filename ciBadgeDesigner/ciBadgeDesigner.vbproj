@@ -198,12 +198,6 @@
     <Compile Include="Controls\CtlPropertyUpDownvb.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\MoveableControl_Obselete.Designer.vb">
-      <DependentUpon>MoveableControl_Obselete.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\MoveableControl_Obselete.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="Dialogs\DialogDisplayColor.Designer.vb">
       <DependentUpon>DialogDisplayColor.vb</DependentUpon>
     </Compile>
@@ -351,9 +345,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlPropertyUpDownvb.resx">
       <DependentUpon>CtlPropertyUpDownvb.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\MoveableControl_Obselete.resx">
-      <DependentUpon>MoveableControl_Obselete.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\DialogDisplayColor.resx">
       <DependentUpon>DialogDisplayColor.vb</DependentUpon>

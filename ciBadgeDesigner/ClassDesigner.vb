@@ -2840,100 +2840,100 @@ Public Class ClassDesigner
     ''    Throw New NotImplementedException()
     ''End Sub
 
-    Public Sub Add_Moveability(par_control As Control, par_iSave As ISaveToModel, par_elementMoved As IMoveableElement, par_keepProportions As Boolean) Implements IRecordElementLastTouched.Add_Moveability
-        ''
-        ''Added 12/17/2021 td
-        ''
-        ''--Throw New NotImplementedException()
-        ''mod_sizing_portrait.Init(mod_designer.CtlGraphic_Portrait.picturePortrait,
-        ''  mod_designer.CtlGraphic_Portrait, 10, True,
-        ''  mod_sizingElementEvents, False,
-        ''  mod_designer.CtlGraphic_Portrait)
-        ''''Added 12/1/2021 td 
-        ''mod_dictyControlResizing.Add(mod_designer.CtlGraphic_Portrait,
-        ''    mod_sizing_portrait)
+    ''Public Sub Add_Moveability(par_control As Control, par_iSave As ISaveToModel, par_elementMoved As IMoveableElement, par_keepProportions As Boolean) Implements IRecordElementLastTouched.Add_Moveability
+    ''    ''
+    ''    ''Added 12/17/2021 td
+    ''    ''
+    ''    ''--Throw New NotImplementedException()
+    ''    ''mod_sizing_portrait.Init(mod_designer.CtlGraphic_Portrait.picturePortrait,
+    ''    ''  mod_designer.CtlGraphic_Portrait, 10, True,
+    ''    ''  mod_sizingElementEvents, False,
+    ''    ''  mod_designer.CtlGraphic_Portrait)
+    ''    ''''Added 12/1/2021 td 
+    ''    ''mod_dictyControlResizing.Add(mod_designer.CtlGraphic_Portrait,
+    ''    ''    mod_sizing_portrait)
 
-        Dim objResizeProply As New MoveAndResizeControls_Monem.ControlResizeProportionally_TD()
-        Dim objMove As New MoveAndResizeControls_Monem.ControlMove_Group_NonStatic
+    ''    Dim objResizeProply As New MoveAndResizeControls_Monem.ControlResizeProportionally_TD()
+    ''    Dim objMove As New MoveAndResizeControls_Monem.ControlMove_Group_NonStatic
 
-        Const c_bRepaintAfterResize As Boolean = True ''Added 7/31/2019 td 
+    ''    Const c_bRepaintAfterResize As Boolean = True ''Added 7/31/2019 td 
 
-        If (par_keepProportions) Then
-            ''
-            ''We __do__ care about keeping the Width-Height ratio intact. 
-            ''Use class ControlResizeProportionally_TD 
-            ''
-            objResizeProply.Init(par_elementMoved.GetPictureBox(),
-                       par_control, 10, c_bRepaintAfterResize,
-                    mod_designerListener.SizingElementEvents, False,
-                    par_iSave)
-        Else
-            ''We __don't__ care about keeping the Width-Height ratio intact. 
-            objMove.Init(par_elementMoved.GetPictureBox(),
-                       par_control, 10, c_bRepaintAfterResize,
-                    mod_designerListener.SizingElementEvents, False,
-                    par_iSave)
+    ''    If (par_keepProportions) Then
+    ''        ''
+    ''        ''We __do__ care about keeping the Width-Height ratio intact. 
+    ''        ''Use class ControlResizeProportionally_TD 
+    ''        ''
+    ''        objResizeProply.Init(par_elementMoved.GetPictureBox(),
+    ''                   par_control, 10, c_bRepaintAfterResize,
+    ''                mod_designerListener.SizingElementEvents, False,
+    ''                par_iSave)
+    ''    Else
+    ''        ''We __don't__ care about keeping the Width-Height ratio intact. 
+    ''        objMove.Init(par_elementMoved.GetPictureBox(),
+    ''                   par_control, 10, c_bRepaintAfterResize,
+    ''                mod_designerListener.SizingElementEvents, False,
+    ''                par_iSave)
 
-        End If ''End of "If (par_keepProportions) Then ... Else ..."
+    ''    End If ''End of "If (par_keepProportions) Then ... Else ..."
 
-        ''Added 12/1/2021 td 
-        mod_designerListener.DictyControlResizing.Add(par_control, objResizeProply)
+    ''    ''Added 12/1/2021 td 
+    ''    mod_designerListener.DictyControlResizing.Add(par_control, objResizeProply)
 
-        ''Added 12/17/2021 td
-        If (par_control Is CtlGraphic_Portrait) Then mod_designerListener.Sizing_portrait = objResizeProply
-        If (par_control Is CtlGraphic_QRCode) Then mod_designerListener.Sizing_QR = objResizeProply
-        If (par_control Is CtlGraphic_Signat) Then mod_designerListener.Sizing_signature = objResizeProply
+    ''    ''Added 12/17/2021 td
+    ''    If (par_control Is CtlGraphic_Portrait) Then mod_designerListener.Sizing_portrait = objResizeProply
+    ''    If (par_control Is CtlGraphic_QRCode) Then mod_designerListener.Sizing_QR = objResizeProply
+    ''    If (par_control Is CtlGraphic_Signat) Then mod_designerListener.Sizing_signature = objResizeProply
 
-        ''Do we care about keeing the Width-Height ratio the same?  ("proportionality")
-        ''   For the following three(3) controls, Yes, we do.   ---12/23/2021 td 
-        Dim bControlProportionedWidthHeight As Boolean = False
-        If (par_control Is CtlGraphic_Portrait) Then bControlProportionedWidthHeight = True
-        If (par_control Is CtlGraphic_Portrait) Then bControlProportionedWidthHeight = True
-        If (par_control Is CtlGraphic_Portrait) Then bControlProportionedWidthHeight = True
+    ''    ''Do we care about keeing the Width-Height ratio the same?  ("proportionality")
+    ''    ''   For the following three(3) controls, Yes, we do.   ---12/23/2021 td 
+    ''    Dim bControlProportionedWidthHeight As Boolean = False
+    ''    If (par_control Is CtlGraphic_Portrait) Then bControlProportionedWidthHeight = True
+    ''    If (par_control Is CtlGraphic_Portrait) Then bControlProportionedWidthHeight = True
+    ''    If (par_control Is CtlGraphic_Portrait) Then bControlProportionedWidthHeight = True
 
-        ''--If (bControlProportionedWidthHeight And (par_keepProportions)) Then
-        If (bControlProportionedWidthHeight And (objResizeProply Is Nothing)) Then
+    ''    ''--If (bControlProportionedWidthHeight And (par_keepProportions)) Then
+    ''    If (bControlProportionedWidthHeight And (objResizeProply Is Nothing)) Then
 
-            Throw New ArgumentException("Boolean parameter par_keepProportions should be False.")
+    ''        Throw New ArgumentException("Boolean parameter par_keepProportions should be False.")
 
-        End If  ''End of "If (bControlProportionedWidthHeight And (objResizeProply Is Nothing)) Then"
+    ''    End If  ''End of "If (bControlProportionedWidthHeight And (objResizeProply Is Nothing)) Then"
 
-        ''12/23/2021 td''If (par_control Is CtlGraphic_StaticText_temp) Then mod_designerListener.Sizing_staticText = objResize
+    ''    ''12/23/2021 td''If (par_control Is CtlGraphic_StaticText_temp) Then mod_designerListener.Sizing_staticText = objResize
 
-        ''===00==I have removed object-reference CtlGraphic_StaticText_temp from this module, as I
-        ''===00==    feel that a List of potentially several controls of type CtlGraphicStaticText
-        ''===00==    is more appropriate.   ----1/8/2022 td
-        ''===If (par_control Is CtlGraphic_StaticText_temp) Then
-        ''===
-        ''===If (objMove Is Nothing) Then Throw New ArgumentException("Boolean parameter should be False.")
-        ''===      mod_designerListener.Sizing_staticText = objMove
-        ''===End If ''End of "If (par_control Is CtlGraphic_StaticText_temp) Then"
+    ''    ''===00==I have removed object-reference CtlGraphic_StaticText_temp from this module, as I
+    ''    ''===00==    feel that a List of potentially several controls of type CtlGraphicStaticText
+    ''    ''===00==    is more appropriate.   ----1/8/2022 td
+    ''    ''===If (par_control Is CtlGraphic_StaticText_temp) Then
+    ''    ''===
+    ''    ''===If (objMove Is Nothing) Then Throw New ArgumentException("Boolean parameter should be False.")
+    ''    ''===      mod_designerListener.Sizing_staticText = objMove
+    ''    ''===End If ''End of "If (par_control Is CtlGraphic_StaticText_temp) Then"
 
-    End Sub ''end of Sub Add_Moveability
+    ''End Sub ''end of Sub Add_Moveability
 
-    Public Sub Add_Clickability(par_elementClicked As IClickableElement) Implements IRecordElementLastTouched.Add_Clickability
-        ''
-        ''Added 12/17/2021 td
-        ''
-        ''--Throw New NotImplementedException()
+    ''Public Sub Add_Clickability(par_elementClicked As IClickableElement) Implements IRecordElementLastTouched.Add_Clickability
+    ''    ''
+    ''    ''Added 12/17/2021 td
+    ''    ''
+    ''    ''--Throw New NotImplementedException()
 
-    End Sub
+    ''End Sub
 
-    Public Sub Remove_Moveability(par_elementMoved As IMoveableElement) Implements IRecordElementLastTouched.Remove_Moveability
-        ''
-        ''Added 12/17/2021 td
-        ''
-        Throw New NotImplementedException()
+    ''Public Sub Remove_Moveability(par_elementMoved As IMoveableElement) Implements IRecordElementLastTouched.Remove_Moveability
+    ''    ''
+    ''    ''Added 12/17/2021 td
+    ''    ''
+    ''    Throw New NotImplementedException()
 
-    End Sub
+    ''End Sub
 
-    Public Sub Remove_Clickability(par_elementClicked As IClickableElement) Implements IRecordElementLastTouched.Remove_Clickability
-        ''
-        ''Added 12/17/2021 td
-        ''
-        Throw New NotImplementedException()
+    ''Public Sub Remove_Clickability(par_elementClicked As IClickableElement) Implements IRecordElementLastTouched.Remove_Clickability
+    ''    ''
+    ''    ''Added 12/17/2021 td
+    ''    ''
+    ''    Throw New NotImplementedException()
 
-    End Sub
+    ''End Sub
 
     Public Sub RefreshPreview() Implements IRefreshPreview.RefreshPreview
         ''Throw New NotImplementedException()
