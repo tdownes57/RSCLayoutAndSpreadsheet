@@ -35,7 +35,7 @@ Public Class CtlGraphicStaticGraphic
                                       par_iLayoutFun As ILayoutFunctions,
                                       par_bProportionSizing As Boolean,
                                 par_iControlLastTouched As ILastControlTouched,
-                                     par_oMoveEvents As GroupMoveEvents_Singleton,
+                   par_oMoveEventsForGroupedCtls As GroupMoveEvents_Singleton,
                    Optional pbUseMonemProportionalityClass As Boolean = False) As CtlGraphicStaticGraphic
         ''              1/2/2022 td''par_iSaveToModel As ISaveToModel,
         ''
@@ -94,15 +94,32 @@ Public Class CtlGraphicStaticGraphic
                                                    bAddFunctionalitySooner,
                                                    bAddFunctionalitySooner,
                                                    par_iControlLastTouched,
-                                                    par_oMoveEvents,
+                                                   par_oMoveEventsForGroupedCtls,
                                                    pbUseMonemProportionalityClass)
         ''Jan2 2022 ''         ''Jan2 2022 ''par_iSaveToModel, typeOps,
 
         With CtlStaticGraphic1
             .Name = par_nameOfControl
             ''1/10/2022 td''If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEvents, par_iLayoutFun)
-            If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEvents, par_iLayoutFun, True, True)
-            If (bAddFunctionalityLater) Then .AddClickability()
+            ''1/11/2022 td''If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEvents, par_iLayoutFun, True, True)
+            ''1/11/2022 td''If (bAddFunctionalityLater) Then .AddClickability()
+            If (bAddFunctionalityLater) Then
+                Dim oMoveEventsForSingleCtl_Dummy As GroupMoveEvents_Singleton ''Added 1/11/2022 thomas d.
+                oMoveEventsForSingleCtl_Dummy = Nothing ''Added 1/11/2022 thomas d.
+
+                ''Jan11 2022''.AddMoveability(par_oMoveEventsForGroupedCtls,
+                ''                oMoveEventsForSingleCtl_Dummy,
+                ''                par_iLayoutFun, True, True)
+                .AddMoveability(par_iLayoutFun,
+                                par_oMoveEventsForGroupedCtls,
+                                oMoveEventsForSingleCtl_Dummy,
+                                True, True)
+                ''
+                ''Add context menus (right-click for context menus).
+                ''
+                .AddClickability()
+
+            End If ''End of "If (bAddFunctionalityLater) Then"
         End With ''eNd of "With CtlStaticGraphic1"
 
         ''

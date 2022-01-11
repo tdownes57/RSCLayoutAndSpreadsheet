@@ -40,7 +40,7 @@ Public Class CtlGraphicFldLabel
                                       par_iLayoutFun As ILayoutFunctions,
                                 par_iRecordLastTouched As IRecordElementLastTouched,
                                 par_iControlLastTouched As ILastControlTouched,
-                                     par_oMoveEvents As GroupMoveEvents_Singleton) As CtlGraphicFldLabel
+                                par_oMoveEventsForGroupedCtls As GroupMoveEvents_Singleton) As CtlGraphicFldLabel
         ''
         ''Added 1/04/2021 td
         ''
@@ -80,12 +80,14 @@ Public Class CtlGraphicFldLabel
                                                    bAddFunctionalitySooner,
                                                    par_iRecordLastTouched,
                                                    par_iControlLastTouched,
-                                                    par_oMoveEvents)
+                                                    par_oMoveEventsForGroupedCtls)
         ''Jan2 2022 ''                       ''Jan2 2022 ''par_iSaveToModel, typeOps,
 
         With CtlFieldElem1
             .Name = par_nameOfControl
-            If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEvents, par_iLayoutFun)
+            ''Jan11 2022''If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEvents, par_iLayoutFun)
+            If (bAddFunctionalityLater) Then .AddMoveability(par_iLayoutFun,
+                                                             par_oMoveEventsForGroupedCtls, Nothing)
             If (bAddFunctionalityLater) Then .AddClickability()
         End With ''eNd of "With CtlQRCode1"
 

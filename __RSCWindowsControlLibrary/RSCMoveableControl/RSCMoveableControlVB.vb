@@ -347,11 +347,11 @@ Public Class RSCMoveableControlVB
     End Sub ''End of "Public Sub Load_Functionality()"
 
 
-    Public Sub AddMoveability(par_objEventsMoveGroupOfCtls As GroupMoveEvents_Singleton,
-                              par_objEventsMoveSingleControl As GroupMoveEvents_Singleton,
-                              par_iLayoutFunctions As ILayoutFunctions,
+    Public Sub AddMoveability(par_iLayoutFunctions As ILayoutFunctions,
+                              Optional par_objEventsMoveGroupOfCtls As GroupMoveEvents_Singleton = Nothing,
+                              Optional par_objEventsMoveSingleControl As GroupMoveEvents_Singleton = Nothing,
                               Optional pbAddProportionality As Boolean = False,
-                              Optional pbHandleMouseEventsThroughFormVB6 As Boolean = True,
+                              Optional pbHandleMouseEventsThroughUseControlVB As Boolean = True,
                               Optional pbUseMonemProportionalityClass As Boolean = False)
         ''Jan3 2022 ''Public Sub AddMoveability()
         ''
@@ -367,20 +367,29 @@ Public Class RSCMoveableControlVB
         ''Added 1/10/2022 td
         If (par_objEventsMoveGroupOfCtls Is Nothing) Then
 
+            par_objEventsMoveGroupOfCtls = Me.MoveabilityEventsForGroupCtls ''Added 1/11/2022
+
             ''The parameter object-reference is for the movement of a group of controls, so
             ''  we probably can't simple instantiate a class. In fact, it's certain we have to
             ''  throw an exception. ---1/10/2022 td
-            Throw New NullReferenceException("Group-related events must be shared across controls.")
+            If (par_objEventsMoveGroupOfCtls Is Nothing) Then
+                Throw New NullReferenceException("Group-related events must be shared across controls.")
+            End If
 
         ElseIf (par_objEventsMoveSingleControl Is Nothing) Then
 
             ''We need to instantiate a class. It's just for the movement of a single control, so
             ''  we probably don't need to use a shared class. In fact, it's better if we don't.
             ''  ---1/10/2022 td
-            par_objEventsMoveSingleControl = New GroupMoveEvents_Singleton
-            Me.MoveabilityEventsForSingleMove = par_objEventsMoveSingleControl
+            par_objEventsMoveSingleControl = New GroupMoveEvents_Singleton(par_iLayoutFunctions)
 
         End If ''End of "If (par_objEventsMoveGroupOfCtls Is Nothing) Then .... ElseIf (par_objEventsMoveSingleControl Is Nothing) Then"
+
+        ''
+        ''Save the parameter object references. ----1/11/2022 td
+        ''
+        Me.MoveabilityEventsForGroupCtls = par_objEventsMoveGroupOfCtls
+        Me.MoveabilityEventsForSingleMove = par_objEventsMoveSingleControl
 
         ''
         ''First major step....
@@ -424,7 +433,7 @@ Public Class RSCMoveableControlVB
             InitializeMoveability(mod_boolResizeProportionally, mod_iLayoutFunctions,
                                   par_objEventsMoveGroupOfCtls,
                                   par_objEventsMoveSingleControl,
-                                  pbHandleMouseEventsThroughFormVB6,
+                                  pbHandleMouseEventsThroughUseControlVB,
                                   pbUseMonemProportionalityClass)
 
         End If ''End of "If (boolInstantiated) Then ... Else ...."

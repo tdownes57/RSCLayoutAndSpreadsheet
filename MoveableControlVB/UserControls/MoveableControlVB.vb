@@ -349,18 +349,24 @@ Public Class MoveableControlVB
 
             ''Not needed. This command should happen at the form level. 1/3/2022 td''mod_eventsDesigner.LayoutFunctions = par_iLayoutFunctions ''Added 12/27/2021
 
-            mod_moveResizeKeepRatio = New MoveAndResizeControls_Monem.ControlResizeProportionally_TD()
+            ''Jan11 2022''mod_moveResizeKeepRatio = New MoveAndResizeControls_Monem.ControlResizeProportionally_TD()
+            mod_moveability = New MoveAndResizeControls_Monem.ControlMove_AllFunctionality
+
             ''Jan4 2022''mod_moveResizeKeepRatio.Init(Me, Me, 10, c_bRepaintAfterResize,
             ''              mod_eventsMove, False, Me)  ''1/2/2022 td''mod_iSaveToModel)
-            mod_moveResizeKeepRatio.Init(Nothing, Me, 10, c_bRepaintAfterResize,
+            mod_moveability.Init(Nothing, Me, 10, c_bRepaintAfterResize,
                                             mod_eventsMoveGroupedCtls,
                                             mod_eventsMoveThisControl,
                                             False, Me)  ''1/2/2022 td''mod_iSaveToModel)
             ''---mod_resizingProportionally.LayoutFunctions = par_iLayoutFunctions 
-            mod_iMoveOrResizeFunctionality = mod_moveResizeKeepRatio ''Added 12/28/2021 td
+            ''Jan11 2022''mod_iMoveOrResizeFunctionality = mod_moveResizeKeepRatio ''Added 12/28/2021 td
+            mod_iMoveOrResizeFunctionality = mod_moveability ''Modified 1/11/2022 Added 12/28/2021 td
+
 
         Else
-            mod_moveInAGroup = New MoveAndResizeControls_Monem.ControlMove_Group_NonStatic()
+
+            ''Jan11 2022''mod_moveInAGroup = New MoveAndResizeControls_Monem.ControlMove_Group_NonStatic()
+            mod_moveability = New MoveAndResizeControls_Monem.ControlMove_AllFunctionality()
 
             ''mod_iLayoutFunctions = par_iLayoutFunctions
             ''mod_movingInAGroup.LayoutFunctions = par_iLayoutFunctions

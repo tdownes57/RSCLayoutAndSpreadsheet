@@ -41,7 +41,7 @@ Public Class CtlGraphicPortrait
                                       par_bProportionSizing As Boolean,
                                       par_iControlLastTouched As ILastControlTouched,
                                      par_iRecordLastControl As IRecordElementLastTouched,
-                                     par_oMoveEvents As GroupMoveEvents_Singleton) As CtlGraphicPortrait
+                                     par_oMoveEventsGroupedCtls As GroupMoveEvents_Singleton) As CtlGraphicPortrait
         ''
         ''Added 1/04/2022 td
         ''
@@ -82,12 +82,14 @@ Public Class CtlGraphicPortrait
                                                    bAddFunctionalitySooner,
                                                    bAddFunctionalitySooner,
                                                    par_iControlLastTouched,
-                                                    par_oMoveEvents)
+                                                    par_oMoveEventsGroupedCtls)
         ''Jan2 2022 ''                       ''Jan2 2022 ''par_iSaveToModel, typeOps,
 
         With CtlPortrait1
             .Name = par_nameOfControl
-            If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEvents, par_iLayoutFun)
+            ''1/11/2022''If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEvents, par_iLayoutFun)
+            If (bAddFunctionalityLater) Then .AddMoveability(par_iLayoutFun,
+                                                             par_oMoveEventsGroupedCtls, Nothing)
             If (bAddFunctionalityLater) Then .AddClickability()
         End With ''eNd of "With CtlPortrait1"
 

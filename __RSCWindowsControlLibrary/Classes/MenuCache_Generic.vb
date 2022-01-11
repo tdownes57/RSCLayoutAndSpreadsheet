@@ -56,7 +56,8 @@ Public Class MenuCache_Generic
 
 
     Friend Shared Function Get_EditElementMenu(par_enum As EnumElementType,
-                                   par_moveableEvents As GroupMoveEvents_Singleton,
+                                   par_moveableEvents_Group As GroupMoveEvents_Singleton,
+                                   par_moveableEvents_Single As GroupMoveEvents_Singleton,
                                                par_iLayoutFun As ILayoutFunctions) As ToolStripItemCollection
         ''
         ''Added 12/28/2021 thomas downes  
@@ -70,7 +71,8 @@ Public Class MenuCache_Generic
                 ''#2 Dec28 2021 td''Tools_EditElementMenu = GenerateMenuItems_IfNeeded()
                 ''Jan3 2022 td''GenerateMenuItems_IfNeeded()
                 ''Jan4 2022 td''GenerateMenuItems_IfNeeded(par_moveableEvents)
-                GenerateMenuItems_IfNeeded(par_moveableEvents, par_iLayoutFun)
+                GenerateMenuItems_IfNeeded(par_moveableEvents_Group,
+                                           par_moveableEvents_Single, par_iLayoutFun)
 
             End If ''end of "If (Tools_EditElementMenu Is Nothing) Then"
 
@@ -81,7 +83,8 @@ Public Class MenuCache_Generic
     End Function ''End of "Private Shared Function Get_EditElementMenu"
 
 
-    Public Shared Sub GenerateMenuItems_IfNeeded(par_eventsForMove As GroupMoveEvents_Singleton,
+    Public Shared Sub GenerateMenuItems_IfNeeded(par_eventsForMove_Group As GroupMoveEvents_Singleton,
+                                                 par_eventsForMove_Single As GroupMoveEvents_Singleton,
                                                  par_iLayoutFunctions As ILayoutFunctions) ''Dec28 2021 td''(par_cacheOfFieldsEtc As ciBadgeCachePersonality.ClassElementsCache_Deprecated)
         ''Dec.12 2021 ''Public Shared Sub GenerateMenuItems_IfNeeded()
         ''
@@ -98,7 +101,8 @@ Public Class MenuCache_Generic
         ''    par_eventsForMove,
         ''    par_iLayoutFunctions)
         mod_operationsGenericEdits = New Operations__Generic(CtlCurrentElement,
-                                                             par_eventsForMove,
+                                                             par_eventsForMove_Group,
+                                                             par_eventsForMove_Single,
                                                              par_iLayoutFunctions)
 
         ''12/13/2021''Generate_BasicEdits()
