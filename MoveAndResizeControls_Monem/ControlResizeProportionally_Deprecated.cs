@@ -510,8 +510,16 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             if (_controlMoveableElement == null) return; 
 
             //Added 12/28/2021 td
+            //Jan10 2022 td//Init(_controlPictureBox1,
+            //    _controlMoveableElement, _margin,
+            //    _repaintAfterResize, mod_events, false, _iSaveToModel,
+            //    c_bRemoveHandlers);
+
             Init(_controlPictureBox1, _controlMoveableElement, _margin,
-                _repaintAfterResize, mod_events, false, _iSaveToModel,
+                _repaintAfterResize, 
+                mod_eventsGroupOfCtls, 
+                mod_eventsSingleCtl,
+                false, _iSaveToModel,
                 c_bRemoveHandlers);
         }
 
@@ -531,12 +539,15 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             var event_blackhole = new GroupMoveEvents_Singleton(new DummyLayout(), c_yesBlackhole);
 
             //Let's put the blackhole into action!!  
-            mod_events = event_blackhole;
+            //Jan10 2022 td//mod_events = event_blackhole;
+            mod_eventsSingleCtl = event_blackhole;
+            mod_eventsGroupOfCtls = event_blackhole;
 
         }
 
 
-        private void KillTheBlackhole(InterfaceMoveEvents par_sharedEventsObject)
+        private void FillTheBlackhole(InterfaceMoveEvents par_eventsFromLayoutDesigner,
+                                      InterfaceMoveEvents par_eventsFromRSCMoveableControl)
         {
             //
             // Added 1/3/2022 thomas downes
@@ -546,8 +557,10 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             //   events object. 
             //   ----1/3/2022 td
             //
-            //Jan3 2002 td //mod_groupedctl_events = par_sharedEventsObject;
-            mod_events = par_sharedEventsObject;
+            //Jan3 2022 td //mod_groupedctl_events = par_sharedEventsObject;
+            //Jan10 2022 tdmod_events = par_sharedEventsObject;
+            mod_eventsGroupOfCtls = par_eventsFromLayoutDesigner;
+            mod_eventsSingleCtl = par_eventsFromRSCMoveableControl;
 
         }
 
@@ -590,7 +603,10 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
                 if (RemoveSizeability) return; //Return, i.e. Stop the resizing process!!  Added 12/29/2021 td
                 _resizing = true;
                 _currentControlStartSize = par_control.Size;
-                mod_events.Resizing_Initiate(); //Added 10/09/2019 td 
+
+                //Jan10 2022//mod_events.Resizing_Initiate(); //Added 10/09/2019 td 
+                mod_eventsSingleCtl.Resizing_Initiate(); //Added 10/09/2019 td 
+                if (mod_eventsGroupOfCtls != null) mod_eventsGroupOfCtls.Resizing_Initiate(); //Added 1/10/2022
 
             }
             else if (WorkType != MoveOrResize.Resize)
@@ -614,7 +630,8 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             //
             //10/9/2019 td//if (mod_events != null) MoveControl_GroupMove(par_control, e);
             //10/9/2019 td //if (mod_groupedctl_events == null) MoveControl_NoEvents(par_control, e);
-            if (mod_events == null) throw new Exception("The EventsObject (mod_events) reference is missing/uninstantiated.");
+            //01/10/2022 td//if (mod_events == null) throw new Exception("The EventsObject (mod_events) reference is missing/uninstantiated.");
+            if (mod_eventsSingleCtl == null) throw new Exception("The EventsObject (mod_events) reference is missing/uninstantiated.");
 
             MoveControl_IssueEvents(par_control, e);
 
@@ -858,13 +875,19 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
                 //
                 //Allow a group of controls to be affected in unison.   
                 //
-                mod_events.ControlBeingMoved(par_control);
+                // Jan10 2022 //mod_events.ControlBeingMoved(par_control);
+                mod_eventsSingleCtl.ControlBeingMoved(par_control);
+                if (mod_eventsGroupOfCtls != null)
+                   mod_eventsGroupOfCtls.ControlBeingMoved(par_control);
 
                 // 8-12-2019 td//delta_Top = 0;
                 // 8-12-2019 td//delta_Left = 0;
 
                 // 8-5-2019 td //mod_events.GroupMove(delta_Left, delta_Top, delta_Width, delta_Height);
-                mod_events.GroupMove_Change(drag_delta_Left, drag_delta_Top, drag_delta_Width, drag_delta_Height);
+                // 1-10-2022 td //mod_events.GroupMove_Change(drag_delta_Left, drag_delta_Top, drag_delta_Width, drag_delta_Height);
+                mod_eventsSingleCtl.GroupMove_Change(drag_delta_Left, drag_delta_Top, drag_delta_Width, drag_delta_Height);
+                if (mod_eventsGroupOfCtls != null)
+                   mod_eventsGroupOfCtls.GroupMove_Change(drag_delta_Left, drag_delta_Top, drag_delta_Width, drag_delta_Height);
 
                 //Added 12/29/2021 thomas downes
                 LogDebuggingInformation("_resizing ", drag_delta_Left, drag_delta_Top, drag_delta_Width, drag_delta_Height);
@@ -881,11 +904,18 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
                 //
                 //Allow a group of controls to be affected in unison.   
                 //
-                mod_events.ControlBeingMoved(par_control);
+                //Jan10 2022//mod_events.ControlBeingMoved(par_control);
+                mod_eventsSingleCtl.ControlBeingMoved(par_control);
+                if (mod_eventsGroupOfCtls != null)
+                    mod_eventsGroupOfCtls.ControlBeingMoved(par_control);
+
                 drag_delta_Width = 0;
                 drag_delta_Height = 0;
                 // 8-5-2019 td //mod_events.GroupMove(delta_Left, delta_Top, delta_Width, delta_Height);
-                mod_events.GroupMove_Change(drag_delta_Left, drag_delta_Top, drag_delta_Width, drag_delta_Height);
+                // 1-10-2022 td //mod_events.GroupMove_Change(drag_delta_Left, drag_delta_Top, drag_delta_Width, drag_delta_Height);
+                mod_eventsSingleCtl.GroupMove_Change(drag_delta_Left, drag_delta_Top, drag_delta_Width, drag_delta_Height);
+                if (mod_eventsGroupOfCtls != null)
+                    mod_eventsGroupOfCtls.GroupMove_Change(drag_delta_Left, drag_delta_Top, drag_delta_Width, drag_delta_Height);
 
                 //Added 12/29/2021 thomas downes
                 LogDebuggingInformation("_moving ", drag_delta_Left, drag_delta_Top, drag_delta_Width, drag_delta_Height);
@@ -1005,7 +1035,13 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
 
             //Added 10/14 & 8/5/2019 thomas downes
             //---if (bWasResizing) mod_events.Resizing_Terminate(_iSaveToModel);
-            if (bWasResizing) mod_events.Resizing_Terminate(par_iSave);
+            if (bWasResizing)
+            {
+                // Jan10 2022 //mod_events.Resizing_Terminate(par_iSave);
+                mod_eventsSingleCtl.Resizing_Terminate(par_iSave);
+                if (mod_eventsGroupOfCtls != null)
+                    mod_eventsGroupOfCtls.Resizing_Terminate(par_iSave);
+            }
 
             //Added 10/14 & 9/13/2019 thomas downes
             // 12/17/2021 td //if (!(bWasResizing)) mod_events.Moving_Terminate(par_control);
@@ -1016,9 +1052,18 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
                 if (par_control is PictureBox)
                 {
                     // Don't send the PictureBox, send the Parent control. ---1/5/2022
-                    mod_events.Moving_Terminate(_controlMoveableElement, par_iSave);
+                    //Jan10 2022 //mod_events.Moving_Terminate(_controlMoveableElement, par_iSave);
+                    mod_eventsSingleCtl.Moving_Terminate(_controlMoveableElement, par_iSave);
+                    if (mod_eventsGroupOfCtls != null)
+                        mod_eventsGroupOfCtls.Moving_Terminate(_controlMoveableElement, par_iSave);
                 }
-                else mod_events.Moving_Terminate(par_control, par_iSave);
+                else
+                {
+                    //Jan10 2022 //mod_events.Moving_Terminate(par_control, par_iSave);
+                    mod_eventsSingleCtl.Moving_Terminate(par_control, par_iSave);
+                    if (mod_eventsGroupOfCtls != null)
+                        mod_eventsGroupOfCtls.Moving_Terminate(par_control, par_iSave);
+                }
 
             }
 
