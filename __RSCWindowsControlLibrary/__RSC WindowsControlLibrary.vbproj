@@ -86,12 +86,6 @@
     <Compile Include="Modules\DiskFilesVB.vb" />
     <Compile Include="Modules\DiskFolders.vb" />
     <Compile Include="Modules\Module1Enumerations.vb" />
-    <Compile Include="RSCMoveableControl\RSCMoveableControlVB.designer.vb">
-      <DependentUpon>RSCMoveableControlVB.vb</DependentUpon>
-    </Compile>
-    <Compile Include="RSCMoveableControl\RSCMoveableControlVB.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
@@ -113,11 +107,20 @@
     <Compile Include="RSCEditableControl\RSC_IDEditor.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="RSCMoveableControl\RSCMoveableControlVB.Designer.vb">
+      <DependentUpon>RSCMoveableControlVB.vb</DependentUpon>
+    </Compile>
+    <Compile Include="RSCMoveableControl\RSCMoveableControlVB.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RSCMoveableControl\RSCMoveableControlVB_PriorComments.designer.vb">
+      <DependentUpon>RSCMoveableControlVB_PriorComments.vb</DependentUpon>
+    </Compile>
+    <Compile Include="RSCMoveableControl\RSCMoveableControlVB_PriorComments.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="RSCMoveableControl\RSCMoveableControlVB.resx">
-      <DependentUpon>RSCMoveableControlVB.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
@@ -126,6 +129,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RSCEditableControl\RSC_IDEditor.resx">
       <DependentUpon>RSC_IDEditor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RSCMoveableControl\RSCMoveableControlVB.resx">
+      <DependentUpon>RSCMoveableControlVB.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RSCMoveableControl\RSCMoveableControlVB_PriorComments.resx">
+      <DependentUpon>RSCMoveableControlVB_PriorComments.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -33,7 +33,7 @@ Public Class Operations__Generic
     Public MyToolstripItem As New ToolStripMenuItem ''Added 10/11/2019 td 
 
     ''Dec28 2021''Public Property CtlCurrentElement As MoveableControlVB ''#1 Dec282021 td
-    Public Property CtlCurrentElement As RSCMoveableControlVB Implements ICurrentElement.CtlCurrentElement
+    Public Property CtlCurrentElement As RSCMoveableControlVB_PriorComments Implements ICurrentElement.CtlCurrentElement
     Public Property EventsForMoveability As GroupMoveEvents_Singleton ''Added 1/3/2022 td 
     Public Property LayoutFunctions As ILayoutFunctions ''Added 1/4/2022 td
 
@@ -63,7 +63,7 @@ Public Class Operations__Generic
     End Sub ''End of "Public Sub New(par_currentControlVB As MoveableControlVB)"
 
 
-    Public Sub New(par_currentControlVB As RSCMoveableControlVB,
+    Public Sub New(par_currentControlVB As RSCMoveableControlVB_PriorComments,
                    par_eventsForMoveability As GroupMoveEvents_Singleton,
                    par_iLayoutFunctions As ILayoutFunctions)
         ''

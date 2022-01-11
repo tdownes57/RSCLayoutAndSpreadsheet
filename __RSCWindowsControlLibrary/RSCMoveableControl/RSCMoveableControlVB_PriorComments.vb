@@ -10,7 +10,7 @@ Imports ciBadgeDesigner ''Added 12/27/2021 td
 ''
 ''Added 12/22/2021 td  
 ''
-Public Class RSCMoveableControlVB
+Public Class RSCMoveableControlVB_PriorComments
     Implements ISaveToModel ''Added 1/2/2022 td 
 
     ''
@@ -69,7 +69,7 @@ Public Class RSCMoveableControlVB
         End If ''end of "If (objOperations Is Nothing) Then"
 
         ''Create the control. 
-        Dim MoveableControlVB1 = New RSCMoveableControlVB(par_enum, par_bProportionSizing,
+        Dim MoveableControlVB1 = New RSCMoveableControlVB_PriorComments(par_enum, par_bProportionSizing,
                                                    par_iLayoutFun,
                                                    typeOps,
                                                    objOperations,

@@ -1,6 +1,6 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class SimpleChildOfRSCControl1
-    Inherits __RSCWindowsControlLibrary.RSCMoveableControlVB
+    Inherits __RSCWindowsControlLibrary.RSCMoveableControlVB_PriorComments
     ''Inherits System.Windows.Forms.UserControl
 
     'UserControl overrides dispose to clean up the component list.

@@ -17,7 +17,7 @@ Imports __RSCWindowsControlLibrary ''Added 1/02/2022 thomas d.
 
 ''10/1/2019 td''Public Event ElementField_Clicked(par_elementField As ClassElementField)
 
-Public Class ClassDesigner
+Public Class ClassDesigner_PriorComments
     Implements ILayoutFunctions, ISelectingElements, IRecordElementLastTouched, IRefreshPreview
     Implements ILastControlTouchedRSC ''Added 1/2/2022 td 
     ''
@@ -2963,3 +2963,4 @@ Public Class ClassDesigner
 
     End Sub
 End Class ''End of "Public Class ClassDesigner"
+

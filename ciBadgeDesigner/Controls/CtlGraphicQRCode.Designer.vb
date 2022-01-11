@@ -1,7 +1,7 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class CtlGraphicQRCode
     ''Dec30 2021 td''Inherits System.Windows.Forms.UserControl
-    Inherits __RSCWindowsControlLibrary.RSCMoveableControlVB ''Added 12/30/2021 thomas
+    Inherits __RSCWindowsControlLibrary.RSCMoveableControlVB_PriorComments ''Added 12/30/2021 thomas
 
     'UserControl overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _

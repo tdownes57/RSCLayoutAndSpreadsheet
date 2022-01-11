@@ -15,7 +15,7 @@ Public Class Operations_StaticText
     Implements ICurrentElement ''Added 12/28/2021 td
 
     ''Jan8 2022 td''Public Property CtlCurrentElement As ciBadgeDesigner.CtlGraphicStaticText ''CtlGraphicFldLabel
-    Public Property CtlCurrentElement As RSCMoveableControlVB Implements ICurrentElement.CtlCurrentElement
+    Public Property CtlCurrentElement As RSCMoveableControlVB_PriorComments Implements ICurrentElement.CtlCurrentElement
 
     ''
     ''Added 12/12/2021 td

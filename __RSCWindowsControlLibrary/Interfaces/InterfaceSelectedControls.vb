@@ -7,19 +7,19 @@
     ''   in unison. ----12/28/2021 td 
     ''
     ''Dec 29 2021''Property LastControlSelected As MoveableControlVB
-    Property LastControlSelected As RSCMoveableControlVB
+    Property LastControlSelected As RSCMoveableControlVB_PriorComments
 
     ''Dec29 2021''Property ListControlsSelected As List(Of MoveableControlVB)
-    Property ListControlsSelected As List(Of RSCMoveableControlVB)
+    Property ListControlsSelected As List(Of RSCMoveableControlVB_PriorComments)
 
     Sub RemoveAllControlsFromList()
     Sub UnselectAllControls() ''This will be an Alias function.  
 
-    Sub SelectControl(par_control As RSCMoveableControlVB)
-    Sub UnselectControl(par_control As RSCMoveableControlVB)
+    Sub SelectControl(par_control As RSCMoveableControlVB_PriorComments)
+    Sub UnselectControl(par_control As RSCMoveableControlVB_PriorComments)
 
 
-    Sub IndicateVisiblyIfOrNotSelected(par_control As RSCMoveableControlVB)
+    Sub IndicateVisiblyIfOrNotSelected(par_control As RSCMoveableControlVB_PriorComments)
     Sub IndicateVisiblyIfOrNotSelected_AllControls()
 
 

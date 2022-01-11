@@ -76,6 +76,8 @@
   <ItemGroup>
     <Compile Include="ClassDesigner.vb" />
     <Compile Include="ClassDesignerEventListener.vb" />
+    <Compile Include="ClassDesignerListener_PriorComments.vb" />
+    <Compile Include="ClassDesigner_PriorComments.vb" />
     <Compile Include="ClassDictionaryOfCaptions.vb" />
     <Compile Include="Classes_Minor\ClassFixTheControlWidth.vb" />
     <Compile Include="Classes_Minor\ClassGroupMoveEvents_NotInUse.vb" />

@@ -1,6 +1,6 @@
 ﻿''<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class CtlGraphicStaticText
-    Inherits __RSCWindowsControlLibrary.RSCMoveableControlVB
+    Inherits __RSCWindowsControlLibrary.RSCMoveableControlVB_PriorComments
     ''Jan7 2022 td ''Inherits System.Windows.Forms.UserControl
 
     ''UserControl overrides dispose to clean up the component list.

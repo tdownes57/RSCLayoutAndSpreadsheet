@@ -1,6 +1,6 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class ProportionalRSCControl
-    Inherits __RSCWindowsControlLibrary.RSCMoveableControlVB
+    Inherits __RSCWindowsControlLibrary.RSCMoveableControlVB_PriorComments
     ''Dec3 2022 td''Inherits System.Windows.Forms.UserControl
 
     'UserControl overrides dispose to clean up the component list.
