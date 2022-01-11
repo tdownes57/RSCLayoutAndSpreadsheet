@@ -36,7 +36,7 @@ Public Class MenuCache_Generic
     Public Shared Tools_MenuSeparator As ToolStripItem ''Added 12/13/2021 
 
     ''12/28/2021 td''Public Shared Property CtlCurrentElement As ciBadgeDesigner.CtlGraphicFldLabel ''CtlGraphicFldLabel
-    Public Shared Property CtlCurrentElement As RSCMoveableControlVB_PriorComments ''CtlGraphicFldLabel
+    Public Shared Property CtlCurrentElement As RSCMoveableControlVB ''CtlGraphicFldLabel
 
     Public Shared Property LayoutFunctions As ILayoutFunctions ''Added 10/3/2019 td 
 
@@ -94,6 +94,9 @@ Public Class MenuCache_Generic
         ''Added 12/28/2021 thomas downes
         ''Jan4 2022 td''mod_operationsGenericEdits = New Operations__Generic(CtlCurrentElement)
         ''#2 Jan4 2022 td''mod_operationsGenericEdits = New Operations__Generic(CtlCurrentElement, par_eventsForMove)
+        ''Jan11 2022''mod_operationsGenericEdits = New Operations__Generic(CtlCurrentElement,
+        ''    par_eventsForMove,
+        ''    par_iLayoutFunctions)
         mod_operationsGenericEdits = New Operations__Generic(CtlCurrentElement,
                                                              par_eventsForMove,
                                                              par_iLayoutFunctions)

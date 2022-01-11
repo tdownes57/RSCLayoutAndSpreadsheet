@@ -113,12 +113,6 @@
     <Compile Include="RSCMoveableControl\RSCMoveableControlVB.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="RSCMoveableControl\RSCMoveableControlVB_PriorComments.designer.vb">
-      <DependentUpon>RSCMoveableControlVB_PriorComments.vb</DependentUpon>
-    </Compile>
-    <Compile Include="RSCMoveableControl\RSCMoveableControlVB_PriorComments.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -132,9 +126,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RSCMoveableControl\RSCMoveableControlVB.resx">
       <DependentUpon>RSCMoveableControlVB.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="RSCMoveableControl\RSCMoveableControlVB_PriorComments.resx">
-      <DependentUpon>RSCMoveableControlVB_PriorComments.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

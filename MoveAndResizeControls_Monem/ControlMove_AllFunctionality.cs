@@ -72,6 +72,20 @@ namespace MoveAndResizeControls_Monem
             set;
         }
 
+        public bool RemoveProportionality // = false;  //Added 1/10/2022 td//
+        {
+            get
+            {
+                //Flip the Boolean value.  ----1/11/2022 td
+                return (false == _SizeProportionally);
+            }
+            set 
+            {
+                //Flip the Boolean value.  ----1/11/2022 td 
+                _SizeProportionally = (false == value);
+            }
+        }
+
         public void RemoveProportionalSizing()
         {
             //Added 1/10/2022 td

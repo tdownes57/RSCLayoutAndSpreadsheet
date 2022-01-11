@@ -13,7 +13,7 @@ Public Interface ILastControlTouchedRSC
     ''     ----12/28/2021 thomas d. 
     ''
     ''1/2/2022 td''Property LastControlTouched As MoveableControlVB
-    Property LastControlTouchedRSC As RSCMoveableControlVB_PriorComments
+    Property LastControlTouchedRSC As RSCMoveableControlVB
 
 
 

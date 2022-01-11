@@ -2824,12 +2824,12 @@ Public Class ClassDesigner_PriorComments
     Public Property LastTouchedMoveableElement As IMoveableElement ''Added 12/17/2021 td
     Public Property LastTouchedClickableElement As IClickableElement ''Added 12/17/2021 td
 
-    Public Property LastControlTouchedRSC As RSCMoveableControlVB_PriorComments Implements ILastControlTouchedRSC.LastControlTouchedRSC
+    Public Property LastControlTouchedRSC As RSCMoveableControlVB Implements ILastControlTouchedRSC.LastControlTouchedRSC
         Get
             ''Throw New NotImplementedException()
-            Return CType(mod_ControlLastTouched, RSCMoveableControlVB_PriorComments)
+            Return CType(mod_ControlLastTouched, RSCMoveableControlVB)
         End Get
-        Set(value As RSCMoveableControlVB_PriorComments)
+        Set(value As RSCMoveableControlVB)
             Throw New NotImplementedException()
         End Set
     End Property

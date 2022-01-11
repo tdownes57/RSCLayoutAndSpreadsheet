@@ -1,6 +1,6 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class CtlGraphicStaticGraphic
-    Inherits __RSCWindowsControlLibrary.RSCMoveableControlVB_PriorComments
+    Inherits __RSCWindowsControlLibrary.RSCMoveableControlVB
 
     'UserControl overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _

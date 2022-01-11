@@ -106,8 +106,9 @@ Public Class MoveableControlVB
     ''Depending on the above Boolean, one of the following will be instantiated. 
     ''Let's rename. 12/28/2021 td''Private mod_movingInAGroup As ControlMove_Group_NonStatic = Nothing
     ''Let's rename. 12/28/2021 td''Private mod_resizeProportionally As ControlResizeProportionally_TD = Nothing
-    Private mod_moveInAGroup As ControlMove_Group_NonStatic = Nothing
-    Private mod_moveResizeKeepRatio As ControlResizeProportionally_TD = Nothing
+    ''Jan11 2022''Private mod_moveInAGroup As ControlMove_Group_NonStatic = Nothing
+    ''Jan11 2022''Private mod_moveResizeKeepRatio As ControlResizeProportionally_TD = Nothing
+    Private mod_moveability As ControlMove_AllFunctionality = Nothing
     Private mod_iMoveOrResizeFunctionality As IMoveOrResizeFunctionality ''InterfaceMoveOrResize ''Added 12/28/2021 td
 
     ''[[Private WithEvents mod_eventsDesigner As New ciBadgeDesigner.ClassGroupMoveEvents ''InterfaceEvents

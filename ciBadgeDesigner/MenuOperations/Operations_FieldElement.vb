@@ -38,7 +38,7 @@ Public Class Operations_FieldElement
 
     ''Jan5 2022 td''
     Public Property CtlCurrentElementField As ciBadgeDesigner.CtlGraphicFldLabel ''CtlGraphicFldLabel
-    Public Property CtlCurrentElement As RSCMoveableControlVB_PriorComments Implements ICurrentElement.CtlCurrentElement
+    Public Property CtlCurrentElement As RSCMoveableControlVB Implements ICurrentElement.CtlCurrentElement
 
     Public Property LayoutFunctions As ILayoutFunctions ''Added 10/3/2019 td 
     Public Property Designer As ciBadgeDesigner.ClassDesigner

@@ -16,7 +16,7 @@ Public Class RSCMoveableControlVB
     ''
     ''Added 12/22/2021 td  
     ''
-    Public Shared LastControlTouched_Deprecated As RSCMoveableControlVB_PriorComments
+    Public Shared LastControlTouched_Deprecated As RSCMoveableControlVB
 
     Public Shared Function GetControl(par_enum As EnumElementType,
                                       par_nameOfControl As String,
@@ -25,7 +25,7 @@ Public Class RSCMoveableControlVB
                                 par_iControlLastTouched As ILastControlTouched,
                                       par_oMoveEventsFromForm As GroupMoveEvents_Singleton,
                            Optional par_ratioWH_ifApplicable As Single = 0,
-                           Optional pbHandleMouseEventsThroughFormVB6 As Boolean = True) As RSCMoveableControlVB_PriorComments
+                           Optional pbHandleMouseEventsThroughFormVB6 As Boolean = True) As RSCMoveableControlVB
         ''                      ''Jan2 2022 td''  par_iSaveToModel As ISaveToModel,
         ''                      ''Dec29 2021 td'' par_designer As ClassDesigner,
         ''
@@ -390,8 +390,8 @@ Public Class RSCMoveableControlVB
             ''  If instantiated, then set the Boolean property to false. 
             ''
             mod_iMoveOrResizeFunctionality.RemoveAllFunctionality = False
-            If (mod_moveInAGroup IsNot Nothing) Then mod_moveInAGroup.RemoveAllFunctionality = False
-            If (mod_moveResizeKeepRatio IsNot Nothing) Then mod_moveResizeKeepRatio.RemoveAllFunctionality = False
+            ''Jan11 2022''If (mod_moveInAGroup IsNot Nothing) Then mod_moveInAGroup.RemoveAllFunctionality = False
+            ''Jan11 2022''If (mod_moveResizeKeepRatio IsNot Nothing) Then mod_moveResizeKeepRatio.RemoveAllFunctionality = False
 
             ''Added 1/3/2022 td
             ''  Refresh the module-level reference with the
@@ -527,8 +527,9 @@ Public Class RSCMoveableControlVB
         Me.ContextMenuStrip1 = Nothing
         Me.mod_objOperationsGeneric = Nothing
         Me.mod_objOperationsUseless = Nothing
-        Me.mod_moveResizeKeepRatio = Nothing
-        Me.mod_moveInAGroup = Nothing
+        ''Jan11 2022''Me.mod_moveResizeKeepRatio = Nothing
+        ''Jan11 2022''Me.mod_moveInAGroup = Nothing
+        Me.mod_moveability_Monem = Nothing
 
     End Sub ''End of "Public Sub AddClickability()"
 
@@ -582,8 +583,9 @@ Public Class RSCMoveableControlVB
         ''Added 12/28/2021 td
         ''  Prepare for the next steps.
         ''
-        mod_moveResizeKeepRatio = Nothing
-        mod_moveInAGroup = Nothing
+        ''Jan11 2022 td''mod_moveResizeKeepRatio = Nothing
+        ''Jan11 2022 td''mod_moveInAGroup = Nothing
+        mod_moveability_Monem = Nothing ''Added 1/11/2022 td
 
         ''Jan10 2022 td''mod_events = par_objMoveEvents ''Added 1/3/2022 thomas 
         ''Jan10 2022 td''mod_events.LayoutFunctions = par_iLayoutFunctions
@@ -662,18 +664,19 @@ Public Class RSCMoveableControlVB
                                                c_bRepaintAfterResize)
             ''
             ''Having instantiated the "Monem Proportionality class" (module-level  
-            ''  object mod_moveResizeKeepRatio, we will now remove
+            ''  object mod_moveability_Monem), we will now remove
             ''  proportionality.  ---1/10/2022 td
             ''
             Dim bRemoveProportionality As Boolean = (Not pboolResizeProportionally)
-            mod_moveResizeKeepRatio.RemoveProportionality = bRemoveProportionality
+            mod_moveability_Monem.RemoveProportionality = bRemoveProportionality
 
 
         Else
             ''
             ''We don't need to enforce "Proportionality", a constant Width-Height ratio. 
             ''
-            mod_moveInAGroup = New MoveAndResizeControls_Monem.ControlMove_Group_NonStatic()
+            ''Jan11 2022 td''mod_moveInAGroup = New MoveAndResizeControls_Monem.ControlMove_Group_NonStatic()
+            mod_moveability_Monem = New MoveAndResizeControls_Monem.ControlMove_AllFunctionality
 
             ''mod_iLayoutFunctions = par_iLayoutFunctions
             ''mod_movingInAGroup.LayoutFunctions = par_iLayoutFunctions
@@ -701,13 +704,15 @@ Public Class RSCMoveableControlVB
             ''Jan10 2022''mod_moveInAGroup.Init(objPictureBox, Me, 10, c_bRepaintAfterResize,
             ''Jan10 2022''                  mod_events, False, Me, False,
             ''Jan10 2022''                  mod_bHandleMouseMoveEvents_Monem)
-            mod_moveInAGroup.Init(objPictureBox, Me, 10, c_bRepaintAfterResize,
+            ''Jan11 2022''mod_moveInAGroup.Init(objPictureBox, Me, 10, c_bRepaintAfterResize,
+            mod_moveability_Monem.Init(objPictureBox, Me, 10, c_bRepaintAfterResize,
                                             par_objMoveEventsForGroupMove,
                                             par_objMoveEventsForSingleCtl,
                                             False, Me, False,
                                             mod_bHandleMouseMoveEvents_Monem)
 
-            mod_iMoveOrResizeFunctionality = mod_moveInAGroup ''Added 12/28/2021 td
+            ''1/11/2022 td''mod_iMoveOrResizeFunctionality = mod_moveInAGroup ''Added 12/28/2021 td
+            mod_iMoveOrResizeFunctionality = mod_moveability_Monem ''Added 12/28/2021 td
 
         End If ''End of "If pboolResizeProportionally Then .... Else ..."
 
@@ -739,7 +744,8 @@ Public Class RSCMoveableControlVB
         mod_eventsForSingleMove.LayoutFunctions = par_iLayoutFunctions ''Added 12/27/2021
 
         ''1/10/2022 td''mod_moveResizeKeepRatio = New MoveAndResizeControls_Monem.ControlResizeProportionally_TD()
-        mod_moveability_MonemClass = New MoveAndResizeControls_Monem.ControlMove_Group_NonStatic()
+        ''1/11/2022 td''mod_moveability_MonemClass = New MoveAndResizeControls_Monem.ControlMove_Group_NonStatic()
+        mod_moveability_Monem = New MoveAndResizeControls_Monem.ControlMove_AllFunctionality()
 
         ''#1 Jan4 2022 ''mod_moveResizeKeepRatio.Init(Me, Me, 10, c_bRepaintAfterResize,
         ''                mod_events, False, Me)
@@ -762,14 +768,18 @@ Public Class RSCMoveableControlVB
 
         ''1/4/2022 td''mod_moveResizeKeepRatio.Init(objPictureBox, Me, 10, c_bRepaintAfterResize,
         ''      mod_events, False, Me)
-        mod_moveResizeKeepRatio.Init(par_objPictureBox, Me, 10, par_bRepaintAfterResize,
-                                            mod_events, False, Me, False,
+        ''1/11/2022 td''mod_moveResizeKeepRatio.Init(par_objPictureBox, Me, 10, par_bRepaintAfterResize,
+        mod_moveability_Monem.Init(par_objPictureBox, Me, 10, par_bRepaintAfterResize,
+                                            mod_eventsForGroupMove_NotNeeded,
+                                            mod_eventsForSingleMove,
+                                            False, Me, False,
                                             mod_bHandleMouseMoveEvents_Monem,
                                             singleProportionWH)
 
         ''            ''1/2/2022 td '' mod_events, False, mod_iSaveToModel)
         ''---mod_resizingProportionally.LayoutFunctions = par_iLayoutFunctions 
-        mod_iMoveOrResizeFunctionality = mod_moveResizeKeepRatio ''Added 12/28/2021 td
+        ''Jan11 2022''mod_iMoveOrResizeFunctionality = mod_moveResizeKeepRatio ''Added 12/28/2021 td
+        mod_iMoveOrResizeFunctionality = mod_moveability_Monem ''Modified 1/11/2022 td Added 12/28/2021 td
 
 
     End Sub ''End of "Private Sub InitializeMoveability_Proportional()"
@@ -941,7 +951,7 @@ Public Class RSCMoveableControlVB
     ''End Sub ''End of "Private Sub mod_designer_ElementRightClicked"
 
 
-    Private Sub mod_events_Moving_End(par_control As Control, par_iSaveToModel As ISaveToModel) ''Handles mod_events.Moving_End '', mod_events.Resizing_End, mod_events.Moving_InProgress
+    Private Sub mod_events_Moving_End(par_control As Control, par_iSaveToModel As ISaveToModel) Handles mod_eventsForSingleMove.Moving_End '', mod_events.Resizing_End, mod_events.Moving_InProgress
         ''
         ''Added 12/27/2021 td 
         ''
@@ -950,9 +960,9 @@ Public Class RSCMoveableControlVB
 
         ''Added 1/5/2022 td
         ''  Trying to prevent multiple calls. 
-        RemoveHandler mod_events.Moving_End, AddressOf mod_events_Moving_End
-        RemoveHandler mod_events.Moving_End, AddressOf mod_events_Moving_End
-        AddHandler mod_events.Moving_End, AddressOf mod_events_Moving_End
+        RemoveHandler mod_eventsForSingleMove.Moving_End, AddressOf mod_events_Moving_End
+        RemoveHandler mod_eventsForSingleMove.Moving_End, AddressOf mod_events_Moving_End
+        AddHandler mod_eventsForSingleMove.Moving_End, AddressOf mod_events_Moving_End
 
     End Sub
 

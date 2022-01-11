@@ -15,7 +15,7 @@ Public Class Operations_Signature
     Inherits Operations__Graphic
     Implements ICurrentElement ''Added 12/28/2021 td
 
-    Public Property CtlCurrentElement As RSCMoveableControlVB_PriorComments Implements ICurrentElement.CtlCurrentElement
+    Public Property CtlCurrentElement As RSCMoveableControlVB Implements ICurrentElement.CtlCurrentElement
     ''
     ''Added 12/12/2021 td
     ''

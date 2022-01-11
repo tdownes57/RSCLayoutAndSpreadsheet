@@ -1,7 +1,7 @@
 ﻿Imports System.Windows.Forms
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class CtlGraphicPortrait
-    Inherits __RSCWindowsControlLibrary.RSCMoveableControlVB_PriorComments
+    Inherits __RSCWindowsControlLibrary.RSCMoveableControlVB
 
     'UserControl overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _

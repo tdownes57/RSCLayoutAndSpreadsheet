@@ -20,7 +20,7 @@ Public Class Operations_StaticGraphic
     Implements ICurrentElement ''Added 1/08/2022 td
 
     ''Added 1/08/2022 td
-    Public Property CtlCurrentElement As RSCMoveableControlVB_PriorComments Implements ICurrentElement.CtlCurrentElement
+    Public Property CtlCurrentElement As RSCMoveableControlVB Implements ICurrentElement.CtlCurrentElement
 
     ''
     ''Added 12/13/2021 td

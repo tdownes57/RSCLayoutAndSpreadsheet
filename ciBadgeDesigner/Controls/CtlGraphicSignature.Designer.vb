@@ -1,6 +1,6 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class CtlGraphicSignature
-    Inherits __RSCWindowsControlLibrary.RSCMoveableControlVB_PriorComments
+    Inherits __RSCWindowsControlLibrary.RSCMoveableControlVB
     ''Jan2 2022 td''Inherits System.Windows.Forms.UserControl
 
     'UserControl overrides dispose to clean up the component list.
