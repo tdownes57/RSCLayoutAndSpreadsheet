@@ -161,7 +161,8 @@ Public Class RSCMoveableControlVB
     ''
     ''Jan10 2022''Private mod_moveInAGroup As ControlMove_Group_NonStatic = Nothing
     ''Jan10 2022''Private mod_moveResizeKeepRatio As ControlResizeProportionally_TD = Nothing
-    Private mod_moveability_Monem As ControlMove_Group_NonStatic = Nothing
+    ''Jan11 2022''Private mod_moveability_Monem As ControlMove_Group_NonStatic = Nothing
+    Private mod_moveability_Monem As ControlMove_AllFunctionality = Nothing
 
     ''Dec29 2021''Private mod_iMoveOrResize As InterfaceMoveOrResize ''Added 12/28/2021 td
     Protected mod_iMoveOrResizeFunctionality As IMoveOrResizeFunctionality ''Added 12/28/2021 td
@@ -359,7 +360,9 @@ Public Class RSCMoveableControlVB
         ''Dec28 2021''InitializeMoveability(mod_boolResizeProportionally, mod_iSaveToModel, mod_iLayoutFunctions)
 
         Dim boolInstantiated As Boolean ''Added 12/28/2021 td
-        boolInstantiated = (mod_moveInAGroup IsNot Nothing) OrElse (mod_moveResizeKeepRatio IsNot Nothing)
+
+        ''Jan11 2022 td''boolInstantiated = (mod_moveInAGroup IsNot Nothing) OrElse (mod_moveResizeKeepRatio IsNot Nothing)
+        boolInstantiated = (mod_eventsForSingleMove IsNot Nothing)
 
         ''Added 1/10/2022 td
         If (par_objEventsMoveGroupOfCtls Is Nothing) Then

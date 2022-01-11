@@ -283,21 +283,21 @@ Public Class ClassDesigner
         ''RemoveHandler CtlGraphic_QRCode.Picture_Box.MouseDown,
         ''    AddressOf mod_designerListener.mod_dictyControlMoveBoxesEtc(CtlGraphic_QRCode).
         ''---Dim objListenerQR As MoveAndResizeControls_Monem.ControlMove_NonStatic_TD
-        Dim objListenerQR As MoveAndResizeControls_Monem.ControlResizeProportionally_TD
+        ''Jan11 2022 td''Dim objListenerQR As MoveAndResizeControls_Monem.ControlResizeProportionally_TD
 
-        Dim intCountKeys As Integer ''Added 12/18/2021
+        ''Dim intCountKeys As Integer ''Added 12/18/2021
 
-        With mod_designerListener
+        ''Jan11 2022 td''With mod_designerListener
 
-            intCountKeys = .DictyControlResizing.Keys.Count ''Added 12/18/2021
-            ''---objListenerQR = .mod_dictyControlMoveBoxesEtc(CtlGraphic_QRCode)
-            If (.DictyControlResizing.ContainsKey(CtlGraphic_QRCode)) Then
-                objListenerQR = .DictyControlResizing(CtlGraphic_QRCode)
-                objListenerQR.RemoveEventHandlers()
-                .DictyControlResizing.Remove(CtlGraphic_QRCode) ''Added 12/17/2021 td
-            End If ''End of "If (.DictyControlResizing.ContainsKey(CtlGraphic_QRCode)) Then"
+        ''    intCountKeys = .DictyControlResizing.Keys.Count ''Added 12/18/2021
+        ''    ''---objListenerQR = .mod_dictyControlMoveBoxesEtc(CtlGraphic_QRCode)
+        ''    If (.DictyControlResizing.ContainsKey(CtlGraphic_QRCode)) Then
+        ''        objListenerQR = .DictyControlResizing(CtlGraphic_QRCode)
+        ''        objListenerQR.RemoveEventHandlers()
+        ''        .DictyControlResizing.Remove(CtlGraphic_QRCode) ''Added 12/17/2021 td
+        ''    End If ''End of "If (.DictyControlResizing.ContainsKey(CtlGraphic_QRCode)) Then"
 
-        End With ''End of "With mod_designerListener"
+        ''End With ''End of "With mod_designerListener"
 
         CtlGraphic_QRCode.Dispose() ''Added Dec. 8, 2021
         Me.DesignerForm.Controls.Remove(CtlGraphic_QRCode) ''Added Dec. 8, 2021
@@ -310,28 +310,28 @@ Public Class ClassDesigner
         ''
         ''Added 12/14/2021 td 
         ''
-        Dim objListenerSig1 As MoveAndResizeControls_Monem.ControlResizeProportionally_TD
-        Dim objListenerSig2 As MoveAndResizeControls_Monem.ControlMove_NonStatic_TD
-        Dim boolListenerFound1 As Boolean ''Added 12/23/2021 td
-        Dim boolListenerFound2 As Boolean ''Added 12/23/2021 td
+        ''Dim objListenerSig1 As MoveAndResizeControls_Monem.ControlResizeProportionally_TD
+        ''Dim objListenerSig2 As MoveAndResizeControls_Monem.ControlMove_NonStatic_TD
+        ''Dim boolListenerFound1 As Boolean ''Added 12/23/2021 td
+        ''Dim boolListenerFound2 As Boolean ''Added 12/23/2021 td
 
-        ''Added 12/23/2021 td
-        boolListenerFound1 = mod_designerListener.DictyControlResizing.ContainsKey(CtlGraphic_Signat)
-        boolListenerFound2 = mod_designerListener.mod_dictyControlMoveBoxesEtc.ContainsKey(CtlGraphic_Signat)
+        ''''Added 12/23/2021 td
+        ''boolListenerFound1 = mod_designerListener.DictyControlResizing.ContainsKey(CtlGraphic_Signat)
+        ''boolListenerFound2 = mod_designerListener.mod_dictyControlMoveBoxesEtc.ContainsKey(CtlGraphic_Signat)
 
-        If (boolListenerFound1) Then
-            objListenerSig1 = mod_designerListener.DictyControlResizing(CtlGraphic_Signat)
-            objListenerSig1.RemoveEventHandlers()
-            mod_designerListener.DictyControlResizing.Remove(CtlGraphic_Signat) ''Added 12/17/2021 td
-        ElseIf (boolListenerFound2) Then
-            ''Added 12/23/2021 td
-            objListenerSig2 = mod_designerListener.mod_dictyControlMoveBoxesEtc(CtlGraphic_Signat)
-            objListenerSig2.RemoveEventHandlers()
-            mod_designerListener.mod_dictyControlMoveBoxesEtc.Remove(CtlGraphic_Signat) ''Added 12/17/2021 td
-        Else
-            StatusLabelWarningLabel.Text = "Signature's event listener not found."
+        ''If (boolListenerFound1) Then
+        ''    objListenerSig1 = mod_designerListener.DictyControlResizing(CtlGraphic_Signat)
+        ''    objListenerSig1.RemoveEventHandlers()
+        ''    mod_designerListener.DictyControlResizing.Remove(CtlGraphic_Signat) ''Added 12/17/2021 td
+        ''ElseIf (boolListenerFound2) Then
+        ''    ''Added 12/23/2021 td
+        ''    objListenerSig2 = mod_designerListener.mod_dictyControlMoveBoxesEtc(CtlGraphic_Signat)
+        ''    objListenerSig2.RemoveEventHandlers()
+        ''    mod_designerListener.mod_dictyControlMoveBoxesEtc.Remove(CtlGraphic_Signat) ''Added 12/17/2021 td
+        ''Else
+        ''    StatusLabelWarningLabel.Text = "Signature's event listener not found."
 
-        End If ''End of "If (boolListenerFound1) Then ... ElseIf (...) ... Else ..."
+        ''End If ''End of "If (boolListenerFound1) Then ... ElseIf (...) ... Else ..."
 
         CtlGraphic_Signat.Dispose() ''Added Dec. 8, 2021
         Me.DesignerForm.Controls.Remove(CtlGraphic_Signat) ''Added Dec. 8, 2021
@@ -344,8 +344,8 @@ Public Class ClassDesigner
         ''
         ''Added 12/14/2021 td 
         ''
-        Dim objListenerStaticText As MoveAndResizeControls_Monem.ControlResizeProportionally_TD
-        Dim boolListenerFound As Boolean ''Added 12/15/2021 td 
+        ''Jan11 2022''Dim objListenerStaticText As MoveAndResizeControls_Monem.ControlResizeProportionally_TD
+        ''Jan11 2022''Dim boolListenerFound As Boolean ''Added 12/15/2021 td 
         Dim each_ctlStaticText As CtlGraphicStaticText ''Added 12/15/2021 td
 
         ''1/8/2022''If (CtlGraphic_StaticText_temp Is Nothing) Then Return ''Don't bother proceeding.--1/5/2022
@@ -357,16 +357,16 @@ Public Class ClassDesigner
         ''
         For Each each_ctlStaticText In ListCtlGraphic_StaticTexts
 
-            boolListenerFound = mod_designerListener.DictyControlResizing.ContainsKey(each_ctlStaticText)
-            If (boolListenerFound) Then
-                objListenerStaticText = mod_designerListener.DictyControlResizing(each_ctlStaticText)
-                objListenerStaticText.RemoveEventHandlers()
-                mod_designerListener.DictyControlResizing.Remove(each_ctlStaticText) ''Added 12/17/2021 td
-            Else
-                ''---MessageBox.Show("We don't see the event-listener for the StaticText control.")
-                StatusLabelWarningLabel.Text = "We don't see the event-listener for the StaticText control."
+            ''Jan10 2022 td''boolListenerFound = mod_designerListener.DictyControlResizing.ContainsKey(each_ctlStaticText)
+            ''Jan10 2022 td''If (boolListenerFound) Then
+            ''    objListenerStaticText = mod_designerListener.DictyControlResizing(each_ctlStaticText)
+            ''    objListenerStaticText.RemoveEventHandlers()
+            ''    mod_designerListener.DictyControlResizing.Remove(each_ctlStaticText) ''Added 12/17/2021 td
+            ''Else
+            ''    ''---MessageBox.Show("We don't see the event-listener for the StaticText control.")
+            ''    StatusLabelWarningLabel.Text = "We don't see the event-listener for the StaticText control."
 
-            End If ''End of "If (boolListenerFound) Then ... Else ..."
+            ''End If ''End of "If (boolListenerFound) Then ... Else ..."
 
             each_ctlStaticText.Dispose() ''Added Dec. 8, 2021
             each_ctlStaticText.Visible = False ''Added Dec. 18, 2021
@@ -1012,9 +1012,11 @@ Public Class ClassDesigner
             ''
             ''Add moveability - Static Texts
             ''
-            Dim bKeepWidthHeightProportional As Boolean = True ''added 12/23/2021
-            Add_Moveability(CtlGraphic_Portrait, CtlGraphic_Portrait,
-                                 CtlGraphic_Portrait, bKeepWidthHeightProportional)
+            ''Jan10 2022 td''Dim bKeepWidthHeightProportional As Boolean = True ''added 12/23/2021
+            ''Jan10 2022 td''Add_Moveability(CtlGraphic_Portrait, CtlGraphic_Portrait,
+            ''                     CtlGraphic_Portrait, bKeepWidthHeightProportional)
+            Throw New Exception("Let the control __RSC_WindowsControlLibrary/RSCMoveableControl " +
+                                 "be responsible for moveability.--1/11/2022")
 
         End If ''End of "If (Me.LetEventListenerAddMoveability) Then ... Else ..."
 
@@ -1081,8 +1083,10 @@ Public Class ClassDesigner
             Else
                 ''Add moveability - QR Code
 
-                Add_Moveability(CtlGraphic_QRCode, CtlGraphic_QRCode,
-                                 CtlGraphic_QRCode, True)
+                ''Jan11 2022 td''Add_Moveability(CtlGraphic_QRCode, CtlGraphic_QRCode,
+                ''                 CtlGraphic_QRCode, True)
+                Throw New Exception("Let the control __RSC_WindowsControlLibrary/RSCMoveableControl " +
+                                 "be responsible for moveability.--1/11/2022")
 
             End If ''End of "If (Me.LetEventListenerAddMoveability) Then ... Else ..."
 
@@ -1147,8 +1151,10 @@ Public Class ClassDesigner
             ''
             ''Add moveability - Signature
             ''
-            Add_Moveability(CtlGraphic_Signat, CtlGraphic_Signat,
-                                 CtlGraphic_Signat, True)
+            ''Jan11 2022''Add_Moveability(CtlGraphic_Signat, CtlGraphic_Signat,
+            ''             CtlGraphic_Signat, True)
+            Throw New Exception("Let the control __RSC_WindowsControlLibrary/RSCMoveableControl " +
+                                 "be responsible for moveability.--1/11/2022")
 
         End If ''End of "If (Me.LetEventListenerAddMoveability) Then ... Else ..."
 
@@ -1220,9 +1226,11 @@ Public Class ClassDesigner
                 ''
                 Const c_boolResizeProportionally As Boolean = False ''Inappropropriate for Static Texts!!
 
-                Add_Moveability(each_ctlStaticText, each_ctlStaticText,
-                                     each_ctlStaticText,
-                                     c_boolResizeProportionally)
+                ''Jan11 2022 td''Add_Moveability(each_ctlStaticText, each_ctlStaticText,
+                ''                     each_ctlStaticText,
+                ''                     c_boolResizeProportionally)
+                Throw New Exception("Let the control __RSC_WindowsControlLibrary/RSCMoveableControl " +
+                                 "be responsible for moveability.--1/11/2022")
 
             End If ''End of "If (Me.LetEventListenerAddMoveability) Then ... Else ..."
 

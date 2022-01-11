@@ -45,8 +45,9 @@ namespace MoveAndResizeControls_Monem
     //
     // Added 11/29/2021 thomas downes 
     //
-    public class ControlMove_Group_NonStatic : IMoveOrResizeFunctionality // InterfaceMoveOrResize
+    public class ControlMove_AllFunctionality : IMoveOrResizeFunctionality // InterfaceMoveOrResize
     {
+        //ControlMove_Group_NonStatic : IMoveOrResizeFunctionality // InterfaceMoveOrResize
         //
         //  Class ControlMove_Group_NonStatic
         //     was copied from ControlMove_GroupMove_TD. 

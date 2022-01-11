@@ -46,11 +46,11 @@ Public Class ClassDesignerEventListener
     Private Const mc_boolMoveGrowInUnison As Boolean = True ''Added 10/10/2019 td 
 
     ''Added 11/29/2021 td  
-    Private Const mc_bUseNonStaticMovers As Boolean = True ''Added 11/29/2021 td 
-    Private mod_dictyControlMoveFields As New Dictionary(Of CtlGraphicFldLabel, ControlMove_Group_NonStatic)
-    ''1/10/2022 td''Public mod_dictyControlMoveBoxesEtc As New Dictionary(Of Control, ControlMove_NonStatic_TD)
-    ''1/10/2022 td''Public DictyControlResizing As New Dictionary(Of Control, ControlResizeProportionally_TD)
-    Public mod_dictyControlGroupMoveEvents As New Dictionary(Of Control, ControlMove_Group_NonStatic)
+    ''Jan11 2022''Private Const mc_bUseNonStaticMovers As Boolean = True ''Added 11/29/2021 td 
+    ''Jan11 2022''Private mod_dictyControlMoveFields As New Dictionary(Of CtlGraphicFldLabel, ControlMove_Group_NonStatic)
+    ''''1/10/2022 td''Public mod_dictyControlMoveBoxesEtc As New Dictionary(Of Control, ControlMove_NonStatic_TD)
+    ''''1/10/2022 td''Public DictyControlResizing As New Dictionary(Of Control, ControlResizeProportionally_TD)
+    ''Jan11 2022''Public mod_dictyControlGroupMoveEvents As New Dictionary(Of Control, ControlMove_Group_NonStatic)
 
     ''Added 10/12/2019 td 
     ''Dec12 2021''Private mod_sizing_portrait As New ControlResizeProportionally_TD ''Added 10/12/2019 td 
@@ -59,11 +59,11 @@ Public Class ClassDesignerEventListener
     ''Dec12 2021''Private mod_sizing_staticText As New ControlResizeProportionally_TD ''Added 12/16/2021 td
 
     ''Added 12/17/2021 td
-    Public Sizing_portrait As ControlResizeProportionally_TD
-    Public Sizing_signature As ControlResizeProportionally_TD
-    Public Sizing_QR As ControlResizeProportionally_TD
-    ''12/23/2021 td''Public Sizing_staticText As ControlResizeProportionally_TD
-    Public Sizing_staticText As ControlMove_Group_NonStatic ''Modified 12/23/2021 td
+    ''Public Sizing_portrait As ControlResizeProportionally_TD
+    ''Public Sizing_signature As ControlResizeProportionally_TD
+    ''Public Sizing_QR As ControlResizeProportionally_TD
+    ''''12/23/2021 td''Public Sizing_staticText As ControlResizeProportionally_TD
+    ''Public Sizing_staticText As ControlMove_Group_NonStatic ''Modified 12/23/2021 td
 
     ''Added 11/29/2021 td 
     Private mod_designer As ClassDesigner

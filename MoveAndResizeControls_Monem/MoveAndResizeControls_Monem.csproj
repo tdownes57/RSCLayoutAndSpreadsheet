@@ -43,13 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NonStaticClasses_NotUsed\ControlMove_NonStatic_NotInUse.cs" />
-    <Compile Include="StaticClasses_NotUsed\ControlMove_Static_Resize_TD_Deprecated.cs" />
-    <Compile Include="StaticClasses_NotUsed\ControlMove_Static_Resizer_Deprecated.cs" />
-    <Compile Include="StaticClasses_NotUsed\ControlMove_GroupMove_Static_Deprecated.cs" />
-    <Compile Include="ControlMove_Group_NonStatic.cs" />
-    <Compile Include="NonStaticClasses_NotUsed\ControlMove_RaiseEvents_NotUsed.cs" />
-    <Compile Include="NonStaticClasses_NotUsed\ControlResizeProportionally_Deprecated.cs" />
+    <Compile Include="ControlMove_AllFunctionality.cs" />
     <Compile Include="Events\ClassGroupMoveEvents_NotUsed.cs" />
     <Compile Include="FormContainerVsPicture.cs">
       <SubType>Form</SubType>
@@ -82,6 +76,9 @@
       <Name>ciBadgeInterfaces</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="NonStaticClasses_NotUsed\" />
+    <Folder Include="StaticClasses_NotUsed\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
