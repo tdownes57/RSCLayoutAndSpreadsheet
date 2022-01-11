@@ -434,7 +434,11 @@ Public Class ClassDesigner
         ''10/1/2019 td''mod_imageLady = CtlGraphicPortrait_Lady.picturePortrait.Image
         ''10/1/2019 td''mod_imageExamplePortrait = Me.ExamplePortraitImage ''Added 10/1/2019 td
         mod_imageExamplePortrait = Me.ExampleImage_Portrait ''Added 10/1/2019 td
-        mod_imageExampleSignat = Me.CtlGraphic_Signat.pictureSignature.Image ''Added 10/14/2019 td
+
+        ''Modified 1/10/2022 td
+        If (Me.CtlGraphic_Signat IsNot Nothing) Then
+            mod_imageExampleSignat = Me.CtlGraphic_Signat.pictureSignature.Image ''Added 10/14/2019 td
+        End If ''End of "If (Me.CtlGraphic_Signat IsNot Nothing) Then"
         ''---Dec.7 2021---mod_imageExampleQRCode = Me.CtlGraphic_QRCode.pictureQRCode.Image ''Added 10/14/2019 td
 
         ''Added 12/7/2021 thomas downes
@@ -451,11 +455,13 @@ Public Class ClassDesigner
         ''++    Me.BackgroundBox_Front.SendToBack() ''Added 12/10/2021 td
         ''++End If ''End of "If (ShowingBackside()) Then"
 
-        mod_imageExampleQRCode = Me.CtlGraphic_QRCode.pictureQRCode.Image ''Added 10/14/2019 td
-        With Me.ElementsCache_UseEdits.ElementQRCode
-            ''Populate the Element-Field object with a reference to the image.  ---Dec. 7 2021 
-            If (.Image_BL Is Nothing) Then .Image_BL = mod_imageExampleQRCode
-        End With ''end of "With Me.ElementsCache_Edits.ElementQRCode"
+        If (Me.CtlGraphic_QRCode IsNot Nothing) Then ''Added 1/10/2022 td 
+            mod_imageExampleQRCode = Me.CtlGraphic_QRCode.pictureQRCode.Image ''Added 10/14/2019 td
+            With Me.ElementsCache_UseEdits.ElementQRCode
+                ''Populate the Element-Field object with a reference to the image.  ---Dec. 7 2021 
+                If (.Image_BL Is Nothing) Then .Image_BL = mod_imageExampleQRCode
+            End With ''end of "With Me.ElementsCache_Edits.ElementQRCode"
+        End If ''End of "If (Me.CtlGraphic_QRCode IsNot Nothing) Then"
 
         ''Added 9/23/2019 td 
         ''
@@ -844,7 +850,10 @@ Public Class ClassDesigner
         ''
         Me.BackgroundBox_Front.SendToBack()
         ''10/1/2019 td''graphicAdjuster.SendToBack() ''Added 8/12/2019 td
-        Me.PreviewBox.SendToBack() ''Added 8/12/2019 td
+
+        If (Me.PreviewBox IsNot Nothing) Then ''Added 1/10/2022 thomas d. 
+            Me.PreviewBox.SendToBack() ''Added 8/12/2019 td
+        End If ''End of "If (Me.PreviewBox IsNot Nothing) Then"
 
     End Sub ''ENd of "Private Sub LoadForm_LayoutElements()"
 
@@ -1019,8 +1028,11 @@ Public Class ClassDesigner
         ''
         ''Added 12/22/2021 thomas downes
         ''
-        Me.CtlGraphic_QRCode.Dispose()
-        Me.DesignerForm.Controls.Remove(Me.CtlGraphic_QRCode)
+        If (Me.CtlGraphic_QRCode IsNot Nothing) Then
+            Me.CtlGraphic_QRCode.Dispose()
+            Me.DesignerForm.Controls.Remove(Me.CtlGraphic_QRCode)
+        End If ''ENd of "If (Me.CtlGraphic_QRCode IsNot Nothing) Then"
+
         ''Load a brand-new QR-code control. ---12/7/2021 td  
         ''12/22/2021 td''Dim elementQRCode As ClassElementQRCode = Me.ElementsCache_UseEdits.ElementQRCode
 

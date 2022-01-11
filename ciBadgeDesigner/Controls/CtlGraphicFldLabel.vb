@@ -136,12 +136,12 @@ Public Class CtlGraphicFldLabel
     Public LayoutFunctions As ciBadgeInterfaces.ILayoutFunctions ''Added 8/9/2019 td  
     Public ParentDesigner As ClassDesigner = Nothing ''Added 1/5/2022 td
 
-    Public TempResizeInfo_W As Integer = 0 ''Intial resizing width.  (Before any adjustment is made.)
-    Public TempResizeInfo_H As Integer = 0 ''Intial resizing height.  (Before any adjustment is made.)
+    ''Jan10 2022 td''Public TempResizeInfo_W As Integer = 0 ''Intial resizing width.  (Before any adjustment is made.)
+    ''Jan10 2022 td''Public TempResizeInfo_H As Integer = 0 ''Intial resizing height.  (Before any adjustment is made.)
 
-    ''Added 8/12/2019 Thomas Downes 
-    Public TempResizeInfo_Left As Integer = 0 ''Intial resizing Left.  (Before any adjustment is made.)
-    Public TempResizeInfo_Top As Integer = 0 ''Intial resizing Top.  (Before any adjustment is made.)
+    ''''Added 8/12/2019 Thomas Downes 
+    ''Jan10 2022 td''Public TempResizeInfo_Left As Integer = 0 ''Intial resizing Left.  (Before any adjustment is made.)
+    ''Jan10 2022 td''Public TempResizeInfo_Top As Integer = 0 ''Intial resizing Top.  (Before any adjustment is made.)
 
     ''
     ''Private variables.  
@@ -1023,6 +1023,7 @@ ExitHandler:
         Me.Left = Me.ElementClass_Obj.LeftEdge_Pixels
 
     End Sub ''End of "Public Sub ManageResizingByUser(par_intWidth As Integer, par_intHeight As Integer)"
+
 
     Private Sub RefreshElement_Field(sender As Object, e As EventArgs)
         ''

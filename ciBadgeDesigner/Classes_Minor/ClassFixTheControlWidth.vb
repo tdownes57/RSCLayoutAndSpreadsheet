@@ -27,6 +27,8 @@ Public Class ClassFixTheControlWidth
         ''
         ''Added 9/5/2019 thomas downes  
         ''
+        If (par_control Is Nothing) Then Return  ''Don't try to fix the width of a null-reference control. ---1/10/2022 td
+
         par_control.Width = CInt(par_control.Height * LongSideToShortRatio())
 
     End Sub ''End of "Public Shared Sub Proportions_FixTheWidth(par_control As Control)"
@@ -85,6 +87,8 @@ Public Class ClassFixTheControlWidth
         ''Added 9/5/2019 thomas downes  
         ''
         Dim doubleW_div_H As Double
+
+        If (par_control Is Nothing) Then Return False ''Leave the function if there is a Null reference. ---Added 12/2/2021 td
 
         doubleW_div_H = (par_control.Width / par_control.Height)
 

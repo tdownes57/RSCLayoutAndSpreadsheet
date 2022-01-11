@@ -38,7 +38,7 @@ using ciBadgeInterfaces; // Added 12/17/2021 td
 
 namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManager
 {
-    public class ControlMove_NonStatic_TD
+    public class ControlMove_NonStatic_NotInUse
     {
         //
         //  This class is a copy of class ControlMoverOrResizer_TD,  

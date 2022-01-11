@@ -17,10 +17,18 @@ namespace MoveAndResizeControls_Monem //.Interfaces
         //Added 12/28/2021 td 
         //
         //Jan4 2022 ''void Init(Control par_control, Control par_container, int par_margin, bool pbRepaintAfterResize,
+        //Jan10 2022 ''void Init(PictureBox par_pictureBox, Control par_container, int par_margin, bool pbRepaintAfterResize,
+        //                          InterfaceMoveEvents par_events, bool pbSetBreakpoint_AfterMove,
+        //                          ISaveToModel par_iSave, bool pbRemoveAnyHandlers = false, 
+        //                          bool pbHookUpEventHandlers = true, float par_proportionWH = 0);
         void Init(PictureBox par_pictureBox, Control par_container, int par_margin, bool pbRepaintAfterResize,
-                                  InterfaceMoveEvents par_events, bool pbSetBreakpoint_AfterMove,
-                                  ISaveToModel par_iSave, bool pbRemoveAnyHandlers = false, 
+                                  InterfaceMoveEvents par_eventsGroupOfCtls, 
+                                  InterfaceMoveEvents par_eventsSingleCtl,
+                                  bool pbSetBreakpoint_AfterMove,
+                                  ISaveToModel par_iSave, bool pbRemoveAnyHandlers = false,
                                   bool pbHookUpEventHandlers = true, float par_proportionWH = 0);
+
+        bool NowInMotion(); //Added 1/10/2022 td
 
         void Reverse_Init();
         void RemoveEventHandlers();

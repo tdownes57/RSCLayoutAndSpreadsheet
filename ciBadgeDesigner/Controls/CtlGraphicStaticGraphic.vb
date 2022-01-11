@@ -35,7 +35,8 @@ Public Class CtlGraphicStaticGraphic
                                       par_iLayoutFun As ILayoutFunctions,
                                       par_bProportionSizing As Boolean,
                                 par_iControlLastTouched As ILastControlTouched,
-                                     par_oMoveEvents As GroupMoveEvents_Singleton) As CtlGraphicStaticGraphic
+                                     par_oMoveEvents As GroupMoveEvents_Singleton,
+                   Optional pbUseMonemProportionalityClass As Boolean = False) As CtlGraphicStaticGraphic
         ''              1/2/2022 td''par_iSaveToModel As ISaveToModel,
         ''
         ''Added 1/04/2022 td
@@ -93,12 +94,14 @@ Public Class CtlGraphicStaticGraphic
                                                    bAddFunctionalitySooner,
                                                    bAddFunctionalitySooner,
                                                    par_iControlLastTouched,
-                                                    par_oMoveEvents)
+                                                    par_oMoveEvents,
+                                                   pbUseMonemProportionalityClass)
         ''Jan2 2022 ''         ''Jan2 2022 ''par_iSaveToModel, typeOps,
 
         With CtlStaticGraphic1
             .Name = par_nameOfControl
-            If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEvents, par_iLayoutFun)
+            ''1/10/2022 td''If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEvents, par_iLayoutFun)
+            If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEvents, par_iLayoutFun, True, True)
             If (bAddFunctionalityLater) Then .AddClickability()
         End With ''eNd of "With CtlStaticGraphic1"
 
@@ -137,7 +140,8 @@ Public Class CtlGraphicStaticGraphic
                    pboolAddMoveability As Boolean,
                    pboolAddClickability As Boolean,
                    par_iLastTouched As ILastControlTouched,
-                   par_oMoveEvents As GroupMoveEvents_Singleton)
+                   par_oMoveEvents As GroupMoveEvents_Singleton,
+                   Optional pbUseMonemProportionalityClass As Boolean = False)
         ''         ''Not needed. 1/2/2022'' par_iSaveToModel As ISaveToModel,
         ''         ''Not needed. 1/2/2022'' par_enumElementType As EnumElementType,
         ''
@@ -148,7 +152,9 @@ Public Class CtlGraphicStaticGraphic
                         par_iLayoutFun,
                         par_operationsType, par_operationsAny,
                         pboolAddMoveability, pboolAddClickability,
-                        par_iLastTouched, par_oMoveEvents, 0, True)
+                        par_iLastTouched, par_oMoveEvents, 0, True,
+                        pbUseMonemProportionalityClass)
+
         ''Jan9 2022 td ''CSng(177/ 170)
         ''          Jan2 2022'' par_iSaveToModel, par_iLayoutFun,
 

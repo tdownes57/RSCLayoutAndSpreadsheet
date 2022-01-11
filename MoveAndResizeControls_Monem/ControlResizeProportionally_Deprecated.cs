@@ -69,6 +69,20 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
         }
 
 
+        public void AddProportionality(float par_proportionWH)
+        {
+            //
+            //Added 1/10/2022 thomas downes 
+            //
+            if (par_proportionWH != 0) _proportionWH = (decimal)par_proportionWH;
+            else _proportionWH = (decimal)_controlPictureBox1.Width /
+                            (decimal)_controlPictureBox1.Height;
+
+            this.RemoveProportionality = false;  
+
+        }
+
+
         private bool _moving = false; // Default value added 1/7/2022 td
         private bool _repaintAfterResize;  // Added 7/31/2019 td  
         /// </summary>
@@ -94,7 +108,9 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
         //Added 10/9/2019 thomas downes
         //
         private decimal _proportionWH; //Added 10/9/2019 thomas downes
-        internal InterfaceMoveEvents mod_events; //Added 10/9/2019 thomas downes
+
+        internal InterfaceMoveEvents mod_eventsSingleCtl; //Added 10/9/2019 thomas downes
+        internal InterfaceMoveEvents mod_eventsGroupOfCtls; //Added 1/10/2022 thomas downes
 
         internal bool MouseIsInLeftEdge { get; set; }
         internal bool MouseIsInRightEdge { get; set; }
@@ -144,13 +160,15 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             // Jan4 2022''Init(par_control, obj_container, par_margin, pbRepaintAfterResize,
             //    par_events, pbSetBreakpoint_AfterMove, par_iSave);
             Init(null, obj_container, par_margin, pbRepaintAfterResize,
-                par_events, pbSetBreakpoint_AfterMove, par_iSave, pbHookUpEventHandlers);
+                null, par_events, pbSetBreakpoint_AfterMove, par_iSave, pbHookUpEventHandlers);
 
         }
 
 
         public void Init(PictureBox par_ctlPictureBox, Control par_container, int par_margin, bool pbRepaintAfterResize,
-                                  InterfaceMoveEvents par_events, bool pbSetBreakpoint_AfterMove,
+                                  InterfaceMoveEvents par_events_GroupCtls,
+                                  InterfaceMoveEvents par_events_SingleCtl,
+                                  bool pbSetBreakpoint_AfterMove,
                                   ISaveToModel par_iSave, bool pbRemoveAnyHandlers = false,
                                bool pbHookUpEventHandlers = true, float par_proportionWH = 0)
         {
@@ -204,7 +222,9 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
             else _proportionWH = (decimal)par_container.Width /
                             (decimal)par_container.Height;
 
-            mod_events = par_events;  // 10/09/2019 thomas downes   
+            //Jan10 2022 //mod_events = par_events;  // 10/09/2019 thomas downes   
+            mod_eventsSingleCtl = par_events_SingleCtl;  // 1/10/2022 thomas downes   
+            mod_eventsGroupOfCtls = par_events_GroupCtls;  // 10/09/2019 thomas downes   
 
             MouseIsInLeftEdge = false;
             MouseIsInLeftEdge = false;
@@ -761,6 +781,7 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
                     StopDragOrResizing(par_control, _iSaveToModel);
                 }
 
+                //
                 //Control the proportionality.
                 //    ----10/14/2019
                 //
@@ -1052,5 +1073,15 @@ namespace MoveAndResizeControls_Monem //---9/9/2019 td---namespace ControlManage
         }
 
         #endregion
+
+        public bool NowInMotion()
+        {
+            //
+            // Added 1/10/2022 td
+            //
+            //throw new NotImplementedException();
+            return _moving;
+        }
+
     }
 }

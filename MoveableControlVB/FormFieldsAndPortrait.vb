@@ -17,7 +17,7 @@ Public Class FormFieldsAndPortrait
 
     ''Jan7 2022 ''Private mod_designer As New ClassDesigner()
     Private mod_designer As ClassDesigner ''Added 1/7/2022
-    Private mod_eventsSingleton As New GroupMoveEvents_Singleton(mod_designer)
+    Private mod_eventsSingleton As GroupMoveEvents_Singleton ''(mod_designer)
     Private mod_ctlLasttouched As New ClassLastControlTouched
     ''Deprecated.  Private mod_iRecordElementLastTouched As ClassRecordElementLastTouched
 
@@ -60,11 +60,17 @@ Public Class FormFieldsAndPortrait
         Me.ElementsCache_ManageBoth = New ClassCacheManagement(Me.ElementsCache_Edits, False, Me.ElementsCache_PathToXML) ''Added 12/14/2021 thomas d
 
         mod_designer = New ClassDesigner() ''Added 1/7/2022 td
+        mod_designer.DesignerForm = Me ''Added 1/10/2022 td 
         mod_designer.ElementsCache_UseEdits = Me.ElementsCache_Edits
         mod_designer.ElementsCache_Manager = Me.ElementsCache_ManageBoth
         mod_designer.BadgeLayout_Class = New BadgeLayoutClass()
         mod_designer.BackgroundBox_Front = pictureBackgroundFront
         mod_designer.BackgroundBox_Backside = pictureBackgroundFront
+
+        ''Added 1/10/2022 td
+        mod_eventsSingleton = New GroupMoveEvents_Singleton(mod_designer)
+
+        ''May not be needed. 1/10/2022 td''mod_designer.LoadDesigner("FormFieldsAndPortrait_Load", mod_eventsSingleton)
 
         ''
         ''Major call!!   Instantiate element controls. 
@@ -197,7 +203,10 @@ Public Class FormFieldsAndPortrait
         ''  mod_designer, True, mod_ctlLasttouched, mod_eventsSingleton,
         ''  DiskFilesVB.PathToFile_Sig())
 
-        mod_ctlStaticGraphic = CtlGraphicStaticGraphic.GetStaticGraphic(objElement, "mod_ctlStaticGraphic", mod_designer, True, mod_ctlLasttouched, mod_eventsSingleton)
+        Const c_bUseMonemProportionalClass As Boolean = True ''Added 1/10/2022 td
+
+        mod_ctlStaticGraphic = CtlGraphicStaticGraphic.GetStaticGraphic(objElement, "mod_ctlStaticGraphic", mod_designer, True, mod_ctlLasttouched, mod_eventsSingleton,
+          c_bUseMonemProportionalClass)
 
         mod_ctlStaticGraphic.Visible = True
         mod_ctlStaticGraphic.Width = (5 * mod_ctlStaticGraphic.Height) ''Added 1/08/2022 td
