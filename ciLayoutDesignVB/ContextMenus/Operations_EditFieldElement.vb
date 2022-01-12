@@ -187,8 +187,8 @@ Public Class Operations_EditFieldElement
             Me.CtlCurrentElement.Refresh_Image(True)
             Me.CtlCurrentElement.Refresh()
 
-        ElseIf (Me.SelectingElements.LabelsList_IsItemIncluded(Me.CtlCurrentElement)) Then
-            ''10/3/2019 td''ElseIf (LabelsList_IsItemIncluded(Me)) Then
+        ElseIf (Me.SelectingElements.SelectedElementsList_IsItemIncluded(Me.CtlCurrentElement)) Then
+            ''10/3/2019 td''ElseIf (SelectedElementsList_IsItemIncluded(Me)) Then
 
             ''Added 8/3/2019 td 
             ''10/17/2019 td''Dim objElements As List(Of CtlGraphicFldLabel)
@@ -220,7 +220,7 @@ Public Class Operations_EditFieldElement
 
             Next each_ctl
 
-        End If ''End of "If (Me.SelectingElements.LabelsList_IsItemUnselected(Me)) Then ... ElseIf (Me.SelectingElements.LabelsList_IsItemIncluded(Me)) Then"
+        End If ''End of "If (Me.SelectingElements.LabelsList_IsItemUnselected(Me)) Then ... ElseIf (Me.SelectingElements.SelectedElementsList_IsItemIncluded(Me)) Then"
 
         ''Added 9/13/2019 td
         ''9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()
@@ -310,7 +310,7 @@ Public Class Operations_EditFieldElement
             Me.CtlCurrentElement.Refresh_Image(False)
             Me.CtlCurrentElement.Refresh()
 
-        ElseIf (Me.SelectingElements.LabelsList_IsItemIncluded(Me.CtlCurrentElement)) Then
+        ElseIf (Me.SelectingElements.SelectedElementsList_IsItemIncluded(Me.CtlCurrentElement)) Then
 
             ''Added 8/3/2019 td 
             Dim objElements As HashSet(Of CtlGraphicFldLabel)
@@ -421,7 +421,7 @@ Public Class Operations_EditFieldElement
                 ''
                 ''
                 ''Added 8/18/2019 td 
-                If (Me.SelectingElements.LabelsList_IsItemIncluded(Me.CtlCurrentElement)) Then
+                If (Me.SelectingElements.SelectedElementsList_IsItemIncluded(Me.CtlCurrentElement)) Then
 
                     ''Added 8/18/2019 td 
                     Dim objElements As HashSet(Of CtlGraphicFldLabel)
@@ -451,7 +451,7 @@ Public Class Operations_EditFieldElement
 
                     Next each_ctl
 
-                End If ''ENdo f "If (Me.SelectingElements.LabelsList_IsItemIncluded(Me)) Then"
+                End If ''ENdo f "If (Me.SelectingElements.SelectedElementsList_IsItemIncluded(Me)) Then"
 
             End If ''End of "If (boolUserPressedOK) Then"
 
@@ -508,7 +508,7 @@ Public Class Operations_EditFieldElement
                 ''
                 ''
                 ''Added 8/18/2019 td 
-                If (Me.SelectingElements.LabelsList_IsItemIncluded(Me.CtlCurrentElement)) Then
+                If (Me.SelectingElements.SelectedElementsList_IsItemIncluded(Me.CtlCurrentElement)) Then
 
                     ''Added 8/18/2019 td 
                     Dim objElements As HashSet(Of CtlGraphicFldLabel)
@@ -534,7 +534,7 @@ Public Class Operations_EditFieldElement
 
                     Next each_ctl
 
-                End If ''End of "If (Me.SelectingElements.LabelsList_IsItemIncluded(Me)) Then"
+                End If ''End of "If (Me.SelectingElements.SelectedElementsList_IsItemIncluded(Me)) Then"
 
             End If ''End of "If (boolUserPressedOK) Then"
 

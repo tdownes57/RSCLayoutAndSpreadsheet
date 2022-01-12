@@ -6,21 +6,21 @@ Public Interface ISelectingElements
     ''
     ''Added 7/31/2019 thomas downes  
     ''
-    Sub LabelsDesignList_Add(par_control As CtlGraphicFldLabel) ''Implements ISelectingElements.LabelsDesignList_Add
+    Sub ElementsDesignList_Add(par_control As CtlGraphicFldLabel) ''Implements ISelectingElements.ElementsDesignList_Add
 
-    Sub LabelsDesignList_Remove(par_control As CtlGraphicFldLabel) ''Implements ISelectingElements.LabelsDesignList_Remove
+    Sub ElementsDesignList_Remove(par_control As CtlGraphicFldLabel) ''Implements ISelectingElements.ElementsDesignList_Remove
 
-    Function LabelsList_CountItems() As Integer ''Implements ISelectingElements.LabelsDesignList_CountItems
-    Function LabelsList_OneOrMoreItems() As Boolean ''Implements ISelectingElements.LabelsDesignList_OneOrMoreItems
-    Function LabelsList_TwoOrMoreItems() As Boolean ''Implements ISelectingElements.LabelsDesignList_TwoOrMoreItems
-    Function LabelsList_IsItemIncluded(par_control As CtlGraphicFldLabel) As Boolean ''Implements ISelectingElements.LabelsDesignList_IsItemIncluded
-    Function LabelsList_IsItemUnselected(par_control As CtlGraphicFldLabel) As Boolean ''Implements ISelectingElements.LabelsDesignList_IsItemIncluded
+    Function ElementsList_CountItems() As Integer ''Implements ISelectingElements.ElementsDesignList_CountItems
+    Function ElementsList_OneOrMoreItems() As Boolean ''Implements ISelectingElements.ElementsDesignList_OneOrMoreItems
+    Function ElementsList_TwoOrMoreItems() As Boolean ''Implements ISelectingElements.ElementsDesignList_TwoOrMoreItems
+    Function ElementsList_IsItemIncluded(par_control As CtlGraphicFldLabel) As Boolean ''Implements ISelectingElements.ElementsDesignList_IsItemIncluded
+    Function ElementsList_IsItemUnselected(par_control As CtlGraphicFldLabel) As Boolean ''Implements ISelectingElements.ElementsDesignList_IsItemIncluded
 
     ''
     ''Added 8/3/2019 thomas downes
     ''
-    ''10/17/2019 td''Property LabelsDesignList_AllItems As List(Of CtlGraphicFldLabel)
-    Property LabelsDesignList_AllItems As HashSet(Of CtlGraphicFldLabel)
+    ''10/17/2019 td''Property ElementsDesignList_AllItems As List(Of CtlGraphicFldLabel)
+    Property ElementsDesignList_AllItems As HashSet(Of CtlGraphicFldLabel)
 
     ''
     ''Added 8/16/2019 thomas downes

@@ -121,7 +121,7 @@ Public Class ContextLayoutDesignToolstrip
     ''    par_toolStripItems.Add(_item_group_add)   ''ContextMenuStrip1.Items.Add(new_item_group_add) ''Added 8/01/2019 thomas d.  
     ''    ''End If
 
-    ''    ''If (Me.GroupEdits.LabelsList_IsItemIncluded(Me)) Then
+    ''    ''If (Me.GroupEdits.SelectedElementsList_IsItemIncluded(Me)) Then
     ''    par_toolStripItems.Add(_item_group_omit)   ''ContextMenuStrip1.Items.Add(new_item_group_omit) ''Added 8/01/2019 thomas d.  
     ''    ''End If
 

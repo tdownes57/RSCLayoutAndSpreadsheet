@@ -81,7 +81,8 @@ Public Class Operations_Group
         ''10/17/2019 td''mod_includedInGroupEdit = True
         ''10/17/2019 td''Me.CtlCurrentElement.GroupEdits.LabelsList_IsItemIncluded(Me.CtlCurrentElement)
 
-        Me.SelectingElements.LabelsDesignList_Add(Me.CtlCurrentElement) ''Added 8/1/2019 td
+        ''Jan11 2022 td''Me.SelectingElements.LabelsDesignList_Add(Me.CtlCurrentElement) ''Added 8/1/2019 td
+        Me.SelectingElements.ElementsDesignList_Add(Me.CtlCurrentElement) ''Added 8/1/2019 td
 
         ''8/2/2019''Me.BackColor = Color.Yellow
         ''8/2/2019''pictureLabel.Top = 6
@@ -111,7 +112,7 @@ Public Class Operations_Group
         ''
         ''10/17/2019 td''mod_includedInGroupEdit = False
 
-        Me.SelectingElements.LabelsDesignList_Remove(Me.CtlCurrentElement) ''Added 8/1/2019 td
+        Me.SelectingElements.ElementsDesignList_Remove(Me.CtlCurrentElement) ''Added 8/1/2019 td
 
         ''Me.BackColor = Me.ElementInfo.BackColor
         ''pictureLabel.Top = 0
@@ -174,7 +175,8 @@ Public Class Operations_Group
 
         If (boolExitEarly) Then Exit Sub ''Added 8/13/2019 td
 
-        objElements = Me.SelectingElements.LabelsDesignList_AllItems
+        ''Jan11 2022 td''objElements = Me.SelectingElements.LabelsDesignList_AllItems
+        objElements = Me.SelectingElements.ElementsDesignList_AllItems
 
         ''
         ''Added 8/16/2019 td  

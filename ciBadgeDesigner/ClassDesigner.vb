@@ -113,7 +113,7 @@ Public Class ClassDesigner
     ''11/29/2012 ''Private mod_ControlLastTouched As Control ''Added 8/12/2019 thomas d. 
     Public mod_ControlLastTouched As Control ''Publicized 11/29/2021 td''Added 8/12/2019 thomas d. 
 
-    Private mod_oGroupMoveEvents As GroupMoveEvents_Singleton ''Added 1/4/2022 thomas d.
+    Private WithEvents mod_oGroupMoveEvents As GroupMoveEvents_Singleton ''Added 1/4/2022 thomas d.
     ''Jan2 2022''Public mod_IControlLastTouched As New ClassLastControlTouched ''Added 1/02/2021 thomas d. 
     Private mod_ElementLastTouched As Control ''Let's change this to IElement_Base soon. ---Added 9/14/2019 td 
     Private mod_IMoveableElementLastTouched As IMoveableElement ''Added 12/21/2021 td
@@ -132,7 +132,7 @@ Public Class ClassDesigner
 
     ''Private Const mc_boolAllowGroupMovements As Boolean = True ''False ''True ''False ''Added 8/3/2019 td  
     ''Private Const mc_boolBreakpoints As Boolean = True
-    ''Private Const mc_boolMoveGrowInUnison As Boolean = True ''Added 10/10/2019 td 
+    Private Const mc_boolMoveGrowInUnison As Boolean = True ''Added 10/10/2019 td 
 
     ''''Added 10/12/2019 td 
     ''Private mod_sizing_portrait As New ControlResizeProportionally_TD
@@ -2198,8 +2198,12 @@ Public Class ClassDesigner
         End Set
     End Property ''End of "Public Property ControlBeingModified() As Control Implements ILayoutFunctions.ControlBeingModified"
 
-    Public Property LabelsDesignList_AllItems As HashSet(Of CtlGraphicFldLabel) Implements ISelectingElements.LabelsDesignList_AllItems
-        ''10/17/2019 td''Public Property LabelsDesignList_AllItems As List(Of CtlGraphicFldLabel) Implements ISelectingElements.LabelsDesignList_AllItems
+    Public Property ElementsDesignList_AllItems As HashSet(Of CtlGraphicFldLabel) _
+        Implements ISelectingElements.ElementsDesignList_AllItems
+        ''
+        ''10/17/2019 td''Public Property LabelsDesignList_AllItems As List(Of CtlGraphicFldLabel)
+        ''     Implements ISelectingElements.LabelsDesignList_AllItems
+        ''
         Get
             ''Added 8/3/2019 thomas downes
             Return mod_selectedCtls
@@ -2208,9 +2212,14 @@ Public Class ClassDesigner
             ''Added 8/3/2019 thomas downes
             mod_selectedCtls = Value
         End Set
+
     End Property
 
-    Public Sub LabelsDesignList_Add(par_control As CtlGraphicFldLabel) Implements ISelectingElements.LabelsDesignList_Add
+    Public Sub ElementsDesignList_Add(par_control As CtlGraphicFldLabel) _
+        Implements ISelectingElements.ElementsDesignList_Add
+        ''
+        ''Jan11 2022 td''Public Sub LabelsDesignList_Add(par_control As CtlGraphicFldLabel)
+        ''        Implements ISelectingElements.LabelsDesignList_Add
         ''
         ''Added 8/3/2019 thomas downes
         ''
@@ -2227,11 +2236,12 @@ Public Class ClassDesigner
 
             mod_selectedCtls.Add(par_control)
 
-        End If ''End of "If (mod_selectedCtls.Contains(par_control)) Then"
+        End If ''End of "If (mod_selectedCtls.Contains(par_control)) Then ... Else ..."
 
     End Sub
 
-    Public Sub LabelsDesignList_Remove(par_control As CtlGraphicFldLabel) Implements ISelectingElements.LabelsDesignList_Remove
+    Public Sub ElementsDesignList_Remove(par_control As CtlGraphicFldLabel) _
+        Implements ISelectingElements.ElementsDesignList_Remove
         ''
         ''Added 8/3/2019 thomas downes
         ''
@@ -2239,220 +2249,226 @@ Public Class ClassDesigner
 
     End Sub
 
-    ''Private Sub Resizing_Start() Handles mod_groupedMove.Resizing_Start
-    ''    ''
-    ''    ''Added 8/5/2019 thomas downes  
-    ''    ''
-    ''    For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
 
-    ''        ''Added 9/11/2019 td  
-    ''        If (mc_bAddBorderOnlyWhileResizing) Then
-    ''            each_control.BorderStyle = BorderStyle.FixedSingle
-    ''        End If ''End of "If (mc_boolAddBorderWhileResizing) Then"
+    Private Sub Resizing_Start() Handles mod_oGroupMoveEvents.Resizing_Start
+        ''Jan11 2022 ''Private Sub Resizing_Start() Handles mod_groupedMove.Resizing_Start
+        ''
+        ''Added 8/5/2019 thomas downes  
+        ''
+        For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
 
-    ''        ''Added 8/5/2019 thomas downes  
-    ''        each_control.TempResizeInfo_W = each_control.Width
-    ''        each_control.TempResizeInfo_H = each_control.Height
+            ''Added 9/11/2019 td  
+            If (mc_bAddBorderOnlyWhileResizing) Then
+                each_control.BorderStyle = BorderStyle.FixedSingle
+            End If ''End of "If (mc_boolAddBorderWhileResizing) Then"
 
-    ''        ''Added 8/12/2019 thomas downes  
-    ''        ''   The user might want might to resize using the left edge (or the top edge). 
-    ''        ''
-    ''        each_control.TempResizeInfo_Left = each_control.Left
-    ''        each_control.TempResizeInfo_Top = each_control.Top
+            ''Added 8/5/2019 thomas downes  
+            each_control.TempResizeInfo_W = each_control.Width
+            each_control.TempResizeInfo_H = each_control.Height
 
-    ''    Next each_control
+            ''Added 8/12/2019 thomas downes  
+            ''   The user might want might to resize using the left edge (or the top edge). 
+            ''
+            each_control.TempResizeInfo_Left = each_control.Left
+            each_control.TempResizeInfo_Top = each_control.Top
 
-    ''End Sub ''End of "Private Sub Resizing_Start"  
+        Next each_control
 
-    ''Private Sub Move_GroupMove_Continue(DeltaLeft As Integer, DeltaTop As Integer, DeltaWidth As Integer, DeltaHeight As Integer) Handles mod_groupedMove.MoveInUnison
-    ''    ''
-    ''    ''Added 8/3/2019 thomas downes  
-    ''    ''
-    ''    Dim boolMoving As Boolean ''Added 8/5/2/019 td  
-    ''    Dim boolResizing As Boolean ''Added 8/5/2/019 td  
-    ''    Dim bResize_RightOrBottom As Boolean ''Added 8/12/019 td  
-    ''    Dim bResize_LeftOrTop As Boolean ''Added 8/12/019 td  
-    ''    Dim bControlMovedIsInGroup As Boolean ''Added 8/5/2019 td  
+    End Sub ''End of "Private Sub Resizing_Start"  
 
-    ''    ''
-    ''    ''8/5/2019 thomas downes
-    ''    ''
-    ''    If (TypeOf ControlBeingMoved Is CtlGraphicFldLabel) Then
-    ''        Const c_bCheckThatControlIsGrouped As Boolean = True ''8/5/2019 thomas downes
-    ''        If (c_bCheckThatControlIsGrouped) Then ''8/5/2019 thomas downes
-    ''            ''9/9 td''bControlMovedIsInGroup = LabelsList_IsItemIncluded(ControlBeingMoved)
-    ''            bControlMovedIsInGroup = LabelsList_IsItemIncluded(CType(ControlBeingMoved, CtlGraphicFldLabel))
-    ''            If (Not bControlMovedIsInGroup) Then Exit Sub
-    ''        End If ''End of "If (c_bCheckThatControlIsGrouped) Then"
-    ''    Else
-    ''        ''
-    ''        ''Perhaps the Portrait is being moved.   Don't allow other things to be 
-    ''        ''  moved around as well.  ---8/5/2019 td
-    ''        ''
-    ''        Exit Sub
+    Private Sub Move_GroupMove_Continue(DeltaLeft As Integer, DeltaTop As Integer, DeltaWidth As Integer, DeltaHeight As Integer) Handles mod_oGroupMoveEvents.MoveInUnison
+        ''
+        ''Added 8/3/2019 thomas downes  
+        ''
+        Dim boolMoving As Boolean ''Added 8/5/2/019 td  
+        Dim boolResizing As Boolean ''Added 8/5/2/019 td  
+        Dim bResize_RightOrBottom As Boolean ''Added 8/12/019 td  
+        Dim bResize_LeftOrTop As Boolean ''Added 8/12/019 td  
+        Dim bControlMovedIsInGroup As Boolean ''Added 8/5/2019 td  
 
-    ''    End If ''End of "If (TypeOf ControlBeingMoved Is CtlGraphicFldLabel) Then .... Else ...."
+        ''
+        ''8/5/2019 thomas downes
+        ''
+        If (TypeOf ControlBeingMoved Is CtlGraphicFldLabel) Then
+            Const c_bCheckThatControlIsGrouped As Boolean = True ''8/5/2019 thomas downes
+            If (c_bCheckThatControlIsGrouped) Then ''8/5/2019 thomas downes
+                ''9/9 td''bControlMovedIsInGroup = LabelsList_IsItemIncluded(ControlBeingMoved)
+                bControlMovedIsInGroup = ElementsList_IsItemIncluded(CType(ControlBeingMoved, CtlGraphicFldLabel))
+                If (Not bControlMovedIsInGroup) Then Exit Sub
+            End If ''End of "If (c_bCheckThatControlIsGrouped) Then"
+        Else
+            ''
+            ''Perhaps the Portrait is being moved.   Don't allow other things to be 
+            ''  moved around as well.  ---8/5/2019 td
+            ''
+            Exit Sub
 
-    ''    ''
-    ''    ''The control being moved or resized is part of a group.   
-    ''    ''
-    ''    ''8/4/2019 td''For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
-    ''    For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
+        End If ''End of "If (TypeOf ControlBeingMoved Is CtlGraphicFldLabel) Then .... Else ...."
 
-    ''        ''Don't re-move the control being directly moved...!! 
-    ''        ''  Causes ugly screen flicker!!
-    ''        ''     --8/4/2019 td
-    ''        If (each_control Is Me.ControlBeingMoved) Then Continue For
-    ''        If (each_control Is Me.ControlBeingMoved.Parent) Then Continue For
+        ''
+        ''The control being moved or resized is part of a group.   
+        ''
+        ''8/4/2019 td''For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
+        For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
 
-    ''        With each_control
+            ''Don't re-move the control being directly moved...!! 
+            ''  Causes ugly screen flicker!!
+            ''     --8/4/2019 td
+            If (each_control Is Me.ControlBeingMoved) Then Continue For
+            If (each_control Is Me.ControlBeingMoved.Parent) Then Continue For
 
-    ''            ''Added 8/3/2019 th omas downes  
-    ''            ''8/12/2019 td''boolMoving = (DeltaTop <> 0 Or DeltaLeft <> 0)
-    ''            boolMoving = ((DeltaTop <> 0 And DeltaHeight = 0) Or
-    ''                          (DeltaLeft <> 0 And DeltaWidth = 0))
+            With each_control
 
-    ''            If (boolMoving) Then
-    ''                .Top += DeltaTop
-    ''                .Left += DeltaLeft
-    ''            End If ''End if ''End of "If (boolMoving) Then"
+                ''Added 8/3/2019 th omas downes  
+                ''8/12/2019 td''boolMoving = (DeltaTop <> 0 Or DeltaLeft <> 0)
+                boolMoving = ((DeltaTop <> 0 And DeltaHeight = 0) Or
+                              (DeltaLeft <> 0 And DeltaWidth = 0))
 
-    ''            ''8/5/2019 TD''.Width += DeltaWidth
-    ''            ''8/5/2019 TD''.Height += DeltaHeight
+                If (boolMoving) Then
+                    .Top += DeltaTop
+                    .Left += DeltaLeft
+                End If ''End if ''End of "If (boolMoving) Then"
 
-    ''            ''Modified 8/5/2019 thomas downes
-    ''            boolResizing = ((Not boolMoving) And (.TempResizeInfo_W > 0 And .TempResizeInfo_H > 0))
+                ''8/5/2019 TD''.Width += DeltaWidth
+                ''8/5/2019 TD''.Height += DeltaHeight
 
-    ''            If (boolResizing) Then
-    ''                ''
-    ''                ''Added 8/12/2019 thomas d. 
-    ''                ''
-    ''                bResize_LeftOrTop = (DeltaLeft <> 0 Or DeltaTop <> 0) ''-----DIFFICULT AND CONFUSING !!!!!    The user might want might to resize 
-    ''                ''    using the left edge (Or the top edge).  ----8/12/2019 td
-    ''                bResize_RightOrBottom = ((Not bResize_LeftOrTop) And (DeltaWidth <> 0 Or DeltaHeight <> 0))
+                ''Modified 8/5/2019 thomas downes
+                boolResizing = ((Not boolMoving) And (.TempResizeInfo_W > 0 And .TempResizeInfo_H > 0))
 
-    ''                If (bResize_RightOrBottom) Then
-    ''                    ''
-    ''                    ''This is the simpler situation !! 
-    ''                    ''
-    ''                    ''10/14 td''.Width = (.TempResizeInfo_W + DeltaWidth)
-    ''                    ''10/14 td''.Height = (.TempResizeInfo_H + DeltaHeight)
-    ''                    .ManageResizingByUser(True, DeltaWidth, DeltaHeight, 0, 0)
+                If (boolResizing) Then
+                    ''
+                    ''Added 8/12/2019 thomas d. 
+                    ''
+                    bResize_LeftOrTop = (DeltaLeft <> 0 Or DeltaTop <> 0) ''-----DIFFICULT AND CONFUSING !!!!!    The user might want might to resize 
+                    ''    using the left edge (Or the top edge).  ----8/12/2019 td
+                    bResize_RightOrBottom = ((Not bResize_LeftOrTop) And (DeltaWidth <> 0 Or DeltaHeight <> 0))
+
+                    If (bResize_RightOrBottom) Then
+                        ''
+                        ''This is the simpler situation !! 
+                        ''
+                        ''10/14 td''.Width = (.TempResizeInfo_W + DeltaWidth)
+                        ''10/14 td''.Height = (.TempResizeInfo_H + DeltaHeight)
+                        .ManageResizingByUser(True, DeltaWidth, DeltaHeight, 0, 0)
 
 
-    ''                ElseIf (bResize_LeftOrTop) Then
-    ''                    ''
-    ''                    ''Added 8/12/2019 thomas d.
-    ''                    ''
-    ''                    ''-----DIFFICULT AND CONFUSING !!!!!
-    ''                    ''    The user might want might to resize using the left edge (Or the top edge). 
-    ''                    ''
-    ''                    ''8/12/2019 TD''.Top = (.TempResizeInfo_Top + DeltaTop)
-    ''                    ''8/12/2019 TD''.Left = (.TempResizeInfo_Left + DeltaLeft)
+                    ElseIf (bResize_LeftOrTop) Then
+                        ''
+                        ''Added 8/12/2019 thomas d.
+                        ''
+                        ''-----DIFFICULT AND CONFUSING !!!!!
+                        ''    The user might want might to resize using the left edge (Or the top edge). 
+                        ''
+                        ''8/12/2019 TD''.Top = (.TempResizeInfo_Top + DeltaTop)
+                        ''8/12/2019 TD''.Left = (.TempResizeInfo_Left + DeltaLeft)
 
-    ''                    ''10/14 td''.Top += DeltaTop
-    ''                    ''10/14 td''.Left += DeltaLeft
-    ''                    ''10/14 td''.Width += DeltaWidth
-    ''                    ''10/14 td''.Height += DeltaHeight
-    ''                    .ManageResizingByUser(False, DeltaWidth, DeltaHeight, DeltaTop, DeltaLeft)
+                        ''10/14 td''.Top += DeltaTop
+                        ''10/14 td''.Left += DeltaLeft
+                        ''10/14 td''.Width += DeltaWidth
+                        ''10/14 td''.Height += DeltaHeight
+                        .ManageResizingByUser(False, DeltaWidth, DeltaHeight, DeltaTop, DeltaLeft)
 
-    ''                End If ''End of "If (bResize_RightOrBottom) Then .... ElseIf (bResize_LeftOrTop) Then ..."
+                    End If ''End of "If (bResize_RightOrBottom) Then .... ElseIf (bResize_LeftOrTop) Then ..."
 
-    ''            End If ''End of "If (boolResizing) Then"
+                End If ''End of "If (boolResizing) Then"
 
-    ''            ''8/5/2019 td''txtWidthDeltas.AppendText($"Width: {DeltaWidth}" & vbCrLf)
-    ''            ''8/5/2019 td''txtWidthDeltas.AppendText($"   Height: {DeltaHeight}" & vbCrLf)
+                ''8/5/2019 td''txtWidthDeltas.AppendText($"Width: {DeltaWidth}" & vbCrLf)
+                ''8/5/2019 td''txtWidthDeltas.AppendText($"   Height: {DeltaHeight}" & vbCrLf)
 
-    ''        End With ''End of "With each_control"
+            End With ''End of "With each_control"
 
-    ''    Next each_control
+        Next each_control
 
-    ''End Sub ''End of "Private Sub MoveInUnison"
+    End Sub ''End of "Private Sub MoveInUnison"
 
-    ''Private Sub Resizing_End() Handles mod_groupedMove.Resizing_End
-    ''    ''
-    ''    ''Added 8/5/2019 thomas downes  
-    ''    ''
 
-    ''    For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
+    Private Sub Resizing_End() Handles mod_oGroupMoveEvents.Resizing_End
+        ''
+        ''Added 8/5/2019 thomas downes  
+        ''
 
-    ''        ''Added 9/11/2019 td  
-    ''        If (mc_bAddBorderOnlyWhileResizing) Then
-    ''            each_control.BorderStyle = BorderStyle.None
-    ''        End If ''End of "If (mc_boolAddBorderWhileResizing) Then"
+        For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
 
-    ''        each_control.TempResizeInfo_W = 0
-    ''        each_control.TempResizeInfo_H = 0
+            ''Added 9/11/2019 td  
+            If (mc_bAddBorderOnlyWhileResizing) Then
+                each_control.BorderStyle = BorderStyle.None
+            End If ''End of "If (mc_boolAddBorderWhileResizing) Then"
 
-    ''        ''Added 9/11/2019 td
-    ''        each_control.Refresh_Image(True)
+            each_control.TempResizeInfo_W = 0
+            each_control.TempResizeInfo_H = 0
 
-    ''    Next each_control
+            ''Added 9/11/2019 td
+            each_control.Refresh_Image(True)
 
-    ''    ''Added 9/11/2019 Never Forget
-    ''    ''   This is needed in case it's not a group of controls being resized, 
-    ''    ''   but just a single control. ---9/11 td 
-    ''    ''
-    ''    ''9/14/2019 td''If (mod_ElementLastTouched = mod_FieldControlLastTouched) Then
+        Next each_control
 
-    ''    Dim boolResizedAFieldCtl As Boolean ''Added 9/14/2019 td
-    ''    boolResizedAFieldCtl = (TypeOf mod_ControlLastTouched Is CtlGraphicFldLabel)
+        ''Added 9/11/2019 Never Forget
+        ''   This is needed in case it's not a group of controls being resized, 
+        ''   but just a single control. ---9/11 td 
+        ''
+        ''9/14/2019 td''If (mod_ElementLastTouched = mod_FieldControlLastTouched) Then
 
-    ''    ''10/13/2019 td''If (boolResizedAFieldCtl) Then ''Added 9/14/2019 td
-    ''    If ((Not mc_boolMoveGrowInUnison) And boolResizedAFieldCtl) Then ''Added 9/14/2019 td
+        Dim boolResizedAFieldCtl As Boolean ''Added 9/14/2019 td
+        boolResizedAFieldCtl = (TypeOf mod_ControlLastTouched Is CtlGraphicFldLabel)
 
-    ''        With mod_FieldControlLastTouched
+        ''10/13/2019 td''If (boolResizedAFieldCtl) Then ''Added 9/14/2019 td
+        If ((Not mc_boolMoveGrowInUnison) And boolResizedAFieldCtl) Then ''Added 9/14/2019 td
 
-    ''            If (.Rotated_0degrees) Then
-    ''                .ElementInfo_Base.Width_Pixels = mod_FieldControlLastTouched.Width
-    ''                .ElementInfo_Base.Height_Pixels = mod_FieldControlLastTouched.Height
-    ''            ElseIf (.Rotated_180_360) Then
-    ''                .ElementInfo_Base.Width_Pixels = mod_FieldControlLastTouched.Width
-    ''                .ElementInfo_Base.Height_Pixels = mod_FieldControlLastTouched.Height
-    ''            ElseIf (.Rotated_90_270) Then
-    ''                ''
-    ''                ''---- POTENTIALLY CONFUSING -----
-    ''                ''Switch them up !!  
-    ''                .ElementInfo_Base.Width_Pixels = mod_FieldControlLastTouched.Height
-    ''                .ElementInfo_Base.Height_Pixels = mod_FieldControlLastTouched.Width
-    ''            End If ''End of "If (.Rotated_180_360) Then"
+            With mod_FieldControlLastTouched
 
-    ''            ''Added 9/12/2019 td  
-    ''            With .ElementInfo_Text
-    ''                If .FontSize_ScaleToElementYesNo Then
-    ''                    ''Change the Font Size, to account for the new Height of the Element !!
-    ''                    ''  ---9/12/2019 td 
-    ''                    .FontSize_Pixels = CSng(mod_FieldControlLastTouched.Height * .FontSize_ScaleToElementRatio)
-    ''                End If ''End of "If .FontSize_ScaleToElementYesNo Then"
-    ''            End With ''End of "With .ElementInfo_Text"
+                If (.Rotated_0degrees) Then
+                    .ElementInfo_Base.Width_Pixels = mod_FieldControlLastTouched.Width
+                    .ElementInfo_Base.Height_Pixels = mod_FieldControlLastTouched.Height
+                ElseIf (.Rotated_180_360) Then
+                    .ElementInfo_Base.Width_Pixels = mod_FieldControlLastTouched.Width
+                    .ElementInfo_Base.Height_Pixels = mod_FieldControlLastTouched.Height
+                ElseIf (.Rotated_90_270) Then
+                    ''
+                    ''---- POTENTIALLY CONFUSING -----
+                    ''Switch them up !!  
+                    .ElementInfo_Base.Width_Pixels = mod_FieldControlLastTouched.Height
+                    .ElementInfo_Base.Height_Pixels = mod_FieldControlLastTouched.Width
+                End If ''End of "If (.Rotated_180_360) Then"
 
-    ''            .Refresh_Image(True)
+                ''Added 9/12/2019 td  
+                With .ElementInfo_TextOnly ''Jan11 2022 ''With .ElementInfo_Text
+                    If .FontSize_ScaleToElementYesNo Then
+                        ''Change the Font Size, to account for the new Height of the Element !!
+                        ''  ---9/12/2019 td 
+                        .FontSize_Pixels = CSng(mod_FieldControlLastTouched.Height * .FontSize_ScaleToElementRatio)
+                    End If ''End of "If .FontSize_ScaleToElementYesNo Then"
+                End With ''End of "With .ElementInfo_Text"
 
-    ''        End With ''End of "With mod_FieldControlLastTouched"
+                .Refresh_Image(True)
 
-    ''    End If ''End of "If (mod_ElementLastTouched = mod_FieldControlLastTouched) Then"
+            End With ''End of "With mod_FieldControlLastTouched"
 
-    ''    ''Added 9/13/2019 td 
-    ''    AutoPreview_IfChecked()
+        End If ''End of "If (mod_ElementLastTouched = mod_FieldControlLastTouched) Then"
 
-    ''End Sub ''End of "Private Sub Resizing_End() Handles mod_groupedMove.Resizing_End"
+        ''Added 9/13/2019 td 
+        AutoPreview_IfChecked()
 
-    ''Private Sub MovingElement_End(par_ctlElement As Control) Handles mod_groupedMove.Moving_End
-    ''    ''11/29/2021 ''Private Sub MovingElement_End() Handles mod_groupedMove.Moving_End
+    End Sub ''End of "Private Sub Resizing_End() Handles mod_oGroupMoveEvents.Resizing_End"
 
-    ''    ''Added 11/29/2021 thomas d. 
-    ''    If (TypeOf par_ctlElement Is PictureBox) Then
-    ''        ''Let the programmer know that the control type 
-    ''        ''  should be a custom-control, e.g. ctlGraphicLabel.
-    ''        ''  ----11/29/2021 td 
-    ''        Throw New Exception("The Element-Control is NOT supposed to be a PictureBox!")
-    ''    End If ''End of "If (TypeOf par_ctlElement Is PictureBox) Then"
 
-    ''    ''Added 9/13/2019 td 
-    ''    ''11/29/2021 td''AutoPreview_IfChecked()
-    ''    AutoPreview_IfChecked(par_ctlElement)
+    Private Sub MovingElement_End(par_ctlElement As Control, par_iSave As ISaveToModel) _
+        Handles mod_oGroupMoveEvents.Moving_End
+        ''11/29/2021 ''Private Sub MovingElement_End() Handles mod_groupedMove.Moving_End
 
-    ''End Sub ''End of "Private Sub MovingElement_End(par_control As Control)"
+        ''Added 11/29/2021 thomas d. 
+        If (TypeOf par_ctlElement Is PictureBox) Then
+            ''Let the programmer know that the control type 
+            ''  should be a custom-control, e.g. ctlGraphicLabel.
+            ''  ----11/29/2021 td 
+            Throw New Exception("The Element-Control is NOT supposed to be a PictureBox!")
+        End If ''End of "If (TypeOf par_ctlElement Is PictureBox) Then"
+
+        ''Added 9/13/2019 td 
+        ''11/29/2021 td''AutoPreview_IfChecked()
+        AutoPreview_IfChecked(par_ctlElement)
+
+    End Sub ''End of "Private Sub MovingElement_End(par_control As Control)"
+
 
     Private Sub SwitchControls_Down(par_ctl As CtlGraphicFldLabel) Implements ISelectingElements.SwitchControls_Down
         ''
@@ -2532,28 +2548,34 @@ Public Class ClassDesigner
 
     End Function ''End of "Private Function GetNextHigherControl"
 
-    Public Function LabelsList_CountItems() As Integer Implements ISelectingElements.LabelsList_CountItems
+    Public Function ElementsList_CountItems() As Integer Implements ISelectingElements.ElementsList_CountItems
 
         ''Added 8/3/2019 td 
         Return mod_selectedCtls.Count
 
     End Function
 
-    Public Function LabelsList_OneOrMoreItems() As Boolean Implements ISelectingElements.LabelsList_OneOrMoreItems
+    Public Function LabelsList_OneOrMoreItems() As Boolean Implements ISelectingElements.ElementsList_OneOrMoreItems
 
         ''Added 8/3/2019 td 
         Return (1 <= mod_selectedCtls.Count)
 
     End Function
 
-    Public Function LabelsList_TwoOrMoreItems() As Boolean Implements ISelectingElements.LabelsList_TwoOrMoreItems
+    Public Function ElementsList_TwoOrMoreItems() As Boolean _
+        Implements ISelectingElements.ElementsList_TwoOrMoreItems
 
         ''Added 8/3/2019 td 
         Return (2 <= mod_selectedCtls.Count)
 
     End Function
 
-    Public Function LabelsList_IsItemIncluded(par_control As CtlGraphicFldLabel) As Boolean Implements ISelectingElements.LabelsList_IsItemIncluded
+
+    Public Function ElementsList_IsItemIncluded(par_control As CtlGraphicFldLabel) As Boolean _
+        Implements ISelectingElements.ElementsList_IsItemIncluded
+
+        ''Jan11 2022 ''Public Function LabelsList_IsItemIncluded(par_control As CtlGraphicFldLabel) As Boolean
+        ''    Implements ISelectingElements.LabelsList_IsItemIncluded
 
         ''Added 8/3/2019 td 
         Return (mod_selectedCtls.Contains(par_control))
@@ -2561,7 +2583,10 @@ Public Class ClassDesigner
     End Function
 
 
-    Public Function LabelsList_IsItemUnselected(par_control As CtlGraphicFldLabel) As Boolean Implements ISelectingElements.LabelsList_IsItemUnselected
+    Public Function ElementsList_IsItemUnselected(par_control As CtlGraphicFldLabel) As Boolean Implements ISelectingElements.ElementsList_IsItemUnselected
+
+        ''Jan11 2022 ''Public Function LabelsList_IsItemUnselected(par_control As CtlGraphicFldLabel) As Boolean
+        ''    Implements ISelectingElements.LabelsList_IsItemUnselected
 
         ''Added 8/3/2019 td 
         Return (Not (mod_selectedCtls.Contains(par_control)))

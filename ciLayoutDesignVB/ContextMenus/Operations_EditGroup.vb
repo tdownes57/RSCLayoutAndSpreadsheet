@@ -78,7 +78,7 @@ Public Class Operations_EditGroup
         ''Added 8/2/2019 td  
         ''
         ''10/17/2019 td''mod_includedInGroupEdit = True
-        ''10/17/2019 td''Me.CtlCurrentElement.GroupEdits.LabelsList_IsItemIncluded(Me.CtlCurrentElement)
+        ''10/17/2019 td''Me.CtlCurrentElement.GroupEdits.SelectedElementsList_IsItemIncluded(Me.CtlCurrentElement)
 
         Me.SelectingElements.LabelsDesignList_Add(Me.CtlCurrentElement) ''Added 8/1/2019 td
 

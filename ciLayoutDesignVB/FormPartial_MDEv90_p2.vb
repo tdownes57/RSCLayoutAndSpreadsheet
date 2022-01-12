@@ -118,8 +118,8 @@ Partial Public Class FormMainEntry_v90
             Const c_bCheckThatControlIsGrouped As Boolean = True ''8/5/2019 thomas downes
             If (c_bCheckThatControlIsGrouped) Then ''8/5/2019 thomas downes
 
-                ''9/9/2019 td''bControlMovedIsInGroup = LabelsList_IsItemIncluded(ControlBeingMoved)
-                bControlMovedIsInGroup = LabelsList_IsItemIncluded(CType(ControlBeingMoved, CtlMainEntryBox_v90))
+                ''9/9/2019 td''bControlMovedIsInGroup = SelectedElementsList_IsItemIncluded(ControlBeingMoved)
+                bControlMovedIsInGroup = SelectedElementsList_IsItemIncluded(CType(ControlBeingMoved, CtlMainEntryBox_v90))
 
                 If (Not bControlMovedIsInGroup) Then Exit Sub
 
@@ -318,7 +318,7 @@ Partial Public Class FormMainEntry_v90
 
     End Function
 
-    Public Function LabelsList_IsItemIncluded(par_control As CtlMainEntryBox_v90) As Boolean Implements ISelectingElements_v90.LabelsList_IsItemIncluded
+    Public Function SelectedElementsList_IsItemIncluded(par_control As CtlMainEntryBox_v90) As Boolean Implements ISelectingElements_v90.SelectedElementsList_IsItemIncluded
 
         ''Added 8/3/2019 td 
         Return (mod_selectedCtls.Contains(par_control))

@@ -448,25 +448,25 @@ Public Class ClassDesignerEventListener
         Dim objControlBeingMoved As Control ''Added 11/29/2021  
         objControlBeingMoved = mod_designer.ControlBeingMoved
 
-        If (TypeOf objControlBeingMoved Is CtlGraphicFldLabel) Then
+        ''Jan11 2022''If (TypeOf objControlBeingMoved Is CtlGraphicFldLabel) Then
 
-            Const c_bCheckThatControlIsGrouped As Boolean = True ''8/5/2019 thomas downes
+        Const c_bCheckThatControlIsGrouped As Boolean = True ''8/5/2019 thomas downes
 
-            If (c_bCheckThatControlIsGrouped) Then ''8/5/2019 thomas downes
-                ''9/9 td''bControlMovedIsInGroup = LabelsList_IsItemIncluded(ControlBeingMoved)
-                bControlMovedIsInGroup = mod_designer.LabelsList_IsItemIncluded(CType(objControlBeingMoved, CtlGraphicFldLabel))
-                If (Not bControlMovedIsInGroup) Then Exit Sub
+        If (c_bCheckThatControlIsGrouped) Then ''8/5/2019 thomas downes
+            ''9/9 td''bControlMovedIsInGroup = LabelsList_IsItemIncluded(ControlBeingMoved)
+            bControlMovedIsInGroup = mod_designer.ElementsList_IsItemIncluded(CType(objControlBeingMoved, CtlGraphicFldLabel))
+            If (Not bControlMovedIsInGroup) Then Exit Sub
 
-            End If ''End of "If (c_bCheckThatControlIsGrouped) Then"
+        End If ''End of "If (c_bCheckThatControlIsGrouped) Then"
 
-        Else
-            ''
-            ''Perhaps the Portrait is being moved.   Don't allow other things to be 
-            ''  moved around as well.  ---8/5/2019 td
-            ''
-            Exit Sub
+        ''Jan11 2022''Else
+        ''    ''
+        ''    ''Perhaps the Portrait is being moved.   Don't allow other things to be 
+        ''    ''  moved around as well.  ---8/5/2019 td
+        ''    ''
+        ''    Exit Sub
 
-        End If ''End of "If (TypeOf ControlBeingMoved Is CtlGraphicFldLabel) Then .... Else ...."
+        ''End If ''End of "If (TypeOf ControlBeingMoved Is CtlGraphicFldLabel) Then .... Else ...."
 
         ''
         ''The control being moved or resized is part of a group.   
