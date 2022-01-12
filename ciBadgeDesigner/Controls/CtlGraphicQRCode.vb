@@ -39,12 +39,12 @@ Public Class CtlGraphicQRCode
 
 
     Public Shared Function GetQRCode(par_elementQRCode As ClassElementQRCode,
-                                      par_nameOfControl As String,
-                                      par_iLayoutFun As ILayoutFunctions,
-                                      par_bProportionSizing As Boolean,
-                                par_iControlLastTouched As ILastControlTouched,
-                                     par_oMoveEvents As GroupMoveEvents_Singleton,
-                                     Optional pbHandleMouseEventsThroughFormVB6 As Boolean = True) As CtlGraphicQRCode
+                        par_nameOfControl As String,
+                        par_iLayoutFun As ILayoutFunctions,
+                        par_bProportionSizing As Boolean,
+                par_iControlLastTouched As ILastControlTouched,
+                        par_oMoveEventsGroupedCtls As GroupMoveEvents_Singleton,
+                        Optional pbHandleMouseEventsThroughFormVB6 As Boolean = True) As CtlGraphicQRCode
         ''              1/2/2022 td''par_iSaveToModel As ISaveToModel,
         ''
         ''Added 12/29/2021 td
@@ -101,14 +101,18 @@ Public Class CtlGraphicQRCode
                                                    bAddFunctionalitySooner,
                                                    bAddFunctionalitySooner,
                                                    par_iControlLastTouched,
-                                                    par_oMoveEvents,
+                                                    par_oMoveEventsGroupedCtls,
                                                     pbHandleMouseEventsThroughFormVB6)
         ''Jan2 2022 ''                       ''Jan2 2022 ''par_iSaveToModel, typeOps,
 
         With CtlQRCode1
             .Name = par_nameOfControl
-            If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEvents, par_iLayoutFun)
-            If (bAddFunctionalityLater) Then .AddClickability()
+            ''Jan11 2022 td ''If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEvents, par_iLayoutFun)
+            ''Jan11 2022 td ''If (bAddFunctionalityLater) Then .AddClickability()
+            If (bAddFunctionalityLater) Then
+                .AddMoveability(par_iLayoutFun, par_oMoveEventsGroupedCtls, Nothing)
+                .AddClickability()
+            End If ''ENd of "If (bAddFunctionalityLater) Then"
         End With ''eNd of "With CtlQRCode1"
 
         ''

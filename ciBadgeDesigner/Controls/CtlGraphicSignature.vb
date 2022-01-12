@@ -43,7 +43,7 @@ Public Class CtlGraphicSignature
                                       par_iLayoutFun As ILayoutFunctions,
                                       par_bProportionSizing As Boolean,
                                 par_iControlLastTouched As ILastControlTouched,
-                                        par_oMoveEvents As GroupMoveEvents_Singleton,
+                             par_oMoveEventsGroupedControls As GroupMoveEvents_Singleton,
                                         par_strPathToSigFile As String) As CtlGraphicSignature
         ''
         ''Added 1/02/2022 td
@@ -100,13 +100,16 @@ Public Class CtlGraphicSignature
                                                    bAddFunctionalitySooner,
                                                    bAddFunctionalitySooner,
                                                    par_iControlLastTouched,
-                                                   par_oMoveEvents,
+                                                   par_oMoveEventsGroupedControls,
                                                     par_strPathToSigFile)
         ''Jan2 2022 ''                       ''Jan2 2022 ''par_iSaveToModel, typeOps,
 
         With CtlSignature1
             .Name = par_nameOfControl
-            If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEvents, par_iLayoutFun)
+            ''Jan11 2022''If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEvents, par_iLayoutFun)
+            If (bAddFunctionalityLater) Then
+                .AddMoveability(par_iLayoutFun, par_oMoveEventsGroupedControls, Nothing)
+            End If
             If (bAddFunctionalityLater) Then .AddClickability()
         End With ''eNd of "With CtlQRCode1"
 

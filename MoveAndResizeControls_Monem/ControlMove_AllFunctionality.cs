@@ -427,7 +427,7 @@ namespace MoveAndResizeControls_Monem
             //   ----1/3/2022 td
             //
             const bool c_yesBlackhole = true;
-            var event_blackhole = new GroupMoveEvents_Singleton(new DummyLayout(), c_yesBlackhole);
+            var event_blackhole = new GroupMoveEvents_Singleton(new DummyLayout(), false, c_yesBlackhole);
 
             //Let's put the blackhole into action!!  
             mod_events_groupedCtls = event_blackhole; 

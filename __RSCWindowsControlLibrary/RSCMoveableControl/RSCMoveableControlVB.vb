@@ -85,8 +85,15 @@ Public Class RSCMoveableControlVB
             .Name = par_nameOfControl
             ''Jan4 2022''If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEventsFromForm)
             ''Jan10 2022''If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEventsFromForm, par_iLayoutFun)
-            If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEventsFromForm, Nothing, par_iLayoutFun)
-            If (bAddFunctionalityLater) Then .AddClickability()
+            ''Jan11 2022''If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEventsFromForm, Nothing, par_iLayoutFun)
+
+            If (bAddFunctionalityLater) Then ''1/11/2022 .AddClickability()
+                ''Refactored 1/11/2022 td
+                .AddClickability()
+                .AddMoveability(par_iLayoutFun, par_oMoveEventsFromForm)
+
+            End If ''End of "If (bAddFunctionalityLater) Then"
+
             ''In the constructor. Dec31 2021 ''.LastControlTouched_Info = par_iControlLastTouched ''Added 12/31/2021 td
         End With ''eNd of "With MoveableControlVB1"
 
@@ -170,7 +177,7 @@ Public Class RSCMoveableControlVB
     ''1/3/2022 td''Private WithEvents mod_events As New GroupMoveEvents_Singleton ''InterfaceEvents
     ''Jan4 2022''Private WithEvents mod_events As GroupMoveEvents_Singleton ''InterfaceEvents
     Protected mod_eventsForGroupMove_NotNeeded As GroupMoveEvents_Singleton ''InterfaceEvents
-    Private WithEvents mod_eventsForSingleMove As GroupMoveEvents_Singleton ''InterfaceEvents
+    Protected WithEvents mod_eventsForSingleMove As GroupMoveEvents_Singleton ''InterfaceEvents
 
     Protected ElementInfo_Base As ciBadgeInterfaces.IElement_Base ''Added 1/10/2022 thomas d.
 
@@ -212,7 +219,7 @@ Public Class RSCMoveableControlVB
         ''Don't expect the Moveability to work, we are sending the events
         ''   into a blackhole!!  ---1/4/2022 td
         Dim dummyLayout As New ClassLayoutFunctions
-        Dim oEventkillingBlackhole As New GroupMoveEvents_Singleton(dummyLayout, True)
+        Dim oEventkillingBlackhole As New GroupMoveEvents_Singleton(dummyLayout, False, True)
         InitializeClickability(EnumElementType.Undetermined, oEventkillingBlackhole)
 
         ''Added 1/3/2022 td
@@ -252,7 +259,9 @@ Public Class RSCMoveableControlVB
         ''We need to instantiate a class. It's just for the movement of a single control, so
         ''  we probably don't need to use a shared class. In fact, it's better if we don't.
         ''  ---1/10/2022 td
-        If (pboolAddMoveability) Then mod_eventsForSingleMove = New GroupMoveEvents_Singleton()
+        If (pboolAddMoveability) Then
+            mod_eventsForSingleMove = New GroupMoveEvents_Singleton(par_iLayoutFun, True)
+        End If
 
         ''Encapsulated 1/3/2022 td 
         Load_Functionality(par_enumElementType, pboolResizeProportionally,
@@ -316,8 +325,10 @@ Public Class RSCMoveableControlVB
         If (pboolAddMoveability) Then
 
             ''Jan7 2022 td''AddMoveability(par_oMoveEventsFromForm, par_iLayoutFun)
-            AddMoveability(par_oMoveEventsGroupOfCtls,
-                           par_oMoveEventsSingleCtl, par_iLayoutFun,
+            ''Jan11 2022 td''AddMoveability(par_oMoveEventsGroupOfCtls,
+            ''               par_oMoveEventsSingleCtl, par_iLayoutFun,
+            AddMoveability(par_iLayoutFun, par_oMoveEventsGroupOfCtls,
+                           par_oMoveEventsSingleCtl,
                            pboolResizeProportionally,
                            pbHandleMouseEventsThroughFormVB6,
                            pbUseMonemProportionalityClass)
@@ -374,14 +385,18 @@ Public Class RSCMoveableControlVB
             ''  throw an exception. ---1/10/2022 td
             If (par_objEventsMoveGroupOfCtls Is Nothing) Then
                 Throw New NullReferenceException("Group-related events must be shared across controls.")
-            End If
+            End If ''End of If (par_objEventsMoveGroupOfCtls Is Nothing) Then
 
         ElseIf (par_objEventsMoveSingleControl Is Nothing) Then
+
+            par_objEventsMoveSingleControl = Me.MoveabilityEventsForSingleMove ''Added 1/11/2022
 
             ''We need to instantiate a class. It's just for the movement of a single control, so
             ''  we probably don't need to use a shared class. In fact, it's better if we don't.
             ''  ---1/10/2022 td
-            par_objEventsMoveSingleControl = New GroupMoveEvents_Singleton(par_iLayoutFunctions)
+            If (par_objEventsMoveSingleControl Is Nothing) Then
+                par_objEventsMoveSingleControl = New GroupMoveEvents_Singleton(par_iLayoutFunctions, True)
+            End If ''End of If (par_objEventsMoveSingleControl Is Nothing) Then
 
         End If ''End of "If (par_objEventsMoveGroupOfCtls Is Nothing) Then .... ElseIf (par_objEventsMoveSingleControl Is Nothing) Then"
 

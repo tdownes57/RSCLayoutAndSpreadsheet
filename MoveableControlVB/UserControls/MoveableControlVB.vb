@@ -200,7 +200,9 @@ Public Class MoveableControlVB
         ''Dec28 2021''InitializeMoveability(mod_boolResizeProportionally, mod_iSaveToModel, mod_iLayoutFunctions)
 
         Dim boolInstantiated As Boolean ''Added 12/28/2021 td
-        boolInstantiated = (mod_moveInAGroup IsNot Nothing) OrElse (mod_moveResizeKeepRatio IsNot Nothing)
+
+        ''Jan11 2022 td''boolInstantiated = (mod_moveInAGroup IsNot Nothing) OrElse (mod_moveResizeKeepRatio IsNot Nothing)
+        boolInstantiated = (mod_moveability IsNot Nothing)
 
         If (boolInstantiated) Then ''Added 12/28/2021 td
             ''Added 12/28/2021 td
@@ -286,8 +288,9 @@ Public Class MoveableControlVB
         Me.ContextMenuStrip1 = Nothing
         Me.mod_objOperationsGeneric = Nothing
         Me.mod_objOperationsUseless = Nothing
-        Me.mod_moveResizeKeepRatio = Nothing
-        Me.mod_moveInAGroup = Nothing
+        ''Jan11 2022 td''Me.mod_moveResizeKeepRatio = Nothing
+        ''Jan11 2022 td''Me.mod_moveInAGroup = Nothing
+        Me.mod_moveability = Nothing ''Added 1/11/2022 td
         AbleRightClickable = False ''dec29
 
     End Sub ''End of "Public Sub RemoveClickability()"
@@ -336,8 +339,9 @@ Public Class MoveableControlVB
         ''Added 12/28/2021 td
         ''  Prepare for the next steps.
         ''
-        mod_moveResizeKeepRatio = Nothing
-        mod_moveInAGroup = Nothing
+        ''Jan11 2022 ''mod_moveResizeKeepRatio = Nothing
+        ''Jan11 2022 ''mod_moveInAGroup = Nothing
+        mod_moveability = Nothing ''Added Jan11 2022 
 
         ''Not needed. 1/3/2022 td''mod_eventsDesigner.LayoutFunctions = par_iLayoutFunctions
         ''Not needed. 1/3/2022 td''mod_eventsRSC.LayoutFunctions = par_iLayoutFunctions
@@ -379,12 +383,13 @@ Public Class MoveableControlVB
             ''                        mod_eventsMove, False, Me) ''Jan2 2022'' mod_iSaveToModel)
             ''#2 Jan4 2022 ''mod_moveInAGroup.Init(Nothing, Me, 10, c_bRepaintAfterResize,
             ''       mod_eventsMove, False, Me) ''Jan2 2022'' mod_iSaveToModel)
-            mod_moveInAGroup.Init(Nothing, Me, 10, c_bRepaintAfterResize,
+            mod_moveability.Init(Nothing, Me, 10, c_bRepaintAfterResize,
                                     mod_eventsMoveGroupedCtls,
                                       mod_eventsMoveThisControl,
                                     False, Me) ''Jan2 2022'' mod_iSaveToModel)
 
-            mod_iMoveOrResizeFunctionality = mod_moveInAGroup ''Added 12/28/2021 td
+            ''Jan11 2022''mod_iMoveOrResizeFunctionality = mod_moveInAGroup ''Added 12/28/2021 td
+            mod_iMoveOrResizeFunctionality = mod_moveability ''Modified Jan11 2022  Added 12/28/2021 td
 
         End If ''End of "If pboolResizeProportionally Then .... Else ..."
 

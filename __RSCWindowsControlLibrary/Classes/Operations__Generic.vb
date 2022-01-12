@@ -124,9 +124,12 @@ Public Class Operations__Generic
         ''#3 Jan4 2022 td''CtlCurrentElement.AddMoveability(Me.EventsForMoveability, Me.Designer)
         ''#4 Jan11 2022 td''CtlCurrentElement.AddMoveability(Me.EventsForMoveability, Me.LayoutFunctions)
 
-        CtlCurrentElement.AddMoveability(Me.EventsForMoveability_Group,
-                                         Me.EventsForMoveability_Single,
-                                         Me.LayoutFunctions)
+        ''#5 Jan11 2022 td''CtlCurrentElement.AddMoveability(Me.EventsForMoveability_Group,
+        ''                                 Me.EventsForMoveability_Single,
+        ''                                 Me.LayoutFunctions)
+        CtlCurrentElement.AddMoveability(Me.LayoutFunctions,
+                                         Me.EventsForMoveability_Group,
+                                         Me.EventsForMoveability_Single)
 
     End Sub
 

@@ -1,4 +1,6 @@
-﻿Public Class SimpleChildOfRSCControl1
+﻿Imports ciBadgeInterfaces ''Added 1/11/2022 thomas d. 
+
+Public Class SimpleChildOfRSCControl1
     ''
     ''Added 1/3/2022 thomas downes
     ''
@@ -13,8 +15,19 @@
         ''MyBase.RemoveMoveability(c_RemoveMoveability_Partial)
 
         ''Jan4 2022 ''If (MyBase.mod_events Is Nothing) Then MyBase.mod_events = Me.EventsSingleton
-        If (MyBase.mod_events Is Nothing) Then MyBase.mod_events = Me.MoveabilityEvents
+        ''Jan11 2022''If (MyBase.mod_events Is Nothing) Then MyBase.mod_events = Me.MoveabilityEvents
 
+        If (MyBase.mod_eventsForSingleMove Is Nothing) Then
+            ''Unlikely to have any positive effect. ---Jan11 2022
+            MyBase.mod_eventsForSingleMove = Me.MoveabilityEventsForSingleMove
+        End If
+
+        If (MyBase.mod_eventsForSingleMove Is Nothing) Then
+
+            ''Added 1/11/2022 td
+            mod_eventsForSingleMove = New GroupMoveEvents_Singleton(MyBase.mod_iLayoutFunctions, True)
+
+        End If ''Endof "If (MyBase.mod_eventsForSingleMove Is Nothing) Then"
 
     End Sub
 

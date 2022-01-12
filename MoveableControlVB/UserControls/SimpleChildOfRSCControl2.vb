@@ -19,7 +19,7 @@ Public Class SimpleChildOfRSCControl2
 
 
     Public Sub New(par_iLayoutFunctions As ILayoutFunctions,
-                   par_events As GroupMoveEvents_Singleton,
+                   par_eventsForGroupedControls As GroupMoveEvents_Singleton,
                    par_iLastControlTouched As ILastControlTouched)
         ''
         ''Added 1/4/2022 thomas downes 
@@ -28,8 +28,15 @@ Public Class SimpleChildOfRSCControl2
         InitializeComponent()
 
         mod_iLayoutFunctions = par_iLayoutFunctions
-        mod_events = par_events
+        ''Jan11 ''mod_events = par_events
         Me.LastControlTouched_Info = par_iLastControlTouched
+
+        ''Added Jan11 2022
+        mod_eventsForGroupMove_NotNeeded = par_eventsForGroupedControls
+
+        ''Added Jan11 2022
+        mod_eventsForSingleMove = New GroupMoveEvents_Singleton(par_iLayoutFunctions, True)
+
 
     End Sub
 
@@ -62,9 +69,26 @@ Public Class SimpleChildOfRSCControl2
         ''MyBase.AddMoveability_ViaLabel(Label1)
 
         ''Jan4 2022 ''If (MyBase.mod_events Is Nothing) Then MyBase.mod_events = Me.EventsSingleton
-        If (MyBase.mod_events Is Nothing) Then MyBase.mod_events = Me.MoveabilityEvents
+        If (MyBase.mod_eventsForSingleMove Is Nothing) Then
+            ''Unlikely to have any positive effect. ---Jan11 2022
+            MyBase.mod_eventsForSingleMove = Me.MoveabilityEventsForSingleMove
+        End If
 
-        MyBase.AddMoveability(MyBase.mod_events, MyBase.mod_iLayoutFunctions, True)
+        ''Added 1/11/2022 td
+        If (MyBase.mod_eventsForSingleMove Is Nothing) Then
+            ''Added 1/11/2022 td
+            mod_eventsForSingleMove = New GroupMoveEvents_Singleton(MyBase.mod_iLayoutFunctions, True)
+        End If
+
+        If (MyBase.mod_eventsForGroupMove_NotNeeded Is Nothing) Then
+            ''Unlikely to have any positive effect. ---Jan11 2022
+            MyBase.mod_eventsForGroupMove_NotNeeded = Me.MoveabilityEventsForGroupCtls
+        End If
+
+        ''Jan11 2022 ''MyBase.AddMoveability(MyBase.mod_events, MyBase.mod_iLayoutFunctions, True)
+        MyBase.AddMoveability(MyBase.mod_iLayoutFunctions,
+                              mod_eventsForGroupMove_NotNeeded,
+                              mod_eventsForSingleMove)
 
         ''Added 1/4/2022
         ''---lblSavedCount.Tag = 0 '' "0"

@@ -48,6 +48,7 @@ Public Class GroupMoveEvents_Singleton
     ''End Sub
 
     Public Sub New(par_layoutFun As ILayoutFunctions,
+                   Optional pboolAutomatedSingleMovement As Boolean = False,
                    Optional pbEventkillingBlackhole As Boolean = False)
         ''
         ''Added 9/20/2019 td  
@@ -66,7 +67,13 @@ Public Class GroupMoveEvents_Singleton
         bYesToNewBlackhole = pbEventkillingBlackhole ''Added 1/3/2022 td
         bPleaseNoBlackholes = (Not bYesToNewBlackhole) ''Added 1/3/2022 td
 
-        If (bPleaseNoBlackholes) Then
+        If (pboolAutomatedSingleMovement) Then
+            ''
+            ''We are allowing the single control to move autonomously, to operate under
+            ''  its own power; & not as part of a group of selected controls.  ---1/11/2022 td
+            ''
+
+        ElseIf (bPleaseNoBlackholes) Then
             CountInstances += 1 ''Added 1/3/2022 thomas downes
             If (CountInstances > 1) Then
                 ''Added 1/3/2022 td

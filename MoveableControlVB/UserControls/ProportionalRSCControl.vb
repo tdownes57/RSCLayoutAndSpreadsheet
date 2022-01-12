@@ -26,7 +26,7 @@ Public Class ProportionalRSCControl
 
 
     Public Sub New(par_iLayoutFunctions As ILayoutFunctions,
-                   par_events As GroupMoveEvents_Singleton,
+                   par_eventsForGroupedControls As GroupMoveEvents_Singleton,
                    par_iLastControlTouched As ILastControlTouched)
         ''
         ''Added 1/4/2022 thomas downes 
@@ -34,8 +34,17 @@ Public Class ProportionalRSCControl
         ' This call is required by the designer.
         InitializeComponent()
 
+        ''
+        ''post-InitializeComponent (after the call above)
+        ''
         mod_iLayoutFunctions = par_iLayoutFunctions
-        mod_events = par_events
+        ''#1 Jan11 2022 td''mod_events = par_events
+        ''#2 Jan11 2022 td''mod_eventsForSingleMove = par_events
+        mod_eventsForGroupMove_NotNeeded = par_eventsForGroupedControls
+
+        ''Added 1/11/2022 td
+        mod_eventsForSingleMove = New GroupMoveEvents_Singleton(par_iLayoutFunctions, True)
+
         Me.LastControlTouched_Info = par_iLastControlTouched
 
     End Sub
@@ -68,10 +77,19 @@ Public Class ProportionalRSCControl
         ''MyBase.AddMoveability_ViaLabel(Label1)
 
         ''Jan4 2022 ''If (MyBase.mod_events Is Nothing) Then MyBase.mod_events = Me.EventsSingleton
-        If (MyBase.mod_events Is Nothing) Then MyBase.mod_events = Me.MoveabilityEvents
+        ''Jan11 2022 ''If (MyBase.mod_events Is Nothing) Then MyBase.mod_events = Me.MoveabilityEvents
+        If (MyBase.mod_eventsForSingleMove Is Nothing) Then
+
+            ''Added 1/11/2022 td
+            mod_eventsForSingleMove = New GroupMoveEvents_Singleton(MyBase.mod_iLayoutFunctions, True)
+
+        End If
 
         ''If (False) Then
-        MyBase.AddMoveability(MyBase.mod_events, MyBase.mod_iLayoutFunctions, True)
+        ''Jan11 2022 td''MyBase.AddMoveability(MyBase.mod_events, MyBase.mod_iLayoutFunctions, True)
+        MyBase.AddMoveability(MyBase.mod_iLayoutFunctions,
+                              MoveabilityEventsForGroupCtls,
+                              MoveabilityEventsForSingleMove)
         ''End If
 
         ''Added 1/4/2022

@@ -76,7 +76,7 @@ Public Class CtlGraphicStaticText
                                       par_iLayoutFun As ILayoutFunctions,
                                          par_iRefreshPreview As IRefreshPreview,
                                 par_iControlLastTouched As ILastControlTouched,
-                                     par_oMoveEvents As GroupMoveEvents_Singleton) As CtlGraphicStaticText
+                 par_oMoveEventsGroupedControls As GroupMoveEvents_Singleton) As CtlGraphicStaticText
         ''              1/6/2022 td'' par_bProportionSizing As Boolean,
         ''              1/2/2022 td'' par_iSaveToModel As ISaveToModel,
         ''
@@ -132,20 +132,32 @@ Public Class CtlGraphicStaticText
         ''Jan2 2022''           enumElementType_Enum, par_bProportionSizing,
 
         Dim CtlStaticText1 = New CtlGraphicStaticText(par_elementText,
-                                                      par_iLayoutFun,
-                                                      par_iRefreshPreview,
-                                                   typeOps, objOperations,
-                                                   bAddFunctionalitySooner,
-                                                   bAddFunctionalitySooner,
-                                                   par_iControlLastTouched,
-                                                    par_oMoveEvents)
+                                    par_iLayoutFun,
+                                    par_iRefreshPreview,
+                                typeOps, objOperations,
+                                bAddFunctionalitySooner,
+                                bAddFunctionalitySooner,
+                                par_iControlLastTouched,
+                                par_oMoveEventsGroupedControls)
+
         ''Jan8 2022 td''         par_bProportionSizing,
         ''Jan2 2022 ''          --------''Jan2 2022 ''par_iSaveToModel, typeOps,
 
         With CtlStaticText1
             .Name = par_nameOfControl
-            If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEvents, par_iLayoutFun)
-            If (bAddFunctionalityLater) Then .AddClickability()
+
+            ''Jan11 2022 ''If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEvents, par_iLayoutFun)
+            ''Jan11 2022 ''If (bAddFunctionalityLater) Then .AddClickability()
+
+            If (bAddFunctionalityLater) Then
+                ''
+                ''Major calls !!
+                ''
+                .AddMoveability(par_iLayoutFun, par_oMoveEventsGroupedControls, Nothing)
+                .AddClickability()
+
+            End If ''End of "If (bAddFunctionalityLater) Then"
+
         End With ''eNd of "With CtlStaticText1"
 
         ''
