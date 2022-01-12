@@ -992,9 +992,9 @@ Public Class ClassDesigner
         ''Added 12/15/2021 td
         ''   Pass on the event of right-clicking a element-field control. 
         ''----AddHandler label_control.ElementPic_RightClicked, AddressOf ElementPic_Clicked
-        If (mod_bAddHandlersForRightClick) Then
-            AddHandler CtlGraphic_Portrait.ElementPic_RightClicked, AddressOf ElementPic_Clicked
-        End If ''End of "If (mod_bAddHandlersForRightClick) Then"
+        ''If (mod_bAddHandlersForRightClick) Then
+        ''    AddHandler CtlGraphic_Portrait.ElementPic_RightClicked, AddressOf ElementPic_Clicked
+        ''End If ''End of "If (mod_bAddHandlersForRightClick) Then"
 
         ''
         ''Moveability 
@@ -1131,9 +1131,9 @@ Public Class ClassDesigner
         ''Added 12/15/2021 td
         ''   Pass on the event of right-clicking a element-signature control.
         ''   
-        If (mod_bAddHandlersForRightClick) Then
-            AddHandler CtlGraphic_Signat.ElementSig_RightClicked, AddressOf ElementSig_Clicked
-        End If ''End of "If (mod_bAddHandlersForRightClick) Then"
+        ''If (mod_bAddHandlersForRightClick) Then
+        ''    AddHandler CtlGraphic_Signat.ElementSig_RightClicked, AddressOf ElementSig_Clicked
+        ''End If ''End of "If (mod_bAddHandlersForRightClick) Then"
 
         ''
         ''Moveability 
@@ -1203,10 +1203,10 @@ Public Class ClassDesigner
             ''Added 12/15/2021 td
             ''   Pass on the event of right-clicking a element-signature control.
             ''   
-            If (mod_bAddHandlersForRightClick) Then
-                AddHandler each_ctlStaticText.ElementStatic_RightClicked,
-                     AddressOf ElementStatic_Clicked
-            End If ''End of "If (mod_bAddHandlersForRightClick) Then"
+            ''If (mod_bAddHandlersForRightClick) Then
+            ''    AddHandler each_ctlStaticText.ElementStatic_RightClicked,
+            ''         AddressOf ElementStatic_Clicked
+            ''End If ''End of "If (mod_bAddHandlersForRightClick) Then"
 
             ''
             ''Moveability 
@@ -1384,9 +1384,9 @@ Public Class ClassDesigner
             ''Added 10/1/2019 td
             ''   Pass on the event of right-clicking a element-field control. 
             ''
-            If (mod_bAddHandlersForRightClick) Then
-                AddHandler label_control.ElementField_RightClicked, AddressOf ElementField_Clicked
-            End If ''End of "If (mod_bAddHandlersForRightClick) Then"
+            ''If (mod_bAddHandlersForRightClick) Then
+            ''    AddHandler label_control.ElementField_RightClicked, AddressOf ElementField_Clicked
+            ''End If ''End of "If (mod_bAddHandlersForRightClick) Then"
 
             ''9/8 td''label_control.BorderStyle = BorderStyle.FixedSingle
 

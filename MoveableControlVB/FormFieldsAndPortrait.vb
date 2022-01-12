@@ -85,8 +85,8 @@ Public Class FormFieldsAndPortrait
         ''Added 1/7/2022 thomas downes
         ''
         InstantiateQRCode()
-        ''InstantiatePortrait()
-        ''InstantiateField1()
+        InstantiatePortrait()
+        InstantiateField1()
 
         ''Added 1/8/2022 thomas downes
         InstantiateStaticText()

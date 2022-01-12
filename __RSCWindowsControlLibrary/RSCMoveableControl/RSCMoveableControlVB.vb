@@ -833,6 +833,18 @@ Public Class RSCMoveableControlVB
                         ''
                         ''// I am assuming MyUserControl_Click handles the click event of the user control.
                         ''Jan7 2022''AddHandler each_control.MouseClick, AddressOf MoveableControl_MouseClick
+
+                        ''Step 1 of 2. We need to try to remove any existing handlers, likely implemented
+                        ''   at design-time, to prevent ugly wiggling controls.  Looks unprofessional.
+                        ''   ---January 11, 2022 thomas d.
+                        RemoveHandler each_control.MouseDown, AddressOf MoveableControl_MouseDown
+                        RemoveHandler each_control.MouseDown, AddressOf MoveableControl_MouseDown
+                        RemoveHandler each_control.MouseMove, AddressOf MoveableControl_MouseMove
+                        RemoveHandler each_control.MouseMove, AddressOf MoveableControl_MouseMove
+                        RemoveHandler each_control.MouseUp, AddressOf MoveableControl_MouseUp
+                        RemoveHandler each_control.MouseUp, AddressOf MoveableControl_MouseUp
+
+                        ''Step 2 of 2. Add the handlers which are needed, but might not be there. 
                         AddHandler each_control.MouseDown, AddressOf MoveableControl_MouseDown
                         AddHandler each_control.MouseMove, AddressOf MoveableControl_MouseMove
                         AddHandler each_control.MouseUp, AddressOf MoveableControl_MouseUp

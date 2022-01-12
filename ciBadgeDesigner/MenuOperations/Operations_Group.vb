@@ -74,6 +74,7 @@ Public Class Operations_Group
 
     End Sub ''End of "Private Sub GroupEditElement_Add(sender As Object, e As EventArgs)"
 
+
     Private Sub GroupEditElement_Add()
         ''
         ''Added 8/2/2019 td  

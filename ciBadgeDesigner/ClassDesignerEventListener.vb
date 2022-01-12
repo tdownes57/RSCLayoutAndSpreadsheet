@@ -94,7 +94,8 @@ Public Class ClassDesignerEventListener
         m_bAddBorderOnlyWhileResizing = p_bAddBorderOnlyWhileResizing
 
         ''Added 12/6/2021 td
-        AddHandler mod_eventsGroupedMove.ControlIsMoving, AddressOf mod_ControlIsMoving
+        ''--//--// I don't think this is needed anymore. Jan11 2022
+        ''--//--AddHandler mod_eventsGroupedMove.ControlIsMoving, AddressOf mod_ControlIsMoving
 
     End Sub ''End of Public Sub New
 
@@ -646,6 +647,7 @@ Public Class ClassDesignerEventListener
     End Sub ''End of "Private Sub Resizing_End() Handles mod_groupedMove.Resizing_End"
 
     Private Sub MovingElement_End(par_ctlElement As Control, par_iSave As ISaveToModel) Handles mod_eventsGroupedMove.Moving_End
+
         ''12/17/2021 td''Private Sub MovingElement_End(par_ctlElement As Control) Handles mod_groupedMove.Moving_End
         ''11/29/2021 ''Private Sub MovingElement_End() Handles mod_groupedMove.Moving_End
 
