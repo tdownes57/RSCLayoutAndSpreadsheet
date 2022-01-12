@@ -18,7 +18,8 @@ Public Class GroupMoveEvents_Singleton
     Public Shared CountInstances As Integer ''Added 1/3/2022 thomas downes
 
     ''Added 8/3/2019 thomas downes
-    Public Event MoveInUnison(deltaLeft As Integer, deltaTop As Integer, deltaWidth As Integer, deltaHeight As Integer)
+    ''Modified 1/12/2022 thomas downes
+    Public Event MoveInUnison(deltaLeft As Integer, deltaTop As Integer, deltaWidth As Integer, deltaHeight As Integer, pbLocationOfLeadControlIsEdited As Boolean)
 
     ''Added 8/3/2019 thomas downes
     Public Event Resizing_Start()
@@ -101,7 +102,7 @@ Public Class GroupMoveEvents_Singleton
 
     End Sub
 
-    Public Sub GroupMove_Change(deltaLeft As Integer, deltaTop As Integer, deltaWidth As Integer, deltaHeight As Integer) _
+    Public Sub GroupMove_Change(deltaLeft As Integer, deltaTop As Integer, deltaWidth As Integer, deltaHeight As Integer, pbLeadControlLocationEditedAlready As Boolean) _
         Implements InterfaceMoveEvents.GroupMove_Change
 
         ''
@@ -111,7 +112,9 @@ Public Class GroupMoveEvents_Singleton
             ''System.Diagnostics.Debugger.Break()
         End If
 
-        RaiseEvent MoveInUnison(deltaLeft, deltaTop, deltaWidth, deltaHeight)
+        ''1/12/2022 td ''RaiseEvent MoveInUnison(deltaLeft, deltaTop, deltaWidth, deltaHeight)
+        RaiseEvent MoveInUnison(deltaLeft, deltaTop, deltaWidth, deltaHeight,
+               pbLeadControlLocationEditedAlready)
 
     End Sub ''End of "Public Sub GroupMove_Change"
 

@@ -12,6 +12,7 @@ Imports ciBadgeDesigner ''Added 12/27/2021 td
 ''
 Public MustInherit Class RSCMoveableControlVB
     Implements ISaveToModel ''Added 1/2/2022 td 
+    ''Jan12 2022 td''Implements IElement_Base ''Added 1/12/2022 td
 
     ''
     ''Added 12/22/2021 td  
@@ -131,6 +132,30 @@ Public MustInherit Class RSCMoveableControlVB
             mod_eventsForSingleMove = value
         End Set
     End Property
+
+    ''Public Property ElementType As String Implements IElement_Base.ElementType
+    ''Public Property PositionalMode As String Implements IElement_Base.PositionalMode
+    ''Public Property FormControl As Control Implements IElement_Base.FormControl
+    ''Public Property BadgeLayout As BadgeLayoutClass Implements IElement_Base.BadgeLayout
+    ''Public Property TopEdge_Pixels As Integer Implements IElement_Base.TopEdge_Pixels
+    ''Public Property LeftEdge_Pixels As Integer Implements IElement_Base.LeftEdge_Pixels
+    ''Public Property Width_Pixels As Integer Implements IElement_Base.Width_Pixels
+    ''Public Property Height_Pixels As Integer Implements IElement_Base.Height_Pixels
+    ''Public Property BadgeDisplayIndex As Integer Implements IElement_Base.BadgeDisplayIndex
+    ''Public Property Border_Displayed As Boolean Implements IElement_Base.Border_Displayed
+    ''Public Property Border_WidthInPixels As Integer Implements IElement_Base.Border_WidthInPixels
+    ''Public Property Border_Color As Color Implements IElement_Base.Border_Color
+    ''Public Property Back_Color As Color Implements IElement_Base.Back_Color
+    ''Public Property Back_Transparent As Boolean Implements IElement_Base.Back_Transparent
+    ''Public Property SelectedHighlighting As Boolean Implements IElement_Base.SelectedHighlighting
+    ''Public Property OrientationToLayout As String Implements IElement_Base.OrientationToLayout
+    ''Public Property OrientationInDegrees As Integer Implements IElement_Base.OrientationInDegrees
+    ''Public Property Image_BL As Image Implements IElement_Base.Image_BL
+    ''Public Property IElement_Base_Visible As Boolean Implements IElement_Base.Visible
+    ''Public Property WhichSideOfCard As EnumWhichSideOfCard Implements IElement_Base.WhichSideOfCard
+    ''Public Property DateEdited As Date Implements IElement_Base.DateEdited
+    ''Public Property DateSaved As Date Implements IElement_Base.DateSaved
+    ''Public Property ZOrder As Integer Implements IElement_Base.ZOrder
 
 
     Public LastControlTouched_Info As ILastControlTouched ''Added 12/28/2021 thomas d. 
@@ -1047,7 +1072,8 @@ Public MustInherit Class RSCMoveableControlVB
     ''End Sub
 
 
-    Private Sub mod_events_MoveInUnison(deltaLeft As Integer, deltaTop As Integer, deltaWidth As Integer, deltaHeight As Integer) Handles mod_eventsForSingleMove.MoveInUnison
+    Private Sub mod_events_MoveInUnison(deltaLeft As Integer, deltaTop As Integer,
+                                        deltaWidth As Integer, deltaHeight As Integer, pbLeadControlLocationWasEdited As Boolean) Handles mod_eventsForSingleMove.MoveInUnison
         ''
         ''Added 1/10/2022 thomas downes
         ''
@@ -1492,4 +1518,7 @@ Public MustInherit Class RSCMoveableControlVB
 
 
     End Sub
+
+    ''Jan12 2022 td''Public MustOverride Function ImageForBadgeImage(par_recipient As IRecipient) As Image Implements IElement_Base.ImageForBadgeImage
+
 End Class

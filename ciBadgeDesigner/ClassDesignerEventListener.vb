@@ -10,7 +10,8 @@ Imports ciBadgeInterfaces ''Added 10/1/2019 thomas downes
 ''Imports System.Drawing ''Added 10/1/2019 thomas downes 
 ''Imports ciLayoutPrintLib ''Added 10/1/2019 td
 Imports MoveAndResizeControls_Monem ''Added 10/3/2019 td
-''Imports ciBadgeGenerator ''Added 10/5/2019 thomas d. 
+''Imports ciBadgeGenerator ''Added 10/5/2019 thomas d.
+Imports __RSCWindowsControlLibrary ''Added 1/12/2022 thomas d. 
 
 Public Class ClassDesignerEventListener
     ''   Implements ILayoutFunctions
@@ -102,7 +103,7 @@ Public Class ClassDesignerEventListener
 
     Public Sub LoadDesigner(par_listOfFieldControls As _
                                 HashSet(Of CtlGraphicFldLabel),
-                             par_listDesignerControls As HashSet(Of Control)) '',
+                    par_listDesignerControls As HashSet(Of RSCMoveableControlVB)) '',
         ''                    par_strWhyCalled As String)
         ''
         ''Encapsulated 11/29/2021
@@ -186,7 +187,7 @@ Public Class ClassDesignerEventListener
     End Sub ''End of Public Sub LoadDesigner
 
 
-    Private Sub LoadForm_LayoutElements_Moveability(par_listDesignerControls As HashSet(Of Control))
+    Private Sub LoadForm_LayoutElements_Moveability(par_listDesignerControls As HashSet(Of RSCMoveableControlVB))
         ''                par_cache As ClassElementsCache_Deprecated,
         ''                ByRef par_listFieldCtls As HashSet(Of CtlGraphicFldLabel),
         ''                pstrWhyCalled As String)
@@ -408,7 +409,8 @@ Public Class ClassDesignerEventListener
         ''
         ''Added 8/5/2019 thomas downes  
         ''
-        Dim list_SelectedCtls As HashSet(Of CtlGraphicFldLabel) ''Added 11/29/2021 td
+        ''1/12/2022 td''Dim list_SelectedCtls As HashSet(Of CtlGraphicFldLabel) ''Added 11/29/2021 td
+        Dim list_SelectedCtls As HashSet(Of RSCMoveableControlVB) ''Modified 1/12/2022 td
         list_SelectedCtls = mod_designer.mod_selectedCtls ''Added 11/29/2021 td
 
         For Each each_control As CtlGraphicFldLabel In list_SelectedCtls ''In mod_selectedCtls
@@ -433,7 +435,10 @@ Public Class ClassDesignerEventListener
     End Sub ''End of "Private Sub Resizing_Start"  
 
 
-    Private Sub Move_GroupMove_Continue(DeltaLeft As Integer, DeltaTop As Integer, DeltaWidth As Integer, DeltaHeight As Integer) Handles mod_eventsGroupedMove.MoveInUnison
+    Private Sub Move_GroupMove_Continue(DeltaLeft As Integer, DeltaTop As Integer,
+                                        DeltaWidth As Integer, DeltaHeight As Integer,
+                                        pbLeadControlLocationWasEdited As Boolean) _
+        Handles mod_eventsGroupedMove.MoveInUnison
         ''
         ''Added 8/3/2019 thomas downes  
         ''
@@ -474,7 +479,8 @@ Public Class ClassDesignerEventListener
         ''
         ''8/4/2019 td''For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
 
-        Dim list_SelectedCtls As HashSet(Of CtlGraphicFldLabel) ''Added 11/29/2021 td
+        ''1/12/2022 td''Dim list_SelectedCtls As HashSet(Of CtlGraphicFldLabel) ''Added 11/29/2021 td
+        Dim list_SelectedCtls As HashSet(Of RSCMoveableControlVB) ''Added 11/29/2021 td
         list_SelectedCtls = mod_designer.mod_selectedCtls ''Added 11/29/2021 td
 
         For Each each_control As CtlGraphicFldLabel In list_SelectedCtls '' mod_selectedCtls
@@ -561,7 +567,8 @@ Public Class ClassDesignerEventListener
         ''
         ''Added 8/5/2019 thomas downes  
         ''
-        Dim list_SelectedCtls As HashSet(Of CtlGraphicFldLabel) ''Added 11/29/2021 td
+        ''1/12/2022 TD''Dim list_SelectedCtls As HashSet(Of CtlGraphicFldLabel) ''Added 11/29/2021 td
+        Dim list_SelectedCtls As HashSet(Of RSCMoveableControlVB) ''Modified 1/12/2022 td
         list_SelectedCtls = mod_designer.mod_selectedCtls ''Added 11/29/2021 td
 
         For Each each_control As CtlGraphicFldLabel In list_SelectedCtls '' mod_selectedCtls
@@ -591,7 +598,12 @@ Public Class ClassDesignerEventListener
         Dim ctl_FieldControlLastTouched As CtlGraphicFldLabel
 
         ctl_ControlLastTouched = mod_designer.mod_ControlLastTouched
-        ctl_FieldControlLastTouched = mod_designer.mod_FieldControlLastTouched
+
+        If (TypeOf mod_designer.mod_RSCControlLastTouched Is CtlGraphicFldLabel) Then
+            ''We know it's a Element-Field control. ---1/12/2022 td
+            ctl_FieldControlLastTouched = CType(mod_designer.mod_RSCControlLastTouched,
+                   CtlGraphicFldLabel)
+        End If ''End of "If (TypeOf mod_designer.mod_RSCControlLastTouched Is CtlGraphicFldLabel) Then"
 
         ''boolResizedAFieldCtl = (TypeOf mod_ControlLastTouched Is CtlGraphicFldLabel)
         boolResizedAFieldCtl = (TypeOf ctl_ControlLastTouched Is CtlGraphicFldLabel)
@@ -754,7 +766,10 @@ Public Class ClassDesignerEventListener
 
     End Sub
 
-    Private Sub Move_sizing_events_MoveInUnison(deltaLeft As Integer, deltaTop As Integer, deltaWidth As Integer, deltaHeight As Integer) Handles SizingElementEvents.MoveInUnison
+    Private Sub Move_sizing_events_MoveInUnison(deltaLeft As Integer, deltaTop As Integer,
+                                                deltaWidth As Integer, deltaHeight As Integer,
+                           pbLeadControlLocationWasEdited As Boolean) _
+                           Handles SizingElementEvents.MoveInUnison
         ''12/17/2021 td''Private Sub mod_sizingPic_events_MoveInUnison
         ''12/17/2021 td''   Handles mod_sizingEvents_Pics.MoveInUnison
 

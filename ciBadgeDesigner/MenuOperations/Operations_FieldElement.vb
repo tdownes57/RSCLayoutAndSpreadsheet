@@ -211,7 +211,8 @@ Public Class Operations_FieldElement
 
             ''Added 8/3/2019 td 
             ''10/17/2019 td''Dim objElements As List(Of CtlGraphicFldLabel)
-            Dim objElements As HashSet(Of CtlGraphicFldLabel)
+            ''1/12/2022 td''Dim objElements As HashSet(Of CtlGraphicFldLabel)
+            Dim objElements As HashSet(Of RSCMoveableControlVB)
 
             ''8/4//2019 td'objElements = CType(Me.ParentForm, ISelectingElements).LabelsDesignList_AllItems
             ''10/3/2019 td''objElements = Me.SelectingElements.LabelsDesignList_AllItems
@@ -332,7 +333,8 @@ Public Class Operations_FieldElement
         ElseIf (Me.SelectingElements.ElementsList_IsItemIncluded(Me.CtlCurrentElementField)) Then
 
             ''Added 8/3/2019 td 
-            Dim objElements As HashSet(Of CtlGraphicFldLabel)
+            ''1/12/2022 td''Dim objElements As HashSet(Of CtlGraphicFldLabel)
+            Dim objElements As HashSet(Of RSCMoveableControlVB)
 
             ''10/3/2019 td''objElements = CType(Me.ParentForm, ISelectingElements).LabelsDesignList_AllItems
             objElements = Me.SelectingElements.ElementsDesignList_AllItems
@@ -443,7 +445,8 @@ Public Class Operations_FieldElement
                 If (Me.SelectingElements.ElementsList_IsItemIncluded(Me.CtlCurrentElementField)) Then
 
                     ''Added 8/18/2019 td 
-                    Dim objElements As HashSet(Of CtlGraphicFldLabel)
+                    ''1/12/2022 td''Dim objElements As HashSet(Of CtlGraphicFldLabel)
+                    Dim objElements As HashSet(Of RSCMoveableControlVB) ''Added 1/12/2022 td
                     objElements = Me.SelectingElements.ElementsDesignList_AllItems
 
                     For Each each_ctl As CtlGraphicFldLabel In objElements
@@ -535,7 +538,8 @@ Public Class Operations_FieldElement
                 If (Me.SelectingElements.ElementsList_IsItemIncluded(Me.CtlCurrentElementField)) Then
 
                     ''Added 8/18/2019 td 
-                    Dim objElements As HashSet(Of CtlGraphicFldLabel)
+                    ''1/12/2022 td''Dim objElements As HashSet(Of CtlGraphicFldLabel)
+                    Dim objElements As HashSet(Of RSCMoveableControlVB)
                     objElements = Me.SelectingElements.ElementsDesignList_AllItems
 
                     For Each each_ctl As CtlGraphicFldLabel In objElements

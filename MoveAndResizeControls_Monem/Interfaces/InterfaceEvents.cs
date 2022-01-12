@@ -20,7 +20,8 @@ namespace MoveAndResizeControls_Monem
         //public event GroupControlsMoved GroupMove;  //Added 8/2/2019 td
 
         // 8-5-2019 td //void GroupMove(int DeltaLeft, int DeltaTop, int DeltaWidth, int DeltaHeight);
-        void GroupMove_Change(int DeltaLeft, int DeltaTop, int DeltaWidth, int DeltaHeight);
+        // 1-12-2021 td //void GroupMove_Change(int DeltaLeft, int DeltaTop, int DeltaWidth, int DeltaHeight);
+        void GroupMove_Change(int DeltaLeft, int DeltaTop, int DeltaWidth, int DeltaHeight, bool pbCtlLocationAlreadyEdited);
 
         //
         //Added 8-4-2019 thomas downes

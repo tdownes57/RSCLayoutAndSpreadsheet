@@ -7,12 +7,14 @@ using System.Windows.Forms;
 using ciBadgeInterfaces; //Added 1/3/2022 thomas d.
 
 namespace MoveAndResizeControls_Monem
-{
+{   //
     //Added 1/3/2022 thomas d.
+    //
     class ClassGroupMoveEvents_NotUsed : InterfaceMoveEvents
     {
         //Added 1/3/2022 thomas d.
-        public delegate void DelegateMoveInUnison(int deltaLeft, int deltaTop, int deltaWidth, int deltaHeight);
+        // 1-12-2022 td//public delegate void DelegateMoveInUnison(int deltaLeft, int deltaTop, int deltaWidth, int deltaHeight);
+        public delegate void DelegateMoveInUnison(int deltaLeft, int deltaTop, int deltaWidth, int deltaHeight, bool pbLeadControlLocationWasEdited);
         public delegate void DelegateResizing_Start();
         public delegate void DelegateResizing_End(ISaveToModel par_iSave);
         public delegate void DelegateMoving_End(Control par_control);
@@ -65,7 +67,9 @@ namespace MoveAndResizeControls_Monem
         }
 
 
-        public void GroupMove_Change(int DeltaLeft, int DeltaTop, int DeltaWidth, int DeltaHeight)
+        public void GroupMove_Change(int DeltaLeft, int DeltaTop, 
+                                    int DeltaWidth, int DeltaHeight, 
+                                    bool pbLeadControlLocationWasEdited)
         {
             //throw new NotImplementedException();
 
@@ -79,7 +83,10 @@ namespace MoveAndResizeControls_Monem
                 // Raise the event by using () operator
                 //     https://www.tutlane.com/tutorial/csharp/csharp-events
                 //
-                EventMoveInUnison(DeltaLeft, DeltaTop, DeltaWidth, DeltaHeight);
+                //Jan12 2022''EventMoveInUnison(DeltaLeft, DeltaTop, DeltaWidth, DeltaHeight);
+                EventMoveInUnison(DeltaLeft, DeltaTop, DeltaWidth, DeltaHeight, 
+                    pbLeadControlLocationWasEdited);
+
             }
 
         }

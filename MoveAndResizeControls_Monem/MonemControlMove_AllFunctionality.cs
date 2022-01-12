@@ -124,6 +124,10 @@ namespace MoveAndResizeControls_Monem
 
         private bool _SizeProportionally = false;  //Added 1/10/2022 td
 
+        private const bool mc_MonemEditsLocation = true; //Added 1/12/2022 td
+        private const bool mc_MonemEditsLocation_TopAndLeft = true; //Added 1/12/2022 td
+
+
         internal enum MoveOrResize
         {
             Move,
@@ -649,6 +653,7 @@ namespace MoveAndResizeControls_Monem
             int delta_Height = 0;
             int delta_Left = 0;
             int delta_Top = 0;
+            bool bEditedLocation = false; //Added 1/12/2022 td
 
             //Added 10/14/2019 td
             bool bMouseIsInRightEdge_Only = false;
@@ -817,7 +822,25 @@ namespace MoveAndResizeControls_Monem
                     //
                     // Huge!!!!!!   Moves the control !!!!!!!
                     //
-                    par_controlG.Location = new Point(newLocation_x, newLocation_y);
+                    if (mc_MonemEditsLocation)
+                    {
+                        if (mc_MonemEditsLocation_TopAndLeft)
+                        {
+                            //We will edit .Left and .Top, instead of the .Location property.
+                            par_controlG.Left = newLocation_x;
+                            par_controlG.Top = newLocation_y;
+                        }
+                        else
+                        {
+                            //We will edit .Location, instead of the .Top & Left properties.
+                            par_controlG.Location = new Point(newLocation_x, newLocation_y);
+                        }
+                        
+                        // We will inform outside entities that the .Location property (or .Top/.Left)
+                        //   that the parent control's Location has been adjusted/moved. 
+                        //   ----1/12/2022 td
+                        bEditedLocation = true; 
+                    }
 
                     //Added 8/2/2019 thomas downes 
                     delta_Left = (par_e.X - _cursorStartPoint.X);
@@ -847,10 +870,16 @@ namespace MoveAndResizeControls_Monem
 
                 // 8-5-2019 td //mod_events.GroupMove(delta_Left, delta_Top, delta_Width, delta_Height);
                 // 1-10-2022 td//mod_events.GroupMove_Change(delta_Left, delta_Top, delta_Width, delta_Height);
-                mod_events_singleCtl.GroupMove_Change(delta_Left, delta_Top, delta_Width, delta_Height);
+                // 1-12-2022 td//mod_events_singleCtl.GroupMove_Change(delta_Left, delta_Top, delta_Width, delta_Height);
+                mod_events_singleCtl.GroupMove_Change(delta_Left, delta_Top, 
+                                                        delta_Width, delta_Height, 
+                                                        bEditedLocation);
+                
                 if (mod_events_groupedCtls != null)
                 {
-                    mod_events_groupedCtls.GroupMove_Change(delta_Left, delta_Top, delta_Width, delta_Height);
+                    // 1-12-2022 td//mod_events_groupedCtls.GroupMove_Change(delta_Left, delta_Top, delta_Width, delta_Height);
+                    mod_events_groupedCtls.GroupMove_Change(delta_Left, delta_Top, 
+                        delta_Width, delta_Height, bEditedLocation);
                 }
 
                 // Added 1/11/2022 td
@@ -869,9 +898,10 @@ namespace MoveAndResizeControls_Monem
                 delta_Height = 0;
                 // 8-5-2019 td //mod_events.GroupMove(delta_Left, delta_Top, delta_Width, delta_Height);
                 // 1-10-2022 td//mod_events.GroupMove_Change(delta_Left, delta_Top, delta_Width, delta_Height);
-                mod_events_singleCtl.GroupMove_Change(delta_Left, delta_Top, delta_Width, delta_Height);
+                mod_events_singleCtl.GroupMove_Change(delta_Left, delta_Top, delta_Width, delta_Height, bEditedLocation);
+
                 if (mod_events_groupedCtls != null)
-                    mod_events_groupedCtls.GroupMove_Change(delta_Left, delta_Top, delta_Width, delta_Height);
+                    mod_events_groupedCtls.GroupMove_Change(delta_Left, delta_Top, delta_Width, delta_Height, bEditedLocation);
 
             }
 

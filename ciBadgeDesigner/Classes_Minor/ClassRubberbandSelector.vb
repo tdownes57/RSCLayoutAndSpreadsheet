@@ -12,6 +12,7 @@ Option Infer Off
 Imports ciBadgeInterfaces ''Added 9/20/2019 thomas downes
 Imports System.Drawing ''Added 10/1/2019 td 
 Imports System.Windows.Forms ''Added 10/1/2019 td
+Imports __RSCWindowsControlLibrary ''Added 1/12/2022 td
 
 Public Class ClassRubberbandSelector
     ''
@@ -25,8 +26,11 @@ Public Class ClassRubberbandSelector
 
     ''10/17 td''Public FieldControls_GroupEdit As List(Of CtlGraphicFldLabel)
     ''10/17 td''Public FieldControls_All As List(Of CtlGraphicFldLabel)
-    Public FieldControls_GroupEdit As HashSet(Of CtlGraphicFldLabel)
-    Public FieldControls_All As HashSet(Of CtlGraphicFldLabel)
+
+    ''1/12/2022 td''Public FieldControls_GroupEdit As HashSet(Of CtlGraphicFldLabel)
+    ''1/12/2022 td''Public FieldControls_All As HashSet(Of CtlGraphicFldLabel)
+    Public ElementControls_GroupEdit As HashSet(Of RSCMoveableControlVB)
+    Public ElementControls_All As HashSet(Of RSCMoveableControlVB)
 
     Public LayoutFunctions As ILayoutFunctions ''Added 9/20/2019 thomas d
 
@@ -232,7 +236,7 @@ Public Class ClassRubberbandSelector
         Dim each_ctl As CtlGraphicFldLabel
         Dim boolInsideCtl As Boolean
 
-        For Each each_ctl In Me.FieldControls_All
+        For Each each_ctl In Me.ElementControls_All
             ''Are the coordinates inside a field control?   
             boolInsideCtl = each_ctl.InsideMe(par_x, par_y)
             If (boolInsideCtl) Then Exit For
@@ -248,17 +252,17 @@ Public Class ClassRubberbandSelector
         ''
         Dim each_fieldCtl As CtlGraphicFldLabel
 
-        If (Me.FieldControls_All Is Nothing) Then
+        If (Me.ElementControls_All Is Nothing) Then
             ''
             ''Perhaps the form is in "load" mode. ---9/20/2019 td
             ''
         Else
 
-            For Each each_fieldCtl In Me.FieldControls_All
+            For Each each_fieldCtl In Me.ElementControls_All
 
                 each_fieldCtl.Highlight_IfInsideRubberband(par_rect)
 
-                With Me.FieldControls_GroupEdit
+                With Me.ElementControls_GroupEdit
                     If (Not .Contains(each_fieldCtl)) Then
                         .Add(each_fieldCtl) ''Added 9/20/2019 td
                     End If ''End of "If (Not .Contains(each_fieldCtl)) Then"

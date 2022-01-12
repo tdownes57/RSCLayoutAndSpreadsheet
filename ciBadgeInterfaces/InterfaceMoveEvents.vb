@@ -14,8 +14,9 @@ Public Interface InterfaceMoveEvents
     ''void Moving_Terminate(Control par_control, ISaveToModel par_iSave); //Modified 12/17/2021 //Added 9/13/2019 td 
     ''void Control_IsMoving();
 
-    Sub GroupMove_Change(DeltaLeft As Integer, DeltaTop As Integer, DeltaWidth As Integer,
-                         DeltaHeight As Integer)
+    Sub GroupMove_Change(DeltaLeft As Integer, DeltaTop As Integer,
+                         DeltaWidth As Integer, DeltaHeight As Integer,
+                         pbEditedLocationAlready As Boolean)
     Sub ControlBeingMoved(par_control As Control)
     Sub Resizing_Initiate()
     Sub Resizing_Terminate(par_iSave As ISaveToModel)

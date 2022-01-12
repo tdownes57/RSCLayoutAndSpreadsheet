@@ -1,6 +1,7 @@
 ﻿''
 ''Added 7/31/2019 thomas downes  
 ''
+Imports __RSCWindowsControlLibrary ''Added 1/12/2022 td
 
 Public Interface ISelectingElements
     ''
@@ -20,16 +21,17 @@ Public Interface ISelectingElements
     ''Added 8/3/2019 thomas downes
     ''
     ''10/17/2019 td''Property ElementsDesignList_AllItems As List(Of CtlGraphicFldLabel)
-    Property ElementsDesignList_AllItems As HashSet(Of CtlGraphicFldLabel)
+    ''1/12/2022 td''Property ElementsDesignList_AllItems As HashSet(Of CtlGraphicFldLabel)
+    Property ElementsDesignList_AllItems As HashSet(Of RSCMoveableControlVB)
 
     ''
     ''Added 8/16/2019 thomas downes
     ''
-    Function HasAtLeastOne__Up(par_control As CtlGraphicFldLabel) As Boolean
-    Function HasAtLeastOne_Down(par_control As CtlGraphicFldLabel) As Boolean
+    Function HasAtLeastOne__Up(par_control As RSCMoveableControlVB) As Boolean ''1/12/2022 td''CtlGraphicFldLabel) As Boolean
+    Function HasAtLeastOne_Down(par_control As RSCMoveableControlVB) As Boolean ''1/12/2022 td''CtlGraphicFldLabel) As Boolean
 
-    Sub SwitchControls___Up(par_control As CtlGraphicFldLabel)
-    Sub SwitchControls_Down(par_control As CtlGraphicFldLabel)
+    Sub SwitchControls___Up(par_control As RSCMoveableControlVB) ''1/12/2022 td''CtlGraphicFldLabel)
+    Sub SwitchControls_Down(par_control As RSCMoveableControlVB) ''1/12/2022 td''CtlGraphicFldLabel)
 
 
 

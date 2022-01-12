@@ -1,14 +1,15 @@
 ﻿Option Explicit On
 Option Strict On
 Option Infer Off
+
 ''
 ''Added 10/17 & 10/1/2019 td
 ''
-
 Imports ciBadgeInterfaces
 Imports ciBadgeDesigner
 ''----Imports ciBadgeElements
 Imports System.Windows.Forms ''Added 12/30/2021 td
+Imports __RSCWindowsControlLibrary ''Added 1/12/2022 td
 
 Public Class Operations_Group
     ''
@@ -134,7 +135,8 @@ Public Class Operations_Group
         ''Added 8/5/2019 thomas downes
         ''
         ''10/17/2019 thomas d''Dim objElements As List(Of CtlGraphicFldLabel)
-        Dim objElements As HashSet(Of CtlGraphicFldLabel)
+        ''1/12/2022 td''Dim objElements As HashSet(Of CtlGraphicFldLabel)
+        Dim objElements As HashSet(Of RSCMoveableControlVB)
         Dim sender_toolItem As ToolStripItem
         Dim strAlignmentTypeText As String ''Added 8/14/2019 thomas 
         Dim boolExitEarly As Boolean ''Added 8/13/2019 td

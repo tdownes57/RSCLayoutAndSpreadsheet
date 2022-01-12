@@ -107,15 +107,20 @@ Public Class ClassDesigner
     Public Property Initial_Text_Height As Integer = 30 ''Default value added 10/1/2019 thomas downes
 
     ''10/17/2019 td''Private mod_selectedCtls As New List(Of CtlGraphicFldLabel)   ''Added 8/03/2019 thomas downes 
-    Public mod_selectedCtls As New HashSet(Of CtlGraphicFldLabel)   ''Publicized 11/29/2021 ''Added 8/03/2019 thomas downes 
-    Public mod_FieldControlLastTouched As CtlGraphicFldLabel  ''Publicized 11/29/2021 ''Added 8/09/2019 thomas downes 
+    ''1/12/2022 td''Public mod_selectedCtls As New HashSet(Of CtlGraphicFldLabel)   ''Publicized 11/29/2021 ''Added 8/03/2019 thomas downes 
+    Public mod_selectedCtls As New HashSet(Of RSCMoveableControlVB)   ''Modified 1/12/2022 td
+
+    ''1/12/2022 TD''Public mod_FieldControlLastTouched As CtlGraphicFldLabel  ''Publicized 11/29/2021 ''Added 8/09/2019 thomas downes 
+    Public mod_RSCControlLastTouched As RSCMoveableControlVB  ''Modified 1/12/2021 thomas downes 
 
     ''11/29/2012 ''Private mod_ControlLastTouched As Control ''Added 8/12/2019 thomas d. 
     Public mod_ControlLastTouched As Control ''Publicized 11/29/2021 td''Added 8/12/2019 thomas d. 
 
     Private WithEvents mod_oGroupMoveEvents As GroupMoveEvents_Singleton ''Added 1/4/2022 thomas d.
     ''Jan2 2022''Public mod_IControlLastTouched As New ClassLastControlTouched ''Added 1/02/2021 thomas d. 
-    Private mod_ElementLastTouched As Control ''Let's change this to IElement_Base soon. ---Added 9/14/2019 td 
+    ''Jan2 2022''Private mod_ElementLastTouched As Control ''Let's change this to IElement_Base soon. ---Added 9/14/2019 td 
+    Private mod_ElementLastTouched As RSCMoveableControlVB ''Modified 1/12/2021 td 
+
     Private mod_IMoveableElementLastTouched As IMoveableElement ''Added 12/21/2021 td
     Private mod_ISaveableElementLastTouched As ISaveToModel ''Added 12/21/2021 td
     Private Const mc_bAddBorderOnlyWhileResizing As Boolean = True ''Added 9/11/2019 thomas d. 
@@ -155,7 +160,9 @@ Public Class ClassDesigner
 
     ''Added 11/28/2021 thomas downes
     ''   Let's keep track of every control created by this object (Of ClassDesigner). 
-    Private mod_listOfDesignerControls As New HashSet(Of Control)
+    ''
+    ''1/12/2022 td''Private mod_listOfDesignerControls As New HashSet(Of Control)
+    Private mod_listOfDesignerControls As New HashSet(Of RSCMoveableControlVB)
 
     ''Added 11/29/2021 td  
     ''Private Const mc_bUseNonStaticMovers As Boolean = True ''Added 11/29/2021 td 
@@ -666,7 +673,8 @@ Public Class ClassDesigner
         ''End If ''End of "If (c_LayoutBackIsMoveable) Then"
 
         ''Moved from above, 9/20/2019 td 
-        Initiate_RubberbandSelector(mod_listOfFieldControls,
+        ''1/12/2022 td''Initiate_RubberbandSelector(mod_listOfFieldControls,
+        Initiate_RubberbandSelector(mod_listOfDesignerControls,
                                  mod_selectedCtls) ''Added 9/8/2019 thomas d. 
 
         ''
@@ -1239,8 +1247,10 @@ Public Class ClassDesigner
     End Sub ''End of "Private Sub LoadElements_StaticTexts"
 
 
-    Private Sub Initiate_RubberbandSelector(par_elementControls_All As HashSet(Of CtlGraphicFldLabel),
-                                            par_elementControls_GroupEdit As HashSet(Of CtlGraphicFldLabel))
+    Private Sub Initiate_RubberbandSelector(par_elementControls_All As HashSet(Of RSCMoveableControlVB),
+                           par_elementControls_GroupEdit As HashSet(Of RSCMoveableControlVB))
+
+        ''1/12/2022 td''Private Sub Initiate_RubberbandSelector(par_elementControls_All As HashSet(Of CtlGraphicFldLabel),
         ''10/17/2019 td''Private Sub Initiate_RubberbandSelector(par_elementControls_All As HashSet(Of CtlGraphicFldLabel),
         ''10/17/2019 td''     par_elementControls_GroupEdit As HashSet(Of CtlGraphicFldLabel))
         ''9/20 td''Private Sub Initiate_RubberbandSelector() 
@@ -1255,12 +1265,12 @@ Public Class ClassDesigner
             .PictureBack = Me.BackgroundBox_Front
 
             ''Added 9/20/2019 td  
-            .FieldControls_All = par_elementControls_All
+            .ElementControls_All = par_elementControls_All
 
             ''Added 9/20/2019 td
             .LayoutFunctions = CType(Me, ILayoutFunctions)
 
-            .FieldControls_GroupEdit = par_elementControls_GroupEdit
+            .ElementControls_GroupEdit = par_elementControls_GroupEdit
 
             ''AddHandler , AddressOf mod_rubberbandClass.MouseMove
             ''AddHandler .Me.BackgroundBox.MouseMove, AddressOf mod_rubberbandClass.MouseMove
@@ -2146,16 +2156,18 @@ Public Class ClassDesigner
     Public Property ControlBeingMoved() As Control Implements ILayoutFunctions.ControlBeingMoved ''Added 8/4/2019 td
         Get
             ''Added 8/9/2019 td
-            Return mod_FieldControlLastTouched
+            Return mod_RSCControlLastTouched
         End Get
         Set(value As Control)
             ''Added 8/9/2019 td
             Try
                 ''9/9/2019 td''mod_FieldControlLastTouched = value
                 ''Dec21 2021''mod_FieldControlLastTouched = CType(value, CtlGraphicFldLabel)
-                mod_FieldControlLastTouched = Nothing
-                If (TypeOf value Is CtlGraphicFldLabel) Then mod_FieldControlLastTouched = CType(value, CtlGraphicFldLabel)
-                mod_ElementLastTouched = CType(value, Control) ''Added 9/14 
+                mod_RSCControlLastTouched = Nothing
+                If (TypeOf value Is CtlGraphicFldLabel) Then mod_RSCControlLastTouched = CType(value, CtlGraphicFldLabel)
+
+                ''1/12/2022''mod_ElementLastTouched = CType(value, Control) ''Added 9/14 
+                mod_ElementLastTouched = CType(value, RSCMoveableControlVB) ''Modified 1/12/2022 ''Added 9/14 
                 mod_ControlLastTouched = value ''Added 8/1/2019 
                 ''Added 12/21/2021 td
                 mod_IMoveableElementLastTouched = Nothing
@@ -2166,12 +2178,14 @@ Public Class ClassDesigner
             Catch
                 ''Added 8/12/2019 td  
                 mod_ControlLastTouched = value
-                mod_ElementLastTouched = CType(value, Control)
+                ''1/12/2022 td''mod_ElementLastTouched = CType(value, Control)
+                mod_ElementLastTouched = CType(value, RSCMoveableControlVB)
             End Try
         End Set
     End Property ''End of "Public Property ControlBeingMoved() As Control Implements ILayoutFunctions.ControlBeingMoved"
 
-    Public Property ControlBeingModified() As Control Implements ILayoutFunctions.ControlBeingModified ''Added 8/9/2019 td
+    Public Property ControlBeingModified() As Control _
+        Implements ILayoutFunctions.ControlBeingModified ''Added 8/9/2019 td
         Get
             ''
             ''Added 8/9/2019 td
@@ -2182,14 +2196,14 @@ Public Class ClassDesigner
         Set(value As Control)
             ''Added 8/9/2019 td
             mod_ControlLastTouched = value ''Added 8/12/2019 td
-            mod_ElementLastTouched = value ''Added 9/14/2019 td
+            mod_ElementLastTouched = CType(value, RSCMoveableControlVB) ''Modified 1/12/2022 Added 9/14/2019 td
             Try
                 ''9/9/2019 td''mod_FieldControlLastTouched = value
-                mod_FieldControlLastTouched = CType(value, CtlGraphicFldLabel)
+                mod_RSCControlLastTouched = CType(value, CtlGraphicFldLabel)
 
                 ''Added 9/11/2019 td  
                 If (mc_bAddBorderOnlyWhileResizing) Then
-                    mod_FieldControlLastTouched.BorderStyle = BorderStyle.FixedSingle
+                    mod_RSCControlLastTouched.BorderStyle = BorderStyle.FixedSingle
                 End If ''End of "If (mc_bAddBorderOnlyWhileResizing) Then"
 
             Catch
@@ -2198,8 +2212,9 @@ Public Class ClassDesigner
         End Set
     End Property ''End of "Public Property ControlBeingModified() As Control Implements ILayoutFunctions.ControlBeingModified"
 
-    Public Property ElementsDesignList_AllItems As HashSet(Of CtlGraphicFldLabel) _
+    Public Property ElementsDesignList_AllItems As HashSet(Of RSCMoveableControlVB) _
         Implements ISelectingElements.ElementsDesignList_AllItems
+        ''1/12/2022 TD''Property ElementsDesignList_AllItems As HashSet(Of CtlGraphicFldLabel)
         ''
         ''10/17/2019 td''Public Property LabelsDesignList_AllItems As List(Of CtlGraphicFldLabel)
         ''     Implements ISelectingElements.LabelsDesignList_AllItems
@@ -2255,7 +2270,8 @@ Public Class ClassDesigner
         ''
         ''Added 8/5/2019 thomas downes  
         ''
-        For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
+        ''1/12/2022 td''For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
+        For Each each_control As RSCMoveableControlVB In mod_selectedCtls
 
             ''Added 9/11/2019 td  
             If (mc_bAddBorderOnlyWhileResizing) Then
@@ -2276,7 +2292,11 @@ Public Class ClassDesigner
 
     End Sub ''End of "Private Sub Resizing_Start"  
 
-    Private Sub Move_GroupMove_Continue(DeltaLeft As Integer, DeltaTop As Integer, DeltaWidth As Integer, DeltaHeight As Integer) Handles mod_oGroupMoveEvents.MoveInUnison
+
+    Private Sub Move_GroupMove_Continue(DeltaLeft As Integer, DeltaTop As Integer,
+                                        DeltaWidth As Integer, DeltaHeight As Integer,
+                                        pbLeadControlLocationWasEdited As Boolean) _
+                                        Handles mod_oGroupMoveEvents.MoveInUnison
         ''
         ''Added 8/3/2019 thomas downes  
         ''
@@ -2289,21 +2309,24 @@ Public Class ClassDesigner
         ''
         ''8/5/2019 thomas downes
         ''
-        If (TypeOf ControlBeingMoved Is CtlGraphicFldLabel) Then
-            Const c_bCheckThatControlIsGrouped As Boolean = True ''8/5/2019 thomas downes
-            If (c_bCheckThatControlIsGrouped) Then ''8/5/2019 thomas downes
-                ''9/9 td''bControlMovedIsInGroup = LabelsList_IsItemIncluded(ControlBeingMoved)
-                bControlMovedIsInGroup = ElementsList_IsItemIncluded(CType(ControlBeingMoved, CtlGraphicFldLabel))
-                If (Not bControlMovedIsInGroup) Then Exit Sub
-            End If ''End of "If (c_bCheckThatControlIsGrouped) Then"
-        Else
-            ''
-            ''Perhaps the Portrait is being moved.   Don't allow other things to be 
-            ''  moved around as well.  ---8/5/2019 td
-            ''
-            Exit Sub
+        ''Jan11 2022 ''If (TypeOf ControlBeingMoved Is CtlGraphicFldLabel) Then
+        Const c_bCheckThatControlIsGrouped As Boolean = True ''8/5/2019 thomas downes
 
-        End If ''End of "If (TypeOf ControlBeingMoved Is CtlGraphicFldLabel) Then .... Else ...."
+        If (c_bCheckThatControlIsGrouped) Then ''8/5/2019 thomas downes
+            ''9/9 td''bControlMovedIsInGroup = LabelsList_IsItemIncluded(ControlBeingMoved)
+            bControlMovedIsInGroup = ElementsList_IsItemIncluded(CType(ControlBeingMoved, CtlGraphicFldLabel))
+            If (Not bControlMovedIsInGroup) Then Exit Sub
+
+        End If ''End of "If (c_bCheckThatControlIsGrouped) Then"
+
+        ''Jan11 2022 ''Else
+        ''    ''
+        ''    ''Perhaps the Portrait is being moved.   Don't allow other things to be 
+        ''    ''  moved around as well.  ---8/5/2019 td
+        ''    ''
+        ''    Exit Sub
+        ''
+        ''End If ''End of "If (TypeOf ControlBeingMoved Is CtlGraphicFldLabel) Then .... Else ...."
 
         ''
         ''The control being moved or resized is part of a group.   
@@ -2414,20 +2437,20 @@ Public Class ClassDesigner
         ''10/13/2019 td''If (boolResizedAFieldCtl) Then ''Added 9/14/2019 td
         If ((Not mc_boolMoveGrowInUnison) And boolResizedAFieldCtl) Then ''Added 9/14/2019 td
 
-            With mod_FieldControlLastTouched
+            With mod_RSCControlLastTouched
 
                 If (.Rotated_0degrees) Then
-                    .ElementInfo_Base.Width_Pixels = mod_FieldControlLastTouched.Width
-                    .ElementInfo_Base.Height_Pixels = mod_FieldControlLastTouched.Height
+                    .ElementInfo_Base.Width_Pixels = mod_RSCControlLastTouched.Width
+                    .ElementInfo_Base.Height_Pixels = mod_RSCControlLastTouched.Height
                 ElseIf (.Rotated_180_360) Then
-                    .ElementInfo_Base.Width_Pixels = mod_FieldControlLastTouched.Width
-                    .ElementInfo_Base.Height_Pixels = mod_FieldControlLastTouched.Height
+                    .ElementInfo_Base.Width_Pixels = mod_RSCControlLastTouched.Width
+                    .ElementInfo_Base.Height_Pixels = mod_RSCControlLastTouched.Height
                 ElseIf (.Rotated_90_270) Then
                     ''
                     ''---- POTENTIALLY CONFUSING -----
                     ''Switch them up !!  
-                    .ElementInfo_Base.Width_Pixels = mod_FieldControlLastTouched.Height
-                    .ElementInfo_Base.Height_Pixels = mod_FieldControlLastTouched.Width
+                    .ElementInfo_Base.Width_Pixels = mod_RSCControlLastTouched.Height
+                    .ElementInfo_Base.Height_Pixels = mod_RSCControlLastTouched.Width
                 End If ''End of "If (.Rotated_180_360) Then"
 
                 ''Added 9/12/2019 td  
@@ -2435,7 +2458,7 @@ Public Class ClassDesigner
                     If .FontSize_ScaleToElementYesNo Then
                         ''Change the Font Size, to account for the new Height of the Element !!
                         ''  ---9/12/2019 td 
-                        .FontSize_Pixels = CSng(mod_FieldControlLastTouched.Height * .FontSize_ScaleToElementRatio)
+                        .FontSize_Pixels = CSng(mod_RSCControlLastTouched.Height * .FontSize_ScaleToElementRatio)
                     End If ''End of "If .FontSize_ScaleToElementYesNo Then"
                 End With ''End of "With .ElementInfo_Text"
 
@@ -2470,7 +2493,7 @@ Public Class ClassDesigner
     End Sub ''End of "Private Sub MovingElement_End(par_control As Control)"
 
 
-    Private Sub SwitchControls_Down(par_ctl As CtlGraphicFldLabel) Implements ISelectingElements.SwitchControls_Down
+    Private Sub SwitchControls_Down(par_ctl As RSCMoveableControlVB) Implements ISelectingElements.SwitchControls_Down
         ''
         ''Added 8/15/2019 thomas downes  
         ''
@@ -2480,7 +2503,7 @@ Public Class ClassDesigner
 
     End Sub ''End of "Private Sub SwitchControls_Down(par_ctl As CtlGraphicFldLabel)"
 
-    Private Sub SwitchControls___Up(par_ctl As CtlGraphicFldLabel) Implements ISelectingElements.SwitchControls___Up
+    Private Sub SwitchControls___Up(par_ctl As RSCMoveableControlVB) Implements ISelectingElements.SwitchControls___Up
         ''
         ''Added 8/15/2019 thomas downes  
         ''
@@ -2488,9 +2511,9 @@ Public Class ClassDesigner
 
         SwitchWithOtherCtl(par_ctl, GetNextHigherControl(par_ctl))
 
-    End Sub ''End of "Private Sub SwitchWithNextHigher(par_ctl As CtlGraphicFldLabel)"
+    End Sub ''End of "Private Sub SwitchWithNextHigher(par_ctl As RSCMoveableControlVB)"
 
-    Private Sub SwitchWithOtherCtl(par_one As CtlGraphicFldLabel, par_two As CtlGraphicFldLabel)
+    Private Sub SwitchWithOtherCtl(par_one As RSCMoveableControlVB, par_two As RSCMoveableControlVB)
         ''
         ''Added 8/15/2019 thomas downes  
         ''
@@ -2507,17 +2530,17 @@ Public Class ClassDesigner
 
     End Sub ''End of "Private Sub SwitchWithOtherCtl(par_one As CtlGraphicFldLabel, par_two As .....)"
 
-    Private Function HasAtLeastOne_Down(par_ctl As CtlGraphicFldLabel) As Boolean Implements ISelectingElements.HasAtLeastOne_Down
+    Private Function HasAtLeastOne_Down(par_ctl As RSCMoveableControlVB) As Boolean Implements ISelectingElements.HasAtLeastOne_Down
         ''Added 8/15/2019 thomas downes  
         Return (GetNextLowerControl(par_ctl) IsNot Nothing)
     End Function
 
-    Private Function HasAtLeastOne____Up(par_ctl As CtlGraphicFldLabel) As Boolean Implements ISelectingElements.HasAtLeastOne__Up
+    Private Function HasAtLeastOne____Up(par_ctl As RSCMoveableControlVB) As Boolean Implements ISelectingElements.HasAtLeastOne__Up
         ''Added 8/15/2019 thomas downes  
         Return (GetNextHigherControl(par_ctl) IsNot Nothing)
     End Function
 
-    Private Function GetNextLowerControl(par_ctl As CtlGraphicFldLabel) As CtlGraphicFldLabel
+    Private Function GetNextLowerControl(par_ctl As RSCMoveableControlVB) As RSCMoveableControlVB
         ''
         ''Added 8/15/2019 thomas downes  
         ''
@@ -2532,7 +2555,7 @@ Public Class ClassDesigner
 
     End Function ''End of "Private Function GetNextLowerControl"
 
-    Private Function GetNextHigherControl(par_ctl As CtlGraphicFldLabel) As CtlGraphicFldLabel
+    Private Function GetNextHigherControl(par_ctl As RSCMoveableControlVB) As RSCMoveableControlVB
         ''
         ''Added 8/15/2019 thomas downes  
         ''
