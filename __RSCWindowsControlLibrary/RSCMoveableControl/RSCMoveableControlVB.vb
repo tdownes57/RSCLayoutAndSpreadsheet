@@ -195,6 +195,7 @@ Public Class RSCMoveableControlVB
     Private mod_objOperationsAny As Object ''Added 12/28/2021 td
     Private mod_typeOperations As Type ''Added 12/28/2021 td
     Private mod_enumElementType As EnumElementType ''Added 12/28/2021 td
+    Private Const mc_intMarginForResize As Integer = 10 ''Added 1/12/2022
 
     Public Sub New()
 
@@ -729,7 +730,12 @@ Public Class RSCMoveableControlVB
             ''Jan10 2022''                  mod_events, False, Me, False,
             ''Jan10 2022''                  mod_bHandleMouseMoveEvents_Monem)
             ''Jan11 2022''mod_moveInAGroup.Init(objPictureBox, Me, 10, c_bRepaintAfterResize,
-            mod_moveability_Monem.Init(objPictureBox, Me, 10, c_bRepaintAfterResize,
+
+            ''Jan11 2022 td''Const c_intMarginForResize As Integer = 10 ''Added 1/12/2022
+
+            mod_moveability_Monem.Init(objPictureBox, Me,
+                                       mc_intMarginForResize,
+                                       c_bRepaintAfterResize,
                                             par_objMoveEventsForGroupMove,
                                             par_objMoveEventsForSingleCtl,
                                             False, Me, False,
@@ -793,7 +799,11 @@ Public Class RSCMoveableControlVB
         ''1/4/2022 td''mod_moveResizeKeepRatio.Init(objPictureBox, Me, 10, c_bRepaintAfterResize,
         ''      mod_events, False, Me)
         ''1/11/2022 td''mod_moveResizeKeepRatio.Init(par_objPictureBox, Me, 10, par_bRepaintAfterResize,
-        mod_moveability_Monem.Init(par_objPictureBox, Me, 10, par_bRepaintAfterResize,
+
+        ''Jan11 2022''Const c_intMarginForResize As Integer = 10 ''Added 1/12/2022
+
+        mod_moveability_Monem.Init(par_objPictureBox, Me, mc_intMarginForResize,
+                                            par_bRepaintAfterResize,
                                             mod_eventsForGroupMove_NotNeeded,
                                             mod_eventsForSingleMove,
                                             False, Me, False,

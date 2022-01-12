@@ -609,7 +609,9 @@ namespace MoveAndResizeControls_Monem
         {
             //--Jan4 2022---private void MoveControl(Control par_control, MouseEventArgs e)
             //
-            if (!(_moving || _resizing)) return; //Added 1/11/2022 td 
+            //--(--Not needed, causes problems here (e.g. the Update functions
+            //--(--  are never called). ---1/12/2022 td 
+            //--if (!(_moving || _resizing)) return; //Added 1/11/2022 td 
 
             //Renamed 1/4/2022 td
             //Added 8/3/2019 thomas downes
@@ -664,8 +666,9 @@ namespace MoveAndResizeControls_Monem
                 //    MouseIsInTopEdge
                 //    MouseIsInBottomEdge
                 //
-                //---Might cause wiggles.---UpdateMouseEdgeProperties(par_controlG, new Point(par_e.X, par_e.Y));
-                //---Might cause wiggles.---UpdateMouseCursor(par_controlG);
+                UpdateMouseEdgeProperties(par_controlG, new Point(par_e.X, par_e.Y));
+                UpdateMouseCursor(par_controlG);
+                return; //Added 1/12/2022 td
             }
 
             if (_resizing)
@@ -898,6 +901,7 @@ namespace MoveAndResizeControls_Monem
             {
                 UpdateMouseEdgeProperties(par_controlH, new Point(e.X, e.Y));
                 UpdateMouseCursor(par_controlH);
+                return; //Added 1/12/2022 td
             }
             if (_resizing)
             {
