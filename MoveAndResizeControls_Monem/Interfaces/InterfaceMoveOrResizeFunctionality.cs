@@ -11,7 +11,8 @@ namespace MoveAndResizeControls_Monem //.Interfaces
     //
     //Added 12/28/2021 td 
     //
-    public interface IMoveOrResizeFunctionality // Dec28 2021 //InterfaceMoveOrResize
+    //Jan11 2022 td//public interface IMoveOrResizeFunctionality // Dec28 2021 //InterfaceMoveOrResize
+    public interface IMonemMoveOrResizeFunctionality // Dec28 2021 //InterfaceMoveOrResize
     {
         //
         //Added 12/28/2021 td 

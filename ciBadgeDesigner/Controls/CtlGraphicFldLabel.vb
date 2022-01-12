@@ -1255,35 +1255,44 @@ ExitHandler:
 
     End Sub
 
-    Private Sub pictureLabel_MouseDown(sender As Object, par_e As MouseEventArgs) Handles pictureLabel.MouseDown
+    Private Sub pictureLabel_MouseDown(par_sender As Object, par_e As MouseEventArgs) Handles pictureLabel.MouseDown
         ''
         ''Added 1/07/2022 td 
         ''
         If mod_bHandleMouseMoveEvents_ByForm Then
             If mod_bHandleMouseMoveEvents_ChildClass Then
-                MyBase.MoveableControl_MouseDown(Me, par_e)
+                ''----Nasty bug.  Don't use par_sender here. ---1/11/2022 td''
+                ''--MyBase.MoveableControl_MouseDown(par_sender, par_e)
+                Dim objParentControl As Control = Me ''Added 1/11/2022
+                MyBase.MoveableControl_MouseDown(objParentControl, par_e)
             End If
         End If
 
     End Sub
 
-    Private Sub pictureLabel_MouseMove(sender As Object, par_e As MouseEventArgs) Handles pictureLabel.MouseMove
+    Private Sub pictureLabel_MouseMove(par_sender As Object, par_e As MouseEventArgs) Handles pictureLabel.MouseMove
 
         If mod_bHandleMouseMoveEvents_ByForm Then
             If mod_bHandleMouseMoveEvents_ChildClass Then
                 ''Added 1/07/2022 thomas downes
-                MyBase.MoveableControl_MouseMove(Me, par_e)
+                ''----Nasty bug.  Don't use par_sender here. ---1/11/2022 td''
+                ''--MyBase.MoveableControl_MouseMove(par_sender, par_e)
+                Dim objParentControl As Control = Me ''Added 1/11/2022
+                MyBase.MoveableControl_MouseMove(objParentControl, par_e)
             End If
         End If
 
     End Sub
 
-    Private Sub pictureLabel_MouseUp(sender As Object, par_e As MouseEventArgs) Handles pictureLabel.MouseUp
+    Private Sub pictureLabel_MouseUp(par_sender As Object, par_e As MouseEventArgs) Handles pictureLabel.MouseUp
 
         If mod_bHandleMouseMoveEvents_ByForm Then
             If mod_bHandleMouseMoveEvents_ChildClass Then
                 ''Added 1/07/2022 thomas downes
-                MyBase.MoveableControl_MouseUp(Me, par_e)
+                ''----Nasty bug.  Don't use par_sender here. ---1/11/2022 td''
+                ''--MyBase.MoveableControl_MouseUp(par_sender, par_e)
+                Dim objParentControl As Control = Me ''Added 1/11/2022
+                MyBase.MoveableControl_MouseUp(objParentControl, par_e)
             End If
         End If
 

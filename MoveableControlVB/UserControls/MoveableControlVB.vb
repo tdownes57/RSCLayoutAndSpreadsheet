@@ -108,8 +108,8 @@ Public Class MoveableControlVB
     ''Let's rename. 12/28/2021 td''Private mod_resizeProportionally As ControlResizeProportionally_TD = Nothing
     ''Jan11 2022''Private mod_moveInAGroup As ControlMove_Group_NonStatic = Nothing
     ''Jan11 2022''Private mod_moveResizeKeepRatio As ControlResizeProportionally_TD = Nothing
-    Private mod_moveability As ControlMove_AllFunctionality = Nothing
-    Private mod_iMoveOrResizeFunctionality As IMoveOrResizeFunctionality ''InterfaceMoveOrResize ''Added 12/28/2021 td
+    Private mod_moveability As MonemControlMove_AllFunctionality = Nothing
+    Private mod_iMoveOrResizeFunctionality As IMonemMoveOrResizeFunctionality ''InterfaceMoveOrResize ''Added 12/28/2021 td
 
     ''[[Private WithEvents mod_eventsDesigner As New ciBadgeDesigner.ClassGroupMoveEvents ''InterfaceEvents
     ''[[Private WithEvents mod_eventsRSC As New __RSCWindowsControlLibrary.ClassGroupMoveEvents ''InterfaceEvents
@@ -354,7 +354,7 @@ Public Class MoveableControlVB
             ''Not needed. This command should happen at the form level. 1/3/2022 td''mod_eventsDesigner.LayoutFunctions = par_iLayoutFunctions ''Added 12/27/2021
 
             ''Jan11 2022''mod_moveResizeKeepRatio = New MoveAndResizeControls_Monem.ControlResizeProportionally_TD()
-            mod_moveability = New MoveAndResizeControls_Monem.ControlMove_AllFunctionality
+            mod_moveability = New MoveAndResizeControls_Monem.MonemControlMove_AllFunctionality
 
             ''Jan4 2022''mod_moveResizeKeepRatio.Init(Me, Me, 10, c_bRepaintAfterResize,
             ''              mod_eventsMove, False, Me)  ''1/2/2022 td''mod_iSaveToModel)
@@ -370,7 +370,7 @@ Public Class MoveableControlVB
         Else
 
             ''Jan11 2022''mod_moveInAGroup = New MoveAndResizeControls_Monem.ControlMove_Group_NonStatic()
-            mod_moveability = New MoveAndResizeControls_Monem.ControlMove_AllFunctionality()
+            mod_moveability = New MoveAndResizeControls_Monem.MonemControlMove_AllFunctionality()
 
             ''mod_iLayoutFunctions = par_iLayoutFunctions
             ''mod_movingInAGroup.LayoutFunctions = par_iLayoutFunctions

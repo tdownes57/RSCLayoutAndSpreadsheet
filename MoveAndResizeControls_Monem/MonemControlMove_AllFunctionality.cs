@@ -45,7 +45,7 @@ namespace MoveAndResizeControls_Monem
     //
     // Added 11/29/2021 thomas downes 
     //
-    public class ControlMove_AllFunctionality : IMoveOrResizeFunctionality // InterfaceMoveOrResize
+    public class MonemControlMove_AllFunctionality : IMonemMoveOrResizeFunctionality // InterfaceMoveOrResize
     {
         //ControlMove_Group_NonStatic : IMoveOrResizeFunctionality // InterfaceMoveOrResize
         //
@@ -560,9 +560,11 @@ namespace MoveAndResizeControls_Monem
             //    MouseIsInBottomEdge
             //
             // ''//''Might be causing moveability problems. Jan10 2022
-            // ==//UpdateMouseEdgeProperties(par_controlE, new Point(par_eMouse.X,
-            // ==//           ''   par_eMouse.Y));
+            UpdateMouseEdgeProperties(par_controlE, new Point(par_eMouse.X, par_eMouse.Y));
 
+            //
+            // Initiate resizing or moving, as the case may be. ---1/11/2022 td
+            //
             if (WorkType != MoveOrResize.Move &&
                 (MouseIsInRightEdge || MouseIsInLeftEdge || MouseIsInTopEdge || MouseIsInBottomEdge))
             {
@@ -602,18 +604,22 @@ namespace MoveAndResizeControls_Monem
 
         }
 
+
         public void MoveParentControl(Control par_controlParentF, MouseEventArgs e)
         {
             //--Jan4 2022---private void MoveControl(Control par_control, MouseEventArgs e)
             //
+            if (!(_moving || _resizing)) return; //Added 1/11/2022 td 
+
             //Renamed 1/4/2022 td
             //Added 8/3/2019 thomas downes
             //
             //   Should the PictureBox control be passed here (above parameter), or the user-control
-            //   which contains the PictureBox control??  The latter, let's pass the user-control
-            //   which is the Parent of the PictureBox. ---12/1/2021 td
+            //     which contains the PictureBox control??  The latter, let's pass the user-control
+            //     which is the Parent of the PictureBox. ---12/1/2021 td
             //
-            if (mod_events_groupedCtls != null)
+            // Jan11 2022 ''if (mod_events_groupedCtls != null)
+            if (mod_events_groupedCtls != null || mod_events_singleCtl != null)
             {
                 MoveControl_GroupMove(par_controlParentF, e);
 
@@ -621,14 +627,18 @@ namespace MoveAndResizeControls_Monem
                 mod_events_groupedCtls.Control_IsMoving();
 
             }
-            if (mod_events_groupedCtls == null) MoveControl_NoEvents(par_controlParentF, e);
+            if (mod_events_groupedCtls == null)
+            {
+                MoveControl_NoEvents(par_controlParentF, e);
+            }
 
             //Added 11/29/2021 td
             _controlCurrent = par_controlParentF;
 
         }
 
-        private void MoveControl_GroupMove(Control par_controlG, MouseEventArgs e)
+
+        private void MoveControl_GroupMove(Control par_controlG, MouseEventArgs par_e)
         {
             //
             //Modified 8/2/2019 thomas downes  
@@ -654,8 +664,8 @@ namespace MoveAndResizeControls_Monem
                 //    MouseIsInTopEdge
                 //    MouseIsInBottomEdge
                 //
-                UpdateMouseEdgeProperties(par_controlG, new Point(e.X, e.Y));
-                UpdateMouseCursor(par_controlG);
+                //---Might cause wiggles.---UpdateMouseEdgeProperties(par_controlG, new Point(par_e.X, par_e.Y));
+                //---Might cause wiggles.---UpdateMouseCursor(par_controlG);
             }
 
             if (_resizing)
@@ -664,27 +674,27 @@ namespace MoveAndResizeControls_Monem
                 {
                     if (MouseIsInTopEdge)
                     {
-                        par_controlG.Width -= (e.X - _cursorStartPoint.X);
-                        par_controlG.Left += (e.X - _cursorStartPoint.X);
-                        par_controlG.Height -= (e.Y - _cursorStartPoint.Y);
-                        par_controlG.Top += (e.Y - _cursorStartPoint.Y);
+                        par_controlG.Width -= (par_e.X - _cursorStartPoint.X);
+                        par_controlG.Left += (par_e.X - _cursorStartPoint.X);
+                        par_controlG.Height -= (par_e.Y - _cursorStartPoint.Y);
+                        par_controlG.Top += (par_e.Y - _cursorStartPoint.Y);
 
                         //Added 8/2/2019 thomas downes 
-                        delta_Width = -1 * (e.X - _cursorStartPoint.X);
-                        delta_Left = (e.X - _cursorStartPoint.X);
-                        delta_Height = -1 * (e.Y - _cursorStartPoint.Y);
-                        delta_Top = (e.Y - _cursorStartPoint.Y);
+                        delta_Width = -1 * (par_e.X - _cursorStartPoint.X);
+                        delta_Left = (par_e.X - _cursorStartPoint.X);
+                        delta_Height = -1 * (par_e.Y - _cursorStartPoint.Y);
+                        delta_Top = (par_e.Y - _cursorStartPoint.Y);
                     }
                     else if (MouseIsInBottomEdge)
                     {
-                        par_controlG.Width -= (e.X - _cursorStartPoint.X);
-                        par_controlG.Left += (e.X - _cursorStartPoint.X);
-                        par_controlG.Height = (e.Y - _cursorStartPoint.Y) + _currentControlStartSize.Height;
+                        par_controlG.Width -= (par_e.X - _cursorStartPoint.X);
+                        par_controlG.Left += (par_e.X - _cursorStartPoint.X);
+                        par_controlG.Height = (par_e.Y - _cursorStartPoint.Y) + _currentControlStartSize.Height;
 
                         //Added 8/2/2019 thomas downes 
-                        delta_Width = -1 * (e.X - _cursorStartPoint.X);
-                        delta_Left = (e.X - _cursorStartPoint.X);
-                        delta_Height = (e.Y - _cursorStartPoint.Y); // + _currentControlStartSize.Height;
+                        delta_Width = -1 * (par_e.X - _cursorStartPoint.X);
+                        delta_Left = (par_e.X - _cursorStartPoint.X);
+                        delta_Height = (par_e.Y - _cursorStartPoint.Y); // + _currentControlStartSize.Height;
 
                     }
                     else
@@ -694,36 +704,36 @@ namespace MoveAndResizeControls_Monem
                         //
                         bMouseIsInLeftEdge_Only = true; //Added 1/10/2022
 
-                        par_controlG.Width -= (e.X - _cursorStartPoint.X);
-                        par_controlG.Left += (e.X - _cursorStartPoint.X);
+                        par_controlG.Width -= (par_e.X - _cursorStartPoint.X);
+                        par_controlG.Left += (par_e.X - _cursorStartPoint.X);
 
                         //Added 8/2/2019 thomas downes 
-                        delta_Width = -1 * (e.X - _cursorStartPoint.X);
-                        delta_Left = (e.X - _cursorStartPoint.X);
+                        delta_Width = -1 * (par_e.X - _cursorStartPoint.X);
+                        delta_Left = (par_e.X - _cursorStartPoint.X);
                     }
                 }
                 else if (MouseIsInRightEdge)
                 {
                     if (MouseIsInTopEdge)
                     {
-                        par_controlG.Width = (e.X - _cursorStartPoint.X) + _currentControlStartSize.Width;
-                        par_controlG.Height -= (e.Y - _cursorStartPoint.Y);
-                        par_controlG.Top += (e.Y - _cursorStartPoint.Y);
+                        par_controlG.Width = (par_e.X - _cursorStartPoint.X) + _currentControlStartSize.Width;
+                        par_controlG.Height -= (par_e.Y - _cursorStartPoint.Y);
+                        par_controlG.Top += (par_e.Y - _cursorStartPoint.Y);
 
                         //Added 8/2/2019 thomas downes 
-                        delta_Width = (e.X - _cursorStartPoint.X); // + _currentControlStartSize.Width;
-                        delta_Height = -1 * (e.Y - _cursorStartPoint.Y);
-                        delta_Top = (e.Y - _cursorStartPoint.Y);
+                        delta_Width = (par_e.X - _cursorStartPoint.X); // + _currentControlStartSize.Width;
+                        delta_Height = -1 * (par_e.Y - _cursorStartPoint.Y);
+                        delta_Top = (par_e.Y - _cursorStartPoint.Y);
 
                     }
                     else if (MouseIsInBottomEdge)
                     {
-                        par_controlG.Width = (e.X - _cursorStartPoint.X) + _currentControlStartSize.Width;
-                        par_controlG.Height = (e.Y - _cursorStartPoint.Y) + _currentControlStartSize.Height;
+                        par_controlG.Width = (par_e.X - _cursorStartPoint.X) + _currentControlStartSize.Width;
+                        par_controlG.Height = (par_e.Y - _cursorStartPoint.Y) + _currentControlStartSize.Height;
 
                         //Added 8/2/2019 thomas downes 
-                        delta_Width = (e.X - _cursorStartPoint.X);  //+ _currentControlStartSize.Width;
-                        delta_Height = (e.Y - _cursorStartPoint.Y);  // + _currentControlStartSize.Height;
+                        delta_Width = (par_e.X - _cursorStartPoint.X);  //+ _currentControlStartSize.Width;
+                        delta_Height = (par_e.Y - _cursorStartPoint.Y);  // + _currentControlStartSize.Height;
                     }
                     else
                     {
@@ -732,10 +742,10 @@ namespace MoveAndResizeControls_Monem
                         //
                         bMouseIsInRightEdge_Only = true; //Added 1/10/2022
 
-                        par_controlG.Width = (e.X - _cursorStartPoint.X) + _currentControlStartSize.Width;
+                        par_controlG.Width = (par_e.X - _cursorStartPoint.X) + _currentControlStartSize.Width;
 
                         //Added 8/2/2019 thomas downes 
-                        delta_Width = (e.X - _cursorStartPoint.X); // + _currentControlStartSize.Width;
+                        delta_Width = (par_e.X - _cursorStartPoint.X); // + _currentControlStartSize.Width;
                     }
                 }
                 else if (MouseIsInTopEdge)
@@ -745,12 +755,12 @@ namespace MoveAndResizeControls_Monem
                     //
                     bMouseIsInTopEdge_Only = true; //Added 1/10/2022
 
-                    par_controlG.Height -= (e.Y - _cursorStartPoint.Y);
-                    par_controlG.Top += (e.Y - _cursorStartPoint.Y);
+                    par_controlG.Height -= (par_e.Y - _cursorStartPoint.Y);
+                    par_controlG.Top += (par_e.Y - _cursorStartPoint.Y);
 
                     //Added 8/2/2019 thomas downes 
-                    delta_Height = -1 * (e.Y - _cursorStartPoint.Y);
-                    delta_Top = (e.Y - _cursorStartPoint.Y);
+                    delta_Height = -1 * (par_e.Y - _cursorStartPoint.Y);
+                    delta_Top = (par_e.Y - _cursorStartPoint.Y);
                 }
                 else if (MouseIsInBottomEdge)
                 {
@@ -759,10 +769,10 @@ namespace MoveAndResizeControls_Monem
                     //
                     bMouseIsInBottomEdge_Only = true; //Added 1/10/2022
 
-                    par_controlG.Height = (e.Y - _cursorStartPoint.Y) + _currentControlStartSize.Height;
+                    par_controlG.Height = (par_e.Y - _cursorStartPoint.Y) + _currentControlStartSize.Height;
 
                     //Added 8/2/2019 thomas downes 
-                    delta_Height = (e.Y - _cursorStartPoint.Y);  //  + _currentControlStartSize.Height;
+                    delta_Height = (par_e.Y - _cursorStartPoint.Y);  //  + _currentControlStartSize.Height;
                 }
                 else
                 {
@@ -792,15 +802,23 @@ namespace MoveAndResizeControls_Monem
             else if (_moving)
             {
                 _moveIsInterNal = !_moveIsInterNal;
+
                 if (!_moveIsInterNal)
                 {
-                    int x = (e.X - _cursorStartPoint.X) + par_controlG.Left;
-                    int y = (e.Y - _cursorStartPoint.Y) + par_controlG.Top;
-                    par_controlG.Location = new Point(x, y);
+                    //
+                    // Calculate the new location !!!!!-----1/11/2022 td
+                    //
+                    int newLocation_x = (par_e.X - _cursorStartPoint.X) + par_controlG.Left;
+                    int newLocation_y = (par_e.Y - _cursorStartPoint.Y) + par_controlG.Top;
+
+                    //
+                    // Huge!!!!!!   Moves the control !!!!!!!
+                    //
+                    par_controlG.Location = new Point(newLocation_x, newLocation_y);
 
                     //Added 8/2/2019 thomas downes 
-                    delta_Left = (e.X - _cursorStartPoint.X);
-                    delta_Top = (e.Y - _cursorStartPoint.Y);
+                    delta_Left = (par_e.X - _cursorStartPoint.X);
+                    delta_Top = (par_e.Y - _cursorStartPoint.Y);
 
                     //Added 12/6/2021 td 
                     // Jan10 2022 td//mod_events.ControlBeingMoved(par_controlG);
@@ -828,7 +846,13 @@ namespace MoveAndResizeControls_Monem
                 // 1-10-2022 td//mod_events.GroupMove_Change(delta_Left, delta_Top, delta_Width, delta_Height);
                 mod_events_singleCtl.GroupMove_Change(delta_Left, delta_Top, delta_Width, delta_Height);
                 if (mod_events_groupedCtls != null)
+                {
                     mod_events_groupedCtls.GroupMove_Change(delta_Left, delta_Top, delta_Width, delta_Height);
+                }
+
+                // Added 1/11/2022 td
+                //===/===No, this should start at the MouseDown() event.----1/11/2022 td 
+                //=== _cursorStartPoint = new Point(par_e.X, par_e.Y);
 
             }
 

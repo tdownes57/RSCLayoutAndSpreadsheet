@@ -909,33 +909,57 @@ ExitHandler:
         Throw New NotImplementedException()
     End Sub
 
-    Private Sub CtlGraphicPortrait_MouseDown(sender As Object, e As MouseEventArgs) Handles Me.MouseDown
-        ''
-        ''Added 12/17/2021 td
-        ''
-        mod_formRecordLastTouched.RecordElementLastTouched(Me, Me)
-
-    End Sub
+    ''Private Sub CtlGraphicPortrait_MouseDown(sender As Object, e As MouseEventArgs) Handles Me.MouseDown
+    ''    ''
+    ''    ''Added 12/17/2021 td
+    ''    ''
+    ''    mod_formRecordLastTouched.RecordElementLastTouched(Me, Me)
+    ''
+    ''End Sub
 
     Private Sub picturePortrait_MouseDown(sender As Object, par_e As MouseEventArgs) Handles picturePortrait.MouseDown
         ''
         ''Added 1/07/2022 td 
         ''
-        MyBase.MoveableControl_MouseDown(Me, par_e)
+        ''Jan11 2022 td''MyBase.MoveableControl_MouseDown(Me, par_e)
+        If mod_bHandleMouseMoveEvents_ByForm Then
+            If mod_bHandleMouseMoveEvents_ChildClass Then
+                ''----Nasty bug.  Don't use par_sender here. ---1/11/2022 td''
+                ''--MyBase.MoveableControl_MouseDown(par_sender, par_e)
+                Dim objParentControl As Control = Me ''Added 1/11/2022
+                MyBase.MoveableControl_MouseDown(objParentControl, par_e)
+            End If
+        End If
 
     End Sub
 
     Private Sub picturePortrait_MouseMove(sender As Object, par_e As MouseEventArgs) Handles picturePortrait.MouseMove
 
         ''Added 1/07/2022 thomas downes
-        MyBase.MoveableControl_MouseMove(Me, par_e)
+        ''Jan11 2022''MyBase.MoveableControl_MouseMove(Me, par_e)
+        If mod_bHandleMouseMoveEvents_ByForm Then
+            If mod_bHandleMouseMoveEvents_ChildClass Then
+                ''----Nasty bug.  Don't use par_sender here. ---1/11/2022 td''
+                ''--MyBase.MoveableControl_MouseMove(par_sender, par_e)
+                Dim objParentControl As Control = Me ''Added 1/11/2022
+                MyBase.MoveableControl_MouseMove(objParentControl, par_e)
+            End If
+        End If
 
     End Sub
 
     Private Sub picturePortrait_MouseUp(sender As Object, par_e As MouseEventArgs) Handles picturePortrait.MouseUp
 
         ''Added 1/07/2022 thomas downes
-        MyBase.MoveableControl_MouseUp(Me, par_e)
+        ''Jan11 2022''MyBase.MoveableControl_MouseUp(Me, par_e)
+        If mod_bHandleMouseMoveEvents_ByForm Then
+            If mod_bHandleMouseMoveEvents_ChildClass Then
+                ''----Nasty bug.  Don't use par_sender here. ---1/11/2022 td''
+                ''--MyBase.MoveableControl_MouseUp(par_sender, par_e)
+                Dim objParentControl As Control = Me ''Added 1/11/2022
+                MyBase.MoveableControl_MouseUp(objParentControl, par_e)
+            End If
+        End If
 
     End Sub
 End Class ''End of Public Class CtlGraphicPortrait 

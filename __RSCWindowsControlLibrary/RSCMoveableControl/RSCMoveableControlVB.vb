@@ -169,10 +169,10 @@ Public Class RSCMoveableControlVB
     ''Jan10 2022''Private mod_moveInAGroup As ControlMove_Group_NonStatic = Nothing
     ''Jan10 2022''Private mod_moveResizeKeepRatio As ControlResizeProportionally_TD = Nothing
     ''Jan11 2022''Private mod_moveability_Monem As ControlMove_Group_NonStatic = Nothing
-    Private mod_moveability_Monem As ControlMove_AllFunctionality = Nothing
+    Private mod_moveability_Monem As MonemControlMove_AllFunctionality = Nothing
 
     ''Dec29 2021''Private mod_iMoveOrResize As InterfaceMoveOrResize ''Added 12/28/2021 td
-    Protected mod_iMoveOrResizeFunctionality As IMoveOrResizeFunctionality ''Added 12/28/2021 td
+    Protected mod_iMoveOrResizeFunctionality As IMonemMoveOrResizeFunctionality ''Added 12/28/2021 td
 
     ''1/3/2022 td''Private WithEvents mod_events As New GroupMoveEvents_Singleton ''InterfaceEvents
     ''Jan4 2022''Private WithEvents mod_events As GroupMoveEvents_Singleton ''InterfaceEvents
@@ -700,7 +700,7 @@ Public Class RSCMoveableControlVB
             ''We don't need to enforce "Proportionality", a constant Width-Height ratio. 
             ''
             ''Jan11 2022 td''mod_moveInAGroup = New MoveAndResizeControls_Monem.ControlMove_Group_NonStatic()
-            mod_moveability_Monem = New MoveAndResizeControls_Monem.ControlMove_AllFunctionality
+            mod_moveability_Monem = New MoveAndResizeControls_Monem.MonemControlMove_AllFunctionality
 
             ''mod_iLayoutFunctions = par_iLayoutFunctions
             ''mod_movingInAGroup.LayoutFunctions = par_iLayoutFunctions
@@ -769,7 +769,7 @@ Public Class RSCMoveableControlVB
 
         ''1/10/2022 td''mod_moveResizeKeepRatio = New MoveAndResizeControls_Monem.ControlResizeProportionally_TD()
         ''1/11/2022 td''mod_moveability_MonemClass = New MoveAndResizeControls_Monem.ControlMove_Group_NonStatic()
-        mod_moveability_Monem = New MoveAndResizeControls_Monem.ControlMove_AllFunctionality()
+        mod_moveability_Monem = New MoveAndResizeControls_Monem.MonemControlMove_AllFunctionality()
 
         ''#1 Jan4 2022 ''mod_moveResizeKeepRatio.Init(Me, Me, 10, c_bRepaintAfterResize,
         ''                mod_events, False, Me)
@@ -837,6 +837,7 @@ Public Class RSCMoveableControlVB
                         ''Step 1 of 2. We need to try to remove any existing handlers, likely implemented
                         ''   at design-time, to prevent ugly wiggling controls.  Looks unprofessional.
                         ''   ---January 11, 2022 thomas d.
+                        ''
                         RemoveHandler each_control.MouseDown, AddressOf MoveableControl_MouseDown
                         RemoveHandler each_control.MouseDown, AddressOf MoveableControl_MouseDown
                         RemoveHandler each_control.MouseMove, AddressOf MoveableControl_MouseMove
@@ -1011,15 +1012,14 @@ Public Class RSCMoveableControlVB
 
     End Sub
 
-    Private Sub mod_events_MovingInProgress(par_control As Control) Handles mod_eventsForSingleMove.Moving_InProgress
-        ''
-        ''Added 12/27/2021 td 
-        ''
-        ''---mod_iSaveToModel.SaveToModel()
-        ''---par_iSaveToModel.SaveToModel()
-        ''---mod_iSaveToModel.SaveToModel()
-
-    End Sub
+    ''Private Sub mod_events_MovingInProgress(par_control As Control) Handles mod_eventsForSingleMove.Moving_InProgress
+    ''    ''
+    ''    ''Added 12/27/2021 td 
+    ''    ''
+    ''    ''---mod_iSaveToModel.SaveToModel()
+    ''    ''---par_iSaveToModel.SaveToModel()
+    ''    ''---mod_iSaveToModel.SaveToModel()
+    ''End Sub
 
 
     Private Sub mod_events_MoveInUnison(deltaLeft As Integer, deltaTop As Integer, deltaWidth As Integer, deltaHeight As Integer) Handles mod_eventsForSingleMove.MoveInUnison
@@ -1040,8 +1040,21 @@ Public Class RSCMoveableControlVB
                               (deltaLeft <> 0 And deltaWidth = 0))
 
             If (boolMoving) Then
-                .Top += deltaTop
-                .Left += deltaLeft
+                ''If (deltaTop > 5) Then System.Diagnostics.Debugger.Break()
+                ''If (deltaTop < -5) Then System.Diagnostics.Debugger.Break()
+
+                Const c_bMonemWritesToControlLocation As Boolean = True ''Added 1/11/2022 td
+                If (c_bMonemWritesToControlLocation) Then
+                    ''
+                    '' We don't need to change the Location (.Top, .Left) here,
+                    '' since the Monem class writes to the .Location property
+                    '' ("par_controlG.Location = new Point(newLocation_x, newLocation_y);")
+                    '' !!! --1/11/2022 td
+                    ''
+                Else
+                    .Top += deltaTop
+                    .Left += deltaLeft
+                End If ''end of "If (c_bMonem.....) ... Else ...."
             End If ''End if ''End of "If (boolMoving) Then"
 
             ''8/5/2019 TD''.Width += DeltaWidth
@@ -1383,8 +1396,15 @@ Public Class RSCMoveableControlVB
                     Dim bDummy As Boolean = True
                 End If ''End of "If (.NowInMotion()) Then"
 
-                ''Let the module know that a MouseMove took place. 
-                mod_iMoveOrResizeFunctionality.MoveParentControl(CType(sender, Control), par_e)
+                ''
+                ''Let the Monem module know that a MouseMove took place.
+                ''
+                ''---{---Nasty bug!!!!!!! 1/11/2022 td
+                ''---{mod_iMoveOrResizeFunctionality.MoveParentControl(CType(sender, Control), par_e)
+
+                Dim objParentControl As Control ''Added 1/11/20222
+                objParentControl = Me ''Added 1/11/20222
+                mod_iMoveOrResizeFunctionality.MoveParentControl(objParentControl, par_e)
 
             End With ''End of "With mod_iMoveOrResizeFunctionality"
 
@@ -1415,5 +1435,18 @@ Public Class RSCMoveableControlVB
 
     End Sub ''End of Protected Sub MoveableControl_MouseUp
 
+    Private Sub mod_eventsForSingleMove_ControlIsMoving() Handles mod_eventsForSingleMove.ControlIsMoving
 
+    End Sub
+
+    Private Sub RSCMoveableControlVB_Move(sender As Object, e As EventArgs) ''Handles Me.Move
+
+        ''Static static_iTop As Integer = Me.Top
+
+        ''If (Me.Top < static_iTop) Then System.Diagnostics.Debugger.Break()
+
+        ''static_iTop = Me.Top
+
+
+    End Sub
 End Class
