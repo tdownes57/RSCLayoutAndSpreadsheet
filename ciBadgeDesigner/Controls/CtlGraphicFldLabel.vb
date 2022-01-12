@@ -119,7 +119,7 @@ Public Class CtlGraphicFldLabel
     Public ElementClass_Obj As ClassElementField ''Added 9/4/2019 thomas downes
     ''Jan5 2022''Public ElementClass_Obj_Copy As ClassElementField ''Added 1/05/2022 thomas downes
     Public ElementInfo_TextOnly As ciBadgeInterfaces.IElement_TextOnly ''Modifield 10/12/2019
-    Public ElementInfo_Base As ciBadgeInterfaces.IElement_Base
+    ''1/12/2022 td''Public ElementInfo_Base As ciBadgeInterfaces.IElement_Base
     ''12/31/2021 td''Public ElementInfo_Field As ciBadgeInterfaces.IElement_TextField ''Added 10/12/2019 td
     Public ElementInfo_TextField As ciBadgeInterfaces.IElement_TextField ''Added 12/31/2021 td
 
@@ -817,7 +817,7 @@ ExitHandler:
 
     End Function ''End of "Public Function Rotated_90_270() As Boolean"
 
-    Public Function Rotated_0degrees() As Boolean
+    Public Overrides Function Rotated_0degrees() As Boolean
         ''
         ''Added 9/23/2019 thomas d.  
         ''

@@ -204,7 +204,7 @@ Public MustInherit Class RSCMoveableControlVB
     Protected mod_eventsForGroupMove_NotNeeded As GroupMoveEvents_Singleton ''InterfaceEvents
     Protected WithEvents mod_eventsForSingleMove As GroupMoveEvents_Singleton ''InterfaceEvents
 
-    Protected ElementInfo_Base As ciBadgeInterfaces.IElement_Base ''Added 1/10/2022 thomas d.
+    Public ElementInfo_Base As ciBadgeInterfaces.IElement_Base ''Added 1/10/2022 thomas d.
 
     ''#1 Jan2 2022''Private mod_iSaveToModel As ISaveToModel 
     ''#2 Jan2 2022''Private mod_iSaveToModel_Deprecated As ISaveToModel = New ClassSaveToModel() ''Suffixed _Deprecated 1/2/2022 td
@@ -1520,5 +1520,11 @@ Public MustInherit Class RSCMoveableControlVB
     End Sub
 
     ''Jan12 2022 td''Public MustOverride Function ImageForBadgeImage(par_recipient As IRecipient) As Image Implements IElement_Base.ImageForBadgeImage
+
+    ''Added 1/12/2022 td
+    Public MustOverride Function Rotated_0degrees() As Boolean ''Added 1/12/2022 td
+    Public MustOverride Function Rotated_180_360() As Boolean ''Added 1/12/2022 td
+    Public MustOverride Function Rotated_90_270() As Boolean ''Added 1/12/2022 td
+    ''1/12/2022 td''Public ElementInfo_Base As IElement_Base ''Added 1/12/2022 td 
 
 End Class

@@ -2454,13 +2454,15 @@ Public Class ClassDesigner
                 End If ''End of "If (.Rotated_180_360) Then"
 
                 ''Added 9/12/2019 td  
-                With .ElementInfo_TextOnly ''Jan11 2022 ''With .ElementInfo_Text
-                    If .FontSize_ScaleToElementYesNo Then
-                        ''Change the Font Size, to account for the new Height of the Element !!
-                        ''  ---9/12/2019 td 
-                        .FontSize_Pixels = CSng(mod_RSCControlLastTouched.Height * .FontSize_ScaleToElementRatio)
-                    End If ''End of "If .FontSize_ScaleToElementYesNo Then"
-                End With ''End of "With .ElementInfo_Text"
+                If (TypeOf mod_RSCControlLastTouched Is ICtlElement_TextAny) Then ''Added 1/12/2022
+                    With .ElementInfo_TextOnly ''Jan11 2022 ''With .ElementInfo_Text
+                        If .FontSize_ScaleToElementYesNo Then
+                            ''Change the Font Size, to account for the new Height of the Element !!
+                            ''  ---9/12/2019 td 
+                            .FontSize_Pixels = CSng(mod_RSCControlLastTouched.Height * .FontSize_ScaleToElementRatio)
+                        End If ''End of "If .FontSize_ScaleToElementYesNo Then"
+                    End With ''End of "With .ElementInfo_Text"
+                End If ''End of "If (TypeOf mod_RSCControlLastTouched Is ICtlElement_Text) Then"
 
                 .Refresh_Image(True)
 

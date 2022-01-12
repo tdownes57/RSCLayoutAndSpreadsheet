@@ -69,6 +69,7 @@
     <Compile Include="AClassOrTwo\ClassFixTheControlWidth.vb" />
     <Compile Include="Enums\ModuleEnums.vb" />
     <Compile Include="Events\GroupMoveEvents_Singleton.vb" />
+    <Compile Include="InterfaceCtlElement_TextAny.vb" />
     <Compile Include="InterfaceMoveEvents.vb" />
     <Compile Include="InterfaceQRCode.vb" />
     <Compile Include="InterfaceSaveToModel.vb" />
@@ -76,7 +77,7 @@
     <Compile Include="InterfaceBadgeLayoutDimensions.vb" />
     <Compile Include="InterfaceCIBField.vb" />
     <Compile Include="InterfaceCIVisit.vb" />
-    <Compile Include="InterfaceCtlElementField.vb" />
+    <Compile Include="InterfaceCtlElement_Field.vb" />
     <Compile Include="InterfaceCustomer.vb" />
     <Compile Include="InterfaceElementBase.vb" />
     <Compile Include="InterfaceElementPic.vb" />
