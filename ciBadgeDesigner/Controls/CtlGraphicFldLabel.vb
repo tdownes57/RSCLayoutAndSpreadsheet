@@ -1246,6 +1246,7 @@ ExitHandler:
 
     End Sub
 
+
     Private mod_formRecordLastTouched As IRecordElementLastTouched ''Added 12/17/2021 td
     Private Sub CtlGraphicFldLabel_MouseDown(sender As Object, e As MouseEventArgs) Handles Me.MouseDown
         ''
@@ -1255,11 +1256,38 @@ ExitHandler:
 
     End Sub
 
+
+    Public Overrides Sub RemoveMouseEventHandlers_ChildClass()
+        ''
+        ''Added 1/12/2022 
+        ''
+        RemoveHandler pictureLabel.MouseDown, AddressOf pictureLabel_MouseDown
+        RemoveHandler pictureLabel.MouseMove, AddressOf pictureLabel_MouseMove
+        RemoveHandler pictureLabel.MouseUp, AddressOf pictureLabel_MouseUp
+
+    End Sub ''End of "Public Overrides Sub RemoveMouseEventHandlers()"
+
+
+    Public Overrides Sub AddMouseEventHandlers_ChildClass()
+        ''
+        ''Added 1/12/2022 
+        ''
+        RemoveHandler pictureLabel.MouseDown, AddressOf pictureLabel_MouseDown
+        RemoveHandler pictureLabel.MouseMove, AddressOf pictureLabel_MouseMove
+        RemoveHandler pictureLabel.MouseUp, AddressOf pictureLabel_MouseUp
+
+        AddHandler pictureLabel.MouseDown, AddressOf pictureLabel_MouseDown
+        AddHandler pictureLabel.MouseMove, AddressOf pictureLabel_MouseMove
+        AddHandler pictureLabel.MouseUp, AddressOf pictureLabel_MouseUp
+
+    End Sub ''End of "Public Overrides Sub AddMouseEventHandlers()"
+
+
     Private Sub pictureLabel_MouseDown(par_sender As Object, par_e As MouseEventArgs) Handles pictureLabel.MouseDown
         ''
         ''Added 1/07/2022 td 
         ''
-        If mod_bHandleMouseMoveEvents_ByForm Then
+        If mod_bHandleMouseMoveEvents_ByVB6 Then
             If mod_bHandleMouseMoveEvents_ChildClass Then
                 ''----Nasty bug.  Don't use par_sender here. ---1/11/2022 td''
                 ''--MyBase.MoveableControl_MouseDown(par_sender, par_e)
@@ -1272,7 +1300,7 @@ ExitHandler:
 
     Private Sub pictureLabel_MouseMove(par_sender As Object, par_e As MouseEventArgs) Handles pictureLabel.MouseMove
 
-        If mod_bHandleMouseMoveEvents_ByForm Then
+        If mod_bHandleMouseMoveEvents_ByVB6 Then
             If mod_bHandleMouseMoveEvents_ChildClass Then
                 ''Added 1/07/2022 thomas downes
                 ''----Nasty bug.  Don't use par_sender here. ---1/11/2022 td''
@@ -1286,7 +1314,7 @@ ExitHandler:
 
     Private Sub pictureLabel_MouseUp(par_sender As Object, par_e As MouseEventArgs) Handles pictureLabel.MouseUp
 
-        If mod_bHandleMouseMoveEvents_ByForm Then
+        If mod_bHandleMouseMoveEvents_ByVB6 Then
             If mod_bHandleMouseMoveEvents_ChildClass Then
                 ''Added 1/07/2022 thomas downes
                 ''----Nasty bug.  Don't use par_sender here. ---1/11/2022 td''

@@ -61,8 +61,6 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ciBadgeCachePersonality", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Can_HashSets_Be_Serialized", "Can_HashSets_Be_Serialized\Can_HashSets_Be_Serialized.csproj", "{6A203802-4B73-4C03-B30D-B206CB677945}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoveableControlTestCS_NotInUse", "MoveableControlTest\MoveableControlTestCS_NotInUse.csproj", "{88B665E0-1C79-44E3-A4C0-6855C2D847E1}"
-EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "MoveableControlTestVB", "MoveableControlVB\MoveableControlTestVB.vbproj", "{74050388-F6C4-4E0A-BA5C-ADB0BD403C95}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "__RSC ID Web Application", "__RSC ID Web Application\__RSC ID Web Application.vbproj", "{CD8E53D2-B177-494B-AE08-1CEEF98E43D7}"
@@ -313,14 +311,6 @@ Global
 		{6A203802-4B73-4C03-B30D-B206CB677945}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6A203802-4B73-4C03-B30D-B206CB677945}.Release|x86.ActiveCfg = Release|Any CPU
 		{6A203802-4B73-4C03-B30D-B206CB677945}.Release|x86.Build.0 = Release|Any CPU
-		{88B665E0-1C79-44E3-A4C0-6855C2D847E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{88B665E0-1C79-44E3-A4C0-6855C2D847E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{88B665E0-1C79-44E3-A4C0-6855C2D847E1}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{88B665E0-1C79-44E3-A4C0-6855C2D847E1}.Debug|x86.Build.0 = Debug|Any CPU
-		{88B665E0-1C79-44E3-A4C0-6855C2D847E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{88B665E0-1C79-44E3-A4C0-6855C2D847E1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{88B665E0-1C79-44E3-A4C0-6855C2D847E1}.Release|x86.ActiveCfg = Release|Any CPU
-		{88B665E0-1C79-44E3-A4C0-6855C2D847E1}.Release|x86.Build.0 = Release|Any CPU
 		{74050388-F6C4-4E0A-BA5C-ADB0BD403C95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{74050388-F6C4-4E0A-BA5C-ADB0BD403C95}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74050388-F6C4-4E0A-BA5C-ADB0BD403C95}.Debug|x86.ActiveCfg = Debug|Any CPU

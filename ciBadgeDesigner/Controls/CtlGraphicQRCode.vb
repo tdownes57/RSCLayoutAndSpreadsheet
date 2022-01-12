@@ -852,7 +852,7 @@ ExitHandler:
 
         ''Added 1/3/2022 thomas downes
         ''Jan11 2022''MyBase.MoveableControl_MouseMove(Me, par_e)
-        If mod_bHandleMouseMoveEvents_ByForm Then
+        If mod_bHandleMouseMoveEvents_ByVB6 Then
             If mod_bHandleMouseMoveEvents_ChildClass Then
                 ''----Nasty bug.  Don't use par_sender here. ---1/11/2022 td''
                 ''--MyBase.MoveableControl_MouseMove(par_sender, par_e)
@@ -869,7 +869,7 @@ ExitHandler:
         ''
         ''---MyBase.MoveableControl_MouseDown(sender, par_e)
         ''Jan11 2022''MyBase.MoveableControl_MouseDown(Me, par_e)
-        If mod_bHandleMouseMoveEvents_ByForm Then
+        If mod_bHandleMouseMoveEvents_ByVB6 Then
             If mod_bHandleMouseMoveEvents_ChildClass Then
                 ''----Nasty bug.  Don't use par_sender here. ---1/11/2022 td''
                 ''--MyBase.MoveableControl_MouseDown(par_sender, par_e)
@@ -886,7 +886,7 @@ ExitHandler:
         ''
         ''---MyBase.MoveableControl_MouseUp(sender, par_e)
         ''Jan11 2022MyBase.MoveableControl_MouseUp(Me, par_e)
-        If mod_bHandleMouseMoveEvents_ByForm Then
+        If mod_bHandleMouseMoveEvents_ByVB6 Then
             If mod_bHandleMouseMoveEvents_ChildClass Then
                 ''----Nasty bug.  Don't use par_sender here. ---1/11/2022 td''
                 ''--MyBase.MoveableControl_MouseUp(par_sender, par_e)
@@ -896,6 +896,32 @@ ExitHandler:
         End If
 
     End Sub
+
+
+    Public Overrides Sub RemoveMouseEventHandlers_ChildClass()
+        ''
+        ''Added 1/12/2022 
+        ''
+        RemoveHandler pictureQRCode.MouseDown, AddressOf pictureQRCode_MouseDown
+        RemoveHandler pictureQRCode.MouseMove, AddressOf pictureQRCode_MouseMove
+        RemoveHandler pictureQRCode.MouseUp, AddressOf pictureQRCode_MouseUp
+
+    End Sub ''End of "Public Overrides Sub RemoveMouseEventHandlers()"
+
+
+    Public Overrides Sub AddMouseEventHandlers_ChildClass()
+        ''
+        ''Added 1/12/2022 
+        ''
+        RemoveHandler pictureQRCode.MouseDown, AddressOf pictureQRCode_MouseDown
+        RemoveHandler pictureQRCode.MouseMove, AddressOf pictureQRCode_MouseMove
+        RemoveHandler pictureQRCode.MouseUp, AddressOf pictureQRCode_MouseUp
+
+        AddHandler pictureQRCode.MouseDown, AddressOf pictureQRCode_MouseDown
+        AddHandler pictureQRCode.MouseMove, AddressOf pictureQRCode_MouseMove
+        AddHandler pictureQRCode.MouseUp, AddressOf pictureQRCode_MouseUp
+
+    End Sub ''End of "Public Overrides Sub AddMouseEventHandlers()"
 
 
 End Class ''End of Public Class CtlGraphicQRCode 

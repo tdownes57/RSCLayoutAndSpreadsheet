@@ -103,5 +103,29 @@ Public Class SimpleChildOfRSCControl2
     End Sub
 
 
+    Public Overrides Sub RemoveMouseEventHandlers_ChildClass()
+        ''
+        ''Added 1/12/2022 
+        ''
+        ''RemoveHandler pictureLabel.MouseDown, AddressOf pictureLabel_MouseDown
+        ''RemoveHandler pictureLabel.MouseMove, AddressOf pictureLabel_MouseMove
+        ''RemoveHandler pictureLabel.MouseUp, AddressOf pictureLabel_MouseUp
+
+    End Sub ''End of "Public Overrides Sub RemoveMouseEventHandlers()"
+
+
+    Public Overrides Sub AddMouseEventHandlers_ChildClass()
+        ''
+        ''Added 1/12/2022 
+        ''
+        ''RemoveHandler pictureLabel.MouseDown, AddressOf pictureLabel_MouseDown
+        ''RemoveHandler pictureLabel.MouseMove, AddressOf pictureLabel_MouseMove
+        ''RemoveHandler pictureLabel.MouseUp, AddressOf pictureLabel_MouseUp
+
+        ''AddHandler pictureLabel.MouseDown, AddressOf pictureLabel_MouseDown
+        ''AddHandler pictureLabel.MouseMove, AddressOf pictureLabel_MouseMove
+        ''AddHandler pictureLabel.MouseUp, AddressOf pictureLabel_MouseUp
+
+    End Sub ''End of "Public Overrides Sub AddMouseEventHandlers()"
 
 End Class

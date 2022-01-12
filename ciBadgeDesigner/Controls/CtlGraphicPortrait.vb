@@ -922,7 +922,7 @@ ExitHandler:
         ''Added 1/07/2022 td 
         ''
         ''Jan11 2022 td''MyBase.MoveableControl_MouseDown(Me, par_e)
-        If mod_bHandleMouseMoveEvents_ByForm Then
+        If mod_bHandleMouseMoveEvents_ByVB6 Then
             If mod_bHandleMouseMoveEvents_ChildClass Then
                 ''----Nasty bug.  Don't use par_sender here. ---1/11/2022 td''
                 ''--MyBase.MoveableControl_MouseDown(par_sender, par_e)
@@ -937,7 +937,7 @@ ExitHandler:
 
         ''Added 1/07/2022 thomas downes
         ''Jan11 2022''MyBase.MoveableControl_MouseMove(Me, par_e)
-        If mod_bHandleMouseMoveEvents_ByForm Then
+        If mod_bHandleMouseMoveEvents_ByVB6 Then
             If mod_bHandleMouseMoveEvents_ChildClass Then
                 ''----Nasty bug.  Don't use par_sender here. ---1/11/2022 td''
                 ''--MyBase.MoveableControl_MouseMove(par_sender, par_e)
@@ -952,7 +952,7 @@ ExitHandler:
 
         ''Added 1/07/2022 thomas downes
         ''Jan11 2022''MyBase.MoveableControl_MouseUp(Me, par_e)
-        If mod_bHandleMouseMoveEvents_ByForm Then
+        If mod_bHandleMouseMoveEvents_ByVB6 Then
             If mod_bHandleMouseMoveEvents_ChildClass Then
                 ''----Nasty bug.  Don't use par_sender here. ---1/11/2022 td''
                 ''--MyBase.MoveableControl_MouseUp(par_sender, par_e)
@@ -962,5 +962,33 @@ ExitHandler:
         End If
 
     End Sub
+
+
+    Public Overrides Sub RemoveMouseEventHandlers_ChildClass()
+        ''
+        ''Added 1/12/2022 
+        ''
+        RemoveHandler picturePortrait.MouseDown, AddressOf picturePortrait_MouseDown
+        RemoveHandler picturePortrait.MouseMove, AddressOf picturePortrait_MouseMove
+        RemoveHandler picturePortrait.MouseUp, AddressOf picturePortrait_MouseUp
+
+    End Sub ''End of "Protected Overrides Sub RemoveMouseEventHandlers()"
+
+
+    Public Overrides Sub AddMouseEventHandlers_ChildClass()
+        ''
+        ''Added 1/12/2022 
+        ''
+        RemoveHandler picturePortrait.MouseDown, AddressOf picturePortrait_MouseDown
+        RemoveHandler picturePortrait.MouseMove, AddressOf picturePortrait_MouseMove
+        RemoveHandler picturePortrait.MouseUp, AddressOf picturePortrait_MouseUp
+
+        AddHandler picturePortrait.MouseDown, AddressOf picturePortrait_MouseDown
+        AddHandler picturePortrait.MouseMove, AddressOf picturePortrait_MouseMove
+        AddHandler picturePortrait.MouseUp, AddressOf picturePortrait_MouseUp
+
+    End Sub ''End of "Protected Overrides Sub AddMouseEventHandlers()"
+
+
 End Class ''End of Public Class CtlGraphicPortrait 
 

@@ -10,7 +10,7 @@ Imports ciBadgeDesigner ''Added 12/27/2021 td
 ''
 ''Added 12/22/2021 td  
 ''
-Public Class RSCMoveableControlVB
+Public MustInherit Class RSCMoveableControlVB
     Implements ISaveToModel ''Added 1/2/2022 td 
 
     ''
@@ -18,94 +18,94 @@ Public Class RSCMoveableControlVB
     ''
     Public Shared LastControlTouched_Deprecated As RSCMoveableControlVB
 
-    Public Shared Function GetControl(par_enum As EnumElementType,
-                                      par_nameOfControl As String,
-                                      par_iLayoutFun As ILayoutFunctions,
-                                      par_bProportionSizing As Boolean,
-                                par_iControlLastTouched As ILastControlTouched,
-                                      par_oMoveEventsFromForm As GroupMoveEvents_Singleton,
-                           Optional par_ratioWH_ifApplicable As Single = 0,
-                           Optional pbHandleMouseEventsThroughFormVB6 As Boolean = True) As RSCMoveableControlVB
-        ''                      ''Jan2 2022 td''  par_iSaveToModel As ISaveToModel,
-        ''                      ''Dec29 2021 td'' par_designer As ClassDesigner,
-        ''
-        ''Added 12/29/2021 td
-        ''
-        Const bAddFunctionalitySooner As Boolean = False
-        Const bAddFunctionalityLater As Boolean = True
+    ''Jan11 2022 td''Public Shared Function GetControl(par_enum As EnumElementType,
+    ''                                  par_nameOfControl As String,
+    ''                                  par_iLayoutFun As ILayoutFunctions,
+    ''                                  par_bProportionSizing As Boolean,
+    ''                            par_iControlLastTouched As ILastControlTouched,
+    ''                                  par_oMoveEventsFromForm As GroupMoveEvents_Singleton,
+    ''                       Optional par_ratioWH_ifApplicable As Single = 0,
+    ''                       Optional pbHandleMouseEventsThroughVB6 As Boolean = True) As RSCMoveableControlVB
+    ''    ''                      ''Jan2 2022 td''  par_iSaveToModel As ISaveToModel,
+    ''    ''                      ''Dec29 2021 td'' par_designer As ClassDesigner,
+    ''    ''
+    ''    ''Added 12/29/2021 td
+    ''    ''
+    ''    Const bAddFunctionalitySooner As Boolean = False
+    ''    Const bAddFunctionalityLater As Boolean = True
 
-        Dim typeOps As Type
-        Dim objOperations As Object ''Added 12/29/2021 td 
-        Dim objOperations1Gen As Operations__Generic = Nothing
-        Dim objOperations2Use As Operations__Useless = Nothing
+    ''    Dim typeOps As Type
+    ''    Dim objOperations As Object ''Added 12/29/2021 td 
+    ''    Dim objOperations1Gen As Operations__Generic = Nothing
+    ''    Dim objOperations2Use As Operations__Useless = Nothing
 
-        ''Instantiate the Operations Object. 
-        If (par_enum = EnumElementType.Field) Then objOperations1Gen = New Operations__Generic()
-        If (par_enum = EnumElementType.Portrait) Then objOperations2Use = New Operations__Useless()
-        If (par_enum = EnumElementType.QRCode) Then objOperations1Gen = New Operations__Generic()
-        If (par_enum = EnumElementType.Signature) Then objOperations2Use = New Operations__Useless()
-        If (par_enum = EnumElementType.StaticGraphic) Then objOperations1Gen = New Operations__Generic()
-        If (par_enum = EnumElementType.StaticText) Then objOperations2Use = New Operations__Useless()
+    ''    ''Instantiate the Operations Object. 
+    ''    If (par_enum = EnumElementType.Field) Then objOperations1Gen = New Operations__Generic()
+    ''    If (par_enum = EnumElementType.Portrait) Then objOperations2Use = New Operations__Useless()
+    ''    If (par_enum = EnumElementType.QRCode) Then objOperations1Gen = New Operations__Generic()
+    ''    If (par_enum = EnumElementType.Signature) Then objOperations2Use = New Operations__Useless()
+    ''    If (par_enum = EnumElementType.StaticGraphic) Then objOperations1Gen = New Operations__Generic()
+    ''    If (par_enum = EnumElementType.StaticText) Then objOperations2Use = New Operations__Useless()
 
-        ''Assign to typeOps. 
-        If (par_enum = EnumElementType.Field) Then typeOps = objOperations1Gen.GetType()
-        If (par_enum = EnumElementType.Portrait) Then typeOps = objOperations2Use.GetType()
-        If (par_enum = EnumElementType.QRCode) Then typeOps = objOperations1Gen.GetType()
-        If (par_enum = EnumElementType.Signature) Then typeOps = objOperations2Use.GetType()
-        If (par_enum = EnumElementType.StaticGraphic) Then typeOps = objOperations1Gen.GetType()
-        If (par_enum = EnumElementType.StaticText) Then typeOps = objOperations2Use.GetType()
+    ''    ''Assign to typeOps. 
+    ''    If (par_enum = EnumElementType.Field) Then typeOps = objOperations1Gen.GetType()
+    ''    If (par_enum = EnumElementType.Portrait) Then typeOps = objOperations2Use.GetType()
+    ''    If (par_enum = EnumElementType.QRCode) Then typeOps = objOperations1Gen.GetType()
+    ''    If (par_enum = EnumElementType.Signature) Then typeOps = objOperations2Use.GetType()
+    ''    If (par_enum = EnumElementType.StaticGraphic) Then typeOps = objOperations1Gen.GetType()
+    ''    If (par_enum = EnumElementType.StaticText) Then typeOps = objOperations2Use.GetType()
 
-        ''Assign to objOperations. 
-        If (par_enum = EnumElementType.Field) Then objOperations = objOperations1Gen
-        If (par_enum = EnumElementType.Portrait) Then objOperations = objOperations2Use
-        If (par_enum = EnumElementType.QRCode) Then objOperations = objOperations1Gen
-        If (par_enum = EnumElementType.Signature) Then objOperations = objOperations2Use
-        If (par_enum = EnumElementType.StaticGraphic) Then objOperations = objOperations1Gen
-        If (par_enum = EnumElementType.StaticText) Then objOperations = objOperations2Use
+    ''    ''Assign to objOperations. 
+    ''    If (par_enum = EnumElementType.Field) Then objOperations = objOperations1Gen
+    ''    If (par_enum = EnumElementType.Portrait) Then objOperations = objOperations2Use
+    ''    If (par_enum = EnumElementType.QRCode) Then objOperations = objOperations1Gen
+    ''    If (par_enum = EnumElementType.Signature) Then objOperations = objOperations2Use
+    ''    If (par_enum = EnumElementType.StaticGraphic) Then objOperations = objOperations1Gen
+    ''    If (par_enum = EnumElementType.StaticText) Then objOperations = objOperations2Use
 
-        If (objOperations Is Nothing) Then
-            ''Added 12/29/2021
-            Throw New Exception("Ops is Nothing, so I guess Element Type is Undetermined.")
-        End If ''end of "If (objOperations Is Nothing) Then"
+    ''    If (objOperations Is Nothing) Then
+    ''        ''Added 12/29/2021
+    ''        Throw New Exception("Ops is Nothing, so I guess Element Type is Undetermined.")
+    ''    End If ''end of "If (objOperations Is Nothing) Then"
 
-        ''Create the control. 
-        Dim MoveableControlVB1 = New RSCMoveableControlVB(par_enum, par_bProportionSizing,
-                                                   par_iLayoutFun,
-                                                   typeOps,
-                                                   objOperations,
-                                                   bAddFunctionalitySooner,
-                                                   bAddFunctionalitySooner,
-                                                   par_iControlLastTouched,
-                                                   par_oMoveEventsFromForm,
-                                                   par_ratioWH_ifApplicable,
-                                                   pbHandleMouseEventsThroughFormVB6)
-        ''                                         ''Jan2 2022 ''par_iSaveToModel,
+    ''    ''Create the control. 
+    ''    Dim MoveableControlVB1 = New RSCMoveableControlVB(par_enum, par_bProportionSizing,
+    ''                                               par_iLayoutFun,
+    ''                                               typeOps,
+    ''                                               objOperations,
+    ''                                               bAddFunctionalitySooner,
+    ''                                               bAddFunctionalitySooner,
+    ''                                               par_iControlLastTouched,
+    ''                                               par_oMoveEventsFromForm,
+    ''                                               par_ratioWH_ifApplicable,
+    ''                                               pbHandleMouseEventsThroughVB6)
+    ''    ''                                         ''Jan2 2022 ''par_iSaveToModel,
 
-        With MoveableControlVB1
-            .Name = par_nameOfControl
-            ''Jan4 2022''If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEventsFromForm)
-            ''Jan10 2022''If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEventsFromForm, par_iLayoutFun)
-            ''Jan11 2022''If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEventsFromForm, Nothing, par_iLayoutFun)
+    ''    With MoveableControlVB1
+    ''        .Name = par_nameOfControl
+    ''        ''Jan4 2022''If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEventsFromForm)
+    ''        ''Jan10 2022''If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEventsFromForm, par_iLayoutFun)
+    ''        ''Jan11 2022''If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEventsFromForm, Nothing, par_iLayoutFun)
 
-            If (bAddFunctionalityLater) Then ''1/11/2022 .AddClickability()
-                ''Refactored 1/11/2022 td
-                .AddClickability()
-                .AddMoveability(par_iLayoutFun, par_oMoveEventsFromForm)
+    ''        If (bAddFunctionalityLater) Then ''1/11/2022 .AddClickability()
+    ''            ''Refactored 1/11/2022 td
+    ''            .AddClickability()
+    ''            .AddMoveability(par_iLayoutFun, par_oMoveEventsFromForm)
 
-            End If ''End of "If (bAddFunctionalityLater) Then"
+    ''        End If ''End of "If (bAddFunctionalityLater) Then"
 
-            ''In the constructor. Dec31 2021 ''.LastControlTouched_Info = par_iControlLastTouched ''Added 12/31/2021 td
-        End With ''eNd of "With MoveableControlVB1"
+    ''        ''In the constructor. Dec31 2021 ''.LastControlTouched_Info = par_iControlLastTouched ''Added 12/31/2021 td
+    ''    End With ''eNd of "With MoveableControlVB1"
 
-        ''
-        ''Specify the current element to the Operations object. 
-        ''
-        Dim infoOps = CType(objOperations, ICurrentElement) ''.CtlCurrentElement = MoveableControlVB1
-        infoOps.CtlCurrentElement = MoveableControlVB1
+    ''    ''
+    ''    ''Specify the current element to the Operations object. 
+    ''    ''
+    ''    Dim infoOps = CType(objOperations, ICurrentElement) ''.CtlCurrentElement = MoveableControlVB1
+    ''    infoOps.CtlCurrentElement = MoveableControlVB1
 
-        Return MoveableControlVB1
+    ''    Return MoveableControlVB1
 
-    End Function ''End of Public Shared Function GetControl
+    ''End Function ''End of Public Shared Function GetControl
 
 
     Public Property MoveabilityEventsForGroupCtls As GroupMoveEvents_Singleton
@@ -149,7 +149,7 @@ Public Class RSCMoveableControlVB
     '' https://www.codeproject.com/tips/709121/move-and-resize-controls-on-a-form-at-runtime-with 
     ''
     Protected mod_bHandleMouseMoveEvents_Monem As Boolean = False
-    Protected mod_bHandleMouseMoveEvents_ByForm As Boolean = True ''True, let's handler Mouse-Move events 
+    Protected mod_bHandleMouseMoveEvents_ByVB6 As Boolean = True ''True, let's handler Mouse-Move events 
     ''   the old-fashioned way--by handling events on the Windows form (e.g. VB6-style).
     Protected mod_bHandleMouseMoveEvents_BaseClass As Boolean = True ''Added 1/7/2022
     Protected mod_bHandleMouseMoveEvents_ChildClass As Boolean = False ''Added 1/7/2022
@@ -239,7 +239,7 @@ Public Class RSCMoveableControlVB
                    par_iLastTouched As ILastControlTouched,
                    par_oMoveabilityEventsForGroup As GroupMoveEvents_Singleton,
                    par_proportionWH_IfNeeded As Single,
-                   Optional pbHandleMouseEventsThroughFormVB6 As Boolean = True,
+                   Optional pbHandleMouseEventsThroughVB6 As Boolean = True,
                    Optional pbUseMonemProportionalityClass As Boolean = False) ''----As IOperations)
         ''
         ''         ''Jan2 2022 ''par_iSaveToModel As ISaveToModel,
@@ -274,7 +274,7 @@ Public Class RSCMoveableControlVB
                             par_iLastTouched,
                             par_oMoveabilityEventsForGroup,
                             mod_eventsForSingleMove,
-                            pbHandleMouseEventsThroughFormVB6,
+                            pbHandleMouseEventsThroughVB6,
                             pbUseMonemProportionalityClass)
 
         ''Not needed. 1/10/2022 td. ---Added 1/5/2022 td
@@ -307,7 +307,7 @@ Public Class RSCMoveableControlVB
                    par_iLastTouched As ILastControlTouched,
                    par_oMoveEventsGroupOfCtls As GroupMoveEvents_Singleton,
                    par_oMoveEventsSingleCtl As GroupMoveEvents_Singleton,
-                   Optional pbHandleMouseEventsThroughFormVB6 As Boolean = True,
+                   Optional pbHandleMouseEventsThroughVB6 As Boolean = True,
                    Optional pbUseMonemProportionalityClass As Boolean = False)
         ''
         ''Encapsulated 1/3/2022
@@ -331,7 +331,7 @@ Public Class RSCMoveableControlVB
             AddMoveability(par_iLayoutFun, par_oMoveEventsGroupOfCtls,
                            par_oMoveEventsSingleCtl,
                            pboolResizeProportionally,
-                           pbHandleMouseEventsThroughFormVB6,
+                           pbHandleMouseEventsThroughVB6,
                            pbUseMonemProportionalityClass)
 
         End If ''EDNOF "If (pboolAddMoveability) Then"
@@ -444,7 +444,7 @@ Public Class RSCMoveableControlVB
             ''Major call !!
             ''
             ''Jan10 2022 td''InitializeMoveability(mod_boolResizeProportionally, mod_iLayoutFunctions,
-            ''      par_objEventsMoveGroupOfCtls, pbHandleMouseEventsThroughFormVB6,
+            ''      par_objEventsMoveGroupOfCtls, pbHandleMouseEventsThroughVB6,
             ''      pbUseMonemProportionalityClass)
             InitializeMoveability(mod_boolResizeProportionally, mod_iLayoutFunctions,
                                   par_objEventsMoveGroupOfCtls,
@@ -591,7 +591,7 @@ Public Class RSCMoveableControlVB
                                      par_iLayoutFunctions As ILayoutFunctions,
                                      par_objMoveEventsForGroupMove As GroupMoveEvents_Singleton,
                                      par_objMoveEventsForSingleCtl As GroupMoveEvents_Singleton,
-                      Optional pbHandleMouseEventsThroughFormVB6 As Boolean = True,
+                      Optional pbHandleMouseEventsThroughVB6 As Boolean = True,
                       Optional pbUseMonemProportionalityClass As Boolean = False)
         ''
         ''Jan2 2022''       par_iSaveToModel As ISaveToModel,
@@ -715,13 +715,13 @@ Public Class RSCMoveableControlVB
             ''                        mod_events, False, Me) ''1/2/2022 td''mod_iSaveToModel)
 
             ''Added 1/7/2022 thomas d. 
-            If (pbHandleMouseEventsThroughFormVB6) Then
-                mod_bHandleMouseMoveEvents_ByForm = True
+            If (pbHandleMouseEventsThroughVB6) Then
+                mod_bHandleMouseMoveEvents_ByVB6 = True
                 mod_bHandleMouseMoveEvents_Monem = False
             Else
-                mod_bHandleMouseMoveEvents_ByForm = False
+                mod_bHandleMouseMoveEvents_ByVB6 = False
                 mod_bHandleMouseMoveEvents_Monem = True
-            End If ''eNd of "If (pbHandleMouseEventsThroughFormVB6) Then ... Else"
+            End If ''eNd of "If (pbHandleMouseEventsThroughVB6) Then ... Else"
 
             ''Added 1/4/2022 td
             objPictureBox = Find_PictureBox()
@@ -750,11 +750,11 @@ Public Class RSCMoveableControlVB
         ''
         ''Add Handlers to the Picture Box control /// IN THE CHILD USER CONTROL CLASS !! //
         ''
-        If (mod_bHandleMouseMoveEvents_ByForm) Then
+        If (mod_bHandleMouseMoveEvents_ByVB6) Then
 
             AddHandlersToPictureBoxInChildControl()
 
-        End If ''End of 'If (mod_bHandleMouseMoveEvents_ByForm) Then'
+        End If ''End of 'If (mod_bHandleMouseMoveEvents_ByVB6) Then'
 
     End Sub ''End of "Public Sub InitializeMoveability(..., ..., ...., ....)"
 
@@ -818,8 +818,8 @@ Public Class RSCMoveableControlVB
 
     End Sub ''End of "Private Sub InitializeMoveability_Proportional()"
 
-
-
+    ''Added 1/12/2022 td
+    Private Delegate Sub SomeMouseEventHandler(sender As Object, e As MouseEventArgs) ''Added 1/12/2022 td
     Private Sub AddHandlersToPictureBoxInChildControl()
         ''
         ''  User Control Click - Windows Forms
@@ -830,10 +830,23 @@ Public Class RSCMoveableControlVB
         ''
         Dim each_control As Windows.Forms.Control
 
-        If (mod_bHandleMouseMoveEvents_ByForm) Then
+        If (mod_bHandleMouseMoveEvents_ByVB6) Then
 
             If (mod_bHandleMouseMoveEvents_BaseClass) Then
 
+                ''Added 1/12/2022 td
+                ''
+                ''Major call!!  Let's put a hard preference on the subprocedures in this base class,
+                ''   versus subprocedures in the child classes (e.g. CtlGraphicFieldLabel), to 
+                ''   handle MouseEvents on PictureBox controls defined in the child class.
+                ''   ---1/12/2022 td 
+                ''
+                RemoveMouseEventHandlers_ChildClass()
+
+                ''
+                ''Let's tie the PictureBox controls in the child classes (defined in CIBadgeDesigner\Controls)
+                ''  to subprocedures in this base class (RSCMoveableControlVB). ---1/12/2022 TD
+                ''
                 For Each each_control In Me.Controls
 
                     If (TypeOf each_control Is PictureBox) Then
@@ -848,11 +861,13 @@ Public Class RSCMoveableControlVB
                         ''   at design-time, to prevent ugly wiggling controls.  Looks unprofessional.
                         ''   ---January 11, 2022 thomas d.
                         ''
+                        ''1/11 RemoveHandler each_control.MouseDown, SomeMouseEventHandler
                         RemoveHandler each_control.MouseDown, AddressOf MoveableControl_MouseDown
-                        RemoveHandler each_control.MouseDown, AddressOf MoveableControl_MouseDown
+
+                        ''1/11 RemoveHandler each_control.MouseMove, SomeMouseEventHandler
                         RemoveHandler each_control.MouseMove, AddressOf MoveableControl_MouseMove
-                        RemoveHandler each_control.MouseMove, AddressOf MoveableControl_MouseMove
-                        RemoveHandler each_control.MouseUp, AddressOf MoveableControl_MouseUp
+
+                        ''1/11 RemoveHandler each_control.MouseUp, SomeMouseEventHandler
                         RemoveHandler each_control.MouseUp, AddressOf MoveableControl_MouseUp
 
                         ''Step 2 of 2. Add the handlers which are needed, but might not be there. 
@@ -866,7 +881,7 @@ Public Class RSCMoveableControlVB
 
             End If ''End of 'If (mod_bHandleMouseMoveEvents_ByBaseClass) Then'
 
-        End If ''ENd of "If (mod_bHandleMouseMoveEvents_ByForm) Then"
+        End If ''ENd of "If (mod_bHandleMouseMoveEvents_ByVB6) Then"
 
     End Sub ''End of "Public Sub InitializeMoveability(..., ..., ...., ....)"
 
@@ -1355,7 +1370,7 @@ Public Class RSCMoveableControlVB
     ''    ''
     ''    ''Added 12/28/2021 td  
     ''    ''
-    ''    If (mod_bHandleMouseMoveEvents_ByForm) Then
+    ''    If (mod_bHandleMouseMoveEvents_ByVB6) Then
     ''        If (e.Button = MouseButtons.Right) Then
     ''            ''
     ''            ''Added 12/28/2021 td
@@ -1372,7 +1387,7 @@ Public Class RSCMoveableControlVB
         ''
         ''Added 1/4/2022 thomas d.
         ''
-        If (mod_bHandleMouseMoveEvents_ByForm AndAlso (par_e.Button = MouseButtons.Left)) Then
+        If (mod_bHandleMouseMoveEvents_ByVB6 AndAlso (par_e.Button = MouseButtons.Left)) Then
             ''
             ''It's a Left-Hand click. 
             ''
@@ -1388,7 +1403,7 @@ Public Class RSCMoveableControlVB
         ''
         ''Added 1/4/2022 thomas d.
         ''
-        ''1/7/2022 td''If (mod_bHandleMouseMoveEvents_ByForm AndAlso (par_e.Button = MouseButtons.Left)) Then
+        ''1/7/2022 td''If (mod_bHandleMouseMoveEvents_ByVB6 AndAlso (par_e.Button = MouseButtons.Left)) Then
 
         Dim boolButtonIsOkay As Boolean ''Added 1/7/2022 td
 
@@ -1396,7 +1411,7 @@ Public Class RSCMoveableControlVB
         boolButtonIsOkay = ((par_e.Button = MouseButtons.Left) Or
             (par_e.Button = MouseButtons.None)) ''Added 1/7/2022 td
 
-        If (mod_bHandleMouseMoveEvents_ByForm And boolButtonIsOkay) Then
+        If (mod_bHandleMouseMoveEvents_ByVB6 And boolButtonIsOkay) Then
 
             ''Added 1/10/2022 td
             With mod_iMoveOrResizeFunctionality
@@ -1418,7 +1433,7 @@ Public Class RSCMoveableControlVB
 
             End With ''End of "With mod_iMoveOrResizeFunctionality"
 
-        End If ''Endof "If (mod_bHandleMouseMoveEvents_ByForm) Then"
+        End If ''Endof "If (mod_bHandleMouseMoveEvents_ByVB6) Then"
 
     End Sub ''ENd of "Protected Sub MoveableControl_MouseMove"
 
@@ -1427,7 +1442,7 @@ Public Class RSCMoveableControlVB
         ''
         ''Added 1/4/2022 thomas d.
         ''
-        If (mod_bHandleMouseMoveEvents_ByForm AndAlso (par_e.Button = MouseButtons.Left)) Then
+        If (mod_bHandleMouseMoveEvents_ByVB6 AndAlso (par_e.Button = MouseButtons.Left)) Then
             ''
             ''It's a Left-Button click.    (i.e. a Click-And-Drag action by user)
             ''
@@ -1445,17 +1460,35 @@ Public Class RSCMoveableControlVB
 
     End Sub ''End of Protected Sub MoveableControl_MouseUp
 
-    Private Sub mod_eventsForSingleMove_ControlIsMoving() Handles mod_eventsForSingleMove.ControlIsMoving
 
-    End Sub
+    Public MustOverride Sub RemoveMouseEventHandlers_ChildClass()
+    ''
+    ''Added this dummy Sub on 1/12/2022 
+    ''
+    ''Throw New Exception("Must be overridden by the child user control, e.g. CtlGraphicsStaticText")
 
-    Private Sub RSCMoveableControlVB_Move(sender As Object, e As EventArgs) ''Handles Me.Move
+    ''End Sub
 
-        ''Static static_iTop As Integer = Me.Top
 
-        ''If (Me.Top < static_iTop) Then System.Diagnostics.Debugger.Break()
+    Public MustOverride Sub AddMouseEventHandlers_ChildClass()
+    ''    ''
+    ''    ''Added this dummy Sub on 1/12/2022 
+    ''    ''
+    ''    Throw New Exception("Must be overridden by the child user control, e.g. CtlGraphicsStaticText")
 
-        ''static_iTop = Me.Top
+    ''End Sub
+
+
+
+    ''Private Sub mod_eventsForSingleMove_ControlIsMoving() Handles mod_eventsForSingleMove.ControlIsMoving
+    ''End Sub
+
+    Private Sub RSCMoveableControlVB_Move(sender As Object, e As EventArgs) ''1/12/2022 Handles Me.Move
+
+        ''1/12/2022 ''---- Testing Code, added 1/11/2022 td ----
+        ''1/12/2022 ''Static static_iTop As Integer = Me.Top
+        ''1/12/2022 ''If (Me.Top < static_iTop) Then System.Diagnostics.Debugger.Break()
+        ''1/12/2022 ''static_iTop = Me.Top
 
 
     End Sub

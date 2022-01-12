@@ -841,8 +841,12 @@ ExitHandler:
         ''Added 1/3/2022 thomas downes
         ''---MyBase.MoveableControl_MouseMove(sender, par_e)
         ''Jan11 2022''MyBase.MoveableControl_MouseMove(Me, par_e)
-        If mod_bHandleMouseMoveEvents_ByForm Then
-            If mod_bHandleMouseMoveEvents_ChildClass Then
+        If mod_bHandleMouseMoveEvents_ByVB6 Then
+            If MyBase.mod_bHandleMouseMoveEvents_BaseClass Then
+                ''
+                ''I highly recommend putting breakpoints in the base class, instead of here. 
+                ''
+            ElseIf mod_bHandleMouseMoveEvents_ChildClass Then
                 ''----Nasty bug.  Don't use par_sender here. ---1/11/2022 td''
                 ''--MyBase.MoveableControl_MouseMove(par_sender, par_e)
                 Dim objParentControl As Control = Me ''Added 1/11/2022
@@ -857,8 +861,12 @@ ExitHandler:
         ''
         ''---MyBase.MoveableControl_MouseDown(sender, par_e)
         ''Jan11 2022''MyBase.MoveableControl_MouseDown(Me, par_e)
-        If mod_bHandleMouseMoveEvents_ByForm Then
-            If mod_bHandleMouseMoveEvents_ChildClass Then
+        If mod_bHandleMouseMoveEvents_ByVB6 Then
+            If MyBase.mod_bHandleMouseMoveEvents_BaseClass Then
+                ''
+                ''I highly recommend putting breakpoints in the base class, instead of here. 
+                ''
+            ElseIf mod_bHandleMouseMoveEvents_ChildClass Then
                 ''----Nasty bug.  Don't use par_sender here. ---1/11/2022 td''
                 ''--MyBase.MoveableControl_MouseDown(par_sender, par_e)
                 Dim objParentControl As Control = Me ''Added 1/11/2022
@@ -873,8 +881,12 @@ ExitHandler:
         ''
         ''---MyBase.MoveableControl_MouseUp(sender, par_e)
         ''Jan11 2022''MyBase.MoveableControl_MouseUp(Me, par_e)
-        If mod_bHandleMouseMoveEvents_ByForm Then
-            If mod_bHandleMouseMoveEvents_ChildClass Then
+        If mod_bHandleMouseMoveEvents_ByVB6 Then
+            If MyBase.mod_bHandleMouseMoveEvents_BaseClass Then
+                ''
+                ''I highly recommend putting breakpoints in the base class, instead of here. 
+                ''
+            ElseIf mod_bHandleMouseMoveEvents_ChildClass Then
                 ''----Nasty bug.  Don't use par_sender here. ---1/11/2022 td''
                 ''--MyBase.MoveableControl_MouseUp(par_sender, par_e)
                 Dim objParentControl As Control = Me ''Added 1/11/2022
@@ -882,6 +894,32 @@ ExitHandler:
             End If
         End If
     End Sub
+
+
+    Public Overrides Sub RemoveMouseEventHandlers_ChildClass()
+        ''
+        ''Added 1/12/2022 
+        ''
+        RemoveHandler pictureSignature.MouseDown, AddressOf picture_MouseDown
+        RemoveHandler pictureSignature.MouseMove, AddressOf picture_MouseMove
+        RemoveHandler pictureSignature.MouseUp, AddressOf picture_MouseUp
+
+    End Sub ''End of "Public Overrides Sub RemoveMouseEventHandlers()"
+
+
+    Public Overrides Sub AddMouseEventHandlers_ChildClass()
+        ''
+        ''Added 1/12/2022 
+        ''
+        RemoveHandler pictureSignature.MouseDown, AddressOf picture_MouseDown
+        RemoveHandler pictureSignature.MouseMove, AddressOf picture_MouseMove
+        RemoveHandler pictureSignature.MouseUp, AddressOf picture_MouseUp
+
+        AddHandler pictureSignature.MouseDown, AddressOf picture_MouseDown
+        AddHandler pictureSignature.MouseMove, AddressOf picture_MouseMove
+        AddHandler pictureSignature.MouseUp, AddressOf picture_MouseUp
+
+    End Sub ''End of "Public Overrides Sub AddMouseEventHandlers()"
 
 
     Public Function FullNameOfMyBaseClass() As String
