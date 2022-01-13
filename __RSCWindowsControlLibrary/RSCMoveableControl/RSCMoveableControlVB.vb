@@ -1554,8 +1554,93 @@ Public Class RSCMoveableControlVB
                              Optional pboolRefreshLabelControl As Boolean = True,
                              Optional pboolRefreshUserControl As Boolean = False,
                              Optional pobjElementField As ClassElementField = Nothing)
-
+        ''
+        ''Stubbed 1/13/2022 td
+        ''
     End Sub
+
+
+    Public Function InsideMe(par_intX As Integer, par_intY As Integer) As Boolean
+        ''
+        ''Added 9/20/2019 td  
+        ''
+        Dim boolInsideHorizontally As Boolean
+        Dim boolInsideVertically As Boolean
+        Dim boolInside_BothWays As Boolean
+
+        boolInsideHorizontally = (Me.Left <= par_intX And par_intX <= (Me.Left + Me.Width))
+        boolInsideVertically = (Me.Top <= par_intY And par_intY <= (Me.Top + Me.Height))
+
+        boolInside_BothWays = (boolInsideHorizontally And boolInsideVertically)
+        Return boolInside_BothWays
+
+    End Function ''eND OF "Public Function InsideMe(par_intX, par_intY As Integer) As Boolean"
+
+
+    Public Sub Highlight_IfInsideRubberband(par_rubberband As Rectangle,
+                     Optional par_bRedrawElement As Boolean = False)
+        ''
+        ''Added 9/20/2019 thomas downes
+        ''
+        Dim boolRubBandIsAll_LeftOfMe As Boolean
+        Dim boolRubBandIsAll_RightOfMe As Boolean
+        Dim boolRubBandIsAll_AboveMe As Boolean
+        Dim boolRubBandIsAll_BelowMe As Boolean
+
+        Dim boolBandIsInsideMeHorizontally As Boolean
+        Dim boolBandIsInsideMeVertically As Boolean
+        Dim boolBandIsInsideMe_BothWays As Boolean
+        Dim boolBandOverlapsWithMe As Boolean
+
+        Dim obj_rectangleAdjusted As Rectangle
+
+        Dim intRbandInDesignForm_Left As Integer
+        Dim intRbandInDesignForm_Top As Integer
+
+        With par_rubberband ''Added 9/20/2019 td
+
+            ''Rband = Rubberband 
+            ''1/13/2022 ''intRbandInDesignForm_Left = Me.LayoutFunctions.Layout_Margin_Left_Add(.Left)
+            ''1/13/2022 ''intRbandInDesignForm_Top = Me.LayoutFunctions.Layout_Margin_Top_Add(.Top)
+            intRbandInDesignForm_Left = mod_iLayoutFunctions.Layout_Margin_Left_Add(.Left)
+            intRbandInDesignForm_Top = mod_iLayoutFunctions.Layout_Margin_Top_Add(.Top)
+
+            ''Added 9/20/2019 td
+            obj_rectangleAdjusted =
+                New Rectangle(intRbandInDesignForm_Left,
+                              intRbandInDesignForm_Top,
+                                     .Width, .Height)
+
+        End With ''End of "With par_rubberband"
+
+        With obj_rectangleAdjusted
+
+            boolRubBandIsAll_AboveMe = ((.Top + .Height) < Me.Top)
+            boolRubBandIsAll_BelowMe = ((Me.Top + Me.Height) < .Top)
+
+            boolRubBandIsAll_LeftOfMe = (.Left + .Width < Me.Left)
+            boolRubBandIsAll_RightOfMe = ((Me.Left + Me.Width) < .Left)
+
+        End With ''End of " With par_rubberband"
+
+        boolBandIsInsideMeHorizontally = (Not (boolRubBandIsAll_LeftOfMe Or boolRubBandIsAll_RightOfMe))
+        boolBandIsInsideMeVertically = (Not (boolRubBandIsAll_AboveMe Or boolRubBandIsAll_BelowMe))
+
+        boolBandIsInsideMe_BothWays = (boolBandIsInsideMeHorizontally And boolBandIsInsideMeVertically)
+        boolBandOverlapsWithMe = boolBandIsInsideMe_BothWays
+
+        If (boolBandOverlapsWithMe) Then
+            ''1/13/2022 td''Me.ElementClass_Obj.SelectedHighlighting = True
+            ElementInfo_Base.SelectedHighlighting = True
+
+            ''10/13/2019 td''Me.Refresh_Image(False)
+            If (par_bRedrawElement) Then Me.Refresh_Image(False)
+
+        End If ''End of "If (boolBandOverlapsWithMe) Then"
+
+    End Sub ''End of "Public Sub Highlight_IfInsideRubberband()"
+
+
 
 
 End Class

@@ -9,7 +9,9 @@ Imports System.Collections.Generic ''Added 9.6.2019 td
 Imports ciBadgeDesigner ''Added 10/3/2019 td  
 
 Public Class FormMainEntry_v90
-    Implements ISelectingElements_v90, ILayoutFunctions
+    Implements ILayoutFunctions
+    ''Jan12 2022 ---Implements ISelectingElements_v90, ILayoutFunctions
+    Implements ISelectingElements_v90
     ''
     ''Added 9/8/2019 thomas downes
     ''

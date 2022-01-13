@@ -779,7 +779,8 @@ Partial Class Form__Main_Demo
         Me.CtlGraphicQRCode1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.CtlGraphicQRCode1.Location = New System.Drawing.Point(549, 352)
         Me.CtlGraphicQRCode1.Margin = New System.Windows.Forms.Padding(4)
-        Me.CtlGraphicQRCode1.MoveabilityEvents = Nothing
+        Me.CtlGraphicQRCode1.MoveabilityEventsForGroupCtls = Nothing
+        Me.CtlGraphicQRCode1.MoveabilityEventsForSingleMove = Nothing
         Me.CtlGraphicQRCode1.Name = "CtlGraphicQRCode1"
         Me.CtlGraphicQRCode1.Size = New System.Drawing.Size(94, 99)
         Me.CtlGraphicQRCode1.TabIndex = 65
@@ -790,7 +791,8 @@ Partial Class Form__Main_Demo
         Me.CtlGraphicPortrait_Lady.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.CtlGraphicPortrait_Lady.Location = New System.Drawing.Point(35, 117)
         Me.CtlGraphicPortrait_Lady.Margin = New System.Windows.Forms.Padding(4)
-        Me.CtlGraphicPortrait_Lady.MoveabilityEvents = Nothing
+        Me.CtlGraphicPortrait_Lady.MoveabilityEventsForGroupCtls = Nothing
+        Me.CtlGraphicPortrait_Lady.MoveabilityEventsForSingleMove = Nothing
         Me.CtlGraphicPortrait_Lady.Name = "CtlGraphicPortrait_Lady"
         Me.CtlGraphicPortrait_Lady.Size = New System.Drawing.Size(141, 181)
         Me.CtlGraphicPortrait_Lady.TabIndex = 41
@@ -801,7 +803,8 @@ Partial Class Form__Main_Demo
         Me.CtlGraphicSignature1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.CtlGraphicSignature1.Location = New System.Drawing.Point(49, 346)
         Me.CtlGraphicSignature1.Margin = New System.Windows.Forms.Padding(4)
-        Me.CtlGraphicSignature1.MoveabilityEvents = Nothing
+        Me.CtlGraphicSignature1.MoveabilityEventsForGroupCtls = Nothing
+        Me.CtlGraphicSignature1.MoveabilityEventsForSingleMove = Nothing
         Me.CtlGraphicSignature1.Name = "CtlGraphicSignature1"
         Me.CtlGraphicSignature1.Size = New System.Drawing.Size(314, 105)
         Me.CtlGraphicSignature1.TabIndex = 66

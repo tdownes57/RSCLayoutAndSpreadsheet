@@ -929,6 +929,7 @@ ExitHandler:
 
     End Function ''End of "Public Function LabelText() As String"
 
+
     Public Function InsideMe(par_intX As Integer, par_intY As Integer) As Boolean
         ''
         ''Added 9/20/2019 td  
@@ -944,6 +945,7 @@ ExitHandler:
         Return boolInside_BothWays
 
     End Function ''eND OF "Public Function InsideMe(par_intX, par_intY As Integer) As Boolean"
+
 
     Public Sub Highlight_IfInsideRubberband(par_rubberband As Rectangle,
                      Optional par_bRedrawElement As Boolean = False)
@@ -1004,6 +1006,7 @@ ExitHandler:
         End If ''End of "If (boolBandOverlapsWithMe) Then"
 
     End Sub ''End of "Public Sub Highlight_IfInsideRubberband()"
+
 
     Public Sub ManageResizingByUser(par_bUseTempInfo As Boolean,
                                     par_deltaWidth As Integer, par_deltaHeight As Integer,

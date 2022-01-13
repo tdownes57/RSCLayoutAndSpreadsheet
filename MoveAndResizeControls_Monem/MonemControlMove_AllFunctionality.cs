@@ -79,7 +79,7 @@ namespace MoveAndResizeControls_Monem
                 //Flip the Boolean value.  ----1/11/2022 td
                 return (false == _SizeProportionally);
             }
-            set 
+            set
             {
                 //Flip the Boolean value.  ----1/11/2022 td 
                 _SizeProportionally = (false == value);
@@ -149,7 +149,7 @@ namespace MoveAndResizeControls_Monem
                                  InterfaceMoveEvents par_eventsForGroups,
                                  InterfaceMoveEvents par_eventsSingleCtl,
                                  bool pbSetBreakpoint_AfterMove,
-                                 ISaveToModel par_iSave, 
+                                 ISaveToModel par_iSave,
                                  bool pbUndoAndReverseEverything = false,
                                  bool pbHookUpEventHandlers = true)
         {
@@ -170,8 +170,8 @@ namespace MoveAndResizeControls_Monem
             // Dec28 2021 td//Init(par_controlA, par_controlA, par_margin, pbRepaintAfterResize, par_events, SetBreakpoint_AfterMove, par_iSave);
             //''Jan4 2022''Init(par_controlA, par_controlA, par_margin, pbRepaintAfterResize, par_events, SetBreakpoint_AfterMove,
             //''    par_iSave, pbUndoAndReverseEverything);
-            Init(null, par_controlA, par_margin, pbRepaintAfterResize, 
-                par_eventsForGroups, 
+            Init(null, par_controlA, par_margin, pbRepaintAfterResize,
+                par_eventsForGroups,
                 par_eventsSingleCtl,
                 SetBreakpoint_AfterMove,
                 par_iSave, pbUndoAndReverseEverything, pbHookUpEventHandlers);
@@ -179,12 +179,12 @@ namespace MoveAndResizeControls_Monem
         }
 
 
-        public void Init(PictureBox par_controlPictureB, Control par_containerElement, 
+        public void Init(PictureBox par_controlPictureB, Control par_containerElement,
                                int par_margin, bool pbRepaintAfterResize,
                                InterfaceMoveEvents par_eventsForGroups,
                                InterfaceMoveEvents par_eventsSingleCtl,
-                               bool pbSetBreakpoint_AfterMove, 
-                               ISaveToModel par_iSave, 
+                               bool pbSetBreakpoint_AfterMove,
+                               ISaveToModel par_iSave,
                                bool pbUndoAndReverseEverything = false,
                                bool pbHookUpEventHandlers = true,
                                bool pbResizeProportionally = false,
@@ -298,7 +298,7 @@ namespace MoveAndResizeControls_Monem
                 // Remove these EventHandlers. ---12/28/2021 td
                 par_controlToHook.MouseDown -= (sender, e) => StartMovingOrResizing(par_controlToHook, e);
                 par_controlToHook.MouseUp -= (sender, e) => StopDragOrResizing(par_controlToHook, _iSaveToModel);
-                
+
             }
             else
             {
@@ -306,7 +306,7 @@ namespace MoveAndResizeControls_Monem
                 //Dec17 2021 td//par_controlPictureB.MouseUp += (sender, e) => StopDragOrResizing(par_controlToHook);
                 //Jan4 2022 //if (par_controlToHook.MouseUp != null) throw new Exception("This MouseUp may already be assigned.");
                 par_controlToHook.MouseUp += (sender, e) => StopDragOrResizing(par_controlToHook, _iSaveToModel);
-                
+
             }
 
             //==     Notice that, toward the end of the line, it references
@@ -325,7 +325,7 @@ namespace MoveAndResizeControls_Monem
             //
             //--Helpful??? 12/1/2021--par_containerElement.MouseMove += (sender, e) => MoveControl(par_containerElement, e);
             //Dec28 2021 //par_controlPictureB.MouseMove += (sender, e) => MoveControl(par_containerElement, e);
-            
+
             if (pbUndoAndReverseEverything)
             {
                 //Remove the event handler.
@@ -343,7 +343,7 @@ namespace MoveAndResizeControls_Monem
             //
             if (pbUndoAndReverseEverything)
             {
-                if (_labelIfNeeded != null) 
+                if (_labelIfNeeded != null)
                 {
                     _labelIfNeeded.MouseDown -= (sender, e) => StartMovingOrResizing(_labelIfNeeded, e);
                     // Yes, MoveParentControl(_controlMoveableElement is correct.... Jan4 2022 td
@@ -395,7 +395,7 @@ namespace MoveAndResizeControls_Monem
                             (decimal)_controlPictureBox1.Height;
 
             //Jan10 2022 td //this.RemoveProportionality = false;
-            _SizeProportionally = true;  
+            _SizeProportionally = true;
 
         }
 
@@ -413,8 +413,8 @@ namespace MoveAndResizeControls_Monem
             //Jan10 2022//Init(_controlPictureBox1, _controlMoveableElement, 0, _repaintAfterResize,
             //Jan10 2022//    mod_events_groupedCtls, false, _iSaveToModel, c_bReverseEverything);
             Init(_controlPictureBox1, _controlMoveableElement, 0, _repaintAfterResize,
-                mod_events_groupedCtls, 
-                mod_events_singleCtl, 
+                mod_events_groupedCtls,
+                mod_events_singleCtl,
                 false, _iSaveToModel, c_bReverseEverything);
 
             //Null out the references. ----12/28/2021 td 
@@ -444,7 +444,7 @@ namespace MoveAndResizeControls_Monem
             var event_blackhole = new GroupMoveEvents_Singleton(new DummyLayout(), false, c_yesBlackhole);
 
             //Let's put the blackhole into action!!  
-            mod_events_groupedCtls = event_blackhole; 
+            mod_events_groupedCtls = event_blackhole;
 
         }
 
@@ -845,11 +845,11 @@ namespace MoveAndResizeControls_Monem
                             //We will edit .Location, instead of the .Top & Left properties.
                             par_controlG.Location = new Point(newLocation_x, newLocation_y);
                         }
-                        
+
                         // We will inform outside entities that the .Location property (or .Top/.Left)
                         //   that the parent control's Location has been adjusted/moved. 
                         //   ----1/12/2022 td
-                        bEditedLocation = true; 
+                        bEditedLocation = true;
                     }
 
                     //Added 8/2/2019 thomas downes 
@@ -881,14 +881,14 @@ namespace MoveAndResizeControls_Monem
                 // 8-5-2019 td //mod_events.GroupMove(delta_Left, delta_Top, delta_Width, delta_Height);
                 // 1-10-2022 td//mod_events.GroupMove_Change(delta_Left, delta_Top, delta_Width, delta_Height);
                 // 1-12-2022 td//mod_events_singleCtl.GroupMove_Change(delta_Left, delta_Top, delta_Width, delta_Height);
-                mod_events_singleCtl.GroupMove_Change(delta_Left, delta_Top, 
-                                                        delta_Width, delta_Height, 
+                mod_events_singleCtl.GroupMove_Change(delta_Left, delta_Top,
+                                                        delta_Width, delta_Height,
                                                         bEditedLocation);
-                
+
                 if (mod_events_groupedCtls != null)
                 {
                     // 1-12-2022 td//mod_events_groupedCtls.GroupMove_Change(delta_Left, delta_Top, delta_Width, delta_Height);
-                    mod_events_groupedCtls.GroupMove_Change(delta_Left, delta_Top, 
+                    mod_events_groupedCtls.GroupMove_Change(delta_Left, delta_Top,
                         delta_Width, delta_Height, bEditedLocation);
                 }
 
@@ -945,60 +945,68 @@ namespace MoveAndResizeControls_Monem
             }
             if (_resizing)
             {
-                if (MouseIsInLeftEdge)
-                {
-                    if (MouseIsInTopEdge)
-                    {
-                        par_controlH.Width -= (e.X - _cursorStartPoint.X);
-                        par_controlH.Left += (e.X - _cursorStartPoint.X);
-                        par_controlH.Height -= (e.Y - _cursorStartPoint.Y);
-                        par_controlH.Top += (e.Y - _cursorStartPoint.Y);
-                    }
-                    else if (MouseIsInBottomEdge)
-                    {
-                        par_controlH.Width -= (e.X - _cursorStartPoint.X);
-                        par_controlH.Left += (e.X - _cursorStartPoint.X);
-                        par_controlH.Height = (e.Y - _cursorStartPoint.Y) + _currentControlStartSize.Height;
-                    }
-                    else
-                    {
-                        par_controlH.Width -= (e.X - _cursorStartPoint.X);
-                        par_controlH.Left += (e.X - _cursorStartPoint.X);
-                    }
-                }
-                else if (MouseIsInRightEdge)
-                {
-                    if (MouseIsInTopEdge)
-                    {
-                        par_controlH.Width = (e.X - _cursorStartPoint.X) + _currentControlStartSize.Width;
-                        par_controlH.Height -= (e.Y - _cursorStartPoint.Y);
-                        par_controlH.Top += (e.Y - _cursorStartPoint.Y);
+                //
+                //Encapsulated 1/13/2022 td
+                //
+                ResizeControl_NoEvents(par_controlH, e);
 
-                    }
-                    else if (MouseIsInBottomEdge)
-                    {
-                        par_controlH.Width = (e.X - _cursorStartPoint.X) + _currentControlStartSize.Width;
-                        par_controlH.Height = (e.Y - _cursorStartPoint.Y) + _currentControlStartSize.Height;
-                    }
-                    else
-                    {
-                        par_controlH.Width = (e.X - _cursorStartPoint.X) + _currentControlStartSize.Width;
-                    }
-                }
-                else if (MouseIsInTopEdge)
-                {
-                    par_controlH.Height -= (e.Y - _cursorStartPoint.Y);
-                    par_controlH.Top += (e.Y - _cursorStartPoint.Y);
-                }
-                else if (MouseIsInBottomEdge)
-                {
-                    par_controlH.Height = (e.Y - _cursorStartPoint.Y) + _currentControlStartSize.Height;
-                }
-                else
-                {
-                    //Dec17 2021 td//StopDragOrResizing(par_controlH);
-                    StopDragOrResizing(par_controlH, _iSaveToModel);
-                }
+
+
+                //if (MouseIsInLeftEdge)
+                //{
+                //    if (MouseIsInTopEdge)
+                //    {
+                //        par_controlH.Width -= (e.X - _cursorStartPoint.X);
+                //        par_controlH.Left += (e.X - _cursorStartPoint.X);
+                //        par_controlH.Height -= (e.Y - _cursorStartPoint.Y);
+                //        par_controlH.Top += (e.Y - _cursorStartPoint.Y);
+                //    }
+                //    else if (MouseIsInBottomEdge)
+                //    {
+                //        par_controlH.Width -= (e.X - _cursorStartPoint.X);
+                //        par_controlH.Left += (e.X - _cursorStartPoint.X);
+                //        par_controlH.Height = (e.Y - _cursorStartPoint.Y) + _currentControlStartSize.Height;
+                //    }
+                //    else
+                //    {
+                //        par_controlH.Width -= (e.X - _cursorStartPoint.X);
+                //        par_controlH.Left += (e.X - _cursorStartPoint.X);
+                //    }
+                //}
+                //else if (MouseIsInRightEdge)
+                //{
+                //    if (MouseIsInTopEdge)
+                //    {
+                //        par_controlH.Width = (e.X - _cursorStartPoint.X) + _currentControlStartSize.Width;
+                //        par_controlH.Height -= (e.Y - _cursorStartPoint.Y);
+                //        par_controlH.Top += (e.Y - _cursorStartPoint.Y);
+
+                //    }
+                //    else if (MouseIsInBottomEdge)
+                //    {
+                //        par_controlH.Width = (e.X - _cursorStartPoint.X) + _currentControlStartSize.Width;
+                //        par_controlH.Height = (e.Y - _cursorStartPoint.Y) + _currentControlStartSize.Height;
+                //    }
+                //    else
+                //    {
+                //        par_controlH.Width = (e.X - _cursorStartPoint.X) + _currentControlStartSize.Width;
+                //    }
+                //}
+                //else if (MouseIsInTopEdge)
+                //{
+                //    par_controlH.Height -= (e.Y - _cursorStartPoint.Y);
+                //    par_controlH.Top += (e.Y - _cursorStartPoint.Y);
+                //}
+                //else if (MouseIsInBottomEdge)
+                //{
+                //    par_controlH.Height = (e.Y - _cursorStartPoint.Y) + _currentControlStartSize.Height;
+                //}
+                //else
+                //{
+                //    //Dec17 2021 td//StopDragOrResizing(par_controlH);
+                //    StopDragOrResizing(par_controlH, _iSaveToModel);
+                //}
+
             }
             else if (_moving)
             {
@@ -1015,6 +1023,106 @@ namespace MoveAndResizeControls_Monem
             _controlCurrent = par_controlH;
 
         }
+
+
+        private void MoveControl_EditLocation(Control par_controlG,
+                          int newLocation_x,
+                          int newLocation_y,
+                          ref bool pbEditedLocation)
+        {
+            //
+            // Encapsulated 1//13/2022 td
+            //
+            //
+            // Huge!!!!!!   Moves the control !!!!!!!
+            //
+            if (mc_MonemEditsLocation)
+            {
+                if (mc_MonemEditsLocation_TopAndLeft)
+                {
+                    //We will edit .Left and .Top, instead of the .Location property.
+                    par_controlG.Left = newLocation_x;
+                    par_controlG.Top = newLocation_y;
+                }
+                else
+                {
+                    //We will edit .Location, instead of the .Top & Left properties.
+                    par_controlG.Location = new Point(newLocation_x, newLocation_y);
+                }
+
+                // We will inform outside entities that the .Location property (or .Top/.Left)
+                //   that the parent control's Location has been adjusted/moved. 
+                //   ----1/12/2022 td
+                pbEditedLocation = true;
+            }
+
+
+        }
+
+
+        private void ResizeControl_NoEvents(Control par_controlH, MouseEventArgs e)
+        {
+            //
+            // Don't issue events.  ---1/10/2022 td
+            //
+            if (MouseIsInLeftEdge)
+            {
+                if (MouseIsInTopEdge)
+                {
+                    par_controlH.Width -= (e.X - _cursorStartPoint.X);
+                    par_controlH.Left += (e.X - _cursorStartPoint.X);
+                    par_controlH.Height -= (e.Y - _cursorStartPoint.Y);
+                    par_controlH.Top += (e.Y - _cursorStartPoint.Y);
+                }
+                else if (MouseIsInBottomEdge)
+                {
+                    par_controlH.Width -= (e.X - _cursorStartPoint.X);
+                    par_controlH.Left += (e.X - _cursorStartPoint.X);
+                    par_controlH.Height = (e.Y - _cursorStartPoint.Y) + _currentControlStartSize.Height;
+                }
+                else
+                {
+                    par_controlH.Width -= (e.X - _cursorStartPoint.X);
+                    par_controlH.Left += (e.X - _cursorStartPoint.X);
+                }
+            }
+            else if (MouseIsInRightEdge)
+            {
+                if (MouseIsInTopEdge)
+                {
+                    par_controlH.Width = (e.X - _cursorStartPoint.X) + _currentControlStartSize.Width;
+                    par_controlH.Height -= (e.Y - _cursorStartPoint.Y);
+                    par_controlH.Top += (e.Y - _cursorStartPoint.Y);
+
+                }
+                else if (MouseIsInBottomEdge)
+                {
+                    par_controlH.Width = (e.X - _cursorStartPoint.X) + _currentControlStartSize.Width;
+                    par_controlH.Height = (e.Y - _cursorStartPoint.Y) + _currentControlStartSize.Height;
+                }
+                else
+                {
+                    par_controlH.Width = (e.X - _cursorStartPoint.X) + _currentControlStartSize.Width;
+                }
+            }
+            else if (MouseIsInTopEdge)
+            {
+                par_controlH.Height -= (e.Y - _cursorStartPoint.Y);
+                par_controlH.Top += (e.Y - _cursorStartPoint.Y);
+            }
+            else if (MouseIsInBottomEdge)
+            {
+                par_controlH.Height = (e.Y - _cursorStartPoint.Y) + _currentControlStartSize.Height;
+            }
+            else
+            {
+                //Dec17 2021 td//StopDragOrResizing(par_controlH);
+                StopDragOrResizing(par_controlH, _iSaveToModel);
+            }
+
+
+        }
+
 
 
         private void ControlProportionality(Control par_control,
@@ -1188,7 +1296,7 @@ namespace MoveAndResizeControls_Monem
             }
         }
 
-   
+
         public bool NowInMotion()
         {
             //

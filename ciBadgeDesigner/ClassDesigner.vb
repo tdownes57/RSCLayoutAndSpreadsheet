@@ -2589,6 +2589,7 @@ Public Class ClassDesigner
 
     End Function
 
+
     Public Function ElementsList_TwoOrMoreItems() As Boolean _
         Implements ISelectingElements.ElementsList_TwoOrMoreItems
 
@@ -2598,7 +2599,7 @@ Public Class ClassDesigner
     End Function
 
 
-    Public Function ElementsList_IsItemIncluded(par_control As CtlGraphicFldLabel) As Boolean _
+    Public Function ElementsList_IsItemIncluded(par_control As RSCMoveableControlVB) As Boolean _
         Implements ISelectingElements.ElementsList_IsItemIncluded
 
         ''Jan11 2022 ''Public Function LabelsList_IsItemIncluded(par_control As CtlGraphicFldLabel) As Boolean
@@ -2610,7 +2611,7 @@ Public Class ClassDesigner
     End Function
 
 
-    Public Function ElementsList_IsItemUnselected(par_control As CtlGraphicFldLabel) As Boolean Implements ISelectingElements.ElementsList_IsItemUnselected
+    Public Function ElementsList_IsItemUnselected(par_control As RSCMoveableControlVB) As Boolean Implements ISelectingElements.ElementsList_IsItemUnselected
 
         ''Jan11 2022 ''Public Function LabelsList_IsItemUnselected(par_control As CtlGraphicFldLabel) As Boolean
         ''    Implements ISelectingElements.LabelsList_IsItemUnselected

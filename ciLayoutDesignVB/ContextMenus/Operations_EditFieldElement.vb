@@ -8,6 +8,7 @@ Option Infer Off
 Imports ciBadgeInterfaces
 Imports ciBadgeDesigner
 ''----Imports ciBadgeElements
+Imports __RSCWindowsControlLibrary ''Added 1/13/2022 td
 
 Public Class Operations_EditFieldElement
     ''
@@ -168,7 +169,7 @@ Public Class Operations_EditFieldElement
 
         ColorDialog1.ShowDialog()
 
-        If (Me.SelectingElements.LabelsList_IsItemUnselected(Me.CtlCurrentElement)) Then
+        If (Me.SelectingElements.ElementsList_IsItemUnselected(Me.CtlCurrentElement)) Then
             ''10/3 td''If (LabelsList_IsItemUnselected(Me)) Then
 
             ''7/30/2019 td''Me.ElementInfo.FontColor = ColorDialog1.Color
@@ -187,16 +188,17 @@ Public Class Operations_EditFieldElement
             Me.CtlCurrentElement.Refresh_Image(True)
             Me.CtlCurrentElement.Refresh()
 
-        ElseIf (Me.SelectingElements.SelectedElementsList_IsItemIncluded(Me.CtlCurrentElement)) Then
+        ElseIf (Me.SelectingElements.ElementsList_IsItemIncluded(Me.CtlCurrentElement)) Then
             ''10/3/2019 td''ElseIf (SelectedElementsList_IsItemIncluded(Me)) Then
 
             ''Added 8/3/2019 td 
             ''10/17/2019 td''Dim objElements As List(Of CtlGraphicFldLabel)
-            Dim objElements As HashSet(Of CtlGraphicFldLabel)
+            ''1/13/2022 td''Dim objElements As HashSet(Of CtlGraphicFldLabel)
+            Dim objElements As HashSet(Of RSCMoveableControlVB)
 
             ''8/4//2019 td'objElements = CType(Me.ParentForm, ISelectingElements).LabelsDesignList_AllItems
             ''10/3/2019 td''objElements = Me.SelectingElements.LabelsDesignList_AllItems
-            objElements = Me.SelectingElements.LabelsDesignList_AllItems
+            objElements = Me.SelectingElements.ElementsDesignList_AllItems
 
             ''If (objElements.Count = 0) Then
             ''   objElements.Add(Me)
@@ -289,7 +291,7 @@ Public Class Operations_EditFieldElement
         ''RefreshImage()
         ''Me.Refresh()
 
-        If (Me.SelectingElements.LabelsList_IsItemUnselected(Me.CtlCurrentElement)) Then
+        If (Me.SelectingElements.ElementsList_IsItemUnselected(Me.CtlCurrentElement)) Then
 
             Me.CtlCurrentElement.ElementInfo_TextOnly.Font_DrawingClass = Me.FontDialog1.Font
 
@@ -310,13 +312,14 @@ Public Class Operations_EditFieldElement
             Me.CtlCurrentElement.Refresh_Image(False)
             Me.CtlCurrentElement.Refresh()
 
-        ElseIf (Me.SelectingElements.SelectedElementsList_IsItemIncluded(Me.CtlCurrentElement)) Then
+        ElseIf (Me.SelectingElements.ElementsList_IsItemIncluded(Me.CtlCurrentElement)) Then
 
             ''Added 8/3/2019 td 
-            Dim objElements As HashSet(Of CtlGraphicFldLabel)
+            ''1/13/2022 td ''Dim objElements As HashSet(Of CtlGraphicFldLabel)
+            Dim objElements As HashSet(Of RSCMoveableControlVB)
 
             ''10/3/2019 td''objElements = CType(Me.ParentForm, ISelectingElements).LabelsDesignList_AllItems
-            objElements = Me.SelectingElements.LabelsDesignList_AllItems
+            objElements = Me.SelectingElements.ElementsDesignList_AllItems
 
             For Each each_ctl As CtlGraphicFldLabel In objElements
                 ''
@@ -421,11 +424,12 @@ Public Class Operations_EditFieldElement
                 ''
                 ''
                 ''Added 8/18/2019 td 
-                If (Me.SelectingElements.SelectedElementsList_IsItemIncluded(Me.CtlCurrentElement)) Then
+                If (Me.SelectingElements.ElementsList_IsItemIncluded(Me.CtlCurrentElement)) Then
 
                     ''Added 8/18/2019 td 
-                    Dim objElements As HashSet(Of CtlGraphicFldLabel)
-                    objElements = Me.SelectingElements.LabelsDesignList_AllItems
+                    ''1/13/2022 td''Dim objElements As HashSet(Of CtlGraphicFldLabel)
+                    Dim objElements As HashSet(Of RSCMoveableControlVB)
+                    objElements = Me.SelectingElements.ElementsDesignList_AllItems
 
                     For Each each_ctl As CtlGraphicFldLabel In objElements
                         ''
@@ -508,11 +512,12 @@ Public Class Operations_EditFieldElement
                 ''
                 ''
                 ''Added 8/18/2019 td 
-                If (Me.SelectingElements.SelectedElementsList_IsItemIncluded(Me.CtlCurrentElement)) Then
+                If (Me.SelectingElements.ElementsList_IsItemIncluded(Me.CtlCurrentElement)) Then
 
                     ''Added 8/18/2019 td 
-                    Dim objElements As HashSet(Of CtlGraphicFldLabel)
-                    objElements = Me.SelectingElements.LabelsDesignList_AllItems
+                    ''1/13/22 ''Dim objElements As HashSet(Of CtlGraphicFldLabel)
+                    Dim objElements As HashSet(Of RSCMoveableControlVB)
+                    objElements = Me.SelectingElements.ElementsDesignList_AllItems
 
                     For Each each_ctl As CtlGraphicFldLabel In objElements
                         ''

@@ -321,9 +321,16 @@ Partial Public Class FormMainEntry_v90
 
     End Function
 
-    Public Function SelectedElementsList_IsItemIncluded(par_control As CtlMainEntryBox_v90) As Boolean Implements ISelectingElements_v90.SelectedElementsList_IsItemIncluded
+    Public Function SelectedElementsList_IsItemIncluded(par_control As CtlMainEntryBox_v90) As Boolean
 
+        ''1/12/2022 ''Implements ISelectingElements.SelectedElementsList_IsItemIncluded
+
+        ''---1/12/2022 ---Public Function SelectedElementsList_IsItemIncluded(par_control As CtlMainEntryBox_v90) As Boolean
+        ''---1/12/2022 ---Implements ISelectingElements_v90.SelectedElementsList_IsItemIncluded
+
+        ''
         ''Added 8/3/2019 td 
+        ''
         Return (mod_selectedCtls.Contains(par_control))
 
     End Function
@@ -331,8 +338,20 @@ Partial Public Class FormMainEntry_v90
 
     Public Function LabelsList_IsItemUnselected(par_control As CtlMainEntryBox_v90) As Boolean Implements ISelectingElements_v90.LabelsList_IsItemUnselected
 
+        ''
         ''Added 8/3/2019 td 
+        ''
         Return (Not (mod_selectedCtls.Contains(par_control)))
+
+    End Function
+
+
+    Public Function LabelsList_IsItemIncluded(par_control As CtlMainEntryBox_v90) As Boolean Implements ISelectingElements_v90.LabelsList_IsItemIncluded
+
+        ''
+        ''Added 1/13/2022 & 8/3/2019 td 
+        ''
+        Return (mod_selectedCtls.Contains(par_control))
 
     End Function
 

@@ -233,7 +233,8 @@ Public Class ClassRubberbandSelector
         ''
         ''Added 9/20/2019 td  
         ''
-        Dim each_ctl As CtlGraphicFldLabel
+        ''1/13/2022 td''Dim each_ctl As CtlGraphicFldLabel
+        Dim each_ctl As RSCMoveableControlVB
         Dim boolInsideCtl As Boolean
 
         For Each each_ctl In Me.ElementControls_All
@@ -250,7 +251,8 @@ Public Class ClassRubberbandSelector
         ''
         ''Added 9/20/2019 td 
         ''
-        Dim each_fieldCtl As CtlGraphicFldLabel
+        ''1/13/2022 td''Dim each_fieldCtl As CtlGraphicFldLabel
+        Dim each_fieldCtl As RSCMoveableControlVB
 
         If (Me.ElementControls_All Is Nothing) Then
             ''
