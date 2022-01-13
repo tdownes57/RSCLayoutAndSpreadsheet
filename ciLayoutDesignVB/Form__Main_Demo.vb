@@ -642,6 +642,14 @@ Public Class Form__Main_Demo
                 .PathToXML = Me.ElementsCache_Edits.PathToXml_Saved
                 .PathToXML_Binary = Me.ElementsCache_Edits.PathToXml_Binary ''Added 11/29/2019 thomas d.
 
+                ''Added 1/13/2022  Copied from 12/10/2022 thomas d. 
+                If (Not String.IsNullOrEmpty(.PathToXML)) Then
+                    Dim strPathToFileJpg As String = ""
+                    strPathToFileJpg = .PathToXML.Replace(".xml", ".jpg")
+                    ''Create an image file (in JPEG form). ---1/5/2022 td 
+                    ElementsCache_ManageBoth.CreateBadgeLayoutImageFile(Me.picturePreview.Image, strPathToFileJpg)
+                End If ''End of "If (Not String.IsNullOrEmpty(...)) Then"
+
                 ''Added 9/24/2019  thomas 
                 ''  ''10/13/2019 td''.SerializeToXML(Me.ElementsCache_Edits.GetType, Me.ElementsCache_Edits, False, True)
                 ''11/29/2019 td''.SerializeToXML(Me.ElementsCache_Edits.GetType, Me.ElementsCache_Edits, False, False)

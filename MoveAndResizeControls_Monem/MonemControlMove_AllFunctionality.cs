@@ -834,22 +834,30 @@ namespace MoveAndResizeControls_Monem
                     //
                     if (mc_MonemEditsLocation)
                     {
-                        if (mc_MonemEditsLocation_TopAndLeft)
-                        {
-                            //We will edit .Left and .Top, instead of the .Location property.
-                            par_controlG.Left = newLocation_x;
-                            par_controlG.Top = newLocation_y;
-                        }
-                        else
-                        {
-                            //We will edit .Location, instead of the .Top & Left properties.
-                            par_controlG.Location = new Point(newLocation_x, newLocation_y);
-                        }
+                        //
+                        // Encapsulated 1/13/2022 td
+                        //
+                        MoveControl_EditLocation(par_controlG, newLocation_x, 
+                            newLocation_y, ref bEditedLocation);
+
+                        //if (mc_MonemEditsLocation_TopAndLeft)
+                        //{
+                        //    //We will edit .Left and .Top, instead of the .Location property.
+                        //    par_controlG.Left = newLocation_x;
+                        //    par_controlG.Top = newLocation_y;
+                        //}
+                        //else
+                        //{
+                        //    //We will edit .Location, instead of the .Top & Left properties.
+                        //    par_controlG.Location = new Point(newLocation_x, newLocation_y);
+                        //}
 
                         // We will inform outside entities that the .Location property (or .Top/.Left)
                         //   that the parent control's Location has been adjusted/moved. 
                         //   ----1/12/2022 td
-                        bEditedLocation = true;
+                        //--)----Now encapsulated w/ keyword "ref". 1/13/2022 td 
+                        //--)--bEditedLocation = true;
+
                     }
 
                     //Added 8/2/2019 thomas downes 

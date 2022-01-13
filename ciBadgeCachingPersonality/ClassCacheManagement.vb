@@ -128,7 +128,7 @@ Namespace ciBadgeCachePersonality
                 ''   Create and save the Badge-Layout Image file.
                 ''
                 Dim strTitleOfXML As String = ""
-                Dim strPathToFileJpg As String
+                Dim strPathToFileJpg As String = ""
                 Dim strPathToXml_Binary As String ''Added 12/14/2021 td
 
                 ''Dec14 2021''strTitleOfXML = mod_cacheEdits.XmlFile_FTitle
@@ -154,10 +154,10 @@ Namespace ciBadgeCachePersonality
                     End If ''End of "If (Not String.IsNullOrEmpty(strPathToFileJpg)) Then"
                 End If ''End of "If (par_BadgeImage IsNot Nothing) Then"
 
-                    ''Added 12/6/2021 td  
-                    ''----Dec.6 2021 ----mod_cacheSaved = mod_cacheEdits
-                    ''----Dec.14 2021 ----mod_cacheSaved = mod_cacheEdits.Copy()
-                    If (pstrPathToFileXML = "") Then pstrPathToFileXML = mod_cacheEdits.PathToXml_Saved
+                ''Added 12/6/2021 td  
+                ''----Dec.6 2021 ----mod_cacheSaved = mod_cacheEdits
+                ''----Dec.14 2021 ----mod_cacheSaved = mod_cacheEdits.Copy()
+                If (pstrPathToFileXML = "") Then pstrPathToFileXML = mod_cacheEdits.PathToXml_Saved
 
                 ''
                 ''Load the Saved cache. ---Dec. 14, 2021 
@@ -183,7 +183,7 @@ Namespace ciBadgeCachePersonality
         End Sub ''End of "Public Sub Save()"
 
 
-        Private Sub CreateBadgeLayoutImageFile(par_BadgeImage As System.Drawing.Image,
+        Public Sub CreateBadgeLayoutImageFile(par_BadgeImage As System.Drawing.Image,
                                                par_strPathToProposedJpeg As String)
             ''
             ''Added 1/5/2022 thomas downes 
@@ -191,7 +191,7 @@ Namespace ciBadgeCachePersonality
             par_BadgeImage.Save(par_strPathToProposedJpeg,
                                 System.Drawing.Imaging.ImageFormat.Jpeg)
 
-        End Sub ''End of "Private Sub CreateBadgeLayoutImage(pstrPathToJpeg As String)"
+        End Sub ''End of "Public Sub CreateBadgeLayoutImage(pstrPathToJpeg As String)"
 
 
         Public Sub RefreshSaved_ViaPathXML(pstrPathToXML As String)

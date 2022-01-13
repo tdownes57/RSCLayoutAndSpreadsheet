@@ -1635,7 +1635,7 @@ Public Class ClassDesigner
         If (par_bSerializeToDisk) Then
 
             ''Encapsulated 12/14/2021 td
-            Me.ElementsCache_Manager.Save(par_bSerializeToDisk)
+            ''1/13/2022 td''Me.ElementsCache_Manager.Save(par_bSerializeToDisk)
             Me.ElementsCache_Manager.Save(par_bSerializeToDisk, "", Me.PreviewBox.Image)
 
             ''Dim objSerializationClass As New ciBadgeSerialize.ClassSerial
