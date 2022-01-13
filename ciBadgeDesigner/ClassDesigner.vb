@@ -769,10 +769,18 @@ Public Class ClassDesigner
 
             If ("" = strBackgroundImage_Path) Then
                 strBackgroundImage_Path = DiskFilesVB.PathToFile_Background_FirstOrDefault(strBackgroundImage_Title)
-                .BackgroundImage_Front_FTitle = strBackgroundImage_Title
-                .BackgroundImage_Front_Path = strBackgroundImage_Path
+
+                If (EnumSideOfCard = EnumWhichSideOfCard.EnumBackside) Then ''Added 1/13/22
+                    ''Added 1/13/22
+                    .BackgroundImage_Backside_FTitle = strBackgroundImage_Title
+                    .BackgroundImage_Backside_Path = strBackgroundImage_Path
+                Else
+                    .BackgroundImage_Front_FTitle = strBackgroundImage_Title
+                    .BackgroundImage_Front_Path = strBackgroundImage_Path
+                End If ''End of "If (EnumSideOfCard = ...."
+
             End If ''End of ''If ("" = strBackgroundImage_Path) The
-        End With
+        End With ''end of "With ElementsCache_UseEdits"
 
         If (System.IO.File.Exists(strBackgroundImage_Path)) Then
             objectBackgroundImage = New Bitmap(strBackgroundImage_Path)
