@@ -96,6 +96,18 @@ Partial Class CtlGraphicStaticText
 
     End Sub
 
+    Public Overrides Function Rotated_0degrees() As Boolean
+        Throw New NotImplementedException()
+    End Function
+
+    Public Overrides Function Rotated_180_360() As Boolean
+        Throw New NotImplementedException()
+    End Function
+
+    Public Overrides Function Rotated_90_270() As Boolean
+        Throw New NotImplementedException()
+    End Function
+
     Friend WithEvents pictureLabel As PictureBox
     Friend WithEvents FontDialog1 As FontDialog
     Friend WithEvents ColorDialog1 As ColorDialog

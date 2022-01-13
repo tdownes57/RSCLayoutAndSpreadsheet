@@ -6,12 +6,15 @@ Imports ciBadgeInterfaces ''Added 12/22/2021 td
 ''--Imports windows.Forms ''Added 12/22/2021
 Imports System.Windows.Forms
 Imports ciBadgeDesigner ''Added 12/27/2021 td 
+Imports ciBadgeElements ''added 1/22/2022
 
 ''
 ''Added 12/22/2021 td  
 ''
-Public MustInherit Class RSCMoveableControlVB
+Public Class RSCMoveableControlVB
     Implements ISaveToModel ''Added 1/2/2022 td 
+
+    ''Jan12 2022 td ''Public MustInherit Class RSCMoveableControlVB
     ''Jan12 2022 td''Implements IElement_Base ''Added 1/12/2022 td
 
     ''
@@ -1487,22 +1490,22 @@ Public MustInherit Class RSCMoveableControlVB
     End Sub ''End of Protected Sub MoveableControl_MouseUp
 
 
-    Public MustOverride Sub RemoveMouseEventHandlers_ChildClass()
-    ''
-    ''Added this dummy Sub on 1/12/2022 
-    ''
-    ''Throw New Exception("Must be overridden by the child user control, e.g. CtlGraphicsStaticText")
+    Public Overridable Sub RemoveMouseEventHandlers_ChildClass()
+        ''
+        ''Added this dummy Sub on 1/12/2022 
+        ''
+        Throw New Exception("Must be overridden by the child user control, e.g. CtlGraphicsStaticText")
 
-    ''End Sub
+    End Sub
 
 
-    Public MustOverride Sub AddMouseEventHandlers_ChildClass()
-    ''    ''
-    ''    ''Added this dummy Sub on 1/12/2022 
-    ''    ''
-    ''    Throw New Exception("Must be overridden by the child user control, e.g. CtlGraphicsStaticText")
+    Public Overridable Sub AddMouseEventHandlers_ChildClass()
+        ''    ''
+        ''    ''Added this dummy Sub on 1/12/2022 
+        ''    ''
+        Throw New Exception("Must be overridden by the child user control, e.g. CtlGraphicsStaticText")
 
-    ''End Sub
+    End Sub
 
 
 
@@ -1522,9 +1525,37 @@ Public MustInherit Class RSCMoveableControlVB
     ''Jan12 2022 td''Public MustOverride Function ImageForBadgeImage(par_recipient As IRecipient) As Image Implements IElement_Base.ImageForBadgeImage
 
     ''Added 1/12/2022 td
-    Public MustOverride Function Rotated_0degrees() As Boolean ''Added 1/12/2022 td
-    Public MustOverride Function Rotated_180_360() As Boolean ''Added 1/12/2022 td
-    Public MustOverride Function Rotated_90_270() As Boolean ''Added 1/12/2022 td
+    Public Overridable Function Rotated_0degrees() As Boolean ''Added 1/12/2022 td
+        ''Added 1/12/2022 td
+        Return False
+
+    End Function
+
+
+    Public Overridable Function Rotated_180_360() As Boolean ''Added 1/12/2022 td
+        ''Added 1/12/2022 td
+        Return False
+
+    End Function
+
+
+    Public Overridable Function Rotated_90_270() As Boolean ''Added 1/12/2022 td
+        ''Added 1/12/2022 td
+        Return False
+
+    End Function
+
+
     ''1/12/2022 td''Public ElementInfo_Base As IElement_Base ''Added 1/12/2022 td 
+
+
+    Public Overridable Sub Refresh_Image(pbRefreshSize As Boolean,
+                             Optional pboolResizeLabelControl As Boolean = True,
+                             Optional pboolRefreshLabelControl As Boolean = True,
+                             Optional pboolRefreshUserControl As Boolean = False,
+                             Optional pobjElementField As ClassElementField = Nothing)
+
+    End Sub
+
 
 End Class

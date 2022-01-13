@@ -614,7 +614,7 @@ Public Class CtlGraphicSignature
 
     End Sub ''End of Public Sub SaveToModel
 
-    Private Sub Rotate90Degrees(sender As Object, e As EventArgs)
+    Public Sub Rotate90Degrees(sender As Object, e As EventArgs)
         ''
         ''Added 7/30/2019 thomas downes
         ''  
@@ -663,9 +663,11 @@ Public Class CtlGraphicSignature
         ''Added 9/20/2019 td
         Me.LayoutFunctions.AutoPreview_IfChecked()
 
-    End Sub ''eNd of "Private Sub Rotate90()"
 
-    Public Function Rotated_90_270() As Boolean
+    End Sub ''eNd of "Private Sub Rotate90Degrees()"
+
+
+    Public Overrides Function Rotated_90_270() As Boolean
         ''
         ''Added 9/23/2019 thomas d.  
         ''
@@ -693,7 +695,8 @@ Public Class CtlGraphicSignature
 
     End Function ''End of "Public Function Rotated_90_270() As Boolean"
 
-    Public Function Rotated_0degrees() As Boolean
+
+    Public Overrides Function Rotated_0degrees() As Boolean
         ''
         ''Added 9/23/2019 thomas d.  
         ''
@@ -735,7 +738,7 @@ ExitHandler:
 
     End Function ''End of "Public Function Rotated_0degrees() As Boolean"
 
-    Public Function Rotated_180_360() As Boolean
+    Public Overrides Function Rotated_180_360() As Boolean
         ''
         ''Added 9/23/2019 thomas d.  
         ''

@@ -789,7 +789,8 @@ ExitHandler:
 
     End Sub ''End of Public Sub SaveToModel
 
-    Public Function Rotated_90_270() As Boolean
+
+    Public Overrides Function Rotated_90_270() As Boolean
         ''
         ''Added 9/23/2019 thomas d.  
         ''
@@ -817,6 +818,7 @@ ExitHandler:
 
     End Function ''End of "Public Function Rotated_90_270() As Boolean"
 
+
     Public Overrides Function Rotated_0degrees() As Boolean
         ''
         ''Added 9/23/2019 thomas d.  
@@ -841,7 +843,7 @@ ExitHandler:
 
     End Function ''End of "Public Function Rotated_0degrees() As Boolean"
 
-    Public Function Rotated_180_360() As Boolean
+    Public Overrides Function Rotated_180_360() As Boolean
         ''
         ''Added 9/23/2019 thomas d.  
         ''
@@ -866,6 +868,7 @@ ExitHandler:
         Return boolReturnValue
 
     End Function ''End of "Public Function Rotated_180_360() As Boolean"
+
 
     Public Function LabelText(Optional par_objElementCopy As ClassElementField = Nothing) As String
         ''

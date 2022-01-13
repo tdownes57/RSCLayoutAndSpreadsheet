@@ -752,7 +752,9 @@ Public Class MoveableControlVB
 
     End Sub
 
-    Private Sub mod_eventsMoveThisControl_MoveInUnison(deltaLeft As Integer, deltaTop As Integer, deltaWidth As Integer, deltaHeight As Integer) Handles mod_eventsMoveThisControl.MoveInUnison
+    Private Sub mod_eventsMoveThisControl_MoveInUnison(deltaLeft As Integer, deltaTop As Integer,
+         deltaWidth As Integer, deltaHeight As Integer,
+            pbLeadControlLocationWasEdited As Boolean) Handles mod_eventsMoveThisControl.MoveInUnison
 
         ''Added 1/10/2022 td
 
