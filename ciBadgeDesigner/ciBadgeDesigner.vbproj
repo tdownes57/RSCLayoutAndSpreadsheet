@@ -245,6 +245,8 @@
     <Compile Include="Dialogs\ListStandardFields.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="DiskFiles\DiskFilesVB.vb" />
+    <Compile Include="DiskFiles\DiskFolders.vb" />
     <Compile Include="Interfaces\InterfaceCurrentElement.vb" />
     <Compile Include="Interfaces\InterfaceLastControlTouched.vb" />
     <Compile Include="Interfaces\InterfaceLastControlTouchedRSC.vb" />

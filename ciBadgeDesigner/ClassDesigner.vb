@@ -426,6 +426,9 @@ Public Class ClassDesigner
         ''Added 10/9/2019 td  
         Me.BadgeLayout_Class = New ciBadgeInterfaces.BadgeLayoutClass(Me.BackgroundBox_Front.Width, Me.BackgroundBox_Front.Height)
 
+        ''Added 1/13/2022 td
+        Load_BackgroundImage()
+
         ''
         ''I forget, what was this going to do originally?  ---9/6/2019 td
         ''
@@ -744,6 +747,44 @@ Public Class ClassDesigner
         Me.BackgroundBox_Front.BackgroundImage = obj_image_clone_resized
 
     End Sub ''End of Sub ResizeLayoutBackgroundImage_ToFitPictureBox()
+
+
+    Private Sub Load_BackgroundImage()
+        ''
+        ''Encapsulated from code copied from Form__Main_Demo.vb
+        ''
+        ''Added 12/3/2021 thomas downes
+        Dim objectBackgroundImage As Bitmap
+        Dim strBackgroundImage_Path As String = ""
+        Dim strBackgroundImage_Title As String = ""
+        Dim boolBacksideOfCard As Boolean
+
+        ''Added 1/13/2022 td
+        boolBacksideOfCard = (Me.EnumSideOfCard = EnumWhichSideOfCard.EnumBackside)
+
+        With ElementsCache_UseEdits
+            ''12/14/2021''strBackgroundImage_Path = .ElementsCache_UseEdits.BackgroundImage_Front_Path
+            strBackgroundImage_Path = .GetBackgroundImage_Path(EnumSideOfCard)
+            If (strBackgroundImage_Path Is Nothing) Then strBackgroundImage_Path = ""
+
+            If ("" = strBackgroundImage_Path) Then
+                strBackgroundImage_Path = DiskFilesVB.PathToFile_Background_FirstOrDefault(strBackgroundImage_Title)
+                .BackgroundImage_Front_FTitle = strBackgroundImage_Title
+                .BackgroundImage_Front_Path = strBackgroundImage_Path
+            End If ''End of ''If ("" = strBackgroundImage_Path) The
+        End With
+
+        If (System.IO.File.Exists(strBackgroundImage_Path)) Then
+            objectBackgroundImage = New Bitmap(strBackgroundImage_Path)
+            If (boolBacksideOfCard) Then
+                BackgroundBox_Backside.BackgroundImage = objectBackgroundImage
+            Else
+                BackgroundBox_Front.BackgroundImage = objectBackgroundImage
+            End If ''end of "If (boolBacksideOfCard) Then... Else ..."
+        End If ''End of "If (System.IO.File.Exists(strBackgroundImage_Path)) Then"
+
+    End Sub ''ENd of "Private Sub Load_BackgroundImage()"
+
 
     Private Sub LoadForm_LayoutElements(par_enumSideOfCard As EnumWhichSideOfCard,
                                         par_cache As ClassElementsCache_Deprecated,

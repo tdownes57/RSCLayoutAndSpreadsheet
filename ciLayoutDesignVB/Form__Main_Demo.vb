@@ -431,31 +431,31 @@ Public Class Form__Main_Demo
             .BackgroundBox_Front = Me.pictureBackgroundFront
             .BackgroundBox_Backside = Me.pictureBackgroundBackside ''Added 12/10/2021 thomas downes
 
-            ''Added 12/3/2021 thomas downes
-            Dim objectBackgroundImage As Bitmap
-            Dim strBackgroundImage_Path As String = ""
-            Dim strBackgroundImage_Title As String = ""
+            ''''Added 12/3/2021 thomas downes
+            ''Dim objectBackgroundImage As Bitmap
+            ''Dim strBackgroundImage_Path As String = ""
+            ''Dim strBackgroundImage_Title As String = ""
 
-            ''12/14/2021''strBackgroundImage_Path = .ElementsCache_UseEdits.BackgroundImage_Front_Path
-            strBackgroundImage_Path = .ElementsCache_UseEdits.GetBackgroundImage_Path(.EnumSideOfCard)
-            If (strBackgroundImage_Path Is Nothing) Then strBackgroundImage_Path = ""
+            ''''12/14/2021''strBackgroundImage_Path = .ElementsCache_UseEdits.BackgroundImage_Front_Path
+            ''strBackgroundImage_Path = .ElementsCache_UseEdits.GetBackgroundImage_Path(.EnumSideOfCard)
+            ''If (strBackgroundImage_Path Is Nothing) Then strBackgroundImage_Path = ""
 
-            If ("" = strBackgroundImage_Path) Then
-                strBackgroundImage_Path = DiskFilesVB.PathToFile_Background_FirstOrDefault(strBackgroundImage_Title)
-                ''.ElementsCache_Saved.BackgroundImage_Front_FTitle = strBackgroundImage_Title
-                ''.ElementsCache_Saved.BackgroundImage_Front_Path = strBackgroundImage_Path
-                .ElementsCache_UseEdits.BackgroundImage_Front_FTitle = strBackgroundImage_Title
-                .ElementsCache_UseEdits.BackgroundImage_Front_Path = strBackgroundImage_Path
-            End If ''End of ''If ("" = strBackgroundImage_Path) The
+            ''If ("" = strBackgroundImage_Path) Then
+            ''    strBackgroundImage_Path = DiskFilesVB.PathToFile_Background_FirstOrDefault(strBackgroundImage_Title)
+            ''    ''.ElementsCache_Saved.BackgroundImage_Front_FTitle = strBackgroundImage_Title
+            ''    ''.ElementsCache_Saved.BackgroundImage_Front_Path = strBackgroundImage_Path
+            ''    .ElementsCache_UseEdits.BackgroundImage_Front_FTitle = strBackgroundImage_Title
+            ''    .ElementsCache_UseEdits.BackgroundImage_Front_Path = strBackgroundImage_Path
+            ''End If ''End of ''If ("" = strBackgroundImage_Path) The
 
-            If (System.IO.File.Exists(strBackgroundImage_Path)) Then
-                objectBackgroundImage = New Bitmap(strBackgroundImage_Path)
-                If (boolBacksideOfCard) Then
-                    .BackgroundBox_Backside.BackgroundImage = objectBackgroundImage
-                Else
-                    .BackgroundBox_Front.BackgroundImage = objectBackgroundImage
-                End If ''end of "If (boolBacksideOfCard) Then... Else ..."
-            End If ''End of "If (System.IO.File.Exists(strBackgroundImage_Path)) Then"
+            ''If (System.IO.File.Exists(strBackgroundImage_Path)) Then
+            ''    objectBackgroundImage = New Bitmap(strBackgroundImage_Path)
+            ''    If (boolBacksideOfCard) Then
+            ''        .BackgroundBox_Backside.BackgroundImage = objectBackgroundImage
+            ''    Else
+            ''        .BackgroundBox_Front.BackgroundImage = objectBackgroundImage
+            ''    End If ''end of "If (boolBacksideOfCard) Then... Else ..."
+            ''End If ''End of "If (System.IO.File.Exists(strBackgroundImage_Path)) Then"
 
             .PreviewBox = Me.picturePreview
             .DesignerForm = Me
