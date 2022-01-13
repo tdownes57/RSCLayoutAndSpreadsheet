@@ -187,7 +187,8 @@ namespace MoveAndResizeControls_Monem
                                ISaveToModel par_iSave, 
                                bool pbUndoAndReverseEverything = false,
                                bool pbHookUpEventHandlers = true,
-                               float par_unused = 0)
+                               bool pbResizeProportionally = false,
+                               float par_proportionWH = 0)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
             //     the preferred background color.)   ----7/31/2019 td
@@ -198,6 +199,15 @@ namespace MoveAndResizeControls_Monem
             //
             //   internal static void Init(Control control, Control container)
             //
+            _SizeProportionally = pbResizeProportionally; //Added 1/12/2022 td
+
+            //
+            //Added 1/12/2022 & 10/09/2019 thomas downes 
+            //
+            if (par_proportionWH != 0) _proportionWH = (decimal)par_proportionWH;
+            else _proportionWH = (decimal)par_containerElement.Width /
+                            (decimal)par_containerElement.Height;
+
             //Dec28 //_iSaveToModel = par_iSave; //Added 12/17/2021 td
             if (pbUndoAndReverseEverything) _iSaveToModel = null; //Added 12/28/2021
             else _iSaveToModel = par_iSave;  //Added 12/28/2021

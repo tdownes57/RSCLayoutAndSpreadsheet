@@ -836,7 +836,7 @@ Public Class RSCMoveableControlVB
                                             mod_eventsForSingleMove,
                                             False, Me, False,
                                             mod_bHandleMouseMoveEvents_Monem,
-                                            singleProportionWH)
+                                            True, singleProportionWH)
 
         ''            ''1/2/2022 td '' mod_events, False, mod_iSaveToModel)
         ''---mod_resizingProportionally.LayoutFunctions = par_iLayoutFunctions 

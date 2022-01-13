@@ -101,7 +101,10 @@ Partial Public Class FormMainEntry_v90
 
     End Sub ''End of "Private Sub Resizing_Start"  
 
-    Private Sub Move_GroupMove_Continue(DeltaLeft As Integer, DeltaTop As Integer, DeltaWidth As Integer, DeltaHeight As Integer) Handles mod_groupedMove.MoveInUnison
+
+    Private Sub Move_GroupMove_Continue(DeltaLeft As Integer, DeltaTop As Integer,
+                                        DeltaWidth As Integer, DeltaHeight As Integer,
+                                        pbLeadControlLocationWasEdited As Boolean) Handles mod_groupedMove.MoveInUnison
         ''
         ''Added 8/3/2019 thomas downes  
         ''

@@ -61,7 +61,9 @@ Public Class ClassGroupMoveEvents_NoLongerUsed
 
     End Sub
 
-    Public Sub GroupMove_Change(deltaLeft As Integer, deltaTop As Integer, deltaWidth As Integer, deltaHeight As Integer) _
+    Public Sub GroupMove_Change(deltaLeft As Integer, deltaTop As Integer,
+                                deltaWidth As Integer, deltaHeight As Integer,
+                                pbLeadControlLocationWasChanged As Boolean) _
         Implements InterfaceMoveEvents.GroupMove_Change
 
         ''

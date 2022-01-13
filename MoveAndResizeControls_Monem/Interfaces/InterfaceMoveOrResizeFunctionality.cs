@@ -27,7 +27,9 @@ namespace MoveAndResizeControls_Monem //.Interfaces
                                   InterfaceMoveEvents par_eventsSingleCtl,
                                   bool pbSetBreakpoint_AfterMove,
                                   ISaveToModel par_iSave, bool pbRemoveAnyHandlers = false,
-                                  bool pbHookUpEventHandlers = true, float par_proportionWH = 0);
+                                  bool pbHookUpEventHandlers = true, 
+                                  bool pbResizeViaProportionWH = false,
+                                  float par_proportionWH = 0);
 
         bool NowInMotion(); //Added 1/10/2022 td
 

@@ -146,6 +146,9 @@ Public Class CtlGraphicStaticGraphic
         ' This call is required by the designer.
         InitializeComponent()
 
+        ''Added 1/12/2022 td 
+        Me.BackColor = Color.Transparent ''Added 1/12/2022 td 
+
     End Sub
 
 
@@ -182,6 +185,9 @@ Public Class CtlGraphicStaticGraphic
 
         ''Encapsulated 12/30/2021 td
         New_StaticGraphic(par_elementGraphic, par_iLayoutFun)
+
+        ''Added 1/12/2022 td 
+        Me.BackColor = Color.Transparent ''Added 1/12/2022 td 
 
     End Sub
 
