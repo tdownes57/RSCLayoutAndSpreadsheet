@@ -381,7 +381,7 @@ Public Class Form__Main_Demo
         ''Encapsulated 11/28/2021 thomas downes
         ''
         Dim boolBacksideOfCard As Boolean ''Added 12/14/2021 td
-        boolBacksideOfCard = (mod_designer.EnumSideOfCard = EnumWhichSideOfCard.EnumBackside)
+        boolBacksideOfCard = (mod_designer.EnumSideOfCard_Current = EnumWhichSideOfCard.EnumBackside)
 
         ''If (CtlGraphicQRCode1 Is Nothing) Then
         ''    ''Added 12/3/2021 td  
@@ -499,7 +499,9 @@ Public Class Form__Main_Demo
                     Next objElementPic
                 End If ''End of "If (c_bEnumerationTechnicalWay) Then ... ElseIf ..."
 
-                If (objElementPic Is Nothing) Then System.Diagnostics.Debugger.Break()
+                If (objElementPic Is Nothing) Then
+                    ''Jan14 2022 ''System.Diagnostics.Debugger.Break()
+                End If ''End of "If (objElementPic Is Nothing) Then"
 
                 ''.Initial_Pic_Left = Me.ElementsCache_Edits.PicElement_Front().LeftEdge_Pixels
                 ''.Initial_Pic_Top = Me.ElementsCache_Edits.PicElement_Front().TopEdge_Pixels
@@ -515,8 +517,8 @@ Public Class Form__Main_Demo
 
             End If ''End of "If (Me.NewFileXML) Then .... Else ..."
 
-                ''Added 12/12/2021
-                If (Me.ElementsCache_Edits.BadgeHasTwoSidesOfCard) Then
+            ''Added 12/12/2021
+            If (Me.ElementsCache_Edits.BadgeHasTwoSidesOfCard) Then
                 ''Added 12/12/2021
                 ''  Change ">>> Add backside of ID Card." to ">>> Show backside of ID Card.".
                 labelProceedToBackside.Text = labelProceedToBackside.Tag.ToString()
@@ -1401,6 +1403,7 @@ Public Class Form__Main_Demo
         If pictureBackgroundBackside.BackgroundImage IsNot Nothing Then
             ClassLabelToImage.ProportionsAreSlightlyOff(pictureBackgroundBackside.BackgroundImage, True) ''Added 12/11//2021 td 
         End If
+
         If picturePreview.Image IsNot Nothing Then
             ClassLabelToImage.ProportionsAreSlightlyOff(picturePreview.Image, True)
         End If
@@ -1409,7 +1412,8 @@ Public Class Form__Main_Demo
         ''Refresh the preview picture box. 
         ''
         ''10/3/2019 td''RefreshPreview()
-        mod_designer.RefreshPreview_Redux_Front()
+        '' 1/13/2022 td''mod_designer.RefreshPreview_Redux_Front()
+        mod_designer.RefreshPreview_CurrentSide()
 
         ''8/24 td''Dim objPrintLib As New ciLayoutPrintLib.CILayoutBadge
         ''Dim objPrintLib As New ciLayoutPrintLib.LayoutPrint_Redux
@@ -2385,7 +2389,7 @@ ExitHandler:
             '' 12/3/2021 td''PictureBox1.ImageLocation = strPathToFilename
 
             ''Dec.13 2021''bBacksideOfCard = (mod_designer.EnumSideOfCard = modFactoryControls.EnumWhichSideOfCard.EnumBackside)
-            bBacksideOfCard = (mod_designer.EnumSideOfCard = EnumWhichSideOfCard.EnumBackside)
+            bBacksideOfCard = (mod_designer.EnumSideOfCard_Current = EnumWhichSideOfCard.EnumBackside)
 
             If (bBacksideOfCard) Then
                 ''Backside of Card.  

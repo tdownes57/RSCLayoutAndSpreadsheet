@@ -44,7 +44,7 @@ Public Class ClassDesigner
 
     ''Added 12/8/2021 thomas downes
     ''---Private mod_enumSideOfCard As EnumWhichSideOfCard = EnumWhichSideOfCard.EnumFrontside ''Added 12/8/2021 Thomas downes  
-    Public EnumSideOfCard As EnumWhichSideOfCard = EnumWhichSideOfCard.EnumFrontside ''Added 12/8/2021 Thomas downes  
+    Public EnumSideOfCard_Current As EnumWhichSideOfCard = EnumWhichSideOfCard.EnumFrontside ''Added 12/8/2021 Thomas downes  
 
     Public Property PreviewLayoutAsImage As Boolean = True ''Added 10.1.2019 thomas d. 
     Public BadgeLayout_Class As ciBadgeInterfaces.BadgeLayoutClass ''Added 10/9/2019 td  
@@ -174,7 +174,7 @@ Public Class ClassDesigner
 
     Public Function ShowingTheBackside() As Boolean
         ''Added 12/10/2021 td
-        Return (EnumSideOfCard = EnumWhichSideOfCard.EnumBackside)
+        Return (EnumSideOfCard_Current = EnumWhichSideOfCard.EnumBackside)
     End Function
 
 
@@ -275,7 +275,7 @@ Public Class ClassDesigner
         ''  Go back to the front side of the card. 
         ''
         If (pboolResetToFrontOfCard) Then
-            EnumSideOfCard = EnumWhichSideOfCard.EnumFrontside
+            EnumSideOfCard_Current = EnumWhichSideOfCard.EnumFrontside
         End If ''End of "If (pboolResetToFrontOfCard) Then"
 
     End Sub ''End of "Public Sub UnloadDesigner__()"
@@ -521,7 +521,7 @@ Public Class ClassDesigner
         ''9/20/2019 td''LoadForm_LayoutElements(Me.ElementsCache_Edits)
         ''12/8/2021 td''LoadForm_LayoutElements(Me.ElementsCache_Edits, mod_listOfFieldControls,
         ''12/8/2021 td''      "ClassDesigner.LoadDesigner " & pstrWhyCalled)
-        LoadForm_LayoutElements(EnumSideOfCard, Me.ElementsCache_UseEdits, mod_listOfFieldControls,
+        LoadForm_LayoutElements(EnumSideOfCard_Current, Me.ElementsCache_UseEdits, mod_listOfFieldControls,
                                 par_oMoveEvents, "ClassDesigner.LoadDesigner " & pstrWhyCalled)
 
 
@@ -636,8 +636,12 @@ Public Class ClassDesigner
         End If ''End of "If (ShowingBackside()) Then ... Else ..."
 
         ResizeLayoutBackgroundImage_ToFitPictureBox() ''Added 8/25/2019 td
-        RefreshPreview_Redux_Front() ''Added 8/24/2019 td
 
+        ''1/14/2022''RefreshPreview_Redux_Front() ''Added 8/24/2019 td
+        RefreshPreview_CurrentSide() ''Modified 1/14/2022 td
+
+
+        ''------------------------------------------------------------------------
         ''Const c_boolBreakpoint As Boolean = True  ''Added 9//13/2019 td
 
         ''''Badge Preview is also moveable/sizeable, mostly to impress
@@ -674,6 +678,7 @@ Public Class ClassDesigner
         ''                      Me.BackgroundBox, 10, False,
         ''                      c_boolBreakpoint) ''Added 9/08/2019 thomas downes
         ''End If ''End of "If (c_LayoutBackIsMoveable) Then"
+        ''---------------------------------------------------------------------------------
 
         ''Moved from above, 9/20/2019 td 
         ''1/12/2022 td''Initiate_RubberbandSelector(mod_listOfFieldControls,
@@ -760,17 +765,17 @@ Public Class ClassDesigner
         Dim boolBacksideOfCard As Boolean
 
         ''Added 1/13/2022 td
-        boolBacksideOfCard = (Me.EnumSideOfCard = EnumWhichSideOfCard.EnumBackside)
+        boolBacksideOfCard = (Me.EnumSideOfCard_Current = EnumWhichSideOfCard.EnumBackside)
 
         With ElementsCache_UseEdits
             ''12/14/2021''strBackgroundImage_Path = .ElementsCache_UseEdits.BackgroundImage_Front_Path
-            strBackgroundImage_Path = .GetBackgroundImage_Path(EnumSideOfCard)
+            strBackgroundImage_Path = .GetBackgroundImage_Path(EnumSideOfCard_Current)
             If (strBackgroundImage_Path Is Nothing) Then strBackgroundImage_Path = ""
 
             If ("" = strBackgroundImage_Path) Then
                 strBackgroundImage_Path = DiskFilesVB.PathToFile_Background_FirstOrDefault(strBackgroundImage_Title)
 
-                If (EnumSideOfCard = EnumWhichSideOfCard.EnumBackside) Then ''Added 1/13/22
+                If (EnumSideOfCard_Current = EnumWhichSideOfCard.EnumBackside) Then ''Added 1/13/22
                     ''Added 1/13/22
                     .BackgroundImage_Backside_FTitle = strBackgroundImage_Title
                     .BackgroundImage_Backside_Path = strBackgroundImage_Path
@@ -1101,7 +1106,7 @@ Public Class ClassDesigner
 
         ''12/22/2021 td''If (elementQRCode.WhichSideOfCard = EnumWhichSideOfCard.Undetermined) Then elementQRCode.WhichSideOfCard = EnumWhichSideOfCard.EnumFrontside ''Added 12/15/2021
 
-        If (par_elementQR.WhichSideOfCard = Me.EnumSideOfCard) Then ''Added 12/15/2021
+        If (par_elementQR.WhichSideOfCard = Me.EnumSideOfCard_Current) Then ''Added 12/15/2021
 
             ''Jan2 2022 td''Dim dummySaveToModel As ClassSaveToModel = Nothing ''This is just a placeholder. 1/2/2022 td
             Const c_proportional As Boolean = True ''Added 1/2/2022 td
@@ -1810,15 +1815,141 @@ Public Class ClassDesigner
     End Sub ''End of "Private Sub SaveControlPositionsToElement()"
 
 
-    Public Sub RefreshPreview_EitherSide(par_sideLayout As IBadgeSideLayoutElementsV1,
+    Public Sub RefreshPreview_CurrentSide(Optional par_recentlyMoved As ClassElementField = Nothing,
+                                    Optional par_recipient As ciBadgeRecipients.ClassRecipient = Nothing)
+        ''
+        ''Created 1/13/2022 thomas downes
+        ''
+        Dim objBadgeSide As ClassBadgeSideLayoutV1
+        Dim enum_CurrentSide As EnumWhichSideOfCard
+
+        enum_CurrentSide = Me.EnumSideOfCard_Current
+
+        objBadgeSide = Me.ElementsCache_UseEdits.GetAllBadgeSideLayoutElements(Me.EnumSideOfCard_Current)
+
+        ''
+        ''Major call!! 
+        ''
+        RefreshPreview_EitherSide(enum_CurrentSide, objBadgeSide, par_recentlyMoved, par_recipient)
+
+    End Sub ''End of ""Public Sub RefreshPreview_CurrentSide()""
+
+
+    Public Sub RefreshPreview_EitherSide(par_enumCurrentSide As EnumWhichSideOfCard,
+                                        par_objMakeBadgeElements As ClassBadgeSideLayoutV1,
                                          Optional par_recentlyMoved As ClassElementField = Nothing,
                                     Optional par_recipient As ciBadgeRecipients.ClassRecipient = Nothing)
         ''
         ''Stubbed 12/27/2021
         ''
-        RefreshPreview_Redux_Front(par_recentlyMoved, par_recipient)
+        ''--Jan13 2022--RefreshPreview_Redux_Front(par_recentlyMoved, par_recipient)
 
-    End Sub
+        Dim objPrintLibElems As New ciLayoutPrintLib.LayoutElements
+        Dim listOfTextImages As New HashSet(Of Image) ''Added 8/26/2019 thomas downes 
+        ''Jan13 2022 ''Dim listOfElementTextFields As HashSet(Of ClassElementField)
+        ''Jan13 2022 ''Dim listOfElementStaticTexts As HashSet(Of ClassElementStaticText) ''Added 1/8/2022 td
+        ''Jan13 2022 ''Dim listOfElementGraphics As HashSet(Of ClassElementGraphic) ''Added 1/8/2022 td
+
+        Dim obj_image As Image ''Added 8/24 td
+        Dim obj_image_clone As Image ''Added 8/24 td
+        Dim obj_image_clone_resized As Image ''Added 8/24/2019 td
+        Static obj_generator As ciBadgeGenerator.ClassMakeBadge
+        ''Jan13 2022''Dim bMatchesElementInCache As Boolean ''Added 11/30/2021 thomas d.
+        ''Jan13 2022''Dim intCountMatchedElements As Integer ''Added 11/30/2021 thomas d.
+
+        If (obj_generator Is Nothing) Then obj_generator = New ciBadgeGenerator.ClassMakeBadge
+
+        obj_generator.PathToFile_Sig = Me.PathToSigFile ''Added 10/12/2019 td
+        obj_generator.ImageQRCode = CtlGraphic_QRCode.pictureQRCode.Image ''Added 10/14 td
+
+        Try
+            ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.BackgroundBox_Front.Image, True, "RefreshPreview_Redux #1")
+
+        Catch ex_bgbox As Exception
+            ''Added 11/26/2021 td
+            If (Not mod_bMessageRedux1) Then MessageBox.Show(ex_bgbox.Message)
+            mod_bMessageRedux1 = True ''Added 12/02/2021 thomas downes 
+            If (False) Then MessageBox.Show(ex_bgbox.ToString)
+        End Try
+
+        Try
+            ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.PreviewBox, True, "RefreshPreview_Redux #2")
+
+        Catch ex_previewbox As Exception
+            ''Added 11/26/2021 td
+            MessageBox.Show(ex_previewbox.Message)
+            MessageBox.Show(ex_previewbox.ToString)
+        End Try
+
+        Dim bBacksideOfCard As Boolean ''Added 12/10/2021 thomas downes
+        ''Jan13 2022''bBacksideOfCard = (EnumSideOfCard_Current = EnumWhichSideOfCard.EnumBackside)
+        bBacksideOfCard = (par_enumCurrentSide = EnumWhichSideOfCard.EnumBackside)
+        obj_image = Me.BackgroundBox_Front.BackgroundImage
+        If (bBacksideOfCard) Then obj_image = Me.BackgroundBox_Backside.BackgroundImage
+
+        If (obj_image Is Nothing) Then
+            ''Clear the Preview image, since we don't have a background available. ---12/10/2021 
+            If (Me.PreviewBox.Image IsNot Nothing) Then Me.PreviewBox.Image.Dispose() ''Added 12/11/2021 td 
+            Me.PreviewBox.Image = Nothing
+            Me.PreviewBox.Refresh()
+            Return
+        Else
+            obj_image_clone = CType(obj_image.Clone(), Image)
+        End If ''End of "If (obj_image IsNot Nothing) Then ... Else ..."
+
+        obj_image_clone_resized =
+            LayoutPrint.ResizeBackground_ToFitBox(obj_image, Me.PreviewBox, True)
+
+        ''Added 9/6/2019 td 
+        ClassFixTheControlWidth.ProportionsAreSlightlyOff(obj_image_clone_resized, True, "RefreshPreview_Redux #3")
+        ClassFixTheControlWidth.ImageSizeDiffersFromControl(Me.PreviewBox, obj_image_clone_resized, True) ''Added 10/9/2019 td  
+
+        ''---Const c_boolUseFunction2021 As Boolean = False ''Added 12/26/2021 td
+        Const c_boolUseFunction2022 As Boolean = True ''Added 12/26/2021 td
+
+        If (c_boolUseFunction2022) Then
+            ''
+            ''This was the function we started using 12/26/2021, to accomodate
+            ''   either side of the badgecard.  ---12/26/2021 td
+            ''
+            ''Now parameterized. 1/13/2022 td''Dim objMakeBadgeElements As ClassBadgeSideLayoutV1 ''Added 12/26/2021 td
+
+            ''
+            ''Major call !!
+            ''
+            ''Now parameterized. 1/13/2022 td''objMakeBadgeElements = Me.ElementsCache_UseEdits.GetAllBadgeSideLayoutElements(EnumWhichSideOfCard.EnumFrontside)
+
+            ''Added 12/26/2021 td
+            par_objMakeBadgeElements.BackgroundImage = obj_image_clone_resized
+
+            ''Added 12/26/2021 td
+            ''
+            ''  Get the Portrait Image from the Element-Portrait control. ---1/5/2022
+            ''
+            If (par_objMakeBadgeElements.RecipientPic Is Nothing) Then
+                ''Take the picture from the Element Control. ---1/5/2022 
+                par_objMakeBadgeElements.RecipientPic = CtlGraphic_Portrait.Pic_CloneOfInitialImage
+            End If ''End of "If (objMakeBadgeElements.ElementPic Is Nothing) Then"
+
+            ''
+            ''Major call !!
+            ''
+            obj_image = obj_generator.MakeBadgeImage_AnySide(Me.BadgeLayout_Class,
+                               par_objMakeBadgeElements,
+                               Me.PreviewBox.Width,
+                               Me.PreviewBox.Height,
+                               Nothing,
+                               Nothing, Nothing, Nothing, par_recentlyMoved)
+
+        End If ''End of "If (c_boolUseFunction2022) Then ..."
+
+        ClassFixTheControlWidth.ProportionsAreSlightlyOff(obj_image, True, "RefreshPreview_Redux #4")
+
+        Me.PreviewBox.Image = obj_image
+        Me.PreviewBox.Refresh()
+
+    End Sub ''End of "Public Sub RefreshPreview_EitherSide"
+
 
     Public Sub RefreshPreview_Redux_Front(Optional par_recentlyMoved As ClassElementField = Nothing,
                                     Optional par_recipient As ciBadgeRecipients.ClassRecipient = Nothing)
@@ -1908,7 +2039,7 @@ Public Class ClassDesigner
         ''Added 8/24/2019 td
         ''----Dec.3, 2021---obj_image = Me.BackgroundBox.Image
         Dim bBacksideOfCard As Boolean ''Added 12/10/2021 thomas downes
-        bBacksideOfCard = (EnumSideOfCard = EnumWhichSideOfCard.EnumBackside)
+        bBacksideOfCard = (EnumSideOfCard_Current = EnumWhichSideOfCard.EnumBackside)
         obj_image = Me.BackgroundBox_Front.BackgroundImage
         If (bBacksideOfCard) Then obj_image = Me.BackgroundBox_Backside.BackgroundImage
 
@@ -2747,9 +2878,19 @@ Public Class ClassDesigner
                 Dim objElementField As ClassElementField
                 objElementField = CType(par_controlElement,
                                      CtlGraphicFldLabel).ElementClass_Obj
-                RefreshPreview_Redux_Front(objElementField)
+                ''
+                ''Major call!!
+                ''
+                ''Jan14 2022 td''RefreshPreview_Redux_Front(objElementField)
+                RefreshPreview_CurrentSide(objElementField)
+
             Else
-                RefreshPreview_Redux_Front()
+                ''
+                ''Major call!!
+                ''
+                ''Jan14 2022 td''RefreshPreview_Redux_Front()
+                RefreshPreview_CurrentSide()
+
             End If ''End of "If (TypeOf par_controlElement Is CtlGraphicFldLabel) Then... Else"
 
         End If ''End of "If (checkAutoPreview.Checked) Then"
@@ -2905,15 +3046,15 @@ Public Class ClassDesigner
         ''
         ''Added 12/8/2021 thomas downes
         ''
-        If (EnumSideOfCard = EnumWhichSideOfCard.EnumFrontside) Then
+        If (EnumSideOfCard_Current = EnumWhichSideOfCard.EnumFrontside) Then
             ''Go to backside. 
-            EnumSideOfCard = EnumWhichSideOfCard.EnumBackside
-        ElseIf (EnumSideOfCard = EnumWhichSideOfCard.EnumBackside) Then
+            EnumSideOfCard_Current = EnumWhichSideOfCard.EnumBackside
+        ElseIf (EnumSideOfCard_Current = EnumWhichSideOfCard.EnumBackside) Then
             ''Go to backside. 
-            EnumSideOfCard = EnumWhichSideOfCard.EnumFrontside
-        ElseIf (EnumSideOfCard = EnumWhichSideOfCard.Undetermined) Then
+            EnumSideOfCard_Current = EnumWhichSideOfCard.EnumFrontside
+        ElseIf (EnumSideOfCard_Current = EnumWhichSideOfCard.Undetermined) Then
             ''Go to frontside. 
-            EnumSideOfCard = EnumWhichSideOfCard.EnumBackside
+            EnumSideOfCard_Current = EnumWhichSideOfCard.EnumBackside
         End If
 
         ''Dec.10 2021''UnloadDesigner()
@@ -3056,16 +3197,14 @@ Public Class ClassDesigner
         ''
         ''RefreshPreview_Redux_Front()
         ''---Me.DesignerForm_Interface.RefreshPreview()
-        If (Me.EnumSideOfCard = EnumWhichSideOfCard.EnumBackside) Then
+        ''Jan14, 2022''If (Me.EnumSideOfCard_Current = EnumWhichSideOfCard.EnumBackside) Then
+        ''Jan14    ''---RefreshPreview_Redux_Backside()
+        ''Jan14    RefreshPreview_EitherSide(New ClassBadgeSideLayoutV1())
+        ''Jan14Else
+        ''Jan14    RefreshPreview_Redux_Front()
+        ''Jan14End If
 
-            ''---RefreshPreview_Redux_Backside()
-            RefreshPreview_EitherSide(New ClassBadgeSideLayoutV1())
-
-        Else
-
-            RefreshPreview_Redux_Front()
-
-        End If
+        RefreshPreview_CurrentSide()
 
     End Sub
 End Class ''End of "Public Class ClassDesigner"

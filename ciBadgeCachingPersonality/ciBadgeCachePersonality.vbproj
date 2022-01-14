@@ -76,6 +76,7 @@
     <Compile Include="ClassElementsCacheV1_Deprecated.vb" />
     <Compile Include="ClassCacheLayout.vb" />
     <Compile Include="ClassCachePersonality.vb" />
+    <Compile Include="ClassFieldCache.vb" />
     <Compile Include="ClassPersonalityConfig.vb" />
     <Compile Include="Interfaces\InterfaceBadgeSideLayoutElementsV2.vb" />
     <Compile Include="Utilities\DiskFolders.vb" />
