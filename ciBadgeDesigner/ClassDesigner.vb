@@ -34,6 +34,7 @@ Public Class ClassDesigner
     ''10/4/2019 td''Public Property DesignerForm As Form
     ''10/4/2019 td''Public Property BackgroundBox As PictureBox
     Public WithEvents DesignerForm As Form
+    Public DesignerForm_DoubleCheckRef As Form
     Public WithEvents BackgroundBox_Front As PictureBox
     Public WithEvents BackgroundBox_Backside As PictureBox ''Added 12/10/2021 thomas downes
 
@@ -185,7 +186,8 @@ Public Class ClassDesigner
     End Function ''End of "Public Function ListOfFieldLabels() As List(Of CtlGraphicFldLabel)"
 
 
-    Public Sub UnloadDesigner(pboolResetToFrontOfCard As Boolean)
+    Public Sub UnloadDesigner(pboolResetToFrontOfCard As Boolean,
+                      Optional pbIncludePortrait As Boolean = True)
         ''
         ''Added 11/28/2021 Thomas Downes
         ''
@@ -210,6 +212,11 @@ Public Class ClassDesigner
         ''CtlGraphic_QRCode.Dispose() ''Added Dec. 8, 2021
         ''Me.DesignerForm.Controls.Remove(CtlGraphic_QRCode) ''Added Dec. 8, 2021
         ''mod_listOfDesignerControls.Remove(CtlGraphic_QRCode) ''Added Dec. 8, 2021
+
+        ''Added 1/14/2022 td
+        If (pbIncludePortrait) Then
+            UnloadDesigner_Portrait()
+        End If ''End of "If (pbIncludePortrait) Then"
 
         ''Encapsulated 12/14/2021 td
         UnloadDesigner_QRCode()
@@ -279,6 +286,17 @@ Public Class ClassDesigner
         End If ''End of "If (pboolResetToFrontOfCard) Then"
 
     End Sub ''End of "Public Sub UnloadDesigner__()"
+
+
+    Public Sub UnloadDesigner_Portrait()
+        ''
+        ''Added 1/14/2021 td 
+        ''
+        CtlGraphic_Portrait.Dispose() ''Added Dec. 8, 2021
+        Me.DesignerForm.Controls.Remove(CtlGraphic_Portrait) ''Added Dec. 8, 2021
+        mod_listOfDesignerControls.Remove(CtlGraphic_Portrait) ''Added Dec. 8, 2021
+
+    End Sub
 
 
     Public Sub UnloadDesigner_QRCode()
@@ -624,6 +642,11 @@ Public Class ClassDesigner
         ''10/1/2019 td''Me.BackgroundBox.SendToBack()
         Me.PreviewBox.SendToBack()
 
+        ResizeLayoutBackgroundImage_ToFitPictureBox() ''Added 8/25/2019 td
+
+        ''1/14/2022''RefreshPreview_Redux_Front() ''Added 8/24/2019 td
+        RefreshPreview_CurrentSide() ''Modified 1/14/2022 td
+
         ''Dec10 2021 td''Me.BackgroundBox_Front.SendToBack()
         If (ShowingTheBackside()) Then
             ''Show the backside of card. 
@@ -634,12 +657,6 @@ Public Class ClassDesigner
             Me.BackgroundBox_Front.SendToBack() ''Added 12/10/2021 td
             Me.BackgroundBox_Backside.SendToBack() ''Added 12/10/2021 td
         End If ''End of "If (ShowingBackside()) Then ... Else ..."
-
-        ResizeLayoutBackgroundImage_ToFitPictureBox() ''Added 8/25/2019 td
-
-        ''1/14/2022''RefreshPreview_Redux_Front() ''Added 8/24/2019 td
-        RefreshPreview_CurrentSide() ''Modified 1/14/2022 td
-
 
         ''------------------------------------------------------------------------
         ''Const c_boolBreakpoint As Boolean = True  ''Added 9//13/2019 td
@@ -697,6 +714,21 @@ Public Class ClassDesigner
         ''
         mod_designerListener.LoadDesigner(mod_listOfFieldControls,
                                           mod_listOfDesignerControls)
+
+        ''Added 1/14/2022 td
+        ''  Maybe this will cause the portrait-element control to appear. 
+        Me.DesignerForm.Refresh()
+
+        ''Added 1/14/2022 td
+        Dim boolRefMatches As Boolean ''Added 1/14/2022 td
+        boolRefMatches = (Me.DesignerForm_DoubleCheckRef IsNot Nothing) AndAlso
+                  (Me.DesignerForm Is Me.DesignerForm_DoubleCheckRef)
+        If (boolRefMatches) Then
+            '' Great, as expected. ---1/14/2022
+        Else
+            ''Added 1/14/2022 td
+            MessageBoxTD.Show_Statement("Houston, we have a problem!!!  Our form is orphaned.")
+        End If ''End of "If (boolRefMatches) Then .... Else ....."
 
     End Sub ''End of "Public Sub LoadDesigner"
 
@@ -1049,6 +1081,9 @@ Public Class ClassDesigner
 
             ''Added 8/18/2019 td
             .picturePortrait.Image = mod_imageExamplePortrait
+
+            ''Added 1/14/2022 td
+            .Visible = True
 
             ''Added 9/17/2019 td
             .Refresh_Master()
@@ -1947,6 +1982,7 @@ Public Class ClassDesigner
 
         Me.PreviewBox.Image = obj_image
         Me.PreviewBox.Refresh()
+        Me.DesignerForm.Refresh() ''Added 1/14/2022 td
 
     End Sub ''End of "Public Sub RefreshPreview_EitherSide"
 
@@ -2516,7 +2552,8 @@ Public Class ClassDesigner
         ''The control being moved or resized is part of a group.   
         ''
         ''8/4/2019 td''For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
-        For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
+        ''1/14/2022''For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
+        For Each each_control As RSCMoveableControlVB In mod_selectedCtls
 
             ''Don't re-move the control being directly moved...!! 
             ''  Causes ugly screen flicker!!

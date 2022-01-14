@@ -37,10 +37,12 @@ Partial Class FormDisplayCacheLayouts
         Me.ButtonExitApp = New System.Windows.Forms.Button()
         Me.ButtonOK = New System.Windows.Forms.Button()
         Me.ButtonFindLayout = New System.Windows.Forms.Button()
-        Me.picturePreview = New System.Windows.Forms.PictureBox()
+        Me.picturePreviewFront = New System.Windows.Forms.PictureBox()
+        Me.picturePreviewBackside = New System.Windows.Forms.PictureBox()
         Me.FlowLayoutPanel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.picturePreviewFront, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.picturePreviewBackside, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'LabelCaptionPathToTheFileXML
@@ -199,22 +201,33 @@ Partial Class FormDisplayCacheLayouts
         Me.ButtonFindLayout.Text = "Find Layout using Open File"
         Me.ButtonFindLayout.UseVisualStyleBackColor = True
         '
-        'picturePreview
+        'picturePreviewFront
         '
-        Me.picturePreview.BackColor = System.Drawing.Color.White
-        Me.picturePreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.picturePreview.Location = New System.Drawing.Point(215, 117)
-        Me.picturePreview.Name = "picturePreview"
-        Me.picturePreview.Size = New System.Drawing.Size(466, 277)
-        Me.picturePreview.TabIndex = 91
-        Me.picturePreview.TabStop = False
+        Me.picturePreviewFront.BackColor = System.Drawing.Color.White
+        Me.picturePreviewFront.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.picturePreviewFront.Location = New System.Drawing.Point(215, 117)
+        Me.picturePreviewFront.Name = "picturePreviewFront"
+        Me.picturePreviewFront.Size = New System.Drawing.Size(466, 277)
+        Me.picturePreviewFront.TabIndex = 91
+        Me.picturePreviewFront.TabStop = False
+        '
+        'picturePreviewBackside
+        '
+        Me.picturePreviewBackside.BackColor = System.Drawing.Color.White
+        Me.picturePreviewBackside.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.picturePreviewBackside.Location = New System.Drawing.Point(312, 191)
+        Me.picturePreviewBackside.Name = "picturePreviewBackside"
+        Me.picturePreviewBackside.Size = New System.Drawing.Size(466, 277)
+        Me.picturePreviewBackside.TabIndex = 92
+        Me.picturePreviewBackside.TabStop = False
+        Me.picturePreviewBackside.Visible = False
         '
         'FormDisplayCacheLayouts
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1406, 517)
-        Me.Controls.Add(Me.picturePreview)
+        Me.Controls.Add(Me.picturePreviewFront)
         Me.Controls.Add(Me.ButtonFindLayout)
         Me.Controls.Add(Me.ButtonOK)
         Me.Controls.Add(Me.ButtonExitApp)
@@ -228,11 +241,13 @@ Partial Class FormDisplayCacheLayouts
         Me.Controls.Add(Me.LabelFullPathToXML)
         Me.Controls.Add(Me.LabelHeader3)
         Me.Controls.Add(Me.LabelCaptionPathToTheFileXML)
+        Me.Controls.Add(Me.picturePreviewBackside)
         Me.Name = "FormDisplayCacheLayouts"
         Me.Text = "FormDisplayCacheLayouts"
         Me.FlowLayoutPanel1.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.picturePreviewFront, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.picturePreviewBackside, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -252,5 +267,6 @@ Partial Class FormDisplayCacheLayouts
     Friend WithEvents ButtonExitApp As Button
     Friend WithEvents ButtonOK As Button
     Friend WithEvents ButtonFindLayout As Button
-    Friend WithEvents picturePreview As PictureBox
+    Friend WithEvents picturePreviewFront As PictureBox
+    Friend WithEvents picturePreviewBackside As PictureBox
 End Class

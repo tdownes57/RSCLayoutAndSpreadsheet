@@ -55,8 +55,8 @@ Public Class FormDisplayCacheLayouts
         ''Double-check the proportions are correct. ---9/6/2019 td
         ''ClassLabelToImage.ProportionsAreSlightlyOff(pictureBackgroundFront, True)
 
-        ClassLabelToImage.Proportions_FixTheWidth(picturePreview) ''Added 12/23/2021 td 
-        ClassLabelToImage.ProportionsAreSlightlyOff(picturePreview, True) ''Added Dec. 20 2021
+        ClassLabelToImage.Proportions_FixTheWidth(picturePreviewFront) ''Added 12/23/2021 td 
+        ClassLabelToImage.ProportionsAreSlightlyOff(picturePreviewFront, True) ''Added Dec. 20 2021
 
         ''Added 12/20/2021 thomas downes
         CheckingXmlFile_IsOkay(LabelFullPathToXML, LabelWarningMessage)
@@ -77,8 +77,8 @@ Public Class FormDisplayCacheLayouts
         ''Display the saved Badge-Layout Jpeg Image. ---1/5/2022 td
         ''
         strPathToBadgeLayoutJPG = Me.PathToElementsCacheXML.Replace(".xml", ".jpg")
-        Me.picturePreview.ImageLocation = strPathToBadgeLayoutJPG
-        Me.picturePreview.SizeMode = PictureBoxSizeMode.Zoom
+        Me.picturePreviewFront.ImageLocation = strPathToBadgeLayoutJPG
+        Me.picturePreviewFront.SizeMode = PictureBoxSizeMode.Zoom
 
     End Sub ''edn of "Public Sub Form_Load"
 
@@ -180,10 +180,44 @@ Public Class FormDisplayCacheLayouts
 
     End Sub
 
-    Private Sub picturePreview_Click(sender As Object, e As EventArgs) Handles picturePreview.Click
+    Private Sub picturePreview_Click(sender As Object, e As EventArgs) Handles picturePreviewFront.Click
 
-        ''Added 1/5/2022 td
-        ButtonOpenCurrentLayout.PerformClick()
+        Dim boolTwoSidedBadge As Boolean ''Added 1/14/2022 td
+        boolTwoSidedBadge = picturePreviewBackside.Visible
+
+        If (boolTwoSidedBadge) Then
+            ''
+            ''Send __other__ PictureBox controls to the LOWEST Z-order, via the .SendToBack() command.  
+            ''  --- 1/14/2022 td
+            For Each eachControl In Me.Controls
+                If (eachControl Is sender) Then Continue For
+                If (TypeOf eachControl Is PictureBox) Then CType(sender, Control).SendToBack()
+            Next eachControl
+
+        Else
+            ''Added 1/5/2022 td
+            ''   Confirm that the most-recently edited layout is AGAIN the 
+            ''   layout which the user would like to edit now. 
+            ''   --- 1/14/2022 td
+            ButtonOpenCurrentLayout.PerformClick()
+        End If ''End of "If (boolTwoSidedBadge) Then... Else ..."
+
+
+    End Sub
+
+    Private Sub picturePreviewBackside_Click(sender As Object, e As EventArgs) Handles picturePreviewBackside.Click
+
+        Dim boolTwoSidedBadge As Boolean ''Added 1/14/2022 td
+        boolTwoSidedBadge = picturePreviewBackside.Visible
+        If (boolTwoSidedBadge) Then
+            ''
+            ''Send __other__ PictureBox controls to the LOWEST Z-order, via the .SendToBack() command.  
+            ''  --- 1/14/2022 td
+            For Each eachControl In Me.Controls
+                If (eachControl Is sender) Then Continue For
+                If (TypeOf eachControl Is PictureBox) Then CType(sender, Control).SendToBack()
+            Next eachControl
+        End If ''End of "If (boolTwoSidedBadge) Then... Else ..."
 
     End Sub
 End Class

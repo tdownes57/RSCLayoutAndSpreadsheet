@@ -108,6 +108,12 @@
     <Compile Include="Controls\CtlConfigFldStandard.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Controls\CtlGraphicBackground.Designer.vb">
+      <DependentUpon>CtlGraphicBackground.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtlGraphicBackground.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controls\CtlGraphicFldLabel.designer.vb">
       <DependentUpon>CtlGraphicFldLabel.vb</DependentUpon>
     </Compile>
@@ -306,6 +312,9 @@
     <EmbeddedResource Include="Controls\CtlConfigFldStandard.resx">
       <DependentUpon>CtlConfigFldStandard.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtlGraphicBackground.resx">
+      <DependentUpon>CtlGraphicBackground.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlGraphicFldLabel.resx">
       <DependentUpon>CtlGraphicFldLabel.vb</DependentUpon>
     </EmbeddedResource>
@@ -463,6 +472,8 @@
     <None Include="Resources\Liz 20 percent.jpg" />
     <None Include="Resources\code-ninjas-logo.jpg" />
     <None Include="Resources\code-ninjas-logo_png.png" />
+    <None Include="Resources\GoldDiagonal_Land.jpg" />
+    <None Include="Resources\layout_BW.jpg" />
     <Content Include="SigPlusNET.dll" />
   </ItemGroup>
   <ItemGroup>

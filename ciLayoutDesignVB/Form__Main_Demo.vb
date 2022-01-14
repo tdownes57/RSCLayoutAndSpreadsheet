@@ -362,16 +362,19 @@ Public Class Form__Main_Demo
     End Sub ''End of "Private Sub Form_Load"  
 
 
-    Private Sub Unload_Designer(pboolResetToFrontOfCard As Boolean)
+    Private Sub Unload_Designer(pboolResetToFrontOfCard As Boolean,
+                                Optional pboolIncludePortrait As Boolean = True)
         ''
         ''Added 11/28/2021 thomas downes
         ''
-        mod_designer.UnloadDesigner(pboolResetToFrontOfCard)
+        ''1/14/2022 td''mod_designer.UnloadDesigner(pboolResetToFrontOfCard)
+        mod_designer.UnloadDesigner(pboolResetToFrontOfCard, pboolIncludePortrait)
 
         ''Added 12/14/20021 td 
         Me.CtlGraphicQRCode1 = Nothing
         Me.CtlGraphicSignature1 = Nothing
         Me.CtlGraphicStaticText1 = Nothing
+        If (pboolIncludePortrait) Then Me.CtlGraphicPortrait_Lady = Nothing
 
     End Sub ''End of "Private Sub Unload_Designer()"  
 
@@ -411,9 +414,13 @@ Public Class Form__Main_Demo
         End If ''End of "If (Me.PersonalityCache_FutureUse Is Nothing) Then"
 
         ''Added 10/13/2019 thomas d. 
-        mod_designer.CtlGraphic_Portrait = CtlGraphicPortrait_Lady
-        mod_designer.CtlGraphic_QRCode = CtlGraphicQRCode1
-        mod_designer.CtlGraphic_Signat = CtlGraphicSignature1
+        Const c_bLoadControlReferencesWithoutCheckingCache As Boolean = True ''False ''True
+        If (c_bLoadControlReferencesWithoutCheckingCache) Then
+            ''This code makes no reference to the elements cache, and so is pretty suspect!! ----1/14/2022
+            mod_designer.CtlGraphic_Portrait = CtlGraphicPortrait_Lady
+            mod_designer.CtlGraphic_QRCode = CtlGraphicQRCode1
+            mod_designer.CtlGraphic_Signat = CtlGraphicSignature1
+        End If ''End of "If (c_boolLoadControlReferencesWithoutCheckingCache) Then"
         ''+++/+++ I have removed this object reference from the mod_designer class. Jan8 2022 td
         ''+++mod_designer.CtlGraphic_StaticText_temp = CtlGraphicStaticText1 ''Added 11/30/2021 td
 
@@ -459,6 +466,7 @@ Public Class Form__Main_Demo
 
             .PreviewBox = Me.picturePreview
             .DesignerForm = Me
+            .DesignerForm_DoubleCheckRef = Me ''Added 1/14/2022 td
             .FlowFieldsNotListed = Me.flowFieldsNotListed
             .CheckboxAutoPreview = Me.checkAutoPreview
             .CheckboxInstantPreview = Me.checkInstantPreview ''Added 12/6/2021 thomas d.
@@ -499,8 +507,19 @@ Public Class Form__Main_Demo
                     Next objElementPic
                 End If ''End of "If (c_bEnumerationTechnicalWay) Then ... ElseIf ..."
 
+                ''
+                ''If the Element-Portrait hasn't been found on the "Front" side of the ID Card,
+                ''  then let's check the backside.  ---1/14/2022 td
+                ''
                 If (objElementPic Is Nothing) Then
                     ''Jan14 2022 ''System.Diagnostics.Debugger.Break()
+                    For Each objElementPic In Me.ElementsCache_Edits.ListOfElementPics_Back()
+                        ''The var. objElementPic is now assigned to the first object in the list. ---12/21/21
+                        Exit For
+                    Next objElementPic
+                    If (objElementPic Is Nothing) Then
+                        System.Diagnostics.Debugger.Break()
+                    End If
                 End If ''End of "If (objElementPic Is Nothing) Then"
 
                 ''.Initial_Pic_Left = Me.ElementsCache_Edits.PicElement_Front().LeftEdge_Pixels
@@ -523,6 +542,9 @@ Public Class Form__Main_Demo
                 ''  Change ">>> Add backside of ID Card." to ">>> Show backside of ID Card.".
                 labelProceedToBackside.Text = labelProceedToBackside.Tag.ToString()
             End If ''end of "If (Me.ElementsCache_Edits.BadgeHasTwoSidesOfCard) Then"
+
+            ''Added 1/14/2022 td
+            .DesignerForm_DoubleCheckRef = Me
 
             ''
             ''Major call !!! 
@@ -2591,12 +2613,16 @@ ExitHandler:
         ''  instead of ">>> Add backside of card".
         ''  ---12/12/2021 
         labelProceedToBackside.Text = labelProceedToBackside.Tag.ToString()
+
         ''Dec.10 2021 thomas downes
         Unload_Designer(False)
         pictureBackgroundBackside.Visible = True ''By default, when the form opens, this control is invisible. 
         pictureBackgroundFront.SendToBack()
         Dim boolSuccess As Boolean
 
+        mod_designer.DesignerForm_DoubleCheckRef = Me ''Added 1/14/2022 td
+
+        ''Major call!! 
         mod_designer.SwitchSideOfCard(boolSuccess)
         mod_designer.BackgroundBox_Front = pictureBackgroundBackside
 
