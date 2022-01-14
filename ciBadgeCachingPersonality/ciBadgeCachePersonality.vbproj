@@ -72,8 +72,8 @@
     <Compile Include="ClassBadgeSideLayoutV2.vb" />
     <Compile Include="ClassCacheManagement.vb" />
     <Compile Include="ClassCustomerCache.vb" />
-    <Compile Include="ClassElementsCache2_Bifurcated.vb" />
-    <Compile Include="ClassElementsCache_Deprecated.vb" />
+    <Compile Include="ClassElementsCacheV2_Bifurcated.vb" />
+    <Compile Include="ClassElementsCacheV1_Deprecated.vb" />
     <Compile Include="ClassCacheLayout.vb" />
     <Compile Include="ClassCachePersonality.vb" />
     <Compile Include="ClassPersonalityConfig.vb" />
