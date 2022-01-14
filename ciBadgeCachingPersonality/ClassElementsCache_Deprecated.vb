@@ -85,14 +85,14 @@ Namespace ciBadgeCachePersonality
 
         ''Front side of ID Card / Badge Card
         Private mod_listElementFields_Front As New HashSet(Of ClassElementField)
-        Private mod_listElementPics_Front As New HashSet(Of ClassElementPic)
+        Private mod_listElementPics_Front As New HashSet(Of ClassElementPortrait)
         Private mod_listElementStatics_Front As New HashSet(Of ClassElementStaticText)
         Private mod_listElementGraphics_Front As New HashSet(Of ClassElementGraphic) ''Added 1/8/2022 td
         Private mod_listElementLaysections_Front As New HashSet(Of ClassElementLaysection) ''Added 9/17/2019 thomas downes
 
         ''Back side of ID Card / Badge Card
         Private mod_listElementFields_Backside As New HashSet(Of ClassElementField)
-        Private mod_listElementPics_Backside As New HashSet(Of ClassElementPic)
+        Private mod_listElementPics_Backside As New HashSet(Of ClassElementPortrait)
         Private mod_listElementStatics_Backside As New HashSet(Of ClassElementStaticText)
         Private mod_listElementGraphics_Backside As New HashSet(Of ClassElementGraphic) ''Added 1/8/2022 td
         Private mod_listElementLaysections_Backside As New HashSet(Of ClassElementLaysection) ''Added 9/17/2019 thomas downes
@@ -115,11 +115,11 @@ Namespace ciBadgeCachePersonality
         ''End Property
 
 
-        Public Function GetAllBadgeSideLayoutElements(par_enum As EnumWhichSideOfCard) As ClassBadgeSideLayout
+        Public Function GetAllBadgeSideLayoutElements(par_enum As EnumWhichSideOfCard) As ClassBadgeSideLayoutV1
             ''
             ''Added 12/22/2021 thomas downes
             ''
-            Dim objSide As New ClassBadgeSideLayout
+            Dim objSide As New ClassBadgeSideLayoutV1
             Dim bBackside As Boolean
 
             bBackside = (par_enum = EnumWhichSideOfCard.EnumBackside)
@@ -127,18 +127,20 @@ Namespace ciBadgeCachePersonality
             If (bBackside) Then
 
                 objSide.BackgroundImage = Me.GetBackgroundImage(par_enum)
-                objSide.ElementPic = Me.ListOfElementPics_Back().FirstOrDefault()
-                objSide.ElementQR = Me.ElementQRCode
-                objSide.ElementSig = Me.ElementSignature
+                ''Jan13 2022''objSide.ElementPic = Me.ListOfElementPics_Back().FirstOrDefault()
+                objSide.ElementPortrait = Me.ListOfElementPics_Back().FirstOrDefault()
+                objSide.ElementQRCode = Me.ElementQRCode
+                objSide.ElementSignature = Me.ElementSignature
                 objSide.ListElementFields = Me.ListOfElementFields_Backside
                 objSide.ListElementGraphics = Nothing
                 objSide.ListElementStaticTexts = Me.ListOfElementTexts_Backside
 
             Else
                 objSide.BackgroundImage = Me.GetBackgroundImage(par_enum)
-                objSide.ElementPic = Me.ListOfElementPics_Front().FirstOrDefault()
-                objSide.ElementQR = Me.ElementQRCode
-                objSide.ElementSig = Me.ElementSignature
+                ''Jan13 2022 ''objSide.ElementPic = Me.ListOfElementPics_Front().FirstOrDefault()
+                objSide.ElementPortrait = Me.ListOfElementPics_Front().FirstOrDefault()
+                objSide.ElementQRCode = Me.ElementQRCode
+                objSide.ElementSignature = Me.ElementSignature
                 objSide.ListElementFields = Me.ListOfElementFields_Front
                 objSide.ListElementGraphics = Nothing
                 objSide.ListElementStaticTexts = Me.ListOfElementTexts_Front
@@ -289,6 +291,7 @@ Namespace ciBadgeCachePersonality
 
         End Function ''End of "Public Function ListOfFields_Any(par_recipInfo As IRecipient) As List(Of ClassFieldAny)"
 
+
         Public Property ListOfFields_Standard As HashSet(Of ClassFieldStandard) ''10/17 ''As List(Of ClassFieldStandard)
             Get ''Added 10/14/2019 td
                 Return mod_listFields_Standard
@@ -298,6 +301,7 @@ Namespace ciBadgeCachePersonality
                 mod_listFields_Standard = value
             End Set
         End Property
+
 
         Public Property ListOfFields_Custom As HashSet(Of ClassFieldCustomized) '' List(Of ClassFieldCustomized)
             Get ''Added 10/14/2019 td
@@ -520,14 +524,14 @@ Namespace ciBadgeCachePersonality
 
         ''This is deprecated!!  Use ListOfElementPics_Front instead. ---12/21/2021 td
         <Xml.Serialization.XmlIgnore>
-        Public Property ListOfElementPics As HashSet(Of ClassElementPic)  ''---List(Of ClassElementPic)
+        Public Property ListOfElementPics As HashSet(Of ClassElementPortrait)  ''---List(Of ClassElementPic)
             Get ''Added 10/13/2019 td
                 ''
                 ''This property is Deprecated, so return Nothing. ----12/20/2021 thomas d.
                 ''
                 Return mod_listElementPics_Front ''Nothing ''Dec20 2021''mod_listElementPics_Front
             End Get
-            Set(value As HashSet(Of ClassElementPic))  ''---List(Of ClassElementPic))
+            Set(value As HashSet(Of ClassElementPortrait))  ''---List(Of ClassElementPic))
                 ''Added 10/13/2019 td
                 ''
                 ''This is deprecated!!  Use ListOfElementFields_Front instead. ---12/21/2021 td
@@ -537,22 +541,22 @@ Namespace ciBadgeCachePersonality
         End Property
 
 
-        Public Property ListOfElementPics_Front As HashSet(Of ClassElementPic)  ''---List(Of ClassElementPic)
+        Public Property ListOfElementPics_Front As HashSet(Of ClassElementPortrait)  ''---List(Of ClassElementPic)
             Get ''Added 10/13/2019 td
                 Return mod_listElementPics_Front
             End Get
-            Set(value As HashSet(Of ClassElementPic))  ''---List(Of ClassElementPic))
+            Set(value As HashSet(Of ClassElementPortrait))  ''---List(Of ClassElementPic))
                 ''Added 10/13/2019 td
                 mod_listElementPics_Front = value
             End Set
         End Property
 
 
-        Public Property ListOfElementPics_Back As HashSet(Of ClassElementPic)  ''---List(Of ClassElementPic)
+        Public Property ListOfElementPics_Back As HashSet(Of ClassElementPortrait)  ''---List(Of ClassElementPic)
             Get ''Added 12/18/2021 td
                 Return mod_listElementPics_Backside
             End Get
-            Set(value As HashSet(Of ClassElementPic))  ''---List(Of ClassElementPic))
+            Set(value As HashSet(Of ClassElementPortrait))  ''---List(Of ClassElementPic))
                 ''Added 12/18/2021 td
                 mod_listElementPics_Backside = value
             End Set
@@ -613,7 +617,7 @@ Namespace ciBadgeCachePersonality
 
 
         ''Added 1/8/2022. ---1/08/2022 td
-        Public Property ListOfElementGraphics_Back As HashSet(Of ClassElementGraphic)
+        Public Property ListOfElementGraphics_Backside As HashSet(Of ClassElementGraphic)
             Get ''Added 1/08/2022 td
                 ''
                 ''Added 1/00/2022 thomas d.
@@ -652,7 +656,7 @@ Namespace ciBadgeCachePersonality
 
         End Function ''End of "Public Function FieldElements() As List(Of ClassElementText)"
 
-        Public Function PicElement_Front() As ClassElementPic
+        Public Function PicElement_Front() As ClassElementPortrait
             ''
             ''Added 9/16/2019 thomas downes
             ''
@@ -662,7 +666,7 @@ Namespace ciBadgeCachePersonality
 
         End Function ''End of "Public Function PicElement() As ClassElementPic"
 
-        Public Function ListPicElements_Front() As HashSet(Of ClassElementPic)  ''---List(Of ClassElementPic)
+        Public Function ListPicElements_Front() As HashSet(Of ClassElementPortrait)  ''---List(Of ClassElementPic)
             ''
             ''Added 9/17/2019 thomas downes
             ''
@@ -987,7 +991,7 @@ Namespace ciBadgeCachePersonality
             '' 
             ''Added 9/16/2019 td  
             ''
-            Dim objElementPic As ClassElementPic ''Added 9/16/2019 td 
+            Dim objElementPic As ClassElementPortrait ''Added 9/16/2019 td 
             Dim objRectangle As Rectangle ''Added 9/16/2019 td  
             Dim intLeft As Integer
             Dim intTop As Integer
@@ -1000,7 +1004,7 @@ Namespace ciBadgeCachePersonality
             ''9/19/2019 td''objRectangle = New Rectangle(intLeft, intTop, par_picturePortrait.Width, par_picturePortrait.Height)
             objRectangle = New Rectangle(intLeft, intTop, par_intWidth, par_intHeight)
 
-            objElementPic = New ClassElementPic(objRectangle, par_pictureBackground)
+            objElementPic = New ClassElementPortrait(objRectangle, par_pictureBackground)
 
             objElementPic.PicFileIndex = 1
 
@@ -1061,7 +1065,7 @@ Namespace ciBadgeCachePersonality
             ''
             ''Added 9/16/2019 td  
             ''
-            Dim objElementPic As ClassElementPic ''Added 9/16/2019 td 
+            Dim objElementPic As ClassElementPortrait ''Added 9/16/2019 td 
             Dim objRectangle As Rectangle ''Added 9/16/2019 td  
             Dim intLeft As Integer
             Dim intTop As Integer
@@ -1073,7 +1077,7 @@ Namespace ciBadgeCachePersonality
 
             objRectangle = New Rectangle(intLeft, intTop, par_picturePortrait.Width, par_picturePortrait.Height)
 
-            objElementPic = New ClassElementPic(objRectangle, par_pictureBackground)
+            objElementPic = New ClassElementPortrait(objRectangle, par_pictureBackground)
 
             objElementPic.PicFileIndex = 1
 
@@ -1296,7 +1300,7 @@ Namespace ciBadgeCachePersonality
             Next each_elementField
 
             ''Added 9/17/2019 thomas downes  
-            For Each each_elementPic As ClassElementPic In mod_listElementPics_Front
+            For Each each_elementPic As ClassElementPortrait In mod_listElementPics_Front
                 objCopyOfCache.ListPicElements_Front().Add(each_elementPic.Copy())
             Next each_elementPic
 

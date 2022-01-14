@@ -786,8 +786,12 @@ Public Class ClassDesigner
             objectBackgroundImage = New Bitmap(strBackgroundImage_Path)
             If (boolBacksideOfCard) Then
                 BackgroundBox_Backside.BackgroundImage = objectBackgroundImage
+                BackgroundBox_Backside.BackgroundImageLayout = ImageLayout.Zoom
+                BackgroundBox_Backside.BackColor = Color.White '' Color.Transparent
             Else
                 BackgroundBox_Front.BackgroundImage = objectBackgroundImage
+                BackgroundBox_Front.BackgroundImageLayout = ImageLayout.Zoom
+                BackgroundBox_Front.BackColor = Color.White '' Color.Transparent
             End If ''end of "If (boolBacksideOfCard) Then... Else ..."
         End If ''End of "If (System.IO.File.Exists(strBackgroundImage_Path)) Then"
 
@@ -845,7 +849,7 @@ Public Class ClassDesigner
         ''
         ''Load the non-Field Elements. ---12/22/2021 thomas d. 
         ''
-        Dim iBadgeSideElements As IBadgeSideLayoutElements
+        Dim iBadgeSideElements As IBadgeSideLayoutElementsV1
         iBadgeSideElements = par_cache.GetAllBadgeSideLayoutElements(par_enumSideOfCard)
 
         ''12/22/2021 td''If (par_enumSideOfCard = EnumWhichSideOfCard.EnumBackside) Then
@@ -860,15 +864,15 @@ Public Class ClassDesigner
         ''   2. Create a new one & add it to the designer form. 
         ''
         ''Jan3 2022 td''LoadElements_QRCode(iBadgeSideElements.ElementQR) ''Dec22 2021 td''LoadDesigner_QRCode()
-        LoadElements_QRCode(iBadgeSideElements.ElementQR, par_oMoveEvents) ''Dec22 2021 td''LoadDesigner_QRCode()
+        LoadElements_QRCode(iBadgeSideElements.ElementQRCode, par_oMoveEvents) ''Dec22 2021 td''LoadDesigner_QRCode()
 
         ''12/22/2021 td''LoadElements_Picture(par_cache.PicElement_Front())
         ''01/5/2022 td''LoadElements_Picture(iBadgeSideElements.ElementPic)
-        LoadElements_Picture(iBadgeSideElements.ElementPic, True)
+        LoadElements_Picture(iBadgeSideElements.ElementPortrait, True)
 
         ''12/22/2021 td''LoadElements_Signature(par_cache.ElementSignature) ''Added 10/12/2019 thomas d.
         ''1/4/2022 td''LoadElements_Signature(iBadgeSideElements.ElementSig) ''Modified 12/22/2021 thomas d.
-        LoadElements_Signature(iBadgeSideElements.ElementSig, par_oMoveEvents) ''Modified 12/22/2021 thomas d.
+        LoadElements_Signature(iBadgeSideElements.ElementSignature, par_oMoveEvents) ''Modified 12/22/2021 thomas d.
 
         ''Added 12/18/2021 td 
         ''Dec18 2021''LoadElements_StaticText1(par_cache.ListOfElementTexts_Front.GetEnumerator().Current) ''Added 10/12/2019 thomas d.
@@ -999,7 +1003,7 @@ Public Class ClassDesigner
 
     ''End Sub ''End of "Private Sub ControlMoverResizer_AddField"
 
-    Private Sub LoadElements_Picture(par_elementPic As ClassElementPic, pbIfNothingThenExit As Boolean)
+    Private Sub LoadElements_Picture(par_elementPic As ClassElementPortrait, pbIfNothingThenExit As Boolean)
         ''
         ''Added 7/31/2019 thomas downes
         ''Parameter par_elementPic added 9/17/2019 td
@@ -1806,7 +1810,7 @@ Public Class ClassDesigner
     End Sub ''End of "Private Sub SaveControlPositionsToElement()"
 
 
-    Public Sub RefreshPreview_EitherSide(par_sideLayout As IBadgeSideLayoutElements,
+    Public Sub RefreshPreview_EitherSide(par_sideLayout As IBadgeSideLayoutElementsV1,
                                          Optional par_recentlyMoved As ClassElementField = Nothing,
                                     Optional par_recipient As ciBadgeRecipients.ClassRecipient = Nothing)
         ''
@@ -1970,7 +1974,7 @@ Public Class ClassDesigner
             ''This was the function we started using 12/26/2021, to accomodate
             ''   either side of the badgecard.  ---12/26/2021 td
             ''
-            Dim objMakeBadgeElements As ClassBadgeSideLayout ''Added 12/26/2021 td
+            Dim objMakeBadgeElements As ClassBadgeSideLayoutV1 ''Added 12/26/2021 td
 
             ''
             ''Major call !!
@@ -3055,7 +3059,7 @@ Public Class ClassDesigner
         If (Me.EnumSideOfCard = EnumWhichSideOfCard.EnumBackside) Then
 
             ''---RefreshPreview_Redux_Backside()
-            RefreshPreview_EitherSide(New ClassBadgeSideLayout())
+            RefreshPreview_EitherSide(New ClassBadgeSideLayoutV1())
 
         Else
 

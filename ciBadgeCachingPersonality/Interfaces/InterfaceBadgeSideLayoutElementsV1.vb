@@ -4,7 +4,7 @@
 Imports System.Drawing
 Imports ciBadgeElements
 
-Public Interface IBadgeSideLayoutElements ''Dec18 '' InterfaceBadgeSideLayout
+Public Interface IBadgeSideLayoutElementsV1 ''Dec18 '' InterfaceBadgeSideLayout
     ''
     ''Added 12/18/2021 thomas downes  
     ''
@@ -16,9 +16,9 @@ Public Interface IBadgeSideLayoutElements ''Dec18 '' InterfaceBadgeSideLayout
     Property ListElementStaticTexts As HashSet(Of ClassElementStaticText)
     Property ListElementGraphics As HashSet(Of ClassElementGraphic)
 
-    Property ElementPic As ClassElementPic
-    Property ElementQR As ClassElementQRCode
+    Property ElementPortrait As ClassElementPortrait ''Jan13 2022 ''As ClassElementPic  
+    Property ElementQRCode As ClassElementQRCode
+    Property ElementSignature As ClassElementSignature ''par_elementSig = null,
 
-    Property ElementSig As ClassElementSignature ''par_elementSig = null,
 
 End Interface

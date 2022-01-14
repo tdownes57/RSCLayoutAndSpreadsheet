@@ -224,7 +224,7 @@ namespace ciBadgeGenerator
 
 
         public Image MakeBadgeImage_AnySide(IBadgeLayoutDimensions par_layoutDims,
-                                    IBadgeSideLayoutElements par_layoutElements,
+                                    IBadgeSideLayoutElementsV1 par_layoutElements,
                                     int par_newBadge_width_pixels,
                                     int par_newBadge_height_pixels,
                                     IRecipient par_iRecipientInfo = null,
@@ -366,8 +366,8 @@ namespace ciBadgeGenerator
                 // #2 10/17/2019 td''ClassElementPic obj_elementPic = par_cache.ListOfElementPics.GetEnumerator().Current;
 
                 // Nov. 29 2021 //ClassElementPic obj_elementPic = par_cache.ListOfElementPics.FirstOrDefault();
-                ClassElementPic obj_elementPic = null;
-                if (par_layoutElements.ElementPic != null) obj_elementPic = par_layoutElements.ElementPic;
+                ClassElementPortrait obj_elementPic = null;
+                if (par_layoutElements.ElementPortrait != null) obj_elementPic = par_layoutElements.ElementPortrait;
                 // Dec18 2021 td// else obj_elementPic = par_cache.ListOfElementPics_Front.FirstOrDefault();
 
                 // 10/12/2019 td//objPrintLibElems.LoadImageWithPortrait(par_newBadge_width_pixels,
@@ -396,7 +396,7 @@ namespace ciBadgeGenerator
             //
             //--Nov. 29 2021--//if (par_cache.MissingTheSignature())
             //--Dec18 2021 //if (par_cache.MissingTheSignature() && (par_elementSig == null))
-            if (par_layoutElements.ElementSig  == null)
+            if (par_layoutElements.ElementSignature  == null)
             {
                 //
                 //There is not any Signature to display.
@@ -407,9 +407,9 @@ namespace ciBadgeGenerator
                 //
                 //Add the Signature. 
                 //
-                ClassElementSignature obj_elementSig = par_layoutElements.ElementSig;
+                ClassElementSignature obj_elementSig = par_layoutElements.ElementSignature;
                 //Added 11/29/2021 td
-                if (par_layoutElements.ElementSig != null) obj_elementSig = par_layoutElements.ElementSig;
+                if (par_layoutElements.ElementSignature != null) obj_elementSig = par_layoutElements.ElementSignature;
 
                 string strPathToSigFile = this.PathToFile_Sig; //Added 10/12/2019 td
 
@@ -439,7 +439,7 @@ namespace ciBadgeGenerator
             //                             par_newBadge_width_pixels, par_layoutDims,
             //                             ref obj_imageOutput);
             LoadImageWithQRCode_IfNeeded(par_layoutElements,
-                               par_layoutElements.ElementQR,
+                               par_layoutElements.ElementQRCode,
                                par_newBadge_width_pixels, par_layoutDims,
                                ref obj_imageOutput);
 
@@ -480,7 +480,7 @@ namespace ciBadgeGenerator
                                     HashSet<ClassElementField> par_listElementFields = null,
                                     HashSet<ClassElementStaticText> par_listElementTexts = null,
                                     HashSet<ClassElementGraphic> par_listElementGraphics = null,
-                                    ClassElementPic par_elementPic = null,
+                                    ClassElementPortrait par_elementPic = null,
                                     ClassElementQRCode par_elementQR = null,
                                     ClassElementSignature par_elementSig = null,
                                     List<string> par_listMessages = null,
@@ -628,7 +628,7 @@ namespace ciBadgeGenerator
                 // #2 10/17/2019 td''ClassElementPic obj_elementPic = par_cache.ListOfElementPics.GetEnumerator().Current;
 
                 // Nov. 29 2021 //ClassElementPic obj_elementPic = par_cache.ListOfElementPics.FirstOrDefault();
-                ClassElementPic obj_elementPic;
+                ClassElementPortrait obj_elementPic;
                 if (par_elementPic != null) obj_elementPic = par_elementPic;
                 else obj_elementPic = par_cache.ListOfElementPics_Front.FirstOrDefault();
 
@@ -856,7 +856,7 @@ namespace ciBadgeGenerator
         }
 
 
-        public void LoadImageWithQRCode_IfNeeded(IBadgeSideLayoutElements par_infoBadgeCache,
+        public void LoadImageWithQRCode_IfNeeded(IBadgeSideLayoutElementsV1 par_infoBadgeCache,
                                          ClassElementQRCode par_elementQR,
                                          int par_newBadge_width_pixels,
                                          IBadgeLayoutDimensions par_infoBadgeLayoutDims,

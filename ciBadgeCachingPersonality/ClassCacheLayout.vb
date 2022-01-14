@@ -30,7 +30,7 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
         Public Property ElementSignature As ClassElementSignature ''Added 10/8/2019 thomas d.  
 
         Private mod_listElementFields As New HashSet(Of ClassElementField)
-        Private mod_listElementPics As New HashSet(Of ClassElementPic)
+        Private mod_listElementPics As New HashSet(Of ClassElementPortrait)
         Private mod_listElementStatics As New HashSet(Of ClassElementStaticText)
         Private mod_listElementLaysections As New HashSet(Of ClassElementLaysection) ''Added 9/17/2019 thomas downes
 
@@ -44,11 +44,11 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
             End Set
         End Property
 
-        Public Property ListOfElementPics As HashSet(Of ClassElementPic)  ''---List(Of ClassElementPic)
+        Public Property ListOfElementPics As HashSet(Of ClassElementPortrait)  ''---List(Of ClassElementPic)
             Get ''Added 10/13/2019 td
                 Return mod_listElementPics
             End Get
-            Set(value As HashSet(Of ClassElementPic))  ''---List(Of ClassElementPic))
+            Set(value As HashSet(Of ClassElementPortrait))  ''---List(Of ClassElementPic))
                 ''Added 10/13/2019 td
                 mod_listElementPics = value
             End Set
@@ -84,7 +84,7 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
 
         End Function ''End of "Public Function FieldElements() As List(Of ClassElementText)"
 
-        Public Function PicElement() As ClassElementPic
+        Public Function PicElement() As ClassElementPortrait
             ''
             ''Added 9/16/2019 thomas downes
             ''
@@ -94,7 +94,7 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
 
         End Function ''End of "Public Function PicElement() As ClassElementPic"
 
-        Public Function ListPicElements() As HashSet(Of ClassElementPic)  ''---List(Of ClassElementPic)
+        Public Function ListPicElements() As HashSet(Of ClassElementPortrait)  ''---List(Of ClassElementPic)
             ''
             ''Added 9/17/2019 thomas downes
             ''
@@ -249,7 +249,7 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
             '' 
             ''Added 9/16/2019 td  
             ''
-            Dim objElementPic As ClassElementPic ''Added 9/16/2019 td 
+            Dim objElementPic As ClassElementPortrait ''Added 9/16/2019 td 
             Dim objRectangle As Rectangle ''Added 9/16/2019 td  
             Dim intLeft As Integer
             Dim intTop As Integer
@@ -262,7 +262,7 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
             ''9/19/2019 td''objRectangle = New Rectangle(intLeft, intTop, par_picturePortrait.Width, par_picturePortrait.Height)
             objRectangle = New Rectangle(intLeft, intTop, par_intWidth, par_intHeight)
 
-            objElementPic = New ClassElementPic(objRectangle, par_pictureBackground)
+            objElementPic = New ClassElementPortrait(objRectangle, par_pictureBackground)
 
             objElementPic.PicFileIndex = 1
 
@@ -322,7 +322,7 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
             ''
             ''Added 9/16/2019 td  
             ''
-            Dim objElementPic As ClassElementPic ''Added 9/16/2019 td 
+            Dim objElementPic As ClassElementPortrait ''Added 9/16/2019 td 
             Dim objRectangle As Rectangle ''Added 9/16/2019 td  
             Dim intLeft As Integer
             Dim intTop As Integer
@@ -334,7 +334,7 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
 
             objRectangle = New Rectangle(intLeft, intTop, par_picturePortrait.Width, par_picturePortrait.Height)
 
-            objElementPic = New ClassElementPic(objRectangle, par_pictureBackground)
+            objElementPic = New ClassElementPortrait(objRectangle, par_pictureBackground)
 
             objElementPic.PicFileIndex = 1
 
@@ -460,7 +460,7 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
             Next each_elementField
 
             ''Added 9/17/2019 thomas downes  
-            For Each each_elementPic As ClassElementPic In mod_listElementPics
+            For Each each_elementPic As ClassElementPortrait In mod_listElementPics
                 objCopyOfCache.ListPicElements().Add(each_elementPic.Copy())
             Next each_elementPic
 

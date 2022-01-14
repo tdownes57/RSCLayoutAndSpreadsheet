@@ -482,13 +482,13 @@ Public Class Form__Main_Demo
             Else
                 ''Added for deserialization from a saved XML file. 
                 ''  ---10/10/2019 td
-                Dim objElementPic As ClassElementPic ''Prior to 12/21/2021 td
+                Dim objElementPic As ClassElementPortrait ''Prior to 12/21/2021 td
 
                 ''Fun with enumeration!!! 
                 Const c_bEnumerationTechnicalWay As Boolean = True
                 Const c_bEnumerationCleverWay As Boolean = False
                 If (c_bEnumerationTechnicalWay) Then
-                    Dim enumeratorPics As IEnumerator(Of ClassElementPic) ''Prior to 12/21/2021 td
+                    Dim enumeratorPics As IEnumerator(Of ClassElementPortrait) ''Prior to 12/21/2021 td
                     enumeratorPics = Me.ElementsCache_Edits.ListOfElementPics_Front().GetEnumerator() ''Added 12/21/2021 td
                     If (enumeratorPics.Current Is Nothing) Then enumeratorPics.MoveNext() ''Added 12/21/2021 td
                     objElementPic = enumeratorPics.Current() ''Added 12/21/2021 td

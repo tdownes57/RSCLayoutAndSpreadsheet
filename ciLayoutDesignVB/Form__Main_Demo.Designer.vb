@@ -811,8 +811,11 @@ Partial Class Form__Main_Demo
         '
         'CtlGraphicStaticText1
         '
+        Me.CtlGraphicStaticText1.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.CtlGraphicStaticText1.Location = New System.Drawing.Point(792, 456)
         Me.CtlGraphicStaticText1.Margin = New System.Windows.Forms.Padding(5)
+        Me.CtlGraphicStaticText1.MoveabilityEventsForGroupCtls = Nothing
+        Me.CtlGraphicStaticText1.MoveabilityEventsForSingleMove = Nothing
         Me.CtlGraphicStaticText1.Name = "CtlGraphicStaticText1"
         Me.CtlGraphicStaticText1.Size = New System.Drawing.Size(376, 46)
         Me.CtlGraphicStaticText1.TabIndex = 75

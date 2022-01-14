@@ -456,6 +456,12 @@
     <Compile Include="FormUploadBackground.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Form__Demo2Sides.Designer.vb">
+      <DependentUpon>Form__Demo2Sides.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form__Demo2Sides.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form__Main_Demo.Designer.vb">
       <DependentUpon>Form__Main_Demo.vb</DependentUpon>
     </Compile>
@@ -731,6 +737,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormUploadBackground.resx">
       <DependentUpon>FormUploadBackground.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form__Demo2Sides.resx">
+      <DependentUpon>Form__Demo2Sides.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form__Main_Demo.resx">
       <DependentUpon>Form__Main_Demo.vb</DependentUpon>

@@ -31,7 +31,7 @@ Public Class LayoutElementGenerator
 
     End Function
 
-    Public Function GetElementPic(par_control As Control) As ClassElementPic
+    Public Function GetElementPic(par_control As Control) As ClassElementPortrait
         ''
         ''Added 7/18/2019 td
         ''
@@ -39,7 +39,7 @@ Public Class LayoutElementGenerator
 
 
 
-        Return New ClassElementPic(par_control)
+        Return New ClassElementPortrait(par_control)
 
     End Function
 

@@ -432,7 +432,7 @@ Public Module modGenerate
 
     End Function ''End of "Public Function TextImage_Field(par_label As Label) As Image"
 
-    Public Function PicImage_ByElement(par_element As ciBadgeElements.ClassElementPic, par_image As Image) As Image
+    Public Function PicImage_ByElement(par_element As ciBadgeElements.ClassElementPortrait, par_image As Image) As Image
         ''
         ''Added 9/22/2019 thomas d 
         ''

@@ -129,7 +129,7 @@ Public Class FormFieldsAndPortrait
         ''
         ''Added 1/6/2022 td 
         ''
-        Dim objElement As New ciBadgeElements.ClassElementPic
+        Dim objElement As New ciBadgeElements.ClassElementPortrait
         objElement.BadgeLayout = mod_designer.BadgeLayout_Class
 
         ''mod_ctlPortrait = CtlGraphicSignature.GetSignature(objElement, "ctlSignature",

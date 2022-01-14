@@ -22,7 +22,7 @@ Public Class CtlGraphicPortrait
     ''7/31/2019 td''Public FieldInfo As ICIBFieldStandardOrCustom
     ''7/31/2019 td''Public ElementInfo As ClassElementPic
 
-    Public ElementClass_Obj As ClassElementPic ''Added 9/17/2019 thomas downes
+    Public ElementClass_Obj As ClassElementPortrait ''Added 9/17/2019 thomas downes
     Public ElementInfo_Pic As IElementPic ''Added 7/31/2019 thomas d 
     Public ElementInfo_Base As IElement_Base ''Added 7/31/2019 thomas d 
 
@@ -35,7 +35,7 @@ Public Class CtlGraphicPortrait
     Public Pic_CloneOfInitialImage As Image ''Added 9/23/2019 thomas downes. 
     Private mod_formRecordLastTouched As IRecordElementLastTouched ''Added 12/17/2021 td
 
-    Public Shared Function GetPortrait(par_elementPortrait As ClassElementPic,
+    Public Shared Function GetPortrait(par_elementPortrait As ClassElementPortrait,
                                       par_nameOfControl As String,
                                       par_iLayoutFun As ILayoutFunctions,
                                       par_bProportionSizing As Boolean,
@@ -119,7 +119,7 @@ Public Class CtlGraphicPortrait
     End Sub
 
 
-    Public Sub New(par_elementPic As ClassElementPic,
+    Public Sub New(par_elementPic As ClassElementPortrait,
                    par_iLayoutFun As ILayoutFunctions,
                   pboolResizeProportionally As Boolean,
                    par_operationsType As Type,
@@ -154,7 +154,7 @@ Public Class CtlGraphicPortrait
 
 
 
-    Public Sub New_Portrait(par_elementPic As ClassElementPic, par_iLayoutFunctions As ILayoutFunctions)
+    Public Sub New_Portrait(par_elementPic As ClassElementPortrait, par_iLayoutFunctions As ILayoutFunctions)
         ''
         ''Added 1/5/2022 & 9/17/2019 td
         ''
@@ -218,7 +218,7 @@ Public Class CtlGraphicPortrait
     End Sub ''End of "Public Sub New"
 
 
-    Public Sub New_Deprecated(par_elementPic As ClassElementPic, par_formLayout As ILayoutFunctions)
+    Public Sub New_Deprecated(par_elementPic As ClassElementPortrait, par_formLayout As ILayoutFunctions)
         ''
         ''Added 9/17/2019 td
         ''

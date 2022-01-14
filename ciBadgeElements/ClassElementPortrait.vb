@@ -11,10 +11,11 @@ Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d.
 Imports System.Xml.Serialization ''Added 9/24/2019 td
 ''imports system.serial
 
-<Xml.Serialization.XmlInclude(GetType(ClassElementPic))>
+<Xml.Serialization.XmlInclude(GetType(ClassElementPortrait))>
 <Serializable>
-Public Class ClassElementPic ''May be renamed to ClassElementPortrait. ---10/8/2019 td 
+Public Class ClassElementPortrait ''Renamed to ClassElementPortrait from ClassElementPic. ---1/13/2022 & 10/8/2019 td 
     ''
+    ''Renamed 1/13/2022 thomas downes
     ''Added 7/18/2019 thomas downes 
     ''
     Inherits ClassElementBase ''Added 1/8/2022 Thomas Downes
@@ -24,7 +25,7 @@ Public Class ClassElementPic ''May be renamed to ClassElementPortrait. ---10/8/2
     ''
     ''
     <Xml.Serialization.XmlIgnore>
-    Public Shared ElementPicture As ClassElementPic ''Added 7/31/2019 thomas d.
+    Public Shared ElementPicture As ClassElementPortrait ''Added 7/31/2019 thomas d.
 
     Public Property Id_GUID As System.Guid ''Added 9/30/2019 td 
     Public Property BadgeDisplayIndex As Integer Implements IElement_Base.BadgeDisplayIndex ''Added 11/24/2021 td 
@@ -263,11 +264,11 @@ Public Class ClassElementPic ''May be renamed to ClassElementPortrait. ---10/8/2
 
     End Function ''End of Public Function GetStep3_Picture  
 
-    Public Function Copy() As ClassElementPic
+    Public Function Copy() As ClassElementPortrait
         ''
         ''Added 9/17/2019 
         ''
-        Dim objCopy As New ClassElementPic
+        Dim objCopy As New ClassElementPortrait
         objCopy.LoadbyCopyingMembers(Me, Me)
         Return objCopy
 

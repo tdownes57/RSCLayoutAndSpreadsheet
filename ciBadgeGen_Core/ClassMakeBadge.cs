@@ -250,7 +250,7 @@ namespace ciBadgeGenerator
                 //
                 //#1 10/17/2019 td''ClassElementPic obj_elementPic = par_cache.ListPicElements()[0];
                 // #2 10/17/2019 td''ClassElementPic obj_elementPic = par_cache.ListOfElementPics.GetEnumerator().Current;
-                ClassElementPic obj_elementPic = par_cache.ListOfElementPics_Front.FirstOrDefault();
+                ClassElementPortrait obj_elementPic = par_cache.ListOfElementPics_Front.FirstOrDefault();
 
                 // 10/12/2019 td//objPrintLibElems.LoadImageWithPortrait(par_newBadge_width_pixels,
 

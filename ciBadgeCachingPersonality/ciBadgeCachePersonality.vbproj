@@ -68,15 +68,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BadgeLayoutCache.vb" />
-    <Compile Include="ClassBadgeSideLayout.vb" />
+    <Compile Include="ClassBadgeSideLayoutV1.vb" />
+    <Compile Include="ClassBadgeSideLayoutV2.vb" />
     <Compile Include="ClassCacheManagement.vb" />
     <Compile Include="ClassCustomerCache.vb" />
+    <Compile Include="ClassElementsCache2_Bifurcated.vb" />
     <Compile Include="ClassElementsCache_Deprecated.vb" />
     <Compile Include="ClassCacheLayout.vb" />
     <Compile Include="ClassCachePersonality.vb" />
     <Compile Include="ClassPersonalityConfig.vb" />
+    <Compile Include="Interfaces\InterfaceBadgeSideLayoutElementsV2.vb" />
     <Compile Include="Utilities\DiskFolders.vb" />
-    <Compile Include="Interfaces\InterfaceBadgeSideLayoutElements.vb" />
+    <Compile Include="Interfaces\InterfaceBadgeSideLayoutElementsV1.vb" />
     <Compile Include="Interfaces\InterfaceDesignerForm.vb" />
     <Compile Include="Utilities\DiskFilesVB.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
