@@ -280,7 +280,7 @@ namespace ciBadgeGenerator
                 //
                 //Add the Signature. 
                 //
-                ClassElementSignature obj_elementSig = par_cache.ElementSignature;
+                ClassElementSignature obj_elementSig = par_cache.ElementSig_RefCopy;
 
                 string strPathToSigFile = this.PathToFile_Sig; //Added 10/12/2019 td
 
@@ -308,7 +308,7 @@ namespace ciBadgeGenerator
                 //
                 //Add the QR Code. 
                 //
-                ClassElementQRCode obj_elementQR = par_cache.ElementQRCode;
+                ClassElementQRCode obj_elementQR = par_cache.ElementQR_RefCopy;
 
                 //string strPathToFile_QR = ""; //this.PathToFile_QR; //Added 10/14/2019 td
 

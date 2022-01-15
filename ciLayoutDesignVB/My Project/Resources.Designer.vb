@@ -233,9 +233,9 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property Declaration_BMP() As System.Drawing.Bitmap
+        Friend ReadOnly Property Declaration_Sig_BMP() As System.Drawing.Bitmap
             Get
-                Dim obj As Object = ResourceManager.GetObject("Declaration_BMP", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("Declaration_Sig_BMP", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -243,9 +243,9 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property Declaration_JPG() As System.Drawing.Bitmap
+        Friend ReadOnly Property Declaration_Sig_JPG() As System.Drawing.Bitmap
             Get
-                Dim obj As Object = ResourceManager.GetObject("Declaration_JPG", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("Declaration_Sig_JPG", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

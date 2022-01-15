@@ -689,7 +689,7 @@ namespace ciBadgeGenerator
                 //
                 //Add the Signature. 
                 //
-                ClassElementSignature obj_elementSig = par_cache.ElementSignature;
+                ClassElementSignature obj_elementSig = par_cache.ElementSig_RefCopy;
                 //Added 11/29/2021 td
                 if (par_elementSig != null) obj_elementSig = par_elementSig;
 
@@ -853,7 +853,7 @@ namespace ciBadgeGenerator
                 //
                 //Add the QR Code. 
                 //
-                ClassElementQRCode obj_elementQR = par_cache.ElementQRCode;
+                ClassElementQRCode obj_elementQR = par_cache.ElementQR_RefCopy;
                 //Added 11/29/2021 td
                 if (par_elementQR != null) obj_elementQR = par_elementQR;
 

@@ -172,7 +172,7 @@ Public Class Form__Main_Demo
                                 pictureBackgroundFront)
                 End If ''End of "If (Me.ElementsCache_Edits.MissingTheSignature()) Then"
 
-                .ElementClass_Obj = Me.ElementsCache_Edits.ElementSignature
+                .ElementClass_Obj = Me.ElementsCache_Edits.ElementSig_RefCopy
 
             End If ''End of "If (.ElementClass_Obj Is Nothing) Then"
 
@@ -245,11 +245,11 @@ Public Class Form__Main_Demo
 
         ''Added 10/13/2019 thomas d. 
         ''11/28/2021 Encapsulated to Load_Designer. 11/28/2021''
-        mod_designer.CtlGraphic_Portrait = CtlGraphicPortrait_Lady
+        mod_designer.CtlGraphic_Portrait = Nothing ''Jan14 2022 td''CtlGraphicPortrait_Lady
         ''11/28/2021 Encapsulated to Load_Designer. 11/28/2021''
-        mod_designer.CtlGraphic_QRCode = CtlGraphicQRCode1
+        mod_designer.CtlGraphic_QRCode = Nothing ''Jan14 2022 td''CtlGraphicQRCode1
         ''11/28/2021 Encapsulated to Load_Designer. 11/28/2021''
-        mod_designer.CtlGraphic_Signat = CtlGraphicSignature1
+        mod_designer.CtlGraphic_Signat = Nothing ''Jan14 2022 td''CtlGraphicSignature1
 
         ''Added 11/29/2021 thomas downes
         ''++++/++++ I have removed the object reference from the mod_designer class.---1/8/2022 td
@@ -262,6 +262,7 @@ Public Class Form__Main_Demo
         Me.Controls.Remove(CtlGraphicPortrait_Lady) ''Added 7/31/2019 thomas d. 
         Me.Controls.Remove(CtlGraphicSignature1) ''Added 10/12/2019 thomas d. 
         Me.Controls.Remove(CtlGraphicStaticText1) ''Added 12/19/2021 thomas d. 
+        Me.Controls.Remove(CtlGraphicQRCode1) ''Added 1/14/2022 thomas d. 
 
         ''Added 10/11/2019 thomas downes 
         ''Jan9 2022 td''Me.CtlGraphicStaticText1.LayoutFunctions = CType(mod_designer, ILayoutFunctions)
@@ -385,6 +386,24 @@ Public Class Form__Main_Demo
         ''
         Dim boolBacksideOfCard As Boolean ''Added 12/14/2021 td
         boolBacksideOfCard = (mod_designer.EnumSideOfCard_Current = EnumWhichSideOfCard.EnumBackside)
+
+        ''Added 1/14/2022 td
+        With ElementsCache_Edits
+            If (.ElementQR_RefCopy IsNot Nothing) Then
+                If (.ElementQR_RefCopy.Image_BL Is Nothing) Then
+                    .ElementQR_RefCopy.Image_BL = My.Resources.QR_Code_Example
+                End If
+            End If
+        End With
+
+        ''Added 1/14/2022 td
+        With ElementsCache_Edits
+            If (.ElementSig_RefCopy IsNot Nothing) Then
+                If (.ElementSig_RefCopy.Image_BL Is Nothing) Then
+                    .ElementSig_RefCopy.Image_BL = My.Resources.Declaration_Sig_JPG
+                End If
+            End If
+        End With
 
         ''If (CtlGraphicQRCode1 Is Nothing) Then
         ''    ''Added 12/3/2021 td  
@@ -2661,6 +2680,8 @@ ExitHandler:
             LabelReturnToFrontSide.Visible = False
             labelBacksideOfBadgecard.Visible = False ''Added 12/10/2021 thomas
         End If ''End of "If (boolSuccess) Then"
+
+        pictureBackgroundFront.SendToBack() ''Added 1/14/2022 td 
         pictureBackgroundBackside.SendToBack()
         mod_designer.BackgroundBox_Front = pictureBackgroundFront
 

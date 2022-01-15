@@ -48,12 +48,12 @@ Namespace ciBadgeCachePersonality
         Public Property BackgroundImage_Backside_FTitle As String = "" ''Added 12/10/2020 td
 
         ''I have added the <...XmlIgnore> attribute. See ListOfElementQRCodes.  ---1/14/2022 td
-        ''<Xml.Serialization.XmlIgnore> 
-        Public Property ElementQRCode As ClassElementQRCode ''Added 10/8/2019 thomas d.  
+        <Xml.Serialization.XmlIgnore>
+        Public Property ElementQR_RefCopy As ClassElementQRCode ''Added 10/8/2019 thomas d.  
 
         ''I have added the <...XmlIgnore> attribute.  See ListOfElementSignatures.  ---1/14/2022 td
-        ''<Xml.Serialization.XmlIgnore>
-        Public Property ElementSignature As ClassElementSignature ''Added 10/8/2019 thomas d.  
+        <Xml.Serialization.XmlIgnore>
+        Public Property ElementSig_RefCopy As ClassElementSignature ''Added 10/8/2019 thomas d.  
 
         Public Property BadgeLayout As ciBadgeInterfaces.BadgeLayoutClass ''Added 9/17/2019 thomas downes
 
@@ -138,8 +138,8 @@ Namespace ciBadgeCachePersonality
                 objSide.BackgroundImage = Me.GetBackgroundImage(par_enum)
                 ''Jan13 2022''objSide.ElementPic = Me.ListOfElementPics_Back().FirstOrDefault()
                 objSide.ElementPortrait = Me.ListOfElementPics_Back().FirstOrDefault()
-                objSide.ElementQRCode = Me.ElementQRCode
-                objSide.ElementSignature = Me.ElementSignature
+                objSide.ElementQRCode = Me.ElementQR_RefCopy
+                objSide.ElementSignature = Me.ElementSig_RefCopy
                 objSide.ListElementFields = Me.ListOfElementFields_Backside
                 objSide.ListElementGraphics = Nothing
                 objSide.ListElementStaticTexts = Me.ListOfElementTexts_Backside
@@ -158,14 +158,14 @@ Namespace ciBadgeCachePersonality
                 ''  toward the new cache property of ListOfElementQRCodes_Back.
                 ''We are looking for the non-null object, if it exists. 
                 ''========================================================================
-                Dim boolBacksideQR As Boolean = ((Me.ElementQRCode IsNot Nothing) AndAlso
-                    Me.ElementQRCode.WhichSideOfCard = EnumWhichSideOfCard.EnumBackside)
+                Dim boolBacksideQR As Boolean = ((Me.ElementQR_RefCopy IsNot Nothing) AndAlso
+                    Me.ElementQR_RefCopy.WhichSideOfCard = EnumWhichSideOfCard.EnumBackside)
 
                 If boolBacksideQR Then
-                    objSide.ElementQRCode = Me.ElementQRCode
-                ElseIf (Me.ElementQRCode Is Nothing) Then
-                    Me.ElementQRCode = Me.ListOfElementQRCodes_Back.FirstOrDefault()
-                    objSide.ElementQRCode = Me.ElementQRCode
+                    objSide.ElementQRCode = Me.ElementQR_RefCopy
+                ElseIf (Me.ElementQR_RefCopy Is Nothing) Then
+                    Me.ElementQR_RefCopy = Me.ListOfElementQRCodes_Back.FirstOrDefault()
+                    objSide.ElementQRCode = Me.ElementQR_RefCopy
                 End If
 
                 ''Added 1/14/2022 thomas
@@ -177,14 +177,14 @@ Namespace ciBadgeCachePersonality
                 ''  toward the new cache property of ListOfElementSignatures_Back.
                 ''We are looking for the non-null object, if it exists.  ---1/14/2022 td
                 ''========================================================================
-                Dim boolBacksideSig As Boolean = ((Me.ElementSignature IsNot Nothing) AndAlso
-                    Me.ElementSignature.WhichSideOfCard = EnumWhichSideOfCard.EnumBackside)
+                Dim boolBacksideSig As Boolean = ((Me.ElementSig_RefCopy IsNot Nothing) AndAlso
+                    Me.ElementSig_RefCopy.WhichSideOfCard = EnumWhichSideOfCard.EnumBackside)
 
                 If (boolBacksideSig) Then
-                    objSide.ElementSignature = Me.ElementSignature
-                ElseIf (Me.ElementSignature Is Nothing) Then
-                    Me.ElementSignature = Me.ListOfElementSignatures_Back.FirstOrDefault()
-                    objSide.ElementSignature = Me.ElementSignature
+                    objSide.ElementSignature = Me.ElementSig_RefCopy
+                ElseIf (Me.ElementSig_RefCopy Is Nothing) Then
+                    Me.ElementSig_RefCopy = Me.ListOfElementSignatures_Back.FirstOrDefault()
+                    objSide.ElementSignature = Me.ElementSig_RefCopy
                 End If
 
             Else
@@ -211,14 +211,14 @@ Namespace ciBadgeCachePersonality
                 ''We are looking for the non-null object, if it exists. 
                 ''Please note, the use of the <> unequals operator.   Added 1/14/2022 thomas
                 ''========================================================================
-                Dim boolFrontsideQR As Boolean = (Me.ElementQRCode IsNot Nothing AndAlso
-                    Me.ElementQRCode.WhichSideOfCard <> EnumWhichSideOfCard.EnumBackside)
+                Dim boolFrontsideQR As Boolean = (Me.ElementQR_RefCopy IsNot Nothing AndAlso
+                    Me.ElementQR_RefCopy.WhichSideOfCard <> EnumWhichSideOfCard.EnumBackside)
 
                 If boolFrontsideQR Then
-                    objSide.ElementQRCode = Me.ElementQRCode
-                ElseIf (Me.ElementQRCode Is Nothing) Then
-                    Me.ElementQRCode = Me.ListOfElementQRCodes_Front.FirstOrDefault()
-                    objSide.ElementQRCode = Me.ElementQRCode
+                    objSide.ElementQRCode = Me.ElementQR_RefCopy
+                ElseIf (Me.ElementQR_RefCopy Is Nothing) Then
+                    Me.ElementQR_RefCopy = Me.ListOfElementQRCodes_Front.FirstOrDefault()
+                    objSide.ElementQRCode = Me.ElementQR_RefCopy
                 End If
 
                 ''========================================================================
@@ -230,14 +230,14 @@ Namespace ciBadgeCachePersonality
                 ''We are looking for the non-null object, if it exists.  ---1/14/2022 td
                 ''Please note, the use of the <> unequals operator.  ---1/14/2022 thomas
                 ''========================================================================
-                Dim boolFrontsideSig As Boolean = (Me.ElementSignature IsNot Nothing AndAlso
-                    Me.ElementSignature.WhichSideOfCard <> EnumWhichSideOfCard.EnumBackside)
+                Dim boolFrontsideSig As Boolean = (Me.ElementSig_RefCopy IsNot Nothing AndAlso
+                    Me.ElementSig_RefCopy.WhichSideOfCard <> EnumWhichSideOfCard.EnumBackside)
 
                 If (boolFrontsideSig) Then
-                    objSide.ElementSignature = Me.ElementSignature
-                ElseIf (Me.ElementSignature Is Nothing) Then
-                    Me.ElementSignature = Me.ListOfElementSignatures_Front.FirstOrDefault()
-                    objSide.ElementSignature = Me.ElementSignature
+                    objSide.ElementSignature = Me.ElementSig_RefCopy
+                ElseIf (Me.ElementSig_RefCopy Is Nothing) Then
+                    Me.ElementSig_RefCopy = Me.ListOfElementSignatures_Front.FirstOrDefault()
+                    objSide.ElementSignature = Me.ElementSig_RefCopy
                 End If
 
             End If ''End of "If (bBackside) Then ... Else ..."
@@ -1179,7 +1179,7 @@ Namespace ciBadgeCachePersonality
             ''10/10/2019 td''objElementQR.PicFileIndex = 1
             ''10/10/2019 td''mod_listElementPics.Add(objElementPic)
 
-            Me.ElementQRCode = objElementQR
+            Me.ElementQR_RefCopy = objElementQR
 
         End Sub ''End of "Public Sub LoadElement_QRCode(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)"
 
@@ -1200,7 +1200,7 @@ Namespace ciBadgeCachePersonality
             objRectangle = New Rectangle(intLeft, intTop, par_intWidth, par_intHeight)
             objElementSig = New ClassElementSignature(objRectangle, par_pictureBackground)
 
-            Me.ElementSignature = objElementSig
+            Me.ElementSig_RefCopy = objElementSig
 
         End Sub ''End of "Public Sub LoadElement_Signature(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)"
 
@@ -1251,7 +1251,7 @@ Namespace ciBadgeCachePersonality
             objElementSig.SigFileIndex = 1
 
             ''10/8/2019 td''mod_listElementPics.Add(objElementPic)
-            Me.ElementSignature = objElementSig
+            Me.ElementSig_RefCopy = objElementSig
 
         End Sub ''End of "Public Sub LoadElement_Signature(par_picSignature As PictureBox, par_pictureBackground As PictureBox)"
 
@@ -1276,7 +1276,7 @@ Namespace ciBadgeCachePersonality
             ''10/8/2019 td''objElementQR.SigFileIndex = 1
 
             ''10/8/2019 td''mod_listElementPics.Add(objElementPic)
-            Me.ElementQRCode = objElementQR
+            Me.ElementQR_RefCopy = objElementQR
 
         End Sub ''End of "Public Sub LoadElement_QRCode(par_picQRCode As PictureBox, par_pictureBackground As PictureBox)"
 
@@ -1463,8 +1463,8 @@ Namespace ciBadgeCachePersonality
             ''
             ''If the QR Code &/or Signature have been supplied, then we can proceed to copy them. 
             ''
-            If (Me.ElementQRCode IsNot Nothing) Then objCopyOfCache.ElementQRCode = Me.ElementQRCode.Copy
-            If (Me.ElementSignature IsNot Nothing) Then objCopyOfCache.ElementSignature = Me.ElementSignature.Copy
+            If (Me.ElementQR_RefCopy IsNot Nothing) Then objCopyOfCache.ElementQR_RefCopy = Me.ElementQR_RefCopy.Copy
+            If (Me.ElementSig_RefCopy IsNot Nothing) Then objCopyOfCache.ElementSig_RefCopy = Me.ElementSig_RefCopy.Copy
 
             ''Added 10/10/2019 thomas downes
             objCopyOfCache.PathToXml_Saved = Me.PathToXml_Saved
@@ -1637,13 +1637,13 @@ Namespace ciBadgeCachePersonality
 
         Public Function MissingTheQRCode() As Boolean
             ''Added 10/10/2019 td 
-            Return (Me.ElementQRCode Is Nothing)
+            Return (Me.ElementQR_RefCopy Is Nothing)
 
         End Function ''ENd of "Public Function MissingTheQRCode() As Boolean"
 
         Public Function MissingTheSignature() As Boolean
             ''Added 10/10/2019 td 
-            Return (Me.ElementSignature Is Nothing)
+            Return (Me.ElementSig_RefCopy Is Nothing)
 
         End Function ''ENd of "Public Function MissingTheSignature() As Boolean"
 

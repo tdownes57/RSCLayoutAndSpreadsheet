@@ -181,6 +181,12 @@ Public Class Startup
             ''
             ''This is potentially an infinite loop.  Look for "Exit Do". 
             ''
+            ''First, let's refresh the path. ---1/14/2022 td
+            strPathToElementsCacheXML = My.Settings.PathToXML_Saved_ElementsCache ''Added 1/14/2022 
+
+            ''
+            ''Let's set some fundamental properties of the form. ---1/14/2022 td
+            ''
             If (c_boolStillUsingElementsCache) Then ''Added 11/30/2021
                 ''
                 ''Still in use, even though it's Q4 of 2021. 
@@ -556,26 +562,74 @@ Public Class Startup
             ''
             ''Added 1/14/2022 thomas downes
             ''
+            ''========================================================================
+            ''QR Code
+            ''========================================================================
+            ''     !!!!!!!!!!!! DIFFICULT & CONFUSING !!!!!!!!!!!!
+            ''We are making a transition, from the older cache property ElementQRCode,
+            ''  toward the new cache property of ListOfElementQRCodes_Back.
+            ''We are looking for the non-null object, if it exists. 
+            ''========================================================================
             ''Let's drop the QR Code element-object into a List. ----1/14/2022 td
+            ''========================================================================
             With obj_cache_elements
                 ''Let's transfer the QRCode to the new ListOfElement... Public Property.
                 If (0 = .ListOfElementQRCodes_Front.Count) Then
-                    If (.ElementQRCode IsNot Nothing) Then
-                        .ListOfElementQRCodes_Front.Add(.ElementQRCode)
+                    If (.ElementQR_RefCopy IsNot Nothing) Then
+                        .ListOfElementQRCodes_Front.Add(.ElementQR_RefCopy)
                     End If
-                    .ElementQRCode = Nothing
                 End If ''End of "If (0 = .ListOfElementQRCodes_Front.Count) Then"
+
+                If (.ElementQR_RefCopy Is Nothing) Then
+                    .ElementQR_RefCopy = .ListOfElementQRCodes_Front.FirstOrDefault()
+                    If (.ElementQR_RefCopy Is Nothing) Then
+                        ''Next, try the Backside. 
+                        .ElementQR_RefCopy = .ListOfElementQRCodes_Back.FirstOrDefault()
+                    End If ''eND OF "If (.ElementQRCode Is Nothing) Then"
+                End If
+
+                ''Let's try to populate the .Image_BL property. ----1/14/2022 td
+                If (.ElementQR_RefCopy IsNot Nothing) Then
+                    If (.ElementQR_RefCopy.Image_BL Is Nothing) Then
+                        .ElementQR_RefCopy.Image_BL = My.Resources.QR_Code_Example
+                    End If
+                End If ''End of "If (.ElementQRCode IsNot Nothing) Then"
+
             End With ''End of "With obj_cache_elements"
 
+            ''========================================================================
+            ''Signature
+            ''========================================================================
+            ''     !!!!!!!!!!!! DIFFICULT & CONFUSING !!!!!!!!!!!!
+            ''We are making a transition, from the older cache property ElementSignature,
+            ''  toward the new cache property of ListOfElementSignatures_Back.
+            ''We are looking for the non-null object, if it exists.  ---1/14/2022 td
+            ''========================================================================
             ''Let's drop the Signature element-object into a List. ----1/14/2022 td 
+            ''========================================================================
             With obj_cache_elements
                 ''Let's transfer the Signature to the new ListOfElement... Public Property.
                 If (0 = .ListOfElementSignatures_Front.Count) Then
-                    If (.ElementSignature IsNot Nothing) Then
-                        .ListOfElementSignatures_Front.Add(.ElementSignature)
+                    If (.ElementSig_RefCopy IsNot Nothing) Then
+                        .ListOfElementSignatures_Front.Add(.ElementSig_RefCopy)
                     End If
-                    .ElementSignature = Nothing
                 End If ''End of "If (0 = .ListOfElementSignatures_Front.Count) Then"
+
+                If (.ElementSig_RefCopy Is Nothing) Then
+                    .ElementSig_RefCopy = .ListOfElementSignatures_Front.FirstOrDefault()
+                    If (.ElementSig_RefCopy Is Nothing) Then
+                        ''Next, try the Backside. 
+                        .ElementSig_RefCopy = .ListOfElementSignatures_Back.FirstOrDefault()
+                    End If ''eND OF "If (.ElementSignature Is Nothing) Then"
+                End If
+
+                ''Let's try to populate the .Image_BL property. ----1/14/2022 td
+                If (.ElementSig_RefCopy IsNot Nothing) Then
+                    If (.ElementSig_RefCopy.Image_BL Is Nothing) Then
+                        .ElementSig_RefCopy.Image_BL = My.Resources.Declaration_Sig_JPG
+                    End If
+                End If ''End of "If (.ElementSignature IsNot Nothing) Then"
+
             End With ''End of "With obj_cache_elements"
 
         End If ''End of "If (pboolNewFileXML) Then .... Else ..."

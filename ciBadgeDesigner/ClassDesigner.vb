@@ -700,8 +700,16 @@ Public Class ClassDesigner
 
         ''Moved from above, 9/20/2019 td 
         ''1/12/2022 td''Initiate_RubberbandSelector(mod_listOfFieldControls,
-        Initiate_RubberbandSelector(mod_listOfDesignerControls,
+
+        ''This will allow the user to easily select multiple elements at once.
+        ''  ----1/14/2022 td  
+        Const c_bLoadRubberband As Boolean = False ''False, since I just encountered a runtime error,
+        ''  related to the rubberband, and I am not prepared to debug this just yet.
+        ''  ----Added 1/4/2022 td
+        If (c_bLoadRubberband) Then ''Added 1/4/2022 td
+            Initiate_RubberbandSelector(mod_listOfDesignerControls,
                                  mod_selectedCtls) ''Added 9/8/2019 thomas d. 
+        End If ''End of "If (c_bLoadRubberband) Then"
 
         ''
         ''Added 11/29/2021
@@ -730,6 +738,10 @@ Public Class ClassDesigner
             ''Added 1/14/2022 td
             MessageBoxTD.Show_Statement("Houston, we have a problem!!!  Our form is orphaned.")
         End If ''End of "If (boolRefMatches) Then .... Else ....."
+
+        ''Copied & modified, from above calls to .SendToBack(). Added 1/14/2022
+        If (Not ShowingTheBackside()) Then Me.BackgroundBox_Front.SendToBack()
+        If (ShowingTheBackside()) Then Me.BackgroundBox_Backside.SendToBack()
 
     End Sub ''End of "Public Sub LoadDesigner"
 
