@@ -880,7 +880,7 @@ ExitHandler:
 
     End Sub
 
-    Private Sub pictureQRCode_MouseUp(sender As Object, par_e As MouseEventArgs) Handles pictureQRCode.MouseUp '', Me.MouseDown
+    Private Sub pictureQRCode_MouseUp(par_sender As Object, par_e As MouseEventArgs) Handles pictureQRCode.MouseUp '', Me.MouseDown
         ''
         ''Added 1/4/2022 td 
         ''

@@ -28,8 +28,13 @@ Partial Class FormFieldsAndPortrait
         Me.RadioEventHandlersHookedThruForm = New System.Windows.Forms.RadioButton()
         Me.RadioButtonEventHandlersByMonem = New System.Windows.Forms.RadioButton()
         Me.ButtonRefreshTheForm = New System.Windows.Forms.Button()
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.RadioButtonChildClass = New System.Windows.Forms.RadioButton()
+        Me.RadioButton2 = New System.Windows.Forms.RadioButton()
+        Me.Button1 = New System.Windows.Forms.Button()
         CType(Me.pictureBackgroundFront, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'LabelHeader1
@@ -93,11 +98,55 @@ Partial Class FormFieldsAndPortrait
         Me.ButtonRefreshTheForm.Text = "Refresh The Form"
         Me.ButtonRefreshTheForm.UseVisualStyleBackColor = True
         '
+        'PictureBox2
+        '
+        Me.PictureBox2.Location = New System.Drawing.Point(508, 422)
+        Me.PictureBox2.Name = "PictureBox2"
+        Me.PictureBox2.Size = New System.Drawing.Size(527, 135)
+        Me.PictureBox2.TabIndex = 7
+        Me.PictureBox2.TabStop = False
+        '
+        'RadioButtonChildClass
+        '
+        Me.RadioButtonChildClass.AutoSize = True
+        Me.RadioButtonChildClass.Checked = True
+        Me.RadioButtonChildClass.Location = New System.Drawing.Point(530, 435)
+        Me.RadioButtonChildClass.Name = "RadioButtonChildClass"
+        Me.RadioButtonChildClass.Size = New System.Drawing.Size(323, 21)
+        Me.RadioButtonChildClass.TabIndex = 8
+        Me.RadioButtonChildClass.TabStop = True
+        Me.RadioButtonChildClass.Text = "Event Handlers hooked through the child class"
+        Me.RadioButtonChildClass.UseVisualStyleBackColor = True
+        '
+        'RadioButton2
+        '
+        Me.RadioButton2.AutoSize = True
+        Me.RadioButton2.Location = New System.Drawing.Point(530, 470)
+        Me.RadioButton2.Name = "RadioButton2"
+        Me.RadioButton2.Size = New System.Drawing.Size(460, 21)
+        Me.RadioButton2.TabIndex = 9
+        Me.RadioButton2.TabStop = True
+        Me.RadioButton2.Text = "Event Handlers hooked via the parent class RSCMoveableControlVB"
+        Me.RadioButton2.UseVisualStyleBackColor = True
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(569, 510)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(214, 36)
+        Me.Button1.TabIndex = 10
+        Me.Button1.Text = "Refresh The Form"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'FormFieldsAndPortrait
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1115, 623)
+        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.RadioButton2)
+        Me.Controls.Add(Me.RadioButtonChildClass)
+        Me.Controls.Add(Me.PictureBox2)
         Me.Controls.Add(Me.ButtonRefreshTheForm)
         Me.Controls.Add(Me.RadioButtonEventHandlersByMonem)
         Me.Controls.Add(Me.RadioEventHandlersHookedThruForm)
@@ -108,6 +157,7 @@ Partial Class FormFieldsAndPortrait
         Me.Text = "FormFieldsAndPortait"
         CType(Me.pictureBackgroundFront, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -119,4 +169,8 @@ Partial Class FormFieldsAndPortrait
     Friend WithEvents RadioEventHandlersHookedThruForm As RadioButton
     Friend WithEvents RadioButtonEventHandlersByMonem As RadioButton
     Friend WithEvents ButtonRefreshTheForm As Button
+    Friend WithEvents PictureBox2 As PictureBox
+    Friend WithEvents RadioButtonChildClass As RadioButton
+    Friend WithEvents RadioButton2 As RadioButton
+    Friend WithEvents Button1 As Button
 End Class

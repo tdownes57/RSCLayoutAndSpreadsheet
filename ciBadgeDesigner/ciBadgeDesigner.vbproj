@@ -277,7 +277,7 @@
     <Compile Include="MenuOperations\Operations__Base.vb" />
     <Compile Include="MenuOperations\Operations__Graphic.vb" />
     <Compile Include="MenuOperations\Operations__Text.vb" />
-    <Compile Include="modFactoryControls.vb" />
+    <Compile Include="Modules\modFactoryControls.vb" />
     <Compile Include="Modules\modAllowFieldEdits.vb" />
     <Compile Include="Modules\modConvertWinLabelsToDrawing.vb" />
     <Compile Include="Modules\modEnums.vb" />

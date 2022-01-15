@@ -5,17 +5,17 @@
 Public Module modFactoryControls
     ''Dec.10 2021 Thomas Downes''----Module modFactoryControls  
 
-    Public Enum EnumControlsMode
+    ''Public Enum EnumControlsMode
 
-        Undetermined
+    ''    Undetermined
 
-        BadgeCard_Layout
-        BadgeCard_Preview
+    ''    BadgeCard_Layout
+    ''    BadgeCard_Preview
 
-        DataEntry_Support
-        DataEntry_Design
+    ''    DataEntry_Support
+    ''    DataEntry_Design
 
-    End Enum
+    ''End Enum
 
     ''
     ''Added 12/8/2021 Thomas 
@@ -41,6 +41,12 @@ Public Module modFactoryControls
     ''  End Select  
 
     ''End Function
+
+
+
+
+
+
 
 
 

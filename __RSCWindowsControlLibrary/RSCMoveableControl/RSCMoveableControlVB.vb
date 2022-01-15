@@ -1418,7 +1418,7 @@ Public Class RSCMoveableControlVB
         ''
         If (mod_bHandleMouseMoveEvents_ByVB6 AndAlso (par_e.Button = MouseButtons.Left)) Then
             ''
-            ''It's a Left-Hand click. 
+            ''It's a Left-Hand click. (Think, "Click-and-Drag".)
             ''
             ''Let the module know that a MouseMove took place. 
             mod_iMoveOrResizeFunctionality.StartMovingOrResizing(CType(sender, Control), par_e)
@@ -1467,16 +1467,40 @@ Public Class RSCMoveableControlVB
     End Sub ''ENd of "Protected Sub MoveableControl_MouseMove"
 
 
-    Protected Sub MoveableControl_MouseUp(sender As Object, par_e As MouseEventArgs) Handles Me.MouseUp
+    Protected Sub MoveableControl_MouseUp(par_sender As Object, par_e As MouseEventArgs) Handles Me.MouseUp
         ''
         ''Added 1/4/2022 thomas d.
         ''
+        Dim bHandledByChildControl As Boolean ''Added Jan14 2022
+        ''Jan14 2022''bHandledByChildControl = (par_e.Button = MouseButtons.Middle)
+        ''Jan14 2022''If (bHandledByChildControl) Then par_e.Button = MouseButtons.Left
+        bHandledByChildControl = (TypeOf par_sender Is PictureBox)
+
         If (mod_bHandleMouseMoveEvents_ByVB6 AndAlso (par_e.Button = MouseButtons.Left)) Then
             ''
             ''It's a Left-Button click.    (i.e. a Click-And-Drag action by user)
             ''
             ''Let the module know that a MouseUp took place. 
-            mod_iMoveOrResizeFunctionality.StopDragOrResizing(CType(sender, Control), Me)
+            ''Jan14 2022 td''mod_iMoveOrResizeFunctionality.StopDragOrResizing(CType(par_sender, Control), Me)
+
+            ''----Nasty bug.  Don't use par_sender here, since it could be a PictureBox. ---1/11/2022 td
+            ''
+            ''--MyBase.MoveableControl_MouseUp(par_sender, par_e)
+            Dim info_SaveToModel As ISaveToModel ''Added 1/14/2022 td
+            Dim objCTLGraphicOrRSCMoveable As Control ''Added 1/14/2022
+
+            ''Added 1/14/2022
+            info_SaveToModel = CType(Me, ISaveToModel)
+            If (TypeOf par_sender Is PictureBox) Then
+                objCTLGraphicOrRSCMoveable = Me
+            Else
+                objCTLGraphicOrRSCMoveable = CType(par_sender, Control)
+            End If ''End of "If (TypeOf par_sender Is PictureBox) Then ... Else"
+
+            ''Jan14 2022 td''mod_iMoveOrResizeFunctionality.StopDragOrResizing(CType(par_sender, Control), Me)
+            ''   Let's don't use par_sender here, since it could be a PictureBox. ---1/11/2022 td
+            mod_iMoveOrResizeFunctionality.StopDragOrResizing(objCTLGraphicOrRSCMoveable, info_SaveToModel)
+
 
         ElseIf (par_e.Button = MouseButtons.Right) Then
             ''            ''

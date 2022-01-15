@@ -553,6 +553,31 @@ Public Class Startup
             ''-----Me.ElementsCache_Edits.LinkElementsToFields()
             obj_cache_elements.Check_LinkElementsToFields()
 
+            ''
+            ''Added 1/14/2022 thomas downes
+            ''
+            ''Let's drop the QR Code element-object into a List. ----1/14/2022 td
+            With obj_cache_elements
+                ''Let's transfer the QRCode to the new ListOfElement... Public Property.
+                If (0 = .ListOfElementQRCodes_Front.Count) Then
+                    If (.ElementQRCode IsNot Nothing) Then
+                        .ListOfElementQRCodes_Front.Add(.ElementQRCode)
+                    End If
+                    .ElementQRCode = Nothing
+                End If ''End of "If (0 = .ListOfElementQRCodes_Front.Count) Then"
+            End With ''End of "With obj_cache_elements"
+
+            ''Let's drop the Signature element-object into a List. ----1/14/2022 td 
+            With obj_cache_elements
+                ''Let's transfer the Signature to the new ListOfElement... Public Property.
+                If (0 = .ListOfElementSignatures_Front.Count) Then
+                    If (.ElementSignature IsNot Nothing) Then
+                        .ListOfElementSignatures_Front.Add(.ElementSignature)
+                    End If
+                    .ElementSignature = Nothing
+                End If ''End of "If (0 = .ListOfElementSignatures_Front.Count) Then"
+            End With ''End of "With obj_cache_elements"
+
         End If ''End of "If (pboolNewFileXML) Then .... Else ..."
 
         ''-------------------------------------------------------------

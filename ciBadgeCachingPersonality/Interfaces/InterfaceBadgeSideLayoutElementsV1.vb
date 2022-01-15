@@ -20,5 +20,11 @@ Public Interface IBadgeSideLayoutElementsV1 ''Dec18 '' InterfaceBadgeSideLayout
     Property ElementQRCode As ClassElementQRCode
     Property ElementSignature As ClassElementSignature ''par_elementSig = null,
 
+    ''
+    ''Added 1/14/2022 thomas downes  
+    ''
+    Property ListElementPortraits As HashSet(Of ClassElementPortrait)
+    Property ListElementQRCodes As HashSet(Of ClassElementQRCode)
+    Property ListElementSignatures As HashSet(Of ClassElementSignature)
 
 End Interface

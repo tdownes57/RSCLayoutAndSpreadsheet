@@ -47,7 +47,12 @@ Namespace ciBadgeCachePersonality
         Public Property BackgroundImage_Backside_Path As String = "" ''Added 12/10/2020 td
         Public Property BackgroundImage_Backside_FTitle As String = "" ''Added 12/10/2020 td
 
+        ''I have added the <...XmlIgnore> attribute. See ListOfElementQRCodes.  ---1/14/2022 td
+        ''<Xml.Serialization.XmlIgnore> 
         Public Property ElementQRCode As ClassElementQRCode ''Added 10/8/2019 thomas d.  
+
+        ''I have added the <...XmlIgnore> attribute.  See ListOfElementSignatures.  ---1/14/2022 td
+        ''<Xml.Serialization.XmlIgnore>
         Public Property ElementSignature As ClassElementSignature ''Added 10/8/2019 thomas d.  
 
         Public Property BadgeLayout As ciBadgeInterfaces.BadgeLayoutClass ''Added 9/17/2019 thomas downes
@@ -65,13 +70,13 @@ Namespace ciBadgeCachePersonality
 
         ''10/14/2019 td''Private mod_listFields As New List(Of ClassFieldAny) ''Added 9/18/2019 td  
 
-        ''10/17 td''Private mod_listFields_Standard As New List(Of ClassFieldStandard) ''Added 10/14/2019 td  
-        ''10/17 td''Private mod_listFields_Custom As New List(Of ClassFieldCustomized) ''Added 10/14/2019 td  
+        ''10/17/2019 td''Private mod_listFields_Standard As New List(Of ClassFieldStandard) ''Added 10/14/2019 td  
+        ''10/17/2019 td''Private mod_listFields_Custom As New List(Of ClassFieldCustomized) ''Added 10/14/2019 td  
 
-        ''10/17 td''Private mod_listElementFields As New List(Of ClassElementField)
-        ''10/17 td''Private mod_listElementPics As New List(Of ClassElementPic)
-        ''10/17 td''Private mod_listElementStatics As New List(Of ClassElementStaticText)
-        ''10/17 td''Private mod_listElementLaysections As New List(Of ClassElementLaysection) ''Added 9/17/2019 thomas downes
+        ''10/17/2019 td''Private mod_listElementFields As New List(Of ClassElementField)
+        ''10/17/2019 td''Private mod_listElementPics As New List(Of ClassElementPic)
+        ''10/17/2019 td''Private mod_listElementStatics As New List(Of ClassElementStaticText)
+        ''10/17/2019 td''Private mod_listElementLaysections As New List(Of ClassElementLaysection) ''Added 9/17/2019 thomas downes
 
         Private mod_listFields_Standard As New HashSet(Of ClassFieldStandard) ''Added 10/14/2019 td  
         Private mod_listFields_Custom As New HashSet(Of ClassFieldCustomized) ''Added 10/14/2019 td  
@@ -83,19 +88,23 @@ Namespace ciBadgeCachePersonality
         ''#2 Jan8 2022 td''Private mod_listBadgeElements_Front As New HashSet(Of ClassElementBase) ''Modified 1/8/2022 ---Added 11/26/2021 td
         ''#2 Jan8 2022 td''Private mod_listBadgeElements_Backside As New HashSet(Of ClassElementBase) ''Modified 1/8/2022 td  ---Added 11/26/2021 td
 
-        ''Front side of ID Card / Badge Card
+        ''Front side of ID Card / Badge Card  ----1/8/2022 td
         Private mod_listElementFields_Front As New HashSet(Of ClassElementField)
         Private mod_listElementPics_Front As New HashSet(Of ClassElementPortrait)
         Private mod_listElementStatics_Front As New HashSet(Of ClassElementStaticText)
         Private mod_listElementGraphics_Front As New HashSet(Of ClassElementGraphic) ''Added 1/8/2022 td
         Private mod_listElementLaysections_Front As New HashSet(Of ClassElementLaysection) ''Added 9/17/2019 thomas downes
+        Private mod_listElementQRCodes_Front As New HashSet(Of ClassElementQRCode) ''Added 1/14/2022 tdownes
+        Private mod_listElementSignatures_Front As New HashSet(Of ClassElementSignature) ''Added 1/14/2022 tdownes
 
-        ''Back side of ID Card / Badge Card
+        ''Back side of ID Card / Badge Card  ----1/8/2022 td
         Private mod_listElementFields_Backside As New HashSet(Of ClassElementField)
         Private mod_listElementPics_Backside As New HashSet(Of ClassElementPortrait)
         Private mod_listElementStatics_Backside As New HashSet(Of ClassElementStaticText)
         Private mod_listElementGraphics_Backside As New HashSet(Of ClassElementGraphic) ''Added 1/8/2022 td
         Private mod_listElementLaysections_Backside As New HashSet(Of ClassElementLaysection) ''Added 9/17/2019 thomas downes
+        Private mod_listElementQRCodes_Backside As New HashSet(Of ClassElementQRCode) ''Added 1/14/2022 tdownes
+        Private mod_listElementSignatures_Backside As New HashSet(Of ClassElementSignature) ''Added 1/14/2022 tdownes
 
         ''Added 1/14/2020 thomas dow nes
         Private Structure BackgroundTitleAndWidth
@@ -135,15 +144,101 @@ Namespace ciBadgeCachePersonality
                 objSide.ListElementGraphics = Nothing
                 objSide.ListElementStaticTexts = Me.ListOfElementTexts_Backside
 
+                ''Added 1/14/2022 thomas
+                objSide.ListElementPortraits = Me.ListOfElementPics_Back
+                objSide.ListElementQRCodes = Me.ListOfElementQRCodes_Back
+                objSide.ListElementSignatures = Me.ListOfElementSignatures_Back
+
+                ''Added 1/14/2022 thomas
+                ''========================================================================
+                ''QR Code
+                ''========================================================================
+                ''     !!!!!!!!!!!! DIFFICULT & CONFUSING !!!!!!!!!!!!
+                ''We are making a transition, from the older cache property ElementQRCode,
+                ''  toward the new cache property of ListOfElementQRCodes_Back.
+                ''We are looking for the non-null object, if it exists. 
+                ''========================================================================
+                Dim boolBacksideQR As Boolean = ((Me.ElementQRCode IsNot Nothing) AndAlso
+                    Me.ElementQRCode.WhichSideOfCard = EnumWhichSideOfCard.EnumBackside)
+
+                If boolBacksideQR Then
+                    objSide.ElementQRCode = Me.ElementQRCode
+                ElseIf (Me.ElementQRCode Is Nothing) Then
+                    Me.ElementQRCode = Me.ListOfElementQRCodes_Back.FirstOrDefault()
+                    objSide.ElementQRCode = Me.ElementQRCode
+                End If
+
+                ''Added 1/14/2022 thomas
+                ''========================================================================
+                ''Signature
+                ''========================================================================
+                ''     !!!!!!!!!!!! DIFFICULT & CONFUSING !!!!!!!!!!!!
+                ''We are making a transition, from the older cache property ElementSignature,
+                ''  toward the new cache property of ListOfElementSignatures_Back.
+                ''We are looking for the non-null object, if it exists.  ---1/14/2022 td
+                ''========================================================================
+                Dim boolBacksideSig As Boolean = ((Me.ElementSignature IsNot Nothing) AndAlso
+                    Me.ElementSignature.WhichSideOfCard = EnumWhichSideOfCard.EnumBackside)
+
+                If (boolBacksideSig) Then
+                    objSide.ElementSignature = Me.ElementSignature
+                ElseIf (Me.ElementSignature Is Nothing) Then
+                    Me.ElementSignature = Me.ListOfElementSignatures_Back.FirstOrDefault()
+                    objSide.ElementSignature = Me.ElementSignature
+                End If
+
             Else
                 objSide.BackgroundImage = Me.GetBackgroundImage(par_enum)
                 ''Jan13 2022 ''objSide.ElementPic = Me.ListOfElementPics_Front().FirstOrDefault()
                 objSide.ElementPortrait = Me.ListOfElementPics_Front().FirstOrDefault()
-                objSide.ElementQRCode = Me.ElementQRCode
-                objSide.ElementSignature = Me.ElementSignature
+                ''Moved below, with a condition.--1/14/2022 td''objSide.ElementQRCode = Me.ElementQRCode
+                ''Moved below, with a condition.--1/14/2022 td''objSide.ElementSignature = Me.ElementSignature
                 objSide.ListElementFields = Me.ListOfElementFields_Front
                 objSide.ListElementGraphics = Nothing
                 objSide.ListElementStaticTexts = Me.ListOfElementTexts_Front
+
+                ''Added 1/14/2022 thomas
+                objSide.ListElementPortraits = Me.ListOfElementPics_Front
+                objSide.ListElementQRCodes = Me.ListOfElementQRCodes_Front
+                objSide.ListElementSignatures = Me.ListOfElementSignatures_Front
+
+                ''========================================================================
+                ''QR Code
+                ''========================================================================
+                ''     !!!!!!!!!!!! DIFFICULT & CONFUSING !!!!!!!!!!!!
+                ''We are making a transition, from the older cache property ElementQRCode,
+                ''  toward the new cache property of ListOfElementQRCodes_Front.
+                ''We are looking for the non-null object, if it exists. 
+                ''Please note, the use of the <> unequals operator.   Added 1/14/2022 thomas
+                ''========================================================================
+                Dim boolFrontsideQR As Boolean = (Me.ElementQRCode IsNot Nothing AndAlso
+                    Me.ElementQRCode.WhichSideOfCard <> EnumWhichSideOfCard.EnumBackside)
+
+                If boolFrontsideQR Then
+                    objSide.ElementQRCode = Me.ElementQRCode
+                ElseIf (Me.ElementQRCode Is Nothing) Then
+                    Me.ElementQRCode = Me.ListOfElementQRCodes_Front.FirstOrDefault()
+                    objSide.ElementQRCode = Me.ElementQRCode
+                End If
+
+                ''========================================================================
+                ''Signature 
+                ''========================================================================
+                ''     !!!!!!!!!!!! DIFFICULT & CONFUSING !!!!!!!!!!!!
+                ''We are making a transition, from the older cache property ElementSignature,
+                ''  toward the new cache property of ListOfElementSignatures_Front.
+                ''We are looking for the non-null object, if it exists.  ---1/14/2022 td
+                ''Please note, the use of the <> unequals operator.  ---1/14/2022 thomas
+                ''========================================================================
+                Dim boolFrontsideSig As Boolean = (Me.ElementSignature IsNot Nothing AndAlso
+                    Me.ElementSignature.WhichSideOfCard <> EnumWhichSideOfCard.EnumBackside)
+
+                If (boolFrontsideSig) Then
+                    objSide.ElementSignature = Me.ElementSignature
+                ElseIf (Me.ElementSignature Is Nothing) Then
+                    Me.ElementSignature = Me.ListOfElementSignatures_Front.FirstOrDefault()
+                    objSide.ElementSignature = Me.ElementSignature
+                End If
 
             End If ''End of "If (bBackside) Then ... Else ..."
 
@@ -563,6 +658,51 @@ Namespace ciBadgeCachePersonality
         End Property
 
 
+        Public Property ListOfElementQRCodes_Front As HashSet(Of ClassElementQRCode)  ''---List(Of ClassElementPic)
+            Get ''Added 1/14/2022 td
+                Return mod_listElementQRCodes_Front
+            End Get
+            Set(value As HashSet(Of ClassElementQRCode))  ''---List(Of ClassElementPic))
+                ''Added 1/14/2022 td
+                mod_listElementQRCodes_Front = value
+            End Set
+        End Property
+
+
+        Public Property ListOfElementQRCodes_Back As HashSet(Of ClassElementQRCode)  ''---List(Of ClassElementPic)
+            Get ''Added 1/14/2022 td
+                Return mod_listElementQRCodes_Backside
+            End Get
+            Set(value As HashSet(Of ClassElementQRCode))  ''---List(Of ClassElementPic))
+                ''Added 1/14/2022 td
+                mod_listElementQRCodes_Backside = value
+            End Set
+        End Property
+
+
+
+        Public Property ListOfElementSignatures_Front As HashSet(Of ClassElementSignature)  ''---List(Of ClassElementPic)
+            Get ''Added 1/14/2022 td
+                Return mod_listElementSignatures_Front
+            End Get
+            Set(value As HashSet(Of ClassElementSignature))  ''---List(Of ClassElementPic))
+                ''Added 1/14/2022 td
+                mod_listElementSignatures_Front = value
+            End Set
+        End Property
+
+
+        Public Property ListOfElementSignatures_Back As HashSet(Of ClassElementSignature)  ''---List(Of ClassElementPic)
+            Get ''Added 1/14/2022 td
+                Return mod_listElementSignatures_Backside
+            End Get
+            Set(value As HashSet(Of ClassElementSignature))  ''---List(Of ClassElementPic))
+                ''Added 1/14/2022 td
+                mod_listElementSignatures_Backside = value
+            End Set
+        End Property
+
+
         ''This is deprecated!!  Use ListOfElementTexts_Front instead. ---12/21/2021 td
         <Xml.Serialization.XmlIgnore>
         Public Property ListOfElementTexts As HashSet(Of ClassElementStaticText)  ''---List(Of ClassElementPic)
@@ -666,9 +806,12 @@ Namespace ciBadgeCachePersonality
 
         End Function ''End of "Public Function PicElement() As ClassElementPic"
 
+        ''This is deprecated!!  Use ListOfElementPics_Front instead. ---12/21/2021 td
         Public Function ListPicElements_Front() As HashSet(Of ClassElementPortrait)  ''---List(Of ClassElementPic)
             ''
             ''Added 9/17/2019 thomas downes
+            ''
+            ''This is deprecated!!  Use Public Property ListOfElementPics_Front instead. ---12/21/2021 td
             ''
             Return mod_listElementPics_Front
 
@@ -677,6 +820,8 @@ Namespace ciBadgeCachePersonality
         Public Function ListStaticTextElements_Front() As HashSet(Of ClassElementStaticText)  ''---List(Of ClassElementStaticText)
             ''
             ''Added 9/16/2019 thomas downes
+            ''
+            ''This is deprecated!!  Use Public Property ListOfElementTexts_Front instead. ---12/21/2021 td
             ''
             Return mod_listElementStatics_Front
 

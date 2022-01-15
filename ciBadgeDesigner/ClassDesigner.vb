@@ -485,10 +485,11 @@ Public Class ClassDesigner
 
         If (Me.CtlGraphic_QRCode IsNot Nothing) Then ''Added 1/10/2022 td 
             mod_imageExampleQRCode = Me.CtlGraphic_QRCode.pictureQRCode.Image ''Added 10/14/2019 td
-            With Me.ElementsCache_UseEdits.ElementQRCode
+            ''Jan14 2022 td''With Me.ElementsCache_UseEdits.ElementQRCode
+            With Me.ElementsCache_UseEdits.ListOfElementQRCodes_Front(0)
                 ''Populate the Element-Field object with a reference to the image.  ---Dec. 7 2021 
                 If (.Image_BL Is Nothing) Then .Image_BL = mod_imageExampleQRCode
-            End With ''end of "With Me.ElementsCache_Edits.ElementQRCode"
+            End With ''end of "With Me.ElementsCache_Edits.ListOfElementQRCodes(0)"
         End If ''End of "If (Me.CtlGraphic_QRCode IsNot Nothing) Then"
 
         ''Added 9/23/2019 td 

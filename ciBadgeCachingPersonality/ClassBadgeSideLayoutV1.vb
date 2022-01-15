@@ -97,4 +97,14 @@ Public Class ClassBadgeSideLayoutV1
     ''    End Set
     ''End Property
 
+
+    ''
+    ''Added 1/14/2022 td  
+    ''
+    Public Property ListElementPortraits As HashSet(Of ClassElementPortrait) Implements IBadgeSideLayoutElementsV1.ListElementPortraits
+    Public Property ListElementQRCodes As HashSet(Of ClassElementQRCode) Implements IBadgeSideLayoutElementsV1.ListElementQRCodes
+    Public Property ListElementSignatures As HashSet(Of ClassElementSignature) Implements IBadgeSideLayoutElementsV1.ListElementSignatures
+
+
+
 End Class

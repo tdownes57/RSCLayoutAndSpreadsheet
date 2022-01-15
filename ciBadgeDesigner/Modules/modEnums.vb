@@ -10,6 +10,19 @@
     ''--    EnumBackside
     ''--End Enum
 
+    Public Enum EnumControlsMode
+
+        Undetermined
+
+        BadgeCard_Layout
+        BadgeCard_Preview
+
+        DataEntry_Support
+        DataEntry_Design
+
+    End Enum
+
+
 
 
 End Module
