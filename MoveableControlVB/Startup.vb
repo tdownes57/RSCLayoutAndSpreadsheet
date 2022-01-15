@@ -19,12 +19,15 @@ Public Class Startup
     ''
     Public Shared Sub Main()
 
+        Dim objFormToShow = New FormFieldsAndPortrait ''Added 1/15/2022
+
         ''Encapsulated 10/13/2019 td  
-        OpenLayoutDesigner_Loop()
+        ''1/15/2022 td''OpenLayoutDesigner_Loop()
+        OpenLayoutDesigner_Loop(objFormToShow)
 
     End Sub ''Endof "Public Shared Sub Main()"
 
-    Private Shared Sub OpenLayoutDesigner_Loop()
+    Private Shared Sub OpenLayoutDesigner_Loop(par_formToShow As IDesignerForm)
         ''
         ''Added 10/11/2019 td  
         ''Encapsulated 10/13/2019 td
@@ -46,7 +49,11 @@ Public Class Startup
         ''1/5/2022 td ''Dim obj_formToShow As New FormFieldsAndPortrait ''Added 10/11/2019 td
 
         GroupMoveEvents_Singleton.CountInstances = 0 ''Return to default value. Added 1/5/2022 td
-        Dim obj_formToShow As New FormFieldsAndPortrait ''Added 10/11/2019 td 
+
+        ''#1 1/15/2022 td''Dim obj_formToShow As new FormFieldsAndPortrait ''Added 10/11/2019 td 
+        Dim obj_formToShow As IDesignerForm ''1/15/2022 td''FormFieldsAndPortrait ''Added 10/11/2019 td 
+        obj_formToShow = par_formToShow
+
         Dim strPathToElementsCacheXML As String ''Added 12/14/2021 td 
 
         ''Added 10/16/2019 td 
@@ -157,7 +164,7 @@ Public Class Startup
 
             ''Added 12/19/2021 thomas downes
             Dim imageBackground As Image ''Added 12/19/2021 thomas downes
-            imageBackground = obj_formToShow.pictureBackgroundFront.BackgroundImage
+            imageBackground = obj_formToShow.MyPictureBackgroundFront.BackgroundImage
 
             obj_cache_layout_Elements =
                 ClassElementsCache_Deprecated.GetLoadedCache("123.xml", True, imageBackground)
@@ -206,14 +213,14 @@ Public Class Startup
             ''
             Dim strFileTitleXML As String ''Added 12/1/4/2021 td
             strFileTitleXML = (New IO.FileInfo(strPathToElementsCacheXML)).Name
-            obj_formToShow.Text = String.Format("RSC ID Card - Desktop - {0} - {1}",
+            obj_formToShow.MyText = String.Format("RSC ID Card - Desktop - {0} - {1}",
                                                 strFileTitleXML, strPathToElementsCacheXML)
 
 
             ''
             ''Show the main form!!!    Huge!!!! 
             ''
-            obj_formToShow.ShowDialog() ''Added 10/11/2019 td 
+            obj_formToShow.ShowForm_AsDialog() ''Added 10/11/2019 td 
 
             ''Added 12/14/2021 thomas downes
             My.Settings.PathToXML_Saved_ElementsCache = obj_formToShow.ElementsCache_PathToXML
@@ -275,8 +282,10 @@ Public Class Startup
 
     End Function ''End of "Private Shared Function LoadData_Recipients_Students"
 
-    Public Shared Function LoadCachedData_Personality_FutureUse(par_designForm As FormFieldsAndPortrait,
+
+    Public Shared Function LoadCachedData_Personality_FutureUse(par_designForm As IDesignerForm,
                                            ByRef pboolNewFileXML As Boolean) As ClassCachePersonality ''As ClassPersonalityCache
+        ''1/15/2022 td''Public Shared Function LoadCachedData_Personality_FutureUse(par_designForm As FormFieldsAndPortrait
         ''
         ''Added 1/14/2019 td
         ''Suffixed 11/30/2021 with "_FutureUse".
@@ -438,9 +447,10 @@ Public Class Startup
 
     End Function ''End of "Private Sub LoadCachedData_Personality()"
 
-    Public Shared Function LoadCachedData_Elements_Deprecated(par_designForm As FormFieldsAndPortrait,
+    Public Shared Function LoadCachedData_Elements_Deprecated(par_designForm As IDesignerForm,
                                            ByRef pboolNewFileXML As Boolean,
                                            Optional ByRef pstrPathToElementsCacheXML As String = "") As ClassElementsCache_Deprecated
+        ''1/15/2022 td ''Public Shared Function LoadCachedData_Elements_Deprecated(par_designForm As FormFieldsAndPortrait,
 
         ''1/24 td''Private Shared Function LoadCachedData(par_designForm As FormDesignProtoTwo,
         ''1/24 td''            ByRef pboolNewFileXML As Boolean) As ClassElementsCache_NotInUse
@@ -529,8 +539,8 @@ Public Class Startup
             End With
 
             obj_cache_elements.LoadFields()
-            obj_cache_elements.LoadFieldElements(par_designForm.pictureBackgroundFront,
-                                New BadgeLayoutClass(par_designForm.pictureBackgroundFront))
+            obj_cache_elements.LoadFieldElements(par_designForm.MyPictureBackgroundFront,
+                                New BadgeLayoutClass(par_designForm.MyPictureBackgroundFront))
 
         Else
             ''Added 10/10/2019 td  
@@ -566,8 +576,8 @@ Public Class Startup
         ''Added 9/19/2019 td
         With par_designForm
             ''Added 9/19/2019 td
-            ''intPicLeft = .CtlGraphicPortrait_Lady.Left - .pictureBackgroundFront.Left
-            ''intPicTop = .CtlGraphicPortrait_Lady.Top - .pictureBackgroundFront.Top
+            ''intPicLeft = .CtlGraphicPortrait_Lady.Left - .MyPictureBackgroundFront.Left
+            ''intPicTop = .CtlGraphicPortrait_Lady.Top - .MyPictureBackgroundFront.Top
             ''intPicWidth = .CtlGraphicPortrait_Lady.Width
             ''intPicHeight = .CtlGraphicPortrait_Lady.Height
         End With
@@ -582,8 +592,8 @@ Public Class Startup
         ''Added 10/14/2019 td
         With par_designForm
             ''Added 10/14/2019 td
-            ''intLeft_QR = .CtlGraphicQRCode1.Left - .pictureBackgroundFront.Left
-            ''intTop_QR = .CtlGraphicQRCode1.Top - .pictureBackgroundFront.Top
+            ''intLeft_QR = .CtlGraphicQRCode1.Left - .MyPictureBackgroundFront.Left
+            ''intTop_QR = .CtlGraphicQRCode1.Top - .MyPictureBackgroundFront.Top
             ''intWidth_QR = .CtlGraphicQRCode1.Width
             ''intHeight_QR = .CtlGraphicQRCode1.Height
         End With
@@ -598,8 +608,8 @@ Public Class Startup
         ''Added 10/14/2019 td
         With par_designForm
             ''Added 10/14/2019 td
-            ''intLeft_Sig = .CtlGraphicSignature1.Left - .pictureBackgroundFront.Left
-            ''intTop_Sig = .CtlGraphicSignature1.Top - .pictureBackgroundFront.Top
+            ''intLeft_Sig = .CtlGraphicSignature1.Left - .MyPictureBackgroundFront.Left
+            ''intTop_Sig = .CtlGraphicSignature1.Top - .MyPictureBackgroundFront.Top
             ''intWidth_Sig = .CtlGraphicSignature1.Width
             ''intHeight_Sig = .CtlGraphicSignature1.Height
         End With
@@ -616,8 +626,8 @@ Public Class Startup
         With par_designForm
             ''Added 10/14/2019 td
             strStaticText = "This is the same text for everyone."
-            ''intLeft_Text = .CtlGraphicStaticText1.Left - .pictureBackgroundFront.Left
-            ''intTop_Text = .CtlGraphicStaticText1.Top - .pictureBackgroundFront.Top
+            ''intLeft_Text = .CtlGraphicStaticText1.Left - .MyPictureBackgroundFront.Left
+            ''intTop_Text = .CtlGraphicStaticText1.Top - .MyPictureBackgroundFront.Top
             ''intWidth_Text = .CtlGraphicStaticText1.Width
             ''intHeight_Text = .CtlGraphicStaticText1.Height
         End With
@@ -628,15 +638,15 @@ Public Class Startup
             ''10/10/2019 td''Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
             ''10/13/2019 td''Me.ElementsCache_Saved.LoadElement_Pic(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
             obj_cache_elements.LoadElement_Pic(intPicLeft, intPicTop, intPicWidth, intPicHeight,
-                                               par_designForm.pictureBackgroundFront) ''Added 9/19/2019 td
+                                               par_designForm.MyPictureBackgroundFront) ''Added 9/19/2019 td
 
             ''Added 10/14/2019 thomas d. 
             obj_cache_elements.LoadElement_QRCode(intLeft_QR, intTop_QR, intWidth_QR, intHeight_QR,
-                                               par_designForm.pictureBackgroundFront) ''Added 10/14/2019 td
+                                               par_designForm.MyPictureBackgroundFront) ''Added 10/14/2019 td
 
             ''Added 10/14/2019 thomas d. 
             obj_cache_elements.LoadElement_Signature(intLeft_Sig, intTop_Sig, intWidth_Sig, intHeight_Sig,
-                                               par_designForm.pictureBackgroundFront) ''Added 10/14/2019 td
+                                               par_designForm.MyPictureBackgroundFront) ''Added 10/14/2019 td
 
         End If ''End of "If (pboolNewFileXML) Then"
 
@@ -644,7 +654,7 @@ Public Class Startup
         obj_cache_elements.LoadElement_StaticText_IfNeeded(strStaticText,
                                                 intLeft_Text, intTop_Text,
                                                 intWidth_Text, intHeight_Text,
-                                               par_designForm.pictureBackgroundFront) ''Added 10/14/2019 td
+                                               par_designForm.MyPictureBackgroundFront) ''Added 10/14/2019 td
 
         ''Added 9/24/2019 thomas 
         ''Was just for testing. ---10/10/2019 td''Dim serial_tools As New ciBadgeSerialize.ClassSerial

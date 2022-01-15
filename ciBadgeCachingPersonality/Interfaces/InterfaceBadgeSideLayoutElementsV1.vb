@@ -27,4 +27,7 @@ Public Interface IBadgeSideLayoutElementsV1 ''Dec18 '' InterfaceBadgeSideLayout
     Property ListElementQRCodes As HashSet(Of ClassElementQRCode)
     Property ListElementSignatures As HashSet(Of ClassElementSignature)
 
+    ''Added 1/14/2022 td 
+    Property ListAllElements_RSC As HashSet(Of ClassElementBase)
+
 End Interface

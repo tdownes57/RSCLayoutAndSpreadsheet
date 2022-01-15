@@ -1,7 +1,7 @@
 ﻿''
 '' Added 12/28/2021 thomas downes 
 ''
-Public Interface ILastControlTouched_Deprecated
+Public Interface ILastControlTouched_MoveableControlVB ''1/15/2022 ILastControlTouched_Deprecated
     ''
     '' Added 12/28/2021 thomas downes 
     ''

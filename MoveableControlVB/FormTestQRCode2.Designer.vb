@@ -52,7 +52,7 @@ Partial Class FormTestQRCode2
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(929, 450)
+        Me.ClientSize = New System.Drawing.Size(1066, 635)
         Me.Controls.Add(Me.PictureBox_BadgeFront)
         Me.Controls.Add(Me.LabelHeader1)
         Me.Name = "FormTestQRCode2"

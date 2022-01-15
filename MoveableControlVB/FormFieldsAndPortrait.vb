@@ -8,12 +8,49 @@ Imports ciBadgeCachePersonality ''Added 1/7/2022 td
 Public Class FormFieldsAndPortrait
     Implements IDesignerForm ''Added 1/07/2021 td 
 
-    Public ElementsCache_ManageBoth As ClassCacheManagement ''Added 1/07/2022
-    Public ElementsCache_Edits As ClassElementsCache_Deprecated ''Added 1/07/2022 td 
-    Public PersonalityCache_Recipients As ClassCachePersonality
-    Public NewFileXML As Boolean ''Added 1/7/2022 
-    Public Property LetsRefresh_CloseForm As Boolean ''Added 1/07/2021 td  
-    Public ElementsCache_PathToXML As String ''Added 1/7/2022 
+    Public Sub ShowForm() Implements IDesignerForm.ShowForm
+
+        ''Added 1/15/2022 td
+        Me.Show()
+
+    End Sub
+
+    Public Sub ShowForm_AsDialog() Implements IDesignerForm.ShowForm_AsDialog
+
+        ''Added 1/15/2022 td
+        Me.ShowDialog()
+
+    End Sub
+
+
+    Public Property MyPictureBackgroundFront As PictureBox Implements IDesignerForm.MyPictureBackgroundFront
+        ''Added 1/15/2022
+        Get
+            Return pictureBackgroundFront
+        End Get
+        Set(value As PictureBox)
+            pictureBackgroundFront = value
+        End Set
+    End Property
+
+
+    Public Property MyText As String Implements IDesignerForm.MyText
+        ''Added 1/15/2022
+        Get
+            Return Me.Text
+        End Get
+        Set(value As String)
+            Me.Text = value
+        End Set
+    End Property
+
+
+    Public Property ElementsCache_ManageBoth As ClassCacheManagement Implements IDesignerForm.ElementsCache_ManageBoth ''Added 1/07/2022
+    Public Property ElementsCache_Edits As ClassElementsCache_Deprecated Implements IDesignerForm.ElementsCache_Edits ''Added 1/07/2022 td 
+    Public Property PersonalityCache_Recipients As ClassCachePersonality Implements IDesignerForm.PersonalityCache_Recipients
+    Public Property NewFileXML As Boolean Implements IDesignerForm.NewFileXML    ''Added 1/7/2022 
+    Public Property LetsRefresh_CloseForm As Boolean Implements IDesignerForm.LetsRefresh_CloseForm  ''Added 1/07/2021 td  
+    Public Property ElementsCache_PathToXML As String Implements IDesignerForm.ElementsCache_PathToXML   ''Added 1/7/2022 
 
     ''Jan7 2022 ''Private mod_designer As New ClassDesigner()
     Private mod_designer As ClassDesigner ''Added 1/7/2022
