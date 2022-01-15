@@ -305,7 +305,7 @@ Public Class FormTestingVB
         Me.Controls.Add(RSCMoveableControlVB11)
 
         ''
-        ''Hidden, for right-clicking the desktop.  
+        ''Hidden, for right-clicking the "desktop", i.e. the designer form.  
         ''
         ''1/2/2022 td''Dim desktop_objSaveToModelRSC As New ClassSaveToModel
         mod_desktop_RSCClickable = RSCMoveableControlVB.GetControl(EnumElementType.Field,

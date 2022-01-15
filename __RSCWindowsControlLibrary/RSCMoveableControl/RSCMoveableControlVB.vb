@@ -21,6 +21,7 @@ Public Class RSCMoveableControlVB
     ''Added 12/22/2021 td  
     ''
     Public Shared LastControlTouched_Deprecated As RSCMoveableControlVB
+    Public ParentForm As Form ''Added 1/15/2022 td 
 
     ''Jan11 2022 td''Public Shared Function GetControl(par_enum As EnumElementType,
     ''                                  par_nameOfControl As String,
@@ -1311,21 +1312,23 @@ Public Class RSCMoveableControlVB
             Return
         End If ''end of "If (ContextMenuStrip1 Is Nothing) Then"
 
-        Dim objDisplayMenu As New ClassDisplayContextMenu(ContextMenuStrip1)
-        Const c_intRandom As Integer = 5
-        With objDisplayMenu
+        ContextMenuStrip1.Show()
 
-            If (c_intRandom = 1) Then .ContextMenuDisplay(Me, New Point(par_intX, par_intY))
-            If (c_intRandom = 2) Then .ContextMenuOpen(Me, New Point(par_intX, par_intY))
-            If (c_intRandom = 3) Then .ContextMenuShow(Me, New Point(par_intX, par_intY))
-            If (c_intRandom = 4) Then .DisplayContextMenu(Me, New Point(par_intX, par_intY))
-            If (c_intRandom = 5) Then .DisplayPopupMenu(Me, New Point(par_intX, par_intY))
-            If (c_intRandom = 6) Then .DisplayRightclickMenu(Me, New Point(par_intX, par_intY))
-            If (c_intRandom = 7) Then .OpenContextMenu(Me, New Point(par_intX, par_intY))
-            If (c_intRandom = 8) Then .OpenPopupMenu(Me, New Point(par_intX, par_intY))
-            If (c_intRandom = 9) Then .OpenRightclickMenu(Me, New Point(par_intX, par_intY))
+        ''Dim objDisplayMenu As New ClassDisplayContextMenu(ContextMenuStrip1)
+        ''Const c_intRandom As Integer = 5
+        ''With objDisplayMenu
 
-        End With ''End of "With objDisplayMenu"
+        ''    If (c_intRandom = 1) Then .ContextMenuDisplay(Me, New Point(par_intX, par_intY))
+        ''    If (c_intRandom = 2) Then .ContextMenuOpen(Me, New Point(par_intX, par_intY))
+        ''    If (c_intRandom = 3) Then .ContextMenuShow(Me, New Point(par_intX, par_intY))
+        ''    If (c_intRandom = 4) Then .DisplayContextMenu(Me, New Point(par_intX, par_intY))
+        ''    If (c_intRandom = 5) Then .DisplayPopupMenu(Me, New Point(par_intX, par_intY))
+        ''    If (c_intRandom = 6) Then .DisplayRightclickMenu(Me, New Point(par_intX, par_intY))
+        ''    If (c_intRandom = 7) Then .OpenContextMenu(Me, New Point(par_intX, par_intY))
+        ''    If (c_intRandom = 8) Then .OpenPopupMenu(Me, New Point(par_intX, par_intY))
+        ''    If (c_intRandom = 9) Then .OpenRightclickMenu(Me, New Point(par_intX, par_intY))
+
+        ''End With ''End of "With objDisplayMenu"
 
     End Sub ''End of Private Sub mod_designer_ElementRightClicked(par_intX As Integer, par_intY As Integer)
 

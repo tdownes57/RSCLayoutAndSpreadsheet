@@ -76,6 +76,7 @@
     <Compile Include="Classes\MenuCache_Generic.vb" />
     <Compile Include="Classes\MenuCache_NonShared.vb" />
     <Compile Include="Classes\MessageBoxTD.vb" />
+    <Compile Include="Classes\Operations__Desktop.vb" />
     <Compile Include="Classes\Operations__Generic.vb" />
     <Compile Include="Classes\Operations__Useless.vb" />
     <Compile Include="Interfaces\InterfaceCurrentElement.vb" />
@@ -100,6 +101,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="RSCClickableDesktop\RSCClickableDesktop.Designer.vb">
+      <DependentUpon>RSCClickableDesktop.vb</DependentUpon>
+    </Compile>
+    <Compile Include="RSCClickableDesktop\RSCClickableDesktop.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="RSCEditableControl\RSC_IDEditor.Designer.vb">
       <DependentUpon>RSC_IDEditor.vb</DependentUpon>
     </Compile>
@@ -119,6 +126,9 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RSCClickableDesktop\RSCClickableDesktop.resx">
+      <DependentUpon>RSCClickableDesktop.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RSCEditableControl\RSC_IDEditor.resx">
       <DependentUpon>RSC_IDEditor.vb</DependentUpon>

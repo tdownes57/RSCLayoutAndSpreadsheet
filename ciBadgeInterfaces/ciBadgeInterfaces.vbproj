@@ -70,6 +70,7 @@
     <Compile Include="Enums\ModuleEnums.vb" />
     <Compile Include="Events\GroupMoveEvents_Singleton.vb" />
     <Compile Include="InterfaceCtlElement_TextAny.vb" />
+    <Compile Include="InterfaceDesignerForm.vb" />
     <Compile Include="InterfaceMoveEvents.vb" />
     <Compile Include="InterfaceQRCode.vb" />
     <Compile Include="InterfaceSaveToModel.vb" />

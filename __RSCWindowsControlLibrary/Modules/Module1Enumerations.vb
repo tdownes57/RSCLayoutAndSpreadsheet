@@ -12,6 +12,9 @@
         StaticText
         StaticGraphic
 
+        __Background ''Added 1/15/2022 td
+        __Desktop ''Added 1/15/2022 td
+
     End Enum
 
 End Module

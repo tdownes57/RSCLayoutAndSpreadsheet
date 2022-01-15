@@ -313,4 +313,13 @@ Public Class FormFieldsAndPortrait
 
 
     End Sub
+
+    Private Sub FormFieldsAndPortrait_MouseUp(sender As Object, e As MouseEventArgs) Handles MyBase.MouseUp
+        ''
+        ''Added 1/15/2022 td
+        ''
+        RscClickableDesktop1.ClickableDesktop_MouseUp(sender, e)
+
+
+    End Sub
 End Class
