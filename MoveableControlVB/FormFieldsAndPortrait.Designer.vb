@@ -34,6 +34,7 @@ Partial Class FormFieldsAndPortrait
         Me.RadioButton2 = New System.Windows.Forms.RadioButton()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.RscClickableDesktop1 = New __RSCWindowsControlLibrary.RSCClickableDesktop(Me.components)
+        Me.FlowLayoutPanelForContextLinks = New System.Windows.Forms.FlowLayoutPanel()
         CType(Me.pictureBackgroundFront, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -53,6 +54,7 @@ Partial Class FormFieldsAndPortrait
         '
         'pictureBackgroundFront
         '
+        Me.pictureBackgroundFront.BackColor = System.Drawing.Color.Cyan
         Me.pictureBackgroundFront.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.pictureBackgroundFront.Location = New System.Drawing.Point(41, 99)
         Me.pictureBackgroundFront.Name = "pictureBackgroundFront"
@@ -140,11 +142,20 @@ Partial Class FormFieldsAndPortrait
         Me.Button1.Text = "Refresh The Form"
         Me.Button1.UseVisualStyleBackColor = True
         '
+        'FlowLayoutPanelForContextLinks
+        '
+        Me.FlowLayoutPanelForContextLinks.BackColor = System.Drawing.Color.Cyan
+        Me.FlowLayoutPanelForContextLinks.Location = New System.Drawing.Point(760, 356)
+        Me.FlowLayoutPanelForContextLinks.Name = "FlowLayoutPanelForContextLinks"
+        Me.FlowLayoutPanelForContextLinks.Size = New System.Drawing.Size(310, 48)
+        Me.FlowLayoutPanelForContextLinks.TabIndex = 11
+        '
         'FormFieldsAndPortrait
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1115, 623)
+        Me.Controls.Add(Me.FlowLayoutPanelForContextLinks)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.RadioButton2)
         Me.Controls.Add(Me.RadioButtonChildClass)
@@ -176,4 +187,5 @@ Partial Class FormFieldsAndPortrait
     Friend WithEvents RadioButton2 As RadioButton
     Friend WithEvents Button1 As Button
     Friend WithEvents RscClickableDesktop1 As __RSCWindowsControlLibrary.RSCClickableDesktop
+    Friend WithEvents FlowLayoutPanelForContextLinks As FlowLayoutPanel
 End Class

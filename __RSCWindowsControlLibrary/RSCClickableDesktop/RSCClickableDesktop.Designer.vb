@@ -19,6 +19,10 @@
         'This call is required by the Component Designer.
         InitializeComponent()
 
+        ''Added 1/15/2022 td
+        InitializeClickability()
+        AddClickability()
+
     End Sub
 
     'Component overrides dispose to clean up the component list.

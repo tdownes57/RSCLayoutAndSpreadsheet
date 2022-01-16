@@ -129,6 +129,9 @@ Public Class FormFieldsAndPortrait
         InstantiateStaticText()
         InstantiateStaticGraph()
 
+        ''Added 1/15/2022 thomas downes
+        RscClickableDesktop1.InitializeClickability(Me)
+
     End Sub ''End of "Private Sub InstantiateElementControls()"
 
 

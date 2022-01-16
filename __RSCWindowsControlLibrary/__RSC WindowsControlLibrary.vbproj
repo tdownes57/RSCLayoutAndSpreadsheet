@@ -76,7 +76,7 @@
     <Compile Include="Classes\MenuCache_Generic.vb" />
     <Compile Include="Classes\MenuCache_NonShared.vb" />
     <Compile Include="Classes\MessageBoxTD.vb" />
-    <Compile Include="Classes\Operations__Desktop.vb" />
+    <Compile Include="Classes\Operations__Desktop_Dummy.vb" />
     <Compile Include="Classes\Operations__Generic.vb" />
     <Compile Include="Classes\Operations__Useless.vb" />
     <Compile Include="Interfaces\InterfaceCurrentElement.vb" />

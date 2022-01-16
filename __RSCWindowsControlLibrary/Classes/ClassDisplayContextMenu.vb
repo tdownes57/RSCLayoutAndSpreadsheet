@@ -17,6 +17,16 @@
 
     End Sub
 
+    Public Sub ShowContextMenu(par_intX As Integer, par_intY As Integer)
+
+        ''Added 12/27/2021 thomas downes
+        ''Added Jan15 2022 td'' mod_menuStrip.Show(par_control, par_point)
+
+        mod_menuStrip.Show(par_intX, par_intY)
+
+    End Sub
+
+
     Public Sub DisplayContextMenu(par_control As Control, par_point As Point)
 
         ''Added 12/27/2021 thomas downes

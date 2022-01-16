@@ -9,7 +9,7 @@ Imports ciBadgeInterfaces
 ''----Imports ciBadgeDesigner
 ''----Imports ciBadgeElements
 
-Public Class Operations__Desktop
+Public Class Operations__Desktop_Dummy
     Implements ICurrentElement ''Added 1/15/2022 td
     ''
     ''Added 1/15/2022 td
@@ -64,6 +64,13 @@ Public Class Operations__Desktop
     End Sub ''End of "Public Sub New(par_currentControlVB As MoveableControlVB)"
 
 
+    Public Sub This_Is_A_Desktop_Operation_DD2002(sender As Object, e As EventArgs)
+        ''
+        ''Added 1/15/2021 thomas downes  
+        ''
+        MessageBoxTD.Show_Statement("You probably right-clicked the desktop!!")
+
+    End Sub
 
 
 
