@@ -35,6 +35,7 @@ Public Class CtlGraphicFldLabel
     Public Shared UseExampleValues As Boolean
 
     Public Shared Function GetFieldElement(par_elementFld As ClassElementField,
+                                           par_formParent As Form,
                                            par_oDesigner As ClassDesigner,
                                       par_nameOfControl As String,
                                       par_iLayoutFun As ILayoutFunctions,
@@ -73,7 +74,9 @@ Public Class CtlGraphicFldLabel
         ''                pstrWhyWasICreated As String,
         ''                par_formRecordLastTouched As IRecordElementLastTouched)
 
-        CtlFieldElem1 = New CtlGraphicFldLabel(par_elementFld, par_oDesigner, par_iLayoutFun,
+        CtlFieldElem1 = New CtlGraphicFldLabel(par_elementFld,
+                                               par_formParent,
+                                               par_oDesigner, par_iLayoutFun,
                                                    "Called by GetFieldElement.",
                                                    typeOps, objOperations,
                                                    bAddFunctionalitySooner,
@@ -187,9 +190,11 @@ Public Class CtlGraphicFldLabel
 
     End Sub
 
+
     Public Sub New(par_elementField As ClassElementField,
+                   par_oParentForm As Form,
                    par_oDesigner As ClassDesigner,
-                  par_iLayoutFun As ILayoutFunctions,
+                   par_iLayoutFun As ILayoutFunctions,
                    pstrWhyWasICreated As String,
                    par_operationsType As Type,
                    par_operationsAny As Object,
@@ -204,7 +209,8 @@ Public Class CtlGraphicFldLabel
         ''Dim singleDummy As Single = 0 ''Added 1/4/2022 td 
 
         ''Added 1/4/2022 td
-        MyBase.New(EnumElementType.Field, False,
+        MyBase.New(EnumElementType.Field,
+                        par_oParentForm, False,
                         par_iLayoutFun,
                         par_operationsType, par_operationsAny,
                         pboolAddMoveability, pboolAddClickability,

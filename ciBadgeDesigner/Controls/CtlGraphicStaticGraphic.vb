@@ -31,6 +31,7 @@ Public Class CtlGraphicStaticGraphic
 
 
     Public Shared Function GetStaticGraphic(par_elementStaticGraphic As ClassElementGraphic,
+                                            par_formParent As Form,
                                       par_nameOfControl As String,
                                       par_iLayoutFun As ILayoutFunctions,
                                       par_bProportionSizing As Boolean,
@@ -88,7 +89,9 @@ Public Class CtlGraphicStaticGraphic
         ''Jan2 2022''Dim CtlStaticGraphic1 = New CtlGraphicStaticGraphic(par_elementStaticGraphic, par_iLayoutFun,
         ''Jan2 2022''                        enumElementType_Enum, par_bProportionSizing,
 
-        Dim CtlStaticGraphic1 = New CtlGraphicStaticGraphic(par_elementStaticGraphic, par_iLayoutFun,
+        Dim CtlStaticGraphic1 = New CtlGraphicStaticGraphic(par_elementStaticGraphic,
+                                                            par_formParent,
+                                                            par_iLayoutFun,
                                                    par_bProportionSizing,
                                                    typeOps, objOperations,
                                                    bAddFunctionalitySooner,
@@ -153,6 +156,7 @@ Public Class CtlGraphicStaticGraphic
 
 
     Public Sub New(par_elementGraphic As ClassElementGraphic,
+                   par_formDesigner As Form,
                    par_iLayoutFun As ILayoutFunctions,
                   pboolResizeProportionally As Boolean,
                    par_operationsType As Type,
@@ -168,7 +172,7 @@ Public Class CtlGraphicStaticGraphic
         ''Added 12/30/2021 td
         ''
         ''Jan1 2022 td''MyBase.New(par_enumElementType, pboolResizeProportionally,
-        MyBase.New(EnumElementType.StaticGraphic, pboolResizeProportionally,
+        MyBase.New(EnumElementType.StaticGraphic, par_formDesigner, pboolResizeProportionally,
                         par_iLayoutFun,
                         par_operationsType, par_operationsAny,
                         pboolAddMoveability, pboolAddClickability,

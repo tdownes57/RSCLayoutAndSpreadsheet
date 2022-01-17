@@ -259,6 +259,7 @@ Public Class RSCMoveableControlVB
 
 
     Public Sub New(par_enumElementType As EnumElementType,
+                   par_formParent As Form,
                   pboolResizeProportionally As Boolean,
                    par_iLayoutFun As ILayoutFunctions,
                    par_operationsType As Type,
@@ -273,6 +274,8 @@ Public Class RSCMoveableControlVB
         ''
         ''         ''Jan2 2022 ''par_iSaveToModel As ISaveToModel,
         ''         ''Dec29 2021 ''par_designer As ClassDesigner,
+
+        Me.ParentForm = par_formParent ''Added 1/16/2022 td 
 
         ''12/28/2021 td''par_toolstrip As ToolStripItemCollection)
 

@@ -192,6 +192,7 @@ Public Class CtlGraphicStaticText
 
 
     Public Sub New(par_elementST As ClassElementStaticText,
+                   par_oForm As Form,
                    par_iLayoutFun As ILayoutFunctions,
                    par_iRefreshPreview As IRefreshPreview,
                    par_operationsType As Type,
@@ -206,7 +207,7 @@ Public Class CtlGraphicStaticText
         ''Added 1/07/2022 td
         ''
         ''Jan1 2022 td''MyBase.New(par_enumElementType, pboolResizeProportionally,
-        MyBase.New(EnumElementType.StaticText, mod_c_bResizeProportionally,
+        MyBase.New(EnumElementType.StaticText, par_form, mod_c_bResizeProportionally,
                         par_iLayoutFun,
                         par_operationsType, par_operationsAny,
                         pboolAddMoveability, pboolAddClickability,

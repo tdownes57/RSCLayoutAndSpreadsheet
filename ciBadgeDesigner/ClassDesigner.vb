@@ -835,13 +835,22 @@ Public Class ClassDesigner
         If (System.IO.File.Exists(strBackgroundImage_Path)) Then
             objectBackgroundImage = New Bitmap(strBackgroundImage_Path)
             If (boolBacksideOfCard) Then
+                BackgroundBox_Backside.Image?.Dispose()
+                BackgroundBox_Backside.Image = Nothing
+                BackgroundBox_Backside.BackColor = Color.White '' Color.Transparent
                 BackgroundBox_Backside.BackgroundImage = objectBackgroundImage
                 BackgroundBox_Backside.BackgroundImageLayout = ImageLayout.Zoom
-                BackgroundBox_Backside.BackColor = Color.White '' Color.Transparent
+                BackgroundBox_Backside.Visible = True
+                BackgroundBox_Front.Visible = False ''Make the other control invisible. 
             Else
+                BackgroundBox_Front.Image?.Dispose()
+                BackgroundBox_Front.Image = Nothing
+                BackgroundBox_Front.BackColor = Color.White '' Color.Transparent
                 BackgroundBox_Front.BackgroundImage = objectBackgroundImage
                 BackgroundBox_Front.BackgroundImageLayout = ImageLayout.Zoom
-                BackgroundBox_Front.BackColor = Color.White '' Color.Transparent
+                ''Jan16 2022''BackgroundBox_Front.Refresh()
+                BackgroundBox_Backside.Visible = False ''Make the other control invisible. 
+                BackgroundBox_Front.Visible = True
             End If ''end of "If (boolBacksideOfCard) Then... Else ..."
         End If ''End of "If (System.IO.File.Exists(strBackgroundImage_Path)) Then"
 
@@ -1149,6 +1158,12 @@ Public Class ClassDesigner
             Me.DesignerForm.Controls.Remove(Me.CtlGraphic_QRCode)
         End If ''ENd of "If (Me.CtlGraphic_QRCode IsNot Nothing) Then"
 
+        ''Added 1/16/2022 thomas d. 
+        ''  Check to see if this badge-side (e.g. front side) contains a QR code. 
+        If (par_elementQR Is Nothing) Then
+            Return ''Added 1/16/2022 td
+        End If ''End of "If (par_elementQR Is Nothing) Then"
+
         ''Load a brand-new QR-code control. ---12/7/2021 td  
         ''12/22/2021 td''Dim elementQRCode As ClassElementQRCode = Me.ElementsCache_UseEdits.ElementQRCode
 
@@ -1160,7 +1175,8 @@ Public Class ClassDesigner
             Const c_proportional As Boolean = True ''Added 1/2/2022 td
 
             ''12/30/2021 td''Me.CtlGraphic_QRCode = New CtlGraphicQRCode(par_elementQR, CType(Me, ILayoutFunctions))
-            Me.CtlGraphic_QRCode = CtlGraphicQRCode.GetQRCode(par_elementQR, "CtlGraphic_QRCode",
+            Me.CtlGraphic_QRCode = CtlGraphicQRCode.GetQRCode(par_elementQR, Me.DesignerForm,
+                                                              "CtlGraphic_QRCode",
                                                               CType(Me, ILayoutFunctions), c_proportional,
                                                               mod_ctlLasttouched,
                                                               par_oMoveEvents)
@@ -1215,6 +1231,12 @@ Public Class ClassDesigner
         ''Added 10/12/2019 thomas d. 
         ''
         Const c_proportional As Boolean = True ''Added 1/2/2022 td
+
+        ''Added 1/16/2022 thomas d. 
+        ''  Check to see if this badge-side (e.g. frontside, or backside) contains a Signature. 
+        If (par_elementSig Is Nothing) Then
+            Return ''Added 1/16/2022 td
+        End If ''End of "If (par_elementSig Is Nothing) Then"
 
         ''10//12/2019 td''CtlGraphic_Signat = New CtlGraphicSignature(par_elementSig, Me)
         ''1/2/2022 td''CtlGraphic_Signat = New CtlGraphicSignature(par_elementSig, Me, Me.PathToSigFile)
@@ -1292,6 +1314,7 @@ Public Class ClassDesigner
                     String.Format("CtlGraphicStaticText{0}", indexControl),
                     Me, Me, mod_ctlLasttouched, mod_oGroupMoveEvents)
 
+            each_ctlStaticText.ParentForm = Me.DesignerForm ''Added 1/16/2022 thomas d.
             ListCtlGraphic_StaticTexts.Add(each_ctlStaticText)
 
             Me.DesignerForm.Controls.Add(each_ctlStaticText)
@@ -1488,7 +1511,9 @@ Public Class ClassDesigner
 
             ''Added 1/4/2022 td
             Dim strNameOfControl As String = "Ctl" + each_element.FieldEnum.ToString()
-            label_control = CtlGraphicFldLabel.GetFieldElement(each_element, Me, strNameOfControl,
+
+            label_control = CtlGraphicFldLabel.GetFieldElement(each_element, Me.DesignerForm, Me,
+                                                               strNameOfControl,
                                                         Me, Me, mod_ctlLasttouched,
                                                         mod_oGroupMoveEvents)
 
