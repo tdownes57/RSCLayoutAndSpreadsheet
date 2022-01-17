@@ -17,10 +17,10 @@ Imports __RSCWindowsControlLibrary ''Added 1/8/2022 td
 
 Public Class Operations_StaticGraphic
     Inherits Operations__Graphic
-    Implements ICurrentElement ''Added 1/08/2022 td
+    ''Jan17 2022 ''Implements ICurrentElement ''Added 1/08/2022 td
 
     ''Added 1/08/2022 td
-    Public Property CtlCurrentElement As RSCMoveableControlVB Implements ICurrentElement.CtlCurrentElement
+    ''Jan17 2022 ''Public Property CtlCurrentElement As RSCMoveableControlVB Implements ICurrentElement.CtlCurrentElement
 
     ''
     ''Added 12/13/2021 td

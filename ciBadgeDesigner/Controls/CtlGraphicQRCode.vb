@@ -27,7 +27,7 @@ Public Class CtlGraphicQRCode
     Public ElementClass_Obj As ClassElementQRCode ''Added 9/17/2019 thomas downes
     ''---Nov29 2021''Public ElementInfo_Pic As IElementPic ''Added 7/31/2019 thomas d 
     Public ElementInfo_QR As IElementQRCode ''Modified 11/29/2021 thomas d 
-    Public ElementInfo_Base As IElement_Base ''Added 7/31/2019 thomas d 
+    Public Overrides Property ElementInfo_Base As IElement_Base ''Added 7/31/2019 thomas d 
 
     Public Event ElementQR_RightClicked(par_control As CtlGraphicPortrait) ''Added 10/10/2019 td
 

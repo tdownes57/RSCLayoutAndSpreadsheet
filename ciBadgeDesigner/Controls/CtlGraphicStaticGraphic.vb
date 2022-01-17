@@ -21,7 +21,7 @@ Public Class CtlGraphicStaticGraphic
     ''
     Public ElementClass_Obj As ClassElementGraphic ''Added 9/17/2019 thomas downes
     Public ElementInfo_QR As IElementGraphic ''Modified 11/29/2021 thomas d 
-    Public ElementInfo_Base As IElement_Base ''Added 7/31/2019 thomas d 
+    Public Overrides Property ElementInfo_Base As IElement_Base ''Added 7/31/2019 thomas d 
 
     Public Event ElementQR_RightClicked(par_control As CtlGraphicPortrait) ''Added 10/10/2019 td
 

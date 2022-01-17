@@ -24,7 +24,7 @@ Public Class CtlGraphicPortrait
 
     Public ElementClass_Obj As ClassElementPortrait ''Added 9/17/2019 thomas downes
     Public ElementInfo_Pic As IElementPic ''Added 7/31/2019 thomas d 
-    Public ElementInfo_Base As IElement_Base ''Added 7/31/2019 thomas d 
+    Public Overrides Property ElementInfo_Base As IElement_Base ''Added 7/31/2019 thomas d 
 
     Public Event ElementPic_RightClicked(par_control As CtlGraphicPortrait) ''Added 10/10/2019 td
 
@@ -46,7 +46,7 @@ Public Class CtlGraphicPortrait
         ''
         ''Added 1/04/2022 td
         ''
-        Const c_enumElemType As EnumElementType = EnumElementType.Portrait
+        ''Unused. Jan17 2022''Const c_enumElemType As EnumElementType = EnumElementType.Portrait
         Const bAddFunctionalitySooner As Boolean = False
         Const bAddFunctionalityLater As Boolean = True
 

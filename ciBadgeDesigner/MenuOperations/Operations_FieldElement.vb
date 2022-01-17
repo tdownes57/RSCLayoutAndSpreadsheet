@@ -14,7 +14,7 @@ Imports __RSCWindowsControlLibrary ''Added 1/5/2022 td
 
 Public Class Operations_FieldElement
     Inherits Operations__Text
-    Implements ICurrentElement ''Added 12/28/2021 td
+    ''Jan17 2022 ''Implements ICurrentElement ''Added 12/28/2021 td
 
     ''
     ''Added 10/1/2019 td
@@ -38,7 +38,7 @@ Public Class Operations_FieldElement
 
     ''Jan5 2022 td''
     Public Property CtlCurrentElementField As ciBadgeDesigner.CtlGraphicFldLabel ''CtlGraphicFldLabel
-    Public Property CtlCurrentElement As RSCMoveableControlVB Implements ICurrentElement.CtlCurrentElement
+    ''Jan17 2022 ''Public Property CtlCurrentElement As RSCMoveableControlVB Implements ICurrentElement.CtlCurrentElement
 
     Public Property LayoutFunctions As ILayoutFunctions ''Added 10/3/2019 td 
     Public Property Designer As ciBadgeDesigner.ClassDesigner

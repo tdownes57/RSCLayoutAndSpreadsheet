@@ -3,6 +3,7 @@ Option Explicit On
 
 Imports ciBadgeElements ''Added 12/5/2021 
 Imports ciBadgeFields ''Added 12/5/2021  
+Imports ciBadgeInterfaces ''Added 1/17/2022  
 
 Namespace ciBadgeCachePersonality
     ''
@@ -604,6 +605,164 @@ Namespace ciBadgeCachePersonality
             mod_cacheSaved.Pic_InitialDefault = par_imageExamplePortrait
 
         End Sub ''End of "Public Sub LoadPic_InitialDefault"
+
+
+        Public Sub SwitchElementToOtherSideOfCard(par_infoBase As ciBadgeInterfaces.IElement_Base)
+            ''
+            ''Added 1/17/2022 thomas d. 
+            ''
+            Dim boolMatch As Boolean
+            Dim each_infoBase As IElement_Base
+
+            ''
+            ''Fields
+            ''
+            For Each each_element In CacheForEditing.ListOfElementFields_Front()
+                each_infoBase = CType(each_element, ciBadgeInterfaces.IElement_Base)
+                boolMatch = (par_infoBase Is each_infoBase)
+                If (boolMatch) Then
+                    If (each_element.WhichSideOfCard <> EnumWhichSideOfCard.EnumFrontside) Then System.Diagnostics.Debugger.Break()
+                    CacheForEditing.ListOfElementFields_Front.Remove(each_element)
+                    CacheForEditing.ListOfElementFields_Backside.Add(each_element)
+                    Exit Sub
+                End If
+            Next each_element
+
+            For Each each_element In CacheForEditing.ListOfElementFields_Backside()
+                each_infoBase = CType(each_element, ciBadgeInterfaces.IElement_Base)
+                boolMatch = (par_infoBase Is each_infoBase)
+                If (boolMatch) Then
+                    CacheForEditing.ListOfElementFields_Backside.Remove(each_element)
+                    CacheForEditing.ListOfElementFields_Front.Add(each_element)
+                    Exit Sub
+                End If
+            Next each_element
+
+            ''
+            ''Portraits  
+            ''
+            For Each each_element In CacheForEditing.ListOfElementPics_Front()
+                each_infoBase = CType(each_element, ciBadgeInterfaces.IElement_Base)
+                boolMatch = (par_infoBase Is each_infoBase)
+                If (boolMatch) Then
+                    If (each_element.WhichSideOfCard <> EnumWhichSideOfCard.EnumFrontside) Then System.Diagnostics.Debugger.Break()
+                    CacheForEditing.ListOfElementPics_Front.Remove(each_element)
+                    CacheForEditing.ListOfElementPics_Back.Add(each_element)
+                    Exit Sub
+                End If
+            Next each_element
+
+            For Each each_element In CacheForEditing.ListOfElementPics_Back()
+                each_infoBase = CType(each_element, ciBadgeInterfaces.IElement_Base)
+                boolMatch = (par_infoBase Is each_infoBase)
+                If (boolMatch) Then
+                    CacheForEditing.ListOfElementPics_Back.Remove(each_element)
+                    CacheForEditing.ListOfElementPics_Front.Add(each_element)
+                    Exit Sub
+                End If
+            Next each_element
+
+            ''
+            ''QR Codes 
+            ''
+            For Each each_element In CacheForEditing.ListOfElementQRCodes_Front()
+                each_infoBase = CType(each_element, ciBadgeInterfaces.IElement_Base)
+                boolMatch = (par_infoBase Is each_infoBase)
+                If (boolMatch) Then
+                    If (each_element.WhichSideOfCard <> EnumWhichSideOfCard.EnumFrontside) Then System.Diagnostics.Debugger.Break()
+                    CacheForEditing.ListOfElementQRCodes_Front.Remove(each_element)
+                    CacheForEditing.ListOfElementQRCodes_Back.Add(each_element)
+                    Exit Sub
+                End If
+            Next each_element
+
+            For Each each_element In CacheForEditing.ListOfElementQRCodes_Back()
+                each_infoBase = CType(each_element, ciBadgeInterfaces.IElement_Base)
+                boolMatch = (par_infoBase Is each_infoBase)
+                If (boolMatch) Then
+                    CacheForEditing.ListOfElementQRCodes_Back.Remove(each_element)
+                    CacheForEditing.ListOfElementQRCodes_Front.Add(each_element)
+                    Exit Sub
+                End If
+            Next each_element
+
+            ''
+            ''Signatures
+            ''
+            For Each each_element In CacheForEditing.ListOfElementSignatures_Front()
+                each_infoBase = CType(each_element, ciBadgeInterfaces.IElement_Base)
+                boolMatch = (par_infoBase Is each_infoBase)
+                If (boolMatch) Then
+                    If (each_element.WhichSideOfCard <> EnumWhichSideOfCard.EnumFrontside) Then System.Diagnostics.Debugger.Break()
+                    CacheForEditing.ListOfElementSignatures_Front.Remove(each_element)
+                    CacheForEditing.ListOfElementSignatures_Back.Add(each_element)
+                    Exit Sub
+                End If
+            Next each_element
+
+            For Each each_element In CacheForEditing.ListOfElementSignatures_Back()
+                each_infoBase = CType(each_element, ciBadgeInterfaces.IElement_Base)
+                boolMatch = (par_infoBase Is each_infoBase)
+                If (boolMatch) Then
+                    CacheForEditing.ListOfElementSignatures_Back.Remove(each_element)
+                    CacheForEditing.ListOfElementSignatures_Front.Add(each_element)
+                    Exit Sub
+                End If
+            Next each_element
+
+            ''
+            ''StaticTexts
+            ''
+            For Each each_element In CacheForEditing.ListOfElementTexts_Front()
+                each_infoBase = CType(each_element, ciBadgeInterfaces.IElement_Base)
+                boolMatch = (par_infoBase Is each_infoBase)
+                If (boolMatch) Then
+                    If (each_element.WhichSideOfCard <> EnumWhichSideOfCard.EnumFrontside) Then System.Diagnostics.Debugger.Break()
+                    CacheForEditing.ListOfElementTexts_Front.Remove(each_element)
+                    CacheForEditing.ListOfElementTexts_Backside.Add(each_element)
+                    Exit Sub
+                End If
+            Next each_element
+
+            For Each each_element In CacheForEditing.ListOfElementTexts_Backside()
+                each_infoBase = CType(each_element, ciBadgeInterfaces.IElement_Base)
+                boolMatch = (par_infoBase Is each_infoBase)
+                If (boolMatch) Then
+                    CacheForEditing.ListOfElementTexts_Backside.Remove(each_element)
+                    CacheForEditing.ListOfElementTexts_Front.Add(each_element)
+                    Exit Sub
+                End If
+            Next each_element
+
+            ''
+            ''StaticGraphics
+            ''
+            For Each each_element In CacheForEditing.ListOfElementGraphics_Front()
+                each_infoBase = CType(each_element, ciBadgeInterfaces.IElement_Base)
+                boolMatch = (par_infoBase Is each_infoBase)
+                If (boolMatch) Then
+                    If (each_element.WhichSideOfCard <> EnumWhichSideOfCard.EnumFrontside) Then System.Diagnostics.Debugger.Break()
+                    CacheForEditing.ListOfElementGraphics_Front.Remove(each_element)
+                    CacheForEditing.ListOfElementGraphics_Backside.Add(each_element)
+                    Exit Sub
+                End If
+            Next each_element
+
+            For Each each_element In CacheForEditing.ListOfElementGraphics_Backside()
+                each_infoBase = CType(each_element, ciBadgeInterfaces.IElement_Base)
+                boolMatch = (par_infoBase Is each_infoBase)
+                If (boolMatch) Then
+                    CacheForEditing.ListOfElementGraphics_Backside.Remove(each_element)
+                    CacheForEditing.ListOfElementGraphics_Front.Add(each_element)
+                    Exit Sub
+                End If
+            Next each_element
+
+
+
+
+
+        End Sub ''End of "Public Sub SwitchElementToOtherSideOfCard"
 
 
     End Class ''End of "Public Class ClassCacheManagement"

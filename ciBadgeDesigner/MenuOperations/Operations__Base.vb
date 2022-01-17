@@ -1,13 +1,45 @@
-﻿Public Class Operations__Base
+﻿Option Explicit On
+Option Strict On
+Option Infer Off
+''
+''Added 12/12/2021 td
+''
+Imports ciBadgeInterfaces
+''Imports ciBadgeDesigner
+''Imports ciBadgeElements
+Imports __RSCWindowsControlLibrary ''Added 1/2/2022 td 
+
+Public Class Operations__Base
+    Implements ICurrentElement ''Added 12/28/2021 td
+    Public Property CtlCurrentElement As RSCMoveableControlVB Implements ICurrentElement.CtlCurrentElement
+    Public Property ManagerOfCaches As ciBadgeCachePersonality.ClassCacheManagement
 
     Public Property NameOfClass As String ''Added 12/30/2021 td
 
     Public Sub Move_To_Other_Side_Of_Badge_BA1001(sender As Object, e As EventArgs)
         ''
-        ''Added 12/30/2021 td  
+        ''Stubbed 12/30/2021 td
+        ''Programmed 1/17/2022 td 
         ''
+        Dim enumCurrentSide As ciBadgeInterfaces.EnumWhichSideOfCard
+        Dim enumSwitchToSide As ciBadgeInterfaces.EnumWhichSideOfCard
 
+        enumCurrentSide = CtlCurrentElement.ElementInfo_Base.WhichSideOfCard
 
+        If (enumCurrentSide = EnumWhichSideOfCard.EnumBackside) Then
+            enumSwitchToSide = EnumWhichSideOfCard.EnumFrontside
+        Else
+            enumSwitchToSide = EnumWhichSideOfCard.EnumBackside
+        End If
+
+        CtlCurrentElement.ElementInfo_Base.WhichSideOfCard = enumSwitchToSide
+
+        ''Important call. 
+        ManagerOfCaches.SwitchElementToOtherSideOfCard(CtlCurrentElement.ElementInfo_Base)
+
+        ''Added 1/17/2022 td
+        MessageBoxTD.Show_Statement("For the change a visible effect, you will need to switch to the " &
+                                    "other side of the card.")
 
     End Sub ''End of Public Sub Move_To_Other_Side_Of_Badge_BA1001
 

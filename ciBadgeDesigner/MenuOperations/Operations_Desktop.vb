@@ -15,11 +15,11 @@ Imports __RSCWindowsControlLibrary ''Added 1/2/2022 td
 ''
 Public Class Operations_Desktop
     Inherits Operations__Desktop_Dummy
-    Implements ICurrentElement ''Added 12/28/2021 td
+    ''Jan17 2022 ''Implements ICurrentElement ''Added 12/28/2021 td
     ''
     '' Added 1/16/2022 thomas downes
     ''
-    Public Property CtlCurrentElement As RSCMoveableControlVB Implements ICurrentElement.CtlCurrentElement
+    ''Jan17 2022 ''Public Property CtlCurrentElement As RSCMoveableControlVB Implements ICurrentElement.CtlCurrentElement
 
     Public Sub Create_New_StaticText_Control_GD2001(sender As Object, e As EventArgs)
         ''

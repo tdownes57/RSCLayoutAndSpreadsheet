@@ -20,7 +20,7 @@ Public Class CtlGraphicStaticText
 
     ''8/29/2019 td''Public ElementInfo As ClassElementText
     Public Element_StaticText As New ClassElementStaticText ''Added 10/11/2019 td
-    Public ElementInfo_Base As ciBadgeInterfaces.IElement_Base ''Added 8/29/2019 td
+    Public Overrides Property ElementInfo_Base As ciBadgeInterfaces.IElement_Base ''Added 8/29/2019 td
     ''9/18/2019 td''Public ElementInfo_Text As ciBadgeInterfaces.IElement_TextField ''Added 8/29/2019 td
     Public ElementInfo_TextOnly As ciBadgeInterfaces.IElement_TextOnly ''Added 8/29/2019 td
     Public ElementClass_Obj As ClassElementStaticText ''Added 8/29/2019 td

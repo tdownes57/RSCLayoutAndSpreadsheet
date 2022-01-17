@@ -27,7 +27,7 @@ Public Class CtlGraphicSignature
 
     Public ElementClass_Obj As ClassElementSignature ''Added 10/12/2019 thomas downes
     Public ElementInfo_Sig As IElementSig ''Added 10/12/2019 thomas d 
-    Public ElementInfo_Base As IElement_Base ''Added 7/31/2019 thomas d 
+    Public Overrides Property ElementInfo_Base As IElement_Base ''Added 7/31/2019 thomas d 
 
     ''Dec15 2021''Public Event ElementSig_RightClicked(par_control As CtlGraphicPortrait) ''Added 10/10/2019 td
     Public Event ElementSig_RightClicked(par_control As CtlGraphicSignature) ''Added 10/10/2019 td
