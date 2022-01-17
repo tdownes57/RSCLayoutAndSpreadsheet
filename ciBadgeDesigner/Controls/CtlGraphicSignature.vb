@@ -39,6 +39,7 @@ Public Class CtlGraphicSignature
     Public Pic_CloneOfInitialImage As Image ''Added 9/23/2019 thomas downes. 
 
     Public Shared Function GetSignature(par_elementSig As ClassElementSignature,
+                                        par_oParentForm As Form,
                                       par_nameOfControl As String,
                                       par_iLayoutFun As ILayoutFunctions,
                                       par_bProportionSizing As Boolean,
@@ -94,7 +95,9 @@ Public Class CtlGraphicSignature
         ''Create the control. 
         ''Jan2 2022''Dim CtlQRCode1 = New CtlGraphicQRCode(par_elementQRCode, par_iLayoutFun,
         ''Jan2 2022''                        enumElementType_Enum, par_bProportionSizing,
-        Dim CtlSignature1 = New CtlGraphicSignature(par_elementSig, par_iLayoutFun,
+        Dim CtlSignature1 = New CtlGraphicSignature(par_elementSig,
+                                                    par_oParentForm,
+                                                    par_iLayoutFun,
                                                    par_bProportionSizing,
                                                    typeOps, objOperations,
                                                    bAddFunctionalitySooner,
@@ -140,6 +143,7 @@ Public Class CtlGraphicSignature
 
 
     Public Sub New(par_elementSig As ClassElementSignature,
+                   par_formParent As Form,
                    par_iLayoutFun As ILayoutFunctions,
                   pboolResizeProportionally As Boolean,
                    par_operationsType As Type,
@@ -155,7 +159,8 @@ Public Class CtlGraphicSignature
         ''Added 12/30/2021 td
         ''
         ''Jan1 2022 td''MyBase.New(par_enumElementType, pboolResizeProportionally,
-        MyBase.New(EnumElementType.Signature, pboolResizeProportionally,
+        MyBase.New(EnumElementType.Signature, par_formParent,
+                        pboolResizeProportionally,
                         par_iLayoutFun,
                         par_operationsType, par_operationsAny,
                         pboolAddMoveability, pboolAddClickability,

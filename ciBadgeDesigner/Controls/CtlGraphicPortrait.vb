@@ -36,6 +36,7 @@ Public Class CtlGraphicPortrait
     Private mod_formRecordLastTouched As IRecordElementLastTouched ''Added 12/17/2021 td
 
     Public Shared Function GetPortrait(par_elementPortrait As ClassElementPortrait,
+                                       par_formParent As Form,
                                       par_nameOfControl As String,
                                       par_iLayoutFun As ILayoutFunctions,
                                       par_bProportionSizing As Boolean,
@@ -76,7 +77,8 @@ Public Class CtlGraphicPortrait
         Dim enumElementType_Enum As EnumElementType = EnumElementType.Portrait
 
         ''Create the control. 
-        Dim CtlPortrait1 = New CtlGraphicPortrait(par_elementPortrait, par_iLayoutFun,
+        Dim CtlPortrait1 = New CtlGraphicPortrait(par_elementPortrait, par_formParent,
+                                                  par_iLayoutFun,
                                                    par_bProportionSizing,
                                                    typeOps, objOperations,
                                                    bAddFunctionalitySooner,
@@ -120,6 +122,7 @@ Public Class CtlGraphicPortrait
 
 
     Public Sub New(par_elementPic As ClassElementPortrait,
+                   par_oParentForm As Form,
                    par_iLayoutFun As ILayoutFunctions,
                   pboolResizeProportionally As Boolean,
                    par_operationsType As Type,
@@ -134,7 +137,8 @@ Public Class CtlGraphicPortrait
         ''Added 1/04/2022 td
         ''
         ''Jan1 2022 td''MyBase.New(par_enumElementType, pboolResizeProportionally,
-        MyBase.New(EnumElementType.Portrait, pboolResizeProportionally,
+        MyBase.New(EnumElementType.Portrait, par_oParentForm,
+                   pboolResizeProportionally,
                         par_iLayoutFun,
                         par_operationsType, par_operationsAny,
                         pboolAddMoveability, pboolAddClickability,

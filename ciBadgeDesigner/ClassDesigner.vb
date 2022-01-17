@@ -1079,7 +1079,8 @@ Public Class ClassDesigner
         End If ''End of "If (par_elementPic Is Nothing) Then"
 
         ''Jan4 2022 td''CtlGraphic_Portrait = New CtlGraphicPortrait(par_elementPic, Me)
-        CtlGraphic_Portrait = CtlGraphicPortrait.GetPortrait(par_elementPic, "CtlGraphic_Portrait",
+        CtlGraphic_Portrait = CtlGraphicPortrait.GetPortrait(par_elementPic, Me.DesignerForm,
+                                                             "CtlGraphic_Portrait",
                                                              Me, True, mod_ctlLasttouched, Me,
                                                                 mod_oGroupMoveEvents)
 
@@ -1240,7 +1241,8 @@ Public Class ClassDesigner
 
         ''10//12/2019 td''CtlGraphic_Signat = New CtlGraphicSignature(par_elementSig, Me)
         ''1/2/2022 td''CtlGraphic_Signat = New CtlGraphicSignature(par_elementSig, Me, Me.PathToSigFile)
-        CtlGraphic_Signat = CtlGraphicSignature.GetSignature(par_elementSig, "CtlGraphic_Signat",
+        CtlGraphic_Signat = CtlGraphicSignature.GetSignature(par_elementSig, Me.DesignerForm,
+                                                             "CtlGraphic_Signat",
                                                 CType(Me, ILayoutFunctions), c_proportional,
                                                 mod_ctlLasttouched, par_oMoveEvents,
                                                 Me.PathToSigFile)
@@ -1310,7 +1312,7 @@ Public Class ClassDesigner
             ''Dec27 2021''CtlGraphic_StaticText_temp = New CtlGraphicStaticText(each_element_static)
             ''Jan8 2022 td''CtlGraphic_StaticText_temp = New CtlGraphicStaticText(each_element_static, Me)
 
-            each_ctlStaticText = CtlGraphicStaticText.GetStaticText(each_element_static,
+            each_ctlStaticText = CtlGraphicStaticText.GetStaticText(each_element_static, Me.DesignerForm,
                     String.Format("CtlGraphicStaticText{0}", indexControl),
                     Me, Me, mod_ctlLasttouched, mod_oGroupMoveEvents)
 

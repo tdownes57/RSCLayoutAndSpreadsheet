@@ -72,6 +72,7 @@ Public Class CtlGraphicStaticText
 
 
     Public Shared Function GetStaticText(par_elementText As ClassElementStaticText,
+                                         par_oParentForm As Form,
                                       par_nameOfControl As String,
                                       par_iLayoutFun As ILayoutFunctions,
                                          par_iRefreshPreview As IRefreshPreview,
@@ -131,7 +132,7 @@ Public Class CtlGraphicStaticText
         ''Jan2 2022''Dim CtlQRCode1 = New CtlGraphicQRCode(par_elementQRCode, par_iLayoutFun,
         ''Jan2 2022''           enumElementType_Enum, par_bProportionSizing,
 
-        Dim CtlStaticText1 = New CtlGraphicStaticText(par_elementText,
+        Dim CtlStaticText1 = New CtlGraphicStaticText(par_elementText, par_oParentForm,
                                     par_iLayoutFun,
                                     par_iRefreshPreview,
                                 typeOps, objOperations,
@@ -207,7 +208,8 @@ Public Class CtlGraphicStaticText
         ''Added 1/07/2022 td
         ''
         ''Jan1 2022 td''MyBase.New(par_enumElementType, pboolResizeProportionally,
-        MyBase.New(EnumElementType.StaticText, par_form, mod_c_bResizeProportionally,
+        MyBase.New(EnumElementType.StaticText, par_oForm,
+                        mod_c_bResizeProportionally,
                         par_iLayoutFun,
                         par_operationsType, par_operationsAny,
                         pboolAddMoveability, pboolAddClickability,
