@@ -1,5 +1,6 @@
-﻿Partial Class RSCClickableDesktop
-    Inherits System.ComponentModel.Component
+﻿Partial Class CtlClickableDesktop
+    Inherits __RSCWindowsControlLibrary.RSCClickableDesktop
+    ''Jan16 2022 td''Inherits System.ComponentModel.Component
 
     <System.Diagnostics.DebuggerNonUserCode()> _
     Public Sub New(ByVal container As System.ComponentModel.IContainer)
@@ -18,10 +19,6 @@
 
         'This call is required by the Component Designer.
         InitializeComponent()
-
-        ''Added 1/15/2022 td
-        InitializeClickability()
-        AddClickability()
 
     End Sub
 
@@ -45,16 +42,7 @@
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
-        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        '
-        'ContextMenuStrip1
-        '
-        Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(100, 25)
-
+        components = New System.ComponentModel.Container()
     End Sub
 
-    Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
 End Class

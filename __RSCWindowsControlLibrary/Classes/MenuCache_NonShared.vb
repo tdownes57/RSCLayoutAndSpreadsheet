@@ -6,7 +6,7 @@ Imports ciBadgeInterfaces ''Added 10/14/2019 td
 Imports ciBadgeDesigner ''Added 10/14/2019 td
 ''----Imports ciBadgeFields ''Added 12/13/2021 thomas d. 
 
-Friend Class MenuCache_NonShared
+Public Class MenuCache_NonShared
     Implements ICurrentElement
     ''
     ''Added 12/27/2021 thomas downes

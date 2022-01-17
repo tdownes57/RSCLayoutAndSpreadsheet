@@ -110,6 +110,8 @@ Partial Class Form__Main_Demo
         Me.CtlGraphicStaticText1 = New ciBadgeDesigner.CtlGraphicStaticText()
         Me.LinkLabel2 = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel3 = New System.Windows.Forms.LinkLabel()
+        Me.CtlClickableDesktop1 = New ciBadgeDesigner.CtlClickableDesktop(Me.components)
+        Me.PrintASpecifiedNumberOfBadgesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -347,7 +349,7 @@ Partial Class Form__Main_Demo
         '
         'BadgeRecipientsToolStripMenuItem
         '
-        Me.BadgeRecipientsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ShowBadgeRecipientsToolStripMenuItem, Me.CloseListOfRecipentsToolStripMenuItem, Me.PrintAllBadgesToFileFolderToolStripMenuItem, Me.ExitRecipientModeToolStripMenuItem})
+        Me.BadgeRecipientsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ShowBadgeRecipientsToolStripMenuItem, Me.CloseListOfRecipentsToolStripMenuItem, Me.PrintASpecifiedNumberOfBadgesToolStripMenuItem, Me.PrintAllBadgesToFileFolderToolStripMenuItem, Me.ExitRecipientModeToolStripMenuItem})
         Me.BadgeRecipientsToolStripMenuItem.Name = "BadgeRecipientsToolStripMenuItem"
         Me.BadgeRecipientsToolStripMenuItem.Size = New System.Drawing.Size(138, 24)
         Me.BadgeRecipientsToolStripMenuItem.Text = "Badge Recipients"
@@ -367,8 +369,8 @@ Partial Class Form__Main_Demo
         'PrintAllBadgesToFileFolderToolStripMenuItem
         '
         Me.PrintAllBadgesToFileFolderToolStripMenuItem.Name = "PrintAllBadgesToFileFolderToolStripMenuItem"
-        Me.PrintAllBadgesToFileFolderToolStripMenuItem.Size = New System.Drawing.Size(318, 26)
-        Me.PrintAllBadgesToFileFolderToolStripMenuItem.Text = "Print all Badges to File Folder"
+        Me.PrintAllBadgesToFileFolderToolStripMenuItem.Size = New System.Drawing.Size(374, 26)
+        Me.PrintAllBadgesToFileFolderToolStripMenuItem.Text = "Make Badges (all Recipients) to File Folder"
         '
         'ExitRecipientModeToolStripMenuItem
         '
@@ -841,6 +843,12 @@ Partial Class Form__Main_Demo
         Me.LinkLabel3.TabStop = True
         Me.LinkLabel3.Text = "Turn on drag-&&-drop for last-touched element."
         '
+        'PrintASpecifiedNumberOfBadgesToolStripMenuItem
+        '
+        Me.PrintASpecifiedNumberOfBadgesToolStripMenuItem.Name = "PrintASpecifiedNumberOfBadgesToolStripMenuItem"
+        Me.PrintASpecifiedNumberOfBadgesToolStripMenuItem.Size = New System.Drawing.Size(374, 26)
+        Me.PrintASpecifiedNumberOfBadgesToolStripMenuItem.Text = "Make Badges (for specific Recipients)"
+        '
         'Form__Main_Demo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 20.0!)
@@ -990,4 +998,6 @@ Partial Class Form__Main_Demo
     Friend WithEvents LinkLabel2 As LinkLabel
     Friend WithEvents LinkLabel3 As LinkLabel
     Friend WithEvents StatusLabelWarningError As ToolStripStatusLabel
+    Friend WithEvents CtlClickableDesktop1 As CtlClickableDesktop
+    Friend WithEvents PrintASpecifiedNumberOfBadgesToolStripMenuItem As ToolStripMenuItem
 End Class

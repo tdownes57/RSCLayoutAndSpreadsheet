@@ -84,6 +84,12 @@
     <Compile Include="Classes_Minor\ClassRecordElementLastTouched_Deprecated.vb" />
     <Compile Include="Classes_Minor\ClassRubberbandSelector.vb" />
     <Compile Include="Classes_Minor\ClassSaveToModel.vb" />
+    <Compile Include="Component\CtlClickableDesktop.Designer.vb">
+      <DependentUpon>CtlClickableDesktop.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Component\CtlClickableDesktop.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\CtlAddCustomField.designer.vb">
       <DependentUpon>CtlAddCustomField.vb</DependentUpon>
     </Compile>
@@ -267,6 +273,7 @@
     <Compile Include="MenuOperations\MenuCache_FieldElements_NotInUse.vb" />
     <Compile Include="MenuOperations\MenuCache_Generic.vb" />
     <Compile Include="MenuOperations\Operations_Background.vb" />
+    <Compile Include="MenuOperations\Operations_Desktop.vb" />
     <Compile Include="MenuOperations\Operations_FieldElement.vb" />
     <Compile Include="MenuOperations\Operations_Portrait.vb" />
     <Compile Include="MenuOperations\Operations_StaticGraphic.vb" />

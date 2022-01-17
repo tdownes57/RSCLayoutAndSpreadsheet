@@ -2695,6 +2695,17 @@ ExitHandler:
 
     End Sub
 
+    Private Sub Form__Main_Demo_MouseUp(sender As Object, e As MouseEventArgs) Handles MyBase.MouseUp
+        ''
+        ''Added 1/16/2022 td
+        ''
+        If (e.Button = MouseButtons.Right) Then
+            CtlClickableDesktop1.ParentDesignerForm = Me
+            CtlClickableDesktop1.ClickableDesktop_MouseUp(sender, e)
+        End If
+
+    End Sub
+
     ''Public Sub RecordElementLastTouched(par_elementMoved As IMoveableElement, par_elementClicked As IClickableElement) Implements IRecordLastTouched.RecordElementLastTouched
     ''    ''
     ''    ''Added 12/17/2021 td

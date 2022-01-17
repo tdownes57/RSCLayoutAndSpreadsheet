@@ -138,8 +138,8 @@ Namespace ciBadgeCachePersonality
                 objSide.BackgroundImage = Me.GetBackgroundImage(par_enum)
                 ''Jan13 2022''objSide.ElementPic = Me.ListOfElementPics_Back().FirstOrDefault()
                 objSide.ElementPortrait = Me.ListOfElementPics_Back().FirstOrDefault()
-                objSide.ElementQRCode = Me.ElementQR_RefCopy
-                objSide.ElementSignature = Me.ElementSig_RefCopy
+                objSide.ElementQRCode = Me.ListOfElementQRCodes_Back().FirstOrDefault() ''Jan16 2022 td''Me.ElementQR_RefCopy
+                objSide.ElementSignature = Me.ListOfElementSignatures_Back().FirstOrDefault() ''Jan16 2022 td''Me.ElementSig_RefCopy
                 objSide.ListElementFields = Me.ListOfElementFields_Backside
                 objSide.ListElementGraphics = Nothing
                 objSide.ListElementStaticTexts = Me.ListOfElementTexts_Backside
@@ -196,6 +196,10 @@ Namespace ciBadgeCachePersonality
                 objSide.ListElementFields = Me.ListOfElementFields_Front
                 objSide.ListElementGraphics = Nothing
                 objSide.ListElementStaticTexts = Me.ListOfElementTexts_Front
+
+                ''Added 1/16/2022 td
+                objSide.ElementQRCode = Me.ListOfElementQRCodes_Front().FirstOrDefault()
+                objSide.ElementSignature = Me.ListOfElementSignatures_Front().FirstOrDefault()
 
                 ''Added 1/14/2022 thomas
                 objSide.ListElementPortraits = Me.ListOfElementPics_Front

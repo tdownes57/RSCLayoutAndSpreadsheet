@@ -30,18 +30,18 @@ Public Class RSCClickableDesktop
     Public MyLinkLabelCollection As List(Of LinkLabel) ''Added 1/15/2022 td
 
     ''Added 12/28/2021 td
-    Private mod_objOperationsAny As Object ''Added 12/28/2021 td
-    Private mod_typeOperations As Type ''Added 12/28/2021 td
-    Private mod_enumElementType As EnumElementType ''Added 12/28/2021 td
+    Protected mod_objOperationsAny As Object ''Added 12/28/2021 td
+    Protected mod_typeOperations As Type ''Added 12/28/2021 td
+    Protected mod_enumElementType As EnumElementType ''Added 12/28/2021 td
 
     ''Added 12/28/2021 td  
-    Private mod_menuCacheNonShared As MenuCache_NonShared = Nothing ''New Operations_Generic(Me)
+    Protected mod_menuCacheNonShared As MenuCache_NonShared = Nothing ''New Operations_Generic(Me)
     ''Dec28 2021 td''Private mod_menuCacheUseless As MenuCache_NonShared = Nothing ''New Operations_Useless(Me)
-    Private mod_objOperationsGeneric As Operations__Generic = Nothing ''New Operations_Generic(Me)
-    Private mod_objOperationsUseless As Operations__Useless = Nothing ''New Operations_Useless(Me)
-    Private mod_objOperationsDesktop As Operations__Desktop_Dummy = Nothing ''Added 1/15/2022 td
+    Protected mod_objOperationsGeneric As Operations__Generic = Nothing ''New Operations_Generic(Me)
+    Protected mod_objOperationsUseless As Operations__Useless = Nothing ''New Operations_Useless(Me)
+    Protected mod_objOperationsDesktop As Operations__Desktop_Dummy = Nothing ''Added 1/15/2022 td
 
-    Private Const mc_AddExtraHeadersForContextMenuStrip As Boolean = True ''Added 1/15/2022 td
+    Protected Const mc_AddExtraHeadersForContextMenuStrip As Boolean = True ''Added 1/15/2022 td
 
     ''Public Sub New()
     ''    ''    ''Don't expect the Moveability to work, we are sending the events
@@ -51,6 +51,7 @@ Public Class RSCClickableDesktop
     ''    ''    InitializeClickability(EnumElementType.Undetermined, oEventkillingBlackhole)
     ''    ''
     ''End Sub
+
 
     Public Overridable Sub InitializeClickability(par_formParent As Form,
                                                   par_flowLayoutPanel As FlowLayoutPanel) ''Jan15 2022'' par_designer As ClassDesigner)
