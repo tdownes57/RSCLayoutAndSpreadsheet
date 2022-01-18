@@ -6,7 +6,7 @@ Imports ciBadgeInterfaces
 Imports ciBadgeCachePersonality
 Imports ciBadgeElements
 
-Public Interface InterfaceGetElementControl
+Public Interface IGetElementControlParameters
     ''
     ''Added 1/17/2022 thomas downes  
     ''

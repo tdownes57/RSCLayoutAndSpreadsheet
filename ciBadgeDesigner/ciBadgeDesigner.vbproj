@@ -84,6 +84,7 @@
     <Compile Include="Classes_Minor\ClassRecordElementLastTouched_Deprecated.vb" />
     <Compile Include="Classes_Minor\ClassRubberbandSelector.vb" />
     <Compile Include="Classes_Minor\ClassSaveToModel.vb" />
+    <Compile Include="Classes_Minor\ClassGetElementControlParams.vb" />
     <Compile Include="Component\CtlClickableDesktop.Designer.vb">
       <DependentUpon>CtlClickableDesktop.vb</DependentUpon>
     </Compile>
@@ -261,7 +262,7 @@
     <Compile Include="DiskFiles\DiskFilesVB.vb" />
     <Compile Include="DiskFiles\DiskFolders.vb" />
     <Compile Include="Interfaces\InterfaceCurrentElement.vb" />
-    <Compile Include="Interfaces\InterfaceGetElementControl.vb" />
+    <Compile Include="Interfaces\InterfaceGetElementControlParameters.vb" />
     <Compile Include="Interfaces\InterfaceLastControlTouched.vb" />
     <Compile Include="Interfaces\InterfaceLastControlTouchedRSC.vb" />
     <Compile Include="Interfaces\InterfaceRefreshPreview.vb" />
