@@ -23,6 +23,9 @@ Namespace ciBadgeCachePersonality
         ''
         Sub RefreshPreview() ''Added 12/27/2021 td
 
+        ''Added 1/18/2022 td
+        Function HeightAnyRSCMoveableControl() As Integer ''Added 1/18/2022 thomas d
+
     End Interface
 
 End Namespace

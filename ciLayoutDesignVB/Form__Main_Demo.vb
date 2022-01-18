@@ -2524,6 +2524,24 @@ ExitHandler:
 
     End Sub ''ENd of "Private Sub DisplayStringDataInNotepad()"
 
+
+    Public Function HeightAnyRSCMoveableControl() As Integer Implements IDesignerForm.HeightAnyRSCMoveableControl
+        ''
+        ''Added 1/18/2022 thomas d.
+        ''
+        Dim each_RSC As __RSCWindowsControlLibrary.RSCMoveableControlVB
+        For Each each_control As Control In Me.Controls
+            ''--If (TypeOf each_control Then '' Is __RSCWindowsControlLibrary) Then
+            Try
+                each_RSC = CType(each_control, __RSCWindowsControlLibrary.RSCMoveableControlVB)
+                Return each_RSC.Height
+            Catch
+            End Try
+            ''--End If
+        Next each_control
+    End Function ''End of "Public Function HeightAnyRSCMoveableControl() As Integer"
+
+
     Private Sub UnloadDesignerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UnloadDesignerToolStripMenuItem.Click
 
         ''Added 11/28/2021 td

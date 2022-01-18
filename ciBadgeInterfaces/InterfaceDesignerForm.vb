@@ -6,7 +6,7 @@
 ''Imports ciBadgeCachePersonality ''Added 1/15/2022 td
 Imports System.Windows.Forms ''Added 1/15/2022 td
 
-Public Interface IDesignerForm_Desktop
+Public Interface IDesignerForm_Desktop ''Suffixed with _Desktop on about 1/15/2022 td
     ''
     ''Added 1/15/2022 td
     ''
@@ -17,6 +17,8 @@ Public Interface IDesignerForm_Desktop
     Property NewFileXML As Boolean ''Added 1/7/2022 
     Property LetsRefresh_CloseForm As Boolean
     Property ElementsCache_PathToXML As String
+
+    Function HeightAnyRSCMoveableControl() As Integer ''Added 1/18/2022 thomas d
 
     Sub ShowForm()
     Sub ShowForm_AsDialog()

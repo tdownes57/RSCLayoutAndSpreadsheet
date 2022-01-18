@@ -8,6 +8,9 @@ Imports ciBadgeCachePersonality ''Added 1/7/2022 td
 Public Class FormFieldsAndPortrait
     Implements IDesignerForm ''Added 1/07/2021 td 
 
+    Private WithEvents mod_toolstripItem As ToolStripItem ''Added 1/17/2022 td
+    Private WithEvents mod_linkLabel As LinkLabel ''Added 1/18/2022 td
+
     Public Sub ShowForm() Implements IDesignerForm.ShowForm
 
         ''Added 1/15/2022 td
@@ -348,6 +351,33 @@ Public Class FormFieldsAndPortrait
         ''
         RscClickableDesktop1.ClickableDesktop_MouseUp(sender, e)
 
+
+    End Sub
+
+    Private Sub mod_toolstripItem_MouseUp(sender As Object, e As MouseEventArgs) Handles mod_toolstripItem.MouseUp
+        ''
+        ''Added for an investigation, 1/17/2022
+        ''
+
+    End Sub
+
+    Private Sub mod_toolstripItem_Click(sender As Object, e As EventArgs) Handles mod_toolstripItem.Click
+        ''
+        ''Added for an investigation, 1/17/2022
+        ''
+    End Sub
+
+    Private Sub mod_linkLabel_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles mod_linkLabel.LinkClicked
+        ''
+        ''Added for an investigation, 1/17/2022
+        ''
+
+    End Sub
+
+    Private Sub mod_linkLabel_MouseClick(sender As Object, e As MouseEventArgs) Handles mod_linkLabel.MouseClick
+        ''
+        ''Added for an investigation, 1/17/2022
+        ''
 
     End Sub
 End Class

@@ -47,6 +47,8 @@ Public Class MenuCache_NonShared
     ''[[[Public Property ColorDialog1 As ColorDialog ''Added 10/3/2019 td 
     ''[[[Public Property FontDialog1 As FontDialog ''Added 10/3/2019 td 
 
+    Private Const mod_boolMouseUp As Boolean = True ''Added 1/17/2022 td
+
     ''---not needed 10/3/2019 td----Public Property GroupEdits As ClassGroupMove ''Added 10/3/2019 td 
     ''[[[Public Property SelectingElements As ISelectingElements ''Added 10/3/2019 td 
 
@@ -335,11 +337,24 @@ Public Class MenuCache_NonShared
             boolProcedureNotUsed = strMethodName.Contains("_NotUsed")
             If (boolProcedureNotUsed) Then Continue For ''---Exit For
 
-            Dim bPublicSubHasGoodParams As Boolean ''Added 10/15/2019 td
-            bPublicSubHasGoodParams = each_methodInfo.ToString.Contains("(System.Object, System.EventArgs)")
-            If (bPublicSubHasGoodParams) Then
+            ''Added 1/18/2022 thomas d. 
+            Dim boolProcedureNotInUse As Boolean = strMethodName.Contains("_NotInUse")
+            If (boolProcedureNotInUse) Then Continue For ''---Exit For
+
+            Dim bPublicSubHasGoodParams_Click As Boolean ''Added 10/15/2019 td
+            Dim bPublicSubHasGoodParams_MouseUp As Boolean ''Added 1/17/2022 td
+
+            bPublicSubHasGoodParams_Click = each_methodInfo.ToString.Contains("(System.Object, System.EventArgs)")
+            bPublicSubHasGoodParams_MouseUp = each_methodInfo.ToString.Contains("(System.Object, System.Windows.Forms.MouseEventArgs)") ''Added 1/17/2022 td
+
+            If (bPublicSubHasGoodParams_Click) Then
                 ''
                 ''Great!!  The parameters of the Public Sub are (sender As Object, e As EventArgs)
+                ''   which is necessary.  ---10/15/2019 td
+                ''
+            ElseIf (mod_boolMouseUp AndAlso bPublicSubHasGoodParams_MouseUp) Then
+                ''
+                ''Great!!  The parameters of the Public Sub are (sender As Object, e As MouseEventArgs)
                 ''   which is necessary.  ---10/15/2019 td
                 ''
             Else
@@ -398,6 +413,7 @@ Public Class MenuCache_NonShared
 
             Const c_TryToUseReflectionForHandlers As Boolean = True ''False ''Added 9/23/2019 Thomas DOWNES
             Dim bAddEventHandler_Reflection As Boolean = c_TryToUseReflectionForHandlers ''True
+            Dim my_click_handler As [Delegate]
 
             ''Added 9/23/2019 Thomas DOWNES 
             ''
@@ -411,13 +427,14 @@ Public Class MenuCache_NonShared
                 ''Dec28 2021 td''Dim type_LinkLabel As Type = mod_operationsGenericEdits.MyLinkLabel.GetType
                 Dim type_LinkLabel As Type = Me.MyLinkLabel.GetType
                 Dim event_linkClicked As Reflection.EventInfo
+                Dim boolSuccess_LinkLabel As Boolean = False ''Added 10/14/2019 td
 
                 ''
                 ''Step 1 of 2:    LinkLabels  
                 ''
                 Try
-                    event_linkClicked = type_LinkLabel.GetEvent("LinkClicked", objBindingFlags)
-                    Dim my_click_handler As [Delegate]
+                    ''1/18/2022 td''event_linkClicked = type_LinkLabel.GetEvent("LinkClicked", objBindingFlags)
+                    event_linkClicked = type_LinkLabel.GetEvent("MouseClick", objBindingFlags)
                     my_click_handler = [Delegate].CreateDelegate(event_linkClicked.EventHandlerType,
                                                        mod_operationsGenericEdits, each_methodInfo)
 
@@ -429,6 +446,7 @@ Public Class MenuCache_NonShared
 
                     ''Added 10/14/2019 td 
                     strList_MenuItems &= (vbCrLf & each_newLinkLabel.Text)
+                    boolSuccess_LinkLabel = True ''Added 1/18/2022 & 10/14/2019 thomas d. 
 
                 Catch ex_AddEventHandler_LinkLbl ''As Exception
                     ''
@@ -445,21 +463,44 @@ Public Class MenuCache_NonShared
                 ''Dec28 2021 td''Dim type_ToolstripItem As Type = mod_operationsGenericEdits.MyToolstripItem.GetType
                 Dim type_ToolstripItem As Type = MyToolstripItem.GetType
                 Dim event_toolClicked As Reflection.EventInfo
-                Dim boolSuccess_LinkLabel As Boolean = False ''Added 10/14/2019 td
+                Dim event_toolstrip_Click As Reflection.EventInfo ''Added 1/18/2022 td
+                Dim event_toolstrip_MouseUp As Reflection.EventInfo ''Added 1/18/2022 td
+                Dim boolSuccess_ToolstripItem As Boolean = False ''Added 1/18/2022 td
+                ''Moved up. --Jan18 2022''Dim my_click_handler As [Delegate]
 
                 Try
-                    event_toolClicked = type_ToolstripItem.GetEvent("Click", objBindingFlags)
-                    Dim my_click_handler As [Delegate]
-                    my_click_handler = [Delegate].CreateDelegate(event_toolClicked.EventHandlerType,
+                    ''Jan17 2022 td''event_toolClicked = type_ToolstripItem.GetEvent("Click", objBindingFlags)
+                    If (mod_boolMouseUp) Then
+                        ''Added 1/17/2022 thomas downes
+                        event_toolstrip_MouseUp = type_ToolstripItem.GetEvent("MouseUp", objBindingFlags)
+                        event_toolstrip_Click = type_ToolstripItem.GetEvent("Click", objBindingFlags)
+
+                        Try
+                            my_click_handler = [Delegate].CreateDelegate(event_toolstrip_MouseUp.EventHandlerType,
                                                       mod_operationsGenericEdits, each_methodInfo)
+                            event_toolstrip_MouseUp.AddEventHandler(each_toolMenuItem, my_click_handler)
+
+                        Catch
+                            ''
+                            my_click_handler = [Delegate].CreateDelegate(event_toolstrip_Click.EventHandlerType,
+                                                      mod_operationsGenericEdits, each_methodInfo)
+                            event_toolstrip_Click.AddEventHandler(each_toolMenuItem, my_click_handler)
+
+                        End Try
+
+                    Else ''ElseIf (True Or mod_boolClick) Then
+                        event_toolClicked = type_ToolstripItem.GetEvent("Click", objBindingFlags)
+                        my_click_handler = [Delegate].CreateDelegate(event_toolClicked.EventHandlerType,
+                                                      mod_operationsGenericEdits, each_methodInfo)
+                        event_toolClicked.AddEventHandler(each_toolMenuItem, my_click_handler)
+
+                    End If ''End of "If (mod_boolMouseUp) Then ... Else...."
 
                     ''---link_clicked.AddEventHandler(Me, my_handler) '', BindingFlags.Public)
                     ''---link_clicked.AddEventHandler(mod_classMenuMethods, my_handler)
                     ''---link_clicked.AddEventHandler(mod_classMenuMethods.MyLinkLabel, my_handler)
 
-                    event_toolClicked.AddEventHandler(each_toolMenuItem, my_click_handler)
-
-                    boolSuccess_LinkLabel = True ''Added 10/14/2019 thomas d. 
+                    boolSuccess_ToolstripItem = True ''Added 10/14/2019 thomas d. 
 
                 Catch ex_AddEventHandler_ToolItem ''As Exception
                     ''

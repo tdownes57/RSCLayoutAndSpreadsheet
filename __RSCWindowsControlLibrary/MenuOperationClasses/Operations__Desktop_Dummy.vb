@@ -6,8 +6,9 @@ Option Infer Off
 ''
 
 Imports ciBadgeInterfaces
-''----Imports ciBadgeDesigner
+Imports ciBadgeDesigner
 ''----Imports ciBadgeElements
+Imports ciBadgeCachePersonality ''Added 1/18/2022 td
 
 Public Class Operations__Desktop_Dummy
     Implements ICurrentElement ''Added 1/15/2022 td
@@ -23,7 +24,10 @@ Public Class Operations__Desktop_Dummy
     Public MyLinkLabel As New LinkLabel ''Added 10/11/2019 td 
     Public MyToolstripItem As New ToolStripMenuItem ''Added 10/11/2019 td 
 
-    Public ParentDesignerForm As IDesignerForm_Desktop ''Added 1/15/2022 td
+    Public ParentDesignerForm_NotInUse As IDesignerForm_Desktop ''Added 1/15/2022 td
+    Public ParentDesignerForm As IDesignerForm ''Added 1/18/2022 td
+    Public ParentForm As Form ''Added 1/18/2022 Thomas DOWNES
+    Public Designer As ciBadgeDesigner.ClassDesigner ''Added 1/18/2022 td
 
     ''Dec28 2021''Public Property CtlCurrentElement As MoveableControlVB ''#1 Dec282021 td
     ''Jan15 2022 td''Public Property CtlCurrentElement As RSCMoveableControlVB Implements ICurrentElement.CtlCurrentElement
@@ -48,7 +52,7 @@ Public Class Operations__Desktop_Dummy
     End Sub ''End of "Public Sub New(par_currentControlVB As MoveableControlVB)"
 
 
-    Public Sub New(par_currentForm As IDesignerForm_Desktop,
+    Public Sub New(par_currentForm As IDesignerForm,
                    par_iLayoutFunctions As ILayoutFunctions)
         ''
         ''Added 12/28/2021 td
