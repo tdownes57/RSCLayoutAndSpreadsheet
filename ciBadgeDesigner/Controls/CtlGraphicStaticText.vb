@@ -168,6 +168,9 @@ Public Class CtlGraphicStaticText
         Dim infoOps = CType(objOperations, ICurrentElement) ''.CtlCurrentElement = MoveableControlVB1
         infoOps.CtlCurrentElement = CtlStaticText1
 
+        ''Added 1/17/2022 td 
+        infoOps.ElementsCacheManager = par_parameters.ElementsCacheManager
+
         Return CtlStaticText1
 
     End Function ''end of "Public Shared Function GetStaticText() As CtlGraphicStaticText"

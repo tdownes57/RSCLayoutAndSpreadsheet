@@ -636,76 +636,92 @@ Public Class Startup
 
         ''-------------------------------------------------------------
         ''Added 9/19/2019 td
-        Dim intPicLeft As Integer
-        Dim intPicTop As Integer
-        Dim intPicWidth As Integer
-        Dim intPicHeight As Integer
+        Static intLeft_Portrait As Integer
+        Static intTop_Portrait As Integer
+        Static intWidth_Portrait As Integer
+        Static intHeight_Portrait As Integer
+        Static bDone_Portrait As Boolean ''Added 1/17/2022 td
 
-        ''Added 9/19/2019 td
-        With par_designForm
+        If (Not bDone_Portrait) Then ''Added 1/17/2022 td
             ''Added 9/19/2019 td
-            intPicLeft = .CtlGraphicPortrait_Lady.Left - .pictureBackgroundFront.Left
-            intPicTop = .CtlGraphicPortrait_Lady.Top - .pictureBackgroundFront.Top
-            intPicWidth = .CtlGraphicPortrait_Lady.Width
-            intPicHeight = .CtlGraphicPortrait_Lady.Height
-        End With
+            With par_designForm
+                ''Added 9/19/2019 td
+                intLeft_Portrait = .CtlGraphicPortrait_Lady.Left - .pictureBackgroundFront.Left
+                intTop_Portrait = .CtlGraphicPortrait_Lady.Top - .pictureBackgroundFront.Top
+                intWidth_Portrait = .CtlGraphicPortrait_Lady.Width
+                intHeight_Portrait = .CtlGraphicPortrait_Lady.Height
+            End With
+            bDone_Portrait = True ''Added 1/17/2022 td
+        End If ''End of "If (Not bDone_Portrait) Then"
 
         ''-------------------------------------------------------------
         ''Added 10/14/2019 td
-        Dim intLeft_QR As Integer
-        Dim intTop_QR As Integer
-        Dim intWidth_QR As Integer
-        Dim intHeight_QR As Integer
+        Static intLeft_QR As Integer
+        Static intTop_QR As Integer
+        Static intWidth_QR As Integer
+        Static intHeight_QR As Integer
+        Static bDone_QRCode As Boolean ''Added 1/17/2022 td
 
-        ''Added 10/14/2019 td
-        With par_designForm
+        If (Not bDone_QRCode) Then ''Added 1/17/2022 td
             ''Added 10/14/2019 td
-            intLeft_QR = .CtlGraphicQRCode1.Left - .pictureBackgroundFront.Left
-            intTop_QR = .CtlGraphicQRCode1.Top - .pictureBackgroundFront.Top
-            intWidth_QR = .CtlGraphicQRCode1.Width
-            intHeight_QR = .CtlGraphicQRCode1.Height
-        End With
+            With par_designForm
+                ''Added 10/14/2019 td
+                intLeft_QR = .CtlGraphicQRCode1.Left - .pictureBackgroundFront.Left
+                intTop_QR = .CtlGraphicQRCode1.Top - .pictureBackgroundFront.Top
+                intWidth_QR = .CtlGraphicQRCode1.Width
+                intHeight_QR = .CtlGraphicQRCode1.Height
+            End With
+            bDone_QRCode = True ''Added 1/17/2022 td
+        End If ''End of "If (Not bDone_QRCode) Then"
 
         ''-------------------------------------------------------------
         ''Added 10/14/2019 td
-        Dim intLeft_Sig As Integer
-        Dim intTop_Sig As Integer
-        Dim intWidth_Sig As Integer
-        Dim intHeight_Sig As Integer
+        Static intLeft_Signature As Integer
+        Static intTop_Signature As Integer
+        Static intWidth_Signature As Integer
+        Static intHeight_Signature As Integer
+        Static bDone_Signature As Boolean ''Added 1/17/2022 td
 
-        ''Added 10/14/2019 td
-        With par_designForm
+        If (Not bDone_Signature) Then ''Added 1/17/2022 td
             ''Added 10/14/2019 td
-            intLeft_Sig = .CtlGraphicSignature1.Left - .pictureBackgroundFront.Left
-            intTop_Sig = .CtlGraphicSignature1.Top - .pictureBackgroundFront.Top
-            intWidth_Sig = .CtlGraphicSignature1.Width
-            intHeight_Sig = .CtlGraphicSignature1.Height
-        End With
+            With par_designForm
+                ''Added 10/14/2019 td
+                intLeft_Signature = .CtlGraphicSignature1.Left - .pictureBackgroundFront.Left
+                intTop_Signature = .CtlGraphicSignature1.Top - .pictureBackgroundFront.Top
+                intWidth_Signature = .CtlGraphicSignature1.Width
+                intHeight_Signature = .CtlGraphicSignature1.Height
+            End With
+            bDone_Signature = True ''Added 1/17/2022 td
+        End If ''End of "If (Not bDone_Signature) Then"
 
         ''-------------------------------------------------------------
         ''Added 10/14/2019 td
         Dim strStaticText As String
-        Dim intLeft_Text As Integer
-        Dim intTop_Text As Integer
-        Dim intWidth_Text As Integer
-        Dim intHeight_Text As Integer
+        Static intLeft_StaticText As Integer
+        Static intTop_StaticText As Integer
+        Static intWidth_StaticText As Integer
+        Static intHeight_StaticText As Integer
+        Static bDone_StaticText As Boolean ''Added 1/17/2022 td
 
-        ''Added 10/14/2019 td
-        With par_designForm
+        If (Not bDone_StaticText) Then ''Added 1/17/2022 td
             ''Added 10/14/2019 td
-            strStaticText = "This is the same text for everyone."
-            intLeft_Text = .CtlGraphicStaticText1.Left - .pictureBackgroundFront.Left
-            intTop_Text = .CtlGraphicStaticText1.Top - .pictureBackgroundFront.Top
-            intWidth_Text = .CtlGraphicStaticText1.Width
-            intHeight_Text = .CtlGraphicStaticText1.Height
-        End With
+            With par_designForm
+                ''Added 10/14/2019 td
+                strStaticText = "This is the same text for everyone."
+                intLeft_StaticText = .CtlGraphicStaticText1.Left - .pictureBackgroundFront.Left
+                intTop_StaticText = .CtlGraphicStaticText1.Top - .pictureBackgroundFront.Top
+                intWidth_StaticText = .CtlGraphicStaticText1.Width
+                intHeight_StaticText = .CtlGraphicStaticText1.Height
+            End With
+            bDone_StaticText = True ''Added 1/17/2022 td
+        End If ''End of "If (Not bDone_StaticText) Then"
 
 
         ''9/19 td''Me.ElementsCache_Saved.LoadPicElement(CtlGraphicPortrait_Lady.picturePortrait, pictureBack) ''Added 9/19/2019 td
         If (pboolNewFileXML) Then
             ''10/10/2019 td''Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
             ''10/13/2019 td''Me.ElementsCache_Saved.LoadElement_Pic(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
-            obj_cache_elements.LoadElement_Pic(intPicLeft, intPicTop, intPicWidth, intPicHeight,
+            obj_cache_elements.LoadElement_Pic(intLeft_Portrait, intTop_Portrait, intWidth_Portrait, intHeight_Portrait,
                                                par_designForm.pictureBackgroundFront) ''Added 9/19/2019 td
 
             ''Added 10/14/2019 thomas d. 
@@ -713,15 +729,16 @@ Public Class Startup
                                                par_designForm.pictureBackgroundFront) ''Added 10/14/2019 td
 
             ''Added 10/14/2019 thomas d. 
-            obj_cache_elements.LoadElement_Signature(intLeft_Sig, intTop_Sig, intWidth_Sig, intHeight_Sig,
+            obj_cache_elements.LoadElement_Signature(intLeft_Signature, intTop_Signature,
+                                                     intWidth_Signature, intHeight_Signature,
                                                par_designForm.pictureBackgroundFront) ''Added 10/14/2019 td
 
         End If ''End of "If (pboolNewFileXML) Then"
 
         ''Added 10/14/2019 thomas d. 
         obj_cache_elements.LoadElement_StaticText_IfNeeded(strStaticText,
-                                                intLeft_Text, intTop_Text,
-                                                intWidth_Text, intHeight_Text,
+                                                intLeft_StaticText, intTop_StaticText,
+                                                intWidth_StaticText, intHeight_StaticText,
                                                par_designForm.pictureBackgroundFront) ''Added 10/14/2019 td
 
         ''Added 9/24/2019 thomas 
