@@ -21,7 +21,7 @@ Public Class ClassGetElementControlParams
     ''    End Set
     ''End Property
 
-    Public Property ManageCache As ClassCacheManagement Implements IGetElementControlParameters.ManageCache
+    Public Property ElementsCacheManager As ClassCacheManagement Implements IGetElementControlParameters.CacheManager
     ''    Get
     ''        Throw New NotImplementedException()
     ''    End Get
@@ -30,6 +30,7 @@ Public Class ClassGetElementControlParams
     ''    End Set
     ''End Property
 
+    Public Property DesignerClass As ClassDesigner Implements IGetElementControlParameters.DesignerClass
     Public Property DesignerForm As Form Implements IGetElementControlParameters.DesignerForm
     ''    Get
     ''        Throw New NotImplementedException()
@@ -65,6 +66,8 @@ Public Class ClassGetElementControlParams
     ''        Throw New NotImplementedException()
     ''    End Set
     ''End Property
+
+    Public Property iControlLastTouched As __RSCWindowsControlLibrary.ILastControlTouched Implements IGetElementControlParameters.iControlLastTouched
 
     Public Property iControlLastTouchedRSC As ILastControlTouchedRSC Implements IGetElementControlParameters.iControlLastTouchedRSC
     ''    Get

@@ -41,8 +41,13 @@ Public Class FormTestQRCode2
 
         objElement.BadgeLayout = mod_designer.BadgeLayout_Class
 
-        ctlQRCode = CtlGraphicQRCode.GetQRCode(objElement, "ctlQRCode",
-          mod_designer, True, mod_ctlLasttouched, mod_eventsSingleton)
+        ''Added 1/17/2022 td
+        Dim objGetParametersForGetControl As ciBadgeDesigner.ClassGetElementControlParams
+        objGetParametersForGetControl = mod_designer.GetParametersToGetElementControl()
+
+        ctlQRCode = CtlGraphicQRCode.GetQRCode(objGetParametersForGetControl, objElement,
+                                               Me, "ctlQRCode", mod_designer, True,
+                                               mod_ctlLasttouched, mod_eventsSingleton)
 
         ctlQRCode.Visible = True
         Me.Controls.Add(ctlQRCode)
@@ -59,18 +64,24 @@ Public Class FormTestQRCode2
         ''Dim ctlSignat As ciBadgeDesigner.CtlGraphicSignature
         Dim objElement As New ciBadgeElements.ClassElementSignature
 
+        ''Added 1/17/2022 td
+        Dim objGetParametersForGetControl As ciBadgeDesigner.ClassGetElementControlParams
+        objGetParametersForGetControl = mod_designer.GetParametersToGetElementControl()
+
         objElement.BadgeLayout = mod_designer.BadgeLayout_Class
 
-        mod_ctlSignat = CtlGraphicSignature.GetSignature(objElement, "ctlSignat",
-          mod_designer, True, mod_ctlLasttouched, mod_eventsSingleton,
-          DiskFilesVB.PathToFile_Sig())
+        mod_ctlSignat = CtlGraphicSignature.GetSignature(objGetParametersForGetControl,
+                                                         objElement, Me, "ctlSignat",
+                                                          mod_designer, True, mod_ctlLasttouched,
+                                                          mod_eventsSingleton,
+                                                          DiskFilesVB.PathToFile_Sig())
 
         mod_ctlSignat.Visible = True
         Me.Controls.Add(mod_ctlSignat)
 
         PictureBox_BadgeFront.SendToBack()
 
-    End Sub
+    End Sub ''End of "Private Sub InstantiateSignature()"
 
 
     Private Sub InstantiateRSC_Proportional()

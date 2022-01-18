@@ -41,6 +41,7 @@ Public Class MenuCache_Generic ''Renamed 12/30/2021 ''MenuCache_NonShared
 
     ''12/28/2021 td''Public Property CtlCurrentElement As ciBadgeDesigner.CtlGraphicFldLabel ''CtlGraphicFldLabel
     Public Property CtlCurrentElement As RSCMoveableControlVB Implements ICurrentElement.CtlCurrentElement ''Modified 12/30/20021 td 
+    Public Property ElementsCacheManager As ciBadgeCachePersonality.ClassCacheManagement Implements ICurrentElement.ElementsCacheManager
 
     Public MyLinkLabel As New LinkLabel ''Added 12/28/2021 td 
     Public MyToolstripItem As New ToolStripMenuItem ''Added 12/28/2021 td 

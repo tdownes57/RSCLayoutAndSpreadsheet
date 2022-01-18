@@ -145,13 +145,18 @@ Public Class FormFieldsAndPortrait
 
         objElement.BadgeLayout = mod_designer.BadgeLayout_Class
 
+        ''Added 1/17/2022 td
+        Dim objGetParametersForGetControl As ciBadgeDesigner.ClassGetElementControlParams
+        objGetParametersForGetControl = mod_designer.GetParametersToGetElementControl()
+
         ''Added 1/7/2022
         bHandleMouseEventsThroughFormVB6 = RadioEventHandlersHookedThruForm.Checked ''Added 1/7/2022
 
         ''
         ''Added 1/7/2022 Thomas DOWNES
         ''
-        mod_ctlQRCode = CtlGraphicQRCode.GetQRCode(objElement, "ctlQRCode",
+        mod_ctlQRCode = CtlGraphicQRCode.GetQRCode(objGetParametersForGetControl,
+                                                   objElement, Me, "ctlQRCode",
           mod_designer, True, mod_ctlLasttouched, mod_eventsSingleton,
           bHandleMouseEventsThroughFormVB6)
 
@@ -176,7 +181,12 @@ Public Class FormFieldsAndPortrait
         ''  mod_designer, True, mod_ctlLasttouched, mod_eventsSingleton,
         ''  DiskFilesVB.PathToFile_Sig())
 
-        mod_ctlPortrait = CtlGraphicPortrait.GetPortrait(objElement, "mod_ctlPortrait",
+        ''Added 1/17/2022 td
+        Dim objGetParametersForGetControl As ciBadgeDesigner.ClassGetElementControlParams
+        objGetParametersForGetControl = mod_designer.GetParametersToGetElementControl()
+
+        mod_ctlPortrait = CtlGraphicPortrait.GetPortrait(objGetParametersForGetControl,
+                                                         objElement, Me, "mod_ctlPortrait",
           mod_designer, True, mod_ctlLasttouched, mod_designer,
           mod_eventsSingleton)
 
@@ -206,7 +216,12 @@ Public Class FormFieldsAndPortrait
         ''  mod_designer, True, mod_ctlLasttouched, mod_eventsSingleton,
         ''  DiskFilesVB.PathToFile_Sig())
 
-        mod_ctlField1 = CtlGraphicFldLabel.GetFieldElement(objElement, mod_designer,
+        ''Added 1/17/2022 td
+        Dim objGetParametersForGetControl As ciBadgeDesigner.ClassGetElementControlParams
+        objGetParametersForGetControl = mod_designer.GetParametersToGetElementControl()
+
+        mod_ctlField1 = CtlGraphicFldLabel.GetFieldElement(objGetParametersForGetControl,
+                                                            objElement, Me, mod_designer,
                                             "mod_ctlField1", mod_designer, mod_designer,
                                             mod_ctlLasttouched, mod_eventsSingleton)
 
@@ -245,8 +260,13 @@ Public Class FormFieldsAndPortrait
 
         Const c_bUseMonemProportionalClass As Boolean = True ''Added 1/10/2022 td
 
-        mod_ctlStaticGraphic = CtlGraphicStaticGraphic.GetStaticGraphic(objElement, "mod_ctlStaticGraphic", mod_designer, True, mod_ctlLasttouched, mod_eventsSingleton,
-          c_bUseMonemProportionalClass)
+        ''Added 1/17/2022 td
+        Dim objGetParametersForGetControl As ciBadgeDesigner.ClassGetElementControlParams
+        objGetParametersForGetControl = mod_designer.GetParametersToGetElementControl()
+
+        mod_ctlStaticGraphic = CtlGraphicStaticGraphic.GetStaticGraphic(objGetParametersForGetControl,
+                objElement, Me, "mod_ctlStaticGraphic", mod_designer, True,
+                mod_ctlLasttouched, mod_eventsSingleton, c_bUseMonemProportionalClass)
 
         mod_ctlStaticGraphic.Visible = True
         mod_ctlStaticGraphic.Width = (5 * mod_ctlStaticGraphic.Height) ''Added 1/08/2022 td
@@ -270,7 +290,12 @@ Public Class FormFieldsAndPortrait
         ''  mod_designer, True, mod_ctlLasttouched, mod_eventsSingleton,
         ''  DiskFilesVB.PathToFile_Sig())
 
-        mod_ctlStaticText = CtlGraphicStaticText.GetStaticText(objElement, "mod_ctlStaticText",
+        ''Added 1/17/2022 td
+        Dim objGetParametersForGetControl As ciBadgeDesigner.ClassGetElementControlParams
+        objGetParametersForGetControl = mod_designer.GetParametersToGetElementControl()
+
+        mod_ctlStaticText = CtlGraphicStaticText.GetStaticText(objGetParametersForGetControl,
+                                                         objElement, Me, "mod_ctlStaticText",
           mod_designer, mod_designer, mod_ctlLasttouched, mod_eventsSingleton)
 
         mod_ctlStaticText.Visible = True

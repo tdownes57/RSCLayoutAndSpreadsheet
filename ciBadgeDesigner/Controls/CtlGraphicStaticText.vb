@@ -71,7 +71,8 @@ Public Class CtlGraphicStaticText
     End Property
 
 
-    Public Shared Function GetStaticText(par_elementText As ClassElementStaticText,
+    Public Shared Function GetStaticText(par_parameters As ClassGetElementControlParams,
+                                           par_elementText As ClassElementStaticText,
                                          par_oParentForm As Form,
                                       par_nameOfControl As String,
                                       par_iLayoutFun As ILayoutFunctions,

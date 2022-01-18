@@ -30,7 +30,8 @@ Public Class CtlGraphicStaticGraphic
     Public Pic_CloneOfInitialImage As Image ''Added 9/23/2019 thomas downes. 
 
 
-    Public Shared Function GetStaticGraphic(par_elementStaticGraphic As ClassElementGraphic,
+    Public Shared Function GetStaticGraphic(par_parameters As ClassGetElementControlParams,
+                                           par_elementStaticGraphic As ClassElementGraphic,
                                             par_formParent As Form,
                                       par_nameOfControl As String,
                                       par_iLayoutFun As ILayoutFunctions,
@@ -130,6 +131,9 @@ Public Class CtlGraphicStaticGraphic
         ''
         Dim infoOps = CType(objOperations, ICurrentElement) ''.CtlCurrentElement = MoveableControlVB1
         infoOps.CtlCurrentElement = CtlStaticGraphic1
+
+        ''Added 1/17/2022 td 
+        infoOps.ElementsCacheManager = par_parameters.ElementsCacheManager
 
         Return CtlStaticGraphic1
 

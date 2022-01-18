@@ -38,7 +38,8 @@ Public Class CtlGraphicQRCode
     Public Pic_CloneOfInitialImage As Image ''Added 9/23/2019 thomas downes. 
 
 
-    Public Shared Function GetQRCode(par_elementQRCode As ClassElementQRCode,
+    Public Shared Function GetQRCode(par_parameters As ClassGetElementControlParams,
+                                           par_elementQRCode As ClassElementQRCode,
                                         par_formParent As Form,
                         par_nameOfControl As String,
                         par_iLayoutFun As ILayoutFunctions,
@@ -122,6 +123,9 @@ Public Class CtlGraphicQRCode
         ''
         Dim infoOps = CType(objOperations, ICurrentElement) ''.CtlCurrentElement = MoveableControlVB1
         infoOps.CtlCurrentElement = CtlQRCode1
+
+        ''Added 1/17/2022 td 
+        infoOps.ElementsCacheManager = par_parameters.ElementsCacheManager
 
         Return CtlQRCode1
 

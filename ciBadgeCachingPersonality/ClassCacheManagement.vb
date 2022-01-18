@@ -621,10 +621,12 @@ Namespace ciBadgeCachePersonality
                 each_infoBase = CType(each_element, ciBadgeInterfaces.IElement_Base)
                 boolMatch = (par_infoBase Is each_infoBase)
                 If (boolMatch) Then
-                    If (each_element.WhichSideOfCard <> EnumWhichSideOfCard.EnumFrontside) Then System.Diagnostics.Debugger.Break()
                     CacheForEditing.ListOfElementFields_Front.Remove(each_element)
                     CacheForEditing.ListOfElementFields_Backside.Add(each_element)
                     Exit Sub
+                Else
+                    If (each_element.WhichSideOfCard = EnumWhichSideOfCard.Undetermined) Then each_element.WhichSideOfCard = EnumWhichSideOfCard.EnumFrontside
+                    If (each_element.WhichSideOfCard <> EnumWhichSideOfCard.EnumFrontside) Then System.Diagnostics.Debugger.Break()
                 End If
             Next each_element
 
@@ -645,10 +647,12 @@ Namespace ciBadgeCachePersonality
                 each_infoBase = CType(each_element, ciBadgeInterfaces.IElement_Base)
                 boolMatch = (par_infoBase Is each_infoBase)
                 If (boolMatch) Then
-                    If (each_element.WhichSideOfCard <> EnumWhichSideOfCard.EnumFrontside) Then System.Diagnostics.Debugger.Break()
                     CacheForEditing.ListOfElementPics_Front.Remove(each_element)
                     CacheForEditing.ListOfElementPics_Back.Add(each_element)
                     Exit Sub
+                Else
+                    If (each_element.WhichSideOfCard = EnumWhichSideOfCard.Undetermined) Then each_element.WhichSideOfCard = EnumWhichSideOfCard.EnumFrontside
+                    If (each_element.WhichSideOfCard <> EnumWhichSideOfCard.EnumFrontside) Then System.Diagnostics.Debugger.Break()
                 End If
             Next each_element
 
@@ -669,10 +673,12 @@ Namespace ciBadgeCachePersonality
                 each_infoBase = CType(each_element, ciBadgeInterfaces.IElement_Base)
                 boolMatch = (par_infoBase Is each_infoBase)
                 If (boolMatch) Then
-                    If (each_element.WhichSideOfCard <> EnumWhichSideOfCard.EnumFrontside) Then System.Diagnostics.Debugger.Break()
                     CacheForEditing.ListOfElementQRCodes_Front.Remove(each_element)
                     CacheForEditing.ListOfElementQRCodes_Back.Add(each_element)
                     Exit Sub
+                Else
+                    If (each_element.WhichSideOfCard = EnumWhichSideOfCard.Undetermined) Then each_element.WhichSideOfCard = EnumWhichSideOfCard.EnumFrontside
+                    If (each_element.WhichSideOfCard <> EnumWhichSideOfCard.EnumFrontside) Then System.Diagnostics.Debugger.Break()
                 End If
             Next each_element
 
@@ -693,10 +699,12 @@ Namespace ciBadgeCachePersonality
                 each_infoBase = CType(each_element, ciBadgeInterfaces.IElement_Base)
                 boolMatch = (par_infoBase Is each_infoBase)
                 If (boolMatch) Then
-                    If (each_element.WhichSideOfCard <> EnumWhichSideOfCard.EnumFrontside) Then System.Diagnostics.Debugger.Break()
                     CacheForEditing.ListOfElementSignatures_Front.Remove(each_element)
                     CacheForEditing.ListOfElementSignatures_Back.Add(each_element)
                     Exit Sub
+                Else
+                    If (each_element.WhichSideOfCard = EnumWhichSideOfCard.Undetermined) Then each_element.WhichSideOfCard = EnumWhichSideOfCard.EnumFrontside
+                    If (each_element.WhichSideOfCard <> EnumWhichSideOfCard.EnumFrontside) Then System.Diagnostics.Debugger.Break()
                 End If
             Next each_element
 
@@ -707,6 +715,9 @@ Namespace ciBadgeCachePersonality
                     CacheForEditing.ListOfElementSignatures_Back.Remove(each_element)
                     CacheForEditing.ListOfElementSignatures_Front.Add(each_element)
                     Exit Sub
+                Else
+                    If (each_element.WhichSideOfCard = EnumWhichSideOfCard.Undetermined) Then each_element.WhichSideOfCard = EnumWhichSideOfCard.EnumBackside
+                    If (each_element.WhichSideOfCard <> EnumWhichSideOfCard.EnumBackside) Then System.Diagnostics.Debugger.Break()
                 End If
             Next each_element
 
@@ -717,10 +728,12 @@ Namespace ciBadgeCachePersonality
                 each_infoBase = CType(each_element, ciBadgeInterfaces.IElement_Base)
                 boolMatch = (par_infoBase Is each_infoBase)
                 If (boolMatch) Then
-                    If (each_element.WhichSideOfCard <> EnumWhichSideOfCard.EnumFrontside) Then System.Diagnostics.Debugger.Break()
                     CacheForEditing.ListOfElementTexts_Front.Remove(each_element)
                     CacheForEditing.ListOfElementTexts_Backside.Add(each_element)
                     Exit Sub
+                Else
+                    If (each_element.WhichSideOfCard = EnumWhichSideOfCard.Undetermined) Then each_element.WhichSideOfCard = EnumWhichSideOfCard.EnumFrontside
+                    If (each_element.WhichSideOfCard <> EnumWhichSideOfCard.EnumFrontside) Then System.Diagnostics.Debugger.Break()
                 End If
             Next each_element
 
@@ -741,10 +754,12 @@ Namespace ciBadgeCachePersonality
                 each_infoBase = CType(each_element, ciBadgeInterfaces.IElement_Base)
                 boolMatch = (par_infoBase Is each_infoBase)
                 If (boolMatch) Then
-                    If (each_element.WhichSideOfCard <> EnumWhichSideOfCard.EnumFrontside) Then System.Diagnostics.Debugger.Break()
                     CacheForEditing.ListOfElementGraphics_Front.Remove(each_element)
                     CacheForEditing.ListOfElementGraphics_Backside.Add(each_element)
                     Exit Sub
+                Else
+                    If (each_element.WhichSideOfCard = EnumWhichSideOfCard.Undetermined) Then each_element.WhichSideOfCard = EnumWhichSideOfCard.EnumFrontside
+                    If (each_element.WhichSideOfCard <> EnumWhichSideOfCard.EnumFrontside) Then System.Diagnostics.Debugger.Break()
                 End If
             Next each_element
 

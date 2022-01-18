@@ -81,6 +81,9 @@ Namespace ciBadgeCachePersonality
         Private mod_listFields_Standard As New HashSet(Of ClassFieldStandard) ''Added 10/14/2019 td  
         Private mod_listFields_Custom As New HashSet(Of ClassFieldCustomized) ''Added 10/14/2019 td  
 
+        Private Const mod_bOkayToUseExampleQRCode As Boolean = True ''Added 1/17/2022
+        Private Const mod_bOkayToUseExampleSignature As Boolean = True ''Added 1/17/2022
+
         ''
         ''Badge Elements -- Includes Pics & Graphics, Static Texts & Fields
         ''
@@ -138,8 +141,14 @@ Namespace ciBadgeCachePersonality
                 objSide.BackgroundImage = Me.GetBackgroundImage(par_enum)
                 ''Jan13 2022''objSide.ElementPic = Me.ListOfElementPics_Back().FirstOrDefault()
                 objSide.ElementPortrait = Me.ListOfElementPics_Back().FirstOrDefault()
+
                 objSide.ElementQRCode = Me.ListOfElementQRCodes_Back().FirstOrDefault() ''Jan16 2022 td''Me.ElementQR_RefCopy
                 objSide.ElementSignature = Me.ListOfElementSignatures_Back().FirstOrDefault() ''Jan16 2022 td''Me.ElementSig_RefCopy
+
+                ''Added 1/17/2022 td
+                If (objSide.ElementQRCode Is Nothing) Then Me.ElementQR_RefCopy = Nothing
+                If (objSide.ElementSignature Is Nothing) Then Me.ElementSig_RefCopy = Nothing
+
                 objSide.ListElementFields = Me.ListOfElementFields_Backside
                 objSide.ListElementGraphics = Nothing
                 objSide.ListElementStaticTexts = Me.ListOfElementTexts_Backside
@@ -245,6 +254,32 @@ Namespace ciBadgeCachePersonality
                 End If
 
             End If ''End of "If (bBackside) Then ... Else ..."
+
+            ''
+            ''Added 1/17/2022 td  
+            ''
+            If (mod_bOkayToUseExampleQRCode) Then
+                If (objSide.ElementQRCode IsNot Nothing) Then
+                    With objSide.ElementQRCode
+                        If (.Image_BL Is Nothing) Then
+                            .Image_BL = My.Resources.ExampleQRCode
+                        End If
+                    End With
+                End If
+            End If ''End of "If (mod_bOkayToUseExampleQRCode) Then"
+
+            ''
+            ''Added 1/17/2022 td  
+            ''
+            If (mod_bOkayToUseExampleSignature) Then
+                If (objSide.ElementSignature IsNot Nothing) Then
+                    With objSide.ElementSignature
+                        If (.Image_BL Is Nothing) Then
+                            .Image_BL = My.Resources.ExampleSignature
+                        End If
+                    End With
+                End If
+            End If ''End of "If (mod_bOkayToUseExampleSignature) Then"
 
             Return objSide
 

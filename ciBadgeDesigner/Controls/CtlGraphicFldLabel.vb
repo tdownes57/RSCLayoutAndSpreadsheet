@@ -34,7 +34,8 @@ Public Class CtlGraphicFldLabel
     ''Added 9/13/2019 td  
     Public Shared UseExampleValues As Boolean
 
-    Public Shared Function GetFieldElement(par_elementFld As ClassElementField,
+    Public Shared Function GetFieldElement(par_parameters As ClassGetElementControlParams,
+                                           par_elementFld As ClassElementField,
                                            par_formParent As Form,
                                            par_oDesigner As ClassDesigner,
                                       par_nameOfControl As String,
@@ -99,6 +100,9 @@ Public Class CtlGraphicFldLabel
         ''
         Dim infoOps As ICurrentElement = CType(objOperations, ICurrentElement)
         infoOps.CtlCurrentElement = CtlFieldElem1
+
+        ''Added 1/17/2022 td 
+        infoOps.ElementsCacheManager = par_parameters.ElementsCacheManager
 
         Return CtlFieldElem1
 

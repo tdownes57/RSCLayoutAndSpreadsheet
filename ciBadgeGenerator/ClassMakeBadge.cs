@@ -69,12 +69,16 @@ namespace ciBadgeGenerator
         public string PathToFile_Sig = ""; //Added 10/12/2019 td
         public string PathToFile_QR = ""; //Added 11/26/2019 td
         public Image ImageQRCode;   //Added 10/14/2019 td 
+        public Image ImageQRCode_Example;   //Added 1/17/2022 td 
         public string Messages = ""; //Added 11/18/2019 td 
 
         public static bool IncludeQR = true;  // Dec.7 2021 td //false; //Added 2/3/2020 thomas d. 
         public static bool IncludeSignature = true; //Dec.11 2021 //false;  //Added 2/3/2020 thomas d.
 
         public static bool OmitOutlyingElements = false;  // true; // Added 11/10/2021 td
+
+        private const bool mod_cbOkayToUseExampleQRCode = false; //Added 1/17/2022 td
+
 
         public Image ElementFieldToImage(ClassElementField par_elementField,
                                             IBadgeLayoutDimensions par_layoutDimensions,
@@ -900,6 +904,13 @@ namespace ciBadgeGenerator
                 //Add the QR Code. 
                 //
                 ClassElementQRCode obj_elementQR = par_elementQR;
+
+                //Added 1/17/2022 td
+                if (obj_elementQR.Image_BL == null)
+                {
+                    //Added 1/17/2022 td
+                    obj_elementQR.Image_BL = GetExampleQRCode_IfItsOkay();
+                }
 
                 this.ImageQRCode = obj_elementQR.Image_BL;
 
@@ -1747,6 +1758,21 @@ namespace ciBadgeGenerator
             if (pdatetime1 >= pdatetime2) return pdatetime1;
             return pdatetime2;
         }
+
+
+        private Image GetExampleQRCode_IfItsOkay()
+        {
+            //
+            //Added 1/17/2022 thomas downes
+            //
+            if (mod_cbOkayToUseExampleQRCode)
+            {
+                return this.ImageQRCode_Example;
+            }
+            else return null;
+
+        }
+
 
 
     }

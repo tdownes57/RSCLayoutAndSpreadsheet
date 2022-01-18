@@ -483,14 +483,21 @@ Public Class ClassDesigner
         ''++    Me.BackgroundBox_Front.SendToBack() ''Added 12/10/2021 td
         ''++End If ''End of "If (ShowingBackside()) Then"
 
-        If (Me.CtlGraphic_QRCode IsNot Nothing) Then ''Added 1/10/2022 td 
-            mod_imageExampleQRCode = Me.CtlGraphic_QRCode.pictureQRCode.Image ''Added 10/14/2019 td
-            ''Jan14 2022 td''With Me.ElementsCache_UseEdits.ElementQRCode
+        ''[[[['If (Me.CtlGraphic_QRCode IsNot Nothing) Then ''Added 1/10/2022 td 
+        ''[[[['mod_imageExampleQRCode = Me.CtlGraphic_QRCode.pictureQRCode.Image ''Added 10/14/2019 td
+        ''Jan14 2022 td''With Me.ElementsCache_UseEdits.ElementQRCode
+        If (0 < Me.ElementsCache_UseEdits.ListOfElementQRCodes_Front.Count) Then
             With Me.ElementsCache_UseEdits.ListOfElementQRCodes_Front(0)
-                ''Populate the Element-Field object with a reference to the image.  ---Dec. 7 2021 
-                If (.Image_BL Is Nothing) Then .Image_BL = mod_imageExampleQRCode
+                ''Populate the Element-Field object with a reference to the image.  ---Dec. 7 2022
+                If (.Image_BL Is Nothing) Then
+                    If (mod_imageExampleQRCode Is Nothing) Then
+                        mod_imageExampleQRCode = My.Resources.QR_Code_BK
+                    End If ''End of "If (mod_imageExampleQRCode Is Nothing) Then"
+                    .Image_BL = mod_imageExampleQRCode
+                End If ''End of "If (.Image_BL Is Nothing) Then"
             End With ''end of "With Me.ElementsCache_Edits.ListOfElementQRCodes(0)"
-        End If ''End of "If (Me.CtlGraphic_QRCode IsNot Nothing) Then"
+        End If ''End of "If (0 < Me.ElementsCache_UseEdits.ListOfElementQRCodes_Front.Count) Then"
+        ''[[[['End If ''End of "If (Me.CtlGraphic_QRCode IsNot Nothing) Then"
 
         ''Added 9/23/2019 td 
         ''
@@ -1078,8 +1085,12 @@ Public Class ClassDesigner
             Throw New Exception("The Element is missing!")
         End If ''End of "If (par_elementPic Is Nothing) Then"
 
+        Dim oGetControlParameters As ClassGetElementControlParams ''Added 1/17/2022 thomas d.
+        oGetControlParameters = Me.GetParametersToGetElementControl() ''Added 1/17/2022 thomas d.
+
         ''Jan4 2022 td''CtlGraphic_Portrait = New CtlGraphicPortrait(par_elementPic, Me)
-        CtlGraphic_Portrait = CtlGraphicPortrait.GetPortrait(par_elementPic, Me.DesignerForm,
+        CtlGraphic_Portrait = CtlGraphicPortrait.GetPortrait(oGetControlParameters,
+                                                             par_elementPic, Me.DesignerForm,
                                                              "CtlGraphic_Portrait",
                                                              Me, True, mod_ctlLasttouched, Me,
                                                                 mod_oGroupMoveEvents)
@@ -1175,8 +1186,11 @@ Public Class ClassDesigner
             ''Jan2 2022 td''Dim dummySaveToModel As ClassSaveToModel = Nothing ''This is just a placeholder. 1/2/2022 td
             Const c_proportional As Boolean = True ''Added 1/2/2022 td
 
+            Dim oGetControlParameters As ClassGetElementControlParams ''Added 1/17/2022 thomas d.
+            oGetControlParameters = Me.GetParametersToGetElementControl() ''Added 1/17/2022 thomas d.
+
             ''12/30/2021 td''Me.CtlGraphic_QRCode = New CtlGraphicQRCode(par_elementQR, CType(Me, ILayoutFunctions))
-            Me.CtlGraphic_QRCode = CtlGraphicQRCode.GetQRCode(par_elementQR, Me.DesignerForm,
+            Me.CtlGraphic_QRCode = CtlGraphicQRCode.GetQRCode(oGetControlParameters, par_elementQR, Me.DesignerForm,
                                                               "CtlGraphic_QRCode",
                                                               CType(Me, ILayoutFunctions), c_proportional,
                                                               mod_ctlLasttouched,
@@ -1239,9 +1253,13 @@ Public Class ClassDesigner
             Return ''Added 1/16/2022 td
         End If ''End of "If (par_elementSig Is Nothing) Then"
 
+        Dim oGetControlParameters As ClassGetElementControlParams ''Added 1/17/2022 thomas d.
+        oGetControlParameters = Me.GetParametersToGetElementControl() ''Added 1/17/2022 thomas d.
+
         ''10//12/2019 td''CtlGraphic_Signat = New CtlGraphicSignature(par_elementSig, Me)
         ''1/2/2022 td''CtlGraphic_Signat = New CtlGraphicSignature(par_elementSig, Me, Me.PathToSigFile)
-        CtlGraphic_Signat = CtlGraphicSignature.GetSignature(par_elementSig, Me.DesignerForm,
+        CtlGraphic_Signat = CtlGraphicSignature.GetSignature(oGetControlParameters,
+                                                             par_elementSig, Me.DesignerForm,
                                                              "CtlGraphic_Signat",
                                                 CType(Me, ILayoutFunctions), c_proportional,
                                                 mod_ctlLasttouched, par_oMoveEvents,
@@ -1305,6 +1323,8 @@ Public Class ClassDesigner
         ''
         Dim each_ctlStaticText As CtlGraphicStaticText ''Added 1/8/2022 td
         Dim indexControl As Integer = 0 ''Added 1/8/2022 td
+        Dim oGetControlParameters As ClassGetElementControlParams ''Added 1/17/2022 thomas d.
+        oGetControlParameters = Me.GetParametersToGetElementControl() ''Added 1/17/2022 thomas d.
 
         For Each each_element_static As ClassElementStaticText In par_listStaticTexts
 
@@ -1312,7 +1332,8 @@ Public Class ClassDesigner
             ''Dec27 2021''CtlGraphic_StaticText_temp = New CtlGraphicStaticText(each_element_static)
             ''Jan8 2022 td''CtlGraphic_StaticText_temp = New CtlGraphicStaticText(each_element_static, Me)
 
-            each_ctlStaticText = CtlGraphicStaticText.GetStaticText(each_element_static, Me.DesignerForm,
+            each_ctlStaticText = CtlGraphicStaticText.GetStaticText(oGetControlParameters,
+                                            each_element_static, Me.DesignerForm,
                     String.Format("CtlGraphicStaticText{0}", indexControl),
                     Me, Me, mod_ctlLasttouched, mod_oGroupMoveEvents)
 
@@ -1514,7 +1535,14 @@ Public Class ClassDesigner
             ''Added 1/4/2022 td
             Dim strNameOfControl As String = "Ctl" + each_element.FieldEnum.ToString()
 
-            label_control = CtlGraphicFldLabel.GetFieldElement(each_element, Me.DesignerForm, Me,
+            ''Added 1/17/2022 thomas d. 
+            ''Jan17''Dim oGetControlParameters As New ClassGetElementControlParams
+            ''Jan17''oGetControlParameters.ElementsCacheManager = ElementsCache_Manager
+            Dim oGetControlParameters As ClassGetElementControlParams ''Added 1/17/2022 thomas d.
+            oGetControlParameters = Me.GetParametersToGetElementControl() ''Added 1/17/2022 thomas d.
+
+            label_control = CtlGraphicFldLabel.GetFieldElement(oGetControlParameters,
+                                                               each_element, Me.DesignerForm, Me,
                                                                strNameOfControl,
                                                         Me, Me, mod_ctlLasttouched,
                                                         mod_oGroupMoveEvents)
@@ -3268,10 +3296,11 @@ Public Class ClassDesigner
     ''End Sub
 
     Public Sub RefreshPreview() Implements IRefreshPreview.RefreshPreview
-        ''Throw New NotImplementedException()
-
+        ''
         ''Added 12/27/2021 thomas downes 
         ''
+        RefreshPreview_CurrentSide()
+
         ''RefreshPreview_Redux_Front()
         ''---Me.DesignerForm_Interface.RefreshPreview()
         ''Jan14, 2022''If (Me.EnumSideOfCard_Current = EnumWhichSideOfCard.EnumBackside) Then
@@ -3281,7 +3310,30 @@ Public Class ClassDesigner
         ''Jan14    RefreshPreview_Redux_Front()
         ''Jan14End If
 
-        RefreshPreview_CurrentSide()
+    End Sub ''End of "Public Sub RefreshPreview()"
 
-    End Sub
+
+    Public Function GetParametersToGetElementControl() As ClassGetElementControlParams
+        ''
+        ''Added 1/17/2022 td
+        ''
+        Dim oGetControlParameters As New ClassGetElementControlParams
+        ''
+        ''Set the various properties. 
+        ''
+        oGetControlParameters.ElementsCacheManager = ElementsCache_Manager
+        oGetControlParameters.iLayoutFunctions = CType(Me, ILayoutFunctions)
+        oGetControlParameters.iRefreshPreview = CType(Me, IRefreshPreview)
+        oGetControlParameters.DesignerForm = Me.DesignerForm
+        oGetControlParameters.iControlLastTouched = CType(Me.mod_ctlLasttouched, ILastControlTouched)
+        oGetControlParameters.oMoveEventsGroupedControls = mod_oGroupMoveEvents
+
+        Return oGetControlParameters
+
+    End Function ''End of "Public Function GetParametersToGetElementControl() As ClassGetElementControlParams"
+
+
+
+
+
 End Class ''End of "Public Class ClassDesigner"

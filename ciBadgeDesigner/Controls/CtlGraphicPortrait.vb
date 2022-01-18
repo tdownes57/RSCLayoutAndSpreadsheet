@@ -35,7 +35,8 @@ Public Class CtlGraphicPortrait
     Public Pic_CloneOfInitialImage As Image ''Added 9/23/2019 thomas downes. 
     Private mod_formRecordLastTouched As IRecordElementLastTouched ''Added 12/17/2021 td
 
-    Public Shared Function GetPortrait(par_elementPortrait As ClassElementPortrait,
+    Public Shared Function GetPortrait(par_parameters As ClassGetElementControlParams,
+                                           par_elementPortrait As ClassElementPortrait,
                                        par_formParent As Form,
                                       par_nameOfControl As String,
                                       par_iLayoutFun As ILayoutFunctions,
@@ -100,6 +101,8 @@ Public Class CtlGraphicPortrait
         ''
         Dim infoOps = CType(objOperations, ICurrentElement) ''.CtlCurrentElement = MoveableControlVB1
         infoOps.CtlCurrentElement = CtlPortrait1
+        ''Added 1/17/2022 td 
+        infoOps.ElementsCacheManager = par_parameters.ElementsCacheManager
 
         Return CtlPortrait1
 

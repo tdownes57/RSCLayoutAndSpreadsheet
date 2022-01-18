@@ -38,7 +38,8 @@ Public Class CtlGraphicSignature
 
     Public Pic_CloneOfInitialImage As Image ''Added 9/23/2019 thomas downes. 
 
-    Public Shared Function GetSignature(par_elementSig As ClassElementSignature,
+    Public Shared Function GetSignature(par_parameters As ClassGetElementControlParams,
+                                           par_elementSig As ClassElementSignature,
                                         par_oParentForm As Form,
                                       par_nameOfControl As String,
                                       par_iLayoutFun As ILayoutFunctions,
@@ -121,6 +122,8 @@ Public Class CtlGraphicSignature
         ''
         Dim infoOps = CType(objOperations, ICurrentElement) ''.CtlCurrentElement = MoveableControlVB1
         infoOps.CtlCurrentElement = CtlSignature1
+        ''Added 1/17/2022 td 
+        infoOps.ElementsCacheManager = par_parameters.ElementsCacheManager
 
         Return CtlSignature1
 

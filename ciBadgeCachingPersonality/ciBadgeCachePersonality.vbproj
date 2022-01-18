@@ -154,6 +154,11 @@
       <Name>ciBadgeSerialize</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\QR Code Example.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Declaration_jpg.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

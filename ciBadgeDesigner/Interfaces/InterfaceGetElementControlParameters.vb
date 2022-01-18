@@ -21,8 +21,9 @@ Public Interface IGetElementControlParameters
 
     Property ElementObject As ClassElementBase ''Added 1/17/2022 td  
 
-    Property ManageCache As ClassCacheManagement
+    Property CacheManager As ClassCacheManagement
 
+    Property DesignerClass As ClassDesigner ''Added 1/17/2022
     Property DesignerForm As Form
 
     ''Probably not needed. Jan17 2022''Property Designer As ClassDesigner
@@ -33,6 +34,8 @@ Public Interface IGetElementControlParameters
     Property iLayoutFunctions As ILayoutFunctions
     Property iRefreshPreview As IRefreshPreview
 
+    ''Jan17 2022''Property iControlLastTouched As ILastControlTouched_Deprecated
+    Property iControlLastTouched As __RSCWindowsControlLibrary.ILastControlTouched
     Property iControlLastTouchedRSC As ILastControlTouchedRSC
 
     Property oMoveEventsGroupedControls As GroupMoveEvents_Singleton
