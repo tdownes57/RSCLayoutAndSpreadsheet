@@ -36,8 +36,37 @@ Public Class Operations_StaticText
 
     Public Property CacheOfFieldsEtc As ciBadgeCachePersonality.ClassElementsCache_Deprecated
 
+    ''1/18/2022 td''Public Overrides Property CtlCurrentElement As CtlGraphicStaticText
 
-    Private Sub GiveSizeInfo_Field_EST100(sender As Object, e As EventArgs)
+
+    Public Sub Revise_Text_Of_Element_EST1050(sender As Object, e As MouseEventArgs)
+        ''
+        ''Added 1/18/2022
+        ''
+        Dim strCurrentText As String
+        Dim objControlStaticText As CtlGraphicStaticText
+        Dim objElementStaticText As ciBadgeElements.ClassElementStaticText
+
+        objControlStaticText = CType(Me.CtlCurrentElement, CtlGraphicStaticText)
+        objElementStaticText = objControlStaticText.Element_StaticText
+
+        strCurrentText = objElementStaticText.Text_Static
+
+        ''Added 1/18/2022 thomas downes  
+        objElementStaticText.Text_Static =
+            InputBox("Enter the static text you want to appear.  You can revise it later.",
+                     "Enter text", strCurrentText, e.X, e.Y)
+
+        objElementStaticText.DateEdited = Now
+        objControlStaticText.SaveToModel()
+        objControlStaticText.Refresh_Image(False)
+
+    End Sub ''end of "Public Sub Revise_Text_Of_Element_EST1050"
+
+
+
+
+    Private Sub GiveSizeInfo_Field_EST1000(sender As Object, e As EventArgs)
         ''
         ''Added 7/31/2019 thomas downes
         ''       ''
@@ -55,7 +84,8 @@ Public Class Operations_StaticText
 
     End Sub ''End of "Private Sub GiveSizeInfo_Field(sender As Object, e As EventArgs)"
 
-    Private Sub OpenDialog_Color_EST101(sender As Object, e As EventArgs)
+
+    Public Sub OpenDialog_Color_EST1001(sender As Object, e As EventArgs)
         ''
         ''Added 7/30/2019 thomas downes
         ''       ''
@@ -79,7 +109,8 @@ Public Class Operations_StaticText
 
     End Sub ''eNd of "Private Sub opendialog_Color()"
 
-    Private Sub OpenDialog_Font(sender As Object, e As EventArgs)
+
+    Public Sub OpenDialog_Font(sender As Object, e As EventArgs)
         ''
         ''Added 7/30/2019 thomas downes
         ''

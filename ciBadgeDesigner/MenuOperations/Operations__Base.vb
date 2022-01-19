@@ -11,7 +11,7 @@ Imports __RSCWindowsControlLibrary ''Added 1/2/2022 td
 
 Public Class Operations__Base
     Implements ICurrentElement ''Added 12/28/2021 td
-    Public Property CtlCurrentElement As RSCMoveableControlVB Implements ICurrentElement.CtlCurrentElement
+    Public Overridable Property CtlCurrentElement As RSCMoveableControlVB Implements ICurrentElement.CtlCurrentElement
     Public Property ElementsCacheManager As ciBadgeCachePersonality.ClassCacheManagement Implements ICurrentElement.ElementsCacheManager
 
     Public Property NameOfClass As String ''Added 12/30/2021 td

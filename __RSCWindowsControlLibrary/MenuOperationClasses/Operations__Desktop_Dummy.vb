@@ -27,7 +27,7 @@ Public Class Operations__Desktop_Dummy
     Public ParentDesignerForm_NotInUse As IDesignerForm_Desktop ''Added 1/15/2022 td
     Public ParentDesignerForm As IDesignerForm ''Added 1/18/2022 td
     Public ParentForm As Form ''Added 1/18/2022 Thomas DOWNES
-    Public Designer As ciBadgeDesigner.ClassDesigner ''Added 1/18/2022 td
+    ''Cannot be placed here.''Public Designer As ClassDesigner ''Added 1/18/2022 td
 
     ''Dec28 2021''Public Property CtlCurrentElement As MoveableControlVB ''#1 Dec282021 td
     ''Jan15 2022 td''Public Property CtlCurrentElement As RSCMoveableControlVB Implements ICurrentElement.CtlCurrentElement

@@ -22,6 +22,9 @@ Public Class Operations_Desktop
     ''
     ''Jan17 2022 ''Public Property CtlCurrentElement As RSCMoveableControlVB Implements ICurrentElement.CtlCurrentElement
 
+    Public DesignerClass As ClassDesigner ''Added 1/18/2022 td
+    ''Not needed. 1/18/2022 td''Public InfoRefreshPreview As IRefreshPreview ''Added 1/18/2022 td
+
     Public Sub Create_New_StaticText_Control_GD2001(sender As Object, e As MouseEventArgs)
         ''
         ''Added 1/16/2022 thomas downes  
@@ -32,6 +35,7 @@ Public Class Operations_Desktop
         Dim objElementStaticText As ciBadgeElements.ClassElementStaticText
         Dim objElementControl As CtlGraphicStaticText
         Dim intHeightOfRSC As Integer
+        Dim obj_parametersGetElementControl As ClassGetElementControlParams ''Added 1/18/2022
 
         ''oCacheManager = Me.ParentDesignerForm.ElementsCache_PathToXML
         infoDesignerForm = Me.ParentDesignerForm
@@ -43,15 +47,59 @@ Public Class Operations_Desktop
 
         ''objElementStaticText = New ClassElementStaticText("New StaticText...", e.X, e.Y, 25)
         objElementStaticText = New ClassElementStaticText("New StaticText...", e.X, e.Y, intHeightOfRSC)
+        obj_parametersGetElementControl = DesignerClass.GetParametersToGetElementControl()
 
-        objElementControl = CtlGraphicStaticText.GetStaticText(obj_parametersGetElementControl,
-                                                               objElementStaticText,
-                                                               MyBase.ParentForm,
-                                                               "CtlGraphicStaticText",
-                                                               MyBase.EventsForMoveability_Group)
+        ''Added 1/18/2022 thomas downes  
+        objElementStaticText.Text_Static =
+            InputBox("Enter the static text you want to appear.  You can revise it later.",
+                     "Enter text", "Text for all ID Cards", e.X, e.Y)
 
+        With obj_parametersGetElementControl
+            ''
+            ''Next, apply the new element to the Backside or the Front, depending. 
+            ''
+            Dim bCardBackside As Boolean ''Added 1/18/2022 thomas d.
+            bCardBackside = (Me.DesignerClass.EnumSideOfCard_Current =
+                EnumWhichSideOfCard.EnumBackside)
 
-    End Sub
+            If (bCardBackside) Then
+                ''Backside of ID Card. 
+                With .ElementsCacheManager.CacheForEditing
+                    .ListOfElementTexts_Backside.Add(objElementStaticText)
+                End With
+            Else
+                ''Front of ID Card. 
+                With .ElementsCacheManager.CacheForEditing
+                    .ListOfElementTexts_Front.Add(objElementStaticText)
+                End With
+            End If ''End of "If (bCardBackside) Then ... Else ... "
+
+            ''
+            ''Next, create the control which will display the Element-StaticText.   
+            ''
+            objElementControl = CtlGraphicStaticText.GetStaticText(obj_parametersGetElementControl,
+                                    objElementStaticText,
+                                    MyBase.ParentForm,
+                                    "CtlGraphicStaticText",
+                                    DesignerClass,
+                                    .iRefreshPreview,
+                                    .iControlLastTouched,
+                                    .oMoveEventsGroupedControls)
+
+            ''
+            ''Next, refresh/initiated the control (e.g. size & location).  
+            ''
+            objElementControl.Refresh_Master()
+
+            ''
+            ''Next, display the control.  ----1/18/2022 td
+            ''
+            MyBase.ParentForm.Controls.Add(objElementControl)
+            objElementControl.Visible = True
+
+        End With ''End of "With obj_parametersGetElementControl"
+
+    End Sub ''End of "Public Sub Create_New_StaticText_Control_GD2001(sender As Object, e As MouseEventArgs)"
 
 
     Public Sub Create_New_Graphic_Control_GD2002(sender As Object, e As MouseEventArgs)
