@@ -48,12 +48,12 @@ Namespace ciBadgeCachePersonality
         Public Property BackgroundImage_Backside_FTitle As String = "" ''Added 12/10/2020 td
 
         ''I have added the <...XmlIgnore> attribute. See ListOfElementQRCodes.  ---1/14/2022 td
-        <Xml.Serialization.XmlIgnore>
-        Public Property ElementQR_RefCopy As ClassElementQRCode ''Added 10/8/2019 thomas d.  
+        ''Jan18 2022 ''<Xml.Serialization.XmlIgnore>
+        ''Jan18 2022 ''Public Property ElementQR_RefCopy As ClassElementQRCode ''Added 10/8/2019 thomas d.  
 
         ''I have added the <...XmlIgnore> attribute.  See ListOfElementSignatures.  ---1/14/2022 td
-        <Xml.Serialization.XmlIgnore>
-        Public Property ElementSig_RefCopy As ClassElementSignature ''Added 10/8/2019 thomas d.  
+        ''Jan18 2022 ''<Xml.Serialization.XmlIgnore>
+        ''Jan18 2022 ''Public Property ElementSig_RefCopy As ClassElementSignature ''Added 10/8/2019 thomas d.  
 
         Public Property BadgeLayout As ciBadgeInterfaces.BadgeLayoutClass ''Added 9/17/2019 thomas downes
 
@@ -125,6 +125,24 @@ Namespace ciBadgeCachePersonality
         ''        mod_listFields = value
         ''    End Set
         ''End Property
+
+        Public Function GetElementQR(par_backside As Boolean) As ClassElementQRCode
+            ''Added 1/18/2022
+            If (par_backside) Then
+                Return ListOfElementQRCodes_Back.FirstOrDefault
+            Else
+                Return ListOfElementQRCodes_Front.FirstOrDefault
+            End If ''End of "If (par_backside) Then ... Else ..."
+        End Function ''End of "Public Function GetElementQR(par_backside As Boolean) As ClassElementSignature"
+
+        Public Function GetElementSig(par_backside As Boolean) As ClassElementSignature
+            ''Added 1/18/2022
+            If (par_backside) Then
+                Return ListOfElementSignatures_Back.FirstOrDefault
+            Else
+                Return ListOfElementSignatures_Front.FirstOrDefault
+            End If ''End of "If (par_backside) Then ... Else ..."
+        End Function ''End of "Public Function GetElementSig(par_backside As Boolean) As ClassElementSignature"
 
 
         Public Function GetAllBadgeSideLayoutElements(par_enum As EnumWhichSideOfCard) As ClassBadgeSideLayoutV1

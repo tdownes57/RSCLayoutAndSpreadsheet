@@ -196,7 +196,7 @@ Public Class ClassElementSignature
     <Xml.Serialization.XmlIgnore>
     Public Property Image_BL As Image Implements IElement_Base.Image_BL ''Added 9/2/2019 td
 
-    Public Property Visible As Boolean Implements IElement_Base.Visible ''Added 9/19/2019 td  
+    Public Property Visible As Boolean = True Implements IElement_Base.Visible ''Added 9/19/2019 td  
 
     <Xml.Serialization.XmlIgnore>
     Public Property Recipient As IRecipient Implements IElementSig.Recipient ''Added 9/10/2019 td

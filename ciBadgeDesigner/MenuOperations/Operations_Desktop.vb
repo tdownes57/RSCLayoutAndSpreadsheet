@@ -29,8 +29,9 @@ Public Class Operations_Desktop
         ''
         ''Added 1/16/2022 thomas downes  
         ''
-        ''Dim oCacheManager As ciBadgeCachePersonality.ClassCacheManagement
-        ''Dim oDesignerForm_Desktop As IDesignerForm_Desktop ''Added 1/18/2022
+        ''--Dim oCacheManager As ciBadgeCachePersonality.ClassCacheManagement
+        ''--Dim oDesignerForm_Desktop As IDesignerForm_Desktop ''Added 1/18/2022
+
         Dim infoDesignerForm As IDesignerForm ''Added 1/18/2022
         Dim objElementStaticText As ciBadgeElements.ClassElementStaticText
         Dim objElementControl As CtlGraphicStaticText
@@ -43,13 +44,14 @@ Public Class Operations_Desktop
         intHeightOfRSC = infoDesignerForm.HeightAnyRSCMoveableControl()
         If (intHeightOfRSC = 0) Then
             intHeightOfRSC = 24 ''A default height.  I checked  
-        End If
+        End If ''End of "If (intHeightOfRSC = 0) Then"
 
         ''objElementStaticText = New ClassElementStaticText("New StaticText...", e.X, e.Y, 25)
         objElementStaticText = New ClassElementStaticText("New StaticText...", e.X, e.Y, intHeightOfRSC)
         obj_parametersGetElementControl = DesignerClass.GetParametersToGetElementControl()
 
         ''Added 1/18/2022 thomas downes  
+        objElementStaticText.Visible = True
         objElementStaticText.Text_Static =
             InputBox("Enter the static text you want to appear.  You can revise it later.",
                      "Enter text", "Text for all ID Cards", e.X, e.Y)
@@ -87,8 +89,9 @@ Public Class Operations_Desktop
                                     .oMoveEventsGroupedControls)
 
             ''
-            ''Next, refresh/initiated the control (e.g. size & location).  
+            ''Next, refresh/initiate the control (e.g. size & location & image).  
             ''
+            ''Not needed, redundant. 1/18/2022 td''objElementControl.Refresh_Image(True)
             objElementControl.Refresh_Master()
 
             ''

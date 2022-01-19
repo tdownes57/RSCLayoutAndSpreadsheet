@@ -16,6 +16,14 @@ Public Module ModuleEnums
     End Enum
 
 
+    ''Added 1/19/2022 thomas downes
+    Public Structure StructWhichSideOfCard
+        ''Added 1/19/2022 thomas downes
+        Dim EnumSide As EnumWhichSideOfCard
+        Dim Backside As Boolean
+    End Structure
+
+
 
 
 End Module

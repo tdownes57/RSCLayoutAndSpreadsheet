@@ -54,7 +54,7 @@ Public Class ClassElementLaysection
 
     Public Property Image_BL As Image Implements IElement_Base.Image_BL ''Added 8/27/2019 td
 
-    Public Property Visible As Boolean Implements IElement_Base.Visible ''Added 9/18/2019 td  
+    Public Property Visible As Boolean = True Implements IElement_Base.Visible ''Added 9/18/2019 td  
 
     Public Property ZOrder As Integer Implements IElement_Base.ZOrder
         Get

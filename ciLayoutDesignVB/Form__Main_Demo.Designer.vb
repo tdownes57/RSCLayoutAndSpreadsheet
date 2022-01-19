@@ -59,6 +59,7 @@ Partial Class Form__Main_Demo
         Me.BadgeRecipientsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ShowBadgeRecipientsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CloseListOfRecipentsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PrintASpecifiedNumberOfBadgesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PrintAllBadgesToFileFolderToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExitRecipientModeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EmailAddressToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -104,14 +105,16 @@ Partial Class Form__Main_Demo
         Me.LabelReturnToFrontSide = New System.Windows.Forms.Label()
         Me.pictureBackgroundBackside = New System.Windows.Forms.PictureBox()
         Me.labelBacksideOfBadgecard = New System.Windows.Forms.Label()
+        Me.LinkLabel2 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel3 = New System.Windows.Forms.LinkLabel()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.flowRelevantLinkLabels = New System.Windows.Forms.FlowLayoutPanel()
+        Me.LabelFieldsNotYetDisplayed = New System.Windows.Forms.Label()
         Me.CtlGraphicQRCode1 = New ciBadgeDesigner.CtlGraphicQRCode()
         Me.CtlGraphicPortrait_Lady = New ciBadgeDesigner.CtlGraphicPortrait()
         Me.CtlGraphicSignature1 = New ciBadgeDesigner.CtlGraphicSignature()
         Me.CtlGraphicStaticText1 = New ciBadgeDesigner.CtlGraphicStaticText()
-        Me.LinkLabel2 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel3 = New System.Windows.Forms.LinkLabel()
         Me.CtlClickableDesktop1 = New ciBadgeDesigner.CtlClickableDesktop(Me.components)
-        Me.PrintASpecifiedNumberOfBadgesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -127,7 +130,7 @@ Partial Class Form__Main_Demo
         '
         Me.LinkShowWebControls.AutoSize = True
         Me.LinkShowWebControls.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LinkShowWebControls.Location = New System.Drawing.Point(543, 519)
+        Me.LinkShowWebControls.Location = New System.Drawing.Point(657, 520)
         Me.LinkShowWebControls.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
         Me.LinkShowWebControls.Name = "LinkShowWebControls"
         Me.LinkShowWebControls.Size = New System.Drawing.Size(360, 29)
@@ -140,7 +143,7 @@ Partial Class Form__Main_Demo
         '
         Me.LinkLabel1.AutoSize = True
         Me.LinkLabel1.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LinkLabel1.Location = New System.Drawing.Point(541, 553)
+        Me.LinkLabel1.Location = New System.Drawing.Point(655, 554)
         Me.LinkLabel1.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
         Me.LinkLabel1.Name = "LinkLabel1"
         Me.LinkLabel1.Size = New System.Drawing.Size(362, 29)
@@ -153,7 +156,7 @@ Partial Class Form__Main_Demo
         '
         Me.chkIncludeExampleValues.AutoCheck = False
         Me.chkIncludeExampleValues.AutoSize = True
-        Me.chkIncludeExampleValues.Location = New System.Drawing.Point(549, 495)
+        Me.chkIncludeExampleValues.Location = New System.Drawing.Point(677, 462)
         Me.chkIncludeExampleValues.Margin = New System.Windows.Forms.Padding(1, 3, 1, 3)
         Me.chkIncludeExampleValues.Name = "chkIncludeExampleValues"
         Me.chkIncludeExampleValues.Size = New System.Drawing.Size(208, 24)
@@ -357,14 +360,20 @@ Partial Class Form__Main_Demo
         'ShowBadgeRecipientsToolStripMenuItem
         '
         Me.ShowBadgeRecipientsToolStripMenuItem.Name = "ShowBadgeRecipientsToolStripMenuItem"
-        Me.ShowBadgeRecipientsToolStripMenuItem.Size = New System.Drawing.Size(318, 26)
+        Me.ShowBadgeRecipientsToolStripMenuItem.Size = New System.Drawing.Size(374, 26)
         Me.ShowBadgeRecipientsToolStripMenuItem.Text = "Show Badge Recipients in Sidebar"
         '
         'CloseListOfRecipentsToolStripMenuItem
         '
         Me.CloseListOfRecipentsToolStripMenuItem.Name = "CloseListOfRecipentsToolStripMenuItem"
-        Me.CloseListOfRecipentsToolStripMenuItem.Size = New System.Drawing.Size(318, 26)
+        Me.CloseListOfRecipentsToolStripMenuItem.Size = New System.Drawing.Size(374, 26)
         Me.CloseListOfRecipentsToolStripMenuItem.Text = "Close List of Recipents"
+        '
+        'PrintASpecifiedNumberOfBadgesToolStripMenuItem
+        '
+        Me.PrintASpecifiedNumberOfBadgesToolStripMenuItem.Name = "PrintASpecifiedNumberOfBadgesToolStripMenuItem"
+        Me.PrintASpecifiedNumberOfBadgesToolStripMenuItem.Size = New System.Drawing.Size(374, 26)
+        Me.PrintASpecifiedNumberOfBadgesToolStripMenuItem.Text = "Make Badges (for specific Recipients)"
         '
         'PrintAllBadgesToFileFolderToolStripMenuItem
         '
@@ -375,7 +384,7 @@ Partial Class Form__Main_Demo
         'ExitRecipientModeToolStripMenuItem
         '
         Me.ExitRecipientModeToolStripMenuItem.Name = "ExitRecipientModeToolStripMenuItem"
-        Me.ExitRecipientModeToolStripMenuItem.Size = New System.Drawing.Size(318, 26)
+        Me.ExitRecipientModeToolStripMenuItem.Size = New System.Drawing.Size(374, 26)
         Me.ExitRecipientModeToolStripMenuItem.Text = "Exit Recipient Mode"
         '
         'EmailAddressToolStripMenuItem
@@ -493,7 +502,7 @@ Partial Class Form__Main_Demo
         '
         Me.StatusStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StatusLabelMovingElement, Me.StatusLabelNameOfElement, Me.StatusLabelWarningError})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 583)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 612)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Size = New System.Drawing.Size(1298, 26)
         Me.StatusStrip1.TabIndex = 47
@@ -521,10 +530,10 @@ Partial Class Form__Main_Demo
         '
         'linkRemoveElements
         '
-        Me.linkRemoveElements.Location = New System.Drawing.Point(11, 495)
+        Me.linkRemoveElements.Location = New System.Drawing.Point(31, 570)
         Me.linkRemoveElements.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
         Me.linkRemoveElements.Name = "linkRemoveElements"
-        Me.linkRemoveElements.Size = New System.Drawing.Size(94, 72)
+        Me.linkRemoveElements.Size = New System.Drawing.Size(208, 29)
         Me.linkRemoveElements.TabIndex = 48
         Me.linkRemoveElements.TabStop = True
         Me.linkRemoveElements.Text = "Remove Elements"
@@ -556,9 +565,9 @@ Partial Class Form__Main_Demo
         Me.flowFieldsNotListed.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.flowFieldsNotListed.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.flowFieldsNotListed.Controls.Add(Me.lblFieldsNotCurrentlyShownHdr)
-        Me.flowFieldsNotListed.Location = New System.Drawing.Point(110, 493)
+        Me.flowFieldsNotListed.Location = New System.Drawing.Point(35, 512)
         Me.flowFieldsNotListed.Name = "flowFieldsNotListed"
-        Me.flowFieldsNotListed.Size = New System.Drawing.Size(429, 55)
+        Me.flowFieldsNotListed.Size = New System.Drawing.Size(292, 55)
         Me.flowFieldsNotListed.TabIndex = 52
         '
         'lblFieldsNotCurrentlyShownHdr
@@ -591,7 +600,7 @@ Partial Class Form__Main_Demo
         Me.flowSidebar.Dock = System.Windows.Forms.DockStyle.Right
         Me.flowSidebar.Location = New System.Drawing.Point(1277, 30)
         Me.flowSidebar.Name = "flowSidebar"
-        Me.flowSidebar.Size = New System.Drawing.Size(21, 553)
+        Me.flowSidebar.Size = New System.Drawing.Size(21, 582)
         Me.flowSidebar.TabIndex = 54
         Me.flowSidebar.Visible = False
         '
@@ -775,54 +784,6 @@ Partial Class Form__Main_Demo
         Me.labelBacksideOfBadgecard.TextAlign = System.Drawing.ContentAlignment.TopRight
         Me.labelBacksideOfBadgecard.Visible = False
         '
-        'CtlGraphicQRCode1
-        '
-        Me.CtlGraphicQRCode1.BackColor = System.Drawing.Color.Transparent
-        Me.CtlGraphicQRCode1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.CtlGraphicQRCode1.Location = New System.Drawing.Point(549, 352)
-        Me.CtlGraphicQRCode1.Margin = New System.Windows.Forms.Padding(4)
-        Me.CtlGraphicQRCode1.MoveabilityEventsForGroupCtls = Nothing
-        Me.CtlGraphicQRCode1.MoveabilityEventsForSingleMove = Nothing
-        Me.CtlGraphicQRCode1.Name = "CtlGraphicQRCode1"
-        Me.CtlGraphicQRCode1.Size = New System.Drawing.Size(94, 99)
-        Me.CtlGraphicQRCode1.TabIndex = 65
-        '
-        'CtlGraphicPortrait_Lady
-        '
-        Me.CtlGraphicPortrait_Lady.BackColor = System.Drawing.Color.White
-        Me.CtlGraphicPortrait_Lady.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.CtlGraphicPortrait_Lady.Location = New System.Drawing.Point(35, 117)
-        Me.CtlGraphicPortrait_Lady.Margin = New System.Windows.Forms.Padding(4)
-        Me.CtlGraphicPortrait_Lady.MoveabilityEventsForGroupCtls = Nothing
-        Me.CtlGraphicPortrait_Lady.MoveabilityEventsForSingleMove = Nothing
-        Me.CtlGraphicPortrait_Lady.Name = "CtlGraphicPortrait_Lady"
-        Me.CtlGraphicPortrait_Lady.Size = New System.Drawing.Size(141, 181)
-        Me.CtlGraphicPortrait_Lady.TabIndex = 41
-        '
-        'CtlGraphicSignature1
-        '
-        Me.CtlGraphicSignature1.BackColor = System.Drawing.Color.Transparent
-        Me.CtlGraphicSignature1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.CtlGraphicSignature1.Location = New System.Drawing.Point(49, 346)
-        Me.CtlGraphicSignature1.Margin = New System.Windows.Forms.Padding(4)
-        Me.CtlGraphicSignature1.MoveabilityEventsForGroupCtls = Nothing
-        Me.CtlGraphicSignature1.MoveabilityEventsForSingleMove = Nothing
-        Me.CtlGraphicSignature1.Name = "CtlGraphicSignature1"
-        Me.CtlGraphicSignature1.Size = New System.Drawing.Size(314, 105)
-        Me.CtlGraphicSignature1.TabIndex = 66
-        '
-        'CtlGraphicStaticText1
-        '
-        Me.CtlGraphicStaticText1.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.CtlGraphicStaticText1.Location = New System.Drawing.Point(792, 456)
-        Me.CtlGraphicStaticText1.Margin = New System.Windows.Forms.Padding(5)
-        Me.CtlGraphicStaticText1.MoveabilityEventsForGroupCtls = Nothing
-        Me.CtlGraphicStaticText1.MoveabilityEventsForSingleMove = Nothing
-        Me.CtlGraphicStaticText1.Name = "CtlGraphicStaticText1"
-        Me.CtlGraphicStaticText1.Size = New System.Drawing.Size(376, 46)
-        Me.CtlGraphicStaticText1.TabIndex = 75
-        Me.CtlGraphicStaticText1.TextToDisplay = "This is text which will be the same for everyone."
-        '
         'LinkLabel2
         '
         Me.LinkLabel2.Location = New System.Drawing.Point(825, 507)
@@ -843,17 +804,94 @@ Partial Class Form__Main_Demo
         Me.LinkLabel3.TabStop = True
         Me.LinkLabel3.Text = "Turn on drag-&&-drop for last-touched element."
         '
-        'PrintASpecifiedNumberOfBadgesToolStripMenuItem
+        'Label1
         '
-        Me.PrintASpecifiedNumberOfBadgesToolStripMenuItem.Name = "PrintASpecifiedNumberOfBadgesToolStripMenuItem"
-        Me.PrintASpecifiedNumberOfBadgesToolStripMenuItem.Size = New System.Drawing.Size(374, 26)
-        Me.PrintASpecifiedNumberOfBadgesToolStripMenuItem.Text = "Make Badges (for specific Recipients)"
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(341, 489)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(401, 20)
+        Me.Label1.TabIndex = 82
+        Me.Label1.Text = "Relevant Element Options for Last Element Touched"
+        '
+        'flowRelevantLinkLabels
+        '
+        Me.flowRelevantLinkLabels.AutoScroll = True
+        Me.flowRelevantLinkLabels.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.flowRelevantLinkLabels.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.flowRelevantLinkLabels.Location = New System.Drawing.Point(345, 512)
+        Me.flowRelevantLinkLabels.Name = "flowRelevantLinkLabels"
+        Me.flowRelevantLinkLabels.Size = New System.Drawing.Size(298, 55)
+        Me.flowRelevantLinkLabels.TabIndex = 83
+        '
+        'LabelFieldsNotYetDisplayed
+        '
+        Me.LabelFieldsNotYetDisplayed.AutoSize = True
+        Me.LabelFieldsNotYetDisplayed.Location = New System.Drawing.Point(31, 489)
+        Me.LabelFieldsNotYetDisplayed.Name = "LabelFieldsNotYetDisplayed"
+        Me.LabelFieldsNotYetDisplayed.Size = New System.Drawing.Size(178, 20)
+        Me.LabelFieldsNotYetDisplayed.TabIndex = 84
+        Me.LabelFieldsNotYetDisplayed.Text = "FieldsNotYetDisplayed"
+        '
+        'CtlGraphicQRCode1
+        '
+        Me.CtlGraphicQRCode1.BackColor = System.Drawing.Color.Transparent
+        Me.CtlGraphicQRCode1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.CtlGraphicQRCode1.ElementInfo_Base = Nothing
+        Me.CtlGraphicQRCode1.Location = New System.Drawing.Point(184, 199)
+        Me.CtlGraphicQRCode1.Margin = New System.Windows.Forms.Padding(4)
+        Me.CtlGraphicQRCode1.MoveabilityEventsForGroupCtls = Nothing
+        Me.CtlGraphicQRCode1.MoveabilityEventsForSingleMove = Nothing
+        Me.CtlGraphicQRCode1.Name = "CtlGraphicQRCode1"
+        Me.CtlGraphicQRCode1.Size = New System.Drawing.Size(94, 99)
+        Me.CtlGraphicQRCode1.TabIndex = 65
+        '
+        'CtlGraphicPortrait_Lady
+        '
+        Me.CtlGraphicPortrait_Lady.BackColor = System.Drawing.Color.White
+        Me.CtlGraphicPortrait_Lady.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.CtlGraphicPortrait_Lady.ElementInfo_Base = Nothing
+        Me.CtlGraphicPortrait_Lady.Location = New System.Drawing.Point(35, 117)
+        Me.CtlGraphicPortrait_Lady.Margin = New System.Windows.Forms.Padding(4)
+        Me.CtlGraphicPortrait_Lady.MoveabilityEventsForGroupCtls = Nothing
+        Me.CtlGraphicPortrait_Lady.MoveabilityEventsForSingleMove = Nothing
+        Me.CtlGraphicPortrait_Lady.Name = "CtlGraphicPortrait_Lady"
+        Me.CtlGraphicPortrait_Lady.Size = New System.Drawing.Size(141, 181)
+        Me.CtlGraphicPortrait_Lady.TabIndex = 41
+        '
+        'CtlGraphicSignature1
+        '
+        Me.CtlGraphicSignature1.BackColor = System.Drawing.Color.Transparent
+        Me.CtlGraphicSignature1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.CtlGraphicSignature1.ElementInfo_Base = Nothing
+        Me.CtlGraphicSignature1.Location = New System.Drawing.Point(49, 346)
+        Me.CtlGraphicSignature1.Margin = New System.Windows.Forms.Padding(4)
+        Me.CtlGraphicSignature1.MoveabilityEventsForGroupCtls = Nothing
+        Me.CtlGraphicSignature1.MoveabilityEventsForSingleMove = Nothing
+        Me.CtlGraphicSignature1.Name = "CtlGraphicSignature1"
+        Me.CtlGraphicSignature1.Size = New System.Drawing.Size(314, 105)
+        Me.CtlGraphicSignature1.TabIndex = 66
+        '
+        'CtlGraphicStaticText1
+        '
+        Me.CtlGraphicStaticText1.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.CtlGraphicStaticText1.ElementInfo_Base = Nothing
+        Me.CtlGraphicStaticText1.Location = New System.Drawing.Point(200, 123)
+        Me.CtlGraphicStaticText1.Margin = New System.Windows.Forms.Padding(5)
+        Me.CtlGraphicStaticText1.MoveabilityEventsForGroupCtls = Nothing
+        Me.CtlGraphicStaticText1.MoveabilityEventsForSingleMove = Nothing
+        Me.CtlGraphicStaticText1.Name = "CtlGraphicStaticText1"
+        Me.CtlGraphicStaticText1.Size = New System.Drawing.Size(376, 46)
+        Me.CtlGraphicStaticText1.TabIndex = 75
+        Me.CtlGraphicStaticText1.TextToDisplay = "This is text which will be the same for everyone."
         '
         'Form__Main_Demo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1298, 609)
+        Me.ClientSize = New System.Drawing.Size(1298, 638)
+        Me.Controls.Add(Me.LabelFieldsNotYetDisplayed)
+        Me.Controls.Add(Me.flowRelevantLinkLabels)
+        Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.graphicAdjuster)
         Me.Controls.Add(Me.LinkLabel3)
         Me.Controls.Add(Me.LinkLabel2)
@@ -1000,4 +1038,7 @@ Partial Class Form__Main_Demo
     Friend WithEvents StatusLabelWarningError As ToolStripStatusLabel
     Friend WithEvents CtlClickableDesktop1 As CtlClickableDesktop
     Friend WithEvents PrintASpecifiedNumberOfBadgesToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents Label1 As Label
+    Friend WithEvents flowRelevantLinkLabels As FlowLayoutPanel
+    Friend WithEvents LabelFieldsNotYetDisplayed As Label
 End Class

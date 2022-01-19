@@ -360,6 +360,11 @@ Public Class Form__Main_Demo
         ''Added 12/3/2021 td
         pictureBackgroundFront.Refresh()
 
+        ''Added 1/18/2022 thomas
+        CtlClickableDesktop1.InitializeClickability(Me, flowRelevantLinkLabels)
+        CtlClickableDesktop1.InitializeFunctionality(Me, Me, Me.mod_designer, Me.mod_designer)
+        CtlClickableDesktop1.AddClickability()
+
     End Sub ''End of "Private Sub Form_Load"  
 
 
@@ -1504,6 +1509,16 @@ Public Class Form__Main_Demo
         ''Me.mod_ElementLastTouched = Nothing ''9/14 td
         ''Me.mod_FieldControlLastTouched = Nothing
         ''Me.mod_selectedCtls.Clear()
+
+        ''Added 1/18/2022 td
+        Dim diag_res As DialogResult ''Added 1/18/2022 td
+        diag_res = __RSCWindowsControlLibrary.MessageBoxTD.Show_QuestionYesNo("Confirm, remove **all** field-based elements (e.g. first name, last name, ID, etc.?")
+        If (diag_res = DialogResult.None) Then
+            Return
+        ElseIf (diag_res <> DialogResult.Yes) Then
+            __RSCWindowsControlLibrary.MessageBoxTD.Show_Statement("Unconfirmed, so we won't proceed.")
+            Return
+        End If
 
         ''
         ''Part 1 of 2.  Create a list of the controls you want to detach from the form. 

@@ -100,7 +100,7 @@ Public Class ClassElementStaticText
     <Xml.Serialization.XmlIgnore>
     Public Property Image_BL As Image Implements IElement_Base.Image_BL ''Added 8/27/2019 td
 
-    Public Property Visible As Boolean Implements IElement_Base.Visible ''Added 9/18/2019 td  
+    Public Property Visible As Boolean = True Implements IElement_Base.Visible ''Added 9/18/2019 td  
 
 
     ''Moved below. 8/27/2019 td''Public Property SelectedHighlighting As Boolean Implements IElement_Base.SelectedHighlighting ''Added 8/2/2019 td  
