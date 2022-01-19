@@ -576,31 +576,42 @@ Public Class ClassDesigner
 
         If (Me.ElementsCache_UseEdits.MissingTheElementPic) Then ''Added 10/10/2019 td
             ''10/10/2019 td''Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, Me.BackgroundBox) ''Added 9/19/2019 td
-            Me.ElementsCache_UseEdits.LoadElement_Pic(intPicLeft, intPicTop,
-                                                   intPicWidth, intPicHeight, Me.BackgroundBox_Front) ''Added 9/19/2019 td
+            ''Jan19 2022 ''Me.ElementsCache_UseEdits.LoadElement_Pic(intPicLeft, intPicTop,
+            Me.ElementsCache_UseEdits.LoadNewElement_Pic(intPicLeft, intPicTop,
+                                        intPicWidth, intPicHeight,
+                                        Me.BackgroundBox_Front,
+                                        EnumWhichSideOfCard.EnumFrontside) ''Added 9/19/2019 td
         End If ''End of "If (Me.ElementsCache_Saved.MissingTheElementPic) Then"
 
         ''Added 10/10/2019 td
         If (Me.ElementsCache_UseEdits.MissingTheQRCode) Then ''Added 10/10/2019 td
             ''Added 10/10/2019 td
-            Me.ElementsCache_UseEdits.LoadElement_QRCode(Initial_QR_Left, Initial_QR_Top,
-                                                   Initial_QR_Width, Initial_QR_Height, Me.BackgroundBox_Front) ''Added 9/19/2019 td
+            ''Jan19 2022''Me.ElementsCache_UseEdits.LoadElement_QRCode(Initial_QR_Left, Initial_QR_Top,
+            Me.ElementsCache_UseEdits.LoadNewElement_QRCode(Initial_QR_Left, Initial_QR_Top,
+                                    Initial_QR_Width, Initial_QR_Height,
+                                    Me.BackgroundBox_Front,
+                                    EnumWhichSideOfCard.EnumFrontside) ''Added 9/19/2019 td
         End If ''End of "If (Me.ElementsCache_Saved.MissingTheElementPic) Then"
 
         ''Added 10/10/2019 td
         If (Me.ElementsCache_UseEdits.MissingTheSignature) Then ''Added 10/10/2019 td
             ''Added 10/10/2019 td
-            Me.ElementsCache_UseEdits.LoadElement_Signature(Initial_Sig_Left, Initial_Sig_Top,
-                                                   Initial_Sig_Width, Initial_Sig_Height, Me.BackgroundBox_Front) ''Added 9/19/2019 td
+            Me.ElementsCache_UseEdits.LoadNewElement_Signature(Initial_Sig_Left, Initial_Sig_Top,
+                                Initial_Sig_Width, Initial_Sig_Height,
+                                Me.BackgroundBox_Front,
+                                EnumWhichSideOfCard.EnumFrontside) ''Added 9/19/2019 td
         End If ''End of "If (Me.ElementsCache_Saved.MissingTheSignature) Then"
 
         ''Added 10/10/2019 td
         If (Me.ElementsCache_UseEdits.MissingTheElementTexts) Then ''Added 10/10/2019 td
             ''Added 10/10/2019 td
             ''Dec17 2021''Me.ElementsCache_UseEdits.LoadElement_Text("This is text which will be the same for everyone.",
-            Me.ElementsCache_UseEdits.LoadElement_StaticText_IfNeeded("This is text which will be the same for everyone.",
-                                                    Initial_Text_Left, Initial_Text_Top,
-                                                   Initial_Text_Width, Initial_Text_Height, Me.BackgroundBox_Front) ''Added 9/19/2019 td
+            ''Jan19 2022''Me.ElementsCache_UseEdits.LoadElement_StaticText_IfNeeded("This is text which will be the same for everyone.",
+            Me.ElementsCache_UseEdits.LoadNewElement_StaticText("The same text for everyone.",
+                                    Initial_Text_Left, Initial_Text_Top,
+                                    Initial_Text_Width, Initial_Text_Height,
+                                    Me.BackgroundBox_Front,
+                                    EnumWhichSideOfCard.EnumFrontside) ''Added 9/19/2019 td
         Else
             ''Added 12/22/2021 thomas downes
             ''--Dec22 2021 td--LoadDesigner_StaticTexts

@@ -166,13 +166,13 @@ Public Class Form__Main_Demo
                     ''
                     ''Major call!!
                     ''
-                    Me.ElementsCache_Edits.LoadElement_Signature(0, 0,
+                    Me.ElementsCache_Edits.LoadNewElement_Signature(0, 0,
                                 CtlGraphicSignature1.Width,
                                 CtlGraphicSignature1.Height,
                                 pictureBackgroundFront)
                 End If ''End of "If (Me.ElementsCache_Edits.MissingTheSignature()) Then"
 
-                .ElementClass_Obj = Me.ElementsCache_Edits.ElementSig_RefCopy
+                .ElementClass_Obj = Me.ElementsCache_Edits.GetElementSig(False)
 
             End If ''End of "If (.ElementClass_Obj Is Nothing) Then"
 
@@ -394,18 +394,18 @@ Public Class Form__Main_Demo
 
         ''Added 1/14/2022 td
         With ElementsCache_Edits
-            If (.ElementQR_RefCopy IsNot Nothing) Then
-                If (.ElementQR_RefCopy.Image_BL Is Nothing) Then
-                    .ElementQR_RefCopy.Image_BL = My.Resources.QR_Code_Example
+            If (.GetElementQR(False) IsNot Nothing) Then
+                If (.GetElementQR(False).Image_BL Is Nothing) Then
+                    .GetElementQR(False).Image_BL = My.Resources.QR_Code_Example
                 End If
             End If
         End With
 
         ''Added 1/14/2022 td
         With ElementsCache_Edits
-            If (.ElementSig_RefCopy IsNot Nothing) Then
-                If (.ElementSig_RefCopy.Image_BL Is Nothing) Then
-                    .ElementSig_RefCopy.Image_BL = My.Resources.Declaration_Sig_JPG
+            If (.GetElementSig(False) IsNot Nothing) Then
+                If (.GetElementSig(False).Image_BL Is Nothing) Then
+                    .GetElementSig(False).Image_BL = My.Resources.Declaration_Sig_JPG
                 End If
             End If
         End With

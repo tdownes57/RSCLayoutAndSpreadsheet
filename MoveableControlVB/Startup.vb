@@ -637,24 +637,31 @@ Public Class Startup
         If (pboolNewFileXML) Then
             ''10/10/2019 td''Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
             ''10/13/2019 td''Me.ElementsCache_Saved.LoadElement_Pic(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
-            obj_cache_elements.LoadElement_Pic(intPicLeft, intPicTop, intPicWidth, intPicHeight,
-                                               par_designForm.MyPictureBackgroundFront) ''Added 9/19/2019 td
+            obj_cache_elements.LoadNewElement_Pic(intPicLeft, intPicTop, intPicWidth, intPicHeight,
+                                               par_designForm.MyPictureBackgroundFront,
+                                                EnumWhichSideOfCard.EnumFrontside) ''Added 9/19/2019 td
 
             ''Added 10/14/2019 thomas d. 
-            obj_cache_elements.LoadElement_QRCode(intLeft_QR, intTop_QR, intWidth_QR, intHeight_QR,
-                                               par_designForm.MyPictureBackgroundFront) ''Added 10/14/2019 td
+            ''Jan19 2022 td''obj_cache_elements.LoadElement_QRCode(intLeft_QR, intTop_QR, intWidth_QR, intHeight_QR,
+            obj_cache_elements.LoadNewElement_QRCode(intLeft_QR, intTop_QR, intWidth_QR, intHeight_QR,
+                                               par_designForm.MyPictureBackgroundFront,
+                                                EnumWhichSideOfCard.EnumFrontside) ''Added 10/14/2019 td
 
             ''Added 10/14/2019 thomas d. 
-            obj_cache_elements.LoadElement_Signature(intLeft_Sig, intTop_Sig, intWidth_Sig, intHeight_Sig,
-                                               par_designForm.MyPictureBackgroundFront) ''Added 10/14/2019 td
+            ''Jan19 2022 td''obj_cache_elements.LoadElement_Signature(intLeft_Sig, intTop_Sig, intWidth_Sig, intHeight_Sig,
+            obj_cache_elements.LoadNewElement_Signature(intLeft_Sig, intTop_Sig, intWidth_Sig, intHeight_Sig,
+                                               par_designForm.MyPictureBackgroundFront,
+                                                EnumWhichSideOfCard.EnumFrontside) ''Added 10/14/2019 td
 
         End If ''End of "If (pboolNewFileXML) Then"
 
         ''Added 10/14/2019 thomas d. 
-        obj_cache_elements.LoadElement_StaticText_IfNeeded(strStaticText,
+        ''Jan19 2022''obj_cache_elements.LoadElement_StaticText_IfNeeded(strStaticText,
+        obj_cache_elements.LoadNewElement_StaticText(strStaticText,
                                                 intLeft_Text, intTop_Text,
                                                 intWidth_Text, intHeight_Text,
-                                               par_designForm.MyPictureBackgroundFront) ''Added 10/14/2019 td
+                                               par_designForm.MyPictureBackgroundFront,
+                                                EnumWhichSideOfCard.EnumFrontside) ''Added 10/14/2019 td
 
         ''Added 9/24/2019 thomas 
         ''Was just for testing. ---10/10/2019 td''Dim serial_tools As New ciBadgeSerialize.ClassSerial

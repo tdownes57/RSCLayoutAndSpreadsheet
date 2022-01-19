@@ -693,7 +693,9 @@ namespace ciBadgeGenerator
                 //
                 //Add the Signature. 
                 //
-                ClassElementSignature obj_elementSig = par_cache.ElementSig_RefCopy;
+                //Jan19 2022 ''ClassElementSignature obj_elementSig = par_cache.ElementSig_RefCopy;
+                ClassElementSignature obj_elementSig = par_cache.GetElementSig(false);
+
                 //Added 11/29/2021 td
                 if (par_elementSig != null) obj_elementSig = par_elementSig;
 
@@ -719,7 +721,7 @@ namespace ciBadgeGenerator
             //                             ref obj_imageOutput);
             LoadImageWithQRCode_IfNeeded(par_cache, par_elementQR,
                                          par_newBadge_width_pixels, par_layoutDims,
-                                         ref obj_imageOutput);
+                                         ref obj_imageOutput, false);
 
 
             //
@@ -839,7 +841,8 @@ namespace ciBadgeGenerator
                                                  ClassElementQRCode par_elementQR,
                                                  int par_newBadge_width_pixels,
                                                  IBadgeLayoutDimensions par_infoBadgeLayoutDims,
-                                                 ref Image pref_imageOutput)
+                                                 ref Image pref_imageOutput,
+                                                 bool pboolBacksideOfCard)
         {
             //
             // Added 12/11/2021 thomas downes 
@@ -857,7 +860,9 @@ namespace ciBadgeGenerator
                 //
                 //Add the QR Code. 
                 //
-                ClassElementQRCode obj_elementQR = par_cache.ElementQR_RefCopy;
+                //1/19/2022 td//ClassElementQRCode obj_elementQR = par_cache.ElementQR_RefCopy;
+                ClassElementQRCode obj_elementQR = par_cache.GetElementQR(pboolBacksideOfCard);
+
                 //Added 11/29/2021 td
                 if (par_elementQR != null) obj_elementQR = par_elementQR;
 

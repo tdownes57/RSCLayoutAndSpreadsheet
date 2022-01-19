@@ -574,26 +574,29 @@ Public Class Startup
             ''========================================================================
             With obj_cache_elements
                 ''Let's transfer the QRCode to the new ListOfElement... Public Property.
-                If (0 = .ListOfElementQRCodes_Front.Count) Then
-                    If (.ElementQR_RefCopy IsNot Nothing) Then
-                        .ListOfElementQRCodes_Front.Add(.ElementQR_RefCopy)
-                    End If
-                End If ''End of "If (0 = .ListOfElementQRCodes_Front.Count) Then"
 
-                If (.ElementQR_RefCopy Is Nothing) Then
-                    .ElementQR_RefCopy = .ListOfElementQRCodes_Front.FirstOrDefault()
-                    If (.ElementQR_RefCopy Is Nothing) Then
-                        ''Next, try the Backside. 
-                        .ElementQR_RefCopy = .ListOfElementQRCodes_Back.FirstOrDefault()
-                    End If ''eND OF "If (.ElementQRCode Is Nothing) Then"
-                End If
+                ''Per ____ the property .ElementQR_RefCopy has been eliminated. ---1/19/2022 td
+                ''
+                ''____If (0 = .ListOfElementQRCodes_Front.Count) Then
+                ''____    If (.ElementQR_RefCopy IsNot Nothing) Then
+                ''____        .ListOfElementQRCodes_Front.Add(.ElementQR_RefCopy)
+                ''____    End If
+                ''____End If ''End of "If (0 = .ListOfElementQRCodes_Front.Count) Then"
 
-                ''Let's try to populate the .Image_BL property. ----1/14/2022 td
-                If (.ElementQR_RefCopy IsNot Nothing) Then
-                    If (.ElementQR_RefCopy.Image_BL Is Nothing) Then
-                        .ElementQR_RefCopy.Image_BL = My.Resources.QR_Code_Example
-                    End If
-                End If ''End of "If (.ElementQRCode IsNot Nothing) Then"
+                ''____If (.ElementQR_RefCopy Is Nothing) Then
+                ''____    .ElementQR_RefCopy = .ListOfElementQRCodes_Front.FirstOrDefault()
+                ''____    If (.ElementQR_RefCopy Is Nothing) Then
+                ''____        ''Next, try the Backside. 
+                ''____        .ElementQR_RefCopy = .ListOfElementQRCodes_Back.FirstOrDefault()
+                ''____    End If ''eND OF "If (.ElementQRCode Is Nothing) Then"
+                ''____End If
+
+                ''''Let's try to populate the .Image_BL property. ----1/14/2022 td
+                ''____If (.ElementQR_RefCopy IsNot Nothing) Then
+                ''____    If (.ElementQR_RefCopy.Image_BL Is Nothing) Then
+                ''____        .ElementQR_RefCopy.Image_BL = My.Resources.QR_Code_Example
+                ''____    End If
+                ''____End If ''End of "If (.ElementQRCode IsNot Nothing) Then"
 
             End With ''End of "With obj_cache_elements"
 
@@ -609,26 +612,29 @@ Public Class Startup
             ''========================================================================
             With obj_cache_elements
                 ''Let's transfer the Signature to the new ListOfElement... Public Property.
-                If (0 = .ListOfElementSignatures_Front.Count) Then
-                    If (.ElementSig_RefCopy IsNot Nothing) Then
-                        .ListOfElementSignatures_Front.Add(.ElementSig_RefCopy)
-                    End If
-                End If ''End of "If (0 = .ListOfElementSignatures_Front.Count) Then"
 
-                If (.ElementSig_RefCopy Is Nothing) Then
-                    .ElementSig_RefCopy = .ListOfElementSignatures_Front.FirstOrDefault()
-                    If (.ElementSig_RefCopy Is Nothing) Then
-                        ''Next, try the Backside. 
-                        .ElementSig_RefCopy = .ListOfElementSignatures_Back.FirstOrDefault()
-                    End If ''eND OF "If (.ElementSignature Is Nothing) Then"
-                End If
+                ''Per ____ the property .ElementSig_RefCopy has been eliminated. ---1/19/2022 td
+                ''
+                ''____If (0 = .ListOfElementSignatures_Front.Count) Then
+                ''____    If (.ElementSig_RefCopy IsNot Nothing) Then
+                ''____        .ListOfElementSignatures_Front.Add(.ElementSig_RefCopy)
+                ''____    End If
+                ''____End If ''End of "If (0 = .ListOfElementSignatures_Front.Count) Then"
 
-                ''Let's try to populate the .Image_BL property. ----1/14/2022 td
-                If (.ElementSig_RefCopy IsNot Nothing) Then
-                    If (.ElementSig_RefCopy.Image_BL Is Nothing) Then
-                        .ElementSig_RefCopy.Image_BL = My.Resources.Declaration_Sig_JPG
-                    End If
-                End If ''End of "If (.ElementSignature IsNot Nothing) Then"
+                ''____If (.ElementSig_RefCopy Is Nothing) Then
+                ''____    .ElementSig_RefCopy = .ListOfElementSignatures_Front.FirstOrDefault()
+                ''____    If (.ElementSig_RefCopy Is Nothing) Then
+                ''____       ''Next, try the Backside. 
+                ''____        .ElementSig_RefCopy = .ListOfElementSignatures_Back.FirstOrDefault()
+                ''____    End If ''eND OF "If (.ElementSignature Is Nothing) Then"
+                ''____End If
+
+                ''''Let's try to populate the .Image_BL property. ----1/14/2022 td
+                ''____If (.ElementSig_RefCopy IsNot Nothing) Then
+                ''____    If (.ElementSig_RefCopy.Image_BL Is Nothing) Then
+                ''____        .ElementSig_RefCopy.Image_BL = My.Resources.Declaration_Sig_JPG
+                ''____    End If
+                ''____End If ''End of "If (.ElementSignature IsNot Nothing) Then"
 
             End With ''End of "With obj_cache_elements"
 
@@ -721,22 +727,23 @@ Public Class Startup
         If (pboolNewFileXML) Then
             ''10/10/2019 td''Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
             ''10/13/2019 td''Me.ElementsCache_Saved.LoadElement_Pic(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
-            obj_cache_elements.LoadElement_Pic(intLeft_Portrait, intTop_Portrait, intWidth_Portrait, intHeight_Portrait,
+            obj_cache_elements.LoadNewElement_Pic(intLeft_Portrait, intTop_Portrait, intWidth_Portrait, intHeight_Portrait,
                                                par_designForm.pictureBackgroundFront) ''Added 9/19/2019 td
 
             ''Added 10/14/2019 thomas d. 
-            obj_cache_elements.LoadElement_QRCode(intLeft_QR, intTop_QR, intWidth_QR, intHeight_QR,
+            obj_cache_elements.LoadNewElement_QRCode(intLeft_QR, intTop_QR, intWidth_QR, intHeight_QR,
                                                par_designForm.pictureBackgroundFront) ''Added 10/14/2019 td
 
             ''Added 10/14/2019 thomas d. 
-            obj_cache_elements.LoadElement_Signature(intLeft_Signature, intTop_Signature,
+            obj_cache_elements.LoadNewElement_Signature(intLeft_Signature, intTop_Signature,
                                                      intWidth_Signature, intHeight_Signature,
                                                par_designForm.pictureBackgroundFront) ''Added 10/14/2019 td
 
         End If ''End of "If (pboolNewFileXML) Then"
 
         ''Added 10/14/2019 thomas d. 
-        obj_cache_elements.LoadElement_StaticText_IfNeeded(strStaticText,
+        ''Jan19 2022''obj_cache_elements.LoadElement_StaticText_IfNeeded(strStaticText,
+        obj_cache_elements.LoadNewElement_StaticText(strStaticText,
                                                 intLeft_StaticText, intTop_StaticText,
                                                 intWidth_StaticText, intHeight_StaticText,
                                                par_designForm.pictureBackgroundFront) ''Added 10/14/2019 td

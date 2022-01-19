@@ -1197,7 +1197,7 @@ Namespace ciBadgeCachePersonality
         Public Sub LoadNewElement_Pic(par_intLeft As Integer, par_intTop As Integer,
                                    par_intWidth As Integer, par_intHeight As Integer,
                                    par_pictureBackground As PictureBox,
-                                      par_enum As EnumWhichSideOfCard)
+            Optional par_enum As EnumWhichSideOfCard = EnumWhichSideOfCard.EnumFrontside)
             ''10/10/2019 td''Public Sub LoadPicElement(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)
             '' 
             ''Added 9/16/2019 td  
@@ -1238,7 +1238,7 @@ Namespace ciBadgeCachePersonality
         Public Sub LoadNewElement_QRCode(par_intLeft As Integer, par_intTop As Integer,
                                       par_intWidth As Integer, par_intHeight As Integer,
                                       par_pictureBackground As PictureBox,
-                                      par_enum As EnumWhichSideOfCard)
+            Optional par_enum As EnumWhichSideOfCard = EnumWhichSideOfCard.EnumFrontside)
             ''
             ''Added 10/10/2019 td  
             ''
@@ -1280,7 +1280,7 @@ Namespace ciBadgeCachePersonality
         Public Sub LoadNewElement_Signature(par_intLeft As Integer, par_intTop As Integer,
                                          par_intWidth As Integer, par_intHeight As Integer,
                                          par_pictureBackground As PictureBox,
-                                         par_enum As EnumWhichSideOfCard)
+            Optional par_enum As EnumWhichSideOfCard = EnumWhichSideOfCard.EnumFrontside)
             ''
             ''Added 10/10/2019 td  
             ''
@@ -1315,7 +1315,7 @@ Namespace ciBadgeCachePersonality
 
         Public Sub LoadNewElement_Portrait(par_picturePortrait As PictureBox,
                                            par_pictureBackground As PictureBox,
-                                           par_enum As EnumWhichSideOfCard)
+            Optional par_enum As EnumWhichSideOfCard = EnumWhichSideOfCard.EnumFrontside)
             ''10/8/2019 td''Public Sub LoadPicElement(par_picturePortrait As PictureBox, par_pictureBackground As PictureBox)
             ''
             ''Added 9/16/2019 td  
@@ -1348,7 +1348,7 @@ Namespace ciBadgeCachePersonality
 
         Public Sub LoadNewElement_Signature(par_picSignature As PictureBox,
                                             par_pictureBackground As PictureBox,
-                                            par_enum As EnumWhichSideOfCard)
+            Optional par_enum As EnumWhichSideOfCard = EnumWhichSideOfCard.EnumFrontside)
             ''
             ''Added 10/8/2019 & 9/16/2019 td  
             ''
@@ -1386,7 +1386,7 @@ Namespace ciBadgeCachePersonality
 
 
         Public Sub LoadNewElement_QRCode(par_picQRCode As PictureBox, par_pictureBackground As PictureBox,
-                                         par_enum As EnumWhichSideOfCard)
+            Optional par_enum As EnumWhichSideOfCard = EnumWhichSideOfCard.EnumFrontside)
             ''
             ''Added 10/8/2019 & 9/16/2019 td  
             ''
@@ -1429,7 +1429,7 @@ Namespace ciBadgeCachePersonality
                                     par_intLeft As Integer, par_intTop As Integer,
                                     par_intWidth As Integer, par_intHeight As Integer,
                                     par_pictureBackground As PictureBox,
-                                    par_enum As EnumWhichSideOfCard,
+            Optional par_enum As EnumWhichSideOfCard = EnumWhichSideOfCard.EnumFrontside,
                                     Optional pbOnlyIfMissingFrontAndBack As Boolean = False)
             ''---Jan19 2022---LoadNewElement_StaticText_IfNeeded
             ''---Dec17 2021---Public Sub LoadElement_Text
@@ -2350,10 +2350,10 @@ Namespace ciBadgeCachePersonality
             ''Dec17 2021 td''obj_cache_elements.LoadElement_Text(strStaticText,
             ''Jan19 2022 td''obj_cache_elements.LoadNewElement_StaticText_IfNeeded(strStaticText,
             obj_cache_elements.LoadNewElement_StaticText(strStaticText,
-                                                intLeft_Text, intTop_Text,
-                                                intWidth_Text, intHeight_Text,
-                                               obj_designForm.pictureBack,
-                                                EnumWhichSideOfCard.EnumFrontside) ''Added 10/14/2019 td
+                            intLeft_Text, intTop_Text,
+                            intWidth_Text, intHeight_Text,
+                            obj_designForm.pictureBack,
+                            EnumWhichSideOfCard.EnumFrontside) ''Added 10/14/2019 td
 
             pref_section = 24 ''Added 11/27/2019 td
 
