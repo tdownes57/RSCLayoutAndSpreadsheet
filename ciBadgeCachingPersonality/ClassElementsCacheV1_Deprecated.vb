@@ -155,7 +155,9 @@ Namespace ciBadgeCachePersonality
             bBackside = (par_enum = EnumWhichSideOfCard.EnumBackside)
 
             If (bBackside) Then
-
+                ''
+                ''Back side of card. 
+                ''
                 objSide.BackgroundImage = Me.GetBackgroundImage(par_enum)
                 ''Jan13 2022''objSide.ElementPic = Me.ListOfElementPics_Back().FirstOrDefault()
                 objSide.ElementPortrait = Me.ListOfElementPics_Back().FirstOrDefault()
@@ -164,8 +166,8 @@ Namespace ciBadgeCachePersonality
                 objSide.ElementSignature = Me.ListOfElementSignatures_Back().FirstOrDefault() ''Jan16 2022 td''Me.ElementSig_RefCopy
 
                 ''Added 1/17/2022 td
-                If (objSide.ElementQRCode Is Nothing) Then Me.ElementQR_RefCopy = Nothing
-                If (objSide.ElementSignature Is Nothing) Then Me.ElementSig_RefCopy = Nothing
+                ''If (objSide.ElementQRCode Is Nothing) Then Me.ElementQR_RefCopy = Nothing
+                ''If (objSide.ElementSignature Is Nothing) Then Me.ElementSig_RefCopy = Nothing
 
                 objSide.ListElementFields = Me.ListOfElementFields_Backside
                 objSide.ListElementGraphics = Nothing
@@ -185,15 +187,15 @@ Namespace ciBadgeCachePersonality
                 ''  toward the new cache property of ListOfElementQRCodes_Back.
                 ''We are looking for the non-null object, if it exists. 
                 ''========================================================================
-                Dim boolBacksideQR As Boolean = ((Me.ElementQR_RefCopy IsNot Nothing) AndAlso
-                    Me.ElementQR_RefCopy.WhichSideOfCard = EnumWhichSideOfCard.EnumBackside)
-
-                If boolBacksideQR Then
-                    objSide.ElementQRCode = Me.ElementQR_RefCopy
-                ElseIf (Me.ElementQR_RefCopy Is Nothing) Then
-                    Me.ElementQR_RefCopy = Me.ListOfElementQRCodes_Back.FirstOrDefault()
-                    objSide.ElementQRCode = Me.ElementQR_RefCopy
-                End If
+                ''Dim boolBacksideQR As Boolean = ((Me.ElementQR_RefCopy IsNot Nothing) AndAlso
+                ''    Me.ElementQR_RefCopy.WhichSideOfCard = EnumWhichSideOfCard.EnumBackside)
+                ''
+                ''If boolBacksideQR Then
+                ''    objSide.ElementQRCode = Me.ElementQR_RefCopy
+                ''ElseIf (Me.ElementQR_RefCopy Is Nothing) Then
+                ''    Me.ElementQR_RefCopy = Me.ListOfElementQRCodes_Back.FirstOrDefault()
+                ''    objSide.ElementQRCode = Me.ElementQR_RefCopy
+                ''End If
 
                 ''Added 1/14/2022 thomas
                 ''========================================================================
@@ -204,17 +206,20 @@ Namespace ciBadgeCachePersonality
                 ''  toward the new cache property of ListOfElementSignatures_Back.
                 ''We are looking for the non-null object, if it exists.  ---1/14/2022 td
                 ''========================================================================
-                Dim boolBacksideSig As Boolean = ((Me.ElementSig_RefCopy IsNot Nothing) AndAlso
-                    Me.ElementSig_RefCopy.WhichSideOfCard = EnumWhichSideOfCard.EnumBackside)
-
-                If (boolBacksideSig) Then
-                    objSide.ElementSignature = Me.ElementSig_RefCopy
-                ElseIf (Me.ElementSig_RefCopy Is Nothing) Then
-                    Me.ElementSig_RefCopy = Me.ListOfElementSignatures_Back.FirstOrDefault()
-                    objSide.ElementSignature = Me.ElementSig_RefCopy
-                End If
+                ''Dim boolBacksideSig As Boolean = ((Me.ElementSig_RefCopy IsNot Nothing) AndAlso
+                ''    Me.ElementSig_RefCopy.WhichSideOfCard = EnumWhichSideOfCard.EnumBackside)
+                ''
+                ''If (boolBacksideSig) Then
+                ''    objSide.ElementSignature = Me.ElementSig_RefCopy
+                ''ElseIf (Me.ElementSig_RefCopy Is Nothing) Then
+                ''    Me.ElementSig_RefCopy = Me.ListOfElementSignatures_Back.FirstOrDefault()
+                ''    objSide.ElementSignature = Me.ElementSig_RefCopy
+                ''End If
 
             Else
+                ''
+                ''Front side of card. 
+                ''
                 objSide.BackgroundImage = Me.GetBackgroundImage(par_enum)
                 ''Jan13 2022 ''objSide.ElementPic = Me.ListOfElementPics_Front().FirstOrDefault()
                 objSide.ElementPortrait = Me.ListOfElementPics_Front().FirstOrDefault()
@@ -242,15 +247,15 @@ Namespace ciBadgeCachePersonality
                 ''We are looking for the non-null object, if it exists. 
                 ''Please note, the use of the <> unequals operator.   Added 1/14/2022 thomas
                 ''========================================================================
-                Dim boolFrontsideQR As Boolean = (Me.ElementQR_RefCopy IsNot Nothing AndAlso
-                    Me.ElementQR_RefCopy.WhichSideOfCard <> EnumWhichSideOfCard.EnumBackside)
-
-                If boolFrontsideQR Then
-                    objSide.ElementQRCode = Me.ElementQR_RefCopy
-                ElseIf (Me.ElementQR_RefCopy Is Nothing) Then
-                    Me.ElementQR_RefCopy = Me.ListOfElementQRCodes_Front.FirstOrDefault()
-                    objSide.ElementQRCode = Me.ElementQR_RefCopy
-                End If
+                ''Dim boolFrontsideQR As Boolean = (Me.ElementQR_RefCopy IsNot Nothing AndAlso
+                ''    Me.ElementQR_RefCopy.WhichSideOfCard <> EnumWhichSideOfCard.EnumBackside)
+                ''
+                ''If boolFrontsideQR Then
+                ''    objSide.ElementQRCode = Me.ElementQR_RefCopy
+                ''ElseIf (Me.ElementQR_RefCopy Is Nothing) Then
+                ''    Me.ElementQR_RefCopy = Me.ListOfElementQRCodes_Front.FirstOrDefault()
+                ''    objSide.ElementQRCode = Me.ElementQR_RefCopy
+                ''End If
 
                 ''========================================================================
                 ''Signature 
@@ -261,15 +266,15 @@ Namespace ciBadgeCachePersonality
                 ''We are looking for the non-null object, if it exists.  ---1/14/2022 td
                 ''Please note, the use of the <> unequals operator.  ---1/14/2022 thomas
                 ''========================================================================
-                Dim boolFrontsideSig As Boolean = (Me.ElementSig_RefCopy IsNot Nothing AndAlso
-                    Me.ElementSig_RefCopy.WhichSideOfCard <> EnumWhichSideOfCard.EnumBackside)
-
-                If (boolFrontsideSig) Then
-                    objSide.ElementSignature = Me.ElementSig_RefCopy
-                ElseIf (Me.ElementSig_RefCopy Is Nothing) Then
-                    Me.ElementSig_RefCopy = Me.ListOfElementSignatures_Front.FirstOrDefault()
-                    objSide.ElementSignature = Me.ElementSig_RefCopy
-                End If
+                ''Dim boolFrontsideSig As Boolean = (Me.ElementSig_RefCopy IsNot Nothing AndAlso
+                ''    Me.ElementSig_RefCopy.WhichSideOfCard <> EnumWhichSideOfCard.EnumBackside)
+                ''
+                ''If (boolFrontsideSig) Then
+                ''    objSide.ElementSignature = Me.ElementSig_RefCopy
+                ''ElseIf (Me.ElementSig_RefCopy Is Nothing) Then
+                ''    Me.ElementSig_RefCopy = Me.ListOfElementSignatures_Front.FirstOrDefault()
+                ''    objSide.ElementSignature = Me.ElementSig_RefCopy
+                ''End If
 
             End If ''End of "If (bBackside) Then ... Else ..."
 
@@ -1188,7 +1193,11 @@ Namespace ciBadgeCachePersonality
 
         End Sub ''ENd of "Public Sub LoadFieldElements(par_pictureBackground As Image)"
 
-        Public Sub LoadElement_Pic(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)
+
+        Public Sub LoadNewElement_Pic(par_intLeft As Integer, par_intTop As Integer,
+                                   par_intWidth As Integer, par_intHeight As Integer,
+                                   par_pictureBackground As PictureBox,
+                                      par_enum As EnumWhichSideOfCard)
             ''10/10/2019 td''Public Sub LoadPicElement(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)
             '' 
             ''Added 9/16/2019 td  
@@ -1210,11 +1219,26 @@ Namespace ciBadgeCachePersonality
 
             objElementPic.PicFileIndex = 1
 
-            mod_listElementPics_Front.Add(objElementPic)
+            ''1/19/2022 td''mod_listElementPics_Front.Add(objElementPic)
+            ''
+            ''Add the new element to the appropriate list in the cache. ---1/19/2022 
+            ''
+            If (par_enum = EnumWhichSideOfCard.EnumBackside) Then
+
+                ListOfElementPics_Back.Add(objElementPic)
+
+            Else
+                ListOfElementPics_Front.Add(objElementPic)
+
+            End If ''Endof "If (par_enum = EnumWhichSideOfCard.EnumBackside) Then... Else ..."
 
         End Sub ''End of "Public Sub LoadElement_Pic(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)"
 
-        Public Sub LoadElement_QRCode(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)
+
+        Public Sub LoadNewElement_QRCode(par_intLeft As Integer, par_intTop As Integer,
+                                      par_intWidth As Integer, par_intHeight As Integer,
+                                      par_pictureBackground As PictureBox,
+                                      par_enum As EnumWhichSideOfCard)
             ''
             ''Added 10/10/2019 td  
             ''
@@ -1236,11 +1260,27 @@ Namespace ciBadgeCachePersonality
             ''10/10/2019 td''objElementQR.PicFileIndex = 1
             ''10/10/2019 td''mod_listElementPics.Add(objElementPic)
 
-            Me.ElementQR_RefCopy = objElementQR
+            ''No longer needed.1/19/2022''Me.ElementQR_RefCopy = objElementQR
+
+            ''
+            ''Add the new element to the appropriate list in the cache. ---1/19/2022 
+            ''
+            If (par_enum = EnumWhichSideOfCard.EnumBackside) Then
+
+                ListOfElementQRCodes_Back.Add(objElementQR)
+
+            Else
+                ListOfElementQRCodes_Front.Add(objElementQR)
+
+            End If ''Endof "If (par_enum = EnumWhichSideOfCard.EnumBackside) Then... Else ..."
 
         End Sub ''End of "Public Sub LoadElement_QRCode(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)"
 
-        Public Sub LoadElement_Signature(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)
+
+        Public Sub LoadNewElement_Signature(par_intLeft As Integer, par_intTop As Integer,
+                                         par_intWidth As Integer, par_intHeight As Integer,
+                                         par_pictureBackground As PictureBox,
+                                         par_enum As EnumWhichSideOfCard)
             ''
             ''Added 10/10/2019 td  
             ''
@@ -1257,12 +1297,25 @@ Namespace ciBadgeCachePersonality
             objRectangle = New Rectangle(intLeft, intTop, par_intWidth, par_intHeight)
             objElementSig = New ClassElementSignature(objRectangle, par_pictureBackground)
 
-            Me.ElementSig_RefCopy = objElementSig
+            ''No longer needed.1/19/2022''Me.ElementSig_RefCopy = objElementSig
+
+            ''
+            ''Add the new element to the appropriate list in the cache. ---1/19/2022 
+            ''
+            If (par_enum = EnumWhichSideOfCard.EnumBackside) Then
+                ListOfElementSignatures_Back.Add(objElementSig)
+
+            Else
+                ListOfElementSignatures_Front.Add(objElementSig)
+
+            End If ''Endof "If (par_enum = EnumWhichSideOfCard.EnumBackside) Then... Else ..."
 
         End Sub ''End of "Public Sub LoadElement_Signature(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)"
 
 
-        Public Sub LoadElement_Portrait(par_picturePortrait As PictureBox, par_pictureBackground As PictureBox)
+        Public Sub LoadNewElement_Portrait(par_picturePortrait As PictureBox,
+                                           par_pictureBackground As PictureBox,
+                                           par_enum As EnumWhichSideOfCard)
             ''10/8/2019 td''Public Sub LoadPicElement(par_picturePortrait As PictureBox, par_pictureBackground As PictureBox)
             ''
             ''Added 9/16/2019 td  
@@ -1283,11 +1336,19 @@ Namespace ciBadgeCachePersonality
 
             objElementPic.PicFileIndex = 1
 
-            mod_listElementPics_Front.Add(objElementPic)
+            If (par_enum = EnumWhichSideOfCard.EnumBackside) Then
+                ''Added 1/19/2022 td
+                mod_listElementPics_Backside.Add(objElementPic)
+            Else
+                mod_listElementPics_Front.Add(objElementPic)
+            End If
 
-        End Sub ''End of "Public Sub LoadElement_Portrait(par_picturePortrait As PictureBox, par_pictureBackground As PictureBox)"
+        End Sub ''End of "Public Sub LoadNewElement_Portrait(par_picturePortrait As PictureBox, par_pictureBackground As PictureBox)"
 
-        Public Sub LoadElement_Signature(par_picSignature As PictureBox, par_pictureBackground As PictureBox)
+
+        Public Sub LoadNewElement_Signature(par_picSignature As PictureBox,
+                                            par_pictureBackground As PictureBox,
+                                            par_enum As EnumWhichSideOfCard)
             ''
             ''Added 10/8/2019 & 9/16/2019 td  
             ''
@@ -1308,11 +1369,24 @@ Namespace ciBadgeCachePersonality
             objElementSig.SigFileIndex = 1
 
             ''10/8/2019 td''mod_listElementPics.Add(objElementPic)
-            Me.ElementSig_RefCopy = objElementSig
+            ''No longer needed.1/19/2022''Me.ElementSig_RefCopy = objElementSig
 
-        End Sub ''End of "Public Sub LoadElement_Signature(par_picSignature As PictureBox, par_pictureBackground As PictureBox)"
+            ''
+            ''Add the new element to the appropriate list in the cache. ---1/19/2022 
+            ''
+            If (par_enum = EnumWhichSideOfCard.EnumBackside) Then
+                ListOfElementSignatures_Back.Add(objElementSig)
 
-        Public Sub LoadElement_QRCode(par_picQRCode As PictureBox, par_pictureBackground As PictureBox)
+            Else
+                ListOfElementSignatures_Front.Add(objElementSig)
+
+            End If ''Endof "If (par_enum = EnumWhichSideOfCard.EnumBackside) Then... Else ..."
+
+        End Sub ''End of "Public Sub LoadNewElement_Signature(par_picSignature As PictureBox, par_pictureBackground As PictureBox)"
+
+
+        Public Sub LoadNewElement_QRCode(par_picQRCode As PictureBox, par_pictureBackground As PictureBox,
+                                         par_enum As EnumWhichSideOfCard)
             ''
             ''Added 10/8/2019 & 9/16/2019 td  
             ''
@@ -1333,14 +1407,31 @@ Namespace ciBadgeCachePersonality
             ''10/8/2019 td''objElementQR.SigFileIndex = 1
 
             ''10/8/2019 td''mod_listElementPics.Add(objElementPic)
-            Me.ElementQR_RefCopy = objElementQR
+            ''No longer needed.1/19/2022''Me.ElementQR_RefCopy = objElementQR
 
-        End Sub ''End of "Public Sub LoadElement_QRCode(par_picQRCode As PictureBox, par_pictureBackground As PictureBox)"
+            ''
+            ''Add the new element to the appropriate list in the cache. ---1/19/2022 
+            ''
+            If (par_enum = EnumWhichSideOfCard.EnumBackside) Then
 
-        Public Sub LoadElement_StaticText_IfNeeded(par_DisplayText As String,
+                ListOfElementQRCodes_Back.Add(objElementQR)
+
+            Else
+                ListOfElementQRCodes_Front.Add(objElementQR)
+
+            End If ''Endof "If (par_enum = EnumWhichSideOfCard.EnumBackside) Then... Else ..."
+
+
+        End Sub ''End of "Public Sub LoadNewElement_QRCode(par_picQRCode As PictureBox, par_pictureBackground As PictureBox)"
+
+
+        Public Sub LoadNewElement_StaticText(par_DisplayText As String,
                                     par_intLeft As Integer, par_intTop As Integer,
                                     par_intWidth As Integer, par_intHeight As Integer,
-                                    par_pictureBackground As PictureBox)
+                                    par_pictureBackground As PictureBox,
+                                    par_enum As EnumWhichSideOfCard,
+                                    Optional pbOnlyIfMissingFrontAndBack As Boolean = False)
+            ''---Jan19 2022---LoadNewElement_StaticText_IfNeeded
             ''---Dec17 2021---Public Sub LoadElement_Text
             ''
             ''Added 10/10/2019 td  
@@ -1352,13 +1443,18 @@ Namespace ciBadgeCachePersonality
             Dim bMissingBack As Boolean ''Added 12/17/2021 td
             Dim bMissingFront As Boolean ''Added 12/17/2021 td
             Dim bMissingBackAndFront As Boolean ''Added 12/17/2021 td
+            Dim bProceedWithMakingNew As Boolean ''Added 1/19/2021 td
 
             ''Added 12/17/2021 td
             bMissingFront = (0 = mod_listElementStatics_Front.Count)
             bMissingBack = (0 = mod_listElementStatics_Backside.Count)
             bMissingBackAndFront = (bMissingFront And bMissingBack)
 
-            If bMissingBackAndFront Then ''Added 12/17/2021 td 
+            ''Added 1/19/2022 td
+            bProceedWithMakingNew = (bMissingBackAndFront Or (Not pbOnlyIfMissingFrontAndBack))
+
+            ''Jan19 2022''If bMissingBackAndFront Then ''Added 12/17/2021 td 
+            If bProceedWithMakingNew Then ''Added 12/17/2021 td 
 
                 intLeft = (par_intLeft - par_pictureBackground.Left)
                 intTop = (par_intTop - par_pictureBackground.Top)
@@ -1367,11 +1463,17 @@ Namespace ciBadgeCachePersonality
 
                 objElementText = New ClassElementStaticText(par_DisplayText, intLeft, intTop, par_intHeight)
 
-                mod_listElementStatics_Front.Add(objElementText)
+                If (par_enum = EnumWhichSideOfCard.EnumBackside) Then
+                    mod_listElementStatics_Backside.Add(objElementText)
+                Else
+                    mod_listElementStatics_Front.Add(objElementText)
+                End If
 
-            End If ''end of "If (0 = mod_listElementStatics_Front.Count) Then"
+            End If ''end of "If bProceedWithMakingNew Then"
 
-        End Sub ''End of "Public Sub LoadElement_Text(par_DisplayText As String, par_intLeft As Integer, ...., par_pictureBackground As PictureBox)"
+
+        End Sub ''End of "Public Sub LoadNewElement_StaticText_IfNeeded(par_DisplayText As String, par_intLeft As Integer, ...., par_pictureBackground As PictureBox)"
+
 
         Public Sub LoadRecipient(par_recipient As ClassRecipient)
             ''10/16/2019 td''Public Sub LoadRecipient(par_recipient As IRecipient)
@@ -1520,8 +1622,31 @@ Namespace ciBadgeCachePersonality
             ''
             ''If the QR Code &/or Signature have been supplied, then we can proceed to copy them. 
             ''
-            If (Me.ElementQR_RefCopy IsNot Nothing) Then objCopyOfCache.ElementQR_RefCopy = Me.ElementQR_RefCopy.Copy
-            If (Me.ElementSig_RefCopy IsNot Nothing) Then objCopyOfCache.ElementSig_RefCopy = Me.ElementSig_RefCopy.Copy
+            ''Jan19 2022 td''If (Me.ElementQR_RefCopy IsNot Nothing) Then objCopyOfCache.ElementQR_RefCopy = Me.ElementQR_RefCopy.Copy
+
+            ''Added 1/19/2022 thomas downes  
+            For Each each_elementQRCode As ClassElementQRCode In mod_listElementQRCodes_Front
+                objCopyOfCache.ListOfElementQRCodes_Front().Add(each_elementQRCode.Copy())
+            Next each_elementQRCode
+
+            ''Added 1/19/2022 thomas downes  
+            For Each each_elementQRCode As ClassElementQRCode In mod_listElementQRCodes_Backside
+                objCopyOfCache.ListOfElementQRCodes_Back().Add(each_elementQRCode.Copy())
+            Next each_elementQRCode
+
+            ''Added 10/8/2019 thomas downes
+            ''Jan19 2022 td''If (Me.ElementSig_RefCopy IsNot Nothing) Then objCopyOfCache.ElementSig_RefCopy = Me.ElementSig_RefCopy.Copy
+
+            ''Added 1/19/2022 thomas downes  
+            For Each each_elementSig As ClassElementSignature In mod_listElementSignatures_Front
+                objCopyOfCache.ListOfElementSignatures_Front().Add(each_elementSig.Copy())
+            Next each_elementSig
+
+            ''Added 1/19/2022 thomas downes  
+            For Each each_elementSig As ClassElementSignature In mod_listElementSignatures_Backside
+                objCopyOfCache.ListOfElementSignatures_Back().Add(each_elementSig.Copy())
+            Next each_elementSig
+
 
             ''Added 10/10/2019 thomas downes
             objCopyOfCache.PathToXml_Saved = Me.PathToXml_Saved
@@ -1694,13 +1819,18 @@ Namespace ciBadgeCachePersonality
 
         Public Function MissingTheQRCode() As Boolean
             ''Added 10/10/2019 td 
-            Return (Me.ElementQR_RefCopy Is Nothing)
+            ''1/19/2022''Return (Me.ElementQR_RefCopy Is Nothing)
+            Return (Me.GetElementQR(False) Is Nothing AndAlso
+                     Me.GetElementQR(True) Is Nothing)
 
         End Function ''ENd of "Public Function MissingTheQRCode() As Boolean"
 
         Public Function MissingTheSignature() As Boolean
+
             ''Added 10/10/2019 td 
-            Return (Me.ElementSig_RefCopy Is Nothing)
+            ''1/19/2022 td''Return (Me.ElementSig_RefCopy Is Nothing)
+            Return (Me.GetElementSig(False) Is Nothing AndAlso
+                     Me.GetElementSig(True) Is Nothing)
 
         End Function ''ENd of "Public Function MissingTheSignature() As Boolean"
 
@@ -2195,18 +2325,21 @@ Namespace ciBadgeCachePersonality
 
                 ''10/10/2019 td''Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
                 ''10/13/2019 td''Me.ElementsCache_Saved.LoadElement_Pic(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
-                obj_cache_elements.LoadElement_Pic(intPicLeft, intPicTop, intPicWidth, intPicHeight,
-                                               obj_designForm.pictureBack) ''Added 9/19/2019 td
+                obj_cache_elements.LoadNewElement_Pic(intPicLeft, intPicTop, intPicWidth, intPicHeight,
+                                               obj_designForm.pictureBack,
+                                                EnumWhichSideOfCard.EnumFrontside) ''Added 9/19/2019 td
 
                 pref_section = 20 ''Added 11/27/2019 td
                 ''Added 10/14/2019 thomas d. 
-                obj_cache_elements.LoadElement_QRCode(intLeft_QR, intTop_QR, intWidth_QR, intHeight_QR,
-                                               obj_designForm.pictureBack) ''Added 10/14/2019 td
+                obj_cache_elements.LoadNewElement_QRCode(intLeft_QR, intTop_QR, intWidth_QR, intHeight_QR,
+                                               obj_designForm.pictureBack,
+                                                EnumWhichSideOfCard.EnumFrontside) ''Added 10/14/2019 td
 
                 pref_section = 21 ''Added 11/27/2019 td
                 ''Added 10/14/2019 thomas d. 
-                obj_cache_elements.LoadElement_Signature(intLeft_Sig, intTop_Sig, intWidth_Sig, intHeight_Sig,
-                                               obj_designForm.pictureBack) ''Added 10/14/2019 td
+                obj_cache_elements.LoadNewElement_Signature(intLeft_Sig, intTop_Sig, intWidth_Sig, intHeight_Sig,
+                                               obj_designForm.pictureBack,
+                                                EnumWhichSideOfCard.EnumFrontside) ''Added 10/14/2019 td
 
                 pref_section = 22 ''Added 11/27/2019 td
 
@@ -2215,10 +2348,12 @@ Namespace ciBadgeCachePersonality
             pref_section = 23 ''Added 11/27/2019 td
             ''Added 10/14/2019 thomas d. 
             ''Dec17 2021 td''obj_cache_elements.LoadElement_Text(strStaticText,
-            obj_cache_elements.LoadElement_StaticText_IfNeeded(strStaticText,
+            ''Jan19 2022 td''obj_cache_elements.LoadNewElement_StaticText_IfNeeded(strStaticText,
+            obj_cache_elements.LoadNewElement_StaticText(strStaticText,
                                                 intLeft_Text, intTop_Text,
                                                 intWidth_Text, intHeight_Text,
-                                               obj_designForm.pictureBack) ''Added 10/14/2019 td
+                                               obj_designForm.pictureBack,
+                                                EnumWhichSideOfCard.EnumFrontside) ''Added 10/14/2019 td
 
             pref_section = 24 ''Added 11/27/2019 td
 
