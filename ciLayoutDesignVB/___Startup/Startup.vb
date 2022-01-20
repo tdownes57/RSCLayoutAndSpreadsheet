@@ -739,14 +739,15 @@ Public Class Startup
                                                      intWidth_Signature, intHeight_Signature,
                                                par_designForm.pictureBackgroundFront) ''Added 10/14/2019 td
 
-        End If ''End of "If (pboolNewFileXML) Then"
-
-        ''Added 10/14/2019 thomas d. 
-        ''Jan19 2022''obj_cache_elements.LoadElement_StaticText_IfNeeded(strStaticText,
-        obj_cache_elements.LoadNewElement_StaticText(strStaticText,
+            ''Added 10/14/2019 thomas d. 
+            ''Jan19 2022''obj_cache_elements.LoadElement_StaticText_IfNeeded(strStaticText,
+            strStaticText = "This is the same text for everyone."
+            obj_cache_elements.LoadNewElement_StaticText(strStaticText,
                                                 intLeft_StaticText, intTop_StaticText,
                                                 intWidth_StaticText, intHeight_StaticText,
                                                par_designForm.pictureBackgroundFront) ''Added 10/14/2019 td
+
+        End If ''End of "If (pboolNewFileXML) Then"
 
         ''Added 9/24/2019 thomas 
         ''Was just for testing. ---10/10/2019 td''Dim serial_tools As New ciBadgeSerialize.ClassSerial

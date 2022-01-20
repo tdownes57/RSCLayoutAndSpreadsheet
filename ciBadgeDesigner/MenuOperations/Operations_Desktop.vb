@@ -25,6 +25,8 @@ Public Class Operations_Desktop
     Public DesignerClass As ClassDesigner ''Added 1/18/2022 td
     ''Not needed. 1/18/2022 td''Public InfoRefreshPreview As IRefreshPreview ''Added 1/18/2022 td
 
+    Private mod_dialogFile As New System.Windows.Forms.OpenFileDialog ''Added 1/19/2022 td
+
     Public Sub Create_New_StaticText_Control_GD2001(sender As Object, e As MouseEventArgs)
         ''
         ''Added 1/16/2022 thomas downes  
@@ -36,15 +38,18 @@ Public Class Operations_Desktop
         Dim objElementStaticText As ciBadgeElements.ClassElementStaticText
         Dim objElementControl As CtlGraphicStaticText
         Dim intHeightOfRSC As Integer
+        Dim objSizeOfRSC As System.Drawing.Size ''Added 1/19/2022
         Dim obj_parametersGetElementControl As ClassGetElementControlParams ''Added 1/18/2022
 
         ''oCacheManager = Me.ParentDesignerForm.ElementsCache_PathToXML
         infoDesignerForm = Me.ParentDesignerForm
 
-        intHeightOfRSC = infoDesignerForm.HeightAnyRSCMoveableControl()
-        If (intHeightOfRSC = 0) Then
-            intHeightOfRSC = 24 ''A default height.  I checked  
-        End If ''End of "If (intHeightOfRSC = 0) Then"
+        ''intHeightOfRSC = infoDesignerForm.HeightAnyRSCMoveableControl()
+        ''If (intHeightOfRSC = 0) Then
+        ''    intHeightOfRSC = 24 ''A default height.  I checked  
+        ''End If ''End of "If (intHeightOfRSC = 0) Then"
+        objSizeOfRSC = infoDesignerForm.SizeAnyRSCMoveableControl()
+        intHeightOfRSC = objSizeOfRSC.Height
 
         ''objElementStaticText = New ClassElementStaticText("New StaticText...", e.X, e.Y, 25)
         objElementStaticText = New ClassElementStaticText("New StaticText...", e.X, e.Y, intHeightOfRSC)
@@ -107,10 +112,85 @@ Public Class Operations_Desktop
 
     Public Sub Create_New_Graphic_Control_GD2002(sender As Object, e As MouseEventArgs)
         ''
-        ''Added 1/16/2022 thomas downes  
+        ''Added 1/19/2022 thomas downes  
         ''
+        Dim infoDesignerForm As IDesignerForm
+        Dim objElementStaticGraphic As ciBadgeElements.ClassElementGraphic
+        Dim objElementControl As CtlGraphicStaticGraphic
+        ''Jan19 2022''Dim intHeightOfRSC As Integer
+        ''Jan19 2022''Dim intWidthOfRSC As Integer
+        Dim obj_parametersGetElementControl As ClassGetElementControlParams
+        Dim objSize As System.Drawing.Size
+        Dim objRect As System.Drawing.Rectangle
 
-    End Sub
+        infoDesignerForm = Me.ParentDesignerForm
+        ''Jan19 2022''intHeightOfRSC = infoDesignerForm.HeightAnyRSCMoveableControl()
+        ''Jan19 2022''intWidthOfRSC = infoDesignerForm.WidthAnyRSCMoveableControl()
+        objSize = infoDesignerForm.SizeAnyRSCMoveableControl()
+
+        ''Jan19 2022''If (intHeightOfRSC = 0) Then
+        ''Jan19 2022''   intHeightOfRSC = 24 ''A default height.  I checked  
+        ''Jan19 2022''End If ''End of "If (intHeightOfRSC = 0) Then"
+
+        ''Jan19 2022''If (intWidthOfRSC = 0) Then
+        ''Jan19 2022''   intWidthOfRSC = 24 ''A default height.  I checked  
+        ''Jan19 2022''End If ''End of "If (intWidthOfRSC = 0) Then"
+
+        ''Jan19 2022''objRect = New System.Drawing.Rectangle(e.X, e.Y, intWidthOfRSC, intHeightOfRSC)
+        objRect = New System.Drawing.Rectangle(e.X, e.Y, objSize.Width, objSize.Height)
+
+        objElementStaticGraphic = New ClassElementGraphic(objRect,
+                                                          Me.DesignerClass.BackgroundBox_Front)
+        obj_parametersGetElementControl = DesignerClass.GetParametersToGetElementControl()
+
+        objElementStaticGraphic.Visible = True
+
+        With obj_parametersGetElementControl
+            ''
+            ''Next, apply the new element to the Backside or the Front, depending. 
+            ''
+            Dim bCardBackside As Boolean ''Added 1/18/2022 thomas d.
+            bCardBackside = (Me.DesignerClass.EnumSideOfCard_Current =
+                EnumWhichSideOfCard.EnumBackside)
+
+            If (bCardBackside) Then
+                ''Backside of ID Card. 
+                With .ElementsCacheManager.CacheForEditing
+                    .ListOfElementGraphics_Backside.Add(objElementStaticGraphic)
+                End With
+            Else
+                ''Front of ID Card. 
+                With .ElementsCacheManager.CacheForEditing
+                    .ListOfElementGraphics_Front.Add(objElementStaticGraphic)
+                End With
+            End If ''End of "If (bCardBackside) Then ... Else ... "
+
+            ''
+            ''Next, create the control which will display the Element-StaticText.   
+            ''
+            objElementControl = CtlGraphicStaticGraphic.GetStaticGraphic(obj_parametersGetElementControl,
+                                    objElementStaticGraphic,
+                                    MyBase.ParentForm,
+                                    "CtlGraphicStaticGraphic",
+                                    DesignerClass, True,
+                                    .iControlLastTouched,
+                                    .oMoveEventsGroupedControls)
+
+            ''
+            ''Next, refresh/initiate the control (e.g. size & location & image).  
+            ''
+            ''Not needed, redundant. 1/18/2022 td''objElementControl.Refresh_Image(True)
+            objElementControl.Refresh_Master()
+
+            ''
+            ''Next, display the control.  ----1/18/2022 td
+            ''
+            MyBase.ParentForm.Controls.Add(objElementControl)
+            objElementControl.Visible = True
+
+        End With ''End of "With obj_parametersGetElementControl"
+
+    End Sub ''End of "Public Sub Create_New_StaticText_Control_GD2001(sender As Object, e As MouseEventArgs)"
 
 
 End Class

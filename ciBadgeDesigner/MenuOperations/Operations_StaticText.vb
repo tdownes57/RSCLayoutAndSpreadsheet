@@ -16,6 +16,7 @@ Public Class Operations_StaticText
 
     ''Jan8 2022 td''Public Property CtlCurrentElement As ciBadgeDesigner.CtlGraphicStaticText ''CtlGraphicFldLabel
     ''Jan17 2022 ''Public Property CtlCurrentElement As RSCMoveableControlVB Implements ICurrentElement.CtlCurrentElement
+    Public Property CtlCurrentElementStaticText As ciBadgeDesigner.CtlGraphicStaticText
 
     ''
     ''Added 12/12/2021 td
@@ -82,21 +83,23 @@ Public Class Operations_StaticText
 
         MessageBox.Show(strMessageToUser, "994938", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-    End Sub ''End of "Private Sub GiveSizeInfo_Field(sender As Object, e As EventArgs)"
+    End Sub ''End of "Private Sub GiveSizeInfo_Field_EST1000(sender As Object, e As EventArgs)"
 
 
-    Public Sub OpenDialog_Color_EST1001(sender As Object, e As EventArgs)
+    Public Sub Open_Dialog_For_Color_EST1001(sender As Object, e As EventArgs)
         ''
         ''Added 7/30/2019 thomas downes
         ''       ''
         ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
         ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
         ''
+        If (ColorDialog1 Is Nothing) Then ColorDialog1 = New ColorDialog
+
         ColorDialog1.ShowDialog()
 
         ''''7/30/2019 td''Me.ElementInfo.FontColor = ColorDialog1.Color
         ''''8/29/2019 td''Me.ElementInfo.BackColor = ColorDialog1.Color
-        ''Me.ElementInfo_Base.Back_Color = ColorDialog1.Color
+        Me.ElementInfo_Base.Back_Color = ColorDialog1.Color
 
         ''Me.ElementInfo_Base.Width_Pixels = Me.Width
         ''Me.ElementInfo_Base.Height_Pixels = Me.Height
@@ -104,28 +107,29 @@ Public Class Operations_StaticText
         ''Application.DoEvents()
         ''Application.DoEvents()
 
-        ''Refresh_Image(True)
-        ''Me.Refresh()
+        Refresh_Image(True)
+        Me.Refresh()
 
-    End Sub ''eNd of "Private Sub opendialog_Color()"
+    End Sub ''eNd of "Private Sub Open_Dialog_For_Color_EST1001()"
 
 
-    Public Sub OpenDialog_Font(sender As Object, e As EventArgs)
+    Public Sub Open_Dialog_For_Font_EE1012(sender As Object, e As EventArgs)
         ''
         ''Added 7/30/2019 thomas downes
         ''
-        ''FontDialog1.Font = Me.ElementInfo_TextOnly.Font_DrawingClass
-        ''FontDialog1.ShowDialog()
+        If (FontDialog1 Is Nothing) Then FontDialog1 = New FontDialog
+        FontDialog1.Font = Me.ElementInfo_TextOnly.Font_DrawingClass
+        FontDialog1.ShowDialog()
 
-        ''Me.ElementInfo_TextOnly.Font_DrawingClass = FontDialog1.Font
+        Me.ElementInfo_TextOnly.Font_DrawingClass = FontDialog1.Font
 
-        ''Application.DoEvents()
-        ''Application.DoEvents()
+        Application.DoEvents()
+        Application.DoEvents()
 
-        ''Refresh_Image(True)
-        ''Me.Refresh()
+        Refresh_Image(True)
+        Me.Refresh()
 
-    End Sub ''eNd of "Private Sub opendialog_Color()"
+    End Sub ''eNd of "Private Sub Open_Dialog_For_Font()"
 
 
     Public Sub Enable_DragAndDrop_EE1012(sender As Object, e As EventArgs)

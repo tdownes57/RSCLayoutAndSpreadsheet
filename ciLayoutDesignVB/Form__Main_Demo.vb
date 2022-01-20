@@ -2540,7 +2540,8 @@ ExitHandler:
     End Sub ''ENd of "Private Sub DisplayStringDataInNotepad()"
 
 
-    Public Function HeightAnyRSCMoveableControl() As Integer Implements IDesignerForm.HeightAnyRSCMoveableControl
+    Public Function SizeAnyRSCMoveableControl() As Size Implements IDesignerForm.SizeAnyRSCMoveableControl
+        ''Jan19 2022''Public Function HeightAnyRSCMoveableControl() As Size Implements IDesignerForm.SizeAnyRSCMoveableControl
         ''
         ''Added 1/18/2022 thomas d.
         ''
@@ -2549,7 +2550,7 @@ ExitHandler:
             ''--If (TypeOf each_control Then '' Is __RSCWindowsControlLibrary) Then
             Try
                 each_RSC = CType(each_control, __RSCWindowsControlLibrary.RSCMoveableControlVB)
-                Return each_RSC.Height
+                ''Return each_RSC.Height
             Catch
             End Try
             ''--End If

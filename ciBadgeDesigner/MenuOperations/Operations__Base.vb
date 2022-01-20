@@ -15,6 +15,7 @@ Public Class Operations__Base
     Public Property ElementsCacheManager As ciBadgeCachePersonality.ClassCacheManagement Implements ICurrentElement.ElementsCacheManager
 
     Public Property NameOfClass As String ''Added 12/30/2021 td
+    Public Property ElementInfo_Base As IElement_Base ''Added 1/19/2022 thomas d. 
 
     Public Sub Move_To_Other_Side_Of_Badge_BA1001(sender As Object, e As EventArgs)
         ''
@@ -43,6 +44,17 @@ Public Class Operations__Base
 
     End Sub ''End of Public Sub Move_To_Other_Side_Of_Badge_BA1001
 
+
+    Public Sub Delete_Element_From_Badge_BA1019(sender As Object, e As EventArgs)
+        ''
+        ''Stubbed 1/19/2022 thomas downes
+        ''
+        ElementsCacheManager.DeleteElementFromCard(CtlCurrentElement.ElementInfo_Base)
+
+        MessageBoxTD.Show_Statement("For the change a visible effect, you will need to switch to the " &
+                                    "other side of the card.")
+
+    End Sub ''End of Public Sub Delete_Element_From_Badge_BA1001
 
     Public Sub How_Context_Menus_Are_Generated_EE9001(sender As Object, e As EventArgs)
         ''---Dec15 2021--Public Sub How_Context_Menus_Are_Generated_EE1001
