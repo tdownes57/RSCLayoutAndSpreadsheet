@@ -125,7 +125,7 @@ Public Class CtlGraphicStaticText
         End If ''end of "If (objOperations Is Nothing) Then"
 
         ''Added 12/2/2022 td
-        Dim enumElementType_Enum As EnumElementType = EnumElementType.StaticText
+        Dim enumElementType_Enum As EnumElementType = __RSCWindowsControlLibrary.EnumElementType.StaticText
 
         ''
         ''Create the control. 
@@ -175,6 +175,9 @@ Public Class CtlGraphicStaticText
         objOperationsST.CtlCurrentElement = CtlStaticText1
         objOperationsST.CtlCurrentElementStaticText = CtlStaticText1
         objOperationsST.ElementInfo_Base = par_elementStaticText
+        objOperationsST.ElementStaticText = par_elementStaticText
+        objOperationsST.ElementInfo_TextOnly = par_elementStaticText
+        objOperationsST.Element_Type = ciBadgeInterfaces.Enum_ElementType.StaticText
 
         Return CtlStaticText1
 

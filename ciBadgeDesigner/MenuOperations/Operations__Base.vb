@@ -16,6 +16,7 @@ Public Class Operations__Base
 
     Public Property NameOfClass As String ''Added 12/30/2021 td
     Public Property ElementInfo_Base As IElement_Base ''Added 1/19/2022 thomas d. 
+    Public Property Element_Type As Enum_ElementType ''Added 1/19/2022 td 
 
     Public Sub Move_To_Other_Side_Of_Badge_BA1001(sender As Object, e As EventArgs)
         ''
@@ -36,10 +37,10 @@ Public Class Operations__Base
         CtlCurrentElement.ElementInfo_Base.WhichSideOfCard = enumSwitchToSide
 
         ''Important call. 
-        ElementsCacheManager.SwitchElementToOtherSideOfCard(CtlCurrentElement.ElementInfo_Base)
+        ElementsCacheManager.SwitchElementToOtherSideOfCard(CtlCurrentElement.ElementInfo_Base, Me.Element_Type)
 
         ''Added 1/17/2022 td
-        MessageBoxTD.Show_Statement("For the change a visible effect, you will need to switch to the " &
+        MessageBoxTD.Show_Statement("For the change to have a visible effect, you will need to switch to the " &
                                     "other side of the card.")
 
     End Sub ''End of Public Sub Move_To_Other_Side_Of_Badge_BA1001
@@ -49,10 +50,9 @@ Public Class Operations__Base
         ''
         ''Stubbed 1/19/2022 thomas downes
         ''
-        ElementsCacheManager.DeleteElementFromCard(CtlCurrentElement.ElementInfo_Base)
+        ElementsCacheManager.DeleteElementFromCache(CtlCurrentElement.ElementInfo_Base, Me.Element_Type)
 
-        MessageBoxTD.Show_Statement("For the change a visible effect, you will need to switch to the " &
-                                    "other side of the card.")
+        MessageBoxTD.Show_Statement("For the change to have a visible effect, you will need to save & refresh.")
 
     End Sub ''End of Public Sub Delete_Element_From_Badge_BA1001
 
@@ -73,5 +73,6 @@ Public Class Operations__Base
         System.Diagnostics.Process.Start(strPathToNotesFileTXT)
 
     End Sub ''end of "Public Sub How_Context_Menus_Are_Generated_EE1002(sender As Object, e As EventArgs)"
+
 
 End Class

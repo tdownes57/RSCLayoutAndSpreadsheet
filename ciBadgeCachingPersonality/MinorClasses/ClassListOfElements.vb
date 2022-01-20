@@ -2,6 +2,7 @@
 ''Added 1/19/2022 thomas downes
 ''
 Imports ciBadgeInterfaces
+Imports ciBadgeElements ''Added 1/19/2022 td
 
 Public MustInherit Class ClassListOfElements
     ''
@@ -16,6 +17,43 @@ Public MustInherit Class ClassListOfElements
     Public Shared ClassList_QRCodes As New ClassListOfElements_QRCodes
     Public Shared ClassList_Signatures As New ClassListOfElements_Signatures
     Public Shared ClassList_StaticTexts As New ClassListOfElements_StaticTexts
+
+    Public Shared Sub Load_AllLists(par_listFF As List(Of ClassElementField),
+                                    par_listFB As List(Of ClassElementField),
+                                    par_listGF As List(Of ClassElementGraphic),
+                                    par_listGB As List(Of ClassElementGraphic),
+                                    par_listPF As List(Of ClassElementPortrait),
+                                    par_listPB As List(Of ClassElementPortrait),
+                                    par_listQF As List(Of ClassElementQRCode),
+                                    par_listQB As List(Of ClassElementQRCode),
+                                    par_listSiF As List(Of ClassElementSignature),
+                                    par_listSiB As List(Of ClassElementSignature),
+                                    par_listStF As List(Of ClassElementStaticText),
+                                    par_listStB As List(Of ClassElementStaticText))
+        ''
+        ''Added 1/19/2022 td
+        ''
+        ClassList_Fields.ListOfElements_Backside = par_listFB
+        ClassList_Fields.ListOfElements_Front = par_listFF
+
+        ClassList_Graphics.ListOfElements_Backside = par_listGB
+        ClassList_Graphics.ListOfElements_Front = par_listGF
+
+        ClassList_Portraits.ListOfElements_Backside = par_listPB
+        ClassList_Portraits.ListOfElements_Front = par_listPF
+
+        ClassList_QRCodes.ListOfElements_Backside = par_listQB
+        ClassList_QRCodes.ListOfElements_Front = par_listQF
+
+        ClassList_Signatures.ListOfElements_Backside = par_listSiB
+        ClassList_Signatures.ListOfElements_Front = par_listSiF
+
+        ClassList_StaticTexts.ListOfElements_Backside = par_listStB
+        ClassList_StaticTexts.ListOfElements_Front = par_listStF
+
+
+    End Sub
+
 
     Public Shared Function GetListOfElements(par_enum As Enum_ElementType) As ClassListOfElements
         ''

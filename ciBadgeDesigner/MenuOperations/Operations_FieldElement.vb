@@ -54,12 +54,13 @@ Public Class Operations_FieldElement
     Public Property CacheOfFieldsEtc_Deprecated As ciBadgeCachePersonality.ClassElementsCache_Deprecated
 
     Private mod_fauxMenuEditSingleton As CtlGraphPopMenuEditSingle ''Added 10/3/2019 td 
+    Private Const mod_enumElementType As Enum_ElementType = Enum_ElementType.Field ''Added 1/19/2022 td 
 
     ''Names of procedures in this module: 
     ''  Public Sub Open_Field_Of_Element_EE1011(sender As Object, e As EventArgs)
     ''  Public Sub Choose_Background_Color_EE1010(sender As Object, e As EventArgs)
     ''  Public Sub Open_Dialog_Font_EE1009(sender As Object, e As EventArgs)
-    ''  Public Sub ExampleValue_Edit_EE1006(sender As Object, e As EventArgs)
+    ''  Public Su./b ExampleValue_Edit_EE1006(sender As Object, e As EventArgs)
     ''   Public Sub Open_OffsetText_Dialog_EE1007(sender As Object, e As EventArgs)
     ''  Public Sub Border_Design_EE1000(sender As Object, e As EventArgs)
     ''  Public Sub Rotate90_Degrees_EE1001(sender As Object, e As EventArgs)

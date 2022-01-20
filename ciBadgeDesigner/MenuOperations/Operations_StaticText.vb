@@ -17,6 +17,8 @@ Public Class Operations_StaticText
     ''Jan8 2022 td''Public Property CtlCurrentElement As ciBadgeDesigner.CtlGraphicStaticText ''CtlGraphicFldLabel
     ''Jan17 2022 ''Public Property CtlCurrentElement As RSCMoveableControlVB Implements ICurrentElement.CtlCurrentElement
     Public Property CtlCurrentElementStaticText As ciBadgeDesigner.CtlGraphicStaticText
+    Public Property ElementStaticText As ciBadgeElements.ClassElementStaticText ''Added 1/19/2022
+    Public Property ElementInfo_TextOnly As IElement_TextOnly ''Added 1/19/2022
 
     ''
     ''Added 12/12/2021 td
