@@ -274,6 +274,7 @@
     <Compile Include="Interfaces\InterfaceShowListFields.vb" />
     <Compile Include="MenuOperations\MenuCache_FieldElements_NotInUse.vb" />
     <Compile Include="MenuOperations\MenuCache_Generic.vb" />
+    <Compile Include="MenuOperations\MenuCache_Generic_Partial.vb" />
     <Compile Include="MenuOperations\Operations_Background.vb" />
     <Compile Include="MenuOperations\Operations_Desktop.vb" />
     <Compile Include="MenuOperations\Operations_FieldElement.vb" />

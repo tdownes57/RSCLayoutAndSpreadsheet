@@ -900,7 +900,30 @@ ExitHandler:
                 ''----Nasty bug.  Don't use par_sender here. ---1/11/2022 td''
                 ''--MyBase.MoveableControl_MouseUp(par_sender, par_e)
                 Dim objParentControl As Control = Me ''Added 1/11/2022
-                MyBase.MoveableControl_MouseUp(objParentControl, par_e)
+                ''Jan20 2022 ''MyBase.MoveableControl_MouseUp(objParentControl, par_e)
+
+                Const c_bOptimizeProgramCode As Boolean = True ''Added 1/20/2022 td
+                Const c_bTestingSoMarkOriginViaMouseButtons As Boolean = True ''Added 1/20/2022 td
+
+                If (c_bOptimizeProgramCode) Then
+                    ''----Nasty bug.  Don't use par_sender here. ---1/11/2022 td''
+                    ''--MyBase.MoveableControl_MouseUp(par_sender, par_e)
+                    MyBase.MoveableControl_MouseUp(objParentControl, par_e)
+
+                ElseIf (c_bTestingSoMarkOriginViaMouseButtons) Then
+
+                    ''Added 1/20/2022 td 
+                    ''   For testing only!!!!  Use enumerated value "MouseButtons.Middle" as a marker,
+                    ''   to indicate that this event was handled by the child class.
+                    ''    ---1/20/2022 td 
+                    Dim objMouseEventArgs As MouseEventArgs ''Added 1/20/2022 td
+                    objMouseEventArgs = New MouseEventArgs(MouseButtons.Middle, par_e.Clicks,
+                                                          par_e.X, par_e.Y, par_e.Delta)
+                    MyBase.MoveableControl_MouseUp(objParentControl, objMouseEventArgs)
+
+                End If ''end if "If (c_bOptimizeProgramCode) Then ... ElseIf ..."
+
+
             End If
         End If
 

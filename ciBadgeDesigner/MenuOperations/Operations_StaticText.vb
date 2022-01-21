@@ -188,4 +188,15 @@ Public Class Operations_StaticText
     End Sub ''end of "Public Sub How_Context_Menus_Are_Generated_EE1002(sender As Object, e As EventArgs)"
 
 
+    ''Public Sub Delete_Element_From_Badge_BA1019(sender As Object, e As EventArgs)
+    ''    ''
+    ''    ''Stubbed 1/19/2022 thomas downes
+    ''    ''
+    ''    ElementsCacheManager.DeleteElementFromCache(CtlCurrentElement.ElementInfo_Base, Me.Element_Type)
+    ''
+    ''    MessageBoxTD.Show_Statement("For the change to have a visible effect, you will need to save & refresh.")
+    ''
+    ''End Sub ''End of Public Sub Delete_Element_From_Badge_BA1001
+
+
 End Class
