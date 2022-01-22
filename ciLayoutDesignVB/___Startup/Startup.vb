@@ -145,9 +145,10 @@ Public Class Startup
             End If ''End of "If (obj_cache_layout_Elements Is Nothing) Then"
 
         Else
-                ''Function called in the line below was suffixed w/ "_FutureUse"
-                ''   today.  ---11/30/2021 td 
-                obj_personality = LoadCachedData_Personality_FutureUse(obj_formToShow, boolNewFileXML)
+            ''Function called in the line below was suffixed w/ "_FutureUse"
+            ''   today.  ---11/30/2021 td 
+            obj_personality = LoadCachedData_Personality_FutureUse(obj_formToShow, boolNewFileXML)
+
         End If ''end of "If (c_boolStillUsingElementsCache) Then ... Else ..."
 
         ''Added 11/26/2019 thomas d

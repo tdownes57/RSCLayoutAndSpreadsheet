@@ -18,6 +18,35 @@ Public MustInherit Class ClassListOfElements
     Public Shared ClassList_Signatures As New ClassListOfElements_Signatures
     Public Shared ClassList_StaticTexts As New ClassListOfElements_StaticTexts
 
+    Public Shared Sub UnloadListReferences()
+        ''
+        ''Added 1/21/2022 thomas downes
+        ''
+        ''ClassList_Fields = Nothing
+        ''ClassList_Graphics.  = Nothing
+        ''ClassList_Portraits  = Nothing
+        ''ClassList_QRCodes  = Nothing
+        ''ClassList_Signatures = Nothing
+        ''ClassList_StaticTexts = Nothing
+
+        ''Added 1/21/2022
+        ClassList_Fields.ListOfElements_Front = Nothing
+        ClassList_Graphics.ListOfElements_Front = Nothing
+        ClassList_Portraits.ListOfElements_Front = Nothing
+        ClassList_QRCodes.ListOfElements_Front = Nothing
+        ClassList_Signatures.ListOfElements_Front = Nothing
+        ClassList_StaticTexts.ListOfElements_Front = Nothing
+
+        ClassList_Fields.ListOfElements_Backside = Nothing
+        ClassList_Graphics.ListOfElements_Backside = Nothing
+        ClassList_Portraits.ListOfElements_Backside = Nothing
+        ClassList_QRCodes.ListOfElements_Backside = Nothing
+        ClassList_Signatures.ListOfElements_Backside = Nothing
+        ClassList_StaticTexts.ListOfElements_Backside = Nothing
+
+    End Sub ''ENd of ''Public Shared Sub UnloadListReferences()"
+
+
     Public Shared Sub Initialize_IfNeeded(par_cache As ciBadgeCachePersonality.ClassElementsCache_Deprecated)
         ''
         ''Added 1/21/2022 thomas downes

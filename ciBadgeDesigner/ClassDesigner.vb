@@ -37,6 +37,7 @@ Public Class ClassDesigner
     Public DesignerForm_DoubleCheckRef As Form
     Public WithEvents BackgroundBox_Front As PictureBox
     Public WithEvents BackgroundBox_Backside As PictureBox ''Added 12/10/2021 thomas downes
+    Public BackgroundBox_JustAButton As PictureBox ''Added 1/21/2022 thomas downes
 
     ''Added 11/29/2021 thomas downes
     Private mod_designerListener As ClassDesignerEventListener
@@ -222,6 +223,12 @@ Public Class ClassDesigner
         UnloadDesigner_QRCode()
         UnloadDesigner_Signature()
         UnloadDesigner_StaticTexts()
+
+        ''Added 1/21/2022 td
+        ''  Must be done, otherwise we will have trouble with the right-click menu,
+        ''  in particuler the "Remove Element" and "Switch Element to the Other Side"
+        ''  options. ---1/21/2022 td
+        ClassListOfElements.UnloadListReferences()
 
         ''
         ''Address the controls that are contained in mod_listOfDesignerControls.
@@ -671,10 +678,12 @@ Public Class ClassDesigner
             ''Show the backside of card. 
             Me.BackgroundBox_Backside.SendToBack() ''Added 12/10/2021 td
             Me.BackgroundBox_Front.SendToBack() ''Added 12/10/2021 td
+            Me.BackgroundBox_JustAButton.SendToBack() ''1/21/2022
         Else
             ''Show the frontside of card. 
             Me.BackgroundBox_Front.SendToBack() ''Added 12/10/2021 td
             Me.BackgroundBox_Backside.SendToBack() ''Added 12/10/2021 td
+            Me.BackgroundBox_JustAButton.SendToBack() ''Added 1/21/2022 td
         End If ''End of "If (ShowingBackside()) Then ... Else ..."
 
         ''------------------------------------------------------------------------
@@ -760,6 +769,7 @@ Public Class ClassDesigner
         ''Copied & modified, from above calls to .SendToBack(). Added 1/14/2022
         If (Not ShowingTheBackside()) Then Me.BackgroundBox_Front.SendToBack()
         If (ShowingTheBackside()) Then Me.BackgroundBox_Backside.SendToBack()
+        Me.BackgroundBox_JustAButton.SendToBack() ''Added 1/21/2022 td
 
     End Sub ''End of "Public Sub LoadDesigner"
 
@@ -859,7 +869,9 @@ Public Class ClassDesigner
                 BackgroundBox_Backside.BackgroundImage = objectBackgroundImage
                 BackgroundBox_Backside.BackgroundImageLayout = ImageLayout.Zoom
                 BackgroundBox_Backside.Visible = True
+                BackgroundBox_JustAButton.Visible = True ''Added 1/21/2022 td
                 BackgroundBox_Front.Visible = False ''Make the other control invisible. 
+                BackgroundBox_JustAButton.SendToBack() ''Added 1/21/2022 td
             Else
                 BackgroundBox_Front.Image?.Dispose()
                 BackgroundBox_Front.Image = Nothing
@@ -1632,6 +1644,7 @@ Public Class ClassDesigner
         ''Added 8/27/2019 thomas downes
         ''
         Me.BackgroundBox_Front.SendToBack() ''Added 9/7/2019 thomas d.
+        Me.BackgroundBox_JustAButton.SendToBack() ''Added 1/21/2022 td
 
         ''10/1/2019 td''Me.Refresh() ''Added 8/28/2019 td   
         Me.DesignerForm.Refresh() ''Added 8/28/2019 td   

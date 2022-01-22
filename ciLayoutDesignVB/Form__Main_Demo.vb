@@ -461,6 +461,7 @@ Public Class Form__Main_Demo
             ''12/3/2021 td''.BackgroundBox = Me.pictureBack
             .BackgroundBox_Front = Me.pictureBackgroundFront
             .BackgroundBox_Backside = Me.pictureBackgroundBackside ''Added 12/10/2021 thomas downes
+            .BackgroundBox_JustAButton = Me.pictureJustAButton ''Added 1/21/2022
 
             ''''Added 12/3/2021 thomas downes
             ''Dim objectBackgroundImage As Bitmap
@@ -565,6 +566,11 @@ Public Class Form__Main_Demo
                 ''Added 12/12/2021
                 ''  Change ">>> Add backside of ID Card." to ">>> Show backside of ID Card.".
                 labelProceedToBackside.Text = labelProceedToBackside.Tag.ToString()
+
+                ''Added 1/21/2022
+                pictureJustAButton.Visible = True ''Added 1/21/2022
+                pictureJustAButton.SendToBack() ''Added 1/21/2022
+
             End If ''end of "If (Me.ElementsCache_Edits.BadgeHasTwoSidesOfCard) Then"
 
             ''Added 1/14/2022 td
@@ -1368,6 +1374,7 @@ Public Class Form__Main_Demo
         ''Dec.10, 2021''RefreshTheSetOfDisplayedElements()
         RefreshTheSetOfDisplayedElements(False)
         pictureBackgroundFront.SendToBack()
+        pictureJustAButton.SendToBack() ''Added 1/21/2022 td
 
     End Sub
 
@@ -1425,6 +1432,7 @@ Public Class Form__Main_Demo
         ''Dec. 10, 2021''RefreshTheSetOfDisplayedElements()
         RefreshTheSetOfDisplayedElements(False)
         pictureBackgroundFront.SendToBack()
+        pictureJustAButton.SendToBack() ''Added 1/21/2022
 
     End Sub ''End of "Private Sub ShowFieldsToEdit_Standard" 
 
@@ -2671,6 +2679,10 @@ ExitHandler:
         Unload_Designer(False)
         pictureBackgroundBackside.Visible = True ''By default, when the form opens, this control is invisible. 
         pictureBackgroundFront.SendToBack()
+
+        pictureJustAButton.Visible = True ''Added 1/21/2022
+        pictureJustAButton.SendToBack() ''Added 1/21/2022
+
         Dim boolSuccess As Boolean
 
         mod_designer.DesignerForm_DoubleCheckRef = Me ''Added 1/14/2022 td
@@ -2678,6 +2690,7 @@ ExitHandler:
         ''Major call!! 
         mod_designer.SwitchSideOfCard(boolSuccess)
         mod_designer.BackgroundBox_Front = pictureBackgroundBackside
+        mod_designer.BackgroundBox_JustAButton = pictureJustAButton ''Added 1/21/2022
 
         If (boolSuccess) Then
             labelProceedToBackside.Visible = False
@@ -2719,6 +2732,9 @@ ExitHandler:
         pictureBackgroundBackside.SendToBack()
         mod_designer.BackgroundBox_Front = pictureBackgroundFront
 
+        pictureJustAButton.SendToBack() ''Added 1/21/2022 td
+        mod_designer.BackgroundBox_JustAButton = pictureJustAButton ''Added 1/21/2022
+
     End Sub
 
     Private Sub CloseListOfRecipentsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CloseListOfRecipentsToolStripMenuItem.Click
@@ -2737,6 +2753,23 @@ ExitHandler:
             CtlClickableDesktop1.ParentDesignerForm = Me
             CtlClickableDesktop1.ClickableDesktop_MouseUp(sender, e)
         End If
+
+    End Sub
+
+    Private Sub pictureJustAButton_Click(sender As Object, e As EventArgs) Handles pictureJustAButton.Click
+        ''
+        ''Added 1/21/2022 td
+        ''
+        If (LabelReturnToFrontSide.Visible) Then
+
+            LabelReturnToFrontSide_Click(pictureBackgroundBackside, New EventArgs)
+
+        Else
+
+            labelProceedToBackside_Click(pictureBackgroundFront, New EventArgs)
+
+        End If
+
 
     End Sub
 

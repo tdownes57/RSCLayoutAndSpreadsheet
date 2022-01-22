@@ -110,11 +110,13 @@ Partial Class Form__Main_Demo
         Me.Label1 = New System.Windows.Forms.Label()
         Me.flowRelevantLinkLabels = New System.Windows.Forms.FlowLayoutPanel()
         Me.LabelFieldsNotYetDisplayed = New System.Windows.Forms.Label()
+        Me.pictureJustAButton = New System.Windows.Forms.PictureBox()
         Me.CtlGraphicQRCode1 = New ciBadgeDesigner.CtlGraphicQRCode()
         Me.CtlGraphicPortrait_Lady = New ciBadgeDesigner.CtlGraphicPortrait()
         Me.CtlGraphicSignature1 = New ciBadgeDesigner.CtlGraphicSignature()
         Me.CtlGraphicStaticText1 = New ciBadgeDesigner.CtlGraphicStaticText()
         Me.CtlClickableDesktop1 = New ciBadgeDesigner.CtlClickableDesktop(Me.components)
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -124,6 +126,7 @@ Partial Class Form__Main_Demo
         CType(Me.graphicAdjuster, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureBackgroundFront, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureBackgroundBackside, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pictureJustAButton, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'LinkShowWebControls
@@ -502,7 +505,7 @@ Partial Class Form__Main_Demo
         '
         Me.StatusStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StatusLabelMovingElement, Me.StatusLabelNameOfElement, Me.StatusLabelWarningError})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 612)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 616)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Size = New System.Drawing.Size(1298, 26)
         Me.StatusStrip1.TabIndex = 47
@@ -530,7 +533,7 @@ Partial Class Form__Main_Demo
         '
         'linkRemoveElements
         '
-        Me.linkRemoveElements.Location = New System.Drawing.Point(31, 570)
+        Me.linkRemoveElements.Location = New System.Drawing.Point(31, 580)
         Me.linkRemoveElements.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
         Me.linkRemoveElements.Name = "linkRemoveElements"
         Me.linkRemoveElements.Size = New System.Drawing.Size(208, 29)
@@ -565,7 +568,7 @@ Partial Class Form__Main_Demo
         Me.flowFieldsNotListed.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.flowFieldsNotListed.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.flowFieldsNotListed.Controls.Add(Me.lblFieldsNotCurrentlyShownHdr)
-        Me.flowFieldsNotListed.Location = New System.Drawing.Point(35, 512)
+        Me.flowFieldsNotListed.Location = New System.Drawing.Point(35, 522)
         Me.flowFieldsNotListed.Name = "flowFieldsNotListed"
         Me.flowFieldsNotListed.Size = New System.Drawing.Size(292, 55)
         Me.flowFieldsNotListed.TabIndex = 52
@@ -600,7 +603,7 @@ Partial Class Form__Main_Demo
         Me.flowSidebar.Dock = System.Windows.Forms.DockStyle.Right
         Me.flowSidebar.Location = New System.Drawing.Point(1277, 30)
         Me.flowSidebar.Name = "flowSidebar"
-        Me.flowSidebar.Size = New System.Drawing.Size(21, 582)
+        Me.flowSidebar.Size = New System.Drawing.Size(21, 586)
         Me.flowSidebar.TabIndex = 54
         Me.flowSidebar.Visible = False
         '
@@ -662,6 +665,7 @@ Partial Class Form__Main_Demo
         Me.picturePreview.Size = New System.Drawing.Size(466, 277)
         Me.picturePreview.TabIndex = 44
         Me.picturePreview.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.picturePreview, "this is a preview.  This is not editable directly.")
         '
         'graphicAdjuster
         '
@@ -737,6 +741,7 @@ Partial Class Form__Main_Demo
         Me.pictureBackgroundFront.Size = New System.Drawing.Size(603, 380)
         Me.pictureBackgroundFront.TabIndex = 74
         Me.pictureBackgroundFront.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.pictureBackgroundFront, "This is an editable view of the ID Card (front side).")
         '
         'labelProceedToBackside
         '
@@ -769,6 +774,7 @@ Partial Class Form__Main_Demo
         Me.pictureBackgroundBackside.Size = New System.Drawing.Size(641, 380)
         Me.pictureBackgroundBackside.TabIndex = 78
         Me.pictureBackgroundBackside.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.pictureBackgroundBackside, "This is an editable view of the ID Card (back side).")
         Me.pictureBackgroundBackside.Visible = False
         '
         'labelBacksideOfBadgecard
@@ -807,7 +813,7 @@ Partial Class Form__Main_Demo
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(341, 489)
+        Me.Label1.Location = New System.Drawing.Point(341, 499)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(401, 20)
         Me.Label1.TabIndex = 82
@@ -818,7 +824,7 @@ Partial Class Form__Main_Demo
         Me.flowRelevantLinkLabels.AutoScroll = True
         Me.flowRelevantLinkLabels.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.flowRelevantLinkLabels.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.flowRelevantLinkLabels.Location = New System.Drawing.Point(345, 512)
+        Me.flowRelevantLinkLabels.Location = New System.Drawing.Point(345, 522)
         Me.flowRelevantLinkLabels.Name = "flowRelevantLinkLabels"
         Me.flowRelevantLinkLabels.Size = New System.Drawing.Size(298, 55)
         Me.flowRelevantLinkLabels.TabIndex = 83
@@ -826,11 +832,22 @@ Partial Class Form__Main_Demo
         'LabelFieldsNotYetDisplayed
         '
         Me.LabelFieldsNotYetDisplayed.AutoSize = True
-        Me.LabelFieldsNotYetDisplayed.Location = New System.Drawing.Point(31, 489)
+        Me.LabelFieldsNotYetDisplayed.Location = New System.Drawing.Point(31, 499)
         Me.LabelFieldsNotYetDisplayed.Name = "LabelFieldsNotYetDisplayed"
         Me.LabelFieldsNotYetDisplayed.Size = New System.Drawing.Size(178, 20)
         Me.LabelFieldsNotYetDisplayed.TabIndex = 84
         Me.LabelFieldsNotYetDisplayed.Text = "FieldsNotYetDisplayed"
+        '
+        'pictureJustAButton
+        '
+        Me.pictureJustAButton.BackColor = System.Drawing.Color.Silver
+        Me.pictureJustAButton.Location = New System.Drawing.Point(35, 117)
+        Me.pictureJustAButton.Name = "pictureJustAButton"
+        Me.pictureJustAButton.Size = New System.Drawing.Size(622, 379)
+        Me.pictureJustAButton.TabIndex = 85
+        Me.pictureJustAButton.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.pictureJustAButton, "This indicates the back side of the ID Card. Click to view.")
+        Me.pictureJustAButton.Visible = False
         '
         'CtlGraphicQRCode1
         '
@@ -888,7 +905,7 @@ Partial Class Form__Main_Demo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1298, 638)
+        Me.ClientSize = New System.Drawing.Size(1298, 642)
         Me.Controls.Add(Me.LabelFieldsNotYetDisplayed)
         Me.Controls.Add(Me.flowRelevantLinkLabels)
         Me.Controls.Add(Me.Label1)
@@ -928,6 +945,7 @@ Partial Class Form__Main_Demo
         Me.Controls.Add(Me.labelBacksideOfBadgecard)
         Me.Controls.Add(Me.pictureBackgroundFront)
         Me.Controls.Add(Me.pictureBackgroundBackside)
+        Me.Controls.Add(Me.pictureJustAButton)
         Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Margin = New System.Windows.Forms.Padding(1, 3, 1, 3)
         Me.Name = "Form__Main_Demo"
@@ -946,6 +964,7 @@ Partial Class Form__Main_Demo
         CType(Me.graphicAdjuster, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pictureBackgroundFront, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pictureBackgroundBackside, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pictureJustAButton, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1041,4 +1060,6 @@ Partial Class Form__Main_Demo
     Friend WithEvents Label1 As Label
     Friend WithEvents flowRelevantLinkLabels As FlowLayoutPanel
     Friend WithEvents LabelFieldsNotYetDisplayed As Label
+    Friend WithEvents pictureJustAButton As PictureBox
+    Friend WithEvents ToolTip1 As ToolTip
 End Class

@@ -86,6 +86,7 @@
     <Compile Include="MinorClasses\ClassListOfElements_QRCodes.vb" />
     <Compile Include="MinorClasses\ClassListOfElements_Signatures.vb" />
     <Compile Include="MinorClasses\ClassListOfElements_StaticTexts.vb" />
+    <Compile Include="MinorClasses\ClassListOfElements_LayoutSections.vb" />
     <Compile Include="Utilities\DiskFolders.vb" />
     <Compile Include="Interfaces\InterfaceBadgeSideLayoutElementsV1.vb" />
     <Compile Include="Interfaces\InterfaceDesignerForm.vb" />

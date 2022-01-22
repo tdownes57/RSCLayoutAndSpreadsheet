@@ -37,7 +37,7 @@ Public Class ClassListOfElements_QRCodes
             Else
                 If (each_element.WhichSideOfCard = EnumWhichSideOfCard.Undetermined) Then each_element.WhichSideOfCard = EnumWhichSideOfCard.EnumFrontside
                 If (each_element.WhichSideOfCard <> EnumWhichSideOfCard.EnumFrontside) Then System.Diagnostics.Debugger.Break()
-            End If
+            End If ''ENd of "If (boolMatch) Then .... Else ...."
         Next each_element
 
         For Each each_element In ListOfElements_Backside()
@@ -48,7 +48,7 @@ Public Class ClassListOfElements_QRCodes
                 ListOfElements_Front.Add(each_element)
                 pref_bSuccess = True ''Added 1/21/2022 td
                 Exit Sub
-            End If
+            End If ''ENd of "If (boolMatch) Then"   
         Next each_element
 
     End Sub ''eNd of "Public Overrides Sub SwitchElementToOtherSideOfCard(par_infoBase As IElement_Base)"

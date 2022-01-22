@@ -106,6 +106,7 @@ Public Class FormFieldsAndPortrait
         mod_designer.BadgeLayout_Class = New BadgeLayoutClass()
         mod_designer.BackgroundBox_Front = pictureBackgroundFront
         mod_designer.BackgroundBox_Backside = pictureBackgroundFront
+        ''1/21/2022''mod_designer.BackgroundBox_JustAButton = pictureJustAButton
 
         ''Added 1/10/2022 td
         mod_eventsSingleton = New GroupMoveEvents_Singleton(mod_designer)

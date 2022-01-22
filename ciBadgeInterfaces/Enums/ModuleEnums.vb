@@ -41,6 +41,12 @@ Public Module ModuleEnums
         StaticText
         StaticGraphic
 
+        ''This allows for the users to create a sub-section of elements, which 
+        ''  can be moved around as a unit (without having to re-select all of
+        ''  the sub-elements, each time the user wants to move them around as a unit).
+        ''  -----Thomas Downes, 1/21/2022 td
+        LayoutSection ''Added 1/21/2022 td
+
         __Background ''Added 1/15/2022 td
         __Desktop ''Added 1/15/2022 td
 
