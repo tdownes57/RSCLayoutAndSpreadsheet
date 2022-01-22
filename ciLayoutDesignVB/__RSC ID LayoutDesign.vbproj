@@ -261,34 +261,34 @@
     <Compile Include="ClassLabelToImage.vb" />
     <Compile Include="ClassLoopedOperations.vb" />
     <Compile Include="ClassRubberbandSelector.vb" />
-    <Compile Include="ContextMenus\ClassDisplayContextMenu.vb" />
-    <Compile Include="ContextMenus\MenuCache_Background.vb" />
-    <Compile Include="ContextMenus\MenuCache_FieldElements.vb" />
-    <Compile Include="ContextMenus\MenuCache_GraphicElements.vb" />
-    <Compile Include="ContextMenus\MenuCache_Portrait.vb" />
-    <Compile Include="ContextMenus\MenuCache_StaticText.vb" />
-    <Compile Include="ContextMenus\ModDisplayContextMenu.vb" />
-    <Compile Include="ContextMenus\Operations_EditBackground.vb" />
-    <Compile Include="ContextMenus\Operations_EditFieldElement.vb" />
-    <Compile Include="ContextMenus\Operations_EditGraphic.vb" />
-    <Compile Include="ContextMenus\Operations_EditGroup.vb" />
-    <Compile Include="ContextMenus\Operations_EditQR.vb" />
-    <Compile Include="ContextMenus\Operations_EditSignature.vb" />
-    <Compile Include="ContextMenus\Operations_EditStaticText.vb" />
-    <Compile Include="ContextMenus_Obselete\ClassMenuMethods.vb" />
-    <Compile Include="ContextMenus_Obselete\ContextLayoutBackground.Designer.vb">
+    <Compile Include="ContextMenus_Obselete2\ClassDisplayContextMenu.vb" />
+    <Compile Include="ContextMenus_Obselete2\MenuCache_Background.vb" />
+    <Compile Include="ContextMenus_Obselete2\MenuCache_FieldElements.vb" />
+    <Compile Include="ContextMenus_Obselete2\MenuCache_GraphicElements.vb" />
+    <Compile Include="ContextMenus_Obselete2\MenuCache_Portrait.vb" />
+    <Compile Include="ContextMenus_Obselete2\MenuCache_StaticText.vb" />
+    <Compile Include="ContextMenus_Obselete2\ModDisplayContextMenu.vb" />
+    <Compile Include="ContextMenus_Obselete2\Operations_EditBackground.vb" />
+    <Compile Include="ContextMenus_Obselete2\Operations_EditFieldElement.vb" />
+    <Compile Include="ContextMenus_Obselete2\Operations_EditGraphic.vb" />
+    <Compile Include="ContextMenus_Obselete2\Operations_EditGroup.vb" />
+    <Compile Include="ContextMenus_Obselete2\Operations_EditQR.vb" />
+    <Compile Include="ContextMenus_Obselete2\Operations_EditSignature.vb" />
+    <Compile Include="ContextMenus_Obselete2\Operations_EditStaticText.vb" />
+    <Compile Include="ContextMenus_Obselete1\ClassMenuMethods.vb" />
+    <Compile Include="ContextMenus_Obselete1\ContextLayoutBackground.Designer.vb">
       <DependentUpon>ContextLayoutBackground.vb</DependentUpon>
     </Compile>
-    <Compile Include="ContextMenus_Obselete\ContextLayoutBackground.vb">
+    <Compile Include="ContextMenus_Obselete1\ContextLayoutBackground.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ContextMenus_Obselete\ContextLayoutDesignToolstrip.Designer.vb">
+    <Compile Include="ContextMenus_Obselete1\ContextLayoutDesignToolstrip.Designer.vb">
       <DependentUpon>ContextLayoutDesignToolstrip.vb</DependentUpon>
     </Compile>
-    <Compile Include="ContextMenus_Obselete\ContextLayoutDesignToolstrip.vb">
+    <Compile Include="ContextMenus_Obselete1\ContextLayoutDesignToolstrip.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ContextMenus\c_modReflection.vb" />
+    <Compile Include="ContextMenus_Obselete2\c_modReflection.vb" />
     <Compile Include="Controls\CtlAddStandardField.Designer.vb">
       <DependentUpon>CtlAddStandardField.vb</DependentUpon>
     </Compile>
@@ -315,28 +315,28 @@
     <Compile Include="Controls\CtlConfigFldStandard.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ContextMenus_Obselete\CtlGraphPopMenuAlign.Designer.vb">
+    <Compile Include="ContextMenus_Obselete1\CtlGraphPopMenuAlign.Designer.vb">
       <DependentUpon>CtlGraphPopMenuAlign.vb</DependentUpon>
     </Compile>
-    <Compile Include="ContextMenus_Obselete\CtlGraphPopMenuAlign.vb">
+    <Compile Include="ContextMenus_Obselete1\CtlGraphPopMenuAlign.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ContextMenus_Obselete\CtlGraphPopMenuEditGroup.Designer.vb">
+    <Compile Include="ContextMenus_Obselete1\CtlGraphPopMenuEditGroup.Designer.vb">
       <DependentUpon>CtlGraphPopMenuEditGroup.vb</DependentUpon>
     </Compile>
-    <Compile Include="ContextMenus_Obselete\CtlGraphPopMenuEditGroup.vb">
+    <Compile Include="ContextMenus_Obselete1\CtlGraphPopMenuEditGroup.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ContextMenus_Obselete\CtlGraphPopMenuEditSingle.Designer.vb">
+    <Compile Include="ContextMenus_Obselete1\CtlGraphPopMenuEditSingle.Designer.vb">
       <DependentUpon>CtlGraphPopMenuEditSingle.vb</DependentUpon>
     </Compile>
-    <Compile Include="ContextMenus_Obselete\CtlGraphPopMenuEditSingle.vb">
+    <Compile Include="ContextMenus_Obselete1\CtlGraphPopMenuEditSingle.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ContextMenus_Obselete\ContextLayoutDesignButtons.Designer.vb">
+    <Compile Include="ContextMenus_Obselete1\ContextLayoutDesignButtons.Designer.vb">
       <DependentUpon>ContextLayoutDesignButtons.vb</DependentUpon>
     </Compile>
-    <Compile Include="ContextMenus_Obselete\ContextLayoutDesignButtons.vb">
+    <Compile Include="ContextMenus_Obselete1\ContextLayoutDesignButtons.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\CtlMainButton_v90.Designer.vb">
@@ -650,10 +650,10 @@
     <Compile Include="WebAPIs_Etc\modQRCodes.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ContextMenus_Obselete\ContextLayoutBackground.resx">
+    <EmbeddedResource Include="ContextMenus_Obselete1\ContextLayoutBackground.resx">
       <DependentUpon>ContextLayoutBackground.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ContextMenus_Obselete\ContextLayoutDesignToolstrip.resx">
+    <EmbeddedResource Include="ContextMenus_Obselete1\ContextLayoutDesignToolstrip.resx">
       <DependentUpon>ContextLayoutDesignToolstrip.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlAddStandardField.resx">
@@ -668,16 +668,16 @@
     <EmbeddedResource Include="Controls\CtlCustomer.resx">
       <DependentUpon>CtlCustomer.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ContextMenus_Obselete\CtlGraphPopMenuAlign.resx">
+    <EmbeddedResource Include="ContextMenus_Obselete1\CtlGraphPopMenuAlign.resx">
       <DependentUpon>CtlGraphPopMenuAlign.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ContextMenus_Obselete\CtlGraphPopMenuEditGroup.resx">
+    <EmbeddedResource Include="ContextMenus_Obselete1\CtlGraphPopMenuEditGroup.resx">
       <DependentUpon>CtlGraphPopMenuEditGroup.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ContextMenus_Obselete\CtlGraphPopMenuEditSingle.resx">
+    <EmbeddedResource Include="ContextMenus_Obselete1\CtlGraphPopMenuEditSingle.resx">
       <DependentUpon>CtlGraphPopMenuEditSingle.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ContextMenus_Obselete\ContextLayoutDesignButtons.resx">
+    <EmbeddedResource Include="ContextMenus_Obselete1\ContextLayoutDesignButtons.resx">
       <DependentUpon>ContextLayoutDesignButtons.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlMainButton_v82.resx">
@@ -833,7 +833,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="DiskFiles\DiskFilesCS.cs" />
-    <Content Include="ContextMenus\How_Context_Menus_Are_Generated.txt" />
+    <Content Include="ContextMenus_Obselete2\How_Context_Menus_Are_Generated.txt" />
     <Content Include="Images\Adjust width &amp; height.jpg" />
     <Content Include="Images\Adjust width &amp; height.png" />
     <Content Include="Images\AdjustWHColor_V101.jpg" />

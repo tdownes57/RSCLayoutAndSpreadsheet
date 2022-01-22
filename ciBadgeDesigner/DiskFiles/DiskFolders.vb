@@ -92,7 +92,13 @@ Public Class DiskFolders
 
     End Function ''End of "Public Shared Function PathToFolder_Notes() As String"
 
+    Public Shared Function PathToFolder_Images() As String
+        ''
+        ''Added 1/21/2021 Thomas Downes    
+        ''
+        Return System.IO.Path.Combine(My.Application.Info.DirectoryPath, "Images")
 
+    End Function ''End of "Public Shared Function PathToFolder_Notes() As String"
 
 
 End Class ''eND OF "Public Class DiskFolders"

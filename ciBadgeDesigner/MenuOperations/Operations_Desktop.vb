@@ -125,6 +125,10 @@ Public Class Operations_Desktop
         Dim objSize As System.Drawing.Size
         Dim objRect As System.Drawing.Rectangle
 
+        ''Added 1/21/2022 thomas downes
+        Dim objForm_Show As New FormPickGraphic
+        objForm_Show.ShowDialog()
+
         infoDesignerForm = Me.ParentDesignerForm
         ''Jan19 2022''intHeightOfRSC = infoDesignerForm.HeightAnyRSCMoveableControl()
         ''Jan19 2022''intWidthOfRSC = infoDesignerForm.WidthAnyRSCMoveableControl()

@@ -272,6 +272,12 @@
     <Compile Include="Interfaces\InterfaceMoveableElement.vb" />
     <Compile Include="Interfaces\InterfaceRecordElementLastTouched.vb" />
     <Compile Include="Interfaces\InterfaceShowListFields.vb" />
+    <Compile Include="MenuOperations\FormPickGraphic.Designer.vb">
+      <DependentUpon>FormPickGraphic.vb</DependentUpon>
+    </Compile>
+    <Compile Include="MenuOperations\FormPickGraphic.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MenuOperations\MenuCache_FieldElements_NotInUse.vb" />
     <Compile Include="MenuOperations\MenuCache_Generic.vb" />
     <Compile Include="MenuOperations\MenuCache_Generic_Partial.vb" />
@@ -390,6 +396,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\ListStandardFields.resx">
       <DependentUpon>ListStandardFields.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MenuOperations\FormPickGraphic.resx">
+      <DependentUpon>FormPickGraphic.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
