@@ -230,8 +230,17 @@ Public Class DiskFilesVB
     End Function ''ENd of "Public Shared Function IsXMLFileEmpty"
 
 
+    Public Sub CopyPasteImageFile(pstrPathToImageFile_Existing As String,
+                                  pstrPathToImageFolder_Proposed As String)
+        ''
+        ''Added 1/22/2022 td
+        ''
+        Dim objFileInfo As New FileInfo(pstrPathToImageFile_Existing)
+
+        objFileInfo.CopyTo(Path.Combine(pstrPathToImageFolder_Proposed, objFileInfo.Name))
 
 
+    End Sub ''End of "Public Sub CopyPasteImageFile(pstrPathToImageFile_Existing ...."
 
 
 End Class ''eND OF "Public Class DiskFiles"

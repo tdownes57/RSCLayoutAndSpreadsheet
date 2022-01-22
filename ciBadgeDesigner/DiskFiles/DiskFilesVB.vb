@@ -230,7 +230,51 @@ Public Class DiskFilesVB
     End Function ''ENd of "Public Shared Function IsXMLFileEmpty"
 
 
+    Public Shared Sub CopyPasteImageFile(pstrPathToImageFile_Existing As String,
+                                 pstrPathToImageFolder_Proposed As String,
+                             ByRef pstrPathToImageFile_Pasted As String)
+        ''
+        ''Added 1/22/2022 td
+        ''
+        Dim objFileInfo As IO.FileInfo
+        Dim bCopySuccess As Boolean
+        Dim strFileTitle_Proposed As String
+        Dim strPathToImageFile_Proposed As String
+        Dim bNoCopyConflict As Boolean
 
+        objFileInfo = New FileInfo(pstrPathToImageFile_Existing)
+        strFileTitle_Proposed = objFileInfo.Name
+
+        Do
+            strFileTitle_Proposed = InputBox("If you want to, edit the file name.",
+                                             "Edit name of graphic",
+                                             strFileTitle_Proposed)
+
+            strPathToImageFile_Proposed = Path.Combine(pstrPathToImageFolder_Proposed,
+                                                    strFileTitle_Proposed)
+            ''
+            ''If the file exists already, keep looping. 
+            ''
+            bNoCopyConflict = (Not File.Exists(strPathToImageFile_Proposed))
+
+        Loop Until (bNoCopyConflict)
+
+        ''
+        ''Attempt to copy the file. 
+        ''
+        Do
+
+            objFileInfo.CopyTo(strPathToImageFile_Proposed)
+
+            If (File.Exists(strPathToImageFile_Proposed)) Then
+                pstrPathToImageFile_Pasted = strPathToImageFile_Proposed
+                bCopySuccess = True
+                Exit Sub
+            End If ''End of "If (File.Exists(strPathToImageFile_Proposed)) Then"
+
+        Loop Until (True Or bCopySuccess)
+
+    End Sub ''End of "Public Sub CopyPasteImageFile(pstrPathToImageFile_Existing ...."
 
 
 

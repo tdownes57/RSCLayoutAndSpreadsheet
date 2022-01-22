@@ -124,10 +124,24 @@ Public Class Operations_Desktop
         Dim obj_parametersGetElementControl As ClassGetElementControlParams
         Dim objSize As System.Drawing.Size
         Dim objRect As System.Drawing.Rectangle
-
         ''Added 1/21/2022 thomas downes
         Dim objForm_Show As New FormPickGraphic
-        objForm_Show.ShowDialog()
+        Dim strPathToGraphicImage As String ''Added 1/22/2022 td
+        Dim diag_result As DialogResult ''Added 1/22/2022 td
+
+        ''Important function call.  Show the user the existing graphics files. 
+        diag_result = objForm_Show.ShowDialog()
+        strPathToGraphicImage = objForm_Show.PathToImageFileLocation
+        If (diag_result = DialogResult.Cancel) Then
+            ''Added 1/22/2022
+            MessageBoxTD.Show_Statement("The user has cancelled, or hasn't selected a file.")
+            Return
+        ElseIf ("" = strPathToGraphicImage) Then
+            ''Added 1/22/2022
+            MessageBoxTD.Show_Statement("The user hasn't selected a file.")
+            Return
+        End If ''End of "If (diag_result = DialogResult.Cancel) Then ... ElseIf ..."
+        strPathToGraphicImage = objForm_Show.PathToImageFileLocation
 
         infoDesignerForm = Me.ParentDesignerForm
         ''Jan19 2022''intHeightOfRSC = infoDesignerForm.HeightAnyRSCMoveableControl()

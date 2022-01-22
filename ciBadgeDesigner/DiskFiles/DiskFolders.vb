@@ -39,6 +39,15 @@ Public Class DiskFolders
     End Function ''End of "Public Shared Function PathToFolder_BackExamples() As String"
 
 
+    Public Shared Function PathToFolder_Graphics() As String
+        ''
+        ''Added 10/12/2019 Thomas Downes    
+        ''
+        Return System.IO.Path.Combine(My.Application.Info.DirectoryPath, "Images\Graphics")
+
+    End Function ''End of "Public Shared Function PathToFolder_BackExamples() As String"
+
+
     Public Shared Function PathToFolder_PicExamples() As String
         ''
         ''Added 10/12/2019 Thomas Downes    
