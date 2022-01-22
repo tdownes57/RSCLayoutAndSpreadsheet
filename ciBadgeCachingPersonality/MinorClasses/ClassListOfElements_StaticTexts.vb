@@ -11,11 +11,12 @@ Public Class ClassListOfElements_StaticTexts
     ''
     ''Public Overrides Property ListOfElements_Front As List(Of ClassElementField)
     ''Public Overrides Property ListOfElements_Back As List(Of ClassElementField)
-    Public Property ListOfElements_Front As List(Of ClassElementStaticText)
-    Public Property ListOfElements_Backside As List(Of ClassElementStaticText)
+    Public Property ListOfElements_Front As HashSet(Of ClassElementStaticText)
+    Public Property ListOfElements_Backside As HashSet(Of ClassElementStaticText)
 
 
-    Public Overrides Sub SwitchElementToOtherSideOfCard(par_infoBase As IElement_Base)
+    Public Overrides Sub SwitchElementToOtherSideOfCard(par_infoBase As IElement_Base,
+                                  Optional ByRef pref_bSuccess As Boolean = False)
         ''
         ''Added 1/19/2022 thomas downes
         ''
@@ -44,6 +45,7 @@ Public Class ClassListOfElements_StaticTexts
             If (boolMatch) Then
                 ListOfElements_Backside.Remove(each_element)
                 ListOfElements_Front.Add(each_element)
+                pref_bSuccess = True ''Added 1/21/2022 td
                 Exit Sub
             End If
         Next each_element
@@ -52,7 +54,9 @@ Public Class ClassListOfElements_StaticTexts
 
 
     Public Overrides Sub RemoveElement(par_infoBase As IElement_Base,
-                                          Optional pboolBacksideOfCard As Boolean = False)
+                                          Optional ByRef pref_bSuccess As Boolean = False,
+                                          Optional pbSpecifySideOfCard As Boolean = False,
+            Optional par_enumSide As EnumWhichSideOfCard = EnumWhichSideOfCard.Undetermined)
         ''
         ''Added 1/19/2022 thomas downes
         ''
@@ -67,6 +71,7 @@ Public Class ClassListOfElements_StaticTexts
             boolMatch = (par_infoBase Is each_infoBase)
             If (boolMatch) Then
                 ListOfElements_Front.Remove(each_element)
+                pref_bSuccess = True ''Added 1/21/2022 td
                 Exit Sub
             End If
         Next each_element
@@ -76,6 +81,7 @@ Public Class ClassListOfElements_StaticTexts
             boolMatch = (par_infoBase Is each_infoBase)
             If (boolMatch) Then
                 ListOfElements_Backside.Remove(each_element)
+                pref_bSuccess = True ''Added 1/21/2022 td
                 Exit Sub
             End If
         Next each_element

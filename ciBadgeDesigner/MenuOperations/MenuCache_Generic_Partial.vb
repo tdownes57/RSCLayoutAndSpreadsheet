@@ -1,4 +1,4 @@
-﻿
+﻿Imports System.Reflection ''Added 1/21/2022 thomas D. 
 
 Partial Public Class MenuCache_Generic
 
@@ -225,7 +225,9 @@ Partial Public Class MenuCache_Generic
             ''Added 12/15/2021 thomas d
             Dim boolInformative As Boolean
             boolInformative = strMethodWithSpaces.Contains("EE9")
-            If (boolInformative) Then each_toolMenuItem.BackColor = Color.Aquamarine ''vs. Color.Aqua (used above)
+            If (boolInformative) Then
+                each_toolMenuItem.BackColor = System.Drawing.Color.Aquamarine ''vs. Color.Aqua (used above)
+            End If ''ENd of "If (boolInformative) Then"
 
             ''Added 10/13/2019 thomas downes
             intCountLinkLabels += 1

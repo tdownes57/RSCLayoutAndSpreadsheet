@@ -109,8 +109,8 @@ Public Class Operations_StaticText
         ''Application.DoEvents()
         ''Application.DoEvents()
 
-        Refresh_Image(True)
-        Me.Refresh()
+        Me.CtlCurrentElementStaticText.Refresh_Image(True)
+        Me.CtlCurrentElementStaticText.Refresh()
 
     End Sub ''eNd of "Private Sub Open_Dialog_For_Color_EST1001()"
 
@@ -128,8 +128,8 @@ Public Class Operations_StaticText
         Application.DoEvents()
         Application.DoEvents()
 
-        Refresh_Image(True)
-        Me.Refresh()
+        Me.CtlCurrentElementStaticText.Refresh_Image(True)
+        Me.CtlCurrentElementStaticText.Refresh()
 
     End Sub ''eNd of "Private Sub Open_Dialog_For_Font()"
 

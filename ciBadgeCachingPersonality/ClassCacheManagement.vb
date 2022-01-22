@@ -608,25 +608,31 @@ Namespace ciBadgeCachePersonality
 
 
         Public Sub DeleteElementFromCache(par_infoBase As ciBadgeInterfaces.IElement_Base,
-                                  par_enum As ciBadgeInterfaces.Enum_ElementType)
+                                  par_enum As ciBadgeInterfaces.Enum_ElementType,
+                                ByRef pref_boolSuccess As Boolean)
             ''
             ''Added 1/19/2022 thomas d. 
             ''
             Dim objClassLists As ClassListOfElements
+            ''Dim boolSuccess As Boolean ''Addded 1/21/2022 td
+
+            ClassListOfElements.Initialize_IfNeeded(Me.CacheForEditing)
             objClassLists = ClassListOfElements.GetListOfElements(par_enum)
-            objClassLists.RemoveElement(par_infoBase)
+            objClassLists.RemoveElement(par_infoBase, pref_boolSuccess)
 
         End Sub ''End of "Public Sub DeleteElementFromCache"
 
 
         Public Sub SwitchElementToOtherSideOfCard(par_infoBase As ciBadgeInterfaces.IElement_Base,
-                                  par_enum As ciBadgeInterfaces.Enum_ElementType)
+                                  par_enum As ciBadgeInterfaces.Enum_ElementType,
+                                  Optional ByRef pref_bSuccess As Boolean = False)
             ''
             ''Added 1/17/2022 thomas d. 
             ''
             Dim objClassLists As ClassListOfElements
+            ClassListOfElements.Initialize_IfNeeded(Me.CacheForEditing)
             objClassLists = ClassListOfElements.GetListOfElements(par_enum)
-            objClassLists.SwitchElementToOtherSideOfCard(par_infoBase)
+            objClassLists.SwitchElementToOtherSideOfCard(par_infoBase, pref_bSuccess)
 
         End Sub ''End of "Public Sub SwitchElementToOtherSideOfCard"
 

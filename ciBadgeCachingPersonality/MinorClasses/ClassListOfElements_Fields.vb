@@ -11,11 +11,12 @@ Public Class ClassListOfElements_Fields
     ''
     ''Public Overrides Property ListOfElements_Front As List(Of ClassElementField)
     ''Public Overrides Property ListOfElements_Back As List(Of ClassElementField)
-    Public Property ListOfElements_Front As List(Of ClassElementField)
-    Public Property ListOfElements_Backside As List(Of ClassElementField)
+    Public Property ListOfElements_Front As HashSet(Of ClassElementField)
+    Public Property ListOfElements_Backside As HashSet(Of ClassElementField)
 
 
-    Public Overrides Sub SwitchElementToOtherSideOfCard(par_infoBase As IElement_Base)
+    Public Overrides Sub SwitchElementToOtherSideOfCard(par_infoBase As IElement_Base,
+                                  Optional ByRef pref_bSuccess As Boolean = False)
         ''
         ''Added 1/19/2022 thomas downes
         ''
@@ -31,6 +32,7 @@ Public Class ClassListOfElements_Fields
             If (boolMatch) Then
                 ListOfElements_Front.Remove(each_element)
                 ListOfElements_Backside.Add(each_element)
+                pref_bSuccess = True ''Added 1/21/2022 td
                 Exit Sub
             Else
                 If (each_element.WhichSideOfCard = EnumWhichSideOfCard.Undetermined) Then each_element.WhichSideOfCard = EnumWhichSideOfCard.EnumFrontside
@@ -44,6 +46,7 @@ Public Class ClassListOfElements_Fields
             If (boolMatch) Then
                 ListOfElements_Backside.Remove(each_element)
                 ListOfElements_Front.Add(each_element)
+                pref_bSuccess = True ''Added 1/21/2022 td
                 Exit Sub
             End If
         Next each_element
@@ -52,7 +55,9 @@ Public Class ClassListOfElements_Fields
 
 
     Public Overrides Sub RemoveElement(par_infoBase As IElement_Base,
-                                          Optional pboolBacksideOfCard As Boolean = False)
+                                          Optional ByRef pref_bSuccess As Boolean = False,
+                                          Optional pbSpecifySideOfCard As Boolean = False,
+            Optional par_enumSide As EnumWhichSideOfCard = EnumWhichSideOfCard.Undetermined)
         ''
         ''Added 1/19/2022 thomas downes
         ''
@@ -67,15 +72,20 @@ Public Class ClassListOfElements_Fields
             boolMatch = (par_infoBase Is each_infoBase)
             If (boolMatch) Then
                 ListOfElements_Front.Remove(each_element)
+                pref_bSuccess = True ''Added 1/21/2022 td
                 Exit Sub
             End If
         Next each_element
 
+        ''
+        ''Backside 
+        ''
         For Each each_element In ListOfElements_Backside()
             each_infoBase = CType(each_element, ciBadgeInterfaces.IElement_Base)
             boolMatch = (par_infoBase Is each_infoBase)
             If (boolMatch) Then
                 ListOfElements_Backside.Remove(each_element)
+                pref_bSuccess = True ''Added 1/21/2022 td
                 Exit Sub
             End If
         Next each_element

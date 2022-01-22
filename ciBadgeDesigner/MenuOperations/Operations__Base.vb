@@ -25,6 +25,7 @@ Public Class Operations__Base
         ''
         Dim enumCurrentSide As ciBadgeInterfaces.EnumWhichSideOfCard
         Dim enumSwitchToSide As ciBadgeInterfaces.EnumWhichSideOfCard
+        Dim boolSuccess As Boolean ''Added 1/21/2022td
 
         enumCurrentSide = CtlCurrentElement.ElementInfo_Base.WhichSideOfCard
 
@@ -34,14 +35,20 @@ Public Class Operations__Base
             enumSwitchToSide = EnumWhichSideOfCard.EnumBackside
         End If
 
+        ''Change the element's enumerated value. 
         CtlCurrentElement.ElementInfo_Base.WhichSideOfCard = enumSwitchToSide
 
         ''Important call. 
-        ElementsCacheManager.SwitchElementToOtherSideOfCard(CtlCurrentElement.ElementInfo_Base, Me.Element_Type)
+        ElementsCacheManager.SwitchElementToOtherSideOfCard(CtlCurrentElement.ElementInfo_Base, Me.Element_Type, boolSuccess)
 
-        ''Added 1/17/2022 td
-        MessageBoxTD.Show_Statement("For the change to have a visible effect, you will need to switch to the " &
+        If (boolSuccess) Then
+            ''Added 1/17/2022 td
+            MessageBoxTD.Show_Statement("For the change to have a visible effect, you will need to switch to the " &
                                     "other side of the card.")
+        Else
+            ''Added 1/21/2022 td 
+            MessageBoxTD.Show_Statement("Unfortunately, we could not find that element!!  Sorry!!")
+        End If ''Endo  f'"If (boolSuccess) Then .... Else ...."
 
     End Sub ''End of Public Sub Move_To_Other_Side_Of_Badge_BA1001
 
@@ -50,9 +57,17 @@ Public Class Operations__Base
         ''
         ''Stubbed 1/19/2022 thomas downes
         ''
-        ElementsCacheManager.DeleteElementFromCache(CtlCurrentElement.ElementInfo_Base, Me.Element_Type)
+        Dim boolSuccess As Boolean
 
-        MessageBoxTD.Show_Statement("For the change to have a visible effect, you will need to save & refresh.")
+        ElementsCacheManager.DeleteElementFromCache(CtlCurrentElement.ElementInfo_Base,
+                                                    Me.Element_Type, boolSuccess)
+
+        If (boolSuccess) Then
+            MessageBoxTD.Show_Statement("For the change to have a visible effect, you will need to save & refresh.")
+        Else
+            ''Added 1/21/2022 td 
+            MessageBoxTD.Show_Statement("Unfortunately, we could not find that element!!  Sorry!!")
+        End If ''Endo  f'"If (boolSuccess) Then .... Else ...."
 
     End Sub ''End of Public Sub Delete_Element_From_Badge_BA1001
 

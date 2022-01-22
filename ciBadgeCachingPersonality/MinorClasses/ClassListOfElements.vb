@@ -18,18 +18,41 @@ Public MustInherit Class ClassListOfElements
     Public Shared ClassList_Signatures As New ClassListOfElements_Signatures
     Public Shared ClassList_StaticTexts As New ClassListOfElements_StaticTexts
 
-    Public Shared Sub Load_AllLists(par_listFF As List(Of ClassElementField),
-                                    par_listFB As List(Of ClassElementField),
-                                    par_listGF As List(Of ClassElementGraphic),
-                                    par_listGB As List(Of ClassElementGraphic),
-                                    par_listPF As List(Of ClassElementPortrait),
-                                    par_listPB As List(Of ClassElementPortrait),
-                                    par_listQF As List(Of ClassElementQRCode),
-                                    par_listQB As List(Of ClassElementQRCode),
-                                    par_listSiF As List(Of ClassElementSignature),
-                                    par_listSiB As List(Of ClassElementSignature),
-                                    par_listStF As List(Of ClassElementStaticText),
-                                    par_listStB As List(Of ClassElementStaticText))
+    Public Shared Sub Initialize_IfNeeded(par_cache As ciBadgeCachePersonality.ClassElementsCache_Deprecated)
+        ''
+        ''Added 1/21/2022 thomas downes
+        ''
+        Dim bProbablyUnitialized As Boolean
+        bProbablyUnitialized = (ClassList_Fields.ListOfElements_Backside Is Nothing)
+
+        If (bProbablyUnitialized) Then
+            With par_cache
+
+                Load_AllLists(.ListOfElementFields_Front, .ListOfElementFields_Backside,
+                              .ListOfElementGraphics_Front, .ListOfElementGraphics_Backside,
+                              .ListOfElementPics_Front, .ListOfElementPics_Back,
+                              .ListOfElementQRCodes_Front, .ListOfElementQRCodes_Back,
+                              .ListOfElementSignatures_Front, .ListOfElementSignatures_Back,
+                              .ListOfElementTexts_Front, .ListOfElementTexts_Backside)
+
+            End With
+        End If ''End of "If (bProbablyUnitialized) Then"
+
+    End Sub ''ENd of "Public Shared Sub Initialize_IfNeeded()"
+
+
+    Public Shared Sub Load_AllLists(par_listFF As HashSet(Of ClassElementField),
+                                    par_listFB As HashSet(Of ClassElementField),
+                                    par_listGF As HashSet(Of ClassElementGraphic),
+                                    par_listGB As HashSet(Of ClassElementGraphic),
+                                    par_listPF As HashSet(Of ClassElementPortrait),
+                                    par_listPB As HashSet(Of ClassElementPortrait),
+                                    par_listQF As HashSet(Of ClassElementQRCode),
+                                    par_listQB As HashSet(Of ClassElementQRCode),
+                                    par_listSiF As HashSet(Of ClassElementSignature),
+                                    par_listSiB As HashSet(Of ClassElementSignature),
+                                    par_listStF As HashSet(Of ClassElementStaticText),
+                                    par_listStB As HashSet(Of ClassElementStaticText))
         ''
         ''Added 1/19/2022 td
         ''
@@ -72,9 +95,12 @@ Public MustInherit Class ClassListOfElements
 
     End Function ''ENd of "ublic Shared Function GetListOfElements(par_enum As enum)"
 
-    Public MustOverride Sub SwitchElementToOtherSideOfCard(par_infoBase As IElement_Base)
+    Public MustOverride Sub SwitchElementToOtherSideOfCard(par_infoBase As IElement_Base,
+                                  Optional ByRef pref_bSuccess As Boolean = False)
     Public MustOverride Sub RemoveElement(par_infoBase As IElement_Base,
-                                          Optional pboolBacksideOfCard As Boolean = False)
+                                          Optional ByRef pref_bSuccess As Boolean = False,
+                                          Optional pbSpecifySideOfCard As Boolean = False,
+            Optional par_enumSide As EnumWhichSideOfCard = EnumWhichSideOfCard.Undetermined)
 
 
 
