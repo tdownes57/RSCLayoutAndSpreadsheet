@@ -128,10 +128,14 @@ Public Class Operations_Desktop
         Dim objForm_Show As New FormPickGraphic
         Dim strPathToGraphicImage As String ''Added 1/22/2022 td
         Dim diag_result As DialogResult ''Added 1/22/2022 td
+        Dim singleRatioWH As Single ''Added 1/22/2022 td
+        Dim intImageWidth As Integer ''Added 1/22/2022 td
+        Dim intImageHeight As Integer ''Added 1/22/2022 td
 
         ''Important function call.  Show the user the existing graphics files. 
         diag_result = objForm_Show.ShowDialog()
         strPathToGraphicImage = objForm_Show.PathToImageFileLocation
+
         If (diag_result = DialogResult.Cancel) Then
             ''Added 1/22/2022
             MessageBoxTD.Show_Statement("The user has cancelled, or hasn't selected a file.")
@@ -141,7 +145,11 @@ Public Class Operations_Desktop
             MessageBoxTD.Show_Statement("The user hasn't selected a file.")
             Return
         End If ''End of "If (diag_result = DialogResult.Cancel) Then ... ElseIf ..."
+
         strPathToGraphicImage = objForm_Show.PathToImageFileLocation
+        singleRatioWH = objForm_Show.RatioWH
+        intImageWidth = objForm_Show.ImageWidth_Original
+        intImageHeight = objForm_Show.ImageHeight_Original
 
         infoDesignerForm = Me.ParentDesignerForm
         ''Jan19 2022''intHeightOfRSC = infoDesignerForm.HeightAnyRSCMoveableControl()
@@ -159,7 +167,8 @@ Public Class Operations_Desktop
         ''Jan19 2022''objRect = New System.Drawing.Rectangle(e.X, e.Y, intWidthOfRSC, intHeightOfRSC)
         objRect = New System.Drawing.Rectangle(e.X, e.Y, objSize.Width, objSize.Height)
 
-        objElementStaticGraphic = New ClassElementGraphic(objRect,
+        objElementStaticGraphic = New ClassElementGraphic(strPathToGraphicImage,
+                                                          objRect,
                                                           Me.DesignerClass.BackgroundBox_Front)
         obj_parametersGetElementControl = DesignerClass.GetParametersToGetElementControl()
 

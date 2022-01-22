@@ -17,6 +17,7 @@ Public Interface IElementGraphic ''Dec.8 2021''InterfaceElementGraphic
     ''
     Property GraphicImageName As String
     Property GraphicImage As Image
+    Property GraphicImageFullPath As String ''Added 1/22/2022 td
 
     Property BackgroundIsTransparent As Boolean ''Added 12/8/2021  
 

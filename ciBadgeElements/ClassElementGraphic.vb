@@ -218,6 +218,7 @@ Public Class ClassElementGraphic
     ''
     Public Property GraphicImage As Image Implements IElementGraphic.GraphicImage ''Added 12/8/2021 td
     Public Property GraphicImageName As String Implements IElementGraphic.GraphicImageName ''Added 12/8/2021 td
+    Public Property GraphicImageFullPath As String Implements IElementGraphic.GraphicImageFullPath ''Added 1/22/2022 td
     Public Property BackgroundIsTransparent As Boolean Implements IElementGraphic.BackgroundIsTransparent ''Added 12/8/2021 td
 
     Public Property ZOrder As Integer Implements IElement_Base.ZOrder
@@ -245,7 +246,8 @@ Public Class ClassElementGraphic
 
     End Sub
 
-    Public Sub New(par_rectangle As Rectangle, par_layout As PictureBox)
+    Public Sub New(par_rectangle As Rectangle, par_layout As PictureBox,
+                   par_strPathToGraphicsFile As String)
         ''
         ''Added 9/16/2019 td
         ''
@@ -258,6 +260,13 @@ Public Class ClassElementGraphic
         ''Added 9/16/2019 td
         Me.Width_Pixels = par_rectangle.Width
         Me.Height_Pixels = par_rectangle.Height
+
+        ''Added 1/22/2022 thomas d.
+        If (IO.File.Exists(par_strPathToGraphicsFile)) Then
+            Dim objFileInfo = New IO.FileInfo(par_strPathToGraphicsFile)
+            Me.GraphicImageName = objFileInfo.Name
+            Me.GraphicImageFullPath = par_strPathToGraphicsFile
+        End If ''End of "If (IO.File.Exists(par_strPathToGraphicsFile)) Then"
 
     End Sub ''ENd of ""Public Sub New(par_rectangle As Rectangle, par_layout As PictureBox)""
 

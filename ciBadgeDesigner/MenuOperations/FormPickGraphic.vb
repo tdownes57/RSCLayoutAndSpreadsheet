@@ -8,6 +8,9 @@ Public Class FormPickGraphic
 
     Public Property ListOfImages As List(Of Image)
     Public Property PathToImageFileLocation As String
+    Public Property RatioWH As Single
+    Public Property ImageWidth As Integer
+    Public Property ImageHeight As Integer
 
     Private Sub FormPickGraphic_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
@@ -99,7 +102,17 @@ Public Class FormPickGraphic
 
         End With ''Eend of "With objNewPictureBox"
 
+        ''
+        '' Display the Image.  
+        ''
         FlowLayoutPanel1.Controls.Add(objNewPictureBox)
+
+        ''
+        ''Added 1/22/2022
+        ''
+        Me.ImageWidth = objNewPictureBox.Image.Width
+        Me.ImageHeight = objNewPictureBox.Image.Height
+        Me.RatioWH = CSng(Me.ImageWidth / Me.ImageHeight)
 
     End Sub ''End of ""Private Sub Load_ImageIntoContainerUsingPath(par_pathToImage As String)""
 
@@ -108,12 +121,31 @@ Public Class FormPickGraphic
         ''
         ''Added 1/22/2022 td  
         ''
+        ''See following line of code
+        ''       "AddHandler .Click, AddressOf HandlePictureBoxClicks" 
+        ''  in the Private Sub Load_ImageIntoContainerUsingPath.
+        ''  ----1/22/2022 td
+        ''
         Dim objPictureBox As PictureBox = CType(objSender, PictureBox)
         Dim strPathToImageFile As String
+        Dim strPathToImageFile_InGraphicsFolder As String = ""
+        Dim strPathFinal_OutputToGraphics As String = ""
 
         strPathToImageFile = objPictureBox.ImageLocation
 
-        textboxPathToImageFile.Text = strPathToImageFile
+        ''Make sure the path to the image leads to the Graphics folder.
+        CopyPasteImageFileToGraphics_IfNeeded(strPathToImageFile, strPathFinal_OutputToGraphics)
+
+        ''Jan22 2022 ''textboxPathToImageFile.Text = strPathToImageFile
+        strPathToImageFile_InGraphicsFolder = strPathFinal_OutputToGraphics
+        textboxPathToImageFile.Text = strPathToImageFile_InGraphicsFolder
+
+        ''
+        ''Added 1/22/2022
+        ''
+        Me.ImageWidth = objPictureBox.Image.Width
+        Me.ImageHeight = objPictureBox.Image.Height
+        Me.RatioWH = CSng(Me.ImageWidth / Me.ImageHeight)
 
     End Sub ''End of "Private Sub HandlePictureBoxClicks(objSender As Object, e As EventArgs)"
 
@@ -141,7 +173,8 @@ Public Class FormPickGraphic
         resObj = CType(resourceManager.GetObject("ImageResource"),
             System.Drawing.Image)
 
-    End Sub
+
+    End Sub ''End of "Private Sub Load_ApplicationResources()"
 
     Private Sub ButtonOK_Click(sender As Object, e As EventArgs) Handles ButtonOK.Click
         ''
@@ -168,43 +201,49 @@ Public Class FormPickGraphic
         ''
         ''Added 1/22/2022 td
         ''
+        Dim diag_result As DialogResult
+        Dim strPathToSelectedImageFile As String = ""
+        Dim strPathToImageFileInGraphics As String = ""
+        Dim strPathFinalOutput As String = ""
+
         OpenFileDialog1.InitialDirectory = DiskFolders.PathToFolder_Graphics()
         OpenFileDialog1.Filter = "JPG|*.jpg"
 
-        Dim diag_result As DialogResult
         diag_result = OpenFileDialog1.ShowDialog()
         If (diag_result = DialogResult.Cancel) Then
             Exit Sub
         End If
 
-        Dim strPathToSelectedImageFile As String = ""
-        Dim strPathToImageFilePasted As String = ""
-        Dim strPathToFolderGraphics As String = ""
-        Dim strPathToImageFileInGraphics As String = ""
-
-        strPathToFolderGraphics = DiskFolders.PathToFolder_Graphics()
+        ''Dim strPathToFolderGraphics As String = ""
+        ''strPathToFolderGraphics = DiskFolders.PathToFolder_Graphics()
         strPathToSelectedImageFile = OpenFileDialog1.FileName
 
-        If (IO.File.Exists(strPathToSelectedImageFile)) Then
+        ''Encapsulated 1/22/2022 td
+        CopyPasteImageFileToGraphics_IfNeeded(strPathToSelectedImageFile,
+                                  strPathFinalOutput) '' ,strPathToImageFileInGraphics)
+        ''Added 1/22/2022
+        strPathToImageFileInGraphics = strPathFinalOutput
 
-            Dim objFileInfo As New IO.FileInfo(strPathToSelectedImageFile)
-            Dim bAlreadyInFolderGraphics As Boolean
-
-            bAlreadyInFolderGraphics = (objFileInfo.DirectoryName = strPathToFolderGraphics)
-
-            If (bAlreadyInFolderGraphics) Then
-
-                strPathToImageFileInGraphics = strPathToSelectedImageFile
-
-            Else
-                DiskFilesVB.CopyPasteImageFile(strPathToSelectedImageFile,
-                                 strPathToFolderGraphics,
-                                 strPathToImageFilePasted)
-                strPathToImageFileInGraphics = strPathToImageFilePasted
-
-            End If ''End of "If (False = bAlreadyInFolderGraphics) Then"
-
-        End If ''End of " If (IO.File.Exists(strPathToSelectedImageFile)) Then"
+        ''If (IO.File.Exists(strPathToSelectedImageFile)) Then
+        ''
+        ''    Dim objFileInfo As New IO.FileInfo(strPathToSelectedImageFile)
+        ''    Dim bAlreadyInFolderGraphics As Boolean
+        ''
+        ''    bAlreadyInFolderGraphics = (objFileInfo.DirectoryName = strPathToFolderGraphics)
+        ''
+        ''    If (bAlreadyInFolderGraphics) Then
+        ''
+        ''        strPathToImageFileInGraphics = strPathToSelectedImageFile
+        ''
+        ''    Else
+        ''        DiskFilesVB.CopyPasteImageFile(strPathToSelectedImageFile,
+        ''                         strPathToFolderGraphics,
+        ''                         strPathToImageFilePasted)
+        ''        strPathToImageFileInGraphics = strPathToImageFilePasted
+        ''
+        ''    End If ''End of "If (False = bAlreadyInFolderGraphics) Then"
+        ''
+        ''End If ''End of " If (IO.File.Exists(strPathToSelectedImageFile)) Then"
 
         ''
         ''Important call !!  
@@ -213,6 +252,57 @@ Public Class FormPickGraphic
         textboxPathToImageFile.Text = strPathToImageFileInGraphics
 
     End Sub ''End of "Private Sub ButtonBrowseForImageFile_Click"
+
+    Private Sub CopyPasteImageFileToGraphics_IfNeeded(pstrPathToSelectedImageFile As String,
+                                      ByRef pstrPathToImageFileInGraphics As String)
+        ''
+        ''Added 1/22/2022 thomas d. 
+        ''
+        ''Dim strPathToSelectedImageFile As String = ""
+        Dim strPathToFolderGraphics As String = ""
+        Dim strPathToImageFilePasted As String = ""
+        ''Dim strPathToImageFileInGraphics As String = ""
+
+        If (IO.File.Exists(pstrPathToSelectedImageFile)) Then
+
+            Dim objFileInfo As New IO.FileInfo(pstrPathToSelectedImageFile)
+            Dim bAlreadyInFolderGraphics As Boolean
+
+            bAlreadyInFolderGraphics = (objFileInfo.DirectoryName = strPathToFolderGraphics)
+
+            If (bAlreadyInFolderGraphics) Then
+
+                pstrPathToImageFileInGraphics = pstrPathToSelectedImageFile
+
+            Else
+                ''
+                ''We will need to copy the Image file to the Graphics folder (under the
+                ''   deployed application's general Images folder).
+                ''
+                strPathToFolderGraphics = DiskFolders.PathToFolder_Graphics()
+                ''
+                ''Copy the image file!!!
+                ''
+                DiskFilesVB.CopyPasteImageFile(pstrPathToSelectedImageFile,
+                                 strPathToFolderGraphics,
+                                 strPathToImageFilePasted)
+                pstrPathToImageFileInGraphics = strPathToImageFilePasted
+
+            End If ''End of "If (False = bAlreadyInFolderGraphics) Then"
+
+        End If ''End of " If (IO.File.Exists(strPathToSelectedImageFile)) Then"
+
+ExitHandler:
+        If (IO.File.Exists(pstrPathToImageFileInGraphics)) Then
+
+            Exit Sub
+
+        Else
+            Throw New Exception("We haven't been able to copy the image to Graphics.")
+
+        End If
+
+    End Sub ''End of "Private Sub CopyPasteImageFileToGraphics_IfNeeded()"
 
 
 End Class
