@@ -32,6 +32,7 @@ Public Class ClassListOfElements_QRCodes
             If (boolMatch) Then
                 ListOfElements_Front.Remove(each_element)
                 ListOfElements_Backside.Add(each_element)
+                pref_bSuccess = True ''Added 1/21/2022 td
                 Exit Sub
             Else
                 If (each_element.WhichSideOfCard = EnumWhichSideOfCard.Undetermined) Then each_element.WhichSideOfCard = EnumWhichSideOfCard.EnumFrontside

@@ -17,5 +17,7 @@ Public Class Operations_Portrait
     ''
     ''Added 1/04/2022 td
     ''
+    Public Overrides Property Element_Type As Enum_ElementType = Enum_ElementType.Portrait ''Added 1/21/2022 td
+
 
 End Class

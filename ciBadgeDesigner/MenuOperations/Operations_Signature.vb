@@ -19,7 +19,7 @@ Public Class Operations_Signature
     ''
     ''Added 12/12/2021 td
     ''
-
+    Public Overrides Property Element_Type As Enum_ElementType = Enum_ElementType.Signature ''Added 1/21/2022 td
 
 
 

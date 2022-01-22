@@ -9,14 +9,24 @@ Imports ciBadgeInterfaces
 ''Imports ciBadgeElements
 Imports __RSCWindowsControlLibrary ''Added 1/2/2022 td 
 
-Public Class Operations__Base
+Public MustInherit Class Operations__Base
     Implements ICurrentElement ''Added 12/28/2021 td
+    ''
+    ''Added 12/12/2021 td
+    ''
+    ''Added keyword "MustInherit" on 1/21/2022, so that I could have the 
+    ''  Public Property Element_Type have the same keyword ("MustInherit")
+    ''  (which in turn caused the Class itself to require the same keyword).
+    ''   ----1/21/2022 td
+    ''
+
     Public Overridable Property CtlCurrentElement As RSCMoveableControlVB Implements ICurrentElement.CtlCurrentElement
     Public Property ElementsCacheManager As ciBadgeCachePersonality.ClassCacheManagement Implements ICurrentElement.ElementsCacheManager
 
     Public Property NameOfClass As String ''Added 12/30/2021 td
     Public Property ElementInfo_Base As IElement_Base ''Added 1/19/2022 thomas d. 
-    Public Property Element_Type As Enum_ElementType ''Added 1/19/2022 td 
+    Public MustOverride Property Element_Type As Enum_ElementType ''Added 1/19/2022 td 
+
 
     Public Sub Move_To_Other_Side_Of_Badge_BA1001(sender As Object, e As EventArgs)
         ''

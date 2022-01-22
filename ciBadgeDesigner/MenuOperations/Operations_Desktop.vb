@@ -25,6 +25,8 @@ Public Class Operations_Desktop
     Public DesignerClass As ClassDesigner ''Added 1/18/2022 td
     ''Not needed. 1/18/2022 td''Public InfoRefreshPreview As IRefreshPreview ''Added 1/18/2022 td
 
+    Public Property Element_Type As Enum_ElementType = Enum_ElementType.__Desktop ''Added 1/21/2022 td 
+
     Private mod_dialogFile As New System.Windows.Forms.OpenFileDialog ''Added 1/19/2022 td
 
     Public Sub Create_New_StaticText_Control_GD2001(sender As Object, e As MouseEventArgs)

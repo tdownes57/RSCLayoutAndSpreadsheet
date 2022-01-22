@@ -17,5 +17,7 @@ Public Class Operations_QRCode
     ''
     ''Added 12/12/2021 td
     ''
+    Public Overrides Property Element_Type As Enum_ElementType = Enum_ElementType.QRCode ''Added 1/21/2022 td
+
 
 End Class

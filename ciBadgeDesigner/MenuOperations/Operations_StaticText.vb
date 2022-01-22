@@ -20,6 +20,9 @@ Public Class Operations_StaticText
     Public Property ElementStaticText As ciBadgeElements.ClassElementStaticText ''Added 1/19/2022
     Public Property ElementInfo_TextOnly As IElement_TextOnly ''Added 1/19/2022
 
+    Public Overrides Property Element_Type As Enum_ElementType = Enum_ElementType.StaticGraphic ''Added 1/21/2022 td
+
+
     ''
     ''Added 12/12/2021 td
     ''

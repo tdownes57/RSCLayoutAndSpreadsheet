@@ -35,6 +35,8 @@ Public Class Operations_StaticGraphic
     ''----Public Property ColorDialog1 As ColorDialog ''Added 10/3/2019 td 
     Public Property OpenFileDialog1 As OpenFileDialog ''Added 10/15/2019 td 
     Public Property ColorDialog1 As ColorDialog ''Added 12/13/2021 td 
+    Public Overrides Property Element_Type As Enum_ElementType = Enum_ElementType.StaticGraphic ''Added 1/21/2022 td
+
 
 
     ''Private Property ICurrentElement_CtlCurrentElement As __RSCWindowsControlLibrary.RSCMoveableControlVB Implements ICurrentElement.CtlCurrentElement
