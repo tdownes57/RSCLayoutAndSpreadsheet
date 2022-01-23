@@ -30,11 +30,11 @@ Public Class MenuCache_NonShared
     ''[[[Public Tools_AlignmentFeatures As New ToolStripItemCollection(ToolStripContainer3, array_tools3) ''10/13 td''''List(Of ToolStripMenuItem)
     ''--Public Tools_EditBackgroundMenu As New List(Of ToolStripMenuItem)
 
-    Friend Tools_MenuHeader0 As ToolStripItem ''Added 12/13/2021
-    Friend Tools_MenuHeader1 As ToolStripItem ''Added 12/12/2021
-    Friend Tools_MenuHeader2 As ToolStripItem ''Added 12/12/2021 
-    Friend Tools_MenuHeader3 As ToolStripItem ''Added 12/13/2021
-    Friend Tools_MenuSeparator As ToolStripItem ''Added 12/13/2021 
+    Public Tools_MenuHeader0 As ToolStripItem ''Added 12/13/2021
+    Public Tools_MenuHeader1 As ToolStripItem ''Added 12/12/2021
+    Public Tools_MenuHeader2 As ToolStripItem ''Added 12/12/2021 
+    Public Tools_MenuHeader3 As ToolStripItem ''Added 12/13/2021
+    Public Tools_MenuSeparator As ToolStripItem ''Added 12/13/2021 
 
     ''12/28/2021 td''Public Property CtlCurrentElement As ciBadgeDesigner.CtlGraphicFldLabel ''CtlGraphicFldLabel
     Public Property CtlCurrentElement As RSCMoveableControlVB Implements ICurrentElement.CtlCurrentElement ''CtlGraphicFldLabel

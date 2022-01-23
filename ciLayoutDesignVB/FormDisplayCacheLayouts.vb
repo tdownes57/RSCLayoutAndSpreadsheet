@@ -9,6 +9,7 @@ Public Class FormDisplayCacheLayouts
     Public UserChoosesABlankSlate As Boolean ''Added 12/20/2021 thomas downes  
     Public UserHasSelectedCancel As Boolean ''Added 12/20/2021 thomas downes
     Public PathToLastDirectoryForXMLFile As String ''Added 12/20/2021 thomas downes
+    Public FileTitleOfXMLFile As String ''Added 1/22/2022 thomas downes
     ''Added 12/26/2021
     Public ShowMessageForIllformedXML As Boolean ''Added 12/26/2021 thomas downes
 
@@ -120,10 +121,11 @@ Public Class FormDisplayCacheLayouts
         Dim strPathToXML As String
 
         OpenFileDialog1.InitialDirectory = DiskFolders.PathToFolder_XML()
-        If (PathToLastDirectoryForXMLFile <> "") Then
-            OpenFileDialog1.InitialDirectory = PathToLastDirectoryForXMLFile
+        If (Me.PathToLastDirectoryForXMLFile <> "") Then
+            OpenFileDialog1.InitialDirectory = Me.PathToLastDirectoryForXMLFile
         End If ''End of "If (PathToLastDirectoryForXMLFile <> "") Then"
-        OpenFileDialog1.FileName = ""
+        ''1/22/2022''OpenFileDialog1.FileName = ""
+        OpenFileDialog1.FileName = Me.FileTitleOfXMLFile
 
         Do
             OpenFileDialog1.ShowDialog()
@@ -136,6 +138,8 @@ Public Class FormDisplayCacheLayouts
 
         Me.PathToElementsCacheXML = strPathToXML
         Me.PathToLastDirectoryForXMLFile = (New IO.FileInfo(strPathToXML)).DirectoryName
+        ''Added 1/22/2022 td
+        Me.FileTitleOfXMLFile = (New IO.FileInfo(strPathToXML)).Name
 
         ''Added 1/5/2022 thomas d.
         ''Jan5 2022 t. downes''My.Settings.PathToXML_Saved_ElementsCache = strPathToXML

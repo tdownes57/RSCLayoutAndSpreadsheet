@@ -202,11 +202,13 @@ Public Class Operations_Desktop
 
             If (bCardBackside) Then
                 ''Backside of ID Card. 
+                objElementStaticGraphic.WhichSideOfCard = EnumWhichSideOfCard.EnumBackside
                 With .ElementsCacheManager.CacheForEditing
                     .ListOfElementGraphics_Backside.Add(objElementStaticGraphic)
                 End With
             Else
                 ''Front of ID Card. 
+                objElementStaticGraphic.WhichSideOfCard = EnumWhichSideOfCard.EnumFrontside
                 With .ElementsCacheManager.CacheForEditing
                     .ListOfElementGraphics_Front.Add(objElementStaticGraphic)
                 End With
@@ -234,6 +236,20 @@ Public Class Operations_Desktop
             ''
             MyBase.ParentForm.Controls.Add(objElementControl)
             objElementControl.Visible = True
+
+            ''Added 1/22/2022 thomas 
+            ''  Let's make sure that the new element-control is not lurking behind the Background Boxes.
+            With Me.DesignerClass
+                If (bCardBackside) Then
+                    .BackgroundBox_Backside.SendToBack()
+                    .BackgroundBox_Front.SendToBack()
+                    .BackgroundBox_JustAButton.SendToBack()
+                Else
+                    .BackgroundBox_Front.SendToBack()
+                    .BackgroundBox_Backside.SendToBack()
+                    .BackgroundBox_JustAButton.SendToBack()
+                End If
+            End With
 
         End With ''End of "With obj_parametersGetElementControl"
 

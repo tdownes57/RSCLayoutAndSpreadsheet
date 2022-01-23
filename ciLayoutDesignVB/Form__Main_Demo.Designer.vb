@@ -111,12 +111,12 @@ Partial Class Form__Main_Demo
         Me.flowRelevantLinkLabels = New System.Windows.Forms.FlowLayoutPanel()
         Me.LabelFieldsNotYetDisplayed = New System.Windows.Forms.Label()
         Me.pictureJustAButton = New System.Windows.Forms.PictureBox()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.CtlGraphicQRCode1 = New ciBadgeDesigner.CtlGraphicQRCode()
         Me.CtlGraphicPortrait_Lady = New ciBadgeDesigner.CtlGraphicPortrait()
         Me.CtlGraphicSignature1 = New ciBadgeDesigner.CtlGraphicSignature()
         Me.CtlGraphicStaticText1 = New ciBadgeDesigner.CtlGraphicStaticText()
-        Me.CtlClickableDesktop1 = New ciBadgeDesigner.ComponentClickableDesktop(Me.components)
-        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.ComponentClickableDesktop1 = New ciBadgeDesigner.ComponentClickableDesktop(Me.components)
         Me.ComponentClickIDFrontside1 = New ciBadgeDesigner.ComponentClickBackground(Me.components)
         Me.ComponentClickIDBackside1 = New ciBadgeDesigner.ComponentClickBackground(Me.components)
         Me.MenuStrip1.SuspendLayout()
@@ -905,6 +905,14 @@ Partial Class Form__Main_Demo
         Me.CtlGraphicStaticText1.TabIndex = 75
         Me.CtlGraphicStaticText1.TextToDisplay = "This is text which will be the same for everyone."
         '
+        'ComponentClickIDFrontside1
+        '
+        Me.ComponentClickIDFrontside1.PictureBoxControl = Nothing
+        '
+        'ComponentClickIDBackside1
+        '
+        Me.ComponentClickIDBackside1.PictureBoxControl = Nothing
+        '
         'Form__Main_Demo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 20.0!)
@@ -1059,7 +1067,7 @@ Partial Class Form__Main_Demo
     Friend WithEvents LinkLabel2 As LinkLabel
     Friend WithEvents LinkLabel3 As LinkLabel
     Friend WithEvents StatusLabelWarningError As ToolStripStatusLabel
-    Friend WithEvents CtlClickableDesktop1 As ComponentClickableDesktop
+    Friend WithEvents ComponentClickableDesktop1 As ComponentClickableDesktop
     Friend WithEvents PrintASpecifiedNumberOfBadgesToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents Label1 As Label
     Friend WithEvents flowRelevantLinkLabels As FlowLayoutPanel

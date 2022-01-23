@@ -41,6 +41,7 @@ Partial Class CtlGraphicStaticGraphic
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.Color.Transparent
         Me.Controls.Add(Me.pictureStaticGraphic)
         Me.Name = "CtlGraphicStaticGraphic"
         Me.Size = New System.Drawing.Size(352, 76)

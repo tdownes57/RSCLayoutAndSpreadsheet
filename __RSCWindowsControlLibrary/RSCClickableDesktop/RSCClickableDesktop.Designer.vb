@@ -56,5 +56,7 @@
 
     End Sub
 
-    Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
+    ''1/22/2022 td''Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
+    Protected WithEvents ContextMenuStrip1 As ContextMenuStrip
+
 End Class

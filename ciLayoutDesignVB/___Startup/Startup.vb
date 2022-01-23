@@ -80,6 +80,9 @@ Public Class Startup
                 ''Added 12/20/2021 thomas downes
                 objFormShowCacheLayouts.PathToLastDirectoryForXMLFile = My.Settings.PathToLastDirectoryForXMLFile
 
+                ''Added 1/22/2022 thomas downes
+                objFormShowCacheLayouts.FileTitleOfXMLFile = My.Settings.FileTitleOfXMLFile
+
                 Do
                     objFormShowCacheLayouts.PathToElementsCacheXML = strPathToElementsCacheXML ''Added 12/20/2021 td
                     objFormShowCacheLayouts.ShowDialog()
@@ -790,6 +793,8 @@ Public Class Startup
         Dim objFileInfo As New IO.FileInfo(par_pathToElementsCacheXML)
 
         My.Settings.PathToLastDirectoryForXMLFile = objFileInfo.DirectoryName
+        ''Added 1/22/2022 td
+        My.Settings.FileTitleOfXMLFile = objFileInfo.Name ''Added 1/22/2022 td
 
         My.Settings.Save() ''Added 1/7/2022 td
 

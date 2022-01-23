@@ -157,6 +157,8 @@ Public Class Form__Main_Demo
         ''Added 1/22/2022 td 
         ComponentClickIDFrontside1.PictureBoxControl = pictureBackgroundFront
         ComponentClickIDBackside1.PictureBoxControl = pictureBackgroundBackside
+        ComponentClickIDFrontside1.ParentDesignerForm = Me ''pictureBackgroundFront
+        ComponentClickIDBackside1.ParentDesignerForm = Me ''pictureBackgroundBackside
 
         ''Added 10/12/2019 td
         With CtlGraphicSignature1
@@ -365,9 +367,19 @@ Public Class Form__Main_Demo
         pictureBackgroundFront.Refresh()
 
         ''Added 1/18/2022 thomas
-        CtlClickableDesktop1.InitializeClickability(Me, flowRelevantLinkLabels)
-        CtlClickableDesktop1.InitializeFunctionality(Me, Me, Me.mod_designer, Me.mod_designer)
-        CtlClickableDesktop1.AddClickability()
+        ComponentClickableDesktop1.InitializeClickability(Me, flowRelevantLinkLabels)
+        ComponentClickableDesktop1.InitializeFunctionality(Me, Me, Me.mod_designer, Me.mod_designer)
+        ComponentClickableDesktop1.AddClickability()
+
+        ''Added 1/22/2022 thomas
+        ComponentClickIDFrontside1.InitializeClickability(Me, flowRelevantLinkLabels)
+        ComponentClickIDFrontside1.InitializeFunctionality(Me, Me, Me.mod_designer, Me.mod_designer)
+        ComponentClickIDFrontside1.AddClickability()
+
+        ''Added 1/22/2022 thomas
+        ComponentClickIDBackside1.InitializeClickability(Me, flowRelevantLinkLabels)
+        ComponentClickIDBackside1.InitializeFunctionality(Me, Me, Me.mod_designer, Me.mod_designer)
+        ComponentClickIDBackside1.AddClickability()
 
     End Sub ''End of "Private Sub Form_Load"  
 
@@ -1676,6 +1688,9 @@ Public Class Form__Main_Demo
         ''End With ''End of "With objSerializationClass"
 
         SaveFileDialog1.FileName = "" ''Added 11/24/2021 thomas downes
+        SaveFileDialog1.InitialDirectory = My.Settings.PathToLastDirectoryForXMLFile
+        SaveFileDialog1.FileName = My.Settings.FileTitleOfXMLFile
+
         SaveFileDialog1.ShowDialog()
 
         ''Added 12/17/2021 td 
@@ -2766,8 +2781,8 @@ ExitHandler:
         ''Added 1/16/2022 td
         ''
         If (e.Button = MouseButtons.Right) Then
-            CtlClickableDesktop1.ParentDesignerForm = Me
-            CtlClickableDesktop1.ClickableDesktop_MouseUp(sender, e)
+            ComponentClickableDesktop1.ParentDesignerForm = Me
+            ComponentClickableDesktop1.ClickableDesktop_MouseUp(sender, e)
         End If
 
     End Sub

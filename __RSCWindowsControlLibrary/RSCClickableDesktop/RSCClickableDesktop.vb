@@ -136,7 +136,7 @@ Public Class RSCClickableDesktop
     End Sub ''End of "Private Sub InitializeClickability()"
 
 
-    Public Sub ClickableDesktop_MouseUp(par_sender As Object, par_e As MouseEventArgs) ''Handles Me.MouseUp
+    Public Overridable Sub ClickableDesktop_MouseUp(par_sender As Object, par_e As MouseEventArgs) ''Handles Me.MouseUp
         ''
         ''Added 1/4/2022 thomas d.
         ''
@@ -149,10 +149,10 @@ Public Class RSCClickableDesktop
 
         End If ''End of "If (mod_bHandleMouseMoveEvents And par_e.Button = MouseButtons.Left) Then"
 
-    End Sub ''End of Protected Sub MoveableControl_MouseUp
+    End Sub ''End of Public Overridable Sub ClickableDesktop_MouseUp
 
 
-    Public Sub AddClickability()
+    Public Overridable Sub AddClickability()
         ''
         ''Added 12/28/2021 td
         ''

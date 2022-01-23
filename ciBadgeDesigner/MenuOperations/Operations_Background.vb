@@ -33,7 +33,7 @@ Public Class Operations_Background
 
     ''Jan22 2022''Public Property CtlCurrentElement As ciBadgeDesigner.CtlGraphicFldLabel ''CtlGraphicFldLabel
     ''Jan22 2022''Public Property LayoutFunctions As ILayoutFunctions ''Added 10/3/2019 td 
-    Public Property Designer As ciBadgeDesigner.ClassDesigner
+    Public Property DesignerClass As ciBadgeDesigner.ClassDesigner
     Public Property ColorDialog1 As ColorDialog ''Added 10/3/2019 td 
     Public Property OpenFileDialog1 As OpenFileDialog ''Added 10/15/2019 td 
     Public Property GroupedElements As GroupMoveEvents_Singleton ''ClassGroupMove ''Renamed 12/30/2021 td ''Added 10/15/2019 td
@@ -48,34 +48,43 @@ Public Class Operations_Background
     Public Overloads Property CtlCurrentElement As Control ''Added 1/22/2022  
     Public Property CtlCurrentPicturebox As PictureBox ''Added 1/22/2022 td  
 
-    Public Sub Create_New_StaticText_Control_GD2081(sender As Object, e As MouseEventArgs)
+    Public Sub Create_New_StaticText_Control_GD2081(sender As Object, par_e As MouseEventArgs)
         ''
         ''Added 1/16/2022 thomas downes  
         ''
         InitializeOperationsDesktop_IfNeeded() ''Must initialize the supporting Operations. 
 
-        Dim new_eventArgs As MouseEventArgs
-        Dim intArgsClick As Integer = 0
-        Dim intArgsDelta As Integer = 0
+        ''Dim new_eventArgs As MouseEventArgs
+        ''Dim intArgsClick As Integer = 0
+        ''Dim intArgsDelta As Integer = 0
 
-        new_eventArgs = New MouseEventArgs(MouseButtons.Right, intArgsClick,
-                e.X + CtlCurrentPicturebox.Left,
-                e.Y + CtlCurrentPicturebox.Top,
-                intArgsDelta)
+        ''new_eventArgs = New MouseEventArgs(MouseButtons.Right, intArgsClick,
+        ''        e.X + CtlCurrentPicturebox.Left,
+        ''        e.Y + CtlCurrentPicturebox.Top,
+        ''        intArgsDelta)
 
-        mod_operationsDesktop.Create_New_StaticText_Control_GD2001(sender, new_eventArgs)
+        ''mod_operationsDesktop.Create_New_StaticText_Control_GD2001(sender, new_eventArgs)
+        ''
+        ''Major call !!
+        ''
+        mod_operationsDesktop.Create_New_StaticText_Control_GD2001(sender, Get_EventArgs_ShiftPosition(par_e))
 
-    End Sub
+    End Sub ''End of "Public Sub Create_New_StaticText_Control_GD2081"
 
 
-    Public Sub Create_New_Graphics_Control_GD2041(sender As Object, e As MouseEventArgs)
+    Public Sub Create_New_Graphics_Control_GD2041(sender As Object, par_e As MouseEventArgs)
         ''
         ''Added 1/22/2022 thomas downes  
         ''
         InitializeOperationsDesktop_IfNeeded()
 
+        ''
+        ''Major call !!
+        ''
+        mod_operationsDesktop.Create_New_Graphic_Control_GD2002(sender, Get_EventArgs_ShiftPosition(par_e))
 
-    End Sub
+
+    End Sub ''End of "Public Sub Create_New_Graphics_Control_GD2041"
 
 
     Public Sub Create_New_StaticText_Control_GD2001(sender As Object, e As MouseEventArgs)
@@ -94,7 +103,7 @@ Public Class Operations_Background
         ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
         ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
         ''
-        Me.Designer.UnselectHighlightedElements()
+        Me.DesignerClass.UnselectHighlightedElements()
 
     End Sub ''End of "Public Sub Unselect_all_highlighted_Elements()"
 
@@ -128,7 +137,7 @@ Public Class Operations_Background
 
         If ("" <> strFullPathToBitmap) Then
             open_image = New Bitmap(strFullPathToBitmap)
-            Me.Designer.BackgroundBox_Front.Image = open_image
+            Me.DesignerClass.BackgroundBox_Front.Image = open_image
         End If ''End of "If ("" = strFullPathToBitmap) Then"
 
     End Sub ''End of "Public Sub Change_Background_Image()"
@@ -163,10 +172,35 @@ Public Class Operations_Background
 
             ''mod_operationsDesktop.CtlCurrentElement = Me.CtlCurrentElement
             ''mod_operationsDesktop.CtlCurrentElement = Me.CtlCurrentPicturebox
-            mod_operationsDesktop.CtlCurrentControl = Me.CtlCurrentPicturebox
+
+            With mod_operationsDesktop
+                .CtlCurrentControl = Me.CtlCurrentPicturebox
+                .ParentDesignerForm = Me.ParentDesignerForm
+                .ParentForm = Me.ParentForm
+                .DesignerClass = Me.DesignerClass
+            End With
 
         End If ''End of "If (mod_operationsDesktop Is Nothing) Then"
 
     End Sub
+
+
+    Private Function Get_EventArgs_ShiftPosition(par_e As MouseEventArgs) As MouseEventArgs
+        ''
+        ''Added 1/22/2022 td
+        ''
+        Dim new_eventArgs As MouseEventArgs
+        Dim intArgsClick As Integer = 0
+        Dim intArgsDelta As Integer = 0
+
+        new_eventArgs = New MouseEventArgs(MouseButtons.Right, intArgsClick,
+                par_e.X + CtlCurrentPicturebox.Left,
+                par_e.Y + CtlCurrentPicturebox.Top,
+                intArgsDelta)
+
+        Return new_eventArgs
+
+    End Function
+
 
 End Class
