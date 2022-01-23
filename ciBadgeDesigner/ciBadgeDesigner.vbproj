@@ -85,10 +85,16 @@
     <Compile Include="Classes_Minor\ClassRubberbandSelector.vb" />
     <Compile Include="Classes_Minor\ClassSaveToModel.vb" />
     <Compile Include="Classes_Minor\ClassGetElementControlParams.vb" />
-    <Compile Include="Component\CtlClickableDesktop.Designer.vb">
-      <DependentUpon>CtlClickableDesktop.vb</DependentUpon>
+    <Compile Include="Component\ComponentClickableDesktop.Designer.vb">
+      <DependentUpon>ComponentClickableDesktop.vb</DependentUpon>
     </Compile>
-    <Compile Include="Component\CtlClickableDesktop.vb">
+    <Compile Include="Component\ComponentClickableDesktop.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Component\ComponentClickBackground.Designer.vb">
+      <DependentUpon>ComponentClickBackground.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Component\ComponentClickBackground.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\CtlAddCustomField.designer.vb">

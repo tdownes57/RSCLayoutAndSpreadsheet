@@ -347,11 +347,18 @@ Public Class CtlGraphicStaticText
         ''8/4/2019''If (String.IsNullOrEmpty(Me.ElementInfo.Text)) Then ElementInfo.Text = LabelText()
 
         Dim boolScaleFontSize As Boolean ''Added 9/15/2019 thomas d. 
+        Dim strLabelText_EditedByUser As String ''Added 1/22/2022 td
 
         ''Added 10/12/2019 td
         If (Me.ElementInfo_TextOnly Is Nothing) Then Me.ElementInfo_TextOnly = Me.Element_StaticText
 
-        ElementInfo_TextOnly.Text_Static = LabelText()
+        ''Jan22 2022''ElementInfo_TextOnly.Text_Static = LabelText()
+        strLabelText_EditedByUser = LabelText() ''Get the text by prompting the user. 
+        If (strLabelText_EditedByUser = "") Then
+            MessageBoxTD.Show_Statement("User has declined to provide any text, and/or has cancelled.")
+            Exit Sub
+        End If ''ENd of "If (strLabelText_EditedByUser = "") Then"
+        ElementInfo_TextOnly.Text_Static = strLabelText_EditedByUser
 
         ''Me.ElementInfo.Width = pictureLabel.Width
         ''Me.ElementInfo.Height = pictureLabel.Height

@@ -154,6 +154,10 @@ Public Class Form__Main_Demo
         ''Added 10/12/2019 td
         ''Jan9 2022 td''CtlGraphicStaticText1.LayoutFunctions = CType(mod_designer, ILayoutFunctions)
 
+        ''Added 1/22/2022 td 
+        ComponentClickIDFrontside1.PictureBoxControl = pictureBackgroundFront
+        ComponentClickIDBackside1.PictureBoxControl = pictureBackgroundBackside
+
         ''Added 10/12/2019 td
         With CtlGraphicSignature1
 
@@ -2554,16 +2558,28 @@ ExitHandler:
         ''Added 1/18/2022 thomas d.
         ''
         Dim each_RSC As __RSCWindowsControlLibrary.RSCMoveableControlVB
+        Dim boolSuccess As Boolean ''Added 1/22/2022 thomas d. 
+        Dim intExceptions As Integer = 0 ''Added 1/22/2022 thomas d.
+        Dim intSuccesses As Integer = 0 ''Added 1/22/2022 thomas d.
+        Dim objSize_output As New Size ''Added 1/22/2022 
+
         For Each each_control As Control In Me.Controls
             ''--If (TypeOf each_control Then '' Is __RSCWindowsControlLibrary) Then
             Try
                 each_RSC = CType(each_control, __RSCWindowsControlLibrary.RSCMoveableControlVB)
+                objSize_output = each_RSC.Size
+                intSuccesses += 1 ''Added 1/22/2022 thomas d.
+                boolSuccess = True ''Added 1/22/2022 thomas d.
                 ''Return each_RSC.Height
             Catch
+                intExceptions += 1 ''Added 1/22/2022 thomas d.
             End Try
             ''--End If
         Next each_control
-    End Function ''End of "Public Function HeightAnyRSCMoveableControl() As Integer"
+
+        Return objSize_output
+
+    End Function ''End of "Public Function SizeAnyRSCMoveableControl() As Size"
 
 
     Private Sub UnloadDesignerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UnloadDesignerToolStripMenuItem.Click
@@ -2770,6 +2786,30 @@ ExitHandler:
 
         End If
 
+
+    End Sub
+
+    Private Sub pictureBackgroundFront_MouseUp(sender As Object, e As MouseEventArgs) Handles pictureBackgroundFront.MouseUp
+        ''
+        ''Added 1/16/2022 td
+        ''
+        If (e.Button = MouseButtons.Right) Then
+            ComponentClickIDFrontside1.ParentDesignerForm = Me
+            ComponentClickIDFrontside1.ParentControl = pictureBackgroundFront
+            ComponentClickIDFrontside1.ClickableDesktop_MouseUp(sender, e)
+        End If ''End of "If (e.Button = MouseButtons.Right) Then"
+
+    End Sub
+
+    Private Sub pictureBackgroundBackside_MouseUp(sender As Object, e As MouseEventArgs) Handles pictureBackgroundBackside.MouseUp
+        ''
+        ''Added 1/22/2022 td
+        ''
+        If (e.Button = MouseButtons.Right) Then
+            ComponentClickIDBackside1.ParentDesignerForm = Me
+            ComponentClickIDBackside1.ParentControl = pictureBackgroundFront
+            ComponentClickIDBackside1.ClickableDesktop_MouseUp(sender, e)
+        End If ''End of "If (e.Button = MouseButtons.Right) Then"
 
     End Sub
 

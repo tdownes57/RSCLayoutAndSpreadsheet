@@ -1,6 +1,6 @@
-﻿Partial Class CtlClickableDesktop
+﻿Partial Class ComponentClickBackground
     Inherits __RSCWindowsControlLibrary.RSCClickableDesktop
-    ''Jan16 2022 td''Inherits System.ComponentModel.Component
+    ''Jan22 2022 td''Inherits System.ComponentModel.Component
 
     <System.Diagnostics.DebuggerNonUserCode()> _
     Public Sub New(ByVal container As System.ComponentModel.IContainer)

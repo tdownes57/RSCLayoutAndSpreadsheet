@@ -268,6 +268,7 @@ Public Class FormPickGraphic
             Dim objFileInfo As New IO.FileInfo(pstrPathToSelectedImageFile)
             Dim bAlreadyInFolderGraphics As Boolean
 
+            strPathToFolderGraphics = DiskFolders.PathToFolder_Graphics()
             bAlreadyInFolderGraphics = (objFileInfo.DirectoryName = strPathToFolderGraphics)
 
             If (bAlreadyInFolderGraphics) Then
@@ -278,8 +279,6 @@ Public Class FormPickGraphic
                 ''
                 ''We will need to copy the Image file to the Graphics folder (under the
                 ''   deployed application's general Images folder).
-                ''
-                strPathToFolderGraphics = DiskFolders.PathToFolder_Graphics()
                 ''
                 ''Copy the image file!!!
                 ''

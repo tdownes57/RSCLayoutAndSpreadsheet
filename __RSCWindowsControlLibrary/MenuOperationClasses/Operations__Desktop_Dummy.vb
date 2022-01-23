@@ -36,13 +36,7 @@ Public Class Operations__Desktop_Dummy
     Public Property LayoutFunctions As ILayoutFunctions ''Added 1/4/2022 td
 
     Public Property CtlCurrentElement As RSCMoveableControlVB Implements ICurrentElement.CtlCurrentElement
-        Get
-            Throw New NotImplementedException()
-        End Get
-        Set(value As RSCMoveableControlVB)
-            Throw New NotImplementedException()
-        End Set
-    End Property
+    Public Property CtlCurrentControl As Control ''---Implements ICurrentElement.CtlCurrentElement
 
     Public Sub New()
         ''

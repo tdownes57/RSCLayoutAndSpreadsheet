@@ -115,8 +115,10 @@ Partial Class Form__Main_Demo
         Me.CtlGraphicPortrait_Lady = New ciBadgeDesigner.CtlGraphicPortrait()
         Me.CtlGraphicSignature1 = New ciBadgeDesigner.CtlGraphicSignature()
         Me.CtlGraphicStaticText1 = New ciBadgeDesigner.CtlGraphicStaticText()
-        Me.CtlClickableDesktop1 = New ciBadgeDesigner.CtlClickableDesktop(Me.components)
+        Me.CtlClickableDesktop1 = New ciBadgeDesigner.ComponentClickableDesktop(Me.components)
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.ComponentClickIDFrontside1 = New ciBadgeDesigner.ComponentClickBackground(Me.components)
+        Me.ComponentClickIDBackside1 = New ciBadgeDesigner.ComponentClickBackground(Me.components)
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -736,6 +738,7 @@ Partial Class Form__Main_Demo
         'pictureBackgroundFront
         '
         Me.pictureBackgroundFront.BackColor = System.Drawing.Color.White
+        Me.pictureBackgroundFront.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.pictureBackgroundFront.Location = New System.Drawing.Point(15, 96)
         Me.pictureBackgroundFront.Name = "pictureBackgroundFront"
         Me.pictureBackgroundFront.Size = New System.Drawing.Size(603, 380)
@@ -769,6 +772,7 @@ Partial Class Form__Main_Demo
         'pictureBackgroundBackside
         '
         Me.pictureBackgroundBackside.BackColor = System.Drawing.Color.Black
+        Me.pictureBackgroundBackside.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.pictureBackgroundBackside.Location = New System.Drawing.Point(17, 96)
         Me.pictureBackgroundBackside.Name = "pictureBackgroundBackside"
         Me.pictureBackgroundBackside.Size = New System.Drawing.Size(641, 380)
@@ -1055,11 +1059,13 @@ Partial Class Form__Main_Demo
     Friend WithEvents LinkLabel2 As LinkLabel
     Friend WithEvents LinkLabel3 As LinkLabel
     Friend WithEvents StatusLabelWarningError As ToolStripStatusLabel
-    Friend WithEvents CtlClickableDesktop1 As CtlClickableDesktop
+    Friend WithEvents CtlClickableDesktop1 As ComponentClickableDesktop
     Friend WithEvents PrintASpecifiedNumberOfBadgesToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents Label1 As Label
     Friend WithEvents flowRelevantLinkLabels As FlowLayoutPanel
     Friend WithEvents LabelFieldsNotYetDisplayed As Label
     Friend WithEvents pictureJustAButton As PictureBox
     Friend WithEvents ToolTip1 As ToolTip
+    Friend WithEvents ComponentClickIDFrontside1 As ComponentClickBackground
+    Friend WithEvents ComponentClickIDBackside1 As ComponentClickBackground
 End Class

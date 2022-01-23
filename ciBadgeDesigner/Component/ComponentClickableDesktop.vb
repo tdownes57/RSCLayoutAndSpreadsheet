@@ -1,13 +1,21 @@
 ﻿''
 ''Added 1/16/2022 thomas d. 
 ''
+''This components allows & generates a context menu to present to the user when the 
+''  ID Card's background (inside the badge outline) is 
+''  right-clicked.  ----1/22/2022 td
+''
 Imports __RSCWindowsControlLibrary ''Added 1/16/2022 thomas d. 
 Imports ciBadgeCachePersonality ''Added 1/18/2022 thomas d.
 Imports ciBadgeInterfaces ''Added 1/18/2022 thomas d.
 
-Public Class CtlClickableDesktop
+Public Class ComponentClickableDesktop
     ''
     ''Added 1/16/2022 thomas d. 
+    ''
+    ''This components allows & generates a context menu to present to the user when the 
+    ''  ID Card's background (inside the badge outline) is 
+    ''  right-clicked.  ----1/22/2022 td
     ''
     Public Overrides Sub InitializeClickability(par_formParent As Form,
                                                   par_flowLayoutPanel As FlowLayoutPanel) ''Jan15 2022'' par_designer As ClassDesigner)

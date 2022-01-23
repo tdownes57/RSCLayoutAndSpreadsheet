@@ -129,8 +129,10 @@ Public Class Operations_Desktop
         Dim strPathToGraphicImage As String ''Added 1/22/2022 td
         Dim diag_result As DialogResult ''Added 1/22/2022 td
         Dim singleRatioWH As Single ''Added 1/22/2022 td
-        Dim intImageWidth As Integer ''Added 1/22/2022 td
-        Dim intImageHeight As Integer ''Added 1/22/2022 td
+        Dim intImageWidth_Original As Integer ''Added 1/22/2022 td
+        Dim intImageHeight_Original As Integer ''Added 1/22/2022 td
+        Dim intImageWidth_Reduced As Integer ''Added 1/22/2022 td
+        Dim intImageHeight_Reduced As Integer ''Added 1/22/2022 td
 
         ''Important function call.  Show the user the existing graphics files. 
         diag_result = objForm_Show.ShowDialog()
@@ -148,8 +150,8 @@ Public Class Operations_Desktop
 
         strPathToGraphicImage = objForm_Show.PathToImageFileLocation
         singleRatioWH = objForm_Show.RatioWH
-        intImageWidth = objForm_Show.ImageWidth_Original
-        intImageHeight = objForm_Show.ImageHeight_Original
+        intImageWidth_Original = objForm_Show.ImageWidth ''_Original
+        intImageHeight_Original = objForm_Show.ImageHeight ''_Original
 
         infoDesignerForm = Me.ParentDesignerForm
         ''Jan19 2022''intHeightOfRSC = infoDesignerForm.HeightAnyRSCMoveableControl()
@@ -164,12 +166,28 @@ Public Class Operations_Desktop
         ''Jan19 2022''   intWidthOfRSC = 24 ''A default height.  I checked  
         ''Jan19 2022''End If ''End of "If (intWidthOfRSC = 0) Then"
 
-        ''Jan19 2022''objRect = New System.Drawing.Rectangle(e.X, e.Y, intWidthOfRSC, intHeightOfRSC)
-        objRect = New System.Drawing.Rectangle(e.X, e.Y, objSize.Width, objSize.Height)
+        Dim iMaxDimensionLengthRSC As Integer ''Added 1/22/2022 td
+        iMaxDimensionLengthRSC = CInt(IIf(objSize.Height > objSize.Width, objSize.Height, objSize.Width))
 
-        objElementStaticGraphic = New ClassElementGraphic(strPathToGraphicImage,
-                                                          objRect,
-                                                          Me.DesignerClass.BackgroundBox_Front)
+        If (intImageHeight_Original > intImageWidth_Original) Then
+
+            intImageHeight_Reduced = iMaxDimensionLengthRSC
+            intImageWidth_Reduced = CInt(intImageHeight_Reduced * singleRatioWH)
+        Else
+            intImageWidth_Reduced = iMaxDimensionLengthRSC
+            intImageHeight_Reduced = CInt(intImageWidth_Reduced / singleRatioWH)
+
+        End If ''End of "If (intImageHeight_Original > intImageWidth_Original) Then ... Else ..."
+
+        ''Jan19 2022''objRect = New System.Drawing.Rectangle(e.X, e.Y, intWidthOfRSC, intHeightOfRSC)
+        objRect = New System.Drawing.Rectangle(e.X, e.Y,
+                                               intImageWidth_Reduced,
+                                               intImageHeight_Reduced)
+
+        objElementStaticGraphic = New ClassElementGraphic(objRect,
+                                                          Me.DesignerClass.BackgroundBox_Front,
+                                                          strPathToGraphicImage)
+
         obj_parametersGetElementControl = DesignerClass.GetParametersToGetElementControl()
 
         objElementStaticGraphic.Visible = True
