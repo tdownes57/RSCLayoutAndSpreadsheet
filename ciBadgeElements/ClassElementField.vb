@@ -16,14 +16,16 @@ Imports AutoMapper ''Added 11/17/2021 thomas d.
 Public Event ElementField_RightClicked(par_elementField As ClassElementField) ''Added 10/1/2019 td
 
 Public Structure WhyOmitted ''Added 11/10/2021 thomas downes
-    Dim NotRelevantField As Boolean ''Added 11/24/2021
-    Dim OmitElement As Boolean
-    Dim ElementVisibleIsFalse As Boolean ''Added 12/6/2021 
-    Dim OmitField As Boolean
-    Dim OmitCoordinateX As Boolean
-    Dim OmitCoordinateY As Boolean
-    Dim OmitWidth As Boolean
-    Dim OmitHeight As Boolean
+
+    Dim OmitInvisibleElement As Boolean ''Added 12/6/2021 
+    Dim OmitIrrelevantField As Boolean ''Added 11/24/2021
+    Dim OmitNullImage As Boolean ''Added 1/23/2022 td
+    Dim OmitOutlyingCoordinateX As Boolean ''Renamed 1/23/2022
+    Dim OmitOutlyingCoordinateY As Boolean ''Renamed 1/23/2022
+    Dim OmitUnbadgedField As Boolean ''Renamed 1/23/2022
+    Dim OmitUnbadgedElement As Boolean ''Renamed 1/23/2022
+    Dim OmitZeroWidth As Boolean ''Prefixed w/ "Zero" 1/23/2022
+    Dim OmitZeroHeight As Boolean ''Prefixed w/ "Zero" 1/23/2022
 
     ''Dim increment1 = Function(x As Integer) x + 1
     ''==Const OmitElement_Msg As String = " (Element Property not flagged as True)"

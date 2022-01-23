@@ -1023,9 +1023,10 @@ namespace ciBadgeGenerator
 
 
         public void LoadImageWithStaticGraphics(ref Image par_imageBadgeCard,
-                      HashSet<ClassElementGraphic> par_elementGraphics,
+                      HashSet<ClassElementGraphic> par_listOfElements_Graphics,
                       int par_newBadge_width_pixels,
-                      int par_layout_width_pixels)
+                      int par_layout_width_pixels, 
+                      ref WhyOmitted pref_enum_whyNot)
         {
             //LoadImageWithStaticGraphics(ref obj_imageOutput,
             //    par_layoutElements.ListElementGraphics,
@@ -1034,6 +1035,7 @@ namespace ciBadgeGenerator
             //
             //Added 1/22/2022 thomas d. 
             //
+            pref_enum_whyNot = new WhyOmitted();  //Added 1/23/2022 td
             Graphics gr_Badge;
             int intEachIndex = 0;
             //bool bOutputListOfAllImages;
@@ -1044,9 +1046,26 @@ namespace ciBadgeGenerator
             //
             // Iterate through the graphic elements. 
             //
-            foreach (ClassElementGraphic each_elementStatic in par_elementGraphics)
+            foreach (ClassElementGraphic each_elementStatic in par_listOfElements_Graphics)
             {
                 intEachIndex += 1;
+
+                //Added 1/23/2022 td
+                if (each_elementStatic.GraphicImageFullPath == null) // continue; //Added 1/23/2022 td
+                {
+                    pref_enum_whyNot.OmitNullImage = true; 
+                    continue; //Added 1/23/2022 td
+                }
+                if (each_elementStatic.Width_Pixels <= 0) // continue; //Added 1/23/2022 td
+                {
+                    pref_enum_whyNot.OmitZeroWidth = true;
+                    continue; //Added 1/23/2022 td
+                }
+                if (each_elementStatic.Height_Pixels <= 0) // continue; //Added 1/23/2022 td
+                {
+                    pref_enum_whyNot.OmitZeroHeight = true;
+                    continue; //Added 1/23/2022 td
+                }
 
                 //AddElementGraphicToImage(each_elementStatic, par_imageBadgeCard,
                 //       gr_Badge, bOutputListOfAllImages, par_listTextImages);
@@ -1404,7 +1423,7 @@ namespace ciBadgeGenerator
             if (OmitOutlyingElements && (intElementsRightEdge > par_imageBadgeCard.Width))
             {
                 // Added 11/10/2021
-                structWhyOmitted.OmitWidth = true;
+                structWhyOmitted.OmitZeroWidth = true;
                 if (par_listFieldsNotIncluded != null)
                 { par_listFieldsNotIncluded.Add(par_elementField.FieldNm_CaptionText() + " - RightEdge > BadgeWidth"); }
                 return;  //10-17 continue;
@@ -1419,7 +1438,7 @@ namespace ciBadgeGenerator
             if (OmitOutlyingElements && (intElementsBottomEdge > par_imageBadgeCard.Height)) //return;  //10-17 continue;
             {
                 // Added 11/10/2021
-                structWhyOmitted.OmitHeight = true;
+                structWhyOmitted.OmitZeroHeight = true;
                 if (par_listFieldsNotIncluded != null)
                 { par_listFieldsNotIncluded.Add(par_elementField.FieldNm_CaptionText() + " - BottomEdge > BadgeHeight"); }
                 return;  //10-17 continue;
@@ -1647,7 +1666,7 @@ namespace ciBadgeGenerator
             if (OmitOutlyingElements && (intElementsRightEdge > par_imageBadgeCard.Width))
             {
                 // Added 11/10/2021
-                structWhyOmitted.OmitWidth = true;
+                structWhyOmitted.OmitZeroWidth = true;
                 return;
             }
 
@@ -1657,7 +1676,7 @@ namespace ciBadgeGenerator
             if (OmitOutlyingElements && (intElementsBottomEdge > par_imageBadgeCard.Height)) //return;  //10-17 continue;
             {
                 // Added 11/10/2021
-                structWhyOmitted.OmitHeight = true;
+                structWhyOmitted.OmitZeroHeight = true;
                 return;  //10-17 continue;
             }
 

@@ -2150,6 +2150,12 @@ Public Class ClassDesigner
                                Nothing,
                                Nothing, Nothing, Nothing, par_recentlyMoved)
 
+            ''Added 1/23/2022 td
+            If (Not String.IsNullOrEmpty(obj_generator.Messages)) Then
+                ''Added 1/23/2022 td
+                MessageBoxTD.Show_Statement(obj_generator.Messages)
+            End If ''End of "If (boolGeneratorMessageExists) Then"
+
         End If ''End of "If (c_boolUseFunction2022) Then ..."
 
         ClassFixTheControlWidth.ProportionsAreSlightlyOff(obj_image, True, "RefreshPreview_Redux #4")
