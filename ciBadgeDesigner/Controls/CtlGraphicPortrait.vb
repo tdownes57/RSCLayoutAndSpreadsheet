@@ -426,7 +426,7 @@ Public Class CtlGraphicPortrait
             ''Added 9/23/2019 td 
             ''
             imgPortrait_withRotationIfAny =
-            ciBadgeElemImage.modGenerate.PicImage_ByElement(ElementClass_Obj,
+            ciBadgeElemImage.modGenerate.PortraitImage_ByElement(ElementClass_Obj,
                                                             Me.Pic_CloneOfInitialImage)
 
             ''Added 9/24/2019 td

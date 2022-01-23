@@ -953,21 +953,24 @@ Public Class ClassDesigner
         ''   2. Create a new one & add it to the designer form. 
         ''
         ''Jan3 2022 td''LoadElements_QRCode(iBadgeSideElements.ElementQR) ''Dec22 2021 td''LoadDesigner_QRCode()
-        LoadElements_QRCode(iBadgeSideElements.ElementQRCode, par_oMoveEvents) ''Dec22 2021 td''LoadDesigner_QRCode()
+        LoadElements_QRCode(iBadgeSideElements.ElementQRCode_1st, par_oMoveEvents) ''Dec22 2021 td''LoadDesigner_QRCode()
 
         ''12/22/2021 td''LoadElements_Picture(par_cache.PicElement_Front())
         ''01/5/2022 td''LoadElements_Picture(iBadgeSideElements.ElementPic)
-        LoadElements_Picture(iBadgeSideElements.ElementPortrait, True)
+        LoadElements_Picture(iBadgeSideElements.ElementPortrait_1st, True)
 
         ''12/22/2021 td''LoadElements_Signature(par_cache.ElementSignature) ''Added 10/12/2019 thomas d.
         ''1/4/2022 td''LoadElements_Signature(iBadgeSideElements.ElementSig) ''Modified 12/22/2021 thomas d.
-        LoadElements_Signature(iBadgeSideElements.ElementSignature, par_oMoveEvents) ''Modified 12/22/2021 thomas d.
+        LoadElements_Signature(iBadgeSideElements.ElementSignature_1st, par_oMoveEvents) ''Modified 12/22/2021 thomas d.
 
         ''Added 12/18/2021 td 
         ''Dec18 2021''LoadElements_StaticText1(par_cache.ListOfElementTexts_Front.GetEnumerator().Current) ''Added 10/12/2019 thomas d.
         ''Dec22 2021''ListCtlGraphic_StaticTexts = New HashSet(Of CtlGraphicStaticText) ''Added 12/18/2021 thomas d. 
         ''Dec22 2021''LoadElements_StaticTexts(par_cache.ListOfElementTexts_Front) ''Added 12/18/2021 thomas d.
+
         LoadElements_StaticTexts(iBadgeSideElements.ListElementStaticTexts) ''Added 12/22/2021 thomas d.
+        ''Added 1/22/2022 Thomas D.
+        LoadElements_StaticGraphics(iBadgeSideElements.ListElementGraphics) ''Added 1/22/2022 Thomas D.
 
         ''12/22/2021 td''End If ''End of "If (par_enumSideOfCard = EnumWhichSideOfCard.EnumBackside) Then ... Else..."
 
@@ -1420,6 +1423,85 @@ Public Class ClassDesigner
         Next each_element_static
 
     End Sub ''End of "Private Sub LoadElements_StaticTexts"
+
+
+    Private Sub LoadElements_StaticGraphics(par_listStaticGraphics As HashSet(Of ClassElementGraphic))
+        ''
+        ''Added 1/22/2022 thomas d. 
+        ''
+        Dim each_ctlStaticGraphic As CtlGraphicStaticGraphic ''Added 1/8/2022 td
+        Dim indexControl As Integer = 0 ''Added 1/8/2022 td
+        Dim oGetControlParameters As ClassGetElementControlParams ''Added 1/17/2022 thomas d.
+        oGetControlParameters = Me.GetParametersToGetElementControl() ''Added 1/17/2022 thomas d.
+
+        For Each each_element_static As ClassElementGraphic In par_listStaticGraphics
+
+            each_ctlStaticGraphic = CtlGraphicStaticGraphic.GetStaticGraphic(oGetControlParameters,
+                                            each_element_static, Me.DesignerForm,
+                    String.Format("CtlGraphicStaticText{0}", indexControl),
+                    Me, True, mod_ctlLasttouched, mod_oGroupMoveEvents, False)
+
+            each_ctlStaticGraphic.ParentForm = Me.DesignerForm ''Added 1/16/2022 thomas d.
+            ''----ListCtlGraphic_StaticTexts.Add(each_ctlStaticGraphic)
+
+            Me.DesignerForm.Controls.Add(each_ctlStaticGraphic)
+
+            ''Added 11/28/2021 td
+            mod_listOfDesignerControls.Add(each_ctlStaticGraphic)
+
+            With each_ctlStaticGraphic
+
+                ''Added 12/18/2021 td
+                ''Not needed here. Jan8 2022''.LayoutFunctions = CType(Me, ILayoutFunctions)
+
+                .Top = each_element_static.TopEdge_Pixels
+                .Left = each_element_static.LeftEdge_Pixels
+                .Width = each_element_static.Width_Pixels
+                .Height = each_element_static.Height_Pixels
+
+                ''.pictureSignature.Image = mod_imageExampleSignat
+                .Refresh_Master()
+
+            End With ''End of "With CtlGraphic_StaticText1"
+
+            ''Added 12/15/2021 td
+            ''   Pass on the event of right-clicking a element-signature control.
+            ''   
+            ''If (mod_bAddHandlersForRightClick) Then
+            ''    AddHandler each_ctlStaticText.ElementStatic_RightClicked,
+            ''         AddressOf ElementStatic_Clicked
+            ''End If ''End of "If (mod_bAddHandlersForRightClick) Then"
+
+            ''
+            ''Moveability 
+            ''
+            If (Me.LetEventListenerAddMoveability) Then
+                ''
+                ''See ClassDesignerEventListener.LoadForm_LayoutElements_Moveability() ---12/23/2021
+                ''
+            ElseIf (Me.LetBaseControlAddMoveability) Then ''--Added 1/5/2022
+                ''
+                ''The element control's base class will add moveability. --Added 1/5/2022
+                ''  (See project/subfolder __RSC_WindowsControlLibrary/RSCMoveableControl)
+                ''
+            Else
+                ''
+                ''Add moveability - Static Texts
+                ''
+                Const c_boolResizeProportionally As Boolean = False ''Inappropropriate for Static Texts!!
+
+                ''Jan11 2022 td''Add_Moveability(each_ctlStaticText, each_ctlStaticText,
+                ''                     each_ctlStaticText,
+                ''                     c_boolResizeProportionally)
+                Throw New Exception("Let the control __RSC_WindowsControlLibrary/RSCMoveableControl " +
+                                 "be responsible for moveability.--1/11/2022")
+
+            End If ''End of "If (Me.LetEventListenerAddMoveability) Then ... Else ..."
+
+        Next each_element_static
+
+    End Sub ''End of "Private Sub LoadElements_StaticGraphics"
+
 
 
     Private Sub Initiate_RubberbandSelector(par_elementControls_All As HashSet(Of RSCMoveableControlVB),

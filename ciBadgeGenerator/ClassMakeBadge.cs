@@ -307,7 +307,7 @@ namespace ciBadgeGenerator
 
                 // I think this procedure is ready for testing. ---11/9/2021  
                 //
-                LoadImageWithElements(ref obj_imageOutput,
+                LoadImageWithElementFields(ref obj_imageOutput,
                         ref dateMostRecentUpdate,
                         listOfElementFields,
                           par_iRecipientInfo, null,
@@ -373,14 +373,14 @@ namespace ciBadgeGenerator
 
                 // Nov. 29 2021 //ClassElementPic obj_elementPic = par_cache.ListOfElementPics.FirstOrDefault();
                 ClassElementPortrait obj_elementPic = null;
-                if (par_layoutElements.ElementPortrait == null)
+                if (par_layoutElements.ElementPortrait_1st == null)
                 {
                     bMissingElementPortrait = true; //Added 1/14/2022 td
                     if (bMissingElementPortrait) { }  //Added 1/14/2022 td
                 }
                 else
                 {
-                    obj_elementPic = par_layoutElements.ElementPortrait;
+                    obj_elementPic = par_layoutElements.ElementPortrait_1st;
 
                 } // End of "if (par_layoutElements.ElementPortrait != null)"
 
@@ -403,7 +403,7 @@ namespace ciBadgeGenerator
                     //
                     // Place the Portrait onto the image. ----Jan14 2022
                     //
-                    LoadImageWithPortrait(img_Step3Picture,
+                    LoadImageWithPortrait_OrGraphic(img_Step3Picture,
                                     par_newBadge_width_pixels,
                                     par_layoutDims.Width_Pixels,
                                     ref obj_imageOutput,
@@ -422,7 +422,7 @@ namespace ciBadgeGenerator
             //
             //--Nov. 29 2021--//if (par_cache.MissingTheSignature())
             //--Dec18 2021 //if (par_cache.MissingTheSignature() && (par_elementSig == null))
-            if (par_layoutElements.ElementSignature == null)
+            if (par_layoutElements.ElementSignature_1st == null)
             {
                 //
                 //There is not any Signature to display.
@@ -433,9 +433,9 @@ namespace ciBadgeGenerator
                 //
                 //Add the Signature. 
                 //
-                ClassElementSignature obj_elementSig = par_layoutElements.ElementSignature;
+                ClassElementSignature obj_elementSig = par_layoutElements.ElementSignature_1st;
                 //Added 11/29/2021 td
-                if (par_layoutElements.ElementSignature != null) obj_elementSig = par_layoutElements.ElementSignature;
+                if (par_layoutElements.ElementSignature_1st != null) obj_elementSig = par_layoutElements.ElementSignature_1st;
 
                 string strPathToSigFile = this.PathToFile_Sig; //Added 10/12/2019 td
 
@@ -465,7 +465,7 @@ namespace ciBadgeGenerator
             //                             par_newBadge_width_pixels, par_layoutDims,
             //                             ref obj_imageOutput);
             LoadImageWithQRCode_IfNeeded(par_layoutElements,
-                               par_layoutElements.ElementQRCode,
+                               par_layoutElements.ElementQRCode_1st,
                                par_newBadge_width_pixels, par_layoutDims,
                                ref obj_imageOutput);
 
@@ -484,14 +484,25 @@ namespace ciBadgeGenerator
             //    listOfElementStaticTexts.Add(par_elemStaticText);
             //}
 
+            //
+            // Load image with static texts.  
+            //
             LoadImageWithStaticTexts(ref obj_imageOutput, listOfElementStaticTexts);
+
+            //Added 1/22/2022 thomas d.
+            //LoadImageWithPortrait(img_Step3Picture,
+            //                par_newBadge_width_pixels,
+            //                par_layoutDims.Width_Pixels,
+            //                ref obj_imageOutput,
+            //                (IElement_Base)obj_elementPic,
+            //                (IElementPic)obj_elementPic);
+            LoadImageWithStaticGraphics(ref obj_imageOutput, 
+                            par_layoutElements.ListElementGraphics,
+                            par_newBadge_width_pixels,
+                            par_layoutDims.Width_Pixels);
 
             // 10-9-2019 td // return null;
             return obj_imageOutput;
-
-
-
-
 
         }
 
@@ -589,7 +600,7 @@ namespace ciBadgeGenerator
 
                 // I think this procedure is ready for testing. ---11/9/2021  
                 //
-                LoadImageWithElements(ref obj_imageOutput,
+                LoadImageWithElementFields(ref obj_imageOutput,
                         ref dateMostRecentUpdate,
                         listOfElementFields,
                           par_iRecipientInfo, null,
@@ -665,7 +676,7 @@ namespace ciBadgeGenerator
 
                 if (img_Step3Picture != null)
                 {
-                    LoadImageWithPortrait(img_Step3Picture,
+                    LoadImageWithPortrait_OrGraphic(img_Step3Picture,
                                         par_newBadge_width_pixels,
                                         par_layoutDims.Width_Pixels,
                                         ref obj_imageOutput,
@@ -747,13 +758,14 @@ namespace ciBadgeGenerator
 
 
 
-        public void LoadImageWithPortrait(Image par_imageStep3Picture,
+        public void LoadImageWithPortrait_OrGraphic(Image par_imageStep3Picture,
                          int pintDesiredLayoutWidth,
                          int pintDesignedLayoutWidth,
                          ref Image par_imageBadgeCard,
                          IElement_Base par_elementBase,
                          IElementPic par_elementPic)
         {
+            //---Jan22 2022--public void LoadImageWithPortrait(Image par_imageStep3Picture,
             //
             //Added 9/9/2019 thomas d.
             //
@@ -787,6 +799,7 @@ namespace ciBadgeGenerator
             gr_Badge.Dispose();
 
         }  // End Sub ''end of "Public Sub LoadImageWithPortrait()"
+
 
         public void LoadImageWithSignature(int pintDesiredLayoutWidth,
                                  int pintDesignedLayoutWidth,
@@ -1008,9 +1021,56 @@ namespace ciBadgeGenerator
 
         }
 
-        public void LoadImageWithElements(ref Image par_imageBadgeCard,
+
+        public void LoadImageWithStaticGraphics(ref Image par_imageBadgeCard,
+                      HashSet<ClassElementGraphic> par_elementGraphics,
+                      int par_newBadge_width_pixels,
+                      int par_layout_width_pixels)
+        {
+            //LoadImageWithStaticGraphics(ref obj_imageOutput,
+            //    par_layoutElements.ListElementGraphics,
+            //    par_newBadge_width_pixels,
+            //    par_layoutDims.Width_Pixels);
+            //
+            //Added 1/22/2022 thomas d. 
+            //
+            Graphics gr_Badge;
+            int intEachIndex = 0;
+            //bool bOutputListOfAllImages;
+            ClassProportions.ProportionsAreSlightlyOff(par_imageBadgeCard, true, "par_imageBadgeCard");
+            //bOutputListOfAllImages = (par_listTextImages != null);
+            gr_Badge = Graphics.FromImage(par_imageBadgeCard);
+
+            //
+            // Iterate through the graphic elements. 
+            //
+            foreach (ClassElementGraphic each_elementStatic in par_elementGraphics)
+            {
+                intEachIndex += 1;
+
+                //AddElementGraphicToImage(each_elementStatic, par_imageBadgeCard,
+                //       gr_Badge, bOutputListOfAllImages, par_listTextImages);
+
+                Bitmap image_graphic = new Bitmap(each_elementStatic.GraphicImageFullPath);
+
+                //Major call !!
+                LoadImageWithPortrait_OrGraphic(image_graphic,
+                                    par_newBadge_width_pixels,
+                                    par_layout_width_pixels,
+                                    ref par_imageBadgeCard,
+                                    (IElement_Base)each_elementStatic,
+                                    null);   // Jan22 2022 td //(IElement_Base)each_elementStatic);
+
+            }
+
+            gr_Badge.Dispose();
+
+        }
+
+
+        public void LoadImageWithElementFields(ref Image par_imageBadgeCard,
                                           ref DateTime par_datetimeLastUpdated,
-                                          IEnumerable<ClassElementField> par_elements,
+                                          IEnumerable<ClassElementField> par_elementFields,
                                           IRecipient par_iRecipientInfo = null,
                                           List<Image> par_listTextImages = null,
                                           List<String> par_listMessages = null,
@@ -1055,7 +1115,7 @@ namespace ciBadgeGenerator
             //    ''9/18/2019 td''For Each each_elementField As IFieldInfo_ElementPositions In par_standardFields
             //    For Each each_elementField As ClassElementField In par_elements
 
-            foreach (ClassElementField each_elementField in par_elements)
+            foreach (ClassElementField each_elementField in par_elementFields)
             {
                 //
                 //        intEachIndex += 1
@@ -1671,6 +1731,7 @@ namespace ciBadgeGenerator
             }
 
         }
+
 
 
 

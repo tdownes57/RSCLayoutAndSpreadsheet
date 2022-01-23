@@ -16,9 +16,9 @@ Public Interface IBadgeSideLayoutElementsV1 ''Dec18 '' InterfaceBadgeSideLayout
     Property ListElementStaticTexts As HashSet(Of ClassElementStaticText)
     Property ListElementGraphics As HashSet(Of ClassElementGraphic)
 
-    Property ElementPortrait As ClassElementPortrait ''Jan13 2022 ''As ClassElementPic  
-    Property ElementQRCode As ClassElementQRCode
-    Property ElementSignature As ClassElementSignature ''par_elementSig = null,
+    Property ElementPortrait_1st As ClassElementPortrait ''Jan13 2022 ''As ClassElementPic  
+    Property ElementQRCode_1st As ClassElementQRCode
+    Property ElementSignature_1st As ClassElementSignature ''par_elementSig = null,
 
     ''
     ''Added 1/14/2022 thomas downes  

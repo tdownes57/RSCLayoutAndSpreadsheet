@@ -160,17 +160,17 @@ Namespace ciBadgeCachePersonality
                 ''
                 objSide.BackgroundImage = Me.GetBackgroundImage(par_enum)
                 ''Jan13 2022''objSide.ElementPic = Me.ListOfElementPics_Back().FirstOrDefault()
-                objSide.ElementPortrait = Me.ListOfElementPics_Back().FirstOrDefault()
+                objSide.ElementPortrait_1st = Me.ListOfElementPics_Back().FirstOrDefault()
 
-                objSide.ElementQRCode = Me.ListOfElementQRCodes_Back().FirstOrDefault() ''Jan16 2022 td''Me.ElementQR_RefCopy
-                objSide.ElementSignature = Me.ListOfElementSignatures_Back().FirstOrDefault() ''Jan16 2022 td''Me.ElementSig_RefCopy
+                objSide.ElementQRCode_1st = Me.ListOfElementQRCodes_Back().FirstOrDefault() ''Jan16 2022 td''Me.ElementQR_RefCopy
+                objSide.ElementSignature_1st = Me.ListOfElementSignatures_Back().FirstOrDefault() ''Jan16 2022 td''Me.ElementSig_RefCopy
 
                 ''Added 1/17/2022 td
                 ''If (objSide.ElementQRCode Is Nothing) Then Me.ElementQR_RefCopy = Nothing
                 ''If (objSide.ElementSignature Is Nothing) Then Me.ElementSig_RefCopy = Nothing
 
                 objSide.ListElementFields = Me.ListOfElementFields_Backside
-                objSide.ListElementGraphics = Nothing
+                objSide.ListElementGraphics = Me.ListOfElementGraphics_Backside ''Jan22 2022 td''Nothing
                 objSide.ListElementStaticTexts = Me.ListOfElementTexts_Backside
 
                 ''Added 1/14/2022 thomas
@@ -222,16 +222,16 @@ Namespace ciBadgeCachePersonality
                 ''
                 objSide.BackgroundImage = Me.GetBackgroundImage(par_enum)
                 ''Jan13 2022 ''objSide.ElementPic = Me.ListOfElementPics_Front().FirstOrDefault()
-                objSide.ElementPortrait = Me.ListOfElementPics_Front().FirstOrDefault()
+                objSide.ElementPortrait_1st = Me.ListOfElementPics_Front().FirstOrDefault()
                 ''Moved below, with a condition.--1/14/2022 td''objSide.ElementQRCode = Me.ElementQRCode
                 ''Moved below, with a condition.--1/14/2022 td''objSide.ElementSignature = Me.ElementSignature
                 objSide.ListElementFields = Me.ListOfElementFields_Front
-                objSide.ListElementGraphics = Nothing
+                objSide.ListElementGraphics = Me.ListOfElementGraphics_Front ''Jan22 2022 td''Nothing
                 objSide.ListElementStaticTexts = Me.ListOfElementTexts_Front
 
                 ''Added 1/16/2022 td
-                objSide.ElementQRCode = Me.ListOfElementQRCodes_Front().FirstOrDefault()
-                objSide.ElementSignature = Me.ListOfElementSignatures_Front().FirstOrDefault()
+                objSide.ElementQRCode_1st = Me.ListOfElementQRCodes_Front().FirstOrDefault()
+                objSide.ElementSignature_1st = Me.ListOfElementSignatures_Front().FirstOrDefault()
 
                 ''Added 1/14/2022 thomas
                 objSide.ListElementPortraits = Me.ListOfElementPics_Front
@@ -282,8 +282,8 @@ Namespace ciBadgeCachePersonality
             ''Added 1/17/2022 td  
             ''
             If (mod_bOkayToUseExampleQRCode) Then
-                If (objSide.ElementQRCode IsNot Nothing) Then
-                    With objSide.ElementQRCode
+                If (objSide.ElementQRCode_1st IsNot Nothing) Then
+                    With objSide.ElementQRCode_1st
                         If (.Image_BL Is Nothing) Then
                             .Image_BL = My.Resources.ExampleQRCode
                         End If
@@ -295,8 +295,8 @@ Namespace ciBadgeCachePersonality
             ''Added 1/17/2022 td  
             ''
             If (mod_bOkayToUseExampleSignature) Then
-                If (objSide.ElementSignature IsNot Nothing) Then
-                    With objSide.ElementSignature
+                If (objSide.ElementSignature_1st IsNot Nothing) Then
+                    With objSide.ElementSignature_1st
                         If (.Image_BL Is Nothing) Then
                             .Image_BL = My.Resources.ExampleSignature
                         End If

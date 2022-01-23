@@ -20,6 +20,7 @@ Public Module modGenerate
 
     End Function
 
+
     Public Function TextImage_ByElemInfo(par_Text As String,
                                          pintDesiredLayoutWidth As Integer,
                            par_elementInfo_TextFld As IElement_TextOnly,
@@ -243,6 +244,7 @@ Public Module modGenerate
                 DrawBorder_PixelsWide(par_elementInfo_Base.Border_WidthInPixels,
                                       gr_element, intNewElementWidth, intNewElementHeight,
                                       par_elementInfo_Base.Border_Color)
+
             End If ''End of "If (boolNonzeroBorder) Then"
         End If ''End of "If (par_elementInfo_Base.Border_Displayed) Then"
 
@@ -430,9 +432,13 @@ Public Module modGenerate
 
         Return local_image ''Return Nothing
 
-    End Function ''End of "Public Function TextImage_Field(par_label As Label) As Image"
+    End Function ''End of "Public Function TextImage_ByElemInfo(par_label As Label) As Image"
 
-    Public Function PicImage_ByElement(par_element As ciBadgeElements.ClassElementPortrait, par_image As Image) As Image
+
+
+
+    Public Function PortraitImage_ByElement(par_element As ciBadgeElements.ClassElementPortrait, par_image As Image) As Image
+        ''--Jan22 2022--Public Function PicImage_ByElement
         ''
         ''Added 9/22/2019 thomas d 
         ''
@@ -557,6 +563,7 @@ Public Module modGenerate
         Return image_Pic ''---bm_resized
 
     End Function ''End of Public Sub PicImage_ByElement
+
 
     Private Sub DrawBorder_PixelsWide(par_WidthInPixels As Integer, par_gr As Graphics, par_intWidth As Integer, par_intHeight As Integer, par_color As Color)
         ''

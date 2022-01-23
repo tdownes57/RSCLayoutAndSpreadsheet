@@ -56,18 +56,26 @@ Public Class FormPickGraphic
         ''Added 1/21/2022 thomas downes
         ''
         Dim objFolderInfo As System.IO.DirectoryInfo
+        Dim objFileInfo As System.IO.FileInfo = Nothing ''Added 1/22/2022 td
+        Dim intCountImages As Integer = 0 ''Added 1/22/2022 td
 
         FlowLayoutPanel1.Controls.Clear()
         ''strPathToFolderImages = DiskFolders.PathToFolder_Images
         objFolderInfo = New IO.DirectoryInfo(pstrPathToFolderWithImages)
 
-        For Each objFileInfo As IO.FileInfo In objFolderInfo.EnumerateFiles
+        ''Jan22 ''For Each objFileInfo As IO.FileInfo In objFolderInfo.EnumerateFiles
+        For Each objFileInfo In objFolderInfo.EnumerateFiles
             ''
             ''Iterate through the files. 
             ''
             Load_ImageIntoContainerUsingPath(objFileInfo.FullName)
 
+            intCountImages += 1
+
         Next objFileInfo
+
+        ''Added 1/22/2022 td
+        If (intCountImages = 1) Then textboxPathToImageFile.Text = objFileInfo.FullName
 
     End Sub ''End of "Private Sub Load_ImagesFromFolderImages()"
 
