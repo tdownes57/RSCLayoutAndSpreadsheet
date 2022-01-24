@@ -2576,9 +2576,24 @@ ExitHandler:
         Dim boolSuccess As Boolean ''Added 1/22/2022 thomas d. 
         Dim intExceptions As Integer = 0 ''Added 1/22/2022 thomas d.
         Dim intSuccesses As Integer = 0 ''Added 1/22/2022 thomas d.
-        Dim objSize_output As New Size ''Added 1/22/2022 
+        Dim objSize_output As New Size ''Added 1/22/2022
+
+        Dim intCountOfControls As Integer ''Added 1/23/2022
+        Dim intCountOfControls_NonZero As Integer ''Added 1/23/2022
+        Dim intSumOfHeights As Integer ''Added 1/23/2022
+        Dim intSumOfWidths As Integer ''Added 1/23/2022
 
         For Each each_control As Control In Me.Controls
+            ''
+            ''Added 1/24/2022 thomas downes
+            ''
+            intCountOfControls += 1
+
+            If (each_control.Width = 0) Then Continue For
+            If (each_control.Height = 0) Then Continue For
+
+            intCountOfControls_NonZero += 1
+
             ''--If (TypeOf each_control Then '' Is __RSCWindowsControlLibrary) Then
             Try
                 each_RSC = CType(each_control, __RSCWindowsControlLibrary.RSCMoveableControlVB)
@@ -2590,6 +2605,7 @@ ExitHandler:
                 intExceptions += 1 ''Added 1/22/2022 thomas d.
             End Try
             ''--End If
+
         Next each_control
 
         Return objSize_output

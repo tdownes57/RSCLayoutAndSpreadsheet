@@ -139,6 +139,9 @@ Public Class FormPickGraphic
         Dim strPathToImageFile_InGraphicsFolder As String = ""
         Dim strPathFinal_OutputToGraphics As String = ""
 
+        ClearBordersOfPictureBoxes() ''Remove previously-drawn borders. ---1/24/2022 td
+        objPictureBox.BorderStyle = BorderStyle.FixedSingle ''Added 1/24/2022 td
+
         strPathToImageFile = objPictureBox.ImageLocation
 
         ''Make sure the path to the image leads to the Graphics folder.
@@ -156,6 +159,19 @@ Public Class FormPickGraphic
         Me.RatioWH = CSng(Me.ImageWidth / Me.ImageHeight)
 
     End Sub ''End of "Private Sub HandlePictureBoxClicks(objSender As Object, e As EventArgs)"
+
+
+    Private Sub ClearBordersOfPictureBoxes()
+        ''
+        ''Added 1/24/2022 td
+        ''
+        For Each objBox As PictureBox In FlowLayoutPanel1.Controls
+
+            objBox.BorderStyle = BorderStyle.None
+
+        Next objBox
+
+    End Sub ''End of "Private Sub ClearBordersOfPictureBoxes()" 
 
 
     Private Sub Load_ApplicationResources()
