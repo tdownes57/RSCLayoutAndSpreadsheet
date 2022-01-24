@@ -413,7 +413,7 @@ Namespace ciBadgeCachePersonality
 
             Else
                 ''The element exists.  
-                Dim why_omit As New WhyOmitted
+                Dim why_omit As New WhyOmittedStruct
                 Dim boolElemDisplayedOnBadge As Boolean
 
                 elementForField.Visible = par_fieldToDisplay.IsDisplayedOnBadge

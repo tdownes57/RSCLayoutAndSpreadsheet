@@ -15,27 +15,41 @@ Imports AutoMapper ''Added 11/17/2021 thomas d.
 
 Public Event ElementField_RightClicked(par_elementField As ClassElementField) ''Added 10/1/2019 td
 
-Public Structure WhyOmitted ''Added 11/10/2021 thomas downes
+Public Structure WhyOmittedStruct ''Added 11/10/2021 thomas downes
 
-    Dim OmitInvisibleElement As Boolean ''Added 12/6/2021 
-    Dim OmitIrrelevantField As Boolean ''Added 11/24/2021
+    '' 1/23/2022 Dim NotRelevantField As Boolean ''Added 11/24/2021
+    '' 1/23/2022 Dim OmitElement As Boolean
+    '' 1/23/2022 Dim ElementVisibleIsFalse As Boolean ''Added 12/6/2021 
+    '' 1/23/2022 Dim OmitField As Boolean
+    '' 1/23/2022 Dim OmitCoordinateX As Boolean
+    '' 1/23/2022 Dim OmitCoordinateY As Boolean
+    '' 1/23/2022 Dim OmitWidth As Boolean
+    '' 1/23/2022 Dim OmitHeight As Boolean
+
+    Dim OmitIrrelevantField As Boolean ''Dim NotRelevantField  ''Renamed 1/23/2022  ''Added 11/24/2021
+    Dim OmitInvisibleElement As Boolean ''Dim ElementVisibleIsFalse  ''Renamed 1/23/2022  ''Added 12/6/2021 
     Dim OmitNullImage As Boolean ''Added 1/23/2022 td
-    Dim OmitOutlyingCoordinateX As Boolean ''Renamed 1/23/2022
-    Dim OmitOutlyingCoordinateY As Boolean ''Renamed 1/23/2022
-    Dim OmitUnbadgedField As Boolean ''Renamed 1/23/2022
-    Dim OmitUnbadgedElement As Boolean ''Renamed 1/23/2022
-    Dim OmitZeroWidth As Boolean ''Prefixed w/ "Zero" 1/23/2022
-    Dim OmitZeroHeight As Boolean ''Prefixed w/ "Zero" 1/23/2022
+    Dim OmitOutlyingCoordinateX As Boolean ''Dim OmitCoordinateX  ''Renamed 1/23/2022
+    Dim OmitOutlyingCoordinateY As Boolean ''Dim OmitCoordinateY  ''Renamed 1/23/2022
+    Dim OmitUnbadgedField As Boolean ''Dim OmitField As Boolean ''Renamed 1/23/2022
+    ''Not needed??''Dim OmitUnbadgedElement As Boolean ''Renamed 1/23/2022
+    Dim OmitZeroWidth As Boolean ''Dim OmitWidth as Boolean ''Prefixed w/ "Zero" 1/23/2022
+    Dim OmitZeroHeight As Boolean ''Dim OmitHeight as Boolean ''Prefixed w/ "Zero" 1/23/2022
+
+    Dim DateOmittedCreated As Date ''Added 1/23/2022 td
+    Dim DateOmittedUpdated As Date ''Added 1/23/2022 td
 
     ''Dim increment1 = Function(x As Integer) x + 1
     ''==Const OmitElement_Msg As String = " (Element Property not flagged as True)"
     ''==Const OmitField_Msg As String = " (Field Property not flagged as True)"
     Public Function NotRelevantMsg() As String
         ''Added 11/24/2021 
-        If (NotRelevantField) Then Return " (Field not relevant to Personality)"
+        ''Jan23 2022 td''If (NotRelevantField) Then Return " (Field not relevant to Personality)"
+        If (OmitIrrelevantField) Then Return " (Field not relevant to Personality)"
         Return ""
     End Function
     Public Function OmitElementMsg() As String
+        ''Jan23 2022 td''If (OmitElement) Then Return " (Element Property not flagged as True)"
         If (OmitElement) Then Return " (Element Property not flagged as True)"
         Return ""
     End Function
@@ -43,6 +57,16 @@ Public Structure WhyOmitted ''Added 11/10/2021 thomas downes
         If (OmitField) Then Return " (Field Property not flagged as True)"
         Return ""
     End Function
+
+    Public Sub SetDateTime(par_datetime As Date)
+        ''Added 1/23/2022 td
+        If (DateOmittedCreated.Year > 2020) Then
+            DateOmittedUpdated = par_datetime
+        Else
+            DateOmittedCreated = par_datetime
+            DateOmittedUpdated = par_datetime
+        End If
+    End Sub ''End of "Public Sub SetDateTime()"
 
 End Structure
 
@@ -569,13 +593,13 @@ Public Class ClassElementField
         ''
         ''Added 1/8/2022 thomas downes
         ''
-        Dim structWhyOmit As New WhyOmitted
+        Dim structWhyOmit As New WhyOmittedStruct
         Return IsDisplayedOnBadge_Visibly(structWhyOmit)
 
     End Function ''End of "Public Function IsDisplayedOnBadge_Visibly"
 
 
-    Public Function IsDisplayedOnBadge_Visibly(ByRef par_whyOmit As WhyOmitted) As Boolean
+    Public Function IsDisplayedOnBadge_Visibly(ByRef par_whyOmit As WhyOmittedStruct) As Boolean
         ''----Public Function IsDisplayedOnBadge_Visibly() As Boolean
         ''
         ''Added 9/19/2019 td  

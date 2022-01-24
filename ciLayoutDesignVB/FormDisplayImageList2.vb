@@ -66,7 +66,7 @@ Public Class FormDisplayImageList2 ''Added 8/27/2019 td
             ''9/19 td''If (Not par_objField.IsDisplayedOnBadge()) Then Continue For
 
             ''11/15/2021 boolSkipIt = (Not par_objElement.IsDisplayedOnBadge_Visibly())
-            Dim omitReason As New WhyOmitted ''Added 11/15/2021 td
+            Dim omitReason As New WhyOmittedStruct ''Added 11/15/2021 td
             boolSkipIt = (Not par_objElement.IsDisplayedOnBadge_Visibly(omitReason))
 
             If (boolSkipIt) Then Continue For

@@ -605,7 +605,7 @@ Namespace ciBadgeCachePersonality
             Dim new_list As New List(Of ClassElementField)  ''End of "List(Of ClassElementField)"
             Dim each_element As ClassElementField
             Dim boolOnDisplay As Boolean
-            Dim structWhyOmit As New ciBadgeElements.WhyOmitted
+            Dim structWhyOmit As New ciBadgeElements.WhyOmittedStruct
             Dim indexBadgeDisplay As Integer
 
             For Each each_element In mod_listElementFields_Front
@@ -648,7 +648,7 @@ Namespace ciBadgeCachePersonality
             Dim new_list As New List(Of ClassElementField)  ''End of "List(Of ClassElementField)"
             Dim each_element As ClassElementField
             Dim boolOnDisplay As Boolean
-            Dim structWhyOmit As New ciBadgeElements.WhyOmitted
+            Dim structWhyOmit As New ciBadgeElements.WhyOmittedStruct
             Dim indexBadgeDisplay As Integer
 
             If (mod_listElementFields_Backside Is Nothing) Then mod_listElementFields_Backside = New HashSet(Of ClassElementField)

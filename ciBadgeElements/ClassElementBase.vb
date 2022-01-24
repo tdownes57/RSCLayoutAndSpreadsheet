@@ -8,6 +8,7 @@ Imports System.Drawing ''Added 9/18/2019 td
 Imports System.Windows.Forms ''Added 9/18/2019 td 
 
 Public Class ClassElementBase
+    Implements IElement_Base_InDevelopment  ''//_Temporary
     ''Not implemented yet.  ----Implements IElement_Base
     ''
     ''Added 1/8/2022 thomas downes

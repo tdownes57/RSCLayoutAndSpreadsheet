@@ -284,7 +284,7 @@ Public Class ClassElementsCache_DontUse
         Dim new_list As New HashSet(Of ClassElementField)  ''End of "List(Of ClassElementField)"
         Dim each_element As ClassElementField
         Dim boolOnDisplay As Boolean
-        Dim structWhyOmit As New ciBadgeElements.WhyOmitted
+        Dim structWhyOmit As New ciBadgeElements.WhyOmittedStruct
         Dim indexBadgeDisplay As Integer
 
         For Each each_element In mod_listElementFields

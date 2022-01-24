@@ -799,7 +799,7 @@ namespace ciBadgeGenerator
             //            Dim image_textStandard As Image
 
             Image image_textStandard;
-            WhyOmitted struct_omitted = new WhyOmitted(); //Added 11/24/2021 td 
+            WhyOmittedStruct struct_omitted = new WhyOmittedStruct(); //Added 11/24/2021 td 
 
             //            ''9/20/2019 td''Dim intLeft As Integer
             //            ''9/20/2019 td''Dim intTop As Integer
