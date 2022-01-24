@@ -299,11 +299,13 @@ Public Class ClassDesigner
         ''
         ''Added 1/14/2021 td 
         ''
-        CtlGraphic_Portrait.Dispose() ''Added Dec. 8, 2021
-        Me.DesignerForm.Controls.Remove(CtlGraphic_Portrait) ''Added Dec. 8, 2021
-        mod_listOfDesignerControls.Remove(CtlGraphic_Portrait) ''Added Dec. 8, 2021
+        If (CtlGraphic_Portrait IsNot Nothing) Then
+            CtlGraphic_Portrait.Dispose() ''Added Dec. 8, 2021
+            Me.DesignerForm.Controls.Remove(CtlGraphic_Portrait) ''Added Dec. 8, 2021
+            mod_listOfDesignerControls.Remove(CtlGraphic_Portrait) ''Added Dec. 8, 2021
+        End If ''End of "If (CtlGraphic_Portrait IsNot Nothing) Then"
 
-    End Sub
+    End Sub ''End of "Public Sub UnloadDesigner_Portrait()"
 
 
     Public Sub UnloadDesigner_QRCode()
@@ -328,12 +330,13 @@ Public Class ClassDesigner
         ''        objListenerQR.RemoveEventHandlers()
         ''        .DictyControlResizing.Remove(CtlGraphic_QRCode) ''Added 12/17/2021 td
         ''    End If ''End of "If (.DictyControlResizing.ContainsKey(CtlGraphic_QRCode)) Then"
-
         ''End With ''End of "With mod_designerListener"
 
-        CtlGraphic_QRCode.Dispose() ''Added Dec. 8, 2021
-        Me.DesignerForm.Controls.Remove(CtlGraphic_QRCode) ''Added Dec. 8, 2021
-        mod_listOfDesignerControls.Remove(CtlGraphic_QRCode) ''Added Dec. 8, 2021
+        If (CtlGraphic_QRCode IsNot Nothing) Then ''Added 1/24/2022 td
+            CtlGraphic_QRCode.Dispose() ''Added Dec. 8, 2021
+            Me.DesignerForm.Controls.Remove(CtlGraphic_QRCode) ''Added Dec. 8, 2021
+            mod_listOfDesignerControls.Remove(CtlGraphic_QRCode) ''Added Dec. 8, 2021
+        End If ''End of "If (CtlGraphic_QRCode IsNot Nothing) Then"
 
     End Sub ''End of "Public Sub UnloadDesigner_QRCode()"
 
@@ -365,9 +368,11 @@ Public Class ClassDesigner
 
         ''End If ''End of "If (boolListenerFound1) Then ... ElseIf (...) ... Else ..."
 
-        CtlGraphic_Signat.Dispose() ''Added Dec. 8, 2021
-        Me.DesignerForm.Controls.Remove(CtlGraphic_Signat) ''Added Dec. 8, 2021
-        mod_listOfDesignerControls.Remove(CtlGraphic_Signat) ''Added Dec. 8, 2021
+        If (CtlGraphic_Signat IsNot Nothing) Then ''Added 1/24/2022 td
+            CtlGraphic_Signat.Dispose() ''Added Dec. 8, 2021
+            Me.DesignerForm.Controls.Remove(CtlGraphic_Signat) ''Added Dec. 8, 2021
+            mod_listOfDesignerControls.Remove(CtlGraphic_Signat) ''Added Dec. 8, 2021
+        End If ''End of "If (CtlGraphic_Signat IsNot Nothing) Then"
 
     End Sub ''End of "Public Sub UnloadDesigner_Signature()"
 
@@ -2069,7 +2074,12 @@ Public Class ClassDesigner
         If (obj_generator Is Nothing) Then obj_generator = New ciBadgeGenerator.ClassMakeBadge
 
         obj_generator.PathToFile_Sig = Me.PathToSigFile ''Added 10/12/2019 td
-        obj_generator.ImageQRCode = CtlGraphic_QRCode.pictureQRCode.Image ''Added 10/14 td
+
+        If (par_objMakeBadgeElements.ElementQRCode_1st IsNot Nothing) Then ''Added 1/24/2022 td
+            If (CtlGraphic_QRCode IsNot Nothing) Then ''Added 1/24/2022 td
+                obj_generator.ImageQRCode = CtlGraphic_QRCode.pictureQRCode.Image ''Added 10/14 td
+            End If ''ENd of "If (CtlGraphic_QRCode IsNot Nothing) Then"
+        End If ''End of "If (par_objMakeBadgeElements.ElementQRCode_1st IsNot Nothing) Then"
 
         Try
             ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.BackgroundBox_Front.Image, True, "RefreshPreview_Redux #1")
@@ -2135,10 +2145,12 @@ Public Class ClassDesigner
             ''
             ''  Get the Portrait Image from the Element-Portrait control. ---1/5/2022
             ''
-            If (par_objMakeBadgeElements.RecipientPic Is Nothing) Then
-                ''Take the picture from the Element Control. ---1/5/2022 
-                par_objMakeBadgeElements.RecipientPic = CtlGraphic_Portrait.Pic_CloneOfInitialImage
-            End If ''End of "If (objMakeBadgeElements.ElementPic Is Nothing) Then"
+            If (CtlGraphic_Portrait IsNot Nothing) Then
+                If (par_objMakeBadgeElements.RecipientPic Is Nothing) Then
+                    ''Take the picture from the Element Control. ---1/5/2022 
+                    par_objMakeBadgeElements.RecipientPic = CtlGraphic_Portrait.Pic_CloneOfInitialImage
+                End If ''End of "If (objMakeBadgeElements.ElementPic Is Nothing) Then"
+            End If ''End of "If (CtlGraphic_Portrait IsNot Nothing) Then"
 
             ''
             ''Major call !!

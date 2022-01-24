@@ -7,7 +7,7 @@ Option Infer Off
 Imports ciBadgeInterfaces
 Imports ciBadgeFields ''Added 9/19/2019 td   
 
-Public Class ListCustomFields
+Public Class DialogListCustomFields
     Implements InterfaceShowListFields ''Added 12/6/2021 td 
 
     ''12/5/2021 td''Public Property ListOfFields As List(Of ClassFieldCustomized) ''Added 7/23/2019 thomas downes 

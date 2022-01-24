@@ -498,10 +498,10 @@
     <Compile Include="FlowDialogs\ListCustomFieldsFlow.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FlowDialogs\ListCustomFieldsGrid.Designer.vb">
-      <DependentUpon>ListCustomFieldsGrid.vb</DependentUpon>
+    <Compile Include="FlowDialogs\DialogListCustomFieldsGrid.Designer.vb">
+      <DependentUpon>DialogListCustomFieldsGrid.vb</DependentUpon>
     </Compile>
-    <Compile Include="FlowDialogs\ListCustomFieldsGrid.vb">
+    <Compile Include="FlowDialogs\DialogListCustomFieldsGrid.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DialogDisplayColor.Designer.vb">
@@ -558,10 +558,10 @@
     <Compile Include="DialogPresetValues.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FlowDialogs\ListStandardFields.Designer.vb">
-      <DependentUpon>ListStandardFields.vb</DependentUpon>
+    <Compile Include="FlowDialogs\DialogListStandardFields.Designer.vb">
+      <DependentUpon>DialogListStandardFields.vb</DependentUpon>
     </Compile>
-    <Compile Include="FlowDialogs\ListStandardFields.vb">
+    <Compile Include="FlowDialogs\DialogListStandardFields.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DialogSubsection.Designer.vb">
@@ -754,8 +754,8 @@
     <EmbeddedResource Include="FlowDialogs\ListCustomFieldsFlow.resx">
       <DependentUpon>ListCustomFieldsFlow.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FlowDialogs\ListCustomFieldsGrid.resx">
-      <DependentUpon>ListCustomFieldsGrid.vb</DependentUpon>
+    <EmbeddedResource Include="FlowDialogs\DialogListCustomFieldsGrid.resx">
+      <DependentUpon>DialogListCustomFieldsGrid.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormDesignPrototype.resx">
       <DependentUpon>FormDesignPrototype.vb</DependentUpon>
@@ -788,8 +788,8 @@
     <EmbeddedResource Include="DialogPresetValues.resx">
       <DependentUpon>DialogPresetValues.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FlowDialogs\ListStandardFields.resx">
-      <DependentUpon>ListStandardFields.vb</DependentUpon>
+    <EmbeddedResource Include="FlowDialogs\DialogListStandardFields.resx">
+      <DependentUpon>DialogListStandardFields.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DialogSubsection.resx">
       <DependentUpon>DialogSubsection.vb</DependentUpon>

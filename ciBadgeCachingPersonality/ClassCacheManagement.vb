@@ -413,12 +413,14 @@ Namespace ciBadgeCachePersonality
 
             Else
                 ''The element exists.  
-                Dim why_omit As New WhyOmittedStruct
+                Dim why_omitV1 As New WhyOmitted_StructV1
+                Dim why_omitV2 As New WhyOmitted_StructV2 ''Added 1/24/2022 td
                 Dim boolElemDisplayedOnBadge As Boolean
 
                 elementForField.Visible = par_fieldToDisplay.IsDisplayedOnBadge
 
-                boolElemDisplayedOnBadge = elementForField.IsDisplayedOnBadge_Visibly(why_omit)
+                ''Jan24 2022 td''boolElemDisplayedOnBadge = elementForField.IsDisplayedOnBadge_Visibly(why_omitV1)
+                boolElemDisplayedOnBadge = elementForField.IsDisplayedOnBadge_Visibly(why_omitV1, why_omitV2)
 
                 par_strListOfFields &= ("   Good, a wrapper element exists: " & elementForField.FieldNm_CaptionText() &
                         "  Is it displayed on the badge? " &

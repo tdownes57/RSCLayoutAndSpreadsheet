@@ -112,7 +112,7 @@ Public Class Form__Main_PreDemo
         ''
         ''Added 7/17/2019 thomas downes
         ''
-        Dim frm_ToShow As New ListCustomFieldsGrid()
+        Dim frm_ToShow As New DialogListCustomFieldsGrid()
         ''7/26/2019 td''frm_ToShow.ListOfFields = GetCurrentPersonality_Fields()
         frm_ToShow.ListOfFields = GetCurrentPersonality_Fields_Custom()
         frm_ToShow.Show()
@@ -137,7 +137,7 @@ Public Class Form__Main_PreDemo
         ''
         ''Added 7/23/2019 thomas downes
         ''
-        Dim frm_ToShow As New ListCustomFieldsGrid()
+        Dim frm_ToShow As New DialogListCustomFieldsGrid()
         ClassFieldCustomized.InitializeHardcodedList_Students(True)
         frm_ToShow.ListOfFields = ClassFieldCustomized.ListOfFields_Students
         frm_ToShow.Show()
@@ -170,7 +170,7 @@ Public Class Form__Main_PreDemo
         '' 
         ''Added 7/23/2019 thomas downes
         ''
-        Dim frm_ToShow As New ListCustomFieldsGrid()
+        Dim frm_ToShow As New DialogListCustomFieldsGrid()
         ClassFieldCustomized.InitializeHardcodedList_Staff(True)
         frm_ToShow.ListOfFields = ClassFieldCustomized.ListOfFields_Staff
         frm_ToShow.Show()

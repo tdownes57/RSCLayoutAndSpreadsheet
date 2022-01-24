@@ -284,12 +284,15 @@ Public Class ClassElementsCache_DontUse
         Dim new_list As New HashSet(Of ClassElementField)  ''End of "List(Of ClassElementField)"
         Dim each_element As ClassElementField
         Dim boolOnDisplay As Boolean
-        Dim structWhyOmit As New ciBadgeElements.WhyOmittedStruct
+        Dim structWhyOmitV1 As New ciBadgeElements.WhyOmitted_StructV1
+        Dim structWhyOmitV2 As New ciBadgeInterfaces.WhyOmitted_StructV2 ''Added 1/24/2022
         Dim indexBadgeDisplay As Integer
 
         For Each each_element In mod_listElementFields
             ''Major call. 
-            boolOnDisplay = each_element.IsDisplayedOnBadge_Visibly(structWhyOmit)
+            ''Jan24 2022 td''boolOnDisplay = each_element.IsDisplayedOnBadge_Visibly(structWhyOmit)
+            boolOnDisplay = each_element.IsDisplayedOnBadge_Visibly(structWhyOmitV1, structWhyOmitV2)
+
             If (boolOnDisplay) Then
                 new_list.Add(each_element)
                 indexBadgeDisplay += 1

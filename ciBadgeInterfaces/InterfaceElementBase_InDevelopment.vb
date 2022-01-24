@@ -16,7 +16,7 @@ Public Interface IElement_Base_InDevelopment
     ''Added 1/23/2022 td
     ''
     ''
-    Property WhyOmitted As WhyOmittedStruct
+    Property WhyOmitted As WhyOmitted_StructV2
 
 
 

@@ -322,15 +322,28 @@ ExitHandler:
                 If (mod_model IsNot Nothing) Then mod_model.DateEdited = Now ''Added 12/5/2021 td
                 checkDisplayForEdits.Enabled = True ''False
                 checkDisplayOnBadge.Enabled = True ''False
+
             End If ''End of "If (boolPriorValueChecked And dresult = DialogResult.OK) Then"
 
-        ElseIf (checkboxSender.Checked) Then
+        ElseIf (checkboxSender.Checked = False) Then
+            ''---Jan24 2022 td---ElseIf (checkboxSender.Checked) Then
             ''
             ''Added 12/6/2021 td 
             ''
-            MessageBox.Show("This field is removed from any operations in the current Personality Configuration (both Badge & Edit).",
+            ''The checkbox has been turned ---OFF---.  1/24/2022 td
+            MessageBox.Show("This field is removed from any operations in the " &
+                            "current Personality Configuration (both Badge & Edit)." & vbCrLf_Deux &
+                            "Suggestion, restore the checkbox's checked status if you are not sure.",
                             "Not Relevant",
                             MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
+            ''The checkbox has been turned ---OFF---.  So let's set .Enabled to False.  1/24/2022 td
+            checkDisplayForEdits.Enabled = False ''False. Turn these checkboxes --Off--.
+            checkDisplayOnBadge.Enabled = False ''False. Turn these checkboxes --Off--.
+
+        Else
+            ''The checkbox has been turned ---ON---.  So let's set .Enabled to True.   1/24/2022 td
+            checkDisplayForEdits.Enabled = True ''True. Turn these checkboxes --ON--.
+            checkDisplayOnBadge.Enabled = True ''True. Turn these checkboxes --ON--.
 
         End If ''End of "If (CType(sender, CheckBox).AutoCheck) Then .... Else ...."
 

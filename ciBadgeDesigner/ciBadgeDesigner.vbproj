@@ -253,16 +253,16 @@
     <Compile Include="Dialogs\DialogTextOffset.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\ListCustomFields.Designer.vb">
-      <DependentUpon>ListCustomFields.vb</DependentUpon>
+    <Compile Include="Dialogs\DialogListCustomFields.Designer.vb">
+      <DependentUpon>DialogListCustomFields.vb</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\ListCustomFields.vb">
+    <Compile Include="Dialogs\DialogListCustomFields.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\ListStandardFields.Designer.vb">
-      <DependentUpon>ListStandardFields.vb</DependentUpon>
+    <Compile Include="Dialogs\DialogListStandardFields.Designer.vb">
+      <DependentUpon>DialogListStandardFields.vb</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\ListStandardFields.vb">
+    <Compile Include="Dialogs\DialogListStandardFields.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DiskFiles\DiskFilesVB.vb" />
@@ -397,11 +397,11 @@
     <EmbeddedResource Include="Dialogs\DialogTextOffset.resx">
       <DependentUpon>DialogTextOffset.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\ListCustomFields.resx">
-      <DependentUpon>ListCustomFields.vb</DependentUpon>
+    <EmbeddedResource Include="Dialogs\DialogListCustomFields.resx">
+      <DependentUpon>DialogListCustomFields.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\ListStandardFields.resx">
-      <DependentUpon>ListStandardFields.vb</DependentUpon>
+    <EmbeddedResource Include="Dialogs\DialogListStandardFields.resx">
+      <DependentUpon>DialogListStandardFields.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MenuOperations\FormPickGraphic.resx">
       <DependentUpon>FormPickGraphic.vb</DependentUpon>

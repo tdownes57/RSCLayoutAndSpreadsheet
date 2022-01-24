@@ -57,7 +57,7 @@ Module modAllowFieldEdits
             ''--Dim frm_ToShow_AllCustomFields As New ListCustomFieldsFlow()
             Dim frm_ToShowFields As InterfaceShowListFields ''ListCustomFieldsFlow()
 
-            If (boolStandard) Then frm_ToShowFields = New ListStandardFields
+            If (boolStandard) Then frm_ToShowFields = New DialogListStandardFields
             If (bool__Custom) Then frm_ToShowFields = New ListCustomFieldsFlow
 
             ''Dim each_field As ciBadgeFields.ClassFieldCustomized
@@ -80,8 +80,19 @@ Module modAllowFieldEdits
             ''12/6/2021 td''frm_ToShow.ListOfFields = par_ElementsCache_Edits.ListOfFields_Custom
             frm_ToShowFields.CacheManager = par_ElementsCache_Manage ''Added 12/6/2021 td 
 
-            frm_ToShowFields.ListOfFields_Standard = par_ElementsCache_Manage.CacheForEditing.ListOfFields_Standard
-            frm_ToShowFields.ListOfFields_Custom = par_ElementsCache_Manage.CacheForEditing.ListOfFields_Custom
+            ''1/24/2022 td''frm_ToShowFields.ListOfFields_Standard = par_ElementsCache_Manage.CacheForEditing.ListOfFields_Standard
+            ''1/24/2022 td''frm_ToShowFields.ListOfFields_Custom = par_ElementsCache_Manage.CacheForEditing.ListOfFields_Custom
+
+            ''Modified 1/24/2022 td
+            frm_ToShowFields.ListOfFields_Standard = par_ElementsCache_Edits.ListOfFields_Standard
+            frm_ToShowFields.ListOfFields_Custom = par_ElementsCache_Edits.ListOfFields_Custom
+
+            ''Added 1/24/2022 td
+            Dim boolCachesMatch As Boolean ''Added 1/24/2022 td
+            boolCachesMatch = (par_ElementsCache_Edits Is par_ElementsCache_Manage.CacheForEditing)
+            If (Not boolCachesMatch) Then
+                System.Diagnostics.Debugger.Break()
+            End If ''End of "If (Not boolCachesMatch) Then"
 
             ''Dec. 6, 2021 td
             If (c_boolCreateTextFile) Then

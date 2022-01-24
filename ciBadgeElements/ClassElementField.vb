@@ -15,29 +15,21 @@ Imports AutoMapper ''Added 11/17/2021 thomas d.
 
 Public Event ElementField_RightClicked(par_elementField As ClassElementField) ''Added 10/1/2019 td
 
-Public Structure WhyOmittedStruct ''Added 11/10/2021 thomas downes
-
-    '' 1/23/2022 Dim NotRelevantField As Boolean ''Added 11/24/2021
-    '' 1/23/2022 Dim OmitElement As Boolean
-    '' 1/23/2022 Dim ElementVisibleIsFalse As Boolean ''Added 12/6/2021 
-    '' 1/23/2022 Dim OmitField As Boolean
-    '' 1/23/2022 Dim OmitCoordinateX As Boolean
-    '' 1/23/2022 Dim OmitCoordinateY As Boolean
-    '' 1/23/2022 Dim OmitWidth As Boolean
-    '' 1/23/2022 Dim OmitHeight As Boolean
-
-    Dim OmitIrrelevantField As Boolean ''Dim NotRelevantField  ''Renamed 1/23/2022  ''Added 11/24/2021
-    Dim OmitInvisibleElement As Boolean ''Dim ElementVisibleIsFalse  ''Renamed 1/23/2022  ''Added 12/6/2021 
-    Dim OmitNullImage As Boolean ''Added 1/23/2022 td
-    Dim OmitOutlyingCoordinateX As Boolean ''Dim OmitCoordinateX  ''Renamed 1/23/2022
-    Dim OmitOutlyingCoordinateY As Boolean ''Dim OmitCoordinateY  ''Renamed 1/23/2022
-    Dim OmitUnbadgedField As Boolean ''Dim OmitField As Boolean ''Renamed 1/23/2022
-    ''Not needed??''Dim OmitUnbadgedElement As Boolean ''Renamed 1/23/2022
-    Dim OmitZeroWidth As Boolean ''Dim OmitWidth as Boolean ''Prefixed w/ "Zero" 1/23/2022
-    Dim OmitZeroHeight As Boolean ''Dim OmitHeight as Boolean ''Prefixed w/ "Zero" 1/23/2022
-
-    Dim DateOmittedCreated As Date ''Added 1/23/2022 td
-    Dim DateOmittedUpdated As Date ''Added 1/23/2022 td
+Public Structure WhyOmitted_StructV1 ''Added 11/10/2021 thomas downes
+    ''----Public Structure WhyOmitted ''Added 11/10/2021 thomas d.
+    ''
+    ''As of 1/23/2022, this Public Structure is defined in library CIBadgeElements. 
+    ''
+    ''See library CIBadgeInterfaces for Public Structure WhyOmitted_StructV2.  ----1/23/2022 TD
+    ''
+    Dim NotRelevantField As Boolean ''Added 11/24/2021
+    Dim OmitElement As Boolean
+    Dim ElementVisibleIsFalse As Boolean ''Added 12/6/2021 
+    Dim OmitField As Boolean
+    Dim OmitCoordinateX As Boolean
+    Dim OmitCoordinateY As Boolean
+    Dim OmitWidth As Boolean
+    Dim OmitHeight As Boolean
 
     ''Dim increment1 = Function(x As Integer) x + 1
     ''==Const OmitElement_Msg As String = " (Element Property not flagged as True)"
@@ -45,7 +37,7 @@ Public Structure WhyOmittedStruct ''Added 11/10/2021 thomas downes
     Public Function NotRelevantMsg() As String
         ''Added 11/24/2021 
         ''Jan23 2022 td''If (NotRelevantField) Then Return " (Field not relevant to Personality)"
-        If (OmitIrrelevantField) Then Return " (Field not relevant to Personality)"
+        If (OmitField) Then Return " (Field not relevant to Personality)"
         Return ""
     End Function
     Public Function OmitElementMsg() As String
@@ -58,17 +50,21 @@ Public Structure WhyOmittedStruct ''Added 11/10/2021 thomas downes
         Return ""
     End Function
 
-    Public Sub SetDateTime(par_datetime As Date)
-        ''Added 1/23/2022 td
-        If (DateOmittedCreated.Year > 2020) Then
-            DateOmittedUpdated = par_datetime
-        Else
-            DateOmittedCreated = par_datetime
-            DateOmittedUpdated = par_datetime
-        End If
-    End Sub ''End of "Public Sub SetDateTime()"
+    ''
+    ''For this commented procedure (Public Sub SetDateTime), please see library CIBadgeInterfaces,
+    ''    Public Structure WhyOmitted_StructV2.----1/23/2022 td
+    ''
+    ''1/23/2022 TD''Public Sub SetDateTime(par_datetime As Date)
+    ''    ''Added 1/23/2022 td
+    ''    If (DateOmittedCreated.Year > 2020) Then
+    ''        DateOmittedUpdated = par_datetime
+    ''    Else
+    ''        DateOmittedCreated = par_datetime
+    ''        DateOmittedUpdated = par_datetime
+    ''    End If
+    ''End Sub ''End of "Public Sub SetDateTime()"
 
-End Structure
+End Structure ''End of "Public Structure WhyOmitted_StructV1"
 
 <Serializable>
 Public Class ClassElementField
@@ -593,23 +589,62 @@ Public Class ClassElementField
         ''
         ''Added 1/8/2022 thomas downes
         ''
-        Dim structWhyOmit As New WhyOmittedStruct
-        Return IsDisplayedOnBadge_Visibly(structWhyOmit)
+        ''Jan23 2022 td'' Dim structWhyOmit As New WhyOmitted
+        Dim structWhyOmitV1 As New WhyOmitted_StructV1
+        Dim structWhyOmitV2 As New WhyOmitted_StructV2
+
+        ''1/24/2022 td''Return IsDisplayedOnBadge_Visibly(structWhyOmit)
+        Return IsDisplayedOnBadge_Visibly(structWhyOmitV1, structWhyOmitV2)
 
     End Function ''End of "Public Function IsDisplayedOnBadge_Visibly"
 
 
-    Public Function IsDisplayedOnBadge_Visibly(ByRef par_whyOmit As WhyOmittedStruct) As Boolean
+    Public Function IsDisplayedOnBadge_Visibly(ByRef par_whyOmitV1 As WhyOmitted_StructV1,
+                                               ByRef par_whyOmitV2 As WhyOmitted_StructV2) As Boolean
         ''----Public Function IsDisplayedOnBadge_Visibly() As Boolean
         ''
         ''Added 9/19/2019 td  
         ''
-        par_whyOmit.NotRelevantField = (Not Me.FieldInfo.IsRelevantToPersonality) ''Added 11/24/2021 
-        par_whyOmit.OmitElement = (Not Me.Visible) ''Added 11/10/2021 td
-        par_whyOmit.ElementVisibleIsFalse = (Not Me.Visible) ''Added 12/6/2021 thomas d. 
-        par_whyOmit.OmitField = (Not Me.FieldInfo.IsDisplayedOnBadge) ''Added 11/10/20121 td  
+        Dim bIncludedAndVisible As Boolean ''Added 1/24/2022 td
+        Dim bRelevantToPersonality As Boolean ''Added 1/24/2022 td
 
-        Return (Me.FieldInfo.IsDisplayedOnBadge And Me.Visible)
+        par_whyOmitV1.NotRelevantField = (Not Me.FieldInfo.IsRelevantToPersonality) ''Added 11/24/2021 
+        par_whyOmitV1.OmitElement = (Not Me.Visible) ''Added 11/10/2021 td
+        par_whyOmitV1.ElementVisibleIsFalse = (Not Me.Visible) ''Added 12/6/2021 thomas d. 
+        par_whyOmitV1.OmitField = (Not Me.FieldInfo.IsDisplayedOnBadge) ''Added 11/10/20121 td  
+
+        ''Added 1/23/2022 td
+        With Me.FieldInfo
+
+            bIncludedAndVisible = (.IsDisplayedOnBadge And Me.Visible) ''Added 1/24/2022 td
+            If (bIncludedAndVisible) Then
+                bRelevantToPersonality = .IsRelevantToPersonality
+                bIncludedAndVisible = (.IsRelevantToPersonality And .IsDisplayedOnBadge And Me.Visible)
+                bIncludedAndVisible = ((.IsRelevantToPersonality And .IsDisplayedOnBadge) And
+                          (Me.Visible And Me.Width_Pixels <> 0 And Me.Height_Pixels <> 0))
+            End If ''End of "If (bIncludedAndVisible) Then"
+
+            par_whyOmitV2.OmitIrrelevantField = (Not .IsRelevantToPersonality)
+            par_whyOmitV2.OmitInvisibleElement = (Not Me.Visible)
+            par_whyOmitV2.OmitUnbadgedField = (Not .IsDisplayedOnBadge)
+            par_whyOmitV2.OmitZeroHeight = (Me.Height_Pixels = 0)
+            par_whyOmitV2.OmitZeroWidth = (Me.Width_Pixels = 0)
+
+            ''Enumerated values
+            If (Not .IsRelevantToPersonality) Then par_whyOmitV2.EnumOmitReason = EnumOmitReasons.IrrelevantField
+            If (Not Me.Visible) Then par_whyOmitV2.EnumOmitReason = EnumOmitReasons.InvisibleElement
+            If (Not .IsDisplayedOnBadge) Then par_whyOmitV2.EnumOmitReason = EnumOmitReasons.UnbadgedField
+            If (Me.Height_Pixels = 0) Then par_whyOmitV2.EnumOmitReason = EnumOmitReasons.ZeroHeight
+            If (Me.Width_Pixels = 0) Then par_whyOmitV2.EnumOmitReason = EnumOmitReasons.ZeroWidth
+
+            ''Current date-time.
+            ''----Not sure if we need to set the date here.
+            ''--If (Not bIncludedAndVisible) Then par_whyOmitV2.SetDateTime()
+
+        End With ''End of "With Me.FieldInfo"
+
+        ''Jan24 2022 td''Return (Me.FieldInfo.IsDisplayedOnBadge And Me.Visible)
+        Return (bIncludedAndVisible)
 
     End Function ''End of "Public Function IsDisplayedOnBadge_Visibly() As Boolean"
 

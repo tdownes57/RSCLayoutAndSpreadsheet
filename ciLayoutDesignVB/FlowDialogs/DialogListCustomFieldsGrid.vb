@@ -6,7 +6,7 @@ Imports System.Collections.Generic
 Imports ciBadgeInterfaces ''Added 9/17/2019 td
 Imports ciBadgeFields ''Added 9/19/2019 td
 
-Public Class ListCustomFieldsGrid
+Public Class DialogListCustomFieldsGrid
 
     Public Shared FieldsList_Static As New List(Of ClassFieldCustomized)
 

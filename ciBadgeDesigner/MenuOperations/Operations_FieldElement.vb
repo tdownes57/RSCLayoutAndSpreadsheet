@@ -87,7 +87,7 @@ Public Class Operations_FieldElement
         If (bIsCustomField And c_boolTryNewSub) Then
 
             ''Added 12/14/2021 thomas d. 
-            Open_FieldStandard_OrCustom(New ListCustomFields())
+            Open_FieldStandard_OrCustom(New DialogListCustomFields())
 
         ElseIf (bIsCustomField) Then
             ''Encapsulated 12/14/2021 thomas d. 
@@ -95,7 +95,7 @@ Public Class Operations_FieldElement
 
         Else
             ''Added 12/14/2021 thomas d. 
-            Open_FieldStandard_OrCustom(New ListStandardFields())
+            Open_FieldStandard_OrCustom(New DialogListStandardFields())
 
         End If ''End of "End of "If (bIsCustomField) Then ... Else ..."
 
@@ -106,7 +106,7 @@ Public Class Operations_FieldElement
         ''
         ''Encapsulated 12/14/2021 thomas d. 
         ''
-        Dim form_ToShow As New ListCustomFields
+        Dim form_ToShow As New DialogListCustomFields
 
         Dim boolExitEarly As Boolean ''Added 8/13/2019 td
         ''10/10/2019 td''CreateVisibleButton_Master("Choose a background color", AddressOf OpenDialog_Color, boolExitEarly)

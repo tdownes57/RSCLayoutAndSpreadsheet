@@ -83,7 +83,7 @@ Public Class Operations_EditFieldElement
 
         Else
             ''Added 12/14/2021 thomas d. 
-            Open_FieldStandard_OrCustom(New ListStandardFields())
+            Open_FieldStandard_OrCustom(New DialogListStandardFields())
 
         End If ''End of "End of "If (bIsCustomField) Then ... Else ..."
 

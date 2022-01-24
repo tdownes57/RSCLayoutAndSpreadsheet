@@ -2,7 +2,7 @@
 '' Added 12/13/2021 thomas downes  
 ''
 
-Public Module ModuleEnums
+Public Module ModEnumsAndStructs
 
     ''
     ''Moved to ciBadgeInterfaces on 12/13/2021. --- thomas.
@@ -51,6 +51,9 @@ Public Module ModuleEnums
         __Desktop ''Added 1/15/2022 td
 
     End Enum
+
+
+
 
 
 End Module

@@ -6,7 +6,7 @@ Option Strict On ''Added 8/29/2019 td
 Imports ciBadgeInterfaces
 Imports ciBadgeFields ''Added 9/19/2019 td 
 
-Public Class ListStandardFields
+Public Class DialogListStandardFields
     Implements InterfaceShowListFields ''Added 12/6/2021 td 
 
     ''10/17 Public Property ListOfFields As List(Of ClassFieldStandard) ''Added 8/19/2019 thomas downes 
@@ -25,21 +25,6 @@ Public Class ListStandardFields
     Public Property JustOneField_Standard As ClassFieldStandard Implements InterfaceShowListFields.JustOneField_Standard ''Added 12/13/2021 thomas d. 
 
     Public Property ClosingOK_SoSaveWork As Boolean Implements InterfaceShowListFields.ClosingOK_SoSaveWork ''Added 12/6/2021 thomas downes
-
-    ''Jan2 2022 td''Private mod_listFields As List(Of ClassFieldStandard) ''Added 1/2/2022 td
-
-    ''Public Sub New(par_listFields As List(Of ClassFieldStandard))
-    ''    ''
-    ''    ''Added 1/2/2022 thomas downes
-    ''    ''
-    ''    ' This call is required by the designer.
-    ''    InitializeComponent()
-
-    ''    ' Add any initialization after the InitializeComponent() call.
-    ''    ''Jan2 2022 td''mod_listFields = par_listFields
-
-    ''End Sub
-
 
     Public Overloads Function ShowDialog() As DialogResult Implements InterfaceShowListFields.ShowDialog
         ''
@@ -80,27 +65,9 @@ Public Class ListStandardFields
         '' 7/21 td''ClassCustomField.InitializeHardcodedList_Students()
 
         ''Dec14 2021 td''LoadStandardFields_All()
-        ''Jan5 2022 td''LoadStandardFields_All(Me.ListOfFields_Standard, Me.JustOneField_Standard)
+        LoadStandardFields_All(Me.ListOfFields_Standard, Me.JustOneField_Standard)
 
-        ''Added 1/5/2022 thomas d.
-        If (Me.ListOfFields_Standard Is Nothing) Then
-            If (Me.JustOneField_Standard Is Nothing) Then
-
-                ''Added 1/5/2022 thomas d.
-                Dim objListOfJustOneField = New HashSet(Of ClassFieldStandard)
-                objListOfJustOneField.Add(Me.JustOneField_Standard)
-                LoadStandardFields_All(objListOfJustOneField, Me.JustOneField_Standard)
-
-            End If ''End of "If (Me.JustOneField_Standard Is Nothing) Then"
-
-        Else
-            ''Dec14 2021 td''LoadStandardFields_All()
-            LoadStandardFields_All(Me.ListOfFields_Standard, Me.JustOneField_Standard)
-
-        End If ''End of "If (Me.ListOfFields_Standard Is Nothing) Then ... Else ..."
-
-
-    End Sub ''End of Private Sub Form_Load  
+    End Sub
 
     Private Sub LoadStandardFields_All(par_listFields As HashSet(Of ClassFieldStandard),
                                      Optional par_JustOneField As ClassFieldStandard = Nothing)
@@ -177,9 +144,14 @@ Public Class ListStandardFields
                                      MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)
 
         If (dia_result = DialogResult.Cancel) Then e.Cancel = True
-        If (dia_result = DialogResult.Yes) Then SaveControls()
+        If (dia_result = DialogResult.OK) Then dia_result = DialogResult.Yes ''Added 1/24/2022 thomas
 
-    End Sub
+        If (dia_result = DialogResult.Yes) Then
+            SaveControls()
+            ClosingOK_SoSaveWork = True ''Added 1/24/2022 thomas downes
+        End If ''End of "If (dia_result = DialogResult.Yes) Then"
+
+    End Sub ''End of "Private Sub FormCustomFieldsFlow_FormClosing"
 
     Private Sub SaveControls()
         ''
@@ -201,11 +173,7 @@ Public Class ListStandardFields
 
                 ''8/22/2019 td''If (.NewlyAdded) Then FormMain.GetCurrentPersonality_Fields_Custom().Add(.Model)
                 If (.NewlyAdded) Then
-
-                    ''#1 1/2/2022 td''Form__Main_PreDemo.GetCurrentPersonality_Fields_Standard().Add(.Field_Standard)
-                    ''#2 1/2/2022 td''mod_ListOfFields.Add(.Field_Standard)
-                    Me.ListOfFields_Standard.Add(.Field_Standard)
-
+                    Form__Main_PreDemo.GetCurrentPersonality_Fields_Standard().Add(.Field_Standard)
                 End If ''End of "If (.NewlyAdded) Then"
 
             End With ''End of "With each_ctl_configure_field"

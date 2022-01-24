@@ -81,4 +81,8 @@ Public Class ClassElementBase
     ''End Function
 
 
+    ''Added 1/23/2022 td
+    Public Property WhyOmitted As WhyOmitted_StructV2 Implements IElement_Base_InDevelopment.WhyOmitted
+
+
 End Class
