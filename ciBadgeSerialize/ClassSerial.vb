@@ -40,6 +40,10 @@ Public Class ClassSerial
         ''7/20/2019 td''Dim srObj As New serializeObject()
         '' 8/31/2019 td''Dim srObj As New ClassParent()
 
+        Const c_bCopyRestoreFileIfNeeded As Boolean = True ''Added 1/25/2022 thomas d. 
+        Dim bRestoreFile As Boolean ''Added 1/25/2022 thomas d. 
+        Dim bSuccessful As Boolean ''Added 1/25/2022 thomas d. 
+
         ''7/20/2019 td''srObj.srString = ".Net serialization test !!"
         ''7/20/2019 td''srObj.srInt = 1000
 
@@ -58,28 +62,58 @@ Public Class ClassSerial
         ''8/31 td''Dim fileStream_Xml As Stream = New FileStream("C:\Users\tdown\Documents\CIBadgeWeb\SerializeFile_Xml.xml",
         ''8/31 td''   FileMode.Create, FileAccess.Write, FileShare.None)
 
+        ''Added 1/25/2022 thomas d.
+        If (c_bCopyRestoreFileIfNeeded) Then
+            ''Added 1/25/2022 thomas d.
+            IO.File.Copy(Me.PathToXML, Me.PathToXML & "_temp")
+        End If ''End of "If (c_bCopyRestoreFileIfNeeded) Then"
+
         ''9/12 td''Dim fileStream_Xml As Stream = New FileStream(mod_sPathToXML,
         ''                FileMode.Create, FileAccess.Write, FileShare.None)
-        Dim fileStream_Xml As Stream = New FileStream(Me.PathToXML,
+        ''1/25/2022 td''Dim fileStream_Xml As Stream = New FileStream(Me.PathToXML,
+        ''             FileMode.Create, FileAccess.Write, FileShare.None)
+
+        ''Added the "Using" keyword on 1/25/2022 td 
+        Using fileStream_Xml As Stream = New FileStream(Me.PathToXML,
                      FileMode.Create, FileAccess.Write, FileShare.None)
 
-        ''Formatter.Serialize(fileStream_Xml, srObj)
-        ''9/12/2019 td''Dim writer As New System.Xml.Serialization.XmlSerializer(GetType(ClassParent))
-        ''9/24/2019 td''Dim writer As New System.Xml.Serialization.XmlSerializer(par_TypeOfObject)
-        ''12/8/2021 td''Dim writer As New System.Xml.Serialization.XmlSerializer(par_TypeOfObject)
-        Dim writer As New XmlSerializer(par_TypeOfObject)
+            ''Formatter.Serialize(fileStream_Xml, srObj)
+            ''9/12/2019 td''Dim writer As New System.Xml.Serialization.XmlSerializer(GetType(ClassParent))
+            ''9/24/2019 td''Dim writer As New System.Xml.Serialization.XmlSerializer(par_TypeOfObject)
+            ''12/8/2021 td''Dim writer As New System.Xml.Serialization.XmlSerializer(par_TypeOfObject)
+            Dim writer As New XmlSerializer(par_TypeOfObject)
 
-        ''Dim file As New System.IO.StreamWriter("c:\temp\SerializationOverview.xml")
+            ''Dim file As New System.IO.StreamWriter("c:\temp\SerializationOverview.xml")
+            ''
+            ''9/12/2019 td''writer.Serialize(fileStream_Xml, mod_objParent)
+            ''9/24/2019 td''writer.Serialize(fileStream_Xml, Me.ObjectToSerialize)
+            Try
+                writer.Serialize(fileStream_Xml, par_objectToSerialize)
+                bSuccessful = True ''Added 1/25/2022 td
+            Catch
+                bRestoreFile = True ''Added 1/25/2022 td
+            Finally
+            End Try
+
+            fileStream_Xml.Close()
+
+        End Using
+
         ''
-        ''9/12/2019 td''writer.Serialize(fileStream_Xml, mod_objParent)
-        ''9/24/2019 td''writer.Serialize(fileStream_Xml, Me.ObjectToSerialize)
-        writer.Serialize(fileStream_Xml, par_objectToSerialize)
+        ''Issue a success message if appropriate. 
+        ''
+        If (bSuccessful And pbVerboseSuccess) Then
 
-        fileStream_Xml.Close()
+            ''Jan25 2022''MsgBox("Object Serialized !!", vbInformation, "Serialization")
+            MessageBoxTD.Show_Statement("Object is successfully serialized !!")
 
-        If (pbVerboseSuccess) Then
-            MsgBox("Object Serialized !!", vbInformation, "Serialization")
-        End If ''End of "If (pbVerboseSuccess) Then"
+        ElseIf (c_bCopyRestoreFileIfNeeded And bRestoreFile) Then
+
+            ''Added 1/25/2022 thomas d.
+            IO.File.Copy(Me.PathToXML & "_temp", Me.PathToXML, True)
+            IO.File.Delete(Me.PathToXML & "_temp")
+
+        End If ''End of "If (bSuccessful and pbVerboseSuccess) Then"
 
         If (pboolAutoOpenFile) Then
             ''9/12/2019 td''System.Diagnostics.Process.Start(mod_sPathToXML)

@@ -43,6 +43,7 @@ Public Class ComponentClickBackground
         ''Jan22 2022 td''mod_objOperationsDesktop = New Operations_Desktop()
         ''Jan22 2022 td''mod_objOperationsDesktop = New Operations_Background()
         Dim objOperationsBackground As New Operations_Background()
+
         objOperationsBackground.CtlCurrentPicturebox = Me.PictureBoxControl
         objOperationsBackground.ParentDesignerForm = CType(Me.ParentDesignerForm, IDesignerForm)
         objOperationsBackground.DesignerClass = par_objectDesigner
@@ -73,8 +74,8 @@ Public Class ComponentClickBackground
         ''--Jan22 2022--                                        mod_objOperationsDesktop.GetType(),
         ''--Jan22 2022--                                        mod_objOperationsDesktop)
         mod_menuCacheNonShared = New MenuCache_NonShared(EnumElementType.__Background,
-                                                       objOperationsBackground.GetType(),
-                                                       objOperationsBackground)
+                    objOperationsBackground.GetType(),
+                    objOperationsBackground)
 
         ''Added 1/18/2022 td
         With mod_objOperationsDesktop

@@ -20,17 +20,17 @@ Public Class CtlGraphicStaticGraphic
     ''Added 10/10/2019 thomas d 
     ''
     Public ElementClass_Obj As ClassElementGraphic ''Added 9/17/2019 thomas downes
-    Public ElementInfo_QR As IElementGraphic ''Modified 11/29/2021 thomas d 
+    Public ElementInfo_Graphic As IElementGraphic ''Modified 11/29/2021 thomas d 
     Public Overrides Property ElementInfo_Base As IElement_Base ''Added 7/31/2019 thomas d 
 
-    Public Event ElementQR_RightClicked(par_control As CtlGraphicPortrait) ''Added 10/10/2019 td
+    Public Event ElementGraphic_RightClicked(par_control As CtlGraphicStaticGraphic) ''Added 10/10/2019 td
 
     Public LayoutFunctions As ILayoutFunctions ''Modified 9/9/2019 td
 
     Public Pic_CloneOfInitialImage As Image ''Added 9/23/2019 thomas downes. 
 
 
-    Public Shared Function GetStaticGraphic(par_parameters As ClassGetElementControlParams,
+    Public Shared Function GetStaticGraphic(par_parametersGetElementControl As ClassGetElementControlParams,
                                            par_elementStaticGraphic As ClassElementGraphic,
                                             par_formParent As Form,
                                       par_nameOfControl As String,
@@ -75,6 +75,7 @@ Public Class CtlGraphicStaticGraphic
 
         ''Modified 1/2/2022 td
         objOperationsSG = New Operations_StaticGraphic() ''Added 1/1/2022 td
+
         typeOps = objOperationsSG.GetType()
         objOperations = objOperationsSG
 
@@ -133,7 +134,24 @@ Public Class CtlGraphicStaticGraphic
         infoOps.CtlCurrentElement = CtlStaticGraphic1
 
         ''Added 1/17/2022 td 
-        infoOps.ElementsCacheManager = par_parameters.ElementsCacheManager
+        infoOps.ElementsCacheManager = par_parametersGetElementControl.ElementsCacheManager
+
+        ''Added 1/24/2022 thomas d. 
+        With objOperationsSG
+
+            .CtlCurrentControl = CtlStaticGraphic1
+            .CtlCurrentElement = CtlStaticGraphic1
+            ''.Designer = par_oMoveEventsForGroupedCtls.
+            .Designer = par_parametersGetElementControl.DesignerClass
+            .ElementInfo_Base = par_elementStaticGraphic
+            .ElementsCacheManager = par_parametersGetElementControl.ElementsCacheManager
+            .Element_Type = Enum_ElementType.StaticGraphic
+            .EventsForMoveability_Group = par_oMoveEventsForGroupedCtls
+            .EventsForMoveability_Single = Nothing
+            ''Added 1/24/2022 thomas downes
+            .LayoutFunctions = .Designer
+
+        End With ''End of "With objOperationsSG"
 
         Return CtlStaticGraphic1
 
@@ -218,7 +236,7 @@ Public Class CtlGraphicStaticGraphic
         Me.ElementClass_Obj = par_elementGraphic ''par_elementPic
         Me.ElementInfo_Base = CType(par_elementGraphic, IElement_Base)
         ''Me.ElementInfo_Pic = CType(par_elementPic, IElementPic)
-        Me.ElementInfo_QR = CType(par_elementGraphic, IElementGraphic)
+        Me.ElementInfo_Graphic = CType(par_elementGraphic, IElementGraphic)
 
         ''9/20/2019 td''Me.FormDesigner = par_formLayout ''Added 9/4/2019 td
         Me.LayoutFunctions = par_iLayoutFunctions ''Added 9/4/2019 td
@@ -272,8 +290,8 @@ Public Class CtlGraphicStaticGraphic
 
     End Sub ''End of "Public Sub New(par_elementPic As ClassElementPic, par_formLayout As ILayoutFunctions)"
 
-    Public Sub New_Deprecated(par_infoForQR_Base As IElement_Base,
-                              par_infoFor_QR As IElementGraphic,
+    Public Sub New_Deprecated(par_infoForGraphic_Base As IElement_Base,
+                              par_infoFor_Graphic As IElementGraphic,
                               par_formLayout As ILayoutFunctions)
         ''
         ''Added 7/31/2019 td
@@ -282,9 +300,11 @@ Public Class CtlGraphicStaticGraphic
         InitializeComponent()
 
         ''Me.ElementInfo_Base = par_infoForPic_Base
-        Me.ElementInfo_Base = par_infoForQR_Base
+        ''Jan24 2022 td''Me.ElementInfo_Base = par_infoForQR_Base
         ''Me.ElementInfo_Pic = par_infoForPic_Pic
-        Me.ElementInfo_QR = par_infoFor_QR
+        ''Jan24 2022 td''Me.ElementInfo_QR = par_infoFor_QR
+        Me.ElementInfo_Base = par_infoForGraphic_Base
+        Me.ElementInfo_Graphic = par_infoFor_Graphic
 
         ''9/20/2019 td''Me.FormDesigner = par_formLayout ''Added 9/4/2019 td
         Me.LayoutFunctions = par_formLayout ''Added 9/4/2019 td
@@ -315,6 +335,7 @@ Public Class CtlGraphicStaticGraphic
 
     End Sub ''End of "Public Sub New_Deprecated(par_infoForPic_Base As IElement_Base, par_infoForPic_Pic As IElementPic, par_formLayout As ILayoutFunctions)"
 
+
     Public Sub Refresh_Master()
         ''
         ''Added 9/17 & 9/5/2019 thomas d 
@@ -329,6 +350,7 @@ Public Class CtlGraphicStaticGraphic
         RefreshImage_ViaElemImage()
 
     End Sub ''End of "Public Sub Refresh_Master()"
+
 
     Public Sub Refresh_PositionAndSize()
         ''
@@ -345,14 +367,21 @@ Public Class CtlGraphicStaticGraphic
 
     End Sub ''End of "Public Sub Refresh_PositionAndSize()"
 
-    Public Sub Refresh_Image_NotInUse(pbRefreshSize As Boolean)
+    Public Overrides Sub Refresh_Image(pbRefreshSize As Boolean,
+                             Optional pboolResizeLabelControl As Boolean = True,
+                             Optional pboolRefreshLabelControl As Boolean = True,
+                             Optional pboolRefreshUserControl As Boolean = False,
+                             Optional pobjElementField As ClassElementField = Nothing)
         ''
-        ''Added 9/17/2019 thomas d 
+        ''Added 7/25/2019 thomas d 
         ''
 
 
 
-    End Sub ''ENd of "Public Sub Refresh_Image(pbRefreshSize As Boolean)"
+
+
+    End Sub ''ENd of "Public Sub Refresh_Image(pbRefreshSize As Boolean, .....)"
+
 
     Private Sub DisplayAnotherImage(sender As Object, e As EventArgs)
         ''
@@ -418,7 +447,7 @@ Public Class CtlGraphicStaticGraphic
         ''Refactored 7/25/2019 thomas d 
         ''
         Const c_boolUse_ciBadgeElemImage As Boolean = True
-        ''Dim imgPortrait_withRotationIfAny As Image ''Added 9/24/2019 td
+        Dim imgPortrait_withRotationIfAny As Image ''Added 9/24/2019 td
         Dim imageStaticGraphic As Image ''Added 11/29/2019 td
 
         If (c_boolUse_ciBadgeElemImage) Then
@@ -428,23 +457,41 @@ Public Class CtlGraphicStaticGraphic
             ''--If (TypeOf ElementClass_Obj Is ClassElementPic) Then
             ''Try to pull out the image. 
             ''imgPortrait_withRotationIfAny =
-            ''ciBadgeElemImage.modGenerate.PicImage_ByElement(ElementClass_Obj,
+            ''  ciBadgeElemImage.modGenerate.PicImage_ByElement(ElementClass_Obj,
             ''                                   Me.Pic_CloneOfInitialImage)
-            imageStaticGraphic = Me.pictureStaticGraphic.Image
+            ''Added 1/24/2022 td''imageStaticGraphic = Me.pictureStaticGraphic.Image
             ''--End If ''end of "If (TypeOf ElementClass_Obj Is ClassElementPic) Then"
+
+            ''Added 1/25/2022 td
+            Dim strPathToImageFile As String ''Added 1/25/2022 
+            With Me.ElementInfo_Graphic
+                If (.GraphicImageFullPath Is Nothing) Then
+                    Exit Sub
+                End If ''End of "If (.GraphicImageFullPath Is Nothing) Then"
+                strPathToImageFile = .GraphicImageFullPath
+                .GraphicImage = New Bitmap(strPathToImageFile)
+            End With ''ENd of "With Me.ElementInfo_Graphic"
+
+            ''Added 1/24/2022 td
+            Const c_boolPullImageFromPicture As Boolean = False ''True
+            If (c_boolPullImageFromPicture) Then
+                imageStaticGraphic = Me.pictureStaticGraphic.Image
+            Else
+                imageStaticGraphic = Me.ElementInfo_Graphic.GraphicImage ''Added 1/24/2022 td
+            End If ''END of "If (c_boolPullImageFromPicture) Then ..... Else ....."
 
             ''Added 9/24/2019 td
             ''Nov29 2021''pictureStaticGraphic.Image = imgPortrait_withRotationIfAny
             pictureStaticGraphic.Image = imageStaticGraphic
 
-            ''Added 9/24/2019 td
-            SwitchControl_WidthAndHeight_Master()
+                ''Added 9/24/2019 td
+                SwitchControl_WidthAndHeight_Master()
 
-            pictureStaticGraphic.SizeMode = PictureBoxSizeMode.Zoom
-            pictureStaticGraphic.Refresh()
+                pictureStaticGraphic.SizeMode = PictureBoxSizeMode.Zoom
+                pictureStaticGraphic.Refresh()
 
-        Else
-            RefreshImage_NoMajorCalls()
+            Else
+                RefreshImage_NoMajorCalls()
 
         End If ''end of "If (c_boolUse_ciBadgeElemImage) Then ..... Else ...."
 

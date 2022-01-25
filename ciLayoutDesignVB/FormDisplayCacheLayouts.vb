@@ -6,6 +6,8 @@ Public Class FormDisplayCacheLayouts
     ''Added 12/19/2021 Thomas Downes   
     ''
     Public PathToElementsCacheXML As String ''Added 12/19/2021 Thomas Downes
+    Public PathToElementsCacheXML_Prior1 As String ''Added 1/25/2025 Thomas Downes
+    Public PathToElementsCacheXML_Prior2 As String ''Added 1/25/2025 Thomas Downes
     Public UserChoosesABlankSlate As Boolean ''Added 12/20/2021 thomas downes  
     Public UserHasSelectedCancel As Boolean ''Added 12/20/2021 thomas downes
     Public PathToLastDirectoryForXMLFile As String ''Added 12/20/2021 thomas downes
@@ -80,6 +82,11 @@ Public Class FormDisplayCacheLayouts
         strPathToBadgeLayoutJPG = Me.PathToElementsCacheXML.Replace(".xml", ".jpg")
         Me.picturePreviewFront.ImageLocation = strPathToBadgeLayoutJPG
         Me.picturePreviewFront.SizeMode = PictureBoxSizeMode.Zoom
+
+        ''Added 1/25/2022 thomas d. 
+        Dim strPriorXMLFile As String = Me.PathToElementsCacheXML_Prior
+
+
 
     End Sub ''edn of "Public Sub Form_Load"
 

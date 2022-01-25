@@ -46,7 +46,9 @@ Public Class Startup
 
         GroupMoveEvents_Singleton.CountInstances = 0 ''Return to default value. Added 1/5/2022 td
         Dim obj_formToShow As New Form__Main_Demo ''Added 10/11/2019 td 
-        Dim strPathToElementsCacheXML As String ''Added 12/14/2021 td 
+        Dim strPathToElementsCacheXML As String = "" ''Added 12/14/2021 td 
+        Dim strPathToElementsCacheXML_Prior1 As String = "" ''Added 1/25/2022 td 
+        Dim strPathToElementsCacheXML_Prior2 As String = "" ''Added 1/25/2022 td 
 
         ''Added 10/16/2019 td 
         obj_personality.ListOfRecipients = LoadData_Recipients_Students()
@@ -64,6 +66,8 @@ Public Class Startup
             ''Function called in the line below is suffixed w/ "_Deprecated", but
             ''   it's still in used today.  ---11/30/2021 td 
             strPathToElementsCacheXML = My.Settings.PathToXML_Saved_ElementsCache ''Added 12/14/2021 
+            strPathToElementsCacheXML_Prior1 = My.Settings.PathToSavedXML_Prior1 ''Added 1/25/2022 
+            strPathToElementsCacheXML_Prior2 = My.Settings.PathToSavedXML_Prior2 ''Added 1/25/2022 
             Const c_bAlwaysAllowUserToChooseNew As Boolean = True ''Added 12/20/2021 
             Dim bMissingOrEmptyXML As Boolean
             bMissingOrEmptyXML = DiskFilesVB.IsXMLFileMissing_OrEmpty(strPathToElementsCacheXML)
@@ -84,10 +88,18 @@ Public Class Startup
                 objFormShowCacheLayouts.FileTitleOfXMLFile = My.Settings.FileTitleOfXMLFile
 
                 Do
-                    objFormShowCacheLayouts.PathToElementsCacheXML = strPathToElementsCacheXML ''Added 12/20/2021 td
-                    objFormShowCacheLayouts.ShowDialog()
-                    strPathToElementsCacheXML = objFormShowCacheLayouts.PathToElementsCacheXML
-                    bUserWantsABlankSlate = objFormShowCacheLayouts.UserChoosesABlankSlate
+                    ''
+                    ''Loop as many times as the user would like!
+                    ''
+                    With objFormShowCacheLayouts
+                        .PathToElementsCacheXML = strPathToElementsCacheXML ''Added 12/20/2021 td
+                        .PathToElementsCacheXML_Prior1 = strPathToElementsCacheXML_Prior1 ''Added 1/25/2022 td
+                        .PathToElementsCacheXML_Prior2 = strPathToElementsCacheXML_Prior2 ''Added 1/25/2022 td
+                        .ShowDialog()
+                        strPathToElementsCacheXML = .PathToElementsCacheXML
+                        bUserWantsABlankSlate = .UserChoosesABlankSlate
+                    End With
+
                     bGoodChoice = (bUserWantsABlankSlate Or (Not DiskFilesVB.IsXMLFileMissing_OrEmpty(strPathToElementsCacheXML)))
                     bUserCancelled = objFormShowCacheLayouts.UserHasSelectedCancel
 
@@ -173,6 +185,7 @@ Public Class Startup
         obj_formToShow.NewFileXML = boolNewFileXML
         ''Added 12/14/2021 td
         obj_formToShow.ElementsCache_PathToXML = strPathToElementsCacheXML
+        Dim intMessagesDisplayed As Integer ''Added 1/25/2022 td
 
         ''Not needed. 10/11/2019 td'obj_formToShow.CtlGraphicText1.LayoutFunctions = CType(obj_formToShow., ILayoutFunctions)
 
@@ -195,7 +208,13 @@ Public Class Startup
                 ''
                 ''Still in use, even though it's Q4 of 2021. 
                 ''
-                If (obj_cache_layout_Elements Is Nothing) Then Throw New Exception("Cache is null/nothing.")
+                If (obj_cache_layout_Elements Is Nothing) Then
+                    ''Jan25 2022 td''Throw New Exception("Cache is null/nothing.")
+                    MessageBoxTD.Show_Statement("Cache is null/nothing.")
+                    intMessagesDisplayed += 1 ''Added 1/25/2022 td
+                    If (intMessagesDisplayed > 5) Then Exit Sub ''Added 1/25/2022 td
+                    Continue Do
+                End If ''End of "If (obj_cache_layout_Elements Is Nothing) Then"
 
                 obj_formToShow.ElementsCache_Edits = obj_cache_layout_Elements
                 ''Added 12/14/2021 td

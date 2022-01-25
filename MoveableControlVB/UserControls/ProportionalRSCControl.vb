@@ -38,6 +38,8 @@ Public Class ProportionalRSCControl
         ''post-InitializeComponent (after the call above)
         ''
         mod_iLayoutFunctions = par_iLayoutFunctions
+        ''Jan24 2022''Me.LayoutFunctions = par_iLayoutFunctions ''Added 1/24/2022 td
+
         ''#1 Jan11 2022 td''mod_events = par_events
         ''#2 Jan11 2022 td''mod_eventsForSingleMove = par_events
         mod_eventsForGroupMove_NotNeeded = par_eventsForGroupedControls

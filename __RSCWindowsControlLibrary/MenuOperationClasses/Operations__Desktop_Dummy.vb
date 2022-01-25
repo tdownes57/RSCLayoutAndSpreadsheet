@@ -1,10 +1,10 @@
 ﻿Option Explicit On
 Option Strict On
 Option Infer Off
+
 ''
 ''Added 1/15/2022 td
 ''
-
 Imports ciBadgeInterfaces
 Imports ciBadgeDesigner
 ''----Imports ciBadgeElements

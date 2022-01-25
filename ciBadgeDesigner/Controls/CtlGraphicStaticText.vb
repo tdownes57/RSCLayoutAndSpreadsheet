@@ -71,7 +71,7 @@ Public Class CtlGraphicStaticText
     End Property
 
 
-    Public Shared Function GetStaticText(par_parameters As ClassGetElementControlParams,
+    Public Shared Function GetStaticText(par_parametersGetElementControl As ClassGetElementControlParams,
                                            par_elementStaticText As ClassElementStaticText,
                                          par_oParentForm As Form,
                                       par_nameOfControl As String,
@@ -169,7 +169,7 @@ Public Class CtlGraphicStaticText
         infoOps.CtlCurrentElement = CtlStaticText1
 
         ''Added 1/17/2022 td 
-        infoOps.ElementsCacheManager = par_parameters.ElementsCacheManager
+        infoOps.ElementsCacheManager = par_parametersGetElementControl.ElementsCacheManager
 
         ''Added 1/19/2022 td
         objOperationsST.CtlCurrentElement = CtlStaticText1
@@ -178,6 +178,8 @@ Public Class CtlGraphicStaticText
         objOperationsST.ElementStaticText = par_elementStaticText
         objOperationsST.ElementInfo_TextOnly = par_elementStaticText
         objOperationsST.Element_Type = ciBadgeInterfaces.Enum_ElementType.StaticText
+        ''Added 1/25/2022 td
+        objOperationsST.Designer = par_parametersGetElementControl.DesignerClass
 
         Return CtlStaticText1
 

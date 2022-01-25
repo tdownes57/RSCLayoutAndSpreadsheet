@@ -165,6 +165,8 @@ Public Class RSCMoveableControlVB
     Public LastControlTouched_Info As ILastControlTouched ''Added 12/28/2021 thomas d. 
     Public MyToolstripItemCollection As ToolStripItemCollection ''Added 12/28/2021 td
     Public ExpectedProportionWH As Single = 0 ''Added 1/4/2022 td  
+    Public LayoutFunctions As ciBadgeInterfaces.ILayoutFunctions ''Added 8/9/2019 td 
+
     Private mod_boolResizeProportionally As Boolean
 
     ''Added 1/10/2022 td 
@@ -349,6 +351,7 @@ Public Class RSCMoveableControlVB
         ''Jan2 2022 td''mod_iSaveToModel = par_iSaveToModel ''Added 12/28/2021 td
         mod_boolResizeProportionally = pboolResizeProportionally ''Added 12/28/2021 td
         mod_iLayoutFunctions = par_iLayoutFun
+        Me.LayoutFunctions = par_iLayoutFun ''Added 1/24/2022 td
         Me.LastControlTouched_Info = par_iLastTouched ''Added 12/29/2021 thomas d. 
 
         ''12/28/2021 td''InitializeMoveability(pboolResizeProportionally, par_iSaveToModel, par_iLayoutFun)
@@ -1578,16 +1581,43 @@ Public Class RSCMoveableControlVB
 
     ''1/12/2022 td''Public ElementInfo_Base As IElement_Base ''Added 1/12/2022 td 
 
+    Public Overridable Sub Refresh_Master()
+        ''
+        ''Added 1/24/2022 td
+        ''
+        Refresh_PositionAndSize()
+        Refresh_Image(True, True, True)
+
+    End Sub ''End of "Public Overridable Sub Refresh_Master()"
+
+
+    Public Overridable Sub Refresh_PositionAndSize()
+        ''
+        ''Copy-pasted 1/24/2022 thomas d 
+        ''Added 9/5/2019 thomas d 
+        ''
+        ''9/19/2019 td''Me.Left = Me.FormDesigner.Layout_Margin_Left_Add(Me.ElementInfo_Base.LeftEdge_Pixels)
+        ''9/19/2019 td''Me.Top = Me.FormDesigner.Layout_Margin_Top_Add(Me.ElementInfo_Base.TopEdge_Pixels)
+
+        Me.Left = Me.LayoutFunctions.Layout_Margin_Left_Add(Me.ElementInfo_Base.LeftEdge_Pixels)
+        Me.Top = Me.LayoutFunctions.Layout_Margin_Top_Add(Me.ElementInfo_Base.TopEdge_Pixels)
+
+        Me.Width = Me.ElementInfo_Base.Width_Pixels
+        Me.Height = Me.ElementInfo_Base.Height_Pixels
+
+    End Sub ''End of "Public Overridable Sub Refresh_PositionAndSize()"
+
 
     Public Overridable Sub Refresh_Image(pbRefreshSize As Boolean,
-                             Optional pboolResizeLabelControl As Boolean = True,
-                             Optional pboolRefreshLabelControl As Boolean = True,
+                             Optional pboolResizePictureControl As Boolean = True,
+                             Optional pboolRefreshPictureControl As Boolean = True,
                              Optional pboolRefreshUserControl As Boolean = False,
                              Optional pobjElementField As ClassElementField = Nothing)
         ''
         ''Stubbed 1/13/2022 td
         ''
-    End Sub
+
+    End Sub ''End of "Public Overridable Sub Refresh_Image"
 
 
     Public Function InsideMe(par_intX As Integer, par_intY As Integer) As Boolean

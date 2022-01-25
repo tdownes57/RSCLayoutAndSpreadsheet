@@ -34,7 +34,7 @@ Public Class CtlGraphicFldLabel
     ''Added 9/13/2019 td  
     Public Shared UseExampleValues As Boolean
 
-    Public Shared Function GetFieldElement(par_parameters As ClassGetElementControlParams,
+    Public Shared Function GetFieldElement(par_parametersGetElementControl As ClassGetElementControlParams,
                                            par_elementFld As ClassElementField,
                                            par_formParent As Form,
                                            par_oDesigner As ClassDesigner,
@@ -102,10 +102,26 @@ Public Class CtlGraphicFldLabel
         infoOps.CtlCurrentElement = CtlFieldElem1
 
         ''Added 1/17/2022 td 
-        infoOps.ElementsCacheManager = par_parameters.ElementsCacheManager
+        infoOps.ElementsCacheManager = par_parametersGetElementControl.ElementsCacheManager
+
+        ''Added 1/24/2022 thomas d. 
+        With objOperationsFldElem
+
+            .CtlCurrentControl = CtlFieldElem1
+            .CtlCurrentElement = CtlFieldElem1
+            .CtlCurrentElementField = CtlFieldElem1 ''Added 1/24/2022 td
+            ''.Designer = par_oMoveEventsForGroupedCtls.
+            .Designer = par_parametersGetElementControl.DesignerClass
+            .ElementInfo_Base = par_elementFld
+            .ElementsCacheManager = par_parametersGetElementControl.ElementsCacheManager
+            .Element_Type = Enum_ElementType.StaticGraphic
+            .EventsForMoveability_Group = par_oMoveEventsForGroupedCtls
+            .EventsForMoveability_Single = Nothing
+            .LayoutFunctions = .Designer ''Added 1/24/2022 td
+
+        End With ''End of "With objOperationsFldElem"
 
         Return CtlFieldElem1
-
 
     End Function ''end of "Public Shared Function GetFieldElement() As CtlGraphicFldLabel"
 
@@ -437,9 +453,15 @@ ExitHandler:
             bDisparity_Neither = (Not (boolWidthDisparity Or boolHeightDisparity))
             If (bDisparity_Neither) Then Exit For
 
-            ''Why this is needed, is not clear.
-            Me.pictureLabel.Width = Me.pictureLabel.Image.Width
-            Me.pictureLabel.Height = Me.pictureLabel.Image.Height
+            ''Let's try to make the controls match the dimensions of the image. ----1/24/2022
+            ''  Docked PictureBox controls will likely prevent the following code 
+            ''  from having any numerical effect. ---1/24/2022 td
+            Me.pictureLabel.Width = Me.pictureLabel.Image.Width ''If Me.pictureLabel is docked to be "Full Docking" this command will be useless.  ----1/24/2022
+            Me.pictureLabel.Height = Me.pictureLabel.Image.Height ''If Me.pictureLabel is docked to be "Full Docking" this command will be useless.  ----1/24/2022
+
+            ''Added 1/24/2022 td
+            Me.Width = Me.pictureLabel.Image.Width
+            Me.Height = Me.pictureLabel.Image.Height
 
         Next intTry
 
@@ -448,6 +470,7 @@ ExitHandler:
         If (boolHeightDisparity) Then System.Diagnostics.Debugger.Break()
 
     End Sub ''End of "Public Sub Refresh_Master()"
+
 
     Public Sub Refresh_PositionAndSize()
         ''
@@ -464,7 +487,7 @@ ExitHandler:
 
     End Sub ''End of "Public Sub Refresh_PositionAndSize()"
 
-    Public Sub Refresh_Image(pbRefreshSize As Boolean,
+    Public Overrides Sub Refresh_Image(pbRefreshSize As Boolean,
                              Optional pboolResizeLabelControl As Boolean = True,
                              Optional pboolRefreshLabelControl As Boolean = True,
                              Optional pboolRefreshUserControl As Boolean = False,

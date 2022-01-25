@@ -3445,12 +3445,15 @@ Public Class ClassDesigner
         ''
         ''Set the various properties. 
         ''
-        oGetControlParameters.ElementsCacheManager = ElementsCache_Manager
-        oGetControlParameters.iLayoutFunctions = CType(Me, ILayoutFunctions)
-        oGetControlParameters.iRefreshPreview = CType(Me, IRefreshPreview)
-        oGetControlParameters.DesignerForm = Me.DesignerForm
-        oGetControlParameters.iControlLastTouched = CType(Me.mod_ctlLasttouched, ILastControlTouched)
-        oGetControlParameters.oMoveEventsGroupedControls = mod_oGroupMoveEvents
+        With oGetControlParameters
+            .ElementsCacheManager = ElementsCache_Manager
+            .iLayoutFunctions = CType(Me, ILayoutFunctions)
+            .iRefreshPreview = CType(Me, IRefreshPreview)
+            .DesignerForm = Me.DesignerForm
+            .iControlLastTouched = CType(Me.mod_ctlLasttouched, ILastControlTouched)
+            .oMoveEventsGroupedControls = mod_oGroupMoveEvents
+            .DesignerClass = Me ''Added 1/24/2022 thomas downes  
+        End With ''End of "With oGetControlParameters"
 
         Return oGetControlParameters
 

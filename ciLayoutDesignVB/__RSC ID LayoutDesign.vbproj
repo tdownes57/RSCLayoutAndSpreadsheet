@@ -596,6 +596,7 @@
     <Compile Include="DialogTextBorder.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Modules\MessageBoxTD.vb" />
     <Compile Include="Modules\modEnums.vb" />
     <Compile Include="Modules\modFonts.vb" />
     <Compile Include="Modules\modAllowFieldEdits.vb" />

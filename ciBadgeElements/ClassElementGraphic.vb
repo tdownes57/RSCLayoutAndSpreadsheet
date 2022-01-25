@@ -216,6 +216,7 @@ Public Class ClassElementGraphic
 
     ''Dec.8 2021''Public Property QRFormula As String Implements IElementQRCode.QRFormula ''Added 9/30/2019 td
     ''
+    <Xml.Serialization.XmlIgnore>
     Public Property GraphicImage As Image Implements IElementGraphic.GraphicImage ''Added 12/8/2021 td
     Public Property GraphicImageName As String Implements IElementGraphic.GraphicImageName ''Added 12/8/2021 td
     Public Property GraphicImageFullPath As String Implements IElementGraphic.GraphicImageFullPath ''Added 1/22/2022 td
@@ -266,6 +267,10 @@ Public Class ClassElementGraphic
             Dim objFileInfo = New IO.FileInfo(par_strPathToGraphicsFile)
             Me.GraphicImageName = objFileInfo.Name
             Me.GraphicImageFullPath = par_strPathToGraphicsFile
+
+            ''Added 1/24/2022 thomas downes
+            Me.GraphicImage = New Bitmap(par_strPathToGraphicsFile)
+
         End If ''End of "If (IO.File.Exists(par_strPathToGraphicsFile)) Then"
 
     End Sub ''ENd of ""Public Sub New(par_rectangle As Rectangle, par_layout As PictureBox)""

@@ -577,6 +577,7 @@ Public Class Operations_FieldElement
 
     End Sub ''End of "Public Sub Border_Design_EE1000(sender As Object, e As EventArgs)"
 
+
     Public Sub Rotate90_Degrees_EE1001(sender As Object, e As EventArgs)
         ''
         ''Added 8/17/2019 thomas downes

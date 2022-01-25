@@ -129,6 +129,7 @@ Public Class Operations_Desktop
         Dim strPathToGraphicImage As String ''Added 1/22/2022 td
         Dim diag_result As DialogResult ''Added 1/22/2022 td
         Dim singleRatioWH As Single ''Added 1/22/2022 td
+
         Dim intImageWidth_Original As Integer ''Added 1/22/2022 td
         Dim intImageHeight_Original As Integer ''Added 1/22/2022 td
         Dim intImageWidth_Reduced As Integer ''Added 1/22/2022 td

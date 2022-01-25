@@ -35,7 +35,7 @@ Public Class CtlGraphicPortrait
     Public Pic_CloneOfInitialImage As Image ''Added 9/23/2019 thomas downes. 
     Private mod_formRecordLastTouched As IRecordElementLastTouched ''Added 12/17/2021 td
 
-    Public Shared Function GetPortrait(par_parameters As ClassGetElementControlParams,
+    Public Shared Function GetPortrait(par_parametersGetElementControl As ClassGetElementControlParams,
                                            par_elementPortrait As ClassElementPortrait,
                                        par_formParent As Form,
                                       par_nameOfControl As String,
@@ -43,7 +43,7 @@ Public Class CtlGraphicPortrait
                                       par_bProportionSizing As Boolean,
                                       par_iControlLastTouched As ILastControlTouched,
                                      par_iRecordLastControl As IRecordElementLastTouched,
-                                     par_oMoveEventsGroupedCtls As GroupMoveEvents_Singleton) As CtlGraphicPortrait
+                                     par_oMoveEventsForGroupedCtls As GroupMoveEvents_Singleton) As CtlGraphicPortrait
         ''
         ''Added 1/04/2022 td
         ''
@@ -59,6 +59,7 @@ Public Class CtlGraphicPortrait
         If (par_elementPortrait Is Nothing) Then Throw New Exception("The Element is missing!")
 
         ''Instantiate the Operations Object. 
+        ''
         ''//If (enumElemType = EnumElementType.Signature) Then objOperations2Use = New Operations__Useless()
         ''//If (enumElemType = EnumElementType.StaticGraphic) Then objOperations1Gen = New Operations__Generic()
         ''//If (enumElemType = EnumElementType.StaticText) Then objOperations2Use = New Operations__Useless()
@@ -85,14 +86,14 @@ Public Class CtlGraphicPortrait
                                                    bAddFunctionalitySooner,
                                                    bAddFunctionalitySooner,
                                                    par_iControlLastTouched,
-                                                    par_oMoveEventsGroupedCtls)
+                                                    par_oMoveEventsForGroupedCtls)
         ''Jan2 2022 ''                       ''Jan2 2022 ''par_iSaveToModel, typeOps,
 
         With CtlPortrait1
             .Name = par_nameOfControl
             ''1/11/2022''If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEvents, par_iLayoutFun)
             If (bAddFunctionalityLater) Then .AddMoveability(par_iLayoutFun,
-                                                             par_oMoveEventsGroupedCtls, Nothing)
+                                                             par_oMoveEventsForGroupedCtls, Nothing)
             If (bAddFunctionalityLater) Then .AddClickability()
         End With ''eNd of "With CtlPortrait1"
 
@@ -102,7 +103,24 @@ Public Class CtlGraphicPortrait
         Dim infoOps = CType(objOperations, ICurrentElement) ''.CtlCurrentElement = MoveableControlVB1
         infoOps.CtlCurrentElement = CtlPortrait1
         ''Added 1/17/2022 td 
-        infoOps.ElementsCacheManager = par_parameters.ElementsCacheManager
+        infoOps.ElementsCacheManager = par_parametersGetElementControl.ElementsCacheManager
+
+        ''Added 1/24/2022 thomas d. 
+        With objOperationsPortrait
+
+            .CtlCurrentControl = CtlPortrait1
+            .CtlCurrentElement = CtlPortrait1
+            ''.Designer = par_oMoveEventsForGroupedCtls.
+            .Designer = par_parametersGetElementControl.DesignerClass
+            .ElementInfo_Base = par_elementPortrait
+            .ElementsCacheManager = par_parametersGetElementControl.ElementsCacheManager
+            .Element_Type = Enum_ElementType.StaticGraphic
+            .EventsForMoveability_Group = par_oMoveEventsForGroupedCtls
+            .EventsForMoveability_Single = Nothing
+            ''Added 1/24/2022 thomas downes
+            .LayoutFunctions = .Designer
+
+        End With ''End of "With objOperationsPortrait"
 
         Return CtlPortrait1
 

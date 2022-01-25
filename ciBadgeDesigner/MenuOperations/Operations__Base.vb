@@ -27,6 +27,12 @@ Public MustInherit Class Operations__Base
     Public Property ElementInfo_Base As IElement_Base ''Added 1/19/2022 thomas d. 
     Public MustOverride Property Element_Type As Enum_ElementType ''Added 1/19/2022 td 
 
+    Public Property EventsForMoveability_Single As GroupMoveEvents_Singleton ''Suffixed 1/11/2022 Added 1/3/2022 td 
+    Public Property EventsForMoveability_Group As GroupMoveEvents_Singleton ''Added 1/11/2022 td 
+    Public Property LayoutFunctions As ILayoutFunctions ''Added 1/4/2022 td
+
+    Public Property CtlCurrentControl As Control ''---Implements ICurrentElement.CtlCurrentElement
+
 
     Public Sub Move_To_Other_Side_Of_Badge_BA1001(sender As Object, e As EventArgs)
         ''
@@ -80,6 +86,61 @@ Public MustInherit Class Operations__Base
         End If ''Endo  f'"If (boolSuccess) Then .... Else ...."
 
     End Sub ''End of Public Sub Delete_Element_From_Badge_BA1001
+
+
+    Private Sub Rotate_90_Degrees_BA1079(sender As Object, e As EventArgs)
+        ''
+        ''Copy-pasted 1/24/2022 thomas downes
+        ''Added 7/30/2019 thomas downes
+        ''  
+        ''Me.ElementInfo_Pic.OrientationToLayout = "L"
+
+        ''9/2/2019 td''Select Case Me.ElementInfo_Pic.OrientationToLayout
+        Select Case Me.ElementInfo_Base.OrientationToLayout
+            Case "", " ", "P"
+                Me.ElementInfo_Base.OrientationToLayout = "L"
+            Case "L"
+                Me.ElementInfo_Base.OrientationToLayout = "P"
+            Case Else
+                Me.ElementInfo_Base.OrientationToLayout = "P"
+        End Select ''End of "Select Case Me.ElementInfo_Base.OrientationToLayout"
+
+        ''Added 8/12/2019 thomas downes 
+        ''   Increment by 90 degrees.  
+        ''   This will enable the badge to be printed with the element oriented
+        ''   correctly (with one out of four choices of orientation). 
+        ''
+        ''9/2/2019 td''Me.ElementInfo_Pic.OrientationDegrees += 90
+        ''9/24/2019 td''  Me.ElementInfo_Base.OrientationInDegrees += 90
+
+        With Me.ElementInfo_Base
+
+            .OrientationInDegrees += 90
+
+            ''Added 9/23/2019 td
+            If (360 <= .OrientationInDegrees) Then
+                ''Remove 360 degrees (the full circle) from the 
+                ''    property value.   We don't want to have to 
+                ''    do modulo arithmetic (divide by 360 & get 
+                ''    the remainder).  ---9/23/2019 td 
+                ''     
+                .OrientationInDegrees = (.OrientationInDegrees - 360)
+            End If ''End of "If (360 <= .OrientationInDegrees) Then"
+
+        End With ''End of " With Me.ElementInfo_Base"
+
+        ''#1 9/23/2019 td''RefreshImage()
+        '' #2 9/23/2019 td''RefreshImage_NoMajorCalls()
+        ''Jan24 2022 td''RefreshImage_ViaElemImage()
+        Me.CtlCurrentElement.Refresh_Image(True)
+
+        Me.CtlCurrentElement.Refresh()
+
+        ''Added 9/20/2019 td
+        ''Jan24 2022''Me.LayoutFunctions.AutoPreview_IfChecked()
+
+    End Sub ''eNd of "Private Sub Rotate90Degrees()"
+
 
     Public Sub How_Context_Menus_Are_Generated_EE9001(sender As Object, e As EventArgs)
         ''---Dec15 2021--Public Sub How_Context_Menus_Are_Generated_EE1001
