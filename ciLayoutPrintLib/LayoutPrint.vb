@@ -30,7 +30,18 @@ Public Class LayoutPrint
     Public Property PicturePersonImageLarge As PictureBox ''Added 6/13/2019
     Public Property PictureBoxReview As PictureBox ''Added 6/13/2019
 
-    Public Shared Function LongSideToShortRatio() As Double
+
+    Public Shared Function ShortSideToLongSideRatio_WH_point63() As Double
+        ''
+        ''Added 1/25/2022 thomas downes
+        ''
+        Return 0.63
+
+    End Function ''End of "Public Shared Function ShortSideToLongSideRatio_WH_point63() As Double"
+
+
+    Public Shared Function LongSideToShortRatio_HW() As Double
+        ''Jan25 2022 td''Public Shared Function LongSideToShortRatio() As Double
         ''
         ''Added 8/26/2019 thomas downes
         ''
@@ -57,6 +68,7 @@ Public Class LayoutPrint
 
     End Function ''eDN OF "Public Shared Function LongSideToShortRatio() As Double"
 
+
     Public Shared Function RatioIsLikelyBad(par_doubleW_div_H As Double) As Boolean
         ''
         ''Added 9/4/2019 thomas downes  
@@ -70,7 +82,7 @@ Public Class LayoutPrint
 
         ''9/8/2019 td''RatioIsLikelyBad = (1 > (100 * Math.Abs(par_doubleW_div_H - LongSideToShortRatio())))
 
-        doubleExpected_27_17 = LongSideToShortRatio()
+        doubleExpected_27_17 = LongSideToShortRatio_HW()
 
         ''9/8/2019 td''RatioIsLikelyBad = (1 > (100 * Math.Abs(par_doubleW_div_H - doubleExpected_27_17)))
 
@@ -82,6 +94,7 @@ Public Class LayoutPrint
         Return boolReturnValue
 
     End Function ''End of "Public Shared Function RatioIsLikelyBad(par_doubleW_div_H As Double) As Boolean"
+
 
     Public Function GenerateBuildImage_Master(Optional ByRef pref_imageOutput As Image = Nothing,
                                        Optional ByVal pboolLargeLandscape As Boolean = False,

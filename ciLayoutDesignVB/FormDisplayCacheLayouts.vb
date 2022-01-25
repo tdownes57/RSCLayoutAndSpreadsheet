@@ -47,6 +47,44 @@ Public Class FormDisplayCacheLayouts
     End Function ''End of "Private Function CheckingXmlFile_IsOkay"
 
 
+    Private Sub LoadPriorLayoutPictureBox(pstrPriorXMLFile As String)
+        ''
+        ''Added 1/25/2022 thomas downes
+        ''
+        Dim strPathToBadgeLayoutJPG As String ''Added 1/5/2022 td 
+        strPathToBadgeLayoutJPG = Me.PathToElementsCacheXML.Replace(".xml", ".jpg")
+
+        Dim picturePreviewPrior As New PictureBox
+        With picturePreviewPrior
+            .Width = CInt(0.9 * FlowLayoutPanelPriorLays.Width)
+            ''Jan25 2022 td''.Height = CInt(.Width *
+            ''       ciLayoutPrintLib.LayoutPrint.ShortSideToLongSideRatio_point63())
+            .Height = CInt(.Width * ciBadgeInterfaces.ShortSideToLongSideRatio_WH_63())
+            .ImageLocation = strPathToBadgeLayoutJPG
+            .Tag = pstrPriorXMLFile
+            .SizeMode = PictureBoxSizeMode.Zoom
+        End With
+
+        AddHandler picturePreviewPrior.Click, AddressOf HandlePriorLayoutPictureBox_Click
+        FlowLayoutPanelPriorLays.Controls.Add(picturePreviewPrior)
+
+    End Sub ''End of "Private Sub LoadPriorLayoutPictureBox(strPriorXMLFile1)"
+
+
+    Private Sub HandlePriorLayoutPictureBox_Click(sender As Object, e As EventArgs)
+        ''
+        ''Added 1/25/2022 thomas downes
+        ''
+        Dim strPathToXML As String
+
+        strPathToXML = CType(sender, PictureBox).Tag.ToString()
+
+
+
+
+    End Sub ''ENd of "Private Sub HandlePriorLayoutPictureBox_Click(sender As Object, e As EventArgs)"
+
+
     Private Sub FormDisplayCacheLayouts_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
         ''Added 12/20/2021 td
@@ -84,9 +122,13 @@ Public Class FormDisplayCacheLayouts
         Me.picturePreviewFront.SizeMode = PictureBoxSizeMode.Zoom
 
         ''Added 1/25/2022 thomas d. 
-        Dim strPriorXMLFile As String = Me.PathToElementsCacheXML_Prior
+        Dim strPriorXMLFile1 As String = Me.PathToElementsCacheXML_Prior1
+        Dim strPriorXMLFile2 As String = Me.PathToElementsCacheXML_Prior2
 
-
+        ''Added 1/25/2022 thomas d. 
+        FlowLayoutPanelPriorLays.Controls.Clear()
+        LoadPriorLayoutPictureBox(strPriorXMLFile1)
+        LoadPriorLayoutPictureBox(strPriorXMLFile2)
 
     End Sub ''edn of "Public Sub Form_Load"
 

@@ -28,7 +28,7 @@ Partial Class FormDisplayCacheLayouts
         Me.ButtonOpenCurrentLayout = New System.Windows.Forms.Button()
         Me.ButtonOpenNewBlank = New System.Windows.Forms.Button()
         Me.LabelPriorLayoutsHdr = New System.Windows.Forms.Label()
-        Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.FlowLayoutPanelPriorLays = New System.Windows.Forms.FlowLayoutPanel()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.ButtonSelectLayoutFromDrive = New System.Windows.Forms.Button()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
@@ -39,7 +39,7 @@ Partial Class FormDisplayCacheLayouts
         Me.ButtonFindLayout = New System.Windows.Forms.Button()
         Me.picturePreviewFront = New System.Windows.Forms.PictureBox()
         Me.picturePreviewBackside = New System.Windows.Forms.PictureBox()
-        Me.FlowLayoutPanel1.SuspendLayout()
+        Me.FlowLayoutPanelPriorLays.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picturePreviewFront, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picturePreviewBackside, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -106,21 +106,21 @@ Partial Class FormDisplayCacheLayouts
         Me.LabelPriorLayoutsHdr.TabIndex = 83
         Me.LabelPriorLayoutsHdr.Text = "Prior layouts:"
         '
-        'FlowLayoutPanel1
+        'FlowLayoutPanelPriorLays
         '
-        Me.FlowLayoutPanel1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.FlowLayoutPanelPriorLays.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.FlowLayoutPanel1.AutoScroll = True
-        Me.FlowLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.FlowLayoutPanel1.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.FlowLayoutPanel1.Controls.Add(Me.PictureBox1)
-        Me.FlowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
-        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(1045, 41)
-        Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(349, 399)
-        Me.FlowLayoutPanel1.TabIndex = 84
-        Me.FlowLayoutPanel1.WrapContents = False
+        Me.FlowLayoutPanelPriorLays.AutoScroll = True
+        Me.FlowLayoutPanelPriorLays.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.FlowLayoutPanelPriorLays.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.FlowLayoutPanelPriorLays.Controls.Add(Me.PictureBox1)
+        Me.FlowLayoutPanelPriorLays.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
+        Me.FlowLayoutPanelPriorLays.Location = New System.Drawing.Point(1045, 41)
+        Me.FlowLayoutPanelPriorLays.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.FlowLayoutPanelPriorLays.Name = "FlowLayoutPanelPriorLays"
+        Me.FlowLayoutPanelPriorLays.Size = New System.Drawing.Size(349, 399)
+        Me.FlowLayoutPanelPriorLays.TabIndex = 84
+        Me.FlowLayoutPanelPriorLays.WrapContents = False
         '
         'PictureBox1
         '
@@ -234,7 +234,7 @@ Partial Class FormDisplayCacheLayouts
         Me.Controls.Add(Me.ButtonUserCancels)
         Me.Controls.Add(Me.LabelWarningMessage)
         Me.Controls.Add(Me.ButtonSelectLayoutFromDrive)
-        Me.Controls.Add(Me.FlowLayoutPanel1)
+        Me.Controls.Add(Me.FlowLayoutPanelPriorLays)
         Me.Controls.Add(Me.LabelPriorLayoutsHdr)
         Me.Controls.Add(Me.ButtonOpenNewBlank)
         Me.Controls.Add(Me.ButtonOpenCurrentLayout)
@@ -244,7 +244,7 @@ Partial Class FormDisplayCacheLayouts
         Me.Controls.Add(Me.picturePreviewBackside)
         Me.Name = "FormDisplayCacheLayouts"
         Me.Text = "FormDisplayCacheLayouts"
-        Me.FlowLayoutPanel1.ResumeLayout(False)
+        Me.FlowLayoutPanelPriorLays.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picturePreviewFront, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picturePreviewBackside, System.ComponentModel.ISupportInitialize).EndInit()
@@ -258,7 +258,7 @@ Partial Class FormDisplayCacheLayouts
     Friend WithEvents ButtonOpenCurrentLayout As Button
     Friend WithEvents ButtonOpenNewBlank As Button
     Friend WithEvents LabelPriorLayoutsHdr As Label
-    Friend WithEvents FlowLayoutPanel1 As FlowLayoutPanel
+    Friend WithEvents FlowLayoutPanelPriorLays As FlowLayoutPanel
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents ButtonSelectLayoutFromDrive As Button
     Friend WithEvents OpenFileDialog1 As OpenFileDialog
