@@ -40,6 +40,7 @@ Public Class CtlGraphicFldLabel
                                            par_oDesigner As ClassDesigner,
                                       par_nameOfControl As String,
                                       par_iLayoutFun As ILayoutFunctions,
+                                           par_sizeNeeded As Size,
                                 par_iRecordLastTouched As IRecordElementLastTouched,
                                 par_iControlLastTouched As ILastControlTouched,
                                 par_oMoveEventsForGroupedCtls As GroupMoveEvents_Singleton) As CtlGraphicFldLabel
@@ -53,6 +54,7 @@ Public Class CtlGraphicFldLabel
         Dim typeOps As Type
         Dim objOperations As Object ''Added 12/29/2021 td 
         Dim objOperationsFldElem As Operations_FieldElement ''Added 12/31/2021 td 
+        Dim sizeFieldElement As Size ''Added 1/26/2022 td
 
         ''Instantiate the Operations Object. 
         objOperationsFldElem = New Operations_FieldElement() ''Added 1/1/2022 td
@@ -78,6 +80,7 @@ Public Class CtlGraphicFldLabel
         CtlFieldElem1 = New CtlGraphicFldLabel(par_elementFld,
                                                par_formParent,
                                                par_oDesigner, par_iLayoutFun,
+                                               par_sizeNeeded,
                                                    "Called by GetFieldElement.",
                                                    typeOps, objOperations,
                                                    bAddFunctionalitySooner,
@@ -215,6 +218,7 @@ Public Class CtlGraphicFldLabel
                    par_oParentForm As Form,
                    par_oDesigner As ClassDesigner,
                    par_iLayoutFun As ILayoutFunctions,
+                   par_iSizeDesired As Size,
                    pstrWhyWasICreated As String,
                    par_operationsType As Type,
                    par_operationsAny As Object,
@@ -231,7 +235,7 @@ Public Class CtlGraphicFldLabel
         ''Added 1/4/2022 td
         MyBase.New(EnumElementType.Field,
                         par_oParentForm, False,
-                        par_iLayoutFun,
+                        par_iLayoutFun, par_iSizeDesired,
                         par_operationsType, par_operationsAny,
                         pboolAddMoveability, pboolAddClickability,
                         par_iLastTouched, par_oMoveEvents,

@@ -264,6 +264,7 @@ Public Class RSCMoveableControlVB
                    par_formParent As Form,
                   pboolResizeProportionally As Boolean,
                    par_iLayoutFun As ILayoutFunctions,
+                   par_iSizeIfNeeded As Size,
                    par_operationsType As Type,
                    par_operationsAny As Object,
                    pboolAddMoveability As Boolean,
@@ -277,13 +278,12 @@ Public Class RSCMoveableControlVB
         ''         ''Jan2 2022 ''par_iSaveToModel As ISaveToModel,
         ''         ''Dec29 2021 ''par_designer As ClassDesigner,
 
-        Me.ParentForm = par_formParent ''Added 1/16/2022 td 
-
-        ''12/28/2021 td''par_toolstrip As ToolStripItemCollection)
-
         ' This call is required by the designer.
         InitializeComponent()
 
+        Me.ParentForm = par_formParent ''Added 1/16/2022 td 
+
+        ''12/28/2021 td''par_toolstrip As ToolStripItemCollection)
         ''Added 1/4/2022 td
         Me.ExpectedProportionWH = par_proportionWH_IfNeeded
 
@@ -296,7 +296,11 @@ Public Class RSCMoveableControlVB
         ''  ---1/10/2022 td
         If (pboolAddMoveability) Then
             mod_eventsForSingleMove = New GroupMoveEvents_Singleton(par_iLayoutFun, True)
-        End If
+        End If ''End of "If (pboolAddMoveability) Then"
+
+        ''Added 1/26/2022 thomas 
+        If (par_iSizeIfNeeded.Height > 0) Then Me.Height = par_iSizeIfNeeded.Height
+        If (par_iSizeIfNeeded.Width > 0) Then Me.Width = par_iSizeIfNeeded.Width
 
         ''Encapsulated 1/3/2022 td 
         Load_Functionality(par_enumElementType, pboolResizeProportionally,
@@ -1063,7 +1067,10 @@ Public Class RSCMoveableControlVB
 
     End Sub
 
-    Private Sub mod_events_Resizing_End(par_iSaveToModel As ISaveToModel) Handles mod_eventsForSingleMove.Resizing_End
+    Private Sub mod_events_Resizing_End(par_iSaveToModel As ISaveToModel,
+                                              par_iRefreshImage As IRefreshElementImage,
+                                              par_iRefreshPreview As IRefreshCardPreview) Handles mod_eventsForSingleMove.Resizing_EndV2
+        ''Jan26 2022''Private Sub mod_events_Resizing_End(par_iSaveToModel As ISaveToModel)
         ''
         ''Added 12/27/2021 td 
         ''

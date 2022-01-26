@@ -58,7 +58,7 @@ Public Class ClassGetElementControlParams
     ''    End Set
     ''End Property
 
-    Public Property iRefreshPreview As IRefreshPreview Implements IGetElementControlParameters.iRefreshPreview
+    Public Property iRefreshPreview As IRefreshCardPreview Implements IGetElementControlParameters.iRefreshPreview
     ''    Get
     ''        Throw New NotImplementedException()
     ''    End Get

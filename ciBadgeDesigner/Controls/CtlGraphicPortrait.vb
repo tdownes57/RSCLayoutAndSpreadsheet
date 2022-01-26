@@ -54,6 +54,7 @@ Public Class CtlGraphicPortrait
         Dim typeOps As Type
         Dim objOperations As Object ''Added 12/29/2021 td 
         Dim objOperationsPortrait As Operations_Portrait ''Added 1/04/2022 td 
+        Dim sizeElementPortrait As New Size() ''Added 1/26/2022 td
 
         ''Added 1/5/2022 td
         If (par_elementPortrait Is Nothing) Then Throw New Exception("The Element is missing!")
@@ -80,7 +81,7 @@ Public Class CtlGraphicPortrait
 
         ''Create the control. 
         Dim CtlPortrait1 = New CtlGraphicPortrait(par_elementPortrait, par_formParent,
-                                                  par_iLayoutFun,
+                                                  par_iLayoutFun, sizeElementPortrait,
                                                    par_bProportionSizing,
                                                    typeOps, objOperations,
                                                    bAddFunctionalitySooner,
@@ -145,6 +146,7 @@ Public Class CtlGraphicPortrait
     Public Sub New(par_elementPic As ClassElementPortrait,
                    par_oParentForm As Form,
                    par_iLayoutFun As ILayoutFunctions,
+                   par_iSizeDesired As Size,
                   pboolResizeProportionally As Boolean,
                    par_operationsType As Type,
                    par_operationsAny As Object,
@@ -160,7 +162,7 @@ Public Class CtlGraphicPortrait
         ''Jan1 2022 td''MyBase.New(par_enumElementType, pboolResizeProportionally,
         MyBase.New(EnumElementType.Portrait, par_oParentForm,
                    pboolResizeProportionally,
-                        par_iLayoutFun,
+                        par_iLayoutFun, par_iSizeDesired,
                         par_operationsType, par_operationsAny,
                         pboolAddMoveability, pboolAddClickability,
                         par_iLastTouched, par_oMoveEvents,

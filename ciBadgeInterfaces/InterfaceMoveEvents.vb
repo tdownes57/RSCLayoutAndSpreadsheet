@@ -19,7 +19,14 @@ Public Interface InterfaceMoveEvents
                          pbEditedLocationAlready As Boolean)
     Sub ControlBeingMoved(par_control As Control)
     Sub Resizing_Initiate()
-    Sub Resizing_Terminate(par_iSave As ISaveToModel)
+
+    Sub Resizing_TerminateV1(par_iSave As ISaveToModel) ''// Suffixed w/ V1 On 1/26/2022
+
+    ''Added 1/26/2022 td
+    Sub Resizing_TerminateV2(par_iSave As ISaveToModel,
+                           par_iRefreshImage As IRefreshElementImage,
+                           par_iRefreshPreview As IRefreshCardPreview)
+
     Sub Moving_Terminate(par_control As Control, par_iSave As ISaveToModel) ''//Modified 12/17/2021 
     Sub Control_IsMoving()
 

@@ -209,7 +209,7 @@ Partial Public Class FormMainEntry_v90
 
     End Sub ''End of "Private Sub MoveInUnison"
 
-    Private Sub Resizing_End() Handles mod_groupedMove.Resizing_End
+    Private Sub Resizing_End() Handles mod_groupedMove.Resizing_EndV1
         ''
         ''Added 8/5/2019 thomas downes  
         ''

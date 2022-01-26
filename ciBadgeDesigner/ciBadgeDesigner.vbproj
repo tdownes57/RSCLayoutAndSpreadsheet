@@ -271,7 +271,6 @@
     <Compile Include="Interfaces\InterfaceGetElementControlParameters.vb" />
     <Compile Include="Interfaces\InterfaceLastControlTouched.vb" />
     <Compile Include="Interfaces\InterfaceLastControlTouchedRSC.vb" />
-    <Compile Include="Interfaces\InterfaceRefreshPreview.vb" />
     <Compile Include="Interfaces\InterfaceSelectingElements.vb" />
     <Compile Include="Interfaces\InterfaceSelectingElements_v90.vb" />
     <Compile Include="Interfaces\InterfaceClickableElement.vb" />

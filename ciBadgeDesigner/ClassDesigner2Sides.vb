@@ -14,7 +14,7 @@ Imports System.IO ''Added 12/3/2021 thomas d.
 Imports __RSCWindowsControlLibrary ''Added 1/02/2022 thomas d. 
 
 Public Class ClassDesigner2Sides
-    Implements ILayoutFunctions, ISelectingElements, IRecordElementLastTouched, IRefreshPreview
+    Implements ILayoutFunctions, ISelectingElements, IRecordElementLastTouched, IRefreshCardPreview
     Implements ILastControlTouchedRSC ''Added 1/2/2022 td 
     ''
     ''Added 1/13/2022 thomas downes 
@@ -129,7 +129,8 @@ Public Class ClassDesigner2Sides
         Throw New NotImplementedException()
     End Sub
 
-    Public Sub RefreshPreview() Implements IRefreshPreview.RefreshPreview
+    Public Sub RefreshCardPreview() Implements IRefreshCardPreview.RefreshCardPreview
+        ''Jan26 2022''Public Sub RefreshPreview() Implements IRefreshPreview.RefreshPreview
         Throw New NotImplementedException()
     End Sub
 

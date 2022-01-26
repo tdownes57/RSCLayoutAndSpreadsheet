@@ -18,7 +18,7 @@ Imports __RSCWindowsControlLibrary ''Added 1/02/2022 thomas d.
 ''10/1/2019 td''Public Event ElementField_Clicked(par_elementField As ClassElementField)
 
 Public Class ClassDesigner
-    Implements ILayoutFunctions, ISelectingElements, IRecordElementLastTouched, IRefreshPreview
+    Implements ILayoutFunctions, ISelectingElements, IRecordElementLastTouched, IRefreshCardPreview
     Implements ILastControlTouchedRSC ''Added 1/2/2022 td 
     ''
     ''Added 10/1/2019 thomas downes 
@@ -1220,10 +1220,14 @@ Public Class ClassDesigner
             Dim oGetControlParameters As ClassGetElementControlParams ''Added 1/17/2022 thomas d.
             oGetControlParameters = Me.GetParametersToGetElementControl() ''Added 1/17/2022 thomas d.
 
+            Dim sizeDesired As Size = New Size() ''Added 1/26/2022 td
+
             ''12/30/2021 td''Me.CtlGraphic_QRCode = New CtlGraphicQRCode(par_elementQR, CType(Me, ILayoutFunctions))
             Me.CtlGraphic_QRCode = CtlGraphicQRCode.GetQRCode(oGetControlParameters, par_elementQR, Me.DesignerForm,
                                                               "CtlGraphic_QRCode",
-                                                              CType(Me, ILayoutFunctions), c_proportional,
+                                                              CType(Me, ILayoutFunctions),
+                                                              sizeDesired,
+                                                              c_proportional,
                                                               mod_ctlLasttouched,
                                                               par_oMoveEvents)
             ''1/2/2022 td''                                   ''Jan2 2022 td''dummySaveToModel,
@@ -1287,12 +1291,15 @@ Public Class ClassDesigner
         Dim oGetControlParameters As ClassGetElementControlParams ''Added 1/17/2022 thomas d.
         oGetControlParameters = Me.GetParametersToGetElementControl() ''Added 1/17/2022 thomas d.
 
+        Dim sizeDesired As New Size() ''Added 1/26/2022 td
+
         ''10//12/2019 td''CtlGraphic_Signat = New CtlGraphicSignature(par_elementSig, Me)
         ''1/2/2022 td''CtlGraphic_Signat = New CtlGraphicSignature(par_elementSig, Me, Me.PathToSigFile)
         CtlGraphic_Signat = CtlGraphicSignature.GetSignature(oGetControlParameters,
                                                              par_elementSig, Me.DesignerForm,
                                                              "CtlGraphic_Signat",
-                                                CType(Me, ILayoutFunctions), c_proportional,
+                                                CType(Me, ILayoutFunctions), sizeDesired,
+                                                c_proportional,
                                                 mod_ctlLasttouched, par_oMoveEvents,
                                                 Me.PathToSigFile)
         ''1/2/2022 td''              ''Jan2 2022 td''dummySaveToModel,
@@ -1355,6 +1362,8 @@ Public Class ClassDesigner
         Dim each_ctlStaticText As CtlGraphicStaticText ''Added 1/8/2022 td
         Dim indexControl As Integer = 0 ''Added 1/8/2022 td
         Dim oGetControlParameters As ClassGetElementControlParams ''Added 1/17/2022 thomas d.
+        Dim sizeIfNeeded As New Size() ''Added 1/26/2022 thomas d
+
         oGetControlParameters = Me.GetParametersToGetElementControl() ''Added 1/17/2022 thomas d.
 
         For Each each_element_static As ClassElementStaticText In par_listStaticTexts
@@ -1366,7 +1375,9 @@ Public Class ClassDesigner
             each_ctlStaticText = CtlGraphicStaticText.GetStaticText(oGetControlParameters,
                                             each_element_static, Me.DesignerForm,
                     String.Format("CtlGraphicStaticText{0}", indexControl),
-                    Me, Me, mod_ctlLasttouched, mod_oGroupMoveEvents)
+                    CType(Me, ILayoutFunctions), sizeIfNeeded,
+                    CType(Me, IRefreshCardPreview),
+                    mod_ctlLasttouched, mod_oGroupMoveEvents)
 
             each_ctlStaticText.ParentForm = Me.DesignerForm ''Added 1/16/2022 thomas d.
             ListCtlGraphic_StaticTexts.Add(each_ctlStaticText)
@@ -1437,14 +1448,20 @@ Public Class ClassDesigner
         Dim each_ctlStaticGraphic As CtlGraphicStaticGraphic ''Added 1/8/2022 td
         Dim indexControl As Integer = 0 ''Added 1/8/2022 td
         Dim oGetControlParameters As ClassGetElementControlParams ''Added 1/17/2022 thomas d.
+        Dim sizeGraphic As New Size ''Added 1/26/2022 td
+
         oGetControlParameters = Me.GetParametersToGetElementControl() ''Added 1/17/2022 thomas d.
+        Const c_bProportionalTrue As Boolean = True ''Added 1/26/2022 td
 
         For Each each_element_static As ClassElementGraphic In par_listStaticGraphics
-
+            ''
+            ''Create the graphic control. 
+            ''
             each_ctlStaticGraphic = CtlGraphicStaticGraphic.GetStaticGraphic(oGetControlParameters,
                                             each_element_static, Me.DesignerForm,
                     String.Format("CtlGraphicStaticText{0}", indexControl),
-                    Me, True, mod_ctlLasttouched, mod_oGroupMoveEvents, False)
+                    CType(Me, ILayoutFunctions), sizeGraphic,
+                    c_bProportionalTrue, mod_ctlLasttouched, mod_oGroupMoveEvents, False)
 
             each_ctlStaticGraphic.ParentForm = Me.DesignerForm ''Added 1/16/2022 thomas d.
             ''----ListCtlGraphic_StaticTexts.Add(each_ctlStaticGraphic)
@@ -1651,10 +1668,18 @@ Public Class ClassDesigner
             Dim oGetControlParameters As ClassGetElementControlParams ''Added 1/17/2022 thomas d.
             oGetControlParameters = Me.GetParametersToGetElementControl() ''Added 1/17/2022 thomas d.
 
+            Dim sizeNeeded As New Size() ''Added 1/26/2022 td
+
+            ''
+            ''Get the new Field Element. 
+            ''
             label_control = CtlGraphicFldLabel.GetFieldElement(oGetControlParameters,
                                                                each_element, Me.DesignerForm, Me,
                                                                strNameOfControl,
-                                                        Me, Me, mod_ctlLasttouched,
+                                                        CType(Me, ILayoutFunctions),
+                                                        sizeNeeded,
+                                                        CType(Me, IRecordElementLastTouched),
+                                                        mod_ctlLasttouched,
                                                         mod_oGroupMoveEvents)
 
             ''Moved below. 9/5 td''label_control.Refresh_Master()
@@ -2818,7 +2843,7 @@ Public Class ClassDesigner
     End Sub ''End of "Private Sub MoveInUnison"
 
 
-    Private Sub Resizing_End() Handles mod_oGroupMoveEvents.Resizing_End
+    Private Sub Resizing_End() Handles mod_oGroupMoveEvents.Resizing_EndV1
         ''
         ''Added 8/5/2019 thomas downes  
         ''
@@ -3419,7 +3444,7 @@ Public Class ClassDesigner
 
     ''End Sub
 
-    Public Sub RefreshPreview() Implements IRefreshPreview.RefreshPreview
+    Public Sub RefreshPreview() Implements IRefreshCardPreview.RefreshCardPreview
         ''
         ''Added 12/27/2021 thomas downes 
         ''
@@ -3448,7 +3473,7 @@ Public Class ClassDesigner
         With oGetControlParameters
             .ElementsCacheManager = ElementsCache_Manager
             .iLayoutFunctions = CType(Me, ILayoutFunctions)
-            .iRefreshPreview = CType(Me, IRefreshPreview)
+            .iRefreshPreview = CType(Me, IRefreshCardPreview)
             .DesignerForm = Me.DesignerForm
             .iControlLastTouched = CType(Me.mod_ctlLasttouched, ILastControlTouched)
             .oMoveEventsGroupedControls = mod_oGroupMoveEvents

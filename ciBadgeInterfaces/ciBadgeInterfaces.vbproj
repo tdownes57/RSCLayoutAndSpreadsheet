@@ -75,6 +75,8 @@
     <Compile Include="InterfaceElementBase_InDevelopment.vb" />
     <Compile Include="InterfaceMoveEvents.vb" />
     <Compile Include="InterfaceQRCode.vb" />
+    <Compile Include="InterfaceRefreshCardPreview.vb" />
+    <Compile Include="InterfaceRefreshElementImage.vb" />
     <Compile Include="InterfaceSaveToModel.vb" />
     <Compile Include="InterfaceSigMenu.vb" />
     <Compile Include="InterfaceBadgeLayoutDimensions.vb" />

@@ -23,8 +23,14 @@ Public Class GroupMoveEvents_Singleton
 
     ''Added 8/3/2019 thomas downes
     Public Event Resizing_Start()
+
     ''12/17/2021 td''Public Event Resizing_End()
-    Public Event Resizing_End(par_iSave As ISaveToModel)
+    Public Event Resizing_EndV1(par_iSave As ISaveToModel)
+
+    ''Added 1/26/2022 td
+    Public Event Resizing_EndV2(par_iSave As ISaveToModel,
+                              par_iRefreshElement As IRefreshElementImage,
+                              par_iRefreshCardPreview As IRefreshCardPreview)
 
     ''11/29/2021 td''Public Event Moving_End() ''Added 9/13/2019 td  
     Public Event Moving_End(par_control As Control, par_iSaveToModel As ISaveToModel) ''Added 9/13/2019 td  
@@ -140,15 +146,35 @@ Public Class GroupMoveEvents_Singleton
     End Sub
 
 
-    Public Sub Resizing_Terminate(par_iSave As ISaveToModel) Implements InterfaceMoveEvents.Resizing_Terminate
+    Public Sub Resizing_TerminateV1(par_iSave As ISaveToModel) Implements InterfaceMoveEvents.Resizing_TerminateV1
+
         ''Dec17 2021''Public Sub Resizing_Terminate()
         ''Dec17 2021''     Implements InterfaceEvents.Resizing_Terminate
+        ''Jan26 2022''Public Sub Resizing_Terminate(par_iSave As ISaveToModel)
 
         ''Added 8/4/2019 td  
         ''Dec17 2021''RaiseEvent Resizing_End()
-        RaiseEvent Resizing_End(par_iSave)
+        ''#1 Jan26 2022''RaiseEvent Resizing_End(par_iSave)
+        ''#2 Jan26 2022''RaiseEvent Resizing_End(par_iSave, par_iRefreshElement, par_iRefreshPreview)
+        RaiseEvent Resizing_EndV1(par_iSave)
 
-    End Sub
+    End Sub ''End of "Public Sub Resizing_TerminateV1"
+
+
+    Public Sub Resizing_TerminateV2(par_iSave As ISaveToModel,
+                                  par_iRefreshElement As IRefreshElementImage,
+                                  par_iRefreshPreview As IRefreshCardPreview) Implements InterfaceMoveEvents.Resizing_TerminateV2
+
+        ''Dec17 2021''Public Sub Resizing_Terminate()
+        ''Dec17 2021''     Implements InterfaceEvents.Resizing_Terminate
+        ''Jan26 2022''Public Sub Resizing_Terminate(par_iSave As ISaveToModel) Implements InterfaceMoveEvents.Resizing_Terminate
+
+        ''Added 8/4/2019 td  
+        ''Dec17 2021''RaiseEvent Resizing_End()
+        ''Jan26 2022''RaiseEvent Resizing_End(par_iSave)
+        RaiseEvent Resizing_EndV2(par_iSave, par_iRefreshElement, par_iRefreshPreview)
+
+    End Sub ''End of "Public Sub Resizing_TerminateV1"
 
     Public Sub Moving_Terminate(par_control As Control, par_iSave As ISaveToModel) Implements InterfaceMoveEvents.Moving_Terminate
         ''Dec17 2021''Public Sub Moving_Terminate(par_control As Control) Implements InterfaceEvents.Moving_Terminate

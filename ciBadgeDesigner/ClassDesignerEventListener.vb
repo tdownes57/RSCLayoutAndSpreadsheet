@@ -563,7 +563,7 @@ Public Class ClassDesignerEventListener
 
     End Sub ''End of "Private Sub MoveInUnison"
 
-    Private Sub Resizing_End() Handles mod_eventsGroupedMove.Resizing_End
+    Private Sub Resizing_End() Handles mod_eventsGroupedMove.Resizing_EndV1
         ''
         ''Added 8/5/2019 thomas downes  
         ''
@@ -701,8 +701,12 @@ Public Class ClassDesignerEventListener
 
     End Sub
 
-    Private Sub mod_sizingEvents_Resizing_End(par_iSave As ISaveToModel) Handles SizingElementEvents.Resizing_End
+
+    Private Sub mod_sizingEvents_Resizing_End(par_iSave As ISaveToModel,
+                                              par_iRefreshImage As IRefreshElementImage,
+                                              par_iRefreshPreview As IRefreshCardPreview) Handles SizingElementEvents.Resizing_EndV2
         ''Dec12 2021 td''Handles mod_sizingEvents_Pic.Resizing_End
+        ''Jan26 2022 td''Private Sub mod_sizingEvents_Resizing_End(par_iSave As ISaveToModel)
 
         ''Added 10/9/2019 td 
         ''Not needed. 12/17/2021 td''mod_designer.CtlGraphic_Portrait.SaveToModel() ''Added 12/16/2021 td
@@ -711,6 +715,9 @@ Public Class ClassDesignerEventListener
 
         ''Update what the user sees (preview).
         mod_designer.AutoPreview_IfChecked()
+
+        ''Added 1/26/2022 td
+        par_iRefreshImage.RefreshElementImage()
 
     End Sub
 

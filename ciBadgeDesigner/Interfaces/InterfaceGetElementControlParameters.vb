@@ -32,7 +32,7 @@ Public Interface IGetElementControlParameters
     Property NameOfControl As String
 
     Property iLayoutFunctions As ILayoutFunctions
-    Property iRefreshPreview As IRefreshPreview
+    Property iRefreshPreview As IRefreshCardPreview
 
     ''Jan17 2022''Property iControlLastTouched As ILastControlTouched_Deprecated
     Property iControlLastTouched As __RSCWindowsControlLibrary.ILastControlTouched

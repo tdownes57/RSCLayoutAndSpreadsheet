@@ -1195,9 +1195,9 @@ namespace MoveAndResizeControls_Monem
             if (bWasResizing)
             {
                 //Jan10 2022 //mod_events.Resizing_Terminate(par_iSave);
-                mod_events_singleCtl.Resizing_Terminate(par_iSave);
+                mod_events_singleCtl.Resizing_TerminateV1(par_iSave);
                 if (mod_events_groupedCtls != null)
-                    mod_events_groupedCtls.Resizing_Terminate(par_iSave);
+                    mod_events_groupedCtls.Resizing_TerminateV1(par_iSave);
             }
 
             //Added 9/13/2019 thomas downes

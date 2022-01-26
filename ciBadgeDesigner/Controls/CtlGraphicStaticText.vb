@@ -29,7 +29,7 @@ Public Class CtlGraphicStaticText
     Public ParentDesignForm_iSelecting As ISelectingElements ''Added 7/31/2019 thomas downes  
 
     ''1/8/2022 td''Public ReadOnly ParentDesignForm_iRefreshPreview As IRefreshPreview ''Added 12/27/2021 thomas downes  
-    Public ParentDesignForm_iRefreshPreview As IRefreshPreview ''Added 12/27/2021 thomas downes  
+    Public ParentDesignForm_iRefreshPreview As IRefreshCardPreview ''Added 12/27/2021 thomas downes  
 
     Public Event ElementStatic_RightClicked(par_control As CtlGraphicStaticText) ''Added 12/15/2021 td
 
@@ -76,7 +76,8 @@ Public Class CtlGraphicStaticText
                                          par_oParentForm As Form,
                                       par_nameOfControl As String,
                                       par_iLayoutFun As ILayoutFunctions,
-                                         par_iRefreshPreview As IRefreshPreview,
+                                         par_sizeDesired As Size,
+                                         par_iRefreshPreview As IRefreshCardPreview,
                                 par_iControlLastTouched As ILastControlTouched,
                  par_oMoveEventsGroupedControls As GroupMoveEvents_Singleton) As CtlGraphicStaticText
         ''              1/6/2022 td'' par_bProportionSizing As Boolean,
@@ -134,7 +135,7 @@ Public Class CtlGraphicStaticText
         ''Jan2 2022''           enumElementType_Enum, par_bProportionSizing,
 
         Dim CtlStaticText1 = New CtlGraphicStaticText(par_elementStaticText, par_oParentForm,
-                                    par_iLayoutFun,
+                                    par_iLayoutFun, par_sizeDesired,
                                     par_iRefreshPreview,
                                 typeOps, objOperations,
                                 bAddFunctionalitySooner,
@@ -209,7 +210,8 @@ Public Class CtlGraphicStaticText
     Public Sub New(par_elementST As ClassElementStaticText,
                    par_oForm As Form,
                    par_iLayoutFun As ILayoutFunctions,
-                   par_iRefreshPreview As IRefreshPreview,
+                   par_iSizeDesired As Size,
+                   par_iRefreshPreview As IRefreshCardPreview,
                    par_operationsType As Type,
                    par_operationsAny As Object,
                    pboolAddMoveability As Boolean,
@@ -224,7 +226,7 @@ Public Class CtlGraphicStaticText
         ''Jan1 2022 td''MyBase.New(par_enumElementType, pboolResizeProportionally,
         MyBase.New(EnumElementType.StaticText, par_oForm,
                         mod_c_bResizeProportionally,
-                        par_iLayoutFun,
+                        par_iLayoutFun, par_iSizeDesired,
                         par_operationsType, par_operationsAny,
                         pboolAddMoveability, pboolAddClickability,
                         par_iLastTouched, par_oMoveEvents, 0,
@@ -242,7 +244,7 @@ Public Class CtlGraphicStaticText
     End Sub
 
 
-    Public Sub New_StaticText(par_element As ClassElementStaticText, par_iRefreshPreview As IRefreshPreview)
+    Public Sub New_StaticText(par_element As ClassElementStaticText, par_iRefreshPreview As IRefreshCardPreview)
 
         ' This call is required by the designer.
         ''Jan7 2022 td''InitializeComponent()
@@ -922,7 +924,7 @@ ExitHandler:
                 ElementInfo_Base.Visible = True
                 ''Added 12/27/2021 td
                 ''   This is making use of the Dependency Injection pattern.
-                ParentDesignForm_iRefreshPreview.RefreshPreview()
+                ParentDesignForm_iRefreshPreview.RefreshCardPreview()
 
             End If ''End of "If (diagReply = DialogResult.Yes) Then"
 
@@ -939,7 +941,7 @@ ExitHandler:
                 ElementInfo_Base.Visible = False
                 ''Added 12/27/2021 td
                 ''   This is making use of the Dependency Injection pattern.
-                ParentDesignForm_iRefreshPreview.RefreshPreview()
+                ParentDesignForm_iRefreshPreview.RefreshCardPreview()
 
             End If ''End of "If (diagReply = DialogResult.Yes) Then"
 

@@ -99,9 +99,26 @@ Public Class ClassGroupMoveEvents_NoLongerUsed
     End Sub
 
 
-    Public Sub Resizing_Terminate(par_iSave As ISaveToModel) Implements InterfaceMoveEvents.Resizing_Terminate
+    Public Sub Resizing_TerminateV1(par_iSave As ISaveToModel) Implements InterfaceMoveEvents.Resizing_TerminateV1
+
         ''Dec17 2021''Public Sub Resizing_Terminate()
         ''Dec17 2021''     Implements InterfaceEvents.Resizing_Terminate
+        ''Jan26 2022''Public Sub Resizing_Terminate(par_iSave As ISaveToModel) 
+
+        ''Added 8/4/2019 td  
+        ''Dec17 2021''RaiseEvent Resizing_End()
+        RaiseEvent Resizing_End(par_iSave)
+
+    End Sub
+
+
+    Public Sub Resizing_TerminateV2(par_iSave As ISaveToModel,
+                                              par_iRefreshImage As IRefreshElementImage,
+                                              par_iRefreshPreview As IRefreshCardPreview) Implements InterfaceMoveEvents.Resizing_TerminateV2
+
+        ''Dec17 2021''Public Sub Resizing_Terminate()
+        ''Dec17 2021''     Implements InterfaceEvents.Resizing_Terminate
+        ''Jan26 2022''Public Sub Resizing_Terminate(par_iSave As ISaveToModel) 
 
         ''Added 8/4/2019 td  
         ''Dec17 2021''RaiseEvent Resizing_End()

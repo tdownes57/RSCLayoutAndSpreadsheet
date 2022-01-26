@@ -10,6 +10,7 @@ Imports ciBadgeDesigner
 Imports ciBadgeElements
 Imports __RSCWindowsControlLibrary ''Added 1/2/2022 td 
 Imports ciBadgeCachePersonality ''Added 1/18/2022 td
+Imports System.Drawing ''Added 1/26/2022 td
 
 ''
 '' Added 1/16/2022 thomas downes
@@ -83,6 +84,8 @@ Public Class Operations_Desktop
                 End With
             End If ''End of "If (bCardBackside) Then ... Else ... "
 
+            Dim sizeIfNeeded As New Size() ''Added 1/26/2022 td
+
             ''
             ''Next, create the control which will display the Element-StaticText.   
             ''
@@ -90,7 +93,8 @@ Public Class Operations_Desktop
                                     objElementStaticText,
                                     MyBase.ParentForm,
                                     "CtlGraphicStaticText",
-                                    DesignerClass,
+                                    CType(DesignerClass, ILayoutFunctions),
+                                    sizeIfNeeded,
                                     .iRefreshPreview,
                                     .iControlLastTouched,
                                     .oMoveEventsGroupedControls)
@@ -134,6 +138,8 @@ Public Class Operations_Desktop
         Dim intImageHeight_Original As Integer ''Added 1/22/2022 td
         Dim intImageWidth_Reduced As Integer ''Added 1/22/2022 td
         Dim intImageHeight_Reduced As Integer ''Added 1/22/2022 td
+
+        Dim sizeGraphic As Size ''Added 1/26/2022 thomas downes
 
         ''Important function call.  Show the user the existing graphics files. 
         diag_result = objForm_Show.ShowDialog()
@@ -222,7 +228,7 @@ Public Class Operations_Desktop
                                     objElementStaticGraphic,
                                     MyBase.ParentForm,
                                     "CtlGraphicStaticGraphic",
-                                    DesignerClass, True,
+                                    DesignerClass, sizeGraphic, True,
                                     .iControlLastTouched,
                                     .oMoveEventsGroupedControls)
 
