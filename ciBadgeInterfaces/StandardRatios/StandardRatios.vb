@@ -11,7 +11,7 @@ Public Module StandardRatios
     ''   ----1/25/2022 td 
     ''
 
-    Public Function ShortSideToLongSideRatio_WH_63() As Double
+    Public Function ShortSideToLongSideRatio_HW_63() As Double
         ''
         ''Added 1/25/2022 thomas downes
         ''
@@ -20,7 +20,7 @@ Public Module StandardRatios
     End Function ''End of "Public Shared Function ShortSideToLongSideRatio_WH() As Double"
 
 
-    Public Function LongSideToShortRatio_HW_16() As Double
+    Public Function LongSideToShortRatio_WH_16() As Double
         ''Jan25 2022 td''Public Shared Function LongSideToShortRatio() As Double
         ''
         ''Added 8/26/2019 thomas downes
@@ -63,7 +63,7 @@ Public Module StandardRatios
         ''9/8/2019 td''RatioIsLikelyBad = (1 > (100 * Math.Abs(par_doubleW_div_H - LongSideToShortRatio())))
 
         ''Jan25 2022 td''doubleExpected_27_17 = LongSideToShortRatio()
-        doubleExpected_27_17 = LongSideToShortRatio_HW()
+        doubleExpected_27_17 = LongSideToShortRatio_WH_16()
 
         ''9/8/2019 td''RatioIsLikelyBad = (1 > (100 * Math.Abs(par_doubleW_div_H - doubleExpected_27_17)))
 

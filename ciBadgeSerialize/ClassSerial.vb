@@ -65,7 +65,9 @@ Public Class ClassSerial
         ''Added 1/25/2022 thomas d.
         If (c_bCopyRestoreFileIfNeeded) Then
             ''Added 1/25/2022 thomas d.
-            IO.File.Copy(Me.PathToXML, Me.PathToXML & "_temp")
+            If (IO.File.Exists(Me.PathToXML)) Then
+                IO.File.Copy(Me.PathToXML, Me.PathToXML & "_temp", True)
+            End If ''End of "If (IO.File.Exists(Me.PathToXML)) Then"
         End If ''End of "If (c_bCopyRestoreFileIfNeeded) Then"
 
         ''9/12 td''Dim fileStream_Xml As Stream = New FileStream(mod_sPathToXML,
@@ -75,7 +77,7 @@ Public Class ClassSerial
 
         ''Added the "Using" keyword on 1/25/2022 td 
         Using fileStream_Xml As Stream = New FileStream(Me.PathToXML,
-                     FileMode.Create, FileAccess.Write, FileShare.None)
+                 FileMode.Create, FileAccess.Write, FileShare.None)
 
             ''Formatter.Serialize(fileStream_Xml, srObj)
             ''9/12/2019 td''Dim writer As New System.Xml.Serialization.XmlSerializer(GetType(ClassParent))

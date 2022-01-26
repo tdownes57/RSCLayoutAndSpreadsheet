@@ -39,6 +39,11 @@ Partial Class FormDisplayCacheLayouts
         Me.ButtonFindLayout = New System.Windows.Forms.Button()
         Me.picturePreviewFront = New System.Windows.Forms.PictureBox()
         Me.picturePreviewBackside = New System.Windows.Forms.PictureBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.LinkLabelClearPath = New System.Windows.Forms.LinkLabel()
+        Me.ButtonBrowseForImageFile = New System.Windows.Forms.Button()
+        Me.textboxPathToCacheXmlFile = New System.Windows.Forms.TextBox()
+        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         Me.FlowLayoutPanelPriorLays.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picturePreviewFront, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -108,17 +113,18 @@ Partial Class FormDisplayCacheLayouts
         '
         'FlowLayoutPanelPriorLays
         '
-        Me.FlowLayoutPanelPriorLays.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.FlowLayoutPanelPriorLays.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.FlowLayoutPanelPriorLays.AutoScroll = True
         Me.FlowLayoutPanelPriorLays.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.FlowLayoutPanelPriorLays.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.FlowLayoutPanelPriorLays.Controls.Add(Me.PictureBox1)
         Me.FlowLayoutPanelPriorLays.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
-        Me.FlowLayoutPanelPriorLays.Location = New System.Drawing.Point(1045, 41)
+        Me.FlowLayoutPanelPriorLays.Location = New System.Drawing.Point(822, 41)
         Me.FlowLayoutPanelPriorLays.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.FlowLayoutPanelPriorLays.Name = "FlowLayoutPanelPriorLays"
-        Me.FlowLayoutPanelPriorLays.Size = New System.Drawing.Size(349, 399)
+        Me.FlowLayoutPanelPriorLays.Size = New System.Drawing.Size(572, 456)
         Me.FlowLayoutPanelPriorLays.TabIndex = 84
         Me.FlowLayoutPanelPriorLays.WrapContents = False
         '
@@ -135,7 +141,7 @@ Partial Class FormDisplayCacheLayouts
         '
         Me.ButtonSelectLayoutFromDrive.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonSelectLayoutFromDrive.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonSelectLayoutFromDrive.Location = New System.Drawing.Point(980, 456)
+        Me.ButtonSelectLayoutFromDrive.Location = New System.Drawing.Point(980, 513)
         Me.ButtonSelectLayoutFromDrive.Name = "ButtonSelectLayoutFromDrive"
         Me.ButtonSelectLayoutFromDrive.Size = New System.Drawing.Size(228, 44)
         Me.ButtonSelectLayoutFromDrive.TabIndex = 85
@@ -162,7 +168,7 @@ Partial Class FormDisplayCacheLayouts
         '
         Me.ButtonUserCancels.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonUserCancels.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonUserCancels.Location = New System.Drawing.Point(1223, 457)
+        Me.ButtonUserCancels.Location = New System.Drawing.Point(1223, 514)
         Me.ButtonUserCancels.Name = "ButtonUserCancels"
         Me.ButtonUserCancels.Size = New System.Drawing.Size(171, 42)
         Me.ButtonUserCancels.TabIndex = 87
@@ -173,7 +179,7 @@ Partial Class FormDisplayCacheLayouts
         '
         Me.ButtonExitApp.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.ButtonExitApp.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonExitApp.Location = New System.Drawing.Point(26, 425)
+        Me.ButtonExitApp.Location = New System.Drawing.Point(26, 482)
         Me.ButtonExitApp.Name = "ButtonExitApp"
         Me.ButtonExitApp.Size = New System.Drawing.Size(182, 72)
         Me.ButtonExitApp.TabIndex = 88
@@ -183,9 +189,9 @@ Partial Class FormDisplayCacheLayouts
         'ButtonOK
         '
         Me.ButtonOK.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonOK.Location = New System.Drawing.Point(875, 392)
+        Me.ButtonOK.Location = New System.Drawing.Point(825, 521)
         Me.ButtonOK.Name = "ButtonOK"
-        Me.ButtonOK.Size = New System.Drawing.Size(77, 105)
+        Me.ButtonOK.Size = New System.Drawing.Size(127, 45)
         Me.ButtonOK.TabIndex = 89
         Me.ButtonOK.Text = "OK"
         Me.ButtonOK.UseVisualStyleBackColor = True
@@ -194,7 +200,7 @@ Partial Class FormDisplayCacheLayouts
         '
         Me.ButtonFindLayout.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonFindLayout.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonFindLayout.Location = New System.Drawing.Point(26, 333)
+        Me.ButtonFindLayout.Location = New System.Drawing.Point(26, 390)
         Me.ButtonFindLayout.Name = "ButtonFindLayout"
         Me.ButtonFindLayout.Size = New System.Drawing.Size(144, 86)
         Me.ButtonFindLayout.TabIndex = 90
@@ -222,11 +228,68 @@ Partial Class FormDisplayCacheLayouts
         Me.picturePreviewBackside.TabStop = False
         Me.picturePreviewBackside.Visible = False
         '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(221, 471)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(188, 24)
+        Me.Label2.TabIndex = 96
+        Me.Label2.Text = "Path to selected file *:"
+        '
+        'LinkLabelClearPath
+        '
+        Me.LinkLabelClearPath.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.LinkLabelClearPath.AutoSize = True
+        Me.LinkLabelClearPath.Location = New System.Drawing.Point(226, 581)
+        Me.LinkLabelClearPath.Name = "LinkLabelClearPath"
+        Me.LinkLabelClearPath.Size = New System.Drawing.Size(131, 17)
+        Me.LinkLabelClearPath.TabIndex = 95
+        Me.LinkLabelClearPath.TabStop = True
+        Me.LinkLabelClearPath.Text = "Clear path from box"
+        '
+        'ButtonBrowseForImageFile
+        '
+        Me.ButtonBrowseForImageFile.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ButtonBrowseForImageFile.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonBrowseForImageFile.Location = New System.Drawing.Point(405, 526)
+        Me.ButtonBrowseForImageFile.Name = "ButtonBrowseForImageFile"
+        Me.ButtonBrowseForImageFile.Size = New System.Drawing.Size(314, 39)
+        Me.ButtonBrowseForImageFile.TabIndex = 94
+        Me.ButtonBrowseForImageFile.Text = "Browse your file folders for image file *"
+        Me.ButtonBrowseForImageFile.UseVisualStyleBackColor = True
+        '
+        'textboxPathToCacheXmlFile
+        '
+        Me.textboxPathToCacheXmlFile.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textboxPathToCacheXmlFile.Location = New System.Drawing.Point(225, 498)
+        Me.textboxPathToCacheXmlFile.Name = "textboxPathToCacheXmlFile"
+        Me.textboxPathToCacheXmlFile.Size = New System.Drawing.Size(727, 22)
+        Me.textboxPathToCacheXmlFile.TabIndex = 93
+        '
+        'LinkLabel1
+        '
+        Me.LinkLabel1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.LinkLabel1.AutoSize = True
+        Me.LinkLabel1.Location = New System.Drawing.Point(222, 528)
+        Me.LinkLabel1.Name = "LinkLabel1"
+        Me.LinkLabel1.Size = New System.Drawing.Size(131, 17)
+        Me.LinkLabel1.TabIndex = 97
+        Me.LinkLabel1.TabStop = True
+        Me.LinkLabel1.Text = "Clear path from box"
+        '
         'FormDisplayCacheLayouts
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1406, 517)
+        Me.ClientSize = New System.Drawing.Size(1406, 574)
+        Me.Controls.Add(Me.LinkLabel1)
+        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.LinkLabelClearPath)
+        Me.Controls.Add(Me.ButtonBrowseForImageFile)
+        Me.Controls.Add(Me.textboxPathToCacheXmlFile)
         Me.Controls.Add(Me.picturePreviewFront)
         Me.Controls.Add(Me.ButtonFindLayout)
         Me.Controls.Add(Me.ButtonOK)
@@ -269,4 +332,9 @@ Partial Class FormDisplayCacheLayouts
     Friend WithEvents ButtonFindLayout As Button
     Friend WithEvents picturePreviewFront As PictureBox
     Friend WithEvents picturePreviewBackside As PictureBox
+    Friend WithEvents Label2 As Label
+    Friend WithEvents LinkLabelClearPath As LinkLabel
+    Friend WithEvents ButtonBrowseForImageFile As Button
+    Friend WithEvents textboxPathToCacheXmlFile As TextBox
+    Friend WithEvents LinkLabel1 As LinkLabel
 End Class

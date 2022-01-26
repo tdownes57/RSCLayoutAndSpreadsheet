@@ -83,7 +83,7 @@ Partial Class Form__Main_Demo
         Me.linkRemoveElements = New System.Windows.Forms.LinkLabel()
         Me.LinkLabelSave2 = New System.Windows.Forms.LinkLabel()
         Me.dropdownHowToLoadFlds = New System.Windows.Forms.ComboBox()
-        Me.flowFieldsNotListed = New System.Windows.Forms.FlowLayoutPanel()
+        Me.flowlayoutOmittedBin = New System.Windows.Forms.FlowLayoutPanel()
         Me.lblFieldsNotCurrentlyShownHdr = New System.Windows.Forms.Label()
         Me.chkHighResolution = New System.Windows.Forms.CheckBox()
         Me.flowSidebar = New System.Windows.Forms.FlowLayoutPanel()
@@ -119,26 +119,30 @@ Partial Class Form__Main_Demo
         Me.ComponentClickableDesktop1 = New ciBadgeDesigner.ComponentClickableDesktop(Me.components)
         Me.ComponentClickIDFrontside1 = New ciBadgeDesigner.ComponentClickBackground(Me.components)
         Me.ComponentClickIDBackside1 = New ciBadgeDesigner.ComponentClickBackground(Me.components)
+        Me.flowlayoutIncludedBin = New System.Windows.Forms.FlowLayoutPanel()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
-        Me.flowFieldsNotListed.SuspendLayout()
+        Me.flowlayoutOmittedBin.SuspendLayout()
         Me.flowSidebar.SuspendLayout()
         CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.graphicAdjuster, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureBackgroundFront, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureBackgroundBackside, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureJustAButton, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.flowlayoutIncludedBin.SuspendLayout()
         Me.SuspendLayout()
         '
         'LinkShowWebControls
         '
         Me.LinkShowWebControls.AutoSize = True
-        Me.LinkShowWebControls.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LinkShowWebControls.Location = New System.Drawing.Point(657, 520)
+        Me.LinkShowWebControls.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LinkShowWebControls.Location = New System.Drawing.Point(542, 580)
         Me.LinkShowWebControls.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
         Me.LinkShowWebControls.Name = "LinkShowWebControls"
-        Me.LinkShowWebControls.Size = New System.Drawing.Size(360, 29)
+        Me.LinkShowWebControls.Size = New System.Drawing.Size(250, 20)
         Me.LinkShowWebControls.TabIndex = 30
         Me.LinkShowWebControls.TabStop = True
         Me.LinkShowWebControls.Text = "Show adjustment controls below"
@@ -147,11 +151,11 @@ Partial Class Form__Main_Demo
         'LinkLabel1
         '
         Me.LinkLabel1.AutoSize = True
-        Me.LinkLabel1.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LinkLabel1.Location = New System.Drawing.Point(655, 554)
+        Me.LinkLabel1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LinkLabel1.Location = New System.Drawing.Point(268, 580)
         Me.LinkLabel1.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
         Me.LinkLabel1.Name = "LinkLabel1"
-        Me.LinkLabel1.Size = New System.Drawing.Size(362, 29)
+        Me.LinkLabel1.Size = New System.Drawing.Size(251, 20)
         Me.LinkLabel1.TabIndex = 31
         Me.LinkLabel1.TabStop = True
         Me.LinkLabel1.Text = "Open adjustment-controls dialog"
@@ -564,16 +568,16 @@ Partial Class Form__Main_Demo
         Me.dropdownHowToLoadFlds.TabIndex = 51
         Me.dropdownHowToLoadFlds.Visible = False
         '
-        'flowFieldsNotListed
+        'flowlayoutOmittedBin
         '
-        Me.flowFieldsNotListed.AutoScroll = True
-        Me.flowFieldsNotListed.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.flowFieldsNotListed.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.flowFieldsNotListed.Controls.Add(Me.lblFieldsNotCurrentlyShownHdr)
-        Me.flowFieldsNotListed.Location = New System.Drawing.Point(35, 522)
-        Me.flowFieldsNotListed.Name = "flowFieldsNotListed"
-        Me.flowFieldsNotListed.Size = New System.Drawing.Size(292, 55)
-        Me.flowFieldsNotListed.TabIndex = 52
+        Me.flowlayoutOmittedBin.AutoScroll = True
+        Me.flowlayoutOmittedBin.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.flowlayoutOmittedBin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.flowlayoutOmittedBin.Controls.Add(Me.lblFieldsNotCurrentlyShownHdr)
+        Me.flowlayoutOmittedBin.Location = New System.Drawing.Point(35, 522)
+        Me.flowlayoutOmittedBin.Name = "flowlayoutOmittedBin"
+        Me.flowlayoutOmittedBin.Size = New System.Drawing.Size(292, 55)
+        Me.flowlayoutOmittedBin.TabIndex = 52
         '
         'lblFieldsNotCurrentlyShownHdr
         '
@@ -581,9 +585,9 @@ Partial Class Form__Main_Demo
         Me.lblFieldsNotCurrentlyShownHdr.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblFieldsNotCurrentlyShownHdr.Location = New System.Drawing.Point(3, 0)
         Me.lblFieldsNotCurrentlyShownHdr.Name = "lblFieldsNotCurrentlyShownHdr"
-        Me.lblFieldsNotCurrentlyShownHdr.Size = New System.Drawing.Size(160, 18)
+        Me.lblFieldsNotCurrentlyShownHdr.Size = New System.Drawing.Size(85, 18)
         Me.lblFieldsNotCurrentlyShownHdr.TabIndex = 0
-        Me.lblFieldsNotCurrentlyShownHdr.Text = "Fields not yet displayed"
+        Me.lblFieldsNotCurrentlyShownHdr.Text = "Omitted Bin"
         '
         'chkHighResolution
         '
@@ -796,17 +800,18 @@ Partial Class Form__Main_Demo
         '
         'LinkLabel2
         '
-        Me.LinkLabel2.Location = New System.Drawing.Point(825, 507)
+        Me.LinkLabel2.AutoSize = True
+        Me.LinkLabel2.Location = New System.Drawing.Point(887, 467)
         Me.LinkLabel2.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
         Me.LinkLabel2.Name = "LinkLabel2"
-        Me.LinkLabel2.Size = New System.Drawing.Size(372, 29)
+        Me.LinkLabel2.Size = New System.Drawing.Size(361, 20)
         Me.LinkLabel2.TabIndex = 80
         Me.LinkLabel2.TabStop = True
         Me.LinkLabel2.Text = "Turn on context menu for last-touched element."
         '
         'LinkLabel3
         '
-        Me.LinkLabel3.Location = New System.Drawing.Point(825, 532)
+        Me.LinkLabel3.Location = New System.Drawing.Point(815, 580)
         Me.LinkLabel3.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
         Me.LinkLabel3.Name = "LinkLabel3"
         Me.LinkLabel3.Size = New System.Drawing.Size(372, 29)
@@ -817,9 +822,10 @@ Partial Class Form__Main_Demo
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(341, 499)
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(627, 500)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(401, 20)
+        Me.Label1.Size = New System.Drawing.Size(353, 18)
         Me.Label1.TabIndex = 82
         Me.Label1.Text = "Relevant Element Options for Last Element Touched"
         '
@@ -828,9 +834,9 @@ Partial Class Form__Main_Demo
         Me.flowRelevantLinkLabels.AutoScroll = True
         Me.flowRelevantLinkLabels.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.flowRelevantLinkLabels.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.flowRelevantLinkLabels.Location = New System.Drawing.Point(345, 522)
+        Me.flowRelevantLinkLabels.Location = New System.Drawing.Point(631, 523)
         Me.flowRelevantLinkLabels.Name = "flowRelevantLinkLabels"
-        Me.flowRelevantLinkLabels.Size = New System.Drawing.Size(298, 55)
+        Me.flowRelevantLinkLabels.Size = New System.Drawing.Size(568, 55)
         Me.flowRelevantLinkLabels.TabIndex = 83
         '
         'LabelFieldsNotYetDisplayed
@@ -838,9 +844,9 @@ Partial Class Form__Main_Demo
         Me.LabelFieldsNotYetDisplayed.AutoSize = True
         Me.LabelFieldsNotYetDisplayed.Location = New System.Drawing.Point(31, 499)
         Me.LabelFieldsNotYetDisplayed.Name = "LabelFieldsNotYetDisplayed"
-        Me.LabelFieldsNotYetDisplayed.Size = New System.Drawing.Size(178, 20)
+        Me.LabelFieldsNotYetDisplayed.Size = New System.Drawing.Size(98, 20)
         Me.LabelFieldsNotYetDisplayed.TabIndex = 84
-        Me.LabelFieldsNotYetDisplayed.Text = "FieldsNotYetDisplayed"
+        Me.LabelFieldsNotYetDisplayed.Text = "Omitted Bin"
         '
         'pictureJustAButton
         '
@@ -859,11 +865,11 @@ Partial Class Form__Main_Demo
         Me.CtlGraphicQRCode1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.CtlGraphicQRCode1.ElementInfo_Base = Nothing
         Me.CtlGraphicQRCode1.Location = New System.Drawing.Point(184, 199)
-        Me.CtlGraphicQRCode1.Margin = New System.Windows.Forms.Padding(4)
+        Me.CtlGraphicQRCode1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.CtlGraphicQRCode1.MoveabilityEventsForGroupCtls = Nothing
         Me.CtlGraphicQRCode1.MoveabilityEventsForSingleMove = Nothing
         Me.CtlGraphicQRCode1.Name = "CtlGraphicQRCode1"
-        Me.CtlGraphicQRCode1.Size = New System.Drawing.Size(94, 99)
+        Me.CtlGraphicQRCode1.Size = New System.Drawing.Size(94, 100)
         Me.CtlGraphicQRCode1.TabIndex = 65
         '
         'CtlGraphicPortrait_Lady
@@ -871,8 +877,8 @@ Partial Class Form__Main_Demo
         Me.CtlGraphicPortrait_Lady.BackColor = System.Drawing.Color.White
         Me.CtlGraphicPortrait_Lady.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.CtlGraphicPortrait_Lady.ElementInfo_Base = Nothing
-        Me.CtlGraphicPortrait_Lady.Location = New System.Drawing.Point(35, 117)
-        Me.CtlGraphicPortrait_Lady.Margin = New System.Windows.Forms.Padding(4)
+        Me.CtlGraphicPortrait_Lady.Location = New System.Drawing.Point(35, 118)
+        Me.CtlGraphicPortrait_Lady.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.CtlGraphicPortrait_Lady.MoveabilityEventsForGroupCtls = Nothing
         Me.CtlGraphicPortrait_Lady.MoveabilityEventsForSingleMove = Nothing
         Me.CtlGraphicPortrait_Lady.Name = "CtlGraphicPortrait_Lady"
@@ -885,19 +891,19 @@ Partial Class Form__Main_Demo
         Me.CtlGraphicSignature1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.CtlGraphicSignature1.ElementInfo_Base = Nothing
         Me.CtlGraphicSignature1.Location = New System.Drawing.Point(49, 346)
-        Me.CtlGraphicSignature1.Margin = New System.Windows.Forms.Padding(4)
+        Me.CtlGraphicSignature1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.CtlGraphicSignature1.MoveabilityEventsForGroupCtls = Nothing
         Me.CtlGraphicSignature1.MoveabilityEventsForSingleMove = Nothing
         Me.CtlGraphicSignature1.Name = "CtlGraphicSignature1"
-        Me.CtlGraphicSignature1.Size = New System.Drawing.Size(314, 105)
+        Me.CtlGraphicSignature1.Size = New System.Drawing.Size(314, 104)
         Me.CtlGraphicSignature1.TabIndex = 66
         '
         'CtlGraphicStaticText1
         '
         Me.CtlGraphicStaticText1.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.CtlGraphicStaticText1.ElementInfo_Base = Nothing
-        Me.CtlGraphicStaticText1.Location = New System.Drawing.Point(200, 123)
-        Me.CtlGraphicStaticText1.Margin = New System.Windows.Forms.Padding(5)
+        Me.CtlGraphicStaticText1.Location = New System.Drawing.Point(200, 122)
+        Me.CtlGraphicStaticText1.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.CtlGraphicStaticText1.MoveabilityEventsForGroupCtls = Nothing
         Me.CtlGraphicStaticText1.MoveabilityEventsForSingleMove = Nothing
         Me.CtlGraphicStaticText1.Name = "CtlGraphicStaticText1"
@@ -913,11 +919,43 @@ Partial Class Form__Main_Demo
         '
         Me.ComponentClickIDBackside1.PictureBoxControl = Nothing
         '
+        'flowlayoutIncludedBin
+        '
+        Me.flowlayoutIncludedBin.AutoScroll = True
+        Me.flowlayoutIncludedBin.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.flowlayoutIncludedBin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.flowlayoutIncludedBin.Controls.Add(Me.Label2)
+        Me.flowlayoutIncludedBin.Location = New System.Drawing.Point(333, 522)
+        Me.flowlayoutIncludedBin.Name = "flowlayoutIncludedBin"
+        Me.flowlayoutIncludedBin.Size = New System.Drawing.Size(292, 55)
+        Me.flowlayoutIncludedBin.TabIndex = 86
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(3, 0)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(87, 18)
+        Me.Label2.TabIndex = 0
+        Me.Label2.Text = "Included Bin"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(329, 500)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(101, 20)
+        Me.Label3.TabIndex = 87
+        Me.Label3.Text = "Included Bin"
+        '
         'Form__Main_Demo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1298, 642)
+        Me.Controls.Add(Me.Label3)
+        Me.Controls.Add(Me.flowlayoutIncludedBin)
         Me.Controls.Add(Me.LabelFieldsNotYetDisplayed)
         Me.Controls.Add(Me.flowRelevantLinkLabels)
         Me.Controls.Add(Me.Label1)
@@ -936,7 +974,7 @@ Partial Class Form__Main_Demo
         Me.Controls.Add(Me.checkAutoPreview)
         Me.Controls.Add(Me.flowSidebar)
         Me.Controls.Add(Me.chkHighResolution)
-        Me.Controls.Add(Me.flowFieldsNotListed)
+        Me.Controls.Add(Me.flowlayoutOmittedBin)
         Me.Controls.Add(Me.dropdownHowToLoadFlds)
         Me.Controls.Add(Me.LinkLabelSave2)
         Me.Controls.Add(Me.linkRemoveElements)
@@ -968,8 +1006,8 @@ Partial Class Form__Main_Demo
         Me.ContextMenuStrip1.ResumeLayout(False)
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
-        Me.flowFieldsNotListed.ResumeLayout(False)
-        Me.flowFieldsNotListed.PerformLayout()
+        Me.flowlayoutOmittedBin.ResumeLayout(False)
+        Me.flowlayoutOmittedBin.PerformLayout()
         Me.flowSidebar.ResumeLayout(False)
         Me.flowSidebar.PerformLayout()
         CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).EndInit()
@@ -977,6 +1015,8 @@ Partial Class Form__Main_Demo
         CType(Me.pictureBackgroundFront, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pictureBackgroundBackside, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pictureJustAButton, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.flowlayoutIncludedBin.ResumeLayout(False)
+        Me.flowlayoutIncludedBin.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1029,7 +1069,7 @@ Partial Class Form__Main_Demo
     Friend WithEvents linkRemoveElements As LinkLabel
     Friend WithEvents LinkLabelSave2 As LinkLabel
     Friend WithEvents dropdownHowToLoadFlds As ComboBox
-    Friend WithEvents flowFieldsNotListed As FlowLayoutPanel
+    Friend WithEvents flowlayoutOmittedBin As FlowLayoutPanel
     Friend WithEvents lblFieldsNotCurrentlyShownHdr As Label
     Friend WithEvents chkHighResolution As CheckBox
     Friend WithEvents ModeV9ToolStripMenuItem As ToolStripMenuItem
@@ -1076,4 +1116,7 @@ Partial Class Form__Main_Demo
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents ComponentClickIDFrontside1 As ComponentClickBackground
     Friend WithEvents ComponentClickIDBackside1 As ComponentClickBackground
+    Friend WithEvents flowlayoutIncludedBin As FlowLayoutPanel
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Label3 As Label
 End Class

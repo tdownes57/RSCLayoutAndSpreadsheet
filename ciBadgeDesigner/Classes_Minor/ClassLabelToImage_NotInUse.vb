@@ -182,7 +182,8 @@ Public Class ClassLabelToImage
         ''Added 9/4/2019 thomas d.
         Dim doub_LongToShort As Double ''Added 9/4/2019 thomas d.
         Dim boo_LikelyRatioIsMistaken As Boolean ''Added 9/4/2019 thomas d.
-        doub_LongToShort = ciLayoutPrintLib.LayoutPrint.LongSideToShortRatio()
+        ''Jan25 2022''doub_LongToShort = ciLayoutPrintLib.LayoutPrint.LongSideToShortRatio()
+        doub_LongToShort = ciLayoutPrintLib.LayoutPrint.LongSideToShortRatio_WH()
 
         ''
         ''Copied from ClassElementText.GenerateImage_NotInUse, 9/3/2019 & 8/15/2019 thomas d. 

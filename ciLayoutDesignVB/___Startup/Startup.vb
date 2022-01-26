@@ -793,11 +793,16 @@ Public Class Startup
         ''
         ''Added 1/5/2022 td
         ''
+        Dim bSaveNewXMLPath As Boolean ''Added 1/25/2022 thomas downes
+
         ''Added 12/20/2021 td
         With My.Settings
-            .PathToSavedXML_Prior3 = .PathToSavedXML_Prior2
-            .PathToSavedXML_Prior2 = .PathToSavedXML_Prior1
-            .PathToSavedXML_Prior1 = .PathToSavedXML_Last
+            bSaveNewXMLPath = (.PathToSavedXML_Last <> par_pathToElementsCacheXML) ''Added 1/25/2022 td
+            If (bSaveNewXMLPath) Then ''Added 1/25/2022 td
+                .PathToSavedXML_Prior3 = .PathToSavedXML_Prior2
+                .PathToSavedXML_Prior2 = .PathToSavedXML_Prior1
+                .PathToSavedXML_Prior1 = .PathToSavedXML_Last
+            End If ''End of "If (bSaveNewXMLPath) Then"
         End With
 
         ''With objFormShowCacheLayouts ''Added 1/5/2022 td

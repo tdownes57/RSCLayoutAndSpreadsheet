@@ -40,7 +40,7 @@ Public Class LayoutPrint
     End Function ''End of "Public Shared Function ShortSideToLongSideRatio_WH_point63() As Double"
 
 
-    Public Shared Function LongSideToShortRatio_HW() As Double
+    Public Shared Function LongSideToShortRatio_WH() As Double
         ''Jan25 2022 td''Public Shared Function LongSideToShortRatio() As Double
         ''
         ''Added 8/26/2019 thomas downes
@@ -82,7 +82,8 @@ Public Class LayoutPrint
 
         ''9/8/2019 td''RatioIsLikelyBad = (1 > (100 * Math.Abs(par_doubleW_div_H - LongSideToShortRatio())))
 
-        doubleExpected_27_17 = LongSideToShortRatio_HW()
+        ''Jan25 2022 ''doubleExpected_27_17 = LongSideToShortRatio()
+        doubleExpected_27_17 = LongSideToShortRatio_WH()
 
         ''9/8/2019 td''RatioIsLikelyBad = (1 > (100 * Math.Abs(par_doubleW_div_H - doubleExpected_27_17)))
 

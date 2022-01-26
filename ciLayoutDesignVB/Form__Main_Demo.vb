@@ -508,7 +508,7 @@ Public Class Form__Main_Demo
             .PreviewBox = Me.picturePreview
             .DesignerForm = Me
             .DesignerForm_DoubleCheckRef = Me ''Added 1/14/2022 td
-            .FlowFieldsNotListed = Me.flowFieldsNotListed
+            .FlowFieldsNotListed = Me.flowlayoutOmittedBin
             .CheckboxAutoPreview = Me.checkAutoPreview
             .CheckboxInstantPreview = Me.checkInstantPreview ''Added 12/6/2021 thomas d.
             ''10/10/2019 td''.ExamplePortraitImage = mod_imageLady

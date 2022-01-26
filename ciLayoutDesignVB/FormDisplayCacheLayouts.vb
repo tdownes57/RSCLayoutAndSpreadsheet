@@ -8,6 +8,8 @@ Public Class FormDisplayCacheLayouts
     Public PathToElementsCacheXML As String ''Added 12/19/2021 Thomas Downes
     Public PathToElementsCacheXML_Prior1 As String ''Added 1/25/2025 Thomas Downes
     Public PathToElementsCacheXML_Prior2 As String ''Added 1/25/2025 Thomas Downes
+    Public PathToElementsCacheXML_Prior3 As String ''Added 1/25/2025 Thomas Downes
+    Public PathToElementsCacheXML_Prior4 As String ''Added 1/25/2025 Thomas Downes
     Public UserChoosesABlankSlate As Boolean ''Added 12/20/2021 thomas downes  
     Public UserHasSelectedCancel As Boolean ''Added 12/20/2021 thomas downes
     Public PathToLastDirectoryForXMLFile As String ''Added 12/20/2021 thomas downes
@@ -22,7 +24,9 @@ Public Class FormDisplayCacheLayouts
 
     End Function
 
-    Private Function CheckingXmlFile_IsOkay(parLabelFullPathToXML As Label, parLabelWarningMessage As Label) As Boolean
+    Private Function CheckingXmlFile_IsOkay(par_strFullPathToXML As String, parLabelWarningMessage As Label) As Boolean
+        ''Jan25 2022 td''Private Function CheckingXmlFile_IsOkay(parLabelFullPathToXML As Label,
+        ''       parLabelWarningMessage As Label) As Boolean
         ''
         ''Added 12/20/2021 td
         ''
@@ -30,11 +34,15 @@ Public Class FormDisplayCacheLayouts
         Dim boolCheckingFile_OK As Boolean
 
         ''Dec 20 2021''boolCheckingFile_OK = DiskFilesVB.IsXMLFileMissing_OrEmpty(LabelFullPathToXML.Text)
-        bCheckingFile_MissingOrEmpty = DiskFilesVB.IsXMLFileMissing_OrEmpty(LabelFullPathToXML.Text)
+        ''Jan25 2022 ''bCheckingFile_MissingOrEmpty = DiskFilesVB.IsXMLFileMissing_OrEmpty(LabelFullPathToXML.Text)
+        bCheckingFile_MissingOrEmpty = DiskFilesVB.IsXMLFileMissing_OrEmpty(par_strFullPathToXML)
         boolCheckingFile_OK = (Not bCheckingFile_MissingOrEmpty)
 
         If (boolCheckingFile_OK) Then
-            parLabelFullPathToXML.Text = Me.PathToElementsCacheXML
+            ''This makes no sense to me right now. 1/25/2022 td
+            If ("" = LabelFullPathToXML.Text) Then ''Added 1/25/2022 td
+                LabelFullPathToXML.Text = par_strFullPathToXML
+            End If ''End of "If ("" = LabelFullPathToXML.Text) Then"
             ''----Me.Close()
         Else
             parLabelWarningMessage.Text = "Warning, this file is missing or empty."
@@ -52,21 +60,28 @@ Public Class FormDisplayCacheLayouts
         ''Added 1/25/2022 thomas downes
         ''
         Dim strPathToBadgeLayoutJPG As String ''Added 1/5/2022 td 
+        Dim boolJpegConfirmed As Boolean ''Added 1/25/2022 td
+
         strPathToBadgeLayoutJPG = Me.PathToElementsCacheXML.Replace(".xml", ".jpg")
+        boolJpegConfirmed = IO.File.Exists(strPathToBadgeLayoutJPG)
 
-        Dim picturePreviewPrior As New PictureBox
-        With picturePreviewPrior
-            .Width = CInt(0.9 * FlowLayoutPanelPriorLays.Width)
-            ''Jan25 2022 td''.Height = CInt(.Width *
-            ''       ciLayoutPrintLib.LayoutPrint.ShortSideToLongSideRatio_point63())
-            .Height = CInt(.Width * ciBadgeInterfaces.ShortSideToLongSideRatio_WH_63())
-            .ImageLocation = strPathToBadgeLayoutJPG
-            .Tag = pstrPriorXMLFile
-            .SizeMode = PictureBoxSizeMode.Zoom
-        End With
+        If (boolJpegConfirmed) Then
+            Dim picturePreviewPrior As New PictureBox
+            With picturePreviewPrior
+                .Width = CInt(0.6 * FlowLayoutPanelPriorLays.Width)
+                ''Jan25 2022 td''.Height = CInt(.Width *
+                ''       ciLayoutPrintLib.LayoutPrint.ShortSideToLongSideRatio_point63())
+                .Height = CInt(.Width * ciBadgeInterfaces.ShortSideToLongSideRatio_HW_63())
+                .ImageLocation = strPathToBadgeLayoutJPG
+                .Tag = pstrPriorXMLFile
+                .SizeMode = PictureBoxSizeMode.Zoom
+            End With ''ENd of "With picturePreviewPrior"
 
-        AddHandler picturePreviewPrior.Click, AddressOf HandlePriorLayoutPictureBox_Click
-        FlowLayoutPanelPriorLays.Controls.Add(picturePreviewPrior)
+            AddHandler picturePreviewPrior.Click, AddressOf HandlePriorLayoutPictureBox_Click
+            FlowLayoutPanelPriorLays.Controls.Add(picturePreviewPrior)
+            picturePreviewPrior.Visible = True
+
+        End If ''End of "If (boolJpegConfirmed) Then"
 
     End Sub ''End of "Private Sub LoadPriorLayoutPictureBox(strPriorXMLFile1)"
 
@@ -92,6 +107,7 @@ Public Class FormDisplayCacheLayouts
         Dim strPathToBadgeLayoutJPG As String ''Added 1/5/2022 td 
 
         LabelFullPathToXML.Text = Me.PathToElementsCacheXML
+        textboxPathToCacheXmlFile.Text = Me.PathToElementsCacheXML ''Added 1/25/2022 td
 
         ''Double-check the proportions are correct. ---9/6/2019 td
         ''ClassLabelToImage.ProportionsAreSlightlyOff(pictureBackgroundFront, True)
@@ -100,7 +116,8 @@ Public Class FormDisplayCacheLayouts
         ClassLabelToImage.ProportionsAreSlightlyOff(picturePreviewFront, True) ''Added Dec. 20 2021
 
         ''Added 12/20/2021 thomas downes
-        CheckingXmlFile_IsOkay(LabelFullPathToXML, LabelWarningMessage)
+        ''Jan25 2022 td''CheckingXmlFile_IsOkay(LabelFullPathToXML, LabelWarningMessage)
+        CheckingXmlFile_IsOkay(Me.PathToElementsCacheXML, LabelWarningMessage)
 
         ''Added 12/26/2021 thomas downes
         If (LabelWarningMessage.Visible = False) Then
@@ -124,11 +141,16 @@ Public Class FormDisplayCacheLayouts
         ''Added 1/25/2022 thomas d. 
         Dim strPriorXMLFile1 As String = Me.PathToElementsCacheXML_Prior1
         Dim strPriorXMLFile2 As String = Me.PathToElementsCacheXML_Prior2
+        Dim strPriorXMLFile3 As String = Me.PathToElementsCacheXML_Prior3
+        Dim strPriorXMLFile4 As String = Me.PathToElementsCacheXML_Prior4
 
         ''Added 1/25/2022 thomas d. 
         FlowLayoutPanelPriorLays.Controls.Clear()
+        ''Added 1/25/2022 thomas d. 
         LoadPriorLayoutPictureBox(strPriorXMLFile1)
         LoadPriorLayoutPictureBox(strPriorXMLFile2)
+        LoadPriorLayoutPictureBox(strPriorXMLFile3)
+        LoadPriorLayoutPictureBox(strPriorXMLFile4)
 
     End Sub ''edn of "Public Sub Form_Load"
 
@@ -148,8 +170,15 @@ Public Class FormDisplayCacheLayouts
         ''    LabelWarningMessage.Visible = True
         ''End If ''End of "If (boolCheckingFile_OK) Then .... Else ....
 
-        bCheckingFile_OK = (CheckingXmlFile_IsOkay(LabelFullPathToXML, LabelWarningMessage))
-        If (bCheckingFile_OK) Then Me.Close()
+        Dim strPathToXML As String = ""
+        strPathToXML = textboxPathToCacheXmlFile.Text
+
+        ''Jan25 2022 td''bCheckingFile_OK = (CheckingXmlFile_IsOkay(LabelFullPathToXML, LabelWarningMessage))
+        bCheckingFile_OK = (CheckingXmlFile_IsOkay(strPathToXML, LabelWarningMessage))
+        If (bCheckingFile_OK) Then
+            Startup.SaveFullPathToFileXML(strPathToXML)
+            Me.Close()
+        End If ''Endo f "If (bCheckingFile_OK) Then"
 
     End Sub
 
@@ -193,9 +222,11 @@ Public Class FormDisplayCacheLayouts
         ''Added 1/5/2022 thomas d.
         ''Jan5 2022 t. downes''My.Settings.PathToXML_Saved_ElementsCache = strPathToXML
         ''Jan5 2022 t. downes''My.Settings.Save()
-        Startup.SaveFullPathToFileXML(strPathToXML)
 
-        Me.Close()
+        ''Jan25 2022 td''Startup.SaveFullPathToFileXML(strPathToXML)
+        ''Jan25 2022 td''Me.Close()
+
+        textboxPathToCacheXmlFile.Text = strPathToXML
 
     End Sub
 
