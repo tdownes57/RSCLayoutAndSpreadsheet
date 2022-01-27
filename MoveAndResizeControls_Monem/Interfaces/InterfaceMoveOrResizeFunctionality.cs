@@ -22,7 +22,7 @@ namespace MoveAndResizeControls_Monem //.Interfaces
         //                          InterfaceMoveEvents par_events, bool pbSetBreakpoint_AfterMove,
         //                          ISaveToModel par_iSave, bool pbRemoveAnyHandlers = false, 
         //                          bool pbHookUpEventHandlers = true, float par_proportionWH = 0);
-        void Init(PictureBox par_pictureBox, Control par_container, int par_margin, bool pbRepaintAfterResize,
+        void Init_V1(PictureBox par_pictureBox, Control par_container, int par_margin, bool pbRepaintAfterResize,
                                   InterfaceMoveEvents par_eventsGroupOfCtls, 
                                   InterfaceMoveEvents par_eventsSingleCtl,
                                   bool pbSetBreakpoint_AfterMove,
@@ -30,6 +30,19 @@ namespace MoveAndResizeControls_Monem //.Interfaces
                                   bool pbHookUpEventHandlers = true, 
                                   bool pbResizeViaProportionWH = false,
                                   float par_proportionWH = 0);
+
+        //Added 1/27/2022 thomas downes
+        void Init_V2(PictureBox par_pictureBox, Control par_container, int par_margin, bool pbRepaintAfterResize,
+                          InterfaceMoveEvents par_eventsGroupOfCtls,
+                          InterfaceMoveEvents par_eventsSingleCtl,
+                          bool pbSetBreakpoint_AfterMove,
+                          ISaveToModel par_iSave,
+                          IRefreshElementImage par_iRefreshImage,
+                          IRefreshCardPreview par_iRefreshPreview,
+                          bool pbRemoveAnyHandlers = false,
+                          bool pbHookUpEventHandlers = true,
+                          bool pbResizeViaProportionWH = false,
+                          float par_proportionWH = 0);
 
         bool NowInMotion(); //Added 1/10/2022 td
 
@@ -66,7 +79,12 @@ namespace MoveAndResizeControls_Monem //.Interfaces
         // Added 1/4/2022 thomas downes
         void StartMovingOrResizing(Control control, MouseEventArgs e);
         void MoveParentControl(Control par_controlParent, MouseEventArgs e);
-        void StopDragOrResizing(Control par_control, ISaveToModel par_iSave);
+        void StopDragOrResizingV1(Control par_control, ISaveToModel par_iSave);
+
+        //Added 1/27/2022 thomas downes
+        void StopDragOrResizingV2(Control par_control, ISaveToModel par_iSave,
+            IRefreshElementImage par_iRefreshElemImage = null,
+            IRefreshCardPreview par_iRefreshCardPreview = null);
 
     }
 }

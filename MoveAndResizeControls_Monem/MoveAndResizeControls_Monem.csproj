@@ -60,6 +60,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="yyyyyyClass1.cs" />
+    <Compile Include="zzzzzzClass1.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="FormContainerVsPicture.resx">

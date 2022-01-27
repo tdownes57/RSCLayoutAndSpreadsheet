@@ -771,8 +771,9 @@ Public Class RSCMoveableControlVB
             ''Jan11 2022''mod_moveInAGroup.Init(objPictureBox, Me, 10, c_bRepaintAfterResize,
 
             ''Jan11 2022 td''Const c_intMarginForResize As Integer = 10 ''Added 1/12/2022
+            ''Jan27 2022 td  ''mod_moveability_Monem.Init(objPictureBox, Me,
 
-            mod_moveability_Monem.Init(objPictureBox, Me,
+            mod_moveability_Monem.Init_V1(objPictureBox, Me,
                                        mc_intMarginForResize,
                                        c_bRepaintAfterResize,
                                             par_objMoveEventsForGroupMove,
