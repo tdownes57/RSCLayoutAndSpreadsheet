@@ -27,6 +27,9 @@ Namespace ciBadgeCachePersonality
         ''Jan19 2022 td''Function HeightAnyRSCMoveableControl() As Integer ''Added 1/18/2022 thomas d
         Function SizeAnyRSCMoveableControl() As System.Drawing.Size ''Added 1/19/2022 thomas d
 
+        ''Added 1/26/2022 thomas downes
+        Sub ProceedToBackSide_SetupBacksideLabels()
+
     End Interface
 
 End Namespace

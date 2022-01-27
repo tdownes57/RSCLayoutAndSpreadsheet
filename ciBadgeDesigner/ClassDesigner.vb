@@ -43,6 +43,7 @@ Public Class ClassDesigner
     Private mod_designerListener As ClassDesignerEventListener
     Public LetEventListenerAddMoveability As Boolean = False ''1/5/2022 td''True ''Added 12/23/2021 td  
     Public LetBaseControlAddMoveability As Boolean = True ''True. See __RSC WindowsControlLibrary\RSCMoveableControlVB.  ---Added 1/05/2022 td  
+    Public StartWithBacksideOfCard As Boolean ''Added 1/26/2022 td
 
     ''Added 12/8/2021 thomas downes
     ''---Private mod_enumSideOfCard As EnumWhichSideOfCard = EnumWhichSideOfCard.EnumFrontside ''Added 12/8/2021 Thomas downes  
@@ -423,12 +424,16 @@ Public Class ClassDesigner
 
 
     Public Sub LoadDesigner(pstrWhyCalled As String,
-                            par_oMoveEvents As GroupMoveEvents_Singleton) ''10/1/2019 td''sender As Object, e As EventArgs) Handles MyBase.Load
+                            par_oMoveEvents As GroupMoveEvents_Singleton,
+                            Optional pbStartWithBackside As Boolean = False) ''10/1/2019 td''sender As Object, e As EventArgs) Handles MyBase.Load
         ''10/1/2019 td''Private Sub Form_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
         ''Added 7/18/2019 thomas downes 
         ''
         ''Moved below.  9/20 td''Initiate_RubberbandSelector() ''Added 9/8/2019 thomas d. 
+
+        ''Added 1/26/2022 thomas downes
+        If (pbStartWithBackside) Then EnumSideOfCard_Current = EnumWhichSideOfCard.EnumBackside
 
         mod_oGroupMoveEvents = par_oMoveEvents ''Added 1/4/2022 td
 
@@ -775,6 +780,12 @@ Public Class ClassDesigner
         If (Not ShowingTheBackside()) Then Me.BackgroundBox_Front.SendToBack()
         If (ShowingTheBackside()) Then Me.BackgroundBox_Backside.SendToBack()
         Me.BackgroundBox_JustAButton.SendToBack() ''Added 1/21/2022 td
+
+        ''Added 1/26/2022 td
+        If (pbStartWithBackside) Then
+            ''Added 1/26/2022 td
+            Me.DesignerForm_Interface.ProceedToBackSide_SetupBacksideLabels()
+        End If ''End of "If (pbStartWithBackside) Then"
 
     End Sub ''End of "Public Sub LoadDesigner"
 

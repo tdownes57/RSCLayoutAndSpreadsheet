@@ -29,6 +29,7 @@ Public Class Form__Main_Demo
     ''Added 7/18/2019 Thomas DOWNES
     ''
     Public Property LetsRefresh_CloseForm As Boolean ''Added 10/13/2019 td  
+    Public Property LetsRefresh_CardBackside As Boolean ''Added 1/26/2022 td  
     Public Property NewFileXML As Boolean ''Added 10/13/2019 td
 
     ''1/14/2020 td''Public Property PersonalityCache As ciBadgeCustomer.PersonalityCache_NotInUse ''Added 10/11/2019 td 
@@ -596,7 +597,15 @@ Public Class Form__Main_Demo
             ''Major call !!! 
             ''
             ''Jan4 2022 td''.LoadDesigner("Form__Main_Demo's Form_Load ", mod_oGroupMoveEvents)
-            .LoadDesigner("Form__Main_Demo's Form_Load ", mod_oGroupMoveEvents)
+            ''Jan26 2022 td''.LoadDesigner("Form__Main_Demo's Form_Load ", mod_oGroupMoveEvents)
+
+            .StartWithBacksideOfCard = Me.LetsRefresh_CardBackside ''Added 1/26/2022
+
+            ''
+            ''Major call !!! 
+            ''
+            .LoadDesigner("Form__Main_Demo's Form_Load ", mod_oGroupMoveEvents, Me.LetsRefresh_CardBackside)
+            Me.LetsRefresh_CardBackside = False ''Return to default value. ---1/26/2022
 
         End With ''ENd of "With mod_designer"
 
@@ -945,6 +954,7 @@ Public Class Form__Main_Demo
             ''10/13 td''frm_ToShow.Show()
 
             Me.LetsRefresh_CloseForm = True ''Added 10/13/2019 td
+            Me.LetsRefresh_CardBackside = (Me.mod_designer.ShowingTheBackside()) ''Added 1/26/2022 td
             Me.Close()
             Exit Sub
 
@@ -1191,7 +1201,9 @@ Public Class Form__Main_Demo
             '' #2_11/28/2021 td''mod_designer.LoadDesigner(strWhyCalled)
             '' #2_11/28/2021 td''mod_designer.LoadFieldControls_ByListOfElements(list_elementsNotLoadedYet_Any, True, False, True)
             ''1/5/2022''mod_designer.LoadDesigner(strWhyCalled)
-            mod_designer.LoadDesigner(strWhyCalled, mod_oGroupMoveEvents)
+            ''1/26/2022''mod_designer.LoadDesigner(strWhyCalled, mod_oGroupMoveEvents)
+            mod_designer.StartWithBacksideOfCard = Me.LetsRefresh_CardBackside
+            mod_designer.LoadDesigner(strWhyCalled, mod_oGroupMoveEvents, Me.LetsRefresh_CardBackside)
 
         End If ''End of "If (bSomeDisplayableFieldsAreNotLoaded) Then"
 
@@ -2717,6 +2729,17 @@ ExitHandler:
             Me.ElementsCache_Edits.BadgeHasTwoSidesOfCard = True
         End If ''End of "If (bTwoSidesExist) Then ... Else ..."
 
+        ''
+        ''Encapsulated 1/26/2022 td
+        ''
+        ProceedToBackside()
+
+    End Sub
+
+    Public Sub ProceedToBackside()
+        ''
+        ''Encapsulated 1/26/2022 td
+        ''
         ''Display the text ">>> Show backside of card" 
         ''  instead of ">>> Add backside of card".
         ''  ---12/12/2021 
@@ -2724,6 +2747,7 @@ ExitHandler:
 
         ''Dec.10 2021 thomas downes
         Unload_Designer(False)
+
         pictureBackgroundBackside.Visible = True ''By default, when the form opens, this control is invisible. 
         pictureBackgroundFront.SendToBack()
 
@@ -2745,7 +2769,22 @@ ExitHandler:
             labelBacksideOfBadgecard.Visible = True ''Added 12/10/2021 thomas
         End If ''End of "If (boolSuccess) Then"
 
-    End Sub
+    End Sub ''End of "Public Sub ProceedToBackside()"
+
+
+    Public Sub ProceedToBackSide_SetupBacksideLabels() Implements IDesignerForm.ProceedToBackSide_SetupBacksideLabels
+        ''
+        ''Added 1/26/2022 thomas
+        ''
+        ''Display the text ">>> Show backside of card" 
+        ''  instead of ">>> Add backside of card".
+        ''  ---12/12/2021 
+        labelProceedToBackside.Text = labelProceedToBackside.Tag.ToString()
+        labelProceedToBackside.Visible = False
+        LabelReturnToFrontSide.Visible = True
+        labelBacksideOfBadgecard.Visible = True ''Added 12/10/2021 thomas
+
+    End Sub ''End of  Public Sub ProceedToBackSide_SetupBacksideLabels()
 
 
     Private Sub ExitRecipientModeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitRecipientModeToolStripMenuItem.Click

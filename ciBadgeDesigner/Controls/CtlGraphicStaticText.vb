@@ -181,6 +181,7 @@ Public Class CtlGraphicStaticText
         objOperationsST.Element_Type = ciBadgeInterfaces.Enum_ElementType.StaticText
         ''Added 1/25/2022 td
         objOperationsST.Designer = par_parametersGetElementControl.DesignerClass
+        objOperationsST.LayoutFunctions = par_parametersGetElementControl.DesignerClass
 
         Return CtlStaticText1
 

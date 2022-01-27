@@ -62,7 +62,12 @@ Public Class FormDisplayCacheLayouts
         Dim strPathToBadgeLayoutJPG As String ''Added 1/5/2022 td 
         Dim boolJpegConfirmed As Boolean ''Added 1/25/2022 td
 
-        strPathToBadgeLayoutJPG = Me.PathToElementsCacheXML.Replace(".xml", ".jpg")
+        ''Added 1//26/2022 thomas downes
+        If (pstrPriorXMLFile Is Nothing) Then Exit Sub
+        If (pstrPriorXMLFile = "") Then Exit Sub
+
+        ''Jan26 2022 td''strPathToBadgeLayoutJPG = Me.PathToElementsCacheXML.Replace(".xml", ".jpg")
+        strPathToBadgeLayoutJPG = pstrPriorXMLFile.Replace(".xml", ".jpg")
         boolJpegConfirmed = IO.File.Exists(strPathToBadgeLayoutJPG)
 
         If (boolJpegConfirmed) Then
@@ -86,15 +91,45 @@ Public Class FormDisplayCacheLayouts
     End Sub ''End of "Private Sub LoadPriorLayoutPictureBox(strPriorXMLFile1)"
 
 
+    Public Function CheckPathXML_Okay(pstrPathToXML As String) As Boolean
+        ''
+        '' Added Jan. 26, 2022 thomas d.
+        ''
+        Dim boolXMLConfirmed As Boolean
+        Dim boolJpegConfirmed As Boolean ''Added 1/25/2022 td
+        Dim strPathToBadgeLayoutJPG As String
+
+        strPathToBadgeLayoutJPG = Me.PathToElementsCacheXML.Replace(".xml", ".jpg")
+        boolJpegConfirmed = IO.File.Exists(strPathToBadgeLayoutJPG)
+        boolXMLConfirmed = IO.File.Exists(pstrPathToXML)
+
+        Return (boolXMLConfirmed And boolJpegConfirmed)
+
+    End Function ''Endof "Public Sub CheckPathXML_Okay()"
+
+
     Private Sub HandlePriorLayoutPictureBox_Click(sender As Object, e As EventArgs)
         ''
         ''Added 1/25/2022 thomas downes
         ''
+        Dim objPictureControl As PictureBox
+        Dim objTagObject As Object ''Added 1/26/2022 thomas downes 
         Dim strPathToXML As String
 
-        strPathToXML = CType(sender, PictureBox).Tag.ToString()
+        ''Jan26 2022''strPathToXML = CType(sender, PictureBox).Tag.ToString()
+        objPictureControl = CType(sender, PictureBox)
+        objTagObject = objPictureControl.Tag
+        If (objTagObject Is Nothing) Then
+            ''Added 1/26/2022 td
+            MessageBoxTD.Show_Statement("Sorry, we cannot determine the XML path.")
 
+        Else
+            ''Convert the .Tab object to a string object. 
+            strPathToXML = objTagObject.ToString()
+            textboxPathToCacheXmlFile.Text = strPathToXML
+            objPictureControl.BorderStyle = BorderStyle.FixedSingle
 
+        End If ''End of "If (objTagObject Is Nothing) Then.... Else..."
 
 
     End Sub ''ENd of "Private Sub HandlePriorLayoutPictureBox_Click(sender As Object, e As EventArgs)"
@@ -146,11 +181,12 @@ Public Class FormDisplayCacheLayouts
 
         ''Added 1/25/2022 thomas d. 
         FlowLayoutPanelPriorLays.Controls.Clear()
+
         ''Added 1/25/2022 thomas d. 
-        LoadPriorLayoutPictureBox(strPriorXMLFile1)
-        LoadPriorLayoutPictureBox(strPriorXMLFile2)
-        LoadPriorLayoutPictureBox(strPriorXMLFile3)
-        LoadPriorLayoutPictureBox(strPriorXMLFile4)
+        If (CheckPathXML_Okay(strPriorXMLFile1)) Then LoadPriorLayoutPictureBox(strPriorXMLFile1)
+        If (CheckPathXML_Okay(strPriorXMLFile2)) Then LoadPriorLayoutPictureBox(strPriorXMLFile2)
+        If (CheckPathXML_Okay(strPriorXMLFile3)) Then LoadPriorLayoutPictureBox(strPriorXMLFile3)
+        If (CheckPathXML_Okay(strPriorXMLFile4)) Then LoadPriorLayoutPictureBox(strPriorXMLFile4)
 
     End Sub ''edn of "Public Sub Form_Load"
 

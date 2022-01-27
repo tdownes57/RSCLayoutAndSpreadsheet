@@ -99,19 +99,21 @@ Public Class Operations_Desktop
                                     .iControlLastTouched,
                                     .oMoveEventsGroupedControls)
 
-            ''
-            ''Next, refresh/initiate the control (e.g. size & location & image).  
-            ''
-            ''Not needed, redundant. 1/18/2022 td''objElementControl.Refresh_Image(True)
-            objElementControl.Refresh_Master()
-
-            ''
-            ''Next, display the control.  ----1/18/2022 td
-            ''
-            MyBase.ParentForm.Controls.Add(objElementControl)
-            objElementControl.Visible = True
-
         End With ''End of "With obj_parametersGetElementControl"
+
+        ''
+        ''Next, refresh/initiate the control (e.g. size & location & image).  
+        ''
+        ''Not needed, redundant. 1/18/2022 td''objElementControl.Refresh_Image(True)
+        objElementControl.Refresh_Master()
+
+        ''
+        ''Next, display the control.  ----1/18/2022 td
+        ''
+        MyBase.ParentForm.Controls.Add(objElementControl)
+        objElementControl.Visible = True
+        objElementControl.BringToFront() ''Added 1/26/2022 td
+        MyBase.ParentForm.Refresh() ''Added 1/26/2022 td
 
     End Sub ''End of "Public Sub Create_New_StaticText_Control_GD2001(sender As Object, e As MouseEventArgs)"
 
@@ -259,6 +261,17 @@ Public Class Operations_Desktop
             End With
 
         End With ''End of "With obj_parametersGetElementControl"
+
+        ''
+        ''Next, refresh/initiate the control (e.g. size & location & image).  
+        ''
+        ''Not needed, redundant. 1/18/2022 td''objElementControl.Refresh_Image(True)
+        objElementControl.Refresh_Master()
+
+        ''Added 1/26/2022 Thomas DOWNES 
+        objElementControl.Visible = True
+        objElementControl.BringToFront() ''Added 1/26/2022 td
+        MyBase.ParentForm.Refresh() ''Added 1/26/2022 td
 
     End Sub ''End of "Public Sub Create_New_StaticText_Control_GD2001(sender As Object, e As MouseEventArgs)"
 

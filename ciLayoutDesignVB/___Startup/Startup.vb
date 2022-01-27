@@ -250,11 +250,18 @@ Public Class Startup
             ''Added 10/13/2019 td
             If (Not obj_formToShow.LetsRefresh_CloseForm) Then Exit Do
 
+            ''Added 1/26/2022 thomas d.
+            Dim bRefreshBackside As Boolean ''Added 1/26/2022 thomas d.
+            bRefreshBackside = obj_formToShow.LetsRefresh_CardBackside
+
             ''12/14/2021''obj_cache_layout_Elements = obj_formToShow.ElementsCache_Saved
             obj_cache_layout_Elements = obj_formToShow.ElementsCache_ManageBoth.GetCacheForSaving(True)
 
             GroupMoveEvents_Singleton.CountInstances = 0 ''Refresh to default value. 
             obj_formToShow = New Form__Main_Demo
+
+            ''Added 1/26/2022 td
+            obj_formToShow.LetsRefresh_CardBackside = bRefreshBackside
 
             ''
             ''This is potentially an infinite loop.  Look for "Exit Do". 
