@@ -737,7 +737,8 @@ Public Class CtlGraphicPortrait
     End Sub ''eNd of "Private Sub Rotate90()"
 
 
-    Public Overrides Function Rotated_90_270() As Boolean
+    Public Overrides Function Rotated_90_270(pbCheckRotationIsDone As Boolean,
+                          Optional ByRef pref_bRotationIsDone As Boolean = False) As Boolean
         ''
         ''Added 9/23/2019 thomas d.  
         ''
@@ -751,11 +752,16 @@ Public Class CtlGraphicPortrait
 
             Case 90, 270
 
-                ''Double-check the orientation.  ----9/23/2019 td
-                boolImageRotated_0_180 = (Me.picturePortrait.Image.Width < Me.picturePortrait.Image.Height)
-                If (boolImageRotated_0_180) Then
-                    Throw New Exception("Image dimensions are not expected.")
-                End If ''End of "If (boolImageRotated_0_180) Then"
+                If (pbCheckRotationIsDone) Then ''Added 1/28/2022
+                    ''Double-check the orientation.  ----9/23/2019 td
+                    boolImageRotated_0_180 = (Me.picturePortrait.Image.Width < Me.picturePortrait.Image.Height)
+                    If (boolImageRotated_0_180) Then
+                        ''Jan2022 ''Throw New Exception("Image dimensions are Not expected.")
+                        pref_bRotationIsDone = False ''Added 1/28/2022 
+                    Else
+                        pref_bRotationIsDone = True ''Added 1/28/2022 
+                    End If ''End of "If (boolImageRotated_0_180) Then ... Else .."
+                End If ''End of ""If (pbCheckRotationIsDone) Then""
 
                 Return True
 

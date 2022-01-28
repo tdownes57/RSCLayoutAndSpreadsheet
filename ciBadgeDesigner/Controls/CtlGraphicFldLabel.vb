@@ -564,7 +564,17 @@ ExitHandler:
             boolScaleFontSize = (Me.ElementInfo_TextOnly.FontSize_ScaleToElementYesNo)
             If (boolScaleFontSize) Then
                 ''Added 9/15/2019 thomas d.
-                Me.ElementClass_Obj.Font_ScaleAdjustment(Me.ElementInfo_Base.Height_Pixels)
+                ''Jan28 2022''Me.ElementClass_Obj.Font_ScaleAdjustment(Me.ElementInfo_Base.Height_Pixels)
+                ''Added 9/15/2019 thomas d.
+                With Me.ElementInfo_Base ''Added 1/28/2022 td
+                    If (Rotated_90_270(False) Or (.Width_Pixels < .Height_Pixels)) Then ''Added 1/28/2022 td
+                        ''Use .Width_Pixels, since .Height_Pixels & .Width_Pixels
+                        ''   have been switched due to rotation. ----1/28/2022 td
+                        Me.ElementClass_Obj.Font_ScaleAdjustment(.Width_Pixels)
+                    Else
+                        Me.ElementClass_Obj.Font_ScaleAdjustment(.Height_Pixels)
+                    End If ''End of "If (Rotated_90_270()) Then ... Else ..."
+                End With ''End of "With Me.ElementInfo_Base"
             End If ''End of "If (boolScaleFontSize) Then"
 
         End If ''end if "If (pbRefreshSize) then"
@@ -668,25 +678,55 @@ ExitHandler:
                 ''
                 ''9/20/2019 td''pictureLabel.Width = pictureLabel.Image.Width
                 ''9/20/2019 td''pictureLabel.Height = pictureLabel.Image.Height
-                pictureLabel.Width = intNewImageWidth ''Straightforward.   No reversal is needed here, despite the rotation. ---9/20 td
-                Application.DoEvents()
-                pictureLabel.Height = intNewImageHeight ''Straightforward.   No reversal is needed here, despite the rotation. ---9/20 td 
-                Application.DoEvents()
-                pictureLabel.Invalidate() ''Forces it to be repainted.  
 
-                Me.Height = pictureLabel.Height
-                Application.DoEvents()
-                Me.Width = pictureLabel.Width
+                Dim bPictureBoxSizeIsReadOnly As Boolean ''Added 1/28/2022 td 
+                bPictureBoxSizeIsReadOnly = (pictureLabel.Dock = DockStyle.Fill) ''Added 1/28/2022 td
+
+                If (bPictureBoxSizeIsReadOnly) Then ''Added 1/28/2022 td
+                    ''
+                    ''PictureBox.Dock = "Fill", so trying to directly adjust the size of the PictureBox
+                    ''  will likely have __ZERO__ effect, as the size of the PictureBox is controlled
+                    ''  by the size of the UserControl.  ----1/28/2022 td 
+                    ''
+                    ''------DIFFICULT & CONFUSING / POINTLESS PROGRAMMING !!!-----------------
+                    pictureLabel.Width = intNewImageWidth ''This will --NOT-- work as expected. --Jan2022
+                    pictureLabel.Height = intNewImageHeight ''This will --NOT-- work as expected. --Jan2022 
+                    ''------End of "DIFFICULT & CONFUSING / POINTLESS PROGRAMMING !!!"-------
+
+                Else
+                    pictureLabel.Width = intNewImageWidth ''Straightforward.   No reversal is needed here, despite the rotation. ---9/20 td
+                    Application.DoEvents()
+                    pictureLabel.Height = intNewImageHeight ''Straightforward.   No reversal is needed here, despite the rotation. ---9/20 td 
+                    Application.DoEvents()
+
+                End If ''End of "If (bPictureBoxSizeIsReadOnly) Then .... Else ...."
+
+                pictureLabel.Invalidate() ''Forces it to be repainted.---Reinstated 1/28/2022 td
+
+                If (bPictureBoxSizeIsReadOnly) Then
+                    ''Since the PictureBox.Dock property is set to "Fill", we need to reference 
+                    ''  the Integer variables rather than the PictureLabel properties. ---1/28/2022
+                    Me.Height = intNewImageHeight ''Jan28 2022 td''pictureLabel.Height
+                    Application.DoEvents()
+                    Me.Width = intNewImageWidth ''Jan28 2022 td''pictureLabel.Width
+                Else
+                    Me.Height = pictureLabel.Height
+                    Application.DoEvents()
+                    Me.Width = pictureLabel.Width
+
+                End If ''End of "If (bPictureBoxSizeIsReadOnly) Then... Else ...."
+
             Else
                 ''
                 ''Adjust the controls to the image size. ---9/3/2019 td 
                 ''
                 ''9/20/2019 td''pictureLabel.Width = pictureLabel.Image.Width
                 ''9/20/2019 td''pictureLabel.Height = pictureLabel.Image.Height
-                pictureLabel.Width = intNewImageWidth
+                pictureLabel.Width = intNewImageWidth ''Straightforward.   No reversal is needed here, despite the rotation. ---9/20 td
                 Application.DoEvents()
-                pictureLabel.Height = intNewImageHeight
+                pictureLabel.Height = intNewImageHeight ''Straightforward.   No reversal is needed here, despite the rotation. ---9/20 td 
                 Application.DoEvents()
+
                 Me.Height = pictureLabel.Height
                 Application.DoEvents()
                 Me.Width = pictureLabel.Width
@@ -768,7 +808,7 @@ ExitHandler:
             Me.ElementInfo_Base.Width_Pixels = Me.Width
             Me.ElementInfo_Base.Height_Pixels = Me.Height
 
-        ElseIf (Me.Rotated_90_270()) Then
+        ElseIf (Me.Rotated_90_270(False)) Then
             ''
             ''-------DIFFICULT/CONFUSING-----
             ''This is rotated, so let's pull a switcheroo. 
@@ -827,7 +867,9 @@ ExitHandler:
     End Sub ''End of Public Sub SaveToModel
 
 
-    Public Overrides Function Rotated_90_270() As Boolean
+    Public Overrides Function Rotated_90_270(pbCheckRotationIsDone As Boolean,
+                          Optional ByRef pref_bRotationIsDone As Boolean = False) As Boolean
+        ''Jan2022 ''Public Overrides Function Rotated_90_270() As Boolean
         ''
         ''Added 9/23/2019 thomas d.  
         ''
@@ -841,11 +883,16 @@ ExitHandler:
 
             Case 90, 270
 
-                ''Double-check the orientation.  ----9/23/2019 td
-                boolTextImageRotated_0_180 = (Me.pictureLabel.Image.Width > Me.pictureLabel.Image.Height)
-                If (boolTextImageRotated_0_180) Then
-                    Throw New Exception("Image dimensions are Not expected.")
-                End If ''End of "If (boolImageRotated_0_180) Then"
+                If (pbCheckRotationIsDone) Then
+                    ''Double-check the orientation.  ----9/23/2019 td
+                    boolTextImageRotated_0_180 = (Me.pictureLabel.Image.Width > Me.pictureLabel.Image.Height)
+                    If (boolTextImageRotated_0_180) Then
+                        ''Jan2022 ''Throw New Exception("Image dimensions are Not expected.")
+                        pref_bRotationIsDone = False ''Added 1/28/2022 
+                    Else
+                        pref_bRotationIsDone = True ''Added 1/28/2022 
+                    End If ''End of "If (boolImageRotated_0_180) Then ... Else .."
+                End If ''End of ""If (pbCheckRotationIsDone) Then""
 
                 Return True
 
@@ -1081,7 +1128,7 @@ ExitHandler:
             Me.ElementInfo_Base.Width_Pixels = Me.Width
             Me.ElementInfo_Base.Height_Pixels = Me.Height
 
-        ElseIf (Me.Rotated_90_270) Then
+        ElseIf (Me.Rotated_90_270(False)) Then
             ''---DIFFICULT & CONFUSING---
             ''   It's rotated to 90 or 270 degrees, so let's 
             ''   pull a "switcheroo" on the Width & Height. 

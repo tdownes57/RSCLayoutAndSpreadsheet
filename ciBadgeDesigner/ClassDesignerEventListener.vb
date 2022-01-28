@@ -451,8 +451,10 @@ Public Class ClassDesignerEventListener
         ''
         ''8/5/2019 thomas downes
         ''
-        Dim objControlBeingMoved As Control ''Added 11/29/2021  
-        objControlBeingMoved = mod_designer.ControlBeingMoved
+        ''Jan28 2022''Dim objControlBeingMoved As Control ''Added 11/29/2021  
+        ''Jan28 2022''objControlBeingMoved = mod_designer.ControlBeingMoved
+        Dim objRSCControlBeingMoved As RSCMoveableControlVB ''Modified 1/28/2022  
+        objRSCControlBeingMoved = CType(mod_designer.ControlBeingMoved, RSCMoveableControlVB)
 
         ''Jan11 2022''If (TypeOf objControlBeingMoved Is CtlGraphicFldLabel) Then
 
@@ -460,7 +462,10 @@ Public Class ClassDesignerEventListener
 
         If (c_bCheckThatControlIsGrouped) Then ''8/5/2019 thomas downes
             ''9/9 td''bControlMovedIsInGroup = LabelsList_IsItemIncluded(ControlBeingMoved)
-            bControlMovedIsInGroup = mod_designer.ElementsList_IsItemIncluded(CType(objControlBeingMoved, CtlGraphicFldLabel))
+            ''Jan28 2022''bControlMovedIsInGroup = mod_designer
+            ''Jan28 2022''    .ElementsList_IsItemIncluded(CType(objControlBeingMoved, CtlGraphicFldLabel))
+            bControlMovedIsInGroup = mod_designer.ElementsList_IsItemIncluded(objRSCControlBeingMoved)
+
             If (Not bControlMovedIsInGroup) Then Exit Sub
 
         End If ''End of "If (c_bCheckThatControlIsGrouped) Then"
@@ -483,7 +488,8 @@ Public Class ClassDesignerEventListener
         Dim list_SelectedCtls As HashSet(Of RSCMoveableControlVB) ''Added 11/29/2021 td
         list_SelectedCtls = mod_designer.mod_selectedCtls ''Added 11/29/2021 td
 
-        For Each each_control As CtlGraphicFldLabel In list_SelectedCtls '' mod_selectedCtls
+        ''jAN 28 2022''For Each each_control As CtlGraphicFldLabel In list_SelectedCtls
+        For Each each_control As RSCMoveableControlVB In list_SelectedCtls '' mod_selectedCtls
 
             ''Don't re-move the control being directly moved...!! 
             ''  Causes ugly screen flicker!!
@@ -626,7 +632,7 @@ Public Class ClassDesignerEventListener
                     .ElementInfo_Base.Width_Pixels = .Width
                     .ElementInfo_Base.Height_Pixels = .Height
 
-                ElseIf (.Rotated_90_270) Then
+                ElseIf (.Rotated_90_270(False)) Then
                     ''
                     ''---- POTENTIALLY CONFUSING -----
                     ''Switch them up !!  

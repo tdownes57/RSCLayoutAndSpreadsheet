@@ -13,6 +13,7 @@ Imports ciBadgeElements ''added 1/22/2022
 ''
 Public Class RSCMoveableControlVB
     Implements ISaveToModel ''Added 1/2/2022 td 
+    Implements IRefreshElementImage ''Added 1/28/2022 td
 
     ''Jan12 2022 td ''Public MustInherit Class RSCMoveableControlVB
     ''Jan12 2022 td''Implements IElement_Base ''Added 1/12/2022 td
@@ -841,12 +842,16 @@ Public Class RSCMoveableControlVB
         ''1/11/2022 td''mod_moveResizeKeepRatio.Init(par_objPictureBox, Me, 10, par_bRepaintAfterResize,
 
         ''Jan11 2022''Const c_intMarginForResize As Integer = 10 ''Added 1/12/2022
+        ''Jan27 2022 ''mod_moveability_Monem.Init(par_objPictureBox, Me, mc_intMarginForResize,
 
-        mod_moveability_Monem.Init(par_objPictureBox, Me, mc_intMarginForResize,
+        Const c_bReverseInitiation_False As Boolean = False ''Added 1/27/2022 td
+
+        mod_moveability_Monem.Init_V1(par_objPictureBox, Me, mc_intMarginForResize,
                                             par_bRepaintAfterResize,
                                             mod_eventsForGroupMove_NotNeeded,
                                             mod_eventsForSingleMove,
-                                            False, Me, False,
+                                            False, CType(Me, ISaveToModel),
+                                            c_bReverseInitiation_False,
                                             mod_bHandleMouseMoveEvents_Monem,
                                             True, singleProportionWH)
 
@@ -1504,10 +1509,17 @@ Public Class RSCMoveableControlVB
             ''
             ''--MyBase.MoveableControl_MouseUp(par_sender, par_e)
             Dim info_SaveToModel As ISaveToModel ''Added 1/14/2022 td
+            Dim info_RefreshElementImage As IRefreshElementImage ''Added 1/28/2022 td
+            Dim info_RefreshCardPreview As IRefreshCardPreview ''Added 1/28/2022 td
             Dim objCTLGraphicOrRSCMoveable As Control ''Added 1/14/2022
 
             ''Added 1/14/2022
             info_SaveToModel = CType(Me, ISaveToModel)
+
+            ''Added 1/14/2022
+            info_RefreshElementImage = CType(Me, IRefreshElementImage)
+            info_RefreshCardPreview = CType(Me, IRefreshCardPreview)
+
             If (TypeOf par_sender Is PictureBox) Then
                 objCTLGraphicOrRSCMoveable = Me
             Else
@@ -1516,7 +1528,12 @@ Public Class RSCMoveableControlVB
 
             ''Jan14 2022 td''mod_iMoveOrResizeFunctionality.StopDragOrResizing(CType(par_sender, Control), Me)
             ''   Let's don't use par_sender here, since it could be a PictureBox. ---1/11/2022 td
-            mod_iMoveOrResizeFunctionality.StopDragOrResizing(objCTLGraphicOrRSCMoveable, info_SaveToModel)
+            ''Jan27 2022 td ''mod_iMoveOrResizeFunctionality.StopDragOrResizing(objCTLGraphicOrRSCMoveable, info_SaveToModel)
+            ''Jan28 2022 td ''mod_iMoveOrResizeFunctionality.StopDragOrResizingV1(objCTLGraphicOrRSCMoveable, info_SaveToModel)
+            mod_iMoveOrResizeFunctionality.StopDragOrResizingV2(objCTLGraphicOrRSCMoveable,
+                                                                info_SaveToModel,
+                                                                info_RefreshElementImage,
+                                                                info_RefreshCardPreview)
 
 
         ElseIf (par_e.Button = MouseButtons.Right) Then
@@ -1580,7 +1597,8 @@ Public Class RSCMoveableControlVB
     End Function
 
 
-    Public Overridable Function Rotated_90_270() As Boolean ''Added 1/12/2022 td
+    Public Overridable Function Rotated_90_270(pbCheckRotationIsDone As Boolean,
+                          Optional ByRef pref_bRotationIsDone As Boolean = False) As Boolean ''Added 1/12/2022 td
         ''Added 1/12/2022 td
         Return False
 
@@ -1615,6 +1633,14 @@ Public Class RSCMoveableControlVB
 
     End Sub ''End of "Public Overridable Sub Refresh_PositionAndSize()"
 
+
+    Public Sub RefreshElementImage() Implements IRefreshElementImage.RefreshElementImage
+        ''
+        ''Added 1/28/2022 td
+        ''
+        Refresh_Image(True)
+
+    End Sub ''end of "Public Sub RefreshElementImage()"
 
     Public Overridable Sub Refresh_Image(pbRefreshSize As Boolean,
                              Optional pboolResizePictureControl As Boolean = True,

@@ -104,9 +104,9 @@ Partial Class CtlGraphicStaticText
         Throw New NotImplementedException()
     End Function
 
-    Public Overrides Function Rotated_90_270() As Boolean
-        Throw New NotImplementedException()
-    End Function
+    ''Jan28 2022 td''Public Overrides Function Rotated_90_270() As Boolean
+    ''Jan28 2022 td''    Throw New NotImplementedException()
+    ''Jan28 2022 td''End Function
 
     Friend WithEvents pictureLabel As PictureBox
     Friend WithEvents FontDialog1 As FontDialog

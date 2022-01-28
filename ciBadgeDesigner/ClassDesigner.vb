@@ -2616,6 +2616,7 @@ Public Class ClassDesigner
 
                 ''1/12/2022''mod_ElementLastTouched = CType(value, Control) ''Added 9/14 
                 mod_ElementLastTouched = CType(value, RSCMoveableControlVB) ''Modified 1/12/2022 ''Added 9/14 
+                mod_RSCControlLastTouched = CType(value, RSCMoveableControlVB) ''Added 1/28/2022 td
                 mod_ControlLastTouched = value ''Added 8/1/2019 
                 ''Added 12/21/2021 td
                 mod_IMoveableElementLastTouched = Nothing
@@ -2628,6 +2629,8 @@ Public Class ClassDesigner
                 mod_ControlLastTouched = value
                 ''1/12/2022 td''mod_ElementLastTouched = CType(value, Control)
                 mod_ElementLastTouched = CType(value, RSCMoveableControlVB)
+                mod_RSCControlLastTouched = CType(value, RSCMoveableControlVB) ''Added 1/28/2022 td
+
             End Try
         End Set
     End Property ''End of "Public Property ControlBeingMoved() As Control Implements ILayoutFunctions.ControlBeingMoved"
@@ -2645,6 +2648,8 @@ Public Class ClassDesigner
             ''Added 8/9/2019 td
             mod_ControlLastTouched = value ''Added 8/12/2019 td
             mod_ElementLastTouched = CType(value, RSCMoveableControlVB) ''Modified 1/12/2022 Added 9/14/2019 td
+            mod_RSCControlLastTouched = CType(value, RSCMoveableControlVB) ''Added 1/28/2022 td
+
             Try
                 ''9/9/2019 td''mod_FieldControlLastTouched = value
                 mod_RSCControlLastTouched = CType(value, CtlGraphicFldLabel)
@@ -2757,12 +2762,16 @@ Public Class ClassDesigner
         ''
         ''8/5/2019 thomas downes
         ''
+        Dim rscControlBeingMoved As RSCMoveableControlVB ''Added 1/28/2022 td
+        rscControlBeingMoved = CType(ControlBeingMoved, RSCMoveableControlVB)
+
         ''Jan11 2022 ''If (TypeOf ControlBeingMoved Is CtlGraphicFldLabel) Then
         Const c_bCheckThatControlIsGrouped As Boolean = True ''8/5/2019 thomas downes
 
         If (c_bCheckThatControlIsGrouped) Then ''8/5/2019 thomas downes
             ''9/9 td''bControlMovedIsInGroup = LabelsList_IsItemIncluded(ControlBeingMoved)
-            bControlMovedIsInGroup = ElementsList_IsItemIncluded(CType(ControlBeingMoved, CtlGraphicFldLabel))
+            ''1/28/2022 TD''bControlMovedIsInGroup = ElementsList_IsItemIncluded(CType(ControlBeingMoved, CtlGraphicFldLabel))
+            bControlMovedIsInGroup = ElementsList_IsItemIncluded(rscControlBeingMoved)
             If (Not bControlMovedIsInGroup) Then Exit Sub
 
         End If ''End of "If (c_bCheckThatControlIsGrouped) Then"
@@ -2858,8 +2867,8 @@ Public Class ClassDesigner
         ''
         ''Added 8/5/2019 thomas downes  
         ''
-
-        For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
+        ''Jan28 2022 td''For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
+        For Each each_control As RSCMoveableControlVB In mod_selectedCtls
 
             ''Added 9/11/2019 td  
             If (mc_bAddBorderOnlyWhileResizing) Then
@@ -2880,11 +2889,16 @@ Public Class ClassDesigner
         ''
         ''9/14/2019 td''If (mod_ElementLastTouched = mod_FieldControlLastTouched) Then
 
-        Dim boolResizedAFieldCtl As Boolean ''Added 9/14/2019 td
-        boolResizedAFieldCtl = (TypeOf mod_ControlLastTouched Is CtlGraphicFldLabel)
+        ''Jan2022 ''Dim boolResizedAFieldCtl As Boolean ''Added 9/14/2019 td
+        ''Jan2022 ''boolResizedAFieldCtl = (TypeOf mod_ControlLastTouched Is CtlGraphicFldLabel)
+
+        Dim boolResizedATextCtl As Boolean ''Added 1/28/2022 td
+        boolResizedATextCtl = (TypeOf mod_ControlLastTouched Is CtlGraphicFldLabel) Or
+                              (TypeOf mod_ControlLastTouched Is CtlGraphicStaticText)
 
         ''10/13/2019 td''If (boolResizedAFieldCtl) Then ''Added 9/14/2019 td
-        If ((Not mc_boolMoveGrowInUnison) And boolResizedAFieldCtl) Then ''Added 9/14/2019 td
+        ''1/28/2022 td''If ((Not mc_boolMoveGrowInUnison) And boolResizedAFieldCtl) Then ''Added 9/14/2019 td
+        If ((Not mc_boolMoveGrowInUnison) And boolResizedATextCtl) Then ''Added 9/14/2019 td
 
             With mod_RSCControlLastTouched
 
@@ -2894,7 +2908,7 @@ Public Class ClassDesigner
                 ElseIf (.Rotated_180_360) Then
                     .ElementInfo_Base.Width_Pixels = mod_RSCControlLastTouched.Width
                     .ElementInfo_Base.Height_Pixels = mod_RSCControlLastTouched.Height
-                ElseIf (.Rotated_90_270) Then
+                ElseIf (.Rotated_90_270(False)) Then
                     ''
                     ''---- POTENTIALLY CONFUSING -----
                     ''Switch them up !!  

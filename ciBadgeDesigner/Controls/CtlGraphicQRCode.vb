@@ -706,7 +706,8 @@ Public Class CtlGraphicQRCode
 
     End Sub ''eNd of "Private Sub Rotate90()"
 
-    Public Overrides Function Rotated_90_270() As Boolean
+    Public Overrides Function Rotated_90_270(pbCheckRotationIsDone As Boolean,
+                          Optional ByRef pref_bRotationIsDone As Boolean = False) As Boolean
         ''
         ''Added 9/23/2019 thomas d.  
         ''

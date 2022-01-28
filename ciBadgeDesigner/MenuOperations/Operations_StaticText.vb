@@ -67,6 +67,9 @@ Public Class Operations_StaticText
         objControlStaticText.SaveToModel()
         objControlStaticText.Refresh_Image(False)
 
+        ''Added 1/28//2022 td 
+        Me.Designer.AutoPreview_IfChecked(Me.CtlCurrentElement)
+
     End Sub ''end of "Public Sub Revise_Text_Of_Element_EST1050"
 
 
@@ -186,8 +189,15 @@ Public Class Operations_StaticText
         ''   to clickable LinkLabels.
         ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
         ''
+        Dim objElementStaticText As ciBadgeElements.ClassElementStaticText
+        Dim objControlStaticText As CtlGraphicStaticText
+
+        objControlStaticText = CType(Me.CtlCurrentElement, CtlGraphicStaticText)
+        objElementStaticText = objControlStaticText.Element_StaticText
+
         ''Jan24 2022 td''With Me.CtlCurrentElementField.ElementInfo_Base
-        With Me.CtlCurrentElement.ElementInfo_Base
+        ''Jan28 2022 td''With Me.CtlCurrentElement.ElementInfo_Base
+        With objElementStaticText
 
             Select Case .OrientationToLayout
                 Case "", " ", "P"
@@ -206,6 +216,13 @@ Public Class Operations_StaticText
             ''
             .OrientationInDegrees += 90
 
+            ''Added 1/28/2022 td
+            If (180 <= .OrientationInDegrees) Then
+                ''This will make things a lot simpler & easier to debug!!!! 
+                ''  ----1/28/2022 td
+                .OrientationInDegrees = 0
+            End If ''End of "If (180 <= .OrientationInDegrees) Then"
+
             ''Added 9/23/2019 td
             If (360 <= .OrientationInDegrees) Then
                 ''Remove 360 degrees (the full circle) from the 
@@ -223,11 +240,24 @@ Public Class Operations_StaticText
         '' 9/23 td''Me.Refresh()
         ''10/17/2019 td''Me.Refresh_Master()
         ''1/24/2022 td''Me.CtlCurrentElementField.Refresh_Master()
-        Me.CtlCurrentElement.Refresh_Master()
+        ''Look below. Jan28 2022 ''Me.CtlCurrentElement.Refresh_Master()
 
         ''Added 9/13/2019 td
         ''9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()
-        Me.LayoutFunctions.AutoPreview_IfChecked()
+        ''#1 1/28/2022 td''Me.LayoutFunctions.AutoPreview_IfChecked()
+
+        ''#2 1/28/2022 td''Me.CtlCurrentElement.DateEdited = Now
+        ''#2 1/28/2022 td''Me.CtlCurrentElement.SaveToModel()
+        ''#1 Jan28 2022 ''Me.CtlCurrentElement.Refresh_Image(False)
+        ''#2 1/28/2022 td''Me.CtlCurrentElement.Refresh_Master()
+
+        objElementStaticText.DateEdited = Now
+        objControlStaticText.SaveToModel()
+        ''#3 1/28/2022 td''objControlStaticText.Refresh_Image(False)
+        objControlStaticText.Refresh_Master()
+
+        ''Added 1/28/2022 td 
+        Me.Designer.AutoPreview_IfChecked(Me.CtlCurrentElement)
 
     End Sub ''eNd of "Public Sub Rotate90_Degrees_EE1001(sender As Object, e As EventArgs)"
 
