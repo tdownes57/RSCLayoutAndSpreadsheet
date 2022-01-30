@@ -1,6 +1,6 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class CtlGraphicStaticTextV4
-    Inherits System.Windows.Forms.UserControl
+    Inherits CtlGraphicFieldOrTextV4 ''Added 1/30/2022 td 
 
     'UserControl overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _

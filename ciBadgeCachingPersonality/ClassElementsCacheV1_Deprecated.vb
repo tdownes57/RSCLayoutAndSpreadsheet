@@ -94,7 +94,8 @@ Namespace ciBadgeCachePersonality
         ''Front side of ID Card / Badge Card  ----1/8/2022 td
         Private mod_listElementFields_Front As New HashSet(Of ClassElementFieldV3)
         Private mod_listElementPics_Front As New HashSet(Of ClassElementPortrait)
-        Private mod_listElementStatics_Front As New HashSet(Of ClassElementStaticTextV3)
+        Private mod_listElementStaticsV3_Front As New HashSet(Of ClassElementStaticTextV3)
+        Private mod_listElementStaticsV4_Front As New HashSet(Of ClassElementStaticTextV4)
         Private mod_listElementGraphics_Front As New HashSet(Of ClassElementGraphic) ''Added 1/8/2022 td
         Private mod_listElementLaysections_Front As New HashSet(Of ClassElementLaysection) ''Added 9/17/2019 thomas downes
         Private mod_listElementQRCodes_Front As New HashSet(Of ClassElementQRCode) ''Added 1/14/2022 tdownes
@@ -103,7 +104,8 @@ Namespace ciBadgeCachePersonality
         ''Back side of ID Card / Badge Card  ----1/8/2022 td
         Private mod_listElementFields_Backside As New HashSet(Of ClassElementFieldV3)
         Private mod_listElementPics_Backside As New HashSet(Of ClassElementPortrait)
-        Private mod_listElementStatics_Backside As New HashSet(Of ClassElementStaticTextV3)
+        Private mod_listElementStaticsV3_Backside As New HashSet(Of ClassElementStaticTextV3)
+        Private mod_listElementStaticsV4_Backside As New HashSet(Of ClassElementStaticTextV4)
         Private mod_listElementGraphics_Backside As New HashSet(Of ClassElementGraphic) ''Added 1/8/2022 td
         Private mod_listElementLaysections_Backside As New HashSet(Of ClassElementLaysection) ''Added 9/17/2019 thomas downes
         Private mod_listElementQRCodes_Backside As New HashSet(Of ClassElementQRCode) ''Added 1/14/2022 tdownes
@@ -227,7 +229,7 @@ Namespace ciBadgeCachePersonality
                 ''Moved below, with a condition.--1/14/2022 td''objSide.ElementSignature = Me.ElementSignature
                 objSide.ListElementFields = Me.ListOfElementFields_Front
                 objSide.ListElementGraphics = Me.ListOfElementGraphics_Front ''Jan22 2022 td''Nothing
-                objSide.ListElementStaticTexts = Me.ListOfElementTexts_Front
+                objSide.ListElementStaticTexts = Me.ListOfElementTextsV3_Front
 
                 ''Added 1/16/2022 td
                 objSide.ElementQRCode_1st = Me.ListOfElementQRCodes_Front().FirstOrDefault()
@@ -777,41 +779,62 @@ Namespace ciBadgeCachePersonality
 
         ''This is deprecated!!  Use ListOfElementTexts_Front instead. ---12/21/2021 td
         <Xml.Serialization.XmlIgnore>
-        Public Property ListOfElementTexts As HashSet(Of ClassElementStaticTextV3)  ''---List(Of ClassElementPic)
+        Public Property ListOfElementTextsV3 As HashSet(Of ClassElementStaticTextV3)  ''---List(Of ClassElementPic)
             Get ''Added 12/20/2021 td
                 ''
                 ''This property is Deprecated, so return Nothing. ----12/20/2021 thomas d.
                 ''
-                Return mod_listElementStatics_Front ''--Nothing ''Dec20 2021''mod_listElementPics_Front
+                Return mod_listElementStaticsV3_Front ''--Nothing ''Dec20 2021''mod_listElementPics_Front
             End Get
             Set(value As HashSet(Of ClassElementStaticTextV3))  ''---List(Of ClassElementPic))
                 ''Added 12/20/2021 td
-                mod_listElementStatics_Front = value
+                mod_listElementStaticsV3_Front = value
             End Set
         End Property
 
 
-        Public Property ListOfElementTexts_Front As HashSet(Of ClassElementStaticTextV3)  ''---List(Of ClassElementStaticText)
+        Public Property ListOfElementTextsV3_Front As HashSet(Of ClassElementStaticTextV3)  ''---List(Of ClassElementStaticText)
             Get ''Added 10/14/2019 td
-                Return mod_listElementStatics_Front
+                Return mod_listElementStaticsV3_Front
             End Get
             Set(value As HashSet(Of ClassElementStaticTextV3))  ''---List(Of ClassElementStaticText))
                 ''Added 10/14/2019 td
-                mod_listElementStatics_Front = value
+                mod_listElementStaticsV3_Front = value
             End Set
         End Property
 
 
-        Public Property ListOfElementTexts_Backside As HashSet(Of ClassElementStaticTextV3)  ''---List(Of ClassElementStaticText)
+        Public Property ListOfElementTextsV3_Backside As HashSet(Of ClassElementStaticTextV3)  ''---List(Of ClassElementStaticText)
             Get ''Added 12/18/2021 td
-                Return mod_listElementStatics_Backside
+                Return mod_listElementStaticsV3_Backside
             End Get
             Set(value As HashSet(Of ClassElementStaticTextV3))  ''---List(Of ClassElementStaticText))
                 ''Added 12/18/2021 td
-                mod_listElementStatics_Backside = value
+                mod_listElementStaticsV3_Backside = value
             End Set
         End Property
 
+
+        Public Property ListOfElementTextsV4_Front As HashSet(Of ClassElementStaticTextV4)  ''---List(Of ClassElementStaticText)
+            Get ''Added 10/14/2019 td
+                Return mod_listElementStaticsV4_Front
+            End Get
+            Set(value As HashSet(Of ClassElementStaticTextV4))  ''---List(Of ClassElementStaticText))
+                ''Added 10/14/2019 td
+                mod_listElementStaticsV4_Front = value
+            End Set
+        End Property
+
+
+        Public Property ListOfElementTextsV4_Backside As HashSet(Of ClassElementStaticTextV4)
+            Get ''Added 12/18/2021 td
+                Return mod_listElementStaticsV4_Backside
+            End Get
+            Set(value As HashSet(Of ClassElementStaticTextV4))  ''---List(Of ClassElementStaticText))
+                ''Added 12/18/2021 td
+                mod_listElementStatics_BacksideV4 = value
+            End Set
+        End Property
 
         ''Added 1/8/2022. ---1/08/2022 td
         Public Property ListOfElementGraphics_Front As HashSet(Of ClassElementGraphic)
@@ -1456,8 +1479,8 @@ Namespace ciBadgeCachePersonality
             Dim bProceedWithMakingNew As Boolean ''Added 1/19/2021 td
 
             ''Added 12/17/2021 td
-            bMissingFront = (0 = mod_listElementStatics_Front.Count)
-            bMissingBack = (0 = mod_listElementStatics_Backside.Count)
+            bMissingFront = (0 = mod_listElementStaticsV3_Front.Count)
+            bMissingBack = (0 = mod_listElementStaticsV3_Backside.Count)
             bMissingBackAndFront = (bMissingFront And bMissingBack)
 
             ''Added 1/19/2022 td
@@ -1474,9 +1497,9 @@ Namespace ciBadgeCachePersonality
                 objElementText = New ClassElementStaticTextV3(par_DisplayText, intLeft, intTop, par_intHeight)
 
                 If (par_enum = EnumWhichSideOfCard.EnumBackside) Then
-                    mod_listElementStatics_Backside.Add(objElementText)
+                    mod_listElementStaticsV3_Backside.Add(objElementText)
                 Else
-                    mod_listElementStatics_Front.Add(objElementText)
+                    mod_listElementStaticsV3_Front.Add(objElementText)
                 End If
 
             End If ''end of "If bProceedWithMakingNew Then"
@@ -1619,12 +1642,12 @@ Namespace ciBadgeCachePersonality
             Next each_elementPic
 
             ''Added 9/17/2019 thomas downes  
-            For Each each_elementStaticText As ClassElementStaticTextV3 In mod_listElementStatics_Front
+            For Each each_elementStaticText As ClassElementStaticTextV3 In mod_listElementStaticsV3_Front
                 objCopyOfCache.ListStaticTextElements_Front().Add(each_elementStaticText.Copy())
             Next each_elementStaticText
 
             ''Added 12/20/2021 thomas downes  
-            For Each each_elementStaticText As ClassElementStaticTextV3 In mod_listElementStatics_Backside
+            For Each each_elementStaticText As ClassElementStaticTextV3 In mod_listElementStaticsV3_Backside
                 objCopyOfCache.ListStaticTextElements_Backside().Add(each_elementStaticText.Copy())
             Next each_elementStaticText
 

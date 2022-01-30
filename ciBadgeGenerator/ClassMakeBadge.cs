@@ -183,7 +183,7 @@ namespace ciBadgeGenerator
                                     par_recipientPic,
                                     par_cache, par_iRecipientInfo,
                                     par_cache.ListOfElementFields_Front,
-                                    par_cache.ListOfElementTexts_Front,
+                                    par_cache.ListOfElementTextsV3_Front,
                                     par_cache.ListOfElementGraphics_Front,
                                     null, null, null,
                                     par_listMessages,

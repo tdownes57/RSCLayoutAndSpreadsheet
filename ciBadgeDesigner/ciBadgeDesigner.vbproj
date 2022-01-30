@@ -127,6 +127,12 @@
     <Compile Include="Controls\CtlGraphicBackground.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Controls\CtlGraphicFieldOrTextV4.Designer.vb">
+      <DependentUpon>CtlGraphicFieldOrTextV4.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtlGraphicFieldOrTextV4.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controls\CtlGraphicFldLabelV3.designer.vb">
       <DependentUpon>CtlGraphicFldLabelV3.vb</DependentUpon>
     </Compile>
@@ -347,6 +353,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlGraphicBackground.resx">
       <DependentUpon>CtlGraphicBackground.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtlGraphicFieldOrTextV4.resx">
+      <DependentUpon>CtlGraphicFieldOrTextV4.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlGraphicFldLabelV3.resx">
       <DependentUpon>CtlGraphicFldLabelV3.vb</DependentUpon>

@@ -30,7 +30,8 @@ Public Class Operations_Desktop
 
     Private mod_dialogFile As New System.Windows.Forms.OpenFileDialog ''Added 1/19/2022 td
 
-    Public Sub Create_New_StaticText_Control_GD2001(sender As Object, e As MouseEventArgs)
+
+    Public Sub Create_New_StaticText_Control_V3_GD2001(sender As Object, e As MouseEventArgs)
         ''
         ''Added 1/16/2022 thomas downes  
         ''
@@ -75,12 +76,12 @@ Public Class Operations_Desktop
             If (bCardBackside) Then
                 ''Backside of ID Card. 
                 With .ElementsCacheManager.CacheForEditing
-                    .ListOfElementTexts_Backside.Add(objElementStaticText)
+                    .ListOfElementTextsV3_Backside.Add(objElementStaticText)
                 End With
             Else
                 ''Front of ID Card. 
                 With .ElementsCacheManager.CacheForEditing
-                    .ListOfElementTexts_Front.Add(objElementStaticText)
+                    .ListOfElementTextsV3_Front.Add(objElementStaticText)
                 End With
             End If ''End of "If (bCardBackside) Then ... Else ... "
 
@@ -91,6 +92,88 @@ Public Class Operations_Desktop
             ''
             objElementControl = CtlGraphicStaticTextV3.GetStaticText(obj_parametersGetElementControl,
                                     objElementStaticText,
+                                    MyBase.ParentForm,
+                                    "CtlGraphicStaticText",
+                                    CType(DesignerClass, ILayoutFunctions),
+                                    sizeIfNeeded,
+                                    .iRefreshPreview,
+                                    .iControlLastTouched,
+                                    .oMoveEventsGroupedControls)
+
+        End With ''End of "With obj_parametersGetElementControl"
+
+        ''
+        ''Next, refresh/initiate the control (e.g. size & location & image).  
+        ''
+        ''Not needed, redundant. 1/18/2022 td''objElementControl.Refresh_Image(True)
+        objElementControl.Refresh_Master()
+
+        ''
+        ''Next, display the control.  ----1/18/2022 td
+        ''
+        MyBase.ParentForm.Controls.Add(objElementControl)
+        objElementControl.Visible = True
+        objElementControl.BringToFront() ''Added 1/26/2022 td
+        MyBase.ParentForm.Refresh() ''Added 1/26/2022 td
+
+
+    End Sub ''End of "Public Sub Create_New_StaticText_V3_Control_GD2001(sender As Object, e As MouseEventArgs)"
+
+
+    Public Sub Create_New_StaticText_Control_V4_GD2001(sender As Object, e As MouseEventArgs)
+        ''
+        ''Added 1/16/2022 thomas downes  
+        ''
+        ''--Dim oCacheManager As ciBadgeCachePersonality.ClassCacheManagement
+        ''--Dim oDesignerForm_Desktop As IDesignerForm_Desktop ''Added 1/18/2022
+
+        Dim infoDesignerForm As IDesignerForm ''Added 1/18/2022
+        Dim objElementStaticTextV4 As ciBadgeElements.ClassElementStaticTextV4
+        Dim objElementControl As CtlGraphicStaticTextV4
+        Dim intHeightOfRSC As Integer
+        Dim objSizeOfRSC As System.Drawing.Size ''Added 1/19/2022
+        Dim obj_parametersGetElementControl As ClassGetElementControlParams ''Added 1/18/2022
+
+        infoDesignerForm = Me.ParentDesignerForm
+        objSizeOfRSC = infoDesignerForm.SizeAnyRSCMoveableControl()
+        intHeightOfRSC = objSizeOfRSC.Height
+
+        objElementStaticTextV4 = New ClassElementStaticTextV4("New StaticText...", e.X, e.Y, intHeightOfRSC)
+        obj_parametersGetElementControl = DesignerClass.GetParametersToGetElementControl()
+
+        ''Added 1/18/2022 thomas downes  
+        objElementStaticTextV4.Visible = True
+        objElementStaticTextV4.Text_Static =
+            InputBox("Enter the static text you want to appear.  You can revise it later.",
+                     "Enter text", "Text for all ID Cards", e.X, e.Y)
+
+        With obj_parametersGetElementControl
+            ''
+            ''Next, apply the new element to the Backside or the Front, depending. 
+            ''
+            Dim bCardBackside As Boolean ''Added 1/18/2022 thomas d.
+            bCardBackside = (Me.DesignerClass.EnumSideOfCard_Current =
+                EnumWhichSideOfCard.EnumBackside)
+
+            If (bCardBackside) Then
+                ''Backside of ID Card. 
+                With .ElementsCacheManager.CacheForEditing
+                    .ListOfElementTextsV4_Backside.Add(objElementStaticTextV4)
+                End With
+            Else
+                ''Front of ID Card. 
+                With .ElementsCacheManager.CacheForEditing
+                    .ListOfElementTextsV4_Front.Add(objElementStaticTextV4)
+                End With
+            End If ''End of "If (bCardBackside) Then ... Else ... "
+
+            Dim sizeIfNeeded As New Size() ''Added 1/26/2022 td
+
+            ''
+            ''Next, create the control which will display the Element-StaticText.   
+            ''
+            objElementControl = CtlGraphicStaticTextV4.GetStaticText(obj_parametersGetElementControl,
+                                    objElementStaticTextV4,
                                     MyBase.ParentForm,
                                     "CtlGraphicStaticText",
                                     CType(DesignerClass, ILayoutFunctions),

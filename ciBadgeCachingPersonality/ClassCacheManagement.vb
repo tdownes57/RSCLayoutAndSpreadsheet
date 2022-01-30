@@ -756,12 +756,12 @@ Namespace ciBadgeCachePersonality
             ''
             ''StaticTexts
             ''
-            For Each each_element In CacheForEditing.ListOfElementTexts_Front()
+            For Each each_element In CacheForEditing.ListOfElementTextsV3_Front()
                 each_infoBase = CType(each_element, ciBadgeInterfaces.IElement_Base)
                 boolMatch = (par_infoBase Is each_infoBase)
                 If (boolMatch) Then
-                    CacheForEditing.ListOfElementTexts_Front.Remove(each_element)
-                    CacheForEditing.ListOfElementTexts_Backside.Add(each_element)
+                    CacheForEditing.ListOfElementTextsV3_Front.Remove(each_element)
+                    CacheForEditing.ListOfElementTextsV3_Backside.Add(each_element)
                     Exit Sub
                 Else
                     If (each_element.WhichSideOfCard = EnumWhichSideOfCard.Undetermined) Then each_element.WhichSideOfCard = EnumWhichSideOfCard.EnumFrontside
@@ -769,12 +769,12 @@ Namespace ciBadgeCachePersonality
                 End If
             Next each_element
 
-            For Each each_element In CacheForEditing.ListOfElementTexts_Backside()
+            For Each each_element In CacheForEditing.ListOfElementTextsV3_Backside()
                 each_infoBase = CType(each_element, ciBadgeInterfaces.IElement_Base)
                 boolMatch = (par_infoBase Is each_infoBase)
                 If (boolMatch) Then
-                    CacheForEditing.ListOfElementTexts_Backside.Remove(each_element)
-                    CacheForEditing.ListOfElementTexts_Front.Add(each_element)
+                    CacheForEditing.ListOfElementTextsV3_Backside.Remove(each_element)
+                    CacheForEditing.ListOfElementTextsV3_Front.Add(each_element)
                     Exit Sub
                 End If
             Next each_element

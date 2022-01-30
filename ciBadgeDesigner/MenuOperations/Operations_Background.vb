@@ -19,8 +19,10 @@ Imports ciBadgeElements
 Imports __RSCWindowsControlLibrary ''Added 1/2/2022 td 
 Imports ciBadgeCachePersonality ''Added 1/18/2022 td
 
+
 Public Class Operations_Background
-    Inherits Operations__Desktop_Dummy
+    Inherits Operations_Desktop
+    ''----Jan30 2022 td''Inherits Operations__Desktop_Dummy
     ''----Jan22 2022 td''Inherits Operations__Graphic
     ''
     ''Added 10/15/2019 td

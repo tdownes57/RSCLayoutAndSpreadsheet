@@ -330,7 +330,7 @@ namespace ciBadgeGenerator
             HashSet<ClassElementStaticTextV3> listOfElementStaticTexts;
             
             // Dec18 2021 td//listOfElementStaticTexts = par_cache.ListOfElementTexts;
-            listOfElementStaticTexts = par_cache.ListOfElementTexts_Front;
+            listOfElementStaticTexts = par_cache.ListOfElementTextsV3_Front;
 
             LoadImageWithStaticTexts(ref obj_imageOutput, listOfElementStaticTexts);
 
