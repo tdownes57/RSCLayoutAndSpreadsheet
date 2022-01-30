@@ -22,6 +22,7 @@ Imports MoveAndResizeControls_Monem
 
 Public Class Form__Main_Demo
     Implements IDesignerForm ''Added 10/13/2019 td 
+    Implements IRefreshCardPreview ''Added 1/30/3022 td
     ''Dec17, 2021''Implements IRecallClickable
 
     ''10/3/2019 td''Implements ILayoutFunctions ''-----, ISelectingElements, ILayoutFunctions
@@ -632,8 +633,21 @@ Public Class Form__Main_Demo
         ''Added 12/27/2021
         mod_designer.RefreshPreview()
 
+        ''Added 1/30/2022 td
+        ''----AutoPreview()
+
     End Sub
 
+
+    Public Sub RefreshCardPreview() Implements IRefreshCardPreview.RefreshCardPreview
+
+        ''Added 1/30/2022 td
+        ''---Jan30 2022---AutoPreview()
+
+        ''Added 1/30/2022, copy-pasted using code from 12/27/2021
+        mod_designer.RefreshPreview()
+
+    End Sub ''End of "Public Sub RefreshPreview()"
 
 
     Private Sub AutoPreview()

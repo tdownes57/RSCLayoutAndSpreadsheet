@@ -227,7 +227,7 @@ Public Class CtlGraphicStaticTextV3
         ''Jan1 2022 td''MyBase.New(par_enumElementType, pboolResizeProportionally,
         MyBase.New(EnumElementType.StaticText, par_oForm,
                         mod_c_bResizeProportionally,
-                        par_iLayoutFun, par_iSizeDesired,
+                        par_iLayoutFun, par_iRefreshPreview, par_iSizeDesired,
                         par_operationsType, par_operationsAny,
                         pboolAddMoveability, pboolAddClickability,
                         par_iLastTouched, par_oMoveEvents, 0,

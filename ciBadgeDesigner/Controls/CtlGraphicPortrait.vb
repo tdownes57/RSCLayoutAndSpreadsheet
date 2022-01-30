@@ -81,7 +81,9 @@ Public Class CtlGraphicPortrait
 
         ''Create the control. 
         Dim CtlPortrait1 = New CtlGraphicPortrait(par_elementPortrait, par_formParent,
-                                                  par_iLayoutFun, sizeElementPortrait,
+                                                  par_iLayoutFun,
+                                      par_parametersGetElementControl.iRefreshPreview,
+                                                  sizeElementPortrait,
                                                    par_bProportionSizing,
                                                    typeOps, objOperations,
                                                    bAddFunctionalitySooner,
@@ -146,6 +148,7 @@ Public Class CtlGraphicPortrait
     Public Sub New(par_elementPic As ClassElementPortrait,
                    par_oParentForm As Form,
                    par_iLayoutFun As ILayoutFunctions,
+                   par_iRefreshPreview As IRefreshCardPreview,
                    par_iSizeDesired As Size,
                   pboolResizeProportionally As Boolean,
                    par_operationsType As Type,
@@ -162,7 +165,7 @@ Public Class CtlGraphicPortrait
         ''Jan1 2022 td''MyBase.New(par_enumElementType, pboolResizeProportionally,
         MyBase.New(EnumElementType.Portrait, par_oParentForm,
                    pboolResizeProportionally,
-                        par_iLayoutFun, par_iSizeDesired,
+                        par_iLayoutFun, par_iRefreshPreview, par_iSizeDesired,
                         par_operationsType, par_operationsAny,
                         pboolAddMoveability, pboolAddClickability,
                         par_iLastTouched, par_oMoveEvents,

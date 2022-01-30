@@ -222,6 +222,7 @@ Public Class RSCMoveableControlVB
     Protected mod_iLayoutFunctions As ILayoutFunctions ''Added 12/28/2021 td
     ''Dec29 2021''Private mod_designer As ClassDesigner ''Added 12/28/2021 td 
     Private Const mc_AddExtraHeadersForContextMenuStrip As Boolean = True ''Added 12/28/2021 thomas d.
+    Private mod_iRefreshCardPreview As IRefreshCardPreview ''Added 1/30/2022 td 
 
     ''Added 12/28/2021 td
     Private mod_objOperationsAny As Object ''Added 12/28/2021 td
@@ -265,6 +266,7 @@ Public Class RSCMoveableControlVB
                    par_formParent As Form,
                   pboolResizeProportionally As Boolean,
                    par_iLayoutFun As ILayoutFunctions,
+                   par_iRefreshCardPreview As IRefreshCardPreview,
                    par_iSizeIfNeeded As Size,
                    par_operationsType As Type,
                    par_operationsAny As Object,
@@ -290,6 +292,9 @@ Public Class RSCMoveableControlVB
 
         ''Jan10 2022''mod_events = par_oMoveabilityEvents
         mod_eventsForGroupMove_NotNeeded = par_oMoveabilityEventsForGroup
+
+        ''Added 1/30/2022 td
+        mod_iRefreshCardPreview = par_iRefreshCardPreview
 
         ''Added 1/10/2022 td
         ''We need to instantiate a class. It's just for the movement of a single control, so
@@ -1516,9 +1521,10 @@ Public Class RSCMoveableControlVB
             ''Added 1/14/2022
             info_SaveToModel = CType(Me, ISaveToModel)
 
-            ''Added 1/14/2022
+            ''Added 1/28/2022
             info_RefreshElementImage = CType(Me, IRefreshElementImage)
-            info_RefreshCardPreview = CType(Me, IRefreshCardPreview)
+            ''Jan30 2022 td''info_RefreshCardPreview = CType(Me, IRefreshCardPreview)
+            info_RefreshCardPreview = CType(Me.mod_iRefreshCardPreview, IRefreshCardPreview)
 
             If (TypeOf par_sender Is PictureBox) Then
                 objCTLGraphicOrRSCMoveable = Me
