@@ -42,8 +42,8 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
     Public ElementCopy_Info_TextOnly As ciBadgeInterfaces.IElement_TextOnly ''Added 12/31/2021 td
     Public ElementCopy_Info_Base As ciBadgeInterfaces.IElement_Base ''Added 8/16/2019 td
 
-    Public ElementObject_ForLayout_NotUsed As ClassElementField ''Added 9/18/2019 td
-    Public ElementObject_Copy As ClassElementField ''Added 9/18/2019 td
+    Public ElementObject_ForLayout_NotUsed As ClassElementFieldV3 ''Added 9/18/2019 td
+    Public ElementObject_Copy As ClassElementFieldV3 ''Added 9/18/2019 td
 
     Public GroupEdits As ISelectingElements ''Added 8/15/2019 thomas downes  
 
@@ -54,7 +54,7 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
 
     Public UserConfirmed As Boolean ''Added 9/18/2019 thomas d. 
 
-    Public Sub New(par_element_fromLayout As ClassElementField, par_element_copy As ClassElementField)
+    Public Sub New(par_element_fromLayout As ClassElementFieldV3, par_element_copy As ClassElementFieldV3)
         ''
         ''Added 9/18/2019 thomas d. 
         ''

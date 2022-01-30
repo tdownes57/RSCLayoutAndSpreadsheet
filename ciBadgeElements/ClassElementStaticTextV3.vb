@@ -10,7 +10,7 @@ Imports ciBadgeInterfaces ''Added 9/61/2019 thomas d.
 Imports System.Xml.Serialization ''Added 10/13/2019 thomas d.  
 
 <Serializable>
-Public Class ClassElementStaticText
+Public Class ClassElementStaticTextV3
     Inherits ClassElementBase ''Added 1/8/2022 Thomas Downes
     Implements IElement_Base, IElement_TextOnly
     ''
@@ -404,11 +404,11 @@ Public Class ClassElementStaticText
 
     End Function ''End of "Public Function GenerateImage_NotInUse(par_label As Label) As Image"
 
-    Public Function Copy() As ClassElementStaticText
+    Public Function Copy() As ClassElementStaticTextV3
         ''
         ''Added 9/17/2019 
         ''
-        Dim objCopy As New ClassElementStaticText
+        Dim objCopy As New ClassElementStaticTextV3
         objCopy.LoadbyCopyingMembers(Me, Me)
         Return objCopy
 

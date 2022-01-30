@@ -35,7 +35,7 @@ Public Class CtlGraphicFldLabel
     Public Shared UseExampleValues As Boolean
 
     Public Shared Function GetFieldElement(par_parametersGetElementControl As ClassGetElementControlParams,
-                                           par_elementFld As ClassElementField,
+                                           par_elementFld As ClassElementFieldV3,
                                            par_formParent As Form,
                                            par_oDesigner As ClassDesigner,
                                       par_nameOfControl As String,
@@ -142,7 +142,7 @@ Public Class CtlGraphicFldLabel
     ''#1 8/29/2019 td''Public ElementInfo As ClassElementText
     '' #2 8/29/2019 td''Public ElementInfo_Text As ClassElementText
 
-    Public ElementClass_Obj As ClassElementField ''Added 9/4/2019 thomas downes
+    Public ElementClass_Obj As ClassElementFieldV3 ''Added 9/4/2019 thomas downes
     ''Jan5 2022''Public ElementClass_Obj_Copy As ClassElementField ''Added 1/05/2022 thomas downes
     Public ElementInfo_TextOnly As ciBadgeInterfaces.IElement_TextOnly ''Modifield 10/12/2019
     ''1/12/2022 td''Public ElementInfo_Base As ciBadgeInterfaces.IElement_Base
@@ -214,7 +214,7 @@ Public Class CtlGraphicFldLabel
     End Sub
 
 
-    Public Sub New(par_elementField As ClassElementField,
+    Public Sub New(par_elementField As ClassElementFieldV3,
                    par_oParentForm As Form,
                    par_oDesigner As ClassDesigner,
                    par_iLayoutFun As ILayoutFunctions,
@@ -495,7 +495,7 @@ ExitHandler:
                              Optional pboolResizeLabelControl As Boolean = True,
                              Optional pboolRefreshLabelControl As Boolean = True,
                              Optional pboolRefreshUserControl As Boolean = False,
-                             Optional pobjElementField As ClassElementField = Nothing)
+                             Optional pobjElementField As ClassElementFieldV3 = Nothing)
         ''
         ''Added 7/25/2019 thomas d 
         ''
@@ -954,7 +954,7 @@ ExitHandler:
     End Function ''End of "Public Function Rotated_180_360() As Boolean"
 
 
-    Public Function LabelText(Optional par_objElementCopy As ClassElementField = Nothing) As String
+    Public Function LabelText(Optional par_objElementCopy As ClassElementFieldV3 = Nothing) As String
         ''
         ''Added 7/25/2019 thomas d 
         ''

@@ -38,7 +38,7 @@ Public Class Operations_Desktop
         ''--Dim oDesignerForm_Desktop As IDesignerForm_Desktop ''Added 1/18/2022
 
         Dim infoDesignerForm As IDesignerForm ''Added 1/18/2022
-        Dim objElementStaticText As ciBadgeElements.ClassElementStaticText
+        Dim objElementStaticText As ciBadgeElements.ClassElementStaticTextV3
         Dim objElementControl As CtlGraphicStaticText
         Dim intHeightOfRSC As Integer
         Dim objSizeOfRSC As System.Drawing.Size ''Added 1/19/2022
@@ -55,7 +55,7 @@ Public Class Operations_Desktop
         intHeightOfRSC = objSizeOfRSC.Height
 
         ''objElementStaticText = New ClassElementStaticText("New StaticText...", e.X, e.Y, 25)
-        objElementStaticText = New ClassElementStaticText("New StaticText...", e.X, e.Y, intHeightOfRSC)
+        objElementStaticText = New ClassElementStaticTextV3("New StaticText...", e.X, e.Y, intHeightOfRSC)
         obj_parametersGetElementControl = DesignerClass.GetParametersToGetElementControl()
 
         ''Added 1/18/2022 thomas downes  

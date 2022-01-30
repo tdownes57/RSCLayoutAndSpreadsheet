@@ -26,16 +26,16 @@ Public Class ClassCacheLayout_DontUse
     Public Property ElementQRCode As ClassElementQRCode ''Added 10/8/2019 thomas d.  
     Public Property ElementSignature As ClassElementSignature ''Added 10/8/2019 thomas d.  
 
-    Private mod_listElementFields As New HashSet(Of ClassElementField)
+    Private mod_listElementFields As New HashSet(Of ClassElementFieldV3)
     Private mod_listElementPics As New HashSet(Of ClassElementPortrait)
-    Private mod_listElementStatics As New HashSet(Of ClassElementStaticText)
+    Private mod_listElementStatics As New HashSet(Of ClassElementStaticTextV3)
     Private mod_listElementLaysections As New HashSet(Of ClassElementLaysection) ''Added 9/17/2019 thomas downes
 
-    Public Property ListOfElementFields As HashSet(Of ClassElementField)  ''---List(Of ClassElementField)
+    Public Property ListOfElementFields As HashSet(Of ClassElementFieldV3)  ''---List(Of ClassElementField)
         Get ''Added 9/28/2019 td
             Return mod_listElementFields
         End Get
-        Set(value As HashSet(Of ClassElementField))  ''---List(Of ClassElementField))
+        Set(value As HashSet(Of ClassElementFieldV3))  ''---List(Of ClassElementField))
             ''Added 9/28/2019 td
             mod_listElementFields = value
         End Set
@@ -51,11 +51,11 @@ Public Class ClassCacheLayout_DontUse
         End Set
     End Property
 
-    Public Property ListOfElementTexts As HashSet(Of ClassElementStaticText)  ''---List(Of ClassElementStaticText)
+    Public Property ListOfElementTexts As HashSet(Of ClassElementStaticTextV3)  ''---List(Of ClassElementStaticText)
         Get ''Added 10/14/2019 td
             Return mod_listElementStatics
         End Get
-        Set(value As HashSet(Of ClassElementStaticText))  ''---List(Of ClassElementStaticText))
+        Set(value As HashSet(Of ClassElementStaticTextV3))  ''---List(Of ClassElementStaticText))
             ''Added 10/14/2019 td
             mod_listElementStatics = value
         End Set
@@ -72,7 +72,7 @@ Public Class ClassCacheLayout_DontUse
     <Xml.Serialization.XmlIgnore>
     Public Property Personality As ClassPersonalityCache_DontUse ''Added 11/24/2019 td 
 
-    Public Function ListFieldElements() As HashSet(Of ClassElementField)
+    Public Function ListFieldElements() As HashSet(Of ClassElementFieldV3)
         ''10/17 td''Public Function ListFieldElements() As List(Of ClassElementField)
         ''
         ''Added 9/16/2019 thomas downes
@@ -99,7 +99,7 @@ Public Class ClassCacheLayout_DontUse
 
     End Function ''End of " Public Function ListPicElements() As List(Of ClassElementPic)"
 
-    Public Function ListStaticTextElements() As HashSet(Of ClassElementStaticText)  ''---List(Of ClassElementStaticText)
+    Public Function ListStaticTextElements() As HashSet(Of ClassElementStaticTextV3)  ''---List(Of ClassElementStaticText)
         ''
         ''Added 9/16/2019 thomas downes
         ''
@@ -169,7 +169,7 @@ Public Class ClassCacheLayout_DontUse
         ''Next field_custom
         ''----------------------------------------------------------------------------------------------------
 
-        Dim new_elementField As ClassElementField ''Added 9/18/2019 td
+        Dim new_elementField As ClassElementFieldV3 ''Added 9/18/2019 td
         Dim intFieldIndex As Integer ''Added 9/18/2019 td
         Dim intLeft_Pixels As Integer ''Added 9/18/2019 td
         Dim intTop_Pixels As Integer ''Added 9/18/2019 td
@@ -188,7 +188,7 @@ Public Class ClassCacheLayout_DontUse
             intLeft_Pixels = intTop_Pixels ''Let's have a staircase effect!! 
 
             ''Added 9/18/2019 td
-            new_elementField = New ClassElementField(each_field, intLeft_Pixels, intTop_Pixels, c_intHeight_Pixels)
+            new_elementField = New ClassElementFieldV3(each_field, intLeft_Pixels, intTop_Pixels, c_intHeight_Pixels)
             new_elementField.FieldInfo = each_field
             new_elementField.FieldEnum = each_field.FieldEnumValue ''Added 10/12/2019 td
 
@@ -206,7 +206,7 @@ Public Class ClassCacheLayout_DontUse
         ''
         ''Added 11/15/2019 thomas d. 
         ''
-        Dim new_elementField As ClassElementField ''Added 9/18/2019 td
+        Dim new_elementField As ClassElementFieldV3 ''Added 9/18/2019 td
         Dim intFieldIndex As Integer ''Added 9/18/2019 td
         Dim intLeft_Pixels As Integer ''Added 9/18/2019 td
         Dim intTop_Pixels As Integer ''Added 9/18/2019 td
@@ -227,7 +227,7 @@ Public Class ClassCacheLayout_DontUse
             intLeft_Pixels = intTop_Pixels ''Let's have a staircase effect!! 
 
             ''Added 9/18/2019 td
-            new_elementField = New ClassElementField(each_field, intLeft_Pixels, intTop_Pixels, c_intHeight_Pixels)
+            new_elementField = New ClassElementFieldV3(each_field, intLeft_Pixels, intTop_Pixels, c_intHeight_Pixels)
             new_elementField.FieldInfo = each_field
             new_elementField.FieldEnum = each_field.FieldEnumValue ''Added 10/12/2019 td
 
@@ -394,7 +394,7 @@ Public Class ClassCacheLayout_DontUse
         ''
         ''Added 10/10/2019 td  
         ''
-        Dim objElementText As ClassElementStaticText ''Added 10/10/2019 td 
+        Dim objElementText As ClassElementStaticTextV3 ''Added 10/10/2019 td 
         Dim objRectangle As Rectangle ''Added 10/10/2019 td  
         Dim intLeft As Integer
         Dim intTop As Integer
@@ -404,7 +404,7 @@ Public Class ClassCacheLayout_DontUse
 
         objRectangle = New Rectangle(intLeft, intTop, par_intWidth, par_intHeight)
 
-        objElementText = New ClassElementStaticText(par_DisplayText, intLeft, intTop, par_intHeight)
+        objElementText = New ClassElementStaticTextV3(par_DisplayText, intLeft, intTop, par_intHeight)
 
         mod_listElementStatics.Add(objElementText)
 
@@ -420,7 +420,7 @@ Public Class ClassCacheLayout_DontUse
         ''     ''Attach the Recipient.  
         ''     ''
         ''     ''10/16/2019 td''each_elementField.Recipient = par_recipient
-        ClassElementField.oRecipient = par_recipient
+        ClassElementFieldV3.oRecipient = par_recipient
 
         ''10/16/2019 td''Next each_elementField
 
@@ -431,9 +431,9 @@ Public Class ClassCacheLayout_DontUse
         ''Added 9/17/2019 thomas downes  
         ''
         Dim objCopyOfCache As New ClassCacheLayout_DontUse
-        Dim copy_ofElementField As ClassElementField ''Added 10/1/2019 td
+        Dim copy_ofElementField As ClassElementFieldV3 ''Added 10/1/2019 td
 
-        For Each each_elementField As ClassElementField In mod_listElementFields
+        For Each each_elementField As ClassElementFieldV3 In mod_listElementFields
             ''
             ''Add a copy of the element-field.
             ''
@@ -462,7 +462,7 @@ Public Class ClassCacheLayout_DontUse
         Next each_elementPic
 
         ''Added 9/17/2019 thomas downes  
-        For Each each_elementStaticText As ClassElementStaticText In mod_listElementStatics
+        For Each each_elementStaticText As ClassElementStaticTextV3 In mod_listElementStatics
             objCopyOfCache.ListStaticTextElements().Add(each_elementStaticText.Copy())
         Next each_elementStaticText
 
@@ -498,7 +498,7 @@ Public Class ClassCacheLayout_DontUse
 
         Dim found_field As ClassFieldAny ''Added 10/12/2019 td
 
-        For Each each_elementField As ClassElementField In mod_listElementFields
+        For Each each_elementField As ClassElementFieldV3 In mod_listElementFields
 
             found_field = Nothing ''Initialize. ----10/12/2019 td
 
@@ -512,7 +512,7 @@ Public Class ClassCacheLayout_DontUse
 
     End Sub ''End of "Public Sub LinkElementsToFields()"
 
-    Public Function GetElementByGUID(par_guid As System.Guid) As ClassElementField
+    Public Function GetElementByGUID(par_guid As System.Guid) As ClassElementFieldV3
         ''
         ''Added 9/30/2019 td  
         ''
@@ -552,13 +552,13 @@ Public Class ClassCacheLayout_DontUse
 
     End Function ''ENd of "Public Function MissingTheSignature() As Boolean"
 
-    Public Function GetElementByFieldEnum(par_enum As EnumCIBFields) As ClassElementField
+    Public Function GetElementByFieldEnum(par_enum As EnumCIBFields) As ClassElementFieldV3
         ''
         ''Added 10/13/2019 td
         ''
         Dim bUnexpectedMismatch As Boolean ''Added 12/13/2021 thomas downes
 
-        For Each each_elementField As ClassElementField In mod_listElementFields
+        For Each each_elementField As ClassElementFieldV3 In mod_listElementFields
             With each_elementField
 
                 ''Dec13 2021 ''.FieldEnum = .FieldObjectAny.FieldEnumValue ''This is a double-check that the Enum value matches. 
@@ -581,13 +581,13 @@ Public Class ClassCacheLayout_DontUse
 
     End Function ''ENd of "Public Function GetFieldByLabelCaptionpar_caption As String) As ClassFieldAny"
 
-    Public Function GetElementByLabelCaption(par_caption As String) As ClassElementField
+    Public Function GetElementByLabelCaption(par_caption As String) As ClassElementFieldV3
         ''Added 10/10/2019 td 
         Return (Nothing)
 
     End Function ''ENd of "Public Function GetFieldByLabelCaptionpar_caption As String) As ClassFieldAny"
 
-    Public Function GetElementByField(par_field As ClassFieldAny) As ClassElementField
+    Public Function GetElementByField(par_field As ClassFieldAny) As ClassElementFieldV3
         ''Added 10/10/2019 td 
         Return (Nothing)
 

@@ -7,7 +7,7 @@ Public Class LayoutElementGenerator
     ''
     ''Added 7/18/2019   
     ''
-    Public Function GetRecipientID(par_control As Control) As ClassElementField
+    Public Function GetRecipientID(par_control As Control) As ClassElementFieldV3
         ''
         ''Added 7/18/2019 td
         ''
@@ -15,11 +15,11 @@ Public Class LayoutElementGenerator
 
 
 
-        Return New ClassElementField(par_control)
+        Return New ClassElementFieldV3(par_control)
 
     End Function
 
-    Public Function GetFullName(par_control As Control) As ClassElementField
+    Public Function GetFullName(par_control As Control) As ClassElementFieldV3
         ''
         ''Added 7/18/2019 td
         ''
@@ -27,7 +27,7 @@ Public Class LayoutElementGenerator
 
 
 
-        Return New ClassElementField(par_control)
+        Return New ClassElementFieldV3(par_control)
 
     End Function
 
@@ -43,7 +43,7 @@ Public Class LayoutElementGenerator
 
     End Function
 
-    Public Function GetTextField1(par_control As Control) As ClassElementField
+    Public Function GetTextField1(par_control As Control) As ClassElementFieldV3
         ''
         ''Added 7/18/2019 td
         ''
@@ -51,11 +51,11 @@ Public Class LayoutElementGenerator
 
 
 
-        Return New ClassElementField(par_control)
+        Return New ClassElementFieldV3(par_control)
 
     End Function
 
-    Public Function GetTextField2(par_control As Control) As ClassElementField
+    Public Function GetTextField2(par_control As Control) As ClassElementFieldV3
         ''
         ''Added 7/18/2019 td
         ''
@@ -63,10 +63,10 @@ Public Class LayoutElementGenerator
 
 
 
-        Return New ClassElementField(par_control)
+        Return New ClassElementFieldV3(par_control)
 
     End Function
-    Public Function GetTextField3(par_control As Control) As ClassElementField
+    Public Function GetTextField3(par_control As Control) As ClassElementFieldV3
         ''
         ''Added 7/18/2019 td
         ''
@@ -74,28 +74,16 @@ Public Class LayoutElementGenerator
 
 
 
-        Return New ClassElementField(par_control)
-
-    End Function
-
-
-
-
-
-
-    Public Function GetDateField1(par_control As Control) As ClassElementField
-        ''
-        ''Added 7/18/2019 td
-        ''
-
-
-
-
-        Return New ClassElementField(par_control)
+        Return New ClassElementFieldV3(par_control)
 
     End Function
 
-    Public Function GetDateField2(par_control As Control) As ClassElementField
+
+
+
+
+
+    Public Function GetDateField1(par_control As Control) As ClassElementFieldV3
         ''
         ''Added 7/18/2019 td
         ''
@@ -103,11 +91,11 @@ Public Class LayoutElementGenerator
 
 
 
-        Return New ClassElementField(par_control)
+        Return New ClassElementFieldV3(par_control)
 
     End Function
 
-    Public Function GetDateField3(par_control As Control) As ClassElementField
+    Public Function GetDateField2(par_control As Control) As ClassElementFieldV3
         ''
         ''Added 7/18/2019 td
         ''
@@ -115,7 +103,19 @@ Public Class LayoutElementGenerator
 
 
 
-        Return New ClassElementField(par_control)
+        Return New ClassElementFieldV3(par_control)
+
+    End Function
+
+    Public Function GetDateField3(par_control As Control) As ClassElementFieldV3
+        ''
+        ''Added 7/18/2019 td
+        ''
+
+
+
+
+        Return New ClassElementFieldV3(par_control)
 
     End Function
 

@@ -254,9 +254,9 @@ Public Class ClassElementPortrait ''Renamed to ClassElementPortrait from ClassEl
         ''
         Dim strRecipID As String
 
-        If (ClassElementField.oRecipient Is Nothing) Then Return Nothing
+        If (ClassElementFieldV3.oRecipient Is Nothing) Then Return Nothing
 
-        strRecipID = ClassElementField.oRecipient.RecipientID()
+        strRecipID = ClassElementFieldV3.oRecipient.RecipientID()
 
         If (strRecipID = "") Then Return Nothing
 

@@ -928,7 +928,7 @@ Public Class ClassDesigner
 
         ''Added 11/27/2021 thomas downes
         ''Jan8 2022''Dim objListBadgeElems As HashSet(Of ClassElementField)
-        Dim objListBadgeElems As List(Of ClassElementField)
+        Dim objListBadgeElems As List(Of ClassElementFieldV3)
 
         If (par_enumSideOfCard = EnumWhichSideOfCard.EnumBackside) Then
             ''Back side of the card.
@@ -1366,7 +1366,7 @@ Public Class ClassDesigner
     End Sub ''End of "Private Sub LoadElements_Signature"
 
 
-    Private Sub LoadElements_StaticTexts(par_listStaticTexts As HashSet(Of ClassElementStaticText))
+    Private Sub LoadElements_StaticTexts(par_listStaticTexts As HashSet(Of ClassElementStaticTextV3))
         ''
         ''Added 12/18/2021 thomas d. 
         ''
@@ -1377,7 +1377,7 @@ Public Class ClassDesigner
 
         oGetControlParameters = Me.GetParametersToGetElementControl() ''Added 1/17/2022 thomas d.
 
-        For Each each_element_static As ClassElementStaticText In par_listStaticTexts
+        For Each each_element_static As ClassElementStaticTextV3 In par_listStaticTexts
 
             ''Dec18 2021''CtlGraphic_StaticTexts.Add = New CtlGraphicStaticText(each_element_static)
             ''Dec27 2021''CtlGraphic_StaticText_temp = New CtlGraphicStaticText(each_element_static)
@@ -1572,7 +1572,7 @@ Public Class ClassDesigner
     End Sub ''End of "Private Sub InitiateRubberbandSelector"
 
 
-    Private Sub LoadElements_FieldElements(par_listElements As List(Of ClassElementField),
+    Private Sub LoadElements_FieldElements(par_listElements As List(Of ClassElementFieldV3),
                                par_boolLoadingForm As Boolean,
                                Optional par_bUnloading As Boolean = False,
                                Optional par_bAddMoveability As Boolean = False,
@@ -1589,7 +1589,7 @@ Public Class ClassDesigner
         Dim dictionaryOfCaptions As New ClassDictionaryOfCaptions() ''Added 12/21/2021 td
 
         ''9/17/2019 td''For Each each_field As ICIBFieldStandardOrCustom In par_list  
-        For Each each_element As ClassElementField In par_listElements
+        For Each each_element As ClassElementFieldV3 In par_listElements
 
             ''Added 12/21/2021 td
             ''  Let's track the count of the element per repeated caption, e.g. "#4" to make "Last Name #4". 
@@ -1777,14 +1777,14 @@ Public Class ClassDesigner
 
     End Sub ''End of ''Private Sub LoadElements_ByListOfElements()''
 
-    Private Sub LoadFieldControl_JustOne(par_elementField As ClassElementField)
+    Private Sub LoadFieldControl_JustOne(par_elementField As ClassElementFieldV3)
         ''
         ''Added 9/17/2019 thomas d.  
         ''
         ''10/17 td''Dim new_list As New List(Of ClassElementField)
         ''1/8/2022 td''Dim new_list As New HashSet(Of ClassElementField)
 
-        Dim new_list As New List(Of ClassElementField)
+        Dim new_list As New List(Of ClassElementFieldV3)
 
         Const c_bAddToMoveableClass As Boolean = True ''Added 9/8/2019 td 
 
@@ -1810,7 +1810,7 @@ Public Class ClassDesigner
 
     ''End Sub ''End of "Private Sub AddToFlowPanelOfOmittedFlds(par_field As ICIBFieldStandardOrCustom)"
 
-    Private Sub AddToFlowPanelOfOmittedFlds(par_elementField As ClassElementField)
+    Private Sub AddToFlowPanelOfOmittedFlds(par_elementField As ClassElementFieldV3)
         ''
         ''Added 9/17/2019 td
         ''
@@ -1836,8 +1836,8 @@ Public Class ClassDesigner
         ''9/17/2019 td''field_to_add.IsDisplayedOnBadge = True
         ''9/17/2019 td''LoadField_JustOne(field_to_add)
 
-        Dim element_to_add As ClassElementField ''Added 9/17/2019 td
-        element_to_add = CType(CType(sender, LinkLabel).Tag, ClassElementField)
+        Dim element_to_add As ClassElementFieldV3 ''Added 9/17/2019 td
+        element_to_add = CType(CType(sender, LinkLabel).Tag, ClassElementFieldV3)
         If (element_to_add Is Nothing) Then Exit Sub
         element_to_add.FieldInfo.IsDisplayedOnBadge = True
         LoadFieldControl_JustOne(element_to_add) ''Modified 9/17/2019 td
@@ -1856,7 +1856,7 @@ Public Class ClassDesigner
         Dim each_ctl_portrait As CtlGraphicPortrait ''Added 7/31/2019 td
         ''10/14 td''Dim each_ctl_qrcode As CtlGraphicQRCode ''Added 10/14/2019 td
         ''10/14 td''Dim each_ctl_signat As CtlGraphicSignature ''Added 10/14/2019 td
-        Dim each_element_field As ClassElementField ''Added 10/14/2019 thomas d.  
+        Dim each_element_field As ClassElementFieldV3 ''Added 10/14/2019 thomas d.  
         Dim each_infoSaveToModel As ISaveToModel ''Added 1/5/2022 td
 
         ''Added 10/14/2019 td 
@@ -2065,7 +2065,7 @@ Public Class ClassDesigner
     End Sub ''End of "Private Sub SaveControlPositionsToElement()"
 
 
-    Public Sub RefreshPreview_CurrentSide(Optional par_recentlyMoved As ClassElementField = Nothing,
+    Public Sub RefreshPreview_CurrentSide(Optional par_recentlyMoved As ClassElementFieldV3 = Nothing,
                                     Optional par_recipient As ciBadgeRecipients.ClassRecipient = Nothing)
         ''
         ''Created 1/13/2022 thomas downes
@@ -2087,7 +2087,7 @@ Public Class ClassDesigner
 
     Public Sub RefreshPreview_EitherSide(par_enumCurrentSide As EnumWhichSideOfCard,
                                         par_objMakeBadgeElements As ClassBadgeSideLayoutV1,
-                                         Optional par_recentlyMoved As ClassElementField = Nothing,
+                                         Optional par_recentlyMoved As ClassElementFieldV3 = Nothing,
                                     Optional par_recipient As ciBadgeRecipients.ClassRecipient = Nothing)
         ''
         ''Stubbed 12/27/2021
@@ -2215,7 +2215,7 @@ Public Class ClassDesigner
     End Sub ''End of "Public Sub RefreshPreview_EitherSide"
 
 
-    Public Sub RefreshPreview_Redux_Front(Optional par_recentlyMoved As ClassElementField = Nothing,
+    Public Sub RefreshPreview_Redux_Front(Optional par_recentlyMoved As ClassElementFieldV3 = Nothing,
                                     Optional par_recipient As ciBadgeRecipients.ClassRecipient = Nothing)
         ''---Dec18 2021 td----Public Sub RefreshPreview_Redux
         ''
@@ -2223,8 +2223,8 @@ Public Class ClassDesigner
         ''
         Dim objPrintLibElems As New ciLayoutPrintLib.LayoutElements
         Dim listOfTextImages As New HashSet(Of Image) ''Added 8/26/2019 thomas downes 
-        Dim listOfElementTextFields As HashSet(Of ClassElementField)
-        Dim listOfElementStaticTexts As HashSet(Of ClassElementStaticText) ''Added 1/8/2022 td
+        Dim listOfElementTextFields As HashSet(Of ClassElementFieldV3)
+        Dim listOfElementStaticTexts As HashSet(Of ClassElementStaticTextV3) ''Added 1/8/2022 td
         Dim listOfElementGraphics As HashSet(Of ClassElementGraphic) ''Added 1/8/2022 td
 
         Dim obj_image As Image ''Added 8/24 td
@@ -2248,7 +2248,7 @@ Public Class ClassDesigner
 
         ''Pull the Element objects from the CtlGraphicFldLabel Controls.
         ''     ---11/29/2021 td 
-        listOfElementTextFields = New HashSet(Of ClassElementField)
+        listOfElementTextFields = New HashSet(Of ClassElementFieldV3)
 
         For Each eachCtlField As CtlGraphicFldLabel In mod_listOfFieldControls
             ''
@@ -2267,7 +2267,7 @@ Public Class ClassDesigner
 
         ''Pull the Element-StaticText objects from the CtlGraphicStaticText Controls.
         ''     ---11/29/2021 td 
-        listOfElementStaticTexts = New HashSet(Of ClassElementStaticText)
+        listOfElementStaticTexts = New HashSet(Of ClassElementStaticTextV3)
         For Each eachCtlStaticText As CtlGraphicStaticText In mod_listOfTextControls
             listOfElementStaticTexts.Add(eachCtlStaticText.ElementClass_Obj)
         Next eachCtlStaticText
@@ -2425,7 +2425,7 @@ Public Class ClassDesigner
         ''10/17 ''Dim listOfElementTextFields As List(Of ClassElementField)
 
         Dim listOfTextImages As New HashSet(Of Image) ''Added 8/26/2019 thomas downes 
-        Dim listOfElementTextFields As HashSet(Of ClassElementField)
+        Dim listOfElementTextFields As HashSet(Of ClassElementFieldV3)
 
         ''For Each field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students
 
@@ -3154,7 +3154,7 @@ Public Class ClassDesigner
             ''Refresh the Preview Box (a PictureBox control).
             If (TypeOf par_controlElement Is CtlGraphicFldLabel) Then
                 ''Added 11/29/2021 td
-                Dim objElementField As ClassElementField
+                Dim objElementField As ClassElementFieldV3
                 objElementField = CType(par_controlElement,
                                      CtlGraphicFldLabel).ElementClass_Obj
                 ''

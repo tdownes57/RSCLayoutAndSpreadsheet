@@ -321,7 +321,7 @@ Namespace ciBadgeCachePersonality
             Dim ListFieldsRemoved As New List(Of ClassFieldCustomized)
             Dim boolDifferingSoEdited As Boolean
             Dim strListOfBadgeFields As String = "List of Custom Fields to go on Badge" & vbCrLf_Deux
-            Dim each_element As ciBadgeElements.ClassElementField
+            Dim each_element As ciBadgeElements.ClassElementFieldV3
 
             ''---For Each each_field In Me.ElementsCache_Edits.ListOfFields_Custom()
             For Each each_field_possiblyEdited In mod_cacheEdits.ListOfFields_Custom()
@@ -398,7 +398,7 @@ Namespace ciBadgeCachePersonality
             ''
             ''Added 12/4/2021 
             ''
-            Dim elementForField As ClassElementField
+            Dim elementForField As ClassElementFieldV3
 
             ''Find the element.
             ''

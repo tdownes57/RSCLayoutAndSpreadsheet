@@ -12,8 +12,8 @@ Public Interface IBadgeSideLayoutElementsV1 ''Dec18 '' InterfaceBadgeSideLayout
     Property RecipientPic As Image
     Property par_iRecipientInfo As ciBadgeInterfaces.IRecipient
 
-    Property ListElementFields As HashSet(Of ClassElementField)
-    Property ListElementStaticTexts As HashSet(Of ClassElementStaticText)
+    Property ListElementFields As HashSet(Of ClassElementFieldV3)
+    Property ListElementStaticTexts As HashSet(Of ClassElementStaticTextV3)
     Property ListElementGraphics As HashSet(Of ClassElementGraphic)
 
     Property ElementPortrait_1st As ClassElementPortrait ''Jan13 2022 ''As ClassElementPic  

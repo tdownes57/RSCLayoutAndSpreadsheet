@@ -209,7 +209,7 @@ Public Class FormFieldsAndPortrait
         ''Added 1/6/2022 td 
         ''
         ''Jan7 2022 td''Dim objElement As New ciBadgeElements.ClassElementField
-        Dim objElement As ciBadgeElements.ClassElementField
+        Dim objElement As ciBadgeElements.ClassElementFieldV3
 
         ''Added 1/07/2022 td
         objElement = mod_designer.ElementsCache_UseEdits.ListFieldElements().FirstOrDefault()
@@ -287,7 +287,7 @@ Public Class FormFieldsAndPortrait
         ''
         ''Added 1/6/2022 td 
         ''
-        Dim objElement As New ciBadgeElements.ClassElementStaticText
+        Dim objElement As New ciBadgeElements.ClassElementStaticTextV3
         objElement.BadgeLayout = mod_designer.BadgeLayout_Class
 
         ''mod_ctlPortrait = CtlGraphicSignature.GetSignature(objElement, "ctlSignature",

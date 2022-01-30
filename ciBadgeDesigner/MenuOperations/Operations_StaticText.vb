@@ -17,7 +17,7 @@ Public Class Operations_StaticText
     ''Jan8 2022 td''Public Property CtlCurrentElement As ciBadgeDesigner.CtlGraphicStaticText ''CtlGraphicFldLabel
     ''Jan17 2022 ''Public Property CtlCurrentElement As RSCMoveableControlVB Implements ICurrentElement.CtlCurrentElement
     Public Property CtlCurrentElementStaticText As ciBadgeDesigner.CtlGraphicStaticText
-    Public Property ElementStaticText As ciBadgeElements.ClassElementStaticText ''Added 1/19/2022
+    Public Property ElementStaticText As ciBadgeElements.ClassElementStaticTextV3 ''Added 1/19/2022
     Public Property ElementInfo_TextOnly As IElement_TextOnly ''Added 1/19/2022
 
     Public Overrides Property Element_Type As Enum_ElementType = Enum_ElementType.StaticGraphic ''Added 1/21/2022 td
@@ -51,7 +51,7 @@ Public Class Operations_StaticText
         ''
         Dim strCurrentText As String
         Dim objControlStaticText As CtlGraphicStaticText
-        Dim objElementStaticText As ciBadgeElements.ClassElementStaticText
+        Dim objElementStaticText As ciBadgeElements.ClassElementStaticTextV3
 
         objControlStaticText = CType(Me.CtlCurrentElement, CtlGraphicStaticText)
         objElementStaticText = objControlStaticText.Element_StaticText
@@ -189,7 +189,7 @@ Public Class Operations_StaticText
         ''   to clickable LinkLabels.
         ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
         ''
-        Dim objElementStaticText As ciBadgeElements.ClassElementStaticText
+        Dim objElementStaticText As ciBadgeElements.ClassElementStaticTextV3
         Dim objControlStaticText As CtlGraphicStaticText
 
         objControlStaticText = CType(Me.CtlCurrentElement, CtlGraphicStaticText)

@@ -80,7 +80,7 @@ namespace ciBadgeGenerator
         private const bool mod_cbOkayToUseExampleQRCode = false; //Added 1/17/2022 td
 
 
-        public Image ElementFieldToImage(ClassElementField par_elementField,
+        public Image ElementFieldToImage(ClassElementFieldV3 par_elementField,
                                             IBadgeLayoutDimensions par_layoutDimensions,
                                             ref string par_bugmessage,
                                             ref string par_textDisplayed)
@@ -170,7 +170,7 @@ namespace ciBadgeGenerator
             //Step #1:  Load the Recipient into the Elements Cache. 
             //
             // 12/2/2019 td //ClassElementField.iRecipientInfo = par_recipient;
-            ClassElementField.iRecipientInfo = par_iRecipientInfo;
+            ClassElementFieldV3.iRecipientInfo = par_iRecipientInfo;
             //ClassElementField.oRecipient = par_recipient; //Added 1/15/2020 td
 
             //
@@ -207,8 +207,8 @@ namespace ciBadgeGenerator
             // 10-16-2019 td// par_cache.LoadRecipient(par_recipient);
             // 11-16-2019 td// ClassElementField.oRecipient = par_recipient;
 
-            ClassElementField.oRecipient = par_recipient;
-            ClassElementField.iRecipientInfo = par_recipient;   //Added 1/15/2020 thomas d.
+            ClassElementFieldV3.oRecipient = par_recipient;
+            ClassElementFieldV3.iRecipientInfo = par_recipient;   //Added 1/15/2020 thomas d.
 
             //
             //Step #2:  Create the image of the badge-card for the above recipient. 
@@ -235,7 +235,7 @@ namespace ciBadgeGenerator
                                     List<string> par_listMessages = null,
                                     List<string> par_listFieldsIncluded = null,
                                     List<string> par_listFieldsNotIncluded = null,
-                                    ClassElementField par_recentlyMoved = null)
+                                    ClassElementFieldV3 par_recentlyMoved = null)
         {
             //
             // Added 12/18/2021 td
@@ -251,7 +251,7 @@ namespace ciBadgeGenerator
             // 12-14-2021 td //LayoutElements objPrintLibElems = new LayoutElements(ClassElementField.iRecipientInfo);
             LayoutElements objPrintLibElems = null;
             if (par_iRecipientInfo != null) objPrintLibElems = new LayoutElements(par_iRecipientInfo);
-            else objPrintLibElems = new LayoutElements(ClassElementField.iRecipientInfo);
+            else objPrintLibElems = new LayoutElements(ClassElementFieldV3.iRecipientInfo);
 
             //    obj_image = Me.BackgroundBox.Image
             //    obj_image_clone = CType(obj_image.Clone(), Image)
@@ -288,7 +288,7 @@ namespace ciBadgeGenerator
             //
             // Field-Related Elements
             //
-            HashSet<ClassElementField> listOfElementFields; // <<<<<<<<<<<<<< I have removed the word "Text" from the name.   It's confusing since there are Static-Text controls. --10/17/2019
+            HashSet<ClassElementFieldV3> listOfElementFields; // <<<<<<<<<<<<<< I have removed the word "Text" from the name.   It's confusing since there are Static-Text controls. --10/17/2019
 
             //Dec18 2021//if (par_listElementFields != null) listOfElementFields = par_listElementFields;
             listOfElementFields = par_layoutElements.ListElementFields;
@@ -473,7 +473,7 @@ namespace ciBadgeGenerator
             //
             //Static-Text Elements 
             //
-            HashSet<ClassElementStaticText> listOfElementStaticTexts;
+            HashSet<ClassElementStaticTextV3> listOfElementStaticTexts;
             //Dec18 2021 //listOfElementStaticTexts = par_cache.ListOfElementTexts_Front;
             listOfElementStaticTexts = par_layoutElements.ListElementStaticTexts;
 
@@ -520,8 +520,8 @@ namespace ciBadgeGenerator
                                     Image par_recipientPic,
                                     ClassElementsCache_Deprecated par_cache,
                                     IRecipient par_iRecipientInfo = null,
-                                    HashSet<ClassElementField> par_listElementFields = null,
-                                    HashSet<ClassElementStaticText> par_listElementTexts = null,
+                                    HashSet<ClassElementFieldV3> par_listElementFields = null,
+                                    HashSet<ClassElementStaticTextV3> par_listElementTexts = null,
                                     HashSet<ClassElementGraphic> par_listElementGraphics = null,
                                     ClassElementPortrait par_elementPic = null,
                                     ClassElementQRCode par_elementQR = null,
@@ -529,7 +529,7 @@ namespace ciBadgeGenerator
                                     List<string> par_listMessages = null,
                                     List<string> par_listFieldsIncluded = null,
                                     List<string> par_listFieldsNotIncluded = null,
-                                    ClassElementField par_recentlyMoved = null)
+                                    ClassElementFieldV3 par_recentlyMoved = null)
         {
             //Dim objPrintLibElems As New ciLayoutPrintLib.LayoutElements
 
@@ -547,7 +547,7 @@ namespace ciBadgeGenerator
             // 12-14-2021 td //LayoutElements objPrintLibElems = new LayoutElements(ClassElementField.iRecipientInfo);
             LayoutElements objPrintLibElems = null;
             if (par_iRecipientInfo != null) objPrintLibElems = new LayoutElements(par_iRecipientInfo);
-            else objPrintLibElems = new LayoutElements(ClassElementField.iRecipientInfo);
+            else objPrintLibElems = new LayoutElements(ClassElementFieldV3.iRecipientInfo);
 
             //    obj_image = Me.BackgroundBox.Image
             //    obj_image_clone = CType(obj_image.Clone(), Image)
@@ -585,7 +585,7 @@ namespace ciBadgeGenerator
 
             // 10-17-2019 td //List<ClassElementField> listOfElementTextFields;
             // Jan8 2022 //HashSet<ClassElementField> listOfElementFields; // <<<<<<<<<<<<<< I have removed the word "Text" from the name.   It's confusing since there are Static-Text controls. --10/17/2019
-            IEnumerable<ClassElementField> listOfElementFields; // <<<<<<<<<<<<<< I have removed the word "Text" from the name.   It's confusing since there are Static-Text controls. --10/17/2019
+            IEnumerable<ClassElementFieldV3> listOfElementFields; // <<<<<<<<<<<<<< I have removed the word "Text" from the name.   It's confusing since there are Static-Text controls. --10/17/2019
 
             // Nov. 29 2021 //listOfElementFields = par_cache.ListFieldElements();
             if (par_listElementFields != null) listOfElementFields = par_listElementFields;
@@ -1001,7 +1001,7 @@ namespace ciBadgeGenerator
         //    ''---                                     Optional par_listTextImages As List(Of Image) = Nothing)        
 
         public void LoadImageWithStaticTexts(ref Image par_imageBadgeCard,
-                              HashSet<ClassElementStaticText> par_elements,
+                              HashSet<ClassElementStaticTextV3> par_elements,
                               HashSet<Image> par_listTextImages = null)
         {
             //
@@ -1014,7 +1014,7 @@ namespace ciBadgeGenerator
             bOutputListOfAllImages = (par_listTextImages != null);
             gr_Badge = Graphics.FromImage(par_imageBadgeCard);
 
-            foreach (ClassElementStaticText each_elementStatic in par_elements)
+            foreach (ClassElementStaticTextV3 each_elementStatic in par_elements)
             {
                 intEachIndex += 1;
 
@@ -1101,13 +1101,13 @@ namespace ciBadgeGenerator
 
         public void LoadImageWithElementFields(ref Image par_imageBadgeCard,
                                           ref DateTime par_datetimeLastUpdated,
-                                          IEnumerable<ClassElementField> par_elementFields,
+                                          IEnumerable<ClassElementFieldV3> par_elementFields,
                                           IRecipient par_iRecipientInfo = null,
                                           List<Image> par_listTextImages = null,
                                           List<String> par_listMessages = null,
                                           List<String> par_listFieldsIncluded = null,
                                           List<String> par_listFieldsNotIncluded = null,
-                                          ClassElementField par_recentlyMoved = null)
+                                          ClassElementFieldV3 par_recentlyMoved = null)
         {
             //    ''Added 8/14/2019 td  
             //    ''
@@ -1146,7 +1146,7 @@ namespace ciBadgeGenerator
             //    ''9/18/2019 td''For Each each_elementField As IFieldInfo_ElementPositions In par_standardFields
             //    For Each each_elementField As ClassElementField In par_elements
 
-            foreach (ClassElementField each_elementField in par_elementFields)
+            foreach (ClassElementFieldV3 each_elementField in par_elementFields)
             {
                 //
                 //        intEachIndex += 1
@@ -1376,7 +1376,7 @@ namespace ciBadgeGenerator
         }
 
 
-        private void AddElementFieldToImage(ClassElementField par_elementField,
+        private void AddElementFieldToImage(ClassElementFieldV3 par_elementField,
                                             Image par_imageBadgeCard,
                                             Graphics par_graphics,
                                             bool pboolReturnListOfImages,
@@ -1694,7 +1694,7 @@ namespace ciBadgeGenerator
         }
 
 
-        private void AddElementStaticToImage(ClassElementStaticText par_elementStatic,
+        private void AddElementStaticToImage(ClassElementStaticTextV3 par_elementStatic,
                                     Image par_imageBadgeCard,
                                     Graphics par_graphics,
                                     bool pboolReturnListOfImages,

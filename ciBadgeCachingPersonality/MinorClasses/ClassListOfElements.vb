@@ -70,8 +70,8 @@ Public MustInherit Class ClassListOfElements
     End Sub ''ENd of "Public Shared Sub Initialize_IfNeeded()"
 
 
-    Public Shared Sub Load_AllLists(par_listFF As HashSet(Of ClassElementField),
-                                    par_listFB As HashSet(Of ClassElementField),
+    Public Shared Sub Load_AllLists(par_listFF As HashSet(Of ClassElementFieldV3),
+                                    par_listFB As HashSet(Of ClassElementFieldV3),
                                     par_listGF As HashSet(Of ClassElementGraphic),
                                     par_listGB As HashSet(Of ClassElementGraphic),
                                     par_listPF As HashSet(Of ClassElementPortrait),
@@ -80,8 +80,8 @@ Public MustInherit Class ClassListOfElements
                                     par_listQB As HashSet(Of ClassElementQRCode),
                                     par_listSiF As HashSet(Of ClassElementSignature),
                                     par_listSiB As HashSet(Of ClassElementSignature),
-                                    par_listStF As HashSet(Of ClassElementStaticText),
-                                    par_listStB As HashSet(Of ClassElementStaticText))
+                                    par_listStF As HashSet(Of ClassElementStaticTextV3),
+                                    par_listStB As HashSet(Of ClassElementStaticTextV3))
         ''
         ''Added 1/19/2022 td
         ''

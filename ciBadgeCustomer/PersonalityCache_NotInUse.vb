@@ -18,8 +18,8 @@ Public Class PersonalityCache_NotInUse
     Public Property ListOfRecipients As List(Of ClassRecipient) ''Added 10/11/2019 td
     Public Property ListOfFields As List(Of ClassFieldAny) ''Added 10/11/2019 td
 
-    Public Property ElementFields_DataEntry_V8 As List(Of ClassElementField)
-    Public Property ElementFields_DataEntry_V9 As List(Of ClassElementField)
+    Public Property ElementFields_DataEntry_V8 As List(Of ClassElementFieldV3)
+    Public Property ElementFields_DataEntry_V9 As List(Of ClassElementFieldV3)
 
     ''Dec. 13 2021''Public Property ListOfLayouts As List(Of BadgeLayoutCache) ''Added 10/11/2019 td
 

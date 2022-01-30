@@ -30,8 +30,8 @@ Public Class DialogTextOffset
     ''8/17/2019 td''Public ObjElementText As ClassElementText
     ''8/29/2019 td''Public ElementInfo As ciBadgeInterfaces.IElementText ''Added 8/16/2019 td
 
-    Public ElementObject_LayoutDesign As ClassElementField ''Added 9/18/2019 td
-    Public ElementObject_CopyForEditing As ClassElementField ''Added 9/18/2019 td
+    Public ElementObject_LayoutDesign As ClassElementFieldV3 ''Added 9/18/2019 td
+    Public ElementObject_CopyForEditing As ClassElementFieldV3 ''Added 9/18/2019 td
 
     Public ElementCopy_Info_Base As ciBadgeInterfaces.IElement_Base ''Added 8/29/2019 td
     Public ElementCopy_Info_Text As ciBadgeInterfaces.IElement_TextOnly ''Modified 10/12/2019 td
@@ -43,7 +43,7 @@ Public Class DialogTextOffset
 
     Public UserConfirmed As Boolean ''Added 9/18/2019 thomas d. 
 
-    Public Sub New(par_element_fromLayout As ClassElementField, par_element_copy As ClassElementField,
+    Public Sub New(par_element_fromLayout As ClassElementFieldV3, par_element_copy As ClassElementFieldV3,
                    par_parentControl As CtlGraphicFldLabel)
 
         ' This call is required by the designer.

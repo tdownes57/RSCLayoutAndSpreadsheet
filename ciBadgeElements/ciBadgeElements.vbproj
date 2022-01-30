@@ -87,16 +87,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClassElementBase.vb" />
-    <Compile Include="ClassElementField.vb" />
+    <Compile Include="ClassElementFieldOrTextV4.vb" />
+    <Compile Include="ClassElementFieldV3.vb" />
+    <Compile Include="ClassElementFieldV4.vb" />
     <Compile Include="ClassElementGraphic.vb" />
     <Compile Include="ClassElementLaysection.vb" />
     <Compile Include="ClassElementPortrait.vb" />
     <Compile Include="ClassElementQRCode.vb" />
     <Compile Include="ClassCacheElements_DontUse.vb" />
     <Compile Include="ClassElementSignature.vb" />
-    <Compile Include="ClassElementStaticText.vb" />
+    <Compile Include="ClassElementStaticTextV3.vb" />
     <Compile Include="ClassCacheLayout_DontUse.vb" />
     <Compile Include="ClassCachePersonality_DontUse.vb" />
+    <Compile Include="ClassElementStaticTextV4.vb" />
     <Compile Include="FormBadgeLayoutProto.Designer.vb">
       <DependentUpon>FormBadgeLayoutProto.vb</DependentUpon>
     </Compile>

@@ -19,11 +19,11 @@ Public Class CtlGraphicStaticText
     Public Shared LabelToImage As ClassLabelToImage
 
     ''8/29/2019 td''Public ElementInfo As ClassElementText
-    Public Element_StaticText As New ClassElementStaticText ''Added 10/11/2019 td
+    Public Element_StaticText As New ClassElementStaticTextV3 ''Added 10/11/2019 td
     Public Overrides Property ElementInfo_Base As ciBadgeInterfaces.IElement_Base ''Added 8/29/2019 td
     ''9/18/2019 td''Public ElementInfo_Text As ciBadgeInterfaces.IElement_TextField ''Added 8/29/2019 td
     Public ElementInfo_TextOnly As ciBadgeInterfaces.IElement_TextOnly ''Added 8/29/2019 td
-    Public ElementClass_Obj As ClassElementStaticText ''Added 8/29/2019 td
+    Public ElementClass_Obj As ClassElementStaticTextV3 ''Added 8/29/2019 td
 
     ''These properties are making use of the Dependency Injection pattern.
     Public ParentDesignForm_iSelecting As ISelectingElements ''Added 7/31/2019 thomas downes  
@@ -72,7 +72,7 @@ Public Class CtlGraphicStaticText
 
 
     Public Shared Function GetStaticText(par_parametersGetElementControl As ClassGetElementControlParams,
-                                           par_elementStaticText As ClassElementStaticText,
+                                           par_elementStaticText As ClassElementStaticTextV3,
                                          par_oParentForm As Form,
                                       par_nameOfControl As String,
                                       par_iLayoutFun As ILayoutFunctions,
@@ -196,7 +196,7 @@ Public Class CtlGraphicStaticText
         ''Added 10/11/2019 thomas downes
         ''
         If (False) Then ''Added 1/9/2022 to see if it helps w/ Moveability.
-            Me.Element_StaticText = New ClassElementStaticText
+            Me.Element_StaticText = New ClassElementStaticTextV3
             Me.ElementInfo_Base = CType(Me.Element_StaticText, IElement_Base)
             Me.ElementInfo_TextOnly = CType(Me.Element_StaticText, IElement_TextOnly)
             Me.ElementClass_Obj = Me.Element_StaticText ''Added 1/8/2022 td
@@ -208,7 +208,7 @@ Public Class CtlGraphicStaticText
     End Sub
 
 
-    Public Sub New(par_elementST As ClassElementStaticText,
+    Public Sub New(par_elementST As ClassElementStaticTextV3,
                    par_oForm As Form,
                    par_iLayoutFun As ILayoutFunctions,
                    par_iSizeDesired As Size,
@@ -245,7 +245,7 @@ Public Class CtlGraphicStaticText
     End Sub
 
 
-    Public Sub New_StaticText(par_element As ClassElementStaticText, par_iRefreshPreview As IRefreshCardPreview)
+    Public Sub New_StaticText(par_element As ClassElementStaticTextV3, par_iRefreshPreview As IRefreshCardPreview)
 
         ' This call is required by the designer.
         ''Jan7 2022 td''InitializeComponent()
@@ -281,7 +281,7 @@ Public Class CtlGraphicStaticText
 
     End Sub ''End of "Public Sub New(par_element As ClassElementStaticText)"
 
-    Public Sub New_Deprecated(par_element As ClassElementStaticText)
+    Public Sub New_Deprecated(par_element As ClassElementStaticTextV3)
 
         ' This call is required by the designer.
         InitializeComponent()

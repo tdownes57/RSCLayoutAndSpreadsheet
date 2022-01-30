@@ -71,11 +71,11 @@ Public Class Form__Main_Demo
     Private dictonary_elmntInfo_control As New Dictionary(Of IElement_Base, CtlGraphicFldLabel)
 
     Private dictonary_field_control As New Dictionary(Of ICIBFieldStandardOrCustom, CtlGraphicFldLabel)
-    Private dictonary_elmntObj_control As New Dictionary(Of ClassElementField, CtlGraphicFldLabel) ''Added 9/17/2019 td
+    Private dictonary_elmntObj_control As New Dictionary(Of ClassElementFieldV3, CtlGraphicFldLabel) ''Added 9/17/2019 td
     Private dictonary_elmntObj_captions As New Dictionary(Of String, CtlGraphicFldLabel) ''Added 11/24/2019 td
 
     Private list_fieldsNotLoadedYet_Any As New HashSet(Of ICIBFieldStandardOrCustom)
-    Private list_elementsNotLoadedYet_Any As New HashSet(Of ClassElementField) ''Added 9/17/2019 td 
+    Private list_elementsNotLoadedYet_Any As New HashSet(Of ClassElementFieldV3) ''Added 9/17/2019 td 
 
     ''Added 9/8/2019 td
     '' #2 10/3/2019 td''Private mod_rubberbandClass As ClassRubberbandSelector
@@ -975,9 +975,9 @@ Public Class Form__Main_Demo
         ''
         Dim sender_link As LinkLabel
         sender_link = CType(sender, LinkLabel)
-        ClassElementField.oRecipient = CType(sender_link.Tag, ClassRecipient)
+        ClassElementFieldV3.oRecipient = CType(sender_link.Tag, ClassRecipient)
         ''Dec.14 2021''Me.mod_designer.RefreshPreview_Redux()
-        Me.mod_designer.RefreshPreview_Redux_Front(Nothing, ClassElementField.oRecipient)
+        Me.mod_designer.RefreshPreview_Redux_Front(Nothing, ClassElementFieldV3.oRecipient)
 
     End Sub ''End of "Private Sub Recipient_LinkClicked"
 
@@ -1149,7 +1149,7 @@ Public Class Form__Main_Demo
         ''Step #3(b)  List the undisplayed elements.    ---Added 9/17/2019 td
         ''
         Dim bWeCanCheckPriorLoad As Boolean ''Added 11/28/2021 thomas downes
-        Dim each_element As ClassElementField ''Added 11/28/2021 td
+        Dim each_element As ClassElementFieldV3 ''Added 11/28/2021 td
         bWeCanCheckPriorLoad = (0 < dictonary_elmntInfo_control.Count)
 
         If (bWeCanCheckPriorLoad) Then
@@ -1985,7 +1985,7 @@ Public Class Form__Main_Demo
             ''
             ''Step 3 of 4.  Relink all of the elements to the controls. 
             ''
-            Dim each_element As ClassElementField ''Added 10/13/2019 td
+            Dim each_element As ClassElementFieldV3 ''Added 10/13/2019 td
 
             ''Added 10/13/2019 td
             For Each each_ctl As CtlGraphicFldLabel In mod_designer.ListOfFieldLabels()
@@ -2280,7 +2280,7 @@ Public Class Form__Main_Demo
             ''
             ''Added 10/18/2019 td 
             ''
-            ClassElementField.oRecipient = each_recip
+            ClassElementFieldV3.oRecipient = each_recip
 
             mod_designer.RefreshPreview_Redux_Front()
 
@@ -2326,7 +2326,7 @@ Public Class Form__Main_Demo
         Next each_recip
 
 ExitHandler:
-        ClassElementField.oRecipient = Nothing ''Clear out the member of data.   
+        ClassElementFieldV3.oRecipient = Nothing ''Clear out the member of data.   
         System.Diagnostics.Process.Start(strPathToFolder)
 
     End Sub
@@ -2792,8 +2792,8 @@ ExitHandler:
         ''Added 12/8/2021 thomas downes
         ''
         flowSidebar.Visible = False
-        ClassElementField.iRecipientInfo = Nothing
-        ClassElementField.oRecipient = Nothing
+        ClassElementFieldV3.iRecipientInfo = Nothing
+        ClassElementFieldV3.oRecipient = Nothing
         mod_designer.RefreshPreview_Redux_Front()
 
     End Sub

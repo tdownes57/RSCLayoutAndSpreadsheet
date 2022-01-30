@@ -180,7 +180,7 @@ Namespace ciBadgeCachePersonality
             ''     ''Attach the Recipient.  
             ''     ''
             ''     ''10/16/2019 td''each_elementField.Recipient = par_recipient
-            ClassElementField.oRecipient = par_recipient
+            ClassElementFieldV3.oRecipient = par_recipient
 
             ''10/16/2019 td''Next each_elementField
 

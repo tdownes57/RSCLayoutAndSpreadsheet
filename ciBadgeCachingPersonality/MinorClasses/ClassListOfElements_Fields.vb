@@ -11,8 +11,8 @@ Public Class ClassListOfElements_Fields
     ''
     ''Public Overrides Property ListOfElements_Front As List(Of ClassElementField)
     ''Public Overrides Property ListOfElements_Back As List(Of ClassElementField)
-    Public Property ListOfElements_Front As HashSet(Of ClassElementField)
-    Public Property ListOfElements_Backside As HashSet(Of ClassElementField)
+    Public Property ListOfElements_Front As HashSet(Of ClassElementFieldV3)
+    Public Property ListOfElements_Backside As HashSet(Of ClassElementFieldV3)
 
 
     Public Overrides Sub SwitchElementToOtherSideOfCard(par_infoBase As IElement_Base,

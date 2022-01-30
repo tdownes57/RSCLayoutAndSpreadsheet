@@ -46,7 +46,7 @@ Public Class LayoutElements
         ''Added 1/15/2020 thomas downes
         ''
         RecipientInfo = par_iRecipientInfo
-        ciBadgeElements.ClassElementField.iRecipientInfo = par_iRecipientInfo
+        ciBadgeElements.ClassElementFieldV3.iRecipientInfo = par_iRecipientInfo
 
     End Sub ''End of Public Sub New(par_iRecipientInfo As IRecipient)
 
@@ -645,7 +645,7 @@ ExitHandler:
 
 
     Public Sub LoadImageWithElements(ByRef par_imageBadgeCard As Image,
-                                   par_elements As IEnumerable(Of ClassElementField),
+                                   par_elements As IEnumerable(Of ClassElementFieldV3),
                                         Optional par_listTextImages As HashSet(Of Image) = Nothing,
                                      Optional pboolShowPopupMessages As Boolean = False,
                                      Optional par_bOutputListsOfFields As Boolean = False,
@@ -681,7 +681,7 @@ ExitHandler:
         ''
         ''
         ''9/18/2019 td''For Each each_elementField As IFieldInfo_ElementPositions In par_standardFields
-        For Each each_elementField As ClassElementField In par_elements
+        For Each each_elementField As ClassElementFieldV3 In par_elements
 
             intEachIndex += 1
 

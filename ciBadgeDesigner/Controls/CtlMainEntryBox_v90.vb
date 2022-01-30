@@ -24,7 +24,7 @@ Public Class CtlMainEntryBox_v90
 
     Public FieldInfo As ICIBFieldStandardOrCustom
 
-    Public ElementClass_Obj As ClassElementField ''Added 9/4/2019 thomas downes
+    Public ElementClass_Obj As ClassElementFieldV3 ''Added 9/4/2019 thomas downes
     Public ElementInfo_Text As ciBadgeInterfaces.IElement_TextField
     Public ElementInfo_Base As ciBadgeInterfaces.IElement_Base
     Public GroupEdits As ISelectingElements ''Added 7/31/2019 thomas downes  

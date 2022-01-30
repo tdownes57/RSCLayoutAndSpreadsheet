@@ -1646,7 +1646,7 @@ Public Class RSCMoveableControlVB
                              Optional pboolResizePictureControl As Boolean = True,
                              Optional pboolRefreshPictureControl As Boolean = True,
                              Optional pboolRefreshUserControl As Boolean = False,
-                             Optional pobjElementField As ClassElementField = Nothing)
+                             Optional pobjElementField As ClassElementFieldV3 = Nothing)
         ''
         ''Stubbed 1/13/2022 td
         ''

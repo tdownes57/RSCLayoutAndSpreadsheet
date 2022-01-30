@@ -374,7 +374,7 @@ Public Class CtlGraphicStaticGraphic
                              Optional pboolResizeLabelControl As Boolean = True,
                              Optional pboolRefreshLabelControl As Boolean = True,
                              Optional pboolRefreshUserControl As Boolean = False,
-                             Optional pobjElementField As ClassElementField = Nothing)
+                             Optional pobjElementField As ClassElementFieldV3 = Nothing)
         ''
         ''Added 7/25/2019 thomas d 
         ''
@@ -823,7 +823,7 @@ ExitHandler:
         ''Encapsulated 9/23/2019 td 
         Const c_SemiCircle_Degrees As Integer = 180
         boolRotationExpected = (0 <> Me.ElementClass_Obj.OrientationInDegrees Mod c_SemiCircle_Degrees)
-        ClassElementField.CheckWidthVsLength_OfText(Me.pictureStaticGraphic.Image.Width, Me.pictureStaticGraphic.Image.Height, boolRotationExpected)
+        ClassElementFieldV3.CheckWidthVsLength_OfText(Me.pictureStaticGraphic.Image.Width, Me.pictureStaticGraphic.Image.Height, boolRotationExpected)
 
         Return boolReturnValue
 
@@ -859,7 +859,7 @@ ExitHandler:
 
         ''Encapsulated 9/23/2019 td 
         boolRotationExpected = (0 <> Me.ElementClass_Obj.OrientationInDegrees Mod c_SemiCircle_Degrees)
-        ClassElementField.CheckWidthVsLength_OfText(Me.pictureStaticGraphic.Image.Width, Me.pictureStaticGraphic.Image.Height, boolRotationExpected)
+        ClassElementFieldV3.CheckWidthVsLength_OfText(Me.pictureStaticGraphic.Image.Width, Me.pictureStaticGraphic.Image.Height, boolRotationExpected)
 
         Return boolReturnValue
 
@@ -1099,7 +1099,7 @@ ExitHandler:
 
         ''Encapsulated 9/23/2019 td 
         boolRotationExpected = (0 <> Me.ElementClass_Obj.OrientationInDegrees Mod c_SemiCircle_Degrees)
-        ClassElementField.CheckWidthVsLength_OfText(Me.pictureStaticGraphic.Image.Width,
+        ClassElementFieldV3.CheckWidthVsLength_OfText(Me.pictureStaticGraphic.Image.Width,
                                                     Me.pictureStaticGraphic.Image.Height,
                                                     boolRotationExpected)
 
@@ -1144,7 +1144,7 @@ ExitHandler:
         ''Encapsulated 9/23/2019 td 
         Const c_SemiCircle_Degrees As Integer = 180
         boolRotationExpected = (0 <> Me.ElementClass_Obj.OrientationInDegrees Mod c_SemiCircle_Degrees)
-        ClassElementField.CheckWidthVsLength_OfText(Me.pictureStaticGraphic.Image.Width,
+        ClassElementFieldV3.CheckWidthVsLength_OfText(Me.pictureStaticGraphic.Image.Width,
                                                     Me.pictureStaticGraphic.Image.Height,
                                                     boolRotationExpected)
 

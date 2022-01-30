@@ -808,7 +808,7 @@ ExitHandler:
         ''Encapsulated 9/23/2019 td 
         Const c_SemiCircle_Degrees As Integer = 180
         boolRotationExpected = (0 <> Me.ElementClass_Obj.OrientationInDegrees Mod c_SemiCircle_Degrees)
-        ClassElementField.CheckWidthVsLength_OfText(Me.picturePortrait.Image.Width, Me.picturePortrait.Image.Height, boolRotationExpected)
+        ClassElementFieldV3.CheckWidthVsLength_OfText(Me.picturePortrait.Image.Width, Me.picturePortrait.Image.Height, boolRotationExpected)
 
         Return boolReturnValue
 
@@ -844,7 +844,7 @@ ExitHandler:
 
         ''Encapsulated 9/23/2019 td 
         boolRotationExpected = (0 <> Me.ElementClass_Obj.OrientationInDegrees Mod c_SemiCircle_Degrees)
-        ClassElementField.CheckWidthVsLength_OfText(Me.picturePortrait.Image.Width, Me.picturePortrait.Image.Height, boolRotationExpected)
+        ClassElementFieldV3.CheckWidthVsLength_OfText(Me.picturePortrait.Image.Width, Me.picturePortrait.Image.Height, boolRotationExpected)
 
         Return boolReturnValue
 

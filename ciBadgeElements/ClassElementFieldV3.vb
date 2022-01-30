@@ -13,7 +13,7 @@ Imports ciBadgeRecipients ''Added 10/16/2019 thomas d.
 ''Imports ciBadgeInterfaces ''Added 11/16/2019 thomas d. 
 Imports AutoMapper ''Added 11/17/2021 thomas d. 
 
-Public Event ElementField_RightClicked(par_elementField As ClassElementField) ''Added 10/1/2019 td
+Public Event ElementField_RightClicked(par_elementField As ClassElementFieldV3) ''Added 10/1/2019 td
 
 Public Structure WhyOmitted_StructV1 ''Added 11/10/2021 thomas downes
     ''----Public Structure WhyOmitted ''Added 11/10/2021 thomas d.
@@ -67,7 +67,7 @@ Public Structure WhyOmitted_StructV1 ''Added 11/10/2021 thomas downes
 End Structure ''End of "Public Structure WhyOmitted_StructV1"
 
 <Serializable>
-Public Class ClassElementField
+Public Class ClassElementFieldV3
     Inherits ClassElementBase ''Added 1/8/2022 Thomas Downes
     Implements IElement_Base, IElement_TextOnly, IElement_TextField
     ''
@@ -85,13 +85,13 @@ Public Class ClassElementField
     ''//
     ''
     <Xml.Serialization.XmlIgnore>
-    Private Shared _mapConfig_Pic As MapperConfiguration = New MapperConfiguration(Sub(cfg) cfg.CreateMap(Of IElementPic, ClassElementField)())
+    Private Shared _mapConfig_Pic As MapperConfiguration = New MapperConfiguration(Sub(cfg) cfg.CreateMap(Of IElementPic, ClassElementFieldV3)())
     <Xml.Serialization.XmlIgnore>
-    Private Shared _mapConfig_TextField As MapperConfiguration = New MapperConfiguration(Sub(cfg) cfg.CreateMap(Of IElement_TextField, ClassElementField)())
+    Private Shared _mapConfig_TextField As MapperConfiguration = New MapperConfiguration(Sub(cfg) cfg.CreateMap(Of IElement_TextField, ClassElementFieldV3)())
     <Xml.Serialization.XmlIgnore>
-    Private Shared _mapConfig_TextOnly As MapperConfiguration = New MapperConfiguration(Sub(cfg) cfg.CreateMap(Of IElement_TextOnly, ClassElementField)())
+    Private Shared _mapConfig_TextOnly As MapperConfiguration = New MapperConfiguration(Sub(cfg) cfg.CreateMap(Of IElement_TextOnly, ClassElementFieldV3)())
     <Xml.Serialization.XmlIgnore>
-    Private Shared _mapConfig_Base As MapperConfiguration = New MapperConfiguration(Sub(cfg) cfg.CreateMap(Of IElement_Base, ClassElementField)())
+    Private Shared _mapConfig_Base As MapperConfiguration = New MapperConfiguration(Sub(cfg) cfg.CreateMap(Of IElement_Base, ClassElementFieldV3)())
 
     <Xml.Serialization.XmlIgnore>
     Public Shared Property oRecipient As ClassRecipient ''Added 10/16/2019 td  
@@ -851,11 +851,11 @@ Public Class ClassElementField
 
     End Function ''End of "Public Function GenerateImage_NotInUse(par_label As Label) As Image"
 
-    Public Function Copy() As ClassElementField
+    Public Function Copy() As ClassElementFieldV3
         ''
         ''Added 9/17/2019 
         ''
-        Dim objCopy As New ClassElementField
+        Dim objCopy As New ClassElementFieldV3
 
         ''10/12/2019 td''objCopy.LoadbyCopyingMembers(Me, Me)
         ''10/13/2019 td''objCopy.LoadbyCopyingMembers(Me, Me, Me)
@@ -866,7 +866,7 @@ Public Class ClassElementField
 
     End Function ''End of "Public Function Copy() As ClassElementField"
 
-    Public Sub LoadbyCopyingMembers(par_objectElement As ClassElementField,
+    Public Sub LoadbyCopyingMembers(par_objectElement As ClassElementFieldV3,
                                     par_ElementInfo_Base As IElement_Base,
                                     par_ElementInfo_Text As IElement_TextOnly,
                                     par_ElementInfo_Field As IElement_TextField,
@@ -995,11 +995,11 @@ Public Class ClassElementField
                 ''
                 Return par_iRecipInfo.GetTextValue(Me.FieldEnum)
 
-            Case (ClassElementField.oRecipient IsNot Nothing)
+            Case (ClassElementFieldV3.oRecipient IsNot Nothing)
                 ''
                 ''Added 10/16/2019 thomas d. 
                 ''
-                Return ClassElementField.oRecipient.GetTextValue(Me.FieldEnum)
+                Return ClassElementFieldV3.oRecipient.GetTextValue(Me.FieldEnum)
 
                 ''Case (Me.ExampleTextToDisplay.Trim() <> "")
                 ''    ''
@@ -1007,9 +1007,9 @@ Public Class ClassElementField
                 ''    ''
                 ''    Return Me.ExampleTextToDisplay
 
-            Case (ClassElementField.iRecipientInfo IsNot Nothing)
+            Case (ClassElementFieldV3.iRecipientInfo IsNot Nothing)
 
-                Return ClassElementField.iRecipientInfo.GetTextValue(Me.FieldEnum)
+                Return ClassElementFieldV3.iRecipientInfo.GetTextValue(Me.FieldEnum)
 
             Case (bOkayToUseExampleValues And (Me.ExampleValue_ForElement <> ""))
                 ''10/16 td''Case (Me.ExampleValue_ForElement <> "")

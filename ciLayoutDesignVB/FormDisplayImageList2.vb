@@ -9,7 +9,7 @@ Public Class FormDisplayImageList2 ''Added 8/27/2019 td
     ''-----Private _objListImages As List(Of Image) ''Added 8/27/2019 td 
     ''9/18/2019''Private _objListFieldsStd As List(Of ClassFieldStandard) ''Added 8/27/2019 td 
     ''9/18/2019''Private _objListFieldsCust As List(Of ClassFieldCustomized) ''Added 8/27/2019 td 
-    Private mod_listOfElementFields As List(Of ClassElementField)
+    Private mod_listOfElementFields As List(Of ClassElementFieldV3)
 
     ''9/18/2019 td''Public Sub New(par_listStd As List(Of ClassFieldStandard),
     ''               par_listCust As List(Of ClassFieldCustomized))
@@ -23,7 +23,7 @@ Public Class FormDisplayImageList2 ''Added 8/27/2019 td
 
     ''End Sub
 
-    Public Sub New(par_list As List(Of ClassElementField))
+    Public Sub New(par_list As List(Of ClassElementFieldV3))
 
         InitializeComponent()
 
@@ -60,7 +60,7 @@ Public Class FormDisplayImageList2 ''Added 8/27/2019 td
         ''
         Dim boolSkipIt As Boolean ''Added 9/4/2019 thomas d.
 
-        For Each par_objElement As ClassElementField In mod_listOfElementFields
+        For Each par_objElement As ClassElementFieldV3 In mod_listOfElementFields
 
             ''Added 9/4/2019 thomas d.
             ''9/19 td''If (Not par_objField.IsDisplayedOnBadge()) Then Continue For

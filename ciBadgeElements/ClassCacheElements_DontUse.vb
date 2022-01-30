@@ -59,11 +59,11 @@ Public Class ClassElementsCache_DontUse
     Private mod_listFields_Standard As New HashSet(Of ClassFieldStandard) ''Added 10/14/2019 td  
     Private mod_listFields_Custom As New HashSet(Of ClassFieldCustomized) ''Added 10/14/2019 td  
 
-    Private mod_listElementFields As New HashSet(Of ClassElementField)
+    Private mod_listElementFields As New HashSet(Of ClassElementFieldV3)
     Private mod_listElementPics As New HashSet(Of ClassElementPortrait)
-    Private mod_listElementStatics As New HashSet(Of ClassElementStaticText)
+    Private mod_listElementStatics As New HashSet(Of ClassElementStaticTextV3)
     Private mod_listElementLaysections As New HashSet(Of ClassElementLaysection) ''Added 9/17/2019 thomas downes
-    Private mod_listBadgeElements As New HashSet(Of ClassElementField) ''Added 11/26/2021 td
+    Private mod_listBadgeElements As New HashSet(Of ClassElementFieldV3) ''Added 11/26/2021 td
 
     ''Added 1/14/2020 thomas dow nes
     Private Structure BackTitleAndWidth
@@ -243,17 +243,17 @@ Public Class ClassElementsCache_DontUse
 
 
 
-    Public Property ListOfElementFields As HashSet(Of ClassElementField)  ''---List(Of ClassElementField)
+    Public Property ListOfElementFields As HashSet(Of ClassElementFieldV3)  ''---List(Of ClassElementField)
         Get ''Added 9/28/2019 td
             Return mod_listElementFields
         End Get
-        Set(value As HashSet(Of ClassElementField))  ''---List(Of ClassElementField))
+        Set(value As HashSet(Of ClassElementFieldV3))  ''---List(Of ClassElementField))
             ''Added 9/28/2019 td
             mod_listElementFields = value
         End Set
     End Property
 
-    Public Function BadgeDisplayElements_Fields(pboolRefresh As Boolean) As HashSet(Of ClassElementField)
+    Public Function BadgeDisplayElements_Fields(pboolRefresh As Boolean) As HashSet(Of ClassElementFieldV3)
         ''
         ''Added 11/24/2021 thomas downes 
         ''
@@ -261,7 +261,7 @@ Public Class ClassElementsCache_DontUse
 
     End Function
 
-    Public Function ListOfBadgeDisplayElements_Flds(pboolRefresh As Boolean) As HashSet(Of ClassElementField)
+    Public Function ListOfBadgeDisplayElements_Flds(pboolRefresh As Boolean) As HashSet(Of ClassElementFieldV3)
         ''
         ''Added 11/26/2021  
         ''
@@ -281,8 +281,8 @@ Public Class ClassElementsCache_DontUse
         ''  For each element, we check to see if it will be displayed on the Badge.
         ''  If so, it's included on the output list.  
         ''
-        Dim new_list As New HashSet(Of ClassElementField)  ''End of "List(Of ClassElementField)"
-        Dim each_element As ClassElementField
+        Dim new_list As New HashSet(Of ClassElementFieldV3)  ''End of "List(Of ClassElementField)"
+        Dim each_element As ClassElementFieldV3
         Dim boolOnDisplay As Boolean
         Dim structWhyOmitV1 As New ciBadgeElements.WhyOmitted_StructV1
         Dim structWhyOmitV2 As New ciBadgeInterfaces.WhyOmitted_StructV2 ''Added 1/24/2022
@@ -322,11 +322,11 @@ Public Class ClassElementsCache_DontUse
         End Set
     End Property
 
-    Public Property ListOfElementTexts As HashSet(Of ClassElementStaticText)  ''---List(Of ClassElementStaticText)
+    Public Property ListOfElementTexts As HashSet(Of ClassElementStaticTextV3)  ''---List(Of ClassElementStaticText)
         Get ''Added 10/14/2019 td
             Return mod_listElementStatics
         End Get
-        Set(value As HashSet(Of ClassElementStaticText))  ''---List(Of ClassElementStaticText))
+        Set(value As HashSet(Of ClassElementStaticTextV3))  ''---List(Of ClassElementStaticText))
             ''Added 10/14/2019 td
             mod_listElementStatics = value
         End Set
@@ -349,7 +349,7 @@ Public Class ClassElementsCache_DontUse
 
     ''End Function ''End of "Public Function Fields() As List(Of ClassFieldAny)"
 
-    Public Function ListFieldElements() As HashSet(Of ClassElementField)
+    Public Function ListFieldElements() As HashSet(Of ClassElementFieldV3)
         ''10/17 td''Public Function ListFieldElements() As List(Of ClassElementField)
         ''
         ''Added 9/16/2019 thomas downes
@@ -376,7 +376,7 @@ Public Class ClassElementsCache_DontUse
 
     End Function ''End of " Public Function ListPicElements() As List(Of ClassElementPic)"
 
-    Public Function ListStaticTextElements() As HashSet(Of ClassElementStaticText)  ''---List(Of ClassElementStaticText)
+    Public Function ListStaticTextElements() As HashSet(Of ClassElementStaticTextV3)  ''---List(Of ClassElementStaticText)
         ''
         ''Added 9/16/2019 thomas downes
         ''
@@ -458,7 +458,7 @@ Public Class ClassElementsCache_DontUse
         ''Since the FieldElements rely heavily on the Fields,
         ''   we must refresh the connections between the two. 
         ''
-        Dim each_element As ciBadgeElements.ClassElementField
+        Dim each_element As ciBadgeElements.ClassElementFieldV3
         Dim eachrelated_field As ciBadgeFields.ClassFieldAny
 
         For Each each_element In ListFieldElements()
@@ -603,7 +603,7 @@ Public Class ClassElementsCache_DontUse
         ''Next field_custom
         ''-------------------------------------------------------------------------------------
 
-        Dim new_elementField As ClassElementField ''Added 9/18/2019 td
+        Dim new_elementField As ClassElementFieldV3 ''Added 9/18/2019 td
         Dim intFieldIndex As Integer ''Added 9/18/2019 td
         Dim intLeft_Pixels As Integer ''Added 9/18/2019 td
         Dim intTop_Pixels As Integer ''Added 9/18/2019 td
@@ -624,7 +624,7 @@ Public Class ClassElementsCache_DontUse
             intLeft_Pixels = intTop_Pixels ''Let's have a staircase effect!! 
 
             ''Added 9/18/2019 td
-            new_elementField = New ClassElementField(each_field, intLeft_Pixels, intTop_Pixels, c_intHeight_Pixels)
+            new_elementField = New ClassElementFieldV3(each_field, intLeft_Pixels, intTop_Pixels, c_intHeight_Pixels)
             new_elementField.FieldInfo = each_field
             new_elementField.FieldEnum = each_field.FieldEnumValue ''Added 10/12/2019 td
 
@@ -645,7 +645,7 @@ Public Class ClassElementsCache_DontUse
         ''
         ''Added 11/15/2019 thomas d. 
         ''
-        Dim new_elementField As ClassElementField ''Added 9/18/2019 td
+        Dim new_elementField As ClassElementFieldV3 ''Added 9/18/2019 td
         Dim intFieldIndex As Integer ''Added 9/18/2019 td
         Dim intLeft_Pixels As Integer ''Added 9/18/2019 td
         Dim intTop_Pixels As Integer ''Added 9/18/2019 td
@@ -666,7 +666,7 @@ Public Class ClassElementsCache_DontUse
             intLeft_Pixels = intTop_Pixels ''Let's have a staircase effect!! 
 
             ''Added 9/18/2019 td
-            new_elementField = New ClassElementField(each_field, intLeft_Pixels, intTop_Pixels, c_intHeight_Pixels)
+            new_elementField = New ClassElementFieldV3(each_field, intLeft_Pixels, intTop_Pixels, c_intHeight_Pixels)
             new_elementField.FieldInfo = each_field
             new_elementField.FieldEnum = each_field.FieldEnumValue ''Added 10/12/2019 td
 
@@ -836,7 +836,7 @@ Public Class ClassElementsCache_DontUse
         ''
         ''Added 10/10/2019 td  
         ''
-        Dim objElementText As ClassElementStaticText ''Added 10/10/2019 td 
+        Dim objElementText As ClassElementStaticTextV3 ''Added 10/10/2019 td 
         Dim objRectangle As Rectangle ''Added 10/10/2019 td  
         Dim intLeft As Integer
         Dim intTop As Integer
@@ -846,7 +846,7 @@ Public Class ClassElementsCache_DontUse
 
         objRectangle = New Rectangle(intLeft, intTop, par_intWidth, par_intHeight)
 
-        objElementText = New ClassElementStaticText(par_DisplayText, intLeft, intTop, par_intHeight)
+        objElementText = New ClassElementStaticTextV3(par_DisplayText, intLeft, intTop, par_intHeight)
 
         mod_listElementStatics.Add(objElementText)
 
@@ -862,7 +862,7 @@ Public Class ClassElementsCache_DontUse
         ''     ''Attach the Recipient.  
         ''     ''
         ''     ''10/16/2019 td''each_elementField.Recipient = par_recipient
-        ClassElementField.oRecipient = par_recipient
+        ClassElementFieldV3.oRecipient = par_recipient
 
         ''10/16/2019 td''Next each_elementField
 
@@ -878,7 +878,7 @@ Public Class ClassElementsCache_DontUse
         ''10/14/2019 td''Dim copy_ofField As ClassFieldAny
         Dim copy_ofField_Stan As ClassFieldStandard
         Dim copy_ofField_Cust As ClassFieldCustomized
-        Dim copy_ofElementField As ClassElementField ''Added 10/1/2019 td
+        Dim copy_ofElementField As ClassElementFieldV3 ''Added 10/1/2019 td
 
         ''Added 11/30/2021 td 
         objCopyOfCache = New ClassElementsCache_DontUse
@@ -953,7 +953,7 @@ Public Class ClassElementsCache_DontUse
 
 
         ''Added 9/17/2019 thomas downes  
-        For Each each_elementField As ClassElementField In mod_listElementFields
+        For Each each_elementField As ClassElementFieldV3 In mod_listElementFields
             ''
             ''Add a copy of the element-field.
             ''
@@ -983,7 +983,7 @@ Public Class ClassElementsCache_DontUse
         Next each_elementPic
 
         ''Added 9/17/2019 thomas downes  
-        For Each each_elementStaticText As ClassElementStaticText In mod_listElementStatics
+        For Each each_elementStaticText As ClassElementStaticTextV3 In mod_listElementStatics
             objCopyOfCache.ListStaticTextElements().Add(each_elementStaticText.Copy())
         Next each_elementStaticText
 
@@ -1022,7 +1022,7 @@ Public Class ClassElementsCache_DontUse
 
         Dim found_field As ClassFieldAny ''Added 10/12/2019 td
 
-        For Each each_elementField As ClassElementField In mod_listElementFields
+        For Each each_elementField As ClassElementFieldV3 In mod_listElementFields
 
             found_field = Nothing ''Initialize. ----10/12/2019 td
 
@@ -1036,7 +1036,7 @@ Public Class ClassElementsCache_DontUse
 
     End Sub ''End of "Public Sub LinkElementsToFields()"
 
-    Public Function GetElementByGUID(par_guid As System.Guid) As ClassElementField
+    Public Function GetElementByGUID(par_guid As System.Guid) As ClassElementFieldV3
         ''
         ''Added 9/30/2019 td  
         ''
@@ -1083,11 +1083,11 @@ Public Class ClassElementsCache_DontUse
 
     End Function ''ENd of "Public Function MissingTheSignature() As Boolean"
 
-    Public Function GetElementByFieldEnum(par_enum As EnumCIBFields) As ClassElementField
+    Public Function GetElementByFieldEnum(par_enum As EnumCIBFields) As ClassElementFieldV3
         ''
         ''Added 10/13/2019 td
         ''
-        For Each each_elementField As ClassElementField In mod_listElementFields
+        For Each each_elementField As ClassElementFieldV3 In mod_listElementFields
             With each_elementField
                 .FieldEnum = .FieldObjectAny.FieldEnumValue ''This is a double-check that the Enum value matches. 
                 If (.FieldEnum = par_enum) Then Return each_elementField
@@ -1131,7 +1131,7 @@ Public Class ClassElementsCache_DontUse
         ''
         Throw New Exception("It sucks to compare FieldEnum & FieldIndex.")
 
-        For Each objFldElement As ClassElementField In mod_listElementFields
+        For Each objFldElement As ClassElementFieldV3 In mod_listElementFields
             ''Find the right FieldElement, by it's enumerated
             ''   field value.  ----11/19/2021 
             If (objFldElement.FieldEnum = pintFieldIndex) Then
@@ -1149,7 +1149,7 @@ Public Class ClassElementsCache_DontUse
         ''Added 11/19/2021 Thomas Downes 
         ''
         Dim objRelevantFieldAny As ClassFieldAny = Nothing
-        Dim objElement As ClassElementField
+        Dim objElement As ClassElementFieldV3
 
         ''This sucks''objField = (ListOfFields_Any()).Item(pintFieldIndex)
 
@@ -1161,7 +1161,7 @@ Public Class ClassElementsCache_DontUse
             End If
         Next each_field
 
-        For Each each_element As ClassElementField In mod_listElementFields
+        For Each each_element As ClassElementFieldV3 In mod_listElementFields
             If (each_element.FieldInfo Is objRelevantFieldAny) Then
                 ''
                 ''Added 11/19 td
@@ -1203,17 +1203,17 @@ Public Class ClassElementsCache_DontUse
     End Function ''End of "Public Function MapElementIndex_OmitUnneeded(int par_indexElement)"
 
 
-    Public Function GetElementByLabelCaption(par_caption As String) As ClassElementField
+    Public Function GetElementByLabelCaption(par_caption As String) As ClassElementFieldV3
         ''Added 10/10/2019 td 
         Return (Nothing)
 
     End Function ''ENd of "Public Function GetFieldByLabelCaptionpar_caption As String) As ClassFieldAny"
 
-    Public Function GetElementByField(par_field As ClassFieldAny) As ClassElementField
+    Public Function GetElementByField(par_field As ClassFieldAny) As ClassElementFieldV3
         ''Added 11/19/2021 td 
         ''Return (Nothing)
 
-        For Each each_element As ClassElementField In ListOfElementFields
+        For Each each_element As ClassElementFieldV3 In ListOfElementFields
 
             If (each_element.FieldEnum = par_field.FieldEnumValue) Then Return each_element
 
@@ -1233,7 +1233,7 @@ Public Class ClassElementsCache_DontUse
         pbAllFine = True
         pstrMessage = ""
 
-        For Each each_element As ClassElementField In ListOfElementFields
+        For Each each_element As ClassElementFieldV3 In ListOfElementFields
             intCountAll += 1
             boolMatch = (each_element.FieldEnum = each_element.FieldInfo.FieldEnumValue)
             ''We don't want to leave prematurely.''----If (Not boolMatch) Then Return False

@@ -18,9 +18,9 @@ Public Class ClassBadgeSideLayoutV2
     Public Property BackgroundImage_Path As String = "" ''Added 1/14/2020 td
     Public Property BackgroundImage_FTitle As String = "" ''Added 1/14/2020 td
 
-    Private mod_listElementFields As New HashSet(Of ClassElementField)
+    Private mod_listElementFields As New HashSet(Of ClassElementFieldV3)
     Private mod_listElementPics As New HashSet(Of ClassElementPortrait)
-    Private mod_listElementStatics As New HashSet(Of ClassElementStaticText)
+    Private mod_listElementStatics As New HashSet(Of ClassElementStaticTextV3)
     Private mod_listElementGraphics As New HashSet(Of ClassElementGraphic) ''Added 1/8/2022 td
     Private mod_listElementLaysections As New HashSet(Of ClassElementLaysection) ''Added 9/17/2019
 
@@ -46,7 +46,7 @@ Public Class ClassBadgeSideLayoutV2
     ''    End Set
     ''End Property
 
-    Public Property ListElementFields As HashSet(Of ClassElementField) Implements IBadgeSideLayoutElementsV2.ListElementFields
+    Public Property ListElementFields As HashSet(Of ClassElementFieldV3) Implements IBadgeSideLayoutElementsV2.ListElementFields
     ''    Get
     ''        Throw New NotImplementedException()
     ''    End Get
@@ -55,7 +55,7 @@ Public Class ClassBadgeSideLayoutV2
     ''    End Set
     ''End Property
 
-    Public Property ListElementStaticTexts As HashSet(Of ClassElementStaticText) Implements IBadgeSideLayoutElementsV2.ListElementStaticTexts
+    Public Property ListElementStaticTexts As HashSet(Of ClassElementStaticTextV3) Implements IBadgeSideLayoutElementsV2.ListElementStaticTexts
     ''    Get
     ''        Throw New NotImplementedException()
     ''    End Get

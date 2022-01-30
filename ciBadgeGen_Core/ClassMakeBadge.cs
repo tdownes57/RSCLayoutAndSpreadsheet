@@ -89,7 +89,7 @@ namespace ciBadgeGenerator
             //Step #1:  Load the Recipient into the Elements Cache. 
             //
             // 12/2/2019 td //ClassElementField.iRecipientInfo = par_recipient;
-            ClassElementField.iRecipientInfo = par_recipient;
+            ClassElementFieldV3.iRecipientInfo = par_recipient;
             //ClassElementField.oRecipient = par_recipient; //Added 1/15/2020 td
 
             //
@@ -119,8 +119,8 @@ namespace ciBadgeGenerator
             // 10-16-2019 td// par_cache.LoadRecipient(par_recipient);
             // 11-16-2019 td// ClassElementField.oRecipient = par_recipient;
 
-            ClassElementField.oRecipient = par_recipient;
-            ClassElementField.iRecipientInfo = par_recipient;   //Added 1/15/2020 thomas d.
+            ClassElementFieldV3.oRecipient = par_recipient;
+            ClassElementFieldV3.iRecipientInfo = par_recipient;   //Added 1/15/2020 thomas d.
 
             //
             //Step #2:  Create the image of the badge-card for the above recipient. 
@@ -157,7 +157,7 @@ namespace ciBadgeGenerator
             ClassProportions.ProportionsAreSlightlyOff(par_backgroundImage, true, "Background Image");
 
             // 1-15-2020 td //LayoutElements objPrintLibElems = new LayoutElements();
-            LayoutElements objPrintLibElems = new LayoutElements(ClassElementField.iRecipientInfo);
+            LayoutElements objPrintLibElems = new LayoutElements(ClassElementFieldV3.iRecipientInfo);
 
             //    obj_image = Me.BackgroundBox.Image
             //    obj_image_clone = CType(obj_image.Clone(), Image)
@@ -194,7 +194,7 @@ namespace ciBadgeGenerator
             //    listOfElementTextFields = Me.ElementsCache_Edits.ListFieldElements()
 
             // 10-17-2019 td //List<ClassElementField> listOfElementTextFields;
-            HashSet<ClassElementField> listOfElementFields; // <<<<<<<<<<<<<< I have removed the word "Text" from the name.   It's confusing since there are Static-Text controls. --10/17/2019
+            HashSet<ClassElementFieldV3> listOfElementFields; // <<<<<<<<<<<<<< I have removed the word "Text" from the name.   It's confusing since there are Static-Text controls. --10/17/2019
             listOfElementFields = par_cache.ListFieldElements();
 
             const bool c_boolUseUntestedProc = false;  // true;  // false;  //Added 10/5/2019 td
@@ -327,7 +327,7 @@ namespace ciBadgeGenerator
             //
             //Static-Text Elements 
             //
-            HashSet<ClassElementStaticText> listOfElementStaticTexts;
+            HashSet<ClassElementStaticTextV3> listOfElementStaticTexts;
             
             // Dec18 2021 td//listOfElementStaticTexts = par_cache.ListOfElementTexts;
             listOfElementStaticTexts = par_cache.ListOfElementTexts_Front;
@@ -480,7 +480,7 @@ namespace ciBadgeGenerator
         //    ''---                                     Optional par_listTextImages As List(Of Image) = Nothing)        
 
         public void LoadImageWithStaticTexts(ref Image par_imageBadgeCard,
-                              HashSet<ClassElementStaticText> par_elements,
+                              HashSet<ClassElementStaticTextV3> par_elements,
                               HashSet<Image> par_listTextImages = null)
         {
             //
@@ -490,7 +490,7 @@ namespace ciBadgeGenerator
         }
 
         public void LoadImageWithElements(ref Image par_imageBadgeCard,
-                                          HashSet<ClassElementField> par_elements,
+                                          HashSet<ClassElementFieldV3> par_elements,
                                           List<Image> par_listTextImages = null)
         {
             //    ''Added 8/14/2019 td  
@@ -530,7 +530,7 @@ namespace ciBadgeGenerator
             //    ''9/18/2019 td''For Each each_elementField As IFieldInfo_ElementPositions In par_standardFields
             //    For Each each_elementField As ClassElementField In par_elements
 
-            foreach (ClassElementField each_elementField in par_elements)
+            foreach (ClassElementFieldV3 each_elementField in par_elements)
             {
                 //
                 //        intEachIndex += 1
@@ -741,7 +741,7 @@ namespace ciBadgeGenerator
 
         }
 
-        private void AddElementFieldToImage(ClassElementField par_elementField,
+        private void AddElementFieldToImage(ClassElementFieldV3 par_elementField,
                                             Image par_imageBadgeCard,
                                             Graphics par_graphics,
                                             bool pboolReturnListOfImages,
