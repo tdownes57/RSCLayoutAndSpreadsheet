@@ -21,8 +21,8 @@ Public Class ClassRubberbandSelector
     ''
     ''9/8/2019 td''Public ParentDesignForm As FormDesignProtoTwo
     Public PictureBack As PictureBox
-    Public FieldControls_GroupEdit As List(Of CtlGraphicFldLabel)
-    Public FieldControls_All As List(Of CtlGraphicFldLabel)
+    Public FieldControls_GroupEdit As List(Of CtlGraphicFldLabelV3)
+    Public FieldControls_All As List(Of CtlGraphicFldLabelV3)
     Public LayoutFunctions As ILayoutFunctions ''Added 9/20/2019 thomas d
 
     ''
@@ -224,7 +224,7 @@ Public Class ClassRubberbandSelector
         ''
         ''Added 9/20/2019 td  
         ''
-        Dim each_ctl As CtlGraphicFldLabel
+        Dim each_ctl As CtlGraphicFldLabelV3
         Dim boolInsideCtl As Boolean
 
         For Each each_ctl In Me.FieldControls_All
@@ -241,7 +241,7 @@ Public Class ClassRubberbandSelector
         ''
         ''Added 9/20/2019 td 
         ''
-        Dim each_fieldCtl As CtlGraphicFldLabel
+        Dim each_fieldCtl As CtlGraphicFldLabelV3
 
         If (Me.FieldControls_All Is Nothing) Then
             ''

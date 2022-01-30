@@ -36,7 +36,7 @@ Public Class MenuCache_FieldElements_NotInUse
     Public Shared Tools_MenuHeader3 As ToolStripItem ''Added 12/13/2021
     Public Shared Tools_MenuSeparator As ToolStripItem ''Added 12/13/2021 
 
-    Public Shared Property CtlCurrentElement As ciBadgeDesigner.CtlGraphicFldLabel ''CtlGraphicFldLabel
+    Public Shared Property CtlCurrentElement As ciBadgeDesigner.CtlGraphicFldLabelV3 ''CtlGraphicFldLabel
     Public Shared Property LayoutFunctions As ILayoutFunctions ''Added 10/3/2019 td 
     Public Shared Property Designer As ciBadgeDesigner.ClassDesigner
     Public Shared Property ColorDialog1 As ColorDialog ''Added 10/3/2019 td 

@@ -34,7 +34,7 @@ Public Class ClassLoopedOperations
     ''
     ''Added 10/17/2019 thomas d. 
     ''
-    Public ListOfControls_Fld As List(Of CtlGraphicFldLabel)
+    Public ListOfControls_Fld As List(Of CtlGraphicFldLabelV3)
     ''Public ListOfControls_All As List(Of IAllElementControlTypes)
     ''Public ListOfControls_NonFld As List(Of INonFieldControls)
 

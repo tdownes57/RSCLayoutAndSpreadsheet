@@ -39,12 +39,12 @@ Public Class DialogTextOffset
 
     Public GroupEdits As ISelectingElements ''Added 8/15/2019 thomas downes  
     ''10/3/2019 td''Public FormDesigner_Denigrated As FormDesignProtoTwo ''Added 8/15/2019 td  
-    Public OriginalElementControl_ForApplyOnly As CtlGraphicFldLabel ''Added 8/15/2019 td  
+    Public OriginalElementControl_ForApplyOnly As CtlGraphicFldLabelV3 ''Added 8/15/2019 td  
 
     Public UserConfirmed As Boolean ''Added 9/18/2019 thomas d. 
 
     Public Sub New(par_element_fromLayout As ClassElementFieldV3, par_element_copy As ClassElementFieldV3,
-                   par_parentControl As CtlGraphicFldLabel)
+                   par_parentControl As CtlGraphicFldLabelV3)
 
         ' This call is required by the designer.
         InitializeComponent()
@@ -134,7 +134,7 @@ Public Class DialogTextOffset
     End Sub ''Public Sub UpdateInfo_ViaInterfaces(par_elementInfo_Base As IElement_Base, par_elementInfo_Text As IElement_Text)
 
     Public Sub LoadFieldAndForm(par_layoutFun As ILayoutFunctions,
-                                par_originalCtl As CtlGraphicFldLabel)
+                                par_originalCtl As CtlGraphicFldLabelV3)
         ''9/19/2019 td''Public Sub LoadFieldAndForm(par_formDesigner As FormDesignProtoTwo,
         ''                  par_originalCtl As CtlGraphicFldLabel)
         ''

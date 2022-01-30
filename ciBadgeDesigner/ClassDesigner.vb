@@ -23,11 +23,11 @@ Public Class ClassDesigner
     ''
     ''Added 10/1/2019 thomas downes 
     ''
-    Public Event ElementFieldRightClicked(par_control As CtlGraphicFldLabel) ''Added 10/1/2019 td
+    Public Event ElementFieldRightClicked(par_control As CtlGraphicFldLabelV3) ''Added 10/1/2019 td
     Public Event ElementPortraitRightClicked(par_control As CtlGraphicPortrait) ''Added 12/22/2021 td
     Public Event ElementQRCodeRightClicked(par_control As CtlGraphicQRCode) ''Added 12/15/2021 td
     Public Event ElementSignatRightClicked(par_control As CtlGraphicSignature) ''Added 12/15/2021 td
-    Public Event ElementStaticTextRightClicked(par_control As CtlGraphicStaticText) ''Added 12/15/2021 td
+    Public Event ElementStaticTextRightClicked(par_control As CtlGraphicStaticTextV3) ''Added 12/15/2021 td
     Public Event BackgroundRightClicked(par_mouse_x As Integer, par_mouse_y As Integer) ''Added 10/15/2019 td
 
     ''10/1/2019 td''Public Property LayoutFunctions As ILayoutFunctions
@@ -79,7 +79,7 @@ Public Class ClassDesigner
     Public Property CtlGraphic_QRCode As CtlGraphicQRCode ''Added 10/10/2019 td
 
     ''Jan7 2022 td''Public Property CtlGraphic_StaticText_temp As CtlGraphicStaticText ''Added 11/29/2019 td
-    Public Property ListCtlGraphic_StaticTexts As New HashSet(Of CtlGraphicStaticText) ''Added 12/18/2021 td
+    Public Property ListCtlGraphic_StaticTexts As New HashSet(Of CtlGraphicStaticTextV3) ''Added 12/18/2021 td
 
 
     ''Dec14 2021''Public Property ElementsCache_Saved As New ClassElementsCache_Deprecated ''Added 9/16/2019 thomas downes
@@ -157,8 +157,8 @@ Public Class ClassDesigner
 
     ''Added 9/20/2019 td  
     ''10/17/2019 td''Private mod_listOfFieldControls As New List(Of CtlGraphicFldLabel)
-    Private mod_listOfFieldControls As New HashSet(Of CtlGraphicFldLabel)
-    Private mod_listOfTextControls As New HashSet(Of CtlGraphicStaticText) ''Added Jan8 2022 td
+    Private mod_listOfFieldControls As New HashSet(Of CtlGraphicFldLabelV3)
+    Private mod_listOfTextControls As New HashSet(Of CtlGraphicStaticTextV3) ''Added Jan8 2022 td
     Private mod_listOfGraphicControls As New HashSet(Of CtlGraphicStaticGraphic) ''Added Jan8 2022 td
 
     ''Added 11/28/2021 thomas downes
@@ -181,7 +181,7 @@ Public Class ClassDesigner
     End Function
 
 
-    Public Function ListOfFieldLabels() As HashSet(Of CtlGraphicFldLabel)
+    Public Function ListOfFieldLabels() As HashSet(Of CtlGraphicFldLabelV3)
         ''10/17/2019 td''Public Function ListOfFieldLabels() As List(Of CtlGraphicFldLabel)
         ''Added 10/13/2019 thomas downes
         Return mod_listOfFieldControls
@@ -384,7 +384,7 @@ Public Class ClassDesigner
         ''
         ''Jan11 2022''Dim objListenerStaticText As MoveAndResizeControls_Monem.ControlResizeProportionally_TD
         ''Jan11 2022''Dim boolListenerFound As Boolean ''Added 12/15/2021 td 
-        Dim each_ctlStaticText As CtlGraphicStaticText ''Added 12/15/2021 td
+        Dim each_ctlStaticText As CtlGraphicStaticTextV3 ''Added 12/15/2021 td
 
         ''1/8/2022''If (CtlGraphic_StaticText_temp Is Nothing) Then Return ''Don't bother proceeding.--1/5/2022
 
@@ -905,7 +905,7 @@ Public Class ClassDesigner
 
     Private Sub LoadForm_LayoutElements(par_enumSideOfCard As EnumWhichSideOfCard,
                                         par_cache As ClassElementsCache_Deprecated,
-                                        ByRef par_listFieldCtls As HashSet(Of CtlGraphicFldLabel),
+                                        ByRef par_listFieldCtls As HashSet(Of CtlGraphicFldLabelV3),
                                         par_oMoveEvents As GroupMoveEvents_Singleton,
                                         pstrWhyCalled As String)
         ''10/17/2019 td''Private Sub LoadForm_LayoutElements(par_cache As ClassElementsCache,
@@ -1370,7 +1370,7 @@ Public Class ClassDesigner
         ''
         ''Added 12/18/2021 thomas d. 
         ''
-        Dim each_ctlStaticText As CtlGraphicStaticText ''Added 1/8/2022 td
+        Dim each_ctlStaticText As CtlGraphicStaticTextV3 ''Added 1/8/2022 td
         Dim indexControl As Integer = 0 ''Added 1/8/2022 td
         Dim oGetControlParameters As ClassGetElementControlParams ''Added 1/17/2022 thomas d.
         Dim sizeIfNeeded As New Size() ''Added 1/26/2022 thomas d
@@ -1383,7 +1383,7 @@ Public Class ClassDesigner
             ''Dec27 2021''CtlGraphic_StaticText_temp = New CtlGraphicStaticText(each_element_static)
             ''Jan8 2022 td''CtlGraphic_StaticText_temp = New CtlGraphicStaticText(each_element_static, Me)
 
-            each_ctlStaticText = CtlGraphicStaticText.GetStaticText(oGetControlParameters,
+            each_ctlStaticText = CtlGraphicStaticTextV3.GetStaticText(oGetControlParameters,
                                             each_element_static, Me.DesignerForm,
                     String.Format("CtlGraphicStaticText{0}", indexControl),
                     CType(Me, ILayoutFunctions), sizeIfNeeded,
@@ -1576,7 +1576,7 @@ Public Class ClassDesigner
                                par_boolLoadingForm As Boolean,
                                Optional par_bUnloading As Boolean = False,
                                Optional par_bAddMoveability As Boolean = False,
-                                Optional ByRef par_listFieldCtls As HashSet(Of CtlGraphicFldLabel) = Nothing,
+                                Optional ByRef par_listFieldCtls As HashSet(Of CtlGraphicFldLabelV3) = Nothing,
                                Optional pstrWhyCalled As String = "")
         ''---Dec21 2021 td''Private Sub LoadFieldControls_ByListOfElements(par_listElements As HashSet(Of ClassElementField), ...
         ''
@@ -1595,7 +1595,7 @@ Public Class ClassDesigner
             ''  Let's track the count of the element per repeated caption, e.g. "#4" to make "Last Name #4". 
             each_element.CaptionSuffixIfNeeded = dictionaryOfCaptions.AddCaption_GetSuffix(each_element.FieldNm_CaptionText)
 
-            Dim label_control As CtlGraphicFldLabel
+            Dim label_control As CtlGraphicFldLabelV3
 
             ''Added 9/3/2019 thomas d. 
             ''9/17/2019 td''boolIncludeOnBadge = (par_boolLoadingForm And each_element.IsDisplayedOnBadge)
@@ -1684,7 +1684,7 @@ Public Class ClassDesigner
             ''
             ''Get the new Field Element. 
             ''
-            label_control = CtlGraphicFldLabel.GetFieldElement(oGetControlParameters,
+            label_control = CtlGraphicFldLabelV3.GetFieldElement(oGetControlParameters,
                                                                each_element, Me.DesignerForm, Me,
                                                                strNameOfControl,
                                                         CType(Me, ILayoutFunctions),
@@ -1852,7 +1852,7 @@ Public Class ClassDesigner
         ''
         Me.DesignerForm.UseWaitCursor = True
 
-        Dim each_ctl_field As CtlGraphicFldLabel
+        Dim each_ctl_field As CtlGraphicFldLabelV3
         Dim each_ctl_portrait As CtlGraphicPortrait ''Added 7/31/2019 td
         ''10/14 td''Dim each_ctl_qrcode As CtlGraphicQRCode ''Added 10/14/2019 td
         ''10/14 td''Dim each_ctl_signat As CtlGraphicSignature ''Added 10/14/2019 td
@@ -1881,9 +1881,9 @@ Public Class ClassDesigner
             ''
             ''Step #1b. Clear any highlighting. 
             ''
-            If (TypeOf each_control Is CtlGraphicFldLabel) Then
+            If (TypeOf each_control Is CtlGraphicFldLabelV3) Then
 
-                each_ctl_field = CType(each_control, CtlGraphicFldLabel)
+                each_ctl_field = CType(each_control, CtlGraphicFldLabelV3)
                 each_ctl_field.SelectedHighlighting_Denigrated = False ''Clear any/all highlighting. ---Added 10/14/2019 td
 
                 each_element_field = each_ctl_field.ElementClass_Obj ''Added 10/14/2019 td 
@@ -1988,22 +1988,22 @@ Public Class ClassDesigner
         ''Save location & sizing data each element that corresponds to each designer control.
         ''  ----10/10/2019 td 
         ''
-        Dim each_graphicalFieldCtl As CtlGraphicFldLabel ''Added 10/10/2019 td
+        Dim each_graphicalFieldCtl As CtlGraphicFldLabelV3 ''Added 10/10/2019 td
         Dim each_portraitControl As CtlGraphicPortrait ''Added 10/10/2019 td
 
         Dim each_ctl_QRCode As CtlGraphicQRCode ''Added 10/14/2019 td
         Dim each_ctl_Signat As CtlGraphicSignature ''Added 10/14/2019 td
-        Dim each_ctl_Text As CtlGraphicStaticText ''Added 10/14/2019 td
+        Dim each_ctl_Text As CtlGraphicStaticTextV3 ''Added 10/14/2019 td
 
         If (par_ctlElement IsNot Nothing) Then
             ''
             ''Save the position of the specified control.  
             ''
-            If (TypeOf par_ctlElement Is CtlGraphicFldLabel) Then
+            If (TypeOf par_ctlElement Is CtlGraphicFldLabelV3) Then
                 ''
                 ''Save the Top & Left positional information, for example. 
                 ''
-                each_graphicalFieldCtl = CType(par_ctlElement, CtlGraphicFldLabel)
+                each_graphicalFieldCtl = CType(par_ctlElement, CtlGraphicFldLabelV3)
                 each_graphicalFieldCtl.SaveToModel()
                 ''Added 11/29/2021 td  
                 each_graphicalFieldCtl.DatetimeSaved = DateTime.Now
@@ -2017,8 +2017,8 @@ Public Class ClassDesigner
             ElseIf (TypeOf par_ctlElement Is CtlGraphicSignature) Then
                 each_ctl_Signat = CType(par_ctlElement, CtlGraphicSignature)
                 each_ctl_Signat.SaveToModel()
-            ElseIf (TypeOf par_ctlElement Is CtlGraphicStaticText) Then
-                each_ctl_Text = CType(par_ctlElement, CtlGraphicStaticText)
+            ElseIf (TypeOf par_ctlElement Is CtlGraphicStaticTextV3) Then
+                each_ctl_Text = CType(par_ctlElement, CtlGraphicStaticTextV3)
                 each_ctl_Text.SaveToModel()
             End If
 
@@ -2029,9 +2029,9 @@ Public Class ClassDesigner
             ''---For Each each_control As Control In Me.DesignerForm.Controls
             For Each each_control As Control In mod_listOfDesignerControls
 
-                If (TypeOf each_control Is CtlGraphicFldLabel) Then
+                If (TypeOf each_control Is CtlGraphicFldLabelV3) Then
 
-                    each_graphicalFieldCtl = CType(each_control, CtlGraphicFldLabel)
+                    each_graphicalFieldCtl = CType(each_control, CtlGraphicFldLabelV3)
                     each_graphicalFieldCtl.SaveToModel()
 
                 ElseIf (TypeOf each_control Is CtlGraphicPortrait) Then
@@ -2051,9 +2051,9 @@ Public Class ClassDesigner
                     each_ctl_Signat = CType(each_control, CtlGraphicSignature)
                     each_ctl_Signat.SaveToModel()
 
-                ElseIf (TypeOf each_control Is CtlGraphicStaticText) Then
+                ElseIf (TypeOf each_control Is CtlGraphicStaticTextV3) Then
                     ''Added 10/14/2019 thomas downes  
-                    each_ctl_Text = CType(each_control, CtlGraphicStaticText)
+                    each_ctl_Text = CType(each_control, CtlGraphicStaticTextV3)
                     each_ctl_Text.SaveToModel()
 
                 End If ''end of "If (TypeOf each_control Is GraphicFieldLabel) Then .... ElseIf ..."
@@ -2250,7 +2250,7 @@ Public Class ClassDesigner
         ''     ---11/29/2021 td 
         listOfElementTextFields = New HashSet(Of ClassElementFieldV3)
 
-        For Each eachCtlField As CtlGraphicFldLabel In mod_listOfFieldControls
+        For Each eachCtlField As CtlGraphicFldLabelV3 In mod_listOfFieldControls
             ''
             ''Add to the list which will be given to the function MakeBadge.
             ''
@@ -2268,7 +2268,7 @@ Public Class ClassDesigner
         ''Pull the Element-StaticText objects from the CtlGraphicStaticText Controls.
         ''     ---11/29/2021 td 
         listOfElementStaticTexts = New HashSet(Of ClassElementStaticTextV3)
-        For Each eachCtlStaticText As CtlGraphicStaticText In mod_listOfTextControls
+        For Each eachCtlStaticText As CtlGraphicStaticTextV3 In mod_listOfTextControls
             listOfElementStaticTexts.Add(eachCtlStaticText.ElementClass_Obj)
         Next eachCtlStaticText
 
@@ -2612,7 +2612,7 @@ Public Class ClassDesigner
                 ''9/9/2019 td''mod_FieldControlLastTouched = value
                 ''Dec21 2021''mod_FieldControlLastTouched = CType(value, CtlGraphicFldLabel)
                 mod_RSCControlLastTouched = Nothing
-                If (TypeOf value Is CtlGraphicFldLabel) Then mod_RSCControlLastTouched = CType(value, CtlGraphicFldLabel)
+                If (TypeOf value Is CtlGraphicFldLabelV3) Then mod_RSCControlLastTouched = CType(value, CtlGraphicFldLabelV3)
 
                 ''1/12/2022''mod_ElementLastTouched = CType(value, Control) ''Added 9/14 
                 mod_ElementLastTouched = CType(value, RSCMoveableControlVB) ''Modified 1/12/2022 ''Added 9/14 
@@ -2652,7 +2652,7 @@ Public Class ClassDesigner
 
             Try
                 ''9/9/2019 td''mod_FieldControlLastTouched = value
-                mod_RSCControlLastTouched = CType(value, CtlGraphicFldLabel)
+                mod_RSCControlLastTouched = CType(value, CtlGraphicFldLabelV3)
 
                 ''Added 9/11/2019 td  
                 If (mc_bAddBorderOnlyWhileResizing) Then
@@ -2683,7 +2683,7 @@ Public Class ClassDesigner
 
     End Property
 
-    Public Sub ElementsDesignList_Add(par_control As CtlGraphicFldLabel) _
+    Public Sub ElementsDesignList_Add(par_control As CtlGraphicFldLabelV3) _
         Implements ISelectingElements.ElementsDesignList_Add
         ''
         ''Jan11 2022 td''Public Sub LabelsDesignList_Add(par_control As CtlGraphicFldLabel)
@@ -2708,7 +2708,7 @@ Public Class ClassDesigner
 
     End Sub
 
-    Public Sub ElementsDesignList_Remove(par_control As CtlGraphicFldLabel) _
+    Public Sub ElementsDesignList_Remove(par_control As CtlGraphicFldLabelV3) _
         Implements ISelectingElements.ElementsDesignList_Remove
         ''
         ''Added 8/3/2019 thomas downes
@@ -2893,8 +2893,8 @@ Public Class ClassDesigner
         ''Jan2022 ''boolResizedAFieldCtl = (TypeOf mod_ControlLastTouched Is CtlGraphicFldLabel)
 
         Dim boolResizedATextCtl As Boolean ''Added 1/28/2022 td
-        boolResizedATextCtl = (TypeOf mod_ControlLastTouched Is CtlGraphicFldLabel) Or
-                              (TypeOf mod_ControlLastTouched Is CtlGraphicStaticText)
+        boolResizedATextCtl = (TypeOf mod_ControlLastTouched Is CtlGraphicFldLabelV3) Or
+                              (TypeOf mod_ControlLastTouched Is CtlGraphicStaticTextV3)
 
         ''10/13/2019 td''If (boolResizedAFieldCtl) Then ''Added 9/14/2019 td
         ''1/28/2022 td''If ((Not mc_boolMoveGrowInUnison) And boolResizedAFieldCtl) Then ''Added 9/14/2019 td
@@ -3152,11 +3152,11 @@ Public Class ClassDesigner
             SaveControlPositionsToElement(par_controlElement) ''Added 10/10/2019 td
 
             ''Refresh the Preview Box (a PictureBox control).
-            If (TypeOf par_controlElement Is CtlGraphicFldLabel) Then
+            If (TypeOf par_controlElement Is CtlGraphicFldLabelV3) Then
                 ''Added 11/29/2021 td
                 Dim objElementField As ClassElementFieldV3
                 objElementField = CType(par_controlElement,
-                                     CtlGraphicFldLabel).ElementClass_Obj
+                                     CtlGraphicFldLabelV3).ElementClass_Obj
                 ''
                 ''Major call!!
                 ''
@@ -3200,7 +3200,7 @@ Public Class ClassDesigner
     End Sub
 
 
-    Private Sub ElementField_Clicked(par_control As CtlGraphicFldLabel)
+    Private Sub ElementField_Clicked(par_control As CtlGraphicFldLabelV3)
         ''
         ''Added 10/1/2019 thomas d.
         ''
@@ -3238,7 +3238,7 @@ Public Class ClassDesigner
     End Sub
 
 
-    Private Sub ElementStatic_Clicked(par_control As CtlGraphicStaticText)
+    Private Sub ElementStatic_Clicked(par_control As CtlGraphicStaticTextV3)
         ''
         ''Added 12/15/2021 thomas d.
         ''

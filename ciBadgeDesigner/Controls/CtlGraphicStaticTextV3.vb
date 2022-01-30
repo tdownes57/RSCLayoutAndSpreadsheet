@@ -9,7 +9,7 @@ Imports System.Drawing ''Added 10/1/2019 td
 Imports ciBadgeElemImage ''Added 10/12/2019 td
 Imports __RSCWindowsControlLibrary ''Added 1/4/2022 td 
 
-Public Class CtlGraphicStaticText
+Public Class CtlGraphicStaticTextV3
     Implements ISaveToModel ''Added 12/17/2021 td 
     Implements IMoveableElement ''Added 12/17/2021 td
     ''
@@ -31,7 +31,7 @@ Public Class CtlGraphicStaticText
     ''1/8/2022 td''Public ReadOnly ParentDesignForm_iRefreshPreview As IRefreshPreview ''Added 12/27/2021 thomas downes  
     Public ParentDesignForm_iRefreshPreview As IRefreshCardPreview ''Added 12/27/2021 thomas downes  
 
-    Public Event ElementStatic_RightClicked(par_control As CtlGraphicStaticText) ''Added 12/15/2021 td
+    Public Event ElementStatic_RightClicked(par_control As CtlGraphicStaticTextV3) ''Added 12/15/2021 td
 
     Private Const mod_c_boolMustSetBackColor As Boolean = False ''False, since we have an alternate Boolean 
     ''   below which works fine (i.e. mod_c_bRefreshMustReinitializeImage = True).
@@ -79,7 +79,7 @@ Public Class CtlGraphicStaticText
                                          par_sizeDesired As Size,
                                          par_iRefreshPreview As IRefreshCardPreview,
                                 par_iControlLastTouched As ILastControlTouched,
-                 par_oMoveEventsGroupedControls As GroupMoveEvents_Singleton) As CtlGraphicStaticText
+                 par_oMoveEventsGroupedControls As GroupMoveEvents_Singleton) As CtlGraphicStaticTextV3
         ''              1/6/2022 td'' par_bProportionSizing As Boolean,
         ''              1/2/2022 td'' par_iSaveToModel As ISaveToModel,
         ''
@@ -134,7 +134,7 @@ Public Class CtlGraphicStaticText
         ''Jan2 2022''Dim CtlQRCode1 = New CtlGraphicQRCode(par_elementQRCode, par_iLayoutFun,
         ''Jan2 2022''           enumElementType_Enum, par_bProportionSizing,
 
-        Dim CtlStaticText1 = New CtlGraphicStaticText(par_elementStaticText, par_oParentForm,
+        Dim CtlStaticText1 = New CtlGraphicStaticTextV3(par_elementStaticText, par_oParentForm,
                                     par_iLayoutFun, par_sizeDesired,
                                     par_iRefreshPreview,
                                 typeOps, objOperations,

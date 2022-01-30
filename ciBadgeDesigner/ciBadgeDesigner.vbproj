@@ -127,10 +127,10 @@
     <Compile Include="Controls\CtlGraphicBackground.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\CtlGraphicFldLabel.designer.vb">
-      <DependentUpon>CtlGraphicFldLabel.vb</DependentUpon>
+    <Compile Include="Controls\CtlGraphicFldLabelV3.designer.vb">
+      <DependentUpon>CtlGraphicFldLabelV3.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CtlGraphicFldLabel.vb">
+    <Compile Include="Controls\CtlGraphicFldLabelV3.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\CtlGraphicPortrait.designer.vb">
@@ -143,6 +143,12 @@
       <DependentUpon>CtlGraphicQRCode.vb</DependentUpon>
     </Compile>
     <Compile Include="Controls\CtlGraphicQRCode.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtlGraphicRecipientFieldV4.Designer.vb">
+      <DependentUpon>CtlGraphicRecipientFieldV4.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtlGraphicRecipientFieldV4.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\CtlGraphicSignature.Designer.vb">
@@ -169,10 +175,16 @@
     <Compile Include="Controls\CtlGraphicStaticQR.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\CtlGraphicStaticText.designer.vb">
-      <DependentUpon>CtlGraphicStaticText.vb</DependentUpon>
+    <Compile Include="Controls\CtlGraphicStaticTextV3.designer.vb">
+      <DependentUpon>CtlGraphicStaticTextV3.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CtlGraphicStaticText.vb">
+    <Compile Include="Controls\CtlGraphicStaticTextV3.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtlGraphicStaticTextV4.Designer.vb">
+      <DependentUpon>CtlGraphicStaticTextV4.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtlGraphicStaticTextV4.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\CtlGraphPopMenuEditSingle.designer.vb">
@@ -336,8 +348,8 @@
     <EmbeddedResource Include="Controls\CtlGraphicBackground.resx">
       <DependentUpon>CtlGraphicBackground.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\CtlGraphicFldLabel.resx">
-      <DependentUpon>CtlGraphicFldLabel.vb</DependentUpon>
+    <EmbeddedResource Include="Controls\CtlGraphicFldLabelV3.resx">
+      <DependentUpon>CtlGraphicFldLabelV3.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlGraphicPortrait.resx">
       <DependentUpon>CtlGraphicPortrait.vb</DependentUpon>
@@ -357,8 +369,8 @@
     <EmbeddedResource Include="Controls\CtlGraphicStaticQR.resx">
       <DependentUpon>CtlGraphicStaticQR.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\CtlGraphicStaticText.resx">
-      <DependentUpon>CtlGraphicStaticText.vb</DependentUpon>
+    <EmbeddedResource Include="Controls\CtlGraphicStaticTextV3.resx">
+      <DependentUpon>CtlGraphicStaticTextV3.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlGraphPopMenuEditSingle.resx">
       <DependentUpon>CtlGraphPopMenuEditSingle.vb</DependentUpon>

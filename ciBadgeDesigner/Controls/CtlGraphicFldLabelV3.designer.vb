@@ -1,7 +1,7 @@
 ﻿Imports System.Windows.Forms
 
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class CtlGraphicFldLabel
+Partial Class CtlGraphicFldLabelV3
     Inherits __RSCWindowsControlLibrary.RSCMoveableControlVB
     ''Jan4 2022 td''Inherits System.Windows.Forms.UserControl
 

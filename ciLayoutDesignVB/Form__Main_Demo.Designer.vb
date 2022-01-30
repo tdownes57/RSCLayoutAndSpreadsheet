@@ -115,7 +115,7 @@ Partial Class Form__Main_Demo
         Me.CtlGraphicQRCode1 = New ciBadgeDesigner.CtlGraphicQRCode()
         Me.CtlGraphicPortrait_Lady = New ciBadgeDesigner.CtlGraphicPortrait()
         Me.CtlGraphicSignature1 = New ciBadgeDesigner.CtlGraphicSignature()
-        Me.CtlGraphicStaticText1 = New ciBadgeDesigner.CtlGraphicStaticText()
+        Me.CtlGraphicStaticText1 = New ciBadgeDesigner.CtlGraphicStaticTextV3()
         Me.ComponentClickableDesktop1 = New ciBadgeDesigner.ComponentClickableDesktop(Me.components)
         Me.ComponentClickIDFrontside1 = New ciBadgeDesigner.ComponentClickBackground(Me.components)
         Me.ComponentClickIDBackside1 = New ciBadgeDesigner.ComponentClickBackground(Me.components)
@@ -1097,7 +1097,7 @@ Partial Class Form__Main_Demo
     Friend WithEvents ReloadDesignerToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents checkInstantPreview As CheckBox
     Friend WithEvents pictureBackgroundFront As PictureBox
-    Friend WithEvents CtlGraphicStaticText1 As ciBadgeDesigner.CtlGraphicStaticText
+    Friend WithEvents CtlGraphicStaticText1 As ciBadgeDesigner.CtlGraphicStaticTextV3
     Friend WithEvents labelProceedToBackside As Label
     Friend WithEvents LabelReturnToFrontSide As Label
     Friend WithEvents ExitRecipientModeToolStripMenuItem As ToolStripMenuItem

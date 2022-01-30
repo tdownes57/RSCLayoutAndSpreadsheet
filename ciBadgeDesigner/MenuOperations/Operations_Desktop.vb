@@ -39,7 +39,7 @@ Public Class Operations_Desktop
 
         Dim infoDesignerForm As IDesignerForm ''Added 1/18/2022
         Dim objElementStaticText As ciBadgeElements.ClassElementStaticTextV3
-        Dim objElementControl As CtlGraphicStaticText
+        Dim objElementControl As CtlGraphicStaticTextV3
         Dim intHeightOfRSC As Integer
         Dim objSizeOfRSC As System.Drawing.Size ''Added 1/19/2022
         Dim obj_parametersGetElementControl As ClassGetElementControlParams ''Added 1/18/2022
@@ -89,7 +89,7 @@ Public Class Operations_Desktop
             ''
             ''Next, create the control which will display the Element-StaticText.   
             ''
-            objElementControl = CtlGraphicStaticText.GetStaticText(obj_parametersGetElementControl,
+            objElementControl = CtlGraphicStaticTextV3.GetStaticText(obj_parametersGetElementControl,
                                     objElementStaticText,
                                     MyBase.ParentForm,
                                     "CtlGraphicStaticText",

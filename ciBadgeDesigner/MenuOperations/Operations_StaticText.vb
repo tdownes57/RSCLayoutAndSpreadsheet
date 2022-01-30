@@ -16,7 +16,7 @@ Public Class Operations_StaticText
 
     ''Jan8 2022 td''Public Property CtlCurrentElement As ciBadgeDesigner.CtlGraphicStaticText ''CtlGraphicFldLabel
     ''Jan17 2022 ''Public Property CtlCurrentElement As RSCMoveableControlVB Implements ICurrentElement.CtlCurrentElement
-    Public Property CtlCurrentElementStaticText As ciBadgeDesigner.CtlGraphicStaticText
+    Public Property CtlCurrentElementStaticText As ciBadgeDesigner.CtlGraphicStaticTextV3
     Public Property ElementStaticText As ciBadgeElements.ClassElementStaticTextV3 ''Added 1/19/2022
     Public Property ElementInfo_TextOnly As IElement_TextOnly ''Added 1/19/2022
 
@@ -50,10 +50,10 @@ Public Class Operations_StaticText
         ''Added 1/18/2022
         ''
         Dim strCurrentText As String
-        Dim objControlStaticText As CtlGraphicStaticText
+        Dim objControlStaticText As CtlGraphicStaticTextV3
         Dim objElementStaticText As ciBadgeElements.ClassElementStaticTextV3
 
-        objControlStaticText = CType(Me.CtlCurrentElement, CtlGraphicStaticText)
+        objControlStaticText = CType(Me.CtlCurrentElement, CtlGraphicStaticTextV3)
         objElementStaticText = objControlStaticText.Element_StaticText
 
         strCurrentText = objElementStaticText.Text_Static
@@ -190,9 +190,9 @@ Public Class Operations_StaticText
         ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
         ''
         Dim objElementStaticText As ciBadgeElements.ClassElementStaticTextV3
-        Dim objControlStaticText As CtlGraphicStaticText
+        Dim objControlStaticText As CtlGraphicStaticTextV3
 
-        objControlStaticText = CType(Me.CtlCurrentElement, CtlGraphicStaticText)
+        objControlStaticText = CType(Me.CtlCurrentElement, CtlGraphicStaticTextV3)
         objElementStaticText = objControlStaticText.Element_StaticText
 
         ''Jan24 2022 td''With Me.CtlCurrentElementField.ElementInfo_Base

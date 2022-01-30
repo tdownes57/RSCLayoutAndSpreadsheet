@@ -37,7 +37,7 @@ Public Class Operations_FieldElement
     Public WithEvents MyToolstripItem As New ToolStripMenuItem ''Added 10/11/2019 td 
 
     ''Jan5 2022 td''
-    Public Property CtlCurrentElementField As ciBadgeDesigner.CtlGraphicFldLabel ''CtlGraphicFldLabel
+    Public Property CtlCurrentElementField As ciBadgeDesigner.CtlGraphicFldLabelV3 ''CtlGraphicFldLabel
     ''Jan17 2022 ''Public Property CtlCurrentElement As RSCMoveableControlVB Implements ICurrentElement.CtlCurrentElement
 
     Public Overrides Property Element_Type As Enum_ElementType = Enum_ElementType.Field ''Added 1/21/2022 td 
@@ -225,7 +225,7 @@ Public Class Operations_FieldElement
             ''   objElements.Add(Me)
             '' End If
 
-            For Each each_ctl As CtlGraphicFldLabel In objElements
+            For Each each_ctl As CtlGraphicFldLabelV3 In objElements
                 ''
                 ''Added 8/3/2019 td  
                 ''
@@ -342,7 +342,7 @@ Public Class Operations_FieldElement
             ''10/3/2019 td''objElements = CType(Me.ParentForm, ISelectingElements).LabelsDesignList_AllItems
             objElements = Me.SelectingElements.ElementsDesignList_AllItems
 
-            For Each each_ctl As CtlGraphicFldLabel In objElements
+            For Each each_ctl As CtlGraphicFldLabelV3 In objElements
                 ''
                 ''Added 8/3/2019 td  
                 ''
@@ -452,7 +452,7 @@ Public Class Operations_FieldElement
                     Dim objElements As HashSet(Of RSCMoveableControlVB) ''Added 1/12/2022 td
                     objElements = Me.SelectingElements.ElementsDesignList_AllItems
 
-                    For Each each_ctl As CtlGraphicFldLabel In objElements
+                    For Each each_ctl As CtlGraphicFldLabelV3 In objElements
                         ''
                         ''Added 8/3/2019 td  
                         ''
@@ -503,7 +503,7 @@ Public Class Operations_FieldElement
         ''#1 1/5/2022 td''Me.CacheOfFieldsEtc.CheckCacheIsLatestForEdits(boolIsLatest, boolIsCopyOfLatest)
         ''#2 1/5/2022 td''Me.CtlCurrentElement.CheckCacheIsLatestForEdits(boolIsLatest, boolIsCopyOfLatest)
         Dim objCacheOfFieldsEtc As ciBadgeCachePersonality.ClassElementsCache_Deprecated ''Added 1/5/2022
-        Me.CtlCurrentElementField = CType(Me.CtlCurrentElement, CtlGraphicFldLabel)
+        Me.CtlCurrentElementField = CType(Me.CtlCurrentElement, CtlGraphicFldLabelV3)
         objCacheOfFieldsEtc = Me.CtlCurrentElementField.ParentDesigner.ElementsCache_UseEdits
         objCacheOfFieldsEtc.CheckCacheIsLatestForEdits(boolIsLatest, boolIsCopyOfLatest)
         If (Not boolIsLatest) Then Throw New Exception("This is not the latest cache of edits.")
@@ -545,7 +545,7 @@ Public Class Operations_FieldElement
                     Dim objElements As HashSet(Of RSCMoveableControlVB)
                     objElements = Me.SelectingElements.ElementsDesignList_AllItems
 
-                    For Each each_ctl As CtlGraphicFldLabel In objElements
+                    For Each each_ctl As CtlGraphicFldLabelV3 In objElements
                         ''
                         ''Added 8/3/2019 td  
                         ''

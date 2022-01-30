@@ -1,5 +1,5 @@
 ﻿''<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class CtlGraphicStaticText
+Partial Class CtlGraphicStaticTextV3
     Inherits __RSCWindowsControlLibrary.RSCMoveableControlVB
     ''Jan7 2022 td ''Inherits System.Windows.Forms.UserControl
 

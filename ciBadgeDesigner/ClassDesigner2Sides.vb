@@ -19,11 +19,11 @@ Public Class ClassDesigner2Sides
     ''
     ''Added 1/13/2022 thomas downes 
     ''
-    Public Event ElementFieldRightClicked(par_control As CtlGraphicFldLabel) ''Added 10/1/2019 td
+    Public Event ElementFieldRightClicked(par_control As CtlGraphicFldLabelV3) ''Added 10/1/2019 td
     Public Event ElementPortraitRightClicked(par_control As CtlGraphicPortrait) ''Added 12/22/2021 td
     Public Event ElementQRCodeRightClicked(par_control As CtlGraphicQRCode) ''Added 12/15/2021 td
     Public Event ElementSignatRightClicked(par_control As CtlGraphicSignature) ''Added 12/15/2021 td
-    Public Event ElementStaticTextRightClicked(par_control As CtlGraphicStaticText) ''Added 12/15/2021 td
+    Public Event ElementStaticTextRightClicked(par_control As CtlGraphicStaticTextV3) ''Added 12/15/2021 td
     Public Event BackgroundRightClicked(par_mouse_x As Integer, par_mouse_y As Integer) ''Added 10/15/2019 td
 
     Public WithEvents DesignerForm As Form
@@ -138,11 +138,11 @@ Public Class ClassDesigner2Sides
         Throw New NotImplementedException()
     End Sub
 
-    Public Sub ElementsDesignList_Add(par_control As CtlGraphicFldLabel) Implements ISelectingElements.ElementsDesignList_Add
+    Public Sub ElementsDesignList_Add(par_control As CtlGraphicFldLabelV3) Implements ISelectingElements.ElementsDesignList_Add
         Throw New NotImplementedException()
     End Sub
 
-    Public Sub ElementsDesignList_Remove(par_control As CtlGraphicFldLabel) Implements ISelectingElements.ElementsDesignList_Remove
+    Public Sub ElementsDesignList_Remove(par_control As CtlGraphicFldLabelV3) Implements ISelectingElements.ElementsDesignList_Remove
         Throw New NotImplementedException()
     End Sub
 

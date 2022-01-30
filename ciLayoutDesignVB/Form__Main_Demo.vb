@@ -68,11 +68,11 @@ Public Class Form__Main_Demo
 
     Private mod_strEmailAddress As String = "tomdownes1@gmail.com" ''Added 9/17/2021 thomas downes
 
-    Private dictonary_elmntInfo_control As New Dictionary(Of IElement_Base, CtlGraphicFldLabel)
+    Private dictonary_elmntInfo_control As New Dictionary(Of IElement_Base, CtlGraphicFldLabelV3)
 
-    Private dictonary_field_control As New Dictionary(Of ICIBFieldStandardOrCustom, CtlGraphicFldLabel)
-    Private dictonary_elmntObj_control As New Dictionary(Of ClassElementFieldV3, CtlGraphicFldLabel) ''Added 9/17/2019 td
-    Private dictonary_elmntObj_captions As New Dictionary(Of String, CtlGraphicFldLabel) ''Added 11/24/2019 td
+    Private dictonary_field_control As New Dictionary(Of ICIBFieldStandardOrCustom, CtlGraphicFldLabelV3)
+    Private dictonary_elmntObj_control As New Dictionary(Of ClassElementFieldV3, CtlGraphicFldLabelV3) ''Added 9/17/2019 td
+    Private dictonary_elmntObj_captions As New Dictionary(Of String, CtlGraphicFldLabelV3) ''Added 11/24/2019 td
 
     Private list_fieldsNotLoadedYet_Any As New HashSet(Of ICIBFieldStandardOrCustom)
     Private list_elementsNotLoadedYet_Any As New HashSet(Of ClassElementFieldV3) ''Added 9/17/2019 td 
@@ -1036,7 +1036,7 @@ Public Class Form__Main_Demo
         ''  Throw away the controls that are already on the form.  
         ''
         If (pboolRemoveAndRebuild) Then
-            For Each each_control As CtlGraphicFldLabel In dictonary_elmntInfo_control.Values
+            For Each each_control As CtlGraphicFldLabelV3 In dictonary_elmntInfo_control.Values
                 each_control.Visible = False
                 Me.Controls.Remove(each_control)
             Next each_control
@@ -1068,10 +1068,10 @@ Public Class Form__Main_Demo
             If (TypeOf each_control Is CtlGraphicPortrait) Then Continue For
 
             ''Added 9/5/2019 td
-            If (Not (TypeOf each_control Is CtlGraphicFldLabel)) Then Continue For
+            If (Not (TypeOf each_control Is CtlGraphicFldLabelV3)) Then Continue For
 
             ''Added 9/5/2019 td
-            Dim each_field_control As CtlGraphicFldLabel = CType(each_control, CtlGraphicFldLabel)
+            Dim each_field_control As CtlGraphicFldLabelV3 = CType(each_control, CtlGraphicFldLabelV3)
             each_field_control.Refresh_Master()
             each_field_control.Refresh()
 
@@ -1537,9 +1537,9 @@ Public Class Form__Main_Demo
         ''
         ''Added 9/3/2019 thomas downes
         ''
-        Dim each_controlField As CtlGraphicFldLabel
+        Dim each_controlField As CtlGraphicFldLabelV3
         ''Dim list_controlFields As New List(Of CtlGraphicFldLabel)
-        Dim list_controlFields As New HashSet(Of CtlGraphicFldLabel)
+        Dim list_controlFields As New HashSet(Of CtlGraphicFldLabelV3)
 
         ''Me.mod_ControlLastTouched = Nothing
         ''Me.mod_ElementLastTouched = Nothing ''9/14 td
@@ -1561,9 +1561,9 @@ Public Class Form__Main_Demo
         ''
         For Each each_control As Control In Me.Controls
 
-            If (TypeOf each_control Is CtlGraphicFldLabel) Then
+            If (TypeOf each_control Is CtlGraphicFldLabelV3) Then
 
-                each_controlField = CType(each_control, CtlGraphicFldLabel)
+                each_controlField = CType(each_control, CtlGraphicFldLabelV3)
                 ''9/20/2019 td''each_controlField.FormDesigner = Nothing
                 each_controlField.LayoutFunctions = Nothing ''Added 9/20/2019 td
                 each_controlField.Parent = Nothing
@@ -1830,7 +1830,7 @@ Public Class Form__Main_Demo
 
         ''Added 9/13/2019 thomas downes
         chkIncludeExampleValues.Checked = (Not chkIncludeExampleValues.Checked)
-        CtlGraphicFldLabel.UseExampleValues = chkIncludeExampleValues.Checked
+        CtlGraphicFldLabelV3.UseExampleValues = chkIncludeExampleValues.Checked
         SaveLayout()
         ''Dec. 10, 2021''RefreshTheSetOfDisplayedElements()
         RefreshTheSetOfDisplayedElements(False)
@@ -1988,7 +1988,7 @@ Public Class Form__Main_Demo
             Dim each_element As ClassElementFieldV3 ''Added 10/13/2019 td
 
             ''Added 10/13/2019 td
-            For Each each_ctl As CtlGraphicFldLabel In mod_designer.ListOfFieldLabels()
+            For Each each_ctl As CtlGraphicFldLabelV3 In mod_designer.ListOfFieldLabels()
 
                 each_element = Me.ElementsCache_Edits.GetElementByFieldEnum(each_ctl.FieldInfo.FieldEnumValue)
                 each_ctl.ElementClass_Obj = each_element
@@ -2065,7 +2065,7 @@ Public Class Form__Main_Demo
 
     End Sub ''End of "Private Sub ShowBadgeRecipientsToolStripMenuItem_Click"
 
-    Private Sub mod_designer_ElementRightClicked(par_control As CtlGraphicFldLabel) Handles mod_designer.ElementFieldRightClicked
+    Private Sub mod_designer_ElementRightClicked(par_control As CtlGraphicFldLabelV3) Handles mod_designer.ElementFieldRightClicked
         ''
         ''Added 10/13/2019 thomas downes  
         ''
@@ -2527,7 +2527,7 @@ ExitHandler:
         Dim strListedDataBuilder As New System.Text.StringBuilder(500)
         ''Dim arrayElements As List(Of Control)
         Dim arrayElemCaptions As New List(Of String)
-        Dim eachFieldLabel As CtlGraphicFldLabel
+        Dim eachFieldLabel As CtlGraphicFldLabelV3
         Dim boolIsFieldElement As Boolean
 
         ''arrayElements = New List(Of Control)(CType(Me.Controls,
@@ -2535,9 +2535,9 @@ ExitHandler:
 
         For Each eachControl As Control In Me.Controls ''arrayElements ''.OrderBy()
 
-            boolIsFieldElement = (TypeOf eachControl Is CtlGraphicFldLabel)
+            boolIsFieldElement = (TypeOf eachControl Is CtlGraphicFldLabelV3)
             If boolIsFieldElement Then
-                eachFieldLabel = CType(eachControl, CtlGraphicFldLabel)
+                eachFieldLabel = CType(eachControl, CtlGraphicFldLabelV3)
                 ''strListedData.AppendLine(eachFieldLabel.FieldInfo.FieldLabelCaption)
                 arrayElemCaptions.Add(eachFieldLabel.FieldInfo.FieldLabelCaption &
                                       "..." & eachFieldLabel.WhyWasICreated)
