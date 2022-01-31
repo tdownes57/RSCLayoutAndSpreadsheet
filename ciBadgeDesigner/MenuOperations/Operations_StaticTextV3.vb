@@ -10,7 +10,7 @@ Imports ciBadgeDesigner
 Imports System.Windows.Forms ''Added 12/30/2021 td
 Imports __RSCWindowsControlLibrary ''Added 1/08/2022 thomas d.
 
-Public Class Operations_StaticText
+Public Class Operations_StaticTextV3
     Inherits Operations__Text
     ''Jan17 2022 ''Implements ICurrentElement ''Added 12/28/2021 td
 

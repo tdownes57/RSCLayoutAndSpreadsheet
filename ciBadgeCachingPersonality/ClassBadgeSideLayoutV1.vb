@@ -43,7 +43,7 @@ Public Class ClassBadgeSideLayoutV1
     ''    End Set
     ''End Property
 
-    Public Property ListElementFields As HashSet(Of ClassElementFieldV3) Implements IBadgeSideLayoutElementsV1.ListElementFields
+    Public Property ListElementFieldsV3 As HashSet(Of ClassElementFieldV3) Implements IBadgeSideLayoutElementsV1.ListElementFieldsV3
     ''    Get
     ''        Throw New NotImplementedException()
     ''    End Get
@@ -52,7 +52,25 @@ Public Class ClassBadgeSideLayoutV1
     ''    End Set
     ''End Property
 
-    Public Property ListElementStaticTexts As HashSet(Of ClassElementStaticTextV3) Implements IBadgeSideLayoutElementsV1.ListElementStaticTexts
+    Public Property ListElementFieldsV4 As HashSet(Of ClassElementFieldV4) Implements IBadgeSideLayoutElementsV1.ListElementFieldsV4
+    ''    Get
+    ''        Throw New NotImplementedException()
+    ''    End Get
+    ''    Set(value As HashSet(Of ClassElementField))
+    ''        Throw New NotImplementedException()
+    ''    End Set
+    ''End Property
+
+    Public Property ListElementStaticTextsV3 As HashSet(Of ClassElementStaticTextV3) Implements IBadgeSideLayoutElementsV1.ListElementStaticTextsV3
+    ''    Get
+    ''        Throw New NotImplementedException()
+    ''    End Get
+    ''    Set(value As HashSet(Of ClassElementStaticText))
+    ''        Throw New NotImplementedException()
+    ''    End Set
+    ''End Property
+
+    Public Property ListElementStaticTextsV4 As HashSet(Of ClassElementStaticTextV3) Implements IBadgeSideLayoutElementsV1.ListElementStaticTextsV4
     ''    Get
     ''        Throw New NotImplementedException()
     ''    End Get

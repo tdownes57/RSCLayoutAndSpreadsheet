@@ -312,7 +312,8 @@
     <Compile Include="MenuOperations\Operations_Group.vb" />
     <Compile Include="MenuOperations\Operations_QRCode.vb" />
     <Compile Include="MenuOperations\Operations_Signature.vb" />
-    <Compile Include="MenuOperations\Operations_StaticText.vb" />
+    <Compile Include="MenuOperations\Operations_StaticTextV3.vb" />
+    <Compile Include="MenuOperations\Operations_StaticTextV4.vb" />
     <Compile Include="MenuOperations\Operations__Base.vb" />
     <Compile Include="MenuOperations\Operations__Graphic.vb" />
     <Compile Include="MenuOperations\Operations__Text.vb" />

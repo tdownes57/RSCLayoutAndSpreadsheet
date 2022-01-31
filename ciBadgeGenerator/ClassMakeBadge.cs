@@ -291,7 +291,7 @@ namespace ciBadgeGenerator
             HashSet<ClassElementFieldV3> listOfElementFields; // <<<<<<<<<<<<<< I have removed the word "Text" from the name.   It's confusing since there are Static-Text controls. --10/17/2019
 
             //Dec18 2021//if (par_listElementFields != null) listOfElementFields = par_listElementFields;
-            listOfElementFields = par_layoutElements.ListElementFields;
+            listOfElementFields = par_layoutElements.ListElementFieldsV3;
 
             //Dec18 2021//else listOfElementFields = par_cache.ListOfBadgeDisplayElements_Flds_Front(false);
 

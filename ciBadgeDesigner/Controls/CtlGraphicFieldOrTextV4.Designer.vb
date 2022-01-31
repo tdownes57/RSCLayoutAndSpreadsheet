@@ -1,6 +1,8 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿Imports __RSCWindowsControlLibrary ''Added 1/30/2022 td
+
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class CtlGraphicFieldOrTextV4
-    Inherits System.Windows.Forms.UserControl
+    Inherits RSCMoveableControlVB ''Added 1/30/2022 td
 
     'UserControl overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _

@@ -171,9 +171,9 @@ Namespace ciBadgeCachePersonality
                 ''If (objSide.ElementQRCode Is Nothing) Then Me.ElementQR_RefCopy = Nothing
                 ''If (objSide.ElementSignature Is Nothing) Then Me.ElementSig_RefCopy = Nothing
 
-                objSide.ListElementFields = Me.ListOfElementFields_Backside
+                objSide.ListElementFieldsV3 = Me.ListOfElementFields_Backside
                 objSide.ListElementGraphics = Me.ListOfElementGraphics_Backside ''Jan22 2022 td''Nothing
-                objSide.ListElementStaticTexts = Me.ListOfElementTexts_Backside
+                objSide.ListElementStaticTexts = Me.ListOfElementTextsV3_Backside
 
                 ''Added 1/14/2022 thomas
                 objSide.ListElementPortraits = Me.ListOfElementPics_Back
@@ -227,7 +227,7 @@ Namespace ciBadgeCachePersonality
                 objSide.ElementPortrait_1st = Me.ListOfElementPics_Front().FirstOrDefault()
                 ''Moved below, with a condition.--1/14/2022 td''objSide.ElementQRCode = Me.ElementQRCode
                 ''Moved below, with a condition.--1/14/2022 td''objSide.ElementSignature = Me.ElementSignature
-                objSide.ListElementFields = Me.ListOfElementFields_Front
+                objSide.ListElementFieldsV3 = Me.ListOfElementFields_Front
                 objSide.ListElementGraphics = Me.ListOfElementGraphics_Front ''Jan22 2022 td''Nothing
                 objSide.ListElementStaticTexts = Me.ListOfElementTextsV3_Front
 
@@ -832,7 +832,7 @@ Namespace ciBadgeCachePersonality
             End Get
             Set(value As HashSet(Of ClassElementStaticTextV4))  ''---List(Of ClassElementStaticText))
                 ''Added 12/18/2021 td
-                mod_listElementStatics_BacksideV4 = value
+                mod_listElementStaticsV4_Backside = value
             End Set
         End Property
 
@@ -923,9 +923,9 @@ Namespace ciBadgeCachePersonality
         End Function ''End of "Public Function ListStaticTextElements_Front() As List(Of ClassElementStaticText)"
 
 
-        Public Function ListStaticTextElements_Backside() As HashSet(Of ClassElementStaticTextV3)  ''---List(Of ClassElementStaticText)
+        Public Function ListStaticTextElementsV3_Backside() As HashSet(Of ClassElementStaticTextV3)  ''---List(Of ClassElementStaticText)
             ''Added 12/20/2021 thomas downes
-            Return mod_listElementStatics_Backside
+            Return mod_listElementStaticsV3_Backside
         End Function ''End of "Public Function ListStaticTextElements_Backside() As List(Of ClassElementStaticText)"
 
 
@@ -1648,7 +1648,7 @@ Namespace ciBadgeCachePersonality
 
             ''Added 12/20/2021 thomas downes  
             For Each each_elementStaticText As ClassElementStaticTextV3 In mod_listElementStaticsV3_Backside
-                objCopyOfCache.ListStaticTextElements_Backside().Add(each_elementStaticText.Copy())
+                objCopyOfCache.ListStaticTextElementsV3_Backside().Add(each_elementStaticText.Copy())
             Next each_elementStaticText
 
             ''Added 10/8/2019 thomas downes
@@ -1812,8 +1812,8 @@ Namespace ciBadgeCachePersonality
             Dim bMissingBackAndFront As Boolean ''Added 12/17/2021 td
 
             ''Added 12/17/2021 td
-            Dim intCountFrontside As Integer = mod_listElementStatics_Front.Count
-            Dim intCountBackside As Integer = mod_listElementStatics_Backside.Count
+            Dim intCountFrontside As Integer = mod_listElementStaticsV3_Front.Count
+            Dim intCountBackside As Integer = mod_listElementStaticsV3_Backside.Count
             Dim intCountBacksideAndFront As Integer ''Added 12/23/2021 Thomas Downes
 
             bMissingFront = (0 = intCountFrontside)

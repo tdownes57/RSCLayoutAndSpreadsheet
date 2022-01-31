@@ -138,7 +138,18 @@ Public Class Operations_Desktop
         objSizeOfRSC = infoDesignerForm.SizeAnyRSCMoveableControl()
         intHeightOfRSC = objSizeOfRSC.Height
 
-        objElementStaticTextV4 = New ClassElementStaticTextV4("New StaticText...", e.X, e.Y, intHeightOfRSC)
+        objElementStaticTextV4 = New ClassElementStaticTextV4() ''"New StaticText...", e.X, e.Y, intHeightOfRSC)
+
+        ''Added 1/31/2022 td
+        With objElementStaticTextV4
+
+            .Text_Static = "New static text...."
+            .TopEdge_Pixels = e.Y
+            .LeftEdge_Pixels = e.X
+            .Height_Pixels = intHeightOfRSC
+
+        End With
+
         obj_parametersGetElementControl = DesignerClass.GetParametersToGetElementControl()
 
         ''Added 1/18/2022 thomas downes  

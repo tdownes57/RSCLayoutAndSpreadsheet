@@ -93,7 +93,7 @@ Public Class CtlGraphicStaticTextV3
         Dim objOperations As Object ''Added 12/29/2021 td 
         ''Dim objOperations1Gen As Operations__Generic = Nothing
         ''Dim objOperations2Use As Operations__Useless = Nothing
-        Dim objOperationsST As Operations_StaticText ''Added 12/31/2021 td 
+        Dim objOperationsST As Operations_StaticTextV3 ''Added 12/31/2021 td 
 
         ''Instantiate the Operations Object. 
         ''//If (enumElemType = EnumElementType.Signature) Then objOperations2Use = New Operations__Useless()
@@ -116,7 +116,7 @@ Public Class CtlGraphicStaticTextV3
         ''If (par_enum = EnumElementType.StaticText) Then objOperations = objOperations2Use
 
         ''Modified 1/2/2022 td
-        objOperationsST = New Operations_StaticText() ''Added 1/1/2022 td
+        objOperationsST = New Operations_StaticTextV3() ''Added 1/1/2022 td
         typeOps = objOperationsST.GetType()
         objOperations = objOperationsST
 
