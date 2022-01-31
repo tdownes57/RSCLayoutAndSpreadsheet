@@ -173,7 +173,7 @@ Namespace ciBadgeCachePersonality
 
                 objSide.ListElementFieldsV3 = Me.ListOfElementFields_Backside
                 objSide.ListElementGraphics = Me.ListOfElementGraphics_Backside ''Jan22 2022 td''Nothing
-                objSide.ListElementStaticTexts = Me.ListOfElementTextsV3_Backside
+                objSide.ListElementStaticTextsV3 = Me.ListOfElementTextsV3_Backside
 
                 ''Added 1/14/2022 thomas
                 objSide.ListElementPortraits = Me.ListOfElementPics_Back
@@ -229,7 +229,7 @@ Namespace ciBadgeCachePersonality
                 ''Moved below, with a condition.--1/14/2022 td''objSide.ElementSignature = Me.ElementSignature
                 objSide.ListElementFieldsV3 = Me.ListOfElementFields_Front
                 objSide.ListElementGraphics = Me.ListOfElementGraphics_Front ''Jan22 2022 td''Nothing
-                objSide.ListElementStaticTexts = Me.ListOfElementTextsV3_Front
+                objSide.ListElementStaticTextsV3 = Me.ListOfElementTextsV3_Front
 
                 ''Added 1/16/2022 td
                 objSide.ElementQRCode_1st = Me.ListOfElementQRCodes_Front().FirstOrDefault()
@@ -912,21 +912,38 @@ Namespace ciBadgeCachePersonality
 
         End Function ''End of " Public Function ListPicElements() As List(Of ClassElementPic)"
 
-        Public Function ListStaticTextElements_Front() As HashSet(Of ClassElementStaticTextV3)  ''---List(Of ClassElementStaticText)
+
+        Public Function ListStaticTextElementsV3_Front() As HashSet(Of ClassElementStaticTextV3)  ''---List(Of ClassElementStaticText)
             ''
             ''Added 9/16/2019 thomas downes
             ''
             ''This is deprecated!!  Use Public Property ListOfElementTexts_Front instead. ---12/21/2021 td
             ''
-            Return mod_listElementStatics_Front
+            Return mod_listElementStaticsV3_Front
 
-        End Function ''End of "Public Function ListStaticTextElements_Front() As List(Of ClassElementStaticText)"
+        End Function ''End of "Public Function ListStaticTextElementsV3_Front() As List(Of ClassElementStaticText)"
 
 
         Public Function ListStaticTextElementsV3_Backside() As HashSet(Of ClassElementStaticTextV3)  ''---List(Of ClassElementStaticText)
             ''Added 12/20/2021 thomas downes
             Return mod_listElementStaticsV3_Backside
         End Function ''End of "Public Function ListStaticTextElements_Backside() As List(Of ClassElementStaticText)"
+
+
+        Public Function ListStaticTextElementsV4_Front() As HashSet(Of ClassElementStaticTextV4)  ''---List(Of ClassElementStaticText)
+            ''
+            ''Added 1/31/2022 thomas downes
+            ''
+            Return mod_listElementStaticsV4_Front
+
+        End Function ''End of "Public Function ListStaticTextElementsV3_Front() As List(Of ClassElementStaticText)"
+
+
+        Public Function ListStaticTextElementsV4_Backside() As HashSet(Of ClassElementStaticTextV4)
+            ''Added 1/31/2022 thomas downes
+            Return mod_listElementStaticsV4_Backside
+        End Function ''End of "Public Function ListStaticTextElementsV4_Backside() As List(Of ClassElementStaticText)"
+
 
 
         Public Function LaysectionElements() As HashSet(Of ClassElementLaysection)  ''---List(Of ClassElementLaysection)

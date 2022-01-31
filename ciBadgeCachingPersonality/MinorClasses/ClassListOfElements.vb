@@ -62,7 +62,7 @@ Public MustInherit Class ClassListOfElements
                               .ListOfElementPics_Front, .ListOfElementPics_Back,
                               .ListOfElementQRCodes_Front, .ListOfElementQRCodes_Back,
                               .ListOfElementSignatures_Front, .ListOfElementSignatures_Back,
-                              .ListOfElementTextsV3_Front, .ListOfElementTexts_Backside)
+                              .ListOfElementTextsV3_Front, .ListOfElementTextsV3_Backside)
 
             End With
         End If ''End of "If (bProbablyUnitialized) Then"
