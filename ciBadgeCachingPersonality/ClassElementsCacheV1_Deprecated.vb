@@ -174,6 +174,7 @@ Namespace ciBadgeCachePersonality
                 objSide.ListElementFieldsV3 = Me.ListOfElementFields_Backside
                 objSide.ListElementGraphics = Me.ListOfElementGraphics_Backside ''Jan22 2022 td''Nothing
                 objSide.ListElementStaticTextsV3 = Me.ListOfElementTextsV3_Backside
+                objSide.ListElementStaticTextsV4 = Me.ListOfElementTextsV4_Backside ''Added 2/1/2022 td
 
                 ''Added 1/14/2022 thomas
                 objSide.ListElementPortraits = Me.ListOfElementPics_Back
@@ -230,6 +231,7 @@ Namespace ciBadgeCachePersonality
                 objSide.ListElementFieldsV3 = Me.ListOfElementFields_Front
                 objSide.ListElementGraphics = Me.ListOfElementGraphics_Front ''Jan22 2022 td''Nothing
                 objSide.ListElementStaticTextsV3 = Me.ListOfElementTextsV3_Front
+                objSide.ListElementStaticTextsV4 = Me.ListOfElementTextsV4_Front ''Added 2/1/2022 td
 
                 ''Added 1/16/2022 td
                 objSide.ElementQRCode_1st = Me.ListOfElementQRCodes_Front().FirstOrDefault()

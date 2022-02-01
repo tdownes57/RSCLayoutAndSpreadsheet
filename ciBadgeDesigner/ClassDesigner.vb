@@ -159,7 +159,9 @@ Public Class ClassDesigner
     ''Added 9/20/2019 td  
     ''10/17/2019 td''Private mod_listOfFieldControls As New List(Of CtlGraphicFldLabel)
     Private mod_listOfFieldControls As New HashSet(Of CtlGraphicFldLabelV3)
-    Private mod_listOfTextControls As New HashSet(Of CtlGraphicStaticTextV3) ''Added Jan8 2022 td
+    ''Feb1 2022 td''Private mod_listOfTextControls As New HashSet(Of CtlGraphicStaticText) ''Added Jan8 2022 td
+    Private mod_listOfTextControlsV3 As New HashSet(Of CtlGraphicStaticTextV3) ''Added Jan8 2022 td
+    Private mod_listOfTextControlsV4 As New HashSet(Of CtlGraphicStaticTextV4) ''Added Feb1 2022 td
     Private mod_listOfGraphicControls As New HashSet(Of CtlGraphicStaticGraphic) ''Added Jan8 2022 td
 
     ''Added 11/28/2021 thomas downes
@@ -385,16 +387,37 @@ Public Class ClassDesigner
         ''
         ''Jan11 2022''Dim objListenerStaticText As MoveAndResizeControls_Monem.ControlResizeProportionally_TD
         ''Jan11 2022''Dim boolListenerFound As Boolean ''Added 12/15/2021 td 
-        Dim each_ctlStaticText As CtlGraphicStaticTextV3 ''Added 12/15/2021 td
+        Dim each_ctlStaticTextV3 As CtlGraphicStaticTextV3 ''Added 12/15/2021 td
+        Dim each_ctlStaticTextV4 As CtlGraphicStaticTextV4 ''Added 2/01/2022 td
 
         ''1/8/2022''If (CtlGraphic_StaticText_temp Is Nothing) Then Return ''Don't bother proceeding.--1/5/2022
 
-        If (ListCtlGraphic_StaticTexts Is Nothing) Then Return ''There are no static texts. --1/8/2022
+        ''Feb1 2022 td''If (ListCtlGraphic_StaticTexts Is Nothing) Then Return ''There are no static texts. --1/8/2022
+        Dim bMissingStaticTextsV3 As Boolean ''Added 2/1/2022 td
+        Dim bMissingStaticTextsV4 As Boolean ''Added 2/1/2022 td
+        Dim bMissingStaticTextsV3V4 As Boolean ''Added 2/1/2022 td
+        bMissingStaticTextsV3 = (ListCtlGraphic_StaticTextsV3 Is Nothing OrElse
+            (0 = ListCtlGraphic_StaticTextsV3.Count))
+        bMissingStaticTextsV4 = (ListCtlGraphic_StaticTextsV4 Is Nothing OrElse
+            (0 = ListCtlGraphic_StaticTextsV4.Count))
+        bMissingStaticTextsV3V4 = (bMissingStaticTextsV3 And bMissingStaticTextsV4)
+        If (bMissingStaticTextsV3V4) Then Return ''Don't bother proceeding. ----2/1/2022
+
+        ''
+        ''Added 2/1/2022 td
+        ''  Make sure the Lists are non-Null.
+        ''
+        If (bMissingStaticTextsV3 And ListCtlGraphic_StaticTextsV3 Is Nothing) Then
+            ListCtlGraphic_StaticTextsV3 = New HashSet(Of CtlGraphicStaticTextV3)
+        End If
+        If (bMissingStaticTextsV4 And ListCtlGraphic_StaticTextsV4 Is Nothing) Then
+            ListCtlGraphic_StaticTextsV4 = New HashSet(Of CtlGraphicStaticTextV4)
+        End If
 
         ''
         ''Added 12/18/2021 thomas 
         ''
-        For Each each_ctlStaticText In ListCtlGraphic_StaticTexts
+        For Each each_ctlStaticTextV3 In ListCtlGraphic_StaticTextsV3
 
             ''Jan10 2022 td''boolListenerFound = mod_designerListener.DictyControlResizing.ContainsKey(each_ctlStaticText)
             ''Jan10 2022 td''If (boolListenerFound) Then
@@ -407,19 +430,30 @@ Public Class ClassDesigner
 
             ''End If ''End of "If (boolListenerFound) Then ... Else ..."
 
-            each_ctlStaticText.Dispose() ''Added Dec. 8, 2021
-            each_ctlStaticText.Visible = False ''Added Dec. 18, 2021
-            Me.DesignerForm.Controls.Remove(each_ctlStaticText) ''Added Dec. 8, 2021
-            mod_listOfDesignerControls.Remove(each_ctlStaticText) ''Added Dec. 8, 2021
-            each_ctlStaticText = Nothing
+            each_ctlStaticTextV3.Dispose() ''Added Dec. 8, 2021
+            each_ctlStaticTextV3.Visible = False ''Added Dec. 18, 2021
+            Me.DesignerForm.Controls.Remove(each_ctlStaticTextV3) ''Added Dec. 8, 2021
+            mod_listOfDesignerControls.Remove(each_ctlStaticTextV3) ''Added Dec. 8, 2021
+            each_ctlStaticTextV3 = Nothing
 
-        Next each_ctlStaticText
+        Next each_ctlStaticTextV3
+
+        ''Added 2/01/2022 thomas downes
+        For Each each_ctlStaticTextV4 In ListCtlGraphic_StaticTextsV4
+            ''Added 2/01/2022 thomas downes
+            each_ctlStaticTextV4.Dispose() ''Added Dec. 8, 2021
+            each_ctlStaticTextV4.Visible = False ''Added Dec. 18, 2021
+            Me.DesignerForm.Controls.Remove(each_ctlStaticTextV4) ''Added Dec. 8, 2021
+            mod_listOfDesignerControls.Remove(each_ctlStaticTextV4) ''Added Dec. 8, 2021
+            each_ctlStaticTextV4 = Nothing
+        Next each_ctlStaticTextV4
 
         ''added 12/18/2021
         ''
         ''Unload all of the object references. 
         ''
-        Me.ListCtlGraphic_StaticTexts.Clear()
+        Me.ListCtlGraphic_StaticTextsV3.Clear()
+        Me.ListCtlGraphic_StaticTextsV4.Clear()
 
     End Sub ''End of "Public Sub UnloadDesigner_StaticText()"
 
@@ -1373,43 +1407,43 @@ Public Class ClassDesigner
         ''
         ''Added 12/18/2021 thomas d. 
         ''
-        Dim each_ctlStaticText As CtlGraphicStaticTextV3 ''Added 1/8/2022 td
+        Dim each_ctlStaticTextV3 As CtlGraphicStaticTextV3 ''Added 1/8/2022 td
         Dim indexControl As Integer = 0 ''Added 1/8/2022 td
         Dim oGetControlParameters As ClassGetElementControlParams ''Added 1/17/2022 thomas d.
         Dim sizeIfNeeded As New Size() ''Added 1/26/2022 thomas d
 
         oGetControlParameters = Me.GetParametersToGetElementControl() ''Added 1/17/2022 thomas d.
 
-        For Each each_element_static As ClassElementStaticTextV3 In par_listStaticTexts
+        For Each each_element_staticV3 As ClassElementStaticTextV3 In par_listStaticTexts
 
             ''Dec18 2021''CtlGraphic_StaticTexts.Add = New CtlGraphicStaticText(each_element_static)
             ''Dec27 2021''CtlGraphic_StaticText_temp = New CtlGraphicStaticText(each_element_static)
             ''Jan8 2022 td''CtlGraphic_StaticText_temp = New CtlGraphicStaticText(each_element_static, Me)
 
-            each_ctlStaticText = CtlGraphicStaticTextV3.GetStaticText(oGetControlParameters,
-                                            each_element_static, Me.DesignerForm,
+            each_ctlStaticTextV3 = CtlGraphicStaticTextV3.GetStaticText(oGetControlParameters,
+                                            each_element_staticV3, Me.DesignerForm,
                     String.Format("CtlGraphicStaticText{0}", indexControl),
                     CType(Me, ILayoutFunctions), sizeIfNeeded,
                     CType(Me, IRefreshCardPreview),
                     mod_ctlLasttouched, mod_oGroupMoveEvents)
 
-            each_ctlStaticText.ParentForm = Me.DesignerForm ''Added 1/16/2022 thomas d.
-            ListCtlGraphic_StaticTexts.Add(each_ctlStaticText)
+            each_ctlStaticTextV3.ParentForm = Me.DesignerForm ''Added 1/16/2022 thomas d.
+            ListCtlGraphic_StaticTextsV3.Add(each_ctlStaticTextV3)
 
-            Me.DesignerForm.Controls.Add(each_ctlStaticText)
+            Me.DesignerForm.Controls.Add(each_ctlStaticTextV3)
 
             ''Added 11/28/2021 td
-            mod_listOfDesignerControls.Add(each_ctlStaticText)
+            mod_listOfDesignerControls.Add(each_ctlStaticTextV3)
 
-            With each_ctlStaticText
+            With each_ctlStaticTextV3
 
                 ''Added 12/18/2021 td
                 ''Not needed here. Jan8 2022''.LayoutFunctions = CType(Me, ILayoutFunctions)
 
-                .Top = each_element_static.TopEdge_Pixels
-                .Left = each_element_static.LeftEdge_Pixels
-                .Width = each_element_static.Width_Pixels
-                .Height = each_element_static.Height_Pixels
+                .Top = each_element_staticV3.TopEdge_Pixels
+                .Left = each_element_staticV3.LeftEdge_Pixels
+                .Width = each_element_staticV3.Width_Pixels
+                .Height = each_element_staticV3.Height_Pixels
 
                 ''.pictureSignature.Image = mod_imageExampleSignat
                 .Refresh_Master()
@@ -1450,7 +1484,7 @@ Public Class ClassDesigner
 
             End If ''End of "If (Me.LetEventListenerAddMoveability) Then ... Else ..."
 
-        Next each_element_static
+        Next each_element_staticV3
 
     End Sub ''End of "Private Sub LoadElements_StaticTextsV3"
 
@@ -2299,7 +2333,8 @@ Public Class ClassDesigner
         Dim objPrintLibElems As New ciLayoutPrintLib.LayoutElements
         Dim listOfTextImages As New HashSet(Of Image) ''Added 8/26/2019 thomas downes 
         Dim listOfElementTextFields As HashSet(Of ClassElementFieldV3)
-        Dim listOfElementStaticTexts As HashSet(Of ClassElementStaticTextV3) ''Added 1/8/2022 td
+        Dim listOfElementStaticTextsV3 As HashSet(Of ClassElementStaticTextV3) ''Added 1/8/2022 td
+        Dim listOfElementStaticTextsV4 As HashSet(Of ClassElementStaticTextV4) ''Added 2/01/2022 td
         Dim listOfElementGraphics As HashSet(Of ClassElementGraphic) ''Added 1/8/2022 td
 
         Dim obj_image As Image ''Added 8/24 td
@@ -2342,9 +2377,20 @@ Public Class ClassDesigner
 
         ''Pull the Element-StaticText objects from the CtlGraphicStaticText Controls.
         ''     ---11/29/2021 td 
-        listOfElementStaticTexts = New HashSet(Of ClassElementStaticTextV3)
-        For Each eachCtlStaticText As CtlGraphicStaticTextV3 In mod_listOfTextControls
-            listOfElementStaticTexts.Add(eachCtlStaticText.ElementClass_Obj)
+        listOfElementStaticTextsV3 = New HashSet(Of ClassElementStaticTextV3)
+        For Each eachCtlStaticText As CtlGraphicStaticTextV3 In mod_listOfTextControlsV3
+            listOfElementStaticTextsV3.Add(eachCtlStaticText.ElementClass_Obj)
+        Next eachCtlStaticText
+
+        ''Added 2/01/2022 thomas downes
+        listOfElementStaticTextsV4 = New HashSet(Of ClassElementStaticTextV4)
+        For Each eachCtlStaticText As CtlGraphicStaticTextV4 In mod_listOfTextControlsV4
+            With listOfElementStaticTextsV4
+                Dim objStaticTextV4 As ClassElementStaticTextV4
+                objStaticTextV4 = CType(eachCtlStaticText.ElementClass_Obj,
+                     ciBadgeElements.ClassElementStaticTextV4)
+                .Add(objStaticTextV4)
+            End With ''End of "With listOfElementStaticTextsV4"
         Next eachCtlStaticText
 
         ''Pull the Element-Graphic objects from the CtlGraphicStaticGraphic Controls.
@@ -2431,7 +2477,8 @@ Public Class ClassDesigner
                                                       Me.ElementsCache_UseEdits,
                                                       par_recipient,
                                                       listOfElementTextFields,
-                                                      listOfElementStaticTexts,
+                                                      listOfElementStaticTextsV3,
+                                                      listOfElementStaticTextsV4,
                                                       listOfElementGraphics,
                                                       Me.CtlGraphic_Portrait.ElementClass_Obj,
                                                       Me.CtlGraphic_QRCode.ElementClass_Obj,

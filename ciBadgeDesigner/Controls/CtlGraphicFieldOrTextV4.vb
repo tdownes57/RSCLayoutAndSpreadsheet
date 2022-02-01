@@ -137,6 +137,7 @@ Public Class CtlGraphicFieldOrTextV4
     '' #2 8/29/2019 td''Public ElementInfo_Text As ClassElementText
 
     Public ElementClass_Obj As ClassElementFieldOrTextV4 ''Added 9/4/2019 thomas downes
+
     ''Jan5 2022''Public ElementClass_Obj_Copy As ClassElementField ''Added 1/05/2022 thomas downes
     Public ElementInfo_TextOnly As ciBadgeInterfaces.IElement_TextOnly ''Modifield 10/12/2019
     ''1/12/2022 td''Public ElementInfo_Base As ciBadgeInterfaces.IElement_Base

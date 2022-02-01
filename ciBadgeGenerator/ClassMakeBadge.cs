@@ -184,6 +184,7 @@ namespace ciBadgeGenerator
                                     par_cache, par_iRecipientInfo,
                                     par_cache.ListOfElementFields_Front,
                                     par_cache.ListOfElementTextsV3_Front,
+                                    par_cache.ListOfElementTextsV4_Front,
                                     par_cache.ListOfElementGraphics_Front,
                                     null, null, null,
                                     par_listMessages,
@@ -1719,6 +1720,10 @@ namespace ciBadgeGenerator
         }
 
 
+
+
+
+
         private void AddElementStaticToImageV3(ClassElementStaticTextV3 par_elementStaticV3,
                                     Image par_imageBadgeCard,
                                     Graphics par_graphics,
@@ -1850,7 +1855,149 @@ namespace ciBadgeGenerator
 
             }
 
-        }
+        }  //End of "AddElementStaticToImageV3
+
+
+
+
+        private void AddElementStaticToImageV4(ClassElementStaticTextV4 par_elementStaticV4,
+                            Image par_imageBadgeCard,
+                            Graphics par_graphics,
+                            bool pboolReturnListOfImages,
+                            HashSet<Image> par_listTextImages,
+                            List<String> par_listMessages = null)
+        {
+            //---AddElementStaticToImageV3(ClassElementStaticTextV3 par_elementStaticV3,
+            //
+            //Added 12/26/2021 td
+            //
+            string strTextToDisplay = par_elementStaticV4.Text_Static;
+
+            WhyOmitted_StructV1 structWhyOmittedV1 = new WhyOmitted_StructV1();
+            WhyOmitted_StructV2 structWhyOmittedV2 = new WhyOmitted_StructV2();
+
+            if (OmitOutlyingElements && (0 > par_elementStaticV4.LeftEdge_Pixels)) //return;
+            {
+                // Added 11/10/2021
+                structWhyOmittedV1.OmitCoordinateX = true;
+                structWhyOmittedV2.OmitOutlyingCoordinateX = true;   //Added 1/23/2022 td
+                structWhyOmittedV2.EnumOmitReason = EnumOmitReasons.OutlyingCoordinateX; //Added 1/23/2022 td
+                structWhyOmittedV2.SetDateTime(DateTime.Now);  //Added 1/23/2022 td
+                return;
+            }
+
+            if (OmitOutlyingElements && (0 > par_elementStaticV4.TopEdge_Pixels))
+            {
+                // Added 11/10/2021  
+                structWhyOmittedV1.OmitCoordinateY = true;
+                structWhyOmittedV2.OmitOutlyingCoordinateY = true;   //Added 1/23/2022 td
+                structWhyOmittedV2.EnumOmitReason = EnumOmitReasons.OutlyingCoordinateY; //Added 1/23/2022 td
+                structWhyOmittedV2.SetDateTime(DateTime.Now);  //Added 1/23/2022 td
+                return;
+            }
+
+            int intElementsRightEdge = (par_elementStaticV4.LeftEdge_Pixels +
+                                        par_elementStaticV4.Width_Pixels);
+
+            if (OmitOutlyingElements && (intElementsRightEdge > par_imageBadgeCard.Width))
+            {
+                // Added 11/10/2021
+                structWhyOmittedV1.OmitWidth = true;
+                structWhyOmittedV2.OmitZeroWidth = true;  //Added 1/23/2022 td
+                structWhyOmittedV2.EnumOmitReason = EnumOmitReasons.ZeroWidth; //Added 1/23/2022 td
+                structWhyOmittedV2.SetDateTime(DateTime.Now);  //Added 1/23/2022 td
+                return;
+            }
+
+            int intElementsBottomEdge = (par_elementStaticV4.TopEdge_Pixels +
+                                        par_elementStaticV4.Height_Pixels);
+
+            if (OmitOutlyingElements && (intElementsBottomEdge > par_imageBadgeCard.Height)) //return;  //10-17 continue;
+            {
+                // Added 11/10/2021
+                structWhyOmittedV1.OmitHeight = true;
+                structWhyOmittedV2.OmitZeroHeight = true;  //Added 1/23/2022 td
+                structWhyOmittedV2.EnumOmitReason = EnumOmitReasons.ZeroHeight; //Added 1/23/2022 td
+                structWhyOmittedV2.SetDateTime(DateTime.Now);  //Added 1/23/2022 td
+                return;  //10-17 continue;
+            }
+
+            Image image_textStandard;
+            bool bElementSuppressed = (!(par_elementStaticV4.Visible));
+            if (bElementSuppressed)
+            {
+                return;
+            }
+
+            if (0 == par_elementStaticV4.Width_Pixels)
+            {
+                if (par_listMessages != null)
+                    par_listMessages.Add("We cannot scale the placement of the image...." +
+                            par_elementStaticV4.Text_Static);
+
+            }
+
+            try
+            {
+
+                int intDesiredLayout_Width = par_imageBadgeCard.Width;
+
+                bool boolRotated = false; //Added 10/14/2019 td  
+
+                image_textStandard =
+                    modGenerate.TextImage_ByElemInfo(strTextToDisplay, intDesiredLayout_Width,
+                         par_elementStaticV4, 
+                         par_elementStaticV4, 
+                         ref boolRotated, false);
+
+                if (pboolReturnListOfImages) par_listTextImages.Add(image_textStandard);
+
+                par_elementStaticV4.Image_BL = image_textStandard;
+
+                decimal decScalingFactor = ((decimal)par_imageBadgeCard.Width /
+                                             par_elementStaticV4.BadgeLayout.Width_Pixels);
+
+                int intDesignedLeft = par_elementStaticV4.LeftEdge_Pixels;  //Added 10/14/2019 td 
+                int intDesignedTop = par_elementStaticV4.TopEdge_Pixels;  //Added 10/14/2019 td
+
+                int intDesiredLeft = (int)(intDesignedLeft * decScalingFactor);
+                int intDesiredTop = (int)(intDesignedTop * decScalingFactor);
+
+                par_graphics.DrawImage(image_textStandard,
+                                   new PointF(intDesiredLeft, intDesiredTop));
+
+                //''---if (par_listFieldsIncluded != null)
+                //''---    par_listFieldsIncluded.Add(par_elementField.FieldInfo.CIBadgeField);
+
+            }
+            catch (InvalidOperationException ex_draw_invalid)
+            {
+                string strMessage_Invalid = ex_draw_invalid.Message;
+
+                if (par_listMessages != null)
+                    par_listMessages.Add(ex_draw_invalid.Message + "..." + 
+                        par_elementStaticV4.Text_Static);
+
+                //if (par_listFieldsNotIncluded != null)
+                //    par_listFieldsNotIncluded.Add(par_elementField.FieldInfo.CIBadgeField);
+
+            }
+            catch (Exception ex_draw_any)
+            {
+                string strMessage_any;
+                strMessage_any = ex_draw_any.Message;
+                if (par_listMessages != null)
+                    par_listMessages.Add(ex_draw_any.Message + "..." + par_elementStaticV4.Text_Static);
+
+                //''if (par_listFieldsNotIncluded != null)
+                //''    par_listFieldsNotIncluded.Add(par_elementField.FieldInfo.CIBadgeField);
+
+            }
+
+        }  //End of "AddElementStaticToImageV4
+
+
+
 
 
 
