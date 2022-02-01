@@ -471,13 +471,19 @@ namespace ciBadgeGenerator
 
 
             //
-            //Static-Text Elements 
+            //Static-Text Elements, Version 3 
             //
-            HashSet<ClassElementStaticTextV3> listOfElementStaticTexts;
+            HashSet<ClassElementStaticTextV3> listOfElementStaticTextsV3;
             //Dec18 2021 //listOfElementStaticTexts = par_cache.ListOfElementTexts_Front;
-            listOfElementStaticTexts = par_layoutElements.ListElementStaticTexts;
+            listOfElementStaticTextsV3 = par_layoutElements.ListElementStaticTextsV3;
 
-            //Added 11/29/2021 td
+            //
+            //Static-Text Elements, Version 4 
+            //
+            HashSet<ClassElementStaticTextV4> listOfElementStaticTextsV4;
+            listOfElementStaticTextsV4 = par_layoutElements.ListElementStaticTextsV4;
+
+            //----Added 11/29/2021 td
             //if (par_elemStaticText != null)
             //{
             //    listOfElementStaticTexts = new HashSet<ClassElementStaticText>();
@@ -487,7 +493,10 @@ namespace ciBadgeGenerator
             //
             // Load image with static texts.  
             //
-            LoadImageWithStaticTexts(ref obj_imageOutput, listOfElementStaticTexts);
+            // Added 1/31/2022 td //LoadImageWithStaticTexts(ref obj_imageOutput, listOfElementStaticTexts);
+            LoadImageWithStaticTexts(ref obj_imageOutput, 
+                                     listOfElementStaticTextsV3,
+                                     listOfElementStaticTextsV4);
 
             //Added 1/22/2022 thomas d.
             //LoadImageWithPortrait(img_Step3Picture,
@@ -521,7 +530,8 @@ namespace ciBadgeGenerator
                                     ClassElementsCache_Deprecated par_cache,
                                     IRecipient par_iRecipientInfo = null,
                                     HashSet<ClassElementFieldV3> par_listElementFields = null,
-                                    HashSet<ClassElementStaticTextV3> par_listElementTexts = null,
+                                    HashSet<ClassElementStaticTextV3> par_listElementTextsV3 = null,
+                                    HashSet<ClassElementStaticTextV4> par_listElementTextsV4 = null,
                                     HashSet<ClassElementGraphic> par_listElementGraphics = null,
                                     ClassElementPortrait par_elementPic = null,
                                     ClassElementQRCode par_elementQR = null,
@@ -755,7 +765,9 @@ namespace ciBadgeGenerator
             // }
 
             // Jan8 2022 //LoadImageWithStaticTexts(ref obj_imageOutput, listOfElementStaticTexts);
-            LoadImageWithStaticTexts(ref obj_imageOutput, par_listElementTexts);
+            // Jan31 2022 //LoadImageWithStaticTexts(ref obj_imageOutput, par_listElementTexts);
+            LoadImageWithStaticTexts(ref obj_imageOutput, par_listElementTextsV3,
+                                                         par_listElementTextsV4);
 
             // 10-9-2019 td // return null;
             return obj_imageOutput;
@@ -1001,24 +1013,37 @@ namespace ciBadgeGenerator
         //    ''---                                     Optional par_listTextImages As List(Of Image) = Nothing)        
 
         public void LoadImageWithStaticTexts(ref Image par_imageBadgeCard,
-                              HashSet<ClassElementStaticTextV3> par_elements,
+                              HashSet<ClassElementStaticTextV3> par_elementsV3,
+                              HashSet<ClassElementStaticTextV4> par_elementsV4,
                               HashSet<Image> par_listTextImages = null)
         {
             //
             //Stubbed 10/14/2019 thomas d. 
             //
             Graphics gr_Badge;
-            int intEachIndex = 0;
+            //Jan31 2022 //int intEachIndex = 0;
+            int intEachIndexV3 = 0;
+            int intEachIndexV4 = 0;
             bool bOutputListOfAllImages;
             ClassProportions.ProportionsAreSlightlyOff(par_imageBadgeCard, true, "par_imageBadgeCard");
             bOutputListOfAllImages = (par_listTextImages != null);
             gr_Badge = Graphics.FromImage(par_imageBadgeCard);
 
-            foreach (ClassElementStaticTextV3 each_elementStatic in par_elements)
+            foreach (ClassElementStaticTextV3 each_elementStaticV3 in par_elementsV3)
             {
-                intEachIndex += 1;
+                intEachIndexV3 += 1;
 
-                AddElementStaticToImage(each_elementStatic, par_imageBadgeCard,
+                // Added 1/31/2022 td //AddElementStaticToImage(each_elementStatic, 
+                AddElementStaticToImageV3(each_elementStaticV3, par_imageBadgeCard,
+                       gr_Badge, bOutputListOfAllImages, par_listTextImages);
+
+            }
+
+            // Added 1/31/2022 thomas downes
+            foreach (ClassElementStaticTextV4 each_elementStaticV4 in par_elementsV4)
+            {
+                intEachIndexV4 += 1;
+                AddElementStaticToImageV4(each_elementStaticV4, par_imageBadgeCard,
                        gr_Badge, bOutputListOfAllImages, par_listTextImages);
 
             }
@@ -1694,22 +1719,23 @@ namespace ciBadgeGenerator
         }
 
 
-        private void AddElementStaticToImage(ClassElementStaticTextV3 par_elementStatic,
+        private void AddElementStaticToImageV3(ClassElementStaticTextV3 par_elementStaticV3,
                                     Image par_imageBadgeCard,
                                     Graphics par_graphics,
                                     bool pboolReturnListOfImages,
                                     HashSet<Image> par_listTextImages,
                                     List<String> par_listMessages = null)
         {
+            //---AddElementStaticToImageV3(ClassElementStaticTextV3 par_elementStaticV3,
             //
             //Added 12/26/2021 td
             //
-            string strTextToDisplay = par_elementStatic.Text_Static;
+            string strTextToDisplay = par_elementStaticV3.Text_Static;
 
             WhyOmitted_StructV1 structWhyOmittedV1 = new WhyOmitted_StructV1();
             WhyOmitted_StructV2 structWhyOmittedV2 = new WhyOmitted_StructV2();
 
-            if (OmitOutlyingElements && (0 > par_elementStatic.LeftEdge_Pixels)) //return;
+            if (OmitOutlyingElements && (0 > par_elementStaticV3.LeftEdge_Pixels)) //return;
             {
                 // Added 11/10/2021
                 structWhyOmittedV1.OmitCoordinateX = true;
@@ -1719,7 +1745,7 @@ namespace ciBadgeGenerator
                 return;
             }
 
-            if (OmitOutlyingElements && (0 > par_elementStatic.TopEdge_Pixels))
+            if (OmitOutlyingElements && (0 > par_elementStaticV3.TopEdge_Pixels))
             {
                 // Added 11/10/2021  
                 structWhyOmittedV1.OmitCoordinateY = true;
@@ -1729,8 +1755,8 @@ namespace ciBadgeGenerator
                 return;
             }
 
-            int intElementsRightEdge = (par_elementStatic.LeftEdge_Pixels +
-                                        par_elementStatic.Width_Pixels);
+            int intElementsRightEdge = (par_elementStaticV3.LeftEdge_Pixels +
+                                        par_elementStaticV3.Width_Pixels);
 
             if (OmitOutlyingElements && (intElementsRightEdge > par_imageBadgeCard.Width))
             {
@@ -1742,8 +1768,8 @@ namespace ciBadgeGenerator
                 return;
             }
 
-            int intElementsBottomEdge = (par_elementStatic.TopEdge_Pixels +
-                                        par_elementStatic.Height_Pixels);
+            int intElementsBottomEdge = (par_elementStaticV3.TopEdge_Pixels +
+                                        par_elementStaticV3.Height_Pixels);
 
             if (OmitOutlyingElements && (intElementsBottomEdge > par_imageBadgeCard.Height)) //return;  //10-17 continue;
             {
@@ -1756,17 +1782,17 @@ namespace ciBadgeGenerator
             }
 
             Image image_textStandard;
-            bool bElementSuppressed = (!(par_elementStatic.Visible));
+            bool bElementSuppressed = (!(par_elementStaticV3.Visible));
             if (bElementSuppressed)
             {
                 return;
             }
 
-            if (0 == par_elementStatic.Width_Pixels)
+            if (0 == par_elementStaticV3.Width_Pixels)
             {
                 if (par_listMessages != null)
                     par_listMessages.Add("We cannot scale the placement of the image...." +
-                            par_elementStatic.Text_Static);
+                            par_elementStaticV3.Text_Static);
 
             }
 
@@ -1779,17 +1805,17 @@ namespace ciBadgeGenerator
 
                 image_textStandard =
                     modGenerate.TextImage_ByElemInfo(strTextToDisplay, intDesiredLayout_Width,
-                         par_elementStatic, par_elementStatic, ref boolRotated, false);
+                         par_elementStaticV3, par_elementStaticV3, ref boolRotated, false);
 
                 if (pboolReturnListOfImages) par_listTextImages.Add(image_textStandard);
 
-                par_elementStatic.Image_BL = image_textStandard;
+                par_elementStaticV3.Image_BL = image_textStandard;
 
                 decimal decScalingFactor = ((decimal)par_imageBadgeCard.Width /
-                                             par_elementStatic.BadgeLayout.Width_Pixels);
+                                             par_elementStaticV3.BadgeLayout.Width_Pixels);
 
-                int intDesignedLeft = par_elementStatic.LeftEdge_Pixels;  //Added 10/14/2019 td 
-                int intDesignedTop = par_elementStatic.TopEdge_Pixels;  //Added 10/14/2019 td
+                int intDesignedLeft = par_elementStaticV3.LeftEdge_Pixels;  //Added 10/14/2019 td 
+                int intDesignedTop = par_elementStaticV3.TopEdge_Pixels;  //Added 10/14/2019 td
 
                 int intDesiredLeft = (int)(intDesignedLeft * decScalingFactor);
                 int intDesiredTop = (int)(intDesignedTop * decScalingFactor);
@@ -1806,7 +1832,7 @@ namespace ciBadgeGenerator
                 string strMessage_Invalid = ex_draw_invalid.Message;
 
                 if (par_listMessages != null)
-                    par_listMessages.Add(ex_draw_invalid.Message + "..." + par_elementStatic.Text_Static);
+                    par_listMessages.Add(ex_draw_invalid.Message + "..." + par_elementStaticV3.Text_Static);
 
                 //if (par_listFieldsNotIncluded != null)
                 //    par_listFieldsNotIncluded.Add(par_elementField.FieldInfo.CIBadgeField);
@@ -1817,7 +1843,7 @@ namespace ciBadgeGenerator
                 string strMessage_any;
                 strMessage_any = ex_draw_any.Message;
                 if (par_listMessages != null)
-                    par_listMessages.Add(ex_draw_any.Message + "..." + par_elementStatic.Text_Static);
+                    par_listMessages.Add(ex_draw_any.Message + "..." + par_elementStaticV3.Text_Static);
 
                 //''if (par_listFieldsNotIncluded != null)
                 //''    par_listFieldsNotIncluded.Add(par_elementField.FieldInfo.CIBadgeField);

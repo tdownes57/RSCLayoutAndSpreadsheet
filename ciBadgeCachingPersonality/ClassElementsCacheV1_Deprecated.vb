@@ -1660,12 +1660,18 @@ Namespace ciBadgeCachePersonality
 
             ''Added 9/17/2019 thomas downes  
             For Each each_elementStaticText As ClassElementStaticTextV3 In mod_listElementStaticsV3_Front
-                objCopyOfCache.ListStaticTextElements_Front().Add(each_elementStaticText.Copy())
+
+                ''Iterate through each Static-Text Element. 
+                objCopyOfCache.ListStaticTextElementsV3_Front().Add(each_elementStaticText.Copy())
+
             Next each_elementStaticText
 
             ''Added 12/20/2021 thomas downes  
             For Each each_elementStaticText As ClassElementStaticTextV3 In mod_listElementStaticsV3_Backside
+
+                ''Iterate through each Static-Text Element. 
                 objCopyOfCache.ListStaticTextElementsV3_Backside().Add(each_elementStaticText.Copy())
+
             Next each_elementStaticText
 
             ''Added 10/8/2019 thomas downes

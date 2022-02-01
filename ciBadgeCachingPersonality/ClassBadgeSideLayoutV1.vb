@@ -70,7 +70,7 @@ Public Class ClassBadgeSideLayoutV1
     ''    End Set
     ''End Property
 
-    Public Property ListElementStaticTextsV4 As HashSet(Of ClassElementStaticTextV3) Implements IBadgeSideLayoutElementsV1.ListElementStaticTextsV4
+    Public Property ListElementStaticTextsV4 As HashSet(Of ClassElementStaticTextV4) Implements IBadgeSideLayoutElementsV1.ListElementStaticTextsV4
     ''    Get
     ''        Throw New NotImplementedException()
     ''    End Get

@@ -69,6 +69,9 @@ Public Class ClassGetElementControlParams
 
     Public Property iControlLastTouched As __RSCWindowsControlLibrary.ILastControlTouched Implements IGetElementControlParameters.iControlLastTouched
 
+    ''Added 1/31/2022 td
+    Public Property iRecordElemLastTouched As IRecordElementLastTouched Implements IGetElementControlParameters.iRecordElemLastTouched
+
     Public Property iControlLastTouchedRSC As ILastControlTouchedRSC Implements IGetElementControlParameters.iControlLastTouchedRSC
     ''    Get
     ''        Throw New NotImplementedException()

@@ -16,7 +16,7 @@ Public Interface IBadgeSideLayoutElementsV1 ''Dec18 '' InterfaceBadgeSideLayout
     Property ListElementFieldsV4 As HashSet(Of ClassElementFieldV4)
 
     Property ListElementStaticTextsV3 As HashSet(Of ClassElementStaticTextV3)
-    Property ListElementStaticTextsV4 As HashSet(Of ClassElementStaticTextV3)
+    Property ListElementStaticTextsV4 As HashSet(Of ClassElementStaticTextV4)
 
     Property ListElementGraphics As HashSet(Of ClassElementGraphic)
 

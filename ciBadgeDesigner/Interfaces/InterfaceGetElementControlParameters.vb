@@ -37,6 +37,7 @@ Public Interface IGetElementControlParameters
     ''Jan17 2022''Property iControlLastTouched As ILastControlTouched_Deprecated
     Property iControlLastTouched As __RSCWindowsControlLibrary.ILastControlTouched
     Property iControlLastTouchedRSC As ILastControlTouchedRSC
+    Property iRecordElemLastTouched As IRecordElementLastTouched ''Added 1/31/2022 td
 
     Property oMoveEventsGroupedControls As GroupMoveEvents_Singleton
 

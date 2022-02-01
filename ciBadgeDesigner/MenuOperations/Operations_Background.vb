@@ -50,7 +50,8 @@ Public Class Operations_Background
     Public Overloads Property CtlCurrentElement As Control ''Added 1/22/2022  
     Public Property CtlCurrentPicturebox As PictureBox ''Added 1/22/2022 td  
 
-    Public Sub Create_New_StaticText_Control_GD2081(sender As Object, par_e As MouseEventArgs)
+
+    Public Sub Create_New_StaticText_Control_V3_GD2081(sender As Object, par_e As MouseEventArgs)
         ''
         ''Added 1/16/2022 thomas downes  
         ''
@@ -66,13 +67,25 @@ Public Class Operations_Background
         ''        intArgsDelta)
 
         ''mod_operationsDesktop.Create_New_StaticText_Control_GD2001(sender, new_eventArgs)
+
         ''
         ''Major call !!
         ''
-        mod_operationsDesktop.Create_New_StaticText_Control_GD2001(sender, Get_EventArgs_ShiftPosition(par_e))
+        ''Jan31 2022 td''mod_operationsDesktop.Create_New_StaticText_Control_GD2001(sender, Get_EventArgs_ShiftPosition(par_e))
+        mod_operationsDesktop.Create_New_StaticText_Control_V3_GD2001(sender, Get_EventArgs_ShiftPosition(par_e))
 
-    End Sub ''End of "Public Sub Create_New_StaticText_Control_GD2081"
+    End Sub ''End of "Public Sub Create_New_StaticText_Control_V3_GD2081"
 
+
+    Public Sub Create_New_StaticText_Control_V4_GD2081(sender As Object, par_e As MouseEventArgs)
+        ''
+        ''Added 1/31/2022 thomas downes  
+        ''
+        InitializeOperationsDesktop_IfNeeded() ''Must initialize the supporting Operations. 
+
+        mod_operationsDesktop.Create_New_StaticText_Control_V4_GD2001(sender, Get_EventArgs_ShiftPosition(par_e))
+
+    End Sub ''End of "Public Sub Create_New_StaticText_Control_V4_GD2081"
 
     Public Sub Create_New_Graphics_Control_GD2041(sender As Object, par_e As MouseEventArgs)
         ''

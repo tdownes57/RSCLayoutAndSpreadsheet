@@ -487,11 +487,12 @@ ExitHandler:
 
     End Sub ''End of "Public Sub Refresh_PositionAndSize()"
 
-    Public Overrides Sub Refresh_Image(pbRefreshSize As Boolean,
+
+    Public Overrides Sub Refresh_ImageV4(pbRefreshSize As Boolean,
                              Optional pboolResizeLabelControl As Boolean = True,
                              Optional pboolRefreshLabelControl As Boolean = True,
                              Optional pboolRefreshUserControl As Boolean = False,
-                             Optional pobjElementField As ClassElementFieldV3 = Nothing)
+                             Optional pobjElementField As ClassElementFieldV4 = Nothing)
         ''
         ''Added 7/25/2019 thomas d 
         ''
@@ -629,7 +630,7 @@ ExitHandler:
             ''Jan30 2022 td''Dim bUseExampleValues As Boolean ''Added 1/30/2022 td
             ''Jan30 2022 td''strTextToDisplay = Me.ElementClass_Obj.LabelText_ToDisplay(True, 
             ''      Nothing, CtlGraphicFldLabelV3.UseExampleValues)
-            strTextToDisplay = LabelText_ToDisplay(True, Nothing)
+            strTextToDisplay = LabelText_ToDisplay()  ''1/31/2022 td''(True, Nothing)
 
             ''Added 12/21/2021 td
             strTextToDisplay = (strTextToDisplay & (" " & Me.ElementClass_Obj.CaptionSuffixIfNeeded).TrimEnd())
@@ -952,62 +953,75 @@ ExitHandler:
     End Function ''End of "Public Function Rotated_180_360() As Boolean"
 
 
-    Public Function LabelText(Optional par_objElementCopy As ClassElementFieldV3 = Nothing) As String
+    Public Overridable Function LabelText_ToDisplay() As String
         ''
-        ''Added 7/25/2019 thomas d 
+        ''Added 1/31/2022 thomas d 
+        ''
+        ''MessageBox.Show("Error, ElementClassObject is null.")
+        MessageBoxTD.Show_Statement("Error, this base-class function should be overridden by child case.")
+        Return "Check Field-Label or Static-Text child class."
+
+    End Function
+
+
+    Public Function LabelText(Optional par_objElementCopy As ClassElementFieldV4 = Nothing) As String
+        ''
+        ''Added 1/31/2022 & 7/25/2019 thomas d 
         ''
         ''----Return Me.ElementClass_Obj.LabelText_ToDisplay(True)
         If (Me.ElementClass_Obj Is Nothing) Then
 
             If (par_objElementCopy Is Nothing) Then
                 ''Added 12/2/2021 thomas downes
-                MessageBox.Show("Error, ElementClassObject is null.")
+                MessageBoxTD.Show_Statement("Error, ElementClassObject is null.")
                 Return "Error, ElementClassObject is null."
             Else
                 ''Added 1/5/2022 td 
+                ''Jan31 2022 td''Return par_objElementCopy.Text_Static
                 Return par_objElementCopy.LabelText_ToDisplay(True)
 
             End If ''End of "If (par_objElementCopy Is Nothing) Then ... Else ...."
 
         Else
-            Return Me.ElementClass_Obj.LabelText_ToDisplay(True)
+            ''Jan31 2022 td''Return Me.ElementClass_Obj.LabelText_ToDisplay(True)
+            Return Me.ElementClass_Obj.Text_Static
 
         End If ''ENd of "If (Me.ElementClass_Obj Is Nothing) Then ... Else ...."
 
-        ''---------------Obselete as of 10/16/2019 thomas d.-------------
-        ''Select Case True
+        ''''---------------Obselete as of 10/16/2019 thomas d.-------------
+        ''''Select Case True
 
-        ''    Case (Me.ExampleTextToDisplay.Trim() <> "")
-        ''        ''
-        ''        ''Added 9/18/2019 td 
-        ''        ''
-        ''        Return Me.ExampleTextToDisplay
+        ''''    Case (Me.ExampleTextToDisplay.Trim() <> "")
+        ''''        ''
+        ''''        ''Added 9/18/2019 td 
+        ''''        ''
+        ''''        Return Me.ExampleTextToDisplay
 
-        ''    Case (Me.ElementInfo_Field.ExampleValue_ForElement <> "")
-        ''        ''
-        ''        ''Added 9/18/2019 td 
-        ''        ''
-        ''        Return Me.ElementInfo_Field.ExampleValue_ForElement
+        ''''    Case (Me.ElementInfo_Field.ExampleValue_ForElement <> "")
+        ''''        ''
+        ''''        ''Added 9/18/2019 td 
+        ''''        ''
+        ''''        Return Me.ElementInfo_Field.ExampleValue_ForElement
 
-        ''    Case (UseExampleValues And (Me.FieldInfo.ExampleValue <> ""))
+        ''''    Case (UseExampleValues And (Me.FieldInfo.ExampleValue <> ""))
 
-        ''        ''Me.ElementInfo.Info.Text = Me.FieldInfo.ExampleValue
-        ''        Return Me.FieldInfo.ExampleValue
+        ''''        ''Me.ElementInfo.Info.Text = Me.FieldInfo.ExampleValue
+        ''''        Return Me.FieldInfo.ExampleValue
 
-        ''    Case (Me.FieldInfo.FieldLabelCaption <> "")
+        ''''    Case (Me.FieldInfo.FieldLabelCaption <> "")
 
-        ''        ''Me.ElementInfo.Info.Text = Me.FieldInfo.ExampleValue
-        ''        Return Me.FieldInfo.FieldLabelCaption
+        ''''        ''Me.ElementInfo.Info.Text = Me.FieldInfo.ExampleValue
+        ''''        Return Me.FieldInfo.FieldLabelCaption
 
-        ''    Case Else
+        ''''    Case Else
 
-        ''        ''Default value.
-        ''        ''7/29 td''Me.ElementInfo.Info.Text = $"Field #{Me.FieldInfo.FieldIndex}"
-        ''        Return $"Field #{Me.FieldInfo.FieldIndex}"
+        ''''        ''Default value.
+        ''''        ''7/29 td''Me.ElementInfo.Info.Text = $"Field #{Me.FieldInfo.FieldIndex}"
+        ''''        Return $"Field #{Me.FieldInfo.FieldIndex}"
 
-        ''End Select ''End of "Select Case True"
+        ''''End Select ''End of "Select Case True"
 
-        ''Return "Field Information"
+        ''''Return "Field Information"
 
     End Function ''End of "Public Function LabelText() As String"
 

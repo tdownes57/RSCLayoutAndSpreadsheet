@@ -183,13 +183,14 @@ Public Class Operations_Desktop
             ''
             ''Next, create the control which will display the Element-StaticText.   
             ''
-            objElementControl = CtlGraphicStaticTextV4.GetStaticText(obj_parametersGetElementControl,
+            objElementControl = CtlGraphicStaticTextV4.GetStaticTextControl(obj_parametersGetElementControl,
                                     objElementStaticTextV4,
                                     MyBase.ParentForm,
+                            obj_parametersGetElementControl.DesignerClass,
                                     "CtlGraphicStaticText",
                                     CType(DesignerClass, ILayoutFunctions),
                                     sizeIfNeeded,
-                                    .iRefreshPreview,
+                                    obj_parametersGetElementControl.iRecordElemLastTouched,
                                     .iControlLastTouched,
                                     .oMoveEventsGroupedControls)
 

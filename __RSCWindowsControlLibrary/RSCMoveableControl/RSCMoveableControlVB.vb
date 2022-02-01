@@ -1660,6 +1660,18 @@ Public Class RSCMoveableControlVB
     End Sub ''End of "Public Overridable Sub Refresh_Image"
 
 
+    Public Overridable Sub Refresh_ImageV4(pbRefreshSize As Boolean,
+                             Optional pboolResizePictureControl As Boolean = True,
+                             Optional pboolRefreshPictureControl As Boolean = True,
+                             Optional pboolRefreshUserControl As Boolean = False,
+                             Optional pobjElementField As ClassElementFieldV4 = Nothing)
+        ''
+        ''Stubbed 1/31/2022 td
+        ''
+
+    End Sub ''End of "Public Overridable Sub Refresh_Image"
+
+
     Public Function InsideMe(par_intX As Integer, par_intY As Integer) As Boolean
         ''
         ''Added 9/20/2019 td  
