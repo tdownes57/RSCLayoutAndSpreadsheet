@@ -5,12 +5,10 @@ Option Infer Off
 ''Added 10/1/2019 td
 ''
 
-Imports ciBadgeInterfaces
-Imports ciBadgeDesigner
 ''----Imports ciBadgeElements
-Imports System.Windows.Forms ''Added 12/30/2021 
 Imports System.Drawing ''Added 1/2/2022 td
 Imports __RSCWindowsControlLibrary ''Added 1/5/2022 td 
+Imports ciBadgeInterfaces ''Added 12/30/2021 
 
 Public Class Operations_FieldElement
     Inherits Operations__Text
@@ -578,7 +576,26 @@ Public Class Operations_FieldElement
     End Sub ''End of "Public Sub Border_Design_EE1000(sender As Object, e As EventArgs)"
 
 
-    Public Sub Rotate90_Degrees_EE1001(sender As Object, e As EventArgs)
+    Public Sub Rotate90_Degrees_Clockwise_EE1001(sender As Object, e As EventArgs)
+        ''
+        ''Added 8/17/2019 thomas downes
+        ''         ''
+        Const c_counterclockwise As Boolean = False ''False, it's actually clockwise, not counter-clockwise. 
+        Rotate90_Degrees(c_counterclockwise)
+
+    End Sub
+
+    Public Sub Rotate90_Degrees_Counterclockwise_EE1001(sender As Object, e As EventArgs)
+        ''
+        ''Added 8/17/2019 thomas downes
+        ''         
+        Const c_counterclockwise As Boolean = True ''True, counter-clockwise.
+        Rotate90_Degrees(c_counterclockwise)
+
+    End Sub
+
+    Private Sub Rotate90_Degrees(Optional pbCounterclockwise As Boolean = False)
+        ''Feb2 2022''Public Sub Rotate90_Degrees_EE1001(sender As Object, e As EventArgs)
         ''
         ''Added 8/17/2019 thomas downes
         ''         ''
@@ -594,7 +611,8 @@ Public Class Operations_FieldElement
                     .OrientationToLayout = "P"
                 Case Else
                     .OrientationToLayout = "P"
-            End Select
+
+            End Select ''End of "Select Case .OrientationToLayout"
 
             ''Added 8/12/2019 thomas downes 
             ''
@@ -602,7 +620,12 @@ Public Class Operations_FieldElement
             ''    This will enable the badge to be printed with the element oriented
             ''   correctly (with one out of four choices of orientation). 
             ''
-            .OrientationInDegrees += 90
+            ''Feb2 2022 td''.OrientationInDegrees += 90
+            If (pbCounterclockwise) Then
+                .OrientationInDegrees -= 90 ''Added 2/2/2022
+            Else
+                .OrientationInDegrees += 90 ''Added 2/2/2022
+            End If ''End of "If (pbCounterclockwise) Then ... Else ..."
 
             ''Added 9/23/2019 td
             If (360 <= .OrientationInDegrees) Then

@@ -148,6 +148,9 @@ Public Class Operations_Desktop
             .LeftEdge_Pixels = e.X
             .Height_Pixels = intHeightOfRSC
 
+            .FontSize_ScaleToElementYesNo = True ''Added 2/2/2022 td
+            .FontSize_ScaleToElementRatio = 0.8 ''Added 2/2/2022 td
+
             obj_parametersGetElementControl = DesignerClass.GetParametersToGetElementControl()
 
             ''Added Feb. 2, 2022 thomas downes
