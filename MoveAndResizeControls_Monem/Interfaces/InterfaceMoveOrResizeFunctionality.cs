@@ -22,6 +22,16 @@ namespace MoveAndResizeControls_Monem //.Interfaces
         //                          InterfaceMoveEvents par_events, bool pbSetBreakpoint_AfterMove,
         //                          ISaveToModel par_iSave, bool pbRemoveAnyHandlers = false, 
         //                          bool pbHookUpEventHandlers = true, float par_proportionWH = 0);
+        //
+        //Feb02 2022 ''       void Init_V1(PictureBox par_pictureBox, Control par_container, int par_margin, bool pbRepaintAfterResize,
+        //                          InterfaceMoveEvents par_eventsGroupOfCtls,
+        //                          InterfaceMoveEvents par_eventsSingleCtl,
+        //                          bool pbSetBreakpoint_AfterMove,
+        //                          ISaveToModel par_iSave, bool pbRemoveAnyHandlers = false,
+        //                          bool pbHookUpEventHandlers = true,
+        //                          bool pbResizeViaProportionWH = false,
+        //                          float par_proportionWH = 0)
+        //
         void Init_V1(PictureBox par_pictureBox, Control par_container, int par_margin, bool pbRepaintAfterResize,
                                   InterfaceMoveEvents par_eventsGroupOfCtls, 
                                   InterfaceMoveEvents par_eventsSingleCtl,
@@ -29,7 +39,8 @@ namespace MoveAndResizeControls_Monem //.Interfaces
                                   ISaveToModel par_iSave, bool pbRemoveAnyHandlers = false,
                                   bool pbHookUpEventHandlers = true, 
                                   bool pbResizeViaProportionWH = false,
-                                  float par_proportionWH = 0);
+                                  float par_proportionWH = 0, 
+                                  bool pbResizeWithoutSquares = true);
 
         //Added 1/27/2022 thomas downes
         void Init_V2(PictureBox par_pictureBox, Control par_container, int par_margin, bool pbRepaintAfterResize,
@@ -42,7 +53,8 @@ namespace MoveAndResizeControls_Monem //.Interfaces
                           bool pbRemoveAnyHandlers = false,
                           bool pbHookUpEventHandlers = true,
                           bool pbResizeViaProportionWH = false,
-                          float par_proportionWH = 0);
+                          float par_proportionWH = 0,
+                          bool pbResizeWithoutSquares = true);
 
         bool NowInMotion(); //Added 1/10/2022 td
 

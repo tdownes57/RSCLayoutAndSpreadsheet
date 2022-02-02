@@ -391,7 +391,11 @@ Public Class RSCMoveableControlVB
 
         ''Dec28_2021 td''InitializeClickability(par_designer)
         ''#2 Dec28_2021 td''AddClickability()
-        If (pboolAddClickability) Then AddClickability()
+        If (pboolAddClickability) Then
+
+            AddClickability()
+
+        End If
 
         ''Not needed. 1/10/2022 td. ---Added 1/5/2022 td
         ''Added 1/5/2022 td

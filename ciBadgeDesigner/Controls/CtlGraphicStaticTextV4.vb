@@ -16,6 +16,7 @@ Public Class CtlGraphicStaticTextV4
     ''
     ''Added 1/31/2022 td
     ''
+    Public Element_StaticTextV4 As ciBadgeElements.ClassElementStaticTextV4
     Private Shared mod_intFieldTexts As Integer ''Feb01 2022 td'' += 1
     Private Shared mod_intStaticTexts As Integer ''Feb01 2022 td'' += 1
 
@@ -112,11 +113,14 @@ Public Class CtlGraphicStaticTextV4
             .EventsForMoveability_Single = Nothing
             .LayoutFunctions = .Designer ''Added 1/24/2022 td
 
+            ''Added 2/2/2022 td
+            .ElementStaticTextV4 = CtlStaticText.Element_StaticTextV4
+
         End With ''End of "With objOperationsFldElem"
 
         Return CtlStaticText
 
-    End Function ''end of "Public Shared Function GetFieldElement() As CtlGraphicFldLabel"
+    End Function ''end of "Public Shared Function GetStaticTextControl() As CtlGraphicStaticTextV4"
 
 
     Public Sub New()
@@ -185,6 +189,7 @@ Public Class CtlGraphicStaticTextV4
         ''10/12/2019 td''Me.ElementInfo_Text = CType(par_elementField, IElement_TextField)
         Me.ElementInfo_TextOnly = CType(par_elementField, IElement_TextOnly) ''Modified 10/12/2019 td
         ''1/2/2022 td''Me.ElementInfo_Field = CType(par_elementField, IElement_TextField) ''Added 10/12/2019 td
+        Me.Element_StaticTextV4 = par_elementField ''Added 2/2/2022 thomas d. 
 
         Try
             Me.ElementInfo_TextField = CType(par_elementField, IElement_TextField) ''Added 10/12/2019 td

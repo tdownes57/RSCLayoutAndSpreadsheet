@@ -17,7 +17,10 @@ Public Class Operations_StaticTextV4
     ''
 
     Public Property CtlCurrentElementStaticText As ciBadgeDesigner.CtlGraphicStaticTextV4
-    Public Property ElementStaticText As ciBadgeElements.ClassElementStaticTextV3 ''Added 1/19/2022
+
+    ''Feb2 2022 td''Public Property ElementStaticText As ciBadgeElements.ClassElementStaticTextV3 ''Added 1/19/2022
+    Public Property ElementStaticTextV4 As ciBadgeElements.ClassElementStaticTextV4 ''Added 2/02/2022
+
     Public Property ElementInfo_TextOnly As IElement_TextOnly ''Added 1/19/2022
 
     Public Overrides Property Element_Type As Enum_ElementType = Enum_ElementType.StaticGraphic ''Added 1/21/2022 td
@@ -39,6 +42,37 @@ Public Class Operations_StaticTextV4
 
     ''1/18/2022 td''Public Overrides Property CtlCurrentElement As CtlGraphicStaticText
 
+
+    Public Sub Revise_Text_Of_Element_EST1050(sender As Object, e As MouseEventArgs)
+        ''
+        ''Added 2/2/2022 & 1/18/2022
+        ''
+        Dim strCurrentText As String
+        Dim objControlStaticTextV4 As CtlGraphicStaticTextV4
+        Dim objElementStaticTextV4 As ciBadgeElements.ClassElementStaticTextV4
+
+        objControlStaticTextV4 = CType(Me.CtlCurrentElement, CtlGraphicStaticTextV4)
+        ''2/2/022 td''objElementStaticTextV4 = objControlStaticTextV4.Element_StaticText
+        objElementStaticTextV4 = objControlStaticTextV4.Element_StaticTextV4
+
+        strCurrentText = objElementStaticTextV4.Text_Static
+
+        ''Added 1/18/2022 thomas downes  
+        objElementStaticTextV4.Text_Static =
+            InputBox("Enter the static text you want to appear.  You can revise it later.",
+                     "Enter text", strCurrentText, e.X, e.Y)
+        objElementStaticTextV4.DateEdited = Now
+
+        With objControlStaticTextV4
+            .SaveToModel()
+            ''Feb2 2022 td''.Refresh_Image(False)
+            .Refresh_ImageV4(False)
+        End With
+
+        ''Added 1/28//2022 td 
+        Me.Designer.AutoPreview_IfChecked(Me.CtlCurrentElement)
+
+    End Sub ''end of "Public Sub Revise_Text_Of_Element_EST1050"
 
 
 

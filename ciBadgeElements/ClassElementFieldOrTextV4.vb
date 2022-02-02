@@ -275,7 +275,11 @@ Public Class ClassElementFieldOrTextV4
             boolTallerThanWidth = (mod_height_pixels > mod_width_pixels)
             boolGiveDisallowedMsg = boolTallerThanWidth
             If (boolGiveDisallowedMsg) Then
-                Throw New Exception("The Height cannot exceed the width #2 (rotation is _not_ an exception to this).")
+                ''2/2/2022 td''Throw New Exception("The Height cannot exceed the width #2 (rotation is _not_ an exception to this).")
+                Throw New Exception("Programmer needs to check for Rotation-by-90, & then switch Height & Width " &
+                                    "whenever a Resize occurs.  The Height cannot exceed the width. " &
+                                    "By a line of programming to switch Height & Width, a rotated element " &
+                                    "can easily abide by this rule.")
             End If ''End of "If (boolGiveDisallowedMsg) Then"
 
             ''Added 9/23/2019 td

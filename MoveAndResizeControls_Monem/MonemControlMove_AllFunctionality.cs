@@ -125,6 +125,7 @@ namespace MoveAndResizeControls_Monem
         internal bool SetBreakpoint_AfterMove { get; set; } //Added 9/13/2019 td 
 
         private bool _SizeProportionally = false;  //Added 1/10/2022 td
+        private bool _SizeDisallowSquares = true;  //Added 2/02/2022 td
 
         private const bool mc_MonemEditsLocation = true; //Added 1/12/2022 td
         private const bool mc_MonemEditsLocation_TopAndLeft = true; //Added 1/12/2022 td
@@ -155,7 +156,8 @@ namespace MoveAndResizeControls_Monem
                                  bool pbUndoAndReverseEverything = false,
                                  bool pbHookUpEventHandlers = true, 
                                  bool pbResizeProportionally = false,
-                                 float par_proportionWH = 0)
+                                 float par_proportionWH = 0,
+                                 bool pbResizeWithoutSquaring = true)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
             //     the preferred background color.)   ----7/31/2019 td
@@ -164,19 +166,19 @@ namespace MoveAndResizeControls_Monem
             //
             //Init(control, control);
 
-            // 7-31-2019 td----Init(control, control, par_margin
+        // 7-31-2019 td----Init(control, control, par_margin
 
-            // 8-03-2019 td//Init(control, control, par_margin, pbRepaintAfterResize);
+        // 8-03-2019 td//Init(control, control, par_margin, pbRepaintAfterResize);
 
-            //Not needed here. 9/13 td.//SetBreakpoint_AfterMove = pbSetBreakpoint_AfterMove;  //Added 9/13/2019 td 
+        //Not needed here. 9/13 td.//SetBreakpoint_AfterMove = pbSetBreakpoint_AfterMove;  //Added 9/13/2019 td 
 
-            // 9-13-2019 td//Init(control, control, par_margin, pbRepaintAfterResize, par_events);
-            // Dec28 2021 td//Init(par_controlA, par_controlA, par_margin, pbRepaintAfterResize, par_events, SetBreakpoint_AfterMove, par_iSave);
-            //''Jan4 2022''Init(par_controlA, par_controlA, par_margin, pbRepaintAfterResize, par_events, SetBreakpoint_AfterMove,
-            //''    par_iSave, pbUndoAndReverseEverything);
+        // 9-13-2019 td//Init(control, control, par_margin, pbRepaintAfterResize, par_events);
+        // Dec28 2021 td//Init(par_controlA, par_controlA, par_margin, pbRepaintAfterResize, par_events, SetBreakpoint_AfterMove, par_iSave);
+        //''Jan4 2022''Init(par_controlA, par_controlA, par_margin, pbRepaintAfterResize, par_events, SetBreakpoint_AfterMove,
+        //''    par_iSave, pbUndoAndReverseEverything);
 
-            //Jan27 2022 ''Init(null, par_controlA, par_margin, pbRepaintAfterResize,
-            Init_V1(null, par_controlA, par_margin, pbRepaintAfterResize,
+        //Jan27 2022 ''Init(null, par_controlA, par_margin, pbRepaintAfterResize,
+        Init_V1(null, par_controlA, par_margin, pbRepaintAfterResize,
                 par_eventsForGroups,
                 par_eventsSingleCtl,
                 SetBreakpoint_AfterMove,
@@ -184,7 +186,8 @@ namespace MoveAndResizeControls_Monem
                 pbUndoAndReverseEverything, 
                 pbHookUpEventHandlers, 
                 pbResizeProportionally, 
-                par_proportionWH);
+                par_proportionWH, 
+                pbResizeWithoutSquaring);
 
         }
 
@@ -198,7 +201,8 @@ namespace MoveAndResizeControls_Monem
                                bool pbUndoAndReverseEverything = false,
                                bool pbHookUpEventHandlers = true,
                                bool pbResizeProportionally = false,
-                               float par_proportionWH = 0)
+                               float par_proportionWH = 0,
+                               bool pbResizeWithoutSquaring = true)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
             //     the preferred background color.)   ----7/31/2019 td
@@ -210,6 +214,10 @@ namespace MoveAndResizeControls_Monem
             //   internal static void Init(Control control, Control container)
             //
             _SizeProportionally = pbResizeProportionally; //Added 1/12/2022 td
+            
+            // This will assist the layout program to enforcing Height > Width
+            //     (or  Width > Height) rules. 
+            _SizeDisallowSquares = pbResizeWithoutSquaring; //Added 2/2/2022 td
 
             //
             //Added 1/12/2022 & 10/09/2019 thomas downes 
