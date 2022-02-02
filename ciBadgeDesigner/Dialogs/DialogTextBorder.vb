@@ -144,7 +144,7 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
             .Height = .ElementInfo_Base.Height_Pixels
 
             ''Jan5 2022 td''.Refresh_Image(True)
-            .Refresh_Image(True, True, True, True, Me.ElementObject_Copy)
+            .Refresh_ImageV3(True, True, True, True, Me.ElementObject_Copy)
 
         End With ''End of "With CtlGraphicFldLabel1"
 
@@ -379,7 +379,7 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
         With Me.CtlGraphicFldLabel1
             ''---Me.CtlGraphicFldLabel1.Width = Me.ElementInfo_Base.Width_Pixels
             ''---Me.CtlGraphicFldLabel1.Height = Me.ElementInfo_Base.Height_Pixels
-            Me.CtlGraphicFldLabel1.Refresh_Image(True)
+            Me.CtlGraphicFldLabel1.Refresh_ImageV3(True)
         End With
 
     End Sub

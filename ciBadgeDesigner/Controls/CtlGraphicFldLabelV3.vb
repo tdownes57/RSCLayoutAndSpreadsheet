@@ -437,7 +437,7 @@ Public Class CtlGraphicFldLabelV3
 
         ''#1 9/15 td''Refresh_Image
         '' #2 9/15 tdRefresh_Image(False)
-        Refresh_Image(False)
+        Refresh_ImageV3(False)
 
 ExitHandler:
         ''
@@ -493,11 +493,13 @@ ExitHandler:
 
     End Sub ''End of "Public Sub Refresh_PositionAndSize()"
 
-    Public Overrides Sub Refresh_Image(pbRefreshSize As Boolean,
+
+    Public Overrides Sub Refresh_ImageV3(pbRefreshSize As Boolean,
                              Optional pboolResizeLabelControl As Boolean = True,
                              Optional pboolRefreshLabelControl As Boolean = True,
                              Optional pboolRefreshUserControl As Boolean = False,
                              Optional pobjElementField As ClassElementFieldV3 = Nothing)
+        ''Feb1 2022 td''Public Overrides Sub Refresh_ImageV3(pbRefreshSize As Boolean,
         ''
         ''Added 7/25/2019 thomas d 
         ''
@@ -766,7 +768,8 @@ ExitHandler:
             Me.Refresh()
         End If ''ENd of "If (par_boolRefreshUserControl) Then"
 
-    End Sub ''End of Public Sub Refresh_Image
+    End Sub ''End of Public Sub Refresh_ImageV3
+
 
     Public Sub SaveToModel() Implements ISaveToModel.SaveToModel
         ''
@@ -1087,7 +1090,7 @@ ExitHandler:
             Me.ElementClass_Obj.SelectedHighlighting = True
 
             ''10/13/2019 td''Me.Refresh_Image(False)
-            If (par_bRedrawElement) Then Me.Refresh_Image(False)
+            If (par_bRedrawElement) Then Me.Refresh_ImageV3(False)
 
         End If ''End of "If (boolBandOverlapsWithMe) Then"
 
@@ -1150,7 +1153,7 @@ ExitHandler:
         Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
 
         Application.DoEvents()
-        Me.Refresh_Image(True)
+        Me.Refresh_ImageV3(True)
         Application.DoEvents()
         Me.Refresh()
 

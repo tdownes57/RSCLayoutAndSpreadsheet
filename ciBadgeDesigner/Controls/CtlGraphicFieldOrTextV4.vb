@@ -172,16 +172,18 @@ Public Class CtlGraphicFieldOrTextV4
 
     ''10/17/2019 td''Private mod_includedInGroupEdit As Boolean ''Added 8/1/2019 thomas downes 
 
-    Private Const mod_c_boolMustSetBackColor As Boolean = False ''False, since we have an alternate Boolean 
+    Protected Const mod_c_boolMustSetBackColor As Boolean = False ''False, since we have an alternate Boolean 
     ''   below which works fine (i.e. mod_c_bRefreshMustReinitializeImage = True).
     ''   We don't need to set the Background Color of the PictureBox control.  ----7/31/2019 thomas d. 
 
-    Private Const mod_c_bRefreshMustResizeImage As Boolean = True ''True, since otherwise the background color 
+    Protected Const mod_c_bRefreshMustResizeImage As Boolean = True ''True, since otherwise the background color 
     ''  is (frustratingly) limited to the original control size, _NOT_ the resized control's full area
     ''  (enlarged via user click-and-drag), unfortunately.  ----7/31/2019 thomas d.  
     Private mod_singleDummy As Single = 0 ''Added 1/4/2022 td
 
     Protected mod_formRecordLastTouched As IRecordElementLastTouched ''Added 12/17/2021 td
+    Private Shared mod_intStaticTexts As Integer ''Added 2/1/2022 thomas d.
+    Private Shared mod_intFieldElems As Integer ''Added 2/1/2022 thomas d.
 
     Public ReadOnly Property Picture_Box As PictureBox
         Get
@@ -196,6 +198,14 @@ Public Class CtlGraphicFieldOrTextV4
     ''        Return Me.textTypeExample
     ''    End Get
     ''End Property
+
+    Public Sub New()
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+    End Sub
+
 
     Public Sub New(pstrWhyCreated As String)
 
@@ -243,6 +253,9 @@ Public Class CtlGraphicFieldOrTextV4
         ' This call is required by the designer.
         InitializeComponent()
 
+        Dim bErrorSoLikelyStaticText As Boolean ''Added 2/1/2022 td
+        Dim bStaticText As Boolean ''Added 2/1/2022 td
+
         ' Add any initialization after the InitializeComponent() call.
         ''Jan30 2022 td''Me.FieldInfo = par_elementFieldOrText.FieldInfo
         Me.ParentDesigner = par_oDesigner ''Added 1/5/2022 td
@@ -250,7 +263,14 @@ Public Class CtlGraphicFieldOrTextV4
         Me.ElementClass_Obj = par_elementFieldOrText
         Me.ElementInfo_Base = CType(par_elementFieldOrText, IElement_Base)
         Me.ElementInfo_TextOnly = CType(par_elementFieldOrText, IElement_TextOnly)
-        Me.ElementInfo_TextField = CType(par_elementFieldOrText, IElement_TextField)
+        Try
+            Me.ElementInfo_TextField = CType(par_elementFieldOrText, IElement_TextField)
+            mod_intFieldElems += 1
+        Catch
+            bErrorSoLikelyStaticText = True
+            bStaticText = True
+            If (bStaticText) Then mod_intStaticTexts += 1
+        End Try
 
         Me.LayoutFunctions = par_iLayoutFun
         Me.LayoutFunctions = par_iLayoutFun
@@ -271,21 +291,21 @@ Public Class CtlGraphicFieldOrTextV4
     End Sub ''ENd of "Public Sub New "
 
     ''Public Sub New_NotInUse(par_field As ICIBFieldStandardOrCustom)
-
+    ''
     ''    ' This call is required by the designer.
     ''    InitializeComponent()
-
+    ''
     ''    ' Add any initialization after the InitializeComponent() call.
     ''    Me.FieldInfo = par_field
-
+    ''
     ''    ''9/4/2019 td''Me.ElementInfo_Text = New ClassElementText(Me)
-
+    ''
     ''    Dim obj_elementText As ClassElementField ''Added 9/4/2019 thomas d.
     ''    obj_elementText = New ClassElementField(Me) ''Added 9/4/2019 thomas d.
     ''    Me.ElementClass_Obj = obj_elementText ''Added 9/4/2019 thomas d.
     ''    Me.ElementInfo_Base = CType(obj_elementText, IElement_Base) ''Added 9/4/2019 thomas d.
     ''    Me.ElementInfo_Text = CType(obj_elementText, IElement_TextField)  ''Added 9/4/2019 thomas d.
-
+    ''
     ''End Sub
 
     ''Public Sub New_Deprecated(par_field As ClassFieldStandard,
@@ -432,7 +452,8 @@ Public Class CtlGraphicFieldOrTextV4
 
         ''#1 9/15 td''Refresh_Image
         '' #2 9/15 tdRefresh_Image(False)
-        Refresh_Image(False)
+        ''2/1/2022 td''Refresh_Image(False)
+        Refresh_ImageV4(False)
 
 ExitHandler:
         ''
@@ -447,9 +468,11 @@ ExitHandler:
 
             ''Check for Label-Control size discrepancies.  ---9/23 thomas d.    
             boolWidthDisparity = (Math.Abs(Me.Width - Me.pictureFieldOrText.Width) > 5) Or
-                            (Math.Abs(Me.pictureFieldOrText.Width - Me.pictureFieldOrText.Image.Width) > 5)
+                            (Me.pictureFieldOrText.Image IsNot Nothing AndAlso
+                      Math.Abs(Me.pictureFieldOrText.Width - Me.pictureFieldOrText.Image.Width) > 5)
             boolHeightDisparity = (Math.Abs(Me.Height - Me.pictureFieldOrText.Height) > 5) Or
-                                (Math.Abs(Me.pictureFieldOrText.Height - Me.pictureFieldOrText.Image.Height) > 5)
+                                (Me.pictureFieldOrText.Image IsNot Nothing AndAlso
+                      Math.Abs(Me.pictureFieldOrText.Height - Me.pictureFieldOrText.Image.Height) > 5)
 
             bDisparity_Neither = (Not (boolWidthDisparity Or boolHeightDisparity))
             If (bDisparity_Neither) Then Exit For
@@ -907,17 +930,20 @@ ExitHandler:
         ''
         ''Added 9/23/2019 thomas d.  
         ''
+        Const c_boolCheckDimensions As Boolean = False ''Added 2/1/2022 thomas d.
         Dim boolTextImageRotated_90_270 As Boolean ''Added 9/23/2019 thomas d.  
 
         Select Case Me.ElementClass_Obj.OrientationInDegrees
 
             Case 0, 360
 
-                ''Double-check the orientation.  ----9/23/2019 td
-                boolTextImageRotated_90_270 = (Me.pictureFieldOrText.Image.Width < Me.pictureFieldOrText.Image.Height)
-                If (boolTextImageRotated_90_270) Then
-                    Throw New Exception("Image dimensions are Not expected.")
-                End If ''End of "If (boolImageRotated_90_270) Then"
+                If (c_boolCheckDimensions) Then ''Added 2/1/2022 thomas d.
+                    ''Double-check the orientation.  ----9/23/2019 td
+                    boolTextImageRotated_90_270 = (Me.pictureFieldOrText.Image.Width < Me.pictureFieldOrText.Image.Height)
+                    If (boolTextImageRotated_90_270) Then
+                        Throw New Exception("Image dimensions are Not expected.")
+                    End If ''End of "If (boolImageRotated_90_270) Then"
+                End If ''End of "If (c_boolCheckDimensions) Then"
 
                 Return True
 
@@ -1098,7 +1124,8 @@ ExitHandler:
             Me.ElementClass_Obj.SelectedHighlighting = True
 
             ''10/13/2019 td''Me.Refresh_Image(False)
-            If (par_bRedrawElement) Then Me.Refresh_Image(False)
+            ''02/01/2022 td''If (par_bRedrawElement) Then Me.Refresh_Image(False)
+            If (par_bRedrawElement) Then Me.Refresh_ImageV3(False)
 
         End If ''End of "If (boolBandOverlapsWithMe) Then"
 
@@ -1161,7 +1188,8 @@ ExitHandler:
         Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
 
         Application.DoEvents()
-        Me.Refresh_Image(True)
+        ''Feb01 2022 td''Me.Refresh_Image(True)
+        Me.Refresh_ImageV3(True)
         Application.DoEvents()
         Me.Refresh()
 

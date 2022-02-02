@@ -93,7 +93,7 @@ Public Class CtlGraphicStaticTextV3
         Dim objOperations As Object ''Added 12/29/2021 td 
         ''Dim objOperations1Gen As Operations__Generic = Nothing
         ''Dim objOperations2Use As Operations__Useless = Nothing
-        Dim objOperationsST As Operations_StaticTextV3 ''Added 12/31/2021 td 
+        Dim objOperationsST_V3 As Operations_StaticTextV3 ''Added 12/31/2021 td 
 
         ''Instantiate the Operations Object. 
         ''//If (enumElemType = EnumElementType.Signature) Then objOperations2Use = New Operations__Useless()
@@ -116,9 +116,9 @@ Public Class CtlGraphicStaticTextV3
         ''If (par_enum = EnumElementType.StaticText) Then objOperations = objOperations2Use
 
         ''Modified 1/2/2022 td
-        objOperationsST = New Operations_StaticTextV3() ''Added 1/1/2022 td
-        typeOps = objOperationsST.GetType()
-        objOperations = objOperationsST
+        objOperationsST_V3 = New Operations_StaticTextV3() ''Added 1/1/2022 td
+        typeOps = objOperationsST_V3.GetType()
+        objOperations = objOperationsST_V3
 
         If (objOperations Is Nothing) Then
             ''Added 12/29/2021
@@ -173,15 +173,15 @@ Public Class CtlGraphicStaticTextV3
         infoOps.ElementsCacheManager = par_parametersGetElementControl.ElementsCacheManager
 
         ''Added 1/19/2022 td
-        objOperationsST.CtlCurrentElement = CtlStaticText1
-        objOperationsST.CtlCurrentElementStaticText = CtlStaticText1
-        objOperationsST.ElementInfo_Base = par_elementStaticText
-        objOperationsST.ElementStaticText = par_elementStaticText
-        objOperationsST.ElementInfo_TextOnly = par_elementStaticText
-        objOperationsST.Element_Type = ciBadgeInterfaces.Enum_ElementType.StaticText
+        objOperationsST_V3.CtlCurrentElement = CtlStaticText1
+        objOperationsST_V3.CtlCurrentElementStaticText = CtlStaticText1
+        objOperationsST_V3.ElementInfo_Base = par_elementStaticText
+        objOperationsST_V3.ElementStaticText = par_elementStaticText
+        objOperationsST_V3.ElementInfo_TextOnly = par_elementStaticText
+        objOperationsST_V3.Element_Type = ciBadgeInterfaces.Enum_ElementType.StaticTextV3
         ''Added 1/25/2022 td
-        objOperationsST.Designer = par_parametersGetElementControl.DesignerClass
-        objOperationsST.LayoutFunctions = par_parametersGetElementControl.DesignerClass
+        objOperationsST_V3.Designer = par_parametersGetElementControl.DesignerClass
+        objOperationsST_V3.LayoutFunctions = par_parametersGetElementControl.DesignerClass
 
         Return CtlStaticText1
 

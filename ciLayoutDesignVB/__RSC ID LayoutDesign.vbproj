@@ -882,6 +882,7 @@
     <None Include="Resources\Badge001.jpg" />
     <None Include="Resources\feather logo RSC.jpg" />
     <None Include="Resources\CodeNinjas in NB.png" />
+    <None Include="Resources\No backside exists.jpg" />
     <Content Include="XML\CodeNinjas_Dec8.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

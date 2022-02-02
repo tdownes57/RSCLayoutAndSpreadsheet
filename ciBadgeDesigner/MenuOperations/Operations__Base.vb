@@ -132,7 +132,8 @@ Public MustInherit Class Operations__Base
         ''#1 9/23/2019 td''RefreshImage()
         '' #2 9/23/2019 td''RefreshImage_NoMajorCalls()
         ''Jan24 2022 td''RefreshImage_ViaElemImage()
-        Me.CtlCurrentElement.Refresh_Image(True)
+        ''Feb01 2022 td''Me.CtlCurrentElement.Refresh_Image(True)
+        Me.CtlCurrentElement.Refresh_ImageV3(True)
 
         Me.CtlCurrentElement.Refresh()
 

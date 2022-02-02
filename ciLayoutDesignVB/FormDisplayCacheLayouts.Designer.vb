@@ -188,6 +188,7 @@ Partial Class FormDisplayCacheLayouts
         '
         'ButtonOK
         '
+        Me.ButtonOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonOK.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ButtonOK.Location = New System.Drawing.Point(825, 521)
         Me.ButtonOK.Name = "ButtonOK"
@@ -220,13 +221,14 @@ Partial Class FormDisplayCacheLayouts
         'picturePreviewBackside
         '
         Me.picturePreviewBackside.BackColor = System.Drawing.Color.White
+        Me.picturePreviewBackside.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.No_backside_exists
+        Me.picturePreviewBackside.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.picturePreviewBackside.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.picturePreviewBackside.Location = New System.Drawing.Point(312, 191)
         Me.picturePreviewBackside.Name = "picturePreviewBackside"
         Me.picturePreviewBackside.Size = New System.Drawing.Size(466, 277)
         Me.picturePreviewBackside.TabIndex = 92
         Me.picturePreviewBackside.TabStop = False
-        Me.picturePreviewBackside.Visible = False
         '
         'Label2
         '

@@ -2003,7 +2003,7 @@ Public Class ClassDesigner
                         ''Clear any/all highlighting.  ---10/14/2019 td 
                         .SelectedHighlighting = False ''Added 10/14/2019 td
                         ''Redraw without highlighting. ---10/14 td
-                        each_ctl_field.Refresh_Image(False)
+                        each_ctl_field.Refresh_ImageV3(False)
                     End If ''end of "If (.SelectedHighlighting) Then"
                 End With
 
@@ -3001,7 +3001,8 @@ Public Class ClassDesigner
             each_control.TempResizeInfo_H = 0
 
             ''Added 9/11/2019 td
-            each_control.Refresh_Image(True)
+            ''Feb1 2022 td''each_control.Refresh_Image(True)
+            each_control.Refresh_ImageV3(True)
 
         Next each_control
 
@@ -3051,7 +3052,8 @@ Public Class ClassDesigner
                     End With ''End of "With CType(mod_RSCControlLastTouched, ICtlElement_TextAny)"
                 End If ''End of "If (TypeOf mod_RSCControlLastTouched Is ICtlElement_Text) Then"
 
-                .Refresh_Image(True)
+                ''Feb01 2022 td''.Refresh_Image(True)
+                .Refresh_ImageV3(True)
 
             End With ''End of "With mod_RSCControlLastTouched"
 

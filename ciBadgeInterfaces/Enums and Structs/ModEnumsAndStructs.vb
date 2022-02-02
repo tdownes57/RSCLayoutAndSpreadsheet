@@ -38,8 +38,11 @@ Public Module ModEnumsAndStructs
         Portrait
         QRCode
         Signature
-        StaticText
+        ''Feb2 2022''StaticText
         StaticGraphic
+
+        StaticTextV3
+        StaticTextV4
 
         ''This allows for the users to create a sub-section of elements, which 
         ''  can be moved around as a unit (without having to re-select all of

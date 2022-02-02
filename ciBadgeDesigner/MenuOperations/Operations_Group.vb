@@ -94,7 +94,7 @@ Public Class Operations_Group
 
         ''Added 8/2/2019 td 
         Me.CtlCurrentElement.ElementInfo_Base.SelectedHighlighting = True
-        Me.CtlCurrentElement.Refresh_Image(True)
+        Me.CtlCurrentElement.Refresh_ImageV3(True)
 
     End Sub ''End of "Private Sub GroupEditElement_Add()"
 
@@ -125,7 +125,7 @@ Public Class Operations_Group
         With Me.CtlCurrentElement
             .SelectedHighlighting_Denigrated = False ''Added 8/3/2019 td  
             .ElementInfo_Base.SelectedHighlighting = False
-            .Refresh_Image(True)
+            .Refresh_ImageV3(True)
         End With
 
     End Sub ''End of "Private Sub GroupEditElement_Omit( )"

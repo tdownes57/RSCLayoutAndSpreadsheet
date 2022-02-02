@@ -140,6 +140,8 @@ Public Class FormDisplayCacheLayouts
         ''Added 12/20/2021 td
         ''
         Dim strPathToBadgeLayoutJPG As String ''Added 1/5/2022 td 
+        Dim strPathToBadgeLayout_FrontJPG As String ''Added 2/01/2022 td 
+        Dim strPathToBadgeLayout_BacksideJPG As String ''Added 2/01/2022 td 
 
         LabelFullPathToXML.Text = Me.PathToElementsCacheXML
         textboxPathToCacheXmlFile.Text = Me.PathToElementsCacheXML ''Added 1/25/2022 td
@@ -170,8 +172,29 @@ Public Class FormDisplayCacheLayouts
         ''Display the saved Badge-Layout Jpeg Image. ---1/5/2022 td
         ''
         strPathToBadgeLayoutJPG = Me.PathToElementsCacheXML.Replace(".xml", ".jpg")
-        Me.picturePreviewFront.ImageLocation = strPathToBadgeLayoutJPG
-        Me.picturePreviewFront.SizeMode = PictureBoxSizeMode.Zoom
+
+        If (IO.File.Exists(strPathToBadgeLayoutJPG)) Then
+            Me.picturePreviewFront.ImageLocation = strPathToBadgeLayoutJPG
+            Me.picturePreviewFront.SizeMode = PictureBoxSizeMode.Zoom
+        End If
+
+        ''
+        ''Display the saved Badge-Layout Jpeg Image, Front side. ---2/1/2022 td
+        ''
+        strPathToBadgeLayout_FrontJPG = Me.PathToElementsCacheXML.Replace(".xml", "_Front.jpg")
+        If (IO.File.Exists(strPathToBadgeLayout_FrontJPG)) Then
+            Me.picturePreviewFront.ImageLocation = strPathToBadgeLayout_FrontJPG
+            Me.picturePreviewFront.SizeMode = PictureBoxSizeMode.Zoom
+        End If
+
+        ''
+        ''Display the saved Badge-Layout Jpeg Image, Back side. ---2/1/2022 td
+        ''
+        strPathToBadgeLayout_BacksideJPG = Me.PathToElementsCacheXML.Replace(".xml", "_Back.jpg")
+        If (IO.File.Exists(strPathToBadgeLayout_BacksideJPG)) Then
+            Me.picturePreviewBackside.ImageLocation = strPathToBadgeLayout_BacksideJPG
+            Me.picturePreviewBackside.SizeMode = PictureBoxSizeMode.Zoom
+        End If
 
         ''Added 1/25/2022 thomas d. 
         Dim strPriorXMLFile1 As String = Me.PathToElementsCacheXML_Prior1
@@ -304,15 +327,36 @@ Public Class FormDisplayCacheLayouts
 
         Dim boolTwoSidedBadge As Boolean ''Added 1/14/2022 td
         boolTwoSidedBadge = picturePreviewBackside.Visible
+        ''Feb1 2022''Const c_bBackwardsAndConfusing As Boolean = False ''True ''Added 2/1/2022 td
+        Const c_bUseSimpleWay As Boolean = True ''Added 2/1/2022 td
 
         If (boolTwoSidedBadge) Then
+
+            ''Feb1 2022''------DIFFICULT AND CONFUSING-----
+            ''Feb1 2022''If (c_bBackwardsAndConfusing) Then
+            If (c_bUseSimpleWay) Then
+                ''2/1/2022 td''CType(sender, Control).SendToBack()
+                CType(sender, Control).BringToFront()
+                Me.Invalidate()
+                Return
+            End If ''End of "If (c_bBackwardsAndConfusing) Then"
+
             ''
             ''Send __other__ PictureBox controls to the LOWEST Z-order, via the .SendToBack() command.  
             ''  --- 1/14/2022 td
             For Each eachControl In Me.Controls
                 If (eachControl Is sender) Then Continue For
-                If (TypeOf eachControl Is PictureBox) Then CType(sender, Control).SendToBack()
+                If (TypeOf eachControl Is PictureBox) Then
+                    ''Oops....2/1/2022 td''CType(sender, Control).SendToBack()
+                    CType(eachControl, Control).BringToFront() ''Needed??  Added 2/1/2022 td
+                    CType(eachControl, Control).SendToBack()
+                End If
             Next eachControl
+
+            ''Added 2/1/2022 td
+            ''Feb1 2022 td''picturePreviewFront.Refresh()
+            ''Me.Refresh()
+            Me.Invalidate()
 
         Else
             ''Added 1/5/2022 td
@@ -328,16 +372,51 @@ Public Class FormDisplayCacheLayouts
     Private Sub picturePreviewBackside_Click(sender As Object, e As EventArgs) Handles picturePreviewBackside.Click
 
         Dim boolTwoSidedBadge As Boolean ''Added 1/14/2022 td
+        ''Feb1 2022''Const c_bBackwardsAndConfusing As Boolean = False ''True ''Added 2/1/2022 td
+        Const c_bUseSimpleWay As Boolean = True ''Added 2/1/2022 td
+
         boolTwoSidedBadge = picturePreviewBackside.Visible
+
         If (boolTwoSidedBadge) Then
+            ''Feb1 2022''------DIFFICULT AND CONFUSING-----
+            ''Feb1 2022''If (c_bBackwardsAndConfusing) Then
+            If (c_bUseSimpleWay) Then
+                CType(sender, Control).BringToFront()
+                Me.Invalidate()
+                Return
+            End If ''End of "If (c_bBackwardsAndConfusing) Then"
+
             ''
             ''Send __other__ PictureBox controls to the LOWEST Z-order, via the .SendToBack() command.  
             ''  --- 1/14/2022 td
+            ''
             For Each eachControl In Me.Controls
-                If (eachControl Is sender) Then Continue For
-                If (TypeOf eachControl Is PictureBox) Then CType(sender, Control).SendToBack()
+                If (eachControl Is sender) Then
+                    Continue For
+                End If ''end of "If (eachControl Is sender) Then"
+                If (TypeOf eachControl Is PictureBox) Then
+                    ''Oops....2/1/2022''CType(sender, Control).SendToBack()
+                    CType(eachControl, Control).BringToFront() ''Needed??  Added 2/1/2022 td
+                    CType(eachControl, Control).SendToBack()
+                End If ''end of "If (TypeOf eachControl Is PictureBox) Then"
             Next eachControl
+
+            ''Added 2/1/2022 td
+            ''Feb1 2022 td''picturePreviewBackside.Refresh()
+            ''Feb1 2022 td''Me.Refresh()
+            Me.Invalidate()
+
         End If ''End of "If (boolTwoSidedBadge) Then... Else ..."
+
+    End Sub
+
+    Private Sub picturePreviewFront_DoubleClick(sender As Object, e As EventArgs) Handles picturePreviewFront.DoubleClick
+
+        ''Added 2/01/2022 td
+        ''   Confirm that the most-recently edited layout is AGAIN the 
+        ''   layout which the user would like to edit now. 
+        ''   --- 1/14/2022 td
+        ButtonOpenCurrentLayout.PerformClick()
 
     End Sub
 End Class

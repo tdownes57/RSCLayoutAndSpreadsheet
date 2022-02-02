@@ -186,4 +186,10 @@ Public Class FormDisplayCacheLayouts
         ButtonOpenCurrentLayout.PerformClick()
 
     End Sub
+
+    Private Sub picturePreview_DoubleClick(sender As Object, e As EventArgs) Handles picturePreview.DoubleClick
+
+
+
+    End Sub
 End Class

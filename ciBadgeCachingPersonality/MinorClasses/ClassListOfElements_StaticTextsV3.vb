@@ -4,7 +4,7 @@
 Imports ciBadgeInterfaces
 Imports ciBadgeElements
 
-Public Class ClassListOfElements_StaticTexts
+Public Class ClassListOfElements_StaticTextsV3
     Inherits ClassListOfElements
     ''
     ''Added 1/19/2022 thomas downes

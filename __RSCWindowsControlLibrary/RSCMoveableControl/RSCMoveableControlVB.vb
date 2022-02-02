@@ -1618,7 +1618,8 @@ Public Class RSCMoveableControlVB
         ''Added 1/24/2022 td
         ''
         Refresh_PositionAndSize()
-        Refresh_Image(True, True, True)
+        ''Feb1 2022 td''Refresh_Image(True, True, True)
+        Refresh_ImageV3(True, True, True)
 
     End Sub ''End of "Public Overridable Sub Refresh_Master()"
 
@@ -1644,20 +1645,22 @@ Public Class RSCMoveableControlVB
         ''
         ''Added 1/28/2022 td
         ''
-        Refresh_Image(True)
+        ''Feb1 2022 td''Refresh_Image(True)
+        ''Feb1 2022 td''Refresh_ImageV3(True)
+        Refresh_ImageV4(True)
 
     End Sub ''end of "Public Sub RefreshElementImage()"
 
-    Public Overridable Sub Refresh_Image(pbRefreshSize As Boolean,
+    Public Overridable Sub Refresh_ImageV3(pbRefreshSize As Boolean,
                              Optional pboolResizePictureControl As Boolean = True,
                              Optional pboolRefreshPictureControl As Boolean = True,
                              Optional pboolRefreshUserControl As Boolean = False,
-                             Optional pobjElementField As ClassElementFieldV3 = Nothing)
+                             Optional pobjElementFieldV3 As ClassElementFieldV3 = Nothing)
         ''
         ''Stubbed 1/13/2022 td
         ''
 
-    End Sub ''End of "Public Overridable Sub Refresh_Image"
+    End Sub ''End of "Public Overridable Sub Refresh_ImageV3"
 
 
     Public Overridable Sub Refresh_ImageV4(pbRefreshSize As Boolean,
@@ -1746,7 +1749,8 @@ Public Class RSCMoveableControlVB
             ElementInfo_Base.SelectedHighlighting = True
 
             ''10/13/2019 td''Me.Refresh_Image(False)
-            If (par_bRedrawElement) Then Me.Refresh_Image(False)
+            ''02/01/2022 td''If (par_bRedrawElement) Then Me.Refresh_Image(False)
+            If (par_bRedrawElement) Then Me.Refresh_ImageV3(False)
 
         End If ''End of "If (boolBandOverlapsWithMe) Then"
 

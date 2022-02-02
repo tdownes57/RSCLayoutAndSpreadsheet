@@ -735,13 +735,18 @@ Public Class Form__Main_Demo
                 .PathToXML = Me.ElementsCache_Edits.PathToXml_Saved
                 .PathToXML_Binary = Me.ElementsCache_Edits.PathToXml_Binary ''Added 11/29/2019 thomas d.
 
+                ''Encapsulated 2/1/2022 td
+                SaveLayout_PreviewImage()
+
                 ''Added 1/13/2022  Copied from 12/10/2022 thomas d. 
-                If (Not String.IsNullOrEmpty(.PathToXML)) Then
-                    Dim strPathToFileJpg As String = ""
-                    strPathToFileJpg = .PathToXML.Replace(".xml", ".jpg")
-                    ''Create an image file (in JPEG form). ---1/5/2022 td 
-                    ElementsCache_ManageBoth.CreateBadgeLayoutImageFile(Me.picturePreview.Image, strPathToFileJpg)
-                End If ''End of "If (Not String.IsNullOrEmpty(...)) Then"
+                ''Feb1 2022 td''If (Not String.IsNullOrEmpty(.PathToXML)) Then
+                ''Feb1 2022 td''    Dim strPathToFileJpg As String = ""
+                ''Feb1 2022 td''    strPathToFileJpg = .PathToXML.Replace(".xml", ".jpg")
+                ''Feb1 2022 td''    ''Create an image file (in JPEG form). ---1/5/2022 td 
+                ''Feb1 2022 td''    With ElementsCache_ManageBoth
+                ''Feb1 2022 td''        .CreateBadgeLayoutImageFile(Me.picturePreview.Image, strPathToFileJpg)
+                ''Feb1 2022 td''    End With ''End of " With ElementsCache_ManageBoth"
+                ''Feb1 2022 td''End If ''End of "If (Not String.IsNullOrEmpty(...)) Then"
 
                 ''Added 9/24/2019  thomas 
                 ''  ''10/13/2019 td''.SerializeToXML(Me.ElementsCache_Edits.GetType, Me.ElementsCache_Edits, False, True)
@@ -778,6 +783,48 @@ Public Class Form__Main_Demo
         End If ''Endof "If (c_serializeToDisk_Ultimately) Then ... Else ..."
 
     End Sub ''End of "PRivate Sub SaveLayout()"  
+
+
+    Private Sub SaveLayout_PreviewImage()
+        ''
+        ''Added 2/1/2022 td
+        ''
+        Dim strPathToXML As String
+        strPathToXML = Me.ElementsCache_Edits.PathToXml_Saved
+
+        ''Added 1/13/2022  Copied from 12/10/2022 thomas d. 
+        If (Not String.IsNullOrEmpty(strPathToXML)) Then
+            Dim strPathToFileJpg As String = ""
+            strPathToFileJpg = strPathToXML.Replace(".xml", ".jpg")
+            ''Create an image file (in JPEG form). ---1/5/2022 td 
+            With ElementsCache_ManageBoth
+                .CreateBadgeLayoutImageFile(Me.picturePreview.Image, strPathToFileJpg)
+            End With ''End of " With ElementsCache_ManageBoth"
+
+            Dim bCurrentsideIsFront As Boolean ''Added 2/1/2022 td
+            bCurrentsideIsFront = (mod_designer.EnumSideOfCard_Current =
+                                EnumWhichSideOfCard.EnumFrontside) ''Added 2/1/2022 td
+            ''Added 2/1/2022 td
+            If (bCurrentsideIsFront) Then
+                Dim strPathToFileJpg_Front As String = ""
+                strPathToFileJpg_Front = strPathToXML.Replace(".xml", "_Front.jpg")
+                ''Create an image file (in JPEG form). ---1/5/2022 td 
+                With ElementsCache_ManageBoth
+                    .CreateBadgeLayoutImageFile(Me.picturePreview.Image, strPathToFileJpg_Front)
+                End With ''End of " With ElementsCache_ManageBoth"
+            Else
+                Dim strPathToFileJpg_Back As String = ""
+                strPathToFileJpg_Back = strPathToXML.Replace(".xml", "_Back.jpg")
+                ''Create an image file (in JPEG form). ---1/5/2022 td 
+                With ElementsCache_ManageBoth
+                    .CreateBadgeLayoutImageFile(Me.picturePreview.Image, strPathToFileJpg_Back)
+                End With ''End of " With ElementsCache_ManageBoth"
+            End If ''End of "If (bCurrentsideIsFront) Then ... Else..."
+
+        End If ''End of "If (Not String.IsNullOrEmpty(...)) Then"
+
+    End Sub ''End of "Private Sub SaveLayout_PreviewImage()"
+
 
     ''Private Sub RefreshPreview()
     ''    ''
@@ -2759,6 +2806,9 @@ ExitHandler:
         ''  ---12/12/2021 
         labelProceedToBackside.Text = labelProceedToBackside.Tag.ToString()
 
+        ''Added 2/01/2022 td
+        SaveLayout_PreviewImage()
+
         ''Dec.10 2021 thomas downes
         Unload_Designer(False)
 
@@ -2820,6 +2870,7 @@ ExitHandler:
         ''
         Dim boolSuccess As Boolean
         ''Dec.10 2021''Unload_Designer()
+        SaveLayout_PreviewImage() ''Added 2/1/2022
         Unload_Designer(False)
         mod_designer.SwitchSideOfCard(boolSuccess)
         If (boolSuccess) Then

@@ -589,7 +589,7 @@ Public Class ClassDesignerEventListener
             each_control.TempResizeInfo_H = 0
 
             ''Added 9/11/2019 td
-            each_control.Refresh_Image(True)
+            each_control.Refresh_ImageV3(True)
 
         Next each_control
 
@@ -652,7 +652,7 @@ Public Class ClassDesignerEventListener
                     End If ''End of "If .FontSize_ScaleToElementYesNo Then"
                 End With ''End of "With .ElementInfo_Text"
 
-                .Refresh_Image(True)
+                .Refresh_ImageV3(True)
 
             End With ''End of "With mod_FieldControlLastTouched"
 

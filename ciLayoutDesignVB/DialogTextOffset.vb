@@ -161,7 +161,7 @@ Public Class DialogTextOffset
             .Width = .ElementInfo_Base.Width_Pixels
             .Height = .ElementInfo_Base.Height_Pixels
 
-            .Refresh_Image(True)
+            .Refresh_ImageV3(True)
 
         End With ''End of "With CtlGraphicFldLabel1"
 
@@ -481,7 +481,7 @@ Public Class DialogTextOffset
 
         Me.ElementCopy_Info_Text.TextAlignment = HorizontalAlignment.Left
 
-        Me.CtlGraphicFldLabel1.Refresh_Image(True)
+        Me.CtlGraphicFldLabel1.Refresh_ImageV3(True)
 
     End Sub
 
@@ -493,7 +493,7 @@ Public Class DialogTextOffset
 
         Me.ElementCopy_Info_Text.TextAlignment = HorizontalAlignment.Center
 
-        Me.CtlGraphicFldLabel1.Refresh_Image(True)
+        Me.CtlGraphicFldLabel1.Refresh_ImageV3(True)
 
     End Sub
 
@@ -505,7 +505,7 @@ Public Class DialogTextOffset
 
         Me.ElementCopy_Info_Text.TextAlignment = HorizontalAlignment.Right
 
-        Me.CtlGraphicFldLabel1.Refresh_Image(True)
+        Me.CtlGraphicFldLabel1.Refresh_ImageV3(True)
 
     End Sub
 
@@ -580,7 +580,7 @@ Public Class DialogTextOffset
             .Width = Me.ElementCopy_Info_Base.Width_Pixels
             .Height = Me.ElementCopy_Info_Base.Height_Pixels
 
-            Me.CtlGraphicFldLabel1.Refresh_Image(True)
+            Me.CtlGraphicFldLabel1.Refresh_ImageV3(True)
 
         End With ''ENd of "With Me.CtlGraphicFldLabel1"
 

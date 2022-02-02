@@ -184,6 +184,25 @@ Namespace ciBadgeCachePersonality
         End Sub ''End of "Public Sub Save()"
 
 
+        Public Sub Make_BadgeLayoutImageFile(par_BadgeImage As System.Drawing.Image,
+                                               par_strPathToProposedJpeg As String)
+            ''
+            ''Alias function created 2/01/2022 thomas downes 
+            ''
+            CreateBadgeLayoutImageFile(par_BadgeImage, par_strPathToProposedJpeg)
+
+        End Sub
+
+
+        Public Sub Image_BadgeLayoutImageFile(par_BadgeImage As System.Drawing.Image,
+                                               par_strPathToProposedJpeg As String)
+            ''
+            ''Alias function created 2/01/2022 thomas downes 
+            ''
+            CreateBadgeLayoutImageFile(par_BadgeImage, par_strPathToProposedJpeg)
+
+        End Sub
+
         Public Sub CreateBadgeLayoutImageFile(par_BadgeImage As System.Drawing.Image,
                                                par_strPathToProposedJpeg As String)
             ''

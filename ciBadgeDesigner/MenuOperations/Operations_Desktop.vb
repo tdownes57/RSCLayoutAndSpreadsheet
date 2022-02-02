@@ -148,9 +148,12 @@ Public Class Operations_Desktop
             .LeftEdge_Pixels = e.X
             .Height_Pixels = intHeightOfRSC
 
-        End With
+            obj_parametersGetElementControl = DesignerClass.GetParametersToGetElementControl()
 
-        obj_parametersGetElementControl = DesignerClass.GetParametersToGetElementControl()
+            ''Added Feb. 2, 2022 thomas downes
+            .BadgeLayout = obj_parametersGetElementControl.DesignerClass.BadgeLayout_Class
+
+        End With
 
         ''Added 1/18/2022 thomas downes  
         objElementStaticTextV4.Visible = True

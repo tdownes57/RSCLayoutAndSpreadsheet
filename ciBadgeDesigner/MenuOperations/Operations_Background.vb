@@ -35,7 +35,8 @@ Public Class Operations_Background
 
     ''Jan22 2022''Public Property CtlCurrentElement As ciBadgeDesigner.CtlGraphicFldLabel ''CtlGraphicFldLabel
     ''Jan22 2022''Public Property LayoutFunctions As ILayoutFunctions ''Added 10/3/2019 td 
-    Public Property DesignerClass As ciBadgeDesigner.ClassDesigner
+    ''Not needed here. Feb2 2022 ''Public Property DesignerClass As ciBadgeDesigner.ClassDesigner
+
     Public Property ColorDialog1 As ColorDialog ''Added 10/3/2019 td 
     Public Property OpenFileDialog1 As OpenFileDialog ''Added 10/15/2019 td 
     Public Property GroupedElements As GroupMoveEvents_Singleton ''ClassGroupMove ''Renamed 12/30/2021 td ''Added 10/15/2019 td
@@ -51,64 +52,64 @@ Public Class Operations_Background
     Public Property CtlCurrentPicturebox As PictureBox ''Added 1/22/2022 td  
 
 
-    Public Sub Create_New_StaticText_Control_V3_GD2081(sender As Object, par_e As MouseEventArgs)
-        ''
-        ''Added 1/16/2022 thomas downes  
-        ''
-        InitializeOperationsDesktop_IfNeeded() ''Must initialize the supporting Operations. 
+    ''Public Sub Create_New_StaticText_Control_V3_GD2081(sender As Object, par_e As MouseEventArgs)
+    ''    ''
+    ''    ''Added 1/16/2022 thomas downes  
+    ''    ''
+    ''    InitializeOperationsDesktop_IfNeeded() ''Must initialize the supporting Operations. 
 
-        ''Dim new_eventArgs As MouseEventArgs
-        ''Dim intArgsClick As Integer = 0
-        ''Dim intArgsDelta As Integer = 0
+    ''    ''Dim new_eventArgs As MouseEventArgs
+    ''    ''Dim intArgsClick As Integer = 0
+    ''    ''Dim intArgsDelta As Integer = 0
 
-        ''new_eventArgs = New MouseEventArgs(MouseButtons.Right, intArgsClick,
-        ''        e.X + CtlCurrentPicturebox.Left,
-        ''        e.Y + CtlCurrentPicturebox.Top,
-        ''        intArgsDelta)
+    ''    ''new_eventArgs = New MouseEventArgs(MouseButtons.Right, intArgsClick,
+    ''    ''        e.X + CtlCurrentPicturebox.Left,
+    ''    ''        e.Y + CtlCurrentPicturebox.Top,
+    ''    ''        intArgsDelta)
 
-        ''mod_operationsDesktop.Create_New_StaticText_Control_GD2001(sender, new_eventArgs)
+    ''    ''mod_operationsDesktop.Create_New_StaticText_Control_GD2001(sender, new_eventArgs)
 
-        ''
-        ''Major call !!
-        ''
-        ''Jan31 2022 td''mod_operationsDesktop.Create_New_StaticText_Control_GD2001(sender, Get_EventArgs_ShiftPosition(par_e))
-        mod_operationsDesktop.Create_New_StaticText_Control_V3_GD2001(sender, Get_EventArgs_ShiftPosition(par_e))
+    ''    ''
+    ''    ''Major call !!
+    ''    ''
+    ''    ''Jan31 2022 td''mod_operationsDesktop.Create_New_StaticText_Control_GD2001(sender, Get_EventArgs_ShiftPosition(par_e))
+    ''    mod_operationsDesktop.Create_New_StaticText_Control_V3_GD2001(sender, Get_EventArgs_ShiftPosition(par_e))
 
-    End Sub ''End of "Public Sub Create_New_StaticText_Control_V3_GD2081"
-
-
-    Public Sub Create_New_StaticText_Control_V4_GD2081(sender As Object, par_e As MouseEventArgs)
-        ''
-        ''Added 1/31/2022 thomas downes  
-        ''
-        InitializeOperationsDesktop_IfNeeded() ''Must initialize the supporting Operations. 
-
-        mod_operationsDesktop.Create_New_StaticText_Control_V4_GD2001(sender, Get_EventArgs_ShiftPosition(par_e))
-
-    End Sub ''End of "Public Sub Create_New_StaticText_Control_V4_GD2081"
-
-    Public Sub Create_New_Graphics_Control_GD2041(sender As Object, par_e As MouseEventArgs)
-        ''
-        ''Added 1/22/2022 thomas downes  
-        ''
-        InitializeOperationsDesktop_IfNeeded()
-
-        ''
-        ''Major call !!
-        ''
-        mod_operationsDesktop.Create_New_Graphic_Control_GD2002(sender, Get_EventArgs_ShiftPosition(par_e))
+    ''End Sub ''End of "Public Sub Create_New_StaticText_Control_V3_GD2081"
 
 
-    End Sub ''End of "Public Sub Create_New_Graphics_Control_GD2041"
+    ''Public Sub Create_New_StaticText_Control_V4_GD2081(sender As Object, par_e As MouseEventArgs)
+    ''    ''
+    ''    ''Added 1/31/2022 thomas downes  
+    ''    ''
+    ''    InitializeOperationsDesktop_IfNeeded() ''Must initialize the supporting Operations. 
+
+    ''    mod_operationsDesktop.Create_New_StaticText_Control_V4_GD2001(sender, Get_EventArgs_ShiftPosition(par_e))
+
+    ''End Sub ''End of "Public Sub Create_New_StaticText_Control_V4_GD2081"
+
+    ''Public Sub Create_New_Graphics_Control_GD2041(sender As Object, par_e As MouseEventArgs)
+    ''    ''
+    ''    ''Added 1/22/2022 thomas downes  
+    ''    ''
+    ''    InitializeOperationsDesktop_IfNeeded()
+
+    ''    ''
+    ''    ''Major call !!
+    ''    ''
+    ''    mod_operationsDesktop.Create_New_Graphic_Control_GD2002(sender, Get_EventArgs_ShiftPosition(par_e))
 
 
-    Public Sub Create_New_StaticText_Control_GD2001(sender As Object, e As MouseEventArgs)
-        ''
-        ''Added 1/16/2022 thomas downes  
-        ''
+    ''End Sub ''End of "Public Sub Create_New_Graphics_Control_GD2041"
 
 
-    End Sub
+    ''Public Sub Create_New_StaticText_Control_GD2001(sender As Object, e As MouseEventArgs)
+    ''    ''
+    ''    ''Added 1/16/2022 thomas downes  
+    ''    ''
+
+
+    ''End Sub
 
 
     Public Sub Unselect_all_selected_Elements_EB102(sender As Object, e As EventArgs)
@@ -158,21 +159,21 @@ Public Class Operations_Background
     End Sub ''End of "Public Sub Change_Background_Image()"
 
 
-    Public Sub How_Context_Menus_Are_Generated_EB9001(sender As Object, e As EventArgs)
-        ''
-        ''Added 12/15/2021 thomas downes  
-        ''       ''
-        ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
-        ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
-        ''
-        Dim strPathToNotesFolder As String
-        Dim strPathToNotesFileTXT As String
+    ''Public Sub How_Context_Menus_Are_Generated_EB9001(sender As Object, e As EventArgs)
+    ''    ''
+    ''    ''Added 12/15/2021 thomas downes  
+    ''    ''       ''
+    ''    ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
+    ''    ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
+    ''    ''
+    ''    Dim strPathToNotesFolder As String
+    ''    Dim strPathToNotesFileTXT As String
 
-        strPathToNotesFolder = DiskFolders.PathToFolder_Notes()
-        strPathToNotesFileTXT = DiskFilesVB.PathToNotes_HowContextMenusAreGenerated()
-        System.Diagnostics.Process.Start(strPathToNotesFileTXT)
+    ''    strPathToNotesFolder = DiskFolders.PathToFolder_Notes()
+    ''    strPathToNotesFileTXT = DiskFilesVB.PathToNotes_HowContextMenusAreGenerated()
+    ''    System.Diagnostics.Process.Start(strPathToNotesFileTXT)
 
-    End Sub ''end of "Public Sub How_Context_Menus_Are_Generated_EE1002(sender As Object, e As EventArgs)"
+    ''End Sub ''end of "Public Sub How_Context_Menus_Are_Generated_EE1002(sender As Object, e As EventArgs)"
 
 
     Private Sub InitializeOperationsDesktop_IfNeeded()

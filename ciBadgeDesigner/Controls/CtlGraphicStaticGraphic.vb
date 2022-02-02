@@ -372,7 +372,7 @@ Public Class CtlGraphicStaticGraphic
 
     End Sub ''End of "Public Sub Refresh_PositionAndSize()"
 
-    Public Overrides Sub Refresh_Image(pbRefreshSize As Boolean,
+    Public Overrides Sub Refresh_ImageV3(pbRefreshSize As Boolean,
                              Optional pboolResizeLabelControl As Boolean = True,
                              Optional pboolRefreshLabelControl As Boolean = True,
                              Optional pboolRefreshUserControl As Boolean = False,
@@ -385,7 +385,7 @@ Public Class CtlGraphicStaticGraphic
 
 
 
-    End Sub ''ENd of "Public Sub Refresh_Image(pbRefreshSize As Boolean, .....)"
+    End Sub ''ENd of "Public Sub Refresh_ImageV3(pbRefreshSize As Boolean, .....)"
 
 
     Private Sub DisplayAnotherImage(sender As Object, e As EventArgs)

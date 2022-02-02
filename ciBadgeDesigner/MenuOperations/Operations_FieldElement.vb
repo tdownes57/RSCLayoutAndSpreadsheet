@@ -206,7 +206,7 @@ Public Class Operations_FieldElement
 
             ''9/15/2019 td ''Refresh_Image()
             ''10/3/2019 td ''Refresh_Image(True)
-            Me.CtlCurrentElementField.Refresh_Image(True)
+            Me.CtlCurrentElementField.Refresh_ImageV3(True)
             Me.CtlCurrentElementField.Refresh()
 
         ElseIf (Me.SelectingElements.ElementsList_IsItemIncluded(Me.CtlCurrentElementField)) Then
@@ -236,7 +236,7 @@ Public Class Operations_FieldElement
                     ''.ElementInfo.Width_Pixels = Me.Width
                     ''.ElementInfo.Height_Pixels = Me.Height
 
-                    .Refresh_Image(True)
+                    .Refresh_ImageV3(True)
                     .Refresh()
 
                 End With
@@ -330,7 +330,7 @@ Public Class Operations_FieldElement
             ''9/15/2019 td''Refresh_Image()
             ''10/3/2019 td''Refresh_Image(False)
             ''10/3/2019 td''Me.Refresh()
-            Me.CtlCurrentElementField.Refresh_Image(False)
+            Me.CtlCurrentElementField.Refresh_ImageV3(False)
             Me.CtlCurrentElementField.Refresh()
 
         ElseIf (Me.SelectingElements.ElementsList_IsItemIncluded(Me.CtlCurrentElementField)) Then
@@ -357,7 +357,7 @@ Public Class Operations_FieldElement
 
                     Application.DoEvents()
                     Application.DoEvents()
-                    .Refresh_Image(True)
+                    .Refresh_ImageV3(True)
                     .Refresh()
 
                 End With
@@ -435,7 +435,7 @@ Public Class Operations_FieldElement
 
                     ''10/17/2019 td''frm_ToShow.UpdateInfo_ViaInterfaces(Me.ElementInfo_Base, Me.ElementInfo_Text)
                     frm_ToShow.UpdateInfo_ViaInterfaces(.ElementInfo_Base, .ElementInfo_TextOnly)
-                    .Refresh_Image(True)
+                    .Refresh_ImageV3(True)
 
                 End If ''End of "If (frm_ToShow.UserConfirmed) Then"
 
@@ -469,7 +469,7 @@ Public Class Operations_FieldElement
 
                             frm_ToShow.UpdateInfo_ViaInterfaces(.ElementInfo_Base, .ElementInfo_TextOnly)
 
-                            .Refresh_Image(True)
+                            .Refresh_ImageV3(True)
                             .Refresh()
 
                         End With ''End of " With each_ctl"
@@ -530,7 +530,7 @@ Public Class Operations_FieldElement
                 ''Added 9/18/2019 td
                 frm_ToShow.UpdateInfo_ViaInterface(.ElementInfo_Base)
 
-                .Refresh_Image(True)
+                .Refresh_ImageV3(True)
 
                 ''
                 ''
@@ -558,7 +558,7 @@ Public Class Operations_FieldElement
                             ''Added 9/18/2019 td 
                             frm_ToShow.UpdateInfo_ViaInterface(.ElementInfo_Base)
 
-                            .Refresh_Image(True)
+                            .Refresh_ImageV3(True)
                             .Refresh()
 
                         End With

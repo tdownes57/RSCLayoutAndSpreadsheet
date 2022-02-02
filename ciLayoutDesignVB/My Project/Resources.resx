@@ -118,10 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="QR_Code_Example" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\QRCodes\QR Code Example.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Step3_TakePic_v90" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\Step3_TakePic_v90.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ContextMenu_non_grouped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="ContextMenu_non_grouped1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\ContextMenu_non-grouped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Textbox_v90" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -133,11 +136,20 @@
   <data name="Font_Code39FiveRedA" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Font Code39FiveRedA.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="ContextMenu_non_grouped1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\ContextMenu_non-grouped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Badge001" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Badge001.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Declaration_Sig_JPG" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Declaration.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="__UI for V831_v101" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\__UI for V831_v101.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CodeNinjas_in_NB" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CodeNinjas in NB.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="feather_logo_RSC" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\feather logo RSC.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PathToSavedXML_Prior1" xml:space="preserve">
+    <value>See settings instead.</value>
   </data>
   <data name="SizeAdjustmentBar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\SizeAdjustmentBar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -160,17 +172,32 @@
   <data name="CI_Logo1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\CI Logo.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="PathToSavedXML_Prior5" xml:space="preserve">
+    <value>See settings instead.</value>
+  </data>
   <data name="The UI for v900" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\The UI for v900.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Declaration_Sig_BMP" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Declaration_BMP.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="PathToSavedXML_Prior4" xml:space="preserve">
+    <value>See settings instead.</value>
+  </data>
+  <data name="Ratio_of_27_to_17" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Ratio of 27 to 17.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="IncreaseY" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\IncreaseY.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="V381" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\V381.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Native drawing - Not bad 40" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Native drawing - Not bad 40.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Declaration_Sig_JPG" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Declaration.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PVC_Cards__MS_Bing_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PVC Cards (MS Bing).JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PathToSavedXML_Last" xml:space="preserve">
+    <value>See settings instead.</value>
   </data>
   <data name="CISolutionsLogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\CISolutionsLogo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -184,14 +211,29 @@
   <data name="QR_Code_BK" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\QR Code.BK.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="PathToSavedXML_Prior3" xml:space="preserve">
+    <value>See settings instead.</value>
+  </data>
+  <data name="PathToSavedXML_Prior6" xml:space="preserve">
+    <value>See settings instead.</value>
+  </data>
   <data name="CI_Logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\CI Logo.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="JaneMulvey_1015" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\JaneMulvey_1015.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="AdjustWHColor_V102" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\AdjustWHColor_V102.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="__UI for V831_v101" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\__UI for V831_v101.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Declaration_Sig_BMP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Declaration_BMP.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ContextMenu_non_grouped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\ContextMenu_non-grouped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PathToSavedXML_Prior2" xml:space="preserve">
+    <value>See settings instead.</value>
   </data>
   <data name="__UI for V831 w No Pic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\__UI for V831 w No Pic1.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -199,55 +241,16 @@
   <data name="AdjustWHColor_V101" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\AdjustWHColor_V101.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="mainback_v82" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\mainback_v82.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="V381" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\V381.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="DecreaseY" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\DecreaseY.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="JaneMulvey_1015" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\JaneMulvey_1015.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="mainback_v82" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\mainback_v82.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Native drawing - Not bad 40" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Native drawing - Not bad 40.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="QR_Code_Example" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\QRCodes\QR Code Example.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Badge001" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Badge001.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="PVC_Cards__MS_Bing_" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PVC Cards (MS Bing).JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Ratio_of_27_to_17" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Ratio of 27 to 17.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="feather_logo_RSC" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\feather logo RSC.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="CodeNinjas_in_NB" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CodeNinjas in NB.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="PathToSavedXML_Last" xml:space="preserve">
-    <value>See settings instead.</value>
-  </data>
-  <data name="PathToSavedXML_Prior1" xml:space="preserve">
-    <value>See settings instead.</value>
-  </data>
-  <data name="PathToSavedXML_Prior2" xml:space="preserve">
-    <value>See settings instead.</value>
-  </data>
-  <data name="PathToSavedXML_Prior3" xml:space="preserve">
-    <value>See settings instead.</value>
-  </data>
-  <data name="PathToSavedXML_Prior4" xml:space="preserve">
-    <value>See settings instead.</value>
-  </data>
-  <data name="PathToSavedXML_Prior5" xml:space="preserve">
-    <value>See settings instead.</value>
-  </data>
-  <data name="PathToSavedXML_Prior6" xml:space="preserve">
-    <value>See settings instead.</value>
+  <data name="No backside exists" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\No backside exists.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
