@@ -52,13 +52,13 @@ Partial Class CtlGraphicFieldOrTextV4
         Me.LinkMessageFYI.Text = "Reminder message"
         Me.LinkMessageFYI.Visible = False
         '
-        'CtlGraphicFieldOrText
+        'CtlGraphicFieldOrTextV4
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.LinkMessageFYI)
         Me.Controls.Add(Me.pictureFieldOrText)
-        Me.Name = "CtlGraphicFieldOrText"
+        Me.Name = "CtlGraphicFieldOrTextV4"
         Me.Size = New System.Drawing.Size(387, 32)
         CType(Me.pictureFieldOrText, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)

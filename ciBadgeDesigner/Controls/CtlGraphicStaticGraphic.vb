@@ -153,6 +153,7 @@ Public Class CtlGraphicStaticGraphic
             .EventsForMoveability_Single = Nothing
             ''Added 1/24/2022 thomas downes
             .LayoutFunctions = .Designer
+            .Monem_iMoveOrResizeFun = CtlStaticGraphic1.mod_iMoveOrResizeFunctionality ''Added 2/02/2022 td
 
         End With ''End of "With objOperationsSG"
 

@@ -85,6 +85,13 @@ namespace MoveAndResizeControls_Monem //.Interfaces
             set;
         }
 
+        bool RemoveProportionality
+        {
+            //Added 2/02/2022 thomas downes
+            get;
+            set;
+        }
+
         //Great for removing functionality!  
         //  (But potentially depressing, since your app won't work
         //    & you won't know why!)

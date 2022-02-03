@@ -569,7 +569,8 @@ Public Class ClassDesignerEventListener
 
     End Sub ''End of "Private Sub MoveInUnison"
 
-    Private Sub Resizing_End() Handles mod_eventsGroupedMove.Resizing_EndV1
+
+    Private Sub Resizing_End(par_iSave As ISaveToModel) Handles mod_eventsGroupedMove.Resizing_EndV1
         ''
         ''Added 8/5/2019 thomas downes  
         ''
@@ -663,6 +664,9 @@ Public Class ClassDesignerEventListener
         mod_designer.AutoPreview_IfChecked()
 
     End Sub ''End of "Private Sub Resizing_End() Handles mod_groupedMove.Resizing_End"
+
+
+
 
     Private Sub MovingElement_End(par_ctlElement As Control, par_iSave As ISaveToModel) Handles mod_eventsGroupedMove.Moving_End
 

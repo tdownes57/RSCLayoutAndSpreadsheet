@@ -19,6 +19,22 @@ Public MustInherit Class Operations__Graphic
     ''   ----1/21/2022 td
     ''
 
+    Public Sub Remove_Proportional_Sizing_SG1001(sender As Object, e As EventArgs)
+        ''
+        ''Added 2/02/2022 thomas downes
+        ''         
+        MyBase.Monem_iMoveOrResizeFun.RemoveProportionality = True
+
+    End Sub
+
+    Public Sub Restore_Proportional_Sizing_SG1002(sender As Object, e As EventArgs)
+        ''
+        ''Added 2/02/2022 thomas downes
+        ''         
+        MyBase.Monem_iMoveOrResizeFun.RemoveProportionality = False
+
+    End Sub
+
 
 
 

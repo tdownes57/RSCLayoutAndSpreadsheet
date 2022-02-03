@@ -117,11 +117,14 @@ Public Class CtlGraphicFldLabelV3
             ''.Designer = par_oMoveEventsForGroupedCtls.
             .Designer = par_parametersGetElementControl.DesignerClass
             .ElementInfo_Base = par_elementFld
+            .ElementInfo_TextOnly = par_elementFld ''Added 2/2/2022 td
             .ElementsCacheManager = par_parametersGetElementControl.ElementsCacheManager
             .Element_Type = Enum_ElementType.StaticGraphic
             .EventsForMoveability_Group = par_oMoveEventsForGroupedCtls
             .EventsForMoveability_Single = Nothing
             .LayoutFunctions = .Designer ''Added 1/24/2022 td
+            ''Feb2 2022 td''.MonemMovement_SingleCntrl = CtlFieldElem1.mod_iMoveOrResizeFunctionality ''Added 2/02/2022 td
+            .Monem_iMoveOrResizeFun = CtlFieldElem1.mod_iMoveOrResizeFunctionality ''Added 2/02/2022 td
 
         End With ''End of "With objOperationsFldElem"
 

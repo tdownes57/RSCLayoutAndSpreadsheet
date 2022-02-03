@@ -812,24 +812,41 @@ ExitHandler:
         Dim intPixelsLeft As Integer = Me.ElementClass_Obj.LeftEdge_Pixels
         Dim intSum As Integer = (intPixelsTop + intPixelsLeft)
 
+        Const c_bAddressHeightGtWidth As Boolean = True ''Added 2/02/2022 thomas d.
+        Const c_bAddressWidthGtHeight As Boolean = True ''Added 2/02/2022 thomas d.
+
         ''
         ''Width & Height
         ''
         ''       (Account for rotated text, if applicable.) 
         ''
-        If (Me.Rotated_0degrees()) Then
+        ''Feb2 2022 td''If (Me.Rotated_0degrees()) Then
+        If (Me.Rotated_0degrees() Or Me.Rotated_180_360()) Then
             ''
             ''Normal.  Easy-peasy.  The text is not rotated at all. 
             ''
-            Me.ElementInfo_Base.Width_Pixels = Me.Width
-            Me.ElementInfo_Base.Height_Pixels = Me.Height
+            If (Me.Height < Me.Width) Then
 
-        ElseIf (Me.Rotated_180_360()) Then
-            ''
-            ''Normal, easy-peasy. 
-            ''
-            Me.ElementInfo_Base.Width_Pixels = Me.Width
-            Me.ElementInfo_Base.Height_Pixels = Me.Height
+                Me.ElementInfo_Base.Width_Pixels = Me.Width
+                Me.ElementInfo_Base.Height_Pixels = Me.Height
+
+            ElseIf ((Me.Width <= Me.Height) And c_bAddressWidthGtHeight) Then
+                ''
+                ''Our "solution" to the problem of (Me.Width >= Me.Height) is to
+                ''    avoid updating the model properties. ---2/2/2022 thomas downes   
+                ''
+            Else
+                ''Added 9/23/2019 td 
+                Throw New Exception("Textual elements should be in Landscape mode.")
+
+            End If ''End of "If (Me.Height < Me.Width) Then ... ElseIf .... Else ...."
+
+            ''ElseIf (Me.Rotated_180_360()) Then
+            ''    ''
+            ''    ''Normal, easy-peasy. 
+            ''    ''
+            ''    Me.ElementInfo_Base.Width_Pixels = Me.Width
+            ''    Me.ElementInfo_Base.Height_Pixels = Me.Height
 
         ElseIf (Me.Rotated_90_270(False)) Then
             ''
@@ -838,18 +855,26 @@ ExitHandler:
             ''   ----9/23/2019 TD  
             ''
             If (Me.Width < Me.Height) Then
-                Me.ElementInfo_Base.Width_Pixels = Me.Height
-                Me.ElementInfo_Base.Height_Pixels = Me.Width
+                Me.ElementInfo_Base.Width_Pixels = Me.Height ''Switching Height & Width. --2/2/2022
+                Me.ElementInfo_Base.Height_Pixels = Me.Width ''Switching Height & Width. --2/2/2022
+
+            ElseIf ((Me.Width >= Me.Height) And c_bAddressHeightGtWidth) Then
+                ''
+                ''Our "solution" to the problem of (Me.Width >= Me.Height) is to
+                ''    avoid updating the model properties. ---2/2/2022 thomas downes   
+                ''
+
             Else
                 ''Added 9/23/2019 td 
                 Throw New Exception("Logically, this should not occur. #1957 " &
-                                    "(Because the function Me.Rotated_90_270() says, we are rotated. " &
-                                    "  (The function checks the Element.))")
+                                "(Because the function Me.Rotated_90_270() says, we are rotated. " &
+                                "  (The function checks the Element.))")
             End If ''End of "If (Me.Width < Me.Height) Then"
+
         Else
             ''Added 9/23/2019 td 
             Throw New Exception("Logically, this should Not occur. #1958  " &
-                                "(because we have accounted for all rotational positions).")
+                            "(because we have accounted for all rotational positions).")
         End If ''End of "If (Me.Rotated_0degrees()) Then .... ElseIf .... ElseIf ...."
 
         ''Added 9/4/2019 thomas downes

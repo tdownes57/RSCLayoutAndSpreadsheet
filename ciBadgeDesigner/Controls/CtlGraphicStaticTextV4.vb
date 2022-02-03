@@ -103,6 +103,8 @@ Public Class CtlGraphicStaticTextV4
             ''.Designer = par_oMoveEventsForGroupedCtls.
             .Designer = par_parametersGetElementControl.DesignerClass
             .ElementInfo_Base = par_elementStaticText
+            .ElementInfo_TextOnly = par_elementStaticText ''Added 2/2/2022 td
+
             .ElementsCacheManager = par_parametersGetElementControl.ElementsCacheManager
 
             ''#1 2/1/2022 ''.Element_Type = Enum_ElementType.StaticGraphic
@@ -314,7 +316,9 @@ Public Class CtlGraphicStaticTextV4
                 ''Jan28 2022''Me.ElementClass_Obj.Font_ScaleAdjustment(Me.ElementInfo_Base.Height_Pixels)
                 ''Added 9/15/2019 thomas d.
                 With Me.ElementInfo_Base ''Added 1/28/2022 td
-                    If (Rotated_90_270(False) Or (.Width_Pixels < .Height_Pixels)) Then ''Added 1/28/2022 td
+                    ''2/2/2022 td ''If (Rotated_90_270(False) Or (.Width_Pixels < .Height_Pixels)) Then ''Added 1/28/2022 td
+                    If (.Width_Pixels < .Height_Pixels) Then ''Modified 1/28/2022 td
+
                         ''Use .Width_Pixels, since .Height_Pixels & .Width_Pixels
                         ''   have been switched due to rotation. ----1/28/2022 td
                         Me.ElementClass_Obj.Font_ScaleAdjustment(.Width_Pixels)

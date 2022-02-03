@@ -783,12 +783,27 @@ Public Class RSCMoveableControlVB
             ''Jan11 2022 td''Const c_intMarginForResize As Integer = 10 ''Added 1/12/2022
             ''Jan27 2022 td  ''mod_moveability_Monem.Init(objPictureBox, Me,
 
-            mod_moveability_Monem.Init_V1(objPictureBox, Me,
+            ''Feb02 2022 td ''mod_moveability_Monem.Init_V1(objPictureBox, Me,
+            ''                           mc_intMarginForResize,
+            ''                           c_bRepaintAfterResize,
+            ''                                par_objMoveEventsForGroupMove,
+            ''                                par_objMoveEventsForSingleCtl,
+            ''                                False, Me, False,
+            ''                                mod_bHandleMouseMoveEvents_Monem)
+
+            ''Added 2/2/2022 td
+            Const c_UndoEverything_False As Boolean = False
+            Dim infoRefreshElem As IRefreshElementImage = Me
+            Dim infoRefreshPrev As IRefreshCardPreview = Me.mod_iRefreshCardPreview
+
+            ''Added 2/2/2022 td
+            mod_moveability_Monem.Init_V2(objPictureBox, Me,
                                        mc_intMarginForResize,
                                        c_bRepaintAfterResize,
                                             par_objMoveEventsForGroupMove,
                                             par_objMoveEventsForSingleCtl,
-                                            False, Me, False,
+                                            False, Me, infoRefreshElem, infoRefreshPrev,
+                                            c_UndoEverything_False,
                                             mod_bHandleMouseMoveEvents_Monem)
 
             ''1/11/2022 td''mod_iMoveOrResizeFunctionality = mod_moveInAGroup ''Added 12/28/2021 td
@@ -1082,9 +1097,8 @@ Public Class RSCMoveableControlVB
 
     End Sub
 
-    Private Sub mod_events_Resizing_End(par_iSaveToModel As ISaveToModel,
-                                              par_iRefreshImage As IRefreshElementImage,
-                                              par_iRefreshPreview As IRefreshCardPreview) Handles mod_eventsForSingleMove.Resizing_EndV2
+
+    Private Sub mod_events_Resizing_EndV1(par_iSaveToModel As ISaveToModel) Handles mod_eventsForSingleMove.Resizing_EndV1
         ''Jan26 2022''Private Sub mod_events_Resizing_End(par_iSaveToModel As ISaveToModel)
         ''
         ''Added 12/27/2021 td 
@@ -1092,7 +1106,25 @@ Public Class RSCMoveableControlVB
         ''---mod_iSaveToModel.SaveToModel()
         par_iSaveToModel.SaveToModel()
 
-    End Sub
+    End Sub ''End of "Private Sub mod_events_Resizing_EndV1(.....)"
+
+
+    Private Sub mod_events_Resizing_EndV2(par_iSaveToModel As ISaveToModel,
+                                              par_iRefreshImage As IRefreshElementImage,
+                                              par_iRefreshPreview As IRefreshCardPreview) _
+                                              Handles mod_eventsForSingleMove.Resizing_EndV2
+        ''Feb2 2022''Private Sub mod_events_Resizing_End(par_iSaveToModel As ISaveToModel)
+        ''
+        ''Added 2/02/2022 td 
+        ''
+        par_iSaveToModel.SaveToModel()
+
+        ''Added 2/02/2022 td
+        par_iRefreshImage.RefreshElementImage()
+        par_iRefreshPreview.RefreshCardPreview()
+
+    End Sub ''End of "Private Sub mod_events_Resizing_EndV2(.....)"
+
 
     ''Private Sub mod_events_MovingInProgress(par_control As Control) Handles mod_eventsForSingleMove.Moving_InProgress
     ''    ''

@@ -19,7 +19,12 @@ Public Class ClassGroupMoveEvents_NoLongerUsed
     ''Added 8/3/2019 thomas downes
     Public Event Resizing_Start()
     ''12/17/2021 td''Public Event Resizing_End()
-    Public Event Resizing_End(par_iSave As ISaveToModel)
+    '' 2/02/2022 TD ''Public Event Resizing_End(par_iSave As ISaveToModel)
+    Public Event Resizing_End_V1(par_iSave As ISaveToModel) ''Renamed 2/2/2022 td
+    ''Added 2/2/2022 td
+    Public Event Resizing_End_V2(par_iSave As ISaveToModel,
+                                 par_iRefreshElem As IRefreshElementImage,
+                                 par_iRefreshPrev As IRefreshCardPreview)
 
     ''11/29/2021 td''Public Event Moving_End() ''Added 9/13/2019 td  
     Public Event Moving_End(par_control As Control) ''Added 9/13/2019 td  
@@ -107,9 +112,10 @@ Public Class ClassGroupMoveEvents_NoLongerUsed
 
         ''Added 8/4/2019 td  
         ''Dec17 2021''RaiseEvent Resizing_End()
-        RaiseEvent Resizing_End(par_iSave)
+        ''Jan02 2022 td''RaiseEvent Resizing_End(par_iSave)
+        RaiseEvent Resizing_End_V1(par_iSave)
 
-    End Sub
+    End Sub ''End of "Public Sub Resizing_TerminateV1(....)"
 
 
     Public Sub Resizing_TerminateV2(par_iSave As ISaveToModel,
@@ -122,9 +128,11 @@ Public Class ClassGroupMoveEvents_NoLongerUsed
 
         ''Added 8/4/2019 td  
         ''Dec17 2021''RaiseEvent Resizing_End()
-        RaiseEvent Resizing_End(par_iSave)
+        ''Jan02 2022 td''RaiseEvent Resizing_End(par_iSave)
+        RaiseEvent Resizing_End_V2(par_iSave, par_iRefreshImage, par_iRefreshPreview)
 
-    End Sub
+    End Sub ''End of "Public Sub Resizing_TerminateV2(....)"
+
 
     Public Sub Moving_Terminate(par_control As Control, par_iSave As ISaveToModel) Implements InterfaceMoveEvents.Moving_Terminate
         ''Dec17 2021''Public Sub Moving_Terminate(par_control As Control) Implements InterfaceEvents.Moving_Terminate

@@ -42,8 +42,9 @@ Public Class Operations_FieldElement
 
     Public Property LayoutFunctions As ILayoutFunctions ''Added 10/3/2019 td 
     Public Property Designer As ciBadgeDesigner.ClassDesigner
-    Public Property ColorDialog1 As ColorDialog ''Added 10/3/2019 td 
-    Public Property FontDialog1 As FontDialog ''Added 10/3/2019 td 
+
+    ''Feb2 2022 td''Public Property ColorDialog1 As ColorDialog ''Added 10/3/2019 td 
+    ''Feb2 2022 td''Public Property FontDialog1 As FontDialog ''Added 10/3/2019 td 
 
     ''---not needed 10/3/2019 td----Public Property GroupEdits As ClassGroupMove ''Added 10/3/2019 td 
     Public Property SelectingElements As ISelectingElements ''Added 10/3/2019 td 

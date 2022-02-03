@@ -38,7 +38,7 @@ Public Class CtlGraphicQRCode
     Public Pic_CloneOfInitialImage As Image ''Added 9/23/2019 thomas downes. 
 
 
-    Public Shared Function GetQRCode(par_parameters As ClassGetElementControlParams,
+    Public Shared Function GetQRCode(par_parametersGetElementControl As ClassGetElementControlParams,
                                            par_elementQRCode As ClassElementQRCode,
                                         par_formParent As Form,
                         par_nameOfControl As String,
@@ -100,7 +100,7 @@ Public Class CtlGraphicQRCode
         ''Jan2 2022''                        enumElementType_Enum, par_bProportionSizing,
         Dim CtlQRCode1 = New CtlGraphicQRCode(par_elementQRCode, par_formParent,
                                                    par_iLayoutFun,
-                                                   par_parameters.iRefreshPreview,
+                                                   par_parametersGetElementControl.iRefreshPreview,
                                                    par_iSizeIfNeeded,
                                                    par_bProportionSizing,
                                                    typeOps, objOperations,
@@ -128,7 +128,25 @@ Public Class CtlGraphicQRCode
         infoOps.CtlCurrentElement = CtlQRCode1
 
         ''Added 1/17/2022 td 
-        infoOps.ElementsCacheManager = par_parameters.ElementsCacheManager
+        infoOps.ElementsCacheManager = par_parametersGetElementControl.ElementsCacheManager
+
+        ''Added 2/02/2022 thomas d. 
+        With objOperationsQR
+
+            .CtlCurrentControl = CtlQRCode1
+            .CtlCurrentElement = CtlQRCode1
+            ''.Designer = par_oMoveEventsForGroupedCtls.
+            ''.Designer = par_parametersGetElementControl.DesignerClass
+            .ElementInfo_Base = par_elementQRCode
+            .ElementsCacheManager = par_parametersGetElementControl.ElementsCacheManager
+            .Element_Type = Enum_ElementType.StaticGraphic
+            .EventsForMoveability_Group = par_oMoveEventsGroupedCtls
+            .EventsForMoveability_Single = Nothing
+            ''Added 1/24/2022 thomas downes
+            ''.LayoutFunctions = .Designer
+            .Monem_iMoveOrResizeFun = CtlQRCode1.mod_iMoveOrResizeFunctionality ''Added 2/02/2022 td
+
+        End With ''End of "With objOperationsSG"
 
         Return CtlQRCode1
 

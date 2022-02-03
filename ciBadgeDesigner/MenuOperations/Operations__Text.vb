@@ -11,6 +11,29 @@ Public MustInherit Class Operations__Text
     ''  (which in turn caused the Class itself to require the same keyword).
     ''   ----1/21/2022 td
     ''
+    Public ElementInfo_TextOnly As ciBadgeInterfaces.IElement_TextOnly
+    Public Property ColorDialog1 As ColorDialog ''Added 2/2/2022 & 10/3/2019 td 
+    Public Property FontDialog1 As FontDialog ''Added 2/2/2022 & 10/3/2019 td 
+
+    Public Sub Remove_Proportional_Resizing_Of_Font_TE1003(sender As Object, e As EventArgs)
+        ''
+        ''Added 2/02/2022 thomas downes
+        ''         
+        ElementInfo_TextOnly.FontSize_ScaleToElementYesNo = False ''False, as we are removing 
+        ''  the automated font-resizing. 
+
+    End Sub ''end of "Public Sub Remove_Proportional_Resizing_Of_Font_TE1003"
+
+
+    Public Sub Restore_Proportional_Resizing_Of_Font_TE1003(sender As Object, e As EventArgs)
+        ''
+        ''Added 2/02/2022 thomas downes
+        ''         
+        ElementInfo_TextOnly.FontSize_ScaleToElementYesNo = True ''True, as we are restoring 
+        ''  the automated font-resizing. 
+
+    End Sub ''end of "Public Sub Remove_Proportional_Resizing_Of_Font_TE1003"
+
 
     Public Sub Rotate90_Degrees_Clockwise_TE1001(sender As Object, e As EventArgs)
         ''

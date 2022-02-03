@@ -1321,6 +1321,11 @@ namespace MoveAndResizeControls_Monem
                 mod_events_singleCtl.Resizing_TerminateV1(par_iSave);
                 if (mod_events_groupedCtls != null)
                     mod_events_groupedCtls.Resizing_TerminateV1(par_iSave);
+
+                //Added 2/2/2022 thomas d. 
+                mod_events_singleCtl.Resizing_TerminateV2(par_iSave, 
+                    _iRefreshElementImage, 
+                    _iRefreshCardPreview);
             }
 
             //Added 9/13/2019 thomas downes
@@ -1371,18 +1376,29 @@ namespace MoveAndResizeControls_Monem
             {
                 //Jan10 2022 //mod_events.Resizing_Terminate(par_iSave);
                 mod_events_singleCtl.Resizing_TerminateV1(par_iSave);
+
                 if (mod_events_groupedCtls != null)
                     mod_events_groupedCtls.Resizing_TerminateV1(par_iSave);
+
+                //Added 2/2/2022 thomas d. 
+                mod_events_singleCtl.Resizing_TerminateV2(par_iSave,
+                    par_iRefreshElemImage,
+                    par_iRefreshCardPreview);
             }
 
             //Added 9/13/2019 thomas downes
             // #1 Nov. 29 2021 //if (!(bWasResizing)) mod_groupedctl_events.Moving_Terminate();
             // #2 Nov. 29 2021 //if (!(bWasResizing)) mod_groupedctl_events.Moving_Terminate(par_controlJ);
             // 12/17/2021 td //if (!(bWasResizing)) mod_groupedctl_events.Moving_Terminate(_controlMoveableElement);
-            if (!(bWasResizing))
+
+            bool bWasMoving_NotResizing;  // Added 2/02/2022 td
+            bWasMoving_NotResizing = (!(bWasResizing)); // Added 2/02/2022 td
+
+            if (bWasMoving_NotResizing)  // 2/02/2022 // (!(bWasResizing))
             {
                 // Jan10 2022 //mod_events.Moving_Terminate(_controlMoveableElement, _iSaveToModel);
                 mod_events_singleCtl.Moving_Terminate(_controlMoveableElement, _iSaveToModel);
+
                 if (mod_events_groupedCtls != null)
                     mod_events_groupedCtls.Moving_Terminate(_controlMoveableElement, _iSaveToModel);
             }

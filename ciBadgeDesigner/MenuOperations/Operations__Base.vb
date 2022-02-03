@@ -8,6 +8,7 @@ Imports ciBadgeInterfaces
 ''Imports ciBadgeDesigner
 ''Imports ciBadgeElements
 Imports __RSCWindowsControlLibrary ''Added 1/2/2022 td 
+Imports MoveAndResizeControls_Monem ''Added 2/02/2022 thomas d. 
 
 Public MustInherit Class Operations__Base
     Implements ICurrentElement ''Added 12/28/2021 td
@@ -32,6 +33,9 @@ Public MustInherit Class Operations__Base
     Public Property LayoutFunctions As ILayoutFunctions ''Added 1/4/2022 td
 
     Public Property CtlCurrentControl As Control ''---Implements ICurrentElement.CtlCurrentElement
+
+    ''Feb2 2022 ''Public Property MonemMovement_SingleControl As MonemControlMove_AllFunctionality ''Added 2/2/2022
+    Public Property Monem_iMoveOrResizeFun As IMonemMoveOrResizeFunctionality ''Added 2/2/2022
 
 
     Public Sub Move_To_Other_Side_Of_Badge_BA1001(sender As Object, e As EventArgs)
