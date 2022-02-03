@@ -39,8 +39,7 @@ namespace MoveAndResizeControls_Monem //.Interfaces
                                   ISaveToModel par_iSave, bool pbRemoveAnyHandlers = false,
                                   bool pbHookUpEventHandlers = true, 
                                   bool pbResizeViaProportionWH = false,
-                                  float par_proportionWH = 0, 
-                                  bool pbResizeWithoutSquares = true);
+                                  float par_proportionWH = 0);
 
         //Added 1/27/2022 thomas downes
         void Init_V2(PictureBox par_pictureBox, Control par_container, int par_margin, bool pbRepaintAfterResize,
@@ -53,8 +52,19 @@ namespace MoveAndResizeControls_Monem //.Interfaces
                           bool pbRemoveAnyHandlers = false,
                           bool pbHookUpEventHandlers = true,
                           bool pbResizeViaProportionWH = false,
-                          float par_proportionWH = 0,
-                          bool pbResizeWithoutSquares = true);
+                          float par_proportionWH = 0);
+
+        //Added 2/02/2022 thomas downes
+        void Init_V3(PictureBox par_pictureBox, Control par_container, int par_margin, 
+                          InterfaceMoveEvents par_eventsGroupOfCtls,
+                          InterfaceMoveEvents par_eventsSingleCtl,
+                          bool pbSetBreakpoint_AfterMove,
+                          ISaveToModel par_iSave,
+                          IRefreshElementImage par_iRefreshImage,
+                          IRefreshCardPreview par_iRefreshPreview,
+                          StructResizeParams par_structResize,
+                          bool pbRemoveAnyHandlers = false,
+                          bool pbHookUpEventHandlers = true);
 
         bool NowInMotion(); //Added 1/10/2022 td
 

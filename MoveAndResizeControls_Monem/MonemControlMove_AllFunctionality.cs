@@ -43,6 +43,28 @@ namespace MoveAndResizeControls_Monem
 
 {
     //
+    // Added 2/2/2022 thomas downes
+    //
+    public struct StructResizeParams
+    {
+        // Added 2/2/2022 thomas downes
+        //
+        //  This will centralize the resizing information. ---2/2/2022 td
+        //
+        public bool KeepProportional_HtoW;
+        public float ProportionalRatio_HtoW;  // proportionWH
+        // This will assist the layout program to enforcing a Width > Height rule. ---2/2/2022
+        public bool KeepLandscape_WgtH;
+        // This will assist the layout program to enforcing a Height > Width rule. ---2/2/2022
+        public bool KeepPortrait_HgtW;
+        //Don't allow resizing. 
+        public bool StopAllResizing;
+        //Repaint after resizing. 
+        public bool RepaintAfterResize; 
+    }
+
+
+    //
     // Added 11/29/2021 thomas downes 
     //
     public class MonemControlMove_AllFunctionality : IMonemMoveOrResizeFunctionality // InterfaceMoveOrResize
@@ -125,7 +147,9 @@ namespace MoveAndResizeControls_Monem
         internal bool SetBreakpoint_AfterMove { get; set; } //Added 9/13/2019 td 
 
         private bool _SizeProportionally = false;  //Added 1/10/2022 td
-        private bool _SizeDisallowSquares = true;  //Added 2/02/2022 td
+        private bool _SizeKeepHeightMoreThanWidth = true;  //Added 2/02/2022 td
+        private bool _SizeKeepWidthMoreThanHeight = true;  //Added 2/02/2022 td
+        private StructResizeParams _structResizing;      //Added 2/2/2022 td 
 
         private const bool mc_MonemEditsLocation = true; //Added 1/12/2022 td
         private const bool mc_MonemEditsLocation_TopAndLeft = true; //Added 1/12/2022 td
@@ -156,8 +180,7 @@ namespace MoveAndResizeControls_Monem
                                  bool pbUndoAndReverseEverything = false,
                                  bool pbHookUpEventHandlers = true, 
                                  bool pbResizeProportionally = false,
-                                 float par_proportionWH = 0,
-                                 bool pbResizeWithoutSquaring = true)
+                                 float par_proportionWH = 0)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
             //     the preferred background color.)   ----7/31/2019 td
@@ -186,8 +209,7 @@ namespace MoveAndResizeControls_Monem
                 pbUndoAndReverseEverything, 
                 pbHookUpEventHandlers, 
                 pbResizeProportionally, 
-                par_proportionWH, 
-                pbResizeWithoutSquaring);
+                par_proportionWH);
 
         }
 
@@ -201,8 +223,7 @@ namespace MoveAndResizeControls_Monem
                                bool pbUndoAndReverseEverything = false,
                                bool pbHookUpEventHandlers = true,
                                bool pbResizeProportionally = false,
-                               float par_proportionWH = 0,
-                               bool pbResizeWithoutSquaring = true)
+                               float par_proportionWH = 0)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
             //     the preferred background color.)   ----7/31/2019 td
@@ -217,7 +238,7 @@ namespace MoveAndResizeControls_Monem
             
             // This will assist the layout program to enforcing Height > Width
             //     (or  Width > Height) rules. 
-            _SizeDisallowSquares = pbResizeWithoutSquaring; //Added 2/2/2022 td
+            //Added 2/2/2022 td//_SizeDisallowSquares = pbResizeWithoutSquaring; //Added 2/2/2022 td
 
             //
             //Added 1/12/2022 & 10/09/2019 thomas downes 
@@ -338,6 +359,45 @@ namespace MoveAndResizeControls_Monem
                 pbResizeProportionally,
                 par_proportionWH);
 
+        }
+
+
+        public void Init_V3(PictureBox par_controlPictureB, Control par_containerElement,
+               int par_margin,  
+               InterfaceMoveEvents par_eventsForGroups,
+               InterfaceMoveEvents par_eventsSingleCtl,
+               bool pbSetBreakpoint_AfterMove,
+               ISaveToModel par_iSave,
+               IRefreshElementImage par_iRefreshElementImage,
+               IRefreshCardPreview par_iRefreshCardPreview,
+               StructResizeParams pstructResize,
+               bool pbUndoAndReverseEverything = false,
+               bool pbHookUpEventHandlers = true)
+        {
+            //
+            // Added 1/27/2022 thomas d.
+            //
+            _iRefreshElementImage = par_iRefreshElementImage;
+            _iRefreshCardPreview = par_iRefreshCardPreview;
+
+            //
+            // Major call !!
+            //
+            Init_V1(par_controlPictureB, par_containerElement,
+                par_margin, pstructResize.RepaintAfterResize,
+                par_eventsForGroups,
+                par_eventsSingleCtl,
+                pbSetBreakpoint_AfterMove,
+                par_iSave,
+                pbUndoAndReverseEverything,
+                pbHookUpEventHandlers,
+                pstructResize.KeepProportional_HtoW,
+                pstructResize.ProportionalRatio_HtoW);
+
+            // Added 2/2/2022 thomas downes
+            _structResizing = pstructResize;
+            _SizeKeepHeightMoreThanWidth = pstructResize.KeepPortrait_HgtW;
+            _SizeKeepWidthMoreThanHeight = pstructResize.KeepLandscape_WgtH;
 
         }
 
