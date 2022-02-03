@@ -279,97 +279,97 @@ Public Class Operations_FieldElement
     ''End Sub ''ENd of "Private Sub SwitchCtl_Down(sender As Object, e As EventArgs)"
 
 
-    Public Sub Open_Dialog_Font_EE1009(sender As Object, e As EventArgs)
-        ''
-        ''Added 7/30/2019 thomas downes
-        ''       ''
-        ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
-        ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
-        ''
-        Dim boolExitEarly As Boolean ''Added 8/13/2019 td
+    ''Public Sub Open_Dialog_Font_EE1009(sender As Object, e As EventArgs)
+    ''    ''
+    ''    ''Added 7/30/2019 thomas downes
+    ''    ''       ''
+    ''    ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
+    ''    ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
+    ''    ''
+    ''    Dim boolExitEarly As Boolean ''Added 8/13/2019 td
 
-        ''10/10/2019 td''CreateVisibleButton_Master("Choose a text font", AddressOf OpenDialog_Font, boolExitEarly)
-        ''10/10/2019 td''Application.DoEvents()
+    ''    ''10/10/2019 td''CreateVisibleButton_Master("Choose a text font", AddressOf OpenDialog_Font, boolExitEarly)
+    ''    ''10/10/2019 td''Application.DoEvents()
 
-        ''Added 8/17/2019 td
-        ''10/10/2019 td''If (mod_fauxMenuEditSingleton Is Nothing) Then mod_fauxMenuEditSingleton = New CtlGraphPopMenuEditSingle
+    ''    ''Added 8/17/2019 td
+    ''    ''10/10/2019 td''If (mod_fauxMenuEditSingleton Is Nothing) Then mod_fauxMenuEditSingleton = New CtlGraphPopMenuEditSingle
 
-        ''10/10/2019 td''mod_fauxMenuEditSingleton.SizeToExpectations()
+    ''    ''10/10/2019 td''mod_fauxMenuEditSingleton.SizeToExpectations()
 
-        If (boolExitEarly) Then Exit Sub ''Added 8/13/2019 td
+    ''    If (boolExitEarly) Then Exit Sub ''Added 8/13/2019 td
 
-        Me.FontDialog1.Font = Me.CtlCurrentElementField.ElementClass_Obj.Font_DrawingClass ''Added 7/31/2019 td  
+    ''    Me.FontDialog1.Font = Me.CtlCurrentElementField.ElementClass_Obj.Font_DrawingClass ''Added 7/31/2019 td  
 
-        ''
-        ''Major call !!   Show the font-selection dialog to the user. 
-        '' 
-        Me.FontDialog1.ShowDialog()
+    ''    ''
+    ''    ''Major call !!   Show the font-selection dialog to the user. 
+    ''    '' 
+    ''    Me.FontDialog1.ShowDialog()
 
-        ''Me.ElementInfo.Font_DrawingClass = FontDialog1.Font
-        ''Application.DoEvents()
-        ''Application.DoEvents()
-        ''RefreshImage()
-        ''Me.Refresh()
+    ''    ''Me.ElementInfo.Font_DrawingClass = FontDialog1.Font
+    ''    ''Application.DoEvents()
+    ''    ''Application.DoEvents()
+    ''    ''RefreshImage()
+    ''    ''Me.Refresh()
 
-        If (Me.SelectingElements.ElementsList_IsItemUnselected(Me.CtlCurrentElementField)) Then
+    ''    If (Me.SelectingElements.ElementsList_IsItemUnselected(Me.CtlCurrentElementField)) Then
 
-            Me.CtlCurrentElementField.ElementInfo_TextOnly.Font_DrawingClass = Me.FontDialog1.Font
+    ''        Me.CtlCurrentElementField.ElementInfo_TextOnly.Font_DrawingClass = Me.FontDialog1.Font
 
-            ''Added 10/17/2019 td 
-            If (Me.FontDialog1.Font.Unit = GraphicsUnit.Pixel) Then
-                ''Added 10/17/2019 td 
-                MsgBox("Program error, unexpected Font Unit", MsgBoxStyle.Exclamation, "OpenDialog_Font")
-            Else
-                Me.CtlCurrentElementField.ElementInfo_TextOnly.FontSize_Pixels = Me.FontDialog1.Font.Size  ''Added 8/17/2019 td
-            End If ''End of "If (Me.FontDialog1.Font.Unit = GraphicsUnit.Pixel) Then ... Else ..."
+    ''        ''Added 10/17/2019 td 
+    ''        If (Me.FontDialog1.Font.Unit = GraphicsUnit.Pixel) Then
+    ''            ''Added 10/17/2019 td 
+    ''            MsgBox("Program error, unexpected Font Unit", MsgBoxStyle.Exclamation, "OpenDialog_Font")
+    ''        Else
+    ''            Me.CtlCurrentElementField.ElementInfo_TextOnly.FontSize_Pixels = Me.FontDialog1.Font.Size  ''Added 8/17/2019 td
+    ''        End If ''End of "If (Me.FontDialog1.Font.Unit = GraphicsUnit.Pixel) Then ... Else ..."
 
-            Application.DoEvents()
-            Application.DoEvents()
+    ''        Application.DoEvents()
+    ''        Application.DoEvents()
 
-            ''9/15/2019 td''Refresh_Image()
-            ''10/3/2019 td''Refresh_Image(False)
-            ''10/3/2019 td''Me.Refresh()
-            Me.CtlCurrentElementField.Refresh_ImageV3(False)
-            Me.CtlCurrentElementField.Refresh()
+    ''        ''9/15/2019 td''Refresh_Image()
+    ''        ''10/3/2019 td''Refresh_Image(False)
+    ''        ''10/3/2019 td''Me.Refresh()
+    ''        Me.CtlCurrentElementField.Refresh_ImageV3(False)
+    ''        Me.CtlCurrentElementField.Refresh()
 
-        ElseIf (Me.SelectingElements.ElementsList_IsItemIncluded(Me.CtlCurrentElementField)) Then
+    ''    ElseIf (Me.SelectingElements.ElementsList_IsItemIncluded(Me.CtlCurrentElementField)) Then
 
-            ''Added 8/3/2019 td 
-            ''1/12/2022 td''Dim objElements As HashSet(Of CtlGraphicFldLabel)
-            Dim objElements As HashSet(Of RSCMoveableControlVB)
+    ''        ''Added 8/3/2019 td 
+    ''        ''1/12/2022 td''Dim objElements As HashSet(Of CtlGraphicFldLabel)
+    ''        Dim objElements As HashSet(Of RSCMoveableControlVB)
 
-            ''10/3/2019 td''objElements = CType(Me.ParentForm, ISelectingElements).LabelsDesignList_AllItems
-            objElements = Me.SelectingElements.ElementsDesignList_AllItems
+    ''        ''10/3/2019 td''objElements = CType(Me.ParentForm, ISelectingElements).LabelsDesignList_AllItems
+    ''        objElements = Me.SelectingElements.ElementsDesignList_AllItems
 
-            For Each each_ctl As CtlGraphicFldLabelV3 In objElements
-                ''
-                ''Added 8/3/2019 td  
-                ''
-                With each_ctl
+    ''        For Each each_ctl As CtlGraphicFldLabelV3 In objElements
+    ''            ''
+    ''            ''Added 8/3/2019 td  
+    ''            ''
+    ''            With each_ctl
 
-                    ''Added 10/17/2019 td  
-                    If (FontDialog1.Font.Unit <> GraphicsUnit.Pixel) Then Throw New Exception("Unexpected Font Unit")
+    ''                ''Added 10/17/2019 td  
+    ''                If (FontDialog1.Font.Unit <> GraphicsUnit.Pixel) Then Throw New Exception("Unexpected Font Unit")
 
-                    .ElementInfo_TextOnly.Font_DrawingClass = FontDialog1.Font
-                    ''Added 10/17/2019 td  
-                    .ElementInfo_TextOnly.FontSize_Pixels = FontDialog1.Font.Size
+    ''                .ElementInfo_TextOnly.Font_DrawingClass = FontDialog1.Font
+    ''                ''Added 10/17/2019 td  
+    ''                .ElementInfo_TextOnly.FontSize_Pixels = FontDialog1.Font.Size
 
-                    Application.DoEvents()
-                    Application.DoEvents()
-                    .Refresh_ImageV3(True)
-                    .Refresh()
+    ''                Application.DoEvents()
+    ''                Application.DoEvents()
+    ''                .Refresh_ImageV3(True)
+    ''                .Refresh()
 
-                End With
+    ''            End With
 
-            Next each_ctl
+    ''        Next each_ctl
 
-        End If ''End of "If (Me.SelectingElements.ElementsList_IsItemUnselected(Me)) Then... Else ..."
+    ''    End If ''End of "If (Me.SelectingElements.ElementsList_IsItemUnselected(Me)) Then... Else ..."
 
-        ''Added 9/13/2019 td
-        ''9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()
-        Me.LayoutFunctions.AutoPreview_IfChecked()
+    ''    ''Added 9/13/2019 td
+    ''    ''9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()
+    ''    Me.LayoutFunctions.AutoPreview_IfChecked()
 
-    End Sub ''eNd of "Private Sub "Open_Dialog_Font_EE1009(sender As Object, e As EventArgs)"
+    ''End Sub ''eNd of "Private Sub "Open_Dialog_Font_EE1009(sender As Object, e As EventArgs)"
 
 
     Public Sub ExampleValue_Edit_EE1006(sender As Object, e As EventArgs)

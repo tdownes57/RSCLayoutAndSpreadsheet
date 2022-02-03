@@ -21,7 +21,7 @@ Public Class Operations_StaticTextV4
     ''Feb2 2022 td''Public Property ElementStaticText As ciBadgeElements.ClassElementStaticTextV3 ''Added 1/19/2022
     Public Property ElementStaticTextV4 As ciBadgeElements.ClassElementStaticTextV4 ''Added 2/02/2022
 
-    Public Property ElementInfo_TextOnly As IElement_TextOnly ''Added 1/19/2022
+    Public Overrides Property ElementInfo_TextOnly As IElement_TextOnly ''Added 1/19/2022
 
     Public Overrides Property Element_Type As Enum_ElementType = Enum_ElementType.StaticGraphic ''Added 1/21/2022 td
 
