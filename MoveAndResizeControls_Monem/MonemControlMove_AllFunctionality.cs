@@ -147,6 +147,7 @@ namespace MoveAndResizeControls_Monem
         internal bool SetBreakpoint_AfterMove { get; set; } //Added 9/13/2019 td 
 
         private bool _SizeProportionally = false;  //Added 1/10/2022 td
+        private bool _SizeDisallowSquares = false;  //Added 2/2/2022 td
         private bool _SizeKeepHeightMoreThanWidth = true;  //Added 2/02/2022 td
         private bool _SizeKeepWidthMoreThanHeight = true;  //Added 2/02/2022 td
         private StructResizeParams _structResizing;      //Added 2/2/2022 td 
@@ -236,10 +237,6 @@ namespace MoveAndResizeControls_Monem
             //
             _SizeProportionally = pbResizeProportionally; //Added 1/12/2022 td
             
-            // This will assist the layout program to enforcing Height > Width
-            //     (or  Width > Height) rules. 
-            //Added 2/2/2022 td//_SizeDisallowSquares = pbResizeWithoutSquaring; //Added 2/2/2022 td
-
             //
             //Added 1/12/2022 & 10/09/2019 thomas downes 
             //
@@ -375,29 +372,30 @@ namespace MoveAndResizeControls_Monem
                bool pbHookUpEventHandlers = true)
         {
             //
-            // Added 1/27/2022 thomas d.
+            // Added 2/02/2022 thomas d.
             //
-            _iRefreshElementImage = par_iRefreshElementImage;
-            _iRefreshCardPreview = par_iRefreshCardPreview;
+            // This will assist the layout program to enforcing Height > Width
+            //     (or  Width > Height) rules. 
+            // 2/2/2022 td//_SizeDisallowSquares = pbResizeWithoutSquaring; //Added 2/2/2022 td
+            _SizeKeepHeightMoreThanWidth = pstructResize.KeepPortrait_HgtW;
+            _SizeKeepWidthMoreThanHeight = pstructResize.KeepLandscape_WgtH;
+            _SizeDisallowSquares = (pstructResize.KeepPortrait_HgtW || 
+                                    pstructResize.KeepLandscape_WgtH);
+            _structResizing = pstructResize;
 
-            //
-            // Major call !!
-            //
-            Init_V1(par_controlPictureB, par_containerElement,
-                par_margin, pstructResize.RepaintAfterResize,
+            Init_V2(par_controlPictureB, par_containerElement,
+                par_margin,
+                pstructResize.RepaintAfterResize,
                 par_eventsForGroups,
                 par_eventsSingleCtl,
                 pbSetBreakpoint_AfterMove,
                 par_iSave,
+                par_iRefreshElementImage,
+                par_iRefreshCardPreview,
                 pbUndoAndReverseEverything,
                 pbHookUpEventHandlers,
                 pstructResize.KeepProportional_HtoW,
                 pstructResize.ProportionalRatio_HtoW);
-
-            // Added 2/2/2022 thomas downes
-            _structResizing = pstructResize;
-            _SizeKeepHeightMoreThanWidth = pstructResize.KeepPortrait_HgtW;
-            _SizeKeepWidthMoreThanHeight = pstructResize.KeepLandscape_WgtH;
 
         }
 
