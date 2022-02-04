@@ -30,7 +30,7 @@ Public Class Operations_EditFieldElement
     Public WithEvents MyLinkLabel As New LinkLabel ''Added 10/11/2019 td 
     Public WithEvents MyToolstripItem As New ToolStripMenuItem ''Added 10/11/2019 td 
 
-    Public Property CtlCurrentElement As ciBadgeDesigner.CtlGraphicFldLabelV3 ''CtlGraphicFldLabel
+    Public Property CtlCurrentElement As ciBadgeDesigner.CtlGraphicFieldV3 ''CtlGraphicFldLabel
     Public Property LayoutFunctions As ILayoutFunctions ''Added 10/3/2019 td 
     Public Property Designer As ciBadgeDesigner.ClassDesigner
     Public Property ColorDialog1 As ColorDialog ''Added 10/3/2019 td 
@@ -204,7 +204,7 @@ Public Class Operations_EditFieldElement
             ''   objElements.Add(Me)
             '' End If
 
-            For Each each_ctl As CtlGraphicFldLabelV3 In objElements
+            For Each each_ctl As CtlGraphicFieldV3 In objElements
                 ''
                 ''Added 8/3/2019 td  
                 ''
@@ -321,7 +321,7 @@ Public Class Operations_EditFieldElement
             ''10/3/2019 td''objElements = CType(Me.ParentForm, ISelectingElements).LabelsDesignList_AllItems
             objElements = Me.SelectingElements.ElementsDesignList_AllItems
 
-            For Each each_ctl As CtlGraphicFldLabelV3 In objElements
+            For Each each_ctl As CtlGraphicFieldV3 In objElements
                 ''
                 ''Added 8/3/2019 td  
                 ''
@@ -431,7 +431,7 @@ Public Class Operations_EditFieldElement
                     Dim objElements As HashSet(Of RSCMoveableControlVB)
                     objElements = Me.SelectingElements.ElementsDesignList_AllItems
 
-                    For Each each_ctl As CtlGraphicFldLabelV3 In objElements
+                    For Each each_ctl As CtlGraphicFieldV3 In objElements
                         ''
                         ''Added 8/3/2019 td  
                         ''
@@ -519,7 +519,7 @@ Public Class Operations_EditFieldElement
                     Dim objElements As HashSet(Of RSCMoveableControlVB)
                     objElements = Me.SelectingElements.ElementsDesignList_AllItems
 
-                    For Each each_ctl As CtlGraphicFldLabelV3 In objElements
+                    For Each each_ctl As CtlGraphicFieldV3 In objElements
                         ''
                         ''Added 8/3/2019 td  
                         ''

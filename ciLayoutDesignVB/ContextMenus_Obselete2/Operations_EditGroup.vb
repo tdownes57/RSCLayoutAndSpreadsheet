@@ -17,7 +17,7 @@ Public Class Operations_EditGroup
     Public WithEvents MyLinkLabel As New LinkLabel ''Added 10/11/2019 td 
     Public WithEvents MyToolstripItem As New ToolStripMenuItem ''Added 10/11/2019 td 
 
-    Public Property CtlCurrentElement As ciBadgeDesigner.CtlGraphicFldLabelV3 ''CtlGraphicFldLabel
+    Public Property CtlCurrentElement As ciBadgeDesigner.CtlGraphicFieldV3 ''CtlGraphicFldLabel
     Public Property LayoutFunctions As ILayoutFunctions ''Added 10/3/2019 td 
     Public Property Designer As ciBadgeDesigner.ClassDesigner
     Public Property ColorDialog1 As ColorDialog ''Added 10/3/2019 td 
@@ -187,7 +187,7 @@ Public Class Operations_EditGroup
             Dim intCountElements As Int64 = 0
 
             ''Added 8/16/2019 td  
-            For Each each_ctl As CtlGraphicFldLabelV3 In objElements
+            For Each each_ctl As CtlGraphicFieldV3 In objElements
                 ''Added 8/16/2019 td  
                 intSumAll_Left += each_ctl.Left
                 intSumAll_Top += each_ctl.Top
@@ -204,7 +204,7 @@ Public Class Operations_EditGroup
 
         End If ''End of "If (modFonts.UseAverageLineForAlignment) Then"
 
-        For Each each_ctl As CtlGraphicFldLabelV3 In objElements
+        For Each each_ctl As CtlGraphicFieldV3 In objElements
             ''
             ''Added 8/5/2019 td  
             ''

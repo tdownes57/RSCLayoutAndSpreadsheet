@@ -21,7 +21,7 @@ Public Enum EnumReminderMsg
 End Enum ''ENd of "Public Enum EnumReminderMsg"
 
 
-Public Class CtlGraphicFldLabelV3
+Public Class CtlGraphicFieldV3
     Implements ISaveToModel ''Added 12/17/2021 td 
     Implements IMoveableElement ''Added 12/17/2021 td
     Implements IClickableElement ''Added 12/17/2021 td 
@@ -43,7 +43,7 @@ Public Class CtlGraphicFldLabelV3
                                            par_sizeNeeded As Size,
                                 par_iRecordLastTouched As IRecordElementLastTouched,
                                 par_iControlLastTouched As ILastControlTouched,
-                                par_oMoveEventsForGroupedCtls As GroupMoveEvents_Singleton) As CtlGraphicFldLabelV3
+                                par_oMoveEventsForGroupedCtls As GroupMoveEvents_Singleton) As CtlGraphicFieldV3
         ''
         ''Added 1/04/2021 td
         ''
@@ -70,14 +70,14 @@ Public Class CtlGraphicFldLabelV3
         Dim enumElementType_Enum As EnumElementType = EnumElementType.Field
 
         ''Create the control.
-        Dim CtlFieldElem1 As CtlGraphicFldLabelV3
+        Dim CtlFieldElem1 As CtlGraphicFieldV3
 
         ''Public Sub New(par_elementField As ClassElementField,
         ''                par_layout As ILayoutFunctions,
         ''                pstrWhyWasICreated As String,
         ''                par_formRecordLastTouched As IRecordElementLastTouched)
 
-        CtlFieldElem1 = New CtlGraphicFldLabelV3(par_elementFld,
+        CtlFieldElem1 = New CtlGraphicFieldV3(par_elementFld,
                                                par_formParent,
                                                par_oDesigner, par_iLayoutFun,
                                          par_parametersGetElementControl.iRefreshPreview,
@@ -135,7 +135,7 @@ Public Class CtlGraphicFldLabelV3
 
     Public DatetimeSaved As Date ''Added 11/29/2021 
 
-    Public Event ElementField_RightClicked(par_control As CtlGraphicFldLabelV3) ''Added 10/1/2019 td
+    Public Event ElementField_RightClicked(par_control As CtlGraphicFieldV3) ''Added 10/1/2019 td
 
     ''7/26/2019 td''Public FieldInfo As ClassFieldCustomized
     ''7/26/2019 td''Public ElementInfo As ClassElementText
@@ -638,7 +638,7 @@ ExitHandler:
             ''Added 11-18-2019 td 
             Dim strTextToDisplay As String ''Added 11/18/2019 td
             strTextToDisplay = Me.ElementClass_Obj.LabelText_ToDisplay(True, Nothing,
-                         CtlGraphicFldLabelV3.UseExampleValues)
+                         CtlGraphicFieldV3.UseExampleValues)
 
             ''Added 12/21/2021 td
             strTextToDisplay = (strTextToDisplay & (" " & Me.ElementClass_Obj.CaptionSuffixIfNeeded).TrimEnd())

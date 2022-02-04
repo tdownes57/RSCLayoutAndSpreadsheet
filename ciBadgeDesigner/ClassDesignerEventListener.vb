@@ -102,7 +102,7 @@ Public Class ClassDesignerEventListener
 
 
     Public Sub LoadDesigner(par_listOfFieldControls As _
-                                HashSet(Of CtlGraphicFldLabelV3),
+                                HashSet(Of CtlGraphicFieldV3),
                     par_listDesignerControls As HashSet(Of RSCMoveableControlVB)) '',
         ''                    par_strWhyCalled As String)
         ''
@@ -344,15 +344,15 @@ Public Class ClassDesignerEventListener
         ''
         ''Fields
         ''
-        Dim each_graphicLabel As CtlGraphicFldLabelV3 ''Added 7/19/2019 thomas downes  
+        Dim each_graphicLabel As CtlGraphicFieldV3 ''Added 7/19/2019 thomas downes  
 
         ''----For Each each_control As Control In Me.DesignerForm.Controls ''Added 7/19/2019 thomas downes  
 
         For Each each_control As Control In par_listDesignerControls
 
-            If (TypeOf each_control Is CtlGraphicFldLabelV3) Then
+            If (TypeOf each_control Is CtlGraphicFieldV3) Then
 
-                each_graphicLabel = CType(each_control, CtlGraphicFldLabelV3)
+                each_graphicLabel = CType(each_control, CtlGraphicFieldV3)
 
                 ''7/31/2019 td''ControlMoverOrResizer_TD.Init(each_graphicLabel.Picture_Box,
                 ''                each_control, 10) ''Added 7/28/2019 thomas downes
@@ -366,7 +366,7 @@ Public Class ClassDesignerEventListener
     End Sub ''End of "Private Sub MakeElementsMoveable()"
 
 
-    Private Sub ControlMoverResizer_AddFieldCtl(par_graphicFieldCtl As CtlGraphicFldLabelV3)
+    Private Sub ControlMoverResizer_AddFieldCtl(par_graphicFieldCtl As CtlGraphicFieldV3)
         ''
         ''Encapsulated 9/7/2019 thomas d
         ''
@@ -413,7 +413,7 @@ Public Class ClassDesignerEventListener
         Dim list_SelectedCtls As HashSet(Of RSCMoveableControlVB) ''Modified 1/12/2022 td
         list_SelectedCtls = mod_designer.mod_selectedCtls ''Added 11/29/2021 td
 
-        For Each each_control As CtlGraphicFldLabelV3 In list_SelectedCtls ''In mod_selectedCtls
+        For Each each_control As CtlGraphicFieldV3 In list_SelectedCtls ''In mod_selectedCtls
 
             ''Added 9/11/2019 td  
             If (m_bAddBorderOnlyWhileResizing) Then
@@ -578,7 +578,7 @@ Public Class ClassDesignerEventListener
         Dim list_SelectedCtls As HashSet(Of RSCMoveableControlVB) ''Modified 1/12/2022 td
         list_SelectedCtls = mod_designer.mod_selectedCtls ''Added 11/29/2021 td
 
-        For Each each_control As CtlGraphicFldLabelV3 In list_SelectedCtls '' mod_selectedCtls
+        For Each each_control As CtlGraphicFieldV3 In list_SelectedCtls '' mod_selectedCtls
 
             ''Added 9/11/2019 td  
             ''---If (mc_bAddBorderOnlyWhileResizing) Then
@@ -602,18 +602,18 @@ Public Class ClassDesignerEventListener
 
         Dim boolResizedAFieldCtl As Boolean ''Added 9/14/2019 td
         Dim ctl_ControlLastTouched As Control
-        Dim ctl_FieldControlLastTouched As CtlGraphicFldLabelV3
+        Dim ctl_FieldControlLastTouched As CtlGraphicFieldV3
 
         ctl_ControlLastTouched = mod_designer.mod_ControlLastTouched
 
-        If (TypeOf mod_designer.mod_RSCControlLastTouched Is CtlGraphicFldLabelV3) Then
+        If (TypeOf mod_designer.mod_RSCControlLastTouched Is CtlGraphicFieldV3) Then
             ''We know it's a Element-Field control. ---1/12/2022 td
             ctl_FieldControlLastTouched = CType(mod_designer.mod_RSCControlLastTouched,
-                   CtlGraphicFldLabelV3)
+                   CtlGraphicFieldV3)
         End If ''End of "If (TypeOf mod_designer.mod_RSCControlLastTouched Is CtlGraphicFldLabel) Then"
 
         ''boolResizedAFieldCtl = (TypeOf mod_ControlLastTouched Is CtlGraphicFldLabel)
-        boolResizedAFieldCtl = (TypeOf ctl_ControlLastTouched Is CtlGraphicFldLabelV3)
+        boolResizedAFieldCtl = (TypeOf ctl_ControlLastTouched Is CtlGraphicFieldV3)
 
         ''10/13/2019 td''If (boolResizedAFieldCtl) Then ''Added 9/14/2019 td
         If ((Not mc_boolMoveGrowInUnison) And boolResizedAFieldCtl) Then ''Added 9/14/2019 td

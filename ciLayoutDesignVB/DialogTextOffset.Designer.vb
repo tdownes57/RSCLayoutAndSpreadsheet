@@ -45,7 +45,7 @@ Partial Class DialogTextOffset
         Me.CtlElementHeight = New ciLayoutDesignVB.CtlPropertyUpDownvb()
         Me.CtlFontSize = New ciLayoutDesignVB.CtlPropertyUpDownvb()
         Me.ctlTextOffsetY = New ciLayoutDesignVB.CtlPropertyUpDownvb()
-        Me.CtlGraphicFldLabel1 = New CtlGraphicFldLabelV3("DialogTextOffset")
+        Me.CtlGraphicFldLabel1 = New CtlGraphicFieldV3("DialogTextOffset")
         Me.LabelForBorderOnly = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
@@ -329,7 +329,7 @@ Partial Class DialogTextOffset
     Friend WithEvents LabelExampleValueHdr As Label
     Friend WithEvents ButtonCenter As Button
     Friend WithEvents ButtonRight As Button
-    Friend WithEvents CtlGraphicFldLabel1 As CtlGraphicFldLabelV3
+    Friend WithEvents CtlGraphicFldLabel1 As CtlGraphicFieldV3
     Friend WithEvents Label4 As Label
     Friend WithEvents checkFontSizeScalesYN As CheckBox
     Friend WithEvents Panel1 As Panel

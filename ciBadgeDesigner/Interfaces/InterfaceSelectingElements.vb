@@ -7,9 +7,9 @@ Public Interface ISelectingElements
     ''
     ''Added 7/31/2019 thomas downes  
     ''
-    Sub ElementsDesignList_Add(par_control As CtlGraphicFldLabelV3) ''Implements ISelectingElements.ElementsDesignList_Add
+    Sub ElementsDesignList_Add(par_control As CtlGraphicFieldV3) ''Implements ISelectingElements.ElementsDesignList_Add
 
-    Sub ElementsDesignList_Remove(par_control As CtlGraphicFldLabelV3) ''Implements ISelectingElements.ElementsDesignList_Remove
+    Sub ElementsDesignList_Remove(par_control As CtlGraphicFieldV3) ''Implements ISelectingElements.ElementsDesignList_Remove
 
     Function ElementsList_CountItems() As Integer ''Implements ISelectingElements.ElementsDesignList_CountItems
     Function ElementsList_OneOrMoreItems() As Boolean ''Implements ISelectingElements.ElementsDesignList_OneOrMoreItems

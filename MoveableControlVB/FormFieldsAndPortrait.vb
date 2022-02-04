@@ -62,8 +62,8 @@ Public Class FormFieldsAndPortrait
     ''Deprecated.  Private mod_iRecordElementLastTouched As ClassRecordElementLastTouched
 
     Private mod_ctlQRCode As ciBadgeDesigner.CtlGraphicQRCode
-    Private mod_ctlField1 As ciBadgeDesigner.CtlGraphicFldLabelV3
-    Private mod_ctlField2 As ciBadgeDesigner.CtlGraphicFldLabelV3
+    Private mod_ctlField1 As ciBadgeDesigner.CtlGraphicFieldV3
+    Private mod_ctlField2 As ciBadgeDesigner.CtlGraphicFieldV3
     Private mod_ctlPortrait As ciBadgeDesigner.CtlGraphicPortrait
     Private mod_ctlStaticGraphic As ciBadgeDesigner.CtlGraphicStaticGraphic
     Private mod_ctlStaticText As ciBadgeDesigner.CtlGraphicStaticTextV3
@@ -224,7 +224,7 @@ Public Class FormFieldsAndPortrait
         Dim objGetParametersForGetControl As ciBadgeDesigner.ClassGetElementControlParams
         objGetParametersForGetControl = mod_designer.GetParametersToGetElementControl()
 
-        mod_ctlField1 = CtlGraphicFldLabelV3.GetFieldElement(objGetParametersForGetControl,
+        mod_ctlField1 = CtlGraphicFieldV3.GetFieldElement(objGetParametersForGetControl,
                                                             objElement, Me, mod_designer,
                                             "mod_ctlField1", mod_designer, mod_designer,
                                             mod_ctlLasttouched, mod_eventsSingleton)

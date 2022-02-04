@@ -20,7 +20,7 @@ Public MustInherit Class Operations__Text
     Public Overridable Property ElementInfo_TextOnly As ciBadgeInterfaces.IElement_TextOnly
 
     Public Property CtlCurrentRSCControl As __RSCWindowsControlLibrary.RSCMoveableControlVB
-    Public Property CtlCurrentElementFieldV3 As ciBadgeDesigner.CtlGraphicFldLabelV3
+    Public Property CtlCurrentElementFieldV3 As ciBadgeDesigner.CtlGraphicFieldV3
     Public Property CtlCurrentElementFieldV4 As ciBadgeDesigner.CtlGraphicRecipientFieldV4
     Public Property CtlCurrentStaticTextV3 As CtlGraphicStaticTextV3
     Public Property CtlCurrentStaticTextV4 As CtlGraphicStaticTextV4

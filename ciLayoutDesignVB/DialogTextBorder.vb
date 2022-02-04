@@ -48,7 +48,7 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
     ''9/19/2019 td''Public FormDesigner As FormDesignProtoTwo ''Added 8/15/2019 td  
     Public LayoutFunctions As ILayoutFunctions ''Added 9/19/2019 td  
 
-    Public OriginalElementControl As CtlGraphicFldLabelV3 ''Added 8/15/2019 td  
+    Public OriginalElementControl As CtlGraphicFieldV3 ''Added 8/15/2019 td  
 
     Public UserConfirmed As Boolean ''Added 9/18/2019 thomas d. 
 
@@ -109,7 +109,7 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
     End Sub ''Public Sub UpdateInfo_ViaInterface(par_elementInfo As IElement_Base)
 
     Public Sub LoadFieldAndForm(par_layoutFun As ILayoutFunctions,
-                                par_originalCtl As CtlGraphicFldLabelV3)
+                                par_originalCtl As CtlGraphicFieldV3)
 
         ''
         ''Added 9/18/2019 td

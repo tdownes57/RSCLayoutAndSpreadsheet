@@ -52,7 +52,7 @@ Public Class FormDesignProtoThree
 
     End Sub
 
-    Private Sub mod_designer_ElementRightClicked(par_control As ciBadgeDesigner.CtlGraphicFldLabelV3) Handles mod_designer.ElementFieldRightClicked
+    Private Sub mod_designer_ElementRightClicked(par_control As ciBadgeDesigner.CtlGraphicFieldV3) Handles mod_designer.ElementFieldRightClicked
         ''
         ''Added 10/1/2019 td
         ''

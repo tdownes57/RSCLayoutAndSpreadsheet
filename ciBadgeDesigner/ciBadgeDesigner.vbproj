@@ -133,10 +133,16 @@
     <Compile Include="Controls\CtlGraphicFieldOrTextV4.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\CtlGraphicFldLabelV3.designer.vb">
-      <DependentUpon>CtlGraphicFldLabelV3.vb</DependentUpon>
+    <Compile Include="Controls\CtlGraphicFieldV4.Designer.vb">
+      <DependentUpon>CtlGraphicFieldV4.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CtlGraphicFldLabelV3.vb">
+    <Compile Include="Controls\CtlGraphicFieldV4.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtlGraphicFieldV3.designer.vb">
+      <DependentUpon>CtlGraphicFieldV3.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtlGraphicFieldV3.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\CtlGraphicPortrait.designer.vb">
@@ -358,8 +364,8 @@
     <EmbeddedResource Include="Controls\CtlGraphicFieldOrTextV4.resx">
       <DependentUpon>CtlGraphicFieldOrTextV4.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\CtlGraphicFldLabelV3.resx">
-      <DependentUpon>CtlGraphicFldLabelV3.vb</DependentUpon>
+    <EmbeddedResource Include="Controls\CtlGraphicFieldV3.resx">
+      <DependentUpon>CtlGraphicFieldV3.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlGraphicPortrait.resx">
       <DependentUpon>CtlGraphicPortrait.vb</DependentUpon>
