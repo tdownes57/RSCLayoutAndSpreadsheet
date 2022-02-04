@@ -31,7 +31,10 @@ Public MustInherit Class Operations__Graphic
         ''
         ''Added 2/02/2022 thomas downes
         ''         
-        MyBase.Monem_iMoveOrResizeFun.RemoveProportionality = False
+        If (MyBase.Monem_iMoveOrResizeFun IsNot Nothing) Then
+            ''Added 2/02/2022 thomas downes
+            MyBase.Monem_iMoveOrResizeFun.RemoveProportionality = False
+        End If ''End of "If (MyBase.Monem_iMoveOrResizeFun IsNot Nothing) Then"
 
     End Sub
 

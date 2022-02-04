@@ -99,7 +99,9 @@ Public Class CtlGraphicStaticTextV4
 
             .CtlCurrentControl = CtlStaticText
             .CtlCurrentElement = CtlStaticText
+            .CtlCurrentFieldOrTextV4 = CtlStaticText ''Added 2/3/2022 td
             .CtlCurrentElementStaticText = CtlStaticText ''Added 1/24/2022 td
+
             ''.Designer = par_oMoveEventsForGroupedCtls.
             .Designer = par_parametersGetElementControl.DesignerClass
             .ElementInfo_Base = par_elementStaticText
@@ -117,6 +119,8 @@ Public Class CtlGraphicStaticTextV4
 
             ''Added 2/2/2022 td
             .ElementStaticTextV4 = CtlStaticText.Element_StaticTextV4
+            ''Added 2/3/2022 td
+            .SelectingElements = par_parametersGetElementControl.DesignerClass ''Added 2/3/2022 td
 
         End With ''End of "With objOperationsFldElem"
 

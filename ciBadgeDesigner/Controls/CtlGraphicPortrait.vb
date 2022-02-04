@@ -117,7 +117,8 @@ Public Class CtlGraphicPortrait
             .Designer = par_parametersGetElementControl.DesignerClass
             .ElementInfo_Base = par_elementPortrait
             .ElementsCacheManager = par_parametersGetElementControl.ElementsCacheManager
-            .Element_Type = Enum_ElementType.StaticGraphic
+            ''Feb3 2022 td''.Element_Type = Enum_ElementType.StaticGraphic
+            .Element_Type = Enum_ElementType.Portrait ''Added 2/3/2022 thomas d.
             .EventsForMoveability_Group = par_oMoveEventsForGroupedCtls
             .EventsForMoveability_Single = Nothing
             ''Added 1/24/2022 thomas downes

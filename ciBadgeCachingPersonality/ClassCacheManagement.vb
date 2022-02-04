@@ -641,6 +641,21 @@ Namespace ciBadgeCachePersonality
             objClassLists = ClassListOfElements.GetListOfElements(par_enum)
             objClassLists.RemoveElement(par_infoBase, pref_boolSuccess)
 
+            ''
+            ''Added 2/3/2022 td
+            ''
+            If (pref_boolSuccess) Then
+                ''
+                ''Great!  
+                ''
+            Else
+                ''
+                ''The element is orphaned, and/or misplaced. ---2/3/2022 td
+                ''
+                ClassListOfElements.RemoveOrphanedElement(par_infoBase, pref_boolSuccess)
+
+            End If ''End of "If (pref_boolSuccess) Then ... Else...."
+
         End Sub ''End of "Public Sub DeleteElementFromCache"
 
 

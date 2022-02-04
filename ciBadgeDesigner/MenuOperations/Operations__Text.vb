@@ -332,7 +332,7 @@ Public MustInherit Class Operations__Text
         ''
         ''Added 2/3/2022 td
         ''
-        Dim boolGroupwiseUnselected As Boolean ''Added 2/3/2022 td
+        Dim boolGroupwiseUnselected As Boolean = True ''Added 2/3/2022 td
         Dim bNotPartOfSelectedGroup As Boolean ''Added 2/3/2022 thomas d. 
         Dim intCountItemsInGroup As Integer ''Added 2/3/2022 td
         Dim bNoSelectedItemsExist As Boolean ''Added 2/3/2022 td
@@ -340,12 +340,26 @@ Public MustInherit Class Operations__Text
         Dim b2_RightclickedAsSingleItem As Boolean ''Added 2/3/2022 thomas d.
 
         ''------------------DIFFICULT AND CONFUSING------------------------------------------------------------
-        boolGroupwiseUnselected = (Me.SelectingElements.ElementsList_IsItemUnselected(Me.CtlCurrentRSCControl))
-        intCountItemsInGroup = Me.SelectingElements.ElementsList_CountItems()
-        bNoSelectedItemsExist = (0 = intCountItemsInGroup)
-        bNotPartOfSelectedGroup = (bNoSelectedItemsExist OrElse boolGroupwiseUnselected)
-        b2_RightclickedAsSingleItem = bNotPartOfSelectedGroup
-        b1_SelectedAsPartOfAGroup = (Me.SelectingElements.ElementsList_IsItemIncluded(Me.CtlCurrentRSCControl))
+        If (Me.SelectingElements Is Nothing) Then
+            ''
+            ''The Group-Selecting class is Null.
+            ''
+            boolGroupwiseUnselected = True
+            intCountItemsInGroup = 0
+            bNoSelectedItemsExist = True
+            bNotPartOfSelectedGroup = True
+            b2_RightclickedAsSingleItem = True
+            b1_SelectedAsPartOfAGroup = False
+
+        Else
+            boolGroupwiseUnselected = (Me.SelectingElements.ElementsList_IsItemUnselected(Me.CtlCurrentRSCControl))
+            intCountItemsInGroup = Me.SelectingElements.ElementsList_CountItems()
+            bNoSelectedItemsExist = (0 = intCountItemsInGroup)
+            bNotPartOfSelectedGroup = (bNoSelectedItemsExist OrElse boolGroupwiseUnselected)
+            b2_RightclickedAsSingleItem = bNotPartOfSelectedGroup
+            b1_SelectedAsPartOfAGroup = (Me.SelectingElements.ElementsList_IsItemIncluded(Me.CtlCurrentRSCControl))
+
+        End If ''End of "If (Me.SelectingElements Is Nothing) Then ... Else ..."
 
         ''Set first ByRef parameter
         pref_bGrouped = b1_SelectedAsPartOfAGroup
