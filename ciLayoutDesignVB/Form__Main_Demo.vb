@@ -1145,7 +1145,7 @@ Public Class Form__Main_Demo
             If (pboolRemoveAndRebuild) Then ''Added 11/26/2021 
 
                 Try
-                    dictonary_elmntInfo_control.Add(each_field_control.ElementClass_Obj, each_field_control)
+                    dictonary_elmntInfo_control.Add(each_field_control.ElementClass_ObjV3, each_field_control)
                 Catch
                     MsgBox("Likely duplicate of element Interface/Information.", MsgBoxStyle.Exclamation, "RefreshTheSetOfDisplayedElements")
                 End Try
@@ -1154,11 +1154,11 @@ Public Class Form__Main_Demo
 
                 ''Added 9/17/2019 td
                 Try
-                    dictonary_elmntObj_control.Add(each_field_control.ElementClass_Obj, each_field_control)
+                    dictonary_elmntObj_control.Add(each_field_control.ElementClass_ObjV3, each_field_control)
 
                     ''Added 11/24/21 thomas downes
                     ''  This will help to prevent duplicates. 
-                    dictonary_elmntObj_captions.Add(each_field_control.ElementClass_Obj.FieldNm_CaptionText, each_field_control)
+                    dictonary_elmntObj_captions.Add(each_field_control.ElementClass_ObjV3.FieldNm_CaptionText, each_field_control)
 
                 Catch
                     MsgBox("Possible duplicate of Element Object.", MsgBoxStyle.Exclamation, "RefreshTheSetOfDisplayedElements")
@@ -2052,7 +2052,7 @@ Public Class Form__Main_Demo
             For Each each_ctl As CtlGraphicFieldV3 In mod_designer.ListOfFieldLabels()
 
                 each_element = Me.ElementsCache_Edits.GetElementByFieldEnum(each_ctl.FieldInfo.FieldEnumValue)
-                each_ctl.ElementClass_Obj = each_element
+                each_ctl.ElementClass_ObjV3 = each_element
                 each_ctl.ElementInfo_Base = each_element
                 ''Jan2 2022 td''each_ctl.ElementInfo_Field = each_element
                 each_ctl.ElementInfo_TextField = each_element

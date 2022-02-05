@@ -58,14 +58,14 @@ Public Class CtlGraphicFieldV4
         Dim enumElementType_Enum As EnumElementType = EnumElementType.Field
 
         ''Create the control.
-        Dim CtlField As CtlGraphicFieldV4
+        Dim CtlFieldV4 As CtlGraphicFieldV4
 
         ''Public Sub New(par_elementField As ClassElementField,
         ''                par_layout As ILayoutFunctions,
         ''                pstrWhyWasICreated As String,
         ''                par_formRecordLastTouched As IRecordElementLastTouched)
 
-        CtlField = New CtlGraphicFieldV4(par_elementField,
+        CtlFieldV4 = New CtlGraphicFieldV4(par_elementField,
                                                par_formParent,
                                                par_oDesigner, par_iLayoutFun,
                                          par_parametersGetElementControl.iRefreshPreview,
@@ -79,7 +79,7 @@ Public Class CtlGraphicFieldV4
                                                     par_oMoveEventsForGroupedCtls)
         ''Jan2 2022 ''                       ''Jan2 2022 ''par_iSaveToModel, typeOps,
 
-        With CtlField
+        With CtlFieldV4
             .Name = par_nameOfControl
             ''Jan11 2022''If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEvents, par_iLayoutFun)
             If (bAddFunctionalityLater) Then .AddMoveability(par_iLayoutFun,
@@ -91,7 +91,7 @@ Public Class CtlGraphicFieldV4
         ''Specify the current element to the Operations object. 
         ''
         Dim infoOps As ICurrentElement = CType(objOperations, ICurrentElement)
-        infoOps.CtlCurrentElement = CtlField
+        infoOps.CtlCurrentElement = CtlFieldV4
 
         ''Added 1/17/2022 td 
         infoOps.ElementsCacheManager = par_parametersGetElementControl.ElementsCacheManager
@@ -99,10 +99,10 @@ Public Class CtlGraphicFieldV4
         ''Added 1/24/2022 thomas d. 
         With objOperationsField_V4
 
-            .CtlCurrentControl = CtlField
-            .CtlCurrentElement = CtlField
-            .CtlCurrentFieldOrTextV4 = CtlField ''Added 2/3/2022 td
-            .CtlCurrentElementField = CtlField ''Added 1/24/2022 td
+            .CtlCurrentControl = CtlFieldV4
+            .CtlCurrentElement = CtlFieldV4
+            .CtlCurrentFieldOrTextV4 = CtlFieldV4 ''Added 2/3/2022 td
+            .CtlCurrentElementFieldV4 = CtlFieldV4 ''Added 1/24/2022 td
 
             ''.Designer = par_oMoveEventsForGroupedCtls.
             .Designer = par_parametersGetElementControl.DesignerClass
@@ -113,20 +113,21 @@ Public Class CtlGraphicFieldV4
 
             ''#1 2/1/2022 ''.Element_Type = Enum_ElementType.StaticGraphic
             ''#2 2/1/2022 ''.Element_Type = Enum_ElementType.FieldV3
-            .Element_Type = Enum_ElementType.FieldV4
+            .Element_Type = Enum_ElementType.Field
 
             .EventsForMoveability_Group = par_oMoveEventsForGroupedCtls
             .EventsForMoveability_Single = Nothing
             .LayoutFunctions = .Designer ''Added 1/24/2022 td
 
             ''Added 2/2/2022 td
-            .ElementFieldV4 = CtlField.Element_FieldV4
+            .Element_FieldV4 = CtlFieldV4.Element_FieldV4
+
             ''Added 2/3/2022 td
             .SelectingElements = par_parametersGetElementControl.DesignerClass ''Added 2/3/2022 td
 
         End With ''End of "With objOperationsFldElem"
 
-        Return CtlField
+        Return CtlFieldV4
 
     End Function ''end of "Public Shared Function GetFieldControl() As CtlGraphicFieldV4"
 

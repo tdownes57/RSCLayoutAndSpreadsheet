@@ -98,8 +98,9 @@ Public Class ClassElementFieldV4
         MyBase.LoadbyCopyingMembers(par_objectElementV4,
                                     par_ElementInfo_Base,
                                     par_ElementInfo_Text,
-                                    par_ElementInfo_Field,
                                     par_badgeLayout)
+        ''2/4/2022 td ''            par_ElementInfo_Field,
+        ''2/4/2022 td ''            par_badgeLayout)
 
         ''--------------------------------------------------------------------------
         ''Step 2 of 2 -- Field-related properties.

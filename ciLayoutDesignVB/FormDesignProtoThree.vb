@@ -58,7 +58,7 @@ Public Class FormDesignProtoThree
         ''
         FlowMenu.Visible = True
 
-        MessageBox.Show(par_control.ElementClass_Obj.FieldInfo.CIBadgeField, "",
+        MessageBox.Show(par_control.ElementClass_ObjV3.FieldInfo.CIBadgeField, "",
                         MessageBoxButtons.OK, MessageBoxIcon.Information)
 
     End Sub

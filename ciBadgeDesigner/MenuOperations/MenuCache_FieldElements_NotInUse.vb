@@ -48,7 +48,7 @@ Public Class MenuCache_FieldElements_NotInUse
     ''Added 12/12/2021 td 
     ''Public Shared Property CacheOfFieldsEtc As ciBadgeCachePersonality.ClassElementsCache_Deprecated ''Added 12/12/2021 td
 
-    Public Shared Operations_Edit As New Operations_FieldElement ''Added 10/11/2019 td  
+    Public Shared Operations_Edit As New Operations_FieldV3 ''Added 10/11/2019 td  
 
     Public Shared Sub GenerateMenuItems_IfNeeded(par_cacheOfFieldsEtc As ciBadgeCachePersonality.ClassElementsCache_Deprecated)
         ''Dec.12 2021 ''Public Shared Sub GenerateMenuItems_IfNeeded()

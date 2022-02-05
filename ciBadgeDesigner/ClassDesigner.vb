@@ -1995,7 +1995,7 @@ Public Class ClassDesigner
                 each_ctl_field = CType(each_control, CtlGraphicFieldV3)
                 each_ctl_field.SelectedHighlighting_Denigrated = False ''Clear any/all highlighting. ---Added 10/14/2019 td
 
-                each_element_field = each_ctl_field.ElementClass_Obj ''Added 10/14/2019 td 
+                each_element_field = each_ctl_field.ElementClass_ObjV3 ''Added 10/14/2019 td 
 
                 ''Clear any/all highlighting.  ---10/14/2019 td 
                 With each_element_field
@@ -2364,12 +2364,12 @@ Public Class ClassDesigner
             ''
             ''Add to the list which will be given to the function MakeBadge.
             ''
-            listOfElementTextFields.Add(eachCtlField.ElementClass_Obj)
+            listOfElementTextFields.Add(eachCtlField.ElementClass_ObjV3)
 
             ''Debug code.....
             ''Dec18 2021 td''bMatchesElementInCache = Me.ElementsCache_UseEdits.ListOfElementFields.Contains(eachCtlField.ElementClass_Obj)
             bMatchesElementInCache =
-                Me.ElementsCache_UseEdits.ListOfElementFields_Bothsides().Contains(eachCtlField.ElementClass_Obj)
+                Me.ElementsCache_UseEdits.ListOfElementFields_Bothsides().Contains(eachCtlField.ElementClass_ObjV3)
 
             If (bMatchesElementInCache) Then intCountMatchedElements += 1
 
@@ -3280,7 +3280,7 @@ Public Class ClassDesigner
                 ''Added 11/29/2021 td
                 Dim objElementField As ClassElementFieldV3
                 objElementField = CType(par_controlElement,
-                                     CtlGraphicFieldV3).ElementClass_Obj
+                                     CtlGraphicFieldV3).ElementClass_ObjV3
                 ''
                 ''Major call!!
                 ''

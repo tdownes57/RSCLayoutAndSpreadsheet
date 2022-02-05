@@ -21,7 +21,7 @@ Public MustInherit Class Operations__Text
 
     Public Property CtlCurrentRSCControl As __RSCWindowsControlLibrary.RSCMoveableControlVB
     Public Property CtlCurrentElementFieldV3 As ciBadgeDesigner.CtlGraphicFieldV3
-    Public Property CtlCurrentElementFieldV4 As ciBadgeDesigner.CtlGraphicRecipientFieldV4
+    Public Property CtlCurrentElementFieldV4 As ciBadgeDesigner.CtlGraphicFieldV4
     Public Property CtlCurrentStaticTextV3 As CtlGraphicStaticTextV3
     Public Property CtlCurrentStaticTextV4 As CtlGraphicStaticTextV4
     Public Property CtlCurrentFieldOrTextV4 As CtlGraphicFieldOrTextV4

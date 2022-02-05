@@ -148,7 +148,7 @@ Public Class DialogTextOffset
             .FieldInfo = Me.ElementObject_CopyForEditing.FieldInfo
 
             ''Added 9/18/2019 td 
-            .ElementClass_Obj = Me.ElementObject_CopyForEditing ''Added 9/19/2019 td 
+            .ElementClass_ObjV3 = Me.ElementObject_CopyForEditing ''Added 9/19/2019 td 
             .ElementInfo_Base = Me.ElementCopy_Info_Base
             .ElementInfo_TextOnly = Me.ElementCopy_Info_Text
             ''Jan2 2022 td''.ElementInfo_Field = Me.ElementCopy_Info_Field ''Added 10/12/2019 td

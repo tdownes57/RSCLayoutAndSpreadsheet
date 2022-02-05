@@ -30,21 +30,27 @@ Public Class DialogTextOffset
     ''8/17/2019 td''Public ObjElementText As ClassElementText
     ''8/29/2019 td''Public ElementInfo As ciBadgeInterfaces.IElementText ''Added 8/16/2019 td
 
-    Public ElementObject_LayoutDesign As ClassElementFieldV3 ''Added 9/18/2019 td
-    Public ElementObject_CopyForEditing As ClassElementFieldV3 ''Added 9/18/2019 td
+    Public ElementObject_LayoutDesignV3 As ClassElementFieldV3 ''Added 9/18/2019 td
+    Public ElementObject_CopyForEditingV3 As ClassElementFieldV3 ''Added 9/18/2019 td
+
+    Public ElementObject_LayoutDesignV4 As ClassElementFieldOrTextV4 ''Added 2/04/2022 td
+    Public ElementObject_CopyForEditingV4 As ClassElementFieldOrTextV4 ''Added 2/04/2022 td
 
     Public ElementCopy_Info_Base As ciBadgeInterfaces.IElement_Base ''Added 8/29/2019 td
     Public ElementCopy_Info_Text As ciBadgeInterfaces.IElement_TextOnly ''Modified 10/12/2019 td
     Public ElementCopy_Info_Field As ciBadgeInterfaces.IElement_TextField ''Renamed 10/12 & 8/29/2019 td
 
     Public GroupEdits As ISelectingElements ''Added 8/15/2019 thomas downes  
-    ''10/3/2019 td''Public FormDesigner_Denigrated As FormDesignProtoTwo ''Added 8/15/2019 td  
-    Public OriginalElementControl_ForApplyOnly As CtlGraphicFieldV3 ''Added 8/15/2019 td  
+    ''10/3/2019 td''Public FormDesigner_Denigrated As FormDesignProtoTwo ''Added 8/15/2019 td
+    ''
+    Public OriginalElementControl_ForApplyOnlyV3 As CtlGraphicFieldV3 ''Added 8/15/2019 td  
+    Public OriginalElementControl_ForApplyOnlyV4 As CtlGraphicFieldOrTextV4 ''Added 2/04/2022 td  
 
     Public UserConfirmed As Boolean ''Added 9/18/2019 thomas d. 
 
-    Public Sub New(par_element_fromLayout As ClassElementFieldV3, par_element_copy As ClassElementFieldV3,
-                   par_parentControl As CtlGraphicFieldV3)
+
+    Public Sub New(par_element_fromLayout As ClassElementFieldV3, par_element_copyV3 As ClassElementFieldV3,
+                   par_parentControlV3 As CtlGraphicFieldV3)
 
         ' This call is required by the designer.
         InitializeComponent()
@@ -54,25 +60,57 @@ Public Class DialogTextOffset
         ''
 
         ''Just to be extra cautious, let's use a copy of the copy.   :-)  ----9/18/2019 td
-        Me.ElementObject_CopyForEditing = par_element_copy.Copy()
+        Me.ElementObject_CopyForEditingV3 = par_element_copyV3.Copy()
 
         ''#1 9/18/2019 td''Me.ElementObject_ForLayout_NotUsed = par_element_fromLayout
         '' #2 9/18/2019 td''Me.ElementObject_ForLayout_NotUsed = Nothing ''Nothing, since it's not used!!  ---9/18/2019 td''par_element_fromLayout
-        Me.ElementObject_LayoutDesign = par_element_fromLayout
+        Me.ElementObject_LayoutDesignV3 = par_element_fromLayout
 
         ''Added 9/18/2019 td 
-        Me.ElementCopy_Info_Base = CType(Me.ElementObject_CopyForEditing, IElement_Base)
+        Me.ElementCopy_Info_Base = CType(Me.ElementObject_CopyForEditingV3, IElement_Base)
 
         ''10/12/2019 td''Me.ElementCopy_Info_Text = CType(Me.ElementObject_CopyForEditing, IElement_TextField)
-        Me.ElementCopy_Info_Text = CType(Me.ElementObject_CopyForEditing, IElement_TextOnly)
+        Me.ElementCopy_Info_Text = CType(Me.ElementObject_CopyForEditingV3, IElement_TextOnly)
 
         ''Added 9/18/2019 td 
-        OriginalElementControl_ForApplyOnly = par_parentControl
+        OriginalElementControl_ForApplyOnlyV3 = par_parentControlV3
 
         ''Added 9/18/2019 td 
-        Me.FieldInfo_Denigrated = Me.ElementObject_LayoutDesign.FieldInfo ''Added 9/18/2019 td 
+        Me.FieldInfo_Denigrated = Me.ElementObject_LayoutDesignV3.FieldInfo ''Added 9/18/2019 td 
 
     End Sub ''ENd of "Public Sub New(par_element_fromLayout As ClassElementField, par_element_copy As ClassElementField)"
+
+
+    Public Sub New(par_element_fromLayoutV4 As ClassElementFieldV4, par_element_copyV4 As ClassElementFieldV4,
+                   par_parentControlV4 As CtlGraphicFieldV4)
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ''
+        '' Add any initialization after the InitializeComponent() call.
+        ''
+        ''Just to be extra cautious, let's use a copy of the copy.   :-)  ----9/18/2019 td
+        Me.ElementObject_CopyForEditingV4 = par_element_copyV4.Copy()
+
+        ''#1 9/18/2019 td''Me.ElementObject_ForLayout_NotUsed = par_element_fromLayout
+        '' #2 9/18/2019 td''Me.ElementObject_ForLayout_NotUsed = Nothing ''Nothing, since it's not used!!  ---9/18/2019 td''par_element_fromLayout
+        Me.ElementObject_LayoutDesignV4 = par_element_fromLayoutV4
+
+        ''Added 9/18/2019 td 
+        Me.ElementCopy_Info_Base = CType(Me.ElementObject_CopyForEditingV4, IElement_Base)
+
+        ''10/12/2019 td''Me.ElementCopy_Info_Text = CType(Me.ElementObject_CopyForEditing, IElement_TextField)
+        Me.ElementCopy_Info_Text = CType(Me.ElementObject_CopyForEditingV4, IElement_TextOnly)
+
+        ''Added 9/18/2019 td 
+        OriginalElementControl_ForApplyOnlyV4 = par_parentControlV4
+
+        ''Added 9/18/2019 td 
+        Me.FieldInfo_Denigrated = Me.ElementObject_CopyForEditingV3.FieldInfo ''Added 9/18/2019 td 
+
+    End Sub ''ENd of "Public Sub New(par_element_fromLayout As ClassElementField, par_element_copy As ClassElementField)"
+
 
     Public Sub UpdateInfo_ViaInterfaces(par_elementInfo_Base As IElement_Base,
                           par_elementInfo_Text As IElement_TextOnly,
@@ -133,22 +171,97 @@ Public Class DialogTextOffset
 
     End Sub ''Public Sub UpdateInfo_ViaInterfaces(par_elementInfo_Base As IElement_Base, par_elementInfo_Text As IElement_Text)
 
-    Public Sub LoadFieldAndForm(par_layoutFun As ILayoutFunctions,
-                                par_originalCtl As CtlGraphicFieldV3)
+
+    Public Sub LoadFieldAndFormV3(par_layoutFun As ILayoutFunctions,
+                                par_originalCtlV3 As CtlGraphicFieldV3)
+        ''2/4/2022 td'' Public Sub LoadFieldAndForm(par_layoutFun As ILayoutFunctions,
+        ''                 par_originalCtl As CtlGraphicFieldV3)
+        ''
         ''9/19/2019 td''Public Sub LoadFieldAndForm(par_formDesigner As FormDesignProtoTwo,
         ''                  par_originalCtl As CtlGraphicFldLabel)
         ''
         ''Added 9/18/2019 td
         ''
         ''9/19/2019 td''Me.FormDesigner = par_formDesigner
-        Me.OriginalElementControl_ForApplyOnly = par_originalCtl
+        Me.OriginalElementControl_ForApplyOnlyV3 = par_originalCtlV3
 
         With CtlGraphicFldLabel1
 
-            .FieldInfo = Me.ElementObject_CopyForEditing.FieldInfo
+            .FieldInfo = Me.ElementObject_CopyForEditingV3.FieldInfo
 
             ''Added 9/18/2019 td 
-            .ElementClass_Obj = Me.ElementObject_CopyForEditing ''Added 9/19/2019 td 
+            .ElementClass_ObjV3 = Me.ElementObject_CopyForEditingV3 ''Added 9/19/2019 td 
+            .ElementInfo_Base = Me.ElementCopy_Info_Base
+            .ElementInfo_TextOnly = Me.ElementCopy_Info_Text
+            ''1/2/2022 td''.ElementInfo_Field = Me.ElementCopy_Info_Field ''Added 10/12/2019 td
+            .ElementInfo_TextField = Me.ElementCopy_Info_Field ''Added 10/12/2019 td
+
+            ''9/19/2019 td''.FormDesigner = par_formDesigner
+            ''9/19/2019 td''.LayoutFunctions = CType(par_formDesigner, ILayoutFunctions) ''Added 9/19/2019 td 
+            .LayoutFunctions = par_layoutFun
+
+            .Width = .ElementInfo_Base.Width_Pixels
+            .Height = .ElementInfo_Base.Height_Pixels
+
+            .Refresh_ImageV3(True)
+
+        End With ''End of "With CtlGraphicFldLabel1"
+
+        ''Position it at the center horizontally. 
+        Const c_boolCenterLabelControl As Boolean = False ''Added 9/18/2019 td
+        If (c_boolCenterLabelControl) Then ''Added 9/18/2019 td
+            ''Added 9/18/2019 td
+            CenterTheFieldControl()
+        End If ''End of "If (c_boolCenterLabelControl) Then"
+
+        ''
+        ''Added 9/13/2019 thomas downes
+        ''
+        Me.CtlElementHeight.ElementInfo_Base = Me.ElementCopy_Info_Base
+        Me.CtlElementHeight.ElementInfo_Text = Me.ElementCopy_Info_Text
+        Me.CtlElementHeight.InitiateLocalValue() ''Added 9/19/2019 td
+
+        Me.CtlElementWidth.ElementInfo_Base = Me.ElementCopy_Info_Base
+        ''1/2/2022 td''Me.CtlElementWidth.ElementInfo_Text = Me.ElementCopy_Info_Text
+        Me.CtlElementWidth.ElementInfo_TextOnly = Me.ElementCopy_Info_Text
+        Me.CtlElementWidth.InitiateLocalValue() ''Added 9/19/2019 td
+
+        Me.CtlFontSize.ElementInfo_Base = Me.ElementCopy_Info_Base
+        Me.CtlFontSize.ElementInfo_Text = Me.ElementCopy_Info_Text
+        Me.CtlFontSize.InitiateLocalValue() ''Added 9/19/2019 td
+
+        Me.CtlTextOffsetX.ElementInfo_Base = Me.ElementCopy_Info_Base
+        ''Jan2 2022 td''Me.CtlTextOffsetX.ElementInfo_Text = Me.ElementCopy_Info_Text
+        Me.CtlTextOffsetX.ElementInfo_TextOnly = Me.ElementCopy_Info_Text
+        Me.CtlTextOffsetX.InitiateLocalValue() ''Added 9/19/2019 td
+
+        Me.ctlTextOffsetY.ElementInfo_Base = Me.ElementCopy_Info_Base
+        Me.ctlTextOffsetY.ElementInfo_Text = Me.ElementCopy_Info_Text
+        Me.ctlTextOffsetY.InitiateLocalValue() ''Added 9/19/2019 td
+
+        ''Added 9/19/2019 td
+        ''
+        ''Does the font size scale to the element height???
+        ''
+        checkFontSizeScalesYN.Checked = Me.ElementCopy_Info_Text.FontSize_ScaleToElementYesNo
+
+    End Sub ''End of "Public Sub LoadFieldAndFormV3(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
+
+
+    Public Sub LoadFieldAndFormV4(par_layoutFun As ILayoutFunctions,
+                                par_originalCtlV4 As CtlGraphicFieldV4)
+        ''
+        ''Added 2/04/2022 td
+        ''
+        ''9/19/2019 td''Me.FormDesigner = par_formDesigner
+        Me.OriginalElementControl_ForApplyOnlyV4 = par_originalCtlV4
+
+        With CtlGraphicFldLabel1
+
+            ''Not really needed. 2/4/2022 td''.FieldInfo = Me.ElementObject_CopyForEditingV4.FieldInfo
+
+            ''Added 9/18/2019 td 
+            .ElementClass_ObjV3 = Me.ElementObject_CopyForEditingV4 ''Added 9/19/2019 td 
             .ElementInfo_Base = Me.ElementCopy_Info_Base
             .ElementInfo_TextOnly = Me.ElementCopy_Info_Text
             ''1/2/2022 td''.ElementInfo_Field = Me.ElementCopy_Info_Field ''Added 10/12/2019 td
@@ -204,6 +317,8 @@ Public Class DialogTextOffset
         checkFontSizeScalesYN.Checked = Me.ElementCopy_Info_Text.FontSize_ScaleToElementYesNo
 
     End Sub ''End of "Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
+
+
 
     ''--------10/3/2019 td----------------------------------------------------------------------------------------------
     ''Public Sub LoadFieldAndForm_NotInUse(par_elementInfo_Base As IElement_Base,
@@ -597,15 +712,16 @@ Public Class DialogTextOffset
         ''Added 9/18/2019 td  
         ''
         ''9/19/2019 td''UpdateInfo_ViaInterfaces(Me.ElementObject_LayoutDesign, Me.ElementObject_LayoutDesign)
-        UpdateInfo_ViaInterfaces(Me.ElementObject_LayoutDesign, Me.ElementObject_LayoutDesign, True)
+        UpdateInfo_ViaInterfaces(Me.ElementObject_LayoutDesignV3,
+                                 Me.ElementObject_LayoutDesignV3, True)
 
         ''9/23/2019 td''Me.OriginalElementControl_ForApplyOnly.Refresh_Master()
         ''9/23/2019 td''Me.LayoutFunctions.RedrawForm
 
-        With Me.OriginalElementControl_ForApplyOnly
+        With Me.OriginalElementControl_ForApplyOnlyV3
             .Refresh_Master()
             ''Added 9/23/2019 td 
-            .LayoutFunctions.RedrawForm
+            .LayoutFunctions.RedrawForm()
         End With ''ENd of "With Me.OriginalElementControl_ForApplyOnly"
 
     End Sub

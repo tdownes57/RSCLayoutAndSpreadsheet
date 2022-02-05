@@ -149,7 +149,8 @@ Public Class ClassLabelToImage
                               ByRef pref_rotated As Boolean,
                               ByVal par_bIsDesignStage As Boolean,
                               Optional par_pictureBox As PictureBox = Nothing,
-                              Optional par_graphicalCtl As CtlGraphicFieldV3 = Nothing) As Image
+                              Optional par_graphicalCtl As Control = Nothing) As Image
+        ''2/4/2022 td    Optional par_graphicalCtl As CtlGraphicFieldV3 = Nothing) As Image
         ''
         ''Added 7/17/2019 thomas downes
         ''

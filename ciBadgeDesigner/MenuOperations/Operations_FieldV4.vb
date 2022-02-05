@@ -2,7 +2,7 @@
 Option Strict On
 Option Infer Off
 ''
-''Added 10/1/2019 td
+''Added 2/04/2022 td
 ''
 
 ''----Imports ciBadgeElements
@@ -10,7 +10,7 @@ Imports System.Drawing ''Added 1/2/2022 td
 Imports __RSCWindowsControlLibrary ''Added 1/5/2022 td 
 Imports ciBadgeInterfaces ''Added 12/30/2021 
 
-Public Class Operations_FieldElement
+Public Class Operations_FieldV4
     Inherits Operations__Text
     ''Jan17 2022 ''Implements ICurrentElement ''Added 12/28/2021 td
 
@@ -35,8 +35,10 @@ Public Class Operations_FieldElement
     Public WithEvents MyToolstripItem As New ToolStripMenuItem ''Added 10/11/2019 td 
 
     ''Jan5 2022 td''
-    Public Property CtlCurrentElementField As ciBadgeDesigner.CtlGraphicFieldV3 ''CtlGraphicFldLabel
+    Public Property CtlCurrentElementFieldV4 As ciBadgeDesigner.CtlGraphicFieldV4 ''CtlGraphicFldLabel
     ''Jan17 2022 ''Public Property CtlCurrentElement As RSCMoveableControlVB Implements ICurrentElement.CtlCurrentElement
+
+    Public Property ElementFieldV4 As ciBadgeElements.ClassElementFieldV4 ''Added 2/04/2022
 
     Public Overrides Property Element_Type As Enum_ElementType = Enum_ElementType.Field ''Added 1/21/2022 td 
 
@@ -81,7 +83,8 @@ Public Class Operations_FieldElement
         Dim bIsCustomField As Boolean ''Added 12/14/2021 
         Const c_boolTryNewSub As Boolean = True ''Added 12/14/2021 td
 
-        bIsCustomField = (CtlCurrentElementField.ElementClass_Obj.FieldObjectCustom IsNot Nothing)
+        ''2/4/2022 td''bIsCustomField = (CtlCurrentElementField.ElementClass_Obj.FieldObjectCustom IsNot Nothing)
+        bIsCustomField = (CtlCurrentElementFieldV3.ElementClass_ObjV3.FieldObjectCustom IsNot Nothing)
 
         If (bIsCustomField And c_boolTryNewSub) Then
 
@@ -113,12 +116,12 @@ Public Class Operations_FieldElement
 
         ''Can (should) we just show a single field? ''form_ToShow.JustOneField = Me.FieldInfo
         ''10/2/2019 td''form_ToShow.JustOneField_Index = Me.FieldInfo.FieldIndex
-        form_ToShow.JustOneField_Index = CtlCurrentElementField.FieldInfo.FieldIndex
+        form_ToShow.JustOneField_Index = CtlCurrentElementFieldV4.FieldInfo.FieldIndex
 
         ''Added 12/13/2021 thomas downes
-        form_ToShow.JustOneField_Any = CtlCurrentElementField.ElementClass_Obj.FieldObjectAny
-        form_ToShow.JustOneField_Custom = CtlCurrentElementField.ElementClass_Obj.FieldObjectCustom
-        form_ToShow.JustOneField_Standard = CtlCurrentElementField.ElementClass_Obj.FieldObjectStandard
+        form_ToShow.JustOneField_Any = CtlCurrentElementFieldV4.ElementClass_Obj.FieldObjectAny
+        form_ToShow.JustOneField_Custom = CtlCurrentElementFieldV4.ElementClass_Obj.FieldObjectCustom
+        form_ToShow.JustOneField_Standard = CtlCurrentElementFieldV4.ElementClass_Obj.FieldObjectStandard
 
         ''Added 12/12/2021 td
         ''--form_ToShow.ListOfFields_Custom = MenuCache_ElemFlds.CacheOfFieldsEtc.ListOfFields_Custom
@@ -414,7 +417,8 @@ Public Class Operations_FieldElement
             ''9/03/2019 td''frm_ToShow.LoadFieldAndForm(Me.ElementInfo_Text, Me.FieldInfo, Me.FormDesigner, Me)
             ''9/18/2019 td''frm_ToShow.LoadFieldAndForm(Me.ElementInfo_Base, Me.ElementInfo_Text, Me.FieldInfo, Me.FormDesigner, Me)
             ''9/19/2019 td''frm_ToShow.LoadFieldAndForm(Me.FormDesigner, Me)
-            frm_ToShow.LoadFieldAndForm(Me.LayoutFunctions, Me.CtlCurrentElementField)
+            ''2/4/2022 td'' frm_ToShow.LoadFieldAndForm(Me.LayoutFunctions, Me.CtlCurrentElementField)
+            frm_ToShow.LoadFieldAndFormV4(Me.LayoutFunctions, Me.CtlCurrentElementField)
 
             ''Major call !!
             frm_ToShow.ShowDialog()
@@ -501,17 +505,18 @@ Public Class Operations_FieldElement
         ''Added 12/12/2021 thomas downes
         ''#1 1/5/2022 td''Me.CacheOfFieldsEtc.CheckCacheIsLatestForEdits(boolIsLatest, boolIsCopyOfLatest)
         ''#2 1/5/2022 td''Me.CtlCurrentElement.CheckCacheIsLatestForEdits(boolIsLatest, boolIsCopyOfLatest)
+
         Dim objCacheOfFieldsEtc As ciBadgeCachePersonality.ClassElementsCache_Deprecated ''Added 1/5/2022
-        Me.CtlCurrentElementField = CType(Me.CtlCurrentElement, CtlGraphicFieldV3)
-        objCacheOfFieldsEtc = Me.CtlCurrentElementField.ParentDesigner.ElementsCache_UseEdits
+        Me.CtlCurrentElementFieldV4 = CType(Me.CtlCurrentElement, CtlGraphicFieldV4)
+        objCacheOfFieldsEtc = Me.CtlCurrentElementFieldV4.ParentDesigner.ElementsCache_UseEdits
         objCacheOfFieldsEtc.CheckCacheIsLatestForEdits(boolIsLatest, boolIsCopyOfLatest)
         If (Not boolIsLatest) Then Throw New Exception("This is not the latest cache of edits.")
 
-        With Me.CtlCurrentElementField ''Added 10/17/2019 td
+        With Me.CtlCurrentElementFieldV4 ''Added 10/17/2019 td
 
             Dim frm_ToShow As New DialogTextBorder(.ElementClass_Obj, .ElementClass_Obj.Copy())
             ''Denigrated. 9/19 td''frm_ToShow.LoadFieldAndForm(Me.FormDesigner, Me)
-            frm_ToShow.LoadFieldAndForm(Me.LayoutFunctions, Me.CtlCurrentElementField)
+            frm_ToShow.LoadFieldAndForm(Me.LayoutFunctions, Me.CtlCurrentElementFieldV4)
 
             ''Major call !!
             frm_ToShow.ShowDialog()
@@ -720,3 +725,4 @@ Public Class Operations_FieldElement
 
 
 End Class
+

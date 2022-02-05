@@ -806,27 +806,28 @@ Public Class ClassElementFieldOrTextV4
 
     End Function ''End of "Public Function GenerateImage_NotInUse(par_label As Label) As Image"
 
-    ''Public Function Copy() As ClassElementFieldV3
-    ''    ''
-    ''    ''Added 9/17/2019 
-    ''    ''
-    ''    Dim objCopy As New ClassElementFieldV3
-    ''
-    ''    ''10/12/2019 td''objCopy.LoadbyCopyingMembers(Me, Me)
-    ''    ''10/13/2019 td''objCopy.LoadbyCopyingMembers(Me, Me, Me)
-    ''    ''12/13/2021 td''objCopy.LoadbyCopyingMembers(Me, Me, Me, Me.BadgeLayout)
-    ''    objCopy.LoadbyCopyingMembers(Me, Me, Me, Me, Me.BadgeLayout)
-    ''
-    ''    Return objCopy
-    ''
-    ''End Function ''End of "Public Function Copy() As ClassElementField"
+    Public Function Copy() As ClassElementFieldOrTextV4
+        ''
+        ''Added 2/4/2022 & 9/17/2019 
+        ''
+        Dim objCopy As New ClassElementFieldOrTextV4
+
+        ''10/12/2019 td''objCopy.LoadbyCopyingMembers(Me, Me)
+        ''10/13/2019 td''objCopy.LoadbyCopyingMembers(Me, Me, Me)
+        ''12/13/2021 td''objCopy.LoadbyCopyingMembers(Me, Me, Me, Me.BadgeLayout)
+        ''02/04/2022 td''objCopy.LoadByCopyingMembers(Me, Me, Me, Me, Me.BadgeLayout)
+        objCopy.LoadbyCopyingMembers(Me, Me, Me, Me.BadgeLayout)
+
+        Return objCopy
+
+    End Function ''End of "Public Function Copy() As ClassElementFieldOrTextV4"
 
 
-    Public Sub LoadbyCopyingMembers(par_objectElementV4 As ClassElementFieldV4,
+    Public Sub LoadbyCopyingMembers(par_objectElementV4 As ClassElementFieldOrTextV4,
                                     par_ElementInfo_Base As IElement_Base,
                                     par_ElementInfo_Text As IElement_TextOnly,
-                                    par_ElementInfo_Field As IElement_TextField,
                                     par_badgeLayout As BadgeLayoutClass)
+        ''2/4/2022 td ''     par_ElementInfo_Field As IElement_TextField,
         ''
         ''Added 9/13/2019 thomas downes
         ''

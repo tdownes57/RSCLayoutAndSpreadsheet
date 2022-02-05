@@ -43,16 +43,20 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
     Public ElementCopy_Info_Base As ciBadgeInterfaces.IElement_Base ''Added 8/16/2019 td
 
     Public ElementObject_ForLayout_NotUsed As ClassElementFieldV3 ''Added 9/18/2019 td
-    Public ElementObject_Copy As ClassElementFieldV3 ''Added 9/18/2019 td
+    ''2/4/2022 td''Public ElementObject_Copy As ClassElementFieldLbl ''Added 9/18/2019 td
+    Public ElementObject_CopyV3 As ClassElementFieldV3 ''Added 9/18/2019 td
+    Public ElementObject_CopyV4 As ClassElementFieldV4 ''Added 2/04/2022 td
 
     Public GroupEdits As ISelectingElements ''Added 8/15/2019 thomas downes  
 
     ''9/19/2019 td''Public FormDesigner As FormDesignProtoTwo ''Added 8/15/2019 td  
     Public LayoutFunctions As ILayoutFunctions ''Added 9/19/2019 td  
 
-    Public OriginalElementControl As CtlGraphicFieldV3 ''Added 8/15/2019 td  
+    Public OriginalElementControlV3 As CtlGraphicFieldV3 ''Added 8/15/2019 td  
+    Public OriginalElementControlV4 As CtlGraphicFieldV4 ''Added 2/04/2022 td  
 
     Public UserConfirmed As Boolean ''Added 9/18/2019 thomas d. 
+
 
     Public Sub New(par_element_fromLayout As ClassElementFieldV3, par_element_copy As ClassElementFieldV3)
         ''
@@ -76,6 +80,33 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
         Me.ElementCopy_Info_TextField = CType(Me.ElementObject_Copy, IElement_TextField)
 
     End Sub ''ENd of "Public Sub New(par_element_fromLayout As ClassElementField, par_element_copy As ClassElementField)"
+
+
+    Public Sub New(par_element_fromLayoutV4 As ClassElementFieldV4,
+                   par_element_copyV4 As ClassElementFieldV4)
+        ''
+        ''Added 9/18/2019 thomas d. 
+        ''
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ''
+        ' Add any initialization after the InitializeComponent() call.
+        ''
+
+        ''Just to be extra cautious, let's use a copy of the copy.   :-)  ----9/18/2019 td
+        Me.ElementObject_CopyV4 = par_element_copyV4.Copy()
+
+        ''9/18/2019 td''Me.ElementObject_ForLayout_NotUsed = par_element_fromLayout
+        Me.ElementObject_ForLayout_NotUsed = Nothing ''9/18/2019 td''par_element_fromLayout
+
+        ''Added 9/18/2019 td 
+        Me.ElementCopy_Info_Base = CType(Me.ElementObject_CopyV4, IElement_Base)
+        Me.ElementCopy_Info_TextField = CType(Me.ElementObject_CopyV4, IElement_TextField)
+
+    End Sub ''ENd of "Public Sub New(par_element_fromLayout As ClassElementField, par_element_copy As ClassElementField)"
+
+
 
     Public Sub UpdateInfo_ViaInterface(par_elementInfo As IElement_Base, Optional par_overrideConfirmation As Boolean = False)
         ''
@@ -110,15 +141,18 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
 
     End Sub ''Public Sub UpdateInfo_ViaInterface(par_elementInfo As IElement_Base)
 
-    Public Sub LoadFieldAndForm(par_layoutFun As ILayoutFunctions,
-                                par_originalCtl As CtlGraphicFieldV3)
+
+    Public Sub LoadFieldAndFormV3(par_layoutFun As ILayoutFunctions,
+                                par_originalCtlV3 As CtlGraphicFieldV3)
 
         ''
         ''Added 9/18/2019 td
         ''
         ''Denigrated. 9/19/2019 td''Me.FormDesigner = par_formDesigner
         Me.LayoutFunctions = par_layoutFun ''Added 9/19/2019 td  
-        Me.OriginalElementControl = par_originalCtl
+
+        ''2/4/2022 td''Me.OriginalElementControl = par_originalCtl
+        Me.OriginalElementControlV3 = par_originalCtlV3
 
         With CtlGraphicFldLabel1
 
@@ -158,6 +192,59 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
         CenterTheFieldControl()
 
     End Sub ''End of "Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
+
+
+    Public Sub LoadFieldAndFormV4(par_layoutFun As ILayoutFunctions,
+                                par_originalCtlV4 As CtlGraphicFieldV4)
+
+        ''
+        ''Added 2/04/2022 td
+        ''
+        ''Denigrated. 9/19/2019 td''Me.FormDesigner = par_formDesigner
+        Me.LayoutFunctions = par_layoutFun ''Added 9/19/2019 td  
+        ''2/4/2022 td ''Me.OriginalElementControl = par_originalCtl
+        Me.OriginalElementControlV4 = par_originalCtlV4
+
+        With CtlGraphicFldLabel1
+
+            .FieldInfo = Me.ElementObject_Copy.FieldInfo
+
+            ''Added 1/5/2022 td
+            ''  Populate the handy interface references.
+            ''  
+            Me.ElementCopy_Info_Base = Me.ElementObject_Copy
+            Me.ElementCopy_Info_TextOnly = Me.ElementObject_Copy
+            Me.ElementCopy_Info_TextField = Me.ElementObject_Copy
+
+            ''Added 9/18/2019 td 
+            .ElementInfo_Base = Me.ElementCopy_Info_Base
+            ''12/31/2021 td''.ElementInfo_Text = Me.ElementCopy_Info_Text
+            .ElementInfo_TextOnly = Me.ElementCopy_Info_TextOnly
+            .ElementInfo_TextField = Me.ElementCopy_Info_TextField ''Added 12/31/2021 thomas downes
+
+            ''Denigrated. 9/19/2019 td''.FormDesigner = par_formDesigner
+            .LayoutFunctions = par_layoutFun ''Added 9/19/2019 td 
+
+            .Width = .ElementInfo_Base.Width_Pixels
+            .Height = .ElementInfo_Base.Height_Pixels
+
+            ''Jan5 2022 td''.Refresh_Image(True)
+            .Refresh_ImageV3(True, True, True, True, Me.ElementObject_Copy)
+
+        End With ''End of "With CtlGraphicFldLabel1"
+
+        ''Added 9/13/2019 thomas downes
+        Me.CtlBorderWidth.ElementInfo_Base = Me.ElementCopy_Info_Base
+        ''12/31/2021 ''Me.CtlBorderWidth.ElementInfo_Text = Me.ElementCopy_Info_Text
+        Me.CtlBorderWidth.ElementInfo_TextOnly = Me.ElementCopy_Info_TextOnly ''added 12/31/2021
+        Me.CtlBorderWidth.ElementInfo_TextField = Me.ElementCopy_Info_TextField ''added 12/31/2021
+
+        ''Position it at the center horizontally. 
+        CenterTheFieldControl()
+
+    End Sub ''End of "Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
+
+
 
     ''--------9/19/2019 td----------------------------------------------------------------------------------------------
     ''Denigrated.  9/19/2019 td''Public Sub LoadFieldAndForm(par_formDesigner As FormDesignProtoTwo,

@@ -157,12 +157,6 @@
     <Compile Include="Controls\CtlGraphicQRCode.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\CtlGraphicRecipientFieldV4.Designer.vb">
-      <DependentUpon>CtlGraphicRecipientFieldV4.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\CtlGraphicRecipientFieldV4.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="Controls\CtlGraphicSignature.Designer.vb">
       <DependentUpon>CtlGraphicSignature.vb</DependentUpon>
     </Compile>
@@ -312,7 +306,8 @@
     <Compile Include="MenuOperations\MenuCache_Generic_Partial.vb" />
     <Compile Include="MenuOperations\Operations_Background.vb" />
     <Compile Include="MenuOperations\Operations_Desktop.vb" />
-    <Compile Include="MenuOperations\Operations_FieldElement.vb" />
+    <Compile Include="MenuOperations\Operations_FieldV3.vb" />
+    <Compile Include="MenuOperations\Operations_FieldV4.vb" />
     <Compile Include="MenuOperations\Operations_Portrait.vb" />
     <Compile Include="MenuOperations\Operations_StaticGraphic.vb" />
     <Compile Include="MenuOperations\Operations_Group.vb" />

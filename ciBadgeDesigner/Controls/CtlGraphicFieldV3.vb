@@ -53,11 +53,11 @@ Public Class CtlGraphicFieldV3
 
         Dim typeOps As Type
         Dim objOperations As Object ''Added 12/29/2021 td 
-        Dim objOperationsFldElem As Operations_FieldElement ''Added 12/31/2021 td 
+        Dim objOperationsFldElem As Operations_FieldV3 ''Added 12/31/2021 td 
         Dim sizeFieldElement As Size ''Added 1/26/2022 td
 
         ''Instantiate the Operations Object. 
-        objOperationsFldElem = New Operations_FieldElement() ''Added 1/1/2022 td
+        objOperationsFldElem = New Operations_FieldV3() ''Added 1/1/2022 td
         typeOps = objOperationsFldElem.GetType()
         objOperations = objOperationsFldElem
 
@@ -146,7 +146,9 @@ Public Class CtlGraphicFieldV3
     ''#1 8/29/2019 td''Public ElementInfo As ClassElementText
     '' #2 8/29/2019 td''Public ElementInfo_Text As ClassElementText
 
-    Public ElementClass_Obj As ClassElementFieldV3 ''Added 9/4/2019 thomas downes
+    Public ElementClass_ObjV3 As ClassElementFieldV3 ''Added 9/4/2019 thomas downes
+    Public ElementClass_ObjV4 As ClassElementFieldOrTextV4 ''Added 2/04/2022 thomas downes
+
     ''Jan5 2022''Public ElementClass_Obj_Copy As ClassElementField ''Added 1/05/2022 thomas downes
     Public ElementInfo_TextOnly As ciBadgeInterfaces.IElement_TextOnly ''Modifield 10/12/2019
     ''1/12/2022 td''Public ElementInfo_Base As ciBadgeInterfaces.IElement_Base
@@ -253,7 +255,7 @@ Public Class CtlGraphicFieldV3
         Me.FieldInfo = par_elementField.FieldInfo
         Me.ParentDesigner = par_oDesigner ''Added 1/5/2022 td
 
-        Me.ElementClass_Obj = par_elementField
+        Me.ElementClass_ObjV3 = par_elementField
         Me.ElementInfo_Base = CType(par_elementField, IElement_Base)
         ''10/12/2019 td''Me.ElementInfo_Text = CType(par_elementField, IElement_TextField)
         Me.ElementInfo_TextOnly = CType(par_elementField, IElement_TextOnly) ''Modified 10/12/2019 td
@@ -529,7 +531,7 @@ ExitHandler:
         ''7/30/2019 td''Me.ElementInfo.Font_DrawingClass = New Font("Times New Roman", 25, FontStyle.Italic)
 
         boolScaleFontSize = (Me.ElementInfo_TextOnly.FontSize_ScaleToElementYesNo)
-        If (boolScaleFontSize And Me.ElementClass_Obj Is Nothing) Then
+        If (boolScaleFontSize And Me.ElementClass_ObjV3 Is Nothing) Then
             ''Added 9/19/2019 td 
             MessageBox.Show("Where is the Element-Field Class???   We will need it to scale the Font.", "",
                             MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
@@ -577,9 +579,9 @@ ExitHandler:
                     If (Rotated_90_270(False) Or (.Width_Pixels < .Height_Pixels)) Then ''Added 1/28/2022 td
                         ''Use .Width_Pixels, since .Height_Pixels & .Width_Pixels
                         ''   have been switched due to rotation. ----1/28/2022 td
-                        Me.ElementClass_Obj.Font_ScaleAdjustment(.Width_Pixels)
+                        Me.ElementClass_ObjV3.Font_ScaleAdjustment(.Width_Pixels)
                     Else
-                        Me.ElementClass_Obj.Font_ScaleAdjustment(.Height_Pixels)
+                        Me.ElementClass_ObjV3.Font_ScaleAdjustment(.Height_Pixels)
                     End If ''End of "If (Rotated_90_270()) Then ... Else ..."
                 End With ''End of "With Me.ElementInfo_Base"
             End If ''End of "If (boolScaleFontSize) Then"
@@ -637,11 +639,11 @@ ExitHandler:
 
             ''Added 11-18-2019 td 
             Dim strTextToDisplay As String ''Added 11/18/2019 td
-            strTextToDisplay = Me.ElementClass_Obj.LabelText_ToDisplay(True, Nothing,
+            strTextToDisplay = Me.ElementClass_ObjV3.LabelText_ToDisplay(True, Nothing,
                          CtlGraphicFieldV3.UseExampleValues)
 
             ''Added 12/21/2021 td
-            strTextToDisplay = (strTextToDisplay & (" " & Me.ElementClass_Obj.CaptionSuffixIfNeeded).TrimEnd())
+            strTextToDisplay = (strTextToDisplay & (" " & Me.ElementClass_ObjV3.CaptionSuffixIfNeeded).TrimEnd())
 
             ''11/18 td''newTextImage =
             ''   modGenerate.TextImage_ByElemInfo(Me.ElementClass_Obj.LabelText_ToDisplay(True),
@@ -792,9 +794,9 @@ ExitHandler:
         Me.ElementInfo_Base.LeftEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Left_Omit(Me.Left)
 
         ''Added 11/29/2021 td
-        Me.ElementClass_Obj.DatetimeUpdated = Now ''Added 11/29/2021 td
-        Dim intPixelsTop As Integer = Me.ElementClass_Obj.TopEdge_Pixels
-        Dim intPixelsLeft As Integer = Me.ElementClass_Obj.LeftEdge_Pixels
+        Me.ElementClass_ObjV3.DatetimeUpdated = Now ''Added 11/29/2021 td
+        Dim intPixelsTop As Integer = Me.ElementClass_ObjV3.TopEdge_Pixels
+        Dim intPixelsLeft As Integer = Me.ElementClass_ObjV3.LeftEdge_Pixels
         Dim intSum As Integer = (intPixelsTop + intPixelsLeft)
 
         ''
@@ -887,7 +889,7 @@ ExitHandler:
         ''
         Dim boolTextImageRotated_0_180 As Boolean ''Added 9/23/2019 thomas d.  
 
-        Select Case Me.ElementClass_Obj.OrientationInDegrees
+        Select Case Me.ElementClass_ObjV3.OrientationInDegrees
 
             Case 90, 270
 
@@ -917,7 +919,7 @@ ExitHandler:
         ''
         Dim boolTextImageRotated_90_270 As Boolean ''Added 9/23/2019 thomas d.  
 
-        Select Case Me.ElementClass_Obj.OrientationInDegrees
+        Select Case Me.ElementClass_ObjV3.OrientationInDegrees
 
             Case 0, 360
 
@@ -947,7 +949,7 @@ ExitHandler:
         Dim boolTextImageRotated_90_270 As Boolean ''Added 9/23/2019 thomas d.  
         Const c_SemiCircle_Degrees As Integer = 180
 
-        boolReturnValue = (0 = (Me.ElementClass_Obj.OrientationInDegrees Mod c_SemiCircle_Degrees))
+        boolReturnValue = (0 = (Me.ElementClass_ObjV3.OrientationInDegrees Mod c_SemiCircle_Degrees))
 
         ''Double-check the orientation.  ----9/23/2019 td
         If (boolReturnValue) Then
@@ -967,7 +969,7 @@ ExitHandler:
         ''Added 7/25/2019 thomas d 
         ''
         ''----Return Me.ElementClass_Obj.LabelText_ToDisplay(True)
-        If (Me.ElementClass_Obj Is Nothing) Then
+        If (Me.ElementClass_ObjV3 Is Nothing) Then
 
             If (par_objElementCopy Is Nothing) Then
                 ''Added 12/2/2021 thomas downes
@@ -980,7 +982,7 @@ ExitHandler:
             End If ''End of "If (par_objElementCopy Is Nothing) Then ... Else ...."
 
         Else
-            Return Me.ElementClass_Obj.LabelText_ToDisplay(True)
+            Return Me.ElementClass_ObjV3.LabelText_ToDisplay(True)
 
         End If ''ENd of "If (Me.ElementClass_Obj Is Nothing) Then ... Else ...."
 
@@ -1090,7 +1092,7 @@ ExitHandler:
         boolBandOverlapsWithMe = boolBandIsInsideMe_BothWays
 
         If (boolBandOverlapsWithMe) Then
-            Me.ElementClass_Obj.SelectedHighlighting = True
+            Me.ElementClass_ObjV3.SelectedHighlighting = True
 
             ''10/13/2019 td''Me.Refresh_Image(False)
             If (par_bRedrawElement) Then Me.Refresh_ImageV3(False)
@@ -1108,19 +1110,19 @@ ExitHandler:
         ''
         If (par_bUseTempInfo) Then
 
-            Me.ElementClass_Obj.Width_Pixels = (TempResizeInfo_W + par_deltaWidth)
-            Me.ElementClass_Obj.Height_Pixels = (TempResizeInfo_H + par_deltaHeight)
+            Me.ElementClass_ObjV3.Width_Pixels = (TempResizeInfo_W + par_deltaWidth)
+            Me.ElementClass_ObjV3.Height_Pixels = (TempResizeInfo_H + par_deltaHeight)
         Else
-            Me.ElementClass_Obj.Width_Pixels += (par_deltaWidth)
-            Me.ElementClass_Obj.Height_Pixels += (par_deltaHeight)
-            Me.ElementClass_Obj.TopEdge_Pixels += (par_deltaTop)
-            Me.ElementClass_Obj.LeftEdge_Pixels += (par_deltaLeft)
+            Me.ElementClass_ObjV3.Width_Pixels += (par_deltaWidth)
+            Me.ElementClass_ObjV3.Height_Pixels += (par_deltaHeight)
+            Me.ElementClass_ObjV3.TopEdge_Pixels += (par_deltaTop)
+            Me.ElementClass_ObjV3.LeftEdge_Pixels += (par_deltaLeft)
         End If ''End of "If (par_bUseTempInfo) Then ... Else ..."
 
-        Me.Width = Me.ElementClass_Obj.Width_Pixels
-        Me.Height = Me.ElementClass_Obj.Height_Pixels
-        Me.Top = Me.ElementClass_Obj.TopEdge_Pixels
-        Me.Left = Me.ElementClass_Obj.LeftEdge_Pixels
+        Me.Width = Me.ElementClass_ObjV3.Width_Pixels
+        Me.Height = Me.ElementClass_ObjV3.Height_Pixels
+        Me.Top = Me.ElementClass_ObjV3.TopEdge_Pixels
+        Me.Left = Me.ElementClass_ObjV3.LeftEdge_Pixels
 
     End Sub ''End of "Public Sub ManageResizingByUser(par_intWidth As Integer, par_intHeight As Integer)"
 
@@ -1245,7 +1247,7 @@ ExitHandler:
             ''Added 9/20/2019 td  
             ''Jan2 2022 td''Me.ElementInfo_Field.ExampleValue_ForElement = textTypeExample.Text
             Me.ElementInfo_TextField.ExampleValue_ForElement = textTypeExample.Text
-            Me.ElementClass_Obj.ExampleValue_ForElement = textTypeExample.Text ''Redundant command. 
+            Me.ElementClass_ObjV3.ExampleValue_ForElement = textTypeExample.Text ''Redundant command. 
 
             ''Added 9/10/2019 td
             Me.Refresh_Master()
