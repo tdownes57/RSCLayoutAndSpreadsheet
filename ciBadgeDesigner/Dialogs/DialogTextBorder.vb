@@ -70,16 +70,17 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
         ''
 
         ''Just to be extra cautious, let's use a copy of the copy.   :-)  ----9/18/2019 td
-        Me.ElementObject_Copy = par_element_copy.Copy()
+        Me.ElementObject_CopyV3 = par_element_copy.Copy()
 
         ''9/18/2019 td''Me.ElementObject_ForLayout_NotUsed = par_element_fromLayout
         Me.ElementObject_ForLayout_NotUsed = Nothing ''9/18/2019 td''par_element_fromLayout
 
         ''Added 9/18/2019 td 
-        Me.ElementCopy_Info_Base = CType(Me.ElementObject_Copy, IElement_Base)
-        Me.ElementCopy_Info_TextField = CType(Me.ElementObject_Copy, IElement_TextField)
+        Me.ElementCopy_Info_Base = CType(Me.ElementObject_CopyV3, IElement_Base)
+        Me.ElementCopy_Info_TextField = CType(Me.ElementObject_CopyV3, IElement_TextField)
 
-    End Sub ''ENd of "Public Sub New(par_element_fromLayout As ClassElementField, par_element_copy As ClassElementField)"
+
+    End Sub ''ENd of "Public Sub New(par_element_fromLayout As ClassElementFieldV3, par_element_copy As ClassElementFieldV3)"
 
 
     Public Sub New(par_element_fromLayoutV4 As ClassElementFieldV4,
@@ -95,7 +96,7 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
         ''
 
         ''Just to be extra cautious, let's use a copy of the copy.   :-)  ----9/18/2019 td
-        Me.ElementObject_CopyV4 = par_element_copyV4.Copy()
+        ''Me.ElementObject_CopyV4 = par_element_copyV4.Copy()
 
         ''9/18/2019 td''Me.ElementObject_ForLayout_NotUsed = par_element_fromLayout
         Me.ElementObject_ForLayout_NotUsed = Nothing ''9/18/2019 td''par_element_fromLayout
@@ -106,6 +107,19 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
 
     End Sub ''ENd of "Public Sub New(par_element_fromLayout As ClassElementField, par_element_copy As ClassElementField)"
 
+    Public Sub New(par_element_fromLayoutV4 As ClassElementFieldV4)
+        ''
+        ''Added 2/04/2022 thomas d. 
+        ''
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ''
+        ' Add any initialization after the InitializeComponent() call.
+        ''
+
+
+    End Sub
 
 
     Public Sub UpdateInfo_ViaInterface(par_elementInfo As IElement_Base, Optional par_overrideConfirmation As Boolean = False)
@@ -156,14 +170,14 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
 
         With CtlGraphicFldLabel1
 
-            .FieldInfo = Me.ElementObject_Copy.FieldInfo
+            .FieldInfo = Me.ElementObject_CopyV3.FieldInfo
 
             ''Added 1/5/2022 td
             ''  Populate the handy interface references.
             ''  
-            Me.ElementCopy_Info_Base = Me.ElementObject_Copy
-            Me.ElementCopy_Info_TextOnly = Me.ElementObject_Copy
-            Me.ElementCopy_Info_TextField = Me.ElementObject_Copy
+            Me.ElementCopy_Info_Base = Me.ElementObject_CopyV3
+            Me.ElementCopy_Info_TextOnly = Me.ElementObject_CopyV3
+            Me.ElementCopy_Info_TextField = Me.ElementObject_CopyV3
 
             ''Added 9/18/2019 td 
             .ElementInfo_Base = Me.ElementCopy_Info_Base
@@ -178,7 +192,7 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
             .Height = .ElementInfo_Base.Height_Pixels
 
             ''Jan5 2022 td''.Refresh_Image(True)
-            .Refresh_ImageV3(True, True, True, True, Me.ElementObject_Copy)
+            .Refresh_ImageV3(True, True, True, True, Me.ElementObject_CopyV3)
 
         End With ''End of "With CtlGraphicFldLabel1"
 
@@ -207,14 +221,14 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
 
         With CtlGraphicFldLabel1
 
-            .FieldInfo = Me.ElementObject_Copy.FieldInfo
+            .FieldInfo = Me.ElementObject_CopyV4.FieldInfo
 
             ''Added 1/5/2022 td
             ''  Populate the handy interface references.
             ''  
-            Me.ElementCopy_Info_Base = Me.ElementObject_Copy
-            Me.ElementCopy_Info_TextOnly = Me.ElementObject_Copy
-            Me.ElementCopy_Info_TextField = Me.ElementObject_Copy
+            Me.ElementCopy_Info_Base = Me.ElementObject_CopyV4
+            Me.ElementCopy_Info_TextOnly = Me.ElementObject_CopyV4
+            Me.ElementCopy_Info_TextField = Me.ElementObject_CopyV4
 
             ''Added 9/18/2019 td 
             .ElementInfo_Base = Me.ElementCopy_Info_Base
@@ -229,7 +243,8 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
             .Height = .ElementInfo_Base.Height_Pixels
 
             ''Jan5 2022 td''.Refresh_Image(True)
-            .Refresh_ImageV3(True, True, True, True, Me.ElementObject_Copy)
+            ''Feb5 2022 td''.Refresh_ImageV3(True, True, True, True, Me.ElementObject_Copy)
+            .Refresh_ImageV4(True, True, True, True, Me.ElementObject_CopyV4)
 
         End With ''End of "With CtlGraphicFldLabel1"
 

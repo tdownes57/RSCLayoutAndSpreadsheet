@@ -261,7 +261,7 @@ Public Class DialogTextOffset
             ''Not really needed. 2/4/2022 td''.FieldInfo = Me.ElementObject_CopyForEditingV4.FieldInfo
 
             ''Added 9/18/2019 td 
-            .ElementClass_ObjV3 = Me.ElementObject_CopyForEditingV4 ''Added 9/19/2019 td 
+            .ElementClass_ObjV4 = Me.ElementObject_CopyForEditingV4 ''Added 9/19/2019 td 
             .ElementInfo_Base = Me.ElementCopy_Info_Base
             .ElementInfo_TextOnly = Me.ElementCopy_Info_Text
             ''1/2/2022 td''.ElementInfo_Field = Me.ElementCopy_Info_Field ''Added 10/12/2019 td

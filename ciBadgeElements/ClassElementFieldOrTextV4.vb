@@ -806,7 +806,8 @@ Public Class ClassElementFieldOrTextV4
 
     End Function ''End of "Public Function GenerateImage_NotInUse(par_label As Label) As Image"
 
-    Public Function Copy() As ClassElementFieldOrTextV4
+
+    Public Overridable Function Copy() As ClassElementFieldOrTextV4
         ''
         ''Added 2/4/2022 & 9/17/2019 
         ''

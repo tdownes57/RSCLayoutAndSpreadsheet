@@ -136,7 +136,7 @@ Public Class CtlGraphicFieldOrTextV4
     ''#1 8/29/2019 td''Public ElementInfo As ClassElementText
     '' #2 8/29/2019 td''Public ElementInfo_Text As ClassElementText
 
-    Public ElementClass_Obj As ClassElementFieldOrTextV4 ''Added 9/4/2019 thomas downes
+    Public Overridable Property ElementClass_Obj As ClassElementFieldOrTextV4 ''Added 9/4/2019 thomas downes
 
     ''Jan5 2022''Public ElementClass_Obj_Copy As ClassElementField ''Added 1/05/2022 thomas downes
     Public ElementInfo_TextOnly As ciBadgeInterfaces.IElement_TextOnly ''Modifield 10/12/2019
@@ -192,12 +192,14 @@ Public Class CtlGraphicFieldOrTextV4
         End Get
     End Property
 
+
     ''Public ReadOnly Property Textbox_ExampleValue As TextBox
     ''    Get
     ''        ''Added 10/17/2019 td 
     ''        Return Me.textTypeExample
     ''    End Get
     ''End Property
+
 
     Public Sub New()
 

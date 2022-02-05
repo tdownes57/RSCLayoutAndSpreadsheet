@@ -22,6 +22,17 @@ Public Class CtlGraphicFieldV4
     Private Shared mod_intFieldTexts As Integer ''Feb01 2022 td'' += 1
     Private Shared mod_intFields As Integer ''Feb01 2022 td'' += 1
 
+    Public Overloads Property ElementClass_Obj As ClassElementFieldV4 ''Added 2/4/2022 thomas downes
+
+
+    Public ReadOnly Property Textbox_ExampleValue As TextBox
+        Get
+            ''Added 10/17/2019 td 
+            Return Me.textTypeExample
+        End Get
+    End Property
+
+
     Public Shared Function GetFieldControl(par_parametersGetElementControl As ClassGetElementControlParams,
                                            par_elementField As ClassElementFieldV4,
                                            par_formParent As Form,
@@ -120,12 +131,12 @@ Public Class CtlGraphicFieldV4
             .LayoutFunctions = .Designer ''Added 1/24/2022 td
 
             ''Added 2/2/2022 td
-            .Element_FieldV4 = CtlFieldV4.Element_FieldV4
+            .ElementFieldV4 = CtlFieldV4.Element_FieldV4
 
             ''Added 2/3/2022 td
             .SelectingElements = par_parametersGetElementControl.DesignerClass ''Added 2/3/2022 td
 
-        End With ''End of "With objOperationsFldElem"
+        End With ''End of "With objOperationsFld_V4"
 
         Return CtlFieldV4
 
@@ -523,6 +534,36 @@ ExitHandler:
         End If ''ENd of "If (par_boolRefreshUserControl) Then"
 
     End Sub ''End of Public Sub Refresh_ImageV3
+
+
+    Public Function Copy(pboolDummy As Boolean) As ClassElementFieldV4
+        ''
+        ''Added 2/4/2022 & 9/17/2019 
+        ''
+        Dim objCopy As New ClassElementFieldV4
+
+        ''Feb4 2022 td''objCopy.LoadByCopyingMembers(Me, Me, Me, Me.BadgeLayout)
+        ''objCopy.LoadByCopyingMembers(Me, Me, Me, MyBase.BadgeLayout)
+
+        Return objCopy
+
+    End Function ''End of "Public Function Copy() As ClassElementFieldV4"
+
+
+    Public Sub LoadbyCopyingMembers(par_objectElementV4 As ClassElementFieldV4,
+                                    par_ElementInfo_Base As IElement_Base,
+                                    par_ElementInfo_Text As IElement_TextOnly,
+                                    par_badgeLayout As BadgeLayoutClass)
+        ''
+        ''Added Feb. 4 2022 td 
+        ''
+        Me.Element_FieldV4.LoadByCopyingMembers(par_objectElementV4, par_ElementInfo_Base,
+                     par_ElementInfo_Text,
+                     par_objectElementV4,
+                     par_badgeLayout)
+
+    End Sub ''End of "Public Sub LoadbyCopyingMembers"
+
 
 
 End Class

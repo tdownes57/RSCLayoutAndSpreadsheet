@@ -362,6 +362,9 @@
     <EmbeddedResource Include="Controls\CtlGraphicFieldV3.resx">
       <DependentUpon>CtlGraphicFieldV3.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtlGraphicFieldV4.resx">
+      <DependentUpon>CtlGraphicFieldV4.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlGraphicPortrait.resx">
       <DependentUpon>CtlGraphicPortrait.vb</DependentUpon>
     </EmbeddedResource>

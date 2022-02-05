@@ -83,7 +83,7 @@ Public Class Operations_FieldV4
         Dim bIsCustomField As Boolean ''Added 12/14/2021 
         Const c_boolTryNewSub As Boolean = True ''Added 12/14/2021 td
 
-        ''2/4/2022 td''bIsCustomField = (CtlCurrentElementField.ElementClass_Obj.FieldObjectCustom IsNot Nothing)
+        ''2/4/2022 td''bIsCustomField = (CtlCurrentElementFieldV4.ElementClass_Obj.FieldObjectCustom IsNot Nothing)
         bIsCustomField = (CtlCurrentElementFieldV3.ElementClass_ObjV3.FieldObjectCustom IsNot Nothing)
 
         If (bIsCustomField And c_boolTryNewSub) Then
@@ -150,12 +150,12 @@ Public Class Operations_FieldV4
 
         ''Can (should) we just show a single field? ''form_ToShow.JustOneField = Me.FieldInfo
         ''10/2/2019 td''form_ToShow.JustOneField_Index = Me.FieldInfo.FieldIndex
-        par_form_ToShow.JustOneField_Index = CtlCurrentElementField.FieldInfo.FieldIndex
+        par_form_ToShow.JustOneField_Index = CtlCurrentElementFieldV4.FieldInfo.FieldIndex
 
         ''Added 12/13/2021 thomas downes
-        par_form_ToShow.JustOneField_Any = CtlCurrentElementField.ElementClass_Obj.FieldObjectAny
-        par_form_ToShow.JustOneField_Custom = CtlCurrentElementField.ElementClass_Obj.FieldObjectCustom
-        par_form_ToShow.JustOneField_Standard = CtlCurrentElementField.ElementClass_Obj.FieldObjectStandard
+        par_form_ToShow.JustOneField_Any = CtlCurrentElementFieldV4.ElementClass_Obj.FieldObjectAny
+        par_form_ToShow.JustOneField_Custom = CtlCurrentElementFieldV4.ElementClass_Obj.FieldObjectCustom
+        par_form_ToShow.JustOneField_Standard = CtlCurrentElementFieldV4.ElementClass_Obj.FieldObjectStandard
 
         ''Added 12/12/2021 td
         ''--form_ToShow.ListOfFields_Custom = MenuCache_ElemFlds.CacheOfFieldsEtc.ListOfFields_Custom
@@ -192,13 +192,13 @@ Public Class Operations_FieldV4
 
         ColorDialog1.ShowDialog()
 
-        If (Me.SelectingElements.ElementsList_IsItemUnselected(Me.CtlCurrentElementField)) Then
+        If (Me.SelectingElements.ElementsList_IsItemUnselected(Me.CtlCurrentElementFieldV4)) Then
             ''10/3 td''If (LabelsList_IsItemUnselected(Me)) Then
 
             ''7/30/2019 td''Me.ElementInfo.FontColor = ColorDialog1.Color
             ''8/29/2019 td''Me.ElementInfo.BackColor = ColorDialog1.Color
             ''10/3/2019 td''Me.ElementInfo_Base.Back_Color = ColorDialog1.Color
-            Me.CtlCurrentElementField.ElementInfo_Base.Back_Color = Me.ColorDialog1.Color
+            Me.CtlCurrentElementFieldV4.ElementInfo_Base.Back_Color = Me.ColorDialog1.Color
 
             ''Me.ElementInfo.Width_Pixels = Me.Width
             ''Me.ElementInfo.Height_Pixels = Me.Height
@@ -208,10 +208,10 @@ Public Class Operations_FieldV4
 
             ''9/15/2019 td ''Refresh_Image()
             ''10/3/2019 td ''Refresh_Image(True)
-            Me.CtlCurrentElementField.Refresh_ImageV3(True)
-            Me.CtlCurrentElementField.Refresh()
+            Me.CtlCurrentElementFieldV4.Refresh_ImageV3(True)
+            Me.CtlCurrentElementFieldV4.Refresh()
 
-        ElseIf (Me.SelectingElements.ElementsList_IsItemIncluded(Me.CtlCurrentElementField)) Then
+        ElseIf (Me.SelectingElements.ElementsList_IsItemIncluded(Me.CtlCurrentElementFieldV4)) Then
             ''10/3/2019 td''ElseIf (LabelsList_IsItemIncluded(Me)) Then
 
             ''Added 8/3/2019 td 
@@ -301,7 +301,7 @@ Public Class Operations_FieldV4
 
     ''    If (boolExitEarly) Then Exit Sub ''Added 8/13/2019 td
 
-    ''    Me.FontDialog1.Font = Me.CtlCurrentElementField.ElementClass_Obj.Font_DrawingClass ''Added 7/31/2019 td  
+    ''    Me.FontDialog1.Font = Me.CtlCurrentElementFieldV4.ElementClass_Obj.Font_DrawingClass ''Added 7/31/2019 td  
 
     ''    ''
     ''    ''Major call !!   Show the font-selection dialog to the user. 
@@ -316,14 +316,14 @@ Public Class Operations_FieldV4
 
     ''    If (Me.SelectingElements.ElementsList_IsItemUnselected(Me.CtlCurrentElementField)) Then
 
-    ''        Me.CtlCurrentElementField.ElementInfo_TextOnly.Font_DrawingClass = Me.FontDialog1.Font
+    ''        Me.CtlCurrentElementFieldV4.ElementInfo_TextOnly.Font_DrawingClass = Me.FontDialog1.Font
 
     ''        ''Added 10/17/2019 td 
     ''        If (Me.FontDialog1.Font.Unit = GraphicsUnit.Pixel) Then
     ''            ''Added 10/17/2019 td 
     ''            MsgBox("Program error, unexpected Font Unit", MsgBoxStyle.Exclamation, "OpenDialog_Font")
     ''        Else
-    ''            Me.CtlCurrentElementField.ElementInfo_TextOnly.FontSize_Pixels = Me.FontDialog1.Font.Size  ''Added 8/17/2019 td
+    ''            Me.CtlCurrentElementFieldV4.ElementInfo_TextOnly.FontSize_Pixels = Me.FontDialog1.Font.Size  ''Added 8/17/2019 td
     ''        End If ''End of "If (Me.FontDialog1.Font.Unit = GraphicsUnit.Pixel) Then ... Else ..."
 
     ''        Application.DoEvents()
@@ -332,8 +332,8 @@ Public Class Operations_FieldV4
     ''        ''9/15/2019 td''Refresh_Image()
     ''        ''10/3/2019 td''Refresh_Image(False)
     ''        ''10/3/2019 td''Me.Refresh()
-    ''        Me.CtlCurrentElementField.Refresh_ImageV3(False)
-    ''        Me.CtlCurrentElementField.Refresh()
+    ''        Me.CtlCurrentElementFieldV4.Refresh_ImageV3(False)
+    ''        Me.CtlCurrentElementFieldV4.Refresh()
 
     ''    ElseIf (Me.SelectingElements.ElementsList_IsItemIncluded(Me.CtlCurrentElementField)) Then
 
@@ -383,10 +383,10 @@ Public Class Operations_FieldV4
         ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
         ''
         ''10/17 td''With textTypeExample
-        With Me.CtlCurrentElementField.Textbox_ExampleValue
+        With Me.CtlCurrentElementFieldV4.Textbox_ExampleValue
 
             .Visible = True
-            .Text = Me.CtlCurrentElementField.ElementInfo_TextOnly.Text_Static ''Added 8/16/2019 td
+            .Text = Me.CtlCurrentElementFieldV4.ElementInfo_TextOnly.Text_Static ''Added 8/16/2019 td
             .SelectAll() ''Added 8/16/2019 td
 
             ''Added 9/10/2019 td 
@@ -406,9 +406,17 @@ Public Class Operations_FieldV4
         ''
         ''9/18/2019 td''Dim frm_ToShow As New DialogTextOffset
 
-        With Me.CtlCurrentElementField
+        With Me.CtlCurrentElementFieldV4
 
-            Dim frm_ToShow As New DialogTextOffset(.ElementClass_Obj, .ElementClass_Obj.Copy(), Me.CtlCurrentElementField)
+            ''Feb5 2022''Dim frm_ToShow As New DialogTextOffset(.ElementClass_Obj, .ElementClass_Obj.Copy(),
+            ''Feb5 2022''           Me.CtlCurrentElementFieldV4)
+
+            ''Added Feb5 2022 td 
+            Dim objElementCopyV4 As ciBadgeElements.ClassElementFieldV4
+            objElementCopyV4 = CType(.ElementClass_Obj.Copy(), ciBadgeElements.ClassElementFieldV4)
+
+            Dim frm_ToShow As New DialogTextOffset(.ElementClass_Obj, objElementCopyV4,
+                        Me.CtlCurrentElementFieldV4)
 
             ''
             ''Added 8/10/2019 thomas downes
@@ -418,7 +426,7 @@ Public Class Operations_FieldV4
             ''9/18/2019 td''frm_ToShow.LoadFieldAndForm(Me.ElementInfo_Base, Me.ElementInfo_Text, Me.FieldInfo, Me.FormDesigner, Me)
             ''9/19/2019 td''frm_ToShow.LoadFieldAndForm(Me.FormDesigner, Me)
             ''2/4/2022 td'' frm_ToShow.LoadFieldAndForm(Me.LayoutFunctions, Me.CtlCurrentElementField)
-            frm_ToShow.LoadFieldAndFormV4(Me.LayoutFunctions, Me.CtlCurrentElementField)
+            frm_ToShow.LoadFieldAndFormV4(Me.LayoutFunctions, Me.CtlCurrentElementFieldV4)
 
             ''Major call !!
             frm_ToShow.ShowDialog()
@@ -448,7 +456,7 @@ Public Class Operations_FieldV4
                 ''
                 ''
                 ''Added 8/18/2019 td 
-                If (Me.SelectingElements.ElementsList_IsItemIncluded(Me.CtlCurrentElementField)) Then
+                If (Me.SelectingElements.ElementsList_IsItemIncluded(Me.CtlCurrentElementFieldV4)) Then
 
                     ''Added 8/18/2019 td 
                     ''1/12/2022 td''Dim objElements As HashSet(Of CtlGraphicFldLabel)
@@ -514,9 +522,11 @@ Public Class Operations_FieldV4
 
         With Me.CtlCurrentElementFieldV4 ''Added 10/17/2019 td
 
-            Dim frm_ToShow As New DialogTextBorder(.ElementClass_Obj, .ElementClass_Obj.Copy())
+            Dim frm_ToShow As DialogTextBorder
+            frm_ToShow = New DialogTextBorder(.ElementClass_Obj) ''2/4/2022 '', .ElementClass_Obj.Copy(True))
+
             ''Denigrated. 9/19 td''frm_ToShow.LoadFieldAndForm(Me.FormDesigner, Me)
-            frm_ToShow.LoadFieldAndForm(Me.LayoutFunctions, Me.CtlCurrentElementFieldV4)
+            frm_ToShow.LoadFieldAndFormV4(Me.LayoutFunctions, Me.CtlCurrentElementFieldV4)
 
             ''Major call !!
             frm_ToShow.ShowDialog()
@@ -542,7 +552,7 @@ Public Class Operations_FieldV4
                 ''
                 ''
                 ''Added 8/18/2019 td 
-                If (Me.SelectingElements.ElementsList_IsItemIncluded(Me.CtlCurrentElementField)) Then
+                If (Me.SelectingElements.ElementsList_IsItemIncluded(Me.CtlCurrentElementFieldV4)) Then
 
                     ''Added 8/18/2019 td 
                     ''1/12/2022 td''Dim objElements As HashSet(Of CtlGraphicFldLabel)
@@ -608,7 +618,7 @@ Public Class Operations_FieldV4
         ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
         ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
         ''
-        With Me.CtlCurrentElementField.ElementInfo_Base
+        With Me.CtlCurrentElementFieldV4.ElementInfo_Base
 
             Select Case .OrientationToLayout
                 Case "", " ", "P"
@@ -649,7 +659,7 @@ Public Class Operations_FieldV4
         '' 9/23 td''Refresh_Image(True)
         '' 9/23 td''Me.Refresh()
         ''10/17/2019 td''Me.Refresh_Master()
-        Me.CtlCurrentElementField.Refresh_Master()
+        Me.CtlCurrentElementFieldV4.Refresh_Master()
 
         ''Added 9/13/2019 td
         ''9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()
