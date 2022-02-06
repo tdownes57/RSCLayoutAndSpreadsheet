@@ -6,10 +6,13 @@ Public Class FormDisplayCacheLayouts
     ''Added 12/19/2021 Thomas Downes   
     ''
     Public PathToElementsCacheXML As String ''Added 12/19/2021 Thomas Downes
+
+    Public PathToElementsCacheXML_Folder As String ''Added 2/25/2025 Thomas Downes
     Public PathToElementsCacheXML_Prior1 As String ''Added 1/25/2025 Thomas Downes
     Public PathToElementsCacheXML_Prior2 As String ''Added 1/25/2025 Thomas Downes
     Public PathToElementsCacheXML_Prior3 As String ''Added 1/25/2025 Thomas Downes
     Public PathToElementsCacheXML_Prior4 As String ''Added 1/25/2025 Thomas Downes
+
     Public UserChoosesABlankSlate As Boolean ''Added 12/20/2021 thomas downes  
     Public UserHasSelectedCancel As Boolean ''Added 12/20/2021 thomas downes
     Public PathToLastDirectoryForXMLFile As String ''Added 12/20/2021 thomas downes
@@ -17,6 +20,8 @@ Public Class FormDisplayCacheLayouts
     ''Added 12/26/2021
     Public ShowMessageForIllformedXML As Boolean ''Added 12/26/2021 thomas downes
     Public UserWantsToExitApplication As Boolean ''Added 2/05/2022 Thomas Downes
+
+    Private WithEvents mod_dummyControl As New Control() ''Added 2/6/2022 td 
 
     Public Shared Function FullPathToTimestampedXML() As String
 
@@ -66,28 +71,37 @@ Public Class FormDisplayCacheLayouts
         ''Added 1//26/2022 thomas downes
         If (pstrPriorXMLFile Is Nothing) Then Exit Sub
         If (pstrPriorXMLFile = "") Then Exit Sub
+        If (Not IO.File.Exists(pstrPriorXMLFile)) Then Exit Sub ''Added 2/6/2022
 
-        ''Jan26 2022 td''strPathToBadgeLayoutJPG = Me.PathToElementsCacheXML.Replace(".xml", ".jpg")
-        strPathToBadgeLayoutJPG = pstrPriorXMLFile.Replace(".xml", ".jpg")
-        boolJpegConfirmed = IO.File.Exists(strPathToBadgeLayoutJPG)
+        For intTry = 1 To 2
 
-        If (boolJpegConfirmed) Then
-            Dim picturePreviewPrior As New PictureBox
-            With picturePreviewPrior
-                .Width = CInt(0.6 * FlowLayoutPanelPriorLays.Width)
-                ''Jan25 2022 td''.Height = CInt(.Width *
-                ''       ciLayoutPrintLib.LayoutPrint.ShortSideToLongSideRatio_point63())
-                .Height = CInt(.Width * ciBadgeInterfaces.ShortSideToLongSideRatio_HW_63())
-                .ImageLocation = strPathToBadgeLayoutJPG
-                .Tag = pstrPriorXMLFile
-                .SizeMode = PictureBoxSizeMode.Zoom
-            End With ''ENd of "With picturePreviewPrior"
+            ''Jan26 2022 td''strPathToBadgeLayoutJPG = Me.PathToElementsCacheXML.Replace(".xml", ".jpg")
 
-            AddHandler picturePreviewPrior.Click, AddressOf HandlePriorLayoutPictureBox_Click
-            FlowLayoutPanelPriorLays.Controls.Add(picturePreviewPrior)
-            picturePreviewPrior.Visible = True
+            strPathToBadgeLayoutJPG = pstrPriorXMLFile.Replace(".xml", ".jpg")
+            If (intTry = 1) Then strPathToBadgeLayoutJPG = pstrPriorXMLFile.Replace(".xml", ".jpg")
+            If (intTry = 2) Then strPathToBadgeLayoutJPG = pstrPriorXMLFile.Replace(".xml", "_Front.jpg")
 
-        End If ''End of "If (boolJpegConfirmed) Then"
+            boolJpegConfirmed = IO.File.Exists(strPathToBadgeLayoutJPG)
+            If (boolJpegConfirmed) Then
+                Dim picturePreviewPrior As New PictureBox
+                With picturePreviewPrior
+                    .Width = CInt(0.6 * FlowLayoutPanelPriorLays.Width)
+                    ''Jan25 2022 td''.Height = CInt(.Width *
+                    ''       ciLayoutPrintLib.LayoutPrint.ShortSideToLongSideRatio_point63())
+                    .Height = CInt(.Width * ciBadgeInterfaces.ShortSideToLongSideRatio_HW_63())
+                    .ImageLocation = strPathToBadgeLayoutJPG
+                    .Tag = pstrPriorXMLFile
+                    .SizeMode = PictureBoxSizeMode.Zoom
+                End With ''ENd of "With picturePreviewPrior"
+
+                AddHandler picturePreviewPrior.Click, AddressOf HandlePriorLayoutPictureBox_Click
+                FlowLayoutPanelPriorLays.Controls.Add(picturePreviewPrior)
+                picturePreviewPrior.Visible = True
+                Exit For ''Added 2/6/2022
+
+            End If ''End of "If (boolJpegConfirmed) Then"
+
+        Next intTry ''Added 2/6/2022
 
     End Sub ''End of "Private Sub LoadPriorLayoutPictureBox(strPriorXMLFile1)"
 
@@ -109,13 +123,19 @@ Public Class FormDisplayCacheLayouts
     End Function ''Endof "Public Sub CheckPathXML_Okay()"
 
 
-    Private Sub HandlePriorLayoutPictureBox_Click(sender As Object, e As EventArgs)
+    Private Sub HandlePriorLayoutPictureBox_Click(sender As Object, e As EventArgs) Handles mod_dummyControl.Click
         ''
         ''Added 1/25/2022 thomas downes
         ''
         Dim objPictureControl As PictureBox
         Dim objTagObject As Object ''Added 1/26/2022 thomas downes 
         Dim strPathToXML As String
+
+        ''Added 2/6/2022 td
+        Static static_strPathToXML_Prior As String
+        If (static_strPathToXML_Prior = "") Then
+            static_strPathToXML_Prior = Me.PathToElementsCacheXML
+        End If
 
         ''Jan26 2022''strPathToXML = CType(sender, PictureBox).Tag.ToString()
         objPictureControl = CType(sender, PictureBox)
@@ -130,6 +150,14 @@ Public Class FormDisplayCacheLayouts
             textboxPathToCacheXmlFile.Text = strPathToXML
             objPictureControl.BorderStyle = BorderStyle.FixedSingle
 
+            ''Added 2/6/2022 td
+            LoadMainDisplayControls(strPathToXML)
+
+            ''Added 2/6/2022 td
+            RemoveXML_FromPriorLayoutBox(strPathToXML)
+            LoadPriorLayoutPictureBox(static_strPathToXML_Prior)
+            static_strPathToXML_Prior = strPathToXML ''Prepare for next time. 
+
         End If ''End of "If (objTagObject Is Nothing) Then.... Else..."
 
 
@@ -140,12 +168,67 @@ Public Class FormDisplayCacheLayouts
         ''
         ''Added 12/20/2021 td
         ''
+        LoadMainDisplayControls(Me.PathToElementsCacheXML)
+
+        ''
+        ''Encapsulated 2/6/2022 td
+        ''
+        Dim b_ExcludeFollowingLayout As Boolean = True
+        LoadPriorAndCurrentLayouts_All(b_ExcludeFollowingLayout, Me.PathToElementsCacheXML)
+
+    End Sub ''End of ""Public Sub Form_Load""
+
+
+    Private Sub RemoveXML_FromPriorLayoutBox(pstrPathToXML_Remove As String)
+        ''
+        ''Added 2/6/2022 td
+        ''
+        Dim objPictureControl As PictureBox
+        Dim objTagObject As Object ''Added 1/26/2022 thomas downes 
+        Dim strPathToXML As String
+        Dim boolMatchesParameter As Boolean ''Added 2/6/2022
+        Dim objPictureControlToRemove As PictureBox = Nothing
+
+        For Each each_Box As PictureBox In FlowLayoutPanelPriorLays.Controls
+
+            objPictureControl = CType(each_Box, PictureBox)
+            objTagObject = objPictureControl.Tag
+            If (objTagObject Is Nothing) Then
+                ''Added 1/26/2022 td
+                ''MessageBoxTD.Show_Statement("Sorry, we cannot determine the XML path.")
+
+            Else
+                ''Convert the .Tab object to a string object. 
+                strPathToXML = objTagObject.ToString()
+                boolMatchesParameter = (strPathToXML = pstrPathToXML_Remove)
+                If (boolMatchesParameter) Then
+                    objPictureControlToRemove = each_Box
+                    Exit For
+                End If ''End of "If (boolMatchesParameter) Then"
+            End If ''End of "If (objTagObject Is Nothing) Then ... Else ..."
+
+        Next each_Box
+
+        ''
+        ''Final operation.
+        ''
+        If (objPictureControlToRemove IsNot Nothing) Then
+            FlowLayoutPanelPriorLays.Controls.Remove(objPictureControlToRemove)
+        End If
+
+    End Sub ''End of "Private Sub RemoveXML_FromPriorLayoutBox(pstrPathToXML_Remove As String)"
+
+
+    Private Sub LoadMainDisplayControls(pstrPathToElementsCacheXML As String)
+        ''
+        ''Encapsulated 2/6/2022 td
+        ''
         Dim strPathToBadgeLayoutJPG As String ''Added 1/5/2022 td 
         Dim strPathToBadgeLayout_FrontJPG As String ''Added 2/01/2022 td 
         Dim strPathToBadgeLayout_BacksideJPG As String ''Added 2/01/2022 td 
 
-        LabelFullPathToXML.Text = Me.PathToElementsCacheXML
-        textboxPathToCacheXmlFile.Text = Me.PathToElementsCacheXML ''Added 1/25/2022 td
+        LabelFullPathToXML.Text = pstrPathToElementsCacheXML ''Me.PathToElementsCacheXML
+        textboxPathToCacheXmlFile.Text = pstrPathToElementsCacheXML ''Me.PathToElementsCacheXML ''Added 1/25/2022 td
 
         ''Double-check the proportions are correct. ---9/6/2019 td
         ''ClassLabelToImage.ProportionsAreSlightlyOff(pictureBackgroundFront, True)
@@ -155,7 +238,8 @@ Public Class FormDisplayCacheLayouts
 
         ''Added 12/20/2021 thomas downes
         ''Jan25 2022 td''CheckingXmlFile_IsOkay(LabelFullPathToXML, LabelWarningMessage)
-        CheckingXmlFile_IsOkay(Me.PathToElementsCacheXML, LabelWarningMessage)
+        ''Feb6 2022 td''CheckingXmlFile_IsOkay(Me.PathToElementsCacheXML, LabelWarningMessage)
+        CheckingXmlFile_IsOkay(pstrPathToElementsCacheXML, LabelWarningMessage)
 
         ''Added 12/26/2021 thomas downes
         If (LabelWarningMessage.Visible = False) Then
@@ -172,17 +256,27 @@ Public Class FormDisplayCacheLayouts
         ''
         ''Display the saved Badge-Layout Jpeg Image. ---1/5/2022 td
         ''
-        strPathToBadgeLayoutJPG = Me.PathToElementsCacheXML.Replace(".xml", ".jpg")
+        Const c_obseleteCode As Boolean = False ''Added 2/6/2022 thomas d.
+        If (c_obseleteCode) Then
+            ''
+            ''I predict the following code will be 100% obselete by March 1, 2022.
+            ''
+        Else
+            ''Feb6 2022 td''strPathToBadgeLayoutJPG = Me.PathToElementsCacheXML.Replace(".xml", ".jpg")
+            strPathToBadgeLayoutJPG = pstrPathToElementsCacheXML.Replace(".xml", ".jpg")
 
-        If (IO.File.Exists(strPathToBadgeLayoutJPG)) Then
-            Me.picturePreviewFront.ImageLocation = strPathToBadgeLayoutJPG
-            Me.picturePreviewFront.SizeMode = PictureBoxSizeMode.Zoom
-        End If
+            If (IO.File.Exists(strPathToBadgeLayoutJPG)) Then
+                Me.picturePreviewFront.ImageLocation = strPathToBadgeLayoutJPG
+                Me.picturePreviewFront.SizeMode = PictureBoxSizeMode.Zoom
+            End If ''End of "If (IO.File.Exists(strPathToBadgeLayoutJPG)) Then"
+        End If ''End of "If (c_obseleteCode) Then ... Else ..."
 
         ''
         ''Display the saved Badge-Layout Jpeg Image, Front side. ---2/1/2022 td
         ''
-        strPathToBadgeLayout_FrontJPG = Me.PathToElementsCacheXML.Replace(".xml", "_Front.jpg")
+        ''Feb6 2022''strPathToBadgeLayout_FrontJPG = Me.PathToElementsCacheXML.Replace(".xml", "_Front.jpg")
+        strPathToBadgeLayout_FrontJPG = pstrPathToElementsCacheXML.Replace(".xml", "_Front.jpg")
+
         If (IO.File.Exists(strPathToBadgeLayout_FrontJPG)) Then
             Me.picturePreviewFront.ImageLocation = strPathToBadgeLayout_FrontJPG
             Me.picturePreviewFront.SizeMode = PictureBoxSizeMode.Zoom
@@ -191,28 +285,189 @@ Public Class FormDisplayCacheLayouts
         ''
         ''Display the saved Badge-Layout Jpeg Image, Back side. ---2/1/2022 td
         ''
-        strPathToBadgeLayout_BacksideJPG = Me.PathToElementsCacheXML.Replace(".xml", "_Back.jpg")
-        If (IO.File.Exists(strPathToBadgeLayout_BacksideJPG)) Then
+        ''Feb6 2022''strPathToBadgeLayout_BacksideJPG = Me.PathToElementsCacheXML.Replace(".xml", "_Back.jpg")
+        strPathToBadgeLayout_BacksideJPG = pstrPathToElementsCacheXML.Replace(".xml", "_Back.jpg")
+
+        Dim bJpegIsFoundExists As Boolean ''Added 2/6/2022 td
+        bJpegIsFoundExists = (IO.File.Exists(strPathToBadgeLayout_BacksideJPG))
+
+        If bJpegIsFoundExists Then
             Me.picturePreviewBackside.ImageLocation = strPathToBadgeLayout_BacksideJPG
             Me.picturePreviewBackside.SizeMode = PictureBoxSizeMode.Zoom
-        End If
+        End If ''Endof ""If bJpegIsFoundExists Then""
 
+    End Sub ''End of "Private Sub LoadMainDisplayControls
+
+
+    Private Sub LoadPriorAndCurrentLayouts_All(par_bExcludeOneLayout As Boolean,
+                                  Optional psPathToLayoutToExcludeXML As String = "")
+        ''
+        ''Addded 2/6/2022 td
+        ''
         ''Added 1/25/2022 thomas d. 
         Dim strPriorXMLFile1 As String = Me.PathToElementsCacheXML_Prior1
         Dim strPriorXMLFile2 As String = Me.PathToElementsCacheXML_Prior2
         Dim strPriorXMLFile3 As String = Me.PathToElementsCacheXML_Prior3
         Dim strPriorXMLFile4 As String = Me.PathToElementsCacheXML_Prior4
 
+        ''Added 2/6/2022 thomas d.
+        Dim strPathCurrentXML As String = Me.PathToElementsCacheXML
+        Dim strPathToFolder As String = Me.PathToElementsCacheXML_Folder
+        Dim objHashset As New HashSet(Of String)
+
+        objHashset.Add("12")
+        objHashset.Add("12")
+        objHashset.Add("12")
+
         ''Added 1/25/2022 thomas d. 
         FlowLayoutPanelPriorLays.Controls.Clear()
 
-        ''Added 1/25/2022 thomas d. 
-        If (CheckPathXML_Okay(strPriorXMLFile1)) Then LoadPriorLayoutPictureBox(strPriorXMLFile1)
-        If (CheckPathXML_Okay(strPriorXMLFile2)) Then LoadPriorLayoutPictureBox(strPriorXMLFile2)
-        If (CheckPathXML_Okay(strPriorXMLFile3)) Then LoadPriorLayoutPictureBox(strPriorXMLFile3)
-        If (CheckPathXML_Okay(strPriorXMLFile4)) Then LoadPriorLayoutPictureBox(strPriorXMLFile4)
+        ''Added 2/6/2022 td 
+        Dim bFileIncludeCurr As Boolean = (strPathCurrentXML <> psPathToLayoutToExcludeXML)
+        Dim bFileInclude1 As Boolean = (strPriorXMLFile1 <> psPathToLayoutToExcludeXML)
+        Dim bFileInclude2 As Boolean = (strPriorXMLFile2 <> psPathToLayoutToExcludeXML)
+        Dim bFileInclude3 As Boolean = (strPriorXMLFile3 <> psPathToLayoutToExcludeXML)
+        Dim bFileInclude4 As Boolean = (strPriorXMLFile4 <> psPathToLayoutToExcludeXML)
 
-    End Sub ''edn of "Public Sub Form_Load"
+        ''Added 1/25/2022 thomas d. 
+        If (bFileIncludeCurr AndAlso CheckPathXML_Okay(strPathCurrentXML)) Then
+            If UniquePerHashset(objHashset, strPathCurrentXML) Then
+                LoadPriorLayoutPictureBox(strPathCurrentXML)
+            End If
+        End If
+
+        ''
+        ''Go through the numbered files. 
+        ''
+        ''Added 1/25/2022 thomas d. 
+        If (bFileInclude1 AndAlso CheckPathXML_Okay(strPriorXMLFile1)) Then
+            If UniquePerHashset(objHashset, strPriorXMLFile1) Then
+                LoadPriorLayoutPictureBox(strPriorXMLFile1)
+            End If
+        End If
+
+        If (bFileInclude2 AndAlso CheckPathXML_Okay(strPriorXMLFile2)) Then
+            If UniquePerHashset(objHashset, strPriorXMLFile2) Then
+                LoadPriorLayoutPictureBox(strPriorXMLFile2)
+            End If
+        End If
+
+        If (bFileInclude3 AndAlso CheckPathXML_Okay(strPriorXMLFile3)) Then
+            If UniquePerHashset(objHashset, strPriorXMLFile3) Then
+                LoadPriorLayoutPictureBox(strPriorXMLFile3)
+            End If
+        End If
+
+        If (bFileInclude4 AndAlso CheckPathXML_Okay(strPriorXMLFile4)) Then
+            If UniquePerHashset(objHashset, strPriorXMLFile4) Then
+                LoadPriorLayoutPictureBox(strPriorXMLFile4)
+            End If
+        End If
+
+        ''
+        ''Iterate through the specified folder, if it is found & existing.
+        ''
+        LoadAllLayouts_FoundInFolder(Me.PathToElementsCacheXML_Folder, objHashset, psPathToLayoutToExcludeXML)
+
+        ''
+        ''Iterate through _ALL_ parent folders, of current & prior XML files. 
+        ''
+        LoadAllLayouts_AllParentFolders(objHashset,
+                                        psPathToLayoutToExcludeXML,
+                                        Me.PathToElementsCacheXML_Folder)
+
+    End Sub ''End of "Public Sub LoadPriorAndCurrentLayouts_All"
+
+
+    Private Sub LoadAllLayouts_AllParentFolders(pobjHashsetOfFiles As HashSet(Of String),
+                                             Optional pstrPathToLayoutToExcludeXML As String = "",
+                                             Optional pstrPathToFolderToExclude As String = "")
+        ''
+        ''Added 2/6/2022 thomas d. 
+        ''
+        Dim objHashsetOfFolderPaths As HashSet(Of String)
+        objHashsetOfFolderPaths.Add(pstrPathToFolderToExclude) ''Exclude already processed folder. 
+
+        Dim strPathToParentFolderCurr As String
+        Dim strPathToParentFolder1 As String
+        Dim strPathToParentFolder2 As String
+        Dim strPathToParentFolder3 As String
+        Dim strPathToParentFolder4 As String
+
+        strPathToParentFolderCurr = (New IO.FileInfo(Me.PathToElementsCacheXML)).DirectoryName
+        strPathToParentFolder1 = (New IO.FileInfo(Me.PathToElementsCacheXML_Prior1)).DirectoryName
+        strPathToParentFolder2 = (New IO.FileInfo(Me.PathToElementsCacheXML_Prior2)).DirectoryName
+        strPathToParentFolder3 = (New IO.FileInfo(Me.PathToElementsCacheXML_Prior3)).DirectoryName
+        strPathToParentFolder4 = (New IO.FileInfo(Me.PathToElementsCacheXML_Prior4)).DirectoryName
+
+        ''Check the current-XML folder. 
+        If UniquePerHashset(objHashsetOfFolderPaths, strPathToParentFolderCurr) Then
+            LoadAllLayouts_FoundInFolder(strPathToParentFolderCurr, pobjHashsetOfFiles,
+                                         pstrPathToLayoutToExcludeXML)
+        End If
+
+        ''Go through the numbered folders. 
+        If UniquePerHashset(objHashsetOfFolderPaths, strPathToParentFolder1) Then
+            LoadAllLayouts_FoundInFolder(strPathToParentFolder1, pobjHashsetOfFiles,
+                                         pstrPathToLayoutToExcludeXML)
+        End If
+        If UniquePerHashset(objHashsetOfFolderPaths, strPathToParentFolder2) Then
+            LoadAllLayouts_FoundInFolder(strPathToParentFolder2, pobjHashsetOfFiles,
+                                         pstrPathToLayoutToExcludeXML)
+        End If
+        If UniquePerHashset(objHashsetOfFolderPaths, strPathToParentFolder3) Then
+            LoadAllLayouts_FoundInFolder(strPathToParentFolder3, pobjHashsetOfFiles,
+                                         pstrPathToLayoutToExcludeXML)
+        End If
+        If UniquePerHashset(objHashsetOfFolderPaths, strPathToParentFolder4) Then
+            LoadAllLayouts_FoundInFolder(strPathToParentFolder4, pobjHashsetOfFiles,
+                                         pstrPathToLayoutToExcludeXML)
+        End If
+
+    End Sub ''End of "Private Sub LoadAllLayouts_AllParentFolders"
+
+
+    Private Sub LoadAllLayouts_FoundInFolder(pstrPathToFolder As String,
+                                             pobjHashset As HashSet(Of String),
+                                             Optional pstrPathToLayoutToExcludeXML As String = "")
+        ''
+        ''Added 2/6/2022 thomas d. 
+        ''
+        If (pstrPathToFolder Is Nothing) Then Return
+        If (pstrPathToFolder = "") Then Return
+        If (IO.Directory.Exists(pstrPathToFolder) = False) Then Return
+
+        Dim objDirectoryInfo As IO.DirectoryInfo
+        Dim bExclude As Boolean
+        objDirectoryInfo = New IO.DirectoryInfo(pstrPathToFolder)
+        For Each each_file As IO.FileInfo In objDirectoryInfo.GetFiles("*.xml")
+
+            bExclude = (each_file.FullName = pstrPathToLayoutToExcludeXML)
+            If (bExclude) Then Continue For
+
+            If (UniquePerHashset(pobjHashset, each_file.FullName)) Then
+                LoadPriorLayoutPictureBox(each_file.FullName)
+            End If
+
+        Next each_file
+
+    End Sub ''End of "Public Sub LoadAllLayouts_FoundInFolder"
+
+
+    Private Function UniquePerHashset(par_hashset As HashSet(Of String),
+                                      pstrPathToAdd As String) As Boolean
+        ''
+        ''Added 2/6/2022 td
+        ''
+        Try
+            par_hashset.Add(pstrPathToAdd)
+        Catch ex As Exception
+            Return False
+        End Try
+        Return True
+
+    End Function ''end of "Private Function UniquePerHashset"
+
 
     Private Sub ButtonOpenLayout_Click(sender As Object, e As EventArgs) Handles ButtonOpenCurrentLayout.Click
         ''
@@ -240,7 +495,7 @@ Public Class FormDisplayCacheLayouts
             Me.Close()
         End If ''Endo f "If (bCheckingFile_OK) Then"
 
-    End Sub
+    End Sub ''Private Sub ButtonOpenLayout_Click(sender As Object, e As EventArgs)
 
 
     Private Sub ButtonOpenNewBlank_Click(sender As Object, e As EventArgs) Handles ButtonOpenNewBlank.Click
