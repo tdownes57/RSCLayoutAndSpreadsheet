@@ -128,6 +128,10 @@ Public Class CtlGraphicStaticGraphic
                 .AddClickability()
 
             End If ''End of "If (bAddFunctionalityLater) Then"
+
+            ''Added 2/5/2022 td
+            .RightclickMouseInfo = objOperationsSG ''Added 2/5/2022 td
+
         End With ''eNd of "With CtlStaticGraphic1"
 
         ''

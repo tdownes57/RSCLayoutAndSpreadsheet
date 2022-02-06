@@ -140,7 +140,7 @@ Public MustInherit Class ClassListOfElements
         End Select
 
 
-    End Function ''ENd of "ublic Shared Function GetListOfElements(par_enum As enum)"
+    End Function ''ENd of "Public Shared Function GetListOfElements(par_enum As enum)"
 
 
     Public Shared Sub RemoveOrphanedElement(par_infoBase As IElement_Base,
@@ -161,11 +161,27 @@ Public MustInherit Class ClassListOfElements
 
     Public MustOverride Sub SwitchElementToOtherSideOfCard(par_infoBase As IElement_Base,
                                   Optional ByRef pref_bSuccess As Boolean = False)
+
     Public MustOverride Sub RemoveElement(par_infoBase As IElement_Base,
                                           Optional ByRef pref_bSuccess As Boolean = False,
                                           Optional pbSpecifySideOfCard As Boolean = False,
             Optional par_enumSide As EnumWhichSideOfCard = EnumWhichSideOfCard.Undetermined)
 
+
+    Public Shared Sub SwitchOrphanedElement(par_infoBaseToMatch As IElement_Base,
+                                          Optional ByRef pref_bSuccess As Boolean = False)
+        ''
+        ''Added 2/5/2022 thomas downes  
+        ''
+        If (Not pref_bSuccess) Then ClassList_Fields.SwitchElementToOtherSideOfCard(par_infoBaseToMatch, pref_bSuccess)
+        If (Not pref_bSuccess) Then ClassList_Graphics.SwitchElementToOtherSideOfCard(par_infoBaseToMatch, pref_bSuccess)
+        If (Not pref_bSuccess) Then ClassList_Portraits.SwitchElementToOtherSideOfCard(par_infoBaseToMatch, pref_bSuccess)
+        If (Not pref_bSuccess) Then ClassList_QRCodes.SwitchElementToOtherSideOfCard(par_infoBaseToMatch, pref_bSuccess)
+        If (Not pref_bSuccess) Then ClassList_Signatures.SwitchElementToOtherSideOfCard(par_infoBaseToMatch, pref_bSuccess)
+        If (Not pref_bSuccess) Then ClassList_StaticTextsV3.SwitchElementToOtherSideOfCard(par_infoBaseToMatch, pref_bSuccess)
+        If (Not pref_bSuccess) Then ClassList_StaticTextsV4.SwitchElementToOtherSideOfCard(par_infoBaseToMatch, pref_bSuccess)
+
+    End Sub ''End of "Public Shared Sub RemoveElement"
 
 
 

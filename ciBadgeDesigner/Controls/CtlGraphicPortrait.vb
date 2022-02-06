@@ -98,6 +98,10 @@ Public Class CtlGraphicPortrait
             If (bAddFunctionalityLater) Then .AddMoveability(par_iLayoutFun,
                                                              par_oMoveEventsForGroupedCtls, Nothing)
             If (bAddFunctionalityLater) Then .AddClickability()
+
+            ''Added 2/5/2022 td
+            .RightclickMouseInfo = objOperationsPortrait ''Added 2/5/2022 td
+
         End With ''eNd of "With CtlPortrait1"
 
         ''

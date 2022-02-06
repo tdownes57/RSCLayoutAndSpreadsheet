@@ -97,6 +97,10 @@ Public Class CtlGraphicFieldV3
             If (bAddFunctionalityLater) Then .AddMoveability(par_iLayoutFun,
                                                              par_oMoveEventsForGroupedCtls, Nothing)
             If (bAddFunctionalityLater) Then .AddClickability()
+
+            ''Added 2/5/2022 td
+            .RightclickMouseInfo = objOperationsFldElem ''Added 2/5/2022 td
+
         End With ''eNd of "With CtlQRCode1"
 
         ''

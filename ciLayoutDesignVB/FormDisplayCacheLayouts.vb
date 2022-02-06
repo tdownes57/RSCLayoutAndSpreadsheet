@@ -16,6 +16,7 @@ Public Class FormDisplayCacheLayouts
     Public FileTitleOfXMLFile As String ''Added 1/22/2022 thomas downes
     ''Added 12/26/2021
     Public ShowMessageForIllformedXML As Boolean ''Added 12/26/2021 thomas downes
+    Public UserWantsToExitApplication As Boolean ''Added 2/05/2022 Thomas Downes
 
     Public Shared Function FullPathToTimestampedXML() As String
 
@@ -305,6 +306,7 @@ Public Class FormDisplayCacheLayouts
     Private Sub ButtonExitApp_Click(sender As Object, e As EventArgs) Handles ButtonExitApp.Click
 
         ''Added 12/23/2021 thomas downes
+        Me.UserWantsToExitApplication = True
         Application.Exit()
 
     End Sub

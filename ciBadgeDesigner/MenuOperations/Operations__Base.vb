@@ -12,6 +12,7 @@ Imports MoveAndResizeControls_Monem ''Added 2/02/2022 thomas d.
 
 Public MustInherit Class Operations__Base
     Implements ICurrentElement ''Added 12/28/2021 td
+    Implements IRightClickMouseInfo ''Added 2/5/2022 td
     ''
     ''Added 12/12/2021 td
     ''
@@ -23,6 +24,10 @@ Public MustInherit Class Operations__Base
 
     Public Overridable Property CtlCurrentElement As RSCMoveableControlVB Implements ICurrentElement.CtlCurrentElement
     Public Property ElementsCacheManager As ciBadgeCachePersonality.ClassCacheManagement Implements ICurrentElement.ElementsCacheManager
+
+    ''Added 2/05/2022 td
+    Public Property MouseclickX As Integer Implements IRightClickMouseInfo.MouseclickX
+    Public Property MouseclickY As Integer Implements IRightClickMouseInfo.MouseclickY
 
     Public Property NameOfClass As String ''Added 12/30/2021 td
     Public Property ElementInfo_Base As IElement_Base ''Added 1/19/2022 thomas d. 
@@ -38,7 +43,7 @@ Public MustInherit Class Operations__Base
     Public Property Monem_iMoveOrResizeFun As IMonemMoveOrResizeFunctionality ''Added 2/2/2022
 
 
-    Public Sub Move_To_Other_Side_Of_Badge_BA1001(sender As Object, e As EventArgs)
+    Public Sub Switch_To_Other_Side_Of_Badge_BA1001(sender As Object, e As EventArgs)
         ''
         ''Stubbed 12/30/2021 td
         ''Programmed 1/17/2022 td 

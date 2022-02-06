@@ -118,6 +118,10 @@ Public Class CtlGraphicSignature
                 .AddMoveability(par_iLayoutFun, par_oMoveEventsGroupedControls, Nothing)
             End If
             If (bAddFunctionalityLater) Then .AddClickability()
+
+            ''Added 2/5/2022 td
+            .RightclickMouseInfo = objOperationsSig ''Added 2/5/2022 td
+
         End With ''eNd of "With CtlQRCode1"
 
         ''

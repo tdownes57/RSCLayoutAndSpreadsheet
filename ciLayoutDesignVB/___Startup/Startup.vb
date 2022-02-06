@@ -17,13 +17,23 @@ Public Class Startup
     ''Added 10/11/2019 td    
     ''
     Public Shared Sub Main()
-
+        ''
         ''Encapsulated 10/13/2019 td  
-        OpenLayoutDesigner_Loop()
+        ''
+        ''2/5/2022 td''OpenLayoutDesigner_Loop()
+
+        Dim bUserWantsToExitApp As Boolean ''Added 2/5/2022 td
+
+        Do
+            OpenLayoutDesigner_Loop(bUserWantsToExitApp)
+            If (bUserWantsToExitApp) Then Exit Do
+        Loop
+
+        If (bUserWantsToExitApp) Then Exit Sub
 
     End Sub ''Endof "Public Shared Sub Main()"
 
-    Private Shared Sub OpenLayoutDesigner_Loop()
+    Private Shared Sub OpenLayoutDesigner_Loop(ByRef pboolUserWantsToExitApp As Boolean)
         ''
         ''Added 10/11/2019 td  
         ''Encapsulated 10/13/2019 td
@@ -95,10 +105,18 @@ Public Class Startup
                         .PathToElementsCacheXML = strPathToElementsCacheXML ''Added 12/20/2021 td
                         .PathToElementsCacheXML_Prior1 = strPathToElementsCacheXML_Prior1 ''Added 1/25/2022 td
                         .PathToElementsCacheXML_Prior2 = strPathToElementsCacheXML_Prior2 ''Added 1/25/2022 td
+
+                        ''Not needed.''.Visible = True ''Added 2/5/2022 thomas downes 
                         .ShowDialog()
+
                         strPathToElementsCacheXML = .PathToElementsCacheXML
                         bUserWantsABlankSlate = .UserChoosesABlankSlate
-                    End With
+
+                        ''Added 2/5/2022 td
+                        pboolUserWantsToExitApp = (.UserWantsToExitApplication)
+                        If (pboolUserWantsToExitApp) Then Exit Sub ''Added 2/5/2022 td
+
+                    End With ''End of "With objFormShowCacheLayouts"
 
                     bGoodChoice = (bUserWantsABlankSlate Or (Not DiskFilesVB.IsXMLFileMissing_OrEmpty(strPathToElementsCacheXML)))
                     bUserCancelled = objFormShowCacheLayouts.UserHasSelectedCancel

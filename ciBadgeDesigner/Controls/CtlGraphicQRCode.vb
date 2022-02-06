@@ -119,6 +119,10 @@ Public Class CtlGraphicQRCode
                 .AddMoveability(par_iLayoutFun, par_oMoveEventsGroupedCtls, Nothing)
                 .AddClickability()
             End If ''ENd of "If (bAddFunctionalityLater) Then"
+
+            ''Added 2/5/2022 td
+            .RightclickMouseInfo = objOperationsQR ''Added 2/5/2022 td
+
         End With ''eNd of "With CtlQRCode1"
 
         ''

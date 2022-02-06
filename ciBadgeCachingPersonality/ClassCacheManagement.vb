@@ -670,6 +670,15 @@ Namespace ciBadgeCachePersonality
             objClassLists = ClassListOfElements.GetListOfElements(par_enum)
             objClassLists.SwitchElementToOtherSideOfCard(par_infoBase, pref_bSuccess)
 
+            ''Added 2/5/2022 td
+            If (Not pref_bSuccess) Then
+                ''
+                ''Try another way. 
+                ''
+                ClassListOfElements.SwitchOrphanedElement(par_infoBase, pref_bSuccess)
+
+            End If ''End of "If (Not pref_bSuccess) Then"
+
         End Sub ''End of "Public Sub SwitchElementToOtherSideOfCard"
 
 

@@ -29,6 +29,7 @@ Public Class ClassDesigner
     Public Event ElementSignatRightClicked(par_control As CtlGraphicSignature) ''Added 12/15/2021 td
     Public Event ElementStaticTextRightClicked(par_control As CtlGraphicStaticTextV3) ''Added 12/15/2021 td
     Public Event BackgroundRightClicked(par_mouse_x As Integer, par_mouse_y As Integer) ''Added 10/15/2019 td
+    Public Event RSC_RightClicked(par_RSC As RSCMoveableControlVB, par_mouse_x As Integer, par_mouse_y As Integer) ''Added 10/15/2019 td
 
     ''10/1/2019 td''Public Property LayoutFunctions As ILayoutFunctions
     ''10/4/2019 td''Public Property DesignerForm As Form

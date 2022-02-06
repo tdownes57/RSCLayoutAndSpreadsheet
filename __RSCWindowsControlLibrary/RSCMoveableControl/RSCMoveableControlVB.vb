@@ -229,6 +229,7 @@ Public Class RSCMoveableControlVB
     Private mod_typeOperations As Type ''Added 12/28/2021 td
     Private mod_enumElementType As EnumElementType ''Added 12/28/2021 td
     Private Const mc_intMarginForResize As Integer = 10 ''Added 1/12/2022
+    Protected RightclickMouseInfo As IRightclickMouseInfo ''Added 2/5/2022 td
 
     Public Sub New()
 
@@ -1372,7 +1373,14 @@ Public Class RSCMoveableControlVB
             Return
         End If ''end of "If (ContextMenuStrip1 Is Nothing) Then"
 
-        ContextMenuStrip1.Show()
+        ''Added 2/5/2022 thomas downes
+        ''Feb5 2022 ''mod_objOperationsAny.MouseClickX = par_intX
+        ''Feb5 2022 ''mod_objOperationsAny.MouseClickY = par_intY
+        RightclickMouseInfo.MouseclickX = par_intX ''Added 2/5/2022 td
+        RightclickMouseInfo.MouseclickY = par_intY ''Added 2/5/2022 td
+
+        ''Feb4 2022 td''ContextMenuStrip1.Show()
+        ContextMenuStrip1.Show(Me.Left + par_intX, Me.Top + par_intY)
 
         ''Dim objDisplayMenu As New ClassDisplayContextMenu(ContextMenuStrip1)
         ''Const c_intRandom As Integer = 5
