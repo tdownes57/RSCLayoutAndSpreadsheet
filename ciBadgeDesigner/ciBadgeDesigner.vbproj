@@ -253,6 +253,12 @@
     <Compile Include="Dialogs\DialogPresetValues.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Dialogs\DialogReviseText.Designer.vb">
+      <DependentUpon>DialogReviseText.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\DialogReviseText.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Dialogs\DialogSubsection.Designer.vb">
       <DependentUpon>DialogSubsection.vb</DependentUpon>
     </Compile>
