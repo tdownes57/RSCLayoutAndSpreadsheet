@@ -34,6 +34,7 @@ Partial Class Form__Main_Demo
         Me.FileSaveMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FileSaveAsMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ExitApplicationToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ConfigurationOfFieldsEtcToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StandardFieldsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CustomFieldsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -122,7 +123,7 @@ Partial Class Form__Main_Demo
         Me.flowlayoutIncludedBin = New System.Windows.Forms.FlowLayoutPanel()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.ExitApplicationToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ClickingLinkLabelWillGenerateIDCardimageToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -215,6 +216,12 @@ Partial Class Form__Main_Demo
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
         Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(236, 26)
         Me.ExitToolStripMenuItem.Text = "Exit Layout"
+        '
+        'ExitApplicationToolStripMenuItem
+        '
+        Me.ExitApplicationToolStripMenuItem.Name = "ExitApplicationToolStripMenuItem"
+        Me.ExitApplicationToolStripMenuItem.Size = New System.Drawing.Size(236, 26)
+        Me.ExitApplicationToolStripMenuItem.Text = "Exit Application"
         '
         'ConfigurationOfFieldsEtcToolStripMenuItem
         '
@@ -381,6 +388,7 @@ Partial Class Form__Main_Demo
         '
         'PrintASpecifiedNumberOfBadgesToolStripMenuItem
         '
+        Me.PrintASpecifiedNumberOfBadgesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ClickingLinkLabelWillGenerateIDCardimageToolStripMenuItem})
         Me.PrintASpecifiedNumberOfBadgesToolStripMenuItem.Name = "PrintASpecifiedNumberOfBadgesToolStripMenuItem"
         Me.PrintASpecifiedNumberOfBadgesToolStripMenuItem.Size = New System.Drawing.Size(374, 26)
         Me.PrintASpecifiedNumberOfBadgesToolStripMenuItem.Text = "Make Badges (for specific Recipients)"
@@ -950,11 +958,12 @@ Partial Class Form__Main_Demo
         Me.Label3.TabIndex = 87
         Me.Label3.Text = "Included Bin"
         '
-        'ExitApplicationToolStripMenuItem
+        'ClickingLinkLabelWillGenerateIDCardimageToolStripMenuItem
         '
-        Me.ExitApplicationToolStripMenuItem.Name = "ExitApplicationToolStripMenuItem"
-        Me.ExitApplicationToolStripMenuItem.Size = New System.Drawing.Size(236, 26)
-        Me.ExitApplicationToolStripMenuItem.Text = "Exit Application"
+        Me.ClickingLinkLabelWillGenerateIDCardimageToolStripMenuItem.CheckOnClick = True
+        Me.ClickingLinkLabelWillGenerateIDCardimageToolStripMenuItem.Name = "ClickingLinkLabelWillGenerateIDCardimageToolStripMenuItem"
+        Me.ClickingLinkLabelWillGenerateIDCardimageToolStripMenuItem.Size = New System.Drawing.Size(410, 26)
+        Me.ClickingLinkLabelWillGenerateIDCardimageToolStripMenuItem.Text = "Clicking LinkLabel will generate ID Card (image)"
         '
         'Form__Main_Demo
         '
@@ -1127,4 +1136,5 @@ Partial Class Form__Main_Demo
     Friend WithEvents Label2 As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents ExitApplicationToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ClickingLinkLabelWillGenerateIDCardimageToolStripMenuItem As ToolStripMenuItem
 End Class

@@ -50,6 +50,7 @@ Public Class Form__Main_Demo
     ''Public Property LastTouchedClickableElement As IClickableElement ''Added 12/17/2021 td
 
     Private WithEvents mod_designer As New ciBadgeDesigner.ClassDesigner ''Added 10/3/2019 td
+    Private WithEvents mod_linklabel_dummy As New LinkLabel() ''Added 2/7/2022 td  
 
     ''#1 8-3-2019 td''Private WithEvents mod_moveAndResizeCtls_NA As New MoveAndResizeControls_Monem.ControlMove_RaiseEvents ''Added 8/3/2019 td  
     '' #2 8-3-2019 td''Private WithEvents mod_moveAndResizeCtls As New MoveAndResizeControls_Monem.ControlMove_GroupMove ''Added 8/3/2019 td  
@@ -1032,17 +1033,71 @@ Public Class Form__Main_Demo
 
     End Sub ''End of "Private Sub LinkSaveAndRefresh_LinkClicked"
 
-    Private Sub Recipient_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) ''10/17 td''Handles linkSaveAndRefresh.LinkClicked
+    Private Sub Recipient_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles mod_linklabel_dummy.LinkClicked ''10/17 td''Handles linkSaveAndRefresh.LinkClicked
         ''
         ''Added 10/17/2019 td
         ''
+        ''   Handles clicks of the LinkLabel controls in the sidebar panel, 
+        ''   called "Recipients". 
+        ''
         Dim sender_link As LinkLabel
+        Dim oRecipientClicked As ClassRecipient ''Added 2/7/2022 td
         sender_link = CType(sender, LinkLabel)
         ClassElementFieldV3.oRecipient = CType(sender_link.Tag, ClassRecipient)
+        oRecipientClicked = CType(sender_link.Tag, ClassRecipient)
+        ClassElementFieldV3.oRecipient = oRecipientClicked
         ''Dec.14 2021''Me.mod_designer.RefreshPreview_Redux()
-        Me.mod_designer.RefreshPreview_Redux_Front(Nothing, ClassElementFieldV3.oRecipient)
+        ''#1 Feb2 2022 td''Me.mod_designer.RefreshPreview_Redux_Front(Nothing, ClassElementFieldV3.oRecipient)
+        ''#2 Feb2 2022 td''Me.mod_designer.RefreshPreview_Redux_Front(Nothing, oRecipientClicked)
+        mod_designer.RefreshPreview_CurrentSide(Nothing, oRecipientClicked)
+
+        ''Added 2/7/2022 thomas downes
+        Dim boolPrintBadgeImage As Boolean
+        boolPrintBadgeImage = ClickingLinkLabelWillGenerateIDCardimageToolStripMenuItem.Checked
+        If (boolPrintBadgeImage) Then
+            ''
+            ''Create the Badge image to a hard drive folder. ----2/7/2022 td
+            ''
+            ''--PrintAllBadgesToFileFolderToolStripMenuItem_Click()
+            PrintOneBadgeToFileFolder_ByRecipient_BySide(oRecipientClicked)
+
+        End If ''End of "If (boolPrintBadgeImage) Then"
 
     End Sub ''End of "Private Sub Recipient_LinkClicked"
+
+
+    Private Sub PrintOneBadgeToFileFolder_ByRecipient_BySide(par_oRecipient As ClassRecipient)
+        ''
+        ''Added 2/7/2022 thomas d. 
+        ''
+        Dim strOutputPathToFolder As String
+        Dim strOutputPathToFileJPG As String
+        ''Feb7 2022 td''Dim strStudentID As String = mod_strRecipientID ''Added 8/20/2021 thomas downes 
+        Dim strStudentID As String
+        Dim strDatetimeSuffix As String ''Added 2/07/2022 thomas downes
+
+        strStudentID = par_oRecipient.RecipientID ''Added 2/07/2022 thomas downes
+        strOutputPathToFolder = DiskFolders.PathToFolder_Preview()
+        ''strOutputPathToFileJPG = (strOutputPathToFolder & "\Badge_" &
+        ''    strStudentID & "_" &
+        ''    DateTime.Now.ToString("MMdd_hhmmss") & ".jpg")
+        ''Feb07 2022 td''strOutputPathToFileJPG = System.IO.Path.Combine(strPathToFolder,
+        ''                    (mod_strRecipientID & ".jpg"))
+        strDatetimeSuffix = "_" & DateTime.Now.ToString("MMdd_hhmmss")
+
+        ''Added 2/7/2022 td
+        Dim strSuffixBackside As String = "_Front"
+        If (mod_designer.ShowingTheBackside()) Then strSuffixBackside = "_Back"
+
+        strOutputPathToFileJPG = System.IO.Path.Combine(strOutputPathToFolder,
+               (strStudentID & strDatetimeSuffix & strSuffixBackside & ".jpg"))
+
+        With picturePreview.Image
+            .Save(strOutputPathToFileJPG, Imaging.ImageFormat.Jpeg)
+        End With
+
+    End Sub ''End of ""Private Sub PrintOneBadgeToFileFolder_ByRecipient""
+
 
     Private Sub RefreshTheSetOfDisplayedElements(pboolResetToFrontOfCard As Boolean) ''_WontPreview()
         ''
@@ -2999,6 +3054,28 @@ ExitHandler:
         ''Added 2/6/2022 td
         Me.UserWantsToExitApplication = True
         Me.Close()
+
+    End Sub
+
+    Private Sub ClickingLinkLabelWillGenerateIDCardimageToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClickingLinkLabelWillGenerateIDCardimageToolStripMenuItem.Click
+        ''
+        ''Added 2/7/2022 thomas downes
+        ''
+        If (ClickingLinkLabelWillGenerateIDCardimageToolStripMenuItem.Checked) Then
+            ShowBadgeRecipientsToolStripMenuItem_Click(sender, e)
+        End If
+
+    End Sub
+
+    Private Sub flowSidebar_Paint(sender As Object, e As PaintEventArgs) Handles flowSidebar.Paint
+        ''
+        ''Go to ""Recipient_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)""
+        ''
+        Try
+            Recipient_LinkClicked(sender,
+                              New LinkLabelLinkClickedEventArgs(LinkLabelEmailBadgeJpeg.Links(0)))
+        Catch
+        End Try
 
     End Sub
 

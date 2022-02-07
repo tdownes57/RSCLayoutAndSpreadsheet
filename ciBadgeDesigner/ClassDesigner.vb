@@ -2305,7 +2305,7 @@ Public Class ClassDesigner
                                par_objMakeBadgeElements,
                                Me.PreviewBox.Width,
                                Me.PreviewBox.Height,
-                               Nothing,
+                               par_recipient,
                                Nothing, Nothing, Nothing, par_recentlyMoved)
 
             ''Added 1/23/2022 td
@@ -2518,7 +2518,7 @@ Public Class ClassDesigner
                                objMakeBadgeElements,
                                Me.PreviewBox.Width,
                                Me.PreviewBox.Height,
-                               Nothing,
+                               par_recipient,
                                Nothing, Nothing, Nothing, par_recentlyMoved)
 
         End If ''End of "If (Function2021) Then ... ElseIf (Function2022) Then ..."
