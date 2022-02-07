@@ -44,6 +44,8 @@ Public Class Form__Main_Demo
     Public Property ElementsCache_ManageBoth As ClassCacheManagement ''Added 12/5/2021 thomas downes
     Public Property ElementsCache_PathToXML As String ''Added 12/14/2021 thomas Downes
 
+    Public Property UserWantsToExitApplication As Boolean ''Added 2/6/2022 thomas downes
+
     ''Public Property LastTouchedMoveableElement As IMoveableElement ''Added 12/17/2021 td
     ''Public Property LastTouchedClickableElement As IClickableElement ''Added 12/17/2021 td
 
@@ -2964,6 +2966,21 @@ ExitHandler:
             ComponentClickIDBackside1.ParentControl = pictureBackgroundFront
             ComponentClickIDBackside1.ClickableDesktop_MouseUp(sender, e)
         End If ''End of "If (e.Button = MouseButtons.Right) Then"
+
+    End Sub
+
+    Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
+
+        ''Added 2/6/2022 thomas d.
+        Me.Close()
+
+    End Sub
+
+    Private Sub ExitApplicationToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitApplicationToolStripMenuItem.Click
+
+        ''Added 2/6/2022 td
+        Me.UserWantsToExitApplication = True
+        Me.Close()
 
     End Sub
 

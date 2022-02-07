@@ -7,11 +7,11 @@ Public Class FormDisplayCacheLayouts
     ''
     Public PathToElementsCacheXML As String ''Added 12/19/2021 Thomas Downes
 
-    Public PathToElementsCacheXML_Folder As String ''Added 2/25/2025 Thomas Downes
-    Public PathToElementsCacheXML_Prior1 As String ''Added 1/25/2025 Thomas Downes
-    Public PathToElementsCacheXML_Prior2 As String ''Added 1/25/2025 Thomas Downes
-    Public PathToElementsCacheXML_Prior3 As String ''Added 1/25/2025 Thomas Downes
-    Public PathToElementsCacheXML_Prior4 As String ''Added 1/25/2025 Thomas Downes
+    Public PathToElementsCacheXML_Folder As String = "" ''Added 2/25/2025 Thomas Downes
+    Public PathToElementsCacheXML_Prior1 As String = "" ''Added 1/25/2025 Thomas Downes
+    Public PathToElementsCacheXML_Prior2 As String = "" ''Added 1/25/2025 Thomas Downes
+    Public PathToElementsCacheXML_Prior3 As String = "" ''Added 1/25/2025 Thomas Downes
+    Public PathToElementsCacheXML_Prior4 As String = "" ''Added 1/25/2025 Thomas Downes
 
     Public UserChoosesABlankSlate As Boolean ''Added 12/20/2021 thomas downes  
     Public UserHasSelectedCancel As Boolean ''Added 12/20/2021 thomas downes
@@ -385,20 +385,29 @@ Public Class FormDisplayCacheLayouts
         ''
         ''Added 2/6/2022 thomas d. 
         ''
-        Dim objHashsetOfFolderPaths As HashSet(Of String)
+        Dim objHashsetOfFolderPaths As New HashSet(Of String)
         objHashsetOfFolderPaths.Add(pstrPathToFolderToExclude) ''Exclude already processed folder. 
 
-        Dim strPathToParentFolderCurr As String
-        Dim strPathToParentFolder1 As String
-        Dim strPathToParentFolder2 As String
-        Dim strPathToParentFolder3 As String
-        Dim strPathToParentFolder4 As String
+        Dim strPathToParentFolderCurr As String = ""
+        Dim strPathToParentFolder1 As String = ""
+        Dim strPathToParentFolder2 As String = ""
+        Dim strPathToParentFolder3 As String = ""
+        Dim strPathToParentFolder4 As String = ""
 
-        strPathToParentFolderCurr = (New IO.FileInfo(Me.PathToElementsCacheXML)).DirectoryName
-        strPathToParentFolder1 = (New IO.FileInfo(Me.PathToElementsCacheXML_Prior1)).DirectoryName
-        strPathToParentFolder2 = (New IO.FileInfo(Me.PathToElementsCacheXML_Prior2)).DirectoryName
-        strPathToParentFolder3 = (New IO.FileInfo(Me.PathToElementsCacheXML_Prior3)).DirectoryName
-        strPathToParentFolder4 = (New IO.FileInfo(Me.PathToElementsCacheXML_Prior4)).DirectoryName
+        Try
+            strPathToParentFolderCurr = (New IO.FileInfo(Me.PathToElementsCacheXML)).DirectoryName
+            strPathToParentFolder1 = (New IO.FileInfo(Me.PathToElementsCacheXML_Prior1)).DirectoryName
+            strPathToParentFolder2 = (New IO.FileInfo(Me.PathToElementsCacheXML_Prior2)).DirectoryName
+            strPathToParentFolder3 = (New IO.FileInfo(Me.PathToElementsCacheXML_Prior3)).DirectoryName
+            strPathToParentFolder4 = (New IO.FileInfo(Me.PathToElementsCacheXML_Prior4)).DirectoryName
+        Catch ex As Exception
+            ''Added 2/6/2022 td
+            ''   Today, the string (Me.PathToElementsCacheXML_Prior3) was identified as a 
+            ''   Null reference.  Not really a big deal. ----2/6/2022
+            If (False) Then
+                Throw
+            End If
+        End Try
 
         ''Check the current-XML folder. 
         If UniquePerHashset(objHashsetOfFolderPaths, strPathToParentFolderCurr) Then

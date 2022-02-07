@@ -122,6 +122,7 @@ Partial Class Form__Main_Demo
         Me.flowlayoutIncludedBin = New System.Windows.Forms.FlowLayoutPanel()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.ExitApplicationToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -186,7 +187,7 @@ Partial Class Form__Main_Demo
         '
         'ToolStripMenuItem1
         '
-        Me.ToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenToolStripMenuItem, Me.FileSaveMenuItem, Me.FileSaveAsMenuItem, Me.ExitToolStripMenuItem})
+        Me.ToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenToolStripMenuItem, Me.FileSaveMenuItem, Me.FileSaveAsMenuItem, Me.ExitToolStripMenuItem, Me.ExitApplicationToolStripMenuItem})
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
         Me.ToolStripMenuItem1.Size = New System.Drawing.Size(46, 24)
         Me.ToolStripMenuItem1.Text = "File"
@@ -213,7 +214,7 @@ Partial Class Form__Main_Demo
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
         Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(236, 26)
-        Me.ExitToolStripMenuItem.Text = "Exit"
+        Me.ExitToolStripMenuItem.Text = "Exit Layout"
         '
         'ConfigurationOfFieldsEtcToolStripMenuItem
         '
@@ -865,7 +866,7 @@ Partial Class Form__Main_Demo
         Me.CtlGraphicQRCode1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.CtlGraphicQRCode1.ElementInfo_Base = Nothing
         Me.CtlGraphicQRCode1.Location = New System.Drawing.Point(184, 199)
-        Me.CtlGraphicQRCode1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.CtlGraphicQRCode1.Margin = New System.Windows.Forms.Padding(4)
         Me.CtlGraphicQRCode1.MoveabilityEventsForGroupCtls = Nothing
         Me.CtlGraphicQRCode1.MoveabilityEventsForSingleMove = Nothing
         Me.CtlGraphicQRCode1.Name = "CtlGraphicQRCode1"
@@ -878,7 +879,7 @@ Partial Class Form__Main_Demo
         Me.CtlGraphicPortrait_Lady.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.CtlGraphicPortrait_Lady.ElementInfo_Base = Nothing
         Me.CtlGraphicPortrait_Lady.Location = New System.Drawing.Point(35, 118)
-        Me.CtlGraphicPortrait_Lady.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.CtlGraphicPortrait_Lady.Margin = New System.Windows.Forms.Padding(4)
         Me.CtlGraphicPortrait_Lady.MoveabilityEventsForGroupCtls = Nothing
         Me.CtlGraphicPortrait_Lady.MoveabilityEventsForSingleMove = Nothing
         Me.CtlGraphicPortrait_Lady.Name = "CtlGraphicPortrait_Lady"
@@ -891,7 +892,7 @@ Partial Class Form__Main_Demo
         Me.CtlGraphicSignature1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.CtlGraphicSignature1.ElementInfo_Base = Nothing
         Me.CtlGraphicSignature1.Location = New System.Drawing.Point(49, 346)
-        Me.CtlGraphicSignature1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.CtlGraphicSignature1.Margin = New System.Windows.Forms.Padding(4)
         Me.CtlGraphicSignature1.MoveabilityEventsForGroupCtls = Nothing
         Me.CtlGraphicSignature1.MoveabilityEventsForSingleMove = Nothing
         Me.CtlGraphicSignature1.Name = "CtlGraphicSignature1"
@@ -903,7 +904,7 @@ Partial Class Form__Main_Demo
         Me.CtlGraphicStaticText1.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.CtlGraphicStaticText1.ElementInfo_Base = Nothing
         Me.CtlGraphicStaticText1.Location = New System.Drawing.Point(200, 122)
-        Me.CtlGraphicStaticText1.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.CtlGraphicStaticText1.Margin = New System.Windows.Forms.Padding(5)
         Me.CtlGraphicStaticText1.MoveabilityEventsForGroupCtls = Nothing
         Me.CtlGraphicStaticText1.MoveabilityEventsForSingleMove = Nothing
         Me.CtlGraphicStaticText1.Name = "CtlGraphicStaticText1"
@@ -948,6 +949,12 @@ Partial Class Form__Main_Demo
         Me.Label3.Size = New System.Drawing.Size(101, 20)
         Me.Label3.TabIndex = 87
         Me.Label3.Text = "Included Bin"
+        '
+        'ExitApplicationToolStripMenuItem
+        '
+        Me.ExitApplicationToolStripMenuItem.Name = "ExitApplicationToolStripMenuItem"
+        Me.ExitApplicationToolStripMenuItem.Size = New System.Drawing.Size(236, 26)
+        Me.ExitApplicationToolStripMenuItem.Text = "Exit Application"
         '
         'Form__Main_Demo
         '
@@ -1119,4 +1126,5 @@ Partial Class Form__Main_Demo
     Friend WithEvents flowlayoutIncludedBin As FlowLayoutPanel
     Friend WithEvents Label2 As Label
     Friend WithEvents Label3 As Label
+    Friend WithEvents ExitApplicationToolStripMenuItem As ToolStripMenuItem
 End Class

@@ -55,7 +55,7 @@ Public Class Startup
         ''1/5/2022 td ''Dim obj_formToShow As New Form__Main_Demo ''Added 10/11/2019 td
 
         GroupMoveEvents_Singleton.CountInstances = 0 ''Return to default value. Added 1/5/2022 td
-        Dim obj_formToShow As New Form__Main_Demo ''Added 10/11/2019 td 
+        Dim obj_formToShow_Demo As New Form__Main_Demo ''Added 10/11/2019 td 
         Dim strPathToElementsCacheXML As String = "" ''Added 12/14/2021 td 
         Dim strPathToElementsCacheXML_Prior1 As String = "" ''Added 1/25/2022 td 
         Dim strPathToElementsCacheXML_Prior2 As String = "" ''Added 1/25/2022 td 
@@ -125,7 +125,7 @@ Public Class Startup
                     If (bGoodChoice And Not bUserCancelled) Then
                         ''Added 12/26/2021
                         ''---Dim obj_formDemo As New Form__Main_Demo ''Added 12/26/2021 
-                        obj_cache_layout_Elements = LoadCachedData_Elements_Deprecated(obj_formToShow,
+                        obj_cache_layout_Elements = LoadCachedData_Elements_Deprecated(obj_formToShow_Demo,
                                                                boolNewFileXML, strPathToElementsCacheXML)
                         bGoodChoice = (obj_cache_layout_Elements IsNot Nothing)
                         If (Not bGoodChoice) Then objFormShowCacheLayouts.ShowMessageForIllformedXML = True
@@ -173,14 +173,14 @@ Public Class Startup
             ''
             If (obj_cache_layout_Elements Is Nothing) Then
                 ''Open the cache from the XML. 
-                obj_cache_layout_Elements = LoadCachedData_Elements_Deprecated(obj_formToShow, boolNewFileXML,
+                obj_cache_layout_Elements = LoadCachedData_Elements_Deprecated(obj_formToShow_Demo, boolNewFileXML,
                    strPathToElementsCacheXML)
             End If ''End of "If (obj_cache_layout_Elements Is Nothing) Then"
 
         Else
             ''Function called in the line below was suffixed w/ "_FutureUse"
             ''   today.  ---11/30/2021 td 
-            obj_personality = LoadCachedData_Personality_FutureUse(obj_formToShow, boolNewFileXML)
+            obj_personality = LoadCachedData_Personality_FutureUse(obj_formToShow_Demo, boolNewFileXML)
 
         End If ''end of "If (c_boolStillUsingElementsCache) Then ... Else ..."
 
@@ -190,7 +190,7 @@ Public Class Startup
 
             ''Added 12/19/2021 thomas downes
             Dim imageBackground As Image ''Added 12/19/2021 thomas downes
-            imageBackground = obj_formToShow.pictureBackgroundFront.BackgroundImage
+            imageBackground = obj_formToShow_Demo.pictureBackgroundFront.BackgroundImage
 
             obj_cache_layout_Elements =
                 ClassElementsCache_Deprecated.GetLoadedCache("123.xml", True, imageBackground)
@@ -200,9 +200,9 @@ Public Class Startup
         ''
         ''Prepare the designer form. 
         ''
-        obj_formToShow.NewFileXML = boolNewFileXML
+        obj_formToShow_Demo.NewFileXML = boolNewFileXML
         ''Added 12/14/2021 td
-        obj_formToShow.ElementsCache_PathToXML = strPathToElementsCacheXML
+        obj_formToShow_Demo.ElementsCache_PathToXML = strPathToElementsCacheXML
         Dim intMessagesDisplayed As Integer ''Added 1/25/2022 td
 
         ''Not needed. 10/11/2019 td'obj_formToShow.CtlGraphicText1.LayoutFunctions = CType(obj_formToShow., ILayoutFunctions)
@@ -234,16 +234,16 @@ Public Class Startup
                     Continue Do
                 End If ''End of "If (obj_cache_layout_Elements Is Nothing) Then"
 
-                obj_formToShow.ElementsCache_Edits = obj_cache_layout_Elements
+                obj_formToShow_Demo.ElementsCache_Edits = obj_cache_layout_Elements
                 ''Added 12/14/2021 td
-                obj_formToShow.ElementsCache_PathToXML = strPathToElementsCacheXML ''Added 12/14/2021 td 
+                obj_formToShow_Demo.ElementsCache_PathToXML = strPathToElementsCacheXML ''Added 12/14/2021 td 
 
             Else
                 ''
                 ''This is for future use, say approaching Spring of 2022. 
                 ''  ----11/30/2022 
                 ''
-                obj_formToShow.PersonalityCache_Recipients = obj_personality
+                obj_formToShow_Demo.PersonalityCache_Recipients = obj_personality
 
             End If ''End of "If (c_boolStillUsingElementsCache) Then ... Else"
 
@@ -252,34 +252,46 @@ Public Class Startup
             ''
             Dim strFileTitleXML As String ''Added 12/1/4/2021 td
             strFileTitleXML = (New IO.FileInfo(strPathToElementsCacheXML)).Name
-            obj_formToShow.Text = String.Format("RSC ID Card - Desktop - {0} - {1}",
+            obj_formToShow_Demo.Text = String.Format("RSC ID Card - Desktop - {0} - {1}",
                                                 strFileTitleXML, strPathToElementsCacheXML)
 
 
             ''
             ''Show the main form!!!    Huge!!!! 
             ''
-            obj_formToShow.ShowDialog() ''Added 10/11/2019 td 
+            obj_formToShow_Demo.ShowDialog() ''Added 10/11/2019 td 
 
             ''Added 12/14/2021 thomas downes
-            My.Settings.PathToXML_Saved_ElementsCache = obj_formToShow.ElementsCache_PathToXML
+            My.Settings.PathToXML_Saved_ElementsCache = obj_formToShow_Demo.ElementsCache_PathToXML
             My.Settings.Save() ''Added 12/14/2021 thomas downes
 
+            ''Added 2/6/2022 td
+            If (obj_formToShow_Demo.UserWantsToExitApplication) Then
+                pboolUserWantsToExitApp = True
+                Exit Do
+            ElseIf (Not obj_formToShow_Demo.LetsRefresh_CloseForm) Then
+                ''The user is NOT refreshing the Layout.  The user 
+                ''  wants to exit/quit the current Layout. ---2/6/2022 td
+                Exit Do
+            End If ''End of "If (obj_formToShow_Demo.UserWantsToExitApplication) Then"
+
             ''Added 10/13/2019 td
-            If (Not obj_formToShow.LetsRefresh_CloseForm) Then Exit Do
+            ''  Due to above code, this is not really needed. But it's
+            ''  legacy code. ---2/6/2022 td
+            If (Not obj_formToShow_Demo.LetsRefresh_CloseForm) Then Exit Do
 
             ''Added 1/26/2022 thomas d.
             Dim bRefreshBackside As Boolean ''Added 1/26/2022 thomas d.
-            bRefreshBackside = obj_formToShow.LetsRefresh_CardBackside
+            bRefreshBackside = obj_formToShow_Demo.LetsRefresh_CardBackside
 
             ''12/14/2021''obj_cache_layout_Elements = obj_formToShow.ElementsCache_Saved
-            obj_cache_layout_Elements = obj_formToShow.ElementsCache_ManageBoth.GetCacheForSaving(True)
+            obj_cache_layout_Elements = obj_formToShow_Demo.ElementsCache_ManageBoth.GetCacheForSaving(True)
 
             GroupMoveEvents_Singleton.CountInstances = 0 ''Refresh to default value. 
-            obj_formToShow = New Form__Main_Demo
+            obj_formToShow_Demo = New Form__Main_Demo
 
             ''Added 1/26/2022 td
-            obj_formToShow.LetsRefresh_CardBackside = bRefreshBackside
+            obj_formToShow_Demo.LetsRefresh_CardBackside = bRefreshBackside
 
             ''
             ''This is potentially an infinite loop.  Look for "Exit Do". 

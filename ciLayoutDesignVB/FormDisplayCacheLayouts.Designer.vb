@@ -53,12 +53,12 @@ Partial Class FormDisplayCacheLayouts
         'LabelCaptionPathToTheFileXML
         '
         Me.LabelCaptionPathToTheFileXML.AutoSize = True
-        Me.LabelCaptionPathToTheFileXML.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelCaptionPathToTheFileXML.Location = New System.Drawing.Point(212, 12)
+        Me.LabelCaptionPathToTheFileXML.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelCaptionPathToTheFileXML.Location = New System.Drawing.Point(80, 12)
         Me.LabelCaptionPathToTheFileXML.Name = "LabelCaptionPathToTheFileXML"
-        Me.LabelCaptionPathToTheFileXML.Size = New System.Drawing.Size(140, 18)
+        Me.LabelCaptionPathToTheFileXML.Size = New System.Drawing.Size(171, 18)
         Me.LabelCaptionPathToTheFileXML.TabIndex = 77
-        Me.LabelCaptionPathToTheFileXML.Text = "Path to the XML file."
+        Me.LabelCaptionPathToTheFileXML.Text = "Path to the XML file..."
         '
         'LabelHeader3
         '
@@ -74,7 +74,7 @@ Partial Class FormDisplayCacheLayouts
         '
         Me.LabelFullPathToXML.AutoSize = True
         Me.LabelFullPathToXML.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelFullPathToXML.Location = New System.Drawing.Point(241, 44)
+        Me.LabelFullPathToXML.Location = New System.Drawing.Point(257, 12)
         Me.LabelFullPathToXML.Name = "LabelFullPathToXML"
         Me.LabelFullPathToXML.Size = New System.Drawing.Size(168, 18)
         Me.LabelFullPathToXML.TabIndex = 79
@@ -83,7 +83,7 @@ Partial Class FormDisplayCacheLayouts
         'ButtonOpenCurrentLayout
         '
         Me.ButtonOpenCurrentLayout.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonOpenCurrentLayout.Location = New System.Drawing.Point(26, 117)
+        Me.ButtonOpenCurrentLayout.Location = New System.Drawing.Point(26, 135)
         Me.ButtonOpenCurrentLayout.Name = "ButtonOpenCurrentLayout"
         Me.ButtonOpenCurrentLayout.Size = New System.Drawing.Size(171, 89)
         Me.ButtonOpenCurrentLayout.TabIndex = 80
@@ -93,7 +93,7 @@ Partial Class FormDisplayCacheLayouts
         'ButtonOpenNewBlank
         '
         Me.ButtonOpenNewBlank.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonOpenNewBlank.Location = New System.Drawing.Point(26, 12)
+        Me.ButtonOpenNewBlank.Location = New System.Drawing.Point(26, 40)
         Me.ButtonOpenNewBlank.Name = "ButtonOpenNewBlank"
         Me.ButtonOpenNewBlank.Size = New System.Drawing.Size(171, 89)
         Me.ButtonOpenNewBlank.TabIndex = 82
@@ -102,10 +102,9 @@ Partial Class FormDisplayCacheLayouts
         '
         'LabelPriorLayoutsHdr
         '
-        Me.LabelPriorLayoutsHdr.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.LabelPriorLayoutsHdr.AutoSize = True
         Me.LabelPriorLayoutsHdr.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelPriorLayoutsHdr.Location = New System.Drawing.Point(1042, 9)
+        Me.LabelPriorLayoutsHdr.Location = New System.Drawing.Point(724, 44)
         Me.LabelPriorLayoutsHdr.Name = "LabelPriorLayoutsHdr"
         Me.LabelPriorLayoutsHdr.Size = New System.Drawing.Size(95, 18)
         Me.LabelPriorLayoutsHdr.TabIndex = 83
@@ -157,7 +156,7 @@ Partial Class FormDisplayCacheLayouts
         Me.LabelWarningMessage.AutoSize = True
         Me.LabelWarningMessage.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelWarningMessage.ForeColor = System.Drawing.Color.Red
-        Me.LabelWarningMessage.Location = New System.Drawing.Point(241, 62)
+        Me.LabelWarningMessage.Location = New System.Drawing.Point(257, 30)
         Me.LabelWarningMessage.Name = "LabelWarningMessage"
         Me.LabelWarningMessage.Size = New System.Drawing.Size(149, 18)
         Me.LabelWarningMessage.TabIndex = 86
@@ -174,16 +173,17 @@ Partial Class FormDisplayCacheLayouts
         Me.ButtonUserCancels.TabIndex = 87
         Me.ButtonUserCancels.Text = "Cancel"
         Me.ButtonUserCancels.UseVisualStyleBackColor = True
+        Me.ButtonUserCancels.Visible = False
         '
         'ButtonExitApp
         '
         Me.ButtonExitApp.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.ButtonExitApp.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonExitApp.Location = New System.Drawing.Point(26, 482)
+        Me.ButtonExitApp.Location = New System.Drawing.Point(1223, 514)
         Me.ButtonExitApp.Name = "ButtonExitApp"
-        Me.ButtonExitApp.Size = New System.Drawing.Size(182, 72)
+        Me.ButtonExitApp.Size = New System.Drawing.Size(171, 45)
         Me.ButtonExitApp.TabIndex = 88
-        Me.ButtonExitApp.Text = "Exit Application"
+        Me.ButtonExitApp.Text = "Exit"
         Me.ButtonExitApp.UseVisualStyleBackColor = True
         '
         'ButtonOK
@@ -288,6 +288,7 @@ Partial Class FormDisplayCacheLayouts
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1406, 574)
         Me.Controls.Add(Me.LinkLabel1)
+        Me.Controls.Add(Me.ButtonExitApp)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.LinkLabelClearPath)
         Me.Controls.Add(Me.ButtonBrowseForImageFile)
@@ -295,7 +296,6 @@ Partial Class FormDisplayCacheLayouts
         Me.Controls.Add(Me.picturePreviewFront)
         Me.Controls.Add(Me.ButtonFindLayout)
         Me.Controls.Add(Me.ButtonOK)
-        Me.Controls.Add(Me.ButtonExitApp)
         Me.Controls.Add(Me.ButtonUserCancels)
         Me.Controls.Add(Me.LabelWarningMessage)
         Me.Controls.Add(Me.ButtonSelectLayoutFromDrive)
