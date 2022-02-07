@@ -425,6 +425,9 @@
     <EmbeddedResource Include="Dialogs\DialogPresetValues.resx">
       <DependentUpon>DialogPresetValues.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\DialogReviseText.resx">
+      <DependentUpon>DialogReviseText.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\DialogSubsection.resx">
       <DependentUpon>DialogSubsection.vb</DependentUpon>
     </EmbeddedResource>
