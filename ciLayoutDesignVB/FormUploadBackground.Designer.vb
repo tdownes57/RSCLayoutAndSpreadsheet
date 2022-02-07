@@ -24,10 +24,11 @@ Partial Class FormUploadBackground
     Private Sub InitializeComponent()
         Me.buttonOK = New System.Windows.Forms.Button()
         Me.buttonCancel = New System.Windows.Forms.Button()
-        Me.buttonUpload = New System.Windows.Forms.Button()
+        Me.buttonUpload1 = New System.Windows.Forms.Button()
         Me.LabelHeading1 = New System.Windows.Forms.Label()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.CtlBackground1 = New ciLayoutDesignVB.CtlBackground()
+        Me.buttonUpload2 = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'buttonOK
@@ -50,15 +51,15 @@ Partial Class FormUploadBackground
         Me.buttonCancel.Text = "Cancel"
         Me.buttonCancel.UseVisualStyleBackColor = True
         '
-        'buttonUpload
+        'buttonUpload1
         '
-        Me.buttonUpload.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.buttonUpload.Location = New System.Drawing.Point(445, 29)
-        Me.buttonUpload.Name = "buttonUpload"
-        Me.buttonUpload.Size = New System.Drawing.Size(311, 34)
-        Me.buttonUpload.TabIndex = 3
-        Me.buttonUpload.Text = "Select Background Image From File System"
-        Me.buttonUpload.UseVisualStyleBackColor = True
+        Me.buttonUpload1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.buttonUpload1.Location = New System.Drawing.Point(445, 29)
+        Me.buttonUpload1.Name = "buttonUpload1"
+        Me.buttonUpload1.Size = New System.Drawing.Size(311, 34)
+        Me.buttonUpload1.TabIndex = 3
+        Me.buttonUpload1.Text = "Select Background Image From File System"
+        Me.buttonUpload1.UseVisualStyleBackColor = True
         '
         'LabelHeading1
         '
@@ -81,18 +82,30 @@ Partial Class FormUploadBackground
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.CtlBackground1.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.CtlBackground1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.CtlBackground1.IsNotSelectableItemOfAList = False
         Me.CtlBackground1.Location = New System.Drawing.Point(12, 69)
         Me.CtlBackground1.Name = "CtlBackground1"
         Me.CtlBackground1.Size = New System.Drawing.Size(688, 340)
         Me.CtlBackground1.TabIndex = 0
+        '
+        'buttonUpload2
+        '
+        Me.buttonUpload2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.buttonUpload2.Location = New System.Drawing.Point(237, 216)
+        Me.buttonUpload2.Name = "buttonUpload2"
+        Me.buttonUpload2.Size = New System.Drawing.Size(311, 34)
+        Me.buttonUpload2.TabIndex = 5
+        Me.buttonUpload2.Text = "Select Background Image From File System"
+        Me.buttonUpload2.UseVisualStyleBackColor = True
         '
         'FormUploadBackground
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(785, 466)
+        Me.Controls.Add(Me.buttonUpload2)
         Me.Controls.Add(Me.LabelHeading1)
-        Me.Controls.Add(Me.buttonUpload)
+        Me.Controls.Add(Me.buttonUpload1)
         Me.Controls.Add(Me.buttonCancel)
         Me.Controls.Add(Me.buttonOK)
         Me.Controls.Add(Me.CtlBackground1)
@@ -106,7 +119,8 @@ Partial Class FormUploadBackground
     Friend WithEvents CtlBackground1 As CtlBackground
     Friend WithEvents buttonOK As Button
     Friend WithEvents buttonCancel As Button
-    Friend WithEvents buttonUpload As Button
+    Friend WithEvents buttonUpload1 As Button
     Friend WithEvents LabelHeading1 As Label
     Friend WithEvents OpenFileDialog1 As OpenFileDialog
+    Friend WithEvents buttonUpload2 As Button
 End Class

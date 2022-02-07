@@ -2536,13 +2536,31 @@ ExitHandler:
         objShow.ShowDialog()
 
         ''Added 12/3/2021 td
-        Dim bConfirmFileExists As Boolean ''Added 12/3/2021 td
-        bConfirmFileExists = System.IO.File.Exists(objShow.ImageFilePath)
-        If (Not bConfirmFileExists) Then Return ''Added 12/3/2021 td
+        If (objShow.Selected) Then
+            Dim bConfirmFileExists As Boolean ''Added 12/3/2021 td
+            bConfirmFileExists = System.IO.File.Exists(objShow.ImageFilePath)
+            If (Not bConfirmFileExists) Then Return ''Added 12/3/2021 td
 
-        ''Added 12/3/2021 td
-        Me.ElementsCache_Edits.BackgroundImage_Front_Path = objShow.ImageFilePath
-        Me.ElementsCache_Edits.BackgroundImage_Front_Path = objShow.ImageFileInfo.Name
+            ''Added 12/3/2021 td
+            If (mod_designer.ShowingTheBackside()) Then
+                Me.ElementsCache_Edits.BackgroundImage_Backside_Path = objShow.ImageFilePath
+                Me.ElementsCache_Edits.BackgroundImage_Backside_FTitle = objShow.ImageFileTitle
+                pictureBackgroundBackside.ImageLocation = objShow.ImageFilePath
+                pictureBackgroundBackside.SizeMode = PictureBoxSizeMode.Zoom
+
+            Else
+                Me.ElementsCache_Edits.BackgroundImage_Front_Path = objShow.ImageFilePath
+                Me.ElementsCache_Edits.BackgroundImage_Front_FTitle = objShow.ImageFileTitle
+                pictureBackgroundFront.ImageLocation = objShow.ImageFilePath
+                pictureBackgroundFront.SizeMode = PictureBoxSizeMode.Zoom
+
+            End If ''End of "If (mod_designer.ShowingTheBackside()) Then .... Else ...."
+
+            ''Added 2/7/2022 td
+            ''mod_designer.UnloadDesigner()
+            ''mod_designer.LoadDesigner()
+
+        End If ''End of "If (objShow.Selected) Then"
 
     End Sub
 

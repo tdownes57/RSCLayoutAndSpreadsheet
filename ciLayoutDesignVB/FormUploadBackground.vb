@@ -3,11 +3,12 @@
     ''Added 11/25/2021 Thomas Downes
     ''
     Public ImageFilePath As String
+    Public ImageFileTitle As String
     Public ImageFileInfo As System.IO.FileInfo
     Public Selected As Boolean
     Public AutoShowOpenFileDialog As Boolean ''Added 12/10/2021 thomas downes
 
-    Private Sub buttonUpload_Click(sender As Object, e As EventArgs) Handles buttonUpload.Click
+    Private Sub buttonUpload_Click(sender As Object, e As EventArgs) Handles buttonUpload1.Click
         ''
         ''Added 11/25/2021 Thomas Downes
         ''
@@ -95,6 +96,10 @@
         bIncrementingNeeded = IO.File.Exists(strDestPathToFileJPG_Proposed)
 
         If (bIncrementingNeeded) Then
+            ''
+            ''Suffix an incremented number until the file-title-with-suffix
+            ''  is available for use. ---2/7/2022
+            ''
             strFileTitle_Incremented = DiskFilesVB.IncrementFileTitle_UntilFree(strDestFolderPath,
                                                                             strFileTitle_Original,
                                                                             strDestPathToFileJPG_New)
@@ -125,7 +130,15 @@
         Try
             ''Dec.10 2021''Me.ImageFileInfo.CopyTo(strDestPathToFileJPG_New)
             Me.ImageFileInfo.CopyTo(strDestPathToFileJPG_New, bUserWantsToReplaceOldWithNew)
+
+            ''Added 2/7/2022 td
+            Me.ImageFileInfo = New IO.FileInfo(strDestPathToFileJPG_New)
+            Me.ImageFilePath = Me.ImageFileInfo.FullName
+            Me.ImageFileTitle = Me.ImageFileInfo.Name
+            Me.Selected = True
+
             Me.Close() ''Close the window. 
+
         Catch ex_copy As Exception
             ''
             ''Added 11/26/2021 thomas d.
@@ -153,13 +166,21 @@
         CtlBackground1.IsNotSelectableItemOfAList = True ''Added 12/10/2021 td
 
         ''Added 12/10/2021 
-        If (Me.AutoShowOpenFileDialog) Then buttonUpload.PerformClick()
+        If (Me.AutoShowOpenFileDialog) Then buttonUpload1.PerformClick()
 
     End Sub
 
     Private Sub buttonCancel_Click(sender As Object, e As EventArgs) Handles buttonCancel.Click
 
         Me.Close() ''Added 11/26/2021 
+
+    End Sub
+
+    Private Sub buttonUpload2_Click(sender As Object, e As EventArgs) Handles buttonUpload2.Click
+
+        ''Added 2/7/2022 thomas downes tomdownes1@gmail.com
+        buttonUpload2.Visible = False
+        buttonUpload_Click(sender, e)
 
     End Sub
 End Class

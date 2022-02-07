@@ -65,6 +65,8 @@ Public Class ClassListOfElements_Graphics
         ''Added 1/19/2022 thomas downes
         ''
         Dim boolMatch As Boolean
+        Dim boolMatch1 As Boolean
+        Dim boolMatch2 As Boolean
         Dim each_infoBase As IElement_Base
 
         ''
@@ -72,8 +74,9 @@ Public Class ClassListOfElements_Graphics
         ''
         For Each each_element In ListOfElements_Front()
             each_infoBase = CType(each_element, ciBadgeInterfaces.IElement_Base)
-            boolMatch = (par_infoBase Is each_infoBase)
-            If (boolMatch) Then
+            boolMatch1 = (par_infoBase Is each_infoBase)
+            boolMatch2 = (par_infoBase Is each_element)
+            If (boolMatch1 Or boolMatch2) Then
                 ListOfElements_Front.Remove(each_element)
                 pref_bSuccess = True ''Added 1/21/2022 td
                 Exit Sub
