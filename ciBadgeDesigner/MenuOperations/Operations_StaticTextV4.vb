@@ -58,9 +58,25 @@ Public Class Operations_StaticTextV4
         strCurrentText = objElementStaticTextV4.Text_Static
 
         ''Added 1/18/2022 thomas downes  
-        objElementStaticTextV4.Text_Static =
-            InputBox("Enter the static text you want to appear.  You can revise it later.",
+        ''Feb6 2022''objElementStaticTextV4.Text_Static =
+        Dim strTextFromInputBox As String ''Added 2/6/2022 td   
+        strTextFromInputBox =
+        InputBox("Enter the static text you want to appear.  You can revise it later.",
                      "Enter text", strCurrentText, e.X, e.Y)
+
+        ''Added 2/06/2022 thomas downes  
+        If ("" = strTextFromInputBox) Then
+            MessageBoxTD.Show_Statement("User has cancelled, deleted the text, or perhaps made a mistake.")
+            Exit Sub
+        End If ''End of "If ("" = strTextFromInputBox) Then"
+
+        ''Added 2/06/2022 thomas downes  
+        Dim boolConfirmed As Boolean
+        boolConfirmed = MessageBoxTD.Show_Confirmed("Please confirm the following text.",
+                            strTextFromInputBox, True)
+        If (Not boolConfirmed) Then Exit Sub
+
+        objElementStaticTextV4.Text_Static = strTextFromInputBox
         objElementStaticTextV4.DateEdited = Now
 
         With objControlStaticTextV4

@@ -283,6 +283,12 @@
     <Compile Include="Dialogs\DialogListStandardFields.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Dialogs\Dialog_Base.Designer.vb">
+      <DependentUpon>Dialog_Base.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Dialog_Base.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="DiskFiles\DiskFilesVB.vb" />
     <Compile Include="DiskFiles\DiskFolders.vb" />
     <Compile Include="Interfaces\InterfaceCurrentElement.vb" />
@@ -427,6 +433,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\DialogListStandardFields.resx">
       <DependentUpon>DialogListStandardFields.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\Dialog_Base.resx">
+      <DependentUpon>Dialog_Base.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MenuOperations\FormPickGraphic.resx">
       <DependentUpon>FormPickGraphic.vb</DependentUpon>

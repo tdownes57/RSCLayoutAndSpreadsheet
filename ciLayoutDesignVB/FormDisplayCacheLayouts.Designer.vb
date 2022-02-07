@@ -140,7 +140,7 @@ Partial Class FormDisplayCacheLayouts
         '
         Me.ButtonSelectLayoutFromDrive.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonSelectLayoutFromDrive.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonSelectLayoutFromDrive.Location = New System.Drawing.Point(980, 513)
+        Me.ButtonSelectLayoutFromDrive.Location = New System.Drawing.Point(975, 521)
         Me.ButtonSelectLayoutFromDrive.Name = "ButtonSelectLayoutFromDrive"
         Me.ButtonSelectLayoutFromDrive.Size = New System.Drawing.Size(228, 44)
         Me.ButtonSelectLayoutFromDrive.TabIndex = 85
@@ -179,9 +179,9 @@ Partial Class FormDisplayCacheLayouts
         '
         Me.ButtonExitApp.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.ButtonExitApp.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonExitApp.Location = New System.Drawing.Point(1223, 514)
+        Me.ButtonExitApp.Location = New System.Drawing.Point(1223, 502)
         Me.ButtonExitApp.Name = "ButtonExitApp"
-        Me.ButtonExitApp.Size = New System.Drawing.Size(171, 45)
+        Me.ButtonExitApp.Size = New System.Drawing.Size(171, 63)
         Me.ButtonExitApp.TabIndex = 88
         Me.ButtonExitApp.Text = "Exit"
         Me.ButtonExitApp.UseVisualStyleBackColor = True
