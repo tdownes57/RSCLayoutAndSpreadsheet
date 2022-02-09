@@ -124,6 +124,8 @@ Partial Class Form__Main_Demo
         Me.flowlayoutIncludedBin = New System.Windows.Forms.FlowLayoutPanel()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.LinkLabelSaveAndShowFront = New System.Windows.Forms.LinkLabel()
+        Me.linklabelAndShowBack = New System.Windows.Forms.LinkLabel()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -578,9 +580,9 @@ Partial Class Form__Main_Demo
         '
         Me.dropdownHowToLoadFlds.FormattingEnabled = True
         Me.dropdownHowToLoadFlds.Items.AddRange(New Object() {"...", "Load Standard & Custom Fields as different", "Load Standard & Custom Fields as same"})
-        Me.dropdownHowToLoadFlds.Location = New System.Drawing.Point(594, 29)
+        Me.dropdownHowToLoadFlds.Location = New System.Drawing.Point(819, 30)
         Me.dropdownHowToLoadFlds.Name = "dropdownHowToLoadFlds"
-        Me.dropdownHowToLoadFlds.Size = New System.Drawing.Size(228, 28)
+        Me.dropdownHowToLoadFlds.Size = New System.Drawing.Size(107, 28)
         Me.dropdownHowToLoadFlds.TabIndex = 51
         Me.dropdownHowToLoadFlds.Visible = False
         '
@@ -645,7 +647,7 @@ Partial Class Form__Main_Demo
         Me.checkAutoPreview.Checked = True
         Me.checkAutoPreview.CheckState = System.Windows.Forms.CheckState.Checked
         Me.checkAutoPreview.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.checkAutoPreview.Location = New System.Drawing.Point(739, 96)
+        Me.checkAutoPreview.Location = New System.Drawing.Point(752, 96)
         Me.checkAutoPreview.Margin = New System.Windows.Forms.Padding(1, 3, 1, 3)
         Me.checkAutoPreview.Name = "checkAutoPreview"
         Me.checkAutoPreview.Size = New System.Drawing.Size(117, 22)
@@ -671,7 +673,7 @@ Partial Class Form__Main_Demo
         'LabelPersonalityCurrent
         '
         Me.LabelPersonalityCurrent.AutoSize = True
-        Me.LabelPersonalityCurrent.Location = New System.Drawing.Point(734, 68)
+        Me.LabelPersonalityCurrent.Location = New System.Drawing.Point(748, 68)
         Me.LabelPersonalityCurrent.Name = "LabelPersonalityCurrent"
         Me.LabelPersonalityCurrent.Size = New System.Drawing.Size(196, 20)
         Me.LabelPersonalityCurrent.TabIndex = 64
@@ -965,11 +967,35 @@ Partial Class Form__Main_Demo
         Me.Label3.TabIndex = 87
         Me.Label3.Text = "Included Bin"
         '
+        'LinkLabelSaveAndShowFront
+        '
+        Me.LinkLabelSaveAndShowFront.AutoSize = True
+        Me.LinkLabelSaveAndShowFront.Location = New System.Drawing.Point(604, 33)
+        Me.LinkLabelSaveAndShowFront.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
+        Me.LinkLabelSaveAndShowFront.Name = "LinkLabelSaveAndShowFront"
+        Me.LinkLabelSaveAndShowFront.Size = New System.Drawing.Size(110, 20)
+        Me.LinkLabelSaveAndShowFront.TabIndex = 88
+        Me.LinkLabelSaveAndShowFront.TabStop = True
+        Me.LinkLabelSaveAndShowFront.Text = "&& Show Front"
+        '
+        'linklabelAndShowBack
+        '
+        Me.linklabelAndShowBack.AutoSize = True
+        Me.linklabelAndShowBack.Location = New System.Drawing.Point(604, 53)
+        Me.linklabelAndShowBack.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
+        Me.linklabelAndShowBack.Name = "linklabelAndShowBack"
+        Me.linklabelAndShowBack.Size = New System.Drawing.Size(140, 20)
+        Me.linklabelAndShowBack.TabIndex = 89
+        Me.linklabelAndShowBack.TabStop = True
+        Me.linklabelAndShowBack.Text = "&& Show Backside"
+        '
         'Form__Main_Demo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1298, 642)
+        Me.Controls.Add(Me.linklabelAndShowBack)
+        Me.Controls.Add(Me.LinkLabelSaveAndShowFront)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.flowlayoutIncludedBin)
         Me.Controls.Add(Me.LabelFieldsNotYetDisplayed)
@@ -1137,4 +1163,6 @@ Partial Class Form__Main_Demo
     Friend WithEvents Label3 As Label
     Friend WithEvents ExitApplicationToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ClickingLinkLabelWillGenerateIDCardimageToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents LinkLabelSaveAndShowFront As LinkLabel
+    Friend WithEvents linklabelAndShowBack As LinkLabel
 End Class

@@ -408,12 +408,21 @@ Public Class Form__Main_Demo
     End Sub ''End of "Private Sub Unload_Designer()"  
 
 
-    Private Sub Load_Designer()
+    Private Sub Load_Designer(Optional par_enum As EnumWhichSideOfCard = EnumWhichSideOfCard.Undetermined)
+        ''2/8/2022 td''Private Sub Load_Designer()
         ''
         ''Encapsulated 11/28/2021 thomas downes
         ''
         Dim boolBacksideOfCard As Boolean ''Added 12/14/2021 td
-        boolBacksideOfCard = (mod_designer.EnumSideOfCard_Current = EnumWhichSideOfCard.EnumBackside)
+
+        ''Feb8 2022''boolBacksideOfCard = (mod_designer.EnumSideOfCard_Current = EnumWhichSideOfCard.EnumBackside)
+        If (par_enum = EnumWhichSideOfCard.Undetermined) Then
+            boolBacksideOfCard = (mod_designer.EnumSideOfCard_Current = EnumWhichSideOfCard.EnumBackside)
+        Else
+            ''Added 2/8/2022 td
+            boolBacksideOfCard = (par_enum = EnumWhichSideOfCard.EnumBackside)
+            mod_designer.EnumSideOfCard_Current = par_enum
+        End If ''End of "If (par_enum <> ...) Then .... Else..."
 
         ''Added 1/14/2022 td
         With ElementsCache_Edits
@@ -421,8 +430,8 @@ Public Class Form__Main_Demo
                 If (.GetElementQR(False).Image_BL Is Nothing) Then
                     .GetElementQR(False).Image_BL = My.Resources.QR_Code_Example
                 End If
-            End If
-        End With
+            End If ''End of "If (.GetElementQR(False) IsNot Nothing) Then"
+        End With ''End of "With ElementsCache_Edits"
 
         ''Added 1/14/2022 td
         With ElementsCache_Edits
@@ -1107,6 +1116,8 @@ Public Class Form__Main_Demo
         ''
         Dim sender_link As LinkLabel
         Dim oRecipientClicked As ClassRecipient ''Added 2/7/2022 td
+        Static static_bFirstClicked As Boolean = True ''Added 2/8/2022 td
+
         sender_link = CType(sender, LinkLabel)
         ClassElementFieldV3.oRecipient = CType(sender_link.Tag, ClassRecipient)
         oRecipientClicked = CType(sender_link.Tag, ClassRecipient)
@@ -1124,7 +1135,8 @@ Public Class Form__Main_Demo
             ''Create the Badge image to a hard drive folder. ----2/7/2022 td
             ''
             ''--PrintAllBadgesToFileFolderToolStripMenuItem_Click()
-            PrintOneBadgeToFileFolder_ByRecipient_BySide(oRecipientClicked)
+            PrintOneBadgeToFileFolder_ByRecipient_BySide(oRecipientClicked, static_bFirstClicked)
+            static_bFirstClicked = False ''Indicate that the first has been printed (completed).
 
         End If ''End of "If (boolPrintBadgeImage) Then"
 
@@ -1132,7 +1144,8 @@ Public Class Form__Main_Demo
 
 
     Private Sub PrintOneBadgeToFileFolder_ByRecipient_BySide(par_oRecipient As ClassRecipient,
-                                                   pboolFirstToBePrinted As Boolean)
+                                                   pboolFirstToBePrinted As Boolean,
+                                               Optional ByRef pstrOutputPath As String = "")
         ''
         ''Added 2/7/2022 thomas d. 
         ''
@@ -1159,6 +1172,7 @@ Public Class Form__Main_Demo
             sNewMadeFolder = "Made " & static_strDatetimeSuffix
             strOutputPathToFolder_MadeDT = IO.Path.Combine(strOutputPathToFolder, sNewMadeFolder)
             IO.Directory.CreateDirectory(strOutputPathToFolder_MadeDT)
+            pstrOutputPath = strOutputPathToFolder_MadeDT
         Else
             sNewMadeFolder = "Made " & static_strDatetimeSuffix
             strOutputPathToFolder_MadeDT = IO.Path.Combine(strOutputPathToFolder, sNewMadeFolder)
@@ -1179,7 +1193,9 @@ Public Class Form__Main_Demo
     End Sub ''End of ""Private Sub PrintOneBadgeToFileFolder_ByRecipient""
 
 
-    Private Sub RefreshTheSetOfDisplayedElements(pboolResetToFrontOfCard As Boolean) ''_WontPreview()
+    Private Sub RefreshTheSetOfDisplayedElements(pboolResetToFrontOfCard As Boolean,
+        Optional par_enumSide As EnumWhichSideOfCard = EnumWhichSideOfCard.Undetermined) ''_WontPreview()
+        ''Feb8 2022 '' Private Sub RefreshTheSetOfDisplayedElements(pboolResetToFrontOfCard As Boolean
         ''
         ''Added 11/28/2021 Thomas Downes 
         ''
@@ -1214,7 +1230,8 @@ Public Class Form__Main_Demo
         ''
         ''Major call!!
         ''
-        Load_Designer()
+        ''2/8/2022 td''Load_Designer()
+        Load_Designer(par_enumSide)
 
     End Sub ''End of "Private Sub RefreshTheSetOfDisplayedElements()"
 
@@ -2230,7 +2247,8 @@ Public Class Form__Main_Demo
 
             If (c_bUseCheckboxes) Then
                 .Controls.Add(mod_buttonPrintChecked)
-                mod_buttonPrintChecked.text = "Print Checked IDCards"
+                mod_buttonPrintChecked.Text = "Print Checked IDCards"
+                mod_buttonPrintChecked.Width = 200 '' = 60
             End If ''end if "If (c_bUseCheckboxes) Then"
 
             ''11/30/2021 td''list_recips = Me.PersonalityCache.ListOfRecipients
@@ -2606,7 +2624,16 @@ ExitHandler:
         EmailingFilesViaGmail_Framework.EmailingFiles.SmtpEnableSSL = True
         EmailingFiles.SmtpServerAddress = "smtp.gmail.com"
 
+        ''
+        ''Major call!!!!
+        ''
         EmailingFiles.SendViaEmail_OneFile(mod_strEmailAddress, strOutputPathToFileJPG)
+
+        ''Added 2/8/2022 td
+        If (EmailingFiles.RuntimeError) Then
+            ''Added 2/8/2022 td
+            MessageBoxTD.Show_Statement(EmailingFiles.RuntimeErrorMessage)
+        End If ''End of "If (EmailingFiles.RuntimeError) Then"
 
     End Sub
 
@@ -3001,7 +3028,7 @@ ExitHandler:
 
     End Sub
 
-    Public Sub ProceedToBackside()
+    Public Sub ProceedToBackside(Optional pboolSkipSave As Boolean = False)
         ''
         ''Encapsulated 1/26/2022 td
         ''
@@ -3011,7 +3038,11 @@ ExitHandler:
         labelProceedToBackside.Text = labelProceedToBackside.Tag.ToString()
 
         ''Added 2/01/2022 td
-        SaveLayout_PreviewImage()
+        If (pboolSkipSave) Then
+            ''Don't do any Save operations. 
+        Else
+            SaveLayout_PreviewImage()
+        End If ''End of "If (pboolSkipSave) Then ... Else ...."
 
         ''Dec.10 2021 thomas downes
         Unload_Designer(False)
@@ -3197,19 +3228,46 @@ ExitHandler:
         Dim each_checkbox As CheckBox
         Dim each_recipient As ClassRecipient
         Dim boolFirst As Boolean = True
-        For Each each_control As Control In flowSidebar.Controls
-            If (TypeOf each_control Is CheckBox) Then
-                If (each_control.Tag IsNot Nothing) Then
-                    each_checkbox = CType(each_control, CheckBox)
-                    If (each_checkbox.Checked) Then
-                        ''Major call.....
-                        each_recipient = CType(each_control.Tag, ClassRecipient)
-                        PrintOneBadgeToFileFolder_ByRecipient_BySide(each_recipient, boolFirst)
-                        boolFirst = False
-                    End If ''End of "If (each_checkbox.Checked) Then"
-                End If ''End of ""If (each_checkbox.Tag IsNot Nothing) Then""
-            End If ''End of "If (TypeOf each_checkbox Is CheckBox) Then"
-        Next each_control
+        Dim sOutputPath As String = ""
+        Dim boolTwoSidedCard As Boolean = False ''Added 2/8/2022 td
+        Dim intCountSides As Integer ''Added 2/8/2022 td
+        Dim intIndexSide As Integer ''Added 2/8/2022 td
+
+        SaveLayout()
+        boolTwoSidedCard = Me.ElementsCache_Edits.BadgeHasTwoSidesOfCard
+        intCountSides = CInt(IIf(boolTwoSidedCard, 2, 1))
+
+        For intIndexSide = 1 To intCountSides
+
+            If (intIndexSide = 1) Then
+                RefreshTheSetOfDisplayedElements(False, EnumWhichSideOfCard.EnumFrontside)
+            Else
+                ProceedToBackside(True)
+            End If ''End of "If (intIndexSide = 1) Then ... Else ..."
+
+            ''
+            ''Go through all of the selected recipients. 
+            ''
+            For Each each_control As Control In flowSidebar.Controls
+                If (TypeOf each_control Is CheckBox) Then
+                    If (each_control.Tag IsNot Nothing) Then
+                        each_checkbox = CType(each_control, CheckBox)
+                        If (each_checkbox.Checked) Then
+                            ''Major call.....
+                            each_recipient = CType(each_control.Tag, ClassRecipient)
+                            PrintOneBadgeToFileFolder_ByRecipient_BySide(each_recipient,
+                                                 boolFirst, sOutputPath)
+                            boolFirst = False
+                        End If ''End of "If (each_checkbox.Checked) Then"
+                    End If ''End of ""If (each_checkbox.Tag IsNot Nothing) Then""
+                End If ''End of "If (TypeOf each_checkbox Is CheckBox) Then"
+            Next each_control
+
+        Next intIndexSide
+
+        ''Added 2/8/2022 td
+        RefreshTheSetOfDisplayedElements(False, EnumWhichSideOfCard.EnumFrontside)
+        System.Diagnostics.Process.Start(sOutputPath)
 
     End Sub
 
@@ -3229,6 +3287,34 @@ ExitHandler:
     Private Sub Form__Main_Demo_Resize(sender As Object, e As EventArgs) Handles Me.Resize
         ''Added 2/8/2022 td
         ManageSidebarWidth(flowSidebar, False, 0)
+    End Sub
+
+    Private Sub LinkLabelSaveAndShowFront_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelSaveAndShowFront.LinkClicked
+
+        ''Added 2/8/2022 thomas d.
+        ''#2 Feb8 2022''SaveLayout()
+        ''#2 Feb8 2022''Startup.SaveFullPathToFileXML(Me.ElementsCache_PathToXML)
+        ''Me.LetsRefresh_CloseForm = True
+        ''Me.LetsRefresh_CardBackside = False
+        ''Me.Close()
+        RefreshTheSetOfDisplayedElements(False, EnumWhichSideOfCard.EnumFrontside)
+
+    End Sub
+
+
+    Private Sub linklabelAndShowBack_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles linklabelAndShowBack.LinkClicked
+        ''Added 2/8/2022 thomas d.
+        ''#2 Feb8 2022''SaveLayout()
+        ''#2 Feb8 2022''Startup.SaveFullPathToFileXML(Me.ElementsCache_PathToXML)
+        ''#1 Feb8 2022''Me.LetsRefresh_CloseForm = True
+        ''#1 Feb8 2022''Me.LetsRefresh_CardBackside = False
+        ''#1 Feb8 2022''Me.Close()
+        ''#2 Feb8 2022''RefreshTheSetOfDisplayedElements(False, EnumWhichSideOfCard.EnumBackside)
+        ProceedToBackside(True)
+    End Sub
+
+    Private Sub mod_buttonPrintChecked_PaddingChanged(sender As Object, e As EventArgs) Handles mod_buttonPrintChecked.PaddingChanged
+
     End Sub
 
 
