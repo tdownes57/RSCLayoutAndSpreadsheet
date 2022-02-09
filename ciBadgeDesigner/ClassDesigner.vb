@@ -964,15 +964,18 @@ Public Class ClassDesigner
 
         ''Added 11/27/2021 thomas downes
         ''Jan8 2022''Dim objListBadgeElems As HashSet(Of ClassElementField)
-        Dim objListBadgeElems As List(Of ClassElementFieldV3)
+        Dim objListBadgeElemsV3 As List(Of ClassElementFieldV3)
+        Dim objListBadgeElemsV4 As List(Of ClassElementFieldV4)
 
         If (par_enumSideOfCard = EnumWhichSideOfCard.EnumBackside) Then
             ''Back side of the card.
-            objListBadgeElems = par_cache.ListOfBadgeDisplayElements_Flds_Backside(True)
+            objListBadgeElemsV3 = par_cache.ListOfBadgeDisplayElements_Flds_BacksideV3(True)
+            objListBadgeElemsV4 = par_cache.ListOfBadgeDisplayElements_Flds_BacksideV4(True)
 
         Else
             ''Front side of the card. 
-            objListBadgeElems = par_cache.ListOfBadgeDisplayElements_Flds_Front(True)
+            objListBadgeElemsV3 = par_cache.ListOfBadgeDisplayElements_Flds_FrontV3(True)
+            objListBadgeElemsV4 = par_cache.ListOfBadgeDisplayElements_Flds_FrontV4(True)
         End If ''End of "If (par_enumSideOfCard = ....) Then ... Else ..."
 
         ''
@@ -981,7 +984,7 @@ Public Class ClassDesigner
         ''----LoadFieldControls_ByListOfElements(par_cache.ListFieldElements(),
         ''--- Dec21 2021 ''LoadFieldControls_ByListOfElements(objListBadgeElems, 
 
-        LoadElements_FieldElements(objListBadgeElems,
+        LoadElements_FieldElementsV3(objListBadgeElemsV3,
                                            c_boolLoadingForm,
                                            False, boolMakeMoveableByUser,
                                            par_listFieldCtls,
@@ -1682,7 +1685,7 @@ Public Class ClassDesigner
     End Sub ''End of "Private Sub InitiateRubberbandSelector"
 
 
-    Private Sub LoadElements_FieldElements(par_listElements As List(Of ClassElementFieldV3),
+    Private Sub LoadElements_FieldElementsV3(par_listElementsV3 As List(Of ClassElementFieldV3),
                                par_boolLoadingForm As Boolean,
                                Optional par_bUnloading As Boolean = False,
                                Optional par_bAddMoveability As Boolean = False,
@@ -1699,34 +1702,35 @@ Public Class ClassDesigner
         Dim dictionaryOfCaptions As New ClassDictionaryOfCaptions() ''Added 12/21/2021 td
 
         ''9/17/2019 td''For Each each_field As ICIBFieldStandardOrCustom In par_list  
-        For Each each_element As ClassElementFieldV3 In par_listElements
+        For Each each_elementV3 As ClassElementFieldV3 In par_listElementsV3
 
             ''Added 12/21/2021 td
             ''  Let's track the count of the element per repeated caption, e.g. "#4" to make "Last Name #4". 
-            each_element.CaptionSuffixIfNeeded = dictionaryOfCaptions.AddCaption_GetSuffix(each_element.FieldNm_CaptionText)
+            each_elementV3.CaptionSuffixIfNeeded = dictionaryOfCaptions.AddCaption_GetSuffix(each_elementV3.FieldNm_CaptionText)
 
-            Dim label_control As CtlGraphicFieldV3
+            ''Feb7 2022 td''Dim label_control As CtlGraphicFieldV3
+            Dim label_controlV3 As CtlGraphicFieldV3
 
             ''Added 9/3/2019 thomas d. 
             ''9/17/2019 td''boolIncludeOnBadge = (par_boolLoadingForm And each_element.IsDisplayedOnBadge)
 
-            If (each_element.FieldInfo Is Nothing) Then
+            If (each_elementV3.FieldInfo Is Nothing) Then
                 intUndeterminedField += 1
             Else
-                boolIncludeOnBadge = (par_boolLoadingForm And each_element.FieldInfo.IsDisplayedOnBadge)
+                boolIncludeOnBadge = (par_boolLoadingForm And each_elementV3.FieldInfo.IsDisplayedOnBadge)
             End If ''END OF "If (each_element.FieldInfo Is Nothing) Then .... Else ...."
 
             If (Not boolIncludeOnBadge) Then
                 ''#1 9/17/2019 td''AddToFlowPanelOfOmittedFlds(each_element)
                 '' #2 9/17/2019 td''AddToFlowPanelOfOmittedFlds(each_element.FieldInfo)
-                AddToFlowPanelOfOmittedFlds(each_element)
+                AddToFlowPanelOfOmittedFldsV3(each_elementV3)
                 Continue For
             End If ''End of "If (Not boolIncludeOnBadge) Then"
 
             ''
             ''Added 9/15/2019 td
             ''
-            With each_element
+            With each_elementV3
 
                 If (0 = .TopEdge_Pixels + .LeftEdge_Pixels) Then
 
@@ -1749,7 +1753,7 @@ Public Class ClassDesigner
             End With
 
             ''Added 9/15/2019 td
-            With each_element
+            With each_elementV3
 
                 If (.FontFamilyName = "") Then
                     .FontFamilyName = "Times New Roman" ''Added 9/15/2019 thomas d. 
@@ -1781,7 +1785,7 @@ Public Class ClassDesigner
             ''            "WhyWasICreated? LoadFieldControls_ByListOfElements: " & pstrWhyCalled, Me)
 
             ''Added 1/4/2022 td
-            Dim strNameOfControl As String = "Ctl" + each_element.FieldEnum.ToString()
+            Dim strNameOfControl As String = "Ctl" + each_elementV3.FieldEnum.ToString()
 
             ''Added 1/17/2022 thomas d. 
             ''Jan17''Dim oGetControlParameters As New ClassGetElementControlParams
@@ -1794,8 +1798,8 @@ Public Class ClassDesigner
             ''
             ''Get the new Field Element. 
             ''
-            label_control = CtlGraphicFieldV3.GetFieldElement(oGetControlParameters,
-                                                               each_element, Me.DesignerForm, Me,
+            label_controlV3 = CtlGraphicFieldV3.GetFieldElement(oGetControlParameters,
+                                                               each_elementV3, Me.DesignerForm, Me,
                                                                strNameOfControl,
                                                         CType(Me, ILayoutFunctions),
                                                         sizeNeeded,
@@ -1804,9 +1808,9 @@ Public Class ClassDesigner
                                                         mod_oGroupMoveEvents)
 
             ''Moved below. 9/5 td''label_control.Refresh_Master()
-            label_control.Visible = each_element.FieldInfo.IsDisplayedOnBadge ''BL = Badge Layout
+            label_controlV3.Visible = each_elementV3.FieldInfo.IsDisplayedOnBadge ''BL = Badge Layout
             intCountControlsAdded += 1
-            label_control.Name = "FieldControl" & CStr(intCountControlsAdded)
+            label_controlV3.Name = "FieldControl" & CStr(intCountControlsAdded)
 
             ''Added 10/1/2019 td
             ''   Pass on the event of right-clicking a element-field control. 
@@ -1823,12 +1827,12 @@ Public Class ClassDesigner
             '' the upper-left to the lower-right. 
             '' ------9/6/2019 td
             ''
-            If (0 = each_element.TopEdge_Pixels) Then
+            If (0 = each_elementV3.TopEdge_Pixels) Then
                 ''Added 9/6/2019 thomas downes 
-                label_control.Width = CInt(Me.BackgroundBox_Front.Width / 3)
-                With each_element
-                    .Width_Pixels = label_control.Width
-                    .Height_Pixels = label_control.Height
+                label_controlV3.Width = CInt(Me.BackgroundBox_Front.Width / 3)
+                With each_elementV3
+                    .Width_Pixels = label_controlV3.Width
+                    .Height_Pixels = label_controlV3.Height
                     intStagger = intCountControlsAdded
                     .TopEdge_Pixels = (intStagger * .Height_Pixels)
                     .LeftEdge_Pixels = .TopEdge_Pixels ''Left = Top !! By setting Left = Top, we will create 
@@ -1837,30 +1841,30 @@ Public Class ClassDesigner
                 End With ''End of " With each_field.ElementInfo_Base"
             End If ''ENd of "If (0 = each_field.ElementInfo_Base.TopEdge_Pixels) Then"
 
-            boolIncludeOnBadge = (par_boolLoadingForm And each_element.FieldInfo.IsDisplayedOnBadge)
+            boolIncludeOnBadge = (par_boolLoadingForm And each_elementV3.FieldInfo.IsDisplayedOnBadge)
 
             If (boolIncludeOnBadge) Then
 
-                Me.DesignerForm.Controls.Add(label_control)
-                par_listFieldCtls.Add(label_control) ''Added 9/20/2019 td
+                Me.DesignerForm.Controls.Add(label_controlV3)
+                par_listFieldCtls.Add(label_controlV3) ''Added 9/20/2019 td
 
                 ''Added 11/28/2021 td
-                mod_listOfDesignerControls.Add(label_control)
+                mod_listOfDesignerControls.Add(label_controlV3)
 
-                label_control.Visible = True
-                label_control.BringToFront() ''Added 9/7/2019 thomas d.  
+                label_controlV3.Visible = True
+                label_controlV3.BringToFront() ''Added 9/7/2019 thomas d.  
                 ''9/5/2019''label_control.Refresh_Image(True)
-                label_control.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
+                label_controlV3.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
 
                 ''Added 9/7/2019 td
-                label_control.Left = Me.Layout_Margin_Left_Add(each_element.LeftEdge_Pixels)
-                label_control.Top = Me.Layout_Margin_Top_Add(each_element.TopEdge_Pixels)
+                label_controlV3.Left = Me.Layout_Margin_Left_Add(each_elementV3.LeftEdge_Pixels)
+                label_controlV3.Top = Me.Layout_Margin_Top_Add(each_elementV3.TopEdge_Pixels)
 
                 ''
                 ''Major call !!  ----Thomas DOWNES
                 ''
-                label_control.Refresh_Master()
-                label_control.Refresh() ''Added 11/29/2021 td  
+                label_controlV3.Refresh_Master()
+                label_controlV3.Refresh() ''Added 11/29/2021 td  
 
                 ''''Added 9/8/2019 td
                 ''If (par_bAddMoveability) Then ControlMoverResizer_AddFieldCtl(label_control)
@@ -1871,7 +1875,7 @@ Public Class ClassDesigner
 
             End If ''End of "If (boolInludeOnBadge) Then .... ElseIf (....) ...."
 
-        Next each_element
+        Next each_elementV3
 
         ''
         ''Added 8/27/2019 thomas downes
@@ -1885,7 +1889,161 @@ Public Class ClassDesigner
         ''9/5/2019 td''MessageBox.Show($"Number of field controls now on the form: {intCountControlsAdded}", "",
         ''     MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-    End Sub ''End of ''Private Sub LoadElements_ByListOfElements()''
+    End Sub ''End of ''Private Sub LoadElements_ByListOfElementsV3()''
+
+
+    Private Sub LoadElements_FieldElementsV4(par_listElementsV4 As List(Of ClassElementFieldV4),
+                               par_boolLoadingForm As Boolean,
+                               Optional par_bUnloading As Boolean = False,
+                               Optional par_bAddMoveability As Boolean = False,
+                                Optional ByRef par_listFieldCtls As HashSet(Of CtlGraphicFieldV4) = Nothing,
+                               Optional pstrWhyCalled As String = "")
+        ''
+        ''Added 2/07/2022 thomas downes 
+        ''
+        Dim intCountControlsAdded As Integer = 0 ''Added 9/03/2019 td 
+        Dim boolIncludeOnBadge As Boolean = False ''Added 9/03/2019 td
+        Dim intStagger As Integer = 0 ''Added 9.6.2019 td 
+        Dim intUndeterminedField As Integer = 0 ''Added 10/13/2019 td  
+        Dim dictionaryOfCaptions As New ClassDictionaryOfCaptions() ''Added 12/21/2021 td
+
+        For Each each_elementV4 As ClassElementFieldV4 In par_listElementsV4
+
+            ''  Let's track the count of the element per repeated caption, e.g. "#4" to make "Last Name #4". 
+            each_elementV4.CaptionSuffixIfNeeded = dictionaryOfCaptions.AddCaption_GetSuffix(each_elementV4.FieldNm_CaptionText)
+
+            Dim label_controlV4 As CtlGraphicFieldV4
+
+            If (each_elementV4.FieldInfo Is Nothing) Then
+                intUndeterminedField += 1
+            Else
+                boolIncludeOnBadge = (par_boolLoadingForm And each_elementV4.FieldInfo.IsDisplayedOnBadge)
+            End If ''END OF "If (each_elementV4.FieldInfo Is Nothing) Then .... Else ...."
+
+            If (Not boolIncludeOnBadge) Then
+                AddToFlowPanelOfOmittedFldsV4(each_elementV4)
+                Continue For
+            End If ''End of "If (Not boolIncludeOnBadge) Then"
+
+            ''
+            ''Added 9/15/2019 td
+            ''
+            With each_elementV4
+
+                If (0 = .TopEdge_Pixels + .LeftEdge_Pixels) Then
+
+                    .Height_Pixels = 30
+                    intStagger = intCountControlsAdded
+                    .TopEdge_Pixels = (intStagger * .Height_Pixels)
+                    intCountControlsAdded += 1 ''Added 9/6/2019 td 
+                    .LeftEdge_Pixels = .TopEdge_Pixels ''Left = Top !! By setting Left = Top, we will create 
+                    ''   a nice diagonally-cascading effect. ---9/3/2019 td
+
+                End If ''end of "If (0 = .Height_Pixels) Then"
+
+                .BadgeLayout = Me.BadgeLayout_Class ''Modified 10/9/2019 td  
+
+                If (.FontFamilyName = "") Then
+                    .FontFamilyName = "Times New Roman" ''Added 9/15/2019 thomas d. 
+                End If ''End of "If (.FontFamilyName = "") Then"
+
+                If (.FontSize_Pixels = 0) Then
+                    .FontSize_Pixels = 25
+                End If ''End of "If (.FontSize_Pixels = 0) Then"
+
+                If (.FontSize_ScaleToElementRatio = 0) Then
+                    .FontSize_ScaleToElementRatio = (.FontSize_Pixels / .Height_Pixels)
+                    ''----.FontSize_ScaleToElementYesNo = True
+                End If ''End of "If (.FontSize_ScaleToElementRatio = 0) Then"
+
+            End With 'End of "With each_elementV4"
+
+            Dim strNameOfControl As String = "Ctl" + each_elementV4.FieldEnum.ToString()
+            Dim oGetControlParameters As ClassGetElementControlParams ''Added 1/17/2022 thomas d.
+            oGetControlParameters = Me.GetParametersToGetElementControl() ''Added 1/17/2022 thomas d.
+
+            Dim sizeNeeded As New Size() ''Added 1/26/2022 td
+
+            ''
+            ''Get the new Field Element. 
+            ''
+            label_controlV4 = CtlGraphicFieldV4.GetFieldControl(oGetControlParameters,
+                                            each_elementV4, Me.DesignerForm, Me,
+                                            strNameOfControl,
+                                    CType(Me, ILayoutFunctions),
+                                    sizeNeeded,
+                                    CType(Me, IRecordElementLastTouched),
+                                    mod_ctlLasttouched,
+                                    mod_oGroupMoveEvents)
+
+            label_controlV4.Visible = each_elementV4.FieldInfo.IsDisplayedOnBadge ''BL = Badge Layout
+            intCountControlsAdded += 1
+            label_controlV4.Name = "FieldControl" & CStr(intCountControlsAdded)
+
+            ''
+            ''   Stagger the elements on the badge layout, in a cascade from
+            '' the upper-left to the lower-right. 
+            '' ------9/6/2019 td
+            ''
+            If (0 = each_elementV4.TopEdge_Pixels) Then
+                ''Added 9/6/2019 thomas downes 
+                label_controlV4.Width = CInt(Me.BackgroundBox_Front.Width / 3)
+                With each_elementV4
+                    .Width_Pixels = label_controlV4.Width
+                    .Height_Pixels = label_controlV4.Height
+                    intStagger = intCountControlsAdded
+                    .TopEdge_Pixels = (intStagger * .Height_Pixels)
+                    .LeftEdge_Pixels = .TopEdge_Pixels ''Left = Top !! By setting Left = Top, we will create 
+                    ''   a nice diagonally-cascading effect. ---9/3/2019 td
+                    ''See above. 9/6/2019 td''intCountControlsAdded += 1 ''Added 9/6/2019 td 
+                End With ''End of " With each_field.ElementInfo_Base"
+            End If ''ENd of "If (0 = each_field.ElementInfo_Base.TopEdge_Pixels) Then"
+
+            boolIncludeOnBadge = (par_boolLoadingForm And each_elementV4.FieldInfo.IsDisplayedOnBadge)
+
+            If (boolIncludeOnBadge) Then
+
+                Me.DesignerForm.Controls.Add(label_controlV4)
+                par_listFieldCtls.Add(label_controlV4) ''Added 9/20/2019 td
+
+                ''Added 11/28/2021 td
+                mod_listOfDesignerControls.Add(label_controlV4)
+
+                label_controlV4.Visible = True
+                label_controlV4.BringToFront() ''Added 9/7/2019 thomas d.  
+                ''9/5/2019''label_control.Refresh_Image(True)
+                label_controlV4.GroupEdits = CType(Me, ISelectingElements) ''Added 8/1 td
+
+                ''Added 9/7/2019 td
+                label_controlV4.Left = Me.Layout_Margin_Left_Add(each_elementV4.LeftEdge_Pixels)
+                label_controlV4.Top = Me.Layout_Margin_Top_Add(each_elementV4.TopEdge_Pixels)
+
+                ''
+                ''Major call !!  ----Thomas DOWNES
+                ''
+                label_controlV4.Refresh_Master()
+                label_controlV4.Refresh() ''Added 11/29/2021 td  
+
+                ''''Added 9/8/2019 td
+                ''If (par_bAddMoveability) Then ControlMoverResizer_AddFieldCtl(label_control)
+
+            ElseIf (par_bUnloading) Then
+                ''9/3/2019 td''Me.Controls.Remove(label_control)
+                Throw New NotImplementedException
+
+            End If ''End of "If (boolInludeOnBadge) Then .... ElseIf (....) ...."
+
+        Next each_elementV4
+
+        ''
+        ''Added 8/27/2019 thomas downes
+        ''
+        Me.BackgroundBox_Front.SendToBack() ''Added 9/7/2019 thomas d.
+        Me.BackgroundBox_JustAButton.SendToBack() ''Added 1/21/2022 td
+        Me.DesignerForm.Refresh() ''Added 8/28/2019 td   
+
+    End Sub ''End of ''Private Sub LoadElements_ByListOfElementsV4()''
+
 
     Private Sub LoadFieldControl_JustOne(par_elementField As ClassElementFieldV3)
         ''
@@ -1901,7 +2059,7 @@ Public Class ClassDesigner
         new_list.Add(par_elementField)
 
         ''9/24/2019 td''LoadFieldControls_ByListOfElements(new_list, True, False, c_bAddToMoveableClass)
-        LoadElements_FieldElements(new_list, True, False, c_bAddToMoveableClass, mod_listOfFieldControls)
+        LoadElements_FieldElementsV3(new_list, True, False, c_bAddToMoveableClass, mod_listOfFieldControls)
 
     End Sub ''End of "Private Sub LoadFieldControl_JustOne(par_elementField As ClassElementField)"
 
@@ -1920,21 +2078,37 @@ Public Class ClassDesigner
 
     ''End Sub ''End of "Private Sub AddToFlowPanelOfOmittedFlds(par_field As ICIBFieldStandardOrCustom)"
 
-    Private Sub AddToFlowPanelOfOmittedFlds(par_elementField As ClassElementFieldV3)
+    Private Sub AddToFlowPanelOfOmittedFldsV3(par_elementFieldV3 As ClassElementFieldV3)
         ''
         ''Added 9/17/2019 td
         ''
         Dim new_linkLabel As New LinkLabel
 
-        If (par_elementField.FieldInfo Is Nothing) Then Exit Sub ''Added 10/13/2019 td
+        If (par_elementFieldV3.FieldInfo Is Nothing) Then Exit Sub ''Added 10/13/2019 td
 
-        new_linkLabel.Tag = par_elementField
-        new_linkLabel.Text = par_elementField.FieldInfo.FieldLabelCaption
+        new_linkLabel.Tag = par_elementFieldV3
+        new_linkLabel.Text = par_elementFieldV3.FieldInfo.FieldLabelCaption
         FlowFieldsNotListed.Controls.Add(new_linkLabel)
         new_linkLabel.Visible = True
         AddHandler new_linkLabel.LinkClicked, AddressOf AddField_LinkClicked
 
-    End Sub ''End of "Private Sub AddToFlowPanelOfOmittedFlds(par_elementField As ClassElementField)"
+    End Sub ''End of "Private Sub AddToFlowPanelOfOmittedFldsV3(par_elementField As ClassElementField)"
+
+
+    Private Sub AddToFlowPanelOfOmittedFldsV4(par_elementFieldV4 As ClassElementFieldV4)
+        ''
+        ''Added 2/07/2022 td
+        ''
+        Dim new_linkLabel As New LinkLabel
+        If (par_elementFieldV4.FieldInfo Is Nothing) Then Exit Sub ''Added 10/13/2019 td
+        new_linkLabel.Tag = par_elementFieldV4
+        new_linkLabel.Text = par_elementFieldV4.FieldInfo.FieldLabelCaption
+        FlowFieldsNotListed.Controls.Add(new_linkLabel)
+        new_linkLabel.Visible = True
+        AddHandler new_linkLabel.LinkClicked, AddressOf AddField_LinkClicked
+
+    End Sub ''End of "Private Sub AddToFlowPanelOfOmittedFldsV4(par_elementField As ClassElementField)"
+
 
     Private Sub AddField_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) ''9/7/2019 td''Handles linkSaveAndRefresh.LinkClicked
         ''

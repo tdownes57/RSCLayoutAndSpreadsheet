@@ -92,7 +92,8 @@ Namespace ciBadgeCachePersonality
         ''#2 Jan8 2022 td''Private mod_listBadgeElements_Backside As New HashSet(Of ClassElementBase) ''Modified 1/8/2022 td  ---Added 11/26/2021 td
 
         ''Front side of ID Card / Badge Card  ----1/8/2022 td
-        Private mod_listElementFields_Front As New HashSet(Of ClassElementFieldV3)
+        Private mod_listElementFields_FrontV3 As New HashSet(Of ClassElementFieldV3)
+        Private mod_listElementFields_FrontV4 As New HashSet(Of ClassElementFieldV4)
         Private mod_listElementPics_Front As New HashSet(Of ClassElementPortrait)
         Private mod_listElementStaticsV3_Front As New HashSet(Of ClassElementStaticTextV3)
         Private mod_listElementStaticsV4_Front As New HashSet(Of ClassElementStaticTextV4)
@@ -102,7 +103,8 @@ Namespace ciBadgeCachePersonality
         Private mod_listElementSignatures_Front As New HashSet(Of ClassElementSignature) ''Added 1/14/2022 tdownes
 
         ''Back side of ID Card / Badge Card  ----1/8/2022 td
-        Private mod_listElementFields_Backside As New HashSet(Of ClassElementFieldV3)
+        Private mod_listElementFields_BacksideV3 As New HashSet(Of ClassElementFieldV3)
+        Private mod_listElementFields_BacksideV4 As New HashSet(Of ClassElementFieldV4) ''Added 2/08/2022 td
         Private mod_listElementPics_Backside As New HashSet(Of ClassElementPortrait)
         Private mod_listElementStaticsV3_Backside As New HashSet(Of ClassElementStaticTextV3)
         Private mod_listElementStaticsV4_Backside As New HashSet(Of ClassElementStaticTextV4)
@@ -171,7 +173,7 @@ Namespace ciBadgeCachePersonality
                 ''If (objSide.ElementQRCode Is Nothing) Then Me.ElementQR_RefCopy = Nothing
                 ''If (objSide.ElementSignature Is Nothing) Then Me.ElementSig_RefCopy = Nothing
 
-                objSide.ListElementFieldsV3 = Me.ListOfElementFields_Backside
+                objSide.ListElementFieldsV3 = Me.ListOfElementFields_BacksideV3
                 objSide.ListElementGraphics = Me.ListOfElementGraphics_Backside ''Jan22 2022 td''Nothing
                 objSide.ListElementStaticTextsV3 = Me.ListOfElementTextsV3_Backside
                 objSide.ListElementStaticTextsV4 = Me.ListOfElementTextsV4_Backside ''Added 2/1/2022 td
@@ -482,36 +484,47 @@ Namespace ciBadgeCachePersonality
                 ''
                 ''This is deprecated!!  Use ListOfElementFields_Front instead. ---12/21/2021 td
                 ''
-                Return mod_listElementFields_Front
+                Return mod_listElementFields_FrontV3
             End Get
             Set(value As HashSet(Of ClassElementFieldV3))  ''---List(Of ClassElementField))
                 ''Added 9/28/2019 td
                 ''
                 ''This is deprecated!!  Use ListOfElementFields_Front instead. ---12/21/2021 td
                 ''
-                mod_listElementFields_Front = value
+                mod_listElementFields_FrontV3 = value
             End Set
         End Property
 
 
         Public Property ListOfElementFields_Front As HashSet(Of ClassElementFieldV3)  ''---List(Of ClassElementField)
             Get ''Added 9/28/2019 td
-                Return mod_listElementFields_Front
+                Return mod_listElementFields_FrontV3
             End Get
             Set(value As HashSet(Of ClassElementFieldV3))  ''---List(Of ClassElementField))
                 ''Added 9/28/2019 td
-                mod_listElementFields_Front = value
+                mod_listElementFields_FrontV3 = value
             End Set
         End Property
 
 
-        Public Property ListOfElementFields_Backside As HashSet(Of ClassElementFieldV3)  ''---List(Of ClassElementField)
+        Public Property ListOfElementFields_BacksideV3 As HashSet(Of ClassElementFieldV3)  ''---List(Of ClassElementField)
             Get ''Added 12/18/2021 td
-                Return mod_listElementFields_Backside
+                Return mod_listElementFields_BacksideV3
             End Get
             Set(value As HashSet(Of ClassElementFieldV3))  ''---List(Of ClassElementField))
                 ''Added 12/18/2021 td
-                mod_listElementFields_Backside = value
+                mod_listElementFields_BacksideV3 = value
+            End Set
+        End Property
+
+
+        Public Property ListOfElementFields_BacksideV4 As HashSet(Of ClassElementFieldV4)  ''---List(Of ClassElementField)
+            Get ''Added 2/08/2022 td
+                Return mod_listElementFields_BacksideV4
+            End Get
+            Set(value As HashSet(Of ClassElementFieldV4))  ''---List(Of ClassElementField))
+                ''Added 2/08/2022 td
+                mod_listElementFields_BacksideV4 = value
             End Set
         End Property
 
@@ -523,10 +536,10 @@ Namespace ciBadgeCachePersonality
             Dim objHashset As HashSet(Of ClassElementFieldV3)
 
             ''1/8/2022 td''objHashset = New HashSet(Of ClassElementField)(mod_listBadgeElements_Front)
-            objHashset = New HashSet(Of ClassElementFieldV3)(mod_listElementFields_Front)
+            objHashset = New HashSet(Of ClassElementFieldV3)(mod_listElementFields_FrontV3)
 
             ''Added any elements currently on the backside of the card. 
-            For Each each_elemBack As ClassElementFieldV3 In mod_listElementFields_Backside
+            For Each each_elemBack As ClassElementFieldV3 In mod_listElementFields_BacksideV3
                 objHashset.Add(each_elemBack)
             Next
 
@@ -551,7 +564,7 @@ Namespace ciBadgeCachePersonality
             ''
             ''Return ListOfBadgeDisplayElements_Flds_Front(pboolRefresh)
 
-            With mod_listElementFields_Front
+            With mod_listElementFields_FrontV3
                 Return .Where(Function(objEl) objEl.IsDisplayedOnBadge_Visibly())
             End With
 
@@ -593,7 +606,7 @@ Namespace ciBadgeCachePersonality
         ''End Function ''end of "Public Function ListOfBadgeDisplayElements_Flds_Backside()"
 
 
-        Public Function ListOfBadgeDisplayElements_Flds_Front(Optional pboolSkip13 As Boolean = True,
+        Public Function ListOfBadgeDisplayElements_Flds_FrontV3(Optional pboolSkip13 As Boolean = True,
                                             Optional pboolSkip14 As Boolean = True) _
                                             As List(Of ClassElementFieldV3)
             ''
@@ -613,7 +626,7 @@ Namespace ciBadgeCachePersonality
             Dim structWhyOmitV2 As New ciBadgeInterfaces.WhyOmitted_StructV2 ''Added 1/24/2022
             Dim indexBadgeDisplay As Integer
 
-            For Each each_element In mod_listElementFields_Front
+            For Each each_element In mod_listElementFields_FrontV3
                 ''
                 ''Major call. 
                 ''
@@ -642,7 +655,7 @@ Namespace ciBadgeCachePersonality
         End Function ''End of "Public Function RefreshListOfBadgeDisplayElements_Flds_Front()"
 
 
-        Public Function ListOfBadgeDisplayElements_Flds_Backside(Optional pboolSkip13 As Boolean = True,
+        Public Function ListOfBadgeDisplayElements_Flds_BacksideV3(Optional pboolSkip13 As Boolean = True,
                                                       Optional pboolSkip14 As Boolean = True) _
                                                      As List(Of ClassElementFieldV3)
             ''--Jan.8 2022--Public Sub RefreshListOfBadgeDisplayElements_Flds_Backside
@@ -661,9 +674,9 @@ Namespace ciBadgeCachePersonality
             Dim structWhyOmitV2 As New ciBadgeInterfaces.WhyOmitted_StructV2 ''Added 1/24/2022 td
             Dim indexBadgeDisplay As Integer
 
-            If (mod_listElementFields_Backside Is Nothing) Then mod_listElementFields_Backside = New HashSet(Of ClassElementFieldV3)
+            If (mod_listElementFields_BacksideV3 Is Nothing) Then mod_listElementFields_BacksideV3 = New HashSet(Of ClassElementFieldV3)
 
-            For Each each_element In mod_listElementFields_Backside
+            For Each each_element In mod_listElementFields_BacksideV3
                 ''
                 ''Major call. 
                 ''
@@ -690,7 +703,55 @@ Namespace ciBadgeCachePersonality
             ''Jan8 2022''mod_listBadgeElements_Backside = new_list
             Return new_list
 
-        End Function ''End of "Public Function ListOfBadgeDisplayElements_Flds_Backside()"
+        End Function ''End of "Public Function ListOfBadgeDisplayElements_Flds_BacksideV3()"
+
+
+        Public Function ListOfBadgeDisplayElements_Flds_BacksideV4(Optional pboolSkip13 As Boolean = True,
+                                                      Optional pboolSkip14 As Boolean = True) _
+                                                     As List(Of ClassElementFieldV4)
+            ''
+            ''Added 2/08/2022 tdownes
+            ''
+            ''  For each element, we check to see if it will be displayed on the Badge.
+            ''  If so, it's included on the output list.  
+            ''
+            Dim new_list As New List(Of ClassElementFieldV4)  ''End of "List(Of ClassElementField)"
+            Dim each_element As ClassElementFieldV4
+            Dim boolOnDisplay As Boolean
+            Dim structWhyOmitV1 As New ciBadgeElements.WhyOmitted_StructV1
+            Dim structWhyOmitV2 As New ciBadgeInterfaces.WhyOmitted_StructV2 ''Added 1/24/2022 td
+            Dim indexBadgeDisplay As Integer
+
+            If (mod_listElementFields_BacksideV4 Is Nothing) Then mod_listElementFields_BacksideV4 = New HashSet(Of ClassElementFieldV4)
+
+            For Each each_element In mod_listElementFields_BacksideV4
+                ''
+                ''Major call. 
+                ''
+                ''Jan24 2022''boolOnDisplay = each_element.IsDisplayedOnBadge_Visibly(structWhyOmit)
+                boolOnDisplay = each_element.IsDisplayedOnBadge_Visibly(structWhyOmitV1, structWhyOmitV2)
+
+                If (boolOnDisplay) Then
+                    new_list.Add(each_element)
+                    indexBadgeDisplay += 1
+                    ''Added 11/26/2021 thomas downes
+                    ''   Let's accomodate the fact that the webside has Badge Display #s 1, 2, 3, ... 12 and 15 ... 19.
+                    ''   (Notice that #s 13 & 14 are not in use, as an obselete gap between standard & custom fields.) 
+                    If (pboolSkip13 And indexBadgeDisplay = 13) Then indexBadgeDisplay = 14
+                    If (pboolSkip14 And indexBadgeDisplay = 14) Then indexBadgeDisplay = 15
+
+                    each_element.BadgeDisplayIndex = indexBadgeDisplay
+                    ''Added 11/29/2021 td
+                    each_element.DatetimeUpdated = DateTime.Now
+
+                End If ''End of "If (boolOnDisplay) Then"
+            Next each_element
+
+            ''Save to the module-level list, suffixed "_Backside". 
+            ''Jan8 2022''mod_listBadgeElements_Backside = new_list
+            Return new_list
+
+        End Function ''End of "Public Function ListOfBadgeDisplayElements_Flds_BacksideV4()"
 
 
         ''This is deprecated!!  Use ListOfElementPics_Front instead. ---12/21/2021 td
@@ -889,7 +950,7 @@ Namespace ciBadgeCachePersonality
             ''
             ''Added 9/16/2019 thomas downes
             ''
-            Return mod_listElementFields_Front
+            Return mod_listElementFields_FrontV3
 
         End Function ''End of "Public Function FieldElements() As List(Of ClassElementText)"
 
@@ -1197,7 +1258,7 @@ Namespace ciBadgeCachePersonality
                 new_elementField.DatetimeUpdated = Now
 
                 ''Added 9/19/2019 td
-                mod_listElementFields_Front.Add(new_elementField)
+                mod_listElementFields_FrontV3.Add(new_elementField)
 
             Next each_field
 
@@ -1239,7 +1300,7 @@ Namespace ciBadgeCachePersonality
                 new_elementField.DatetimeUpdated = DateTime.Now
 
                 ''Added 9/19/2019 td
-                mod_listElementFields_Front.Add(new_elementField)
+                mod_listElementFields_FrontV3.Add(new_elementField)
 
             Next each_field
 
@@ -1631,7 +1692,7 @@ Namespace ciBadgeCachePersonality
 
 
             ''Added 9/17/2019 thomas downes  
-            For Each each_elementField As ClassElementFieldV3 In mod_listElementFields_Front
+            For Each each_elementField As ClassElementFieldV3 In mod_listElementFields_FrontV3
                 ''
                 ''Add a copy of the element-field.
                 ''
@@ -1764,7 +1825,7 @@ Namespace ciBadgeCachePersonality
 
             Dim found_field As ClassFieldAny ''Added 10/12/2019 td
 
-            For Each each_elementField As ClassElementFieldV3 In mod_listElementFields_Front
+            For Each each_elementField As ClassElementFieldV3 In mod_listElementFields_FrontV3
 
                 found_field = Nothing ''Initialize. ----10/12/2019 td
 
@@ -1818,8 +1879,8 @@ Namespace ciBadgeCachePersonality
             ''Added 10/10/2019 td
             ''
             ''Dec17 2021 td''Return (0 = mod_listElementFields_Front.Count)
-            Return (0 = mod_listElementFields_Front.Count And
-                    0 = mod_listElementFields_Backside.Count)
+            Return (0 = mod_listElementFields_FrontV3.Count And
+                    0 = mod_listElementFields_BacksideV3.Count)
 
         End Function ''ENd of "Public Function MissingTheElementFields() As Boolean"
 
@@ -1898,7 +1959,7 @@ Namespace ciBadgeCachePersonality
             ''
             Dim bMisaligned As Boolean ''Added 12/13/2021 td
 
-            For Each each_elementField As ClassElementFieldV3 In mod_listElementFields_Front
+            For Each each_elementField As ClassElementFieldV3 In mod_listElementFields_FrontV3
                 With each_elementField
 
                     ''Dec13 2021''.FieldEnum = .FieldObjectAny.FieldEnumValue ''This is a double-check that the Enum value matches. 
@@ -1962,7 +2023,7 @@ Namespace ciBadgeCachePersonality
             ''
             Throw New Exception("It sucks to compare FieldEnum & FieldIndex.")
 
-            For Each objFldElement As ClassElementFieldV3 In mod_listElementFields_Front
+            For Each objFldElement As ClassElementFieldV3 In mod_listElementFields_FrontV3
                 ''Find the right FieldElement, by it's enumerated
                 ''   field value.  ----11/19/2021 
                 If (objFldElement.FieldEnum = pintFieldIndex) Then
@@ -1992,7 +2053,7 @@ Namespace ciBadgeCachePersonality
                 End If
             Next each_field
 
-            For Each each_element As ClassElementFieldV3 In mod_listElementFields_Front
+            For Each each_element As ClassElementFieldV3 In mod_listElementFields_FrontV3
                 If (each_element.FieldInfo Is objRelevantFieldAny) Then
                     ''
                     ''Added 11/19 td
@@ -2067,7 +2128,7 @@ Namespace ciBadgeCachePersonality
             ''Also check the backside for the field. 
             ''
             If (boolCheckBackside) Then
-                For Each each_element As ClassElementFieldV3 In ListOfElementFields_Backside
+                For Each each_element As ClassElementFieldV3 In ListOfElementFields_BacksideV3
                     If (each_element.FieldEnum = par_field.FieldEnumValue) Then Return each_element
                 Next each_element
             End If ''End of "If (boolCheckBackside) Then"

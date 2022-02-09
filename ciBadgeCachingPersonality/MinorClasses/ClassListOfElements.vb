@@ -63,7 +63,7 @@ Public MustInherit Class ClassListOfElements
         If (bProbablyUnitialized) Then
             With par_cache
 
-                Load_AllLists(.ListOfElementFields_Front, .ListOfElementFields_Backside,
+                Load_AllLists(.ListOfElementFields_Front, .ListOfElementFields_BacksideV3,
                               .ListOfElementGraphics_Front, .ListOfElementGraphics_Backside,
                               .ListOfElementPics_Front, .ListOfElementPics_Back,
                               .ListOfElementQRCodes_Front, .ListOfElementQRCodes_Back,

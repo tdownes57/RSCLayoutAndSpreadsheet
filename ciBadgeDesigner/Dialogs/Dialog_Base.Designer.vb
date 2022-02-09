@@ -27,6 +27,13 @@ Partial Class Dialog_Base
         Me.ButtonCancel = New System.Windows.Forms.Button()
         Me.LabelHeading1 = New System.Windows.Forms.Label()
         Me.LabelHeading2 = New System.Windows.Forms.Label()
+        Me.ButtonColor = New System.Windows.Forms.Button()
+        Me.ButtonFont = New System.Windows.Forms.Button()
+        Me.Button3 = New System.Windows.Forms.Button()
+        Me.ButtonBorder = New System.Windows.Forms.Button()
+        Me.ButtonTextPlacement = New System.Windows.Forms.Button()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'PanelDisplayElement
@@ -37,13 +44,13 @@ Partial Class Dialog_Base
         Me.PanelDisplayElement.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.PanelDisplayElement.Location = New System.Drawing.Point(17, 69)
         Me.PanelDisplayElement.Name = "PanelDisplayElement"
-        Me.PanelDisplayElement.Size = New System.Drawing.Size(878, 146)
+        Me.PanelDisplayElement.Size = New System.Drawing.Size(878, 192)
         Me.PanelDisplayElement.TabIndex = 1
         '
         'ButtonOK
         '
         Me.ButtonOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ButtonOK.Location = New System.Drawing.Point(628, 358)
+        Me.ButtonOK.Location = New System.Drawing.Point(619, 388)
         Me.ButtonOK.Name = "ButtonOK"
         Me.ButtonOK.Size = New System.Drawing.Size(135, 42)
         Me.ButtonOK.TabIndex = 2
@@ -53,7 +60,7 @@ Partial Class Dialog_Base
         'ButtonCancel
         '
         Me.ButtonCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ButtonCancel.Location = New System.Drawing.Point(779, 358)
+        Me.ButtonCancel.Location = New System.Drawing.Point(779, 388)
         Me.ButtonCancel.Name = "ButtonCancel"
         Me.ButtonCancel.Size = New System.Drawing.Size(135, 42)
         Me.ButtonCancel.TabIndex = 3
@@ -80,11 +87,71 @@ Partial Class Dialog_Base
         Me.LabelHeading2.Text = "(See element at center of the following box.  Any edits made below the box will b" &
     "e visible within.)"
         '
+        'ButtonColor
+        '
+        Me.ButtonColor.Location = New System.Drawing.Point(207, 13)
+        Me.ButtonColor.Name = "ButtonColor"
+        Me.ButtonColor.Size = New System.Drawing.Size(135, 42)
+        Me.ButtonColor.TabIndex = 7
+        Me.ButtonColor.Text = "Colors"
+        Me.ButtonColor.UseVisualStyleBackColor = True
+        '
+        'ButtonFont
+        '
+        Me.ButtonFont.Location = New System.Drawing.Point(56, 13)
+        Me.ButtonFont.Name = "ButtonFont"
+        Me.ButtonFont.Size = New System.Drawing.Size(135, 42)
+        Me.ButtonFont.TabIndex = 6
+        Me.ButtonFont.Text = "Font"
+        Me.ButtonFont.UseVisualStyleBackColor = True
+        '
+        'Button3
+        '
+        Me.Button3.Location = New System.Drawing.Point(515, 13)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(135, 42)
+        Me.Button3.TabIndex = 9
+        Me.Button3.Text = "Rotation"
+        Me.Button3.UseVisualStyleBackColor = True
+        '
+        'ButtonBorder
+        '
+        Me.ButtonBorder.Location = New System.Drawing.Point(364, 13)
+        Me.ButtonBorder.Name = "ButtonBorder"
+        Me.ButtonBorder.Size = New System.Drawing.Size(135, 42)
+        Me.ButtonBorder.TabIndex = 8
+        Me.ButtonBorder.Text = "Border"
+        Me.ButtonBorder.UseVisualStyleBackColor = True
+        '
+        'ButtonTextPlacement
+        '
+        Me.ButtonTextPlacement.Location = New System.Drawing.Point(666, 13)
+        Me.ButtonTextPlacement.Name = "ButtonTextPlacement"
+        Me.ButtonTextPlacement.Size = New System.Drawing.Size(135, 42)
+        Me.ButtonTextPlacement.TabIndex = 10
+        Me.ButtonTextPlacement.Text = "Text Placement"
+        Me.ButtonTextPlacement.UseVisualStyleBackColor = True
+        '
+        'Panel1
+        '
+        Me.Panel1.BackColor = System.Drawing.Color.LightBlue
+        Me.Panel1.Controls.Add(Me.ButtonTextPlacement)
+        Me.Panel1.Controls.Add(Me.ButtonFont)
+        Me.Panel1.Controls.Add(Me.Button3)
+        Me.Panel1.Controls.Add(Me.ButtonColor)
+        Me.Panel1.Controls.Add(Me.ButtonBorder)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.Panel1.Location = New System.Drawing.Point(0, 448)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(926, 68)
+        Me.Panel1.TabIndex = 11
+        '
         'Dialog_Base
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(926, 412)
+        Me.ClientSize = New System.Drawing.Size(926, 516)
+        Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.LabelHeading2)
         Me.Controls.Add(Me.LabelHeading1)
         Me.Controls.Add(Me.ButtonCancel)
@@ -92,6 +159,7 @@ Partial Class Dialog_Base
         Me.Controls.Add(Me.PanelDisplayElement)
         Me.Name = "Dialog_Base"
         Me.Text = "Dialog_Base"
+        Me.Panel1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -102,4 +170,10 @@ Partial Class Dialog_Base
     Friend WithEvents ButtonCancel As Button
     Friend WithEvents LabelHeading1 As Label
     Friend WithEvents LabelHeading2 As Label
+    Friend WithEvents ButtonColor As Button
+    Friend WithEvents ButtonFont As Button
+    Friend WithEvents Button3 As Button
+    Friend WithEvents ButtonBorder As Button
+    Friend WithEvents ButtonTextPlacement As Button
+    Friend WithEvents Panel1 As Panel
 End Class

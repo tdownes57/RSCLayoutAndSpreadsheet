@@ -697,7 +697,7 @@ Namespace ciBadgeCachePersonality
                 boolMatch = (par_infoBase Is each_infoBase)
                 If (boolMatch) Then
                     CacheForEditing.ListOfElementFields_Front.Remove(each_element)
-                    CacheForEditing.ListOfElementFields_Backside.Add(each_element)
+                    CacheForEditing.ListOfElementFields_BacksideV3.Add(each_element)
                     Exit Sub
                 Else
                     If (each_element.WhichSideOfCard = EnumWhichSideOfCard.Undetermined) Then each_element.WhichSideOfCard = EnumWhichSideOfCard.EnumFrontside
@@ -705,11 +705,11 @@ Namespace ciBadgeCachePersonality
                 End If
             Next each_element
 
-            For Each each_element In CacheForEditing.ListOfElementFields_Backside()
+            For Each each_element In CacheForEditing.ListOfElementFields_BacksideV3()
                 each_infoBase = CType(each_element, ciBadgeInterfaces.IElement_Base)
                 boolMatch = (par_infoBase Is each_infoBase)
                 If (boolMatch) Then
-                    CacheForEditing.ListOfElementFields_Backside.Remove(each_element)
+                    CacheForEditing.ListOfElementFields_BacksideV3.Remove(each_element)
                     CacheForEditing.ListOfElementFields_Front.Add(each_element)
                     Exit Sub
                 End If
