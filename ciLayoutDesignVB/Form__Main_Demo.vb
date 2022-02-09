@@ -51,6 +51,8 @@ Public Class Form__Main_Demo
 
     Private WithEvents mod_designer As New ciBadgeDesigner.ClassDesigner ''Added 10/3/2019 td
     Private WithEvents mod_linklabel_dummy As New LinkLabel() ''Added 2/7/2022 td  
+    Private WithEvents mod_linklabel_SelectAll As New LinkLabel() ''Added 2/8/2022 td
+    Private WithEvents mod_linklabel_Unselect As New LinkLabel() ''Added 2/8/2022 td
     Private WithEvents mod_checkbox_dummy As New CheckBox() ''Added 2/8/2022 td  
     Private WithEvents mod_buttonPrintChecked As New Button() ''Added 2/8/2022 td 
 
@@ -2246,9 +2248,14 @@ Public Class Form__Main_Demo
             ManageSidebarWidth(flowSidebar, True, .Width) ''Added 2/8/2022 td
 
             If (c_bUseCheckboxes) Then
-                .Controls.Add(mod_buttonPrintChecked)
+                mod_linklabel_SelectAll.Text = "Select all Recipients"
+                mod_linklabel_Unselect.Text = "(Uncheck all)"
                 mod_buttonPrintChecked.Text = "Print Checked IDCards"
                 mod_buttonPrintChecked.Width = 200 '' = 60
+
+                .Controls.Add(mod_linklabel_SelectAll)
+                .Controls.Add(mod_linklabel_Unselect)
+                .Controls.Add(mod_buttonPrintChecked)
             End If ''end if "If (c_bUseCheckboxes) Then"
 
             ''11/30/2021 td''list_recips = Me.PersonalityCache.ListOfRecipients
@@ -3255,6 +3262,7 @@ ExitHandler:
                         If (each_checkbox.Checked) Then
                             ''Major call.....
                             each_recipient = CType(each_control.Tag, ClassRecipient)
+                            mod_designer.RefreshPreview_CurrentSide(Nothing, each_recipient)
                             PrintOneBadgeToFileFolder_ByRecipient_BySide(each_recipient,
                                                  boolFirst, sOutputPath)
                             boolFirst = False
