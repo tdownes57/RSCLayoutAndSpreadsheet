@@ -51,6 +51,8 @@ Public Class Form__Main_Demo
 
     Private WithEvents mod_designer As New ciBadgeDesigner.ClassDesigner ''Added 10/3/2019 td
     Private WithEvents mod_linklabel_dummy As New LinkLabel() ''Added 2/7/2022 td  
+    Private WithEvents mod_checkbox_dummy As New CheckBox() ''Added 2/8/2022 td  
+    Private WithEvents mod_buttonPrintChecked As New Button() ''Added 2/8/2022 td 
 
     ''#1 8-3-2019 td''Private WithEvents mod_moveAndResizeCtls_NA As New MoveAndResizeControls_Monem.ControlMove_RaiseEvents ''Added 8/3/2019 td  
     '' #2 8-3-2019 td''Private WithEvents mod_moveAndResizeCtls As New MoveAndResizeControls_Monem.ControlMove_GroupMove ''Added 8/3/2019 td  
@@ -735,7 +737,24 @@ Public Class Form__Main_Demo
                     Me.ElementsCache_Edits.PathToXml_Saved = DiskFilesVB.PathToFile_XML_ElementsCache()
                 End If ''End of "If (String.IsNullOrEmpty(Me.ElementsCache_Edits.PathToXml_Saved)) Then"
 
-                .PathToXML = Me.ElementsCache_Edits.PathToXml_Saved
+                ''Feb8 2022 td''.PathToXML = Me.ElementsCache_Edits.PathToXml_Saved
+                Dim strPriorPathXML As String ''Added 2/8/2022 td
+                strPriorPathXML = Me.ElementsCache_Edits.PathToXml_Saved
+                .PathToXML = strPriorPathXML
+
+                ''Added 2/8/2022 td
+                Dim bXmlFileWasMovedYReopened As Boolean ''Added 2/8/2022 td
+                bXmlFileWasMovedYReopened = ((strPriorPathXML <> Me.ElementsCache_PathToXML) AndAlso
+                                    Me.ElementsCache_PathToXML.Contains("\") AndAlso
+                                        (IO.File.Exists(Me.ElementsCache_PathToXML)))
+
+                If (bXmlFileWasMovedYReopened) Then ''Added 2/8/2022 td
+                    ''Update the path which is stored inside the cache's public property,
+                    ''  and is saved to the cache.   ----2/8/2022 td
+                    .PathToXML = Me.ElementsCache_PathToXML
+                    Me.ElementsCache_Edits.PathToXml_Saved = Me.ElementsCache_PathToXML
+                End If ''End of "If (IO.File.Exists(Me.ElementsCache_PathToXML)) Then"
+
                 .PathToXML_Binary = Me.ElementsCache_Edits.PathToXml_Binary ''Added 11/29/2019 thomas d.
 
                 ''Encapsulated 2/1/2022 td
@@ -935,6 +954,32 @@ Public Class Form__Main_Demo
     ''
     ''End Sub ''end of "Private Sub RefreshPreview()"
 
+
+    Private Sub ManageSidebarWidth(par_flowSidebar As FlowLayoutPanel, pboolInitialize As Boolean,
+                           Optional par_intWidthInitialSidebar As Integer = 0) ''Added 2/8/2022 td
+        ''
+        ''Added 2/8/2022 thomas d
+        ''
+        ''Make the FlowSidebar wider if the form is expanded width-wise. 
+        ''
+        Dim intExpandedFormWidth As Integer
+        Static s_initialWidthForm As Integer = 0
+        Static s_initialWidthSidebar As Integer = 0
+
+        If (pboolInitialize) Then
+            s_initialWidthSidebar = par_intWidthInitialSidebar
+            s_initialWidthForm = Me.Width
+            Exit Sub
+        End If ''End of "If (pboolInitialize) Then"
+
+        intExpandedFormWidth = (Me.Width - s_initialWidthForm)
+        If (intExpandedFormWidth > 0) Then
+            par_flowSidebar.Width = (s_initialWidthSidebar + intExpandedFormWidth)
+        End If ''End of "If (intExpandedFormWidth > 0) Then"
+
+    End Sub ''End of "Private Sub ManageSidebarWidth"
+
+
     Private Sub LoadElementGenerator_NotInUse()
         ''
         ''Added 7/18/2019 
@@ -1033,6 +1078,26 @@ Public Class Form__Main_Demo
 
     End Sub ''End of "Private Sub LinkSaveAndRefresh_LinkClicked"
 
+
+    Private Sub Recipient_CheckboxClicked(sender As Object, e As EventArgs) Handles mod_checkbox_dummy.Click
+        ''
+        ''Added 2/08/2022 td
+        ''
+        ''   Handles clicks of the LinkLabel controls in the sidebar panel, 
+        ''   called "Recipients". 
+        ''
+        Dim sender_checkbox As CheckBox
+        Dim oRecipientClicked As ClassRecipient
+        ''--Dim boolPrintBadgeImage As Boolean
+        sender_checkbox = CType(sender, CheckBox)
+        ClassElementFieldV3.oRecipient = CType(sender_checkbox.Tag, ClassRecipient)
+        oRecipientClicked = CType(sender_checkbox.Tag, ClassRecipient)
+        ClassElementFieldV3.oRecipient = oRecipientClicked
+        mod_designer.RefreshPreview_CurrentSide(Nothing, oRecipientClicked)
+
+    End Sub ''End of "Private Sub Recipient_CheckboxClicked"
+
+
     Private Sub Recipient_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles mod_linklabel_dummy.LinkClicked ''10/17 td''Handles linkSaveAndRefresh.LinkClicked
         ''
         ''Added 10/17/2019 td
@@ -1066,35 +1131,50 @@ Public Class Form__Main_Demo
     End Sub ''End of "Private Sub Recipient_LinkClicked"
 
 
-    Private Sub PrintOneBadgeToFileFolder_ByRecipient_BySide(par_oRecipient As ClassRecipient)
+    Private Sub PrintOneBadgeToFileFolder_ByRecipient_BySide(par_oRecipient As ClassRecipient,
+                                                   pboolFirstToBePrinted As Boolean)
         ''
         ''Added 2/7/2022 thomas d. 
         ''
+        Static static_strDatetimeSuffix As String ''Added 2/07/2022 thomas downes
+
         Dim strOutputPathToFolder As String
         Dim strOutputPathToFileJPG As String
+        Dim strOutputPathToFolder_MadeDT As String ''Added 2/08/2022 td
         ''Feb7 2022 td''Dim strStudentID As String = mod_strRecipientID ''Added 8/20/2021 thomas downes 
         Dim strStudentID As String
-        Dim strDatetimeSuffix As String ''Added 2/07/2022 thomas downes
+        Dim strTitleOfFileJPG_NoExt As String ''Added 2/08/2022 td
+        Dim sNewMadeFolder As String ''Added 2/08/2022 td
 
         strStudentID = par_oRecipient.RecipientID ''Added 2/07/2022 thomas downes
         strOutputPathToFolder = DiskFolders.PathToFolder_Preview()
+
         ''strOutputPathToFileJPG = (strOutputPathToFolder & "\Badge_" &
         ''    strStudentID & "_" &
         ''    DateTime.Now.ToString("MMdd_hhmmss") & ".jpg")
         ''Feb07 2022 td''strOutputPathToFileJPG = System.IO.Path.Combine(strPathToFolder,
         ''                    (mod_strRecipientID & ".jpg"))
-        strDatetimeSuffix = "_" & DateTime.Now.ToString("MMdd_hhmmss")
+        If (pboolFirstToBePrinted) Then
+            static_strDatetimeSuffix = DateTime.Now.ToString("MMdd_hhmmss")
+            sNewMadeFolder = "Made " & static_strDatetimeSuffix
+            strOutputPathToFolder_MadeDT = IO.Path.Combine(strOutputPathToFolder, sNewMadeFolder)
+            IO.Directory.CreateDirectory(strOutputPathToFolder_MadeDT)
+        Else
+            sNewMadeFolder = "Made " & static_strDatetimeSuffix
+            strOutputPathToFolder_MadeDT = IO.Path.Combine(strOutputPathToFolder, sNewMadeFolder)
+        End If ''End of "If (pboolFirstToBePrinted) Then .... Else ...."
 
         ''Added 2/7/2022 td
         Dim strSuffixBackside As String = "_Front"
         If (mod_designer.ShowingTheBackside()) Then strSuffixBackside = "_Back"
 
-        strOutputPathToFileJPG = System.IO.Path.Combine(strOutputPathToFolder,
-               (strStudentID & strDatetimeSuffix & strSuffixBackside & ".jpg"))
+        strTitleOfFileJPG_NoExt = (strStudentID & "_" & static_strDatetimeSuffix & strSuffixBackside)
+        strOutputPathToFileJPG = System.IO.Path.Combine(strOutputPathToFolder_MadeDT,
+               (strTitleOfFileJPG_NoExt & ".jpg"))
 
         With picturePreview.Image
             .Save(strOutputPathToFileJPG, Imaging.ImageFormat.Jpeg)
-        End With
+        End With ''eND OF "With picturePreview.Image"
 
     End Sub ''End of ""Private Sub PrintOneBadgeToFileFolder_ByRecipient""
 
@@ -2134,6 +2214,8 @@ Public Class Form__Main_Demo
         Dim list_recips As List(Of ClassRecipient) ''Added 10/11/2019 thomas downes
         Dim each_recip As ClassRecipient ''Added 10/11/2019 thomas downes
         Dim new_LinkLabel As LinkLabel ''Added 10/14/2019 td  
+        Const c_bUseCheckboxes As Boolean = True ''Added 2/8/2022 td
+        Dim new_Checkbox As CheckBox ''Added 2/8/2022 td
 
         With flowSidebar
 
@@ -2142,6 +2224,14 @@ Public Class Form__Main_Demo
             .Controls.Clear()
             .BringToFront()
             .AutoScroll = True
+
+            ''Added 2/8/2022 td 
+            ManageSidebarWidth(flowSidebar, True, .Width) ''Added 2/8/2022 td
+
+            If (c_bUseCheckboxes) Then
+                .Controls.Add(mod_buttonPrintChecked)
+                mod_buttonPrintChecked.text = "Print Checked IDCards"
+            End If ''end if "If (c_bUseCheckboxes) Then"
 
             ''11/30/2021 td''list_recips = Me.PersonalityCache.ListOfRecipients
             If (Me.PersonalityCache_Recipients Is Nothing) Then
@@ -2163,19 +2253,39 @@ Public Class Form__Main_Demo
 
             For Each each_recip In list_recips
 
-                ''Added 10/14/2019 td  
-                new_LinkLabel = New LinkLabel
-                With new_LinkLabel
-                    .Visible = True
-                    .Tag = each_recip ''Added 10/17/2019 td
-                    .Text = (each_recip.fstrFirstName & " " & each_recip.fstrLastName)
-                End With
+                If (c_bUseCheckboxes) Then ''Added 2/8/2022 td
+                    ''
+                    ''Checkboxes. 
+                    ''
+                    ''Added 2/08/2022 td  
+                    new_Checkbox = New CheckBox
+                    With new_Checkbox
+                        .Visible = True
+                        .Tag = each_recip ''Added 10/17/2019 td
+                        .Text = (each_recip.fstrFirstName & " " & each_recip.fstrLastName)
+                        .Font = New Font(.Font, FontStyle.Underline)
+                        .ForeColor = Color.Blue
+                    End With
+                    .Controls.Add(new_Checkbox)
+                    AddHandler new_Checkbox.Click, AddressOf Recipient_CheckboxClicked
 
-                ''Added 10/17/2019 td
-                .Controls.Add(new_LinkLabel)
+                Else
 
-                ''Added 10/17/2019 td
-                AddHandler new_LinkLabel.LinkClicked, AddressOf Recipient_LinkClicked
+                    ''Added 10/14/2019 td  
+                    new_LinkLabel = New LinkLabel
+                    With new_LinkLabel
+                        .Visible = True
+                        .Tag = each_recip ''Added 10/17/2019 td
+                        .Text = (each_recip.fstrFirstName & " " & each_recip.fstrLastName)
+                    End With
+
+                    ''Added 10/17/2019 td
+                    .Controls.Add(new_LinkLabel)
+
+                    ''Added 10/17/2019 td
+                    AddHandler new_LinkLabel.LinkClicked, AddressOf Recipient_LinkClicked
+
+                End If ''End of "If (c_bUseCheckboxes) Then ... Else ... "
 
             Next each_recip
 
@@ -3077,7 +3187,50 @@ ExitHandler:
         Catch
         End Try
 
+    End Sub ''End of "Private Sub flowSidebar_Paint"
+
+
+    Private Sub ButtonPrintAllChecked_Click(sender As Object, e As EventArgs) Handles mod_buttonPrintChecked.Click
+        ''
+        ''Added 2/8/2022 thomas d.  
+        ''
+        Dim each_checkbox As CheckBox
+        Dim each_recipient As ClassRecipient
+        Dim boolFirst As Boolean = True
+        For Each each_control As Control In flowSidebar.Controls
+            If (TypeOf each_control Is CheckBox) Then
+                If (each_control.Tag IsNot Nothing) Then
+                    each_checkbox = CType(each_control, CheckBox)
+                    If (each_checkbox.Checked) Then
+                        ''Major call.....
+                        each_recipient = CType(each_control.Tag, ClassRecipient)
+                        PrintOneBadgeToFileFolder_ByRecipient_BySide(each_recipient, boolFirst)
+                        boolFirst = False
+                    End If ''End of "If (each_checkbox.Checked) Then"
+                End If ''End of ""If (each_checkbox.Tag IsNot Nothing) Then""
+            End If ''End of "If (TypeOf each_checkbox Is CheckBox) Then"
+        Next each_control
+
     End Sub
+
+    Private Sub Form__Main_Demo_ResizeEnd(sender As Object, e As EventArgs) Handles Me.ResizeEnd
+
+        ''Added 2/8/2022 td
+        ManageSidebarWidth(flowSidebar, False, 0)
+
+    End Sub
+
+    Private Sub Form__Main_Demo_StyleChanged(sender As Object, e As EventArgs) Handles Me.StyleChanged
+
+
+
+    End Sub
+
+    Private Sub Form__Main_Demo_Resize(sender As Object, e As EventArgs) Handles Me.Resize
+        ''Added 2/8/2022 td
+        ManageSidebarWidth(flowSidebar, False, 0)
+    End Sub
+
 
     ''Public Sub RecordElementLastTouched(par_elementMoved As IMoveableElement, par_elementClicked As IClickableElement) Implements IRecordLastTouched.RecordElementLastTouched
     ''    ''

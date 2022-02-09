@@ -88,6 +88,7 @@
     <Compile Include="MinorClasses\ClassListOfElements_StaticTextsV3.vb" />
     <Compile Include="MinorClasses\ClassListOfElements_LayoutSections.vb" />
     <Compile Include="MinorClasses\ClassListOfElements_StaticTextsV4.vb" />
+    <Compile Include="MinorClasses\MessageBoxTD.vb" />
     <Compile Include="Utilities\DiskFolders.vb" />
     <Compile Include="Interfaces\InterfaceBadgeSideLayoutElementsV1.vb" />
     <Compile Include="Interfaces\InterfaceDesignerForm.vb" />

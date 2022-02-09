@@ -706,6 +706,49 @@ Namespace ciBadgeCachePersonality
         End Function ''End of "Public Function ListOfBadgeDisplayElements_Flds_BacksideV3()"
 
 
+        Public Function ListOfBadgeDisplayElements_Flds_FrontV4(Optional pboolSkip13 As Boolean = True,
+                                            Optional pboolSkip14 As Boolean = True) _
+                                            As List(Of ClassElementFieldV4)
+            ''
+            ''Added 1/08/2022 tdownes
+            ''
+            ''  For each element, we check to see if it will be displayed on the Badge.
+            ''  If so, it's included on the output list.  
+            ''
+            Dim new_list As New List(Of ClassElementFieldV4)  ''End of "List(Of ClassElementField)"
+            Dim each_element As ClassElementFieldV4
+            Dim boolOnDisplay As Boolean
+            Dim structWhyOmitV1 As New ciBadgeElements.WhyOmitted_StructV1
+            Dim structWhyOmitV2 As New ciBadgeInterfaces.WhyOmitted_StructV2 ''Added 1/24/2022
+            Dim indexBadgeDisplay As Integer
+
+            For Each each_element In mod_listElementFields_FrontV4
+                ''
+                ''Major call. 
+                ''
+                boolOnDisplay = each_element.IsDisplayedOnBadge_Visibly(structWhyOmitV1, structWhyOmitV2)
+
+                If (boolOnDisplay) Then
+                    new_list.Add(each_element)
+                    indexBadgeDisplay += 1
+                    ''Added 11/26/2021 thomas downes
+                    ''   Let's accomodate the fact that the webside has Badge Display #s 1, 2, 3, ... 12 and 15 ... 19.
+                    ''   (Notice that #s 13 & 14 are not in use, as an obselete gap between standard & custom fields.) 
+                    If (pboolSkip13 And indexBadgeDisplay = 13) Then indexBadgeDisplay = 14
+                    If (pboolSkip14 And indexBadgeDisplay = 14) Then indexBadgeDisplay = 15
+
+                    each_element.BadgeDisplayIndex = indexBadgeDisplay
+                    ''Added 11/29/2021 td
+                    each_element.DatetimeUpdated = DateTime.Now
+
+                End If ''End of "If (boolOnDisplay) Then"
+            Next each_element
+
+            Return new_list
+
+        End Function ''End of "Public Function RefreshListOfBadgeDisplayElements_Flds_FrontV4()"
+
+
         Public Function ListOfBadgeDisplayElements_Flds_BacksideV4(Optional pboolSkip13 As Boolean = True,
                                                       Optional pboolSkip14 As Boolean = True) _
                                                      As List(Of ClassElementFieldV4)
@@ -2088,7 +2131,7 @@ Namespace ciBadgeCachePersonality
             Dim listBadgeElements_Front As List(Of ClassElementFieldV3) ''Added 1/8/2022 td
             Dim each_elementField As ClassElementFieldV3 ''Added 1/8/2022 thomas d.  
 
-            listBadgeElements_Front = ListOfBadgeDisplayElements_Flds_Front()
+            listBadgeElements_Front = ListOfBadgeDisplayElements_Flds_FrontV3()
 
             ''Jan8 2022 td''For indexDisplay = 0 To mod_listBadgeElements_Front.Count - 1
             For indexDisplay = 0 To listBadgeElements_Front.Count - 1

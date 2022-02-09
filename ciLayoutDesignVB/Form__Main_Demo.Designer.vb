@@ -61,6 +61,7 @@ Partial Class Form__Main_Demo
         Me.ShowBadgeRecipientsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CloseListOfRecipentsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PrintASpecifiedNumberOfBadgesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ClickingLinkLabelWillGenerateIDCardimageToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PrintAllBadgesToFileFolderToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExitRecipientModeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EmailAddressToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -123,7 +124,6 @@ Partial Class Form__Main_Demo
         Me.flowlayoutIncludedBin = New System.Windows.Forms.FlowLayoutPanel()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.ClickingLinkLabelWillGenerateIDCardimageToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -393,6 +393,13 @@ Partial Class Form__Main_Demo
         Me.PrintASpecifiedNumberOfBadgesToolStripMenuItem.Size = New System.Drawing.Size(374, 26)
         Me.PrintASpecifiedNumberOfBadgesToolStripMenuItem.Text = "Make Badges (for specific Recipients)"
         '
+        'ClickingLinkLabelWillGenerateIDCardimageToolStripMenuItem
+        '
+        Me.ClickingLinkLabelWillGenerateIDCardimageToolStripMenuItem.CheckOnClick = True
+        Me.ClickingLinkLabelWillGenerateIDCardimageToolStripMenuItem.Name = "ClickingLinkLabelWillGenerateIDCardimageToolStripMenuItem"
+        Me.ClickingLinkLabelWillGenerateIDCardimageToolStripMenuItem.Size = New System.Drawing.Size(410, 26)
+        Me.ClickingLinkLabelWillGenerateIDCardimageToolStripMenuItem.Text = "Clicking LinkLabel will generate ID Card (image)"
+        '
         'PrintAllBadgesToFileFolderToolStripMenuItem
         '
         Me.PrintAllBadgesToFileFolderToolStripMenuItem.Name = "PrintAllBadgesToFileFolderToolStripMenuItem"
@@ -616,9 +623,9 @@ Partial Class Form__Main_Demo
         Me.flowSidebar.BackColor = System.Drawing.SystemColors.Info
         Me.flowSidebar.Controls.Add(Me.LinkCloseSidebar)
         Me.flowSidebar.Dock = System.Windows.Forms.DockStyle.Right
-        Me.flowSidebar.Location = New System.Drawing.Point(1277, 30)
+        Me.flowSidebar.Location = New System.Drawing.Point(1231, 30)
         Me.flowSidebar.Name = "flowSidebar"
-        Me.flowSidebar.Size = New System.Drawing.Size(21, 586)
+        Me.flowSidebar.Size = New System.Drawing.Size(67, 586)
         Me.flowSidebar.TabIndex = 54
         Me.flowSidebar.Visible = False
         '
@@ -627,7 +634,7 @@ Partial Class Form__Main_Demo
         Me.LinkCloseSidebar.AutoSize = True
         Me.LinkCloseSidebar.Location = New System.Drawing.Point(3, 0)
         Me.LinkCloseSidebar.Name = "LinkCloseSidebar"
-        Me.LinkCloseSidebar.Size = New System.Drawing.Size(21, 240)
+        Me.LinkCloseSidebar.Size = New System.Drawing.Size(58, 60)
         Me.LinkCloseSidebar.TabIndex = 0
         Me.LinkCloseSidebar.TabStop = True
         Me.LinkCloseSidebar.Text = "Close sidebar"
@@ -957,13 +964,6 @@ Partial Class Form__Main_Demo
         Me.Label3.Size = New System.Drawing.Size(101, 20)
         Me.Label3.TabIndex = 87
         Me.Label3.Text = "Included Bin"
-        '
-        'ClickingLinkLabelWillGenerateIDCardimageToolStripMenuItem
-        '
-        Me.ClickingLinkLabelWillGenerateIDCardimageToolStripMenuItem.CheckOnClick = True
-        Me.ClickingLinkLabelWillGenerateIDCardimageToolStripMenuItem.Name = "ClickingLinkLabelWillGenerateIDCardimageToolStripMenuItem"
-        Me.ClickingLinkLabelWillGenerateIDCardimageToolStripMenuItem.Size = New System.Drawing.Size(410, 26)
-        Me.ClickingLinkLabelWillGenerateIDCardimageToolStripMenuItem.Text = "Clicking LinkLabel will generate ID Card (image)"
         '
         'Form__Main_Demo
         '

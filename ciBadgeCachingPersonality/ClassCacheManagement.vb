@@ -15,6 +15,10 @@ Namespace ciBadgeCachePersonality
         ''
         Public Shared LatestCacheOfEdits_Guid6 As String = "" ''This is a 6-character GUID. ---12/12/2021 td
 
+        ''Added 2/8/2022 td
+        Public RuntimeError As Boolean ''Added 2/8/2022 td
+        Public RuntimeErrorMessage As String ''Added 2/8/2022 td
+
         Private mod_cacheEdits As ClassElementsCache_Deprecated
         Private mod_cacheSaved As ClassElementsCache_Deprecated
         Private mod_strPathToSavedFileXML As String
@@ -204,12 +208,36 @@ Namespace ciBadgeCachePersonality
         End Sub
 
         Public Sub CreateBadgeLayoutImageFile(par_BadgeImage As System.Drawing.Image,
-                                               par_strPathToProposedJpeg As String)
+                                               par_strPathToProposedJpeg As String,
+                                              Optional pbWinformEnvironment As Boolean = False)
             ''
             ''Added 1/5/2022 thomas downes 
             ''
-            par_BadgeImage.Save(par_strPathToProposedJpeg,
+            Try
+                par_BadgeImage.Save(par_strPathToProposedJpeg,
                                 System.Drawing.Imaging.ImageFormat.Jpeg)
+            Catch ex As Exception
+                ''Added 2/8/2022 td  
+                ''
+                ''Was the destination folder moved or renamed? 
+                ''
+                Me.RuntimeError = True
+                Me.RuntimeErrorMessage =
+                    "Was the XML folder moved? " &
+                    "The following path failed, or the badge layout image is corrupted." &
+                     vbCrLf_Deux & par_strPathToProposedJpeg &
+                     vbCrLf_Deux & ex.Message
+
+                ''Added 2/8/2022 td 
+                If (pbWinformEnvironment) Then
+                    ''
+                    ''We are on a Windows laptop. It's okay to give pop-up messages.   
+                    ''
+                    MessageBoxTD.Show_Statement(Me.RuntimeErrorMessage)
+
+                End If ''End of "If (pboolGiveWinformMessages) Then"
+
+            End Try
 
         End Sub ''End of "Public Sub CreateBadgeLayoutImage(pstrPathToJpeg As String)"
 
