@@ -56,9 +56,12 @@ Public Class Startup
 
         GroupMoveEvents_Singleton.CountInstances = 0 ''Return to default value. Added 1/5/2022 td
         Dim obj_formToShow_Demo As New Form__Main_Demo ''Added 10/11/2019 td 
-        Dim strPathToElementsCacheXML As String = "" ''Added 12/14/2021 td 
+        Dim strPathToElementsCacheXML_Input As String = "" ''Added 12/14/2021 td 
+        Dim strPathToElementsCacheXML_Output As String = "" ''Added 02/09/2022 td 
         Dim strPathToElementsCacheXML_Prior1 As String = "" ''Added 1/25/2022 td 
         Dim strPathToElementsCacheXML_Prior2 As String = "" ''Added 1/25/2022 td 
+        Dim strPathToElementsCacheXML_Prior3 As String = "" ''Added 2/09/2022 td 
+        ''---Dim strPathToElementsCacheXML_Prior4 As String = "" ''Added 2/09/2022 td 
 
         ''Added 10/16/2019 td 
         obj_personality.ListOfRecipients = LoadData_Recipients_Students()
@@ -75,12 +78,15 @@ Public Class Startup
         If (c_boolStillUsingElementsCache) Then
             ''Function called in the line below is suffixed w/ "_Deprecated", but
             ''   it's still in used today.  ---11/30/2021 td 
-            strPathToElementsCacheXML = My.Settings.PathToXML_Saved_ElementsCache ''Added 12/14/2021 
+            strPathToElementsCacheXML_Input = My.Settings.PathToXML_Saved_ElementsCache ''Added 12/14/2021 
             strPathToElementsCacheXML_Prior1 = My.Settings.PathToSavedXML_Prior1 ''Added 1/25/2022 
             strPathToElementsCacheXML_Prior2 = My.Settings.PathToSavedXML_Prior2 ''Added 1/25/2022 
+            strPathToElementsCacheXML_Prior3 = My.Settings.PathToSavedXML_Prior3 ''Added 2/09/2022 
+            ''---strPathToElementsCacheXML_Prior4 = My.Settings.PathToSavedXML_Prior4 ''Added 2/09/2022
+            ''
             Const c_bAlwaysAllowUserToChooseNew As Boolean = True ''Added 12/20/2021 
             Dim bMissingOrEmptyXML As Boolean
-            bMissingOrEmptyXML = DiskFilesVB.IsXMLFileMissing_OrEmpty(strPathToElementsCacheXML)
+            bMissingOrEmptyXML = DiskFilesVB.IsXMLFileMissing_OrEmpty(strPathToElementsCacheXML_Input)
 
             If (c_bAlwaysAllowUserToChooseNew Or bMissingOrEmptyXML) Then
                 ''
@@ -101,15 +107,23 @@ Public Class Startup
                     ''
                     ''Loop as many times as the user would like!
                     ''
+                    strPathToElementsCacheXML_Input = My.Settings.PathToXML_Saved_ElementsCache ''Added 12/14/2021 
+                    strPathToElementsCacheXML_Prior1 = My.Settings.PathToSavedXML_Prior1 ''Added 1/25/2022 
+                    strPathToElementsCacheXML_Prior2 = My.Settings.PathToSavedXML_Prior2 ''Added 1/25/2022 
+
                     With objFormShowCacheLayouts
-                        .PathToElementsCacheXML = strPathToElementsCacheXML ''Added 12/20/2021 td
+
+                        .PathToElementsCacheXML_Input = strPathToElementsCacheXML_Input ''Added 12/20/2021 td
                         .PathToElementsCacheXML_Prior1 = strPathToElementsCacheXML_Prior1 ''Added 1/25/2022 td
                         .PathToElementsCacheXML_Prior2 = strPathToElementsCacheXML_Prior2 ''Added 1/25/2022 td
+                        .PathToElementsCacheXML_Prior3 = strPathToElementsCacheXML_Prior3 ''Added 2/09/2022 td
 
                         ''Not needed.''.Visible = True ''Added 2/5/2022 thomas downes 
                         .ShowDialog()
 
-                        strPathToElementsCacheXML = .PathToElementsCacheXML
+                        ''Feb9 2022 td''strPathToElementsCacheXML = .PathToElementsCacheXML_Input
+                        strPathToElementsCacheXML_Output = .PathToElementsCacheXML_Output
+
                         bUserWantsABlankSlate = .UserChoosesABlankSlate
 
                         ''Added 2/5/2022 td
@@ -118,7 +132,7 @@ Public Class Startup
 
                     End With ''End of "With objFormShowCacheLayouts"
 
-                    bGoodChoice = (bUserWantsABlankSlate Or (Not DiskFilesVB.IsXMLFileMissing_OrEmpty(strPathToElementsCacheXML)))
+                    bGoodChoice = (bUserWantsABlankSlate Or (Not DiskFilesVB.IsXMLFileMissing_OrEmpty(strPathToElementsCacheXML_Output)))
                     bUserCancelled = objFormShowCacheLayouts.UserHasSelectedCancel
 
                     ''Added 12/26/2021
@@ -126,7 +140,7 @@ Public Class Startup
                         ''Added 12/26/2021
                         ''---Dim obj_formDemo As New Form__Main_Demo ''Added 12/26/2021 
                         obj_cache_layout_Elements = LoadCachedData_Elements_Deprecated(obj_formToShow_Demo,
-                                                               boolNewFileXML, strPathToElementsCacheXML)
+                                                          boolNewFileXML, strPathToElementsCacheXML_Output)
                         bGoodChoice = (obj_cache_layout_Elements IsNot Nothing)
                         If (Not bGoodChoice) Then objFormShowCacheLayouts.ShowMessageForIllformedXML = True
                     End If ''End of "If (bGoodChoice And Not bUserCancelled) Then"
@@ -151,7 +165,12 @@ Public Class Startup
 
                     With objFormShowCacheLayouts ''Added 1/5/2022 td
                         ''Encapsulated 1/5/2022 td
-                        SaveFullPathToFileXML(.PathToElementsCacheXML)
+                        ''#1 Feb9 2022''SaveFullPathToFileXML(.PathToElementsCacheXML_Input)
+                        ''#2 Feb9 2022''SaveFullPathToFileXML(.PathToElementsCacheXML_Output)
+                        ''#2 Feb9 2022''strPathToElementsCacheXML_Output = .PathToElementsCacheXML_Output
+                        SaveFullPathToFileXML_Settings(strPathToElementsCacheXML_Output)
+                        My.Settings.PathToXML_Saved_ElementsCache = strPathToElementsCacheXML_Output
+                        My.Settings.Save()
 
                     End With ''end of "With objFormShowCacheLayouts"
 
@@ -174,7 +193,7 @@ Public Class Startup
             If (obj_cache_layout_Elements Is Nothing) Then
                 ''Open the cache from the XML. 
                 obj_cache_layout_Elements = LoadCachedData_Elements_Deprecated(obj_formToShow_Demo, boolNewFileXML,
-                   strPathToElementsCacheXML)
+                   strPathToElementsCacheXML_Output)
             End If ''End of "If (obj_cache_layout_Elements Is Nothing) Then"
 
         Else
@@ -202,7 +221,7 @@ Public Class Startup
         ''
         obj_formToShow_Demo.NewFileXML = boolNewFileXML
         ''Added 12/14/2021 td
-        obj_formToShow_Demo.ElementsCache_PathToXML = strPathToElementsCacheXML
+        obj_formToShow_Demo.ElementsCache_PathToXML = strPathToElementsCacheXML_Output
         Dim intMessagesDisplayed As Integer ''Added 1/25/2022 td
 
         ''Not needed. 10/11/2019 td'obj_formToShow.CtlGraphicText1.LayoutFunctions = CType(obj_formToShow., ILayoutFunctions)
@@ -217,7 +236,7 @@ Public Class Startup
             ''This is potentially an infinite loop.  Look for "Exit Do". 
             ''
             ''First, let's refresh the path. ---1/14/2022 td
-            strPathToElementsCacheXML = My.Settings.PathToXML_Saved_ElementsCache ''Added 1/14/2022 
+            strPathToElementsCacheXML_Input = My.Settings.PathToXML_Saved_ElementsCache ''Added 1/14/2022 
 
             ''
             ''Let's set some fundamental properties of the form. ---1/14/2022 td
@@ -236,7 +255,7 @@ Public Class Startup
 
                 obj_formToShow_Demo.ElementsCache_Edits = obj_cache_layout_Elements
                 ''Added 12/14/2021 td
-                obj_formToShow_Demo.ElementsCache_PathToXML = strPathToElementsCacheXML ''Added 12/14/2021 td 
+                obj_formToShow_Demo.ElementsCache_PathToXML = strPathToElementsCacheXML_Input ''Added 12/14/2021 td 
 
             Else
                 ''
@@ -251,9 +270,9 @@ Public Class Startup
             ''Specify the XML cache file, in the Window caption. ---12/14/2021 td 
             ''
             Dim strFileTitleXML As String ''Added 12/1/4/2021 td
-            strFileTitleXML = (New IO.FileInfo(strPathToElementsCacheXML)).Name
+            strFileTitleXML = (New IO.FileInfo(strPathToElementsCacheXML_Input)).Name
             obj_formToShow_Demo.Text = String.Format("RSC ID Card - Desktop - {0} - {1}",
-                                                strFileTitleXML, strPathToElementsCacheXML)
+                                                strFileTitleXML, strPathToElementsCacheXML_Input)
 
 
             ''
@@ -262,6 +281,7 @@ Public Class Startup
             obj_formToShow_Demo.ShowDialog() ''Added 10/11/2019 td 
 
             ''Added 12/14/2021 thomas downes
+            SaveFullPathToFileXML_Settings(obj_formToShow_Demo.ElementsCache_PathToXML)
             My.Settings.PathToXML_Saved_ElementsCache = obj_formToShow_Demo.ElementsCache_PathToXML
             My.Settings.Save() ''Added 12/14/2021 thomas downes
 
@@ -356,7 +376,7 @@ Public Class Startup
             strPathToXML = DiskFilesVB.PathToFile_XML_Personality
             ''Jan5 2022''My.Settings.PathToXML_Saved_ElementsCache = strPathToXML
             ''Jan5 2022''My.Settings.Save()
-            SaveFullPathToFileXML(strPathToXML)
+            SaveFullPathToFileXML_Settings(strPathToXML)
 
         Else
             pboolNewFileXML = (Not System.IO.File.Exists(strPathToXML))
@@ -549,7 +569,7 @@ Public Class Startup
             strPathToXML = DiskFilesVB.PathToFile_XML_ElementsCache
             ''Jan5 2022''My.Settings.PathToXML_Saved_ElementsCache = strPathToXML
             ''Jan5 2022''My.Settings.Save()
-            SaveFullPathToFileXML(strPathToXML)
+            SaveFullPathToFileXML_Settings(strPathToXML)
 
             ''Added 12/14/2021 td
             pstrPathToElementsCacheXML = strPathToXML
@@ -585,7 +605,7 @@ Public Class Startup
             ''My.Settings.PathToXML_Saved_ElementsCache = strPathToXML
             ''My.Settings.PathToSavedXML_Last = strPathToXML
             ''My.Settings.Save()
-            SaveFullPathToFileXML(strPathToXML)
+            SaveFullPathToFileXML_Settings(strPathToXML)
 
             ''Added 12/12/2021 td
             With obj_cache_elements
@@ -826,7 +846,8 @@ Public Class Startup
     End Function ''End of "Public Sub LoadCachedData_Elements_Deprecated()"
 
 
-    Public Shared Sub SaveFullPathToFileXML(par_pathToElementsCacheXML As String)
+    Public Shared Sub SaveFullPathToFileXML_Settings(par_pathToElementsCacheXML As String)
+        ''Feb9 2022 td''Public Shared Sub SaveFullPathToFileXML
         ''
         ''Added 1/5/2022 td
         ''
@@ -859,7 +880,7 @@ Public Class Startup
 
         My.Settings.Save() ''Added 1/7/2022 td
 
-    End Sub ''End of "Public Shared Sub SaveFullPathToFileXML()"
+    End Sub ''End of "Public Shared Sub SaveFullPathToFileXML_Settings()"
 
 
 End Class ''end of Public Class Startup

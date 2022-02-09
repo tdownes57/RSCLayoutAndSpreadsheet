@@ -5,7 +5,8 @@ Public Class FormDisplayCacheLayouts
     ''
     ''Added 12/19/2021 Thomas Downes   
     ''
-    Public PathToElementsCacheXML As String ''Added 12/19/2021 Thomas Downes
+    Public PathToElementsCacheXML_Input As String ''Added 12/19/2021 Thomas Downes
+    Public PathToElementsCacheXML_Output As String ''Added 02/09/2022 Thomas Downes
 
     Public PathToElementsCacheXML_Folder As String = "" ''Added 2/25/2025 Thomas Downes
     Public PathToElementsCacheXML_Prior1 As String = "" ''Added 1/25/2025 Thomas Downes
@@ -114,7 +115,8 @@ Public Class FormDisplayCacheLayouts
         Dim boolJpegConfirmed As Boolean ''Added 1/25/2022 td
         Dim strPathToBadgeLayoutJPG As String
 
-        strPathToBadgeLayoutJPG = Me.PathToElementsCacheXML.Replace(".xml", ".jpg")
+        ''2/9/2022 td''strPathToBadgeLayoutJPG = Me.PathToElementsCacheXML_Input.Replace(".xml", ".jpg")
+        strPathToBadgeLayoutJPG = pstrPathToXML.Replace(".xml", ".jpg")
         boolJpegConfirmed = IO.File.Exists(strPathToBadgeLayoutJPG)
         boolXMLConfirmed = IO.File.Exists(pstrPathToXML)
 
@@ -134,7 +136,7 @@ Public Class FormDisplayCacheLayouts
         ''Added 2/6/2022 td
         Static static_strPathToXML_Prior As String
         If (static_strPathToXML_Prior = "") Then
-            static_strPathToXML_Prior = Me.PathToElementsCacheXML
+            static_strPathToXML_Prior = Me.PathToElementsCacheXML_Input
         End If
 
         ''Jan26 2022''strPathToXML = CType(sender, PictureBox).Tag.ToString()
@@ -168,13 +170,13 @@ Public Class FormDisplayCacheLayouts
         ''
         ''Added 12/20/2021 td
         ''
-        LoadMainDisplayControls(Me.PathToElementsCacheXML)
+        LoadMainDisplayControls(Me.PathToElementsCacheXML_Input)
 
         ''
         ''Encapsulated 2/6/2022 td
         ''
         Dim b_ExcludeFollowingLayout As Boolean = True
-        LoadPriorAndCurrentLayouts_All(b_ExcludeFollowingLayout, Me.PathToElementsCacheXML)
+        LoadPriorAndCurrentLayouts_All(b_ExcludeFollowingLayout, Me.PathToElementsCacheXML_Input)
 
     End Sub ''End of ""Public Sub Form_Load""
 
@@ -311,7 +313,7 @@ Public Class FormDisplayCacheLayouts
         Dim strPriorXMLFile4 As String = Me.PathToElementsCacheXML_Prior4
 
         ''Added 2/6/2022 thomas d.
-        Dim strPathCurrentXML As String = Me.PathToElementsCacheXML
+        Dim strPathCurrentXML As String = Me.PathToElementsCacheXML_Input
         Dim strPathToFolder As String = Me.PathToElementsCacheXML_Folder
         Dim objHashset As New HashSet(Of String)
 
@@ -395,7 +397,7 @@ Public Class FormDisplayCacheLayouts
         Dim strPathToParentFolder4 As String = ""
 
         Try
-            strPathToParentFolderCurr = (New IO.FileInfo(Me.PathToElementsCacheXML)).DirectoryName
+            strPathToParentFolderCurr = (New IO.FileInfo(Me.PathToElementsCacheXML_Input)).DirectoryName
             strPathToParentFolder1 = (New IO.FileInfo(Me.PathToElementsCacheXML_Prior1)).DirectoryName
             strPathToParentFolder2 = (New IO.FileInfo(Me.PathToElementsCacheXML_Prior2)).DirectoryName
             strPathToParentFolder3 = (New IO.FileInfo(Me.PathToElementsCacheXML_Prior3)).DirectoryName
@@ -500,7 +502,8 @@ Public Class FormDisplayCacheLayouts
         ''Jan25 2022 td''bCheckingFile_OK = (CheckingXmlFile_IsOkay(LabelFullPathToXML, LabelWarningMessage))
         bCheckingFile_OK = (CheckingXmlFile_IsOkay(strPathToXML, LabelWarningMessage))
         If (bCheckingFile_OK) Then
-            Startup.SaveFullPathToFileXML(strPathToXML)
+            Startup.SaveFullPathToFileXML_Settings(strPathToXML)
+            Me.PathToElementsCacheXML_Output = strPathToXML
             Me.Close()
         End If ''Endo f "If (bCheckingFile_OK) Then"
 
@@ -538,7 +541,8 @@ Public Class FormDisplayCacheLayouts
 
         If (DiskFilesVB.IsXMLFileMissing_OrEmpty(strPathToXML)) Then Return
 
-        Me.PathToElementsCacheXML = strPathToXML
+        ''2/9/2022 td''Me.PathToElementsCacheXML_Input = strPathToXML
+        Me.PathToElementsCacheXML_Output = strPathToXML
         Me.PathToLastDirectoryForXMLFile = (New IO.FileInfo(strPathToXML)).DirectoryName
         ''Added 1/22/2022 td
         Me.FileTitleOfXMLFile = (New IO.FileInfo(strPathToXML)).Name

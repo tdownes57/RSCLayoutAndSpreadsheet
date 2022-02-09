@@ -1061,7 +1061,7 @@ Public Class Form__Main_Demo
         ''My.Settings.PathToXML_Saved_ElementsCache = Me.ElementsCache_PathToXML
         ''My.Settings.PathToSavedXML_Last = Me.ElementsCache_PathToXML
         ''My.Settings.Save()
-        Startup.SaveFullPathToFileXML(Me.ElementsCache_PathToXML)
+        Startup.SaveFullPathToFileXML_Settings(Me.ElementsCache_PathToXML)
 
         ''
         ''Step 2 of 3.  Decide the next step. 
@@ -1998,7 +1998,7 @@ Public Class Form__Main_Demo
         ''My.Settings.PathToSavedXML_Last = strSaveFileAs_FullFileName
         ''My.Settings.PathToXML_Saved_ElementsCache = strSaveFileAs_FullFileName
         ''My.Settings.Save()
-        Startup.SaveFullPathToFileXML(strSaveFileAs_FullFileName)
+        Startup.SaveFullPathToFileXML_Settings(strSaveFileAs_FullFileName)
 
         ''
         ''Specify the XML cache file, in the Window caption. ---12/14/2021 td 
@@ -2111,7 +2111,7 @@ Public Class Form__Main_Demo
         Me.ElementsCache_PathToXML = strFullPathToXML
         ''My.Settings.PathToXML_Saved_ElementsCache = strFullPathToXML
         ''My.Settings.Save()
-        Startup.SaveFullPathToFileXML(strFullPathToXML)
+        Startup.SaveFullPathToFileXML_Settings(strFullPathToXML)
 
         ''
         ''Specify the XML cache file, in the Window caption. ---12/14/2021 td 
