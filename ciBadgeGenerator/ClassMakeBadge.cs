@@ -530,7 +530,8 @@ namespace ciBadgeGenerator
                                     Image par_recipientPic,
                                     ClassElementsCache_Deprecated par_cache,
                                     IRecipient par_iRecipientInfo = null,
-                                    HashSet<ClassElementFieldV3> par_listElementFields = null,
+                                    HashSet<ClassElementFieldV3> par_listElementFieldsV3 = null,
+                                    HashSet<ClassElementFieldV4> par_listElementFieldsV4 = null,
                                     HashSet<ClassElementStaticTextV3> par_listElementTextsV3 = null,
                                     HashSet<ClassElementStaticTextV4> par_listElementTextsV4 = null,
                                     HashSet<ClassElementGraphic> par_listElementGraphics = null,
@@ -596,14 +597,21 @@ namespace ciBadgeGenerator
 
             // 10-17-2019 td //List<ClassElementField> listOfElementTextFields;
             // Jan8 2022 //HashSet<ClassElementField> listOfElementFields; // <<<<<<<<<<<<<< I have removed the word "Text" from the name.   It's confusing since there are Static-Text controls. --10/17/2019
-            IEnumerable<ClassElementFieldV3> listOfElementFields; // <<<<<<<<<<<<<< I have removed the word "Text" from the name.   It's confusing since there are Static-Text controls. --10/17/2019
+            IEnumerable<ClassElementFieldV3> listOfElementFieldsV3; // <<<<<<<<<<<<<< I have removed the word "Text" from the name.   It's confusing since there are Static-Text controls. --10/17/2019
+            IEnumerable<ClassElementFieldV4> listOfElementFieldsV4; // <<<<<<<<<<<<<< I have removed the word "Text" from the name.   It's confusing since there are Static-Text controls. --10/17/2019
 
             // Nov. 29 2021 //listOfElementFields = par_cache.ListFieldElements();
-            if (par_listElementFields != null) listOfElementFields = par_listElementFields;
+            // Moved below & suffixed w/ "V3". Feb. 10 2022 //if (par_listElementFields != null) listOfElementFields = par_listElementFields;
+
             // Dec. 7 2021  //else listOfElementFields = par_cache.ListFieldElements();
             // #1 Jan8 2022 td //else listOfElementFields = par_cache.ListOfBadgeDisplayElements_Flds_Front(false);
             // #2 Jan8 2022 td //else listOfElementFields = par_cache.ListOfElementFields_Front;
-            else listOfElementFields = par_cache.BadgeDisplayElements_Fields_Front();
+            if (par_listElementFieldsV3 != null) listOfElementFieldsV3 = par_listElementFieldsV3;
+            else listOfElementFieldsV3 = par_cache.BadgeDisplayElements_Fields_FrontV3();
+
+            //Added 2/10/2022 td
+            if (par_listElementFieldsV4 != null) listOfElementFieldsV4 = par_listElementFieldsV4;
+            else listOfElementFieldsV4 = par_cache.BadgeDisplayElements_Fields_FrontV4();
 
             const bool c_boolUseLocalProc = true;  // 11-9-2021 false;  // true;  // false;  //Added 10/5/2019 td
             if (c_boolUseLocalProc)
@@ -619,7 +627,8 @@ namespace ciBadgeGenerator
                 //
                 LoadImageWithElementFields(ref obj_imageOutput,
                         ref dateMostRecentUpdate,
-                        listOfElementFields,
+                        listOfElementFieldsV3,
+                        listOfElementFieldsV4,
                           par_iRecipientInfo, null,
                           par_listMessages,
                          par_listFieldsIncluded,
@@ -636,7 +645,9 @@ namespace ciBadgeGenerator
                 // Call a method from the namespace LayoutElements. 
                 //
                 //objPrintLibElems.LoadImageWithElements(ref obj_imageOutput, listOfElementFields);
-                objPrintLibElems.LoadImageWithElements(ref obj_imageOutput, listOfElementFields,
+                objPrintLibElems.LoadImageWithElements(ref obj_imageOutput, 
+                         listOfElementFieldsV3,
+                         listOfElementFieldsV4,
                          null, false, true,
                          par_listFieldsIncluded,
                          par_listFieldsNotIncluded);
@@ -1127,7 +1138,8 @@ namespace ciBadgeGenerator
 
         public void LoadImageWithElementFields(ref Image par_imageBadgeCard,
                                           ref DateTime par_datetimeLastUpdated,
-                                          IEnumerable<ClassElementFieldV3> par_elementFields,
+                                          IEnumerable<ClassElementFieldV3> par_elementFieldsV3,
+                                          IEnumerable<ClassElementFieldV4> par_elementFieldsV4,
                                           IRecipient par_iRecipientInfo = null,
                                           List<Image> par_listTextImages = null,
                                           List<String> par_listMessages = null,
@@ -1142,7 +1154,8 @@ namespace ciBadgeGenerator
             //    Dim bOutputAllImages As Boolean ''Added 8/26/2019 thomas d.
 
             Graphics gr_Badge;
-            int intEachIndex = 0;
+            int intEachIndexV3 = 0;
+            int intEachIndexV4 = 0;   //Added 2/10/2022 thomas d.
             bool bOutputListOfAllImages;
             //string strTextToDisplay = ""; //Added 10/17/2019 thomas d
 
@@ -1172,22 +1185,27 @@ namespace ciBadgeGenerator
             //    ''9/18/2019 td''For Each each_elementField As IFieldInfo_ElementPositions In par_standardFields
             //    For Each each_elementField As ClassElementField In par_elements
 
-            foreach (ClassElementFieldV3 each_elementField in par_elementFields)
+            //
+            // Element Fields, Version #3
+            //
+            foreach (ClassElementFieldV3 each_elementFieldV3 in par_elementFieldsV3)
             {
                 //
+                // Element Field, Version #3     
+                //
                 //        intEachIndex += 1
-                par_datetimeLastUpdated = MaxDateTime(each_elementField.DatetimeUpdated,
+                par_datetimeLastUpdated = MaxDateTime(each_elementFieldV3.DatetimeUpdated,
                     par_datetimeLastUpdated);
 
                 // Added 11/29/2021 td  
                 //----if (each_elementField == par_recentlyMoved) System.Diagnostics.Debugger.Break();
 
-                intEachIndex += 1;
+                intEachIndexV3 += 1;
 
-                if (each_elementField.FieldInfo.IsDisplayedOnBadge) // Added 1/24/2022 thomas d.
+                if (each_elementFieldV3.FieldInfo.IsDisplayedOnBadge) // Added 1/24/2022 thomas d.
                 {
                     //Encapsulated 10/17/2019 td  
-                    AddElementFieldToImage(each_elementField, par_imageBadgeCard,
+                    AddElementFieldToImageV3(each_elementFieldV3, par_imageBadgeCard,
                            gr_Badge, bOutputListOfAllImages, par_listTextImages,
                            par_iRecipientInfo,
                            par_listMessages,
@@ -1196,203 +1214,232 @@ namespace ciBadgeGenerator
 
                 } // End of "if (each_elementField.FieldInfo.IsDisplayedOnBadge)"
 
-                // Added 11/29/2021 td 
-                //---each_elementField.DatetimeUpdated = DateTime.Now;
-                //---not needed here---par_datetimeLastUpdated = MaxDateTime(each_elementField.DatetimeUpdated,
-                //    par_datetimeLastUpdated);
+            }
 
-                ////Added 10/17/2019 td
-                //strTextToDisplay = each_elementField.LabelText_ToDisplay(false);
+            //
+            // Element Fields, Version #4
+            //
+            foreach (ClassElementFieldV4 each_elementFieldV4 in par_elementFieldsV4)
+            {
                 //
-                ////
-                ////        ''9/3/2019 td''If (not each_elementField.IsDiplayedOnBadge) Then Continue for
-                ////
-                ////        ''
-                ////        ''Added 8/24/2019 thomas d.
-                ////        ''
-                ////        ''9/18 td''With each_elementField.Position_BL
-                ////
-                ////        With each_elementField
-                ////
-                ////            Select Case True
-                ////                Case (.LeftEdge_Pixels< 0)
-                ////                  Continue For
+                // Element Field, Version #4     
                 //
-                //if (0 > each_elementField.LeftEdge_Pixels) continue;
-                //
-                ////                Case(.TopEdge_Pixels< 0) ''Then
-                ////                  Continue For
-                //
-                //if (0 > each_elementField.TopEdge_Pixels) continue;
-                //
-                ////              Case(.LeftEdge_Pixels + .Width_Pixels > par_imageBadgeCard.Width) ''Then 
-                ////                    ''Continue For
-                //
-                //int intElementsRightEdge = (each_elementField.LeftEdge_Pixels +
-                //                            each_elementField.Width_Pixels);
-                //if (intElementsRightEdge > par_imageBadgeCard.Width) continue;
-                //  
-                ////                Case(.TopEdge_Pixels + .Height_Pixels > par_imageBadgeCard.Height) ''Then 
-                ////                    ''Continue For
-                //
-                //int intElementsBottomEdge = (each_elementField.TopEdge_Pixels +
-                //                            each_elementField.Height_Pixels);
-                //if (intElementsBottomEdge > par_imageBadgeCard.Height) continue;
-                //
-                //
-                ////            End Select
-                ////        End With ''End of "With each_elementField"
-                //
-                //
-                ////
-                ////        With each_elementField
-                ////
-                ////            Dim image_textStandard As Image
-                //
-                //Image image_textStandard;  
-                //
-                ////            ''9/20/2019 td''Dim intLeft As Integer
-                ////            ''9/20/2019 td''Dim intTop As Integer
-                ////
-                ////            ''9/3/2019 td''If(Not.IsDisplayedOnBadge) Then Continue For
-                ////          If(Not FieldInfo.IsDisplayedOnBadge) Then Continue For
-                //
-                ////Added 10/14/2019 td
-                //if (!(each_elementField.IsDisplayedOnBadge_Visibly())) continue;
-                //
-                ////
-                ////            ''Added 9/4/2019 thomas downes
-                ////            ''9/12/2019 td''If(0 = .Position_BL.LayoutWidth_Pixels) Then
-                ////           If(0 = .Width_Pixels) Then
-                //if (0 == each_elementField.Width_Pixels)
-                //{
-                //    // ''Added 9/4/2019 thomas downes
-                //    //MessageBox.Show("We cannot scale the placement of the image.", "LayoutPrint_Redux",
-                //    //                MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                //    //End If ''ENd of "If (0 = .Position_BL.BadgeLayout.Width_Pixels) Then"
-                //}
-                //
-                ////
-                ////            Try
-                //try
-                //{
-                //    //                ''gr.DrawImage(.TextDisplay.GenerateImage(.Position_BL.Height_Pixels),
-                //    //                ''   .Position_BL.LeftEdge_Pixels, .Position_BL.TopEdge_Pixels,
-                //    //                ''   .Position_BL.Width_Pixels, .Position_BL.Height_Pixels)
-                //    //
-                //    //                ''#1 8/26/2019 td''image_textStandard = .TextDisplay.GenerateImage(.Position_BL.Height_Pixels)
-                //    //                '' #2 8/26/2019 td''image_textStandard = .TextDisplay.GenerateImage_ByHeight(.Position_BL.Height_Pixels)
-                //    //
-                //    //                ''9/5/2019 td''image_textStandard = .TextDisplay.GenerateImage_ByDesiredLayoutWidth(par_imageBadgeCard.Width)
-                //    //                ''9/8/2019 td''image_textStandard = .TextDisplay.GenerateImage_ByDesiredLayoutWidth(each_elementField.BadgeLayout_Width)
-                //    //
-                //    //                Dim intDesiredLayout_Width As Integer ''added 9/8/2019 td
-                //    //                intDesiredLayout_Width = par_imageBadgeCard.Width
-                //  
-                //    int intDesiredLayout_Width = par_imageBadgeCard.Width;
-                //    
-                //    //
-                //    //                ''9/19/2019 td''image_textStandard =
-                //    //                ''9/19/2019 td''    .TextDisplay.GenerateImage_ByDesiredLayoutWidth(intDesiredLayout_Width)
-                //    //
-                //    bool boolRotated = false; //Added 10/14/2019 td  
-                //
-                //    // 10-17-2019 image_textStandard =
-                //    //       modGenerate.TextImage_ByElemInfo(intDesiredLayout_Width,
-                //    //         each_elementField, each_elementField, ref boolRotated, false);  //''9/20/2019 td'', True)
-                //    image_textStandard =
-                //           modGenerate.TextImage_ByElemInfo(strTextToDisplay, intDesiredLayout_Width,
-                //             each_elementField, each_elementField, ref boolRotated, false);  //''9/20/2019 td'', True)
-                //                                                                             //
-                //                                                                             //                 If(bOutputAllImages) Then par_listTextImages.Add(image_textStandard) ''Added 8/26/2019 td
-                //
-                //    if (bOutputAllImages) par_listTextImages.Add(image_textStandard);
-                //
-                //    //
-                //    //                ''8/30/2019 td''.TextDisplay.Image_BL = image_textStandard ''Added 8/27/2019 td
-                //    //                ''9/19/2019 td''.Position_BL.Image_BL = image_textStandard ''Added 8/27/2019 td
-                //    //                .Image_BL = image_textStandard ''Added 8/27/2019 td
-                //    each_elementField.Image_BL = image_textStandard;
-                //
-                //    //
-                //    //                ''9/4/2019 td''intLeft = .Position_BL.LeftEdge_Pixels
-                //    //                ''9/4/2019 td''intTop = .Position_BL.TopEdge_Pixels
-                //    //
-                //    //                Dim decScalingFactor As Double ''Added 9/4/2019 thomas downes ''9/4 td''Decimal
-                //    //
-                //    //                ''9/12/2019 td''decScalingFactor = (par_imageBadgeCard.Width / .Position_BL.LayoutWidth_Pixels)
-                //    //                ''9/19/2019 td''decScalingFactor = (par_imageBadgeCard.Width / .Position_BL.BadgeLayout.Width_Pixels)
-                //    //
-                //    //                ''---+--9/20/2019 td''decScalingFactor = (par_imageBadgeCard.Width / .Width_Pixels)
-                //    //                ''---+--9/20/2019 td''intLeft = CInt(.LeftEdge_Pixels* decScalingFactor)
-                //    //                ''---+--9/20/2019 td''intTop = CInt(.TopEdge_Pixels* decScalingFactor)
-                //    //                ''---+--9/20/2019 td''gr_Badge.DrawImage(image_textStandard,
-                //    //                ''---+--9/20/2019 td''             New PointF(intLeft, intTop))
-                //    //
-                //    //                ''Added 9/20/2019 td
-                //
-                //    decimal decScalingFactor = ((decimal)par_imageBadgeCard.Width / 
-                //                                 each_elementField.BadgeLayout.Width_Pixels);
-                //    
-                //    //                Dim intDesignedLeft As Integer ''Designed = layout pre-production = The Left value when designed via the Layout Designer tool. --9/20
-                //    //                Dim intDesignedTop As Integer ''Designed = layout pre-production = The Top value when designed via the Layout Designer tool.  --9/20
-                //    //                Dim intDesiredLeft As Integer ''Desired = preview / print / production = The Left value on the print/preview version of the badge.  --9/20
-                //    //                Dim intDesiredTop As Integer ''Desired = preview / print / production = The Top value on the print/preview version of the badge.  --9/20
-                //    //
-                //    //                intDesignedLeft = .LeftEdge_Pixels
-                //    //                intDesignedTop = .TopEdge_Pixels
-                //
-                //    int intDesignedLeft = each_elementField.LeftEdge_Pixels;  //Added 10/14/2019 td 
-                //    int intDesignedTop = each_elementField.TopEdge_Pixels;  //Added 10/14/2019 td
-                //
-                //    //
-                //    //                intDesiredLeft = CInt(intDesignedLeft * decScalingFactor)
-                //    //                intDesiredTop = CInt(intDesignedTop * decScalingFactor)
-                //
-                //    int intDesiredLeft = (int)(intDesignedLeft * decScalingFactor);
-                //    int intDesiredTop = (int)(intDesignedTop * decScalingFactor);
-                //
-                //    gr_Badge.DrawImage(image_textStandard,
-                //                       new PointF(intDesiredLeft, intDesiredTop));
-                //  
-                //}
-                ////            Catch ex_draw_invalid As InvalidOperationException
-                //catch (InvalidOperationException ex_draw_invalid)
-                //{
-                //    //                ''Error:  Object not available.
-                //    //                Dim strMessage_Invalid As String
-                //    //                strMessage_Invalid = ex_draw_invalid.Message
-                //    string strMessage_Invalid = ex_draw_invalid.Message;
-                //    throw new Exception("Let's throw the message.", ex_draw_invalid);
-                //
-                //    //                ''Added 8/24 thomas d.
-                //    //                MessageBox.Show(strMessage_Invalid, "10303",
-                //    //                                MessageBoxButtons.OK,
-                //    //                                MessageBoxIcon.Exclamation)
-                //}
-                ////            Catch ex_draw_any As System.Exception
-                //catch (Exception ex_draw_any)
-                //{
-                //    //                ''Error:  Object not available.
-                //    //                Dim strMessage_any As String
-                //    //                strMessage_any = ex_draw_any.Message
-                //    string strMessage_any;
-                //    strMessage_any = ex_draw_any.Message;
-                //    throw new Exception("Let's throw the message.", ex_draw_any);
-                //
-                //    //                ''Added 8/24 thomas d.
-                //    //                MessageBox.Show(strMessage_any, "99943800",
-                //    //                                MessageBoxButtons.OK,
-                //    //                                MessageBoxIcon.Exclamation)
-                //    //            End Try
-                //    //        End With ''End of "With each_elementField"
-                //}
-                ////
-                ////        ''---gr.Dispose()
-                ////
-                ////    Next each_elementField
+                par_datetimeLastUpdated = MaxDateTime(each_elementFieldV4.DatetimeUpdated,
+                    par_datetimeLastUpdated);
+
+                intEachIndexV4 += 1;
+
+                if (each_elementFieldV4.FieldInfo.IsDisplayedOnBadge) // Added 1/24/2022 thomas d.
+                {
+                    //Encapsulated 10/17/2019 td  
+                    AddElementFieldToImageV4(each_elementFieldV4, par_imageBadgeCard,
+                           gr_Badge, bOutputListOfAllImages, par_listTextImages,
+                           par_iRecipientInfo,
+                           par_listMessages,
+                           par_listFieldsIncluded,
+                           par_listFieldsNotIncluded);
+
+                } // End of "if (each_elementField.FieldInfo.IsDisplayedOnBadge)"
 
             }
+
+            // Added 11/29/2021 td 
+            //---each_elementField.DatetimeUpdated = DateTime.Now;
+            //---not needed here---par_datetimeLastUpdated = MaxDateTime(each_elementField.DatetimeUpdated,
+            //    par_datetimeLastUpdated);
+
+            ////Added 10/17/2019 td
+            //strTextToDisplay = each_elementField.LabelText_ToDisplay(false);
+            //
+            ////
+            ////        ''9/3/2019 td''If (not each_elementField.IsDiplayedOnBadge) Then Continue for
+            ////
+            ////        ''
+            ////        ''Added 8/24/2019 thomas d.
+            ////        ''
+            ////        ''9/18 td''With each_elementField.Position_BL
+            ////
+            ////        With each_elementField
+            ////
+            ////            Select Case True
+            ////                Case (.LeftEdge_Pixels< 0)
+            ////                  Continue For
+            //
+            //if (0 > each_elementField.LeftEdge_Pixels) continue;
+            //
+            ////                Case(.TopEdge_Pixels< 0) ''Then
+            ////                  Continue For
+            //
+            //if (0 > each_elementField.TopEdge_Pixels) continue;
+            //
+            ////              Case(.LeftEdge_Pixels + .Width_Pixels > par_imageBadgeCard.Width) ''Then 
+            ////                    ''Continue For
+            //
+            //int intElementsRightEdge = (each_elementField.LeftEdge_Pixels +
+            //                            each_elementField.Width_Pixels);
+            //if (intElementsRightEdge > par_imageBadgeCard.Width) continue;
+            //  
+            ////                Case(.TopEdge_Pixels + .Height_Pixels > par_imageBadgeCard.Height) ''Then 
+            ////                    ''Continue For
+            //
+            //int intElementsBottomEdge = (each_elementField.TopEdge_Pixels +
+            //                            each_elementField.Height_Pixels);
+            //if (intElementsBottomEdge > par_imageBadgeCard.Height) continue;
+            //
+            //
+            ////            End Select
+            ////        End With ''End of "With each_elementField"
+            //
+            //
+            ////
+            ////        With each_elementField
+            ////
+            ////            Dim image_textStandard As Image
+            //
+            //Image image_textStandard;  
+            //
+            ////            ''9/20/2019 td''Dim intLeft As Integer
+            ////            ''9/20/2019 td''Dim intTop As Integer
+            ////
+            ////            ''9/3/2019 td''If(Not.IsDisplayedOnBadge) Then Continue For
+            ////          If(Not FieldInfo.IsDisplayedOnBadge) Then Continue For
+            //
+            ////Added 10/14/2019 td
+            //if (!(each_elementField.IsDisplayedOnBadge_Visibly())) continue;
+            //
+            ////
+            ////            ''Added 9/4/2019 thomas downes
+            ////            ''9/12/2019 td''If(0 = .Position_BL.LayoutWidth_Pixels) Then
+            ////           If(0 = .Width_Pixels) Then
+            //if (0 == each_elementField.Width_Pixels)
+            //{
+            //    // ''Added 9/4/2019 thomas downes
+            //    //MessageBox.Show("We cannot scale the placement of the image.", "LayoutPrint_Redux",
+            //    //                MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //    //End If ''ENd of "If (0 = .Position_BL.BadgeLayout.Width_Pixels) Then"
+            //}
+            //
+            ////
+            ////            Try
+            //try
+            //{
+            //    //                ''gr.DrawImage(.TextDisplay.GenerateImage(.Position_BL.Height_Pixels),
+            //    //                ''   .Position_BL.LeftEdge_Pixels, .Position_BL.TopEdge_Pixels,
+            //    //                ''   .Position_BL.Width_Pixels, .Position_BL.Height_Pixels)
+            //    //
+            //    //                ''#1 8/26/2019 td''image_textStandard = .TextDisplay.GenerateImage(.Position_BL.Height_Pixels)
+            //    //                '' #2 8/26/2019 td''image_textStandard = .TextDisplay.GenerateImage_ByHeight(.Position_BL.Height_Pixels)
+            //    //
+            //    //                ''9/5/2019 td''image_textStandard = .TextDisplay.GenerateImage_ByDesiredLayoutWidth(par_imageBadgeCard.Width)
+            //    //                ''9/8/2019 td''image_textStandard = .TextDisplay.GenerateImage_ByDesiredLayoutWidth(each_elementField.BadgeLayout_Width)
+            //    //
+            //    //                Dim intDesiredLayout_Width As Integer ''added 9/8/2019 td
+            //    //                intDesiredLayout_Width = par_imageBadgeCard.Width
+            //  
+            //    int intDesiredLayout_Width = par_imageBadgeCard.Width;
+            //    
+            //    //
+            //    //                ''9/19/2019 td''image_textStandard =
+            //    //                ''9/19/2019 td''    .TextDisplay.GenerateImage_ByDesiredLayoutWidth(intDesiredLayout_Width)
+            //    //
+            //    bool boolRotated = false; //Added 10/14/2019 td  
+            //
+            //    // 10-17-2019 image_textStandard =
+            //    //       modGenerate.TextImage_ByElemInfo(intDesiredLayout_Width,
+            //    //         each_elementField, each_elementField, ref boolRotated, false);  //''9/20/2019 td'', True)
+            //    image_textStandard =
+            //           modGenerate.TextImage_ByElemInfo(strTextToDisplay, intDesiredLayout_Width,
+            //             each_elementField, each_elementField, ref boolRotated, false);  //''9/20/2019 td'', True)
+            //                                                                             //
+            //                                                                             //                 If(bOutputAllImages) Then par_listTextImages.Add(image_textStandard) ''Added 8/26/2019 td
+            //
+            //    if (bOutputAllImages) par_listTextImages.Add(image_textStandard);
+            //
+            //    //
+            //    //                ''8/30/2019 td''.TextDisplay.Image_BL = image_textStandard ''Added 8/27/2019 td
+            //    //                ''9/19/2019 td''.Position_BL.Image_BL = image_textStandard ''Added 8/27/2019 td
+            //    //                .Image_BL = image_textStandard ''Added 8/27/2019 td
+            //    each_elementField.Image_BL = image_textStandard;
+            //
+            //    //
+            //    //                ''9/4/2019 td''intLeft = .Position_BL.LeftEdge_Pixels
+            //    //                ''9/4/2019 td''intTop = .Position_BL.TopEdge_Pixels
+            //    //
+            //    //                Dim decScalingFactor As Double ''Added 9/4/2019 thomas downes ''9/4 td''Decimal
+            //    //
+            //    //                ''9/12/2019 td''decScalingFactor = (par_imageBadgeCard.Width / .Position_BL.LayoutWidth_Pixels)
+            //    //                ''9/19/2019 td''decScalingFactor = (par_imageBadgeCard.Width / .Position_BL.BadgeLayout.Width_Pixels)
+            //    //
+            //    //                ''---+--9/20/2019 td''decScalingFactor = (par_imageBadgeCard.Width / .Width_Pixels)
+            //    //                ''---+--9/20/2019 td''intLeft = CInt(.LeftEdge_Pixels* decScalingFactor)
+            //    //                ''---+--9/20/2019 td''intTop = CInt(.TopEdge_Pixels* decScalingFactor)
+            //    //                ''---+--9/20/2019 td''gr_Badge.DrawImage(image_textStandard,
+            //    //                ''---+--9/20/2019 td''             New PointF(intLeft, intTop))
+            //    //
+            //    //                ''Added 9/20/2019 td
+            //
+            //    decimal decScalingFactor = ((decimal)par_imageBadgeCard.Width / 
+            //                                 each_elementField.BadgeLayout.Width_Pixels);
+            //    
+            //    //                Dim intDesignedLeft As Integer ''Designed = layout pre-production = The Left value when designed via the Layout Designer tool. --9/20
+            //    //                Dim intDesignedTop As Integer ''Designed = layout pre-production = The Top value when designed via the Layout Designer tool.  --9/20
+            //    //                Dim intDesiredLeft As Integer ''Desired = preview / print / production = The Left value on the print/preview version of the badge.  --9/20
+            //    //                Dim intDesiredTop As Integer ''Desired = preview / print / production = The Top value on the print/preview version of the badge.  --9/20
+            //    //
+            //    //                intDesignedLeft = .LeftEdge_Pixels
+            //    //                intDesignedTop = .TopEdge_Pixels
+            //
+            //    int intDesignedLeft = each_elementField.LeftEdge_Pixels;  //Added 10/14/2019 td 
+            //    int intDesignedTop = each_elementField.TopEdge_Pixels;  //Added 10/14/2019 td
+            //
+            //    //
+            //    //                intDesiredLeft = CInt(intDesignedLeft * decScalingFactor)
+            //    //                intDesiredTop = CInt(intDesignedTop * decScalingFactor)
+            //
+            //    int intDesiredLeft = (int)(intDesignedLeft * decScalingFactor);
+            //    int intDesiredTop = (int)(intDesignedTop * decScalingFactor);
+            //
+            //    gr_Badge.DrawImage(image_textStandard,
+            //                       new PointF(intDesiredLeft, intDesiredTop));
+            //  
+            //}
+            ////            Catch ex_draw_invalid As InvalidOperationException
+            //catch (InvalidOperationException ex_draw_invalid)
+            //{
+            //    //                ''Error:  Object not available.
+            //    //                Dim strMessage_Invalid As String
+            //    //                strMessage_Invalid = ex_draw_invalid.Message
+            //    string strMessage_Invalid = ex_draw_invalid.Message;
+            //    throw new Exception("Let's throw the message.", ex_draw_invalid);
+            //
+            //    //                ''Added 8/24 thomas d.
+            //    //                MessageBox.Show(strMessage_Invalid, "10303",
+            //    //                                MessageBoxButtons.OK,
+            //    //                                MessageBoxIcon.Exclamation)
+            //}
+            ////            Catch ex_draw_any As System.Exception
+            //catch (Exception ex_draw_any)
+            //{
+            //    //                ''Error:  Object not available.
+            //    //                Dim strMessage_any As String
+            //    //                strMessage_any = ex_draw_any.Message
+            //    string strMessage_any;
+            //    strMessage_any = ex_draw_any.Message;
+            //    throw new Exception("Let's throw the message.", ex_draw_any);
+            //
+            //    //                ''Added 8/24 thomas d.
+            //    //                MessageBox.Show(strMessage_any, "99943800",
+            //    //                                MessageBoxButtons.OK,
+            //    //                                MessageBoxIcon.Exclamation)
+            //    //            End Try
+            //    //        End With ''End of "With each_elementField"
+            //}
+            ////
+            ////        ''---gr.Dispose()
+            ////
+            ////    Next each_elementField
+
+            //}
 
 
             gr_Badge.Dispose();
@@ -1402,7 +1449,7 @@ namespace ciBadgeGenerator
         }
 
 
-        private void AddElementFieldToImage(ClassElementFieldV3 par_elementField,
+        private void AddElementFieldToImageV3(ClassElementFieldV3 par_elementField,
                                             Image par_imageBadgeCard,
                                             Graphics par_graphics,
                                             bool pboolReturnListOfImages,
@@ -1720,8 +1767,168 @@ namespace ciBadgeGenerator
         }
 
 
+        private void AddElementFieldToImageV4(ClassElementFieldV4 par_elementField,
+                            Image par_imageBadgeCard,
+                            Graphics par_graphics,
+                            bool pboolReturnListOfImages,
+                            List<Image> par_listTextImages,
+                            IRecipient par_iRecipientInfo = null,
+                            List<String> par_listMessages = null,
+                            List<String> par_listFieldsIncluded = null,
+                            List<String> par_listFieldsNotIncluded = null)
+        {
+            //
+            //Encapsulated 10/17/2019 td
+            //
+            string strTextToDisplay = par_elementField.LabelText_ToDisplay(false, par_iRecipientInfo, false);
 
+            WhyOmitted_StructV1 structWhyOmittedV1 = new WhyOmitted_StructV1();
+            WhyOmitted_StructV2 structWhyOmittedV2 = new WhyOmitted_StructV2();  //Added 1/23/2022 td
+            structWhyOmittedV2.EnumOmitReason = EnumOmitReasons._Undetermined;   //Added 1/23/2022 td
 
+            if (OmitOutlyingElements && (0 > par_elementField.LeftEdge_Pixels)) //return;
+            {
+                structWhyOmittedV1.OmitCoordinateX = true;
+                structWhyOmittedV2.__Omitted = true;
+                structWhyOmittedV2.OmitOutlyingCoordinateX = true;   //Added 1/23/2022 td
+                structWhyOmittedV2.EnumOmitReason = EnumOmitReasons.OutlyingCoordinateX;  //Added 1/23/2022 td
+                structWhyOmittedV2.SetDateTime(DateTime.Now); //Added 1/23/2022 td
+
+                if (par_listFieldsNotIncluded != null)
+                { par_listFieldsNotIncluded.Add(par_elementField.FieldNm_CaptionText() + " - LeftEdge < 0"); }
+
+            }
+
+            if (OmitOutlyingElements && (0 > par_elementField.TopEdge_Pixels))
+            {
+                structWhyOmittedV1.OmitCoordinateY = true;
+
+                structWhyOmittedV2.__Omitted = true;
+                structWhyOmittedV2.OmitOutlyingCoordinateY = true;  //Added 1/23/2022 td
+                structWhyOmittedV2.EnumOmitReason = EnumOmitReasons.OutlyingCoordinateY;  //Added 1/23/2022 td
+                structWhyOmittedV2.SetDateTime(DateTime.Now); //Added 1/23/2022 td
+
+                if (par_listFieldsNotIncluded != null)
+                { par_listFieldsNotIncluded.Add(par_elementField.FieldNm_CaptionText() + " - TopEdge < 0"); }
+
+            }
+
+            int intElementsRightEdge = (par_elementField.LeftEdge_Pixels +
+                                        par_elementField.Width_Pixels);
+            bool bRightEdgeOutsideBadge = (intElementsRightEdge > par_imageBadgeCard.Width);
+
+            if (OmitOutlyingElements && (bRightEdgeOutsideBadge))
+            {
+                structWhyOmittedV1.OmitWidth = true;
+                structWhyOmittedV2.__Omitted = true;
+                structWhyOmittedV2.OmitOutlyingEdgeRight = true;  // Added 1/23/2022 td
+                structWhyOmittedV2.EnumOmitReason = EnumOmitReasons.OutlyingEdgeRight;  //Added 1/23/2022 td
+                structWhyOmittedV2.SetDateTime(DateTime.Now); //Added 1/23/2022 td
+
+                if (par_listFieldsNotIncluded != null)
+                { par_listFieldsNotIncluded.Add(par_elementField.FieldNm_CaptionText() + " - RightEdge > BadgeWidth"); }
+
+            }
+
+            int intElementsBottomEdge = (par_elementField.TopEdge_Pixels +
+                                        par_elementField.Height_Pixels);
+            bool bBottomOutsideBadge = (intElementsBottomEdge > par_imageBadgeCard.Height);
+
+            if (OmitOutlyingElements && bBottomOutsideBadge) //return;  //10-17 continue;
+            {
+                structWhyOmittedV1.OmitHeight = true;
+
+                structWhyOmittedV2.__Omitted = true;
+                structWhyOmittedV2.OmitOutlyingEdgeBottom = true;  //Added 1/23/2022 td
+                structWhyOmittedV2.EnumOmitReason = EnumOmitReasons.OutlyingEdgeBottom;  //Added 1/23/2022 td
+                structWhyOmittedV2.SetDateTime(DateTime.Now); //Added 1/23/2022 td
+
+                if (par_listFieldsNotIncluded != null)
+                { par_listFieldsNotIncluded.Add(par_elementField.FieldNm_CaptionText() + " - BottomEdge > BadgeHeight"); }
+
+            }
+
+            Image image_textStandard;
+            if (structWhyOmittedV2.__Omitted)
+            {
+                //Added 11/9/2021 td
+                if (par_listFieldsNotIncluded != null)
+                    par_listFieldsNotIncluded.Add(par_elementField.FieldInfo.CIBadgeField
+                        + $"  - (\"{par_elementField.FieldInfo.DataEntryText}\") "
+                        + " since !IsDisplayedOnBadge_Visibly(). "
+                        + structWhyOmittedV1.OmitFieldMsg()
+                        + structWhyOmittedV1.OmitElementMsg());
+
+                //
+                // If it's being omitted, skip to the next element (without 
+                //   actually adding it to the ID Card). ---1/24/2022 td
+                //
+                return;  //10-17 continue;
+
+            }
+
+            if (0 == par_elementField.Width_Pixels)
+            {
+                //MessageBox.Show("We cannot scale the placement of the image.", "LayoutPrint_Redux",
+                //                MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                //End If ''ENd of "If (0 = .Position_BL.BadgeLayout.Width_Pixels) Then"
+                if (par_listMessages != null)
+                    par_listMessages.Add("We cannot scale the placement of the image...." +
+                            par_elementField.FieldInfo.CIBadgeField);
+
+            }
+
+            try
+            {
+                int intDesiredLayout_Width = par_imageBadgeCard.Width;
+                bool boolRotated = false; //Added 10/14/2019 td  
+                image_textStandard =
+                       modGenerate.TextImage_ByElemInfo(strTextToDisplay, intDesiredLayout_Width,
+                         par_elementField, par_elementField, ref boolRotated, false);
+
+                if (pboolReturnListOfImages) par_listTextImages.Add(image_textStandard);
+
+                par_elementField.Image_BL = image_textStandard;
+
+                decimal decScalingFactor = ((decimal)par_imageBadgeCard.Width /
+                                             par_elementField.BadgeLayout.Width_Pixels);
+
+                int intDesignedLeft = par_elementField.LeftEdge_Pixels;  //Added 10/14/2019 td 
+                int intDesignedTop = par_elementField.TopEdge_Pixels;  //Added 10/14/2019 td
+                int intDesiredLeft = (int)(intDesignedLeft * decScalingFactor);
+                int intDesiredTop = (int)(intDesignedTop * decScalingFactor);
+
+                par_graphics.DrawImage(image_textStandard,
+                                   new PointF(intDesiredLeft, intDesiredTop));
+
+                if (par_listFieldsIncluded != null)
+                    par_listFieldsIncluded.Add(par_elementField.FieldInfo.CIBadgeField);
+
+            }
+            catch (InvalidOperationException ex_draw_invalid)
+            {
+                string strMessage_Invalid = ex_draw_invalid.Message;
+
+                if (par_listMessages != null)
+                    par_listMessages.Add(ex_draw_invalid.Message + "..." + par_elementField.FieldInfo.CIBadgeField);
+
+                if (par_listFieldsNotIncluded != null)
+                    par_listFieldsNotIncluded.Add(par_elementField.FieldInfo.CIBadgeField);
+
+            }
+            catch (Exception ex_draw_any)
+            {
+                string strMessage_any;
+                strMessage_any = ex_draw_any.Message;
+                if (par_listMessages != null)
+                    par_listMessages.Add(ex_draw_any.Message + "..." + par_elementField.FieldInfo.CIBadgeField);
+
+                if (par_listFieldsNotIncluded != null)
+                    par_listFieldsNotIncluded.Add(par_elementField.FieldInfo.CIBadgeField);
+
+            }
+
+        }
 
 
         private void AddElementStaticToImageV3(ClassElementStaticTextV3 par_elementStaticV3,

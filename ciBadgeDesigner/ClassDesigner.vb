@@ -159,7 +159,9 @@ Public Class ClassDesigner
 
     ''Added 9/20/2019 td  
     ''10/17/2019 td''Private mod_listOfFieldControls As New List(Of CtlGraphicFldLabel)
-    Private mod_listOfFieldControls As New HashSet(Of CtlGraphicFieldV3)
+    Private mod_listOfFieldControlsV3 As New HashSet(Of CtlGraphicFieldV3)
+    Private mod_listOfFieldControlsV4 As New HashSet(Of CtlGraphicFieldV4) ''Added 2/10/2022 td
+
     ''Feb1 2022 td''Private mod_listOfTextControls As New HashSet(Of CtlGraphicStaticText) ''Added Jan8 2022 td
     Private mod_listOfTextControlsV3 As New HashSet(Of CtlGraphicStaticTextV3) ''Added Jan8 2022 td
     Private mod_listOfTextControlsV4 As New HashSet(Of CtlGraphicStaticTextV4) ''Added Feb1 2022 td
@@ -185,11 +187,19 @@ Public Class ClassDesigner
     End Function
 
 
-    Public Function ListOfFieldLabels() As HashSet(Of CtlGraphicFieldV3)
+    Public Function ListOfFieldLabelsV3() As HashSet(Of CtlGraphicFieldV3)
         ''10/17/2019 td''Public Function ListOfFieldLabels() As List(Of CtlGraphicFldLabel)
         ''Added 10/13/2019 thomas downes
-        Return mod_listOfFieldControls
-    End Function ''End of "Public Function ListOfFieldLabels() As List(Of CtlGraphicFldLabel)"
+        Return mod_listOfFieldControlsV3
+
+    End Function ''End of "Public Function ListOfFieldLabelsV3() As List(Of CtlGraphicFieldV3)"
+
+
+    Public Function ListOfFieldLabelsV4() As HashSet(Of CtlGraphicFieldV4)
+        ''Added 2/10/2022 thomas downes
+        Return mod_listOfFieldControlsV4
+
+    End Function ''End of "Public Function ListOfFieldLabelsV4() As List(Of CtlGraphicFieldV4)"
 
 
     Public Sub UnloadDesigner(pboolResetToFrontOfCard As Boolean,
@@ -600,9 +610,14 @@ Public Class ClassDesigner
         ''9/20/2019 td''LoadForm_LayoutElements(Me.ElementsCache_Edits)
         ''12/8/2021 td''LoadForm_LayoutElements(Me.ElementsCache_Edits, mod_listOfFieldControls,
         ''12/8/2021 td''      "ClassDesigner.LoadDesigner " & pstrWhyCalled)
-        LoadForm_LayoutElements(EnumSideOfCard_Current, Me.ElementsCache_UseEdits, mod_listOfFieldControls,
-                                par_oMoveEvents, "ClassDesigner.LoadDesigner " & pstrWhyCalled)
+        ''02/10/2022 td''LoadForm_LayoutElements(EnumSideOfCard_Current, Me.ElementsCache_UseEdits,
+        ''                 mod_listOfFieldControls,
+        ''                 par_oMoveEvents, "ClassDesigner.LoadDesigner " & pstrWhyCalled)
 
+        LoadForm_LayoutElements(EnumSideOfCard_Current, Me.ElementsCache_UseEdits,
+                                mod_listOfFieldControlsV3,
+                                mod_listOfFieldControlsV4,
+                                par_oMoveEvents, "ClassDesigner.LoadDesigner " & pstrWhyCalled)
 
 
 
@@ -794,7 +809,10 @@ Public Class ClassDesigner
         ''
         ''Major call !!
         ''
-        mod_designerListener.LoadDesigner(mod_listOfFieldControls,
+        ''Feb102022 td''mod_designerListener.LoadDesigner(mod_listOfFieldControlsV3,
+        ''                                       mod_listOfDesignerControls)
+        mod_designerListener.LoadDesigner(mod_listOfFieldControlsV3,
+                                          mod_listOfFieldControlsV4,
                                           mod_listOfDesignerControls)
 
         ''Added 1/14/2022 td
@@ -941,7 +959,8 @@ Public Class ClassDesigner
 
     Private Sub LoadForm_LayoutElements(par_enumSideOfCard As EnumWhichSideOfCard,
                                         par_cache As ClassElementsCache_Deprecated,
-                                        ByRef par_listFieldCtls As HashSet(Of CtlGraphicFieldV3),
+                                        ByRef par_listFieldCtlsV3 As HashSet(Of CtlGraphicFieldV3),
+                                        ByRef par_listFieldCtlsV4 As HashSet(Of CtlGraphicFieldV4),
                                         par_oMoveEvents As GroupMoveEvents_Singleton,
                                         pstrWhyCalled As String)
         ''10/17/2019 td''Private Sub LoadForm_LayoutElements(par_cache As ClassElementsCache,
@@ -987,14 +1006,14 @@ Public Class ClassDesigner
         LoadElements_FieldElementsV3(objListBadgeElemsV3,
                                            c_boolLoadingForm,
                                            False, boolMakeMoveableByUser,
-                                           par_listFieldCtls,
+                                           par_listFieldCtlsV3,
                             "ClassDesigner.LoadForm_LayoutElements " & pstrWhyCalled)
 
         ''Added 2/9/2022 thomas downes
         LoadElements_FieldElementsV4(objListBadgeElemsV4,
                                            c_boolLoadingForm,
                                            False, boolMakeMoveableByUser,
-                                           par_listFieldCtls,
+                                           par_listFieldCtlsV4,
                             "ClassDesigner.LoadForm_LayoutElements " & pstrWhyCalled)
 
         ''
@@ -2052,7 +2071,7 @@ Public Class ClassDesigner
     End Sub ''End of ''Private Sub LoadElements_ByListOfElementsV4()''
 
 
-    Private Sub LoadFieldControl_JustOne(par_elementField As ClassElementFieldV3)
+    Private Sub LoadFieldControl_JustOneV3(par_elementField As ClassElementFieldV3)
         ''
         ''Added 9/17/2019 thomas d.  
         ''
@@ -2066,9 +2085,23 @@ Public Class ClassDesigner
         new_list.Add(par_elementField)
 
         ''9/24/2019 td''LoadFieldControls_ByListOfElements(new_list, True, False, c_bAddToMoveableClass)
-        LoadElements_FieldElementsV3(new_list, True, False, c_bAddToMoveableClass, mod_listOfFieldControls)
+        LoadElements_FieldElementsV3(new_list, True, False, c_bAddToMoveableClass, mod_listOfFieldControlsV3)
 
-    End Sub ''End of "Private Sub LoadFieldControl_JustOne(par_elementField As ClassElementField)"
+    End Sub ''End of "Private Sub LoadFieldControl_JustOneV3(par_elementField As ClassElementFieldV3)"
+
+
+    Private Sub LoadFieldControl_JustOneV4(par_elementField As ClassElementFieldV4)
+        ''
+        ''Added 9/17/2019 thomas d.  
+        ''
+        Dim new_list As New List(Of ClassElementFieldV4)
+        Const c_bAddToMoveableClass As Boolean = True ''Added 9/8/2019 td 
+        new_list.Add(par_elementField)
+        LoadElements_FieldElementsV4(new_list, True, False, c_bAddToMoveableClass, mod_listOfFieldControlsV4)
+
+    End Sub ''End of "Private Sub LoadFieldControl_JustOneV3(par_elementField As ClassElementFieldV4)"
+
+
 
     ''9/17/2019 td''Private Sub AddToFlowPanelOfOmittedFlds(par_field As ICIBFieldStandardOrCustom)
     ''    ''
@@ -2131,7 +2164,7 @@ Public Class ClassDesigner
         element_to_add = CType(CType(sender, LinkLabel).Tag, ClassElementFieldV3)
         If (element_to_add Is Nothing) Then Exit Sub
         element_to_add.FieldInfo.IsDisplayedOnBadge = True
-        LoadFieldControl_JustOne(element_to_add) ''Modified 9/17/2019 td
+        LoadFieldControl_JustOneV3(element_to_add) ''Modified 9/17/2019 td
 
         FlowFieldsNotListed.Controls.Remove(CType(sender, LinkLabel))
 
@@ -2514,7 +2547,8 @@ Public Class ClassDesigner
         ''
         Dim objPrintLibElems As New ciLayoutPrintLib.LayoutElements
         Dim listOfTextImages As New HashSet(Of Image) ''Added 8/26/2019 thomas downes 
-        Dim listOfElementTextFields As HashSet(Of ClassElementFieldV3)
+        Dim listOfElementTextFieldsV3 As HashSet(Of ClassElementFieldV3)
+        Dim listOfElementTextFieldsV4 As HashSet(Of ClassElementFieldV4) ''Added 2/10/2022 td
         Dim listOfElementStaticTextsV3 As HashSet(Of ClassElementStaticTextV3) ''Added 1/8/2022 td
         Dim listOfElementStaticTextsV4 As HashSet(Of ClassElementStaticTextV4) ''Added 2/01/2022 td
         Dim listOfElementGraphics As HashSet(Of ClassElementGraphic) ''Added 1/8/2022 td
@@ -2525,7 +2559,8 @@ Public Class ClassDesigner
         ''10/14/2019 td''Dim obj_generator As New ciBadgeGenerator.ClassMakeBadge
         Static obj_generator As ciBadgeGenerator.ClassMakeBadge
         Dim bMatchesElementInCache As Boolean ''Added 11/30/2021 thomas d.
-        Dim intCountMatchedElements As Integer ''Added 11/30/2021 thomas d.
+        Dim intCountMatchedElementsV3 As Integer ''Added 11/30/2021 thomas d.
+        Dim intCountMatchedElementsV4 As Integer ''Added 02/10/2022 thomas d.
 
         ''Added 10/14/2019 td 
         If (obj_generator Is Nothing) Then obj_generator = New ciBadgeGenerator.ClassMakeBadge
@@ -2540,22 +2575,39 @@ Public Class ClassDesigner
 
         ''Pull the Element objects from the CtlGraphicFldLabel Controls.
         ''     ---11/29/2021 td 
-        listOfElementTextFields = New HashSet(Of ClassElementFieldV3)
+        listOfElementTextFieldsV3 = New HashSet(Of ClassElementFieldV3)
+        listOfElementTextFieldsV4 = New HashSet(Of ClassElementFieldV4)
 
-        For Each eachCtlField As CtlGraphicFieldV3 In mod_listOfFieldControls
+        ''
+        ''Field Elements, Version #3
+        ''
+        For Each eachCtlFieldV3 As CtlGraphicFieldV3 In mod_listOfFieldControlsV3
             ''
             ''Add to the list which will be given to the function MakeBadge.
             ''
-            listOfElementTextFields.Add(eachCtlField.ElementClass_ObjV3)
+            listOfElementTextFieldsV3.Add(eachCtlFieldV3.ElementClass_ObjV3)
 
             ''Debug code.....
             ''Dec18 2021 td''bMatchesElementInCache = Me.ElementsCache_UseEdits.ListOfElementFields.Contains(eachCtlField.ElementClass_Obj)
             bMatchesElementInCache =
-                Me.ElementsCache_UseEdits.ListOfElementFields_Bothsides().Contains(eachCtlField.ElementClass_ObjV3)
+                Me.ElementsCache_UseEdits.ListOfElementFields_BothsidesV3().Contains(eachCtlFieldV3.ElementClass_ObjV3)
 
-            If (bMatchesElementInCache) Then intCountMatchedElements += 1
+            If (bMatchesElementInCache) Then intCountMatchedElementsV3 += 1
 
-        Next eachCtlField
+        Next eachCtlFieldV3
+
+        ''
+        ''Field Elements, Version #4   ----added 2/10/2022 td (td = tdownes)
+        ''
+        For Each eachCtlFieldV4 As CtlGraphicFieldV4 In mod_listOfFieldControlsV4
+            ''
+            ''Add to the list which will be given to the function MakeBadge.
+            ''
+            listOfElementTextFieldsV4.Add(eachCtlFieldV4.ElementClass_Obj)
+            bMatchesElementInCache =
+                Me.ElementsCache_UseEdits.ListOfElementFields_BothsidesV4().Contains(eachCtlFieldV4.ElementClass_Obj)
+            If (bMatchesElementInCache) Then intCountMatchedElementsV4 += 1
+        Next eachCtlFieldV4
 
         ''Pull the Element-StaticText objects from the CtlGraphicStaticText Controls.
         ''     ---11/29/2021 td 
@@ -2658,7 +2710,8 @@ Public Class ClassDesigner
                                                      Me.CtlGraphic_Portrait.picturePortrait.Image,
                                                       Me.ElementsCache_UseEdits,
                                                       par_recipient,
-                                                      listOfElementTextFields,
+                                                      listOfElementTextFieldsV3,
+                                                      listOfElementTextFieldsV4,
                                                       listOfElementStaticTextsV3,
                                                       listOfElementStaticTextsV4,
                                                       listOfElementGraphics,

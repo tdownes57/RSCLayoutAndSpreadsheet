@@ -92,6 +92,7 @@
     <Compile Include="ClassElementFieldV4.vb" />
     <Compile Include="ClassElementGraphic.vb" />
     <Compile Include="ClassElementLaysection.vb" />
+    <Compile Include="ClassElementLists.vb" />
     <Compile Include="ClassElementPortrait.vb" />
     <Compile Include="ClassElementQRCode.vb" />
     <Compile Include="ClassCacheElements_DontUse.vb" />

@@ -1089,6 +1089,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Laysections\" />
     <Folder Include="__BlakemoreWebAPIs\" />
     <Folder Include="__ErrorLog\" />
     <Folder Include="__ProgressiveWebApp\" />

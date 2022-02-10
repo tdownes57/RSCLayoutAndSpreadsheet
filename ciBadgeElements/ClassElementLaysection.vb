@@ -16,6 +16,16 @@ Public Class ClassElementLaysection
     ''
     Private mod_cache As ClassElementsCache_DontUse
 
+
+
+    ''Added 2/20/2022 thomas downes
+    Public Property ElementLists As ClassElementLists ''Added 2/20/2022 thomas downes
+
+
+
+
+
+
     Public Property BadgeDisplayIndex As Integer Implements IElement_Base.BadgeDisplayIndex ''Added 11/24/2021 td
     Public Property WhichSideOfCard As EnumWhichSideOfCard Implements IElement_Base.WhichSideOfCard ''Added 12/13/2021 td
     Public Property DateEdited As Date Implements IElement_Base.DateEdited ''Added 12/18/2021 thomas downes  
@@ -25,7 +35,7 @@ Public Class ClassElementLaysection
 
     Public Property FormControl As Control Implements IElement_Base.FormControl ''Added 7/19/2019  
 
-    Public Property ElementType As String = "Text" Implements IElement_Base.ElementType ''Text, Pic, or Logo
+    Public Property ElementType As String = "Section" Implements IElement_Base.ElementType ''Text, Pic, or Logo
 
     ''9/11/2019 td''Public Property LayoutWidth_Pixels As Integer Implements IElement_Base.LayoutWidth_Pixels ''This provides sizing context & scaling factors. 
     Public Property BadgeLayout As BadgeLayoutClass Implements IElement_Base.BadgeLayout ''Added 9/11/2019 td  
@@ -52,6 +62,7 @@ Public Class ClassElementLaysection
 
     Public Property OrientationInDegrees As Integer Implements IElement_Base.OrientationInDegrees ''Default is 0, normal.  90 would be 1/4 turn clockwise.  180 is upside-down.  270 is the printing on the spine of a book sitting on the bookshelf.
 
+    '' BL = Badge Layout  
     Public Property Image_BL As Image Implements IElement_Base.Image_BL ''Added 8/27/2019 td
 
     Public Property Visible As Boolean = True Implements IElement_Base.Visible ''Added 9/18/2019 td  

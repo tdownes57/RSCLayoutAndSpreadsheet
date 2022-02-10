@@ -529,7 +529,7 @@ Namespace ciBadgeCachePersonality
         End Property
 
 
-        Public Function ListOfElementFields_Bothsides() As HashSet(Of ClassElementFieldV3)
+        Public Function ListOfElementFields_BothsidesV3() As HashSet(Of ClassElementFieldV3)
             ''
             ''Added 12/18/2021 td
             ''
@@ -545,9 +545,19 @@ Namespace ciBadgeCachePersonality
 
             Return objHashset
 
-        End Function
+        End Function ''End of "Public Function ListOfElementFields_BothsidesV3"
 
 
+        Public Function ListOfElementFields_BothsidesV4() As HashSet(Of ClassElementFieldV4)
+            ''Added 2/10/2022 td
+            Dim objHashset As HashSet(Of ClassElementFieldV4)
+            objHashset = New HashSet(Of ClassElementFieldV4)(mod_listElementFields_FrontV4)
+            ''Added any elements currently on the backside of the card. 
+            For Each each_elemBack As ClassElementFieldV4 In mod_listElementFields_BacksideV4
+                objHashset.Add(each_elemBack)
+            Next
+            Return objHashset
+        End Function ''End of "Public Function ListOfElementFields_BothsidesV4"
 
 
         ''Public Function BadgeDisplayElements_Fields(pboolRefresh As Boolean) As HashSet(Of ClassElementField)
@@ -558,7 +568,7 @@ Namespace ciBadgeCachePersonality
         ''
         ''End Function
 
-        Public Function BadgeDisplayElements_Fields_Front() As IEnumerable(Of ClassElementFieldV3)
+        Public Function BadgeDisplayElements_Fields_FrontV3() As IEnumerable(Of ClassElementFieldV3)
             ''
             ''Added 1/08/2022 thomas downes 
             ''
@@ -568,7 +578,14 @@ Namespace ciBadgeCachePersonality
                 Return .Where(Function(objEl) objEl.IsDisplayedOnBadge_Visibly())
             End With
 
-        End Function ''End of "Public Function BadgeDisplayElements_Fields_Front"
+        End Function ''End of "Public Function BadgeDisplayElements_Fields_FrontV3"
+
+        Public Function BadgeDisplayElements_Fields_FrontV4() As IEnumerable(Of ClassElementFieldV4)
+            ''Added 2/10/2022 thomas downes 
+            With mod_listElementFields_FrontV4
+                Return .Where(Function(objEl) objEl.IsDisplayedOnBadge_Visibly())
+            End With
+        End Function ''End of "Public Function BadgeDisplayElements_Fields_FrontV4"
 
 
         ''Public Function ListOfBadgeDisplayElements_Flds_Front(pboolRefresh As Boolean) As HashSet(Of ClassElementField)
@@ -2193,7 +2210,7 @@ Namespace ciBadgeCachePersonality
             pbAllFine = True
             pstrMessage = ""
 
-            For Each each_element As ClassElementFieldV3 In ListOfElementFields_Bothsides() ''Dec18 2021 '' ListOfElementFields
+            For Each each_element As ClassElementFieldV3 In ListOfElementFields_BothsidesV3() ''Dec18 2021 '' ListOfElementFields
                 intCountAll += 1
                 boolMatch = (each_element.FieldEnum = each_element.FieldInfo.FieldEnumValue)
                 ''We don't want to leave prematurely.''----If (Not boolMatch) Then Return False
@@ -2651,6 +2668,7 @@ Namespace ciBadgeCachePersonality
             End With ''End of "With objSerializationClass"
 
         End Sub ''End of "Public Sub SaveToXML()"
+
 
         Public Function GetBackgroundImage(par_enum As EnumWhichSideOfCard) As Image
             ''

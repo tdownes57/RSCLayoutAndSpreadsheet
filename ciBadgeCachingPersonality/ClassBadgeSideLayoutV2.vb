@@ -46,68 +46,73 @@ Public Class ClassBadgeSideLayoutV2
     ''    End Set
     ''End Property
 
-    Public Property ListElementFields As HashSet(Of ClassElementFieldV3) Implements IBadgeSideLayoutElementsV2.ListElementFields
-    ''    Get
-    ''        Throw New NotImplementedException()
-    ''    End Get
-    ''    Set(value As HashSet(Of ClassElementField))
-    ''        Throw New NotImplementedException()
-    ''    End Set
-    ''End Property
 
-    Public Property ListElementStaticTexts As HashSet(Of ClassElementStaticTextV3) Implements IBadgeSideLayoutElementsV2.ListElementStaticTexts
-    ''    Get
-    ''        Throw New NotImplementedException()
-    ''    End Get
-    ''    Set(value As HashSet(Of ClassElementStaticText))
-    ''        Throw New NotImplementedException()
-    ''    End Set
-    ''End Property
+    ''Added 2/10/2022 td
+    Public Property ElementLists As ClassElementLists Implements IBadgeSideLayoutElementsV2.ElementLists
 
-    Public Property ListElementGraphics As HashSet(Of ClassElementGraphic) Implements IBadgeSideLayoutElementsV2.ListElementGraphics
-    ''    Get
-    ''        Throw New NotImplementedException()
-    ''    End Get
-    ''    Set(value As HashSet(Of ClassElementGraphic))
-    ''        Throw New NotImplementedException()
-    ''    End Set
-    ''End Property
 
-    Public Property ListElementPortraits As HashSet(Of ClassElementPortrait) Implements IBadgeSideLayoutElementsV2.ListElementPortraits
-    ''    Get
-    ''        Throw New NotImplementedException()
-    ''    End Get
-    ''    Set(value As ClassElementPic)
-    ''        Throw New NotImplementedException()
-    ''    End Set
-    ''End Property
+    ''Public Property ListElementFields As HashSet(Of ClassElementFieldV3) Implements IBadgeSideLayoutElementsV2.ListElementFields
+    ''''    Get
+    ''''        Throw New NotImplementedException()
+    ''''    End Get
+    ''''    Set(value As HashSet(Of ClassElementField))
+    ''''        Throw New NotImplementedException()
+    ''''    End Set
+    ''''End Property
 
-    Public Property ListElementQRCodes As HashSet(Of ClassElementQRCode) Implements IBadgeSideLayoutElementsV2.ListElementQRCodes
-    ''    Get
-    ''        Throw New NotImplementedException()
-    ''    End Get
-    ''    Set(value As ClassElementQRCode)
-    ''        Throw New NotImplementedException()
-    ''    End Set
-    ''End Property
+    ''Public Property ListElementStaticTexts As HashSet(Of ClassElementStaticTextV3) Implements IBadgeSideLayoutElementsV2.ListElementStaticTexts
+    ''''    Get
+    ''''        Throw New NotImplementedException()
+    ''''    End Get
+    ''''    Set(value As HashSet(Of ClassElementStaticText))
+    ''''        Throw New NotImplementedException()
+    ''''    End Set
+    ''''End Property
 
-    Public Property ListElementSignatures As HashSet(Of ClassElementSignature) Implements IBadgeSideLayoutElementsV2.ListElementSignatures
-    ''    Get
-    ''        Throw New NotImplementedException()
-    ''    End Get
-    ''    Set(value As ClassElementSignature)
-    ''        Throw New NotImplementedException()
-    ''    End Set
-    ''End Property
+    ''Public Property ListElementGraphics As HashSet(Of ClassElementGraphic) Implements IBadgeSideLayoutElementsV2.ListElementGraphics
+    ''''    Get
+    ''''        Throw New NotImplementedException()
+    ''''    End Get
+    ''''    Set(value As HashSet(Of ClassElementGraphic))
+    ''''        Throw New NotImplementedException()
+    ''''    End Set
+    ''''End Property
 
-    Public Property ListElementLaysections As HashSet(Of ClassElementLaysection) Implements IBadgeSideLayoutElementsV2.ListElementLaysections
-    ''    Get
-    ''        Throw New NotImplementedException()
-    ''    End Get
-    ''    Set(value As ClassElementSignature)
-    ''        Throw New NotImplementedException()
-    ''    End Set
-    ''End Property
+    ''Public Property ListElementPortraits As HashSet(Of ClassElementPortrait) Implements IBadgeSideLayoutElementsV2.ListElementPortraits
+    ''''    Get
+    ''''        Throw New NotImplementedException()
+    ''''    End Get
+    ''''    Set(value As ClassElementPic)
+    ''''        Throw New NotImplementedException()
+    ''''    End Set
+    ''''End Property
+
+    ''Public Property ListElementQRCodes As HashSet(Of ClassElementQRCode) Implements IBadgeSideLayoutElementsV2.ListElementQRCodes
+    ''''    Get
+    ''''        Throw New NotImplementedException()
+    ''''    End Get
+    ''''    Set(value As ClassElementQRCode)
+    ''''        Throw New NotImplementedException()
+    ''''    End Set
+    ''''End Property
+
+    ''Public Property ListElementSignatures As HashSet(Of ClassElementSignature) Implements IBadgeSideLayoutElementsV2.ListElementSignatures
+    ''''    Get
+    ''''        Throw New NotImplementedException()
+    ''''    End Get
+    ''''    Set(value As ClassElementSignature)
+    ''''        Throw New NotImplementedException()
+    ''''    End Set
+    ''''End Property
+
+    ''Public Property ListElementLaysections As HashSet(Of ClassElementLaysection) Implements IBadgeSideLayoutElementsV2.ListElementLaysections
+    ''''    Get
+    ''''        Throw New NotImplementedException()
+    ''''    End Get
+    ''''    Set(value As ClassElementSignature)
+    ''''        Throw New NotImplementedException()
+    ''''    End Set
+    ''''End Property
 
 End Class
 

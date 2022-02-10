@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassMakeBadgeV4_NotUsed.cs" />
     <Compile Include="ClassProportions.cs" />
     <Compile Include="ClassMakeBadge.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

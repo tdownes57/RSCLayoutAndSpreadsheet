@@ -101,8 +101,10 @@ Public Class ClassDesignerEventListener
     End Sub ''End of Public Sub New
 
 
-    Public Sub LoadDesigner(par_listOfFieldControls As _
+    Public Sub LoadDesigner(par_listOfFieldControlsV3 As _
                                 HashSet(Of CtlGraphicFieldV3),
+                            par_listOfFieldControlsV4 As _
+                                HashSet(Of CtlGraphicFieldV4),
                     par_listDesignerControls As HashSet(Of RSCMoveableControlVB)) '',
         ''                    par_strWhyCalled As String)
         ''

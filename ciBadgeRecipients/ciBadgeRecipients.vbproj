@@ -47,6 +47,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -82,6 +83,18 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="PopulateRecipientField.Designer.vb">
+      <DependentUpon>PopulateRecipientField.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PopulateRecipientField.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PopulateTwoFields_NotUsed.Designer.vb">
+      <DependentUpon>PopulateTwoFields_NotUsed.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PopulateTwoFields_NotUsed.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -89,6 +102,12 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PopulateRecipientField.resx">
+      <DependentUpon>PopulateRecipientField.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PopulateTwoFields_NotUsed.resx">
+      <DependentUpon>PopulateTwoFields_NotUsed.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -111,6 +130,9 @@
       <Project>{59d5b213-e44b-432a-8237-53d91ec9c04a}</Project>
       <Name>ciBadgeSerialize</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{94E38DFF-614B-4CBD-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

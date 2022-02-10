@@ -13,21 +13,23 @@ Public Interface IBadgeSideLayoutElementsV2 ''Added 1/13/2022 thomas d
     Property RecipientPortrait2_RarelyUsed As Image
     Property par_iRecipientInfo As ciBadgeInterfaces.IRecipient
 
-    Property ListElementFields As HashSet(Of ClassElementFieldV3)
+    Property ElementLists As ClassElementLists ''Added 2/10/2022 thomas downes
 
-    ''Jan13 2022 td''Property ElementPic As ClassElementPic
-    ''Jan13 2022 td''Property ElementQR As ClassElementQRCode
-    ''Jan13 2022 td''Property ElementSig As ClassElementSignature ''par_elementSig = null,
+    ''Property ListElementFields As HashSet(Of ClassElementFieldV3)
 
-    ''Added 1/13/2022 td
-    Property ListElementPortraits As HashSet(Of ClassElementPortrait)
-    Property ListElementQRCodes As HashSet(Of ClassElementQRCode)
-    Property ListElementSignatures As HashSet(Of ClassElementSignature)
-    Property ListElementStaticTexts As HashSet(Of ClassElementStaticTextV3)
-    Property ListElementGraphics As HashSet(Of ClassElementGraphic)
+    ''''Jan13 2022 td''Property ElementPic As ClassElementPic
+    ''''Jan13 2022 td''Property ElementQR As ClassElementQRCode
+    ''''Jan13 2022 td''Property ElementSig As ClassElementSignature ''par_elementSig = null,
 
-    ''Added 1/13/2022 td
-    Property ListElementLaysections As HashSet(Of ClassElementLaysection)
+    ''''Added 1/13/2022 td
+    ''Property ListElementPortraits As HashSet(Of ClassElementPortrait)
+    ''Property ListElementQRCodes As HashSet(Of ClassElementQRCode)
+    ''Property ListElementSignatures As HashSet(Of ClassElementSignature)
+    ''Property ListElementStaticTexts As HashSet(Of ClassElementStaticTextV3)
+    ''Property ListElementGraphics As HashSet(Of ClassElementGraphic)
+
+    ''''Added 1/13/2022 td
+    ''Property ListElementLaysections As HashSet(Of ClassElementLaysection)
 
 End Interface
 
