@@ -230,7 +230,7 @@ Namespace ciBadgeCachePersonality
                 objSide.ElementPortrait_1st = Me.ListOfElementPics_Front().FirstOrDefault()
                 ''Moved below, with a condition.--1/14/2022 td''objSide.ElementQRCode = Me.ElementQRCode
                 ''Moved below, with a condition.--1/14/2022 td''objSide.ElementSignature = Me.ElementSignature
-                objSide.ListElementFieldsV3 = Me.ListOfElementFields_Front
+                objSide.ListElementFieldsV3 = Me.ListOfElementFields_FrontV3
                 objSide.ListElementGraphics = Me.ListOfElementGraphics_Front ''Jan22 2022 td''Nothing
                 objSide.ListElementStaticTextsV3 = Me.ListOfElementTextsV3_Front
                 objSide.ListElementStaticTextsV4 = Me.ListOfElementTextsV4_Front ''Added 2/1/2022 td
@@ -496,13 +496,24 @@ Namespace ciBadgeCachePersonality
         End Property
 
 
-        Public Property ListOfElementFields_Front As HashSet(Of ClassElementFieldV3)  ''---List(Of ClassElementField)
+        Public Property ListOfElementFields_FrontV3 As HashSet(Of ClassElementFieldV3)  ''---List(Of ClassElementField)
             Get ''Added 9/28/2019 td
                 Return mod_listElementFields_FrontV3
             End Get
             Set(value As HashSet(Of ClassElementFieldV3))  ''---List(Of ClassElementField))
                 ''Added 9/28/2019 td
                 mod_listElementFields_FrontV3 = value
+            End Set
+        End Property
+
+
+        Public Property ListOfElementFields_FrontV4 As HashSet(Of ClassElementFieldV4)  ''---List(Of ClassElementField)
+            Get ''Added 2/10/2022 td
+                Return mod_listElementFields_FrontV4
+            End Get
+            Set(value As HashSet(Of ClassElementFieldV4))  ''---List(Of ClassElementField))
+                ''Added 2/10/2022 td
+                mod_listElementFields_FrontV4 = value
             End Set
         End Property
 
@@ -2179,7 +2190,7 @@ Namespace ciBadgeCachePersonality
 
             ''Check the front side of the badge.  
             If (boolCheckFrontside) Then
-                For Each each_element As ClassElementFieldV3 In ListOfElementFields_Front ''12/18/2021 ListOfElementFields
+                For Each each_element As ClassElementFieldV3 In ListOfElementFields_FrontV3 ''12/18/2021 ListOfElementFields
                     If (each_element.FieldEnum = par_field.FieldEnumValue) Then Return each_element
                 Next each_element
             End If ''End of "If (boolCheckFrontside) Then"

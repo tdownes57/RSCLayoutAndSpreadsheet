@@ -182,7 +182,8 @@ namespace ciBadgeGenerator
                                     par_badge_height_pixels,
                                     par_recipientPic,
                                     par_cache, par_iRecipientInfo,
-                                    par_cache.ListOfElementFields_Front,
+                                    par_cache.ListOfElementFields_FrontV3,
+                                    par_cache.ListOfElementFields_FrontV4,
                                     par_cache.ListOfElementTextsV3_Front,
                                     par_cache.ListOfElementTextsV4_Front,
                                     par_cache.ListOfElementGraphics_Front,
@@ -236,7 +237,8 @@ namespace ciBadgeGenerator
                                     List<string> par_listMessages = null,
                                     List<string> par_listFieldsIncluded = null,
                                     List<string> par_listFieldsNotIncluded = null,
-                                    ClassElementFieldV3 par_recentlyMoved = null)
+                                    ClassElementFieldV3 par_recentlyMovedV3 = null,
+                                    ClassElementFieldV4 par_recentlyMovedV4 = null)
         {
             //
             // Added 12/18/2021 td
@@ -289,10 +291,12 @@ namespace ciBadgeGenerator
             //
             // Field-Related Elements
             //
-            HashSet<ClassElementFieldV3> listOfElementFields; // <<<<<<<<<<<<<< I have removed the word "Text" from the name.   It's confusing since there are Static-Text controls. --10/17/2019
+            HashSet<ClassElementFieldV3> listOfElementFieldsV3; // <<<<<<<<<<<<<< I have removed the word "Text" from the name.   It's confusing since there are Static-Text controls. --10/17/2019
+            HashSet<ClassElementFieldV4> listOfElementFieldsV4; // <<<<<<<<<<<<<< I have removed the word "Text" from the name.   It's confusing since there are Static-Text controls. --10/17/2019
 
             //Dec18 2021//if (par_listElementFields != null) listOfElementFields = par_listElementFields;
-            listOfElementFields = par_layoutElements.ListElementFieldsV3;
+            listOfElementFieldsV3 = par_layoutElements.ListElementFieldsV3;
+            listOfElementFieldsV4 = par_layoutElements.ListElementFieldsV4;
 
             //Dec18 2021//else listOfElementFields = par_cache.ListOfBadgeDisplayElements_Flds_Front(false);
 
@@ -310,12 +314,13 @@ namespace ciBadgeGenerator
                 //
                 LoadImageWithElementFields(ref obj_imageOutput,
                         ref dateMostRecentUpdate,
-                        listOfElementFields,
+                        listOfElementFieldsV3,
+                        listOfElementFieldsV4,
                           par_iRecipientInfo, null,
                           par_listMessages,
                          par_listFieldsIncluded,
                          par_listFieldsNotIncluded,
-                             par_recentlyMoved);
+                             par_recentlyMovedV3);
 
                 //Added 11/29/2021 td  
                 string strLastUpdate = dateMostRecentUpdate.ToString();
@@ -327,10 +332,13 @@ namespace ciBadgeGenerator
                 // Call a method from the namespace LayoutElements. 
                 //
                 //objPrintLibElems.LoadImageWithElements(ref obj_imageOutput, listOfElementFields);
-                objPrintLibElems.LoadImageWithElements(ref obj_imageOutput, listOfElementFields,
+                objPrintLibElems.LoadImageWithElements(ref obj_imageOutput, 
+                         listOfElementFieldsV3,
+                         listOfElementFieldsV4,
                          null, false, true,
                          par_listFieldsIncluded,
                          par_listFieldsNotIncluded);
+
             }
 
             //''

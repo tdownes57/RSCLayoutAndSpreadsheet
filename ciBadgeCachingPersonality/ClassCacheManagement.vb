@@ -720,11 +720,11 @@ Namespace ciBadgeCachePersonality
             ''
             ''Fields
             ''
-            For Each each_element In CacheForEditing.ListOfElementFields_Front()
+            For Each each_element In CacheForEditing.ListOfElementFields_FrontV3()
                 each_infoBase = CType(each_element, ciBadgeInterfaces.IElement_Base)
                 boolMatch = (par_infoBase Is each_infoBase)
                 If (boolMatch) Then
-                    CacheForEditing.ListOfElementFields_Front.Remove(each_element)
+                    CacheForEditing.ListOfElementFields_FrontV3.Remove(each_element)
                     CacheForEditing.ListOfElementFields_BacksideV3.Add(each_element)
                     Exit Sub
                 Else
@@ -738,7 +738,7 @@ Namespace ciBadgeCachePersonality
                 boolMatch = (par_infoBase Is each_infoBase)
                 If (boolMatch) Then
                     CacheForEditing.ListOfElementFields_BacksideV3.Remove(each_element)
-                    CacheForEditing.ListOfElementFields_Front.Add(each_element)
+                    CacheForEditing.ListOfElementFields_FrontV3.Add(each_element)
                     Exit Sub
                 End If
             Next each_element
