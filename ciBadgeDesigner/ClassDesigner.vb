@@ -990,6 +990,13 @@ Public Class ClassDesigner
                                            par_listFieldCtls,
                             "ClassDesigner.LoadForm_LayoutElements " & pstrWhyCalled)
 
+        ''Added 2/9/2022 thomas downes
+        LoadElements_FieldElementsV4(objListBadgeElemsV4,
+                                           c_boolLoadingForm,
+                                           False, boolMakeMoveableByUser,
+                                           par_listFieldCtls,
+                            "ClassDesigner.LoadForm_LayoutElements " & pstrWhyCalled)
+
         ''
         ''Load the non-Field Elements. ---12/22/2021 thomas d. 
         ''

@@ -761,7 +761,8 @@ ExitHandler:
 
     End Sub ''End of "Private Sub GiveSizeInfo_Field(sender As Object, e As EventArgs)"
 
-    Private Sub OpenDialog_Color(sender As Object, e As EventArgs)
+
+    Private Sub Open_Dialog_Color(sender As Object, e As EventArgs)
         ''
         ''Added 7/30/2019 thomas downes
         ''
@@ -780,10 +781,10 @@ ExitHandler:
         Refresh_Image(True)
         Me.Refresh()
 
-    End Sub ''eNd of "Private Sub opendialog_Color()"
+    End Sub ''eNd of "Private Sub Open_Dialog_Color()"
 
 
-    Private Sub OpenDialog_Font(sender As Object, e As EventArgs)
+    Private Sub Open_Dialog_Font(sender As Object, e As EventArgs)
         ''
         ''Added 7/30/2019 thomas downes
         ''
@@ -900,8 +901,8 @@ ExitHandler:
                 new_item_colors = New ToolStripMenuItem("Set Colors - EST102")
                 new_item_font = New ToolStripMenuItem("Set Font - EST103")
 
-                AddHandler new_item_colors.Click, AddressOf OpenDialog_Color
-                AddHandler new_item_font.Click, AddressOf OpenDialog_Font
+                AddHandler new_item_colors.Click, AddressOf Open_Dialog_Color
+                AddHandler new_item_font.Click, AddressOf Open_Dialog_Font
 
                 AddHandler new_item_refresh.Click, AddressOf RefreshElement_Field ''Added 7/31/2019 thomas d.
                 AddHandler new_item_sizeInfo.Click, AddressOf GiveSizeInfo_Field ''Added 7/31/2019 thomas d.

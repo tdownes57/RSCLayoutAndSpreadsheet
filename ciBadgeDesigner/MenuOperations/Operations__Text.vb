@@ -30,8 +30,56 @@ Public MustInherit Class Operations__Text
     Public Property ColorDialog1 As ColorDialog ''Added 2/2/2022 & 10/3/2019 td 
     Public Property FontDialog1 As FontDialog ''Added 2/2/2022 & 10/3/2019 td 
 
+    Private Sub Dummy_Open_Dialog_for_Color_TE9401()
+        ''
+        ''The following procedure will be found at runtime via Reflection & linked via an
+        ''    AddHandler command. ----2/9/2022 td 
+        ''
+        Open_Dialog_for_Color_TE9401(New Object(), New EventArgs())
 
-    Public Sub Open_Dialog_Font_TE1009(sender As Object, e As EventArgs)
+    End Sub
+
+    Public Sub Open_Dialog_for_Color_TE9401(sender As Object, e As EventArgs)
+        ''
+        ''Added 2/9/2022 td & 7/30/2019 thomas downes
+        ''
+        ColorDialog1 = New ColorDialog ''Added 2/9/2022 td
+        ColorDialog1.ShowDialog()
+
+        For Each each_ctl As CtlGraphicFieldOrTextV4 In Me.AllRelevantElements_OrJustOne()
+            ''
+            ''Added 8/3/2019 td  
+            ''
+            With each_ctl
+                ''7/30/2019 td''Me.ElementInfo.FontColor = ColorDialog1.Color
+                ''8/29/2019 td''Me.ElementInfo.BackColor = ColorDialog1.Color
+                Me.ElementInfo_Base.Back_Color = ColorDialog1.Color
+
+                ''Me.ElementInfo_Base.Width_Pixels = Me.Width
+                ''Me.ElementInfo_Base.Height_Pixels = Me.Height
+
+                Application.DoEvents()
+                Application.DoEvents()
+
+                ''--.Refresh_Image(True)
+                ''--Me.Refresh()
+
+                ''Added 2/09/2022 thomas d.
+                Application.DoEvents()
+                Application.DoEvents()
+                .Refresh_ImageV3(True)
+                .Refresh()
+
+            End With ''End of "With each_ctl"
+
+        Next each_ctl
+
+        ''Added 2/09/2022 thomas d.
+        Me.LayoutFunctions.AutoPreview_IfChecked()
+
+    End Sub ''eNd of "Private Sub Open_Dialog_Color_TE9401()"
+
+    Public Sub Open_Dialog_for_Font_TE1009(sender As Object, e As EventArgs)
         ''
         ''Added 7/30/2019 thomas downes
         ''       ''
