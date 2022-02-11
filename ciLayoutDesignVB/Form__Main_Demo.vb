@@ -1376,7 +1376,7 @@ Public Class Form__Main_Demo
             ''   are field-elements which need to exist, but don't exist yet). 
             ''   ---11/28/2021 
             ''
-            For Each each_element In Me.ElementsCache_Edits.ListFieldElements()
+            For Each each_element In Me.ElementsCache_Edits.ListFieldElementsV3()
                 ''
                 ''Added 9/17/2019 td
                 ''
@@ -2205,7 +2205,7 @@ Public Class Form__Main_Demo
             Dim each_element As ClassElementFieldV3 ''Added 10/13/2019 td
 
             ''Added 10/13/2019 td
-            For Each each_ctl As CtlGraphicFieldV3 In mod_designer.ListOfFieldLabels()
+            For Each each_ctl As CtlGraphicFieldV3 In mod_designer.ListOfFieldLabelsV3()
 
                 each_element = Me.ElementsCache_Edits.GetElementByFieldEnum(each_ctl.FieldInfo.FieldEnumValue)
                 each_ctl.ElementClass_ObjV3 = each_element

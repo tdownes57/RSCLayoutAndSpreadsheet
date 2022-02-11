@@ -2782,7 +2782,8 @@ Public Class ClassDesigner
         ''10/17 ''Dim listOfElementTextFields As List(Of ClassElementField)
 
         Dim listOfTextImages As New HashSet(Of Image) ''Added 8/26/2019 thomas downes 
-        Dim listOfElementTextFields As HashSet(Of ClassElementFieldV3)
+        Dim listOfElementTextFieldsV3 As HashSet(Of ClassElementFieldV3)
+        Dim listOfElementTextFieldsV4 As HashSet(Of ClassElementFieldV4) ''Feb10 2022
 
         ''For Each field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students
 
@@ -2796,7 +2797,8 @@ Public Class ClassDesigner
         ''Deprecated. 9/18/2019 td''listOfElementText_Stdrd = ClassFieldStandard.ListOfElementsText_Stdrd(Me.Layout_Width_Pixels())
         ''Deprecated. 9/18/2019 td''listOfElementText_Custom = ClassFieldCustomized.ListOfElementsText_Custom(Me.Layout_Width_Pixels())
 
-        listOfElementTextFields = Me.ElementsCache_UseEdits.ListFieldElements()
+        listOfElementTextFieldsV3 = Me.ElementsCache_UseEdits.ListFieldElementsV3()
+        listOfElementTextFieldsV4 = Me.ElementsCache_UseEdits.ListFieldElementsV4()
 
         ''8/24 td''Me.PreviewBox.SizeMode = PictureBoxSizeMode.Zoom
         ''8/24 td''Me.PreviewBox.Image = Me.BackgroundBox.Image
@@ -2840,7 +2842,8 @@ Public Class ClassDesigner
         ''9/19 td''    listOfElementTextFields,
         ''9/19 td''    listOfTextImages)
         objPrintLibElems.LoadImageWithElements(obj_image_clone_resized,
-                                             listOfElementTextFields,
+                                             listOfElementTextFieldsV3,
+                                             listOfElementTextFieldsV4,
                                              listOfTextImages)
 
         ''

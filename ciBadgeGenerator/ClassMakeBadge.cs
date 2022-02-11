@@ -1196,6 +1196,8 @@ namespace ciBadgeGenerator
             //
             // Element Fields, Version #3
             //
+            if (par_elementFieldsV3 is null) par_elementFieldsV3 = new List<ClassElementFieldV3>();
+
             foreach (ClassElementFieldV3 each_elementFieldV3 in par_elementFieldsV3)
             {
                 //
@@ -1227,6 +1229,8 @@ namespace ciBadgeGenerator
             //
             // Element Fields, Version #4
             //
+            if (par_elementFieldsV4 is null) par_elementFieldsV4 = new List<ClassElementFieldV4>();
+
             foreach (ClassElementFieldV4 each_elementFieldV4 in par_elementFieldsV4)
             {
                 //

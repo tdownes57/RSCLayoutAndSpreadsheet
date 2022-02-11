@@ -195,7 +195,7 @@ namespace ciBadgeGenerator
 
             // 10-17-2019 td //List<ClassElementField> listOfElementTextFields;
             HashSet<ClassElementFieldV3> listOfElementFields; // <<<<<<<<<<<<<< I have removed the word "Text" from the name.   It's confusing since there are Static-Text controls. --10/17/2019
-            listOfElementFields = par_cache.ListFieldElements();
+            listOfElementFields = par_cache.ListFieldElementsV3();
 
             const bool c_boolUseUntestedProc = false;  // true;  // false;  //Added 10/5/2019 td
             if (c_boolUseUntestedProc)

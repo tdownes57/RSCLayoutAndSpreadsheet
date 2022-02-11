@@ -212,7 +212,7 @@ Public Class FormFieldsAndPortrait
         Dim objElement As ciBadgeElements.ClassElementFieldV3
 
         ''Added 1/07/2022 td
-        objElement = mod_designer.ElementsCache_UseEdits.ListFieldElements().FirstOrDefault()
+        objElement = mod_designer.ElementsCache_UseEdits.ListFieldElementsV3().FirstOrDefault()
 
         objElement.BadgeLayout = Me.BadgeLayout ''mod_designer.BadgeLayout_Class
 

@@ -1016,14 +1016,22 @@ Namespace ciBadgeCachePersonality
 
         ''End Function ''End of "Public Function Fields() As List(Of ClassFieldAny)"
 
-        Public Function ListFieldElements() As HashSet(Of ClassElementFieldV3)
+        Public Function ListFieldElementsV3() As HashSet(Of ClassElementFieldV3)
             ''10/17 td''Public Function ListFieldElements() As List(Of ClassElementField)
             ''
             ''Added 9/16/2019 thomas downes
             ''
             Return mod_listElementFields_FrontV3
 
-        End Function ''End of "Public Function FieldElements() As List(Of ClassElementText)"
+        End Function ''End of "Public Function ListFieldElementsV3() As List(Of ClassElementText)"
+
+
+        Public Function ListFieldElementsV4() As HashSet(Of ClassElementFieldV4)
+            ''Added 2/10/2022 thomas downes
+            Return mod_listElementFields_FrontV4
+
+        End Function ''End of "Public Function ListFieldElementsV4() As List(Of ClassElementText)"
+
 
         Public Function PicElement_Front() As ClassElementPortrait
             ''
@@ -1157,7 +1165,7 @@ Namespace ciBadgeCachePersonality
             Dim each_element As ciBadgeElements.ClassElementFieldV3
             Dim eachrelated_field As ciBadgeFields.ClassFieldAny
 
-            For Each each_element In ListFieldElements()
+            For Each each_element In ListFieldElementsV3()
                 ''
                 ''Refresh the .FieldObject & .FieldInfo properties.
                 ''
@@ -1783,7 +1791,7 @@ Namespace ciBadgeCachePersonality
                 ''Added 10/13/2019 td
                 copy_ofElementField.FieldInfo = CType(copy_ofElementField.FieldObjectAny, ICIBFieldStandardOrCustom)
 
-                objCopyOfCache.ListFieldElements().Add(copy_ofElementField)
+                objCopyOfCache.ListFieldElementsV3().Add(copy_ofElementField)
 
             Next each_elementField
 
@@ -2560,8 +2568,8 @@ Namespace ciBadgeCachePersonality
                     Dim intBadgeHeight As Integer
 
                     pref_section = 25 ''Added 11/27/2019 td
-                    intBadgeWidth = obj_cache_elements.ListFieldElements(0).BadgeLayout.Width_Pixels
-                    intBadgeHeight = obj_cache_elements.ListFieldElements(0).BadgeLayout.Height_Pixels
+                    intBadgeWidth = obj_cache_elements.ListFieldElementsV3(0).BadgeLayout.Width_Pixels
+                    intBadgeHeight = obj_cache_elements.ListFieldElementsV3(0).BadgeLayout.Height_Pixels
 
                     .BadgeLayout = New BadgeLayoutClass(intBadgeWidth, intBadgeHeight)
 

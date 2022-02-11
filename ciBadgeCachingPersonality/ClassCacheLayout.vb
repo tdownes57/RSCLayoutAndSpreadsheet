@@ -851,8 +851,8 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
                     Dim intBadgeWidth As Integer
                     Dim intBadgeHeight As Integer
 
-                    intBadgeWidth = obj_cache_elements.ListFieldElements(0).BadgeLayout.Width_Pixels
-                    intBadgeHeight = obj_cache_elements.ListFieldElements(0).BadgeLayout.Height_Pixels
+                    intBadgeWidth = obj_cache_elements.ListFieldElementsV3(0).BadgeLayout.Width_Pixels
+                    intBadgeHeight = obj_cache_elements.ListFieldElementsV3(0).BadgeLayout.Height_Pixels
 
                     .BadgeLayout = New BadgeLayoutClass(intBadgeWidth, intBadgeHeight)
 
