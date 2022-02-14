@@ -187,34 +187,47 @@ Public Class Operations_FieldV3
         ''Added 10/14/2019 td 
         If (Me.ColorDialog1 Is Nothing) Then Me.ColorDialog1 = New ColorDialog
 
+        ''
+        ''Show the Color Dialog!!  
+        ''
         ColorDialog1.ShowDialog()
 
+        If (Me.SelectingElements Is Nothing) Then ''Added 2/14/2022 thomas
+            ''
+            ''Added 2/14/2022 thomas
+            ''
+            Me.SelectingElements = CType(Me.Designer, ISelectingElements)
+        End If ''End of "If (Me.SelectingElements Is Nothing) Then"
+
+        ''
+        ''Is the item part of a group of selected items? 
+        ''
         If (Me.SelectingElements.ElementsList_IsItemUnselected(Me.CtlCurrentElementField)) Then
-            ''10/3 td''If (LabelsList_IsItemUnselected(Me)) Then
+                ''10/3 td''If (LabelsList_IsItemUnselected(Me)) Then
 
-            ''7/30/2019 td''Me.ElementInfo.FontColor = ColorDialog1.Color
-            ''8/29/2019 td''Me.ElementInfo.BackColor = ColorDialog1.Color
-            ''10/3/2019 td''Me.ElementInfo_Base.Back_Color = ColorDialog1.Color
-            Me.CtlCurrentElementField.ElementInfo_Base.Back_Color = Me.ColorDialog1.Color
+                ''7/30/2019 td''Me.ElementInfo.FontColor = ColorDialog1.Color
+                ''8/29/2019 td''Me.ElementInfo.BackColor = ColorDialog1.Color
+                ''10/3/2019 td''Me.ElementInfo_Base.Back_Color = ColorDialog1.Color
+                Me.CtlCurrentElementField.ElementInfo_Base.Back_Color = Me.ColorDialog1.Color
 
-            ''Me.ElementInfo.Width_Pixels = Me.Width
-            ''Me.ElementInfo.Height_Pixels = Me.Height
+                ''Me.ElementInfo.Width_Pixels = Me.Width
+                ''Me.ElementInfo.Height_Pixels = Me.Height
 
-            Application.DoEvents()
-            Application.DoEvents()
+                Application.DoEvents()
+                Application.DoEvents()
 
-            ''9/15/2019 td ''Refresh_Image()
-            ''10/3/2019 td ''Refresh_Image(True)
-            Me.CtlCurrentElementField.Refresh_ImageV3(True)
-            Me.CtlCurrentElementField.Refresh()
+                ''9/15/2019 td ''Refresh_Image()
+                ''10/3/2019 td ''Refresh_Image(True)
+                Me.CtlCurrentElementField.Refresh_ImageV3(True)
+                Me.CtlCurrentElementField.Refresh()
 
-        ElseIf (Me.SelectingElements.ElementsList_IsItemIncluded(Me.CtlCurrentElementField)) Then
-            ''10/3/2019 td''ElseIf (LabelsList_IsItemIncluded(Me)) Then
+            ElseIf (Me.SelectingElements.ElementsList_IsItemIncluded(Me.CtlCurrentElementField)) Then
+                ''10/3/2019 td''ElseIf (LabelsList_IsItemIncluded(Me)) Then
 
-            ''Added 8/3/2019 td 
-            ''10/17/2019 td''Dim objElements As List(Of CtlGraphicFldLabel)
-            ''1/12/2022 td''Dim objElements As HashSet(Of CtlGraphicFldLabel)
-            Dim objElements As HashSet(Of RSCMoveableControlVB)
+                ''Added 8/3/2019 td 
+                ''10/17/2019 td''Dim objElements As List(Of CtlGraphicFldLabel)
+                ''1/12/2022 td''Dim objElements As HashSet(Of CtlGraphicFldLabel)
+                Dim objElements As HashSet(Of RSCMoveableControlVB)
 
             ''8/4//2019 td'objElements = CType(Me.ParentForm, ISelectingElements).LabelsDesignList_AllItems
             ''10/3/2019 td''objElements = Me.SelectingElements.LabelsDesignList_AllItems

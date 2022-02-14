@@ -127,8 +127,16 @@ Public Class CtlGraphicFieldV3
             .EventsForMoveability_Group = par_oMoveEventsForGroupedCtls
             .EventsForMoveability_Single = Nothing
             .LayoutFunctions = .Designer ''Added 1/24/2022 td
-            ''Feb2 2022 td''.MonemMovement_SingleCntrl = CtlFieldElem1.mod_iMoveOrResizeFunctionality ''Added 2/02/2022 td
+            ''Feb2 2022 td''.MonemMovement_SingleCntrl
+            ''Feb2 2022 td''   = CtlFieldElem1.mod_iMoveOrResizeFunctionality ''Added 2/02/2022 td
             .Monem_iMoveOrResizeFun = CtlFieldElem1.mod_iMoveOrResizeFunctionality ''Added 2/02/2022 td
+            ''Added 2/14/2022 thomas downes
+            .SelectingElements = CType(par_parametersGetElementControl.DesignerClass,
+                ISelectingElements) ''Added 2/14/2022
+
+            ''Added 2/14/2022 td
+            .CacheOfFieldsEtc_Deprecated =
+                par_parametersGetElementControl.ElementsCacheManager.CacheForEditing
 
         End With ''End of "With objOperationsFldElem"
 
