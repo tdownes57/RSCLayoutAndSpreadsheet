@@ -89,10 +89,16 @@
     <Compile Include="PopulateRecipientField.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="PopulateTwoFields_NotUsed.Designer.vb">
-      <DependentUpon>PopulateTwoFields_NotUsed.vb</DependentUpon>
+    <Compile Include="PopulateThreeFields.Designer.vb">
+      <DependentUpon>PopulateThreeFields.vb</DependentUpon>
     </Compile>
-    <Compile Include="PopulateTwoFields_NotUsed.vb">
+    <Compile Include="PopulateThreeFields.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PopulateTwoFields.Designer.vb">
+      <DependentUpon>PopulateTwoFields.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PopulateTwoFields.vb">
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>
@@ -106,8 +112,11 @@
     <EmbeddedResource Include="PopulateRecipientField.resx">
       <DependentUpon>PopulateRecipientField.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PopulateTwoFields_NotUsed.resx">
-      <DependentUpon>PopulateTwoFields_NotUsed.vb</DependentUpon>
+    <EmbeddedResource Include="PopulateThreeFields.resx">
+      <DependentUpon>PopulateThreeFields.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PopulateTwoFields.resx">
+      <DependentUpon>PopulateTwoFields.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

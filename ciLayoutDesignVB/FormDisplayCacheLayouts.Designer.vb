@@ -29,6 +29,7 @@ Partial Class FormDisplayCacheLayouts
         Me.ButtonOpenNewBlank = New System.Windows.Forms.Button()
         Me.LabelPriorLayoutsHdr = New System.Windows.Forms.Label()
         Me.FlowLayoutPanelPriorLays = New System.Windows.Forms.FlowLayoutPanel()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.ButtonSelectLayoutFromDrive = New System.Windows.Forms.Button()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.LabelWarningMessage = New System.Windows.Forms.Label()
@@ -42,11 +43,11 @@ Partial Class FormDisplayCacheLayouts
         Me.textboxPathToCacheXmlFile = New System.Windows.Forms.TextBox()
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         Me.picturePreviewFront = New System.Windows.Forms.PictureBox()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.picturePreviewBackside = New System.Windows.Forms.PictureBox()
+        Me.buttonCustomers = New System.Windows.Forms.Button()
         Me.FlowLayoutPanelPriorLays.SuspendLayout()
-        CType(Me.picturePreviewFront, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.picturePreviewFront, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picturePreviewBackside, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -126,6 +127,15 @@ Partial Class FormDisplayCacheLayouts
         Me.FlowLayoutPanelPriorLays.Size = New System.Drawing.Size(572, 456)
         Me.FlowLayoutPanelPriorLays.TabIndex = 84
         Me.FlowLayoutPanelPriorLays.WrapContents = False
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.BackColor = System.Drawing.Color.White
+        Me.PictureBox1.Location = New System.Drawing.Point(3, 3)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(319, 205)
+        Me.PictureBox1.TabIndex = 76
+        Me.PictureBox1.TabStop = False
         '
         'ButtonSelectLayoutFromDrive
         '
@@ -260,15 +270,6 @@ Partial Class FormDisplayCacheLayouts
         Me.picturePreviewFront.TabIndex = 91
         Me.picturePreviewFront.TabStop = False
         '
-        'PictureBox1
-        '
-        Me.PictureBox1.BackColor = System.Drawing.Color.White
-        Me.PictureBox1.Location = New System.Drawing.Point(3, 3)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(319, 205)
-        Me.PictureBox1.TabIndex = 76
-        Me.PictureBox1.TabStop = False
-        '
         'picturePreviewBackside
         '
         Me.picturePreviewBackside.BackColor = System.Drawing.Color.White
@@ -281,11 +282,22 @@ Partial Class FormDisplayCacheLayouts
         Me.picturePreviewBackside.TabIndex = 92
         Me.picturePreviewBackside.TabStop = False
         '
+        'buttonCustomers
+        '
+        Me.buttonCustomers.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.buttonCustomers.Location = New System.Drawing.Point(26, 239)
+        Me.buttonCustomers.Name = "buttonCustomers"
+        Me.buttonCustomers.Size = New System.Drawing.Size(171, 89)
+        Me.buttonCustomers.TabIndex = 98
+        Me.buttonCustomers.Text = "Customers"
+        Me.buttonCustomers.UseVisualStyleBackColor = True
+        '
         'FormDisplayCacheLayouts
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1406, 574)
+        Me.Controls.Add(Me.buttonCustomers)
         Me.Controls.Add(Me.LinkLabel1)
         Me.Controls.Add(Me.ButtonExitApp)
         Me.Controls.Add(Me.Label2)
@@ -309,8 +321,8 @@ Partial Class FormDisplayCacheLayouts
         Me.Name = "FormDisplayCacheLayouts"
         Me.Text = "FormDisplayCacheLayouts"
         Me.FlowLayoutPanelPriorLays.ResumeLayout(False)
-        CType(Me.picturePreviewFront, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.picturePreviewFront, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picturePreviewBackside, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -338,4 +350,5 @@ Partial Class FormDisplayCacheLayouts
     Friend WithEvents ButtonBrowseForImageFile As Button
     Friend WithEvents textboxPathToCacheXmlFile As TextBox
     Friend WithEvents LinkLabel1 As LinkLabel
+    Friend WithEvents buttonCustomers As Button
 End Class

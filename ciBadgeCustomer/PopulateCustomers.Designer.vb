@@ -1,0 +1,1607 @@
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+Partial Class PopulateCustomers
+    Inherits System.Windows.Forms.UserControl
+
+    'UserControl overrides dispose to clean up the component list.
+    <System.Diagnostics.DebuggerNonUserCode()> _
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        Try
+            If disposing AndAlso components IsNot Nothing Then
+                components.Dispose()
+            End If
+        Finally
+            MyBase.Dispose(disposing)
+        End Try
+    End Sub
+
+    'Required by the Windows Form Designer
+    Private components As System.ComponentModel.IContainer
+
+    'NOTE: The following procedure is required by the Windows Form Designer
+    'It can be modified using the Windows Form Designer.  
+    'Do not modify it using the code editor.
+    <System.Diagnostics.DebuggerStepThrough()> _
+    Private Sub InitializeComponent()
+        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.PanelCustomerCode = New System.Windows.Forms.Panel()
+        Me.textboxCode7 = New System.Windows.Forms.TextBox()
+        Me.PictureBox4 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox12 = New System.Windows.Forms.PictureBox()
+        Me.textboxCode6 = New System.Windows.Forms.TextBox()
+        Me.textboxCode1 = New System.Windows.Forms.TextBox()
+        Me.textboxCode8 = New System.Windows.Forms.TextBox()
+        Me.LabelCustomerCode = New System.Windows.Forms.Label()
+        Me.PictureBox5 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox7 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox11 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.textboxCode5 = New System.Windows.Forms.TextBox()
+        Me.textboxCode12 = New System.Windows.Forms.TextBox()
+        Me.textboxCode9 = New System.Windows.Forms.TextBox()
+        Me.textboxCode2 = New System.Windows.Forms.TextBox()
+        Me.PictureBox6 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox8 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox10 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.textboxCode4 = New System.Windows.Forms.TextBox()
+        Me.textboxCode11 = New System.Windows.Forms.TextBox()
+        Me.textboxCode10 = New System.Windows.Forms.TextBox()
+        Me.textboxCode3 = New System.Windows.Forms.TextBox()
+        Me.PictureBox3 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox9 = New System.Windows.Forms.PictureBox()
+        Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
+        Me.LinkLabel5 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel6 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel7 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel8 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel3 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel4 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel2 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
+        Me.PanelCustomerName = New System.Windows.Forms.Panel()
+        Me.textboxName7 = New System.Windows.Forms.TextBox()
+        Me.PictureBox13 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox14 = New System.Windows.Forms.PictureBox()
+        Me.textboxName6 = New System.Windows.Forms.TextBox()
+        Me.textboxName1 = New System.Windows.Forms.TextBox()
+        Me.textboxName8 = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.PictureBox15 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox16 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox17 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox18 = New System.Windows.Forms.PictureBox()
+        Me.textboxName5 = New System.Windows.Forms.TextBox()
+        Me.textboxName12 = New System.Windows.Forms.TextBox()
+        Me.textboxName9 = New System.Windows.Forms.TextBox()
+        Me.textboxName2 = New System.Windows.Forms.TextBox()
+        Me.PictureBox19 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox20 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox21 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox22 = New System.Windows.Forms.PictureBox()
+        Me.textboxName4 = New System.Windows.Forms.TextBox()
+        Me.textboxName11 = New System.Windows.Forms.TextBox()
+        Me.textboxName10 = New System.Windows.Forms.TextBox()
+        Me.textboxName3 = New System.Windows.Forms.TextBox()
+        Me.PictureBox23 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox24 = New System.Windows.Forms.PictureBox()
+        Me.LinkLabel9 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel10 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel11 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel12 = New System.Windows.Forms.LinkLabel()
+        Me.PanelNotes = New System.Windows.Forms.Panel()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.PictureBox25 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox26 = New System.Windows.Forms.PictureBox()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.TextBox3 = New System.Windows.Forms.TextBox()
+        Me.TextBox4 = New System.Windows.Forms.TextBox()
+        Me.LabelNotes = New System.Windows.Forms.Label()
+        Me.PictureBox27 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox28 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox29 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox30 = New System.Windows.Forms.PictureBox()
+        Me.TextBox5 = New System.Windows.Forms.TextBox()
+        Me.TextBox6 = New System.Windows.Forms.TextBox()
+        Me.TextBox7 = New System.Windows.Forms.TextBox()
+        Me.TextBox8 = New System.Windows.Forms.TextBox()
+        Me.PictureBox31 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox32 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox33 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox34 = New System.Windows.Forms.PictureBox()
+        Me.TextBox9 = New System.Windows.Forms.TextBox()
+        Me.TextBox10 = New System.Windows.Forms.TextBox()
+        Me.TextBox11 = New System.Windows.Forms.TextBox()
+        Me.TextBox12 = New System.Windows.Forms.TextBox()
+        Me.PictureBox35 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox36 = New System.Windows.Forms.PictureBox()
+        Me.SplitContainer3 = New System.Windows.Forms.SplitContainer()
+        Me.linkOpen2 = New System.Windows.Forms.LinkLabel()
+        Me.linkOpen12 = New System.Windows.Forms.LinkLabel()
+        Me.linkOpen11 = New System.Windows.Forms.LinkLabel()
+        Me.linkOpen10 = New System.Windows.Forms.LinkLabel()
+        Me.linkOpen9 = New System.Windows.Forms.LinkLabel()
+        Me.linkOpen8 = New System.Windows.Forms.LinkLabel()
+        Me.linkOpen7 = New System.Windows.Forms.LinkLabel()
+        Me.linkOpen6 = New System.Windows.Forms.LinkLabel()
+        Me.linkOpen5 = New System.Windows.Forms.LinkLabel()
+        Me.linkOpen4 = New System.Windows.Forms.LinkLabel()
+        Me.linkOpen3 = New System.Windows.Forms.LinkLabel()
+        Me.linkOpen1 = New System.Windows.Forms.LinkLabel()
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SplitContainer1.Panel1.SuspendLayout()
+        Me.SplitContainer1.Panel2.SuspendLayout()
+        Me.SplitContainer1.SuspendLayout()
+        Me.PanelCustomerCode.SuspendLayout()
+        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox12, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox7, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox11, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox6, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox8, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox10, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox9, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.SplitContainer2, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SplitContainer2.Panel1.SuspendLayout()
+        Me.SplitContainer2.Panel2.SuspendLayout()
+        Me.SplitContainer2.SuspendLayout()
+        Me.PanelCustomerName.SuspendLayout()
+        CType(Me.PictureBox13, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox14, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox15, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox16, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox17, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox18, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox19, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox20, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox21, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox22, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox23, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox24, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PanelNotes.SuspendLayout()
+        CType(Me.PictureBox25, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox26, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox27, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox28, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox29, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox30, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox31, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox32, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox33, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox34, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox35, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox36, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.SplitContainer3, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SplitContainer3.Panel1.SuspendLayout()
+        Me.SplitContainer3.Panel2.SuspendLayout()
+        Me.SplitContainer3.SuspendLayout()
+        Me.SuspendLayout()
+        '
+        'SplitContainer1
+        '
+        Me.SplitContainer1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.SplitContainer1.Location = New System.Drawing.Point(3, 3)
+        Me.SplitContainer1.Name = "SplitContainer1"
+        '
+        'SplitContainer1.Panel1
+        '
+        Me.SplitContainer1.Panel1.Controls.Add(Me.PanelCustomerCode)
+        Me.SplitContainer1.Panel1MinSize = 100
+        '
+        'SplitContainer1.Panel2
+        '
+        Me.SplitContainer1.Panel2.BackColor = System.Drawing.Color.LightGray
+        Me.SplitContainer1.Panel2.Controls.Add(Me.SplitContainer2)
+        Me.SplitContainer1.Size = New System.Drawing.Size(1097, 474)
+        Me.SplitContainer1.SplitterDistance = 154
+        Me.SplitContainer1.SplitterWidth = 6
+        Me.SplitContainer1.TabIndex = 38
+        '
+        'PanelCustomerCode
+        '
+        Me.PanelCustomerCode.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PanelCustomerCode.AutoScroll = True
+        Me.PanelCustomerCode.Controls.Add(Me.textboxCode7)
+        Me.PanelCustomerCode.Controls.Add(Me.PictureBox4)
+        Me.PanelCustomerCode.Controls.Add(Me.PictureBox12)
+        Me.PanelCustomerCode.Controls.Add(Me.textboxCode6)
+        Me.PanelCustomerCode.Controls.Add(Me.textboxCode1)
+        Me.PanelCustomerCode.Controls.Add(Me.textboxCode8)
+        Me.PanelCustomerCode.Controls.Add(Me.LabelCustomerCode)
+        Me.PanelCustomerCode.Controls.Add(Me.PictureBox5)
+        Me.PanelCustomerCode.Controls.Add(Me.PictureBox7)
+        Me.PanelCustomerCode.Controls.Add(Me.PictureBox11)
+        Me.PanelCustomerCode.Controls.Add(Me.PictureBox1)
+        Me.PanelCustomerCode.Controls.Add(Me.textboxCode5)
+        Me.PanelCustomerCode.Controls.Add(Me.textboxCode12)
+        Me.PanelCustomerCode.Controls.Add(Me.textboxCode9)
+        Me.PanelCustomerCode.Controls.Add(Me.textboxCode2)
+        Me.PanelCustomerCode.Controls.Add(Me.PictureBox6)
+        Me.PanelCustomerCode.Controls.Add(Me.PictureBox8)
+        Me.PanelCustomerCode.Controls.Add(Me.PictureBox10)
+        Me.PanelCustomerCode.Controls.Add(Me.PictureBox2)
+        Me.PanelCustomerCode.Controls.Add(Me.textboxCode4)
+        Me.PanelCustomerCode.Controls.Add(Me.textboxCode11)
+        Me.PanelCustomerCode.Controls.Add(Me.textboxCode10)
+        Me.PanelCustomerCode.Controls.Add(Me.textboxCode3)
+        Me.PanelCustomerCode.Controls.Add(Me.PictureBox3)
+        Me.PanelCustomerCode.Controls.Add(Me.PictureBox9)
+        Me.PanelCustomerCode.Location = New System.Drawing.Point(3, 27)
+        Me.PanelCustomerCode.Name = "PanelCustomerCode"
+        Me.PanelCustomerCode.Size = New System.Drawing.Size(148, 444)
+        Me.PanelCustomerCode.TabIndex = 37
+        '
+        'textboxCode7
+        '
+        Me.textboxCode7.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textboxCode7.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.textboxCode7.Location = New System.Drawing.Point(0, 219)
+        Me.textboxCode7.Name = "textboxCode7"
+        Me.textboxCode7.Size = New System.Drawing.Size(94, 22)
+        Me.textboxCode7.TabIndex = 23
+        Me.textboxCode7.Text = "Example"
+        '
+        'PictureBox4
+        '
+        Me.PictureBox4.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox4.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox4.Location = New System.Drawing.Point(-3, 212)
+        Me.PictureBox4.Name = "PictureBox4"
+        Me.PictureBox4.Size = New System.Drawing.Size(161, 2)
+        Me.PictureBox4.TabIndex = 22
+        Me.PictureBox4.TabStop = False
+        '
+        'PictureBox12
+        '
+        Me.PictureBox12.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox12.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox12.Location = New System.Drawing.Point(-3, 240)
+        Me.PictureBox12.Name = "PictureBox12"
+        Me.PictureBox12.Size = New System.Drawing.Size(161, 2)
+        Me.PictureBox12.TabIndex = 24
+        Me.PictureBox12.TabStop = False
+        '
+        'textboxCode6
+        '
+        Me.textboxCode6.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textboxCode6.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.textboxCode6.Location = New System.Drawing.Point(0, 191)
+        Me.textboxCode6.Name = "textboxCode6"
+        Me.textboxCode6.Size = New System.Drawing.Size(93, 22)
+        Me.textboxCode6.TabIndex = 21
+        Me.textboxCode6.Text = "Example"
+        '
+        'textboxCode1
+        '
+        Me.textboxCode1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textboxCode1.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.textboxCode1.Location = New System.Drawing.Point(0, 46)
+        Me.textboxCode1.Name = "textboxCode1"
+        Me.textboxCode1.Size = New System.Drawing.Size(94, 22)
+        Me.textboxCode1.TabIndex = 3
+        Me.textboxCode1.Text = "Example"
+        '
+        'textboxCode8
+        '
+        Me.textboxCode8.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textboxCode8.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.textboxCode8.Location = New System.Drawing.Point(0, 248)
+        Me.textboxCode8.Name = "textboxCode8"
+        Me.textboxCode8.Size = New System.Drawing.Size(93, 22)
+        Me.textboxCode8.TabIndex = 25
+        Me.textboxCode8.Text = "Example"
+        '
+        'LabelCustomerCode
+        '
+        Me.LabelCustomerCode.AutoSize = True
+        Me.LabelCustomerCode.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelCustomerCode.Location = New System.Drawing.Point(3, 18)
+        Me.LabelCustomerCode.Name = "LabelCustomerCode"
+        Me.LabelCustomerCode.Size = New System.Drawing.Size(60, 25)
+        Me.LabelCustomerCode.TabIndex = 4
+        Me.LabelCustomerCode.Text = "Code"
+        '
+        'PictureBox5
+        '
+        Me.PictureBox5.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox5.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox5.Location = New System.Drawing.Point(-2, 183)
+        Me.PictureBox5.Name = "PictureBox5"
+        Me.PictureBox5.Size = New System.Drawing.Size(161, 2)
+        Me.PictureBox5.TabIndex = 20
+        Me.PictureBox5.TabStop = False
+        '
+        'PictureBox7
+        '
+        Me.PictureBox7.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox7.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox7.Location = New System.Drawing.Point(-3, 385)
+        Me.PictureBox7.Name = "PictureBox7"
+        Me.PictureBox7.Size = New System.Drawing.Size(161, 2)
+        Me.PictureBox7.TabIndex = 34
+        Me.PictureBox7.TabStop = False
+        '
+        'PictureBox11
+        '
+        Me.PictureBox11.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox11.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox11.Location = New System.Drawing.Point(-3, 269)
+        Me.PictureBox11.Name = "PictureBox11"
+        Me.PictureBox11.Size = New System.Drawing.Size(161, 2)
+        Me.PictureBox11.TabIndex = 26
+        Me.PictureBox11.TabStop = False
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox1.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox1.Location = New System.Drawing.Point(-3, 67)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(161, 2)
+        Me.PictureBox1.TabIndex = 12
+        Me.PictureBox1.TabStop = False
+        '
+        'textboxCode5
+        '
+        Me.textboxCode5.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textboxCode5.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.textboxCode5.Location = New System.Drawing.Point(1, 162)
+        Me.textboxCode5.Name = "textboxCode5"
+        Me.textboxCode5.Size = New System.Drawing.Size(93, 22)
+        Me.textboxCode5.TabIndex = 19
+        Me.textboxCode5.Text = "Example"
+        '
+        'textboxCode12
+        '
+        Me.textboxCode12.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textboxCode12.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.textboxCode12.Location = New System.Drawing.Point(0, 364)
+        Me.textboxCode12.Name = "textboxCode12"
+        Me.textboxCode12.Size = New System.Drawing.Size(93, 22)
+        Me.textboxCode12.TabIndex = 33
+        Me.textboxCode12.Text = "Example"
+        '
+        'textboxCode9
+        '
+        Me.textboxCode9.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textboxCode9.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.textboxCode9.Location = New System.Drawing.Point(-1, 277)
+        Me.textboxCode9.Name = "textboxCode9"
+        Me.textboxCode9.Size = New System.Drawing.Size(95, 22)
+        Me.textboxCode9.TabIndex = 27
+        Me.textboxCode9.Text = "Example"
+        '
+        'textboxCode2
+        '
+        Me.textboxCode2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textboxCode2.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.textboxCode2.Location = New System.Drawing.Point(0, 75)
+        Me.textboxCode2.Name = "textboxCode2"
+        Me.textboxCode2.Size = New System.Drawing.Size(93, 22)
+        Me.textboxCode2.TabIndex = 13
+        Me.textboxCode2.Text = "Example"
+        '
+        'PictureBox6
+        '
+        Me.PictureBox6.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox6.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox6.Location = New System.Drawing.Point(-2, 154)
+        Me.PictureBox6.Name = "PictureBox6"
+        Me.PictureBox6.Size = New System.Drawing.Size(161, 2)
+        Me.PictureBox6.TabIndex = 18
+        Me.PictureBox6.TabStop = False
+        '
+        'PictureBox8
+        '
+        Me.PictureBox8.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox8.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox8.Location = New System.Drawing.Point(-2, 356)
+        Me.PictureBox8.Name = "PictureBox8"
+        Me.PictureBox8.Size = New System.Drawing.Size(161, 2)
+        Me.PictureBox8.TabIndex = 32
+        Me.PictureBox8.TabStop = False
+        '
+        'PictureBox10
+        '
+        Me.PictureBox10.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox10.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox10.Location = New System.Drawing.Point(-4, 298)
+        Me.PictureBox10.Name = "PictureBox10"
+        Me.PictureBox10.Size = New System.Drawing.Size(161, 2)
+        Me.PictureBox10.TabIndex = 28
+        Me.PictureBox10.TabStop = False
+        '
+        'PictureBox2
+        '
+        Me.PictureBox2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox2.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox2.Location = New System.Drawing.Point(-3, 96)
+        Me.PictureBox2.Name = "PictureBox2"
+        Me.PictureBox2.Size = New System.Drawing.Size(161, 2)
+        Me.PictureBox2.TabIndex = 14
+        Me.PictureBox2.TabStop = False
+        '
+        'textboxCode4
+        '
+        Me.textboxCode4.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textboxCode4.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.textboxCode4.Location = New System.Drawing.Point(1, 133)
+        Me.textboxCode4.Name = "textboxCode4"
+        Me.textboxCode4.Size = New System.Drawing.Size(93, 22)
+        Me.textboxCode4.TabIndex = 17
+        Me.textboxCode4.Text = "Example"
+        '
+        'textboxCode11
+        '
+        Me.textboxCode11.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textboxCode11.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.textboxCode11.Location = New System.Drawing.Point(1, 335)
+        Me.textboxCode11.Name = "textboxCode11"
+        Me.textboxCode11.Size = New System.Drawing.Size(93, 22)
+        Me.textboxCode11.TabIndex = 31
+        Me.textboxCode11.Text = "Example"
+        '
+        'textboxCode10
+        '
+        Me.textboxCode10.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textboxCode10.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.textboxCode10.Location = New System.Drawing.Point(1, 306)
+        Me.textboxCode10.Name = "textboxCode10"
+        Me.textboxCode10.Size = New System.Drawing.Size(93, 22)
+        Me.textboxCode10.TabIndex = 29
+        Me.textboxCode10.Text = "Example"
+        '
+        'textboxCode3
+        '
+        Me.textboxCode3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textboxCode3.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.textboxCode3.Location = New System.Drawing.Point(-1, 104)
+        Me.textboxCode3.Name = "textboxCode3"
+        Me.textboxCode3.Size = New System.Drawing.Size(95, 22)
+        Me.textboxCode3.TabIndex = 15
+        Me.textboxCode3.Text = "Example"
+        '
+        'PictureBox3
+        '
+        Me.PictureBox3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox3.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox3.Location = New System.Drawing.Point(-4, 125)
+        Me.PictureBox3.Name = "PictureBox3"
+        Me.PictureBox3.Size = New System.Drawing.Size(161, 2)
+        Me.PictureBox3.TabIndex = 16
+        Me.PictureBox3.TabStop = False
+        '
+        'PictureBox9
+        '
+        Me.PictureBox9.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox9.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox9.Location = New System.Drawing.Point(-2, 327)
+        Me.PictureBox9.Name = "PictureBox9"
+        Me.PictureBox9.Size = New System.Drawing.Size(161, 2)
+        Me.PictureBox9.TabIndex = 30
+        Me.PictureBox9.TabStop = False
+        '
+        'SplitContainer2
+        '
+        Me.SplitContainer2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.SplitContainer2.Location = New System.Drawing.Point(8, 3)
+        Me.SplitContainer2.Name = "SplitContainer2"
+        '
+        'SplitContainer2.Panel1
+        '
+        Me.SplitContainer2.Panel1.Controls.Add(Me.PanelCustomerName)
+        '
+        'SplitContainer2.Panel2
+        '
+        Me.SplitContainer2.Panel2.Controls.Add(Me.SplitContainer3)
+        Me.SplitContainer2.Size = New System.Drawing.Size(902, 468)
+        Me.SplitContainer2.SplitterDistance = 176
+        Me.SplitContainer2.TabIndex = 45
+        '
+        'LinkLabel5
+        '
+        Me.LinkLabel5.AutoSize = True
+        Me.LinkLabel5.Location = New System.Drawing.Point(125, 295)
+        Me.LinkLabel5.Name = "LinkLabel5"
+        Me.LinkLabel5.Size = New System.Drawing.Size(113, 17)
+        Me.LinkLabel5.TabIndex = 52
+        Me.LinkLabel5.TabStop = True
+        Me.LinkLabel5.Text = "Delete Customer"
+        '
+        'LinkLabel6
+        '
+        Me.LinkLabel6.AutoSize = True
+        Me.LinkLabel6.Location = New System.Drawing.Point(125, 266)
+        Me.LinkLabel6.Name = "LinkLabel6"
+        Me.LinkLabel6.Size = New System.Drawing.Size(113, 17)
+        Me.LinkLabel6.TabIndex = 51
+        Me.LinkLabel6.TabStop = True
+        Me.LinkLabel6.Text = "Delete Customer"
+        '
+        'LinkLabel7
+        '
+        Me.LinkLabel7.AutoSize = True
+        Me.LinkLabel7.Location = New System.Drawing.Point(125, 237)
+        Me.LinkLabel7.Name = "LinkLabel7"
+        Me.LinkLabel7.Size = New System.Drawing.Size(113, 17)
+        Me.LinkLabel7.TabIndex = 50
+        Me.LinkLabel7.TabStop = True
+        Me.LinkLabel7.Text = "Delete Customer"
+        '
+        'LinkLabel8
+        '
+        Me.LinkLabel8.AutoSize = True
+        Me.LinkLabel8.Location = New System.Drawing.Point(125, 209)
+        Me.LinkLabel8.Name = "LinkLabel8"
+        Me.LinkLabel8.Size = New System.Drawing.Size(113, 17)
+        Me.LinkLabel8.TabIndex = 49
+        Me.LinkLabel8.TabStop = True
+        Me.LinkLabel8.Text = "Delete Customer"
+        '
+        'LinkLabel3
+        '
+        Me.LinkLabel3.AutoSize = True
+        Me.LinkLabel3.Location = New System.Drawing.Point(125, 180)
+        Me.LinkLabel3.Name = "LinkLabel3"
+        Me.LinkLabel3.Size = New System.Drawing.Size(113, 17)
+        Me.LinkLabel3.TabIndex = 48
+        Me.LinkLabel3.TabStop = True
+        Me.LinkLabel3.Text = "Delete Customer"
+        '
+        'LinkLabel4
+        '
+        Me.LinkLabel4.AutoSize = True
+        Me.LinkLabel4.Location = New System.Drawing.Point(125, 151)
+        Me.LinkLabel4.Name = "LinkLabel4"
+        Me.LinkLabel4.Size = New System.Drawing.Size(113, 17)
+        Me.LinkLabel4.TabIndex = 47
+        Me.LinkLabel4.TabStop = True
+        Me.LinkLabel4.Text = "Delete Customer"
+        '
+        'LinkLabel2
+        '
+        Me.LinkLabel2.AutoSize = True
+        Me.LinkLabel2.Location = New System.Drawing.Point(125, 122)
+        Me.LinkLabel2.Name = "LinkLabel2"
+        Me.LinkLabel2.Size = New System.Drawing.Size(113, 17)
+        Me.LinkLabel2.TabIndex = 46
+        Me.LinkLabel2.TabStop = True
+        Me.LinkLabel2.Text = "Delete Customer"
+        '
+        'LinkLabel1
+        '
+        Me.LinkLabel1.AutoSize = True
+        Me.LinkLabel1.Location = New System.Drawing.Point(125, 62)
+        Me.LinkLabel1.Name = "LinkLabel1"
+        Me.LinkLabel1.Size = New System.Drawing.Size(113, 17)
+        Me.LinkLabel1.TabIndex = 45
+        Me.LinkLabel1.TabStop = True
+        Me.LinkLabel1.Text = "Delete Customer"
+        '
+        'PanelCustomerName
+        '
+        Me.PanelCustomerName.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PanelCustomerName.AutoScroll = True
+        Me.PanelCustomerName.Controls.Add(Me.textboxName7)
+        Me.PanelCustomerName.Controls.Add(Me.PictureBox13)
+        Me.PanelCustomerName.Controls.Add(Me.PictureBox14)
+        Me.PanelCustomerName.Controls.Add(Me.textboxName6)
+        Me.PanelCustomerName.Controls.Add(Me.textboxName1)
+        Me.PanelCustomerName.Controls.Add(Me.textboxName8)
+        Me.PanelCustomerName.Controls.Add(Me.Label2)
+        Me.PanelCustomerName.Controls.Add(Me.PictureBox15)
+        Me.PanelCustomerName.Controls.Add(Me.PictureBox16)
+        Me.PanelCustomerName.Controls.Add(Me.PictureBox17)
+        Me.PanelCustomerName.Controls.Add(Me.PictureBox18)
+        Me.PanelCustomerName.Controls.Add(Me.textboxName5)
+        Me.PanelCustomerName.Controls.Add(Me.textboxName12)
+        Me.PanelCustomerName.Controls.Add(Me.textboxName9)
+        Me.PanelCustomerName.Controls.Add(Me.textboxName2)
+        Me.PanelCustomerName.Controls.Add(Me.PictureBox19)
+        Me.PanelCustomerName.Controls.Add(Me.PictureBox20)
+        Me.PanelCustomerName.Controls.Add(Me.PictureBox21)
+        Me.PanelCustomerName.Controls.Add(Me.PictureBox22)
+        Me.PanelCustomerName.Controls.Add(Me.textboxName4)
+        Me.PanelCustomerName.Controls.Add(Me.textboxName11)
+        Me.PanelCustomerName.Controls.Add(Me.textboxName10)
+        Me.PanelCustomerName.Controls.Add(Me.textboxName3)
+        Me.PanelCustomerName.Controls.Add(Me.PictureBox23)
+        Me.PanelCustomerName.Controls.Add(Me.PictureBox24)
+        Me.PanelCustomerName.Location = New System.Drawing.Point(3, 24)
+        Me.PanelCustomerName.Name = "PanelCustomerName"
+        Me.PanelCustomerName.Size = New System.Drawing.Size(170, 444)
+        Me.PanelCustomerName.TabIndex = 38
+        '
+        'textboxName7
+        '
+        Me.textboxName7.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textboxName7.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.textboxName7.Location = New System.Drawing.Point(-3, 219)
+        Me.textboxName7.Name = "textboxName7"
+        Me.textboxName7.Size = New System.Drawing.Size(116, 22)
+        Me.textboxName7.TabIndex = 23
+        Me.textboxName7.Text = "Example"
+        '
+        'PictureBox13
+        '
+        Me.PictureBox13.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox13.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox13.Location = New System.Drawing.Point(-6, 212)
+        Me.PictureBox13.Name = "PictureBox13"
+        Me.PictureBox13.Size = New System.Drawing.Size(183, 2)
+        Me.PictureBox13.TabIndex = 22
+        Me.PictureBox13.TabStop = False
+        '
+        'PictureBox14
+        '
+        Me.PictureBox14.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox14.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox14.Location = New System.Drawing.Point(-6, 240)
+        Me.PictureBox14.Name = "PictureBox14"
+        Me.PictureBox14.Size = New System.Drawing.Size(183, 2)
+        Me.PictureBox14.TabIndex = 24
+        Me.PictureBox14.TabStop = False
+        '
+        'textboxName6
+        '
+        Me.textboxName6.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textboxName6.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.textboxName6.Location = New System.Drawing.Point(-3, 191)
+        Me.textboxName6.Name = "textboxName6"
+        Me.textboxName6.Size = New System.Drawing.Size(115, 22)
+        Me.textboxName6.TabIndex = 21
+        Me.textboxName6.Text = "Example"
+        '
+        'textboxName1
+        '
+        Me.textboxName1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textboxName1.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.textboxName1.Location = New System.Drawing.Point(-3, 46)
+        Me.textboxName1.Name = "textboxName1"
+        Me.textboxName1.Size = New System.Drawing.Size(116, 22)
+        Me.textboxName1.TabIndex = 3
+        Me.textboxName1.Text = "Example"
+        '
+        'textboxName8
+        '
+        Me.textboxName8.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textboxName8.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.textboxName8.Location = New System.Drawing.Point(-3, 248)
+        Me.textboxName8.Name = "textboxName8"
+        Me.textboxName8.Size = New System.Drawing.Size(115, 22)
+        Me.textboxName8.TabIndex = 25
+        Me.textboxName8.Text = "Example"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(0, 18)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(154, 25)
+        Me.Label2.TabIndex = 4
+        Me.Label2.Text = "Customer Name"
+        '
+        'PictureBox15
+        '
+        Me.PictureBox15.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox15.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox15.Location = New System.Drawing.Point(-5, 183)
+        Me.PictureBox15.Name = "PictureBox15"
+        Me.PictureBox15.Size = New System.Drawing.Size(183, 2)
+        Me.PictureBox15.TabIndex = 20
+        Me.PictureBox15.TabStop = False
+        '
+        'PictureBox16
+        '
+        Me.PictureBox16.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox16.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox16.Location = New System.Drawing.Point(-6, 385)
+        Me.PictureBox16.Name = "PictureBox16"
+        Me.PictureBox16.Size = New System.Drawing.Size(183, 2)
+        Me.PictureBox16.TabIndex = 34
+        Me.PictureBox16.TabStop = False
+        '
+        'PictureBox17
+        '
+        Me.PictureBox17.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox17.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox17.Location = New System.Drawing.Point(-6, 269)
+        Me.PictureBox17.Name = "PictureBox17"
+        Me.PictureBox17.Size = New System.Drawing.Size(183, 2)
+        Me.PictureBox17.TabIndex = 26
+        Me.PictureBox17.TabStop = False
+        '
+        'PictureBox18
+        '
+        Me.PictureBox18.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox18.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox18.Location = New System.Drawing.Point(-6, 67)
+        Me.PictureBox18.Name = "PictureBox18"
+        Me.PictureBox18.Size = New System.Drawing.Size(183, 2)
+        Me.PictureBox18.TabIndex = 12
+        Me.PictureBox18.TabStop = False
+        '
+        'textboxName5
+        '
+        Me.textboxName5.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textboxName5.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.textboxName5.Location = New System.Drawing.Point(-2, 162)
+        Me.textboxName5.Name = "textboxName5"
+        Me.textboxName5.Size = New System.Drawing.Size(115, 22)
+        Me.textboxName5.TabIndex = 19
+        Me.textboxName5.Text = "Example"
+        '
+        'textboxName12
+        '
+        Me.textboxName12.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textboxName12.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.textboxName12.Location = New System.Drawing.Point(-3, 364)
+        Me.textboxName12.Name = "textboxName12"
+        Me.textboxName12.Size = New System.Drawing.Size(115, 22)
+        Me.textboxName12.TabIndex = 33
+        Me.textboxName12.Text = "Example"
+        '
+        'textboxName9
+        '
+        Me.textboxName9.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textboxName9.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.textboxName9.Location = New System.Drawing.Point(-4, 277)
+        Me.textboxName9.Name = "textboxName9"
+        Me.textboxName9.Size = New System.Drawing.Size(117, 22)
+        Me.textboxName9.TabIndex = 27
+        Me.textboxName9.Text = "Example"
+        '
+        'textboxName2
+        '
+        Me.textboxName2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textboxName2.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.textboxName2.Location = New System.Drawing.Point(-3, 75)
+        Me.textboxName2.Name = "textboxName2"
+        Me.textboxName2.Size = New System.Drawing.Size(115, 22)
+        Me.textboxName2.TabIndex = 13
+        Me.textboxName2.Text = "Example"
+        '
+        'PictureBox19
+        '
+        Me.PictureBox19.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox19.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox19.Location = New System.Drawing.Point(-5, 154)
+        Me.PictureBox19.Name = "PictureBox19"
+        Me.PictureBox19.Size = New System.Drawing.Size(183, 2)
+        Me.PictureBox19.TabIndex = 18
+        Me.PictureBox19.TabStop = False
+        '
+        'PictureBox20
+        '
+        Me.PictureBox20.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox20.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox20.Location = New System.Drawing.Point(-5, 356)
+        Me.PictureBox20.Name = "PictureBox20"
+        Me.PictureBox20.Size = New System.Drawing.Size(183, 2)
+        Me.PictureBox20.TabIndex = 32
+        Me.PictureBox20.TabStop = False
+        '
+        'PictureBox21
+        '
+        Me.PictureBox21.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox21.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox21.Location = New System.Drawing.Point(-7, 298)
+        Me.PictureBox21.Name = "PictureBox21"
+        Me.PictureBox21.Size = New System.Drawing.Size(183, 2)
+        Me.PictureBox21.TabIndex = 28
+        Me.PictureBox21.TabStop = False
+        '
+        'PictureBox22
+        '
+        Me.PictureBox22.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox22.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox22.Location = New System.Drawing.Point(-6, 96)
+        Me.PictureBox22.Name = "PictureBox22"
+        Me.PictureBox22.Size = New System.Drawing.Size(183, 2)
+        Me.PictureBox22.TabIndex = 14
+        Me.PictureBox22.TabStop = False
+        '
+        'textboxName4
+        '
+        Me.textboxName4.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textboxName4.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.textboxName4.Location = New System.Drawing.Point(-2, 133)
+        Me.textboxName4.Name = "textboxName4"
+        Me.textboxName4.Size = New System.Drawing.Size(115, 22)
+        Me.textboxName4.TabIndex = 17
+        Me.textboxName4.Text = "Example"
+        '
+        'textboxName11
+        '
+        Me.textboxName11.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textboxName11.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.textboxName11.Location = New System.Drawing.Point(-2, 335)
+        Me.textboxName11.Name = "textboxName11"
+        Me.textboxName11.Size = New System.Drawing.Size(115, 22)
+        Me.textboxName11.TabIndex = 31
+        Me.textboxName11.Text = "Example"
+        '
+        'textboxName10
+        '
+        Me.textboxName10.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textboxName10.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.textboxName10.Location = New System.Drawing.Point(-2, 306)
+        Me.textboxName10.Name = "textboxName10"
+        Me.textboxName10.Size = New System.Drawing.Size(115, 22)
+        Me.textboxName10.TabIndex = 29
+        Me.textboxName10.Text = "Example"
+        '
+        'textboxName3
+        '
+        Me.textboxName3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textboxName3.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.textboxName3.Location = New System.Drawing.Point(-4, 104)
+        Me.textboxName3.Name = "textboxName3"
+        Me.textboxName3.Size = New System.Drawing.Size(117, 22)
+        Me.textboxName3.TabIndex = 15
+        Me.textboxName3.Text = "Example"
+        '
+        'PictureBox23
+        '
+        Me.PictureBox23.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox23.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox23.Location = New System.Drawing.Point(-7, 125)
+        Me.PictureBox23.Name = "PictureBox23"
+        Me.PictureBox23.Size = New System.Drawing.Size(183, 2)
+        Me.PictureBox23.TabIndex = 16
+        Me.PictureBox23.TabStop = False
+        '
+        'PictureBox24
+        '
+        Me.PictureBox24.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox24.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox24.Location = New System.Drawing.Point(-5, 327)
+        Me.PictureBox24.Name = "PictureBox24"
+        Me.PictureBox24.Size = New System.Drawing.Size(183, 2)
+        Me.PictureBox24.TabIndex = 30
+        Me.PictureBox24.TabStop = False
+        '
+        'LinkLabel9
+        '
+        Me.LinkLabel9.AutoSize = True
+        Me.LinkLabel9.Location = New System.Drawing.Point(125, 381)
+        Me.LinkLabel9.Name = "LinkLabel9"
+        Me.LinkLabel9.Size = New System.Drawing.Size(113, 17)
+        Me.LinkLabel9.TabIndex = 55
+        Me.LinkLabel9.TabStop = True
+        Me.LinkLabel9.Text = "Delete Customer"
+        '
+        'LinkLabel10
+        '
+        Me.LinkLabel10.AutoSize = True
+        Me.LinkLabel10.Location = New System.Drawing.Point(125, 350)
+        Me.LinkLabel10.Name = "LinkLabel10"
+        Me.LinkLabel10.Size = New System.Drawing.Size(113, 17)
+        Me.LinkLabel10.TabIndex = 54
+        Me.LinkLabel10.TabStop = True
+        Me.LinkLabel10.Text = "Delete Customer"
+        '
+        'LinkLabel11
+        '
+        Me.LinkLabel11.AutoSize = True
+        Me.LinkLabel11.Location = New System.Drawing.Point(125, 321)
+        Me.LinkLabel11.Name = "LinkLabel11"
+        Me.LinkLabel11.Size = New System.Drawing.Size(113, 17)
+        Me.LinkLabel11.TabIndex = 53
+        Me.LinkLabel11.TabStop = True
+        Me.LinkLabel11.Text = "Delete Customer"
+        '
+        'LinkLabel12
+        '
+        Me.LinkLabel12.AutoSize = True
+        Me.LinkLabel12.Location = New System.Drawing.Point(125, 93)
+        Me.LinkLabel12.Name = "LinkLabel12"
+        Me.LinkLabel12.Size = New System.Drawing.Size(113, 17)
+        Me.LinkLabel12.TabIndex = 56
+        Me.LinkLabel12.TabStop = True
+        Me.LinkLabel12.Text = "Delete Customer"
+        '
+        'PanelNotes
+        '
+        Me.PanelNotes.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PanelNotes.AutoScroll = True
+        Me.PanelNotes.Controls.Add(Me.TextBox1)
+        Me.PanelNotes.Controls.Add(Me.PictureBox25)
+        Me.PanelNotes.Controls.Add(Me.PictureBox26)
+        Me.PanelNotes.Controls.Add(Me.TextBox2)
+        Me.PanelNotes.Controls.Add(Me.TextBox3)
+        Me.PanelNotes.Controls.Add(Me.TextBox4)
+        Me.PanelNotes.Controls.Add(Me.LabelNotes)
+        Me.PanelNotes.Controls.Add(Me.PictureBox27)
+        Me.PanelNotes.Controls.Add(Me.PictureBox28)
+        Me.PanelNotes.Controls.Add(Me.PictureBox29)
+        Me.PanelNotes.Controls.Add(Me.PictureBox30)
+        Me.PanelNotes.Controls.Add(Me.TextBox5)
+        Me.PanelNotes.Controls.Add(Me.TextBox6)
+        Me.PanelNotes.Controls.Add(Me.TextBox7)
+        Me.PanelNotes.Controls.Add(Me.TextBox8)
+        Me.PanelNotes.Controls.Add(Me.PictureBox31)
+        Me.PanelNotes.Controls.Add(Me.PictureBox32)
+        Me.PanelNotes.Controls.Add(Me.PictureBox33)
+        Me.PanelNotes.Controls.Add(Me.PictureBox34)
+        Me.PanelNotes.Controls.Add(Me.TextBox9)
+        Me.PanelNotes.Controls.Add(Me.TextBox10)
+        Me.PanelNotes.Controls.Add(Me.TextBox11)
+        Me.PanelNotes.Controls.Add(Me.TextBox12)
+        Me.PanelNotes.Controls.Add(Me.PictureBox35)
+        Me.PanelNotes.Controls.Add(Me.PictureBox36)
+        Me.PanelNotes.Location = New System.Drawing.Point(3, 10)
+        Me.PanelNotes.Name = "PanelNotes"
+        Me.PanelNotes.Size = New System.Drawing.Size(365, 414)
+        Me.PanelNotes.TabIndex = 69
+        '
+        'TextBox1
+        '
+        Me.TextBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TextBox1.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.TextBox1.Location = New System.Drawing.Point(-8, 219)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(311, 22)
+        Me.TextBox1.TabIndex = 23
+        Me.TextBox1.Text = "Example"
+        '
+        'PictureBox25
+        '
+        Me.PictureBox25.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox25.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox25.Location = New System.Drawing.Point(-11, 212)
+        Me.PictureBox25.Name = "PictureBox25"
+        Me.PictureBox25.Size = New System.Drawing.Size(378, 2)
+        Me.PictureBox25.TabIndex = 22
+        Me.PictureBox25.TabStop = False
+        '
+        'PictureBox26
+        '
+        Me.PictureBox26.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox26.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox26.Location = New System.Drawing.Point(-11, 240)
+        Me.PictureBox26.Name = "PictureBox26"
+        Me.PictureBox26.Size = New System.Drawing.Size(378, 2)
+        Me.PictureBox26.TabIndex = 24
+        Me.PictureBox26.TabStop = False
+        '
+        'TextBox2
+        '
+        Me.TextBox2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TextBox2.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.TextBox2.Location = New System.Drawing.Point(-8, 191)
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.Size = New System.Drawing.Size(310, 22)
+        Me.TextBox2.TabIndex = 21
+        Me.TextBox2.Text = "Example"
+        '
+        'TextBox3
+        '
+        Me.TextBox3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TextBox3.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.TextBox3.Location = New System.Drawing.Point(-8, 46)
+        Me.TextBox3.Name = "TextBox3"
+        Me.TextBox3.Size = New System.Drawing.Size(311, 22)
+        Me.TextBox3.TabIndex = 3
+        Me.TextBox3.Text = "Example"
+        '
+        'TextBox4
+        '
+        Me.TextBox4.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TextBox4.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.TextBox4.Location = New System.Drawing.Point(-8, 248)
+        Me.TextBox4.Name = "TextBox4"
+        Me.TextBox4.Size = New System.Drawing.Size(310, 22)
+        Me.TextBox4.TabIndex = 25
+        Me.TextBox4.Text = "Example"
+        '
+        'LabelNotes
+        '
+        Me.LabelNotes.AutoSize = True
+        Me.LabelNotes.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelNotes.Location = New System.Drawing.Point(-5, 18)
+        Me.LabelNotes.Name = "LabelNotes"
+        Me.LabelNotes.Size = New System.Drawing.Size(63, 25)
+        Me.LabelNotes.TabIndex = 4
+        Me.LabelNotes.Text = "Notes"
+        '
+        'PictureBox27
+        '
+        Me.PictureBox27.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox27.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox27.Location = New System.Drawing.Point(-10, 183)
+        Me.PictureBox27.Name = "PictureBox27"
+        Me.PictureBox27.Size = New System.Drawing.Size(378, 2)
+        Me.PictureBox27.TabIndex = 20
+        Me.PictureBox27.TabStop = False
+        '
+        'PictureBox28
+        '
+        Me.PictureBox28.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox28.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox28.Location = New System.Drawing.Point(-11, 385)
+        Me.PictureBox28.Name = "PictureBox28"
+        Me.PictureBox28.Size = New System.Drawing.Size(378, 2)
+        Me.PictureBox28.TabIndex = 34
+        Me.PictureBox28.TabStop = False
+        '
+        'PictureBox29
+        '
+        Me.PictureBox29.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox29.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox29.Location = New System.Drawing.Point(-11, 269)
+        Me.PictureBox29.Name = "PictureBox29"
+        Me.PictureBox29.Size = New System.Drawing.Size(378, 2)
+        Me.PictureBox29.TabIndex = 26
+        Me.PictureBox29.TabStop = False
+        '
+        'PictureBox30
+        '
+        Me.PictureBox30.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox30.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox30.Location = New System.Drawing.Point(-11, 67)
+        Me.PictureBox30.Name = "PictureBox30"
+        Me.PictureBox30.Size = New System.Drawing.Size(378, 2)
+        Me.PictureBox30.TabIndex = 12
+        Me.PictureBox30.TabStop = False
+        '
+        'TextBox5
+        '
+        Me.TextBox5.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TextBox5.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.TextBox5.Location = New System.Drawing.Point(-7, 162)
+        Me.TextBox5.Name = "TextBox5"
+        Me.TextBox5.Size = New System.Drawing.Size(310, 22)
+        Me.TextBox5.TabIndex = 19
+        Me.TextBox5.Text = "Example"
+        '
+        'TextBox6
+        '
+        Me.TextBox6.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TextBox6.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.TextBox6.Location = New System.Drawing.Point(-8, 364)
+        Me.TextBox6.Name = "TextBox6"
+        Me.TextBox6.Size = New System.Drawing.Size(310, 22)
+        Me.TextBox6.TabIndex = 33
+        Me.TextBox6.Text = "Example"
+        '
+        'TextBox7
+        '
+        Me.TextBox7.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TextBox7.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.TextBox7.Location = New System.Drawing.Point(-9, 277)
+        Me.TextBox7.Name = "TextBox7"
+        Me.TextBox7.Size = New System.Drawing.Size(312, 22)
+        Me.TextBox7.TabIndex = 27
+        Me.TextBox7.Text = "Example"
+        '
+        'TextBox8
+        '
+        Me.TextBox8.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TextBox8.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.TextBox8.Location = New System.Drawing.Point(-8, 75)
+        Me.TextBox8.Name = "TextBox8"
+        Me.TextBox8.Size = New System.Drawing.Size(310, 22)
+        Me.TextBox8.TabIndex = 13
+        Me.TextBox8.Text = "Example"
+        '
+        'PictureBox31
+        '
+        Me.PictureBox31.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox31.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox31.Location = New System.Drawing.Point(-10, 154)
+        Me.PictureBox31.Name = "PictureBox31"
+        Me.PictureBox31.Size = New System.Drawing.Size(378, 2)
+        Me.PictureBox31.TabIndex = 18
+        Me.PictureBox31.TabStop = False
+        '
+        'PictureBox32
+        '
+        Me.PictureBox32.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox32.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox32.Location = New System.Drawing.Point(-10, 356)
+        Me.PictureBox32.Name = "PictureBox32"
+        Me.PictureBox32.Size = New System.Drawing.Size(378, 2)
+        Me.PictureBox32.TabIndex = 32
+        Me.PictureBox32.TabStop = False
+        '
+        'PictureBox33
+        '
+        Me.PictureBox33.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox33.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox33.Location = New System.Drawing.Point(-12, 298)
+        Me.PictureBox33.Name = "PictureBox33"
+        Me.PictureBox33.Size = New System.Drawing.Size(378, 2)
+        Me.PictureBox33.TabIndex = 28
+        Me.PictureBox33.TabStop = False
+        '
+        'PictureBox34
+        '
+        Me.PictureBox34.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox34.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox34.Location = New System.Drawing.Point(-11, 96)
+        Me.PictureBox34.Name = "PictureBox34"
+        Me.PictureBox34.Size = New System.Drawing.Size(378, 2)
+        Me.PictureBox34.TabIndex = 14
+        Me.PictureBox34.TabStop = False
+        '
+        'TextBox9
+        '
+        Me.TextBox9.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TextBox9.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.TextBox9.Location = New System.Drawing.Point(-7, 133)
+        Me.TextBox9.Name = "TextBox9"
+        Me.TextBox9.Size = New System.Drawing.Size(310, 22)
+        Me.TextBox9.TabIndex = 17
+        Me.TextBox9.Text = "Example"
+        '
+        'TextBox10
+        '
+        Me.TextBox10.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TextBox10.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.TextBox10.Location = New System.Drawing.Point(-7, 335)
+        Me.TextBox10.Name = "TextBox10"
+        Me.TextBox10.Size = New System.Drawing.Size(310, 22)
+        Me.TextBox10.TabIndex = 31
+        Me.TextBox10.Text = "Example"
+        '
+        'TextBox11
+        '
+        Me.TextBox11.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TextBox11.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.TextBox11.Location = New System.Drawing.Point(-7, 306)
+        Me.TextBox11.Name = "TextBox11"
+        Me.TextBox11.Size = New System.Drawing.Size(310, 22)
+        Me.TextBox11.TabIndex = 29
+        Me.TextBox11.Text = "Example"
+        '
+        'TextBox12
+        '
+        Me.TextBox12.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TextBox12.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.TextBox12.Location = New System.Drawing.Point(-9, 104)
+        Me.TextBox12.Name = "TextBox12"
+        Me.TextBox12.Size = New System.Drawing.Size(312, 22)
+        Me.TextBox12.TabIndex = 15
+        Me.TextBox12.Text = "Example"
+        '
+        'PictureBox35
+        '
+        Me.PictureBox35.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox35.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox35.Location = New System.Drawing.Point(-12, 125)
+        Me.PictureBox35.Name = "PictureBox35"
+        Me.PictureBox35.Size = New System.Drawing.Size(378, 2)
+        Me.PictureBox35.TabIndex = 16
+        Me.PictureBox35.TabStop = False
+        '
+        'PictureBox36
+        '
+        Me.PictureBox36.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox36.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox36.Location = New System.Drawing.Point(-10, 327)
+        Me.PictureBox36.Name = "PictureBox36"
+        Me.PictureBox36.Size = New System.Drawing.Size(378, 2)
+        Me.PictureBox36.TabIndex = 30
+        Me.PictureBox36.TabStop = False
+        '
+        'SplitContainer3
+        '
+        Me.SplitContainer3.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.SplitContainer3.Location = New System.Drawing.Point(17, 14)
+        Me.SplitContainer3.Name = "SplitContainer3"
+        '
+        'SplitContainer3.Panel1
+        '
+        Me.SplitContainer3.Panel1.Controls.Add(Me.PanelNotes)
+        '
+        'SplitContainer3.Panel2
+        '
+        Me.SplitContainer3.Panel2.Controls.Add(Me.linkOpen2)
+        Me.SplitContainer3.Panel2.Controls.Add(Me.LinkLabel12)
+        Me.SplitContainer3.Panel2.Controls.Add(Me.linkOpen12)
+        Me.SplitContainer3.Panel2.Controls.Add(Me.LinkLabel9)
+        Me.SplitContainer3.Panel2.Controls.Add(Me.linkOpen11)
+        Me.SplitContainer3.Panel2.Controls.Add(Me.LinkLabel10)
+        Me.SplitContainer3.Panel2.Controls.Add(Me.linkOpen10)
+        Me.SplitContainer3.Panel2.Controls.Add(Me.LinkLabel11)
+        Me.SplitContainer3.Panel2.Controls.Add(Me.linkOpen9)
+        Me.SplitContainer3.Panel2.Controls.Add(Me.LinkLabel5)
+        Me.SplitContainer3.Panel2.Controls.Add(Me.linkOpen8)
+        Me.SplitContainer3.Panel2.Controls.Add(Me.LinkLabel6)
+        Me.SplitContainer3.Panel2.Controls.Add(Me.linkOpen7)
+        Me.SplitContainer3.Panel2.Controls.Add(Me.LinkLabel7)
+        Me.SplitContainer3.Panel2.Controls.Add(Me.linkOpen6)
+        Me.SplitContainer3.Panel2.Controls.Add(Me.LinkLabel8)
+        Me.SplitContainer3.Panel2.Controls.Add(Me.linkOpen5)
+        Me.SplitContainer3.Panel2.Controls.Add(Me.LinkLabel3)
+        Me.SplitContainer3.Panel2.Controls.Add(Me.linkOpen4)
+        Me.SplitContainer3.Panel2.Controls.Add(Me.LinkLabel4)
+        Me.SplitContainer3.Panel2.Controls.Add(Me.linkOpen3)
+        Me.SplitContainer3.Panel2.Controls.Add(Me.LinkLabel2)
+        Me.SplitContainer3.Panel2.Controls.Add(Me.linkOpen1)
+        Me.SplitContainer3.Panel2.Controls.Add(Me.LinkLabel1)
+        Me.SplitContainer3.Size = New System.Drawing.Size(702, 441)
+        Me.SplitContainer3.SplitterDistance = 371
+        Me.SplitContainer3.TabIndex = 70
+        '
+        'linkOpen2
+        '
+        Me.linkOpen2.AutoSize = True
+        Me.linkOpen2.Location = New System.Drawing.Point(12, 93)
+        Me.linkOpen2.Name = "linkOpen2"
+        Me.linkOpen2.Size = New System.Drawing.Size(107, 17)
+        Me.linkOpen2.TabIndex = 80
+        Me.linkOpen2.TabStop = True
+        Me.linkOpen2.Text = "Open Customer"
+        '
+        'linkOpen12
+        '
+        Me.linkOpen12.AutoSize = True
+        Me.linkOpen12.Location = New System.Drawing.Point(12, 381)
+        Me.linkOpen12.Name = "linkOpen12"
+        Me.linkOpen12.Size = New System.Drawing.Size(107, 17)
+        Me.linkOpen12.TabIndex = 79
+        Me.linkOpen12.TabStop = True
+        Me.linkOpen12.Text = "Open Customer"
+        '
+        'linkOpen11
+        '
+        Me.linkOpen11.AutoSize = True
+        Me.linkOpen11.Location = New System.Drawing.Point(12, 350)
+        Me.linkOpen11.Name = "linkOpen11"
+        Me.linkOpen11.Size = New System.Drawing.Size(107, 17)
+        Me.linkOpen11.TabIndex = 78
+        Me.linkOpen11.TabStop = True
+        Me.linkOpen11.Text = "Open Customer"
+        '
+        'linkOpen10
+        '
+        Me.linkOpen10.AutoSize = True
+        Me.linkOpen10.Location = New System.Drawing.Point(12, 321)
+        Me.linkOpen10.Name = "linkOpen10"
+        Me.linkOpen10.Size = New System.Drawing.Size(107, 17)
+        Me.linkOpen10.TabIndex = 77
+        Me.linkOpen10.TabStop = True
+        Me.linkOpen10.Text = "Open Customer"
+        '
+        'linkOpen9
+        '
+        Me.linkOpen9.AutoSize = True
+        Me.linkOpen9.Location = New System.Drawing.Point(12, 295)
+        Me.linkOpen9.Name = "linkOpen9"
+        Me.linkOpen9.Size = New System.Drawing.Size(107, 17)
+        Me.linkOpen9.TabIndex = 76
+        Me.linkOpen9.TabStop = True
+        Me.linkOpen9.Text = "Open Customer"
+        '
+        'linkOpen8
+        '
+        Me.linkOpen8.AutoSize = True
+        Me.linkOpen8.Location = New System.Drawing.Point(12, 266)
+        Me.linkOpen8.Name = "linkOpen8"
+        Me.linkOpen8.Size = New System.Drawing.Size(107, 17)
+        Me.linkOpen8.TabIndex = 75
+        Me.linkOpen8.TabStop = True
+        Me.linkOpen8.Text = "Open Customer"
+        '
+        'linkOpen7
+        '
+        Me.linkOpen7.AutoSize = True
+        Me.linkOpen7.Location = New System.Drawing.Point(12, 237)
+        Me.linkOpen7.Name = "linkOpen7"
+        Me.linkOpen7.Size = New System.Drawing.Size(107, 17)
+        Me.linkOpen7.TabIndex = 74
+        Me.linkOpen7.TabStop = True
+        Me.linkOpen7.Text = "Open Customer"
+        '
+        'linkOpen6
+        '
+        Me.linkOpen6.AutoSize = True
+        Me.linkOpen6.Location = New System.Drawing.Point(12, 209)
+        Me.linkOpen6.Name = "linkOpen6"
+        Me.linkOpen6.Size = New System.Drawing.Size(107, 17)
+        Me.linkOpen6.TabIndex = 73
+        Me.linkOpen6.TabStop = True
+        Me.linkOpen6.Text = "Open Customer"
+        '
+        'linkOpen5
+        '
+        Me.linkOpen5.AutoSize = True
+        Me.linkOpen5.Location = New System.Drawing.Point(12, 180)
+        Me.linkOpen5.Name = "linkOpen5"
+        Me.linkOpen5.Size = New System.Drawing.Size(107, 17)
+        Me.linkOpen5.TabIndex = 72
+        Me.linkOpen5.TabStop = True
+        Me.linkOpen5.Text = "Open Customer"
+        '
+        'linkOpen4
+        '
+        Me.linkOpen4.AutoSize = True
+        Me.linkOpen4.Location = New System.Drawing.Point(12, 151)
+        Me.linkOpen4.Name = "linkOpen4"
+        Me.linkOpen4.Size = New System.Drawing.Size(107, 17)
+        Me.linkOpen4.TabIndex = 71
+        Me.linkOpen4.TabStop = True
+        Me.linkOpen4.Text = "Open Customer"
+        '
+        'linkOpen3
+        '
+        Me.linkOpen3.AutoSize = True
+        Me.linkOpen3.Location = New System.Drawing.Point(12, 122)
+        Me.linkOpen3.Name = "linkOpen3"
+        Me.linkOpen3.Size = New System.Drawing.Size(107, 17)
+        Me.linkOpen3.TabIndex = 70
+        Me.linkOpen3.TabStop = True
+        Me.linkOpen3.Text = "Open Customer"
+        '
+        'linkOpen1
+        '
+        Me.linkOpen1.AutoSize = True
+        Me.linkOpen1.Location = New System.Drawing.Point(12, 62)
+        Me.linkOpen1.Name = "linkOpen1"
+        Me.linkOpen1.Size = New System.Drawing.Size(107, 17)
+        Me.linkOpen1.TabIndex = 69
+        Me.linkOpen1.TabStop = True
+        Me.linkOpen1.Text = "Open Customer"
+        '
+        'PopulateCustomers
+        '
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.Controls.Add(Me.SplitContainer1)
+        Me.Name = "PopulateCustomers"
+        Me.Size = New System.Drawing.Size(1119, 477)
+        Me.SplitContainer1.Panel1.ResumeLayout(False)
+        Me.SplitContainer1.Panel2.ResumeLayout(False)
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainer1.ResumeLayout(False)
+        Me.PanelCustomerCode.ResumeLayout(False)
+        Me.PanelCustomerCode.PerformLayout()
+        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox12, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox7, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox11, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox6, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox8, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox10, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox9, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainer2.Panel1.ResumeLayout(False)
+        Me.SplitContainer2.Panel2.ResumeLayout(False)
+        CType(Me.SplitContainer2, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainer2.ResumeLayout(False)
+        Me.PanelCustomerName.ResumeLayout(False)
+        Me.PanelCustomerName.PerformLayout()
+        CType(Me.PictureBox13, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox14, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox15, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox16, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox17, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox18, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox19, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox20, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox21, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox22, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox23, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox24, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PanelNotes.ResumeLayout(False)
+        Me.PanelNotes.PerformLayout()
+        CType(Me.PictureBox25, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox26, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox27, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox28, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox29, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox30, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox31, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox32, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox33, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox34, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox35, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox36, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainer3.Panel1.ResumeLayout(False)
+        Me.SplitContainer3.Panel2.ResumeLayout(False)
+        Me.SplitContainer3.Panel2.PerformLayout()
+        CType(Me.SplitContainer3, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainer3.ResumeLayout(False)
+        Me.ResumeLayout(False)
+
+    End Sub
+
+    Friend WithEvents SplitContainer1 As Windows.Forms.SplitContainer
+    Friend WithEvents PanelCustomerCode As Windows.Forms.Panel
+    Friend WithEvents textboxCode7 As Windows.Forms.TextBox
+    Friend WithEvents PictureBox4 As Windows.Forms.PictureBox
+    Friend WithEvents PictureBox12 As Windows.Forms.PictureBox
+    Friend WithEvents textboxCode6 As Windows.Forms.TextBox
+    Friend WithEvents textboxCode1 As Windows.Forms.TextBox
+    Friend WithEvents textboxCode8 As Windows.Forms.TextBox
+    Friend WithEvents LabelCustomerCode As Windows.Forms.Label
+    Friend WithEvents PictureBox5 As Windows.Forms.PictureBox
+    Friend WithEvents PictureBox7 As Windows.Forms.PictureBox
+    Friend WithEvents PictureBox11 As Windows.Forms.PictureBox
+    Friend WithEvents PictureBox1 As Windows.Forms.PictureBox
+    Friend WithEvents textboxCode5 As Windows.Forms.TextBox
+    Friend WithEvents textboxCode12 As Windows.Forms.TextBox
+    Friend WithEvents textboxCode9 As Windows.Forms.TextBox
+    Friend WithEvents textboxCode2 As Windows.Forms.TextBox
+    Friend WithEvents PictureBox6 As Windows.Forms.PictureBox
+    Friend WithEvents PictureBox8 As Windows.Forms.PictureBox
+    Friend WithEvents PictureBox10 As Windows.Forms.PictureBox
+    Friend WithEvents PictureBox2 As Windows.Forms.PictureBox
+    Friend WithEvents textboxCode4 As Windows.Forms.TextBox
+    Friend WithEvents textboxCode11 As Windows.Forms.TextBox
+    Friend WithEvents textboxCode10 As Windows.Forms.TextBox
+    Friend WithEvents textboxCode3 As Windows.Forms.TextBox
+    Friend WithEvents PictureBox3 As Windows.Forms.PictureBox
+    Friend WithEvents PictureBox9 As Windows.Forms.PictureBox
+    Friend WithEvents SplitContainer2 As Windows.Forms.SplitContainer
+    Friend WithEvents PanelCustomerName As Windows.Forms.Panel
+    Friend WithEvents textboxName7 As Windows.Forms.TextBox
+    Friend WithEvents PictureBox13 As Windows.Forms.PictureBox
+    Friend WithEvents PictureBox14 As Windows.Forms.PictureBox
+    Friend WithEvents textboxName6 As Windows.Forms.TextBox
+    Friend WithEvents textboxName1 As Windows.Forms.TextBox
+    Friend WithEvents textboxName8 As Windows.Forms.TextBox
+    Friend WithEvents Label2 As Windows.Forms.Label
+    Friend WithEvents PictureBox15 As Windows.Forms.PictureBox
+    Friend WithEvents PictureBox16 As Windows.Forms.PictureBox
+    Friend WithEvents PictureBox17 As Windows.Forms.PictureBox
+    Friend WithEvents PictureBox18 As Windows.Forms.PictureBox
+    Friend WithEvents textboxName5 As Windows.Forms.TextBox
+    Friend WithEvents textboxName12 As Windows.Forms.TextBox
+    Friend WithEvents textboxName9 As Windows.Forms.TextBox
+    Friend WithEvents textboxName2 As Windows.Forms.TextBox
+    Friend WithEvents PictureBox19 As Windows.Forms.PictureBox
+    Friend WithEvents PictureBox20 As Windows.Forms.PictureBox
+    Friend WithEvents PictureBox21 As Windows.Forms.PictureBox
+    Friend WithEvents PictureBox22 As Windows.Forms.PictureBox
+    Friend WithEvents textboxName4 As Windows.Forms.TextBox
+    Friend WithEvents textboxName11 As Windows.Forms.TextBox
+    Friend WithEvents textboxName10 As Windows.Forms.TextBox
+    Friend WithEvents textboxName3 As Windows.Forms.TextBox
+    Friend WithEvents PictureBox23 As Windows.Forms.PictureBox
+    Friend WithEvents PictureBox24 As Windows.Forms.PictureBox
+    Friend WithEvents LinkLabel5 As Windows.Forms.LinkLabel
+    Friend WithEvents LinkLabel6 As Windows.Forms.LinkLabel
+    Friend WithEvents LinkLabel7 As Windows.Forms.LinkLabel
+    Friend WithEvents LinkLabel8 As Windows.Forms.LinkLabel
+    Friend WithEvents LinkLabel3 As Windows.Forms.LinkLabel
+    Friend WithEvents LinkLabel4 As Windows.Forms.LinkLabel
+    Friend WithEvents LinkLabel2 As Windows.Forms.LinkLabel
+    Friend WithEvents LinkLabel1 As Windows.Forms.LinkLabel
+    Friend WithEvents LinkLabel9 As Windows.Forms.LinkLabel
+    Friend WithEvents LinkLabel10 As Windows.Forms.LinkLabel
+    Friend WithEvents LinkLabel11 As Windows.Forms.LinkLabel
+    Friend WithEvents LinkLabel12 As Windows.Forms.LinkLabel
+    Friend WithEvents SplitContainer3 As Windows.Forms.SplitContainer
+    Friend WithEvents PanelNotes As Windows.Forms.Panel
+    Friend WithEvents TextBox1 As Windows.Forms.TextBox
+    Friend WithEvents PictureBox25 As Windows.Forms.PictureBox
+    Friend WithEvents PictureBox26 As Windows.Forms.PictureBox
+    Friend WithEvents TextBox2 As Windows.Forms.TextBox
+    Friend WithEvents TextBox3 As Windows.Forms.TextBox
+    Friend WithEvents TextBox4 As Windows.Forms.TextBox
+    Friend WithEvents LabelNotes As Windows.Forms.Label
+    Friend WithEvents PictureBox27 As Windows.Forms.PictureBox
+    Friend WithEvents PictureBox28 As Windows.Forms.PictureBox
+    Friend WithEvents PictureBox29 As Windows.Forms.PictureBox
+    Friend WithEvents PictureBox30 As Windows.Forms.PictureBox
+    Friend WithEvents TextBox5 As Windows.Forms.TextBox
+    Friend WithEvents TextBox6 As Windows.Forms.TextBox
+    Friend WithEvents TextBox7 As Windows.Forms.TextBox
+    Friend WithEvents TextBox8 As Windows.Forms.TextBox
+    Friend WithEvents PictureBox31 As Windows.Forms.PictureBox
+    Friend WithEvents PictureBox32 As Windows.Forms.PictureBox
+    Friend WithEvents PictureBox33 As Windows.Forms.PictureBox
+    Friend WithEvents PictureBox34 As Windows.Forms.PictureBox
+    Friend WithEvents TextBox9 As Windows.Forms.TextBox
+    Friend WithEvents TextBox10 As Windows.Forms.TextBox
+    Friend WithEvents TextBox11 As Windows.Forms.TextBox
+    Friend WithEvents TextBox12 As Windows.Forms.TextBox
+    Friend WithEvents PictureBox35 As Windows.Forms.PictureBox
+    Friend WithEvents PictureBox36 As Windows.Forms.PictureBox
+    Friend WithEvents linkOpen2 As Windows.Forms.LinkLabel
+    Friend WithEvents linkOpen12 As Windows.Forms.LinkLabel
+    Friend WithEvents linkOpen11 As Windows.Forms.LinkLabel
+    Friend WithEvents linkOpen10 As Windows.Forms.LinkLabel
+    Friend WithEvents linkOpen9 As Windows.Forms.LinkLabel
+    Friend WithEvents linkOpen8 As Windows.Forms.LinkLabel
+    Friend WithEvents linkOpen7 As Windows.Forms.LinkLabel
+    Friend WithEvents linkOpen6 As Windows.Forms.LinkLabel
+    Friend WithEvents linkOpen5 As Windows.Forms.LinkLabel
+    Friend WithEvents linkOpen4 As Windows.Forms.LinkLabel
+    Friend WithEvents linkOpen3 As Windows.Forms.LinkLabel
+    Friend WithEvents linkOpen1 As Windows.Forms.LinkLabel
+End Class
