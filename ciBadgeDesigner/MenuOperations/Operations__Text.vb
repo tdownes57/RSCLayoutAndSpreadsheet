@@ -143,14 +143,17 @@ Public MustInherit Class Operations__Text
             ''
             ''The current control is NOT part of a group of selected items. ---2/3/2022 td
             ''
-            Me.CtlCurrentFieldOrTextV4.ElementInfo_TextOnly.Font_DrawingClass = Me.FontDialog1.Font
+            ''Feb14 2022 td'' Me.CtlCurrentFieldOrTextV4.ElementInfo_TextOnly.Font_DrawingClass = Me.FontDialog1.Font
+            Me.ElementInfo_TextOnly.Font_DrawingClass = Me.FontDialog1.Font ''Added 2/14/2022 thomas downes
 
             ''Added 10/17/2019 td 
             If (Me.FontDialog1.Font.Unit = GraphicsUnit.Pixel) Then
                 ''Added 10/17/2019 td 
                 MsgBox("Program error, unexpected Font Unit", MsgBoxStyle.Exclamation, "OpenDialog_Font")
             Else
-                Me.CtlCurrentFieldOrTextV4.ElementInfo_TextOnly.FontSize_Pixels = Me.FontDialog1.Font.Size  ''Added 8/17/2019 td
+                ''Feb14 2022 td''Me.CtlCurrentFieldOrTextV4.ElementInfo_TextOnly.FontSize_Pixels = Me.FontDialog1.Font.Size  ''Added 8/17/2019 td
+                Me.ElementInfo_TextOnly.FontSize_Pixels = Me.FontDialog1.Font.Size ''Added 2/14/2022 td
+
             End If ''End of "If (Me.FontDialog1.Font.Unit = GraphicsUnit.Pixel) Then ... Else ..."
 
             Application.DoEvents()
@@ -159,9 +162,13 @@ Public MustInherit Class Operations__Text
             ''9/15/2019 td''Refresh_Image()
             ''10/3/2019 td''Refresh_Image(False)
             ''10/3/2019 td''Me.Refresh()
-            Me.CtlCurrentFieldOrTextV4.Refresh_ImageV3(False)
-            Me.CtlCurrentFieldOrTextV4.Refresh()
+            ''02/14/2022 td''Me.CtlCurrentFieldOrTextV4.Refresh_ImageV3(False)
+            ''02/14/2022 td''Me.CtlCurrentFieldOrTextV4.Refresh()
 
+            With Me.CtlCurrentRSCControl
+                .Refresh_ImageV3(True)
+                .Refresh()
+            End With ''End of "With Me.CtlCurrentRSCControl"
 
         ElseIf (b2_SelectedAsPartOfAGroup) Then
 

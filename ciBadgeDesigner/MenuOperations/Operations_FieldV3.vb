@@ -40,14 +40,14 @@ Public Class Operations_FieldV3
 
     Public Overrides Property Element_Type As Enum_ElementType = Enum_ElementType.Field ''Added 1/21/2022 td 
 
-    Public Property LayoutFunctions As ILayoutFunctions ''Added 10/3/2019 td 
+    ''Not needed here.2/14/2022 td''''Public Overrides Property LayoutFunctions As ILayoutFunctions ''Added 10/3/2019 td 
     Public Property Designer As ciBadgeDesigner.ClassDesigner
 
     ''Feb2 2022 td''Public Property ColorDialog1 As ColorDialog ''Added 10/3/2019 td 
     ''Feb2 2022 td''Public Property FontDialog1 As FontDialog ''Added 10/3/2019 td 
 
     ''---not needed 10/3/2019 td----Public Property GroupEdits As ClassGroupMove ''Added 10/3/2019 td 
-    Public Property SelectingElements As ISelectingElements ''Added 10/3/2019 td 
+    ''Not needed here.2/14/2022 td''Public Overrides Property SelectingElements As ISelectingElements ''Added 10/3/2019 td 
 
     ''Added 12/12/2021 thomas 
     ''Public Property ListOfFields_Standard As HashSet(Of ciBadgeFields.ClassFieldStandard)

@@ -56,14 +56,14 @@ Public Class CtlGraphicStaticTextV4
         Dim enumElementType_Enum As EnumElementType = EnumElementType.Field
 
         ''Create the control.
-        Dim CtlStaticText As CtlGraphicStaticTextV4
+        Dim CtlStaticTextV4 As CtlGraphicStaticTextV4
 
         ''Public Sub New(par_elementField As ClassElementField,
         ''                par_layout As ILayoutFunctions,
         ''                pstrWhyWasICreated As String,
         ''                par_formRecordLastTouched As IRecordElementLastTouched)
 
-        CtlStaticText = New CtlGraphicStaticTextV4(par_elementStaticText,
+        CtlStaticTextV4 = New CtlGraphicStaticTextV4(par_elementStaticText,
                                                par_formParent,
                                                par_oDesigner, par_iLayoutFun,
                                          par_parametersGetElementControl.iRefreshPreview,
@@ -77,7 +77,7 @@ Public Class CtlGraphicStaticTextV4
                                                     par_oMoveEventsForGroupedCtls)
         ''Jan2 2022 ''                       ''Jan2 2022 ''par_iSaveToModel, typeOps,
 
-        With CtlStaticText
+        With CtlStaticTextV4
             .Name = par_nameOfControl
             ''Jan11 2022''If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEvents, par_iLayoutFun)
             If (bAddFunctionalityLater) Then .AddMoveability(par_iLayoutFun,
@@ -93,7 +93,7 @@ Public Class CtlGraphicStaticTextV4
         ''Specify the current element to the Operations object. 
         ''
         Dim infoOps As ICurrentElement = CType(objOperations, ICurrentElement)
-        infoOps.CtlCurrentElement = CtlStaticText
+        infoOps.CtlCurrentElement = CtlStaticTextV4
 
         ''Added 1/17/2022 td 
         infoOps.ElementsCacheManager = par_parametersGetElementControl.ElementsCacheManager
@@ -101,10 +101,14 @@ Public Class CtlGraphicStaticTextV4
         ''Added 1/24/2022 thomas d. 
         With objOperationsStaticText_V4
 
-            .CtlCurrentControl = CtlStaticText
-            .CtlCurrentElement = CtlStaticText
-            .CtlCurrentFieldOrTextV4 = CtlStaticText ''Added 2/3/2022 td
-            .CtlCurrentElementStaticText = CtlStaticText ''Added 1/24/2022 td
+            .CtlCurrentControl = CtlStaticTextV4
+            .CtlCurrentElement = CtlStaticTextV4
+            .CtlCurrentFieldOrTextV4 = CtlStaticTextV4 ''Added 2/3/2022 td
+            .CtlCurrentElementStaticText = CtlStaticTextV4 ''Added 1/24/2022 td
+
+            .CtlCurrentRSCControl = CtlStaticTextV4 ''Added 2/14/2022 td
+            .CtlCurrentStaticTextV4 = CtlStaticTextV4 ''Added 2/14/2022 td
+            ''Not needed.''.CtlCurrentFieldOrTextV4 = CtlStaticTextV4 ''Added 2/24/2022 td
 
             ''.Designer = par_oMoveEventsForGroupedCtls.
             .Designer = par_parametersGetElementControl.DesignerClass
@@ -122,13 +126,13 @@ Public Class CtlGraphicStaticTextV4
             .LayoutFunctions = .Designer ''Added 1/24/2022 td
 
             ''Added 2/2/2022 td
-            .ElementStaticTextV4 = CtlStaticText.Element_StaticTextV4
+            .ElementStaticTextV4 = CtlStaticTextV4.Element_StaticTextV4
             ''Added 2/3/2022 td
             .SelectingElements = par_parametersGetElementControl.DesignerClass ''Added 2/3/2022 td
 
         End With ''End of "With objOperationsFldElem"
 
-        Return CtlStaticText
+        Return CtlStaticTextV4
 
     End Function ''end of "Public Shared Function GetStaticTextControl() As CtlGraphicStaticTextV4"
 
