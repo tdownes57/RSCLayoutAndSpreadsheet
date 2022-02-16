@@ -15,7 +15,7 @@ Imports ciBadgeElements ''Added 12/4/2021 td
 Namespace ciBadgeCachePersonality ''Added 12/4/2021 
 
     <Serializable>
-    Public Class ClassCacheLayout
+    Public Class ClassCacheOneLayout
         ''
         ''Added 11/24/2019 thomas downes
         ''  Created from a copy of ClassElementsCache, 11/24/2019 td. 
@@ -73,7 +73,7 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
         Public Property Pic_InitialDefault As Image ''Added 9/23/2019 td 
 
         <Xml.Serialization.XmlIgnore>
-        Public Property Personality As ClassCachePersonality ''Added 11/24/2019 td 
+        Public Property Personality As ClassCacheOnePersonalityConfig ''Added 11/24/2019 td 
 
         Public Function ListFieldElements() As HashSet(Of ClassElementFieldV3)
             ''10/17 td''Public Function ListFieldElements() As List(Of ClassElementField)
@@ -429,11 +429,11 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
 
         End Sub ''End of "Public Sub LoadRecipient(par_recipient As IRecipient)"
 
-        Public Function Copy() As ClassCacheLayout
+        Public Function Copy() As ClassCacheOneLayout
             ''
             ''Added 9/17/2019 thomas downes  
             ''
-            Dim objCopyOfCache As New ClassCacheLayout
+            Dim objCopyOfCache As New ClassCacheOneLayout
             Dim copy_ofElementField As ClassElementFieldV3 ''Added 10/1/2019 td
 
             For Each each_elementField As ClassElementFieldV3 In mod_listElementFields

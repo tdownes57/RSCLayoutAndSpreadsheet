@@ -50,7 +50,7 @@ Public Class FormFieldsAndPortrait
 
     Public Property ElementsCache_ManageBoth As ClassCacheManagement Implements IDesignerForm.ElementsCache_ManageBoth ''Added 1/07/2022
     Public Property ElementsCache_Edits As ClassElementsCache_Deprecated Implements IDesignerForm.ElementsCache_Edits ''Added 1/07/2022 td 
-    Public Property PersonalityCache_Recipients As ClassCachePersonality Implements IDesignerForm.PersonalityCache_Recipients
+    Public Property PersonalityCache_Recipients As ClassCacheOnePersonalityConfig Implements IDesignerForm.PersonalityCache_Recipients
     Public Property NewFileXML As Boolean Implements IDesignerForm.NewFileXML    ''Added 1/7/2022 
     Public Property LetsRefresh_CloseForm As Boolean Implements IDesignerForm.LetsRefresh_CloseForm  ''Added 1/07/2021 td  
     Public Property ElementsCache_PathToXML As String Implements IDesignerForm.ElementsCache_PathToXML   ''Added 1/7/2022 

@@ -78,29 +78,29 @@ Partial Class PopulateCustomers
         Me.PictureBox24 = New System.Windows.Forms.PictureBox()
         Me.SplitContainer3 = New System.Windows.Forms.SplitContainer()
         Me.PanelNotes = New System.Windows.Forms.Panel()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.textboxNotes7 = New System.Windows.Forms.TextBox()
         Me.PictureBox25 = New System.Windows.Forms.PictureBox()
         Me.PictureBox26 = New System.Windows.Forms.PictureBox()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
-        Me.TextBox3 = New System.Windows.Forms.TextBox()
-        Me.TextBox4 = New System.Windows.Forms.TextBox()
+        Me.textboxNotes6 = New System.Windows.Forms.TextBox()
+        Me.textboxNotes1 = New System.Windows.Forms.TextBox()
+        Me.textboxNotes8 = New System.Windows.Forms.TextBox()
         Me.LabelNotes = New System.Windows.Forms.Label()
         Me.PictureBox27 = New System.Windows.Forms.PictureBox()
         Me.PictureBox28 = New System.Windows.Forms.PictureBox()
         Me.PictureBox29 = New System.Windows.Forms.PictureBox()
         Me.PictureBox30 = New System.Windows.Forms.PictureBox()
-        Me.TextBox5 = New System.Windows.Forms.TextBox()
-        Me.TextBox6 = New System.Windows.Forms.TextBox()
-        Me.TextBox7 = New System.Windows.Forms.TextBox()
-        Me.TextBox8 = New System.Windows.Forms.TextBox()
+        Me.textboxNotes5 = New System.Windows.Forms.TextBox()
+        Me.textboxNotes12 = New System.Windows.Forms.TextBox()
+        Me.textboxNotes9 = New System.Windows.Forms.TextBox()
+        Me.textboxNotes2 = New System.Windows.Forms.TextBox()
         Me.PictureBox31 = New System.Windows.Forms.PictureBox()
         Me.PictureBox32 = New System.Windows.Forms.PictureBox()
         Me.PictureBox33 = New System.Windows.Forms.PictureBox()
         Me.PictureBox34 = New System.Windows.Forms.PictureBox()
-        Me.TextBox9 = New System.Windows.Forms.TextBox()
-        Me.TextBox10 = New System.Windows.Forms.TextBox()
-        Me.TextBox11 = New System.Windows.Forms.TextBox()
-        Me.TextBox12 = New System.Windows.Forms.TextBox()
+        Me.textboxNotes4 = New System.Windows.Forms.TextBox()
+        Me.textboxNotes11 = New System.Windows.Forms.TextBox()
+        Me.textboxNotes10 = New System.Windows.Forms.TextBox()
+        Me.textboxNotes3 = New System.Windows.Forms.TextBox()
         Me.PictureBox35 = New System.Windows.Forms.PictureBox()
         Me.PictureBox36 = New System.Windows.Forms.PictureBox()
         Me.linkOpen2 = New System.Windows.Forms.LinkLabel()
@@ -527,8 +527,8 @@ Partial Class PopulateCustomers
         'SplitContainer2.Panel2
         '
         Me.SplitContainer2.Panel2.Controls.Add(Me.SplitContainer3)
-        Me.SplitContainer2.Size = New System.Drawing.Size(900, 468)
-        Me.SplitContainer2.SplitterDistance = 175
+        Me.SplitContainer2.Size = New System.Drawing.Size(898, 468)
+        Me.SplitContainer2.SplitterDistance = 174
         Me.SplitContainer2.TabIndex = 45
         '
         'PanelCustomerName
@@ -564,7 +564,7 @@ Partial Class PopulateCustomers
         Me.PanelCustomerName.Controls.Add(Me.PictureBox24)
         Me.PanelCustomerName.Location = New System.Drawing.Point(3, 24)
         Me.PanelCustomerName.Name = "PanelCustomerName"
-        Me.PanelCustomerName.Size = New System.Drawing.Size(169, 444)
+        Me.PanelCustomerName.Size = New System.Drawing.Size(168, 444)
         Me.PanelCustomerName.TabIndex = 38
         '
         'textboxName7
@@ -574,7 +574,7 @@ Partial Class PopulateCustomers
         Me.textboxName7.ForeColor = System.Drawing.SystemColors.InactiveCaption
         Me.textboxName7.Location = New System.Drawing.Point(5, 219)
         Me.textboxName7.Name = "textboxName7"
-        Me.textboxName7.Size = New System.Drawing.Size(107, 22)
+        Me.textboxName7.Size = New System.Drawing.Size(106, 22)
         Me.textboxName7.TabIndex = 23
         Me.textboxName7.Text = "Example"
         '
@@ -585,7 +585,7 @@ Partial Class PopulateCustomers
         Me.PictureBox13.BackColor = System.Drawing.SystemColors.ActiveBorder
         Me.PictureBox13.Location = New System.Drawing.Point(2, 212)
         Me.PictureBox13.Name = "PictureBox13"
-        Me.PictureBox13.Size = New System.Drawing.Size(174, 2)
+        Me.PictureBox13.Size = New System.Drawing.Size(173, 2)
         Me.PictureBox13.TabIndex = 22
         Me.PictureBox13.TabStop = False
         '
@@ -596,7 +596,7 @@ Partial Class PopulateCustomers
         Me.PictureBox14.BackColor = System.Drawing.SystemColors.ActiveBorder
         Me.PictureBox14.Location = New System.Drawing.Point(2, 240)
         Me.PictureBox14.Name = "PictureBox14"
-        Me.PictureBox14.Size = New System.Drawing.Size(174, 2)
+        Me.PictureBox14.Size = New System.Drawing.Size(173, 2)
         Me.PictureBox14.TabIndex = 24
         Me.PictureBox14.TabStop = False
         '
@@ -607,7 +607,7 @@ Partial Class PopulateCustomers
         Me.textboxName6.ForeColor = System.Drawing.SystemColors.InactiveCaption
         Me.textboxName6.Location = New System.Drawing.Point(5, 191)
         Me.textboxName6.Name = "textboxName6"
-        Me.textboxName6.Size = New System.Drawing.Size(106, 22)
+        Me.textboxName6.Size = New System.Drawing.Size(105, 22)
         Me.textboxName6.TabIndex = 21
         Me.textboxName6.Text = "Example"
         '
@@ -618,7 +618,7 @@ Partial Class PopulateCustomers
         Me.textboxName1.ForeColor = System.Drawing.SystemColors.InactiveCaption
         Me.textboxName1.Location = New System.Drawing.Point(5, 46)
         Me.textboxName1.Name = "textboxName1"
-        Me.textboxName1.Size = New System.Drawing.Size(107, 22)
+        Me.textboxName1.Size = New System.Drawing.Size(106, 22)
         Me.textboxName1.TabIndex = 3
         Me.textboxName1.Text = "Example"
         '
@@ -629,7 +629,7 @@ Partial Class PopulateCustomers
         Me.textboxName8.ForeColor = System.Drawing.SystemColors.InactiveCaption
         Me.textboxName8.Location = New System.Drawing.Point(5, 248)
         Me.textboxName8.Name = "textboxName8"
-        Me.textboxName8.Size = New System.Drawing.Size(106, 22)
+        Me.textboxName8.Size = New System.Drawing.Size(105, 22)
         Me.textboxName8.TabIndex = 25
         Me.textboxName8.Text = "Example"
         '
@@ -650,7 +650,7 @@ Partial Class PopulateCustomers
         Me.PictureBox15.BackColor = System.Drawing.SystemColors.ActiveBorder
         Me.PictureBox15.Location = New System.Drawing.Point(3, 183)
         Me.PictureBox15.Name = "PictureBox15"
-        Me.PictureBox15.Size = New System.Drawing.Size(174, 2)
+        Me.PictureBox15.Size = New System.Drawing.Size(173, 2)
         Me.PictureBox15.TabIndex = 20
         Me.PictureBox15.TabStop = False
         '
@@ -661,7 +661,7 @@ Partial Class PopulateCustomers
         Me.PictureBox16.BackColor = System.Drawing.SystemColors.ActiveBorder
         Me.PictureBox16.Location = New System.Drawing.Point(2, 385)
         Me.PictureBox16.Name = "PictureBox16"
-        Me.PictureBox16.Size = New System.Drawing.Size(174, 2)
+        Me.PictureBox16.Size = New System.Drawing.Size(173, 2)
         Me.PictureBox16.TabIndex = 34
         Me.PictureBox16.TabStop = False
         '
@@ -672,7 +672,7 @@ Partial Class PopulateCustomers
         Me.PictureBox17.BackColor = System.Drawing.SystemColors.ActiveBorder
         Me.PictureBox17.Location = New System.Drawing.Point(2, 269)
         Me.PictureBox17.Name = "PictureBox17"
-        Me.PictureBox17.Size = New System.Drawing.Size(174, 2)
+        Me.PictureBox17.Size = New System.Drawing.Size(173, 2)
         Me.PictureBox17.TabIndex = 26
         Me.PictureBox17.TabStop = False
         '
@@ -683,7 +683,7 @@ Partial Class PopulateCustomers
         Me.PictureBox18.BackColor = System.Drawing.SystemColors.ActiveBorder
         Me.PictureBox18.Location = New System.Drawing.Point(2, 67)
         Me.PictureBox18.Name = "PictureBox18"
-        Me.PictureBox18.Size = New System.Drawing.Size(174, 2)
+        Me.PictureBox18.Size = New System.Drawing.Size(173, 2)
         Me.PictureBox18.TabIndex = 12
         Me.PictureBox18.TabStop = False
         '
@@ -694,7 +694,7 @@ Partial Class PopulateCustomers
         Me.textboxName5.ForeColor = System.Drawing.SystemColors.InactiveCaption
         Me.textboxName5.Location = New System.Drawing.Point(6, 162)
         Me.textboxName5.Name = "textboxName5"
-        Me.textboxName5.Size = New System.Drawing.Size(106, 22)
+        Me.textboxName5.Size = New System.Drawing.Size(105, 22)
         Me.textboxName5.TabIndex = 19
         Me.textboxName5.Text = "Example"
         '
@@ -705,7 +705,7 @@ Partial Class PopulateCustomers
         Me.textboxName12.ForeColor = System.Drawing.SystemColors.InactiveCaption
         Me.textboxName12.Location = New System.Drawing.Point(5, 364)
         Me.textboxName12.Name = "textboxName12"
-        Me.textboxName12.Size = New System.Drawing.Size(106, 22)
+        Me.textboxName12.Size = New System.Drawing.Size(105, 22)
         Me.textboxName12.TabIndex = 33
         Me.textboxName12.Text = "Example"
         '
@@ -716,7 +716,7 @@ Partial Class PopulateCustomers
         Me.textboxName9.ForeColor = System.Drawing.SystemColors.InactiveCaption
         Me.textboxName9.Location = New System.Drawing.Point(4, 277)
         Me.textboxName9.Name = "textboxName9"
-        Me.textboxName9.Size = New System.Drawing.Size(108, 22)
+        Me.textboxName9.Size = New System.Drawing.Size(107, 22)
         Me.textboxName9.TabIndex = 27
         Me.textboxName9.Text = "Example"
         '
@@ -727,7 +727,7 @@ Partial Class PopulateCustomers
         Me.textboxName2.ForeColor = System.Drawing.SystemColors.InactiveCaption
         Me.textboxName2.Location = New System.Drawing.Point(5, 75)
         Me.textboxName2.Name = "textboxName2"
-        Me.textboxName2.Size = New System.Drawing.Size(106, 22)
+        Me.textboxName2.Size = New System.Drawing.Size(105, 22)
         Me.textboxName2.TabIndex = 13
         Me.textboxName2.Text = "Example"
         '
@@ -738,7 +738,7 @@ Partial Class PopulateCustomers
         Me.PictureBox19.BackColor = System.Drawing.SystemColors.ActiveBorder
         Me.PictureBox19.Location = New System.Drawing.Point(3, 154)
         Me.PictureBox19.Name = "PictureBox19"
-        Me.PictureBox19.Size = New System.Drawing.Size(174, 2)
+        Me.PictureBox19.Size = New System.Drawing.Size(173, 2)
         Me.PictureBox19.TabIndex = 18
         Me.PictureBox19.TabStop = False
         '
@@ -749,7 +749,7 @@ Partial Class PopulateCustomers
         Me.PictureBox20.BackColor = System.Drawing.SystemColors.ActiveBorder
         Me.PictureBox20.Location = New System.Drawing.Point(3, 356)
         Me.PictureBox20.Name = "PictureBox20"
-        Me.PictureBox20.Size = New System.Drawing.Size(174, 2)
+        Me.PictureBox20.Size = New System.Drawing.Size(173, 2)
         Me.PictureBox20.TabIndex = 32
         Me.PictureBox20.TabStop = False
         '
@@ -760,7 +760,7 @@ Partial Class PopulateCustomers
         Me.PictureBox21.BackColor = System.Drawing.SystemColors.ActiveBorder
         Me.PictureBox21.Location = New System.Drawing.Point(1, 298)
         Me.PictureBox21.Name = "PictureBox21"
-        Me.PictureBox21.Size = New System.Drawing.Size(174, 2)
+        Me.PictureBox21.Size = New System.Drawing.Size(173, 2)
         Me.PictureBox21.TabIndex = 28
         Me.PictureBox21.TabStop = False
         '
@@ -771,7 +771,7 @@ Partial Class PopulateCustomers
         Me.PictureBox22.BackColor = System.Drawing.SystemColors.ActiveBorder
         Me.PictureBox22.Location = New System.Drawing.Point(2, 96)
         Me.PictureBox22.Name = "PictureBox22"
-        Me.PictureBox22.Size = New System.Drawing.Size(174, 2)
+        Me.PictureBox22.Size = New System.Drawing.Size(173, 2)
         Me.PictureBox22.TabIndex = 14
         Me.PictureBox22.TabStop = False
         '
@@ -782,7 +782,7 @@ Partial Class PopulateCustomers
         Me.textboxName4.ForeColor = System.Drawing.SystemColors.InactiveCaption
         Me.textboxName4.Location = New System.Drawing.Point(6, 133)
         Me.textboxName4.Name = "textboxName4"
-        Me.textboxName4.Size = New System.Drawing.Size(106, 22)
+        Me.textboxName4.Size = New System.Drawing.Size(105, 22)
         Me.textboxName4.TabIndex = 17
         Me.textboxName4.Text = "Example"
         '
@@ -793,7 +793,7 @@ Partial Class PopulateCustomers
         Me.textboxName11.ForeColor = System.Drawing.SystemColors.InactiveCaption
         Me.textboxName11.Location = New System.Drawing.Point(6, 335)
         Me.textboxName11.Name = "textboxName11"
-        Me.textboxName11.Size = New System.Drawing.Size(106, 22)
+        Me.textboxName11.Size = New System.Drawing.Size(105, 22)
         Me.textboxName11.TabIndex = 31
         Me.textboxName11.Text = "Example"
         '
@@ -804,7 +804,7 @@ Partial Class PopulateCustomers
         Me.textboxName10.ForeColor = System.Drawing.SystemColors.InactiveCaption
         Me.textboxName10.Location = New System.Drawing.Point(6, 306)
         Me.textboxName10.Name = "textboxName10"
-        Me.textboxName10.Size = New System.Drawing.Size(106, 22)
+        Me.textboxName10.Size = New System.Drawing.Size(105, 22)
         Me.textboxName10.TabIndex = 29
         Me.textboxName10.Text = "Example"
         '
@@ -815,7 +815,7 @@ Partial Class PopulateCustomers
         Me.textboxName3.ForeColor = System.Drawing.SystemColors.InactiveCaption
         Me.textboxName3.Location = New System.Drawing.Point(4, 104)
         Me.textboxName3.Name = "textboxName3"
-        Me.textboxName3.Size = New System.Drawing.Size(108, 22)
+        Me.textboxName3.Size = New System.Drawing.Size(107, 22)
         Me.textboxName3.TabIndex = 15
         Me.textboxName3.Text = "Example"
         '
@@ -826,7 +826,7 @@ Partial Class PopulateCustomers
         Me.PictureBox23.BackColor = System.Drawing.SystemColors.ActiveBorder
         Me.PictureBox23.Location = New System.Drawing.Point(1, 125)
         Me.PictureBox23.Name = "PictureBox23"
-        Me.PictureBox23.Size = New System.Drawing.Size(174, 2)
+        Me.PictureBox23.Size = New System.Drawing.Size(173, 2)
         Me.PictureBox23.TabIndex = 16
         Me.PictureBox23.TabStop = False
         '
@@ -837,7 +837,7 @@ Partial Class PopulateCustomers
         Me.PictureBox24.BackColor = System.Drawing.SystemColors.ActiveBorder
         Me.PictureBox24.Location = New System.Drawing.Point(3, 327)
         Me.PictureBox24.Name = "PictureBox24"
-        Me.PictureBox24.Size = New System.Drawing.Size(174, 2)
+        Me.PictureBox24.Size = New System.Drawing.Size(173, 2)
         Me.PictureBox24.TabIndex = 30
         Me.PictureBox24.TabStop = False
         '
@@ -879,8 +879,8 @@ Partial Class PopulateCustomers
         Me.SplitContainer3.Panel2.Controls.Add(Me.LinkLabel2)
         Me.SplitContainer3.Panel2.Controls.Add(Me.linkOpen1)
         Me.SplitContainer3.Panel2.Controls.Add(Me.LinkLabel1)
-        Me.SplitContainer3.Size = New System.Drawing.Size(701, 441)
-        Me.SplitContainer3.SplitterDistance = 370
+        Me.SplitContainer3.Size = New System.Drawing.Size(700, 441)
+        Me.SplitContainer3.SplitterDistance = 369
         Me.SplitContainer3.TabIndex = 70
         '
         'PanelNotes
@@ -889,46 +889,46 @@ Partial Class PopulateCustomers
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PanelNotes.AutoScroll = True
-        Me.PanelNotes.Controls.Add(Me.TextBox1)
+        Me.PanelNotes.Controls.Add(Me.textboxNotes7)
         Me.PanelNotes.Controls.Add(Me.PictureBox25)
         Me.PanelNotes.Controls.Add(Me.PictureBox26)
-        Me.PanelNotes.Controls.Add(Me.TextBox2)
-        Me.PanelNotes.Controls.Add(Me.TextBox3)
-        Me.PanelNotes.Controls.Add(Me.TextBox4)
+        Me.PanelNotes.Controls.Add(Me.textboxNotes6)
+        Me.PanelNotes.Controls.Add(Me.textboxNotes1)
+        Me.PanelNotes.Controls.Add(Me.textboxNotes8)
         Me.PanelNotes.Controls.Add(Me.LabelNotes)
         Me.PanelNotes.Controls.Add(Me.PictureBox27)
         Me.PanelNotes.Controls.Add(Me.PictureBox28)
         Me.PanelNotes.Controls.Add(Me.PictureBox29)
         Me.PanelNotes.Controls.Add(Me.PictureBox30)
-        Me.PanelNotes.Controls.Add(Me.TextBox5)
-        Me.PanelNotes.Controls.Add(Me.TextBox6)
-        Me.PanelNotes.Controls.Add(Me.TextBox7)
-        Me.PanelNotes.Controls.Add(Me.TextBox8)
+        Me.PanelNotes.Controls.Add(Me.textboxNotes5)
+        Me.PanelNotes.Controls.Add(Me.textboxNotes12)
+        Me.PanelNotes.Controls.Add(Me.textboxNotes9)
+        Me.PanelNotes.Controls.Add(Me.textboxNotes2)
         Me.PanelNotes.Controls.Add(Me.PictureBox31)
         Me.PanelNotes.Controls.Add(Me.PictureBox32)
         Me.PanelNotes.Controls.Add(Me.PictureBox33)
         Me.PanelNotes.Controls.Add(Me.PictureBox34)
-        Me.PanelNotes.Controls.Add(Me.TextBox9)
-        Me.PanelNotes.Controls.Add(Me.TextBox10)
-        Me.PanelNotes.Controls.Add(Me.TextBox11)
-        Me.PanelNotes.Controls.Add(Me.TextBox12)
+        Me.PanelNotes.Controls.Add(Me.textboxNotes4)
+        Me.PanelNotes.Controls.Add(Me.textboxNotes11)
+        Me.PanelNotes.Controls.Add(Me.textboxNotes10)
+        Me.PanelNotes.Controls.Add(Me.textboxNotes3)
         Me.PanelNotes.Controls.Add(Me.PictureBox35)
         Me.PanelNotes.Controls.Add(Me.PictureBox36)
         Me.PanelNotes.Location = New System.Drawing.Point(3, 10)
         Me.PanelNotes.Name = "PanelNotes"
-        Me.PanelNotes.Size = New System.Drawing.Size(364, 414)
+        Me.PanelNotes.Size = New System.Drawing.Size(363, 414)
         Me.PanelNotes.TabIndex = 69
         '
-        'TextBox1
+        'textboxNotes7
         '
-        Me.TextBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.textboxNotes7.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox1.ForeColor = System.Drawing.SystemColors.InactiveCaption
-        Me.TextBox1.Location = New System.Drawing.Point(8, 219)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(294, 22)
-        Me.TextBox1.TabIndex = 23
-        Me.TextBox1.Text = "Example"
+        Me.textboxNotes7.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.textboxNotes7.Location = New System.Drawing.Point(8, 219)
+        Me.textboxNotes7.Name = "textboxNotes7"
+        Me.textboxNotes7.Size = New System.Drawing.Size(293, 22)
+        Me.textboxNotes7.TabIndex = 23
+        Me.textboxNotes7.Text = "Example"
         '
         'PictureBox25
         '
@@ -937,7 +937,7 @@ Partial Class PopulateCustomers
         Me.PictureBox25.BackColor = System.Drawing.SystemColors.ActiveBorder
         Me.PictureBox25.Location = New System.Drawing.Point(5, 212)
         Me.PictureBox25.Name = "PictureBox25"
-        Me.PictureBox25.Size = New System.Drawing.Size(361, 2)
+        Me.PictureBox25.Size = New System.Drawing.Size(360, 2)
         Me.PictureBox25.TabIndex = 22
         Me.PictureBox25.TabStop = False
         '
@@ -948,42 +948,42 @@ Partial Class PopulateCustomers
         Me.PictureBox26.BackColor = System.Drawing.SystemColors.ActiveBorder
         Me.PictureBox26.Location = New System.Drawing.Point(5, 240)
         Me.PictureBox26.Name = "PictureBox26"
-        Me.PictureBox26.Size = New System.Drawing.Size(361, 2)
+        Me.PictureBox26.Size = New System.Drawing.Size(360, 2)
         Me.PictureBox26.TabIndex = 24
         Me.PictureBox26.TabStop = False
         '
-        'TextBox2
+        'textboxNotes6
         '
-        Me.TextBox2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.textboxNotes6.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox2.ForeColor = System.Drawing.SystemColors.InactiveCaption
-        Me.TextBox2.Location = New System.Drawing.Point(8, 191)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(293, 22)
-        Me.TextBox2.TabIndex = 21
-        Me.TextBox2.Text = "Example"
+        Me.textboxNotes6.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.textboxNotes6.Location = New System.Drawing.Point(8, 191)
+        Me.textboxNotes6.Name = "textboxNotes6"
+        Me.textboxNotes6.Size = New System.Drawing.Size(292, 22)
+        Me.textboxNotes6.TabIndex = 21
+        Me.textboxNotes6.Text = "Example"
         '
-        'TextBox3
+        'textboxNotes1
         '
-        Me.TextBox3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.textboxNotes1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox3.ForeColor = System.Drawing.SystemColors.InactiveCaption
-        Me.TextBox3.Location = New System.Drawing.Point(8, 46)
-        Me.TextBox3.Name = "TextBox3"
-        Me.TextBox3.Size = New System.Drawing.Size(294, 22)
-        Me.TextBox3.TabIndex = 3
-        Me.TextBox3.Text = "Example"
+        Me.textboxNotes1.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.textboxNotes1.Location = New System.Drawing.Point(8, 46)
+        Me.textboxNotes1.Name = "textboxNotes1"
+        Me.textboxNotes1.Size = New System.Drawing.Size(293, 22)
+        Me.textboxNotes1.TabIndex = 3
+        Me.textboxNotes1.Text = "Example"
         '
-        'TextBox4
+        'textboxNotes8
         '
-        Me.TextBox4.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.textboxNotes8.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox4.ForeColor = System.Drawing.SystemColors.InactiveCaption
-        Me.TextBox4.Location = New System.Drawing.Point(8, 248)
-        Me.TextBox4.Name = "TextBox4"
-        Me.TextBox4.Size = New System.Drawing.Size(293, 22)
-        Me.TextBox4.TabIndex = 25
-        Me.TextBox4.Text = "Example"
+        Me.textboxNotes8.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.textboxNotes8.Location = New System.Drawing.Point(8, 248)
+        Me.textboxNotes8.Name = "textboxNotes8"
+        Me.textboxNotes8.Size = New System.Drawing.Size(292, 22)
+        Me.textboxNotes8.TabIndex = 25
+        Me.textboxNotes8.Text = "Example"
         '
         'LabelNotes
         '
@@ -1002,7 +1002,7 @@ Partial Class PopulateCustomers
         Me.PictureBox27.BackColor = System.Drawing.SystemColors.ActiveBorder
         Me.PictureBox27.Location = New System.Drawing.Point(6, 183)
         Me.PictureBox27.Name = "PictureBox27"
-        Me.PictureBox27.Size = New System.Drawing.Size(361, 2)
+        Me.PictureBox27.Size = New System.Drawing.Size(360, 2)
         Me.PictureBox27.TabIndex = 20
         Me.PictureBox27.TabStop = False
         '
@@ -1013,7 +1013,7 @@ Partial Class PopulateCustomers
         Me.PictureBox28.BackColor = System.Drawing.SystemColors.ActiveBorder
         Me.PictureBox28.Location = New System.Drawing.Point(5, 385)
         Me.PictureBox28.Name = "PictureBox28"
-        Me.PictureBox28.Size = New System.Drawing.Size(361, 2)
+        Me.PictureBox28.Size = New System.Drawing.Size(360, 2)
         Me.PictureBox28.TabIndex = 34
         Me.PictureBox28.TabStop = False
         '
@@ -1024,7 +1024,7 @@ Partial Class PopulateCustomers
         Me.PictureBox29.BackColor = System.Drawing.SystemColors.ActiveBorder
         Me.PictureBox29.Location = New System.Drawing.Point(5, 269)
         Me.PictureBox29.Name = "PictureBox29"
-        Me.PictureBox29.Size = New System.Drawing.Size(361, 2)
+        Me.PictureBox29.Size = New System.Drawing.Size(360, 2)
         Me.PictureBox29.TabIndex = 26
         Me.PictureBox29.TabStop = False
         '
@@ -1035,53 +1035,53 @@ Partial Class PopulateCustomers
         Me.PictureBox30.BackColor = System.Drawing.SystemColors.ActiveBorder
         Me.PictureBox30.Location = New System.Drawing.Point(5, 67)
         Me.PictureBox30.Name = "PictureBox30"
-        Me.PictureBox30.Size = New System.Drawing.Size(361, 2)
+        Me.PictureBox30.Size = New System.Drawing.Size(360, 2)
         Me.PictureBox30.TabIndex = 12
         Me.PictureBox30.TabStop = False
         '
-        'TextBox5
+        'textboxNotes5
         '
-        Me.TextBox5.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.textboxNotes5.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox5.ForeColor = System.Drawing.SystemColors.InactiveCaption
-        Me.TextBox5.Location = New System.Drawing.Point(9, 162)
-        Me.TextBox5.Name = "TextBox5"
-        Me.TextBox5.Size = New System.Drawing.Size(293, 22)
-        Me.TextBox5.TabIndex = 19
-        Me.TextBox5.Text = "Example"
+        Me.textboxNotes5.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.textboxNotes5.Location = New System.Drawing.Point(9, 162)
+        Me.textboxNotes5.Name = "textboxNotes5"
+        Me.textboxNotes5.Size = New System.Drawing.Size(292, 22)
+        Me.textboxNotes5.TabIndex = 19
+        Me.textboxNotes5.Text = "Example"
         '
-        'TextBox6
+        'textboxNotes12
         '
-        Me.TextBox6.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.textboxNotes12.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox6.ForeColor = System.Drawing.SystemColors.InactiveCaption
-        Me.TextBox6.Location = New System.Drawing.Point(8, 364)
-        Me.TextBox6.Name = "TextBox6"
-        Me.TextBox6.Size = New System.Drawing.Size(293, 22)
-        Me.TextBox6.TabIndex = 33
-        Me.TextBox6.Text = "Example"
+        Me.textboxNotes12.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.textboxNotes12.Location = New System.Drawing.Point(8, 364)
+        Me.textboxNotes12.Name = "textboxNotes12"
+        Me.textboxNotes12.Size = New System.Drawing.Size(292, 22)
+        Me.textboxNotes12.TabIndex = 33
+        Me.textboxNotes12.Text = "Example"
         '
-        'TextBox7
+        'textboxNotes9
         '
-        Me.TextBox7.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.textboxNotes9.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox7.ForeColor = System.Drawing.SystemColors.InactiveCaption
-        Me.TextBox7.Location = New System.Drawing.Point(7, 277)
-        Me.TextBox7.Name = "TextBox7"
-        Me.TextBox7.Size = New System.Drawing.Size(295, 22)
-        Me.TextBox7.TabIndex = 27
-        Me.TextBox7.Text = "Example"
+        Me.textboxNotes9.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.textboxNotes9.Location = New System.Drawing.Point(7, 277)
+        Me.textboxNotes9.Name = "textboxNotes9"
+        Me.textboxNotes9.Size = New System.Drawing.Size(294, 22)
+        Me.textboxNotes9.TabIndex = 27
+        Me.textboxNotes9.Text = "Example"
         '
-        'TextBox8
+        'textboxNotes2
         '
-        Me.TextBox8.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.textboxNotes2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox8.ForeColor = System.Drawing.SystemColors.InactiveCaption
-        Me.TextBox8.Location = New System.Drawing.Point(8, 75)
-        Me.TextBox8.Name = "TextBox8"
-        Me.TextBox8.Size = New System.Drawing.Size(293, 22)
-        Me.TextBox8.TabIndex = 13
-        Me.TextBox8.Text = "Example"
+        Me.textboxNotes2.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.textboxNotes2.Location = New System.Drawing.Point(8, 75)
+        Me.textboxNotes2.Name = "textboxNotes2"
+        Me.textboxNotes2.Size = New System.Drawing.Size(292, 22)
+        Me.textboxNotes2.TabIndex = 13
+        Me.textboxNotes2.Text = "Example"
         '
         'PictureBox31
         '
@@ -1090,7 +1090,7 @@ Partial Class PopulateCustomers
         Me.PictureBox31.BackColor = System.Drawing.SystemColors.ActiveBorder
         Me.PictureBox31.Location = New System.Drawing.Point(6, 154)
         Me.PictureBox31.Name = "PictureBox31"
-        Me.PictureBox31.Size = New System.Drawing.Size(361, 2)
+        Me.PictureBox31.Size = New System.Drawing.Size(360, 2)
         Me.PictureBox31.TabIndex = 18
         Me.PictureBox31.TabStop = False
         '
@@ -1101,7 +1101,7 @@ Partial Class PopulateCustomers
         Me.PictureBox32.BackColor = System.Drawing.SystemColors.ActiveBorder
         Me.PictureBox32.Location = New System.Drawing.Point(6, 356)
         Me.PictureBox32.Name = "PictureBox32"
-        Me.PictureBox32.Size = New System.Drawing.Size(361, 2)
+        Me.PictureBox32.Size = New System.Drawing.Size(360, 2)
         Me.PictureBox32.TabIndex = 32
         Me.PictureBox32.TabStop = False
         '
@@ -1112,7 +1112,7 @@ Partial Class PopulateCustomers
         Me.PictureBox33.BackColor = System.Drawing.SystemColors.ActiveBorder
         Me.PictureBox33.Location = New System.Drawing.Point(4, 298)
         Me.PictureBox33.Name = "PictureBox33"
-        Me.PictureBox33.Size = New System.Drawing.Size(361, 2)
+        Me.PictureBox33.Size = New System.Drawing.Size(360, 2)
         Me.PictureBox33.TabIndex = 28
         Me.PictureBox33.TabStop = False
         '
@@ -1123,53 +1123,53 @@ Partial Class PopulateCustomers
         Me.PictureBox34.BackColor = System.Drawing.SystemColors.ActiveBorder
         Me.PictureBox34.Location = New System.Drawing.Point(5, 96)
         Me.PictureBox34.Name = "PictureBox34"
-        Me.PictureBox34.Size = New System.Drawing.Size(361, 2)
+        Me.PictureBox34.Size = New System.Drawing.Size(360, 2)
         Me.PictureBox34.TabIndex = 14
         Me.PictureBox34.TabStop = False
         '
-        'TextBox9
+        'textboxNotes4
         '
-        Me.TextBox9.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.textboxNotes4.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox9.ForeColor = System.Drawing.SystemColors.InactiveCaption
-        Me.TextBox9.Location = New System.Drawing.Point(9, 133)
-        Me.TextBox9.Name = "TextBox9"
-        Me.TextBox9.Size = New System.Drawing.Size(293, 22)
-        Me.TextBox9.TabIndex = 17
-        Me.TextBox9.Text = "Example"
+        Me.textboxNotes4.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.textboxNotes4.Location = New System.Drawing.Point(9, 133)
+        Me.textboxNotes4.Name = "textboxNotes4"
+        Me.textboxNotes4.Size = New System.Drawing.Size(292, 22)
+        Me.textboxNotes4.TabIndex = 17
+        Me.textboxNotes4.Text = "Example"
         '
-        'TextBox10
+        'textboxNotes11
         '
-        Me.TextBox10.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.textboxNotes11.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox10.ForeColor = System.Drawing.SystemColors.InactiveCaption
-        Me.TextBox10.Location = New System.Drawing.Point(9, 335)
-        Me.TextBox10.Name = "TextBox10"
-        Me.TextBox10.Size = New System.Drawing.Size(293, 22)
-        Me.TextBox10.TabIndex = 31
-        Me.TextBox10.Text = "Example"
+        Me.textboxNotes11.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.textboxNotes11.Location = New System.Drawing.Point(9, 335)
+        Me.textboxNotes11.Name = "textboxNotes11"
+        Me.textboxNotes11.Size = New System.Drawing.Size(292, 22)
+        Me.textboxNotes11.TabIndex = 31
+        Me.textboxNotes11.Text = "Example"
         '
-        'TextBox11
+        'textboxNotes10
         '
-        Me.TextBox11.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.textboxNotes10.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox11.ForeColor = System.Drawing.SystemColors.InactiveCaption
-        Me.TextBox11.Location = New System.Drawing.Point(9, 306)
-        Me.TextBox11.Name = "TextBox11"
-        Me.TextBox11.Size = New System.Drawing.Size(293, 22)
-        Me.TextBox11.TabIndex = 29
-        Me.TextBox11.Text = "Example"
+        Me.textboxNotes10.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.textboxNotes10.Location = New System.Drawing.Point(9, 306)
+        Me.textboxNotes10.Name = "textboxNotes10"
+        Me.textboxNotes10.Size = New System.Drawing.Size(292, 22)
+        Me.textboxNotes10.TabIndex = 29
+        Me.textboxNotes10.Text = "Example"
         '
-        'TextBox12
+        'textboxNotes3
         '
-        Me.TextBox12.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.textboxNotes3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox12.ForeColor = System.Drawing.SystemColors.InactiveCaption
-        Me.TextBox12.Location = New System.Drawing.Point(7, 104)
-        Me.TextBox12.Name = "TextBox12"
-        Me.TextBox12.Size = New System.Drawing.Size(295, 22)
-        Me.TextBox12.TabIndex = 15
-        Me.TextBox12.Text = "Example"
+        Me.textboxNotes3.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.textboxNotes3.Location = New System.Drawing.Point(7, 104)
+        Me.textboxNotes3.Name = "textboxNotes3"
+        Me.textboxNotes3.Size = New System.Drawing.Size(294, 22)
+        Me.textboxNotes3.TabIndex = 15
+        Me.textboxNotes3.Text = "Example"
         '
         'PictureBox35
         '
@@ -1178,7 +1178,7 @@ Partial Class PopulateCustomers
         Me.PictureBox35.BackColor = System.Drawing.SystemColors.ActiveBorder
         Me.PictureBox35.Location = New System.Drawing.Point(4, 125)
         Me.PictureBox35.Name = "PictureBox35"
-        Me.PictureBox35.Size = New System.Drawing.Size(361, 2)
+        Me.PictureBox35.Size = New System.Drawing.Size(360, 2)
         Me.PictureBox35.TabIndex = 16
         Me.PictureBox35.TabStop = False
         '
@@ -1189,7 +1189,7 @@ Partial Class PopulateCustomers
         Me.PictureBox36.BackColor = System.Drawing.SystemColors.ActiveBorder
         Me.PictureBox36.Location = New System.Drawing.Point(6, 327)
         Me.PictureBox36.Name = "PictureBox36"
-        Me.PictureBox36.Size = New System.Drawing.Size(361, 2)
+        Me.PictureBox36.Size = New System.Drawing.Size(360, 2)
         Me.PictureBox36.TabIndex = 30
         Me.PictureBox36.TabStop = False
         '
@@ -1501,56 +1501,56 @@ Partial Class PopulateCustomers
 
     Friend WithEvents SplitContainer1 As Windows.Forms.SplitContainer
     Friend WithEvents PanelCustomerCode As Windows.Forms.Panel
-    Friend WithEvents textboxCode7 As Windows.Forms.TextBox
+    Public WithEvents textboxCode7 As Windows.Forms.TextBox
     Friend WithEvents PictureBox4 As Windows.Forms.PictureBox
     Friend WithEvents PictureBox12 As Windows.Forms.PictureBox
-    Friend WithEvents textboxCode6 As Windows.Forms.TextBox
-    Friend WithEvents textboxCode1 As Windows.Forms.TextBox
-    Friend WithEvents textboxCode8 As Windows.Forms.TextBox
+    Public WithEvents textboxCode6 As Windows.Forms.TextBox
+    Public WithEvents textboxCode1 As Windows.Forms.TextBox
+    Public WithEvents textboxCode8 As Windows.Forms.TextBox
     Friend WithEvents LabelCustomerCode As Windows.Forms.Label
     Friend WithEvents PictureBox5 As Windows.Forms.PictureBox
     Friend WithEvents PictureBox7 As Windows.Forms.PictureBox
     Friend WithEvents PictureBox11 As Windows.Forms.PictureBox
     Friend WithEvents PictureBox1 As Windows.Forms.PictureBox
-    Friend WithEvents textboxCode5 As Windows.Forms.TextBox
-    Friend WithEvents textboxCode12 As Windows.Forms.TextBox
-    Friend WithEvents textboxCode9 As Windows.Forms.TextBox
-    Friend WithEvents textboxCode2 As Windows.Forms.TextBox
+    Public WithEvents textboxCode5 As Windows.Forms.TextBox
+    Public WithEvents textboxCode12 As Windows.Forms.TextBox
+    Public WithEvents textboxCode9 As Windows.Forms.TextBox
+    Public WithEvents textboxCode2 As Windows.Forms.TextBox
     Friend WithEvents PictureBox6 As Windows.Forms.PictureBox
     Friend WithEvents PictureBox8 As Windows.Forms.PictureBox
     Friend WithEvents PictureBox10 As Windows.Forms.PictureBox
     Friend WithEvents PictureBox2 As Windows.Forms.PictureBox
-    Friend WithEvents textboxCode4 As Windows.Forms.TextBox
-    Friend WithEvents textboxCode11 As Windows.Forms.TextBox
-    Friend WithEvents textboxCode10 As Windows.Forms.TextBox
-    Friend WithEvents textboxCode3 As Windows.Forms.TextBox
+    Public WithEvents textboxCode4 As Windows.Forms.TextBox
+    Public WithEvents textboxCode11 As Windows.Forms.TextBox
+    Public WithEvents textboxCode10 As Windows.Forms.TextBox
+    Public WithEvents textboxCode3 As Windows.Forms.TextBox
     Friend WithEvents PictureBox3 As Windows.Forms.PictureBox
     Friend WithEvents PictureBox9 As Windows.Forms.PictureBox
     Friend WithEvents SplitContainer2 As Windows.Forms.SplitContainer
     Friend WithEvents PanelCustomerName As Windows.Forms.Panel
-    Friend WithEvents textboxName7 As Windows.Forms.TextBox
+    Public WithEvents textboxName7 As Windows.Forms.TextBox
     Friend WithEvents PictureBox13 As Windows.Forms.PictureBox
     Friend WithEvents PictureBox14 As Windows.Forms.PictureBox
-    Friend WithEvents textboxName6 As Windows.Forms.TextBox
-    Friend WithEvents textboxName1 As Windows.Forms.TextBox
-    Friend WithEvents textboxName8 As Windows.Forms.TextBox
+    Public WithEvents textboxName6 As Windows.Forms.TextBox
+    Public WithEvents textboxName1 As Windows.Forms.TextBox
+    Public WithEvents textboxName8 As Windows.Forms.TextBox
     Friend WithEvents Label2 As Windows.Forms.Label
     Friend WithEvents PictureBox15 As Windows.Forms.PictureBox
     Friend WithEvents PictureBox16 As Windows.Forms.PictureBox
     Friend WithEvents PictureBox17 As Windows.Forms.PictureBox
     Friend WithEvents PictureBox18 As Windows.Forms.PictureBox
-    Friend WithEvents textboxName5 As Windows.Forms.TextBox
-    Friend WithEvents textboxName12 As Windows.Forms.TextBox
-    Friend WithEvents textboxName9 As Windows.Forms.TextBox
-    Friend WithEvents textboxName2 As Windows.Forms.TextBox
+    Public WithEvents textboxName5 As Windows.Forms.TextBox
+    Public WithEvents textboxName12 As Windows.Forms.TextBox
+    Public WithEvents textboxName9 As Windows.Forms.TextBox
+    Public WithEvents textboxName2 As Windows.Forms.TextBox
     Friend WithEvents PictureBox19 As Windows.Forms.PictureBox
     Friend WithEvents PictureBox20 As Windows.Forms.PictureBox
     Friend WithEvents PictureBox21 As Windows.Forms.PictureBox
     Friend WithEvents PictureBox22 As Windows.Forms.PictureBox
-    Friend WithEvents textboxName4 As Windows.Forms.TextBox
-    Friend WithEvents textboxName11 As Windows.Forms.TextBox
-    Friend WithEvents textboxName10 As Windows.Forms.TextBox
-    Friend WithEvents textboxName3 As Windows.Forms.TextBox
+    Public WithEvents textboxName4 As Windows.Forms.TextBox
+    Public WithEvents textboxName11 As Windows.Forms.TextBox
+    Public WithEvents textboxName10 As Windows.Forms.TextBox
+    Public WithEvents textboxName3 As Windows.Forms.TextBox
     Friend WithEvents PictureBox23 As Windows.Forms.PictureBox
     Friend WithEvents PictureBox24 As Windows.Forms.PictureBox
     Friend WithEvents LinkLabel5 As Windows.Forms.LinkLabel
@@ -1567,29 +1567,29 @@ Partial Class PopulateCustomers
     Friend WithEvents LinkLabel12 As Windows.Forms.LinkLabel
     Friend WithEvents SplitContainer3 As Windows.Forms.SplitContainer
     Friend WithEvents PanelNotes As Windows.Forms.Panel
-    Friend WithEvents TextBox1 As Windows.Forms.TextBox
+    Public WithEvents textboxNotes7 As Windows.Forms.TextBox
     Friend WithEvents PictureBox25 As Windows.Forms.PictureBox
     Friend WithEvents PictureBox26 As Windows.Forms.PictureBox
-    Friend WithEvents TextBox2 As Windows.Forms.TextBox
-    Friend WithEvents TextBox3 As Windows.Forms.TextBox
-    Friend WithEvents TextBox4 As Windows.Forms.TextBox
+    Public WithEvents textboxNotes6 As Windows.Forms.TextBox
+    Public WithEvents textboxNotes1 As Windows.Forms.TextBox
+    Public WithEvents textboxNotes8 As Windows.Forms.TextBox
     Friend WithEvents LabelNotes As Windows.Forms.Label
     Friend WithEvents PictureBox27 As Windows.Forms.PictureBox
     Friend WithEvents PictureBox28 As Windows.Forms.PictureBox
     Friend WithEvents PictureBox29 As Windows.Forms.PictureBox
     Friend WithEvents PictureBox30 As Windows.Forms.PictureBox
-    Friend WithEvents TextBox5 As Windows.Forms.TextBox
-    Friend WithEvents TextBox6 As Windows.Forms.TextBox
-    Friend WithEvents TextBox7 As Windows.Forms.TextBox
-    Friend WithEvents TextBox8 As Windows.Forms.TextBox
+    Public WithEvents textboxNotes5 As Windows.Forms.TextBox
+    Public WithEvents textboxNotes12 As Windows.Forms.TextBox
+    Public WithEvents textboxNotes9 As Windows.Forms.TextBox
+    Public WithEvents textboxNotes2 As Windows.Forms.TextBox
     Friend WithEvents PictureBox31 As Windows.Forms.PictureBox
     Friend WithEvents PictureBox32 As Windows.Forms.PictureBox
     Friend WithEvents PictureBox33 As Windows.Forms.PictureBox
     Friend WithEvents PictureBox34 As Windows.Forms.PictureBox
-    Friend WithEvents TextBox9 As Windows.Forms.TextBox
-    Friend WithEvents TextBox10 As Windows.Forms.TextBox
-    Friend WithEvents TextBox11 As Windows.Forms.TextBox
-    Friend WithEvents TextBox12 As Windows.Forms.TextBox
+    Public WithEvents textboxNotes4 As Windows.Forms.TextBox
+    Public WithEvents textboxNotes11 As Windows.Forms.TextBox
+    Public WithEvents textboxNotes10 As Windows.Forms.TextBox
+    Public WithEvents textboxNotes3 As Windows.Forms.TextBox
     Friend WithEvents PictureBox35 As Windows.Forms.PictureBox
     Friend WithEvents PictureBox36 As Windows.Forms.PictureBox
     Friend WithEvents linkOpen2 As Windows.Forms.LinkLabel

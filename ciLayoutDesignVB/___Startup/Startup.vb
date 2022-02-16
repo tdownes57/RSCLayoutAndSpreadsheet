@@ -44,7 +44,7 @@ Public Class Startup
         Dim obj_cache_layout_Elements As ClassElementsCache_Deprecated = Nothing ''Added 10/13/2019 td
 
         ''1/14/2019 td''Dim obj_personality As New PersonalityCache_NotInUse ''Added 10/17/2019 td  
-        Dim obj_personality As New ClassCachePersonality ''Dec4 2021'' As ClassPersonalityCache ''Added 10/17/2019 td  
+        Dim obj_personality As New ClassCacheOnePersonalityConfig ''Dec4 2021'' As ClassPersonalityCache ''Added 10/17/2019 td  
 
         ''
         ''
@@ -320,7 +320,7 @@ Public Class Startup
 
     End Sub ''End of "Public Sub OpenLayoutDesigner_Loop()"
 
-    Private Shared Function LoadCachedData_Customer_FutureUse() As ClassCustomerCache ''12/13/2021 ''ciBadgeCustomer.ClassCustomerCache
+    Private Shared Function LoadCachedData_Customer_FutureUse() As ClassCacheOneCustomersConfigs ''12/13/2021 ''ciBadgeCustomer.ClassCustomerCache
         ''
         ''Added 10/14/2019 thomas d. 
         ''Suffixed "_FutureUse" on 11/30/2021 td
@@ -361,13 +361,13 @@ Public Class Startup
     End Function ''End of "Private Shared Function LoadData_Recipients_Students"
 
     Public Shared Function LoadCachedData_Personality_FutureUse(par_designForm As Form__Main_Demo,
-                                           ByRef pboolNewFileXML As Boolean) As ClassCachePersonality ''As ClassPersonalityCache
+                                           ByRef pboolNewFileXML As Boolean) As ClassCacheOnePersonalityConfig ''As ClassPersonalityCache
         ''
         ''Added 1/14/2019 td
         ''Suffixed 11/30/2021 with "_FutureUse".
         ''
         Dim strPathToXML As String = ""
-        Dim obj_cache_personality As ClassCachePersonality ''Dec.4, 2021 '' As ClassPersonalityCache
+        Dim obj_cache_personality As ClassCacheOnePersonalityConfig ''Dec.4, 2021 '' As ClassPersonalityCache
 
         strPathToXML = DiskFilesVB.PathToFile_XML_Personality
 
@@ -393,7 +393,7 @@ Public Class Startup
             ''----Me.ElementsCache_Edits.LoadFieldElements(pictureBack, BadgeLayout)
 
             ''Added 10/13/2019 td
-            obj_cache_personality = New ClassCachePersonality ''Dec.4, 2021 '' New ClassPersonalityCache
+            obj_cache_personality = New ClassCacheOnePersonalityConfig ''Dec.4, 2021 '' New ClassPersonalityCache
             obj_cache_personality.PathToXml_Saved = strPathToXML
 
             obj_cache_personality.LoadFields()
@@ -408,11 +408,11 @@ Public Class Startup
             ''10/13/2019 td''Me.ElementsCache_Saved = CType(objDeserialize.DeserializeFromXML(Me.ElementsCache_Saved.GetType(), False), ClassElementsCache)
             ''-----Me.ElementsCache_Edits = CType(objDeserialize.DeserializeFromXML(Me.ElementsCache_Edits.GetType(), False), ClassElementsCache)
 
-            obj_cache_personality = New ClassCachePersonality ''Dec4 2021 ''ClassPersonalityCache ''This may or may not be completely necessary,
+            obj_cache_personality = New ClassCacheOnePersonalityConfig ''Dec4 2021 ''ClassPersonalityCache ''This may or may not be completely necessary,
             ''   but I know of no other way to pass the object type.  Simply expressing the Type
             ''   by typing its name doesn't work.  ---10/13/2019 td
 
-            obj_cache_personality = CType(objDeserialize.DeserializeFromXML(obj_cache_personality.GetType(), False), ClassCachePersonality) ''Dec4 2021 ''ClassPersonalityCache)
+            obj_cache_personality = CType(objDeserialize.DeserializeFromXML(obj_cache_personality.GetType(), False), ClassCacheOnePersonalityConfig) ''Dec4 2021 ''ClassPersonalityCache)
 
             ''Added 10/12/2019 td
             ''10/13/2019 td''Me.ElementsCache_Saved.LinkElementsToFields()

@@ -139,6 +139,10 @@ Public Class ClassRecipient
     ''Added 11/25/2021 thomas
     Property fstrFullName As String Implements IRecipient.fstrFullName
 
+    ''Added 2/15/2022 thomas
+    Property fstrNameAbbreviated As String Implements IRecipient.fstrNameAbbreviated
+    Property fstrEmailAddress As String Implements IRecipient.fstrEmailAddress
+
     Property fstrBarcode As String Implements IRecipient.fstrBarcode
     Property fstrRFID_Unique As String Implements IRecipient.fstrRFID_Unique
 

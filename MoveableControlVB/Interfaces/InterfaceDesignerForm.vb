@@ -15,7 +15,7 @@ Public Interface IDesignerForm
 
     Property ElementsCache_ManageBoth As ClassCacheManagement ''Added 1/07/2022
     Property ElementsCache_Edits As ClassElementsCache_Deprecated ''Added 1/07/2022 td 
-    Property PersonalityCache_Recipients As ClassCachePersonality
+    Property PersonalityCache_Recipients As ClassCacheOnePersonalityConfig
     Property NewFileXML As Boolean ''Added 1/7/2022 
     Property LetsRefresh_CloseForm As Boolean
     Property ElementsCache_PathToXML As String

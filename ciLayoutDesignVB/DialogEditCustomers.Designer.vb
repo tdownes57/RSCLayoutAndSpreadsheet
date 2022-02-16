@@ -22,16 +22,11 @@ Partial Class DialogEditCustomers
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.PopulateCustomers1 = New ciBadgeCustomer.PopulateCustomers()
         Me.LabelEditCustomers = New System.Windows.Forms.Label()
+        Me.ButtonCancel = New System.Windows.Forms.Button()
+        Me.ButtonOK = New System.Windows.Forms.Button()
+        Me.PopulateCustomers1 = New ciBadgeCustomer.PopulateCustomers()
         Me.SuspendLayout()
-        '
-        'PopulateCustomers1
-        '
-        Me.PopulateCustomers1.Location = New System.Drawing.Point(19, 87)
-        Me.PopulateCustomers1.Name = "PopulateCustomers1"
-        Me.PopulateCustomers1.Size = New System.Drawing.Size(1058, 457)
-        Me.PopulateCustomers1.TabIndex = 0
         '
         'LabelEditCustomers
         '
@@ -43,11 +38,42 @@ Partial Class DialogEditCustomers
         Me.LabelEditCustomers.TabIndex = 1
         Me.LabelEditCustomers.Text = "Edit Customers"
         '
+        'ButtonCancel
+        '
+        Me.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.ButtonCancel.Location = New System.Drawing.Point(967, 561)
+        Me.ButtonCancel.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.ButtonCancel.Name = "ButtonCancel"
+        Me.ButtonCancel.Size = New System.Drawing.Size(77, 59)
+        Me.ButtonCancel.TabIndex = 13
+        Me.ButtonCancel.Text = "Cancel"
+        Me.ButtonCancel.UseVisualStyleBackColor = True
+        '
+        'ButtonOK
+        '
+        Me.ButtonOK.DialogResult = System.Windows.Forms.DialogResult.OK
+        Me.ButtonOK.Location = New System.Drawing.Point(819, 561)
+        Me.ButtonOK.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.ButtonOK.Name = "ButtonOK"
+        Me.ButtonOK.Size = New System.Drawing.Size(125, 59)
+        Me.ButtonOK.TabIndex = 12
+        Me.ButtonOK.Text = "OK"
+        Me.ButtonOK.UseVisualStyleBackColor = True
+        '
+        'PopulateCustomers1
+        '
+        Me.PopulateCustomers1.Location = New System.Drawing.Point(19, 87)
+        Me.PopulateCustomers1.Name = "PopulateCustomers1"
+        Me.PopulateCustomers1.Size = New System.Drawing.Size(1058, 457)
+        Me.PopulateCustomers1.TabIndex = 0
+        '
         'DialogEditCustomers
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1066, 631)
+        Me.Controls.Add(Me.ButtonCancel)
+        Me.Controls.Add(Me.ButtonOK)
         Me.Controls.Add(Me.LabelEditCustomers)
         Me.Controls.Add(Me.PopulateCustomers1)
         Me.Name = "DialogEditCustomers"
@@ -59,4 +85,6 @@ Partial Class DialogEditCustomers
 
     Friend WithEvents PopulateCustomers1 As ciBadgeCustomer.PopulateCustomers
     Friend WithEvents LabelEditCustomers As Label
+    Friend WithEvents ButtonCancel As Button
+    Friend WithEvents ButtonOK As Button
 End Class

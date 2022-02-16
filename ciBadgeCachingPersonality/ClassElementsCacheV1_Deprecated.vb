@@ -2312,6 +2312,7 @@ Namespace ciBadgeCachePersonality
         ''
         ''End Sub ''End of " Private Sub LoadElements_Picture()"
 
+
         Public Shared Function GetLoadedCache(pstrPathToXML As String,
                                     pboolNewFileXML As Boolean,
                                     Optional par_imageBack As Image = Nothing,

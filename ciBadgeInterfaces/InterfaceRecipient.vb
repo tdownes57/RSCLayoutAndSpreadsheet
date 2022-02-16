@@ -104,6 +104,11 @@ Public Interface IRecipient
     ''Added 11/25/2021 Thomas 
     Property fstrFullName As String
 
+    ''Added 2/15/2022 Thomas 
+    Property fstrNameAbbreviated As String
+    Property fstrEmailAddress As String ''Added 2/15/2022 td
+
+
     Property intTimesPrinted As Integer
 
     Property fstrBarcode As String ''Added 10/11/2019 td

@@ -13,13 +13,17 @@ Imports ciBadgeElements ''Added 12/4/2021 thomas d.
 Namespace ciBadgeCachePersonality
 
     <Serializable>
-    Public Class ClassCachePersonality
+    Public Class ClassCacheOnePersonalityConfig
+        ''
+        ''Renamed 2/15/2022 from Public Class ClassPersonalityCache 
+        ''
+
         ''Dec.13 2021''Implements ciBadgeInterfaces.InterfacePersonality ''Added 12/12/2021 Thomas Downes
         ''
         ''Added 11/24/2019 thomas downes
         ''  Copied from ClassElementsCache, on 11/24/2019 thomas downes
         ''
-        Public Shared Singleton As ClassCachePersonality ''Let's use
+        Public Shared Singleton As ClassCacheOnePersonalityConfig ''Let's use
         '' the pattern mentioned in https://en.wikipedia.org/wiki/Singleton_pattern
 
         Public Property Id_GUID As System.Guid ''Dec.13 2021''Implements InterfacePersonality.Id_GUID ''Added 9/30/2019 td 
@@ -64,7 +68,7 @@ Namespace ciBadgeCachePersonality
         ''See ClassLayoutCache. 11/24 td''Private mod_listElementPics As New HashSet(Of ClassElementPic)
         ''See ClassLayoutCache. 11/24 td''Private mod_listElementStatics As New HashSet(Of ClassElementStaticText)
         ''See ClassLayoutCache. 11/24 td''Private mod_listElementLaysections As New HashSet(Of ClassElementLaysection) ''Added 9/17/2019 thomas downes
-        Private mod_listLayouts As New HashSet(Of ClassCacheLayout) ''Added 11.24.2019 thomas d.
+        Private mod_listLayouts As New HashSet(Of ClassCacheOneLayout) ''Added 11.24.2019 thomas d.
 
         ''10/14/2019 td''Public Property ListOfFields As List(Of ClassFieldAny)
         ''    Get ''Added 9/28/2019 td
@@ -109,11 +113,11 @@ Namespace ciBadgeCachePersonality
 
 
 
-        Public Property ListOfLayouts As HashSet(Of ClassCacheLayout)  ''Added 11/24/2019 td
+        Public Property ListOfLayouts As HashSet(Of ClassCacheOneLayout)  ''Added 11/24/2019 td
             Get ''Added 11/24
                 Return mod_listLayouts
             End Get
-            Set(value As HashSet(Of ClassCacheLayout))
+            Set(value As HashSet(Of ClassCacheOneLayout))
                 ''Added 11/24/2019 td
                 mod_listLayouts = value
             End Set
@@ -186,11 +190,11 @@ Namespace ciBadgeCachePersonality
 
         End Sub ''End of "Public Sub LoadRecipient(par_recipient As IRecipient)"
 
-        Public Function Copy() As ClassCachePersonality
+        Public Function Copy() As ClassCacheOnePersonalityConfig
             ''
             ''Added 11/24/2019 thomas downes  
             ''
-            Dim objCopyOfCache As New ClassCachePersonality
+            Dim objCopyOfCache As New ClassCacheOnePersonalityConfig
             Dim ListFields_NotUsed As New List(Of ClassFieldAny)
             Dim dictionaryFields As New Dictionary(Of ciBadgeInterfaces.EnumCIBFields, ClassFieldAny)
             ''10/14/2019 td''Dim copy_ofField As ClassFieldAny
@@ -262,9 +266,9 @@ Namespace ciBadgeCachePersonality
             ''Added 11/24/2019 td 
             ''  Copy the Layout Caches. 
             ''
-            Dim copy_ofLayoutCache As ClassCacheLayout ''Added 11.24.2019 thomas d. 
+            Dim copy_ofLayoutCache As ClassCacheOneLayout ''Added 11.24.2019 thomas d. 
 
-            For Each each_layoutCache As ClassCacheLayout In mod_listLayouts
+            For Each each_layoutCache As ClassCacheOneLayout In mod_listLayouts
 
                 copy_ofLayoutCache = each_layoutCache.Copy()
                 objCopyOfCache.ListOfLayouts.Add(copy_ofLayoutCache)
@@ -287,7 +291,7 @@ Namespace ciBadgeCachePersonality
         End Function ''End of "Public Function Copy() As ClassElementsCache"
 
 
-        Public Function GetLayoutByGUID(par_guid As System.Guid) As ClassCacheLayout
+        Public Function GetLayoutByGUID(par_guid As System.Guid) As ClassCacheOneLayout
             ''
             ''Added 11/24/2019 td  
             ''
@@ -304,11 +308,11 @@ Namespace ciBadgeCachePersonality
 
 
         Public Shared Function GetLoadedCache(pstrPathToXML As String,
-                                          pboolNewFileXML As Boolean) As ClassCachePersonality
+                                          pboolNewFileXML As Boolean) As ClassCacheOnePersonalityConfig
             ''
             ''Added 11/24/2019 td
             ''
-            Dim obj_cache_personality As ClassCachePersonality ''Added 10/10/2019 td
+            Dim obj_cache_personality As ClassCacheOnePersonalityConfig ''Added 10/10/2019 td
             Dim obj_designForm As New FormBadgeLayoutProto ''Added 11/15/2019 td 
 
             pboolNewFileXML = (Not System.IO.File.Exists(pstrPathToXML))
@@ -318,7 +322,7 @@ Namespace ciBadgeCachePersonality
             ''
             If (pboolNewFileXML) Then ''Condition added 10/10/2019 td  
 
-                obj_cache_personality = New ClassCachePersonality
+                obj_cache_personality = New ClassCacheOnePersonalityConfig
                 obj_cache_personality.PathToXml_Saved = pstrPathToXML
 
                 obj_cache_personality.LoadFields()
@@ -329,11 +333,11 @@ Namespace ciBadgeCachePersonality
                 .PathToXML = pstrPathToXML
             } ''Added 10/10/2019 td  
 
-                obj_cache_personality = New ClassCachePersonality ''This may or may not be completely necessary,
+                obj_cache_personality = New ClassCacheOnePersonalityConfig ''This may or may not be completely necessary,
                 ''   but I know of no other way to pass the object type.  Simply expressing the Type
                 ''   by typing its name doesn't work.  ---10/13/2019 td
 
-                obj_cache_personality = CType(objDeserialize.DeserializeFromXML(obj_cache_personality.GetType(), False), ClassCachePersonality)
+                obj_cache_personality = CType(objDeserialize.DeserializeFromXML(obj_cache_personality.GetType(), False), ClassCacheOnePersonalityConfig)
 
                 ''obj_cache_personality.LinkElementsToFields()
 
