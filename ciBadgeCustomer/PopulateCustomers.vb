@@ -6,4 +6,8 @@
     Private Sub LinkLabel6_LinkClicked(sender As Object, e As Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LinkLabel6.LinkClicked
 
     End Sub
+
+    Private Sub PanelCustomerCode_Paint(sender As Object, e As Windows.Forms.PaintEventArgs) Handles PanelCustomerCode.Paint
+
+    End Sub
 End Class

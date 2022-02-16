@@ -101,6 +101,12 @@
     <Compile Include="PopulateTwoFields.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="SelectCIBField.Designer.vb">
+      <DependentUpon>SelectCIBField.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SelectCIBField.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -118,6 +124,9 @@
     <EmbeddedResource Include="PopulateTwoFields.resx">
       <DependentUpon>PopulateTwoFields.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SelectCIBField.resx">
+      <DependentUpon>SelectCIBField.vb</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="My Project\Application.myapp">
@@ -131,6 +140,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ciBadgeFields\ciBadgeFields.vbproj">
+      <Project>{ef9acec9-841e-4397-bfcb-917c814c4b8c}</Project>
+      <Name>ciBadgeFields</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ciBadgeInterfaces\ciBadgeInterfaces.vbproj">
       <Project>{3d1acca6-585e-4c92-9a6d-9a51d2f72f5f}</Project>
       <Name>ciBadgeInterfaces</Name>

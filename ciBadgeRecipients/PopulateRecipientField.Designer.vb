@@ -57,14 +57,14 @@ Partial Class PopulateRecipientField
         Me.LinkLabelAddFieldOfData = New System.Windows.Forms.LinkLabel()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.PanelLeftPane = New System.Windows.Forms.Panel()
-        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel2 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel3 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel4 = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel5 = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel6 = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel7 = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel8 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel3 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel4 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel2 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -449,7 +449,7 @@ Partial Class PopulateRecipientField
         Me.SplitContainer1.Panel2.Controls.Add(Me.LinkLabel2)
         Me.SplitContainer1.Panel2.Controls.Add(Me.LinkLabel1)
         Me.SplitContainer1.Panel2.Controls.Add(Me.LinkLabelAddFieldOfData)
-        Me.SplitContainer1.Size = New System.Drawing.Size(484, 502)
+        Me.SplitContainer1.Size = New System.Drawing.Size(484, 558)
         Me.SplitContainer1.SplitterDistance = 250
         Me.SplitContainer1.SplitterWidth = 6
         Me.SplitContainer1.TabIndex = 37
@@ -492,48 +492,8 @@ Partial Class PopulateRecipientField
         Me.PanelLeftPane.Controls.Add(Me.PictureBox9)
         Me.PanelLeftPane.Location = New System.Drawing.Point(3, 27)
         Me.PanelLeftPane.Name = "PanelLeftPane"
-        Me.PanelLeftPane.Size = New System.Drawing.Size(244, 472)
+        Me.PanelLeftPane.Size = New System.Drawing.Size(244, 528)
         Me.PanelLeftPane.TabIndex = 37
-        '
-        'LinkLabel1
-        '
-        Me.LinkLabel1.AutoSize = True
-        Me.LinkLabel1.Location = New System.Drawing.Point(6, 177)
-        Me.LinkLabel1.Name = "LinkLabel1"
-        Me.LinkLabel1.Size = New System.Drawing.Size(165, 17)
-        Me.LinkLabel1.TabIndex = 37
-        Me.LinkLabel1.TabStop = True
-        Me.LinkLabel1.Text = "Delete Student/Recipient"
-        '
-        'LinkLabel2
-        '
-        Me.LinkLabel2.AutoSize = True
-        Me.LinkLabel2.Location = New System.Drawing.Point(6, 208)
-        Me.LinkLabel2.Name = "LinkLabel2"
-        Me.LinkLabel2.Size = New System.Drawing.Size(165, 17)
-        Me.LinkLabel2.TabIndex = 38
-        Me.LinkLabel2.TabStop = True
-        Me.LinkLabel2.Text = "Delete Student/Recipient"
-        '
-        'LinkLabel3
-        '
-        Me.LinkLabel3.AutoSize = True
-        Me.LinkLabel3.Location = New System.Drawing.Point(6, 268)
-        Me.LinkLabel3.Name = "LinkLabel3"
-        Me.LinkLabel3.Size = New System.Drawing.Size(165, 17)
-        Me.LinkLabel3.TabIndex = 40
-        Me.LinkLabel3.TabStop = True
-        Me.LinkLabel3.Text = "Delete Student/Recipient"
-        '
-        'LinkLabel4
-        '
-        Me.LinkLabel4.AutoSize = True
-        Me.LinkLabel4.Location = New System.Drawing.Point(6, 237)
-        Me.LinkLabel4.Name = "LinkLabel4"
-        Me.LinkLabel4.Size = New System.Drawing.Size(165, 17)
-        Me.LinkLabel4.TabIndex = 39
-        Me.LinkLabel4.TabStop = True
-        Me.LinkLabel4.Text = "Delete Student/Recipient"
         '
         'LinkLabel5
         '
@@ -575,6 +535,46 @@ Partial Class PopulateRecipientField
         Me.LinkLabel8.TabStop = True
         Me.LinkLabel8.Text = "Delete Student/Recipient"
         '
+        'LinkLabel3
+        '
+        Me.LinkLabel3.AutoSize = True
+        Me.LinkLabel3.Location = New System.Drawing.Point(6, 268)
+        Me.LinkLabel3.Name = "LinkLabel3"
+        Me.LinkLabel3.Size = New System.Drawing.Size(165, 17)
+        Me.LinkLabel3.TabIndex = 40
+        Me.LinkLabel3.TabStop = True
+        Me.LinkLabel3.Text = "Delete Student/Recipient"
+        '
+        'LinkLabel4
+        '
+        Me.LinkLabel4.AutoSize = True
+        Me.LinkLabel4.Location = New System.Drawing.Point(6, 237)
+        Me.LinkLabel4.Name = "LinkLabel4"
+        Me.LinkLabel4.Size = New System.Drawing.Size(165, 17)
+        Me.LinkLabel4.TabIndex = 39
+        Me.LinkLabel4.TabStop = True
+        Me.LinkLabel4.Text = "Delete Student/Recipient"
+        '
+        'LinkLabel2
+        '
+        Me.LinkLabel2.AutoSize = True
+        Me.LinkLabel2.Location = New System.Drawing.Point(6, 208)
+        Me.LinkLabel2.Name = "LinkLabel2"
+        Me.LinkLabel2.Size = New System.Drawing.Size(165, 17)
+        Me.LinkLabel2.TabIndex = 38
+        Me.LinkLabel2.TabStop = True
+        Me.LinkLabel2.Text = "Delete Student/Recipient"
+        '
+        'LinkLabel1
+        '
+        Me.LinkLabel1.AutoSize = True
+        Me.LinkLabel1.Location = New System.Drawing.Point(6, 177)
+        Me.LinkLabel1.Name = "LinkLabel1"
+        Me.LinkLabel1.Size = New System.Drawing.Size(165, 17)
+        Me.LinkLabel1.TabIndex = 37
+        Me.LinkLabel1.TabStop = True
+        Me.LinkLabel1.Text = "Delete Student/Recipient"
+        '
         'PopulateRecipientField
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -582,7 +582,7 @@ Partial Class PopulateRecipientField
         Me.AutoScroll = True
         Me.Controls.Add(Me.SplitContainer1)
         Me.Name = "PopulateRecipientField"
-        Me.Size = New System.Drawing.Size(493, 510)
+        Me.Size = New System.Drawing.Size(493, 566)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
