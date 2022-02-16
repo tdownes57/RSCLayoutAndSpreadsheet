@@ -1,5 +1,9 @@
 ﻿Option Explicit On
 Option Strict On
+''
+''Added 12/19/2021 Thomas Downes 
+''
+Imports ciBadgeCachePersonality ''Added 2/16/2022 thomas d.
 
 Public Class FormDisplayCacheLayouts
     ''
@@ -689,4 +693,24 @@ Public Class FormDisplayCacheLayouts
         ButtonOpenCurrentLayout.PerformClick()
 
     End Sub
+
+    Private Sub buttonCustomers_Click(sender As Object, e As EventArgs) Handles buttonCustomers.Click
+        ''
+        ''Added 2/16/2022 thomas d. 
+        ''
+        Dim frm_ToShow As New DialogEditCustomers
+        Dim cache_customers As ciBadgeCachePersonality.ClassCacheListCustomers
+        Dim objListCustomers As HashSet(Of ciBadgeCustomer.ClassCustomer)
+        Dim strPathToXML As String
+
+        cache_customers = ClassCacheListCustomers.GetCache(strPathToXML)
+
+        objListCustomers = cache_customers.ListOfCustomers
+
+        frm_ToShow.Load_Customers(objListCustomers)
+
+
+    End Sub ''End of "Private Sub buttonCustomers_Click"
+
+
 End Class

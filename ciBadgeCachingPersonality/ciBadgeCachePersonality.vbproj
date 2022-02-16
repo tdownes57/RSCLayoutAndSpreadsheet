@@ -70,6 +70,7 @@
     <Compile Include="BadgeLayoutCache.vb" />
     <Compile Include="ClassBadgeSideLayoutV1.vb" />
     <Compile Include="ClassBadgeSideLayoutV2.vb" />
+    <Compile Include="ClassCacheListCustomers.vb" />
     <Compile Include="ClassCacheManagement.vb" />
     <Compile Include="ClassCacheOneCustomersConfigs.vb" />
     <Compile Include="ClassCachePersonalities_NotInUse.vb" />

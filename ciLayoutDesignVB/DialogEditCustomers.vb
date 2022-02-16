@@ -13,7 +13,7 @@ Public Class DialogEditCustomers
     ''
     Private mod_listCustomerObjs As HashSet(Of ClassCustomer)
     Private mod_listCustomerRows As New HashSet(Of ClassRowOfCustomer)
-    Private mod_cacheOfCustomers As New ciBadgeCachePersonality.ClassCacheRecipients
+    Private mod_cacheOfCustomers As New ciBadgeCachePersonality.ClassCacheListCustomers
 
     Private Class ClassRowOfCustomer
         ''

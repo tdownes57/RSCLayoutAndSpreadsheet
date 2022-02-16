@@ -1,19 +1,25 @@
 ﻿Option Explicit On
 Option Strict On
 Option Infer Off
+
 ''
 ''Added 2/10/2022 thomas downes
 ''
 Imports ciBadgeInterfaces ''Added 9/16/2019 td 
 Imports ciBadgeFields ''Added 9/18/2019 td
-Imports ciBadgeRecipients ''Added 10/16/2019 thomas d. 
+Imports ciBadgeCustomer ''Added 2/16/2022 thomas d. 
 
 Namespace ciBadgeCachePersonality
+    ''
+    ''Added 2/16/2022 td
+    ''
 
     <Serializable>
-    Public Class ClassCacheListRecipients
-
-        Public Shared Singleton As ClassElementsCache_Deprecated ''Let's use
+    Public Class ClassCacheListCustomers
+        ''
+        ''Added 2/16/2022 td
+        ''
+        Public Shared Singleton As ClassCacheListCustomers ''Let's use
         '' the pattern mentioned in https://en.wikipedia.org/wiki/Singleton_pattern
         Public Property Id_GUID As System.Guid ''Added 9/30/2019 td 
         Public Property Id_GUID6Char As String ''Added 12/12/2021 td 
@@ -24,20 +30,20 @@ Namespace ciBadgeCachePersonality
         Public Property PathToXml_Opened As String ''Added 12/14/2021 td
         Public Property PathToXml_Binary As String ''Added 11/29/2019 td
 
-        Public Property PersonalityId_GUID As System.Guid ''Added 12/14/2021 thomas
-        Public Property PersonalityId_GUID6Char As String ''Added 12/14/2021 thomas
+        ''Public Property PersonalityId_GUID As System.Guid ''Added 12/14/2021 thomas
+        ''Public Property PersonalityId_GUID6Char As String ''Added 12/14/2021 thomas
 
         Public Property DateAndTimeUpdated As DateTime ''Added 11/29/2021 thomas d. 
 
-        Private mod_listRecipients As New HashSet(Of ClassRecipient) ''Added 10/14/2019 td  
+        Private mod_listCustomers As New HashSet(Of ciBadgeCustomer.ClassCustomer) ''Added 10/14/2019 td  
 
 
-        Public Property ListOfRecipients As List(Of ClassRecipient)
+        Public Property ListOfCustomers As HashSet(Of ClassCustomer)
 
 
         Public Sub SaveToXML(Optional ByVal pstrPathToXML As String = "")
             ''
-            ''Added 2/10/2022 &  11/29/2019 thomas downes        
+            ''Added 2/10/2022 &  11/29/2019 thomas downes
             ''
 
             ''
@@ -81,31 +87,31 @@ Namespace ciBadgeCachePersonality
         End Sub ''End of "Public Sub SaveToXML()"
 
 
-        Public Shared Function GetCache(pstrPathToXML As String) As ClassCacheListRecipients
+        Public Shared Function GetCache(pstrPathToXML As String) As ClassCacheListCustomers
             ''
             ''Copied & adapted 2/15/2022 from Startup.vb's Public Shared Function LoadCachedData_Elements_Deprecated
             ''
             ''Added 10/10/2019 td  
             Dim objDeserialize As New ciBadgeSerialize.ClassDeserial ''Added 10/10/2019 td  
-            Dim obj_cache_customers As ClassCacheListRecipients
+            Dim obj_cache_customers As ClassCacheListCustomers
 
             objDeserialize.PathToXML = pstrPathToXML
 
             ''10/13/2019 td''Me.ElementsCache_Saved = CType(objDeserialize.DeserializeFromXML(Me.ElementsCache_Saved.GetType(), False), ClassElementsCache)
             ''-----Me.ElementsCache_Edits = CType(objDeserialize.DeserializeFromXML(Me.ElementsCache_Edits.GetType(), False), ClassElementsCache)
 
-            obj_cache_customers = New ClassCacheListRecipients ''This may or may not be completely necessary,
+            obj_cache_customers = New ClassCacheListCustomers ''This may or may not be completely necessary,
             ''   but I know of no other way to pass the object type.  Simply expressing the Type
             ''   by typing its name doesn't work.  ---10/13/2019 td
 
-            obj_cache_customers = CType(objDeserialize.DeserializeFromXML(obj_cache_customers.GetType(), False), ClassCacheListRecipients)
+            obj_cache_customers = CType(objDeserialize.DeserializeFromXML(obj_cache_customers.GetType(), False), ClassCacheListCustomers)
 
             Return obj_cache_customers
 
         End Function ''End of "Public Shared Function GetCache"
 
 
-
-    End Class ''ENd of Public Class ClassCacheListRecipients
+    End Class ''End of "Public Class ClassCacheListCustomers"
 
 End Namespace
+
