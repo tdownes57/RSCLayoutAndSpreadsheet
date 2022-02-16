@@ -1,0 +1,62 @@
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+Partial Class DialogEditCustomers
+    Inherits System.Windows.Forms.Form
+
+    'Form overrides dispose to clean up the component list.
+    <System.Diagnostics.DebuggerNonUserCode()> _
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        Try
+            If disposing AndAlso components IsNot Nothing Then
+                components.Dispose()
+            End If
+        Finally
+            MyBase.Dispose(disposing)
+        End Try
+    End Sub
+
+    'Required by the Windows Form Designer
+    Private components As System.ComponentModel.IContainer
+
+    'NOTE: The following procedure is required by the Windows Form Designer
+    'It can be modified using the Windows Form Designer.  
+    'Do not modify it using the code editor.
+    <System.Diagnostics.DebuggerStepThrough()> _
+    Private Sub InitializeComponent()
+        Me.PopulateCustomers1 = New ciBadgeCustomer.PopulateCustomers()
+        Me.LabelEditCustomers = New System.Windows.Forms.Label()
+        Me.SuspendLayout()
+        '
+        'PopulateCustomers1
+        '
+        Me.PopulateCustomers1.Location = New System.Drawing.Point(19, 87)
+        Me.PopulateCustomers1.Name = "PopulateCustomers1"
+        Me.PopulateCustomers1.Size = New System.Drawing.Size(1058, 457)
+        Me.PopulateCustomers1.TabIndex = 0
+        '
+        'LabelEditCustomers
+        '
+        Me.LabelEditCustomers.AutoSize = True
+        Me.LabelEditCustomers.Font = New System.Drawing.Font("Microsoft Sans Serif", 23.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelEditCustomers.Location = New System.Drawing.Point(17, 17)
+        Me.LabelEditCustomers.Name = "LabelEditCustomers"
+        Me.LabelEditCustomers.Size = New System.Drawing.Size(289, 44)
+        Me.LabelEditCustomers.TabIndex = 1
+        Me.LabelEditCustomers.Text = "Edit Customers"
+        '
+        'DialogEditCustomers
+        '
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.ClientSize = New System.Drawing.Size(1066, 631)
+        Me.Controls.Add(Me.LabelEditCustomers)
+        Me.Controls.Add(Me.PopulateCustomers1)
+        Me.Name = "DialogEditCustomers"
+        Me.Text = "Edit Customers"
+        Me.ResumeLayout(False)
+        Me.PerformLayout()
+
+    End Sub
+
+    Friend WithEvents PopulateCustomers1 As ciBadgeCustomer.PopulateCustomers
+    Friend WithEvents LabelEditCustomers As Label
+End Class
