@@ -39,16 +39,40 @@ Public Class PopulateCustomers
         If (sender_checkbox.Tag IsNot Nothing) Then
 
             row_checkboxClass = CType(sender_checkbox.Tag, ClassRowOfCustomer)
+            ActivateRow_PrepareForDataEntry(row_checkboxClass)
 
+        Else
 
+            MessageBoxTD.Show_Statement("Sorry, unable to activate this Customer row.")
 
-        End If ''End of "If (sender_checkbox.Tag IsNot Nothing) Then"
+        End If ''End of "If (sender_checkbox.Tag IsNot Nothing) Then... Else ..."
 
 
 
     End Sub
 
 
+    Private Sub ActivateRow_PrepareForDataEntry(par_controlsetClass As ClassRowOfCustomer)
+        ''
+        ''Added 2/17/2022 thomas downes
+        ''
+        With par_controlsetClass
+
+            If (.TextboxCode.Text = "Example") Then .TextboxCode.Text = ""
+            If (.TextboxName.Text = "Example") Then .TextboxName.Text = ""
+            If (.TextboxNotes.Text = "Example") Then .TextboxNotes.Text = ""
+
+            .TextboxCode.ForeColor = System.Drawing.Color.Black
+            .TextboxName.ForeColor = System.Drawing.Color.Black
+            .TextboxNotes.ForeColor = System.Drawing.Color.Black
+
+            .TextboxCode.BackColor = System.Drawing.Color.White
+            .TextboxName.BackColor = System.Drawing.Color.White
+            .TextboxNotes.BackColor = System.Drawing.Color.White
+
+        End With
+
+    End Sub  ''End of "Private Sub ActivateRow_PrepareForDataEntry"
 
 
 End Class
