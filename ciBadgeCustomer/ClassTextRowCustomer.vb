@@ -6,6 +6,7 @@ Option Strict On
 ''
 Imports ciBadgeCustomer ''Added 2/15/2022 thomas d. 
 Imports ciBadgeCachePersonality ''Added 2/15/2022 thomas d. 
+Imports System.Windows.Forms ''Added2/16/2022 td
 
 Friend Class ClassRowOfCustomer
     ''
