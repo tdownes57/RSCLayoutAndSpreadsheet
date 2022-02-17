@@ -406,12 +406,13 @@
     <Compile Include="Controls\CtlBackground.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Dialogs_Grid\ClassTextRowCustomer.vb" />
     <Compile Include="DiskFiles\DiskFilesVB.vb" />
     <Compile Include="DiskFiles\DiskFolders.vb" />
-    <Compile Include="DialogEditCustomers.Designer.vb">
+    <Compile Include="Dialogs_Grid\DialogEditCustomers.Designer.vb">
       <DependentUpon>DialogEditCustomers.vb</DependentUpon>
     </Compile>
-    <Compile Include="DialogEditCustomers.vb">
+    <Compile Include="Dialogs_Grid\DialogEditCustomers.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormDisplayCacheLayouts.Designer.vb">
@@ -498,22 +499,22 @@
     <Compile Include="Interfaces\InterfaceRecallLastTouched_NotUsed.vb" />
     <Compile Include="Interfaces\InterfaceRecallMoveable_NotUsed.vb" />
     <Compile Include="Interfaces\InterfaceShowListFields.vb" />
-    <Compile Include="FlowDialogs\ListCustomFieldsFlow.Designer.vb">
+    <Compile Include="Dialogs_Flow\ListCustomFieldsFlow.Designer.vb">
       <DependentUpon>ListCustomFieldsFlow.vb</DependentUpon>
     </Compile>
-    <Compile Include="FlowDialogs\ListCustomFieldsFlow.vb">
+    <Compile Include="Dialogs_Flow\ListCustomFieldsFlow.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FlowDialogs\DialogListCustomFieldsGrid.Designer.vb">
+    <Compile Include="Dialogs_Flow\DialogListCustomFieldsGrid.Designer.vb">
       <DependentUpon>DialogListCustomFieldsGrid.vb</DependentUpon>
     </Compile>
-    <Compile Include="FlowDialogs\DialogListCustomFieldsGrid.vb">
+    <Compile Include="Dialogs_Flow\DialogListCustomFieldsGrid.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DialogDisplayColor.Designer.vb">
+    <Compile Include="Dialogs_Text\DialogDisplayColor.Designer.vb">
       <DependentUpon>DialogDisplayColor.vb</DependentUpon>
     </Compile>
-    <Compile Include="DialogDisplayColor.vb">
+    <Compile Include="Dialogs_Text\DialogDisplayColor.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormDisplayImageList1.Designer.vb">
@@ -528,10 +529,10 @@
     <Compile Include="FormDisplayImageList2.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DialogExampleValueEtc.Designer.vb">
+    <Compile Include="Dialogs_Text\DialogExampleValueEtc.Designer.vb">
       <DependentUpon>DialogExampleValueEtc.vb</DependentUpon>
     </Compile>
-    <Compile Include="DialogExampleValueEtc.vb">
+    <Compile Include="Dialogs_Text\DialogExampleValueEtc.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form__Main_PreDemo.Designer.vb">
@@ -552,22 +553,22 @@
     <Compile Include="FormMainEntry_v90.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DialogTextOffset.Designer.vb">
+    <Compile Include="Dialogs_Text\DialogTextOffset.Designer.vb">
       <DependentUpon>DialogTextOffset.vb</DependentUpon>
     </Compile>
-    <Compile Include="DialogTextOffset.vb">
+    <Compile Include="Dialogs_Text\DialogTextOffset.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DialogPresetValues.Designer.vb">
+    <Compile Include="Dialogs_Text\DialogPresetValues.Designer.vb">
       <DependentUpon>DialogPresetValues.vb</DependentUpon>
     </Compile>
-    <Compile Include="DialogPresetValues.vb">
+    <Compile Include="Dialogs_Text\DialogPresetValues.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FlowDialogs\DialogListStandardFields.Designer.vb">
+    <Compile Include="Dialogs_Flow\DialogListStandardFields.Designer.vb">
       <DependentUpon>DialogListStandardFields.vb</DependentUpon>
     </Compile>
-    <Compile Include="FlowDialogs\DialogListStandardFields.vb">
+    <Compile Include="Dialogs_Flow\DialogListStandardFields.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DialogSubsection.Designer.vb">
@@ -596,10 +597,10 @@
     <Compile Include="FormDisplayBadge.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DialogTextBorder.Designer.vb">
+    <Compile Include="Dialogs_Text\DialogTextBorder.Designer.vb">
       <DependentUpon>DialogTextBorder.vb</DependentUpon>
     </Compile>
-    <Compile Include="DialogTextBorder.vb">
+    <Compile Include="Dialogs_Text\DialogTextBorder.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Modules\MessageBoxTD.vb" />
@@ -717,10 +718,10 @@
     <EmbeddedResource Include="Controls\CtlWidthHeight.resx">
       <DependentUpon>CtlWidthHeight.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DialogTextBorder.resx">
+    <EmbeddedResource Include="Dialogs_Text\DialogTextBorder.resx">
       <DependentUpon>DialogTextBorder.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DialogEditCustomers.resx">
+    <EmbeddedResource Include="Dialogs_Grid\DialogEditCustomers.resx">
       <DependentUpon>DialogEditCustomers.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormDisplayCacheLayouts.resx">
@@ -761,10 +762,10 @@
       <DependentUpon>FormSimpleDataEntry.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="FlowDialogs\ListCustomFieldsFlow.resx">
+    <EmbeddedResource Include="Dialogs_Flow\ListCustomFieldsFlow.resx">
       <DependentUpon>ListCustomFieldsFlow.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FlowDialogs\DialogListCustomFieldsGrid.resx">
+    <EmbeddedResource Include="Dialogs_Flow\DialogListCustomFieldsGrid.resx">
       <DependentUpon>DialogListCustomFieldsGrid.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormDesignPrototype.resx">
@@ -774,7 +775,7 @@
     <EmbeddedResource Include="FormDisplayBadge.resx">
       <DependentUpon>FormDisplayBadge.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DialogDisplayColor.resx">
+    <EmbeddedResource Include="Dialogs_Text\DialogDisplayColor.resx">
       <DependentUpon>DialogDisplayColor.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormDisplayImageList1.resx">
@@ -783,7 +784,7 @@
     <EmbeddedResource Include="FormDisplayImageList2.resx">
       <DependentUpon>FormDisplayImageList2.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DialogExampleValueEtc.resx">
+    <EmbeddedResource Include="Dialogs_Text\DialogExampleValueEtc.resx">
       <DependentUpon>DialogExampleValueEtc.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form__Main_PreDemo.resx">
@@ -792,13 +793,13 @@
     <EmbeddedResource Include="FormMainEntry_v82.resx">
       <DependentUpon>FormMainEntry_v82.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DialogTextOffset.resx">
+    <EmbeddedResource Include="Dialogs_Text\DialogTextOffset.resx">
       <DependentUpon>DialogTextOffset.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DialogPresetValues.resx">
+    <EmbeddedResource Include="Dialogs_Text\DialogPresetValues.resx">
       <DependentUpon>DialogPresetValues.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FlowDialogs\DialogListStandardFields.resx">
+    <EmbeddedResource Include="Dialogs_Flow\DialogListStandardFields.resx">
       <DependentUpon>DialogListStandardFields.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DialogSubsection.resx">

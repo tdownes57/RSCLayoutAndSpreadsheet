@@ -703,12 +703,23 @@ Public Class FormDisplayCacheLayouts
         Dim objListCustomers As HashSet(Of ciBadgeCustomer.ClassCustomer)
         Dim strPathToXML As String
 
-        cache_customers = ClassCacheListCustomers.GetCache(strPathToXML)
+        strPathToXML = My.Settings.PathToXML_Saved_Customers
 
-        objListCustomers = cache_customers.ListOfCustomers
+        If (String.IsNullOrEmpty(strPathToXML)) Then
+            ''Added 2/16/2022 td
+            frm_ToShow.StartingFromScratch_NoXML = True
 
-        frm_ToShow.Load_Customers(objListCustomers)
+        Else
+            ''
+            ''Open the Cache of Customers. 
+            ''
+            cache_customers = ClassCacheListCustomers.GetCache(strPathToXML)
+            objListCustomers = cache_customers.ListOfCustomers
+            frm_ToShow.Load_Customers(objListCustomers)
 
+        End If ''End of "If (String.IsNullOrEmpty(strPathToXML)) Then... Else..."
+
+        frm_ToShow.ShowDialog()
 
     End Sub ''End of "Private Sub buttonCustomers_Click"
 
