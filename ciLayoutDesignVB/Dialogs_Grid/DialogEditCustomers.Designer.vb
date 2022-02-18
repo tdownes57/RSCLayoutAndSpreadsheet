@@ -42,7 +42,7 @@ Partial Class DialogEditCustomers
         '
         Me.ButtonCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.ButtonCancel.Location = New System.Drawing.Point(967, 561)
+        Me.ButtonCancel.Location = New System.Drawing.Point(1274, 561)
         Me.ButtonCancel.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.ButtonCancel.Name = "ButtonCancel"
         Me.ButtonCancel.Size = New System.Drawing.Size(77, 59)
@@ -54,7 +54,7 @@ Partial Class DialogEditCustomers
         '
         Me.ButtonOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonOK.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.ButtonOK.Location = New System.Drawing.Point(819, 561)
+        Me.ButtonOK.Location = New System.Drawing.Point(1126, 561)
         Me.ButtonOK.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.ButtonOK.Name = "ButtonOK"
         Me.ButtonOK.Size = New System.Drawing.Size(125, 59)
@@ -69,14 +69,14 @@ Partial Class DialogEditCustomers
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PopulateCustomers1.Location = New System.Drawing.Point(19, 64)
         Me.PopulateCustomers1.Name = "PopulateCustomers1"
-        Me.PopulateCustomers1.Size = New System.Drawing.Size(1025, 480)
+        Me.PopulateCustomers1.Size = New System.Drawing.Size(1332, 480)
         Me.PopulateCustomers1.TabIndex = 0
         '
         'DialogEditCustomers
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1066, 631)
+        Me.ClientSize = New System.Drawing.Size(1373, 631)
         Me.Controls.Add(Me.ButtonCancel)
         Me.Controls.Add(Me.ButtonOK)
         Me.Controls.Add(Me.LabelEditCustomers)

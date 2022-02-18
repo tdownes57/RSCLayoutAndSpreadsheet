@@ -57,6 +57,11 @@ Public Class ClassRowOfControlsPerCustomer
         ''
         ''Encapsulated 2/17/2022 td
         ''
+        If (par_index > 12 Or par_index <= 0) Then
+            ''Added 2/17/2022 thomas
+            Throw New Exception("Why is the index out of bounds?")
+        End If ''End of "If (par_index > 12 Or par_index <= 0) Then"
+
         With par_controlContainer
 
             If (par_index = 1) Then TextboxCode = .textboxCode1

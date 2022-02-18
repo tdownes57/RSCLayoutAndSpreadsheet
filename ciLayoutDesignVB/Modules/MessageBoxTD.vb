@@ -28,4 +28,18 @@
     End Function
 
 
+    Public Shared Function Show_Confirm(pstrConfirmationQuestion As String) As Boolean
+        ''
+        ''Added 2/17/2022 thomas downes
+        ''
+        Dim res As DialogResult
+
+        res = MessageBox.Show(pstrConfirmationQuestion & vbCrLf_Deux &
+                               "Confirm by pressing Yes.", "MessageBoxTD-Confirm",
+                               MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)
+
+        Return (res = DialogResult.Yes)
+
+    End Function
+
 End Class

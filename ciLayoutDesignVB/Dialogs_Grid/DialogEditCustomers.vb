@@ -14,6 +14,7 @@ Public Class DialogEditCustomers
     '' Added 2/15/2022 thomas downes
     ''
     Public Property StartingFromScratch_NoXML As Boolean ''Added 2/16/2022 td
+    Public Property PathToXML As String = "" ''Added 2/17/2022 td
 
     Public Property Output_HashCustomers As HashSet(Of ClassCustomer) ''Added 2/17/2022 t2
     Public Property Output_ListCustomers As List(Of ClassCustomer) ''Added 2/17/2022 t2
@@ -21,6 +22,7 @@ Public Class DialogEditCustomers
     Private mod_hashCustomerObjs As HashSet(Of ClassCustomer)
     Private mod_hashCustomerRows As New HashSet(Of ClassRowOfControlsPerCustomer) ''(Of ClassRowOfCustomer)
     Private mod_cacheOfCustomers As New ciBadgeCachePersonality.ClassCacheListCustomers
+    Private mod_bOkayToCloseFormWithoutConfirmation As Boolean = False ''Added 2/17/2022 t[h]o]m]a[s d[o[w]n[e[s
 
     ''Private Class ClassRowOfCustomer
     ''    ''
@@ -162,22 +164,56 @@ Public Class DialogEditCustomers
 
     End Sub
 
+
     Private Sub ButtonOK_Click(sender As Object, e As EventArgs) Handles ButtonOK.Click
         ''
         ''Added 2/25/2022 thomas downes
         ''
         Dim hashsetCustomersEdited As New HashSet(Of ClassCustomer)
 
+        ''Added 2/17/2025 td
+        If (String.IsNullOrEmpty(Me.PathToXML)) Then Throw New Exception("PathToXML is blank!")
+
         hashsetCustomersEdited =
           Save_GetCustomerHash()
 
         Me.mod_cacheOfCustomers.ListOfCustomers = hashsetCustomersEdited
-        Me.mod_cacheOfCustomers.SaveToXML()
+        Me.mod_cacheOfCustomers.SaveToXML(Me.PathToXML)
+        mod_bOkayToCloseFormWithoutConfirmation = True
         Me.Close()
 
     End Sub
 
 
+    Private Sub ButtonCancel_Click(sender As Object, e As EventArgs) Handles ButtonCancel.Click
+        ''
+        ''Added 2/17/2022  
+        ''
+        If (MessageBoxTD.Show_Confirm("Want to discard any edits made?")) Then
+            mod_bOkayToCloseFormWithoutConfirmation = True
+            Me.Close()
+        End If
+
+    End Sub
+
+
+    Private Sub DialogEditCustomers_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        ''
+        ''Added 2/17/2022
+        ''
+        Dim bConfirmClose As Boolean
+
+        If (Not mod_bOkayToCloseFormWithoutConfirmation) Then
+
+            bConfirmClose = MessageBoxTD.Show_Confirm("Want to discard any edits made?")
+            If (bConfirmClose) Then
+                mod_bOkayToCloseFormWithoutConfirmation = True
+            Else
+                e.Cancel = True
+            End If
+        End If
+
+    End Sub
 
 
 End Class

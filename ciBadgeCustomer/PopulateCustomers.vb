@@ -76,17 +76,30 @@ Public Class PopulateCustomers
 
             If (.TextboxCode.Text = "Example") Then .TextboxCode.Text = ""
             If (.TextboxNameFull.Text = "Example") Then .TextboxNameFull.Text = ""
+            If (.TextboxNameShort.Text = "Example") Then .TextboxNameShort.Text = ""
             If (.TextboxNotes.Text = "Example") Then .TextboxNotes.Text = ""
 
             .TextboxCode.ForeColor = System.Drawing.Color.Black
             .TextboxNameFull.ForeColor = System.Drawing.Color.Black
             .TextboxNotes.ForeColor = System.Drawing.Color.Black
+            ''Added 2/17/2022 td
+            .TextboxNameShort.ForeColor = System.Drawing.Color.Black
 
             .TextboxCode.BackColor = System.Drawing.Color.White
             .TextboxNameFull.BackColor = System.Drawing.Color.White
             .TextboxNotes.BackColor = System.Drawing.Color.White
+            ''Added 2/17/2022 td
+            .TextboxNameShort.BackColor = System.Drawing.Color.White
 
-        End With
+            ''Added 2/17/2022 td
+            .TextboxCode.Refresh()
+            .TextboxNameFull.Refresh()
+            .TextboxNameShort.Refresh()
+            .TextboxNotes.Refresh()
+
+        End With ''End of "With par_controlsetClass"
+
+
 
     End Sub  ''End of "Private Sub ActivateRow_PrepareForDataEntry"
 
@@ -125,16 +138,22 @@ Public Class PopulateCustomers
                 ''Check consistency 
                 With each_row_controlsetClass
                     each_bCustomerIsNull = (.Customer Is Nothing) ''Feb17 2022 = .CustomerIsNull
-                    each_bCustomerInactive = (.CheckboxActive.Checked)
+                    each_bCustomerInactive = (Not .CheckboxActive.Checked)
                     each_customer = .Customer
 
                     ''Added 2/17/2022  
                     bMustCreateCustomer = (each_bCustomerIsNull And (Not each_bCustomerInactive))
+
                     If (bMustCreateCustomer) Then
                         .Customer = New ClassCustomer()
                         each_bCustomerIsNull = (.Customer Is Nothing) ''Feb17 2022 = .CustomerIsNull
                         each_customer = .Customer
-                    End If ''End of "If (bMustCreateCustomer) Then"
+
+                    ElseIf (each_bCustomerIsNull) Then
+                        ''Added 2/17/2022 thomas d. 
+                        If (False) Then Throw New Exception("Why is this code executing? Might cause null reference.")
+
+                    End If ''End of "If (bMustCreateCustomer) Then .... ElseIf (...) Then"
 
                 End With ''End of "With each_row_controlsetClass"
 
@@ -148,6 +167,8 @@ Public Class PopulateCustomers
                 Else
 
                     With each_customer
+
+                        If (each_customer Is Nothing) Then Throw New Exception("Why is customer Null?")
 
                         .AlphanumericCode = each_row_controlsetClass.TextboxCode.Text
                         .Description = each_row_controlsetClass.TextboxNotes.Text
@@ -187,6 +208,10 @@ Public Class PopulateCustomers
     End Sub
 
     Private Sub checkbox1_CheckedChanged(sender As Object, e As EventArgs) Handles checkbox1.CheckedChanged
+
+    End Sub
+
+    Private Sub SplitContainer0_Panel1_Paint(sender As Object, e As PaintEventArgs) Handles SplitContainer0.Panel1.Paint
 
     End Sub
 End Class
