@@ -64,6 +64,25 @@ Public Class DiskFilesVB
     End Function ''End of "Public Shared Function PathToFile_XML_Personality() As String"
 
 
+    Public Shared Function PathToFile_XML_Customers() As String
+        ''
+        ''Added 2/18/2020 Thomas Downes    
+        ''
+        Dim strPathToXML As String
+
+        ''The following line will allow the File | Save As....
+        ''   menu item to be effective. ----10/13/2019 td
+        strPathToXML = My.Settings.PathToXML_Saved_Customers
+
+        If ("" = strPathToXML) Then
+            strPathToXML = IO.Path.Combine(My.Application.Info.DirectoryPath, "Customers.xml")
+        End If ''End of "If ("" = strPathToXML) Then"
+
+        Return strPathToXML
+
+    End Function ''End of "Public Shared Function PathToFile_XML_Customers() As String"
+
+
     Public Shared Function PathToFile_XML_ElementsCache() As String
         ''1/14/2020 td'Public Shared Function PathToFile_XML_ElementsCache() As String
         ''

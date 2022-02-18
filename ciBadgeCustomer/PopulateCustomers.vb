@@ -184,7 +184,33 @@ Public Class PopulateCustomers
             End If ''End of "If (sender_checkbox.Tag IsNot Nothing) Then... Else ..."
 
             ''
+            ''Added 2/18/2022 td 
+            ''
+            Dim bDoneGuid As Boolean ''Added 2/18/2022 td
+
+            ''
             ''Collect the customer objects. 
+            ''
+            If (each_customer IsNot Nothing) Then
+
+                ''bDoneGuid = String.IsNullOrEmpty(each_customer.CustomerGUID.ToString()) = False _
+                ''        AndAlso (each_customer.CustomerGUID.ToString().StartsWith("00000000") = False)
+                bDoneGuid = modUtilities.GuidIsFine(each_customer.CustomerGUID)
+
+                If (Not bDoneGuid) Then
+                    Do
+                        ''Feb18 2022 td''each_customer.CustomerGUID = New System.Guid()
+                        each_customer.CustomerGUID = System.Guid.NewGuid()
+                        each_customer.CustomerGUID6char = each_customer.CustomerGUID.ToString().Substring(0, 6)
+                        bDoneGuid = modUtilities.GuidIsFine(each_customer.CustomerGUID)
+
+                    Loop Until bDoneGuid
+                End If ''End of "If (Not bDoneGuid) Then"
+
+            End If ''end of "If (each_customer IsNot Nothing) Then"
+
+            ''
+            ''Place the customer record onto the output parameter!!  
             ''
             If (each_customer IsNot Nothing) Then
                 output_hashset.Add(each_customer)

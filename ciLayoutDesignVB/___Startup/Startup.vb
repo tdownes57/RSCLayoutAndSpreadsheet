@@ -883,4 +883,16 @@ Public Class Startup
     End Sub ''End of "Public Shared Sub SaveFullPathToFileXML_Settings()"
 
 
+    Public Shared Function GuidIsFine(par_guid As Guid) As Boolean
+        ''
+        ''Added 2/18/2022 td
+        ''
+        Dim bDoneGuid As Boolean ''Added 2/18/2022 td
+        bDoneGuid = String.IsNullOrEmpty(par_guid.ToString()) = False _
+                AndAlso (par_guid.ToString().StartsWith("00000000") = False)
+        Return bDoneGuid
+
+    End Function
+
+
 End Class ''end of Public Class Startup

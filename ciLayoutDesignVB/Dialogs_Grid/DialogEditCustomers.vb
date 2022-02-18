@@ -103,8 +103,10 @@ Public Class DialogEditCustomers
         ''
         '' Added 2/15/2022 thomas downes
         ''
-        mod_cacheOfCustomers = ClassCacheListCustomers.GetCache(par_pathToXML)
-        Load_Customers(mod_cacheOfCustomers.ListOfCustomers)
+        If (System.IO.File.Exists(par_pathToXML)) Then
+            mod_cacheOfCustomers = ClassCacheListCustomers.GetCache(par_pathToXML)
+            Load_Customers(mod_cacheOfCustomers.ListOfCustomers)
+        End If ''End of "If (System.IO.File.Exists(par_pathToXML)) Then"
 
     End Sub ''End of "Public Sub Load_Customers"
 
@@ -159,15 +161,9 @@ Public Class DialogEditCustomers
     End Function ''End of "Private Function Save_GetCustomerList()" 
 
 
-
-    Private Sub DialogEditCustomers_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-    End Sub
-
-
-    Private Sub ButtonOK_Click(sender As Object, e As EventArgs) Handles ButtonOK.Click
+    Private Sub SaveToXML()
         ''
-        ''Added 2/25/2022 thomas downes
+        ''Added 2/18/2022
         ''
         Dim hashsetCustomersEdited As New HashSet(Of ClassCustomer)
 
@@ -177,8 +173,48 @@ Public Class DialogEditCustomers
         hashsetCustomersEdited =
           Save_GetCustomerHash()
 
-        Me.mod_cacheOfCustomers.ListOfCustomers = hashsetCustomersEdited
-        Me.mod_cacheOfCustomers.SaveToXML(Me.PathToXML)
+        With Me.mod_cacheOfCustomers
+            Me.mod_cacheOfCustomers.DateAndTimeUpdated = DateTime.Now ''Added 2/18/2022 thomas d.
+            Me.mod_cacheOfCustomers.ListOfCustomers = hashsetCustomersEdited
+            Me.mod_cacheOfCustomers.SaveToXML(Me.PathToXML)
+        End With
+
+    End Sub ''End of "Private Sub SaveToXML()"
+
+
+
+    Private Sub DialogEditCustomers_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ''
+        ''Added 2/17/2022 td
+        ''
+        With Me.PopulateCustomers1
+
+            If (.Left + .Width > Me.Width) Then .Width = (Me.Width - .Left - 50)
+
+        End With
+
+    End Sub
+
+
+    Private Sub ButtonOK_Click(sender As Object, e As EventArgs) Handles ButtonOK.Click
+        ''
+        ''Added 2/15/2022 thomas downes
+        ''
+        ''Dim hashsetCustomersEdited As New HashSet(Of ClassCustomer)
+        ''
+        ''''Added 2/17/2025 td
+        ''If (String.IsNullOrEmpty(Me.PathToXML)) Then Throw New Exception("PathToXML is blank!")
+        ''
+        ''hashsetCustomersEdited =
+        ''  Save_GetCustomerHash()
+        ''
+        ''With Me.mod_cacheOfCustomers
+        ''    .ListOfCustomers = hashsetCustomersEdited
+        ''    .DateAndTimeUpdated = DateTime.Now ''Added 2/18/2022 thomas d.
+        ''    .SaveToXML(Me.PathToXML)
+        ''End With ''End of "With Me.mod_cacheOfCustomers"
+
+        SaveToXML()
         mod_bOkayToCloseFormWithoutConfirmation = True
         Me.Close()
 
@@ -215,5 +251,14 @@ Public Class DialogEditCustomers
 
     End Sub
 
+    Private Sub linklabelSaveToXMLFile_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles linklabelSaveToXMLFile.LinkClicked
+        ''
+        ''Added 2/18/2022 thomas downes
+        ''
+        SaveToXML()
 
+        System.Threading.Thread.Sleep(2000)
+        System.Diagnostics.Process.Start(Me.PathToXML)
+
+    End Sub
 End Class

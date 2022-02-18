@@ -25,6 +25,7 @@ Partial Class DialogEditCustomers
         Me.LabelEditCustomers = New System.Windows.Forms.Label()
         Me.ButtonCancel = New System.Windows.Forms.Button()
         Me.ButtonOK = New System.Windows.Forms.Button()
+        Me.linklabelSaveToXMLFile = New System.Windows.Forms.LinkLabel()
         Me.PopulateCustomers1 = New ciBadgeCustomer.PopulateCustomers()
         Me.SuspendLayout()
         '
@@ -62,6 +63,16 @@ Partial Class DialogEditCustomers
         Me.ButtonOK.Text = "OK"
         Me.ButtonOK.UseVisualStyleBackColor = True
         '
+        'linklabelSaveToXMLFile
+        '
+        Me.linklabelSaveToXMLFile.AutoSize = True
+        Me.linklabelSaveToXMLFile.Location = New System.Drawing.Point(58, 561)
+        Me.linklabelSaveToXMLFile.Name = "linklabelSaveToXMLFile"
+        Me.linklabelSaveToXMLFile.Size = New System.Drawing.Size(222, 17)
+        Me.linklabelSaveToXMLFile.TabIndex = 14
+        Me.linklabelSaveToXMLFile.TabStop = True
+        Me.linklabelSaveToXMLFile.Text = "Save to XML and display XML file."
+        '
         'PopulateCustomers1
         '
         Me.PopulateCustomers1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
@@ -77,6 +88,7 @@ Partial Class DialogEditCustomers
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1373, 631)
+        Me.Controls.Add(Me.linklabelSaveToXMLFile)
         Me.Controls.Add(Me.ButtonCancel)
         Me.Controls.Add(Me.ButtonOK)
         Me.Controls.Add(Me.LabelEditCustomers)
@@ -92,4 +104,5 @@ Partial Class DialogEditCustomers
     Friend WithEvents LabelEditCustomers As Label
     Friend WithEvents ButtonCancel As Button
     Friend WithEvents ButtonOK As Button
+    Friend WithEvents linklabelSaveToXMLFile As LinkLabel
 End Class

@@ -706,17 +706,31 @@ Public Class FormDisplayCacheLayouts
 
         strPathToXML = My.Settings.PathToXML_Saved_Customers
 
+        ''Added 2/18/2022 Thomas DOWNEES
+        If (strPathToXML = "") Then strPathToXML = DiskFilesVB.PathToFile_XML_Customers()
+
         If (String.IsNullOrEmpty(strPathToXML)) Then
+            ''
             ''Added 2/16/2022 td
+            ''
             frm_ToShow.StartingFromScratch_NoXML = True
+
+        ElseIf (Not IO.File.Exists(strPathToXML)) Then
+            ''
+            ''Added 2/18/2022 td
+            ''
+            frm_ToShow.StartingFromScratch_NoXML = True
+            frm_ToShow.PathToXML = strPathToXML
 
         Else
             ''
             ''Open the Cache of Customers. 
             ''
-            ''cache_customers = ClassCacheListCustomers.GetCache(strPathToXML)
-            ''objListCustomers = cache_customers.ListOfCustomers
-            ''frm_ToShow.Load_Customers(objListCustomers)
+            ''--cache_customers = ClassCacheListCustomers.GetCache(strPathToXML)
+            ''--objListCustomers = cache_customers.ListOfCustomers
+            ''--frm_ToShow.Load_Customers(objListCustomers)
+
+            frm_ToShow.PathToXML = strPathToXML
             frm_ToShow.Load_Customers(strPathToXML)
 
         End If ''End of "If (String.IsNullOrEmpty(strPathToXML)) Then... Else..."
