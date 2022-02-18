@@ -694,6 +694,7 @@ Public Class FormDisplayCacheLayouts
 
     End Sub
 
+
     Private Sub buttonCustomers_Click(sender As Object, e As EventArgs) Handles buttonCustomers.Click
         ''
         ''Added 2/16/2022 thomas d. 
@@ -713,9 +714,10 @@ Public Class FormDisplayCacheLayouts
             ''
             ''Open the Cache of Customers. 
             ''
-            cache_customers = ClassCacheListCustomers.GetCache(strPathToXML)
-            objListCustomers = cache_customers.ListOfCustomers
-            frm_ToShow.Load_Customers(objListCustomers)
+            ''cache_customers = ClassCacheListCustomers.GetCache(strPathToXML)
+            ''objListCustomers = cache_customers.ListOfCustomers
+            ''frm_ToShow.Load_Customers(objListCustomers)
+            frm_ToShow.Load_Customers(strPathToXML)
 
         End If ''End of "If (String.IsNullOrEmpty(strPathToXML)) Then... Else..."
 

@@ -20,4 +20,6 @@ Public Interface InterfaceCustomer
     Property IncludeVisitorManagement As Boolean  ''Added 10/11/2019 td 
     Property OnlyVisitorManagement As Boolean  ''Added 10/11/2019 td 
 
+    Property Deactivated As Boolean ''Is the customer no longer viable?  2/17/2022 thomas downes
+
 End Interface

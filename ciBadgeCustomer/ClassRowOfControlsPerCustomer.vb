@@ -4,11 +4,12 @@ Option Strict On
 ''
 '' Added 2/16/2022 & 2/15/2022 thomas downes
 ''
-Imports ciBadgeCustomer ''Added 2/15/2022 thomas d. 
-Imports ciBadgeCachePersonality ''Added 2/15/2022 thomas d. 
+''Imports ciBadgeCustomer ''Added 2/15/2022 thomas d. 
+''Imports ciBadgeCachePersonality ''Added 2/15/2022 thomas d. 
 Imports System.Windows.Forms ''Added2/16/2022 td
 
-Friend Class ClassRowOfCustomer
+Public Class ClassRowOfControlsPerCustomer
+    ''----Private Class ClassRowOfCustomer
     ''
     ''Added 2/16/2022 & 2/15/2022 thomas 
     ''
@@ -16,7 +17,8 @@ Friend Class ClassRowOfCustomer
     Public Customer As ClassCustomer
     Public CheckboxActive As CheckBox
     Public TextboxCode As TextBox
-    Public TextboxName As TextBox
+    Public TextboxNameFull As TextBox ''Suffixed 2/17/2022 td
+    Public TextboxNameShort As TextBox ''Added 2/17/2022 td 
     Public TextboxNotes As TextBox
 
     Public Sub New(par_controlContainer As PopulateCustomers, par_index As Integer,
@@ -70,18 +72,32 @@ Friend Class ClassRowOfCustomer
             If (par_index = 11) Then TextboxCode = .textboxCode11
             If (par_index = 12) Then TextboxCode = .textboxCode12
 
-            If (par_index = 1) Then TextboxName = .textboxName1
-            If (par_index = 2) Then TextboxName = .textboxName2
-            If (par_index = 3) Then TextboxName = .textboxName3
-            If (par_index = 4) Then TextboxName = .textboxName4
-            If (par_index = 5) Then TextboxName = .textboxName5
-            If (par_index = 6) Then TextboxName = .textboxName6
-            If (par_index = 7) Then TextboxName = .textboxName7
-            If (par_index = 8) Then TextboxName = .textboxName8
-            If (par_index = 9) Then TextboxName = .textboxName9
-            If (par_index = 10) Then TextboxName = .textboxName10
-            If (par_index = 11) Then TextboxName = .textboxName11
-            If (par_index = 12) Then TextboxName = .textboxName12
+            ''Added 2/17/2022 thomas downes   
+            If (par_index = 1) Then TextboxNameShort = .textboxNameShort1
+            If (par_index = 2) Then TextboxNameShort = .textboxNameShort2
+            If (par_index = 3) Then TextboxNameShort = .textboxNameShort3
+            If (par_index = 4) Then TextboxNameShort = .textboxNameShort4
+            If (par_index = 5) Then TextboxNameShort = .textboxNameShort5
+            If (par_index = 6) Then TextboxNameShort = .textboxNameShort6
+            If (par_index = 7) Then TextboxNameShort = .textboxNameShort7
+            If (par_index = 8) Then TextboxNameShort = .textboxNameShort8
+            If (par_index = 9) Then TextboxNameShort = .textboxNameShort9
+            If (par_index = 10) Then TextboxNameShort = .textboxNameShort10
+            If (par_index = 11) Then TextboxNameShort = .textboxNameShort11
+            If (par_index = 12) Then TextboxNameShort = .textboxNameShort12
+
+            If (par_index = 1) Then TextboxNameFull = .textboxNameFull1
+            If (par_index = 2) Then TextboxNameFull = .textboxNameFull2
+            If (par_index = 3) Then TextboxNameFull = .textboxNameFull3
+            If (par_index = 4) Then TextboxNameFull = .textboxNameFull4
+            If (par_index = 5) Then TextboxNameFull = .textboxNameFull5
+            If (par_index = 6) Then TextboxNameFull = .textboxNameFull6
+            If (par_index = 7) Then TextboxNameFull = .textboxNameFull7
+            If (par_index = 8) Then TextboxNameFull = .textboxNameFull8
+            If (par_index = 9) Then TextboxNameFull = .textboxNameFull9
+            If (par_index = 10) Then TextboxNameFull = .textboxNameFull10
+            If (par_index = 11) Then TextboxNameFull = .textboxNameFull11
+            If (par_index = 12) Then TextboxNameFull = .textboxNameFull12
 
             If (par_index = 1) Then TextboxNotes = .textboxNotes1
             If (par_index = 2) Then TextboxNotes = .textboxNotes2
@@ -123,7 +139,8 @@ Friend Class ClassRowOfCustomer
 
         ''Populate the textboxes. 
         TextboxCode.Text = par_customer.AlphanumericCode
-        TextboxName.Text = par_customer.NameFull
+        TextboxNameFull.Text = par_customer.NameFull
+        TextboxNameShort.Text = par_customer.NameShort ''Added 2/17/2022 td
         TextboxNotes.Text = par_customer.Description
 
         ''Added 2/16/2022 thomas d

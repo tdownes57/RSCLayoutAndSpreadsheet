@@ -69,7 +69,7 @@
     <Compile Include="ClassCustomer.vb" />
     <Compile Include="BadgeLayoutCache_Moved.vb" />
     <Compile Include="ClassCustomerCache_Moved.vb" />
-    <Compile Include="ClassTextRowCustomer.vb" />
+    <Compile Include="ClassRowOfControlsPerCustomer.vb" />
     <Compile Include="MessageBoxTD.vb" />
     <Compile Include="PersonalityCache_NotInUse.vb" />
     <Compile Include="ClassPersonalityConfig_Moved.vb" />

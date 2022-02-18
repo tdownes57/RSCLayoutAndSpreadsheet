@@ -40,6 +40,7 @@ Partial Class DialogEditCustomers
         '
         'ButtonCancel
         '
+        Me.ButtonCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.ButtonCancel.Location = New System.Drawing.Point(967, 561)
         Me.ButtonCancel.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -51,6 +52,7 @@ Partial Class DialogEditCustomers
         '
         'ButtonOK
         '
+        Me.ButtonOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonOK.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.ButtonOK.Location = New System.Drawing.Point(819, 561)
         Me.ButtonOK.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -62,9 +64,12 @@ Partial Class DialogEditCustomers
         '
         'PopulateCustomers1
         '
-        Me.PopulateCustomers1.Location = New System.Drawing.Point(19, 87)
+        Me.PopulateCustomers1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PopulateCustomers1.Location = New System.Drawing.Point(19, 64)
         Me.PopulateCustomers1.Name = "PopulateCustomers1"
-        Me.PopulateCustomers1.Size = New System.Drawing.Size(1058, 457)
+        Me.PopulateCustomers1.Size = New System.Drawing.Size(1025, 480)
         Me.PopulateCustomers1.TabIndex = 0
         '
         'DialogEditCustomers

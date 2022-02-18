@@ -85,6 +85,9 @@ Public Class ClassCustomer
     ''Added 10/11/2019 td  
     ''
 
+    ''Added 2/17/2022 t,h,o,m,a,s, d,o,w,n,e,s
+    ''   Is the customer no longer viable? 
+    Public Property Deactivated As Boolean Implements InterfaceCustomer.Deactivated
 
 
 End Class

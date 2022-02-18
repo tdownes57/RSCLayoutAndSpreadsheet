@@ -1,4 +1,11 @@
-﻿Public Class MessageBoxTD
+﻿Option Explicit On ''Added 2/17/2022 thomas 
+Option Strict On
+''
+''  Added 2/17/2022 & 12/28/2021 thomas downes  
+''
+Imports System.Windows.Forms ''Added 2/17/2022 thomas downes
+
+Public Class MessageBoxTD
 
     Public Shared Sub Show_Statement(pstrStatement As String)
         ''
