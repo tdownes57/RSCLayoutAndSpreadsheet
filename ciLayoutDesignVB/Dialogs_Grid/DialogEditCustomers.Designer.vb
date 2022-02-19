@@ -27,6 +27,7 @@ Partial Class DialogEditCustomers
         Me.ButtonOK = New System.Windows.Forms.Button()
         Me.linklabelSaveToXMLFile = New System.Windows.Forms.LinkLabel()
         Me.PopulateCustomers1 = New ciBadgeCustomer.PopulateCustomers()
+        Me.LinkLabelCheckRightMargin = New System.Windows.Forms.LinkLabel()
         Me.SuspendLayout()
         '
         'LabelEditCustomers
@@ -83,11 +84,22 @@ Partial Class DialogEditCustomers
         Me.PopulateCustomers1.Size = New System.Drawing.Size(1332, 480)
         Me.PopulateCustomers1.TabIndex = 0
         '
+        'LinkLabelCheckRightMargin
+        '
+        Me.LinkLabelCheckRightMargin.AutoSize = True
+        Me.LinkLabelCheckRightMargin.Location = New System.Drawing.Point(1123, 17)
+        Me.LinkLabelCheckRightMargin.Name = "LinkLabelCheckRightMargin"
+        Me.LinkLabelCheckRightMargin.Size = New System.Drawing.Size(131, 17)
+        Me.LinkLabelCheckRightMargin.TabIndex = 15
+        Me.LinkLabelCheckRightMargin.TabStop = True
+        Me.LinkLabelCheckRightMargin.Text = "Check Right Margin"
+        '
         'DialogEditCustomers
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1373, 631)
+        Me.Controls.Add(Me.LinkLabelCheckRightMargin)
         Me.Controls.Add(Me.linklabelSaveToXMLFile)
         Me.Controls.Add(Me.ButtonCancel)
         Me.Controls.Add(Me.ButtonOK)
@@ -105,4 +117,5 @@ Partial Class DialogEditCustomers
     Friend WithEvents ButtonCancel As Button
     Friend WithEvents ButtonOK As Button
     Friend WithEvents linklabelSaveToXMLFile As LinkLabel
+    Friend WithEvents LinkLabelCheckRightMargin As LinkLabel
 End Class

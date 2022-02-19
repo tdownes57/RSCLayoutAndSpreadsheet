@@ -18,7 +18,7 @@ Public Class PopulateCustomers
 
     End Sub
 
-    Private Sub PanelCustomerCode_Paint(sender As Object, e As Windows.Forms.PaintEventArgs) Handles PanelCustomerCode.Paint
+    Private Sub PanelCustomerCode_Paint(sender As Object, e As Windows.Forms.PaintEventArgs)
 
     End Sub
 
@@ -225,11 +225,30 @@ Public Class PopulateCustomers
 
     End Function ''End of "Public Function Save_GetCustomerList()"
 
+    Public Sub CheckRightMargin()
+        ''
+        ''Added 2/19/2022
+        ''
+        SplitContainer0.Left = 0
+        If SplitContainer0.Width <= Me.Width Then SplitContainer0.Width = Me.Width - 10
+        SplitContainer1.Left = 0
+        If SplitContainer1.Width <= SplitContainer0.Width Then SplitContainer1.Width = SplitContainer0.Width - 10
+        SplitContainer2.Left = 0
+        If SplitContainer2.Width <= SplitContainer1.Width Then SplitContainer2.Width = SplitContainer1.Width - 10
+        SplitContainer3.Left = 0
+        If SplitContainer3.Width <= SplitContainer2.Width Then SplitContainer3.Width = SplitContainer2.Width - 10
+
+        Me.Refresh()
+
+    End Sub ''end of "Public Sub CheckRightMargin()"
+
+
+
     Private Sub SplitContainer1_Panel1_Paint(sender As Object, e As PaintEventArgs) Handles SplitContainer1.Panel1.Paint
 
     End Sub
 
-    Private Sub textboxName1_TextChanged(sender As Object, e As EventArgs) Handles textboxNameFull1.TextChanged
+    Private Sub textboxName1_TextChanged(sender As Object, e As EventArgs)
 
     End Sub
 
@@ -238,6 +257,10 @@ Public Class PopulateCustomers
     End Sub
 
     Private Sub SplitContainer0_Panel1_Paint(sender As Object, e As PaintEventArgs) Handles SplitContainer0.Panel1.Paint
+
+    End Sub
+
+    Private Sub textboxNameShort1_TextChanged(sender As Object, e As EventArgs)
 
     End Sub
 End Class

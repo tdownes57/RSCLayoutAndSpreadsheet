@@ -182,6 +182,16 @@ Public Class DialogEditCustomers
     End Sub ''End of "Private Sub SaveToXML()"
 
 
+    Private Sub CheckRightMargin()
+        ''
+        ''Added 2/19/2022 td
+        ''
+        PopulateCustomers1.Left = 0
+        If PopulateCustomers1.Width > Me.Width Then PopulateCustomers1.Width = Me.Width - 10
+
+    End Sub ''Endo f ""Private Sub CheckRightMargin()""
+
+
 
     Private Sub DialogEditCustomers_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
@@ -192,6 +202,11 @@ Public Class DialogEditCustomers
             If (.Left + .Width > Me.Width) Then .Width = (Me.Width - .Left - 50)
 
         End With
+
+        ''
+        ''Added 2/19/2022
+        ''
+        CheckRightMargin()
 
     End Sub
 
@@ -259,6 +274,13 @@ Public Class DialogEditCustomers
 
         System.Threading.Thread.Sleep(2000)
         System.Diagnostics.Process.Start(Me.PathToXML)
+
+    End Sub
+
+    Private Sub LinkLabelCheckRightMargin_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelCheckRightMargin.LinkClicked
+
+        ''Added 2/19/2022 thomas d.
+        CheckRightMargin()
 
     End Sub
 End Class
