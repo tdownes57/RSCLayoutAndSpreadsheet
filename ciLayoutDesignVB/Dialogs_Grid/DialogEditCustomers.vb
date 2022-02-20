@@ -106,6 +106,12 @@ Public Class DialogEditCustomers
         If (System.IO.File.Exists(par_pathToXML)) Then
             mod_cacheOfCustomers = ClassCacheListCustomers.GetCache(par_pathToXML)
             Load_Customers(mod_cacheOfCustomers.ListOfCustomers)
+
+            ''Added 2/20/2022
+            If (mod_cacheOfCustomers.SplitContainerProps Is Nothing) Then
+                mod_cacheOfCustomers.SplitContainerProps = New SplitContainerWidths()
+            End If
+
         End If ''End of "If (System.IO.File.Exists(par_pathToXML)) Then"
 
     End Sub ''End of "Public Sub Load_Customers"

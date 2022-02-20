@@ -4,12 +4,52 @@ Option Strict On
 ''Added 2/16/2022 td
 ''
 Imports System.Windows.Forms ''Added 2/16/2022 td
-Imports ciBadgeCustomer ''Added 2/16/2022 td
+Imports ciBadgeCustomer ''Added 2/16/2022 tdy 
+''Imports ciBadgeCachePersonality ''Added 2/20/2022 td
 
 Public Class PopulateCustomers
     ''
     ''Added 2/16/2022 td
     ''
+    Private mod_widthsSplitContainers As SplitContainerWidths ''Added 2/202/2022 td
+
+    Public Sub Load_SplitterWidths(par_widths As SplitContainerWidths)
+        ''
+        ''Added 2/20/2022 td
+        ''
+        mod_widthsSplitContainers = par_widths
+
+        SplitContainer0.Anchor = AnchorStyles.None
+        SplitContainer1.Anchor = AnchorStyles.None
+        SplitContainer2.Anchor = AnchorStyles.None
+        SplitContainer3.Anchor = AnchorStyles.None
+
+        If (0 < par_widths.SplitContainer0_Width) Then
+            SplitContainer0.Width = par_widths.SplitContainer0_Width
+            SplitContainer1.Width = par_widths.SplitContainer1_Width
+            SplitContainer2.Width = par_widths.SplitContainer2_Width
+            SplitContainer3.Width = par_widths.SplitContainer3_Width
+        End If
+
+        If (0 < par_widths.SplitContainer0_SplitterDistance) Then
+            SplitContainer0.SplitterDistance = par_widths.SplitContainer0_SplitterDistance
+            SplitContainer1.SplitterDistance = par_widths.SplitContainer1_SplitterDistance
+            SplitContainer2.SplitterDistance = par_widths.SplitContainer2_SplitterDistance
+            SplitContainer3.SplitterDistance = par_widths.SplitContainer3_SplitterDistance
+        End If
+
+ExitHandler:
+        Dim anchor_LeftTopRight As AnchorStyles
+        anchor_LeftTopRight = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        SplitContainer0.Anchor = anchor_LeftTopRight
+        SplitContainer1.Anchor = anchor_LeftTopRight
+        SplitContainer2.Anchor = anchor_LeftTopRight
+        SplitContainer3.Anchor = anchor_LeftTopRight
+
+    End Sub ''End of "Public Sub Load_SplitterWidths"
+
+
     Private Sub SplitContainer1_Panel2_Paint(sender As Object, e As Windows.Forms.PaintEventArgs) Handles SplitContainer1.Panel2.Paint
 
     End Sub
@@ -219,6 +259,23 @@ Public Class PopulateCustomers
         Next each_checkbox
 
         ''
+        ''Added 2/20/2022
+        ''
+        With mod_widthsSplitContainers
+
+            .SplitContainer0_Width = SplitContainer0.Width
+            .SplitContainer1_Width = SplitContainer1.Width
+            .SplitContainer2_Width = SplitContainer2.Width
+            .SplitContainer3_Width = SplitContainer3.Width
+
+            .SplitContainer0_SplitterDistance = SplitContainer0.SplitterDistance
+            .SplitContainer1_SplitterDistance = SplitContainer1.SplitterDistance
+            .SplitContainer2_SplitterDistance = SplitContainer2.SplitterDistance
+            .SplitContainer3_SplitterDistance = SplitContainer3.SplitterDistance
+
+        End With ''End of "With mod_widthsSplitContainers"
+
+        ''
         ''Output. 
         ''
         Return output_hashset
@@ -237,6 +294,13 @@ Public Class PopulateCustomers
         If SplitContainer2.Width <= SplitContainer1.Width Then SplitContainer2.Width = SplitContainer1.Width - 10
         SplitContainer3.Left = 0
         If SplitContainer3.Width <= SplitContainer2.Width Then SplitContainer3.Width = SplitContainer2.Width - 10
+
+        ''
+        ''Check the Splitter Distance  
+        ''
+        If SplitContainer3.SplitterDistance > (0.8 * SplitContainer3.Width) Then SplitContainer3.SplitterDistance = CInt(0.8 * SplitContainer3.Width)
+
+        ''If SplitContainer2.SplitterDistance > (0.8 * SplitContainer2.Width) Then SplitContainer2.SplitterDistance = CInt(0.8 * SplitContainer2.Width)
 
         Me.Refresh()
 
@@ -261,6 +325,180 @@ Public Class PopulateCustomers
     End Sub
 
     Private Sub textboxNameShort1_TextChanged(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub LinkLabelCheckRightMargin_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelCheckRightMargin.LinkClicked
+        ''
+        ''Added 2/19/2022 t;h;o;m;a;s; ;d;o;w;n;e;s;
+        ''
+        CheckRightMargin()
+
+    End Sub
+
+    Private Sub LinkLabelCheckMargin_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelCheckMargin3.LinkClicked
+        ''
+        '' Added 2/19/2022 thomas downes
+        ''
+        MessageBoxTD.Show_Statement("Splitter3 distance: " &
+                   SplitContainer3.SplitterDistance.ToString)
+        MessageBoxTD.Show_Statement("SplitterContainer3 width: " &
+                   SplitContainer3.Width.ToString)
+        MessageBoxTD.Show_Statement("Splitter3 distance: " &
+                   SplitContainer3.SplitterDistance.ToString & vbCrLf & vbCrLf &
+                   ("SplitterContainer3 width: " &
+                   SplitContainer3.Width.ToString))
+
+        ''Added 2/19/2022td
+        MessageBoxTD.Show_Statement("Is Container3's Panel2 collapsed? " &
+             SplitContainer3.Panel2Collapsed.ToString())
+
+        ''Added 2/19/2022 td
+        ''NumericUpDown3a.ToolTip.Text = "SC #3's Splitter distance"
+        NumericUpDown3a.Maximum = SplitContainer3.SplitterDistance + 10
+        NumericUpDown3a.Value = SplitContainer3.SplitterDistance
+        NumericUpDown3a.Enabled = True
+
+        ''NumericUpDown3b.ToolTip.Text = "SC #3's Width "
+        NumericUpDown3b.Maximum = SplitContainer3.Width + 10
+        NumericUpDown3b.Value = SplitContainer3.Width
+        NumericUpDown3b.Enabled = True
+
+    End Sub
+
+    Private Sub LinkLabelCheckMargin2_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelCheckMargin2.LinkClicked
+        ''
+        '' Added 2/19/2022 thomas downes
+        ''
+        MessageBoxTD.Show_Statement("Splitter2 distance: " &
+                   SplitContainer2.SplitterDistance.ToString)
+        MessageBoxTD.Show_Statement("SplitterContainer2 width: " &
+                   SplitContainer2.Width.ToString)
+        MessageBoxTD.Show_Statement("Splitter2 distance: " &
+                   SplitContainer2.SplitterDistance.ToString & vbCrLf & vbCrLf &
+                   ("SplitterContainer2 width: " &
+                   SplitContainer2.Width.ToString))
+
+        ''Added 2/19/2022td
+        MessageBoxTD.Show_Statement("Is Container2's Panel2 collapsed? " &
+             SplitContainer2.Panel2Collapsed.ToString())
+
+        Dim bWiderThanSC1sPanel2 As Boolean
+
+        bWiderThanSC1sPanel2 = (SplitContainer2.Width >
+                              SplitContainer1.Panel2.Width)
+
+        If (True Or bWiderThanSC1sPanel2) Then
+            ''Added 2/19/2022 td
+            MessageBoxTD.Show_Statement("Is Container2 wider than Container1's Panel2 ? " &
+                                        bWiderThanSC1sPanel2.ToString &
+                                                    vbCrLf & vbCrLf &
+                                                 "Container2's width: " &
+                                       SplitContainer2.Width.ToString & vbCrLf & vbCrLf &
+                                       ("SplitterContainer1.Panel2's width: " &
+                                       (SplitContainer1.Panel2.Width).ToString))
+
+        End If ''End of "If (bWiderThanSC1sPanel2) Then"
+
+        ''Added 2/19/2022 thomas downes
+        If (bWiderThanSC1sPanel2) Then
+            MessageBoxTD.Show_Statement("Corrective actions....")
+            SplitContainer2.Left = 0
+            Dim save_styles As AnchorStyles = SplitContainer2.Anchor
+            SplitContainer2.Anchor = AnchorStyles.None
+            SplitContainer2.Width = CInt(0.93 * SplitContainer1.Panel2.Width)
+            SplitContainer1.Refresh()
+            SplitContainer2.Anchor = save_styles
+
+        End If ''eNDOF "If (bWiderThanSC1sPanel2) Then"
+
+        ''Added 2/19/2022 td
+        ''NumericUpDown3a.ToolTip.Text = "SC #3's Splitter distance"
+        NumericUpDown2a.Maximum = SplitContainer2.SplitterDistance + 10
+        NumericUpDown2a.Value = SplitContainer2.SplitterDistance
+        NumericUpDown2a.Enabled = True
+
+        ''NumericUpDown3b.ToolTip.Text = "SC #3's Width "
+        NumericUpDown2b.Maximum = SplitContainer2.Width + 10
+        NumericUpDown2b.Value = SplitContainer2.Width
+        NumericUpDown2b.Enabled = True
+
+    End Sub
+
+    Private Sub LinkLabelCheckMargin1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelCheckMargin1.LinkClicked
+        ''
+        ''Added 2/19/2022 thomdown
+        ''
+
+
+
+    End Sub
+
+    Private Sub NumericUpDown3_ValueChanged(sender As Object, e As EventArgs) Handles NumericUpDown3a.ValueChanged
+        ''
+        ''Added 2/19/2022
+        ''
+        SplitContainer3.SplitterDistance = CInt(CType(sender, NumericUpDown).Value)
+
+    End Sub
+
+    Private Sub NumericUpDown3b_ValueChanged(sender As Object, e As EventArgs) Handles NumericUpDown3b.ValueChanged
+        ''
+        ''Added 2/19/2022
+        ''
+        Dim save_styles As AnchorStyles = SplitContainer3.Anchor
+        SplitContainer3.Anchor = AnchorStyles.None
+        Dim intSaveWidth As Integer
+        Dim intSaveSplitterDistance As Integer
+        intSaveWidth = SplitContainer3.Width
+        intSaveSplitterDistance = SplitContainer3.SplitterDistance
+        SplitContainer3.Width = CInt(CType(sender, NumericUpDown).Value)
+        Application.DoEvents()
+        SplitContainer3.Anchor = save_styles
+        Application.DoEvents()
+        If (intSaveWidth > SplitContainer3.Width) Then
+
+            Dim intCorrection As Integer
+            intCorrection = (intSaveWidth - SplitContainer3.Width)
+            ''Restore the original splitter Distance.
+            SplitContainer3.SplitterDistance = intSaveSplitterDistance
+            Application.DoEvents()
+
+        End If
+
+    End Sub
+
+    Private Sub NumericUpDown2a_ValueChanged(sender As Object, e As EventArgs) Handles NumericUpDown2a.ValueChanged
+        ''
+        ''Added 2/19/2022
+        ''
+        SplitContainer2.SplitterDistance = CInt(CType(sender, NumericUpDown).Value)
+
+    End Sub
+
+    Private Sub NumericUpDown2b_ValueChanged(sender As Object, e As EventArgs) Handles NumericUpDown2b.ValueChanged
+        ''
+        ''Added 2/19/2022
+        ''
+        Dim save_styles As AnchorStyles = SplitContainer2.Anchor
+        SplitContainer2.Anchor = AnchorStyles.None
+        Dim intSaveWidth As Integer
+        Dim intSaveSplitterDistance As Integer
+        intSaveWidth = SplitContainer2.Width
+        intSaveSplitterDistance = SplitContainer2.SplitterDistance
+        SplitContainer2.Width = CInt(CType(sender, NumericUpDown).Value)
+        Application.DoEvents()
+        SplitContainer2.Anchor = save_styles
+        Application.DoEvents()
+        If (intSaveWidth > SplitContainer2.Width) Then
+
+            Dim intCorrection As Integer
+            intCorrection = (intSaveWidth - SplitContainer2.Width)
+            ''Restore the original splitter Distance.
+            SplitContainer2.SplitterDistance = intSaveSplitterDistance
+            Application.DoEvents()
+
+        End If
 
     End Sub
 End Class

@@ -26,8 +26,8 @@ Partial Class DialogEditCustomers
         Me.ButtonCancel = New System.Windows.Forms.Button()
         Me.ButtonOK = New System.Windows.Forms.Button()
         Me.linklabelSaveToXMLFile = New System.Windows.Forms.LinkLabel()
-        Me.PopulateCustomers1 = New ciBadgeCustomer.PopulateCustomers()
         Me.LinkLabelCheckRightMargin = New System.Windows.Forms.LinkLabel()
+        Me.PopulateCustomers1 = New ciBadgeCustomer.PopulateCustomers()
         Me.SuspendLayout()
         '
         'LabelEditCustomers
@@ -74,16 +74,6 @@ Partial Class DialogEditCustomers
         Me.linklabelSaveToXMLFile.TabStop = True
         Me.linklabelSaveToXMLFile.Text = "Save to XML and display XML file."
         '
-        'PopulateCustomers1
-        '
-        Me.PopulateCustomers1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PopulateCustomers1.Location = New System.Drawing.Point(19, 64)
-        Me.PopulateCustomers1.Name = "PopulateCustomers1"
-        Me.PopulateCustomers1.Size = New System.Drawing.Size(1332, 480)
-        Me.PopulateCustomers1.TabIndex = 0
-        '
         'LinkLabelCheckRightMargin
         '
         Me.LinkLabelCheckRightMargin.AutoSize = True
@@ -93,6 +83,16 @@ Partial Class DialogEditCustomers
         Me.LinkLabelCheckRightMargin.TabIndex = 15
         Me.LinkLabelCheckRightMargin.TabStop = True
         Me.LinkLabelCheckRightMargin.Text = "Check Right Margin"
+        '
+        'PopulateCustomers1
+        '
+        Me.PopulateCustomers1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PopulateCustomers1.Location = New System.Drawing.Point(19, 64)
+        Me.PopulateCustomers1.Name = "PopulateCustomers1"
+        Me.PopulateCustomers1.Size = New System.Drawing.Size(1332, 480)
+        Me.PopulateCustomers1.TabIndex = 0
         '
         'DialogEditCustomers
         '

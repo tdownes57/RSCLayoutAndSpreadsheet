@@ -35,6 +35,8 @@ Namespace ciBadgeCachePersonality
 
         Public Property DateAndTimeUpdated As DateTime ''Added 11/29/2021 thomas d. 
 
+        Public Property SplitContainerProps As ciBadgeCustomer.SplitContainerWidths ''Added 2/20/2022 td
+
         Private mod_listCustomers As New HashSet(Of ciBadgeCustomer.ClassCustomer) ''Added 10/14/2019 td  
 
 

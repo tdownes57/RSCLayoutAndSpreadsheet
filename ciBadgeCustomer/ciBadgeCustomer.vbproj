@@ -69,9 +69,10 @@
     <Compile Include="ClassCustomer.vb" />
     <Compile Include="BadgeLayoutCache_Moved.vb" />
     <Compile Include="ClassCustomerCache_Moved.vb" />
-    <Compile Include="ClassRowOfControlsPerCustomer.vb" />
-    <Compile Include="MessageBoxTD.vb" />
-    <Compile Include="modUtilities.vb" />
+    <Compile Include="Minor Classes\ClassRowOfControlsPerCustomer.vb" />
+    <Compile Include="Minor Classes\MessageBoxTD.vb" />
+    <Compile Include="Minor Classes\modUtilities.vb" />
+    <Compile Include="Minor Classes\SplitContainerWidths.vb" />
     <Compile Include="PersonalityCache_NotInUse.vb" />
     <Compile Include="ClassPersonalityConfig_Moved.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
