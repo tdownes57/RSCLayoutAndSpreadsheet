@@ -5,6 +5,9 @@ Public Class SplitContainerWidths
     ''
     ''Added 2/20/2022 Thomas Downes
     ''
+    Public Property UserControlWidth As Integer
+    Public Property FormDialogWidth As Integer
+
     Public Property SplitContainer0_Width As Integer
     Public Property SplitContainer1_Width As Integer
     Public Property SplitContainer2_Width As Integer

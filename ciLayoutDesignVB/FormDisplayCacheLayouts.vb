@@ -25,6 +25,7 @@ Public Class FormDisplayCacheLayouts
     ''Added 12/26/2021
     Public ShowMessageForIllformedXML As Boolean ''Added 12/26/2021 thomas downes
     Public UserWantsToExitApplication As Boolean ''Added 2/05/2022 Thomas Downes
+    Public CacheCustomers As ClassCacheListCustomers ''Added 2/20/2022 thomas d.  
 
     Private WithEvents mod_dummyControl As New Control() ''Added 2/6/2022 td 
 
@@ -735,7 +736,13 @@ Public Class FormDisplayCacheLayouts
 
         End If ''End of "If (String.IsNullOrEmpty(strPathToXML)) Then... Else..."
 
+        ''
+        ''Show the user the list of customers!!!!
+        ''
         frm_ToShow.ShowDialog()
+
+        ''Added 2/20/2022
+        cache_customers.SplitContainerProps = frm_ToShow.Width
 
     End Sub ''End of "Private Sub buttonCustomers_Click"
 

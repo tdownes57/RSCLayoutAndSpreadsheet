@@ -13,6 +13,17 @@ Public Class PopulateCustomers
     ''
     Private mod_widthsSplitContainers As SplitContainerWidths ''Added 2/202/2022 td
 
+    Public Property UserControlWidths As SplitContainerWidths
+        ''Added 2/20/2022 td  
+        Get
+            Return mod_widthsSplitContainers
+        End Get
+        Set(value As SplitContainerWidths)
+            mod_widthsSplitContainers = value
+        End Set
+    End Property
+
+
     Public Sub Load_SplitterWidths(par_widths As SplitContainerWidths)
         ''
         ''Added 2/20/2022 td
@@ -261,7 +272,13 @@ ExitHandler:
         ''
         ''Added 2/20/2022
         ''
+        If (mod_widthsSplitContainers Is Nothing) Then
+            mod_widthsSplitContainers = New SplitContainerWidths()
+        End If ''End of "If (mod_widthsSplitContainers Is Nothing) Then"
+
         With mod_widthsSplitContainers
+
+            .UserControlWidth = Me.Width ''Added 2/20/2022 td 
 
             .SplitContainer0_Width = SplitContainer0.Width
             .SplitContainer1_Width = SplitContainer1.Width

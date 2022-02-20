@@ -23,6 +23,18 @@ Public Class DialogEditCustomers
     Private mod_hashCustomerRows As New HashSet(Of ClassRowOfControlsPerCustomer) ''(Of ClassRowOfCustomer)
     Private mod_cacheOfCustomers As New ciBadgeCachePersonality.ClassCacheListCustomers
     Private mod_bOkayToCloseFormWithoutConfirmation As Boolean = False ''Added 2/17/2022 t[h]o]m]a[s d[o[w]n[e[s
+    Private mod_widthsSplitContainers As SplitContainerWidths ''Added 2/202/2022 td
+
+    Public Property UserControlWidths As SplitContainerWidths
+        ''Added 2/20/2022 td  
+        Get
+            Return mod_widthsSplitContainers
+        End Get
+        Set(value As SplitContainerWidths)
+            mod_widthsSplitContainers = value
+        End Set
+    End Property ''ENd of Public Property UserControlWidths 
+
 
     ''Private Class ClassRowOfCustomer
     ''    ''
@@ -182,6 +194,8 @@ Public Class DialogEditCustomers
         With Me.mod_cacheOfCustomers
             Me.mod_cacheOfCustomers.DateAndTimeUpdated = DateTime.Now ''Added 2/18/2022 thomas d.
             Me.mod_cacheOfCustomers.ListOfCustomers = hashsetCustomersEdited
+            mod_widthsSplitContainers = Me.PopulateCustomers1.UserControlWidths ''Added 2/20/2022 td 
+            Me.mod_cacheOfCustomers.SplitContainerProps = mod_widthsSplitContainers
             Me.mod_cacheOfCustomers.SaveToXML(Me.PathToXML)
         End With
 
@@ -213,6 +227,9 @@ Public Class DialogEditCustomers
         ''Added 2/19/2022
         ''
         CheckRightMargin()
+
+        ''Added 2/20/2022 td 
+        Me.PopulateCustomers1.UserControlWidths = mod_widthsSplitContainers ''Added 2/20/2022 td 
 
     End Sub
 
