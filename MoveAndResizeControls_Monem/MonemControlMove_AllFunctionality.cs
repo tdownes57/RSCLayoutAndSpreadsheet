@@ -60,7 +60,10 @@ namespace MoveAndResizeControls_Monem
         //Don't allow resizing. 
         public bool StopAllResizing;
         //Repaint after resizing. 
-        public bool RepaintAfterResize; 
+        public bool RepaintAfterResize;
+        //Only allow re-sizing of the right-hand edge.
+        //   (No moving of the control allowed.)
+        public bool RightEdgeResizing_Only; 
     }
 
 
@@ -155,6 +158,9 @@ namespace MoveAndResizeControls_Monem
         private const bool mc_MonemEditsLocation = true; //Added 1/12/2022 td
         private const bool mc_MonemEditsLocation_TopAndLeft = true; //Added 1/12/2022 td
 
+        // Added 2/20/2022 td
+        public List<Control> ColumnsToTheRight;  //Added 1/20/2022
+        private Dictionary<Control, int> _dictColumnsStartingPositionLeft;  //Added 1/20/2022
 
         internal enum MoveOrResize
         {
@@ -707,6 +713,11 @@ namespace MoveAndResizeControls_Monem
                 _resizing = true;
                 _currentControlStartSize = par_controlE.Size;
 
+                // Added 2/21/2022 td
+                _dictColumnsStartingPositionLeft = new Dictionary<Control, int>();
+                foreach (Control each_column in this.ColumnsToTheRight)
+                    _dictColumnsStartingPositionLeft.Add(each_column, each_column.Left);
+
                 // 1-10-2022 //mod_events.Resizing_Initiate(); //Added 1/10/2022 td 
                 mod_events_singleCtl.Resizing_Initiate(); //Added 1/10/2022 td 
                 if (mod_events_groupedCtls != null)
@@ -870,6 +881,7 @@ namespace MoveAndResizeControls_Monem
                         //Added 8/2/2019 thomas downes 
                         delta_Width = (par_e.X - _cursorStartPoint.X);  //+ _currentControlStartSize.Width;
                         delta_Height = (par_e.Y - _cursorStartPoint.Y);  // + _currentControlStartSize.Height;
+
                     }
                     else
                     {
@@ -882,6 +894,20 @@ namespace MoveAndResizeControls_Monem
 
                         //Added 8/2/2019 thomas downes 
                         delta_Width = (par_e.X - _cursorStartPoint.X); // + _currentControlStartSize.Width;
+
+                        //Added 2/20/2022 td
+                        if (ColumnsToTheRight != null)
+                        {
+                            foreach (Control each_column in ColumnsToTheRight)
+                            {
+                                //Push columns to the left.---2/20/2022 td 
+                                //----each_column.Left += (par_e.X - _cursorStartPoint.X);
+                                each_column.Left = (par_e.X - _cursorStartPoint.X) + 
+                                    _dictColumnsStartingPositionLeft[each_column];
+                            }
+                        }
+
+
                     }
                 }
                 else if (MouseIsInTopEdge)
@@ -1229,6 +1255,20 @@ namespace MoveAndResizeControls_Monem
                 else
                 {
                     par_controlH.Width = (e.X - _cursorStartPoint.X) + _currentControlStartSize.Width;
+
+                    //Added 2/20/2022 td
+                    if (ColumnsToTheRight != null)
+                    {
+                        foreach (Control each_column in ColumnsToTheRight)
+                        {
+                            //Push columns to the left. ---2/20/2022 td 
+                            //   ----each_column.Left += (e.X - _cursorStartPoint.X);
+                            each_column.Left = (e.X - _cursorStartPoint.X) +
+                                   _dictColumnsStartingPositionLeft[each_column];
+
+                        }
+                    }
+
                 }
             }
             else if (MouseIsInTopEdge)

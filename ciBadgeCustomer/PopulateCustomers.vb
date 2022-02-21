@@ -63,7 +63,7 @@ Public Class PopulateCustomers
 
             ''Added 2/20/2022 thomas downes 
             If (SplitContainer3.Left < 0) Then ''E.g. is -152 on 2/20/2022 
-                SplitContainer3.Left = 0 ''Needed, for some reason. The value of -152 is too negative!!  
+                SplitContainer3.Left = 0 ''Needed, for some reason. The value of -152 is too negative!!
             End If ''End of "If (SplitContainer3.Left < 0) Then"
 
             Application.DoEvents()
