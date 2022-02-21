@@ -117,12 +117,22 @@ Public Class DialogEditCustomers
         ''
         If (System.IO.File.Exists(par_pathToXML)) Then
             mod_cacheOfCustomers = ClassCacheListCustomers.GetCache(par_pathToXML)
+            ''
+            ''Major call !!
+            ''
             Load_Customers(mod_cacheOfCustomers.ListOfCustomers)
 
             ''Added 2/20/2022
             If (mod_cacheOfCustomers.SplitContainerProps Is Nothing) Then
                 mod_cacheOfCustomers.SplitContainerProps = New SplitContainerWidths()
-            End If
+
+            Else
+                ''
+                ''Added 2/20/2022 td
+                ''
+                Load_UserControlColumnWidths(mod_cacheOfCustomers.SplitContainerProps)
+
+            End If ''End of "If (mod_cacheOfCustomers.SplitContainerProps Is Nothing) Then ... Else ..."
 
         End If ''End of "If (System.IO.File.Exists(par_pathToXML)) Then"
 
@@ -165,6 +175,34 @@ Public Class DialogEditCustomers
 
 
     End Sub ''end of "Public Sub Load_Customers"  
+
+
+    Private Sub Load_UserControlColumnWidths(par_widths As SplitContainerWidths)
+        ''
+        ''Added 2/20/2022 td 
+        ''
+        If (par_widths.FormDialogWidth > 0) Then
+            Me.Width = par_widths.FormDialogWidth
+        End If ''end of ""If (par_widths.FormDialogWidth > 0) Then""
+
+        If (par_widths.UserControlWidth > 0) Then
+            Dim save_anchor_style As AnchorStyles
+            With PopulateCustomers1
+                save_anchor_style = .Anchor
+                .Anchor = AnchorStyles.None
+                .Width = par_widths.UserControlWidth
+                Application.DoEvents()
+                .Anchor = save_anchor_style ''Restore anchor style.
+            End With
+        End If ''end of "If (par_widths.UserControlWidth > 0) Then"
+
+        ''
+        ''Major call!!
+        ''
+        PopulateCustomers1.Load_SplitterWidths(par_widths)
+
+    End Sub ''eND OF "Private Sub Load_UserControlColumnWidtha()"
+
 
 
     Private Function Save_GetCustomerHash() As HashSet(Of ClassCustomer)
@@ -223,6 +261,9 @@ Public Class DialogEditCustomers
 
         End With
 
+        ''Added 2/20/2022 td
+        Load_Customers(Me.PathToXML)
+
         ''
         ''Added 2/19/2022
         ''
@@ -253,6 +294,7 @@ Public Class DialogEditCustomers
         ''End With ''End of "With Me.mod_cacheOfCustomers"
 
         SaveToXML()
+
         mod_bOkayToCloseFormWithoutConfirmation = True
         Me.Close()
 

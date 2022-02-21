@@ -732,7 +732,8 @@ Public Class FormDisplayCacheLayouts
             ''--frm_ToShow.Load_Customers(objListCustomers)
 
             frm_ToShow.PathToXML = strPathToXML
-            frm_ToShow.Load_Customers(strPathToXML)
+            ''---++--Let's call this from the Load procedure.
+            ''---++frm_ToShow.Load_Customers(strPathToXML)
 
         End If ''End of "If (String.IsNullOrEmpty(strPathToXML)) Then... Else..."
 
@@ -742,7 +743,14 @@ Public Class FormDisplayCacheLayouts
         frm_ToShow.ShowDialog()
 
         ''Added 2/20/2022
-        cache_customers.SplitContainerProps = frm_ToShow.Width
+        ''
+        '' Get the output(s)  
+        ''
+        '' Actually, this is not needed. It's handled by the form. 
+        ''
+        If (cache_customers IsNot Nothing) Then
+            cache_customers.SplitContainerProps = frm_ToShow.UserControlWidths
+        End If ''End of "If (cache_customers IsNot Nothing) Then"
 
     End Sub ''End of "Private Sub buttonCustomers_Click"
 

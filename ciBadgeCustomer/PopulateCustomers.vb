@@ -28,6 +28,9 @@ Public Class PopulateCustomers
         ''
         ''Added 2/20/2022 td
         ''
+        Dim bNonZero1 As Boolean
+        Dim bNonZero2 As Boolean
+
         mod_widthsSplitContainers = par_widths
 
         SplitContainer0.Anchor = AnchorStyles.None
@@ -35,22 +38,42 @@ Public Class PopulateCustomers
         SplitContainer2.Anchor = AnchorStyles.None
         SplitContainer3.Anchor = AnchorStyles.None
 
-        If (0 < par_widths.SplitContainer0_Width) Then
-            SplitContainer0.Width = par_widths.SplitContainer0_Width
-            SplitContainer1.Width = par_widths.SplitContainer1_Width
-            SplitContainer2.Width = par_widths.SplitContainer2_Width
-            SplitContainer3.Width = par_widths.SplitContainer3_Width
-        End If
+        ''Check for non-zero values.
+        bNonZero1 = (0 < par_widths.SplitContainer0_Width)
+        bNonZero2 = (0 < par_widths.SplitContainer0_SplitterDistance)
 
-        If (0 < par_widths.SplitContainer0_SplitterDistance) Then
+        If bNonZero1 Then
+            SplitContainer0.Width = par_widths.SplitContainer0_Width
+            Application.DoEvents()
+            SplitContainer1.Width = par_widths.SplitContainer1_Width
+            Application.DoEvents()
+            SplitContainer2.Width = par_widths.SplitContainer2_Width
+            Application.DoEvents()
+            SplitContainer3.Width = par_widths.SplitContainer3_Width
+            Application.DoEvents()
+        End If ''End of "If bNonZero1 Then"
+
+        If bNonZero1 Then
             SplitContainer0.SplitterDistance = par_widths.SplitContainer0_SplitterDistance
+            Application.DoEvents()
             SplitContainer1.SplitterDistance = par_widths.SplitContainer1_SplitterDistance
+            Application.DoEvents()
             SplitContainer2.SplitterDistance = par_widths.SplitContainer2_SplitterDistance
+            Application.DoEvents()
+
+            ''Added 2/20/2022 thomas downes 
+            If (SplitContainer3.Left < 0) Then ''E.g. is -152 on 2/20/2022 
+                SplitContainer3.Left = 0 ''Needed, for some reason. The value of -152 is too negative!!  
+            End If ''End of "If (SplitContainer3.Left < 0) Then"
+
+            Application.DoEvents()
             SplitContainer3.SplitterDistance = par_widths.SplitContainer3_SplitterDistance
-        End If
+            Application.DoEvents()
+        End If ''End of "If bNonZero2 Then"
 
 ExitHandler:
         Dim anchor_LeftTopRight As AnchorStyles
+        Application.DoEvents()
         anchor_LeftTopRight = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         SplitContainer0.Anchor = anchor_LeftTopRight
