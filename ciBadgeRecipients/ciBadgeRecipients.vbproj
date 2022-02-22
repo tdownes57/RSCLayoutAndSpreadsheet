@@ -101,10 +101,10 @@
     <Compile Include="PopulateTwoFields.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SelectCIBField.Designer.vb">
-      <DependentUpon>SelectCIBField.vb</DependentUpon>
+    <Compile Include="SelectCIBField_NotInUse.Designer.vb">
+      <DependentUpon>SelectCIBField_NotInUse.vb</DependentUpon>
     </Compile>
-    <Compile Include="SelectCIBField.vb">
+    <Compile Include="SelectCIBField_NotInUse.vb">
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>
@@ -124,8 +124,8 @@
     <EmbeddedResource Include="PopulateTwoFields.resx">
       <DependentUpon>PopulateTwoFields.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SelectCIBField.resx">
-      <DependentUpon>SelectCIBField.vb</DependentUpon>
+    <EmbeddedResource Include="SelectCIBField_NotInUse.resx">
+      <DependentUpon>SelectCIBField_NotInUse.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

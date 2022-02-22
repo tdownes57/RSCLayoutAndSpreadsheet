@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class SelectCIBField
+Partial Class SelectCIBField_NotInUse
     Inherits System.Windows.Forms.UserControl
 
     'UserControl overrides dispose to clean up the component list.

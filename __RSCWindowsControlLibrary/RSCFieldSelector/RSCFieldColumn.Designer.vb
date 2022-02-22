@@ -23,8 +23,6 @@ Partial Class RSCFieldColumn
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.SelectCIBField1 = New ciBadgeRecipients.SelectCIBField()
-        Me.LinkLabelPasteData = New System.Windows.Forms.LinkLabel()
         Me.TextBox11 = New System.Windows.Forms.TextBox()
         Me.PictureBox4 = New System.Windows.Forms.PictureBox()
         Me.PictureBox12 = New System.Windows.Forms.PictureBox()
@@ -50,6 +48,7 @@ Partial Class RSCFieldColumn
         Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.PictureBox9 = New System.Windows.Forms.PictureBox()
+        Me.RscSelectCIBField1 = New __RSCWindowsControlLibrary.RSCSelectCIBField()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox12, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -63,26 +62,6 @@ Partial Class RSCFieldColumn
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox9, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'SelectCIBField1
-        '
-        Me.SelectCIBField1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.SelectCIBField1.Location = New System.Drawing.Point(3, 3)
-        Me.SelectCIBField1.Name = "SelectCIBField1"
-        Me.SelectCIBField1.Size = New System.Drawing.Size(224, 85)
-        Me.SelectCIBField1.TabIndex = 0
-        '
-        'LinkLabelPasteData
-        '
-        Me.LinkLabelPasteData.AutoSize = True
-        Me.LinkLabelPasteData.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LinkLabelPasteData.Location = New System.Drawing.Point(12, 84)
-        Me.LinkLabelPasteData.Name = "LinkLabelPasteData"
-        Me.LinkLabelPasteData.Size = New System.Drawing.Size(231, 20)
-        Me.LinkLabelPasteData.TabIndex = 61
-        Me.LinkLabelPasteData.TabStop = True
-        Me.LinkLabelPasteData.Text = "Paste Data from Spreadsheet"
         '
         'TextBox11
         '
@@ -358,12 +337,19 @@ Partial Class RSCFieldColumn
         Me.PictureBox9.TabIndex = 56
         Me.PictureBox9.TabStop = False
         '
+        'RscSelectCIBField1
+        '
+        Me.RscSelectCIBField1.Location = New System.Drawing.Point(-1, 7)
+        Me.RscSelectCIBField1.Name = "RscSelectCIBField1"
+        Me.RscSelectCIBField1.Size = New System.Drawing.Size(234, 89)
+        Me.RscSelectCIBField1.TabIndex = 62
+        '
         'RSCFieldColumn
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoScroll = True
-        Me.Controls.Add(Me.LinkLabelPasteData)
+        Me.Controls.Add(Me.RscSelectCIBField1)
         Me.Controls.Add(Me.TextBox11)
         Me.Controls.Add(Me.PictureBox4)
         Me.Controls.Add(Me.PictureBox12)
@@ -389,7 +375,6 @@ Partial Class RSCFieldColumn
         Me.Controls.Add(Me.TextBox2)
         Me.Controls.Add(Me.PictureBox3)
         Me.Controls.Add(Me.PictureBox9)
-        Me.Controls.Add(Me.SelectCIBField1)
         Me.Name = "RSCFieldColumn"
         Me.Size = New System.Drawing.Size(251, 509)
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
@@ -408,9 +393,6 @@ Partial Class RSCFieldColumn
         Me.PerformLayout()
 
     End Sub
-
-    Friend WithEvents SelectCIBField1 As ciBadgeRecipients.SelectCIBField
-    Friend WithEvents LinkLabelPasteData As LinkLabel
     Friend WithEvents TextBox11 As TextBox
     Friend WithEvents PictureBox4 As PictureBox
     Friend WithEvents PictureBox12 As PictureBox
@@ -436,4 +418,5 @@ Partial Class RSCFieldColumn
     Friend WithEvents TextBox2 As TextBox
     Friend WithEvents PictureBox3 As PictureBox
     Friend WithEvents PictureBox9 As PictureBox
+    Friend WithEvents RscSelectCIBField1 As RSCSelectCIBField
 End Class

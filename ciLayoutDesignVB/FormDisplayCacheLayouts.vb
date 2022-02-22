@@ -754,5 +754,12 @@ Public Class FormDisplayCacheLayouts
 
     End Sub ''End of "Private Sub buttonCustomers_Click"
 
+    Private Sub ButtonRecipients_Click(sender As Object, e As EventArgs) Handles ButtonRecipients.Click
+        ''
+        '' Added 2/22/2022 td
+        ''
+        Dim frm_ToShow As New DialogEditRecipients
+        frm_ToShow.Show()
 
+    End Sub
 End Class

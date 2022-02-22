@@ -6,7 +6,7 @@ Option Strict On '' Added 2/16/2022 thomas downes
 Imports ciBadgeFields
 Imports ciBadgeInterfaces
 
-Public Class SelectCIBField
+Public Class SelectCIBField_NotInUse
     ''
     '' Added 2/16/2022 thomas downes 
     ''

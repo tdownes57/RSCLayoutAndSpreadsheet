@@ -45,6 +45,7 @@ Partial Class FormDisplayCacheLayouts
         Me.picturePreviewFront = New System.Windows.Forms.PictureBox()
         Me.picturePreviewBackside = New System.Windows.Forms.PictureBox()
         Me.buttonCustomers = New System.Windows.Forms.Button()
+        Me.ButtonRecipients = New System.Windows.Forms.Button()
         Me.FlowLayoutPanelPriorLays.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picturePreviewFront, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -201,9 +202,9 @@ Partial Class FormDisplayCacheLayouts
         'ButtonFindLayout
         '
         Me.ButtonFindLayout.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonFindLayout.Location = New System.Drawing.Point(26, 390)
+        Me.ButtonFindLayout.Location = New System.Drawing.Point(8, 511)
         Me.ButtonFindLayout.Name = "ButtonFindLayout"
-        Me.ButtonFindLayout.Size = New System.Drawing.Size(144, 86)
+        Me.ButtonFindLayout.Size = New System.Drawing.Size(189, 49)
         Me.ButtonFindLayout.TabIndex = 90
         Me.ButtonFindLayout.Text = "Find Layout using Open File"
         Me.ButtonFindLayout.UseVisualStyleBackColor = True
@@ -285,18 +286,29 @@ Partial Class FormDisplayCacheLayouts
         'buttonCustomers
         '
         Me.buttonCustomers.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.buttonCustomers.Location = New System.Drawing.Point(26, 239)
+        Me.buttonCustomers.Location = New System.Drawing.Point(26, 443)
         Me.buttonCustomers.Name = "buttonCustomers"
-        Me.buttonCustomers.Size = New System.Drawing.Size(171, 89)
+        Me.buttonCustomers.Size = New System.Drawing.Size(171, 42)
         Me.buttonCustomers.TabIndex = 98
         Me.buttonCustomers.Text = "Customers"
         Me.buttonCustomers.UseVisualStyleBackColor = True
+        '
+        'ButtonRecipients
+        '
+        Me.ButtonRecipients.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonRecipients.Location = New System.Drawing.Point(26, 348)
+        Me.ButtonRecipients.Name = "ButtonRecipients"
+        Me.ButtonRecipients.Size = New System.Drawing.Size(171, 89)
+        Me.ButtonRecipients.TabIndex = 99
+        Me.ButtonRecipients.Text = "Recipients"
+        Me.ButtonRecipients.UseVisualStyleBackColor = True
         '
         'FormDisplayCacheLayouts
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1406, 574)
+        Me.Controls.Add(Me.ButtonRecipients)
         Me.Controls.Add(Me.buttonCustomers)
         Me.Controls.Add(Me.LinkLabel1)
         Me.Controls.Add(Me.ButtonExitApp)
@@ -351,4 +363,5 @@ Partial Class FormDisplayCacheLayouts
     Friend WithEvents textboxPathToCacheXmlFile As TextBox
     Friend WithEvents LinkLabel1 As LinkLabel
     Friend WithEvents buttonCustomers As Button
+    Friend WithEvents ButtonRecipients As Button
 End Class

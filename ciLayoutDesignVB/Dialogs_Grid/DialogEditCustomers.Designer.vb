@@ -93,6 +93,7 @@ Partial Class DialogEditCustomers
         Me.PopulateCustomers1.Name = "PopulateCustomers1"
         Me.PopulateCustomers1.Size = New System.Drawing.Size(1332, 480)
         Me.PopulateCustomers1.TabIndex = 0
+        Me.PopulateCustomers1.UserControlWidths = Nothing
         '
         'DialogEditCustomers
         '

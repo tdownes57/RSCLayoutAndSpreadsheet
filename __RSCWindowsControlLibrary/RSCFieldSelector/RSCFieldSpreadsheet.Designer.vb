@@ -34,9 +34,10 @@ Partial Class RSCFieldSpreadsheet
         '
         Me.RscFieldColumn5.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.RscFieldColumn5.AutoScroll = True
         Me.RscFieldColumn5.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.RscFieldColumn5.ElementInfo_Base = Nothing
-        Me.RscFieldColumn5.Location = New System.Drawing.Point(758, 0)
+        Me.RscFieldColumn5.Location = New System.Drawing.Point(761, 120)
         Me.RscFieldColumn5.MoveabilityEventsForGroupCtls = Nothing
         Me.RscFieldColumn5.MoveabilityEventsForSingleMove = Nothing
         Me.RscFieldColumn5.Name = "RscFieldColumn5"
@@ -48,9 +49,10 @@ Partial Class RSCFieldSpreadsheet
         '
         Me.RscFieldColumn4.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.RscFieldColumn4.AutoScroll = True
         Me.RscFieldColumn4.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.RscFieldColumn4.ElementInfo_Base = Nothing
-        Me.RscFieldColumn4.Location = New System.Drawing.Point(570, 0)
+        Me.RscFieldColumn4.Location = New System.Drawing.Point(573, 120)
         Me.RscFieldColumn4.MoveabilityEventsForGroupCtls = Nothing
         Me.RscFieldColumn4.MoveabilityEventsForSingleMove = Nothing
         Me.RscFieldColumn4.Name = "RscFieldColumn4"
@@ -62,9 +64,10 @@ Partial Class RSCFieldSpreadsheet
         '
         Me.RscFieldColumn3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.RscFieldColumn3.AutoScroll = True
         Me.RscFieldColumn3.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.RscFieldColumn3.ElementInfo_Base = Nothing
-        Me.RscFieldColumn3.Location = New System.Drawing.Point(381, 0)
+        Me.RscFieldColumn3.Location = New System.Drawing.Point(384, 120)
         Me.RscFieldColumn3.MoveabilityEventsForGroupCtls = Nothing
         Me.RscFieldColumn3.MoveabilityEventsForSingleMove = Nothing
         Me.RscFieldColumn3.Name = "RscFieldColumn3"
@@ -76,9 +79,10 @@ Partial Class RSCFieldSpreadsheet
         '
         Me.RscFieldColumn2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.RscFieldColumn2.AutoScroll = True
         Me.RscFieldColumn2.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.RscFieldColumn2.ElementInfo_Base = Nothing
-        Me.RscFieldColumn2.Location = New System.Drawing.Point(192, 0)
+        Me.RscFieldColumn2.Location = New System.Drawing.Point(195, 120)
         Me.RscFieldColumn2.MoveabilityEventsForGroupCtls = Nothing
         Me.RscFieldColumn2.MoveabilityEventsForSingleMove = Nothing
         Me.RscFieldColumn2.Name = "RscFieldColumn2"
@@ -90,6 +94,7 @@ Partial Class RSCFieldSpreadsheet
         '
         Me.RscFieldColumn1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.RscFieldColumn1.AutoScroll = True
         Me.RscFieldColumn1.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.RscFieldColumn1.ElementInfo_Base = Nothing
         Me.RscFieldColumn1.Location = New System.Drawing.Point(3, 0)
@@ -101,7 +106,7 @@ Partial Class RSCFieldSpreadsheet
         '
         'RscSelectCIBField1
         '
-        Me.RscSelectCIBField1.Location = New System.Drawing.Point(192, 0)
+        Me.RscSelectCIBField1.Location = New System.Drawing.Point(205, 7)
         Me.RscSelectCIBField1.Name = "RscSelectCIBField1"
         Me.RscSelectCIBField1.Size = New System.Drawing.Size(232, 83)
         Me.RscSelectCIBField1.TabIndex = 5
@@ -118,7 +123,7 @@ Partial Class RSCFieldSpreadsheet
         Me.Controls.Add(Me.RscFieldColumn1)
         Me.Controls.Add(Me.RscSelectCIBField1)
         Me.Name = "RSCFieldSpreadsheet"
-        Me.Size = New System.Drawing.Size(956, 562)
+        Me.Size = New System.Drawing.Size(453, 562)
         Me.ResumeLayout(False)
 
     End Sub
