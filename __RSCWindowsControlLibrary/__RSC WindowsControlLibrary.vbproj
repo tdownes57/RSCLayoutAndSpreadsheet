@@ -113,6 +113,24 @@
     <Compile Include="RSCEditableControl\RSC_IDEditor.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="RSCFieldSelector\RSCFieldColumn.Designer.vb">
+      <DependentUpon>RSCFieldColumn.vb</DependentUpon>
+    </Compile>
+    <Compile Include="RSCFieldSelector\RSCFieldColumn.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RSCFieldSelector\RSCSelectCIBField.designer.vb">
+      <DependentUpon>RSCSelectCIBField.vb</DependentUpon>
+    </Compile>
+    <Compile Include="RSCFieldSelector\RSCSelectCIBField.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RSCFieldSelector\RSCFieldSpreadsheet.Designer.vb">
+      <DependentUpon>RSCFieldSpreadsheet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="RSCFieldSelector\RSCFieldSpreadsheet.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="RSCMoveableControl\RSCMoveableControlVB.Designer.vb">
       <DependentUpon>RSCMoveableControlVB.vb</DependentUpon>
     </Compile>
@@ -132,6 +150,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RSCEditableControl\RSC_IDEditor.resx">
       <DependentUpon>RSC_IDEditor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RSCFieldSelector\RSCFieldColumn.resx">
+      <DependentUpon>RSCFieldColumn.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RSCFieldSelector\RSCSelectCIBField.resx">
+      <DependentUpon>RSCSelectCIBField.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RSCFieldSelector\RSCFieldSpreadsheet.resx">
+      <DependentUpon>RSCFieldSpreadsheet.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RSCMoveableControl\RSCMoveableControlVB.resx">
       <DependentUpon>RSCMoveableControlVB.vb</DependentUpon>
@@ -160,9 +187,17 @@
       <Project>{e7eb43c4-358c-4880-9c9b-206127b57722}</Project>
       <Name>ciBadgeElements</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ciBadgeFields\ciBadgeFields.vbproj">
+      <Project>{ef9acec9-841e-4397-bfcb-917c814c4b8c}</Project>
+      <Name>ciBadgeFields</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ciBadgeInterfaces\ciBadgeInterfaces.vbproj">
       <Project>{3d1acca6-585e-4c92-9a6d-9a51d2f72f5f}</Project>
       <Name>ciBadgeInterfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ciBadgeRecipients\ciBadgeRecipients.vbproj">
+      <Project>{2F42EFAD-0BAA-4057-A1B8-36412CF0E2C0}</Project>
+      <Name>ciBadgeRecipients</Name>
     </ProjectReference>
     <ProjectReference Include="..\MoveAndResizeControls_Monem\MoveAndResizeControls_Monem.csproj">
       <Project>{3d6a51a2-395e-467f-a3c4-8d6ed1da961e}</Project>
