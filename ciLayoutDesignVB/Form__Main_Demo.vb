@@ -313,7 +313,8 @@ Public Class Form__Main_Demo
         ''Added 12/5/2021 thomas d. 
         ''   Moved here from at 8:21 p.m. 12/5/2021 thomas downes
         ''----Dec14 2021---Me.ElementsCache_ManageBoth = New ClassCacheManagement(Me.ElementsCache_Edits, Me.ElementsCache_Saved)
-        Me.ElementsCache_ManageBoth = New ClassCacheManagement(Me.ElementsCache_Edits, False, Me.ElementsCache_PathToXML) ''Added 12/14/2021 thomas d. 
+        ''----Feb26 2021---Me.ElementsCache_ManageBoth = New ClassCacheManagement(Me.ElementsCache_Edits, False, Me.ElementsCache_PathToXML) ''Added 12/14/2021 thomas d. 
+        Me.ElementsCache_ManageBoth = New ClassCacheManagement(Me.ElementsCache_Edits, False, Me.ElementsCache_PathToXML, Me.NewFileXML) ''Added 12/14/2021 thomas d. 
 
         ''
         ''Encapsulated 11/28/2021 thomas downes

@@ -118,6 +118,9 @@ Public Class Startup
                         .PathToElementsCacheXML_Prior2 = strPathToElementsCacheXML_Prior2 ''Added 1/25/2022 td
                         .PathToElementsCacheXML_Prior3 = strPathToElementsCacheXML_Prior3 ''Added 2/09/2022 td
 
+                        ''
+                        ''Show the dialog form!!
+                        ''
                         ''Not needed.''.Visible = True ''Added 2/5/2022 thomas downes 
                         .ShowDialog()
 
@@ -168,9 +171,36 @@ Public Class Startup
                         ''#1 Feb9 2022''SaveFullPathToFileXML(.PathToElementsCacheXML_Input)
                         ''#2 Feb9 2022''SaveFullPathToFileXML(.PathToElementsCacheXML_Output)
                         ''#2 Feb9 2022''strPathToElementsCacheXML_Output = .PathToElementsCacheXML_Output
-                        SaveFullPathToFileXML_Settings(strPathToElementsCacheXML_Output)
-                        My.Settings.PathToXML_Saved_ElementsCache = strPathToElementsCacheXML_Output
-                        My.Settings.Save()
+
+                        Dim bPathIsEmpty As Boolean ''Added 2/26/2022 td
+
+                        bPathIsEmpty = (String.IsNullOrEmpty(strPathToElementsCacheXML_Output))
+
+                        If (bPathIsEmpty) Then
+                            ''
+                            ''Don't try to process a Null string. ---2/23/2022 
+                            ''
+                            MessageBoxTD.Show_Statement("Great choice!  FYI, your new layout will be " &
+                                 "completely blank at first.  You will be asked to add elements & provide a background image.",
+                                                        "-----------CONFUSING/UNUSUAL--------",
+                                     "Please press OK to specify a name & location for the New layout.")
+                            Dim objSaveDialog As New SaveFileDialog ''Added 2/26/2022 td
+                            ''Added 2/26/2022 td
+                            objSaveDialog.ShowDialog()
+                            strPathToElementsCacheXML_Output = objSaveDialog.FileName
+                            ''Added 2/26/2022 td
+                            If (Not strPathToElementsCacheXML_Output.EndsWith(".xml")) Then
+                                strPathToElementsCacheXML_Output += ".xml"
+                            End If
+                            boolNewFileXML = True
+                            obj_cache_layout_Elements = Nothing
+
+                        Else
+                            SaveFullPathToFileXML_Settings(strPathToElementsCacheXML_Output)
+                            My.Settings.PathToXML_Saved_ElementsCache = strPathToElementsCacheXML_Output
+                            My.Settings.Save()
+
+                        End If ''End of ""If (bPathIsEmpty) Then"" ... Else ...
 
                     End With ''end of "With objFormShowCacheLayouts"
 
@@ -246,8 +276,8 @@ Public Class Startup
                 ''Still in use, even though it's Q4 of 2021. 
                 ''
                 If (obj_cache_layout_Elements Is Nothing) Then
-                    ''Jan25 2022 td''Throw New Exception("Cache is null/nothing.")
-                    MessageBoxTD.Show_Statement("Cache is null/nothing.")
+                    ''Jan25 2022 td''Throw New Exception("Cache Is null/nothing.")
+                    MessageBoxTD.Show_Statement("Cache Is null/nothing.")
                     intMessagesDisplayed += 1 ''Added 1/25/2022 td
                     If (intMessagesDisplayed > 5) Then Exit Sub ''Added 1/25/2022 td
                     Continue Do
@@ -483,7 +513,7 @@ Public Class Startup
         ''''Added 10/14/2019 td
         ''With par_designForm
         ''    ''Added 10/14/2019 td
-        ''    strStaticText = "This is the same text for everyone."
+        ''    strStaticText = "This Is the same text for everyone."
         ''    intLeft_Text = .CtlGraphicText1.Left - .ctlBackgroundZoom1.Left
         ''    intTop_Text = .CtlGraphicText1.Top - .ctlBackgroundZoom1.Top
         ''    intWidth_Text = .CtlGraphicText1.Width
@@ -548,11 +578,15 @@ Public Class Startup
 
         ''Added 12/14/2021 td
         If (pstrPathToElementsCacheXML <> "") Then
+
             If (IO.File.Exists(pstrPathToElementsCacheXML)) Then
+                strPathToXML = pstrPathToElementsCacheXML ''Allow the parameter to override.
+            ElseIf (pboolNewFileXML) Then
+                ''It's a new file, so we shouldn't expect it to exist already. ---2/26/2022 td
                 strPathToXML = pstrPathToElementsCacheXML ''Allow the parameter to override.
             Else
                 strPathToXML = DiskFilesVB.PathToFile_XML_ElementsCache
-            End If
+            End If ''End of ""If (IO.File.Exists(pstrPathToElementsCacheXML)) Then .... ElseIf (pboolNewFileXML)... Else...."
 
         ElseIf ("" <> My.Settings.PathToXML_Saved_ElementsCache) Then ''Added 12/14/2021 td
             ''Added 12/14/2021 td
@@ -579,8 +613,12 @@ Public Class Startup
 
             ''Added 12/19/2021 thomas downes
             Dim strTextOfFile As String
-            strTextOfFile = IO.File.ReadAllText(strPathToXML)
-            If (String.IsNullOrEmpty(strTextOfFile)) Then pboolNewFileXML = True
+            If (pboolNewFileXML) Then
+                ''No need to check the text of the file, since the file doesn't even exist yet! ---2/26/2022
+            Else
+                strTextOfFile = IO.File.ReadAllText(strPathToXML)
+                If (String.IsNullOrEmpty(strTextOfFile)) Then pboolNewFileXML = True
+            End If ''End of "If (pboolNewFileXML) Then ,,,, Else ..."
 
         End If ''End of "If (strPathToXML <> "") Then .... Else ..."
 
@@ -852,6 +890,13 @@ Public Class Startup
         ''Added 1/5/2022 td
         ''
         Dim bSaveNewXMLPath As Boolean ''Added 1/25/2022 thomas downes
+
+        ''Added 2/23/2022 td
+        If (String.IsNullOrEmpty(par_pathToElementsCacheXML)) Then
+            ''Added 2/23/2022 td
+            Throw New ArgumentException("Null argument1")
+
+        End If ''End of "If (String.IsNullOrEmpty(par_pathToElementsCacheXML)) Then"
 
         ''Added 12/20/2021 td
         With My.Settings

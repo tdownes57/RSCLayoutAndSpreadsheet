@@ -64,7 +64,8 @@ Namespace ciBadgeCachePersonality
 
         Public Sub New(par_cacheForEdits As ClassElementsCache_Deprecated,
                        pboolAllowCacheToBeCopied_Deprecated As Boolean,
-                       Optional pstrPathToSavedFileXML As String = "")
+                       Optional pstrPathToSavedFileXML As String = "",
+                       Optional pboolPathIsNewFile As Boolean = False)
             ''
             ''Added 12/14/2021 td
             ''
@@ -76,6 +77,15 @@ Namespace ciBadgeCachePersonality
             If (pboolAllowCacheToBeCopied_Deprecated) Then
                 ''Use the Copy() command.
                 mod_cacheSaved = par_cacheForEdits.Copy_Deprecated()
+
+            ElseIf (pboolPathIsNewFile) Then
+                ''
+                ''Don't try to load an existing cache.  Don't do it, because the XML file 
+                ''   doesn't exist yet. The user has selected purposely to open a new, blank, unadorned
+                ''   cache.  ----2/26/2022 td
+                ''
+                mod_cacheSaved = New ClassElementsCache_Deprecated()
+
             ElseIf (pstrPathToSavedFileXML <> "") Then
 
                 ''Added 12/14/2021 td
