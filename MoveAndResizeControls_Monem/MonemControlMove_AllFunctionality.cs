@@ -715,6 +715,8 @@ namespace MoveAndResizeControls_Monem
 
                 // Added 2/21/2022 td
                 _dictColumnsStartingPositionLeft = new Dictionary<Control, int>();
+
+                if (this.ColumnsToTheRight != null)
                 foreach (Control each_column in this.ColumnsToTheRight)
                     _dictColumnsStartingPositionLeft.Add(each_column, each_column.Left);
 

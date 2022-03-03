@@ -1,4 +1,22 @@
 ﻿Public Class RSCFieldColumn
+
+
+    Public Sub Load_ResizeWidthability()
+        ''
+        ''Added 3/2/2022 td
+        ''
+        ''Add the ability to adjust the size (width only) of the column. 
+        ''
+        Dim sizingParams As New MoveAndResizeControls_Monem.StructResizeParams
+
+        sizingParams.RightEdgeResizing_Only = True
+
+        MyBase.AddSizeability(True, sizingParams)
+
+    End Sub
+
+
+
     Private Sub textboxExample1_TextChanged(sender As Object, e As EventArgs) Handles textboxExample1.TextChanged
 
     End Sub
@@ -92,6 +110,10 @@
     End Sub
 
     Private Sub PictureBox9_Click(sender As Object, e As EventArgs) Handles PictureBox9.Click
+
+    End Sub
+
+    Private Sub RSCFieldColumn_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
     End Sub
 End Class

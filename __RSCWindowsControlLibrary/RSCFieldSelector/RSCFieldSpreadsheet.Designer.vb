@@ -64,7 +64,6 @@ Partial Class RSCFieldSpreadsheet
         '
         Me.RscFieldColumn3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.RscFieldColumn3.AutoScroll = True
         Me.RscFieldColumn3.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.RscFieldColumn3.ElementInfo_Base = Nothing
         Me.RscFieldColumn3.Location = New System.Drawing.Point(384, 120)
@@ -79,7 +78,6 @@ Partial Class RSCFieldSpreadsheet
         '
         Me.RscFieldColumn2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.RscFieldColumn2.AutoScroll = True
         Me.RscFieldColumn2.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.RscFieldColumn2.ElementInfo_Base = Nothing
         Me.RscFieldColumn2.Location = New System.Drawing.Point(195, 120)
@@ -94,7 +92,6 @@ Partial Class RSCFieldSpreadsheet
         '
         Me.RscFieldColumn1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.RscFieldColumn1.AutoScroll = True
         Me.RscFieldColumn1.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.RscFieldColumn1.ElementInfo_Base = Nothing
         Me.RscFieldColumn1.Location = New System.Drawing.Point(3, 0)

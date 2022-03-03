@@ -1507,6 +1507,9 @@ Public Class RSCMoveableControlVB
 
         Dim boolButtonIsOkay As Boolean ''Added 1/7/2022 td
 
+        ''Added 3/02/2022 thomas downes
+        If (mod_iMoveOrResizeFunctionality Is Nothing) Then Throw New Exception("Moving object is nothing.")
+
         ''1/7/2022 td''boolButtonIsOkay = (par_e.Button = MouseButtons.Left)
         boolButtonIsOkay = ((par_e.Button = MouseButtons.Left) Or
             (par_e.Button = MouseButtons.None)) ''Added 1/7/2022 td

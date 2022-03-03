@@ -91,6 +91,7 @@
     <Compile Include="MinorClasses\ClassListOfElements_StaticTextsV3.vb" />
     <Compile Include="MinorClasses\ClassListOfElements_LayoutSections.vb" />
     <Compile Include="MinorClasses\ClassListOfElements_StaticTextsV4.vb" />
+    <Compile Include="MinorClasses\ClassOmittedElement.vb" />
     <Compile Include="MinorClasses\MessageBoxTD.vb" />
     <Compile Include="MinorClasses\SplitContainerWidths_NotUsed.vb" />
     <Compile Include="Utilities\DiskFolders.vb" />
