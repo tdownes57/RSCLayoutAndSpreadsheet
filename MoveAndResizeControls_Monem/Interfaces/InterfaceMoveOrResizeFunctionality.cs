@@ -62,7 +62,7 @@ namespace MoveAndResizeControls_Monem //.Interfaces
                           ISaveToModel par_iSave,
                           IRefreshElementImage par_iRefreshImage,
                           IRefreshCardPreview par_iRefreshPreview,
-                          StructResizeParams par_structResize,
+                          ClassStructResizeParams par_structResize,
                           bool pbRemoveAnyHandlers = false,
                           bool pbHookUpEventHandlers = true);
 
@@ -116,7 +116,13 @@ namespace MoveAndResizeControls_Monem //.Interfaces
             IRefreshCardPreview par_iRefreshCardPreview = null);
 
         //Added 3/3/2022 thomas downes
-        StructResizeParams ResizeParams
+        //StructResizeParams ResizeParams
+        //{
+        //    get;
+        //    set;
+        //}
+
+        ClassStructResizeParams ResizeParams
         {
             get;
             set;

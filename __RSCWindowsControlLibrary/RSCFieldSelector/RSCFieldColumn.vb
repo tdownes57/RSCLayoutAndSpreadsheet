@@ -7,7 +7,8 @@
         ''
         ''Add the ability to adjust the size (width only) of the column. 
         ''
-        Dim sizingParams As New MoveAndResizeControls_Monem.StructResizeParams
+        ''March4 2022 ''Dim sizingParams As New MoveAndResizeControls_Monem.StructResizeParams
+        Dim sizingParams As New MoveAndResizeControls_Monem.ClassStructResizeParams
 
         sizingParams.RightEdgeResizing_Only = True
 

@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MinorClasses\ClassResizeParams.cs" />
     <Compile Include="MonemControlMove_AllFunctionality.cs" />
     <Compile Include="Events\ClassGroupMoveEvents_NotUsed.cs" />
     <Compile Include="FormContainerVsPicture.cs">

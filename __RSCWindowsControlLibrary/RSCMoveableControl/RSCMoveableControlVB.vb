@@ -608,9 +608,13 @@ Public Class RSCMoveableControlVB
 
     End Sub ''End of "Public Sub AddClickability()"
 
+    ''Added 3/4/2022 thomas downes 
+    ''Not needed. --3/4/2022''Private c_blankParams As StructResizeParams = New StructResizeParams()
+    ''Not needed. --3/4/2022''Private Const c_blankParams_NotUsed As StructResizeParams_NotInUse = 0
+    Private c_blankParams_NotUsed As New StructResizeParams_NotInUse
 
     Public Sub AddSizeability(Optional pboolUseEasyWay As Boolean = True,
-                              Optional par_structResizeParams As StructResizeParams = Nothing)
+                              Optional par_structResizeParams As ClassStructResizeParams = Nothing)
         ''
         ''Added 12/28/2021 td
         ''
@@ -659,9 +663,12 @@ Public Class RSCMoveableControlVB
         ''Added 12/22/2021 thomas downes
         ''
         Dim objPictureBox As PictureBox
+        Dim resizeParamsStruct As New ClassStructResizeParams ''Added 3/4/2022 td
 
         ' Add any initialization after the InitializeComponent() call.
         mod_boolResizeProportionally = pboolResizeProportionally ''Added 12/22/2021 td
+        resizeParamsStruct.ResizeProportionally = pboolResizeProportionally ''Added 3/4/2022 td
+
         ''Jan2 2022 td''mod_iSaveToModel = par_iSaveToModel
         Const c_bRepaintAfterResize As Boolean = True ''Added 7/31/2019 td
 
@@ -808,12 +815,22 @@ Public Class RSCMoveableControlVB
             Dim infoRefreshPrev As IRefreshCardPreview = Me.mod_iRefreshCardPreview
 
             ''Added 2/2/2022 td
-            mod_moveability_Monem.Init_V2(objPictureBox, Me,
+            ''3/4/2022 ''mod_moveability_Monem.Init_V2(objPictureBox, Me,
+            ''                           mc_intMarginForResize,
+            ''                           c_bRepaintAfterResize,
+            ''                                par_objMoveEventsForGroupMove,
+            ''                                par_objMoveEventsForSingleCtl,
+            ''                                False, Me, infoRefreshElem, infoRefreshPrev,
+            ''                                c_UndoEverything_False,
+            ''                                mod_bHandleMouseMoveEvents_Monem)
+
+            ''Added 3/4/2022 td
+            mod_moveability_Monem.Init_V3(objPictureBox, Me,
                                        mc_intMarginForResize,
-                                       c_bRepaintAfterResize,
                                             par_objMoveEventsForGroupMove,
                                             par_objMoveEventsForSingleCtl,
                                             False, Me, infoRefreshElem, infoRefreshPrev,
+                                            resizeParamsStruct,
                                             c_UndoEverything_False,
                                             mod_bHandleMouseMoveEvents_Monem)
 
@@ -846,6 +863,8 @@ Public Class RSCMoveableControlVB
         ''  (NOT object mod_moveInAGroup, class ControlMove_Group_NonStatic).
         ''  ----1/10/2022 td
         ''
+        Dim resizeClassStruct As New ClassStructResizeParams ''Added 3/4/2022 td
+
         ''1/10/2022 td''mod_events.LayoutFunctions = par_iLayoutFunctions ''Added 12/27/2021
         mod_eventsForSingleMove.LayoutFunctions = par_iLayoutFunctions ''Added 12/27/2021
 
@@ -872,6 +891,12 @@ Public Class RSCMoveableControlVB
             singleProportionWH = CSng(par_objPictureBox.Width / par_objPictureBox.Height)
         End If ''end of "If (Me.ExpectedProportionWH <> 0) Then ... ElseIf (objPictureBox IsNot Nothing) Then"
 
+        ''Added 3/4/2022 td
+        resizeClassStruct.KeepProportional_HtoW = True
+        ''We have to take the reciprocal of the ratio, but check to see it's non-zero.
+        resizeClassStruct.ProportionalRatio_HtoW =
+            CInt(IIf(singleProportionWH <> 0, 1 / singleProportionWH, 0))
+
         ''1/4/2022 td''mod_moveResizeKeepRatio.Init(objPictureBox, Me, 10, c_bRepaintAfterResize,
         ''      mod_events, False, Me)
         ''1/11/2022 td''mod_moveResizeKeepRatio.Init(par_objPictureBox, Me, 10, par_bRepaintAfterResize,
@@ -881,14 +906,24 @@ Public Class RSCMoveableControlVB
 
         Const c_bReverseInitiation_False As Boolean = False ''Added 1/27/2022 td
 
-        mod_moveability_Monem.Init_V1(par_objPictureBox, Me, mc_intMarginForResize,
-                                            par_bRepaintAfterResize,
+        ''3/4/2022 td''mod_moveability_Monem.Init_V1(par_objPictureBox, Me, mc_intMarginForResize,
+        ''                                    par_bRepaintAfterResize,
+        ''                                    mod_eventsForGroupMove_NotNeeded,
+        ''                                    mod_eventsForSingleMove,
+        ''                                    False, CType(Me, ISaveToModel),
+        ''                                    c_bReverseInitiation_False,
+        ''                                    mod_bHandleMouseMoveEvents_Monem,
+        ''                                    True, singleProportionWH)
+
+        ''Modified V1-->V3 on 3/4/2022 thomas d.
+        mod_moveability_Monem.Init_V3(par_objPictureBox, Me, mc_intMarginForResize,
                                             mod_eventsForGroupMove_NotNeeded,
                                             mod_eventsForSingleMove,
                                             False, CType(Me, ISaveToModel),
+                                            Me, mod_iRefreshCardPreview,
+                                            resizeClassStruct,
                                             c_bReverseInitiation_False,
-                                            mod_bHandleMouseMoveEvents_Monem,
-                                            True, singleProportionWH)
+                                            mod_bHandleMouseMoveEvents_Monem)
 
         ''            ''1/2/2022 td '' mod_events, False, mod_iSaveToModel)
         ''---mod_resizingProportionally.LayoutFunctions = par_iLayoutFunctions 

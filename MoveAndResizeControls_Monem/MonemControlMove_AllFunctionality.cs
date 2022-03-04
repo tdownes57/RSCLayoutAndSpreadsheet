@@ -45,9 +45,10 @@ namespace MoveAndResizeControls_Monem
     //
     // Added 2/2/2022 thomas downes
     //
-    public struct StructResizeParams
+    public struct StructResizeParams_NotInUse
     {
         // Added 2/2/2022 thomas downes
+        // Suffixed as "_NotInUse" on 3/4/2022 td
         //
         //  This will centralize the resizing information. ---2/2/2022 td
         //
@@ -166,8 +167,8 @@ namespace MoveAndResizeControls_Monem
         private bool _SizeKeepWidthMoreThanHeight = true;  //Added 2/02/2022 td
 
         //3/2/2022 //private StructResizeParams _structResizingParams;
-        private StructResizeParams _structResizingParams;
-        public StructResizeParams ResizeParams      //Added 2/2/2022 td 
+        private ClassStructResizeParams _structResizingParams = new ClassStructResizeParams();
+        public ClassStructResizeParams ResizeParams      //Added 2/2/2022 td 
         {
             get
             {
@@ -397,7 +398,7 @@ namespace MoveAndResizeControls_Monem
                ISaveToModel par_iSave,
                IRefreshElementImage par_iRefreshElementImage,
                IRefreshCardPreview par_iRefreshCardPreview,
-               StructResizeParams pstructResize,
+               ClassStructResizeParams pstructResize,
                bool pbUndoAndReverseEverything = false,
                bool pbHookUpEventHandlers = true)
         {
