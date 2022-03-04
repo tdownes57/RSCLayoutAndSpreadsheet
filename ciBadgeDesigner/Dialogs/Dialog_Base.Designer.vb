@@ -33,6 +33,7 @@ Partial Class Dialog_Base
         Me.ButtonBorder = New System.Windows.Forms.Button()
         Me.ButtonTextPlacement = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.ButtonTextstring = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -89,7 +90,7 @@ Partial Class Dialog_Base
         '
         'ButtonColor
         '
-        Me.ButtonColor.Location = New System.Drawing.Point(207, 13)
+        Me.ButtonColor.Location = New System.Drawing.Point(160, 13)
         Me.ButtonColor.Name = "ButtonColor"
         Me.ButtonColor.Size = New System.Drawing.Size(135, 42)
         Me.ButtonColor.TabIndex = 7
@@ -98,7 +99,7 @@ Partial Class Dialog_Base
         '
         'ButtonFont
         '
-        Me.ButtonFont.Location = New System.Drawing.Point(56, 13)
+        Me.ButtonFont.Location = New System.Drawing.Point(9, 13)
         Me.ButtonFont.Name = "ButtonFont"
         Me.ButtonFont.Size = New System.Drawing.Size(135, 42)
         Me.ButtonFont.TabIndex = 6
@@ -107,7 +108,7 @@ Partial Class Dialog_Base
         '
         'Button3
         '
-        Me.Button3.Location = New System.Drawing.Point(515, 13)
+        Me.Button3.Location = New System.Drawing.Point(468, 13)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(135, 42)
         Me.Button3.TabIndex = 9
@@ -116,7 +117,7 @@ Partial Class Dialog_Base
         '
         'ButtonBorder
         '
-        Me.ButtonBorder.Location = New System.Drawing.Point(364, 13)
+        Me.ButtonBorder.Location = New System.Drawing.Point(317, 13)
         Me.ButtonBorder.Name = "ButtonBorder"
         Me.ButtonBorder.Size = New System.Drawing.Size(135, 42)
         Me.ButtonBorder.TabIndex = 8
@@ -125,7 +126,7 @@ Partial Class Dialog_Base
         '
         'ButtonTextPlacement
         '
-        Me.ButtonTextPlacement.Location = New System.Drawing.Point(666, 13)
+        Me.ButtonTextPlacement.Location = New System.Drawing.Point(619, 13)
         Me.ButtonTextPlacement.Name = "ButtonTextPlacement"
         Me.ButtonTextPlacement.Size = New System.Drawing.Size(135, 42)
         Me.ButtonTextPlacement.TabIndex = 10
@@ -135,6 +136,7 @@ Partial Class Dialog_Base
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.LightBlue
+        Me.Panel1.Controls.Add(Me.ButtonTextstring)
         Me.Panel1.Controls.Add(Me.ButtonTextPlacement)
         Me.Panel1.Controls.Add(Me.ButtonFont)
         Me.Panel1.Controls.Add(Me.Button3)
@@ -145,6 +147,15 @@ Partial Class Dialog_Base
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(926, 68)
         Me.Panel1.TabIndex = 11
+        '
+        'ButtonTextstring
+        '
+        Me.ButtonTextstring.Location = New System.Drawing.Point(779, 13)
+        Me.ButtonTextstring.Name = "ButtonTextstring"
+        Me.ButtonTextstring.Size = New System.Drawing.Size(135, 42)
+        Me.ButtonTextstring.TabIndex = 11
+        Me.ButtonTextstring.Text = "Text / String"
+        Me.ButtonTextstring.UseVisualStyleBackColor = True
         '
         'Dialog_Base
         '
@@ -176,4 +187,5 @@ Partial Class Dialog_Base
     Friend WithEvents ButtonBorder As Button
     Friend WithEvents ButtonTextPlacement As Button
     Friend WithEvents Panel1 As Panel
+    Friend WithEvents ButtonTextstring As Button
 End Class

@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class DialogReviseText
+Partial Class Dialog_BaseReviseText
     Inherits Dialog_Base ''feb7 2022 tomdownes1@gmail.com
     ''Feb7 2022''Inherits System.Windows.Forms.Form
 
@@ -31,30 +31,30 @@ Partial Class DialogReviseText
         '
         Me.TextBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox1.Location = New System.Drawing.Point(223, 259)
+        Me.TextBox1.Location = New System.Drawing.Point(217, 278)
         Me.TextBox1.Multiline = True
         Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(546, 107)
+        Me.TextBox1.Size = New System.Drawing.Size(684, 94)
         Me.TextBox1.TabIndex = 6
         '
         'Label1
         '
         Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(21, 263)
+        Me.Label1.Location = New System.Drawing.Point(19, 278)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(172, 17)
         Me.Label1.TabIndex = 7
         Me.Label1.Text = "Text to display in element:"
         '
-        'DialogReviseText
+        'Dialog_BaseReviseText
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.ClientSize = New System.Drawing.Size(926, 516)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.TextBox1)
-        Me.Name = "DialogReviseText"
+        Me.Name = "Dialog_BaseReviseText"
         Me.Text = "DialogReviseText"
         Me.Controls.SetChildIndex(Me.TextBox1, 0)
         Me.Controls.SetChildIndex(Me.Label1, 0)

@@ -253,10 +253,16 @@
     <Compile Include="Dialogs\DialogPresetValues.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\DialogReviseText.Designer.vb">
-      <DependentUpon>DialogReviseText.vb</DependentUpon>
+    <Compile Include="Dialogs\Dialog_BaseChooseColor.Designer.vb">
+      <DependentUpon>Dialog_BaseChooseColor.vb</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\DialogReviseText.vb">
+    <Compile Include="Dialogs\Dialog_BaseChooseColor.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\Dialog_BaseReviseText.Designer.vb">
+      <DependentUpon>Dialog_BaseReviseText.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Dialog_BaseReviseText.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Dialogs\DialogSubsection.Designer.vb">
@@ -425,8 +431,11 @@
     <EmbeddedResource Include="Dialogs\DialogPresetValues.resx">
       <DependentUpon>DialogPresetValues.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\DialogReviseText.resx">
-      <DependentUpon>DialogReviseText.vb</DependentUpon>
+    <EmbeddedResource Include="Dialogs\Dialog_BaseChooseColor.resx">
+      <DependentUpon>Dialog_BaseChooseColor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\Dialog_BaseReviseText.resx">
+      <DependentUpon>Dialog_BaseReviseText.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\DialogSubsection.resx">
       <DependentUpon>DialogSubsection.vb</DependentUpon>
