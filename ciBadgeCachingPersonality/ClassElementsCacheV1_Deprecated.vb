@@ -826,22 +826,34 @@ Namespace ciBadgeCachePersonality
 
 
         ''This is deprecated!!  Use ListOfElementPics_Front instead. ---12/21/2021 td
-        <Xml.Serialization.XmlIgnore>
-        Public Property ListOfElementPics As HashSet(Of ClassElementPortrait)  ''---List(Of ClassElementPic)
-            Get ''Added 10/13/2019 td
-                ''
-                ''This property is Deprecated, so return Nothing. ----12/20/2021 thomas d.
-                ''
-                Return mod_listElementPics_Front ''Nothing ''Dec20 2021''mod_listElementPics_Front
-            End Get
-            Set(value As HashSet(Of ClassElementPortrait))  ''---List(Of ClassElementPic))
-                ''Added 10/13/2019 td
-                ''
-                ''This is deprecated!!  Use ListOfElementFields_Front instead. ---12/21/2021 td
-                ''
-                mod_listElementPics_Front = value
-            End Set
-        End Property
+        ''March3 2022''<Xml.Serialization.XmlIgnore>
+        Public Function ListOfElementPics_BothSides() As HashSet(Of ClassElementPortrait)  ''---List(Of ClassElementPic)
+            ''March3 2022''Get ''Added 10/13/2019 td
+            ''
+            ''This property is Deprecated, so return Nothing. ----12/20/2021 thomas d.
+            ''
+            ''March3 2022 ''Return mod_listElementPics_Front ''Nothing ''Dec20 2021''mod_listElementPics_Front
+
+            Dim objOutput As HashSet(Of ClassElementPortrait) ''Added 3/3/2022 td
+
+            objOutput = New HashSet(Of ClassElementPortrait)(mod_listElementPics_Front)
+
+            For Each each_portrait As ClassElementPortrait In mod_listElementPics_Backside
+                objOutput.Add(each_portrait)
+            Next each_portrait
+
+            Return objOutput
+
+            ''March3 2022''End Get
+            ''March3 2022''Set(value As HashSet(Of ClassElementPortrait))  ''---List(Of ClassElementPic))
+            ''Added 10/13/2019 td
+            ''
+            ''This is deprecated!!  Use ListOfElementFields_Front instead. ---12/21/2021 td
+            ''
+            ''March3 2022''mod_listElementPics_Front = value
+            ''March3 2022''End Set
+
+        End Function ''March3 2022''Property
 
 
         Public Property ListOfElementPics_Front As HashSet(Of ClassElementPortrait)  ''---List(Of ClassElementPic)

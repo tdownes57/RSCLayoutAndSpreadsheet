@@ -115,5 +115,12 @@ namespace MoveAndResizeControls_Monem //.Interfaces
             IRefreshElementImage par_iRefreshElemImage = null,
             IRefreshCardPreview par_iRefreshCardPreview = null);
 
+        //Added 3/3/2022 thomas downes
+        StructResizeParams ResizeParams
+        {
+            get;
+            set;
+        }
+
     }
 }

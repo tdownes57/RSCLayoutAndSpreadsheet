@@ -609,7 +609,8 @@ Public Class RSCMoveableControlVB
     End Sub ''End of "Public Sub AddClickability()"
 
 
-    Public Sub AddSizeability(Optional pboolUseEasyWay As Boolean = True)
+    Public Sub AddSizeability(Optional pboolUseEasyWay As Boolean = True,
+                              Optional par_structResizeParams As StructResizeParams = Nothing)
         ''
         ''Added 12/28/2021 td
         ''
@@ -619,6 +620,15 @@ Public Class RSCMoveableControlVB
         ''     We need to negate the Boolean variable (Not bAddSizing).
         ''
         mod_iMoveOrResizeFunctionality.RemoveSizeability = (Not bAddSizing) ''Added 12/28/2021 td
+
+        ''
+        ''Added 3/3/2022 td
+        ''
+        If (par_structResizeParams IsNot Nothing) Then
+
+            mod_iMoveOrResizeFunctionality.ResizeParams = par_structResizeParams
+
+        End If ''End of "If (par_structResizeParams IsNot Nothing) Then"
 
     End Sub
 

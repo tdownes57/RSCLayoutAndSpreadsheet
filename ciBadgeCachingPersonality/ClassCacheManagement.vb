@@ -117,6 +117,49 @@ Namespace ciBadgeCachePersonality
         End Function
 
 
+        Public Function GetOmittedElements() As List(Of ClassOmittedElement)
+            ''
+            ''Added 3/3/2022 thomas downes
+            ''
+            Dim listOmitted As New List(Of ClassOmittedElement)
+
+            ''Is Portrait omitted? 
+            Dim boolZeroPortraits As Boolean
+            boolZeroPortraits = (0 = mod_cacheEdits.ListOfElementPics_BothSides().Count)
+            If (boolZeroPortraits) Then listOmitted.Add(New ClassOmittedElement(Enum_ElementType.Portrait, "Portrait"))
+
+            ''Is QRCode omitted? 
+            Dim boolZeroQRCodes As Boolean
+            boolZeroQRCodes = (0 = mod_cacheEdits.ListOfElementQRCodes_Front().Count) And
+                  (0 = mod_cacheEdits.ListOfElementQRCodes_Back().Count)
+            If (boolZeroQRCodes) Then listOmitted.Add(New ClassOmittedElement(Enum_ElementType.QRCode, "QR Code"))
+
+            ''Is Signature omitted? 
+            Dim bZeroSignatures As Boolean
+            bZeroSignatures = (0 = mod_cacheEdits.ListOfElementSignatures_Front().Count) And
+                  (0 = mod_cacheEdits.ListOfElementSignatures_Back().Count)
+            If (bZeroSignatures) Then listOmitted.Add(New ClassOmittedElement(Enum_ElementType.Signature, "Signature"))
+
+            ''Is Graphical Element/Logo omitted? 
+            Dim bZeroGraphics As Boolean
+            bZeroGraphics = (0 = mod_cacheEdits.ListOfElementGraphics_Front().Count) And
+                  (0 = mod_cacheEdits.ListOfElementGraphics_Backside().Count)
+            If (bZeroGraphics) Then listOmitted.Add(New ClassOmittedElement(Enum_ElementType.StaticGraphic, "Graphics/Logos"))
+
+            ''Are all Textual Elements omitted? 
+            Dim bZeroStaticTextuals As Boolean
+            bZeroStaticTextuals = (0 = mod_cacheEdits.ListOfElementTextsV3_Front().Count) And
+                  (0 = mod_cacheEdits.ListOfElementTextsV3_Backside().Count) And
+                  (0 = mod_cacheEdits.ListOfElementTextsV4_Front().Count) And
+                  (0 = mod_cacheEdits.ListOfElementTextsV4_Backside().Count)
+            If (bZeroStaticTextuals) Then listOmitted.Add(New ClassOmittedElement(Enum_ElementType.StaticTextV4, "Any text you want to add"))
+
+
+
+
+        End Function ''End of "Public Function GetOmittedElements()"
+
+
         Public Sub Save(pboolSaveToFileXML As Boolean,
                         Optional ByRef pstrPathToFileXML As String = "",
                         Optional par_BadgeImage As System.Drawing.Image = Nothing)

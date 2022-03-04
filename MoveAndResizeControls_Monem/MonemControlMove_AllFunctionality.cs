@@ -91,10 +91,21 @@ namespace MoveAndResizeControls_Monem
             set;
         }
 
+
         public bool RemoveSizeability // = false;  //Added 12/28/2021 //
         {
-            get;
-            set;
+            get
+            {
+                // Added 3/3/2022 td
+                //return this.ResizeParams.StopAllResizing;
+                return _structResizingParams.StopAllResizing;
+            }
+            set 
+            {
+                // Added 3/3/2022 td
+                _structResizingParams.StopAllResizing = value;
+            }
+
         }
 
         public bool RemoveProportionality // = false;  //Added 1/10/2022 td//
@@ -153,7 +164,20 @@ namespace MoveAndResizeControls_Monem
         private bool _SizeDisallowSquares = false;  //Added 2/2/2022 td
         private bool _SizeKeepHeightMoreThanWidth = true;  //Added 2/02/2022 td
         private bool _SizeKeepWidthMoreThanHeight = true;  //Added 2/02/2022 td
-        private StructResizeParams _structResizing;      //Added 2/2/2022 td 
+
+        //3/2/2022 //private StructResizeParams _structResizingParams;
+        private StructResizeParams _structResizingParams;
+        public StructResizeParams ResizeParams      //Added 2/2/2022 td 
+        {
+            get
+            {
+                return _structResizingParams;
+            }
+            set
+            {
+                _structResizingParams = value;        
+            }
+        }
 
         private const bool mc_MonemEditsLocation = true; //Added 1/12/2022 td
         private const bool mc_MonemEditsLocation_TopAndLeft = true; //Added 1/12/2022 td
@@ -387,7 +411,8 @@ namespace MoveAndResizeControls_Monem
             _SizeKeepWidthMoreThanHeight = pstructResize.KeepLandscape_WgtH;
             _SizeDisallowSquares = (pstructResize.KeepPortrait_HgtW || 
                                     pstructResize.KeepLandscape_WgtH);
-            _structResizing = pstructResize;
+            // March3 2022 //_resizingParams = pstructResize;
+            this.ResizeParams = pstructResize;
 
             Init_V2(par_controlPictureB, par_containerElement,
                 par_margin,
@@ -619,7 +644,9 @@ namespace MoveAndResizeControls_Monem
 
             if (MouseIsInLeftEdge)
             {
-                if (RemoveSizeability) return; //Return, i.e. Stop the resizing process!!  Added 12/29/2021 td
+                // March3 2022 //if (this.RemoveSizeability) return; //Return, i.e. Stop the resizing process!!  Added 12/29/2021 td
+                if (_structResizingParams.StopAllResizing) return; //Return, i.e. Stop the resizing process!!  Added 12/29/2021 td
+                if (_structResizingParams.RightEdgeResizing_Only) return; //Return, i.e. Stop the resizing process!!  Added 3/3/2022
 
                 if (MouseIsInTopEdge)
                 {
@@ -638,7 +665,8 @@ namespace MoveAndResizeControls_Monem
             }
             else if (MouseIsInRightEdge)
             {
-                if (RemoveSizeability) return; //Return, i.e. Stop the resizing process!!  Added 12/29/2021 td
+                // March3 2022 //if (RemoveSizeability) return; //Return, i.e. Stop the resizing process!!  Added 12/29/2021 td
+                if (_structResizingParams.StopAllResizing) return; //Return, i.e. Stop the resizing process!!  Added 12/29/2021 td
 
                 if (MouseIsInTopEdge)
                 {
@@ -658,6 +686,8 @@ namespace MoveAndResizeControls_Monem
             else if (MouseIsInTopEdge || MouseIsInBottomEdge)
             {
                 if (RemoveSizeability) return; //Return, i.e. Stop the resizing process!!  Added 12/29/2021 td
+                if (_structResizingParams.StopAllResizing) return; //Return, i.e. Stop the resizing process!!  Added 12/29/2021 td
+                if (_structResizingParams.RightEdgeResizing_Only) return; //Return, i.e. Stop the resizing process!!  Added 3/3/2022
 
                 //Mouse is at the Top & Bottom Edge... i.e. the TopRight corner.
                 par_controlD.Cursor = Cursors.SizeNS;
@@ -710,6 +740,9 @@ namespace MoveAndResizeControls_Monem
                 //We need to initiate the Resizing process. 
                 //
                 if (RemoveSizeability) return; //Return, i.e. Stop the resizing process!!  Added 12/29/2021 td
+                if (_structResizingParams.StopAllResizing) return; //Return, i.e. Stop the resizing process!!  Added 3/03/2022 td
+                if (_structResizingParams.RightEdgeResizing_Only && !MouseIsInRightEdge) return; //Return, i.e. Stop the resizing process!!  Added 3/03/2022 td
+
                 _resizing = true;
                 _currentControlStartSize = par_controlE.Size;
 
