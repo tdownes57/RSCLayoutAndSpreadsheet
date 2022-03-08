@@ -253,6 +253,12 @@
     <Compile Include="Dialogs\DialogPresetValues.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Dialogs\DialogShowHideConditions.Designer.vb">
+      <DependentUpon>DialogShowHideConditions.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\DialogShowHideConditions.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Dialogs\Dialog_BaseChooseColor.Designer.vb">
       <DependentUpon>Dialog_BaseChooseColor.vb</DependentUpon>
     </Compile>
@@ -430,6 +436,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\DialogPresetValues.resx">
       <DependentUpon>DialogPresetValues.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\DialogShowHideConditions.resx">
+      <DependentUpon>DialogShowHideConditions.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\Dialog_BaseChooseColor.resx">
       <DependentUpon>Dialog_BaseChooseColor.vb</DependentUpon>

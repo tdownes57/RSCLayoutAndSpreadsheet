@@ -183,6 +183,9 @@ Public Class FormDisplayCacheLayouts
         Dim b_ExcludeFollowingLayout As Boolean = True
         LoadPriorAndCurrentLayouts_All(b_ExcludeFollowingLayout, Me.PathToElementsCacheXML_Input)
 
+        ''Added 3/7/2022 thomas d5o5w5n5e5s5 
+        ButtonRecipients.PerformClick()
+
     End Sub ''End of ""Public Sub Form_Load""
 
 

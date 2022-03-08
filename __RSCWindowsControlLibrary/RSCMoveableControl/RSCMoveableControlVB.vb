@@ -1848,7 +1848,10 @@ Public Class RSCMoveableControlVB
 
     End Sub ''End of "Public Sub Highlight_IfInsideRubberband()"
 
+    Private Sub RSCMoveableControlVB_Paint(sender As Object, e As PaintEventArgs) Handles Me.Paint
 
+        ''Added 3/07/2022 & 3/02/2022 thomas downes
+        If (mod_iMoveOrResizeFunctionality Is Nothing) Then Throw New Exception("Moving object is nothing.")
 
-
+    End Sub
 End Class
