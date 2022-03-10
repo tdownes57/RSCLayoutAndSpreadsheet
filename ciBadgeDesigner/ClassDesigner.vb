@@ -1504,7 +1504,7 @@ Public Class ClassDesigner
                 ''
                 ''Add moveability - Static Texts
                 ''
-                Const c_boolResizeProportionally As Boolean = False ''Inappropropriate for Static Texts!!
+                ''Jan11 2022 td''Const c_boolResizeProportionally As Boolean = False ''Inappropropriate for Static Texts!!
 
                 ''Jan11 2022 td''Add_Moveability(each_ctlStaticText, each_ctlStaticText,
                 ''                     each_ctlStaticText,

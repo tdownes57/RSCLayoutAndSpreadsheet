@@ -146,6 +146,7 @@ Public Class FormFieldsAndPortrait
         ''Dim ctlQRCode As ciBadgeDesigner.CtlGraphicQRCode
         Dim objElement As New ciBadgeElements.ClassElementQRCode
         Dim bHandleMouseEventsThroughFormVB6 As Boolean ''Added 1/7/2022 td
+        Dim sizeSuggested As Size ''Added 3/10/2022 
 
         objElement.BadgeLayout = mod_designer.BadgeLayout_Class
 
@@ -156,12 +157,16 @@ Public Class FormFieldsAndPortrait
         ''Added 1/7/2022
         bHandleMouseEventsThroughFormVB6 = RadioEventHandlersHookedThruForm.Checked ''Added 1/7/2022
 
+        ''Added 3/10/2022 td
+        sizeSuggested.Width = CInt(Me.Width / 6) '' (.Width / 8)
+        sizeSuggested.Height = CInt(Me.Width / 6) ''Same as .Width property setting, just above. ''----sizeSuggested.Width  
+
         ''
         ''Added 1/7/2022 Thomas DOWNES
         ''
         mod_ctlQRCode = CtlGraphicQRCode.GetQRCode(objGetParametersForGetControl,
                                                    objElement, Me, "ctlQRCode",
-          mod_designer, True, mod_ctlLasttouched, mod_eventsSingleton,
+          mod_designer, sizeSuggested, True, mod_ctlLasttouched, mod_eventsSingleton,
           bHandleMouseEventsThroughFormVB6)
 
         mod_ctlQRCode.Visible = True
@@ -224,9 +229,12 @@ Public Class FormFieldsAndPortrait
         Dim objGetParametersForGetControl As ciBadgeDesigner.ClassGetElementControlParams
         objGetParametersForGetControl = mod_designer.GetParametersToGetElementControl()
 
+        Dim sizeSuggested As Size ''Added 3/10/2022
+        sizeSuggested = New Size(Me.Width / 4, Me.Height / 10) ''Added 3/10/2022
+
         mod_ctlField1 = CtlGraphicFieldV3.GetFieldElement(objGetParametersForGetControl,
                                                             objElement, Me, mod_designer,
-                                            "mod_ctlField1", mod_designer, mod_designer,
+                                            "mod_ctlField1", mod_designer, sizeSuggested, mod_designer,
                                             mod_ctlLasttouched, mod_eventsSingleton)
 
         mod_ctlField1.Visible = True
@@ -268,8 +276,13 @@ Public Class FormFieldsAndPortrait
         Dim objGetParametersForGetControl As ciBadgeDesigner.ClassGetElementControlParams
         objGetParametersForGetControl = mod_designer.GetParametersToGetElementControl()
 
+        ''Added 3/10/2022 td
+        Dim sizeSuggested As Size ''Added 3/10/2022
+        sizeSuggested.Width = CInt(Me.Width / 3) '' (.Width / 3)
+        sizeSuggested.Height = CInt(Me.Height / 6) ''Same as .Width property setting, just above. ''----sizeSuggested.Width  
+
         mod_ctlStaticGraphic = CtlGraphicStaticGraphic.GetStaticGraphic(objGetParametersForGetControl,
-                objElement, Me, "mod_ctlStaticGraphic", mod_designer, True,
+                objElement, Me, "mod_ctlStaticGraphic", mod_designer, sizeSuggested, True,
                 mod_ctlLasttouched, mod_eventsSingleton, c_bUseMonemProportionalClass)
 
         mod_ctlStaticGraphic.Visible = True
@@ -298,9 +311,14 @@ Public Class FormFieldsAndPortrait
         Dim objGetParametersForGetControl As ciBadgeDesigner.ClassGetElementControlParams
         objGetParametersForGetControl = mod_designer.GetParametersToGetElementControl()
 
+        ''Added 3/10/2022 td
+        Dim sizeSuggested As Size
+        sizeSuggested.Width = CInt(Me.Width / 6) '' (.Width / 8)
+        sizeSuggested.Height = CInt(Me.Height / 10) ''----sizeSuggested.Width  
+
         mod_ctlStaticText = CtlGraphicStaticTextV3.GetStaticText(objGetParametersForGetControl,
                                                          objElement, Me, "mod_ctlStaticText",
-          mod_designer, mod_designer, mod_ctlLasttouched, mod_eventsSingleton)
+          mod_designer, sizeSuggested, mod_designer, mod_ctlLasttouched, mod_eventsSingleton)
 
         mod_ctlStaticText.Visible = True
         mod_ctlStaticText.Left = mod_ctlQRCode.Width
