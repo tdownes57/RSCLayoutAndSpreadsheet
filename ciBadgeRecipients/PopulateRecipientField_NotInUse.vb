@@ -4,7 +4,7 @@
 Imports ciBadgeInterfaces
 
 
-Public Class PopulateRecipientField
+Public Class PopulateRecipientField_NotInUse
     ''
     ''Added 2/10/2022 td
     ''
@@ -56,7 +56,7 @@ Public Class PopulateRecipientField
         ''   (w/ recursive procedural calls) 
         ''   ----2/11/2022 thomas downes
         ''
-        Dim next_control = New PopulateRecipientField
+        Dim next_control = New PopulateRecipientField_NotInUse
         Dim intSplitterDistace As Integer
         Dim intPanel1Width As Integer
         intSplitterDistace = Me.SplitContainer1.SplitterDistance

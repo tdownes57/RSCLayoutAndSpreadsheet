@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class PopulateTwoFields
+Partial Class PopulateTwoFields_NotInUse
     Inherits System.Windows.Forms.UserControl
 
     'UserControl overrides dispose to clean up the component list.
@@ -24,7 +24,7 @@ Partial Class PopulateTwoFields
     Private Sub InitializeComponent()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.LinkLabelAddFieldOfData = New System.Windows.Forms.LinkLabel()
-        Me.PopulateRecipientField1 = New ciBadgeRecipients.PopulateRecipientField()
+        Me.PopulateRecipientField1 = New ciBadgeRecipients.PopulateRecipientField_NotInUse()
         Me.PanelLeftPane = New System.Windows.Forms.Panel()
         Me.LinkLabelPasteData = New System.Windows.Forms.LinkLabel()
         Me.LabelHeader = New System.Windows.Forms.Label()
@@ -520,7 +520,7 @@ Partial Class PopulateTwoFields
 
     Friend WithEvents SplitContainer1 As Windows.Forms.SplitContainer
     Friend WithEvents LinkLabelAddFieldOfData As Windows.Forms.LinkLabel
-    Friend WithEvents PopulateRecipientField1 As PopulateRecipientField
+    Friend WithEvents PopulateRecipientField1 As PopulateRecipientField_NotInUse
     Friend WithEvents PanelLeftPane As Windows.Forms.Panel
     Friend WithEvents LinkLabelPasteData As Windows.Forms.LinkLabel
     Friend WithEvents LabelHeader As Windows.Forms.Label

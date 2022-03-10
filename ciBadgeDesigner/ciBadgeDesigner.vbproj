@@ -235,6 +235,12 @@
     <Compile Include="Controls\CtlPropertyUpDownvb.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="RSCFieldSelector\RSCFieldColumn.designer.vb">
+      <DependentUpon>RSCFieldColumn.vb</DependentUpon>
+    </Compile>
+    <Compile Include="RSCFieldSelector\RSCFieldColumn.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Dialogs\DialogDisplayColor.Designer.vb">
       <DependentUpon>DialogDisplayColor.vb</DependentUpon>
     </Compile>
@@ -363,6 +369,18 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="RSCFieldSelector\RSCFieldSpreadsheet.designer.vb">
+      <DependentUpon>RSCFieldSpreadsheet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="RSCFieldSelector\RSCFieldSpreadsheet.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RSCFieldSelector\RSCSelectCIBField.designer.vb">
+      <DependentUpon>RSCSelectCIBField.vb</DependentUpon>
+    </Compile>
+    <Compile Include="RSCFieldSelector\RSCSelectCIBField.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Controls\CtlAddCustomField.resx">
@@ -428,6 +446,9 @@
     <EmbeddedResource Include="Controls\CtlPropertyUpDownvb.resx">
       <DependentUpon>CtlPropertyUpDownvb.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="RSCFieldSelector\RSCFieldColumn.resx">
+      <DependentUpon>RSCFieldColumn.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\DialogDisplayColor.resx">
       <DependentUpon>DialogDisplayColor.vb</DependentUpon>
     </EmbeddedResource>
@@ -473,6 +494,12 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="RSCFieldSelector\RSCFieldSpreadsheet.resx">
+      <DependentUpon>RSCFieldSpreadsheet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RSCFieldSelector\RSCSelectCIBField.resx">
+      <DependentUpon>RSCSelectCIBField.vb</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="My Project\Application.myapp">
@@ -487,7 +514,7 @@
     <None Include="SigPlusLocal.ini" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\tdownes57\ciBadgeForWeb\ciPictures_VB\ciPictures_VB.vbproj">
+    <ProjectReference Include="..\..\abcBadge__Web\ciPictures_VB\ciPictures_VB.vbproj">
       <Project>{a5fe9f7b-4075-43c5-892b-01e2cfec342c}</Project>
       <Name>ciPictures_VB</Name>
     </ProjectReference>

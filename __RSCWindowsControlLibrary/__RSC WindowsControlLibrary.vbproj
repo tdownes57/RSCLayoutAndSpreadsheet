@@ -113,10 +113,10 @@
     <Compile Include="RSCEditableControl\RSC_IDEditor.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="RSCFieldSelector\RSCFieldColumn.Designer.vb">
-      <DependentUpon>RSCFieldColumn.vb</DependentUpon>
+    <Compile Include="RSCFieldSelector\RSCFieldColumn_NotInUse.Designer.vb">
+      <DependentUpon>RSCFieldColumn_NotInUse.vb</DependentUpon>
     </Compile>
-    <Compile Include="RSCFieldSelector\RSCFieldColumn.vb">
+    <Compile Include="RSCFieldSelector\RSCFieldColumn_NotInUse.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="RSCFieldSelector\RSCSelectCIBField.designer.vb">
@@ -125,10 +125,10 @@
     <Compile Include="RSCFieldSelector\RSCSelectCIBField.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="RSCFieldSelector\RSCFieldSpreadsheet.Designer.vb">
-      <DependentUpon>RSCFieldSpreadsheet.vb</DependentUpon>
+    <Compile Include="RSCFieldSelector\RSCFieldSpreadsheet_NotInUse.Designer.vb">
+      <DependentUpon>RSCFieldSpreadsheet_NotInUse.vb</DependentUpon>
     </Compile>
-    <Compile Include="RSCFieldSelector\RSCFieldSpreadsheet.vb">
+    <Compile Include="RSCFieldSelector\RSCFieldSpreadsheet_NotInUse.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="RSCMoveableControl\RSCMoveableControlVB.Designer.vb">
@@ -151,14 +151,14 @@
     <EmbeddedResource Include="RSCEditableControl\RSC_IDEditor.resx">
       <DependentUpon>RSC_IDEditor.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RSCFieldSelector\RSCFieldColumn.resx">
-      <DependentUpon>RSCFieldColumn.vb</DependentUpon>
+    <EmbeddedResource Include="RSCFieldSelector\RSCFieldColumn_NotInUse.resx">
+      <DependentUpon>RSCFieldColumn_NotInUse.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RSCFieldSelector\RSCSelectCIBField.resx">
       <DependentUpon>RSCSelectCIBField.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RSCFieldSelector\RSCFieldSpreadsheet.resx">
-      <DependentUpon>RSCFieldSpreadsheet.vb</DependentUpon>
+    <EmbeddedResource Include="RSCFieldSelector\RSCFieldSpreadsheet_NotInUse.resx">
+      <DependentUpon>RSCFieldSpreadsheet_NotInUse.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RSCMoveableControl\RSCMoveableControlVB.resx">
       <DependentUpon>RSCMoveableControlVB.vb</DependentUpon>

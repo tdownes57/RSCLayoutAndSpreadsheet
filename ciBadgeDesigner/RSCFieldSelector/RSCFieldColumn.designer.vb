@@ -1,4 +1,6 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+﻿Imports __RSCWindowsControlLibrary ''Added 3/8/2022 thomas downes
+
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class RSCFieldColumn
     Inherits RSCMoveableControlVB
     ''Feb21 2022 td ''Inherits System.Windows.Forms.UserControl
@@ -48,7 +50,7 @@ Partial Class RSCFieldColumn
         Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.PictureBox9 = New System.Windows.Forms.PictureBox()
-        Me.RscSelectCIBField1 = New __RSCWindowsControlLibrary.RSCSelectCIBField()
+        Me.RscSelectCIBField1 = New RSCSelectCIBField()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox12, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).BeginInit()

@@ -83,10 +83,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="PopulateRecipientField.Designer.vb">
-      <DependentUpon>PopulateRecipientField.vb</DependentUpon>
+    <Compile Include="PopulateRecipientField_NotInUse.Designer.vb">
+      <DependentUpon>PopulateRecipientField_NotInUse.vb</DependentUpon>
     </Compile>
-    <Compile Include="PopulateRecipientField.vb">
+    <Compile Include="PopulateRecipientField_NotInUse.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="PopulateThreeFields.Designer.vb">
@@ -95,10 +95,10 @@
     <Compile Include="PopulateThreeFields.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="PopulateTwoFields.Designer.vb">
-      <DependentUpon>PopulateTwoFields.vb</DependentUpon>
+    <Compile Include="PopulateTwoFields_NotInUse.Designer.vb">
+      <DependentUpon>PopulateTwoFields_NotInUse.vb</DependentUpon>
     </Compile>
-    <Compile Include="PopulateTwoFields.vb">
+    <Compile Include="PopulateTwoFields_NotInUse.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="SelectCIBField_NotInUse.Designer.vb">
@@ -115,14 +115,14 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="PopulateRecipientField.resx">
-      <DependentUpon>PopulateRecipientField.vb</DependentUpon>
+    <EmbeddedResource Include="PopulateRecipientField_NotInUse.resx">
+      <DependentUpon>PopulateRecipientField_NotInUse.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PopulateThreeFields.resx">
       <DependentUpon>PopulateThreeFields.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PopulateTwoFields.resx">
-      <DependentUpon>PopulateTwoFields.vb</DependentUpon>
+    <EmbeddedResource Include="PopulateTwoFields_NotInUse.resx">
+      <DependentUpon>PopulateTwoFields_NotInUse.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SelectCIBField_NotInUse.resx">
       <DependentUpon>SelectCIBField_NotInUse.vb</DependentUpon>

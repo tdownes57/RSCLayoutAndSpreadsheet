@@ -30,7 +30,7 @@ Public Class CtlGraphicPortrait
 
     ''9/9/2019 td''Public FormDesigner As FormDesignProtoTwo ''Added 9/4/2019 td
     ''9/20/2019 td''Public FormDesigner As ILayoutFunctions ''Modified 9/9/2019 td
-    Public LayoutFunctions As ILayoutFunctions ''Modified 9/9/2019 td
+    Public LayoutFunctions_Portrait As ILayoutFunctions ''Modified 9/9/2019 td
 
     Public Pic_CloneOfInitialImage As Image ''Added 9/23/2019 thomas downes. 
     Private mod_formRecordLastTouched As IRecordElementLastTouched ''Added 12/17/2021 td
@@ -341,7 +341,7 @@ Public Class CtlGraphicPortrait
 
     End Sub ''End of "Public Sub New_Deprecated(par_infoForPic_Base As IElement_Base, par_infoForPic_Pic As IElementPic, par_formLayout As ILayoutFunctions)"
 
-    Public Sub Refresh_Master()
+    Public Overrides Sub Refresh_Master()
         ''
         ''Added 9/17 & 9/5/2019 thomas d 
         ''
@@ -356,7 +356,7 @@ Public Class CtlGraphicPortrait
 
     End Sub ''End of "Public Sub Refresh_Master()"
 
-    Public Sub Refresh_PositionAndSize()
+    Public Overrides Sub Refresh_PositionAndSize()
         ''
         ''Added 9/17 & 9/5/2019 thomas d 
         ''
@@ -614,7 +614,7 @@ Public Class CtlGraphicPortrait
 
     End Sub ''End of Public Sub RefreshImage_NoMajorCalls
 
-    Public Sub SaveToModel() Implements ISaveToModel.SaveToModel
+    Public Overrides Sub SaveToModel() Implements ISaveToModel.SaveToModel
         ''
         ''Added 7/31/2019 thomas d 
         ''
