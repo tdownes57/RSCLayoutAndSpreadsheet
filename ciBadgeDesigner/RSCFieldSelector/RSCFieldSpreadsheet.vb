@@ -2,11 +2,13 @@
 ''Added 2/21/2022 td
 ''
 Imports ciBadgeDesigner
+Imports ciBadgeFields ''Added 3/10/2022 thomas downes
 
 Public Class RSCFieldSpreadsheet
     ''
     ''Added 2/21/2022 td
     ''
+    Public Designer As ClassDesigner ''Added 3/10/2022 td  
 
     Public Sub PasteData(par_stringPastedData As String)
         ''
@@ -69,10 +71,33 @@ Public Class RSCFieldSpreadsheet
 
     Private Sub RSCFieldSpreadsheet_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
+        ''Added 3/10/2022 
+        ''
+        Const c_boolLetsAutoLoadColumns As Boolean = False ''False, as it may cause weird design-time behavior.
+
+        If (c_boolLetsAutoLoadColumns) Then
+            ''
+            ''We might not have a designer object at load-time.... set the parameter to Nothing. 
+            ''
+            Dim objDesigner As ClassDesigner = Nothing
+            LoadRuntimeColumns_AfterClearingDesign(objDesigner)
+
+        End If ''End of " If (c_boolLetsAutoLoadColumns) Then"
+
+
+    End Sub
+
+    Public Sub LoadRuntimeColumns_AfterClearingDesign(par_designer As ClassDesigner)
+        ''
         ''Added 3/8/2022 thomas downes 
+        ''
+        ''Step 1 of 2.  Remove design-time columns..... Clearing (removing) design-time columns (which are placed
+        ''   to give a visual preview of how the run-time columns will look). 
         ''
         RemoveRSCColumnsFromDesignTime()
 
+        ''
+        ''Step 2 of 2.  Load run- time columns. 
         ''
         ''Added a Number N of Required Columns. 
         ''
@@ -81,41 +106,44 @@ Public Class RSCFieldSpreadsheet
         Dim intCurrentPropertyLeft As Integer = 0
         Dim intNextPropertyLeft As Integer = 0
         Const intNeededMax As Integer = 4
+        Dim each_field As ciBadgeFields.ClassFieldAny
 
-        ''For intNeededIndex = 1 To intNeededMax
+        For intNeededIndex = 1 To intNeededMax
 
-        ''    eachColumn = GenerateRSCColumn()
-        ''    intCurrentPropertyLeft = intNextPropertyLeft
-        ''    eachColumn.Left = intCurrentPropertyLeft
-        ''    eachColumn.Visible = True
-        ''    ''Prepare for next iteration. 
-        ''    intNextPropertyLeft = (eachColumn.Left + eachColumn.Width + 3)
-        ''    Me.Controls.Add(eachColumn)
+            each_field = New ciBadgeFields.ClassFieldAny()
+            each_field.FieldEnumValue = ciBadgeInterfaces.EnumCIBFields.Undetermined
+            eachColumn = GenerateRSCColumn(each_field, intNeededIndex)
+            intCurrentPropertyLeft = intNextPropertyLeft
+            eachColumn.Left = intCurrentPropertyLeft
+            eachColumn.Visible = True
+            ''Prepare for next iteration. 
+            intNextPropertyLeft = (eachColumn.Left + eachColumn.Width + 3)
+            Me.Controls.Add(eachColumn)
 
-        ''Next intNeededIndex
+        Next intNeededIndex
 
     End Sub ''End of Private Sub RSCFieldSpreadsheet_Load
 
 
-    ''Private Function GenerateRSCColumn() As RSCFieldColumn
-    ''    ''
-    ''    ''Added 3/8/2022 td
-    ''    ''
-    ''    Dim objNewColumn As RSCFieldColumn ''Added 3/8/2022 td
+    Private Function GenerateRSCColumn(par_objField As ClassFieldAny, par_intFieldIndex As Integer) As RSCFieldColumn
+        ''
+        ''Added 3/8/2022 td
+        ''
+        Dim objNewColumn As RSCFieldColumn ''Added 3/8/2022 td
 
-    ''    ''March9 2022 ''objNewColumn = RSCFieldColumn.GetFieldColumn()
-    ''    ''Added 1/17/2022 td
-    ''    Dim objGetParametersForGetControl As ciBadgeDesigner.ClassGetElementControlParams
-    ''    objGetParametersForGetControl = mod_designer.GetParametersToGetElementControl()
+        ''March9 2022 ''objNewColumn = RSCFieldColumn.GetFieldColumn()
+        ''Added 1/17/2022 td
+        Dim objGetParametersForGetControl As ciBadgeDesigner.ClassGetElementControlParams
+        objGetParametersForGetControl = Me.Designer.GetParametersToGetElementControl()
 
-    ''    objNewColumn = RSCFieldColumn.GetFieldColumn(objGetParametersForGetControl,
-    ''                                                     objElement, Me, "mod_ctlPortrait",
-    ''                                                      mod_designer, True, mod_ctlLasttouched, mod_designer,
-    ''                                                      mod_eventsSingleton)
+        objNewColumn = RSCFieldColumn.GetFieldColumn(objGetParametersForGetControl,
+                                                         par_objField, Me, "RSCFieldColumn" & CStr(par_intFieldIndex),
+                                                          Me.Designer, True, mod_ctlLasttouched, mod_designer,
+                                                          mod_eventsSingleton)
 
-    ''    Return objNew
+        Return objNew
 
-    ''End Function ''End of "Private Function GenerateRSCColumn() As RSCFieldColumn"
+    End Function ''End of "Private Function GenerateRSCColumn() As RSCFieldColumn"
 
 
     Private Sub RemoveRSCColumnsFromDesignTime()

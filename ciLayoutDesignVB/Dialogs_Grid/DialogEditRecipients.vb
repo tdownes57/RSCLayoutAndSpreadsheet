@@ -3,11 +3,13 @@ Option Strict On
 ''
 '' Added 2/22/2022 thomas  
 ''
+Imports ciBadgeDesigner ''Added 3/10/2022 t2h2o2m2a2s2 d2o2w2n2e2s
 
 Public Class DialogEditRecipients
     ''
     '' Added 2/22/2022 thomas  
     ''
+    Private mod_designer As ClassDesigner ''Added 3/10/2022 td
     Private mod_stringPastedData As String ''Added 2/22/2022  
 
     Private Sub ButtonPasteData_Click(sender As Object, e As EventArgs) Handles ButtonPasteData.Click
@@ -40,7 +42,7 @@ ExitHandler:
         Dim boolMismatchedColumnCount As Boolean
         Dim intRowIndex As Integer
 
-        ''Added 2/22/2022 thomas downes
+        ''Added 2/22/2022 t4h4o4m4a4s4 d4o4w4n4e4s4
         If (String.IsNullOrEmpty(par_stringPastedData)) Then
             pref_message = "Pasted data is null or zero-length string."
             Return False
@@ -69,5 +71,15 @@ ExitHandler:
 
     End Function ''End of "Private Function ReviewPastedData_IsOkay()"
 
+    Private Sub DialogEditRecipients_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ''
+        ''Added 3/10/2022 thomas d.
+        ''
+        mod_designer = New ClassDesigner()
 
+        RscFieldSpreadsheet1.LoadRuntimeColumns_AfterClearingDesign(mod_designer)
+
+
+
+    End Sub
 End Class
