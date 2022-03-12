@@ -190,6 +190,40 @@ Public Class RSCFieldColumn
     End Sub
 
 
+    Public Overrides Sub RemoveMouseEventHandlers_ChildClass()
+        ''
+        ''Added 1/12/2022 
+        ''
+        RemoveHandler Me.MouseDown, AddressOf RSCFieldColumn_MouseDown
+        RemoveHandler Me.MouseMove, AddressOf RSCFieldColumn_MouseMove
+        RemoveHandler Me.MouseUp, AddressOf RSCFieldColumn_MouseUp
+
+    End Sub ''End of "Protected Overrides Sub RemoveMouseEventHandlers()"
+
+
+    Public Overrides Sub AddMouseEventHandlers_ChildClass()
+        ''
+        ''Added 1/12/2022 
+        ''
+        RemoveHandler Me.MouseDown, AddressOf RSCFieldColumn_MouseDown
+        RemoveHandler Me.MouseMove, AddressOf RSCFieldColumn_MouseMove
+        RemoveHandler Me.MouseUp, AddressOf RSCFieldColumn_MouseUp
+
+        AddHandler Me.MouseDown, AddressOf RSCFieldColumn_MouseDown
+        AddHandler Me.MouseMove, AddressOf RSCFieldColumn_MouseMove
+        AddHandler Me.MouseUp, AddressOf RSCFieldColumn_MouseUp
+
+    End Sub ''End of "Protected Overrides Sub AddMouseEventHandlers()"
+
+
+    Public Overrides Sub SaveToModel()
+
+        ''MyBase.SaveToModel()
+
+        ''Not needed here, as this derived user control does not represent a badge element. -----3/11/2022
+
+    End Sub
+
 
     Private Sub textboxExample1_TextChanged(sender As Object, e As EventArgs) Handles textboxExample1.TextChanged
 
@@ -290,4 +324,48 @@ Public Class RSCFieldColumn
     Private Sub RSCFieldColumn_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
     End Sub
+
+    Private Sub RSCFieldColumn_MouseDown(par_sender As Object, par_e As MouseEventArgs) Handles MyBase.MouseDown
+
+        ''Added 3/11/2022 thomad downes
+        If mod_bHandleMouseMoveEvents_ByVB6 Then
+            If mod_bHandleMouseMoveEvents_ChildClass Then
+                ''----Nasty bug.  Don't use par_sender here. ---1/11/2022 td''
+                ''--MyBase.MoveableControl_MouseDown(par_sender, par_e)
+                Dim objParentControl As Control = Me ''Added 1/11/2022
+                MyBase.MoveableControl_MouseDown(objParentControl, par_e)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub RSCFieldColumn_MouseMove(par_sender As Object, par_e As MouseEventArgs) Handles MyBase.MouseMove
+
+        ''Added 3/11/2022 thomas downes
+        If mod_bHandleMouseMoveEvents_ByVB6 Then
+            If mod_bHandleMouseMoveEvents_ChildClass Then
+                ''----Nasty bug.  Don't use par_sender here. ---1/11/2022 td''
+                ''--MyBase.MoveableControl_MouseMove(par_sender, par_e)
+                Dim objParentControl As Control = Me ''Added 1/11/2022
+                MyBase.MoveableControl_MouseMove(objParentControl, par_e)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub RSCFieldColumn_MouseUp(par_sender As Object, par_e As MouseEventArgs) Handles MyBase.MouseUp
+
+        ''Added 3/11/2022 thomas downes
+        If mod_bHandleMouseMoveEvents_ByVB6 Then
+            If mod_bHandleMouseMoveEvents_ChildClass Then
+                ''----Nasty bug.  Don't use par_sender here. ---1/11/2022 td''
+                ''--MyBase.MoveableControl_MouseUp(par_sender, par_e)
+                Dim objParentControl As Control = Me ''Added 1/11/2022
+                MyBase.MoveableControl_MouseUp(objParentControl, par_e)
+            End If
+        End If
+
+    End Sub
+
+
 End Class

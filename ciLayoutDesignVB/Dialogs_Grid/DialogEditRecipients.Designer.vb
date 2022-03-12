@@ -81,9 +81,9 @@ Partial Class DialogEditRecipients
         Me.ButtonPasteData.Location = New System.Drawing.Point(9, 39)
         Me.ButtonPasteData.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonPasteData.Name = "ButtonPasteData"
-        Me.ButtonPasteData.Size = New System.Drawing.Size(232, 28)
+        Me.ButtonPasteData.Size = New System.Drawing.Size(277, 28)
         Me.ButtonPasteData.TabIndex = 18
-        Me.ButtonPasteData.Text = "Paste Data from MS Excel or Google Sheets"
+        Me.ButtonPasteData.Text = "Paste Data   (...from MS Excel or Google Sheets)"
         Me.ButtonPasteData.UseVisualStyleBackColor = True
         '
         'RscFieldSpreadsheet1

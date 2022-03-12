@@ -3,12 +3,16 @@
 ''
 Imports ciBadgeDesigner
 Imports ciBadgeFields ''Added 3/10/2022 thomas downes
+Imports ciBadgeInterfaces ''Added 3/11/2022 t__homas d__ownes
 
 Public Class RSCFieldSpreadsheet
     ''
     ''Added 2/21/2022 td
     ''
     Public Designer As ClassDesigner ''Added 3/10/2022 td  
+    Private mod_ctlLasttouched As New ClassLastControlTouched ''Added 1/4/2022 td
+    Private mod_eventsSingleton As New GroupMoveEvents_Singleton(Me.Designer, False, True) ''Added 1/4/2022 td  
+
 
     Public Sub PasteData(par_stringPastedData As String)
         ''
@@ -136,12 +140,16 @@ Public Class RSCFieldSpreadsheet
         Dim objGetParametersForGetControl As ciBadgeDesigner.ClassGetElementControlParams
         objGetParametersForGetControl = Me.Designer.GetParametersToGetElementControl()
 
+        Const c_boolProportional As Boolean = False ''Added 3/11/2022 td 
+
         objNewColumn = RSCFieldColumn.GetFieldColumn(objGetParametersForGetControl,
-                                                         par_objField, Me, "RSCFieldColumn" & CStr(par_intFieldIndex),
-                                                          Me.Designer, True, mod_ctlLasttouched, mod_designer,
+                                                         par_objField, Me.ParentForm,
+                                                         "RSCFieldColumn" & CStr(par_intFieldIndex),
+                                                          Me.Designer, c_boolProportional,
+                                                          mod_ctlLasttouched, Me.Designer,
                                                           mod_eventsSingleton)
 
-        Return objNew
+        Return objNewColumn
 
     End Function ''End of "Private Function GenerateRSCColumn() As RSCFieldColumn"
 

@@ -235,10 +235,10 @@
     <Compile Include="Controls\CtlPropertyUpDownvb.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="RSCFieldSelector\RSCFieldColumn.designer.vb">
+    <Compile Include="ControlsRSC\RSCFieldColumn.designer.vb">
       <DependentUpon>RSCFieldColumn.vb</DependentUpon>
     </Compile>
-    <Compile Include="RSCFieldSelector\RSCFieldColumn.vb">
+    <Compile Include="ControlsRSC\RSCFieldColumn.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Dialogs\DialogDisplayColor.Designer.vb">
@@ -369,16 +369,16 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="RSCFieldSelector\RSCFieldSpreadsheet.designer.vb">
+    <Compile Include="ControlsRSC\RSCFieldSpreadsheet.designer.vb">
       <DependentUpon>RSCFieldSpreadsheet.vb</DependentUpon>
     </Compile>
-    <Compile Include="RSCFieldSelector\RSCFieldSpreadsheet.vb">
+    <Compile Include="ControlsRSC\RSCFieldSpreadsheet.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="RSCFieldSelector\RSCSelectCIBField.designer.vb">
+    <Compile Include="ControlsRSC\RSCSelectCIBField.designer.vb">
       <DependentUpon>RSCSelectCIBField.vb</DependentUpon>
     </Compile>
-    <Compile Include="RSCFieldSelector\RSCSelectCIBField.vb">
+    <Compile Include="ControlsRSC\RSCSelectCIBField.vb">
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>
@@ -446,7 +446,7 @@
     <EmbeddedResource Include="Controls\CtlPropertyUpDownvb.resx">
       <DependentUpon>CtlPropertyUpDownvb.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RSCFieldSelector\RSCFieldColumn.resx">
+    <EmbeddedResource Include="ControlsRSC\RSCFieldColumn.resx">
       <DependentUpon>RSCFieldColumn.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\DialogDisplayColor.resx">
@@ -494,10 +494,10 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="RSCFieldSelector\RSCFieldSpreadsheet.resx">
+    <EmbeddedResource Include="ControlsRSC\RSCFieldSpreadsheet.resx">
       <DependentUpon>RSCFieldSpreadsheet.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RSCFieldSelector\RSCSelectCIBField.resx">
+    <EmbeddedResource Include="ControlsRSC\RSCSelectCIBField.resx">
       <DependentUpon>RSCSelectCIBField.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>

@@ -12,6 +12,17 @@ Public Class DialogEditRecipients
     Private mod_designer As ClassDesigner ''Added 3/10/2022 td
     Private mod_stringPastedData As String ''Added 2/22/2022  
 
+    Public Sub New()
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        mod_designer = New ClassDesigner()
+        mod_designer.DontAutoRefreshPreview = True ''Added 3/11/2022 td
+
+    End Sub
+
     Private Sub ButtonPasteData_Click(sender As Object, e As EventArgs) Handles ButtonPasteData.Click
         ''
         '' Added 2/22/2022 thomas  
@@ -75,8 +86,9 @@ ExitHandler:
         ''
         ''Added 3/10/2022 thomas d.
         ''
-        mod_designer = New ClassDesigner()
+        ''---March 11, 2022---mod_designer = New ClassDesigner()
 
+        RscFieldSpreadsheet1.Designer = mod_designer
         RscFieldSpreadsheet1.LoadRuntimeColumns_AfterClearingDesign(mod_designer)
 
 

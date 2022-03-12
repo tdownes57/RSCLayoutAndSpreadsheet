@@ -39,6 +39,7 @@ Public Class ClassDesigner
     Public WithEvents BackgroundBox_Front As PictureBox
     Public WithEvents BackgroundBox_Backside As PictureBox ''Added 12/10/2021 thomas downes
     Public BackgroundBox_JustAButton As PictureBox ''Added 1/21/2022 thomas downes
+    Public DontAutoRefreshPreview As Boolean ''Added 3/11/2022 td
 
     ''Added 11/29/2021 thomas downes
     Private mod_designerListener As ClassDesignerEventListener
@@ -732,7 +733,11 @@ Public Class ClassDesigner
         ResizeLayoutBackgroundImage_ToFitPictureBox() ''Added 8/25/2019 td
 
         ''1/14/2022''RefreshPreview_Redux_Front() ''Added 8/24/2019 td
-        RefreshPreview_CurrentSide() ''Modified 1/14/2022 td
+        If (Me.DontAutoRefreshPreview) Then
+            ''Don't refresh.  ====3/11/2022
+        Else
+            RefreshPreview_CurrentSide() ''Modified 1/14/2022 td
+        End If ''End of "If (Me.DontAutoRefreshPreview) Then ... Else ..."
 
         ''Dec10 2021 td''Me.BackgroundBox_Front.SendToBack()
         If (ShowingTheBackside()) Then
@@ -2399,12 +2404,23 @@ Public Class ClassDesigner
 
         enum_CurrentSide = Me.EnumSideOfCard_Current
 
-        objBadgeSide = Me.ElementsCache_UseEdits.GetAllBadgeSideLayoutElements(Me.EnumSideOfCard_Current)
+        If (Me.DontAutoRefreshPreview) Then
+            ''
+            ''Either the Preview-Badge feature might be temporarily out of comission,
+            ''   or it simply doesn't apply on the present Windows dialog or form.
+            ''   ----3/11/2022 td
+            ''
 
-        ''
-        ''Major call!! 
-        ''
-        RefreshPreview_EitherSide(enum_CurrentSide, objBadgeSide, par_recentlyMoved, par_recipient)
+        Else
+
+            objBadgeSide = Me.ElementsCache_UseEdits.GetAllBadgeSideLayoutElements(Me.EnumSideOfCard_Current)
+
+            ''
+            ''Major call!! 
+            ''
+            RefreshPreview_EitherSide(enum_CurrentSide, objBadgeSide, par_recentlyMoved, par_recipient)
+
+        End If ''End of "If (Me.DontRefreshPreview) Then .... Else..."
 
     End Sub ''End of ""Public Sub RefreshPreview_CurrentSide()""
 

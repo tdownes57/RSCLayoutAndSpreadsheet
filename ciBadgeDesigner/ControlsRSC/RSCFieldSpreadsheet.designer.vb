@@ -22,12 +22,12 @@ Partial Class RSCFieldSpreadsheet
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.RscFieldColumn5 = New RSCFieldColumn()
-        Me.RscFieldColumn4 = New RSCFieldColumn()
-        Me.RscFieldColumn3 = New RSCFieldColumn()
-        Me.RscFieldColumn2 = New RSCFieldColumn()
-        Me.RscFieldColumn1 = New RSCFieldColumn()
-        Me.RscSelectCIBField1 = New RSCSelectCIBField()
+        Me.RscFieldColumn5 = New ciBadgeDesigner.RSCFieldColumn()
+        Me.RscFieldColumn4 = New ciBadgeDesigner.RSCFieldColumn()
+        Me.RscFieldColumn3 = New ciBadgeDesigner.RSCFieldColumn()
+        Me.RscFieldColumn2 = New ciBadgeDesigner.RSCFieldColumn()
+        Me.RscFieldColumn1 = New ciBadgeDesigner.RSCFieldColumn()
+        Me.RscSelectCIBField1 = New ciBadgeDesigner.RSCSelectCIBField()
         Me.SuspendLayout()
         '
         'RscFieldColumn5
@@ -111,6 +111,7 @@ Partial Class RSCFieldSpreadsheet
         Me.RscSelectCIBField1.Name = "RscSelectCIBField1"
         Me.RscSelectCIBField1.Size = New System.Drawing.Size(174, 67)
         Me.RscSelectCIBField1.TabIndex = 5
+        Me.RscSelectCIBField1.Visible = False
         '
         'RSCFieldSpreadsheet
         '
@@ -123,7 +124,7 @@ Partial Class RSCFieldSpreadsheet
         Me.Controls.Add(Me.RscFieldColumn2)
         Me.Controls.Add(Me.RscFieldColumn1)
         Me.Controls.Add(Me.RscSelectCIBField1)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "RSCFieldSpreadsheet"
         Me.Size = New System.Drawing.Size(821, 457)
         Me.ResumeLayout(False)

@@ -184,7 +184,11 @@ Public Class FormDisplayCacheLayouts
         LoadPriorAndCurrentLayouts_All(b_ExcludeFollowingLayout, Me.PathToElementsCacheXML_Input)
 
         ''Added 3/7/2022 thomas d5o5w5n5e5s5 
-        ButtonRecipients.PerformClick()
+        ''Application.DoEvents()
+        ''Me.Visible = True
+        ''Threading.Thread.Sleep(1000)
+        ''Application.DoEvents()
+        ''ButtonRecipients.PerformClick()
 
     End Sub ''End of ""Public Sub Form_Load""
 
@@ -465,8 +469,10 @@ Public Class FormDisplayCacheLayouts
             If (bExclude) Then Continue For
 
             If (UniquePerHashset(pobjHashset, each_file.FullName)) Then
+                ''Major call!!
                 LoadPriorLayoutPictureBox(each_file.FullName)
-            End If
+
+            End If ''End of ""If (UniquePerHashset(pobjHashset, each_file.FullName)) Then""
 
         Next each_file
 
@@ -762,7 +768,16 @@ Public Class FormDisplayCacheLayouts
         '' Added 2/22/2022 td
         ''
         Dim frm_ToShow As New DialogEditRecipients
+
         frm_ToShow.Show()
+
+    End Sub
+
+    Private Sub TimerRecipients_Tick(sender As Object, e As EventArgs) Handles TimerRecipients.Tick
+
+        ''Added 3/11/2022 
+        ButtonRecipients.PerformClick()
+        TimerRecipients.Enabled = False
 
     End Sub
 End Class
