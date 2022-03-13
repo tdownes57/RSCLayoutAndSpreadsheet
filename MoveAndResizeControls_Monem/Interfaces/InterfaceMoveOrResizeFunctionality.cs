@@ -128,5 +128,15 @@ namespace MoveAndResizeControls_Monem //.Interfaces
             set;
         }
 
-    }
+        //
+        //Added 3/13/2022 thomas downes
+        //
+         List<UserControl> ListOfColumnsToBumpRight 
+        {
+            get;
+            set;
+        }
+
+
+}
 }

@@ -24,6 +24,7 @@ Public Class RSCFieldSpreadsheet
 
     End Sub
 
+
     Private Function ReviewPastedData_IsOkay(par_stringPastedData As String,
                                              ByRef pref_message As String,
                                              ByRef pref_numLines As Integer,
@@ -110,6 +111,8 @@ Public Class RSCFieldSpreadsheet
         Dim intCurrentPropertyLeft As Integer = 0
         Dim intNextPropertyLeft As Integer = 0
         Const intNeededMax As Integer = 4
+        Dim array_RSCColumns As RSCFieldColumn()
+        ReDim array_RSCColumns(intNeededMax)
         Dim each_field As ciBadgeFields.ClassFieldAny
 
         For intNeededIndex = 1 To intNeededMax
@@ -123,8 +126,48 @@ Public Class RSCFieldSpreadsheet
             ''Prepare for next iteration. 
             intNextPropertyLeft = (eachColumn.Left + eachColumn.Width + 3)
             Me.Controls.Add(eachColumn)
+            ''Added 3/12/2022 thomas downes 
+            array_RSCColumns(intNeededIndex) = eachColumn
 
         Next intNeededIndex
+
+        ''
+        ''Step 3 of 3.  Link the columns together.  
+        ''
+        Dim listColumnsRight = New List(Of RSCFieldColumn)
+        Dim each_list As List(Of RSCFieldColumn)
+        Dim prior_list As List(Of RSCFieldColumn)
+        Dim bNotTheRightmostColumn As Boolean
+
+        For intNeededIndex = intNeededMax To 1 Step -1 ''Going backward, i.e. decrementing the index,
+            '' i.e. going from right to left (vs. the standard of going left to right).  
+            ''     ---3/12/20022 td
+
+            eachColumn = array_RSCColumns(intNeededIndex)
+            listColumnsRight.Add(eachColumn)
+
+            ''Let's initialize the list "each_list" with the list "listColumnsRight"
+            ''   because  we want "each_list" to be a partial listing of the columns.
+            ''   By "a partial listing", I mean only those columns which are on the //right-hand//
+            ''   side of column #intNeededIndex.      ---3/12/20022 td
+            ''   
+            each_list = New List(Of RSCFieldColumn)(listColumnsRight) ''Basically, a copy of listColumnsRight.
+
+            ''Added 3/12/2022 thomas d. 
+            bNotTheRightmostColumn = (intNeededIndex < intNeededMax)
+            If (bNotTheRightmostColumn) Then
+
+                eachColumn.ListOfColumnsToBumpRight = each_list
+
+            End If ''End of "If (bNotTheRightmostColumn) Then"
+
+            ''Prepare for next iteration.
+            prior_list = each_list
+
+        Next intNeededIndex
+
+
+
 
     End Sub ''End of Private Sub RSCFieldSpreadsheet_Load
 

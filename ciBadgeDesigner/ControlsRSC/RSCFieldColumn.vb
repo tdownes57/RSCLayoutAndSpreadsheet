@@ -15,6 +15,20 @@ Public Class RSCFieldColumn
     ''
     ''Added 2/21/2022 thomas downes  
     ''
+    Dim mod_listOfColumnsToBumpRight As List(Of RSCFieldColumn)
+
+    Public Property ListOfColumnsToBumpRight As List(Of RSCFieldColumn) ''Added 3/12/2022 td 
+        Get
+            Return mod_listOfColumnsToBumpRight
+        End Get
+        Set(value As List(Of RSCFieldColumn))
+            mod_listOfColumnsToBumpRight = value
+            Dim listUserControls As New List(Of UserControl)(value)
+            ''March13 2022 td''MyBase.mod_iMoveOrResizeFunctionality.ListOfColumnsToBumpRight = value
+            MyBase.mod_iMoveOrResizeFunctionality.ListOfColumnsToBumpRight = listUserControls
+        End Set
+    End Property
+
     Public Shared Function GetFieldColumn(par_parametersGetElementControl As ClassGetElementControlParams,
                                            par_field As ClassFieldAny,
                                        par_formParent As Form,

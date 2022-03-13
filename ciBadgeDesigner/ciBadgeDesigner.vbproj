@@ -97,142 +97,142 @@
     <Compile Include="Component\ComponentClickBackground.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\CtlAddCustomField.designer.vb">
+    <Compile Include="ControlsCtl\CtlAddCustomField.designer.vb">
       <DependentUpon>CtlAddCustomField.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CtlAddCustomField.vb">
+    <Compile Include="ControlsCtl\CtlAddCustomField.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\CtlAddStandardField.designer.vb">
+    <Compile Include="ControlsCtl\CtlAddStandardField.designer.vb">
       <DependentUpon>CtlAddStandardField.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CtlAddStandardField.vb">
+    <Compile Include="ControlsCtl\CtlAddStandardField.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\CtlConfigFldCustom.designer.vb">
+    <Compile Include="ControlsCtl\CtlConfigFldCustom.designer.vb">
       <DependentUpon>CtlConfigFldCustom.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CtlConfigFldCustom.vb">
+    <Compile Include="ControlsCtl\CtlConfigFldCustom.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\CtlConfigFldStandard.designer.vb">
+    <Compile Include="ControlsCtl\CtlConfigFldStandard.designer.vb">
       <DependentUpon>CtlConfigFldStandard.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CtlConfigFldStandard.vb">
+    <Compile Include="ControlsCtl\CtlConfigFldStandard.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\CtlGraphicBackground.Designer.vb">
+    <Compile Include="ControlsCtl\CtlGraphicBackground.Designer.vb">
       <DependentUpon>CtlGraphicBackground.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CtlGraphicBackground.vb">
+    <Compile Include="ControlsCtl\CtlGraphicBackground.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\CtlGraphicFieldOrTextV4.Designer.vb">
+    <Compile Include="ControlsCtl\CtlGraphicFieldOrTextV4.Designer.vb">
       <DependentUpon>CtlGraphicFieldOrTextV4.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CtlGraphicFieldOrTextV4.vb">
+    <Compile Include="ControlsCtl\CtlGraphicFieldOrTextV4.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\CtlGraphicFieldV4.Designer.vb">
+    <Compile Include="ControlsCtl\CtlGraphicFieldV4.Designer.vb">
       <DependentUpon>CtlGraphicFieldV4.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CtlGraphicFieldV4.vb">
+    <Compile Include="ControlsCtl\CtlGraphicFieldV4.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\CtlGraphicFieldV3.designer.vb">
+    <Compile Include="ControlsCtl\CtlGraphicFieldV3.designer.vb">
       <DependentUpon>CtlGraphicFieldV3.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CtlGraphicFieldV3.vb">
+    <Compile Include="ControlsCtl\CtlGraphicFieldV3.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\CtlGraphicPortrait.designer.vb">
+    <Compile Include="ControlsCtl\CtlGraphicPortrait.designer.vb">
       <DependentUpon>CtlGraphicPortrait.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CtlGraphicPortrait.vb">
+    <Compile Include="ControlsCtl\CtlGraphicPortrait.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\CtlGraphicQRCode.Designer.vb">
+    <Compile Include="ControlsCtl\CtlGraphicQRCode.Designer.vb">
       <DependentUpon>CtlGraphicQRCode.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CtlGraphicQRCode.vb">
+    <Compile Include="ControlsCtl\CtlGraphicQRCode.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\CtlGraphicSignature.Designer.vb">
+    <Compile Include="ControlsCtl\CtlGraphicSignature.Designer.vb">
       <DependentUpon>CtlGraphicSignature.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CtlGraphicSignature.vb">
+    <Compile Include="ControlsCtl\CtlGraphicSignature.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\CtlGraphicStaticGraphic.Designer.vb">
+    <Compile Include="ControlsCtl\CtlGraphicStaticGraphic.Designer.vb">
       <DependentUpon>CtlGraphicStaticGraphic.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CtlGraphicStaticGraphic.vb">
+    <Compile Include="ControlsCtl\CtlGraphicStaticGraphic.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\CtlGraphicStaticGraphic_Notes.Designer.vb">
+    <Compile Include="ControlsCtl\CtlGraphicStaticGraphic_Notes.Designer.vb">
       <DependentUpon>CtlGraphicStaticGraphic_Notes.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CtlGraphicStaticGraphic_Notes.vb">
+    <Compile Include="ControlsCtl\CtlGraphicStaticGraphic_Notes.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\CtlGraphicStaticQR.Designer.vb">
+    <Compile Include="ControlsCtl\CtlGraphicStaticQR.Designer.vb">
       <DependentUpon>CtlGraphicStaticQR.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CtlGraphicStaticQR.vb">
+    <Compile Include="ControlsCtl\CtlGraphicStaticQR.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\CtlGraphicStaticTextV3.designer.vb">
+    <Compile Include="ControlsCtl\CtlGraphicStaticTextV3.designer.vb">
       <DependentUpon>CtlGraphicStaticTextV3.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CtlGraphicStaticTextV3.vb">
+    <Compile Include="ControlsCtl\CtlGraphicStaticTextV3.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\CtlGraphicStaticTextV4.Designer.vb">
+    <Compile Include="ControlsCtl\CtlGraphicStaticTextV4.Designer.vb">
       <DependentUpon>CtlGraphicStaticTextV4.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CtlGraphicStaticTextV4.vb">
+    <Compile Include="ControlsCtl\CtlGraphicStaticTextV4.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\CtlGraphPopMenuEditSingle.designer.vb">
+    <Compile Include="ControlsCtl\CtlGraphPopMenuEditSingle.designer.vb">
       <DependentUpon>CtlGraphPopMenuEditSingle.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CtlGraphPopMenuEditSingle.vb">
+    <Compile Include="ControlsCtl\CtlGraphPopMenuEditSingle.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\CtlMainButton_v90.designer.vb">
+    <Compile Include="ControlsCtl\CtlMainButton_v90.designer.vb">
       <DependentUpon>CtlMainButton_v90.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CtlMainButton_v90.vb">
+    <Compile Include="ControlsCtl\CtlMainButton_v90.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\CtlMainEntryBox_v82.designer.vb">
+    <Compile Include="ControlsCtl\CtlMainEntryBox_v82.designer.vb">
       <DependentUpon>CtlMainEntryBox_v82.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CtlMainEntryBox_v82.vb">
+    <Compile Include="ControlsCtl\CtlMainEntryBox_v82.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\CtlMainEntryBox_v90.designer.vb">
+    <Compile Include="ControlsCtl\CtlMainEntryBox_v90.designer.vb">
       <DependentUpon>CtlMainEntryBox_v90.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CtlMainEntryBox_v90.vb">
+    <Compile Include="ControlsCtl\CtlMainEntryBox_v90.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\CtlPartial_HardText.designer.vb">
+    <Compile Include="ControlsCtl\CtlPartial_HardText.designer.vb">
       <DependentUpon>CtlPartial_HardText.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CtlPartial_HardText.vb">
+    <Compile Include="ControlsCtl\CtlPartial_HardText.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\CtlPropertyLeftRight.designer.vb">
+    <Compile Include="ControlsCtl\CtlPropertyLeftRight.designer.vb">
       <DependentUpon>CtlPropertyLeftRight.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CtlPropertyLeftRight.vb">
+    <Compile Include="ControlsCtl\CtlPropertyLeftRight.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\CtlPropertyUpDownvb.designer.vb">
+    <Compile Include="ControlsCtl\CtlPropertyUpDownvb.designer.vb">
       <DependentUpon>CtlPropertyUpDownvb.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CtlPropertyUpDownvb.vb">
+    <Compile Include="ControlsCtl\CtlPropertyUpDownvb.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ControlsRSC\RSCFieldColumn.designer.vb">
@@ -383,67 +383,67 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controls\CtlAddCustomField.resx">
+    <EmbeddedResource Include="ControlsCtl\CtlAddCustomField.resx">
       <DependentUpon>CtlAddCustomField.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\CtlAddStandardField.resx">
+    <EmbeddedResource Include="ControlsCtl\CtlAddStandardField.resx">
       <DependentUpon>CtlAddStandardField.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\CtlConfigFldCustom.resx">
+    <EmbeddedResource Include="ControlsCtl\CtlConfigFldCustom.resx">
       <DependentUpon>CtlConfigFldCustom.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\CtlConfigFldStandard.resx">
+    <EmbeddedResource Include="ControlsCtl\CtlConfigFldStandard.resx">
       <DependentUpon>CtlConfigFldStandard.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\CtlGraphicBackground.resx">
+    <EmbeddedResource Include="ControlsCtl\CtlGraphicBackground.resx">
       <DependentUpon>CtlGraphicBackground.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\CtlGraphicFieldOrTextV4.resx">
+    <EmbeddedResource Include="ControlsCtl\CtlGraphicFieldOrTextV4.resx">
       <DependentUpon>CtlGraphicFieldOrTextV4.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\CtlGraphicFieldV3.resx">
+    <EmbeddedResource Include="ControlsCtl\CtlGraphicFieldV3.resx">
       <DependentUpon>CtlGraphicFieldV3.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\CtlGraphicFieldV4.resx">
+    <EmbeddedResource Include="ControlsCtl\CtlGraphicFieldV4.resx">
       <DependentUpon>CtlGraphicFieldV4.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\CtlGraphicPortrait.resx">
+    <EmbeddedResource Include="ControlsCtl\CtlGraphicPortrait.resx">
       <DependentUpon>CtlGraphicPortrait.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\CtlGraphicQRCode.resx">
+    <EmbeddedResource Include="ControlsCtl\CtlGraphicQRCode.resx">
       <DependentUpon>CtlGraphicQRCode.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\CtlGraphicSignature.resx">
+    <EmbeddedResource Include="ControlsCtl\CtlGraphicSignature.resx">
       <DependentUpon>CtlGraphicSignature.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\CtlGraphicStaticGraphic.resx">
+    <EmbeddedResource Include="ControlsCtl\CtlGraphicStaticGraphic.resx">
       <DependentUpon>CtlGraphicStaticGraphic.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\CtlGraphicStaticGraphic_Notes.resx">
+    <EmbeddedResource Include="ControlsCtl\CtlGraphicStaticGraphic_Notes.resx">
       <DependentUpon>CtlGraphicStaticGraphic_Notes.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\CtlGraphicStaticQR.resx">
+    <EmbeddedResource Include="ControlsCtl\CtlGraphicStaticQR.resx">
       <DependentUpon>CtlGraphicStaticQR.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\CtlGraphicStaticTextV3.resx">
+    <EmbeddedResource Include="ControlsCtl\CtlGraphicStaticTextV3.resx">
       <DependentUpon>CtlGraphicStaticTextV3.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\CtlGraphPopMenuEditSingle.resx">
+    <EmbeddedResource Include="ControlsCtl\CtlGraphPopMenuEditSingle.resx">
       <DependentUpon>CtlGraphPopMenuEditSingle.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\CtlMainButton_v90.resx">
+    <EmbeddedResource Include="ControlsCtl\CtlMainButton_v90.resx">
       <DependentUpon>CtlMainButton_v90.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\CtlMainEntryBox_v82.resx">
+    <EmbeddedResource Include="ControlsCtl\CtlMainEntryBox_v82.resx">
       <DependentUpon>CtlMainEntryBox_v82.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\CtlMainEntryBox_v90.resx">
+    <EmbeddedResource Include="ControlsCtl\CtlMainEntryBox_v90.resx">
       <DependentUpon>CtlMainEntryBox_v90.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\CtlPropertyLeftRight.resx">
+    <EmbeddedResource Include="ControlsCtl\CtlPropertyLeftRight.resx">
       <DependentUpon>CtlPropertyLeftRight.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\CtlPropertyUpDownvb.resx">
+    <EmbeddedResource Include="ControlsCtl\CtlPropertyUpDownvb.resx">
       <DependentUpon>CtlPropertyUpDownvb.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ControlsRSC\RSCFieldColumn.resx">

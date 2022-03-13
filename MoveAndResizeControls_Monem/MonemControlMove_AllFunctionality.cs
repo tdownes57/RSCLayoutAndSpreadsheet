@@ -123,6 +123,18 @@ namespace MoveAndResizeControls_Monem
             }
         }
 
+        public List<UserControl> ListOfColumnsToBumpRight
+        {
+            //
+            //Added 3/13/2022 tthhoommaass ddoowwnneess
+            //
+            //  //March13 2022 td//public List<Control> ColumnsToTheRight;  //Added 1/20/2022
+            //  Formerly known as "ColumnsToTheRight". Renamed 3/13/2022 td
+            //
+            get;
+            set;
+        }
+
         public void RemoveProportionalSizing()
         {
             //Added 1/10/2022 td
@@ -184,7 +196,7 @@ namespace MoveAndResizeControls_Monem
         private const bool mc_MonemEditsLocation_TopAndLeft = true; //Added 1/12/2022 td
 
         // Added 2/20/2022 td
-        public List<Control> ColumnsToTheRight;  //Added 1/20/2022
+        //March13 2022 td//public List<Control> ColumnsToTheRight;  //Added 1/20/2022
         private Dictionary<Control, int> _dictColumnsStartingPositionLeft;  //Added 1/20/2022
 
         internal enum MoveOrResize
@@ -750,8 +762,8 @@ namespace MoveAndResizeControls_Monem
                 // Added 2/21/2022 td
                 _dictColumnsStartingPositionLeft = new Dictionary<Control, int>();
 
-                if (this.ColumnsToTheRight != null)
-                foreach (Control each_column in this.ColumnsToTheRight)
+                if (this.ListOfColumnsToBumpRight != null)
+                foreach (Control each_column in this.ListOfColumnsToBumpRight)
                     _dictColumnsStartingPositionLeft.Add(each_column, each_column.Left);
 
                 // 1-10-2022 //mod_events.Resizing_Initiate(); //Added 1/10/2022 td 
@@ -932,9 +944,9 @@ namespace MoveAndResizeControls_Monem
                         delta_Width = (par_e.X - _cursorStartPoint.X); // + _currentControlStartSize.Width;
 
                         //Added 2/20/2022 td
-                        if (ColumnsToTheRight != null)
+                        if (ListOfColumnsToBumpRight != null)
                         {
-                            foreach (Control each_column in ColumnsToTheRight)
+                            foreach (Control each_column in ListOfColumnsToBumpRight)
                             {
                                 //Push columns to the left.---2/20/2022 td 
                                 //----each_column.Left += (par_e.X - _cursorStartPoint.X);
@@ -1293,9 +1305,9 @@ namespace MoveAndResizeControls_Monem
                     par_controlH.Width = (e.X - _cursorStartPoint.X) + _currentControlStartSize.Width;
 
                     //Added 2/20/2022 td
-                    if (ColumnsToTheRight != null)
+                    if (this.ListOfColumnsToBumpRight != null)
                     {
-                        foreach (Control each_column in ColumnsToTheRight)
+                        foreach (Control each_column in ListOfColumnsToBumpRight)
                         {
                             //Push columns to the left. ---2/20/2022 td 
                             //   ----each_column.Left += (e.X - _cursorStartPoint.X);
