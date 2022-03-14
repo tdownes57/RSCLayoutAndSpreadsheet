@@ -12,6 +12,16 @@ Public Class RSCFieldSpreadsheet
     Public Designer As ClassDesigner ''Added 3/10/2022 td  
     Private mod_ctlLasttouched As New ClassLastControlTouched ''Added 1/4/2022 td
     Private mod_eventsSingleton As New GroupMoveEvents_Singleton(Me.Designer, False, True) ''Added 1/4/2022 td  
+    Private mod_colorOfColumnsBackColor As System.Drawing.Color = Drawing.Color.AntiqueWhite ''Added 3/13/2022 thomas downes
+
+    Public Property BackColorOfColumns() As System.Drawing.Color ''Added 3/13/2022 td
+        Get
+            Return mod_colorOfColumnsBackColor
+        End Get
+        Set(value As System.Drawing.Color)
+            mod_colorOfColumnsBackColor = value
+        End Set
+    End Property
 
 
     Public Sub PasteData(par_stringPastedData As String)
@@ -144,7 +154,7 @@ Public Class RSCFieldSpreadsheet
             ''     ---3/12/20022 td
 
             eachColumn = array_RSCColumns(intNeededIndex)
-            listColumnsRight.Add(eachColumn)
+            ''Moved below. 3/13/2022 td''listColumnsRight.Add(eachColumn)
 
             ''Let's initialize the list "each_list" with the list "listColumnsRight"
             ''   because  we want "each_list" to be a partial listing of the columns.
@@ -157,12 +167,14 @@ Public Class RSCFieldSpreadsheet
             bNotTheRightmostColumn = (intNeededIndex < intNeededMax)
             If (bNotTheRightmostColumn) Then
 
+                If (each_list.Contains(eachColumn)) Then Throw New Exception("self-referential")
                 eachColumn.ListOfColumnsToBumpRight = each_list
 
             End If ''End of "If (bNotTheRightmostColumn) Then"
 
             ''Prepare for next iteration.
             prior_list = each_list
+            listColumnsRight.Add(eachColumn)
 
         Next intNeededIndex
 
@@ -191,6 +203,9 @@ Public Class RSCFieldSpreadsheet
                                                           Me.Designer, c_boolProportional,
                                                           mod_ctlLasttouched, Me.Designer,
                                                           mod_eventsSingleton)
+
+        ''Added 3/13/2022 thomas downes
+        objNewColumn.BackColor = mod_colorOfColumnsBackColor
 
         Return objNewColumn
 

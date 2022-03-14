@@ -29,6 +29,7 @@ Public Class RSCFieldColumn
         End Set
     End Property
 
+
     Public Shared Function GetFieldColumn(par_parametersGetElementControl As ClassGetElementControlParams,
                                            par_field As ClassFieldAny,
                                        par_formParent As Form,
@@ -47,7 +48,7 @@ Public Class RSCFieldColumn
 
         Dim typeOps As Type
         Dim objOperations As Object ''Added 12/29/2021 td 
-        Dim objOperationsPortrait As Operations_Portrait ''Added 1/04/2022 td 
+        Dim objOperationsFieldColumn As Operations_FieldColumn ''Modified 3/13/2022 td 
         Dim sizeElementPortrait As New Size() ''Added 1/26/2022 td
 
         ''Added 1/5/2022 td
@@ -61,9 +62,9 @@ Public Class RSCFieldColumn
         ''====If (c_enumElemType = EnumElementType.QRCode) Then objOperationsQR = New Operations_QRCode()
 
         ''Modified 1/2/2022 td
-        objOperationsPortrait = New Operations_Portrait() ''Added 1/1/2022 td
-        typeOps = objOperationsPortrait.GetType()
-        objOperations = objOperationsPortrait
+        objOperationsFieldColumn = New Operations_FieldColumn() ''Added 3/13/2022 td
+        typeOps = objOperationsFieldColumn.GetType()
+        objOperations = objOperationsFieldColumn
 
         If (objOperations Is Nothing) Then
             ''Added 12/29/2021
@@ -91,38 +92,39 @@ Public Class RSCFieldColumn
             ''1/11/2022''If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEvents, par_iLayoutFun)
             If (bAddFunctionalityLater) Then .AddMoveability(par_iLayoutFun,
                                                              par_oMoveEventsForGroupedCtls, Nothing)
-            If (bAddFunctionalityLater) Then .AddClickability()
+            ''3/13/2022 td''If (bAddFunctionalityLater) Then .AddClickability()
 
             ''Added 2/5/2022 td
-            .RightclickMouseInfo = objOperationsPortrait ''Added 2/5/2022 td
+            ''3/13/2022 td''.RightclickMouseInfo = objOperationsPortrait ''Added 2/5/2022 td
 
         End With ''eNd of "With CtlPortrait1"
 
         ''
         ''Specify the current element to the Operations object. 
         ''
-        Dim infoOps = CType(objOperations, ICurrentElement) ''.CtlCurrentElement = MoveableControlVB1
-        infoOps.CtlCurrentElement = CtlFieldColumn1
-        ''Added 1/17/2022 td 
-        infoOps.ElementsCacheManager = par_parametersGetElementControl.ElementsCacheManager
+        ''Dim infoOps = CType(objOperations, ICurrentElement) ''.CtlCurrentElement = MoveableControlVB1
+        ''infoOps.CtlCurrentElement = CtlFieldColumn1
+        ''''Added 1/17/2022 td 
+        ''infoOps.ElementsCacheManager = par_parametersGetElementControl.ElementsCacheManager
 
         ''Added 1/24/2022 thomas d. 
-        With objOperationsPortrait
+        ''With objOperationsPortrait
+        ''    .CtlCurrentControl = CtlFieldColumn1
+        ''    .CtlCurrentElement = CtlFieldColumn1
+        ''    ''.Designer = par_oMoveEventsForGroupedCtls.
+        ''    .Designer = par_parametersGetElementControl.DesignerClass
+        ''    .ElementInfo_Base = Nothing ''3/9/2022 t*d*''par_elementPortrait
+        ''    .ElementsCacheManager = par_parametersGetElementControl.ElementsCacheManager
+        ''    ''Feb3 2022 td''.Element_Type = Enum_ElementType.StaticGraphic
+        ''    .Element_Type = Enum_ElementType.Portrait ''Added 2/3/2022 thomas d.
+        ''    .EventsForMoveability_Group = par_oMoveEventsForGroupedCtls
+        ''    .EventsForMoveability_Single = Nothing
+        ''    ''Added 1/24/2022 thomas downes
+        ''    .LayoutFunctions = .Designer
+        ''End With ''End of "With objOperationsPortrait"
 
-            .CtlCurrentControl = CtlFieldColumn1
-            .CtlCurrentElement = CtlFieldColumn1
-            ''.Designer = par_oMoveEventsForGroupedCtls.
-            .Designer = par_parametersGetElementControl.DesignerClass
-            .ElementInfo_Base = Nothing ''3/9/2022 t*d*''par_elementPortrait
-            .ElementsCacheManager = par_parametersGetElementControl.ElementsCacheManager
-            ''Feb3 2022 td''.Element_Type = Enum_ElementType.StaticGraphic
-            .Element_Type = Enum_ElementType.Portrait ''Added 2/3/2022 thomas d.
-            .EventsForMoveability_Group = par_oMoveEventsForGroupedCtls
-            .EventsForMoveability_Single = Nothing
-            ''Added 1/24/2022 thomas downes
-            .LayoutFunctions = .Designer
-
-        End With ''End of "With objOperationsPortrait"
+        ''Added 3/13/2022 thomas downes
+        CtlFieldColumn1.Load_ResizeWidthability()
 
         Return CtlFieldColumn1
 
@@ -197,11 +199,13 @@ Public Class RSCFieldColumn
         ''March4 2022 ''Dim sizingParams As New MoveAndResizeControls_Monem.StructResizeParams
         Dim sizingParams As New MoveAndResizeControls_Monem.ClassStructResizeParams
 
+        sizingParams.InitiateResizing = True ''Added 3/13/2022 td
+        sizingParams.KeepProportional_HtoW = False ''Added 3/13/2022 td
         sizingParams.RightEdgeResizing_Only = True
 
         MyBase.AddSizeability(True, sizingParams)
 
-    End Sub
+    End Sub ''End of "Public Sub Load_ResizeWidthability()"
 
 
     Public Overrides Sub RemoveMouseEventHandlers_ChildClass()
@@ -336,6 +340,11 @@ Public Class RSCFieldColumn
     End Sub
 
     Private Sub RSCFieldColumn_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ''
+        ''Added 3/13/2022 thomas d.
+        ''
+        ''3/13/2022 td''Me.BackColor = Color.AntiqueWhite
+
 
     End Sub
 

@@ -34,7 +34,7 @@ Partial Class DialogEditRecipients
         '
         Me.ButtonCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.ButtonCancel.Location = New System.Drawing.Point(848, 544)
+        Me.ButtonCancel.Location = New System.Drawing.Point(823, 541)
         Me.ButtonCancel.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonCancel.Name = "ButtonCancel"
         Me.ButtonCancel.Size = New System.Drawing.Size(58, 48)
@@ -46,10 +46,10 @@ Partial Class DialogEditRecipients
         '
         Me.ButtonOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonOK.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.ButtonOK.Location = New System.Drawing.Point(737, 544)
+        Me.ButtonOK.Location = New System.Drawing.Point(667, 541)
         Me.ButtonOK.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonOK.Name = "ButtonOK"
-        Me.ButtonOK.Size = New System.Drawing.Size(94, 48)
+        Me.ButtonOK.Size = New System.Drawing.Size(139, 48)
         Me.ButtonOK.TabIndex = 14
         Me.ButtonOK.Text = "OK"
         Me.ButtonOK.UseVisualStyleBackColor = True
@@ -88,9 +88,11 @@ Partial Class DialogEditRecipients
         '
         'RscFieldSpreadsheet1
         '
-        Me.RscFieldSpreadsheet1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.RscFieldSpreadsheet1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.RscFieldSpreadsheet1.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.RscFieldSpreadsheet1.BackColorOfColumns = System.Drawing.Color.AntiqueWhite
         Me.RscFieldSpreadsheet1.Location = New System.Drawing.Point(9, 71)
         Me.RscFieldSpreadsheet1.Margin = New System.Windows.Forms.Padding(2)
         Me.RscFieldSpreadsheet1.Name = "RscFieldSpreadsheet1"
@@ -110,6 +112,7 @@ Partial Class DialogEditRecipients
         Me.Controls.Add(Me.ButtonOK)
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "DialogEditRecipients"
+        Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show
         Me.Text = "DialogEditRecipients"
         Me.ResumeLayout(False)
         Me.PerformLayout()

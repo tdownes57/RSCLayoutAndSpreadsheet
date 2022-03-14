@@ -45,27 +45,36 @@ namespace MoveAndResizeControls_Monem
     //
     // Added 2/2/2022 thomas downes
     //
-    public struct StructResizeParams_NotInUse
-    {
-        // Added 2/2/2022 thomas downes
-        // Suffixed as "_NotInUse" on 3/4/2022 td
-        //
-        //  This will centralize the resizing information. ---2/2/2022 td
-        //
-        public bool KeepProportional_HtoW;
-        public float ProportionalRatio_HtoW;  // proportionWH
-        // This will assist the layout program to enforcing a Width > Height rule. ---2/2/2022
-        public bool KeepLandscape_WgtH;
-        // This will assist the layout program to enforcing a Height > Width rule. ---2/2/2022
-        public bool KeepPortrait_HgtW;
-        //Don't allow resizing. 
-        public bool StopAllResizing;
-        //Repaint after resizing. 
-        public bool RepaintAfterResize;
-        //Only allow re-sizing of the right-hand edge.
-        //   (No moving of the control allowed.)
-        public bool RightEdgeResizing_Only; 
-    }
+    //public struct StructResizeParams_NotInUse //Not in use.  See public class ClassStructResizeParams
+    //{
+    //    //
+    //    //Suffixed as "_NotInUse" on 3/4/2022 td.  See public class ClassStructResizeParams
+    //    //
+    //    // Added 2/2/2022 thomas downes
+    //    //
+    //    // Suffixed as "_NotInUse" on 3/4/2022 td
+    //    //
+    //    //  This will centralize the resizing information. ---2/2/2022 td
+    //    //
+    //    public bool KeepProportional_HtoW_NotInUse; //Not in use.  See public class ClassStructResizeParams
+    //    //
+    //    // Suffixed "_NotInUse" on 3/13/2022 td.  See public class ClassStructResizeParams
+    //    //
+    //    public float ProportionalRatio_HtoW_NotInUse;  // proportionWH
+    //    // This will assist the layout program to enforcing a Width > Height rule. ---2/2/2022
+    //    public bool KeepLandscape_WgtH;
+    //    // This will assist the layout program to enforcing a Height > Width rule. ---2/2/2022
+    //    public bool KeepPortrait_HgtW;
+    //    //Added 3/13/2022 thomas Downes
+    //    public bool InitiateResizing_NotInUse;  //Not in use.  See public class ClassStructResizeParams
+    //    //Don't allow resizing.
+    //    public bool StopAllResizing_NotInUse; //Not in use.  See public class ClassStructResizeParams
+    //    //Repaint after resizing. 
+    //    public bool RepaintAfterResize;
+    //    //Only allow re-sizing of the right-hand edge.
+    //    //   (No moving of the control allowed.)
+    //    public bool RightEdgeResizing_Only;
+    //}
 
 
     //
@@ -101,7 +110,7 @@ namespace MoveAndResizeControls_Monem
                 //return this.ResizeParams.StopAllResizing;
                 return _structResizingParams.StopAllResizing;
             }
-            set 
+            set
             {
                 // Added 3/3/2022 td
                 _structResizingParams.StopAllResizing = value;
@@ -188,7 +197,7 @@ namespace MoveAndResizeControls_Monem
             }
             set
             {
-                _structResizingParams = value;        
+                _structResizingParams = value;
             }
         }
 
@@ -222,7 +231,7 @@ namespace MoveAndResizeControls_Monem
                                  bool pbSetBreakpoint_AfterMove,
                                  ISaveToModel par_iSave,
                                  bool pbUndoAndReverseEverything = false,
-                                 bool pbHookUpEventHandlers = true, 
+                                 bool pbHookUpEventHandlers = true,
                                  bool pbResizeProportionally = false,
                                  float par_proportionWH = 0)
         {
@@ -233,27 +242,27 @@ namespace MoveAndResizeControls_Monem
             //
             //Init(control, control);
 
-        // 7-31-2019 td----Init(control, control, par_margin
+            // 7-31-2019 td----Init(control, control, par_margin
 
-        // 8-03-2019 td//Init(control, control, par_margin, pbRepaintAfterResize);
+            // 8-03-2019 td//Init(control, control, par_margin, pbRepaintAfterResize);
 
-        //Not needed here. 9/13 td.//SetBreakpoint_AfterMove = pbSetBreakpoint_AfterMove;  //Added 9/13/2019 td 
+            //Not needed here. 9/13 td.//SetBreakpoint_AfterMove = pbSetBreakpoint_AfterMove;  //Added 9/13/2019 td 
 
-        // 9-13-2019 td//Init(control, control, par_margin, pbRepaintAfterResize, par_events);
-        // Dec28 2021 td//Init(par_controlA, par_controlA, par_margin, pbRepaintAfterResize, par_events, SetBreakpoint_AfterMove, par_iSave);
-        //''Jan4 2022''Init(par_controlA, par_controlA, par_margin, pbRepaintAfterResize, par_events, SetBreakpoint_AfterMove,
-        //''    par_iSave, pbUndoAndReverseEverything);
+            // 9-13-2019 td//Init(control, control, par_margin, pbRepaintAfterResize, par_events);
+            // Dec28 2021 td//Init(par_controlA, par_controlA, par_margin, pbRepaintAfterResize, par_events, SetBreakpoint_AfterMove, par_iSave);
+            //''Jan4 2022''Init(par_controlA, par_controlA, par_margin, pbRepaintAfterResize, par_events, SetBreakpoint_AfterMove,
+            //''    par_iSave, pbUndoAndReverseEverything);
 
-        //Jan27 2022 ''Init(null, par_controlA, par_margin, pbRepaintAfterResize,
-        Init_V1(null, par_controlA, par_margin, pbRepaintAfterResize,
-                par_eventsForGroups,
-                par_eventsSingleCtl,
-                SetBreakpoint_AfterMove,
-                par_iSave, 
-                pbUndoAndReverseEverything, 
-                pbHookUpEventHandlers, 
-                pbResizeProportionally, 
-                par_proportionWH);
+            //Jan27 2022 ''Init(null, par_controlA, par_margin, pbRepaintAfterResize,
+            Init_V1(null, par_controlA, par_margin, pbRepaintAfterResize,
+                    par_eventsForGroups,
+                    par_eventsSingleCtl,
+                    SetBreakpoint_AfterMove,
+                    par_iSave,
+                    pbUndoAndReverseEverything,
+                    pbHookUpEventHandlers,
+                    pbResizeProportionally,
+                    par_proportionWH);
 
         }
 
@@ -279,7 +288,7 @@ namespace MoveAndResizeControls_Monem
             //   internal static void Init(Control control, Control container)
             //
             _SizeProportionally = pbResizeProportionally; //Added 1/12/2022 td
-            
+
             //
             //Added 1/12/2022 & 10/09/2019 thomas downes 
             //
@@ -403,14 +412,14 @@ namespace MoveAndResizeControls_Monem
 
 
         public void Init_V3(PictureBox par_controlPictureB, Control par_containerElement,
-               int par_margin,  
+               int par_margin,
                InterfaceMoveEvents par_eventsForGroups,
                InterfaceMoveEvents par_eventsSingleCtl,
                bool pbSetBreakpoint_AfterMove,
                ISaveToModel par_iSave,
                IRefreshElementImage par_iRefreshElementImage,
                IRefreshCardPreview par_iRefreshCardPreview,
-               ClassStructResizeParams pstructResize,
+               ClassStructResizeParams pobj_objectResizeParams,
                bool pbUndoAndReverseEverything = false,
                bool pbHookUpEventHandlers = true)
         {
@@ -420,16 +429,21 @@ namespace MoveAndResizeControls_Monem
             // This will assist the layout program to enforcing Height > Width
             //     (or  Width > Height) rules. 
             // 2/2/2022 td//_SizeDisallowSquares = pbResizeWithoutSquaring; //Added 2/2/2022 td
-            _SizeKeepHeightMoreThanWidth = pstructResize.KeepPortrait_HgtW;
-            _SizeKeepWidthMoreThanHeight = pstructResize.KeepLandscape_WgtH;
-            _SizeDisallowSquares = (pstructResize.KeepPortrait_HgtW || 
-                                    pstructResize.KeepLandscape_WgtH);
+            
+            _SizeKeepHeightMoreThanWidth = pobj_objectResizeParams.KeepPortrait_HgtW;
+            _SizeKeepWidthMoreThanHeight = pobj_objectResizeParams.KeepLandscape_WgtH;
+            _SizeDisallowSquares = (pobj_objectResizeParams.KeepPortrait_HgtW ||
+                                    pobj_objectResizeParams.KeepLandscape_WgtH);
+
+            //Added 3/13/2022 td
+            if (!pobj_objectResizeParams.InitiateResizing) System.Diagnostics.Debugger.Break();
+
             // March3 2022 //_resizingParams = pstructResize;
-            this.ResizeParams = pstructResize;
+            this.ResizeParams = pobj_objectResizeParams;
 
             Init_V2(par_controlPictureB, par_containerElement,
                 par_margin,
-                pstructResize.RepaintAfterResize,
+                pobj_objectResizeParams.RepaintAfterResize,
                 par_eventsForGroups,
                 par_eventsSingleCtl,
                 pbSetBreakpoint_AfterMove,
@@ -438,8 +452,8 @@ namespace MoveAndResizeControls_Monem
                 par_iRefreshCardPreview,
                 pbUndoAndReverseEverything,
                 pbHookUpEventHandlers,
-                pstructResize.KeepProportional_HtoW,
-                pstructResize.ProportionalRatio_HtoW);
+                pobj_objectResizeParams.KeepProportional_HtoW,
+                pobj_objectResizeParams.ProportionalRatio_HtoW);
 
         }
 
@@ -575,7 +589,7 @@ namespace MoveAndResizeControls_Monem
                 mod_events_groupedCtls,
                 mod_events_singleCtl,
                 false, _iSaveToModel,
-                _iRefreshElementImage, 
+                _iRefreshElementImage,
                 _iRefreshCardPreview,
                 c_bReverseEverything);
 
@@ -638,6 +652,9 @@ namespace MoveAndResizeControls_Monem
             //MouseIsInTopEdge = Math.Abs(mouseLocationInControl.Y ) <= 2;
             //MouseIsInBottomEdge = Math.Abs(mouseLocationInControl.Y - control.Height) <= 2;
 
+            //Added 3/13/2022 thomas downes 
+            if (!_structResizingParams.InitiateResizing) return; 
+
             MouseIsInLeftEdge = Math.Abs(mouseLocationInControl.X) <= _margin;
             MouseIsInRightEdge = Math.Abs(mouseLocationInControl.X - par_controlC.Width) <= _margin;
             MouseIsInTopEdge = Math.Abs(mouseLocationInControl.Y) <= _margin;
@@ -652,12 +669,18 @@ namespace MoveAndResizeControls_Monem
         {
             if (WorkType == MoveOrResize.Move)
             {
+                //
+                // We are currently moving the control.  No need to change the mouse cursor.
+                //
                 return;
             }
 
             if (MouseIsInLeftEdge)
             {
+                //Added 3/13/2022 thomas downes 
+                if (!_structResizingParams.InitiateResizing) return; //Return, i.e. Stop the resizing process!! 
                 // March3 2022 //if (this.RemoveSizeability) return; //Return, i.e. Stop the resizing process!!  Added 12/29/2021 td
+                if (this.RemoveSizeability) return; //Return, i.e. Stop the resizing process!!---Restored 3/13/2022
                 if (_structResizingParams.StopAllResizing) return; //Return, i.e. Stop the resizing process!!  Added 12/29/2021 td
                 if (_structResizingParams.RightEdgeResizing_Only) return; //Return, i.e. Stop the resizing process!!  Added 3/3/2022
 
@@ -673,13 +696,18 @@ namespace MoveAndResizeControls_Monem
                 }
                 else
                 {
+                    //Mouse is at the Left Edge.
+                    //  ---3/13/2022
                     par_controlD.Cursor = Cursors.SizeWE;
                 }
             }
             else if (MouseIsInRightEdge)
             {
+                //Added 3/13/2022 thomas downes 
+                if (!_structResizingParams.InitiateResizing) return; //Return, i.e. Stop the resizing process!! 
                 // March3 2022 //if (RemoveSizeability) return; //Return, i.e. Stop the resizing process!!  Added 12/29/2021 td
                 if (_structResizingParams.StopAllResizing) return; //Return, i.e. Stop the resizing process!!  Added 12/29/2021 td
+                if (RemoveSizeability) return; //Return, i.e. Stop the resizing process!!  Restored 3/13/2022 & added 12/29/2021 td
 
                 if (MouseIsInTopEdge)
                 {
@@ -693,11 +721,16 @@ namespace MoveAndResizeControls_Monem
                 }
                 else
                 {
+                    //Mouse is at the Right Edge.
+                    //  ---3/13/2022
                     par_controlD.Cursor = Cursors.SizeWE;
                 }
             }
             else if (MouseIsInTopEdge || MouseIsInBottomEdge)
             {
+                //Added 3/13/2022 thomas downes 
+                if (!_structResizingParams.InitiateResizing) return; //Return, i.e. Stop the resizing process!! 
+
                 if (RemoveSizeability) return; //Return, i.e. Stop the resizing process!!  Added 12/29/2021 td
                 if (_structResizingParams.StopAllResizing) return; //Return, i.e. Stop the resizing process!!  Added 12/29/2021 td
                 if (_structResizingParams.RightEdgeResizing_Only) return; //Return, i.e. Stop the resizing process!!  Added 3/3/2022
@@ -707,7 +740,8 @@ namespace MoveAndResizeControls_Monem
             }
             else
             {
-                //Mouse is at the Right Edge & Bottom Edge... i.e. the BottomRight corner.
+                //Mouse is likely well inside the control & not close to any edge.
+                //  ---3/13/2022
                 par_controlD.Cursor = Cursors.Default;
             }
 
@@ -752,6 +786,7 @@ namespace MoveAndResizeControls_Monem
                 //
                 //We need to initiate the Resizing process. 
                 //
+                if (false == _structResizingParams.InitiateResizing) return; //Return, i.e. Stop the resizing process!! --3/13/2022
                 if (RemoveSizeability) return; //Return, i.e. Stop the resizing process!!  Added 12/29/2021 td
                 if (_structResizingParams.StopAllResizing) return; //Return, i.e. Stop the resizing process!!  Added 3/03/2022 td
                 if (_structResizingParams.RightEdgeResizing_Only && !MouseIsInRightEdge) return; //Return, i.e. Stop the resizing process!!  Added 3/03/2022 td
@@ -763,8 +798,8 @@ namespace MoveAndResizeControls_Monem
                 _dictColumnsStartingPositionLeft = new Dictionary<Control, int>();
 
                 if (this.ListOfColumnsToBumpRight != null)
-                foreach (Control each_column in this.ListOfColumnsToBumpRight)
-                    _dictColumnsStartingPositionLeft.Add(each_column, each_column.Left);
+                    foreach (Control each_column in this.ListOfColumnsToBumpRight)
+                        _dictColumnsStartingPositionLeft.Add(each_column, each_column.Left);
 
                 // 1-10-2022 //mod_events.Resizing_Initiate(); //Added 1/10/2022 td 
                 mod_events_singleCtl.Resizing_Initiate(); //Added 1/10/2022 td 
@@ -948,9 +983,14 @@ namespace MoveAndResizeControls_Monem
                         {
                             foreach (Control each_column in ListOfColumnsToBumpRight)
                             {
+                                if (each_column == _controlCurrent) throw new Exception("self reference");
+                                if (each_column == _controlMoveableElement) throw new Exception("self reference");
+
+                                //
                                 //Push columns to the left.---2/20/2022 td 
+                                //
                                 //----each_column.Left += (par_e.X - _cursorStartPoint.X);
-                                each_column.Left = (par_e.X - _cursorStartPoint.X) + 
+                                each_column.Left = (par_e.X - _cursorStartPoint.X) +
                                     _dictColumnsStartingPositionLeft[each_column];
                             }
                         }
@@ -1029,7 +1069,7 @@ namespace MoveAndResizeControls_Monem
                         //
                         // Encapsulated 1/13/2022 td
                         //
-                        MoveControl_EditLocation(par_controlG, newLocation_x, 
+                        MoveControl_EditLocation(par_controlG, newLocation_x,
                             newLocation_y, ref bEditedLocation);
 
                         //if (mc_MonemEditsLocation_TopAndLeft)
@@ -1378,7 +1418,7 @@ namespace MoveAndResizeControls_Monem
         } //End of "private void CheckProportionality()"
 
 
-        public void StopDragOrResizingV1(Control par_controlJ, 
+        public void StopDragOrResizingV1(Control par_controlJ,
             ISaveToModel par_iSave)
         {
             //---Jan27 2022---public void StopDragOrResizing(Control par_controlJ, ISaveToModel par_iSave)
@@ -1411,8 +1451,8 @@ namespace MoveAndResizeControls_Monem
                     mod_events_groupedCtls.Resizing_TerminateV1(par_iSave);
 
                 //Added 2/2/2022 thomas d. 
-                mod_events_singleCtl.Resizing_TerminateV2(par_iSave, 
-                    _iRefreshElementImage, 
+                mod_events_singleCtl.Resizing_TerminateV2(par_iSave,
+                    _iRefreshElementImage,
                     _iRefreshCardPreview);
             }
 

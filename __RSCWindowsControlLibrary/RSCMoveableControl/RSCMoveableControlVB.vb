@@ -611,7 +611,7 @@ Public Class RSCMoveableControlVB
     ''Added 3/4/2022 thomas downes 
     ''Not needed. --3/4/2022''Private c_blankParams As StructResizeParams = New StructResizeParams()
     ''Not needed. --3/4/2022''Private Const c_blankParams_NotUsed As StructResizeParams_NotInUse = 0
-    Private c_blankParams_NotUsed As New StructResizeParams_NotInUse
+    ''Not needed. --3/4/2022''Private c_blankParams_NotUsed As New StructResizeParams_NotInUse
 
     Public Sub AddSizeability(Optional pboolUseEasyWay As Boolean = True,
                               Optional par_structResizeParams As ClassStructResizeParams = Nothing)
@@ -667,6 +667,8 @@ Public Class RSCMoveableControlVB
 
         ' Add any initialization after the InitializeComponent() call.
         mod_boolResizeProportionally = pboolResizeProportionally ''Added 12/22/2021 td
+
+        resizeParamsStruct.InitiateResizing = True ''Added 3/13/2022 td
         resizeParamsStruct.ResizeProportionally = pboolResizeProportionally ''Added 3/4/2022 td
 
         ''Jan2 2022 td''mod_iSaveToModel = par_iSaveToModel
@@ -892,6 +894,7 @@ Public Class RSCMoveableControlVB
         End If ''end of "If (Me.ExpectedProportionWH <> 0) Then ... ElseIf (objPictureBox IsNot Nothing) Then"
 
         ''Added 3/4/2022 td
+        resizeClassStruct.InitiateResizing = True ''Added 3/13/2022 td
         resizeClassStruct.KeepProportional_HtoW = True
         ''We have to take the reciprocal of the ratio, but check to see it's non-zero.
         resizeClassStruct.ProportionalRatio_HtoW =
@@ -1553,7 +1556,9 @@ Public Class RSCMoveableControlVB
         Dim boolButtonIsOkay As Boolean ''Added 1/7/2022 td
 
         ''Added 3/02/2022 thomas downes
-        If (mod_iMoveOrResizeFunctionality Is Nothing) Then Throw New Exception("Moving object is nothing.")
+        If (mod_iMoveOrResizeFunctionality Is Nothing) Then
+            Throw New Exception("Moving object is nothing.")
+        End If
 
         ''1/7/2022 td''boolButtonIsOkay = (par_e.Button = MouseButtons.Left)
         boolButtonIsOkay = ((par_e.Button = MouseButtons.Left) Or
