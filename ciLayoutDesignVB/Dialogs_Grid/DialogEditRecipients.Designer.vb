@@ -25,34 +25,41 @@ Partial Class DialogEditRecipients
         Me.ButtonCancel = New System.Windows.Forms.Button()
         Me.ButtonOK = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabelOpenFieldsDialog = New System.Windows.Forms.LinkLabel()
         Me.ButtonPasteData = New System.Windows.Forms.Button()
         Me.RscFieldSpreadsheet1 = New ciBadgeDesigner.RSCFieldSpreadsheet()
+        Me.LinkLabelWarningNotSaved = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabelSaveAsRecipients = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabelRefreshFromRecipients = New System.Windows.Forms.LinkLabel()
         Me.SuspendLayout()
         '
         'ButtonCancel
         '
         Me.ButtonCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ButtonCancel.BackColor = System.Drawing.SystemColors.ControlDark
         Me.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.ButtonCancel.Location = New System.Drawing.Point(823, 541)
+        Me.ButtonCancel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonCancel.Location = New System.Drawing.Point(801, 541)
         Me.ButtonCancel.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonCancel.Name = "ButtonCancel"
-        Me.ButtonCancel.Size = New System.Drawing.Size(58, 48)
+        Me.ButtonCancel.Size = New System.Drawing.Size(80, 48)
         Me.ButtonCancel.TabIndex = 15
         Me.ButtonCancel.Text = "Cancel"
-        Me.ButtonCancel.UseVisualStyleBackColor = True
+        Me.ButtonCancel.UseVisualStyleBackColor = False
         '
         'ButtonOK
         '
         Me.ButtonOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ButtonOK.BackColor = System.Drawing.SystemColors.ControlDark
         Me.ButtonOK.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.ButtonOK.Location = New System.Drawing.Point(667, 541)
+        Me.ButtonOK.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonOK.Location = New System.Drawing.Point(644, 541)
         Me.ButtonOK.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonOK.Name = "ButtonOK"
         Me.ButtonOK.Size = New System.Drawing.Size(139, 48)
         Me.ButtonOK.TabIndex = 14
         Me.ButtonOK.Text = "OK"
-        Me.ButtonOK.UseVisualStyleBackColor = True
+        Me.ButtonOK.UseVisualStyleBackColor = False
         '
         'Label1
         '
@@ -65,16 +72,16 @@ Partial Class DialogEditRecipients
         Me.Label1.TabIndex = 16
         Me.Label1.Text = "Paste && Edit Recipients (Students or Members)"
         '
-        'LinkLabel1
+        'LinkLabelOpenFieldsDialog
         '
-        Me.LinkLabel1.AutoSize = True
-        Me.LinkLabel1.Location = New System.Drawing.Point(9, 544)
-        Me.LinkLabel1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.LinkLabel1.Name = "LinkLabel1"
-        Me.LinkLabel1.Size = New System.Drawing.Size(198, 13)
-        Me.LinkLabel1.TabIndex = 17
-        Me.LinkLabel1.TabStop = True
-        Me.LinkLabel1.Text = "Review Fields / Mark Fields as Relevant"
+        Me.LinkLabelOpenFieldsDialog.AutoSize = True
+        Me.LinkLabelOpenFieldsDialog.Location = New System.Drawing.Point(9, 544)
+        Me.LinkLabelOpenFieldsDialog.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LinkLabelOpenFieldsDialog.Name = "LinkLabelOpenFieldsDialog"
+        Me.LinkLabelOpenFieldsDialog.Size = New System.Drawing.Size(198, 13)
+        Me.LinkLabelOpenFieldsDialog.TabIndex = 17
+        Me.LinkLabelOpenFieldsDialog.TabStop = True
+        Me.LinkLabelOpenFieldsDialog.Text = "Review Fields / Mark Fields as Relevant"
         '
         'ButtonPasteData
         '
@@ -99,14 +106,53 @@ Partial Class DialogEditRecipients
         Me.RscFieldSpreadsheet1.Size = New System.Drawing.Size(875, 451)
         Me.RscFieldSpreadsheet1.TabIndex = 19
         '
+        'LinkLabelWarningNotSaved
+        '
+        Me.LinkLabelWarningNotSaved.AutoSize = True
+        Me.LinkLabelWarningNotSaved.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LinkLabelWarningNotSaved.LinkColor = System.Drawing.Color.Red
+        Me.LinkLabelWarningNotSaved.Location = New System.Drawing.Point(302, 47)
+        Me.LinkLabelWarningNotSaved.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LinkLabelWarningNotSaved.Name = "LinkLabelWarningNotSaved"
+        Me.LinkLabelWarningNotSaved.Size = New System.Drawing.Size(628, 13)
+        Me.LinkLabelWarningNotSaved.TabIndex = 20
+        Me.LinkLabelWarningNotSaved.TabStop = True
+        Me.LinkLabelWarningNotSaved.Text = "Please note, the data below has not been saved as recipient data. (The data was s" &
+    "aved in non-usable state.)"
+        '
+        'LinkLabelSaveAsRecipients
+        '
+        Me.LinkLabelSaveAsRecipients.AutoSize = True
+        Me.LinkLabelSaveAsRecipients.Location = New System.Drawing.Point(254, 544)
+        Me.LinkLabelSaveAsRecipients.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LinkLabelSaveAsRecipients.Name = "LinkLabelSaveAsRecipients"
+        Me.LinkLabelSaveAsRecipients.Size = New System.Drawing.Size(120, 13)
+        Me.LinkLabelSaveAsRecipients.TabIndex = 21
+        Me.LinkLabelSaveAsRecipients.TabStop = True
+        Me.LinkLabelSaveAsRecipients.Text = "Save as Recipient Data"
+        '
+        'LinkLabelRefreshFromRecipients
+        '
+        Me.LinkLabelRefreshFromRecipients.AutoSize = True
+        Me.LinkLabelRefreshFromRecipients.Location = New System.Drawing.Point(264, 559)
+        Me.LinkLabelRefreshFromRecipients.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LinkLabelRefreshFromRecipients.Name = "LinkLabelRefreshFromRecipients"
+        Me.LinkLabelRefreshFromRecipients.Size = New System.Drawing.Size(132, 13)
+        Me.LinkLabelRefreshFromRecipients.TabIndex = 22
+        Me.LinkLabelRefreshFromRecipients.TabStop = True
+        Me.LinkLabelRefreshFromRecipients.Text = "Refresh as Recipient Data"
+        '
         'DialogEditRecipients
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(914, 600)
+        Me.Controls.Add(Me.LinkLabelRefreshFromRecipients)
+        Me.Controls.Add(Me.LinkLabelSaveAsRecipients)
+        Me.Controls.Add(Me.LinkLabelWarningNotSaved)
         Me.Controls.Add(Me.RscFieldSpreadsheet1)
         Me.Controls.Add(Me.ButtonPasteData)
-        Me.Controls.Add(Me.LinkLabel1)
+        Me.Controls.Add(Me.LinkLabelOpenFieldsDialog)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.ButtonCancel)
         Me.Controls.Add(Me.ButtonOK)
@@ -121,7 +167,10 @@ Partial Class DialogEditRecipients
     Friend WithEvents ButtonCancel As Button
     Friend WithEvents ButtonOK As Button
     Friend WithEvents Label1 As Label
-    Friend WithEvents LinkLabel1 As LinkLabel
+    Friend WithEvents LinkLabelOpenFieldsDialog As LinkLabel
     Friend WithEvents ButtonPasteData As Button
     Friend WithEvents RscFieldSpreadsheet1 As ciBadgeDesigner.RSCFieldSpreadsheet
+    Friend WithEvents LinkLabelWarningNotSaved As LinkLabel
+    Friend WithEvents LinkLabelSaveAsRecipients As LinkLabel
+    Friend WithEvents LinkLabelRefreshFromRecipients As LinkLabel
 End Class

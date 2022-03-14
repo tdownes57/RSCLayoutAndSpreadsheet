@@ -4,11 +4,14 @@ Option Strict On
 '' Added 2/22/2022 thomas  
 ''
 Imports ciBadgeDesigner ''Added 3/10/2022 t2h2o2m2a2s2 d2o2w2n2e2s
+Imports ciBadgeCachePersonality ''added 3/13/2022 
 
 Public Class DialogEditRecipients
     ''
     '' Added 2/22/2022 thomas  
     ''
+    Public ElementsCache_Deprecated As ClassElementsCache_Deprecated
+
     Private mod_designer As ClassDesigner ''Added 3/10/2022 td
     Private mod_stringPastedData As String ''Added 2/22/2022  
 
@@ -18,8 +21,26 @@ Public Class DialogEditRecipients
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
+
+        ''-----Please see Public Sub New(par_cache As ClassElementsCache_Deprecated). 3/13/2022
+        ''---mod_designer = New ClassDesigner()
+        ''---mod_designer.DontAutoRefreshPreview = True ''Added 3/11/2022 td
+        ''---RscFieldSpreadsheet1.Designer = mod_designer
+        ''---RscFieldSpreadsheet1.ElementsCache_Deprecated = Me.ElementsCache_Deprecated
+
+    End Sub
+
+    Public Sub New(par_cache As ClassElementsCache_Deprecated)
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
         mod_designer = New ClassDesigner()
         mod_designer.DontAutoRefreshPreview = True ''Added 3/11/2022 td
+        RscFieldSpreadsheet1.Designer = mod_designer
+        Me.ElementsCache_Deprecated = par_cache
+        RscFieldSpreadsheet1.ElementsCache_Deprecated = Me.ElementsCache_Deprecated
 
     End Sub
 
@@ -92,6 +113,19 @@ ExitHandler:
         RscFieldSpreadsheet1.LoadRuntimeColumns_AfterClearingDesign(mod_designer)
 
 
+
+    End Sub
+
+    Private Sub LinkLabel1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelOpenFieldsDialog.LinkClicked
+        ''
+        ''We will open the Fields dialog.  
+        ''
+        MessageBoxTD.Show_Statement("We will open the Fields dialog.")
+
+
+    End Sub
+
+    Private Sub RscFieldSpreadsheet1_Load(sender As Object, e As EventArgs) Handles RscFieldSpreadsheet1.Load
 
     End Sub
 End Class

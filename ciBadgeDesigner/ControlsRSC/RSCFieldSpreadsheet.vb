@@ -2,17 +2,21 @@
 ''Added 2/21/2022 td
 ''
 Imports ciBadgeDesigner
-Imports ciBadgeFields ''Added 3/10/2022 thomas downes
+Imports ciBadgeFields ''Added 3/10/2.0.2.2. thomas downes
 Imports ciBadgeInterfaces ''Added 3/11/2022 t__homas d__ownes
+Imports ciBadgeCachePersonality ''Added 3/14/2.0.2.2. t.//downes
 
 Public Class RSCFieldSpreadsheet
     ''
     ''Added 2/21/2022 td
     ''
-    Public Designer As ClassDesigner ''Added 3/10/2022 td  
+    Public Designer As ClassDesigner ''Added 3/10/2022 td
+    Public ElementsCache_Deprecated As ciBadgeCachePersonality.ClassElementsCache_Deprecated ''Added 3/10/2022 td
+
     Private mod_ctlLasttouched As New ClassLastControlTouched ''Added 1/4/2022 td
     Private mod_eventsSingleton As New GroupMoveEvents_Singleton(Me.Designer, False, True) ''Added 1/4/2022 td  
     Private mod_colorOfColumnsBackColor As System.Drawing.Color = Drawing.Color.AntiqueWhite ''Added 3/13/2022 thomas downes
+    Private mod_array_RSCColumns As RSCFieldColumn() ''Added 3/14/2022 td
 
     Public Property BackColorOfColumns() As System.Drawing.Color ''Added 3/13/2022 td
         Get
@@ -32,7 +36,7 @@ Public Class RSCFieldSpreadsheet
 
 
 
-    End Sub
+    End Sub ''ENd of "Public Sub PasteData(par_stringPastedData As String)"
 
 
     Private Function ReviewPastedData_IsOkay(par_stringPastedData As String,
@@ -46,22 +50,26 @@ Public Class RSCFieldSpreadsheet
         Dim intNumberOfColumns As Integer
         Dim intNumberOfColumns_Prior As Integer
         Dim boolOneOrMoreColumns As Boolean
-        Dim array_rows As String()
+        Dim array_rowsPasted As String()
         Dim array_values As String()
         Dim boolMismatchedColumnCount As Boolean
         Dim intRowIndex As Integer
 
         par_stringPastedData = "" ''Added 2/22/2022 
 
-        ''Added 2/22/2022 thomas downes
+        ''Added 2/22/2022 thomas downes   
         If (String.IsNullOrEmpty(par_stringPastedData)) Then
+            ''Messaging 
             pref_message = "Pasted data is null or zero-length string."
             Return False
         End If ''End of "If (String.IsNullOrEmpty(par_stringPastedData)) Then"
 
-        array_rows = par_stringPastedData.Split(New String() {vbCrLf, vbCr, vbLf}, StringSplitOptions.None)
+        array_rowsPasted = par_stringPastedData.Split(New String() {vbCrLf, vbCr, vbLf}, StringSplitOptions.None)
 
-        For Each each_row As String In array_rows
+        ''
+        ''Iterate through the rows of pasted data. 
+        ''
+        For Each each_row As String In array_rowsPasted
 
             intRowIndex += 1
             array_values = each_row.Split(New String() {vbTab}, StringSplitOptions.None)
@@ -71,18 +79,19 @@ Public Class RSCFieldSpreadsheet
                     boolMismatchedColumnCount = True
                     pref_message = String.Format("Irregular data set. The number of columns goes from {0} to {1}, in row {2} of {3}.",
                              intNumberOfColumns_Prior, intNumberOfColumns,
-                             intRowIndex, array_rows.Count())
+                             intRowIndex, array_rowsPasted.Count())
                     Exit For
-                End If
-            End If
+                End If ''end of "If (intNumberOfColumns <> intNumberOfColumns_Prior) Then"
+            End If ''end of "If (intNumberOfColumns_Prior > 0) Then"
             intNumberOfColumns_Prior = intNumberOfColumns
         Next each_row
 
         pref_numColumns = CInt(IIf(boolMismatchedColumnCount, -1, intNumberOfColumns))
-        pref_numLines = array_rows.Count
+        pref_numLines = array_rowsPasted.Count
         Return (Not boolMismatchedColumnCount)
 
     End Function ''End of "Private Function ReviewPastedData_IsOkay()"
+
 
     Private Sub RSCFieldSpreadsheet_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
@@ -90,17 +99,26 @@ Public Class RSCFieldSpreadsheet
         ''
         Const c_boolLetsAutoLoadColumns As Boolean = False ''False, as it may cause weird design-time behavior.
 
+        ''added 3/14/2022 td
+        If (Me.ElementsCache_Deprecated Is Nothing) Then
+
+            Throw New Exception("Cache is missing")
+
+        End If ''end of ""If (Me.ElementsCache_Deprecated Is Nothing) Then"'
+
         If (c_boolLetsAutoLoadColumns) Then
             ''
             ''We might not have a designer object at load-time.... set the parameter to Nothing. 
             ''
             Dim objDesigner As ClassDesigner = Nothing
+            objDesigner = Me.Designer  ''Added 3/14/2022 td
+
             LoadRuntimeColumns_AfterClearingDesign(objDesigner)
 
         End If ''End of " If (c_boolLetsAutoLoadColumns) Then"
 
 
-    End Sub
+    End Sub ''End of event handler Private Sub RSCFieldSpreadsheet_Load
 
     Public Sub LoadRuntimeColumns_AfterClearingDesign(par_designer As ClassDesigner)
         ''
@@ -121,8 +139,8 @@ Public Class RSCFieldSpreadsheet
         Dim intCurrentPropertyLeft As Integer = 0
         Dim intNextPropertyLeft As Integer = 0
         Const intNeededMax As Integer = 4
-        Dim array_RSCColumns As RSCFieldColumn()
-        ReDim array_RSCColumns(intNeededMax)
+        ''---Dim mod_array_RSCColumns As RSCFieldColumn()
+        ReDim mod_array_RSCColumns(intNeededMax)
         Dim each_field As ciBadgeFields.ClassFieldAny
 
         For intNeededIndex = 1 To intNeededMax
@@ -137,7 +155,7 @@ Public Class RSCFieldSpreadsheet
             intNextPropertyLeft = (eachColumn.Left + eachColumn.Width + 3)
             Me.Controls.Add(eachColumn)
             ''Added 3/12/2022 thomas downes 
-            array_RSCColumns(intNeededIndex) = eachColumn
+            mod_array_RSCColumns(intNeededIndex) = eachColumn
 
         Next intNeededIndex
 
@@ -153,7 +171,7 @@ Public Class RSCFieldSpreadsheet
             '' i.e. going from right to left (vs. the standard of going left to right).  
             ''     ---3/12/20022 td
 
-            eachColumn = array_RSCColumns(intNeededIndex)
+            eachColumn = mod_array_RSCColumns(intNeededIndex)
             ''Moved below. 3/13/2022 td''listColumnsRight.Add(eachColumn)
 
             ''Let's initialize the list "each_list" with the list "listColumnsRight"
@@ -178,11 +196,27 @@ Public Class RSCFieldSpreadsheet
 
         Next intNeededIndex
 
+        ''
+        ''Step 4 of 4.  Load the list of editable fields.  
+        ''
+        For intNeededIndex = 1 To intNeededMax
 
+            eachColumn = mod_array_RSCColumns(intNeededIndex)
+            eachColumn.Load_FieldsFromCache(Me.ElementsCache_Deprecated)
 
+        Next intNeededIndex
 
     End Sub ''End of Private Sub RSCFieldSpreadsheet_Load
 
+
+    Public Sub Load_FieldsFromCache(par_cache As ClassElementsCache_Deprecated)
+        ''
+        ''Added 2/16/2022 thomas downes
+        ''
+
+
+
+    End Sub ''end of sub "Public Sub Load_FieldsFromCache(par_cache As ClassElementsCache_Deprecated)"
 
     Private Function GenerateRSCColumn(par_objField As ClassFieldAny, par_intFieldIndex As Integer) As RSCFieldColumn
         ''
@@ -234,7 +268,7 @@ Public Class RSCFieldSpreadsheet
 
         Next each_control
 
-    End Sub
+    End Sub ''end of "Private Sub RemoveRSCColumnsFromDesignTime()"
 
 
 

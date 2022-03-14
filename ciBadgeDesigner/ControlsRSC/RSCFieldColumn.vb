@@ -9,6 +9,7 @@ Imports ciBadgeDesigner ''Added 3/8/2022 td
 Imports System.Drawing ''Added 10/01/2019 td 
 Imports __RSCWindowsControlLibrary ''Added 1/4/2022 td
 Imports ciBadgeFields ''Added 3/8/2022 thomas downes
+Imports ciBadgeCachePersonality ''Added 3/14/2022 
 
 
 Public Class RSCFieldColumn
@@ -176,6 +177,16 @@ Public Class RSCFieldColumn
 
     End Sub
 
+
+    Public Sub Load_FieldsFromCache(par_cache As ClassElementsCache_Deprecated)
+        ''
+        ''Added 3/14/2022 td
+        ''
+        If (par_cache Is Nothing) Then Throw New ArgumentException("Exception Occured")
+
+        RscSelectCIBField1.Load_FieldsFromCache(par_cache)
+
+    End Sub ''end of "Public Sub Load_FieldsFromCache"
 
 
     Public Sub New_RSCFieldColumn(par_field As ciBadgeFields.ClassFieldAny, par_iLayoutFunctions As ILayoutFunctions)

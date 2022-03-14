@@ -767,11 +767,15 @@ Public Class FormDisplayCacheLayouts
         ''
         '' Added 2/22/2022 td
         ''
-        Dim frm_ToShow As New DialogEditRecipients
+        Dim frm_ToShow As DialogEditRecipients
+        Dim cacheSelected As ciBadgeCachePersonality.ClassElementsCache_Deprecated ''added 3/14/2022
+
+        If (cacheSelected Is Nothing) Then Throw New Exception ''added 3/14/2022
+        frm_ToShow = New DialogEditRecipients(cacheSelected) ''added 3/14/2022
 
         frm_ToShow.Show()
 
-    End Sub
+    End Sub ''end of "... Handles ButtonRecipients.Click"
 
     Private Sub TimerRecipients_Tick(sender As Object, e As EventArgs) Handles TimerRecipients.Tick
 

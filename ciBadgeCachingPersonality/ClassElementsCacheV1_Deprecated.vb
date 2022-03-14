@@ -315,9 +315,12 @@ Namespace ciBadgeCachePersonality
         End Function ''End of "Public Function GetBadgeSideLayout"
 
 
-        Public Function ListOfFields_Any() As List(Of ClassFieldAny)
+        Public Function ListOfFields_SC_Any() As List(Of ClassFieldAny)
             ''
             ''Added 10/14/2019 thomas downes
+            ''
+            '' SC = Standard & Custom (Fields)  
+            '' CS = Custom & Standard (Fields)  
             ''
             Dim obj_list As New List(Of ClassFieldAny)
             obj_list.AddRange(ListOfFields_Standard)
@@ -327,11 +330,14 @@ Namespace ciBadgeCachePersonality
         End Function ''End of "Public Function ListOfFields_Any() As List(Of ClassFieldAny)"
 
 
-        Public Function ListOfFields_CreateCopies() As List(Of ClassFieldAny)
+        Public Function ListOfFields_SC_CreateCopies() As List(Of ClassFieldAny)
             ''
             ''Added 11/15/2021 thomas downes
             ''
             ''Create copies of the Field objects. 
+            ''
+            '' SC = Standard & Custom (Fields)  
+            '' CS = Custom & Standard (Fields)  
             ''
             Dim obj_list As New List(Of ClassFieldAny)
 
@@ -349,24 +355,33 @@ Namespace ciBadgeCachePersonality
 
             Return obj_list
 
-        End Function ''End of "Public Function ListOfFields_Any() As List(Of ClassFieldAny)"
+        End Function ''End of "Public Function ListOfFields_CreateCopies() As List(Of ClassFieldAny)"
 
 
-        Public Function ListOfFields_ForEditing(par_recipInfo As IRecipient) As List(Of ClassFieldAny)
+        Public Function ListOfFields_SC_ForEditing(Optional par_recipInfo As IRecipient = Nothing) As List(Of ClassFieldAny)
             ''
             ''Added 2/20/2020 thomas downes
             ''
+            ''SC = Standard & Custom (Fields)  
+            ''CS = Custom & Standard (Fields)  
+            ''
             Const c_bEditablesOnly As Boolean = True
 
-            Return ListOfFields_Any(par_recipInfo, c_bEditablesOnly, False)
+            ''March14 2022''Return ListOfFields_Any(par_recipInfo, c_bEditablesOnly, False)
+            Return ListOfFields_SC_AddRecipInfo(par_recipInfo, c_bEditablesOnly, False)
 
-        End Function
+        End Function ''End of "Public Function ListOfFields_SC_ForEditing"
 
-        Public Function ListOfFields_Any(par_recipInfo As IRecipient,
+
+        Public Function ListOfFields_SC_AddRecipInfo(Optional par_recipInfo As IRecipient = Nothing,
                                      Optional ByVal pboolEditablesOnly As Boolean = True,
                                      Optional ByVal pboolRefreshList As Boolean = False) As List(Of ClassFieldAny)
             ''
             ''Added 10/14/2019 thomas downes
+            ''Renamed to "ListOfFields_CS_AddRecipInfo" from "ListOfFields_Any" on March 14 2022.
+            ''
+            ''SC = Standard & Custom (Fields)  
+            ''CS = Custom & Standard (Fields)  
             ''
             ''Step 1 of 3.  Concatenate the Standard & Custom field-lists into a single list. 
             ''
@@ -375,20 +390,36 @@ Namespace ciBadgeCachePersonality
             Dim bDisplayForEdits As Boolean ''Added 2/20/2020 thomas downes 
             ''----Const c_boolRefreshList As Boolean = False ''Added 2/20/2020
             Dim bReferenceNewRecipInfo As Boolean = True ''Added 2/20/2020
+            Dim bStaticOutputIsNothing As Boolean = True ''Added 3/14/2020
 
             ''Added 2/20/2020
             bReferenceNewRecipInfo = (par_recipInfo IsNot Nothing)
+            ''Added 3/14/2022
+            bStaticOutputIsNothing = (s_obj_listOutput Is Nothing)
 
             ''
             ''Added 2/20/2020 thomas downes
             ''
-            If (pboolRefreshList Or s_obj_listOutput Is Nothing) Then
-                ''Populate the list.  
+            ''Step #1 of 2. Create (or refresh) the list of output fields. 
+            ''
+            If (pboolRefreshList Or bStaticOutputIsNothing) Then
+                ''
+                ''Populate the static output list.
+                ''
                 s_obj_listOutput = New List(Of ClassFieldAny)
                 s_obj_listOutput.AddRange(ListOfFields_Standard)
                 s_obj_listOutput.AddRange(ListOfFields_Custom)
 
-            ElseIf (bReferenceNewRecipInfo) Then
+                ''#1 March13 2022 ''ElseIf (bReferenceNewRecipInfo) Then
+
+            End If ''End of "If (pboolRefreshList Or s_obj_listOutput Is Nothing) Then"
+
+            ''#1 March13 2022 ''ElseIf (bReferenceNewRecipInfo) Then
+
+            ''
+            ''Step #2 of 2.... Append recipient data (if applicable) and return the output list.
+            ''
+            If (bReferenceNewRecipInfo) Then
                 ''
                 ''Add a reference to recipient info.
                 ''
@@ -403,7 +434,7 @@ Namespace ciBadgeCachePersonality
             Else
                 ''Probably won't ever execute, due to the "If" and "ElseIf" conditions above. 
                 Return s_obj_listOutput
-            End If ''End of "If (pboolRefreshList Or s_obj_listOutput Is Nothing) Then .... Else ...."
+            End If ''End of "If (bReferenceNewRecipInfo) Then .... Else ...."
 
             ''
             ''Step 2 of 3.  Load the current recipient into each field. 
@@ -1325,7 +1356,7 @@ Namespace ciBadgeCachePersonality
 
             ''Added 9/18/2019 td
             ''10/14/2019 td''For Each each_field As ClassFieldAny In mod_listFields
-            For Each each_field As ClassFieldAny In Me.ListOfFields_Any()
+            For Each each_field As ClassFieldAny In Me.ListOfFields_SC_Any()
 
                 ''Fields cannot link to elements.---9/18/2019 td''mod_listElementFields.Add(each_field.ElementFieldClass)
 
@@ -1367,7 +1398,7 @@ Namespace ciBadgeCachePersonality
 
             ''Added 9/18/2019 td
             ''10/14/2019 td''For Each each_field As ClassFieldAny In mod_listFields
-            For Each each_field As ClassFieldAny In Me.ListOfFields_Any()
+            For Each each_field As ClassFieldAny In Me.ListOfFields_SC_Any()
 
                 ''Fields cannot link to elements.---9/18/2019 td''mod_listElementFields.Add(each_field.ElementFieldClass)
 
@@ -1905,7 +1936,7 @@ Namespace ciBadgeCachePersonality
             pref_strReport = "Addressed field-related references for {0} of {1} elements."
 
             ''Added 9/29/2019 thomas downes  
-            For Each each_field As ClassFieldAny In ListOfFields_Any() ''10/14/2019 td''In mod_listFields
+            For Each each_field As ClassFieldAny In ListOfFields_SC_Any() ''10/14/2019 td''In mod_listFields
                 Try
                     dictionaryFields.Add(each_field.FieldEnumValue, each_field)
                 Catch ex_AddFailed As Exception
@@ -2077,7 +2108,7 @@ Namespace ciBadgeCachePersonality
 
             Dim each_fieldAny As ClassFieldAny
 
-            For Each each_fieldAny In ListOfFields_Any()
+            For Each each_fieldAny In ListOfFields_SC_Any()
 
                 boolMatchesSearch = (each_fieldAny.FieldLabelCaption = par_caption)
                 If (boolMatchesSearch) Then Return each_fieldAny
@@ -2136,7 +2167,7 @@ Namespace ciBadgeCachePersonality
 
             ''This sucks''objField = (ListOfFields_Any()).Item(pintFieldIndex)
 
-            For Each each_field As ClassFieldAny In ListOfFields_Any()
+            For Each each_field As ClassFieldAny In ListOfFields_SC_Any()
                 If (each_field.FieldIndex = pintFieldIndex) Then
                     ''Get the matching field object. 
                     objRelevantFieldAny = each_field
