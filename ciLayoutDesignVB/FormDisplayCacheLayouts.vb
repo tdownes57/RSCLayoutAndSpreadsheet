@@ -783,19 +783,23 @@ Public Class FormDisplayCacheLayouts
 
         ''March14 2022 td''===If (cacheSelected Is Nothing) Then Throw New Exception ''added 3/14/2022
         strPathToElementsCacheXML_Selected = textboxPathToCacheXmlFile.Text
+
         If (String.IsNullOrEmpty(strPathToElementsCacheXML_Selected)) Then
             MessageBoxTD.Show_Statement("The XML path is blank or missing.")
             Return
+
         ElseIf (Not IO.File.Exists(strPathToElementsCacheXML_Selected)) Then
             MessageBoxTD.Show_Statement("The XML path is blank or not valid.")
             Return
-        End If
+        End If ''End of "If (String.IsNullOrEmpty(strPathTo... ElseIf ...."
 
         objDeserialize.PathToXML = strPathToElementsCacheXML_Selected
         cache_elements = New ClassElementsCache_Deprecated
         cache_elements = CType(objDeserialize.DeserializeFromXML(cache_elements.GetType(), False),
             ClassElementsCache_Deprecated)
 
+        ''March 15 2022 td''frm_ToShow = New DialogEditRecipients() ''March 15 2022 td ''(cache_elements) ''added 3/14/2022
+        ''March 15 2022 td''frm_ToShow.LoadForm_ByCache(cache_elements) ''added 3/14/2022
         frm_ToShow = New DialogEditRecipients(cache_elements) ''added 3/14/2022
 
         frm_ToShow.Show()

@@ -97,14 +97,22 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 3/10/2022 
         ''
+
+
+
+    End Sub
+
+    Public Sub Load_Form()
+        ''
+        ''Encapsulated 3/15/2022 & 3/10/2022 
+        ''
         Const c_boolLetsAutoLoadColumns As Boolean = False ''False, as it may cause weird design-time behavior.
 
         ''added 3/14/2022 td
-        If (Me.ElementsCache_Deprecated Is Nothing) Then
-
-            Throw New Exception("Cache is missing")
-
-        End If ''end of ""If (Me.ElementsCache_Deprecated Is Nothing) Then"'
+        ''If (Me.ElementsCache_Deprecated Is Nothing) Then
+        ''    ''Throw New Exception("Cache is missing")
+        ''    MessageBoxTD.Show_Statement("Cache is missing")
+        ''End If ''end of ""If (Me.ElementsCache_Deprecated Is Nothing) Then"'
 
         If (c_boolLetsAutoLoadColumns) Then
             ''
@@ -128,6 +136,12 @@ Public Class RSCFieldSpreadsheet
         ''   to give a visual preview of how the run-time columns will look). 
         ''
         RemoveRSCColumnsFromDesignTime()
+
+        ''Added 3/15/2022 td
+        If (Me.ElementsCache_Deprecated Is Nothing) Then
+            ''Throw New Exception("Cache is missing")
+            MessageBoxTD.Show_Statement("Cache is missing")
+        End If ''end of ""If (Me.ElementsCache_Deprecated Is Nothing) Then"'
 
         ''
         ''Step 2 of 2.  Load run- time columns. 

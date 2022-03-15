@@ -109,10 +109,12 @@ ExitHandler:
         ''
         ''---March 11, 2022---mod_designer = New ClassDesigner()
 
-        RscFieldSpreadsheet1.Designer = mod_designer
-        RscFieldSpreadsheet1.LoadRuntimeColumns_AfterClearingDesign(mod_designer)
+        With RscFieldSpreadsheet1
+            .Designer = mod_designer
+            .LoadRuntimeColumns_AfterClearingDesign(mod_designer)
+            .Load_Form()
 
-
+        End With
 
     End Sub
 
@@ -126,6 +128,18 @@ ExitHandler:
     End Sub
 
     Private Sub RscFieldSpreadsheet1_Load(sender As Object, e As EventArgs) Handles RscFieldSpreadsheet1.Load
+
+    End Sub
+
+    Private Sub ButtonCancel_Click(sender As Object, e As EventArgs) Handles ButtonCancel.Click
+
+        Me.Close()
+
+    End Sub
+
+    Private Sub ButtonOK_Click(sender As Object, e As EventArgs) Handles ButtonOK.Click
+
+        Me.Close()
 
     End Sub
 End Class
