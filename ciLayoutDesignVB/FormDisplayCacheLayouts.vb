@@ -538,6 +538,7 @@ Public Class FormDisplayCacheLayouts
         ''Added 12/20/2021 thomas downes
         ''
         Dim strPathToXML As String
+        Dim diag_result As DialogResult ''Added 3/14/2022 td
 
         OpenFileDialog1.InitialDirectory = DiskFolders.PathToFolder_XML()
         If (Me.PathToLastDirectoryForXMLFile <> "") Then
@@ -547,7 +548,12 @@ Public Class FormDisplayCacheLayouts
         OpenFileDialog1.FileName = Me.FileTitleOfXMLFile
 
         Do
-            OpenFileDialog1.ShowDialog()
+            diag_result =
+                OpenFileDialog1.ShowDialog()
+
+            ''Added 3/14/2022 td 
+            If (diag_result = DialogResult.Cancel) Then Exit Sub
+
             strPathToXML = OpenFileDialog1.FileName
             If (strPathToXML = "") Then Return
 
@@ -569,6 +575,9 @@ Public Class FormDisplayCacheLayouts
         ''Jan25 2022 td''Me.Close()
 
         textboxPathToCacheXmlFile.Text = strPathToXML
+
+        ''Added 3/14/2022 td 
+        LoadMainDisplayControls(strPathToXML)
 
     End Sub
 
@@ -768,10 +777,26 @@ Public Class FormDisplayCacheLayouts
         '' Added 2/22/2022 td
         ''
         Dim frm_ToShow As DialogEditRecipients
-        Dim cacheSelected As ciBadgeCachePersonality.ClassElementsCache_Deprecated ''added 3/14/2022
+        Dim cache_elements As ciBadgeCachePersonality.ClassElementsCache_Deprecated ''added 3/14/2022
+        Dim objDeserialize As New ciBadgeSerialize.ClassDeserial ''Added 10/10/2019 td  
+        Dim strPathToElementsCacheXML_Selected As String ''Added 3/14/2022 td  
 
-        If (cacheSelected Is Nothing) Then Throw New Exception ''added 3/14/2022
-        frm_ToShow = New DialogEditRecipients(cacheSelected) ''added 3/14/2022
+        ''March14 2022 td''===If (cacheSelected Is Nothing) Then Throw New Exception ''added 3/14/2022
+        strPathToElementsCacheXML_Selected = textboxPathToCacheXmlFile.Text
+        If (String.IsNullOrEmpty(strPathToElementsCacheXML_Selected)) Then
+            MessageBoxTD.Show_Statement("The XML path is blank or missing.")
+            Return
+        ElseIf (Not IO.File.Exists(strPathToElementsCacheXML_Selected)) Then
+            MessageBoxTD.Show_Statement("The XML path is blank or not valid.")
+            Return
+        End If
+
+        objDeserialize.PathToXML = strPathToElementsCacheXML_Selected
+        cache_elements = New ClassElementsCache_Deprecated
+        cache_elements = CType(objDeserialize.DeserializeFromXML(cache_elements.GetType(), False),
+            ClassElementsCache_Deprecated)
+
+        frm_ToShow = New DialogEditRecipients(cache_elements) ''added 3/14/2022
 
         frm_ToShow.Show()
 
@@ -780,6 +805,9 @@ Public Class FormDisplayCacheLayouts
     Private Sub TimerRecipients_Tick(sender As Object, e As EventArgs) Handles TimerRecipients.Tick
 
         ''Added 3/11/2022 
+        TimerRecipients.Enabled = False
+        Application.DoEvents()
+
         ButtonRecipients.PerformClick()
         TimerRecipients.Enabled = False
 

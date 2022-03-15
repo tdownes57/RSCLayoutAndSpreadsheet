@@ -6,7 +6,7 @@ Option Infer Off
 ''
 ''Imports ciBadgeInterfaces ''Added 9/16/2019 td 
 ''Imports ciBadgeFields ''Added 9/18/2019 td
-''Imports ciBadgeRecipients ''Added 10/16/2019 thomas d. 
+Imports ciBadgeRecipients ''Added 10/16/2019 thomas d. 
 
 
 
@@ -109,7 +109,8 @@ Public Class ClassColumnWidthsEtc
         ''   by typing its name doesn't work.  ---10/13/2019 td
 
         ''March14 2022 td''obj_cache_columns = CType(objDeserialize.DeserializeFromXML(obj_cache_customers.GetType(), False), ClassCacheListRecipients)
-        obj_cache_columns = CType(objDeserialize.DeserializeFromXML(obj_cache_customers.GetType(), False), ClassCacheListRecipients)
+        obj_cache_columns = CType(objDeserialize.DeserializeFromXML(obj_cache_columns.GetType(), False),
+            ClassColumnWidthsEtc)
 
         Return obj_cache_columns
 
