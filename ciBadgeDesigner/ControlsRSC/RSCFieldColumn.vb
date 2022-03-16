@@ -16,7 +16,9 @@ Public Class RSCFieldColumn
     ''
     ''Added 2/21/2022 thomas downes  
     ''
-    Dim mod_listOfColumnsToBumpRight As List(Of RSCFieldColumn)
+    Public ColumnDataCache As ClassColumnWidthsEtc ''Added 3/15/2022 td
+    Public ColumnWidthAndData As ClassColumnWidthAndData ''Added 3/15/2022 td
+    Private mod_listOfColumnsToBumpRight As List(Of RSCFieldColumn)
 
     Public Property ListOfColumnsToBumpRight As List(Of RSCFieldColumn) ''Added 3/12/2022 td 
         Get

@@ -235,6 +235,8 @@
     <Compile Include="ControlsCtl\CtlPropertyUpDownvb.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="ControlsRSC\ClassColumnWidthAndData.vb" />
+    <Compile Include="ControlsRSC\ClassColumnWidthsEtc.vb" />
     <Compile Include="ControlsRSC\RSCFieldColumn.designer.vb">
       <DependentUpon>RSCFieldColumn.vb</DependentUpon>
     </Compile>

@@ -12,6 +12,7 @@ Public Class RSCFieldSpreadsheet
     ''
     Public Designer As ClassDesigner ''Added 3/10/2022 td
     Public ElementsCache_Deprecated As ciBadgeCachePersonality.ClassElementsCache_Deprecated ''Added 3/10/2022 td
+    Public ColumnDataCache As ClassColumnWidthsEtc ''Added 3/15/2022 td
 
     Private mod_ctlLasttouched As New ClassLastControlTouched ''Added 1/4/2022 td
     Private mod_eventsSingleton As New GroupMoveEvents_Singleton(Me.Designer, False, True) ''Added 1/4/2022 td  
@@ -121,6 +122,9 @@ Public Class RSCFieldSpreadsheet
             Dim objDesigner As ClassDesigner = Nothing
             objDesigner = Me.Designer  ''Added 3/14/2022 td
 
+            ''
+            ''Major call!!
+            ''
             LoadRuntimeColumns_AfterClearingDesign(objDesigner)
 
         End If ''End of " If (c_boolLetsAutoLoadColumns) Then"
@@ -217,6 +221,9 @@ Public Class RSCFieldSpreadsheet
 
             eachColumn = mod_array_RSCColumns(intNeededIndex)
             eachColumn.Load_FieldsFromCache(Me.ElementsCache_Deprecated)
+            ''Added 3/15/2022 td
+            eachColumn.ColumnDataCache = Me.ColumnDataCache ''Added 3/15/2022 td
+            eachColumn.ColumnWidthAndData = Me.ColumnDataCache.ListOfColumns(intNeededIndex - 1)
 
         Next intNeededIndex
 
