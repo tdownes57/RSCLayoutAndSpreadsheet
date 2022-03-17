@@ -3,81 +3,84 @@
 ''
 Imports System.Drawing ''Added 10/11/2019 td 
 
-Public Enum EnumCIBFields
+''
+''-----n-------This was moved to ModEnumsAndStructs, on 3/17/2022 t//D//o//w//n//e//s// 
+''
+''-----n---Public Enum EnumCIBFields
+''-----n---
+''-----n---    Undetermined
+''-----n---
+''-----n---    ''   [idsCardDataID] [numeric](18, 0) IDENTITY (1, 1) Not NULL ,
+''-----n---    ''   [idfConfigID] [int] NULL ,
+''-----n---    ''   [fstrLastName] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+''-----n---    ''   [fstrFirstName] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+''-----n---    ''   [fstrMidName] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+''-----n---    ''   [fstrID] [varchar] (30) COLLATE SQL_Latin1_General_CP1_CI_AS Not NULL ,
 
-    Undetermined
+''-----n---    idsCardDataID
+''-----n---    idfConfigID
+''-----n---    fstrLastName
+''-----n---    fstrFirstName
+''-----n---    fstrMidName
+''-----n---    fstrID
 
-    ''   [idsCardDataID] [numeric](18, 0) IDENTITY (1, 1) Not NULL ,
-    ''   [idfConfigID] [int] NULL ,
-    ''   [fstrLastName] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
-    ''   [fstrFirstName] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
-    ''   [fstrMidName] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
-    ''   [fstrID] [varchar] (30) COLLATE SQL_Latin1_General_CP1_CI_AS Not NULL ,
+''-----n---    ''    [fdatRecDate] [datetime] NULL CONSTRAINT [DF_tblCardData_fdatRecDate] Default getdate() ,
+''-----n---    ''   [idfReportID] [int] NULL ,
+''-----n---    ''   [fstrBarcode] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
 
-    idsCardDataID
-    idfConfigID
-    fstrLastName
-    fstrFirstName
-    fstrMidName
-    fstrID
+''-----n---    fdateRecDate
+''-----n---    idfReportID
+''-----n---    fstrBarCode
 
-    ''    [fdatRecDate] [datetime] NULL CONSTRAINT [DF_tblCardData_fdatRecDate] Default getdate() ,
-    ''   [idfReportID] [int] NULL ,
-    ''   [fstrBarcode] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+''-----n---    TextField01 ''  [TextField01] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+''-----n---    TextField02 ''[TextField02] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+''-----n---    TextField03 ''[TextField03] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+''-----n---    TextField04 ''[TextField04] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+''-----n---    TextField05 ''[TextField05] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+''-----n---    TextField06 ''[TextField06] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+''-----n---    TextField07 ''[TextField07] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+''-----n---    TextField08 ''[TextField08] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+''-----n---    TextField09 ''[TextField09] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+''-----n---    TextField10 ''[TextField10] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+''-----n---    TextField11 ''[TextField11] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+''-----n---    TextField12 ''[TextField12] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+''-----n---    TextField13 ''[TextField13] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+''-----n---    TextField14 ''[TextField14] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+''-----n---    TextField15 ''[TextField15] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
 
-    fdateRecDate
-    idfReportID
-    fstrBarCode
+''-----n---    TextField16 ''[TextField16] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+''-----n---    TextField17 ''[TextField17] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+''-----n---    TextField18 ''[TextField18] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+''-----n---    TextField19 ''[TextField19] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+''-----n---    TextField20 ''[TextField20] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+''-----n---    TextField21 ''[TextField21] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+''-----n---    TextField22 ''[TextField22] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+''-----n---    TextField23 ''[TextField23] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+''-----n---    TextField24 ''[TextField24] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+''-----n---    TextField25 ''[TextField25] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
 
-    TextField01 ''  [TextField01] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
-    TextField02 ''[TextField02] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
-    TextField03 ''[TextField03] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
-    TextField04 ''[TextField04] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
-    TextField05 ''[TextField05] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
-    TextField06 ''[TextField06] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
-    TextField07 ''[TextField07] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
-    TextField08 ''[TextField08] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
-    TextField09 ''[TextField09] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
-    TextField10 ''[TextField10] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
-    TextField11 ''[TextField11] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
-    TextField12 ''[TextField12] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
-    TextField13 ''[TextField13] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
-    TextField14 ''[TextField14] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
-    TextField15 ''[TextField15] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+''-----n---    DateField01 ''[DateField01] [datetime] NULL ,
+''-----n---    DateField02 ''[DateField02] [datetime] NULL ,
+''-----n---    DateField03 ''[DateField03] [datetime] NULL ,
+''-----n---    DateField04 ''[DateField04] [datetime] NULL ,
+''-----n---    DateField05 ''[DateField05] [datetime] NULL ,
 
-    TextField16 ''[TextField16] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
-    TextField17 ''[TextField17] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
-    TextField18 ''[TextField18] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
-    TextField19 ''[TextField19] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
-    TextField20 ''[TextField20] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
-    TextField21 ''[TextField21] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
-    TextField22 ''[TextField22] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
-    TextField23 ''[TextField23] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
-    TextField24 ''[TextField24] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
-    TextField25 ''[TextField25] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+''-----n---    fstrAddress ''[fstrAddress] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+''-----n---    fstrCity ''[fstrCity] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+''-----n---    fstrState ''[fstrState] [char] (2) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+''-----n---    fstrZip ''[fstrZip] [varchar] (10) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
 
-    DateField01 ''[DateField01] [datetime] NULL ,
-    DateField02 ''[DateField02] [datetime] NULL ,
-    DateField03 ''[DateField03] [datetime] NULL ,
-    DateField04 ''[DateField04] [datetime] NULL ,
-    DateField05 ''[DateField05] [datetime] NULL ,
+''-----n---    blnBatchPrint ''[blnBatchPrint] [bit] NULL ,
+''-----n---    ''---- Added 1/28/2019 thomas downes, for https://app.asana.com/0/0/872801181163659/f 
+''-----n---    intTimesPrinted ''[intTimesPrinted] [int] NULL CONSTRAINT [DF_tblCardData_intTimesPrinted] Default 0 ,
+''-----n---    fdatTimeStamp ''[fdatTimeStamp] [datetime] NULL ,
+''-----n---    fintRecPool
+''-----n---    fstrRFID_Unique
 
-    fstrAddress ''[fstrAddress] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
-    fstrCity ''[fstrCity] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
-    fstrState ''[fstrState] [char] (2) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
-    fstrZip ''[fstrZip] [varchar] (10) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+''-----n---    ''Added 11/25/2021 thomas downes
+''-----n---    fstrFullName
 
-    blnBatchPrint ''[blnBatchPrint] [bit] NULL ,
-    ''---- Added 1/28/2019 thomas downes, for https://app.asana.com/0/0/872801181163659/f 
-    intTimesPrinted ''[intTimesPrinted] [int] NULL CONSTRAINT [DF_tblCardData_intTimesPrinted] Default 0 ,
-    fdatTimeStamp ''[fdatTimeStamp] [datetime] NULL ,
-    fintRecPool
-    fstrRFID_Unique
-
-    ''Added 11/25/2021 thomas downes
-    fstrFullName
-
-End Enum ''End of "Public Enum EnumCIBFields"
+''-----n---End Enum ''End of "Public Enum EnumCIBFields"
 
 Public Interface IRecipient
     ''

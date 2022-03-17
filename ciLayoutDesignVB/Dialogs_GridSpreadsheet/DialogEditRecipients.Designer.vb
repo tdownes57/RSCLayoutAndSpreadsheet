@@ -31,6 +31,7 @@ Partial Class DialogEditRecipients
         Me.LinkLabelWarningNotSaved = New System.Windows.Forms.LinkLabel()
         Me.LinkLabelSaveAsRecipients = New System.Windows.Forms.LinkLabel()
         Me.LinkLabelRefreshFromRecipients = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabelSaveColumnData = New System.Windows.Forms.LinkLabel()
         Me.SuspendLayout()
         '
         'ButtonCancel
@@ -123,7 +124,7 @@ Partial Class DialogEditRecipients
         'LinkLabelSaveAsRecipients
         '
         Me.LinkLabelSaveAsRecipients.AutoSize = True
-        Me.LinkLabelSaveAsRecipients.Location = New System.Drawing.Point(254, 544)
+        Me.LinkLabelSaveAsRecipients.Location = New System.Drawing.Point(264, 561)
         Me.LinkLabelSaveAsRecipients.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LinkLabelSaveAsRecipients.Name = "LinkLabelSaveAsRecipients"
         Me.LinkLabelSaveAsRecipients.Size = New System.Drawing.Size(120, 13)
@@ -134,7 +135,7 @@ Partial Class DialogEditRecipients
         'LinkLabelRefreshFromRecipients
         '
         Me.LinkLabelRefreshFromRecipients.AutoSize = True
-        Me.LinkLabelRefreshFromRecipients.Location = New System.Drawing.Point(264, 559)
+        Me.LinkLabelRefreshFromRecipients.Location = New System.Drawing.Point(274, 576)
         Me.LinkLabelRefreshFromRecipients.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LinkLabelRefreshFromRecipients.Name = "LinkLabelRefreshFromRecipients"
         Me.LinkLabelRefreshFromRecipients.Size = New System.Drawing.Size(132, 13)
@@ -142,11 +143,23 @@ Partial Class DialogEditRecipients
         Me.LinkLabelRefreshFromRecipients.TabStop = True
         Me.LinkLabelRefreshFromRecipients.Text = "Refresh as Recipient Data"
         '
+        'LinkLabelSaveColumnData
+        '
+        Me.LinkLabelSaveColumnData.AutoSize = True
+        Me.LinkLabelSaveColumnData.Location = New System.Drawing.Point(255, 544)
+        Me.LinkLabelSaveColumnData.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LinkLabelSaveColumnData.Name = "LinkLabelSaveColumnData"
+        Me.LinkLabelSaveColumnData.Size = New System.Drawing.Size(201, 13)
+        Me.LinkLabelSaveColumnData.TabIndex = 23
+        Me.LinkLabelSaveColumnData.TabStop = True
+        Me.LinkLabelSaveColumnData.Text = "Save as Column Data (not as Recipients)"
+        '
         'DialogEditRecipients
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(914, 600)
+        Me.Controls.Add(Me.LinkLabelSaveColumnData)
         Me.Controls.Add(Me.LinkLabelRefreshFromRecipients)
         Me.Controls.Add(Me.LinkLabelSaveAsRecipients)
         Me.Controls.Add(Me.LinkLabelWarningNotSaved)
@@ -173,4 +186,5 @@ Partial Class DialogEditRecipients
     Friend WithEvents LinkLabelWarningNotSaved As LinkLabel
     Friend WithEvents LinkLabelSaveAsRecipients As LinkLabel
     Friend WithEvents LinkLabelRefreshFromRecipients As LinkLabel
+    Friend WithEvents LinkLabelSaveColumnData As LinkLabel
 End Class

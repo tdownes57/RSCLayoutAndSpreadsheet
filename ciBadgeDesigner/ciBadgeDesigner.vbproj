@@ -235,6 +235,12 @@
     <Compile Include="ControlsCtl\CtlPropertyUpDownvb.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="ControlsCtl\CtlRelevantOrNot.Designer.vb">
+      <DependentUpon>CtlRelevantOrNot.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ControlsCtl\CtlRelevantOrNot.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ControlsRSC\ClassColumnWidthAndData.vb" />
     <Compile Include="ControlsRSC\CacheRSCFieldColumnWidthsEtc.vb" />
     <Compile Include="ControlsRSC\RSCFieldColumn.designer.vb">
@@ -454,6 +460,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ControlsCtl\CtlPropertyUpDownvb.resx">
       <DependentUpon>CtlPropertyUpDownvb.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControlsCtl\CtlRelevantOrNot.resx">
+      <DependentUpon>CtlRelevantOrNot.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ControlsRSC\RSCFieldColumn.resx">
       <DependentUpon>RSCFieldColumn.vb</DependentUpon>

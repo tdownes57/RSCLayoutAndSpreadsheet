@@ -347,6 +347,27 @@ Public Class RSCFieldSpreadsheet
     End Sub ''End of "Public Sub AddColumns()"
 
 
+    Public Sub SaveDataColumnByColumn()
+        ''
+        ''Added 3/17/2022 thomas downes
+        ''
+        For intIndex As Integer = 1 To Me.ColumnDataCache.ListOfColumns.Count
+
+            mod_array_RSCColumns(intIndex).SaveDataToColumn()
+
+
+
+
+
+        Next intIndex
+
+        ''
+        ''FINAL STEP
+        ''
+        Me.ColumnDataCache.SaveToXML()
+
+    End Sub ''End of "Public Sub SaveDataColumnByColumn()"
+
 
 
 

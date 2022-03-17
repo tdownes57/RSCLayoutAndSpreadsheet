@@ -162,4 +162,18 @@ ExitHandler:
         Me.Close()
 
     End Sub
+
+    Private Sub LinkLabelSaveColumnData_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelSaveColumnData.LinkClicked
+        ''
+        ''Added 3/17/2022 thomas 
+        ''
+        Dim objCacheColumnWidthData As CacheRSCFieldColumnWidthsEtc
+
+        ''objCacheColumnWidthData = RscFieldSpreadsheet1.GetCacheOfSavedData()
+        RscFieldSpreadsheet1.SaveDataColumnByColumn()
+        objCacheColumnWidthData = RscFieldSpreadsheet1.ColumnDataCache
+
+
+
+    End Sub
 End Class
