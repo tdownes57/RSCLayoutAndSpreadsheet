@@ -4,14 +4,15 @@ Option Infer Off
 ''
 ''Added 3/14/2022 thomas downes
 ''
-''Imports ciBadgeInterfaces ''Added 9/16/2019 td 
+Imports ciBadgeInterfaces ''Added 9/16/2019 td 
 ''Imports ciBadgeFields ''Added 9/18/2019 td
 Imports ciBadgeRecipients ''Added 10/16/2019 thomas d. 
 
 
 
 <Serializable>
-Public Class ClassColumnWidthsEtc
+Public Class CacheRSCFieldColumnWidthsEtc
+    ''March 16, 2022 ''Public Class ClassColumnWidthsEtc
     ''
     ''Added 3/14/2022 thomas downes
     ''Copy-pasted from ClassCacheListRecipients, 3/14/2022 t//d//
@@ -95,7 +96,7 @@ Public Class ClassColumnWidthsEtc
     End Sub ''End of "Public Sub SaveToXML()"
 
 
-    Public Shared Function GetCache(pstrPathToXML As String) As ClassColumnWidthsEtc ''As ClassCacheListRecipients
+    Public Shared Function GetCache(pstrPathToXML As String) As CacheRSCFieldColumnWidthsEtc ''As ClassCacheListRecipients
         ''
         ''Added 3/14/2022 thomas downes
         ''
@@ -107,25 +108,45 @@ Public Class ClassColumnWidthsEtc
         ''Added 10/10/2019 td  
         Dim objDeserialize As New ciBadgeSerialize.ClassDeserial ''Added 10/10/2019 td  
         ''March14 2922 td'' Dim obj_cache_customers As ClassCacheListRecipients
-        Dim obj_cache_columns As ClassColumnWidthsEtc ''3/13/2022 ''As ClassCacheListRecipients
+        Dim obj_cache_columns As CacheRSCFieldColumnWidthsEtc ''3/13/2022 ''As ClassCacheListRecipients
 
         objDeserialize.PathToXML = pstrPathToXML
 
         ''10/13/2019 td''Me.ElementsCache_Saved = CType(objDeserialize.DeserializeFromXML(Me.ElementsCache_Saved.GetType(), False), ClassElementsCache)
         ''-----Me.ElementsCache_Edits = CType(objDeserialize.DeserializeFromXML(Me.ElementsCache_Edits.GetType(), False), ClassElementsCache)
 
-        obj_cache_columns = New ClassColumnWidthsEtc ''3/13/2022 ''ClassCacheListRecipients ''This may or may not be completely necessary,
+        obj_cache_columns = New CacheRSCFieldColumnWidthsEtc ''3/13/2022 ''ClassCacheListRecipients ''This may or may not be completely necessary,
         ''   but I know of no other way to pass the object type.  Simply expressing the Type
         ''   by typing its name doesn't work.  ---10/13/2019 td
 
         ''March14 2022 td''obj_cache_columns = CType(objDeserialize.DeserializeFromXML(obj_cache_customers.GetType(), False), ClassCacheListRecipients)
         obj_cache_columns = CType(objDeserialize.DeserializeFromXML(obj_cache_columns.GetType(), False),
-            ClassColumnWidthsEtc)
+            CacheRSCFieldColumnWidthsEtc)
 
         Return obj_cache_columns
 
     End Function ''End of "Public Shared Function GetCache"
 
+
+    Public Sub AddColumns(par_intNumber As Integer)
+        ''
+        ''Added 3/16/2022 Thomas Downes 
+        ''
+        Dim each_columnData As ClassColumnWidthAndData
+
+        For intIndex As Integer = 1 To par_intNumber
+
+            each_columnData = New ClassColumnWidthAndData
+            each_columnData.CIBField = EnumCIBFields.Undetermined
+            each_columnData.Width = -1
+            each_columnData.Rows = -1
+            each_columnData.ColumnData = New List(Of String)()
+
+            Me.ListOfColumns.Add(each_columnData)
+
+        Next intIndex
+
+    End Sub ''End of "Public Sub AddColumns()"
 
 
 End Class ''ENd of Public Class ClassCacheListRecipients

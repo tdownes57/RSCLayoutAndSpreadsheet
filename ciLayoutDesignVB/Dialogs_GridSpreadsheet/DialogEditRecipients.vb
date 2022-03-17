@@ -14,6 +14,7 @@ Public Class DialogEditRecipients
 
     Private mod_designer As ClassDesigner ''Added 3/10/2022 td
     Private mod_stringPastedData As String ''Added 2/22/2022  
+    Private mod_cacheColumnWidthsAndData As ciBadgeDesigner.CacheRSCFieldColumnWidthsEtc ''Added 3/16/2022 
 
     Public Sub New()
 
@@ -109,8 +110,27 @@ ExitHandler:
         ''
         ''---March 11, 2022---mod_designer = New ClassDesigner()
 
+        If (mod_designer Is Nothing) Then
+            Throw New Exception
+        End If ''ENd of "If (mod_designer Is Nothing) Then"
+
+        ''Added 3/16/2022 
+        Dim strPathToXML As String = DiskFilesVB.PathToFile_XML_RSCFieldSpreadsheet()
+
+        If (IO.File.Exists(strPathToXML)) Then
+            Me.mod_cacheColumnWidthsAndData = CacheRSCFieldColumnWidthsEtc.GetCache(strPathToXML)
+        Else
+            ''
+            ''Create the cache from scratch. 
+            ''
+            Me.mod_cacheColumnWidthsAndData = New CacheRSCFieldColumnWidthsEtc()
+            Me.mod_cacheColumnWidthsAndData.ListOfColumns() = New List(Of ClassColumnWidthAndData)()
+
+        End If ''End of "If (IO.File.Exists(strPathToXML)) Then... Else..."
+
         With RscFieldSpreadsheet1
             .Designer = mod_designer
+            .ColumnDataCache = mod_cacheColumnWidthsAndData ''Added 3/16/2022 td
             .LoadRuntimeColumns_AfterClearingDesign(mod_designer)
             .Load_Form()
 

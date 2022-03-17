@@ -13,6 +13,20 @@ Public Class RSCSelectCIBField
     ''
     Private mod_fields As List(Of ciBadgeFields.ClassFieldAny)
 
+    Public Property SelectedValue() As EnumCIBFields
+        ''
+        ''Added 3/15/2022 thomas downes 
+        ''
+        Get
+            ''Added 3/15/2022 thomas downes 
+            Return CType(Me.comboBoxRelevantFields.SelectedItem, EnumCIBFields)
+        End Get
+        Set(value As EnumCIBFields)
+            ''Added 3/15/2022 thomas downes 
+            Me.comboBoxRelevantFields.SelectedItem = value
+        End Set
+    End Property
+
 
     Public Sub Load_FieldsFromCache(par_cache As ClassElementsCache_Deprecated)
         ''

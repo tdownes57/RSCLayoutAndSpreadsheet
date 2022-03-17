@@ -10,9 +10,10 @@ Public Class RSCFieldSpreadsheet
     ''
     ''Added 2/21/2022 td
     ''
+    Public ParentForm_DesignerDialog As Form ''ciBadgeDesigner.DialogEditRecipients 
     Public Designer As ClassDesigner ''Added 3/10/2022 td
     Public ElementsCache_Deprecated As ciBadgeCachePersonality.ClassElementsCache_Deprecated ''Added 3/10/2022 td
-    Public ColumnDataCache As ClassColumnWidthsEtc ''Added 3/15/2022 td
+    Public ColumnDataCache As CacheRSCFieldColumnWidthsEtc ''ClassColumnWidthsEtc ''Added 3/15/2022 td
 
     Private mod_ctlLasttouched As New ClassLastControlTouched ''Added 1/4/2022 td
     Private mod_eventsSingleton As New GroupMoveEvents_Singleton(Me.Designer, False, True) ''Added 1/4/2022 td  
@@ -147,6 +148,12 @@ Public Class RSCFieldSpreadsheet
             MessageBoxTD.Show_Statement("Cache is missing")
         End If ''end of ""If (Me.ElementsCache_Deprecated Is Nothing) Then"'
 
+        ''Added 3/15/2022 td
+        If (Me.ColumnDataCache Is Nothing) Then
+            ''Throw New Exception("Cache is missing")
+            MessageBoxTD.Show_Statement("Cache is missing")
+        End If ''end of ""If (Me.ElementsCache_Deprecated Is Nothing) Then"'
+
         ''
         ''Step 2 of 2.  Load run- time columns. 
         ''
@@ -156,16 +163,29 @@ Public Class RSCFieldSpreadsheet
         Dim eachColumn As RSCFieldColumn
         Dim intCurrentPropertyLeft As Integer = 0
         Dim intNextPropertyLeft As Integer = 0
-        Const intNeededMax As Integer = 4
+        Dim intNeededMax As Integer = 4
+
+        ''Added 3/16/2022 td
+        If (0 = Me.ColumnDataCache.ListOfColumns.Count) Then
+            ''Added 3/16/2022 td
+            Me.ColumnDataCache.AddColumns(intNeededMax)
+        Else
+            intNeededMax = Me.ColumnDataCache.ListOfColumns.Count
+        End If ''End of "If (0 = Me.ColumnDataCache.ListOfColumns.Count) Then ... Else ..."
+
         ''---Dim mod_array_RSCColumns As RSCFieldColumn()
         ReDim mod_array_RSCColumns(intNeededMax)
         Dim each_field As ciBadgeFields.ClassFieldAny
 
+        ''
+        ''Generate columns (type: RSCFieldColumn).
+        ''
         For intNeededIndex = 1 To intNeededMax
 
             each_field = New ciBadgeFields.ClassFieldAny()
-            each_field.FieldEnumValue = ciBadgeInterfaces.EnumCIBFields.Undetermined
-            eachColumn = GenerateRSCColumn(each_field, intNeededIndex)
+            ''each_field.FieldEnumValue = ciBadgeInterfaces.EnumCIBFields.Undetermined
+            each_field.FieldEnumValue = Me.ColumnDataCache.ListOfColumns(-1 + intNeededMax).CIBField
+            eachColumn = GenerateRSCFieldColumn(each_field, intNeededIndex)
             intCurrentPropertyLeft = intNextPropertyLeft
             eachColumn.Left = intCurrentPropertyLeft
             eachColumn.Visible = True
@@ -174,6 +194,9 @@ Public Class RSCFieldSpreadsheet
             Me.Controls.Add(eachColumn)
             ''Added 3/12/2022 thomas downes 
             mod_array_RSCColumns(intNeededIndex) = eachColumn
+            ''Added 3/16/2022 td
+            ''  Redundant, assigned in Step 4 below.
+            eachColumn.ColumnWidthAndData = Me.ColumnDataCache.ListOfColumns(-1 + intNeededMax)
 
         Next intNeededIndex
 
@@ -217,13 +240,23 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Step 4 of 4.  Load the list of editable fields.  
         ''
+        Dim each_columnWidthEtc As ciBadgeDesigner.ClassColumnWidthAndData
         For intNeededIndex = 1 To intNeededMax
 
             eachColumn = mod_array_RSCColumns(intNeededIndex)
-            eachColumn.Load_FieldsFromCache(Me.ElementsCache_Deprecated)
+            ''Moved below. 3/16/2022 td''eachColumn.Load_FieldsFromCache(Me.ElementsCache_Deprecated)
             ''Added 3/15/2022 td
+            ''  This may not be needed.  See eachColumn.ColumnWidthAndData.
             eachColumn.ColumnDataCache = Me.ColumnDataCache ''Added 3/15/2022 td
-            eachColumn.ColumnWidthAndData = Me.ColumnDataCache.ListOfColumns(intNeededIndex - 1)
+            ''Added 3/15/2022 td
+            ''  Tell the column what width, field & field values to display.
+            each_columnWidthEtc = Me.ColumnDataCache.ListOfColumns(intNeededIndex - 1)
+            eachColumn.ColumnWidthAndData = each_columnWidthEtc
+
+            ''
+            ''Major call!
+            ''
+            eachColumn.Load_FieldsFromCache(Me.ElementsCache_Deprecated)
 
         Next intNeededIndex
 
@@ -239,7 +272,8 @@ Public Class RSCFieldSpreadsheet
 
     End Sub ''end of sub "Public Sub Load_FieldsFromCache(par_cache As ClassElementsCache_Deprecated)"
 
-    Private Function GenerateRSCColumn(par_objField As ClassFieldAny, par_intFieldIndex As Integer) As RSCFieldColumn
+
+    Private Function GenerateRSCFieldColumn(par_objField As ClassFieldAny, par_intFieldIndex As Integer) As RSCFieldColumn
         ''
         ''Added 3/8/2022 td
         ''
@@ -264,7 +298,7 @@ Public Class RSCFieldSpreadsheet
 
         Return objNewColumn
 
-    End Function ''End of "Private Function GenerateRSCColumn() As RSCFieldColumn"
+    End Function ''End of "Private Function GenerateRSCFieldColumn() As RSCFieldColumn"
 
 
     Private Sub RemoveRSCColumnsFromDesignTime()
@@ -290,6 +324,29 @@ Public Class RSCFieldSpreadsheet
         Next each_control
 
     End Sub ''end of "Private Sub RemoveRSCColumnsFromDesignTime()"
+
+
+    Public Sub AddColumns(par_intNumber As Integer)
+        ''
+        ''Added 3/16/2022 Thomas Downes 
+        ''
+        Dim each_columnData As ClassColumnWidthAndData
+
+        For intIndex = 1 To par_intNumber
+
+            each_columnData = New ClassColumnWidthAndData
+            each_columnData.CIBField = EnumCIBFields.Undetermined
+            each_columnData.Width = -1
+            each_columnData.Rows = -1
+            each_columnData.ColumnData = New List(Of String)()
+
+            Me.ColumnDataCache.ListOfColumns.Add(each_columnData)
+
+        Next intIndex
+
+    End Sub ''End of "Public Sub AddColumns()"
+
+
 
 
 

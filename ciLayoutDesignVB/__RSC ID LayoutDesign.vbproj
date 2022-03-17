@@ -406,20 +406,20 @@
     <Compile Include="Controls\CtlBackground.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Dialogs_Grid\ClassTextRowCustomer_NotInUse.vb" />
-    <Compile Include="Dialogs_Grid\DialogEditRecipients.Designer.vb">
+    <Compile Include="Dialogs_GridSpreadsheet\ClassTextRowCustomer_NotInUse.vb" />
+    <Compile Include="Dialogs_GridSpreadsheet\DialogEditRecipients.Designer.vb">
       <DependentUpon>DialogEditRecipients.vb</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs_Grid\DialogEditRecipients.vb">
+    <Compile Include="Dialogs_GridSpreadsheet\DialogEditRecipients.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Dialogs_Text\ClassColumnWidthsEtc_NotInUse.vb" />
     <Compile Include="DiskFiles\DiskFilesVB.vb" />
     <Compile Include="DiskFiles\DiskFolders.vb" />
-    <Compile Include="Dialogs_Grid\DialogEditCustomers.Designer.vb">
+    <Compile Include="Dialogs_GridSpreadsheet\DialogEditCustomers.Designer.vb">
       <DependentUpon>DialogEditCustomers.vb</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs_Grid\DialogEditCustomers.vb">
+    <Compile Include="Dialogs_GridSpreadsheet\DialogEditCustomers.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormDisplayCacheLayouts.Designer.vb">
@@ -725,13 +725,13 @@
     <EmbeddedResource Include="Controls\CtlWidthHeight.resx">
       <DependentUpon>CtlWidthHeight.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs_Grid\DialogEditRecipients.resx">
+    <EmbeddedResource Include="Dialogs_GridSpreadsheet\DialogEditRecipients.resx">
       <DependentUpon>DialogEditRecipients.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs_Text\DialogTextBorder.resx">
       <DependentUpon>DialogTextBorder.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs_Grid\DialogEditCustomers.resx">
+    <EmbeddedResource Include="Dialogs_GridSpreadsheet\DialogEditCustomers.resx">
       <DependentUpon>DialogEditCustomers.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormDisplayCacheLayouts.resx">

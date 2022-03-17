@@ -16,7 +16,7 @@ Public Class RSCFieldColumn
     ''
     ''Added 2/21/2022 thomas downes  
     ''
-    Public ColumnDataCache As ClassColumnWidthsEtc ''Added 3/15/2022 td
+    Public ColumnDataCache As CacheRSCFieldColumnWidthsEtc ''Added 3/15/2022 td
     Public ColumnWidthAndData As ClassColumnWidthAndData ''Added 3/15/2022 td
     Private mod_listOfColumnsToBumpRight As List(Of RSCFieldColumn)
 
@@ -187,6 +187,11 @@ Public Class RSCFieldColumn
         If (par_cache Is Nothing) Then Throw New ArgumentException("Exception Occured")
 
         RscSelectCIBField1.Load_FieldsFromCache(par_cache)
+
+        ''
+        ''Added 3/15/2022 td
+        ''
+        RscSelectCIBField1.SelectedValue = Me.ColumnWidthAndData.CIBField
 
     End Sub ''end of "Public Sub Load_FieldsFromCache"
 

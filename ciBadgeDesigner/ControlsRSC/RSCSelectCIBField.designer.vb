@@ -31,18 +31,20 @@ Partial Class RSCSelectCIBField
         '
         Me.LabelHeader.AutoSize = True
         Me.LabelHeader.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelHeader.Location = New System.Drawing.Point(3, 0)
+        Me.LabelHeader.Location = New System.Drawing.Point(2, 0)
+        Me.LabelHeader.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LabelHeader.Name = "LabelHeader"
-        Me.LabelHeader.Size = New System.Drawing.Size(135, 25)
+        Me.LabelHeader.Size = New System.Drawing.Size(110, 20)
         Me.LabelHeader.TabIndex = 4
         Me.LabelHeader.Text = "Relevant Field"
         '
         'LinkLabelOnlyRelevant
         '
         Me.LinkLabelOnlyRelevant.AutoSize = True
-        Me.LinkLabelOnlyRelevant.Location = New System.Drawing.Point(3, 55)
+        Me.LinkLabelOnlyRelevant.Location = New System.Drawing.Point(2, 45)
+        Me.LinkLabelOnlyRelevant.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LinkLabelOnlyRelevant.Name = "LinkLabelOnlyRelevant"
-        Me.LinkLabelOnlyRelevant.Size = New System.Drawing.Size(214, 17)
+        Me.LinkLabelOnlyRelevant.Size = New System.Drawing.Size(162, 13)
         Me.LinkLabelOnlyRelevant.TabIndex = 3
         Me.LinkLabelOnlyRelevant.TabStop = True
         Me.LinkLabelOnlyRelevant.Text = "Only ""Relevant"" Fields are listed."
@@ -52,20 +54,22 @@ Partial Class RSCSelectCIBField
         Me.comboBoxRelevantFields.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.comboBoxRelevantFields.FormattingEnabled = True
-        Me.comboBoxRelevantFields.Location = New System.Drawing.Point(3, 28)
+        Me.comboBoxRelevantFields.Location = New System.Drawing.Point(2, 23)
+        Me.comboBoxRelevantFields.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.comboBoxRelevantFields.Name = "comboBoxRelevantFields"
-        Me.comboBoxRelevantFields.Size = New System.Drawing.Size(237, 24)
+        Me.comboBoxRelevantFields.Size = New System.Drawing.Size(179, 21)
         Me.comboBoxRelevantFields.TabIndex = 5
         '
         'RSCSelectCIBField
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.LabelHeader)
         Me.Controls.Add(Me.LinkLabelOnlyRelevant)
         Me.Controls.Add(Me.comboBoxRelevantFields)
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Name = "RSCSelectCIBField"
-        Me.Size = New System.Drawing.Size(243, 79)
+        Me.Size = New System.Drawing.Size(182, 64)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
