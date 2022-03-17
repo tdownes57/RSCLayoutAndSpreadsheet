@@ -74,6 +74,13 @@ Public Class RSCSelectCIBField
 
     End Sub
 
+    Private Sub LinkLabelOnlyRelevant_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelOnlyRelevant.LinkClicked
+        ''
+        ''Added 3/17/2022 Thomas Downes
+        ''
+        Dim form_ToShow As New DialogListBothTypeFields
+        form_ToShow.ShowDialog()
 
 
+    End Sub
 End Class

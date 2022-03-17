@@ -53,9 +53,10 @@ Partial Class RSCSelectCIBField
         '
         Me.comboBoxRelevantFields.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.comboBoxRelevantFields.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboBoxRelevantFields.FormattingEnabled = True
         Me.comboBoxRelevantFields.Location = New System.Drawing.Point(2, 23)
-        Me.comboBoxRelevantFields.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.comboBoxRelevantFields.Margin = New System.Windows.Forms.Padding(2)
         Me.comboBoxRelevantFields.Name = "comboBoxRelevantFields"
         Me.comboBoxRelevantFields.Size = New System.Drawing.Size(179, 21)
         Me.comboBoxRelevantFields.TabIndex = 5
@@ -67,7 +68,7 @@ Partial Class RSCSelectCIBField
         Me.Controls.Add(Me.LabelHeader)
         Me.Controls.Add(Me.LinkLabelOnlyRelevant)
         Me.Controls.Add(Me.comboBoxRelevantFields)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "RSCSelectCIBField"
         Me.Size = New System.Drawing.Size(182, 64)
         Me.ResumeLayout(False)

@@ -147,7 +147,7 @@ Public Class DialogListStandardFields
         ''8/22/2019 td''FlowLayoutPanel1.Controls.Add(New CtlAddCustomField())
         FlowLayoutPanel1.Controls.Add(New CtlAddStandardField())
 
-    End Sub ''End of "Private Sub LoadFields()"  
+    End Sub ''End of "Private Sub LoadStandardFields_All()"  
 
     Private Sub LoadStandardField_Each(par_standardFld As ClassFieldStandard)
         ''
