@@ -33,7 +33,7 @@ Public Class RSCFieldColumn
     End Property
 
 
-    Public Shared Function GetFieldColumn(par_parametersGetElementControl As ClassGetElementControlParams,
+    Public Shared Function GetRSCFieldColumn(par_parametersGetElementControl As ClassGetElementControlParams,
                                            par_field As ClassFieldAny,
                                        par_formParent As Form,
                                       par_nameOfControl As String,
@@ -131,7 +131,7 @@ Public Class RSCFieldColumn
 
         Return CtlFieldColumn1
 
-    End Function ''end of "Public Shared Function GetPortrait() As CtlGraphicPortrait"
+    End Function ''end of "Public Shared Function GetRSCFieldColumn() As RSCFieldColumn"
 
 
     Public Sub New()
@@ -258,104 +258,161 @@ Public Class RSCFieldColumn
 
         ''Not needed here, as this derived user control does not represent a badge element. -----3/11/2022
 
-    End Sub
+    End Sub ''End of Public Overrides SaveToModel"
 
 
-    Private Sub textboxExample1_TextChanged(sender As Object, e As EventArgs) Handles textboxExample1.TextChanged
+    Private Function ListOfData() As List(Of String)
+        ''
+        ''Added 3/18/2022 td   
+        ''
+        Dim objListData As New List(Of String)
+        Dim objListOfTextboxes As New List(Of TextBox)
+        ''Dim objListOfTextboxes_Ordered ''As New IOrderedEnumerable(Of(Of TextBox)
 
-    End Sub
+        For Each eachCtl As Control In Me.Controls
+            If (TypeOf eachCtl Is TextBox) Then
+                If (eachCtl.Visible) Then
+                    objListOfTextboxes.Add(CType(eachCtl, TextBox))
+                End If
+            End If
+        Next eachCtl
 
-    Private Sub PictureBox4_Click(sender As Object, e As EventArgs) Handles PictureBox4.Click
+        ''
+        ''Order them in order of top-down (i.e. the Top property).
+        ''
+        Dim objListOfTextboxes_Ordered As IOrderedEnumerable(Of TextBox) =
+            From objTextbox In objListOfTextboxes
+            Select objTextbox
+            Order By objTextbox.Top
 
-    End Sub
+        For Each each_textbox In objListOfTextboxes_Ordered
 
-    Private Sub PictureBox12_Click(sender As Object, e As EventArgs) Handles PictureBox12.Click
+            objListData.Add(each_textbox.Text)
 
-    End Sub
+        Next each_textbox
 
-    Private Sub TextBox3_TextChanged(sender As Object, e As EventArgs) Handles TextBox3.TextChanged
+        ''
+        ''ExitHandler
+        ''
+        Return objListData
 
-    End Sub
+    End Function ''end of Private Function ListOfData() As List(Of String)
 
-    Private Sub TextBox11_TextChanged(sender As Object, e As EventArgs) Handles TextBox11.TextChanged
 
-    End Sub
+    Public Sub SaveDataToColumn()
+        ''
+        ''Added 3/18/2022 t1h1o1m1a1s1 d1o1w1n1e1s1
+        ''
+        Dim objFieldColumnControl As RSCFieldColumn
 
-    Private Sub TextBox10_TextChanged(sender As Object, e As EventArgs) Handles TextBox10.TextChanged
+        objFieldColumnControl = Me
+        With Me.ColumnWidthAndData
 
-    End Sub
+            .CIBField = RscSelectCIBField1.SelectedValue
+            .Width = Me.Width
+            .ColumnData = Me.ListOfData()
+            .Rows = Me.ListOfData().Count
 
-    Private Sub PictureBox5_Click(sender As Object, e As EventArgs) Handles PictureBox5.Click
+        End With ''End of "With Me.ColumnWidthAndData"
 
-    End Sub
+    End Sub ''End of Public Sub SaveDataToColumn()
 
-    Private Sub PictureBox7_Click(sender As Object, e As EventArgs) Handles PictureBox7.Click
 
-    End Sub
+    ''Private Sub textboxExample1_TextChanged(sender As Object, e As EventArgs) Handles textboxExample1.TextChanged
 
-    Private Sub PictureBox11_Click(sender As Object, e As EventArgs) Handles PictureBox11.Click
+    ''End Sub
 
-    End Sub
+    ''Private Sub PictureBox4_Click(sender As Object, e As EventArgs) Handles PictureBox4.Click
 
-    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
+    ''End Sub
 
-    End Sub
+    ''Private Sub PictureBox12_Click(sender As Object, e As EventArgs) Handles PictureBox12.Click
 
-    Private Sub TextBox4_TextChanged(sender As Object, e As EventArgs) Handles TextBox4.TextChanged
+    ''End Sub
 
-    End Sub
+    ''Private Sub TextBox3_TextChanged(sender As Object, e As EventArgs) Handles TextBox3.TextChanged
 
-    Private Sub TextBox6_TextChanged(sender As Object, e As EventArgs) Handles TextBox6.TextChanged
+    ''End Sub
 
-    End Sub
+    ''Private Sub TextBox11_TextChanged(sender As Object, e As EventArgs) Handles TextBox11.TextChanged
 
-    Private Sub TextBox9_TextChanged(sender As Object, e As EventArgs) Handles TextBox9.TextChanged
+    ''End Sub
 
-    End Sub
+    ''Private Sub TextBox10_TextChanged(sender As Object, e As EventArgs) Handles TextBox10.TextChanged
 
-    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
+    ''End Sub
 
-    End Sub
+    ''Private Sub PictureBox5_Click(sender As Object, e As EventArgs) Handles PictureBox5.Click
 
-    Private Sub PictureBox6_Click(sender As Object, e As EventArgs) Handles PictureBox6.Click
+    ''End Sub
 
-    End Sub
+    ''Private Sub PictureBox7_Click(sender As Object, e As EventArgs) Handles PictureBox7.Click
 
-    Private Sub PictureBox8_Click(sender As Object, e As EventArgs) Handles PictureBox8.Click
+    ''End Sub
 
-    End Sub
+    ''Private Sub PictureBox11_Click(sender As Object, e As EventArgs) Handles PictureBox11.Click
 
-    Private Sub PictureBox10_Click(sender As Object, e As EventArgs) Handles PictureBox10.Click
+    ''End Sub
 
-    End Sub
+    ''Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
 
-    Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox2.Click
+    ''End Sub
 
-    End Sub
+    ''Private Sub TextBox4_TextChanged(sender As Object, e As EventArgs) Handles TextBox4.TextChanged
 
-    Private Sub TextBox5_TextChanged(sender As Object, e As EventArgs) Handles TextBox5.TextChanged
+    ''End Sub
 
-    End Sub
+    ''Private Sub TextBox6_TextChanged(sender As Object, e As EventArgs) Handles TextBox6.TextChanged
 
-    Private Sub TextBox7_TextChanged(sender As Object, e As EventArgs) Handles TextBox7.TextChanged
+    ''End Sub
 
-    End Sub
+    ''Private Sub TextBox9_TextChanged(sender As Object, e As EventArgs) Handles TextBox9.TextChanged
 
-    Private Sub TextBox8_TextChanged(sender As Object, e As EventArgs) Handles TextBox8.TextChanged
+    ''End Sub
 
-    End Sub
+    ''Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
 
-    Private Sub TextBox2_TextChanged(sender As Object, e As EventArgs) Handles TextBox2.TextChanged
+    ''End Sub
 
-    End Sub
+    ''Private Sub PictureBox6_Click(sender As Object, e As EventArgs) Handles PictureBox6.Click
 
-    Private Sub PictureBox3_Click(sender As Object, e As EventArgs) Handles PictureBox3.Click
+    ''End Sub
 
-    End Sub
+    ''Private Sub PictureBox8_Click(sender As Object, e As EventArgs) Handles PictureBox8.Click
 
-    Private Sub PictureBox9_Click(sender As Object, e As EventArgs) Handles PictureBox9.Click
+    ''End Sub
 
-    End Sub
+    ''Private Sub PictureBox10_Click(sender As Object, e As EventArgs) Handles PictureBox10.Click
+
+    ''End Sub
+
+    ''Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox2.Click
+
+    ''End Sub
+
+    ''Private Sub TextBox5_TextChanged(sender As Object, e As EventArgs) Handles TextBox5.TextChanged
+
+    ''End Sub
+
+    ''Private Sub TextBox7_TextChanged(sender As Object, e As EventArgs) Handles TextBox7.TextChanged
+
+    ''End Sub
+
+    ''Private Sub TextBox8_TextChanged(sender As Object, e As EventArgs) Handles TextBox8.TextChanged
+
+    ''End Sub
+
+    ''Private Sub TextBox2_TextChanged(sender As Object, e As EventArgs) Handles TextBox2.TextChanged
+
+    ''End Sub
+
+    ''Private Sub PictureBox3_Click(sender As Object, e As EventArgs) Handles PictureBox3.Click
+
+    ''End Sub
+
+    ''Private Sub PictureBox9_Click(sender As Object, e As EventArgs) Handles PictureBox9.Click
+
+    ''End Sub
 
     Private Sub RSCFieldColumn_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''

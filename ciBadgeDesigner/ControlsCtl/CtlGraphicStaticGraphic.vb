@@ -478,8 +478,14 @@ Public Class CtlGraphicStaticGraphic
                 If (.GraphicImageFullPath Is Nothing) Then
                     Exit Sub
                 End If ''End of "If (.GraphicImageFullPath Is Nothing) Then"
+
                 strPathToImageFile = .GraphicImageFullPath
-                .GraphicImage = New Bitmap(strPathToImageFile)
+
+                ''Conditioned (w/ "If (IO.File.Exists(....)) Then".---3/18/2022 td
+                If (IO.File.Exists(strPathToImageFile)) Then
+                    .GraphicImage = New Bitmap(strPathToImageFile)
+                End If
+
             End With ''ENd of "With Me.ElementInfo_Graphic"
 
             ''Added 1/24/2022 td

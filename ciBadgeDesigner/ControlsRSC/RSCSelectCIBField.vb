@@ -18,12 +18,14 @@ Public Class RSCSelectCIBField
         ''Added 3/15/2022 thomas downes 
         ''
         Get
-            ''Added 3/15/2022 thomas downes 
-            Return CType(Me.comboBoxRelevantFields.SelectedItem, EnumCIBFields)
+            ''Added 3/15/2022 thomas downes 0
+            ''----3/18/2022  Return CType(Me.comboBoxRelevantFields.SelectedItem, EnumCIBFields)
+            Return CType(Me.comboBoxRelevantFields.SelectedValue, EnumCIBFields)
         End Get
         Set(value As EnumCIBFields)
             ''Added 3/15/2022 thomas downes 
-            Me.comboBoxRelevantFields.SelectedItem = value
+            ''----3/18/2022  Me.comboBoxRelevantFields.SelectedItem = value
+            Me.comboBoxRelevantFields.SelectedValue = value
         End Set
     End Property
 

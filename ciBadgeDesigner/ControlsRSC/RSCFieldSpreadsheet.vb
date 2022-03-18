@@ -286,7 +286,7 @@ Public Class RSCFieldSpreadsheet
 
         Const c_boolProportional As Boolean = False ''Added 3/11/2022 td 
 
-        objNewColumn = RSCFieldColumn.GetFieldColumn(objGetParametersForGetControl,
+        objNewColumn = RSCFieldColumn.GetRSCFieldColumn(objGetParametersForGetControl,
                                                          par_objField, Me.ParentForm,
                                                          "RSCFieldColumn" & CStr(par_intFieldIndex),
                                                           Me.Designer, c_boolProportional,
@@ -353,18 +353,22 @@ Public Class RSCFieldSpreadsheet
         ''
         For intIndex As Integer = 1 To Me.ColumnDataCache.ListOfColumns.Count
 
-            mod_array_RSCColumns(intIndex).SaveDataToColumn()
-
-
-
-
+            Dim eachColumn As RSCFieldColumn ''Added 3/18/2022 thomas downes
+            eachColumn = mod_array_RSCColumns(intIndex)
+            eachColumn.SaveDataToColumn()
 
         Next intIndex
 
         ''
         ''FINAL STEP
         ''
+        Dim strPathToXML_Opened As String = Me.ColumnDataCache.PathToXml_Opened
+        Dim strPathToXML_Saved As String = Me.ColumnDataCache.PathToXml_Saved
+
         Me.ColumnDataCache.SaveToXML()
+
+        ''Added 3/18/2022 td
+        System.Diagnostics.Process.Start(Me.ColumnDataCache.PathToXml_Saved)
 
     End Sub ''End of "Public Sub SaveDataColumnByColumn()"
 
