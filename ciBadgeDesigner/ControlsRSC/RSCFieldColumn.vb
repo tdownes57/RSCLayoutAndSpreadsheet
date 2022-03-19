@@ -17,8 +17,23 @@ Public Class RSCFieldColumn
     ''Added 2/21/2022 thomas downes  
     ''
     Public ColumnDataCache As CacheRSCFieldColumnWidthsEtc ''Added 3/15/2022 td
-    Public ColumnWidthAndData As ClassColumnWidthAndData ''Added 3/15/2022 td
     Private mod_listOfColumnsToBumpRight As List(Of RSCFieldColumn)
+    Private mod_columnWidthAndData As ClassColumnWidthAndData ''Added 3/18/2022  
+
+
+    Public Property ColumnWidthAndData() As ClassColumnWidthAndData ''Added 3/15/2022 td
+        ''Added 3/18/2022 thomas 
+        Get
+            ''Added 3/18/2022 thomas
+            ''  Probably only for testing!!
+            Return mod_columnWidthAndData
+        End Get
+        Set(value As ClassColumnWidthAndData)
+            ''Added 3/18/2022 thomas 
+            mod_columnWidthAndData = value
+        End Set
+    End Property
+
 
     Public Property ListOfColumnsToBumpRight As List(Of RSCFieldColumn) ''Added 3/12/2022 td 
         Get
@@ -191,7 +206,7 @@ Public Class RSCFieldColumn
         ''
         ''Added 3/15/2022 td
         ''
-        RscSelectCIBField1.SelectedValue = Me.ColumnWidthAndData.CIBField
+        RscSelectCIBField1.SelectedValue = mod_columnWidthAndData.CIBField
 
     End Sub ''end of "Public Sub Load_FieldsFromCache"
 
@@ -306,7 +321,8 @@ Public Class RSCFieldColumn
         Dim objFieldColumnControl As RSCFieldColumn
 
         objFieldColumnControl = Me
-        With Me.ColumnWidthAndData
+        ''March18 2022''With Me.ColumnWidthAndData
+        With mod_columnWidthAndData
 
             .CIBField = RscSelectCIBField1.SelectedValue
             .Width = Me.Width

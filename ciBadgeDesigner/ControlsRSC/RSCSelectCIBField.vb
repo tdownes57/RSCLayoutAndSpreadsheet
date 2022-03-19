@@ -19,8 +19,12 @@ Public Class RSCSelectCIBField
         ''
         Get
             ''Added 3/15/2022 thomas downes 0
-            ''----3/18/2022  Return CType(Me.comboBoxRelevantFields.SelectedItem, EnumCIBFields)
-            Return CType(Me.comboBoxRelevantFields.SelectedValue, EnumCIBFields)
+            ''----#1 3/18/2022  Return CType(Me.comboBoxRelevantFields.SelectedItem, EnumCIBFields)
+            ''----#1 3/18/2022  Return CType(Me.comboBoxRelevantFields.SelectedValue, EnumCIBFields)
+            Dim outputEnum As ciBadgeInterfaces.EnumCIBFields ''Added 3/18/2022 thomas downes
+            outputEnum = CType(Me.comboBoxRelevantFields.SelectedValue, EnumCIBFields)
+            Return outputEnum
+
         End Get
         Set(value As EnumCIBFields)
             ''Added 3/15/2022 thomas downes 
@@ -44,11 +48,15 @@ Public Class RSCSelectCIBField
         Dim listOfFields As New List(Of ClassFieldAny)
         listOfFields = par_cache.ListOfFields_SC_ForEditing()
 
+        ''Added 3/18/2022
+        comboBoxRelevantFields.DisplayMember = "FieldLabelCaption"
+        comboBoxRelevantFields.ValueMember = "FieldEnumValue"
+
         ''
         ''Calling this function's original overload!!
         ''
-        Load_Control(listOfFields, EnumCIBFields.Undetermined)
-
+        ''Not needed.----3/18/2022 thomas d''Load_Control(listOfFields, EnumCIBFields.Undetermined)
+        comboBoxRelevantFields.DataSource = listOfFields
 
     End Sub ''End of "Public Sub Load_Fields()"
 
@@ -60,9 +68,13 @@ Public Class RSCSelectCIBField
         ''
         Dim each_field As ClassFieldAny
 
+        ''Added 3/18/2022
+        ''---comboBoxRelevantFields.ValueMember = "FieldEnumValue"
+
         For Each each_field In par_list
 
-            comboBoxRelevantFields.Items.Add(each_field.FieldLabelCaption)
+            ''comboBoxRelevantFields.Items.Add(each_field.FieldLabelCaption)
+            comboBoxRelevantFields.Items.Add(each_field)
 
         Next each_field
 

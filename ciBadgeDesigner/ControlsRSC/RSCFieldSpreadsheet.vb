@@ -161,6 +161,7 @@ Public Class RSCFieldSpreadsheet
         ''
         Dim intNeededIndex As Integer = 1
         Dim eachColumn As RSCFieldColumn
+        Dim priorColumn As RSCFieldColumn
         Dim intCurrentPropertyLeft As Integer = 0
         Dim intNextPropertyLeft As Integer = 0
         Dim intNeededMax As Integer = 4
@@ -196,7 +197,17 @@ Public Class RSCFieldSpreadsheet
             mod_array_RSCColumns(intNeededIndex) = eachColumn
             ''Added 3/16/2022 td
             ''  Redundant, assigned in Step 4 below.
-            eachColumn.ColumnWidthAndData = Me.ColumnDataCache.ListOfColumns(-1 + intNeededMax)
+            ''Oops....3/18/2022 ''eachColumn.ColumnWidthAndData = Me.ColumnDataCache.ListOfColumns(-1 + intNeededMax)
+            eachColumn.ColumnWidthAndData = Me.ColumnDataCache.ListOfColumns(-1 + intNeededIndex)
+
+            ''Test for uniqueness. 
+            Dim bUnexpectedMatch As Boolean
+            If (priorColumn IsNot Nothing) Then
+                bUnexpectedMatch = (eachColumn.ColumnWidthAndData Is
+                    priorColumn.ColumnWidthAndData)
+                If (bUnexpectedMatch) Then Throw New Exception
+            End If ''ENd of "If (priorColumn IsNot Nothing) Then"
+            priorColumn = eachColumn
 
         Next intNeededIndex
 
@@ -347,7 +358,7 @@ Public Class RSCFieldSpreadsheet
     End Sub ''End of "Public Sub AddColumns()"
 
 
-    Public Sub SaveDataColumnByColumn()
+    Public Sub SaveDataColumnByColumn(Optional pboolOpenXML As Boolean = False)
         ''
         ''Added 3/17/2022 thomas downes
         ''
@@ -365,10 +376,17 @@ Public Class RSCFieldSpreadsheet
         Dim strPathToXML_Opened As String = Me.ColumnDataCache.PathToXml_Opened
         Dim strPathToXML_Saved As String = Me.ColumnDataCache.PathToXml_Saved
 
-        Me.ColumnDataCache.SaveToXML()
+        If String.IsNullOrEmpty(strPathToXML_Opened) Then strPathToXML_Opened = strPathToXML_Saved
+        If String.IsNullOrEmpty(strPathToXML_Opened) Then strPathToXML_Opened =
+            DiskFilesVB.PathToFile_XML_RSCFieldSpreadsheet()
+
+        Me.ColumnDataCache.SaveToXML(strPathToXML_Opened)
+        Me.ColumnDataCache.PathToXml_Saved = strPathToXML_Opened
 
         ''Added 3/18/2022 td
-        System.Diagnostics.Process.Start(Me.ColumnDataCache.PathToXml_Saved)
+        If (pboolOpenXML) Then
+            System.Diagnostics.Process.Start(Me.ColumnDataCache.PathToXml_Saved)
+        End If ''End of "If (pboolOpenXML) Then"
 
     End Sub ''End of "Public Sub SaveDataColumnByColumn()"
 

@@ -124,7 +124,8 @@ ExitHandler:
             ''Create the cache from scratch. 
             ''
             Me.mod_cacheColumnWidthsAndData = New CacheRSCFieldColumnWidthsEtc()
-            Me.mod_cacheColumnWidthsAndData.ListOfColumns() = New List(Of ClassColumnWidthAndData)()
+            ''March 18, 2022--Me.mod_cacheColumnWidthsAndData.ListOfColumns() = New List(Of ClassColumnWidthAndData)()
+            Me.mod_cacheColumnWidthsAndData.ListOfColumns() = New HashSet(Of ClassColumnWidthAndData)()
 
         End If ''End of "If (IO.File.Exists(strPathToXML)) Then... Else..."
 
@@ -158,7 +159,10 @@ ExitHandler:
     End Sub
 
     Private Sub ButtonOK_Click(sender As Object, e As EventArgs) Handles ButtonOK.Click
-
+        ''
+        ''Added 3/18/2022 
+        ''
+        RscFieldSpreadsheet1.SaveDataColumnByColumn()
         Me.Close()
 
     End Sub

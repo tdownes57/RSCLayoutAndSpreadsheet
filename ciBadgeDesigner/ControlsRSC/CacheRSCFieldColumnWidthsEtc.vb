@@ -39,7 +39,8 @@ Public Class CacheRSCFieldColumnWidthsEtc
     ''Public Property ColumnFieldEnums As List(Of ciBadgeInterfaces.EnumCIBFields)
     ''Public Property ColumnValues As List(Of List(Of String))
 
-    Public Property ListOfColumns As List(Of ClassColumnWidthAndData)
+    ''----March`8 2022---Public Property ListOfColumns As List(Of ClassColumnWidthAndData)
+    Public Property ListOfColumns As HashSet(Of ClassColumnWidthAndData)
 
 
     ''Let's wait and see.----3/15/22''Private mod_listRecipients As New HashSet(Of ClassRecipient) ''Added 10/14/2019 td  

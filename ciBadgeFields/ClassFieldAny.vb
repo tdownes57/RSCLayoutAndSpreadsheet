@@ -112,6 +112,17 @@ Public Class ClassFieldAny
 
     End Function ''End of "Public Function Copy() As ClassElementField"
 
+
+    Public Overrides Function ToString() As String
+        ''
+        ''Added 3/18/2022 td
+        ''
+        ''Return MyBase.ToString()
+        Return Me.FieldLabelCaption
+    End Function
+
+
+
     Public Sub LoadbyCopyingMembers(par_FieldInfo As ICIBFieldStandardOrCustom)
         ''
         ''Added 9/30/2019 thomas downes

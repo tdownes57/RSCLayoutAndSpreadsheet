@@ -120,6 +120,27 @@ Public Class DiskFilesVB
     End Function ''End of "Public Shared Function PathToFile_BadgeLayout() As String"
 
 
+    Public Shared Function PathToFile_XML_RSCFieldSpreadsheet() As String
+        ''
+        ''Added 3/16/2022 Thomas Downes    
+        ''
+        Dim strPathToXML As String = ""
+
+        ''The following line will allow the File | Save As....
+        ''   menu item to be effective. ----10/13/2019 td
+        ''strPathToXML = My.Settings.PathToXML_Saved_ElementsCache
+
+        If ("" = strPathToXML) Then
+            strPathToXML = (My.Application.Info.DirectoryPath &
+                "\RSCFieldSpreadsheet.xml").Replace("\\", "\")
+        End If ''End of "If ("" = strPathToXML) Then"
+
+        Return strPathToXML
+
+    End Function ''End of "Public Shared Function PathToFile_XML_RSCFieldSpreadsheet() As String"
+
+
+
     Public Shared Function IncrementFileTitle_UntilFree(pstrPathToFolder As String, pstrFileTitle_OriginalTry As String,
                                                         Optional ByRef pstrFullPathToNewFile As String = "") As String
         ''
