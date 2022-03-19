@@ -134,6 +134,8 @@ ExitHandler:
             .ColumnDataCache = mod_cacheColumnWidthsAndData ''Added 3/16/2022 td
             .LoadRuntimeColumns_AfterClearingDesign(mod_designer)
             .Load_Form()
+            ''.Invalidate()
+            ''.Refresh()
 
         End With
 
@@ -174,7 +176,7 @@ ExitHandler:
         Dim objCacheColumnWidthData As CacheRSCFieldColumnWidthsEtc
 
         ''objCacheColumnWidthData = RscFieldSpreadsheet1.GetCacheOfSavedData()
-        RscFieldSpreadsheet1.SaveDataColumnByColumn()
+        RscFieldSpreadsheet1.SaveDataColumnByColumn(True)
         objCacheColumnWidthData = RscFieldSpreadsheet1.ColumnDataCache
 
 

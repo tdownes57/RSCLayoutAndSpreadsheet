@@ -46,7 +46,8 @@ Public Class RSCSelectCIBField
         ''Next each_field
 
         Dim listOfFields As New List(Of ClassFieldAny)
-        listOfFields = par_cache.ListOfFields_SC_ForEditing()
+        ''3/19/2022''listOfFields = par_cache.ListOfFields_SC_ForEditing()
+        listOfFields = par_cache.ListOfFields_SC_ForEditing(True)
 
         ''Added 3/18/2022
         comboBoxRelevantFields.DisplayMember = "FieldLabelCaption"

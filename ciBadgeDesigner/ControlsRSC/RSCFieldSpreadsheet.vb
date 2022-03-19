@@ -137,7 +137,7 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 3/8/2022 thomas downes 
         ''
-        ''Step 1 of 2.  Remove design-time columns..... Clearing (removing) design-time columns (which are placed
+        ''Step 1 of 5.  Remove design-time columns..... Clearing (removing) design-time columns (which are placed
         ''   to give a visual preview of how the run-time columns will look). 
         ''
         RemoveRSCColumnsFromDesignTime()
@@ -155,7 +155,9 @@ Public Class RSCFieldSpreadsheet
         End If ''end of ""If (Me.ElementsCache_Deprecated Is Nothing) Then"'
 
         ''
-        ''Step 2 of 2.  Load run- time columns. 
+        ''Step 2 of 5.  Load run- time columns. 
+        ''
+        ''Step 2a of 5.  Create a local array for storing indexed columns. 
         ''
         ''Added a Number N of Required Columns. 
         ''
@@ -179,7 +181,7 @@ Public Class RSCFieldSpreadsheet
         Dim each_field As ciBadgeFields.ClassFieldAny
 
         ''
-        ''Generate columns (type: RSCFieldColumn).
+        ''Step 2b of 5.  Generate columns (type: RSCFieldColumn).
         ''
         For intNeededIndex = 1 To intNeededMax
 
@@ -212,7 +214,7 @@ Public Class RSCFieldSpreadsheet
         Next intNeededIndex
 
         ''
-        ''Step 3 of 3.  Link the columns together.  
+        ''Step 3 of 5.  Link the columns together.  
         ''
         Dim listColumnsRight = New List(Of RSCFieldColumn)
         Dim each_list As List(Of RSCFieldColumn)
@@ -249,7 +251,7 @@ Public Class RSCFieldSpreadsheet
         Next intNeededIndex
 
         ''
-        ''Step 4 of 4.  Load the list of editable fields.  
+        ''Step 4 of 5.  Load the list of editable fields.  
         ''
         Dim each_columnWidthEtc As ciBadgeDesigner.ClassColumnWidthAndData
         For intNeededIndex = 1 To intNeededMax
@@ -268,6 +270,20 @@ Public Class RSCFieldSpreadsheet
             ''Major call!
             ''
             eachColumn.Load_FieldsFromCache(Me.ElementsCache_Deprecated)
+
+        Next intNeededIndex
+
+        ''
+        ''Step 5 of 5.  Adjust the .Left property of the columns, to accomodate
+        ''   the width of the columns determined by the user's resizing behavior
+        ''   in the prior session.  
+        ''
+        For intNeededIndex = 2 To intNeededMax
+
+            priorColumn = mod_array_RSCColumns(intNeededIndex - 1)
+            eachColumn = mod_array_RSCColumns(intNeededIndex)
+
+            eachColumn.Left = (priorColumn.Left + priorColumn.Width + 4)
 
         Next intNeededIndex
 

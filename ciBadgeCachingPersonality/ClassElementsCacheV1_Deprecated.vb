@@ -358,7 +358,8 @@ Namespace ciBadgeCachePersonality
         End Function ''End of "Public Function ListOfFields_CreateCopies() As List(Of ClassFieldAny)"
 
 
-        Public Function ListOfFields_SC_ForEditing(Optional par_recipInfo As IRecipient = Nothing) As List(Of ClassFieldAny)
+        Public Function ListOfFields_SC_ForEditing(ByVal pboolRefreshList As Boolean,
+                                                   Optional par_recipInfo As IRecipient = Nothing) As List(Of ClassFieldAny)
             ''
             ''Added 2/20/2020 thomas downes
             ''
@@ -368,7 +369,8 @@ Namespace ciBadgeCachePersonality
             Const c_bEditablesOnly As Boolean = True
 
             ''March14 2022''Return ListOfFields_Any(par_recipInfo, c_bEditablesOnly, False)
-            Return ListOfFields_SC_AddRecipInfo(par_recipInfo, c_bEditablesOnly, False)
+            ''March19 2022''Return ListOfFields_SC_AddRecipInfo(par_recipInfo, c_bEditablesOnly, False)
+            Return ListOfFields_SC_AddRecipInfo(par_recipInfo, c_bEditablesOnly, pboolRefreshList)
 
         End Function ''End of "Public Function ListOfFields_SC_ForEditing"
 

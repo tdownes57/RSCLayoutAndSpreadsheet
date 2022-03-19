@@ -1427,6 +1427,12 @@ Public Class RSCMoveableControlVB
         RightclickMouseInfo.MouseclickX = par_intX ''Added 2/5/2022 td
         RightclickMouseInfo.MouseclickY = par_intY ''Added 2/5/2022 td
 
+        ''Added 3/19/2022 thomas downes
+        If (ContextMenuStrip1.Items.Count = 0) Then
+            ''Added 3/19/2022 thomas downes
+            MessageBoxTD.Show_Statement("The context menu is currently empty.")
+        End If ''End of "If (ContextMenuStrip1.Items.Count = 0) Then"
+
         ''Feb4 2022 td''ContextMenuStrip1.Show()
         ContextMenuStrip1.Show(Me.Left + par_intX, Me.Top + par_intY)
 

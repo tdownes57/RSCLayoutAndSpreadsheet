@@ -114,6 +114,7 @@ Public Class RSCFieldColumn
 
             ''Added 2/5/2022 td
             ''3/13/2022 td''.RightclickMouseInfo = objOperationsPortrait ''Added 2/5/2022 td
+            .RightclickMouseInfo = objOperationsFieldColumn ''Added 3/5/2022 td
 
         End With ''eNd of "With CtlPortrait1"
 
@@ -208,7 +209,37 @@ Public Class RSCFieldColumn
         ''
         RscSelectCIBField1.SelectedValue = mod_columnWidthAndData.CIBField
 
+        ''
+        ''Added 3/19/2022  
+        ''
+        ''Restore the width of the columns determined by the user's resizing behavior
+        ''   in the prior session.  
+        ''
+        Me.Width = mod_columnWidthAndData.Width
+
+        ''
+        ''Added 3/19/2022  
+        ''
+        LoadDataToColumn(mod_columnWidthAndData.ColumnData)
+
+
     End Sub ''end of "Public Sub Load_FieldsFromCache"
+
+
+    Private Sub LoadDataToColumn(par_listData As List(Of String))
+        ''
+        ''Added 3/19/2022 td
+        ''
+        Dim indexItem As Integer = 0
+        For Each each_textbox In ListOfTextboxes_TopToBottom()
+
+            each_textbox.Text = par_listData.Item(indexItem)
+            each_textbox.ForeColor = Color.Black
+            indexItem += 1
+
+        Next each_textbox
+
+    End Sub ''End of "Private Sub LoadDataToColumn()"
 
 
     Public Sub New_RSCFieldColumn(par_field As ciBadgeFields.ClassFieldAny, par_iLayoutFunctions As ILayoutFunctions)
@@ -281,6 +312,26 @@ Public Class RSCFieldColumn
         ''Added 3/18/2022 td   
         ''
         Dim objListData As New List(Of String)
+
+        ''For Each each_textbox In objListOfTextboxes_Ordered
+        For Each each_textbox In ListOfTextboxes_TopToBottom()
+
+            objListData.Add(each_textbox.Text)
+
+        Next each_textbox
+
+        ''
+        ''ExitHandler
+        ''
+        Return objListData
+
+    End Function ''end of Private Function ListOfData() As List(Of String)
+
+
+    Private Function ListOfTextboxes_TopToBottom() As IOrderedEnumerable(Of TextBox)
+        ''
+        ''Added 3/19/2022 td
+        ''
         Dim objListOfTextboxes As New List(Of TextBox)
         ''Dim objListOfTextboxes_Ordered ''As New IOrderedEnumerable(Of(Of TextBox)
 
@@ -300,18 +351,9 @@ Public Class RSCFieldColumn
             Select objTextbox
             Order By objTextbox.Top
 
-        For Each each_textbox In objListOfTextboxes_Ordered
+        Return objListOfTextboxes_Ordered
 
-            objListData.Add(each_textbox.Text)
-
-        Next each_textbox
-
-        ''
-        ''ExitHandler
-        ''
-        Return objListData
-
-    End Function ''end of Private Function ListOfData() As List(Of String)
+    End Function ''End of "Private Function ListOfTextboxes_TopToBottom() As IOrderedEnumerable(Of TextBox)"
 
 
     Public Sub SaveDataToColumn()
@@ -429,6 +471,16 @@ Public Class RSCFieldColumn
     ''Private Sub PictureBox9_Click(sender As Object, e As EventArgs) Handles PictureBox9.Click
 
     ''End Sub
+
+    Private Sub TextBox_TextChanged(sender As Object, e As EventArgs) ''Handles TextBox2.TextChanged
+        ''
+        ''Added 3/19/2022 Thomas Downes  
+        ''
+        Dim objTextbox As TextBox = CType(sender, TextBox)
+        objTextbox.ForeColor = Color.Black
+
+
+    End Sub
 
     Private Sub RSCFieldColumn_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
