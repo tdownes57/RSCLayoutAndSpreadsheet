@@ -31,7 +31,7 @@ Partial Class RSCFieldColumn
         Me.TextBox3 = New System.Windows.Forms.TextBox()
         Me.textboxExample1 = New System.Windows.Forms.TextBox()
         Me.TextBox10 = New System.Windows.Forms.TextBox()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.LabelHeader1 = New System.Windows.Forms.Label()
         Me.PictureBox5 = New System.Windows.Forms.PictureBox()
         Me.PictureBox7 = New System.Windows.Forms.PictureBox()
         Me.PictureBox11 = New System.Windows.Forms.PictureBox()
@@ -138,16 +138,16 @@ Partial Class RSCFieldColumn
         Me.TextBox10.TabIndex = 51
         Me.TextBox10.Text = "Example"
         '
-        'Label1
+        'LabelHeader1
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(9, 93)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(115, 20)
-        Me.Label1.TabIndex = 37
-        Me.Label1.Text = "Recipient Data"
+        Me.LabelHeader1.AutoSize = True
+        Me.LabelHeader1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelHeader1.Location = New System.Drawing.Point(9, 93)
+        Me.LabelHeader1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LabelHeader1.Name = "LabelHeader1"
+        Me.LabelHeader1.Size = New System.Drawing.Size(115, 20)
+        Me.LabelHeader1.TabIndex = 37
+        Me.LabelHeader1.Text = "Recipient Data"
         '
         'PictureBox5
         '
@@ -381,7 +381,7 @@ Partial Class RSCFieldColumn
         Me.LinkLabelRightClick.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.LinkLabelRightClick.AutoSize = True
-        Me.LinkLabelRightClick.Location = New System.Drawing.Point(118, 80)
+        Me.LinkLabelRightClick.Location = New System.Drawing.Point(117, 80)
         Me.LinkLabelRightClick.Name = "LinkLabelRightClick"
         Me.LinkLabelRightClick.Size = New System.Drawing.Size(58, 13)
         Me.LinkLabelRightClick.TabIndex = 63
@@ -401,7 +401,7 @@ Partial Class RSCFieldColumn
         Me.Controls.Add(Me.TextBox3)
         Me.Controls.Add(Me.textboxExample1)
         Me.Controls.Add(Me.TextBox10)
-        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.LabelHeader1)
         Me.Controls.Add(Me.PictureBox5)
         Me.Controls.Add(Me.PictureBox7)
         Me.Controls.Add(Me.PictureBox11)
@@ -444,7 +444,7 @@ Partial Class RSCFieldColumn
     Friend WithEvents TextBox3 As TextBox
     Friend WithEvents textboxExample1 As TextBox
     Friend WithEvents TextBox10 As TextBox
-    Friend WithEvents Label1 As Label
+    Friend WithEvents LabelHeader1 As Label
     Friend WithEvents PictureBox5 As PictureBox
     Friend WithEvents PictureBox7 As PictureBox
     Friend WithEvents PictureBox11 As PictureBox

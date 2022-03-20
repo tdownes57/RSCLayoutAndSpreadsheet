@@ -19,7 +19,7 @@ Public Class RSCFieldColumn
     Public ColumnDataCache As CacheRSCFieldColumnWidthsEtc ''Added 3/15/2022 td
     Private mod_listOfColumnsToBumpRight As List(Of RSCFieldColumn)
     Private mod_columnWidthAndData As ClassColumnWidthAndData ''Added 3/18/2022  
-
+    Private mod_arrayOfData_Undo As String() ''Added 3/20/2022 thomas d.
 
     Public Property ColumnWidthAndData() As ClassColumnWidthAndData ''Added 3/15/2022 td
         ''Added 3/18/2022 thomas 
@@ -240,6 +240,89 @@ Public Class RSCFieldColumn
         Next each_textbox
 
     End Sub ''End of "Private Sub LoadDataToColumn()"
+
+
+    Public Sub ClearDataFromColumn_Do() ''Added 3/20/2022
+        ''
+        ''Added 3/20/2022 t//d//
+        ''
+        Dim indexItem As Integer = 0
+        Dim listTextboxes As IEnumerable(Of TextBox)
+
+        listTextboxes = ListOfTextboxes_TopToBottom()
+        ReDim mod_arrayOfData_Undo(-1 + listTextboxes.Count)
+
+        For Each each_textbox In listTextboxes '' ListOfTextboxes_TopToBottom()
+
+            ''Enable the Undo procedure.
+            mod_arrayOfData_Undo(indexItem) = each_textbox.Text
+            indexItem += 1
+
+            ''Clear the textbox of data.  
+            each_textbox.Text = ""
+
+        Next each_textbox
+
+    End Sub ''End of "Private Sub LoadDataToColumn_Do()"
+
+
+    Public Sub ClearDataFromColumn_Undo(Optional pboolSkipBoxesWithData As Boolean = False)
+        ''
+        ''Added 3/20/2022 td
+        ''
+        Dim indexItem As Integer = 0
+        Dim listTextboxes As IEnumerable(Of TextBox)
+        Dim bExpectedLength As Boolean
+        Dim boolHasDataToKeep As Boolean
+
+        listTextboxes = ListOfTextboxes_TopToBottom()
+        bExpectedLength = (listTextboxes.Count = mod_arrayOfData_Undo.Length)
+        If (bExpectedLength) Then
+            For Each each_textbox In listTextboxes '' ListOfTextboxes_TopToBottom()
+
+                ''Added 3/20/2022 td
+                boolHasDataToKeep = pboolSkipBoxesWithData And Not String.IsNullOrEmpty(each_textbox.Text)
+                If (boolHasDataToKeep) Then
+                    indexItem += 1 ''We must increment the index before the next iteration.
+                    Continue For ''Skips the execution of this iteration & continues at next iteration.
+                End If ''End of "If (boolHasDataToKeep) Then"
+
+                ''Restore the textbox of data.  
+                each_textbox.Text = mod_arrayOfData_Undo(indexItem)
+                indexItem += 1
+
+            Next each_textbox
+
+        ElseIf (mod_arrayOfData_Undo.Length <= 1) Then
+            ''Added 3/20/2022 td
+            MessageBoxTD.Show_Statement("Cannot perform Undo. No data found.")
+        Else
+            ''Length is unexpected.  
+            System.Diagnostics.Debugger.Break()
+
+        End If ''End of "If (bExpectedLength) Then..... ElseIf (...) ... Else...."
+
+    End Sub ''End of "Private Sub LoadDataToColumn_Undo()"
+
+
+    Public Function CountOfBoxesWithData() As Integer ''Added 3/20/2022
+        ''
+        ''Added 3/20/2022 t//d//
+        ''
+        Dim intCountData As Integer = 0
+        Dim listTextboxes As IEnumerable(Of TextBox)
+
+        listTextboxes = ListOfTextboxes_TopToBottom()
+
+        For Each each_textbox In listTextboxes '' ListOfTextboxes_TopToBottom()
+
+            If (Not String.IsNullOrEmpty(each_textbox.Text)) Then intCountData += 1
+
+        Next each_textbox
+
+        Return intCountData
+
+    End Function ''End of "Private Sub LoadDataToColumn_Do()"
 
 
     Public Sub New_RSCFieldColumn(par_field As ciBadgeFields.ClassFieldAny, par_iLayoutFunctions As ILayoutFunctions)
@@ -533,5 +616,26 @@ Public Class RSCFieldColumn
 
     End Sub
 
+    Private Sub LinkLabelRightClick_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelRightClick.LinkClicked
+        ''
+        ''Added 3/20/2022 td
+        ''
+        Dim new_mouse As MouseEventArgs
+        new_mouse = New MouseEventArgs(MouseButtons.Right, 1, LinkLabelRightClick.Left,
+               LinkLabelRightClick.Top, 0)
+        MyBase.MoveableControl_MouseUp(sender, new_mouse)
 
+
+    End Sub
+
+    Private Sub LabelHeader1_Click(sender As Object, e As EventArgs) Handles LabelHeader1.Click
+        ''
+        ''Added 3/20/2022 td
+        ''
+        Dim new_mouse As MouseEventArgs
+        new_mouse = New MouseEventArgs(MouseButtons.Right, 1, LinkLabelRightClick.Left,
+               LinkLabelRightClick.Top, 0)
+        MyBase.MoveableControl_MouseUp(sender, new_mouse)
+
+    End Sub
 End Class

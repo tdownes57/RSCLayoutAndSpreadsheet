@@ -48,14 +48,68 @@ Public Class Operations_FieldColumn
         ''Copy-pasted 1/24/2022 thomas downes
         ''Added 8/17/2019 thomas downes
         ''         
+        Dim objRSCFieldColumn As RSCFieldColumn
+        Dim boolConfirmed As Boolean
+
+        boolConfirmed = (MessageBoxTD.Show_Confirmed("Clear all data from this column?",
+                                                     "(To undo, hit Cancel or select Undo.)", True))
+        If (boolConfirmed) Then
+            objRSCFieldColumn = CType(CtlCurrentControl, RSCFieldColumn)
+            objRSCFieldColumn.ClearDataFromColumn_Do()
+        End If ''End of "If (boolConfirmed) Then"
+
+    End Sub ''end of Public Sub Clear_Data_From_Column_FC2001
 
 
+    Public Sub Undo_of_Clearing_Data_From_Column_FC2002(sender As Object, e As EventArgs)
+        ''
+        ''Copy-pasted 1/24/2022 thomas downes
+        ''Added 8/17/2019 thomas downes
+        ''         
+        Dim objRSCFieldColumn As RSCFieldColumn
+        Dim boolConfirmed1 As Boolean
+        Dim boolConfirmed2 As Boolean
+        Dim intCountData As Integer
+        Dim dialogKeepAnyEdits As DialogResult
+        Dim boolKeepAnyEdits As Boolean
+
+        boolConfirmed1 = MessageBoxTD.Show_Confirmed("Restore all prior-cleared data from this column?", "", False)
+        ''      "(Warning, any edits performed after the Clear will be lost.)", True))
+
+        If (boolConfirmed1) Then
+
+            objRSCFieldColumn = CType(CtlCurrentControl, RSCFieldColumn)
+            intCountData = objRSCFieldColumn.CountOfBoxesWithData()
+
+            If (intCountData > 0) Then
+                dialogKeepAnyEdits = MessageBoxTD.Show_QuestionYesNo_FormatCounts(intCountData,
+                                "There are {0} boxes with fresh edits.",
+                                "Keep your edits?")
+                If (dialogKeepAnyEdits = DialogResult.Cancel) Then Exit Sub
+                boolKeepAnyEdits = (dialogKeepAnyEdits = DialogResult.Yes Or dialogKeepAnyEdits = DialogResult.OK)
+
+                If (Not boolKeepAnyEdits) Then
+
+                    ''Added 3/20/2022
+                    boolConfirmed2 = MessageBoxTD.Show_Confirmed_FormatCount(intCountData,
+                              "Your recent {0} edits will be lost.", "", False)
+                    If (Not boolConfirmed2) Then Exit Sub
+
+                End If ''end of If (Not boolKeepAnyEdits) Then
 
 
+            End If ''End of "If (intCountData > 0) Then"
 
-    End Sub
+            ''
+            ''Major call. 
+            ''
+            objRSCFieldColumn = CType(CtlCurrentControl, RSCFieldColumn)
+            objRSCFieldColumn.ClearDataFromColumn_Undo(boolKeepAnyEdits)
 
 
+        End If ''End of "If (boolConfirmed) Then"
+
+    End Sub ''Public Sub Undo_of_Clearing_Data_From_Column_FC2002
 
 
 End Class
