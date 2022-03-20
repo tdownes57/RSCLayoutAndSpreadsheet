@@ -35,6 +35,9 @@ Public Module ModEnumsAndStructs
 
         Undetermined
         Field
+        FieldColumn ''Added 3/18/2022 for ControlsRSC/RSCSpreadsheet
+        ''   & ControlsRSC/RSCFieldColumn.  ----3/18/2022 td
+
         Portrait
         QRCode
         Signature

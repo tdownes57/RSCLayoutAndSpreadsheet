@@ -110,7 +110,7 @@ Public Class RSCFieldColumn
             ''1/11/2022''If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEvents, par_iLayoutFun)
             If (bAddFunctionalityLater) Then .AddMoveability(par_iLayoutFun,
                                                              par_oMoveEventsForGroupedCtls, Nothing)
-            ''3/13/2022 td''If (bAddFunctionalityLater) Then .AddClickability()
+            If (bAddFunctionalityLater) Then .AddClickability()
 
             ''Added 2/5/2022 td
             ''3/13/2022 td''.RightclickMouseInfo = objOperationsPortrait ''Added 2/5/2022 td
@@ -127,20 +127,20 @@ Public Class RSCFieldColumn
         ''infoOps.ElementsCacheManager = par_parametersGetElementControl.ElementsCacheManager
 
         ''Added 1/24/2022 thomas d. 
-        ''With objOperationsPortrait
-        ''    .CtlCurrentControl = CtlFieldColumn1
-        ''    .CtlCurrentElement = CtlFieldColumn1
-        ''    ''.Designer = par_oMoveEventsForGroupedCtls.
-        ''    .Designer = par_parametersGetElementControl.DesignerClass
-        ''    .ElementInfo_Base = Nothing ''3/9/2022 t*d*''par_elementPortrait
-        ''    .ElementsCacheManager = par_parametersGetElementControl.ElementsCacheManager
-        ''    ''Feb3 2022 td''.Element_Type = Enum_ElementType.StaticGraphic
-        ''    .Element_Type = Enum_ElementType.Portrait ''Added 2/3/2022 thomas d.
-        ''    .EventsForMoveability_Group = par_oMoveEventsForGroupedCtls
-        ''    .EventsForMoveability_Single = Nothing
-        ''    ''Added 1/24/2022 thomas downes
-        ''    .LayoutFunctions = .Designer
-        ''End With ''End of "With objOperationsPortrait"
+        With objOperationsFieldColumn
+            .CtlCurrentControl = CtlFieldColumn1
+            .CtlCurrentElement = CtlFieldColumn1
+            ''.Designer = par_oMoveEventsForGroupedCtls.
+            .Designer = par_parametersGetElementControl.DesignerClass
+            ''.ElementInfo_Base = Nothing ''3/9/2022 t*d*''par_elementPortrait
+            .ElementsCacheManager = par_parametersGetElementControl.ElementsCacheManager
+            ''Feb3 2022 td''.Element_Type = Enum_ElementType.StaticGraphic
+            .Element_Type = Enum_ElementType.Portrait ''Added 2/3/2022 thomas d.
+            .EventsForMoveability_Group = par_oMoveEventsForGroupedCtls
+            .EventsForMoveability_Single = Nothing
+            ''Added 1/24/2022 thomas downes
+            .LayoutFunctions = .Designer
+        End With ''End of "With objOperationsPortrait"
 
         ''Added 3/13/2022 thomas downes
         CtlFieldColumn1.Load_ResizeWidthability()

@@ -51,6 +51,7 @@ Partial Class RSCFieldColumn
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.PictureBox9 = New System.Windows.Forms.PictureBox()
         Me.RscSelectCIBField1 = New ciBadgeDesigner.RSCSelectCIBField()
+        Me.LinkLabelRightClick = New System.Windows.Forms.LinkLabel()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox12, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -369,16 +370,30 @@ Partial Class RSCFieldColumn
         Me.RscSelectCIBField1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.RscSelectCIBField1.Location = New System.Drawing.Point(-1, 6)
-        Me.RscSelectCIBField1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.RscSelectCIBField1.Margin = New System.Windows.Forms.Padding(2)
         Me.RscSelectCIBField1.Name = "RscSelectCIBField1"
+        Me.RscSelectCIBField1.SelectedValue = ciBadgeInterfaces.ModEnumsAndStructs.EnumCIBFields.Undetermined
         Me.RscSelectCIBField1.Size = New System.Drawing.Size(189, 72)
         Me.RscSelectCIBField1.TabIndex = 62
+        '
+        'LinkLabelRightClick
+        '
+        Me.LinkLabelRightClick.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LinkLabelRightClick.AutoSize = True
+        Me.LinkLabelRightClick.Location = New System.Drawing.Point(118, 80)
+        Me.LinkLabelRightClick.Name = "LinkLabelRightClick"
+        Me.LinkLabelRightClick.Size = New System.Drawing.Size(58, 13)
+        Me.LinkLabelRightClick.TabIndex = 63
+        Me.LinkLabelRightClick.TabStop = True
+        Me.LinkLabelRightClick.Text = "Right-Click"
         '
         'RSCFieldColumn
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.Controls.Add(Me.LinkLabelRightClick)
         Me.Controls.Add(Me.RscSelectCIBField1)
         Me.Controls.Add(Me.TextBox11)
         Me.Controls.Add(Me.PictureBox4)
@@ -449,4 +464,5 @@ Partial Class RSCFieldColumn
     Friend WithEvents PictureBox3 As PictureBox
     Friend WithEvents PictureBox9 As PictureBox
     Friend WithEvents RscSelectCIBField1 As RSCSelectCIBField
+    Friend WithEvents LinkLabelRightClick As LinkLabel
 End Class

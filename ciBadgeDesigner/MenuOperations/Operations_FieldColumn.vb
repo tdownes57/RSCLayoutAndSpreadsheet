@@ -20,6 +20,21 @@ Public Class Operations_FieldColumn
     Implements ICurrentElement ''Added 3/19/2022 td
     Implements IRightClickMouseInfo ''Added 3/19/2022 td
 
+    ''
+    ''Added 1/04/2022 td
+    ''
+    Public Property Element_Type As Enum_ElementType = Enum_ElementType.FieldColumn ''Added 1/21/2022 td
+
+    ''Added 1/25/2022 td 
+    Public Property Designer As ciBadgeDesigner.ClassDesigner ''Added 1/25/2022 td
+
+    Public Property EventsForMoveability_Single As GroupMoveEvents_Singleton ''Suffixed 1/11/2022 Added 1/3/2022 td 
+    Public Property EventsForMoveability_Group As GroupMoveEvents_Singleton ''Added 1/11/2022 td 
+    Public Property LayoutFunctions As ILayoutFunctions ''Added 1/4/2022 td
+
+    Public Property CtlCurrentControl As Control ''---Implements ICurrentElement.CtlCurrentElement
+
+
     Public Overridable Property CtlCurrentElement As RSCMoveableControlVB Implements ICurrentElement.CtlCurrentElement
     Public Property ElementsCacheManager As ciBadgeCachePersonality.ClassCacheManagement Implements ICurrentElement.ElementsCacheManager
 

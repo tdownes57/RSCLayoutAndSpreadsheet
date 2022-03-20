@@ -396,7 +396,7 @@ Public Class RSCMoveableControlVB
 
             AddClickability()
 
-        End If
+        End If ''eND OF ""If (pboolAddClickability) Then""
 
         ''Not needed. 1/10/2022 td. ---Added 1/5/2022 td
         ''Added 1/5/2022 td
