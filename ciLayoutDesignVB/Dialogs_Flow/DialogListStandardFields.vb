@@ -78,6 +78,7 @@ Public Class DialogListStandardFields
         ''10/17 td''Dim list_local As List(Of ClassFieldStandard) = Nothing
         Dim list_local As HashSet(Of ClassFieldStandard) = Nothing
         Dim boolProceed As Boolean ''Added 12/14/2021 td
+        Dim bFieldIsRelevant As Boolean ''Added 3/21/2022 td  
 
         If (ListOfFields_Standard IsNot Nothing) Then list_local = ListOfFields_Standard
 
@@ -94,6 +95,9 @@ Public Class DialogListStandardFields
             ''8/22/2019 td''LoadCustomField_Each(each_standardField)
             ''12/14/2021 td''LoadStandardField_Each(each_standardField)
 
+            ''Added 3/21/2022 td
+            bFieldIsRelevant = each_standardField.IsRelevantToPersonality
+
             ''
             ''Add 7/21/2019
             ''
@@ -102,7 +106,16 @@ Public Class DialogListStandardFields
 
             If (boolProceed) Then
 
-                LoadStandardField_Each(each_standardField)
+                If (bFieldIsRelevant) Then
+                    LoadStandardField_Each(each_standardField)
+                Else
+                    ''
+                    ''Add a user control which clearly indicates that the field
+                    ''  is currently has "Relevant" unflagged. ----3/21/2022 td 
+                    ''
+                    LoadStandardField_Each_Irrelevant(each_standardField)
+
+                End If ''End of "If (bFieldIsRelevant) Then ... Else ..."
 
             End If ''end of " If (boolProceed) Then"
 
@@ -128,6 +141,21 @@ Public Class DialogListStandardFields
         FlowLayoutPanel1.Controls.Add(userControl)
 
     End Sub ''End of "Private Sub LoadStandardField_Each(par_standardFld As ClassStandardField)"
+
+
+    Private Sub LoadStandardField_Each_Irrelevant(par_standardFld As ClassFieldStandard)
+        ''
+        ''Added 3/21/2022
+        ''
+        Dim userControl As New CtlConfigFldStandard
+
+        userControl.Load_StandardControl(CType(par_standardFld, ICIBFieldStandardOrCustom))
+        userControl.Visible = True
+
+        FlowLayoutPanel1.Controls.Add(userControl)
+
+    End Sub ''End of "Private Sub LoadStandardField_Each(par_standardFld As ClassStandardField)"
+
 
     Private Sub FormCustomFieldsFlow_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         ''

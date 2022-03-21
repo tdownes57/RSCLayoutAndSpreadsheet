@@ -133,6 +133,7 @@ ExitHandler:
             .ParentForm_DesignerDialog = Me ''Added 3/20/2022 td
             .ParentForm = Me ''Added 3/20/2022 td
             .Designer = mod_designer
+            .ElementsCache_Deprecated = Me.ElementsCache_Deprecated ''Added 3/21/2022 td
             .ColumnDataCache = mod_cacheColumnWidthsAndData ''Added 3/16/2022 td
             .LoadRuntimeColumns_AfterClearingDesign(mod_designer)
             .Load_Form()

@@ -46,39 +46,41 @@ Partial Class CtlConfigFldCustom
         'textFieldLabel
         '
         Me.textFieldLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.textFieldLabel.Location = New System.Drawing.Point(207, 63)
-        Me.textFieldLabel.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.textFieldLabel.Location = New System.Drawing.Point(155, 51)
+        Me.textFieldLabel.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.textFieldLabel.Name = "textFieldLabel"
-        Me.textFieldLabel.Size = New System.Drawing.Size(215, 30)
+        Me.textFieldLabel.Size = New System.Drawing.Size(162, 26)
         Me.textFieldLabel.TabIndex = 0
         '
         'checkIsFieldForDates
         '
         Me.checkIsFieldForDates.AutoSize = True
-        Me.checkIsFieldForDates.Location = New System.Drawing.Point(212, 12)
-        Me.checkIsFieldForDates.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.checkIsFieldForDates.Location = New System.Drawing.Point(159, 10)
+        Me.checkIsFieldForDates.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.checkIsFieldForDates.Name = "checkIsFieldForDates"
-        Me.checkIsFieldForDates.Size = New System.Drawing.Size(154, 21)
+        Me.checkIsFieldForDates.Size = New System.Drawing.Size(119, 17)
         Me.checkIsFieldForDates.TabIndex = 1
         Me.checkIsFieldForDates.Text = "Is this a Date Field?"
         Me.checkIsFieldForDates.UseVisualStyleBackColor = True
         '
         'LabelFieldLabelCaption
         '
+        Me.LabelFieldLabelCaption.BackColor = System.Drawing.Color.Transparent
         Me.LabelFieldLabelCaption.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelFieldLabelCaption.Location = New System.Drawing.Point(3, 68)
+        Me.LabelFieldLabelCaption.Location = New System.Drawing.Point(2, 55)
+        Me.LabelFieldLabelCaption.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LabelFieldLabelCaption.Name = "LabelFieldLabelCaption"
-        Me.LabelFieldLabelCaption.Size = New System.Drawing.Size(180, 25)
+        Me.LabelFieldLabelCaption.Size = New System.Drawing.Size(150, 20)
         Me.LabelFieldLabelCaption.TabIndex = 2
         Me.LabelFieldLabelCaption.Text = "Field Label Caption"
         '
         'checkHasPresetValues
         '
         Me.checkHasPresetValues.AutoSize = True
-        Me.checkHasPresetValues.Location = New System.Drawing.Point(459, 2)
-        Me.checkHasPresetValues.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.checkHasPresetValues.Location = New System.Drawing.Point(344, 2)
+        Me.checkHasPresetValues.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.checkHasPresetValues.Name = "checkHasPresetValues"
-        Me.checkHasPresetValues.Size = New System.Drawing.Size(186, 21)
+        Me.checkHasPresetValues.Size = New System.Drawing.Size(141, 17)
         Me.checkHasPresetValues.TabIndex = 6
         Me.checkHasPresetValues.Text = "Are there preset values?"
         Me.checkHasPresetValues.UseVisualStyleBackColor = True
@@ -86,10 +88,10 @@ Partial Class CtlConfigFldCustom
         'checkIsLocked
         '
         Me.checkIsLocked.AutoSize = True
-        Me.checkIsLocked.Location = New System.Drawing.Point(212, 33)
-        Me.checkIsLocked.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.checkIsLocked.Location = New System.Drawing.Point(159, 27)
+        Me.checkIsLocked.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.checkIsLocked.Name = "checkIsLocked"
-        Me.checkIsLocked.Size = New System.Drawing.Size(200, 21)
+        Me.checkIsLocked.Size = New System.Drawing.Size(154, 17)
         Me.checkIsLocked.TabIndex = 7
         Me.checkIsLocked.Text = "Is this locked to stop edits?"
         Me.checkIsLocked.UseVisualStyleBackColor = True
@@ -97,10 +99,10 @@ Partial Class CtlConfigFldCustom
         'buttonAddField
         '
         Me.buttonAddField.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.buttonAddField.Location = New System.Drawing.Point(800, 97)
-        Me.buttonAddField.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.buttonAddField.Location = New System.Drawing.Point(600, 79)
+        Me.buttonAddField.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.buttonAddField.Name = "buttonAddField"
-        Me.buttonAddField.Size = New System.Drawing.Size(108, 27)
+        Me.buttonAddField.Size = New System.Drawing.Size(81, 22)
         Me.buttonAddField.TabIndex = 8
         Me.buttonAddField.Text = "Add Field"
         Me.buttonAddField.UseVisualStyleBackColor = True
@@ -109,19 +111,19 @@ Partial Class CtlConfigFldCustom
         'listPresetValues
         '
         Me.listPresetValues.FormattingEnabled = True
-        Me.listPresetValues.ItemHeight = 16
-        Me.listPresetValues.Location = New System.Drawing.Point(459, 34)
-        Me.listPresetValues.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.listPresetValues.Location = New System.Drawing.Point(344, 28)
+        Me.listPresetValues.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.listPresetValues.Name = "listPresetValues"
-        Me.listPresetValues.Size = New System.Drawing.Size(195, 68)
+        Me.listPresetValues.Size = New System.Drawing.Size(147, 56)
         Me.listPresetValues.TabIndex = 9
         '
         'linkDeleteField
         '
         Me.linkDeleteField.AutoSize = True
-        Me.linkDeleteField.Location = New System.Drawing.Point(699, 103)
+        Me.linkDeleteField.Location = New System.Drawing.Point(524, 84)
+        Me.linkDeleteField.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.linkDeleteField.Name = "linkDeleteField"
-        Me.linkDeleteField.Size = New System.Drawing.Size(83, 17)
+        Me.linkDeleteField.Size = New System.Drawing.Size(63, 13)
         Me.linkDeleteField.TabIndex = 10
         Me.linkDeleteField.TabStop = True
         Me.linkDeleteField.Text = "Delete Field"
@@ -129,10 +131,10 @@ Partial Class CtlConfigFldCustom
         'checkIsAdditionalField
         '
         Me.checkIsAdditionalField.AutoSize = True
-        Me.checkIsAdditionalField.Location = New System.Drawing.Point(277, 116)
-        Me.checkIsAdditionalField.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.checkIsAdditionalField.Location = New System.Drawing.Point(208, 94)
+        Me.checkIsAdditionalField.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.checkIsAdditionalField.Name = "checkIsAdditionalField"
-        Me.checkIsAdditionalField.Size = New System.Drawing.Size(194, 21)
+        Me.checkIsAdditionalField.Size = New System.Drawing.Size(148, 17)
         Me.checkIsAdditionalField.TabIndex = 12
         Me.checkIsAdditionalField.Text = "Is this an Additional Field?"
         Me.checkIsAdditionalField.UseVisualStyleBackColor = True
@@ -141,9 +143,10 @@ Partial Class CtlConfigFldCustom
         'linkAddPresetValue
         '
         Me.linkAddPresetValue.AutoSize = True
-        Me.linkAddPresetValue.Location = New System.Drawing.Point(539, 104)
+        Me.linkAddPresetValue.Location = New System.Drawing.Point(404, 84)
+        Me.linkAddPresetValue.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.linkAddPresetValue.Name = "linkAddPresetValue"
-        Me.linkAddPresetValue.Size = New System.Drawing.Size(115, 17)
+        Me.linkAddPresetValue.Size = New System.Drawing.Size(87, 13)
         Me.linkAddPresetValue.TabIndex = 11
         Me.linkAddPresetValue.TabStop = True
         Me.linkAddPresetValue.Text = "Add preset value"
@@ -151,9 +154,10 @@ Partial Class CtlConfigFldCustom
         'LinkSupplementary
         '
         Me.LinkSupplementary.AutoSize = True
-        Me.LinkSupplementary.Location = New System.Drawing.Point(83, 97)
+        Me.LinkSupplementary.Location = New System.Drawing.Point(62, 79)
+        Me.LinkSupplementary.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LinkSupplementary.Name = "LinkSupplementary"
-        Me.LinkSupplementary.Size = New System.Drawing.Size(296, 17)
+        Me.LinkSupplementary.Size = New System.Drawing.Size(223, 13)
         Me.LinkSupplementary.TabIndex = 13
         Me.LinkSupplementary.TabStop = True
         Me.LinkSupplementary.Text = "Example Value, CIBadge Field, Other Db Field"
@@ -162,9 +166,10 @@ Partial Class CtlConfigFldCustom
         '
         Me.LabelHeaderTop.AutoSize = True
         Me.LabelHeaderTop.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelHeaderTop.Location = New System.Drawing.Point(3, 2)
+        Me.LabelHeaderTop.Location = New System.Drawing.Point(2, 2)
+        Me.LabelHeaderTop.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LabelHeaderTop.Name = "LabelHeaderTop"
-        Me.LabelHeaderTop.Size = New System.Drawing.Size(177, 31)
+        Me.LabelHeaderTop.Size = New System.Drawing.Size(142, 26)
         Me.LabelHeaderTop.TabIndex = 4
         Me.LabelHeaderTop.Text = "Text Field # 1"
         Me.LabelHeaderTop.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -174,10 +179,10 @@ Partial Class CtlConfigFldCustom
         Me.checkDisplayOnBadge.AutoSize = True
         Me.checkDisplayOnBadge.Checked = True
         Me.checkDisplayOnBadge.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.checkDisplayOnBadge.Location = New System.Drawing.Point(680, 46)
-        Me.checkDisplayOnBadge.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.checkDisplayOnBadge.Location = New System.Drawing.Point(510, 37)
+        Me.checkDisplayOnBadge.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.checkDisplayOnBadge.Name = "checkDisplayOnBadge"
-        Me.checkDisplayOnBadge.Size = New System.Drawing.Size(192, 21)
+        Me.checkDisplayOnBadge.Size = New System.Drawing.Size(146, 17)
         Me.checkDisplayOnBadge.TabIndex = 23
         Me.checkDisplayOnBadge.Text = "Display on printed badge."
         Me.checkDisplayOnBadge.UseVisualStyleBackColor = True
@@ -187,10 +192,10 @@ Partial Class CtlConfigFldCustom
         Me.checkDisplayForEdits.AutoSize = True
         Me.checkDisplayForEdits.Checked = True
         Me.checkDisplayForEdits.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.checkDisplayForEdits.Location = New System.Drawing.Point(680, 27)
-        Me.checkDisplayForEdits.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.checkDisplayForEdits.Location = New System.Drawing.Point(510, 22)
+        Me.checkDisplayForEdits.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.checkDisplayForEdits.Name = "checkDisplayForEdits"
-        Me.checkDisplayForEdits.Size = New System.Drawing.Size(201, 21)
+        Me.checkDisplayForEdits.Size = New System.Drawing.Size(154, 17)
         Me.checkDisplayForEdits.TabIndex = 22
         Me.checkDisplayForEdits.Text = "Display on Main Data Entry"
         Me.checkDisplayForEdits.UseVisualStyleBackColor = True
@@ -200,10 +205,10 @@ Partial Class CtlConfigFldCustom
         Me.checkRelevantToPersonality.AutoSize = True
         Me.checkRelevantToPersonality.Checked = True
         Me.checkRelevantToPersonality.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.checkRelevantToPersonality.Location = New System.Drawing.Point(662, 2)
-        Me.checkRelevantToPersonality.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.checkRelevantToPersonality.Location = New System.Drawing.Point(496, 2)
+        Me.checkRelevantToPersonality.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.checkRelevantToPersonality.Name = "checkRelevantToPersonality"
-        Me.checkRelevantToPersonality.Size = New System.Drawing.Size(202, 21)
+        Me.checkRelevantToPersonality.Size = New System.Drawing.Size(154, 17)
         Me.checkRelevantToPersonality.TabIndex = 24
         Me.checkRelevantToPersonality.Text = "Relevant to this Personality"
         Me.checkRelevantToPersonality.UseVisualStyleBackColor = True
@@ -211,18 +216,20 @@ Partial Class CtlConfigFldCustom
         'LabelDatabaseFieldname
         '
         Me.LabelDatabaseFieldname.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelDatabaseFieldname.Location = New System.Drawing.Point(4, 34)
+        Me.LabelDatabaseFieldname.Location = New System.Drawing.Point(3, 28)
+        Me.LabelDatabaseFieldname.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LabelDatabaseFieldname.Name = "LabelDatabaseFieldname"
-        Me.LabelDatabaseFieldname.Size = New System.Drawing.Size(180, 25)
+        Me.LabelDatabaseFieldname.Size = New System.Drawing.Size(135, 20)
         Me.LabelDatabaseFieldname.TabIndex = 25
         Me.LabelDatabaseFieldname.Text = "Database Field Name"
         '
         'LabelDateEdited
         '
         Me.LabelDateEdited.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelDateEdited.Location = New System.Drawing.Point(6, 117)
+        Me.LabelDateEdited.Location = New System.Drawing.Point(4, 95)
+        Me.LabelDateEdited.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LabelDateEdited.Name = "LabelDateEdited"
-        Me.LabelDateEdited.Size = New System.Drawing.Size(250, 20)
+        Me.LabelDateEdited.Size = New System.Drawing.Size(188, 16)
         Me.LabelDateEdited.TabIndex = 26
         Me.LabelDateEdited.Text = "[ Date Edited ]"
         '
@@ -231,10 +238,10 @@ Partial Class CtlConfigFldCustom
         Me.checkBadgeFront.AutoSize = True
         Me.checkBadgeFront.Checked = True
         Me.checkBadgeFront.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.checkBadgeFront.Location = New System.Drawing.Point(702, 63)
-        Me.checkBadgeFront.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.checkBadgeFront.Location = New System.Drawing.Point(526, 51)
+        Me.checkBadgeFront.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.checkBadgeFront.Name = "checkBadgeFront"
-        Me.checkBadgeFront.Size = New System.Drawing.Size(63, 21)
+        Me.checkBadgeFront.Size = New System.Drawing.Size(50, 17)
         Me.checkBadgeFront.TabIndex = 27
         Me.checkBadgeFront.Text = "Front"
         Me.checkBadgeFront.UseVisualStyleBackColor = True
@@ -244,20 +251,21 @@ Partial Class CtlConfigFldCustom
         Me.checkBadgeBackside.AutoSize = True
         Me.checkBadgeBackside.Checked = True
         Me.checkBadgeBackside.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.checkBadgeBackside.Location = New System.Drawing.Point(771, 63)
-        Me.checkBadgeBackside.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.checkBadgeBackside.Location = New System.Drawing.Point(578, 51)
+        Me.checkBadgeBackside.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.checkBadgeBackside.Name = "checkBadgeBackside"
-        Me.checkBadgeBackside.Size = New System.Drawing.Size(87, 21)
+        Me.checkBadgeBackside.Size = New System.Drawing.Size(70, 17)
         Me.checkBadgeBackside.TabIndex = 28
         Me.checkBadgeBackside.Text = "Backside"
         Me.checkBadgeBackside.UseVisualStyleBackColor = True
         '
         'CtlConfigFldCustom
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.LightCyan
         Me.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Controls.Add(Me.textFieldLabel)
         Me.Controls.Add(Me.checkBadgeBackside)
         Me.Controls.Add(Me.checkBadgeFront)
         Me.Controls.Add(Me.LabelDateEdited)
@@ -274,12 +282,11 @@ Partial Class CtlConfigFldCustom
         Me.Controls.Add(Me.checkIsLocked)
         Me.Controls.Add(Me.checkHasPresetValues)
         Me.Controls.Add(Me.LabelHeaderTop)
-        Me.Controls.Add(Me.LabelFieldLabelCaption)
         Me.Controls.Add(Me.checkIsFieldForDates)
-        Me.Controls.Add(Me.textFieldLabel)
-        Me.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Controls.Add(Me.LabelFieldLabelCaption)
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Name = "CtlConfigFldCustom"
-        Me.Size = New System.Drawing.Size(939, 135)
+        Me.Size = New System.Drawing.Size(704, 110)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

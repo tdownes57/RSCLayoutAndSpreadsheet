@@ -802,7 +802,8 @@ Public Class FormDisplayCacheLayouts
         ''March 15 2022 td''frm_ToShow.LoadForm_ByCache(cache_elements) ''added 3/14/2022
         frm_ToShow = New DialogEditRecipients(cache_elements) ''added 3/14/2022
 
-        frm_ToShow.Show()
+        ''March21 2022 ''frm_ToShow.Show()
+        frm_ToShow.ShowDialog()
 
     End Sub ''end of "... Handles ButtonRecipients.Click"
 

@@ -11,6 +11,8 @@ Public Class RSCSelectCIBField
     ''
     '' Added 2/16/2022 thomas downes 
     ''
+    Public ElementsCache_Deprecated As ciBadgeCachePersonality.ClassElementsCache_Deprecated ''Added 3/10/2022 td
+
     Private mod_fields As List(Of ciBadgeFields.ClassFieldAny)
 
     Public Property SelectedValue() As EnumCIBFields
@@ -94,6 +96,11 @@ Public Class RSCSelectCIBField
         ''Added 3/17/2022 Thomas Downes
         ''
         Dim form_ToShow As New DialogListBothTypeFields
+
+        ''Added 3/21/2022 td
+        form_ToShow.ListOfFields_Standard = Me.ElementsCache_Deprecated.ListOfFields_Standard
+        form_ToShow.ListOfFields_Custom = Me.ElementsCache_Deprecated.ListOfFields_Custom
+
         form_ToShow.ShowDialog()
 
 

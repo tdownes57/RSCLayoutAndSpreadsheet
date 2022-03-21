@@ -308,7 +308,7 @@ Public Class RSCFieldSpreadsheet
         ''Added a Number N of Required Columns. 
         ''
         Dim intNeededIndex As Integer = 1
-        Dim eachColumn As RSCFieldColumn
+        Dim each_Column As RSCFieldColumn
         Dim priorColumn As RSCFieldColumn = Nothing
         Dim intCurrentPropertyLeft As Integer = 0
         Dim intNextPropertyLeft As Integer = 0
@@ -341,12 +341,12 @@ Public Class RSCFieldSpreadsheet
                 ''
                 ''Major call!!
                 ''
-                eachColumn = GenerateRSCFieldColumn_General(intNeededIndex,
+                each_Column = GenerateRSCFieldColumn_General(intNeededIndex,
                                                             intCurrentPropertyLeft,
                                                             intNextPropertyLeft,
                                                             priorColumn)
                 ''Prepare for next iteration.
-                priorColumn = eachColumn
+                priorColumn = each_Column
 
             Else
                 ''
@@ -356,25 +356,26 @@ Public Class RSCFieldSpreadsheet
                 ''each_field.FieldEnumValue = ciBadgeInterfaces.EnumCIBFields.Undetermined
                 each_field.FieldEnumValue = Me.ColumnDataCache.ListOfColumns(-1 + intNeededMax).CIBField
                 ''3/20/2022 td''eachColumn = GenerateRSCFieldColumn(each_field, intNeededIndex)
-                eachColumn = GenerateRSCFieldColumn_Special(each_field, intNeededIndex)
+                each_Column = GenerateRSCFieldColumn_Special(each_field, intNeededIndex)
                 intCurrentPropertyLeft = intNextPropertyLeft ''Check prior iteration.
-                eachColumn.Left = intCurrentPropertyLeft
-                eachColumn.Visible = True
+                each_Column.Left = intCurrentPropertyLeft
+                each_Column.Visible = True
                 ''Prepare for next iteration. 
                 ''----intNextPropertyLeft = (eachColumn.Left + eachColumn.Width + 3)
-                intNextPropertyLeft = (eachColumn.Left + eachColumn.Width + mc_ColumnMarginGap)
-                Me.Controls.Add(eachColumn)
+                intNextPropertyLeft = (each_Column.Left + each_Column.Width + mc_ColumnMarginGap)
+                Me.Controls.Add(each_Column)
                 ''Added 3/12/2022 thomas downes 
-                mod_array_RSCColumns(intNeededIndex) = eachColumn
+                mod_array_RSCColumns(intNeededIndex) = each_Column
                 ''Added 3/16/2022 td
                 ''  Redundant, assigned in Step 4 below.
                 ''Oops....3/18/2022 ''eachColumn.ColumnWidthAndData = Me.ColumnDataCache.ListOfColumns(-1 + intNeededMax)
-                eachColumn.ColumnWidthAndData = Me.ColumnDataCache.ListOfColumns(-1 + intNeededIndex)
+                each_Column.ElementsCache_Deprecated = Me.ElementsCache_Deprecated
+                each_Column.ColumnWidthAndData = Me.ColumnDataCache.ListOfColumns(-1 + intNeededIndex)
 
                 ''Test for uniqueness. 
                 Dim bUnexpectedMatch As Boolean
                 If (priorColumn IsNot Nothing) Then
-                    bUnexpectedMatch = (eachColumn.ColumnWidthAndData Is
+                    bUnexpectedMatch = (each_Column.ColumnWidthAndData Is
                         priorColumn.ColumnWidthAndData)
                     If (bUnexpectedMatch) Then Throw New Exception
                 End If ''ENd of "If (priorColumn IsNot Nothing) Then"
@@ -384,7 +385,7 @@ Public Class RSCFieldSpreadsheet
             ''
             ''Prepare for next iteration. 
             ''
-            priorColumn = eachColumn
+            priorColumn = each_Column
 
         Next intNeededIndex
 
@@ -400,7 +401,7 @@ Public Class RSCFieldSpreadsheet
             '' i.e. going from right to left (vs. the standard of going left to right).  
             ''     ---3/12/20022 td
 
-            eachColumn = mod_array_RSCColumns(intNeededIndex)
+            each_Column = mod_array_RSCColumns(intNeededIndex)
             ''Moved below. 3/13/2022 td''listColumnsRight.Add(eachColumn)
 
             ''Let's initialize the list "each_list" with the list "listColumnsRight"
@@ -414,14 +415,14 @@ Public Class RSCFieldSpreadsheet
             bNotTheRightmostColumn = (intNeededIndex < intNeededMax)
             If (bNotTheRightmostColumn) Then
 
-                If (each_list.Contains(eachColumn)) Then Throw New Exception("self-referential")
-                eachColumn.ListOfColumnsToBumpRight = each_list
+                If (each_list.Contains(each_Column)) Then Throw New Exception("self-referential")
+                each_Column.ListOfColumnsToBumpRight = each_list
 
             End If ''End of "If (bNotTheRightmostColumn) Then"
 
             ''Prepare for next iteration.
             prior_list = each_list
-            listColumnsRight.Add(eachColumn)
+            listColumnsRight.Add(each_Column)
 
         Next intNeededIndex
 
@@ -431,20 +432,20 @@ Public Class RSCFieldSpreadsheet
         Dim each_columnWidthEtc As ciBadgeDesigner.ClassColumnWidthAndData
         For intNeededIndex = 1 To intNeededMax
 
-            eachColumn = mod_array_RSCColumns(intNeededIndex)
+            each_Column = mod_array_RSCColumns(intNeededIndex)
             ''Moved below. 3/16/2022 td''eachColumn.Load_FieldsFromCache(Me.ElementsCache_Deprecated)
             ''Added 3/15/2022 td
             ''  This may not be needed.  See eachColumn.ColumnWidthAndData.
-            eachColumn.ColumnDataCache = Me.ColumnDataCache ''Added 3/15/2022 td
+            each_Column.ColumnDataCache = Me.ColumnDataCache ''Added 3/15/2022 td
             ''Added 3/15/2022 td
             ''  Tell the column what width, field & field values to display.
             each_columnWidthEtc = Me.ColumnDataCache.ListOfColumns(intNeededIndex - 1)
-            eachColumn.ColumnWidthAndData = each_columnWidthEtc
+            each_Column.ColumnWidthAndData = each_columnWidthEtc
 
             ''
             ''Major call!
             ''
-            eachColumn.Load_FieldsFromCache(Me.ElementsCache_Deprecated)
+            each_Column.Load_FieldsFromCache(Me.ElementsCache_Deprecated)
 
         Next intNeededIndex
 
@@ -456,9 +457,9 @@ Public Class RSCFieldSpreadsheet
         For intNeededIndex = 2 To intNeededMax
 
             priorColumn = mod_array_RSCColumns(intNeededIndex - 1)
-            eachColumn = mod_array_RSCColumns(intNeededIndex)
+            each_Column = mod_array_RSCColumns(intNeededIndex)
 
-            eachColumn.Left = (priorColumn.Left + priorColumn.Width + 4)
+            each_Column.Left = (priorColumn.Left + priorColumn.Width + 4)
 
         Next intNeededIndex
 
@@ -522,6 +523,7 @@ Public Class RSCFieldSpreadsheet
             ''Added 3/16/2022 td
             ''  Redundant, assigned in Step 4 below.
             ''Oops....3/18/2022 ''eachColumn.ColumnWidthAndData = Me.ColumnDataCache.ListOfColumns(-1 + intNeededMax)
+            newRSCColumn_output.ElementsCache_Deprecated = Me.ElementsCache_Deprecated
             newRSCColumn_output.ColumnWidthAndData = Me.ColumnDataCache.ListOfColumns(-1 + p_intIndexCurrent)
 
         End With ''END OF "With newRSCColumn_output"
@@ -689,7 +691,8 @@ Public Class RSCFieldSpreadsheet
         ''Next intIndex
 
         intNewLength = (1 + mod_array_RSCColumns.Length)
-        ReDim Preserve mod_array_RSCColumns(intNewLength)  ''---(1 + mod_array_RSCColumns.Length)
+        ''3/21/2022 td''ReDim Preserve mod_array_RSCColumns(intNewLength)  ''---(1 + mod_array_RSCColumns.Length)
+        ReDim Preserve mod_array_RSCColumns(intNewLength - 1)  ''Modified 3/21/2022 td
         If (mod_array_RSCColumns.Length <> intNewLength) Then Throw New Exception
 
         For intIndex As Integer = (-1 + intNewLength) To (1 + par_intColumnIndex) Step -1

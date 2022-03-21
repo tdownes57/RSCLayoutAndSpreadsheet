@@ -16,7 +16,9 @@ Public Class RSCFieldColumn
     ''
     ''Added 2/21/2022 thomas downes  
     ''
+    Public ElementsCache_Deprecated As ciBadgeCachePersonality.ClassElementsCache_Deprecated ''Added 3/10/2022 td
     Public ColumnDataCache As CacheRSCFieldColumnWidthsEtc ''Added 3/15/2022 td
+
     Private mod_listOfColumnsToBumpRight As List(Of RSCFieldColumn)
     Private mod_columnWidthAndData As ClassColumnWidthAndData ''Added 3/18/2022  
     Private mod_arrayOfData_Undo As String() ''Added 3/20/2022 thomas d.
@@ -209,6 +211,7 @@ Public Class RSCFieldColumn
         ''
         If (par_cache Is Nothing) Then Throw New ArgumentException("Exception Occured")
 
+        RscSelectCIBField1.ElementsCache_Deprecated = Me.ElementsCache_Deprecated
         RscSelectCIBField1.Load_FieldsFromCache(par_cache)
 
         ''

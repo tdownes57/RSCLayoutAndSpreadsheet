@@ -73,6 +73,9 @@ Public Class DialogListBothTypeFields
         ''Dec. 13 2021''LoadCustomFields_All(Me.ListOfFields_Custom)
         ''Jan5 2022 td''LoadCustomFields_All(Me.ListOfFields_Custom, Me.JustOneField_Custom)
 
+        ''Added 3/21/2022 Thomas DOWNES 
+        FlowLayoutPanel1.Controls.Clear()
+
         ''
         ''Step 1 of 2. Load Standard Fields.  
         ''
@@ -98,24 +101,33 @@ Public Class DialogListBothTypeFields
         ''Step 2 of 2. Load Custom Fields.  
         ''
         If (Me.ListOfFields_Custom Is Nothing) Then
+
+            Dim objListOfJustOneField As New HashSet(Of ClassFieldCustomized)
+
             If (Me.JustOneField_Custom Is Nothing) Then
+                ''
+                ''There are not any custom fields to load.  Hence, do nothing.--3/21/2022
+                ''
+                ''----Added 3/21/2022 thomas downes
+                ''----LoadCustomFields_All(objListOfJustOneField)
+
+            Else
 
                 ''Added 1/5/2022 thomas d.
-                Dim objListOfJustOneField As New HashSet(Of ClassFieldCustomized)
                 objListOfJustOneField.Add(Me.JustOneField_Custom)
-                LoadCustomFields_All(objListOfJustOneField, Me.JustOneField_Custom)
+                LoadFields_All_Custom(objListOfJustOneField, Me.JustOneField_Custom)
 
-            End If ''End of "If (Me.JustOneField_Custom Is Nothing) Then"
+            End If ''End of "If (Me.JustOneField_Custom Is Nothing) Then ... Else..."
 
         Else
             ''Dec14 2021 td''LoadCustomFields_All()
-            LoadCustomFields_All(Me.ListOfFields_Custom, Me.JustOneField_Custom)
+            LoadFields_All_Custom(Me.ListOfFields_Custom, Me.JustOneField_Custom)
 
         End If ''End of "If (Me.ListOfFields_Custom Is Nothing) Then ... Else ..."
 
     End Sub ''End of Handles Form_Load
 
-    Private Sub LoadCustomFields_All(par_listFields As HashSet(Of ClassFieldCustomized),
+    Private Sub LoadFields_All_Custom(par_listFields As HashSet(Of ClassFieldCustomized),
                                      Optional par_JustOneField As ClassFieldCustomized = Nothing)
         ''---Dec13 2021---Private Sub LoadCustomFields_All(par_listFields As HashSet(Of ClassFieldCustomized))
         ''
@@ -130,7 +142,7 @@ Public Class DialogListBothTypeFields
         ''Dec.5 2021''    list_local = ClassFieldCustomized.ListOfFields_Students
         ''Dec.5 2021''End If ''end of "If (list_local Is Nothing) Then"
 
-        FlowLayoutPanel1.Controls.Clear()
+        ''Moved to calling procedure.March 21 2022''FlowLayoutPanel1.Controls.Clear()
         Dim boolProceed As Boolean ''Added 12/13/2021 td 
 
         For Each each_customField As ClassFieldCustomized In par_listFields ''ClassCustomField.ListOfFields_Students
@@ -154,21 +166,37 @@ Public Class DialogListBothTypeFields
         ''
         FlowLayoutPanel1.Controls.Add(New CtlAddCustomField())
 
-    End Sub ''End of "Private Sub LoadFields()"  
+    End Sub ''End of "Private Sub LoadFields_All_Custom()"  
 
     Private Sub LoadCustomField_Each(par_customfld As ClassFieldCustomized)
         ''
         ''Added 7/ 21/2019
         ''
-        Dim userControl As New CtlConfigFldCustom
+        Dim userControl As CtlConfigFldCustom
+        Dim userControl_Irrelevant As CtlConfigFldCustRelevancy ''Added 3/21/2022
+        Dim boolIrrelevant As Boolean ''Added 3/21/2022 td
+
+        ''Added 3/21/2022 td
+        boolIrrelevant = (Not par_customfld.IsRelevantToPersonality)
 
         ''7/21/2019 td''FlowLayoutPanel1.Controls.Add(New UserCustomFieldCtl())
 
-        ''9/17/2019 td''userControl.Load_CustomControl(CType(par_customfld, ICIBFieldStandardOrCustom))
-        userControl.Load_CustomControl(par_customfld)
-        userControl.Visible = True
+        If (boolIrrelevant) Then ''Added 3/21/2022 td
+            ''Added 3/21/2022 td
+            userControl_Irrelevant = New CtlConfigFldCustRelevancy
+            userControl_Irrelevant.Load_CustomControl(par_customfld)
+            userControl_Irrelevant.Visible = True
+            FlowLayoutPanel1.Controls.Add(userControl_Irrelevant)
 
-        FlowLayoutPanel1.Controls.Add(userControl)
+        Else
+            userControl = New CtlConfigFldCustom
+            ''9/17/2019 td''userControl.Load_CustomControl(CType(par_customfld, ICIBFieldStandardOrCustom))
+            userControl.Load_CustomControl(par_customfld)
+            userControl.Visible = True
+            FlowLayoutPanel1.Controls.Add(userControl)
+
+        End If ''Endof "If (boolIrrelevant) Then //// else ///"
+
 
     End Sub ''End of "Private Sub LoadCustomField_Each(par_customfld As ClassCustomField)"
 
@@ -260,7 +288,7 @@ Public Class DialogListBothTypeFields
             list_local = ClassFieldStandard.ListOfFields_Students
         End If ''end of "If (list_local Is Nothing) Then"
 
-        FlowLayoutPanel1.Controls.Clear()
+        ''Moved to calling procedure.March 21 2022''FlowLayoutPanel1.Controls.Clear()
 
         For Each each_standardField As ClassFieldStandard In list_local
 
@@ -286,7 +314,7 @@ Public Class DialogListBothTypeFields
         ''Add 7/21/2019
         ''
         ''8/22/2019 td''FlowLayoutPanel1.Controls.Add(New CtlAddCustomField())
-        FlowLayoutPanel1.Controls.Add(New CtlAddStandardField())
+        ''---FlowLayoutPanel1.Controls.Add(New CtlAddStandardField())
 
     End Sub ''End of "Private Sub LoadFields()"  
 
@@ -312,7 +340,8 @@ Public Class DialogListBothTypeFields
         FlowLayoutPanel1.Controls.Clear()
 
         ''Dec.6, 2021''LoadCustomFields_All(Me.ListOfFields)
-        LoadCustomFields_All(Me.ListOfFields_Custom)
+        LoadFields_All_Custom(Me.ListOfFields_Custom)
+        LoadFields_All_Standard(Me.ListOfFields_Standard)
 
     End Sub
 
@@ -341,7 +370,7 @@ Public Class DialogListBothTypeFields
         If (dia_result = DialogResult.Yes) Then ''LoadCustomFields_All()
             FlowLayoutPanel1.Controls.Clear()
             ''Major call!!
-            LoadCustomFields_All(Me.ListOfFields_Custom)
+            LoadFields_All_Custom(Me.ListOfFields_Custom)
         End If ''End of "If (dia_result = DialogResult.Yes) Then"
 
     End Sub

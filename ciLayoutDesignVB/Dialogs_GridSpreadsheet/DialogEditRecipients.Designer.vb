@@ -75,6 +75,7 @@ Partial Class DialogEditRecipients
         '
         'LinkLabelOpenFieldsDialog
         '
+        Me.LinkLabelOpenFieldsDialog.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.LinkLabelOpenFieldsDialog.AutoSize = True
         Me.LinkLabelOpenFieldsDialog.Location = New System.Drawing.Point(9, 544)
         Me.LinkLabelOpenFieldsDialog.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
@@ -101,8 +102,11 @@ Partial Class DialogEditRecipients
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.RscFieldSpreadsheet1.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.RscFieldSpreadsheet1.BackColorOfColumns = System.Drawing.Color.AntiqueWhite
+        Me.RscFieldSpreadsheet1.ElementInfo_Base = Nothing
         Me.RscFieldSpreadsheet1.Location = New System.Drawing.Point(9, 71)
-        Me.RscFieldSpreadsheet1.Margin = New System.Windows.Forms.Padding(2)
+        Me.RscFieldSpreadsheet1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.RscFieldSpreadsheet1.MoveabilityEventsForGroupCtls = Nothing
+        Me.RscFieldSpreadsheet1.MoveabilityEventsForSingleMove = Nothing
         Me.RscFieldSpreadsheet1.Name = "RscFieldSpreadsheet1"
         Me.RscFieldSpreadsheet1.Size = New System.Drawing.Size(875, 451)
         Me.RscFieldSpreadsheet1.TabIndex = 19
@@ -123,6 +127,7 @@ Partial Class DialogEditRecipients
         '
         'LinkLabelSaveAsRecipients
         '
+        Me.LinkLabelSaveAsRecipients.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.LinkLabelSaveAsRecipients.AutoSize = True
         Me.LinkLabelSaveAsRecipients.Location = New System.Drawing.Point(264, 561)
         Me.LinkLabelSaveAsRecipients.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
@@ -134,6 +139,7 @@ Partial Class DialogEditRecipients
         '
         'LinkLabelRefreshFromRecipients
         '
+        Me.LinkLabelRefreshFromRecipients.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.LinkLabelRefreshFromRecipients.AutoSize = True
         Me.LinkLabelRefreshFromRecipients.Location = New System.Drawing.Point(274, 576)
         Me.LinkLabelRefreshFromRecipients.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
@@ -145,6 +151,7 @@ Partial Class DialogEditRecipients
         '
         'LinkLabelSaveColumnData
         '
+        Me.LinkLabelSaveColumnData.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.LinkLabelSaveColumnData.AutoSize = True
         Me.LinkLabelSaveColumnData.Location = New System.Drawing.Point(255, 544)
         Me.LinkLabelSaveColumnData.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)

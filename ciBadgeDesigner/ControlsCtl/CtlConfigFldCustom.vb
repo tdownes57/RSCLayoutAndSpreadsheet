@@ -325,13 +325,16 @@ ExitHandler:
                 checkDisplayOnBadge.Enabled = True ''False
             End If ''End of "If (boolPriorValueChecked And dresult = DialogResult.OK) Then"
 
-        ElseIf (checkboxSender.Checked) Then
+        ElseIf (checkboxSender.Checked = False) Then
+            ''March21 2022 t1h1o1m1a1s1d1''ElseIf (checkboxSender.Checked) Then
             ''
             ''Added 12/6/2021 td 
-            ''
-            MessageBox.Show("This field is removed from any operations in the current Personality Configuration (both Badge & Edit).",
-                            "Not Relevant",
-                            MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
+            ''  Let the user know that the Relevant checkbox is now unchecked. 
+            MessageBoxTD.Show_Statement("You have unchecked Relevant.  The field will be removed from use.",
+                 "(I.e. This field is removed from any operations in the " &
+                 "current Personality Configuration (both Badge & Edit).)")
+            ''                 "Not Relevant",
+            ''                  MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
 
         End If ''End of "If (CType(sender, CheckBox).AutoCheck) Then .... Else ...."
 
@@ -346,6 +349,10 @@ ExitHandler:
     Private Sub checkDisplayForEdits_CheckedChanged(sender As Object, e As EventArgs) Handles checkDisplayForEdits.CheckedChanged
 
         If (mod_model IsNot Nothing) Then mod_model.DateEdited = Now ''Added 12/5/2021 td 
+
+    End Sub
+
+    Private Sub checkRelevantToPersonality_CheckedChanged_1(sender As Object, e As EventArgs) Handles checkRelevantToPersonality.CheckedChanged
 
     End Sub
 End Class

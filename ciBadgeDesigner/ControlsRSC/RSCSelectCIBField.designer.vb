@@ -29,12 +29,12 @@ Partial Class RSCSelectCIBField
         '
         'LabelHeader
         '
-        Me.LabelHeader.AutoSize = True
+        Me.LabelHeader.BackColor = System.Drawing.Color.Transparent
         Me.LabelHeader.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelHeader.Location = New System.Drawing.Point(2, 0)
         Me.LabelHeader.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LabelHeader.Name = "LabelHeader"
-        Me.LabelHeader.Size = New System.Drawing.Size(110, 20)
+        Me.LabelHeader.Size = New System.Drawing.Size(178, 18)
         Me.LabelHeader.TabIndex = 4
         Me.LabelHeader.Text = "Relevant Field"
         '

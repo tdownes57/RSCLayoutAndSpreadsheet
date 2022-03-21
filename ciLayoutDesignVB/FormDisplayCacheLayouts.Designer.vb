@@ -30,7 +30,6 @@ Partial Class FormDisplayCacheLayouts
         Me.ButtonOpenNewBlank = New System.Windows.Forms.Button()
         Me.LabelPriorLayoutsHdr = New System.Windows.Forms.Label()
         Me.FlowLayoutPanelPriorLays = New System.Windows.Forms.FlowLayoutPanel()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.ButtonSelectLayoutFromDrive = New System.Windows.Forms.Button()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.LabelWarningMessage = New System.Windows.Forms.Label()
@@ -43,14 +42,15 @@ Partial Class FormDisplayCacheLayouts
         Me.ButtonBrowseForImageFile = New System.Windows.Forms.Button()
         Me.textboxPathToCacheXmlFile = New System.Windows.Forms.TextBox()
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
-        Me.picturePreviewFront = New System.Windows.Forms.PictureBox()
-        Me.picturePreviewBackside = New System.Windows.Forms.PictureBox()
         Me.buttonCustomers = New System.Windows.Forms.Button()
         Me.ButtonRecipients = New System.Windows.Forms.Button()
         Me.TimerRecipients = New System.Windows.Forms.Timer(Me.components)
+        Me.picturePreviewFront = New System.Windows.Forms.PictureBox()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.picturePreviewBackside = New System.Windows.Forms.PictureBox()
         Me.FlowLayoutPanelPriorLays.SuspendLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picturePreviewFront, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picturePreviewBackside, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -91,7 +91,7 @@ Partial Class FormDisplayCacheLayouts
         '
         Me.ButtonOpenCurrentLayout.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ButtonOpenCurrentLayout.Location = New System.Drawing.Point(20, 110)
-        Me.ButtonOpenCurrentLayout.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.ButtonOpenCurrentLayout.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonOpenCurrentLayout.Name = "ButtonOpenCurrentLayout"
         Me.ButtonOpenCurrentLayout.Size = New System.Drawing.Size(128, 72)
         Me.ButtonOpenCurrentLayout.TabIndex = 80
@@ -102,7 +102,7 @@ Partial Class FormDisplayCacheLayouts
         '
         Me.ButtonOpenNewBlank.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ButtonOpenNewBlank.Location = New System.Drawing.Point(20, 32)
-        Me.ButtonOpenNewBlank.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.ButtonOpenNewBlank.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonOpenNewBlank.Name = "ButtonOpenNewBlank"
         Me.ButtonOpenNewBlank.Size = New System.Drawing.Size(128, 72)
         Me.ButtonOpenNewBlank.TabIndex = 82
@@ -129,30 +129,18 @@ Partial Class FormDisplayCacheLayouts
         Me.FlowLayoutPanelPriorLays.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.FlowLayoutPanelPriorLays.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.FlowLayoutPanelPriorLays.Controls.Add(Me.PictureBox1)
-        Me.FlowLayoutPanelPriorLays.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
         Me.FlowLayoutPanelPriorLays.Location = New System.Drawing.Point(616, 33)
-        Me.FlowLayoutPanelPriorLays.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.FlowLayoutPanelPriorLays.Margin = New System.Windows.Forms.Padding(2)
         Me.FlowLayoutPanelPriorLays.Name = "FlowLayoutPanelPriorLays"
         Me.FlowLayoutPanelPriorLays.Size = New System.Drawing.Size(429, 370)
         Me.FlowLayoutPanelPriorLays.TabIndex = 84
-        Me.FlowLayoutPanelPriorLays.WrapContents = False
-        '
-        'PictureBox1
-        '
-        Me.PictureBox1.BackColor = System.Drawing.Color.White
-        Me.PictureBox1.Location = New System.Drawing.Point(2, 2)
-        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(239, 167)
-        Me.PictureBox1.TabIndex = 76
-        Me.PictureBox1.TabStop = False
         '
         'ButtonSelectLayoutFromDrive
         '
         Me.ButtonSelectLayoutFromDrive.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonSelectLayoutFromDrive.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ButtonSelectLayoutFromDrive.Location = New System.Drawing.Point(731, 423)
-        Me.ButtonSelectLayoutFromDrive.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.ButtonSelectLayoutFromDrive.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonSelectLayoutFromDrive.Name = "ButtonSelectLayoutFromDrive"
         Me.ButtonSelectLayoutFromDrive.Size = New System.Drawing.Size(171, 36)
         Me.ButtonSelectLayoutFromDrive.TabIndex = 85
@@ -181,7 +169,7 @@ Partial Class FormDisplayCacheLayouts
         Me.ButtonUserCancels.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonUserCancels.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ButtonUserCancels.Location = New System.Drawing.Point(917, 418)
-        Me.ButtonUserCancels.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.ButtonUserCancels.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonUserCancels.Name = "ButtonUserCancels"
         Me.ButtonUserCancels.Size = New System.Drawing.Size(128, 34)
         Me.ButtonUserCancels.TabIndex = 87
@@ -194,7 +182,7 @@ Partial Class FormDisplayCacheLayouts
         Me.ButtonExitApp.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonExitApp.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ButtonExitApp.Location = New System.Drawing.Point(917, 408)
-        Me.ButtonExitApp.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.ButtonExitApp.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonExitApp.Name = "ButtonExitApp"
         Me.ButtonExitApp.Size = New System.Drawing.Size(128, 51)
         Me.ButtonExitApp.TabIndex = 88
@@ -206,7 +194,7 @@ Partial Class FormDisplayCacheLayouts
         Me.ButtonOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonOK.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ButtonOK.Location = New System.Drawing.Point(619, 423)
-        Me.ButtonOK.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.ButtonOK.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonOK.Name = "ButtonOK"
         Me.ButtonOK.Size = New System.Drawing.Size(95, 37)
         Me.ButtonOK.TabIndex = 89
@@ -217,7 +205,7 @@ Partial Class FormDisplayCacheLayouts
         '
         Me.ButtonFindLayout.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ButtonFindLayout.Location = New System.Drawing.Point(6, 415)
-        Me.ButtonFindLayout.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.ButtonFindLayout.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonFindLayout.Name = "ButtonFindLayout"
         Me.ButtonFindLayout.Size = New System.Drawing.Size(142, 40)
         Me.ButtonFindLayout.TabIndex = 90
@@ -252,7 +240,7 @@ Partial Class FormDisplayCacheLayouts
         Me.ButtonBrowseForImageFile.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.ButtonBrowseForImageFile.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ButtonBrowseForImageFile.Location = New System.Drawing.Point(304, 427)
-        Me.ButtonBrowseForImageFile.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.ButtonBrowseForImageFile.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonBrowseForImageFile.Name = "ButtonBrowseForImageFile"
         Me.ButtonBrowseForImageFile.Size = New System.Drawing.Size(236, 32)
         Me.ButtonBrowseForImageFile.TabIndex = 94
@@ -264,7 +252,7 @@ Partial Class FormDisplayCacheLayouts
         Me.textboxPathToCacheXmlFile.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.textboxPathToCacheXmlFile.Location = New System.Drawing.Point(169, 405)
-        Me.textboxPathToCacheXmlFile.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.textboxPathToCacheXmlFile.Margin = New System.Windows.Forms.Padding(2)
         Me.textboxPathToCacheXmlFile.Name = "textboxPathToCacheXmlFile"
         Me.textboxPathToCacheXmlFile.Size = New System.Drawing.Size(546, 20)
         Me.textboxPathToCacheXmlFile.TabIndex = 93
@@ -281,35 +269,11 @@ Partial Class FormDisplayCacheLayouts
         Me.LinkLabel1.TabStop = True
         Me.LinkLabel1.Text = "Clear path from box"
         '
-        'picturePreviewFront
-        '
-        Me.picturePreviewFront.BackColor = System.Drawing.Color.White
-        Me.picturePreviewFront.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.picturePreviewFront.Location = New System.Drawing.Point(161, 95)
-        Me.picturePreviewFront.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.picturePreviewFront.Name = "picturePreviewFront"
-        Me.picturePreviewFront.Size = New System.Drawing.Size(350, 225)
-        Me.picturePreviewFront.TabIndex = 91
-        Me.picturePreviewFront.TabStop = False
-        '
-        'picturePreviewBackside
-        '
-        Me.picturePreviewBackside.BackColor = System.Drawing.Color.White
-        Me.picturePreviewBackside.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.No_backside_exists
-        Me.picturePreviewBackside.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.picturePreviewBackside.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.picturePreviewBackside.Location = New System.Drawing.Point(234, 155)
-        Me.picturePreviewBackside.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.picturePreviewBackside.Name = "picturePreviewBackside"
-        Me.picturePreviewBackside.Size = New System.Drawing.Size(350, 225)
-        Me.picturePreviewBackside.TabIndex = 92
-        Me.picturePreviewBackside.TabStop = False
-        '
         'buttonCustomers
         '
         Me.buttonCustomers.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.buttonCustomers.Location = New System.Drawing.Point(20, 360)
-        Me.buttonCustomers.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.buttonCustomers.Margin = New System.Windows.Forms.Padding(2)
         Me.buttonCustomers.Name = "buttonCustomers"
         Me.buttonCustomers.Size = New System.Drawing.Size(128, 34)
         Me.buttonCustomers.TabIndex = 98
@@ -320,7 +284,7 @@ Partial Class FormDisplayCacheLayouts
         '
         Me.ButtonRecipients.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ButtonRecipients.Location = New System.Drawing.Point(20, 283)
-        Me.ButtonRecipients.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.ButtonRecipients.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonRecipients.Name = "ButtonRecipients"
         Me.ButtonRecipients.Size = New System.Drawing.Size(128, 72)
         Me.ButtonRecipients.TabIndex = 99
@@ -331,6 +295,40 @@ Partial Class FormDisplayCacheLayouts
         '
         Me.TimerRecipients.Enabled = True
         Me.TimerRecipients.Interval = 1000
+        '
+        'picturePreviewFront
+        '
+        Me.picturePreviewFront.BackColor = System.Drawing.Color.White
+        Me.picturePreviewFront.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.picturePreviewFront.Location = New System.Drawing.Point(161, 95)
+        Me.picturePreviewFront.Margin = New System.Windows.Forms.Padding(2)
+        Me.picturePreviewFront.Name = "picturePreviewFront"
+        Me.picturePreviewFront.Size = New System.Drawing.Size(350, 225)
+        Me.picturePreviewFront.TabIndex = 91
+        Me.picturePreviewFront.TabStop = False
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.BackColor = System.Drawing.Color.White
+        Me.PictureBox1.Location = New System.Drawing.Point(2, 2)
+        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(2)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(239, 167)
+        Me.PictureBox1.TabIndex = 76
+        Me.PictureBox1.TabStop = False
+        '
+        'picturePreviewBackside
+        '
+        Me.picturePreviewBackside.BackColor = System.Drawing.Color.White
+        Me.picturePreviewBackside.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.No_backside_exists
+        Me.picturePreviewBackside.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.picturePreviewBackside.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.picturePreviewBackside.Location = New System.Drawing.Point(234, 155)
+        Me.picturePreviewBackside.Margin = New System.Windows.Forms.Padding(2)
+        Me.picturePreviewBackside.Name = "picturePreviewBackside"
+        Me.picturePreviewBackside.Size = New System.Drawing.Size(350, 225)
+        Me.picturePreviewBackside.TabIndex = 92
+        Me.picturePreviewBackside.TabStop = False
         '
         'FormDisplayCacheLayouts
         '
@@ -359,12 +357,12 @@ Partial Class FormDisplayCacheLayouts
         Me.Controls.Add(Me.LabelHeader3)
         Me.Controls.Add(Me.LabelCaptionPathToTheFileXML)
         Me.Controls.Add(Me.picturePreviewBackside)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "FormDisplayCacheLayouts"
         Me.Text = "FormDisplayCacheLayouts"
         Me.FlowLayoutPanelPriorLays.ResumeLayout(False)
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picturePreviewFront, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picturePreviewBackside, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()

@@ -115,6 +115,12 @@
     <Compile Include="ControlsCtl\CtlConfigFldCustom.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="ControlsCtl\CtlConfigFldCustRelevancy.Designer.vb">
+      <DependentUpon>CtlConfigFldCustRelevancy.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ControlsCtl\CtlConfigFldCustRelevancy.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ControlsCtl\CtlConfigFldStandard.designer.vb">
       <DependentUpon>CtlConfigFldStandard.vb</DependentUpon>
     </Compile>
@@ -235,10 +241,10 @@
     <Compile Include="ControlsCtl\CtlPropertyUpDownvb.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ControlsCtl\CtlRelevantOrNot.Designer.vb">
-      <DependentUpon>CtlRelevantOrNot.vb</DependentUpon>
+    <Compile Include="ControlsCtl\CtlConfigFldStdRelevancy.Designer.vb">
+      <DependentUpon>CtlConfigFldStdRelevancy.vb</DependentUpon>
     </Compile>
-    <Compile Include="ControlsCtl\CtlRelevantOrNot.vb">
+    <Compile Include="ControlsCtl\CtlConfigFldStdRelevancy.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ControlsRSC\ClassColumnWidthAndData.vb" />
@@ -408,6 +414,9 @@
     <EmbeddedResource Include="ControlsCtl\CtlConfigFldCustom.resx">
       <DependentUpon>CtlConfigFldCustom.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ControlsCtl\CtlConfigFldCustRelevancy.resx">
+      <DependentUpon>CtlConfigFldCustRelevancy.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ControlsCtl\CtlConfigFldStandard.resx">
       <DependentUpon>CtlConfigFldStandard.vb</DependentUpon>
     </EmbeddedResource>
@@ -462,8 +471,8 @@
     <EmbeddedResource Include="ControlsCtl\CtlPropertyUpDownvb.resx">
       <DependentUpon>CtlPropertyUpDownvb.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ControlsCtl\CtlRelevantOrNot.resx">
-      <DependentUpon>CtlRelevantOrNot.vb</DependentUpon>
+    <EmbeddedResource Include="ControlsCtl\CtlConfigFldStdRelevancy.resx">
+      <DependentUpon>CtlConfigFldStdRelevancy.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ControlsRSC\RSCFieldColumn.resx">
       <DependentUpon>RSCFieldColumn.vb</DependentUpon>

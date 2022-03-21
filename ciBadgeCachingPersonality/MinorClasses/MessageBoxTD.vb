@@ -11,11 +11,15 @@ Public Class MessageBoxTD
     ''Added Feb6 2022
     Private Const _vbCrLf_Deux As String = (vbCrLf & vbCrLf)
 
-    Public Shared Sub Show_Statement(pstrStatement As String)
+    Public Shared Sub Show_Statement(pstrStatement_Line1 As String,
+                                     Optional pstrStatement_Line2 As String = "")
         ''
         ''Added 12/28/2021 thomas downes
         ''
-        MessageBox.Show(pstrStatement, "MessageBoxTD-Statement", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        ''March21 2022''MessageBox.Show(pstrStatement, "MessageBoxTD-Statement", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        MessageBox.Show(pstrStatement_Line1 & _vbCrLf_Deux &
+                        pstrStatement_Line2, "MessageBoxTD-Statement",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information)
 
     End Sub
 
