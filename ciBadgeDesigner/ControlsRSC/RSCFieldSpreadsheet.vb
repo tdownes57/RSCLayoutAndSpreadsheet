@@ -19,6 +19,9 @@ Public Class RSCFieldSpreadsheet
     Private mod_eventsSingleton As New GroupMoveEvents_Singleton(Me.Designer, False, True) ''Added 1/4/2022 td  
     Private mod_colorOfColumnsBackColor As System.Drawing.Color = Drawing.Color.AntiqueWhite ''Added 3/13/2022 thomas downes
     Private mod_array_RSCColumns As RSCFieldColumn() ''Added 3/14/2022 td
+    Private Const mc_ColumnWidthDefault As Integer = 72 ''Added 3/20/2022 td
+    Private Const mc_ColumnMarginGap As Integer = 3 ''---4 ''Added 3/20/2022 td
+
 
     Public Property BackColorOfColumns() As System.Drawing.Color ''Added 3/13/2022 td
         Get
@@ -163,7 +166,7 @@ Public Class RSCFieldSpreadsheet
         ''
         Dim intNeededIndex As Integer = 1
         Dim eachColumn As RSCFieldColumn
-        Dim priorColumn As RSCFieldColumn
+        Dim priorColumn As RSCFieldColumn = Nothing
         Dim intCurrentPropertyLeft As Integer = 0
         Dim intNextPropertyLeft As Integer = 0
         Dim intNeededMax As Integer = 4
@@ -183,32 +186,61 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Step 2b of 5.  Generate columns (type: RSCFieldColumn).
         ''
+        Const c_bUseEncapsulation As Boolean = True ''Added 3/20/2022 td
+
         For intNeededIndex = 1 To intNeededMax
 
-            each_field = New ciBadgeFields.ClassFieldAny()
-            ''each_field.FieldEnumValue = ciBadgeInterfaces.EnumCIBFields.Undetermined
-            each_field.FieldEnumValue = Me.ColumnDataCache.ListOfColumns(-1 + intNeededMax).CIBField
-            eachColumn = GenerateRSCFieldColumn(each_field, intNeededIndex)
-            intCurrentPropertyLeft = intNextPropertyLeft
-            eachColumn.Left = intCurrentPropertyLeft
-            eachColumn.Visible = True
-            ''Prepare for next iteration. 
-            intNextPropertyLeft = (eachColumn.Left + eachColumn.Width + 3)
-            Me.Controls.Add(eachColumn)
-            ''Added 3/12/2022 thomas downes 
-            mod_array_RSCColumns(intNeededIndex) = eachColumn
-            ''Added 3/16/2022 td
-            ''  Redundant, assigned in Step 4 below.
-            ''Oops....3/18/2022 ''eachColumn.ColumnWidthAndData = Me.ColumnDataCache.ListOfColumns(-1 + intNeededMax)
-            eachColumn.ColumnWidthAndData = Me.ColumnDataCache.ListOfColumns(-1 + intNeededIndex)
+            If (c_bUseEncapsulation) Then
+                ''
+                ''Encapsulated 3/20/2022 td
+                ''
+                intCurrentPropertyLeft = intNextPropertyLeft ''Check prior iteration.
+                ''
+                ''Major call!!
+                ''
+                eachColumn = GenerateRSCFieldColumn_General(intNeededIndex,
+                                                            intCurrentPropertyLeft,
+                                                            intNextPropertyLeft,
+                                                            priorColumn)
+                ''Prepare for next iteration.
+                priorColumn = eachColumn
 
-            ''Test for uniqueness. 
-            Dim bUnexpectedMatch As Boolean
-            If (priorColumn IsNot Nothing) Then
-                bUnexpectedMatch = (eachColumn.ColumnWidthAndData Is
-                    priorColumn.ColumnWidthAndData)
-                If (bUnexpectedMatch) Then Throw New Exception
-            End If ''ENd of "If (priorColumn IsNot Nothing) Then"
+            Else
+                ''
+                ''Original unencapsulated code. 
+                ''
+                each_field = New ciBadgeFields.ClassFieldAny()
+                ''each_field.FieldEnumValue = ciBadgeInterfaces.EnumCIBFields.Undetermined
+                each_field.FieldEnumValue = Me.ColumnDataCache.ListOfColumns(-1 + intNeededMax).CIBField
+                ''3/20/2022 td''eachColumn = GenerateRSCFieldColumn(each_field, intNeededIndex)
+                eachColumn = GenerateRSCFieldColumn_Special(each_field, intNeededIndex)
+                intCurrentPropertyLeft = intNextPropertyLeft ''Check prior iteration.
+                eachColumn.Left = intCurrentPropertyLeft
+                eachColumn.Visible = True
+                ''Prepare for next iteration. 
+                ''----intNextPropertyLeft = (eachColumn.Left + eachColumn.Width + 3)
+                intNextPropertyLeft = (eachColumn.Left + eachColumn.Width + mc_ColumnMarginGap)
+                Me.Controls.Add(eachColumn)
+                ''Added 3/12/2022 thomas downes 
+                mod_array_RSCColumns(intNeededIndex) = eachColumn
+                ''Added 3/16/2022 td
+                ''  Redundant, assigned in Step 4 below.
+                ''Oops....3/18/2022 ''eachColumn.ColumnWidthAndData = Me.ColumnDataCache.ListOfColumns(-1 + intNeededMax)
+                eachColumn.ColumnWidthAndData = Me.ColumnDataCache.ListOfColumns(-1 + intNeededIndex)
+
+                ''Test for uniqueness. 
+                Dim bUnexpectedMatch As Boolean
+                If (priorColumn IsNot Nothing) Then
+                    bUnexpectedMatch = (eachColumn.ColumnWidthAndData Is
+                        priorColumn.ColumnWidthAndData)
+                    If (bUnexpectedMatch) Then Throw New Exception
+                End If ''ENd of "If (priorColumn IsNot Nothing) Then"
+
+            End If ''End of "If (c_bUseEncapsulation) Then .... Else ...."
+
+            ''
+            ''Prepare for next iteration. 
+            ''
             priorColumn = eachColumn
 
         Next intNeededIndex
@@ -300,7 +332,65 @@ Public Class RSCFieldSpreadsheet
     End Sub ''end of sub "Public Sub Load_FieldsFromCache(par_cache As ClassElementsCache_Deprecated)"
 
 
-    Private Function GenerateRSCFieldColumn(par_objField As ClassFieldAny, par_intFieldIndex As Integer) As RSCFieldColumn
+    Private Function GenerateRSCFieldColumn_General(p_intIndexCurrent As Integer,
+                                                    p_intCurrentPropertyLeft As Integer,
+                                                    ByRef pref_intNextPropertyLeft As Integer,
+                                                    p_priorColumn As RSCFieldColumn) As RSCFieldColumn
+        ''
+        '' Added 3/20/2022 td
+        ''
+        Dim newRSCColumn_output As RSCFieldColumn
+        Dim fieldForNewColumn As ciBadgeFields.ClassFieldAny
+
+        fieldForNewColumn = New ciBadgeFields.ClassFieldAny()
+        ''each_field.FieldEnumValue = ciBadgeInterfaces.EnumCIBFields.Undetermined
+        fieldForNewColumn.FieldEnumValue = Me.ColumnDataCache.ListOfColumns(-1 + p_intIndexCurrent).CIBField
+
+        ''
+        ''Major call, call the other, "..._Special" version of this column-generating function (suffixed "..._General"). 
+        ''
+        newRSCColumn_output = GenerateRSCFieldColumn_Special(fieldForNewColumn, p_intIndexCurrent)
+        ''----intCurrentPropertyLeft = intNextPropertyLeft ''Check prior iteration.
+
+        ''
+        ''Add additional properties. 
+        ''
+        With newRSCColumn_output
+            newRSCColumn_output.Left = p_intCurrentPropertyLeft
+            newRSCColumn_output.Width = mc_ColumnWidthDefault ''Added 3/20/2022 td
+            newRSCColumn_output.Visible = True
+            ''Prepare for next iteration. 
+            pref_intNextPropertyLeft = (newRSCColumn_output.Left + newRSCColumn_output.Width + 3)
+            Me.Controls.Add(newRSCColumn_output)
+
+            ''Added 3/12/2022 thomas downes 
+            mod_array_RSCColumns(p_intIndexCurrent) = newRSCColumn_output
+            ''Added 3/16/2022 td
+            ''  Redundant, assigned in Step 4 below.
+            ''Oops....3/18/2022 ''eachColumn.ColumnWidthAndData = Me.ColumnDataCache.ListOfColumns(-1 + intNeededMax)
+            newRSCColumn_output.ColumnWidthAndData = Me.ColumnDataCache.ListOfColumns(-1 + p_intIndexCurrent)
+
+        End With ''END OF "With newRSCColumn_output"
+
+        ''Test for uniqueness. 
+        Dim bUnexpectedPriorPropertyMatch As Boolean
+
+        If (p_priorColumn IsNot Nothing) Then
+            ''
+            ''Check that the prior output's property-object differs from the current property-object. 
+            ''
+            bUnexpectedPriorPropertyMatch = (newRSCColumn_output.ColumnWidthAndData Is
+                                             p_priorColumn.ColumnWidthAndData)
+            If (bUnexpectedPriorPropertyMatch) Then Throw New Exception
+
+        End If ''ENd of "If (p_priorColumn IsNot Nothing) Then"
+
+        Return newRSCColumn_output
+
+    End Function ''End of "Private Function GenerateRSCFieldColumn_Special"
+
+
+    Private Function GenerateRSCFieldColumn_Special(par_objField As ClassFieldAny, par_intFieldIndex As Integer) As RSCFieldColumn
         ''
         ''Added 3/8/2022 td
         ''
@@ -318,14 +408,15 @@ Public Class RSCFieldSpreadsheet
                                                          "RSCFieldColumn" & CStr(par_intFieldIndex),
                                                           Me.Designer, c_boolProportional,
                                                           mod_ctlLasttouched, Me.Designer,
-                                                          mod_eventsSingleton)
+                                                          mod_eventsSingleton,
+                                                          Me, par_intFieldIndex)
 
         ''Added 3/13/2022 thomas downes
         objNewColumn.BackColor = mod_colorOfColumnsBackColor
 
         Return objNewColumn
 
-    End Function ''End of "Private Function GenerateRSCFieldColumn() As RSCFieldColumn"
+    End Function ''End of "Private Function GenerateRSCFieldColumn_Special() As RSCFieldColumn"
 
 
     Private Sub RemoveRSCColumnsFromDesignTime()
@@ -407,7 +498,82 @@ Public Class RSCFieldSpreadsheet
     End Sub ''End of "Public Sub SaveDataColumnByColumn()"
 
 
+    Public Sub InsertNewColumnByIndex(par_intColumnIndex As Integer)
+        ''
+        ''Added 3/20/2022 thomas downes 
+        ''
+        Dim objCacheOfData As CacheRSCFieldColumnWidthsEtc
+        Dim newRSCColumn As RSCFieldColumn
+        Dim intNewLength As Integer
+        Dim intNewColumnPropertyLeft As Integer
+        Dim intNewColumnWidth As Integer
 
+        ''
+        ''Step 0 of 5.  Record the Left position which the new column will occupy. 
+        ''
+        intNewColumnPropertyLeft = mod_array_RSCColumns(par_intColumnIndex).Left
+        intNewColumnWidth = mc_ColumnWidthDefault
+
+        ''
+        ''Step 1 of 5.  Make room in the array which tracks the columns.  
+        ''
+
+        ''----objCacheOfData =
+        ''For intIndex As Integer = 1 To Me.ColumnDataCache.ListOfColumns.Count
+        ''    Dim eachColumn As RSCFieldColumn ''Added 3/18/2022 thomas downes
+        ''    eachColumn = mod_array_RSCColumns(intIndex)
+        ''Next intIndex
+
+        intNewLength = (1 + mod_array_RSCColumns.Length)
+        ReDim Preserve mod_array_RSCColumns(intNewLength)  ''---(1 + mod_array_RSCColumns.Length)
+        If (mod_array_RSCColumns.Length <> intNewLength) Then Throw New Exception
+
+        For intIndex As Integer = (-1 + intNewLength) To (1 + par_intColumnIndex) Step -1
+            ''Move the object references to the right (new-higher index). 
+            ''
+            ''The qualification of "Step -1" makes the index run from a large value to a smaller value.
+            ''
+            mod_array_RSCColumns(intIndex) = mod_array_RSCColumns(-1 + intIndex)
+
+            ''
+            ''Move the columns to the right, to make room for the new column. 
+            ''
+            mod_array_RSCColumns(intIndex).Left += (intNewColumnWidth + mc_ColumnMarginGap)
+
+        Next intIndex
+
+        ''
+        ''Step 2 of 5.  Make a new column.   
+        ''
+        ''
+        Dim intNextColumnPropertyLeft As Integer
+        Dim objColumnAdjacent As RSCFieldColumn = Nothing
+
+        If (par_intColumnIndex > 0) Then
+            objColumnAdjacent = mod_array_RSCColumns(-1 + par_intColumnIndex)
+        Else
+            objColumnAdjacent = mod_array_RSCColumns(+1 + par_intColumnIndex)
+        End If
+
+        newRSCColumn = GenerateRSCFieldColumn_General(par_intColumnIndex,
+                                                    intNewColumnPropertyLeft,
+                                                    intNextColumnPropertyLeft,
+                                                    objColumnAdjacent)
+
+        ''
+        ''Step 3 of 5. 
+        ''
+
+        ''
+        ''Step 4 of 5. 
+        ''
+
+        ''
+        ''Step 5 of 5. 
+        ''
+
+
+    End Sub ''End of "Public Sub InsertNewColumnByIndex(Me.ColumnIndex)"
 
 
 End Class

@@ -56,7 +56,9 @@ Public Class RSCFieldColumn
                                       par_bProportionSizing As Boolean,
                                       par_iControlLastTouched As ILastControlTouched,
                                      par_iRecordLastControl As IRecordElementLastTouched,
-                                     par_oMoveEventsForGroupedCtls As GroupMoveEvents_Singleton) As RSCFieldColumn
+                                     par_oMoveEventsForGroupedCtls As GroupMoveEvents_Singleton,
+                                     par_oSpreadsheet As RSCFieldSpreadsheet,
+                                     par_intColumnIndex As Integer) As RSCFieldColumn
         ''
         ''Added 3/8/2022 & 1/04/2022 td
         ''
@@ -140,6 +142,11 @@ Public Class RSCFieldColumn
             .EventsForMoveability_Single = Nothing
             ''Added 1/24/2022 thomas downes
             .LayoutFunctions = .Designer
+
+            ''Added 3/20/2022 thomas dRRoRRwRRnRReRRsRR
+            .ParentSpreadsheet = par_oSpreadsheet
+            .ColumnIndex = par_intColumnIndex
+
         End With ''End of "With objOperationsPortrait"
 
         ''Added 3/13/2022 thomas downes

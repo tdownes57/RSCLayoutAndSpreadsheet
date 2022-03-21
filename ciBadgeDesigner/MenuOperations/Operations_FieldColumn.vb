@@ -41,6 +41,12 @@ Public Class Operations_FieldColumn
     ''Added 2/05/2022 td
     Public Property MouseclickX As Integer Implements IRightClickMouseInfo.MouseclickX
     Public Property MouseclickY As Integer Implements IRightClickMouseInfo.MouseclickY
+    Public Property ParentSpreadsheet As RSCFieldSpreadsheet ''Added 3/20/2022 td
+    Public Property ColumnIndex As Integer ''Added 3/20/2022 td
+
+
+    ''Public Sub Insert_New_Column_To_The_Left_FC2003(sender As Object, e As EventArgs)
+    ''End Sub
 
 
     Public Sub Clear_Data_From_Column_FC2001(sender As Object, e As EventArgs)
@@ -110,6 +116,32 @@ Public Class Operations_FieldColumn
         End If ''End of "If (boolConfirmed) Then"
 
     End Sub ''Public Sub Undo_of_Clearing_Data_From_Column_FC2002
+
+
+    Public Sub Insert_New_Column_To_The_Left_FC2003(sender As Object, e As EventArgs)
+        ''
+        ''Added 3/20/2022 thomas downes
+        ''
+        Dim rscParentSpreadsheet As RSCFieldSpreadsheet
+        rscParentSpreadsheet = Me.ParentSpreadsheet
+        rscParentSpreadsheet.InsertNewColumnByIndex(Me.ColumnIndex)
+
+
+    End Sub ''End of "Public Sub Insert_New_Column_To_The_Left_FC2003"
+
+
+    Public Sub Insert_New_Column_To_The_Right_FC2004(sender As Object, e As EventArgs)
+        ''
+        ''Added 3/20/2022 thomas downes
+        ''
+        Dim rscParentSpreadsheet As RSCFieldSpreadsheet
+        rscParentSpreadsheet = Me.ParentSpreadsheet
+        rscParentSpreadsheet.InsertNewColumnByIndex(Me.ColumnIndex + 1)
+
+    End Sub ''End of "Public Sub Insert_New_Column_To_The_Right_FC2003"
+
+
+
 
 
 End Class
