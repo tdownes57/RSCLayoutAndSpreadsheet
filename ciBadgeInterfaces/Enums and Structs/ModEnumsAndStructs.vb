@@ -35,7 +35,7 @@ Public Module ModEnumsAndStructs
 
         Undetermined
         Field
-        FieldColumn ''Added 3/18/2022 for ControlsRSC/RSCSpreadsheet
+        ''Moved below. 3/20/2022 td''FieldColumn ''Added 3/18/2022 for ControlsRSC/RSCSpreadsheet
         ''   & ControlsRSC/RSCFieldColumn.  ----3/18/2022 td
 
         Portrait
@@ -55,6 +55,11 @@ Public Module ModEnumsAndStructs
 
         __Background ''Added 1/15/2022 td
         __Desktop ''Added 1/15/2022 td
+
+        ''Added 3/20/2022 for ControlsRSC/RSCSpreadsheet
+        ''   & ControlsRSC/RSCFieldColumn.  ----3/20/2022 td
+        FieldSheetColumn ''Added 3/20/2022 td
+        FieldSheetSpreadsheet ''Added 3/20/2022 td
 
     End Enum
 

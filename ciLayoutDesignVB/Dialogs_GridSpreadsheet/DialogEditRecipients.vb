@@ -130,14 +130,22 @@ ExitHandler:
         End If ''End of "If (IO.File.Exists(strPathToXML)) Then... Else..."
 
         With RscFieldSpreadsheet1
+            .ParentForm_DesignerDialog = Me ''Added 3/20/2022 td
+            .ParentForm = Me ''Added 3/20/2022 td
             .Designer = mod_designer
             .ColumnDataCache = mod_cacheColumnWidthsAndData ''Added 3/16/2022 td
             .LoadRuntimeColumns_AfterClearingDesign(mod_designer)
             .Load_Form()
             ''.Invalidate()
             ''.Refresh()
+            .RemoveMoveability() ''Added 3/20/2022 td
 
-        End With
+        End With ''End of "With RscFieldSpreadsheet1"
+
+        ''Added 3/20/2022 td
+        If (mod_cacheColumnWidthsAndData.FormSize.Width > ButtonOK.Width) Then
+            Me.Size = mod_cacheColumnWidthsAndData.FormSize
+        End If
 
     End Sub
 

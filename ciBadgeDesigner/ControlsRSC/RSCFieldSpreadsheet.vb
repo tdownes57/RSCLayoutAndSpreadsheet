@@ -1,10 +1,12 @@
 ﻿''
 ''Added 2/21/2022 td
 ''
+Imports __RSCWindowsControlLibrary ''Added 3/20/2022 Thomas Downes
 Imports ciBadgeDesigner
 Imports ciBadgeFields ''Added 3/10/2.0.2.2. thomas downes
 Imports ciBadgeInterfaces ''Added 3/11/2022 t__homas d__ownes
 Imports ciBadgeCachePersonality ''Added 3/14/2.0.2.2. t.//downes
+Imports System.Drawing ''Added 3/20/2022 thomas downes
 
 Public Class RSCFieldSpreadsheet
     ''
@@ -21,6 +23,147 @@ Public Class RSCFieldSpreadsheet
     Private mod_array_RSCColumns As RSCFieldColumn() ''Added 3/14/2022 td
     Private Const mc_ColumnWidthDefault As Integer = 72 ''Added 3/20/2022 td
     Private Const mc_ColumnMarginGap As Integer = 3 ''---4 ''Added 3/20/2022 td
+
+
+    Public Shared Function GetRSCSpreadsheet(par_parametersGetElementControl As ClassGetElementControlParams,
+                                       par_formParent As Form,
+                                      par_nameOfControl As String,
+                                      par_iLayoutFun As ILayoutFunctions,
+                                      par_bProportionSizing As Boolean,
+                                      par_iControlLastTouched As ILastControlTouched,
+                                     par_iRecordLastControl As IRecordElementLastTouched,
+                                     par_oMoveEventsForGroupedCtls As GroupMoveEvents_Singleton,
+                                     par_oSpreadsheet As RSCFieldSpreadsheet,
+                                     par_intColumnIndex As Integer) As RSCFieldSpreadsheet
+        ''
+        ''Added 3/20/2022 td
+        ''
+        ''Unused. Jan17 2022''Const c_enumElemType As EnumElementType = EnumElementType.Portrait
+        Const bAddFunctionalitySooner As Boolean = False
+        Const bAddFunctionalityLater As Boolean = True
+
+        Dim typeOps As Type
+        Dim objOperations As Object ''Added 12/29/2021 td 
+        Dim objOperationsFieldSheet As Operations_FieldSpreadsheet ''Modified 3/13/2022 td 
+        Dim sizeElementPortrait As New Size() ''Added 1/26/2022 td
+
+        ''Added 1/5/2022 td
+        ''If (par_field Is Nothing) Then Throw New Exception("The Field is missing!")
+
+        ''Instantiate the Operations Object. 
+        ''
+        objOperationsFieldSheet = New Operations_FieldSpreadsheet() ''Added 3/20/2022 td
+        typeOps = objOperationsFieldSheet.GetType()
+        objOperations = objOperationsFieldSheet
+
+        If (objOperations Is Nothing) Then
+            ''Added 12/29/2021
+            Throw New Exception("Ops is Nothing, so I guess Element Type is Undetermined.")
+        End If ''end of "If (objOperations Is Nothing) Then"
+
+        ''Added 12/2/2022 td
+        Dim enumElementType_Enum As EnumElementType = EnumElementType.FieldSheetSpreadsheet
+
+        ''Create the control. 
+        Dim CtlFieldSheet1 = New RSCFieldSpreadsheet(par_formParent,
+                                        par_iLayoutFun,
+                                        par_parametersGetElementControl.iRefreshPreview,
+                                        sizeElementPortrait,
+                                        par_bProportionSizing,
+                                        typeOps, objOperations,
+                                        bAddFunctionalitySooner,
+                                        bAddFunctionalitySooner,
+                                        par_iControlLastTouched,
+                                        par_oMoveEventsForGroupedCtls)
+        ''Jan2 2022 ''                       ''Jan2 2022 ''par_iSaveToModel, typeOps,
+
+        With CtlFieldSheet1
+            .Name = par_nameOfControl
+            ''1/11/2022''If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEvents, par_iLayoutFun)
+            ''03/20/2022 ''If (bAddFunctionalityLater) Then .AddMoveability(par_iLayoutFun,
+            ''                               par_oMoveEventsForGroupedCtls, Nothing)
+            If (bAddFunctionalityLater) Then .AddClickability()
+
+            .RightclickMouseInfo = objOperationsFieldSheet ''Added 3/5/2022 td
+
+        End With ''eNd of "With CtlPortrait1"
+
+        ''
+        ''Specify the current element to the Operations object. 
+        ''
+        With objOperationsFieldSheet
+
+            .CtlCurrentControl = CtlFieldSheet1
+            .CtlCurrentElement = CtlFieldSheet1
+            ''.Designer = par_oMoveEventsForGroupedCtls.
+            .Designer = par_parametersGetElementControl.DesignerClass
+            ''.ElementInfo_Base = Nothing ''3/9/2022 t*d*''par_elementPortrait
+            .ElementsCacheManager = par_parametersGetElementControl.ElementsCacheManager
+            ''Feb3 2022 td''.Element_Type = Enum_ElementType.StaticGraphic
+            .Element_Type = Enum_ElementType.FieldSheetSpreadsheet ''Added 3/20/2022 thomas d.
+            .EventsForMoveability_Group = Nothing ''par_oMoveEventsForGroupedCtls
+            .EventsForMoveability_Single = Nothing
+            ''Added 1/24/2022 thomas downes
+            .LayoutFunctions = .Designer
+
+            ''Added 3/20/2022 thomas dRRoRRwRRnRReRRsRR
+            ''.ParentSpreadsheet = par_oSpreadsheet
+            ''.ColumnIndex = par_intColumnIndex
+
+        End With ''End of "With objOperationsPortrait"
+
+        ''
+        ''Return output value.
+        ''
+        Return CtlFieldSheet1
+
+    End Function ''end of "Public Shared Function GetRSCSpreadsheet() As RSCFieldSpreadsheet"
+
+
+    Public Sub New()
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+    End Sub
+
+
+    Public Sub New(par_oParentForm As Form,
+                   par_iLayoutFun As ILayoutFunctions,
+                   par_iRefreshPreview As IRefreshCardPreview,
+                   par_iSizeDesired As Size,
+                  pboolResizeProportionally As Boolean,
+                   par_operationsType As Type,
+                   par_operationsAny As Object,
+                   pboolAddMoveability As Boolean,
+                   pboolAddClickability As Boolean,
+                   par_iLastTouched As ILastControlTouched,
+                   par_oMoveEvents As GroupMoveEvents_Singleton)
+        ''
+        ''Added 3/20/2022 td
+        ''
+        MyBase.New(EnumElementType.FieldSheetSpreadsheet, par_oParentForm,
+                   pboolResizeProportionally,
+                        par_iLayoutFun, par_iRefreshPreview, par_iSizeDesired,
+                        par_operationsType, par_operationsAny,
+                        pboolAddMoveability, pboolAddClickability,
+                        par_iLastTouched, par_oMoveEvents,
+                        CSng(100 / 150))
+        ''          Jan2 2022'' par_iSaveToModel, par_iLayoutFun,
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        ''
+        ''The spreadsheet doesn't need any moveability. ---3/20/2022 thomas 
+        ''
+        MyBase.RemoveMoveability() ''Added 3/20/2022 td
+
+        ''Encapsulated 12/30/2021 td
+        ''New_RSCFieldSheet(par_field, par_iLayoutFun)
+
+    End Sub
 
 
     Public Property BackColorOfColumns() As System.Drawing.Color ''Added 3/13/2022 td
@@ -319,6 +462,17 @@ Public Class RSCFieldSpreadsheet
 
         Next intNeededIndex
 
+        ''
+        ''Step 6 of 6.  Resize the form itself. 
+        ''
+        If (Me.ColumnDataCache.FormSize.Width > mc_ColumnWidthDefault) Then
+            ''
+            ''Resize the form based on the save form size.
+            ''
+            Me.ParentForm_DesignerDialog.Size = Me.ColumnDataCache.FormSize
+
+        End If ''end of ""If Me.ColumnDataCache.FormSize.Width > 100 Then""
+
     End Sub ''End of Private Sub RSCFieldSpreadsheet_Load
 
 
@@ -478,6 +632,11 @@ Public Class RSCFieldSpreadsheet
         Next intIndex
 
         ''
+        ''Resize the form based on the save form size.---3/20/2022
+        ''
+        Me.ColumnDataCache.FormSize = Me.ParentForm_DesignerDialog.Size
+
+        ''
         ''FINAL STEP
         ''
         Dim strPathToXML_Opened As String = Me.ColumnDataCache.PathToXml_Opened
@@ -489,6 +648,11 @@ Public Class RSCFieldSpreadsheet
 
         Me.ColumnDataCache.SaveToXML(strPathToXML_Opened)
         Me.ColumnDataCache.PathToXml_Saved = strPathToXML_Opened
+
+        ''
+        ''Resize the form based on the save form size.---3/20/2022
+        ''
+        ''Moved up.3/20/22 ''Me.ColumnDataCache.FormSize = Me.ParentForm_DesignerDialog.Size
 
         ''Added 3/18/2022 td
         If (pboolOpenXML) Then

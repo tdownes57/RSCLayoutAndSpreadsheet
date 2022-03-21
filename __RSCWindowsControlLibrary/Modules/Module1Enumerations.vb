@@ -15,6 +15,11 @@
         __Background ''Added 1/15/2022 td
         __Desktop ''Added 1/15/2022 td
 
+        ''Added 3/20/2022 for ControlsRSC/RSCSpreadsheet
+        ''   & ControlsRSC/RSCFieldColumn.  ----3/20/2022 td
+        FieldSheetColumn ''Added 3/20/2022 td
+        FieldSheetSpreadsheet ''Added 3/20/2022 td
+
     End Enum
 
 End Module

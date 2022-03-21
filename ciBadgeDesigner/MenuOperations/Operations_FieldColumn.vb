@@ -23,7 +23,7 @@ Public Class Operations_FieldColumn
     ''
     ''Added 1/04/2022 td
     ''
-    Public Property Element_Type As Enum_ElementType = Enum_ElementType.FieldColumn ''Added 1/21/2022 td
+    Public Property Element_Type As Enum_ElementType = Enum_ElementType.FieldSheetColumn ''Added 1/21/2022 td
 
     ''Added 1/25/2022 td 
     Public Property Designer As ciBadgeDesigner.ClassDesigner ''Added 1/25/2022 td

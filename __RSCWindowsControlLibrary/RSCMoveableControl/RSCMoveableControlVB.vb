@@ -169,6 +169,7 @@ Public Class RSCMoveableControlVB
     Public LayoutFunctions As ciBadgeInterfaces.ILayoutFunctions ''Added 8/9/2019 td 
 
     Private mod_boolResizeProportionally As Boolean
+    Private mod_boolRemoveMoveability As Boolean = False ''Added 3/20/2022 td
 
     ''Added 1/10/2022 td 
     Public TempResizeInfo_W As Integer = 0 ''Intial resizing width.  (Before any adjustment is made.)
@@ -186,6 +187,7 @@ Public Class RSCMoveableControlVB
     Protected mod_bHandleMouseMoveEvents_BaseClass As Boolean = True ''Added 1/7/2022
     Protected mod_bHandleMouseMoveEvents_ChildClass As Boolean = False ''Added 1/7/2022
     Protected mod_bHandleMouseMoveEvents_RemoveAll As Boolean = True ''Added 1/7/2022
+
 
     ''Depending on the above Boolean, one of the following will be instantiated. 
     ''Let's rename. 12/28/2021 td''Private mod_movingInAGroup As ControlMove_Group_NonStatic = Nothing
@@ -423,6 +425,8 @@ Public Class RSCMoveableControlVB
 
         Dim boolInstantiated As Boolean ''Added 12/28/2021 td
 
+        mod_boolRemoveMoveability = False ''Added 3/20/2022 td
+
         ''Jan11 2022 td''boolInstantiated = (mod_moveInAGroup IsNot Nothing) OrElse (mod_moveResizeKeepRatio IsNot Nothing)
         boolInstantiated = (mod_eventsForSingleMove IsNot Nothing)
 
@@ -513,6 +517,8 @@ Public Class RSCMoveableControlVB
         ''
         mod_iMoveOrResizeFunctionality.AddMoveability_ViaLabel(par_Label)
 
+        mod_boolRemoveMoveability = False ''Added 3/20/2022 td 
+
     End Sub
 
 
@@ -520,7 +526,7 @@ Public Class RSCMoveableControlVB
         ''
         ''Added 1/4/2022 td
         ''
-
+        mod_boolRemoveMoveability = False ''Added 3/20/2022 td
 
     End Sub
 
@@ -530,6 +536,8 @@ Public Class RSCMoveableControlVB
         ''
         ''Added 12/28/2021 td
         ''
+        mod_boolRemoveMoveability = True ''Added 3/20/2022 thomas d. 
+
         If (mod_iMoveOrResizeFunctionality Is Nothing) Then Return ''Added 1/4/2022 td
 
         If (Not pboolUseEasyWay And pbBlackholeMethed) Then
@@ -619,6 +627,8 @@ Public Class RSCMoveableControlVB
         ''Added 12/28/2021 td
         ''
         Dim bAddSizing As Boolean = True ''True, because we want sizing.''Dec 29 2021 td
+
+        mod_boolRemoveMoveability = False ''Added 3/20/2022 td
 
         ''----DIFFICULT & CONFUSING-------
         ''     We need to negate the Boolean variable (Not bAddSizing).
@@ -1545,6 +1555,9 @@ Public Class RSCMoveableControlVB
             ''
             ''It's a Left-Hand click. (Think, "Click-and-Drag".)
             ''
+            ''Added 3/20/2022 td
+            If (mod_boolRemoveMoveability) Then Exit Sub
+
             ''Let the module know that a MouseMove took place. 
             mod_iMoveOrResizeFunctionality.StartMovingOrResizing(CType(sender, Control), par_e)
 
@@ -1562,7 +1575,11 @@ Public Class RSCMoveableControlVB
         Dim boolButtonIsOkay As Boolean ''Added 1/7/2022 td
 
         ''Added 3/02/2022 thomas downes
-        If (mod_iMoveOrResizeFunctionality Is Nothing) Then
+        ''3/20/22 ''If (mod_iMoveOrResizeFunctionality Is Nothing) Then
+        If (mod_boolRemoveMoveability) Then
+            Return ''Added 3/20/2022 td
+
+        ElseIf (mod_iMoveOrResizeFunctionality Is Nothing) Then
             Throw New Exception("Moving object is nothing.")
         End If
 
@@ -1610,6 +1627,9 @@ Public Class RSCMoveableControlVB
             ''
             ''It's a Left-Button click.    (i.e. a Click-And-Drag action by user)
             ''
+            ''Added 3/20/2022 td
+            If (mod_boolRemoveMoveability) Then Exit Sub
+
             ''Let the module know that a MouseUp took place. 
             ''Jan14 2022 td''mod_iMoveOrResizeFunctionality.StopDragOrResizing(CType(par_sender, Control), Me)
 
