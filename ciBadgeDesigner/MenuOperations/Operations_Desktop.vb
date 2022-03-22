@@ -31,6 +31,25 @@ Public Class Operations_Desktop
     Private mod_dialogFile As New System.Windows.Forms.OpenFileDialog ''Added 1/19/2022 td
 
 
+    Public Sub Context_Menu_GD9121(sender As Object, e As EventArgs)
+        ''---Dec15 2021--Public Sub How_Context_Menus_Are_Generated_EE1001
+        ''
+        ''Added 3/22/2023 thomas downes  
+        ''
+        ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
+        ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
+        ''
+        ''
+        Dim strPathToNotesFolder As String
+        Dim strPathToNotesFileTXT As String
+
+        strPathToNotesFolder = DiskFolders.PathToFolder_Notes()
+        strPathToNotesFileTXT = DiskFilesVB.PathToNotes_HowContextMenusAreGenerated()
+        System.Diagnostics.Process.Start(strPathToNotesFileTXT)
+
+    End Sub ''end of "Public Sub Context_Menu_GD9121(sender As Object, e As EventArgs)"
+
+
     Public Sub Create_New_StaticText_Control_V3_GD2001(sender As Object, e As MouseEventArgs)
         ''
         ''Added 1/16/2022 thomas downes  

@@ -71,6 +71,25 @@ Public Class Operations_FieldV4
     ''   --- Private Sub CreateVisibleButtonMaster(par_strText As String,
     ''
 
+    Public Sub Context_Menu_EE9121(sender As Object, e As EventArgs)
+        ''---Dec15 2021--Public Sub How_Context_Menus_Are_Generated_EE1001
+        ''
+        ''Added 3/22/2023 thomas downes  
+        ''
+        ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
+        ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
+        ''
+        ''
+        Dim strPathToNotesFolder As String
+        Dim strPathToNotesFileTXT As String
+
+        strPathToNotesFolder = DiskFolders.PathToFolder_Notes()
+        strPathToNotesFileTXT = DiskFilesVB.PathToNotes_HowContextMenusAreGenerated()
+        System.Diagnostics.Process.Start(strPathToNotesFileTXT)
+
+    End Sub ''end of "Public Sub Context_Menu_EE9121(sender As Object, e As EventArgs)"
+
+
     Public Sub Open_Field_Of_Element_EE1011(sender As Object, e As EventArgs)
         ''Private Sub OpenDialog_Field(sender As Object, e As EventArgs)
         ''

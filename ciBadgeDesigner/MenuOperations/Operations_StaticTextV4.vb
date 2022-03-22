@@ -43,6 +43,25 @@ Public Class Operations_StaticTextV4
     ''1/18/2022 td''Public Overrides Property CtlCurrentElement As CtlGraphicStaticText
 
 
+    Public Sub Context_Menu_EST9121(sender As Object, e As EventArgs)
+        ''---Dec15 2021--Public Sub How_Context_Menus_Are_Generated_EE1001
+        ''
+        ''Added 3/22/2023 thomas downes  
+        ''
+        ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
+        ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
+        ''
+        ''
+        Dim strPathToNotesFolder As String
+        Dim strPathToNotesFileTXT As String
+
+        strPathToNotesFolder = DiskFolders.PathToFolder_Notes()
+        strPathToNotesFileTXT = DiskFilesVB.PathToNotes_HowContextMenusAreGenerated()
+        System.Diagnostics.Process.Start(strPathToNotesFileTXT)
+
+    End Sub ''end of "Public Sub Context_Menu_EST9121(sender As Object, e As EventArgs)"
+
+
     Public Sub Revise_Text_Of_Element_EST1050(sender As Object, e As MouseEventArgs)
         ''
         ''Added 2/2/2022 & 1/18/2022

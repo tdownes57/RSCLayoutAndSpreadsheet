@@ -52,7 +52,26 @@ Public Class Operations_StaticGraphic
     ''End Property
 
 
-    Public Sub Rotate90_Degrees_EE1001(sender As Object, e As EventArgs)
+    Public Sub Context_Menu_SG9121(sender As Object, e As EventArgs)
+        ''---Dec15 2021--Public Sub How_Context_Menus_Are_Generated_EE1001
+        ''
+        ''Added 3/22/2023 thomas downes  
+        ''
+        ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
+        ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
+        ''
+        ''
+        Dim strPathToNotesFolder As String
+        Dim strPathToNotesFileTXT As String
+
+        strPathToNotesFolder = DiskFolders.PathToFolder_Notes()
+        strPathToNotesFileTXT = DiskFilesVB.PathToNotes_HowContextMenusAreGenerated()
+        System.Diagnostics.Process.Start(strPathToNotesFileTXT)
+
+    End Sub ''end of "Public Sub Context_Menu_SG9121(sender As Object, e As EventArgs)"
+
+
+    Public Sub Rotate90_Degrees_SG1001(sender As Object, e As EventArgs)
         ''
         ''Copy-pasted 1/24/2022 thomas downes
         ''Added 8/17/2019 thomas downes
@@ -104,10 +123,10 @@ Public Class Operations_StaticGraphic
         ''9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()
         Me.LayoutFunctions.AutoPreview_IfChecked()
 
-    End Sub ''eNd of "Public Sub Rotate90_Degrees_EE1001(sender As Object, e As EventArgs)"
+    End Sub ''eNd of "Public Sub Rotate90_Degrees_SG1001(sender As Object, e As EventArgs)"
 
 
-    Public Sub Select_graphics_image__EG1001(sender As Object, e As EventArgs)
+    Public Sub Select_graphics_image__SG1001(sender As Object, e As EventArgs)
         ''--- Public Sub Select_background_image(sender As Object, e As EventArgs)
         ''
         ''Copied 12/13/2021 from the following:
@@ -132,7 +151,7 @@ Public Class Operations_StaticGraphic
     End Sub ''End of "Public Sub Change_Background_Image()"
 
 
-    Public Sub Move_Graphic_To_Other_Side_Of_Badge_EG1001(sender As Object, e As EventArgs)
+    Public Sub Move_Graphic_To_Other_Side_Of_Badge_SG1001(sender As Object, e As EventArgs)
         ''
         ''Added 12/13/2021 thomas d. 
         ''
