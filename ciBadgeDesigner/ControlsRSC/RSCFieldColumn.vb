@@ -50,6 +50,34 @@ Public Class RSCFieldColumn
     End Property
 
 
+    Public Shared Function GetRSCFieldColumn(par_designer As ClassDesigner,
+                                             par_field As ClassFieldAny,
+                                       par_formParent As Form,
+                                      par_nameOfControl As String,
+                                      par_bProportionSizing As Boolean,
+                                     par_oSpreadsheet As RSCFieldSpreadsheet,
+                                     par_intColumnIndex As Integer) As RSCFieldColumn
+        ''
+        ''Added 3/21/2022 td
+        ''
+        Dim objParametersGetElementCtl As ClassGetElementControlParams
+        objParametersGetElementCtl = par_designer.GetParametersToGetElementControl()
+
+        Return GetRSCFieldColumn(objParametersGetElementCtl,
+                                 par_field,
+                                 par_formParent,
+                                 par_nameOfControl,
+                                   CType(par_designer, ILayoutFunctions),
+                                   par_bProportionSizing,
+                                    CType(par_designer.ControlLastTouched, ILastControlTouched),
+                                    CType(par_designer, IRecordElementLastTouched),
+                                    par_designer.GroupMoveEvents,
+                                     par_oSpreadsheet,
+                                     par_intColumnIndex)
+
+    End Function ''End of "Public Shared Function GetRSCFieldColumn"
+
+
     Public Shared Function GetRSCFieldColumn(par_parametersGetElementControl As ClassGetElementControlParams,
                                            par_field As ClassFieldAny,
                                        par_formParent As Form,

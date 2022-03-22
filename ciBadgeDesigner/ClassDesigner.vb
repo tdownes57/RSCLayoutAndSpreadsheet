@@ -182,6 +182,21 @@ Public Class ClassDesigner
     Private vbCrLf_Deux As String = (vbCrLf & vbCrLf)
     Private mod_bMessageRedux1 As Boolean ''Added 12/02/2021 thomas downes
 
+    Public ReadOnly Property GroupMoveEvents() As GroupMoveEvents_Singleton
+        Get
+            ''Added 3/21/2022 thomas d.
+            Return mod_oGroupMoveEvents
+        End Get
+    End Property
+
+    Public ReadOnly Property ControlLastTouched() As ClassLastControlTouched
+        Get
+            ''Added 3/21/2022 thomas d.
+            Return mod_ctlLasttouched
+        End Get
+    End Property
+
+
     Public Function ShowingTheBackside() As Boolean
         ''Added 12/10/2021 td
         Return (EnumSideOfCard_Current = EnumWhichSideOfCard.EnumBackside)

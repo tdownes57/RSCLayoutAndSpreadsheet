@@ -114,6 +114,9 @@ ExitHandler:
             Throw New Exception
         End If ''ENd of "If (mod_designer Is Nothing) Then"
 
+        ''
+        ''Step 1 of 4.  Get the cache object which stores settings for the spreadsheet. 
+        ''
         ''Added 3/16/2022 
         Dim strPathToXML As String = DiskFilesVB.PathToFile_XML_RSCFieldSpreadsheet()
 
@@ -129,6 +132,33 @@ ExitHandler:
 
         End If ''End of "If (IO.File.Exists(strPathToXML)) Then... Else..."
 
+        ''
+        ''Step 2 of 4.  Clear out the design-time spreadsheet control. 
+        ''
+        Dim intSaveLeft As Integer = RscFieldSpreadsheet1.Left
+        Dim intSaveTop As Integer = RscFieldSpreadsheet1.Top
+        Dim intSaveWidth As Integer = RscFieldSpreadsheet1.Width
+        Dim intSaveHeight As Integer = RscFieldSpreadsheet1.Height
+
+        RscFieldSpreadsheet1.Visible = False
+        Me.Controls.Remove(RscFieldSpreadsheet1)
+
+        ''
+        ''Step 3 of 4.  Create the run-time spreadsheet control.
+        ''
+        RscFieldSpreadsheet1 = RSCFieldSpreadsheet.GetRSCSpreadsheet(mod_designer, Me, "RscFieldSpreadsheet1")
+        With RscFieldSpreadsheet1
+            .Left = intSaveLeft
+            .Top = intSaveTop
+            .Width = intSaveWidth
+            .Height = intSaveHeight
+            .Visible = True
+        End With
+        Me.Controls.Add(RscFieldSpreadsheet1)
+
+        ''
+        ''Step 3 of 3.  Populate properties & run loading procedures. 
+        ''
         With RscFieldSpreadsheet1
             .ParentForm_DesignerDialog = Me ''Added 3/20/2022 td
             .ParentForm = Me ''Added 3/20/2022 td

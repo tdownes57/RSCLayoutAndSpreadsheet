@@ -25,6 +25,23 @@ Public Class RSCFieldSpreadsheet
     Private Const mc_ColumnMarginGap As Integer = 3 ''---4 ''Added 3/20/2022 td
 
 
+    Public Shared Function GetRSCSpreadsheet(par_designer As ClassDesigner,
+                                       par_formParent As Form,
+                                      par_nameOfControl As String) As RSCFieldSpreadsheet
+        ''
+        ''Added 3/21/2022 td
+        ''
+        Dim objParametersGetElementCtl As ClassGetElementControlParams
+        objParametersGetElementCtl = par_designer.GetParametersToGetElementControl()
+
+        Return GetRSCSpreadsheet(objParametersGetElementCtl, par_formParent, par_nameOfControl,
+                                    par_designer, False,
+                                    CType(par_designer.ControlLastTouched, ILastControlTouched),
+                                    CType(par_designer, IRecordElementLastTouched),
+                                    par_designer.GroupMoveEvents)
+
+    End Function ''End of "Public Shared Function GetRSCSpreadsheet"
+
     Public Shared Function GetRSCSpreadsheet(par_parametersGetElementControl As ClassGetElementControlParams,
                                        par_formParent As Form,
                                       par_nameOfControl As String,
@@ -32,9 +49,8 @@ Public Class RSCFieldSpreadsheet
                                       par_bProportionSizing As Boolean,
                                       par_iControlLastTouched As ILastControlTouched,
                                      par_iRecordLastControl As IRecordElementLastTouched,
-                                     par_oMoveEventsForGroupedCtls As GroupMoveEvents_Singleton,
-                                     par_oSpreadsheet As RSCFieldSpreadsheet,
-                                     par_intColumnIndex As Integer) As RSCFieldSpreadsheet
+                                     par_oMoveEventsForGroupedCtls As GroupMoveEvents_Singleton) _
+                                     As RSCFieldSpreadsheet
         ''
         ''Added 3/20/2022 td
         ''
