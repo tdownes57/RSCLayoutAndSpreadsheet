@@ -255,6 +255,12 @@
     <Compile Include="ControlsRSC\RSCFieldColumn.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="ControlsRSC\RSCRowHeaders.Designer.vb">
+      <DependentUpon>RSCRowHeaders.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ControlsRSC\RSCRowHeaders.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Dialogs\DialogDisplayColor.Designer.vb">
       <DependentUpon>DialogDisplayColor.vb</DependentUpon>
     </Compile>
@@ -476,6 +482,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ControlsRSC\RSCFieldColumn.resx">
       <DependentUpon>RSCFieldColumn.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControlsRSC\RSCRowHeaders.resx">
+      <DependentUpon>RSCRowHeaders.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\DialogDisplayColor.resx">
       <DependentUpon>DialogDisplayColor.vb</DependentUpon>
