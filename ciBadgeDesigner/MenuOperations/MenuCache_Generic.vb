@@ -598,7 +598,9 @@ Public Class MenuCache_Generic ''Renamed 12/30/2021 ''MenuCache_NonShared
 
         ''Added 10/14/2019 thomas downes
         If (intExceptionCount_Toolstrip > 0) Then
-            ''Inform user of the error count. 
+            ''
+            ''Inform user of the error count.
+            ''
             MessageBox.Show($"Making ToolstripMenuItems, a count of {intExceptionCount_Toolstrip} errors occurred.  The last error is as follows:  " & vbCrLf & vbCrLf &
                             ex_AddEventHandler_ToolItem.Message, "Generate_BasicEdits",
                             MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
@@ -608,14 +610,18 @@ Public Class MenuCache_Generic ''Renamed 12/30/2021 ''MenuCache_NonShared
         ''Modified 10/14/2019 td
         If ("" = strList_MenuItems) Then
             ''Added 10/14/2019 td 
+            ''
+            ''Indicate that no menu items were generated. ---3/21/2022 td
+            ''
             MessageBox.Show("The procedure to create links & context menu items failed completely. " &
                             vbCrLf & vbCrLf & strList_MenuItems, "Generate_BasicEdits",
                              MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+
         Else
             ''MessageBox.Show("The following links & context menu items were created. " &
             ''                vbCrLf & vbCrLf & strList_MenuItems, "Generate_BasicEdits",
             ''                 MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-        End If
+        End If ''End of ""If ("" = strList_MenuItems) Then ... Else ..."
 
     End Sub ''End of "Private Sub Generate_ReflectionWork()
 

@@ -44,6 +44,7 @@ Public Class Operations_FieldColumn
     Public Property ParentSpreadsheet As RSCFieldSpreadsheet ''Added 3/20/2022 td
     Public Property ColumnIndex As Integer ''Added 3/20/2022 td
 
+    Private mod_bClearingExists_MayBeUndone As Boolean ''Added 3/21/2022
 
     ''Public Sub Insert_New_Column_To_The_Left_FC2003(sender As Object, e As EventArgs)
     ''End Sub
@@ -62,6 +63,7 @@ Public Class Operations_FieldColumn
         If (boolConfirmed) Then
             objRSCFieldColumn = CType(CtlCurrentControl, RSCFieldColumn)
             objRSCFieldColumn.ClearDataFromColumn_Do()
+            mod_bClearingExists_MayBeUndone = True
         End If ''End of "If (boolConfirmed) Then"
 
     End Sub ''end of Public Sub Clear_Data_From_Column_FC2001
@@ -111,7 +113,7 @@ Public Class Operations_FieldColumn
             ''
             objRSCFieldColumn = CType(CtlCurrentControl, RSCFieldColumn)
             objRSCFieldColumn.ClearDataFromColumn_Undo(boolKeepAnyEdits)
-
+            mod_bClearingExists_MayBeUndone = False ''Restore to False
 
         End If ''End of "If (boolConfirmed) Then"
 

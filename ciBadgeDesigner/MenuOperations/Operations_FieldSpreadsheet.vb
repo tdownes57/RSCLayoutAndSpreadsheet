@@ -45,4 +45,42 @@ Public Class Operations_FieldSpreadsheet
     Public Property ColumnIndex As Integer ''Added 3/20/2022 td
 
 
+    Public Sub Clear_Data_From_Spreadsheet_FS2001(sender As Object, e As EventArgs)
+        ''
+        ''Added 3/21/2022 thomas downes
+        ''         
+        Dim objRSCFieldColumn As RSCFieldColumn
+        Dim boolConfirmed As Boolean
+
+        boolConfirmed = (MessageBoxTD.Show_Confirmed("Clear all data from this spreadsheet?",
+                                                     "(To undo, hit Cancel or select Undo.)", True))
+        If (boolConfirmed) Then
+            For Each each_column As RSCFieldColumn In Me.ParentSpreadsheet.ListOfColumns
+                objRSCFieldColumn = each_column ''---CType(each_column, RSCFieldColumn)
+                objRSCFieldColumn.ClearDataFromColumn_Do()
+            Next each_column
+        End If ''End of "If (boolConfirmed) Then"
+
+    End Sub ''end of Public Sub Clear_Data_From_Column_FS2001
+
+
+    Public Sub Undo_of_Clearing_Data_From_Column_FC2002(sender As Object, e As EventArgs)
+        ''
+        ''Copy-pasted 1/24/2022 thomas downes
+        ''Added 8/17/2019 thomas downes
+        ''         
+        Dim objRSCFieldColumn As RSCFieldColumn
+        Dim boolConfirmed As Boolean
+
+        boolConfirmed = (MessageBoxTD.Show_Confirmed("Restore the data that was cleared from this spreadsheet?",
+                                "(This restoration will overwrite any edits performed after the data was cleared.)", True))
+        If (boolConfirmed) Then
+            For Each each_column As RSCFieldColumn In Me.ParentSpreadsheet.ListOfColumns
+                objRSCFieldColumn = each_column ''---CType(each_column, RSCFieldColumn)
+                objRSCFieldColumn.ClearDataFromColumn_Undo()
+            Next each_column
+        End If ''End of "If (boolConfirmed) Then"
+
+    End Sub
+
 End Class

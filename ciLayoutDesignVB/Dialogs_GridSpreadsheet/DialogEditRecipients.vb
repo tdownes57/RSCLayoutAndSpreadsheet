@@ -139,20 +139,24 @@ ExitHandler:
         Dim intSaveTop As Integer = RscFieldSpreadsheet1.Top
         Dim intSaveWidth As Integer = RscFieldSpreadsheet1.Width
         Dim intSaveHeight As Integer = RscFieldSpreadsheet1.Height
+        Dim enumSaveAnchor As AnchorStyles = RscFieldSpreadsheet1.Anchor
 
         RscFieldSpreadsheet1.Visible = False
         Me.Controls.Remove(RscFieldSpreadsheet1)
 
         ''
-        ''Step 3 of 4.  Create the run-time spreadsheet control.
+        ''Step 3 of 4.  Create the run-time spreadsheet control.  ''Added 3/21/2022 td
         ''
         RscFieldSpreadsheet1 = RSCFieldSpreadsheet.GetRSCSpreadsheet(mod_designer, Me, "RscFieldSpreadsheet1")
+
+        ''Added 3/21/2022 td
         With RscFieldSpreadsheet1
             .Left = intSaveLeft
             .Top = intSaveTop
             .Width = intSaveWidth
             .Height = intSaveHeight
             .Visible = True
+            .Anchor = enumSaveAnchor
         End With
         Me.Controls.Add(RscFieldSpreadsheet1)
 

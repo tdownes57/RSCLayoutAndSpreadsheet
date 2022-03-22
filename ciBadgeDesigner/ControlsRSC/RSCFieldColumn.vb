@@ -43,9 +43,17 @@ Public Class RSCFieldColumn
         End Get
         Set(value As List(Of RSCFieldColumn))
             mod_listOfColumnsToBumpRight = value
-            Dim listUserControls As New List(Of UserControl)(value)
-            ''March13 2022 td''MyBase.mod_iMoveOrResizeFunctionality.ListOfColumnsToBumpRight = value
-            MyBase.mod_iMoveOrResizeFunctionality.ListOfColumnsToBumpRight = listUserControls
+
+            If (MyBase.mod_iMoveOrResizeFunctionality Is Nothing) Then Return
+
+            If (value Is Nothing) Then
+                MyBase.mod_iMoveOrResizeFunctionality.ListOfColumnsToBumpRight = Nothing
+            Else
+                Dim listUserControls As New List(Of UserControl)(value)
+                ''March13 2022 td''MyBase.mod_iMoveOrResizeFunctionality.ListOfColumnsToBumpRight = value
+                MyBase.mod_iMoveOrResizeFunctionality.ListOfColumnsToBumpRight = listUserControls
+            End If
+
         End Set
     End Property
 

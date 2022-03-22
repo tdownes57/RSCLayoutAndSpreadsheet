@@ -24,6 +24,17 @@ Public Class RSCFieldSpreadsheet
     Private Const mc_ColumnWidthDefault As Integer = 72 ''Added 3/20/2022 td
     Private Const mc_ColumnMarginGap As Integer = 3 ''---4 ''Added 3/20/2022 td
 
+    Public Function ListOfColumns() As List(Of RSCFieldColumn)
+
+        ''Added 3/21/2022 thomas downes
+        ''\\---Return New List(Of RSCFieldColumn)(mod_array_RSCColumns)
+        Dim oList As List(Of RSCFieldColumn)
+        oList = New List(Of RSCFieldColumn)(mod_array_RSCColumns)
+        oList.Remove(Nothing) ''Item #0 is Nothing, so let's omit the Null reference. 
+        Return oList
+
+    End Function
+
 
     Public Shared Function GetRSCSpreadsheet(par_designer As ClassDesigner,
                                        par_formParent As Form,
@@ -91,7 +102,7 @@ Public Class RSCFieldSpreadsheet
                                         bAddFunctionalitySooner,
                                         par_iControlLastTouched,
                                         par_oMoveEventsForGroupedCtls)
-        ''Jan2 2022 ''                       ''Jan2 2022 ''par_iSaveToModel, typeOps,
+        ''Jan2 2022 ''        ''Jan2 2022 ''par_iSaveToModel, typeOps,
 
         With CtlFieldSheet1
             .Name = par_nameOfControl
@@ -123,7 +134,7 @@ Public Class RSCFieldSpreadsheet
             .LayoutFunctions = .Designer
 
             ''Added 3/20/2022 thomas dRRoRRwRRnRReRRsRR
-            ''.ParentSpreadsheet = par_oSpreadsheet
+            .ParentSpreadsheet = CtlFieldSheet1 ''----par_oSpreadsheet
             ''.ColumnIndex = par_intColumnIndex
 
         End With ''End of "With objOperationsPortrait"
@@ -299,6 +310,9 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 3/8/2022 thomas downes 
         ''
+        Dim intSavePropertyTop As Integer
+        intSavePropertyTop = RscFieldColumn1.Top
+
         ''Step 1 of 5.  Remove design-time columns..... Clearing (removing) design-time columns (which are placed
         ''   to give a visual preview of how the run-time columns will look). 
         ''
@@ -457,6 +471,7 @@ Public Class RSCFieldSpreadsheet
             ''  Tell the column what width, field & field values to display.
             each_columnWidthEtc = Me.ColumnDataCache.ListOfColumns(intNeededIndex - 1)
             each_Column.ColumnWidthAndData = each_columnWidthEtc
+            each_Column.Top = intSavePropertyTop ''Added 3/21/2022
 
             ''
             ''Major call!

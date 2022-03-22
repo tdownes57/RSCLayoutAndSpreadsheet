@@ -28,6 +28,8 @@ Partial Class RSCFieldSpreadsheet
         Me.RscFieldColumn2 = New ciBadgeDesigner.RSCFieldColumn()
         Me.RscFieldColumn1 = New ciBadgeDesigner.RSCFieldColumn()
         Me.RscSelectCIBField1 = New ciBadgeDesigner.RSCSelectCIBField()
+        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel2 = New System.Windows.Forms.LinkLabel()
         Me.SuspendLayout()
         '
         'RscFieldColumn5
@@ -35,7 +37,9 @@ Partial Class RSCFieldSpreadsheet
         Me.RscFieldColumn5.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.RscFieldColumn5.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.RscFieldColumn5.ColumnWidthAndData = Nothing
         Me.RscFieldColumn5.ElementInfo_Base = Nothing
+        Me.RscFieldColumn5.ListOfColumnsToBumpRight = Nothing
         Me.RscFieldColumn5.Location = New System.Drawing.Point(657, 94)
         Me.RscFieldColumn5.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.RscFieldColumn5.MoveabilityEventsForGroupCtls = Nothing
@@ -50,7 +54,9 @@ Partial Class RSCFieldSpreadsheet
         Me.RscFieldColumn4.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.RscFieldColumn4.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.RscFieldColumn4.ColumnWidthAndData = Nothing
         Me.RscFieldColumn4.ElementInfo_Base = Nothing
+        Me.RscFieldColumn4.ListOfColumnsToBumpRight = Nothing
         Me.RscFieldColumn4.Location = New System.Drawing.Point(516, 94)
         Me.RscFieldColumn4.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.RscFieldColumn4.MoveabilityEventsForGroupCtls = Nothing
@@ -65,7 +71,9 @@ Partial Class RSCFieldSpreadsheet
         Me.RscFieldColumn3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.RscFieldColumn3.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.RscFieldColumn3.ColumnWidthAndData = Nothing
         Me.RscFieldColumn3.ElementInfo_Base = Nothing
+        Me.RscFieldColumn3.ListOfColumnsToBumpRight = Nothing
         Me.RscFieldColumn3.Location = New System.Drawing.Point(374, 94)
         Me.RscFieldColumn3.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.RscFieldColumn3.MoveabilityEventsForGroupCtls = Nothing
@@ -80,7 +88,9 @@ Partial Class RSCFieldSpreadsheet
         Me.RscFieldColumn2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.RscFieldColumn2.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.RscFieldColumn2.ColumnWidthAndData = Nothing
         Me.RscFieldColumn2.ElementInfo_Base = Nothing
+        Me.RscFieldColumn2.ListOfColumnsToBumpRight = Nothing
         Me.RscFieldColumn2.Location = New System.Drawing.Point(232, 94)
         Me.RscFieldColumn2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.RscFieldColumn2.MoveabilityEventsForGroupCtls = Nothing
@@ -95,8 +105,10 @@ Partial Class RSCFieldSpreadsheet
         Me.RscFieldColumn1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.RscFieldColumn1.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.RscFieldColumn1.ColumnWidthAndData = Nothing
         Me.RscFieldColumn1.ElementInfo_Base = Nothing
-        Me.RscFieldColumn1.Location = New System.Drawing.Point(2, 0)
+        Me.RscFieldColumn1.ListOfColumnsToBumpRight = Nothing
+        Me.RscFieldColumn1.Location = New System.Drawing.Point(2, 26)
         Me.RscFieldColumn1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.RscFieldColumn1.MoveabilityEventsForGroupCtls = Nothing
         Me.RscFieldColumn1.MoveabilityEventsForSingleMove = Nothing
@@ -106,28 +118,54 @@ Partial Class RSCFieldSpreadsheet
         '
         'RscSelectCIBField1
         '
-        Me.RscSelectCIBField1.Location = New System.Drawing.Point(198, 2)
-        Me.RscSelectCIBField1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.RscSelectCIBField1.Location = New System.Drawing.Point(198, 23)
+        Me.RscSelectCIBField1.Margin = New System.Windows.Forms.Padding(2)
         Me.RscSelectCIBField1.Name = "RscSelectCIBField1"
+        Me.RscSelectCIBField1.SelectedValue = ciBadgeInterfaces.ModEnumsAndStructs.EnumCIBFields.Undetermined
         Me.RscSelectCIBField1.Size = New System.Drawing.Size(174, 67)
         Me.RscSelectCIBField1.TabIndex = 5
         Me.RscSelectCIBField1.Visible = False
+        '
+        'LinkLabel1
+        '
+        Me.LinkLabel1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LinkLabel1.AutoSize = True
+        Me.LinkLabel1.Location = New System.Drawing.Point(654, 0)
+        Me.LinkLabel1.Name = "LinkLabel1"
+        Me.LinkLabel1.Size = New System.Drawing.Size(153, 13)
+        Me.LinkLabel1.TabIndex = 6
+        Me.LinkLabel1.TabStop = True
+        Me.LinkLabel1.Text = "Right-click will present a menu."
+        '
+        'LinkLabel2
+        '
+        Me.LinkLabel2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LinkLabel2.AutoSize = True
+        Me.LinkLabel2.Location = New System.Drawing.Point(401, 0)
+        Me.LinkLabel2.Name = "LinkLabel2"
+        Me.LinkLabel2.Size = New System.Drawing.Size(234, 13)
+        Me.LinkLabel2.TabIndex = 7
+        Me.LinkLabel2.TabStop = True
+        Me.LinkLabel2.Text = "Review which fields are Relevant and available."
         '
         'RSCFieldSpreadsheet
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.Controls.Add(Me.LinkLabel2)
+        Me.Controls.Add(Me.LinkLabel1)
         Me.Controls.Add(Me.RscFieldColumn5)
         Me.Controls.Add(Me.RscFieldColumn4)
         Me.Controls.Add(Me.RscFieldColumn3)
         Me.Controls.Add(Me.RscFieldColumn2)
         Me.Controls.Add(Me.RscFieldColumn1)
         Me.Controls.Add(Me.RscSelectCIBField1)
-        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "RSCFieldSpreadsheet"
         Me.Size = New System.Drawing.Size(821, 457)
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -137,4 +175,6 @@ Partial Class RSCFieldSpreadsheet
     Friend WithEvents RscFieldColumn4 As RSCFieldColumn
     Friend WithEvents RscFieldColumn5 As RSCFieldColumn
     Friend WithEvents RscSelectCIBField1 As RSCSelectCIBField
+    Friend WithEvents LinkLabel1 As LinkLabel
+    Friend WithEvents LinkLabel2 As LinkLabel
 End Class

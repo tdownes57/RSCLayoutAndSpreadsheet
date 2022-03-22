@@ -33,6 +33,31 @@ Public Class CtlGraphicFieldV4
     End Property
 
 
+    Public Shared Function GetFieldControl(par_elementField As ClassElementFieldV4,
+                                           par_formParent As Form,
+                                           par_oDesigner As ClassDesigner,
+                                           par_nameOfControl As String,
+                                           par_sizeNeeded As Size) As CtlGraphicFieldV4
+        ''
+        ''Added 3/21/2022 thomas downes
+        ''
+        Dim objParametersGetElementCtl As ClassGetElementControlParams
+        objParametersGetElementCtl = par_oDesigner.GetParametersToGetElementControl()
+
+        Return GetFieldControl(objParametersGetElementCtl,
+                               par_elementField,
+                               par_formParent,
+                               par_oDesigner,
+                               par_nameOfControl,
+                            CType(par_oDesigner, ILayoutFunctions),
+                            par_sizeNeeded,
+                            CType(par_oDesigner, IRecordElementLastTouched),
+                            CType(par_oDesigner.ControlLastTouched, ILastControlTouched),
+                            par_oDesigner.GroupMoveEvents)
+
+    End Function ''End of "Public Shared Function GetFieldControl"
+
+
     Public Shared Function GetFieldControl(par_parametersGetElementControl As ClassGetElementControlParams,
                                            par_elementField As ClassElementFieldV4,
                                            par_formParent As Form,
