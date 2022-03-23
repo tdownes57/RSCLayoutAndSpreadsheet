@@ -10,7 +10,7 @@ Imports System.Drawing ''Added 10/01/2019 td
 Imports __RSCWindowsControlLibrary ''Added 1/4/2022 td
 Imports ciBadgeFields ''Added 3/8/2022 thomas downes
 Imports ciBadgeCachePersonality ''Added 3/14/2022 
-
+Imports ciBadgeRecipients ''Added 3/22/2022 td
 
 Public Class RSCFieldColumn
     ''
@@ -18,6 +18,7 @@ Public Class RSCFieldColumn
     ''
     Public ElementsCache_Deprecated As ciBadgeCachePersonality.ClassElementsCache_Deprecated ''Added 3/10/2022 td
     Public ColumnDataCache As CacheRSCFieldColumnWidthsEtc ''Added 3/15/2022 td
+    Public ListRecipients As IEnumerable(Of ClassRecipient) ''Added 3/22/2022 td
 
     Private mod_listOfColumnsToBumpRight As List(Of RSCFieldColumn)
     Private mod_columnWidthAndData As ClassColumnWidthAndData ''Added 3/18/2022  
@@ -434,6 +435,58 @@ Public Class RSCFieldColumn
         ''Not needed here, as this derived user control does not represent a badge element. -----3/11/2022
 
     End Sub ''End of Public Overrides SaveToModel"
+
+
+    Public Sub LoadRecipientList(Optional ByRef pboolErrorCellsHaveValues As Boolean = False,
+                                 Optional ByRef pboolNoFieldSelected As Boolean = False,
+                                 Optional ByRef pboolNoRecipientList As Boolean = False)
+        ''
+        ''Added 3/22/2022 td
+        ''
+        Dim intCountCellsWithData As Integer
+        intCountCellsWithData = CountOfBoxesWithData()
+        If (intCountCellsWithData <> 0) Then
+            pboolErrorCellsHaveValues = True
+            Throw New Exception(">0 cells with data already")
+        End If
+
+        Dim enumFieldSelected As EnumCIBFields
+        enumFieldSelected = RscSelectCIBField1.SelectedValue
+        If (enumFieldSelected = EnumCIBFields.Undetermined) Then
+            pboolNoFieldSelected = True
+            Return
+        End If
+
+        Dim boolNoRecipList As Boolean
+        boolNoRecipList = (Me.ListRecipients Is Nothing)
+        pboolNoRecipientList = boolNoRecipList
+        If (pboolNoRecipientList) Then Return
+
+        Dim intCountRecipients As Integer
+        intCountRecipients = Me.ListRecipients.Count
+
+        Dim boolNoRecipients_zero As Boolean
+        boolNoRecipients_zero = (0 = intCountRecipients)
+        If (boolNoRecipients_zero) Then
+            pboolNoRecipientList = True
+            Return
+        End If
+
+        ''-----------------------------------------------------------
+
+        Dim listBoxes As IOrderedEnumerable(Of TextBox)
+        Dim intRowIndex As Integer = -1
+        listBoxes = ListOfTextboxes_TopToBottom()
+
+        For Each each_box As TextBox In listBoxes
+
+            intRowIndex += 1
+
+            each_box.Text = Me.ListRecipients(intRowIndex).GetTextValue(enumFieldSelected)
+
+        Next each_box
+
+    End Sub ''End of "Public Sub LoadRecipientList()"
 
 
     Private Function ListOfData() As List(Of String)
