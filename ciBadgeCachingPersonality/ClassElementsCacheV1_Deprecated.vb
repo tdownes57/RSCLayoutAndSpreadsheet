@@ -1193,6 +1193,18 @@ Namespace ciBadgeCachePersonality
         End Sub ''End of "Public Sub LoadFields(par_pictureBackground As PictureBox)"
 
 
+        Public Sub LoadField_ByEnum(p_enumField As EnumCIBFields, p_bCustom As Boolean)
+            ''
+            ''Added 3/23/2022 td
+            ''
+
+
+
+
+
+        End Sub ''End of "LoadField_ByEnum(each_enum)"
+
+
         Public Sub LoadFields_FromList(par_listStandard As List(Of ClassFieldStandard),
                                    par_listCustom As List(Of ClassFieldCustomized))
             ''
@@ -1991,12 +2003,14 @@ Namespace ciBadgeCachePersonality
 
         End Function ''End of "Public Function GetElementByGUID(par_guid As System.Guid) As ClassElementField"
 
+
         Public Function MissingTheFields() As Boolean
             ''Added 10/10/2019 td 
             ''10/14/2019 td''Return (0 = mod_listFields.Count)
             Return (0 = mod_listFields_Standard.Count)
 
         End Function ''ENd of "Public Function MissingTheFields() As Boolean"
+
 
         Public Function MissingTheElementFields() As Boolean
             ''

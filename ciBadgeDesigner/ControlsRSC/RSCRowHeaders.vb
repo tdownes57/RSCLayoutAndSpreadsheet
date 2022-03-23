@@ -36,31 +36,34 @@ Public Class RSCRowHeaders
     End Function
 
 
-    Public Shared Function GetRSCSpreadsheet(par_designer As ClassDesigner,
+    Public Shared Function GetRSCRowHeaders(par_designer As ClassDesigner,
                                        par_formParent As Form,
-                                      par_nameOfControl As String) As RSCRowHeaders
+                                      par_nameOfControl As String,
+                                      par_objSpreadsheet As RSCFieldSpreadsheet) As RSCRowHeaders
         ''
         ''Added 3/21/2022 td
         ''
         Dim objParametersGetElementCtl As ClassGetElementControlParams
         objParametersGetElementCtl = par_designer.GetParametersToGetElementControl()
 
-        Return GetRSCSpreadsheet(objParametersGetElementCtl, par_formParent, par_nameOfControl,
+        Return GetRSCRowHeaders(objParametersGetElementCtl, par_formParent, par_nameOfControl,
                                     par_designer, False,
                                     CType(par_designer.ControlLastTouched, ILastControlTouched),
                                     CType(par_designer, IRecordElementLastTouched),
-                                    par_designer.GroupMoveEvents)
+                                    par_designer.GroupMoveEvents,
+                                    par_objSpreadsheet)
 
-    End Function ''End of "Public Shared Function GetRSCSpreadsheet"
+    End Function ''End of "Public Shared Function GetRSCRowHeaders"
 
-    Public Shared Function GetRSCSpreadsheet(par_parametersGetElementControl As ClassGetElementControlParams,
+    Public Shared Function GetRSCRowHeaders(par_parametersGetElementControl As ClassGetElementControlParams,
                                        par_formParent As Form,
                                       par_nameOfControl As String,
                                       par_iLayoutFun As ILayoutFunctions,
                                       par_bProportionSizing As Boolean,
                                       par_iControlLastTouched As ILastControlTouched,
                                      par_iRecordLastControl As IRecordElementLastTouched,
-                                     par_oMoveEventsForGroupedCtls As GroupMoveEvents_Singleton) _
+                                     par_oMoveEventsForGroupedCtls As GroupMoveEvents_Singleton,
+                                     par_oSpreadsheet As RSCFieldSpreadsheet) _
                                      As RSCRowHeaders
         ''
         ''Added 3/20/2022 td
@@ -71,7 +74,7 @@ Public Class RSCRowHeaders
 
         Dim typeOps As Type
         Dim objOperations As Object ''Added 12/29/2021 td 
-        Dim objOperationsFieldSheet As Operations_RowHeaders ''Modified 3/13/2022 td 
+        Dim objOperationsRSCRowHeaders As Operations_RSCRowHeaders ''Modified 3/13/2022 td 
         Dim sizeElementPortrait As New Size() ''Added 1/26/2022 td
 
         ''Added 1/5/2022 td
@@ -79,9 +82,9 @@ Public Class RSCRowHeaders
 
         ''Instantiate the Operations Object. 
         ''
-        objOperationsFieldSheet = New Operations_RowHeaders() ''Added 3/20/2022 td
-        typeOps = objOperationsFieldSheet.GetType()
-        objOperations = objOperationsFieldSheet
+        objOperationsRSCRowHeaders = New Operations_RSCRowHeaders() ''Added 3/20/2022 td
+        typeOps = objOperationsRSCRowHeaders.GetType()
+        objOperations = objOperationsRSCRowHeaders
 
         If (objOperations Is Nothing) Then
             ''Added 12/29/2021
@@ -89,10 +92,10 @@ Public Class RSCRowHeaders
         End If ''end of "If (objOperations Is Nothing) Then"
 
         ''Added 12/2/2022 td
-        Dim enumElementType_Enum As EnumElementType = EnumElementType.FieldSheetSpreadsheet
+        Dim enumElementType_Enum As EnumElementType = EnumElementType.RSCRowHeaders
 
         ''Create the control. 
-        Dim CtlFieldSheet1 = New RSCRowHeaders(par_formParent,
+        Dim CtlRowHeaders = New RSCRowHeaders(par_formParent,
                                         par_iLayoutFun,
                                         par_parametersGetElementControl.iRefreshPreview,
                                         sizeElementPortrait,
@@ -104,47 +107,47 @@ Public Class RSCRowHeaders
                                         par_oMoveEventsForGroupedCtls)
         ''Jan2 2022 ''        ''Jan2 2022 ''par_iSaveToModel, typeOps,
 
-        With CtlFieldSheet1
+        With CtlRowHeaders
             .Name = par_nameOfControl
             ''1/11/2022''If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEvents, par_iLayoutFun)
             ''03/20/2022 ''If (bAddFunctionalityLater) Then .AddMoveability(par_iLayoutFun,
             ''                               par_oMoveEventsForGroupedCtls, Nothing)
             If (bAddFunctionalityLater) Then .AddClickability()
 
-            .RightclickMouseInfo = objOperationsFieldSheet ''Added 3/5/2022 td
+            .RightclickMouseInfo = objOperationsRSCRowHeaders ''Added 3/5/2022 td
 
         End With ''eNd of "With CtlPortrait1"
 
         ''
         ''Specify the current element to the Operations object. 
         ''
-        With objOperationsFieldSheet
+        With objOperationsRSCRowHeaders
 
-            .CtlCurrentControl = CtlFieldSheet1
-            .CtlCurrentElement = CtlFieldSheet1
+            .CtlCurrentControl = CtlRowHeaders
+            .CtlCurrentElement = CtlRowHeaders
             ''.Designer = par_oMoveEventsForGroupedCtls.
             .Designer = par_parametersGetElementControl.DesignerClass
             ''.ElementInfo_Base = Nothing ''3/9/2022 t*d*''par_elementPortrait
             .ElementsCacheManager = par_parametersGetElementControl.ElementsCacheManager
-            ''Feb3 2022 td''.Element_Type = Enum_ElementType.StaticGraphic
-            .Element_Type = Enum_ElementType.FieldSheetSpreadsheet ''Added 3/20/2022 thomas d.
+            ''Feb3 2022 td''.Element_Type = Enum_Elem entType.StaticGraphic
+            .Element_Type = Enum_ElementType.RSCSheetSpreadsheet ''Added 3/20/2022 thomas d.
             .EventsForMoveability_Group = Nothing ''par_oMoveEventsForGroupedCtls
             .EventsForMoveability_Single = Nothing
             ''Added 1/24/2022 thomas downes
             .LayoutFunctions = .Designer
 
             ''Added 3/20/2022 thomas dRRoRRwRRnRReRRsRR
-            .ParentSpreadsheet = CtlFieldSheet1 ''----par_oSpreadsheet
+            .ParentSpreadsheet = par_oSpreadsheet
             ''.ColumnIndex = par_intColumnIndex
 
-        End With ''End of "With objOperationsPortrait"
+        End With ''End of "With objOperationsRSCRowHeaders"
 
         ''
         ''Return output value.
         ''
-        Return CtlFieldSheet1
+        Return CtlRowHeaders
 
-    End Function ''end of "Public Shared Function GetRSCSpreadsheet() As RSCRowHeaders"
+    End Function ''end of "Public Shared Function GetRSCRowHeaders() As RSCRowHeaders"
 
 
     Public Sub New()
@@ -169,7 +172,7 @@ Public Class RSCRowHeaders
         ''
         ''Added 3/20/2022 td
         ''
-        MyBase.New(EnumElementType.FieldSheetSpreadsheet, par_oParentForm,
+        MyBase.New(EnumElementType.RSCRowHeaders, par_oParentForm,
                    pboolResizeProportionally,
                         par_iLayoutFun, par_iRefreshPreview, par_iSizeDesired,
                         par_operationsType, par_operationsAny,

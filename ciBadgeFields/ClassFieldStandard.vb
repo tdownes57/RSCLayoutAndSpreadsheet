@@ -239,16 +239,36 @@ Public Class ClassFieldStandard
         ''
         ''Added 7/26/2019 td
         ''
-        Dim intFieldIndex As Integer ''Added 9/17/2019 td 
-        Const c_heightPixels As Integer = 30 ''Added 9/17 td
-        Dim intLeft_Pixels As Integer = 0
-        Dim intTop_Pixels As Integer = 0 ''Added 9/17/2019 td 
+        ''March23 2022  Dim intFieldIndex As Integer ''Added 9/17/2019 td 
+        ''March23 2022  Const c_heightPixels As Integer = 30 ''Added 9/17 td
+        ''March23 2022  Dim intLeft_Pixels As Integer = 0
+        ''March23 2022  Dim intTop_Pixels As Integer = 0 ''Added 9/17/2019 td 
 
         With ListOfFields_Students
             ''8/28/2019 td''If (pboolOnlyIfNeeded And .Count > 0) Then Exit Sub
             If (.Count > 0) Then Exit Sub
         End With ''End of "With ListOfFields_Students"
 
+        ''
+        ''Major call!!
+        ''
+        InstantiateFields_Standard()
+
+
+    End Sub ''End of "Public Shared Sub InitializeHardcodedList_Students"
+
+
+    Public Shared Sub InstantiateFields_Standard(Optional par_singleEnum As EnumCIBFields = EnumCIBFields.Undetermined,
+                               Optional ByRef pref_singleField As ClassFieldStandard = Nothing,
+                                                 Optional pbDontSaveToList As Boolean = False)
+        ''
+        ''Encapsulated 3/23/2022 thomas 
+        ''Coded 7/26/2019
+        ''
+        Dim intFieldIndex As Integer ''Added 9/17/2019 td 
+        Const c_heightPixels As Integer = 30 ''Added 9/17 td
+        Dim intLeft_Pixels As Integer = 0
+        Dim intTop_Pixels As Integer = 0 ''Added 9/17/2019 td 
 
         intFieldIndex = 1 ''Added 9/17/2019 td
         Dim new_objectField1 As New ClassFieldStandard
@@ -257,6 +277,9 @@ Public Class ClassFieldStandard
             .FieldIndex = intFieldIndex ''Added 4/22/2020 td
 
             .FieldEnumValue = EnumCIBFields.fstrID ''Added 9/16/2019 td
+            ''Added 3/23/2022
+            If (par_singleEnum = EnumCIBFields.fstrID) Then pref_singleField = new_objectField1
+
             ''N/A''.TextFieldId = 1 ''TextField01 
             .IsCustomizable = False ''Added 7/26/2019 td 
             .FieldLabelCaption = "Student ID"
@@ -287,7 +310,8 @@ Public Class ClassFieldStandard
             ''--.ElementInfo_Text = CType(.ElementFieldClass, ciBadgeInterfaces.IElement_TextField)
 
         End With
-        ListOfFields_Students.Add(new_objectField1)
+        If (Not pbDontSaveToList) Then _
+            ListOfFields_Students.Add(new_objectField1)
 
 
         intFieldIndex = 2 ''Added 9/17/2019 td
@@ -297,6 +321,9 @@ Public Class ClassFieldStandard
             .FieldIndex = intFieldIndex ''Added 4/22/2020 td
 
             .FieldEnumValue = EnumCIBFields.fstrFirstName ''Added 9/16/2019 td
+            ''Added 3/23/2022
+            If (par_singleEnum = EnumCIBFields.fstrFirstName) Then pref_singleField = new_objectField2
+
             ''N/A''.TextFieldId = 2 ''TextField02
             .IsCustomizable = False ''Added 7/26/2019 td 
             .FieldLabelCaption = "First Name"
@@ -323,6 +350,7 @@ Public Class ClassFieldStandard
             ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementInfo_Text = CType(.ElementFieldClass, ciBadgeInterfaces.IElement_TextField)
 
         End With
+        If (Not pbDontSaveToList) Then _
         ListOfFields_Students.Add(new_objectField2)
 
 
@@ -334,6 +362,10 @@ Public Class ClassFieldStandard
             .FieldIndex = intFieldIndex ''Added 4/22/2020 td
 
             .FieldEnumValue = EnumCIBFields.fstrLastName ''Added 9/16/2019 td
+            ''Added 3/23/2022
+            If (par_singleEnum = EnumCIBFields.fstrLastName) Then pref_singleField = new_object3
+            [[[[ _________ ========== ;;;;;;;;;
+
             ''N/A''.TextFieldId = 3 ''TextField03 
             .IsCustomizable = False ''Added 7/26/2019 td 
             .FieldLabelCaption = "Last Name"
@@ -360,6 +392,7 @@ Public Class ClassFieldStandard
             ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementInfo_Text = CType(.ElementFieldClass, ciBadgeInterfaces.IElement_TextField)
 
         End With
+        If (Not pbDontSaveToList) Then _
         ListOfFields_Students.Add(new_object3)
 
         ''Added 8/23/2019 thomas d
@@ -385,6 +418,7 @@ Public Class ClassFieldStandard
             ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementFieldClass = New ClassElementField()
 
         End With
+        If (Not pbDontSaveToList) Then _
         ListOfFields_Students.Add(new_object4)
 
 
@@ -417,6 +451,7 @@ Public Class ClassFieldStandard
             ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementFieldClass.Font_DrawingClass = modFonts.BarCodeFont_ByDefault(.ElementFieldClass.FontSize_Pixels)
 
         End With
+        If (Not pbDontSaveToList) Then _
         ListOfFields_Students.Add(new_object5)
 
 
@@ -443,6 +478,7 @@ Public Class ClassFieldStandard
             ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementFieldClass = New ClassElementField()
 
         End With
+        If (Not pbDontSaveToList) Then _
         ListOfFields_Students.Add(new_object6)
 
 
@@ -469,6 +505,7 @@ Public Class ClassFieldStandard
             ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementFieldClass = New ClassElementField()
 
         End With
+        If (Not pbDontSaveToList) Then _
         ListOfFields_Students.Add(new_object7)
 
 
@@ -495,6 +532,7 @@ Public Class ClassFieldStandard
             ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementFieldClass = New ClassElementField()
 
         End With
+        If (Not pbDontSaveToList) Then _
         ListOfFields_Students.Add(new_object8)
 
 
@@ -518,6 +556,7 @@ Public Class ClassFieldStandard
             .IsLocked = False
             ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementFieldClass = New ClassElementField()
         End With
+        If (Not pbDontSaveToList) Then _
         ListOfFields_Students.Add(new_object9)
 
 
@@ -541,6 +580,7 @@ Public Class ClassFieldStandard
             .IsLocked = True
             ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementFieldClass = New ClassElementField()
         End With
+        If (Not pbDontSaveToList) Then _
         ListOfFields_Students.Add(new_object91)
 
 
@@ -564,6 +604,7 @@ Public Class ClassFieldStandard
             .IsLocked = True
             ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementFieldClass = New ClassElementField()
         End With
+        If (Not pbDontSaveToList) Then _
         ListOfFields_Students.Add(new_object92)
 
 
@@ -587,6 +628,7 @@ Public Class ClassFieldStandard
             .IsLocked = True
             ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementFieldClass = New ClassElementField()
         End With
+        If (Not pbDontSaveToList) Then _
         ListOfFields_Students.Add(new_object93)
 
 
@@ -610,6 +652,7 @@ Public Class ClassFieldStandard
             .IsLocked = True
             ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementFieldClass = New ClassElementField()
         End With
+        If (Not pbDontSaveToList) Then _
         ListOfFields_Students.Add(new_object94)
 
 
@@ -633,6 +676,7 @@ Public Class ClassFieldStandard
             .IsLocked = True
             ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementFieldClass = New ClassElementField()
         End With
+        If (Not pbDontSaveToList) Then _
         ListOfFields_Students.Add(new_object95)
 
 
@@ -659,6 +703,7 @@ Public Class ClassFieldStandard
             ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementFieldClass = New ClassElementField()
 
         End With
+        If (Not pbDontSaveToList) Then _
         ListOfFields_Students.Add(new_object99)
 
     End Sub ''End of "InitializeHardcodedList_Students()"

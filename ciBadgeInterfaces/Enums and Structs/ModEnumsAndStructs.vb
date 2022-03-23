@@ -58,10 +58,11 @@ Public Module ModEnumsAndStructs
 
         ''Added 3/20/2022 for ControlsRSC/RSCSpreadsheet
         ''   & ControlsRSC/RSCFieldColumn.  ----3/20/2022 td
-        FieldSheetColumn ''Added 3/20/2022 td
-        FieldSheetSpreadsheet ''Added 3/20/2022 td
+        RSCSheetColumn ''Added 3/20/2022 td
+        RSCSheetSpreadsheet ''Added 3/20/2022 td
+        RSCSheetRowHeader ''Added 3/23/2022 td
 
-    End Enum
+    End Enum ''End of ""Public Enum Enum_ElementType""
 
 
     ''

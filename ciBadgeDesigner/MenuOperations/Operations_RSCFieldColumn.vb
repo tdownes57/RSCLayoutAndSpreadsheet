@@ -16,14 +16,14 @@ Imports System.Drawing ''Added 1/26/2022 td
 ''
 '' Added 3/13/2022 thomas downes
 ''
-Public Class Operations_FieldColumn
+Public Class Operations_RSCFieldColumn
     Implements ICurrentElement ''Added 3/19/2022 td
     Implements IRightClickMouseInfo ''Added 3/19/2022 td
 
     ''
     ''Added 1/04/2022 td
     ''
-    Public Property Element_Type As Enum_ElementType = Enum_ElementType.FieldSheetColumn ''Added 1/21/2022 td
+    Public Property Element_Type As Enum_ElementType = Enum_ElementType.RSCSheetColumn ''Added 1/21/2022 td
 
     ''Added 1/25/2022 td 
     Public Property Designer As ciBadgeDesigner.ClassDesigner ''Added 1/25/2022 td

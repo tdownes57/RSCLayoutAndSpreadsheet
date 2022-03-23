@@ -71,7 +71,7 @@ Public Class RSCFieldSpreadsheet
 
         Dim typeOps As Type
         Dim objOperations As Object ''Added 12/29/2021 td 
-        Dim objOperationsFieldSheet As Operations_FieldSpreadsheet ''Modified 3/13/2022 td 
+        Dim objOperationsFieldSheet As Operations_RSCSpreadsheet ''Modified 3/13/2022 td 
         Dim sizeElementPortrait As New Size() ''Added 1/26/2022 td
 
         ''Added 1/5/2022 td
@@ -79,7 +79,7 @@ Public Class RSCFieldSpreadsheet
 
         ''Instantiate the Operations Object. 
         ''
-        objOperationsFieldSheet = New Operations_FieldSpreadsheet() ''Added 3/20/2022 td
+        objOperationsFieldSheet = New Operations_RSCSpreadsheet() ''Added 3/20/2022 td
         typeOps = objOperationsFieldSheet.GetType()
         objOperations = objOperationsFieldSheet
 
@@ -89,7 +89,7 @@ Public Class RSCFieldSpreadsheet
         End If ''end of "If (objOperations Is Nothing) Then"
 
         ''Added 12/2/2022 td
-        Dim enumElementType_Enum As EnumElementType = EnumElementType.FieldSheetSpreadsheet
+        Dim enumElementType_Enum As EnumElementType = EnumElementType.RSCSheetSpreadsheet ''March 23 2022''.FieldSheetSpreadsheet
 
         ''Create the control. 
         Dim CtlFieldSheet1 = New RSCFieldSpreadsheet(par_formParent,
@@ -127,7 +127,7 @@ Public Class RSCFieldSpreadsheet
             ''.ElementInfo_Base = Nothing ''3/9/2022 t*d*''par_elementPortrait
             .ElementsCacheManager = par_parametersGetElementControl.ElementsCacheManager
             ''Feb3 2022 td''.Element_Type = Enum_ElementType.StaticGraphic
-            .Element_Type = Enum_ElementType.FieldSheetSpreadsheet ''Added 3/20/2022 thomas d.
+            .Element_Type = Enum_ElementType.RSCSheetSpreadsheet ''Added 3/20/2022 thomas d.
             .EventsForMoveability_Group = Nothing ''par_oMoveEventsForGroupedCtls
             .EventsForMoveability_Single = Nothing
             ''Added 1/24/2022 thomas downes
@@ -169,7 +169,7 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 3/20/2022 td
         ''
-        MyBase.New(EnumElementType.FieldSheetSpreadsheet, par_oParentForm,
+        MyBase.New(EnumElementType.RSCSheetSpreadsheet, par_oParentForm,
                    pboolResizeProportionally,
                         par_iLayoutFun, par_iRefreshPreview, par_iSizeDesired,
                         par_operationsType, par_operationsAny,

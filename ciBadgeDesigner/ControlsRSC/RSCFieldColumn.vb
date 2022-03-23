@@ -107,7 +107,7 @@ Public Class RSCFieldColumn
 
         Dim typeOps As Type
         Dim objOperations As Object ''Added 12/29/2021 td 
-        Dim objOperationsFieldColumn As Operations_FieldColumn ''Modified 3/13/2022 td 
+        Dim objOperationsFieldColumn As Operations_RSCFieldColumn ''Modified 3/13/2022 td 
         Dim sizeElementPortrait As New Size() ''Added 1/26/2022 td
 
         ''Added 1/5/2022 td
@@ -121,7 +121,7 @@ Public Class RSCFieldColumn
         ''====If (c_enumElemType = EnumElementType.QRCode) Then objOperationsQR = New Operations_QRCode()
 
         ''Modified 1/2/2022 td
-        objOperationsFieldColumn = New Operations_FieldColumn() ''Added 3/13/2022 td
+        objOperationsFieldColumn = New Operations_RSCFieldColumn() ''Added 3/13/2022 td
         typeOps = objOperationsFieldColumn.GetType()
         objOperations = objOperationsFieldColumn
 
@@ -352,7 +352,7 @@ Public Class RSCFieldColumn
     End Sub ''End of "Private Sub LoadDataToColumn_Undo()"
 
 
-    Public Function CountOfBoxesWithData() As Integer ''Added 3/20/2022
+    Public Function CountOfBoxesWithData(Optional ByRef pref_countOfRows As Integer = 0) As Integer ''Added 3/20/2022
         ''
         ''Added 3/20/2022 t//d//
         ''
@@ -360,6 +360,7 @@ Public Class RSCFieldColumn
         Dim listTextboxes As IEnumerable(Of TextBox)
 
         listTextboxes = ListOfTextboxes_TopToBottom()
+        pref_countOfRows = listTextboxes.Count ''Added 3/23/2022 td
 
         For Each each_textbox In listTextboxes '' ListOfTextboxes_TopToBottom()
 
@@ -443,24 +444,32 @@ Public Class RSCFieldColumn
         ''
         ''Added 3/22/2022 td
         ''
+        Dim intCountAllBoxesOrRows As Integer ''Added 3/23/2022 td
+        Dim intCountBoxesEmptyOrNot As Integer ''Added 3/23/2022 td
+
         Dim intCountCellsWithData As Integer
-        intCountCellsWithData = CountOfBoxesWithData()
+        ''March23 2022''intCountCellsWithData = CountOfBoxesWithData()
+        intCountCellsWithData = CountOfBoxesWithData(intCountBoxesEmptyOrNot)
         If (intCountCellsWithData <> 0) Then
             pboolErrorCellsHaveValues = True
-            Throw New Exception(">0 cells with data already")
+            Throw New Exception("Warning, non-zero >0 cells with data already. Data would be lost.")
         End If
 
         Dim enumFieldSelected As EnumCIBFields
         enumFieldSelected = RscSelectCIBField1.SelectedValue
         If (enumFieldSelected = EnumCIBFields.Undetermined) Then
             pboolNoFieldSelected = True
+            MessageBoxTD.Show_Statement("Warning, not all columns have a specified field.")
             Return
         End If
 
         Dim boolNoRecipList As Boolean
         boolNoRecipList = (Me.ListRecipients Is Nothing)
         pboolNoRecipientList = boolNoRecipList
-        If (pboolNoRecipientList) Then Return
+        If (pboolNoRecipientList) Then
+            Throw New Exception("ListRecipients is a Null reference.")
+            Return
+        End If
 
         Dim intCountRecipients As Integer
         intCountRecipients = Me.ListRecipients.Count
@@ -469,8 +478,17 @@ Public Class RSCFieldColumn
         boolNoRecipients_zero = (0 = intCountRecipients)
         If (boolNoRecipients_zero) Then
             pboolNoRecipientList = True
+            Throw New Exception("ListRecipients has Zero(0) recipient (student) rows.")
             Return
         End If
+
+        Dim boolMismatchOfCounts As Boolean
+        intCountAllBoxesOrRows = intCountBoxesEmptyOrNot
+        boolMismatchOfCounts = (intCountAllBoxesOrRows <> Me.ListRecipients.Count) ''Then
+        If (boolMismatchOfCounts) Then
+            pboolErrorCellsHaveValues = True
+            Throw New Exception("Warning, non-zero >0 cells with data already. Data would be lost.")
+        End If ''End of ""If (boolMismatchOfCounts) then""
 
         ''-----------------------------------------------------------
 

@@ -114,7 +114,7 @@ Namespace ciBadgeCachePersonality
             If (Not pboolMajorSortOfRefresh) Then Throw New Exception("Don't use unless a big type of refresh is taking place.")
             Return mod_cacheSaved
 
-        End Function
+        End Function ''end if ""Public Function GetCacheForSaving""
 
 
         Public Function GetOmittedElements() As List(Of ClassOmittedElement)
@@ -362,6 +362,41 @@ Namespace ciBadgeCachePersonality
 
 
         End Sub ''End of "Public Sub CheckForOrphanedElements()"
+
+
+        Public Function CheckForMissingFields_FixOrNot(pboolLetsFix As Boolean,
+                            Optional ByRef pint_numFixed As Integer = 0) As Boolean
+            ''
+            ''Added 3/23/2022 thomas downes  
+            ''
+            Dim objField_IfFound As ClassFieldAny
+            Dim outputBoolean_Missing As Boolean = False
+            Dim listOfEnumsToCheck As New List(Of EnumCIBFields)
+
+            ''This is the list of enumerated values to double-check
+            listOfEnumsToCheck.Add(EnumCIBFields.TextField25)
+            listOfEnumsToCheck.Add(EnumCIBFields.fstrFullName)
+            listOfEnumsToCheck.Add(EnumCIBFields.fstrNameAbbreviated)
+
+            ''
+            ''Run through the list of enumerated values. 
+            ''
+            For Each each_enum As EnumCIBFields In listOfEnumsToCheck
+                ''
+                ''Field "Full Name"
+                ''
+                objField_IfFound = CacheForEditing.GetFieldByFieldEnum(each_enum)
+                outputBoolean_Missing = (outputBoolean_Missing Or objField_IfFound Is Nothing)
+
+                If (pboolLetsFix) Then
+
+                    CacheForEditing.LoadField_ByEnum(each_enum)
+
+                End If ''End of "If (pboolLetsFix) Then"
+
+            Next each_enum
+
+        End Function ''End of "Public Function CheckForMissingFields()"
 
 
         Public Sub CheckCacheIsLatestForEdits(ByRef pref_pIsLatest As Boolean,
