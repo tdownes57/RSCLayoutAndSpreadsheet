@@ -20,6 +20,7 @@ Public Class FormDisplayCacheLayouts
 
     Public UserChoosesABlankSlate As Boolean ''Added 12/20/2021 thomas downes  
     Public UserHasSelectedCancel As Boolean ''Added 12/20/2021 thomas downes
+    Public UserHasSelectedLayout As Boolean ''Added 3/24/2022 thomas downes
     Public PathToLastDirectoryForXMLFile As String ''Added 12/20/2021 thomas downes
     Public FileTitleOfXMLFile As String ''Added 1/22/2022 thomas downes
     ''Added 12/26/2021
@@ -189,6 +190,10 @@ Public Class FormDisplayCacheLayouts
         ''Threading.Thread.Sleep(1000)
         ''Application.DoEvents()
         ''ButtonRecipients.PerformClick()
+
+        UserHasSelectedCancel = False ''default value 
+        UserHasSelectedLayout = False ''default value
+        UserChoosesABlankSlate = False ''default value
 
     End Sub ''End of ""Public Sub Form_Load""
 
@@ -518,6 +523,7 @@ Public Class FormDisplayCacheLayouts
         If (bCheckingFile_OK) Then
             Startup.SaveFullPathToFileXML_Settings(strPathToXML)
             Me.PathToElementsCacheXML_Output = strPathToXML
+            Me.UserHasSelectedLayout = True ''Added 3/24/2022 td 
             Me.Close()
         End If ''Endo f "If (bCheckingFile_OK) Then"
 

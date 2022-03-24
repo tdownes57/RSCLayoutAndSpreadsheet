@@ -33,7 +33,7 @@ Public Class RSCFieldSpreadsheet
         oList.Remove(Nothing) ''Item #0 is Nothing, so let's omit the Null reference. 
         Return oList
 
-    End Function
+    End Function ''End of ""Public Function ListOfColumns() As List(Of RSCFieldColumn)""
 
 
     Public Shared Function GetRSCSpreadsheet(par_designer As ClassDesigner,
@@ -310,10 +310,13 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 3/8/2022 thomas downes 
         ''
-        Dim intSavePropertyTop As Integer
-        intSavePropertyTop = RscFieldColumn1.Top
+        Dim intSavePropertyTop_RSCColumnCtl As Integer
+        Dim intSavePropertyTop_FirstRow As Integer ''Added 3/24/2022 td
 
-        ''Step 1 of 5.  Remove design-time columns..... Clearing (removing) design-time columns (which are placed
+        intSavePropertyTop_RSCColumnCtl = RscFieldColumn1.Top
+        intSavePropertyTop_FirstRow = RscFieldColumn1.GetFirstTextboxPropertyTop()
+
+        ''Step 1a of 5.  Remove design-time columns..... Clearing (removing) design-time columns (which are placed
         ''   to give a visual preview of how the run-time columns will look). 
         ''
         RemoveRSCColumnsFromDesignTime()
@@ -331,6 +334,28 @@ Public Class RSCFieldSpreadsheet
         End If ''end of ""If (Me.ElementsCache_Deprecated Is Nothing) Then"'
 
         ''
+        ''Step 1b of 5.  Load run-time row-header control (RSCRowHeaders1). ----3/24/2022 
+        ''
+        ''   Step 1b(1):  Remove design-time control
+        ''   Step 1b(2):  Load run-time control
+        ''
+        ''Step 1b(1):  Remove design-time control
+        RscRowHeaders1.Visible = False ''Hardly matters, but go ahead. 
+        Me.Controls.Remove(RscRowHeaders1)
+
+        ''Step 1b(2):  Load run-time control
+        Dim intCurrentPropertyLeft As Integer = 0
+        Dim intNextPropertyLeft As Integer = 0
+        RscRowHeaders1 = RSCRowHeaders.GetRSCRowHeaders(Me.Designer, Me.ParentForm,
+             "RscRowHeaders1", Me)
+        Me.Controls.Add(RscRowHeaders1)
+        RscRowHeaders1.Visible = True
+        RscRowHeaders1.Top = (intSavePropertyTop_RSCColumnCtl + intSavePropertyTop_FirstRow - 2)
+        RscRowHeaders1.Left = (intCurrentPropertyLeft)
+        intNextPropertyLeft += (RscRowHeaders1.Width + mc_ColumnMarginGap)
+        ''Assigned within the loop below.--3/24/2022 td''intCurrentPropertyLeft = intNextPropertyLeft
+
+        ''
         ''Step 2 of 5.  Load run- time columns. 
         ''
         ''Step 2a of 5.  Create a local array for storing indexed columns. 
@@ -340,8 +365,6 @@ Public Class RSCFieldSpreadsheet
         Dim intNeededIndex As Integer = 1
         Dim each_Column As RSCFieldColumn
         Dim priorColumn As RSCFieldColumn = Nothing
-        Dim intCurrentPropertyLeft As Integer = 0
-        Dim intNextPropertyLeft As Integer = 0
         Dim intNeededMax As Integer = 4
 
         ''Added 3/16/2022 td
@@ -471,7 +494,7 @@ Public Class RSCFieldSpreadsheet
             ''  Tell the column what width, field & field values to display.
             each_columnWidthEtc = Me.ColumnDataCache.ListOfColumns(intNeededIndex - 1)
             each_Column.ColumnWidthAndData = each_columnWidthEtc
-            each_Column.Top = intSavePropertyTop ''Added 3/21/2022
+            each_Column.Top = intSavePropertyTop_RSCColumnCtl ''Added 3/21/2022
 
             ''
             ''Major call!

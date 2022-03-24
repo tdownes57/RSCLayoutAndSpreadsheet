@@ -909,10 +909,19 @@ Public Class ClassDesigner
         ''8/26/2019 td''obj_image_clone_resized = ciLayoutPrintLib.LayoutPrint.ResizeImage_ToWidth(obj_image,
         ''8/26/2019 td''       Me.BackgroundBox.Width)
 
-        obj_image_clone_resized = LayoutPrint.ResizeBackground_ToFitBox(obj_image, Me.BackgroundBox_Front, True)
+        If (obj_image Is Nothing) Then
+            ''No background image is available or selected. ---3/24/2022 td
 
-        ''-----Dec.3 2021 ---Me.BackgroundBox.Image = obj_image_clone_resized
-        Me.BackgroundBox_Front.BackgroundImage = obj_image_clone_resized
+        Else
+            ''
+            ''We have an image which we can clone & resize. 
+            ''
+            obj_image_clone_resized = LayoutPrint.ResizeBackground_ToFitBox(obj_image, Me.BackgroundBox_Front, True)
+
+            ''-----Dec.3 2021 ---Me.BackgroundBox.Image = obj_image_clone_resized
+            Me.BackgroundBox_Front.BackgroundImage = obj_image_clone_resized
+
+        End If ''End of "If (obj_image Is Nothing) Then .... Else ..."
 
     End Sub ''End of Sub ResizeLayoutBackgroundImage_ToFitPictureBox()
 

@@ -738,6 +738,8 @@ ExitHandler:
         Dim boolLandscapeMode As Boolean
         Dim boolPortraitMode As Boolean
 
+        If (parInputImage Is Nothing) Then Throw New Exception("Input image is missing") ''Added 3/24/2022
+
         doubRatioWidthToHeight_Box = (parSizingBox.Width / parSizingBox.Height)
         doubRatioWidthToHeight_Image = (parInputImage.Width / parInputImage.Height)
 

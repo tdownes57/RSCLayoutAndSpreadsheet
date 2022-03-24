@@ -96,6 +96,14 @@ Public Class Startup
                 Dim bGoodChoice As Boolean ''Added 12/19/2021 Thomas Downes
                 Dim bUserWantsABlankSlate As Boolean ''Added 12/19/2021 td
                 Dim bUserCancelled As Boolean ''Added 12/20/2021 td
+                Dim bFirstIteration As Boolean ''Added 3/24/2022 td
+                Dim bUserCancelled_OnFirstIteration As Boolean ''Added 3/24/2022 td
+                Dim bUserMightWantDefaultCache As Boolean ''Added 3/24/2022 td
+                Dim bXMLdoesntHaveData As Boolean ''Added 3/24/2022 td
+                Dim bUserMadeSelectionOfLayout As Boolean ''Addd 3/24/2022 td
+                Dim bUserCancelledOrClosed As Boolean ''Added 3/24/2022 td
+                Dim bUserCancelledOrClosed_FirstIteration As Boolean ''Added 3/24/2022 td
+                Dim bUserCancelledOrClosed_SubsequentItertn As Boolean ''Added 3/24/2022 td
 
                 ''Added 12/20/2021 thomas downes
                 objFormShowCacheLayouts.PathToLastDirectoryForXMLFile = My.Settings.PathToLastDirectoryForXMLFile
@@ -105,6 +113,8 @@ Public Class Startup
 
                 ''Added 3/8/2022 td
                 ''---objFormShowCacheLayouts
+
+                bFirstIteration = True ''Added 3/24/2022
 
                 Do
                     ''
@@ -131,6 +141,7 @@ Public Class Startup
                         strPathToElementsCacheXML_Output = .PathToElementsCacheXML_Output
 
                         bUserWantsABlankSlate = .UserChoosesABlankSlate
+                        bUserMadeSelectionOfLayout = .UserHasSelectedLayout ''Added 3/24/2022
 
                         ''Added 2/5/2022 td
                         pboolUserWantsToExitApp = (.UserWantsToExitApplication)
@@ -138,8 +149,19 @@ Public Class Startup
 
                     End With ''End of "With objFormShowCacheLayouts"
 
-                    bGoodChoice = (bUserWantsABlankSlate Or (Not DiskFilesVB.IsXMLFileMissing_OrEmpty(strPathToElementsCacheXML_Output)))
+                    ''March24 2022''bGoodChoice = (bUserWantsABlankSlate Or (Not DiskFilesVB.IsXMLFileMissing_OrEmpty(strPathToElementsCacheXML_Output)))
+                    bGoodChoice = (bUserWantsABlankSlate Or bUserMadeSelectionOfLayout)
+                    ''Added March24 2022
+                    bXMLdoesntHaveData = (DiskFilesVB.IsXMLFileMissing_OrEmpty(strPathToElementsCacheXML_Output))
+                    If (bXMLdoesntHaveData) Then bGoodChoice = False
+
                     bUserCancelled = objFormShowCacheLayouts.UserHasSelectedCancel
+                    bUserCancelled_OnFirstIteration = (bUserCancelled And bFirstIteration)
+                    bUserCancelledOrClosed = (bUserCancelled Or Not (bUserMadeSelectionOfLayout Or bUserWantsABlankSlate))
+                    bUserCancelledOrClosed_FirstIteration = (bUserCancelledOrClosed And bFirstIteration)
+                    bUserCancelledOrClosed_SubsequentItertn = (bUserCancelledOrClosed And (Not bFirstIteration))
+                    ''March24 2022''bUserMightWantDefaultCache = bUserCancelled_OnFirstIteration
+                    bUserMightWantDefaultCache = bUserCancelledOrClosed_FirstIteration
 
                     ''Added 12/26/2021
                     If (bGoodChoice And Not bUserCancelled) Then
@@ -151,10 +173,16 @@ Public Class Startup
                         If (Not bGoodChoice) Then objFormShowCacheLayouts.ShowMessageForIllformedXML = True
                     End If ''End of "If (bGoodChoice And Not bUserCancelled) Then"
 
-                Loop Until (bGoodChoice Or bUserCancelled) ''Dec20 2021''Loop Until (bGoodChoice) 
+                    ''Prepare for next iteration.  ---3/24/2022
+                    bFirstIteration = False
+                    If (bUserCancelledOrClosed_SubsequentItertn) Then Exit Do ''Exit the Do Loop.---3/24/2022 td
+
+                    ''3/24/2022 td''Loop Until (bGoodChoice Or bUserCancelled) ''Dec20 2021''Loop Until (bGoodChoice) 
+                Loop Until (bGoodChoice Or bUserMightWantDefaultCache) ''Dec20 2021''Loop Until (bGoodChoice) 
 
                 ''Added 12/20/2021 td
-                If (bGoodChoice) Then
+                ''3/24/2022 td''If (bGoodChoice) Then
+                If (bGoodChoice Or bUserWantsABlankSlate Or bUserMightWantDefaultCache) Then
 
                     ''Added 12/20/2021 td
                     ''My.Settings.PathToSavedXML_Prior3 = My.Settings.PathToSavedXML_Prior2
@@ -179,7 +207,7 @@ Public Class Startup
 
                         bPathIsEmpty = (String.IsNullOrEmpty(strPathToElementsCacheXML_Output))
 
-                        If (bPathIsEmpty) Then
+                        If (bPathIsEmpty And bUserWantsABlankSlate) Then ''3/24/22 If (bPathIsEmpty) Then
                             ''
                             ''Don't try to process a Null string. ---2/23/2022 
                             ''
@@ -198,12 +226,13 @@ Public Class Startup
                             boolNewFileXML = True
                             obj_cache_layout_Elements = Nothing
 
-                        Else
+                        ElseIf (Not bPathIsEmpty) Then ''3/24/2022 td
+
                             SaveFullPathToFileXML_Settings(strPathToElementsCacheXML_Output)
                             My.Settings.PathToXML_Saved_ElementsCache = strPathToElementsCacheXML_Output
                             My.Settings.Save()
 
-                        End If ''End of ""If (bPathIsEmpty) Then"" ... Else ...
+                        End If ''End of ""If (bPathIsEmpty And bUserWantsABlankSlate) Then"" ... ElseIf ...
 
                     End With ''end of "With objFormShowCacheLayouts"
 

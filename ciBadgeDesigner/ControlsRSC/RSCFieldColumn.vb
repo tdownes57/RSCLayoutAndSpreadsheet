@@ -373,6 +373,17 @@ Public Class RSCFieldColumn
     End Function ''End of "Private Sub LoadDataToColumn_Do()"
 
 
+    Public Function GetFirstTextboxPropertyTop() As Integer
+        ''
+        ''Added 3/24/2022 thomas downes
+        ''
+        Dim objFirstTextbox As TextBox
+        objFirstTextbox = ListOfTextboxes_TopToBottom().First()
+        Return objFirstTextbox.Top
+
+    End Function ''end of ""Public Function GetFirstTextboxPropertyTop() As Integer""
+
+
     Public Sub New_RSCFieldColumn(par_field As ciBadgeFields.ClassFieldAny, par_iLayoutFunctions As ILayoutFunctions)
         ''---Public Sub New_Portrait(par_elementPic As ClassElementPortrait, par_iLayoutFunctions As ILayoutFunctions)
         ''
@@ -541,7 +552,7 @@ Public Class RSCFieldColumn
                     objListOfTextboxes.Add(CType(eachCtl, TextBox))
                 End If
             End If
-        Next eachCtl
+        Next eachCtl ''End of ""For Each eachCtl As Control In Me.Controls""
 
         ''
         ''Order them in order of top-down (i.e. the Top property).
@@ -744,6 +755,7 @@ Public Class RSCFieldColumn
 
 
     End Sub
+
 
     Private Sub LabelHeader1_Click(sender As Object, e As EventArgs) Handles LabelHeader1.Click
         ''

@@ -52,6 +52,7 @@ Partial Class RSCFieldColumn
         Me.PictureBox9 = New System.Windows.Forms.PictureBox()
         Me.RscSelectCIBField1 = New ciBadgeDesigner.RSCSelectCIBField()
         Me.LinkLabelRightClick = New System.Windows.Forms.LinkLabel()
+        Me.PictureBox13 = New System.Windows.Forms.PictureBox()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox12, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -64,6 +65,7 @@ Partial Class RSCFieldColumn
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox9, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox13, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TextBox11
@@ -74,7 +76,7 @@ Partial Class RSCFieldColumn
         Me.TextBox11.Location = New System.Drawing.Point(2, 257)
         Me.TextBox11.Margin = New System.Windows.Forms.Padding(2)
         Me.TextBox11.Name = "TextBox11"
-        Me.TextBox11.Size = New System.Drawing.Size(174, 20)
+        Me.TextBox11.Size = New System.Drawing.Size(173, 20)
         Me.TextBox11.TabIndex = 49
         Me.TextBox11.Text = "Example"
         '
@@ -82,11 +84,11 @@ Partial Class RSCFieldColumn
         '
         Me.PictureBox4.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PictureBox4.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox4.BackColor = System.Drawing.Color.Black
         Me.PictureBox4.Location = New System.Drawing.Point(0, 251)
         Me.PictureBox4.Margin = New System.Windows.Forms.Padding(2)
         Me.PictureBox4.Name = "PictureBox4"
-        Me.PictureBox4.Size = New System.Drawing.Size(184, 5)
+        Me.PictureBox4.Size = New System.Drawing.Size(184, 2)
         Me.PictureBox4.TabIndex = 48
         Me.PictureBox4.TabStop = False
         '
@@ -94,11 +96,11 @@ Partial Class RSCFieldColumn
         '
         Me.PictureBox12.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PictureBox12.BackColor = System.Drawing.SystemColors.ActiveBorder
-        Me.PictureBox12.Location = New System.Drawing.Point(0, 274)
+        Me.PictureBox12.BackColor = System.Drawing.Color.Black
+        Me.PictureBox12.Location = New System.Drawing.Point(0, 27)
         Me.PictureBox12.Margin = New System.Windows.Forms.Padding(2)
         Me.PictureBox12.Name = "PictureBox12"
-        Me.PictureBox12.Size = New System.Drawing.Size(184, 5)
+        Me.PictureBox12.Size = New System.Drawing.Size(184, 2)
         Me.PictureBox12.TabIndex = 50
         Me.PictureBox12.TabStop = False
         '
@@ -153,11 +155,11 @@ Partial Class RSCFieldColumn
         '
         Me.PictureBox5.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PictureBox5.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox5.BackColor = System.Drawing.Color.Black
         Me.PictureBox5.Location = New System.Drawing.Point(1, 228)
         Me.PictureBox5.Margin = New System.Windows.Forms.Padding(2)
         Me.PictureBox5.Name = "PictureBox5"
-        Me.PictureBox5.Size = New System.Drawing.Size(184, 5)
+        Me.PictureBox5.Size = New System.Drawing.Size(184, 2)
         Me.PictureBox5.TabIndex = 46
         Me.PictureBox5.TabStop = False
         '
@@ -165,11 +167,11 @@ Partial Class RSCFieldColumn
         '
         Me.PictureBox7.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PictureBox7.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox7.BackColor = System.Drawing.Color.Black
         Me.PictureBox7.Location = New System.Drawing.Point(0, 392)
         Me.PictureBox7.Margin = New System.Windows.Forms.Padding(2)
         Me.PictureBox7.Name = "PictureBox7"
-        Me.PictureBox7.Size = New System.Drawing.Size(184, 5)
+        Me.PictureBox7.Size = New System.Drawing.Size(184, 2)
         Me.PictureBox7.TabIndex = 60
         Me.PictureBox7.TabStop = False
         '
@@ -177,11 +179,11 @@ Partial Class RSCFieldColumn
         '
         Me.PictureBox11.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PictureBox11.BackColor = System.Drawing.SystemColors.ActiveBorder
-        Me.PictureBox11.Location = New System.Drawing.Point(0, 297)
+        Me.PictureBox11.BackColor = System.Drawing.Color.Black
+        Me.PictureBox11.Location = New System.Drawing.Point(0, 299)
         Me.PictureBox11.Margin = New System.Windows.Forms.Padding(2)
         Me.PictureBox11.Name = "PictureBox11"
-        Me.PictureBox11.Size = New System.Drawing.Size(184, 5)
+        Me.PictureBox11.Size = New System.Drawing.Size(184, 2)
         Me.PictureBox11.TabIndex = 52
         Me.PictureBox11.TabStop = False
         '
@@ -189,11 +191,11 @@ Partial Class RSCFieldColumn
         '
         Me.PictureBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PictureBox1.BackColor = System.Drawing.SystemColors.ActiveBorder
-        Me.PictureBox1.Location = New System.Drawing.Point(0, 133)
+        Me.PictureBox1.BackColor = System.Drawing.Color.Black
+        Me.PictureBox1.Location = New System.Drawing.Point(0, 135)
         Me.PictureBox1.Margin = New System.Windows.Forms.Padding(2)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(184, 5)
+        Me.PictureBox1.Size = New System.Drawing.Size(184, 2)
         Me.PictureBox1.TabIndex = 38
         Me.PictureBox1.TabStop = False
         '
@@ -249,11 +251,11 @@ Partial Class RSCFieldColumn
         '
         Me.PictureBox6.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PictureBox6.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox6.BackColor = System.Drawing.Color.Black
         Me.PictureBox6.Location = New System.Drawing.Point(1, 204)
         Me.PictureBox6.Margin = New System.Windows.Forms.Padding(2)
         Me.PictureBox6.Name = "PictureBox6"
-        Me.PictureBox6.Size = New System.Drawing.Size(184, 5)
+        Me.PictureBox6.Size = New System.Drawing.Size(184, 2)
         Me.PictureBox6.TabIndex = 44
         Me.PictureBox6.TabStop = False
         '
@@ -261,11 +263,11 @@ Partial Class RSCFieldColumn
         '
         Me.PictureBox8.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PictureBox8.BackColor = System.Drawing.SystemColors.ActiveBorder
+        Me.PictureBox8.BackColor = System.Drawing.Color.Black
         Me.PictureBox8.Location = New System.Drawing.Point(1, 368)
         Me.PictureBox8.Margin = New System.Windows.Forms.Padding(2)
         Me.PictureBox8.Name = "PictureBox8"
-        Me.PictureBox8.Size = New System.Drawing.Size(184, 5)
+        Me.PictureBox8.Size = New System.Drawing.Size(184, 2)
         Me.PictureBox8.TabIndex = 58
         Me.PictureBox8.TabStop = False
         '
@@ -273,11 +275,11 @@ Partial Class RSCFieldColumn
         '
         Me.PictureBox10.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PictureBox10.BackColor = System.Drawing.SystemColors.ActiveBorder
-        Me.PictureBox10.Location = New System.Drawing.Point(-1, 321)
+        Me.PictureBox10.BackColor = System.Drawing.Color.Black
+        Me.PictureBox10.Location = New System.Drawing.Point(-1, 323)
         Me.PictureBox10.Margin = New System.Windows.Forms.Padding(2)
         Me.PictureBox10.Name = "PictureBox10"
-        Me.PictureBox10.Size = New System.Drawing.Size(184, 5)
+        Me.PictureBox10.Size = New System.Drawing.Size(184, 2)
         Me.PictureBox10.TabIndex = 54
         Me.PictureBox10.TabStop = False
         '
@@ -285,11 +287,11 @@ Partial Class RSCFieldColumn
         '
         Me.PictureBox2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PictureBox2.BackColor = System.Drawing.SystemColors.ActiveBorder
-        Me.PictureBox2.Location = New System.Drawing.Point(0, 157)
+        Me.PictureBox2.BackColor = System.Drawing.Color.Black
+        Me.PictureBox2.Location = New System.Drawing.Point(0, 159)
         Me.PictureBox2.Margin = New System.Windows.Forms.Padding(2)
         Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(184, 5)
+        Me.PictureBox2.Size = New System.Drawing.Size(184, 2)
         Me.PictureBox2.TabIndex = 40
         Me.PictureBox2.TabStop = False
         '
@@ -345,11 +347,11 @@ Partial Class RSCFieldColumn
         '
         Me.PictureBox3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PictureBox3.BackColor = System.Drawing.SystemColors.ActiveBorder
-        Me.PictureBox3.Location = New System.Drawing.Point(-1, 180)
+        Me.PictureBox3.BackColor = System.Drawing.Color.Black
+        Me.PictureBox3.Location = New System.Drawing.Point(-1, 182)
         Me.PictureBox3.Margin = New System.Windows.Forms.Padding(2)
         Me.PictureBox3.Name = "PictureBox3"
-        Me.PictureBox3.Size = New System.Drawing.Size(184, 5)
+        Me.PictureBox3.Size = New System.Drawing.Size(184, 2)
         Me.PictureBox3.TabIndex = 42
         Me.PictureBox3.TabStop = False
         '
@@ -357,11 +359,11 @@ Partial Class RSCFieldColumn
         '
         Me.PictureBox9.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PictureBox9.BackColor = System.Drawing.SystemColors.ActiveBorder
-        Me.PictureBox9.Location = New System.Drawing.Point(1, 344)
+        Me.PictureBox9.BackColor = System.Drawing.Color.Black
+        Me.PictureBox9.Location = New System.Drawing.Point(1, 346)
         Me.PictureBox9.Margin = New System.Windows.Forms.Padding(2)
         Me.PictureBox9.Name = "PictureBox9"
-        Me.PictureBox9.Size = New System.Drawing.Size(184, 5)
+        Me.PictureBox9.Size = New System.Drawing.Size(184, 2)
         Me.PictureBox9.TabIndex = 56
         Me.PictureBox9.TabStop = False
         '
@@ -388,11 +390,24 @@ Partial Class RSCFieldColumn
         Me.LinkLabelRightClick.TabStop = True
         Me.LinkLabelRightClick.Text = "Right-Click"
         '
+        'PictureBox13
+        '
+        Me.PictureBox13.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox13.BackColor = System.Drawing.Color.Black
+        Me.PictureBox13.Location = New System.Drawing.Point(2, 273)
+        Me.PictureBox13.Margin = New System.Windows.Forms.Padding(2)
+        Me.PictureBox13.Name = "PictureBox13"
+        Me.PictureBox13.Size = New System.Drawing.Size(184, 2)
+        Me.PictureBox13.TabIndex = 64
+        Me.PictureBox13.TabStop = False
+        '
         'RSCFieldColumn
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.Controls.Add(Me.PictureBox13)
         Me.Controls.Add(Me.LinkLabelRightClick)
         Me.Controls.Add(Me.RscSelectCIBField1)
         Me.Controls.Add(Me.TextBox11)
@@ -434,6 +449,7 @@ Partial Class RSCFieldColumn
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox9, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox13, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -465,4 +481,5 @@ Partial Class RSCFieldColumn
     Friend WithEvents PictureBox9 As PictureBox
     Friend WithEvents RscSelectCIBField1 As RSCSelectCIBField
     Friend WithEvents LinkLabelRightClick As LinkLabel
+    Friend WithEvents PictureBox13 As PictureBox
 End Class
