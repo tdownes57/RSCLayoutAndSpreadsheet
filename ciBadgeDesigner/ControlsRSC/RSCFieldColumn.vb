@@ -539,7 +539,7 @@ Public Class RSCFieldColumn
     End Function ''end of Private Function ListOfData() As List(Of String)
 
 
-    Private Function ListOfTextboxes_TopToBottom() As IOrderedEnumerable(Of TextBox)
+    Public Function ListOfTextboxes_TopToBottom() As IOrderedEnumerable(Of TextBox)
         ''
         ''Added 3/19/2022 td
         ''
@@ -551,7 +551,7 @@ Public Class RSCFieldColumn
                 If (eachCtl.Visible) Then
                     objListOfTextboxes.Add(CType(eachCtl, TextBox))
                 End If
-            End If
+            End If ''End of "If (TypeOf eachCtl Is TextBox) Then"
         Next eachCtl ''End of ""For Each eachCtl As Control In Me.Controls""
 
         ''
@@ -565,6 +565,32 @@ Public Class RSCFieldColumn
         Return objListOfTextboxes_Ordered
 
     End Function ''End of "Private Function ListOfTextboxes_TopToBottom() As IOrderedEnumerable(Of TextBox)"
+
+
+    Public Function ListOfBars_TopToBottom() As IOrderedEnumerable(Of PictureBox)
+        ''
+        ''Added 3/19/2022 td
+        ''
+        Dim objListOfBars As New List(Of PictureBox)
+        For Each eachCtl As Control In Me.Controls
+            If (TypeOf eachCtl Is PictureBox) Then
+                If (eachCtl.Visible) Then
+                    objListOfBars.Add(CType(eachCtl, PictureBox))
+                End If ''End of ""If (eachCtl.Visible) Then""
+            End If ''End of "If (TypeOf eachCtl Is TextBox) Then"
+        Next eachCtl ''End of ""For Each eachCtl As Control In Me.Controls""
+
+        ''
+        ''Order them in order of top-down (i.e. the Top property).
+        ''
+        Dim objListOfBars_Ordered As IOrderedEnumerable(Of PictureBox) =
+            From objBar In objListOfBars
+            Select objBar
+            Order By objBar.Top
+
+        Return objListOfBars_Ordered
+
+    End Function ''End of "Public Function ListOfBars_TopToBottom() As IOrderedEnumerable(Of PictureBox)"
 
 
     Public Sub SaveDataToColumn()
@@ -765,6 +791,18 @@ Public Class RSCFieldColumn
         new_mouse = New MouseEventArgs(MouseButtons.Right, 1, LinkLabelRightClick.Left,
                LinkLabelRightClick.Top, 0)
         MyBase.MoveableControl_MouseUp(sender, new_mouse)
+
+    End Sub
+
+    Private Sub RscSelectCIBField1_Load(sender As Object, e As EventArgs) Handles RscSelectCIBField1.Load
+
+    End Sub
+
+    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
+
+    End Sub
+
+    Private Sub TextBox5_TextChanged(sender As Object, e As EventArgs) Handles TextBox5.TextChanged
 
     End Sub
 End Class
