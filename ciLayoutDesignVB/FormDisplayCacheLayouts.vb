@@ -797,6 +797,15 @@ Public Class FormDisplayCacheLayouts
         cache_elements = New ClassElementsCache_Deprecated
         cache_elements = CType(objDeserialize.DeserializeFromXML(cache_elements.GetType(), False),
             ClassElementsCache_Deprecated)
+        cache_elements.PathToXml_Opened = objDeserialize.PathToXML ''Added 3/23/2022 td
+
+        ''Added 3/23/2022 td
+        Const c_boolFixMissingElements As Boolean = True ''Added 3/23/2022 td
+        If (c_boolFixMissingElements) Then ''Added 3/23/2022 td
+            Dim cache_manager As ClassCacheManagement ''Added 3/23/2022 td
+            cache_manager = New ClassCacheManagement(cache_elements, False)
+            cache_manager.CheckForMissingFields_FixOrNot(True)
+        End If ''End of ""If (c_boolFixMissingElements) Then""
 
         ''March 15 2022 td''frm_ToShow = New DialogEditRecipients() ''March 15 2022 td ''(cache_elements) ''added 3/14/2022
         ''March 15 2022 td''frm_ToShow.LoadForm_ByCache(cache_elements) ''added 3/14/2022

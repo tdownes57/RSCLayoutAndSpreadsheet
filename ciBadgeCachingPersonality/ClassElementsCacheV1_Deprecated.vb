@@ -1197,10 +1197,25 @@ Namespace ciBadgeCachePersonality
             ''
             ''Added 3/23/2022 td
             ''
+            If (p_bCustom) Then Throw New Exception("not yet set up for custom fields")
 
+            ''Major call!!
+            ''----LoadField_ByEnum_Standard(p_enumField)
 
+            Dim bAlreadyLoaded As Boolean
+            bAlreadyLoaded = (GetFieldByFieldEnum(p_enumField) IsNot Nothing)
 
+            If bAlreadyLoaded Then
+                ''
+                ''Do nothing.  Already loaded.  We don't need duplicates!
+                ''
+            Else
 
+                Dim objNewField As ClassFieldStandard
+                objNewField = ClassFieldStandard.BuildField_ByEnum_Standard(p_enumField)
+                mod_listFields_Standard.Add(objNewField)
+
+            End If ''end of ""If bAlreadyLoaded Then... Else...""
 
         End Sub ''End of "LoadField_ByEnum(each_enum)"
 
@@ -2716,8 +2731,17 @@ Namespace ciBadgeCachePersonality
             With objSerializationClass
 
                 ''10/13/2019 td''.PathToXML = Me.ElementsCache_Saved.PathToXml_Saved
-                .PathToXML = Me.PathToXml_Saved
+                ''03/23/2022 td''.PathToXML = Me.PathToXml_Saved
                 .PathToXML_Binary = Me.PathToXml_Binary ''Added 11/29/2019 thomas d. 
+
+                ''Added 3/23/2022 thomas d.
+                If (Me.PathToXml_Opened <> "") Then
+                    .PathToXML = Me.PathToXml_Opened
+                    .PathToXML_Alternate = Me.PathToXml_Saved ''Added 3/23/2022 thomas d. 
+                Else
+                    .PathToXML = Me.PathToXml_Saved
+                    .PathToXML_Alternate = Me.PathToXml_Opened ''Added 3/23/2022 thomas d. 
+                End If ''End of "If (Me.PathToXML_Opened <> "") Then ... Else"
 
                 ''Added 12/14/2021 td 
                 If (pstrPathToXML <> "") Then .PathToXML = pstrPathToXML

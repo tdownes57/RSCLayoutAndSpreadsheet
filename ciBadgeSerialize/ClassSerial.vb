@@ -25,6 +25,7 @@ Public Class ClassSerial
     Public PathToXML As String = "" ''9/1/2019 td''  "C:\Users\tdown\Documents\CIBadgeWeb\SerializeFile_Xml.txt"
     ''11/29/2019 td''Public PathToBinary As String = "" ''9/1/2019 td''  "C:\Users\tdown\Documents\CIBadgeWeb\SerializeFile_Bin.ttxt"
     Public PathToXML_Binary As String = "" ''9/1/2019 td''  "C:\Users\tdown\Documents\CIBadgeWeb\SerializeFile_Bin.ttxt"
+    Public PathToXML_Alternate As String = "" ''Added 3/23/2022 thomas downes
 
     Public TypeOfObject As Type ''Added 9/1/2019 td 
     Public ObjectToSerialize As Object ''Added 9/12/2019 td 
@@ -74,6 +75,35 @@ Public Class ClassSerial
         ''                FileMode.Create, FileAccess.Write, FileShare.None)
         ''1/25/2022 td''Dim fileStream_Xml As Stream = New FileStream(Me.PathToXML,
         ''             FileMode.Create, FileAccess.Write, FileShare.None)
+
+        ''Added 3/23/2022 thomas downes
+        Dim objParentFolder As System.IO.DirectoryInfo ''Added 3/23/2022 t
+        Dim objParentFolder_Alternate As System.IO.DirectoryInfo ''Added 3/23/2022 t
+        Dim boolFolderExists As Boolean ''Added 3/23/2022 t
+        Dim boolFolderExists_Alternate As Boolean ''Added 3/23/2022 t
+
+        objParentFolder = IO.Directory.GetParent(Me.PathToXML)
+        boolFolderExists = IO.Directory.Exists(objParentFolder.FullName)
+
+        If (boolFolderExists) Then
+            ''As expected, the target folder exists.  ---3/23/2022
+
+        ElseIf (Me.PathToXML_Alternate <> "") Then
+            ''The primary path is empty. Use the Alternate Path.  
+            objParentFolder_Alternate = IO.Directory.GetParent(Me.PathToXML_Alternate)
+            boolFolderExists_Alternate = IO.Directory.Exists(objParentFolder_Alternate.FullName)
+            If (boolFolderExists_Alternate) Then
+                ''As expected, the target folder exists.  ---3/23/2022
+            Else
+                ''Added 3/23/2022 td
+                Throw New Exception("The implied folder path (Alternate) doesn't exist.")
+            End If ''End of "If (boolFolderExists_Alternate) Then ... Else..."
+
+        Else
+            ''Added 3/23/2022 td
+            Throw New Exception("The implied folder path doesn't exist.")
+
+        End If ''End of "If (boolFolderExists) Then .... Else ...."
 
         ''Added the "Using" keyword on 1/25/2022 td 
         Using fileStream_Xml As Stream = New FileStream(Me.PathToXML,

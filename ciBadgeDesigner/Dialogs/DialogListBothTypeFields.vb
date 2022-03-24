@@ -173,7 +173,6 @@ Public Class DialogListBothTypeFields
         ''Added 7/ 21/2019
         ''
         Dim userControl As CtlConfigFldCustom
-        Dim userControl_Irrelevant As CtlConfigFldCustRelevancy ''Added 3/21/2022
         Dim boolIrrelevant As Boolean ''Added 3/21/2022 td
 
         ''Added 3/21/2022 td
@@ -181,6 +180,7 @@ Public Class DialogListBothTypeFields
 
         ''7/21/2019 td''FlowLayoutPanel1.Controls.Add(New UserCustomFieldCtl())
 
+        Dim userControl_Irrelevant As CtlConfigFldCustRelevancy ''Added 3/21/2022
         If (boolIrrelevant) Then ''Added 3/21/2022 td
             ''Added 3/21/2022 td
             userControl_Irrelevant = New CtlConfigFldCustRelevancy
@@ -226,6 +226,9 @@ Public Class DialogListBothTypeFields
             SaveControls()
             ''Added 12/6/2021 td
             Me.ClosingOK_SoSaveWork = True
+            ''Added 03/23/2022 thomas d.  
+            Me.DialogResult = DialogResult.OK
+
         End If ''End of "If (dia_result = DialogResult.Yes) Then"
 
     End Sub
@@ -236,30 +239,84 @@ Public Class DialogListBothTypeFields
         ''
         ''Encapsulated 7/27/2019 td 
         ''
-        Dim each_ctl_configure_field As CtlConfigFldCustom
+        Dim each_ctl_configure_field_Standard As CtlConfigFldStandard
+        Dim each_ctl_configure_field_Custom As CtlConfigFldCustom
+        Dim each_ctl_configure_field_StandRelevy As CtlConfigFldStdRelevancy ''Added 3/23/2022 td
+        Dim each_ctl_configure_field_CustRelevy As CtlConfigFldCustRelevancy ''Added 3/23/2022 td
 
         For Each each_control As Control In FlowLayoutPanel1.Controls
 
             If (TypeOf each_control Is CtlAddCustomField) Then Continue For
+            If (TypeOf each_control Is CtlAddStandardField) Then Continue For ''Added 3/23/2022
 
             ''7/27/2019 td''CType(each_control, CtlConfigFldCustom).Save_CustomControl()
 
-            each_ctl_configure_field = CType(each_control, CtlConfigFldCustom)
+            Dim bControlIsCustom As Boolean = False ''Added 3/23/2022 td
+            Dim bControlIsCustom_Relevancy As Boolean = False ''Added 3/23/2022 td
+            Dim bControlIsStandard As Boolean = False ''Added 3/23/2022 td
+            Dim bControlIsStandard_Relevancy As Boolean = False ''Added 3/23/2022 td
 
-            With each_ctl_configure_field
+            ''Added 3/23/2022 td
+            If (TypeOf each_control Is CtlConfigFldStandard) Then bControlIsStandard = True
+            If (TypeOf each_control Is CtlConfigFldStdRelevancy) Then bControlIsStandard_Relevancy = True
+            If (TypeOf each_control Is CtlConfigFldCustom) Then bControlIsCustom = True
+            If (TypeOf each_control Is CtlConfigFldCustRelevancy) Then bControlIsCustom_Relevancy = True
 
-                .Save_CustomControl()
+            Select Case True
 
-                ''8/29/2019 td''If (.NewlyAdded) Then FormMain.GetCurrentPersonality_Fields_Custom().Add(.Model)
-                If (.NewlyAdded) Then
-                    ''9/2/2019 td''FormMain.GetCurrentPersonality_Fields_Custom().Add(.ModelFieldInfo)
-                    ''12/5/2021 td''Form__Main_PreDemo.GetCurrentPersonality_Fields_Custom().Add(.Field_Customized)
-                    ''01/01/2022 td''Form__Main_Demo.ElementsCache_Edits.ListOfFields_Custom.Add(.Field_Customized)
-                    Me.ListOfFields_Custom.Add(.Field_Customized)
+                Case bControlIsStandard
+                    ''
+                    ''Standard-Field Control
+                    ''
+                    each_ctl_configure_field_Standard = CType(each_control, CtlConfigFldStandard)
+                    With each_ctl_configure_field_Standard
+                        .Save_StandardControl()
+                        If (.NewlyAdded) Then Me.ListOfFields_Standard.Add(.Field_Standard)
+                    End With ''End of "With each_ctl_configure_field_Standard"
 
-                End If ''End of "If (.NewlyAdded) Then"
 
-            End With ''End of "With each_ctl_configure_field"
+                Case bControlIsCustom
+                    ''
+                    ''Custom-Field Control
+                    ''
+                    each_ctl_configure_field_Custom = CType(each_control, CtlConfigFldCustom)
+                    With each_ctl_configure_field_Custom
+
+                        .Save_CustomControl()
+
+                        ''8/29/2019 td''If (.NewlyAdded) Then FormMain.GetCurrentPersonality_Fields_Custom().Add(.Model)
+                        If (.NewlyAdded) Then
+                            ''9/2/2019 td''FormMain.GetCurrentPersonality_Fields_Custom().Add(.ModelFieldInfo)
+                            ''12/5/2021 td''Form__Main_PreDemo.GetCurrentPersonality_Fields_Custom().Add(.Field_Customized)
+                            ''01/01/2022 td''Form__Main_Demo.ElementsCache_Edits.ListOfFields_Custom.Add(.Field_Customized)
+                            Me.ListOfFields_Custom.Add(.Field_Customized)
+
+                        End If ''End of "If (.NewlyAdded) Then"
+
+                    End With ''End of "With each_ctl_configure_field"
+
+
+                Case bControlIsStandard_Relevancy
+                    ''
+                    ''Standard-Field Control (w/ Relevancy Container)
+                    ''
+                    each_ctl_configure_field_StandRelevy = CType(each_control, CtlConfigFldStdRelevancy)
+                    With each_ctl_configure_field_StandRelevy
+                        .Save_StandardControl()
+                        If (.NewlyAdded) Then Me.ListOfFields_Standard.Add(.Field_Standard)
+                    End With ''End of "With each_ctl_configure_field_Standard"
+
+                Case bControlIsCustom_Relevancy
+                    ''
+                    ''Custom-Field Control (w/ Relevancy Container)
+                    ''
+                    each_ctl_configure_field_CustRelevy = CType(each_control, CtlConfigFldCustRelevancy)
+                    With each_ctl_configure_field_CustRelevy
+                        .Save_CustomControl()
+                        If (.NewlyAdded) Then Me.ListOfFields_Custom.Add(.Field_Customized)
+                    End With ''End of "With each_ctl_configure_field_Standard"
+
+            End Select ''End of ""Select Case True""
 
         Next each_control
 
@@ -322,12 +379,28 @@ Public Class DialogListBothTypeFields
         ''
         ''Added 8/19/2019
         ''
-        Dim userControl As New CtlConfigFldStandard
+        Dim userControl As CtlConfigFldStandard
+        Dim boolIrrelevant As Boolean ''Added 3/21/2022 td
 
-        userControl.Load_StandardControl(CType(par_standardFld, ICIBFieldStandardOrCustom))
-        userControl.Visible = True
+        ''Added 3/21/2022 td
+        boolIrrelevant = (Not par_standardFld.IsRelevantToPersonality)
 
-        FlowLayoutPanel1.Controls.Add(userControl)
+        Dim userControl_Irrelevant As CtlConfigFldStdRelevancy ''Added 3/23/2022
+        If (boolIrrelevant) Then ''Added 3/23/2022 td
+            ''Added 3/23/2022 td
+            userControl_Irrelevant = New CtlConfigFldStdRelevancy
+            ''3/23/2022 td''userControl_Irrelevant.Load_StandardControl(CType(par_standardFld, ICIBFieldStandardOrCustom))
+            userControl_Irrelevant.Load_StandardControl(par_standardFld) '', ICIBFieldStandardOrCustom))
+            userControl_Irrelevant.Visible = True
+            FlowLayoutPanel1.Controls.Add(userControl_Irrelevant)
+
+        Else
+            userControl = New CtlConfigFldStandard
+            userControl.Load_StandardControl(CType(par_standardFld, ICIBFieldStandardOrCustom))
+            userControl.Visible = True
+            FlowLayoutPanel1.Controls.Add(userControl)
+
+        End If ''End of "If (boolIrrelevant) Then .... Else ...."
 
     End Sub ''End of "Private Sub LoadStandardField_Each(par_standardFld As ClassStandardField)"
 

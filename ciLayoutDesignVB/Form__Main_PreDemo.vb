@@ -45,7 +45,9 @@ Public Class Form__Main_PreDemo
         ''Added 12/5/2019 thomas downes
         ''
 
+
     End Function
+
 
     Public Shared Function GetCurrentPersonality_Fields_Standard() As HashSet(Of ClassFieldStandard)
         ''
@@ -60,6 +62,7 @@ Public Class Form__Main_PreDemo
         Return Nothing
 
     End Function ''eNd of "Public Function GetCurrentPersonality_FieldInfos_Standard() As List(Of ClassFieldStandard)"
+
 
     Public Shared Function GetCurrentPersonality_FieldInfos_Standard() As List(Of ICIBFieldStandardOrCustom)
         ''

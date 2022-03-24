@@ -35,6 +35,7 @@ Public Class CtlConfigFldCustom
         End Get
     End Property
 
+
     Public Sub Load_CustomControl(par_field As ClassFieldCustomized)
 
         ''9/16/2019 td''Public Sub Load_CustomControl(par_info As ICIBFieldStandardOrCustom)

@@ -45,6 +45,10 @@ Namespace ciBadgeCachePersonality
             mod_cacheEdits = GetLoadedCacheUsingPathToXML(pstrPathToSavedFileXML)
             mod_cacheSaved = GetLoadedCacheUsingPathToXML(pstrPathToSavedFileXML)
 
+            ''Added 3/23/2022 thomas d.
+            CheckForMissingFields_FixOrNot(True)
+
+
         End Sub ''End of " Public Sub New"
 
 
@@ -92,6 +96,11 @@ Namespace ciBadgeCachePersonality
                 ''Dec14 2021''LoadSavedCacheUsingPathToXML(pstrPathToSavedFileXML)
                 mod_cacheSaved = GetLoadedCacheUsingPathToXML(pstrPathToSavedFileXML)
 
+            Else
+
+                ''Added 3/23/2023 td
+                mod_cacheSaved = GetLoadedCacheUsingPathToXML(mod_cacheEdits.PathToXml_Opened)
+
             End If ''End of " If (pboolAllowCacheToBeCopied) Then ... ElseIf ...
 
             ''Dec12 2021''Me.ElementsCache_Saved.Id_GUID = New Guid() ''Generates a new GUID.
@@ -103,6 +112,9 @@ Namespace ciBadgeCachePersonality
             ''Added 12/12/2021 
             ''Dec.12 2021''If (LatestCacheOfEdits_Guid6 = "") Then LatestCacheOfEdits_Guid6 = mod_cacheEdits.Id_GUID6
             LatestCacheOfEdits_Guid6 = mod_cacheEdits.Id_GUID6
+
+            ''Added 3/23/2022 thomas d.
+            CheckForMissingFields_FixOrNot(True)
 
         End Sub ''End of Public Sub New(par_cacheForEdits As ClassElementsCache_Deprecated)
 
@@ -374,7 +386,7 @@ Namespace ciBadgeCachePersonality
             Dim listOfEnumsToCheck As New List(Of EnumCIBFields)
 
             ''This is the list of enumerated values to double-check
-            listOfEnumsToCheck.Add(EnumCIBFields.TextField25)
+            ''----listOfEnumsToCheck.Add(EnumCIBFields.TextField25)
             listOfEnumsToCheck.Add(EnumCIBFields.fstrFullName)
             listOfEnumsToCheck.Add(EnumCIBFields.fstrNameAbbreviated)
 
@@ -389,8 +401,10 @@ Namespace ciBadgeCachePersonality
                 outputBoolean_Missing = (outputBoolean_Missing Or objField_IfFound Is Nothing)
 
                 If (pboolLetsFix) Then
-
-                    CacheForEditing.LoadField_ByEnum(each_enum)
+                    ''
+                    ''Currently, it must be a Standard field (hence the ", False" as the 2nd parameter).  
+                    ''
+                    CacheForEditing.LoadField_ByEnum(each_enum, False)
 
                 End If ''End of "If (pboolLetsFix) Then"
 
@@ -425,6 +439,16 @@ Namespace ciBadgeCachePersonality
             Return mod_cacheEdits.CheckAllElementsHaveCorrectFieldInfo(pbAllFine, pstrMessage)
 
         End Function ''End of "Public Function CheckAllElementsHaveCorrectFieldInfo"
+
+
+        Public Sub LoadField_ByEnum(par_enumCIB As EnumCIBFields, pboolIsCustomField As Boolean)
+            ''
+            ''Added 3/23/2022 thomas d. 
+            ''
+            CacheForEditing.LoadField_ByEnum(par_enumCIB, pboolIsCustomField)
+
+        End Sub ''End of "Public Sub LoadField_ByEnum(par_enumCIB As EnumCIBFields)"
+
 
 
         Public Sub LinkElementsToFields()

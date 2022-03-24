@@ -18,7 +18,9 @@ Public Class CtlConfigFldStandard
 
     Public NewlyAdded As Boolean ''Add 8/19/2019 td 
 
-    Private mod_model As ICIBFieldStandardOrCustom
+    ''3/23/2022 ''Private mod_model As ICIBFieldStandardOrCustom
+    Private mod_model_info As ICIBFieldStandardOrCustom
+    Private mod_model_object As ClassFieldStandard ''Added 3/23/2022 td
     Private mod_model_copy As ClassFieldStandard ''Added 8/19/2019 thomas d. 
 
     ''9/16/2019 td''Private mod_arrayOfValues As String() ''Added 8/19/2019 td 
@@ -35,11 +37,71 @@ Public Class CtlConfigFldStandard
         End Get
     End Property
 
+
+    Public Sub Load_StandardControl(par_field As ClassFieldStandard)
+        ''
+        ''Added 3/23/2022 Thomas DOWNES   
+        ''
+        ''Added 3/23/2022 thomas downes''mod_model = par_field
+        mod_model_object = par_field
+        mod_model_info = CType(par_field, ICIBFieldStandardOrCustom)
+
+        mod_model_copy = New ClassFieldStandard
+        ''3/23/2022 TD''mod_model_copy.Load_ByCopyingMembers(par_info)
+        mod_model_copy.Load_ByCopyingMembers(mod_model_info)
+
+        LabelHeaderTop.Text = mod_model_copy.FieldLabelCaption
+
+        ''If a fieldname is missing, then display the field index. 
+        ''
+        If (LabelHeaderTop.Text = "") Then If (mod_model_copy.FieldIndex > 0) Then LabelHeaderTop.Text = "Field # " & CStr(mod_model_copy.FieldIndex)
+
+        With mod_model_info ''3/23/2022''par_info
+
+            ''9/16/2019 td''mod_arrayOfValues = .ArrayOfValues
+            ''Me.CIBadgeField = .CIBadgeField_Optional
+
+            mod_s_CIBadgeField = .CIBadgeField
+            mod_s_OtherDbField = .OtherDbField_Optional
+            mod_s_ExampleValue = .ExampleValue
+
+            ''checkHasPresetValues.Checked = .HasPresetValues
+            textFieldLabel.Text = .FieldLabelCaption
+            checkIsFieldForDates.Checked = .IsFieldForDates
+            checkIsLocked.Checked = .IsLocked
+            ''checkIsAdditionalField.Checked = .IsAdditionalField
+
+            ''If (.ArrayOfValues IsNot Nothing) Then
+            ''    listPresetValues.Items.AddRange(.ArrayOfValues)
+            ''End If ''End of "If (.ArrayOfValues IsNot Nothing) Then"
+
+            ''Added 8/22/2019 thomas d.
+            checkDisplayOnBadge.Checked = .IsDisplayedOnBadge
+            checkDisplayForEdits.Checked = .IsDisplayedForEdits
+
+            ''Added 12/7/2021 thomas d.
+            checkRelevantToPersonality.Checked = .IsRelevantToPersonality
+
+            ''Added 12/6/2021 thomas downes
+            ''  Make it pretty clear to user that there's a ON-OFF relationship here. 
+            checkDisplayForEdits.Enabled = .IsRelevantToPersonality ''False
+            checkDisplayOnBadge.Enabled = .IsRelevantToPersonality ''False
+
+        End With ''End of "With par_info"  
+
+ExitHandler:
+        ''Added 7/27/2019 thomas downes
+        mod_isLoading = False
+
+    End Sub ''End of "Public Sub Load_StandardControl"
+
+
     Public Sub Load_StandardControl(par_info As ICIBFieldStandardOrCustom)
         ''
         ''Added 8/19/2019 Thomas DOWNES   
         ''
-        mod_model = par_info
+        ''3/23/2022 td''mod_model = par_info
+        mod_model_info = par_info
 
         mod_model_copy = New ClassFieldStandard
         mod_model_copy.Load_ByCopyingMembers(par_info)
@@ -89,11 +151,12 @@ ExitHandler:
 
     End Sub ''End of "Public Sub Load_StandardControl"
 
+
     Public Sub Save_StandardControl()
         ''
         ''Added 8/22/2019 & 7/21/2019 Thomas DOWNES   
         ''
-        With mod_model
+        With mod_model_info ''3/23/2022 ''With mod_model
 
             ''---.HasPresetValues = checkHasPresetValues.Checked
             .FieldLabelCaption = textFieldLabel.Text
@@ -114,11 +177,12 @@ ExitHandler:
             .OtherDbField_Optional = mod_s_OtherDbField '' = .OtherDbField_Optional
             .ExampleValue = mod_s_ExampleValue '' = .ExampleValue
 
-        End With ''End of "With par_info"  
+        End With ''End of "With mod_model_info"  
 
         ''Added 7/27/2019 td  
         ''8/29/2019 td''Me.Model = mod_model
-        Me.ModelFieldInfo = mod_model
+        ''3/23/2022 td''Me.ModelFieldInfo = mod_model
+        Me.ModelFieldInfo = mod_model_info
 
     End Sub ''End of "Public Sub Save_StandardControl()" 
 
@@ -155,7 +219,10 @@ ExitHandler:
                 checkboxSender.Checked = False
                 Application.DoEvents()
                 mod_isLoading = False ''Return to default. 
-                If (mod_model IsNot Nothing) Then mod_model.DateEdited = Now ''Added 12/5/2021 td
+
+                ''3/23/2022 td''If (mod_model IsNot Nothing) Then mod_model.DateEdited = Now ''Added 12/5/2021 td
+                If (mod_model_info IsNot Nothing) Then mod_model_info.DateEdited = Now ''Added 12/5/2021 td
+
                 checkDisplayForEdits.Enabled = False
                 checkDisplayOnBadge.Enabled = False
 
@@ -168,8 +235,11 @@ ExitHandler:
                 mod_isLoading = True ''Suppress this event. 
                 checkboxSender.Checked = True ''False
                 Application.DoEvents()
-                mod_isLoading = False ''Return to default. 
-                If (mod_model IsNot Nothing) Then mod_model.DateEdited = Now ''Added 12/5/2021 td
+                mod_isLoading = False ''Return to default.
+
+                ''3/23/2022 td''If (mod_model IsNot Nothing) Then mod_model.DateEdited = Now ''Added 12/5/2021 td
+                If (mod_model_info IsNot Nothing) Then mod_model_info.DateEdited = Now ''Added 12/5/2021 td
+
                 checkDisplayForEdits.Enabled = True ''False
                 checkDisplayOnBadge.Enabled = True ''False
 

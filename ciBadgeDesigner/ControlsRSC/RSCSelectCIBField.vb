@@ -96,12 +96,21 @@ Public Class RSCSelectCIBField
         ''Added 3/17/2022 Thomas Downes
         ''
         Dim form_ToShow As New DialogListBothTypeFields
+        Dim dialog_result As DialogResult ''Added 3/23/2022 td
 
         ''Added 3/21/2022 td
         form_ToShow.ListOfFields_Standard = Me.ElementsCache_Deprecated.ListOfFields_Standard
         form_ToShow.ListOfFields_Custom = Me.ElementsCache_Deprecated.ListOfFields_Custom
 
-        form_ToShow.ShowDialog()
+        dialog_result =
+           form_ToShow.ShowDialog()
+
+        ''Added 3/23/2022 td
+        If (dialog_result = DialogResult.OK) Then
+            ''Added 3/23/2022 td
+            Me.ElementsCache_Deprecated.SaveToXML()
+
+        End If ''End of ""If (dialog_result = ...)"
 
 
     End Sub
