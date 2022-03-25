@@ -76,8 +76,9 @@ Partial Class RSCFieldColumn
         Me.TextBox11.ForeColor = System.Drawing.SystemColors.InactiveCaption
         Me.TextBox11.Location = New System.Drawing.Point(2, 257)
         Me.TextBox11.Margin = New System.Windows.Forms.Padding(2)
+        Me.TextBox11.Multiline = True
         Me.TextBox11.Name = "TextBox11"
-        Me.TextBox11.Size = New System.Drawing.Size(173, 13)
+        Me.TextBox11.Size = New System.Drawing.Size(173, 20)
         Me.TextBox11.TabIndex = 49
         Me.TextBox11.Text = "Example"
         '
@@ -113,8 +114,9 @@ Partial Class RSCFieldColumn
         Me.TextBox3.ForeColor = System.Drawing.SystemColors.InactiveCaption
         Me.TextBox3.Location = New System.Drawing.Point(2, 234)
         Me.TextBox3.Margin = New System.Windows.Forms.Padding(2)
+        Me.TextBox3.Multiline = True
         Me.TextBox3.Name = "TextBox3"
-        Me.TextBox3.Size = New System.Drawing.Size(173, 13)
+        Me.TextBox3.Size = New System.Drawing.Size(173, 20)
         Me.TextBox3.TabIndex = 47
         Me.TextBox3.Text = "Example"
         '
@@ -126,8 +128,9 @@ Partial Class RSCFieldColumn
         Me.textboxExample1.ForeColor = System.Drawing.SystemColors.InactiveCaption
         Me.textboxExample1.Location = New System.Drawing.Point(2, 116)
         Me.textboxExample1.Margin = New System.Windows.Forms.Padding(2)
+        Me.textboxExample1.Multiline = True
         Me.textboxExample1.Name = "textboxExample1"
-        Me.textboxExample1.Size = New System.Drawing.Size(174, 13)
+        Me.textboxExample1.Size = New System.Drawing.Size(174, 20)
         Me.textboxExample1.TabIndex = 36
         Me.textboxExample1.Text = "Example"
         '
@@ -139,8 +142,9 @@ Partial Class RSCFieldColumn
         Me.TextBox10.ForeColor = System.Drawing.SystemColors.InactiveCaption
         Me.TextBox10.Location = New System.Drawing.Point(2, 280)
         Me.TextBox10.Margin = New System.Windows.Forms.Padding(2)
+        Me.TextBox10.Multiline = True
         Me.TextBox10.Name = "TextBox10"
-        Me.TextBox10.Size = New System.Drawing.Size(173, 13)
+        Me.TextBox10.Size = New System.Drawing.Size(173, 20)
         Me.TextBox10.TabIndex = 51
         Me.TextBox10.Text = "Example"
         '
@@ -211,8 +215,9 @@ Partial Class RSCFieldColumn
         Me.TextBox4.ForeColor = System.Drawing.SystemColors.InactiveCaption
         Me.TextBox4.Location = New System.Drawing.Point(3, 210)
         Me.TextBox4.Margin = New System.Windows.Forms.Padding(2)
+        Me.TextBox4.Multiline = True
         Me.TextBox4.Name = "TextBox4"
-        Me.TextBox4.Size = New System.Drawing.Size(173, 13)
+        Me.TextBox4.Size = New System.Drawing.Size(173, 20)
         Me.TextBox4.TabIndex = 45
         Me.TextBox4.Text = "Example"
         '
@@ -224,8 +229,9 @@ Partial Class RSCFieldColumn
         Me.TextBox6.ForeColor = System.Drawing.SystemColors.InactiveCaption
         Me.TextBox6.Location = New System.Drawing.Point(2, 375)
         Me.TextBox6.Margin = New System.Windows.Forms.Padding(2)
+        Me.TextBox6.Multiline = True
         Me.TextBox6.Name = "TextBox6"
-        Me.TextBox6.Size = New System.Drawing.Size(173, 13)
+        Me.TextBox6.Size = New System.Drawing.Size(173, 20)
         Me.TextBox6.TabIndex = 59
         Me.TextBox6.Text = "Example"
         '
@@ -237,8 +243,9 @@ Partial Class RSCFieldColumn
         Me.TextBox9.ForeColor = System.Drawing.SystemColors.InactiveCaption
         Me.TextBox9.Location = New System.Drawing.Point(2, 304)
         Me.TextBox9.Margin = New System.Windows.Forms.Padding(2)
+        Me.TextBox9.Multiline = True
         Me.TextBox9.Name = "TextBox9"
-        Me.TextBox9.Size = New System.Drawing.Size(174, 13)
+        Me.TextBox9.Size = New System.Drawing.Size(174, 20)
         Me.TextBox9.TabIndex = 53
         Me.TextBox9.Text = "Example"
         '
@@ -250,8 +257,9 @@ Partial Class RSCFieldColumn
         Me.TextBox1.ForeColor = System.Drawing.SystemColors.InactiveCaption
         Me.TextBox1.Location = New System.Drawing.Point(2, 140)
         Me.TextBox1.Margin = New System.Windows.Forms.Padding(2)
+        Me.TextBox1.Multiline = True
         Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(173, 13)
+        Me.TextBox1.Size = New System.Drawing.Size(173, 20)
         Me.TextBox1.TabIndex = 39
         Me.TextBox1.Text = "Example"
         '
@@ -260,7 +268,7 @@ Partial Class RSCFieldColumn
         Me.PictureBox6.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PictureBox6.BackColor = System.Drawing.Color.Black
-        Me.PictureBox6.Location = New System.Drawing.Point(3, 251)
+        Me.PictureBox6.Location = New System.Drawing.Point(3, 252)
         Me.PictureBox6.Margin = New System.Windows.Forms.Padding(2)
         Me.PictureBox6.Name = "PictureBox6"
         Me.PictureBox6.Size = New System.Drawing.Size(184, 2)
@@ -311,8 +319,9 @@ Partial Class RSCFieldColumn
         Me.TextBox5.ForeColor = System.Drawing.SystemColors.InactiveCaption
         Me.TextBox5.Location = New System.Drawing.Point(3, 187)
         Me.TextBox5.Margin = New System.Windows.Forms.Padding(2)
+        Me.TextBox5.Multiline = True
         Me.TextBox5.Name = "TextBox5"
-        Me.TextBox5.Size = New System.Drawing.Size(173, 13)
+        Me.TextBox5.Size = New System.Drawing.Size(173, 20)
         Me.TextBox5.TabIndex = 43
         Me.TextBox5.Text = "Example"
         '
@@ -324,8 +333,9 @@ Partial Class RSCFieldColumn
         Me.TextBox7.ForeColor = System.Drawing.SystemColors.InactiveCaption
         Me.TextBox7.Location = New System.Drawing.Point(3, 351)
         Me.TextBox7.Margin = New System.Windows.Forms.Padding(2)
+        Me.TextBox7.Multiline = True
         Me.TextBox7.Name = "TextBox7"
-        Me.TextBox7.Size = New System.Drawing.Size(173, 13)
+        Me.TextBox7.Size = New System.Drawing.Size(173, 20)
         Me.TextBox7.TabIndex = 57
         Me.TextBox7.Text = "Example"
         '
@@ -337,8 +347,9 @@ Partial Class RSCFieldColumn
         Me.TextBox8.ForeColor = System.Drawing.SystemColors.InactiveCaption
         Me.TextBox8.Location = New System.Drawing.Point(3, 327)
         Me.TextBox8.Margin = New System.Windows.Forms.Padding(2)
+        Me.TextBox8.Multiline = True
         Me.TextBox8.Name = "TextBox8"
-        Me.TextBox8.Size = New System.Drawing.Size(173, 13)
+        Me.TextBox8.Size = New System.Drawing.Size(173, 20)
         Me.TextBox8.TabIndex = 55
         Me.TextBox8.Text = "Example"
         '
@@ -350,8 +361,9 @@ Partial Class RSCFieldColumn
         Me.TextBox2.ForeColor = System.Drawing.SystemColors.InactiveCaption
         Me.TextBox2.Location = New System.Drawing.Point(2, 163)
         Me.TextBox2.Margin = New System.Windows.Forms.Padding(2)
+        Me.TextBox2.Multiline = True
         Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(174, 13)
+        Me.TextBox2.Size = New System.Drawing.Size(174, 20)
         Me.TextBox2.TabIndex = 41
         Me.TextBox2.Text = "Example"
         '
@@ -407,6 +419,8 @@ Partial Class RSCFieldColumn
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.Controls.Add(Me.PictureBox7)
+        Me.Controls.Add(Me.PictureBox6)
         Me.Controls.Add(Me.LinkLabelRightClick)
         Me.Controls.Add(Me.RscSelectCIBField1)
         Me.Controls.Add(Me.TextBox11)
@@ -417,14 +431,12 @@ Partial Class RSCFieldColumn
         Me.Controls.Add(Me.TextBox10)
         Me.Controls.Add(Me.LabelHeader1)
         Me.Controls.Add(Me.PictureBox5)
-        Me.Controls.Add(Me.PictureBox7)
         Me.Controls.Add(Me.PictureBox11)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.TextBox4)
         Me.Controls.Add(Me.TextBox6)
         Me.Controls.Add(Me.TextBox9)
         Me.Controls.Add(Me.TextBox1)
-        Me.Controls.Add(Me.PictureBox6)
         Me.Controls.Add(Me.PictureBox8)
         Me.Controls.Add(Me.PictureBox10)
         Me.Controls.Add(Me.PictureBox2)

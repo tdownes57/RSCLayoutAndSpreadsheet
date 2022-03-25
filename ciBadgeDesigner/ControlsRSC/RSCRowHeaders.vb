@@ -218,6 +218,7 @@ Public Class RSCRowHeaders
         ''objColumnOne.Refresh()
         ''March25 2022''listBoxesColumn1 = objColumnOne.ListOfTextboxes_TopToBottom
         ''March25 2022''listBoxesColumn1 = par_listColumnBoxes
+
         listBoxesColumn1 = par_controlColumnOne.ListOfTextboxes_TopToBottom()
         listBoxesRowHdrs = ListOfTextboxes_TopToBottom()
         listVisualBarsColumn1 = par_controlColumnOne.ListOfBottomBars_TopToBottom()
@@ -225,7 +226,7 @@ Public Class RSCRowHeaders
 
         ''Major call.
         AlignTextboxes(listBoxesColumn1, listBoxesRowHdrs)
-        AlignBottomBars(listVisualBarsColumn1, listVisualBarsRowHdrs)
+        AlignBottomBars(listVisualBarsColumn1, listVisualBarsRowHdrs, par_controlColumnOne)
 
     End Sub ''End of ""Public Sub AlignControlsWithSpreadsheet()""
 
@@ -269,14 +270,17 @@ Public Class RSCRowHeaders
 
             If (eachBoxHeader Is Nothing And eachBoxColumn Is Nothing) Then
                 Exit For
+
             ElseIf (eachBoxColumn Is Nothing) Then
                 ''Exit Sub
                 Throw New Exception("There are more row headers than (column #1's) rows.")
+
             ElseIf (eachBoxHeader Is Nothing) Then
                 ''Exit Sub
                 Throw New Exception("There are more rows than row headers.")
 
             ElseIf (boolSkipTopBox) Then
+                ''eachBoxHeader.Height = eachBoxColumn.Height
                 eachBoxHeader.Height = eachBoxColumn.Height
                 eachBoxHeader.Top = (eachBoxColumn.Top - TopBoxColumn.Top) +
                                        TopBoxHeader.Top
@@ -285,7 +289,7 @@ Public Class RSCRowHeaders
                 eachBoxHeader.Height = eachBoxColumn.Height
                 eachBoxHeader.Top = eachBoxColumn.Top
 
-            End If
+            End If ''End of ""If (eachBoxHeader Is Nothing And eachBoxColumn Is Nothing) Then... ElseIf ... ElseIf ... ElseIf ... Else ...
 
         Next intBoxIndex
 
@@ -294,7 +298,8 @@ Public Class RSCRowHeaders
 
 
     Private Sub AlignBottomBars(par_listBottomBarsColumn1 As IEnumerable(Of PictureBox),
-                               par_listBottomBarsRowHdrs As IEnumerable(Of PictureBox))
+                               par_listBottomBarsRowHdrs As IEnumerable(Of PictureBox),
+                                par_RSCFieldColumn1 As RSCFieldColumn)
         ''
         ''Added 3/24/2022 thomas d.  
         ''
@@ -312,11 +317,25 @@ Public Class RSCRowHeaders
 
         TopBarColumn = par_listBottomBarsColumn1(0) ''Added 3/25/2022 td
         TopBarHeader = par_listBottomBarsRowHdrs(0) ''Added 3/25/2022 td
-        boolSkipTopBar = True
 
         ''
-        ''Loop through the rows
+        ''Step 1 of 2.  Address the Initial Gap. 
         ''
+        ''Added 3/25/2022
+        Dim intLocationVertical_1stBarInColumn As Integer
+        Dim intLocationVertical_1stBarInRowHdrsCtl As Integer
+        Dim intInitialGap As Integer
+
+        intLocationVertical_1stBarInColumn = par_RSCFieldColumn1.Top + TopBarColumn.Top
+        intLocationVertical_1stBarInRowHdrsCtl = Me.Top + TopBarHeader.Top
+        intInitialGap = (intLocationVertical_1stBarInColumn -
+                          intLocationVertical_1stBarInRowHdrsCtl)
+        Me.Top += intInitialGap
+
+        ''
+        ''Step 2 of 2. Loop through the rows
+        ''
+        boolSkipTopBar = True
         For intBoxIndex As Integer = 0 To (-1 + par_listBottomBarsColumn1.Count)
 
             eachBarColumn = Nothing

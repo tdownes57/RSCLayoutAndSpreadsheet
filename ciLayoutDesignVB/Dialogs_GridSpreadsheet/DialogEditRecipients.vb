@@ -176,6 +176,7 @@ ExitHandler:
             .RemoveMoveability() ''Added 3/20/2022 td
             ''Doesn't work here.3/25/2022.Refresh()
             ''Doesn't work here.3/25/2022.AlignRowHeadersWithSpreadsheet() ''Added 3/25/2022 thomas downes
+            AlignRowHeadersWithSpreadsheet() ''Added 3/25/2022 thomas downes
 
         End With ''End of "With RscFieldSpreadsheet1"
 
@@ -225,6 +226,19 @@ ExitHandler:
         objCacheColumnWidthData = RscFieldSpreadsheet1.ColumnDataCache
 
 
+
+    End Sub
+
+    Private Sub AlignRowHeadersWithSpreadsheet() ''Added 3/25/2022 thomas downes
+        ''Added 3/25/2022 td
+        RscFieldSpreadsheet1.AlignRowHeadersWithSpreadsheet()
+
+        ''Added 3/25/2022
+        RscFieldSpreadsheet1.RscFieldColumn1.SpaceBottomBarsEvenly()
+        RscFieldSpreadsheet1.RscFieldColumn1.AlignTextboxesWithBottomBars()
+        ''RscFieldSpreadsheet1.AlignTextboxesWithBottomBars()
+        RscFieldSpreadsheet1.RscRowHeaders1.AlignBottomBarsWithColumnOne()
+        RscFieldSpreadsheet1.RscRowHeaders1.AlignTextboxesWithBottomBars()
 
     End Sub
 
