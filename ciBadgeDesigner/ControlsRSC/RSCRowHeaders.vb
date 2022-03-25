@@ -16,6 +16,7 @@ Public Class RSCRowHeaders
     Public Designer As ClassDesigner ''Added 3/10/2022 td
     Public ElementsCache_Deprecated As ciBadgeCachePersonality.ClassElementsCache_Deprecated ''Added 3/10/2022 td
     Public ColumnDataCache As CacheRSCFieldColumnWidthsEtc ''ClassColumnWidthsEtc ''Added 3/15/2022 td
+    Public RSCSpreadsheet As RSCFieldSpreadsheet ''Added 3/24/2022 thomas downes
 
     Private mod_ctlLasttouched As New ClassLastControlTouched ''Added 1/4/2022 td
     Private mod_eventsSingleton As New GroupMoveEvents_Singleton(Me.Designer, False, True) ''Added 1/4/2022 td  
@@ -196,8 +197,176 @@ Public Class RSCRowHeaders
     End Sub
 
 
+    Public Sub AlignControlsWithSpreadsheet()
+        ''
+        ''Added 3/24/2022 td
+        ''
+        Dim objSpreadsheet As RSCFieldSpreadsheet
+        Dim objColumnOne As RSCFieldColumn
+        Dim listBoxesColumn1 As IEnumerable(Of TextBox)
+        Dim listBoxesRowHdrs As IEnumerable(Of TextBox)
+        Dim listBarsColumn1 As IEnumerable(Of PictureBox)
+        Dim listBarsRowHdrs As IEnumerable(Of PictureBox)
+
+        objSpreadsheet = Me.RSCSpreadsheet
+        objColumnOne = objSpreadsheet.RscFieldColumn1
+        listBoxesColumn1 = objColumnOne.ListOfTextboxes_TopToBottom
+        listBoxesRowHdrs = ListOfTextboxes_TopToBottom()
+        listBarsColumn1 = objColumnOne.ListOfBottomBars_TopToBottom
+        listBarsRowHdrs = ListOfBars_TopToBottom()
 
 
+
+    End Sub
+
+
+    Private Sub AlignTextboxes(par_listBoxesColumn As IEnumerable(Of TextBox),
+                               par_listBoxesRowHdrs As IEnumerable(Of TextBox))
+        ''
+        ''Added 3/24/2022 thomas d.  
+        ''
+        ''---For Each eachColumnBox As TextBox In par_listBoxesColumn
+        Dim eachBoxColumn As TextBox
+        Dim eachBoxHeader As TextBox
+
+        ''
+        ''Loop through the rows
+        ''
+        For intBoxIndex As Integer = 0 To (-1 + par_listBoxesColumn.Count)
+
+            eachBoxColumn = Nothing
+            eachBoxHeader = Nothing
+
+            Try
+                eachBoxColumn = par_listBoxesColumn(intBoxIndex)
+            Catch
+            End Try
+
+            Try
+                eachBoxHeader = par_listBoxesRowHdrs(intBoxIndex)
+            Catch
+            End Try
+
+            If (eachBoxHeader Is Nothing And eachBoxColumn Is Nothing) Then
+                Exit For
+            ElseIf (eachBoxColumn Is Nothing) Then
+                ''Exit Sub
+                Throw New Exception("There are more row headers than (column #1's) rows.")
+            ElseIf (eachBoxHeader Is Nothing) Then
+                ''Exit Sub
+                Throw New Exception("There are more rows than row headers.")
+            Else
+                eachBoxHeader.Top = eachBoxColumn.Top
+                eachBoxHeader.Height = eachBoxColumn.Height
+            End If
+
+        Next intBoxIndex
+
+        ''---Next eachColumnBox
+    End Sub ''End of "Private Sub AlignTextboxes"
+
+
+    Private Sub AlignBottomBars(par_listBottomBarsColumn1 As IEnumerable(Of PictureBox),
+                               par_listBottomBarsRowHdrs As IEnumerable(Of PictureBox))
+        ''
+        ''Added 3/24/2022 thomas d.  
+        ''
+        ''---For Each eachColumnBox As TextBox In par_listBoxesColumn
+        Dim eachBarColumn As PictureBox
+        Dim eachBarHeader As PictureBox
+
+        ''
+        ''Loop through the rows
+        ''
+        For intBoxIndex As Integer = 0 To (-1 + par_listBottomBarsColumn1.Count)
+
+            eachBarColumn = Nothing
+            eachBarHeader = Nothing
+
+            Try
+                eachBarColumn = par_listBottomBarsColumn1(intBoxIndex)
+            Catch
+            End Try
+
+            Try
+                eachBarHeader = par_listBottomBarsRowHdrs(intBoxIndex)
+            Catch
+            End Try
+
+            If (eachBarHeader Is Nothing And eachBarColumn Is Nothing) Then
+                Exit For
+            ElseIf (eachBarColumn Is Nothing) Then
+                ''Exit Sub
+                Throw New Exception("There are more row headers than (column #1's) rows.")
+
+            ElseIf (eachBarHeader Is Nothing) Then
+                ''Exit Sub
+                Throw New Exception("There are more rows than row headers.")
+
+            Else
+                eachBarHeader.Top = eachBarColumn.Top
+                eachBarHeader.Height = eachBarColumn.Height
+
+            End If
+
+        Next intBoxIndex
+
+        ''---Next eachColumnBox
+    End Sub ''End of "Private Sub AlignBottomBars"
+
+
+    Private Function ListOfTextboxes_TopToBottom() As IOrderedEnumerable(Of TextBox)
+        ''
+        ''Added 3/19/2022 td
+        ''
+        Dim objListOfTextboxes As New List(Of TextBox)
+        ''Dim objListOfTextboxes_Ordered ''As New IOrderedEnumerable(Of(Of TextBox)
+
+        For Each eachCtl As Control In Me.Controls
+            If (TypeOf eachCtl Is TextBox) Then
+                If (eachCtl.Visible) Then
+                    objListOfTextboxes.Add(CType(eachCtl, TextBox))
+                End If
+            End If ''End of "If (TypeOf eachCtl Is TextBox) Then"
+        Next eachCtl ''End of ""For Each eachCtl As Control In Me.Controls""
+
+        ''
+        ''Order them in order of top-down (i.e. the Top property).
+        ''
+        Dim objListOfTextboxes_Ordered As IOrderedEnumerable(Of TextBox) =
+            From objTextbox In objListOfTextboxes
+            Select objTextbox
+            Order By objTextbox.Top
+
+        Return objListOfTextboxes_Ordered
+
+    End Function ''End of "Private Function ListOfTextboxes_TopToBottom() As IOrderedEnumerable(Of TextBox)"
+
+
+    Private Function ListOfBars_TopToBottom() As IOrderedEnumerable(Of PictureBox)
+        ''
+        ''Added 3/19/2022 td
+        ''
+        Dim objListOfBars As New List(Of PictureBox)
+        For Each eachCtl As Control In Me.Controls
+            If (TypeOf eachCtl Is PictureBox) Then
+                If (eachCtl.Visible) Then
+                    objListOfBars.Add(CType(eachCtl, PictureBox))
+                End If ''End of ""If (eachCtl.Visible) Then""
+            End If ''End of "If (TypeOf eachCtl Is TextBox) Then"
+        Next eachCtl ''End of ""For Each eachCtl As Control In Me.Controls""
+
+        ''
+        ''Order them in order of top-down (i.e. the Top property).
+        ''
+        Dim objListOfBars_Ordered As IOrderedEnumerable(Of PictureBox) =
+            From objBar In objListOfBars
+            Select objBar
+            Order By objBar.Top
+
+        Return objListOfBars_Ordered
+
+    End Function ''End of "Public Function ListOfBars_TopToBottom() As IOrderedEnumerable(Of PictureBox)"
 
 
 
