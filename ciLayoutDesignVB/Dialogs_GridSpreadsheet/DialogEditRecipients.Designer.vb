@@ -32,6 +32,7 @@ Partial Class DialogEditRecipients
         Me.LinkLabelSaveAsRecipients = New System.Windows.Forms.LinkLabel()
         Me.LinkLabelRefreshFromRecipients = New System.Windows.Forms.LinkLabel()
         Me.LinkLabelSaveColumnData = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabelAlignBars = New System.Windows.Forms.LinkLabel()
         Me.SuspendLayout()
         '
         'ButtonCancel
@@ -161,11 +162,24 @@ Partial Class DialogEditRecipients
         Me.LinkLabelSaveColumnData.TabStop = True
         Me.LinkLabelSaveColumnData.Text = "Save as Column Data (not as Recipients)"
         '
+        'LinkLabelAlignBars
+        '
+        Me.LinkLabelAlignBars.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.LinkLabelAlignBars.AutoSize = True
+        Me.LinkLabelAlignBars.Location = New System.Drawing.Point(11, 561)
+        Me.LinkLabelAlignBars.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LinkLabelAlignBars.Name = "LinkLabelAlignBars"
+        Me.LinkLabelAlignBars.Size = New System.Drawing.Size(131, 13)
+        Me.LinkLabelAlignBars.TabIndex = 24
+        Me.LinkLabelAlignBars.TabStop = True
+        Me.LinkLabelAlignBars.Text = "Align Bars In RowHeaders"
+        '
         'DialogEditRecipients
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(914, 600)
+        Me.Controls.Add(Me.LinkLabelAlignBars)
         Me.Controls.Add(Me.LinkLabelSaveColumnData)
         Me.Controls.Add(Me.LinkLabelRefreshFromRecipients)
         Me.Controls.Add(Me.LinkLabelSaveAsRecipients)
@@ -194,4 +208,5 @@ Partial Class DialogEditRecipients
     Friend WithEvents LinkLabelSaveAsRecipients As LinkLabel
     Friend WithEvents LinkLabelRefreshFromRecipients As LinkLabel
     Friend WithEvents LinkLabelSaveColumnData As LinkLabel
+    Friend WithEvents LinkLabelAlignBars As LinkLabel
 End Class

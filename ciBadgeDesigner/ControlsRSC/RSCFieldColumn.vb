@@ -547,6 +547,11 @@ Public Class RSCFieldColumn
         Dim objListOfTextboxes As New List(Of TextBox)
         ''Dim objListOfTextboxes_Ordered ''As New IOrderedEnumerable(Of(Of TextBox)
 
+        ''Added 3/25/2022 thomas d.
+        If (Me.Controls.Count = 0) Then
+            Throw New Exception("WTF")
+        End If
+
         For Each eachCtl As Control In Me.Controls
             If (TypeOf eachCtl Is TextBox) Then
                 ''Strangely, .Visible is False????---3/25/2022 td''If (eachCtl.Visible) Then

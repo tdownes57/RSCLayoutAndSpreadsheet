@@ -16,7 +16,7 @@ Public Class RSCRowHeaders
     Public Designer As ClassDesigner ''Added 3/10/2022 td
     Public ElementsCache_Deprecated As ciBadgeCachePersonality.ClassElementsCache_Deprecated ''Added 3/10/2022 td
     Public ColumnDataCache As CacheRSCFieldColumnWidthsEtc ''ClassColumnWidthsEtc ''Added 3/15/2022 td
-    Public RSCSpreadsheet As RSCFieldSpreadsheet ''Added 3/24/2022 thomas downes
+    ''Probably not good to have circular references.3/25/2022 ''Public RSCSpreadsheet As RSCFieldSpreadsheet ''Added 3/24/2022 thomas downes
 
     Private mod_ctlLasttouched As New ClassLastControlTouched ''Added 1/4/2022 td
     Private mod_eventsSingleton As New GroupMoveEvents_Singleton(Me.Designer, False, True) ''Added 1/4/2022 td  
@@ -197,7 +197,7 @@ Public Class RSCRowHeaders
     End Sub
 
 
-    Public Sub AlignControlsWithSpreadsheet(par_listColumnBoxes As List(Of TextBox))
+    Public Sub AlignControlsWithSpreadsheet(par_controlColumnOne As RSCFieldColumn)
         ''
         ''Added 3/24/2022 td
         ''
@@ -206,20 +206,21 @@ Public Class RSCRowHeaders
         ''  They are purely visual, i.e. only serve to create visually-obvious "rows" in the
         ''  spreadsheet.----3/25/2022
         ''
-        Dim objSpreadsheet As RSCFieldSpreadsheet
-        Dim objColumnOne As RSCFieldColumn
+        ''March25 2022''Dim objSpreadsheet As RSCFieldSpreadsheet
+        ''March25 2022''Dim objColumnOne As RSCFieldColumn
         Dim listBoxesColumn1 As List(Of TextBox)
         Dim listBoxesRowHdrs As List(Of TextBox)
         Dim listVisualBarsColumn1 As List(Of PictureBox)
         Dim listVisualBarsRowHdrs As List(Of PictureBox)
 
-        objSpreadsheet = Me.RSCSpreadsheet
-        objColumnOne = objSpreadsheet.RscFieldColumn1
+        ''March25 2022''objSpreadsheet = Me.RSCSpreadsheet
+        ''March25 2022''objColumnOne = objSpreadsheet.RscFieldColumn1
         ''objColumnOne.Refresh()
-        ''listBoxesColumn1 = objColumnOne.ListOfTextboxes_TopToBottom
-        listBoxesColumn1 = par_listColumnBoxes
+        ''March25 2022''listBoxesColumn1 = objColumnOne.ListOfTextboxes_TopToBottom
+        ''March25 2022''listBoxesColumn1 = par_listColumnBoxes
+        listBoxesColumn1 = par_controlColumnOne.ListOfTextboxes_TopToBottom()
         listBoxesRowHdrs = ListOfTextboxes_TopToBottom()
-        listVisualBarsColumn1 = objColumnOne.ListOfBottomBars_TopToBottom
+        listVisualBarsColumn1 = par_controlColumnOne.ListOfBottomBars_TopToBottom()
         listVisualBarsRowHdrs = ListOfBottomBars_TopToBottom()
 
         ''Major call.
@@ -238,10 +239,20 @@ Public Class RSCRowHeaders
         Dim eachBoxColumn As TextBox
         Dim eachBoxHeader As TextBox
 
+        Dim TopBoxColumn As TextBox ''Addded 3/25/2022 td
+        Dim TopBoxHeader As TextBox ''Added 3/25/2022 td
+        Dim boolSkipTopBox As Boolean
+        TopBoxColumn = par_listBoxesColumn(0) ''Added 3/25/2022 td
+        TopBoxHeader = par_listBoxesRowHdrs(0) ''Added 3/25/2022 td
+        boolSkipTopBox = True
+
         ''
         ''Loop through the rows
         ''
         For intBoxIndex As Integer = 0 To (-1 + par_listBoxesColumn.Count)
+
+            ''Skip the top boxes. 
+            If (boolSkipTopBox And intBoxIndex = 0) Then Continue For
 
             eachBoxColumn = Nothing
             eachBoxHeader = Nothing
@@ -264,9 +275,16 @@ Public Class RSCRowHeaders
             ElseIf (eachBoxHeader Is Nothing) Then
                 ''Exit Sub
                 Throw New Exception("There are more rows than row headers.")
-            Else
-                eachBoxHeader.Top = eachBoxColumn.Top
+
+            ElseIf (boolSkipTopBox) Then
                 eachBoxHeader.Height = eachBoxColumn.Height
+                eachBoxHeader.Top = (eachBoxColumn.Top - TopBoxColumn.Top) +
+                                       TopBoxHeader.Top
+
+            Else
+                eachBoxHeader.Height = eachBoxColumn.Height
+                eachBoxHeader.Top = eachBoxColumn.Top
+
             End If
 
         Next intBoxIndex
@@ -288,6 +306,13 @@ Public Class RSCRowHeaders
         ''---For Each eachColumnBox As TextBox In par_listBoxesColumn
         Dim eachBarColumn As PictureBox
         Dim eachBarHeader As PictureBox
+        Dim TopBarColumn As PictureBox ''Addded 3/25/2022 td
+        Dim TopBarHeader As PictureBox ''Added 3/25/2022 td
+        Dim boolSkipTopBar As Boolean ''Added 3/25/2022 td
+
+        TopBarColumn = par_listBottomBarsColumn1(0) ''Added 3/25/2022 td
+        TopBarHeader = par_listBottomBarsRowHdrs(0) ''Added 3/25/2022 td
+        boolSkipTopBar = True
 
         ''
         ''Loop through the rows
@@ -316,6 +341,11 @@ Public Class RSCRowHeaders
             ElseIf (eachBarHeader Is Nothing) Then
                 ''Exit Sub
                 Throw New Exception("There are more rows than row headers.")
+
+            ElseIf (boolSkipTopBar) Then
+                eachBarHeader.Height = eachBarColumn.Height
+                eachBarHeader.Top = (eachBarColumn.Top - TopBarColumn.Top) +
+                                       TopBarHeader.Top
 
             Else
                 eachBarHeader.Top = eachBarColumn.Top

@@ -19,8 +19,6 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ciBadgeInterfaces", "ciBadg
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ciBadgeSerialize", "ciBadgeSerialize\ciBadgeSerialize.vbproj", "{59D5B213-E44B-432A-8237-53D91EC9C04A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ciWebControllers", "ciWebControllers\ciWebControllers.csproj", "{AAD800DC-1071-4186-BCFE-3939CAC743C6}"
-EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ciBadgeFields", "ciBadgeFields\ciBadgeFields.vbproj", "{EF9ACEC9-841E-4397-BFCB-917C814C4B8C}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ciBadgeElements", "ciBadgeElements\ciBadgeElements.vbproj", "{E7EB43C4-358C-4880-9C9B-206127B57722}"
@@ -47,10 +45,6 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ciBadgeCustomer", "ciBadgeC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ciBadgeRecipientsCS", "ciBadgeRecipientsCS\ciBadgeRecipientsCS.csproj", "{717D4661-8A27-4C1E-A1DD-FDA12010DACA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ciBadgeGen_Lib_Core", "ciBadgeGen_Core\ciBadgeGen_Lib_Core.csproj", "{1330E091-CDB0-4868-8D6B-99D4C6C6F0A1}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ciBadgeGen_App_Core", "ciBadgeGen_App_Core\ciBadgeGen_App_Core.csproj", "{656482DF-1871-4B8A-83FD-9EBF57F621D0}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "__Start__RSC ID LayoutDesignVB", "__Start__ciLayoutDesignVB\__Start__RSC ID LayoutDesignVB.csproj", "{EADC769E-D8A6-4A79-B6FC-C7C4184C029D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "abcBundleBadgeImagesToEmail_Core", "abcBundleBadgeImagesToEmail\abcBundleBadgeImagesToEmail_Core.csproj", "{158A604A-E8DA-4224-B919-FE425BAA2E23}"
@@ -58,8 +52,6 @@ EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ciBadgeCachePersonality", "ciBadgeCachingPersonality\ciBadgeCachePersonality.vbproj", "{4C1B73A0-7C02-4FF4-96F2-ACFA1306CCE4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Can_HashSets_Be_Serialized", "Can_HashSets_Be_Serialized\Can_HashSets_Be_Serialized.csproj", "{6A203802-4B73-4C03-B30D-B206CB677945}"
-EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "MoveableControlTestVB", "MoveableControlVB\MoveableControlTestVB.vbproj", "{74050388-F6C4-4E0A-BA5C-ADB0BD403C95}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "__RSC ID Web Application", "__RSC ID Web Application\__RSC ID Web Application.vbproj", "{CD8E53D2-B177-494B-AE08-1CEEF98E43D7}"
 EndProject
@@ -145,14 +137,6 @@ Global
 		{59D5B213-E44B-432A-8237-53D91EC9C04A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{59D5B213-E44B-432A-8237-53D91EC9C04A}.Release|x86.ActiveCfg = Release|Any CPU
 		{59D5B213-E44B-432A-8237-53D91EC9C04A}.Release|x86.Build.0 = Release|Any CPU
-		{AAD800DC-1071-4186-BCFE-3939CAC743C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AAD800DC-1071-4186-BCFE-3939CAC743C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AAD800DC-1071-4186-BCFE-3939CAC743C6}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{AAD800DC-1071-4186-BCFE-3939CAC743C6}.Debug|x86.Build.0 = Debug|Any CPU
-		{AAD800DC-1071-4186-BCFE-3939CAC743C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AAD800DC-1071-4186-BCFE-3939CAC743C6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AAD800DC-1071-4186-BCFE-3939CAC743C6}.Release|x86.ActiveCfg = Release|Any CPU
-		{AAD800DC-1071-4186-BCFE-3939CAC743C6}.Release|x86.Build.0 = Release|Any CPU
 		{EF9ACEC9-841E-4397-BFCB-917C814C4B8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EF9ACEC9-841E-4397-BFCB-917C814C4B8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF9ACEC9-841E-4397-BFCB-917C814C4B8C}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -257,22 +241,6 @@ Global
 		{717D4661-8A27-4C1E-A1DD-FDA12010DACA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{717D4661-8A27-4C1E-A1DD-FDA12010DACA}.Release|x86.ActiveCfg = Release|Any CPU
 		{717D4661-8A27-4C1E-A1DD-FDA12010DACA}.Release|x86.Build.0 = Release|Any CPU
-		{1330E091-CDB0-4868-8D6B-99D4C6C6F0A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1330E091-CDB0-4868-8D6B-99D4C6C6F0A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1330E091-CDB0-4868-8D6B-99D4C6C6F0A1}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{1330E091-CDB0-4868-8D6B-99D4C6C6F0A1}.Debug|x86.Build.0 = Debug|Any CPU
-		{1330E091-CDB0-4868-8D6B-99D4C6C6F0A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1330E091-CDB0-4868-8D6B-99D4C6C6F0A1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1330E091-CDB0-4868-8D6B-99D4C6C6F0A1}.Release|x86.ActiveCfg = Release|Any CPU
-		{1330E091-CDB0-4868-8D6B-99D4C6C6F0A1}.Release|x86.Build.0 = Release|Any CPU
-		{656482DF-1871-4B8A-83FD-9EBF57F621D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{656482DF-1871-4B8A-83FD-9EBF57F621D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{656482DF-1871-4B8A-83FD-9EBF57F621D0}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{656482DF-1871-4B8A-83FD-9EBF57F621D0}.Debug|x86.Build.0 = Debug|Any CPU
-		{656482DF-1871-4B8A-83FD-9EBF57F621D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{656482DF-1871-4B8A-83FD-9EBF57F621D0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{656482DF-1871-4B8A-83FD-9EBF57F621D0}.Release|x86.ActiveCfg = Release|Any CPU
-		{656482DF-1871-4B8A-83FD-9EBF57F621D0}.Release|x86.Build.0 = Release|Any CPU
 		{EADC769E-D8A6-4A79-B6FC-C7C4184C029D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EADC769E-D8A6-4A79-B6FC-C7C4184C029D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EADC769E-D8A6-4A79-B6FC-C7C4184C029D}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -305,14 +273,6 @@ Global
 		{6A203802-4B73-4C03-B30D-B206CB677945}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6A203802-4B73-4C03-B30D-B206CB677945}.Release|x86.ActiveCfg = Release|Any CPU
 		{6A203802-4B73-4C03-B30D-B206CB677945}.Release|x86.Build.0 = Release|Any CPU
-		{74050388-F6C4-4E0A-BA5C-ADB0BD403C95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{74050388-F6C4-4E0A-BA5C-ADB0BD403C95}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{74050388-F6C4-4E0A-BA5C-ADB0BD403C95}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{74050388-F6C4-4E0A-BA5C-ADB0BD403C95}.Debug|x86.Build.0 = Debug|Any CPU
-		{74050388-F6C4-4E0A-BA5C-ADB0BD403C95}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{74050388-F6C4-4E0A-BA5C-ADB0BD403C95}.Release|Any CPU.Build.0 = Release|Any CPU
-		{74050388-F6C4-4E0A-BA5C-ADB0BD403C95}.Release|x86.ActiveCfg = Release|Any CPU
-		{74050388-F6C4-4E0A-BA5C-ADB0BD403C95}.Release|x86.Build.0 = Release|Any CPU
 		{CD8E53D2-B177-494B-AE08-1CEEF98E43D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CD8E53D2-B177-494B-AE08-1CEEF98E43D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD8E53D2-B177-494B-AE08-1CEEF98E43D7}.Debug|x86.ActiveCfg = Debug|Any CPU

@@ -573,7 +573,9 @@ Public Class MoveableControlVB
         ''
     End Sub
 
-    Private Sub mod_events_Moving_End(par_control As Control, par_iSaveToModel As ISaveToModel) Handles mod_eventsMoveThisControl.Moving_End '', mod_events.Resizing_End, mod_events.Moving_InProgress
+    Private Sub mod_events_Moving_End(par_control As Control, par_iSaveToModel As ISaveToModel) _
+        Handles mod_eventsMoveThisControl.Moving_End
+        ''-------, mod_events.Resizing_End, mod_events.Moving_InProgress
         ''
         ''Added 12/27/2021 td 
         ''
@@ -584,7 +586,8 @@ Public Class MoveableControlVB
     End Sub
 
 
-    Private Sub mod_events_Resizing_End(par_iSaveToModel As ISaveToModel) Handles mod_eventsMoveThisControl.Resizing_End
+    Private Sub mod_events_Resizing_End(par_iSaveToModel As ISaveToModel) _
+        Handles mod_eventsMoveThisControl.Resizing_EndV1
         ''
         ''Added 12/27/2021 td 
         ''
@@ -593,7 +596,21 @@ Public Class MoveableControlVB
 
     End Sub
 
-    Private Sub mod_events_MovingInProgress(par_control As Control) Handles mod_eventsMoveThisControl.Moving_InProgress
+
+    Private Sub mod_events_Resizing_End(par_iSave As ISaveToModel,
+                              par_iRefreshElement As IRefreshElementImage,
+                              par_iRefreshCardPreview As IRefreshCardPreview) _
+        Handles mod_eventsMoveThisControl.Resizing_EndV2
+        ''
+        ''Added 12/27/2021 td 
+        ''
+        ''---mod_iSaveToModel.SaveToModel()
+        par_iSaveToModel.SaveToModel()
+
+    End Sub
+
+    Private Sub mod_events_MovingInProgress(par_control As Control) _
+        Handles mod_eventsMoveThisControl.Moving_InProgress
         ''
         ''Added 12/27/2021 td 
         ''

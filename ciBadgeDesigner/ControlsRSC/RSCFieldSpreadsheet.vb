@@ -16,6 +16,7 @@ Public Class RSCFieldSpreadsheet
     Public Designer As ClassDesigner ''Added 3/10/2022 td
     Public ElementsCache_Deprecated As ciBadgeCachePersonality.ClassElementsCache_Deprecated ''Added 3/10/2022 td
     Public ColumnDataCache As CacheRSCFieldColumnWidthsEtc ''ClassColumnWidthsEtc ''Added 3/15/2022 td
+    ''Public RscFieldColumn1 As RSCFieldColumn ''Added 3/25/2022 td
 
     Private mod_ctlLasttouched As New ClassLastControlTouched ''Added 1/4/2022 td
     Private mod_eventsSingleton As New GroupMoveEvents_Singleton(Me.Designer, False, True) ''Added 1/4/2022 td  
@@ -398,6 +399,10 @@ Public Class RSCFieldSpreadsheet
                                                             intCurrentPropertyLeft,
                                                             intNextPropertyLeft,
                                                             priorColumn)
+
+                ''Added 3/25/2022 td 
+                If (intNeededIndex = 1) Then RscFieldColumn1 = each_Column
+
                 ''Prepare for next iteration.
                 priorColumn = each_Column
 
@@ -549,7 +554,8 @@ Public Class RSCFieldSpreadsheet
         listBoxesColumn = RscFieldColumn1.ListOfTextboxes_TopToBottom()
         listBoxesRowHeader = RscRowHeaders1.ListOfTextboxes_TopToBottom()
 
-        RscRowHeaders1.AlignControlsWithSpreadsheet(listBoxesColumn)
+        ''March25 2022''RscRowHeaders1.AlignControlsWithSpreadsheet(listBoxesColumn)
+        RscRowHeaders1.AlignControlsWithSpreadsheet(RscFieldColumn1)
 
     End Sub ''End of "Public Sub AlignRowHeadersWithSpreadsheet()"
 
@@ -673,6 +679,9 @@ Public Class RSCFieldSpreadsheet
             Me.Controls.Remove(each_control)
 
         Next each_control
+
+        ''Added 3/25/2022 td
+        RscFieldColumn1 = Nothing ''Added 3/25/2022 td 
 
     End Sub ''end of "Private Sub RemoveRSCColumnsFromDesignTime()"
 
@@ -819,12 +828,12 @@ Public Class RSCFieldSpreadsheet
 
     End Sub ''End of "Public Sub InsertNewColumnByIndex(Me.ColumnIndex)"
 
-    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+    Private Sub Timer1_Tick(sender As Object, e As EventArgs)
 
         ''Added 3/25/2022 thomas downes 
-        Timer1.Enabled = False ''Make this one-time only. 
-        RscRowHeaders1.RSCSpreadsheet = Me
-        AlignRowHeadersWithSpreadsheet()
+        ''Timer1.Enabled = False ''Make this one-time only. 
+        ''RscRowHeaders1.RSCSpreadsheet = Me
+        ''AlignRowHeadersWithSpreadsheet()
 
 
     End Sub

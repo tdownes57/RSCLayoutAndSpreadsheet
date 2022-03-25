@@ -227,4 +227,11 @@ ExitHandler:
 
 
     End Sub
+
+    Private Sub LinkLabelAlignBars_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelAlignBars.LinkClicked
+
+        ''Added 3/25/2022 td
+        RscFieldSpreadsheet1.AlignRowHeadersWithSpreadsheet()
+
+    End Sub
 End Class
