@@ -294,7 +294,7 @@ Partial Class RSCRowHeaders
         Me.PictureBox7.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PictureBox7.BackColor = System.Drawing.Color.Black
-        Me.PictureBox7.Location = New System.Drawing.Point(0, 334)
+        Me.PictureBox7.Location = New System.Drawing.Point(0, 18)
         Me.PictureBox7.Margin = New System.Windows.Forms.Padding(2)
         Me.PictureBox7.Name = "PictureBox7"
         Me.PictureBox7.Size = New System.Drawing.Size(184, 2)
@@ -342,7 +342,7 @@ Partial Class RSCRowHeaders
         Me.PictureBox8.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PictureBox8.BackColor = System.Drawing.Color.Black
-        Me.PictureBox8.Location = New System.Drawing.Point(0, 310)
+        Me.PictureBox8.Location = New System.Drawing.Point(0, 41)
         Me.PictureBox8.Margin = New System.Windows.Forms.Padding(2)
         Me.PictureBox8.Name = "PictureBox8"
         Me.PictureBox8.Size = New System.Drawing.Size(184, 2)
@@ -390,7 +390,7 @@ Partial Class RSCRowHeaders
         Me.PictureBox9.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PictureBox9.BackColor = System.Drawing.Color.Black
-        Me.PictureBox9.Location = New System.Drawing.Point(0, 289)
+        Me.PictureBox9.Location = New System.Drawing.Point(0, 62)
         Me.PictureBox9.Margin = New System.Windows.Forms.Padding(2)
         Me.PictureBox9.Name = "PictureBox9"
         Me.PictureBox9.Size = New System.Drawing.Size(184, 2)

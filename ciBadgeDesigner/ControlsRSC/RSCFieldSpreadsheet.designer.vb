@@ -22,8 +22,10 @@ Partial Class RSCFieldSpreadsheet
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel2 = New System.Windows.Forms.LinkLabel()
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.RscRowHeaders1 = New ciBadgeDesigner.RSCRowHeaders()
         Me.RscFieldColumn5 = New ciBadgeDesigner.RSCFieldColumn()
         Me.RscFieldColumn4 = New ciBadgeDesigner.RSCFieldColumn()
@@ -35,8 +37,7 @@ Partial Class RSCFieldSpreadsheet
         '
         'LinkLabel1
         '
-        Me.LinkLabel1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LinkLabel1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.LinkLabel1.AutoSize = True
         Me.LinkLabel1.Location = New System.Drawing.Point(654, 0)
         Me.LinkLabel1.Name = "LinkLabel1"
@@ -55,6 +56,11 @@ Partial Class RSCFieldSpreadsheet
         Me.LinkLabel2.TabIndex = 7
         Me.LinkLabel2.TabStop = True
         Me.LinkLabel2.Text = "Review which fields are Relevant and available."
+        '
+        'Timer1
+        '
+        Me.Timer1.Enabled = True
+        Me.Timer1.Interval = 5000
         '
         'RscRowHeaders1
         '
@@ -85,7 +91,6 @@ Partial Class RSCFieldSpreadsheet
         Me.RscFieldColumn5.Name = "RscFieldColumn5"
         Me.RscFieldColumn5.Size = New System.Drawing.Size(139, 441)
         Me.RscFieldColumn5.TabIndex = 4
-        Me.RscFieldColumn5.Visible = False
         '
         'RscFieldColumn4
         '
@@ -102,7 +107,6 @@ Partial Class RSCFieldSpreadsheet
         Me.RscFieldColumn4.Name = "RscFieldColumn4"
         Me.RscFieldColumn4.Size = New System.Drawing.Size(139, 441)
         Me.RscFieldColumn4.TabIndex = 3
-        Me.RscFieldColumn4.Visible = False
         '
         'RscFieldColumn3
         '
@@ -119,7 +123,6 @@ Partial Class RSCFieldSpreadsheet
         Me.RscFieldColumn3.Name = "RscFieldColumn3"
         Me.RscFieldColumn3.Size = New System.Drawing.Size(140, 441)
         Me.RscFieldColumn3.TabIndex = 2
-        Me.RscFieldColumn3.Visible = False
         '
         'RscFieldColumn2
         '
@@ -136,7 +139,6 @@ Partial Class RSCFieldSpreadsheet
         Me.RscFieldColumn2.Name = "RscFieldColumn2"
         Me.RscFieldColumn2.Size = New System.Drawing.Size(140, 441)
         Me.RscFieldColumn2.TabIndex = 1
-        Me.RscFieldColumn2.Visible = False
         '
         'RscFieldColumn1
         '
@@ -194,4 +196,5 @@ Partial Class RSCFieldSpreadsheet
     Friend WithEvents LinkLabel1 As LinkLabel
     Friend WithEvents LinkLabel2 As LinkLabel
     Friend WithEvents RscRowHeaders1 As RSCRowHeaders
+    Friend WithEvents Timer1 As Timer
 End Class

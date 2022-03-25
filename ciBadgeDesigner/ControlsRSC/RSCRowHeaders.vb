@@ -197,27 +197,36 @@ Public Class RSCRowHeaders
     End Sub
 
 
-    Public Sub AlignControlsWithSpreadsheet()
+    Public Sub AlignControlsWithSpreadsheet(par_listColumnBoxes As List(Of TextBox))
         ''
         ''Added 3/24/2022 td
         ''
+        ''  The "Bottom Bars" ("Visual Bars") are the black-backcolor picture boxes which are
+        ''  very "landscape"-shaped, i.e. are very wide and very short (less than 5 pixels high).
+        ''  They are purely visual, i.e. only serve to create visually-obvious "rows" in the
+        ''  spreadsheet.----3/25/2022
+        ''
         Dim objSpreadsheet As RSCFieldSpreadsheet
         Dim objColumnOne As RSCFieldColumn
-        Dim listBoxesColumn1 As IEnumerable(Of TextBox)
-        Dim listBoxesRowHdrs As IEnumerable(Of TextBox)
-        Dim listBarsColumn1 As IEnumerable(Of PictureBox)
-        Dim listBarsRowHdrs As IEnumerable(Of PictureBox)
+        Dim listBoxesColumn1 As List(Of TextBox)
+        Dim listBoxesRowHdrs As List(Of TextBox)
+        Dim listVisualBarsColumn1 As List(Of PictureBox)
+        Dim listVisualBarsRowHdrs As List(Of PictureBox)
 
         objSpreadsheet = Me.RSCSpreadsheet
         objColumnOne = objSpreadsheet.RscFieldColumn1
-        listBoxesColumn1 = objColumnOne.ListOfTextboxes_TopToBottom
+        ''objColumnOne.Refresh()
+        ''listBoxesColumn1 = objColumnOne.ListOfTextboxes_TopToBottom
+        listBoxesColumn1 = par_listColumnBoxes
         listBoxesRowHdrs = ListOfTextboxes_TopToBottom()
-        listBarsColumn1 = objColumnOne.ListOfBottomBars_TopToBottom
-        listBarsRowHdrs = ListOfBars_TopToBottom()
+        listVisualBarsColumn1 = objColumnOne.ListOfBottomBars_TopToBottom
+        listVisualBarsRowHdrs = ListOfBottomBars_TopToBottom()
 
+        ''Major call.
+        AlignTextboxes(listBoxesColumn1, listBoxesRowHdrs)
+        AlignBottomBars(listVisualBarsColumn1, listVisualBarsRowHdrs)
 
-
-    End Sub
+    End Sub ''End of ""Public Sub AlignControlsWithSpreadsheet()""
 
 
     Private Sub AlignTextboxes(par_listBoxesColumn As IEnumerable(Of TextBox),
@@ -271,6 +280,11 @@ Public Class RSCRowHeaders
         ''
         ''Added 3/24/2022 thomas d.  
         ''
+        ''  The "Bottom Bars" ("Visual Bars") are the black-backcolor picture boxes which are
+        ''  very "landscape"-shaped, i.e. are very wide and very short (less than 5 pixels high).
+        ''  They are purely visual, i.e. only serve to create visually-obvious "rows" in the
+        ''  spreadsheet.----3/25/2022
+        ''
         ''---For Each eachColumnBox As TextBox In par_listBoxesColumn
         Dim eachBarColumn As PictureBox
         Dim eachBarHeader As PictureBox
@@ -315,7 +329,7 @@ Public Class RSCRowHeaders
     End Sub ''End of "Private Sub AlignBottomBars"
 
 
-    Private Function ListOfTextboxes_TopToBottom() As IOrderedEnumerable(Of TextBox)
+    Public Function ListOfTextboxes_TopToBottom() As List(Of TextBox) ''IOrderedEnumerable(Of TextBox)
         ''
         ''Added 3/19/2022 td
         ''
@@ -324,51 +338,62 @@ Public Class RSCRowHeaders
 
         For Each eachCtl As Control In Me.Controls
             If (TypeOf eachCtl Is TextBox) Then
-                If (eachCtl.Visible) Then
-                    objListOfTextboxes.Add(CType(eachCtl, TextBox))
-                End If
+                ''Strangely, .Visible is False???? 3/25/2022 td''If (eachCtl.Visible) Then
+                objListOfTextboxes.Add(CType(eachCtl, TextBox))
+                ''End If
             End If ''End of "If (TypeOf eachCtl Is TextBox) Then"
         Next eachCtl ''End of ""For Each eachCtl As Control In Me.Controls""
 
         ''
         ''Order them in order of top-down (i.e. the Top property).
         ''
-        Dim objListOfTextboxes_Ordered As IOrderedEnumerable(Of TextBox) =
-            From objTextbox In objListOfTextboxes
-            Select objTextbox
-            Order By objTextbox.Top
+        ''Dim objListOfTextboxes_Ordered As IOrderedEnumerable(Of TextBox) =
+        ''    From objTextbox In objListOfTextboxes
+        ''    Select objTextbox
+        ''    Order By objTextbox.Top
+
+        Dim objListOfTextboxes_Ordered As List(Of TextBox)
+        objListOfTextboxes_Ordered = objListOfTextboxes.OrderBy(Of Integer)(Function(a) a.Top).ToList()
 
         Return objListOfTextboxes_Ordered
 
     End Function ''End of "Private Function ListOfTextboxes_TopToBottom() As IOrderedEnumerable(Of TextBox)"
 
 
-    Private Function ListOfBars_TopToBottom() As IOrderedEnumerable(Of PictureBox)
+    Private Function ListOfBottomBars_TopToBottom() As List(Of PictureBox) '' IOrderedEnumerable(Of PictureBox)
         ''
         ''Added 3/19/2022 td
+        ''
+        ''  The "Bottom Bars" ("Visual Bars") are the black-backcolor picture boxes which are
+        ''  very "landscape"-shaped, i.e. are very wide and very short (less than 5 pixels high).
+        ''  They are purely visual, i.e. only serve to create visually-obvious "rows" in the
+        ''  spreadsheet.----3/25/2022
         ''
         Dim objListOfBars As New List(Of PictureBox)
         For Each eachCtl As Control In Me.Controls
             If (TypeOf eachCtl Is PictureBox) Then
-                If (eachCtl.Visible) Then
-                    objListOfBars.Add(CType(eachCtl, PictureBox))
-                End If ''End of ""If (eachCtl.Visible) Then""
+                ''Strangely, .Visible is False???? 3/25/2022 td''If (eachCtl.Visible) Then
+                objListOfBars.Add(CType(eachCtl, PictureBox))
+                ''End If ''End of ""If (eachCtl.Visible) Then""
             End If ''End of "If (TypeOf eachCtl Is TextBox) Then"
         Next eachCtl ''End of ""For Each eachCtl As Control In Me.Controls""
 
         ''
         ''Order them in order of top-down (i.e. the Top property).
         ''
-        Dim objListOfBars_Ordered As IOrderedEnumerable(Of PictureBox) =
-            From objBar In objListOfBars
-            Select objBar
-            Order By objBar.Top
+        ''Dim objListOfBars_Ordered As IOrderedEnumerable(Of PictureBox) =
+        ''    From objBar In objListOfBars
+        ''    Select objBar
+        ''    Order By objBar.Top
+        ''Return objListOfBars_Ordered
 
-        Return objListOfBars_Ordered
+        Dim objListOfTextboxes_Ordered As List(Of PictureBox)
+        objListOfTextboxes_Ordered = objListOfBars.OrderBy(Of Integer)(Function(a) a.Top).ToList()
+        Return objListOfTextboxes_Ordered
 
     End Function ''End of "Public Function ListOfBars_TopToBottom() As IOrderedEnumerable(Of PictureBox)"
 
+    Private Sub PictureBox8_Click(sender As Object, e As EventArgs) Handles PictureBox8.Click
 
-
-
+    End Sub
 End Class

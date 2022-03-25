@@ -174,6 +174,8 @@ ExitHandler:
             ''.Invalidate()
             ''.Refresh()
             .RemoveMoveability() ''Added 3/20/2022 td
+            ''Doesn't work here.3/25/2022.Refresh()
+            ''Doesn't work here.3/25/2022.AlignRowHeadersWithSpreadsheet() ''Added 3/25/2022 thomas downes
 
         End With ''End of "With RscFieldSpreadsheet1"
 

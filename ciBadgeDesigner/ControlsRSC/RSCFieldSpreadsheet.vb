@@ -275,7 +275,7 @@ Public Class RSCFieldSpreadsheet
 
 
 
-    End Sub
+    End Sub ''End of event handler Private Sub RSCFieldSpreadsheet_Load
 
     Public Sub Load_Form()
         ''
@@ -528,7 +528,30 @@ Public Class RSCFieldSpreadsheet
 
         End If ''end of ""If Me.ColumnDataCache.FormSize.Width > 100 Then""
 
-    End Sub ''End of Private Sub RSCFieldSpreadsheet_Load
+        ''
+        ''Step 7 of 7.  Align the row headers.
+        ''
+        ''Might be causing call-stack problems.''RscRowHeaders1.RSCSpreadsheet = Me
+        ''Moved to calling function. 3/25/2022 td''RscRowHeaders1.AlignControlsWithSpreadsheet()
+
+
+    End Sub ''End of Public Sub LoadRuntimeColumns_AfterClearingDesign
+
+
+    Public Sub AlignRowHeadersWithSpreadsheet()
+        ''
+        ''Added 3/25/2022 thomas downes
+        ''
+        ''3/25/2022 td''RscRowHeaders1.AlignControlsWithSpreadsheet()
+        Dim listBoxesColumn As List(Of TextBox)
+        Dim listBoxesRowHeader As List(Of TextBox)
+
+        listBoxesColumn = RscFieldColumn1.ListOfTextboxes_TopToBottom()
+        listBoxesRowHeader = RscRowHeaders1.ListOfTextboxes_TopToBottom()
+
+        RscRowHeaders1.AlignControlsWithSpreadsheet(listBoxesColumn)
+
+    End Sub ''End of "Public Sub AlignRowHeadersWithSpreadsheet()"
 
 
     Public Sub Load_FieldsFromCache(par_cache As ClassElementsCache_Deprecated)
@@ -796,5 +819,13 @@ Public Class RSCFieldSpreadsheet
 
     End Sub ''End of "Public Sub InsertNewColumnByIndex(Me.ColumnIndex)"
 
+    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
 
+        ''Added 3/25/2022 thomas downes 
+        Timer1.Enabled = False ''Make this one-time only. 
+        RscRowHeaders1.RSCSpreadsheet = Me
+        AlignRowHeadersWithSpreadsheet()
+
+
+    End Sub
 End Class

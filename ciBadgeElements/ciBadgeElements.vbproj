@@ -95,11 +95,8 @@
     <Compile Include="ClassElementLists.vb" />
     <Compile Include="ClassElementPortrait.vb" />
     <Compile Include="ClassElementQRCode.vb" />
-    <Compile Include="ClassCacheElements_DontUse.vb" />
     <Compile Include="ClassElementSignature.vb" />
     <Compile Include="ClassElementStaticTextV3.vb" />
-    <Compile Include="ClassCacheLayout_DontUse.vb" />
-    <Compile Include="ClassCachePersonality_DontUse.vb" />
     <Compile Include="ClassElementStaticTextV4.vb" />
     <Compile Include="FormBadgeLayoutProto.Designer.vb">
       <DependentUpon>FormBadgeLayoutProto.vb</DependentUpon>

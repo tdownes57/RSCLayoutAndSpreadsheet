@@ -108,7 +108,7 @@ Partial Class DialogEditRecipients
         Me.RscFieldSpreadsheet1.MoveabilityEventsForGroupCtls = Nothing
         Me.RscFieldSpreadsheet1.MoveabilityEventsForSingleMove = Nothing
         Me.RscFieldSpreadsheet1.Name = "RscFieldSpreadsheet1"
-        Me.RscFieldSpreadsheet1.Size = New System.Drawing.Size(875, 451)
+        Me.RscFieldSpreadsheet1.Size = New System.Drawing.Size(894, 451)
         Me.RscFieldSpreadsheet1.TabIndex = 19
         '
         'LinkLabelWarningNotSaved

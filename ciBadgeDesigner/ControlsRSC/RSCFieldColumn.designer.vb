@@ -25,6 +25,7 @@ Partial Class RSCFieldColumn
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.TextBox11 = New System.Windows.Forms.TextBox()
         Me.PictureBox4 = New System.Windows.Forms.PictureBox()
         Me.PictureBox12 = New System.Windows.Forms.PictureBox()
@@ -52,7 +53,7 @@ Partial Class RSCFieldColumn
         Me.PictureBox9 = New System.Windows.Forms.PictureBox()
         Me.RscSelectCIBField1 = New ciBadgeDesigner.RSCSelectCIBField()
         Me.LinkLabelRightClick = New System.Windows.Forms.LinkLabel()
-        Me.PictureBox13 = New System.Windows.Forms.PictureBox()
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox12, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -65,7 +66,6 @@ Partial Class RSCFieldColumn
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox9, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox13, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TextBox11
@@ -86,7 +86,7 @@ Partial Class RSCFieldColumn
         Me.PictureBox4.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PictureBox4.BackColor = System.Drawing.Color.Black
-        Me.PictureBox4.Location = New System.Drawing.Point(0, 252)
+        Me.PictureBox4.Location = New System.Drawing.Point(1, 204)
         Me.PictureBox4.Margin = New System.Windows.Forms.Padding(2)
         Me.PictureBox4.Name = "PictureBox4"
         Me.PictureBox4.Size = New System.Drawing.Size(184, 2)
@@ -98,7 +98,7 @@ Partial Class RSCFieldColumn
         Me.PictureBox12.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PictureBox12.BackColor = System.Drawing.Color.Black
-        Me.PictureBox12.Location = New System.Drawing.Point(0, 27)
+        Me.PictureBox12.Location = New System.Drawing.Point(2, 392)
         Me.PictureBox12.Margin = New System.Windows.Forms.Padding(2)
         Me.PictureBox12.Name = "PictureBox12"
         Me.PictureBox12.Size = New System.Drawing.Size(184, 2)
@@ -172,7 +172,7 @@ Partial Class RSCFieldColumn
         Me.PictureBox7.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PictureBox7.BackColor = System.Drawing.Color.Black
-        Me.PictureBox7.Location = New System.Drawing.Point(0, 392)
+        Me.PictureBox7.Location = New System.Drawing.Point(1, 274)
         Me.PictureBox7.Margin = New System.Windows.Forms.Padding(2)
         Me.PictureBox7.Name = "PictureBox7"
         Me.PictureBox7.Size = New System.Drawing.Size(184, 2)
@@ -260,7 +260,7 @@ Partial Class RSCFieldColumn
         Me.PictureBox6.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PictureBox6.BackColor = System.Drawing.Color.Black
-        Me.PictureBox6.Location = New System.Drawing.Point(1, 205)
+        Me.PictureBox6.Location = New System.Drawing.Point(3, 251)
         Me.PictureBox6.Margin = New System.Windows.Forms.Padding(2)
         Me.PictureBox6.Name = "PictureBox6"
         Me.PictureBox6.Size = New System.Drawing.Size(184, 2)
@@ -387,7 +387,7 @@ Partial Class RSCFieldColumn
         Me.RscSelectCIBField1.Margin = New System.Windows.Forms.Padding(2)
         Me.RscSelectCIBField1.Name = "RscSelectCIBField1"
         Me.RscSelectCIBField1.SelectedValue = ciBadgeInterfaces.ModEnumsAndStructs.EnumCIBFields.Undetermined
-        Me.RscSelectCIBField1.Size = New System.Drawing.Size(189, 72)
+        Me.RscSelectCIBField1.Size = New System.Drawing.Size(184, 72)
         Me.RscSelectCIBField1.TabIndex = 62
         '
         'LinkLabelRightClick
@@ -402,24 +402,11 @@ Partial Class RSCFieldColumn
         Me.LinkLabelRightClick.TabStop = True
         Me.LinkLabelRightClick.Text = "Right-Click"
         '
-        'PictureBox13
-        '
-        Me.PictureBox13.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PictureBox13.BackColor = System.Drawing.Color.Black
-        Me.PictureBox13.Location = New System.Drawing.Point(2, 275)
-        Me.PictureBox13.Margin = New System.Windows.Forms.Padding(2)
-        Me.PictureBox13.Name = "PictureBox13"
-        Me.PictureBox13.Size = New System.Drawing.Size(184, 2)
-        Me.PictureBox13.TabIndex = 64
-        Me.PictureBox13.TabStop = False
-        '
         'RSCFieldColumn
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.Controls.Add(Me.PictureBox13)
         Me.Controls.Add(Me.LinkLabelRightClick)
         Me.Controls.Add(Me.RscSelectCIBField1)
         Me.Controls.Add(Me.TextBox11)
@@ -461,7 +448,6 @@ Partial Class RSCFieldColumn
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox9, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox13, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -493,5 +479,5 @@ Partial Class RSCFieldColumn
     Friend WithEvents PictureBox9 As PictureBox
     Friend WithEvents RscSelectCIBField1 As RSCSelectCIBField
     Friend WithEvents LinkLabelRightClick As LinkLabel
-    Friend WithEvents PictureBox13 As PictureBox
+    Friend WithEvents Timer1 As Timer
 End Class
