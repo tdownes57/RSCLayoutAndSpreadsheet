@@ -633,6 +633,28 @@ Public Class RSCFieldColumn
     End Sub ''End of Public Sub SaveDataToColumn()
 
 
+    ''    RscFieldSpreadsheet1.RscFieldColumn1.AlignBottomBars_EvenlySpaced()
+    ''            RscFieldSpreadsheet1.RscFieldColumn1.AlignTextboxes_ToBottomBars()
+    Public Sub AlignBottomBars_EvenlySpaced()
+        ''
+        ''Added 3/26/2022
+        ''
+
+
+    End Sub ''Endof ""Public Sub AlignBottomBars_EvenlySpaced()""
+
+
+    Public Sub AlignTextboxes_ToBottomBars()
+        ''
+        ''Added 3/26/2022
+        ''
+
+
+    End Sub ''Endof ""Public Sub AlignTextboxes_ToBottomBars()""
+
+
+
+
     ''Private Sub textboxExample1_TextChanged(sender As Object, e As EventArgs) Handles textboxExample1.TextChanged
 
     ''End Sub
@@ -818,7 +840,7 @@ Public Class RSCFieldColumn
 
     End Sub
 
-    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
+    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox2a.TextChanged
 
     End Sub
 

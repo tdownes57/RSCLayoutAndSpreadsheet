@@ -231,14 +231,23 @@ ExitHandler:
 
     Private Sub AlignRowHeadersWithSpreadsheet() ''Added 3/25/2022 thomas downes
         ''Added 3/25/2022 td
-        RscFieldSpreadsheet1.AlignRowHeadersWithSpreadsheet()
 
-        ''Added 3/25/2022
-        RscFieldSpreadsheet1.RscFieldColumn1.SpaceBottomBarsEvenly()
-        RscFieldSpreadsheet1.RscFieldColumn1.AlignTextboxesWithBottomBars()
-        ''RscFieldSpreadsheet1.AlignTextboxesWithBottomBars()
-        RscFieldSpreadsheet1.RscRowHeaders1.AlignBottomBarsWithColumnOne()
-        RscFieldSpreadsheet1.RscRowHeaders1.AlignTextboxesWithBottomBars()
+        Const c_boolSimpleWay As Boolean = True
+        Const c_boolAdvanced As Boolean = False
+
+        If (c_boolSimpleWay) Then
+            RscFieldSpreadsheet1.AlignRowHeadersWithSpreadsheet()
+
+        ElseIf c_boolAdvanced Then
+
+            ''Added 3/25/2022
+            RscFieldSpreadsheet1.RscFieldColumn1.AlignBottomBars_EvenlySpaced()
+            RscFieldSpreadsheet1.RscFieldColumn1.AlignTextboxes_ToBottomBars()
+            ''RscFieldSpreadsheet1.AlignTextboxesWithBottomBars()
+            RscFieldSpreadsheet1.RscRowHeaders1.AlignBottomBars_WithColumnOne(RscFieldSpreadsheet1.RscFieldColumn1)
+            RscFieldSpreadsheet1.RscRowHeaders1.AlignTextBoxes_ToBottomBars(RscFieldSpreadsheet1.RscFieldColumn1)
+
+        End If ''End of ""If (c_boolSimpleWay) Then.... ElseIf ...."
 
     End Sub
 

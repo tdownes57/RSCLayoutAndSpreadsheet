@@ -231,6 +231,45 @@ Public Class RSCRowHeaders
     End Sub ''End of ""Public Sub AlignControlsWithSpreadsheet()""
 
 
+    Public Sub AlignBottomBars_WithColumnOne(par_controlColumnOne As RSCFieldColumn)
+        ''
+        ''Added 3/26/2022 thomas Downes 
+        ''
+        ''Dim listBoxesColumn1 As List(Of TextBox)
+        ''Dim listBoxesRowHdrs As List(Of TextBox)
+        Dim listVisualBarsColumn1 As List(Of PictureBox)
+        Dim listVisualBarsRowHdrs As List(Of PictureBox)
+
+        ''listBoxesColumn1 = par_controlColumnOne.ListOfTextboxes_TopToBottom()
+        ''listBoxesRowHdrs = ListOfTextboxes_TopToBottom()
+        listVisualBarsColumn1 = par_controlColumnOne.ListOfBottomBars_TopToBottom()
+        listVisualBarsRowHdrs = ListOfBottomBars_TopToBottom()
+
+        ''Major call....
+        AlignBottomBars(listVisualBarsColumn1, listVisualBarsRowHdrs, par_controlColumnOne)
+
+    End Sub ''End of "Public Sub AlignBottomBars_WithColumnOne()"
+
+
+    Public Sub AlignTextBoxes_ToBottomBars(par_controlColumnOne As RSCFieldColumn)
+        ''
+        ''Added 3/26/2022 thomas Downes 
+        ''
+        Dim listBoxesColumn1 As List(Of TextBox)
+        Dim listBoxesRowHdrs As List(Of TextBox)
+        Dim listVisualBarsColumn1 As List(Of PictureBox)
+        Dim listVisualBarsRowHdrs As List(Of PictureBox)
+        listBoxesColumn1 = par_controlColumnOne.ListOfTextboxes_TopToBottom()
+        listBoxesRowHdrs = ListOfTextboxes_TopToBottom()
+        listVisualBarsColumn1 = par_controlColumnOne.ListOfBottomBars_TopToBottom()
+        listVisualBarsRowHdrs = ListOfBottomBars_TopToBottom()
+
+
+
+    End Sub ''End of "Public Sub AlignTextBoxes_ToBottomBars()"
+
+
+
     Private Sub AlignTextboxes(par_listBoxesColumn As IEnumerable(Of TextBox),
                                par_listBoxesRowHdrs As IEnumerable(Of TextBox))
         ''

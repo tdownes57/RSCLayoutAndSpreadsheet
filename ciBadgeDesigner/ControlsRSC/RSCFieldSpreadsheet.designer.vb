@@ -96,6 +96,6 @@ Partial Class RSCFieldSpreadsheet
 
     Friend WithEvents LinkLabel1 As LinkLabel
     Friend WithEvents LinkLabel2 As LinkLabel
-    Friend WithEvents RscRowHeaders1 As RSCRowHeaders
-    Friend WithEvents RscFieldColumn1 As RSCFieldColumn
+    Public WithEvents RscRowHeaders1 As RSCRowHeaders
+    Public WithEvents RscFieldColumn1 As RSCFieldColumn
 End Class

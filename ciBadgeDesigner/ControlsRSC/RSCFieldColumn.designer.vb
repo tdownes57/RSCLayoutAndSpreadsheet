@@ -30,7 +30,7 @@ Partial Class RSCFieldColumn
         Me.PictureBox4 = New System.Windows.Forms.PictureBox()
         Me.PictureBox12 = New System.Windows.Forms.PictureBox()
         Me.TextBox3 = New System.Windows.Forms.TextBox()
-        Me.textboxExample1 = New System.Windows.Forms.TextBox()
+        Me.Textbox1 = New System.Windows.Forms.TextBox()
         Me.TextBox10 = New System.Windows.Forms.TextBox()
         Me.LabelHeader1 = New System.Windows.Forms.Label()
         Me.PictureBox5 = New System.Windows.Forms.PictureBox()
@@ -40,7 +40,7 @@ Partial Class RSCFieldColumn
         Me.TextBox4 = New System.Windows.Forms.TextBox()
         Me.TextBox6 = New System.Windows.Forms.TextBox()
         Me.TextBox9 = New System.Windows.Forms.TextBox()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.TextBox2a = New System.Windows.Forms.TextBox()
         Me.PictureBox6 = New System.Windows.Forms.PictureBox()
         Me.PictureBox8 = New System.Windows.Forms.PictureBox()
         Me.PictureBox10 = New System.Windows.Forms.PictureBox()
@@ -48,7 +48,7 @@ Partial Class RSCFieldColumn
         Me.TextBox5 = New System.Windows.Forms.TextBox()
         Me.TextBox7 = New System.Windows.Forms.TextBox()
         Me.TextBox8 = New System.Windows.Forms.TextBox()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.TextBox2b = New System.Windows.Forms.TextBox()
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.PictureBox9 = New System.Windows.Forms.PictureBox()
         Me.RscSelectCIBField1 = New ciBadgeDesigner.RSCSelectCIBField()
@@ -120,19 +120,19 @@ Partial Class RSCFieldColumn
         Me.TextBox3.TabIndex = 47
         Me.TextBox3.Text = "Example"
         '
-        'textboxExample1
+        'Textbox1
         '
-        Me.textboxExample1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.Textbox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.textboxExample1.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.textboxExample1.ForeColor = System.Drawing.SystemColors.InactiveCaption
-        Me.textboxExample1.Location = New System.Drawing.Point(2, 116)
-        Me.textboxExample1.Margin = New System.Windows.Forms.Padding(2)
-        Me.textboxExample1.Multiline = True
-        Me.textboxExample1.Name = "textboxExample1"
-        Me.textboxExample1.Size = New System.Drawing.Size(174, 20)
-        Me.textboxExample1.TabIndex = 36
-        Me.textboxExample1.Text = "Example"
+        Me.Textbox1.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.Textbox1.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.Textbox1.Location = New System.Drawing.Point(2, 116)
+        Me.Textbox1.Margin = New System.Windows.Forms.Padding(2)
+        Me.Textbox1.Multiline = True
+        Me.Textbox1.Name = "Textbox1"
+        Me.Textbox1.Size = New System.Drawing.Size(174, 20)
+        Me.Textbox1.TabIndex = 36
+        Me.Textbox1.Text = "Example"
         '
         'TextBox10
         '
@@ -249,19 +249,19 @@ Partial Class RSCFieldColumn
         Me.TextBox9.TabIndex = 53
         Me.TextBox9.Text = "Example"
         '
-        'TextBox1
+        'TextBox2a
         '
-        Me.TextBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.TextBox2a.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.TextBox1.ForeColor = System.Drawing.SystemColors.InactiveCaption
-        Me.TextBox1.Location = New System.Drawing.Point(2, 140)
-        Me.TextBox1.Margin = New System.Windows.Forms.Padding(2)
-        Me.TextBox1.Multiline = True
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(173, 20)
-        Me.TextBox1.TabIndex = 39
-        Me.TextBox1.Text = "Example"
+        Me.TextBox2a.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox2a.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.TextBox2a.Location = New System.Drawing.Point(2, 140)
+        Me.TextBox2a.Margin = New System.Windows.Forms.Padding(2)
+        Me.TextBox2a.Multiline = True
+        Me.TextBox2a.Name = "TextBox2a"
+        Me.TextBox2a.Size = New System.Drawing.Size(173, 20)
+        Me.TextBox2a.TabIndex = 39
+        Me.TextBox2a.Text = "Example"
         '
         'PictureBox6
         '
@@ -353,19 +353,19 @@ Partial Class RSCFieldColumn
         Me.TextBox8.TabIndex = 55
         Me.TextBox8.Text = "Example"
         '
-        'TextBox2
+        'TextBox2b
         '
-        Me.TextBox2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.TextBox2b.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox2.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.TextBox2.ForeColor = System.Drawing.SystemColors.InactiveCaption
-        Me.TextBox2.Location = New System.Drawing.Point(2, 163)
-        Me.TextBox2.Margin = New System.Windows.Forms.Padding(2)
-        Me.TextBox2.Multiline = True
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(174, 20)
-        Me.TextBox2.TabIndex = 41
-        Me.TextBox2.Text = "Example"
+        Me.TextBox2b.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox2b.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.TextBox2b.Location = New System.Drawing.Point(2, 163)
+        Me.TextBox2b.Margin = New System.Windows.Forms.Padding(2)
+        Me.TextBox2b.Multiline = True
+        Me.TextBox2b.Name = "TextBox2b"
+        Me.TextBox2b.Size = New System.Drawing.Size(174, 20)
+        Me.TextBox2b.TabIndex = 41
+        Me.TextBox2b.Text = "Example"
         '
         'PictureBox3
         '
@@ -427,7 +427,7 @@ Partial Class RSCFieldColumn
         Me.Controls.Add(Me.PictureBox4)
         Me.Controls.Add(Me.PictureBox12)
         Me.Controls.Add(Me.TextBox3)
-        Me.Controls.Add(Me.textboxExample1)
+        Me.Controls.Add(Me.Textbox1)
         Me.Controls.Add(Me.TextBox10)
         Me.Controls.Add(Me.LabelHeader1)
         Me.Controls.Add(Me.PictureBox5)
@@ -436,14 +436,14 @@ Partial Class RSCFieldColumn
         Me.Controls.Add(Me.TextBox4)
         Me.Controls.Add(Me.TextBox6)
         Me.Controls.Add(Me.TextBox9)
-        Me.Controls.Add(Me.TextBox1)
+        Me.Controls.Add(Me.TextBox2a)
         Me.Controls.Add(Me.PictureBox8)
         Me.Controls.Add(Me.PictureBox10)
         Me.Controls.Add(Me.PictureBox2)
         Me.Controls.Add(Me.TextBox5)
         Me.Controls.Add(Me.TextBox7)
         Me.Controls.Add(Me.TextBox8)
-        Me.Controls.Add(Me.TextBox2)
+        Me.Controls.Add(Me.TextBox2b)
         Me.Controls.Add(Me.PictureBox3)
         Me.Controls.Add(Me.PictureBox9)
         Me.Name = "RSCFieldColumn"
@@ -464,21 +464,22 @@ Partial Class RSCFieldColumn
         Me.PerformLayout()
 
     End Sub
+
+    Public WithEvents Textbox1 As TextBox
+    Public WithEvents PictureBox1 As PictureBox
+    Friend WithEvents TextBox2a As TextBox
     Friend WithEvents TextBox11 As TextBox
     Friend WithEvents PictureBox4 As PictureBox
     Friend WithEvents PictureBox12 As PictureBox
     Friend WithEvents TextBox3 As TextBox
-    Friend WithEvents textboxExample1 As TextBox
     Friend WithEvents TextBox10 As TextBox
     Friend WithEvents LabelHeader1 As Label
     Friend WithEvents PictureBox5 As PictureBox
     Friend WithEvents PictureBox7 As PictureBox
     Friend WithEvents PictureBox11 As PictureBox
-    Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents TextBox4 As TextBox
     Friend WithEvents TextBox6 As TextBox
     Friend WithEvents TextBox9 As TextBox
-    Friend WithEvents TextBox1 As TextBox
     Friend WithEvents PictureBox6 As PictureBox
     Friend WithEvents PictureBox8 As PictureBox
     Friend WithEvents PictureBox10 As PictureBox
@@ -486,7 +487,7 @@ Partial Class RSCFieldColumn
     Friend WithEvents TextBox5 As TextBox
     Friend WithEvents TextBox7 As TextBox
     Friend WithEvents TextBox8 As TextBox
-    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents TextBox2b As TextBox
     Friend WithEvents PictureBox3 As PictureBox
     Friend WithEvents PictureBox9 As PictureBox
     Friend WithEvents RscSelectCIBField1 As RSCSelectCIBField

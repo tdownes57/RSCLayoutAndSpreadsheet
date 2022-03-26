@@ -4,6 +4,8 @@ Option Strict On
 ''Added 12/19/2021 Thomas Downes 
 ''
 Imports ciBadgeCachePersonality ''Added 2/16/2022 thomas d.
+Imports ciBadgeRecipients ''Added 3/26/2022 td
+
 
 Public Class FormDisplayCacheLayouts
     ''
@@ -27,6 +29,7 @@ Public Class FormDisplayCacheLayouts
     Public ShowMessageForIllformedXML As Boolean ''Added 12/26/2021 thomas downes
     Public UserWantsToExitApplication As Boolean ''Added 2/05/2022 Thomas Downes
     Public CacheCustomers As ClassCacheListCustomers ''Added 2/20/2022 thomas d.  
+    Public Property PersonalityCache_Recipients As ciBadgeCachePersonality.ClassCacheOnePersonalityConfig ''Added 10/11/2019 td 
 
     Private WithEvents mod_dummyControl As New Control() ''Added 2/6/2022 td 
 
@@ -812,6 +815,28 @@ Public Class FormDisplayCacheLayouts
             cache_manager = New ClassCacheManagement(cache_elements, False)
             cache_manager.CheckForMissingFields_FixOrNot(True)
         End If ''End of ""If (c_boolFixMissingElements) Then""
+
+        ''11/30/2021 td''list_recips = Me.PersonalityCache.ListOfRecipients
+        If (Me.PersonalityCache_Recipients Is Nothing) Then
+            ''
+            ''Added 12/3/2021 thomas downes 
+            ''
+            Dim boolNewFileXML As Boolean
+            Me.PersonalityCache_Recipients = Startup.LoadCachedData_Personality_FutureUse(Me, boolNewFileXML)
+
+        End If ''end of "If (Me.PersonalityCache_FutureUse Is Nothing) Then"
+
+        ''
+        ''Added 3/26/2022 td
+        ''
+        Dim list_recips As List(Of ClassRecipient) ''Added 10/11/2019 thomas downes
+        list_recips = Me.PersonalityCache_Recipients.ListOfRecipients
+        ''Added 12/3/2021 td
+        If (list_recips Is Nothing) Then
+            ''Added 12/3/2021 td
+            list_recips = Startup.LoadData_Recipients_Students()
+            Me.PersonalityCache_Recipients.ListOfRecipients = list_recips
+        End If ''End of "If (list_recips Is Nothing) Then"
 
         ''March 15 2022 td''frm_ToShow = New DialogEditRecipients() ''March 15 2022 td ''(cache_elements) ''added 3/14/2022
         ''March 15 2022 td''frm_ToShow.LoadForm_ByCache(cache_elements) ''added 3/14/2022
