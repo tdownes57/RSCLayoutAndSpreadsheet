@@ -261,7 +261,7 @@ Public Class Startup
         Else
             ''Function called in the line below was suffixed w/ "_FutureUse"
             ''   today.  ---11/30/2021 td 
-            obj_personality = LoadCachedData_Personality_FutureUse(obj_formToShow_Demo, boolNewFileXML)
+            obj_personality = LoadCachedData_Personality(obj_formToShow_Demo, boolNewFileXML)
 
         End If ''end of "If (c_boolStillUsingElementsCache) Then ... Else ..."
 
@@ -422,8 +422,9 @@ Public Class Startup
 
     End Function ''End of "Private Shared Function LoadData_Recipients_Students"
 
-    Public Shared Function LoadCachedData_Personality_FutureUse(par_designForm As Form__Main_Demo,
-                                           ByRef pboolNewFileXML As Boolean) As ClassCacheOnePersonalityConfig ''As ClassPersonalityCache
+
+    Public Shared Function LoadCachedData_Personality(par_designForm_Unused As Form__Main_Demo,
+                             ByRef pboolNewFileXML As Boolean) As ClassCacheOnePersonalityConfig ''As ClassPersonalityCache
         ''
         ''Added 1/14/2019 td
         ''Suffixed 11/30/2021 with "_FutureUse".
@@ -474,7 +475,10 @@ Public Class Startup
             ''   but I know of no other way to pass the object type.  Simply expressing the Type
             ''   by typing its name doesn't work.  ---10/13/2019 td
 
-            obj_cache_personality = CType(objDeserialize.DeserializeFromXML(obj_cache_personality.GetType(), False), ClassCacheOnePersonalityConfig) ''Dec4 2021 ''ClassPersonalityCache)
+            Const cbVerboseSuccess_False As Boolean = False ''Added 3/28/2022 td
+
+            obj_cache_personality = CType(objDeserialize.DeserializeFromXML(obj_cache_personality.GetType(),
+                cbVerboseSuccess_False), ClassCacheOnePersonalityConfig) ''Dec4 2021 ''ClassPersonalityCache)
 
             ''Added 10/12/2019 td
             ''10/13/2019 td''Me.ElementsCache_Saved.LinkElementsToFields()

@@ -31,7 +31,8 @@ Public Class DialogEditRecipients
 
     End Sub
 
-    Public Sub New(par_cache As ClassElementsCache_Deprecated)
+    Public Sub New(par_cacheElements As ClassElementsCache_Deprecated,
+                   Optional par_cacheRecipients As ClassCacheOnePersonalityConfig = Nothing)
 
         ' This call is required by the designer.
         InitializeComponent()
@@ -40,8 +41,10 @@ Public Class DialogEditRecipients
         mod_designer = New ClassDesigner()
         mod_designer.DontAutoRefreshPreview = True ''Added 3/11/2022 td
         RscFieldSpreadsheet1.Designer = mod_designer
-        Me.ElementsCache_Deprecated = par_cache
+        Me.ElementsCache_Deprecated = par_cacheElements
         RscFieldSpreadsheet1.ElementsCache_Deprecated = Me.ElementsCache_Deprecated
+        ''Added 3/28/2022 td
+        RscFieldSpreadsheet1.RecipientsCache = par_cacheRecipients
 
     End Sub
 

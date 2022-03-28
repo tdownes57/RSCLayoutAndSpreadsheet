@@ -822,7 +822,8 @@ Public Class FormDisplayCacheLayouts
             ''Added 12/3/2021 thomas downes 
             ''
             Dim boolNewFileXML As Boolean
-            Me.PersonalityCache_Recipients = Startup.LoadCachedData_Personality_FutureUse(Me, boolNewFileXML)
+            ''March28 2022 ''Me.PersonalityCache_Recipients = Startup.LoadCachedData_Personality_FutureUse(Me, boolNewFileXML)
+            Me.PersonalityCache_Recipients = Startup.LoadCachedData_Personality(Nothing, boolNewFileXML)
 
         End If ''end of "If (Me.PersonalityCache_FutureUse Is Nothing) Then"
 
@@ -840,7 +841,9 @@ Public Class FormDisplayCacheLayouts
 
         ''March 15 2022 td''frm_ToShow = New DialogEditRecipients() ''March 15 2022 td ''(cache_elements) ''added 3/14/2022
         ''March 15 2022 td''frm_ToShow.LoadForm_ByCache(cache_elements) ''added 3/14/2022
-        frm_ToShow = New DialogEditRecipients(cache_elements) ''added 3/14/2022
+        ''March 28 2022 td''frm_ToShow = New DialogEditRecipients(cache_elements) ''added 3/14/2022
+        frm_ToShow = New DialogEditRecipients(cache_elements,
+                                              Me.PersonalityCache_Recipients) ''added 3/14/2022
 
         ''March21 2022 ''frm_ToShow.Show()
         frm_ToShow.ShowDialog()
