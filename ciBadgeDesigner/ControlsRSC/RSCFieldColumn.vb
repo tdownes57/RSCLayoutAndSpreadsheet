@@ -450,13 +450,15 @@ Public Class RSCFieldColumn
 
 
     Public Sub LoadRecipientList(Optional ByRef pboolErrorCellsHaveValues As Boolean = False,
-                                 Optional ByRef pboolNoFieldSelected As Boolean = False,
-                                 Optional ByRef pboolNoRecipientList As Boolean = False)
+                                 Optional ByRef pref_bNoFieldSelected As Boolean = False,
+                                 Optional ByRef pref_bNoRecipientList As Boolean = False,
+                                 Optional ByRef pref_boolRows_TooFew As Boolean = False,
+                                 Optional ByRef pref_boolRows_TooMany As Boolean = False)
         ''
         ''Added 3/22/2022 td
         ''
         Dim intCountAllBoxesOrRows As Integer ''Added 3/23/2022 td
-        Dim intCountBoxesEmptyOrNot As Integer ''Added 3/23/2022 td
+        Dim intCountBoxesEmptyOrNot As Integer ''Addexd 3/23/2022 td
 
         Dim intCountCellsWithData As Integer
         ''March23 2022''intCountCellsWithData = CountOfBoxesWithData()
@@ -464,23 +466,23 @@ Public Class RSCFieldColumn
         If (intCountCellsWithData <> 0) Then
             pboolErrorCellsHaveValues = True
             Throw New Exception("Warning, non-zero >0 cells with data already. Data would be lost.")
-        End If
+        End If ''End of ""If (intCountCellsWithData <> 0) Then""
 
         Dim enumFieldSelected As EnumCIBFields
         enumFieldSelected = RscSelectCIBField1.SelectedValue
         If (enumFieldSelected = EnumCIBFields.Undetermined) Then
-            pboolNoFieldSelected = True
+            pref_bNoFieldSelected = True
             MessageBoxTD.Show_Statement("Warning, not all columns have a specified field.")
             Return
-        End If
+        End If ''End of ""If (enumFieldSelected = EnumCIBFields.Undetermined) Then""
 
         Dim boolNoRecipList As Boolean
         boolNoRecipList = (Me.ListRecipients Is Nothing)
-        pboolNoRecipientList = boolNoRecipList
-        If (pboolNoRecipientList) Then
+        pref_bNoRecipientList = boolNoRecipList
+        If (pref_bNoRecipientList) Then
             Throw New Exception("ListRecipients is a Null reference.")
             Return
-        End If
+        End If ''End of ""If (pref_bNoRecipientList) Then""
 
         Dim intCountRecipients As Integer
         intCountRecipients = Me.ListRecipients.Count
@@ -488,17 +490,37 @@ Public Class RSCFieldColumn
         Dim boolNoRecipients_zero As Boolean
         boolNoRecipients_zero = (0 = intCountRecipients)
         If (boolNoRecipients_zero) Then
-            pboolNoRecipientList = True
+            pref_bNoRecipientList = True
             Throw New Exception("ListRecipients has Zero(0) recipient (student) rows.")
             Return
-        End If
+        End If ''ENd of ""If (boo lNoRecipients_zero) Then""
 
-        Dim boolMismatchOfCounts As Boolean
+        ''
+        ''Added 3/29/2022 thomas downes
+        ''
+        Load_EmptyRows(intCountRecipients)
+        CountOfBoxesWithData(intCountBoxesEmptyOrNot) ''Update the value of var. intCountBoxesEmptyOrNot.
+
+        ''3/29/2022 thomas d.''Dim boolMismatchOfCounts As Boolean
+        Dim boolMismatchOfCounts_Less As Boolean
+        Dim boolMismatchOfCounts_More As Boolean
+
         intCountAllBoxesOrRows = intCountBoxesEmptyOrNot
-        boolMismatchOfCounts = (intCountAllBoxesOrRows <> Me.ListRecipients.Count) ''Then
-        If (boolMismatchOfCounts) Then
-            pboolErrorCellsHaveValues = True
-            Throw New Exception("Warning, non-zero >0 cells with data already. Data would be lost.")
+        ''March29 2022''boolMismatchOfCounts_Less = (intCountAllBoxesOrRows <> Me.ListRecipients.Count) ''Then
+        boolMismatchOfCounts_Less = (intCountAllBoxesOrRows < Me.ListRecipients.Count) ''Then
+        boolMismatchOfCounts_More = (intCountAllBoxesOrRows > Me.ListRecipients.Count) ''Then
+
+        If (boolMismatchOfCounts_Less) Then
+            ''3/29/2022 td''pboolErrorCellsHaveValues = True
+            pref_boolRows_TooFew = True
+            ''---Throw New Exception("Warning, non-zero >0 cells with data already. Data would be lost.")
+            Throw New Exception("Warning, we have less textboxes than required. Data would be lost.")
+
+        ElseIf (boolMismatchOfCounts_More) Then
+            ''3/29/2022 td''pboolErrorCellsHaveValues = True
+            pref_boolRows_TooMany = True
+            ''---Throw New Exception("Warning, non-zero >0 cells with data already. Data would be lost.")
+            Throw New Exception("Warning, we have more textboxes than required. Rows will be left blank.")
         End If ''End of ""If (boolMismatchOfCounts) then""
 
         ''-----------------------------------------------------------
@@ -652,6 +674,83 @@ Public Class RSCFieldColumn
 
     End Sub ''Endof ""Public Sub AlignTextboxes_ToBottomBars()""
 
+
+    Public Sub Load_EmptyRows(par_intRowsRequired As Integer)
+        ''
+        ''Added 3/29/2022 thomas downes
+        ''
+        Dim ref_intCountRows As Integer = 0
+        Dim intCountRows As Integer = 0
+
+        CountOfBoxesWithData(ref_intCountRows)
+        intCountRows = ref_intCountRows
+
+        If (intCountRows = par_intRowsRequired) Then Exit Sub
+        If (intCountRows > par_intRowsRequired) Then Load_EmptyRows_DeleteRows(par_intRowsRequired)
+        If (intCountRows < par_intRowsRequired) Then Load_EmptyRows_CreateRows(par_intRowsRequired)
+
+    End Sub ''End of ""Public Sub Load_EmptyRows()""
+
+
+    Private Sub Load_EmptyRows_CreateRows(par_intRowsRequired As Integer)
+        ''
+        ''Added 3/29/2022 thomas downes
+        ''
+        Dim listOfBoxes As List(Of TextBox)
+        Dim textbox_Top As TextBox
+        Dim textbox_BottomLast As TextBox
+        Dim textbox_BottomDeux As TextBox
+        Dim intIndexStart As Integer
+        Dim intIndex__End As Integer
+        Dim intTopGap As Integer
+
+        listOfBoxes = ListOfTextboxes_TopToBottom()
+        textbox_Top = listOfBoxes(0)
+
+        textbox_BottomLast = listOfBoxes(-1 + listOfBoxes.Count) ''.LastOrDefault
+        textbox_BottomDeux = listOfBoxes(-2 + listOfBoxes.Count) ''.LastOrDefault
+
+        intIndexStart = (listOfBoxes.Count - 1 + 1)
+        intIndex__End = (par_intRowsRequired - 1)
+        intTopGap = (textbox_BottomLast.Top - textbox_BottomDeux.Top)
+
+        For intRowIndex As Integer = intIndexStart To intIndex__End
+            ''
+            ''Create the required textbox. 
+            ''
+            Dim objTextbox As New TextBox ''Added 3/29/2022 thomas downes
+            With objTextbox
+                .Left = textbox_Top.Left
+                .Width = textbox_Top.Width
+                .Height = textbox_Top.Height
+                .Anchor = textbox_Top.Anchor
+                .BackColor = textbox_Top.BackColor
+                .ForeColor = textbox_Top.ForeColor
+                .BorderStyle = textbox_Top.BorderStyle
+                .Font = textbox_Top.Font
+                .Top = (textbox_BottomLast.Top + intTopGap)
+                .Visible = True
+            End With ''End of ""With objTextbox""
+
+            ''Added 3/30/2022
+            Me.Controls.Add(objTextbox)
+            Me.Height = (objTextbox.Top + objTextbox.Height + intTopGap)
+
+        Next intRowIndex
+
+    End Sub ''End of ""Public Sub Load_EmptyRows_CreateRows()""
+
+
+    Private Sub Load_EmptyRows_DeleteRows(par_intRowsToCreate As Integer)
+        ''
+        ''Added 3/29/2022 thomas downes
+        ''
+
+
+
+
+
+    End Sub ''End of ""Public Sub Load_EmptyRows_DeleteRows()""
 
 
 

@@ -11,6 +11,7 @@ Public Class DialogEditRecipients
     '' Added 2/22/2022 thomas  
     ''
     Public ElementsCache_Deprecated As ClassElementsCache_Deprecated
+    Public RecipientsCache As ClassCacheOnePersonalityConfig ''Added 3/29/2022 thomas downes
 
     Private mod_designer As ClassDesigner ''Added 3/10/2022 td
     Private mod_stringPastedData As String ''Added 2/22/2022  
@@ -45,6 +46,7 @@ Public Class DialogEditRecipients
         RscFieldSpreadsheet1.ElementsCache_Deprecated = Me.ElementsCache_Deprecated
         ''Added 3/28/2022 td
         RscFieldSpreadsheet1.RecipientsCache = par_cacheRecipients
+        Me.RecipientsCache = par_cacheRecipients
 
     End Sub
 
@@ -171,6 +173,7 @@ ExitHandler:
             .ParentForm = Me ''Added 3/20/2022 td
             .Designer = mod_designer
             .ElementsCache_Deprecated = Me.ElementsCache_Deprecated ''Added 3/21/2022 td
+            .RecipientsCache = Me.RecipientsCache ''Added 3/29/2022 thomas downes
             .ColumnDataCache = mod_cacheColumnWidthsAndData ''Added 3/16/2022 td
             .LoadRuntimeColumns_AfterClearingDesign(mod_designer)
             .Load_Form()
@@ -260,4 +263,13 @@ ExitHandler:
         RscFieldSpreadsheet1.AlignRowHeadersWithSpreadsheet()
 
     End Sub
+
+    Private Sub LinkLabel1_LinkClicked_1(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
+
+        ''Added 3/25/2022 td
+        RscFieldSpreadsheet1.Load_Recipients()
+
+    End Sub
+
+
 End Class

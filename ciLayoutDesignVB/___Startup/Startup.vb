@@ -16,6 +16,8 @@ Public Class Startup
     ''
     ''Added 10/11/2019 td    
     ''
+    Public Shared ListOfRecipients As List(Of ClassRecipient) ''Added 3/29/2022 thomas d. 
+
     Public Shared Sub Main()
         ''
         ''Encapsulated 10/13/2019 td  
@@ -65,6 +67,9 @@ Public Class Startup
 
         ''Added 10/16/2019 td 
         obj_personality.ListOfRecipients = LoadData_Recipients_Students()
+
+        ''Added 3/29/2022 td
+        ListOfRecipients = obj_personality.ListOfRecipients
 
         ''
         ''Initialize a Customer Cache, or at least a Personality Cache.

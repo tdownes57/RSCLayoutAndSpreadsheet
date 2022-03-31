@@ -52,6 +52,10 @@ Public Class ClassRecipient
             Case EnumCIBFields.fstrLastName : Return Me.fstrLastName
             Case EnumCIBFields.fstrMidName : Return Me.fstrMidName
 
+            ''Added 3/30/2022 td
+            Case EnumCIBFields.fstrNameAbbreviated : Return Me.fstrNameAbbreviated
+            Case EnumCIBFields.fstrFullName : Return Me.fstrFullName
+
             Case EnumCIBFields.DateField01 : Return Me.DateField01.ToShortDateString
             Case EnumCIBFields.DateField02 : Return Me.DateField01.ToShortDateString
             Case EnumCIBFields.DateField03 : Return Me.DateField01.ToShortDateString

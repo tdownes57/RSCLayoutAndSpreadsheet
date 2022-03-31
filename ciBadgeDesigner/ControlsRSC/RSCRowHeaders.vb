@@ -282,9 +282,14 @@ Public Class RSCRowHeaders
         Dim TopBoxColumn As TextBox ''Addded 3/25/2022 td
         Dim TopBoxHeader As TextBox ''Added 3/25/2022 td
         Dim boolSkipTopBox As Boolean
+
         TopBoxColumn = par_listBoxesColumn(0) ''Added 3/25/2022 td
         TopBoxHeader = par_listBoxesRowHdrs(0) ''Added 3/25/2022 td
         boolSkipTopBox = True
+
+        ''Added 3/30/2022 thomas downes
+        Load_EmptyRows(par_listBoxesColumn.Count)
+        par_listBoxesRowHdrs = Me.ListOfTextboxes_TopToBottom()
 
         ''
         ''Loop through the rows
@@ -415,6 +420,84 @@ Public Class RSCRowHeaders
 
         ''---Next eachColumnBox
     End Sub ''End of "Private Sub AlignBottomBars"
+
+
+    Public Sub Load_EmptyRows(par_intRowsRequired As Integer)
+        ''
+        ''Added 3/29/2022 thomas downes
+        ''
+        Dim ref_intCountRows As Integer = 0
+        Dim intCountRows As Integer = 0
+
+        ''CountOfBoxesWithData(ref_intCountRows)
+        ''intCountRows = ref_intCountRows
+        intCountRows = ListOfBottomBars_TopToBottom().Count
+
+        If (intCountRows = par_intRowsRequired) Then Exit Sub
+        If (intCountRows > par_intRowsRequired) Then Load_EmptyRows_DeleteRows(par_intRowsRequired)
+        If (intCountRows < par_intRowsRequired) Then Load_EmptyRows_CreateRows(par_intRowsRequired)
+
+    End Sub ''End of ""Public Sub Load_EmptyRows()""
+
+
+    Private Sub Load_EmptyRows_CreateRows(par_intRowsRequired As Integer)
+        ''
+        ''Added 3/29/2022 thomas downes
+        ''
+        Dim listOfBoxes As List(Of TextBox)
+        Dim textbox_Top As TextBox
+        Dim textbox_BottomLast As TextBox
+        Dim textbox_BottomDeux As TextBox
+        Dim intIndexStart As Integer
+        Dim intIndex__End As Integer
+        Dim intTopGap As Integer
+
+        listOfBoxes = ListOfTextboxes_TopToBottom()
+        textbox_Top = listOfBoxes(0)
+
+        textbox_BottomLast = listOfBoxes(-1 + listOfBoxes.Count) ''.LastOrDefault
+        textbox_BottomDeux = listOfBoxes(-2 + listOfBoxes.Count) ''.LastOrDefault
+
+        intIndexStart = (listOfBoxes.Count - 1 + 1)
+        intIndex__End = (par_intRowsRequired - 1)
+        intTopGap = (textbox_BottomLast.Top - textbox_BottomDeux.Top)
+
+        For intRowIndex As Integer = intIndexStart To intIndex__End
+            ''
+            ''Create the required textbox. 
+            ''
+            Dim objTextbox As New TextBox ''Added 3/29/2022 thomas downes
+            With objTextbox
+                .Left = textbox_Top.Left
+                .Width = textbox_Top.Width
+                .Height = textbox_Top.Height
+                .Anchor = textbox_Top.Anchor
+                .BackColor = textbox_Top.BackColor
+                .ForeColor = textbox_Top.ForeColor
+                .BorderStyle = textbox_Top.BorderStyle
+                .Font = textbox_Top.Font
+                .Top = (textbox_BottomLast.Top + intTopGap)
+                .Visible = True
+            End With
+
+            Me.Controls.Add(objTextbox)
+
+        Next intRowIndex
+
+    End Sub ''End of ""Public Sub Load_EmptyRows_CreateRows()""
+
+
+    Private Sub Load_EmptyRows_DeleteRows(par_intRowsToCreate As Integer)
+        ''
+        ''Added 3/29/2022 thomas downes
+        ''
+
+
+
+
+
+    End Sub ''End of ""Public Sub Load_EmptyRows_DeleteRows()""
+
 
 
     Public Function ListOfTextboxes_TopToBottom() As List(Of TextBox) ''IOrderedEnumerable(Of TextBox)

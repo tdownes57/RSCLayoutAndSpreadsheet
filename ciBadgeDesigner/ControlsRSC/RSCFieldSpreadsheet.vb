@@ -17,6 +17,7 @@ Public Class RSCFieldSpreadsheet
     Public ElementsCache_Deprecated As ciBadgeCachePersonality.ClassElementsCache_Deprecated ''Added 3/10/2022 td
     Public ColumnDataCache As CacheRSCFieldColumnWidthsEtc ''ClassColumnWidthsEtc ''Added 3/15/2022 td
     ''Public RscFieldColumn1 As RSCFieldColumn ''Added 3/25/2022 td
+    Public RecipientsCache As ClassCacheOnePersonalityConfig ''Added 3/28/2022 thomas downes
 
     Private mod_ctlLasttouched As New ClassLastControlTouched ''Added 1/4/2022 td
     Private mod_eventsSingleton As New GroupMoveEvents_Singleton(Me.Designer, False, True) ''Added 1/4/2022 td  
@@ -304,8 +305,107 @@ Public Class RSCFieldSpreadsheet
 
         End If ''End of " If (c_boolLetsAutoLoadColumns) Then"
 
+        ''
+        ''Added 3/28/'2022 thomas downes 
+        ''
+        Load_Recipients()
+
 
     End Sub ''End of event handler Private Sub RSCFieldSpreadsheet_Load
+
+
+    Public Sub Load_Recipients()
+        ''
+        ''Added 3/28/'2022 thomas downes 
+        ''
+        If (Me.RecipientsCache Is Nothing) Then
+
+            ''Added 3/29/2022 thomas d.
+            MessageBoxTD.Show_Statement("Not any recipients cache.")
+
+        Else
+            ''
+            ''Added 3/28/2022 thomas downes
+            ''
+            Dim bAreData_DangerOfOverwritten As Boolean
+            Dim bColumnHasNoField As Boolean
+            Dim bListHasNoRecipients As Boolean
+            Dim list_columns As List(Of RSCFieldColumn)
+
+            list_columns = ListOfColumns() ''Added 3/30/2022 thomas d. 
+
+            For Each each_column As RSCFieldColumn In list_columns ''March30 2022 td''Me.ListOfColumns()
+
+                ''Added 3/29/2022 thomas d.
+                ''
+                ''Clear out the existing data from the column.
+                ''
+                ''March29 2022 td''If (each_column.CountOfBoxesWithData() > 0) Then
+                bAreData_DangerOfOverwritten = (0 < each_column.CountOfBoxesWithData())
+                If (bAreData_DangerOfOverwritten) Then
+                    ''3/29/2022 td''each_column.ClearDataFromColumn_Do()
+                    Dim bUserCancelled As Boolean ''March29 2022
+                    Me.ClearDataFromSpreadsheet_1stConfirm(bUserCancelled)
+                    If (bUserCancelled) Then Exit Sub
+                End If ''End of ""If (bAreData_DangerOfOverwritten) Then""
+
+                ''Add an needed object reference. ----3/29/2022 thomas d.
+                each_column.ListRecipients = Me.RecipientsCache.ListOfRecipients
+
+                bAreData_DangerOfOverwritten = False ''Reinitialize.
+
+                ''Added 3/28/2022 thomas d.
+                ''
+                ''Load the data into the column.
+                ''
+                each_column.LoadRecipientList(bAreData_DangerOfOverwritten,
+                                              bColumnHasNoField, bListHasNoRecipients)
+
+                If (bAreData_DangerOfOverwritten) Then
+                    Exit For
+                End If
+
+                If (bColumnHasNoField) Then
+                    Continue For
+                End If
+
+                If (bListHasNoRecipients) Then
+                    Exit For
+                End If
+
+            Next each_column
+
+
+        End If ''End of ""If (Me.RecipientsCache Is Nothing) Then.... Else....""
+
+
+    End Sub ''End of event handler Private Sub RSCFieldSpreadsheet_Load
+
+
+    Public Sub ClearDataFromSpreadsheet_1stConfirm(Optional ByRef pboolUserCancelled As Boolean = False)
+        ''
+        ''Added 3/29/2022 thomas downes
+        ''
+        Dim objRSCFieldColumn As RSCFieldColumn
+        Dim boolConfirmed As Boolean
+
+        boolConfirmed = (MessageBoxTD.Show_Confirmed("Clear all data from this spreadsheet?",
+                          "(To undo this later, right-click & select Undo Clear Data.)", True))
+
+        If (boolConfirmed) Then
+            ''Confirmed, so clear the data from each column.  
+            For Each each_column As RSCFieldColumn In Me.ListOfColumns
+                objRSCFieldColumn = each_column ''---CType(each_column, RSCFieldColumn)
+                objRSCFieldColumn.ClearDataFromColumn_Do()
+            Next each_column
+        Else
+            ''Added 3/29/2022 td
+            pboolUserCancelled = True
+
+        End If ''End of "If (boolConfirmed) Then"
+
+    End Sub ''End of ""Public Sub ClearDataFromSpreadsheet_1stConfirm()""
+
 
     Public Sub LoadRuntimeColumns_AfterClearingDesign(par_designer As ClassDesigner)
         ''
@@ -353,6 +453,7 @@ Public Class RSCFieldSpreadsheet
         RscRowHeaders1.Visible = True
         RscRowHeaders1.Top = (intSavePropertyTop_RSCColumnCtl + intSavePropertyTop_FirstRow - 2)
         RscRowHeaders1.Left = (intCurrentPropertyLeft)
+        ''---RscRowHeaders1.Anchor = CType((AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Right), AnchorStyles)
         intNextPropertyLeft += (RscRowHeaders1.Width + mc_ColumnMarginGap)
         ''Assigned within the loop below.--3/24/2022 td''intCurrentPropertyLeft = intNextPropertyLeft
 
@@ -438,7 +539,9 @@ Public Class RSCFieldSpreadsheet
                     If (bUnexpectedMatch) Then Throw New Exception
                 End If ''ENd of "If (priorColumn IsNot Nothing) Then"
 
-            End If ''End of "If (c_bUseEncapsulation) Then .... Else ...."
+            End If ''End of "I
+            ''
+            ''f (c_bUseEncapsulation) Then .... Else ...."
 
             ''
             ''Prepare for next iteration. 
@@ -597,6 +700,11 @@ Public Class RSCFieldSpreadsheet
             newRSCColumn_output.Left = p_intCurrentPropertyLeft
             newRSCColumn_output.Width = mc_ColumnWidthDefault ''Added 3/20/2022 td
             newRSCColumn_output.Visible = True
+
+            ''Added 3/30/2022 td
+            ''newRSCColumn_output.Height = (Me.Height - newRSCColumn_output.Top)
+            ''newRSCColumn_output.Anchor = CType((AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Right), AnchorStyles)
+
             ''Prepare for next iteration. 
             pref_intNextPropertyLeft = (newRSCColumn_output.Left + newRSCColumn_output.Width + 3)
             Me.Controls.Add(newRSCColumn_output)
@@ -835,6 +943,10 @@ Public Class RSCFieldSpreadsheet
         ''RscRowHeaders1.RSCSpreadsheet = Me
         ''AlignRowHeadersWithSpreadsheet()
 
+
+    End Sub
+
+    Private Sub RscFieldColumn1_Load(sender As Object, e As EventArgs) Handles RscFieldColumn1.Load
 
     End Sub
 End Class

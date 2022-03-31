@@ -33,6 +33,8 @@ Partial Class DialogEditRecipients
         Me.LinkLabelRefreshFromRecipients = New System.Windows.Forms.LinkLabel()
         Me.LinkLabelSaveColumnData = New System.Windows.Forms.LinkLabel()
         Me.LinkLabelAlignBars = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabelClearSpreadsheet = New System.Windows.Forms.LinkLabel()
         Me.SuspendLayout()
         '
         'ButtonCancel
@@ -174,11 +176,37 @@ Partial Class DialogEditRecipients
         Me.LinkLabelAlignBars.TabStop = True
         Me.LinkLabelAlignBars.Text = "Align Bars In RowHeaders"
         '
+        'LinkLabel1
+        '
+        Me.LinkLabel1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.LinkLabel1.AutoSize = True
+        Me.LinkLabel1.Location = New System.Drawing.Point(11, 578)
+        Me.LinkLabel1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LinkLabel1.Name = "LinkLabel1"
+        Me.LinkLabel1.Size = New System.Drawing.Size(116, 13)
+        Me.LinkLabel1.TabIndex = 25
+        Me.LinkLabel1.TabStop = True
+        Me.LinkLabel1.Text = "Load Recipient objects"
+        '
+        'LinkLabelClearSpreadsheet
+        '
+        Me.LinkLabelClearSpreadsheet.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.LinkLabelClearSpreadsheet.AutoSize = True
+        Me.LinkLabelClearSpreadsheet.Location = New System.Drawing.Point(476, 544)
+        Me.LinkLabelClearSpreadsheet.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LinkLabelClearSpreadsheet.Name = "LinkLabelClearSpreadsheet"
+        Me.LinkLabelClearSpreadsheet.Size = New System.Drawing.Size(141, 13)
+        Me.LinkLabelClearSpreadsheet.TabIndex = 26
+        Me.LinkLabelClearSpreadsheet.TabStop = True
+        Me.LinkLabelClearSpreadsheet.Text = "Clear spreadsheet of all data"
+        '
         'DialogEditRecipients
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(914, 600)
+        Me.Controls.Add(Me.LinkLabelClearSpreadsheet)
+        Me.Controls.Add(Me.LinkLabel1)
         Me.Controls.Add(Me.LinkLabelAlignBars)
         Me.Controls.Add(Me.LinkLabelSaveColumnData)
         Me.Controls.Add(Me.LinkLabelRefreshFromRecipients)
@@ -209,4 +237,6 @@ Partial Class DialogEditRecipients
     Friend WithEvents LinkLabelRefreshFromRecipients As LinkLabel
     Friend WithEvents LinkLabelSaveColumnData As LinkLabel
     Friend WithEvents LinkLabelAlignBars As LinkLabel
+    Friend WithEvents LinkLabel1 As LinkLabel
+    Friend WithEvents LinkLabelClearSpreadsheet As LinkLabel
 End Class

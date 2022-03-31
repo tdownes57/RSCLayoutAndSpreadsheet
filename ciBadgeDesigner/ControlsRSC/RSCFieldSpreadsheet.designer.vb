@@ -24,8 +24,8 @@ Partial Class RSCFieldSpreadsheet
     Private Sub InitializeComponent()
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel2 = New System.Windows.Forms.LinkLabel()
-        Me.RscRowHeaders1 = New ciBadgeDesigner.RSCRowHeaders()
         Me.RscFieldColumn1 = New ciBadgeDesigner.RSCFieldColumn()
+        Me.RscRowHeaders1 = New ciBadgeDesigner.RSCRowHeaders()
         Me.SuspendLayout()
         '
         'LinkLabel1
@@ -50,6 +50,22 @@ Partial Class RSCFieldSpreadsheet
         Me.LinkLabel2.TabStop = True
         Me.LinkLabel2.Text = "Review which fields are Relevant and available."
         '
+        'RscFieldColumn1
+        '
+        Me.RscFieldColumn1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.RscFieldColumn1.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.RscFieldColumn1.ColumnWidthAndData = Nothing
+        Me.RscFieldColumn1.ElementInfo_Base = Nothing
+        Me.RscFieldColumn1.ListOfColumnsToBumpRight = Nothing
+        Me.RscFieldColumn1.Location = New System.Drawing.Point(100, 19)
+        Me.RscFieldColumn1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.RscFieldColumn1.MoveabilityEventsForGroupCtls = Nothing
+        Me.RscFieldColumn1.MoveabilityEventsForSingleMove = Nothing
+        Me.RscFieldColumn1.Name = "RscFieldColumn1"
+        Me.RscFieldColumn1.Size = New System.Drawing.Size(198, 436)
+        Me.RscFieldColumn1.TabIndex = 9
+        '
         'RscRowHeaders1
         '
         Me.RscRowHeaders1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
@@ -64,24 +80,11 @@ Partial Class RSCFieldSpreadsheet
         Me.RscRowHeaders1.Size = New System.Drawing.Size(94, 318)
         Me.RscRowHeaders1.TabIndex = 8
         '
-        'RscFieldColumn1
-        '
-        Me.RscFieldColumn1.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.RscFieldColumn1.ColumnWidthAndData = Nothing
-        Me.RscFieldColumn1.ElementInfo_Base = Nothing
-        Me.RscFieldColumn1.ListOfColumnsToBumpRight = Nothing
-        Me.RscFieldColumn1.Location = New System.Drawing.Point(100, 19)
-        Me.RscFieldColumn1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.RscFieldColumn1.MoveabilityEventsForGroupCtls = Nothing
-        Me.RscFieldColumn1.MoveabilityEventsForSingleMove = Nothing
-        Me.RscFieldColumn1.Name = "RscFieldColumn1"
-        Me.RscFieldColumn1.Size = New System.Drawing.Size(198, 304)
-        Me.RscFieldColumn1.TabIndex = 9
-        '
         'RSCFieldSpreadsheet
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScroll = True
         Me.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.Controls.Add(Me.RscFieldColumn1)
         Me.Controls.Add(Me.RscRowHeaders1)

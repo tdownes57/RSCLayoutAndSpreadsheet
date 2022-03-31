@@ -825,6 +825,11 @@ Public Class FormDisplayCacheLayouts
             ''March28 2022 ''Me.PersonalityCache_Recipients = Startup.LoadCachedData_Personality_FutureUse(Me, boolNewFileXML)
             Me.PersonalityCache_Recipients = Startup.LoadCachedData_Personality(Nothing, boolNewFileXML)
 
+            ''Added 3/29/2022 thomas downes
+            Dim list_recipsViaCode As List(Of ClassRecipient) ''Added 10/11/2019 thomas downes
+            list_recipsViaCode = Startup.LoadData_Recipients_Students()
+            Me.PersonalityCache_Recipients.ListOfRecipients = list_recipsViaCode
+
         End If ''end of "If (Me.PersonalityCache_FutureUse Is Nothing) Then"
 
         ''
