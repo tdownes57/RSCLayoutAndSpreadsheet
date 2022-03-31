@@ -26,6 +26,11 @@ Public Class RSCFieldSpreadsheet
     Private Const mc_ColumnWidthDefault As Integer = 72 ''Added 3/20/2022 td
     Private Const mc_ColumnMarginGap As Integer = 3 ''---4 ''Added 3/20/2022 td
 
+    Public Function RSCFieldColumn_Leftmost() As RSCFieldColumn
+        ''Added 3/31/2022 td
+        Return RscFieldColumn1
+    End Function
+
     Public Function ListOfColumns() As List(Of RSCFieldColumn)
 
         ''Added 3/21/2022 thomas downes
@@ -947,6 +952,24 @@ Public Class RSCFieldSpreadsheet
     End Sub
 
     Private Sub RscFieldColumn1_Load(sender As Object, e As EventArgs) Handles RscFieldColumn1.Load
+
+    End Sub
+
+    Private Sub RSCFieldSpreadsheet_Paint(sender As Object, e As PaintEventArgs) Handles Me.Paint
+
+        Static s_priorAutoScrollPositionX As Integer
+        Static s_priorAutoScrollPositionY As Integer
+
+        Dim intAutoscrollPositionX As Integer
+        Dim intAutoscrollPositionY As Integer
+
+        intAutoscrollPositionX = Me.AutoScrollPosition.X
+        intAutoscrollPositionY = Me.AutoScrollPosition.Y
+
+        If (0 <> intAutoscrollPositionY) Then
+            s_priorAutoScrollPositionX = intAutoscrollPositionX
+            s_priorAutoScrollPositionY = intAutoscrollPositionY
+        End If
 
     End Sub
 End Class

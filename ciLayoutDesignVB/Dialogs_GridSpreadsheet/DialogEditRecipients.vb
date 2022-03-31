@@ -208,6 +208,7 @@ ExitHandler:
 
     Private Sub ButtonCancel_Click(sender As Object, e As EventArgs) Handles ButtonCancel.Click
 
+        Me.DialogResult = DialogResult.Cancel ''Added 3/31/2022 td
         Me.Close()
 
     End Sub
@@ -217,6 +218,7 @@ ExitHandler:
         ''Added 3/18/2022 
         ''
         RscFieldSpreadsheet1.SaveDataColumnByColumn()
+        Me.DialogResult = DialogResult.OK ''Added 3/31/2022 td
         Me.Close()
 
     End Sub
@@ -270,6 +272,47 @@ ExitHandler:
         RscFieldSpreadsheet1.Load_Recipients()
 
     End Sub
+
+    Private Sub ButtonScrollUp_Click(sender As Object, e As EventArgs) Handles ButtonScrollUp.Click
+
+        ''Added 3/31/2022 thomas downes
+        ''
+        ''   https://stackoverflow.com/questions/16466787/set-autoscrollposition-of-horizontal-scrollbar-on-tabpage
+        ''   tabpage1.AutoScrollPosition = New Point(-tabpage1.AutoScrollPosition.X, 0)
+        ''
+        With RscFieldSpreadsheet1
+            Try
+                .AutoScrollPosition = New Point(0, CInt(-0.5 * .AutoScrollPosition.Y))
+            Catch
+            End Try
+        End With
+
+    End Sub
+
+
+    Private Sub ButtonScrollDown_Click(sender As Object, e As EventArgs) Handles ButtonScrollDown.Click
+        ''Added 3/31/2022 thomas downes
+        ''
+        ''   https://stackoverflow.com/questions/16466787/set-autoscrollposition-of-horizontal-scrollbar-on-tabpage
+        ''   tabpage1.AutoScrollPosition = New Point(-tabpage1.AutoScrollPosition.X, 0)
+        ''
+        With RscFieldSpreadsheet1
+            Try
+                Dim intNewPointY As Integer
+                Dim intOldPointY As Integer
+                Dim intIncreaseY As Integer
+                intOldPointY = .AutoScrollPosition.Y
+                intIncreaseY = CInt(2.0 * .Height) ''CInt(0.9 * .Height) ''CInt(0.5 * .Height)
+                ''---intNewPointY = intIncreaseY ''(intOldPointY + intIncreaseY)
+                intNewPointY = .RscFieldColumn1.Top + .RscFieldColumn1.Height
+                .AutoScrollPosition = New Point(0, CInt(-1.0 * .AutoScrollPosition.Y))
+                .AutoScrollPosition = New Point(0, intNewPointY)
+            Catch
+            End Try
+        End With
+
+    End Sub
+
 
 
 End Class

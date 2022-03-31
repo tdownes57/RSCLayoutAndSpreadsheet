@@ -35,15 +35,16 @@ Partial Class DialogEditRecipients
         Me.LinkLabelAlignBars = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         Me.LinkLabelClearSpreadsheet = New System.Windows.Forms.LinkLabel()
+        Me.ButtonScrollDown = New System.Windows.Forms.Button()
+        Me.ButtonScrollUp = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'ButtonCancel
         '
         Me.ButtonCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonCancel.BackColor = System.Drawing.SystemColors.ControlDark
-        Me.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.ButtonCancel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonCancel.Location = New System.Drawing.Point(801, 541)
+        Me.ButtonCancel.Location = New System.Drawing.Point(821, 541)
         Me.ButtonCancel.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonCancel.Name = "ButtonCancel"
         Me.ButtonCancel.Size = New System.Drawing.Size(80, 48)
@@ -55,9 +56,8 @@ Partial Class DialogEditRecipients
         '
         Me.ButtonOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonOK.BackColor = System.Drawing.SystemColors.ControlDark
-        Me.ButtonOK.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.ButtonOK.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonOK.Location = New System.Drawing.Point(644, 541)
+        Me.ButtonOK.Location = New System.Drawing.Point(664, 541)
         Me.ButtonOK.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonOK.Name = "ButtonOK"
         Me.ButtonOK.Size = New System.Drawing.Size(139, 48)
@@ -103,6 +103,7 @@ Partial Class DialogEditRecipients
         Me.RscFieldSpreadsheet1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RscFieldSpreadsheet1.AutoScroll = True
         Me.RscFieldSpreadsheet1.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.RscFieldSpreadsheet1.BackColorOfColumns = System.Drawing.Color.AntiqueWhite
         Me.RscFieldSpreadsheet1.ElementInfo_Base = Nothing
@@ -111,7 +112,7 @@ Partial Class DialogEditRecipients
         Me.RscFieldSpreadsheet1.MoveabilityEventsForGroupCtls = Nothing
         Me.RscFieldSpreadsheet1.MoveabilityEventsForSingleMove = Nothing
         Me.RscFieldSpreadsheet1.Name = "RscFieldSpreadsheet1"
-        Me.RscFieldSpreadsheet1.Size = New System.Drawing.Size(894, 451)
+        Me.RscFieldSpreadsheet1.Size = New System.Drawing.Size(880, 451)
         Me.RscFieldSpreadsheet1.TabIndex = 19
         '
         'LinkLabelWarningNotSaved
@@ -200,11 +201,39 @@ Partial Class DialogEditRecipients
         Me.LinkLabelClearSpreadsheet.TabStop = True
         Me.LinkLabelClearSpreadsheet.Text = "Clear spreadsheet of all data"
         '
+        'ButtonScrollDown
+        '
+        Me.ButtonScrollDown.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ButtonScrollDown.BackColor = System.Drawing.SystemColors.ControlDark
+        Me.ButtonScrollDown.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonScrollDown.Location = New System.Drawing.Point(892, 413)
+        Me.ButtonScrollDown.Margin = New System.Windows.Forms.Padding(2)
+        Me.ButtonScrollDown.Name = "ButtonScrollDown"
+        Me.ButtonScrollDown.Size = New System.Drawing.Size(38, 109)
+        Me.ButtonScrollDown.TabIndex = 27
+        Me.ButtonScrollDown.Text = "▼ ▼ ▼ ▼ ▼ ▼"
+        Me.ButtonScrollDown.UseVisualStyleBackColor = False
+        '
+        'ButtonScrollUp
+        '
+        Me.ButtonScrollUp.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ButtonScrollUp.BackColor = System.Drawing.SystemColors.ControlDark
+        Me.ButtonScrollUp.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonScrollUp.Location = New System.Drawing.Point(892, 71)
+        Me.ButtonScrollUp.Margin = New System.Windows.Forms.Padding(2)
+        Me.ButtonScrollUp.Name = "ButtonScrollUp"
+        Me.ButtonScrollUp.Size = New System.Drawing.Size(38, 109)
+        Me.ButtonScrollUp.TabIndex = 28
+        Me.ButtonScrollUp.Text = "▲ ▲ ▲ ▲ ▲ ▲"
+        Me.ButtonScrollUp.UseVisualStyleBackColor = False
+        '
         'DialogEditRecipients
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(914, 600)
+        Me.ClientSize = New System.Drawing.Size(934, 600)
+        Me.Controls.Add(Me.ButtonScrollUp)
+        Me.Controls.Add(Me.ButtonScrollDown)
         Me.Controls.Add(Me.LinkLabelClearSpreadsheet)
         Me.Controls.Add(Me.LinkLabel1)
         Me.Controls.Add(Me.LinkLabelAlignBars)
@@ -239,4 +268,6 @@ Partial Class DialogEditRecipients
     Friend WithEvents LinkLabelAlignBars As LinkLabel
     Friend WithEvents LinkLabel1 As LinkLabel
     Friend WithEvents LinkLabelClearSpreadsheet As LinkLabel
+    Friend WithEvents ButtonScrollDown As Button
+    Friend WithEvents ButtonScrollUp As Button
 End Class
