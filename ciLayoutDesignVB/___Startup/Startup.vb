@@ -46,7 +46,9 @@ Public Class Startup
         Dim obj_cache_layout_Elements As ClassElementsCache_Deprecated = Nothing ''Added 10/13/2019 td
 
         ''1/14/2019 td''Dim obj_personality As New PersonalityCache_NotInUse ''Added 10/17/2019 td  
-        Dim obj_personality As New ClassCacheOnePersonalityConfig ''Dec4 2021'' As ClassPersonalityCache ''Added 10/17/2019 td  
+        Dim obj_personality As ClassCacheOnePersonalityConfig ''Dec4 2021'' As ClassPersonalityCache ''Added 10/17/2019 td  
+        Dim bNewPersonality As Boolean ''Added 3/31/2022 td 
+        obj_personality = LoadCachedData_Personality(Nothing, bNewPersonality)
 
         ''
         ''
@@ -65,8 +67,14 @@ Public Class Startup
         Dim strPathToElementsCacheXML_Prior3 As String = "" ''Added 2/09/2022 td 
         ''---Dim strPathToElementsCacheXML_Prior4 As String = "" ''Added 2/09/2022 td 
 
-        ''Added 10/16/2019 td 
-        obj_personality.ListOfRecipients = LoadData_Recipients_Students()
+        ''Conditions added 3/31/2022, loading code added 10/16/2019 td 
+        If (obj_personality.ListOfRecipients Is Nothing) Then
+            ''Added 10/16/2019 td 
+            obj_personality.ListOfRecipients = LoadData_Recipients_Students()
+        ElseIf (0 = obj_personality.ListOfRecipients.count) Then
+            ''Added 10/16/2019 td 
+            obj_personality.ListOfRecipients = LoadData_Recipients_Students()
+        End If
 
         ''Added 3/29/2022 td
         ListOfRecipients = obj_personality.ListOfRecipients

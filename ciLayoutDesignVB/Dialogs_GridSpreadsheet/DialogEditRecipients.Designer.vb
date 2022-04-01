@@ -35,8 +35,9 @@ Partial Class DialogEditRecipients
         Me.LinkLabelAlignBars = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         Me.LinkLabelClearSpreadsheet = New System.Windows.Forms.LinkLabel()
-        Me.ButtonScrollDown = New System.Windows.Forms.Button()
+        Me.ButtonScrollDown20 = New System.Windows.Forms.Button()
         Me.ButtonScrollUp = New System.Windows.Forms.Button()
+        Me.ButtonScrollDown5 = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'ButtonCancel
@@ -201,18 +202,18 @@ Partial Class DialogEditRecipients
         Me.LinkLabelClearSpreadsheet.TabStop = True
         Me.LinkLabelClearSpreadsheet.Text = "Clear spreadsheet of all data"
         '
-        'ButtonScrollDown
+        'ButtonScrollDown20
         '
-        Me.ButtonScrollDown.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ButtonScrollDown.BackColor = System.Drawing.SystemColors.ControlDark
-        Me.ButtonScrollDown.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonScrollDown.Location = New System.Drawing.Point(892, 413)
-        Me.ButtonScrollDown.Margin = New System.Windows.Forms.Padding(2)
-        Me.ButtonScrollDown.Name = "ButtonScrollDown"
-        Me.ButtonScrollDown.Size = New System.Drawing.Size(38, 109)
-        Me.ButtonScrollDown.TabIndex = 27
-        Me.ButtonScrollDown.Text = "▼ ▼ ▼ ▼ ▼ ▼"
-        Me.ButtonScrollDown.UseVisualStyleBackColor = False
+        Me.ButtonScrollDown20.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ButtonScrollDown20.BackColor = System.Drawing.SystemColors.ControlDark
+        Me.ButtonScrollDown20.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonScrollDown20.Location = New System.Drawing.Point(893, 369)
+        Me.ButtonScrollDown20.Margin = New System.Windows.Forms.Padding(2)
+        Me.ButtonScrollDown20.Name = "ButtonScrollDown20"
+        Me.ButtonScrollDown20.Size = New System.Drawing.Size(37, 87)
+        Me.ButtonScrollDown20.TabIndex = 27
+        Me.ButtonScrollDown20.Text = " ▼ ▼ ▼ ▼"
+        Me.ButtonScrollDown20.UseVisualStyleBackColor = False
         '
         'ButtonScrollUp
         '
@@ -227,13 +228,27 @@ Partial Class DialogEditRecipients
         Me.ButtonScrollUp.Text = "▲ ▲ ▲ ▲ ▲ ▲"
         Me.ButtonScrollUp.UseVisualStyleBackColor = False
         '
+        'ButtonScrollDown5
+        '
+        Me.ButtonScrollDown5.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ButtonScrollDown5.BackColor = System.Drawing.SystemColors.ControlDark
+        Me.ButtonScrollDown5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonScrollDown5.Location = New System.Drawing.Point(892, 460)
+        Me.ButtonScrollDown5.Margin = New System.Windows.Forms.Padding(2)
+        Me.ButtonScrollDown5.Name = "ButtonScrollDown5"
+        Me.ButtonScrollDown5.Size = New System.Drawing.Size(38, 62)
+        Me.ButtonScrollDown5.TabIndex = 29
+        Me.ButtonScrollDown5.Text = " ▼"
+        Me.ButtonScrollDown5.UseVisualStyleBackColor = False
+        '
         'DialogEditRecipients
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(934, 600)
+        Me.Controls.Add(Me.ButtonScrollDown5)
         Me.Controls.Add(Me.ButtonScrollUp)
-        Me.Controls.Add(Me.ButtonScrollDown)
+        Me.Controls.Add(Me.ButtonScrollDown20)
         Me.Controls.Add(Me.LinkLabelClearSpreadsheet)
         Me.Controls.Add(Me.LinkLabel1)
         Me.Controls.Add(Me.LinkLabelAlignBars)
@@ -268,6 +283,7 @@ Partial Class DialogEditRecipients
     Friend WithEvents LinkLabelAlignBars As LinkLabel
     Friend WithEvents LinkLabel1 As LinkLabel
     Friend WithEvents LinkLabelClearSpreadsheet As LinkLabel
-    Friend WithEvents ButtonScrollDown As Button
+    Friend WithEvents ButtonScrollDown20 As Button
     Friend WithEvents ButtonScrollUp As Button
+    Friend WithEvents ButtonScrollDown5 As Button
 End Class

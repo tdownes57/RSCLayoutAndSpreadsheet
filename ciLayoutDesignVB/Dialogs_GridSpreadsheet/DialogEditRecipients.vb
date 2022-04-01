@@ -290,7 +290,7 @@ ExitHandler:
     End Sub
 
 
-    Private Sub ButtonScrollDown_Click(sender As Object, e As EventArgs) Handles ButtonScrollDown.Click
+    Private Sub ButtonScrollDown20_Click(sender As Object, e As EventArgs) Handles ButtonScrollDown20.Click
         ''Added 3/31/2022 thomas downes
         ''
         ''   https://stackoverflow.com/questions/16466787/set-autoscrollposition-of-horizontal-scrollbar-on-tabpage
@@ -305,14 +305,47 @@ ExitHandler:
                 intIncreaseY = CInt(2.0 * .Height) ''CInt(0.9 * .Height) ''CInt(0.5 * .Height)
                 ''---intNewPointY = intIncreaseY ''(intOldPointY + intIncreaseY)
                 intNewPointY = .RscFieldColumn1.Top + .RscFieldColumn1.Height
-                .AutoScrollPosition = New Point(0, CInt(-1.0 * .AutoScrollPosition.Y))
-                .AutoScrollPosition = New Point(0, intNewPointY)
-            Catch
+                ''.AutoScrollPosition = New Point(0, CInt(-1.0 * .AutoScrollPosition.Y))
+                ''.AutoScrollPosition = New Point(0, intNewPointY)
+                ''.AutoScrollPosition = New Point(0, -20 + .AutoScrollPosition.Y)
+                .AutoScrollPosition = New Point(0, 20 * 3 + -1 * .AutoScrollPosition.Y)
+                .Refresh()
+
+            Catch ex_scroll As Exception
+                Throw
             End Try
-        End With
+
+        End With ''End of "With RscFieldSpreadsheet1"
 
     End Sub
 
+    Private Sub ButtonScrollDown5_Click(sender As Object, e As EventArgs) Handles ButtonScrollDown5.Click
+        ''Added 3/31/2022 thomas downes
+        ''
+        ''   https://stackoverflow.com/questions/16466787/set-autoscrollposition-of-horizontal-scrollbar-on-tabpage
+        ''   tabpage1.AutoScrollPosition = New Point(-tabpage1.AutoScrollPosition.X, 0)
+        ''
+        With RscFieldSpreadsheet1
+            Try
+                Dim intNewPointY As Integer
+                Dim intOldPointY As Integer
+                Dim intIncreaseY As Integer
+                intOldPointY = .AutoScrollPosition.Y
+                intIncreaseY = CInt(2.0 * .Height) ''CInt(0.9 * .Height) ''CInt(0.5 * .Height)
+                ''---intNewPointY = intIncreaseY ''(intOldPointY + intIncreaseY)
+                intNewPointY = .RscFieldColumn1.Top + .RscFieldColumn1.Height
+                ''.AutoScrollPosition = New Point(0, CInt(-1.0 * .AutoScrollPosition.Y))
+                ''.AutoScrollPosition = New Point(0, intNewPointY)
+                ''3/31/2022 td''.AutoScrollPosition = New Point(0, -5 + .AutoScrollPosition.Y)
+                ''3/31/2022 td''.AutoScrollPosition = New Point(0, 5 + -1 * .AutoScrollPosition.Y)
+                .AutoScrollPosition = New Point(0, 5 * 3 + -1 * .AutoScrollPosition.Y)
+                ''.Refresh()
 
+            Catch ex_scroll As Exception
+                Throw
+            End Try
 
+        End With ''End of "With RscFieldSpreadsheet1"
+
+    End Sub
 End Class

@@ -826,9 +826,19 @@ Public Class FormDisplayCacheLayouts
             Me.PersonalityCache_Recipients = Startup.LoadCachedData_Personality(Nothing, boolNewFileXML)
 
             ''Added 3/29/2022 thomas downes
-            Dim list_recipsViaCode As List(Of ClassRecipient) ''Added 10/11/2019 thomas downes
-            list_recipsViaCode = Startup.LoadData_Recipients_Students()
-            Me.PersonalityCache_Recipients.ListOfRecipients = list_recipsViaCode
+            Dim bEmptyRecipList As Boolean ''Added 3/31/2022 thomas downes
+            bEmptyRecipList = (Me.PersonalityCache_Recipients Is Nothing) OrElse
+                (0 = Me.PersonalityCache_Recipients.ListOfRecipients.Count)
+
+            If (bEmptyRecipList) Then ''Added 3/29/2022 thomas downes
+                Dim list_recipsViaCode As List(Of ClassRecipient) ''Added 10/11/2019 thomas downes
+                list_recipsViaCode = Startup.LoadData_Recipients_Students()
+                Me.PersonalityCache_Recipients.ListOfRecipients = list_recipsViaCode
+            End If ''End of ""If (bEmptyRecipList) Then""
+
+            ''Added 3/31/2022 thomas downes
+            Me.PersonalityCache_Recipients.PathToXml_Saved = DiskFilesVB.PathToFile_XML_Personality()
+            Me.PersonalityCache_Recipients.SaveToXML()
 
         End If ''end of "If (Me.PersonalityCache_FutureUse Is Nothing) Then"
 
