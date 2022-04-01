@@ -230,7 +230,8 @@ ExitHandler:
         Dim objCacheColumnWidthData As CacheRSCFieldColumnWidthsEtc
 
         ''objCacheColumnWidthData = RscFieldSpreadsheet1.GetCacheOfSavedData()
-        RscFieldSpreadsheet1.SaveDataColumnByColumn(True)
+        ''RscFieldSpreadsheet1.SaveDataColumnByColumn(True)
+        RscFieldSpreadsheet1.SaveDataColumnByColumn(False)
         objCacheColumnWidthData = RscFieldSpreadsheet1.ColumnDataCache
 
 

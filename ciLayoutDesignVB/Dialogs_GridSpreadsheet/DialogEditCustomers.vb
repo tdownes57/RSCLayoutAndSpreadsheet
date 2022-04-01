@@ -337,8 +337,8 @@ Public Class DialogEditCustomers
         ''
         SaveToXML()
 
-        System.Threading.Thread.Sleep(2000)
-        System.Diagnostics.Process.Start(Me.PathToXML)
+        ''System.Threading.Thread.Sleep(2000)
+        ''System.Diagnostics.Process.Start(Me.PathToXML)
 
     End Sub
 

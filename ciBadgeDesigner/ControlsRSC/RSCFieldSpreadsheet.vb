@@ -23,7 +23,7 @@ Public Class RSCFieldSpreadsheet
     Private mod_eventsSingleton As New GroupMoveEvents_Singleton(Me.Designer, False, True) ''Added 1/4/2022 td  
     Private mod_colorOfColumnsBackColor As System.Drawing.Color = Drawing.Color.AntiqueWhite ''Added 3/13/2022 thomas downes
     Private mod_array_RSCColumns As RSCFieldColumn() ''Added 3/14/2022 td
-    Private Const mc_ColumnWidthDefault As Integer = 72 ''Added 3/20/2022 td
+    Private Const mc_ColumnWidthDefault As Integer = 150 ''72 ''Added 3/20/2022 td
     Private Const mc_ColumnMarginGap As Integer = 3 ''---4 ''Added 3/20/2022 td
 
     Public Function RSCFieldColumn_Leftmost() As RSCFieldColumn
@@ -350,7 +350,10 @@ Public Class RSCFieldSpreadsheet
                 If (bAreData_DangerOfOverwritten) Then
                     ''3/29/2022 td''each_column.ClearDataFromColumn_Do()
                     Dim bUserCancelled As Boolean ''March29 2022
-                    Me.ClearDataFromSpreadsheet_1stConfirm(bUserCancelled)
+                    ''April 1, 2022 td'' Me.ClearDataFromSpreadsheet_1stConfirm(bUserCancelled)
+                    Me.ClearDataFromSpreadsheet_NoConfirm() '' (bUserCancelled)
+                    Threading.Thread.Sleep(500)
+                    Application.DoEvents()
                     If (bUserCancelled) Then Exit Sub
                 End If ''End of ""If (bAreData_DangerOfOverwritten) Then""
 
@@ -410,6 +413,21 @@ Public Class RSCFieldSpreadsheet
         End If ''End of "If (boolConfirmed) Then"
 
     End Sub ''End of ""Public Sub ClearDataFromSpreadsheet_1stConfirm()""
+
+
+    Public Sub ClearDataFromSpreadsheet_NoConfirm()
+        ''
+        ''Added 4/01/2022 thomas downes
+        ''
+        Dim objRSCFieldColumn As RSCFieldColumn
+        Dim boolConfirmed As Boolean
+
+        For Each each_column As RSCFieldColumn In Me.ListOfColumns
+            objRSCFieldColumn = each_column ''---CType(each_column, RSCFieldColumn)
+            objRSCFieldColumn.ClearDataFromColumn_Do()
+        Next each_column
+
+    End Sub ''End of ""Public Sub ClearDataFromSpreadsheet_NoConfirm()""
 
 
     Public Sub LoadRuntimeColumns_AfterClearingDesign(par_designer As ClassDesigner)
@@ -929,6 +947,28 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Step 3 of 5. 
         ''
+        newRSCColumn.Top = RscFieldColumn1.Top
+        ''April 1st 2022 ''newRSCColumn.ListOfColumnsToBumpRight = New List(Of RSCFieldColumn)
+        Dim list_columnsToBumpRight As New List(Of RSCFieldColumn)
+
+        For intIndex As Integer = (1 + par_intColumnIndex) To (intNewLength - 1)
+            ''
+            ''Move the columns to the right, to make room for the new column. 
+            ''
+            ''----With newRSCColumn.ListOfColumnsToBumpRight
+            With list_columnsToBumpRight
+                .Add(mod_array_RSCColumns(intIndex))
+            End With
+
+            ''Added 4/1/2022 thomas downes 
+            newRSCColumn.AddBumpColumn(mod_array_RSCColumns(intIndex))
+
+        Next intIndex
+
+        ''
+        ''This will set the MoveAndResizeControls_Monem functionality as well. 
+        ''
+        newRSCColumn.ListOfColumnsToBumpRight = list_columnsToBumpRight
 
         ''
         ''Step 4 of 5. 

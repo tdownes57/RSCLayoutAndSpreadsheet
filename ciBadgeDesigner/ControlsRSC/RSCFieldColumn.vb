@@ -43,6 +43,11 @@ Public Class RSCFieldColumn
             Return mod_listOfColumnsToBumpRight
         End Get
         Set(value As List(Of RSCFieldColumn))
+            ''
+            ''Important, set the local list of columns to match the list which
+            ''    is part of the composition of MyBase.mod_iMoveOrResizeFunctionality 
+            ''    ---04/1/2022 thomas d. 
+            ''
             mod_listOfColumnsToBumpRight = value
 
             If (MyBase.mod_iMoveOrResizeFunctionality Is Nothing) Then Return
@@ -240,6 +245,26 @@ Public Class RSCFieldColumn
         New_RSCFieldColumn(par_field, par_iLayoutFun)
 
     End Sub
+
+
+    Public Sub AddBumpColumn(par_columnToBump As RSCFieldColumn)
+        ''
+        ''Added 4/1/2022 thomas 
+        ''
+        If (mod_listOfColumnsToBumpRight Is Nothing) Then
+            mod_listOfColumnsToBumpRight = New List(Of RSCFieldColumn)
+        End If
+
+        If (Not mod_listOfColumnsToBumpRight.Contains(par_columnToBump)) Then
+            mod_listOfColumnsToBumpRight.Add(par_columnToBump)
+        End If
+
+        ''----If (Not mod_iMoveOrResizeFunctionality.ListOfColumnsToBumpRight.Contains(par_columnToBump)) Then
+        mod_iMoveOrResizeFunctionality.AddColumnToBumpRight(par_columnToBump)
+        ''---End If
+
+    End Sub ''End of "Public Sub AddBumpColumn(par_columnToBump As RSCFieldColumn)"
+
 
 
     Public Sub Load_FieldsFromCache(par_cache As ClassElementsCache_Deprecated)
@@ -946,4 +971,20 @@ Public Class RSCFieldColumn
     Private Sub TextBox5_TextChanged(sender As Object, e As EventArgs) Handles TextBox5.TextChanged
 
     End Sub
+
+
+    Private Sub RscSelectCIBField1_MouseUp(sender As Object, e As MouseEventArgs) Handles RscSelectCIBField1.MouseUp
+
+        ''Added 4/1/2022 td
+        If (e.Button = MouseButtons.Right) Then
+
+            ''Added 4/1/2022 td
+            LinkLabelRightClick_LinkClicked(LinkLabelRightClick,
+                   New LinkLabelLinkClickedEventArgs(New LinkLabel.Link()))
+
+        End If
+
+    End Sub
+
+
 End Class

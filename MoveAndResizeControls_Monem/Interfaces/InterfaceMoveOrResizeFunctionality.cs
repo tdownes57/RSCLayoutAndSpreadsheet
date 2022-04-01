@@ -137,6 +137,9 @@ namespace MoveAndResizeControls_Monem //.Interfaces
             set;
         }
 
+        // Add 4/1/2022 td
+        void AddColumnToBumpRight(UserControl par_column);
+
 
 }
 }

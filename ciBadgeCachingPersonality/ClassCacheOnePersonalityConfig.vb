@@ -413,7 +413,9 @@ Namespace ciBadgeCachePersonality
                 If (boolSerializeToBinary) Then
                     .SerializeToBinary(Me.GetType, Me)
                 Else
-                    .SerializeToXML(Me.GetType, Me, False, True)
+                    ''April1 2022 ''.SerializeToXML(Me.GetType, Me, False, True)
+                    Const c_AutoOpenFile As Boolean = False ''April1 2022 '' True
+                    .SerializeToXML(Me.GetType, Me, False, c_AutoOpenFile)
 
                 End If ''End of "If (boolSerializeToBinary) Then ... Else"
 

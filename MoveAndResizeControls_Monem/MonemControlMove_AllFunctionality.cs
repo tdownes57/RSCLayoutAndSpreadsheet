@@ -144,6 +144,26 @@ namespace MoveAndResizeControls_Monem
             set;
         }
 
+
+        public void AddColumnToBumpRight(UserControl par_column)
+        {
+            //
+            // Added 4/1/2022 td
+            //
+            //''----If(Not mod_iMoveOrResizeFunctionality.ListOfColumnsToBumpRight.Contains(par_columnToBump)) Then
+            //''----    mod_iMoveOrResizeFunctionality.AddBumpColumn(par_columnToBump)
+            //''----End If
+
+            if (ListOfColumnsToBumpRight == null) ListOfColumnsToBumpRight = new List<UserControl>();
+
+            if (ListOfColumnsToBumpRight.Contains(par_column) == false)
+            { 
+                ListOfColumnsToBumpRight.Add(par_column);
+            }
+
+        }
+
+
         public void RemoveProportionalSizing()
         {
             //Added 1/10/2022 td

@@ -832,7 +832,9 @@ Public Class Form__Main_Demo
             strPathToFileJpg = strPathToXML.Replace(".xml", ".jpg")
             ''Create an image file (in JPEG form). ---1/5/2022 td 
             With ElementsCache_ManageBoth
-                .CreateBadgeLayoutImageFile(Me.picturePreview.Image, strPathToFileJpg)
+                If (Me.picturePreview.Image IsNot Nothing) Then
+                    .CreateBadgeLayoutImageFile(Me.picturePreview.Image, strPathToFileJpg)
+                End If ''End of ""If (Me.picturePreview.Image IsNot Nothing) Then""
             End With ''End of " With ElementsCache_ManageBoth"
 
             Dim bCurrentsideIsFront As Boolean ''Added 2/1/2022 td
