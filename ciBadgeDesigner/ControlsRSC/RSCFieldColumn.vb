@@ -23,6 +23,7 @@ Public Class RSCFieldColumn
     Private mod_listOfColumnsToBumpRight As List(Of RSCFieldColumn)
     Private mod_columnWidthAndData As ClassColumnWidthAndData ''Added 3/18/2022  
     Private mod_arrayOfData_Undo As String() ''Added 3/20/2022 thomas d.
+    Private mod_arrayOfData_Undo_Tag As String() ''Added 4/01/2022 thomas d.
 
     Public Property ColumnWidthAndData() As ClassColumnWidthAndData ''Added 3/15/2022 td
         ''Added 3/18/2022 thomas 
@@ -273,6 +274,7 @@ Public Class RSCFieldColumn
         ''
         If (par_cache Is Nothing) Then Throw New ArgumentException("Exception Occured")
 
+        RscSelectCIBField1.Loading = True ''Added 4/1/2022
         RscSelectCIBField1.ElementsCache_Deprecated = Me.ElementsCache_Deprecated
         RscSelectCIBField1.Load_FieldsFromCache(par_cache)
 
@@ -280,6 +282,10 @@ Public Class RSCFieldColumn
         ''Added 3/15/2022 td
         ''
         RscSelectCIBField1.SelectedValue = mod_columnWidthAndData.CIBField
+
+        ''Added 4/1/2022 td
+        Application.DoEvents()
+        RscSelectCIBField1.Loading = False ''Added 4/1/2022 td
 
         ''
         ''Added 3/19/2022  
@@ -323,15 +329,22 @@ Public Class RSCFieldColumn
 
         listTextboxes = ListOfTextboxes_TopToBottom()
         ReDim mod_arrayOfData_Undo(-1 + listTextboxes.Count)
+        ReDim mod_arrayOfData_Undo_Tag(-1 + listTextboxes.Count)
 
         For Each each_textbox In listTextboxes '' ListOfTextboxes_TopToBottom()
 
             ''Enable the Undo procedure.
             mod_arrayOfData_Undo(indexItem) = each_textbox.Text
+
+            ''Added 4/1/2022 td
+            If (each_textbox.Tag Is Nothing) Then each_textbox.Tag = "" ''Added 4/1/2022
+            mod_arrayOfData_Undo_Tag(indexItem) = each_textbox.Tag.ToString() ''Added 4/1/2022td
+
             indexItem += 1
 
             ''Clear the textbox of data.  
             each_textbox.Text = ""
+            each_textbox.Tag = "" ''Added 4/1/2022
 
         Next each_textbox
 
@@ -361,6 +374,7 @@ Public Class RSCFieldColumn
 
                 ''Restore the textbox of data.  
                 each_textbox.Text = mod_arrayOfData_Undo(indexItem)
+                each_textbox.Tag = mod_arrayOfData_Undo_Tag(indexItem) ''Added 4/1/2022
                 indexItem += 1
 
             Next each_textbox
@@ -390,6 +404,28 @@ Public Class RSCFieldColumn
         For Each each_textbox In listTextboxes '' ListOfTextboxes_TopToBottom()
 
             If (Not String.IsNullOrEmpty(each_textbox.Text)) Then intCountData += 1
+
+        Next each_textbox
+
+        Return intCountData
+
+    End Function ''End of "Private Sub LoadDataToColumn_Do()"
+
+
+    Public Function CountOfBoxesWithData_Edited(Optional ByRef pref_countOfRows As Integer = 0) As Integer ''Added 3/20/2022
+        ''
+        ''Added 3/20/2022 t//d//
+        ''
+        Dim intCountData As Integer = 0
+        Dim listTextboxes As IEnumerable(Of TextBox)
+
+        listTextboxes = ListOfTextboxes_TopToBottom()
+        pref_countOfRows = listTextboxes.Count ''Added 3/23/2022 td
+
+        For Each each_textbox In listTextboxes '' ListOfTextboxes_TopToBottom()
+
+            ''If (Not String.IsNullOrEmpty(each_textbox.Text)) Then intCountData += 1
+            If (each_textbox.Text <> CStr(each_textbox.Tag)) Then intCountData += 1
 
         Next each_textbox
 
@@ -485,13 +521,14 @@ Public Class RSCFieldColumn
         Dim intCountAllBoxesOrRows As Integer ''Added 3/23/2022 td
         Dim intCountBoxesEmptyOrNot As Integer ''Addexd 3/23/2022 td
 
-        Dim intCountCellsWithData As Integer
+        Dim intCountCellsWithData_Edited As Integer
         ''March23 2022''intCountCellsWithData = CountOfBoxesWithData()
-        intCountCellsWithData = CountOfBoxesWithData(intCountBoxesEmptyOrNot)
-        If (intCountCellsWithData <> 0) Then
+        ''April 01 2023''intCountCellsWithData = CountOfBoxesWithData(intCountBoxesEmptyOrNot)
+        intCountCellsWithData_Edited = CountOfBoxesWithData_Edited(intCountBoxesEmptyOrNot)
+        If (intCountCellsWithData_Edited <> 0) Then
             pboolErrorCellsHaveValues = True
-            Throw New Exception("Warning, non-zero >0 cells with data already. Data would be lost.")
-        End If ''End of ""If (intCountCellsWithData <> 0) Then""
+            Throw New Exception("Warning, non-zero >0 cells with data edited already. Edits would be lost.")
+        End If ''End of ""If (intCountCellsWithData_Edited <> 0) Then""
 
         Dim enumFieldSelected As EnumCIBFields
         enumFieldSelected = RscSelectCIBField1.SelectedValue
@@ -560,6 +597,8 @@ Public Class RSCFieldColumn
             intRowIndex += 1
 
             each_box.Text = Me.ListRecipients(intRowIndex).GetTextValue(enumFieldSelected)
+
+            each_box.Tag = each_box.Text ''added 4/1/2022
 
         Next each_box
 
@@ -986,5 +1025,21 @@ Public Class RSCFieldColumn
 
     End Sub
 
+    Private Sub RscSelectCIBField1_RSCMouseUp(sender As Object, par_argsEvent As MouseEventArgs) Handles RscSelectCIBField1.RSCMouseUp
 
+        ''Added 4/1/2022 td
+        If (par_argsEvent.Button = MouseButtons.Right) Then
+
+            MyBase.MoveableControl_MouseUp(Me, par_argsEvent)
+
+        End If ''End of "If (par_argsEvent.Button = MouseButtons.Right) Then"
+
+    End Sub
+
+    Private Sub RscSelectCIBField1_RSCFieldChanged(newCIBField As EnumCIBFields) Handles RscSelectCIBField1.RSCFieldChanged
+
+        ''Added 4/1/2022 td
+        LoadRecipientList() ''_NoChecks(newCIBField)
+
+    End Sub
 End Class

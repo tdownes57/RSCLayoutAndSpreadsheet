@@ -12,8 +12,21 @@ Public Class RSCSelectCIBField
     '' Added 2/16/2022 thomas downes 
     ''
     Public ElementsCache_Deprecated As ciBadgeCachePersonality.ClassElementsCache_Deprecated ''Added 3/10/2022 td
+    Public InfoMouseEvents As RSCInterfaceMouseEvents ''Added 4/1/2022 td
+    Public Event RSCMouseUp(sender As Object, e As MouseEventArgs) ''Added 4/1/2022 td
+    Public Event RSCFieldChanged(newCIBField As EnumCIBFields) ''Added 4/1/2022 td
 
     Private mod_fields As List(Of ciBadgeFields.ClassFieldAny)
+    Private mod_bLoading As Boolean = False ''Added 4/1/2022 td
+
+
+    Public WriteOnly Property Loading() As Boolean
+        Set(value As Boolean)
+            ''Added 4/1/2022 td
+            mod_bLoading = value
+        End Set
+    End Property
+
 
     Public Property SelectedValue() As EnumCIBFields
         ''
@@ -48,6 +61,11 @@ Public Class RSCSelectCIBField
         ''Next each_field
 
         Dim listOfFields As New List(Of ClassFieldAny)
+        Dim bLoadStartingValue As Boolean ''Added 4/1/2022 td
+
+        bLoadStartingValue = mod_bLoading ''Added 4/1/2022 td
+        mod_bLoading = True ''Added 4/1/2022 td
+
         ''3/19/2022''listOfFields = par_cache.ListOfFields_SC_ForEditing()
         listOfFields = par_cache.ListOfFields_SC_ForEditing(True)
 
@@ -61,6 +79,9 @@ Public Class RSCSelectCIBField
         ''Not needed.----3/18/2022 thomas d''Load_Control(listOfFields, EnumCIBFields.Undetermined)
         comboBoxRelevantFields.DataSource = listOfFields
 
+        ''mod_bLoading = False ''Added 4/1/2022 td
+        mod_bLoading = bLoadStartingValue ''Added 4/1/2022 td
+
     End Sub ''End of "Public Sub Load_Fields()"
 
 
@@ -70,6 +91,10 @@ Public Class RSCSelectCIBField
         ''Added 2/16/2022 thomas downes
         ''
         Dim each_field As ClassFieldAny
+        Dim bLoadStartingValue As Boolean ''Added 4/1/2022 td
+
+        bLoadStartingValue = mod_bLoading ''Added 4/1/2022 td
+        mod_bLoading = True ''Added 4/1/2022 td
 
         ''Added 3/18/2022
         ''---comboBoxRelevantFields.ValueMember = "FieldEnumValue"
@@ -80,6 +105,9 @@ Public Class RSCSelectCIBField
             comboBoxRelevantFields.Items.Add(each_field)
 
         Next each_field
+
+        ''mod_bLoading = False ''Added 4/1/2022 td
+        mod_bLoading = bLoadStartingValue ''Added 4/1/2022 td
 
     End Sub ''End of "Public Sub Load_Control()"
 
@@ -112,6 +140,31 @@ Public Class RSCSelectCIBField
 
         End If ''End of ""If (dialog_result = ...)"
 
+
+    End Sub
+
+    Private Sub LabelHeader_MouseUp(sender As Object, e As MouseEventArgs) Handles LabelHeader.MouseUp
+
+        ''Added 4/1/2022 thomas downes
+        ''RaiseEvent MouseClick(Me, e)
+        RaiseEvent RSCMouseUp(Me, e)
+
+    End Sub
+
+    Private Sub RSCSelectCIBField_MouseUp(sender As Object, e As MouseEventArgs) Handles MyBase.MouseUp
+
+
+
+    End Sub
+
+    Private Sub comboBoxRelevantFields_SelectedValueChanged(sender As Object, e As EventArgs) Handles comboBoxRelevantFields.SelectedValueChanged
+
+        ''Added 4/1/2022 thomas downes
+        Dim enum_field As EnumCIBFields
+
+        If (mod_bLoading) Then Exit Sub
+        enum_field = CType(comboBoxRelevantFields.SelectedValue, EnumCIBFields)
+        RaiseEvent RSCFieldChanged(enum_field)
 
     End Sub
 End Class

@@ -23,6 +23,7 @@ Public Class FormDisplayCacheLayouts
     Public UserChoosesABlankSlate As Boolean ''Added 12/20/2021 thomas downes  
     Public UserHasSelectedCancel As Boolean ''Added 12/20/2021 thomas downes
     Public UserHasSelectedLayout As Boolean ''Added 3/24/2022 thomas downes
+    Public UserEditedRecipients As Boolean ''Added 4/01/2022 thomas downes
     Public PathToLastDirectoryForXMLFile As String ''Added 12/20/2021 thomas downes
     Public FileTitleOfXMLFile As String ''Added 1/22/2022 thomas downes
     ''Added 12/26/2021
@@ -32,6 +33,7 @@ Public Class FormDisplayCacheLayouts
     Public Property PersonalityCache_Recipients As ciBadgeCachePersonality.ClassCacheOnePersonalityConfig ''Added 10/11/2019 td 
 
     Private WithEvents mod_dummyControl As New Control() ''Added 2/6/2022 td 
+    ''---Private mod_bRecipientsEdited As Boolean ''Added 4/1/2022 thomas downes
 
     Public Shared Function FullPathToTimestampedXML() As String
 
@@ -861,6 +863,7 @@ Public Class FormDisplayCacheLayouts
                                               Me.PersonalityCache_Recipients) ''added 3/14/2022
 
         ''March21 2022 ''frm_ToShow.Show()
+        Me.UserEditedRecipients = True
         frm_ToShow.ShowDialog()
 
     End Sub ''end of "... Handles ButtonRecipients.Click"

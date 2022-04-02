@@ -255,6 +255,7 @@
     <Compile Include="ControlsRSC\RSCFieldColumn.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="ControlsRSC\RSCInterfaceMouseEvents.vb" />
     <Compile Include="ControlsRSC\RSCRowHeaders.Designer.vb">
       <DependentUpon>RSCRowHeaders.vb</DependentUpon>
     </Compile>

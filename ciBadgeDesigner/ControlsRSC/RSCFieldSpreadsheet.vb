@@ -23,6 +23,7 @@ Public Class RSCFieldSpreadsheet
     Private mod_eventsSingleton As New GroupMoveEvents_Singleton(Me.Designer, False, True) ''Added 1/4/2022 td  
     Private mod_colorOfColumnsBackColor As System.Drawing.Color = Drawing.Color.AntiqueWhite ''Added 3/13/2022 thomas downes
     Private mod_array_RSCColumns As RSCFieldColumn() ''Added 3/14/2022 td
+
     Private Const mc_ColumnWidthDefault As Integer = 150 ''72 ''Added 3/20/2022 td
     Private Const mc_ColumnMarginGap As Integer = 3 ''---4 ''Added 3/20/2022 td
 
@@ -890,6 +891,7 @@ Public Class RSCFieldSpreadsheet
         Dim intNewLength As Integer
         Dim intNewColumnPropertyLeft As Integer
         Dim intNewColumnWidth As Integer
+        Dim intFirstBumpedColumn_Left As Integer ''Added 4/1/2022 thomas downes
 
         ''
         ''Step 0 of 5.  Record the Left position which the new column will occupy. 
@@ -898,7 +900,7 @@ Public Class RSCFieldSpreadsheet
         intNewColumnWidth = mc_ColumnWidthDefault
 
         ''
-        ''Step 1 of 5.  Make room in the array which tracks the columns.  
+        ''Step 1a of 6.  Make room in the array which tracks the columns.  
         ''
 
         ''----objCacheOfData =
@@ -919,15 +921,29 @@ Public Class RSCFieldSpreadsheet
             ''
             mod_array_RSCColumns(intIndex) = mod_array_RSCColumns(-1 + intIndex)
 
+        Next intIndex
+
+        ''The place will be filled by the new column. --Added 4/1/2022
+        mod_array_RSCColumns(par_intColumnIndex) = Nothing ''The place will be filled by the new column. --Added 4/1/2022  
+
+        ''
+        ''Step 1b of 6.  Move the columns to the right, to make room for the new column. 
+        ''
+        For intIndex As Integer = (1 + par_intColumnIndex) To (-1 + intNewLength)
             ''
             ''Move the columns to the right, to make room for the new column. 
             ''
             mod_array_RSCColumns(intIndex).Left += (intNewColumnWidth + mc_ColumnMarginGap)
 
+            ''Added 4/1/2022 thomas downes
+            If (0 = intFirstBumpedColumn_Left) Then
+                intFirstBumpedColumn_Left = mod_array_RSCColumns(intIndex).Left
+            End If ''End of "If (0 = intFirstBumpedColumn_Left) Then"
+
         Next intIndex
 
         ''
-        ''Step 2 of 5.  Make a new column.   
+        ''Step 2 of 6.  Make a new column.   
         ''
         ''
         Dim intNextColumnPropertyLeft As Integer
@@ -945,9 +961,10 @@ Public Class RSCFieldSpreadsheet
                                                     objColumnAdjacent)
 
         ''
-        ''Step 3 of 5. 
+        ''Step 3 of 6. 
         ''
         newRSCColumn.Top = RscFieldColumn1.Top
+        newRSCColumn.Height = RscFieldColumn1.Height
         ''April 1st 2022 ''newRSCColumn.ListOfColumnsToBumpRight = New List(Of RSCFieldColumn)
         Dim list_columnsToBumpRight As New List(Of RSCFieldColumn)
 
@@ -971,13 +988,42 @@ Public Class RSCFieldSpreadsheet
         newRSCColumn.ListOfColumnsToBumpRight = list_columnsToBumpRight
 
         ''
-        ''Step 4 of 5. 
+        ''Step 4 of 6. 
         ''
+        newRSCColumn.Load_FieldsFromCache(Me.ElementsCache_Deprecated)
 
         ''
-        ''Step 5 of 5. 
+        ''Step 5 of 6. 
         ''
+        Dim boolTestNewColumn_OK As Boolean ''Added 4/1/2022 thomas d
+        Dim intExpectedFirstBumped_Left As Integer
+        Dim intDifferenceDelta As Integer
 
+        intExpectedFirstBumped_Left = (newRSCColumn.Left + newRSCColumn.Width + mc_ColumnMarginGap)
+        intDifferenceDelta = (intExpectedFirstBumped_Left - intFirstBumpedColumn_Left)
+
+        boolTestNewColumn_OK = (newRSCColumn.Left + newRSCColumn.Width +
+            mc_ColumnMarginGap <= intFirstBumpedColumn_Left)
+        If (Not boolTestNewColumn_OK) Then
+            ''System.Diagnostics.Debugger.Break()
+        ElseIf (intDifferenceDelta > 0) Then
+            ''System.Diagnostics.Debugger.Break()
+        End If ''End of "If (Not boolTestNewColumn_OK) Then"
+
+        ''
+        ''Step 6 of 6.   Move the columns to the right, to make room for the new column. 
+        ''     (This is similar to Step 1(b) of 6 above, but is a further adjustment.) 
+        ''
+        If (intDifferenceDelta > 0) Then
+            For intIndex As Integer = (1 + par_intColumnIndex) To (-1 + intNewLength)
+                ''
+                ''Move the columns to the right, as a 2nd, final attempt to make room for the new column. 
+                ''
+                ''---mod_array_RSCColumns(intIndex).Left += (intNewColumnWidth + mc_ColumnMarginGap)
+                mod_array_RSCColumns(intIndex).Left += intDifferenceDelta
+
+            Next intIndex
+        End If ''End of "If (intDifferenceDelta > 0) Then"
 
     End Sub ''End of "Public Sub InsertNewColumnByIndex(Me.ColumnIndex)"
 

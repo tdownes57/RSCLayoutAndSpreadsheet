@@ -109,6 +109,7 @@ Public Class Startup
                 Dim bGoodChoice As Boolean ''Added 12/19/2021 Thomas Downes
                 Dim bUserWantsABlankSlate As Boolean ''Added 12/19/2021 td
                 Dim bUserCancelled As Boolean ''Added 12/20/2021 td
+                Dim bEditedRecipients As Boolean ''Added 4/1/2021 td
                 Dim bFirstIteration As Boolean ''Added 3/24/2022 td
                 Dim bUserCancelled_OnFirstIteration As Boolean ''Added 3/24/2022 td
                 Dim bUserMightWantDefaultCache As Boolean ''Added 3/24/2022 td
@@ -169,6 +170,7 @@ Public Class Startup
                     If (bXMLdoesntHaveData) Then bGoodChoice = False
 
                     bUserCancelled = objFormShowCacheLayouts.UserHasSelectedCancel
+                    bEditedRecipients = objFormShowCacheLayouts.UserEditedRecipients ''Added 4/1/2022 td
                     bUserCancelled_OnFirstIteration = (bUserCancelled And bFirstIteration)
                     bUserCancelledOrClosed = (bUserCancelled Or Not (bUserMadeSelectionOfLayout Or bUserWantsABlankSlate))
                     bUserCancelledOrClosed_FirstIteration = (bUserCancelledOrClosed And bFirstIteration)
@@ -191,7 +193,8 @@ Public Class Startup
                     If (bUserCancelledOrClosed_SubsequentItertn) Then Exit Do ''Exit the Do Loop.---3/24/2022 td
 
                     ''3/24/2022 td''Loop Until (bGoodChoice Or bUserCancelled) ''Dec20 2021''Loop Until (bGoodChoice) 
-                Loop Until (bGoodChoice Or bUserMightWantDefaultCache) ''Dec20 2021''Loop Until (bGoodChoice) 
+                    ''4/01/2022 td''Loop Until (bGoodChoice Or bUserMightWantDefaultCache) ''Dec20 2021''Loop Until (bGoodChoice) 
+                Loop Until (bGoodChoice Or bUserMightWantDefaultCache Or bEditedRecipients) ''Dec20 2021''Loop Until (bGoodChoice) 
 
                 ''Added 12/20/2021 td
                 ''3/24/2022 td''If (bGoodChoice) Then
