@@ -71,6 +71,7 @@ Partial Class RSCRowHeaders
         Me.textRowHeader7.Location = New System.Drawing.Point(0, 141)
         Me.textRowHeader7.Margin = New System.Windows.Forms.Padding(2)
         Me.textRowHeader7.Name = "textRowHeader7"
+        Me.textRowHeader7.ReadOnly = True
         Me.textRowHeader7.Size = New System.Drawing.Size(143, 17)
         Me.textRowHeader7.TabIndex = 73
         Me.textRowHeader7.Text = "7"
@@ -87,6 +88,7 @@ Partial Class RSCRowHeaders
         Me.textRowHeade6.Location = New System.Drawing.Point(0, 118)
         Me.textRowHeade6.Margin = New System.Windows.Forms.Padding(2)
         Me.textRowHeade6.Name = "textRowHeade6"
+        Me.textRowHeade6.ReadOnly = True
         Me.textRowHeade6.Size = New System.Drawing.Size(143, 17)
         Me.textRowHeade6.TabIndex = 71
         Me.textRowHeade6.Text = "6"
@@ -120,6 +122,7 @@ Partial Class RSCRowHeaders
         Me.textRowHeader8.Location = New System.Drawing.Point(0, 164)
         Me.textRowHeader8.Margin = New System.Windows.Forms.Padding(2)
         Me.textRowHeader8.Name = "textRowHeader8"
+        Me.textRowHeader8.ReadOnly = True
         Me.textRowHeader8.Size = New System.Drawing.Size(143, 17)
         Me.textRowHeader8.TabIndex = 75
         Me.textRowHeader8.Text = "8"
@@ -136,6 +139,7 @@ Partial Class RSCRowHeaders
         Me.textRowHeader5.Location = New System.Drawing.Point(0, 94)
         Me.textRowHeader5.Margin = New System.Windows.Forms.Padding(2)
         Me.textRowHeader5.Name = "textRowHeader5"
+        Me.textRowHeader5.ReadOnly = True
         Me.textRowHeader5.Size = New System.Drawing.Size(143, 17)
         Me.textRowHeader5.TabIndex = 69
         Me.textRowHeader5.Text = "5"
@@ -152,6 +156,7 @@ Partial Class RSCRowHeaders
         Me.textRowHeader12.Location = New System.Drawing.Point(0, 259)
         Me.textRowHeader12.Margin = New System.Windows.Forms.Padding(2)
         Me.textRowHeader12.Name = "textRowHeader12"
+        Me.textRowHeader12.ReadOnly = True
         Me.textRowHeader12.Size = New System.Drawing.Size(143, 17)
         Me.textRowHeader12.TabIndex = 83
         Me.textRowHeader12.Text = "12"
@@ -168,6 +173,7 @@ Partial Class RSCRowHeaders
         Me.textRowHeader9.Location = New System.Drawing.Point(0, 188)
         Me.textRowHeader9.Margin = New System.Windows.Forms.Padding(2)
         Me.textRowHeader9.Name = "textRowHeader9"
+        Me.textRowHeader9.ReadOnly = True
         Me.textRowHeader9.Size = New System.Drawing.Size(143, 17)
         Me.textRowHeader9.TabIndex = 77
         Me.textRowHeader9.Text = "9"
@@ -184,6 +190,7 @@ Partial Class RSCRowHeaders
         Me.textRowHeader2.Location = New System.Drawing.Point(0, 24)
         Me.textRowHeader2.Margin = New System.Windows.Forms.Padding(2)
         Me.textRowHeader2.Name = "textRowHeader2"
+        Me.textRowHeader2.ReadOnly = True
         Me.textRowHeader2.Size = New System.Drawing.Size(143, 17)
         Me.textRowHeader2.TabIndex = 63
         Me.textRowHeader2.Text = "2"
@@ -200,6 +207,7 @@ Partial Class RSCRowHeaders
         Me.textRowHeader4.Location = New System.Drawing.Point(0, 71)
         Me.textRowHeader4.Margin = New System.Windows.Forms.Padding(2)
         Me.textRowHeader4.Name = "textRowHeader4"
+        Me.textRowHeader4.ReadOnly = True
         Me.textRowHeader4.Size = New System.Drawing.Size(143, 17)
         Me.textRowHeader4.TabIndex = 67
         Me.textRowHeader4.Text = "4"
@@ -216,6 +224,7 @@ Partial Class RSCRowHeaders
         Me.textRowHeader11.Location = New System.Drawing.Point(0, 235)
         Me.textRowHeader11.Margin = New System.Windows.Forms.Padding(2)
         Me.textRowHeader11.Name = "textRowHeader11"
+        Me.textRowHeader11.ReadOnly = True
         Me.textRowHeader11.Size = New System.Drawing.Size(143, 17)
         Me.textRowHeader11.TabIndex = 81
         Me.textRowHeader11.Text = "11"
@@ -232,6 +241,7 @@ Partial Class RSCRowHeaders
         Me.textRowHeader10.Location = New System.Drawing.Point(0, 211)
         Me.textRowHeader10.Margin = New System.Windows.Forms.Padding(2)
         Me.textRowHeader10.Name = "textRowHeader10"
+        Me.textRowHeader10.ReadOnly = True
         Me.textRowHeader10.Size = New System.Drawing.Size(143, 17)
         Me.textRowHeader10.TabIndex = 79
         Me.textRowHeader10.Text = "10"
@@ -248,6 +258,7 @@ Partial Class RSCRowHeaders
         Me.textRowHeader3.Location = New System.Drawing.Point(0, 47)
         Me.textRowHeader3.Margin = New System.Windows.Forms.Padding(2)
         Me.textRowHeader3.Name = "textRowHeader3"
+        Me.textRowHeader3.ReadOnly = True
         Me.textRowHeader3.Size = New System.Drawing.Size(143, 17)
         Me.textRowHeader3.TabIndex = 65
         Me.textRowHeader3.Text = "3"

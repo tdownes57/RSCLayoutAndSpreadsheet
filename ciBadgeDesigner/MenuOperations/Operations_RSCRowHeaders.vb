@@ -100,7 +100,20 @@ Public Class Operations_RSCRowHeaders
             Next each_column
         End If ''End of "If (boolConfirmed) Then"
 
-    End Sub
+    End Sub ''eND OF ""Public Sub Undo_of_Clearing_Data_From_Column_FC2002""
+
+
+    Public Sub Add_Rows_To_Spreadsheet_FS2003(sender As Object, e As EventArgs)
+        ''
+        ''Added 4/2/2022 thomas downes
+        ''
+
+
+
+
+
+    End Sub ''End of ""Public Sub Add_Rows_To_Spreadsheet_FS2003""
+
 
 End Class
 

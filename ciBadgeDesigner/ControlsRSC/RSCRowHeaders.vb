@@ -478,6 +478,7 @@ Public Class RSCRowHeaders
                 .Font = textbox_Top.Font
                 .Top = (textbox_BottomLast.Top + intTopGap)
                 .Visible = True
+                .ReadOnly = True ''True. ---Added 4/3/2022 thomas
             End With
 
             Me.Controls.Add(objTextbox)
