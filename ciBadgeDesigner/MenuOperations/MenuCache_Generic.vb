@@ -239,19 +239,24 @@ Public Class MenuCache_Generic ''Renamed 12/30/2021 ''MenuCache_NonShared
 
         toolMenuItemSeparator.Text = "-----Editing Operations follow------" ''Perhaps this will produce a separator line, just like in the old VB6 days. 
 
-        If (pboolAddHeadersToMenu) Then
+        ''Added 4/3/2022 thomas 
+        Const c_boolAddUglyHeaders As Boolean = False
+
+        If (c_boolAddUglyHeaders And pboolAddHeadersToMenu) Then
             ''
             ''Allow the user to see the menu headers.----12/30/2021 td
             ''
             ''toolMenuItemHeader1 = toolMenuItemHeader1
             If (pbShowAllHeaders) Then Tools_EditElementMenu.Add(toolMenuItemHeader0)
             If (pbShowAllHeaders) Then Tools_EditElementMenu.Add(toolMenuItemHeader1)
+
             Tools_EditElementMenu.Add(toolMenuItemHeader2)
             Tools_EditElementMenu.Add(toolMenuItemHeader3)
             Tools_EditElementMenu.Add(toolMenuItemHeader4a)
             Tools_EditElementMenu.Add(toolMenuItemHeader4b)
             Tools_EditElementMenu.Add(toolMenuItemSeparator)
-        End If ''End of "If (pboolAddHeadersToMenu) Then"
+
+        End If ''End of "If (c_boolAddUglyHeaders And pboolAddHeadersToMenu) Then"
 
         Tools_MenuHeader0 = toolMenuItemHeader0
         Tools_MenuHeader1 = toolMenuItemHeader1

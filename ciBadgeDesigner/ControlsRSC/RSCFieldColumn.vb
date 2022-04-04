@@ -391,6 +391,18 @@ Public Class RSCFieldColumn
     End Sub ''End of "Private Sub LoadDataToColumn_Undo()"
 
 
+    Public Function CountOfRows() As Integer
+        ''
+        ''Added 4/3/2022 thomas downes  
+        ''
+        Dim listBoxes As List(Of TextBox)
+        Const c_boolSkipSorting As Boolean = True
+        listBoxes = ListOfTextboxes_TopToBottom(c_boolSkipSorting)
+        Return listBoxes.Count
+
+    End Function ''End of ""Public Function CountOfRows() As Integer""
+
+
     Public Function CountOfBoxesWithData(Optional ByRef pref_countOfRows As Integer = 0) As Integer ''Added 3/20/2022
         ''
         ''Added 3/20/2022 t//d//
@@ -626,7 +638,7 @@ Public Class RSCFieldColumn
     End Function ''end of Private Function ListOfData() As List(Of String)
 
 
-    Public Function ListOfTextboxes_TopToBottom() As List(Of TextBox) ''IOrderedEnumerable(Of TextBox)
+    Public Function ListOfTextboxes_TopToBottom(Optional par_bSkipSorting As Boolean = False) As List(Of TextBox) ''IOrderedEnumerable(Of TextBox)
         ''
         ''Added 3/19/2022 td
         ''
@@ -657,6 +669,9 @@ Public Class RSCFieldColumn
         ''objListOfTextboxes.Sort(Function(elementA As TextBox, elementB As TextBox)
         ''                            Return elementA.Length.CompareTo(elementB.Length)
         ''                        End Function)
+
+        ''Added 4/2/2022 td
+        If (par_bSkipSorting) Then Return objListOfTextboxes
 
         Dim objListOfTextboxes_Ordered As List(Of TextBox)
         objListOfTextboxes_Ordered = objListOfTextboxes.OrderBy(Of Integer)(Function(a) a.Top).ToList()

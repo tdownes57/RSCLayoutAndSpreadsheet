@@ -1027,6 +1027,29 @@ Public Class RSCFieldSpreadsheet
 
     End Sub ''End of "Public Sub InsertNewColumnByIndex(Me.ColumnIndex)"
 
+
+    Public Function ToString_ByRow(par_intRowIndex As Integer) As String
+        ''
+        ''Added 4/03/2022
+        ''
+        Dim intCountColumns As Integer
+        Dim list_columns As List(Of RSCFieldColumn)
+
+        list_columns = ListOfColumns()
+        intCountColumns = list_columns.Count()
+
+        For intColIndex As Integer = 0 To intCountColumns - 1
+
+
+
+
+
+        Next tinColIndex
+
+
+    End Function ''Ednd of ""Public Function ToString_ByRow()""
+
+
     Private Sub Timer1_Tick(sender As Object, e As EventArgs)
 
         ''Added 3/25/2022 thomas downes 

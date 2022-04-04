@@ -25,6 +25,19 @@ Public Class RSCRowHeaders
     Private Const mc_ColumnWidthDefault As Integer = 72 ''Added 3/20/2022 td
     Private Const mc_ColumnMarginGap As Integer = 3 ''---4 ''Added 3/20/2022 td
 
+
+    Public Function CountOfRows() As Integer
+        ''
+        ''Added 4/3/2022 thomas downes  
+        ''
+        Dim listBoxes As List(Of TextBox)
+        Const c_boolSkipSorting As Boolean = True
+        listBoxes = ListOfTextboxes_TopToBottom(c_boolSkipSorting)
+        Return listBoxes.Count
+
+    End Function ''End of ""Public Function CountOfRows() As Integer""
+
+
     Public Function ListOfColumns() As List(Of RSCFieldColumn)
 
         ''Added 3/21/2022 thomas downes
@@ -34,7 +47,7 @@ Public Class RSCRowHeaders
         oList.Remove(Nothing) ''Item #0 is Nothing, so let's omit the Null reference. 
         Return oList
 
-    End Function
+    End Function ''ENd of "Public Function ListOfColumns() As List(Of RSCFieldColumn)"
 
 
     Public Shared Function GetRSCRowHeaders(par_designer As ClassDesigner,
@@ -479,6 +492,7 @@ Public Class RSCRowHeaders
                 .Top = (textbox_BottomLast.Top + intTopGap)
                 .Visible = True
                 .ReadOnly = True ''True. ---Added 4/3/2022 thomas
+                AddHandler .MouseUp, AddressOf HeaderBox_MouseUp
             End With
 
             Me.Controls.Add(objTextbox)
@@ -501,7 +515,7 @@ Public Class RSCRowHeaders
 
 
 
-    Public Function ListOfTextboxes_TopToBottom() As List(Of TextBox) ''IOrderedEnumerable(Of TextBox)
+    Public Function ListOfTextboxes_TopToBottom(Optional par_noSorting As Boolean = False) As List(Of TextBox) ''IOrderedEnumerable(Of TextBox)
         ''
         ''Added 3/19/2022 td
         ''
@@ -523,6 +537,9 @@ Public Class RSCRowHeaders
         ''    From objTextbox In objListOfTextboxes
         ''    Select objTextbox
         ''    Order By objTextbox.Top
+
+        ''Added 4/2/2022 td
+        If (par_noSorting) Then Return objListOfTextboxes
 
         Dim objListOfTextboxes_Ordered As List(Of TextBox)
         objListOfTextboxes_Ordered = objListOfTextboxes.OrderBy(Of Integer)(Function(a) a.Top).ToList()
@@ -566,6 +583,26 @@ Public Class RSCRowHeaders
     End Function ''End of "Public Function ListOfBars_TopToBottom() As IOrderedEnumerable(Of PictureBox)"
 
     Private Sub PictureBox8_Click(sender As Object, e As EventArgs) Handles PictureBox8.Click
+
+    End Sub
+
+    Private Sub HeaderBox_MouseUp(sender As Object, par_eArgs As MouseEventArgs) _
+        Handles textRowHeader1.MouseUp, textRowHeader2.MouseUp, textRowHeader3.MouseUp,
+          textRowHeader4.MouseUp, textRowHeader5.MouseUp, textRowHeade6.MouseUp,
+          textRowHeader7.MouseUp, textRowHeader8.MouseUp, textRowHeader9.MouseUp,
+          textRowHeader10.MouseUp, textRowHeader11.MouseUp, textRowHeader12.MouseUp
+        ''
+        ''Added 4/3/2022 thomas downes
+        ''
+        Dim new_eArgs As MouseEventArgs
+        Dim controlSender As Control = CType(sender, Control)
+
+        new_eArgs = New MouseEventArgs(par_eArgs.Button, par_eArgs.Clicks,
+               par_eArgs.X + controlSender.Left,
+               par_eArgs.Y + controlSender.Top,
+                par_eArgs.Delta)
+
+        MyBase.MoveableControl_MouseUp(Me, new_eArgs)
 
     End Sub
 End Class

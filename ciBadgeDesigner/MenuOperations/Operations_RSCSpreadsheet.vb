@@ -44,6 +44,8 @@ Public Class Operations_RSCSpreadsheet
     Public Property ParentSpreadsheet As RSCFieldSpreadsheet ''Added 3/20/2022 td
     Public Property ColumnIndex As Integer ''Added 3/20/2022 td
 
+    Private mod_sbSpreadheetData As System.Text.StringBuilder
+
 
     Public Sub Context_Menu_FS9121(sender As Object, e As EventArgs)
         ''---Dec15 2021--Public Sub How_Context_Menus_Are_Generated_EE1001
@@ -104,6 +106,57 @@ Public Class Operations_RSCSpreadsheet
             Next each_column
         End If ''End of "If (boolConfirmed) Then"
 
-    End Sub
+    End Sub ''End of ""Public Sub Undo_of_Clearing_Data_From_Column_FC2002""
+
+
+    Public Sub Copy_All_Spreadsheet_Data_with_Headers_FC2003(sender As Object, e As EventArgs)
+        ''
+        ''Added 4/03/2022 thomas downes
+        ''  
+
+
+
+
+    End Sub ''End of ""Public Sub Copy_All_Spreadsheet_Data_with_Headers_FC2003""
+
+
+    Public Sub Copy_All_Spreadsheet_Data_without_Headers_FC2003(sender As Object, e As EventArgs)
+        ''
+        ''Added 4/03/2022 thomas downes
+        ''  
+        Dim intCountOfRows1 As Integer
+        Dim intCountOfRows2 As Integer
+        Dim intCountOfColumns As Integer
+        Const c_intAverageCellChars As Integer = 5
+        Dim intGuessAtTextLength As Integer
+        Dim each_stringRow As String
+
+        intCountOfRows1 = Me.ParentSpreadsheet.RscRowHeaders1.CountOfRows()
+        intCountOfRows2 = Me.ParentSpreadsheet.RscFieldColumn1.CountOfRows()
+        intCountOfColumns = Me.ParentSpreadsheet.ListOfColumns().Count
+        intGuessAtTextLength = (intCountOfRows2 *
+                    intCountOfColumns *
+                    (c_intAverageCellChars + 1))
+
+        mod_sbSpreadheetData = New System.Text.StringBuilder(intGuessAtTextLength)
+
+        ''
+        ''
+        ''
+        For intRowIndex As Integer = 0 To (intCountOfRows2 - 1)
+
+            each_stringRow = Me.ParentSpreadsheet.ToString_ByRow(intRowIndex)
+            mod_sbSpreadheetData.AppendLine(each_stringRow)
+
+        Next intRowIndex
+
+        ''
+        ''Exit Handler
+        ''
+        Clipboard.SetText(mod_sbSpreadheetData.ToString())
+
+    End Sub ''End of ""Public Sub Copy_All_Spreadsheet_Data_with_Headers_FC2003""
+
+
 
 End Class
