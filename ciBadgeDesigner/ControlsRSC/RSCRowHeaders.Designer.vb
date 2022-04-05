@@ -46,6 +46,20 @@ Partial Class RSCRowHeaders
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.PictureBox9 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox12 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox14 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox15 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox16 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox17 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox19 = New System.Windows.Forms.PictureBox()
+        Me.textRowHeader14 = New System.Windows.Forms.TextBox()
+        Me.textRowHeader13 = New System.Windows.Forms.TextBox()
+        Me.textRowHeader15 = New System.Windows.Forms.TextBox()
+        Me.textRowHeader16 = New System.Windows.Forms.TextBox()
+        Me.textRowHeader18 = New System.Windows.Forms.TextBox()
+        Me.textRowHeader17 = New System.Windows.Forms.TextBox()
+        Me.textRowHeader19 = New System.Windows.Forms.TextBox()
+        Me.PictureBox18 = New System.Windows.Forms.PictureBox()
         CType(Me.PictureBox13, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -58,6 +72,13 @@ Partial Class RSCRowHeaders
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox9, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox12, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox14, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox15, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox16, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox17, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox19, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox18, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'textRowHeader7
@@ -317,7 +338,7 @@ Partial Class RSCRowHeaders
         Me.PictureBox11.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PictureBox11.BackColor = System.Drawing.Color.Black
-        Me.PictureBox11.Location = New System.Drawing.Point(0, 242)
+        Me.PictureBox11.Location = New System.Drawing.Point(2, 441)
         Me.PictureBox11.Margin = New System.Windows.Forms.Padding(2)
         Me.PictureBox11.Name = "PictureBox11"
         Me.PictureBox11.Size = New System.Drawing.Size(184, 2)
@@ -408,10 +429,227 @@ Partial Class RSCRowHeaders
         Me.PictureBox9.TabIndex = 92
         Me.PictureBox9.TabStop = False
         '
+        'PictureBox12
+        '
+        Me.PictureBox12.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox12.BackColor = System.Drawing.Color.Black
+        Me.PictureBox12.Location = New System.Drawing.Point(0, 381)
+        Me.PictureBox12.Margin = New System.Windows.Forms.Padding(2)
+        Me.PictureBox12.Name = "PictureBox12"
+        Me.PictureBox12.Size = New System.Drawing.Size(184, 2)
+        Me.PictureBox12.TabIndex = 109
+        Me.PictureBox12.TabStop = False
+        '
+        'PictureBox14
+        '
+        Me.PictureBox14.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox14.BackColor = System.Drawing.Color.Black
+        Me.PictureBox14.Location = New System.Drawing.Point(0, 358)
+        Me.PictureBox14.Margin = New System.Windows.Forms.Padding(2)
+        Me.PictureBox14.Name = "PictureBox14"
+        Me.PictureBox14.Size = New System.Drawing.Size(184, 2)
+        Me.PictureBox14.TabIndex = 106
+        Me.PictureBox14.TabStop = False
+        '
+        'PictureBox15
+        '
+        Me.PictureBox15.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox15.BackColor = System.Drawing.Color.Black
+        Me.PictureBox15.Location = New System.Drawing.Point(0, 334)
+        Me.PictureBox15.Margin = New System.Windows.Forms.Padding(2)
+        Me.PictureBox15.Name = "PictureBox15"
+        Me.PictureBox15.Size = New System.Drawing.Size(184, 2)
+        Me.PictureBox15.TabIndex = 105
+        Me.PictureBox15.TabStop = False
+        '
+        'PictureBox16
+        '
+        Me.PictureBox16.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox16.BackColor = System.Drawing.Color.Black
+        Me.PictureBox16.Location = New System.Drawing.Point(0, 406)
+        Me.PictureBox16.Margin = New System.Windows.Forms.Padding(2)
+        Me.PictureBox16.Name = "PictureBox16"
+        Me.PictureBox16.Size = New System.Drawing.Size(184, 2)
+        Me.PictureBox16.TabIndex = 107
+        Me.PictureBox16.TabStop = False
+        '
+        'PictureBox17
+        '
+        Me.PictureBox17.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox17.BackColor = System.Drawing.Color.Black
+        Me.PictureBox17.Location = New System.Drawing.Point(0, 311)
+        Me.PictureBox17.Margin = New System.Windows.Forms.Padding(2)
+        Me.PictureBox17.Name = "PictureBox17"
+        Me.PictureBox17.Size = New System.Drawing.Size(184, 2)
+        Me.PictureBox17.TabIndex = 104
+        Me.PictureBox17.TabStop = False
+        '
+        'PictureBox19
+        '
+        Me.PictureBox19.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox19.BackColor = System.Drawing.Color.Black
+        Me.PictureBox19.Location = New System.Drawing.Point(0, 289)
+        Me.PictureBox19.Margin = New System.Windows.Forms.Padding(2)
+        Me.PictureBox19.Name = "PictureBox19"
+        Me.PictureBox19.Size = New System.Drawing.Size(184, 2)
+        Me.PictureBox19.TabIndex = 103
+        Me.PictureBox19.TabStop = False
+        '
+        'textRowHeader14
+        '
+        Me.textRowHeader14.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textRowHeader14.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.textRowHeader14.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.textRowHeader14.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.textRowHeader14.ForeColor = System.Drawing.Color.Black
+        Me.textRowHeader14.Location = New System.Drawing.Point(0, 305)
+        Me.textRowHeader14.Margin = New System.Windows.Forms.Padding(2)
+        Me.textRowHeader14.Name = "textRowHeader14"
+        Me.textRowHeader14.ReadOnly = True
+        Me.textRowHeader14.Size = New System.Drawing.Size(143, 17)
+        Me.textRowHeader14.TabIndex = 97
+        Me.textRowHeader14.Text = "14"
+        Me.textRowHeader14.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'textRowHeader13
+        '
+        Me.textRowHeader13.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textRowHeader13.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.textRowHeader13.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.textRowHeader13.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.textRowHeader13.ForeColor = System.Drawing.Color.Black
+        Me.textRowHeader13.Location = New System.Drawing.Point(0, 282)
+        Me.textRowHeader13.Margin = New System.Windows.Forms.Padding(2)
+        Me.textRowHeader13.Name = "textRowHeader13"
+        Me.textRowHeader13.ReadOnly = True
+        Me.textRowHeader13.Size = New System.Drawing.Size(143, 17)
+        Me.textRowHeader13.TabIndex = 96
+        Me.textRowHeader13.Text = "13"
+        Me.textRowHeader13.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'textRowHeader15
+        '
+        Me.textRowHeader15.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textRowHeader15.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.textRowHeader15.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.textRowHeader15.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.textRowHeader15.ForeColor = System.Drawing.Color.Black
+        Me.textRowHeader15.Location = New System.Drawing.Point(0, 328)
+        Me.textRowHeader15.Margin = New System.Windows.Forms.Padding(2)
+        Me.textRowHeader15.Name = "textRowHeader15"
+        Me.textRowHeader15.ReadOnly = True
+        Me.textRowHeader15.Size = New System.Drawing.Size(143, 17)
+        Me.textRowHeader15.TabIndex = 98
+        Me.textRowHeader15.Text = "15"
+        Me.textRowHeader15.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'textRowHeader16
+        '
+        Me.textRowHeader16.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textRowHeader16.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.textRowHeader16.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.textRowHeader16.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.textRowHeader16.ForeColor = System.Drawing.Color.Black
+        Me.textRowHeader16.Location = New System.Drawing.Point(0, 352)
+        Me.textRowHeader16.Margin = New System.Windows.Forms.Padding(2)
+        Me.textRowHeader16.Name = "textRowHeader16"
+        Me.textRowHeader16.ReadOnly = True
+        Me.textRowHeader16.Size = New System.Drawing.Size(143, 17)
+        Me.textRowHeader16.TabIndex = 99
+        Me.textRowHeader16.Text = "16"
+        Me.textRowHeader16.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'textRowHeader18
+        '
+        Me.textRowHeader18.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textRowHeader18.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.textRowHeader18.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.textRowHeader18.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.textRowHeader18.ForeColor = System.Drawing.Color.Black
+        Me.textRowHeader18.Location = New System.Drawing.Point(0, 399)
+        Me.textRowHeader18.Margin = New System.Windows.Forms.Padding(2)
+        Me.textRowHeader18.Name = "textRowHeader18"
+        Me.textRowHeader18.ReadOnly = True
+        Me.textRowHeader18.Size = New System.Drawing.Size(143, 17)
+        Me.textRowHeader18.TabIndex = 101
+        Me.textRowHeader18.Text = "18"
+        Me.textRowHeader18.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'textRowHeader17
+        '
+        Me.textRowHeader17.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textRowHeader17.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.textRowHeader17.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.textRowHeader17.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.textRowHeader17.ForeColor = System.Drawing.Color.Black
+        Me.textRowHeader17.Location = New System.Drawing.Point(0, 375)
+        Me.textRowHeader17.Margin = New System.Windows.Forms.Padding(2)
+        Me.textRowHeader17.Name = "textRowHeader17"
+        Me.textRowHeader17.ReadOnly = True
+        Me.textRowHeader17.Size = New System.Drawing.Size(143, 17)
+        Me.textRowHeader17.TabIndex = 100
+        Me.textRowHeader17.Text = "17"
+        Me.textRowHeader17.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'textRowHeader19
+        '
+        Me.textRowHeader19.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textRowHeader19.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.textRowHeader19.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.textRowHeader19.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.textRowHeader19.ForeColor = System.Drawing.Color.Black
+        Me.textRowHeader19.Location = New System.Drawing.Point(2, 420)
+        Me.textRowHeader19.Margin = New System.Windows.Forms.Padding(2)
+        Me.textRowHeader19.Name = "textRowHeader19"
+        Me.textRowHeader19.ReadOnly = True
+        Me.textRowHeader19.Size = New System.Drawing.Size(143, 17)
+        Me.textRowHeader19.TabIndex = 110
+        Me.textRowHeader19.Text = "19"
+        Me.textRowHeader19.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'PictureBox18
+        '
+        Me.PictureBox18.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox18.BackColor = System.Drawing.Color.Black
+        Me.PictureBox18.Location = New System.Drawing.Point(-21, 249)
+        Me.PictureBox18.Margin = New System.Windows.Forms.Padding(2)
+        Me.PictureBox18.Name = "PictureBox18"
+        Me.PictureBox18.Size = New System.Drawing.Size(184, 2)
+        Me.PictureBox18.TabIndex = 111
+        Me.PictureBox18.TabStop = False
+        '
         'RSCRowHeaders
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.Controls.Add(Me.PictureBox18)
+        Me.Controls.Add(Me.textRowHeader19)
+        Me.Controls.Add(Me.PictureBox12)
+        Me.Controls.Add(Me.PictureBox14)
+        Me.Controls.Add(Me.PictureBox15)
+        Me.Controls.Add(Me.PictureBox16)
+        Me.Controls.Add(Me.PictureBox17)
+        Me.Controls.Add(Me.PictureBox19)
+        Me.Controls.Add(Me.textRowHeader14)
+        Me.Controls.Add(Me.textRowHeader13)
+        Me.Controls.Add(Me.textRowHeader15)
+        Me.Controls.Add(Me.textRowHeader16)
+        Me.Controls.Add(Me.textRowHeader18)
+        Me.Controls.Add(Me.textRowHeader17)
         Me.Controls.Add(Me.PictureBox13)
         Me.Controls.Add(Me.PictureBox4)
         Me.Controls.Add(Me.PictureBox5)
@@ -437,7 +675,7 @@ Partial Class RSCRowHeaders
         Me.Controls.Add(Me.textRowHeader10)
         Me.Controls.Add(Me.textRowHeader3)
         Me.Name = "RSCRowHeaders"
-        Me.Size = New System.Drawing.Size(143, 414)
+        Me.Size = New System.Drawing.Size(143, 500)
         CType(Me.PictureBox13, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).EndInit()
@@ -450,6 +688,13 @@ Partial Class RSCRowHeaders
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox9, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox12, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox14, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox15, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox16, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox17, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox19, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox18, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -479,4 +724,18 @@ Partial Class RSCRowHeaders
     Friend WithEvents PictureBox2 As PictureBox
     Friend WithEvents PictureBox3 As PictureBox
     Friend WithEvents PictureBox9 As PictureBox
+    Friend WithEvents PictureBox12 As PictureBox
+    Friend WithEvents PictureBox14 As PictureBox
+    Friend WithEvents PictureBox15 As PictureBox
+    Friend WithEvents PictureBox16 As PictureBox
+    Friend WithEvents PictureBox17 As PictureBox
+    Friend WithEvents PictureBox19 As PictureBox
+    Friend WithEvents textRowHeader14 As TextBox
+    Friend WithEvents textRowHeader13 As TextBox
+    Friend WithEvents textRowHeader15 As TextBox
+    Friend WithEvents textRowHeader16 As TextBox
+    Friend WithEvents textRowHeader18 As TextBox
+    Friend WithEvents textRowHeader17 As TextBox
+    Friend WithEvents textRowHeader19 As TextBox
+    Friend WithEvents PictureBox18 As PictureBox
 End Class

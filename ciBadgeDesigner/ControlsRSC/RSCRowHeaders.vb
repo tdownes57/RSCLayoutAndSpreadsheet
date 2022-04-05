@@ -435,6 +435,21 @@ Public Class RSCRowHeaders
     End Sub ''End of "Private Sub AlignBottomBars"
 
 
+    Public Sub Load_OneEmptyRow_IfNeeded(par_intRowIndex As Integer)
+        ''
+        ''Added 4/4/2022 td
+        ''
+
+
+
+
+
+
+    End Sub ''End of ""Public Sub Load_EmptyRow_IfNeeded(par(intRowIndex As Integer)""
+    ''
+
+
+
     Public Sub Load_EmptyRows(par_intRowsRequired As Integer)
         ''
         ''Added 3/29/2022 thomas downes
@@ -603,6 +618,10 @@ Public Class RSCRowHeaders
                 par_eArgs.Delta)
 
         MyBase.MoveableControl_MouseUp(Me, new_eArgs)
+
+    End Sub
+
+    Private Sub RSCRowHeaders_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
     End Sub
 End Class

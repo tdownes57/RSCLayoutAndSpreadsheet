@@ -26,6 +26,8 @@ Public Class RSCFieldSpreadsheet
 
     Private Const mc_ColumnWidthDefault As Integer = 150 ''72 ''Added 3/20/2022 td
     Private Const mc_ColumnMarginGap As Integer = 3 ''---4 ''Added 3/20/2022 td
+    Private Const mod_intRscFieldColumn1_Top As Integer = 19 ''Added 4/3/2022 thomas downes
+
 
     Public Function RSCFieldColumn_Leftmost() As RSCFieldColumn
         ''Added 3/31/2022 td
@@ -726,8 +728,10 @@ Public Class RSCFieldSpreadsheet
             newRSCColumn_output.Visible = True
 
             ''Added 3/30/2022 td
-            ''newRSCColumn_output.Height = (Me.Height - newRSCColumn_output.Top)
-            ''newRSCColumn_output.Anchor = CType((AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Right), AnchorStyles)
+            ''4/4/2022 td ''newRSCColumn_output.Height = (Me.Height - mod_intRscFieldColumn1_Top - mc_ColumnMarginGap)
+            newRSCColumn_output.Height = newRSCColumn_output.GetTextboxAtBottom_Bottom() + mc_ColumnMarginGap
+            ''4/4/2022 td ''newRSCColumn_output.Anchor = CType((AnchorStyles.Top Or AnchorStyles.Bottom), AnchorStyles)
+            newRSCColumn_output.Anchor = CType((AnchorStyles.Top Or AnchorStyles.None), AnchorStyles)
 
             ''Prepare for next iteration. 
             pref_intNextPropertyLeft = (newRSCColumn_output.Left + newRSCColumn_output.Width + 3)
@@ -1034,18 +1038,26 @@ Public Class RSCFieldSpreadsheet
         ''
         Dim intCountColumns As Integer
         Dim list_columns As List(Of RSCFieldColumn)
+        Dim each_column As RSCFieldColumn
+        Dim strValue As String
+        Dim strLine As String = ""
 
         list_columns = ListOfColumns()
         intCountColumns = list_columns.Count()
 
         For intColIndex As Integer = 0 To intCountColumns - 1
 
+            each_column = list_columns(intColIndex)
+            strValue = each_column.ToString_ByRow(par_intRowIndex)
+            If (strValue = "") Then
+                strLine &= (strValue)
+            Else
+                strLine &= (vbTab & strValue)
+            End If
 
+        Next intColIndex
 
-
-
-        Next tinColIndex
-
+        Return strLine
 
     End Function ''Ednd of ""Public Function ToString_ByRow()""
 

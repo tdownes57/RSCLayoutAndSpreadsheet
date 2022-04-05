@@ -52,8 +52,6 @@ Partial Class RSCFieldSpreadsheet
         '
         'RscFieldColumn1
         '
-        Me.RscFieldColumn1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.RscFieldColumn1.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.RscFieldColumn1.ColumnWidthAndData = Nothing
         Me.RscFieldColumn1.ElementInfo_Base = Nothing
@@ -63,7 +61,7 @@ Partial Class RSCFieldSpreadsheet
         Me.RscFieldColumn1.MoveabilityEventsForGroupCtls = Nothing
         Me.RscFieldColumn1.MoveabilityEventsForSingleMove = Nothing
         Me.RscFieldColumn1.Name = "RscFieldColumn1"
-        Me.RscFieldColumn1.Size = New System.Drawing.Size(198, 436)
+        Me.RscFieldColumn1.Size = New System.Drawing.Size(198, 555)
         Me.RscFieldColumn1.TabIndex = 9
         '
         'RscRowHeaders1
@@ -77,21 +75,20 @@ Partial Class RSCFieldSpreadsheet
         Me.RscRowHeaders1.MoveabilityEventsForGroupCtls = Nothing
         Me.RscRowHeaders1.MoveabilityEventsForSingleMove = Nothing
         Me.RscRowHeaders1.Name = "RscRowHeaders1"
-        Me.RscRowHeaders1.Size = New System.Drawing.Size(94, 318)
+        Me.RscRowHeaders1.Size = New System.Drawing.Size(94, 437)
         Me.RscRowHeaders1.TabIndex = 8
         '
         'RSCFieldSpreadsheet
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.AutoScroll = True
         Me.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.Controls.Add(Me.RscFieldColumn1)
         Me.Controls.Add(Me.RscRowHeaders1)
         Me.Controls.Add(Me.LinkLabel2)
         Me.Controls.Add(Me.LinkLabel1)
         Me.Name = "RSCFieldSpreadsheet"
-        Me.Size = New System.Drawing.Size(821, 457)
+        Me.Size = New System.Drawing.Size(821, 576)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

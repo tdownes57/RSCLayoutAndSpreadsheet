@@ -154,6 +154,11 @@ Public Class Operations_RSCSpreadsheet
         ''Exit Handler
         ''
         Clipboard.SetText(mod_sbSpreadheetData.ToString())
+        Dim strPathTXT As String
+        strPathTXT = IO.Path.Combine(DiskFolders.PathToFolder_Notes(),
+                                      IO.Path.GetRandomFileName() & ".txt")
+        IO.File.WriteAllText(strPathTXT, mod_sbSpreadheetData.ToString())
+        System.Diagnostics.Process.Start(strPathTXT)
 
     End Sub ''End of ""Public Sub Copy_All_Spreadsheet_Data_with_Headers_FC2003""
 

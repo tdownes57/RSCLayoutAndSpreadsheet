@@ -16,6 +16,8 @@ Public Class DialogEditRecipients
     Private mod_designer As ClassDesigner ''Added 3/10/2022 td
     Private mod_stringPastedData As String ''Added 2/22/2022  
     Private mod_cacheColumnWidthsAndData As ciBadgeDesigner.CacheRSCFieldColumnWidthsEtc ''Added 3/16/2022 
+    Private Const mod_intRscFieldColumn1_Top As Integer = 19 ''Added 4/3/2022 thomas downes
+
 
     Public Sub New()
 
@@ -120,7 +122,7 @@ ExitHandler:
         End If ''ENd of "If (mod_designer Is Nothing) Then"
 
         ''
-        ''Step 1 of 4.  Get the cache object which stores settings for the spreadsheet. 
+        ''Step 1(a) of 4.  Get the cache object which stores settings for the spreadsheet. 
         ''
         ''Added 3/16/2022 
         Dim strPathToXML As String = DiskFilesVB.PathToFile_XML_RSCFieldSpreadsheet()
@@ -136,6 +138,21 @@ ExitHandler:
             Me.mod_cacheColumnWidthsAndData.ListOfColumns() = New HashSet(Of ClassColumnWidthAndData)()
 
         End If ''End of "If (IO.File.Exists(strPathToXML)) Then... Else..."
+
+        ''
+        ''Step 1(b) of 4.  Get the cache object which stores settings for the spreadsheet. 
+        ''
+        ''Moved here 4/3/2022 Added 3/20/2022 td
+        If (mod_cacheColumnWidthsAndData.FormSize.Width > ButtonOK.Width) Then
+            Me.Size = mod_cacheColumnWidthsAndData.FormSize
+            Application.DoEvents()
+            With RscFieldSpreadsheet1
+                .RscFieldColumn1.Top = mod_intRscFieldColumn1_Top ''19
+                .RscFieldColumn1.Anchor = AnchorStyles.None
+                .RscFieldColumn1.Height = (.Height - mod_intRscFieldColumn1_Top) ''19
+            End With
+
+        End If ''End of "If (mod_cacheColumnWidthsAndData.FormSize.Width....
 
         ''
         ''Step 2 of 4.  Clear out the design-time spreadsheet control. 
