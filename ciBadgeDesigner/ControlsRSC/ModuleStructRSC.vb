@@ -13,7 +13,7 @@ Module ModuleStructRSC
     End Structure
 
 
-    Public Structure StructLabelAndRowSeparator
+    Public Structure StructLabelAndRowSeparator_NotNeeded
 
         ''Added 4/05/2022 thomas downes
         Public Cellbox As Label

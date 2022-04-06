@@ -692,7 +692,8 @@ Public Class RSCFieldSpreadsheet
         ''3/25/2022 td''RscRowHeaders1.AlignControlsWithSpreadsheet()
         Dim listBoxesColumn As List(Of TextBox)
         ''4/5/2022 Dim listBoxesRowHeader As List(Of TextBox)
-        Dim listBoxesRowHeader As List(Of Label)
+        ''4/6/2022 Dim listBoxesRowHeader As List(Of Label)
+        Dim listBoxesRowHeader As List(Of RSCRowHeader)
 
         listBoxesColumn = RscFieldColumn1.ListOfTextboxes_TopToBottom()
         listBoxesRowHeader = RscRowHeaders1.ListOfTextboxes_TopToBottom()
@@ -745,7 +746,8 @@ Public Class RSCFieldSpreadsheet
             ''4/4/2022 td ''newRSCColumn_output.Height = (Me.Height - mod_intRscFieldColumn1_Top - mc_ColumnMarginGap)
             newRSCColumn_output.Height = newRSCColumn_output.GetTextboxAtBottom_Bottom() + mc_ColumnMarginGap
             ''4/4/2022 td ''newRSCColumn_output.Anchor = CType((AnchorStyles.Top Or AnchorStyles.Bottom), AnchorStyles)
-            newRSCColumn_output.Anchor = CType((AnchorStyles.Top Or AnchorStyles.None), AnchorStyles)
+            ''4/6/2022 td ''newRSCColumn_output.Anchor = CType((AnchorStyles.Top Or AnchorStyles.None), AnchorStyles)
+            newRSCColumn_output.Anchor = CType((AnchorStyles.Top Or AnchorStyles.Left), AnchorStyles)
 
             ''Prepare for next iteration. 
             pref_intNextPropertyLeft = (newRSCColumn_output.Left + newRSCColumn_output.Width + 3)

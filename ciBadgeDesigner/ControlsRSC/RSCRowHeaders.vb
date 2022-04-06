@@ -28,7 +28,7 @@ Public Class RSCRowHeaders
     Private mod_intPixelsFromRowToRow As Integer = 0 ''Added 4/04/2022 td
     ''Added 4/04/2022 thomas downes
     ''4/5/2022 Private mod_listTextboxesByRow As New Dictionary(Of Integer, TextBox)
-    Private mod_listTextboxesByRow As New Dictionary(Of Integer, Label)
+    Private mod_listTextboxesByRow As New Dictionary(Of Integer, RSCRowHeader)
 
     ''Added 4/04/2022 thomas downes
     ''Private Structure StructLabelAndRowSeparator
@@ -36,7 +36,7 @@ Public Class RSCRowHeaders
     ''    Public BottomBar As PictureBox
     ''End Structure
     ''4/5/2022 Private mod_listTextAndBarByRow As New Dictionary(Of Integer, StructLabelAndRowSeparator)
-    Private mod_listTextAndBarByRow As New Dictionary(Of Integer, StructLabelAndRowSeparator)
+    ''4/6/2022 Private mod_listTextAndBarByRow As New Dictionary(Of Integer, StructLabelAndRowSeparator)
 
 
     Public Property PixelsFromRowToRow() As Integer
@@ -58,7 +58,7 @@ Public Class RSCRowHeaders
         ''Added 4/3/2022 thomas downes  
         ''
         ''4/5/2022 Dim listBoxes As List(Of TextBox)
-        Dim listBoxes As List(Of Label) ''4/5/2022 TextBox)
+        Dim listBoxes As List(Of RSCRowHeader) ''4/5/2022 TextBox)
         Const c_boolSkipSorting As Boolean = True
         listBoxes = ListOfTextboxes_TopToBottom(c_boolSkipSorting)
         Return listBoxes.Count
@@ -238,185 +238,185 @@ Public Class RSCRowHeaders
         ''
         ''Added 4/4/2022 thomas downes
         ''
-        With mod_listTextAndBarByRow
+        ''April 6, 2022 td ''With mod_listTextAndBarByRow
 
-            ''
-            '' 1, 2, 3
-            ''
-            mod_listTextboxesByRow.Add(1, textRowHeader1)
-            Dim struct1 As New StructLabelAndRowSeparator()
-            struct1.Cellbox = textRowHeader1
-            struct1.BottomBar = PictureBox1a
-            .Add(1, struct1)
+        ''
+        '' 1, 2, 3
+        ''
+        mod_listTextboxesByRow.Add(1, textRowHeader1)
+        ''Dim struct1 As New StructLabelAndRowSeparator()
+        ''struct1.Cellbox = textRowHeader1
+        ''struct1.BottomBar = PictureBox1a
+        ''.Add(1, struct1)
 
-            mod_listTextboxesByRow.Add(2, textRowHeader2)
-            Dim struct2 As New StructLabelAndRowSeparator()
-            struct2.Cellbox = textRowHeader2
-            struct2.BottomBar = PictureBox2a
-            .Add(2, struct2)
+        mod_listTextboxesByRow.Add(2, textRowHeader2)
+        ''Dim struct2 As New StructLabelAndRowSeparator()
+        ''struct2.Cellbox = textRowHeader2
+        ''struct2.BottomBar = PictureBox2a
+        ''.Add(2, struct2)
 
-            mod_listTextboxesByRow.Add(3, textRowHeader3)
-            Dim struct3 As New StructLabelAndRowSeparator()
-            struct3.Cellbox = textRowHeader3
-            struct3.BottomBar = PictureBox3a
-            .Add(3, struct3)
+        mod_listTextboxesByRow.Add(3, textRowHeader3)
+        ''Dim struct3 As New StructLabelAndRowSeparator()
+        ''struct3.Cellbox = textRowHeader3
+        ''struct3.BottomBar = PictureBox3a
+        ''.Add(3, struct3)
 
-            ''
-            '' 4, 5, 6
-            ''
-            mod_listTextboxesByRow.Add(4, textRowHeader4)
-            Dim struct4 As New StructLabelAndRowSeparator()
-            struct4.Cellbox = textRowHeader4
-            struct4.BottomBar = PictureBox4a
-            .Add(4, struct4)
+        ''
+        '' 4, 5, 6
+        ''
+        mod_listTextboxesByRow.Add(4, textRowHeader4)
+        ''Dim struct4 As New StructLabelAndRowSeparator()
+        ''struct4.Cellbox = textRowHeader4
+        ''struct4.BottomBar = PictureBox4a
+        ''.Add(4, struct4)
 
-            mod_listTextboxesByRow.Add(5, textRowHeader5)
-            Dim struct5 As New StructLabelAndRowSeparator()
-            struct5.Cellbox = textRowHeader5
-            struct5.BottomBar = PictureBox5a
-            .Add(5, struct5)
+        mod_listTextboxesByRow.Add(5, textRowHeader5)
+        ''Dim struct5 As New StructLabelAndRowSeparator()
+        ''struct5.Cellbox = textRowHeader5
+        ''struct5.BottomBar = PictureBox5a
+        ''.Add(5, struct5)
 
-            mod_listTextboxesByRow.Add(6, textRowHeader6)
-            Dim struct6 As New StructLabelAndRowSeparator()
-            struct6.Cellbox = textRowHeader6
-            struct6.BottomBar = PictureBox6a
-            .Add(6, struct6)
+        mod_listTextboxesByRow.Add(6, textRowHeader6)
+        ''Dim struct6 As New StructLabelAndRowSeparator()
+        ''struct6.Cellbox = textRowHeader6
+        ''struct6.BottomBar = PictureBox6a
+        ''.Add(6, struct6)
 
-            ''
-            '' 7, 8, 9
-            ''
-            mod_listTextboxesByRow.Add(7, textRowHeader7)
-            Dim struct7 As New StructLabelAndRowSeparator()
-            struct7.Cellbox = textRowHeader7
-            struct7.BottomBar = PictureBox7a
-            .Add(7, struct7)
+        ''
+        '' 7, 8, 9
+        ''
+        mod_listTextboxesByRow.Add(7, textRowHeader7)
+        ''Dim struct7 As New StructLabelAndRowSeparator()
+        ''struct7.Cellbox = textRowHeader7
+        ''struct7.BottomBar = PictureBox7a
+        ''.Add(7, struct7)
 
-            mod_listTextboxesByRow.Add(8, textRowHeader8)
-            Dim struct8 As New StructLabelAndRowSeparator()
-            struct8.Cellbox = textRowHeader8
-            struct8.BottomBar = PictureBox8a
-            .Add(8, struct8)
+        mod_listTextboxesByRow.Add(8, textRowHeader8)
+        ''Dim struct8 As New StructLabelAndRowSeparator()
+        ''struct8.Cellbox = textRowHeader8
+        ''struct8.BottomBar = PictureBox8a
+        ''.Add(8, struct8)
 
-            mod_listTextboxesByRow.Add(9, textRowHeader9)
-            Dim struct9 As New StructLabelAndRowSeparator()
-            struct9.Cellbox = textRowHeader9
-            struct9.BottomBar = PictureBox9a
-            .Add(9, struct9)
+        mod_listTextboxesByRow.Add(9, textRowHeader9)
+        ''Dim struct9 As New StructLabelAndRowSeparator()
+        ''struct9.Cellbox = textRowHeader9
+        ''struct9.BottomBar = PictureBox9a
+        ''.Add(9, struct9)
 
-            ''
-            '' 10, 11, 12
-            ''
-            mod_listTextboxesByRow.Add(10, textRowHeader10)
-            Dim struct10 As New StructLabelAndRowSeparator()
-            struct10.Cellbox = textRowHeader10
-            struct10.BottomBar = PictureBox10a
-            .Add(10, struct10)
+        ''
+        '' 10, 11, 12
+        ''
+        mod_listTextboxesByRow.Add(10, textRowHeader10)
+        ''Dim struct10 As New StructLabelAndRowSeparator()
+        ''struct10.Cellbox = textRowHeader10
+        ''struct10.BottomBar = PictureBox10a
+        ''.Add(10, struct10)
 
-            mod_listTextboxesByRow.Add(11, textRowHeader11)
-            Dim struct11 As New StructLabelAndRowSeparator()
-            struct11.Cellbox = textRowHeader11
-            struct11.BottomBar = PictureBox11a
-            .Add(11, struct11)
+        mod_listTextboxesByRow.Add(11, textRowHeader11)
+        ''Dim struct11 As New StructLabelAndRowSeparator()
+        ''struct11.Cellbox = textRowHeader11
+        ''struct11.BottomBar = PictureBox11a
+        ''.Add(11, struct11)
 
-            mod_listTextboxesByRow.Add(12, textRowHeader12)
-            Dim struct12 As New StructLabelAndRowSeparator()
-            struct12.Cellbox = textRowHeader12
-            struct12.BottomBar = PictureBox12a
-            .Add(12, struct12)
+        mod_listTextboxesByRow.Add(12, textRowHeader12)
+        ''Dim struct12 As New StructLabelAndRowSeparator()
+        ''struct12.Cellbox = textRowHeader12
+        ''struct12.BottomBar = PictureBox12a
+        ''.Add(12, struct12)
 
-            ''
-            '' 13, 14, 15
-            ''
-            mod_listTextboxesByRow.Add(13, textRowHeader13)
-            Dim struct13 As New StructLabelAndRowSeparator()
-            struct13.Cellbox = textRowHeader13
-            struct13.BottomBar = PictureBox13a
-            .Add(13, struct13)
+        ''
+        '' 13, 14, 15
+        ''
+        mod_listTextboxesByRow.Add(13, textRowHeader13)
+        ''Dim struct13 As New StructLabelAndRowSeparator()
+        ''struct13.Cellbox = textRowHeader13
+        ''struct13.BottomBar = PictureBox13a
+        ''.Add(13, struct13)
 
-            mod_listTextboxesByRow.Add(14, textRowHeader14)
-            Dim struct14 As New StructLabelAndRowSeparator()
-            struct14.Cellbox = textRowHeader14
-            struct14.BottomBar = PictureBox14a
-            .Add(14, struct14)
+        mod_listTextboxesByRow.Add(14, textRowHeader14)
+        ''Dim struct14 As New StructLabelAndRowSeparator()
+        ''struct14.Cellbox = textRowHeader14
+        ''struct14.BottomBar = PictureBox14a
+        ''.Add(14, struct14)
 
-            mod_listTextboxesByRow.Add(15, textRowHeader15)
-            Dim struct15 As New StructLabelAndRowSeparator()
-            struct15.Cellbox = textRowHeader15
-            struct15.BottomBar = PictureBox15a
-            .Add(15, struct15)
+        mod_listTextboxesByRow.Add(15, textRowHeader15)
+        ''Dim struct15 As New StructLabelAndRowSeparator()
+        ''struct15.Cellbox = textRowHeader15
+        ''struct15.BottomBar = PictureBox15a
+        ''.Add(15, struct15)
 
-            ''
-            '' 16, 17, 18
-            ''
-            mod_listTextboxesByRow.Add(16, textRowHeader16)
-            Dim struct16 As New StructLabelAndRowSeparator()
-            struct16.Cellbox = textRowHeader16
-            struct16.BottomBar = PictureBox16a
-            .Add(16, struct16)
+        ''
+        '' 16, 17, 18
+        ''
+        mod_listTextboxesByRow.Add(16, textRowHeader16)
+        ''Dim struct16 As New StructLabelAndRowSeparator()
+        ''struct16.Cellbox = textRowHeader16
+        ''struct16.BottomBar = PictureBox16a
+        ''.Add(16, struct16)
 
-            mod_listTextboxesByRow.Add(17, textRowHeader17)
-            Dim struct17 As New StructLabelAndRowSeparator()
-            struct17.Cellbox = textRowHeader17
-            struct17.BottomBar = PictureBox17a
-            .Add(17, struct17)
+        mod_listTextboxesByRow.Add(17, textRowHeader17)
+        ''Dim struct17 As New StructLabelAndRowSeparator()
+        ''struct17.Cellbox = textRowHeader17
+        ''struct17.BottomBar = PictureBox17a
+        ''.Add(17, struct17)
 
-            mod_listTextboxesByRow.Add(18, textRowHeader18)
-            Dim struct18 As New StructLabelAndRowSeparator()
-            struct18.Cellbox = textRowHeader18
-            struct18.BottomBar = PictureBox18a
-            .Add(18, struct18)
+        mod_listTextboxesByRow.Add(18, textRowHeader18)
+        ''Dim struct18 As New StructLabelAndRowSeparator()
+        ''struct18.Cellbox = textRowHeader18
+        ''struct18.BottomBar = PictureBox18a
+        ''.Add(18, struct18)
 
-            ''
-            '' 19
-            ''
-            ''mod_listTextboxesByRow.Add(19, TextBox19a)
-            ''Dim struct19 As New TextboxAndRowSeparator()
-            ''struct19.Cellbox = TextBox19a
-            ''struct19.BottomBar = PictureBox19a
-            ''.Add(19, struct19)
+        ''
+        '' 19
+        ''
+        ''mod_listTextboxesByRow.Add(19, TextBox19a)
+        ''Dim struct19 As New TextboxAndRowSeparator()
+        ''struct19.Cellbox = TextBox19a
+        ''struct19.BottomBar = PictureBox19a
+        ''.Add(19, struct19)
 
-        End With ''End of "With mod_listTextAndBarByRow" 
+        ''April 6, 2022 td ''End With ''End of "With mod_listTextAndBarByRow" 
 
 
     End Sub ''End of ""Public Sub New(par_oParentForm As .....)"
 
 
-    Public Function GetFirstTextbox() As Label ''4/5/2022 TextBox
+    Public Function GetFirstTextbox() As RSCRowHeader ''4/5/2022 TextBox
         ''
         ''Added 4/04/2022 thomas downes
         ''
-        Dim objFirstTextbox As Label ''4/5/2022 TextBox
+        Dim objFirstTextbox As RSCRowHeader ''4/5/2022 TextBox
         objFirstTextbox = ListOfTextboxes_TopToBottom().First()
         Return objFirstTextbox
 
     End Function ''End of ""Public Function GetFirstTextbox() As TextBox""
 
 
-    Public Function GetBottomBarForRow() As PictureBox
-        ''
-        ''Added 4/05/2022 td
-        ''
-        Dim objNewPicturebox As New PictureBox ''Added 3/29/2022 thomas downes
-        Dim objTopBottomBar As PictureBox
+    ''Public Function GetBottomBarForRow() As PictureBox
+    ''    ''
+    ''    ''Added 4/05/2022 td
+    ''    ''
+    ''    Dim objNewPicturebox As New PictureBox ''Added 3/29/2022 thomas downes
+    ''    Dim objTopBottomBar As PictureBox
 
-        objTopBottomBar = mod_listTextAndBarByRow(1).BottomBar
+    ''    objTopBottomBar = mod_listTextAndBarByRow(1).BottomBar
 
-        With objNewPicturebox
-            .Left = objTopBottomBar.Left
-            .Width = objTopBottomBar.Width
-            .Height = objTopBottomBar.Height
-            .Anchor = objTopBottomBar.Anchor
-            .BackColor = objTopBottomBar.BackColor
-            .ForeColor = objTopBottomBar.ForeColor
-            .BorderStyle = objTopBottomBar.BorderStyle
-            .Font = objTopBottomBar.Font
-            ''---.Top = (textbox_BottomLast.Top + intTopGap)
-            .Visible = True
-        End With ''End of ""With objTextbox""
+    ''    With objNewPicturebox
+    ''        .Left = objTopBottomBar.Left
+    ''        .Width = objTopBottomBar.Width
+    ''        .Height = objTopBottomBar.Height
+    ''        .Anchor = objTopBottomBar.Anchor
+    ''        .BackColor = objTopBottomBar.BackColor
+    ''        .ForeColor = objTopBottomBar.ForeColor
+    ''        .BorderStyle = objTopBottomBar.BorderStyle
+    ''        .Font = objTopBottomBar.Font
+    ''        ''---.Top = (textbox_BottomLast.Top + intTopGap)
+    ''        .Visible = True
+    ''    End With ''End of ""With objTextbox""
 
-        Return objNewPicturebox ''Oops!! Forgot this. ---4/05/2022 td
+    ''    Return objNewPicturebox ''Oops!! Forgot this. ---4/05/2022 td
 
-    End Function ''End of ""Public Function GetBottomBarForRow()""
+    ''End Function ''End of ""Public Function GetBottomBarForRow()""
 
 
     Public Sub AlignControlsWithSpreadsheet(par_controlColumnOne As RSCFieldColumn)
@@ -432,7 +432,7 @@ Public Class RSCRowHeaders
         ''March25 2022''Dim objColumnOne As RSCFieldColumn
         Dim listBoxesColumn1 As List(Of TextBox)
         ''4/5/2022 td ''Dim listBoxesRowHdrs As List(Of TextBox)
-        Dim listBoxesRowHdrs As List(Of Label)
+        Dim listBoxesRowHdrs As List(Of RSCRowHeader)
         Dim listVisualBarsColumn1 As List(Of PictureBox)
         Dim listVisualBarsRowHdrs As List(Of PictureBox)
 
@@ -454,59 +454,54 @@ Public Class RSCRowHeaders
     End Sub ''End of ""Public Sub AlignControlsWithSpreadsheet()""
 
 
-    Public Sub AlignBottomBars_WithColumnOne(par_controlColumnOne As RSCFieldColumn)
-        ''
-        ''Added 3/26/2022 thomas Downes 
-        ''
-        ''Dim listBoxesColumn1 As List(Of TextBox)
-        ''Dim listBoxesRowHdrs As List(Of TextBox)
-        Dim listVisualBarsColumn1 As List(Of PictureBox)
-        Dim listVisualBarsRowHdrs As List(Of PictureBox)
+    ''Public Sub AlignBottomBars_WithColumnOne(par_controlColumnOne As RSCFieldColumn)
+    ''    ''
+    ''    ''Added 3/26/2022 thomas Downes 
+    ''    ''
+    ''    ''Dim listBoxesColumn1 As List(Of TextBox)
+    ''    ''Dim listBoxesRowHdrs As List(Of TextBox)
+    ''    Dim listVisualBarsColumn1 As List(Of PictureBox)
+    ''    Dim listVisualBarsRowHdrs As List(Of PictureBox)
 
-        ''listBoxesColumn1 = par_controlColumnOne.ListOfTextboxes_TopToBottom()
-        ''listBoxesRowHdrs = ListOfTextboxes_TopToBottom()
-        listVisualBarsColumn1 = par_controlColumnOne.ListOfBottomBars_TopToBottom()
-        listVisualBarsRowHdrs = ListOfBottomBars_TopToBottom()
+    ''    ''listBoxesColumn1 = par_controlColumnOne.ListOfTextboxes_TopToBottom()
+    ''    ''listBoxesRowHdrs = ListOfTextboxes_TopToBottom()
+    ''    listVisualBarsColumn1 = par_controlColumnOne.ListOfBottomBars_TopToBottom()
+    ''    listVisualBarsRowHdrs = ListOfBottomBars_TopToBottom()
 
-        ''Major call....
-        AlignBottomBars(listVisualBarsColumn1, listVisualBarsRowHdrs, par_controlColumnOne)
-
-    End Sub ''End of "Public Sub AlignBottomBars_WithColumnOne()"
-
-
-    Public Sub AlignTextBoxes_ToBottomBars(par_controlColumnOne As RSCFieldColumn)
-        ''
-        ''Added 3/26/2022 thomas Downes 
-        ''
-        Dim listBoxesColumn1 As List(Of TextBox)
-        ''4/5/2022 Dim listBoxesRowHdrs As List(Of TextBox)
-        Dim listBoxesRowHdrs As List(Of Label)
-        Dim listVisualBarsColumn1 As List(Of PictureBox)
-        Dim listVisualBarsRowHdrs As List(Of PictureBox)
-
-        listBoxesColumn1 = par_controlColumnOne.ListOfTextboxes_TopToBottom()
-        listBoxesRowHdrs = ListOfTextboxes_TopToBottom()
-        listVisualBarsColumn1 = par_controlColumnOne.ListOfBottomBars_TopToBottom()
-        listVisualBarsRowHdrs = ListOfBottomBars_TopToBottom()
+    ''    ''Major call....
+    ''    AlignBottomBars(listVisualBarsColumn1, listVisualBarsRowHdrs, par_controlColumnOne)
+    ''End Sub ''End of "Public Sub AlignBottomBars_WithColumnOne()"
 
 
-
-    End Sub ''End of "Public Sub AlignTextBoxes_ToBottomBars()"
+    ''Public Sub AlignTextBoxes_ToBottomBars(par_controlColumnOne As RSCFieldColumn)
+    ''    ''
+    ''    ''Added 3/26/2022 thomas Downes 
+    ''    ''
+    ''    Dim listBoxesColumn1 As List(Of TextBox)
+    ''    ''4/5/2022 Dim listBoxesRowHdrs As List(Of TextBox)
+    ''    Dim listBoxesRowHdrs As List(Of RSCRowHeader)
+    ''    Dim listVisualBarsColumn1 As List(Of PictureBox)
+    ''    Dim listVisualBarsRowHdrs As List(Of PictureBox)
+    ''    listBoxesColumn1 = par_controlColumnOne.ListOfTextboxes_TopToBottom()
+    ''    listBoxesRowHdrs = ListOfTextboxes_TopToBottom()
+    ''    listVisualBarsColumn1 = par_controlColumnOne.ListOfBottomBars_TopToBottom()
+    ''    listVisualBarsRowHdrs = ListOfBottomBars_TopToBottom()
+    ''End Sub ''End of "Public Sub AlignTextBoxes_ToBottomBars()"
 
 
 
     Private Sub AlignTextboxes(par_listBoxesColumn As IEnumerable(Of TextBox),
-                               par_listBoxesRowHdrs As IEnumerable(Of Label))
+                               par_listBoxesRowHdrs As IEnumerable(Of RSCRowHeader))
         ''
         ''Added 3/24/2022 thomas d.  
         ''
         ''---For Each eachColumnBox As TextBox In par_listBoxesColumn
         Dim eachBoxColumn As TextBox
-        Dim eachBoxHeader As Label ''April 5, 2022 TextBox
+        Dim eachBoxHeader As RSCRowHeader ''April 5, 2022 TextBox
 
         Dim TopBoxColumn As TextBox ''Addded 3/25/2022 td
         ''4/5/2022 Dim TopBoxHeader As TextBox ''Added 3/25/2022 td
-        Dim TopBoxHeader As Label ''4/5/2022 As TextBox ''Added 3/25/2022 td
+        Dim TopBoxHeader As RSCRowHeader ''4/5/2022 As TextBox ''Added 3/25/2022 td
         Dim boolSkipTopBox As Boolean
 
         TopBoxColumn = par_listBoxesColumn(0) ''Added 3/25/2022 td
@@ -567,88 +562,88 @@ Public Class RSCRowHeaders
     End Sub ''End of "Private Sub AlignTextboxes"
 
 
-    Private Sub AlignBottomBars(par_listBottomBarsColumn1 As IEnumerable(Of PictureBox),
-                               par_listBottomBarsRowHdrs As IEnumerable(Of PictureBox),
-                                par_RSCFieldColumn1 As RSCFieldColumn)
-        ''
-        ''Added 3/24/2022 thomas d.  
-        ''
-        ''  The "Bottom Bars" ("Visual Bars") are the black-backcolor picture boxes which are
-        ''  very "landscape"-shaped, i.e. are very wide and very short (less than 5 pixels high).
-        ''  They are purely visual, i.e. only serve to create visually-obvious "rows" in the
-        ''  spreadsheet.----3/25/2022
-        ''
-        ''---For Each eachColumnBox As TextBox In par_listBoxesColumn
-        Dim eachBarColumn As PictureBox
-        Dim eachBarHeader As PictureBox
-        Dim TopBarColumn As PictureBox ''Addded 3/25/2022 td
-        Dim TopBarHeader As PictureBox ''Added 3/25/2022 td
-        Dim boolSkipTopBar As Boolean ''Added 3/25/2022 td
+    ''Private Sub AlignBottomBars(par_listBottomBarsColumn1 As IEnumerable(Of PictureBox),
+    ''                           par_listBottomBarsRowHdrs As IEnumerable(Of PictureBox),
+    ''                            par_RSCFieldColumn1 As RSCFieldColumn)
+    ''    ''
+    ''    ''Added 3/24/2022 thomas d.  
+    ''    ''
+    ''    ''  The "Bottom Bars" ("Visual Bars") are the black-backcolor picture boxes which are
+    ''    ''  very "landscape"-shaped, i.e. are very wide and very short (less than 5 pixels high).
+    ''    ''  They are purely visual, i.e. only serve to create visually-obvious "rows" in the
+    ''    ''  spreadsheet.----3/25/2022
+    ''    ''
+    ''    ''---For Each eachColumnBox As TextBox In par_listBoxesColumn
+    ''    Dim eachBarColumn As PictureBox
+    ''    Dim eachBarHeader As PictureBox
+    ''    Dim TopBarColumn As PictureBox ''Addded 3/25/2022 td
+    ''    Dim TopBarHeader As PictureBox ''Added 3/25/2022 td
+    ''    Dim boolSkipTopBar As Boolean ''Added 3/25/2022 td
 
-        TopBarColumn = par_listBottomBarsColumn1(0) ''Added 3/25/2022 td
-        TopBarHeader = par_listBottomBarsRowHdrs(0) ''Added 3/25/2022 td
+    ''    TopBarColumn = par_listBottomBarsColumn1(0) ''Added 3/25/2022 td
+    ''    TopBarHeader = par_listBottomBarsRowHdrs(0) ''Added 3/25/2022 td
 
-        ''
-        ''Step 1 of 2.  Address the Initial Gap. 
-        ''
-        ''Added 3/25/2022
-        Dim intLocationVertical_1stBarInColumn As Integer
-        Dim intLocationVertical_1stBarInRowHdrsCtl As Integer
-        Dim intInitialGap As Integer
+    ''    ''
+    ''    ''Step 1 of 2.  Address the Initial Gap. 
+    ''    ''
+    ''    ''Added 3/25/2022
+    ''    Dim intLocationVertical_1stBarInColumn As Integer
+    ''    Dim intLocationVertical_1stBarInRowHdrsCtl As Integer
+    ''    Dim intInitialGap As Integer
 
-        intLocationVertical_1stBarInColumn = par_RSCFieldColumn1.Top + TopBarColumn.Top
-        intLocationVertical_1stBarInRowHdrsCtl = Me.Top + TopBarHeader.Top
-        intInitialGap = (intLocationVertical_1stBarInColumn -
-                          intLocationVertical_1stBarInRowHdrsCtl)
-        Me.Top += intInitialGap
+    ''    intLocationVertical_1stBarInColumn = par_RSCFieldColumn1.Top + TopBarColumn.Top
+    ''    intLocationVertical_1stBarInRowHdrsCtl = Me.Top + TopBarHeader.Top
+    ''    intInitialGap = (intLocationVertical_1stBarInColumn -
+    ''                      intLocationVertical_1stBarInRowHdrsCtl)
+    ''    Me.Top += intInitialGap
 
-        ''
-        ''Step 2 of 2. Loop through the rows
-        ''
-        boolSkipTopBar = True
-        For intBoxIndex As Integer = 0 To (-1 + par_listBottomBarsColumn1.Count)
+    ''    ''
+    ''    ''Step 2 of 2. Loop through the rows
+    ''    ''
+    ''    boolSkipTopBar = True
+    ''    For intBoxIndex As Integer = 0 To (-1 + par_listBottomBarsColumn1.Count)
 
-            eachBarColumn = Nothing
-            eachBarHeader = Nothing
+    ''        eachBarColumn = Nothing
+    ''        eachBarHeader = Nothing
 
-            ''Added 4/5/2022 thomas 
-            Load_OneEmptyRow_IfNeeded(intBoxIndex)
+    ''        ''Added 4/5/2022 thomas 
+    ''        Load_OneEmptyRow_IfNeeded(intBoxIndex)
 
-            Try
-                eachBarColumn = par_listBottomBarsColumn1(intBoxIndex)
-            Catch
-            End Try
+    ''        Try
+    ''            eachBarColumn = par_listBottomBarsColumn1(intBoxIndex)
+    ''        Catch
+    ''        End Try
 
-            Try
-                eachBarHeader = par_listBottomBarsRowHdrs(intBoxIndex)
-            Catch
-            End Try
+    ''        Try
+    ''            eachBarHeader = par_listBottomBarsRowHdrs(intBoxIndex)
+    ''        Catch
+    ''        End Try
 
-            If (eachBarHeader Is Nothing And eachBarColumn Is Nothing) Then
-                Exit For
-            ElseIf (eachBarColumn Is Nothing) Then
-                ''Exit Sub
-                Throw New Exception("There are more row headers than (column #1's) rows.")
+    ''        If (eachBarHeader Is Nothing And eachBarColumn Is Nothing) Then
+    ''            Exit For
+    ''        ElseIf (eachBarColumn Is Nothing) Then
+    ''            ''Exit Sub
+    ''            Throw New Exception("There are more row headers than (column #1's) rows.")
 
-            ElseIf (eachBarHeader Is Nothing) Then
-                ''Exit Sub
-                Throw New Exception("There are more rows than row headers.")
+    ''        ElseIf (eachBarHeader Is Nothing) Then
+    ''            ''Exit Sub
+    ''            Throw New Exception("There are more rows than row headers.")
 
-            ElseIf (boolSkipTopBar) Then
-                eachBarHeader.Height = eachBarColumn.Height
-                eachBarHeader.Top = (eachBarColumn.Top - TopBarColumn.Top) +
-                                       TopBarHeader.Top
+    ''        ElseIf (boolSkipTopBar) Then
+    ''            eachBarHeader.Height = eachBarColumn.Height
+    ''            eachBarHeader.Top = (eachBarColumn.Top - TopBarColumn.Top) +
+    ''                                   TopBarHeader.Top
 
-            Else
-                eachBarHeader.Top = eachBarColumn.Top
-                eachBarHeader.Height = eachBarColumn.Height
+    ''        Else
+    ''            eachBarHeader.Top = eachBarColumn.Top
+    ''            eachBarHeader.Height = eachBarColumn.Height
 
-            End If
+    ''        End If
 
-        Next intBoxIndex
+    ''    Next intBoxIndex
 
-        ''---Next eachColumnBox
-    End Sub ''End of "Private Sub AlignBottomBars"
+    ''    ''---Next eachColumnBox
+    ''End Sub ''End of "Private Sub AlignBottomBars"
 
 
     Public Sub Load_OneEmptyRow_IfNeeded(par_intRowIndex As Integer,
@@ -679,26 +674,26 @@ Public Class RSCRowHeaders
         ''
         ''Create the required textbox. 
         ''
-        Dim objTextbox As Label ''4/5/2022 TextBox ''4/4/2022 td''New TextBox ''Added 3/29/2022 thomas downes
-        Dim objBottomBar As PictureBox ''Added 4/5/2022 thomas downes
+        Dim objTextbox As RSCRowHeader ''4/5/2022 TextBox ''4/4/2022 td''New TextBox ''Added 3/29/2022 thomas downes
+        ''Dim objBottomBar As PictureBox ''Added 4/5/2022 thomas downes
 
         If (bRowIndexLocated) Then
             objTextbox = mod_listTextboxesByRow.Item(par_intRowIndex)
-            objBottomBar = mod_listTextAndBarByRow.Item(par_intRowIndex).BottomBar
+            ''objBottomBar = mod_listTextAndBarByRow.Item(par_intRowIndex).BottomBar
         Else
             ''4/4/2022 td''Dim objTextbox As New TextBox ''Added 3/29/2022 thomas downes
-            objTextbox = New Label ''4/5/2022 TextBox ''Added 3/29/2022 thomas downes
+            objTextbox = New RSCRowHeader ''4/5/2022 TextBox ''Added 3/29/2022 thomas downes
             mod_listTextboxesByRow.Add(par_intRowIndex, objTextbox)
-            objBottomBar = GetBottomBarForRow()
-            Dim new_struct As New StructLabelAndRowSeparator
-            new_struct.BottomBar = objBottomBar
-            new_struct.Cellbox = objTextbox
-            mod_listTextAndBarByRow.Item(par_intRowIndex) = new_struct
+            ''objBottomBar = GetBottomBarForRow()
+            ''Dim new_struct As New StructLabelAndRowSeparator
+            ''new_struct.BottomBar = objBottomBar
+            ''new_struct.Cellbox = objTextbox
+            ''mod_listTextAndBarByRow.Item(par_intRowIndex) = new_struct
 
         End If ''End of ""If (bRowIndexLocated) Then... Else..."
 
         ''4/5/2022 Dim textbox_Top As TextBox
-        Dim textbox_Top As Label
+        Dim textbox_Top As RSCRowHeader
         textbox_Top = Me.GetFirstTextbox()
         With objTextbox
             .Left = textbox_Top.Left
@@ -716,7 +711,7 @@ Public Class RSCRowHeaders
             .Text = par_intRowIndex.ToString() ''Added 4/6/2022 thomas downes
 
             ''Bottom  row-related horizontal line (below each textbox).
-            objBottomBar.Top = .Top + .Height + 1
+            ''objBottomBar.Top = .Top + .Height + 1
 
         End With ''End of ""With objTextbox""
 
@@ -725,15 +720,15 @@ Public Class RSCRowHeaders
             ''Textbox is already one of the controls on the form. ---4/4/2022
         Else
             Me.Controls.Add(objTextbox)
-            Me.Controls.Add(objBottomBar)
+            ''Me.Controls.Add(objBottomBar)
         End If ''End of ""If (bRowIndexLocated) Then... Else ..."
 
         ''4/5/2022 Dim textbox_BottomLast As TextBox
-        Dim textbox_BottomLast As Label
+        Dim textbox_BottomLast As RSCRowHeader
         ''Me.Height = (objTextbox.Top + objTextbox.Height + intTopGap)
 
         ''4/5/2022 td''Dim listOfBoxes As List(Of TextBox)
-        Dim listOfBoxes As List(Of Label)
+        Dim listOfBoxes As List(Of RSCRowHeader)
         listOfBoxes = ListOfTextboxes_TopToBottom()
         textbox_BottomLast = listOfBoxes(-1 + listOfBoxes.Count) ''.LastOrDefault
         Me.Height = (textbox_BottomLast.Top + textbox_BottomLast.Height +
@@ -780,10 +775,10 @@ Public Class RSCRowHeaders
         ''Added 3/29/2022 thomas downes
         ''
         ''4/5/2022 td ''Dim listOfBoxes As List(Of TextBox)
-        Dim listOfBoxes As List(Of Label)
-        Dim textbox_Top As Label ''4/5/2022 td ''TextBox
-        Dim textbox_BottomLast As Label ''4/5/2022 td ''TextBox
-        Dim textbox_BottomDeux As Label ''4/5/2022 td ''TextBox
+        Dim listOfBoxes As List(Of RSCRowHeader)
+        Dim textbox_Top As RSCRowHeader ''4/5/2022 td ''TextBox
+        Dim textbox_BottomLast As RSCRowHeader ''4/5/2022 td ''TextBox
+        Dim textbox_BottomDeux As RSCRowHeader ''4/5/2022 td ''TextBox
         Dim intIndexStart As Integer
         Dim intIndex__End As Integer
         Dim intTopGap As Integer
@@ -838,20 +833,20 @@ Public Class RSCRowHeaders
 
 
 
-    Public Function ListOfTextboxes_TopToBottom(Optional par_noSorting As Boolean = False) As List(Of Label) ''IOrderedEnumerable(Of TextBox)
+    Public Function ListOfTextboxes_TopToBottom(Optional par_noSorting As Boolean = False) As List(Of RSCRowHeader) ''IOrderedEnumerable(Of TextBox)
         ''
         ''Added 3/19/2022 td
         ''
-        Dim objListOfTextboxes As New List(Of Label) ''4/5/2022 TextBox)
+        Dim objListOfTextboxes As New List(Of RSCRowHeader) ''4/5/2022 TextBox)
         ''Dim objListOfTextboxes_Ordered ''As New IOrderedEnumerable(Of(Of TextBox)
 
         For Each eachCtl As Control In Me.Controls
             ''4/5/2022 If (TypeOf eachCtl Is TextBox) Then
-            If (TypeOf eachCtl Is Label) Then
+            If (TypeOf eachCtl Is RSCRowHeader) Then
                 ''Strangely, .Visible is False???? 3/25/2022 td''If (eachCtl.Visible) Then
-                objListOfTextboxes.Add(CType(eachCtl, Label)) ''4/5/2022 TextBox))
+                objListOfTextboxes.Add(CType(eachCtl, RSCRowHeader)) ''4/5/2022 TextBox))
                 ''End If
-            End If ''End of "If (TypeOf eachCtl Is Label) Then"
+            End If ''End of "If (TypeOf eachCtl Is RSCRowHeader) Then"
         Next eachCtl ''End of ""For Each eachCtl As Control In Me.Controls""
 
         ''
@@ -866,7 +861,7 @@ Public Class RSCRowHeaders
         If (par_noSorting) Then Return objListOfTextboxes
 
         ''4/5/2022 Dim objListOfTextboxes_Ordered As List(Of TextBox)
-        Dim objListOfTextboxes_Ordered As List(Of Label) ''4/5/2022 TextBox)
+        Dim objListOfTextboxes_Ordered As List(Of RSCRowHeader) ''4/5/2022 TextBox)
         objListOfTextboxes_Ordered = objListOfTextboxes.OrderBy(Of Integer)(Function(a) a.Top).ToList()
 
         Return objListOfTextboxes_Ordered
@@ -907,9 +902,9 @@ Public Class RSCRowHeaders
 
     End Function ''End of "Public Function ListOfBars_TopToBottom() As IOrderedEnumerable(Of PictureBox)"
 
-    Private Sub PictureBox8_Click(sender As Object, e As EventArgs) Handles PictureBox2a.Click
+    ''Private Sub PictureBox8_Click(sender As Object, e As EventArgs) Handles PictureBox2a.Click
 
-    End Sub
+    ''End Sub
 
     Private Sub HeaderBox_MouseUp(sender As Object, par_eArgs As MouseEventArgs) _
         Handles textRowHeader1.MouseUp, textRowHeader2.MouseUp, textRowHeader3.MouseUp,

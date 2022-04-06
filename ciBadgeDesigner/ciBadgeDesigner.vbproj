@@ -257,10 +257,22 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ControlsRSC\RSCInterfaceMouseEvents.vb" />
+    <Compile Include="ControlsRSC\RSCRowHeader.Designer.vb">
+      <DependentUpon>RSCRowHeader.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ControlsRSC\RSCRowHeader.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ControlsRSC\RSCRowHeaders.Designer.vb">
       <DependentUpon>RSCRowHeaders.vb</DependentUpon>
     </Compile>
     <Compile Include="ControlsRSC\RSCRowHeaders.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ControlsRSC\RSCRowHeaders_Test.Designer.vb">
+      <DependentUpon>RSCRowHeaders_Test.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ControlsRSC\RSCRowHeaders_Test.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Dialogs\DialogDisplayColor.Designer.vb">
@@ -486,8 +498,14 @@
     <EmbeddedResource Include="ControlsRSC\RSCFieldColumn.resx">
       <DependentUpon>RSCFieldColumn.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ControlsRSC\RSCRowHeader.resx">
+      <DependentUpon>RSCRowHeader.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ControlsRSC\RSCRowHeaders.resx">
       <DependentUpon>RSCRowHeaders.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControlsRSC\RSCRowHeaders_Test.resx">
+      <DependentUpon>RSCRowHeaders_Test.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\DialogDisplayColor.resx">
       <DependentUpon>DialogDisplayColor.vb</DependentUpon>
