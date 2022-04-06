@@ -249,6 +249,7 @@
     </Compile>
     <Compile Include="ControlsRSC\ClassColumnWidthAndData.vb" />
     <Compile Include="ControlsRSC\CacheRSCFieldColumnWidthsEtc.vb" />
+    <Compile Include="ControlsRSC\ModuleStructRSC.vb" />
     <Compile Include="ControlsRSC\RSCFieldColumn.designer.vb">
       <DependentUpon>RSCFieldColumn.vb</DependentUpon>
     </Compile>

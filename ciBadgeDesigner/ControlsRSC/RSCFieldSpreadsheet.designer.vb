@@ -61,6 +61,7 @@ Partial Class RSCFieldSpreadsheet
         Me.RscFieldColumn1.MoveabilityEventsForGroupCtls = Nothing
         Me.RscFieldColumn1.MoveabilityEventsForSingleMove = Nothing
         Me.RscFieldColumn1.Name = "RscFieldColumn1"
+        Me.RscFieldColumn1.PixelsFromRowToRow = 24
         Me.RscFieldColumn1.Size = New System.Drawing.Size(198, 555)
         Me.RscFieldColumn1.TabIndex = 9
         '
@@ -75,6 +76,7 @@ Partial Class RSCFieldSpreadsheet
         Me.RscRowHeaders1.MoveabilityEventsForGroupCtls = Nothing
         Me.RscRowHeaders1.MoveabilityEventsForSingleMove = Nothing
         Me.RscRowHeaders1.Name = "RscRowHeaders1"
+        Me.RscRowHeaders1.PixelsFromRowToRow = 24
         Me.RscRowHeaders1.Size = New System.Drawing.Size(94, 437)
         Me.RscRowHeaders1.TabIndex = 8
         '
@@ -82,6 +84,7 @@ Partial Class RSCFieldSpreadsheet
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScroll = True
         Me.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.Controls.Add(Me.RscFieldColumn1)
         Me.Controls.Add(Me.RscRowHeaders1)

@@ -27,6 +27,7 @@ Public Class RSCFieldSpreadsheet
     Private Const mc_ColumnWidthDefault As Integer = 150 ''72 ''Added 3/20/2022 td
     Private Const mc_ColumnMarginGap As Integer = 3 ''---4 ''Added 3/20/2022 td
     Private Const mod_intRscFieldColumn1_Top As Integer = 19 ''Added 4/3/2022 thomas downes
+    Private Const mc_intPixelsFromRowToRow As Integer = 24 ''Added 4/05/2022 td
 
 
     Public Function RSCFieldColumn_Leftmost() As RSCFieldColumn
@@ -339,9 +340,20 @@ Public Class RSCFieldSpreadsheet
             Dim bColumnHasNoField As Boolean
             Dim bListHasNoRecipients As Boolean
             Dim list_columns As List(Of RSCFieldColumn)
+            Dim intNumberOfRecipients As Integer ''Added 4/5/2022
 
             list_columns = ListOfColumns() ''Added 3/30/2022 thomas d. 
 
+            ''Added 4/5/2022 td
+            ''
+            ''Create row headers. 
+            ''
+            intNumberOfRecipients = Me.RecipientsCache.ListOfRecipients.Count
+            RscRowHeaders1.Load_EmptyRows(intNumberOfRecipients)
+
+            ''
+            ''Fill each of the columns. 
+            ''
             For Each each_column As RSCFieldColumn In list_columns ''March30 2022 td''Me.ListOfColumns()
 
                 ''Added 3/29/2022 thomas d.
@@ -482,6 +494,7 @@ Public Class RSCFieldSpreadsheet
         ''---RscRowHeaders1.Anchor = CType((AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Right), AnchorStyles)
         intNextPropertyLeft += (RscRowHeaders1.Width + mc_ColumnMarginGap)
         ''Assigned within the loop below.--3/24/2022 td''intCurrentPropertyLeft = intNextPropertyLeft
+        RscRowHeaders1.PixelsFromRowToRow = mc_intPixelsFromRowToRow ''Added 4/5/2022
 
         ''
         ''Step 2 of 5.  Load run- time columns. 
@@ -678,7 +691,8 @@ Public Class RSCFieldSpreadsheet
         ''
         ''3/25/2022 td''RscRowHeaders1.AlignControlsWithSpreadsheet()
         Dim listBoxesColumn As List(Of TextBox)
-        Dim listBoxesRowHeader As List(Of TextBox)
+        ''4/5/2022 Dim listBoxesRowHeader As List(Of TextBox)
+        Dim listBoxesRowHeader As List(Of Label)
 
         listBoxesColumn = RscFieldColumn1.ListOfTextboxes_TopToBottom()
         listBoxesRowHeader = RscRowHeaders1.ListOfTextboxes_TopToBottom()
@@ -744,6 +758,9 @@ Public Class RSCFieldSpreadsheet
             ''Oops....3/18/2022 ''eachColumn.ColumnWidthAndData = Me.ColumnDataCache.ListOfColumns(-1 + intNeededMax)
             newRSCColumn_output.ElementsCache_Deprecated = Me.ElementsCache_Deprecated
             newRSCColumn_output.ColumnWidthAndData = Me.ColumnDataCache.ListOfColumns(-1 + p_intIndexCurrent)
+
+            ''Added 4/5/2022
+            .PixelsFromRowToRow = mc_intPixelsFromRowToRow ''Added 4/5/2022
 
         End With ''END OF "With newRSCColumn_output"
 

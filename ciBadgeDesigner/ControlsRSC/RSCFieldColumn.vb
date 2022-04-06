@@ -29,12 +29,29 @@ Public Class RSCFieldColumn
     Private mod_listTextboxesByRow As New Dictionary(Of Integer, TextBox)
 
     ''Added 4/04/2022 thomas downes
-    Private Structure TextboxAndRowSeparator
-        Public Cellbox As TextBox
-        Public BottomBar As PictureBox
-    End Structure
-    Private mod_listTextAndBarByRow As New Dictionary(Of Integer, TextboxAndRowSeparator)
+    ''Private Structure StructTextboxAndRowSeparator
+    ''    Public Cellbox As TextBox
+    ''    Public BottomBar As PictureBox
+    ''End Structure
+    Private mod_listTextAndBarByRow As New Dictionary(Of Integer, StructTextboxAndRowSeparator)
 
+    Private Const mod_c_intPixelsFromRowToRow As Integer = 24 ''Added 4/04/2022 td
+    Private mod_intPixelsFromRowToRow As Integer = 0 ''Added 4/04/2022 td
+
+
+    Public Property PixelsFromRowToRow() As Integer
+        Get
+            ''Added 4/05/2022
+            If (0 = mod_intPixelsFromRowToRow) Then
+                mod_intPixelsFromRowToRow = mod_c_intPixelsFromRowToRow
+            End If
+            Return mod_intPixelsFromRowToRow
+        End Get
+        Set(value As Integer)
+            ''Added 4/05/2022
+            mod_intPixelsFromRowToRow = value
+        End Set
+    End Property
 
     Public Property ColumnWidthAndData() As ClassColumnWidthAndData ''Added 3/15/2022 td
         ''Added 3/18/2022 thomas 
@@ -265,19 +282,19 @@ Public Class RSCFieldColumn
             '' 1, 2, 3
             ''
             mod_listTextboxesByRow.Add(1, Textbox1a)
-            Dim struct1 As New TextboxAndRowSeparator()
+            Dim struct1 As New StructTextboxAndRowSeparator()
             struct1.Cellbox = Textbox1a
             struct1.BottomBar = PictureBox1
             .Add(1, struct1)
 
             mod_listTextboxesByRow.Add(2, TextBox2a)
-            Dim struct2 As New TextboxAndRowSeparator()
+            Dim struct2 As New StructTextboxAndRowSeparator()
             struct2.Cellbox = TextBox2a
             struct2.BottomBar = PictureBox2
             .Add(2, struct2)
 
             mod_listTextboxesByRow.Add(3, TextBox3a)
-            Dim struct3 As New TextboxAndRowSeparator()
+            Dim struct3 As New StructTextboxAndRowSeparator()
             struct3.Cellbox = TextBox3a
             struct3.BottomBar = PictureBox3
             .Add(3, struct3)
@@ -286,19 +303,19 @@ Public Class RSCFieldColumn
             '' 4, 5, 6
             ''
             mod_listTextboxesByRow.Add(4, TextBox4a)
-            Dim struct4 As New TextboxAndRowSeparator()
+            Dim struct4 As New StructTextboxAndRowSeparator()
             struct4.Cellbox = TextBox4a
             struct4.BottomBar = PictureBox4
             .Add(4, struct4)
 
             mod_listTextboxesByRow.Add(5, TextBox5a)
-            Dim struct5 As New TextboxAndRowSeparator()
+            Dim struct5 As New StructTextboxAndRowSeparator()
             struct5.Cellbox = TextBox5a
             struct5.BottomBar = PictureBox5
             .Add(5, struct5)
 
             mod_listTextboxesByRow.Add(6, TextBox6a)
-            Dim struct6 As New TextboxAndRowSeparator()
+            Dim struct6 As New StructTextboxAndRowSeparator()
             struct6.Cellbox = TextBox6a
             struct6.BottomBar = PictureBox6
             .Add(6, struct6)
@@ -307,19 +324,19 @@ Public Class RSCFieldColumn
             '' 7, 8, 9
             ''
             mod_listTextboxesByRow.Add(7, TextBox7a)
-            Dim struct7 As New TextboxAndRowSeparator()
+            Dim struct7 As New StructTextboxAndRowSeparator()
             struct7.Cellbox = TextBox7a
             struct7.BottomBar = PictureBox7
             .Add(7, struct7)
 
             mod_listTextboxesByRow.Add(8, TextBox8a)
-            Dim struct8 As New TextboxAndRowSeparator()
+            Dim struct8 As New StructTextboxAndRowSeparator()
             struct8.Cellbox = TextBox8a
             struct8.BottomBar = PictureBox8a
             .Add(8, struct8)
 
             mod_listTextboxesByRow.Add(9, TextBox9a)
-            Dim struct9 As New TextboxAndRowSeparator()
+            Dim struct9 As New StructTextboxAndRowSeparator()
             struct9.Cellbox = TextBox9a
             struct9.BottomBar = PictureBox9a
             .Add(9, struct9)
@@ -328,19 +345,19 @@ Public Class RSCFieldColumn
             '' 10, 11, 12
             ''
             mod_listTextboxesByRow.Add(10, TextBox10a)
-            Dim struct10 As New TextboxAndRowSeparator()
+            Dim struct10 As New StructTextboxAndRowSeparator()
             struct10.Cellbox = TextBox10a
             struct10.BottomBar = PictureBox10a
             .Add(10, struct10)
 
             mod_listTextboxesByRow.Add(11, TextBox11a)
-            Dim struct11 As New TextboxAndRowSeparator()
+            Dim struct11 As New StructTextboxAndRowSeparator()
             struct11.Cellbox = TextBox11a
             struct11.BottomBar = PictureBox11a
             .Add(11, struct11)
 
             mod_listTextboxesByRow.Add(12, TextBox12a)
-            Dim struct12 As New TextboxAndRowSeparator()
+            Dim struct12 As New StructTextboxAndRowSeparator()
             struct12.Cellbox = TextBox12a
             struct12.BottomBar = PictureBox12a
             .Add(12, struct12)
@@ -349,19 +366,19 @@ Public Class RSCFieldColumn
             '' 13, 14, 15
             ''
             mod_listTextboxesByRow.Add(13, TextBox13a)
-            Dim struct13 As New TextboxAndRowSeparator()
+            Dim struct13 As New StructTextboxAndRowSeparator()
             struct13.Cellbox = TextBox13a
             struct13.BottomBar = PictureBox13a
             .Add(13, struct13)
 
             mod_listTextboxesByRow.Add(14, TextBox14a)
-            Dim struct14 As New TextboxAndRowSeparator()
+            Dim struct14 As New StructTextboxAndRowSeparator()
             struct14.Cellbox = TextBox14a
             struct14.BottomBar = PictureBox14a
             .Add(14, struct14)
 
             mod_listTextboxesByRow.Add(15, TextBox15a)
-            Dim struct15 As New TextboxAndRowSeparator()
+            Dim struct15 As New StructTextboxAndRowSeparator()
             struct15.Cellbox = TextBox15a
             struct15.BottomBar = PictureBox15a
             .Add(15, struct15)
@@ -370,19 +387,19 @@ Public Class RSCFieldColumn
             '' 16, 17, 18
             ''
             mod_listTextboxesByRow.Add(16, TextBox16a)
-            Dim struct16 As New TextboxAndRowSeparator()
+            Dim struct16 As New StructTextboxAndRowSeparator()
             struct16.Cellbox = TextBox16a
             struct16.BottomBar = PictureBox16a
             .Add(16, struct16)
 
             mod_listTextboxesByRow.Add(17, TextBox17a)
-            Dim struct17 As New TextboxAndRowSeparator()
+            Dim struct17 As New StructTextboxAndRowSeparator()
             struct17.Cellbox = TextBox17a
             struct17.BottomBar = PictureBox17a
             .Add(17, struct17)
 
             mod_listTextboxesByRow.Add(18, TextBox18a)
-            Dim struct18 As New TextboxAndRowSeparator()
+            Dim struct18 As New StructTextboxAndRowSeparator()
             struct18.Cellbox = TextBox18a
             struct18.BottomBar = PictureBox18a
             .Add(18, struct18)
@@ -400,7 +417,7 @@ Public Class RSCFieldColumn
 
 
 
-    End Sub
+    End Sub ''End of ""Public Sub New(par_field As .........)"
 
 
     Public Sub AddBumpColumn(par_columnToBump As RSCFieldColumn)
@@ -601,6 +618,17 @@ Public Class RSCFieldColumn
     End Function ''End of "Private Sub LoadDataToColumn_Do()"
 
 
+    Public Function GetFirstTextbox() As TextBox
+        ''
+        ''Added 4/04/2022 thomas downes
+        ''
+        Dim objFirstTextbox As TextBox
+        objFirstTextbox = ListOfTextboxes_TopToBottom().First()
+        Return objFirstTextbox
+
+    End Function ''End of ""Public Function GetFirstTextbox() As TextBox""
+
+
     Public Function GetFirstTextboxPropertyTop() As Integer
         ''
         ''Added 3/24/2022 thomas downes
@@ -739,6 +767,7 @@ Public Class RSCFieldColumn
         ''Added 3/29/2022 thomas downes
         ''
         Load_EmptyRows(intCountRecipients)
+
         CountOfBoxesWithData(intCountBoxesEmptyOrNot) ''Update the value of var. intCountBoxesEmptyOrNot.
 
         ''3/29/2022 thomas d.''Dim boolMismatchOfCounts As Boolean
@@ -920,7 +949,8 @@ Public Class RSCFieldColumn
     End Sub ''Endof ""Public Sub AlignTextboxes_ToBottomBars()""
 
 
-    Public Sub Load_OneEmptyRow_IfNeeded(par_intRowIndex As Integer)
+    Public Sub Load_OneEmptyRow_IfNeeded(par_intRowIndex As Integer,
+                                         Optional pboolForceReposition As Boolean = False)
         ''
         ''Added 4/4/2022 td
         ''
@@ -929,7 +959,16 @@ Public Class RSCFieldColumn
         With mod_listTextboxesByRow
             bRowIndexLocated = (.ContainsKey(par_intRowIndex))
         End With
-        If (bRowIndexLocated) Then Exit Sub
+
+        If (pboolForceReposition) Then
+            ''
+            ''Don't exit. 
+            ''
+        ElseIf (bRowIndexLocated) Then
+
+            Exit Sub
+
+        End If ''End of "If (pboolForceReposition) Then ... ElseIf....."
 
         ''
         ''Create the textbox and Bottom Bar. 
@@ -938,7 +977,24 @@ Public Class RSCFieldColumn
         ''
         ''Create the required textbox. 
         ''
-        Dim objTextbox As New TextBox ''Added 3/29/2022 thomas downes
+        Dim objTextbox As TextBox ''4/4/2022 td''New TextBox ''Added 3/29/2022 thomas downes
+        Dim objBottomBar As PictureBox ''Added 4/5/2022 thomas downes
+
+        If (bRowIndexLocated) Then
+            objTextbox = mod_listTextboxesByRow.Item(par_intRowIndex)
+            objBottomBar = mod_listTextAndBarByRow.Item(par_intRowIndex).BottomBar
+        Else
+            ''4/4/2022 td''Dim objTextbox As New TextBox ''Added 3/29/2022 thomas downes
+            objTextbox = New TextBox ''Added 3/29/2022 thomas downes
+            mod_listTextboxesByRow.Add(par_intRowIndex, objTextbox)
+            objBottomBar = GetBottomBarForRow()
+            Dim new_struct As New StructTextboxAndRowSeparator
+            new_struct.BottomBar = objBottomBar
+            new_struct.Cellbox = objTextbox
+            mod_listTextAndBarByRow.Item(par_intRowIndex) = new_struct
+
+        End If ''End of ""If (bRowIndexLocated) Then... Else..."
+
         Dim textbox_Top As TextBox
         textbox_Top = Me.GetFirstTextbox()
         With objTextbox
@@ -951,22 +1007,60 @@ Public Class RSCFieldColumn
             .BorderStyle = textbox_Top.BorderStyle
             .Font = textbox_Top.Font
             ''---.Top = (textbox_BottomLast.Top + intTopGap)
-            .Top = (textbox_Top.Top + mc_RowHeightPixels * (par_intRowIndex - 1))
+            ''April 5, 2022 td''.Top = (textbox_Top.Top + mc_intPixelsFromRowToRow * (par_intRowIndex - 1))
+            .Top = (textbox_Top.Top + (Me.PixelsFromRowToRow * (par_intRowIndex - 1)))
             .Visible = True
+
+            ''Bottom  row-related horizontal line (below each textbox).
+            objBottomBar.Top = .Top + .Height + 1
+
         End With ''End of ""With objTextbox""
 
         ''Added 3/30/2022
-        Me.Controls.Add(objTextbox)
+        If (bRowIndexLocated) Then
+            ''Textbox is already one of the controls on the form. ---4/4/2022
+        Else
+            Me.Controls.Add(objTextbox)
+            Me.Controls.Add(objBottomBar)
+        End If ''End of ""If (bRowIndexLocated) Then... Else ..."
+
         Dim textbox_BottomLast As TextBox
         ''Me.Height = (objTextbox.Top + objTextbox.Height + intTopGap)
 
         Dim listOfBoxes As List(Of TextBox)
         listOfBoxes = ListOfTextboxes_TopToBottom()
         textbox_BottomLast = listOfBoxes(-1 + listOfBoxes.Count) ''.LastOrDefault
-
-        gggg gg g g g g g g g gg g g g 
+        Me.Height = (textbox_BottomLast.Top + textbox_BottomLast.Height +
+                    Me.PixelsFromRowToRow) ''----mc_intPixelsFromRowToRow)
 
     End Sub ''End of ""Public Sub Load_EmptyRow_IfNeeded(par(intRowIndex As Integer)""
+
+
+    Public Function GetBottomBarForRow() As PictureBox
+        ''
+        ''Added 4/04/2022 td
+        ''
+        Dim objNewPicturebox As New PictureBox ''Added 3/29/2022 thomas downes
+        Dim objTopBottomBar As PictureBox
+
+        objTopBottomBar = mod_listTextAndBarByRow(1).BottomBar
+
+        With objNewPicturebox
+            .Left = objTopBottomBar.Left
+            .Width = objTopBottomBar.Width
+            .Height = objTopBottomBar.Height
+            .Anchor = objTopBottomBar.Anchor
+            .BackColor = objTopBottomBar.BackColor
+            .ForeColor = objTopBottomBar.ForeColor
+            .BorderStyle = objTopBottomBar.BorderStyle
+            .Font = objTopBottomBar.Font
+            ''---.Top = (textbox_BottomLast.Top + intTopGap)
+            .Visible = True
+        End With ''End of ""With objTextbox""
+
+        Return objNewPicturebox ''Oops!! Forgot this. ---4/05/2022 td
+
+    End Function ''End of ""Public Function GetBottomBarForRow()""
 
 
     Public Sub Load_EmptyRows(par_intRowsRequired As Integer)
@@ -979,9 +1073,24 @@ Public Class RSCFieldColumn
         CountOfBoxesWithData(ref_intCountRows)
         intCountRows = ref_intCountRows
 
-        If (intCountRows = par_intRowsRequired) Then Exit Sub
-        If (intCountRows > par_intRowsRequired) Then Load_EmptyRows_DeleteRows(par_intRowsRequired)
-        If (intCountRows < par_intRowsRequired) Then Load_EmptyRows_CreateRows(par_intRowsRequired)
+        Const c_bUseFirstTry As Boolean = False
+
+        If (c_bUseFirstTry) Then
+            If (intCountRows = par_intRowsRequired) Then Exit Sub
+            If (intCountRows > par_intRowsRequired) Then Load_EmptyRows_DeleteRows(par_intRowsRequired)
+            If (intCountRows < par_intRowsRequired) Then Load_EmptyRows_CreateRows(par_intRowsRequired)
+
+        Else
+            ''Added 4/4/2022 td
+            For intRowIndex As Integer = 1 To par_intRowsRequired
+
+                ''Added 4/4/2022 td
+                Load_OneEmptyRow_IfNeeded(intRowIndex)
+
+            Next intRowIndex
+
+        End If ''End of "If (c_bUseFirstTry) Then... Else...."
+
 
     End Sub ''End of ""Public Sub Load_EmptyRows()""
 
