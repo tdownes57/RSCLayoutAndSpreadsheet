@@ -38,6 +38,7 @@ Partial Class DialogEditRecipients
         Me.ButtonScrollDown20 = New System.Windows.Forms.Button()
         Me.ButtonScrollUp = New System.Windows.Forms.Button()
         Me.ButtonScrollDown5 = New System.Windows.Forms.Button()
+        Me.LinkRefreshRowHeaderHeights = New System.Windows.Forms.LinkLabel()
         Me.SuspendLayout()
         '
         'ButtonCancel
@@ -105,6 +106,7 @@ Partial Class DialogEditRecipients
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.RscFieldSpreadsheet1.AutoScroll = True
+        Me.RscFieldSpreadsheet1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.RscFieldSpreadsheet1.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.RscFieldSpreadsheet1.BackColorOfColumns = System.Drawing.Color.AntiqueWhite
         Me.RscFieldSpreadsheet1.ElementInfo_Base = Nothing
@@ -241,11 +243,24 @@ Partial Class DialogEditRecipients
         Me.ButtonScrollDown5.Text = " ▼"
         Me.ButtonScrollDown5.UseVisualStyleBackColor = False
         '
+        'LinkRefreshRowHeaderHeights
+        '
+        Me.LinkRefreshRowHeaderHeights.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.LinkRefreshRowHeaderHeights.AutoSize = True
+        Me.LinkRefreshRowHeaderHeights.Location = New System.Drawing.Point(476, 561)
+        Me.LinkRefreshRowHeaderHeights.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LinkRefreshRowHeaderHeights.Name = "LinkRefreshRowHeaderHeights"
+        Me.LinkRefreshRowHeaderHeights.Size = New System.Drawing.Size(188, 13)
+        Me.LinkRefreshRowHeaderHeights.TabIndex = 30
+        Me.LinkRefreshRowHeaderHeights.TabStop = True
+        Me.LinkRefreshRowHeaderHeights.Text = "Refresh the height of the row headers."
+        '
         'DialogEditRecipients
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(934, 600)
+        Me.Controls.Add(Me.LinkRefreshRowHeaderHeights)
         Me.Controls.Add(Me.ButtonScrollDown5)
         Me.Controls.Add(Me.ButtonScrollUp)
         Me.Controls.Add(Me.ButtonScrollDown20)
@@ -286,4 +301,5 @@ Partial Class DialogEditRecipients
     Friend WithEvents ButtonScrollDown20 As Button
     Friend WithEvents ButtonScrollUp As Button
     Friend WithEvents ButtonScrollDown5 As Button
+    Friend WithEvents LinkRefreshRowHeaderHeights As LinkLabel
 End Class

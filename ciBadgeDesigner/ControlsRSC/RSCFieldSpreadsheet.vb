@@ -350,6 +350,7 @@ Public Class RSCFieldSpreadsheet
             ''
             intNumberOfRecipients = Me.RecipientsCache.ListOfRecipients.Count
             RscRowHeaders1.Load_EmptyRows(intNumberOfRecipients)
+            ''Moved below. 4/6/2022 ''RscRowHeaders1.RefreshHeightOfHeaders(intNumberOfRecipients) ''Added 4/6/2022 td
 
             ''
             ''Fill each of the columns. 
@@ -397,6 +398,10 @@ Public Class RSCFieldSpreadsheet
                 End If
 
             Next each_column
+
+
+            ''Added 4/6/2022 thomas downes
+            RscRowHeaders1.RefreshHeightOfHeaders(intNumberOfRecipients) ''Added 4/6/2022 td
 
 
         End If ''End of ""If (Me.RecipientsCache Is Nothing) Then.... Else....""
@@ -702,6 +707,15 @@ Public Class RSCFieldSpreadsheet
         RscRowHeaders1.AlignControlsWithSpreadsheet(RscFieldColumn1)
 
     End Sub ''End of "Public Sub AlignRowHeadersWithSpreadsheet()"
+
+
+    Public Sub RefreshHeightOfRowHeaders()
+        ''
+        ''Added 4/6/2022 thomas d.
+        ''
+        RscRowHeaders1.RefreshHeightOfHeaders()
+
+    End Sub ''End of "Public Sub RefreshHeightOfRowHeaders()"
 
 
     Public Sub Load_FieldsFromCache(par_cache As ClassElementsCache_Deprecated)

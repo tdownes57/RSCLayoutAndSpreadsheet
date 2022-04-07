@@ -243,18 +243,27 @@ Public Class RSCRowHeaders
         ''
         '' 1, 2, 3
         ''
+        textRowHeader1.Text = "1"
+        textRowHeader1.ParentRSCRowHeaders = Me
+        ''textRowHeader1.Height = mod_c_intPixelsFromRowToRow ''+ 1 ''24
         mod_listTextboxesByRow.Add(1, textRowHeader1)
         ''Dim struct1 As New StructLabelAndRowSeparator()
         ''struct1.Cellbox = textRowHeader1
         ''struct1.BottomBar = PictureBox1a
         ''.Add(1, struct1)
 
+        textRowHeader2.Text = "2"
+        textRowHeader2.ParentRSCRowHeaders = Me
+        ''textRowHeader2.Height = mod_c_intPixelsFromRowToRow ''+ 1 ''24
         mod_listTextboxesByRow.Add(2, textRowHeader2)
         ''Dim struct2 As New StructLabelAndRowSeparator()
         ''struct2.Cellbox = textRowHeader2
         ''struct2.BottomBar = PictureBox2a
         ''.Add(2, struct2)
 
+        textRowHeader3.Text = "3"
+        textRowHeader3.ParentRSCRowHeaders = Me
+        ''textRowHeader3.Height = mod_c_intPixelsFromRowToRow ''+ 1 ''24
         mod_listTextboxesByRow.Add(3, textRowHeader3)
         ''Dim struct3 As New StructLabelAndRowSeparator()
         ''struct3.Cellbox = textRowHeader3
@@ -264,18 +273,25 @@ Public Class RSCRowHeaders
         ''
         '' 4, 5, 6
         ''
+        textRowHeader4.Text = "4"
+        textRowHeader4.ParentRSCRowHeaders = Me
+        ''textRowHeader4.Height = mod_c_intPixelsFromRowToRow ''+ 1 ''24
         mod_listTextboxesByRow.Add(4, textRowHeader4)
         ''Dim struct4 As New StructLabelAndRowSeparator()
         ''struct4.Cellbox = textRowHeader4
         ''struct4.BottomBar = PictureBox4a
         ''.Add(4, struct4)
 
+        textRowHeader5.Text = "5"
+        textRowHeader5.ParentRSCRowHeaders = Me
         mod_listTextboxesByRow.Add(5, textRowHeader5)
         ''Dim struct5 As New StructLabelAndRowSeparator()
         ''struct5.Cellbox = textRowHeader5
         ''struct5.BottomBar = PictureBox5a
         ''.Add(5, struct5)
 
+        textRowHeader6.Text = "6"
+        textRowHeader6.ParentRSCRowHeaders = Me
         mod_listTextboxesByRow.Add(6, textRowHeader6)
         ''Dim struct6 As New StructLabelAndRowSeparator()
         ''struct6.Cellbox = textRowHeader6
@@ -285,18 +301,24 @@ Public Class RSCRowHeaders
         ''
         '' 7, 8, 9
         ''
+        textRowHeader7.Text = "7"
+        textRowHeader7.ParentRSCRowHeaders = Me
         mod_listTextboxesByRow.Add(7, textRowHeader7)
         ''Dim struct7 As New StructLabelAndRowSeparator()
         ''struct7.Cellbox = textRowHeader7
         ''struct7.BottomBar = PictureBox7a
         ''.Add(7, struct7)
 
+        textRowHeader8.Text = "8"
+        textRowHeader8.ParentRSCRowHeaders = Me
         mod_listTextboxesByRow.Add(8, textRowHeader8)
         ''Dim struct8 As New StructLabelAndRowSeparator()
         ''struct8.Cellbox = textRowHeader8
         ''struct8.BottomBar = PictureBox8a
         ''.Add(8, struct8)
 
+        textRowHeader9.Text = "9"
+        textRowHeader9.ParentRSCRowHeaders = Me
         mod_listTextboxesByRow.Add(9, textRowHeader9)
         ''Dim struct9 As New StructLabelAndRowSeparator()
         ''struct9.Cellbox = textRowHeader9
@@ -306,18 +328,24 @@ Public Class RSCRowHeaders
         ''
         '' 10, 11, 12
         ''
+        textRowHeader10.Text = "10"
+        textRowHeader10.ParentRSCRowHeaders = Me
         mod_listTextboxesByRow.Add(10, textRowHeader10)
         ''Dim struct10 As New StructLabelAndRowSeparator()
         ''struct10.Cellbox = textRowHeader10
         ''struct10.BottomBar = PictureBox10a
         ''.Add(10, struct10)
 
+        textRowHeader11.Text = "11"
+        textRowHeader11.ParentRSCRowHeaders = Me
         mod_listTextboxesByRow.Add(11, textRowHeader11)
         ''Dim struct11 As New StructLabelAndRowSeparator()
         ''struct11.Cellbox = textRowHeader11
         ''struct11.BottomBar = PictureBox11a
         ''.Add(11, struct11)
 
+        textRowHeader12.Text = "12"
+        textRowHeader12.ParentRSCRowHeaders = Me
         mod_listTextboxesByRow.Add(12, textRowHeader12)
         ''Dim struct12 As New StructLabelAndRowSeparator()
         ''struct12.Cellbox = textRowHeader12
@@ -327,18 +355,24 @@ Public Class RSCRowHeaders
         ''
         '' 13, 14, 15
         ''
+        textRowHeader13.Text = "13"
+        textRowHeader13.ParentRSCRowHeaders = Me
         mod_listTextboxesByRow.Add(13, textRowHeader13)
         ''Dim struct13 As New StructLabelAndRowSeparator()
         ''struct13.Cellbox = textRowHeader13
         ''struct13.BottomBar = PictureBox13a
         ''.Add(13, struct13)
 
+        textRowHeader14.Text = "14"
+        textRowHeader14.ParentRSCRowHeaders = Me
         mod_listTextboxesByRow.Add(14, textRowHeader14)
         ''Dim struct14 As New StructLabelAndRowSeparator()
         ''struct14.Cellbox = textRowHeader14
         ''struct14.BottomBar = PictureBox14a
         ''.Add(14, struct14)
 
+        textRowHeader15.Text = "15"
+        textRowHeader15.ParentRSCRowHeaders = Me
         mod_listTextboxesByRow.Add(15, textRowHeader15)
         ''Dim struct15 As New StructLabelAndRowSeparator()
         ''struct15.Cellbox = textRowHeader15
@@ -348,18 +382,24 @@ Public Class RSCRowHeaders
         ''
         '' 16, 17, 18
         ''
+        textRowHeader16.Text = "16"
+        textRowHeader16.ParentRSCRowHeaders = Me
         mod_listTextboxesByRow.Add(16, textRowHeader16)
         ''Dim struct16 As New StructLabelAndRowSeparator()
         ''struct16.Cellbox = textRowHeader16
         ''struct16.BottomBar = PictureBox16a
         ''.Add(16, struct16)
 
+        textRowHeader17.Text = "17"
+        textRowHeader17.ParentRSCRowHeaders = Me
         mod_listTextboxesByRow.Add(17, textRowHeader17)
         ''Dim struct17 As New StructLabelAndRowSeparator()
         ''struct17.Cellbox = textRowHeader17
         ''struct17.BottomBar = PictureBox17a
         ''.Add(17, struct17)
 
+        textRowHeader18.Text = "18"
+        textRowHeader18.ParentRSCRowHeaders = Me
         mod_listTextboxesByRow.Add(18, textRowHeader18)
         ''Dim struct18 As New StructLabelAndRowSeparator()
         ''struct18.Cellbox = textRowHeader18
@@ -369,7 +409,9 @@ Public Class RSCRowHeaders
         ''
         '' 19
         ''
-        ''mod_listTextboxesByRow.Add(19, TextBox19a)
+        textRowHeader19.Text = "19"
+        textRowHeader19.ParentRSCRowHeaders = Me
+        mod_listTextboxesByRow.Add(19, textRowHeader19)
         ''Dim struct19 As New TextboxAndRowSeparator()
         ''struct19.Cellbox = TextBox19a
         ''struct19.BottomBar = PictureBox19a
@@ -449,7 +491,7 @@ Public Class RSCRowHeaders
 
         ''Major call.
         AlignTextboxes(listBoxesColumn1, listBoxesRowHdrs)
-        AlignBottomBars(listVisualBarsColumn1, listVisualBarsRowHdrs, par_controlColumnOne)
+        ''April 6, 2022 td ''AlignBottomBars(listVisualBarsColumn1, listVisualBarsRowHdrs, par_controlColumnOne)
 
     End Sub ''End of ""Public Sub AlignControlsWithSpreadsheet()""
 
@@ -698,7 +740,7 @@ Public Class RSCRowHeaders
         With objTextbox
             .Left = textbox_Top.Left
             .Width = textbox_Top.Width
-            .Height = textbox_Top.Height
+            ''Moved below.''.Height = textbox_Top.Height
             .Anchor = textbox_Top.Anchor
             .BackColor = textbox_Top.BackColor
             .ForeColor = textbox_Top.ForeColor
@@ -707,8 +749,14 @@ Public Class RSCRowHeaders
             ''---.Top = (textbox_BottomLast.Top + intTopGap)
             ''April 5 2022 ''.Top = (textbox_Top.Top + mc_intPixelsFromRowToRow * (par_intRowIndex - 1))
             .Top = (textbox_Top.Top + Me.PixelsFromRowToRow * (par_intRowIndex - 1))
+            .Height = textbox_Top.Height
             .Visible = True
             .Text = par_intRowIndex.ToString() ''Added 4/6/2022 thomas downes
+            .ParentRSCRowHeaders = Me ''Added 4/6/2022 td
+
+            ''Added 4/6/2022 thomas downes
+            .Margin = New Padding(0, 0, 0, 0)
+            .Padding = New Padding(0, 0, 0, 0)
 
             ''Bottom  row-related horizontal line (below each textbox).
             ''objBottomBar.Top = .Top + .Height + 1
@@ -720,6 +768,9 @@ Public Class RSCRowHeaders
             ''Textbox is already one of the controls on the form. ---4/4/2022
         Else
             Me.Controls.Add(objTextbox)
+            Application.DoEvents()
+            objTextbox.Height = textbox_Top.Height
+            objTextbox.Width = textbox_Top.Width
             ''Me.Controls.Add(objBottomBar)
         End If ''End of ""If (bRowIndexLocated) Then... Else ..."
 
@@ -768,6 +819,25 @@ Public Class RSCRowHeaders
         End If ''End of ""If (c_bUseFirstTry) Then .... Else...."
 
     End Sub ''End of ""Public Sub Load_EmptyRows()""
+
+
+    Public Sub RefreshHeightOfHeaders(Optional par_intNumberOfRows As Integer = 0)
+        ''
+        '' Added 4/6/2022 thomas downes
+        ''
+        If (0 = par_intNumberOfRows) Then
+            par_intNumberOfRows = mod_listTextboxesByRow.Count
+        End If ''End of ""If (0 = par_intNumberOfRows) Then""
+
+        For intRowIndex As Integer = 1 To par_intNumberOfRows
+
+            ''Added 4/4/2022 td
+            mod_listTextboxesByRow(intRowIndex).Height = (mod_intPixelsFromRowToRow - 1)
+            mod_listTextboxesByRow(intRowIndex).Width = Me.GetFirstTextbox().Width
+
+        Next intRowIndex
+
+    End Sub ''End of "Public Sub RefreshHeightOfHeaders"
 
 
     Private Sub Load_EmptyRows_CreateRows(par_intRowsRequired As Integer)
@@ -906,7 +976,7 @@ Public Class RSCRowHeaders
 
     ''End Sub
 
-    Private Sub HeaderBox_MouseUp(sender As Object, par_eArgs As MouseEventArgs) _
+    Public Sub HeaderBox_MouseUp(sender As Object, par_eArgs As MouseEventArgs) _
         Handles textRowHeader1.MouseUp, textRowHeader2.MouseUp, textRowHeader3.MouseUp,
           textRowHeader4.MouseUp, textRowHeader5.MouseUp, textRowHeader6.MouseUp,
           textRowHeader7.MouseUp, textRowHeader8.MouseUp, textRowHeader9.MouseUp,

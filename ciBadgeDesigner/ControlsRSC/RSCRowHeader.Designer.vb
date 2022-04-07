@@ -31,13 +31,14 @@ Partial Class RSCRowHeader
         '
         Me.PictureBox1a.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PictureBox1a.BackColor = System.Drawing.Color.Black
+        Me.PictureBox1a.BackColor = System.Drawing.Color.Plum
         Me.PictureBox1a.Location = New System.Drawing.Point(0, 22)
         Me.PictureBox1a.Margin = New System.Windows.Forms.Padding(0)
         Me.PictureBox1a.Name = "PictureBox1a"
         Me.PictureBox1a.Size = New System.Drawing.Size(149, 2)
         Me.PictureBox1a.TabIndex = 96
         Me.PictureBox1a.TabStop = False
+        Me.PictureBox1a.Visible = False
         '
         'textRowHeader1
         '

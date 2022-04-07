@@ -199,7 +199,7 @@ ExitHandler:
             .RemoveMoveability() ''Added 3/20/2022 td
             ''Doesn't work here.3/25/2022.Refresh()
             ''Doesn't work here.3/25/2022.AlignRowHeadersWithSpreadsheet() ''Added 3/25/2022 thomas downes
-            AlignRowHeadersWithSpreadsheet() ''Added 3/25/2022 thomas downes
+            ''Doesn't work here.4/06/2022.AlignRowHeadersWithSpreadsheet() ''Added 3/25/2022 thomas downes
 
         End With ''End of "With RscFieldSpreadsheet1"
 
@@ -270,8 +270,8 @@ ExitHandler:
             RscFieldSpreadsheet1.RscFieldColumn1.AlignBottomBars_EvenlySpaced()
             RscFieldSpreadsheet1.RscFieldColumn1.AlignTextboxes_ToBottomBars()
             ''RscFieldSpreadsheet1.AlignTextboxesWithBottomBars()
-            RscFieldSpreadsheet1.RscRowHeaders1.AlignBottomBars_WithColumnOne(RscFieldSpreadsheet1.RscFieldColumn1)
-            RscFieldSpreadsheet1.RscRowHeaders1.AlignTextBoxes_ToBottomBars(RscFieldSpreadsheet1.RscFieldColumn1)
+            ''RscFieldSpreadsheet1.RscRowHeaders1.AlignBottomBars_WithColumnOne(RscFieldSpreadsheet1.RscFieldColumn1)
+            ''RscFieldSpreadsheet1.RscRowHeaders1.AlignTextBoxes_ToBottomBars(RscFieldSpreadsheet1.RscFieldColumn1)
 
         End If ''End of ""If (c_boolSimpleWay) Then.... ElseIf ...."
 
@@ -364,6 +364,13 @@ ExitHandler:
             End Try
 
         End With ''End of "With RscFieldSpreadsheet1"
+
+    End Sub
+
+    Private Sub LinkRefreshRowHeaderHeights_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkRefreshRowHeaderHeights.LinkClicked
+
+        ''Added 4/6/2022 thomas downes
+        RscFieldSpreadsheet1.RefreshHeightOfRowHeaders()
 
     End Sub
 End Class
