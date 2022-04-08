@@ -476,7 +476,7 @@ Public Class RSCRowHeaders
         ''4/5/2022 td ''Dim listBoxesRowHdrs As List(Of TextBox)
         Dim listBoxesRowHdrs As List(Of RSCRowHeader)
         Dim listVisualBarsColumn1 As List(Of PictureBox)
-        Dim listVisualBarsRowHdrs As List(Of PictureBox)
+        ''4/8/2022 Dim listVisualBarsRowHdrs As List(Of PictureBox)
 
         ''March25 2022''objSpreadsheet = Me.RSCSpreadsheet
         ''March25 2022''objColumnOne = objSpreadsheet.RscFieldColumn1
@@ -487,7 +487,7 @@ Public Class RSCRowHeaders
         listBoxesColumn1 = par_controlColumnOne.ListOfTextboxes_TopToBottom()
         listBoxesRowHdrs = ListOfTextboxes_TopToBottom()
         listVisualBarsColumn1 = par_controlColumnOne.ListOfBottomBars_TopToBottom()
-        listVisualBarsRowHdrs = ListOfBottomBars_TopToBottom()
+        ''4/8/2022 listVisualBarsRowHdrs = ListOfBottomBars_TopToBottom()
 
         ''Major call.
         AlignTextboxes(listBoxesColumn1, listBoxesRowHdrs)
@@ -754,12 +754,37 @@ Public Class RSCRowHeaders
             ''4/7/2022-- .Top = (textbox_Top.Top + Me.PixelsFromRowToRow * (par_intRowIndex - 1))
             ''4/7/2022-- .Height = textbox_Top.Height
 
-            ''Added 4/7/2022 thomas downes
-            Dim temporary_textbox = New TextBox
-            ModRSCLayout.PositionAndSizeControlByRow(par_intRowIndex, textbox_Top.Top,
-                                            textbox_Top.Width, temporary_textbox)
-            .Size = temporary_textbox.Size
-            .Location = temporary_textbox.Location
+            ''4/8 Added 4/7/2022 thomas downes
+            ''4/8 Dim temporary_textbox = New TextBox
+            ''4/8 ModRSCLayout.PositionAndSizeControlByRow(par_intRowIndex, textbox_Top.Top,
+            ''4/8                                 textbox_Top.Width, temporary_textbox)
+            ''4/8 .Size = temporary_textbox.Size
+            ''4/8 .Location = temporary_textbox.Location
+
+            With objTextbox
+                ''
+                ''We will write to .Top & .Height through
+                ''   the .Location & .Size object properties.
+                ''   ---4/8/2022
+                ''
+                ''4/8 ModRSCLayout.PositionAndSizeControlByRow(par_intRowIndex, textbox_Top.Top,
+                ''4/8                              textbox_Top.Width, Nothing,
+                ''4/8                             .Size,
+                ''4/8                             .Location)
+                ''
+                ''.Top = .....See Call To Module ModRSCLayout, just below.--4/8/2022
+                ''.Left = .....See Call To Module ModRSCLayout, just below.--4/8/2022
+                ''.Height = .....See Call To Module ModRSCLayout, just below.--4/8/2022
+                ''.Width = .....See Call To Module ModRSCLayout, just below.--4/8/2022
+                ''
+                ModRSCLayout.PositionAndSizeControlByRow(objTextbox, par_intRowIndex,
+                                                         textbox_Top.Top,
+                                                         textbox_Top.Width)
+            End With ''ENd of "with objTextBox"  
+
+            ''
+            ''Double-check the width property.
+            ''
             .Width = textbox_Top.Width
 
             .Visible = True
@@ -780,9 +805,13 @@ Public Class RSCRowHeaders
             ''Textbox is already one of the controls on the form. ---4/4/2022
         Else
             Me.Controls.Add(objTextbox)
+            ''Added 4/08/2022 thomas d.
+            ModRSCLayout.PositionAndSizeControlByRow(objTextbox, par_intRowIndex,
+                                                     textbox_Top.Top,
+                                                     textbox_Top.Width)
             Application.DoEvents()
-            objTextbox.Height = textbox_Top.Height
-            objTextbox.Width = textbox_Top.Width
+            ''4/8/2022 td''objTextbox.Height = textbox_Top.Height
+            ''4/8/2022 td''objTextbox.Width = textbox_Top.Width
             ''Me.Controls.Add(objBottomBar)
         End If ''End of ""If (bRowIndexLocated) Then... Else ..."
 
@@ -810,7 +839,8 @@ Public Class RSCRowHeaders
 
         ''CountOfBoxesWithData(ref_intCountRows)
         ''intCountRows = ref_intCountRows
-        intCountRows = ListOfBottomBars_TopToBottom().Count
+        ''4/8/2022 td''intCountRows = ListOfBottomBars_TopToBottom().Count
+        intCountRows = ListOfTextboxes_TopToBottom().Count
 
         Const c_bUseFirstTry As Boolean = False ''Added 4/5/2022 td
 
@@ -951,38 +981,38 @@ Public Class RSCRowHeaders
     End Function ''End of "Private Function ListOfTextboxes_TopToBottom() As IOrderedEnumerable(Of TextBox)"
 
 
-    Private Function ListOfBottomBars_TopToBottom() As List(Of PictureBox) '' IOrderedEnumerable(Of PictureBox)
-        ''
-        ''Added 3/19/2022 td
-        ''
-        ''  The "Bottom Bars" ("Visual Bars") are the black-backcolor picture boxes which are
-        ''  very "landscape"-shaped, i.e. are very wide and very short (less than 5 pixels high).
-        ''  They are purely visual, i.e. only serve to create visually-obvious "rows" in the
-        ''  spreadsheet.----3/25/2022
-        ''
-        Dim objListOfBars As New List(Of PictureBox)
-        For Each eachCtl As Control In Me.Controls
-            If (TypeOf eachCtl Is PictureBox) Then
-                ''Strangely, .Visible is False???? 3/25/2022 td''If (eachCtl.Visible) Then
-                objListOfBars.Add(CType(eachCtl, PictureBox))
-                ''End If ''End of ""If (eachCtl.Visible) Then""
-            End If ''End of "If (TypeOf eachCtl Is TextBox) Then"
-        Next eachCtl ''End of ""For Each eachCtl As Control In Me.Controls""
+    ''Private Function ListOfBottomBars_TopToBottom() As List(Of PictureBox) '' IOrderedEnumerable(Of PictureBox)
+    ''    ''
+    ''    ''Added 3/19/2022 td
+    ''    ''
+    ''    ''  The "Bottom Bars" ("Visual Bars") are the black-backcolor picture boxes which are
+    ''    ''  very "landscape"-shaped, i.e. are very wide and very short (less than 5 pixels high).
+    ''    ''  They are purely visual, i.e. only serve to create visually-obvious "rows" in the
+    ''    ''  spreadsheet.----3/25/2022
+    ''    ''
+    ''    Dim objListOfBars As New List(Of PictureBox)
+    ''    For Each eachCtl As Control In Me.Controls
+    ''        If (TypeOf eachCtl Is PictureBox) Then
+    ''            ''Strangely, .Visible is False???? 3/25/2022 td''If (eachCtl.Visible) Then
+    ''            objListOfBars.Add(CType(eachCtl, PictureBox))
+    ''            ''End If ''End of ""If (eachCtl.Visible) Then""
+    ''        End If ''End of "If (TypeOf eachCtl Is TextBox) Then"
+    ''    Next eachCtl ''End of ""For Each eachCtl As Control In Me.Controls""
 
-        ''
-        ''Order them in order of top-down (i.e. the Top property).
-        ''
-        ''Dim objListOfBars_Ordered As IOrderedEnumerable(Of PictureBox) =
-        ''    From objBar In objListOfBars
-        ''    Select objBar
-        ''    Order By objBar.Top
-        ''Return objListOfBars_Ordered
+    ''    ''
+    ''    ''Order them in order of top-down (i.e. the Top property).
+    ''    ''
+    ''    ''Dim objListOfBars_Ordered As IOrderedEnumerable(Of PictureBox) =
+    ''    ''    From objBar In objListOfBars
+    ''    ''    Select objBar
+    ''    ''    Order By objBar.Top
+    ''    ''Return objListOfBars_Ordered
 
-        Dim objListOfTextboxes_Ordered As List(Of PictureBox)
-        objListOfTextboxes_Ordered = objListOfBars.OrderBy(Of Integer)(Function(a) a.Top).ToList()
-        Return objListOfTextboxes_Ordered
+    ''    Dim objListOfTextboxes_Ordered As List(Of PictureBox)
+    ''    objListOfTextboxes_Ordered = objListOfBars.OrderBy(Of Integer)(Function(a) a.Top).ToList()
+    ''    Return objListOfTextboxes_Ordered
 
-    End Function ''End of "Public Function ListOfBars_TopToBottom() As IOrderedEnumerable(Of PictureBox)"
+    ''End Function ''End of "Public Function ListOfBars_TopToBottom() As IOrderedEnumerable(Of PictureBox)"
 
     ''Private Sub PictureBox8_Click(sender As Object, e As EventArgs) Handles PictureBox2a.Click
 

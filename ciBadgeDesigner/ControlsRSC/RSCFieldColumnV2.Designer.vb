@@ -1,6 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿Imports __RSCWindowsControlLibrary ''Added 4/08/2022 thomas downes
+
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class RSCFieldColumnV2
-    Inherits System.Windows.Forms.UserControl
+    Inherits RSCMoveableControlVB
+    ''April08 2022 td ''Inherits System.Windows.Forms.UserControl
 
     'UserControl overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -34,6 +37,15 @@ Partial Class RSCFieldColumnV2
         Me.RscDataCell7 = New ciBadgeDesigner.RSCDataCell()
         Me.RscDataCell8 = New ciBadgeDesigner.RSCDataCell()
         Me.RscDataCell9 = New ciBadgeDesigner.RSCDataCell()
+        Me.RscDataCell17 = New ciBadgeDesigner.RSCDataCell()
+        Me.RscDataCell16 = New ciBadgeDesigner.RSCDataCell()
+        Me.RscDataCell15 = New ciBadgeDesigner.RSCDataCell()
+        Me.RscDataCell14 = New ciBadgeDesigner.RSCDataCell()
+        Me.RscDataCell13 = New ciBadgeDesigner.RSCDataCell()
+        Me.RscDataCell12 = New ciBadgeDesigner.RSCDataCell()
+        Me.RscDataCell11 = New ciBadgeDesigner.RSCDataCell()
+        Me.RscDataCell10 = New ciBadgeDesigner.RSCDataCell()
+        Me.RscDataCell18 = New ciBadgeDesigner.RSCDataCell()
         Me.SuspendLayout()
         '
         'LinkLabelRightClick
@@ -159,11 +171,107 @@ Partial Class RSCFieldColumnV2
         Me.RscDataCell9.Size = New System.Drawing.Size(184, 23)
         Me.RscDataCell9.TabIndex = 75
         '
+        'RscDataCell17
+        '
+        Me.RscDataCell17.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RscDataCell17.Location = New System.Drawing.Point(0, 474)
+        Me.RscDataCell17.Name = "RscDataCell17"
+        Me.RscDataCell17.Size = New System.Drawing.Size(184, 23)
+        Me.RscDataCell17.TabIndex = 84
+        '
+        'RscDataCell16
+        '
+        Me.RscDataCell16.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RscDataCell16.Location = New System.Drawing.Point(0, 450)
+        Me.RscDataCell16.Margin = New System.Windows.Forms.Padding(0)
+        Me.RscDataCell16.Name = "RscDataCell16"
+        Me.RscDataCell16.Size = New System.Drawing.Size(184, 23)
+        Me.RscDataCell16.TabIndex = 83
+        '
+        'RscDataCell15
+        '
+        Me.RscDataCell15.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RscDataCell15.Location = New System.Drawing.Point(0, 426)
+        Me.RscDataCell15.Margin = New System.Windows.Forms.Padding(0)
+        Me.RscDataCell15.Name = "RscDataCell15"
+        Me.RscDataCell15.Size = New System.Drawing.Size(184, 23)
+        Me.RscDataCell15.TabIndex = 82
+        '
+        'RscDataCell14
+        '
+        Me.RscDataCell14.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RscDataCell14.Location = New System.Drawing.Point(0, 402)
+        Me.RscDataCell14.Margin = New System.Windows.Forms.Padding(0)
+        Me.RscDataCell14.Name = "RscDataCell14"
+        Me.RscDataCell14.Size = New System.Drawing.Size(184, 23)
+        Me.RscDataCell14.TabIndex = 80
+        '
+        'RscDataCell13
+        '
+        Me.RscDataCell13.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RscDataCell13.Location = New System.Drawing.Point(0, 378)
+        Me.RscDataCell13.Margin = New System.Windows.Forms.Padding(0)
+        Me.RscDataCell13.Name = "RscDataCell13"
+        Me.RscDataCell13.Size = New System.Drawing.Size(184, 23)
+        Me.RscDataCell13.TabIndex = 79
+        '
+        'RscDataCell12
+        '
+        Me.RscDataCell12.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RscDataCell12.Location = New System.Drawing.Point(0, 354)
+        Me.RscDataCell12.Margin = New System.Windows.Forms.Padding(0)
+        Me.RscDataCell12.Name = "RscDataCell12"
+        Me.RscDataCell12.Size = New System.Drawing.Size(184, 23)
+        Me.RscDataCell12.TabIndex = 78
+        '
+        'RscDataCell11
+        '
+        Me.RscDataCell11.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RscDataCell11.Location = New System.Drawing.Point(0, 330)
+        Me.RscDataCell11.Margin = New System.Windows.Forms.Padding(0)
+        Me.RscDataCell11.Name = "RscDataCell11"
+        Me.RscDataCell11.Size = New System.Drawing.Size(184, 23)
+        Me.RscDataCell11.TabIndex = 77
+        '
+        'RscDataCell10
+        '
+        Me.RscDataCell10.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RscDataCell10.Location = New System.Drawing.Point(0, 306)
+        Me.RscDataCell10.Margin = New System.Windows.Forms.Padding(0)
+        Me.RscDataCell10.Name = "RscDataCell10"
+        Me.RscDataCell10.Size = New System.Drawing.Size(184, 23)
+        Me.RscDataCell10.TabIndex = 76
+        '
+        'RscDataCell18
+        '
+        Me.RscDataCell18.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RscDataCell18.Location = New System.Drawing.Point(0, 498)
+        Me.RscDataCell18.Name = "RscDataCell18"
+        Me.RscDataCell18.Size = New System.Drawing.Size(184, 23)
+        Me.RscDataCell18.TabIndex = 85
+        '
         'RSCFieldColumnV2
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.Controls.Add(Me.RscDataCell18)
+        Me.Controls.Add(Me.RscDataCell17)
+        Me.Controls.Add(Me.RscDataCell16)
+        Me.Controls.Add(Me.RscDataCell14)
+        Me.Controls.Add(Me.RscDataCell13)
+        Me.Controls.Add(Me.RscDataCell12)
+        Me.Controls.Add(Me.RscDataCell11)
+        Me.Controls.Add(Me.RscDataCell10)
         Me.Controls.Add(Me.RscDataCell9)
         Me.Controls.Add(Me.RscDataCell8)
         Me.Controls.Add(Me.RscDataCell7)
@@ -176,6 +284,7 @@ Partial Class RSCFieldColumnV2
         Me.Controls.Add(Me.LinkLabelRightClick)
         Me.Controls.Add(Me.RscSelectCIBField1)
         Me.Controls.Add(Me.LabelHeader1)
+        Me.Controls.Add(Me.RscDataCell15)
         Me.Name = "RSCFieldColumnV2"
         Me.Size = New System.Drawing.Size(188, 548)
         Me.ResumeLayout(False)
@@ -195,4 +304,13 @@ Partial Class RSCFieldColumnV2
     Friend WithEvents RscDataCell7 As RSCDataCell
     Friend WithEvents RscDataCell8 As RSCDataCell
     Friend WithEvents RscDataCell9 As RSCDataCell
+    Friend WithEvents RscDataCell17 As RSCDataCell
+    Friend WithEvents RscDataCell16 As RSCDataCell
+    Friend WithEvents RscDataCell15 As RSCDataCell
+    Friend WithEvents RscDataCell14 As RSCDataCell
+    Friend WithEvents RscDataCell13 As RSCDataCell
+    Friend WithEvents RscDataCell12 As RSCDataCell
+    Friend WithEvents RscDataCell11 As RSCDataCell
+    Friend WithEvents RscDataCell10 As RSCDataCell
+    Friend WithEvents RscDataCell18 As RSCDataCell
 End Class
