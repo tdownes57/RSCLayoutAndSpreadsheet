@@ -12,7 +12,7 @@ Imports ciBadgeFields ''Added 3/8/2022 thomas downes
 Imports ciBadgeCachePersonality ''Added 3/14/2022 
 Imports ciBadgeRecipients ''Added 3/22/2022 td
 
-Public Class RSCFieldColumn
+Public Class RSCFieldColumnV1
     ''
     ''Added 2/21/2022 thomas downes  
     ''
@@ -20,7 +20,7 @@ Public Class RSCFieldColumn
     Public ColumnDataCache As CacheRSCFieldColumnWidthsEtc ''Added 3/15/2022 td
     Public ListRecipients As IEnumerable(Of ClassRecipient) ''Added 3/22/2022 td
 
-    Private mod_listOfColumnsToBumpRight As List(Of RSCFieldColumn)
+    Private mod_listOfColumnsToBumpRight As List(Of RSCFieldColumnV1)
     Private mod_columnWidthAndData As ClassColumnWidthAndData ''Added 3/18/2022  
     Private mod_arrayOfData_Undo As String() ''Added 3/20/2022 thomas d.
     Private mod_arrayOfData_Undo_Tag As String() ''Added 4/01/2022 thomas d.
@@ -67,11 +67,11 @@ Public Class RSCFieldColumn
     End Property
 
 
-    Public Property ListOfColumnsToBumpRight As List(Of RSCFieldColumn) ''Added 3/12/2022 td 
+    Public Property ListOfColumnsToBumpRight As List(Of RSCFieldColumnV1) ''Added 3/12/2022 td 
         Get
             Return mod_listOfColumnsToBumpRight
         End Get
-        Set(value As List(Of RSCFieldColumn))
+        Set(value As List(Of RSCFieldColumnV1))
             ''
             ''Important, set the local list of columns to match the list which
             ''    is part of the composition of MyBase.mod_iMoveOrResizeFunctionality 
@@ -99,7 +99,7 @@ Public Class RSCFieldColumn
                                       par_nameOfControl As String,
                                       par_bProportionSizing As Boolean,
                                      par_oSpreadsheet As RSCFieldSpreadsheet,
-                                     par_intColumnIndex As Integer) As RSCFieldColumn
+                                     par_intColumnIndex As Integer) As RSCFieldColumnV1
         ''
         ''Added 3/21/2022 td
         ''
@@ -131,7 +131,7 @@ Public Class RSCFieldColumn
                                      par_iRecordLastControl As IRecordElementLastTouched,
                                      par_oMoveEventsForGroupedCtls As GroupMoveEvents_Singleton,
                                      par_oSpreadsheet As RSCFieldSpreadsheet,
-                                     par_intColumnIndex As Integer) As RSCFieldColumn
+                                     par_intColumnIndex As Integer) As RSCFieldColumnV1
         ''
         ''Added 3/8/2022 & 1/04/2022 td
         ''
@@ -168,7 +168,7 @@ Public Class RSCFieldColumn
         Dim enumElementType_Enum As EnumElementType = EnumElementType.Portrait
 
         ''Create the control. 
-        Dim CtlFieldColumn1 = New RSCFieldColumn(par_field, par_formParent,
+        Dim CtlFieldColumn1 = New RSCFieldColumnV1(par_field, par_formParent,
                                                   par_iLayoutFun,
                                       par_parametersGetElementControl.iRefreshPreview,
                                                   sizeElementPortrait,
@@ -420,12 +420,12 @@ Public Class RSCFieldColumn
     End Sub ''End of ""Public Sub New(par_field As .........)"
 
 
-    Public Sub AddBumpColumn(par_columnToBump As RSCFieldColumn)
+    Public Sub AddBumpColumn(par_columnToBump As RSCFieldColumnV1)
         ''
         ''Added 4/1/2022 thomas 
         ''
         If (mod_listOfColumnsToBumpRight Is Nothing) Then
-            mod_listOfColumnsToBumpRight = New List(Of RSCFieldColumn)
+            mod_listOfColumnsToBumpRight = New List(Of RSCFieldColumnV1)
         End If
 
         If (Not mod_listOfColumnsToBumpRight.Contains(par_columnToBump)) Then
@@ -913,7 +913,7 @@ Public Class RSCFieldColumn
         ''
         ''Added 3/18/2022 t1h1o1m1a1s1 d1o1w1n1e1s1
         ''
-        Dim objFieldColumnControl As RSCFieldColumn
+        Dim objFieldColumnControl As RSCFieldColumnV1
 
         objFieldColumnControl = Me
         ''March18 2022''With Me.ColumnWidthAndData

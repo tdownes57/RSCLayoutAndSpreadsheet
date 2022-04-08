@@ -251,10 +251,22 @@
     <Compile Include="ControlsRSC\CacheRSCFieldColumnWidthsEtc.vb" />
     <Compile Include="ControlsRSC\ModRSCLayout.vb" />
     <Compile Include="ControlsRSC\ModuleStructRSC.vb" />
-    <Compile Include="ControlsRSC\RSCFieldColumn.designer.vb">
-      <DependentUpon>RSCFieldColumn.vb</DependentUpon>
+    <Compile Include="ControlsRSC\RSCDataCell.Designer.vb">
+      <DependentUpon>RSCDataCell.vb</DependentUpon>
     </Compile>
-    <Compile Include="ControlsRSC\RSCFieldColumn.vb">
+    <Compile Include="ControlsRSC\RSCDataCell.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ControlsRSC\RSCFieldColumnV1.designer.vb">
+      <DependentUpon>RSCFieldColumnV1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ControlsRSC\RSCFieldColumnV1.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ControlsRSC\RSCFieldColumnV2.Designer.vb">
+      <DependentUpon>RSCFieldColumnV2.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ControlsRSC\RSCFieldColumnV2.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ControlsRSC\RSCInterfaceMouseEvents.vb" />
@@ -496,8 +508,14 @@
     <EmbeddedResource Include="ControlsCtl\CtlConfigFldStdRelevancy.resx">
       <DependentUpon>CtlConfigFldStdRelevancy.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ControlsRSC\RSCFieldColumn.resx">
-      <DependentUpon>RSCFieldColumn.vb</DependentUpon>
+    <EmbeddedResource Include="ControlsRSC\RSCDataCell.resx">
+      <DependentUpon>RSCDataCell.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControlsRSC\RSCFieldColumnV1.resx">
+      <DependentUpon>RSCFieldColumnV1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControlsRSC\RSCFieldColumnV2.resx">
+      <DependentUpon>RSCFieldColumnV2.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ControlsRSC\RSCRowHeader.resx">
       <DependentUpon>RSCRowHeader.vb</DependentUpon>

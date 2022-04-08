@@ -21,7 +21,7 @@ Public Class RSCRowHeaders
     Private mod_ctlLasttouched As New ClassLastControlTouched ''Added 1/4/2022 td
     Private mod_eventsSingleton As New GroupMoveEvents_Singleton(Me.Designer, False, True) ''Added 1/4/2022 td  
     Private mod_colorOfColumnsBackColor As System.Drawing.Color = Drawing.Color.AntiqueWhite ''Added 3/13/2022 thomas downes
-    Private mod_array_RSCColumns As RSCFieldColumn() ''Added 3/14/2022 td
+    Private mod_array_RSCColumns As RSCFieldColumnV1() ''Added 3/14/2022 td
     Private Const mc_ColumnWidthDefault As Integer = 72 ''Added 3/20/2022 td
     Private Const mc_ColumnMarginGap As Integer = 3 ''---4 ''Added 3/20/2022 td
     Private Const mod_c_intPixelsFromRowToRow As Integer = 24 ''Added 4/04/2022 td
@@ -66,12 +66,12 @@ Public Class RSCRowHeaders
     End Function ''End of ""Public Function CountOfRows() As Integer""
 
 
-    Public Function ListOfColumns() As List(Of RSCFieldColumn)
+    Public Function ListOfColumns() As List(Of RSCFieldColumnV1)
 
         ''Added 3/21/2022 thomas downes
         ''\\---Return New List(Of RSCFieldColumn)(mod_array_RSCColumns)
-        Dim oList As List(Of RSCFieldColumn)
-        oList = New List(Of RSCFieldColumn)(mod_array_RSCColumns)
+        Dim oList As List(Of RSCFieldColumnV1)
+        oList = New List(Of RSCFieldColumnV1)(mod_array_RSCColumns)
         oList.Remove(Nothing) ''Item #0 is Nothing, so let's omit the Null reference. 
         Return oList
 
@@ -461,7 +461,7 @@ Public Class RSCRowHeaders
     ''End Function ''End of ""Public Function GetBottomBarForRow()""
 
 
-    Public Sub AlignControlsWithSpreadsheet(par_controlColumnOne As RSCFieldColumn)
+    Public Sub AlignControlsWithSpreadsheet(par_controlColumnOne As RSCFieldColumnV1)
         ''
         ''Added 3/24/2022 td
         ''
@@ -738,8 +738,9 @@ Public Class RSCRowHeaders
         Dim textbox_Top As RSCRowHeader
         textbox_Top = Me.GetFirstTextbox()
         With objTextbox
-            .Left = textbox_Top.Left
-            .Width = textbox_Top.Width
+            ''4/7/2022----Obselete.... call to PositionAndSizeControlByRow().---4/7/2022 td
+            ''4/7/2022-- .Left = textbox_Top.Left
+            ''4/7/2022-- .Width = textbox_Top.Width
             ''Moved below.''.Height = textbox_Top.Height
             .Anchor = textbox_Top.Anchor
             .BackColor = textbox_Top.BackColor
@@ -748,8 +749,19 @@ Public Class RSCRowHeaders
             .Font = textbox_Top.Font
             ''---.Top = (textbox_BottomLast.Top + intTopGap)
             ''April 5 2022 ''.Top = (textbox_Top.Top + mc_intPixelsFromRowToRow * (par_intRowIndex - 1))
-            .Top = (textbox_Top.Top + Me.PixelsFromRowToRow * (par_intRowIndex - 1))
-            .Height = textbox_Top.Height
+
+            ''4/7/2022----Obselete.... call to PositionAndSizeControlByRow().---4/7/2022 td
+            ''4/7/2022-- .Top = (textbox_Top.Top + Me.PixelsFromRowToRow * (par_intRowIndex - 1))
+            ''4/7/2022-- .Height = textbox_Top.Height
+
+            ''Added 4/7/2022 thomas downes
+            Dim temporary_textbox = New TextBox
+            ModRSCLayout.PositionAndSizeControlByRow(par_intRowIndex, textbox_Top.Top,
+                                            textbox_Top.Width, temporary_textbox)
+            .Size = temporary_textbox.Size
+            .Location = temporary_textbox.Location
+            .Width = textbox_Top.Width
+
             .Visible = True
             .Text = par_intRowIndex.ToString() ''Added 4/6/2022 thomas downes
             .ParentRSCRowHeaders = Me ''Added 4/6/2022 td

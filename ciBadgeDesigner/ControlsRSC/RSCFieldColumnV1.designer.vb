@@ -1,7 +1,7 @@
 ﻿Imports __RSCWindowsControlLibrary ''Added 3/8/2022 thomas downes
 
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class RSCFieldColumn
+Partial Class RSCFieldColumnV1
     Inherits RSCMoveableControlVB
     ''Feb21 2022 td ''Inherits System.Windows.Forms.UserControl
 

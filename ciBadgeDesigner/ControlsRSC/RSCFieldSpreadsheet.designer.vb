@@ -24,7 +24,7 @@ Partial Class RSCFieldSpreadsheet
     Private Sub InitializeComponent()
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel2 = New System.Windows.Forms.LinkLabel()
-        Me.RscFieldColumn1 = New ciBadgeDesigner.RSCFieldColumn()
+        Me.RscFieldColumn1 = New ciBadgeDesigner.RSCFieldColumnV1()
         Me.RscRowHeaders1 = New ciBadgeDesigner.RSCRowHeaders()
         Me.SuspendLayout()
         '
@@ -101,5 +101,5 @@ Partial Class RSCFieldSpreadsheet
     Friend WithEvents LinkLabel1 As LinkLabel
     Friend WithEvents LinkLabel2 As LinkLabel
     Public WithEvents RscRowHeaders1 As RSCRowHeaders
-    Public WithEvents RscFieldColumn1 As RSCFieldColumn
+    Public WithEvents RscFieldColumn1 As RSCFieldColumnV1
 End Class

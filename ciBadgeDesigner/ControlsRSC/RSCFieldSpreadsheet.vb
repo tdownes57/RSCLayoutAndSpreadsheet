@@ -22,7 +22,7 @@ Public Class RSCFieldSpreadsheet
     Private mod_ctlLasttouched As New ClassLastControlTouched ''Added 1/4/2022 td
     Private mod_eventsSingleton As New GroupMoveEvents_Singleton(Me.Designer, False, True) ''Added 1/4/2022 td  
     Private mod_colorOfColumnsBackColor As System.Drawing.Color = Drawing.Color.AntiqueWhite ''Added 3/13/2022 thomas downes
-    Private mod_array_RSCColumns As RSCFieldColumn() ''Added 3/14/2022 td
+    Private mod_array_RSCColumns As RSCFieldColumnV1() ''Added 3/14/2022 td
 
     Private Const mc_ColumnWidthDefault As Integer = 150 ''72 ''Added 3/20/2022 td
     Private Const mc_ColumnMarginGap As Integer = 3 ''---4 ''Added 3/20/2022 td
@@ -30,17 +30,17 @@ Public Class RSCFieldSpreadsheet
     Private Const mc_intPixelsFromRowToRow As Integer = 24 ''Added 4/05/2022 td
 
 
-    Public Function RSCFieldColumn_Leftmost() As RSCFieldColumn
+    Public Function RSCFieldColumn_Leftmost() As RSCFieldColumnV1
         ''Added 3/31/2022 td
         Return RscFieldColumn1
     End Function
 
-    Public Function ListOfColumns() As List(Of RSCFieldColumn)
+    Public Function ListOfColumns() As List(Of RSCFieldColumnV1)
 
         ''Added 3/21/2022 thomas downes
         ''\\---Return New List(Of RSCFieldColumn)(mod_array_RSCColumns)
-        Dim oList As List(Of RSCFieldColumn)
-        oList = New List(Of RSCFieldColumn)(mod_array_RSCColumns)
+        Dim oList As List(Of RSCFieldColumnV1)
+        oList = New List(Of RSCFieldColumnV1)(mod_array_RSCColumns)
         oList.Remove(Nothing) ''Item #0 is Nothing, so let's omit the Null reference. 
         Return oList
 
@@ -339,7 +339,7 @@ Public Class RSCFieldSpreadsheet
             Dim bAreData_DangerOfOverwritten As Boolean
             Dim bColumnHasNoField As Boolean
             Dim bListHasNoRecipients As Boolean
-            Dim list_columns As List(Of RSCFieldColumn)
+            Dim list_columns As List(Of RSCFieldColumnV1)
             Dim intNumberOfRecipients As Integer ''Added 4/5/2022
 
             list_columns = ListOfColumns() ''Added 3/30/2022 thomas d. 
@@ -355,7 +355,7 @@ Public Class RSCFieldSpreadsheet
             ''
             ''Fill each of the columns. 
             ''
-            For Each each_column As RSCFieldColumn In list_columns ''March30 2022 td''Me.ListOfColumns()
+            For Each each_column As RSCFieldColumnV1 In list_columns ''March30 2022 td''Me.ListOfColumns()
 
                 ''Added 3/29/2022 thomas d.
                 ''
@@ -414,7 +414,7 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 3/29/2022 thomas downes
         ''
-        Dim objRSCFieldColumn As RSCFieldColumn
+        Dim objRSCFieldColumn As RSCFieldColumnV1
         Dim boolConfirmed As Boolean
 
         boolConfirmed = (MessageBoxTD.Show_Confirmed("Clear all data from this spreadsheet?",
@@ -422,7 +422,7 @@ Public Class RSCFieldSpreadsheet
 
         If (boolConfirmed) Then
             ''Confirmed, so clear the data from each column.  
-            For Each each_column As RSCFieldColumn In Me.ListOfColumns
+            For Each each_column As RSCFieldColumnV1 In Me.ListOfColumns
                 objRSCFieldColumn = each_column ''---CType(each_column, RSCFieldColumn)
                 objRSCFieldColumn.ClearDataFromColumn_Do()
             Next each_column
@@ -439,10 +439,10 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 4/01/2022 thomas downes
         ''
-        Dim objRSCFieldColumn As RSCFieldColumn
+        Dim objRSCFieldColumn As RSCFieldColumnV1
         Dim boolConfirmed As Boolean
 
-        For Each each_column As RSCFieldColumn In Me.ListOfColumns
+        For Each each_column As RSCFieldColumnV1 In Me.ListOfColumns
             objRSCFieldColumn = each_column ''---CType(each_column, RSCFieldColumn)
             objRSCFieldColumn.ClearDataFromColumn_Do()
         Next each_column
@@ -509,8 +509,8 @@ Public Class RSCFieldSpreadsheet
         ''Added a Number N of Required Columns. 
         ''
         Dim intNeededIndex As Integer = 1
-        Dim each_Column As RSCFieldColumn
-        Dim priorColumn As RSCFieldColumn = Nothing
+        Dim each_Column As RSCFieldColumnV1
+        Dim priorColumn As RSCFieldColumnV1 = Nothing
         Dim intNeededMax As Integer = 4
 
         ''Added 3/16/2022 td
@@ -597,9 +597,9 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Step 3 of 5.  Link the columns together.  
         ''
-        Dim listColumnsRight = New List(Of RSCFieldColumn)
-        Dim each_list As List(Of RSCFieldColumn)
-        Dim prior_list As List(Of RSCFieldColumn)
+        Dim listColumnsRight = New List(Of RSCFieldColumnV1)
+        Dim each_list As List(Of RSCFieldColumnV1)
+        Dim prior_list As List(Of RSCFieldColumnV1)
         Dim bNotTheRightmostColumn As Boolean
 
         For intNeededIndex = intNeededMax To 1 Step -1 ''Going backward, i.e. decrementing the index,
@@ -614,7 +614,7 @@ Public Class RSCFieldSpreadsheet
             ''   By "a partial listing", I mean only those columns which are on the //right-hand//
             ''   side of column #intNeededIndex.      ---3/12/20022 td
             ''   
-            each_list = New List(Of RSCFieldColumn)(listColumnsRight) ''Basically, a copy of listColumnsRight.
+            each_list = New List(Of RSCFieldColumnV1)(listColumnsRight) ''Basically, a copy of listColumnsRight.
 
             ''Added 3/12/2022 thomas d. 
             bNotTheRightmostColumn = (intNeededIndex < intNeededMax)
@@ -731,11 +731,11 @@ Public Class RSCFieldSpreadsheet
     Private Function GenerateRSCFieldColumn_General(p_intIndexCurrent As Integer,
                                                     p_intCurrentPropertyLeft As Integer,
                                                     ByRef pref_intNextPropertyLeft As Integer,
-                                                    p_priorColumn As RSCFieldColumn) As RSCFieldColumn
+                                                    p_priorColumn As RSCFieldColumnV1) As RSCFieldColumnV1
         ''
         '' Added 3/20/2022 td
         ''
-        Dim newRSCColumn_output As RSCFieldColumn
+        Dim newRSCColumn_output As RSCFieldColumnV1
         Dim fieldForNewColumn As ciBadgeFields.ClassFieldAny
 
         fieldForNewColumn = New ciBadgeFields.ClassFieldAny()
@@ -798,11 +798,11 @@ Public Class RSCFieldSpreadsheet
     End Function ''End of "Private Function GenerateRSCFieldColumn_Special"
 
 
-    Private Function GenerateRSCFieldColumn_Special(par_objField As ClassFieldAny, par_intFieldIndex As Integer) As RSCFieldColumn
+    Private Function GenerateRSCFieldColumn_Special(par_objField As ClassFieldAny, par_intFieldIndex As Integer) As RSCFieldColumnV1
         ''
         ''Added 3/8/2022 td
         ''
-        Dim objNewColumn As RSCFieldColumn ''Added 3/8/2022 td
+        Dim objNewColumn As RSCFieldColumnV1 ''Added 3/8/2022 td
 
         ''March9 2022 ''objNewColumn = RSCFieldColumn.GetFieldColumn()
         ''Added 1/17/2022 td
@@ -811,7 +811,7 @@ Public Class RSCFieldSpreadsheet
 
         Const c_boolProportional As Boolean = False ''Added 3/11/2022 td 
 
-        objNewColumn = RSCFieldColumn.GetRSCFieldColumn(objGetParametersForGetControl,
+        objNewColumn = RSCFieldColumnV1.GetRSCFieldColumn(objGetParametersForGetControl,
                                                          par_objField, Me.ParentForm,
                                                          "RSCFieldColumn" & CStr(par_intFieldIndex),
                                                           Me.Designer, c_boolProportional,
@@ -831,19 +831,19 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 3/8/2022 thomas d
         ''
-        Dim listRSCColumns As New List(Of RSCFieldColumn)
+        Dim listRSCColumns As New List(Of RSCFieldColumnV1)
 
         For Each each_control As Control In Me.Controls
-            If (TypeOf each_control Is RSCFieldColumn) Then
+            If (TypeOf each_control Is RSCFieldColumnV1) Then
 
                 each_control.Dispose()
                 each_control.Visible = False
-                listRSCColumns.Add(CType(each_control, RSCFieldColumn))
+                listRSCColumns.Add(CType(each_control, RSCFieldColumnV1))
 
             End If
         Next each_control
 
-        For Each each_control As RSCFieldColumn In listRSCColumns
+        For Each each_control As RSCFieldColumnV1 In listRSCColumns
 
             Me.Controls.Remove(each_control)
 
@@ -882,7 +882,7 @@ Public Class RSCFieldSpreadsheet
         ''
         For intIndex As Integer = 1 To Me.ColumnDataCache.ListOfColumns.Count
 
-            Dim eachColumn As RSCFieldColumn ''Added 3/18/2022 thomas downes
+            Dim eachColumn As RSCFieldColumnV1 ''Added 3/18/2022 thomas downes
             eachColumn = mod_array_RSCColumns(intIndex)
             eachColumn.SaveDataToColumn()
 
@@ -924,7 +924,7 @@ Public Class RSCFieldSpreadsheet
         ''Added 3/20/2022 thomas downes 
         ''
         Dim objCacheOfData As CacheRSCFieldColumnWidthsEtc
-        Dim newRSCColumn As RSCFieldColumn
+        Dim newRSCColumn As RSCFieldColumnV1
         Dim intNewLength As Integer
         Dim intNewColumnPropertyLeft As Integer
         Dim intNewColumnWidth As Integer
@@ -984,7 +984,7 @@ Public Class RSCFieldSpreadsheet
         ''
         ''
         Dim intNextColumnPropertyLeft As Integer
-        Dim objColumnAdjacent As RSCFieldColumn = Nothing
+        Dim objColumnAdjacent As RSCFieldColumnV1 = Nothing
 
         If (par_intColumnIndex > 0) Then
             objColumnAdjacent = mod_array_RSCColumns(-1 + par_intColumnIndex)
@@ -1003,7 +1003,7 @@ Public Class RSCFieldSpreadsheet
         newRSCColumn.Top = RscFieldColumn1.Top
         newRSCColumn.Height = RscFieldColumn1.Height
         ''April 1st 2022 ''newRSCColumn.ListOfColumnsToBumpRight = New List(Of RSCFieldColumn)
-        Dim list_columnsToBumpRight As New List(Of RSCFieldColumn)
+        Dim list_columnsToBumpRight As New List(Of RSCFieldColumnV1)
 
         For intIndex As Integer = (1 + par_intColumnIndex) To (intNewLength - 1)
             ''
@@ -1070,8 +1070,8 @@ Public Class RSCFieldSpreadsheet
         ''Added 4/03/2022
         ''
         Dim intCountColumns As Integer
-        Dim list_columns As List(Of RSCFieldColumn)
-        Dim each_column As RSCFieldColumn
+        Dim list_columns As List(Of RSCFieldColumnV1)
+        Dim each_column As RSCFieldColumnV1
         Dim strValue As String
         Dim strLine As String = ""
 

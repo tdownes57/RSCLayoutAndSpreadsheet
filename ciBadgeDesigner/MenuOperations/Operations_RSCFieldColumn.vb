@@ -74,13 +74,13 @@ Public Class Operations_RSCFieldColumn
         ''Copy-pasted 1/24/2022 thomas downes
         ''Added 8/17/2019 thomas downes
         ''         
-        Dim objRSCFieldColumn As RSCFieldColumn
+        Dim objRSCFieldColumn As RSCFieldColumnV1
         Dim boolConfirmed As Boolean
 
         boolConfirmed = (MessageBoxTD.Show_Confirmed("Clear all data from this column?",
                                                      "(To undo, hit Cancel or select Undo.)", True))
         If (boolConfirmed) Then
-            objRSCFieldColumn = CType(CtlCurrentControl, RSCFieldColumn)
+            objRSCFieldColumn = CType(CtlCurrentControl, RSCFieldColumnV1)
             objRSCFieldColumn.ClearDataFromColumn_Do()
             mod_bClearingExists_MayBeUndone = True
         End If ''End of "If (boolConfirmed) Then"
@@ -93,7 +93,7 @@ Public Class Operations_RSCFieldColumn
         ''Copy-pasted 1/24/2022 thomas downes
         ''Added 8/17/2019 thomas downes
         ''         
-        Dim objRSCFieldColumn As RSCFieldColumn
+        Dim objRSCFieldColumn As RSCFieldColumnV1
         Dim boolConfirmed1 As Boolean
         Dim boolConfirmed2 As Boolean
         Dim intCountData As Integer
@@ -105,7 +105,7 @@ Public Class Operations_RSCFieldColumn
 
         If (boolConfirmed1) Then
 
-            objRSCFieldColumn = CType(CtlCurrentControl, RSCFieldColumn)
+            objRSCFieldColumn = CType(CtlCurrentControl, RSCFieldColumnV1)
             intCountData = objRSCFieldColumn.CountOfBoxesWithData()
 
             If (intCountData > 0) Then
@@ -130,7 +130,7 @@ Public Class Operations_RSCFieldColumn
             ''
             ''Major call. 
             ''
-            objRSCFieldColumn = CType(CtlCurrentControl, RSCFieldColumn)
+            objRSCFieldColumn = CType(CtlCurrentControl, RSCFieldColumnV1)
             objRSCFieldColumn.ClearDataFromColumn_Undo(boolKeepAnyEdits)
             mod_bClearingExists_MayBeUndone = False ''Restore to False
 
