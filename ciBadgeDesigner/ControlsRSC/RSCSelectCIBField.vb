@@ -12,6 +12,7 @@ Public Class RSCSelectCIBField
     '' Added 2/16/2022 thomas downes 
     ''
     Public ElementsCache_Deprecated As ciBadgeCachePersonality.ClassElementsCache_Deprecated ''Added 3/10/2022 td
+    Public ParentSpreadsheet As RSCFieldSpreadsheet ''Added 4/11/2022 thomas 
     Public InfoMouseEvents As RSCInterfaceMouseEvents ''Added 4/1/2022 td
     Public Event RSCMouseUp(sender As Object, e As MouseEventArgs) ''Added 4/1/2022 td
     Public Event RSCFieldChanged(newCIBField As EnumCIBFields) ''Added 4/1/2022 td

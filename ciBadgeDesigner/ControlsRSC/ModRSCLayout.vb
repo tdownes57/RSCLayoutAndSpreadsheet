@@ -6,6 +6,7 @@
     Public Const PixelsMargin As Integer = 1 ''Added 4/05/2022 td
     Public Const PixelsWidthDefault As Integer = 0 ''Added 4/05/2022 td
 
+
     Public Sub PositionAndSizeControlByRow(par_control As Control,
                                            par_intRowIndex As Integer,
                                            par_intIndex1Control_Top As Integer,

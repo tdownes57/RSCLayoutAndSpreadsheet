@@ -52,7 +52,7 @@ Partial Class RSCFieldSpreadsheet
         '
         'RscFieldColumn1
         '
-        Me.RscFieldColumn1.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.RscFieldColumn1.BackColor = System.Drawing.Color.MediumTurquoise
         Me.RscFieldColumn1.ColumnWidthAndData = Nothing
         Me.RscFieldColumn1.ElementInfo_Base = Nothing
         Me.RscFieldColumn1.ListOfColumnsToBumpRight = Nothing
@@ -71,7 +71,7 @@ Partial Class RSCFieldSpreadsheet
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.RscRowHeaders1.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.RscRowHeaders1.ElementInfo_Base = Nothing
-        Me.RscRowHeaders1.Location = New System.Drawing.Point(2, 137)
+        Me.RscRowHeaders1.Location = New System.Drawing.Point(2, 139)
         Me.RscRowHeaders1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.RscRowHeaders1.MoveabilityEventsForGroupCtls = Nothing
         Me.RscRowHeaders1.MoveabilityEventsForSingleMove = Nothing

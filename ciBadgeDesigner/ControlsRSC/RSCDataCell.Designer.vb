@@ -31,12 +31,12 @@ Partial Class RSCDataCell
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Textbox1a.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.Textbox1a.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Textbox1a.ForeColor = System.Drawing.SystemColors.InactiveCaption
+        Me.Textbox1a.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Textbox1a.Location = New System.Drawing.Point(0, 0)
         Me.Textbox1a.Margin = New System.Windows.Forms.Padding(2)
         Me.Textbox1a.Multiline = True
         Me.Textbox1a.Name = "Textbox1a"
-        Me.Textbox1a.Size = New System.Drawing.Size(150, 22)
+        Me.Textbox1a.Size = New System.Drawing.Size(150, 23)
         Me.Textbox1a.TabIndex = 37
         Me.Textbox1a.Text = "Example"
         '

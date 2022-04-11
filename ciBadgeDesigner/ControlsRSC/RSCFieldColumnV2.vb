@@ -22,6 +22,7 @@ Public Class RSCFieldColumnV2
     Public ElementsCache_Deprecated As ciBadgeCachePersonality.ClassElementsCache_Deprecated ''Added 3/10/2022 td
     Public ColumnDataCache As CacheRSCFieldColumnWidthsEtc ''Added 3/15/2022 td
     Public ListRecipients As IEnumerable(Of ClassRecipient) ''Added 3/22/2022 td
+    Public ParentSpreadsheet As RSCFieldSpreadsheet ''Added 4/11/2022 td
 
     Private mod_listOfColumnsToBumpRight As List(Of RSCFieldColumnV2)
     Private mod_columnWidthAndData As ClassColumnWidthAndData ''Added 3/18/2022  
@@ -471,6 +472,7 @@ Public Class RSCFieldColumnV2
 
         RscSelectCIBField1.Loading = True ''Added 4/1/2022
         RscSelectCIBField1.ElementsCache_Deprecated = Me.ElementsCache_Deprecated
+        RscSelectCIBField1.ParentSpreadsheet = Me.ParentSpreadsheet
         RscSelectCIBField1.Load_FieldsFromCache(par_cache)
 
         ''
@@ -520,13 +522,16 @@ Public Class RSCFieldColumnV2
         ''Added 3/20/2022 t//d//
         ''
         Dim indexItem As Integer = 0
-        Dim listRSCDataCelles As IEnumerable(Of RSCDataCell)
+        Dim listRSCDataCells As IEnumerable(Of RSCDataCell)
 
-        listRSCDataCelles = ListOfRSCDataCells_TopToBottom()
-        ReDim mod_arrayOfData_Undo(-1 + listRSCDataCelles.Count)
-        ReDim mod_arrayOfData_Undo_Tag(-1 + listRSCDataCelles.Count)
+        listRSCDataCells = ListOfRSCDataCells_TopToBottom()
+        ReDim mod_arrayOfData_Undo(-1 + listRSCDataCells.Count)
+        ReDim mod_arrayOfData_Undo_Tag(-1 + listRSCDataCells.Count)
 
-        For Each each_RSCDataCell In listRSCDataCelles '' ListOfRSCDataCelles_TopToBottom()
+        ''
+        ''Looping 
+        ''
+        For Each each_RSCDataCell In listRSCDataCells '' ListOfRSCDataCelles_TopToBottom()
 
             ''Enable the Undo procedure.
             mod_arrayOfData_Undo(indexItem) = each_RSCDataCell.Text
@@ -540,6 +545,7 @@ Public Class RSCFieldColumnV2
             ''Clear the RSCDataCell of data.  
             each_RSCDataCell.Text = ""
             each_RSCDataCell.Tag = "" ''Added 4/1/2022
+            each_RSCDataCell.Tag_Text = "" ''Added 4/11/2022
 
         Next each_RSCDataCell
 
@@ -619,20 +625,43 @@ Public Class RSCFieldColumnV2
     End Function ''End of "Private Sub LoadDataToColumn_Do()"
 
 
-    Public Function CountOfBoxesWithData_Edited(Optional ByRef pref_countOfRows As Integer = 0) As Integer ''Added 3/20/2022
+    Public Function CountOfBoxesWithData_Edited(Optional ByRef pref_countOfRows As Integer = 0,
+                              Optional ByRef pref_examples As String = "",
+                              Optional ByVal par_intHowManyExamples As Integer = 10) As Integer ''Added 3/20/2022
         ''
         ''Added 3/20/2022 t//d//
         ''
         Dim intCountData As Integer = 0
         Dim listRSCDataCelles As IEnumerable(Of RSCDataCell)
+        Dim bMismatchOfTag As Boolean
+        Dim intExamples As Integer
+        Dim intCellIndex As Integer = 0
 
         listRSCDataCelles = ListOfRSCDataCells_TopToBottom()
         pref_countOfRows = listRSCDataCelles.Count ''Added 3/23/2022 td
 
+        ''
+        '' Looping each cell in the column. ---4/10/2022 td
+        ''
         For Each each_RSCDataCell In listRSCDataCelles '' ListOfRSCDataCelles_TopToBottom()
 
+            intCellIndex += 1
             ''If (Not String.IsNullOrEmpty(each_RSCDataCell.Text)) Then intCountData += 1
-            If (each_RSCDataCell.Text <> CStr(each_RSCDataCell.Tag)) Then intCountData += 1
+            bMismatchOfTag = (each_RSCDataCell.Text <> CStr(each_RSCDataCell.Tag))
+            If bMismatchOfTag Then
+
+                intCountData += 1
+
+                ''Added 4/10/2022 td
+                If (intExamples < par_intHowManyExamples) Then
+                    intExamples += 1
+                    pref_examples &= (vbCrLf & String.Format("{0}. Text {1} vs. Tag {2}",
+                            intCellIndex.ToString(),
+                            each_RSCDataCell.Text,
+                            CStr(each_RSCDataCell.Tag)))
+                End If ''End of ""If (intExamples < par_intHowManyExamples) Then""
+
+            End If ''End of "If bMismatchOfTag Then"
 
         Next each_RSCDataCell
 
@@ -753,10 +782,18 @@ Public Class RSCFieldColumnV2
         Dim intCountCellsWithData_Edited As Integer
         ''March23 2022''intCountCellsWithData = CountOfBoxesWithData()
         ''April 01 2023''intCountCellsWithData = CountOfBoxesWithData(intCountBoxesEmptyOrNot)
-        intCountCellsWithData_Edited = CountOfBoxesWithData_Edited(intCountBoxesEmptyOrNot)
-        If (intCountCellsWithData_Edited <> 0) Then
+        ''April 10 2023''intCountCellsWithData_Edited = CountOfBoxesWithData_Edited(intCountBoxesEmptyOrNot)
+        Dim strListExamples As String = "" ''Added 4/10/2022 thomas
+        Dim strMessage As String = "" ''Added 4/11/2022 thomas
+        Dim bool_Confirm As Boolean ''4/11 DialogResult ''Added 4/11/2022 td
+
+        intCountCellsWithData_Edited = CountOfBoxesWithData_Edited(intCountBoxesEmptyOrNot, strListExamples)
+        If (0 <> intCountCellsWithData_Edited) Then ''.... <> 0) Then
             pboolErrorCellsHaveValues = True
-            Throw New Exception("Warning, non-zero >0 cells with data edited already. Edits would be lost.")
+            ''4/11/2022 td''Throw New Exception("Warning, non-zero >0 cells with data edited already. Edits would be lost.")
+            strMessage = "Warning, non-zero >0 cells with data edited already. Edits would be lost.  Continue?"
+            bool_Confirm = MessageBoxTD.Show_Confirmed(strMessage, strListExamples, True)
+            If (Not bool_Confirm) Then Return ''Added 4/11/2022 td
         End If ''End of ""If (intCountCellsWithData_Edited <> 0) Then""
 
         Dim enumFieldSelected As EnumCIBFields
@@ -820,15 +857,34 @@ Public Class RSCFieldColumnV2
         ''March25 2022 td''Dim listBoxes As IOrderedEnumerable(Of RSCDataCell)
         Dim listBoxes As List(Of RSCDataCell)
         Dim intRowIndex As Integer = -1
+        Dim each_value As String
+        Dim boolMiscountOfRows As Boolean
+        Dim intRowsInSpreadsheet As Integer
+
         listBoxes = ListOfRSCDataCells_TopToBottom()
 
+        ''Added 4/11/2022
+        intRowsInSpreadsheet = Me.ParentSpreadsheet.RscFieldColumn1.CountOfRows()
+        boolMiscountOfRows = (listBoxes.Count <> intRowsInSpreadsheet)
+        If (boolMiscountOfRows) Then
+            System.Diagnostics.Debugger.Break()
+        End If ''End of ""If (boolMiscountOfRows) Then""
+
+        ''
+        ''Looping 
+        ''
         For Each each_box As RSCDataCell In listBoxes
 
             intRowIndex += 1
 
-            each_box.Text = Me.ListRecipients(intRowIndex).GetTextValue(enumFieldSelected)
+            ''4/11 td''each_box.Text = Me.ListRecipients(intRowIndex).GetTextValue(enumFieldSelected)
+            ''Added 4/11/2022 td
+            each_value = Me.ListRecipients(intRowIndex).GetTextValue(enumFieldSelected)
+            each_box.Text = each_value
 
-            each_box.Tag = each_box.Text ''added 4/1/2022
+            ''4/11/2022 td''each_box.Tag = each_box.Text ''added 4/1/2022
+            each_box.Tag_Text = each_value ''4/11/2022 each_box.Text ''added 4/1/2022
+            each_box.Tag = each_value ''4/11/2022 each_box.Text ''added 4/1/2022
 
         Next each_box
 
@@ -981,6 +1037,10 @@ Public Class RSCFieldColumnV2
 
         With mod_listRSCDataCellsByRow
             bRowIndexLocated = (.ContainsKey(par_intRowIndex))
+
+            ''Added 4/11/2022 td
+            If (par_intRowIndex = 19) Then System.Diagnostics.Debugger.Break()
+
         End With
 
         If (pboolForceReposition) Then

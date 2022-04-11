@@ -319,6 +319,12 @@ Public Class RSCFieldSpreadsheet
         ''
         Load_Recipients()
 
+        ''
+        ''Added 4/11/2022 td
+        ''
+        Dim intTopOfGrid As Integer
+        intTopOfGrid = (RscFieldColumn1.Top + RscFieldColumn1.GetFirstRSCDataCell().Top)
+        RscRowHeaders1.Top = intTopOfGrid
 
     End Sub ''End of event handler Private Sub RSCFieldSpreadsheet_Load
 
@@ -570,11 +576,14 @@ Public Class RSCFieldSpreadsheet
                 Me.Controls.Add(each_Column)
                 ''Added 3/12/2022 thomas downes 
                 mod_array_RSCColumns(intNeededIndex) = each_Column
+
                 ''Added 3/16/2022 td
                 ''  Redundant, assigned in Step 4 below.
                 ''Oops....3/18/2022 ''eachColumn.ColumnWidthAndData = Me.ColumnDataCache.ListOfColumns(-1 + intNeededMax)
                 each_Column.ElementsCache_Deprecated = Me.ElementsCache_Deprecated
                 each_Column.ColumnWidthAndData = Me.ColumnDataCache.ListOfColumns(-1 + intNeededIndex)
+                ''Added 4/11/2022 thomas d.
+                each_Column.ParentSpreadsheet = Me
 
                 ''Test for uniqueness. 
                 Dim bUnexpectedMatch As Boolean
@@ -648,10 +657,12 @@ Public Class RSCFieldSpreadsheet
             each_columnWidthEtc = Me.ColumnDataCache.ListOfColumns(intNeededIndex - 1)
             each_Column.ColumnWidthAndData = each_columnWidthEtc
             each_Column.Top = intSavePropertyTop_RSCColumnCtl ''Added 3/21/2022
+            each_Column.BackColor = RscRowHeaders1.BackColor ''Added 4/11/2022 td
 
             ''
             ''Major call!
             ''
+            each_Column.ParentSpreadsheet = Me ''Added 4/11/2022 thomas d. 
             each_Column.Load_FieldsFromCache(Me.ElementsCache_Deprecated)
 
         Next intNeededIndex
@@ -725,8 +736,7 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 2/16/2022 thomas downes
         ''
-
-
+        LoadRuntimeColumns_AfterClearingDesign(Nothing) ''mod_designer)
 
     End Sub ''end of sub "Public Sub Load_FieldsFromCache(par_cache As ClassElementsCache_Deprecated)"
 
