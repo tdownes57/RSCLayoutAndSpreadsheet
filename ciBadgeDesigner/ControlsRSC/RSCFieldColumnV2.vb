@@ -504,7 +504,7 @@ Public Class RSCFieldColumnV2
         ''Added 3/19/2022 td
         ''
         Dim indexItem As Integer = 0
-        For Each each_RSCDataCell In ListOfRSCDataCelles_TopToBottom()
+        For Each each_RSCDataCell In ListOfRSCDataCells_TopToBottom()
 
             each_RSCDataCell.Text = par_listData.Item(indexItem)
             each_RSCDataCell.ForeColor = Color.Black
@@ -522,7 +522,7 @@ Public Class RSCFieldColumnV2
         Dim indexItem As Integer = 0
         Dim listRSCDataCelles As IEnumerable(Of RSCDataCell)
 
-        listRSCDataCelles = ListOfRSCDataCelles_TopToBottom()
+        listRSCDataCelles = ListOfRSCDataCells_TopToBottom()
         ReDim mod_arrayOfData_Undo(-1 + listRSCDataCelles.Count)
         ReDim mod_arrayOfData_Undo_Tag(-1 + listRSCDataCelles.Count)
 
@@ -555,7 +555,7 @@ Public Class RSCFieldColumnV2
         Dim bExpectedLength As Boolean
         Dim boolHasDataToKeep As Boolean
 
-        listRSCDataCelles = ListOfRSCDataCelles_TopToBottom()
+        listRSCDataCelles = ListOfRSCDataCells_TopToBottom()
         bExpectedLength = (listRSCDataCelles.Count = mod_arrayOfData_Undo.Length)
         If (bExpectedLength) Then
             For Each each_RSCDataCell In listRSCDataCelles '' ListOfRSCDataCelles_TopToBottom()
@@ -592,7 +592,7 @@ Public Class RSCFieldColumnV2
         ''
         Dim listBoxes As List(Of RSCDataCell)
         Const c_boolSkipSorting As Boolean = True
-        listBoxes = ListOfRSCDataCelles_TopToBottom(c_boolSkipSorting)
+        listBoxes = ListOfRSCDataCells_TopToBottom(c_boolSkipSorting)
         Return listBoxes.Count
 
     End Function ''End of ""Public Function CountOfRows() As Integer""
@@ -605,7 +605,7 @@ Public Class RSCFieldColumnV2
         Dim intCountData As Integer = 0
         Dim listRSCDataCelles As IEnumerable(Of RSCDataCell)
 
-        listRSCDataCelles = ListOfRSCDataCelles_TopToBottom()
+        listRSCDataCelles = ListOfRSCDataCells_TopToBottom()
         pref_countOfRows = listRSCDataCelles.Count ''Added 3/23/2022 td
 
         For Each each_RSCDataCell In listRSCDataCelles '' ListOfRSCDataCelles_TopToBottom()
@@ -626,7 +626,7 @@ Public Class RSCFieldColumnV2
         Dim intCountData As Integer = 0
         Dim listRSCDataCelles As IEnumerable(Of RSCDataCell)
 
-        listRSCDataCelles = ListOfRSCDataCelles_TopToBottom()
+        listRSCDataCelles = ListOfRSCDataCells_TopToBottom()
         pref_countOfRows = listRSCDataCelles.Count ''Added 3/23/2022 td
 
         For Each each_RSCDataCell In listRSCDataCelles '' ListOfRSCDataCelles_TopToBottom()
@@ -646,7 +646,7 @@ Public Class RSCFieldColumnV2
         ''Added 4/04/2022 thomas downes
         ''
         Dim objFirstRSCDataCell As RSCDataCell
-        objFirstRSCDataCell = ListOfRSCDataCelles_TopToBottom().First()
+        objFirstRSCDataCell = ListOfRSCDataCells_TopToBottom().First()
         Return objFirstRSCDataCell
 
     End Function ''End of ""Public Function GetFirstRSCDataCell() As RSCDataCell""
@@ -657,7 +657,7 @@ Public Class RSCFieldColumnV2
         ''Added 3/24/2022 thomas downes
         ''
         Dim objFirstRSCDataCell As RSCDataCell
-        objFirstRSCDataCell = ListOfRSCDataCelles_TopToBottom().First()
+        objFirstRSCDataCell = ListOfRSCDataCells_TopToBottom().First()
         Return objFirstRSCDataCell.Top
 
     End Function ''end of ""Public Function GetFirstRSCDataCellPropertyTop() As Integer""
@@ -668,7 +668,7 @@ Public Class RSCFieldColumnV2
         ''Added 4/4//2022 thomas downes 
         ''
         Dim objBottomRSCDataCell As RSCDataCell
-        objBottomRSCDataCell = ListOfRSCDataCelles_TopToBottom().Last
+        objBottomRSCDataCell = ListOfRSCDataCells_TopToBottom().Last
         Return objBottomRSCDataCell.Top + objBottomRSCDataCell.Height
 
     End Function ''End of ""Public Function GetRSCDataCellAtBottom_Bottom()""
@@ -820,7 +820,7 @@ Public Class RSCFieldColumnV2
         ''March25 2022 td''Dim listBoxes As IOrderedEnumerable(Of RSCDataCell)
         Dim listBoxes As List(Of RSCDataCell)
         Dim intRowIndex As Integer = -1
-        listBoxes = ListOfRSCDataCelles_TopToBottom()
+        listBoxes = ListOfRSCDataCells_TopToBottom()
 
         For Each each_box As RSCDataCell In listBoxes
 
@@ -842,7 +842,7 @@ Public Class RSCFieldColumnV2
         Dim objListData As New List(Of String)
 
         ''For Each each_RSCDataCell In objListOfRSCDataCelles_Ordered
-        For Each each_RSCDataCell In ListOfRSCDataCelles_TopToBottom()
+        For Each each_RSCDataCell In ListOfRSCDataCells_TopToBottom()
 
             objListData.Add(each_RSCDataCell.Text)
 
@@ -856,7 +856,7 @@ Public Class RSCFieldColumnV2
     End Function ''end of Private Function ListOfData() As List(Of String)
 
 
-    Public Function ListOfRSCDataCelles_TopToBottom(Optional par_bSkipSorting As Boolean = False) As List(Of RSCDataCell) ''IOrderedEnumerable(Of RSCDataCell)
+    Public Function ListOfRSCDataCells_TopToBottom(Optional par_bSkipSorting As Boolean = False) As List(Of RSCDataCell) ''IOrderedEnumerable(Of RSCDataCell)
         ''
         ''Added 3/19/2022 td
         ''
@@ -963,7 +963,7 @@ Public Class RSCFieldColumnV2
     End Sub ''Endof ""Public Sub AlignBottomBars_EvenlySpaced()""
 
 
-    Public Sub AlignRSCDataCelles_ToBottomBars()
+    Public Sub AlignRSCDataCells_ToBottomBars()
         ''
         ''Added 3/26/2022
         ''
@@ -1074,7 +1074,7 @@ Public Class RSCFieldColumnV2
         ''Me.Height = (objRSCDataCell.Top + objRSCDataCell.Height + intTopGap)
 
         Dim listOfBoxes As List(Of RSCDataCell)
-        listOfBoxes = ListOfRSCDataCelles_TopToBottom()
+        listOfBoxes = ListOfRSCDataCells_TopToBottom()
         RSCDataCell_BottomLast = listOfBoxes(-1 + listOfBoxes.Count) ''.LastOrDefault
         Me.Height = (RSCDataCell_BottomLast.Top + RSCDataCell_BottomLast.Height +
                     Me.PixelsFromRowToRow) ''----mc_intPixelsFromRowToRow)
@@ -1153,7 +1153,7 @@ Public Class RSCFieldColumnV2
         Dim intIndex__End As Integer
         Dim intTopGap As Integer
 
-        listOfBoxes = ListOfRSCDataCelles_TopToBottom()
+        listOfBoxes = ListOfRSCDataCells_TopToBottom()
         RSCDataCell_Top = listOfBoxes(0)
 
         RSCDataCell_BottomLast = listOfBoxes(-1 + listOfBoxes.Count) ''.LastOrDefault
@@ -1200,7 +1200,7 @@ Public Class RSCFieldColumnV2
         Static listRSCDataCelles As List(Of RSCDataCell)
 
         If (pboolRefresh Or listRSCDataCelles Is Nothing) Then
-            listRSCDataCelles = ListOfRSCDataCelles_TopToBottom()
+            listRSCDataCelles = ListOfRSCDataCells_TopToBottom()
         End If
 
         strValue = listRSCDataCelles(par_intRowIndex).Text

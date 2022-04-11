@@ -268,7 +268,8 @@ ExitHandler:
 
             ''Added 3/25/2022
             RscFieldSpreadsheet1.RscFieldColumn1.AlignBottomBars_EvenlySpaced()
-            RscFieldSpreadsheet1.RscFieldColumn1.AlignTextboxes_ToBottomBars()
+            ''4/9/2022 td''RscFieldSpreadsheet1.RscFieldColumn1.AlignTextboxes_ToBottomBars()
+            RscFieldSpreadsheet1.RscFieldColumn1.AlignRSCDataCells_ToBottomBars()
             ''RscFieldSpreadsheet1.AlignTextboxesWithBottomBars()
             ''RscFieldSpreadsheet1.RscRowHeaders1.AlignBottomBars_WithColumnOne(RscFieldSpreadsheet1.RscFieldColumn1)
             ''RscFieldSpreadsheet1.RscRowHeaders1.AlignTextBoxes_ToBottomBars(RscFieldSpreadsheet1.RscFieldColumn1)

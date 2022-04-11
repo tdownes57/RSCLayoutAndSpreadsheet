@@ -461,7 +461,7 @@ Public Class RSCRowHeaders
     ''End Function ''End of ""Public Function GetBottomBarForRow()""
 
 
-    Public Sub AlignControlsWithSpreadsheet(par_controlColumnOne As RSCFieldColumnV1)
+    Public Sub AlignControlsWithSpreadsheet(par_controlColumnOne As RSCFieldColumnV2)
         ''
         ''Added 3/24/2022 td
         ''
@@ -472,7 +472,8 @@ Public Class RSCRowHeaders
         ''
         ''March25 2022''Dim objSpreadsheet As RSCFieldSpreadsheet
         ''March25 2022''Dim objColumnOne As RSCFieldColumn
-        Dim listBoxesColumn1 As List(Of TextBox)
+        ''4/09/2022 td ''Dim listBoxesColumn1 As List(Of TextBox)
+        Dim listBoxesColumn1 As List(Of RSCDataCell)
         ''4/5/2022 td ''Dim listBoxesRowHdrs As List(Of TextBox)
         Dim listBoxesRowHdrs As List(Of RSCRowHeader)
         Dim listVisualBarsColumn1 As List(Of PictureBox)
@@ -484,7 +485,8 @@ Public Class RSCRowHeaders
         ''March25 2022''listBoxesColumn1 = objColumnOne.ListOfTextboxes_TopToBottom
         ''March25 2022''listBoxesColumn1 = par_listColumnBoxes
 
-        listBoxesColumn1 = par_controlColumnOne.ListOfTextboxes_TopToBottom()
+        ''4/9/2022 td ''listBoxesColumn1 = par_controlColumnOne.ListOfTextboxes_TopToBottom()
+        listBoxesColumn1 = par_controlColumnOne.ListOfRSCDataCells_TopToBottom()
         listBoxesRowHdrs = ListOfTextboxes_TopToBottom()
         listVisualBarsColumn1 = par_controlColumnOne.ListOfBottomBars_TopToBottom()
         ''4/8/2022 listVisualBarsRowHdrs = ListOfBottomBars_TopToBottom()
@@ -532,16 +534,16 @@ Public Class RSCRowHeaders
 
 
 
-    Private Sub AlignTextboxes(par_listBoxesColumn As IEnumerable(Of TextBox),
+    Private Sub AlignTextboxes(par_listBoxesColumn As IEnumerable(Of Control),
                                par_listBoxesRowHdrs As IEnumerable(Of RSCRowHeader))
         ''
         ''Added 3/24/2022 thomas d.  
         ''
         ''---For Each eachColumnBox As TextBox In par_listBoxesColumn
-        Dim eachBoxColumn As TextBox
-        Dim eachBoxHeader As RSCRowHeader ''April 5, 2022 TextBox
+        Dim eachDataCellInColumn As Control ''4/9/2022 td'' TextBox
+        Dim eachRowHeaderBox As RSCRowHeader ''April 5, 2022 TextBox
 
-        Dim TopBoxColumn As TextBox ''Addded 3/25/2022 td
+        Dim TopBoxColumn As Control ''4/9/2922 td''TextBox ''Addded 3/25/2022 td
         ''4/5/2022 Dim TopBoxHeader As TextBox ''Added 3/25/2022 td
         Dim TopBoxHeader As RSCRowHeader ''4/5/2022 As TextBox ''Added 3/25/2022 td
         Dim boolSkipTopBox As Boolean
@@ -562,39 +564,39 @@ Public Class RSCRowHeaders
             ''Skip the top boxes. 
             If (boolSkipTopBox And intBoxIndex = 0) Then Continue For
 
-            eachBoxColumn = Nothing
-            eachBoxHeader = Nothing
+            eachDataCellInColumn = Nothing
+            eachRowHeaderBox = Nothing
 
             Try
-                eachBoxColumn = par_listBoxesColumn(intBoxIndex)
+                eachDataCellInColumn = par_listBoxesColumn(intBoxIndex)
             Catch
             End Try
 
             Try
-                eachBoxHeader = par_listBoxesRowHdrs(intBoxIndex)
+                eachRowHeaderBox = par_listBoxesRowHdrs(intBoxIndex)
             Catch
             End Try
 
-            If (eachBoxHeader Is Nothing And eachBoxColumn Is Nothing) Then
+            If (eachRowHeaderBox Is Nothing And eachDataCellInColumn Is Nothing) Then
                 Exit For
 
-            ElseIf (eachBoxColumn Is Nothing) Then
+            ElseIf (eachDataCellInColumn Is Nothing) Then
                 ''Exit Sub
                 Throw New Exception("There are more row headers than (column #1's) rows.")
 
-            ElseIf (eachBoxHeader Is Nothing) Then
+            ElseIf (eachRowHeaderBox Is Nothing) Then
                 ''Exit Sub
                 Throw New Exception("There are more rows than row headers.")
 
             ElseIf (boolSkipTopBox) Then
                 ''eachBoxHeader.Height = eachBoxColumn.Height
-                eachBoxHeader.Height = eachBoxColumn.Height
-                eachBoxHeader.Top = (eachBoxColumn.Top - TopBoxColumn.Top) +
+                eachRowHeaderBox.Height = eachDataCellInColumn.Height
+                eachRowHeaderBox.Top = (eachDataCellInColumn.Top - TopBoxColumn.Top) +
                                        TopBoxHeader.Top
 
             Else
-                eachBoxHeader.Height = eachBoxColumn.Height
-                eachBoxHeader.Top = eachBoxColumn.Top
+                eachRowHeaderBox.Height = eachDataCellInColumn.Height
+                eachRowHeaderBox.Top = eachDataCellInColumn.Top
 
             End If ''End of ""If (eachBoxHeader Is Nothing And eachBoxColumn Is Nothing) Then... ElseIf ... ElseIf ... ElseIf ... Else ...
 

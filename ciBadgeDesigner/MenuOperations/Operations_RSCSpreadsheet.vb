@@ -94,13 +94,15 @@ Public Class Operations_RSCSpreadsheet
         ''Copy-pasted 1/24/2022 thomas downes
         ''Added 8/17/2019 thomas downes
         ''         
-        Dim objRSCFieldColumn As RSCFieldColumnV1
+        ''4/09/2022 td''Dim objRSCFieldColumn As RSCFieldColumnV1
+        Dim objRSCFieldColumn As RSCFieldColumnV2
         Dim boolConfirmed As Boolean
 
         boolConfirmed = (MessageBoxTD.Show_Confirmed("Restore the data that was cleared from this spreadsheet?",
                                 "(This restoration will overwrite any edits performed after the data was cleared.)", True))
+
         If (boolConfirmed) Then
-            For Each each_column As RSCFieldColumnV1 In Me.ParentSpreadsheet.ListOfColumns
+            For Each each_column As RSCFieldColumnV2 In Me.ParentSpreadsheet.ListOfColumns
                 objRSCFieldColumn = each_column ''---CType(each_column, RSCFieldColumn)
                 objRSCFieldColumn.ClearDataFromColumn_Undo()
             Next each_column

@@ -458,7 +458,8 @@ Public Class RSCFieldSpreadsheet
         Dim intSavePropertyTop_FirstRow As Integer ''Added 3/24/2022 td
 
         intSavePropertyTop_RSCColumnCtl = RscFieldColumn1.Top
-        intSavePropertyTop_FirstRow = RscFieldColumn1.GetFirstTextboxPropertyTop()
+        ''4/9/2022 td''intSavePropertyTop_FirstRow = RscFieldColumn1.GetFirstTextboxPropertyTop()
+        intSavePropertyTop_FirstRow = RscFieldColumn1.GetFirstRSCDataCellPropertyTop()
 
         ''Step 1a of 5.  Remove design-time columns..... Clearing (removing) design-time columns (which are placed
         ''   to give a visual preview of how the run-time columns will look). 
@@ -695,12 +696,14 @@ Public Class RSCFieldSpreadsheet
         ''Added 3/25/2022 thomas downes
         ''
         ''3/25/2022 td''RscRowHeaders1.AlignControlsWithSpreadsheet()
-        Dim listBoxesColumn As List(Of TextBox)
+        ''4/09/2022 td''Dim listBoxesColumn As List(Of TextBox)
+        Dim listBoxesColumn As List(Of RSCDataCell)
         ''4/5/2022 Dim listBoxesRowHeader As List(Of TextBox)
         ''4/6/2022 Dim listBoxesRowHeader As List(Of Label)
         Dim listBoxesRowHeader As List(Of RSCRowHeader)
 
-        listBoxesColumn = RscFieldColumn1.ListOfTextboxes_TopToBottom()
+        ''4/09/2022 td ''listBoxesColumn = RscFieldColumn1.ListOfTextBoxes_TopToBottom()
+        listBoxesColumn = RscFieldColumn1.ListOfRSCDataCells_TopToBottom()
         listBoxesRowHeader = RscRowHeaders1.ListOfTextboxes_TopToBottom()
 
         ''March25 2022''RscRowHeaders1.AlignControlsWithSpreadsheet(listBoxesColumn)
@@ -758,7 +761,7 @@ Public Class RSCFieldSpreadsheet
 
             ''Added 3/30/2022 td
             ''4/4/2022 td ''newRSCColumn_output.Height = (Me.Height - mod_intRscFieldColumn1_Top - mc_ColumnMarginGap)
-            newRSCColumn_output.Height = newRSCColumn_output.GetTextboxAtBottom_Bottom() + mc_ColumnMarginGap
+            newRSCColumn_output.Height = newRSCColumn_output.GetRSCDataCellAtBottom_Bottom() + mc_ColumnMarginGap
             ''4/4/2022 td ''newRSCColumn_output.Anchor = CType((AnchorStyles.Top Or AnchorStyles.Bottom), AnchorStyles)
             ''4/6/2022 td ''newRSCColumn_output.Anchor = CType((AnchorStyles.Top Or AnchorStyles.None), AnchorStyles)
             newRSCColumn_output.Anchor = CType((AnchorStyles.Top Or AnchorStyles.Left), AnchorStyles)
