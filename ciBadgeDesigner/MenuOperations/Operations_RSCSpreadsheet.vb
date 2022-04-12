@@ -126,6 +126,62 @@ Public Class Operations_RSCSpreadsheet
         ''
         ''Added 4/03/2022 thomas downes
         ''  
+        CopySpreadsheetData(False, False)
+
+        ''Dim intCountOfRows1 As Integer
+        ''Dim intCountOfRows2 As Integer
+        ''Dim intCountOfColumns As Integer
+        ''Const c_intAverageCellChars As Integer = 5
+        ''Dim intGuessAtTextLength As Integer
+        ''Dim each_stringRow As String
+
+        ''intCountOfRows1 = Me.ParentSpreadsheet.RscRowHeaders1.CountOfRows()
+        ''intCountOfRows2 = Me.ParentSpreadsheet.RscFieldColumn1.CountOfRows()
+        ''intCountOfColumns = Me.ParentSpreadsheet.ListOfColumns().Count
+        ''intGuessAtTextLength = (intCountOfRows2 *
+        ''            intCountOfColumns *
+        ''            (c_intAverageCellChars + 1))
+
+        ''mod_sbSpreadheetData = New System.Text.StringBuilder(intGuessAtTextLength)
+
+        ''''
+        ''''
+        ''''
+        ''''April 11, 2022 td ''For intRowIndex As Integer = 0 To (intCountOfRows2 - 1)
+        ''For intRowIndex As Integer = 1 To (intCountOfRows2) '' (intCountsOfRows2 - 1)
+
+        ''    each_stringRow = Me.ParentSpreadsheet.ToString_ByRow(intRowIndex)
+        ''    mod_sbSpreadheetData.AppendLine(each_stringRow)
+
+        ''Next intRowIndex
+
+        ''''
+        ''''Exit Handler
+        ''''
+        ''Clipboard.SetText(mod_sbSpreadheetData.ToString())
+        ''Dim strPathTXT As String
+        ''strPathTXT = IO.Path.Combine(DiskFolders.PathToFolder_Notes(),
+        ''                              IO.Path.GetRandomFileName() & ".txt")
+        ''IO.File.WriteAllText(strPathTXT, mod_sbSpreadheetData.ToString())
+        ''System.Diagnostics.Process.Start(strPathTXT)
+
+    End Sub ''End of ""Public Sub Copy_All_Spreadsheet_Data_with_Headers_FC2003""
+
+
+    Public Sub Copy_Spreadsheet_Data_with_Row_Index_FC2004(sender As Object, e As EventArgs)
+        ''
+        ''Added 4/11/2022  thomas downes
+        ''  
+        CopySpreadsheetData(False, True)
+
+    End Sub
+
+
+    Public Sub CopySpreadsheetData(pboolIncludeFieldnames As Boolean,
+                                     pboolIncludeRowIndexes As Boolean) ''_FC2004(sender As Object, e As EventArgs)
+        ''
+        ''Added 4/11/2022  thomas downes
+        ''  
         Dim intCountOfRows1 As Integer
         Dim intCountOfRows2 As Integer
         Dim intCountOfColumns As Integer
@@ -136,6 +192,7 @@ Public Class Operations_RSCSpreadsheet
         intCountOfRows1 = Me.ParentSpreadsheet.RscRowHeaders1.CountOfRows()
         intCountOfRows2 = Me.ParentSpreadsheet.RscFieldColumn1.CountOfRows()
         intCountOfColumns = Me.ParentSpreadsheet.ListOfColumns().Count
+
         intGuessAtTextLength = (intCountOfRows2 *
                     intCountOfColumns *
                     (c_intAverageCellChars + 1))
@@ -145,9 +202,11 @@ Public Class Operations_RSCSpreadsheet
         ''
         ''
         ''
-        For intRowIndex As Integer = 0 To (intCountOfRows2 - 1)
+        ''April 11, 2022 td ''For intRowIndex As Integer = 0 To (intCountOfRows2 - 1)
+        For intRowIndex As Integer = 1 To (intCountOfRows2) '' (intCountsOfRows2 - 1)
 
-            each_stringRow = Me.ParentSpreadsheet.ToString_ByRow(intRowIndex)
+            ''April 12 2022 ''each_stringRow = Me.ParentSpreadsheet.ToString_ByRow(intRowIndex)
+            each_stringRow = Me.ParentSpreadsheet.ToString_ByRow(intRowIndex, pboolIncludeRowIndexes)
             mod_sbSpreadheetData.AppendLine(each_stringRow)
 
         Next intRowIndex
@@ -163,7 +222,6 @@ Public Class Operations_RSCSpreadsheet
         System.Diagnostics.Process.Start(strPathTXT)
 
     End Sub ''End of ""Public Sub Copy_All_Spreadsheet_Data_with_Headers_FC2003""
-
 
 
 End Class

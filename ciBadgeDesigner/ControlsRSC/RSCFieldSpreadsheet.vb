@@ -1078,7 +1078,8 @@ Public Class RSCFieldSpreadsheet
     End Sub ''End of "Public Sub InsertNewColumnByIndex(Me.ColumnIndex)"
 
 
-    Public Function ToString_ByRow(par_intRowIndex As Integer) As String
+    Public Function ToString_ByRow(par_intRowIndex As Integer,
+                        Optional pboolRowIndices As Boolean = False) As String
         ''
         ''Added 4/03/2022
         ''
@@ -1087,6 +1088,9 @@ Public Class RSCFieldSpreadsheet
         Dim each_column As RSCFieldColumnV2
         Dim strValue As String
         Dim strLine As String = ""
+
+        ''Added 4/12/2022 td
+        If (pboolRowIndices) Then strLine = par_intRowIndex.ToString
 
         list_columns = ListOfColumns()
         intCountColumns = list_columns.Count()

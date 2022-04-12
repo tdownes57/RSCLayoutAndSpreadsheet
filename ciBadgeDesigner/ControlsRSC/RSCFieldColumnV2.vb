@@ -1034,12 +1034,16 @@ Public Class RSCFieldColumnV2
         ''Added 4/4/2022 td
         ''
         Dim bRowIndexLocated As Boolean
+        Dim objRSCDataCell As RSCDataCell ''4/4/2022 td''New RSCDataCell ''Added 3/29/2022 thomas downes
+        ''4/8/2022 Dim objBottomBar As PictureBox ''Added 4/5/2022 thomas downes
+        Static prior_objRSCDataCell As RSCDataCell ''4/4/2022 td''New RSCDataCell ''Added 3/29/2022 thomas downes
 
         With mod_listRSCDataCellsByRow
             bRowIndexLocated = (.ContainsKey(par_intRowIndex))
 
             ''Added 4/11/2022 td
-            If (par_intRowIndex = 19) Then System.Diagnostics.Debugger.Break()
+            ''If (par_intRowIndex = 18) Then System.Diagnostics.Debugger.Break()
+            ''If (par_intRowIndex = 19) Then System.Diagnostics.Debugger.Break()
 
         End With
 
@@ -1049,6 +1053,47 @@ Public Class RSCFieldColumnV2
             ''
         ElseIf (bRowIndexLocated) Then
 
+            Dim intLeft As Integer ''= .Left
+            Dim intHeight As Integer ''= .Height
+            Dim intTop As Integer ''= .Top
+            Dim intWidth As Integer ''= .Width
+            Dim boolBelongsToMe As Boolean
+            Dim intNumberOfCells As Integer
+
+            Dim prior_intLeft As Integer ''= .Left
+            Dim prior_intHeight As Integer ''= .Height
+            Dim prior_intTop As Integer ''= .Top
+            Dim prior_intWidth As Integer ''= .Width
+            Dim prior_boolBelongsToMe As Boolean
+
+            ''Added 4/11/2022 td
+            objRSCDataCell = mod_listRSCDataCellsByRow.Item(par_intRowIndex)
+
+            With objRSCDataCell
+                .Visible = True
+                intLeft = .Left
+                intHeight = .Height '' As Integer = .Height
+                intTop = .Top '' As Integer = .Top
+                intWidth = .Width '' As Integer = .Width
+                boolBelongsToMe = Me.Controls.Contains(objRSCDataCell)
+            End With ''ENd of ""With objRSCDataCell""
+
+            If (prior_objRSCDataCell IsNot Nothing) Then
+                With prior_objRSCDataCell
+                    prior_intLeft = .Left
+                    prior_intHeight = .Height '' As Integer = .Height
+                    prior_intTop = .Top '' As Integer = .Top
+                    prior_intWidth = .Width '' As Integer = .Width
+                    prior_boolBelongsToMe = Me.Controls.Contains(objRSCDataCell)
+                End With ''ENd of ""With objRSCDataCell""
+            End If ''End of ""If (prior_objRSCDataCell IsNot Nothing) Then""
+
+            intNumberOfCells = Me.ListOfRSCDataCells_TopToBottom().Count
+
+            ''If (par_intRowIndex = 18) Then System.Diagnostics.Debugger.Break()
+
+            ''Prepare for following call, for debugging!! ---4/11/2022 td 
+            prior_objRSCDataCell = objRSCDataCell
             Exit Sub
 
         End If ''End of "If (pboolForceReposition) Then ... ElseIf....."
@@ -1060,9 +1105,6 @@ Public Class RSCFieldColumnV2
         ''
         ''Create the required RSCDataCell. 
         ''
-        Dim objRSCDataCell As RSCDataCell ''4/4/2022 td''New RSCDataCell ''Added 3/29/2022 thomas downes
-        ''4/8/2022 Dim objBottomBar As PictureBox ''Added 4/5/2022 thomas downes
-
         If (bRowIndexLocated) Then
             objRSCDataCell = mod_listRSCDataCellsByRow.Item(par_intRowIndex)
             ''4/8/2022 objBottomBar = mod_listTextAndBarByRow.Item(par_intRowIndex).BottomBar
@@ -1102,7 +1144,7 @@ Public Class RSCFieldColumnV2
                                                          RSCDataCell_Top.Top,
                                                          RSCDataCell_Top.Width)
 
-            End With
+            End With ''ENd of ""With objRSCDataCell""
 
             .Anchor = RSCDataCell_Top.Anchor
             .BackColor = RSCDataCell_Top.BackColor
@@ -1118,6 +1160,10 @@ Public Class RSCFieldColumnV2
             ''4/8/2022 objBottomBar.Top = .Top + .Height + 1
 
         End With ''End of ""With objRSCDataCell""
+
+        ''Added 4/11/2022 thomas downes
+        ''If (par_intRowIndex = 18) Then System.Diagnostics.Debugger.Break()
+        ''If (par_intRowIndex = 19) Then System.Diagnostics.Debugger.Break()
 
         ''Added 3/30/2022
         If (bRowIndexLocated) Then
@@ -1263,7 +1309,8 @@ Public Class RSCFieldColumnV2
             listRSCDataCelles = ListOfRSCDataCells_TopToBottom()
         End If
 
-        strValue = listRSCDataCelles(par_intRowIndex).Text
+        ''April 12 2022 ''strValue = listRSCDataCelles(par_intRowIndex).Text
+        strValue = listRSCDataCelles(-1 + par_intRowIndex).Text
         Return strValue
 
     End Function ''End of ""Public Function ToString_ByRow(par_intRowIndex As Integer) As String""
