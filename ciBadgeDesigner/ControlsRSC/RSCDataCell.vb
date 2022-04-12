@@ -44,6 +44,8 @@ Public Class RSCDataCell
     Public Property Tag_Text() As String
         Get
             ''Added 4/11/2022 td
+            If (Textbox1a Is Nothing) Then Return ""
+            If (Textbox1a.Tag Is Nothing) Then Return ""
             Return Textbox1a.Tag.ToString()
         End Get
         Set(value As String)
