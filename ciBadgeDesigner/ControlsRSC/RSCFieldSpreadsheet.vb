@@ -893,11 +893,16 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 3/17/2022 thomas downes
         ''
+        ''STEP 1 of 5 
+        ''
+        '' Save the column data to the ColumnDataCache. 
+        ''
         For intIndex As Integer = 1 To Me.ColumnDataCache.ListOfColumns.Count
 
             Dim eachColumn As RSCFieldColumnV2 ''Added 3/18/2022 thomas downes
             eachColumn = mod_array_RSCColumns(intIndex)
-            eachColumn.SaveDataToColumn()
+            ''4/12/2022 td''eachColumn.SaveDataToColumn()
+            eachColumn.SaveDataTo_ColumnCache()
 
         Next intIndex
 
@@ -907,7 +912,9 @@ Public Class RSCFieldSpreadsheet
         Me.ColumnDataCache.FormSize = Me.ParentForm_DesignerDialog.Size
 
         ''
-        ''FINAL STEP
+        ''STEP 3 of 5 
+        ''
+        '' Save the ColumnDataCache to disk. 
         ''
         Dim strPathToXML_Opened As String = Me.ColumnDataCache.PathToXml_Opened
         Dim strPathToXML_Saved As String = Me.ColumnDataCache.PathToXml_Saved
@@ -918,6 +925,22 @@ Public Class RSCFieldSpreadsheet
 
         Me.ColumnDataCache.SaveToXML(strPathToXML_Opened)
         Me.ColumnDataCache.PathToXml_Saved = strPathToXML_Opened
+
+        ''
+        ''STEP 4 of 5 
+        ''
+        ''  Column by column, save the current data value to the appropriate recipient field.  
+        ''
+        For intIndex As Integer = 1 To Me.ColumnDataCache.ListOfColumns.Count
+
+            Dim eachColumn As RSCFieldColumnV2 ''Added 3/18/2022 thomas downes
+            eachColumn = mod_array_RSCColumns(intIndex)
+            ''4/12/2022 td''eachColumn.SaveDataToColumn()
+            eachColumn.SaveDataTo_RecipientCache()
+
+        Next intIndex
+
+
 
         ''
         ''Resize the form based on the save form size.---3/20/2022

@@ -7,8 +7,8 @@ Option Strict On
 ''Added 2/21/2022 thomas downes
 ''
 Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d. 
-Imports ciBadgeElements ''Added 9/18/2019 td 
-Imports ciBadgeDesigner ''Added 3/8/2022 td  
+''Imports ciBadgeElements ''Added 9/18/2019 td 
+''Imports ciBadgeDesigner ''Added 3/8/2022 td  
 Imports System.Drawing ''Added 10/01/2019 td 
 Imports __RSCWindowsControlLibrary ''Added 1/4/2022 td
 Imports ciBadgeFields ''Added 3/8/2022 thomas downes
@@ -882,6 +882,9 @@ Public Class RSCFieldColumnV2
             each_value = Me.ListRecipients(intRowIndex).GetTextValue(enumFieldSelected)
             each_box.Text = each_value
 
+            ''Added 4/12/2022 thomas d.
+            each_box.Recipient = Me.ListRecipients(intRowIndex)
+
             ''4/11/2022 td''each_box.Tag = each_box.Text ''added 4/1/2022
             each_box.Tag_Text = each_value ''4/11/2022 each_box.Text ''added 4/1/2022
             each_box.Tag = each_value ''4/11/2022 each_box.Text ''added 4/1/2022
@@ -988,7 +991,12 @@ Public Class RSCFieldColumnV2
     End Function ''End of "Public Function ListOfBottomBars_TopToBottom() As IOrderedEnumerable(Of PictureBox)"
 
 
-    Public Sub SaveDataToColumn()
+    Public Sub SaveDataTo_ColumnCache()
+        ''April 12 2022 ''Public Sub SaveDataToColumn()
+        ''
+        ''We are not really saving to the Column Cache.
+        ''  We are saving to the ColumnWidthAndData object which is part of
+        ''  the Column Cache.
         ''
         ''Added 3/18/2022 t1h1o1m1a1s1 d1o1w1n1e1s1
         ''
@@ -1005,7 +1013,32 @@ Public Class RSCFieldColumnV2
 
         End With ''End of "With Me.ColumnWidthAndData"
 
-    End Sub ''End of Public Sub SaveDataToColumn()
+    End Sub ''End of Public Sub SaveDataTo_ColumnCache()
+
+
+    Public Sub SaveDataTo_RecipientCache()
+        ''
+        ''We are not really saving to the Recipient Cache.
+        ''  We are saving to the Recipient classes which are part of
+        ''  the Recipient Cache.
+        ''
+        ''Added 4/12/2022 t1h1o1m1a1s1 d1o1w1n1e1s1
+        ''
+        Dim each_RSCDataCell As RSCDataCell
+        Dim enumCIBField As EnumCIBFields
+        enumCIBField = RscSelectCIBField1.SelectedValue
+
+        For Each eachCtl As Control In Me.Controls
+            If (TypeOf eachCtl Is RSCDataCell) Then
+
+                each_RSCDataCell = (CType(eachCtl, RSCDataCell))
+                each_RSCDataCell.SaveDataToRecipientField(enumCIBField)
+
+            End If ''End of "If (TypeOf eachCtl Is RSCDataCell) Then"
+        Next eachCtl ''End of ""For Each eachCtl As Control In Me.Controls""
+
+
+    End Sub ''End of Public Sub SaveDataTo_RecipientCache()
 
 
     ''    RscFieldSpreadsheet1.RscFieldColumn1.AlignBottomBars_EvenlySpaced()

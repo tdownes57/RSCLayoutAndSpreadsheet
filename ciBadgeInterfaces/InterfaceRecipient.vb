@@ -92,6 +92,7 @@ Public Interface IRecipient
     Property BadgeImage As System.Drawing.Image ''Added 9/29/2021 thomas d.  
 
     Function GetTextValue(par_enum As EnumCIBFields) As String
+    Sub SaveTextValue(par_enum As EnumCIBFields, par_value As String) ''Added 4/12/2022 thomas d.
 
     Function GetDateValue(par_enum As EnumCIBFields) As Date
 

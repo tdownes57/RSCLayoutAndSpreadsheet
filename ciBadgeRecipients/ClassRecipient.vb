@@ -56,11 +56,17 @@ Public Class ClassRecipient
             Case EnumCIBFields.fstrNameAbbreviated : Return Me.fstrNameAbbreviated
             Case EnumCIBFields.fstrFullName : Return Me.fstrFullName
 
+            ''4/2022 Case EnumCIBFields.DateField01 : Return Me.DateField01.ToShortDateString
+            ''4/2022 Case EnumCIBFields.DateField02 : Return Me.DateField01.ToShortDateString
+            ''4/2022 Case EnumCIBFields.DateField03 : Return Me.DateField01.ToShortDateString
+            ''4/2022 Case EnumCIBFields.DateField04 : Return Me.DateField01.ToShortDateString
+            ''4/2022 Case EnumCIBFields.DateField05 : Return Me.DateField01.ToShortDateString
+
             Case EnumCIBFields.DateField01 : Return Me.DateField01.ToShortDateString
-            Case EnumCIBFields.DateField02 : Return Me.DateField01.ToShortDateString
-            Case EnumCIBFields.DateField03 : Return Me.DateField01.ToShortDateString
-            Case EnumCIBFields.DateField04 : Return Me.DateField01.ToShortDateString
-            Case EnumCIBFields.DateField05 : Return Me.DateField01.ToShortDateString
+            Case EnumCIBFields.DateField02 : Return Me.DateField02.ToShortDateString
+            Case EnumCIBFields.DateField03 : Return Me.DateField03.ToShortDateString
+            Case EnumCIBFields.DateField04 : Return Me.DateField04.ToShortDateString
+            Case EnumCIBFields.DateField05 : Return Me.DateField05.ToShortDateString
 
             Case EnumCIBFields.TextField01 : Return Me.TextField01
             Case EnumCIBFields.TextField02 : Return Me.TextField02
@@ -102,6 +108,7 @@ Public Class ClassRecipient
 
     End Function ''enD OF " Public Function GetTextValue(par_enum As EnumCIBFields) As String Implements IRecipient.GetTextValue"
 
+
     Public Function GetDateValue(par_enum As EnumCIBFields) As Date Implements IRecipient.GetDateValue
         ''Added 10/11/2019 td 
 
@@ -118,7 +125,76 @@ Public Class ClassRecipient
 
         End Select
 
-    End Function
+    End Function ''end of ""Public Function GetDateValue""
+
+
+
+    Public Sub SaveTextValue(par_enum As EnumCIBFields, par_value As String) Implements IRecipient.SaveTextValue
+        ''
+        ''Added 4/12/2022 td 
+        ''
+        Select Case par_enum
+
+            Case EnumCIBFields.fstrFirstName : Me.fstrFirstName = par_value
+            Case EnumCIBFields.fstrID : Me.fstrID = par_value
+            Case EnumCIBFields.fstrLastName : Me.fstrLastName = par_value
+            Case EnumCIBFields.fstrMidName : Me.fstrMidName = par_value
+
+            Case EnumCIBFields.fstrNameAbbreviated : Me.fstrNameAbbreviated = par_value
+            Case EnumCIBFields.fstrFullName : Me.fstrFullName = par_value
+
+            Case EnumCIBFields.DateField01 : Me.DateField01 = CDate(par_value)
+            Case EnumCIBFields.DateField02 : Me.DateField02 = CDate(par_value)
+            Case EnumCIBFields.DateField03 : Me.DateField03 = CDate(par_value)
+            Case EnumCIBFields.DateField04 : Me.DateField04 = CDate(par_value)
+            Case EnumCIBFields.DateField05 : Me.DateField05 = CDate(par_value)
+
+            Case EnumCIBFields.TextField01 : Me.TextField01 = par_value
+            Case EnumCIBFields.TextField02 : Me.TextField02 = par_value
+            Case EnumCIBFields.TextField03 : Me.TextField03 = par_value
+            Case EnumCIBFields.TextField04 : Me.TextField04 = par_value
+            Case EnumCIBFields.TextField05 : Me.TextField05 = par_value
+            Case EnumCIBFields.TextField06 : Me.TextField06 = par_value
+            Case EnumCIBFields.TextField07 : Me.TextField07 = par_value
+            Case EnumCIBFields.TextField08 : Me.TextField08 = par_value
+            Case EnumCIBFields.TextField09 : Me.TextField09 = par_value
+
+            Case EnumCIBFields.TextField10 : Me.TextField10 = par_value
+            Case EnumCIBFields.TextField11 : Me.TextField11 = par_value
+            Case EnumCIBFields.TextField12 : Me.TextField12 = par_value
+            Case EnumCIBFields.TextField13 : Me.TextField13 = par_value
+            Case EnumCIBFields.TextField14 : Me.TextField14 = par_value
+            Case EnumCIBFields.TextField15 : Me.TextField15 = par_value
+
+            Case EnumCIBFields.fstrBarCode : Me.fstrBarcode = par_value
+            Case EnumCIBFields.fstrRFID_Unique : Me.fstrRFID_Unique = par_value
+
+            ''Added 11/25/2021 Thomas Downes 
+            Case EnumCIBFields.fstrFullName : Me.fstrFullName = par_value
+
+                ''Added 12/7/2021 Thomas Downes 
+            Case EnumCIBFields.fstrAddress : Me.fstrAddress = par_value
+            Case EnumCIBFields.fstrCity : Me.fstrCity = par_value
+            Case EnumCIBFields.fstrState : Me.fstrState = par_value
+            Case EnumCIBFields.fstrZip : Me.fstrZip = par_value
+
+            Case EnumCIBFields.blnBatchPrint
+                ''
+                ''
+                ''
+            Case Else
+                ''#1 12/7/2021 td''Return ""
+                ''#2 12/7/2021 td''Return "This Case Else."
+                Throw New Exception("This Case Else should not be the case.... par_enum = " & par_enum.ToString)
+
+        End Select ''End of "Select Case par_enum"
+
+    End Sub ''enD OF " Public Sub SaveTextValue(par_enum As EnumCIBFields) As String Implements IRecipient.GetTextValue"
+
+
+
+
+
 
     Public Function RecipientID() As String Implements IRecipient.RecipientID
         ''Added 10/11/2019 td 
