@@ -1053,38 +1053,38 @@ Public Class RSCFieldColumnV2
             ''
         ElseIf (bRowIndexLocated) Then
 
-            Dim intLeft As Integer ''= .Left
-            Dim intHeight As Integer ''= .Height
-            Dim intTop As Integer ''= .Top
-            Dim intWidth As Integer ''= .Width
-            Dim boolBelongsToMe As Boolean
+            ''Dim intLeft As Integer ''= .Left
+            ''Dim intHeight As Integer ''= .Height
+            ''Dim intTop As Integer ''= .Top
+            ''Dim intWidth As Integer ''= .Width
+            ''Dim boolBelongsToMe As Boolean
             Dim intNumberOfCells As Integer
 
-            Dim prior_intLeft As Integer ''= .Left
-            Dim prior_intHeight As Integer ''= .Height
-            Dim prior_intTop As Integer ''= .Top
-            Dim prior_intWidth As Integer ''= .Width
-            Dim prior_boolBelongsToMe As Boolean
+            ''Dim prior_intLeft As Integer ''= .Left
+            ''Dim prior_intHeight As Integer ''= .Height
+            ''Dim prior_intTop As Integer ''= .Top
+            ''Dim prior_intWidth As Integer ''= .Width
+            ''Dim prior_boolBelongsToMe As Boolean
 
             ''Added 4/11/2022 td
             objRSCDataCell = mod_listRSCDataCellsByRow.Item(par_intRowIndex)
 
             With objRSCDataCell
                 .Visible = True
-                intLeft = .Left
-                intHeight = .Height '' As Integer = .Height
-                intTop = .Top '' As Integer = .Top
-                intWidth = .Width '' As Integer = .Width
-                boolBelongsToMe = Me.Controls.Contains(objRSCDataCell)
+                ''intLeft = .Left
+                ''intHeight = .Height '' As Integer = .Height
+                ''intTop = .Top '' As Integer = .Top
+                ''intWidth = .Width '' As Integer = .Width
+                ''boolBelongsToMe = Me.Controls.Contains(objRSCDataCell)
             End With ''ENd of ""With objRSCDataCell""
 
             If (prior_objRSCDataCell IsNot Nothing) Then
                 With prior_objRSCDataCell
-                    prior_intLeft = .Left
-                    prior_intHeight = .Height '' As Integer = .Height
-                    prior_intTop = .Top '' As Integer = .Top
-                    prior_intWidth = .Width '' As Integer = .Width
-                    prior_boolBelongsToMe = Me.Controls.Contains(objRSCDataCell)
+                    ''prior_intLeft = .Left
+                    ''prior_intHeight = .Height '' As Integer = .Height
+                    ''prior_intTop = .Top '' As Integer = .Top
+                    ''prior_intWidth = .Width '' As Integer = .Width
+                    ''prior_boolBelongsToMe = Me.Controls.Contains(objRSCDataCell)
                 End With ''ENd of ""With objRSCDataCell""
             End If ''End of ""If (prior_objRSCDataCell IsNot Nothing) Then""
 
@@ -1094,7 +1094,7 @@ Public Class RSCFieldColumnV2
 
             ''Prepare for following call, for debugging!! ---4/11/2022 td 
             prior_objRSCDataCell = objRSCDataCell
-            Exit Sub
+            ''April 12, 2022 ''Exit Sub
 
         End If ''End of "If (pboolForceReposition) Then ... ElseIf....."
 
