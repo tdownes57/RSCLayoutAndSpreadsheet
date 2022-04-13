@@ -16,6 +16,7 @@ Public Class RSCDataCell
     ''
     Public ParentColumn As RSCFieldColumnV2 ''Added 4/12/2022 td
     Public Recipient As ciBadgeRecipients.ClassRecipient ''Added 4/12/2022 td
+    Public Shared CellOfKeyDownTabKey As RSCDataCell ''Added 4/12/2022 td
 
     Public Overrides Property Text() As String
         Get
@@ -141,6 +142,28 @@ Public Class RSCDataCell
     End Function ''End of ""Public Function GetNextCell_Down() As RSCDataCell""
 
 
+    Public Function GetFirstCell_NextRowDown(Optional ByRef pboolEdge As Boolean = False) As RSCDataCell
+        ''
+        ''4/12/2022 td
+        ''
+        Dim intCurrentRowIndex As Integer
+        Dim objRSCDataCell_Down As RSCDataCell
+        Dim objRSCDataColumn_First As RSCFieldColumnV2
+
+        intCurrentRowIndex = Me.ParentColumn.GetRowIndexOfCell(Me)
+        If (intCurrentRowIndex = Me.ParentColumn.CountOfRows()) Then
+            pboolEdge = True
+            Return Nothing
+        End If ''End of ""If (intCurrentRowIndex = 1) Then""
+
+        objRSCDataColumn_First = Me.ParentColumn.GetFirstRSCFieldColumn()
+        If (objRSCDataColumn_First Is Nothing) Then Throw New Exception
+        objRSCDataCell_Down = objRSCDataColumn_First.GetCellWithRowIndex(1 + intCurrentRowIndex)
+        Return objRSCDataCell_Down
+
+    End Function ''End of ""Public Function GetFirstCell_NextRowDown() As RSCDataCell""
+
+
     Public Sub SaveDataToRecipientField(par_enumCIBField As EnumCIBFields)
         ''
         ''Added 4/12/2022 
@@ -170,9 +193,40 @@ Public Class RSCDataCell
         ''
         ''Added 4/12/2022 td
         ''
+        Dim boolHasTabCharacter As Boolean ''Added 4/12/2022 td
+
+        boolHasTabCharacter = Textbox1a.Text.Contains(vbTab) ''//Then
+        If (boolHasTabCharacter) Then
+
+
+        End If ''End of ""If (boolHasTabCharacter) Then""
+
         Dim boolHasCrLf As Boolean ''Added 4/12/2022 td
         boolHasCrLf = Textbox1a.Text.Contains(vbCr) ''//Then
-        LinkLabelCrLf.Visible = boolHasCrLf
+        If (boolHasCrLf) Then
+            ''
+            ''Check to see if the user has typed the text value and then pressed
+            ''   the "Enter" key, as if to finalize the cell-editing work.
+            ''   ---4/12/2022 td
+            ''
+            Dim bCrLfIsLastChars As Boolean ''Added 4/12/2022 td
+
+            With Textbox1a.Text
+                bCrLfIsLastChars = (.IndexOf(vbCrLf) = (.Length - 1 - vbCrLf.Length + 1))
+                If bCrLfIsLastChars Then
+                    ''Remove the Cr-Lf combination of characters.
+                    Textbox1a.Text = .Substring(0, .Length - vbCrLf.Length)
+                    ''Move the focus to the next cell below. 
+                    GetNextCell_Down().SetFocus()
+                    Exit Sub
+                Else
+                    LinkLabelCrLf.Visible = boolHasCrLf
+                End If ''End of ""If bCrLfIsLastChars Then.... Else ....""
+            End With ''End of ""With Textbox1a.Text""
+
+            ''Moved into condition above. ''LinkLabelCrLf.Visible = boolHasCrLf
+
+        End If ''End of ""If (boolHasCrLf) Then""
 
     End Sub
 
@@ -192,13 +246,76 @@ Public Class RSCDataCell
         ''Added 4/12/2022 thomas downes
         ''
         Dim objNextCell As RSCDataCell = Nothing
+        Dim intRowIndex_Me As Integer
+        Dim intRowIndex_Sender As Integer
+        Dim intRowIndex_TabDown As Integer
+        Dim bJumpedToNextRowSuprisingly As Boolean
+        Dim bEdgeUp As Boolean
+        Dim bEdgeDn As Boolean
+        Dim bEdgeLt As Boolean
+        Dim bEdgeRt As Boolean
+        Dim bEdgeTb As Boolean
 
-        If e.KeyCode = Keys.Up Then objNextCell = GetNextCell_Up() ''.SetFocus
-        If e.KeyCode = Keys.Down Then objNextCell = GetNextCell_Down() ''.SetFocus()
-        If e.KeyCode = Keys.Left Then objNextCell = GetNextCell_Left() ''.SetFocus
-        If e.KeyCode = Keys.Right Then objNextCell = GetNextCell_Right() ''.SetFocus
+        intRowIndex_Me = Me.ParentColumn.GetRowIndexOfCell(Me)
 
-        If (objNextCell IsNot Nothing) Then objNextCell.SetFocus()
+        intRowIndex_Sender = Me.ParentColumn.GetRowIndexOfTextbox(CType(sender, TextBox))
+        intRowIndex_TabDown = Me.ParentColumn.GetRowIndexOfCell(CellOfKeyDownTabKey)
+        bJumpedToNextRowSuprisingly = (intRowIndex_Me = 1 + intRowIndex_Sender) Or
+                 (intRowIndex_Me = 1 + intRowIndex_TabDown)
+        Const c_bTabCausesRowJump As Boolean = True
+        bJumpedToNextRowSuprisingly = (bJumpedToNextRowSuprisingly Or c_bTabCausesRowJump)
+
+        ''If e.KeyCode = Keys.Up Then objNextCell = GetNextCell_Up() ''.SetFocus
+        ''If e.KeyCode = Keys.Down Then objNextCell = GetNextCell_Down() ''.SetFocus()
+        ''If e.KeyCode = Keys.Left Then objNextCell = GetNextCell_Left() ''.SetFocus
+        ''If e.KeyCode = Keys.Right Then objNextCell = GetNextCell_Right() ''.SetFocus
+        ''If e.KeyCode = Keys.Tab Then objNextCell = GetNextCell_Right() ''.SetFocus
+
+        Select Case e.KeyCode
+            Case Keys.Up : objNextCell = GetNextCell_Up(bEdgeUp) ''.SetFocus
+            Case Keys.Down : objNextCell = GetNextCell_Down(bEdgeDn) ''.SetFocus()
+            Case Keys.Left : objNextCell = GetNextCell_Left(bEdgeLt) ''.SetFocus
+            Case Keys.Right
+                ''We might be in the last column of the spreadsheet. ----4/12/2022 td
+                objNextCell = GetNextCell_Right(bEdgeRt) ''.SetFocus
+                If bEdgeRt Then
+                    ''Let's go to the first column of the next row.
+                    objNextCell = GetFirstCell_NextRowDown()
+                End If
+
+            Case Keys.Tab
+                objNextCell = GetNextCell_Right(bEdgeTb) ''.SetFocus
+                ''Added 4/12/2022 
+                If (bJumpedToNextRowSuprisingly And Not bEdgeTb) Then
+                    objNextCell = objNextCell.GetNextCell_Up()
+                ElseIf bEdgeTb Then
+                    ''Let's go to the first column of the next row.
+                    objNextCell = GetFirstCell_NextRowDown()
+                    If (bJumpedToNextRowSuprisingly) Then
+                        If (objNextCell IsNot Nothing) Then
+                            objNextCell = objNextCell.GetNextCell_Up()
+                        End If ''If (objNextCell IsNot Nothing) Then
+                    End If ''If (bJumpedToNextRowSuprisingly) Then
+                End If ''End of ""If (bJumpedToNextRowSuprisingly And Not boolEdge) Then... ElseIf...""
+
+        End Select ''End of ""Select Case e.KeyCode""
+
+        If (objNextCell IsNot Nothing) Then
+            objNextCell.SetFocus()
+        End If ''End of "If (objNextCell IsNot Nothing) Then"
+
+        ''
+        ''Check to see if something was pasted to the cell??? 
+        ''
+
+    End Sub
+
+    Private Sub Textbox1a_KeyDown(sender As Object, e As KeyEventArgs) Handles Textbox1a.KeyDown
+
+        ''Added 4/12/2022 td
+        If (e.KeyCode = Keys.Tab) Then
+            CellOfKeyDownTabKey = Me
+        End If ''If (e.KeyCode = Keys.Tab) Then
 
     End Sub
 End Class

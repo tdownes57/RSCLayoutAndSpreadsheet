@@ -1017,6 +1017,19 @@ Public Class RSCFieldColumnV2
     End Function ''End of ""Public Function GetNextColumn_Left() As RSCFieldColumnV2""
 
 
+    Public Function GetFirstRSCFieldColumn() As RSCFieldColumnV2
+        ''
+        ''Added 4/12/2022 
+        ''
+        Dim objSpreadsheet As RSCFieldSpreadsheet
+        Dim objColumn_First As RSCFieldColumnV2
+        objSpreadsheet = Me.ParentSpreadsheet
+        objColumn_First = objSpreadsheet.GetFirstColumn()
+        Return objColumn_First
+
+    End Function
+
+
     Public Function GetRowIndexOfCell(par_cell As RSCDataCell) As Integer
         ''
         ''Added 4/12/2022 thomas downes
@@ -1034,6 +1047,8 @@ Public Class RSCFieldColumnV2
 
         Next intRowIndex
 
+        Return -1
+
     End Function ''End of ""Public Function GetRowIndexOfCell(par_cell As RSCDataCell) As Integer""
 
 
@@ -1044,6 +1059,31 @@ Public Class RSCFieldColumnV2
         Return ListOfRSCDataCells_TopToBottom()(-1 + par_intRowIndex)
 
     End Function ''End of ""Public Function GetCellWithRowIndex() As RSCDataCell""
+
+
+    Public Function GetRowIndexOfTextbox(par_textbox As TextBox) As Integer
+        ''
+        ''Added 4/12/2022 thomas downes
+        ''
+        Dim list_cells As List(Of RSCDataCell)
+        Dim each_textbox As TextBox
+        Dim intRowIndex As Integer
+        Dim boolMatches As Boolean
+
+        list_cells = ListOfRSCDataCells_TopToBottom()
+
+        For intRowIndex = 1 To list_cells.Count
+
+            ''Check the .Textbox1a property.
+            each_textbox = list_cells(-1 + intRowIndex).Textbox1a
+            boolMatches = (each_textbox Is par_textbox)
+            If (boolMatches) Then Return intRowIndex
+
+        Next intRowIndex
+
+        Return -1
+
+    End Function ''End of ""Public Function GetRowIndexOfTextbox(par_cell As RSCDataCell) As Integer""
 
 
     Public Sub SaveDataTo_ColumnCache()

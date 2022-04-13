@@ -50,8 +50,9 @@ Public Class RSCRowHeader
             ParentRSCRowHeaders.HeaderBox_MouseUp(Me, e)
 
         ElseIf (c_bGiveHeightMsg) Then
-
+            ''
             ''Added 4/6/2022 td
+            ''
             MessageBoxTD.Show_Statement("The height of this control is: " + Me.Height.ToString,
                                         "The width of this control is: " + Me.Width.ToString)
             Me.Height = (ParentRSCRowHeaders.PixelsFromRowToRow - 1)

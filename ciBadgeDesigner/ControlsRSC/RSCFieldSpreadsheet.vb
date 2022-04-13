@@ -328,6 +328,17 @@ Public Class RSCFieldSpreadsheet
     End Function ''End of ""Public Function GetNextColumn_RightOf(....)""
 
 
+    Public Function GetFirstColumn() As RSCFieldColumnV2
+        ''
+        ''Added 4/12/2022 thomas downes
+        ''
+        If (0 = mod_array_RSCColumns.Length) Then Return Nothing
+        If (mod_array_RSCColumns(0) Is Nothing) Then Return mod_array_RSCColumns(1)
+        Return mod_array_RSCColumns(0)
+
+    End Function ''End of ""Public Function GetNextColumn_RightOf(....)""
+
+
     Private Sub RSCFieldSpreadsheet_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
         ''Added 3/10/2022 
