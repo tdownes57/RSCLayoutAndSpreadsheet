@@ -15,7 +15,8 @@ Public Class DialogEditRecipients
 
     Private mod_designer As ClassDesigner ''Added 3/10/2022 td
     Private mod_stringPastedData As String ''Added 2/22/2022  
-    Private mod_cacheColumnWidthsAndData As ciBadgeDesigner.CacheRSCFieldColumnWidthsEtc ''Added 3/16/2022 
+    ''April 13 2022 ''Private mod_cacheColumnWidthsAndData As ciBadgeDesigner.CacheRSCFieldColumnWidthsEtc ''Added 3/16/2022 
+    Private mod_cacheColumnWidthsAndData As ciBadgeCachePersonality.CacheRSCFieldColumnWidthsEtc ''Added 4/13 & 3/16/2022 
     Private Const mod_intRscFieldColumn1_Top As Integer = 19 ''Added 4/3/2022 thomas downes
 
 
@@ -135,7 +136,7 @@ ExitHandler:
             ''
             Me.mod_cacheColumnWidthsAndData = New CacheRSCFieldColumnWidthsEtc()
             ''March 18, 2022--Me.mod_cacheColumnWidthsAndData.ListOfColumns() = New List(Of ClassColumnWidthAndData)()
-            Me.mod_cacheColumnWidthsAndData.ListOfColumns() = New HashSet(Of ClassColumnWidthAndData)()
+            Me.mod_cacheColumnWidthsAndData.ListOfColumns() = New HashSet(Of ClassRSCColumnWidthAndData)()
 
         End If ''End of "If (IO.File.Exists(strPathToXML)) Then... Else..."
 

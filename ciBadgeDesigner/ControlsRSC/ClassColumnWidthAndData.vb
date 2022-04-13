@@ -4,7 +4,10 @@ Option Strict On '' Added 3/15/2022 thomas downes
 '' Added 3/15/2022 thomas downes  
 ''
 
-Public Class ClassColumnWidthAndData
+Public Class ClassColumnWidthAndData_NotInUse
+    ''
+    ''See project ciBadgeCachePersonality for the new, current location
+    ''   of this class. ----4/13/2022 t33h33o33m33a33s33 d33o33w33n33e33s33 
     ''
     '' Added 3/15/2022 thomas downes  
     ''

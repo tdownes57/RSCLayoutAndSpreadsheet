@@ -15,7 +15,8 @@ Public Class RSCFieldSpreadsheet
     Public ParentForm_DesignerDialog As Form ''ciBadgeDesigner.DialogEditRecipients 
     Public Designer As ClassDesigner ''Added 3/10/2022 td
     Public ElementsCache_Deprecated As ciBadgeCachePersonality.ClassElementsCache_Deprecated ''Added 3/10/2022 td
-    Public ColumnDataCache As CacheRSCFieldColumnWidthsEtc ''ClassColumnWidthsEtc ''Added 3/15/2022 td
+    ''April 13 2022 ''Public ColumnDataCache As CacheRSCFieldColumnWidthsEtc ''ClassColumnWidthsEtc ''Added 3/15/2022 td
+    Public ColumnDataCache As ciBadgeCachePersonality.CacheRSCFieldColumnWidthsEtc ''ClassColumnWidthsEtc ''Added 3/15/2022 td
     ''Public RscFieldColumn1 As RSCFieldColumn ''Added 3/25/2022 td
     Public RecipientsCache As ClassCacheOnePersonalityConfig ''Added 3/28/2022 thomas downes
 
@@ -704,7 +705,8 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Step 4 of 5.  Load the list of editable fields.  
         ''
-        Dim each_columnWidthEtc As ciBadgeDesigner.ClassColumnWidthAndData
+        ''4/13/2022 td ''Dim each_columnWidthEtc As ciBadgeDesigner.ClassColumnWidthAndData
+        Dim each_columnWidthEtc As ciBadgeCachePersonality.ClassRSCColumnWidthAndData
         For intNeededIndex = 1 To intNeededMax
 
             each_Column = mod_array_RSCColumns(intNeededIndex)
@@ -932,11 +934,11 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 3/16/2022 Thomas Downes 
         ''
-        Dim each_columnData As ClassColumnWidthAndData
+        Dim each_columnData As ClassRSCColumnWidthAndData ''4/13/2022 As ClassColumnWidthAndData
 
         For intIndex = 1 To par_intNumber
 
-            each_columnData = New ClassColumnWidthAndData
+            each_columnData = New ClassRSCColumnWidthAndData ''4/13/2022 ClassColumnWidthAndData
             each_columnData.CIBField = EnumCIBFields.Undetermined
             each_columnData.Width = -1
             each_columnData.Rows = -1

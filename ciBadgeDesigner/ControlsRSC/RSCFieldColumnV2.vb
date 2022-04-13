@@ -19,13 +19,16 @@ Public Class RSCFieldColumnV2
     ''
     ''Added 4/8/2022 and 2/21/2022 thomas downes  
     ''
+    Public Shared MsgOnce_UnspecifiedField As Boolean = False ''Added 4/13/2022
+
     Public ElementsCache_Deprecated As ciBadgeCachePersonality.ClassElementsCache_Deprecated ''Added 3/10/2022 td
     Public ColumnDataCache As CacheRSCFieldColumnWidthsEtc ''Added 3/15/2022 td
     Public ListRecipients As IEnumerable(Of ClassRecipient) ''Added 3/22/2022 td
     Public ParentSpreadsheet As RSCFieldSpreadsheet ''Added 4/11/2022 td
 
     Private mod_listOfColumnsToBumpRight As List(Of RSCFieldColumnV2)
-    Private mod_columnWidthAndData As ClassColumnWidthAndData ''Added 3/18/2022  
+    ''April 13 2022 ''Private mod_columnWidthAndData As ClassColumnWidthAndData_NotInUse ''Added 3/18/2022  
+    Private mod_columnWidthAndData As ClassRSCColumnWidthAndData ''Added 3/18/2022  
     Private mod_arrayOfData_Undo As String() ''Added 3/20/2022 thomas d.
     Private mod_arrayOfData_Undo_Tag As String() ''Added 4/01/2022 thomas d.
 
@@ -57,14 +60,15 @@ Public Class RSCFieldColumnV2
         End Set
     End Property
 
-    Public Property ColumnWidthAndData() As ClassColumnWidthAndData ''Added 3/15/2022 td
+    Public Property ColumnWidthAndData() As ClassRSCColumnWidthAndData ''Added 3/15/2022 td
+        ''---4/2022--Public Property ColumnWidthAndData() As ClassColumnWidthAndData ''Added 3/15/2022 td
         ''Added 3/18/2022 thomas 
         Get
             ''Added 3/18/2022 thomas
             ''  Probably only for testing!!
             Return mod_columnWidthAndData
         End Get
-        Set(value As ClassColumnWidthAndData)
+        Set(value As ClassRSCColumnWidthAndData) ''---As ClassColumnWidthAndData)
             ''Added 3/18/2022 thomas 
             mod_columnWidthAndData = value
         End Set
@@ -490,13 +494,16 @@ Public Class RSCFieldColumnV2
         ''Restore the width of the columns determined by the user's resizing behavior
         ''   in the prior session.  
         ''
-        Me.Width = mod_columnWidthAndData.Width
+        If (0 < mod_columnWidthAndData.Width) Then
+            Me.Width = mod_columnWidthAndData.Width
+        End If ''If (0 < mod_columnWidthAndData.Width) Then
 
         ''
         ''Added 3/19/2022  
         ''
-        LoadDataToColumn(mod_columnWidthAndData.ColumnData)
-
+        If (0 <> mod_columnWidthAndData.ColumnData.Count) Then
+            LoadDataToColumn(mod_columnWidthAndData.ColumnData)
+        End If ''If (0 <> mod_columnWidthAndData.ColumnData.Count) Then
 
     End Sub ''end of "Public Sub Load_FieldsFromCache"
 
@@ -506,9 +513,21 @@ Public Class RSCFieldColumnV2
         ''Added 3/19/2022 td
         ''
         Dim indexItem As Integer = 0
+
+        ''Added 4/13/2022
+        If (par_listData.Count = 0) Then
+            ''Added 4/13/2022
+            MessageBoxTD.Show_Statement("No data exists with which to supply the present column.")
+            Exit Sub
+        End If ''End of ""If (par_listData.Count = 0) Then""
+
+        ''
+        ''Looping to populate the data cells. 
+        ''
         For Each each_RSCDataCell In ListOfRSCDataCells_TopToBottom()
 
             each_RSCDataCell.Text = par_listData.Item(indexItem)
+            each_RSCDataCell.Tag_Text = par_listData.Item(indexItem) ''For detecting edits. ---4/13/2022
             each_RSCDataCell.ForeColor = Color.Black
             indexItem += 1
 
@@ -800,7 +819,10 @@ Public Class RSCFieldColumnV2
         enumFieldSelected = RscSelectCIBField1.SelectedValue
         If (enumFieldSelected = EnumCIBFields.Undetermined) Then
             pref_bNoFieldSelected = True
-            MessageBoxTD.Show_Statement("Warning, not all columns have a specified field.")
+            If (Not MsgOnce_UnspecifiedField) Then
+                MessageBoxTD.Show_Statement("Warning, not all columns have a specified field. GE45")
+                MsgOnce_UnspecifiedField = True
+            End If ''If (Not MsgUnspecifiedField) Then
             Return
         End If ''End of ""If (enumFieldSelected = EnumCIBFields.Undetermined) Then""
 

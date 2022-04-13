@@ -82,6 +82,7 @@
     <Compile Include="ClassPersonalityConfig.vb" />
     <Compile Include="ClassCacheListRecipients.vb" />
     <Compile Include="Interfaces\InterfaceBadgeSideLayoutElementsV2.vb" />
+    <Compile Include="RSCCache\ClassRSCColumnWidthAndData.vb" />
     <Compile Include="MinorClasses\ClassListOfElements_Fields.vb" />
     <Compile Include="MinorClasses\ClassListOfElements.vb" />
     <Compile Include="MinorClasses\ClassListOfElements_Graphics.vb" />
@@ -94,6 +95,7 @@
     <Compile Include="MinorClasses\ClassOmittedElement.vb" />
     <Compile Include="MinorClasses\MessageBoxTD.vb" />
     <Compile Include="MinorClasses\SplitContainerWidths_NotUsed.vb" />
+    <Compile Include="RSCCache\CacheRSCFieldColumnWidthsEtc.vb" />
     <Compile Include="Utilities\DiskFolders.vb" />
     <Compile Include="Interfaces\InterfaceBadgeSideLayoutElementsV1.vb" />
     <Compile Include="Interfaces\InterfaceDesignerForm.vb" />

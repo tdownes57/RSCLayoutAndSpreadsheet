@@ -6,6 +6,10 @@ Imports ciBadgeInterfaces ''Added 10/11/2019 td
 Public Class ClassPersonalityConfig
     Implements ciBadgeInterfaces.InterfacePersonality
     ''
+    ''See also ""Public Class ClassCacheOnePersonalityConfig"", specifically the 
+    ''   property ""Public Property ListPersonalities As List(Of ClassPersonalityConfig)"".
+    ''   ----4/13/2022 td 
+    ''
     ''Added 10/11/2019 td  
     ''
     ''Dec.12 2021''Public Property ConfigGUID As System.Guid Implements InterfacePersonality.ConfigGUID

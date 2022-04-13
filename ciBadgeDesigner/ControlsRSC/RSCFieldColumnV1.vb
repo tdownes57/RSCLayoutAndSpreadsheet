@@ -21,7 +21,8 @@ Public Class RSCFieldColumnV1
     Public ListRecipients As IEnumerable(Of ClassRecipient) ''Added 3/22/2022 td
 
     Private mod_listOfColumnsToBumpRight As List(Of RSCFieldColumnV1)
-    Private mod_columnWidthAndData As ClassColumnWidthAndData ''Added 3/18/2022  
+    ''4/13/2022 Private mod_columnWidthAndData As ClassColumnWidthAndData ''Added 3/18/2022  
+    Private mod_columnWidthAndData As ClassRSCColumnWidthAndData ''Renamed class 4/13/2022  
     Private mod_arrayOfData_Undo As String() ''Added 3/20/2022 thomas d.
     Private mod_arrayOfData_Undo_Tag As String() ''Added 4/01/2022 thomas d.
 
@@ -53,14 +54,16 @@ Public Class RSCFieldColumnV1
         End Set
     End Property
 
-    Public Property ColumnWidthAndData() As ClassColumnWidthAndData ''Added 3/15/2022 td
+    Public Property ColumnWidthAndData() As ClassRSCColumnWidthAndData ''Added 3/15/2022 td
+        ''---Public Property ColumnWidthAndData() As ClassColumnWidthAndData_NotInUse ''Added 3/15/2022 td
         ''Added 3/18/2022 thomas 
         Get
             ''Added 3/18/2022 thomas
             ''  Probably only for testing!!
             Return mod_columnWidthAndData
         End Get
-        Set(value As ClassColumnWidthAndData)
+        Set(value As ClassRSCColumnWidthAndData)
+            ''----4/2022--Set(value As ClassColumnWidthAndData_NotInUse)
             ''Added 3/18/2022 thomas 
             mod_columnWidthAndData = value
         End Set
