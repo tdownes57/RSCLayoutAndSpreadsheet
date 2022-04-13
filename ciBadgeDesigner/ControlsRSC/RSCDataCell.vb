@@ -14,6 +14,7 @@ Public Class RSCDataCell
     ''
     ''Added 4/7/2022 thomas downes
     ''
+    Public ParentColumn As RSCFieldColumnV2 ''Added 4/12/2022 td
     Public Recipient As ciBadgeRecipients.ClassRecipient ''Added 4/12/2022 td
 
     Public Overrides Property Text() As String
@@ -66,6 +67,80 @@ Public Class RSCDataCell
     End Property
 
 
+    Public Function GetNextCell_Right(Optional ByRef pboolEdge As Boolean = False) As RSCDataCell
+        ''
+        ''4/12/2022 td
+        ''
+        Dim objRSCDataCell_Right As RSCDataCell
+        Dim objRSCDataColumn_Right As RSCFieldColumnV2
+        Dim intCurrentRowIndex As Integer
+
+        objRSCDataColumn_Right = Me.ParentColumn.GetNextColumn_Right()
+        If (objRSCDataColumn_Right Is Nothing) Then
+            pboolEdge = True
+            Return Nothing
+        End If ''End of ""If (objRSCDataColumn_Left Is Nothing) Then""
+        intCurrentRowIndex = Me.ParentColumn.GetRowIndexOfCell(Me)
+        objRSCDataCell_Right = objRSCDataColumn_Right.GetCellWithRowIndex(intCurrentRowIndex)
+        Return objRSCDataCell_Right
+
+    End Function ''End of ""Public Function GetNextCell_Right() As RSCDataCell""
+
+
+    Public Function GetNextCell_Left(Optional ByRef pboolEdge As Boolean = False) As RSCDataCell
+        ''
+        ''4/12/2022 td
+        ''
+        Dim objRSCDataCell_Left As RSCDataCell
+        Dim objRSCDataColumn_Left As RSCFieldColumnV2
+        Dim intCurrentRowIndex As Integer
+
+        objRSCDataColumn_Left = Me.ParentColumn.GetNextColumn_Left()
+        If (objRSCDataColumn_Left Is Nothing) Then
+            pboolEdge = True
+            Return Nothing
+        End If ''End of ""If (objRSCDataColumn_Left Is Nothing) Then""
+        intCurrentRowIndex = Me.ParentColumn.GetRowIndexOfCell(Me)
+        objRSCDataCell_Left = objRSCDataColumn_Left.GetCellWithRowIndex(intCurrentRowIndex)
+        Return objRSCDataCell_Left
+
+    End Function ''End of ""Public Function GetNextCell_Left() As RSCDataCell""
+
+
+    Public Function GetNextCell_Up(Optional ByRef pboolEdge As Boolean = False) As RSCDataCell
+        ''
+        ''4/12/2022 td
+        ''
+        Dim intCurrentRowIndex As Integer
+        Dim objRSCDataCell_Up As RSCDataCell
+        intCurrentRowIndex = Me.ParentColumn.GetRowIndexOfCell(Me)
+        If (intCurrentRowIndex = 1) Then
+            pboolEdge = True
+            Return Nothing
+        End If ''End of ""If (intCurrentRowIndex = 1) Then""
+        objRSCDataCell_Up = Me.ParentColumn.GetCellWithRowIndex(-1 + intCurrentRowIndex)
+        Return objRSCDataCell_Up
+
+    End Function ''End of "" Public Function GetNextCell_Up() As RSCDataCell""
+
+
+    Public Function GetNextCell_Down(Optional ByRef pboolEdge As Boolean = False) As RSCDataCell
+        ''
+        ''4/12/2022 td
+        ''
+        Dim intCurrentRowIndex As Integer
+        Dim objRSCDataCell_Down As RSCDataCell
+        intCurrentRowIndex = Me.ParentColumn.GetRowIndexOfCell(Me)
+        If (intCurrentRowIndex = Me.ParentColumn.CountOfRows()) Then
+            pboolEdge = True
+            Return Nothing
+        End If ''End of ""If (intCurrentRowIndex = 1) Then""
+        objRSCDataCell_Down = Me.ParentColumn.GetCellWithRowIndex(1 + intCurrentRowIndex)
+        Return objRSCDataCell_Down
+
+    End Function ''End of ""Public Function GetNextCell_Down() As RSCDataCell""
+
+
     Public Sub SaveDataToRecipientField(par_enumCIBField As EnumCIBFields)
         ''
         ''Added 4/12/2022 
@@ -80,4 +155,50 @@ Public Class RSCDataCell
 
     End Sub ''End of ""Public Sub SaveDataToRecipientField(enumCIBField As EnumCIBFields)""
 
+
+    Public Sub SetFocus()
+        ''
+        ''Added 4/12/2022 td
+        ''
+        Textbox1a.Focus()
+        Textbox1a.SelectAll()
+
+    End Sub ''End of ""Public Sub SetFocus()""
+
+
+    Private Sub Textbox1a_TextChanged(sender As Object, e As EventArgs) Handles Textbox1a.TextChanged
+        ''
+        ''Added 4/12/2022 td
+        ''
+        Dim boolHasCrLf As Boolean ''Added 4/12/2022 td
+        boolHasCrLf = Textbox1a.Text.Contains(vbCr) ''//Then
+        LinkLabelCrLf.Visible = boolHasCrLf
+
+    End Sub
+
+
+    Private Sub LinkLabelCrLf_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
+
+        ''Added 4/12/2022 thomas downes 
+        MessageBoxTD.Show_Statement("There are multiple (>1) lines in this textbox.",
+           "Use the up-down arrow keys to view the text of each line.")
+
+
+    End Sub
+
+
+    Private Sub Textbox1a_KeyUp(sender As Object, e As KeyEventArgs) Handles Textbox1a.KeyUp
+        ''
+        ''Added 4/12/2022 thomas downes
+        ''
+        Dim objNextCell As RSCDataCell = Nothing
+
+        If e.KeyCode = Keys.Up Then objNextCell = GetNextCell_Up() ''.SetFocus
+        If e.KeyCode = Keys.Down Then objNextCell = GetNextCell_Down() ''.SetFocus()
+        If e.KeyCode = Keys.Left Then objNextCell = GetNextCell_Left() ''.SetFocus
+        If e.KeyCode = Keys.Right Then objNextCell = GetNextCell_Right() ''.SetFocus
+
+        If (objNextCell IsNot Nothing) Then objNextCell.SetFocus()
+
+    End Sub
 End Class

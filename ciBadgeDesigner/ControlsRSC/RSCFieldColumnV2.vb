@@ -991,6 +991,61 @@ Public Class RSCFieldColumnV2
     End Function ''End of "Public Function ListOfBottomBars_TopToBottom() As IOrderedEnumerable(Of PictureBox)"
 
 
+    Public Function GetNextColumn_Right() As RSCFieldColumnV2
+        ''
+        ''Added 4/12/2022 thomas downes
+        ''
+        Dim objSpreadsheet As RSCFieldSpreadsheet
+        Dim objColumn_Right As RSCFieldColumnV2
+        objSpreadsheet = Me.ParentSpreadsheet
+        objColumn_Right = objSpreadsheet.GetNextColumn_RightOf(Me)
+        Return objColumn_Right
+
+    End Function ''End of ""Public Function GetNextColumn_Right() As RSCFieldColumnV2""
+
+
+    Public Function GetNextColumn_Left() As RSCFieldColumnV2
+        ''
+        ''Added 4/12/2022 thomas downes
+        ''
+        Dim objSpreadsheet As RSCFieldSpreadsheet
+        Dim objColumn_Left As RSCFieldColumnV2
+        objSpreadsheet = Me.ParentSpreadsheet
+        objColumn_Left = objSpreadsheet.GetNextColumn_LeftOf(Me)
+        Return objColumn_Left
+
+    End Function ''End of ""Public Function GetNextColumn_Left() As RSCFieldColumnV2""
+
+
+    Public Function GetRowIndexOfCell(par_cell As RSCDataCell) As Integer
+        ''
+        ''Added 4/12/2022 thomas downes
+        ''
+        Dim list_cells As List(Of RSCDataCell)
+        Dim intRowIndex As Integer
+        Dim boolMatches As Boolean
+
+        list_cells = ListOfRSCDataCells_TopToBottom()
+
+        For intRowIndex = 1 To list_cells.Count
+
+            boolMatches = (list_cells(-1 + intRowIndex) Is par_cell)
+            If (boolMatches) Then Return intRowIndex
+
+        Next intRowIndex
+
+    End Function ''End of ""Public Function GetRowIndexOfCell(par_cell As RSCDataCell) As Integer""
+
+
+    Public Function GetCellWithRowIndex(par_intRowIndex As Integer) As RSCDataCell
+        ''
+        ''Added 4/12/2022 thomas downes
+        ''
+        Return ListOfRSCDataCells_TopToBottom()(-1 + par_intRowIndex)
+
+    End Function ''End of ""Public Function GetCellWithRowIndex() As RSCDataCell""
+
+
     Public Sub SaveDataTo_ColumnCache()
         ''April 12 2022 ''Public Sub SaveDataToColumn()
         ''
@@ -1191,6 +1246,8 @@ Public Class RSCFieldColumnV2
 
             ''Bottom  row-related horizontal line (below each RSCDataCell).
             ''4/8/2022 objBottomBar.Top = .Top + .Height + 1
+
+            .ParentColumn = Me ''Added 4/12/2022 thomas d.
 
         End With ''End of ""With objRSCDataCell""
 

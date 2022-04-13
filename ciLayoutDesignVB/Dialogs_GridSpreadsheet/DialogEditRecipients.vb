@@ -235,6 +235,7 @@ ExitHandler:
         ''Added 3/18/2022 
         ''
         RscFieldSpreadsheet1.SaveDataColumnByColumn()
+        Me.RecipientsCache.SaveToXML() ''Added 4/12/2022 td
         Me.DialogResult = DialogResult.OK ''Added 3/31/2022 td
         Me.Close()
 

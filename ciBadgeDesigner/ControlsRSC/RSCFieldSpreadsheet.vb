@@ -279,6 +279,55 @@ Public Class RSCFieldSpreadsheet
     End Function ''End of "Private Function ReviewPastedData_IsOkay()"
 
 
+    Public Function GetNextColumn_RightOf(par_column As RSCFieldColumnV2) As RSCFieldColumnV2
+        ''
+        ''Added 4/12/2022 thomas downes
+        ''
+        Dim each_column As RSCFieldColumnV2
+        Dim boolMatches As Boolean
+        Dim boolMatches_Prior As Boolean
+
+        For Each each_column In mod_array_RSCColumns
+
+            boolMatches = (each_column Is par_column)
+            If (boolMatches_Prior) Then Return each_column
+            ''Prepare for the next iteration. 
+            boolMatches_Prior = boolMatches
+
+        Next each_column
+
+        Return Nothing
+
+    End Function ''End of ""Public Function GetNextColumn_RightOf(....)""
+
+
+    Public Function GetNextColumn_LeftOf(par_column As RSCFieldColumnV2) As RSCFieldColumnV2
+        ''
+        ''Added 4/12/2022 thomas downes
+        ''
+        Dim each_column As RSCFieldColumnV2
+        Dim prior_column As RSCFieldColumnV2 = Nothing
+        Dim boolMatches As Boolean
+        Dim boolMatches_Prior As Boolean
+
+        For Each each_column In mod_array_RSCColumns
+
+            boolMatches = (each_column Is par_column)
+            If (boolMatches) Then Return prior_column
+
+            ''
+            ''Prepare for the next iteration.
+            ''
+            prior_column = each_column
+            boolMatches_Prior = boolMatches
+
+        Next each_column
+
+        Return Nothing
+
+    End Function ''End of ""Public Function GetNextColumn_RightOf(....)""
+
+
     Private Sub RSCFieldSpreadsheet_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
         ''Added 3/10/2022 
@@ -939,8 +988,6 @@ Public Class RSCFieldSpreadsheet
             eachColumn.SaveDataTo_RecipientCache()
 
         Next intIndex
-
-
 
         ''
         ''Resize the form based on the save form size.---3/20/2022

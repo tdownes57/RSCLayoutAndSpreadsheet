@@ -41,13 +41,21 @@ Public Class RSCRowHeader
 
     Private Sub textRowHeader1_MouseUp(sender As Object, e As MouseEventArgs) Handles textRowHeader1.MouseUp
 
+        ''Added 4/12/2022 td 
+        Const c_bGiveHeightMsg As Boolean = False
+
         ''Added 4/6/2022 thomas d.
         If (e.Button = MouseButtons.Right) Then
+            ''Added 4/6/2022 thomas d.
             ParentRSCRowHeaders.HeaderBox_MouseUp(Me, e)
-        Else
+
+        ElseIf (c_bGiveHeightMsg) Then
+
+            ''Added 4/6/2022 td
             MessageBoxTD.Show_Statement("The height of this control is: " + Me.Height.ToString,
                                         "The width of this control is: " + Me.Width.ToString)
             Me.Height = (ParentRSCRowHeaders.PixelsFromRowToRow - 1)
+
         End If ''End of "If (e.Button = MouseButtons.Right) Then .... Else ...."
 
     End Sub

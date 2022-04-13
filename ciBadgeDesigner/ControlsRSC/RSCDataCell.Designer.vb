@@ -23,6 +23,7 @@ Partial Class RSCDataCell
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.Textbox1a = New System.Windows.Forms.TextBox()
+        Me.LinkLabelCrLf = New System.Windows.Forms.LinkLabel()
         Me.SuspendLayout()
         '
         'Textbox1a
@@ -40,10 +41,24 @@ Partial Class RSCDataCell
         Me.Textbox1a.TabIndex = 37
         Me.Textbox1a.Text = "Example"
         '
+        'LinkLabelCrLf
+        '
+        Me.LinkLabelCrLf.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LinkLabelCrLf.AutoSize = True
+        Me.LinkLabelCrLf.Location = New System.Drawing.Point(121, 0)
+        Me.LinkLabelCrLf.Name = "LinkLabelCrLf"
+        Me.LinkLabelCrLf.Size = New System.Drawing.Size(26, 13)
+        Me.LinkLabelCrLf.TabIndex = 38
+        Me.LinkLabelCrLf.TabStop = True
+        Me.LinkLabelCrLf.Text = "CrLf"
+        Me.LinkLabelCrLf.Visible = False
+        '
         'RSCDataCell
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.Controls.Add(Me.LinkLabelCrLf)
         Me.Controls.Add(Me.Textbox1a)
         Me.Name = "RSCDataCell"
         Me.Size = New System.Drawing.Size(150, 24)
@@ -53,4 +68,5 @@ Partial Class RSCDataCell
     End Sub
 
     Public WithEvents Textbox1a As TextBox
+    Friend WithEvents LinkLabelCrLf As LinkLabel
 End Class
