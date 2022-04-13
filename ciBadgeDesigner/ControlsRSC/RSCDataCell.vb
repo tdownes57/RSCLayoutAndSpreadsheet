@@ -179,6 +179,52 @@ Public Class RSCDataCell
     End Sub ''End of ""Public Sub SaveDataToRecipientField(enumCIBField As EnumCIBFields)""
 
 
+    Public Sub LoadTabbedData(par_strTabbed As String)
+        ''
+        ''Added 4/13/2022 thomas downes
+        ''
+        Dim boolHasTabCharacter As Boolean ''Added 4/12/2022 td
+        Dim strPostTabLine As String ''Added 4/12/2022 td
+
+        boolHasTabCharacter = par_strTabbed.Contains(vbTab) ''//Then
+        If (boolHasTabCharacter) Then
+            ''
+            ''Check to see if the user has typed the text value and then pressed
+            ''   the "Enter" key, as if to finalize the cell-editing work.
+            ''   ---4/12/2022 td
+            ''
+            Dim bTabIsLastChar As Boolean ''Added 4/12/2022 td
+
+            With par_strTabbed
+                bTabIsLastChar = (.IndexOf(vbTab) = (.Length - 1 - vbTab.Length + 1))
+                If bTabIsLastChar Then
+                    ''Don't (_NOT_) try to parse the tabbed values.  However,
+                    ''  we should remove the final tab character.
+                    ''  ----4/13/2022 td
+                    Textbox1a.Text = .Substring(0, .IndexOf(vbTab))
+
+                Else
+                    ''Parse the tabbed values.  
+                    strPostTabLine = .Substring(1 + .IndexOf(vbTab))
+                    Dim objNextCell As RSCDataCell
+                    objNextCell = Me.GetNextCell_Right()
+                    If (objNextCell IsNot Nothing) Then objNextCell.LoadTabbedData(strPostTabLine)
+                    Textbox1a.Text = .Substring(0, .IndexOf(vbTab))
+
+                End If ''End of ""If bTabIsLastChar Then.... Else ...""
+            End With ''End of ""With par_strTabbed""
+
+        Else
+            ''
+            ''No Tab character. 
+            ''
+            Textbox1a.Text = par_strTabbed
+
+        End If ''End of ""If (boolHasTabCharacter) Then... Else....""
+
+    End Sub ''End of "Public Sub LoadTabbedData()"
+
+
     Public Sub SetFocus()
         ''
         ''Added 4/12/2022 td
@@ -194,10 +240,36 @@ Public Class RSCDataCell
         ''Added 4/12/2022 td
         ''
         Dim boolHasTabCharacter As Boolean ''Added 4/12/2022 td
+        Dim strPostTabLine As String ''Added 4/12/2022 td
 
         boolHasTabCharacter = Textbox1a.Text.Contains(vbTab) ''//Then
         If (boolHasTabCharacter) Then
+            ''
+            ''Check to see if the user has typed the text value and then pressed
+            ''   the "Enter" key, as if to finalize the cell-editing work.
+            ''   ---4/12/2022 td
+            ''
+            LoadTabbedData(Textbox1a.Text)
 
+            ''Dim bTabIsLastChar As Boolean ''Added 4/12/2022 td
+
+            ''With Textbox1a.Text
+            ''    bTabIsLastChar = (.IndexOf(vbTab) = (.Length - 1 - vbTab.Length + 1))
+            ''    If bTabIsLastChar Then
+            ''        ''
+            ''        ''Don't (_NOT_) try to parse the tabbed values.  
+            ''        ''
+            ''    Else
+            ''        ''Parse the tabbed values.  
+            ''        strPostTabLine = .Substring(1 + .IndexOf(vbTab))
+            ''        ''----Me.GetNextCell_Right().LoadTabbedData(strPostTabLine)
+            ''        Dim objNextCell As RSCDataCell
+            ''        objNextCell = Me.GetNextCell_Right()
+            ''        If (objNextCell IsNot Nothing) Then objNextCell.LoadTabbedData(strPostTabLine)
+            ''        Textbox1a.Text = .Substring(0, .IndexOf(vbTab))
+
+            ''    End If ''End of ""If bTabIsLastChar Then.... Else ...""
+            ''End With ''End of ""With Textbox1a.Text""
 
         End If ''End of ""If (boolHasTabCharacter) Then""
 
