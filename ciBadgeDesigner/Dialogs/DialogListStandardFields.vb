@@ -172,14 +172,38 @@ Public Class DialogListStandardFields
         closing_reason = e.CloseReason
 
         ''Added 8/19/2019 td  
-        dia_result = MessageBox.Show("Save your work?  (Currently, this does _NOT_ save your work permanently to your PC.) " &
+        '['dia_result = MessageBox.Show("Save your work?  (Currently, this does _NOT_ save your work permanently to your PC.) " &
+        '['     vbCrLf_Deux & "(Allows the window to be re-opened from the parent application, with your work retained.)", "ciLayout",
+        '['     MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)
+
+        ''Added 4/13/2022 td
+        If (Me.DialogResult = DialogResult.OK) Then
+            ''Don't ask the user, the user has already pressed "OK" or "Yes" or "Cancel".---4/13/2022
+        ElseIf (Me.DialogResult = DialogResult.Yes) Then
+            ''Don't ask the user, the user has already pressed "OK" or "Yes" or "Cancel".---4/13/2022
+        ElseIf (Me.DialogResult = DialogResult.Cancel) Then
+            ''Don't ask the user, the user has already pressed "OK" or "Cancel".---4/13/2022
+
+        Else
+            ''Added 7/31/2019 td  
+            dia_result = MessageBox.Show("Save your work?  (Currently, this does _NOT_ save your work permanently to your PC.) " &
                                      vbCrLf_Deux & "(Allows the window to be re-opened from the parent application, with your work retained.)", "ciLayout",
                                      MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)
+            If (dia_result = DialogResult.Cancel) Then e.Cancel = True
 
-        If (dia_result = DialogResult.Cancel) Then e.Cancel = True
-        If (dia_result = DialogResult.Yes) Then SaveControls()
+            ''---If (dia_result = DialogResult.Yes) Then SaveControls()
+            If (dia_result = DialogResult.Yes) Then
+                SaveControls()
+                ''Added 12/6/2021 td
+                Me.ClosingOK_SoSaveWork = True
+                ''Added 03/23/2022 thomas d.  
+                Me.DialogResult = DialogResult.OK
+            End If ''End of "If (dia_result = DialogResult.Yes) Then"
 
-    End Sub
+        End If ''If (Me.DialogResult = DialogResult.OK) Then
+
+
+    End Sub ''Handles FormClosing 
 
     Private Sub SaveControls()
         ''
@@ -254,6 +278,28 @@ Public Class DialogListStandardFields
         End If ''End of "If (dia_result = DialogResult.Yes) Then"
 
     End Sub
+
+    Private Sub ButtonOK_Click(sender As Object, e As EventArgs) Handles ButtonOK.Click
+        ''
+        ''Added 4/13/2022 thomas Downes 
+        ''
+        SaveControls()
+        Me.ClosingOK_SoSaveWork = True
+        Me.DialogResult = DialogResult.OK
+        Me.Close()
+
+    End Sub
+
+    Private Sub ButtonCancel_Click(sender As Object, e As EventArgs) Handles ButtonCancel.Click
+        ''
+        ''Added 4/13/2022 thomas Downes 
+        ''
+        Me.DialogResult = DialogResult.Cancel
+        Me.Close()
+
+    End Sub
+
+
 End Class
 
 

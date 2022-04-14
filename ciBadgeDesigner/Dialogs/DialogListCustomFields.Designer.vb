@@ -24,6 +24,7 @@ Partial Class DialogListCustomFields
     Private Sub InitializeComponent()
         Me.LabelHeaderCaption = New System.Windows.Forms.Label()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.UserAddFieldControl1 = New ciBadgeDesigner.CtlAddCustomField()
         Me.chkIncludeExampleValues = New System.Windows.Forms.CheckBox()
         Me.chkIncludeCIBField = New System.Windows.Forms.CheckBox()
         Me.linkLabelRefresh = New System.Windows.Forms.LinkLabel()
@@ -31,7 +32,8 @@ Partial Class DialogListCustomFields
         Me.linklabelExport = New System.Windows.Forms.LinkLabel()
         Me.LinkLabelSave = New System.Windows.Forms.LinkLabel()
         Me.LinkLabelCancel = New System.Windows.Forms.LinkLabel()
-        Me.UserAddFieldControl1 = New CtlAddCustomField()
+        Me.ButtonCancel = New System.Windows.Forms.Button()
+        Me.ButtonOK = New System.Windows.Forms.Button()
         Me.FlowLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -39,9 +41,10 @@ Partial Class DialogListCustomFields
         '
         Me.LabelHeaderCaption.AutoSize = True
         Me.LabelHeaderCaption.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelHeaderCaption.Location = New System.Drawing.Point(9, 12)
+        Me.LabelHeaderCaption.Location = New System.Drawing.Point(7, 10)
+        Me.LabelHeaderCaption.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LabelHeaderCaption.Name = "LabelHeaderCaption"
-        Me.LabelHeaderCaption.Size = New System.Drawing.Size(398, 36)
+        Me.LabelHeaderCaption.Size = New System.Drawing.Size(325, 29)
         Me.LabelHeaderCaption.TabIndex = 2
         Me.LabelHeaderCaption.Tag = "Custom Fields - {0}"
         Me.LabelHeaderCaption.Text = "Custom Fields - {Personality}"
@@ -56,22 +59,31 @@ Partial Class DialogListCustomFields
         Me.FlowLayoutPanel1.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.FlowLayoutPanel1.Controls.Add(Me.UserAddFieldControl1)
         Me.FlowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
-        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(12, 76)
-        Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(9, 62)
+        Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(981, 526)
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(974, 427)
         Me.FlowLayoutPanel1.TabIndex = 3
         Me.FlowLayoutPanel1.WrapContents = False
+        '
+        'UserAddFieldControl1
+        '
+        Me.UserAddFieldControl1.BackColor = System.Drawing.Color.LightCyan
+        Me.UserAddFieldControl1.Location = New System.Drawing.Point(2, 2)
+        Me.UserAddFieldControl1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.UserAddFieldControl1.Name = "UserAddFieldControl1"
+        Me.UserAddFieldControl1.Size = New System.Drawing.Size(691, 70)
+        Me.UserAddFieldControl1.TabIndex = 4
         '
         'chkIncludeExampleValues
         '
         Me.chkIncludeExampleValues.AutoSize = True
         Me.chkIncludeExampleValues.Checked = True
         Me.chkIncludeExampleValues.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkIncludeExampleValues.Location = New System.Drawing.Point(767, 12)
-        Me.chkIncludeExampleValues.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.chkIncludeExampleValues.Location = New System.Drawing.Point(575, 10)
+        Me.chkIncludeExampleValues.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.chkIncludeExampleValues.Name = "chkIncludeExampleValues"
-        Me.chkIncludeExampleValues.Size = New System.Drawing.Size(180, 21)
+        Me.chkIncludeExampleValues.Size = New System.Drawing.Size(140, 17)
         Me.chkIncludeExampleValues.TabIndex = 4
         Me.chkIncludeExampleValues.Text = "Include example values."
         Me.chkIncludeExampleValues.UseVisualStyleBackColor = True
@@ -79,10 +91,10 @@ Partial Class DialogListCustomFields
         'chkIncludeCIBField
         '
         Me.chkIncludeCIBField.AutoSize = True
-        Me.chkIncludeCIBField.Location = New System.Drawing.Point(767, 39)
-        Me.chkIncludeCIBField.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.chkIncludeCIBField.Location = New System.Drawing.Point(575, 32)
+        Me.chkIncludeCIBField.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.chkIncludeCIBField.Name = "chkIncludeCIBField"
-        Me.chkIncludeCIBField.Size = New System.Drawing.Size(221, 21)
+        Me.chkIncludeCIBField.Size = New System.Drawing.Size(170, 17)
         Me.chkIncludeCIBField.TabIndex = 5
         Me.chkIncludeCIBField.Text = "Include Table Card Data Field."
         Me.chkIncludeCIBField.UseVisualStyleBackColor = True
@@ -90,9 +102,10 @@ Partial Class DialogListCustomFields
         'linkLabelRefresh
         '
         Me.linkLabelRefresh.AutoSize = True
-        Me.linkLabelRefresh.Location = New System.Drawing.Point(143, 620)
+        Me.linkLabelRefresh.Location = New System.Drawing.Point(107, 504)
+        Me.linkLabelRefresh.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.linkLabelRefresh.Name = "linkLabelRefresh"
-        Me.linkLabelRefresh.Size = New System.Drawing.Size(184, 17)
+        Me.linkLabelRefresh.Size = New System.Drawing.Size(141, 13)
         Me.linkLabelRefresh.TabIndex = 6
         Me.linkLabelRefresh.TabStop = True
         Me.linkLabelRefresh.Text = "Save && Refresh the Window"
@@ -101,9 +114,10 @@ Partial Class DialogListCustomFields
         '
         Me.LinkLabelAddField.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.LinkLabelAddField.AutoSize = True
-        Me.LinkLabelAddField.Location = New System.Drawing.Point(364, 620)
+        Me.LinkLabelAddField.Location = New System.Drawing.Point(33, 491)
+        Me.LinkLabelAddField.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LinkLabelAddField.Name = "LinkLabelAddField"
-        Me.LinkLabelAddField.Size = New System.Drawing.Size(149, 17)
+        Me.LinkLabelAddField.Size = New System.Drawing.Size(114, 13)
         Me.LinkLabelAddField.TabIndex = 7
         Me.LinkLabelAddField.TabStop = True
         Me.LinkLabelAddField.Text = "Add New Custom Field"
@@ -112,9 +126,10 @@ Partial Class DialogListCustomFields
         '
         Me.linklabelExport.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.linklabelExport.AutoSize = True
-        Me.linklabelExport.Location = New System.Drawing.Point(15, 620)
+        Me.linklabelExport.Location = New System.Drawing.Point(11, 504)
+        Me.linklabelExport.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.linklabelExport.Name = "linklabelExport"
-        Me.linklabelExport.Size = New System.Drawing.Size(48, 17)
+        Me.linklabelExport.Size = New System.Drawing.Size(37, 13)
         Me.linklabelExport.TabIndex = 8
         Me.linklabelExport.TabStop = True
         Me.linklabelExport.Text = "Export"
@@ -123,9 +138,10 @@ Partial Class DialogListCustomFields
         '
         Me.LinkLabelSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.LinkLabelSave.AutoSize = True
-        Me.LinkLabelSave.Location = New System.Drawing.Point(951, 620)
+        Me.LinkLabelSave.Location = New System.Drawing.Point(516, 504)
+        Me.LinkLabelSave.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LinkLabelSave.Name = "LinkLabelSave"
-        Me.LinkLabelSave.Size = New System.Drawing.Size(40, 17)
+        Me.LinkLabelSave.Size = New System.Drawing.Size(32, 13)
         Me.LinkLabelSave.TabIndex = 9
         Me.LinkLabelSave.TabStop = True
         Me.LinkLabelSave.Text = "Save"
@@ -134,27 +150,46 @@ Partial Class DialogListCustomFields
         '
         Me.LinkLabelCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.LinkLabelCancel.AutoSize = True
-        Me.LinkLabelCancel.Location = New System.Drawing.Point(642, 620)
+        Me.LinkLabelCancel.Location = New System.Drawing.Point(422, 491)
+        Me.LinkLabelCancel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LinkLabelCancel.Name = "LinkLabelCancel"
-        Me.LinkLabelCancel.Size = New System.Drawing.Size(189, 17)
+        Me.LinkLabelCancel.Size = New System.Drawing.Size(148, 13)
         Me.LinkLabelCancel.TabIndex = 10
         Me.LinkLabelCancel.TabStop = True
         Me.LinkLabelCancel.Text = "Cancel / Undo Edits / Reload"
         '
-        'UserAddFieldControl1
+        'ButtonCancel
         '
-        Me.UserAddFieldControl1.BackColor = System.Drawing.Color.LightCyan
-        Me.UserAddFieldControl1.Location = New System.Drawing.Point(3, 2)
-        Me.UserAddFieldControl1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.UserAddFieldControl1.Name = "UserAddFieldControl1"
-        Me.UserAddFieldControl1.Size = New System.Drawing.Size(921, 86)
-        Me.UserAddFieldControl1.TabIndex = 4
+        Me.ButtonCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ButtonCancel.BackColor = System.Drawing.Color.LightGray
+        Me.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.ButtonCancel.Location = New System.Drawing.Point(909, 491)
+        Me.ButtonCancel.Margin = New System.Windows.Forms.Padding(2)
+        Me.ButtonCancel.Name = "ButtonCancel"
+        Me.ButtonCancel.Size = New System.Drawing.Size(74, 31)
+        Me.ButtonCancel.TabIndex = 25
+        Me.ButtonCancel.Text = "Cancel"
+        Me.ButtonCancel.UseVisualStyleBackColor = False
         '
-        'ListCustomFieldsFlow
+        'ButtonOK
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.ButtonOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ButtonOK.BackColor = System.Drawing.Color.LightGray
+        Me.ButtonOK.Location = New System.Drawing.Point(739, 491)
+        Me.ButtonOK.Margin = New System.Windows.Forms.Padding(2)
+        Me.ButtonOK.Name = "ButtonOK"
+        Me.ButtonOK.Size = New System.Drawing.Size(167, 31)
+        Me.ButtonOK.TabIndex = 24
+        Me.ButtonOK.Text = "OK"
+        Me.ButtonOK.UseVisualStyleBackColor = False
+        '
+        'DialogListCustomFields
+        '
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1021, 646)
+        Me.ClientSize = New System.Drawing.Size(1004, 525)
+        Me.Controls.Add(Me.ButtonCancel)
+        Me.Controls.Add(Me.ButtonOK)
         Me.Controls.Add(Me.LinkLabelCancel)
         Me.Controls.Add(Me.LinkLabelSave)
         Me.Controls.Add(Me.linklabelExport)
@@ -164,8 +199,8 @@ Partial Class DialogListCustomFields
         Me.Controls.Add(Me.chkIncludeExampleValues)
         Me.Controls.Add(Me.FlowLayoutPanel1)
         Me.Controls.Add(Me.LabelHeaderCaption)
-        Me.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.Name = "ListCustomFieldsFlow"
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Name = "DialogListCustomFields"
         Me.Text = "FormCustomFieldsFlow"
         Me.FlowLayoutPanel1.ResumeLayout(False)
         Me.ResumeLayout(False)
@@ -183,4 +218,6 @@ Partial Class DialogListCustomFields
     Friend WithEvents linklabelExport As LinkLabel
     Friend WithEvents LinkLabelSave As LinkLabel
     Friend WithEvents LinkLabelCancel As LinkLabel
+    Friend WithEvents ButtonCancel As Button
+    Friend WithEvents ButtonOK As Button
 End Class

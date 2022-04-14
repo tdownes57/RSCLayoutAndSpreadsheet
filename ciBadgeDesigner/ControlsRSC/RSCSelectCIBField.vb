@@ -70,6 +70,14 @@ Public Class RSCSelectCIBField
         ''3/19/2022''listOfFields = par_cache.ListOfFields_SC_ForEditing()
         listOfFields = par_cache.ListOfFields_SC_ForEditing(True)
 
+        ''Added 4/13/2022 td
+        ''To restore later, let's save the value which is currently selected.
+        ''
+        ''--Dim objSelectedValue As Object
+        ''--objSelectedValue = comboBoxRelevantFields.SelectedValue
+        Dim enum_field_saveForLater As EnumCIBFields
+        enum_field_saveForLater = CType(comboBoxRelevantFields.SelectedValue, EnumCIBFields)
+
         ''Added 3/18/2022
         comboBoxRelevantFields.DisplayMember = "FieldLabelCaption"
         comboBoxRelevantFields.ValueMember = "FieldEnumValue"
@@ -78,7 +86,14 @@ Public Class RSCSelectCIBField
         ''Calling this function's original overload!!
         ''
         ''Not needed.----3/18/2022 thomas d''Load_Control(listOfFields, EnumCIBFields.Undetermined)
+        comboBoxRelevantFields.DataSource = Nothing ''Clear out the DataSource, to allow the drop-down list to be cleared. ---4/13/2022
+        Application.DoEvents()
         comboBoxRelevantFields.DataSource = listOfFields
+
+        ''Restore the value which was previously selected. ---4/13/2022
+        Dim enum_field_restore As EnumCIBFields
+        enum_field_restore = enum_field_saveForLater
+        comboBoxRelevantFields.SelectedValue = enum_field_restore
 
         ''mod_bLoading = False ''Added 4/1/2022 td
         mod_bLoading = bLoadStartingValue ''Added 4/1/2022 td
@@ -138,6 +153,9 @@ Public Class RSCSelectCIBField
         If (dialog_result = DialogResult.OK) Then
             ''Added 3/23/2022 td
             Me.ElementsCache_Deprecated.SaveToXML()
+
+            ''Added 4/13/2022 td
+            Load_FieldsFromCache(Me.ElementsCache_Deprecated)
 
         End If ''End of ""If (dialog_result = ...)"
 

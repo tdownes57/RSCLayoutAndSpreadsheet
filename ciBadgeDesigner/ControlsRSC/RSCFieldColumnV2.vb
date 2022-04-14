@@ -886,7 +886,7 @@ Public Class RSCFieldColumnV2
         listBoxes = ListOfRSCDataCells_TopToBottom()
 
         ''Added 4/11/2022
-        intRowsInSpreadsheet = Me.ParentSpreadsheet.RscFieldColumn1.CountOfRows()
+        intRowsInSpreadsheet = Me.CountOfRows() ''Me.ParentSpreadsheet.RscFieldColumn1.CountOfRows()
         boolMiscountOfRows = (listBoxes.Count <> intRowsInSpreadsheet)
         If (boolMiscountOfRows) Then
             System.Diagnostics.Debugger.Break()
@@ -1176,6 +1176,15 @@ Public Class RSCFieldColumnV2
 
 
     End Sub ''Endof ""Public Sub AlignRSCDataCelles_ToBottomBars()""
+
+
+    Public Sub RefreshFieldDropdown()
+        ''
+        ''Added 4/13/2022 thomas downes
+        ''
+        RscSelectCIBField1.Load_FieldsFromCache(Me.ElementsCache_Deprecated)
+
+    End Sub ''End of "Public Sub RefreshFieldDropdown()"
 
 
     Public Sub Load_OneEmptyRow_IfNeeded(par_intRowIndex As Integer,

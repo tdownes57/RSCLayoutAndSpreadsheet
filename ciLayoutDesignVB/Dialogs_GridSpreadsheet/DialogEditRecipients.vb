@@ -211,12 +211,43 @@ ExitHandler:
 
     End Sub
 
-    Private Sub LinkLabel1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelOpenFieldsDialog.LinkClicked
+    Private Sub LinkLabelOpenFields_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelOpenFieldsDialog.LinkClicked
         ''
         ''We will open the Fields dialog.  
         ''
-        MessageBoxTD.Show_Statement("We will open the Fields dialog.")
+        RscFieldSpreadsheet1.ReviewFieldsViaDialog() ''Encapsulated 4/13/2022 td
 
+        ''Static s_bMsgOnce As Boolean
+        ''If (Not s_bMsgOnce) Then
+        ''    MessageBoxTD.Show_Statement("We will open the Fields dialog.", "((one-time message)")
+        ''    s_bMsgOnce = True
+        ''End If
+
+        ''''Major call!!!!   4/13/2022 thomas 
+        ''''Dim obj_show As DialogListBothTypeFields
+        ''''obj_show = New DialogListBothTypeFields()
+        ''''obj_show.ShowDialog()
+        ''''RscFieldSpreadsheet1.RefreshFieldDropdowns()
+
+        ''Dim form_ToShow As New DialogListBothTypeFields
+        ''Dim dialog_result As DialogResult ''Added 4/13 & 3/23/2022 td
+
+        ''''Added 4/13 & 3/21/2022 td
+        ''form_ToShow.ListOfFields_Standard = Me.ElementsCache_Deprecated.ListOfFields_Standard
+        ''form_ToShow.ListOfFields_Custom = Me.ElementsCache_Deprecated.ListOfFields_Custom
+
+        ''dialog_result =
+        ''   form_ToShow.ShowDialog()
+
+        ''''Added 4/13 & 3/23/2022 td
+        ''If (dialog_result = DialogResult.OK) Then
+        ''    ''Added 3/23/2022 td
+        ''    Me.ElementsCache_Deprecated.SaveToXML()
+
+        ''End If ''End of ""If (dialog_result = ...)"
+
+        ''''Refresh the list of fields above each column. 
+        ''RscFieldSpreadsheet1.RefreshFieldDropdowns()
 
     End Sub
 

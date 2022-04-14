@@ -23,7 +23,6 @@ Partial Class DialogListBothTypeFields
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
-        Me.UserAddFieldControl1 = New ciBadgeDesigner.CtlAddCustomField()
         Me.LabelHeaderCaption = New System.Windows.Forms.Label()
         Me.LinkLabelCancel = New System.Windows.Forms.LinkLabel()
         Me.LinkLabelSave = New System.Windows.Forms.LinkLabel()
@@ -32,6 +31,9 @@ Partial Class DialogListBothTypeFields
         Me.linkLabelRefresh = New System.Windows.Forms.LinkLabel()
         Me.chkIncludeCIBField = New System.Windows.Forms.CheckBox()
         Me.chkIncludeExampleValues = New System.Windows.Forms.CheckBox()
+        Me.ButtonCancel = New System.Windows.Forms.Button()
+        Me.ButtonOK = New System.Windows.Forms.Button()
+        Me.UserAddFieldControl1 = New ciBadgeDesigner.CtlAddCustomField()
         Me.FlowLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -47,17 +49,8 @@ Partial Class DialogListBothTypeFields
         Me.FlowLayoutPanel1.Location = New System.Drawing.Point(11, 68)
         Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(2)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(737, 425)
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(1052, 425)
         Me.FlowLayoutPanel1.TabIndex = 12
-        '
-        'UserAddFieldControl1
-        '
-        Me.UserAddFieldControl1.BackColor = System.Drawing.Color.LightCyan
-        Me.UserAddFieldControl1.Location = New System.Drawing.Point(2, 2)
-        Me.UserAddFieldControl1.Margin = New System.Windows.Forms.Padding(2)
-        Me.UserAddFieldControl1.Name = "UserAddFieldControl1"
-        Me.UserAddFieldControl1.Size = New System.Drawing.Size(691, 70)
-        Me.UserAddFieldControl1.TabIndex = 4
         '
         'LabelHeaderCaption
         '
@@ -75,7 +68,7 @@ Partial Class DialogListBothTypeFields
         '
         Me.LinkLabelCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.LinkLabelCancel.AutoSize = True
-        Me.LinkLabelCancel.Location = New System.Drawing.Point(443, 508)
+        Me.LinkLabelCancel.Location = New System.Drawing.Point(328, 525)
         Me.LinkLabelCancel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LinkLabelCancel.Name = "LinkLabelCancel"
         Me.LinkLabelCancel.Size = New System.Drawing.Size(148, 13)
@@ -87,7 +80,7 @@ Partial Class DialogListBothTypeFields
         '
         Me.LinkLabelSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.LinkLabelSave.AutoSize = True
-        Me.LinkLabelSave.Location = New System.Drawing.Point(674, 508)
+        Me.LinkLabelSave.Location = New System.Drawing.Point(592, 512)
         Me.LinkLabelSave.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LinkLabelSave.Name = "LinkLabelSave"
         Me.LinkLabelSave.Size = New System.Drawing.Size(32, 13)
@@ -111,7 +104,7 @@ Partial Class DialogListBothTypeFields
         '
         Me.LinkLabelAddField.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.LinkLabelAddField.AutoSize = True
-        Me.LinkLabelAddField.Location = New System.Drawing.Point(275, 508)
+        Me.LinkLabelAddField.Location = New System.Drawing.Point(195, 525)
         Me.LinkLabelAddField.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LinkLabelAddField.Name = "LinkLabelAddField"
         Me.LinkLabelAddField.Size = New System.Drawing.Size(114, 13)
@@ -134,7 +127,7 @@ Partial Class DialogListBothTypeFields
         '
         Me.chkIncludeCIBField.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.chkIncludeCIBField.AutoSize = True
-        Me.chkIncludeCIBField.Location = New System.Drawing.Point(577, 38)
+        Me.chkIncludeCIBField.Location = New System.Drawing.Point(892, 38)
         Me.chkIncludeCIBField.Margin = New System.Windows.Forms.Padding(2)
         Me.chkIncludeCIBField.Name = "chkIncludeCIBField"
         Me.chkIncludeCIBField.Size = New System.Drawing.Size(170, 17)
@@ -148,7 +141,7 @@ Partial Class DialogListBothTypeFields
         Me.chkIncludeExampleValues.AutoSize = True
         Me.chkIncludeExampleValues.Checked = True
         Me.chkIncludeExampleValues.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkIncludeExampleValues.Location = New System.Drawing.Point(577, 16)
+        Me.chkIncludeExampleValues.Location = New System.Drawing.Point(892, 16)
         Me.chkIncludeExampleValues.Margin = New System.Windows.Forms.Padding(2)
         Me.chkIncludeExampleValues.Name = "chkIncludeExampleValues"
         Me.chkIncludeExampleValues.Size = New System.Drawing.Size(140, 17)
@@ -156,11 +149,45 @@ Partial Class DialogListBothTypeFields
         Me.chkIncludeExampleValues.Text = "Include example values."
         Me.chkIncludeExampleValues.UseVisualStyleBackColor = True
         '
+        'ButtonCancel
+        '
+        Me.ButtonCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.ButtonCancel.Location = New System.Drawing.Point(989, 497)
+        Me.ButtonCancel.Margin = New System.Windows.Forms.Padding(2)
+        Me.ButtonCancel.Name = "ButtonCancel"
+        Me.ButtonCancel.Size = New System.Drawing.Size(74, 44)
+        Me.ButtonCancel.TabIndex = 21
+        Me.ButtonCancel.Text = "Cancel"
+        Me.ButtonCancel.UseVisualStyleBackColor = True
+        '
+        'ButtonOK
+        '
+        Me.ButtonOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ButtonOK.Location = New System.Drawing.Point(819, 497)
+        Me.ButtonOK.Margin = New System.Windows.Forms.Padding(2)
+        Me.ButtonOK.Name = "ButtonOK"
+        Me.ButtonOK.Size = New System.Drawing.Size(167, 44)
+        Me.ButtonOK.TabIndex = 20
+        Me.ButtonOK.Text = "OK"
+        Me.ButtonOK.UseVisualStyleBackColor = True
+        '
+        'UserAddFieldControl1
+        '
+        Me.UserAddFieldControl1.BackColor = System.Drawing.Color.LightCyan
+        Me.UserAddFieldControl1.Location = New System.Drawing.Point(2, 2)
+        Me.UserAddFieldControl1.Margin = New System.Windows.Forms.Padding(2)
+        Me.UserAddFieldControl1.Name = "UserAddFieldControl1"
+        Me.UserAddFieldControl1.Size = New System.Drawing.Size(691, 70)
+        Me.UserAddFieldControl1.TabIndex = 4
+        '
         'DialogListBothTypeFields
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(759, 547)
+        Me.ClientSize = New System.Drawing.Size(1074, 547)
+        Me.Controls.Add(Me.ButtonCancel)
+        Me.Controls.Add(Me.ButtonOK)
         Me.Controls.Add(Me.FlowLayoutPanel1)
         Me.Controls.Add(Me.LabelHeaderCaption)
         Me.Controls.Add(Me.LinkLabelCancel)
@@ -188,4 +215,6 @@ Partial Class DialogListBothTypeFields
     Friend WithEvents linkLabelRefresh As LinkLabel
     Friend WithEvents chkIncludeCIBField As CheckBox
     Friend WithEvents chkIncludeExampleValues As CheckBox
+    Friend WithEvents ButtonCancel As Button
+    Friend WithEvents ButtonOK As Button
 End Class

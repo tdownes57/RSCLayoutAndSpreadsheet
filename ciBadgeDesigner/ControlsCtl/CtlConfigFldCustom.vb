@@ -15,6 +15,7 @@ Public Class CtlConfigFldCustom
     ''8/29/2019 td''Public Model As ClassFieldCustomized ''Added 7/23/2019 thomas d.
     Public ModelFieldInfo As ICIBFieldStandardOrCustom ''Added 8/29/2019 thomas d. 
 
+    Public Event RelevancyChangedTo(pbRelevant As Boolean) ''Added 4/13/2022 td
     Public NewlyAdded As Boolean ''Add 7/23/2019 td 
 
     ''9/16/2019 td''Private mod_model As ICIBFieldStandardOrCustom
@@ -26,7 +27,8 @@ Public Class CtlConfigFldCustom
     Private mod_s_OtherDbField As String '' = .OtherDbField_Optional
     Private mod_s_ExampleValue As String '' = .ExampleValue
 
-    Private mod_loading As Boolean = True ''Added 7/27/2019 td
+    ''4/13/2022 ''Private mod_loading As Boolean = True ''Added 7/27/2019 td
+    Private mod_isLoading As Boolean = True ''Added 7/27/2019 td
 
     Public ReadOnly Property Field_Customized() As ClassFieldCustomized
         Get
@@ -94,7 +96,8 @@ Public Class CtlConfigFldCustom
 
 ExitHandler:
         ''Added 7/27/2019 thomas downes
-        mod_loading = False
+        ''4/13/2022 mod_loading = False
+        mod_isLoading = False ''Modified 4/2022
 
     End Sub ''End of "Public Sub Load_CustomControl"
 
@@ -257,7 +260,8 @@ ExitHandler:
         ''
         ''Added 7/27/2019
         ''
-        If (mod_loading) Then Exit Sub ''Added 7//27/2019 td
+        ''4/2022 If (mod_loading) Then Exit Sub ''Added 7//27/2019 td
+        If (mod_isLoading) Then Exit Sub ''Added 4/2022 & 7/27/2019 td
 
         mod_model_copy.FieldLabelCaption = CType(sender, TextBox).Text
 
@@ -284,6 +288,14 @@ ExitHandler:
 
     End Sub
 
+    Public Sub RelevantToPersonality_CheckedChanged()
+
+        ''Added 4/13/2022 td
+        checkRelevantToPersonality_CheckedChanged(checkRelevantToPersonality, New EventArgs())
+
+    End Sub ''Public Sub RelevantToPersonality_CheckedChanged()
+
+
     Private Sub checkRelevantToPersonality_CheckedChanged(sender As Object, e As EventArgs) Handles checkRelevantToPersonality.Click
 
         ''Moved below.'''If (mod_model IsNot Nothing) Then mod_model.DateEdited = Now ''Added 12/5/2021 td 
@@ -295,6 +307,8 @@ ExitHandler:
         Dim dresult As DialogResult
         Dim boolPriorValueChecked As Boolean
         Dim checkboxSender As CheckBox = CType(sender, CheckBox)
+
+        If (mod_isLoading) Then Exit Sub ''Added 4/13/2022 & 12/7/2021 thomas downes
 
         If (checkboxSender.AutoCheck = False) Then
             ''
@@ -309,7 +323,12 @@ ExitHandler:
             End If ''Endof "If boolPriorValueChecked Then... Else ..."
 
             If (boolPriorValueChecked And dresult = DialogResult.OK) Then
-                CType(sender, CheckBox).Checked = False
+                ''4/13/2022 CType(sender, CheckBox).Checked = False
+                mod_isLoading = True ''Suppress this event. 
+                checkboxSender.Checked = False
+                Application.DoEvents()
+                mod_isLoading = False ''Return to default. 
+
                 If (mod_model IsNot Nothing) Then mod_model.DateEdited = Now ''Added 12/5/2021 td
                 checkDisplayForEdits.Enabled = False
                 checkDisplayOnBadge.Enabled = False
@@ -337,7 +356,21 @@ ExitHandler:
             ''                 "Not Relevant",
             ''                  MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
 
+            ''Added 4/13/2022 td
+            If (mod_model IsNot Nothing) Then mod_model.DateEdited = Now ''Added 12/5/2021 td
+            checkDisplayForEdits.Enabled = False ''False
+            checkDisplayOnBadge.Enabled = False ''False
+
+        Else
+            ''Added 4/13/2022 td
+            If (mod_model IsNot Nothing) Then mod_model.DateEdited = Now ''Added 12/5/2021 td
+            checkDisplayForEdits.Enabled = True ''False
+            checkDisplayOnBadge.Enabled = True ''False
+
         End If ''End of "If (CType(sender, CheckBox).AutoCheck) Then .... Else ...."
+
+        ''Added 4/13/2022 td
+        RaiseEvent RelevancyChangedTo(checkboxSender.Checked)
 
     End Sub
 
@@ -353,7 +386,4 @@ ExitHandler:
 
     End Sub
 
-    Private Sub checkRelevantToPersonality_CheckedChanged_1(sender As Object, e As EventArgs) Handles checkRelevantToPersonality.CheckedChanged
-
-    End Sub
 End Class

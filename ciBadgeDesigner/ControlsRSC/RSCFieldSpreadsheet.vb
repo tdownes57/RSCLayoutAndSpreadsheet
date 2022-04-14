@@ -1161,6 +1161,65 @@ Public Class RSCFieldSpreadsheet
     End Sub ''End of "Public Sub InsertNewColumnByIndex(Me.ColumnIndex)"
 
 
+    Public Sub ReviewFieldsViaDialog()
+        ''
+        ''We will open the All-Fields dialog (Standard & Custom fields).  ---4/13/2022 td
+        ''
+        Static s_bMsgOnce As Boolean
+        If (Not s_bMsgOnce) Then
+            ''Added 4/13/2022 td
+            MessageBoxTD.Show_Statement("We will open the Fields dialog, " &
+                  "to allow the user to add more fields." & vbCrLf_Deux &
+                  "Hit the Relevant checkbox to include the field.",
+                   "((one-time message)")
+            s_bMsgOnce = True
+        End If ''End of ""If (Not s_bMsgOnce) Then""
+
+        ''Major call!!!!   4/13/2022 thomas 
+        ''Dim obj_show As DialogListBothTypeFields
+        ''obj_show = New DialogListBothTypeFields()
+        ''obj_show.ShowDialog()
+        ''RscFieldSpreadsheet1.RefreshFieldDropdowns()
+
+        Dim form_ToShow As New DialogListBothTypeFields
+        Dim dialog_result As DialogResult ''Added 4/13 & 3/23/2022 td
+
+        ''Added 4/13 & 3/21/2022 td
+        form_ToShow.ListOfFields_Standard = Me.ElementsCache_Deprecated.ListOfFields_Standard
+        form_ToShow.ListOfFields_Custom = Me.ElementsCache_Deprecated.ListOfFields_Custom
+
+        dialog_result =
+           form_ToShow.ShowDialog()
+
+        ''Added 4/13 & 3/23/2022 td
+        If (dialog_result = DialogResult.OK) Then
+            ''Added 3/23/2022 td
+            Me.ElementsCache_Deprecated.SaveToXML()
+
+            ''Refresh the list of fields above each column. 
+            RefreshFieldDropdowns()
+
+        End If ''End of ""If (dialog_result = ...)"
+
+
+    End Sub ''End of ""Public Sub ReviewFieldsViaDialog()""
+
+
+    Public Sub RefreshFieldDropdowns()
+        ''
+        ''Added 4/13/2022 thomas downes
+        ''
+        For Each each_column As RSCFieldColumnV2 In mod_array_RSCColumns
+            ''Added 4/13/2022 thomas downes
+            If (each_column IsNot Nothing) Then
+                each_column.RefreshFieldDropdown()
+            End If ''end of "If (each_column IsNot Nothing) Then"
+
+        Next each_column
+
+    End Sub ''End of "Public Sub RefreshFieldDropdowns()"
+
+
     Public Function ToString_ByRow(par_intRowIndex As Integer,
                         Optional pboolRowIndices As Boolean = False) As String
         ''
@@ -1224,6 +1283,33 @@ Public Class RSCFieldSpreadsheet
             s_priorAutoScrollPositionX = intAutoscrollPositionX
             s_priorAutoScrollPositionY = intAutoscrollPositionY
         End If
+
+    End Sub
+
+    Private Sub LinkLabelReviewFields_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelReviewFields.LinkClicked
+
+        ''Added 4/13/2022
+        ReviewFieldsViaDialog()
+
+    End Sub
+
+    Private Sub LinkLabelRightClickMenu_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelRightClickMenu.LinkClicked
+
+        ''Added 4/13/2022 thomas downes 
+        Static s_bMsgOnce As Boolean
+        If (Not s_bMsgOnce) Then
+            MessageBoxTD.Show_Statement("Right-clicking spreadsheet " &
+                                        "items will often display a menu.",
+                                     "(one-time message)")
+        End If ''End of "If (Not s_bMsgOnce) Then"
+
+        ''Added 4/13/2022 td
+        Dim new_args As MouseEventArgs
+        new_args = New MouseEventArgs(MouseButtons.Right, 1,
+                                      LinkLabelRightClickMenu.Left,
+                                      LinkLabelRightClickMenu.Top, 0)
+        ''Major call....
+        MyBase.MoveableControl_MouseUp(Me, new_args)
 
     End Sub
 End Class

@@ -377,7 +377,9 @@ Namespace ciBadgeCachePersonality
 
         Public Function ListOfFields_SC_AddRecipInfo(Optional par_recipInfo As IRecipient = Nothing,
                                      Optional ByVal pboolEditablesOnly As Boolean = True,
-                                     Optional ByVal pboolRefreshList As Boolean = False) As List(Of ClassFieldAny)
+                                     Optional ByVal pboolRefreshList As Boolean = False,
+                                     Optional ByVal pbRelevantFieldsOnly As Boolean = True) _
+                                     As List(Of ClassFieldAny)
             ''
             ''Added 10/14/2019 thomas downes
             ''Renamed to "ListOfFields_CS_AddRecipInfo" from "ListOfFields_Any" on March 14 2022.
@@ -388,11 +390,13 @@ Namespace ciBadgeCachePersonality
             ''Step 1 of 3.  Concatenate the Standard & Custom field-lists into a single list. 
             ''
             Static s_obj_listOutput As List(Of ClassFieldAny)
-            Dim obj_listRemove As New List(Of ClassFieldAny)
-            Dim bDisplayForEdits As Boolean ''Added 2/20/2020 thomas downes 
+            Dim temporary_listRemove As New List(Of ClassFieldAny)
+            Dim bDisplayForEdits As Boolean ''Added 2/20/2020 thomas downes
+            Dim bFieldIsRelevant As Boolean ''Added 4/13/2022
             ''----Const c_boolRefreshList As Boolean = False ''Added 2/20/2020
             Dim bReferenceNewRecipInfo As Boolean = True ''Added 2/20/2020
             Dim bStaticOutputIsNothing As Boolean = True ''Added 3/14/2020
+            Dim boolUseListAsItIs As Boolean = False ''Added 4/13/2022 td
 
             ''Added 2/20/2020
             bReferenceNewRecipInfo = (par_recipInfo IsNot Nothing)
@@ -414,6 +418,14 @@ Namespace ciBadgeCachePersonality
 
                 ''#1 March13 2022 ''ElseIf (bReferenceNewRecipInfo) Then
 
+            Else
+                ''
+                ''We are _NOT_ refreshing the content of the list.
+                ''   (We might, however, refresh the associated Recipient / Recipient Info.)
+                ''  ---4/13/2022
+                ''
+                boolUseListAsItIs = True
+
             End If ''End of "If (pboolRefreshList Or s_obj_listOutput Is Nothing) Then"
 
             ''#1 March13 2022 ''ElseIf (bReferenceNewRecipInfo) Then
@@ -431,11 +443,16 @@ Namespace ciBadgeCachePersonality
                 Next each_field
 
                 ''Return the list, with the updated RecipientInfo.
-                Return s_obj_listOutput
+                ''April 13, 2022 ---Let's not exit the function just yet, we need to remove unneeded items!
+                ''April 13, 2022 Return s_obj_listOutput
+                If (boolUseListAsItIs) Then Return s_obj_listOutput ''Added 4/13/2022
 
             Else
                 ''Probably won't ever execute, due to the "If" and "ElseIf" conditions above. 
-                Return s_obj_listOutput
+                ''April 13, 2022 ---Let's not exit the function just yet, we need to remove unneeded items!
+                ''April 13, 2022 Return s_obj_listOutput
+                If (boolUseListAsItIs) Then Return s_obj_listOutput ''Added 4/13/2022
+
             End If ''End of "If (bReferenceNewRecipInfo) Then .... Else ...."
 
             ''
@@ -446,14 +463,30 @@ Namespace ciBadgeCachePersonality
 
                 ''Added 2/20/2020 thomas downes  
                 bDisplayForEdits = (each_field.IsDisplayedForEdits)
-                If (bDisplayForEdits) Then
+                bFieldIsRelevant = (each_field.IsRelevantToPersonality)
+
+                If (bDisplayForEdits And bFieldIsRelevant) Then
+                    ''---4/2022---If bDisplayForEdits Then
                     ''
-                    ''Great!
+                    ''Great!   We don't need to remove it. 
                     ''
-                ElseIf (pboolEditablesOnly) Then
-                    ''Added 2/20/2020 thomas downes  
-                    obj_listRemove.Add(each_field)
-                    Continue For
+                ElseIf (pboolEditablesOnly Or pbRelevantFieldsOnly) Then ''4/2022 (pboolEditablesOnly) Then
+                    ''Added 2/20/2020 thomas downes
+                    ''
+                    ''If unneeded, add the uneeded field to the list of fields to be removed. 
+                    ''
+                    Dim bNotEditable_SoRemove As Boolean ''Added 4/13/2022
+                    Dim bNotRelevant_SoRemove As Boolean ''Added 4/13/2022
+                    bNotEditable_SoRemove = ((Not bDisplayForEdits) And pboolEditablesOnly)
+                    bNotRelevant_SoRemove = ((Not bFieldIsRelevant) And pbRelevantFieldsOnly)
+
+                    If (bNotEditable_SoRemove) Then
+                        temporary_listRemove.Add(each_field)
+                    ElseIf (bNotRelevant_SoRemove) Then
+                        temporary_listRemove.Add(each_field)
+                    End If
+                    ''Continue For
+
                 End If ''End of "If (bDisplayForEdits) Then ... Else ..."
 
             Next each_field
@@ -464,7 +497,7 @@ Namespace ciBadgeCachePersonality
             ''  Remove unneeded fields. 
             ''
             If (pboolEditablesOnly) Then
-                For Each each_field As ClassFieldAny In obj_listRemove
+                For Each each_field As ClassFieldAny In temporary_listRemove
                     ''Added 2/20/2020 thomas downes  
                     s_obj_listOutput.Remove(each_field)
                 Next each_field

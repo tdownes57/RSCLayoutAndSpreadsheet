@@ -22,33 +22,33 @@ Partial Class RSCFieldSpreadsheet
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel2 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabelRightClickMenu = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabelReviewFields = New System.Windows.Forms.LinkLabel()
         Me.RscFieldColumn1 = New ciBadgeDesigner.RSCFieldColumnV2()
         Me.RscRowHeaders1 = New ciBadgeDesigner.RSCRowHeaders()
         Me.SuspendLayout()
         '
-        'LinkLabel1
+        'LinkLabelRightClickMenu
         '
-        Me.LinkLabel1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LinkLabel1.AutoSize = True
-        Me.LinkLabel1.Location = New System.Drawing.Point(654, 0)
-        Me.LinkLabel1.Name = "LinkLabel1"
-        Me.LinkLabel1.Size = New System.Drawing.Size(153, 13)
-        Me.LinkLabel1.TabIndex = 6
-        Me.LinkLabel1.TabStop = True
-        Me.LinkLabel1.Text = "Right-click will present a menu."
+        Me.LinkLabelRightClickMenu.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LinkLabelRightClickMenu.AutoSize = True
+        Me.LinkLabelRightClickMenu.Location = New System.Drawing.Point(654, 0)
+        Me.LinkLabelRightClickMenu.Name = "LinkLabelRightClickMenu"
+        Me.LinkLabelRightClickMenu.Size = New System.Drawing.Size(153, 13)
+        Me.LinkLabelRightClickMenu.TabIndex = 6
+        Me.LinkLabelRightClickMenu.TabStop = True
+        Me.LinkLabelRightClickMenu.Text = "Right-click will present a menu."
         '
-        'LinkLabel2
+        'LinkLabelReviewFields
         '
-        Me.LinkLabel2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LinkLabel2.AutoSize = True
-        Me.LinkLabel2.Location = New System.Drawing.Point(401, 0)
-        Me.LinkLabel2.Name = "LinkLabel2"
-        Me.LinkLabel2.Size = New System.Drawing.Size(234, 13)
-        Me.LinkLabel2.TabIndex = 7
-        Me.LinkLabel2.TabStop = True
-        Me.LinkLabel2.Text = "Review which fields are Relevant and available."
+        Me.LinkLabelReviewFields.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LinkLabelReviewFields.AutoSize = True
+        Me.LinkLabelReviewFields.Location = New System.Drawing.Point(401, 0)
+        Me.LinkLabelReviewFields.Name = "LinkLabelReviewFields"
+        Me.LinkLabelReviewFields.Size = New System.Drawing.Size(234, 13)
+        Me.LinkLabelReviewFields.TabIndex = 7
+        Me.LinkLabelReviewFields.TabStop = True
+        Me.LinkLabelReviewFields.Text = "Review which fields are Relevant and available."
         '
         'RscFieldColumn1
         '
@@ -89,8 +89,8 @@ Partial Class RSCFieldSpreadsheet
         Me.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.Controls.Add(Me.RscFieldColumn1)
         Me.Controls.Add(Me.RscRowHeaders1)
-        Me.Controls.Add(Me.LinkLabel2)
-        Me.Controls.Add(Me.LinkLabel1)
+        Me.Controls.Add(Me.LinkLabelReviewFields)
+        Me.Controls.Add(Me.LinkLabelRightClickMenu)
         Me.Name = "RSCFieldSpreadsheet"
         Me.Size = New System.Drawing.Size(821, 576)
         Me.ResumeLayout(False)
@@ -98,8 +98,8 @@ Partial Class RSCFieldSpreadsheet
 
     End Sub
 
-    Friend WithEvents LinkLabel1 As LinkLabel
-    Friend WithEvents LinkLabel2 As LinkLabel
+    Friend WithEvents LinkLabelRightClickMenu As LinkLabel
+    Friend WithEvents LinkLabelReviewFields As LinkLabel
     Public WithEvents RscRowHeaders1 As RSCRowHeaders
     Public WithEvents RscFieldColumn1 As RSCFieldColumnV2
 End Class
