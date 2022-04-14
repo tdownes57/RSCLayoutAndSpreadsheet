@@ -186,4 +186,11 @@ Public Class RSCSelectCIBField
         RaiseEvent RSCFieldChanged(enum_field)
 
     End Sub
+
+    Private Sub comboBoxRelevantFields_MouseEnter(sender As Object, e As EventArgs) Handles comboBoxRelevantFields.MouseEnter
+
+        ''Added 4/13/2022
+        Me.Cursor = Cursors.Default
+
+    End Sub
 End Class

@@ -226,6 +226,15 @@ Public Class RSCFieldSpreadsheet
     End Sub ''ENd of "Public Sub PasteData(par_stringPastedData As String)"
 
 
+    Public Function GetRecipientByRowIndex(par_intRowIndex As Integer) As ciBadgeRecipients.ClassRecipient
+        ''
+        ''Added 4/14/2022 td
+        ''
+        Return RecipientsCache.ListOfRecipients(par_intRowIndex)
+
+    End Function
+
+
     Private Function ReviewPastedData_IsOkay(par_stringPastedData As String,
                                              ByRef pref_message As String,
                                              ByRef pref_numLines As Integer,
@@ -811,11 +820,16 @@ Public Class RSCFieldSpreadsheet
         '' Added 3/20/2022 td
         ''
         Dim newRSCColumn_output As RSCFieldColumnV2
+        Dim dataOfColumn As ClassRSCColumnWidthAndData ''Added 4/14/2022
         Dim fieldForNewColumn As ciBadgeFields.ClassFieldAny
 
         fieldForNewColumn = New ciBadgeFields.ClassFieldAny()
         ''each_field.FieldEnumValue = ciBadgeInterfaces.EnumCIBFields.Undetermined
-        fieldForNewColumn.FieldEnumValue = Me.ColumnDataCache.ListOfColumns(-1 + p_intIndexCurrent).CIBField
+
+        dataOfColumn = Me.ColumnDataCache.ListOfColumns(-1 + p_intIndexCurrent)
+        If (dataOfColumn IsNot Nothing) Then
+            fieldForNewColumn.FieldEnumValue = dataOfColumn.CIBField
+        End If ''End of ""If (dataOfColumn IsNot Nothing) Then""
 
         ''
         ''Major call, call the other, "..._Special" version of this column-generating function (suffixed "..._General"). 
@@ -827,19 +841,22 @@ Public Class RSCFieldSpreadsheet
         ''Add additional properties. 
         ''
         With newRSCColumn_output
+            ''
+            ''Set the properties of the newly-generated column. 
+            ''
             newRSCColumn_output.Left = p_intCurrentPropertyLeft
             newRSCColumn_output.Width = mc_ColumnWidthDefault ''Added 3/20/2022 td
             newRSCColumn_output.Visible = True
 
             ''Added 3/30/2022 td
             ''4/4/2022 td ''newRSCColumn_output.Height = (Me.Height - mod_intRscFieldColumn1_Top - mc_ColumnMarginGap)
-            newRSCColumn_output.Height = newRSCColumn_output.GetRSCDataCellAtBottom_Bottom() + mc_ColumnMarginGap
+            .Height = newRSCColumn_output.GetRSCDataCellAtBottom_Bottom() + mc_ColumnMarginGap
             ''4/4/2022 td ''newRSCColumn_output.Anchor = CType((AnchorStyles.Top Or AnchorStyles.Bottom), AnchorStyles)
             ''4/6/2022 td ''newRSCColumn_output.Anchor = CType((AnchorStyles.Top Or AnchorStyles.None), AnchorStyles)
-            newRSCColumn_output.Anchor = CType((AnchorStyles.Top Or AnchorStyles.Left), AnchorStyles)
+            .Anchor = CType((AnchorStyles.Top Or AnchorStyles.Left), AnchorStyles)
 
             ''Prepare for next iteration. 
-            pref_intNextPropertyLeft = (newRSCColumn_output.Left + newRSCColumn_output.Width + 3)
+            pref_intNextPropertyLeft = (.Left + .Width + 3)
             Me.Controls.Add(newRSCColumn_output)
 
             ''Added 3/12/2022 thomas downes 
@@ -847,8 +864,19 @@ Public Class RSCFieldSpreadsheet
             ''Added 3/16/2022 td
             ''  Redundant, assigned in Step 4 below.
             ''Oops....3/18/2022 ''eachColumn.ColumnWidthAndData = Me.ColumnDataCache.ListOfColumns(-1 + intNeededMax)
-            newRSCColumn_output.ElementsCache_Deprecated = Me.ElementsCache_Deprecated
-            newRSCColumn_output.ColumnWidthAndData = Me.ColumnDataCache.ListOfColumns(-1 + p_intIndexCurrent)
+
+            .ElementsCache_Deprecated = Me.ElementsCache_Deprecated
+            .ColumnWidthAndData = Me.ColumnDataCache.ListOfColumns(-1 + p_intIndexCurrent)
+
+            ''Added 4/14/2022 td
+            If (.ColumnWidthAndData Is Nothing) Then
+                ''Added 4/14/2022 td
+                .ColumnWidthAndData = New ClassRSCColumnWidthAndData()
+                .ColumnWidthAndData.CIBField = EnumCIBFields.Undetermined
+                .ColumnWidthAndData.Width = mc_ColumnWidthDefault
+                .ColumnWidthAndData.ColumnData = New List(Of String)
+                Me.ColumnDataCache.ListOfColumns.Add(.ColumnWidthAndData)
+            End If ''End of ""If (.ColumnWidthAndData Is Nothing) Then""
 
             ''Added 4/5/2022
             .PixelsFromRowToRow = mc_intPixelsFromRowToRow ''Added 4/5/2022
@@ -868,6 +896,14 @@ Public Class RSCFieldSpreadsheet
 
         End If ''ENd of "If (p_priorColumn IsNot Nothing) Then"
 
+        ''
+        ''Added 4/14/2022 td
+        ''
+        Dim intRowsNeeded As Integer
+        intRowsNeeded = Me.GetFirstColumn().CountOfRows()
+        newRSCColumn_output.Load_EmptyRows(intRowsNeeded)
+
+        ''Exit Handler.....
         Return newRSCColumn_output
 
     End Function ''End of "Private Function GenerateRSCFieldColumn_Special"
@@ -1029,7 +1065,23 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Step 0 of 5.  Record the Left position which the new column will occupy. 
         ''
-        intNewColumnPropertyLeft = mod_array_RSCColumns(par_intColumnIndex).Left
+        Dim existingColumn As RSCFieldColumnV2 ''Added 4/14/2022
+        Dim boolPlaceWithinArray As Boolean ''Added 4/14/2022
+        Dim intIndexLastColumn As Integer ''Added 4/14/2022
+        ''Added 4/14/2022
+        boolPlaceWithinArray = (par_intColumnIndex < mod_array_RSCColumns.Length)
+
+        If boolPlaceWithinArray Then
+            existingColumn = mod_array_RSCColumns(par_intColumnIndex)
+            intNewColumnPropertyLeft = existingColumn.Left
+        Else
+            ''Added 4/14/2022 td
+            ''  Use -1 to shift our focus to the last column in the array.
+            intIndexLastColumn = (-1 + mod_array_RSCColumns.Length)
+            existingColumn = mod_array_RSCColumns(intIndexLastColumn)
+            intNewColumnPropertyLeft = (existingColumn.Left + existingColumn.Width + mc_ColumnMarginGap)
+        End If ''End of ""If boolPlaceWithinArray Then ... Else ..."
+
         intNewColumnWidth = mc_ColumnWidthDefault
 
         ''
@@ -1088,6 +1140,9 @@ Public Class RSCFieldSpreadsheet
             objColumnAdjacent = mod_array_RSCColumns(+1 + par_intColumnIndex)
         End If
 
+        ''
+        ''Major call!!
+        ''
         newRSCColumn = GenerateRSCFieldColumn_General(par_intColumnIndex,
                                                     intNewColumnPropertyLeft,
                                                     intNextColumnPropertyLeft,
@@ -1119,6 +1174,16 @@ Public Class RSCFieldSpreadsheet
         ''This will set the MoveAndResizeControls_Monem functionality as well. 
         ''
         newRSCColumn.ListOfColumnsToBumpRight = list_columnsToBumpRight
+
+        ''Added 4/14/2022 td
+        With newRSCColumn
+            If (.ColumnWidthAndData Is Nothing) Then
+                ''Added 4/14/2022 td
+                .ColumnWidthAndData = New ClassRSCColumnWidthAndData()
+                .ColumnWidthAndData.CIBField = EnumCIBFields.Undetermined
+                .ColumnWidthAndData.Width = mc_ColumnWidthDefault
+            End If ''End of ""If (.ColumnWidthAndData Is Nothing) Then""
+        End With ''End of ""With newRSCColumn""
 
         ''
         ''Step 4 of 6. 

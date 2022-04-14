@@ -1143,13 +1143,27 @@ Public Class RSCFieldColumnV2
         ''
         Dim each_RSCDataCell As RSCDataCell
         Dim enumCIBField As EnumCIBFields
+        Dim intRowIndex As Integer ''Added 4/14/2022 td 
+
         enumCIBField = RscSelectCIBField1.SelectedValue
+
+        ''Added 4/14/2022 td
+        If (enumCIBField = EnumCIBFields.Undetermined) Then
+            Exit Sub ''We need a field if we are to save to the Recipient.
+        End If ''End of ""If (enumCIBField = EnumCIBFields.Undetermined) Then""
 
         For Each eachCtl As Control In Me.Controls
             If (TypeOf eachCtl Is RSCDataCell) Then
 
                 each_RSCDataCell = (CType(eachCtl, RSCDataCell))
-                each_RSCDataCell.SaveDataToRecipientField(enumCIBField)
+
+                ''Added 4/14/2022 td
+                If (each_RSCDataCell.Recipient Is Nothing) Then ''Added 4/14/2022 td
+                    intRowIndex = GetRowIndexOfCell(each_RSCDataCell)
+                    each_RSCDataCell.Recipient = Me.ParentSpreadsheet.GetRecipientByRowIndex(intRowIndex)
+                Else
+                    each_RSCDataCell.SaveDataToRecipientField(enumCIBField)
+                End If ''If (each_RSCDataCell.Recipient Is Nothing) Then... Else...
 
             End If ''End of "If (TypeOf eachCtl Is RSCDataCell) Then"
         Next eachCtl ''End of ""For Each eachCtl As Control In Me.Controls""

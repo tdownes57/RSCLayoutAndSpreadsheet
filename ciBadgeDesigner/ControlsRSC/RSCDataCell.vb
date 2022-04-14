@@ -168,7 +168,9 @@ Public Class RSCDataCell
         ''
         ''Added 4/12/2022 
         ''
-        If (Me.Recipient Is Nothing) Then Throw New Exception("Recipient is a null reference")
+        If (Me.Recipient Is Nothing) Then
+            Throw New Exception("Recipient is a null reference")
+        End If ''End of ""If (Me.Recipient Is Nothing) Then""
 
         ''4/12/2022 td''Me.Recipient.SaveDataByField(par_enumCIBField, Textbox1a.Text)
         Me.Recipient.SaveTextValue(par_enumCIBField, Textbox1a.Text)

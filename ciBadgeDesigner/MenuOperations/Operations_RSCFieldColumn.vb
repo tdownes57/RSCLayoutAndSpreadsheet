@@ -162,6 +162,14 @@ Public Class Operations_RSCFieldColumn
     End Sub ''End of "Public Sub Insert_New_Column_To_The_Right_FC2003"
 
 
+    Public Sub Delete_This_Column_FC2005(sender As Object, e As EventArgs)
+        ''
+        ''Added 4/14/2022 thomas downes
+        ''
+        vfldldlad ldldldld alala  aasaa
+
+
+    End Sub ''End of "Public Sub Delete_This_Column_FC2005"
 
 
 
