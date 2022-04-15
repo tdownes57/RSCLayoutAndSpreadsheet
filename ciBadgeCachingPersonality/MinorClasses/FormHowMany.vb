@@ -12,9 +12,9 @@
     Private mod_singLimitMin As Single
     Private mod_singLimitMax As Single
 
-    Private Sub New(pstrHowManyMsg As String,
+    Public Sub New(pstrHowManyMsg As String,
                     psingFactorWidth As Single,
-                    psingFactorHeight As String,
+                    psingFactorHeight As Single,
                     psingLimitOfNumberMin As Single,
                     psingLimitOfNumberMax As Single,
                     Optional pboolUseTextbox As Boolean = False,
@@ -39,6 +39,8 @@
         ''//If (pboolUseTextbox) Then textHowMany.Visible = pboolUseTextbox 
         textHowMany.Visible = pboolUseTextbox
         NumericUpDown1.Visible = (Not pboolUseTextbox)
+        NumericUpDown1.Maximum = CDec(psingLimitOfNumberMax)
+        NumericUpDown1.Minimum = CDec(psingLimitOfNumberMin)
 
     End Sub
 

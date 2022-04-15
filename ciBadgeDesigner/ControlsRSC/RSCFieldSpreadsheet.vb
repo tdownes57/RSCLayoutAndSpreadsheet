@@ -1249,34 +1249,44 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 4/14/2022 thomas downes 
         ''
-        Dim objCacheOfData As CacheRSCFieldColumnWidthsEtc
-        Dim newRSCColumn As RSCFieldColumnV2
-        Dim intNewLength As Integer
-        Dim intNewColumnPropertyLeft As Integer
-        Dim intNewColumnWidth As Integer
-        Dim intFirstBumpedColumn_Left As Integer ''Added 4/1/2022 thomas downes
+        ''Dim objCacheOfData As CacheRSCFieldColumnWidthsEtc
+        ''Dim newRSCColumn As RSCFieldColumnV2
+        Dim intCurrentLengthOfArray As Integer
+        Dim intNewLengthOfArray_ByMinus1 As Integer
+        Dim intNewLengthOfArray As Integer
+        ''Dim intNewColumnPropertyLeft As Integer
+        ''Dim intNewColumnWidth As Integer
+        ''Dim intFirstBumpedColumn_Left As Integer ''Added 4/1/2022 thomas downes
 
         ''
-        ''Step 0 of 5.  Record the Left position which the new column will occupy. 
+        ''Step 0 of 5.  Run some basic checks. 
         ''
         Dim existingColumn As RSCFieldColumnV2 ''Added 4/14/2022
         Dim boolPlaceWithinArray As Boolean ''Added 4/14/2022
         Dim intIndexLastColumn As Integer ''Added 4/14/2022
+
         ''Added 4/14/2022
         boolPlaceWithinArray = (par_intColumnIndex < mod_array_RSCColumns.Length)
 
         If boolPlaceWithinArray Then
             existingColumn = mod_array_RSCColumns(par_intColumnIndex)
-            intNewColumnPropertyLeft = existingColumn.Left
+            ''intNewColumnPropertyLeft = existingColumn.Left
+
         Else
+            ''
+            ''Shouldn't happen. 
+            ''
+            System.Diagnostics.Debugger.Break() ''Throw new Exception("Why wasn't the column found?")
+
             ''Added 4/14/2022 td
             ''  Use -1 to shift our focus to the last column in the array.
             intIndexLastColumn = (-1 + mod_array_RSCColumns.Length)
             existingColumn = mod_array_RSCColumns(intIndexLastColumn)
-            intNewColumnPropertyLeft = (existingColumn.Left + existingColumn.Width + mc_ColumnMarginGap)
+            ''intNewColumnPropertyLeft = (existingColumn.Left + existingColumn.Width + mc_ColumnMarginGap)
+
         End If ''End of ""If boolPlaceWithinArray Then ... Else ..."
 
-        intNewColumnWidth = mc_ColumnWidthDefault
+        ''intNewColumnWidth = mc_ColumnWidthDefault
 
         ''
         ''Step 1a of 6.  Make room in the array which tracks the columns.  
@@ -1288,31 +1298,41 @@ Public Class RSCFieldSpreadsheet
         ''    eachColumn = mod_array_RSCColumns(intIndex)
         ''Next intIndex
 
-        intNewLength = (1 + mod_array_RSCColumns.Length)
-        ''3/21/2022 td''ReDim Preserve mod_array_RSCColumns(intNewLength)  ''---(1 + mod_array_RSCColumns.Length)
-        ReDim Preserve mod_array_RSCColumns(intNewLength - 1)  ''Modified 3/21/2022 td
-        If (mod_array_RSCColumns.Length <> intNewLength) Then Throw New Exception
+        ''Moved below. intNewLengthOfArray_Minus1 = (-1 + mod_array_RSCColumns.Length)
+        ''Moved below. ''3/21/2022 td''ReDim Preserve mod_array_RSCColumns(intNewLength)  ''---(1 + mod_array_RSCColumns.Length)
+        ''Moved below. ReDim Preserve mod_array_RSCColumns(intNewLengthOfArray_Minus1)  ''Modified 3/21/2022 td
+        ''Moved below. If (mod_array_RSCColumns.Length <> intNewLengthOfArray_Minus1) Then Throw New Exception
 
-        For intColIndex As Integer = (-1 + intNewLength) To (1 + par_intColumnIndex) Step -1
-            ''Move the object references to the right (new-higher index). 
+        intCurrentLengthOfArray = mod_array_RSCColumns.Length
+
+        For intColIndex As Integer = par_intColumnIndex To (-1 - 1 + intCurrentLengthOfArray)
+            ''---For intColIndex As Integer = par_intColumnIndex To (-1 + intCurrentLengthOfArray)
             ''
-            ''The qualification of "Step -1" makes the index run from a large value to a smaller value.
+            ''Move the object references to the left (lower-higher index). 
             ''
-            mod_array_RSCColumns(intColIndex) = mod_array_RSCColumns(-1 + intColIndex)
+            mod_array_RSCColumns(intColIndex) = mod_array_RSCColumns(intColIndex + 1)
 
         Next intColIndex
 
-        ''The place will be filled by the new column. --Added 4/1/2022
-        mod_array_RSCColumns(par_intColumnIndex) = Nothing ''The place will be filled by the new column. --Added 4/1/2022  
+        ''
+        ''Remove the last item in the array.  
+        ''
+        intNewLengthOfArray_ByMinus1 = (-1 + mod_array_RSCColumns.Length)
+        ''3/21/2022 td''ReDim Preserve mod_array_RSCColumns(intNewLength)  ''---(1 + mod_array_RSCColumns.Length)
+        ReDim Preserve mod_array_RSCColumns(intNewLengthOfArray_ByMinus1)  ''Modified 3/21/2022 td
+        If (mod_array_RSCColumns.Length <> intNewLengthOfArray_ByMinus1) Then Throw New Exception
+        intNewLengthOfArray = intNewLengthOfArray_ByMinus1 ''We don't need the suffix anymore. 
 
         ''
-        ''Step 1b of 6.  Move the columns to the right, to make room for the new column. 
+        ''Step 1b of 6.  Move the columns to the left, in place of the soon-to-be-deleted column. 
         ''
-        For intColIndex As Integer = (1 + par_intColumnIndex) To (-1 + intNewLength)
+        intColumnWidthDeleted = existingColumn.Width
+
+        For intColIndex As Integer = (1 + par_intColumnIndex) To (intNewLengthOfArray)
             ''
-            ''Move the columns to the right, to make room for the new column. 
+            ''Move the columns to the left, in place of the deleted column. 
             ''
-            mod_array_RSCColumns(intColIndex).Left += (intNewColumnWidth + mc_ColumnMarginGap)
+            mod_array_RSCColumns(intColIndex).Left -= (intColumnWidthDeleted + mc_ColumnMarginGap)
 
             ''Added 4/1/2022 thomas downes
             If (0 = intFirstBumpedColumn_Left) Then

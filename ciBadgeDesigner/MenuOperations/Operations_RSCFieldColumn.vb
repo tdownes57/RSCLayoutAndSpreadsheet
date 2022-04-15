@@ -171,11 +171,12 @@ Public Class Operations_RSCFieldColumn
         Dim intNewColIndex As Integer
 
         intHowManyNewColumns = MessageBoxTD.AskHowMany("How many new columns are needed?  (Up to 9.)",
-                       1.1, 1.1)
+                       1.1, 1.1, 1, 9, False, False)
 
         rscParentSpreadsheet = Me.ParentSpreadsheet
 
         For intNewColIndex = 1 To intHowManyNewColumns
+            ''Insert as many columns to the rightt as needed.  
             rscParentSpreadsheet.InsertNewColumnByIndex(Me.ColumnIndex + 1)
         Next intNewColIndex
 
@@ -187,8 +188,13 @@ Public Class Operations_RSCFieldColumn
         ''Added 4/14/2022 thomas downes
         ''
         Dim rscParentSpreadsheet As RSCFieldSpreadsheet
-        rscParentSpreadsheet = Me.ParentSpreadsheet
-        rscParentSpreadsheet.DeleteColumnByIndex(Me.ColumnIndex)
+
+        ''If user agrees, delete the RSC column.
+        If (MessageBoxTD.Show_Confirmed("Delete the spreadsheet column?", "", True)) Then
+            ''User has confirmed. 
+            rscParentSpreadsheet = Me.ParentSpreadsheet
+            rscParentSpreadsheet.DeleteColumnByIndex(Me.ColumnIndex)
+        End If
 
     End Sub ''End of "Public Sub Delete_This_Column_FC2005"
 

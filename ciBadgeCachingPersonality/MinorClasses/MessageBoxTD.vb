@@ -138,14 +138,19 @@ Public Class MessageBoxTD
 
 
     Public Shared Function AskHowMany(pstrHowMany As String,
-                                     Optional par_decWidthFactor As Single = 1.0,
-                                      Optional par_decHeightFactor As Single = 1.0) As Integer
+                    psingFactorWidth As Single,
+                    psingFactorHeight As Single,
+                    psingLimitOfNumberMin As Single,
+                    psingLimitOfNumberMax As Single,
+                    Optional pboolUseTextbox As Boolean = False,
+                    Optional pboolDecimalValuesOK As Boolean = False) As Integer
         ''
         ''Added 12/28/2021 thomas downes
         ''
-        Dim formToShow As New FormHowMany
+        Dim formToShow As FormHowMany
 
-
+        formToShow = New FormHowMany(pstrHowMany, psingFactorWidth, psingFactorHeight,
+            psingLimitOfNumberMin, psingLimitOfNumberMax, pboolUseTextbox, pboolDecimalValuesOK)
 
 
 
