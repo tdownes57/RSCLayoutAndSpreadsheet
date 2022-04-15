@@ -82,6 +82,12 @@
     <Compile Include="ClassPersonalityConfig.vb" />
     <Compile Include="ClassCacheListRecipients.vb" />
     <Compile Include="Interfaces\InterfaceBadgeSideLayoutElementsV2.vb" />
+    <Compile Include="MinorClasses\FormHowMany.Designer.vb">
+      <DependentUpon>FormHowMany.vb</DependentUpon>
+    </Compile>
+    <Compile Include="MinorClasses\FormHowMany.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="RSCCache\ClassRSCColumnWidthAndData.vb" />
     <Compile Include="MinorClasses\ClassListOfElements_Fields.vb" />
     <Compile Include="MinorClasses\ClassListOfElements.vb" />
@@ -119,6 +125,9 @@
     <Compile Include="PersonalityCache_NotInUse.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="MinorClasses\FormHowMany.resx">
+      <DependentUpon>FormHowMany.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>

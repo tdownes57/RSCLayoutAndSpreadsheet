@@ -162,12 +162,33 @@ Public Class Operations_RSCFieldColumn
     End Sub ''End of "Public Sub Insert_New_Column_To_The_Right_FC2003"
 
 
-    Public Sub Delete_This_Column_FC2005(sender As Object, e As EventArgs)
+    Public Sub Insert_Up_To_9_Columns_To_The_Right_FC2005(sender As Object, e As EventArgs)
+        ''
+        ''Added 3/20/2022 thomas downes
+        ''
+        Dim rscParentSpreadsheet As RSCFieldSpreadsheet
+        Dim intHowManyNewColumns As Integer
+        Dim intNewColIndex As Integer
+
+        intHowManyNewColumns = MessageBoxTD.AskHowMany("How many new columns are needed?  (Up to 9.)",
+                       1.1, 1.1)
+
+        rscParentSpreadsheet = Me.ParentSpreadsheet
+
+        For intNewColIndex = 1 To intHowManyNewColumns
+            rscParentSpreadsheet.InsertNewColumnByIndex(Me.ColumnIndex + 1)
+        Next intNewColIndex
+
+    End Sub ''End of "Public Sub Insert_Up_To_9_Columns_To_The_Right_FC2005"
+
+
+    Public Sub Delete_This_Column_FC2006(sender As Object, e As EventArgs)
         ''
         ''Added 4/14/2022 thomas downes
         ''
-        vfldldlad ldldldld alala  aasaa
-
+        Dim rscParentSpreadsheet As RSCFieldSpreadsheet
+        rscParentSpreadsheet = Me.ParentSpreadsheet
+        rscParentSpreadsheet.DeleteColumnByIndex(Me.ColumnIndex)
 
     End Sub ''End of "Public Sub Delete_This_Column_FC2005"
 

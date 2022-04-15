@@ -11,6 +11,7 @@ Public Class MessageBoxTD
     ''Added Feb6 2022
     Private Const _vbCrLf_Deux As String = (vbCrLf & vbCrLf)
 
+
     Public Shared Sub Show_Statement(pstrStatement_Line1 As String,
                                      Optional pstrStatement_Line2 As String = "")
         ''
@@ -131,6 +132,24 @@ Public Class MessageBoxTD
             Show_Statement("User (you) has not confirmed, for any number of possible reasons.")
             Return False
         End If ''End of "If (diag_result = DialogResult.OK) Then .... Else ...."
+
+    End Function ''End of "Public Shared Function Show_Confirmed"
+
+
+
+    Public Shared Function AskHowMany(pstrHowMany As String,
+                                     Optional par_decWidthFactor As Single = 1.0,
+                                      Optional par_decHeightFactor As Single = 1.0) As Integer
+        ''
+        ''Added 12/28/2021 thomas downes
+        ''
+        Dim formToShow As New FormHowMany
+
+
+
+
+
+
 
     End Function ''End of "Public Shared Function Show_Confirmed"
 

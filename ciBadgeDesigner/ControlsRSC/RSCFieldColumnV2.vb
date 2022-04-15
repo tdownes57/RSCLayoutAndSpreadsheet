@@ -515,7 +515,11 @@ Public Class RSCFieldColumnV2
         Dim indexItem As Integer = 0
 
         ''Added 4/13/2022
-        If (par_listData.Count = 0) Then
+        If (par_listData Is Nothing) Then
+            ''Added 4/14/2022
+            MessageBoxTD.Show_Statement("No non-null list of data with which to supply the present column.")
+            Exit Sub
+        ElseIf (par_listData.Count = 0) Then
             ''Added 4/13/2022
             MessageBoxTD.Show_Statement("No data exists with which to supply the present column.")
             Exit Sub
@@ -524,11 +528,17 @@ Public Class RSCFieldColumnV2
         ''
         ''Looping to populate the data cells. 
         ''
+        indexItem = 0
         For Each each_RSCDataCell In ListOfRSCDataCells_TopToBottom()
+
+            ''Added 4/14/2022 td
+            If (indexItem > par_listData.Count) Then Continue For
 
             each_RSCDataCell.Text = par_listData.Item(indexItem)
             each_RSCDataCell.Tag_Text = par_listData.Item(indexItem) ''For detecting edits. ---4/13/2022
             each_RSCDataCell.ForeColor = Color.Black
+
+            ''Prepare for next iteration
             indexItem += 1
 
         Next each_RSCDataCell
