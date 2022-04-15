@@ -164,6 +164,22 @@ namespace MoveAndResizeControls_Monem
         }
 
 
+        public void RemoveColumnToBumpRight(UserControl par_column)
+        {
+            //
+            // Added 4/15/2022 td
+            //
+
+            if (ListOfColumnsToBumpRight == null) return; // ListOfColumnsToBumpRight = new List<UserControl>();
+
+            if (ListOfColumnsToBumpRight.Contains(par_column))
+            {
+                ListOfColumnsToBumpRight.Remove(par_column);
+            }
+
+        }
+
+
         public void RemoveProportionalSizing()
         {
             //Added 1/10/2022 td

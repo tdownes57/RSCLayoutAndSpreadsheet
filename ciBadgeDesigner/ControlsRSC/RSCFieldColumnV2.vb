@@ -467,6 +467,24 @@ Public Class RSCFieldColumnV2
     End Sub ''End of "Public Sub AddBumpColumn(par_columnToBump As RSCFieldColumn)"
 
 
+    Public Sub RemoveBumpColumn(par_columnToBump As RSCFieldColumnV2)
+        ''
+        ''Added 4/15/2022 thomas 
+        ''
+        If (mod_listOfColumnsToBumpRight Is Nothing) Then Return
+        ''    mod_listOfColumnsToBumpRight = New List(Of RSCFieldColumnV2)
+        ''End If
+
+        If (mod_listOfColumnsToBumpRight.Contains(par_columnToBump)) Then
+            mod_listOfColumnsToBumpRight.Remove(par_columnToBump)
+        End If
+
+        ''----If (Not mod_iMoveOrResizeFunctionality.ListOfColumnsToBumpRight.Contains(par_columnToBump)) Then
+        mod_iMoveOrResizeFunctionality.RemoveColumnToBumpRight(par_columnToBump)
+        ''---End If
+
+    End Sub ''End of "Public Sub AddBumpColumn(par_columnToBump As RSCFieldColumn)"
+
 
     Public Sub Load_FieldsFromCache(par_cache As ClassElementsCache_Deprecated)
         ''
@@ -488,6 +506,21 @@ Public Class RSCFieldColumnV2
         Application.DoEvents()
         RscSelectCIBField1.Loading = False ''Added 4/1/2022 td
 
+    End Sub ''end of "Public Sub Load_FieldsFromCache"
+
+
+    Public Sub Load_ColumnListDataToColumnEtc()
+        ''
+        ''Encapsulated 4/15/2022 thomas d.
+        ''
+        ''
+        ''Added 3/19/2022  
+        ''
+        If (0 <> mod_columnWidthAndData.ColumnData.Count) Then
+            ''4/15/2022 thomas d''LoadDataToColumn(mod_columnWidthAndData.ColumnData)
+            Load_ColumnListDataToColumn(mod_columnWidthAndData.ColumnData)
+        End If ''If (0 <> mod_columnWidthAndData.ColumnData.Count) Then
+
         ''
         ''Added 3/19/2022  
         ''
@@ -498,17 +531,11 @@ Public Class RSCFieldColumnV2
             Me.Width = mod_columnWidthAndData.Width
         End If ''If (0 < mod_columnWidthAndData.Width) Then
 
-        ''
-        ''Added 3/19/2022  
-        ''
-        If (0 <> mod_columnWidthAndData.ColumnData.Count) Then
-            LoadDataToColumn(mod_columnWidthAndData.ColumnData)
-        End If ''If (0 <> mod_columnWidthAndData.ColumnData.Count) Then
-
-    End Sub ''end of "Public Sub Load_FieldsFromCache"
+    End Sub ''end of "Public Sub Load_ColumnListDataToColumnEtc"
 
 
-    Private Sub LoadDataToColumn(par_listData As List(Of String))
+    Private Sub Load_ColumnListDataToColumn(par_listData As List(Of String))
+        ''---4/15/2022 td---Private Sub LoadDataToColumn(par_listData As List(Of String))
         ''
         ''Added 3/19/2022 td
         ''
@@ -523,7 +550,11 @@ Public Class RSCFieldColumnV2
             ''Added 4/13/2022
             MessageBoxTD.Show_Statement("No data exists with which to supply the present column.")
             Exit Sub
-        End If ''End of ""If (par_listData.Count = 0) Then""
+        ElseIf (Me.CountOfRows() < par_listData.Count) Then
+            ''Added 4/15/2022
+            Load_EmptyRows(par_listData.Count)
+
+        End If ''End of ""If (par_listData.Count = 0) Then .... ElseIf.... ElseIf....""
 
         ''
         ''Looping to populate the data cells. 
@@ -535,6 +566,7 @@ Public Class RSCFieldColumnV2
             If (indexItem > par_listData.Count) Then Continue For
 
             each_RSCDataCell.Text = par_listData.Item(indexItem)
+            ''If (each_RSCDataCell.Text = "aaa") Then System.Diagnostics.Debugger.Break()
             each_RSCDataCell.Tag_Text = par_listData.Item(indexItem) ''For detecting edits. ---4/13/2022
             each_RSCDataCell.ForeColor = Color.Black
 
@@ -618,17 +650,25 @@ Public Class RSCFieldColumnV2
 
         End If ''End of "If (bExpectedLength) Then..... ElseIf (...) ... Else...."
 
-    End Sub ''End of "Private Sub LoadDataToColumn_Undo()"
+    End Sub ''End of "Private Sub ClearDataFromColumn_Undo()"
 
 
     Public Function CountOfRows() As Integer
         ''
         ''Added 4/3/2022 thomas downes  
         ''
-        Dim listBoxes As List(Of RSCDataCell)
-        Const c_boolSkipSorting As Boolean = True
-        listBoxes = ListOfRSCDataCells_TopToBottom(c_boolSkipSorting)
-        Return listBoxes.Count
+        Const c_bWasteProcessingTime As Boolean = False
+        If (c_bWasteProcessingTime) Then
+            ''
+            ''Requires unnecessary processing. 
+            ''
+            Dim listBoxes As List(Of RSCDataCell)
+            Const c_boolSkipSorting As Boolean = True
+            listBoxes = ListOfRSCDataCells_TopToBottom(c_boolSkipSorting)
+            Return listBoxes.Count
+        Else
+            Return mod_listRSCDataCellsByRow.Count
+        End If ''End of ""If (c_bWasteProcessingTime) Then....Else..."
 
     End Function ''End of ""Public Function CountOfRows() As Integer""
 
@@ -676,7 +716,8 @@ Public Class RSCFieldColumnV2
 
             intCellIndex += 1
             ''If (Not String.IsNullOrEmpty(each_RSCDataCell.Text)) Then intCountData += 1
-            bMismatchOfTag = (each_RSCDataCell.Text <> CStr(each_RSCDataCell.Tag))
+            ''April 15 2022 ''bMismatchOfTag = (each_RSCDataCell.Text <> CStr(each_RSCDataCell.Tag))
+            bMismatchOfTag = (each_RSCDataCell.Text <> CStr(each_RSCDataCell.Tag_Text))
             If bMismatchOfTag Then
 
                 intCountData += 1
@@ -703,9 +744,11 @@ Public Class RSCFieldColumnV2
         ''
         ''Added 4/04/2022 thomas downes
         ''
-        Dim objFirstRSCDataCell As RSCDataCell
-        objFirstRSCDataCell = ListOfRSCDataCells_TopToBottom().First()
-        Return objFirstRSCDataCell
+        ''---Dim objFirstRSCDataCell As RSCDataCell
+        Static s_objFirstRSCDataCell As RSCDataCell
+        If (s_objFirstRSCDataCell IsNot Nothing) Then Return s_objFirstRSCDataCell
+        s_objFirstRSCDataCell = ListOfRSCDataCells_TopToBottom().First()
+        Return s_objFirstRSCDataCell
 
     End Function ''End of ""Public Function GetFirstRSCDataCell() As RSCDataCell""
 
@@ -801,7 +844,8 @@ Public Class RSCFieldColumnV2
                                  Optional ByRef pref_bNoFieldSelected As Boolean = False,
                                  Optional ByRef pref_bNoRecipientList As Boolean = False,
                                  Optional ByRef pref_boolRows_TooFew As Boolean = False,
-                                 Optional ByRef pref_boolRows_TooMany As Boolean = False)
+                                 Optional ByRef pref_boolRows_TooMany As Boolean = False,
+                                 Optional pboolCheck_ColumnWidthAndData As Boolean = True)
         ''
         ''Added 3/22/2022 td
         ''
@@ -912,6 +956,22 @@ Public Class RSCFieldColumnV2
             ''4/11 td''each_box.Text = Me.ListRecipients(intRowIndex).GetTextValue(enumFieldSelected)
             ''Added 4/11/2022 td
             each_value = Me.ListRecipients(intRowIndex).GetTextValue(enumFieldSelected)
+
+            ''Added 4/15/2022
+            Dim strCellDataBeforeLoadingRecip As String
+            Dim strCellDataFromColumnData As String
+            Dim boolMismatch_ColumnData As Boolean
+            If (pboolCheck_ColumnWidthAndData) Then
+                ''Compare the Recipient data to the ColumnWidthAndData data.
+                ''   ---4/14/2022
+                strCellDataBeforeLoadingRecip = each_box.Text
+                strCellDataFromColumnData = ColumnWidthAndData.ColumnData(intRowIndex)
+                boolMismatch_ColumnData = (strCellDataFromColumnData <> each_value)
+                If (boolMismatch_ColumnData) Then
+                    System.Diagnostics.Debugger.Break()
+                End If ''End of ""If (boolMismatch_ColumnData) Then""
+            End If ''End of ""If (pboolCheck_ColumnWidthAndData) Then""
+
             each_box.Text = each_value
 
             ''Added 4/12/2022 thomas d.
@@ -951,41 +1011,67 @@ Public Class RSCFieldColumnV2
         ''
         ''Added 3/19/2022 td
         ''
-        Dim objListOfRSCDataCelles As New List(Of RSCDataCell)
+        Dim objListOfRSCDataCells As New List(Of RSCDataCell)
         ''Dim objListOfRSCDataCelles_Ordered ''As New IOrderedEnumerable(Of(Of RSCDataCell)
+        Dim objListOfRSCDataCells_Ordered As List(Of RSCDataCell)
+        Dim intCountDataCells As Integer = 0 ''Added 4/15/2022 
+        Dim intRowIndex As Integer
 
-        ''Added 3/25/2022 thomas d.
-        If (Me.Controls.Count = 0) Then
-            Throw New Exception("WTF")
-        End If
+        Const c_boolSaveProcessingTime As Boolean = True
+        Dim bDictionaryHasCells As Boolean
+        bDictionaryHasCells = (0 < mod_listRSCDataCellsByRow.Count)
 
-        For Each eachCtl As Control In Me.Controls
-            If (TypeOf eachCtl Is RSCDataCell) Then
-                ''Strangely, .Visible is False????---3/25/2022 td''If (eachCtl.Visible) Then
-                objListOfRSCDataCelles.Add(CType(eachCtl, RSCDataCell))
-                ''End If
-            End If ''End of "If (TypeOf eachCtl Is RSCDataCell) Then"
-        Next eachCtl ''End of ""For Each eachCtl As Control In Me.Controls""
+        If (c_boolSaveProcessingTime And bDictionaryHasCells) Then
+            ''
+            ''Added 4/15/2022 td
+            ''
+            objListOfRSCDataCells_Ordered = New List(Of RSCDataCell)
+            For intRowIndex = 1 To mod_listRSCDataCellsByRow.Count
+                objListOfRSCDataCells_Ordered.Add(mod_listRSCDataCellsByRow(intRowIndex))
+            Next intRowIndex
+
+        Else
+            ''
+            ''This sucks up unnecessary processing time. 
+            ''
+            ''Added 3/25/2022 thomas d.
+            If (Me.Controls.Count = 0) Then
+                Throw New Exception("WTF")
+            End If
+
+            For Each eachCtl As Control In Me.Controls
+                If (TypeOf eachCtl Is RSCDataCell) Then
+                    ''Strangely, .Visible is False????---3/25/2022 td''If (eachCtl.Visible) Then
+                    objListOfRSCDataCells.Add(CType(eachCtl, RSCDataCell))
+                    intCountDataCells += 1
+                    ''End If
+                End If ''End of "If (TypeOf eachCtl Is RSCDataCell) Then"
+            Next eachCtl ''End of ""For Each eachCtl As Control In Me.Controls""
+
+            ''
+            ''Order them in order of top-down (i.e. the Top property).
+            ''
+            ''Dim objListOfRSCDataCelles_Ordered As IOrderedEnumerable(Of RSCDataCell) =
+            ''    From objRSCDataCell In objListOfRSCDataCelles
+            ''    Select objRSCDataCell
+            ''    Order By objRSCDataCell.Top
+
+            ''objListOfRSCDataCelles.Sort(Function(elementA As RSCDataCell, elementB As RSCDataCell)
+            ''                            Return elementA.Length.CompareTo(elementB.Length)
+            ''                        End Function)
+
+            ''Added 4/2/2022 td
+            If (par_bSkipSorting) Then Return objListOfRSCDataCells
+
+            ''Dim objListOfRSCDataCells_Ordered As List(Of RSCDataCell)
+            objListOfRSCDataCells_Ordered = objListOfRSCDataCells.OrderBy(Of Integer)(Function(a) a.Top).ToList()
+
+        End If ''End of ""If (c_SaveProcessingTime) Then .... Else ...
 
         ''
-        ''Order them in order of top-down (i.e. the Top property).
+        ''Exithandler
         ''
-        ''Dim objListOfRSCDataCelles_Ordered As IOrderedEnumerable(Of RSCDataCell) =
-        ''    From objRSCDataCell In objListOfRSCDataCelles
-        ''    Select objRSCDataCell
-        ''    Order By objRSCDataCell.Top
-
-        ''objListOfRSCDataCelles.Sort(Function(elementA As RSCDataCell, elementB As RSCDataCell)
-        ''                            Return elementA.Length.CompareTo(elementB.Length)
-        ''                        End Function)
-
-        ''Added 4/2/2022 td
-        If (par_bSkipSorting) Then Return objListOfRSCDataCelles
-
-        Dim objListOfRSCDataCelles_Ordered As List(Of RSCDataCell)
-        objListOfRSCDataCelles_Ordered = objListOfRSCDataCelles.OrderBy(Of Integer)(Function(a) a.Top).ToList()
-
-        Return objListOfRSCDataCelles_Ordered
+        Return objListOfRSCDataCells_Ordered
 
     End Function ''End of "Private Function ListOfRSCDataCelles_TopToBottom() As IOrderedEnumerable(Of RSCDataCell)"
 
@@ -1128,6 +1214,7 @@ Public Class RSCFieldColumnV2
         ''Added 3/18/2022 t1h1o1m1a1s1 d1o1w1n1e1s1
         ''
         Dim objFieldColumnControl As RSCFieldColumnV2
+        Dim intRowCount As Integer ''4/2022
 
         objFieldColumnControl = Me
         ''March18 2022''With Me.ColumnWidthAndData
@@ -1137,6 +1224,9 @@ Public Class RSCFieldColumnV2
             .Width = Me.Width
             .ColumnData = Me.ListOfData()
             .Rows = Me.ListOfData().Count
+
+            ''Added 4/15/2022
+            intRowCount = .Rows
 
         End With ''End of "With Me.ColumnWidthAndData"
 

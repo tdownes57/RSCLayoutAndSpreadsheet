@@ -39,7 +39,6 @@ Partial Class RSCDataCell
         Me.Textbox1a.Name = "Textbox1a"
         Me.Textbox1a.Size = New System.Drawing.Size(150, 23)
         Me.Textbox1a.TabIndex = 37
-        Me.Textbox1a.Text = "Example"
         '
         'LinkLabelCrLf
         '
