@@ -35,9 +35,11 @@ Public Class FormHowMany
         mod_singLimitMin = psingLimitOfNumberMin
         mod_singLimitMax = psingLimitOfNumberMax
 
-        LabelHowMany.Text = pstrHowManyMsg
-        Me.Width = Me.Width * psingFactorWidth
-        Me.Height = Me.Height * psingFactorHeight
+        ''April 15 2022 ''LabelHowManyCaption.Text = pstrHowManyMsg
+        LabelMainPrompt.Text = pstrHowManyMsg
+
+        Me.Width = CInt(Me.Width * psingFactorWidth)
+        Me.Height = CInt(Me.Height * psingFactorHeight)
 
         ''//If (pboolUseTextbox) Then textHowMany.Visible = pboolUseTextbox 
         textHowMany.Visible = pboolUseTextbox

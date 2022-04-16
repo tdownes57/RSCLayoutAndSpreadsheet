@@ -22,27 +22,27 @@ Partial Class FormHowMany
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.LabelMain = New System.Windows.Forms.Label()
+        Me.LabelMainPrompt = New System.Windows.Forms.Label()
         Me.textHowMany = New System.Windows.Forms.TextBox()
         Me.ButtonCancel = New System.Windows.Forms.Button()
         Me.ButtonOK = New System.Windows.Forms.Button()
-        Me.LabelHowMany = New System.Windows.Forms.Label()
+        Me.LabelHowManyCaption = New System.Windows.Forms.Label()
         Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown()
         Me.lblRedMessageNonnumeric = New System.Windows.Forms.Label()
         CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'LabelMain
+        'LabelMainPrompt
         '
-        Me.LabelMain.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.LabelMainPrompt.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LabelMain.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelMain.Location = New System.Drawing.Point(12, 9)
-        Me.LabelMain.Name = "LabelMain"
-        Me.LabelMain.Size = New System.Drawing.Size(776, 103)
-        Me.LabelMain.TabIndex = 0
-        Me.LabelMain.Text = "How many angels can dance on the head of a pin?"
+        Me.LabelMainPrompt.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelMainPrompt.Location = New System.Drawing.Point(12, 9)
+        Me.LabelMainPrompt.Name = "LabelMainPrompt"
+        Me.LabelMainPrompt.Size = New System.Drawing.Size(776, 103)
+        Me.LabelMainPrompt.TabIndex = 0
+        Me.LabelMainPrompt.Text = "How many angels can dance on the head of a pin?"
         '
         'textHowMany
         '
@@ -79,15 +79,15 @@ Partial Class FormHowMany
         Me.ButtonOK.Text = "OK"
         Me.ButtonOK.UseVisualStyleBackColor = False
         '
-        'LabelHowMany
+        'LabelHowManyCaption
         '
-        Me.LabelHowMany.AutoSize = True
-        Me.LabelHowMany.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelHowMany.Location = New System.Drawing.Point(14, 132)
-        Me.LabelHowMany.Name = "LabelHowMany"
-        Me.LabelHowMany.Size = New System.Drawing.Size(92, 20)
-        Me.LabelHowMany.TabIndex = 18
-        Me.LabelHowMany.Text = "How many?"
+        Me.LabelHowManyCaption.AutoSize = True
+        Me.LabelHowManyCaption.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelHowManyCaption.Location = New System.Drawing.Point(14, 132)
+        Me.LabelHowManyCaption.Name = "LabelHowManyCaption"
+        Me.LabelHowManyCaption.Size = New System.Drawing.Size(92, 20)
+        Me.LabelHowManyCaption.TabIndex = 18
+        Me.LabelHowManyCaption.Text = "How many?"
         '
         'NumericUpDown1
         '
@@ -120,11 +120,11 @@ Partial Class FormHowMany
         Me.ClientSize = New System.Drawing.Size(800, 176)
         Me.Controls.Add(Me.lblRedMessageNonnumeric)
         Me.Controls.Add(Me.NumericUpDown1)
-        Me.Controls.Add(Me.LabelHowMany)
+        Me.Controls.Add(Me.LabelHowManyCaption)
         Me.Controls.Add(Me.ButtonCancel)
         Me.Controls.Add(Me.ButtonOK)
         Me.Controls.Add(Me.textHowMany)
-        Me.Controls.Add(Me.LabelMain)
+        Me.Controls.Add(Me.LabelMainPrompt)
         Me.Name = "FormHowMany"
         Me.Text = "RSC ID Card"
         CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -133,11 +133,11 @@ Partial Class FormHowMany
 
     End Sub
 
-    Friend WithEvents LabelMain As Windows.Forms.Label
+    Friend WithEvents LabelMainPrompt As Windows.Forms.Label
     Friend WithEvents textHowMany As Windows.Forms.TextBox
     Friend WithEvents ButtonCancel As Windows.Forms.Button
     Friend WithEvents ButtonOK As Windows.Forms.Button
-    Friend WithEvents LabelHowMany As Windows.Forms.Label
+    Friend WithEvents LabelHowManyCaption As Windows.Forms.Label
     Friend WithEvents NumericUpDown1 As Windows.Forms.NumericUpDown
     Friend WithEvents lblRedMessageNonnumeric As Windows.Forms.Label
 End Class
