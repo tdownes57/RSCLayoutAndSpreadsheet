@@ -42,6 +42,7 @@ Public Class Operations_RSCFieldColumn
     Public Property MouseclickX As Integer Implements IRightClickMouseInfo.MouseclickX
     Public Property MouseclickY As Integer Implements IRightClickMouseInfo.MouseclickY
     Public Property ParentSpreadsheet As RSCFieldSpreadsheet ''Added 3/20/2022 td
+    Public Property FieldColumn As RSCFieldColumnV2 ''Added 4/15/2022 td
     Public Property ColumnIndex As Integer ''Added 3/20/2022 td
 
     Private mod_bClearingExists_MayBeUndone As Boolean ''Added 3/21/2022
@@ -93,7 +94,8 @@ Public Class Operations_RSCFieldColumn
         ''Copy-pasted 1/24/2022 thomas downes
         ''Added 8/17/2019 thomas downes
         ''         
-        Dim objRSCFieldColumn As RSCFieldColumnV1
+        '' 4/15/2022 Dim objRSCFieldColumn As RSCFieldColumnV1
+        Dim objRSCFieldColumn As RSCFieldColumnV2
         Dim boolConfirmed1 As Boolean
         Dim boolConfirmed2 As Boolean
         Dim intCountData As Integer
@@ -105,7 +107,8 @@ Public Class Operations_RSCFieldColumn
 
         If (boolConfirmed1) Then
 
-            objRSCFieldColumn = CType(CtlCurrentControl, RSCFieldColumnV1)
+            ''4/15/2022 objRSCFieldColumn = CType(CtlCurrentControl, RSCFieldColumnV1)
+            objRSCFieldColumn = Me.FieldColumn ''Added 4/15/2022
             intCountData = objRSCFieldColumn.CountOfBoxesWithData()
 
             If (intCountData > 0) Then
@@ -130,7 +133,8 @@ Public Class Operations_RSCFieldColumn
             ''
             ''Major call. 
             ''
-            objRSCFieldColumn = CType(CtlCurrentControl, RSCFieldColumnV1)
+            ''4/15/2022 objRSCFieldColumn = CType(CtlCurrentControl, RSCFieldColumnV1)
+            objRSCFieldColumn = CType(CtlCurrentControl, RSCFieldColumnV2)
             objRSCFieldColumn.ClearDataFromColumn_Undo(boolKeepAnyEdits)
             mod_bClearingExists_MayBeUndone = False ''Restore to False
 
@@ -145,8 +149,9 @@ Public Class Operations_RSCFieldColumn
         ''
         Dim rscParentSpreadsheet As RSCFieldSpreadsheet
         rscParentSpreadsheet = Me.ParentSpreadsheet
+        ''In case other columns were deleted, we need to refresh the Column Index.---4/15/2022
+        Me.ColumnIndex = rscParentSpreadsheet.GetIndexOfColumn(Me.FieldColumn)
         rscParentSpreadsheet.InsertNewColumnByIndex(Me.ColumnIndex)
-
 
     End Sub ''End of "Public Sub Insert_New_Column_To_The_Left_FC2003"
 
@@ -157,6 +162,8 @@ Public Class Operations_RSCFieldColumn
         ''
         Dim rscParentSpreadsheet As RSCFieldSpreadsheet
         rscParentSpreadsheet = Me.ParentSpreadsheet
+        ''In case other columns were deleted, we need to refresh the Column Index.---4/15/2022
+        Me.ColumnIndex = rscParentSpreadsheet.GetIndexOfColumn(Me.FieldColumn)
         rscParentSpreadsheet.InsertNewColumnByIndex(Me.ColumnIndex + 1)
 
     End Sub ''End of "Public Sub Insert_New_Column_To_The_Right_FC2003"
@@ -174,6 +181,9 @@ Public Class Operations_RSCFieldColumn
                        1.1, 1.1, 1, 9, False, False)
 
         rscParentSpreadsheet = Me.ParentSpreadsheet
+
+        ''In case other columns were deleted, we need to refresh the Column Index.---4/15/2022
+        Me.ColumnIndex = rscParentSpreadsheet.GetIndexOfColumn(Me.FieldColumn)
 
         For intNewColIndex = 1 To intHowManyNewColumns
             ''Insert as many columns to the rightt as needed.  
@@ -193,8 +203,14 @@ Public Class Operations_RSCFieldColumn
         If (MessageBoxTD.Show_Confirmed("Delete the spreadsheet column?", "", True)) Then
             ''User has confirmed. 
             rscParentSpreadsheet = Me.ParentSpreadsheet
+
+            ''4/15/2022 ''rscParentSpreadsheet.DeleteColumnByIndex(Me.ColumnIndex)
+
+            ''In case other columns were deleted, we need to refresh the Column Index.---4/15/2022
+            Me.ColumnIndex = rscParentSpreadsheet.GetIndexOfColumn(Me.FieldColumn)
             rscParentSpreadsheet.DeleteColumnByIndex(Me.ColumnIndex)
-        End If
+
+        End If ''end of ""If (MessageBoxTD.Show_Confirmed("Delete .....") ....
 
     End Sub ''End of "Public Sub Delete_This_Column_FC2005"
 

@@ -1,8 +1,11 @@
-﻿Public Class FormHowMany
+﻿Option Explicit On ''Added 4/15/2022 td
+Option Strict On ''Added 4/15/2022 td
+
+Public Class FormHowMany
     ''
     ''Added 4/14/2022 thomas downes
     ''
-    Public HowManySpecified As Boolean ''Added 4/14/2022 thomas downes 
+    Public HowManySpecified As Integer ''Added 4/14/2022 thomas downes 
 
     Private mod_boolUseTextbox As Boolean
     Private mod_singFactorHeight As Single

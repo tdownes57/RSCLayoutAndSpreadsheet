@@ -227,6 +227,7 @@ Public Class RSCFieldColumnV2
             ''Added 3/20/2022 thomas dRRoRRwRRnRReRRsRR
             .ParentSpreadsheet = par_oSpreadsheet
             .ColumnIndex = par_intColumnIndex
+            .FieldColumn = CtlFieldColumn1 ''Added 4/15/2022 td
 
         End With ''End of "With objOperationsPortrait"
 

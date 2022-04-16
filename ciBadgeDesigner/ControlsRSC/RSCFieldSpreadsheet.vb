@@ -235,6 +235,22 @@ Public Class RSCFieldSpreadsheet
     End Function
 
 
+    Public Function GetIndexOfColumn(par_column As RSCFieldColumnV2) As Integer
+        ''
+        ''Added 4/15/2022 td
+        ''
+        For intColIndex As Integer = 0 To (-1 + mod_array_RSCColumns.Length)
+
+            If (mod_array_RSCColumns(intColIndex) Is par_column) Then Return intColIndex
+
+        Next intColIndex
+
+        Return -1
+
+    End Function
+
+
+
     Private Function ReviewPastedData_IsOkay(par_stringPastedData As String,
                                              ByRef pref_message As String,
                                              ByRef pref_numLines As Integer,
@@ -1328,21 +1344,33 @@ Public Class RSCFieldSpreadsheet
         ''Step 0 of 5.  Run some basic checks. 
         ''
         Dim columnAboutToDelete As RSCFieldColumnV2 ''Added 4/14/2022
+        Dim intColumnAboutToDelete_Left As Integer ''Added 4/15/2022
         Dim boolPlaceWithinArray As Boolean ''Added 4/14/2022
         Dim intIndexLastColumn As Integer ''Added 4/14/2022
         Dim intWidthOfDeletedColumn As Integer ''Added 4/15/2022
 
+        ''
         ''Added 4/14/2022
+        ''
+        ''4/15/2022 td ''boolPlaceWithinArray = (par_intColumnIndex <= mod_array_RSCColumns.Length)
         boolPlaceWithinArray = (par_intColumnIndex < mod_array_RSCColumns.Length)
 
         If boolPlaceWithinArray Then
             columnAboutToDelete = mod_array_RSCColumns(par_intColumnIndex)
             ''intNewColumnPropertyLeft = existingColumn.Left
             columnAboutToDelete.Visible = False ''Render it invisible.
+            ''Added 4/15/2022 td
+            intColumnAboutToDelete_Left = columnAboutToDelete.Left
 
             ''Added 4/15/2022 td
             If (columnAboutToDelete Is RscFieldColumn1) Then
-                RscFieldColumn1 = mod_array_RSCColumns(par_intColumnIndex + 1)
+                Try
+                    RscFieldColumn1 = mod_array_RSCColumns(par_intColumnIndex + 1)
+                Catch
+                    ''If the user has deleted all of the columns, then this is the result.
+                    ''   (Zero columns left.) ---4/15/2022 thomas d
+                    RscFieldColumn1 = Nothing
+                End Try
             End If ''End of ""If (columnAboutToDelete Is RscFieldColumn1) Then""
 
         Else
@@ -1406,19 +1434,33 @@ Public Class RSCFieldSpreadsheet
         ''
         intWidthOfDeletedColumn = columnAboutToDelete.Width
 
-        For intColIndex As Integer = (1 + par_intColumnIndex) To (intNewLengthOfArray) '' (-1 + intNewLengthOfArray)
+        intFirstBumpedColumn_Left = Integer.MaxValue ''Default value
+        For Each each_col As RSCFieldColumnV2 In mod_array_RSCColumns
+            ''---For intColIndex As Integer = (1 + par_intColumnIndex) To (intNewLengthOfArray) '' (-1 + intNewLengthOfArray)
             ''
-            ''Move the columns to the left, in place of the deleted column. 
+            ''If the column's Left edge is greater (bigger in X value) then 
+            ''   the column we are deleting....
+            ''   Then move the column to the left, in place of the deleted column. 
+            ''   ----4/15/2022
             ''
-            mod_array_RSCColumns(intColIndex).Left -= (intWidthOfDeletedColumn + mc_ColumnMarginGap)
+            If (each_col Is Nothing) Then
+                ''
+                ''Don't process a Null reference. ---4/15/2022
+                ''
+            ElseIf (each_col.Left > intColumnAboutToDelete_Left) Then
 
-            ''Added 4/1/2022 thomas downes
-            ''   Save the new location of the leftmost column.
-            If (0 = intFirstBumpedColumn_Left) Then
-                intFirstBumpedColumn_Left = mod_array_RSCColumns(intColIndex).Left
-            End If ''End of "If (0 = intFirstBumpedColumn_Left) Then"
+                each_col.Left -= (intWidthOfDeletedColumn + mc_ColumnMarginGap)
 
-        Next intColIndex
+                ''Added 4/1/2022 thomas downes
+                ''   Save the new location of the leftmost column.
+                ''   Whichever is furthest left, supplies the final value.
+                If (each_col.Left < intFirstBumpedColumn_Left) Then
+                    intFirstBumpedColumn_Left = each_col.Left
+                End If
+
+            End If ''End of ""ElseIf (each_col.Left > intColumnAboutToDelete_Left) Then""
+
+        Next each_col
 
         ''
         ''Step 7 of 7.  Remove the deleted column as a "Bump Column" for all the columns to the left.  

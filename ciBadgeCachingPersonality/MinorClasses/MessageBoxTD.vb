@@ -152,9 +152,12 @@ Public Class MessageBoxTD
         formToShow = New FormHowMany(pstrHowMany, psingFactorWidth, psingFactorHeight,
             psingLimitOfNumberMin, psingLimitOfNumberMax, pboolUseTextbox, pboolDecimalValuesOK)
 
+        formToShow.ShowDialog()
 
+        If (formToShow.DialogResult = DialogResult.Cancel) Then Return -1
+        If (formToShow.DialogResult <> DialogResult.OK) Then Return -1
 
-
+        Return formToShow.HowManySpecified
 
     End Function ''End of "Public Shared Function Show_Confirmed"
 

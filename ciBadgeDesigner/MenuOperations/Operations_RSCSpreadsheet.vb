@@ -189,6 +189,14 @@ Public Class Operations_RSCSpreadsheet
         Dim intGuessAtTextLength As Integer
         Dim each_stringRow As String
 
+        If (Me.ParentSpreadsheet Is Nothing) Then
+            MessageBoxTD.Show_Statement("Spreadsheet is not found.")
+            Return
+        ElseIf (Me.ParentSpreadsheet.RscFieldColumn1 Is Nothing) Then
+            MessageBoxTD.Show_Statement("Spreadsheet column(s) are not found.")
+            Return
+        End If
+
         intCountOfRows1 = Me.ParentSpreadsheet.RscRowHeaders1.CountOfRows()
         intCountOfRows2 = Me.ParentSpreadsheet.RscFieldColumn1.CountOfRows()
         intCountOfColumns = Me.ParentSpreadsheet.ListOfColumns().Count
