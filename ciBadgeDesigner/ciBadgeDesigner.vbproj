@@ -51,9 +51,15 @@
     <Reference Include="ciSigPlus_NET45">
       <HintPath>P:\ThomasD\__Sammi\8.31 Access ACCDB\ciSigPlus_NET45.dll</HintPath>
     </Reference>
+    <Reference Include="MathNet.Numerics, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MathNet.Numerics.5.0.0\lib\net461\MathNet.Numerics.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -378,6 +384,7 @@
     <Compile Include="Interfaces\InterfaceMoveableElement.vb" />
     <Compile Include="Interfaces\InterfaceRecordElementLastTouched.vb" />
     <Compile Include="Interfaces\InterfaceShowListFields.vb" />
+    <Compile Include="Math.NET\ClassMathStats.vb" />
     <Compile Include="MenuOperations\FormPickGraphic.Designer.vb">
       <DependentUpon>FormPickGraphic.vb</DependentUpon>
     </Compile>
@@ -591,6 +598,7 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
+    <None Include="packages.config" />
     <None Include="SigPlusLocal.ini" />
   </ItemGroup>
   <ItemGroup>

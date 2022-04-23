@@ -35,7 +35,7 @@ Public Class FormHowMany
         mod_singLimitMin = psingLimitOfNumberMin
         mod_singLimitMax = psingLimitOfNumberMax
 
-        ''April 15 2022 ''LabelHowManyCaption.Text = pstrHowManyMsg
+        ''April 15  2022 ''LabelHowManyCaption.Text = pstrHowManyMsg
         LabelMainPrompt.Text = pstrHowManyMsg
 
         Me.Width = CInt(Me.Width * psingFactorWidth)

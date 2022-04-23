@@ -1,0 +1,203 @@
+﻿Option Explicit On ''Added 4/22/2022 thomas downes
+Option Strict On ''Added 4/22/2022 thomas downes
+''
+''Added 4/22/2022 thomas downes  
+''
+Imports MathNet.Numerics ''Added 4/22/2022 thomas downes
+
+Public Structure StructMeanAndDev
+    ''
+    ''Added 4/22/2022 thomas downes  
+    ''
+    Dim singMean As Single
+    Dim singStdDeviation As Single
+
+End Structure
+
+Public Class ClassMathStats
+    ''
+    ''Added 4/22/2022 thomas downes  
+    ''
+    Public Shared Function UnexpectedValue(par_strValue As String, par_list As List(Of String)) As Boolean ''StructMeanAndDev
+        ''
+        ''Added 4/22/2022 thomas downes  
+        ''
+        Dim boolUnexpected As Boolean
+        Dim bUnexpected9s As Boolean
+        Dim bUnexpectedAs As Boolean
+
+        bUnexpected9s = UnexpectedAmountOf_Digits(par_strValue, par_list)
+        bUnexpectedAs = UnexpectedAmountOf_Alphas(par_strValue, par_list)
+
+        boolUnexpected = (bUnexpected9s Or bUnexpectedAs)
+        Return boolUnexpected
+
+    End Function
+
+    Public Shared Function UnexpectedAmountOf_Digits(par_strValue As String, par_list As List(Of String)) As Boolean ''StructMeanAndDev
+        ''
+        ''Added 4/22/2022 thomas downes  
+        ''
+        Dim intValueHasHowMany_Digits As Integer
+        intValueHasHowMany_Digits = HowManyCharsAre_Digits(par_strValue)
+        Dim intCountDigits As Integer
+        intCountDigits = intValueHasHowMany_Digits
+
+        ''Dim structMS As StructMeanAndDev
+        ''structMS = UnexpectedAmountOf_Digits(par_strValue, par_list)
+
+        Dim listOfSingles As New List(Of Single)
+
+        For Each strValue As String In par_list
+
+            listOfSingles.Add(CSng(HowManyCharsAre_Digits(strValue)))
+
+        Next strValue
+
+        Dim structMS As StructMeanAndDev
+        structMS = GetMeanAndStdDeviation(listOfSingles)
+
+        Dim boolLessThanStdDev As Boolean
+        Dim boolMoreThanStdDev As Boolean
+        Dim boolIsAnOutlier As Boolean
+
+        boolLessThanStdDev = (intCountDigits < (structMS.singMean - structMS.singStdDeviation))
+        boolMoreThanStdDev = (intCountDigits > (structMS.singMean + structMS.singStdDeviation))
+
+        boolIsAnOutlier = (boolLessThanStdDev Or boolMoreThanStdDev)
+        Return boolIsAnOutlier
+
+    End Function ''End of ""Public Shared Function UnexpectedAmountOf_Digits""
+
+
+    Public Shared Function UnexpectedAmountOf_Alphas(par_strValue As String, par_list As List(Of String)) As Boolean ''StructMeanAndDev
+        ''
+        ''Added 4/22/2022 thomas downes  
+        ''
+        Dim intValueHasHowMany_Alphas As Integer
+        intValueHasHowMany_Alphas = HowManyCharsAre_Alphas(par_strValue)
+
+        Dim intCountAlphas As Integer
+        intCountAlphas = intValueHasHowMany_Alphas
+
+        Dim listOfSingles As New List(Of Single)
+        For Each strValue As String In par_list
+            listOfSingles.Add(CSng(HowManyCharsAre_Alphas(strValue)))
+        Next strValue
+
+        Dim structMS As StructMeanAndDev
+        structMS = GetMeanAndStdDeviation(listOfSingles)
+
+        Dim boolLessThanStdDev As Boolean
+        Dim boolMoreThanStdDev As Boolean
+        Dim boolIsAnOutlier As Boolean
+
+        boolLessThanStdDev = (intCountAlphas < (structMS.singMean - structMS.singStdDeviation))
+        boolMoreThanStdDev = (intCountAlphas > (structMS.singMean + structMS.singStdDeviation))
+
+        boolIsAnOutlier = (boolLessThanStdDev Or boolMoreThanStdDev)
+        Return boolIsAnOutlier
+
+    End Function
+
+
+    Public Shared Function GetMeanAndStdDeviation(par_listOfSingles As List(Of Single)) As StructMeanAndDev
+        ''
+        ''Added 4/22/2022 thomas downes  
+        ''
+        ''Dim objHistogram As MathNet.Numerics.Statistics.Histogram
+        ''Dim objArrayStats As MathNet.Numerics.Statistics.ArrayStatistics
+        ''Dim objDescriptiveStats As Statistics.DescriptiveStatistics
+        ''Dim objBasicStatistics As Statistics.Statistics
+
+        ''objBasicStatistics = New Statistics.Statistics()
+
+        ''---Dim decimalMean As Decimal
+        Dim doubleMean As Double
+        Dim doubleStdDeviation As Double
+
+        doubleMean = Statistics.Statistics.Mean(par_listOfSingles)
+
+        Dim tupleStdDeviationA As Tuple(Of Double, Double)
+        Dim tupleStdDeviationB As (Double, Double)
+        Dim tupleStdDeviationC As ValueTuple(Of Double, Double)
+
+        ''---tupleStdDeviationB = Statistics.Statistics.MeanStandardDeviation(par_listOfSingles)
+        tupleStdDeviationC = Statistics.Statistics.MeanStandardDeviation(par_listOfSingles)
+
+        doubleMean = tupleStdDeviationC.Item1
+        doubleStdDeviation = tupleStdDeviationC.Item2
+
+        Dim new_struct As New StructMeanAndDev
+
+        new_struct.singMean = CSng(doubleMean)
+        new_struct.singStdDeviation = CSng(doubleStdDeviation)
+        Return new_struct
+
+    End Function ''End of ""Public Shared Function GetMeanAndStdDeviation""
+
+
+
+    Public Shared Function HowManyCharsAre_Alphas(pstrValue As String) As Integer
+        ''
+        ''Added 4/22/2022 td
+        ''
+        Dim intCount_Alphas As Integer = 0
+        Dim boolIsAlpha As Boolean
+
+        For Each each_char As Char In pstrValue
+
+            ''boolIsAlpha =  each_char
+
+            Select Case each_char
+                Case "a"c, "b"c, "c"c, "d"c, "e"c, "f"c, "g"c, "h"c, "i"c, "j"c, "k"c, "l"c, "m"c
+
+                    intCount_Alphas += 1
+
+                Case "n"c, "o"c, "p"c, "q"c, "r"c, "s"c, "t"c, "u"c, "v"c, "w"c, "x"c, "y"c, "z"c
+
+                    intCount_Alphas += 1
+
+                Case "A"c, "B"c, "C"c, "D"c, "E"c, "F"c, "G"c, "H"c, "I"c, "J"c, "K"c, "L"c, "M"c
+
+                    intCount_Alphas += 1
+
+                Case "N"c, "O"c, "P"c, "Q"c, "R"c, "S"c, "T"c, "Y"c, "V"c, "W"c, "X"c, "Y"c, "Z"c
+
+                    intCount_Alphas += 1
+
+            End Select
+
+        Next each_char
+
+        Return intCount_Alphas
+
+    End Function
+
+
+    Public Shared Function HowManyCharsAre_Digits(pstrValue As String) As Integer
+        ''
+        ''Added 4/22/2022 td
+        ''
+        Dim intCount_Digits As Integer = 0
+
+        For Each each_char As Char In pstrValue
+
+            Select Case each_char
+                Case "0"c, "1"c, "2"c, "3"c, "4"c, "5"c, "6"c, "7"c, "8"c, "9"c
+
+                    intCount_Digits += 1
+
+            End Select
+
+        Next each_char
+
+        Return intCount_Digits
+
+    End Function
+
+
+
+
+
+End Class
