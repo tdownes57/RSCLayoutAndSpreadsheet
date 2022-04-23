@@ -5,6 +5,18 @@ Option Strict On ''Added 4/22/2022 thomas downes
 ''
 Imports MathNet.Numerics ''Added 4/22/2022 thomas downes
 
+
+Public Structure StructRSCColumnStatistics
+    ''
+    ''Added 4/22/2022 thomas downes  
+    ''
+    Dim singNumDigitsMean As Single
+    Dim singNumDigitsStdDeviation As Single
+    Dim singNumAlphasMean As Single
+    Dim singNumAlphasStdDeviation As Single
+
+End Structure
+
 Public Structure StructMeanAndDev
     ''
     ''Added 4/22/2022 thomas downes  
@@ -33,6 +45,71 @@ Public Class ClassMathStats
         Return boolUnexpected
 
     End Function
+
+
+    Public Shared Function UnexpectedValue(par_strValue As String, par_mean_data As StructRSCColumnStatistics) As Boolean ''StructMeanAndDev
+        ''
+        ''Added 4/22/2022 thomas downes  
+        ''
+        Dim boolUnexpected As Boolean
+        Dim bUnexpected9s As Boolean
+        Dim bUnexpectedAs As Boolean
+
+        bUnexpected9s = UnexpectedAmountOf_Digits(par_strValue, par_mean_data)
+        bUnexpectedAs = UnexpectedAmountOf_Alphas(par_strValue, par_mean_data)
+
+        boolUnexpected = (bUnexpected9s Or bUnexpectedAs)
+        Return boolUnexpected
+
+    End Function
+
+
+
+    Public Shared Function UnexpectedAmountOf_Digits(par_strValue As String, par_dataStats As StructRSCColumnStatistics) As Boolean ''StructMeanAndDev
+        ''
+        ''Added 4/22/2022 thomas downes  
+        ''
+        Dim intValueHasHowMany_Digits As Integer
+        Dim intCountDigits As Integer
+        Dim boolLessThanStdDev As Boolean
+        Dim boolMoreThanStdDev As Boolean
+        Dim boolIsAnOutlier As Boolean
+
+        intValueHasHowMany_Digits = HowManyCharsAre_Digits(par_strValue)
+        intCountDigits = intValueHasHowMany_Digits
+
+        boolLessThanStdDev = (intCountDigits < (par_dataStats.singNumDigitsMean - par_dataStats.singNumDigitsStdDeviation))
+        boolMoreThanStdDev = (intCountDigits > (par_dataStats.singNumDigitsMean + par_dataStats.singNumDigitsStdDeviation))
+
+        boolIsAnOutlier = (boolLessThanStdDev Or boolMoreThanStdDev)
+        Return boolIsAnOutlier
+
+    End Function ''End of ""Public Shared Function UnexpectedAmountOf_Digits""
+
+
+    Public Shared Function UnexpectedAmountOf_Alphas(par_strValue As String, par_dataStats As StructRSCColumnStatistics) As Boolean ''StructMeanAndDev
+        ''
+        ''Added 4/22/2022 thomas downes  
+        ''
+        Dim intValueHasHowMany_Alphas As Integer
+        Dim intCountDigits As Integer
+        Dim boolLessThanStdDev As Boolean
+        Dim boolMoreThanStdDev As Boolean
+        Dim boolIsAnOutlier As Boolean
+
+        intValueHasHowMany_Alphas = HowManyCharsAre_Alphas(par_strValue)
+        intCountDigits = intValueHasHowMany_Alphas
+
+        With par_dataStats
+            boolLessThanStdDev = (intCountDigits < (.singNumAlphasMean - .singNumAlphasStdDeviation))
+            boolMoreThanStdDev = (intCountDigits > (.singNumAlphasMean + .singNumAlphasStdDeviation))
+        End With
+
+        boolIsAnOutlier = (boolLessThanStdDev Or boolMoreThanStdDev)
+        Return boolIsAnOutlier
+
+    End Function ''End of ""Public Shared Function UnexpectedAmountOf_Alphas""
+
 
     Public Shared Function UnexpectedAmountOf_Digits(par_strValue As String, par_list As List(Of String)) As Boolean ''StructMeanAndDev
         ''
@@ -97,6 +174,57 @@ Public Class ClassMathStats
 
         boolIsAnOutlier = (boolLessThanStdDev Or boolMoreThanStdDev)
         Return boolIsAnOutlier
+
+    End Function
+
+
+    Public Shared Function GetMeanAndStdDeviation_FourStats(par_listOfValues As List(Of String)) As StructRSCColumnStatistics
+        ''
+        ''Added 4/22/2022 thomas downes  
+        ''
+        Dim structOutput As New StructRSCColumnStatistics
+        Dim structDataForDigits As StructMeanAndDev
+        Dim structDataForAlphas As StructMeanAndDev
+
+        structDataForAlphas = GetMeanAndStdDeviation_Alphas(par_listOfValues)
+        structDataForDigits = GetMeanAndStdDeviation_Digits(par_listOfValues)
+
+        With structOutput
+            .singNumAlphasMean = structDataForAlphas.singMean
+            .singNumAlphasStdDeviation = structDataForAlphas.singStdDeviation
+            .singNumDigitsMean = structDataForDigits.singMean
+            .singNumDigitsStdDeviation = structDataForDigits.singStdDeviation
+        End With
+
+        Return structOutput
+
+    End Function
+
+
+    Public Shared Function GetMeanAndStdDeviation_Alphas(par_listOfValues As List(Of String)) As StructMeanAndDev
+        ''
+        ''Added 4/22/2022 thomas downes  
+        ''
+        Dim listOfSingles As New List(Of Single)
+        For Each strValue As String In par_listOfValues
+            listOfSingles.Add(CSng(HowManyCharsAre_Alphas(strValue)))
+        Next strValue
+
+        Return GetMeanAndStdDeviation(listOfSingles)
+
+    End Function
+
+
+    Public Shared Function GetMeanAndStdDeviation_Digits(par_listOfValues As List(Of String)) As StructMeanAndDev
+        ''
+        ''Added 4/22/2022 thomas downes  
+        ''
+        Dim listOfSingles As New List(Of Single)
+        For Each strValue As String In par_listOfValues
+            listOfSingles.Add(CSng(HowManyCharsAre_Digits(strValue)))
+        Next strValue
+
+        Return GetMeanAndStdDeviation(listOfSingles)
 
     End Function
 
