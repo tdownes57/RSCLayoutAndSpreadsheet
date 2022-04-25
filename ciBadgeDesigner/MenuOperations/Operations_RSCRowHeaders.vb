@@ -43,7 +43,8 @@ Public Class Operations_RSCRowHeaders
     Public Property MouseclickY As Integer Implements IRightClickMouseInfo.MouseclickY
     Public Property ParentSpreadsheet As RSCFieldSpreadsheet ''Added 3/20/2022 td
     Public Property ColumnIndex As Integer ''Added 3/20/2022 td
-
+    ''----Public Property RowIndex As Integer ''Added 4/24/2022 td
+    Public Property RowIndex_LastClicked As Integer ''Added 4/25/2022 td
 
     Public Sub Context_Menu_FS9121(sender As Object, e As EventArgs)
         ''---Dec15 2021--Public Sub How_Context_Menus_Are_Generated_EE1001
@@ -62,6 +63,53 @@ Public Class Operations_RSCRowHeaders
         System.Diagnostics.Process.Start(strPathToNotesFileTXT)
 
     End Sub ''end of "Public Sub Context_Menu_FS9121(sender As Object, e As EventArgs)"
+
+
+    Public Sub Clear_Data_From_Row_FS2801(sender As Object, e As EventArgs)
+        ''
+        ''Added 4/24/2022 thomas downes
+        ''         
+        Dim objRSCFieldColumn As RSCFieldColumnV2 ''4/9/2022 td RSCFieldColumnV1
+        Dim boolConfirmed As Boolean
+
+        boolConfirmed = (MessageBoxTD.Show_Confirmed("Clear all data from this row of the spreadsheet?",
+                                                     "(To undo, hit Cancel or select Undo.)", True))
+
+        If (boolConfirmed) Then
+            ''4/09/2022 td''For Each each_column As RSCFieldColumnV1 In Me.ParentSpreadsheet.ListOfColumns
+            For Each each_column As RSCFieldColumnV2 In Me.ParentSpreadsheet.ListOfColumns
+                objRSCFieldColumn = each_column ''---CType(each_column, RSCFieldColumn)
+                ''4/24/2022 td ''objRSCFieldColumn.ClearDataFromColumn_Do()
+                objRSCFieldColumn.ClearDataFromRow_Do(Me.RowIndex_LastClicked)
+
+            Next each_column
+        End If ''End of "If (boolConfirmed) Then"
+
+    End Sub ''end of Public Sub Clear_Data_From_Column_FS2801
+
+
+    Public Sub Delete_Row_from_Spreadsheet_FS2802(sender As Object, e As EventArgs)
+        ''
+        ''Added 4/25/2022 thomas downes
+        ''         
+        Dim objRSCFieldColumn As RSCFieldColumnV2 ''4/9/2022 td RSCFieldColumnV1
+        Dim boolConfirmed As Boolean
+
+        boolConfirmed = (MessageBoxTD.Show_Confirmed("Delete this row, thus removing (deleting) all data from this row of the spreadsheet?",
+                            "(The data-cells themselves will also be removed/invisible.)" & vbCrLf_Deux &
+                            "(Cannot be undone.)", True))
+
+        If (boolConfirmed) Then
+            ''4/09/2022 td''For Each each_column As RSCFieldColumnV1 In Me.ParentSpreadsheet.ListOfColumns
+            For Each each_column As RSCFieldColumnV2 In Me.ParentSpreadsheet.ListOfColumns
+                objRSCFieldColumn = each_column ''---CType(each_column, RSCFieldColumn)
+                ''4/24/2022 td ''objRSCFieldColumn.ClearDataFromColumn_Do()
+                objRSCFieldColumn.DeleteRow(Me.RowIndex_LastClicked)
+
+            Next each_column
+        End If ''End of "If (boolConfirmed) Then"
+
+    End Sub ''end of Public Sub Delete_Row_From_Spreadsheet_FS2802
 
 
     Public Sub Clear_Data_From_Spreadsheet_FS2001(sender As Object, e As EventArgs)

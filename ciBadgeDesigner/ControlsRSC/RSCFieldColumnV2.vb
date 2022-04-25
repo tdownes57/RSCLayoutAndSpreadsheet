@@ -853,6 +853,11 @@ Public Class RSCFieldColumnV2
         Dim intCountAllBoxesOrRows As Integer ''Added 3/23/2022 td
         Dim intCountBoxesEmptyOrNot As Integer ''Addexd 3/23/2022 td
 
+        ''Moved here from below.---4/23/2022 td
+        Dim intCountRecipients As Integer
+        intCountRecipients = Me.ListRecipients.Count
+        Load_EmptyRows(intCountRecipients)
+
         Dim intCountCellsWithData_Edited As Integer
         ''March23 2022''intCountCellsWithData = CountOfBoxesWithData()
         ''April 01 2023''intCountCellsWithData = CountOfBoxesWithData(intCountBoxesEmptyOrNot)
@@ -889,8 +894,8 @@ Public Class RSCFieldColumnV2
             Return
         End If ''End of ""If (pref_bNoRecipientList) Then""
 
-        Dim intCountRecipients As Integer
-        intCountRecipients = Me.ListRecipients.Count
+        ''Moved above. 4/23/2022 td''Dim intCountRecipients As Integer
+        ''Moved above. 4/23/2022 td''intCountRecipients = Me.ListRecipients.Count
 
         Dim boolNoRecipients_zero As Boolean
         boolNoRecipients_zero = (0 = intCountRecipients)
@@ -903,7 +908,7 @@ Public Class RSCFieldColumnV2
         ''
         ''Added 3/29/2022 thomas downes
         ''
-        Load_EmptyRows(intCountRecipients)
+        ''Moved above. 4/23/2022 td''Load_EmptyRows(intCountRecipients)
 
         CountOfBoxesWithData(intCountBoxesEmptyOrNot) ''Update the value of var. intCountBoxesEmptyOrNot.
 

@@ -724,9 +724,14 @@ Public Class RSCRowHeaders
         If (bRowIndexLocated) Then
             objTextbox = mod_listTextboxesByRow.Item(par_intRowIndex)
             ''objBottomBar = mod_listTextAndBarByRow.Item(par_intRowIndex).BottomBar
+
+            ''Added 4/25/2022 td
+            If (objTextbox.RowIndex = 0) Then objTextbox.RowIndex = par_intRowIndex
+
         Else
             ''4/4/2022 td''Dim objTextbox As New TextBox ''Added 3/29/2022 thomas downes
             objTextbox = New RSCRowHeader ''4/5/2022 TextBox ''Added 3/29/2022 thomas downes
+            objTextbox.RowIndex = par_intRowIndex ''Added 4/25/2022 td
             mod_listTextboxesByRow.Add(par_intRowIndex, objTextbox)
             ''objBottomBar = GetBottomBarForRow()
             ''Dim new_struct As New StructLabelAndRowSeparator
@@ -1020,7 +1025,8 @@ Public Class RSCRowHeaders
 
     ''End Sub
 
-    Public Sub HeaderBox_MouseUp(sender As Object, par_eArgs As MouseEventArgs) _
+    Public Sub HeaderBox_MouseUp(sender As Object, par_eArgs As MouseEventArgs,
+                                  Optional par_intRowIndex As Integer = -1) _
         Handles textRowHeader1.MouseUp, textRowHeader2.MouseUp, textRowHeader3.MouseUp,
           textRowHeader4.MouseUp, textRowHeader5.MouseUp, textRowHeader6.MouseUp,
           textRowHeader7.MouseUp, textRowHeader8.MouseUp, textRowHeader9.MouseUp,
@@ -1035,6 +1041,11 @@ Public Class RSCRowHeaders
                par_eArgs.X + controlSender.Left,
                par_eArgs.Y + controlSender.Top,
                 par_eArgs.Delta)
+
+        ''Added 4/25/2022 thomas d.
+        Dim objOperations As Operations_RSCRowHeaders
+        objOperations = CType(MyBase.mod_objOperationsAny, Operations_RSCRowHeaders)
+        objOperations.RowIndex_LastClicked = par_intRowIndex ''Added 4/25/2022 td
 
         MyBase.MoveableControl_MouseUp(Me, new_eArgs)
 

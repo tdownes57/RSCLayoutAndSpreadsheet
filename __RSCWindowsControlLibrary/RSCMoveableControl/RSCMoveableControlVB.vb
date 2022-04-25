@@ -227,7 +227,8 @@ Public Class RSCMoveableControlVB
     Private mod_iRefreshCardPreview As IRefreshCardPreview ''Added 1/30/2022 td 
 
     ''Added 12/28/2021 td
-    Private mod_objOperationsAny As Object ''Added 12/28/2021 td
+    ''4/245/2022 ''Private mod_objOperationsAny As Object ''Added 12/28/2021 td
+    Protected mod_objOperationsAny As Object ''Added 12/28/2021 td
     Private mod_typeOperations As Type ''Added 12/28/2021 td
     Private mod_enumElementType As EnumElementType ''Added 12/28/2021 td
     Private Const mc_intMarginForResize As Integer = 10 ''Added 1/12/2022

@@ -1323,6 +1323,11 @@ Public Class RSCFieldSpreadsheet
         ''
         Load_EmptyRowsToAllNewColumns()
 
+        ''
+        ''Step 9 of 9.  Add the new column to the list of columns in the cache. 
+        ''
+        Me.ColumnDataCache.ListOfColumns.Add(newRSCColumn.ColumnWidthAndData)
+
     End Sub ''End of "Public Sub InsertNewColumnByIndex(Me.ColumnIndex)"
 
 

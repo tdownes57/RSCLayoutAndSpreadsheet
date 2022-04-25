@@ -17,6 +17,7 @@ Public Structure StructRSCColumnStatistics
 
 End Structure
 
+
 Public Structure StructMeanAndDev
     ''
     ''Added 4/22/2022 thomas downes  

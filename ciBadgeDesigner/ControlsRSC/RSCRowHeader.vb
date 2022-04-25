@@ -6,6 +6,7 @@ Public Class RSCRowHeader
     ''Added 4/6/2022 thomas d
     ''
     Public ParentRSCRowHeaders As RSCRowHeaders
+    Public Property RowIndex As Integer ''Added 4/24/2022 td
 
     Private Sub textRowHeader1_Click(sender As Object, e As EventArgs) Handles textRowHeader1.Click
         ''
@@ -47,7 +48,8 @@ Public Class RSCRowHeader
         ''Added 4/6/2022 thomas d.
         If (e.Button = MouseButtons.Right) Then
             ''Added 4/6/2022 thomas d.
-            ParentRSCRowHeaders.HeaderBox_MouseUp(Me, e)
+            ''4/25/2022 td''ParentRSCRowHeaders.HeaderBox_MouseUp(Me, e)
+            ParentRSCRowHeaders.HeaderBox_MouseUp(Me, e, Me.RowIndex)
 
         ElseIf (c_bGiveHeightMsg) Then
             ''

@@ -448,39 +448,50 @@
   <ItemGroup>
     <EmbeddedResource Include="ControlsCtl\CtlAddCustomField.resx">
       <DependentUpon>CtlAddCustomField.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ControlsCtl\CtlAddStandardField.resx">
       <DependentUpon>CtlAddStandardField.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ControlsCtl\CtlConfigFldCustom.resx">
       <DependentUpon>CtlConfigFldCustom.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ControlsCtl\CtlConfigFldCustRelevancy.resx">
       <DependentUpon>CtlConfigFldCustRelevancy.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ControlsCtl\CtlConfigFldStandard.resx">
       <DependentUpon>CtlConfigFldStandard.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ControlsCtl\CtlGraphicBackground.resx">
       <DependentUpon>CtlGraphicBackground.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ControlsCtl\CtlGraphicFieldOrTextV4.resx">
       <DependentUpon>CtlGraphicFieldOrTextV4.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ControlsCtl\CtlGraphicFieldV3.resx">
       <DependentUpon>CtlGraphicFieldV3.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ControlsCtl\CtlGraphicFieldV4.resx">
       <DependentUpon>CtlGraphicFieldV4.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ControlsCtl\CtlGraphicPortrait.resx">
       <DependentUpon>CtlGraphicPortrait.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ControlsCtl\CtlGraphicQRCode.resx">
       <DependentUpon>CtlGraphicQRCode.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ControlsCtl\CtlGraphicSignature.resx">
       <DependentUpon>CtlGraphicSignature.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ControlsCtl\CtlGraphicStaticGraphic.resx">
       <DependentUpon>CtlGraphicStaticGraphic.vb</DependentUpon>

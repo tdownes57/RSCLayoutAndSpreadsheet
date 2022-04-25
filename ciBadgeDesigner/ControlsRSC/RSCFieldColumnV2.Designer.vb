@@ -80,7 +80,7 @@ Partial Class RSCFieldColumnV2
         Me.RscDataCell18.Size = New System.Drawing.Size(184, 23)
         Me.RscDataCell18.TabIndex = 85
         Me.RscDataCell18.Tag_Text = ""
-        Me.RscDataCell18.Text_CellValue = "Example"
+        Me.RscDataCell18.Text_CellValue = ""
         '
         'RscDataCell17
         '
@@ -91,7 +91,7 @@ Partial Class RSCFieldColumnV2
         Me.RscDataCell17.Size = New System.Drawing.Size(184, 23)
         Me.RscDataCell17.TabIndex = 84
         Me.RscDataCell17.Tag_Text = ""
-        Me.RscDataCell17.Text_CellValue = "Example"
+        Me.RscDataCell17.Text_CellValue = ""
         '
         'RscDataCell16
         '
@@ -103,7 +103,7 @@ Partial Class RSCFieldColumnV2
         Me.RscDataCell16.Size = New System.Drawing.Size(184, 23)
         Me.RscDataCell16.TabIndex = 83
         Me.RscDataCell16.Tag_Text = ""
-        Me.RscDataCell16.Text_CellValue = "Example"
+        Me.RscDataCell16.Text_CellValue = ""
         '
         'RscDataCell14
         '
@@ -115,7 +115,7 @@ Partial Class RSCFieldColumnV2
         Me.RscDataCell14.Size = New System.Drawing.Size(184, 23)
         Me.RscDataCell14.TabIndex = 80
         Me.RscDataCell14.Tag_Text = ""
-        Me.RscDataCell14.Text_CellValue = "Example"
+        Me.RscDataCell14.Text_CellValue = ""
         '
         'RscDataCell13
         '
@@ -127,7 +127,7 @@ Partial Class RSCFieldColumnV2
         Me.RscDataCell13.Size = New System.Drawing.Size(184, 23)
         Me.RscDataCell13.TabIndex = 79
         Me.RscDataCell13.Tag_Text = ""
-        Me.RscDataCell13.Text_CellValue = "Example"
+        Me.RscDataCell13.Text_CellValue = ""
         '
         'RscDataCell12
         '
@@ -139,7 +139,7 @@ Partial Class RSCFieldColumnV2
         Me.RscDataCell12.Size = New System.Drawing.Size(184, 23)
         Me.RscDataCell12.TabIndex = 78
         Me.RscDataCell12.Tag_Text = ""
-        Me.RscDataCell12.Text_CellValue = "Example"
+        Me.RscDataCell12.Text_CellValue = ""
         '
         'RscDataCell11
         '
@@ -151,7 +151,7 @@ Partial Class RSCFieldColumnV2
         Me.RscDataCell11.Size = New System.Drawing.Size(184, 23)
         Me.RscDataCell11.TabIndex = 77
         Me.RscDataCell11.Tag_Text = ""
-        Me.RscDataCell11.Text_CellValue = "Example"
+        Me.RscDataCell11.Text_CellValue = ""
         '
         'RscDataCell10
         '
@@ -163,7 +163,7 @@ Partial Class RSCFieldColumnV2
         Me.RscDataCell10.Size = New System.Drawing.Size(184, 23)
         Me.RscDataCell10.TabIndex = 76
         Me.RscDataCell10.Tag_Text = ""
-        Me.RscDataCell10.Text_CellValue = "Example"
+        Me.RscDataCell10.Text_CellValue = ""
         '
         'RscDataCell9
         '
@@ -174,7 +174,7 @@ Partial Class RSCFieldColumnV2
         Me.RscDataCell9.Size = New System.Drawing.Size(184, 23)
         Me.RscDataCell9.TabIndex = 75
         Me.RscDataCell9.Tag_Text = ""
-        Me.RscDataCell9.Text_CellValue = "Example"
+        Me.RscDataCell9.Text_CellValue = ""
         '
         'RscDataCell8
         '
@@ -186,7 +186,7 @@ Partial Class RSCFieldColumnV2
         Me.RscDataCell8.Size = New System.Drawing.Size(184, 23)
         Me.RscDataCell8.TabIndex = 74
         Me.RscDataCell8.Tag_Text = ""
-        Me.RscDataCell8.Text_CellValue = "Example"
+        Me.RscDataCell8.Text_CellValue = ""
         '
         'RscDataCell7
         '
@@ -198,7 +198,7 @@ Partial Class RSCFieldColumnV2
         Me.RscDataCell7.Size = New System.Drawing.Size(184, 23)
         Me.RscDataCell7.TabIndex = 73
         Me.RscDataCell7.Tag_Text = ""
-        Me.RscDataCell7.Text_CellValue = "Example"
+        Me.RscDataCell7.Text_CellValue = ""
         '
         'RscDataCell6
         '
@@ -210,7 +210,7 @@ Partial Class RSCFieldColumnV2
         Me.RscDataCell6.Size = New System.Drawing.Size(184, 23)
         Me.RscDataCell6.TabIndex = 72
         Me.RscDataCell6.Tag_Text = ""
-        Me.RscDataCell6.Text_CellValue = "Example"
+        Me.RscDataCell6.Text_CellValue = ""
         '
         'RscDataCell5
         '
@@ -222,7 +222,7 @@ Partial Class RSCFieldColumnV2
         Me.RscDataCell5.Size = New System.Drawing.Size(184, 23)
         Me.RscDataCell5.TabIndex = 71
         Me.RscDataCell5.Tag_Text = ""
-        Me.RscDataCell5.Text_CellValue = "Example"
+        Me.RscDataCell5.Text_CellValue = ""
         '
         'RscDataCell4
         '
@@ -234,7 +234,7 @@ Partial Class RSCFieldColumnV2
         Me.RscDataCell4.Size = New System.Drawing.Size(184, 23)
         Me.RscDataCell4.TabIndex = 70
         Me.RscDataCell4.Tag_Text = ""
-        Me.RscDataCell4.Text_CellValue = "Example"
+        Me.RscDataCell4.Text_CellValue = ""
         '
         'RscDataCell3
         '
@@ -246,7 +246,7 @@ Partial Class RSCFieldColumnV2
         Me.RscDataCell3.Size = New System.Drawing.Size(184, 23)
         Me.RscDataCell3.TabIndex = 69
         Me.RscDataCell3.Tag_Text = ""
-        Me.RscDataCell3.Text_CellValue = "Example"
+        Me.RscDataCell3.Text_CellValue = ""
         '
         'RscDataCell2
         '
@@ -258,7 +258,7 @@ Partial Class RSCFieldColumnV2
         Me.RscDataCell2.Size = New System.Drawing.Size(184, 23)
         Me.RscDataCell2.TabIndex = 68
         Me.RscDataCell2.Tag_Text = ""
-        Me.RscDataCell2.Text_CellValue = "Example"
+        Me.RscDataCell2.Text_CellValue = ""
         '
         'RscDataCell1
         '
@@ -270,7 +270,7 @@ Partial Class RSCFieldColumnV2
         Me.RscDataCell1.Size = New System.Drawing.Size(184, 23)
         Me.RscDataCell1.TabIndex = 67
         Me.RscDataCell1.Tag_Text = ""
-        Me.RscDataCell1.Text_CellValue = "Example"
+        Me.RscDataCell1.Text_CellValue = ""
         '
         'RscSelectCIBField1
         '
@@ -293,7 +293,7 @@ Partial Class RSCFieldColumnV2
         Me.RscDataCell15.Size = New System.Drawing.Size(184, 23)
         Me.RscDataCell15.TabIndex = 82
         Me.RscDataCell15.Tag_Text = ""
-        Me.RscDataCell15.Text_CellValue = "Example"
+        Me.RscDataCell15.Text_CellValue = ""
         '
         'RSCFieldColumnV2
         '
