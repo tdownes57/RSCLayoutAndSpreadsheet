@@ -226,6 +226,38 @@ Public Class RSCFieldSpreadsheet
     End Sub ''ENd of "Public Sub PasteData(par_stringPastedData As String)"
 
 
+    Public Sub ReviewForAbnormalLengthValues(Optional ByRef pboolOneOrMore As Boolean = False,
+                                             Optional ByVal pboolGiveMessageIfNeeded As Boolean = False)
+        ''
+        ''Added 4/26/2022 td
+        ''
+        Dim each_RSCColumn As RSCFieldColumnV2
+        Dim each_isAbnormal As Boolean
+
+        ''
+        '' Looping each column. ---4/10/2022 td
+        ''
+        For Each each_RSCColumn In mod_array_RSCColumns
+
+            each_RSCColumn.ReviewForAbnormalLengthValues(each_isAbnormal)
+            pboolOneOrMore = (pboolOneOrMore Or each_isAbnormal)
+
+        Next each_RSCColumn
+
+        ''
+        ''Possibly give a message. 
+        ''
+        If (pboolOneOrMore And pboolGiveMessageIfNeeded) Then
+
+            ''Added 4/26/2022 td 
+            MessageBoxTD.Show_Statement("Please review cell values. One of more cells have unexpected values.")
+
+        End If ''End of "If (pboolOneOrMore And pboolGiveMessageIfNeeded) Then"
+
+
+    End Sub ''End of ""Public Sub ReviewForAbnormalLengthValues()""
+
+
     Public Function GetRecipientByRowIndex(par_intRowIndex As Integer) As ciBadgeRecipients.ClassRecipient
         ''
         ''Added 4/14/2022 td

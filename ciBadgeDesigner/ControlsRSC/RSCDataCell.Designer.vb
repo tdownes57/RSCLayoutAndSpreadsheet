@@ -24,6 +24,7 @@ Partial Class RSCDataCell
     Private Sub InitializeComponent()
         Me.Textbox1a = New System.Windows.Forms.TextBox()
         Me.LinkLabelCrLf = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabelOutlier = New System.Windows.Forms.LinkLabel()
         Me.SuspendLayout()
         '
         'Textbox1a
@@ -53,10 +54,24 @@ Partial Class RSCDataCell
         Me.LinkLabelCrLf.Text = "CrLf"
         Me.LinkLabelCrLf.Visible = False
         '
+        'LinkLabelOutlier
+        '
+        Me.LinkLabelOutlier.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LinkLabelOutlier.AutoSize = True
+        Me.LinkLabelOutlier.Location = New System.Drawing.Point(110, 0)
+        Me.LinkLabelOutlier.Name = "LinkLabelOutlier"
+        Me.LinkLabelOutlier.Size = New System.Drawing.Size(37, 13)
+        Me.LinkLabelOutlier.TabIndex = 39
+        Me.LinkLabelOutlier.TabStop = True
+        Me.LinkLabelOutlier.Text = "Outlier"
+        Me.LinkLabelOutlier.Visible = False
+        '
         'RSCDataCell
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.Controls.Add(Me.LinkLabelOutlier)
         Me.Controls.Add(Me.LinkLabelCrLf)
         Me.Controls.Add(Me.Textbox1a)
         Me.Name = "RSCDataCell"
@@ -68,4 +83,5 @@ Partial Class RSCDataCell
 
     Public WithEvents Textbox1a As TextBox
     Friend WithEvents LinkLabelCrLf As LinkLabel
+    Friend WithEvents LinkLabelOutlier As LinkLabel
 End Class

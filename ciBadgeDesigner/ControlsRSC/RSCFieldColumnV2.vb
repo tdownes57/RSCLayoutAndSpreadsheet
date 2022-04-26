@@ -45,6 +45,7 @@ Public Class RSCFieldColumnV2
 
     Private Const mod_c_intPixelsFromRowToRow As Integer = 24 ''Added 4/04/2022 td
     Private mod_intPixelsFromRowToRow As Integer = 0 ''Added 4/04/2022 td
+    Private mod_statistics As New StructRSCColumnStatistics ''Added 4/26/2022 td
 
 
     Public Property PixelsFromRowToRow() As Integer
@@ -577,6 +578,12 @@ Public Class RSCFieldColumnV2
 
         Next each_RSCDataCell
 
+        ''
+        ''Build statistics to describe the general number of letters & digits in the data. 
+        ''
+        mod_statistics = ClassMathStats.GetMeanAndStdDeviation_FourStats(par_listData)
+
+
     End Sub ''End of "Private Sub LoadDataToColumn()"
 
 
@@ -740,18 +747,18 @@ Public Class RSCFieldColumnV2
         ''Added 3/20/2022 t//d//
         ''
         Dim intCountData As Integer = 0
-        Dim listRSCDataCelles As IEnumerable(Of RSCDataCell)
+        Dim listRSCDataCells As IEnumerable(Of RSCDataCell)
         Dim bMismatchOfTag As Boolean
         Dim intExamples As Integer
         Dim intCellIndex As Integer = 0
 
-        listRSCDataCelles = ListOfRSCDataCells_TopToBottom()
-        pref_countOfRows = listRSCDataCelles.Count ''Added 3/23/2022 td
+        listRSCDataCells = ListOfRSCDataCells_TopToBottom()
+        pref_countOfRows = listRSCDataCells.Count ''Added 3/23/2022 td
 
         ''
         '' Looping each cell in the column. ---4/10/2022 td
         ''
-        For Each each_RSCDataCell In listRSCDataCelles '' ListOfRSCDataCelles_TopToBottom()
+        For Each each_RSCDataCell In listRSCDataCells '' ListOfRSCDataCelles_TopToBottom()
 
             intCellIndex += 1
             ''If (Not String.IsNullOrEmpty(each_RSCDataCell.Text)) Then intCountData += 1
@@ -980,6 +987,7 @@ Public Class RSCFieldColumnV2
         Dim each_value As String
         Dim boolMiscountOfRows As Boolean
         Dim intRowsInSpreadsheet As Integer
+        Dim listValuesForStatistics As List(Of String) ''Added 4/26/2022 td
 
         listBoxes = ListOfRSCDataCells_TopToBottom()
 
@@ -1000,6 +1008,9 @@ Public Class RSCFieldColumnV2
             ''4/11 td''each_box.Text = Me.ListRecipients(intRowIndex).GetTextValue(enumFieldSelected)
             ''Added 4/11/2022 td
             each_value = Me.ListRecipients(intRowIndex).GetTextValue(enumFieldSelected)
+
+            ''Added 4/25/2022 td
+            listValuesForStatistics.Add(each_value)
 
             ''Added 4/15/2022
             Dim strCellDataBeforeLoadingRecip As String
@@ -1027,7 +1038,85 @@ Public Class RSCFieldColumnV2
 
         Next each_box
 
+        ''
+        ''Build statistics to describe the general number of letters & digits in the data. 
+        ''  --4/26/2022 td
+        ''
+        mod_statistics = ClassMathStats.GetMeanAndStdDeviation_FourStats(listValuesForStatistics)
+
+
     End Sub ''End of "Public Sub LoadRecipientList()"
+
+
+    Public Sub ReviewForAbnormalLengthValues(Optional ByRef pboolOneOrMore As Boolean = False,
+                                             Optional ByVal pboolGiveMessageIfNeeded As Boolean = False)
+        ''
+        ''Added 4/26/2022 td
+        ''
+        Dim listRSCDataCells As List(Of RSCDataCell)
+        Dim each_isAbnormal As Boolean
+
+        listRSCDataCells = ListOfRSCDataCells_TopToBottom()
+        ''---pref_countOfRows = listRSCDataCells.Count ''Added 3/23/2022 td
+
+        ''
+        '' Looping each cell in the column. ---4/10/2022 td
+        ''
+        For Each each_RSCDataCell As RSCDataCell In listRSCDataCells '' ListOfRSCDataCelles_TopToBottom()
+
+            each_RSCDataCell.ReviewForAbnormalLengthValues(each_isAbnormal)
+            pboolOneOrMore = (pboolOneOrMore Or each_isAbnormal)
+
+        Next each_RSCDataCell
+
+        ''
+        ''Possibly give a message. 
+        ''
+        If (pboolOneOrMore And pboolGiveMessageIfNeeded) Then
+
+            ''Added 4/26/2022 td 
+            MessageBoxTD.Show_Statement("Please review cell values. One of more cells have unexpected values.")
+
+        End If ''End of "If (pboolOneOrMore And pboolGiveMessageIfNeeded) Then"
+
+
+    End Sub ''End of ""Public Sub ReviewForAbnormalLengthValues()""
+
+
+    Public Function ValueIsAbnormal_Lengthy(par_value As String) As Boolean
+        ''
+        ''Added 4/26/2022 thomas downes 
+        ''
+        Dim boolTooLong As Boolean
+        Dim boolTooShort As Boolean
+
+        If (mod_statistics.Populated()) Then
+            ''---boolTooLong = ClassMathStats.UnexpectedValue(par_value, mod_statistics, boolTooLong, boolTooShort)
+            ClassMathStats.UnexpectedValue(par_value, mod_statistics,
+                                           boolTooLong, boolTooShort)
+            Return boolTooLong ''Return the modified ByRef value.  
+        End If ''End of ""If (mod_statistics.Populated()) Then""
+
+        Return False
+
+    End Function ''Endof ""Public Function ValueIsAbnormal_Lengthy(par_value As String)"
+
+
+    Public Function ValueIsAbnormal_Shorter(par_value As String) As Boolean
+        ''
+        ''Added 4/26/2022 thomas downes 
+        ''
+        Dim boolTooLong As Boolean
+        Dim boolTooShort As Boolean
+
+        If (mod_statistics.Populated()) Then
+            ClassMathStats.UnexpectedValue(par_value, mod_statistics, boolTooLong, boolTooShort)
+            Return boolTooShort
+        End If ''End of ""If (mod_statistics.Populated()) Then""
+
+        Return False
+
+    End Function ''Endof ""Public Function ValueIsAbnormal_Shorter(par_value As String)"
 
 
     Private Function ListOfData() As List(Of String)

@@ -10,10 +10,19 @@ Public Structure StructRSCColumnStatistics
     ''
     ''Added 4/22/2022 thomas downes  
     ''
-    Dim singNumDigitsMean As Single
+    '' Let's keep track of the number of digits or letters in the column values.
+    ''
+    '' At present, the case (A vs. a) of the alphabetic letter doesn't matter.
+    ''
+    Dim singNumDigitsMean As Single ''The average number of digits 0 to 9 within the column cells.
     Dim singNumDigitsStdDeviation As Single
-    Dim singNumAlphasMean As Single
+    Dim singNumAlphasMean As Single ''The average number of alphabetic letters Aa to Zz within the column cells. (Case-Insensitive)
     Dim singNumAlphasStdDeviation As Single
+
+    Public Function Populated() As Boolean
+        ''Added 4/26/2022 td
+        Return (singNumDigitsMean > 0 Or singNumAlphasMean > 0)
+    End Function
 
 End Structure
 
@@ -45,28 +54,45 @@ Public Class ClassMathStats
         boolUnexpected = (bUnexpected9s Or bUnexpectedAs)
         Return boolUnexpected
 
-    End Function
+    End Function ''End of ""Public Shared Function UnexpectedValue(par_strValue As String, par_list As List(Of String))""
 
 
-    Public Shared Function UnexpectedValue(par_strValue As String, par_mean_data As StructRSCColumnStatistics) As Boolean ''StructMeanAndDev
+    Public Shared Function UnexpectedValue(par_strValue As String,
+                                           par_mean_data As StructRSCColumnStatistics,
+                                            ByRef pref_TooLong As Boolean,
+                                            ByRef pref_TooShort As Boolean) As Boolean ''StructMeanAndDev
         ''
         ''Added 4/22/2022 thomas downes  
         ''
         Dim boolUnexpected As Boolean
-        Dim bUnexpected9s As Boolean
-        Dim bUnexpectedAs As Boolean
+        Dim bUnexpected9s As Boolean ''Unexpected count of numerical digits.
+        Dim bUnexpectedZs As Boolean ''Unexpected count of alphabetical characters.
 
-        bUnexpected9s = UnexpectedAmountOf_Digits(par_strValue, par_mean_data)
-        bUnexpectedAs = UnexpectedAmountOf_Alphas(par_strValue, par_mean_data)
+        Dim bTooMany9s As Boolean ''Too many numerical digits.  Added 4/26/2022 td
+        Dim bTooFew9s As Boolean ''Too few numerical digits.  Added 4/26/2022 td
+        Dim bTooManyZs As Boolean ''Too many alphabetical characters.  Added 4/26/2022 td
+        Dim bTooFewZs As Boolean ''Too few alphabetical characters.  Added 4/26/2022 td
 
-        boolUnexpected = (bUnexpected9s Or bUnexpectedAs)
+        ''bUnexpected9s = UnexpectedAmountOf_Digits(par_strValue, par_mean_data)
+        ''bUnexpectedAs = UnexpectedAmountOf_Alphas(par_strValue, par_mean_data)
+        bUnexpected9s = UnexpectedAmountOf_Digits(par_strValue, par_mean_data, bTooMany9s, bTooFew9s)
+        bUnexpectedZs = UnexpectedAmountOf_Alphas(par_strValue, par_mean_data, bTooManyZs, bTooFewZs)
+
+        ''Added 4/26/2022 td
+        pref_TooLong = (bTooMany9s Or bTooManyZs)
+        pref_TooShort = (bTooFew9s Or bTooFewZs)
+
+        boolUnexpected = (bUnexpected9s Or bUnexpectedZs)
         Return boolUnexpected
 
-    End Function
+    End Function ''End of ""Public Shared Function UnexpectedValue(par_strValue As String, par_mean_data As StructRSCColumnStatistics) As Boolean""
 
 
 
-    Public Shared Function UnexpectedAmountOf_Digits(par_strValue As String, par_dataStats As StructRSCColumnStatistics) As Boolean ''StructMeanAndDev
+    Public Shared Function UnexpectedAmountOf_Digits(par_strValue As String,
+                                                     par_dataStats As StructRSCColumnStatistics,
+                                                     ByRef pref_TooLong As Boolean,
+                                                     ByRef pref_TooShort As Boolean) As Boolean ''StructMeanAndDev
         ''
         ''Added 4/22/2022 thomas downes  
         ''
@@ -82,13 +108,20 @@ Public Class ClassMathStats
         boolLessThanStdDev = (intCountDigits < (par_dataStats.singNumDigitsMean - par_dataStats.singNumDigitsStdDeviation))
         boolMoreThanStdDev = (intCountDigits > (par_dataStats.singNumDigitsMean + par_dataStats.singNumDigitsStdDeviation))
 
+        ''Added 4/26/2022
+        pref_TooLong = boolMoreThanStdDev
+        pref_TooShort = boolLessThanStdDev
+
         boolIsAnOutlier = (boolLessThanStdDev Or boolMoreThanStdDev)
         Return boolIsAnOutlier
 
     End Function ''End of ""Public Shared Function UnexpectedAmountOf_Digits""
 
 
-    Public Shared Function UnexpectedAmountOf_Alphas(par_strValue As String, par_dataStats As StructRSCColumnStatistics) As Boolean ''StructMeanAndDev
+    Public Shared Function UnexpectedAmountOf_Alphas(par_strValue As String,
+                                                     par_dataStats As StructRSCColumnStatistics,
+                                                     ByRef pref_TooLong As Boolean,
+                                                     ByRef pref_TooShort As Boolean) As Boolean ''StructMeanAndDev
         ''
         ''Added 4/22/2022 thomas downes  
         ''
@@ -105,6 +138,10 @@ Public Class ClassMathStats
             boolLessThanStdDev = (intCountDigits < (.singNumAlphasMean - .singNumAlphasStdDeviation))
             boolMoreThanStdDev = (intCountDigits > (.singNumAlphasMean + .singNumAlphasStdDeviation))
         End With
+
+        ''Added 4/26/2022
+        pref_TooLong = boolMoreThanStdDev
+        pref_TooShort = boolLessThanStdDev
 
         boolIsAnOutlier = (boolLessThanStdDev Or boolMoreThanStdDev)
         Return boolIsAnOutlier

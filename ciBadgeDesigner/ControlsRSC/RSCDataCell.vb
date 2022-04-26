@@ -238,6 +238,28 @@ Public Class RSCDataCell
     End Sub ''End of ""Public Sub SetFocus()""
 
 
+    Public Sub ReviewForAbnormalLengthValues(ByRef pboolHasAbnormalLength As Boolean)
+        ''
+        ''Added 4/26/2022 td
+        ''
+        Dim bAbnormal_Lengthy As Boolean
+        Dim bAbnormal_Shorter As Boolean
+        Dim boolAbnormal As Boolean
+
+        bAbnormal_Lengthy = Me.ParentColumn.ValueIsAbnormal_Lengthy(Me.Text_CellValue)
+        bAbnormal_Shorter = Me.ParentColumn.ValueIsAbnormal_Shorter(Me.Text_CellValue)
+        boolAbnormal = (bAbnormal_Lengthy Or bAbnormal_Shorter)
+        pboolHasAbnormalLength = boolAbnormal
+
+        ''--LinkLabelOutlier_LinkClicked(LinkLabelOutlier, event_args)
+        LinkLabelOutlier.Visible = boolAbnormal
+
+        If (bAbnormal_Lengthy) Then Textbox1a.BackColor = Drawing.Color.Beige
+        If (bAbnormal_Shorter) Then Textbox1a.BackColor = Drawing.Color.LightCoral
+
+    End Sub ''End of ""Public Sub ReviewForAbnormalValues()""
+
+
     Private Sub Textbox1a_TextChanged(sender As Object, e As EventArgs) Handles Textbox1a.TextChanged
         ''
         ''Added 4/12/2022 td
@@ -393,4 +415,40 @@ Public Class RSCDataCell
         End If ''If (e.KeyCode = Keys.Tab) Then
 
     End Sub
+
+    Private Sub LinkLabelOutlier_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelOutlier.LinkClicked
+
+        ''Added 4/26/2022 thomas downes 
+        Dim bAbnormal_Lengthy As Boolean
+        Dim bAbnormal_Shorter As Boolean
+        Dim boolAbnormal As Boolean
+        Dim strAbnormalWord As String = ""
+
+        bAbnormal_Lengthy = Me.ParentColumn.ValueIsAbnormal_Lengthy(Me.Text_CellValue)
+        bAbnormal_Shorter = Me.ParentColumn.ValueIsAbnormal_Shorter(Me.Text_CellValue)
+        boolAbnormal = (bAbnormal_Lengthy Or bAbnormal_Shorter)
+
+        If (bAbnormal_Lengthy) Then strAbnormalWord = "many"
+        If (bAbnormal_Shorter) Then strAbnormalWord = "few"
+
+        If (boolAbnormal) Then
+
+            ''Added 4/26/2022 thomas downes 
+            MessageBoxTD.Show_InsertWordFormat_Line1(strAbnormalWord,
+                "There are unexpectedly {0} characters in this box.",
+                "(This is only a warning, not a mandatory fix.)")
+
+        Else
+            ''Added 4/26/2022 thomas downes 
+            Textbox1a.BackColor = Drawing.Color.White
+            LinkLabelOutlier.Visible = False ''The linklabel should NOT appear here.
+            MessageBoxTD.Show_Statement("Sorry..." &
+                "This message doesn't apply.",
+                "(The value has a normal length. The hyperlink is removed.)")
+
+        End If ''End of ""If (boolAbnormal) Then... Else..."
+
+    End Sub
+
+
 End Class
