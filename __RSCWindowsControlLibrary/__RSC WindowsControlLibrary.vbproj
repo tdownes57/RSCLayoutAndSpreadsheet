@@ -101,11 +101,17 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="RSCClickableDesktop\RSCClickableDesktop.Designer.vb">
+    <Compile Include="RSCClickable\RSCClickableDesktop.Designer.vb">
       <DependentUpon>RSCClickableDesktop.vb</DependentUpon>
     </Compile>
-    <Compile Include="RSCClickableDesktop\RSCClickableDesktop.vb">
+    <Compile Include="RSCClickable\RSCClickableDesktop.vb">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RSCClickable\RSCRightClickable.Designer.vb">
+      <DependentUpon>RSCRightClickable.vb</DependentUpon>
+    </Compile>
+    <Compile Include="RSCClickable\RSCRightClickable.vb">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="RSCEditableControl\RSC_IDEditor.Designer.vb">
       <DependentUpon>RSC_IDEditor.vb</DependentUpon>
@@ -145,8 +151,11 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="RSCClickableDesktop\RSCClickableDesktop.resx">
+    <EmbeddedResource Include="RSCClickable\RSCClickableDesktop.resx">
       <DependentUpon>RSCClickableDesktop.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RSCClickable\RSCRightClickable.resx">
+      <DependentUpon>RSCRightClickable.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RSCEditableControl\RSC_IDEditor.resx">
       <DependentUpon>RSC_IDEditor.vb</DependentUpon>

@@ -34,6 +34,7 @@ Public Class RSCFieldColumnV2
 
     ''Added 4/04/2022 thomas downes
     Private mod_listRSCDataCellsByRow As New Dictionary(Of Integer, RSCDataCell) ''4/8/2022 RSCDataCell)
+    Private mod_listDeletedRSCDataCells As List(Of RSCDataCell) ''Added 4/25/2022 thomas d.
 
     ''Added 4/04/2022 thomas downes
     ''Private Structure StructTextboxAndRowSeparator
@@ -692,7 +693,44 @@ Public Class RSCFieldColumnV2
 
         Return intCountData
 
-    End Function ''End of "Private Sub LoadDataToColumn_Do()"
+    End Function ''End of "Public Function CountOfBoxesWithData()"
+
+
+    Public Sub DeleteRow_ByRowIndex(par_intRowIndex As Integer)
+        ''
+        '' Added 4/25/2022 thomas d. 
+        ''
+        Dim objRSCDataCell As RSCDataCell
+
+        objRSCDataCell = GetCellWithRowIndex(par_intRowIndex) ''.Text_CellValue = ""
+
+        objRSCDataCell.Text_CellValue = ""
+        objRSCDataCell.Visible = False
+        mod_listRSCDataCellsByRow.Remove(par_intRowIndex)
+        Me.Controls.Remove(objRSCDataCell)
+
+        ''
+        ''Exit Handler....
+        ''
+        objRSCDataCell.RowIndex_NeededIfDeleted = par_intRowIndex
+        If (mod_listDeletedRSCDataCells Is Nothing) Then
+            mod_listDeletedRSCDataCells = New List(Of RSCDataCell)
+        End If ''End of ""If (mod_listDeletedRSCDataCells Is Nothing) Then""
+
+        ''Make a record of the deletion. 
+        mod_listDeletedRSCDataCells.Add(objRSCDataCell)
+
+    End Sub ''End of ""Public Sub DeleteRow_ByRowIndex(par_intRowIndex As Integer)""
+
+
+    Public Sub ClearRow_ByRowIndex(par_intRowIndex As Integer)
+        ''
+        '' Added 4/25/2022 thomas d. 
+        ''
+        GetCellWithRowIndex(par_intRowIndex).Text_CellValue = ""
+
+
+    End Sub ''End of ""Public Sub ClearRow_ByRowIndex(par_intRowIndex As Integer)""
 
 
     Public Function CountOfBoxesWithData_Edited(Optional ByRef pref_countOfRows As Integer = 0,
@@ -1174,6 +1212,15 @@ Public Class RSCFieldColumnV2
         Return -1
 
     End Function ''End of ""Public Function GetRowIndexOfCell(par_cell As RSCDataCell) As Integer""
+
+
+    Public Function GetRSCDataCell_ByRowIndex(par_intRowIndex As Integer) As RSCDataCell
+        ''
+        ''Added 4/12/2022 thomas downes
+        ''
+        Return GetCellWithRowIndex(par_intRowIndex)
+
+    End Function ''End of ""Public Function GetRSCDataCell_ByWithRowIndex() As RSCDataCell""
 
 
     Public Function GetCellWithRowIndex(par_intRowIndex As Integer) As RSCDataCell

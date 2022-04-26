@@ -17,6 +17,7 @@ Public Class RSCDataCell
     Public ParentColumn As RSCFieldColumnV2 ''Added 4/12/2022 td
     Public Recipient As ciBadgeRecipients.ClassRecipient ''Added 4/12/2022 td
     Public Shared CellOfKeyDownTabKey As RSCDataCell ''Added 4/12/2022 td
+    Public RowIndex_NeededIfDeleted As Integer ''Added 4/25/2022 td
 
     Public Overrides Property Text() As String
         Get

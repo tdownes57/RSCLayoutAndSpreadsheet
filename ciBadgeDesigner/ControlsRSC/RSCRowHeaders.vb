@@ -192,6 +192,25 @@ Public Class RSCRowHeaders
     End Function ''end of "Public Shared Function GetRSCRowHeaders() As RSCRowHeaders"
 
 
+    Public Function GetRowIndex_OfHeader(par_oRowHeader As RSCRowHeader) As Integer
+        ''
+        ''Added 4/25/2025 thomas downes
+        ''
+        ''---For Each obj_header As RSCRowHeader In mod_listTextboxesByRow.
+        Dim each_header As RSCRowHeader
+
+        ''Added 4/25/2022 td
+        For Each each_key As Integer In mod_listTextboxesByRow.Keys
+            each_header = mod_listTextboxesByRow.Values(each_key)
+            If (each_header Is par_oRowHeader) Then
+                Return CInt(each_key)
+            End If ''End of ""If (each_header Is par_oRowHeader) Then""
+        Next each_key ''----obj_header
+        Return -1
+
+    End Function ''End of ""Public Function GetRowIndex_OfHeader(par_oRowHeader As RSCRowHeader) As Integer""
+
+
     Public Sub New()
 
         ' This call is required by the designer.

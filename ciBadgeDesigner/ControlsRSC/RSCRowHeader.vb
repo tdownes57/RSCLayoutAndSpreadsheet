@@ -49,6 +49,11 @@ Public Class RSCRowHeader
         If (e.Button = MouseButtons.Right) Then
             ''Added 4/6/2022 thomas d.
             ''4/25/2022 td''ParentRSCRowHeaders.HeaderBox_MouseUp(Me, e)
+
+            ''Added 4/25/2022 td
+            If (Me.RowIndex <= 0) Then Me.RowIndex = Me.ParentRSCRowHeaders.GetRowIndexOfHeader(Me)
+
+            ''Added 4/25/2022 td
             ParentRSCRowHeaders.HeaderBox_MouseUp(Me, e, Me.RowIndex)
 
         ElseIf (c_bGiveHeightMsg) Then

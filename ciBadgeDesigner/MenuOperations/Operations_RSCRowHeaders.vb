@@ -80,7 +80,17 @@ Public Class Operations_RSCRowHeaders
             For Each each_column As RSCFieldColumnV2 In Me.ParentSpreadsheet.ListOfColumns
                 objRSCFieldColumn = each_column ''---CType(each_column, RSCFieldColumn)
                 ''4/24/2022 td ''objRSCFieldColumn.ClearDataFromColumn_Do()
-                objRSCFieldColumn.ClearDataFromRow_Do(Me.RowIndex_LastClicked)
+                ''4/25/2022 td ''objRSCFieldColumn.ClearDataFromRow_Do(Me.RowIndex_LastClicked)
+
+                ''Added 4/25/2022 thomas downes
+                Dim intRowIndex As Integer
+                intRowIndex = Me.RowIndex_LastClicked
+                If (intRowIndex > 0) Then
+                    ''Added 4/25/2022 thomas downes
+                    System.Diagnostics.Debugger.Break()
+                ElseIf (intRowIndex > 0) Then
+                    objRSCFieldColumn.ClearRow_ByRowIndex(intRowIndex) '' Me.RowIndex_LastClicked)
+                End If ''End of ""If (intRowIndex > 0) Then""
 
             Next each_column
         End If ''End of "If (boolConfirmed) Then"
@@ -104,7 +114,7 @@ Public Class Operations_RSCRowHeaders
             For Each each_column As RSCFieldColumnV2 In Me.ParentSpreadsheet.ListOfColumns
                 objRSCFieldColumn = each_column ''---CType(each_column, RSCFieldColumn)
                 ''4/24/2022 td ''objRSCFieldColumn.ClearDataFromColumn_Do()
-                objRSCFieldColumn.DeleteRow(Me.RowIndex_LastClicked)
+                objRSCFieldColumn.DeleteRow_ByRowIndex(Me.RowIndex_LastClicked)
 
             Next each_column
         End If ''End of "If (boolConfirmed) Then"
