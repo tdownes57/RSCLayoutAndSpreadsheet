@@ -1131,6 +1131,15 @@ Public Class RSCFieldColumnV2
     End Function ''Endof ""Public Function ValueIsAbnormal_Shorter(par_value As String)"
 
 
+    Public Sub ReviewColumnDisplayForRelevantFields(par_dictionary As Dictionary(Of EnumCIBFields, Integer))
+        ''
+        ''Added 4/26/2022 thomas 
+        ''
+
+
+    End Sub ''End of ""Public Sub ReviewColumnDisplayForRelevantFields""
+
+
     Private Function ListOfData() As List(Of String)
         ''
         ''Added 3/18/2022 td   

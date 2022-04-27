@@ -182,6 +182,51 @@ Public Class RSCDataCell
     End Sub ''End of ""Public Sub SaveDataToRecipientField(enumCIBField As EnumCIBFields)""
 
 
+    Public Sub LoadDelimitedData(par_strDelimited As String)
+        ''
+        ''Added 4/26/2022 thomas downes
+        ''
+        Dim boolHasCrLfCharacter As Boolean ''Added 4/12/2022 td
+        Dim boolHasCrCharacter As Boolean ''Added 4/12/2022 td
+        Dim strRemainingAfterDelimiter As String ''Added 4/26/2022 td 
+
+        With par_strDelimited
+
+            boolHasCrLfCharacter = par_strDelimited.Contains(vbCr) ''//Then
+            boolHasCrCharacter = par_strDelimited.Contains(vbCr) ''//Then
+
+            If (boolHasCrLfCharacter) Then
+
+                ''Parse the tabbed values.  
+                strRemainingAfterDelimiter = .Substring(1 + .IndexOf(vbCrLf))
+                Dim objNextCell As RSCDataCell
+                objNextCell = Me.GetNextCell_Down()
+                If (objNextCell IsNot Nothing) Then objNextCell.LoadDelimitedData(strRemainingAfterDelimiter)
+                ''Textbox1a.Text = .Substring(0, .IndexOf(vbCrLf))
+                LoadTabbedData(.Substring(0, .IndexOf(vbCrLf)))
+
+            ElseIf (boolHasCrCharacter) Then
+
+                ''Parse the tabbed values.  
+                strRemainingAfterDelimiter = .Substring(1 + .IndexOf(vbCr))
+                Dim objNextCell As RSCDataCell
+                objNextCell = Me.GetNextCell_Down()
+                If (objNextCell IsNot Nothing) Then objNextCell.LoadDelimitedData(strRemainingAfterDelimiter)
+                ''Textbox1a.Text = .Substring(0, .IndexOf(vbCr))
+                LoadTabbedData(.Substring(0, .IndexOf(vbCr)))
+
+            Else
+
+                LoadTabbedData(par_strDelimited)
+
+            End If ''End of ""If (boolHasCrLfCharacter) Then .... ElseIf .... Else...
+
+        End With
+
+
+    End Sub ''End of ""Public Sub LoadDelimitedData(par_strDelimited As String)""
+
+
     Public Sub LoadTabbedData(par_strTabbed As String)
         ''
         ''Added 4/13/2022 thomas downes
@@ -264,11 +309,20 @@ Public Class RSCDataCell
         ''
         ''Added 4/12/2022 td
         ''
+        Dim boolHasCrCharacter As Boolean ''Added 4/27/2022 td
         Dim boolHasTabCharacter As Boolean ''Added 4/12/2022 td
         Dim strPostTabLine As String ''Added 4/12/2022 td
 
+        boolHasCrCharacter = Textbox1a.Text.Contains(vbCr) ''//Then
         boolHasTabCharacter = Textbox1a.Text.Contains(vbTab) ''//Then
-        If (boolHasTabCharacter) Then
+
+        If (boolHasCrCharacter) Then
+            ''
+            ''Added 4/27/2022
+            ''
+            LoadDelimitedData(Textbox1a.Text)
+
+        ElseIf (boolHasTabCharacter) Then
             ''
             ''Check to see if the user has typed the text value and then pressed
             ''   the "Enter" key, as if to finalize the cell-editing work.
@@ -298,32 +352,32 @@ Public Class RSCDataCell
 
         End If ''End of ""If (boolHasTabCharacter) Then""
 
-        Dim boolHasCrLf As Boolean ''Added 4/12/2022 td
-        boolHasCrLf = Textbox1a.Text.Contains(vbCr) ''//Then
-        If (boolHasCrLf) Then
-            ''
-            ''Check to see if the user has typed the text value and then pressed
-            ''   the "Enter" key, as if to finalize the cell-editing work.
-            ''   ---4/12/2022 td
-            ''
-            Dim bCrLfIsLastChars As Boolean ''Added 4/12/2022 td
+        ''Dim boolHasCrLf As Boolean ''Added 4/12/2022 td
+        ''boolHasCrLf = Textbox1a.Text.Contains(vbCr) ''//Then
+        ''If (boolHasCrLf) Then
+        ''    ''
+        ''    ''Check to see if the user has typed the text value and then pressed
+        ''    ''   the "Enter" key, as if to finalize the cell-editing work.
+        ''    ''   ---4/12/2022 td
+        ''    ''
+        ''    Dim bCrLfIsLastChars As Boolean ''Added 4/12/2022 td
 
-            With Textbox1a.Text
-                bCrLfIsLastChars = (.IndexOf(vbCrLf) = (.Length - 1 - vbCrLf.Length + 1))
-                If bCrLfIsLastChars Then
-                    ''Remove the Cr-Lf combination of characters.
-                    Textbox1a.Text = .Substring(0, .Length - vbCrLf.Length)
-                    ''Move the focus to the next cell below. 
-                    GetNextCell_Down().SetFocus()
-                    Exit Sub
-                Else
-                    LinkLabelCrLf.Visible = boolHasCrLf
-                End If ''End of ""If bCrLfIsLastChars Then.... Else ....""
-            End With ''End of ""With Textbox1a.Text""
+        ''    With Textbox1a.Text
+        ''        bCrLfIsLastChars = (.IndexOf(vbCrLf) = (.Length - 1 - vbCrLf.Length + 1))
+        ''        If bCrLfIsLastChars Then
+        ''            ''Remove the Cr-Lf combination of characters.
+        ''            Textbox1a.Text = .Substring(0, .Length - vbCrLf.Length)
+        ''            ''Move the focus to the next cell below. 
+        ''            GetNextCell_Down().SetFocus()
+        ''            Exit Sub
+        ''        Else
+        ''            LinkLabelCrLf.Visible = boolHasCrLf
+        ''        End If ''End of ""If bCrLfIsLastChars Then.... Else ....""
+        ''    End With ''End of ""With Textbox1a.Text""
 
-            ''Moved into condition above. ''LinkLabelCrLf.Visible = boolHasCrLf
+        ''    ''Moved into condition above. ''LinkLabelCrLf.Visible = boolHasCrLf
 
-        End If ''End of ""If (boolHasCrLf) Then""
+        ''End If ''End of ""If (boolHasCrLf) Then""
 
     End Sub
 
@@ -397,7 +451,25 @@ Public Class RSCDataCell
 
         End Select ''End of ""Select Case e.KeyCode""
 
-        If (objNextCell IsNot Nothing) Then
+        ''
+        ''Check to see if the user might like to see additional, hidden lines
+        ''  of text (in case the Textbox value contains carriage-return 
+        ''  characters).  
+        ''
+        Dim boolHasCrLf As Boolean
+        Dim bPressedUpOrDownKey As Boolean
+        Dim bMaybeUserNeedsToReviewLines As Boolean
+        boolHasCrLf = Textbox1a.Text.Contains(vbCr)
+        bPressedUpOrDownKey = ((e.KeyCode = Keys.Up) Or (e.KeyCode = Keys.Down))
+        bMaybeUserNeedsToReviewLines = (boolHasCrLf And bPressedUpOrDownKey)
+
+        If (bMaybeUserNeedsToReviewLines) Then
+            ''
+            ''Do nothing. Allow the textbox to perform its default behavior,
+            ''  which is to display the next line of CrLf-separated text. 
+            ''  ----4/26/2022 td
+            ''
+        ElseIf (objNextCell IsNot Nothing) Then
             objNextCell.SetFocus()
         End If ''End of "If (objNextCell IsNot Nothing) Then"
 
@@ -477,9 +549,10 @@ Public Class RSCDataCell
         If (diag_result = DialogResult.OK) Then
 
             If (String.IsNullOrWhiteSpace(strEditedValue)) Then
-
-                boolConfirmWhitespace = MessageBoxTD.Show_Confirmed("Oops!? You have no visible characters.",
-                                                          "Hit ""Cancel"" to stop & try again.", False)
+                ''Double-check w/ the user. 
+                boolConfirmWhitespace =
+                    MessageBoxTD.Show_Confirmed("Oops!? You have no visible characters.",
+                                      "Hit ""Cancel"" to stop & try again.", False)
 
             Else
                 ''Textbox1a.Text = strEditedValue
@@ -492,7 +565,10 @@ Public Class RSCDataCell
             ''  if it's been confirmed).
             ''
             If (boolConfirmWhitespace) Then
+                ''Implement the edited value.  
                 Textbox1a.Text = strEditedValue
+                LinkLabelCrLf.Visible = strEditedValue.Contains(vbCr)
+
             End If ''ENd of "If (boolConfirmWhitespace) Then"
 
         End If ''End of ""If (diag_result = DialogResult.OK) Then""

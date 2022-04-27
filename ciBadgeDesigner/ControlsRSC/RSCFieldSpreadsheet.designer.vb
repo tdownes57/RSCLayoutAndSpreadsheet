@@ -26,6 +26,8 @@ Partial Class RSCFieldSpreadsheet
         Me.LinkLabelReviewFields = New System.Windows.Forms.LinkLabel()
         Me.RscFieldColumn1 = New ciBadgeDesigner.RSCFieldColumnV2()
         Me.RscRowHeaders1 = New ciBadgeDesigner.RSCRowHeaders()
+        Me.ButtonPasteData = New System.Windows.Forms.Button()
+        Me.ButtonAddColumns = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'LinkLabelRightClickMenu
@@ -80,6 +82,24 @@ Partial Class RSCFieldSpreadsheet
         Me.RscRowHeaders1.Size = New System.Drawing.Size(94, 437)
         Me.RscRowHeaders1.TabIndex = 8
         '
+        'ButtonPasteData
+        '
+        Me.ButtonPasteData.Location = New System.Drawing.Point(0, 19)
+        Me.ButtonPasteData.Name = "ButtonPasteData"
+        Me.ButtonPasteData.Size = New System.Drawing.Size(90, 26)
+        Me.ButtonPasteData.TabIndex = 10
+        Me.ButtonPasteData.Text = "Paste Data"
+        Me.ButtonPasteData.UseVisualStyleBackColor = True
+        '
+        'ButtonAddColumns
+        '
+        Me.ButtonAddColumns.Location = New System.Drawing.Point(0, 51)
+        Me.ButtonAddColumns.Name = "ButtonAddColumns"
+        Me.ButtonAddColumns.Size = New System.Drawing.Size(90, 26)
+        Me.ButtonAddColumns.TabIndex = 11
+        Me.ButtonAddColumns.Text = "Add Columns"
+        Me.ButtonAddColumns.UseVisualStyleBackColor = True
+        '
         'RSCFieldSpreadsheet
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -87,6 +107,8 @@ Partial Class RSCFieldSpreadsheet
         Me.AutoScroll = True
         Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.Controls.Add(Me.ButtonAddColumns)
+        Me.Controls.Add(Me.ButtonPasteData)
         Me.Controls.Add(Me.RscFieldColumn1)
         Me.Controls.Add(Me.RscRowHeaders1)
         Me.Controls.Add(Me.LinkLabelReviewFields)
@@ -102,4 +124,6 @@ Partial Class RSCFieldSpreadsheet
     Friend WithEvents LinkLabelReviewFields As LinkLabel
     Public WithEvents RscRowHeaders1 As RSCRowHeaders
     Public WithEvents RscFieldColumn1 As RSCFieldColumnV2
+    Friend WithEvents ButtonPasteData As Button
+    Friend WithEvents ButtonAddColumns As Button
 End Class

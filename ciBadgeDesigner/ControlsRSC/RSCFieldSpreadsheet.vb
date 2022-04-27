@@ -279,8 +279,25 @@ Public Class RSCFieldSpreadsheet
 
         Return -1
 
-    End Function
+    End Function ''end of Public Function GetIndexOfColumn(par_column As RSCFieldColumnV2) As Integer
 
+
+    Public Sub ReviewColumnDisplayForRelevantFields()
+        ''
+        ''Added 4/26/2022 thomas 
+        ''
+        Dim dictionaryFieldsToColumnIndex As New Dictionary(Of EnumCIBFields, Integer)
+        Dim eachRSCColumn As RSCFieldColumnV2
+
+        For Each eachRSCColumn In mod_array_RSCColumns
+
+            eachRSCColumn.ReviewColumnDisplayForRelevantFields(dictionaryFieldsToColumnIndex)
+
+        Next eachRSCColumn
+
+
+
+    End Sub ''End of ""Public Sub ReviewColumnDisplayForRelevantFields()""
 
 
     Private Function ReviewPastedData_IsOkay(par_stringPastedData As String,

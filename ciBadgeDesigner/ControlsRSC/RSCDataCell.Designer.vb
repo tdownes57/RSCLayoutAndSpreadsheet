@@ -45,6 +45,7 @@ Partial Class RSCDataCell
         '
         Me.LinkLabelCrLf.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.LinkLabelCrLf.AutoSize = True
+        Me.LinkLabelCrLf.BackColor = System.Drawing.Color.Transparent
         Me.LinkLabelCrLf.Location = New System.Drawing.Point(121, 0)
         Me.LinkLabelCrLf.Name = "LinkLabelCrLf"
         Me.LinkLabelCrLf.Size = New System.Drawing.Size(26, 13)
@@ -57,6 +58,7 @@ Partial Class RSCDataCell
         '
         Me.LinkLabelOutlier.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.LinkLabelOutlier.AutoSize = True
+        Me.LinkLabelOutlier.BackColor = System.Drawing.Color.Transparent
         Me.LinkLabelOutlier.Location = New System.Drawing.Point(110, 0)
         Me.LinkLabelOutlier.Name = "LinkLabelOutlier"
         Me.LinkLabelOutlier.Size = New System.Drawing.Size(37, 13)
