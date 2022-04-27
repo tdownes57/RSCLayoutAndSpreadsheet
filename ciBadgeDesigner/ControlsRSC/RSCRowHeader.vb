@@ -51,7 +51,9 @@ Public Class RSCRowHeader
             ''4/25/2022 td''ParentRSCRowHeaders.HeaderBox_MouseUp(Me, e)
 
             ''Added 4/25/2022 td
-            If (Me.RowIndex <= 0) Then Me.RowIndex = Me.ParentRSCRowHeaders.GetRowIndexOfHeader(Me)
+            If (Me.RowIndex <= 0) Then
+                Me.RowIndex = Me.ParentRSCRowHeaders.GetRowIndex_OfHeader(Me)
+            End If ''End If (Me.RowIndex <= 0) Then
 
             ''Added 4/25/2022 td
             ParentRSCRowHeaders.HeaderBox_MouseUp(Me, e, Me.RowIndex)

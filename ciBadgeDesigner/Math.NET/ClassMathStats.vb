@@ -24,6 +24,30 @@ Public Structure StructRSCColumnStatistics
         Return (singNumDigitsMean > 0 Or singNumAlphasMean > 0)
     End Function
 
+    Public Function Description() As String
+        ''Added 4/26/2022 td
+
+        Dim strLine1 As String = String.Format("The common number of digits is {0, 0.0}.", singNumDigitsMean)
+        Dim strLine2 As String = String.Format("The common number of alphabetical letters is {0, 0.0}.", singNumAlphasMean)
+
+        Dim strLine3 As String = String.Format("The standard deviation in count of digits is {0, 0.0}.", singNumDigitsStdDeviation)
+        Dim strLine4 As String = String.Format("The standard deviation in count of alphabetical letters is {0, 0.0}.", singNumAlphasStdDeviation)
+
+        Dim strLine5 As String = String.Format("The standard range of digit counts is {0, 0.0} to {1, 0.0}.",
+                                               singNumDigitsMean - singNumDigitsStdDeviation,
+                                               singNumDigitsMean + singNumDigitsStdDeviation)
+
+        Dim strLine6 As String = String.Format("The standard range of alphabetical letters is {0, 0.0} to {1, 0.0}.",
+                                                  singNumAlphasMean - singNumAlphasStdDeviation,
+                                                  singNumAlphasMean + singNumAlphasStdDeviation)
+
+        Return (strLine1 & vbCrLf & strLine2 & vbCrLf_Deux &
+                strLine3 & vbCrLf & strLine4 & vbCrLf_Deux &
+                strLine5 & vbCrLf & strLine6)
+
+    End Function ''End of ""Public Function Description() As String""
+
+
 End Structure
 
 

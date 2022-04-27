@@ -178,5 +178,38 @@ Public Class MessageBoxTD
     End Function ''End of "Public Shared Function Show_Confirmed"
 
 
+    Public Shared Function Show_Editor(pstrHeading As String,
+                                       pstrOriginalTextToEdit As String,
+                 psingFactorWidth As Single,
+                 psingFactorHeight As Single,
+                 ByRef pstrFinalEditedText As String) As DialogResult
+        ''
+        ''Added 12/28/2021 thomas downes
+        ''
+        Dim formToShow As FormTextEditor
+
+        formToShow = New FormTextEditor(pstrHeading,
+                                     psingFactorWidth, psingFactorHeight,
+                                      pstrOriginalTextToEdit)
+
+        formToShow.ShowDialog()
+
+        ''If (formToShow.DialogResult = DialogResult.Cancel) Then Return -1
+        ''If (formToShow.DialogResult <> DialogResult.OK) Then Return -1
+
+        If (formToShow.DialogResult = DialogResult.OK) Then
+
+            pstrFinalEditedText = formToShow.EditedOutputValue
+
+        Else
+            ''Return the original text, unedited. 
+            pstrFinalEditedText = pstrOriginalTextToEdit
+
+        End If ''End of ""If (formToShow.DialogResult = ......)
+
+        Return formToShow.DialogResult
+
+    End Function ''End of "Public Shared Function Show_Editor"
+
 
 End Class

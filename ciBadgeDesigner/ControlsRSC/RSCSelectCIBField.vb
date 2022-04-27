@@ -50,6 +50,16 @@ Public Class RSCSelectCIBField
     End Property
 
 
+    Public Sub DisplayColumnIndex(par_intColumnIndex As Integer)
+        ''
+        ''Added 4/26/2022 thomas 
+        ''
+        ''---RscSelectCIBField1.DisplayColumnIndex(par_intColumnIndex)
+        LabelHeader.Text = String.Format("{0}. Relevant Field", par_intColumnIndex)
+
+    End Sub ''End of ""Public Sub DisplayColumnIndex(par_intColumnIndex As Integer)""
+
+
     Public Sub Load_FieldsFromCache(par_cache As ClassElementsCache_Deprecated)
         ''
         ''Added 2/16/2022 thomas downes

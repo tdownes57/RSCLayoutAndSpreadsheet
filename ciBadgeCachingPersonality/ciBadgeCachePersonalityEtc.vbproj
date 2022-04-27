@@ -88,6 +88,12 @@
     <Compile Include="MinorClasses\FormHowMany.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="MinorClasses\FormTextEditor.Designer.vb">
+      <DependentUpon>FormTextEditor.vb</DependentUpon>
+    </Compile>
+    <Compile Include="MinorClasses\FormTextEditor.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="RSCCache\ClassRSCColumnWidthAndData.vb" />
     <Compile Include="MinorClasses\ClassListOfElements_Fields.vb" />
     <Compile Include="MinorClasses\ClassListOfElements.vb" />
@@ -127,6 +133,9 @@
   <ItemGroup>
     <EmbeddedResource Include="MinorClasses\FormHowMany.resx">
       <DependentUpon>FormHowMany.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MinorClasses\FormTextEditor.resx">
+      <DependentUpon>FormTextEditor.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

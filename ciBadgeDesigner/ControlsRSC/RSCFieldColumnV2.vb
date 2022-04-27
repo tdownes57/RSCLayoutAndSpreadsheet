@@ -236,6 +236,9 @@ Public Class RSCFieldColumnV2
         ''Added 3/13/2022 thomas downes
         CtlFieldColumn1.Load_ResizeWidthability()
 
+        ''Added 4/26/2022 thomas downes
+        CtlFieldColumn1.DisplayColumnIndex(par_intColumnIndex)
+
         Return CtlFieldColumn1
 
     End Function ''end of "Public Shared Function GetRSCFieldColumn() As RSCFieldColumn"
@@ -449,6 +452,15 @@ Public Class RSCFieldColumnV2
 
 
     End Sub ''End of ""Public Sub New(par_field As .........)"
+
+
+    Public Sub DisplayColumnIndex(par_intColumnIndex As Integer)
+        ''
+        ''Added 4/26/2022 thomas 
+        ''
+        RscSelectCIBField1.DisplayColumnIndex(par_intColumnIndex)
+
+    End Sub ''End of ""Public Sub DisplayColumnIndex(par_intColumnIndex As Integer)""
 
 
     Public Sub AddBumpColumn(par_columnToBump As RSCFieldColumnV2)

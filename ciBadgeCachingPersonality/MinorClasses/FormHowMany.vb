@@ -95,9 +95,6 @@ Public Class FormHowMany
     End Function ''End of "" Private Function IsNumeric_OtherChecks() As Boolean""
 
 
-    Private Sub FormHowMany_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-    End Sub
 
 
     Private Sub ButtonOK_Click(sender As Object, e As EventArgs) Handles ButtonOK.Click
@@ -175,7 +172,8 @@ Public Class FormHowMany
     Private Sub ButtonCancel_Click(sender As Object, e As EventArgs) Handles ButtonCancel.Click
 
         ''Added 4/14/2022 thomas d. 
-        Me.DialogResult = Windows.Forms.DialogResult.OK
+        ''4/26/2022 ''Me.DialogResult = Windows.Forms.DialogResult.OK
+        Me.DialogResult = Windows.Forms.DialogResult.Cancel
         Me.Close()
 
     End Sub

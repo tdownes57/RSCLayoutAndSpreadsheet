@@ -450,5 +450,54 @@ Public Class RSCDataCell
 
     End Sub
 
+    Private Sub LinkLabelCrLf_LinkClicked_1(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelCrLf.LinkClicked
+        ''
+        ''Added 4/26/2022 thomas downes
+        ''
+        ''Added 4/26/2022 thomas downes
+        MessageBoxTD.Show_Statement("The data cell contains line-break characters." &
+                                    "  (CR = Carriage Return, LF = Line Feed)",
+                                    "The data cell contains the following: " & vbCrLf_Deux &
+                                    Textbox1a.Text)
 
+        Dim strEditedValue As String = ""
+        Dim diag_result As DialogResult = DialogResult.None
+        Dim boolConfirmWhitespace As Boolean
+
+        diag_result =
+        MessageBoxTD.Show_Editor("The data cell contains the following.  " &
+                                 "(Edit & click ""OK"" change the cell value.)",
+                                  Textbox1a.Text,
+                                  1.0, 1.0,
+                                  strEditedValue)
+
+        ''
+        ''Evaluate the user's actions. 
+        ''
+        If (diag_result = DialogResult.OK) Then
+
+            If (String.IsNullOrWhiteSpace(strEditedValue)) Then
+
+                boolConfirmWhitespace = MessageBoxTD.Show_Confirmed("Oops!? You have no visible characters.",
+                                                          "Hit ""Cancel"" to stop & try again.", False)
+
+            Else
+                ''Textbox1a.Text = strEditedValue
+                boolConfirmWhitespace = True
+
+            End If ''End of ""If (String.IsNullOrWhiteSpace(strEditedValue)) Then""
+
+            ''
+            ''Store the edited value in the data cell (if whitespace, then only
+            ''  if it's been confirmed).
+            ''
+            If (boolConfirmWhitespace) Then
+                Textbox1a.Text = strEditedValue
+            End If ''ENd of "If (boolConfirmWhitespace) Then"
+
+        End If ''End of ""If (diag_result = DialogResult.OK) Then""
+
+
+
+    End Sub
 End Class
