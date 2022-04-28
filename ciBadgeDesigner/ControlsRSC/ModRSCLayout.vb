@@ -51,4 +51,43 @@
     End Sub ''Endof ""Public Sub PositionAndSizeControlByRow""
 
 
+    Public Function EmphasisOfRows_StartingY(par_intRowIndex As Integer,
+                                  par_intIndex1Control_Top As Integer,
+                                     par_intHeightOfBox As Integer) As Integer
+        ''
+        ''Added 4/27/2022 thomas downes
+        ''
+        Dim intTopofNthBox_TopY As Integer
+        Dim intHalfOfMargin As Integer
+
+        intTopofNthBox_TopY = par_intIndex1Control_Top +
+            (PixelsFromRowToRow * (par_intRowIndex - 1))
+
+        intHalfOfMargin = CInt(0.5 * (PixelsFromRowToRow - par_intHeightOfBox))
+
+        ''\\---Return (intTopofNthBox_TopY - 1)
+        Return (intTopofNthBox_TopY - intHalfOfMargin)
+
+    End Function ''end of ""Public Function EmphasisOfRows_StartingY""
+
+
+    Public Function EmphasisOfRows_EndingY(par_intRowIndex As Integer,
+                                  par_intIndex1Control_Top As Integer,
+                                   par_intHeightOfBox As Integer) As Integer
+        ''
+        ''Added 4/27/2022 thomas downes
+        ''
+        Dim intTopofNthBox_TopY As Integer
+        Dim intHalfOfMargin As Integer
+
+        intTopofNthBox_TopY = par_intIndex1Control_Top +
+            (PixelsFromRowToRow * (par_intRowIndex - 1))
+
+        intHalfOfMargin = CInt(0.5 * (PixelsFromRowToRow - par_intHeightOfBox))
+
+        Return (intTopofNthBox_TopY + PixelsFromRowToRow - intHalfOfMargin)
+
+    End Function
+
+
 End Module

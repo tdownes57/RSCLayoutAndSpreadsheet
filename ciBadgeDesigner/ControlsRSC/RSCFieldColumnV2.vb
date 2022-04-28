@@ -47,6 +47,9 @@ Public Class RSCFieldColumnV2
     Private mod_intPixelsFromRowToRow As Integer = 0 ''Added 4/04/2022 td
     Private mod_statistics As New StructRSCColumnStatistics ''Added 4/26/2022 td
 
+    Private mod_emphasis_TopY As Integer = -1 '' = intStartY
+    Private mod_emphasis_BottomY As Integer = -1 '' = intEnd__Y
+
 
     Public Property PixelsFromRowToRow() As Integer
         Get
@@ -1734,6 +1737,48 @@ Public Class RSCFieldColumnV2
     End Sub ''End of ""Public Sub Load_EmptyRows_CreateRows()""
 
 
+    Public Sub PaintEmphasisOfRows(par_intRowIndex_Start As Integer,
+                                   par_intRowIndex_End As Integer)
+        ''
+        ''Added 4/27/2022 thomas downes  
+        ''
+        Dim intStartY As Integer
+        Dim intEnd__Y As Integer
+
+        Dim RSCDataCell_1st_Top As RSCDataCell
+        Dim intRSCDataCell_1st_Top_Y As Integer
+
+        RSCDataCell_1st_Top = Me.GetFirstRSCDataCell()
+        intRSCDataCell_1st_Top_Y = RSCDataCell_1st_Top.Top
+
+        intStartY = ModRSCLayout.EmphasisOfRows_StartingY(par_intRowIndex_Start,
+               intRSCDataCell_1st_Top_Y, RSCDataCell_1st_Top.Height)
+
+        intEnd__Y = ModRSCLayout.EmphasisOfRows_EndingY(par_intRowIndex_End,
+               intRSCDataCell_1st_Top_Y, RSCDataCell_1st_Top.Height)
+
+        mod_emphasis_TopY = intStartY
+        mod_emphasis_BottomY = intEnd__Y
+
+        ''See _Paint evant handler. ''---PaintEmphasisOfRows_Repaint()
+
+
+    End Sub ''End of ""Public Sub PaintEmphasisOfRows()""
+
+
+    Public Sub PaintEmphasisOfRows_Repaint()
+        ''
+        ''Added 4/27/2022 thomas downes 
+        ''
+        ''Dim g As System.Drawing.Graphics
+
+        ''g = New Bitmap '' Graphics
+
+        ''Me.draw
+
+
+    End Sub ''End of ""Public Sub PaintEmphasisOfRows_Repaint()""
+
 
     Public Function ToString_ByRow(par_intRowIndex As Integer,
                                    Optional pboolRefresh As Boolean = False) As String
@@ -1989,6 +2034,21 @@ Public Class RSCFieldColumnV2
 
         ''Added 4/1/2022 td
         LoadRecipientList() ''_NoChecks(newCIBField)
+
+    End Sub
+
+    Private Sub RSCFieldColumnV2_Paint(sender As Object, e As PaintEventArgs) Handles Me.Paint
+
+
+        Dim myPen As Pen
+
+
+        'instantiate a new pen object using the color structure
+        myPen = New Pen(Color = Color.Blue, Width = 2)
+
+        'draw the line on the form using the pen object
+        e.Graphics.DrawLine(Pen = myPen, x1 = 100, y1 = 150, x2 = 150, y2 = 100)
+
 
     End Sub
 
