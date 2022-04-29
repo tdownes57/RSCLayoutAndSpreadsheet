@@ -13,6 +13,7 @@ Public Class RSCRowHeaders
     ''Added 2/21/2022 td
     ''
     Public ParentForm_DesignerDialog As Form ''ciBadgeDesigner.DialogEditRecipients 
+    Public ParentRSCSpreadsheet As RSCFieldSpreadsheet ''Added 4/29/2022 thomas downes
     Public Designer As ClassDesigner ''Added 3/10/2022 td
     Public ElementsCache_Deprecated As ciBadgeCachePersonality.ClassElementsCache_Deprecated ''Added 3/10/2022 td
     Public ColumnDataCache As CacheRSCFieldColumnWidthsEtc ''ClassColumnWidthsEtc ''Added 3/15/2022 td
@@ -21,7 +22,11 @@ Public Class RSCRowHeaders
     Private mod_ctlLasttouched As New ClassLastControlTouched ''Added 1/4/2022 td
     Private mod_eventsSingleton As New GroupMoveEvents_Singleton(Me.Designer, False, True) ''Added 1/4/2022 td  
     Private mod_colorOfColumnsBackColor As System.Drawing.Color = Drawing.Color.AntiqueWhite ''Added 3/13/2022 thomas downes
-    Private mod_colorOfRowHeadersBackcolor As System.Drawing.Color = System.Drawing.SystemColors.ButtonFace
+
+    ''Added 4/29/2022 td
+    Private mod_colorHeadersBackcolor_NoEmphasis As System.Drawing.Color = System.Drawing.SystemColors.ButtonFace
+    Private mod_colorHeadersBackcolor_WithEmphasis As System.Drawing.Color = System.Drawing.Color.Gray
+
     Private mod_array_RSCColumns As RSCFieldColumnV1() ''Added 3/14/2022 td
     Private Const mc_ColumnWidthDefault As Integer = 72 ''Added 3/20/2022 td
     Private Const mc_ColumnMarginGap As Integer = 3 ''---4 ''Added 3/20/2022 td
@@ -523,32 +528,61 @@ Public Class RSCRowHeaders
         ''
         ''Added 4/28/2022 td
         ''
-        Static stat_intRowIndexStart As Integer
-        Static stat_intRowIndexEnd As Integer
+        Static stat_intRowIndex_Start As Integer
+        Static stat_intRowIndex_End As Integer
 
-        If (stat_intRowIndexStart > 0) Then
-            Me.DemphasizeRowHeaders(stat_intRowIndex_Start,
+        Dim boolPriorCallNeedsReversal As Boolean
+
+        ''
+        ''Step 1 of 3.  Reverse prior work, if needed.  
+        ''
+        boolPriorCallNeedsReversal = (stat_intRowIndex_Start > 0)
+        If boolPriorCallNeedsReversal Then
+            ''
+            ''Undo the prior call's rows. 
+            ''
+            Me.EmphasizeRowHeaders_Undo(stat_intRowIndex_Start,
                                     stat_intRowIndex_End)
-            Me.ParentRSCSpreadsheet.DemphasizeRows_NoHighlight(stat_intRowIndex_Start,
+            Me.ParentRSCSpreadsheet.DeemphasizeRows_NoHighlight(stat_intRowIndex_Start,
                                                         stat_intRowIndex_End)
-        End If
+        End If ''End of ""If (boolPriorCallNeedsReversal) Then""
 
+        ''
+        ''Step 2 of 3.  Do the requested emphasis work.  
+        ''
         Me.EmphasizeRowHeaders(stat_intRowIndex_Start,
                                     stat_intRowIndex_End)
         Me.ParentRSCSpreadsheet.EmphasizeRows_Highlight(par_intRowIndex_Start,
                                                         par_intRowIndex_End)
 
+        ''
+        ''Step 3 of 3.  Save the row-range for the next call's Part 1. Deemphasize work.
+        ''
+        stat_intRowIndex_Start = par_intRowIndex_Start
+        stat_intRowIndex_End = par_intRowIndex_End
+
+
     End Sub ''end of Public Sub EmphasizeRows_Highlight
 
 
-    Public Sub EmphasizeRowHeaders(par_intRowIndex_Start As Integer,
+    Private Sub EmphasizeRowHeaders(par_intRowIndex_Start As Integer,
                                   Optional par_intRowIndex_End As Integer = -1)
         ''
         ''Added 4/28/2022 td
         ''
-        mod_listTextboxesByRow(par_intRowIndex_Start).BackColor = mod_colorOfRowHeadersBackcolor
+        mod_listTextboxesByRow(par_intRowIndex_Start).BackColor = mod_colorHeadersBackcolor_WithEmphasis
 
-    End Sub
+    End Sub ''ENd of ""Private Sub EmphasizeRowHeaders""
+
+
+    Private Sub EmphasizeRowHeaders_Undo(par_intRowIndex_Start As Integer,
+                                  Optional par_intRowIndex_End As Integer = -1)
+        ''
+        ''Added 4/28/2022 td
+        ''
+        mod_listTextboxesByRow(par_intRowIndex_Start).BackColor = mod_colorHeadersBackcolor_NoEmphasis
+
+    End Sub ''ENd of ""Private Sub EmphasizeRowHeaders_Undo""
 
 
 

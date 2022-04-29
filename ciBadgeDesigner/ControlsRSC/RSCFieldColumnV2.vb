@@ -50,6 +50,9 @@ Public Class RSCFieldColumnV2
     Private mod_emphasizeRows_TopY As Integer = -1 '' = intStartY
     Private mod_emphasizeRows_BottomY As Integer = -1 '' = intEnd__Y
 
+    ''Added 4/29/2022 td
+    Private mod_colorCellsBackcolor_NoEmphasis As System.Drawing.Color = System.Drawing.Color.White
+    Private mod_colorCellsBackcolor_WithEmphasis As System.Drawing.Color = System.Drawing.Color.LightGray
 
     Public Property PixelsFromRowToRow() As Integer
         Get
@@ -1751,8 +1754,10 @@ Public Class RSCFieldColumnV2
     End Sub ''End of ""Public Sub Load_EmptyRows_CreateRows()""
 
 
-    Public Sub PaintEmphasisOfRows(par_intRowIndex_Start As Integer,
-                                   par_intRowIndex_End As Integer)
+    Public Sub EmphasizeRows_Highlight(par_intRowIndex_Start As Integer,
+                                   par_intRowIndex_End As Integer,
+                                       Optional pboolRestoreOtherRows As Boolean = False)
+        ''---Public Sub PaintEmphasisOfRows
         ''
         ''Added 4/27/2022 thomas downes  
         ''
@@ -1787,39 +1792,66 @@ Public Class RSCFieldColumnV2
         For intRowIndex As Integer = par_intRowIndex_Start To par_intRowIndex_End
 
             each_cell = mod_listRSCDataCellsByRow.Item(intRowIndex)
-            each_cell.BackColor = Color.LightGray
+            ''each_cell.BackColor = Color.LightGray
+            each_cell.BackColor = mod_colorCellsBackcolor_WithEmphasis
 
         Next intRowIndex
 
         ''
-        ''Let's de-emphasize the surrounding rows. 
+        ''If requested by Boolean parameter, let's de-emphasize the surrounding rows. 
         ''
-        ''-----------CONFUSING----------
-        ''We will ---REMOVE EMPHASIS--- for rows outside of the range.
-        If (par_intRowIndex_Start > 1) Then
-            For intRowIndex As Integer = 1 To (par_intRowIndex_Start - 1)
-                ''-----------CONFUSING----------
-                ''We will ---REMOVE EMPHASIS--- for rows outside of the range.
-                each_cell = mod_listRSCDataCellsByRow.Item(intRowIndex)
-                each_cell.BackColor = Color.White
-            Next intRowIndex
-        End If ''End of ""If (par_intRowIndex_Start > 1) Then""
+        If (pboolRestoreOtherRows) Then
 
+            ''-----------CONFUSING----------
+            ''We will ---REMOVE EMPHASIS--- for rows outside of the range.
+            If (par_intRowIndex_Start > 1) Then
+                For intRowIndex As Integer = 1 To (par_intRowIndex_Start - 1)
+                    ''-----------CONFUSING----------
+                    ''We will ---REMOVE EMPHASIS--- for rows outside of the range.
+                    each_cell = mod_listRSCDataCellsByRow.Item(intRowIndex)
+                    ''each_cell.BackColor = Color.White
+                    each_cell.BackColor = mod_colorCellsBackcolor_NoEmphasis
+                Next intRowIndex
+            End If ''End of ""If (par_intRowIndex_Start > 1) Then""
+
+            ''
+            ''-----------CONFUSING----------
+            ''We will ---REMOVE EMPHASIS--- for rows outside of the range.
+            Dim intRowIndexMaximum As Integer
+            intRowIndexMaximum = mod_listRSCDataCellsByRow.Count
+            If (par_intRowIndex_End < intRowIndexMaximum) Then
+                For intRowIndex As Integer = (par_intRowIndex_End + 1) To intRowIndexMaximum
+                    ''-----------CONFUSING----------
+                    ''We will ---REMOVE EMPHASIS--- for rows outside of the range.
+                    each_cell = mod_listRSCDataCellsByRow.Item(intRowIndex)
+                    ''each_cell.BackColor = Color.White
+                    each_cell.BackColor = mod_colorCellsBackcolor_NoEmphasis
+                Next intRowIndex
+            End If ''end of If (par_intRowIndex_End < intRowIndexMaximum) Then
+
+        End If ''End of "" If (pboolRestoreOtherRows) Then""
+
+
+    End Sub ''End of ""Public Sub EmphasisOfRows_Highlight()""
+
+
+    Public Sub DeemphasizeRows_NoHighlight(par_intRowIndex_Start As Integer,
+                                   par_intRowIndex_End As Integer)
         ''
-        ''-----------CONFUSING----------
-        ''We will ---REMOVE EMPHASIS--- for rows outside of the range.
-        Dim intRowIndexMaximum As Integer
-        intRowIndexMaximum = mod_listRSCDataCellsByRow.Count
-        If (par_intRowIndex_End < intRowIndexMaximum) Then
-            For intRowIndex As Integer = (par_intRowIndex_End + 1) To intRowIndexMaximum
-                ''-----------CONFUSING----------
-                ''We will ---REMOVE EMPHASIS--- for rows outside of the range.
-                each_cell = mod_listRSCDataCellsByRow.Item(intRowIndex)
-                each_cell.BackColor = Color.White
-            Next intRowIndex
-        End If ''end of If (par_intRowIndex_End < intRowIndexMaximum) Then
+        ''Added 4/29/2022 thomas downes  
+        ''
+        Dim each_cell As RSCDataCell
 
-    End Sub ''End of ""Public Sub PaintEmphasisOfRows()""
+        For intRowIndex As Integer = par_intRowIndex_Start To par_intRowIndex_End
+
+            each_cell = mod_listRSCDataCellsByRow.Item(intRowIndex)
+            ''each_cell.BackColor = Color.white
+            each_cell.BackColor = mod_colorCellsBackcolor_NoEmphasis
+
+        Next intRowIndex
+
+
+    End Sub ''End of ""Public Sub DeemphasisOfRows_NoHighlight()""
 
 
     Public Function ToString_ByRow(par_intRowIndex As Integer,

@@ -703,6 +703,7 @@ Public Class RSCFieldSpreadsheet
         intNextPropertyLeft += (RscRowHeaders1.Width + mc_ColumnMarginGap)
         ''Assigned within the loop below.--3/24/2022 td''intCurrentPropertyLeft = intNextPropertyLeft
         RscRowHeaders1.PixelsFromRowToRow = mc_intPixelsFromRowToRow ''Added 4/5/2022
+        RscRowHeaders1.ParentRSCSpreadsheet = Me ''Added 4/29/2022 thomas  
 
         ''
         ''Step 2 of 5.  Load run- time columns. 
@@ -952,6 +953,36 @@ Public Class RSCFieldSpreadsheet
         LoadRuntimeColumns_AfterClearingDesign(Nothing) ''mod_designer)
 
     End Sub ''end of sub "Public Sub Load_FieldsFromCache(par_cache As ClassElementsCache_Deprecated)"
+
+
+    Public Sub EmphasizeRows_Highlight(par_intRowIndex_Start As Integer,
+                     Optional par_intRowIndex_End As Integer = -1)
+        ''
+        ''Added 4/29/2022 td
+        ''
+        For Each each_col As RSCFieldColumnV2 In mod_array_RSCColumns
+
+            ''---each_col.PaintEmphasisOfRows(par_intRowIndex_Start, par_intRowIndex_End)
+            each_col.EmphasizeRows_Highlight(par_intRowIndex_Start, par_intRowIndex_End)
+
+        Next each_col
+
+
+    End Sub ''End of ""Public Sub EmphasizeRows_Highlight"
+
+
+    Public Sub DeemphasizeRows_NoHighlight(par_intRowIndex_Start As Integer,
+                      Optional par_intRowIndex_End As Integer = -1)
+        ''
+        ''Added 4/29/2022 td
+        ''
+        For Each each_col As RSCFieldColumnV2 In mod_array_RSCColumns
+
+            each_col.DeemphasizeRows_NoHighlight(par_intRowIndex_Start, par_intRowIndex_End)
+
+        Next each_col
+
+    End Sub ''End of ""Public Sub EmphasizeRows_Highlight"
 
 
     Private Function GenerateRSCFieldColumn_General(p_intIndexCurrent As Integer,
