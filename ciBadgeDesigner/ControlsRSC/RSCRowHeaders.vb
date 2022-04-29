@@ -21,6 +21,7 @@ Public Class RSCRowHeaders
     Private mod_ctlLasttouched As New ClassLastControlTouched ''Added 1/4/2022 td
     Private mod_eventsSingleton As New GroupMoveEvents_Singleton(Me.Designer, False, True) ''Added 1/4/2022 td  
     Private mod_colorOfColumnsBackColor As System.Drawing.Color = Drawing.Color.AntiqueWhite ''Added 3/13/2022 thomas downes
+    Private mod_colorOfRowHeadersBackcolor As System.Drawing.Color = System.Drawing.SystemColors.ButtonFace
     Private mod_array_RSCColumns As RSCFieldColumnV1() ''Added 3/14/2022 td
     Private Const mc_ColumnWidthDefault As Integer = 72 ''Added 3/20/2022 td
     Private Const mc_ColumnMarginGap As Integer = 3 ''---4 ''Added 3/20/2022 td
@@ -515,6 +516,40 @@ Public Class RSCRowHeaders
         ''April 6, 2022 td ''AlignBottomBars(listVisualBarsColumn1, listVisualBarsRowHdrs, par_controlColumnOne)
 
     End Sub ''End of ""Public Sub AlignControlsWithSpreadsheet()""
+
+
+    Public Sub EmphasizeRows_Highlight(par_intRowIndex_Start As Integer,
+                                       Optional par_intRowIndex_End As Integer = -1)
+        ''
+        ''Added 4/28/2022 td
+        ''
+        Static stat_intRowIndexStart As Integer
+        Static stat_intRowIndexEnd As Integer
+
+        If (stat_intRowIndexStart > 0) Then
+            Me.DemphasizeRowHeaders(stat_intRowIndex_Start,
+                                    stat_intRowIndex_End)
+            Me.ParentRSCSpreadsheet.DemphasizeRows_NoHighlight(stat_intRowIndex_Start,
+                                                        stat_intRowIndex_End)
+        End If
+
+        Me.EmphasizeRowHeaders(stat_intRowIndex_Start,
+                                    stat_intRowIndex_End)
+        Me.ParentRSCSpreadsheet.EmphasizeRows_Highlight(par_intRowIndex_Start,
+                                                        par_intRowIndex_End)
+
+    End Sub ''end of Public Sub EmphasizeRows_Highlight
+
+
+    Public Sub EmphasizeRowHeaders(par_intRowIndex_Start As Integer,
+                                  Optional par_intRowIndex_End As Integer = -1)
+        ''
+        ''Added 4/28/2022 td
+        ''
+        mod_listTextboxesByRow(par_intRowIndex_Start).BackColor = mod_colorOfRowHeadersBackcolor
+
+    End Sub
+
 
 
     ''Public Sub AlignBottomBars_WithColumnOne(par_controlColumnOne As RSCFieldColumn)

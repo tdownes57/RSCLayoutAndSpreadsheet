@@ -31,6 +31,33 @@ Public Class RSCDataCell
     End Property
 
 
+    Public Overrides Property BackColor() As Drawing.Color
+        Get
+            ''Added 4/28/2022 td
+            Return Textbox1a.BackColor
+        End Get
+
+        Set(value As Drawing.Color)
+            ''Added 4/28/2022 td
+            Textbox1a.BackColor = value
+            ''---MyBase.BackColor = value
+        End Set
+    End Property
+
+
+    Public Property BorderStyle_Textbox() As BorderStyle
+        Get
+            ''Added 4/28/2022 td
+            Return Textbox1a.BorderStyle
+        End Get
+
+        Set(value As BorderStyle)
+            ''Added 4/28/2022 td
+            Textbox1a.BorderStyle = value
+        End Set
+    End Property
+
+
     Public Property Text_CellValue() As String
         Get
             ''Added 4/6/2022 td
@@ -449,6 +476,13 @@ Public Class RSCDataCell
                     End If ''If (bJumpedToNextRowSuprisingly) Then
                 End If ''End of ""If (bJumpedToNextRowSuprisingly And Not boolEdge) Then... ElseIf...""
 
+            Case Else
+
+                ''Added 4/28/2022 td
+                ''  Put a border around the box. 
+                ''----Moved below.---Textbox1a.BorderStyle = BorderStyle.FixedSingle
+
+
         End Select ''End of ""Select Case e.KeyCode""
 
         ''
@@ -469,8 +503,22 @@ Public Class RSCDataCell
             ''  which is to display the next line of CrLf-separated text. 
             ''  ----4/26/2022 td
             ''
+        ElseIf (objNextCell Is Nothing) Then
+
+            ''Added 4/28/2022 td 
+            ''
+            ''Emphasis the current cell. 
+            ''
+            Textbox1a.BorderStyle = BorderStyle.FixedSingle ''Add a border to the current cell.
+
         ElseIf (objNextCell IsNot Nothing) Then
+
+            ''Goto the next cell. 
+            Textbox1a.BorderStyle = BorderStyle.None ''Clear the border of the current cell.
             objNextCell.SetFocus()
+            objNextCell.BorderStyle_Textbox = BorderStyle.FixedSingle ''4/28/2022 td
+            Me.ParentColumn.ClearBorderStyle_PriorCell(objNextCell)
+
         End If ''End of "If (objNextCell IsNot Nothing) Then"
 
         ''
@@ -574,6 +622,14 @@ Public Class RSCDataCell
         End If ''End of ""If (diag_result = DialogResult.OK) Then""
 
 
+
+    End Sub
+
+    Private Sub Textbox1a_Click(sender As Object, e As EventArgs) Handles Textbox1a.Click
+
+        ''Added 4/28/2022
+        Textbox1a.BorderStyle = BorderStyle.FixedSingle ''Add a border to the current cell.
+        Me.ParentColumn.ClearBorderStyle_PriorCell(Me)
 
     End Sub
 End Class

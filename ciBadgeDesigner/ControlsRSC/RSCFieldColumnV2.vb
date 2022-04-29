@@ -47,8 +47,8 @@ Public Class RSCFieldColumnV2
     Private mod_intPixelsFromRowToRow As Integer = 0 ''Added 4/04/2022 td
     Private mod_statistics As New StructRSCColumnStatistics ''Added 4/26/2022 td
 
-    Private mod_emphasis_TopY As Integer = -1 '' = intStartY
-    Private mod_emphasis_BottomY As Integer = -1 '' = intEnd__Y
+    Private mod_emphasizeRows_TopY As Integer = -1 '' = intStartY
+    Private mod_emphasizeRows_BottomY As Integer = -1 '' = intEnd__Y
 
 
     Public Property PixelsFromRowToRow() As Integer
@@ -600,6 +600,20 @@ Public Class RSCFieldColumnV2
 
 
     End Sub ''End of "Private Sub LoadDataToColumn()"
+
+
+    Public Sub ClearBorderStyle_PriorCell(par_objNextCell As RSCDataCell)
+        ''Added 4/28/2022 td
+        Me.ParentSpreadsheet.ClearBorderStyle_PriorCell(par_objNextCell)
+
+        ''    Static s_objPriorCell As RSCDataCell
+        ''    If (s_objPriorCell IsNot Nothing) Then
+        ''        s_objPriorCell.BorderStyle_Textbox = BorderStyle.None
+        ''    End If ''End of ""If (s_objPriorCell IsNot Nothing) Then""
+        ''    ''Prepare for next calling to this procedure.
+        ''    s_objPriorCell = par_objNextCell
+
+    End Sub
 
 
     Public Sub ClearDataFromColumn_Do() ''Added 3/20/2022
@@ -1757,27 +1771,55 @@ Public Class RSCFieldColumnV2
         intEnd__Y = ModRSCLayout.EmphasisOfRows_EndingY(par_intRowIndex_End,
                intRSCDataCell_1st_Top_Y, RSCDataCell_1st_Top.Height)
 
-        mod_emphasis_TopY = intStartY
-        mod_emphasis_BottomY = intEnd__Y
+        mod_emphasizeRows_TopY = intStartY
+        mod_emphasizeRows_BottomY = intEnd__Y
 
-        ''See _Paint evant handler. ''---PaintEmphasisOfRows_Repaint()
+        ''----See _Paint event handler, which will leverage the above module-level
+        ''----   integer variables (mod_emphasis_TopY, mod_emphasis_BottomY).
+        ''----   April 28, 2022
+        ''----
+        ''---PaintEmphasisOfRows_Repaint()
 
+        ''Dim listCells As List(Of RSCDataCell)
+        ''listCells = ListOfRSCDataCells_TopToBottom()
+        Dim each_cell As RSCDataCell
+
+        For intRowIndex As Integer = par_intRowIndex_Start To par_intRowIndex_End
+
+            each_cell = mod_listRSCDataCellsByRow.Item(intRowIndex)
+            each_cell.BackColor = Color.LightGray
+
+        Next intRowIndex
+
+        ''
+        ''Let's de-emphasize the surrounding rows. 
+        ''
+        ''-----------CONFUSING----------
+        ''We will ---REMOVE EMPHASIS--- for rows outside of the range.
+        If (par_intRowIndex_Start > 1) Then
+            For intRowIndex As Integer = 1 To (par_intRowIndex_Start - 1)
+                ''-----------CONFUSING----------
+                ''We will ---REMOVE EMPHASIS--- for rows outside of the range.
+                each_cell = mod_listRSCDataCellsByRow.Item(intRowIndex)
+                each_cell.BackColor = Color.White
+            Next intRowIndex
+        End If ''End of ""If (par_intRowIndex_Start > 1) Then""
+
+        ''
+        ''-----------CONFUSING----------
+        ''We will ---REMOVE EMPHASIS--- for rows outside of the range.
+        Dim intRowIndexMaximum As Integer
+        intRowIndexMaximum = mod_listRSCDataCellsByRow.Count
+        If (par_intRowIndex_End < intRowIndexMaximum) Then
+            For intRowIndex As Integer = (par_intRowIndex_End + 1) To intRowIndexMaximum
+                ''-----------CONFUSING----------
+                ''We will ---REMOVE EMPHASIS--- for rows outside of the range.
+                each_cell = mod_listRSCDataCellsByRow.Item(intRowIndex)
+                each_cell.BackColor = Color.White
+            Next intRowIndex
+        End If ''end of If (par_intRowIndex_End < intRowIndexMaximum) Then
 
     End Sub ''End of ""Public Sub PaintEmphasisOfRows()""
-
-
-    Public Sub PaintEmphasisOfRows_Repaint()
-        ''
-        ''Added 4/27/2022 thomas downes 
-        ''
-        ''Dim g As System.Drawing.Graphics
-
-        ''g = New Bitmap '' Graphics
-
-        ''Me.draw
-
-
-    End Sub ''End of ""Public Sub PaintEmphasisOfRows_Repaint()""
 
 
     Public Function ToString_ByRow(par_intRowIndex As Integer,
@@ -2039,15 +2081,31 @@ Public Class RSCFieldColumnV2
 
     Private Sub RSCFieldColumnV2_Paint(sender As Object, e As PaintEventArgs) Handles Me.Paint
 
-
         Dim myPen As Pen
 
+        Dim intTopY As Integer
+        Dim intBottomY As Integer
+
+        intTopY = mod_emphasizeRows_TopY
+        intBottomY = mod_emphasizeRows_BottomY
+
+        ''Often, we will draw nothing / abort paint operation.
+        If (intTopY <= 0) Then
+            Exit Sub
+        End If
+
+        ''Often, we will draw nothing / abort paint operation.
+        If (intBottomY <= 0) Then
+            Exit Sub
+        End If
 
         'instantiate a new pen object using the color structure
-        myPen = New Pen(Color = Color.Blue, Width = 2)
+        myPen = New Pen(color:=Color.Green, width:=1)
 
         'draw the line on the form using the pen object
-        e.Graphics.DrawLine(Pen = myPen, x1 = 100, y1 = 150, x2 = 150, y2 = 100)
+        e.Graphics.DrawLine(pen:=myPen, x1:=0, y1:=intTopY, x2:=Me.Width, y2:=intTopY)
+        e.Graphics.DrawLine(pen:=myPen, x1:=0, y1:=intBottomY, x2:=Me.Width, y2:=intTopY)
+
 
 
     End Sub

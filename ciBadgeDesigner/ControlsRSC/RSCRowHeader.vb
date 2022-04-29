@@ -66,6 +66,13 @@ Public Class RSCRowHeader
                                         "The width of this control is: " + Me.Width.ToString)
             Me.Height = (ParentRSCRowHeaders.PixelsFromRowToRow - 1)
 
+        Else
+            ''
+            ''Added 4/28/2022 thomas d.
+            ''
+            Me.ParentRSCRowHeaders.EmphasizeRows_Highlight(Me.RowIndex)
+
+
         End If ''End of "If (e.Button = MouseButtons.Right) Then .... Else ...."
 
     End Sub

@@ -31,11 +31,15 @@ Public Class Startup
             If (bUserWantsToExitApp) Then Exit Do
         Loop
 
-        If (bUserWantsToExitApp) Then Exit Sub
+        If (bUserWantsToExitApp) Then
+            ''Application.AllowQuit = True
+            Application.Exit()
+            Exit Sub
+        End If ''end of ""If (bUserWantsToExitApp) Then""
 
     End Sub ''Endof "Public Shared Sub Main()"
 
-    Private Shared Sub OpenLayoutDesigner_Loop(ByRef pboolUserWantsToExitApp As Boolean)
+    Private Shared Sub OpenLayoutDesigner_Loop(ByRef pref_bUserWantsToExitApp As Boolean)
         ''
         ''Added 10/11/2019 td  
         ''Encapsulated 10/13/2019 td
@@ -71,7 +75,7 @@ Public Class Startup
         If (obj_personality.ListOfRecipients Is Nothing) Then
             ''Added 10/16/2019 td 
             obj_personality.ListOfRecipients = LoadData_Recipients_Students()
-        ElseIf (0 = obj_personality.ListOfRecipients.count) Then
+        ElseIf (0 = obj_personality.ListOfRecipients.Count) Then
             ''Added 10/16/2019 td 
             obj_personality.ListOfRecipients = LoadData_Recipients_Students()
         End If
@@ -158,8 +162,10 @@ Public Class Startup
                         bUserMadeSelectionOfLayout = .UserHasSelectedLayout ''Added 3/24/2022
 
                         ''Added 2/5/2022 td
-                        pboolUserWantsToExitApp = (.UserWantsToExitApplication)
-                        If (pboolUserWantsToExitApp) Then Exit Sub ''Added 2/5/2022 td
+                        pref_bUserWantsToExitApp = (.UserWantsToExitApplication)
+                        If (pref_bUserWantsToExitApp) Then
+                            Exit Sub ''Added 2/5/2022 td
+                        End If ''End of ""If (pref_bUserWantsToExitApp) Then""
 
                     End With ''End of "With objFormShowCacheLayouts"
 
@@ -365,8 +371,8 @@ Public Class Startup
 
             ''Added 2/6/2022 td
             If (obj_formToShow_Demo.UserWantsToExitApplication) Then
-                pboolUserWantsToExitApp = True
-                Exit Do
+                pref_bUserWantsToExitApp = True
+                Exit Sub ''Exit Do
             ElseIf (Not obj_formToShow_Demo.LetsRefresh_CloseForm) Then
                 ''The user is NOT refreshing the Layout.  The user 
                 ''  wants to exit/quit the current Layout. ---2/6/2022 td

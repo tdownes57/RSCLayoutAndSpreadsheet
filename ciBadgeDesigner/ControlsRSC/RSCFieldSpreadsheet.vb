@@ -592,6 +592,26 @@ Public Class RSCFieldSpreadsheet
     End Sub ''End of ""Public Sub Load_EmptyRowsToAllNewColumns()""
 
 
+    Public Sub ClearBorderStyle_PriorCell(par_objNextCell As RSCDataCell)
+        ''Added 4/28/2022 td
+        Static s_objPriorCell As RSCDataCell
+        If (s_objPriorCell IsNot Nothing) Then
+            If (s_objPriorCell IsNot par_objNextCell) Then
+                s_objPriorCell.BorderStyle_Textbox = BorderStyle.None
+            End If ''End of ""If (s_objPriorCell IsNot par_objNextCell) Then""
+        End If ''End of ""If (s_objPriorCell IsNot Nothing) Then""
+
+        ''Prepare for next calling to this procedure.
+        If (s_objPriorCell Is Nothing) Then
+            s_objPriorCell = par_objNextCell
+        ElseIf (s_objPriorCell IsNot par_objNextCell) Then
+            ''Only assign the object reference if it's different than the existing reference.
+            s_objPriorCell = par_objNextCell
+        End If ''End of ""If (s_objPriorCell IsNot par_objNextCell) Then""
+
+    End Sub ''End of ""Public Sub ClearBorderStyle_PriorCellaaa(par_objNextCell As RSCDataCell)""
+
+
     Public Sub ClearDataFromSpreadsheet_1stConfirm(Optional ByRef pboolUserCancelled As Boolean = False)
         ''
         ''Added 3/29/2022 thomas downes

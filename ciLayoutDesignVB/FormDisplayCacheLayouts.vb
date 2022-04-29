@@ -609,7 +609,8 @@ Public Class FormDisplayCacheLayouts
 
         ''Added 12/23/2021 thomas downes
         Me.UserWantsToExitApplication = True
-        Application.Exit()
+        ''---Application.Exit()
+        Me.Close()
 
     End Sub
 
