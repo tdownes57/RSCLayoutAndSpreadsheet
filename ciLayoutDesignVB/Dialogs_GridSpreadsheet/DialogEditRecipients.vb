@@ -215,7 +215,7 @@ ExitHandler:
         ''
         ''We will open the Fields dialog.  
         ''
-        RscFieldSpreadsheet1.ReviewFieldsViaDialog() ''Encapsulated 4/13/2022 td
+        RscFieldSpreadsheet1.ReviewRelevantFieldsViaDialogForm() ''Encapsulated 4/13/2022 td
 
         ''Static s_bMsgOnce As Boolean
         ''If (Not s_bMsgOnce) Then

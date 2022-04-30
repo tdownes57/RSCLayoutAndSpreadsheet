@@ -46,6 +46,7 @@ Public Class RSCFieldColumnV2
     Private Const mod_c_intPixelsFromRowToRow As Integer = 24 ''Added 4/04/2022 td
     Private mod_intPixelsFromRowToRow As Integer = 0 ''Added 4/04/2022 td
     Private mod_statistics As New StructRSCColumnStatistics ''Added 4/26/2022 td
+    Private mod_intDisplayedColumnIndex As Integer = 0 ''Added 4/30/2022 td
 
     Private mod_emphasizeRows_TopY As Integer = -1 '' = intStartY
     Private mod_emphasizeRows_BottomY As Integer = -1 '' = intEnd__Y
@@ -466,10 +467,19 @@ Public Class RSCFieldColumnV2
         ''
         ''Added 4/26/2022 thomas 
         ''
+        mod_intDisplayedColumnIndex = par_intColumnIndex
         RscSelectCIBField1.DisplayColumnIndex(par_intColumnIndex)
 
     End Sub ''End of ""Public Sub DisplayColumnIndex(par_intColumnIndex As Integer)""
 
+
+    Public Function GetIndexOfColumn() As Integer
+        ''
+        ''Added 4/30/2022 thomas
+        ''
+        Return mod_intDisplayedColumnIndex
+
+    End Function ''End of ""Public Function GetIndexOfColumn() As Integer""
 
     Public Sub AddBumpColumn(par_columnToBump As RSCFieldColumnV2)
         ''
@@ -1153,11 +1163,52 @@ Public Class RSCFieldColumnV2
     End Function ''Endof ""Public Function ValueIsAbnormal_Shorter(par_value As String)"
 
 
-    Public Sub ReviewColumnDisplayForRelevantFields(par_dictionary As Dictionary(Of EnumCIBFields, Integer))
+    Public Sub ReviewColumnDisplayForRelevantFields(par_dictionary1FC As Dictionary(Of EnumCIBFields, RSCFieldColumnV2),
+                                      par_dictionary2CF As Dictionary(Of RSCFieldColumnV2, EnumCIBFields),
+                              Optional ByRef pref_strDescription1FC As System.Text.StringBuilder = Nothing,
+                              Optional ByRef pref_strDescription2CF As System.Text.StringBuilder = Nothing)
         ''
         ''Added 4/26/2022 thomas 
         ''
+        ''Supply both dictionaries. 
+        ''   1FC. Field-->Column. (EnumCIBFields-->RSCFieldColumn dictionary. 
+        ''   2CF. Column-->Field. (RSCFieldColumn-->EnumCIBFields) dictionary. 
+        ''
+        Dim enumCIB_Field As EnumCIBFields
+        Dim boolAlreadyAdded As Boolean
+        Dim strDescription1FC As String = ""
+        Dim strDescription2CF As String = ""
+        Dim intColumnIndex As Integer
+        Dim intColumnIndex_prior As Integer
 
+        intColumnIndex = Me.GetIndexOfColumn()
+
+        enumCIB_Field = RscSelectCIBField1.SelectedValue
+        boolAlreadyAdded = par_dictionary1FC.ContainsKey(enumCIB_Field)
+        If (boolAlreadyAdded) Then
+            ''pref_strDescription.AppendLine()
+            intColumnIndex_prior = par_dictionary1FC(enumCIB_Field).GetIndexOfColumn()
+            strDescription1FC = String.Format("The field {0} appears more than once, ", enumCIB_Field)
+            strDescription1FC &= String.Format(" in Columns {0} and {1}", intColumnIndex, intColumnIndex_prior)
+            pref_strDescription1FC.AppendLine(strDescription1FC)
+            ''Add it to the other, EnumField-->RSCFieldColumn dictionary. 
+            par_dictionary2CF.Add(Me, enumCIB_Field)
+            strDescription2CF = String.Format("Column {0} has Field {1}.", intColumnIndex, enumCIB_Field)
+            pref_strDescription2CF.AppendLine(strDescription2CF)
+        Else
+            ''Add it to both dictionaries.
+            ''
+            ''   1FC. Field-->Column. (EnumCIBFields-->RSCFieldColumn dictionary. 
+            ''   2CF. Column-->Field. (RSCFieldColumn-->EnumCIBFields) dictionary.
+            ''   
+            par_dictionary1FC.Add(enumCIB_Field, Me)
+            par_dictionary2CF.Add(Me, enumCIB_Field)
+            strDescription1FC = String.Format("Field {0} has Column {1}.", enumCIB_Field, intColumnIndex)
+            pref_strDescription1FC.AppendLine(strDescription2CF)
+            strDescription2CF = String.Format("Column {0} has Field {1}.", intColumnIndex, enumCIB_Field)
+            pref_strDescription2CF.AppendLine(strDescription2CF)
+
+        End If ''End of ""If (boolAlread yAdded) Then.... Else....""
 
     End Sub ''End of ""Public Sub ReviewColumnDisplayForRelevantFields""
 

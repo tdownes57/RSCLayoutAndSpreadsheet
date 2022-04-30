@@ -34,6 +34,10 @@ Public Class RSCFieldSpreadsheet
     Private mod_intEmphasisRowIndex_Start As Integer = -1 ''= par_intRowIndex_Start
     Private mod_intEmphasisRowIndex_End As Integer = -1 ''= par_intRowIndex_End
 
+    ''Added 4/30/2022 td
+    ''April 30, 2022 ''Private mod_dictionaryFieldsToColumnIndex As New Dictionary(Of EnumCIBFields, Integer)
+    Private m_dictionary1FC_FieldsToColumnIndex As New Dictionary(Of EnumCIBFields, RSCFieldColumnV2)
+    Private m_dictionary2CF_ColumnToEnumField As New Dictionary(Of RSCFieldColumnV2, EnumCIBFields)
 
 
     Public Function RSCFieldColumn_Leftmost() As RSCFieldColumnV2
@@ -287,20 +291,59 @@ Public Class RSCFieldSpreadsheet
     End Function ''end of Public Function GetIndexOfColumn(par_column As RSCFieldColumnV2) As Integer
 
 
-    Public Sub ReviewColumnDisplayForRelevantFields()
+    Public Sub ReviewColumnDisplayForRelevantFields_1to1(pboolMessageUser As Boolean)
         ''
         ''Added 4/26/2022 thomas 
         ''
-        Dim dictionaryFieldsToColumnIndex As New Dictionary(Of EnumCIBFields, Integer)
+        ''Populate both dictionaries. 
+        ''   1FC. Field-->Column. (EnumCIBFields-->RSCFieldColumn dictionary. 
+        ''   2CF. Column-->Field. (RSCFieldColumn-->EnumCIBFields) dictionary. 
+        ''
+        Dim dictionary1FC_FieldsToColumnIndex As New Dictionary(Of EnumCIBFields, RSCFieldColumnV2)
+        Dim dictionary2CF_ColumnToEnumField As New Dictionary(Of RSCFieldColumnV2, EnumCIBFields)
         Dim eachRSCColumn As RSCFieldColumnV2
+        Dim objectStringBuilder1FC As New System.Text.StringBuilder(150)
+        Dim objectStringBuilder2CF As New System.Text.StringBuilder(150)
 
         For Each eachRSCColumn In mod_array_RSCColumns
-
-            eachRSCColumn.ReviewColumnDisplayForRelevantFields(dictionaryFieldsToColumnIndex)
+            ''
+            ''Build the dictionaries. 
+            ''
+            eachRSCColumn.ReviewColumnDisplayForRelevantFields(dictionary1FC_FieldsToColumnIndex,
+                dictionary2CF_ColumnToEnumField,
+                objectStringBuilder1FC,
+                objectStringBuilder2CF)
 
         Next eachRSCColumn
 
+        ''Refresh the module-level objects.
+        m_dictionary1FC_FieldsToColumnIndex = dictionary1FC_FieldsToColumnIndex
+        m_dictionary2CF_ColumnToEnumField = dictionary2CF_ColumnToEnumField
 
+        ''Message the user, if required by parameter. ---4/30 td
+        If (pboolMessageUser) Then
+            ''
+            ''   2CF. Column-->Field. (RSCFieldColumn-->EnumCIBFields) dictionary. 
+            ''
+            ''
+            MessageBoxTD.Show_Statement("Here is the list of Columns & corresponding Fields:",
+                                        objectStringBuilder2CF.ToString())
+
+            ''
+            ''   1FC. Field-->Column. (EnumCIBFields-->RSCFieldColumn dictionary. 
+            ''
+            Const c_expandToShowAllRelevantFields As Boolean = True ''Added 4/30/2022 td
+            If (c_expandToShowAllRelevantFields) Then
+
+                ExpandDictionary1FC
+
+            Else
+                ''Added 4/30/2022
+                MessageBoxTD.Show_Statement("Here is the list of Relevant Fields & corresponding column.",
+                                        objectStringBuilder1FC.ToString())
+            End If ''End of "If (c_expandToShowAllRelevantFields) Then... Else..."
+
+        End If ''End of ""If (pboolMessageUser) Then""
 
     End Sub ''End of ""Public Sub ReviewColumnDisplayForRelevantFields()""
 
@@ -1676,7 +1719,7 @@ Public Class RSCFieldSpreadsheet
     End Sub ''End of "Public Sub DeleteColumnByIndex(Me.ColumnIndex)"
 
 
-    Public Sub ReviewFieldsViaDialog()
+    Public Sub ReviewRelevantFieldsViaDialogForm()
         ''
         ''We will open the All-Fields dialog (Standard & Custom fields).  ---4/13/2022 td
         ''
@@ -1717,7 +1760,7 @@ Public Class RSCFieldSpreadsheet
         End If ''End of ""If (dialog_result = ...)"
 
 
-    End Sub ''End of ""Public Sub ReviewFieldsViaDialog()""
+    End Sub ''End of ""Public Sub ReviewRelevantFieldsViaDialogForm()""
 
 
     Public Sub RefreshFieldDropdowns()
@@ -1804,7 +1847,7 @@ Public Class RSCFieldSpreadsheet
     Private Sub LinkLabelReviewFields_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelReviewFields.LinkClicked
 
         ''Added 4/13/2022
-        ReviewFieldsViaDialog()
+        ReviewRelevantFieldsViaDialogForm()
 
     End Sub
 
