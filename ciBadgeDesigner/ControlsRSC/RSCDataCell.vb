@@ -19,6 +19,9 @@ Public Class RSCDataCell
     Public Shared CellOfKeyDownTabKey As RSCDataCell ''Added 4/12/2022 td
     Public RowIndex_NeededIfDeleted As Integer ''Added 4/25/2022 td
 
+    Public Shared Backcolor_NoEmphasis As System.Drawing.Color = System.Drawing.Color.White
+    Public Shared Backcolor_WithEmphasis As System.Drawing.Color = System.Drawing.Color.LightGray
+
     Public Overrides Property Text() As String
         Get
             ''Added 4/6/2022 td
@@ -629,6 +632,7 @@ Public Class RSCDataCell
 
         ''Added 4/28/2022
         Textbox1a.BorderStyle = BorderStyle.FixedSingle ''Add a border to the current cell.
+        Textbox1a.BackColor = Drawing.Color.White ''Added 4/29/2022 
         Me.ParentColumn.ClearBorderStyle_PriorCell(Me)
 
     End Sub

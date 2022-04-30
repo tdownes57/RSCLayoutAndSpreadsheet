@@ -40,6 +40,20 @@ Public Class RSCRowHeader
     End Property
 
 
+    Public Overrides Property BackColor() As Drawing.Color
+        Get
+            ''Added 4/29/2022 td
+            Return textRowHeader1.BackColor
+        End Get
+
+        Set(value As Drawing.Color)
+            ''Added 4/29/2022 td
+            textRowHeader1.BackColor = value
+            MyBase.BackColor = value
+        End Set
+    End Property
+
+
     Private Sub textRowHeader1_MouseUp(sender As Object, e As MouseEventArgs) Handles textRowHeader1.MouseUp
 
         ''Added 4/12/2022 td 
@@ -70,10 +84,12 @@ Public Class RSCRowHeader
             ''
             ''Added 4/28/2022 thomas d.
             ''
+            If (Me.RowIndex <= 0) Then System.Diagnostics.Debugger.Break()
+            ''Major call!!
             Me.ParentRSCRowHeaders.EmphasizeRows_Highlight(Me.RowIndex)
 
 
-        End If ''End of "If (e.Button = MouseButtons.Right) Then .... Else ...."
+        End If ''End of "If (e.Button = MouseButtons.Right) Then .... ElseIf ... Else ...."
 
     End Sub
 

@@ -268,6 +268,7 @@ Public Class RSCRowHeaders
         ''
         '' 1, 2, 3
         ''
+        textRowHeader1.RowIndex = 1
         textRowHeader1.Text = "1"
         textRowHeader1.ParentRSCRowHeaders = Me
         ''textRowHeader1.Height = mod_c_intPixelsFromRowToRow ''+ 1 ''24
@@ -277,6 +278,7 @@ Public Class RSCRowHeaders
         ''struct1.BottomBar = PictureBox1a
         ''.Add(1, struct1)
 
+        textRowHeader2.RowIndex = 2
         textRowHeader2.Text = "2"
         textRowHeader2.ParentRSCRowHeaders = Me
         ''textRowHeader2.Height = mod_c_intPixelsFromRowToRow ''+ 1 ''24
@@ -286,6 +288,7 @@ Public Class RSCRowHeaders
         ''struct2.BottomBar = PictureBox2a
         ''.Add(2, struct2)
 
+        textRowHeader3.RowIndex = 3
         textRowHeader3.Text = "3"
         textRowHeader3.ParentRSCRowHeaders = Me
         ''textRowHeader3.Height = mod_c_intPixelsFromRowToRow ''+ 1 ''24
@@ -298,6 +301,7 @@ Public Class RSCRowHeaders
         ''
         '' 4, 5, 6
         ''
+        textRowHeader4.RowIndex = 4
         textRowHeader4.Text = "4"
         textRowHeader4.ParentRSCRowHeaders = Me
         ''textRowHeader4.Height = mod_c_intPixelsFromRowToRow ''+ 1 ''24
@@ -307,6 +311,7 @@ Public Class RSCRowHeaders
         ''struct4.BottomBar = PictureBox4a
         ''.Add(4, struct4)
 
+        textRowHeader5.RowIndex = 5
         textRowHeader5.Text = "5"
         textRowHeader5.ParentRSCRowHeaders = Me
         mod_listTextboxesByRow.Add(5, textRowHeader5)
@@ -315,6 +320,7 @@ Public Class RSCRowHeaders
         ''struct5.BottomBar = PictureBox5a
         ''.Add(5, struct5)
 
+        textRowHeader6.RowIndex = 6
         textRowHeader6.Text = "6"
         textRowHeader6.ParentRSCRowHeaders = Me
         mod_listTextboxesByRow.Add(6, textRowHeader6)
@@ -326,6 +332,7 @@ Public Class RSCRowHeaders
         ''
         '' 7, 8, 9
         ''
+        textRowHeader7.RowIndex = 7
         textRowHeader7.Text = "7"
         textRowHeader7.ParentRSCRowHeaders = Me
         mod_listTextboxesByRow.Add(7, textRowHeader7)
@@ -334,6 +341,7 @@ Public Class RSCRowHeaders
         ''struct7.BottomBar = PictureBox7a
         ''.Add(7, struct7)
 
+        textRowHeader8.RowIndex = 8
         textRowHeader8.Text = "8"
         textRowHeader8.ParentRSCRowHeaders = Me
         mod_listTextboxesByRow.Add(8, textRowHeader8)
@@ -342,6 +350,7 @@ Public Class RSCRowHeaders
         ''struct8.BottomBar = PictureBox8a
         ''.Add(8, struct8)
 
+        textRowHeader9.RowIndex = 9
         textRowHeader9.Text = "9"
         textRowHeader9.ParentRSCRowHeaders = Me
         mod_listTextboxesByRow.Add(9, textRowHeader9)
@@ -353,6 +362,7 @@ Public Class RSCRowHeaders
         ''
         '' 10, 11, 12
         ''
+        textRowHeader10.RowIndex = 10
         textRowHeader10.Text = "10"
         textRowHeader10.ParentRSCRowHeaders = Me
         mod_listTextboxesByRow.Add(10, textRowHeader10)
@@ -361,6 +371,7 @@ Public Class RSCRowHeaders
         ''struct10.BottomBar = PictureBox10a
         ''.Add(10, struct10)
 
+        textRowHeader11.RowIndex = 11
         textRowHeader11.Text = "11"
         textRowHeader11.ParentRSCRowHeaders = Me
         mod_listTextboxesByRow.Add(11, textRowHeader11)
@@ -369,6 +380,7 @@ Public Class RSCRowHeaders
         ''struct11.BottomBar = PictureBox11a
         ''.Add(11, struct11)
 
+        textRowHeader12.RowIndex = 12
         textRowHeader12.Text = "12"
         textRowHeader12.ParentRSCRowHeaders = Me
         mod_listTextboxesByRow.Add(12, textRowHeader12)
@@ -380,6 +392,7 @@ Public Class RSCRowHeaders
         ''
         '' 13, 14, 15
         ''
+        textRowHeader13.RowIndex = 13
         textRowHeader13.Text = "13"
         textRowHeader13.ParentRSCRowHeaders = Me
         mod_listTextboxesByRow.Add(13, textRowHeader13)
@@ -388,6 +401,7 @@ Public Class RSCRowHeaders
         ''struct13.BottomBar = PictureBox13a
         ''.Add(13, struct13)
 
+        textRowHeader14.RowIndex = 14
         textRowHeader14.Text = "14"
         textRowHeader14.ParentRSCRowHeaders = Me
         mod_listTextboxesByRow.Add(14, textRowHeader14)
@@ -396,6 +410,7 @@ Public Class RSCRowHeaders
         ''struct14.BottomBar = PictureBox14a
         ''.Add(14, struct14)
 
+        textRowHeader15.RowIndex = 15
         textRowHeader15.Text = "15"
         textRowHeader15.ParentRSCRowHeaders = Me
         mod_listTextboxesByRow.Add(15, textRowHeader15)
@@ -407,6 +422,7 @@ Public Class RSCRowHeaders
         ''
         '' 16, 17, 18
         ''
+        textRowHeader16.RowIndex = 16
         textRowHeader16.Text = "16"
         textRowHeader16.ParentRSCRowHeaders = Me
         mod_listTextboxesByRow.Add(16, textRowHeader16)
@@ -415,6 +431,7 @@ Public Class RSCRowHeaders
         ''struct16.BottomBar = PictureBox16a
         ''.Add(16, struct16)
 
+        textRowHeader17.RowIndex = 17
         textRowHeader17.Text = "17"
         textRowHeader17.ParentRSCRowHeaders = Me
         mod_listTextboxesByRow.Add(17, textRowHeader17)
@@ -423,6 +440,7 @@ Public Class RSCRowHeaders
         ''struct17.BottomBar = PictureBox17a
         ''.Add(17, struct17)
 
+        textRowHeader18.RowIndex = 18
         textRowHeader18.Text = "18"
         textRowHeader18.ParentRSCRowHeaders = Me
         mod_listTextboxesByRow.Add(18, textRowHeader18)
@@ -434,6 +452,7 @@ Public Class RSCRowHeaders
         ''
         '' 19
         ''
+        textRowHeader19.RowIndex = 19
         textRowHeader19.Text = "19"
         textRowHeader19.ParentRSCRowHeaders = Me
         mod_listTextboxesByRow.Add(19, textRowHeader19)
@@ -550,8 +569,8 @@ Public Class RSCRowHeaders
         ''
         ''Step 2 of 3.  Do the requested emphasis work.  
         ''
-        Me.EmphasizeRowHeaders(stat_intRowIndex_Start,
-                                    stat_intRowIndex_End)
+        Me.EmphasizeRowHeaders(par_intRowIndex_Start,
+                                    par_intRowIndex_End)
         Me.ParentRSCSpreadsheet.EmphasizeRows_Highlight(par_intRowIndex_Start,
                                                         par_intRowIndex_End)
 
@@ -794,6 +813,9 @@ Public Class RSCRowHeaders
             ''Don't exit. 
             ''
         ElseIf (bRowIndexLocated) Then
+
+            ''Added 4/29/2022 thomas d. 
+            mod_listTextboxesByRow(par_intRowIndex).RowIndex = par_intRowIndex
 
             Exit Sub
 
@@ -1140,6 +1162,14 @@ Public Class RSCRowHeaders
     End Sub
 
     Private Sub RSCRowHeaders_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+    End Sub
+
+    Private Sub HeaderBox_MouseUp(sender As Object, e As MouseEventArgs) Handles textRowHeader9.MouseUp, textRowHeader8.MouseUp, textRowHeader7.MouseUp, textRowHeader6.MouseUp, textRowHeader5.MouseUp, textRowHeader4.MouseUp, textRowHeader3.MouseUp, textRowHeader2.MouseUp, textRowHeader12.MouseUp, textRowHeader11.MouseUp, textRowHeader10.MouseUp, textRowHeader1.MouseUp
+
+    End Sub
+
+    Private Sub textRowHeader15_Load(sender As Object, e As EventArgs) Handles textRowHeader15.Load
 
     End Sub
 End Class

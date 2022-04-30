@@ -30,6 +30,11 @@ Public Class RSCFieldSpreadsheet
     Private Const mod_intRscFieldColumn1_Top As Integer = 19 ''Added 4/3/2022 thomas downes
     Private Const mc_intPixelsFromRowToRow As Integer = 24 ''Added 4/05/2022 td
 
+    ''Added 4/29/2022 td
+    Private mod_intEmphasisRowIndex_Start As Integer ''= par_intRowIndex_Start
+    Private mod_intEmphasisRowIndex_End As Integer ''= par_intRowIndex_End
+
+
 
     Public Function RSCFieldColumn_Leftmost() As RSCFieldColumnV2
         ''Added 3/31/2022 td
@@ -598,6 +603,9 @@ Public Class RSCFieldSpreadsheet
         If (s_objPriorCell IsNot Nothing) Then
             If (s_objPriorCell IsNot par_objNextCell) Then
                 s_objPriorCell.BorderStyle_Textbox = BorderStyle.None
+                ''Added 4/29/2022 thomas downes
+                SetBackColor_ToRowDefault(s_objPriorCell)
+
             End If ''End of ""If (s_objPriorCell IsNot par_objNextCell) Then""
         End If ''End of ""If (s_objPriorCell IsNot Nothing) Then""
 
@@ -610,6 +618,54 @@ Public Class RSCFieldSpreadsheet
         End If ''End of ""If (s_objPriorCell IsNot par_objNextCell) Then""
 
     End Sub ''End of ""Public Sub ClearBorderStyle_PriorCellaaa(par_objNextCell As RSCDataCell)""
+
+
+    Public Sub SetBackColor_ToRowDefault(par_objDataCell As RSCDataCell,
+                         Optional pboolCheckForEmphasis As Boolean = True)
+        ''
+        ''Added 4/29/2022 td
+        ''
+        Dim intRowEmphasis_Start As Integer
+        Dim intRowEmphasis_End As Integer
+        Dim intRowOfDataCell As Integer
+
+        If (pboolCheckForEmphasis) Then
+
+            intRowEmphasis_Start = mod_intEmphasisRowIndex_Start
+            intRowEmphasis_End = mod_intEmphasisRowIndex_End
+
+            For Each each_column As RSCFieldColumnV2 In mod_array_RSCColumns
+                If (each_column Is Nothing) Then Continue For
+                intRowOfDataCell = -1
+                intRowOfDataCell = each_column.GetRowIndexOfCell(par_objDataCell)
+                If (intRowOfDataCell > 0) Then Exit For
+            Next each_column
+
+            Dim boolRowHasEmphasis As Boolean
+
+            If (intRowEmphasis_Start > 0 And intRowOfDataCell > 0) Then
+                ''Check that the Data-Cell Row is within the range of emphasis.
+                If (intRowEmphasis_End = -1) Then intRowEmphasis_End = intRowEmphasis_Start
+                boolRowHasEmphasis = (intRowEmphasis_Start <= intRowOfDataCell) And
+                                 (intRowOfDataCell <= intRowEmphasis_End)
+            End If ''End of ""If (intRowEmphasis_Start > 0) Then""
+
+            If (boolRowHasEmphasis) Then
+
+                ''--par_objDataCell.BackColor = RSCDataCell.BackColorWithEmphasis
+                par_objDataCell.BackColor = RSCDataCell.Backcolor_WithEmphasis
+
+            Else
+                par_objDataCell.BackColor = RSCDataCell.Backcolor_NoEmphasis
+
+            End If ''End of ""If (boolRowHasEmphasis) Then... Else...""
+
+        Else
+            par_objDataCell.BackColor = RSCDataCell.Backcolor_NoEmphasis
+
+        End If ''End of ""If (pboolCheckForEmphasis) Then ... Else ...."
+
+    End Sub ''Endof ""Public Sub SetBackColor_ToRowDefault(par_objDataCell As RSCDataCell)""
 
 
     Public Sub ClearDataFromSpreadsheet_1stConfirm(Optional ByRef pboolUserCancelled As Boolean = False)
@@ -960,7 +1016,15 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 4/29/2022 td
         ''
+        mod_intEmphasisRowIndex_Start = par_intRowIndex_Start
+        mod_intEmphasisRowIndex_End = par_intRowIndex_End
+        If (-1 = mod_intEmphasisRowIndex_End) Then
+            mod_intEmphasisRowIndex_End = mod_intEmphasisRowIndex_Start
+        End If
+
         For Each each_col As RSCFieldColumnV2 In mod_array_RSCColumns
+
+            If (each_col Is Nothing) Then Continue For ''Added 4/29/2022 thomas d
 
             ''---each_col.PaintEmphasisOfRows(par_intRowIndex_Start, par_intRowIndex_End)
             each_col.EmphasizeRows_Highlight(par_intRowIndex_Start, par_intRowIndex_End)
@@ -977,6 +1041,8 @@ Public Class RSCFieldSpreadsheet
         ''Added 4/29/2022 td
         ''
         For Each each_col As RSCFieldColumnV2 In mod_array_RSCColumns
+
+            If (each_col Is Nothing) Then Continue For ''Added 4/29/2022 td 
 
             each_col.DeemphasizeRows_NoHighlight(par_intRowIndex_Start, par_intRowIndex_End)
 

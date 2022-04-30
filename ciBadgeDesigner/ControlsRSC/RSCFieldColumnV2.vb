@@ -51,8 +51,10 @@ Public Class RSCFieldColumnV2
     Private mod_emphasizeRows_BottomY As Integer = -1 '' = intEnd__Y
 
     ''Added 4/29/2022 td
-    Private mod_colorCellsBackcolor_NoEmphasis As System.Drawing.Color = System.Drawing.Color.White
-    Private mod_colorCellsBackcolor_WithEmphasis As System.Drawing.Color = System.Drawing.Color.LightGray
+    ''---Private mod_colorCellsBackcolor_NoEmphasis As System.Drawing.Color = System.Drawing.Color.White
+    ''---Private mod_colorCellsBackcolor_WithEmphasis As System.Drawing.Color = System.Drawing.Color.LightGray
+    ''////Public Shared CellsBackcolor_NoEmphasis As System.Drawing.Color = System.Drawing.Color.White
+    ''////Public Shared CellsBackcolor_WithEmphasis As System.Drawing.Color = System.Drawing.Color.LightGray
 
     Public Property PixelsFromRowToRow() As Integer
         Get
@@ -1767,13 +1769,21 @@ Public Class RSCFieldColumnV2
         Dim RSCDataCell_1st_Top As RSCDataCell
         Dim intRSCDataCell_1st_Top_Y As Integer
 
+        ''Added 4/29/2022 thomas downes
+        Dim intRowIndex_End As Integer ''Added 4/29/2022 td
+        intRowIndex_End = par_intRowIndex_End
+        If (par_intRowIndex_End = -1) Then
+            par_intRowIndex_End = par_intRowIndex_Start
+            intRowIndex_End = par_intRowIndex_Start
+        End If ''End of ""If (par_intRowIndex_End = -1) Then""
+
         RSCDataCell_1st_Top = Me.GetFirstRSCDataCell()
         intRSCDataCell_1st_Top_Y = RSCDataCell_1st_Top.Top
 
         intStartY = ModRSCLayout.EmphasisOfRows_StartingY(par_intRowIndex_Start,
                intRSCDataCell_1st_Top_Y, RSCDataCell_1st_Top.Height)
 
-        intEnd__Y = ModRSCLayout.EmphasisOfRows_EndingY(par_intRowIndex_End,
+        intEnd__Y = ModRSCLayout.EmphasisOfRows_EndingY(intRowIndex_End,
                intRSCDataCell_1st_Top_Y, RSCDataCell_1st_Top.Height)
 
         mod_emphasizeRows_TopY = intStartY
@@ -1789,11 +1799,20 @@ Public Class RSCFieldColumnV2
         ''listCells = ListOfRSCDataCells_TopToBottom()
         Dim each_cell As RSCDataCell
 
-        For intRowIndex As Integer = par_intRowIndex_Start To par_intRowIndex_End
+        ''Added 4/29/2022 thomas d.
+        ''Dim intRowIndex_End As Integer ''Added 4/29/2022 td
+        ''If (-1 = par_intRowIndex_End) Then
+        ''    intRowIndex_End = par_intRowIndex_Start
+        ''Else
+        ''    intRowIndex_End = par_intRowIndex_End
+        ''End If
+
+        For intRowIndex As Integer = par_intRowIndex_Start To intRowIndex_End ''---par_intRowIndex_End
 
             each_cell = mod_listRSCDataCellsByRow.Item(intRowIndex)
             ''each_cell.BackColor = Color.LightGray
-            each_cell.BackColor = mod_colorCellsBackcolor_WithEmphasis
+            ''---each_cell.BackColor = mod_colorCellsBackcolor_WithEmphasis
+            each_cell.BackColor = RSCDataCell.Backcolor_WithEmphasis
 
         Next intRowIndex
 
@@ -1810,7 +1829,8 @@ Public Class RSCFieldColumnV2
                     ''We will ---REMOVE EMPHASIS--- for rows outside of the range.
                     each_cell = mod_listRSCDataCellsByRow.Item(intRowIndex)
                     ''each_cell.BackColor = Color.White
-                    each_cell.BackColor = mod_colorCellsBackcolor_NoEmphasis
+                    ''---each_cell.BackColor = mod_colorCellsBackcolor_NoEmphasis
+                    each_cell.BackColor = RSCDataCell.Backcolor_NoEmphasis
                 Next intRowIndex
             End If ''End of ""If (par_intRowIndex_Start > 1) Then""
 
@@ -1819,15 +1839,17 @@ Public Class RSCFieldColumnV2
             ''We will ---REMOVE EMPHASIS--- for rows outside of the range.
             Dim intRowIndexMaximum As Integer
             intRowIndexMaximum = mod_listRSCDataCellsByRow.Count
-            If (par_intRowIndex_End < intRowIndexMaximum) Then
-                For intRowIndex As Integer = (par_intRowIndex_End + 1) To intRowIndexMaximum
+            If (intRowIndex_End < intRowIndexMaximum) Then
+                For intRowIndex As Integer = (intRowIndex_End + 1) To intRowIndexMaximum
                     ''-----------CONFUSING----------
                     ''We will ---REMOVE EMPHASIS--- for rows outside of the range.
                     each_cell = mod_listRSCDataCellsByRow.Item(intRowIndex)
                     ''each_cell.BackColor = Color.White
-                    each_cell.BackColor = mod_colorCellsBackcolor_NoEmphasis
+                    ''---each_cell.BackColor = mod_colorCellsBackcolor_NoEmphasis
+                    ''///each_cell.BackColor = CellsBackcolor_NoEmphasis
+                    each_cell.BackColor = RSCDataCell.Backcolor_NoEmphasis
                 Next intRowIndex
-            End If ''end of If (par_intRowIndex_End < intRowIndexMaximum) Then
+            End If ''end of If (intRowIndex_End < intRowIndexMaximum) Then
 
         End If ''End of "" If (pboolRestoreOtherRows) Then""
 
@@ -1841,12 +1863,20 @@ Public Class RSCFieldColumnV2
         ''Added 4/29/2022 thomas downes  
         ''
         Dim each_cell As RSCDataCell
+        ''Added 4/29/2022 thomas downes
+        Dim intRowIndex_End As Integer ''Added 4/29/2022 td
+        intRowIndex_End = par_intRowIndex_End
+        If (par_intRowIndex_End = -1) Then
+            par_intRowIndex_End = par_intRowIndex_Start
+            intRowIndex_End = par_intRowIndex_Start
+        End If ''End of ""If (par_intRowIndex_End = -1) Then""
 
-        For intRowIndex As Integer = par_intRowIndex_Start To par_intRowIndex_End
+        For intRowIndex As Integer = par_intRowIndex_Start To intRowIndex_End ''par_intRowIndex_End
 
             each_cell = mod_listRSCDataCellsByRow.Item(intRowIndex)
             ''each_cell.BackColor = Color.white
-            each_cell.BackColor = mod_colorCellsBackcolor_NoEmphasis
+            ''---each_cell.BackColor = mod_colorCellsBackcolor_NoEmphasis
+            each_cell.BackColor = RSCDataCell.Backcolor_NoEmphasis
 
         Next intRowIndex
 
