@@ -31,8 +31,8 @@ Public Class RSCFieldSpreadsheet
     Private Const mc_intPixelsFromRowToRow As Integer = 24 ''Added 4/05/2022 td
 
     ''Added 4/29/2022 td
-    Private mod_intEmphasisRowIndex_Start As Integer ''= par_intRowIndex_Start
-    Private mod_intEmphasisRowIndex_End As Integer ''= par_intRowIndex_End
+    Private mod_intEmphasisRowIndex_Start As Integer = -1 ''= par_intRowIndex_Start
+    Private mod_intEmphasisRowIndex_End As Integer = -1 ''= par_intRowIndex_End
 
 
 

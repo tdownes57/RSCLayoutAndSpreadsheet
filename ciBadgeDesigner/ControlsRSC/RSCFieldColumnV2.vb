@@ -1809,10 +1809,16 @@ Public Class RSCFieldColumnV2
 
         For intRowIndex As Integer = par_intRowIndex_Start To intRowIndex_End ''---par_intRowIndex_End
 
-            each_cell = mod_listRSCDataCellsByRow.Item(intRowIndex)
-            ''each_cell.BackColor = Color.LightGray
-            ''---each_cell.BackColor = mod_colorCellsBackcolor_WithEmphasis
-            each_cell.BackColor = RSCDataCell.Backcolor_WithEmphasis
+            If (Not mod_listRSCDataCellsByRow.ContainsKey(intRowIndex)) Then
+                ''
+                ''It is possible that the row has been deleted. ---4/29/2022 td
+                ''
+            Else
+                each_cell = mod_listRSCDataCellsByRow.Item(intRowIndex)
+                ''each_cell.BackColor = Color.LightGray
+                ''---each_cell.BackColor = mod_colorCellsBackcolor_WithEmphasis
+                each_cell.BackColor = RSCDataCell.Backcolor_WithEmphasis
+            End If ''End of "If (mod_listRSCDataCellsByRow.ContainsKey(intRowIndex)) Then"
 
         Next intRowIndex
 

@@ -8,14 +8,15 @@ Public Class RSCRowHeader
     Public ParentRSCRowHeaders As RSCRowHeaders
     Public Property RowIndex As Integer ''Added 4/24/2022 td
 
-    Private Sub textRowHeader1_Click(sender As Object, e As EventArgs) Handles textRowHeader1.Click
-        ''
-        ''Added 4/6/2022 thomas d
-        ''
+    ''Added 4/29/2022 td
+    Private mod_intEmphasisRowIndex_Start As Integer = -1 ''= par_intRowIndex_Start
+    Private mod_intEmphasisRowIndex_End As Integer = -1 ''= par_intRowIndex_End
 
-
-
-    End Sub
+    ''Private Sub textRowHeader1_Click(sender As Object, e As EventArgs) Handles textRowHeader1.Click
+    ''    ''
+    ''    ''Added 4/6/2022 thomas d
+    ''    ''
+    ''End Sub
 
     Public Overrides Property Text() As String
         Get
@@ -58,6 +59,7 @@ Public Class RSCRowHeader
 
         ''Added 4/12/2022 td 
         Const c_bGiveHeightMsg As Boolean = False
+        Dim boolUsingShiftKey As Boolean ''And 4/29/2022 thomas
 
         ''Added 4/6/2022 thomas d.
         If (e.Button = MouseButtons.Right) Then
@@ -85,8 +87,31 @@ Public Class RSCRowHeader
             ''Added 4/28/2022 thomas d.
             ''
             If (Me.RowIndex <= 0) Then System.Diagnostics.Debugger.Break()
+
             ''Major call!!
             Me.ParentRSCRowHeaders.EmphasizeRows_Highlight(Me.RowIndex)
+
+            ''Added 4/29/2022 thomas d.
+            If (My.Computer.Keyboard.ShiftKeyDown) Then
+                ''
+                ''Determine the range of selected rows.
+                ''
+                If (0 < mod_intEmphasisRowIndex_Start) Then
+                    If (Me.RowIndex >= mod_intEmphasisRowIndex_Start) Then
+                        mod_intEmphasisRowIndex_End = Me.RowIndex
+                    ElseIf (Me.RowIndex < mod_intEmphasisRowIndex_Start) Then
+                        mod_intEmphasisRowIndex_End = mod_intEmphasisRowIndex_Start
+                        mod_intEmphasisRowIndex_Start = Me.RowIndex
+                    End If
+                Else
+                    mod_intEmphasisRowIndex_Start = Me.RowIndex
+                    mod_intEmphasisRowIndex_End = -1
+                End If ''end of ""If (0 < mod_intEmphasisRowIndex_Start) Then... Else...""
+
+            Else
+                mod_intEmphasisRowIndex_Start = Me.RowIndex
+                mod_intEmphasisRowIndex_End = -1
+            End If ''End of ""If (My.Computer.Keyboard.ShiftKeyDown) Then ... Else...""
 
 
         End If ''End of "If (e.Button = MouseButtons.Right) Then .... ElseIf ... Else ...."
