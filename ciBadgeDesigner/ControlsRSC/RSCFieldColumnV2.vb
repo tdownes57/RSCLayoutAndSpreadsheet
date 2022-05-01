@@ -830,12 +830,22 @@ Public Class RSCFieldColumnV2
     End Function ''End of "Private Sub LoadDataToColumn_Do()"
 
 
-    Public Sub AddRowToBottomOfSpreadsheet()
+    Public Sub AddToEdgeOfSpreadsheet_Row()
+        ''4/30/2022 td''Public Sub AddRowToBottomOfSpreadsheet()
 
         ''Added 4/30/2022 thomas downes
-        Me.ParentSpreadsheet.AddRowToBottomOfSpreadsheet()
+        ''4/30/2022 td''Me.ParentSpreadsheet.AddRowToBottomOfSpreadsheet()
+        Me.ParentSpreadsheet.AddToEdgeOfSpreadsheet_Row()
 
-    End Sub ''End of ""Public Sub AddRowToBottomOfSpreadsheet()""
+    End Sub ''End of ""Public Sub AddRowToEdgeOfSpreadsheet_Row()""
+
+
+    Public Sub AddToEdgeOfSpreadsheet_Column()
+
+        ''Added 4/30/2022 thomas downes
+        Me.ParentSpreadsheet.AddToEdgeOfSpreadsheet_Column()
+
+    End Sub ''End of ""Public Sub AddRowToEdgeOfSpreadsheet_Column()""
 
 
     Public Function GetFirstRSCDataCell() As RSCDataCell
@@ -1876,7 +1886,7 @@ Public Class RSCFieldColumnV2
                 each_cell = mod_listRSCDataCellsByRow.Item(intRowIndex)
                 ''each_cell.BackColor = Color.LightGray
                 ''---each_cell.BackColor = mod_colorCellsBackcolor_WithEmphasis
-                each_cell.BackColor = RSCDataCell.Backcolor_WithEmphasis
+                each_cell.BackColor = RSCDataCell.Backcolor_WithEmphasisOnRow
             End If ''End of "If (mod_listRSCDataCellsByRow.ContainsKey(intRowIndex)) Then"
 
         Next intRowIndex

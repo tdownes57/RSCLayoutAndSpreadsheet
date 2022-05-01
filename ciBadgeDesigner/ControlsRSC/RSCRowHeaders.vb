@@ -19,6 +19,9 @@ Public Class RSCRowHeaders
     Public ColumnDataCache As CacheRSCFieldColumnWidthsEtc ''ClassColumnWidthsEtc ''Added 3/15/2022 td
     ''Probably not good to have circular references.3/25/2022 ''Public RSCSpreadsheet As RSCFieldSpreadsheet ''Added 3/24/2022 thomas downes
 
+    Public EmphasisRowIndex_Start As Integer = -1 ''Added 5/01/2022 thomas d.
+    Public EmphasisRowIndex_End As Integer = -1 ''Added 5/01/2022 thomas d.
+
     Private mod_ctlLasttouched As New ClassLastControlTouched ''Added 1/4/2022 td
     Private mod_eventsSingleton As New GroupMoveEvents_Singleton(Me.Designer, False, True) ''Added 1/4/2022 td  
     Private mod_colorOfColumnsBackColor As System.Drawing.Color = Drawing.Color.AntiqueWhite ''Added 3/13/2022 thomas downes
@@ -589,7 +592,8 @@ Public Class RSCRowHeaders
         ''
         ''Added 4/28/2022 td
         ''
-        mod_listTextboxesByRow(par_intRowIndex_Start).BackColor = mod_colorHeadersBackcolor_WithEmphasis
+        ''---mod_listTextboxesByRow(par_intRowIndex_Start).BackColor = mod_colorHeadersBackcolor_WithEmphasis
+        mod_listTextboxesByRow(par_intRowIndex_Start).BackColor = RSCDataCell.BackColor_WithEmphasisOnRow
 
     End Sub ''ENd of ""Private Sub EmphasizeRowHeaders""
 

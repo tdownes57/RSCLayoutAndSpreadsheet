@@ -9,8 +9,8 @@ Public Class RSCRowHeader
     Public Property RowIndex As Integer ''Added 4/24/2022 td
 
     ''Added 4/29/2022 td
-    Private mod_intEmphasisRowIndex_Start As Integer = -1 ''= par_intRowIndex_Start
-    Private mod_intEmphasisRowIndex_End As Integer = -1 ''= par_intRowIndex_End
+    ''5/1/2022 Private mod_intEmphasisRowIndex_Start As Integer = -1 ''= par_intRowIndex_Start
+    ''5/1/2022 Private mod_intEmphasisRowIndex_End As Integer = -1 ''= par_intRowIndex_End
 
     ''Private Sub textRowHeader1_Click(sender As Object, e As EventArgs) Handles textRowHeader1.Click
     ''    ''
@@ -88,31 +88,46 @@ Public Class RSCRowHeader
             ''
             If (Me.RowIndex <= 0) Then System.Diagnostics.Debugger.Break()
 
-            ''Major call!!
-            Me.ParentRSCRowHeaders.EmphasizeRows_Highlight(Me.RowIndex)
+            ''
+            ''Keep track of the range of emphasized rows.
+            ''
+            With Me.ParentRSCRowHeaders
 
-            ''Added 4/29/2022 thomas d.
-            If (My.Computer.Keyboard.ShiftKeyDown) Then
-                ''
-                ''Determine the range of selected rows.
-                ''
-                If (0 < mod_intEmphasisRowIndex_Start) Then
-                    If (Me.RowIndex >= mod_intEmphasisRowIndex_Start) Then
-                        mod_intEmphasisRowIndex_End = Me.RowIndex
-                    ElseIf (Me.RowIndex < mod_intEmphasisRowIndex_Start) Then
-                        mod_intEmphasisRowIndex_End = mod_intEmphasisRowIndex_Start
-                        mod_intEmphasisRowIndex_Start = Me.RowIndex
-                    End If
+                ''Major call!!
+                .EmphasizeRows_Highlight(Me.RowIndex)
+
+                ''Added 4/29/2022 thomas d.
+                If (My.Computer.Keyboard.ShiftKeyDown) Then
+                    ''
+                    ''Determine the range of selected rows.
+                    ''
+                    If (0 < .EmphasisRowIndex_Start) Then
+                        If (Me.RowIndex >= .EmphasisRowIndex_Start) Then
+                            .EmphasisRowIndex_End = Me.RowIndex
+
+                        ElseIf (Me.RowIndex < .EmphasisRowIndex_Start) Then
+                            .EmphasisRowIndex_End = .EmphasisRowIndex_Start
+                            .EmphasisRowIndex_Start = Me.RowIndex
+                        End If
+
+                    Else
+                        .EmphasisRowIndex_Start = Me.RowIndex
+                        .EmphasisRowIndex_End = -1
+
+                    End If ''end of ""If (0 < mod_intEmphasisRowIndex_Start) Then... Else...""
+
+                    ''Added 5/1/2022 thomas downes
+                    ''5/1/2022 .EmphasizeRows_Highlight(Me.RowIndex, .EmphasisRowIndex_End)
+                    .EmphasizeRows_Highlight(.EmphasisRowIndex_Start,
+                                             .EmphasisRowIndex_End)
+
                 Else
-                    mod_intEmphasisRowIndex_Start = Me.RowIndex
-                    mod_intEmphasisRowIndex_End = -1
-                End If ''end of ""If (0 < mod_intEmphasisRowIndex_Start) Then... Else...""
+                    .EmphasisRowIndex_Start = Me.RowIndex
+                    .EmphasisRowIndex_End = -1
 
-            Else
-                mod_intEmphasisRowIndex_Start = Me.RowIndex
-                mod_intEmphasisRowIndex_End = -1
-            End If ''End of ""If (My.Computer.Keyboard.ShiftKeyDown) Then ... Else...""
+                End If ''End of ""If (My.Computer.Keyboard.ShiftKeyDown) Then ... Else...""
 
+            End With ''End of ""With Me.ParentRSCRowHeaders""
 
         End If ''End of "If (e.Button = MouseButtons.Right) Then .... ElseIf ... Else ...."
 

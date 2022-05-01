@@ -164,6 +164,7 @@ Public Class Startup
                         ''Added 2/5/2022 td
                         pref_bUserWantsToExitApp = (.UserWantsToExitApplication)
                         If (pref_bUserWantsToExitApp) Then
+                            objFormShowCacheLayouts.Dispose() ''Added 5/1/2022
                             Exit Sub ''Added 2/5/2022 td
                         End If ''End of ""If (pref_bUserWantsToExitApp) Then""
 

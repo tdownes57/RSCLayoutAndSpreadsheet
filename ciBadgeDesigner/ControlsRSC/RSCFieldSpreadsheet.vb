@@ -1,12 +1,11 @@
 ﻿''
 ''Added 2/21/2022 td
 ''
-Imports __RSCWindowsControlLibrary ''Added 3/20/2022 Thomas Downes
-Imports ciBadgeDesigner
+Imports System.Drawing ''Added 3/20/2022 thomas downes
+Imports __RSCWindowsControlLibrary
+Imports ciBadgeCachePersonality ''Added 3/14/2.0.2.2. t.//downes
 Imports ciBadgeFields ''Added 3/10/2.0.2.2. thomas downes
 Imports ciBadgeInterfaces ''Added 3/11/2022 t__homas d__ownes
-Imports ciBadgeCachePersonality ''Added 3/14/2.0.2.2. t.//downes
-Imports System.Drawing ''Added 3/20/2022 thomas downes
 
 Public Class RSCFieldSpreadsheet
     ''
@@ -709,7 +708,7 @@ Public Class RSCFieldSpreadsheet
             If (boolRowHasEmphasis) Then
 
                 ''--par_objDataCell.BackColor = RSCDataCell.BackColorWithEmphasis
-                par_objDataCell.BackColor = RSCDataCell.Backcolor_WithEmphasis
+                par_objDataCell.BackColor = RSCDataCell.Backcolor_WithEmphasisOnRow
 
             Else
                 par_objDataCell.BackColor = RSCDataCell.Backcolor_NoEmphasis
@@ -1028,7 +1027,8 @@ Public Class RSCFieldSpreadsheet
     End Sub ''End of Public Sub LoadRuntimeColumns_AfterClearingDesign
 
 
-    Public Sub AddRowToBottomOfSpreadsheet()
+    Public Sub AddToEdgeOfSpreadsheet_Row()
+        ''4/2022 Public Sub AddRowToBottomOfSpreadsheet() 
 
         ''Added 4/30/2022 thomas downes
         ''Me.ParentSpreadsheet.AddRowToBottomOfSpreadsheet()
@@ -1043,7 +1043,22 @@ Public Class RSCFieldSpreadsheet
             each_RSCCol.Load_EmptyRows(intRowCount_PlusOne)
         Next each_RSCCol
 
-    End Sub ''End of ""Public Sub AddRowToBottomOfSpreadsheet()""
+    End Sub ''End of ""Public Sub AddToEdgeOfSpreadsheet_Row()""
+
+
+    Public Sub AddToEdgeOfSpreadsheet_Column()
+
+        ''Added 4/30/2022 thomas downes
+        Dim intColumnCount As Integer
+        Dim intColumnCount_PlusOne As Integer
+
+        intColumnCount = mod_array_RSCColumns.Length
+        If (mod_array_RSCColumns(0) Is Nothing) Then intColumnCount -= 1
+        intColumnCount_PlusOne = (1 + intColumnCount)
+        InsertNewColumnByIndex(intColumnCount_PlusOne)
+
+    End Sub ''End of ""Public Sub AddToEdgeOfSpreadsheet_Column()""
+
 
     Public Sub AlignRowHeadersWithSpreadsheet()
         ''
@@ -1375,7 +1390,7 @@ Public Class RSCFieldSpreadsheet
         Dim intFirstBumpedColumn_Left As Integer ''Added 4/1/2022 thomas downes
 
         ''
-        ''Step 0 of 5.  Record the Left position which the new column will occupy. 
+        ''Step 1 of 11.  Record the Left position which the new column will occupy. 
         ''
         Dim existingColumn As RSCFieldColumnV2 ''Added 4/14/2022
         Dim boolPlaceWithinArray As Boolean ''Added 4/14/2022
@@ -1397,7 +1412,7 @@ Public Class RSCFieldSpreadsheet
         intNewColumnWidth = mc_ColumnWidthDefault
 
         ''
-        ''Step 1a of 6.  Make room in the array which tracks the columns.  
+        ''Step 2a of 11.  Make room in the array which tracks the columns.  
         ''
 
         ''----objCacheOfData =
@@ -1428,7 +1443,7 @@ Public Class RSCFieldSpreadsheet
         mod_array_RSCColumns(par_intColumnIndex) = Nothing ''The place will be filled by the new column. --Added 4/1/2022  
 
         ''
-        ''Step 1b of 6.  Move the columns to the right, to make room for the new column. 
+        ''Step 2b of 11.  Move the columns to the right, to make room for the new column. 
         ''
         For intColIndex As Integer = (1 + par_intColumnIndex) To (-1 + intNewLength)
             ''
@@ -1444,7 +1459,7 @@ Public Class RSCFieldSpreadsheet
         Next intColIndex
 
         ''
-        ''Step 2 of 6.  Make a new column.   
+        ''Step 3 of 11.  Make a new column.   
         ''
         ''
         Dim intNextColumnPropertyLeft As Integer
@@ -1465,8 +1480,9 @@ Public Class RSCFieldSpreadsheet
                                                     objColumnAdjacent)
 
         ''
-        ''Step 3 of 6. 
+        ''Step 4 of 11. 
         ''
+        newRSCColumn.ParentSpreadsheet = Me ''Added 4/30/2022 td
         newRSCColumn.Top = RscFieldColumn1.Top
         newRSCColumn.Height = RscFieldColumn1.Height
         ''April 1st 2022 ''newRSCColumn.ListOfColumnsToBumpRight = New List(Of RSCFieldColumn)
@@ -1502,12 +1518,12 @@ Public Class RSCFieldSpreadsheet
         End With ''End of ""With newRSCColumn""
 
         ''
-        ''Step 4 of 6. 
+        ''Step 5 of 11. 
         ''
         newRSCColumn.Load_FieldsFromCache(Me.ElementsCache_Deprecated)
 
         ''
-        ''Step 5 of 6. 
+        ''Step 6 of 11. 
         ''
         Dim boolTestNewColumn_OK As Boolean ''Added 4/1/2022 thomas d
         Dim intExpectedFirstBumped_Left As Integer
@@ -1525,7 +1541,7 @@ Public Class RSCFieldSpreadsheet
         End If ''End of "If (Not boolTestNewColumn_OK) Then"
 
         ''
-        ''Step 6 of 6.   Move the columns to the right, to make room for the new column. 
+        ''Step 7 of 11.   Move the columns to the right, to make room for the new column. 
         ''     (This is similar to Step 1(b) of 6 above, but is a further adjustment.) 
         ''
         If (intDifferenceDelta > 0) Then
@@ -1540,7 +1556,7 @@ Public Class RSCFieldSpreadsheet
         End If ''End of "If (intDifferenceDelta > 0) Then"
 
         ''
-        ''Step 7 of 7.  Add the column as a "Bump Column" for all the columns to the left.  
+        ''Step 8 of 11.  Add the column as a "Bump Column" for all the columns to the left.  
         ''
         Dim bIgnoreIndex0 As Boolean ''Added 4/14/2022 td 
 
@@ -1558,14 +1574,25 @@ Public Class RSCFieldSpreadsheet
         Next intColIndex
 
         ''
-        ''Step 8 of 8. 
+        ''Step 9 of 11. 
         ''
         Load_EmptyRowsToAllNewColumns()
 
         ''
-        ''Step 9 of 9.  Add the new column to the list of columns in the cache. 
+        ''Step 10 of 11.  Add the new column to the list of columns in the cache. 
         ''
         Me.ColumnDataCache.ListOfColumns.Add(newRSCColumn.ColumnWidthAndData)
+
+        ''
+        ''Step 11 of 11.  Display the corrected column index on each columns to the right.  
+        ''
+        For intColIndex As Integer = (1 + par_intColumnIndex) To (-1 + intNewLength)
+            ''
+            ''Display the corrected column index on each columns to the right. 
+            ''
+            mod_array_RSCColumns(intColIndex).DisplayColumnIndex(intColIndex)
+
+        Next intColIndex
 
     End Sub ''End of "Public Sub InsertNewColumnByIndex(Me.ColumnIndex)"
 

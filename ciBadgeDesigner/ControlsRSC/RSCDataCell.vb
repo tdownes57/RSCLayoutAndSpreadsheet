@@ -19,8 +19,9 @@ Public Class RSCDataCell
     Public Shared CellOfKeyDownTabKey As RSCDataCell ''Added 4/12/2022 td
     Public RowIndex_NeededIfDeleted As Integer ''Added 4/25/2022 td
 
-    Public Shared Backcolor_NoEmphasis As System.Drawing.Color = System.Drawing.Color.White
-    Public Shared Backcolor_WithEmphasis As System.Drawing.Color = System.Drawing.Color.LightGray
+    Public Shared BackColor_NoEmphasis As System.Drawing.Color = System.Drawing.Color.White
+    Public Shared BackColor_WithEmphasisOnRow As System.Drawing.Color = System.Drawing.Color.LightGray
+    Public Shared BackColor_WithCellFocus As System.Drawing.Color = System.Drawing.Color.White
 
     Public Overrides Property Text() As String
         Get
@@ -42,8 +43,22 @@ Public Class RSCDataCell
 
         Set(value As Drawing.Color)
             ''Added 4/28/2022 td
-            Textbox1a.BackColor = value
             ''---MyBase.BackColor = value
+            ''May 1, 2022 ''Textbox1a.BackColor = value
+
+            ''Added 4/30/2022 td
+            Dim boolHasFocus As Boolean ''Added 4/30/2022 td
+            boolHasFocus = Textbox1a.Focused
+
+            If (boolHasFocus And (value = Backcolor_WithEmphasisOnRow)) Then
+                ''Added 4/30/2022 td
+                Textbox1a.BackColor = Backcolor_WithCellFocus
+
+            Else
+                Textbox1a.BackColor = value
+
+            End If
+
         End Set
     End Property
 
@@ -139,7 +154,8 @@ Public Class RSCDataCell
     End Function ''End of ""Public Function GetNextCell_Left() As RSCDataCell""
 
 
-    Public Function GetNextCell_Up(Optional ByRef pboolEdge As Boolean = False) As RSCDataCell
+    Public Function GetNextCell_Up(Optional ByRef pboolEdge As Boolean = False,
+                                   Optional par_intNumRowsToSkip As Integer = 1) As RSCDataCell
         ''
         ''4/12/2022 td
         ''
@@ -150,24 +166,68 @@ Public Class RSCDataCell
             pboolEdge = True
             Return Nothing
         End If ''End of ""If (intCurrentRowIndex = 1) Then""
-        objRSCDataCell_Up = Me.ParentColumn.GetCellWithRowIndex(-1 + intCurrentRowIndex)
+
+        Dim boolAboveTopEdge As Boolean ''Added 5/1/2022
+        boolAboveTopEdge = (1 > (intCurrentRowIndex - par_intNumRowsToSkip))
+
+        If (boolAboveTopEdge And par_intNumRowsToSkip > 1) Then
+            ''Get the top row of the spreadsheet. ---5/1/2022 td
+            Const intIndexOfTopRow As Integer = 1
+            objRSCDataCell_Up = Me.ParentColumn.GetCellWithRowIndex(intIndexOfTopRow)
+
+        ElseIf (par_intNumRowsToSkip > 1) Then ''Added 5/1/2022 td
+            ''Added 5/1/2022 td
+            objRSCDataCell_Up =
+                Me.ParentColumn.GetCellWithRowIndex(intCurrentRowIndex - par_intNumRowsToSkip)
+
+        Else
+            objRSCDataCell_Up = Me.ParentColumn.GetCellWithRowIndex(-1 + intCurrentRowIndex)
+        End If
+
         Return objRSCDataCell_Up
 
     End Function ''End of "" Public Function GetNextCell_Up() As RSCDataCell""
 
 
-    Public Function GetNextCell_Down(Optional ByRef pboolEdge As Boolean = False) As RSCDataCell
+    Public Function GetNextCell_Down(Optional ByRef pboolEdge As Boolean = False,
+                                    Optional par_intNumRowsToSkip As Integer = 1) As RSCDataCell
         ''
         ''4/12/2022 td
         ''
         Dim intCurrentRowIndex As Integer
+        Dim intMaximumRowIndex As Integer ''Added 4/2022
         Dim objRSCDataCell_Down As RSCDataCell
+        Dim boolBelowBottomEdge As Boolean ''Added 5/1/2022
+
         intCurrentRowIndex = Me.ParentColumn.GetRowIndexOfCell(Me)
-        If (intCurrentRowIndex = Me.ParentColumn.CountOfRows()) Then
+        intMaximumRowIndex = Me.ParentColumn.ParentSpreadsheet.RscRowHeaders1.CountOfRows()
+        boolBelowBottomEdge = (intMaximumRowIndex < (intCurrentRowIndex + par_intNumRowsToSkip))
+
+        If (boolBelowBottomEdge) Then
+            ''Added 5/12022 
+            objRSCDataCell_Down = Me.ParentColumn.GetCellWithRowIndex(intMaximumRowIndex)
+
+        ElseIf (intCurrentRowIndex = Me.ParentColumn.CountOfRows()) Then
             pboolEdge = True
             Return Nothing
         End If ''End of ""If (intCurrentRowIndex = 1) Then""
-        objRSCDataCell_Down = Me.ParentColumn.GetCellWithRowIndex(1 + intCurrentRowIndex)
+
+        ''April 2022''objRSCDataCell_Down = Me.ParentColumn.GetCellWithRowIndex(1 + intCurrentRowIndex)
+        If (boolBelowBottomEdge And par_intNumRowsToSkip > 1) Then
+            ''Get the bottom row of the spreadsheet. ---5/1/2022 td
+            ''5/1/2022 ''Const intIndexOfBottomRow As Integer = 1
+            objRSCDataCell_Down = Me.ParentColumn.GetCellWithRowIndex(intMaximumRowIndex)
+
+        ElseIf (par_intNumRowsToSkip > 1) Then ''Added 5/1/2022 td
+            ''Added 5/1/2022 td
+            objRSCDataCell_Down =
+                Me.ParentColumn.GetCellWithRowIndex(intCurrentRowIndex + par_intNumRowsToSkip)
+
+        Else
+            objRSCDataCell_Down = Me.ParentColumn.GetCellWithRowIndex(1 + intCurrentRowIndex)
+
+        End If ''End of ""If (boolBelowBottomEdge And par_intNumRowsToSkip > 1) Then... ElseIf... Else...""
+
         Return objRSCDataCell_Down
 
     End Function ''End of ""Public Function GetNextCell_Down() As RSCDataCell""
@@ -212,52 +272,94 @@ Public Class RSCDataCell
     End Sub ''End of ""Public Sub SaveDataToRecipientField(enumCIBField As EnumCIBFields)""
 
 
-    Public Sub LoadDelimitedData(par_strDelimited As String)
+    Public Sub LoadDelimitedData(par_strDelimited As String,
+                      Optional pbCountCarriageReturns As Boolean = False)
         ''
         ''Added 4/26/2022 thomas downes
         ''
         Dim boolHasCrLfCharacter As Boolean ''Added 4/12/2022 td
         Dim boolHasCrCharacter As Boolean ''Added 4/12/2022 td
+        Dim boolHasLfCharacter As Boolean ''Added 4/30/2022 td
         Dim strRemainingAfterDelimiter As String ''Added 4/26/2022 td 
+        Dim bLastCharIs_CrLf As Boolean ''Added 4/30/2022 td
+        Dim bLastCharIsCr As Boolean ''Added 4/30/2022 td
+        Dim bLastCharIsLf As Boolean ''Added 4/30/2022 td
+        Dim intCountCRs As Integer ''Added 5/1/2022 td
+        Dim intRowIndex As Integer ''Added 5/1/2022 td
+
+        ''Cleaning. 
+        par_strDelimited = par_strDelimited.Trim()
+
+        ''More cleaning. #1 of 2
+        With par_strDelimited
+            ''Added 4/30/2022 td
+            bLastCharIsCr = (.LastIndexOf(vbCr) = (.Length - 1 - vbCr.Length + 1))
+            bLastCharIsLf = (.LastIndexOf(vbLf) = (.Length - 1 - vbLf.Length + 1))
+            bLastCharIs_CrLf = (bLastCharIsCr Or bLastCharIsLf)
+            ''If needed, remove the final line-feed character. 
+            If (bLastCharIsLf) Then par_strDelimited = .Substring(0, .LastIndexOf(vbLf))
+        End With
+
+        ''More cleaning. #2 of 2  
+        With par_strDelimited
+            bLastCharIsCr = (.LastIndexOf(vbCr) = (.Length - 1 - vbCr.Length + 1))
+            ''If needed, remove the final Carriage-Return character. 
+            If (bLastCharIsCr) Then par_strDelimited = .Substring(0, .LastIndexOf(vbCr))
+        End With
 
         With par_strDelimited
 
-            boolHasCrLfCharacter = par_strDelimited.Contains(vbCr) ''//Then
+            boolHasCrLfCharacter = par_strDelimited.Contains(vbCrLf) ''//Then
             boolHasCrCharacter = par_strDelimited.Contains(vbCr) ''//Then
+            boolHasLfCharacter = par_strDelimited.Contains(vbLf) ''//Then
+            ''Added 4/30/2022 
+            ''---Not needed.---boolHasCrLfCharacter = (boolHasCrLfCharacter Or boolHasCrCharacter Or boolHasLfCharacter)
 
             If (boolHasCrLfCharacter) Then
 
+                ''Added 5/1/2022 td
+                ''  Let's count the carriage returns.
+                ''
+                If (pbCountCarriageReturns) Then
+                    intCountCRs = CountCarriageReturns(par_strDelimited)
+                    intRowIndex = Me.ParentColumn.GetRowIndexOfCell(Me)
+                    With Me.ParentColumn.ParentSpreadsheet.RscRowHeaders1
+                        .Load_EmptyRows(intRowIndex + intCountCRs - 1)
+                    End With
+                End If ''End of ""If (pbCountCarriageReturns) Then""
+
                 ''Parse the tabbed values.  
                 strRemainingAfterDelimiter = .Substring(1 + .IndexOf(vbCrLf))
-                Dim objNextCell As RSCDataCell
-                objNextCell = Me.GetNextCell_Down()
-
-                ''Add an additional row. ----4/30/2022 td
-                If (objNextCell Is Nothing) Then
-                    Me.ParentColumn.AddRowToBottomOfSpreadsheet()
+                    Dim objNextCell As RSCDataCell
                     objNextCell = Me.GetNextCell_Down()
-                End If ''End of ""If (objNextCell Is Nothing) Then""
 
-                If (objNextCell IsNot Nothing) Then
-                    objNextCell.LoadDelimitedData(strRemainingAfterDelimiter)
-                End If ''End of ""If (objNextCell IsNot Nothing) Then""
+                    ''Add an additional row. ----4/30/2022 td
+                    If (objNextCell Is Nothing) Then
+                        ''4/30/2022 ''Me.ParentColumn.AddRowToBottomOfSpreadsheet()
+                        AddToEdgeOfSpreadsheet_Row()
+                        objNextCell = Me.GetNextCell_Down()
+                    End If ''End of ""If (objNextCell Is Nothing) Then""
 
-                ''Textbox1a.Text = .Substring(0, .IndexOf(vbCrLf))
-                LoadTabbedData(.Substring(0, .IndexOf(vbCrLf)))
+                    If (objNextCell IsNot Nothing) Then
+                        objNextCell.LoadDelimitedData(strRemainingAfterDelimiter)
+                    End If ''End of ""If (objNextCell IsNot Nothing) Then""
 
-            ElseIf (boolHasCrCharacter) Then
+                    ''Textbox1a.Text = .Substring(0, .IndexOf(vbCrLf))
+                    LoadTabbedData(.Substring(0, .IndexOf(vbCrLf)))
 
-                ''Parse the tabbed values.  
-                strRemainingAfterDelimiter = .Substring(1 + .IndexOf(vbCr))
-                Dim objNextCell As RSCDataCell
-                objNextCell = Me.GetNextCell_Down()
-                If (objNextCell IsNot Nothing) Then objNextCell.LoadDelimitedData(strRemainingAfterDelimiter)
-                ''Textbox1a.Text = .Substring(0, .IndexOf(vbCr))
-                LoadTabbedData(.Substring(0, .IndexOf(vbCr)))
+                ElseIf (boolHasCrCharacter) Then
 
-            Else
+                    ''Parse the tabbed values.  
+                    strRemainingAfterDelimiter = .Substring(1 + .IndexOf(vbCr))
+                    Dim objNextCell As RSCDataCell
+                    objNextCell = Me.GetNextCell_Down()
+                    If (objNextCell IsNot Nothing) Then objNextCell.LoadDelimitedData(strRemainingAfterDelimiter)
+                    ''Textbox1a.Text = .Substring(0, .IndexOf(vbCr))
+                    LoadTabbedData(.Substring(0, .IndexOf(vbCr)))
 
-                LoadTabbedData(par_strDelimited)
+                Else
+
+                    LoadTabbedData(par_strDelimited)
 
             End If ''End of ""If (boolHasCrLfCharacter) Then .... ElseIf .... Else...
 
@@ -281,25 +383,34 @@ Public Class RSCDataCell
             ''   the "Enter" key, as if to finalize the cell-editing work.
             ''   ---4/12/2022 td
             ''
-            Dim bTabIsLastChar As Boolean ''Added 4/12/2022 td
+            ''April 30, 2022 ''Dim bTabIsLastChar As Boolean ''Added 4/12/2022 td
+            Dim bNextTabIsLastChar As Boolean ''Added 4/12/2022 td
 
             With par_strTabbed
-                bTabIsLastChar = (.IndexOf(vbTab) = (.Length - 1 - vbTab.Length + 1))
-                If bTabIsLastChar Then
+                ''#1 4/30/2022 ''bTabIsLastChar = (.IndexOf(vbTab) = (.Length - 1 - vbTab.Length + 1))
+                ''#2 4/30/2022 ''bTabIsLastChar = (.LastIndexOf(vbTab) = (.Length - 1 - vbTab.Length + 1))
+                bNextTabIsLastChar = (.IndexOf(vbTab) = (.Length - 1 - vbTab.Length + 1))
+                If bNextTabIsLastChar Then
                     ''Don't (_NOT_) try to parse the tabbed values.  However,
                     ''  we should remove the final tab character.
                     ''  ----4/13/2022 td
-                    Textbox1a.Text = .Substring(0, .IndexOf(vbTab))
+                    ''4/30/2022 ''Textbox1a.Text = .Substring(0, .IndexOf(vbTab))
+                    Textbox1a.Text = .Substring(0, .LastIndexOf(vbTab))
 
                 Else
                     ''Parse the tabbed values.  
                     strPostTabLine = .Substring(1 + .IndexOf(vbTab))
                     Dim objNextCell As RSCDataCell
                     objNextCell = Me.GetNextCell_Right()
-                    If (objNextCell IsNot Nothing) Then objNextCell.LoadTabbedData(strPostTabLine)
+                    ''4/30/2022''If (objNextCell IsNot Nothing) Then objNextCell.LoadTabbedData(strPostTabLine)
+                    If (objNextCell Is Nothing) Then
+                        AddToEdgeOfSpreadsheet_Column()
+                        objNextCell = Me.GetNextCell_Right()
+                    End If ''End of ""If (objNextCell Is Nothing) Then""
+                    objNextCell.LoadTabbedData(strPostTabLine)
                     Textbox1a.Text = .Substring(0, .IndexOf(vbTab))
 
-                End If ''End of ""If bTabIsLastChar Then.... Else ...""
+                End If ''End of ""If bNextTabIsLastChar Then.... Else ...""
             End With ''End of ""With par_strTabbed""
 
         Else
@@ -345,13 +456,39 @@ Public Class RSCDataCell
     End Sub ''End of ""Public Sub ReviewForAbnormalValues()""
 
 
+    Private Sub AddToEdgeOfSpreadsheet_Row()
+        ''Added 4/30/2020 thomas d.
+        ''4/30/2022 td''Me.ParentColumn.AddRowToBottomOfSpreadsheet()
+        Me.ParentColumn.AddToEdgeOfSpreadsheet_Row()
+
+    End Sub ''end of ""Private Sub AddToEdgeOfSpreadsheet_Row()""
+
+
+    Private Sub AddToEdgeOfSpreadsheet_Column()
+        ''Added 4/30/2020 thomas d.
+        Me.ParentColumn.AddToEdgeOfSpreadsheet_Column()
+
+    End Sub ''end of ""Private Sub AddToEdgeOfSpreadsheet_Column()""
+
+
+    Private Function CountCarriageReturns(par_delimiteddata As String) As Integer
+        ''Added 5/1/2022 thomas downes
+        Dim intCountCRs As Integer = 0
+        For Each each_char As Char In par_delimiteddata
+            If (each_char = vbCr) Then intCountCRs += 1
+        Next each_char
+        Return intCountCRs
+
+    End Function
+
+
     Private Sub Textbox1a_TextChanged(sender As Object, e As EventArgs) Handles Textbox1a.TextChanged
         ''
         ''Added 4/12/2022 td
         ''
         Dim boolHasCrCharacter As Boolean ''Added 4/27/2022 td
         Dim boolHasTabCharacter As Boolean ''Added 4/12/2022 td
-        Dim strPostTabLine As String ''Added 4/12/2022 td
+        ''Dim strPostTabLine As String ''Added 4/12/2022 td
 
         boolHasCrCharacter = Textbox1a.Text.Contains(vbCr) ''//Then
         boolHasTabCharacter = Textbox1a.Text.Contains(vbTab) ''//Then
@@ -360,7 +497,8 @@ Public Class RSCDataCell
             ''
             ''Added 4/27/2022
             ''
-            LoadDelimitedData(Textbox1a.Text)
+            ''4/2022 td ''LoadDelimitedData(Textbox1a.Text)
+            LoadDelimitedData(Textbox1a.Text, True)
 
         ElseIf (boolHasTabCharacter) Then
             ''
@@ -473,6 +611,9 @@ Public Class RSCDataCell
                     ''Let's go to the first column of the next row.
                     objNextCell = GetFirstCell_NextRowDown()
                 End If
+
+            Case Keys.PageUp : objNextCell = GetNextCell_Up(bEdgeUp, 25) ''.SetFocus
+            Case Keys.PageDown : objNextCell = GetNextCell_Down(bEdgeDn, 25) ''.SetFocus()
 
             Case Keys.Tab
                 objNextCell = GetNextCell_Right(bEdgeTb) ''.SetFocus
