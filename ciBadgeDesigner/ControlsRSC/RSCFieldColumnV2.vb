@@ -830,6 +830,14 @@ Public Class RSCFieldColumnV2
     End Function ''End of "Private Sub LoadDataToColumn_Do()"
 
 
+    Public Sub AddRowToBottomOfSpreadsheet()
+
+        ''Added 4/30/2022 thomas downes
+        Me.ParentSpreadsheet.AddRowToBottomOfSpreadsheet()
+
+    End Sub ''End of ""Public Sub AddRowToBottomOfSpreadsheet()""
+
+
     Public Function GetFirstRSCDataCell() As RSCDataCell
         ''
         ''Added 4/04/2022 thomas downes

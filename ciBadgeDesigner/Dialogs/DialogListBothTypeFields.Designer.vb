@@ -23,7 +23,7 @@ Partial Class DialogListBothTypeFields
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
-        Me.LabelHeaderCaption = New System.Windows.Forms.Label()
+        Me.LabelHeaderCaption1 = New System.Windows.Forms.Label()
         Me.LinkLabelCancel = New System.Windows.Forms.LinkLabel()
         Me.LinkLabelSave = New System.Windows.Forms.LinkLabel()
         Me.linklabelExport = New System.Windows.Forms.LinkLabel()
@@ -33,8 +33,17 @@ Partial Class DialogListBothTypeFields
         Me.chkIncludeExampleValues = New System.Windows.Forms.CheckBox()
         Me.ButtonCancel = New System.Windows.Forms.Button()
         Me.ButtonOK = New System.Windows.Forms.Button()
+        Me.LinkLabelShowAllFieldsRNR = New System.Windows.Forms.LinkLabel()
+        Me.LinkShowRelevantOnly = New System.Windows.Forms.LinkLabel()
+        Me.LinkShowOnlyNotRelevant = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabelShowAllFieldsCS = New System.Windows.Forms.LinkLabel()
+        Me.LinkShowOnlyStandardFields = New System.Windows.Forms.LinkLabel()
+        Me.CheckBoxGotIt = New System.Windows.Forms.CheckBox()
+        Me.LabelHeaderCaption2 = New System.Windows.Forms.Label()
         Me.UserAddFieldControl1 = New ciBadgeDesigner.CtlAddCustomField()
+        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.FlowLayoutPanel1.SuspendLayout()
+        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'FlowLayoutPanel1
@@ -46,23 +55,23 @@ Partial Class DialogListBothTypeFields
         Me.FlowLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.FlowLayoutPanel1.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.FlowLayoutPanel1.Controls.Add(Me.UserAddFieldControl1)
-        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(11, 68)
+        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(11, 106)
         Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(2)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(1052, 425)
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(1052, 387)
         Me.FlowLayoutPanel1.TabIndex = 12
         '
-        'LabelHeaderCaption
+        'LabelHeaderCaption1
         '
-        Me.LabelHeaderCaption.AutoSize = True
-        Me.LabelHeaderCaption.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelHeaderCaption.Location = New System.Drawing.Point(9, 16)
-        Me.LabelHeaderCaption.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.LabelHeaderCaption.Name = "LabelHeaderCaption"
-        Me.LabelHeaderCaption.Size = New System.Drawing.Size(354, 29)
-        Me.LabelHeaderCaption.TabIndex = 11
-        Me.LabelHeaderCaption.Tag = "Custom Fields - {0}"
-        Me.LabelHeaderCaption.Text = "Both Custom && Standard Fields "
+        Me.LabelHeaderCaption1.AutoSize = True
+        Me.LabelHeaderCaption1.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelHeaderCaption1.Location = New System.Drawing.Point(8, 5)
+        Me.LabelHeaderCaption1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LabelHeaderCaption1.Name = "LabelHeaderCaption1"
+        Me.LabelHeaderCaption1.Size = New System.Drawing.Size(354, 29)
+        Me.LabelHeaderCaption1.TabIndex = 11
+        Me.LabelHeaderCaption1.Tag = "Custom Fields - {0}"
+        Me.LabelHeaderCaption1.Text = "Both Custom && Standard Fields "
         '
         'LinkLabelCancel
         '
@@ -172,24 +181,120 @@ Partial Class DialogListBothTypeFields
         Me.ButtonOK.Text = "OK"
         Me.ButtonOK.UseVisualStyleBackColor = True
         '
+        'LinkLabelShowAllFieldsRNR
+        '
+        Me.LinkLabelShowAllFieldsRNR.AutoSize = True
+        Me.LinkLabelShowAllFieldsRNR.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LinkLabelShowAllFieldsRNR.Location = New System.Drawing.Point(13, 79)
+        Me.LinkLabelShowAllFieldsRNR.Name = "LinkLabelShowAllFieldsRNR"
+        Me.LinkLabelShowAllFieldsRNR.Size = New System.Drawing.Size(264, 17)
+        Me.LinkLabelShowAllFieldsRNR.TabIndex = 23
+        Me.LinkLabelShowAllFieldsRNR.TabStop = True
+        Me.LinkLabelShowAllFieldsRNR.Text = "Show all fields, Relevant && Not Relevant."
+        '
+        'LinkShowRelevantOnly
+        '
+        Me.LinkShowRelevantOnly.AutoSize = True
+        Me.LinkShowRelevantOnly.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LinkShowRelevantOnly.Location = New System.Drawing.Point(307, 79)
+        Me.LinkShowRelevantOnly.Name = "LinkShowRelevantOnly"
+        Me.LinkShowRelevantOnly.Size = New System.Drawing.Size(173, 17)
+        Me.LinkShowRelevantOnly.TabIndex = 24
+        Me.LinkShowRelevantOnly.TabStop = True
+        Me.LinkShowRelevantOnly.Text = "Show only Relevant fields."
+        '
+        'LinkShowOnlyNotRelevant
+        '
+        Me.LinkShowOnlyNotRelevant.AutoSize = True
+        Me.LinkShowOnlyNotRelevant.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LinkShowOnlyNotRelevant.Location = New System.Drawing.Point(504, 79)
+        Me.LinkShowOnlyNotRelevant.Name = "LinkShowOnlyNotRelevant"
+        Me.LinkShowOnlyNotRelevant.Size = New System.Drawing.Size(203, 17)
+        Me.LinkShowOnlyNotRelevant.TabIndex = 25
+        Me.LinkShowOnlyNotRelevant.TabStop = True
+        Me.LinkShowOnlyNotRelevant.Text = "Show only Not Relevant Fields."
+        '
+        'LinkLabelShowAllFieldsCS
+        '
+        Me.LinkLabelShowAllFieldsCS.AutoSize = True
+        Me.LinkLabelShowAllFieldsCS.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LinkLabelShowAllFieldsCS.Location = New System.Drawing.Point(381, 15)
+        Me.LinkLabelShowAllFieldsCS.Name = "LinkLabelShowAllFieldsCS"
+        Me.LinkLabelShowAllFieldsCS.Size = New System.Drawing.Size(227, 17)
+        Me.LinkLabelShowAllFieldsCS.TabIndex = 26
+        Me.LinkLabelShowAllFieldsCS.TabStop = True
+        Me.LinkLabelShowAllFieldsCS.Text = "Show all fields, Custom && Standard"
+        '
+        'LinkShowOnlyStandardFields
+        '
+        Me.LinkShowOnlyStandardFields.AutoSize = True
+        Me.LinkShowOnlyStandardFields.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LinkShowOnlyStandardFields.Location = New System.Drawing.Point(625, 15)
+        Me.LinkShowOnlyStandardFields.Name = "LinkShowOnlyStandardFields"
+        Me.LinkShowOnlyStandardFields.Size = New System.Drawing.Size(175, 17)
+        Me.LinkShowOnlyStandardFields.TabIndex = 27
+        Me.LinkShowOnlyStandardFields.TabStop = True
+        Me.LinkShowOnlyStandardFields.Text = "Show only Standard Fields"
+        '
+        'CheckBoxGotIt
+        '
+        Me.CheckBoxGotIt.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.CheckBoxGotIt.AutoCheck = False
+        Me.CheckBoxGotIt.AutoSize = True
+        Me.CheckBoxGotIt.BackColor = System.Drawing.Color.Gold
+        Me.CheckBoxGotIt.Location = New System.Drawing.Point(662, 7)
+        Me.CheckBoxGotIt.Margin = New System.Windows.Forms.Padding(2)
+        Me.CheckBoxGotIt.Name = "CheckBoxGotIt"
+        Me.CheckBoxGotIt.Size = New System.Drawing.Size(143, 17)
+        Me.CheckBoxGotIt.TabIndex = 28
+        Me.CheckBoxGotIt.Text = "I understand? Rephrase."
+        Me.CheckBoxGotIt.UseVisualStyleBackColor = False
+        '
+        'LabelHeaderCaption2
+        '
+        Me.LabelHeaderCaption2.BackColor = System.Drawing.Color.Gold
+        Me.LabelHeaderCaption2.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelHeaderCaption2.Location = New System.Drawing.Point(2, 0)
+        Me.LabelHeaderCaption2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LabelHeaderCaption2.Name = "LabelHeaderCaption2"
+        Me.LabelHeaderCaption2.Size = New System.Drawing.Size(803, 24)
+        Me.LabelHeaderCaption2.TabIndex = 22
+        Me.LabelHeaderCaption2.Tag = "Custom Fields - {0}"
+        Me.LabelHeaderCaption2.Text = "You determine which fields are Relevant (i.e. available).  Review carefully."
+        '
         'UserAddFieldControl1
         '
         Me.UserAddFieldControl1.BackColor = System.Drawing.Color.LightCyan
         Me.UserAddFieldControl1.Location = New System.Drawing.Point(2, 2)
         Me.UserAddFieldControl1.Margin = New System.Windows.Forms.Padding(2)
         Me.UserAddFieldControl1.Name = "UserAddFieldControl1"
-        Me.UserAddFieldControl1.Size = New System.Drawing.Size(691, 70)
+        Me.UserAddFieldControl1.Size = New System.Drawing.Size(691, 72)
         Me.UserAddFieldControl1.TabIndex = 4
+        '
+        'Panel1
+        '
+        Me.Panel1.Controls.Add(Me.CheckBoxGotIt)
+        Me.Panel1.Controls.Add(Me.LabelHeaderCaption2)
+        Me.Panel1.Location = New System.Drawing.Point(13, 45)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(807, 31)
+        Me.Panel1.TabIndex = 5
         '
         'DialogListBothTypeFields
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1074, 547)
+        Me.Controls.Add(Me.Panel1)
+        Me.Controls.Add(Me.LinkShowOnlyStandardFields)
+        Me.Controls.Add(Me.LinkLabelShowAllFieldsCS)
+        Me.Controls.Add(Me.LinkShowOnlyNotRelevant)
+        Me.Controls.Add(Me.LinkShowRelevantOnly)
+        Me.Controls.Add(Me.LinkLabelShowAllFieldsRNR)
         Me.Controls.Add(Me.ButtonCancel)
         Me.Controls.Add(Me.ButtonOK)
         Me.Controls.Add(Me.FlowLayoutPanel1)
-        Me.Controls.Add(Me.LabelHeaderCaption)
+        Me.Controls.Add(Me.LabelHeaderCaption1)
         Me.Controls.Add(Me.LinkLabelCancel)
         Me.Controls.Add(Me.LinkLabelSave)
         Me.Controls.Add(Me.linklabelExport)
@@ -200,6 +305,8 @@ Partial Class DialogListBothTypeFields
         Me.Name = "DialogListBothTypeFields"
         Me.Text = "DialogListBothTypeFields"
         Me.FlowLayoutPanel1.ResumeLayout(False)
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -207,7 +314,7 @@ Partial Class DialogListBothTypeFields
 
     Friend WithEvents FlowLayoutPanel1 As FlowLayoutPanel
     Friend WithEvents UserAddFieldControl1 As CtlAddCustomField
-    Friend WithEvents LabelHeaderCaption As Label
+    Friend WithEvents LabelHeaderCaption1 As Label
     Friend WithEvents LinkLabelCancel As LinkLabel
     Friend WithEvents LinkLabelSave As LinkLabel
     Friend WithEvents linklabelExport As LinkLabel
@@ -217,4 +324,12 @@ Partial Class DialogListBothTypeFields
     Friend WithEvents chkIncludeExampleValues As CheckBox
     Friend WithEvents ButtonCancel As Button
     Friend WithEvents ButtonOK As Button
+    Friend WithEvents LinkLabelShowAllFieldsRNR As LinkLabel
+    Friend WithEvents LinkShowRelevantOnly As LinkLabel
+    Friend WithEvents LinkShowOnlyNotRelevant As LinkLabel
+    Friend WithEvents LinkLabelShowAllFieldsCS As LinkLabel
+    Friend WithEvents LinkShowOnlyStandardFields As LinkLabel
+    Friend WithEvents CheckBoxGotIt As CheckBox
+    Friend WithEvents LabelHeaderCaption2 As Label
+    Friend WithEvents Panel1 As Panel
 End Class

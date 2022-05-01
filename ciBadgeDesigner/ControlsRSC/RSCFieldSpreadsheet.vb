@@ -36,7 +36,7 @@ Public Class RSCFieldSpreadsheet
 
     ''Added 4/30/2022 td
     ''April 30, 2022 ''Private mod_dictionaryFieldsToColumnIndex As New Dictionary(Of EnumCIBFields, Integer)
-    Private m_dictionary1FC_FieldsToColumnIndex As New Dictionary(Of EnumCIBFields, RSCFieldColumnV2)
+    Private m_dictionary1FC_FieldsToRSCColumn As New Dictionary(Of EnumCIBFields, RSCFieldColumnV2)
     Private m_dictionary2CF_ColumnToEnumField As New Dictionary(Of RSCFieldColumnV2, EnumCIBFields)
 
 
@@ -299,17 +299,18 @@ Public Class RSCFieldSpreadsheet
         ''   1FC. Field-->Column. (EnumCIBFields-->RSCFieldColumn dictionary. 
         ''   2CF. Column-->Field. (RSCFieldColumn-->EnumCIBFields) dictionary. 
         ''
-        Dim dictionary1FC_FieldsToColumnIndex As New Dictionary(Of EnumCIBFields, RSCFieldColumnV2)
+        Dim dictionary1FC_FieldsToRSCColumn As New Dictionary(Of EnumCIBFields, RSCFieldColumnV2)
         Dim dictionary2CF_ColumnToEnumField As New Dictionary(Of RSCFieldColumnV2, EnumCIBFields)
         Dim eachRSCColumn As RSCFieldColumnV2
         Dim objectStringBuilder1FC As New System.Text.StringBuilder(150)
         Dim objectStringBuilder2CF As New System.Text.StringBuilder(150)
+        Dim objectStringBuilder1FC_Expanded As System.Text.StringBuilder
 
         For Each eachRSCColumn In mod_array_RSCColumns
             ''
             ''Build the dictionaries. 
             ''
-            eachRSCColumn.ReviewColumnDisplayForRelevantFields(dictionary1FC_FieldsToColumnIndex,
+            eachRSCColumn.ReviewColumnDisplayForRelevantFields(dictionary1FC_FieldsToRSCColumn,
                 dictionary2CF_ColumnToEnumField,
                 objectStringBuilder1FC,
                 objectStringBuilder2CF)
@@ -317,7 +318,7 @@ Public Class RSCFieldSpreadsheet
         Next eachRSCColumn
 
         ''Refresh the module-level objects.
-        m_dictionary1FC_FieldsToColumnIndex = dictionary1FC_FieldsToColumnIndex
+        m_dictionary1FC_FieldsToRSCColumn = dictionary1FC_FieldsToRSCColumn
         m_dictionary2CF_ColumnToEnumField = dictionary2CF_ColumnToEnumField
 
         ''Message the user, if required by parameter. ---4/30 td
@@ -335,7 +336,9 @@ Public Class RSCFieldSpreadsheet
             Const c_expandToShowAllRelevantFields As Boolean = True ''Added 4/30/2022 td
             If (c_expandToShowAllRelevantFields) Then
 
-                ExpandDictionary1FC
+                ''Added 4/30/2022 td
+                objectStringBuilder1FC_Expanded = New System.Text.StringBuilder(200)
+                ExpandDictionary1FC(dictionary1FC_FieldsToRSCColumn, objectStringBuilder1FC_Expanded)
 
             Else
                 ''Added 4/30/2022
@@ -346,6 +349,16 @@ Public Class RSCFieldSpreadsheet
         End If ''End of ""If (pboolMessageUser) Then""
 
     End Sub ''End of ""Public Sub ReviewColumnDisplayForRelevantFields()""
+
+
+    Private Sub ExpandDictionary1FC(par_dictionary1FC_FieldsToColumn As Dictionary(Of EnumCIBFields, RSCFieldColumnV2),
+                                    par_stringbuilder As System.Text.StringBuilder)
+        ''
+        ''Added 4/30/2022 thomas d.
+        ''
+
+
+    End Sub
 
 
     Private Function ReviewPastedData_IsOkay(par_stringPastedData As String,
@@ -1014,6 +1027,23 @@ Public Class RSCFieldSpreadsheet
 
     End Sub ''End of Public Sub LoadRuntimeColumns_AfterClearingDesign
 
+
+    Public Sub AddRowToBottomOfSpreadsheet()
+
+        ''Added 4/30/2022 thomas downes
+        ''Me.ParentSpreadsheet.AddRowToBottomOfSpreadsheet()
+        Dim intRowCount As Integer
+        Dim intRowCount_PlusOne As Integer
+        intRowCount = RscRowHeaders1.CountOfRows()
+        intRowCount_PlusOne = (intRowCount + 1)
+        RscRowHeaders1.Load_OneEmptyRow_IfNeeded(intRowCount_PlusOne) ''(1 + intRowCount)
+        ''Add a new textbox to each column. 
+        For Each each_RSCCol As RSCFieldColumnV2 In mod_array_RSCColumns
+            If (each_RSCCol Is Nothing) Then Continue For
+            each_RSCCol.Load_EmptyRows(intRowCount_PlusOne)
+        Next each_RSCCol
+
+    End Sub ''End of ""Public Sub AddRowToBottomOfSpreadsheet()""
 
     Public Sub AlignRowHeadersWithSpreadsheet()
         ''

@@ -231,7 +231,17 @@ Public Class RSCDataCell
                 strRemainingAfterDelimiter = .Substring(1 + .IndexOf(vbCrLf))
                 Dim objNextCell As RSCDataCell
                 objNextCell = Me.GetNextCell_Down()
-                If (objNextCell IsNot Nothing) Then objNextCell.LoadDelimitedData(strRemainingAfterDelimiter)
+
+                ''Add an additional row. ----4/30/2022 td
+                If (objNextCell Is Nothing) Then
+                    Me.ParentColumn.AddRowToBottomOfSpreadsheet()
+                    objNextCell = Me.GetNextCell_Down()
+                End If ''End of ""If (objNextCell Is Nothing) Then""
+
+                If (objNextCell IsNot Nothing) Then
+                    objNextCell.LoadDelimitedData(strRemainingAfterDelimiter)
+                End If ''End of ""If (objNextCell IsNot Nothing) Then""
+
                 ''Textbox1a.Text = .Substring(0, .IndexOf(vbCrLf))
                 LoadTabbedData(.Substring(0, .IndexOf(vbCrLf)))
 
@@ -251,7 +261,7 @@ Public Class RSCDataCell
 
             End If ''End of ""If (boolHasCrLfCharacter) Then .... ElseIf .... Else...
 
-        End With
+        End With ''End of ""With par_strDelimited""
 
 
     End Sub ''End of ""Public Sub LoadDelimitedData(par_strDelimited As String)""
