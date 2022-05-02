@@ -1597,6 +1597,14 @@ Public Class RSCFieldSpreadsheet
     End Sub ''End of "Public Sub InsertNewColumnByIndex(Me.ColumnIndex)"
 
 
+    Public Sub DeleteRecipientFromCache(par_recipient As ciBadgeRecipients.ClassRecipient)
+        ''
+        ''Added 5/1/2022 td
+        ''
+        Me.RecipientsCache.ListOfRecipients.Remove(par_recipient)
+
+    End Sub ''End of ""Public Sub DeleteRecipientFromCache(....)""
+
 
     Public Sub DeleteColumnByIndex(par_intColumnIndex As Integer)
         ''

@@ -85,7 +85,7 @@ Public Class Operations_RSCRowHeaders
                 ''Added 4/25/2022 thomas downes
                 Dim intRowIndex As Integer
                 intRowIndex = Me.RowIndex_LastClicked
-                If (intRowIndex > 0) Then
+                If (intRowIndex <= 0) Then
                     ''Added 4/25/2022 thomas downes
                     System.Diagnostics.Debugger.Break()
                 ElseIf (intRowIndex > 0) Then

@@ -395,7 +395,8 @@ Public Class RSCDataCell
                     ''  we should remove the final tab character.
                     ''  ----4/13/2022 td
                     ''4/30/2022 ''Textbox1a.Text = .Substring(0, .IndexOf(vbTab))
-                    Textbox1a.Text = .Substring(0, .LastIndexOf(vbTab))
+                    ''5/01/2022 ''Textbox1a.Text = .Substring(0, .LastIndexOf(vbTab))
+                    Textbox1a.Text = .Substring(0, .LastIndexOf(vbTab)).Trim()
 
                 Else
                     ''Parse the tabbed values.  
@@ -408,7 +409,8 @@ Public Class RSCDataCell
                         objNextCell = Me.GetNextCell_Right()
                     End If ''End of ""If (objNextCell Is Nothing) Then""
                     objNextCell.LoadTabbedData(strPostTabLine)
-                    Textbox1a.Text = .Substring(0, .IndexOf(vbTab))
+                    ''5/01/2022 ''Textbox1a.Text = .Substring(0, .IndexOf(vbTab))
+                    Textbox1a.Text = .Substring(0, .IndexOf(vbTab)).Trim()
 
                 End If ''End of ""If bNextTabIsLastChar Then.... Else ...""
             End With ''End of ""With par_strTabbed""
@@ -417,7 +419,8 @@ Public Class RSCDataCell
             ''
             ''No Tab character. 
             ''
-            Textbox1a.Text = par_strTabbed
+            ''5/01/2022 td ''Textbox1a.Text = par_strTabbed
+            Textbox1a.Text = par_strTabbed.Trim()
 
         End If ''End of ""If (boolHasTabCharacter) Then... Else....""
 

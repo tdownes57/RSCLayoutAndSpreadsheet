@@ -23,7 +23,8 @@ Public Class RSCFieldColumnV2
 
     Public ElementsCache_Deprecated As ciBadgeCachePersonality.ClassElementsCache_Deprecated ''Added 3/10/2022 td
     Public ColumnDataCache As CacheRSCFieldColumnWidthsEtc ''Added 3/15/2022 td
-    Public ListRecipients As IEnumerable(Of ClassRecipient) ''Added 3/22/2022 td
+    ''Added 5/01/2022 td''Public ListRecipients As IEnumerable(Of ClassRecipient) ''Added 3/22/2022 td
+    Public ListRecipients As List(Of ClassRecipient) ''Added 3/22/2022 td
     Public ParentSpreadsheet As RSCFieldSpreadsheet ''Added 4/11/2022 td
 
     Private mod_listOfColumnsToBumpRight As List(Of RSCFieldColumnV2)
@@ -752,8 +753,15 @@ Public Class RSCFieldColumnV2
         '' Added 4/25/2022 thomas d. 
         ''
         Dim objRSCDataCell As RSCDataCell
+        Const c_boolDeleteRecipient As Boolean = True ''Added 5/1/2022 thomas
 
         objRSCDataCell = GetCellWithRowIndex(par_intRowIndex) ''.Text_CellValue = ""
+
+        ''Added 5/01/2022 td
+        If (c_boolDeleteRecipient) Then
+            Me.ListRecipients.Remove(objRSCDataCell.Recipient)
+            Me.ParentSpreadsheet.DeleteRecipientFromCache(objRSCDataCell.Recipient)
+        End If ''End of ""If (c_boolDeleteRecipient) Then""
 
         objRSCDataCell.Text_CellValue = ""
         objRSCDataCell.Visible = False
@@ -1049,7 +1057,7 @@ Public Class RSCFieldColumnV2
         Dim each_value As String
         Dim boolMiscountOfRows As Boolean
         Dim intRowsInSpreadsheet As Integer
-        Dim listValuesForStatistics As List(Of String) ''Added 4/26/2022 td
+        Dim listValuesForStatistics As New List(Of String) ''Added 4/26/2022 td
 
         listBoxes = ListOfRSCDataCells_TopToBottom()
 
@@ -1081,15 +1089,19 @@ Public Class RSCFieldColumnV2
             If (pboolCheck_ColumnWidthAndData) Then
                 ''Compare the Recipient data to the ColumnWidthAndData data.
                 ''   ---4/14/2022
-                strCellDataBeforeLoadingRecip = each_box.Text
-                strCellDataFromColumnData = ColumnWidthAndData.ColumnData(intRowIndex)
+                strCellDataBeforeLoadingRecip = each_box.Text.Trim() ''5/01/2022 td''each_box.Text
+                strCellDataFromColumnData = ColumnWidthAndData.ColumnData(intRowIndex).Trim() ''Added .Trim() on 5/01/2022
                 boolMismatch_ColumnData = (strCellDataFromColumnData <> each_value)
                 If (boolMismatch_ColumnData) Then
                     System.Diagnostics.Debugger.Break()
+                    MessageBoxTD.Show_Statement("Due to a mismatch of data, we are not able to continue " &
+                                                " to load the recipient data into this column.")
+                    Exit Sub
                 End If ''End of ""If (boolMismatch_ColumnData) Then""
             End If ''End of ""If (pboolCheck_ColumnWidthAndData) Then""
 
-            each_box.Text = each_value
+            ''5/1/2022 td''each_box.Text = each_value
+            each_box.Text = each_value.Trim()
 
             ''Added 4/12/2022 thomas d.
             each_box.Recipient = Me.ListRecipients(intRowIndex)
@@ -1264,6 +1276,8 @@ Public Class RSCFieldColumnV2
 
         Const c_boolSaveProcessingTime As Boolean = True
         Dim bDictionaryHasCells As Boolean
+        Dim each_cell As RSCDataCell ''Added 5/1/2022 td
+
         bDictionaryHasCells = (0 < mod_listRSCDataCellsByRow.Count)
 
         If (c_boolSaveProcessingTime And bDictionaryHasCells) Then
@@ -1272,7 +1286,14 @@ Public Class RSCFieldColumnV2
             ''
             objListOfRSCDataCells_Ordered = New List(Of RSCDataCell)
             For intRowIndex = 1 To mod_listRSCDataCellsByRow.Count
-                objListOfRSCDataCells_Ordered.Add(mod_listRSCDataCellsByRow(intRowIndex))
+                ''5/1/2022 objListOfRSCDataCells_Ordered.Add(mod_listRSCDataCellsByRow(intRowIndex))
+                If (mod_listRSCDataCellsByRow.ContainsKey(intRowIndex)) Then
+                    each_cell = mod_listRSCDataCellsByRow(intRowIndex)
+                    objListOfRSCDataCells_Ordered.Add(each_cell)
+                Else
+                    ''The row has been deleted by the user. 
+                    ''---5/01/2022 thomas d. 
+                End If ''End of ""If (mod_listRSCDataCellsByRow.ContainsKey(intRowIndex)) Then""
             Next intRowIndex
 
         Else
@@ -1397,18 +1418,26 @@ Public Class RSCFieldColumnV2
         ''
         ''Added 4/12/2022 thomas downes
         ''
-        Dim list_cells As List(Of RSCDataCell)
-        Dim intRowIndex As Integer
+        ''---Dim list_cells As List(Of RSCDataCell)
+        ''Dim intRowIndex As Integer
         Dim boolMatches As Boolean
 
-        list_cells = ListOfRSCDataCells_TopToBottom()
+        ''list_cells = ListOfRSCDataCells_TopToBottom()
 
-        For intRowIndex = 1 To list_cells.Count
+        ''For intRowIndex = 1 To list_cells.Count
 
-            boolMatches = (list_cells(-1 + intRowIndex) Is par_cell)
-            If (boolMatches) Then Return intRowIndex
+        ''    boolMatches = (list_cells(-1 + intRowIndex) Is par_cell)
+        ''    If (boolMatches) Then Return intRowIndex
 
-        Next intRowIndex
+        ''Next intRowIndex
+
+        For Each each_key As Integer In mod_listRSCDataCellsByRow.Keys
+
+            boolMatches = (mod_listRSCDataCellsByRow(each_key) Is par_cell)
+
+            If (boolMatches) Then Return each_key
+
+        Next each_key
 
         Return -1
 
@@ -1940,6 +1969,8 @@ Public Class RSCFieldColumnV2
         Dim each_cell As RSCDataCell
         ''Added 4/29/2022 thomas downes
         Dim intRowIndex_End As Integer ''Added 4/29/2022 td
+        Dim boolDeletedRow As Boolean  ''Added 5/01/2022 thomas d. 
+
         intRowIndex_End = par_intRowIndex_End
         If (par_intRowIndex_End = -1) Then
             par_intRowIndex_End = par_intRowIndex_Start
@@ -1948,10 +1979,19 @@ Public Class RSCFieldColumnV2
 
         For intRowIndex As Integer = par_intRowIndex_Start To intRowIndex_End ''par_intRowIndex_End
 
-            each_cell = mod_listRSCDataCellsByRow.Item(intRowIndex)
-            ''each_cell.BackColor = Color.white
-            ''---each_cell.BackColor = mod_colorCellsBackcolor_NoEmphasis
-            each_cell.BackColor = RSCDataCell.Backcolor_NoEmphasis
+            boolDeletedRow = (Not mod_listRSCDataCellsByRow.ContainsKey(intRowIndex))
+            If (boolDeletedRow) Then
+                ''
+                ''Added 5/1/2022 thomas
+                ''The row is deleted, so we don't need to be concerned. 
+                ''
+            Else
+                each_cell = mod_listRSCDataCellsByRow.Item(intRowIndex)
+                ''each_cell.BackColor = Color.white
+                ''---each_cell.BackColor = mod_colorCellsBackcolor_NoEmphasis
+                each_cell.BackColor = RSCDataCell.BackColor_NoEmphasis
+
+            End If ''End of ""If (boolDeletedRow) Then ... Else ...""
 
         Next intRowIndex
 
