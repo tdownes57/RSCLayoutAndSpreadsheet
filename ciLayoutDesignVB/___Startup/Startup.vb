@@ -16,6 +16,9 @@ Public Class Startup
     ''
     ''Added 10/11/2019 td    
     ''
+    ''Added 5/3/2022 thomas downes 
+    Public Shared DefaultFileTitleXML As String = "RSC Design Layout.xml"
+
     Public Shared ListOfRecipients As List(Of ClassRecipient) ''Added 3/29/2022 thomas d. 
 
     Public Shared Sub Main()
@@ -39,12 +42,14 @@ Public Class Startup
 
     End Sub ''Endof "Public Shared Sub Main()"
 
+
     Private Shared Sub OpenLayoutDesigner_Loop(ByRef pref_bUserWantsToExitApp As Boolean)
         ''
         ''Added 10/11/2019 td  
         ''Encapsulated 10/13/2019 td
         ''
         Dim boolNewFileXML As Boolean ''Added 10/10/2019 td  
+        Dim bNoLoopingBackToLayoutSelector As Boolean ''Added 5/1/2022 td
 
         ''1/14/2020 td''Dim obj_cache_layout As ClassElementsCache_NotInUse ''Added 10/13/2019 td 
         Dim obj_cache_layout_Elements As ClassElementsCache_Deprecated = Nothing ''Added 10/13/2019 td
@@ -109,157 +114,35 @@ Public Class Startup
                 ''
                 ''Added 12/19/2021 thomas downes
                 ''
-                Dim objFormShowCacheLayouts As New FormDisplayCacheLayouts ''Added 12/19/2021 Thomas Downes
-                Dim bGoodChoice As Boolean ''Added 12/19/2021 Thomas Downes
-                Dim bUserWantsABlankSlate As Boolean ''Added 12/19/2021 td
-                Dim bUserCancelled As Boolean ''Added 12/20/2021 td
-                Dim bEditedRecipients As Boolean ''Added 4/1/2021 td
-                Dim bFirstIteration As Boolean ''Added 3/24/2022 td
-                Dim bUserCancelled_OnFirstIteration As Boolean ''Added 3/24/2022 td
-                Dim bUserMightWantDefaultCache As Boolean ''Added 3/24/2022 td
-                Dim bXMLdoesntHaveData As Boolean ''Added 3/24/2022 td
-                Dim bUserMadeSelectionOfLayout As Boolean ''Addd 3/24/2022 td
-                Dim bUserCancelledOrClosed As Boolean ''Added 3/24/2022 td
-                Dim bUserCancelledOrClosed_FirstIteration As Boolean ''Added 3/24/2022 td
-                Dim bUserCancelledOrClosed_SubsequentItertn As Boolean ''Added 3/24/2022 td
 
-                ''Added 12/20/2021 thomas downes
-                objFormShowCacheLayouts.PathToLastDirectoryForXMLFile = My.Settings.PathToLastDirectoryForXMLFile
+                ''Added 5/3/2022 thomas 
+                If (bMissingOrEmptyXML) Then
+                    ''Let's provide a default name to the XML file. 
+                    strPathToElementsCacheXML_Input = Startup.DefaultFileTitleXML ''  "RSC Design Layout.xml"
+                    strPathToElementsCacheXML_Output = IO.Path.Combine(DiskFolders.PathToFolder_XML(),
+                                                                       Startup.DefaultFileTitleXML)
+                    SaveFullPathToFileXML_Settings(strPathToElementsCacheXML_Output)
+                    My.Settings.PathToXML_Saved_ElementsCache = strPathToElementsCacheXML_Output
+                    My.Settings.Save()
+                    bNoLoopingBackToLayoutSelector = True
 
-                ''Added 1/22/2022 thomas downes
-                objFormShowCacheLayouts.FileTitleOfXMLFile = My.Settings.FileTitleOfXMLFile
-
-                ''Added 3/8/2022 td
-                ''---objFormShowCacheLayouts
-
-                bFirstIteration = True ''Added 3/24/2022
-
-                Do
+                Else
                     ''
-                    ''Loop as many times as the user would like!
+                    ''Encapsulate Layout-Selection procedure.
+                    ''    ----5/3/2022 thomas d.
                     ''
-                    strPathToElementsCacheXML_Input = My.Settings.PathToXML_Saved_ElementsCache ''Added 12/14/2021 
-                    strPathToElementsCacheXML_Prior1 = My.Settings.PathToSavedXML_Prior1 ''Added 1/25/2022 
-                    strPathToElementsCacheXML_Prior2 = My.Settings.PathToSavedXML_Prior2 ''Added 1/25/2022 
+                    LayoutSelectionProcess(obj_cache_layout_Elements,
+                                       obj_formToShow_Demo,
+                                       strPathToElementsCacheXML_Output,
+                                       boolNewFileXML,
+                                        pref_bUserWantsToExitApp,
+                                        strPathToElementsCacheXML_Input,  ''= "" ''Added 12/14/2021 td 
+                                        strPathToElementsCacheXML_Output, '' = "" ''Added 02/09/2022 td 
+                                        strPathToElementsCacheXML_Prior1, '' = "" ''Added 1/25/2022 td 
+                                        strPathToElementsCacheXML_Prior2, '' = "" ''Added 1/25/2022 td 
+                                        strPathToElementsCacheXML_Prior3)
 
-                    With objFormShowCacheLayouts
-
-                        .PathToElementsCacheXML_Input = strPathToElementsCacheXML_Input ''Added 12/20/2021 td
-                        .PathToElementsCacheXML_Prior1 = strPathToElementsCacheXML_Prior1 ''Added 1/25/2022 td
-                        .PathToElementsCacheXML_Prior2 = strPathToElementsCacheXML_Prior2 ''Added 1/25/2022 td
-                        .PathToElementsCacheXML_Prior3 = strPathToElementsCacheXML_Prior3 ''Added 2/09/2022 td
-
-                        ''
-                        ''Show the dialog form!!
-                        ''
-                        ''Not needed.''.Visible = True ''Added 2/5/2022 thomas downes 
-                        .ShowDialog()
-
-                        ''Feb9 2022 td''strPathToElementsCacheXML = .PathToElementsCacheXML_Input
-                        strPathToElementsCacheXML_Output = .PathToElementsCacheXML_Output
-
-                        bUserWantsABlankSlate = .UserChoosesABlankSlate
-                        bUserMadeSelectionOfLayout = .UserHasSelectedLayout ''Added 3/24/2022
-
-                        ''Added 2/5/2022 td
-                        pref_bUserWantsToExitApp = (.UserWantsToExitApplication)
-                        If (pref_bUserWantsToExitApp) Then
-                            objFormShowCacheLayouts.Dispose() ''Added 5/1/2022
-                            Exit Sub ''Added 2/5/2022 td
-                        End If ''End of ""If (pref_bUserWantsToExitApp) Then""
-
-                    End With ''End of "With objFormShowCacheLayouts"
-
-                    ''March24 2022''bGoodChoice = (bUserWantsABlankSlate Or (Not DiskFilesVB.IsXMLFileMissing_OrEmpty(strPathToElementsCacheXML_Output)))
-                    bGoodChoice = (bUserWantsABlankSlate Or bUserMadeSelectionOfLayout)
-                    ''Added March24 2022
-                    bXMLdoesntHaveData = (DiskFilesVB.IsXMLFileMissing_OrEmpty(strPathToElementsCacheXML_Output))
-                    If (bXMLdoesntHaveData) Then bGoodChoice = False
-
-                    bUserCancelled = objFormShowCacheLayouts.UserHasSelectedCancel
-                    bEditedRecipients = objFormShowCacheLayouts.UserEditedRecipients ''Added 4/1/2022 td
-                    bUserCancelled_OnFirstIteration = (bUserCancelled And bFirstIteration)
-                    bUserCancelledOrClosed = (bUserCancelled Or Not (bUserMadeSelectionOfLayout Or bUserWantsABlankSlate))
-                    bUserCancelledOrClosed_FirstIteration = (bUserCancelledOrClosed And bFirstIteration)
-                    bUserCancelledOrClosed_SubsequentItertn = (bUserCancelledOrClosed And (Not bFirstIteration))
-                    ''March24 2022''bUserMightWantDefaultCache = bUserCancelled_OnFirstIteration
-                    bUserMightWantDefaultCache = bUserCancelledOrClosed_FirstIteration
-
-                    ''Added 12/26/2021
-                    If (bGoodChoice And Not bUserCancelled) Then
-                        ''Added 12/26/2021
-                        ''---Dim obj_formDemo As New Form__Main_Demo ''Added 12/26/2021 
-                        obj_cache_layout_Elements = LoadCachedData_Elements_Deprecated(obj_formToShow_Demo,
-                                                          boolNewFileXML, strPathToElementsCacheXML_Output)
-                        bGoodChoice = (obj_cache_layout_Elements IsNot Nothing)
-                        If (Not bGoodChoice) Then objFormShowCacheLayouts.ShowMessageForIllformedXML = True
-                    End If ''End of "If (bGoodChoice And Not bUserCancelled) Then"
-
-                    ''Prepare for next iteration.  ---3/24/2022
-                    bFirstIteration = False
-                    If (bUserCancelledOrClosed_SubsequentItertn) Then Exit Do ''Exit the Do Loop.---3/24/2022 td
-
-                    ''3/24/2022 td''Loop Until (bGoodChoice Or bUserCancelled) ''Dec20 2021''Loop Until (bGoodChoice) 
-                    ''4/01/2022 td''Loop Until (bGoodChoice Or bUserMightWantDefaultCache) ''Dec20 2021''Loop Until (bGoodChoice) 
-                Loop Until (bGoodChoice Or bUserMightWantDefaultCache Or bEditedRecipients) ''Dec20 2021''Loop Until (bGoodChoice) 
-
-                ''Added 12/20/2021 td
-                ''3/24/2022 td''If (bGoodChoice) Then
-                If (bGoodChoice Or bUserWantsABlankSlate Or bUserMightWantDefaultCache) Then
-
-                    ''Added 12/20/2021 td
-                    ''My.Settings.PathToSavedXML_Prior3 = My.Settings.PathToSavedXML_Prior2
-                    ''My.Settings.PathToSavedXML_Prior2 = My.Settings.PathToSavedXML_Prior1
-                    ''My.Settings.PathToSavedXML_Prior1 = My.Settings.PathToSavedXML_Last
-                    ''
-                    ''With objFormShowCacheLayouts ''Added 1/5/2022 td
-                    ''    My.Settings.PathToSavedXML_Last = .PathToElementsCacheXML
-                    ''    My.Settings.PathToLastDirectoryForXMLFile = .PathToLastDirectoryForXMLFile
-                    ''    My.Settings.PathToXML_Saved_ElementsCache = .PathToElementsCacheXML
-                    ''End With ''end of "With objFormShowCacheLayouts"
-                    ''
-                    ''My.Settings.Save()
-
-                    With objFormShowCacheLayouts ''Added 1/5/2022 td
-                        ''Encapsulated 1/5/2022 td
-                        ''#1 Feb9 2022''SaveFullPathToFileXML(.PathToElementsCacheXML_Input)
-                        ''#2 Feb9 2022''SaveFullPathToFileXML(.PathToElementsCacheXML_Output)
-                        ''#2 Feb9 2022''strPathToElementsCacheXML_Output = .PathToElementsCacheXML_Output
-
-                        Dim bPathIsEmpty As Boolean ''Added 2/26/2022 td
-
-                        bPathIsEmpty = (String.IsNullOrEmpty(strPathToElementsCacheXML_Output))
-
-                        If (bPathIsEmpty And bUserWantsABlankSlate) Then ''3/24/22 If (bPathIsEmpty) Then
-                            ''
-                            ''Don't try to process a Null string. ---2/23/2022 
-                            ''
-                            MessageBoxTD.Show_Statement("Great choice!  FYI, your new layout will be " &
-                                 "completely blank at first.  You will be asked to add elements & provide a background image.",
-                                                        "-----------CONFUSING/UNUSUAL--------",
-                                     "Please press OK to specify a name & location for the New layout.")
-                            Dim objSaveDialog As New SaveFileDialog ''Added 2/26/2022 td
-                            ''Added 2/26/2022 td
-                            objSaveDialog.ShowDialog()
-                            strPathToElementsCacheXML_Output = objSaveDialog.FileName
-                            ''Added 2/26/2022 td
-                            If (Not strPathToElementsCacheXML_Output.EndsWith(".xml")) Then
-                                strPathToElementsCacheXML_Output += ".xml"
-                            End If
-                            boolNewFileXML = True
-                            obj_cache_layout_Elements = Nothing
-
-                        ElseIf (Not bPathIsEmpty) Then ''3/24/2022 td
-
-                            SaveFullPathToFileXML_Settings(strPathToElementsCacheXML_Output)
-                            My.Settings.PathToXML_Saved_ElementsCache = strPathToElementsCacheXML_Output
-                            My.Settings.Save()
-
-                        End If ''End of ""If (bPathIsEmpty And bUserWantsABlankSlate) Then"" ... ElseIf ...
-
-                    End With ''end of "With objFormShowCacheLayouts"
-
-                End If ''End of "If (bGoodChoice) Then"
+                End If ''End of ""If (bMissingOrEmptyXML) Then ... Else....""
 
             Else
                 ''    ''
@@ -374,6 +257,10 @@ Public Class Startup
             If (obj_formToShow_Demo.UserWantsToExitApplication) Then
                 pref_bUserWantsToExitApp = True
                 Exit Sub ''Exit Do
+            ElseIf (bNoLoopingBackToLayoutSelector) Then
+                ''Added 5/3/2022 thomas d.
+                pref_bUserWantsToExitApp = True
+                Exit Sub ''Exit Do
             ElseIf (Not obj_formToShow_Demo.LetsRefresh_CloseForm) Then
                 ''The user is NOT refreshing the Layout.  The user 
                 ''  wants to exit/quit the current Layout. ---2/6/2022 td
@@ -405,6 +292,176 @@ Public Class Startup
 
     End Sub ''End of "Public Sub OpenLayoutDesigner_Loop()"
 
+
+    Private Shared Sub LayoutSelectionProcess(ByRef pref_cache_layout_Elements As ClassElementsCache_Deprecated,
+                                              ByVal par_formToShow_Demo As Form__Main_Demo,
+                                              ByRef pstrPathToElementsCacheXML_Output As String,
+                                              ByRef pref_boolNewFileXML As Boolean,
+                                              ByRef pref_bUserWantsToExitApp As Boolean,
+                                strPathToElementsCacheXML_Input As String,  ''= "" ''Added 12/14/2021 td 
+                                strPathToElementsCacheXML_Output As String, '' = "" ''Added 02/09/2022 td 
+                                strPathToElementsCacheXML_Prior1 As String, '' = "" ''Added 1/25/2022 td 
+                                strPathToElementsCacheXML_Prior2 As String, '' = "" ''Added 1/25/2022 td 
+                                strPathToElementsCacheXML_Prior3 As String)
+        ''
+        ''Encapsulated 
+        ''
+        Dim objFormShowCacheLayouts As New FormDisplayCacheLayouts ''Added 12/19/2021 Thomas Downes
+        Dim bGoodChoice As Boolean ''Added 12/19/2021 Thomas Downes
+        Dim bUserWantsABlankSlate As Boolean ''Added 12/19/2021 td
+        Dim bUserCancelled As Boolean ''Added 12/20/2021 td
+        Dim bEditedRecipients As Boolean ''Added 4/1/2021 td
+        Dim bFirstIteration As Boolean ''Added 3/24/2022 td
+        Dim bUserCancelled_OnFirstIteration As Boolean ''Added 3/24/2022 td
+        Dim bUserMightWantDefaultCache As Boolean ''Added 3/24/2022 td
+        Dim bXMLdoesntHaveData As Boolean ''Added 3/24/2022 td
+        Dim bUserMadeSelectionOfLayout As Boolean ''Addd 3/24/2022 td
+        Dim bUserCancelledOrClosed As Boolean ''Added 3/24/2022 td
+        Dim bUserCancelledOrClosed_FirstIteration As Boolean ''Added 3/24/2022 td
+        Dim bUserCancelledOrClosed_SubsequentItertn As Boolean ''Added 3/24/2022 td
+
+        ''Added 12/20/2021 thomas downes
+        objFormShowCacheLayouts.PathToLastDirectoryForXMLFile = My.Settings.PathToLastDirectoryForXMLFile
+
+        ''Added 1/22/2022 thomas downes
+        objFormShowCacheLayouts.FileTitleOfXMLFile = My.Settings.FileTitleOfXMLFile
+
+        ''Added 3/8/2022 td
+        ''---objFormShowCacheLayouts
+
+        bFirstIteration = True ''Added 3/24/2022
+
+        Do
+            ''
+            ''Loop as many times as the user would like!
+            ''
+            strPathToElementsCacheXML_Input = My.Settings.PathToXML_Saved_ElementsCache ''Added 12/14/2021 
+            strPathToElementsCacheXML_Prior1 = My.Settings.PathToSavedXML_Prior1 ''Added 1/25/2022 
+            strPathToElementsCacheXML_Prior2 = My.Settings.PathToSavedXML_Prior2 ''Added 1/25/2022 
+
+            With objFormShowCacheLayouts
+
+                .PathToElementsCacheXML_Input = strPathToElementsCacheXML_Input ''Added 12/20/2021 td
+                .PathToElementsCacheXML_Prior1 = strPathToElementsCacheXML_Prior1 ''Added 1/25/2022 td
+                .PathToElementsCacheXML_Prior2 = strPathToElementsCacheXML_Prior2 ''Added 1/25/2022 td
+                .PathToElementsCacheXML_Prior3 = strPathToElementsCacheXML_Prior3 ''Added 2/09/2022 td
+
+                ''
+                ''Show the dialog form!!
+                ''
+                ''Not needed.''.Visible = True ''Added 2/5/2022 thomas downes 
+                .ShowDialog()
+
+                ''Feb9 2022 td''strPathToElementsCacheXML = .PathToElementsCacheXML_Input
+                pstrPathToElementsCacheXML_Output = .PathToElementsCacheXML_Output
+
+                bUserWantsABlankSlate = .UserChoosesABlankSlate
+                bUserMadeSelectionOfLayout = .UserHasSelectedLayout ''Added 3/24/2022
+
+                ''Added 2/5/2022 td
+                pref_bUserWantsToExitApp = (.UserWantsToExitApplication)
+                If (pref_bUserWantsToExitApp) Then
+                    objFormShowCacheLayouts.Dispose() ''Added 5/1/2022
+                    Exit Sub ''Added 2/5/2022 td
+                End If ''End of ""If (pref_bUserWantsToExitApp) Then""
+
+            End With ''End of "With objFormShowCacheLayouts"
+
+            ''March24 2022''bGoodChoice = (bUserWantsABlankSlate Or (Not DiskFilesVB.IsXMLFileMissing_OrEmpty(strPathToElementsCacheXML_Output)))
+            bGoodChoice = (bUserWantsABlankSlate Or bUserMadeSelectionOfLayout)
+            ''Added March24 2022
+            bXMLdoesntHaveData = (DiskFilesVB.IsXMLFileMissing_OrEmpty(pstrPathToElementsCacheXML_Output))
+            If (bXMLdoesntHaveData) Then bGoodChoice = False
+
+            bUserCancelled = objFormShowCacheLayouts.UserHasSelectedCancel
+            bEditedRecipients = objFormShowCacheLayouts.UserEditedRecipients ''Added 4/1/2022 td
+            bUserCancelled_OnFirstIteration = (bUserCancelled And bFirstIteration)
+            bUserCancelledOrClosed = (bUserCancelled Or Not (bUserMadeSelectionOfLayout Or bUserWantsABlankSlate))
+            bUserCancelledOrClosed_FirstIteration = (bUserCancelledOrClosed And bFirstIteration)
+            bUserCancelledOrClosed_SubsequentItertn = (bUserCancelledOrClosed And (Not bFirstIteration))
+            ''March24 2022''bUserMightWantDefaultCache = bUserCancelled_OnFirstIteration
+            bUserMightWantDefaultCache = bUserCancelledOrClosed_FirstIteration
+
+            ''Added 12/26/2021
+            If (bGoodChoice And Not bUserCancelled) Then
+                ''Added 12/26/2021
+                ''---Dim obj_formDemo As New Form__Main_Demo ''Added 12/26/2021 
+                pref_cache_layout_Elements = LoadCachedData_Elements_Deprecated(par_formToShow_Demo,
+                                                  pref_boolNewFileXML, pstrPathToElementsCacheXML_Output)
+                bGoodChoice = (pref_cache_layout_Elements IsNot Nothing)
+                If (Not bGoodChoice) Then objFormShowCacheLayouts.ShowMessageForIllformedXML = True
+            End If ''End of "If (bGoodChoice And Not bUserCancelled) Then"
+
+            ''Prepare for next iteration.  ---3/24/2022
+            bFirstIteration = False
+            If (bUserCancelledOrClosed_SubsequentItertn) Then Exit Do ''Exit the Do Loop.---3/24/2022 td
+
+            ''3/24/2022 td''Loop Until (bGoodChoice Or bUserCancelled) ''Dec20 2021''Loop Until (bGoodChoice) 
+            ''4/01/2022 td''Loop Until (bGoodChoice Or bUserMightWantDefaultCache) ''Dec20 2021''Loop Until (bGoodChoice) 
+        Loop Until (bGoodChoice Or bUserMightWantDefaultCache Or bEditedRecipients) ''Dec20 2021''Loop Until (bGoodChoice) 
+
+        ''Added 12/20/2021 td
+        ''3/24/2022 td''If (bGoodChoice) Then
+        If (bGoodChoice Or bUserWantsABlankSlate Or bUserMightWantDefaultCache) Then
+
+            ''Added 12/20/2021 td
+            ''My.Settings.PathToSavedXML_Prior3 = My.Settings.PathToSavedXML_Prior2
+            ''My.Settings.PathToSavedXML_Prior2 = My.Settings.PathToSavedXML_Prior1
+            ''My.Settings.PathToSavedXML_Prior1 = My.Settings.PathToSavedXML_Last
+            ''
+            ''With objFormShowCacheLayouts ''Added 1/5/2022 td
+            ''    My.Settings.PathToSavedXML_Last = .PathToElementsCacheXML
+            ''    My.Settings.PathToLastDirectoryForXMLFile = .PathToLastDirectoryForXMLFile
+            ''    My.Settings.PathToXML_Saved_ElementsCache = .PathToElementsCacheXML
+            ''End With ''end of "With objFormShowCacheLayouts"
+            ''
+            ''My.Settings.Save()
+
+            With objFormShowCacheLayouts ''Added 1/5/2022 td
+                ''Encapsulated 1/5/2022 td
+                ''#1 Feb9 2022''SaveFullPathToFileXML(.PathToElementsCacheXML_Input)
+                ''#2 Feb9 2022''SaveFullPathToFileXML(.PathToElementsCacheXML_Output)
+                ''#2 Feb9 2022''strPathToElementsCacheXML_Output = .PathToElementsCacheXML_Output
+
+                Dim bPathIsEmpty As Boolean ''Added 2/26/2022 td
+
+                bPathIsEmpty = (String.IsNullOrEmpty(pstrPathToElementsCacheXML_Output))
+
+                If (bPathIsEmpty And bUserWantsABlankSlate) Then ''3/24/22 If (bPathIsEmpty) Then
+                    ''
+                    ''Don't try to process a Null string. ---2/23/2022 
+                    ''
+                    MessageBoxTD.Show_Statement("Great choice!  FYI, your new layout will be " &
+                                 "completely blank at first.  You will be asked to add elements & provide a background image.",
+                                                        "-----------CONFUSING/UNUSUAL--------",
+                                     "Please press OK to specify a name & location for the New layout.")
+                    Dim objSaveDialog As New SaveFileDialog ''Added 2/26/2022 td
+                    ''Added 2/26/2022 td
+                    objSaveDialog.ShowDialog()
+                    pstrPathToElementsCacheXML_Output = objSaveDialog.FileName
+                    ''Added 2/26/2022 td
+                    If (Not pstrPathToElementsCacheXML_Output.EndsWith(".xml")) Then
+                        pstrPathToElementsCacheXML_Output += ".xml"
+                    End If
+                    pref_boolNewFileXML = True
+                    pref_cache_layout_Elements = Nothing
+
+                ElseIf (Not bPathIsEmpty) Then ''3/24/2022 td
+
+                    SaveFullPathToFileXML_Settings(pstrPathToElementsCacheXML_Output)
+                    My.Settings.PathToXML_Saved_ElementsCache = pstrPathToElementsCacheXML_Output
+                    My.Settings.Save()
+
+                End If ''End of ""If (bPathIsEmpty And bUserWantsABlankSlate) Then"" ... ElseIf ...
+
+            End With ''end of "With objFormShowCacheLayouts"
+
+        End If ''End of "If (bGoodChoice) Then"
+
+
+    End Sub ''end of ""Private Shared Sub LayoutSelectionProcess()""
+
+
     Private Shared Function LoadCachedData_Customer_FutureUse() As ClassCacheOneCustomersConfigs ''12/13/2021 ''ciBadgeCustomer.ClassCustomerCache
         ''
         ''Added 10/14/2019 thomas d. 
@@ -416,6 +473,7 @@ Public Class Startup
         Throw New NotImplementedException("Not coded yet.")
 
     End Function ''End of "Private Shared Function LoadCachedData_Customer"
+
 
     Public Shared Function LoadData_Recipients_Students() As List(Of ClassRecipient)
         ''
