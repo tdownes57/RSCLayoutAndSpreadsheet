@@ -189,6 +189,7 @@ Public Class RSCRowHeaders
 
             ''Added 3/20/2022 thomas dRRoRRwRRnRReRRsRR
             .ParentSpreadsheet = par_oSpreadsheet
+            .ParentRowHeaders = CtlRowHeaders ''Added 5/2/2022 td
             ''.ColumnIndex = par_intColumnIndex
 
         End With ''End of "With objOperationsRSCRowHeaders"
@@ -545,7 +546,8 @@ Public Class RSCRowHeaders
     End Sub ''End of ""Public Sub AlignControlsWithSpreadsheet()""
 
 
-    Public Sub EmphasizeRows_Highlight(par_intRowIndex_Start As Integer,
+    Public Sub EmphasizeRows_Highlight(pboolShiftKeyWasUsed As Boolean,
+                                       par_intRowIndex_Start As Integer,
                                        Optional par_intRowIndex_End As Integer = -1)
         ''
         ''Added 4/28/2022 td
@@ -572,8 +574,24 @@ Public Class RSCRowHeaders
         ''
         ''Step 2 of 3.  Do the requested emphasis work.  
         ''
+        If (pboolShiftKeyWasUsed) Then
+            If (par_intRowIndex_End = -1 And stat_intRowIndex_Start > 0) Then
+                ''We need to leverage the Static variables, in order to highlight all
+                ''   headers in the range of rows (as determined by the user pressing
+                ''   the keyboard's Shift key. ----
+                par_intRowIndex_End = par_intRowIndex_Start
+                par_intRowIndex_Start = stat_intRowIndex_Start
+                If (par_intRowIndex_Start > par_intRowIndex_End) Then
+                    Dim intRow_Temp As Integer
+                    intRow_Temp = par_intRowIndex_End
+                    par_intRowIndex_End = par_intRowIndex_Start
+                    par_intRowIndex_Start = intRow_Temp
+                End If ''End of ""If (par_intRowIndex_Start > par_intRowIndex_End) Then""
+            End If ''end of "If (par_intRowIndex_End = -1 And stat_intRowIndex_Start > 0) Then"
+        End If ''End of ""If (pboolShiftKeyWasUsed) Then""
+
         Me.EmphasizeRowHeaders(par_intRowIndex_Start,
-                                    par_intRowIndex_End)
+                                        par_intRowIndex_End)
         Me.ParentRSCSpreadsheet.EmphasizeRows_Highlight(par_intRowIndex_Start,
                                                         par_intRowIndex_End)
 
@@ -593,7 +611,18 @@ Public Class RSCRowHeaders
         ''Added 4/28/2022 td
         ''
         ''---mod_listTextboxesByRow(par_intRowIndex_Start).BackColor = mod_colorHeadersBackcolor_WithEmphasis
+        ''
         mod_listTextboxesByRow(par_intRowIndex_Start).BackColor = RSCDataCell.BackColor_WithEmphasisOnRow
+
+        ''Added 5/2/2022 thomas d.
+        Dim intRowIndex As Integer ''Added 5/02/2022 td
+        If (par_intRowIndex_End > par_intRowIndex_Start) Then
+            For intRowIndex = par_intRowIndex_Start To par_intRowIndex_End
+                ''---mod_listTextboxesByRow(intRowIndex).BackColor = mod_colorHeadersBackcolor_WithEmphasis
+                mod_listTextboxesByRow(intRowIndex).BackColor = RSCDataCell.BackColor_WithEmphasisOnRow
+            Next intRowIndex
+        End If ''End of ""If (par_intRowIndex_End > par_intRowIndex_Start) Then""
+
 
     End Sub ''ENd of ""Private Sub EmphasizeRowHeaders""
 
@@ -604,6 +633,15 @@ Public Class RSCRowHeaders
         ''Added 4/28/2022 td
         ''
         mod_listTextboxesByRow(par_intRowIndex_Start).BackColor = mod_colorHeadersBackcolor_NoEmphasis
+
+        ''Added 5/2/2022 thomas d.
+        Dim intRowIndex As Integer ''Added 5/02/2022 td
+        If (par_intRowIndex_End > par_intRowIndex_Start) Then
+            For intRowIndex = par_intRowIndex_Start To par_intRowIndex_End
+                ''April 2, 2022''mod_listTextboxesByRow(intRowIndex).BackColor = RSCDataCell.BackColor_NoEmphasis
+                mod_listTextboxesByRow(intRowIndex).BackColor = mod_colorHeadersBackcolor_NoEmphasis
+            Next intRowIndex
+        End If ''End of ""If (par_intRowIndex_End > par_intRowIndex_Start) Then""
 
     End Sub ''ENd of ""Private Sub EmphasizeRowHeaders_Undo""
 

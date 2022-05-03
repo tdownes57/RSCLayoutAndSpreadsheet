@@ -35,6 +35,8 @@ Public Class FormDisplayCacheLayouts
     Private WithEvents mod_dummyControl As New Control() ''Added 2/6/2022 td 
     ''---Private mod_bRecipientsEdited As Boolean ''Added 4/1/2022 thomas downes
 
+    Public Shared AutoshowRecipientsOnce As Boolean = False ''Added 4/1/2022 td
+
     Public Shared Function FullPathToTimestampedXML() As String
 
         ''Added 12/19/2021 td
@@ -875,8 +877,15 @@ Public Class FormDisplayCacheLayouts
         TimerRecipients.Enabled = False
         Application.DoEvents()
 
-        ButtonRecipients.PerformClick()
+        ''Added 5/2/2022 td 
+        If (Not AutoshowRecipientsOnce) Then
+            ButtonRecipients.PerformClick()
+            AutoshowRecipientsOnce = True
+        End If ''End of ""If (Not AutoshowRecipientsOnce) Then""
+
+        ''No more need for the timer. Turn it off. 
         TimerRecipients.Enabled = False
 
     End Sub
+
 End Class

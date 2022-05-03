@@ -94,7 +94,7 @@ Public Class RSCRowHeader
             With Me.ParentRSCRowHeaders
 
                 ''Major call!!
-                .EmphasizeRows_Highlight(Me.RowIndex)
+                ''May 2 2022 ''.EmphasizeRows_Highlight(Me.RowIndex)
 
                 ''Added 4/29/2022 thomas d.
                 If (My.Computer.Keyboard.ShiftKeyDown) Then
@@ -118,12 +118,16 @@ Public Class RSCRowHeader
 
                     ''Added 5/1/2022 thomas downes
                     ''5/1/2022 .EmphasizeRows_Highlight(Me.RowIndex, .EmphasisRowIndex_End)
-                    .EmphasizeRows_Highlight(.EmphasisRowIndex_Start,
+                    .EmphasizeRows_Highlight(boolUsingShiftKey,
+                                             .EmphasisRowIndex_Start,
                                              .EmphasisRowIndex_End)
 
                 Else
                     .EmphasisRowIndex_Start = Me.RowIndex
                     .EmphasisRowIndex_End = -1
+                    .EmphasizeRows_Highlight(boolUsingShiftKey,
+                                             .EmphasisRowIndex_Start,
+                                             .EmphasisRowIndex_End)
 
                 End If ''End of ""If (My.Computer.Keyboard.ShiftKeyDown) Then ... Else...""
 

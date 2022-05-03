@@ -42,6 +42,7 @@ Public Class Operations_RSCRowHeaders
     Public Property MouseclickX As Integer Implements IRightClickMouseInfo.MouseclickX
     Public Property MouseclickY As Integer Implements IRightClickMouseInfo.MouseclickY
     Public Property ParentSpreadsheet As RSCFieldSpreadsheet ''Added 3/20/2022 td
+    Public Property ParentRowHeaders As RSCRowHeaders ''Added 5/02/2022 td
     Public Property ColumnIndex As Integer ''Added 3/20/2022 td
     ''----Public Property RowIndex As Integer ''Added 4/24/2022 td
     Public Property RowIndex_LastClicked As Integer ''Added 4/25/2022 td
@@ -98,28 +99,69 @@ Public Class Operations_RSCRowHeaders
     End Sub ''end of Public Sub Clear_Data_From_Column_FS2801
 
 
-    Public Sub Delete_Row_from_Spreadsheet_FS2802(sender As Object, e As EventArgs)
+    Public Sub Delete_Row_or_Rows_from_Spreadsheet_FS2802(sender As Object, e As EventArgs)
         ''
         ''Added 4/25/2022 thomas downes
         ''         
         Dim objRSCFieldColumn As RSCFieldColumnV2 ''4/9/2022 td RSCFieldColumnV1
         Dim boolConfirmed As Boolean
+        Dim intDeleteRow_Start As Integer ''Added 5/2/2022 td
+        Dim intDeleteRow_End As Integer ''Added 5/2/2022 td
+        Dim bDeleteMultipleRows As Boolean ''Added 5/2/2022 td
+        Dim bDeleteSingleRow As Boolean ''Added 5/2/2022 td
 
-        boolConfirmed = (MessageBoxTD.Show_Confirmed("Delete this row, thus removing (deleting) all data from this row of the spreadsheet?",
-                            "(The data-cells themselves will also be removed/invisible.)" & vbCrLf_Deux &
-                            "(Cannot be undone.)", True))
+        ''Added 5/2/2022 thomas d.
+        intDeleteRow_Start = Me.ParentRowHeaders.EmphasisRowIndex_Start
+        intDeleteRow_End = Me.ParentRowHeaders.EmphasisRowIndex_End
+        bDeleteMultipleRows = (intDeleteRow_End > 0 And (intDeleteRow_Start < intDeleteRow_End))
+        bDeleteSingleRow = (Not bDeleteMultipleRows)
 
-        If (boolConfirmed) Then
-            ''4/09/2022 td''For Each each_column As RSCFieldColumnV1 In Me.ParentSpreadsheet.ListOfColumns
-            For Each each_column As RSCFieldColumnV2 In Me.ParentSpreadsheet.ListOfColumns
-                objRSCFieldColumn = each_column ''---CType(each_column, RSCFieldColumn)
-                ''4/24/2022 td ''objRSCFieldColumn.ClearDataFromColumn_Do()
-                objRSCFieldColumn.DeleteRow_ByRowIndex(Me.RowIndex_LastClicked)
+        If (bDeleteSingleRow) Then
 
-            Next each_column
-        End If ''End of "If (boolConfirmed) Then"
+            boolConfirmed = (MessageBoxTD.Show_Confirmed("Delete this row, thus removing (deleting) all data from this row of the spreadsheet?",
+                                "(The data-cells themselves will also be removed/invisible.)" & vbCrLf_Deux &
+                                "(Cannot be undone.)", True))
 
-    End Sub ''end of Public Sub Delete_Row_From_Spreadsheet_FS2802
+            If (boolConfirmed) Then
+                ''4/09/2022 td''For Each each_column As RSCFieldColumnV1 In Me.ParentSpreadsheet.ListOfColumns
+                For Each each_column As RSCFieldColumnV2 In Me.ParentSpreadsheet.ListOfColumns
+                    objRSCFieldColumn = each_column ''---CType(each_column, RSCFieldColumn)
+                    ''4/24/2022 td ''objRSCFieldColumn.ClearDataFromColumn_Do()
+                    objRSCFieldColumn.DeleteRow_ByRowIndex(Me.RowIndex_LastClicked)
+
+                Next each_column
+            End If ''End of "If (boolConfirmed) Then"
+
+        ElseIf (bDeleteMultipleRows) Then
+            ''
+            ''Added 5/02/2022 td
+            ''
+            Dim intNumRows As Integer
+            intNumRows = (intDeleteRow_End - intDeleteRow_Start + 1)
+
+            ''Added 5/02/2022 td
+            boolConfirmed =
+                (MessageBoxTD.Show_Confirmed(String.Format("Delete {0} rows, thus removing (deleting) " &
+                                "all data from these rows of the spreadsheet?", intNumRows),
+                                "(The data-cells themselves will also be removed/invisible.)" & vbCrLf_Deux &
+                                "(Cannot be undone.)", True))
+            ''Added 5/02/2022 td
+            If (boolConfirmed) Then
+                Dim intRowIndex As Integer
+                For intRowIndex = intDeleteRow_Start To intDeleteRow_End
+                    For Each each_column As RSCFieldColumnV2 In Me.ParentSpreadsheet.ListOfColumns
+                        objRSCFieldColumn = each_column ''---CType(each_column, RSCFieldColumn)
+                        objRSCFieldColumn.DeleteRow_ByRowIndex(intRowIndex)
+                    Next each_column
+                Next introwIndex
+            End If ''End of "If (boolConfirmed) Then"
+
+
+
+        End If ''End of ""If (bDeleteSingleRow) Then.... ElseIf (bDeleteMultipleRows) Then
+
+
+    End Sub ''end of Public Sub Delete_Row_or_Rows_From_Spreadsheet_FS2802
 
 
     Public Sub Clear_Data_From_Spreadsheet_FS2001(sender As Object, e As EventArgs)

@@ -22,6 +22,10 @@ Public Class RSCDataCell
     Public Shared BackColor_NoEmphasis As System.Drawing.Color = System.Drawing.Color.White
     Public Shared BackColor_WithEmphasisOnRow As System.Drawing.Color = System.Drawing.Color.LightGray
     Public Shared BackColor_WithCellFocus As System.Drawing.Color = System.Drawing.Color.White
+    ''W.E. = with emphasis ---5/2/2022
+    Public Shared BackColor_RowHeaderWE As System.Drawing.Color = System.Drawing.Color.LightGray
+    ''N.E. = no emphasis ---5/2/2022
+    Public Shared BackColor_RowHeaderNE As System.Drawing.Color = System.Drawing.SystemColors.ButtonFace
 
     Public Overrides Property Text() As String
         Get
