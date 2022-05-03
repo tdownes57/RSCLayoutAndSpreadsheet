@@ -599,6 +599,11 @@ Public Class RSCFieldColumnV2
             ''Added 4/14/2022 td
             If (indexItem > par_listData.Count) Then Continue For
 
+            ''Added 5/03/2022 thomas downes
+            ''  Let's try to avoid run-time errors when it comes to re-opening
+            ''  after having deleted a number of rows. 
+            If (indexItem >= par_listData.Count) Then Exit For
+
             each_RSCDataCell.Text = par_listData.Item(indexItem)
             ''If (each_RSCDataCell.Text = "aaa") Then System.Diagnostics.Debugger.Break()
             each_RSCDataCell.Tag_Text = par_listData.Item(indexItem) ''For detecting edits. ---4/13/2022
@@ -1093,7 +1098,7 @@ Public Class RSCFieldColumnV2
                 strCellDataFromColumnData = ColumnWidthAndData.ColumnData(intRowIndex).Trim() ''Added .Trim() on 5/01/2022
                 boolMismatch_ColumnData = (strCellDataFromColumnData <> each_value)
                 If (boolMismatch_ColumnData) Then
-                    System.Diagnostics.Debugger.Break()
+                    ''---System.Diagnostics.Debugger.Break()
                     MessageBoxTD.Show_Statement("Due to a mismatch of data, we are not able to continue " &
                                                 " to load the recipient data into this column.")
                     Exit Sub
@@ -1452,12 +1457,12 @@ Public Class RSCFieldColumnV2
 
     End Function ''End of ""Public Function GetRSCDataCell_ByWithRowIndex() As RSCDataCell""
 
-
     Public Function GetCellWithRowIndex(par_intRowIndex As Integer) As RSCDataCell
         ''
         ''Added 4/12/2022 thomas downes
         ''
-        Return ListOfRSCDataCells_TopToBottom()(-1 + par_intRowIndex)
+        ''----5/02/2022 td Return ListOfRSCDataCells_TopToBottom()(-1 + par_intRowIndex)
+        Return mod_listRSCDataCellsByRow(par_intRowIndex)
 
     End Function ''End of ""Public Function GetCellWithRowIndex() As RSCDataCell""
 

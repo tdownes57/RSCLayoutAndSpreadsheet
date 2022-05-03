@@ -30,6 +30,7 @@ Partial Class FormDisplayCacheLayouts
         Me.ButtonOpenNewBlank = New System.Windows.Forms.Button()
         Me.LabelPriorLayoutsHdr = New System.Windows.Forms.Label()
         Me.FlowLayoutPanelPriorLays = New System.Windows.Forms.FlowLayoutPanel()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.ButtonSelectLayoutFromDrive = New System.Windows.Forms.Button()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.LabelWarningMessage = New System.Windows.Forms.Label()
@@ -46,11 +47,10 @@ Partial Class FormDisplayCacheLayouts
         Me.ButtonRecipients = New System.Windows.Forms.Button()
         Me.TimerRecipients = New System.Windows.Forms.Timer(Me.components)
         Me.picturePreviewFront = New System.Windows.Forms.PictureBox()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.picturePreviewBackside = New System.Windows.Forms.PictureBox()
         Me.FlowLayoutPanelPriorLays.SuspendLayout()
-        CType(Me.picturePreviewFront, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.picturePreviewFront, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picturePreviewBackside, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -134,6 +134,16 @@ Partial Class FormDisplayCacheLayouts
         Me.FlowLayoutPanelPriorLays.Name = "FlowLayoutPanelPriorLays"
         Me.FlowLayoutPanelPriorLays.Size = New System.Drawing.Size(429, 370)
         Me.FlowLayoutPanelPriorLays.TabIndex = 84
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.BackColor = System.Drawing.Color.White
+        Me.PictureBox1.Location = New System.Drawing.Point(2, 2)
+        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(2)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(239, 167)
+        Me.PictureBox1.TabIndex = 76
+        Me.PictureBox1.TabStop = False
         '
         'ButtonSelectLayoutFromDrive
         '
@@ -293,7 +303,6 @@ Partial Class FormDisplayCacheLayouts
         '
         'TimerRecipients
         '
-        Me.TimerRecipients.Enabled = True
         Me.TimerRecipients.Interval = 1000
         '
         'picturePreviewFront
@@ -306,16 +315,6 @@ Partial Class FormDisplayCacheLayouts
         Me.picturePreviewFront.Size = New System.Drawing.Size(350, 225)
         Me.picturePreviewFront.TabIndex = 91
         Me.picturePreviewFront.TabStop = False
-        '
-        'PictureBox1
-        '
-        Me.PictureBox1.BackColor = System.Drawing.Color.White
-        Me.PictureBox1.Location = New System.Drawing.Point(2, 2)
-        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(2)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(239, 167)
-        Me.PictureBox1.TabIndex = 76
-        Me.PictureBox1.TabStop = False
         '
         'picturePreviewBackside
         '
@@ -361,8 +360,8 @@ Partial Class FormDisplayCacheLayouts
         Me.Name = "FormDisplayCacheLayouts"
         Me.Text = "FormDisplayCacheLayouts"
         Me.FlowLayoutPanelPriorLays.ResumeLayout(False)
-        CType(Me.picturePreviewFront, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.picturePreviewFront, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picturePreviewBackside, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
