@@ -771,8 +771,17 @@ Public Class Startup
             End With
 
             obj_cache_elements.LoadFields()
-            obj_cache_elements.LoadFieldElements(par_designForm.pictureBackgroundFront,
-                                New BadgeLayoutClass(par_designForm.pictureBackgroundFront))
+            ''5/3/2022 td''obj_cache_elements.LoadFieldElements(par_designForm.pictureBackgroundFront,
+            ''5/3/2022 td''   New BadgeLayoutClass(par_designForm.pictureBackgroundFront))
+            Const c_boolPreloadElements As Boolean = False ''Added 5/3/2022 thomas .
+            If (c_boolPreloadElements) Then
+                ''Pre-load elements. Not really great for users who probably want
+                ''  to start with a blank canvas.  Plus, the new dialog
+                ''  called FormTypeOfElementsToAdd is a great alternative.
+                ''  ----5/3/2022 td
+                obj_cache_elements.LoadFieldElements(par_designForm.pictureBackgroundFront,
+                            New BadgeLayoutClass(par_designForm.pictureBackgroundFront))
+            End If ''End of ""If (c_boolPreloadElements) Then""
 
         Else
             ''Added 10/10/2019 td  

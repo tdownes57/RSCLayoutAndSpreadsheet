@@ -55,7 +55,7 @@ Public Class FormTypeOfElementsToAdd
 
     End Sub
 
-    Private Sub CtlGraphicPortrait1_Click(sender As Object, e As EventArgs) Handles CtlGraphicPortrait1.Click
+    Private Sub CtlGraphicPortrait1_Click(sender As Object, e As EventArgs)
 
         ''Added 5/3/2022 td
         ToggleBorder(CType(sender, Control))
@@ -96,6 +96,10 @@ Public Class FormTypeOfElementsToAdd
     Private Sub CtlGraphicQRCode1_Load(sender As Object, e As EventArgs) Handles CtlGraphicQRCode1.Click
         ''Added 5/3/2022 td
         ToggleBorder(CType(sender, Control))
+
+    End Sub
+
+    Private Sub CtlGraphicPortrait1_Load_1(sender As Object, e As EventArgs)
 
     End Sub
 End Class

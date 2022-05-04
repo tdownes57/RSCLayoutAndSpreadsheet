@@ -45,6 +45,7 @@ Public Class Form__Main_Demo
     Public Property ElementsCache_PathToXML As String ''Added 12/14/2021 thomas Downes
 
     Public Property UserWantsToExitApplication As Boolean ''Added 2/6/2022 thomas downes
+    Public Property UserPressedButtonsOKCancel As Boolean ''Added 5/3/2022 td
 
     ''Public Property LastTouchedMoveableElement As IMoveableElement ''Added 12/17/2021 td
     ''Public Property LastTouchedClickableElement As IClickableElement ''Added 12/17/2021 td
@@ -1039,12 +1040,17 @@ Public Class Form__Main_Demo
         ''                             vbCrLf_Deux & "(Allows the window to be re-opened from the parent application, with your work retained.)", "ciLayout",
         ''                             MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)
 
-        If (Not Me.LetsRefresh_CloseForm) Then ''Added 10/13/2019 td
+        If (Me.UserPressedButtonsOKCancel) Then
+            ''
+            ''Dont ask the user any questions. ---5/3/2022 thomas d.
+            ''
+        ElseIf (Not Me.LetsRefresh_CloseForm) Then ''Added 10/13/2019 td
             ''Ask the user if she wishes to save her work.  -----10/13/2019 td 
             dia_result = MessageBox.Show("Save your work?  " &
                                      vbCrLf_Deux & "(Allows the window to be re-opened, with your work retained.)", "ciLayout",
-                                     MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)
-        End If ''End of "If (Not Me.LetsRefresh_CloseForm) Then"
+                                     MessageBoxButtons.YesNoCancel,
+                                     MessageBoxIcon.Question)
+        End If ''End of "If (Me.UserPressedButtonsOKCancel) Then... ElseIf (Not Me.LetsRefresh_CloseForm) Then"
 
         If (dia_result = DialogResult.Cancel) Then e.Cancel = True
         If (dia_result = DialogResult.Yes) Then SaveLayout()
@@ -1064,6 +1070,8 @@ Public Class Form__Main_Demo
         ''My.Settings.PathToXML_Saved_ElementsCache = Me.ElementsCache_PathToXML
         ''My.Settings.PathToSavedXML_Last = Me.ElementsCache_PathToXML
         ''My.Settings.Save()
+        SaveLayout()
+        Startup.SaveFullPathToFileXML_Settings(Me.ElementsCache_PathToXML)
         Startup.SaveFullPathToFileXML_Settings(Me.ElementsCache_PathToXML)
 
         ''
@@ -1086,6 +1094,8 @@ Public Class Form__Main_Demo
             ''Step 3 of 3.  Refresh the representation of the elements on the form. 
             ''
             ''Dec. 10, 2021''RefreshTheSetOfDisplayedElements()
+            Me.LetsRefresh_CloseForm = False ''Added 5/03/2022 td
+            Me.LetsRefresh_CardBackside = False ''Added 5/03/2022 td
             RefreshTheSetOfDisplayedElements(False)
 
         End If ''End of "If (c_boolStartNewWindow) Then  ..... Else .."
@@ -3325,6 +3335,32 @@ ExitHandler:
     End Sub
 
     Private Sub mod_buttonPrintChecked_PaddingChanged(sender As Object, e As EventArgs) Handles mod_buttonPrintChecked.PaddingChanged
+
+    End Sub
+
+    Private Sub ButtonOK_Click(sender As Object, e As EventArgs) Handles ButtonOK.Click
+        ''
+        ''Added 5/3/2022 thomas downes 
+        ''
+        Me.UserPressedButtonsOKCancel = True
+        Me.DialogResult = DialogResult.OK
+        SaveLayout()
+        Startup.SaveFullPathToFileXML_Settings(Me.ElementsCache_PathToXML)
+        Me.LetsRefresh_CloseForm = False ''Added 5/03/2022 td
+        Me.LetsRefresh_CardBackside = False ''Added 5/03/2022 td
+        Me.Close()
+
+    End Sub
+
+    Private Sub ButtonCancel_Click(sender As Object, e As EventArgs) Handles ButtonCancel.Click
+        ''
+        ''Added 5/3/2022 thomas downes 
+        ''
+        Me.UserPressedButtonsOKCancel = True
+        Me.DialogResult = DialogResult.Cancel
+        Me.LetsRefresh_CloseForm = False ''Added 5/03/2022 td
+        Me.LetsRefresh_CardBackside = False ''Added 5/03/2022 td
+        Me.Close()
 
     End Sub
 
