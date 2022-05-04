@@ -486,8 +486,10 @@ Public Class ClassDesigner
 
 
     Public Sub LoadDesigner(pstrWhyCalled As String,
+                            par_bAutoLoadMissingElements As Boolean,
                             par_oMoveEvents As GroupMoveEvents_Singleton,
-                            Optional pbStartWithBackside As Boolean = False) ''10/1/2019 td''sender As Object, e As EventArgs) Handles MyBase.Load
+                            Optional pbStartWithBackside As Boolean = False)
+        ''10/1/2019 td''        sender As Object, e As EventArgs) Handles MyBase.Load
         ''10/1/2019 td''Private Sub Form_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
         ''Added 7/18/2019 thomas downes 
@@ -658,50 +660,54 @@ Public Class ClassDesigner
         ''9/19 td''Me.ElementsCache_Saved.LoadPicElement(CtlGraphicPortrait_Lady.picturePortrait, Me.BackgroundBox) ''Added 9/19/2019 td
         ''10/1/2019 td''Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, Me.BackgroundBox) ''Added 9/19/2019 td
 
-        If (Me.ElementsCache_UseEdits.MissingTheElementPic) Then ''Added 10/10/2019 td
-            ''10/10/2019 td''Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, Me.BackgroundBox) ''Added 9/19/2019 td
-            ''Jan19 2022 ''Me.ElementsCache_UseEdits.LoadElement_Pic(intPicLeft, intPicTop,
-            Me.ElementsCache_UseEdits.LoadNewElement_Pic(intPicLeft, intPicTop,
-                                        intPicWidth, intPicHeight,
-                                        Me.BackgroundBox_Front,
-                                        EnumWhichSideOfCard.EnumFrontside) ''Added 9/19/2019 td
-        End If ''End of "If (Me.ElementsCache_Saved.MissingTheElementPic) Then"
+        If (par_bAutoLoadMissingElements) Then ''Added 5/4/2022 td
 
-        ''Added 10/10/2019 td
-        If (Me.ElementsCache_UseEdits.MissingTheQRCode) Then ''Added 10/10/2019 td
+            If (Me.ElementsCache_UseEdits.MissingTheElementPic()) Then ''Added 10/10/2019 td
+                ''10/10/2019 td''Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, Me.BackgroundBox) ''Added 9/19/2019 td
+                ''Jan19 2022 ''Me.ElementsCache_UseEdits.LoadElement_Pic(intPicLeft, intPicTop,
+                Me.ElementsCache_UseEdits.LoadNewElement_Pic(intPicLeft, intPicTop,
+                                            intPicWidth, intPicHeight,
+                                            Me.BackgroundBox_Front,
+                                            EnumWhichSideOfCard.EnumFrontside) ''Added 9/19/2019 td
+            End If ''End of "If (Me.ElementsCache_Saved.MissingTheElementPic) Then"
+
             ''Added 10/10/2019 td
-            ''Jan19 2022''Me.ElementsCache_UseEdits.LoadElement_QRCode(Initial_QR_Left, Initial_QR_Top,
-            Me.ElementsCache_UseEdits.LoadNewElement_QRCode(Initial_QR_Left, Initial_QR_Top,
+            If (Me.ElementsCache_UseEdits.MissingTheQRCode()) Then ''Added 10/10/2019 td
+                ''Added 10/10/2019 td
+                ''Jan19 2022''Me.ElementsCache_UseEdits.LoadElement_QRCode(Initial_QR_Left, Initial_QR_Top,
+                Me.ElementsCache_UseEdits.LoadNewElement_QRCode(Initial_QR_Left, Initial_QR_Top,
                                     Initial_QR_Width, Initial_QR_Height,
                                     Me.BackgroundBox_Front,
                                     EnumWhichSideOfCard.EnumFrontside) ''Added 9/19/2019 td
-        End If ''End of "If (Me.ElementsCache_Saved.MissingTheElementPic) Then"
+            End If ''End of "If (Me.ElementsCache_Saved.MissingTheElementPic) Then"
 
-        ''Added 10/10/2019 td
-        If (Me.ElementsCache_UseEdits.MissingTheSignature) Then ''Added 10/10/2019 td
             ''Added 10/10/2019 td
-            Me.ElementsCache_UseEdits.LoadNewElement_Signature(Initial_Sig_Left, Initial_Sig_Top,
+            If (Me.ElementsCache_UseEdits.MissingTheSignature()) Then ''Added 10/10/2019 td
+                ''Added 10/10/2019 td
+                Me.ElementsCache_UseEdits.LoadNewElement_Signature(Initial_Sig_Left, Initial_Sig_Top,
                                 Initial_Sig_Width, Initial_Sig_Height,
                                 Me.BackgroundBox_Front,
                                 EnumWhichSideOfCard.EnumFrontside) ''Added 9/19/2019 td
-        End If ''End of "If (Me.ElementsCache_Saved.MissingTheSignature) Then"
+            End If ''End of "If (Me.ElementsCache_Saved.MissingTheSignature) Then"
 
-        ''Added 10/10/2019 td
-        If (Me.ElementsCache_UseEdits.MissingTheElementTexts) Then ''Added 10/10/2019 td
             ''Added 10/10/2019 td
-            ''Dec17 2021''Me.ElementsCache_UseEdits.LoadElement_Text("This is text which will be the same for everyone.",
-            ''Jan19 2022''Me.ElementsCache_UseEdits.LoadElement_StaticText_IfNeeded("This is text which will be the same for everyone.",
-            Me.ElementsCache_UseEdits.LoadNewElement_StaticText("The same text for everyone.",
+            If (Me.ElementsCache_UseEdits.MissingTheElementTexts()) Then ''Added 10/10/2019 td
+                ''Added 10/10/2019 td
+                ''Dec17 2021''Me.ElementsCache_UseEdits.LoadElement_Text("This is text which will be the same for everyone.",
+                ''Jan19 2022''Me.ElementsCache_UseEdits.LoadElement_StaticText_IfNeeded("This is text which will be the same for everyone.",
+                Me.ElementsCache_UseEdits.LoadNewElement_StaticText("The same text for everyone.",
                                     Initial_Text_Left, Initial_Text_Top,
                                     Initial_Text_Width, Initial_Text_Height,
                                     Me.BackgroundBox_Front,
                                     EnumWhichSideOfCard.EnumFrontside) ''Added 9/19/2019 td
-        Else
-            ''Added 12/22/2021 thomas downes
-            ''--Dec22 2021 td--LoadDesigner_StaticTexts
-            ''--Moved to Sub LoadForm_LayoutElements().---Dec22 2021 td--LoadElements_StaticTexts()
+            Else
+                ''Added 12/22/2021 thomas downes
+                ''--Dec22 2021 td--LoadDesigner_StaticTexts
+                ''--Moved to Sub LoadForm_LayoutElements().---Dec22 2021 td--LoadElements_StaticTexts()
 
-        End If ''End of "If (Me.ElementsCache_Saved.MissingTheElementTexts) Then .... Else ..."
+            End If ''End of "If (Me.ElementsCache_Saved.MissingTheElementTexts) Then .... Else ..."
+
+        End If ''End of ""If (par_bAutoLoadMissingElements) Then""
 
         ''Added 9/24/2019 thomas 
         ''  10/1/2019 td''Dim serial_tools As New ciBadgeSerialize.ClassSerial
@@ -745,121 +751,121 @@ Public Class ClassDesigner
         ''10/1/2019 td''Me.BackgroundBox.SendToBack()
         Me.PreviewBox.SendToBack()
 
-        ResizeLayoutBackgroundImage_ToFitPictureBox() ''Added 8/25/2019 td
+            ResizeLayoutBackgroundImage_ToFitPictureBox() ''Added 8/25/2019 td
 
-        ''1/14/2022''RefreshPreview_Redux_Front() ''Added 8/24/2019 td
-        If (Me.DontAutoRefreshPreview) Then
-            ''Don't refresh.  ====3/11/2022
-        Else
-            RefreshPreview_CurrentSide() ''Modified 1/14/2022 td
-        End If ''End of "If (Me.DontAutoRefreshPreview) Then ... Else ..."
+            ''1/14/2022''RefreshPreview_Redux_Front() ''Added 8/24/2019 td
+            If (Me.DontAutoRefreshPreview) Then
+                ''Don't refresh.  ====3/11/2022
+            Else
+                RefreshPreview_CurrentSide() ''Modified 1/14/2022 td
+            End If ''End of "If (Me.DontAutoRefreshPreview) Then ... Else ..."
 
-        ''Dec10 2021 td''Me.BackgroundBox_Front.SendToBack()
-        If (ShowingTheBackside()) Then
-            ''Show the backside of card. 
-            Me.BackgroundBox_Backside.SendToBack() ''Added 12/10/2021 td
-            Me.BackgroundBox_Front.SendToBack() ''Added 12/10/2021 td
-            Me.BackgroundBox_JustAButton.SendToBack() ''1/21/2022
-        Else
-            ''Show the frontside of card. 
-            Me.BackgroundBox_Front.SendToBack() ''Added 12/10/2021 td
-            Me.BackgroundBox_Backside.SendToBack() ''Added 12/10/2021 td
-            Me.BackgroundBox_JustAButton.SendToBack() ''Added 1/21/2022 td
-        End If ''End of "If (ShowingBackside()) Then ... Else ..."
+            ''Dec10 2021 td''Me.BackgroundBox_Front.SendToBack()
+            If (ShowingTheBackside()) Then
+                ''Show the backside of card. 
+                Me.BackgroundBox_Backside.SendToBack() ''Added 12/10/2021 td
+                Me.BackgroundBox_Front.SendToBack() ''Added 12/10/2021 td
+                Me.BackgroundBox_JustAButton.SendToBack() ''1/21/2022
+            Else
+                ''Show the frontside of card. 
+                Me.BackgroundBox_Front.SendToBack() ''Added 12/10/2021 td
+                Me.BackgroundBox_Backside.SendToBack() ''Added 12/10/2021 td
+                Me.BackgroundBox_JustAButton.SendToBack() ''Added 1/21/2022 td
+            End If ''End of "If (ShowingBackside()) Then ... Else ..."
 
-        ''------------------------------------------------------------------------
-        ''Const c_boolBreakpoint As Boolean = True  ''Added 9//13/2019 td
+            ''------------------------------------------------------------------------
+            ''Const c_boolBreakpoint As Boolean = True  ''Added 9//13/2019 td
 
-        ''''Badge Preview is also moveable/sizeable, mostly to impress
-        ''''    management.  ----9/8/2019 td
-        ''''
-        ''If (mc_bUseNonStaticMovers) Then
-        ''    ''Added 11/29/2021 td 
-        ''    Dim objMover As New ControlMove_NonStatic_TD
-        ''    objMover.Init(Me.PreviewBox, Me.PreviewBox, 10, False,
-        ''                      c_boolBreakpoint)
-        ''    mod_dictyControlMoveBoxesEtc.Add(Me.PreviewBox, objMover)
+            ''''Badge Preview is also moveable/sizeable, mostly to impress
+            ''''    management.  ----9/8/2019 td
+            ''''
+            ''If (mc_bUseNonStaticMovers) Then
+            ''    ''Added 11/29/2021 td 
+            ''    Dim objMover As New ControlMove_NonStatic_TD
+            ''    objMover.Init(Me.PreviewBox, Me.PreviewBox, 10, False,
+            ''                      c_boolBreakpoint)
+            ''    mod_dictyControlMoveBoxesEtc.Add(Me.PreviewBox, objMover)
 
-        ''Else
-        ''    ControlMoverOrResizer_TD.Init(Me.PreviewBox, Me.PreviewBox, 10, False,
-        ''                      c_boolBreakpoint) ''Added 9/08/2019 thomas downes
-        ''End If ''End of "If (mc_bUseNonStaticMovers) Then .... Else If...."
+            ''Else
+            ''    ControlMoverOrResizer_TD.Init(Me.PreviewBox, Me.PreviewBox, 10, False,
+            ''                      c_boolBreakpoint) ''Added 9/08/2019 thomas downes
+            ''End If ''End of "If (mc_bUseNonStaticMovers) Then .... Else If...."
 
-        ''If it won't conflict with the Rubber-Band Selector, 
-        ''    then let's make the Badge Layout Background 
-        ''    also moveable / sizeable.
-        ''    ----9/8/2019 td
-        ''
-        ''Const c_LayoutBackIsMoveable As Boolean = False ''Added 9/8/2019 td 
+            ''If it won't conflict with the Rubber-Band Selector, 
+            ''    then let's make the Badge Layout Background 
+            ''    also moveable / sizeable.
+            ''    ----9/8/2019 td
+            ''
+            ''Const c_LayoutBackIsMoveable As Boolean = False ''Added 9/8/2019 td 
 
-        ''If (c_LayoutBackIsMoveable And mc_bUseNonStaticMovers) Then
-        ''    ''Badge Layout Background is also moveable/sizeable.
-        ''    Dim objMover As New ControlMove_NonStatic_TD
-        ''    objMover.Init(Me.BackgroundBox,
-        ''                  Me.BackgroundBox, 10, False,
-        ''                  c_boolBreakpoint) ''Added 9/08/2019 thomas downes
-        ''ElseIf (c_LayoutBackIsMoveable) Then
-        ''    ''Badge Layout Background is also moveable/sizeable.
-        ''    ControlMoverOrResizer_TD.Init(Me.BackgroundBox,
-        ''                      Me.BackgroundBox, 10, False,
-        ''                      c_boolBreakpoint) ''Added 9/08/2019 thomas downes
-        ''End If ''End of "If (c_LayoutBackIsMoveable) Then"
-        ''---------------------------------------------------------------------------------
+            ''If (c_LayoutBackIsMoveable And mc_bUseNonStaticMovers) Then
+            ''    ''Badge Layout Background is also moveable/sizeable.
+            ''    Dim objMover As New ControlMove_NonStatic_TD
+            ''    objMover.Init(Me.BackgroundBox,
+            ''                  Me.BackgroundBox, 10, False,
+            ''                  c_boolBreakpoint) ''Added 9/08/2019 thomas downes
+            ''ElseIf (c_LayoutBackIsMoveable) Then
+            ''    ''Badge Layout Background is also moveable/sizeable.
+            ''    ControlMoverOrResizer_TD.Init(Me.BackgroundBox,
+            ''                      Me.BackgroundBox, 10, False,
+            ''                      c_boolBreakpoint) ''Added 9/08/2019 thomas downes
+            ''End If ''End of "If (c_LayoutBackIsMoveable) Then"
+            ''---------------------------------------------------------------------------------
 
-        ''Moved from above, 9/20/2019 td 
-        ''1/12/2022 td''Initiate_RubberbandSelector(mod_listOfFieldControls,
+            ''Moved from above, 9/20/2019 td 
+            ''1/12/2022 td''Initiate_RubberbandSelector(mod_listOfFieldControls,
 
-        ''This will allow the user to easily select multiple elements at once.
-        ''  ----1/14/2022 td  
-        Const c_bLoadRubberband As Boolean = False ''False, since I just encountered a runtime error,
-        ''  related to the rubberband, and I am not prepared to debug this just yet.
-        ''  ----Added 1/4/2022 td
-        If (c_bLoadRubberband) Then ''Added 1/4/2022 td
-            Initiate_RubberbandSelector(mod_listOfDesignerControls,
+            ''This will allow the user to easily select multiple elements at once.
+            ''  ----1/14/2022 td  
+            Const c_bLoadRubberband As Boolean = False ''False, since I just encountered a runtime error,
+            ''  related to the rubberband, and I am not prepared to debug this just yet.
+            ''  ----Added 1/4/2022 td
+            If (c_bLoadRubberband) Then ''Added 1/4/2022 td
+                Initiate_RubberbandSelector(mod_listOfDesignerControls,
                                  mod_selectedCtls) ''Added 9/8/2019 thomas d. 
-        End If ''End of "If (c_bLoadRubberband) Then"
+            End If ''End of "If (c_bLoadRubberband) Then"
 
-        ''
-        ''Added 11/29/2021
-        ''
-        ''Jan5 2022''mod_designerListener = New ClassDesignerEventListener(Me, mc_bAddBorderOnlyWhileResizing)
-        mod_designerListener = New ClassDesignerEventListener(Me, mod_oGroupMoveEvents,
+            ''
+            ''Added 11/29/2021
+            ''
+            ''Jan5 2022''mod_designerListener = New ClassDesignerEventListener(Me, mc_bAddBorderOnlyWhileResizing)
+            mod_designerListener = New ClassDesignerEventListener(Me, mod_oGroupMoveEvents,
                                                               mc_bAddBorderOnlyWhileResizing)
 
-        ''
-        ''Major call !!
-        ''
-        ''Feb102022 td''mod_designerListener.LoadDesigner(mod_listOfFieldControlsV3,
-        ''                                       mod_listOfDesignerControls)
-        mod_designerListener.LoadDesigner(mod_listOfFieldControlsV3,
+            ''
+            ''Major call !!
+            ''
+            ''Feb102022 td''mod_designerListener.LoadDesigner(mod_listOfFieldControlsV3,
+            ''                                       mod_listOfDesignerControls)
+            mod_designerListener.LoadDesigner(mod_listOfFieldControlsV3,
                                           mod_listOfFieldControlsV4,
                                           mod_listOfDesignerControls)
 
-        ''Added 1/14/2022 td
-        ''  Maybe this will cause the portrait-element control to appear. 
-        Me.DesignerForm.Refresh()
-
-        ''Added 1/14/2022 td
-        Dim boolRefMatches As Boolean ''Added 1/14/2022 td
-        boolRefMatches = (Me.DesignerForm_DoubleCheckRef IsNot Nothing) AndAlso
-                  (Me.DesignerForm Is Me.DesignerForm_DoubleCheckRef)
-        If (boolRefMatches) Then
-            '' Great, as expected. ---1/14/2022
-        Else
             ''Added 1/14/2022 td
-            MessageBoxTD.Show_Statement("Houston, we have a problem!!!  Our form is orphaned.")
-        End If ''End of "If (boolRefMatches) Then .... Else ....."
+            ''  Maybe this will cause the portrait-element control to appear. 
+            Me.DesignerForm.Refresh()
 
-        ''Copied & modified, from above calls to .SendToBack(). Added 1/14/2022
-        If (Not ShowingTheBackside()) Then Me.BackgroundBox_Front.SendToBack()
-        If (ShowingTheBackside()) Then Me.BackgroundBox_Backside.SendToBack()
-        Me.BackgroundBox_JustAButton.SendToBack() ''Added 1/21/2022 td
+            ''Added 1/14/2022 td
+            Dim boolRefMatches As Boolean ''Added 1/14/2022 td
+            boolRefMatches = (Me.DesignerForm_DoubleCheckRef IsNot Nothing) AndAlso
+                  (Me.DesignerForm Is Me.DesignerForm_DoubleCheckRef)
+            If (boolRefMatches) Then
+                '' Great, as expected. ---1/14/2022
+            Else
+                ''Added 1/14/2022 td
+                MessageBoxTD.Show_Statement("Houston, we have a problem!!!  Our form is orphaned.")
+            End If ''End of "If (boolRefMatches) Then .... Else ....."
 
-        ''Added 1/26/2022 td
-        If (pbStartWithBackside) Then
+            ''Copied & modified, from above calls to .SendToBack(). Added 1/14/2022
+            If (Not ShowingTheBackside()) Then Me.BackgroundBox_Front.SendToBack()
+            If (ShowingTheBackside()) Then Me.BackgroundBox_Backside.SendToBack()
+            Me.BackgroundBox_JustAButton.SendToBack() ''Added 1/21/2022 td
+
             ''Added 1/26/2022 td
-            Me.DesignerForm_Interface.ProceedToBackSide_SetupBacksideLabels()
-        End If ''End of "If (pbStartWithBackside) Then"
+            If (pbStartWithBackside) Then
+                ''Added 1/26/2022 td
+                Me.DesignerForm_Interface.ProceedToBackSide_SetupBacksideLabels()
+            End If ''End of "If (pbStartWithBackside) Then"
 
     End Sub ''End of "Public Sub LoadDesigner"
 
@@ -3723,7 +3729,7 @@ Public Class ClassDesigner
     End Sub
 
 
-    Public Sub SwitchSideOfCard(ByRef pref_success As Boolean)
+    Public Sub SwitchSideOfCard(par_bAutoLoadWhatsMissing As Boolean, ByRef pref_success As Boolean)
         ''
         ''Added 12/8/2021 thomas downes
         ''
@@ -3742,7 +3748,12 @@ Public Class ClassDesigner
         UnloadDesigner(False)
 
         ''1/4/2022 td''LoadDesigner("Called from SwitchSideOfCard")
-        LoadDesigner("Called from SwitchSideOfCard", mod_oGroupMoveEvents)
+        ''5/4/2022 td''LoadDesigner("Called from SwitchSideOfCard", mod_oGroupMoveEvents)
+
+        ''Modified to add Boolean parameter on 5/4/2022
+        LoadDesigner("Called from SwitchSideOfCard",
+                     par_bAutoLoadWhatsMissing,
+                     mod_oGroupMoveEvents)
 
         ''Exit Handler.......
         pref_success = True

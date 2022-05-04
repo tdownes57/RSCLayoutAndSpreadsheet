@@ -21,6 +21,10 @@ Public Class Startup
 
     Public Shared ListOfRecipients As List(Of ClassRecipient) ''Added 3/29/2022 thomas d. 
 
+    Public Const PreloadElementsForDemo As Boolean = False ''Added 5/4/2022 thomas 
+    Private Const mc_boolPreloadElements As Boolean = False ''Added 5/3/2022 thomas 
+
+
     Public Shared Sub Main()
         ''
         ''Encapsulated 10/13/2019 td  
@@ -773,15 +777,14 @@ Public Class Startup
             obj_cache_elements.LoadFields()
             ''5/3/2022 td''obj_cache_elements.LoadFieldElements(par_designForm.pictureBackgroundFront,
             ''5/3/2022 td''   New BadgeLayoutClass(par_designForm.pictureBackgroundFront))
-            Const c_boolPreloadElements As Boolean = False ''Added 5/3/2022 thomas .
-            If (c_boolPreloadElements) Then
+            If (mc_boolPreloadElements) Then
                 ''Pre-load elements. Not really great for users who probably want
                 ''  to start with a blank canvas.  Plus, the new dialog
                 ''  called FormTypeOfElementsToAdd is a great alternative.
                 ''  ----5/3/2022 td
                 obj_cache_elements.LoadFieldElements(par_designForm.pictureBackgroundFront,
                             New BadgeLayoutClass(par_designForm.pictureBackgroundFront))
-            End If ''End of ""If (c_boolPreloadElements) Then""
+            End If ''End of ""If (mc_boolPreloadElements) Then""
 
         Else
             ''Added 10/10/2019 td  
@@ -970,7 +973,9 @@ Public Class Startup
 
 
         ''9/19 td''Me.ElementsCache_Saved.LoadPicElement(CtlGraphicPortrait_Lady.picturePortrait, pictureBack) ''Added 9/19/2019 td
-        If (pboolNewFileXML) Then
+        ''5/04/2022 td''If (pboolNewFileXML) Then  
+        If (pboolNewFileXML And mc_boolPreloadElements) Then
+
             ''10/10/2019 td''Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
             ''10/13/2019 td''Me.ElementsCache_Saved.LoadElement_Pic(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
             obj_cache_elements.LoadNewElement_Pic(intLeft_Portrait, intTop_Portrait, intWidth_Portrait, intHeight_Portrait,
@@ -993,7 +998,7 @@ Public Class Startup
                                                 intWidth_StaticText, intHeight_StaticText,
                                                par_designForm.pictureBackgroundFront) ''Added 10/14/2019 td
 
-        End If ''End of "If (pboolNewFileXML) Then"
+        End If ''End of "If (pboolNewFileXML And mc_boolPreloadElements) Then"
 
         ''Added 9/24/2019 thomas 
         ''Was just for testing. ---10/10/2019 td''Dim serial_tools As New ciBadgeSerialize.ClassSerial

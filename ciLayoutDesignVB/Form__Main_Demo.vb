@@ -623,7 +623,13 @@ Public Class Form__Main_Demo
             ''
             ''Major call !!! 
             ''
-            .LoadDesigner("Form__Main_Demo's Form_Load ", mod_oGroupMoveEvents, Me.LetsRefresh_CardBackside)
+            ''5/4/2022 ''.LoadDesigner("Form__Main_Demo's Form_Load ",
+            ''              mod_oGroupMoveEvents,
+            ''              Me.LetsRefresh_CardBackside)
+            .LoadDesigner("Form__Main_Demo's Form_Load ",
+                          Startup.PreloadElementsForDemo,
+                          mod_oGroupMoveEvents,
+                          Me.LetsRefresh_CardBackside)
             Me.LetsRefresh_CardBackside = False ''Return to default value. ---1/26/2022
 
         End With ''ENd of "With mod_designer"
@@ -1433,7 +1439,14 @@ Public Class Form__Main_Demo
             ''1/5/2022''mod_designer.LoadDesigner(strWhyCalled)
             ''1/26/2022''mod_designer.LoadDesigner(strWhyCalled, mod_oGroupMoveEvents)
             mod_designer.StartWithBacksideOfCard = Me.LetsRefresh_CardBackside
-            mod_designer.LoadDesigner(strWhyCalled, mod_oGroupMoveEvents, Me.LetsRefresh_CardBackside)
+
+            ''5/4/2022 ''mod_designer.LoadDesigner(strWhyCalled,
+            ''                             mod_oGroupMoveEvents,
+            ''                             Me.LetsRefresh_CardBackside)
+            mod_designer.LoadDesigner(strWhyCalled,
+                                      Startup.PreloadElementsForDemo,
+                                      mod_oGroupMoveEvents,
+                                      Me.LetsRefresh_CardBackside)
 
         End If ''End of "If (bSomeDisplayableFieldsAreNotLoaded) Then"
 
@@ -3077,8 +3090,13 @@ ExitHandler:
 
         mod_designer.DesignerForm_DoubleCheckRef = Me ''Added 1/14/2022 td
 
-        ''Major call!! 
-        mod_designer.SwitchSideOfCard(boolSuccess)
+        ''
+        ''Major call!!
+        ''
+        ''May 4, 2022''mod_designer.SwitchSideOfCard(boolSuccess)
+        Dim boolAutoLoad As Boolean ''Added 5/4/2022
+        boolAutoLoad = Startup.PreloadElementsForDemo ''Added 5/4/2022
+        mod_designer.SwitchSideOfCard(boolAutoLoad, boolSuccess)
         mod_designer.BackgroundBox_Front = pictureBackgroundBackside
         mod_designer.BackgroundBox_JustAButton = pictureJustAButton ''Added 1/21/2022
 
@@ -3124,10 +3142,15 @@ ExitHandler:
         ''  Return to the frontside of the card. 
         ''
         Dim boolSuccess As Boolean
+        Dim boolAutoLoadElements As Boolean ''Added 5/4/2022 td
+
         ''Dec.10 2021''Unload_Designer()
         SaveLayout_PreviewImage() ''Added 2/1/2022
         Unload_Designer(False)
-        mod_designer.SwitchSideOfCard(boolSuccess)
+        ''5/4/2022 td''mod_designer.SwitchSideOfCard(boolSuccess)
+        boolAutoLoadElements = Startup.PreloadElementsForDemo ''Added 5/4/2022 td
+        mod_designer.SwitchSideOfCard(boolAutoLoadElements, boolSuccess)
+
         If (boolSuccess) Then
             labelProceedToBackside.Visible = True ''If the user is seeing the Front, they may change minds and want to see the Back again. 
             LabelReturnToFrontSide.Visible = False
