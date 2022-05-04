@@ -434,6 +434,12 @@
     <Compile Include="FormLoginRSCIDCard.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FormTypeOfElementsToAdd.Designer.vb">
+      <DependentUpon>FormTypeOfElementsToAdd.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormTypeOfElementsToAdd.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormUploadBackgroundNewVsExisting.Designer.vb">
       <DependentUpon>FormUploadBackgroundNewVsExisting.vb</DependentUpon>
     </Compile>
@@ -739,6 +745,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormLoginRSCIDCard.resx">
       <DependentUpon>FormLoginRSCIDCard.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTypeOfElementsToAdd.resx">
+      <DependentUpon>FormTypeOfElementsToAdd.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormUploadBackgroundNewVsExisting.resx">
       <DependentUpon>FormUploadBackgroundNewVsExisting.vb</DependentUpon>

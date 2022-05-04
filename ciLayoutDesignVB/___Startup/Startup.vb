@@ -203,6 +203,8 @@ Public Class Startup
             ''
             ''This is potentially an infinite loop.  Look for "Exit Do". 
             ''
+            If (pref_bUserWantsToExitApp) Then Exit Do ''Added 5/3/2022 td
+
             ''First, let's refresh the path. ---1/14/2022 td
             strPathToElementsCacheXML_Input = My.Settings.PathToXML_Saved_ElementsCache ''Added 1/14/2022 
 

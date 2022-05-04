@@ -505,6 +505,9 @@
     <EmbeddedResource Include="ControlsCtl\CtlGraphicStaticTextV3.resx">
       <DependentUpon>CtlGraphicStaticTextV3.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ControlsCtl\CtlGraphicStaticTextV4.resx">
+      <DependentUpon>CtlGraphicStaticTextV4.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ControlsCtl\CtlGraphPopMenuEditSingle.resx">
       <DependentUpon>CtlGraphPopMenuEditSingle.vb</DependentUpon>
     </EmbeddedResource>

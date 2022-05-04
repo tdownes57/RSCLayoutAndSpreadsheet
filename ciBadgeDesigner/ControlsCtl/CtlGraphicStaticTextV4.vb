@@ -13,12 +13,76 @@ Imports System.Drawing ''Added 10/1/2019 td
 Imports __RSCWindowsControlLibrary ''Added 1/4/2022 thomas d.
 
 Public Class CtlGraphicStaticTextV4
+    Implements ISaveToModel ''Added 5/03/2022 td 
+    Implements IMoveableElement ''Added 5/03/2022 td   
     ''
     ''Added 1/31/2022 td
     ''
     Public Element_StaticTextV4 As ciBadgeElements.ClassElementStaticTextV4
     Private Shared mod_intFieldTexts As Integer ''Feb01 2022 td'' += 1
     Private Shared mod_intStaticTexts As Integer ''Feb01 2022 td'' += 1
+
+    Public Element_StaticText As New ClassElementStaticTextV3 ''Added 5/03/2022 td
+    Public Overrides Property ElementInfo_Base As ciBadgeInterfaces.IElement_Base  ''Added 5/03/2022 td
+
+    ''These properties are making use of the Dependency Injection pattern.
+    Public ParentDesignForm_iSelecting As ISelectingElements  ''Added 5/03/2022 td  
+
+    Public ParentDesignForm_iRefreshPreview As IRefreshCardPreview  ''Added 5/03/2022 td  
+
+    Public Event ElementStatic_RightClicked(par_control As CtlGraphicStaticTextV3)  ''Added 5/03/2022 td
+
+    Private mod_strTextToDisplay As String = "This is text which will be the same for everyone." ''Added 10/10/2019 td 
+    Private mod_strTextToDisplay_DesignTime As String = "Text Label" ''Added 10/10/2019 td 
+
+    Private mod_bDisplayVisibilityLink As Boolean = False  ''Added 5/03/2022 td
+    Private Const mod_c_bResizeProportionally As Boolean = False  ''Added 5/03/2022 td 
+
+
+    Public ReadOnly Property Picture_Box_Overloads As PictureBox
+        Get
+            ''Added 7/28/2019 td 
+            ''  May 3, 2022 ''Return Me.pictureFieldOrText
+            Return MyBase.pictureFieldOrText
+        End Get
+    End Property
+
+
+    Public Property TextToDisplay As String
+        Get
+            ''Added 10/10/2019 td 
+            Return mod_strTextToDisplay
+        End Get
+        Set(value As String)
+            ''Added 10/10/2019 td 
+            mod_strTextToDisplay = value
+
+            If (Me.ElementInfo_TextOnly Is Nothing) Then Me.ElementInfo_TextOnly = Me.Element_StaticText
+            Me.ElementInfo_TextOnly.Text_Static = value
+
+            ''---textTypeExample.Text = mod_strTextToDisplay
+            textTypeExample.SendToBack()
+
+        End Set
+    End Property ''End of ""Public Property TextToDisplay As String""
+
+
+    Public Property TextToDisplay_DesignTime As String
+        Get
+            ''Added 5/03/202 td 
+            Return mod_strTextToDisplay_DesignTime
+
+        End Get
+        Set(value As String)
+            ''Added 5/03/2022 td 
+            mod_strTextToDisplay_DesignTime = value
+            textTypeExample.Text = mod_strTextToDisplay_DesignTime
+            textTypeExample.Visible = True
+            textTypeExample.BringToFront()
+
+        End Set
+    End Property ''End of ""Public Property TextToDisplay_DesignTime As String""
+
 
     Public Shared Function GetStaticTextControl(par_parametersGetElementControl As ClassGetElementControlParams,
                                            par_elementStaticText As ClassElementStaticTextV4,

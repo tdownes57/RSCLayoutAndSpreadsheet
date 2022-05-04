@@ -45,10 +45,9 @@ Partial Class CtlGraphicStaticTextV3
         '
         Me.LinkInvisible.AutoSize = True
         Me.LinkInvisible.BackColor = System.Drawing.Color.Transparent
-        Me.LinkInvisible.Location = New System.Drawing.Point(35, 17)
-        Me.LinkInvisible.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.LinkInvisible.Location = New System.Drawing.Point(26, 14)
         Me.LinkInvisible.Name = "LinkInvisible"
-        Me.LinkInvisible.Size = New System.Drawing.Size(162, 17)
+        Me.LinkInvisible.Size = New System.Drawing.Size(123, 13)
         Me.LinkInvisible.TabIndex = 4
         Me.LinkInvisible.TabStop = True
         Me.LinkInvisible.Tag = "Won't appear on Badge."
@@ -61,10 +60,10 @@ Partial Class CtlGraphicStaticTextV3
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.textTypeExample.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.textTypeExample.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.textTypeExample.Location = New System.Drawing.Point(16, 2)
-        Me.textTypeExample.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.textTypeExample.Location = New System.Drawing.Point(12, 2)
+        Me.textTypeExample.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.textTypeExample.Name = "textTypeExample"
-        Me.textTypeExample.Size = New System.Drawing.Size(421, 32)
+        Me.textTypeExample.Size = New System.Drawing.Size(316, 27)
         Me.textTypeExample.TabIndex = 3
         Me.textTypeExample.Visible = False
         '
@@ -74,22 +73,21 @@ Partial Class CtlGraphicStaticTextV3
         Me.pictureLabel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pictureLabel.Image = Global.ciBadgeDesigner.My.Resources.Resources.Static_Text
         Me.pictureLabel.Location = New System.Drawing.Point(0, 0)
-        Me.pictureLabel.Margin = New System.Windows.Forms.Padding(4)
         Me.pictureLabel.Name = "pictureLabel"
-        Me.pictureLabel.Size = New System.Drawing.Size(475, 39)
+        Me.pictureLabel.Size = New System.Drawing.Size(356, 32)
         Me.pictureLabel.TabIndex = 1
         Me.pictureLabel.TabStop = False
         '
-        'CtlGraphicStaticText
+        'CtlGraphicStaticTextV3
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.LinkInvisible)
         Me.Controls.Add(Me.pictureLabel)
         Me.Controls.Add(Me.textTypeExample)
-        Me.Margin = New System.Windows.Forms.Padding(4)
-        Me.Name = "CtlGraphicStaticText"
-        Me.Size = New System.Drawing.Size(475, 39)
+        Me.Margin = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.Name = "CtlGraphicStaticTextV3"
+        Me.Size = New System.Drawing.Size(356, 32)
         CType(Me.pictureLabel, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
