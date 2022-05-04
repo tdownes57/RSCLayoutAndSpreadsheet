@@ -3,7 +3,19 @@ Imports __RSCWindowsControlLibrary ''Added 5/3/2022 td
 ''
 ''Added 5/3/2022 thomas d. 
 ''
-
+''The following Dialog Form is an attempt to fix an ambiguity which has 
+''  been vexing my layout-design development for a long time... namely, the
+''  ambiguity is as follows....
+''Do I want all the various types of Elements (e.g. QR code) to be easily
+''  (i.e. automatically) instantiated (and thus present in the layout design at run-time),
+''  or would I eventually find it vexing & annoying?
+''Sometimes I just want to work with a simple, unadorned layout... no bells & whistles.
+''A related question is, if I finally don't want them to keep appearing incessantly,
+''  how do I "turn them off" effectively? 
+''Solution:  This new dialog-form called FormTypesOfElementsToAdd, and the following
+''  Boolean constant, Startup.PreloadElementsForDemo.   -----5/4/2022 td
+''  -----5/4/2022 td
+''
 Public Class FormTypeOfElementsToAdd
     ''
     ''Added 5/3/2022 thomas d. 
@@ -100,6 +112,10 @@ Public Class FormTypeOfElementsToAdd
     End Sub
 
     Private Sub CtlGraphicPortrait1_Load_1(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub FormTypeOfElementsToAdd_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
     End Sub
 End Class

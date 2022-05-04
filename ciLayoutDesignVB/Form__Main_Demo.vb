@@ -444,7 +444,7 @@ Public Class Form__Main_Demo
                     .GetElementSig(False).Image_BL = My.Resources.Declaration_Sig_JPG
                 End If
             End If
-        End With
+        End With ''End of ""With ElementsCache_Edits""
 
         ''If (CtlGraphicQRCode1 Is Nothing) Then
         ''    ''Added 12/3/2021 td  
@@ -551,7 +551,7 @@ Public Class Form__Main_Demo
             Else
                 ''Added for deserialization from a saved XML file. 
                 ''  ---10/10/2019 td
-                Dim objElementPic As ClassElementPortrait ''Prior to 12/21/2021 td
+                Dim objElementPic As ClassElementPortrait = Nothing ''Prior to 12/21/2021 td
 
                 ''Fun with enumeration!!! 
                 Const c_bEnumerationTechnicalWay As Boolean = True
@@ -578,9 +578,9 @@ Public Class Form__Main_Demo
                         ''The var. objElementPic is now assigned to the first object in the list. ---12/21/21
                         Exit For
                     Next objElementPic
-                    If (objElementPic Is Nothing) Then
-                        System.Diagnostics.Debugger.Break()
-                    End If
+                    ''May 4, 2022 td''If (objElementPic Is Nothing) Then
+                    ''    System.Diagnostics.Debugger.Break()
+                    ''End If
                 End If ''End of "If (objElementPic Is Nothing) Then"
 
                 ''.Initial_Pic_Left = Me.ElementsCache_Edits.PicElement_Front().LeftEdge_Pixels
@@ -3384,6 +3384,14 @@ ExitHandler:
         Me.LetsRefresh_CloseForm = False ''Added 5/03/2022 td
         Me.LetsRefresh_CardBackside = False ''Added 5/03/2022 td
         Me.Close()
+
+    End Sub
+
+    Private Sub ButtonAddElements_Click(sender As Object, e As EventArgs) Handles ButtonAddElements.Click
+
+        ''Added 5/4/2022 td
+        Dim objFormToShow As New FormTypeOfElementsToAdd
+        objFormToShow.ShowDialog()
 
     End Sub
 

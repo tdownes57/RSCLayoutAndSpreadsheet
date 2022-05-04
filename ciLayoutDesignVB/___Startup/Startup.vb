@@ -21,6 +21,18 @@ Public Class Startup
 
     Public Shared ListOfRecipients As List(Of ClassRecipient) ''Added 3/29/2022 thomas d. 
 
+    ''The following False-valued Booleans are an attempt to fix an ambiguity which has 
+    ''  been vexing my layout-design development for a long time... namely, the
+    ''  ambiguity is as follows....
+    ''Do I want all the various types of Elements (e.g. QR code) to be easily
+    ''  (i.e. automatically) instantiated (and thus present in the layout design at run-time),
+    ''  or would I eventually find it vexing & annoying?
+    ''Sometimes I just want to work with a simple, unadorned layout... no bells & whistles.
+    ''A related question is, if I finally don't want them to keep appearing incessantly,
+    ''  how do I "turn them off" effectively? 
+    ''Solution:  The new form FormTypesOfElementsToAdd, and the following
+    ''  Boolean constants.-----5/4/2022 td
+    ''  -----5/4/2022 td
     Public Const PreloadElementsForDemo As Boolean = False ''Added 5/4/2022 thomas 
     Private Const mc_boolPreloadElements As Boolean = False ''Added 5/3/2022 thomas 
 

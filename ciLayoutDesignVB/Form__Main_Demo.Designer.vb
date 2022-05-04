@@ -128,6 +128,7 @@ Partial Class Form__Main_Demo
         Me.linklabelAndShowBack = New System.Windows.Forms.LinkLabel()
         Me.ButtonOK = New System.Windows.Forms.Button()
         Me.ButtonCancel = New System.Windows.Forms.Button()
+        Me.ButtonAddElements = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -649,7 +650,7 @@ Partial Class Form__Main_Demo
         Me.checkAutoPreview.Checked = True
         Me.checkAutoPreview.CheckState = System.Windows.Forms.CheckState.Checked
         Me.checkAutoPreview.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.checkAutoPreview.Location = New System.Drawing.Point(752, 96)
+        Me.checkAutoPreview.Location = New System.Drawing.Point(936, 124)
         Me.checkAutoPreview.Margin = New System.Windows.Forms.Padding(1, 3, 1, 3)
         Me.checkAutoPreview.Name = "checkAutoPreview"
         Me.checkAutoPreview.Size = New System.Drawing.Size(97, 19)
@@ -675,7 +676,7 @@ Partial Class Form__Main_Demo
         'LabelPersonalityCurrent
         '
         Me.LabelPersonalityCurrent.AutoSize = True
-        Me.LabelPersonalityCurrent.Location = New System.Drawing.Point(748, 68)
+        Me.LabelPersonalityCurrent.Location = New System.Drawing.Point(772, 53)
         Me.LabelPersonalityCurrent.Name = "LabelPersonalityCurrent"
         Me.LabelPersonalityCurrent.Size = New System.Drawing.Size(170, 17)
         Me.LabelPersonalityCurrent.TabIndex = 64
@@ -715,11 +716,12 @@ Partial Class Form__Main_Demo
         Me.LinkLabelOpenPreviewFileBMP.TabIndex = 68
         Me.LinkLabelOpenPreviewFileBMP.TabStop = True
         Me.LinkLabelOpenPreviewFileBMP.Text = "Open Badge from File (BMP)"
+        Me.LinkLabelOpenPreviewFileBMP.Visible = False
         '
         'LinkLabelOpenPreviewFileJPG
         '
         Me.LinkLabelOpenPreviewFileJPG.AutoSize = True
-        Me.LinkLabelOpenPreviewFileJPG.Location = New System.Drawing.Point(964, 117)
+        Me.LinkLabelOpenPreviewFileJPG.Location = New System.Drawing.Point(966, 96)
         Me.LinkLabelOpenPreviewFileJPG.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
         Me.LinkLabelOpenPreviewFileJPG.Name = "LinkLabelOpenPreviewFileJPG"
         Me.LinkLabelOpenPreviewFileJPG.Size = New System.Drawing.Size(187, 17)
@@ -1015,11 +1017,24 @@ Partial Class Form__Main_Demo
         Me.ButtonCancel.Text = "Cancel"
         Me.ButtonCancel.UseVisualStyleBackColor = True
         '
+        'ButtonAddElements
+        '
+        Me.ButtonAddElements.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ButtonAddElements.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonAddElements.Location = New System.Drawing.Point(674, 84)
+        Me.ButtonAddElements.Margin = New System.Windows.Forms.Padding(2)
+        Me.ButtonAddElements.Name = "ButtonAddElements"
+        Me.ButtonAddElements.Size = New System.Drawing.Size(160, 37)
+        Me.ButtonAddElements.TabIndex = 92
+        Me.ButtonAddElements.Text = "Add Elements"
+        Me.ButtonAddElements.UseVisualStyleBackColor = True
+        '
         'Form__Main_Demo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1298, 642)
+        Me.Controls.Add(Me.ButtonAddElements)
         Me.Controls.Add(Me.ButtonCancel)
         Me.Controls.Add(Me.ButtonOK)
         Me.Controls.Add(Me.linklabelAndShowBack)
@@ -1195,4 +1210,5 @@ Partial Class Form__Main_Demo
     Friend WithEvents linklabelAndShowBack As LinkLabel
     Friend WithEvents ButtonOK As Button
     Friend WithEvents ButtonCancel As Button
+    Friend WithEvents ButtonAddElements As Button
 End Class
