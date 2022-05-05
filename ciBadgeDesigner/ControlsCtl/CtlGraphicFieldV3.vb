@@ -77,7 +77,7 @@ Public Class CtlGraphicFieldV3
         ''                pstrWhyWasICreated As String,
         ''                par_formRecordLastTouched As IRecordElementLastTouched)
 
-        CtlFieldElemV3 = New CtlGraphicFieldV3(par_elementFld,
+        CtlFieldElemV3 = New CtlGraphicFieldV3(par_elementFld, par_parametersGetElementControl,
                                                par_formParent,
                                                par_oDesigner, par_iLayoutFun,
                                          par_parametersGetElementControl.iRefreshPreview,
@@ -239,6 +239,7 @@ Public Class CtlGraphicFieldV3
 
 
     Public Sub New(par_elementField As ClassElementFieldV3,
+                   par_parameters As IGetElementControlParameters,
                    par_oParentForm As Form,
                    par_oDesigner As ClassDesigner,
                    par_iLayoutFun As ILayoutFunctions,
@@ -258,7 +259,8 @@ Public Class CtlGraphicFieldV3
         ''Dim singleDummy As Single = 0 ''Added 1/4/2022 td 
 
         ''Added 1/4/2022 td
-        MyBase.New(EnumElementType.Field,
+        MyBase.New(EnumElementType.Field, par_elementField,
+                        par_parameters.ElementsCache,
                         par_oParentForm, False,
                         par_iLayoutFun, par_iRefreshPreview, par_iSizeDesired,
                         par_operationsType, par_operationsAny,
@@ -794,7 +796,7 @@ ExitHandler:
     End Sub ''End of Public Sub Refresh_ImageV3
 
 
-    Public Sub SaveToModel() Implements ISaveToModel.SaveToModel
+    Public Overrides Sub SaveToModel() Implements ISaveToModel.SaveToModel
         ''
         ''Added 7/29/2019 thomas d 
         ''
@@ -807,6 +809,8 @@ ExitHandler:
 
         ''9/19/2019 td''Me.ElementInfo_Base.TopEdge_Pixels = Me.FormDesigner.Layout_Margin_Top_Omit(Me.Top)
         ''9/19/2019 td''Me.ElementInfo_Base.LeftEdge_Pixels = Me.FormDesigner.Layout_Margin_Left_Omit(Me.Left)
+
+        MyBase.SaveToModel() ''Added 5/5/2022 td
 
         Me.ElementInfo_Base.TopEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Top_Omit(Me.Top)
         Me.ElementInfo_Base.LeftEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Left_Omit(Me.Left)

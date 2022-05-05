@@ -80,7 +80,9 @@ Public Class CtlGraphicPortrait
         Dim enumElementType_Enum As EnumElementType = EnumElementType.Portrait
 
         ''Create the control. 
-        Dim CtlPortrait1 = New CtlGraphicPortrait(par_elementPortrait, par_formParent,
+        Dim CtlPortrait1 = New CtlGraphicPortrait(par_elementPortrait,
+                                                  par_parametersGetElementControl,
+                                                  par_formParent,
                                                   par_iLayoutFun,
                                       par_parametersGetElementControl.iRefreshPreview,
                                                   sizeElementPortrait,
@@ -151,6 +153,7 @@ Public Class CtlGraphicPortrait
 
 
     Public Sub New(par_elementPic As ClassElementPortrait,
+                   par_parameters As IGetElementControlParameters,
                    par_oParentForm As Form,
                    par_iLayoutFun As ILayoutFunctions,
                    par_iRefreshPreview As IRefreshCardPreview,
@@ -168,7 +171,9 @@ Public Class CtlGraphicPortrait
         ''Added 1/04/2022 td
         ''
         ''Jan1 2022 td''MyBase.New(par_enumElementType, pboolResizeProportionally,
-        MyBase.New(EnumElementType.Portrait, par_oParentForm,
+        MyBase.New(EnumElementType.Portrait,
+                   par_elementPic,
+        par_parameters.ElementsCache, par_oParentForm,
                    pboolResizeProportionally,
                         par_iLayoutFun, par_iRefreshPreview, par_iSizeDesired,
                         par_operationsType, par_operationsAny,
@@ -621,6 +626,8 @@ Public Class CtlGraphicPortrait
         Dim bRotated90degrees As Boolean ''Added 9/24/2019 thomas d. 
         Dim boolSuccess As Boolean ''Added 9/24/2019 td  
 
+        MyBase.SaveToModel() ''Added 5/5/2022 td
+
         If (Me.ElementInfo_Base IsNot Nothing) Then
 
             ''9/10/2019 td''Me.ElementInfo_Base.TopEdge_Pixels = Me.Top
@@ -1024,6 +1031,9 @@ ExitHandler:
     End Sub
 
     Private Sub picturePortrait_MouseUp(sender As Object, par_e As MouseEventArgs) Handles picturePortrait.MouseUp
+
+        ''Added 5/4/2022
+        MyBase.RaiseEvent_ControlClicked() ''Added 5/4/2022 td 
 
         ''Added 1/07/2022 thomas downes
         ''Jan11 2022''MyBase.MoveableControl_MouseUp(Me, par_e)

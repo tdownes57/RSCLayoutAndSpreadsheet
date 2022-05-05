@@ -21,7 +21,9 @@ Public Class ClassGetElementControlParams
     ''    End Set
     ''End Property
 
-    Public Property ElementsCacheManager As ClassCacheManagement Implements IGetElementControlParameters.CacheManager
+    Public Property ElementsCache As ClassElementsCache_Deprecated Implements IGetElementControlParameters.ElementsCache
+
+    Public Property ElementsCacheManager As ClassCacheManagement Implements IGetElementControlParameters.ElementsCacheManager
     ''    Get
     ''        Throw New NotImplementedException()
     ''    End Get

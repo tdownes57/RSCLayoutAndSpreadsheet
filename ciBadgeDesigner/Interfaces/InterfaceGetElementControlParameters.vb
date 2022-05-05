@@ -21,7 +21,8 @@ Public Interface IGetElementControlParameters
 
     Property ElementObject As ClassElementBase ''Added 1/17/2022 td  
 
-    Property CacheManager As ClassCacheManagement
+    Property ElementsCache As ClassElementsCache_Deprecated ''Added 5/5/2022 td
+    Property ElementsCacheManager As ClassCacheManagement
 
     Property DesignerClass As ClassDesigner ''Added 1/17/2022
     Property DesignerForm As Form

@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class RSCSelectCIBField
+Partial Class RSCSelectCIBField_Simple
     Inherits System.Windows.Forms.UserControl
 
     'UserControl overrides dispose to clean up the component list.

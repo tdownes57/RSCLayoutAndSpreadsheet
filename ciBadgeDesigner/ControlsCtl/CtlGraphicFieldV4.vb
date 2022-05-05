@@ -15,6 +15,8 @@ Imports System.Drawing ''Added 10/1/2019 td
 Imports __RSCWindowsControlLibrary ''Added 1/4/2022 thomas d.
 
 Public Class CtlGraphicFieldV4
+    Implements ISaveToModel ''Added 12/17/2021 td 
+
     ''
     ''Added 2/03/2022 td
     ''
@@ -22,7 +24,7 @@ Public Class CtlGraphicFieldV4
     Private Shared mod_intFieldTexts As Integer ''Feb01 2022 td'' += 1
     Private Shared mod_intFields As Integer ''Feb01 2022 td'' += 1
 
-    Public Overloads Property ElementClass_Obj As ClassElementFieldV4 ''Added 2/4/2022 thomas downes
+    Public Overloads Property ElementClass_ObjV4 As ClassElementFieldV4 ''Added 2/4/2022 thomas downes
 
 
     Public ReadOnly Property Textbox_ExampleValue As TextBox
@@ -102,6 +104,7 @@ Public Class CtlGraphicFieldV4
         ''                par_formRecordLastTouched As IRecordElementLastTouched)
 
         CtlFieldV4 = New CtlGraphicFieldV4(par_elementField,
+                                           par_parametersGetElementControl,
                                                par_formParent,
                                                par_oDesigner, par_iLayoutFun,
                                          par_parametersGetElementControl.iRefreshPreview,
@@ -195,6 +198,7 @@ Public Class CtlGraphicFieldV4
 
 
     Public Sub New(par_elementField As ClassElementFieldV4,
+                   par_parameters As IGetElementControlParameters,
                    par_oParentForm As Form,
                    par_oDesigner As ClassDesigner,
                    par_iLayoutFun As ILayoutFunctions,
@@ -214,7 +218,7 @@ Public Class CtlGraphicFieldV4
         ''Dim singleDummy As Single = 0 ''Added 1/4/2022 td 
 
         ''Added 1/4/2022 td
-        MyBase.New(EnumElementType.Field,
+        MyBase.New(EnumElementType.Field, par_parameters,
                         par_elementField,
                         par_oParentForm,
                         par_oDesigner,
@@ -233,7 +237,7 @@ Public Class CtlGraphicFieldV4
         ''Jan31 2022 td''Me.FieldInfo = par_elementField.FieldInfo
         Me.ParentDesigner = par_oDesigner ''Added 1/5/2022 td
 
-        Me.ElementClass_Obj = par_elementField
+        Me.ElementClass_ObjV4 = par_elementField
         Me.ElementInfo_Base = CType(par_elementField, IElement_Base)
         ''10/12/2019 td''Me.ElementInfo_Text = CType(par_elementField, IElement_TextField)
         Me.ElementInfo_TextOnly = CType(par_elementField, IElement_TextOnly) ''Modified 10/12/2019 td
@@ -318,7 +322,7 @@ Public Class CtlGraphicFieldV4
         ''7/30/2019 td''Me.ElementInfo.Font_DrawingClass = New Font("Times New Roman", 25, FontStyle.Italic)
 
         boolScaleFontSize = (Me.ElementInfo_TextOnly.FontSize_ScaleToElementYesNo)
-        If (boolScaleFontSize And Me.ElementClass_Obj Is Nothing) Then
+        If (boolScaleFontSize And Me.ElementClass_ObjV4 Is Nothing) Then
             ''Added 9/19/2019 td 
             MessageBox.Show("Where is the Element-Field Class???   We will need it to scale the Font.", "",
                             MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
@@ -368,9 +372,9 @@ Public Class CtlGraphicFieldV4
 
                         ''Use .Width_Pixels, since .Height_Pixels & .Width_Pixels
                         ''   have been switched due to rotation. ----1/28/2022 td
-                        Me.ElementClass_Obj.Font_ScaleAdjustment(.Width_Pixels)
+                        Me.ElementClass_ObjV4.Font_ScaleAdjustment(.Width_Pixels)
                     Else
-                        Me.ElementClass_Obj.Font_ScaleAdjustment(.Height_Pixels)
+                        Me.ElementClass_ObjV4.Font_ScaleAdjustment(.Height_Pixels)
                     End If ''End of "If (Rotated_90_270()) Then ... Else ..."
                 End With ''End of "With Me.ElementInfo_Base"
             End If ''End of "If (boolScaleFontSize) Then"
@@ -432,7 +436,7 @@ Public Class CtlGraphicFieldV4
             ''Feb1 2022 td''     CtlGraphicFldLabelV3.UseExampleValues)
 
             ''Added 12/21/2021 td
-            strTextToDisplay = (strTextToDisplay & (" " & Me.ElementClass_Obj.CaptionSuffixIfNeeded).TrimEnd())
+            strTextToDisplay = (strTextToDisplay & (" " & Me.ElementClass_ObjV4.CaptionSuffixIfNeeded).TrimEnd())
 
             ''11/18 td''newTextImage =
             ''   modGenerate.TextImage_ByElemInfo(Me.ElementClass_Obj.LabelText_ToDisplay(True),
@@ -563,6 +567,109 @@ ExitHandler:
         End If ''ENd of "If (par_boolRefreshUserControl) Then"
 
     End Sub ''End of Public Sub Refresh_ImageV3
+
+
+    Public Overrides Sub SaveToModel() Implements ISaveToModel.SaveToModel
+        ''
+        ''Added 7/29/2019 thomas d 
+        ''
+        ''7/29 td''Me.ElementInfo.Info = CType(Me.ElementInfo, IElementText)
+
+        ''Me.ElementInfo.Text = Me.LabelText()
+
+        ''9/5/2019 td''Me.ElementInfo_Base.TopEdge_Pixels = Me.Top
+        ''9/5/2019 td''Me.ElementInfo_Base.LeftEdge_Pixels = Me.Left
+
+        ''9/19/2019 td''Me.ElementInfo_Base.TopEdge_Pixels = Me.FormDesigner.Layout_Margin_Top_Omit(Me.Top)
+        ''9/19/2019 td''Me.ElementInfo_Base.LeftEdge_Pixels = Me.FormDesigner.Layout_Margin_Left_Omit(Me.Left)
+
+        MyBase.SaveToModel() ''Added 5/5/2022 td
+
+        Me.ElementInfo_Base.TopEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Top_Omit(Me.Top)
+        Me.ElementInfo_Base.LeftEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Left_Omit(Me.Left)
+
+        ''Added 11/29/2021 td
+        Me.ElementClass_ObjV4.DatetimeUpdated = Now ''Added 11/29/2021 td
+        Dim intPixelsTop As Integer = Me.ElementClass_ObjV4.TopEdge_Pixels
+        Dim intPixelsLeft As Integer = Me.ElementClass_ObjV4.LeftEdge_Pixels
+        Dim intSum As Integer = (intPixelsTop + intPixelsLeft)
+
+        ''
+        ''Width & Height
+        ''
+        ''       (Account for rotated text, if applicable.) 
+        ''
+        If (Me.Rotated_0degrees()) Then
+            ''
+            ''Normal.  Easy-peasy.  The text is not rotated at all. 
+            ''
+            Me.ElementInfo_Base.Width_Pixels = Me.Width
+            Me.ElementInfo_Base.Height_Pixels = Me.Height
+
+        ElseIf (Me.Rotated_180_360()) Then
+            ''
+            ''Normal, easy-peasy. 
+            ''
+            Me.ElementInfo_Base.Width_Pixels = Me.Width
+            Me.ElementInfo_Base.Height_Pixels = Me.Height
+
+        ElseIf (Me.Rotated_90_270(False)) Then
+            ''
+            ''-------DIFFICULT/CONFUSING-----
+            ''This is rotated, so let's pull a switcheroo. 
+            ''   ----9/23/2019 TD  
+            ''
+            If (Me.Width < Me.Height) Then
+                Me.ElementInfo_Base.Width_Pixels = Me.Height
+                Me.ElementInfo_Base.Height_Pixels = Me.Width
+            Else
+                ''Added 9/23/2019 td 
+                Throw New Exception("Logically, this should not occur. #1957 " &
+                                    "(Because the function Me.Rotated_90_270() says, we are rotated. " &
+                                    "  (The function checks the Element.))")
+            End If ''End of "If (Me.Width < Me.Height) Then"
+        Else
+            ''Added 9/23/2019 td 
+            Throw New Exception("Logically, this should Not occur. #1958  " &
+                                "(because we have accounted for all rotational positions).")
+        End If ''End of "If (Me.Rotated_0degrees()) Then .... ElseIf .... ElseIf ...."
+
+        ''Added 9/4/2019 thomas downes
+        ''9/12/2019 td''Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.Layout_Width_Pixels()
+        ''9/5/2019 td''Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.FormDesigner.Layout_Width_Pixels()
+        ''9/5/2019 td''Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.FormDesigner.Layout_Height_Pixels()
+
+        Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.LayoutFunctions.Layout_Width_Pixels()
+        Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
+
+        ''Me.ElementInfo.Font_DrawingClass = Me.Font
+        ''Me.ElementInfo.BackColor = Me.BackColor
+        ''Me.ElementInfo.FontColor = Me.ForeColor
+
+        ''
+        ''Added 9/15/2019 thomas d. 
+        ''
+        ''9/18/2019 td''
+        ''Select Case True
+        ''    Case Me.FieldInfo.IsStandard
+        ''        ''
+        ''        ''Standard field. 
+        ''        ''
+        ''        ''Added 9/15/2019 thomas d.
+        ''        ClassFieldStandard.CopyElementInfo(Me.FieldInfo.FieldIndex,
+        ''                                           Me.ElementInfo_Base, Me.ElementInfo_Text)
+        ''
+        ''    Case Else
+        ''        ''
+        ''        ''Customized field.
+        ''        ''
+        ''        ''Added 9/15/2019 thomas d.
+        ''        ClassFieldCustomized.CopyElementInfo(Me.FieldInfo.FieldEnumValue,
+        ''                                           Me.ElementInfo_Base, Me.ElementInfo_Text)
+        ''
+        ''End Select
+
+    End Sub ''End of Public Sub SaveToModel
 
 
     Public Function Copy(pboolDummy As Boolean) As ClassElementFieldV4

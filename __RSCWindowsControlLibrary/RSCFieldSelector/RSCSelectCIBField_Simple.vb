@@ -7,13 +7,14 @@ Imports ciBadgeFields
 Imports ciBadgeInterfaces
 Imports ciBadgeCachePersonality ''Added 3/13/2022 td
 
-Public Class RSCSelectCIBField
+Public Class RSCSelectCIBField_Simple
     ''
     '' Added 2/16/2022 thomas downes 
     ''
+
     Public ElementsCache_Deprecated As ciBadgeCachePersonality.ClassElementsCache_Deprecated ''Added 3/10/2022 td
-    Public ParentSpreadsheet As RSCFieldSpreadsheet ''Added 4/11/2022 thomas 
-    Public InfoMouseEvents As RSCInterfaceMouseEvents ''Added 4/1/2022 td
+    ''Public ParentSpreadsheet As RSCFieldSpreadsheet ''Added 4/11/2022 thomas 
+    ''Public InfoMouseEvents As RSCInterfaceMouseEvents ''Added 4/1/2022 td
     Public Event RSCMouseUp(sender As Object, e As MouseEventArgs) ''Added 4/1/2022 td
     Public Event RSCFieldChanged(newCIBField As EnumCIBFields) ''Added 4/1/2022 td
 
@@ -153,32 +154,6 @@ Public Class RSCSelectCIBField
 
     End Sub
 
-    Private Sub LinkLabelOnlyRelevant_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelOnlyRelevant.LinkClicked
-        ''
-        ''Added 3/17/2022 Thomas Downes
-        ''
-        Dim form_ToShow As New DialogListBothTypeFields
-        Dim dialog_result As DialogResult ''Added 3/23/2022 td
-
-        ''Added 3/21/2022 td
-        form_ToShow.ListOfFields_Standard = Me.ElementsCache_Deprecated.ListOfFields_Standard
-        form_ToShow.ListOfFields_Custom = Me.ElementsCache_Deprecated.ListOfFields_Custom
-
-        dialog_result =
-           form_ToShow.ShowDialog()
-
-        ''Added 3/23/2022 td
-        If (dialog_result = DialogResult.OK) Then
-            ''Added 3/23/2022 td
-            Me.ElementsCache_Deprecated.SaveToXML()
-
-            ''Added 4/13/2022 td
-            Load_FieldsFromCache(Me.ElementsCache_Deprecated)
-
-        End If ''End of ""If (dialog_result = ...)"
-
-
-    End Sub
 
     Private Sub LabelHeader_MouseUp(sender As Object, e As MouseEventArgs) Handles LabelHeader.MouseUp
 
@@ -188,11 +163,6 @@ Public Class RSCSelectCIBField
 
     End Sub
 
-    Private Sub RSCSelectCIBField_MouseUp(sender As Object, e As MouseEventArgs) Handles MyBase.MouseUp
-
-
-
-    End Sub
 
     Private Sub comboBoxRelevantFields_SelectedValueChanged(sender As Object, e As EventArgs) Handles comboBoxRelevantFields.SelectedValueChanged
 
@@ -211,4 +181,66 @@ Public Class RSCSelectCIBField
         Me.Cursor = Cursors.Default
 
     End Sub
+
+
+    ''Private Sub RSCSelectCIBField_MouseUp(sender As Object, e As MouseEventArgs) Handles MyBase.MouseUp
+    ''End Sub
+
+    Private Sub LinkLabelOnlyRelevant_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelOnlyRelevant.LinkClicked
+
+        ''Added 5/5/2022 thomas downes
+        MessageBoxTD.Show_Statement("Only fields you have marked as Relevant are listed here.")
+
+        ''    ''
+        ''    ''Added 3/17/2022 Thomas Downes
+        ''    ''
+        ''    Dim form_ToShow As New DialogListBothTypeFields
+        ''    Dim dialog_result As DialogResult ''Added 3/23/2022 td
+
+        ''    ''Added 3/21/2022 td
+        ''    form_ToShow.ListOfFields_Standard = Me.ElementsCache_Deprecated.ListOfFields_Standard
+        ''    form_ToShow.ListOfFields_Custom = Me.ElementsCache_Deprecated.ListOfFields_Custom
+
+        ''    dialog_result =
+        ''       form_ToShow.ShowDialog()
+
+        ''    ''Added 3/23/2022 td
+        ''    If (dialog_result = DialogResult.OK) Then
+        ''        ''Added 3/23/2022 td
+        ''        Me.ElementsCache_Deprecated.SaveToXML()
+
+        ''        ''Added 4/13/2022 td
+        ''        Load_FieldsFromCache(Me.ElementsCache_Deprecated)
+
+        ''    End If ''End of ""If (dialog_result = ...)"
+
+
+    End Sub
+
+    ''Private mod_fields As List(Of ciBadgeFields.ClassFieldAny)
+
+    ''Public Sub Load_Control(par_list As List(Of ClassFieldAny),
+    ''Optional par_enum As ciBadgeInterfaces.EnumCIBFields = EnumCIBFields.Undetermined)
+    ''    ''
+    ''    ''Added 2/16/2022 thomas downes
+    ''    ''
+    ''    Dim each_field As ClassFieldAny
+    ''
+    ''    For Each each_field In par_list
+    ''
+    ''        comboBoxRelevantFields.Items.Add(each_field.FieldLabelCaption)
+    ''
+    ''    Next each_field
+    ''
+    ''End Sub ''End of "Public Sub Load_Control()"
+
+
+    ''Private Sub LabelHeader_Click(sender As Object, e As EventArgs) Handles LabelHeader.Click
+    ''    ''
+    ''    '' Added 2/16/2022 thomas downes 
+    ''    ''
+    ''
+    ''End Sub
+
+
 End Class

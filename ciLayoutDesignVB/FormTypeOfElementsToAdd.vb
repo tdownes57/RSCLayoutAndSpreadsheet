@@ -1,5 +1,6 @@
 ﻿Imports ciBadgeInterfaces ''Added 5/3/2022 td 
-Imports __RSCWindowsControlLibrary ''Added 5/3/2022 td
+Imports ciBadgeDesigner ''Added 5/4/2022 td
+''----Imports __RSCWindowsControlLibrary ''Added 5/3/2022 td
 ''
 ''Added 5/3/2022 thomas d. 
 ''
@@ -25,10 +26,32 @@ Public Class FormTypeOfElementsToAdd
     Public AddStaticText As Boolean
     Public AddQRCode As Boolean
     Public AddSignature As Boolean
-    Public AddField As Boolean
-    Public AddField_Enum As EnumCIBFields
+    Public AddField1 As Boolean
+    Public AddField2 As Boolean
+    Public AddField3 As Boolean
+    Public AddField4 As Boolean
+    Public AddField5 As Boolean
 
-    Private Sub ToggleBorder(par_control As UserControl) ''---As RSCMoveableControlVB) ''As Control)
+    Public AddField1_Enum As EnumCIBFields
+    Public AddField2_Enum As EnumCIBFields
+    Public AddField3_Enum As EnumCIBFields
+    Public AddField4_Enum As EnumCIBFields
+    Public AddField5_Enum As EnumCIBFields
+
+    Public Sub New(par_cache As ciBadgeCachePersonality.ClassElementsCache_Deprecated)
+        ''
+        ''Added 5/5/2022 thomas downes
+        ''
+        RscSelectCIBField1.Load_FieldsFromCache(par_cache)
+        RscSelectCIBField2.Load_FieldsFromCache(par_cache)
+        RscSelectCIBField3.Load_FieldsFromCache(par_cache)
+        RscSelectCIBField4.Load_FieldsFromCache(par_cache)
+        RscSelectCIBField5.Load_FieldsFromCache(par_cache)
+
+    End Sub
+
+
+    Private Sub ToggleBorder(par_control As UserControl, par_panel As Panel) ''---As RSCMoveableControlVB) ''As Control)
         ''
         ''Added 5/3/2022 thomas downes 
         ''
@@ -36,13 +59,59 @@ Public Class FormTypeOfElementsToAdd
 
             par_control.BorderStyle = BorderStyle.Fixed3D
 
+            ''Show the panel.
+            If (par_panel IsNot Nothing) Then
+                par_panel.Left = par_control.Left - 5
+                par_panel.Top = par_control.Top - 5
+                par_panel.Height = par_control.Height + 10
+                par_panel.Width = par_control.Width + 10
+                par_control.BringToFront()
+                par_panel.Visible = True
+            End If ''end of ""If (par_panel IsNot Nothing) Then""
+
         Else
 
             par_control.BorderStyle = BorderStyle.None
+            ''Hide the panel.
+            If (par_panel IsNot Nothing) Then par_panel.Visible = False
 
-        End If
+        End If ''End of ""If (par_control.BorderStyle = BorderStyle.None) Then... Else..."
 
     End Sub ''End of ""Private Sub ToggleBorder(par_control As UserControl)""
+
+
+    Private Function GetCIBFieldToAdd(par_RSCSelectField As RSCSelectCIBField,
+                                      par_intFieldIndex As Integer,
+            Optional pboolAskAboutMissingSelection As Boolean = True,
+            Optional ByRef pref_bMismatch As Boolean = True) As Boolean
+        ''
+        ''Added 5/4/2022 td
+        ''
+        Dim enumCIBField As EnumCIBFields
+        Dim bSubstantiveField As Boolean
+        Dim bSelectionBorder As Boolean
+        ''Dim boolMismatch As Boolean
+
+        With par_RSCSelectField
+            enumCIBField = .GetFieldEnumSelected()
+            bSubstantiveField = (enumCIBField <> EnumCIBFields.Undetermined)
+            bSelectionBorder = (.BorderStyle <> BorderStyle.None)
+            pref_bMismatch = (bSubstantiveField <> bSelectionBorder)
+
+            If (pboolAskAboutMissingSelection) Then
+
+                MessageBoxTD.Show_Statement(" " &
+                  String.Format("Which Relevant Field do you want? Field {0} is blank.",
+                                par_intFieldIndex),
+                  "Please de-select any fields which don't have a specific field selected.")
+
+            End If ''End of ""If (pboolAskAboutMissingSelection) Then""
+
+        End With
+
+        Return enumCIBField
+
+    End Function ''End of ""Private Function GetCIBFieldToAdd(...)"
 
 
     Private Sub ButtonCancel_Click(sender As Object, e As EventArgs) Handles ButtonCancel.Click
@@ -55,7 +124,12 @@ Public Class FormTypeOfElementsToAdd
     Private Sub ButtonOK_Click(sender As Object, e As EventArgs) Handles ButtonOK.Click
 
         ''Added 5/3/2022 td
-        Me.AddField = (RscSelectCIBField1.BorderStyle <> BorderStyle.None)
+        Me.AddField1_Enum = GetCIBFieldToAdd(RscSelectCIBField1, 1) ''1.BorderStyle <> BorderStyle.None)
+        Me.AddField2_Enum = GetCIBFieldToAdd(RscSelectCIBField2, 2) ''2.BorderStyle <> BorderStyle.None)
+        Me.AddField3_Enum = GetCIBFieldToAdd(RscSelectCIBField3, 3) ''3.BorderStyle <> BorderStyle.None)
+        Me.AddField4_Enum = GetCIBFieldToAdd(RscSelectCIBField4, 4) ''4.BorderStyle <> BorderStyle.None)
+        Me.AddField5_Enum = GetCIBFieldToAdd(RscSelectCIBField5, 5) ''5.BorderStyle <> BorderStyle.None)
+
         Me.AddQRCode = (CtlGraphicQRCode1.BorderStyle <> BorderStyle.None)
         Me.AddSignature = (CtlGraphicSignature1.BorderStyle <> BorderStyle.None)
         Me.AddGraphic = (CtlGraphicStaticGraphic1.BorderStyle <> BorderStyle.None)
@@ -67,47 +141,48 @@ Public Class FormTypeOfElementsToAdd
 
     End Sub
 
-    Private Sub CtlGraphicPortrait1_Click(sender As Object, e As EventArgs)
+    ''Private Sub CtlGraphicPortrait1_Click(sender As Object, e As EventArgs)
+    ''
+    ''    ''Added 5/3/2022 td
+    ''    ToggleBorder(CType(sender, Control), P)
+    ''
+    ''End Sub
+
+    Private Sub CtlGraphicPortrait1_Click(sender As Object, e As EventArgs) Handles CtlGraphicPortrait1.Click
 
         ''Added 5/3/2022 td
-        ToggleBorder(CType(sender, Control))
+        ToggleBorder(CType(sender, Control), PanelPortraitPic)
 
     End Sub
 
-    Private Sub CtlGraphicPortrait1_Load(sender As Object, e As EventArgs) Handles CtlGraphicPortrait1.Click
+    Private Sub CtlGraphicStaticGraphic1_Click(sender As Object, e As EventArgs) Handles CtlGraphicStaticGraphic1.Click
 
         ''Added 5/3/2022 td
-        ToggleBorder(CType(sender, Control))
+        ToggleBorder(CType(sender, Control), PanelGraphic)
 
     End Sub
 
-    Private Sub CtlGraphicStaticGraphic1_Load(sender As Object, e As EventArgs) Handles CtlGraphicStaticGraphic1.Click
+    Private Sub CtlGraphicStaticText1_Click(sender As Object, e As EventArgs) Handles CtlGraphicStaticText1.Click
         ''Added 5/3/2022 td
-        ToggleBorder(CType(sender, Control))
+        ToggleBorder(CType(sender, Control), PanelStaticText)
 
     End Sub
 
-    Private Sub CtlGraphicStaticText1_Load(sender As Object, e As EventArgs) Handles CtlGraphicStaticText1.Click
+    Private Sub RscSelectCIBField1_Click(sender As Object, e As EventArgs) Handles RscSelectCIBField1.Click
         ''Added 5/3/2022 td
-        ToggleBorder(CType(sender, Control))
+        ToggleBorder(CType(sender, Control), Nothing)
 
     End Sub
 
-    Private Sub RscSelectCIBField1_Load(sender As Object, e As EventArgs) Handles RscSelectCIBField1.Click
+    Private Sub CtlGraphicSignature1_Click(sender As Object, e As EventArgs) Handles CtlGraphicSignature1.Click
         ''Added 5/3/2022 td
-        ToggleBorder(CType(sender, Control))
+        ToggleBorder(CType(sender, Control), PanelSignature)
 
     End Sub
 
-    Private Sub CtlGraphicSignature1_Load(sender As Object, e As EventArgs) Handles CtlGraphicSignature1.Click
+    Private Sub CtlGraphicQRCode1_Click(sender As Object, e As EventArgs) Handles CtlGraphicQRCode1.Click
         ''Added 5/3/2022 td
-        ToggleBorder(CType(sender, Control))
-
-    End Sub
-
-    Private Sub CtlGraphicQRCode1_Load(sender As Object, e As EventArgs) Handles CtlGraphicQRCode1.Click
-        ''Added 5/3/2022 td
-        ToggleBorder(CType(sender, Control))
+        ToggleBorder(CType(sender, Control), PanelQRCode)
 
     End Sub
 
@@ -118,4 +193,39 @@ Public Class FormTypeOfElementsToAdd
     Private Sub FormTypeOfElementsToAdd_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
     End Sub
+
+    Private Sub CtlGraphicPortrait1_RSCControlClicked() Handles CtlGraphicPortrait1.RSCControlClicked
+
+        ''Added 5/4/2022 td
+        ToggleBorder(CtlGraphicPortrait1, PanelPortraitPic)
+
+    End Sub
+
+    Private Sub CtlGraphicQRCode1_RSCControlClicked() Handles CtlGraphicQRCode1.RSCControlClicked
+        ''Added 5/4/2022 td
+        ToggleBorder(CtlGraphicQRCode1, PanelQRCode)
+
+    End Sub
+
+    Private Sub CtlGraphicSignature1_RSCControlClicked() Handles CtlGraphicSignature1.RSCControlClicked
+        ''Added 5/4/2022 td
+        ToggleBorder(CtlGraphicSignature1, PanelSignature)
+
+
+    End Sub
+
+    Private Sub CtlGraphicStaticText1_RSCControlClicked() Handles CtlGraphicStaticText1.RSCControlClicked
+        ''Added 5/4/2022 td
+        ToggleBorder(CtlGraphicStaticText1, PanelStaticText)
+
+    End Sub
+
+    Private Sub CtlGraphicStaticGraphic1_RSCControlClicked() Handles CtlGraphicStaticGraphic1.RSCControlClicked
+        ''Added 5/4/2022 td
+        ToggleBorder(CtlGraphicStaticGraphic1, PanelGraphic)
+
+    End Sub
+
+
+
 End Class

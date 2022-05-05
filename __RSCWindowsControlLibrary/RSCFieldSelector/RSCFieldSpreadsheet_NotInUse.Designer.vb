@@ -27,7 +27,7 @@ Partial Class RSCFieldSpreadsheet_NotInUse
         Me.RscFieldColumn3 = New __RSCWindowsControlLibrary.RSCFieldColumn_NotInUse()
         Me.RscFieldColumn2 = New __RSCWindowsControlLibrary.RSCFieldColumn_NotInUse()
         Me.RscFieldColumn1 = New __RSCWindowsControlLibrary.RSCFieldColumn_NotInUse()
-        Me.RscSelectCIBField1 = New __RSCWindowsControlLibrary.RSCSelectCIBField()
+        Me.RscSelectCIBField1 = New __RSCWindowsControlLibrary.RSCSelectCIBField_Simple()
         Me.SuspendLayout()
         '
         'RscFieldColumn5
@@ -135,5 +135,5 @@ Partial Class RSCFieldSpreadsheet_NotInUse
     Friend WithEvents RscFieldColumn3 As RSCFieldColumn_NotInUse
     Friend WithEvents RscFieldColumn4 As RSCFieldColumn_NotInUse
     Friend WithEvents RscFieldColumn5 As RSCFieldColumn_NotInUse
-    Friend WithEvents RscSelectCIBField1 As RSCSelectCIBField
+    Friend WithEvents RscSelectCIBField1 As RSCSelectCIBField_Simple
 End Class

@@ -93,6 +93,7 @@ Public Class CtlGraphicStaticGraphic
         ''Jan2 2022''                        enumElementType_Enum, par_bProportionSizing,
 
         Dim CtlStaticGraphic1 = New CtlGraphicStaticGraphic(par_elementStaticGraphic,
+                                                            par_parametersGetElementControl,
                                                             par_formParent,
                                                             par_iLayoutFun,
                                                             par_parametersGetElementControl.iRefreshPreview,
@@ -186,6 +187,7 @@ Public Class CtlGraphicStaticGraphic
 
 
     Public Sub New(par_elementGraphic As ClassElementGraphic,
+                   par_parameters As IGetElementControlParameters,
                    par_formDesigner As Form,
                    par_iLayoutFun As ILayoutFunctions,
                    par_iRefreshPreview As IRefreshCardPreview,
@@ -204,7 +206,9 @@ Public Class CtlGraphicStaticGraphic
         ''Added 12/30/2021 td
         ''
         ''Jan1 2022 td''MyBase.New(par_enumElementType, pboolResizeProportionally,
-        MyBase.New(EnumElementType.StaticGraphic, par_formDesigner, pboolResizeProportionally,
+        MyBase.New(EnumElementType.StaticGraphic, par_elementGraphic,
+                   par_parameters.ElementsCache,
+                   par_formDesigner, pboolResizeProportionally,
                         par_iLayoutFun, par_iRefreshPreview, par_iSizeIfNeeded,
                         par_operationsType, par_operationsAny,
                         pboolAddMoveability, pboolAddClickability,
@@ -649,6 +653,8 @@ Public Class CtlGraphicStaticGraphic
         Dim bRotated90degrees As Boolean ''Added 9/24/2019 thomas d. 
         Dim boolSuccess As Boolean ''Added 9/24/2019 td  
 
+        MyBase.SaveToModel() ''Added 5/5/2022 td
+
         If (Me.ElementInfo_Base IsNot Nothing) Then
 
             ''9/10/2019 td''Me.ElementInfo_Base.TopEdge_Pixels = Me.Top
@@ -974,6 +980,9 @@ ExitHandler:
         ''
         ''Added 1/4/2022 td 
         ''
+        ''Added 5/4/2022
+        MyBase.RaiseEvent_ControlClicked() ''Added 5/4/2022 td 
+
         ''----Nasty bug.  Don't use par_sender here. ---1/11/2022 td''
         ''--MyBase.MoveableControl_MouseUp(par_sender, par_e)
 

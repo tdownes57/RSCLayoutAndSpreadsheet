@@ -188,7 +188,9 @@ Public Class RSCFieldColumnV2
         Dim enumElementType_Enum As EnumElementType = EnumElementType.Portrait
 
         ''Create the control. 
-        Dim CtlFieldColumn1 = New RSCFieldColumnV2(par_field, par_formParent,
+        Dim CtlFieldColumn1 = New RSCFieldColumnV2(par_field,
+                                                   par_parametersGetElementControl,
+                                                   par_formParent,
                                                   par_iLayoutFun,
                                       par_parametersGetElementControl.iRefreshPreview,
                                                   sizeElementPortrait,
@@ -263,6 +265,7 @@ Public Class RSCFieldColumnV2
 
 
     Public Sub New(par_field As ciBadgeFields.ClassFieldAny,
+                   par_parameters As IGetElementControlParameters,
                    par_oParentForm As Form,
                    par_iLayoutFun As ILayoutFunctions,
                    par_iRefreshPreview As IRefreshCardPreview,
@@ -280,7 +283,9 @@ Public Class RSCFieldColumnV2
         ''Added 1/04/2022 td
         ''
         ''Jan1 2022 td''MyBase.New(par_enumElementType, pboolResizeProportionally,
-        MyBase.New(EnumElementType.Portrait, par_oParentForm,
+        MyBase.New(EnumElementType.Portrait, Nothing,
+                   par_parameters.ElementsCache,
+                   par_oParentForm,
                    pboolResizeProportionally,
                         par_iLayoutFun, par_iRefreshPreview, par_iSizeDesired,
                         par_operationsType, par_operationsAny,

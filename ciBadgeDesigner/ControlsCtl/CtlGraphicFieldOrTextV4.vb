@@ -224,6 +224,7 @@ Public Class CtlGraphicFieldOrTextV4
 
 
     Public Sub New(par_enumElementType As EnumElementType,
+                   par_parameters As IGetElementControlParameters,
                    par_elementFieldOrText As ClassElementFieldOrTextV4,
                    par_oParentForm As Form,
                    par_oDesigner As ClassDesigner,
@@ -244,7 +245,8 @@ Public Class CtlGraphicFieldOrTextV4
         ''Dim singleDummy As Single = 0 ''Added 1/4/2022 td 
 
         ''Added 1/4/2022 td
-        MyBase.New(par_enumElementType,
+        MyBase.New(par_enumElementType, par_elementFieldOrText,
+                   par_parameters.ElementsCache,
                         par_oParentForm, False,
                         par_iLayoutFun, par_iRefreshPreview, par_iSizeDesired,
                         par_operationsType, par_operationsAny,
@@ -791,10 +793,12 @@ ExitHandler:
 
     End Sub ''End of Public Sub Refresh_Image
 
-    Public Sub SaveToModel() Implements ISaveToModel.SaveToModel
+    Public Overrides Sub SaveToModel() Implements ISaveToModel.SaveToModel
         ''
         ''Added 7/29/2019 thomas d 
         ''
+        MyBase.SaveToModel() ''Added 5/5/2022 td
+
         ''7/29 td''Me.ElementInfo.Info = CType(Me.ElementInfo, IElementText)
 
         ''Me.ElementInfo.Text = Me.LabelText()

@@ -48,7 +48,7 @@ Partial Class RSCFieldColumn_NotInUse
         Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.PictureBox9 = New System.Windows.Forms.PictureBox()
-        Me.RscSelectCIBField1 = New __RSCWindowsControlLibrary.RSCSelectCIBField()
+        Me.RscSelectCIBField1 = New __RSCWindowsControlLibrary.RSCSelectCIBField_Simple()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox12, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -417,5 +417,5 @@ Partial Class RSCFieldColumn_NotInUse
     Friend WithEvents TextBox2 As TextBox
     Friend WithEvents PictureBox3 As PictureBox
     Friend WithEvents PictureBox9 As PictureBox
-    Friend WithEvents RscSelectCIBField1 As RSCSelectCIBField
+    Friend WithEvents RscSelectCIBField1 As RSCSelectCIBField_Simple
 End Class

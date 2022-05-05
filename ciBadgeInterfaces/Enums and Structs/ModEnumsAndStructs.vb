@@ -150,5 +150,27 @@ Public Module ModEnumsAndStructs
     End Enum ''End of "Public Enum EnumCIBFields"
 
 
+    Public Function GetListOfAllFieldEnums() As List(Of EnumCIBFields)
+        ''
+        ''Added 5/5/2022 td
+        ''
+        ''As currently written (5.5.2022) this will likely produce a run-time error. 
+        ''
+        Dim objList As New List(Of EnumCIBFields)
+
+        For intIndex = 0 To 1000
+
+            objList.Add(CType(intIndex, EnumCIBFields))
+
+        Next intIndex
+
+        Return objList
+
+    End Function
+
+
+
+
+
 
 End Module

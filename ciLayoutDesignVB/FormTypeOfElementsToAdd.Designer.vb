@@ -27,18 +27,27 @@ Partial Class FormTypeOfElementsToAdd
         Me.ButtonCancel = New System.Windows.Forms.Button()
         Me.ButtonOK = New System.Windows.Forms.Button()
         Me.LabelMainHeader1 = New System.Windows.Forms.Label()
-        Me.CtlGraphicStaticText1 = New ciBadgeDesigner.CtlGraphicStaticTextV4()
-        Me.CtlGraphicQRCode1 = New ciBadgeDesigner.CtlGraphicQRCode()
-        Me.CtlGraphicSignature1 = New ciBadgeDesigner.CtlGraphicSignature()
-        Me.RscSelectCIBField1 = New ciBadgeDesigner.RSCSelectCIBField()
         Me.LabelMainHeader2 = New System.Windows.Forms.Label()
-        Me.CtlGraphicStaticGraphic1 = New ciBadgeDesigner.CtlGraphicStaticGraphic()
         Me.LabelMainHeader3 = New System.Windows.Forms.Label()
         Me.LabelMainHeader0 = New System.Windows.Forms.Label()
         Me.LabelFooter1 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.CtlGraphicQRCode1 = New ciBadgeDesigner.CtlGraphicQRCode()
+        Me.RscSelectCIBField5 = New ciBadgeDesigner.RSCSelectCIBField()
+        Me.RscSelectCIBField4 = New ciBadgeDesigner.RSCSelectCIBField()
+        Me.RscSelectCIBField3 = New ciBadgeDesigner.RSCSelectCIBField()
+        Me.RscSelectCIBField2 = New ciBadgeDesigner.RSCSelectCIBField()
         Me.CtlGraphicPortrait1 = New ciBadgeDesigner.CtlGraphicPortrait()
+        Me.CtlGraphicStaticGraphic1 = New ciBadgeDesigner.CtlGraphicStaticGraphic()
+        Me.RscSelectCIBField1 = New ciBadgeDesigner.RSCSelectCIBField()
+        Me.CtlGraphicStaticText1 = New ciBadgeDesigner.CtlGraphicStaticTextV4()
+        Me.CtlGraphicSignature1 = New ciBadgeDesigner.CtlGraphicSignature()
+        Me.PanelPortraitPic = New System.Windows.Forms.Panel()
+        Me.PanelQRCode = New System.Windows.Forms.Panel()
+        Me.PanelGraphic = New System.Windows.Forms.Panel()
+        Me.PanelStaticText = New System.Windows.Forms.Panel()
+        Me.PanelSignature = New System.Windows.Forms.Panel()
         CType(Me.pictureBackgroundFront, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -47,7 +56,7 @@ Partial Class FormTypeOfElementsToAdd
         Me.pictureBackgroundFront.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.pictureBackgroundFront.BackColor = System.Drawing.Color.White
         Me.pictureBackgroundFront.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pictureBackgroundFront.Location = New System.Drawing.Point(20, 144)
+        Me.pictureBackgroundFront.Location = New System.Drawing.Point(12, 144)
         Me.pictureBackgroundFront.Name = "pictureBackgroundFront"
         Me.pictureBackgroundFront.Size = New System.Drawing.Size(603, 380)
         Me.pictureBackgroundFront.TabIndex = 75
@@ -88,62 +97,6 @@ Partial Class FormTypeOfElementsToAdd
         Me.LabelMainHeader1.TabIndex = 94
         Me.LabelMainHeader1.Text = "Select which types of elements you want to add to the ID Card."
         '
-        'CtlGraphicStaticText1
-        '
-        Me.CtlGraphicStaticText1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.CtlGraphicStaticText1.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.CtlGraphicStaticText1.ElementClass_Obj = Nothing
-        Me.CtlGraphicStaticText1.ElementInfo_Base = Nothing
-        Me.CtlGraphicStaticText1.Location = New System.Drawing.Point(275, 250)
-        Me.CtlGraphicStaticText1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.CtlGraphicStaticText1.MoveabilityEventsForGroupCtls = Nothing
-        Me.CtlGraphicStaticText1.MoveabilityEventsForSingleMove = Nothing
-        Me.CtlGraphicStaticText1.Name = "CtlGraphicStaticText1"
-        Me.CtlGraphicStaticText1.Size = New System.Drawing.Size(302, 27)
-        Me.CtlGraphicStaticText1.TabIndex = 98
-        Me.CtlGraphicStaticText1.TextToDisplay = "This is text which will be the same for everyone."
-        Me.CtlGraphicStaticText1.TextToDisplay_DesignTime = "Text Label..."
-        Me.ToolTip1.SetToolTip(Me.CtlGraphicStaticText1, "Static text.  The text which will be the same for every ID Card.")
-        '
-        'CtlGraphicQRCode1
-        '
-        Me.CtlGraphicQRCode1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.CtlGraphicQRCode1.BackColor = System.Drawing.Color.Transparent
-        Me.CtlGraphicQRCode1.ElementInfo_Base = Nothing
-        Me.CtlGraphicQRCode1.Location = New System.Drawing.Point(512, 409)
-        Me.CtlGraphicQRCode1.Margin = New System.Windows.Forms.Padding(4)
-        Me.CtlGraphicQRCode1.MoveabilityEventsForGroupCtls = Nothing
-        Me.CtlGraphicQRCode1.MoveabilityEventsForSingleMove = Nothing
-        Me.CtlGraphicQRCode1.Name = "CtlGraphicQRCode1"
-        Me.CtlGraphicQRCode1.Size = New System.Drawing.Size(94, 100)
-        Me.CtlGraphicQRCode1.TabIndex = 96
-        Me.ToolTip1.SetToolTip(Me.CtlGraphicQRCode1, "QR Code.  Static, i.e. will be the same for every ID Card.")
-        '
-        'CtlGraphicSignature1
-        '
-        Me.CtlGraphicSignature1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.CtlGraphicSignature1.BackColor = System.Drawing.Color.Transparent
-        Me.CtlGraphicSignature1.ElementInfo_Base = Nothing
-        Me.CtlGraphicSignature1.Location = New System.Drawing.Point(50, 388)
-        Me.CtlGraphicSignature1.Margin = New System.Windows.Forms.Padding(4)
-        Me.CtlGraphicSignature1.MoveabilityEventsForGroupCtls = Nothing
-        Me.CtlGraphicSignature1.MoveabilityEventsForSingleMove = Nothing
-        Me.CtlGraphicSignature1.Name = "CtlGraphicSignature1"
-        Me.CtlGraphicSignature1.Size = New System.Drawing.Size(314, 104)
-        Me.CtlGraphicSignature1.TabIndex = 97
-        Me.ToolTip1.SetToolTip(Me.CtlGraphicSignature1, "Signature.  Will differ for each student, member, or staffperson.")
-        '
-        'RscSelectCIBField1
-        '
-        Me.RscSelectCIBField1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.RscSelectCIBField1.Location = New System.Drawing.Point(182, 303)
-        Me.RscSelectCIBField1.Margin = New System.Windows.Forms.Padding(2)
-        Me.RscSelectCIBField1.Name = "RscSelectCIBField1"
-        Me.RscSelectCIBField1.SelectedValue = ciBadgeInterfaces.ModEnumsAndStructs.EnumCIBFields.Undetermined
-        Me.RscSelectCIBField1.Size = New System.Drawing.Size(182, 64)
-        Me.RscSelectCIBField1.TabIndex = 99
-        Me.ToolTip1.SetToolTip(Me.RscSelectCIBField1, "Relevant Field value.   Will differ for each student, member, or staffperson. ")
-        '
         'LabelMainHeader2
         '
         Me.LabelMainHeader2.AutoSize = True
@@ -155,20 +108,6 @@ Partial Class FormTypeOfElementsToAdd
         Me.LabelMainHeader2.TabIndex = 100
         Me.LabelMainHeader2.Text = "(Click to select.  Selected elements will be given a border. Click the element a " &
     "2nd time to un-select.)"
-        '
-        'CtlGraphicStaticGraphic1
-        '
-        Me.CtlGraphicStaticGraphic1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.CtlGraphicStaticGraphic1.BackColor = System.Drawing.Color.Transparent
-        Me.CtlGraphicStaticGraphic1.ElementInfo_Base = Nothing
-        Me.CtlGraphicStaticGraphic1.Location = New System.Drawing.Point(206, 161)
-        Me.CtlGraphicStaticGraphic1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.CtlGraphicStaticGraphic1.MoveabilityEventsForGroupCtls = Nothing
-        Me.CtlGraphicStaticGraphic1.MoveabilityEventsForSingleMove = Nothing
-        Me.CtlGraphicStaticGraphic1.Name = "CtlGraphicStaticGraphic1"
-        Me.CtlGraphicStaticGraphic1.Size = New System.Drawing.Size(356, 74)
-        Me.CtlGraphicStaticGraphic1.TabIndex = 101
-        Me.ToolTip1.SetToolTip(Me.CtlGraphicStaticGraphic1, "Graphic element.  Can be a photo or any graphic. ")
         '
         'LabelMainHeader3
         '
@@ -216,6 +155,64 @@ Partial Class FormTypeOfElementsToAdd
         Me.Label1.TabIndex = 105
         Me.Label1.Text = "(All elements are moveable and sizeable.)"
         '
+        'CtlGraphicQRCode1
+        '
+        Me.CtlGraphicQRCode1.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.CtlGraphicQRCode1.BackColor = System.Drawing.Color.Transparent
+        Me.CtlGraphicQRCode1.ElementInfo_Base = Nothing
+        Me.CtlGraphicQRCode1.Location = New System.Drawing.Point(184, 267)
+        Me.CtlGraphicQRCode1.Margin = New System.Windows.Forms.Padding(4)
+        Me.CtlGraphicQRCode1.MoveabilityEventsForGroupCtls = Nothing
+        Me.CtlGraphicQRCode1.MoveabilityEventsForSingleMove = Nothing
+        Me.CtlGraphicQRCode1.Name = "CtlGraphicQRCode1"
+        Me.CtlGraphicQRCode1.Size = New System.Drawing.Size(94, 100)
+        Me.CtlGraphicQRCode1.TabIndex = 96
+        Me.ToolTip1.SetToolTip(Me.CtlGraphicQRCode1, "QR Code.  Static, i.e. will be the same for every ID Card.")
+        '
+        'RscSelectCIBField5
+        '
+        Me.RscSelectCIBField5.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.RscSelectCIBField5.Location = New System.Drawing.Point(412, 443)
+        Me.RscSelectCIBField5.Margin = New System.Windows.Forms.Padding(2)
+        Me.RscSelectCIBField5.Name = "RscSelectCIBField5"
+        Me.RscSelectCIBField5.SelectedValue = ciBadgeInterfaces.ModEnumsAndStructs.EnumCIBFields.Undetermined
+        Me.RscSelectCIBField5.Size = New System.Drawing.Size(182, 64)
+        Me.RscSelectCIBField5.TabIndex = 112
+        Me.ToolTip1.SetToolTip(Me.RscSelectCIBField5, "Relevant Field value.   Will differ for each student, member, or staffperson. ")
+        '
+        'RscSelectCIBField4
+        '
+        Me.RscSelectCIBField4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.RscSelectCIBField4.Location = New System.Drawing.Point(412, 367)
+        Me.RscSelectCIBField4.Margin = New System.Windows.Forms.Padding(2)
+        Me.RscSelectCIBField4.Name = "RscSelectCIBField4"
+        Me.RscSelectCIBField4.SelectedValue = ciBadgeInterfaces.ModEnumsAndStructs.EnumCIBFields.Undetermined
+        Me.RscSelectCIBField4.Size = New System.Drawing.Size(182, 64)
+        Me.RscSelectCIBField4.TabIndex = 111
+        Me.ToolTip1.SetToolTip(Me.RscSelectCIBField4, "Relevant Field value.   Will differ for each student, member, or staffperson. ")
+        '
+        'RscSelectCIBField3
+        '
+        Me.RscSelectCIBField3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.RscSelectCIBField3.Location = New System.Drawing.Point(412, 299)
+        Me.RscSelectCIBField3.Margin = New System.Windows.Forms.Padding(2)
+        Me.RscSelectCIBField3.Name = "RscSelectCIBField3"
+        Me.RscSelectCIBField3.SelectedValue = ciBadgeInterfaces.ModEnumsAndStructs.EnumCIBFields.Undetermined
+        Me.RscSelectCIBField3.Size = New System.Drawing.Size(182, 64)
+        Me.RscSelectCIBField3.TabIndex = 110
+        Me.ToolTip1.SetToolTip(Me.RscSelectCIBField3, "Relevant Field value.   Will differ for each student, member, or staffperson. ")
+        '
+        'RscSelectCIBField2
+        '
+        Me.RscSelectCIBField2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.RscSelectCIBField2.Location = New System.Drawing.Point(412, 231)
+        Me.RscSelectCIBField2.Margin = New System.Windows.Forms.Padding(2)
+        Me.RscSelectCIBField2.Name = "RscSelectCIBField2"
+        Me.RscSelectCIBField2.SelectedValue = ciBadgeInterfaces.ModEnumsAndStructs.EnumCIBFields.Undetermined
+        Me.RscSelectCIBField2.Size = New System.Drawing.Size(182, 64)
+        Me.RscSelectCIBField2.TabIndex = 109
+        Me.ToolTip1.SetToolTip(Me.RscSelectCIBField2, "Relevant Field value.   Will differ for each student, member, or staffperson. ")
+        '
         'CtlGraphicPortrait1
         '
         Me.CtlGraphicPortrait1.BackColor = System.Drawing.Color.White
@@ -230,11 +227,126 @@ Partial Class FormTypeOfElementsToAdd
         Me.CtlGraphicPortrait1.TabIndex = 108
         Me.ToolTip1.SetToolTip(Me.CtlGraphicPortrait1, "Photo of student, member, or staffperson.")
         '
+        'CtlGraphicStaticGraphic1
+        '
+        Me.CtlGraphicStaticGraphic1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.CtlGraphicStaticGraphic1.BackColor = System.Drawing.Color.Transparent
+        Me.CtlGraphicStaticGraphic1.ElementInfo_Base = Nothing
+        Me.CtlGraphicStaticGraphic1.Location = New System.Drawing.Point(184, 163)
+        Me.CtlGraphicStaticGraphic1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.CtlGraphicStaticGraphic1.MoveabilityEventsForGroupCtls = Nothing
+        Me.CtlGraphicStaticGraphic1.MoveabilityEventsForSingleMove = Nothing
+        Me.CtlGraphicStaticGraphic1.Name = "CtlGraphicStaticGraphic1"
+        Me.CtlGraphicStaticGraphic1.Size = New System.Drawing.Size(194, 76)
+        Me.CtlGraphicStaticGraphic1.TabIndex = 101
+        Me.ToolTip1.SetToolTip(Me.CtlGraphicStaticGraphic1, "Graphic element.  Can be a photo or any graphic. ")
+        '
+        'RscSelectCIBField1
+        '
+        Me.RscSelectCIBField1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.RscSelectCIBField1.Location = New System.Drawing.Point(412, 163)
+        Me.RscSelectCIBField1.Margin = New System.Windows.Forms.Padding(2)
+        Me.RscSelectCIBField1.Name = "RscSelectCIBField1"
+        Me.RscSelectCIBField1.SelectedValue = ciBadgeInterfaces.ModEnumsAndStructs.EnumCIBFields.Undetermined
+        Me.RscSelectCIBField1.Size = New System.Drawing.Size(182, 64)
+        Me.RscSelectCIBField1.TabIndex = 99
+        Me.ToolTip1.SetToolTip(Me.RscSelectCIBField1, "Relevant Field value.   Will differ for each student, member, or staffperson. ")
+        '
+        'CtlGraphicStaticText1
+        '
+        Me.CtlGraphicStaticText1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.CtlGraphicStaticText1.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.CtlGraphicStaticText1.ElementClass_Obj = Nothing
+        Me.CtlGraphicStaticText1.ElementInfo_Base = Nothing
+        Me.CtlGraphicStaticText1.Location = New System.Drawing.Point(40, 402)
+        Me.CtlGraphicStaticText1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.CtlGraphicStaticText1.MoveabilityEventsForGroupCtls = Nothing
+        Me.CtlGraphicStaticText1.MoveabilityEventsForSingleMove = Nothing
+        Me.CtlGraphicStaticText1.Name = "CtlGraphicStaticText1"
+        Me.CtlGraphicStaticText1.Size = New System.Drawing.Size(302, 27)
+        Me.CtlGraphicStaticText1.TabIndex = 98
+        Me.CtlGraphicStaticText1.TextToDisplay = "This is text which will be the same for everyone."
+        Me.CtlGraphicStaticText1.TextToDisplay_DesignTime = "Text Label... any message you like."
+        Me.ToolTip1.SetToolTip(Me.CtlGraphicStaticText1, "Static text.  The text which will be the same for every ID Card.")
+        '
+        'CtlGraphicSignature1
+        '
+        Me.CtlGraphicSignature1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.CtlGraphicSignature1.BackColor = System.Drawing.Color.Transparent
+        Me.CtlGraphicSignature1.ElementInfo_Base = Nothing
+        Me.CtlGraphicSignature1.Location = New System.Drawing.Point(40, 425)
+        Me.CtlGraphicSignature1.Margin = New System.Windows.Forms.Padding(4)
+        Me.CtlGraphicSignature1.MoveabilityEventsForGroupCtls = Nothing
+        Me.CtlGraphicSignature1.MoveabilityEventsForSingleMove = Nothing
+        Me.CtlGraphicSignature1.Name = "CtlGraphicSignature1"
+        Me.CtlGraphicSignature1.Size = New System.Drawing.Size(249, 82)
+        Me.CtlGraphicSignature1.TabIndex = 97
+        Me.ToolTip1.SetToolTip(Me.CtlGraphicSignature1, "Signature.  Will differ for each student, member, or staffperson.")
+        '
+        'PanelPortraitPic
+        '
+        Me.PanelPortraitPic.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.PanelPortraitPic.BackColor = System.Drawing.Color.RoyalBlue
+        Me.PanelPortraitPic.Location = New System.Drawing.Point(692, 32)
+        Me.PanelPortraitPic.Name = "PanelPortraitPic"
+        Me.PanelPortraitPic.Padding = New System.Windows.Forms.Padding(3)
+        Me.PanelPortraitPic.Size = New System.Drawing.Size(118, 165)
+        Me.PanelPortraitPic.TabIndex = 113
+        '
+        'PanelQRCode
+        '
+        Me.PanelQRCode.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.PanelQRCode.BackColor = System.Drawing.Color.RoyalBlue
+        Me.PanelQRCode.Location = New System.Drawing.Point(816, 118)
+        Me.PanelQRCode.Name = "PanelQRCode"
+        Me.PanelQRCode.Padding = New System.Windows.Forms.Padding(3)
+        Me.PanelQRCode.Size = New System.Drawing.Size(77, 79)
+        Me.PanelQRCode.TabIndex = 114
+        '
+        'PanelGraphic
+        '
+        Me.PanelGraphic.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.PanelGraphic.BackColor = System.Drawing.Color.RoyalBlue
+        Me.PanelGraphic.Location = New System.Drawing.Point(816, 32)
+        Me.PanelGraphic.Name = "PanelGraphic"
+        Me.PanelGraphic.Padding = New System.Windows.Forms.Padding(3)
+        Me.PanelGraphic.Size = New System.Drawing.Size(205, 61)
+        Me.PanelGraphic.TabIndex = 115
+        '
+        'PanelStaticText
+        '
+        Me.PanelStaticText.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.PanelStaticText.BackColor = System.Drawing.Color.RoyalBlue
+        Me.PanelStaticText.Location = New System.Drawing.Point(688, 216)
+        Me.PanelStaticText.Name = "PanelStaticText"
+        Me.PanelStaticText.Padding = New System.Windows.Forms.Padding(3)
+        Me.PanelStaticText.Size = New System.Drawing.Size(333, 33)
+        Me.PanelStaticText.TabIndex = 116
+        '
+        'PanelSignature
+        '
+        Me.PanelSignature.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.PanelSignature.BackColor = System.Drawing.Color.RoyalBlue
+        Me.PanelSignature.Location = New System.Drawing.Point(688, 262)
+        Me.PanelSignature.Name = "PanelSignature"
+        Me.PanelSignature.Size = New System.Drawing.Size(248, 76)
+        Me.PanelSignature.TabIndex = 117
+        '
         'FormTypeOfElementsToAdd
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(699, 621)
+        Me.ClientSize = New System.Drawing.Size(1036, 621)
+        Me.Controls.Add(Me.PanelSignature)
+        Me.Controls.Add(Me.PanelStaticText)
+        Me.Controls.Add(Me.PanelGraphic)
+        Me.Controls.Add(Me.PanelQRCode)
+        Me.Controls.Add(Me.CtlGraphicQRCode1)
+        Me.Controls.Add(Me.PanelPortraitPic)
+        Me.Controls.Add(Me.RscSelectCIBField5)
+        Me.Controls.Add(Me.RscSelectCIBField4)
+        Me.Controls.Add(Me.RscSelectCIBField3)
+        Me.Controls.Add(Me.RscSelectCIBField2)
         Me.Controls.Add(Me.CtlGraphicPortrait1)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.LabelMainHeader0)
@@ -243,13 +355,12 @@ Partial Class FormTypeOfElementsToAdd
         Me.Controls.Add(Me.LabelMainHeader2)
         Me.Controls.Add(Me.RscSelectCIBField1)
         Me.Controls.Add(Me.CtlGraphicStaticText1)
-        Me.Controls.Add(Me.CtlGraphicQRCode1)
         Me.Controls.Add(Me.CtlGraphicSignature1)
         Me.Controls.Add(Me.LabelMainHeader1)
         Me.Controls.Add(Me.ButtonCancel)
         Me.Controls.Add(Me.ButtonOK)
-        Me.Controls.Add(Me.pictureBackgroundFront)
         Me.Controls.Add(Me.LabelFooter1)
+        Me.Controls.Add(Me.pictureBackgroundFront)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
         Me.MinimizeBox = False
@@ -277,4 +388,13 @@ Partial Class FormTypeOfElementsToAdd
     Friend WithEvents Label1 As Label
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents CtlGraphicPortrait1 As ciBadgeDesigner.CtlGraphicPortrait
+    Friend WithEvents RscSelectCIBField2 As ciBadgeDesigner.RSCSelectCIBField
+    Friend WithEvents RscSelectCIBField3 As ciBadgeDesigner.RSCSelectCIBField
+    Friend WithEvents RscSelectCIBField4 As ciBadgeDesigner.RSCSelectCIBField
+    Friend WithEvents RscSelectCIBField5 As ciBadgeDesigner.RSCSelectCIBField
+    Friend WithEvents PanelPortraitPic As Panel
+    Friend WithEvents PanelQRCode As Panel
+    Friend WithEvents PanelGraphic As Panel
+    Friend WithEvents PanelStaticText As Panel
+    Friend WithEvents PanelSignature As Panel
 End Class

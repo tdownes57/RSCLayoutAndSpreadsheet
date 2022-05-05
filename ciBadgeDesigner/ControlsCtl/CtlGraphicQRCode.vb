@@ -98,7 +98,8 @@ Public Class CtlGraphicQRCode
         ''Create the control. 
         ''Jan2 2022''Dim CtlQRCode1 = New CtlGraphicQRCode(par_elementQRCode, par_iLayoutFun,
         ''Jan2 2022''                        enumElementType_Enum, par_bProportionSizing,
-        Dim CtlQRCode1 = New CtlGraphicQRCode(par_elementQRCode, par_formParent,
+        Dim CtlQRCode1 = New CtlGraphicQRCode(par_elementQRCode,
+                                              par_parametersGetElementControl, par_formParent,
                                                    par_iLayoutFun,
                                                    par_parametersGetElementControl.iRefreshPreview,
                                                    par_iSizeIfNeeded,
@@ -174,6 +175,7 @@ Public Class CtlGraphicQRCode
 
 
     Public Sub New(par_elementQR As ClassElementQRCode,
+                   par_parameters As IGetElementControlParameters,
                    par_formParent As Form,
                    par_iLayoutFun As ILayoutFunctions,
                    par_iRefreshPreview As IRefreshCardPreview,
@@ -193,6 +195,8 @@ Public Class CtlGraphicQRCode
         ''
         ''Jan1 2022 td''MyBase.New(par_enumElementType, pboolResizeProportionally,
         MyBase.New(EnumElementType.QRCode,
+                   par_elementQR,
+                   par_parameters.ElementsCache,
                    par_formParent,
                     pboolResizeProportionally,
                         par_iLayoutFun,
@@ -611,6 +615,8 @@ Public Class CtlGraphicQRCode
         Dim bRotated90degrees As Boolean ''Added 9/24/2019 thomas d. 
         Dim boolSuccess As Boolean ''Added 9/24/2019 td  
 
+        MyBase.SaveToModel() ''Added 5/5/2022 td
+
         If (Me.ElementInfo_Base IsNot Nothing) Then
 
             ''9/10/2019 td''Me.ElementInfo_Base.TopEdge_Pixels = Me.Top
@@ -923,6 +929,8 @@ ExitHandler:
         ''
         ''Added 1/4/2022 td 
         ''
+        MyBase.RaiseEvent_ControlClicked() ''Added 5/4/2022 td 
+
         ''---MyBase.MoveableControl_MouseUp(sender, par_e)
         ''Jan11 2022MyBase.MoveableControl_MouseUp(Me, par_e)
         If mod_bHandleMouseMoveEvents_ByVB6 Then
@@ -952,7 +960,6 @@ ExitHandler:
                     MyBase.MoveableControl_MouseUp(objParentControl, objMouseEventArgs)
 
                 End If ''end if "If (c_bOptimizeProgramCode) Then ... ElseIf ..."
-
 
             End If
         End If

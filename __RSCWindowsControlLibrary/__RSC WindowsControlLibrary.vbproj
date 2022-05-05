@@ -125,10 +125,10 @@
     <Compile Include="RSCFieldSelector\RSCFieldColumn_NotInUse.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="RSCFieldSelector\RSCSelectCIBField.designer.vb">
-      <DependentUpon>RSCSelectCIBField.vb</DependentUpon>
+    <Compile Include="RSCFieldSelector\RSCSelectCIBField_Simple.designer.vb">
+      <DependentUpon>RSCSelectCIBField_Simple.vb</DependentUpon>
     </Compile>
-    <Compile Include="RSCFieldSelector\RSCSelectCIBField.vb">
+    <Compile Include="RSCFieldSelector\RSCSelectCIBField_Simple.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="RSCFieldSelector\RSCFieldSpreadsheet_NotInUse.Designer.vb">
@@ -136,6 +136,12 @@
     </Compile>
     <Compile Include="RSCFieldSelector\RSCFieldSpreadsheet_NotInUse.vb">
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RSCMoveableControl\FormConditional.Designer.vb">
+      <DependentUpon>FormConditional.vb</DependentUpon>
+    </Compile>
+    <Compile Include="RSCMoveableControl\FormConditional.vb">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="RSCMoveableControl\RSCMoveableControlVB.Designer.vb">
       <DependentUpon>RSCMoveableControlVB.vb</DependentUpon>
@@ -163,11 +169,14 @@
     <EmbeddedResource Include="RSCFieldSelector\RSCFieldColumn_NotInUse.resx">
       <DependentUpon>RSCFieldColumn_NotInUse.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RSCFieldSelector\RSCSelectCIBField.resx">
-      <DependentUpon>RSCSelectCIBField.vb</DependentUpon>
+    <EmbeddedResource Include="RSCFieldSelector\RSCSelectCIBField_Simple.resx">
+      <DependentUpon>RSCSelectCIBField_Simple.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RSCFieldSelector\RSCFieldSpreadsheet_NotInUse.resx">
       <DependentUpon>RSCFieldSpreadsheet_NotInUse.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RSCMoveableControl\FormConditional.resx">
+      <DependentUpon>FormConditional.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RSCMoveableControl\RSCMoveableControlVB.resx">
       <DependentUpon>RSCMoveableControlVB.vb</DependentUpon>

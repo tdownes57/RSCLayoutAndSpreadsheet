@@ -3390,8 +3390,34 @@ ExitHandler:
     Private Sub ButtonAddElements_Click(sender As Object, e As EventArgs) Handles ButtonAddElements.Click
 
         ''Added 5/4/2022 td
-        Dim objFormToShow As New FormTypeOfElementsToAdd
+        Dim objFormToShow As New FormTypeOfElementsToAdd(Me.ElementsCache_Edits)
         objFormToShow.ShowDialog()
+
+        Dim boolAddField1 As Boolean '' = (RscSelectCIBField1.BorderStyle <> BorderStyle.None)
+        Dim boolAddField2 As Boolean '' = (RscSelectCIBField1.BorderStyle <> BorderStyle.None)
+        Dim boolAddField3 As Boolean '' = (RscSelectCIBField1.BorderStyle <> BorderStyle.None)
+        Dim boolAddField4 As Boolean '' = (RscSelectCIBField1.BorderStyle <> BorderStyle.None)
+        Dim boolAddField5 As Boolean '' = (RscSelectCIBField1.BorderStyle <> BorderStyle.None)
+        Dim boolAddGraphic As Boolean '' = (CtlGraphicStaticGraphic1.BorderStyle <> BorderStyle.None)
+        Dim boolAddPortraitPic As Boolean ''  = (CtlGraphicPortrait1.BorderStyle <> BorderStyle.None)
+        Dim boolAddQRCode As Boolean '' = (CtlGraphicQRCode1.BorderStyle <> BorderStyle.None)
+        Dim boolAddSignature As Boolean '' = (CtlGraphicSignature1.BorderStyle <> BorderStyle.None)
+        Dim boolAddStaticText As Boolean '' 
+
+        With objFormToShow
+            boolAddField1 = .AddField1
+            boolAddField2 = .AddField2
+            boolAddField3 = .AddField3
+            boolAddField4 = .AddField4
+            boolAddField5 = .AddField5
+            boolAddGraphic = .AddGraphic
+            boolAddPortraitPic = .AddPortraitPic
+            boolAddQRCode = .AddQRCode
+            boolAddSignature = .AddSignature
+            boolAddStaticText = .AddStaticText
+
+        End With
+
 
     End Sub
 

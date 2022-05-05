@@ -112,7 +112,8 @@ Public Class RSCFieldSpreadsheet
         Dim enumElementType_Enum As EnumElementType = EnumElementType.RSCSheetSpreadsheet ''March 23 2022''.FieldSheetSpreadsheet
 
         ''Create the control. 
-        Dim CtlFieldSheet1 = New RSCFieldSpreadsheet(par_formParent,
+        Dim CtlFieldSheet1 = New RSCFieldSpreadsheet(par_parametersGetElementControl,
+                                                     par_formParent,
                                         par_iLayoutFun,
                                         par_parametersGetElementControl.iRefreshPreview,
                                         sizeElementPortrait,
@@ -175,7 +176,8 @@ Public Class RSCFieldSpreadsheet
     End Sub
 
 
-    Public Sub New(par_oParentForm As Form,
+    Public Sub New(par_parameters As IGetElementControlParameters,
+                   par_oParentForm As Form,
                    par_iLayoutFun As ILayoutFunctions,
                    par_iRefreshPreview As IRefreshCardPreview,
                    par_iSizeDesired As Size,
@@ -189,7 +191,9 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 3/20/2022 td
         ''
-        MyBase.New(EnumElementType.RSCSheetSpreadsheet, par_oParentForm,
+        MyBase.New(EnumElementType.RSCSheetSpreadsheet, Nothing,
+                   par_parameters.ElementsCache,
+                   par_oParentForm,
                    pboolResizeProportionally,
                         par_iLayoutFun, par_iRefreshPreview, par_iSizeDesired,
                         par_operationsType, par_operationsAny,

@@ -2649,9 +2649,9 @@ Public Class ClassDesigner
             ''
             ''Add to the list which will be given to the function MakeBadge.
             ''
-            listOfElementTextFieldsV4.Add(eachCtlFieldV4.ElementClass_Obj)
+            listOfElementTextFieldsV4.Add(eachCtlFieldV4.ElementClass_ObjV4)
             bMatchesElementInCache =
-                Me.ElementsCache_UseEdits.ListOfElementFields_BothsidesV4().Contains(eachCtlFieldV4.ElementClass_Obj)
+                Me.ElementsCache_UseEdits.ListOfElementFields_BothsidesV4().Contains(eachCtlFieldV4.ElementClass_ObjV4)
             If (bMatchesElementInCache) Then intCountMatchedElementsV4 += 1
         Next eachCtlFieldV4
 
@@ -3909,6 +3909,7 @@ Public Class ClassDesigner
         ''Set the various properties. 
         ''
         With oGetControlParameters
+            .ElementsCache = ElementsCache_UseEdits ''Added 5/5/2022
             .ElementsCacheManager = ElementsCache_Manager
             .iLayoutFunctions = CType(Me, ILayoutFunctions)
             .iRefreshPreview = CType(Me, IRefreshCardPreview)

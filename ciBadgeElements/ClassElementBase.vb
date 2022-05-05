@@ -13,6 +13,14 @@ Public Class ClassElementBase
     ''
     ''Added 1/8/2022 thomas downes
     ''
+    ''Added 1/23/2022 td
+    Public Property WhyOmitted As WhyOmitted_StructV2 Implements IElement_Base_InDevelopment.WhyOmitted
+
+    ''Added 5/5/2022 td
+    Public ConditionalExpressionInUse As Boolean
+    Public ConditionalExpressionField As EnumCIBFields
+    Public ConditionalExpressionValue As String
+    Public ConditionalExp_LastEdited As Date ''Added 5/5/2022
 
     ''
     ''I need to copy-paste (or rather, "cut-paste") all members from ClassElementField (or ClassElementLaysection)
@@ -82,7 +90,7 @@ Public Class ClassElementBase
 
 
     ''Added 1/23/2022 td
-    Public Property WhyOmitted As WhyOmitted_StructV2 Implements IElement_Base_InDevelopment.WhyOmitted
+    ''Moved up to top 5/5/2022 ''Public Property WhyOmitted As WhyOmitted_StructV2 Implements IElement_Base_InDevelopment.WhyOmitted
 
 
 End Class

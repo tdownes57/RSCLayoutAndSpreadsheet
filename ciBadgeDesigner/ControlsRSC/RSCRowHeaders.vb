@@ -146,7 +146,8 @@ Public Class RSCRowHeaders
         Dim enumElementType_Enum As EnumElementType = EnumElementType.RSCRowHeaders
 
         ''Create the control. 
-        Dim CtlRowHeaders = New RSCRowHeaders(par_formParent,
+        Dim CtlRowHeaders = New RSCRowHeaders(par_parametersGetElementControl,
+                                        par_formParent,
                                         par_iLayoutFun,
                                         par_parametersGetElementControl.iRefreshPreview,
                                         sizeElementPortrait,
@@ -229,11 +230,12 @@ Public Class RSCRowHeaders
     End Sub
 
 
-    Public Sub New(par_oParentForm As Form,
+    Public Sub New(par_parameters As IGetElementControlParameters,
+                  par_oParentForm As Form,
                    par_iLayoutFun As ILayoutFunctions,
                    par_iRefreshPreview As IRefreshCardPreview,
                    par_iSizeDesired As Size,
-                  pboolResizeProportionally As Boolean,
+                   pboolResizeProportionally As Boolean,
                    par_operationsType As Type,
                    par_operationsAny As Object,
                    pboolAddMoveability As Boolean,
@@ -243,7 +245,9 @@ Public Class RSCRowHeaders
         ''
         ''Added 3/20/2022 td
         ''
-        MyBase.New(EnumElementType.RSCRowHeaders, par_oParentForm,
+        MyBase.New(EnumElementType.RSCRowHeaders, Nothing,
+                   par_parameters.ElementsCache,
+                   par_oParentForm,
                    pboolResizeProportionally,
                         par_iLayoutFun, par_iRefreshPreview, par_iSizeDesired,
                         par_operationsType, par_operationsAny,

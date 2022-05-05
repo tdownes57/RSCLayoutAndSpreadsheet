@@ -41,21 +41,20 @@ Partial Class CtlGraphicPortrait
         Me.picturePortrait.Dock = System.Windows.Forms.DockStyle.Fill
         Me.picturePortrait.Image = Global.ciBadgeDesigner.My.Resources.Resources.Liz_20_percent
         Me.picturePortrait.Location = New System.Drawing.Point(0, 0)
-        Me.picturePortrait.Margin = New System.Windows.Forms.Padding(4)
         Me.picturePortrait.Name = "picturePortrait"
-        Me.picturePortrait.Size = New System.Drawing.Size(156, 230)
+        Me.picturePortrait.Size = New System.Drawing.Size(117, 176)
         Me.picturePortrait.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.picturePortrait.TabIndex = 1
         Me.picturePortrait.TabStop = False
         '
         'CtlGraphicPortrait
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.picturePortrait)
-        Me.Margin = New System.Windows.Forms.Padding(4)
+        Me.Margin = New System.Windows.Forms.Padding(3, 3, 3, 3)
         Me.Name = "CtlGraphicPortrait"
-        Me.Size = New System.Drawing.Size(156, 230)
+        Me.Size = New System.Drawing.Size(117, 176)
         CType(Me.picturePortrait, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 

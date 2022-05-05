@@ -22,7 +22,17 @@ Public Class RSCMoveableControlVB
     ''Added 12/22/2021 td  
     ''
     Public Shared LastControlTouched_Deprecated As RSCMoveableControlVB
-    Public ParentForm As Form ''Added 1/15/2022 td 
+    Public Shadows ParentForm As Form ''Added 1/15/2022 td 
+
+    ''Added 5/5/2022 td
+    Public ElementsCache As ciBadgeCachePersonality.ClassElementsCache_Deprecated
+    Public ElementBase As ciBadgeElements.ClassElementBase ''Added 5/5/2022 td
+
+    ''Added 5/5/2022 td
+    Public ConditionalExpressionInUse As Boolean
+    Public ConditionalExpressionField As EnumCIBFields
+    Public ConditionalExpressionValue As String
+    Public ConditionalExp_LastEdited As Date ''Added 5/5/2022
 
     ''Jan11 2022 td''Public Shared Function GetControl(par_enum As EnumElementType,
     ''                                  par_nameOfControl As String,
@@ -215,6 +225,8 @@ Public Class RSCMoveableControlVB
 
     Public Overridable Property ElementInfo_Base As ciBadgeInterfaces.IElement_Base ''Added 1/10/2022 thomas d.
 
+    Public Event RSCControlClicked() ''Added 5/4/2022 td
+
     ''#1 Jan2 2022''Private mod_iSaveToModel As ISaveToModel 
     ''#2 Jan2 2022''Private mod_iSaveToModel_Deprecated As ISaveToModel = New ClassSaveToModel() ''Suffixed _Deprecated 1/2/2022 td
     ''#3 Jan2 2022''Private mod_iSaveToModel As ISaveToModel = New ClassSaveToModel() 
@@ -267,6 +279,8 @@ Public Class RSCMoveableControlVB
 
 
     Public Sub New(par_enumElementType As EnumElementType,
+                   par_elementBase As ClassElementBase,
+                   par_cache As ciBadgeCachePersonality.ClassElementsCache_Deprecated,
                    par_formParent As Form,
                   pboolResizeProportionally As Boolean,
                    par_iLayoutFun As ILayoutFunctions,
@@ -288,7 +302,9 @@ Public Class RSCMoveableControlVB
         ' This call is required by the designer.
         InitializeComponent()
 
+        Me.ElementBase = par_elementBase ''Added 5/5/2022 td
         Me.ParentForm = par_formParent ''Added 1/16/2022 td 
+        Me.ElementsCache = par_cache ''Added 5/5/2022 td
 
         ''12/28/2021 td''par_toolstrip As ToolStripItemCollection)
         ''Added 1/4/2022 td
@@ -645,7 +661,7 @@ Public Class RSCMoveableControlVB
 
         End If ''End of "If (par_structResizeParams IsNot Nothing) Then"
 
-    End Sub
+    End Sub ''End of ""Public Sub AddSizeability""
 
 
     Public Sub RemoveSizeability(Optional pboolUseEasyWay As Boolean = True)
@@ -659,7 +675,30 @@ Public Class RSCMoveableControlVB
         ''
         mod_iMoveOrResizeFunctionality.RemoveSizeability = (Not bAddSizing) ''Added 12/28/2021 td
 
-    End Sub
+    End Sub ''End of ""Public Sub RemoveSizeability""
+
+
+    Public Sub ShowConditionalExpression()
+        ''
+        ''Added 5/5/2022 td
+        ''
+        Dim objFormToShow As New FormConditional(Me.ElementsCache)
+        Dim boolConfirmed As Boolean
+
+        objFormToShow.ShowDialog()
+        boolConfirmed = (objFormToShow.DialogResult = DialogResult.OK)
+        If boolConfirmed Then
+
+            Me.ConditionalExpressionInUse = objFormToShow.ConditionalExpressionInUse
+            Me.ConditionalExpressionField = objFormToShow.ConditionalExpressionField
+            Me.ConditionalExpressionValue = objFormToShow.ConditionalExpressionValue
+            Me.ConditionalExp_LastEdited = Now ''Added 5/05/2022 td
+            ''Added 5/05/2022 td
+            LinkLabelConditional.Visible = Me.ConditionalExpressionInUse
+
+        End If ''End of ""If boolConfirmed Then""
+
+    End Sub ''End of ""Public Sub ShowConditionialExpression()""
 
 
     Public Sub InitializeMoveability(pboolResizeProportionally As Boolean,
@@ -1493,13 +1532,25 @@ Public Class RSCMoveableControlVB
     End Sub ''End of "Public Sub PerformRightClick"
 
     Public Overridable Sub SaveToModel() Implements ISaveToModel.SaveToModel
+        ''Public Overridable Sub SaveToModel() Implements ISaveToModel.SaveToModel
         ''
         ''Added 1/2/2022 td 
         ''
         ''1/2/2022 td''DirectCast(LastControlTouched_Deprecated, ISaveToModel).SaveToModel()
-        MessageBoxTD.Show_Statement("SaveToModel(). Programmer must override this base-class method, using the keyword Overrides.")
+        ''5/5/2022 td''MessageBoxTD.Show_Statement("SaveToModel(). Programmer must override this base-class method, using the keyword Overrides.")
+        System.Diagnostics.Debugger.Break()
 
-    End Sub
+        ''Added 5/5/2022 td
+        If (Me.ElementBase IsNot Nothing) Then
+            With Me.ElementBase
+                .ConditionalExp_LastEdited = Me.ConditionalExp_LastEdited
+                .ConditionalExpressionField = Me.ConditionalExpressionField
+                .ConditionalExpressionInUse = Me.ConditionalExpressionInUse
+                .ConditionalExpressionValue = Me.ConditionalExpressionValue
+            End With
+        End If ''end of ""If (Me.ElementBase IsNot Nothing) Then""
+
+    End Sub ''End of ""Public Overridable Sub SaveToModel()""
 
 
     Public Function Find_Label() As Label
@@ -1581,7 +1632,9 @@ Public Class RSCMoveableControlVB
             Return ''Added 3/20/2022 td
 
         ElseIf (mod_iMoveOrResizeFunctionality Is Nothing) Then
-            Throw New Exception("Moving object is nothing.")
+            ''Throw New Exception("Moving object is nothing.")
+            ''System.Diagnostics.Debugger.Break()
+            Exit Sub
         End If
 
         ''1/7/2022 td''boolButtonIsOkay = (par_e.Button = MouseButtons.Left)
@@ -1880,10 +1933,43 @@ Public Class RSCMoveableControlVB
 
     End Sub ''End of "Public Sub Highlight_IfInsideRubberband()"
 
+
+    Public Sub RaiseEvent_ControlClicked()
+
+        ''Added 5/4/2022 td
+        RaiseEvent RSCControlClicked()
+
+    End Sub
+
+
     Private Sub RSCMoveableControlVB_Paint(sender As Object, e As PaintEventArgs) Handles Me.Paint
 
         ''Added 3/07/2022 & 3/02/2022 thomas downes
         ''--If (mod_iMoveOrResizeFunctionality Is Nothing) Then Throw New Exception("Moving object is nothing.")
 
     End Sub
+
+    Private Sub LinkLabelConditional_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelConditional.LinkClicked
+
+        ''Added 5/5/2022 thomas Downes
+        ShowConditionalExpression()
+
+        ''Dim objFormToShow As New FormConditional(Me.ElementsCache)
+        ''Dim boolConfirmed As Boolean
+
+        ''objFormToShow.ShowDialog()
+        ''boolConfirmed = (objFormToShow.DialogResult = DialogResult.OK)
+        ''If boolConfirmed Then
+
+        ''    Me.ConditionalExpressionInUse = objFormToShow.ConditionalExpressionInUse
+        ''    Me.ConditionalExpressionField = objFormToShow.ConditionalExpressionField
+        ''    Me.ConditionalExpressionValue = objFormToShow.ConditionalExpressionValue
+        ''    Me.ConditionalExp_LastEdited = Now ''Added 5/05/2022 td
+
+        ''End If ''End of ""If boolConfirmed Then""
+
+    End Sub
+
+
+
 End Class

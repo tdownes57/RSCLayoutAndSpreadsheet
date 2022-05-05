@@ -97,7 +97,7 @@ Public Class CtlGraphicSignature
         ''Create the control. 
         ''Jan2 2022''Dim CtlQRCode1 = New CtlGraphicQRCode(par_elementQRCode, par_iLayoutFun,
         ''Jan2 2022''                        enumElementType_Enum, par_bProportionSizing,
-        Dim CtlSignature1 = New CtlGraphicSignature(par_elementSig,
+        Dim CtlSignature1 = New CtlGraphicSignature(par_elementSig, par_parameters,
                                                     par_oParentForm,
                                                     par_iLayoutFun,
                                                     par_parameters.iRefreshPreview,
@@ -153,6 +153,7 @@ Public Class CtlGraphicSignature
 
 
     Public Sub New(par_elementSig As ClassElementSignature,
+                   par_parameters As IGetElementControlParameters,
                    par_formParent As Form,
                    par_iLayoutFun As ILayoutFunctions,
                    par_iRefreshPreview As IRefreshCardPreview,
@@ -171,7 +172,8 @@ Public Class CtlGraphicSignature
         ''Added 12/30/2021 td
         ''
         ''Jan1 2022 td''MyBase.New(par_enumElementType, pboolResizeProportionally,
-        MyBase.New(EnumElementType.Signature, par_formParent,
+        MyBase.New(EnumElementType.Signature, par_elementSig,
+                        par_parameters.ElementsCache, par_formParent,
                         pboolResizeProportionally,
                         par_iLayoutFun, par_iRefreshPreview, par_iSizeDesired,
                         par_operationsType, par_operationsAny,
@@ -560,6 +562,8 @@ Public Class CtlGraphicSignature
         Dim bRotated90degrees As Boolean ''Added 9/24/2019 thomas d. 
         Dim boolSuccess As Boolean ''Added 9/24/2019 td  
 
+        MyBase.SaveToModel() ''Added 5/5/2022 td
+
         If (Me.ElementInfo_Base IsNot Nothing) Then
 
             ''9/10/2019 td''Me.ElementInfo_Base.TopEdge_Pixels = Me.Top
@@ -900,6 +904,9 @@ ExitHandler:
         ''
         ''Added 1/4/2022 td 
         ''
+        ''Added 5/4/2022
+        MyBase.RaiseEvent_ControlClicked() ''Added 5/4/2022 td 
+
         ''---MyBase.MoveableControl_MouseUp(sender, par_e)
         ''Jan11 2022''MyBase.MoveableControl_MouseUp(Me, par_e)
         If mod_bHandleMouseMoveEvents_ByVB6 Then

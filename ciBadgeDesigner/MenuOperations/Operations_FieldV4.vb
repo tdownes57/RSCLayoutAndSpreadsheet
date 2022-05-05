@@ -138,9 +138,9 @@ Public Class Operations_FieldV4
         form_ToShow.JustOneField_Index = CtlCurrentElementFieldV4.FieldInfo.FieldIndex
 
         ''Added 12/13/2021 thomas downes
-        form_ToShow.JustOneField_Any = CtlCurrentElementFieldV4.ElementClass_Obj.FieldObjectAny
-        form_ToShow.JustOneField_Custom = CtlCurrentElementFieldV4.ElementClass_Obj.FieldObjectCustom
-        form_ToShow.JustOneField_Standard = CtlCurrentElementFieldV4.ElementClass_Obj.FieldObjectStandard
+        form_ToShow.JustOneField_Any = CtlCurrentElementFieldV4.ElementClass_ObjV4.FieldObjectAny
+        form_ToShow.JustOneField_Custom = CtlCurrentElementFieldV4.ElementClass_ObjV4.FieldObjectCustom
+        form_ToShow.JustOneField_Standard = CtlCurrentElementFieldV4.ElementClass_ObjV4.FieldObjectStandard
 
         ''Added 12/12/2021 td
         ''--form_ToShow.ListOfFields_Custom = MenuCache_ElemFlds.CacheOfFieldsEtc.ListOfFields_Custom
@@ -172,9 +172,9 @@ Public Class Operations_FieldV4
         par_form_ToShow.JustOneField_Index = CtlCurrentElementFieldV4.FieldInfo.FieldIndex
 
         ''Added 12/13/2021 thomas downes
-        par_form_ToShow.JustOneField_Any = CtlCurrentElementFieldV4.ElementClass_Obj.FieldObjectAny
-        par_form_ToShow.JustOneField_Custom = CtlCurrentElementFieldV4.ElementClass_Obj.FieldObjectCustom
-        par_form_ToShow.JustOneField_Standard = CtlCurrentElementFieldV4.ElementClass_Obj.FieldObjectStandard
+        par_form_ToShow.JustOneField_Any = CtlCurrentElementFieldV4.ElementClass_ObjV4.FieldObjectAny
+        par_form_ToShow.JustOneField_Custom = CtlCurrentElementFieldV4.ElementClass_ObjV4.FieldObjectCustom
+        par_form_ToShow.JustOneField_Standard = CtlCurrentElementFieldV4.ElementClass_ObjV4.FieldObjectStandard
 
         ''Added 12/12/2021 td
         ''--form_ToShow.ListOfFields_Custom = MenuCache_ElemFlds.CacheOfFieldsEtc.ListOfFields_Custom
@@ -432,9 +432,9 @@ Public Class Operations_FieldV4
 
             ''Added Feb5 2022 td 
             Dim objElementCopyV4 As ciBadgeElements.ClassElementFieldV4
-            objElementCopyV4 = CType(.ElementClass_Obj.Copy(), ciBadgeElements.ClassElementFieldV4)
+            objElementCopyV4 = CType(.ElementClass_ObjV4.Copy(), ciBadgeElements.ClassElementFieldV4)
 
-            Dim frm_ToShow As New DialogTextOffset(.ElementClass_Obj, objElementCopyV4,
+            Dim frm_ToShow As New DialogTextOffset(.ElementClass_ObjV4, objElementCopyV4,
                         Me.CtlCurrentElementFieldV4)
 
             ''
@@ -542,7 +542,7 @@ Public Class Operations_FieldV4
         With Me.CtlCurrentElementFieldV4 ''Added 10/17/2019 td
 
             Dim frm_ToShow As DialogTextBorder
-            frm_ToShow = New DialogTextBorder(.ElementClass_Obj) ''2/4/2022 '', .ElementClass_Obj.Copy(True))
+            frm_ToShow = New DialogTextBorder(.ElementClass_ObjV4) ''2/4/2022 '', .ElementClass_Obj.Copy(True))
 
             ''Denigrated. 9/19 td''frm_ToShow.LoadFieldAndForm(Me.FormDesigner, Me)
             frm_ToShow.LoadFieldAndFormV4(Me.LayoutFunctions, Me.CtlCurrentElementFieldV4)

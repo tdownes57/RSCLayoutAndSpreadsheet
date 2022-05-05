@@ -128,6 +128,7 @@ Public Class CtlGraphicStaticTextV4
         ''                par_formRecordLastTouched As IRecordElementLastTouched)
 
         CtlStaticTextV4 = New CtlGraphicStaticTextV4(par_elementStaticText,
+                                                     par_parametersGetElementControl,
                                                par_formParent,
                                                par_oDesigner, par_iLayoutFun,
                                          par_parametersGetElementControl.iRefreshPreview,
@@ -224,6 +225,7 @@ Public Class CtlGraphicStaticTextV4
 
 
     Public Sub New(par_elementField As ClassElementStaticTextV4,
+                   par_parameters As IGetElementControlParameters,
                    par_oParentForm As Form,
                    par_oDesigner As ClassDesigner,
                    par_iLayoutFun As ILayoutFunctions,
@@ -244,6 +246,7 @@ Public Class CtlGraphicStaticTextV4
 
         ''Added 1/4/2022 td
         MyBase.New(EnumElementType.Field,
+                   par_parameters,
                         par_elementField,
                         par_oParentForm,
                         par_oDesigner,
@@ -592,6 +595,52 @@ ExitHandler:
         End If ''ENd of "If (par_boolRefreshUserControl) Then"
 
     End Sub ''End of Public Sub Refresh_ImageV3
+
+
+    Public Overrides Sub SaveToModel() Implements ISaveToModel.SaveToModel
+        ''
+        ''Added 8/01/2019 thomas d 
+        ''
+        ''Dec17 2021''Me.ElementInfo_Base.TopEdge_Pixels = Me.Top
+        ''Dec17 2021''Me.ElementInfo_Base.LeftEdge_Pixels = Me.Left
+
+        ''Added 12/17/2021 td 
+        Dim strLeftEdge_WasBefore As String = ""
+        strLeftEdge_WasBefore = Me.ElementInfo_Base.LeftEdge_Pixels.ToString
+
+        MyBase.SaveToModel() ''Added 5/5/2022 td
+
+        ''Jan8 2022''Me.ElementInfo_Base.TopEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Top_Omit(Me.Top)
+        ''Jan8 2022''Me.ElementInfo_Base.LeftEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Left_Omit(Me.Left)
+        Me.ElementInfo_Base.TopEdge_Pixels = mod_iLayoutFunctions.Layout_Margin_Top_Omit(Me.Top)
+        Me.ElementInfo_Base.LeftEdge_Pixels = mod_iLayoutFunctions.Layout_Margin_Left_Omit(Me.Left)
+
+        ''Added 12/18/2021 td
+        Me.ElementInfo_Base.DateSaved = DateTime.Now
+
+        Dim strLeftEdge_IsNow As String = ""
+        strLeftEdge_IsNow = Me.ElementInfo_Base.LeftEdge_Pixels.ToString
+
+        ''Added 12/17/2021 td
+        '' Dec19 2021 td''MessageBox.Show(String.Format("The left edge was {0}, is now {1}.",
+        ''                   strLeftEdge_WasBefore, strLeftEdge_IsNow))
+
+        Me.ElementInfo_Base.Width_Pixels = Me.Width
+        Me.ElementInfo_Base.Height_Pixels = Me.Height
+
+        ''ADded 9/4/2019 td
+        ''
+        ''9/12/2019 td''Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.Layout_Width_Pixels()
+        ''10/01/2019 td''Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.FormDesigner.Layout_Width_Pixels()
+        ''10/01/2019 td''Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.FormDesigner.Layout_Height_Pixels()
+
+        ''1/08/2022 td''Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.LayoutFunctions.Layout_Width_Pixels()
+        ''1/08/2022 td''Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
+
+        Me.ElementInfo_Base.BadgeLayout.Width_Pixels = mod_iLayoutFunctions.Layout_Width_Pixels()
+        Me.ElementInfo_Base.BadgeLayout.Height_Pixels = mod_iLayoutFunctions.Layout_Height_Pixels()
+
+    End Sub ''End of Public Sub SaveToModel
 
 
 

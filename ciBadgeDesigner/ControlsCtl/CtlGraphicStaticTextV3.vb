@@ -134,7 +134,9 @@ Public Class CtlGraphicStaticTextV3
         ''Jan2 2022''Dim CtlQRCode1 = New CtlGraphicQRCode(par_elementQRCode, par_iLayoutFun,
         ''Jan2 2022''           enumElementType_Enum, par_bProportionSizing,
 
-        Dim CtlStaticText1 = New CtlGraphicStaticTextV3(par_elementStaticText, par_oParentForm,
+        Dim CtlStaticText1 = New CtlGraphicStaticTextV3(par_elementStaticText,
+                                                        par_parametersGetElementControl,
+                                                        par_oParentForm,
                                     par_iLayoutFun, par_sizeDesired,
                                     par_iRefreshPreview,
                                 typeOps, objOperations,
@@ -212,6 +214,7 @@ Public Class CtlGraphicStaticTextV3
 
 
     Public Sub New(par_elementST As ClassElementStaticTextV3,
+                   par_parameters As IGetElementControlParameters,
                    par_oForm As Form,
                    par_iLayoutFun As ILayoutFunctions,
                    par_iSizeDesired As Size,
@@ -228,7 +231,8 @@ Public Class CtlGraphicStaticTextV3
         ''Added 1/07/2022 td
         ''
         ''Jan1 2022 td''MyBase.New(par_enumElementType, pboolResizeProportionally,
-        MyBase.New(EnumElementType.StaticText, par_oForm,
+        MyBase.New(EnumElementType.StaticText, par_elementST,
+                        par_parameters.ElementsCache, par_oForm,
                         mod_c_bResizeProportionally,
                         par_iLayoutFun, par_iRefreshPreview, par_iSizeDesired,
                         par_operationsType, par_operationsAny,
@@ -670,7 +674,7 @@ ExitHandler:
     End Sub ''End of "Public Sub Refresh_SizeToMatchImage()"
 
 
-    Public Sub SaveToModel() Implements ISaveToModel.SaveToModel
+    Public Overrides Sub SaveToModel() Implements ISaveToModel.SaveToModel
         ''
         ''Added 8/01/2019 thomas d 
         ''
@@ -680,6 +684,8 @@ ExitHandler:
         ''Added 12/17/2021 td 
         Dim strLeftEdge_WasBefore As String = ""
         strLeftEdge_WasBefore = Me.ElementInfo_Base.LeftEdge_Pixels.ToString
+
+        MyBase.SaveToModel() ''Added 5/5/2022 td
 
         ''Jan8 2022''Me.ElementInfo_Base.TopEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Top_Omit(Me.Top)
         ''Jan8 2022''Me.ElementInfo_Base.LeftEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Left_Omit(Me.Left)
@@ -713,6 +719,7 @@ ExitHandler:
 
     End Sub ''End of Public Sub SaveToModel
 
+
     Public Function LabelText() As String
         ''
         ''Added 7/25/2019 thomas d 
@@ -720,6 +727,7 @@ ExitHandler:
         Return Me.ElementInfo_TextOnly.Text_Static
 
     End Function ''End of "Public Function LabelText() As String"
+
 
     Private Sub RefreshElement_Field(sender As Object, e As EventArgs)
         ''
