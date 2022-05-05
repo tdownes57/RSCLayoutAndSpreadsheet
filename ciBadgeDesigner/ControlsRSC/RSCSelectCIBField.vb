@@ -82,6 +82,7 @@ Public Class RSCSelectCIBField
         Dim listOfFields As New List(Of ClassFieldAny)
         Dim bLoadStartingValue As Boolean ''Added 4/1/2022 td
 
+        Me.ElementsCache_Deprecated = par_cache ''Added 5/5/2022 td
         bLoadStartingValue = mod_bLoading ''Added 4/1/2022 td
         mod_bLoading = True ''Added 4/1/2022 td
 

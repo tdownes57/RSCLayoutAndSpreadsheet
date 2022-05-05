@@ -152,13 +152,13 @@ Public MustInherit Class Operations__Base
     End Sub ''eNd of "Private Sub Rotate90Degrees_BA1079()"
 
 
-    Public Sub Add_or_Edit_Conditional_Expression_BA1080()
+    Public Sub Add_or_Edit_Conditional_Expression_BA1080(sender As Object, e As EventArgs)
         ''
         ''Added 5/5/2022 td   
         ''
         Me.CtlCurrentElement.ShowConditionalExpression()
 
-    End Sub ''End of ""Public Sub Add_Conditional_Expression_BA1080()""
+    End Sub ''End of ""Public Sub Add_Conditional_Expression_BA1080(sender As Object, e As EventArgs)""
 
 
     Public Sub How_Context_Menus_Are_Generated_EE9001(sender As Object, e As EventArgs)

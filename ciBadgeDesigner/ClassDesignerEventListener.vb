@@ -689,7 +689,56 @@ Public Class ClassDesignerEventListener
 
         ''==/==Needed? ---12/17/2021 td
         ''==par_interfaceSaveToModel.SaveToModel()
-        par_iSave.SaveToModel() ''Added 12/17/2021 td  
+
+        ''5/5/2022 td ''par_iSave.SaveToModel() ''Added 12/17/2021 td  
+        Const c_boolLetsHaveRedundantSaves As Boolean = False ''Added 5/5/2022 td
+        If (c_boolLetsHaveRedundantSaves) Then ''Added 5/5/2022 td
+
+            par_iSave.SaveToModel() ''Added 12/17/2021 td  
+
+        Else
+            ''Added 5/5/2022 td
+            ''
+            ''To avoid redundant calls to .SaveToModel, we will check to see if 
+            ''  the SizingElementsEvents object is instantiated.   ---5/5/2022 td
+            ''
+            ''Look for "... Handles SizingElementEvents.Moving_End" to see where the 
+            ''  handling will take place. ---5/5/2022 td
+            ''
+            If (SizingElementEvents IsNot Nothing) Then Exit Sub
+
+        End If ''End of ""If (c_boolLetsHaveRedundantSaves) Then... Else....""
+
+        ''
+        ''Added 5/5/2022 td 
+        ''
+        ''  Call .SaveToModel() for the controls in the Grouped-Controls collection.
+        ''   ---5/05/2022
+        ''
+        Dim bSameControlAsParameter As Boolean ''Added 5/5/2022 td
+
+        For Each each_RSC As RSCMoveableControlVB In mod_designer.mod_selectedCtls
+
+            ''Added 5/5/2022 thomas d.
+            ''
+            ''----DIFFICULT & CONFUSING--------
+            ''
+            bSameControlAsParameter = (par_iSave Is CType(each_RSC, ISaveToModel))
+
+            If bSameControlAsParameter Then
+                ''No need for redundant calls to SaveToModel(), so
+                ''   as of 5/5/2022 the following If condition is False.
+                If (c_boolLetsHaveRedundantSaves) Then ''Added 5/5/2022 td
+                    par_iSave.SaveToModel() ''Added 12/17/2021 td  
+                End If ''End of ""If (c_boolLetsHaveRedundantSaves) Then""
+
+            Else
+                ''Added 5/5/2022 
+                each_RSC.SaveToModel()
+
+            End If ''End of ""If bSameControlAsParameter Then.... Else...."
+
+        Next each_RSC
 
         ''Update what the user sees (preview).
         mod_designer.AutoPreview_IfChecked(par_ctlElement)
@@ -702,14 +751,52 @@ Public Class ClassDesignerEventListener
 
         ''Added 10/9/2019 td
         ''12/17/2021 ''mod_designer.CtlGraphic_Portrait.SaveToModel() ''Added 12/16/2021 td 
+
         If (par_iSave Is Nothing) Then
-            mod_designer.CtlGraphic_Portrait.SaveToModel() ''Added 12/16/2021 td 
+            ''5/5/2022 td''mod_designer.CtlGraphic_Portrait.SaveToModel() ''Added 12/16/2021 td 
+
         Else
-            par_iSave.SaveToModel() ''Added 12/17/2021 td
-        End If
+            ''5/5/2022 td ''par_iSave.SaveToModel() ''Added 12/17/2021 td  
+            Const c_boolLetsHaveRedundantSaves As Boolean = False ''Added 5/5/2022 td
+            If (c_boolLetsHaveRedundantSaves) Then ''Added 5/5/2022 td
+                par_iSave.SaveToModel() ''Added 12/17/2021 td  
+            End If ''End of ""If (c_boolLetsHaveRedundantSaves) Then""
+
+            ''
+            ''Added 5/5/2022 td 
+            ''
+            ''  Call .SaveToModel() for the controls in the Grouped-Controls collection.
+            ''   ---5/05/2022
+            ''
+            Dim bSameControlAsParameter As Boolean ''Added 5/5/2022 td
+            For Each each_RSC As RSCMoveableControlVB In mod_designer.mod_selectedCtls
+
+                ''Added 5/5/2022 thomas d.
+                ''
+                ''----DIFFICULT & CONFUSING--------
+                ''
+                bSameControlAsParameter = (par_iSave Is CType(each_RSC, ISaveToModel))
+
+                If bSameControlAsParameter Then
+                    ''No need for redundant calls to SaveToModel(), so
+                    ''   as of 5/5/2022 the following If condition is False.
+                    If (c_boolLetsHaveRedundantSaves) Then ''Added 5/5/2022 td
+                        par_iSave.SaveToModel() ''Added 12/17/2021 td  
+                    End If ''End of ""If (c_boolLetsHaveRedundantSaves) Then""
+
+                Else
+                    ''Added 5/5/2022 
+                    each_RSC.SaveToModel()
+
+                End If ''End of ""If bSameControlAsParameter Then.... Else...."
+
+            Next each_RSC
+
+        End If ''End of ""If (par_iSave Is Nothing) Then... Else....""
 
         ''Update what the user sees (preview).
-        mod_designer.AutoPreview_IfChecked()
+        ''5/5/2022 td''mod_designer.AutoPreview_IfChecked()
+        mod_designer.AutoPreview_IfChecked(par_control)
 
     End Sub
 
@@ -789,6 +876,7 @@ Public Class ClassDesignerEventListener
                                                 deltaWidth As Integer, deltaHeight As Integer,
                            pbLeadControlLocationWasEdited As Boolean) _
                            Handles SizingElementEvents.MoveInUnison
+
         ''12/17/2021 td''Private Sub mod_sizingPic_events_MoveInUnison
         ''12/17/2021 td''   Handles mod_sizingEvents_Pics.MoveInUnison
 

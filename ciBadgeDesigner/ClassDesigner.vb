@@ -3557,30 +3557,35 @@ Public Class ClassDesigner
             ''--o----No longer needed. The preview is driven by Me.ElementsCache_Edits.---10/10/2019 td
             ''--o--SaveLayout()
             ''11/29/2021 td''SaveControlPositionsToElement() ''Added 10/10/2019 td
-            SaveControlPositionsToElement(par_controlElement) ''Added 10/10/2019 td
+            Const c_bSaveIsProbablyNotNeededAnymore As Boolean = True ''Added 5/5/2022
+            If (c_bSaveIsProbablyNotNeededAnymore) Then
+                ''The element-control has already had .SaveToModel() called. ---5/5/2022 td
+            Else
+                SaveControlPositionsToElement(par_controlElement) ''Added 10/10/2019 td
+            End If ''End of ""If (c_bSaveIsProbablyNotNeededAnymore) Then... Else...."
 
             ''Refresh the Preview Box (a PictureBox control).
             If (TypeOf par_controlElement Is CtlGraphicFieldV3) Then
-                ''Added 11/29/2021 td
-                Dim objElementField As ClassElementFieldV3
-                objElementField = CType(par_controlElement,
+                    ''Added 11/29/2021 td
+                    Dim objElementField As ClassElementFieldV3
+                    objElementField = CType(par_controlElement,
                                      CtlGraphicFieldV3).ElementClass_ObjV3
-                ''
-                ''Major call!!
-                ''
-                ''Jan14 2022 td''RefreshPreview_Redux_Front(objElementField)
-                RefreshPreview_CurrentSide(objElementField)
+                    ''
+                    ''Major call!!
+                    ''
+                    ''Jan14 2022 td''RefreshPreview_Redux_Front(objElementField)
+                    RefreshPreview_CurrentSide(objElementField)
 
-            Else
-                ''
-                ''Major call!!
-                ''
-                ''Jan14 2022 td''RefreshPreview_Redux_Front()
-                RefreshPreview_CurrentSide()
+                Else
+                    ''
+                    ''Major call!!
+                    ''
+                    ''Jan14 2022 td''RefreshPreview_Redux_Front()
+                    RefreshPreview_CurrentSide()
 
-            End If ''End of "If (TypeOf par_controlElement Is CtlGraphicFldLabel) Then... Else"
+                End If ''End of "If (TypeOf par_controlElement Is CtlGraphicFldLabel) Then... Else"
 
-        End If ''End of "If (checkAutoPreview.Checked) Then"
+            End If ''End of "If (checkAutoPreview.Checked) Then"
 
     End Sub ''End of  "Private Sub AutoPreview_IfChecked()"
 

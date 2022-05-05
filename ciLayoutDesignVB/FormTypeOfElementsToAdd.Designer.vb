@@ -33,7 +33,6 @@ Partial Class FormTypeOfElementsToAdd
         Me.LabelFooter1 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.CtlGraphicQRCode1 = New ciBadgeDesigner.CtlGraphicQRCode()
         Me.RscSelectCIBField5 = New ciBadgeDesigner.RSCSelectCIBField()
         Me.RscSelectCIBField4 = New ciBadgeDesigner.RSCSelectCIBField()
         Me.RscSelectCIBField3 = New ciBadgeDesigner.RSCSelectCIBField()
@@ -48,6 +47,12 @@ Partial Class FormTypeOfElementsToAdd
         Me.PanelGraphic = New System.Windows.Forms.Panel()
         Me.PanelStaticText = New System.Windows.Forms.Panel()
         Me.PanelSignature = New System.Windows.Forms.Panel()
+        Me.panelField1 = New System.Windows.Forms.Panel()
+        Me.CtlGraphicQRCode1 = New ciBadgeDesigner.CtlGraphicQRCode()
+        Me.panelField2 = New System.Windows.Forms.Panel()
+        Me.panelField3 = New System.Windows.Forms.Panel()
+        Me.panelField4 = New System.Windows.Forms.Panel()
+        Me.panelField5 = New System.Windows.Forms.Panel()
         CType(Me.pictureBackgroundFront, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -56,7 +61,7 @@ Partial Class FormTypeOfElementsToAdd
         Me.pictureBackgroundFront.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.pictureBackgroundFront.BackColor = System.Drawing.Color.White
         Me.pictureBackgroundFront.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pictureBackgroundFront.Location = New System.Drawing.Point(12, 144)
+        Me.pictureBackgroundFront.Location = New System.Drawing.Point(20, 146)
         Me.pictureBackgroundFront.Name = "pictureBackgroundFront"
         Me.pictureBackgroundFront.Size = New System.Drawing.Size(603, 380)
         Me.pictureBackgroundFront.TabIndex = 75
@@ -155,23 +160,10 @@ Partial Class FormTypeOfElementsToAdd
         Me.Label1.TabIndex = 105
         Me.Label1.Text = "(All elements are moveable and sizeable.)"
         '
-        'CtlGraphicQRCode1
-        '
-        Me.CtlGraphicQRCode1.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.CtlGraphicQRCode1.BackColor = System.Drawing.Color.Transparent
-        Me.CtlGraphicQRCode1.ElementInfo_Base = Nothing
-        Me.CtlGraphicQRCode1.Location = New System.Drawing.Point(184, 267)
-        Me.CtlGraphicQRCode1.Margin = New System.Windows.Forms.Padding(4)
-        Me.CtlGraphicQRCode1.MoveabilityEventsForGroupCtls = Nothing
-        Me.CtlGraphicQRCode1.MoveabilityEventsForSingleMove = Nothing
-        Me.CtlGraphicQRCode1.Name = "CtlGraphicQRCode1"
-        Me.CtlGraphicQRCode1.Size = New System.Drawing.Size(94, 100)
-        Me.CtlGraphicQRCode1.TabIndex = 96
-        Me.ToolTip1.SetToolTip(Me.CtlGraphicQRCode1, "QR Code.  Static, i.e. will be the same for every ID Card.")
-        '
         'RscSelectCIBField5
         '
         Me.RscSelectCIBField5.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.RscSelectCIBField5.Enabled = False
         Me.RscSelectCIBField5.Location = New System.Drawing.Point(412, 443)
         Me.RscSelectCIBField5.Margin = New System.Windows.Forms.Padding(2)
         Me.RscSelectCIBField5.Name = "RscSelectCIBField5"
@@ -183,6 +175,7 @@ Partial Class FormTypeOfElementsToAdd
         'RscSelectCIBField4
         '
         Me.RscSelectCIBField4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.RscSelectCIBField4.Enabled = False
         Me.RscSelectCIBField4.Location = New System.Drawing.Point(412, 367)
         Me.RscSelectCIBField4.Margin = New System.Windows.Forms.Padding(2)
         Me.RscSelectCIBField4.Name = "RscSelectCIBField4"
@@ -194,6 +187,7 @@ Partial Class FormTypeOfElementsToAdd
         'RscSelectCIBField3
         '
         Me.RscSelectCIBField3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.RscSelectCIBField3.Enabled = False
         Me.RscSelectCIBField3.Location = New System.Drawing.Point(412, 299)
         Me.RscSelectCIBField3.Margin = New System.Windows.Forms.Padding(2)
         Me.RscSelectCIBField3.Name = "RscSelectCIBField3"
@@ -205,6 +199,7 @@ Partial Class FormTypeOfElementsToAdd
         'RscSelectCIBField2
         '
         Me.RscSelectCIBField2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.RscSelectCIBField2.Enabled = False
         Me.RscSelectCIBField2.Location = New System.Drawing.Point(412, 231)
         Me.RscSelectCIBField2.Margin = New System.Windows.Forms.Padding(2)
         Me.RscSelectCIBField2.Name = "RscSelectCIBField2"
@@ -233,7 +228,7 @@ Partial Class FormTypeOfElementsToAdd
         Me.CtlGraphicStaticGraphic1.BackColor = System.Drawing.Color.Transparent
         Me.CtlGraphicStaticGraphic1.ElementInfo_Base = Nothing
         Me.CtlGraphicStaticGraphic1.Location = New System.Drawing.Point(184, 163)
-        Me.CtlGraphicStaticGraphic1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.CtlGraphicStaticGraphic1.Margin = New System.Windows.Forms.Padding(2)
         Me.CtlGraphicStaticGraphic1.MoveabilityEventsForGroupCtls = Nothing
         Me.CtlGraphicStaticGraphic1.MoveabilityEventsForSingleMove = Nothing
         Me.CtlGraphicStaticGraphic1.Name = "CtlGraphicStaticGraphic1"
@@ -256,10 +251,11 @@ Partial Class FormTypeOfElementsToAdd
         '
         Me.CtlGraphicStaticText1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.CtlGraphicStaticText1.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.CtlGraphicStaticText1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.CtlGraphicStaticText1.ElementClass_Obj = Nothing
         Me.CtlGraphicStaticText1.ElementInfo_Base = Nothing
-        Me.CtlGraphicStaticText1.Location = New System.Drawing.Point(40, 402)
-        Me.CtlGraphicStaticText1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.CtlGraphicStaticText1.Location = New System.Drawing.Point(40, 392)
+        Me.CtlGraphicStaticText1.Margin = New System.Windows.Forms.Padding(2)
         Me.CtlGraphicStaticText1.MoveabilityEventsForGroupCtls = Nothing
         Me.CtlGraphicStaticText1.MoveabilityEventsForSingleMove = Nothing
         Me.CtlGraphicStaticText1.Name = "CtlGraphicStaticText1"
@@ -274,7 +270,7 @@ Partial Class FormTypeOfElementsToAdd
         Me.CtlGraphicSignature1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.CtlGraphicSignature1.BackColor = System.Drawing.Color.Transparent
         Me.CtlGraphicSignature1.ElementInfo_Base = Nothing
-        Me.CtlGraphicSignature1.Location = New System.Drawing.Point(40, 425)
+        Me.CtlGraphicSignature1.Location = New System.Drawing.Point(71, 434)
         Me.CtlGraphicSignature1.Margin = New System.Windows.Forms.Padding(4)
         Me.CtlGraphicSignature1.MoveabilityEventsForGroupCtls = Nothing
         Me.CtlGraphicSignature1.MoveabilityEventsForSingleMove = Nothing
@@ -287,7 +283,7 @@ Partial Class FormTypeOfElementsToAdd
         '
         Me.PanelPortraitPic.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.PanelPortraitPic.BackColor = System.Drawing.Color.RoyalBlue
-        Me.PanelPortraitPic.Location = New System.Drawing.Point(692, 32)
+        Me.PanelPortraitPic.Location = New System.Drawing.Point(648, 163)
         Me.PanelPortraitPic.Name = "PanelPortraitPic"
         Me.PanelPortraitPic.Padding = New System.Windows.Forms.Padding(3)
         Me.PanelPortraitPic.Size = New System.Drawing.Size(118, 165)
@@ -297,7 +293,7 @@ Partial Class FormTypeOfElementsToAdd
         '
         Me.PanelQRCode.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.PanelQRCode.BackColor = System.Drawing.Color.RoyalBlue
-        Me.PanelQRCode.Location = New System.Drawing.Point(816, 118)
+        Me.PanelQRCode.Location = New System.Drawing.Point(772, 249)
         Me.PanelQRCode.Name = "PanelQRCode"
         Me.PanelQRCode.Padding = New System.Windows.Forms.Padding(3)
         Me.PanelQRCode.Size = New System.Drawing.Size(77, 79)
@@ -307,7 +303,7 @@ Partial Class FormTypeOfElementsToAdd
         '
         Me.PanelGraphic.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.PanelGraphic.BackColor = System.Drawing.Color.RoyalBlue
-        Me.PanelGraphic.Location = New System.Drawing.Point(816, 32)
+        Me.PanelGraphic.Location = New System.Drawing.Point(772, 163)
         Me.PanelGraphic.Name = "PanelGraphic"
         Me.PanelGraphic.Padding = New System.Windows.Forms.Padding(3)
         Me.PanelGraphic.Size = New System.Drawing.Size(205, 61)
@@ -317,7 +313,7 @@ Partial Class FormTypeOfElementsToAdd
         '
         Me.PanelStaticText.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.PanelStaticText.BackColor = System.Drawing.Color.RoyalBlue
-        Me.PanelStaticText.Location = New System.Drawing.Point(688, 216)
+        Me.PanelStaticText.Location = New System.Drawing.Point(644, 347)
         Me.PanelStaticText.Name = "PanelStaticText"
         Me.PanelStaticText.Padding = New System.Windows.Forms.Padding(3)
         Me.PanelStaticText.Size = New System.Drawing.Size(333, 33)
@@ -327,21 +323,83 @@ Partial Class FormTypeOfElementsToAdd
         '
         Me.PanelSignature.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.PanelSignature.BackColor = System.Drawing.Color.RoyalBlue
-        Me.PanelSignature.Location = New System.Drawing.Point(688, 262)
+        Me.PanelSignature.Location = New System.Drawing.Point(644, 393)
         Me.PanelSignature.Name = "PanelSignature"
         Me.PanelSignature.Size = New System.Drawing.Size(248, 76)
         Me.PanelSignature.TabIndex = 117
+        '
+        'panelField1
+        '
+        Me.panelField1.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.panelField1.BackColor = System.Drawing.Color.RoyalBlue
+        Me.panelField1.Location = New System.Drawing.Point(1006, 163)
+        Me.panelField1.Name = "panelField1"
+        Me.panelField1.Size = New System.Drawing.Size(129, 64)
+        Me.panelField1.TabIndex = 118
+        '
+        'CtlGraphicQRCode1
+        '
+        Me.CtlGraphicQRCode1.BackColor = System.Drawing.Color.Transparent
+        Me.CtlGraphicQRCode1.ElementInfo_Base = Nothing
+        Me.CtlGraphicQRCode1.Location = New System.Drawing.Point(191, 262)
+        Me.CtlGraphicQRCode1.Margin = New System.Windows.Forms.Padding(0)
+        Me.CtlGraphicQRCode1.MoveabilityEventsForGroupCtls = Nothing
+        Me.CtlGraphicQRCode1.MoveabilityEventsForSingleMove = Nothing
+        Me.CtlGraphicQRCode1.Name = "CtlGraphicQRCode1"
+        Me.CtlGraphicQRCode1.Size = New System.Drawing.Size(98, 107)
+        Me.CtlGraphicQRCode1.TabIndex = 0
+        '
+        'panelField2
+        '
+        Me.panelField2.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.panelField2.BackColor = System.Drawing.Color.RoyalBlue
+        Me.panelField2.Location = New System.Drawing.Point(1006, 231)
+        Me.panelField2.Name = "panelField2"
+        Me.panelField2.Size = New System.Drawing.Size(129, 64)
+        Me.panelField2.TabIndex = 119
+        '
+        'panelField3
+        '
+        Me.panelField3.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.panelField3.BackColor = System.Drawing.Color.RoyalBlue
+        Me.panelField3.Location = New System.Drawing.Point(1006, 301)
+        Me.panelField3.Name = "panelField3"
+        Me.panelField3.Size = New System.Drawing.Size(129, 64)
+        Me.panelField3.TabIndex = 120
+        '
+        'panelField4
+        '
+        Me.panelField4.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.panelField4.BackColor = System.Drawing.Color.RoyalBlue
+        Me.panelField4.Location = New System.Drawing.Point(1006, 371)
+        Me.panelField4.Name = "panelField4"
+        Me.panelField4.Size = New System.Drawing.Size(129, 64)
+        Me.panelField4.TabIndex = 121
+        '
+        'panelField5
+        '
+        Me.panelField5.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.panelField5.BackColor = System.Drawing.Color.RoyalBlue
+        Me.panelField5.Location = New System.Drawing.Point(1006, 443)
+        Me.panelField5.Name = "panelField5"
+        Me.panelField5.Size = New System.Drawing.Size(129, 64)
+        Me.panelField5.TabIndex = 122
         '
         'FormTypeOfElementsToAdd
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1036, 621)
+        Me.ClientSize = New System.Drawing.Size(1316, 621)
+        Me.Controls.Add(Me.panelField5)
+        Me.Controls.Add(Me.panelField4)
+        Me.Controls.Add(Me.panelField3)
+        Me.Controls.Add(Me.panelField2)
+        Me.Controls.Add(Me.CtlGraphicQRCode1)
+        Me.Controls.Add(Me.panelField1)
         Me.Controls.Add(Me.PanelSignature)
         Me.Controls.Add(Me.PanelStaticText)
         Me.Controls.Add(Me.PanelGraphic)
         Me.Controls.Add(Me.PanelQRCode)
-        Me.Controls.Add(Me.CtlGraphicQRCode1)
         Me.Controls.Add(Me.PanelPortraitPic)
         Me.Controls.Add(Me.RscSelectCIBField5)
         Me.Controls.Add(Me.RscSelectCIBField4)
@@ -376,7 +434,6 @@ Partial Class FormTypeOfElementsToAdd
     Friend WithEvents ButtonCancel As Button
     Friend WithEvents ButtonOK As Button
     Friend WithEvents LabelMainHeader1 As Label
-    Friend WithEvents CtlGraphicQRCode1 As ciBadgeDesigner.CtlGraphicQRCode
     Friend WithEvents CtlGraphicSignature1 As ciBadgeDesigner.CtlGraphicSignature
     Friend WithEvents CtlGraphicStaticText1 As ciBadgeDesigner.CtlGraphicStaticTextV4
     Friend WithEvents RscSelectCIBField1 As ciBadgeDesigner.RSCSelectCIBField
@@ -397,4 +454,10 @@ Partial Class FormTypeOfElementsToAdd
     Friend WithEvents PanelGraphic As Panel
     Friend WithEvents PanelStaticText As Panel
     Friend WithEvents PanelSignature As Panel
+    Friend WithEvents panelField1 As Panel
+    Friend WithEvents CtlGraphicQRCode1 As ciBadgeDesigner.CtlGraphicQRCode
+    Friend WithEvents panelField2 As Panel
+    Friend WithEvents panelField3 As Panel
+    Friend WithEvents panelField4 As Panel
+    Friend WithEvents panelField5 As Panel
 End Class

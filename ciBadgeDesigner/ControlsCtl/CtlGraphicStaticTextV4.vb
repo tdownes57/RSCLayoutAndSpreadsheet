@@ -642,6 +642,13 @@ ExitHandler:
 
     End Sub ''End of Public Sub SaveToModel
 
+    Private Sub textTypeExample_Click(sender As Object, e As EventArgs) Handles textTypeExample.Click
+        ''
+        ''Added 5/5/2022 td
+        ''
+        textTypeExample.Enabled = False
+        ''----RaiseEvent RSCControlClicked()
+        RaiseEvent_ControlClicked()
 
-
+    End Sub
 End Class
