@@ -416,6 +416,20 @@ Namespace ciBadgeCachePersonality
             End If ''End of ""If (par_list Is Nothing OrElse par_list.Count() = 0) Then.... Else..."
 
             ''
+            ''Testing for the first 5 Custom Text Fields. 
+            ''
+            Dim objFieldCustomText01 As ClassFieldAny
+            objFieldCustomText01 = CacheForEditing.GetFieldByFieldEnum(EnumCIBFields.TextField01)
+            Dim objFieldCustomText02 As ClassFieldAny
+            objFieldCustomText02 = CacheForEditing.GetFieldByFieldEnum(EnumCIBFields.TextField02)
+            Dim objFieldCustomText03 As ClassFieldAny
+            objFieldCustomText03 = CacheForEditing.GetFieldByFieldEnum(EnumCIBFields.TextField03)
+            Dim objFieldCustomText04 As ClassFieldAny
+            objFieldCustomText04 = CacheForEditing.GetFieldByFieldEnum(EnumCIBFields.TextField04)
+            Dim objFieldCustomText05 As ClassFieldAny
+            objFieldCustomText05 = CacheForEditing.GetFieldByFieldEnum(EnumCIBFields.TextField05)
+
+            ''
             ''Run through the list of enumerated values. 
             ''
             For Each each_enum As EnumCIBFields In listOfEnumsToCheck

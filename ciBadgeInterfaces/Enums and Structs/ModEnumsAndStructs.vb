@@ -70,7 +70,7 @@ Public Module ModEnumsAndStructs
     ''
     Public Enum EnumCIBFields
 
-        Undetermined
+        Undetermined ''Field Index 0 
 
         ''   [idsCardDataID] [numeric](18, 0) IDENTITY (1, 1) Not NULL ,
         ''   [idfConfigID] [int] NULL ,
@@ -79,12 +79,12 @@ Public Module ModEnumsAndStructs
         ''   [fstrMidName] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
         ''   [fstrID] [varchar] (30) COLLATE SQL_Latin1_General_CP1_CI_AS Not NULL ,
 
-        idsCardDataID
-        idfConfigID
-        fstrLastName
-        fstrFirstName
-        fstrMidName
-        fstrID
+        idsCardDataID ''Field Index 1
+        idfConfigID ''Field Index 2
+        fstrLastName ''Field Index 3
+        fstrFirstName ''Field Index 4
+        fstrMidName ''Field Index 5
+        fstrID ''Field Index 6
 
         ''Added 11/25/2021 thomas downes
         fstrFullName ''Added 11/25/2021 thomas downes
@@ -94,21 +94,21 @@ Public Module ModEnumsAndStructs
         ''   [idfReportID] [int] NULL ,
         ''   [fstrBarcode] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
 
-        fdateRecDate
-        idfReportID
-        fstrBarCode
+        fdateRecDate  ''Field Index 9
+        idfReportID ''Field Index 10
+        fstrBarCode ''Field Index 11
 
-        fstrAddress ''[fstrAddress] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
-        fstrCity ''[fstrCity] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
-        fstrState ''[fstrState] [char] (2) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
-        fstrZip ''[fstrZip] [varchar] (10) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+        fstrAddress ''F.I.#12  [fstrAddress] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+        fstrCity ''F.I.#13    [fstrCity] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+        fstrState ''F.I.#14  [fstrState] [char] (2) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+        fstrZip ''F.I.#15   [fstrZip] [varchar] (10) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
 
-        blnBatchPrint ''[blnBatchPrint] [bit] NULL ,
+        blnBatchPrint ''F.I.#16  [blnBatchPrint] [bit] NULL ,
         ''---- Added 1/28/2019 thomas downes, for https://app.asana.com/0/0/872801181163659/f 
-        intTimesPrinted ''[intTimesPrinted] [int] NULL CONSTRAINT [DF_tblCardData_intTimesPrinted] Default 0 ,
-        fdatTimeStamp ''[fdatTimeStamp] [datetime] NULL ,
-        fintRecPool
-        fstrRFID_Unique
+        intTimesPrinted ''F.I.#17  [intTimesPrinted] [int] NULL CONSTRAINT [DF_tblCardData_intTimesPrinted] Default 0 ,
+        fdatTimeStamp ''F.I.#18  [fdatTimeStamp] [datetime] NULL ,
+        fintRecPool ''F.I.#19
+        fstrRFID_Unique ''F.I.#20
 
         TextField01 ''  [TextField01] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
         TextField02 ''[TextField02] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,

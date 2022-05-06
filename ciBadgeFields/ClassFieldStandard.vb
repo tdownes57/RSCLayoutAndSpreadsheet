@@ -169,6 +169,8 @@ Public Class ClassFieldStandard
     Public Shared ListOfFields_Students As New HashSet(Of ClassFieldStandard)
     Public Shared ListOfFields_Staff As New HashSet(Of ClassFieldStandard)
 
+    Public Shared FieldIndexHighest As Integer = -1 ''Added 5/5/2022 td
+
     ''---4/22/2020 td----Private Shared ms_lastFieldIndex As Integer ''Added 4/22/2020 thomas downes
 
     Public Sub New()
@@ -315,96 +317,102 @@ Public Class ClassFieldStandard
         Dim boolExitSub As Boolean = False ''Added 3/23/2022 td
 
 
-        ''Added 3/23/2022 thomas d
-        intFieldIndex = 16 ''Added 3/23/2022 td
-        Dim new_object991 As New ClassFieldStandard
-        With new_object991
+        ''Moved below 5/5/2022 td ''''Added 3/23/2022 thomas d
+        ''Moved below 5/5/2022 td ''intFieldIndex = 16 ''Added 3/23/2022 td
+        ''Moved below 5/5/2022 td ''Dim new_object991 As New ClassFieldStandard
+        ''Moved below 5/5/2022 td ''With new_object991
 
-            .FieldIndex = intFieldIndex ''Added 3/23/2022 td
+        ''    .FieldIndex = intFieldIndex ''Added 3/23/2022 td
 
-            .FieldEnumValue = EnumCIBFields.fstrFullName ''Added 3/23/2022 td
-            ''Added 3/23/2022
-            If (par_singleEnum = .FieldEnumValue) Then pref_singleField = new_object991
+        ''    .FieldEnumValue = EnumCIBFields.fstrFullName ''Added 3/23/2022 td
+        ''    ''Added 3/23/2022
+        ''    If (par_singleEnum = .FieldEnumValue) Then pref_singleField = new_object991
 
-            .IsCustomizable = False ''Added 7/26/2019 td 
-            .FieldLabelCaption = "Full Name"
-            .CIBadgeField = "fstrFullName"
-            ''T = Text, D = Date
-            .FieldType_TD = "T"c
-            .HasPresetValues = False
-            .IsAdditionalField = False
-            .IsFieldForDates = False
-            .IsRelevantToPersonality = True ''5/5/2022 False ''Added 5/05/2022
-            .IsDisplayedForEdits = True ''5/5/2022 False
-            .IsDisplayedOnBadge = True ''5/5/2022 False
-            .IsLocked = False
+        ''    .IsCustomizable = False ''Added 7/26/2019 td 
+        ''    .FieldLabelCaption = "Full Name"
+        ''    .CIBadgeField = "fstrFullName"
+        ''    ''T = Text, D = Date
+        ''    .FieldType_TD = "T"c
+        ''    .HasPresetValues = False
+        ''    .IsAdditionalField = False
+        ''    .IsFieldForDates = False
+        ''    .IsRelevantToPersonality = True ''5/5/2022 False ''Added 5/05/2022
+        ''    .IsDisplayedForEdits = True ''5/5/2022 False
+        ''    .IsDisplayedOnBadge = True ''5/5/2022 False
+        ''    .IsLocked = False
 
-            ''Added 9/3/2019 td
-            ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementFieldClass = New ClassElementField()
+        ''    ''Added 9/3/2019 td
+        ''    ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementFieldClass = New ClassElementField()
 
-        End With ''end of "With new_object991"
+        ''End With ''end of "With new_object991"
 
-        ''#1 5/5/2022 ''If (Not pbDontSaveToList) Then _
-        ''#1 5/5/2022 ''   ListOfFields_Students.Add(new_object991)
+        ''''#1 5/5/2022 ''If (Not pbDontSaveToList) Then _
+        ''''#1 5/5/2022 ''   ListOfFields_Students.Add(new_object991)
 
-        If (pboolSingleField And (pref_singleField IsNot Nothing)) Then
-            ''Add it to the list. 
-            If (Not pbDontSaveToList) Then ListOfFields_Students.Add(new_object991)
-            Exit Sub ''Added 3/23/2022
-        ElseIf (pbDontSaveToList) Then
-            ''Don't save it to the list of fields. ---5/5/2022
-        ElseIf (pboolSingleField) Then
-            ''Don't save it to the list of fields. ---5/5/2022 
-        Else
-            ListOfFields_Students.Add(new_object991)
-        End If ''End of ""If (pboolSingleField And (pref_singleField IsNot Nothing)) Then""
-
-
-        ''Added 3/23/2022 thomas d
-        intFieldIndex = 17 ''Added 3/23/2022 td
-        Dim new_object992 As New ClassFieldStandard
-        With new_object992
-
-            .FieldIndex = intFieldIndex ''Added 3/23/2022 td
-
-            .FieldEnumValue = EnumCIBFields.fstrNameAbbreviated ''Added 3/23/2022 td
-            ''Added 3/23/2022
-            If (par_singleEnum = .FieldEnumValue) Then pref_singleField = new_object992
-
-            .IsCustomizable = False ''Added 7/26/2019 td 
-            .FieldLabelCaption = "Abbreviated Name"
-            .CIBadgeField = "fstrNameAbbreviated"
-            .FieldType_TD = "T"c
-            .HasPresetValues = False
-            .IsAdditionalField = False
-            .IsFieldForDates = False
-            .IsRelevantToPersonality = False ''True ''5/5/2022 False ''Added 5/05/2022
-            .IsDisplayedForEdits = False ''True ''5/5/2022 False
-            .IsDisplayedOnBadge = False ''True ''5/5/2022 False
-            .IsLocked = False
-
-            ''Added 9/3/2019 td
-            ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementFieldClass = New ClassElementField()
-
-        End With ''end of "With new_object992"
-
-        ''If (Not pbDontSaveToList) Then _
-        ''   ListOfFields_Students.Add(new_object992)
-        ''If (pboolSingleField And (pref_singleField IsNot Nothing)) Then Exit Sub ''Added 3/23/2022
-
-        If (pboolSingleField And (pref_singleField IsNot Nothing)) Then
-            ''Add it to the list.  ---5/5/2022
-            If (Not pbDontSaveToList) Then ListOfFields_Students.Add(new_object992)
-            Exit Sub ''Added 3/23/2022
-        ElseIf (pbDontSaveToList) Then
-            ''Don't save it to the list of fields. ---5/5/2022
-        ElseIf (pboolSingleField) Then
-            ''Don't save it to the list of fields. ---5/5/2022 
-        Else
-            ListOfFields_Students.Add(new_object992)
-        End If ''End of ""If (pboolSingleField And (pref_singleField IsNot Nothing)) Then""
+        ''If (pboolSingleField And (pref_singleField IsNot Nothing)) Then
+        ''    ''Add it to the list. 
+        ''    If (Not pbDontSaveToList) Then ListOfFields_Students.Add(new_object991)
+        ''    Exit Sub ''Added 3/23/2022
+        ''ElseIf (pbDontSaveToList) Then
+        ''    ''Don't save it to the list of fields. ---5/5/2022
+        ''ElseIf (pboolSingleField) Then
+        ''    ''Don't save it to the list of fields. ---5/5/2022 
+        ''Else
+        ''    ListOfFields_Students.Add(new_object991)
+        ''End If ''End of ""If (pboolSingleField And (pref_singleField IsNot Nothing)) Then""
 
 
+        ''Moved below 5/5/2022 td ''''Added 3/23/2022 thomas d
+        ''Moved below 5/5/2022 td ''intFieldIndex = 17 ''Added 3/23/2022 td
+        ''Moved below 5/5/2022 td ''Dim new_object992 As New ClassFieldStandard
+        ''Moved below 5/5/2022 td ''With new_object992
+
+        ''    .FieldIndex = intFieldIndex ''Added 3/23/2022 td
+
+        ''    .FieldEnumValue = EnumCIBFields.fstrNameAbbreviated ''Added 3/23/2022 td
+        ''    ''Added 3/23/2022
+        ''    If (par_singleEnum = .FieldEnumValue) Then pref_singleField = new_object992
+
+        ''    .IsCustomizable = False ''Added 7/26/2019 td 
+        ''    .FieldLabelCaption = "Abbreviated Name"
+        ''    .CIBadgeField = "fstrNameAbbreviated"
+        ''    .FieldType_TD = "T"c
+        ''    .HasPresetValues = False
+        ''    .IsAdditionalField = False
+        ''    .IsFieldForDates = False
+        ''    .IsRelevantToPersonality = False ''True ''5/5/2022 False ''Added 5/05/2022
+        ''    .IsDisplayedForEdits = False ''True ''5/5/2022 False
+        ''    .IsDisplayedOnBadge = False ''True ''5/5/2022 False
+        ''    .IsLocked = False
+
+        ''    ''Added 9/3/2019 td
+        ''    ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementFieldClass = New ClassElementField()
+
+        ''End With ''end of "With new_object992"
+
+        ''''If (Not pbDontSaveToList) Then _
+        ''''   ListOfFields_Students.Add(new_object992)
+        ''''If (pboolSingleField And (pref_singleField IsNot Nothing)) Then Exit Sub ''Added 3/23/2022
+
+        ''If (pboolSingleField And (pref_singleField IsNot Nothing)) Then
+        ''    ''Add it to the list.  ---5/5/2022
+        ''    If (Not pbDontSaveToList) Then ListOfFields_Students.Add(new_object992)
+        ''    Exit Sub ''Added 3/23/2022
+        ''ElseIf (pbDontSaveToList) Then
+        ''    ''Don't save it to the list of fields. ---5/5/2022
+        ''ElseIf (pboolSingleField) Then
+        ''    ''Don't save it to the list of fields. ---5/5/2022 
+        ''Else
+        ''    ListOfFields_Students.Add(new_object992)
+        ''End If ''End of ""If (pboolSingleField And (pref_singleField IsNot Nothing)) Then""
+
+        ''------------------------------------------------------------------------------
+        ''idsCardDataID ''Field Index 1
+        ''idfConfigID ''Field Index 2
+        ''fstrLastName ''Field Index 3
+        ''fstrFirstName ''Field Index 4
+        ''fstrMidName ''Field Index 5
+        ''fstrID ''Field Index 6
 
         intFieldIndex = 1 ''Added 9/17/2019 td
         Dim new_objectField1 As New ClassFieldStandard
@@ -1072,6 +1080,12 @@ Public Class ClassFieldStandard
         End If ''End of ""If (pboolSingleField And (pref_singleField IsNot Nothing)) Then""
 
 
+        ''blnBatchPrint ''F.I.#16  [blnBatchPrint] [bit] NULL ,
+        ''''---- Added 1/28/2019 thomas downes, for https://app.asana.com/0/0/872801181163659/f 
+        ''intTimesPrinted ''F.I.#17  [intTimesPrinted] [int] NULL CONSTRAINT [DF_tblCardData_intTimesPrinted] Default 0 ,
+        ''fdatTimeStamp ''F.I.#18  [fdatTimeStamp] [datetime] NULL ,
+        ''fintRecPool ''F.I.#19
+        ''fstrRFID_Unique ''F.I.#20
 
         ''Added 8/23/2019 thomas d
         intFieldIndex = 15 ''Added 9/17/2019 td
@@ -1117,6 +1131,105 @@ Public Class ClassFieldStandard
         End If ''End of ""If (pboolSingleField And (pref_singleField IsNot Nothing)) Then""
 
 
+
+        ''Added 3/23/2022 thomas d
+        intFieldIndex = 16 ''Added 3/23/2022 td
+        Dim new_object991 As New ClassFieldStandard
+        With new_object991
+
+            .FieldIndex = intFieldIndex ''Added 3/23/2022 td
+
+            .FieldEnumValue = EnumCIBFields.fstrFullName ''Added 3/23/2022 td
+            ''Added 3/23/2022
+            If (par_singleEnum = .FieldEnumValue) Then pref_singleField = new_object991
+
+            .IsCustomizable = False ''Added 7/26/2019 td 
+            .FieldLabelCaption = "Full Name"
+            .CIBadgeField = "fstrFullName"
+            ''T = Text, D = Date
+            .FieldType_TD = "T"c
+            .HasPresetValues = False
+            .IsAdditionalField = False
+            .IsFieldForDates = False
+            .IsRelevantToPersonality = True ''5/5/2022 False ''Added 5/05/2022
+            .IsDisplayedForEdits = True ''5/5/2022 False
+            .IsDisplayedOnBadge = True ''5/5/2022 False
+            .IsLocked = False
+
+            ''Added 9/3/2019 td
+            ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementFieldClass = New ClassElementField()
+
+        End With ''end of "With new_object991"
+
+        ''#1 5/5/2022 ''If (Not pbDontSaveToList) Then _
+        ''#1 5/5/2022 ''   ListOfFields_Students.Add(new_object991)
+
+        If (pboolSingleField And (pref_singleField IsNot Nothing)) Then
+            ''Add it to the list. 
+            If (Not pbDontSaveToList) Then ListOfFields_Students.Add(new_object991)
+            Exit Sub ''Added 3/23/2022
+        ElseIf (pbDontSaveToList) Then
+            ''Don't save it to the list of fields. ---5/5/2022
+        ElseIf (pboolSingleField) Then
+            ''Don't save it to the list of fields. ---5/5/2022 
+        Else
+            ListOfFields_Students.Add(new_object991)
+        End If ''End of ""If (pboolSingleField And (pref_singleField IsNot Nothing)) Then""
+
+
+        ''Added 3/23/2022 thomas d
+        intFieldIndex = 17 ''Added 3/23/2022 td
+        Dim new_object992 As New ClassFieldStandard
+        With new_object992
+
+            .FieldIndex = intFieldIndex ''Added 3/23/2022 td
+
+            .FieldEnumValue = EnumCIBFields.fstrNameAbbreviated ''Added 3/23/2022 td
+            ''Added 3/23/2022
+            If (par_singleEnum = .FieldEnumValue) Then pref_singleField = new_object992
+
+            .IsCustomizable = False ''Added 7/26/2019 td 
+            .FieldLabelCaption = "Abbreviated Name"
+            .CIBadgeField = "fstrNameAbbreviated"
+            .FieldType_TD = "T"c
+            .HasPresetValues = False
+            .IsAdditionalField = False
+            .IsFieldForDates = False
+            .IsRelevantToPersonality = False ''True ''5/5/2022 False ''Added 5/05/2022
+            .IsDisplayedForEdits = False ''True ''5/5/2022 False
+            .IsDisplayedOnBadge = False ''True ''5/5/2022 False
+            .IsLocked = False
+
+            ''Added 9/3/2019 td
+            ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementFieldClass = New ClassElementField()
+
+        End With ''end of "With new_object992"
+
+        ''If (Not pbDontSaveToList) Then _
+        ''   ListOfFields_Students.Add(new_object992)
+        ''If (pboolSingleField And (pref_singleField IsNot Nothing)) Then Exit Sub ''Added 3/23/2022
+
+        If (pboolSingleField And (pref_singleField IsNot Nothing)) Then
+            ''Add it to the list.  ---5/5/2022
+            If (Not pbDontSaveToList) Then ListOfFields_Students.Add(new_object992)
+            Exit Sub ''Added 3/23/2022
+        ElseIf (pbDontSaveToList) Then
+            ''Don't save it to the list of fields. ---5/5/2022
+        ElseIf (pboolSingleField) Then
+            ''Don't save it to the list of fields. ---5/5/2022 
+        Else
+            ListOfFields_Students.Add(new_object992)
+        End If ''End of ""If (pboolSingleField And (pref_singleField IsNot Nothing)) Then""
+
+        ''Added 5/5/2022 td 
+        FieldIndexHighest = intFieldIndex
+
+        ''blnBatchPrint ''F.I.#16  [blnBatchPrint] [bit] NULL ,
+        ''''---- Added 1/28/2019 thomas downes, for https://app.asana.com/0/0/872801181163659/f 
+        ''intTimesPrinted ''F.I.#17  [intTimesPrinted] [int] NULL CONSTRAINT [DF_tblCardData_intTimesPrinted] Default 0 ,
+        ''fdatTimeStamp ''F.I.#18  [fdatTimeStamp] [datetime] NULL ,
+        ''fintRecPool ''F.I.#19
+        ''fstrRFID_Unique ''F.I.#20
 
 ExitHandler:
         ''
