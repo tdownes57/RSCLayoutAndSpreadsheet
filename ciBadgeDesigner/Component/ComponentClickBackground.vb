@@ -73,7 +73,7 @@ Public Class ComponentClickBackground
         ''--Jan22 2022--mod_menuCacheNonShared = New MenuCache_NonShared(EnumElementType.__Desktop,
         ''--Jan22 2022--                                        mod_objOperationsDesktop.GetType(),
         ''--Jan22 2022--                                        mod_objOperationsDesktop)
-        mod_menuCacheNonShared = New MenuCache_NonShared(EnumElementType.__Background,
+        mod_menuCacheNonShared = New MenuCache_ActualInUse(EnumElementType.__Background,
                     objOperationsBackground.GetType(),
                     objOperationsBackground)
 
@@ -156,7 +156,7 @@ Public Class ComponentClickBackground
         ''
         MyBase.ContextMenuStrip1 = New ContextMenuStrip()
 
-        mod_menuCacheNonShared = New MenuCache_NonShared(mod_enumElementType,
+        mod_menuCacheNonShared = New MenuCache_ActualInUse(mod_enumElementType,
                  mod_objOperationsAny.GetType(), mod_objOperationsAny)
 
         mod_menuCacheNonShared.GenerateMenuItems_IfNeeded()

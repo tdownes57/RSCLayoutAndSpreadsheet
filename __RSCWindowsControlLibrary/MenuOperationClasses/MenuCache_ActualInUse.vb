@@ -6,7 +6,8 @@ Imports ciBadgeInterfaces ''Added 10/14/2019 td
 Imports ciBadgeDesigner ''Added 10/14/2019 td
 ''----Imports ciBadgeFields ''Added 12/13/2021 thomas d. 
 
-Public Class MenuCache_NonShared
+Public Class MenuCache_ActualInUse ''Replaced "_NonShared" with "_InUse" May 6, 2022 ''MenuCache_NonShared
+    ''May 6, 2022 ''Public Class MenuCache_NonShared
     Implements ICurrentElement
     ''
     ''Added 12/27/2021 thomas downes
@@ -112,7 +113,9 @@ Public Class MenuCache_NonShared
 
         ''12/13/2021''Generate_BasicEdits()
         ''12/28/2021''Generate_BasicEdits(mod_operationsGenericEdits.GetType())
-        Generate_BasicEdits(Me.OperationsType, True)
+        ''05/6/2022 ''Generate_BasicEdits(Me.OperationsType, True)
+
+        Generate_BasicEdits(Me.OperationsType, False) ''False, as the aqua-colored headers are obtrusive. ---5/06/2022 
         Generate_Grouped()
         Generate_Aligning()
 
@@ -148,7 +151,8 @@ Public Class MenuCache_NonShared
     End Sub ''End of "Public Sub GenerateMenuItems_IfNeeded()"
 
 
-    Private Sub Generate_BasicEdits(par_typeOperations As Type, pbIncludeHeaders As Boolean) ''Dec.13 2021'' (par_fieldAny As ciBadgeFields.ClassFieldAny)
+    Private Sub Generate_BasicEdits(par_typeOperations As Type,
+                    Optional pbIncludeHeaders As Boolean = False) ''Dec.13 2021'' (par_fieldAny As ciBadgeFields.ClassFieldAny)
         ''
         ''We will use Reflection to build this cache of menu controls.
         ''   ("Dim each_methodInfo As Reflection.MethodInfo") 

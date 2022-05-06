@@ -1,6 +1,6 @@
 ﻿Imports System.Reflection ''Added 1/21/2022 thomas D. 
 
-Partial Public Class MenuCache_Generic
+Partial Public Class MenuCache_Generic_NotUsed
 
 
     Private Sub Generate_ReflectionWork_Deprecated(par_typeOperations As Type,

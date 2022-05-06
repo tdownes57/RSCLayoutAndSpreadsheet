@@ -6,7 +6,7 @@ Imports ciBadgeInterfaces ''Added 10/14/2019 td
 Imports ciBadgeDesigner ''Added 10/14/2019 td
 Imports ciBadgeFields ''Added 12/13/2021 thomas d. 
 
-Public Class MenuCache_Generic
+Public Class MenuCache_Generic_NotUsed
     ''
     ''Added 12/27/2021 thomas downes
     ''Added 10/2/2019 thomas downes  
@@ -200,26 +200,26 @@ Public Class MenuCache_Generic
         toolMenuItemSeparator.Text = "-----Editing Operations follow------" ''Perhaps this will produce a separator line, just like in the old VB6 days. 
 
         ''toolMenuItemHeader1 = toolMenuItemHeader1
-        MenuCache_Generic.Tools_EditElementMenu.Add(toolMenuItemHeader0)
-        MenuCache_Generic.Tools_EditElementMenu.Add(toolMenuItemHeader1)
-        MenuCache_Generic.Tools_EditElementMenu.Add(toolMenuItemHeader2)
-        MenuCache_Generic.Tools_EditElementMenu.Add(toolMenuItemHeader3)
-        MenuCache_Generic.Tools_EditElementMenu.Add(toolMenuItemHeader4a)
-        MenuCache_Generic.Tools_EditElementMenu.Add(toolMenuItemHeader4b)
-        MenuCache_Generic.Tools_EditElementMenu.Add(toolMenuItemSeparator)
+        MenuCache_Generic_NotUsed.Tools_EditElementMenu.Add(toolMenuItemHeader0)
+        MenuCache_Generic_NotUsed.Tools_EditElementMenu.Add(toolMenuItemHeader1)
+        MenuCache_Generic_NotUsed.Tools_EditElementMenu.Add(toolMenuItemHeader2)
+        MenuCache_Generic_NotUsed.Tools_EditElementMenu.Add(toolMenuItemHeader3)
+        MenuCache_Generic_NotUsed.Tools_EditElementMenu.Add(toolMenuItemHeader4a)
+        MenuCache_Generic_NotUsed.Tools_EditElementMenu.Add(toolMenuItemHeader4b)
+        MenuCache_Generic_NotUsed.Tools_EditElementMenu.Add(toolMenuItemSeparator)
 
-        MenuCache_Generic.Tools_MenuHeader0 = toolMenuItemHeader0
-        MenuCache_Generic.Tools_MenuHeader1 = toolMenuItemHeader1
-        MenuCache_Generic.Tools_MenuHeader2 = toolMenuItemHeader2
-        MenuCache_Generic.Tools_MenuHeader3 = toolMenuItemHeader3
-        MenuCache_Generic.Tools_MenuSeparator = toolMenuItemSeparator
+        MenuCache_Generic_NotUsed.Tools_MenuHeader0 = toolMenuItemHeader0
+        MenuCache_Generic_NotUsed.Tools_MenuHeader1 = toolMenuItemHeader1
+        MenuCache_Generic_NotUsed.Tools_MenuHeader2 = toolMenuItemHeader2
+        MenuCache_Generic_NotUsed.Tools_MenuHeader3 = toolMenuItemHeader3
+        MenuCache_Generic_NotUsed.Tools_MenuSeparator = toolMenuItemSeparator
 
         ''objInfo = (TypeOf objClass1)
 
         ''Dec28, 2021''Generate_ReflectionWork(mod_operationsGenericEdits.GetType())
         Generate_ReflectionWork(par_typeOperations,
-                                MenuCache_Generic.Links_EditElementMenu,
-                                MenuCache_Generic.Tools_EditElementMenu)
+                                MenuCache_Generic_NotUsed.Links_EditElementMenu,
+                                MenuCache_Generic_NotUsed.Tools_EditElementMenu)
 
     End Sub ''End of "Private Shared Sub Generate_BasicEdits()"
 

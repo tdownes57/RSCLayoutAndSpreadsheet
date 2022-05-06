@@ -9,7 +9,7 @@ Imports System.Windows.Forms ''Added 12/30/2021 td
 Imports System.Drawing ''Added 12/30/2021 td
 Imports __RSCWindowsControlLibrary ''Added 12/30/2021 td
 
-Public Class MenuCache_Generic ''Renamed 12/30/2021 ''MenuCache_NonShared 
+Public Class MenuCache_Generic_NotUsed ''Renamed 12/30/2021 ''MenuCache_NonShared 
     Implements ICurrentElement
     ''
     ''Added 12/27/2021 thomas downes
@@ -149,7 +149,9 @@ Public Class MenuCache_Generic ''Renamed 12/30/2021 ''MenuCache_NonShared
 
     End Sub ''End of "Public Sub GenerateMenuItems_IfNeeded()"
 
-    Private Sub Generate_BasicEdits(par_typeOperations As Type, Optional pbIncludeHeaders As Boolean = True) ''Dec.13 2021'' (par_fieldAny As ciBadgeFields.ClassFieldAny)
+
+    Private Sub Generate_BasicEdits(par_typeOperations As Type,
+                   Optional pbIncludeHeaders As Boolean = False) ''Dec.13 2021'' (par_fieldAny As ciBadgeFields.ClassFieldAny)
         ''
         ''We will use Reflection to build this cache of menu controls.
         ''   ("Dim each_methodInfo As Reflection.MethodInfo") 

@@ -1065,7 +1065,7 @@ Public Class RSCMoveableControlVB
 
 
     ''Added 12/28/2021 td  
-    Private mod_menuCacheNonShared As MenuCache_NonShared = Nothing ''New Operations_Generic(Me)
+    Private mod_menuCacheNonShared As MenuCache_ActualInUse = Nothing ''New Operations_Generic(Me)
     ''Dec28 2021 td''Private mod_menuCacheUseless As MenuCache_NonShared = Nothing ''New Operations_Useless(Me)
     Private mod_objOperationsGeneric As Operations__Generic = Nothing ''New Operations_Generic(Me)
     Private mod_objOperationsUseless As Operations__Useless = Nothing ''New Operations_Useless(Me)
@@ -1095,32 +1095,32 @@ Public Class RSCMoveableControlVB
         Select Case par_enum
 
             Case EnumElementType.Field
-                mod_menuCacheNonShared = New MenuCache_NonShared(EnumElementType.Field,
+                mod_menuCacheNonShared = New MenuCache_ActualInUse(EnumElementType.Field,
                                                        mod_objOperationsGeneric.GetType(),
                                                        mod_objOperationsGeneric)
 
             Case EnumElementType.Portrait
-                mod_menuCacheNonShared = New MenuCache_NonShared(EnumElementType.Portrait,
+                mod_menuCacheNonShared = New MenuCache_ActualInUse(EnumElementType.Portrait,
                                                        mod_objOperationsUseless.GetType(),
                                                        mod_objOperationsUseless)
 
             Case EnumElementType.QRCode
-                mod_menuCacheNonShared = New MenuCache_NonShared(EnumElementType.QRCode,
+                mod_menuCacheNonShared = New MenuCache_ActualInUse(EnumElementType.QRCode,
                                                        mod_objOperationsGeneric.GetType(),
                                                        mod_objOperationsGeneric)
 
             Case EnumElementType.Signature
-                mod_menuCacheNonShared = New MenuCache_NonShared(EnumElementType.Signature,
+                mod_menuCacheNonShared = New MenuCache_ActualInUse(EnumElementType.Signature,
                                                        mod_objOperationsUseless.GetType(),
                                                        mod_objOperationsUseless)
 
             Case EnumElementType.StaticGraphic
-                mod_menuCacheNonShared = New MenuCache_NonShared(EnumElementType.StaticGraphic,
+                mod_menuCacheNonShared = New MenuCache_ActualInUse(EnumElementType.StaticGraphic,
                                                        mod_objOperationsGeneric.GetType(),
                                                        mod_objOperationsGeneric)
 
             Case EnumElementType.StaticText
-                mod_menuCacheNonShared = New MenuCache_NonShared(EnumElementType.StaticText,
+                mod_menuCacheNonShared = New MenuCache_ActualInUse(EnumElementType.StaticText,
                                                        mod_objOperationsUseless.GetType(),
                                                        mod_objOperationsUseless)
 
@@ -1376,12 +1376,12 @@ Public Class RSCMoveableControlVB
         ''
         ''Added 10/13/2019 thomas downes  
         ''
-        MenuCache_Generic.CtlCurrentElement = Me ''par_control ''Added 10/14/2019 td  
+        MenuCache_Generic_NotUsed.CtlCurrentElement = Me ''par_control ''Added 10/14/2019 td  
         ''#1 Dec28 2021 td''MenuCache_Generic.Operations_Edit.CtlCurrentElement = Me ''par_control ''Added 10/14/2019 td
         ''#2 Dec28 2021 td''mod_operationsGenericEdits.CtlCurrentElement = Me ''Modified 12/28/2021 td
 
         ''Added 12/28/2021 thomas downes
-        mod_menuCacheNonShared = New MenuCache_NonShared(mod_enumElementType,
+        mod_menuCacheNonShared = New MenuCache_ActualInUse(mod_enumElementType,
                                                          mod_objOperationsAny.GetType(), mod_objOperationsAny)
         ''Added 12/28/2021 thomas downes
         mod_menuCacheNonShared.GenerateMenuItems_IfNeeded()

@@ -53,7 +53,7 @@ Public Class ComponentClickableDesktop
         objOperationsDesktop.DesignerClass = par_objectDesigner
 
         mod_objOperationsAny = mod_objOperationsDesktop
-        mod_menuCacheNonShared = New MenuCache_NonShared(EnumElementType.__Desktop,
+        mod_menuCacheNonShared = New MenuCache_ActualInUse(EnumElementType.__Desktop,
                                                        mod_objOperationsDesktop.GetType(),
                                                        mod_objOperationsDesktop)
 

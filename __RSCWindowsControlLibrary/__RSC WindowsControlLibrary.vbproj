@@ -73,8 +73,8 @@
     <Compile Include="Classes\ClassDisplayContextMenu.vb" />
     <Compile Include="Classes\ClassLayoutFunctions.vb" />
     <Compile Include="Classes\ClassSaveToModel.vb" />
-    <Compile Include="MenuOperationClasses\MenuCache_Generic.vb" />
-    <Compile Include="MenuOperationClasses\MenuCache_NonShared.vb" />
+    <Compile Include="MenuOperationClasses\MenuCache_Generic_NotUsed.vb" />
+    <Compile Include="MenuOperationClasses\MenuCache_ActualInUse.vb" />
     <Compile Include="Classes\MessageBoxTD.vb" />
     <Compile Include="MenuOperationClasses\Operations__Desktop_Dummy.vb" />
     <Compile Include="MenuOperationClasses\Operations__Generic.vb" />

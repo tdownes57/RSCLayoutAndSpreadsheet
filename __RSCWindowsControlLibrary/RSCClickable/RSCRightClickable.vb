@@ -35,7 +35,7 @@ Public Class RSCRightClickable ''---April 25 2022---RSCClickableDesktop
     Protected mod_enumElementType As EnumElementType ''Added 12/28/2021 td
 
     ''Added 12/28/2021 td  
-    Protected mod_menuCacheNonShared As MenuCache_NonShared = Nothing ''New Operations_Generic(Me)
+    Protected mod_menuCacheNonShared As MenuCache_ActualInUse = Nothing ''New Operations_Generic(Me)
     ''Dec28 2021 td''Private mod_menuCacheUseless As MenuCache_NonShared = Nothing ''New Operations_Useless(Me)
     Protected mod_objOperationsGeneric As Operations__Generic = Nothing ''New Operations_Generic(Me)
     Protected mod_objOperationsUseless As Operations__Useless = Nothing ''New Operations_Useless(Me)
@@ -71,7 +71,7 @@ Public Class RSCRightClickable ''---April 25 2022---RSCClickableDesktop
         mod_objOperationsDesktop = New Operations__Desktop_Dummy()
         mod_objOperationsAny = mod_objOperationsDesktop
 
-        mod_menuCacheNonShared = New MenuCache_NonShared(EnumElementType.__Desktop,
+        mod_menuCacheNonShared = New MenuCache_ActualInUse(EnumElementType.__Desktop,
                                                        mod_objOperationsDesktop.GetType(),
                                                        mod_objOperationsDesktop)
 
@@ -110,7 +110,7 @@ Public Class RSCRightClickable ''---April 25 2022---RSCClickableDesktop
         ''
         Me.ContextMenuStrip1 = New ContextMenuStrip()
 
-        mod_menuCacheNonShared = New MenuCache_NonShared(mod_enumElementType,
+        mod_menuCacheNonShared = New MenuCache_ActualInUse(mod_enumElementType,
                  mod_objOperationsAny.GetType(), mod_objOperationsAny)
         ''Added 12/28/2021 thomas downes
         mod_menuCacheNonShared.GenerateMenuItems_IfNeeded()

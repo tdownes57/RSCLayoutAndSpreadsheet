@@ -27,7 +27,7 @@ Public Class Operations_StaticTextV3
     ''Added 12/12/2021 td
     ''
     ''Dec30 2021 td''Public Property Parent_MenuCache As MenuCache_StaticText ''Added 12/15/2021 td 
-    Public Property Parent_MenuCache As MenuCache_Generic ''Modified 12/30/2021 td 
+    Public Property Parent_MenuCache As MenuCache_Generic_NotUsed ''Modified 12/30/2021 td 
 
     Public WithEvents MyLinkLabel As New LinkLabel ''Added 10/11/2019 td 
     Public WithEvents MyToolstripItem As New ToolStripMenuItem ''Added 10/11/2019 td 
