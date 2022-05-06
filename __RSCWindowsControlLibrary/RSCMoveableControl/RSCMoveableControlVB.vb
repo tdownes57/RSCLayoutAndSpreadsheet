@@ -1538,7 +1538,7 @@ Public Class RSCMoveableControlVB
         ''
         ''1/2/2022 td''DirectCast(LastControlTouched_Deprecated, ISaveToModel).SaveToModel()
         ''5/5/2022 td''MessageBoxTD.Show_Statement("SaveToModel(). Programmer must override this base-class method, using the keyword Overrides.")
-        System.Diagnostics.Debugger.Break()
+        ''5/5/2022 td''System.Diagnostics.Debugger.Break()
 
         ''Added 5/5/2022 td
         If (Me.ElementBase IsNot Nothing) Then

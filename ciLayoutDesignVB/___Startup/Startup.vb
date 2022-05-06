@@ -770,6 +770,7 @@ Public Class Startup
             ''Added 10/13/2019 td
             obj_cache_elements = New ClassElementsCache_Deprecated
             obj_cache_elements.PathToXml_Saved = strPathToXML
+            obj_cache_elements.SaveToXML() ''Save to an XML file right away.--Added 5/5/2022 td
 
             ''Added 12/20/2021 td
             ''My.Settings.PathToSavedXML_Prior3 = My.Settings.PathToSavedXML_Prior2
@@ -786,7 +787,16 @@ Public Class Startup
                 .Id_GUID6 = .Id_GUID.ToString().Substring(0, 6)
             End With
 
+            ''
+            ''Load the field objects.  ---Commented 5/5/2022
+            ''
             obj_cache_elements.LoadFields()
+
+            ''Double-check that all the fields have been added.
+            ''  ----5/5/2022 td
+            Dim objManager As New ClassCacheManagement(obj_cache_elements, False, strPathToXML)
+            objManager.CheckForMissingFields_AllOfThem()
+
             ''5/3/2022 td''obj_cache_elements.LoadFieldElements(par_designForm.pictureBackgroundFront,
             ''5/3/2022 td''   New BadgeLayoutClass(par_designForm.pictureBackgroundFront))
             If (mc_boolPreloadElements) Then

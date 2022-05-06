@@ -376,19 +376,43 @@ Namespace ciBadgeCachePersonality
         End Sub ''End of "Public Sub CheckForOrphanedElements()"
 
 
+        Public Sub CheckForMissingFields_AllOfThem()
+            ''
+            ''Added 3/23/2022 thomas downes  
+            ''
+            Dim list_fieldEnums_all As List(Of EnumCIBFields)
+            Dim intNumFixed As Integer
+
+            list_fieldEnums_all = GetListOfAllFieldEnums()
+            CheckForMissingFields_FixOrNot(True, intNumFixed, list_fieldEnums_all)
+
+        End Sub ''end of ""Public Sub CheckForMissingFields_AllOfThem()""
+
+
         Public Function CheckForMissingFields_FixOrNot(pboolLetsFix As Boolean,
-                            Optional ByRef pint_numFixed As Integer = 0) As Boolean
+                            Optional ByRef pint_numFixed As Integer = 0,
+                            Optional par_list As List(Of EnumCIBFields) = Nothing) As Boolean
             ''
             ''Added 3/23/2022 thomas downes  
             ''
             Dim objField_IfFound As ClassFieldAny
             Dim outputBoolean_Missing As Boolean = False
-            Dim listOfEnumsToCheck As New List(Of EnumCIBFields)
+            Dim listOfEnumsToCheck As List(Of EnumCIBFields)
 
-            ''This is the list of enumerated values to double-check
-            ''----listOfEnumsToCheck.Add(EnumCIBFields.TextField25)
-            listOfEnumsToCheck.Add(EnumCIBFields.fstrFullName)
-            listOfEnumsToCheck.Add(EnumCIBFields.fstrNameAbbreviated)
+            If (par_list Is Nothing OrElse par_list.Count() = 0) Then
+                ''General a list of cutting-edge fields which might not
+                ''   have been instantied-as-objects yet.
+                ''   ----5/5/2022 td 
+                listOfEnumsToCheck = New List(Of EnumCIBFields)
+                ''This is the list of enumerated values to double-check
+                ''----listOfEnumsToCheck.Add(EnumCIBFields.TextField25)
+                listOfEnumsToCheck.Add(EnumCIBFields.fstrFullName)
+                listOfEnumsToCheck.Add(EnumCIBFields.fstrNameAbbreviated)
+
+            Else
+                listOfEnumsToCheck = par_list
+
+            End If ''End of ""If (par_list Is Nothing OrElse par_list.Count() = 0) Then.... Else..."
 
             ''
             ''Run through the list of enumerated values. 

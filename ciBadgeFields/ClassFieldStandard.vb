@@ -329,12 +329,14 @@ Public Class ClassFieldStandard
             .IsCustomizable = False ''Added 7/26/2019 td 
             .FieldLabelCaption = "Full Name"
             .CIBadgeField = "fstrFullName"
+            ''T = Text, D = Date
             .FieldType_TD = "T"c
             .HasPresetValues = False
             .IsAdditionalField = False
             .IsFieldForDates = False
-            .IsDisplayedForEdits = False
-            .IsDisplayedOnBadge = False
+            .IsRelevantToPersonality = True ''5/5/2022 False ''Added 5/05/2022
+            .IsDisplayedForEdits = True ''5/5/2022 False
+            .IsDisplayedOnBadge = True ''5/5/2022 False
             .IsLocked = False
 
             ''Added 9/3/2019 td
@@ -364,8 +366,9 @@ Public Class ClassFieldStandard
             .HasPresetValues = False
             .IsAdditionalField = False
             .IsFieldForDates = False
-            .IsDisplayedForEdits = False
-            .IsDisplayedOnBadge = False
+            .IsRelevantToPersonality = False ''True ''5/5/2022 False ''Added 5/05/2022
+            .IsDisplayedForEdits = False ''True ''5/5/2022 False
+            .IsDisplayedOnBadge = False ''True ''5/5/2022 False
             .IsLocked = False
 
             ''Added 9/3/2019 td
@@ -397,6 +400,8 @@ Public Class ClassFieldStandard
             .IsAdditionalField = False
             .IsFieldForDates = False
             .ExampleValue = "12345"
+            ''Added 5/5/2022 td 
+            .IsRelevantToPersonality = True ''Added 5/05/2022 td
             ''Added 8/23/2019 td
             .IsDisplayedForEdits = True
             .IsDisplayedOnBadge = True
@@ -441,6 +446,8 @@ Public Class ClassFieldStandard
             .HasPresetValues = False
             .IsAdditionalField = False
             .IsFieldForDates = False
+            ''Added 5/05/2022 td
+            .IsRelevantToPersonality = False ''---True ''Added 5/05/2022 td
             ''Added 8/23/2019 td
             .IsDisplayedForEdits = True
             .IsDisplayedOnBadge = True

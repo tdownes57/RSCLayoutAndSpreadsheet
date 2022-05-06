@@ -158,11 +158,30 @@ Public Module ModEnumsAndStructs
         ''
         Dim objList As New List(Of EnumCIBFields)
 
-        For intIndex = 0 To 1000
+        ''objList = new List(Of EnumCIBFields)
+        ''For intIndex = 0 To 1000
+        ''
+        ''    objList.Add(CType(intIndex, EnumCIBFields))
+        ''
+        ''Next intIndex
 
-            objList.Add(CType(intIndex, EnumCIBFields))
+        ''https://docs.microsoft.com/en-us/dotnet/visual-basic/programming-guide/language-features/constants-enums/how-to-iterate-through-an-enumeration
+        ''To iterate through an enumeration
+        ''Declare an array And convert the enumeration to it with the GetValues method before passing the array as you would any other variable. The following example displays each member of the enumeration FirstDayOfWeek as it iterates through the enumeration.()
+        ''
+        ''    Dim items As Array
+        ''    items = System.Enum.GetValues(GetType(FirstDayOfWeek))
+        ''    Dim item As String
+        ''    For Each item In items
+        ''       MsgBox(item)
+        ''    Next
 
-        Next intIndex
+        Dim arrayEnumItems As Array
+        arrayEnumItems = System.Enum.GetValues(GetType(EnumCIBFields))
+        Dim enum_item As EnumCIBFields
+        For Each enum_item In arrayEnumItems
+            objList.Add(enum_item)
+        Next
 
         Return objList
 

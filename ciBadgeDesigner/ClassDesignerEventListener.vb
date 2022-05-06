@@ -705,7 +705,11 @@ Public Class ClassDesignerEventListener
             ''Look for "... Handles SizingElementEvents.Moving_End" to see where the 
             ''  handling will take place. ---5/5/2022 td
             ''
-            If (SizingElementEvents IsNot Nothing) Then Exit Sub
+            If (SizingElementEvents IsNot Nothing) Then
+                ''May 5, 2022 td''----We don't need to exit ("Exit Sub") since I have  
+                ''May 5, 2022 td''----  commented out the other, redundant handler. ----5/5/2022 td
+                ''May 5, 2022 td''--Exit Sub
+            End If ''End of ""If (SizingElementEvents IsNot Nothing) Then""
 
         End If ''End of ""If (c_boolLetsHaveRedundantSaves) Then... Else....""
 
@@ -745,60 +749,63 @@ Public Class ClassDesignerEventListener
 
     End Sub ''End of "Private Sub MovingElement_End(par_control As Control)"
 
+    ''May 5, 2022 td''
+    ''May 5, 2022 td''---I have commented out this redundant handler. ---5/05/2022 td
+    ''May 5, 2022 td''
+    ''May 5, 2022 td''''Private Sub mod_sizing_events_Moving_End(par_control As Control, par_iSave As ISaveToModel) Handles SizingElementEvents.Moving_End
+    ''May 5, 2022 td''''    ''Dec17 2021    Private Sub mod_sizingPic_events_Moving_End() Handles mod_sizingEvents_Pics.Moving_End
+    ''May 5, 2022 td''
+    ''
+    ''    ''Added 10/9/2019 td
+    ''    ''12/17/2021 ''mod_designer.CtlGraphic_Portrait.SaveToModel() ''Added 12/16/2021 td 
 
-    Private Sub mod_sizing_events_Moving_End(par_control As Control, par_iSave As ISaveToModel) Handles SizingElementEvents.Moving_End
-        ''Dec17 2021    Private Sub mod_sizingPic_events_Moving_End() Handles mod_sizingEvents_Pics.Moving_End
+    ''    If (par_iSave Is Nothing) Then
+    ''        ''5/5/2022 td''mod_designer.CtlGraphic_Portrait.SaveToModel() ''Added 12/16/2021 td 
 
-        ''Added 10/9/2019 td
-        ''12/17/2021 ''mod_designer.CtlGraphic_Portrait.SaveToModel() ''Added 12/16/2021 td 
+    ''    Else
+    ''        ''5/5/2022 td ''par_iSave.SaveToModel() ''Added 12/17/2021 td  
+    ''        Const c_boolLetsHaveRedundantSaves As Boolean = False ''Added 5/5/2022 td
+    ''        If (c_boolLetsHaveRedundantSaves) Then ''Added 5/5/2022 td
+    ''            par_iSave.SaveToModel() ''Added 12/17/2021 td  
+    ''        End If ''End of ""If (c_boolLetsHaveRedundantSaves) Then""
 
-        If (par_iSave Is Nothing) Then
-            ''5/5/2022 td''mod_designer.CtlGraphic_Portrait.SaveToModel() ''Added 12/16/2021 td 
+    ''        ''
+    ''        ''Added 5/5/2022 td 
+    ''        ''
+    ''        ''  Call .SaveToModel() for the controls in the Grouped-Controls collection.
+    ''        ''   ---5/05/2022
+    ''        ''
+    ''        Dim bSameControlAsParameter As Boolean ''Added 5/5/2022 td
+    ''        For Each each_RSC As RSCMoveableControlVB In mod_designer.mod_selectedCtls
 
-        Else
-            ''5/5/2022 td ''par_iSave.SaveToModel() ''Added 12/17/2021 td  
-            Const c_boolLetsHaveRedundantSaves As Boolean = False ''Added 5/5/2022 td
-            If (c_boolLetsHaveRedundantSaves) Then ''Added 5/5/2022 td
-                par_iSave.SaveToModel() ''Added 12/17/2021 td  
-            End If ''End of ""If (c_boolLetsHaveRedundantSaves) Then""
+    ''            ''Added 5/5/2022 thomas d.
+    ''            ''
+    ''            ''----DIFFICULT & CONFUSING--------
+    ''            ''
+    ''            bSameControlAsParameter = (par_iSave Is CType(each_RSC, ISaveToModel))
 
-            ''
-            ''Added 5/5/2022 td 
-            ''
-            ''  Call .SaveToModel() for the controls in the Grouped-Controls collection.
-            ''   ---5/05/2022
-            ''
-            Dim bSameControlAsParameter As Boolean ''Added 5/5/2022 td
-            For Each each_RSC As RSCMoveableControlVB In mod_designer.mod_selectedCtls
+    ''            If bSameControlAsParameter Then
+    ''                ''No need for redundant calls to SaveToModel(), so
+    ''                ''   as of 5/5/2022 the following If condition is False.
+    ''                If (c_boolLetsHaveRedundantSaves) Then ''Added 5/5/2022 td
+    ''                    par_iSave.SaveToModel() ''Added 12/17/2021 td  
+    ''                End If ''End of ""If (c_boolLetsHaveRedundantSaves) Then""
 
-                ''Added 5/5/2022 thomas d.
-                ''
-                ''----DIFFICULT & CONFUSING--------
-                ''
-                bSameControlAsParameter = (par_iSave Is CType(each_RSC, ISaveToModel))
+    ''            Else
+    ''                ''Added 5/5/2022 
+    ''                each_RSC.SaveToModel()
 
-                If bSameControlAsParameter Then
-                    ''No need for redundant calls to SaveToModel(), so
-                    ''   as of 5/5/2022 the following If condition is False.
-                    If (c_boolLetsHaveRedundantSaves) Then ''Added 5/5/2022 td
-                        par_iSave.SaveToModel() ''Added 12/17/2021 td  
-                    End If ''End of ""If (c_boolLetsHaveRedundantSaves) Then""
+    ''            End If ''End of ""If bSameControlAsParameter Then.... Else...."
 
-                Else
-                    ''Added 5/5/2022 
-                    each_RSC.SaveToModel()
+    ''        Next each_RSC
 
-                End If ''End of ""If bSameControlAsParameter Then.... Else...."
+    ''    End If ''End of ""If (par_iSave Is Nothing) Then... Else....""
 
-            Next each_RSC
+    ''    ''Update what the user sees (preview).
+    ''    ''5/5/2022 td''mod_designer.AutoPreview_IfChecked()
+    ''    mod_designer.AutoPreview_IfChecked(par_control)
 
-        End If ''End of ""If (par_iSave Is Nothing) Then... Else....""
-
-        ''Update what the user sees (preview).
-        ''5/5/2022 td''mod_designer.AutoPreview_IfChecked()
-        mod_designer.AutoPreview_IfChecked(par_control)
-
-    End Sub
+    ''End Sub
 
 
     Private Sub mod_sizingEvents_Resizing_End(par_iSave As ISaveToModel,
@@ -820,20 +827,20 @@ Public Class ClassDesignerEventListener
 
     End Sub
 
-    Private Sub mod_sizingQR_events_Moving_End(par_control As Control, par_iSave As ISaveToModel) Handles SizingElementEvents.Moving_End
+    ''Private Sub mod_sizingQR_events_Moving_End(par_control As Control, par_iSave As ISaveToModel) Handles SizingElementEvents.Moving_End
 
-        ''Added 10/9/2019 td 
-        ''12/17/2021 td''mod_designer.CtlGraphic_QRCode.SaveToModel()
-        If (par_iSave Is Nothing) Then
-            mod_designer.CtlGraphic_QRCode.SaveToModel() ''Added 12/16/2021 td 
-        Else
-            par_iSave.SaveToModel() ''Added 12/17/2021 td
-        End If
+    ''    ''Added 10/9/2019 td 
+    ''    ''12/17/2021 td''mod_designer.CtlGraphic_QRCode.SaveToModel()
+    ''    If (par_iSave Is Nothing) Then
+    ''        mod_designer.CtlGraphic_QRCode.SaveToModel() ''Added 12/16/2021 td 
+    ''    Else
+    ''        par_iSave.SaveToModel() ''Added 12/17/2021 td
+    ''    End If
 
-        ''Update what the user sees (preview).
-        mod_designer.AutoPreview_IfChecked()
+    ''    ''Update what the user sees (preview).
+    ''    mod_designer.AutoPreview_IfChecked()
 
-    End Sub
+    ''End Sub
 
     Private Sub Move_sizingEvents_Resizing_End(par_iSave As ISaveToModel)
         ''#1 12/17/21 td''Handles mod_sizingElementEvents.Resizing_End
@@ -848,21 +855,21 @@ Public Class ClassDesignerEventListener
 
     End Sub
 
-    Private Sub Move_sizingSig_events_Moving_End(par_control As Control, par_iSave As ISaveToModel) Handles SizingElementEvents.Moving_End
-        ''12/17/2021 td''Handles mod_sizingEvents_Sig.Moving_End 
+    ''Private Sub Move_sizingSig_events_Moving_End(par_control As Control, par_iSave As ISaveToModel) Handles SizingElementEvents.Moving_End
+    ''    ''12/17/2021 td''Handles mod_sizingEvents_Sig.Moving_End 
 
-        ''Added 10/9/2019 td 
-        ''12/17/2021 ''mod_designer.CtlGraphic_Signat.SaveToModel() ''Added 12/11/2021 td 
-        If (par_iSave Is Nothing) Then
-            mod_designer.CtlGraphic_QRCode.SaveToModel() ''Added 12/16/2021 td 
-        Else
-            par_iSave.SaveToModel() ''Added 12/17/2021 td
-        End If
+    ''    ''Added 10/9/2019 td 
+    ''    ''12/17/2021 ''mod_designer.CtlGraphic_Signat.SaveToModel() ''Added 12/11/2021 td 
+    ''    If (par_iSave Is Nothing) Then
+    ''        mod_designer.CtlGraphic_QRCode.SaveToModel() ''Added 12/16/2021 td 
+    ''    Else
+    ''        par_iSave.SaveToModel() ''Added 12/17/2021 td
+    ''    End If
 
-        ''Update what the user sees (preview).
-        mod_designer.AutoPreview_IfChecked()
+    ''    ''Update what the user sees (preview).
+    ''    mod_designer.AutoPreview_IfChecked()
 
-    End Sub
+    ''End Sub
 
     Private Sub Move_sizingSig_events_Resizing_End() ''12/17/2021''Handles mod_sizingEvents_Sig.Resizing_End
 
