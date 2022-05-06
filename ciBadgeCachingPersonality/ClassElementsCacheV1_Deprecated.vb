@@ -1226,11 +1226,11 @@ Namespace ciBadgeCachePersonality
         End Sub ''End of "Public Sub LoadFields(par_pictureBackground As PictureBox)"
 
 
-        Public Sub LoadField_ByEnum(p_enumField As EnumCIBFields, p_bCustom As Boolean)
+        Public Sub LoadField_ByEnum(p_enumField As EnumCIBFields, p_boolIsCustomField As Boolean)
             ''
             ''Added 3/23/2022 td
             ''
-            If (p_bCustom) Then Throw New Exception("not yet set up for custom fields")
+            ''5/5/2022 td ''If (p_bCustom) Then Throw New Exception("not yet set up for custom fields")
 
             ''Major call!!
             ''----LoadField_ByEnum_Standard(p_enumField)
@@ -1242,11 +1242,21 @@ Namespace ciBadgeCachePersonality
                 ''
                 ''Do nothing.  Already loaded.  We don't need duplicates!
                 ''
-            Else
+            ElseIf p_boolIsCustomField Then
+                ''
+                ''Customized Field
+                ''
+                Dim objNewFieldFC As ClassFieldCustomized
+                objNewFieldFC = ClassFieldCustomized.BuildField_ByEnum_Customized(p_enumField)
+                mod_listFields_Custom.Add(objNewFieldFC)
 
-                Dim objNewField As ClassFieldStandard
-                objNewField = ClassFieldStandard.BuildField_ByEnum_Standard(p_enumField)
-                mod_listFields_Standard.Add(objNewField)
+            Else
+                ''
+                ''Standard Field
+                ''
+                Dim objNewFieldFS As ClassFieldStandard
+                objNewFieldFS = ClassFieldStandard.BuildField_ByEnum_Standard(p_enumField)
+                mod_listFields_Standard.Add(objNewFieldFS)
 
             End If ''end of ""If bAlreadyLoaded Then... Else...""
 

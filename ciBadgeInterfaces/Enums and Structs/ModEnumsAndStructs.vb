@@ -98,6 +98,18 @@ Public Module ModEnumsAndStructs
         idfReportID
         fstrBarCode
 
+        fstrAddress ''[fstrAddress] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+        fstrCity ''[fstrCity] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+        fstrState ''[fstrState] [char] (2) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+        fstrZip ''[fstrZip] [varchar] (10) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+
+        blnBatchPrint ''[blnBatchPrint] [bit] NULL ,
+        ''---- Added 1/28/2019 thomas downes, for https://app.asana.com/0/0/872801181163659/f 
+        intTimesPrinted ''[intTimesPrinted] [int] NULL CONSTRAINT [DF_tblCardData_intTimesPrinted] Default 0 ,
+        fdatTimeStamp ''[fdatTimeStamp] [datetime] NULL ,
+        fintRecPool
+        fstrRFID_Unique
+
         TextField01 ''  [TextField01] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
         TextField02 ''[TextField02] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
         TextField03 ''[TextField03] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
@@ -131,17 +143,17 @@ Public Module ModEnumsAndStructs
         DateField04 ''[DateField04] [datetime] NULL ,
         DateField05 ''[DateField05] [datetime] NULL ,
 
-        fstrAddress ''[fstrAddress] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
-        fstrCity ''[fstrCity] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
-        fstrState ''[fstrState] [char] (2) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
-        fstrZip ''[fstrZip] [varchar] (10) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+        ''Moved up. 5/5/2022 ''fstrAddress ''[fstrAddress] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+        ''Moved up. 5/5/2022 ''fstrCity ''[fstrCity] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+        ''Moved up. 5/5/2022 ''fstrState ''[fstrState] [char] (2) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+        ''Moved up. 5/5/2022 ''fstrZip ''[fstrZip] [varchar] (10) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
 
-        blnBatchPrint ''[blnBatchPrint] [bit] NULL ,
-        ''---- Added 1/28/2019 thomas downes, for https://app.asana.com/0/0/872801181163659/f 
-        intTimesPrinted ''[intTimesPrinted] [int] NULL CONSTRAINT [DF_tblCardData_intTimesPrinted] Default 0 ,
-        fdatTimeStamp ''[fdatTimeStamp] [datetime] NULL ,
-        fintRecPool
-        fstrRFID_Unique
+        ''Moved up. 5/5/2022 ''blnBatchPrint ''[blnBatchPrint] [bit] NULL ,
+        ''''---- Added 1/28/2019 thomas downes, for https://app.asana.com/0/0/872801181163659/f 
+        ''Moved up. 5/5/2022 ''intTimesPrinted ''[intTimesPrinted] [int] NULL CONSTRAINT [DF_tblCardData_intTimesPrinted] Default 0 ,
+        ''Moved up. 5/5/2022 ''fdatTimeStamp ''[fdatTimeStamp] [datetime] NULL ,
+        ''Moved up. 5/5/2022 ''fintRecPool
+        ''Moved up. 5/5/2022 ''fstrRFID_Unique
 
         ''Added 11/25/2021 thomas downes
         ''Moved up, 3/17/2022 td''fstrFullName ''Added 11/25/2021 thomas downes

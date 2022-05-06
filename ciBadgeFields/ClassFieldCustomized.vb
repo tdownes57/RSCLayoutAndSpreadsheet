@@ -256,6 +256,11 @@ Public Class ClassFieldCustomized
             .ExampleValue = "Willcrest School"
             .ArrayOfValues = New String() {"Willcrest School", "Woodbridge School"}
 
+            ''Added 5/5/2022 td
+            .IsRelevantToPersonality = False
+            .IsDisplayedForEdits = False
+            .IsDisplayedOnBadge = False
+
             ''Added 9/17/2019 td
             ''9/18/2019 td''intLeft_Pixels = (30 * (intFieldIndex - 1))
             intLeft_Pixels = (c_heightPixels * (intFieldIndex - 1))
@@ -289,6 +294,10 @@ Public Class ClassFieldCustomized
             ''.IsDateField = False
             .IsFieldForDates = False
             .ArrayOfValues = New String() {"Mrs. Ross", "Mr. Smudge", "Ms. Randall"}
+            ''Added 5/5/2022 td
+            .IsRelevantToPersonality = False
+            .IsDisplayedForEdits = False
+            .IsDisplayedOnBadge = False
 
             ''Added 9/17/2019 td
             intLeft_Pixels = (30 * (intFieldIndex - 1))
@@ -323,6 +332,10 @@ Public Class ClassFieldCustomized
             ''.IsDateField = False
             .IsFieldForDates = False
             .ArrayOfValues = New String() {"9th", "10th", "11th", "12th"}
+            ''Added 5/5/2022 td
+            .IsRelevantToPersonality = False
+            .IsDisplayedForEdits = False
+            .IsDisplayedOnBadge = False
 
             ''Added 9/17/2019 td
             intLeft_Pixels = (30 * (intFieldIndex - 1))
@@ -355,8 +368,12 @@ Public Class ClassFieldCustomized
             .HasPresetValues = False
             .IsAdditionalField = False
             .IsFieldForDates = True
-            .IsDisplayedForEdits = True
-            .IsDisplayedOnBadge = True
+            ''5/5/2022 td''.IsDisplayedForEdits = True
+            ''5/5/2022 td''.IsDisplayedOnBadge = True
+            ''Added 5/5/2022 td
+            .IsRelevantToPersonality = False
+            .IsDisplayedForEdits = False
+            .IsDisplayedOnBadge = False
 
             ''Added 9/17/2019 td
             intLeft_Pixels = (30 * (intFieldIndex - 1))
@@ -387,6 +404,10 @@ Public Class ClassFieldCustomized
             .HasPresetValues = False
             .IsAdditionalField = False
             .IsFieldForDates = True
+            ''Added 5/5/2022 td
+            .IsRelevantToPersonality = False
+            .IsDisplayedForEdits = False
+            .IsDisplayedOnBadge = False
 
             ''Added 9/17/2019 td
             intLeft_Pixels = (30 * (intFieldIndex - 1))
@@ -439,6 +460,10 @@ Public Class ClassFieldCustomized
             .IsFieldForDates = False
             .ExampleValue = "Willcrest School"
             .ArrayOfValues = New String() {"Willcrest School", "Woodbridge School"}
+            ''Added 5/5/2022 td
+            .IsRelevantToPersonality = False
+            .IsDisplayedForEdits = False
+            .IsDisplayedOnBadge = False
 
             ''Added 9/17/2019 td
             ''9/18/2019 td''intLeft_Pixels = (30 * (intFieldIndex - 1))
@@ -474,6 +499,10 @@ Public Class ClassFieldCustomized
             ''.IsDateField = False
             .IsFieldForDates = False
             .ArrayOfValues = New String() {"Teacher", "Custodian", "Security", "Admin"}
+            ''Added 5/5/2022 td
+            .IsRelevantToPersonality = False
+            .IsDisplayedForEdits = False
+            .IsDisplayedOnBadge = False
 
             ''Added 9/17/2019 td
             intLeft_Pixels = (30 * (intFieldIndex - 1))
@@ -508,6 +537,10 @@ Public Class ClassFieldCustomized
             ''.IsDateField = False
             .IsFieldForDates = False
             .ArrayOfValues = New String() {"9th", "10th", "11th", "12th"}
+            ''Added 5/5/2022 td
+            .IsRelevantToPersonality = False
+            .IsDisplayedForEdits = False
+            .IsDisplayedOnBadge = False
 
             ''Added 9/17/2019 td
             intLeft_Pixels = (30 * (intFieldIndex - 1))
@@ -525,6 +558,20 @@ Public Class ClassFieldCustomized
         ListOfFields_Staff.Add(new_objectField3)
 
     End Sub ''End of "InitializeHardcodedList_Staff()"
+
+
+    Public Shared Function BuildField_ByEnum_Custom(par_singleEnum As EnumCIBFields) As ClassFieldCustomized
+        ''
+        ''Added 5/05/2022 thomas 
+        ''
+        Dim outputField As ClassFieldCustomized = Nothing
+
+        InstantiateFields_Custom("Member/Employee/Student", True, par_singleEnum,
+                                   outputField, True)
+        Return outputField
+
+    End Function
+
 
     ''9/18/2019 td''Public Shared Sub CopyElementInfo(par_enumCIBField As EnumCIBFields,
     ''                                  par_info_base As IElement_Base,
@@ -728,6 +775,9 @@ Public Class ClassFieldCustomized
         Me.IsAdditionalField = par_objectClass.IsAdditionalField
         Me.IsBarCode = par_objectClass.IsBarCode
         Me.IsCustomizable = par_objectClass.IsCustomizable
+
+        ''Added 5/5/2022 thomas downes
+        Me.IsRelevantToPersonality = par_objectClass.IsRelevantToPersonality
 
         ''Added 10/01/2019 thomas downes
         Me.IsDateField = par_objectClass.IsDateField

@@ -398,6 +398,7 @@ Namespace ciBadgeCachePersonality
             Dim objField_IfFound As ClassFieldAny
             Dim outputBoolean_Missing As Boolean = False
             Dim listOfEnumsToCheck As List(Of EnumCIBFields)
+            Dim bLikelyCustomized As Boolean ''Added 5/5/2022 td
 
             If (par_list Is Nothing OrElse par_list.Count() = 0) Then
                 ''General a list of cutting-edge fields which might not
@@ -424,11 +425,16 @@ Namespace ciBadgeCachePersonality
                 objField_IfFound = CacheForEditing.GetFieldByFieldEnum(each_enum)
                 outputBoolean_Missing = (outputBoolean_Missing Or objField_IfFound Is Nothing)
 
+                ''Added 5/5/2022 td 
+                ''---5/5/2022 bLikelyCustomized = (CInt(each_enum) > CInt(EnumCIBFields.fstrBarCode))
+                bLikelyCustomized = (CInt(each_enum) > CInt(EnumCIBFields.fstrRFID_Unique))
+
+
                 If (pboolLetsFix) Then
                     ''
                     ''Currently, it must be a Standard field (hence the ", False" as the 2nd parameter).  
                     ''
-                    CacheForEditing.LoadField_ByEnum(each_enum, False)
+                    CacheForEditing.LoadField_ByEnum(each_enum, bLikelyCustomized)
 
                 End If ''End of "If (pboolLetsFix) Then"
 
