@@ -72,12 +72,14 @@ Public Class FormRandomLocation
         With pictureBackgroundFront
             .BackgroundImage = Nothing
             .Image = Nothing
-            .BackgroundImage = mod_imagePreview
+            .BackgroundImage = mod_imagePreview ''<<<<<<<<<< See Public Sub New.
+
             .BackgroundImageLayout = ImageLayout.Zoom
             ''Redundancy is the best policy. LOL  
             .Image = mod_imagePreview
-            .SizeMode = ImageLayout.Zoom
-        End With
+            .SizeMode = PictureBoxSizeMode.Zoom
+
+        End With ''With pictureBackgroundFront
 
     End Sub
 

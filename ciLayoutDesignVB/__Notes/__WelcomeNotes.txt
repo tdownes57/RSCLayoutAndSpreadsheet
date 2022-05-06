@@ -1,0 +1,38 @@
+﻿
+May 5, 2022 
+
+Welcome to RSC ID Card (formerly called ABC Badge) by R Software Consulting.
+
+Thank you for helping us to test our software. 
+
+Major known issues with RSC ID Card:
+
+    1. Not all types of Elements are ready to be added to the ID Card, e.g. QR Codes & Signatures.
+   
+    2. Portraits are not functional. We do not yet have a fully-developed system for
+     uploading photos of Card-Recipients (students, members, staff). 
+
+    3. The spreadsheet for managing Recipient data has not exhaustively tested. 
+
+    4. Conditional Expressions has not been released, or if so, is not ready for use. 
+   Conditional Expressions will allow you to specify whether or not a graphic or text-label
+   will appear for each ID Card in a batch (grouped set) of Cards. 
+   (Stated differently, Conditional Expressions will allow Elements to appear for a subset 
+   of Card Recipients (students, members, staff) whose field values satisfy the exact 
+   specified value.  Conditional-Expression values are specified by you, our dear customer.)
+
+We are early in our testing, not ready for beta testing, so at this time our software is
+  not licensed to our customers.  But the copyright is ours, so please don't copy the software.
+
+I welcome your feedback.  Thank you so much!!
+
+Thomas C. Downes
+Software Developer & Sole Proprietor 
+R Software Consulting 
+(714) 756-0810 
+tomdownes1@gmail.com 
+Costa Mesa, California May 5, 2022 
+
+
+
+

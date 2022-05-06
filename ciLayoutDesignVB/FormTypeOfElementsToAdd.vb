@@ -69,6 +69,161 @@ Public Class FormTypeOfElementsToAdd
     End Sub
 
 
+    Public Function GetRectangle_Field1(psingleFactorWidth As Single,
+                                        psingleFactorHeight As Single) As Drawing.Rectangle
+        ''
+        ''Added 5/6/2022
+        ''
+        Return GetRectangle_FieldControl(RscSelectCIBField1, psingleFactorWidth, psingleFactorHeight)
+
+    End Function
+
+
+    Public Function GetRectangle_Field2(psingleFactorWidth As Single,
+                                        psingleFactorHeight As Single) As Drawing.Rectangle
+        ''
+        ''Added 5/6/2022
+        ''
+        Return GetRectangle_FieldControl(RscSelectCIBField2, psingleFactorWidth, psingleFactorHeight)
+
+    End Function
+
+
+    Public Function GetRectangle_Field3(psingleFactorWidth As Single,
+                                        psingleFactorHeight As Single) As Drawing.Rectangle
+        ''
+        ''Added 5/6/2022
+        ''
+        Return GetRectangle_FieldControl(RscSelectCIBField3, psingleFactorWidth, psingleFactorHeight)
+
+    End Function
+
+
+    Public Function GetRectangle_Field4(psingleFactorWidth As Single,
+                                        psingleFactorHeight As Single) As Drawing.Rectangle
+        ''
+        ''Added 5/6/2022
+        ''
+        Return GetRectangle_FieldControl(RscSelectCIBField4, psingleFactorWidth, psingleFactorHeight)
+
+    End Function
+
+
+    Public Function GetRectangle_Field5(psingleFactorWidth As Single,
+                                        psingleFactorHeight As Single) As Drawing.Rectangle
+        ''
+        ''Added 5/6/2022
+        ''
+        Return GetRectangle_FieldControl(RscSelectCIBField5, psingleFactorWidth, psingleFactorHeight)
+
+    End Function
+
+
+    Private Function GetRectangle_FieldControl(par_controlField As RSCSelectCIBField,
+                                             psingleFactorWidth As Single,
+                                        psingleFactorHeight As Single) As Drawing.Rectangle
+        ''
+        ''Added 5/6/2022
+        ''
+        ''---Return CtlGraphicPortrait1.RectangleToClient()
+        Dim intPixelsTop As Integer
+        Dim intPixelsLeft As Integer
+        Dim intPixelsWidth As Integer
+        Dim intPixelsHeight As Integer
+        Dim objRectOfControl As Rectangle
+
+        ''---objRectOfControl = GetRectangleOf(RscSelectCIBField1)
+        objRectOfControl = GetRectangleOf(par_controlField)
+
+        With objRectOfControl
+            intPixelsTop = .Top
+            intPixelsLeft = .Left
+            intPixelsWidth = .Width * psingleFactorWidth
+            intPixelsHeight = .Height * psingleFactorHeight
+        End With
+
+        Return New Rectangle(New Point(intPixelsTop, intPixelsLeft),
+                             New Size(intPixelsWidth, intPixelsHeight))
+
+    End Function
+
+
+
+
+    Public Function GetRectangle_PortraitPic() As Drawing.Rectangle
+        ''
+        ''Added 5/6/2022
+        ''
+        ''---Return CtlGraphicPortrait1.RectangleToClient()
+        Return GetRectangleOf(CtlGraphicPortrait1)
+
+    End Function
+
+
+    Public Function GetRectangle_QRCode() As Drawing.Rectangle
+        ''
+        ''Added 5/6/2022
+        ''
+        ''---Return CtlGraphicPortrait1.RectangleToClient()
+        Return GetRectangleOf(CtlGraphicQRCode1)
+
+    End Function
+
+
+    Public Function GetRectangle_Signature() As Drawing.Rectangle
+        ''
+        ''Added 5/6/2022
+        ''
+        ''---Return CtlGraphicPortrait1.RectangleToClient()
+        Return GetRectangleOf(CtlGraphicSignature1)
+
+
+    End Function
+
+
+    Public Function GetRectangle_StaticGraphic() As Drawing.Rectangle
+        ''
+        ''Added 5/6/2022
+        ''
+        ''---Return CtlGraphicPortrait1.RectangleToClient()
+        Return GetRectangleOf(CtlGraphicStaticGraphic1)
+
+
+    End Function
+
+
+    Public Function GetRectangle_StaticText() As Drawing.Rectangle
+        ''
+        ''Added 5/6/2022
+        ''
+        ''---Return CtlGraphicPortrait1.RectangleToClient()
+        Return GetRectangleOf(CtlGraphicStaticText1)
+
+    End Function
+
+    Private Function GetRectangleOf(par_control As UserControl) As Rectangle
+        ''
+        ''Added 5/6/2022 thomas downes  
+        ''
+        Dim new_rect As Drawing.Rectangle
+        Dim new_size As New Drawing.Size ''Rectangle
+        Dim new_location As New Drawing.Point ''Rectangle
+        ''With new_rect
+
+        new_location.Y = -1 * pictureBackgroundFront.Top + par_control.Top
+        new_location.X = -1 * pictureBackgroundFront.Left + par_control.Left
+        new_size.Width = par_control.Width
+        new_size.Height = par_control.Height
+
+        new_rect = New Drawing.Rectangle(new_location, new_size)
+
+        ''End With
+
+        Return new_rect
+
+    End Function ''End of ""Private Function GetRectangleOf""
+
+
     Private Sub ToggleBorder(par_control As UserControl, par_panel As Panel) ''---As RSCMoveableControlVB) ''As Control)
         ''
         ''Added 5/3/2022 thomas downes 

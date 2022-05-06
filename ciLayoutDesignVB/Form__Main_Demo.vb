@@ -3407,6 +3407,7 @@ ExitHandler:
         Dim boolAddQRCode As Boolean '' = (CtlGraphicQRCode1.BorderStyle <> BorderStyle.None)
         Dim boolAddSignature As Boolean '' = (CtlGraphicSignature1.BorderStyle <> BorderStyle.None)
         Dim boolAddStaticText As Boolean '' 
+        Dim rectangleControl As Drawing.Rectangle ''Added 5/6/2022 td
 
         ''Added 5/4/2022 td
         Dim objFormToShow As New FormTypeOfElementsToAdd(Me.ElementsCache_Edits)
@@ -3424,15 +3425,47 @@ ExitHandler:
             boolAddSignature = .AddSignature
             boolAddStaticText = .AddStaticText
 
-        End With
+            ''Field #1
+            rectangleControl = .GetRectangle_Field1(0.5, 2.0)
+            If (boolAddField1) Then mod_designer.Load_NewElement_Field(.AddField1_Enum, rectangleControl)
 
-        If (boolAddPortraitPic) Then mod_designer.Load_NewElement_PortraitPic()
-        If (boolAddQRCode) Then mod_designer.Load_NewElement_QRCode()
-        If (boolAddSignature) Then mod_designer.Load_NewElement_Signature()
-        If (boolAddGraphic) Then mod_designer.Load_NewElement_StaticGraphic()
+            ''Field #2
+            rectangleControl = .GetRectangle_Field2(0.5, 2.0)
+            If (boolAddField2) Then mod_designer.Load_NewElement_Field(.AddField2_Enum, rectangleControl)
+
+            ''Field #3
+            rectangleControl = .GetRectangle_Field3(0.5, 2.0)
+            If (boolAddField1) Then mod_designer.Load_NewElement_Field(.AddField3_Enum, rectangleControl)
+
+            ''Field #4
+            rectangleControl = .GetRectangle_Field4(0.5, 2.0)
+            If (boolAddField1) Then mod_designer.Load_NewElement_Field(.AddField4_Enum, rectangleControl)
+
+            ''Field #5
+            rectangleControl = .GetRectangle_Field5(0.5, 2.0)
+            If (boolAddField5) Then mod_designer.Load_NewElement_Field(.AddField5_Enum, rectangleControl)
+
+            rectangleControl = .GetRectangle_PortraitPic()
+            If (boolAddPortraitPic) Then mod_designer.Load_NewElement_PortraitPic(rectangleControl)
+
+            rectangleControl = .GetRectangle_QRCode()
+            If (boolAddQRCode) Then mod_designer.Load_NewElement_QRCode(rectangleControl)
+
+            rectangleControl = .GetRectangle_Signature()
+            If (boolAddSignature) Then mod_designer.Load_NewElement_Signature(rectangleControl)
+
+            rectangleControl = .GetRectangle_StaticGraphic()
+            If (boolAddGraphic) Then mod_designer.Load_NewElement_StaticGraphic(rectangleControl)
+
+            rectangleControl = .GetRectangle_StaticText()
+            If (boolAddStaticText) Then mod_designer.Load_NewElement_StaticText(rectangleControl)
+
+        End With ''End of ""With objFormToShow""
+
         ''mod_designer.UnloadDesigner()
         ''mod_designer.RedrawForm()
         RefreshTheSetOfDisplayedElements(False)
+        RefreshCardPreview()
 
     End Sub ''Handles ButtonAddElements_Click"
 

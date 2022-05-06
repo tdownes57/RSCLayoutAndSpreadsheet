@@ -1501,6 +1501,43 @@ Namespace ciBadgeCachePersonality
         End Sub ''ENd of "Public Sub LoadFieldElements(par_pictureBackground As Image)"
 
 
+        Public Sub LoadNewElement_Field(par_enumField As EnumCIBFields,
+                                        par_intLeft_Pixels As Integer,
+                                        par_intTop_Pixels As Integer,
+                                        par_layout As BadgeLayoutClass,
+                  Optional par_enumSide As EnumWhichSideOfCard = EnumWhichSideOfCard.EnumFrontside)
+            ''
+            ''Added 5/6/2022 thomas downes
+            ''
+            Dim obj_field As ClassFieldAny
+            Dim new_elementField As ClassElementFieldV3 ''Added 9/18/2019 td
+            Dim intFieldIndex As Integer ''Added 9/18/2019 td
+            Dim intLeft_Pixels As Integer ''Added 9/18/2019 td
+            Dim intTop_Pixels As Integer ''Added 9/18/2019 td
+            Const c_intHeight_Pixels As Integer = 30 ''Added 9/18/2019 td
+
+            obj_field = GetFieldByFieldEnum(par_enumField)
+
+            ''----intLeft_Pixels = intTop_Pixels ''Let's have a staircase effect!! 
+
+            new_elementField = New ClassElementFieldV3(obj_field,
+                                    par_intLeft_Pixels,
+                                    par_intTop_Pixels,
+                                    c_intHeight_Pixels)
+            new_elementField.FieldInfo = obj_field
+            new_elementField.FieldEnum = obj_field.FieldEnumValue ''Added 10/12/2019 td
+            new_elementField.BadgeLayout = par_layout
+            new_elementField.DatetimeUpdated = DateTime.Now
+
+            If (par_enumSide = EnumWhichSideOfCard.EnumBackside) Then
+                mod_listElementFields_BacksideV3.Add(new_elementField)
+            Else
+                mod_listElementFields_FrontV3.Add(new_elementField)
+            End If
+
+        End Sub ''End of ""Public Sub LoadNewElement_Field()""
+
+
         Public Sub LoadNewElement_Pic(par_intLeft As Integer, par_intTop As Integer,
                                    par_intWidth As Integer, par_intHeight As Integer,
                                    par_pictureBackground As PictureBox,

@@ -870,7 +870,8 @@ Public Class ClassDesigner
     End Sub ''End of "Public Sub LoadDesigner"
 
 
-    Public Sub Load_NewElement_PortraitPic()
+    Public Sub Load_NewElement_Field(par_enumField As EnumCIBFields,
+                                     par_rect As Rectangle)
         ''
         ''Added 5/6/2022 thomas d.
         ''
@@ -882,10 +883,48 @@ Public Class ClassDesigner
         Static s_countCalls As Integer = 0
 
         ''Added 10/01/2019 td
-        intPicLeft = Me.Initial_Pic_Left
-        intPicTop = Me.Initial_Pic_Top
-        intPicWidth = Me.Initial_Pic_Width
-        intPicHeight = Me.Initial_Pic_Height
+        intPicLeft = par_rect.Left '' Me.Initial_Pic_Left
+        intPicTop = par_rect.Top '' Me.Initial_Pic_Top
+        intPicWidth = par_rect.Width '' Me.Initial_Pic_Width
+        intPicHeight = par_rect.Height '' Me.Initial_Pic_Height
+
+        ''TO DO:  Create a form which displays the badge as a white background
+        ''        and overlays a blue rectangle which the correct WH ratio 
+        ''        and placed on a random part of the badge. Have a heading 
+        ''        which says, "We have placed the new element at a random position
+        ''        on the badge, as indicated below.  The only reason for this
+        ''        dialog is to let you know where it's been placed.  You cannot
+        ''        modify use this dialog to move the element.  Hit OK to close dialog."
+        ''        That dialog can have the responsibility of calling the Random
+        ''        Number generator and determining pixel position. 
+        ''        --5/6/2022 thomas d.
+        ''
+        Me.ElementsCache_UseEdits.LoadNewElement_Field(par_enumField,
+                             intPicLeft, intPicTop,
+                             Me.BadgeLayout_Class,
+                             EnumSideOfCard_Current)
+        ''                   ''intPicWidth, intPicHeight,
+
+    End Sub ''End of ""Public Sub Load_NewElement_PortraitPic()""
+
+
+
+    Public Sub Load_NewElement_PortraitPic(par_rect As Rectangle)
+        ''
+        ''Added 5/6/2022 thomas d.
+        ''
+        Dim intPicLeft As Integer
+        Dim intPicTop As Integer
+        Dim intPicWidth As Integer
+        Dim intPicHeight As Integer
+
+        Static s_countCalls As Integer = 0
+
+        ''Added 10/01/2019 td
+        intPicLeft = par_rect.Left '' Me.Initial_Pic_Left
+        intPicTop = par_rect.Top '' Me.Initial_Pic_Top
+        intPicWidth = par_rect.Width '' Me.Initial_Pic_Width
+        intPicHeight = par_rect.Height '' Me.Initial_Pic_Height
 
         ''TO DO:  Create a form which displays the badge as a white background
         ''        and overlays a blue rectangle which the correct WH ratio 
@@ -906,7 +945,7 @@ Public Class ClassDesigner
     End Sub ''End of ""Public Sub Load_NewElement_PortraitPic()""
 
 
-    Public Sub Load_NewElement_QRCode()
+    Public Sub Load_NewElement_QRCode(par_rect As Rectangle)
         ''
         ''Added 5/06/2022 td
         ''
@@ -914,6 +953,14 @@ Public Class ClassDesigner
         Dim intTop As Integer
         Dim intWidth As Integer
         Dim intHeight As Integer
+
+        Static s_countCalls As Integer = 0
+
+        ''Added 10/01/2019 td
+        intLeft = par_rect.Left '' Me.Initial_Pic_Left
+        intTop = par_rect.Top '' Me.Initial_Pic_Top
+        intWidth = par_rect.Width '' Me.Initial_Pic_Width
+        intHeight = par_rect.Height '' Me.Initial_Pic_Height
 
         ''Added 5/06/2022 td
         Me.ElementsCache_UseEdits.LoadNewElement_QRCode(intLeft, intTop,
@@ -924,25 +971,62 @@ Public Class ClassDesigner
     End Sub ''End of ""Public Sub Load_NewElement_QRCode()""
 
 
-    Public Sub Load_NewElement_Signature()
+    Public Sub Load_NewElement_Signature(par_rect As Rectangle)
 
         ''Added 5/06/2022 td
+        Dim intLeft As Integer
+        Dim intTop As Integer
+        Dim intWidth As Integer
+        Dim intHeight As Integer
+
+        Static s_countCalls As Integer = 0
+
+        ''Added 10/01/2019 td
+        intLeft = par_rect.Left '' Me.Initial_Pic_Left
+        intTop = par_rect.Top '' Me.Initial_Pic_Top
+        intWidth = par_rect.Width '' Me.Initial_Pic_Width
+        intHeight = par_rect.Height '' Me.Initial_Pic_Height
 
 
     End Sub ''End of ""Public Sub Load_NewElement_Signature()""
 
 
-    Public Sub Load_NewElement_StaticGraphic()
+    Public Sub Load_NewElement_StaticGraphic(par_rect As Rectangle)
 
         ''Added 5/06/2022 td
+        Dim intLeft As Integer
+        Dim intTop As Integer
+        Dim intWidth As Integer
+        Dim intHeight As Integer
+
+        Static s_countCalls As Integer = 0
+
+        ''Added 10/01/2019 td
+        intLeft = par_rect.Left '' Me.Initial_Pic_Left
+        intTop = par_rect.Top '' Me.Initial_Pic_Top
+        intWidth = par_rect.Width '' Me.Initial_Pic_Width
+        intHeight = par_rect.Height '' Me.Initial_Pic_Height
 
 
     End Sub ''End of ""Public Sub Load_NewElement_StaticGraphic()""
 
 
-    Public Sub Load_NewElement_StaticText()
+    Public Sub Load_NewElement_StaticText(par_rect As Rectangle)
 
         ''Added 5/06/2022 td
+        Dim intLeft As Integer
+        Dim intTop As Integer
+        Dim intWidth As Integer
+        Dim intHeight As Integer
+
+        Static s_countCalls As Integer = 0
+
+        ''Added 10/01/2019 td
+        intLeft = par_rect.Left '' Me.Initial_Pic_Left
+        intTop = par_rect.Top '' Me.Initial_Pic_Top
+        intWidth = par_rect.Width '' Me.Initial_Pic_Width
+        intHeight = par_rect.Height '' Me.Initial_Pic_Height
+
 
 
     End Sub ''End of ""Public Sub Load_NewElement_StaticText()""

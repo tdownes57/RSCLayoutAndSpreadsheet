@@ -45,6 +45,10 @@ Public Class Startup
 
         Dim bUserWantsToExitApp As Boolean ''Added 2/5/2022 td
 
+        ''Added 5/6/2022 td
+        Dim objWelcomeForm As New FormWelcomeNotes
+        objWelcomeForm.ShowDialog()
+
         Do
             OpenLayoutDesigner_Loop(bUserWantsToExitApp)
             If (bUserWantsToExitApp) Then Exit Do

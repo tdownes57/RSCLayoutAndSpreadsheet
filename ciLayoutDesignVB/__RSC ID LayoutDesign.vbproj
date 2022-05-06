@@ -482,6 +482,12 @@
     <Compile Include="FormUploadBackground.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FormWelcomeNotes.Designer.vb">
+      <DependentUpon>FormWelcomeNotes.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormWelcomeNotes.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form__Demo2Sides.Designer.vb">
       <DependentUpon>Form__Demo2Sides.vb</DependentUpon>
     </Compile>
@@ -777,6 +783,9 @@
     <EmbeddedResource Include="FormUploadBackground.resx">
       <DependentUpon>FormUploadBackground.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormWelcomeNotes.resx">
+      <DependentUpon>FormWelcomeNotes.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form__Demo2Sides.resx">
       <DependentUpon>Form__Demo2Sides.vb</DependentUpon>
     </EmbeddedResource>
@@ -932,6 +941,9 @@
     </Content>
     <Content Include="__Notes\Output-Build Nov30.txt" />
     <Content Include="__Notes\Notes for Startup.txt" />
+    <Content Include="__Notes\__WelcomeNotes.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="__Notes\__Which form is Main.html" />
     <Content Include="__Notes\VBA_modWebServicesAPIs.txt" />
     <Content Include="WebAPIs_Etc\VBA_modWebServicesAPIs.txt" />

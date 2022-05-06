@@ -102,6 +102,24 @@ Public Class DiskFolders
     End Function ''End of "Public Shared Function PathToFolder_Notes() As String"
 
 
+    Public Shared Function PathToFolder_Notes_TXT(pboolIncludeFiletitle As Boolean,
+                                        Optional pstrFileTitle As String = "") As String
+        ''
+        ''Added 12/12/2021 Thomas Downes    
+        ''
+        ''May 6, 2022 ''Return System.IO.Path.Combine(My.Application.Info.DirectoryPath, "__Notes")
+
+        If (pboolIncludeFiletitle) Then
+            Return System.IO.Path.Combine(My.Application.Info.DirectoryPath, "__Notes",
+                                 pstrFileTitle)
+        Else
+            Return System.IO.Path.Combine(My.Application.Info.DirectoryPath)
+
+        End If
+
+    End Function ''End of "Public Shared Function PathToFolder_Notes() As String"
+
+
 
 
 End Class ''eND OF "Public Class DiskFolders"
