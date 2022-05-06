@@ -128,7 +128,8 @@ Partial Class Form__Main_Demo
         Me.linklabelAndShowBack = New System.Windows.Forms.LinkLabel()
         Me.ButtonOK = New System.Windows.Forms.Button()
         Me.ButtonCancel = New System.Windows.Forms.Button()
-        Me.ButtonAddElements = New System.Windows.Forms.Button()
+        Me.ButtonAddElementsV = New System.Windows.Forms.Button()
+        Me.ButtonAddElementsH = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -172,13 +173,14 @@ Partial Class Form__Main_Demo
         '
         Me.chkIncludeExampleValues.AutoCheck = False
         Me.chkIncludeExampleValues.AutoSize = True
-        Me.chkIncludeExampleValues.Location = New System.Drawing.Point(677, 462)
+        Me.chkIncludeExampleValues.Location = New System.Drawing.Point(733, 463)
         Me.chkIncludeExampleValues.Margin = New System.Windows.Forms.Padding(1, 3, 1, 3)
         Me.chkIncludeExampleValues.Name = "chkIncludeExampleValues"
         Me.chkIncludeExampleValues.Size = New System.Drawing.Size(177, 21)
         Me.chkIncludeExampleValues.TabIndex = 32
         Me.chkIncludeExampleValues.Text = "Include example values."
         Me.chkIncludeExampleValues.UseVisualStyleBackColor = True
+        Me.chkIncludeExampleValues.Visible = False
         '
         'MenuStrip1
         '
@@ -520,7 +522,7 @@ Partial Class Form__Main_Demo
         'LinkRefreshPreview
         '
         Me.LinkRefreshPreview.AutoSize = True
-        Me.LinkRefreshPreview.Location = New System.Drawing.Point(690, 124)
+        Me.LinkRefreshPreview.Location = New System.Drawing.Point(730, 103)
         Me.LinkRefreshPreview.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
         Me.LinkRefreshPreview.Name = "LinkRefreshPreview"
         Me.LinkRefreshPreview.Size = New System.Drawing.Size(111, 17)
@@ -595,10 +597,11 @@ Partial Class Form__Main_Demo
         Me.flowlayoutOmittedBin.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.flowlayoutOmittedBin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.flowlayoutOmittedBin.Controls.Add(Me.lblFieldsNotCurrentlyShownHdr)
-        Me.flowlayoutOmittedBin.Location = New System.Drawing.Point(35, 522)
+        Me.flowlayoutOmittedBin.Location = New System.Drawing.Point(35, 553)
         Me.flowlayoutOmittedBin.Name = "flowlayoutOmittedBin"
-        Me.flowlayoutOmittedBin.Size = New System.Drawing.Size(292, 55)
+        Me.flowlayoutOmittedBin.Size = New System.Drawing.Size(292, 24)
         Me.flowlayoutOmittedBin.TabIndex = 52
+        Me.flowlayoutOmittedBin.Visible = False
         '
         'lblFieldsNotCurrentlyShownHdr
         '
@@ -698,7 +701,7 @@ Partial Class Form__Main_Demo
         '
         Me.graphicAdjuster.BackColor = System.Drawing.Color.White
         Me.graphicAdjuster.Image = Global.ciLayoutDesignVB.My.Resources.Resources.AdjustWHColor_V103
-        Me.graphicAdjuster.Location = New System.Drawing.Point(694, 153)
+        Me.graphicAdjuster.Location = New System.Drawing.Point(865, 165)
         Me.graphicAdjuster.Name = "graphicAdjuster"
         Me.graphicAdjuster.Size = New System.Drawing.Size(433, 229)
         Me.graphicAdjuster.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -823,13 +826,14 @@ Partial Class Form__Main_Demo
         'LinkLabel2
         '
         Me.LinkLabel2.AutoSize = True
-        Me.LinkLabel2.Location = New System.Drawing.Point(887, 467)
+        Me.LinkLabel2.Location = New System.Drawing.Point(730, 487)
         Me.LinkLabel2.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
         Me.LinkLabel2.Name = "LinkLabel2"
         Me.LinkLabel2.Size = New System.Drawing.Size(307, 17)
         Me.LinkLabel2.TabIndex = 80
         Me.LinkLabel2.TabStop = True
         Me.LinkLabel2.Text = "Turn on context menu for last-touched element."
+        Me.LinkLabel2.Visible = False
         '
         'LinkLabel3
         '
@@ -845,30 +849,33 @@ Partial Class Form__Main_Demo
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(627, 500)
+        Me.Label1.Location = New System.Drawing.Point(749, 535)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(292, 15)
         Me.Label1.TabIndex = 82
         Me.Label1.Text = "Relevant Element Options for Last Element Touched"
+        Me.Label1.Visible = False
         '
         'flowRelevantLinkLabels
         '
         Me.flowRelevantLinkLabels.AutoScroll = True
         Me.flowRelevantLinkLabels.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.flowRelevantLinkLabels.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.flowRelevantLinkLabels.Location = New System.Drawing.Point(631, 523)
+        Me.flowRelevantLinkLabels.Location = New System.Drawing.Point(752, 553)
         Me.flowRelevantLinkLabels.Name = "flowRelevantLinkLabels"
-        Me.flowRelevantLinkLabels.Size = New System.Drawing.Size(568, 55)
+        Me.flowRelevantLinkLabels.Size = New System.Drawing.Size(573, 24)
         Me.flowRelevantLinkLabels.TabIndex = 83
+        Me.flowRelevantLinkLabels.Visible = False
         '
         'LabelFieldsNotYetDisplayed
         '
         Me.LabelFieldsNotYetDisplayed.AutoSize = True
-        Me.LabelFieldsNotYetDisplayed.Location = New System.Drawing.Point(31, 499)
+        Me.LabelFieldsNotYetDisplayed.Location = New System.Drawing.Point(29, 537)
         Me.LabelFieldsNotYetDisplayed.Name = "LabelFieldsNotYetDisplayed"
         Me.LabelFieldsNotYetDisplayed.Size = New System.Drawing.Size(81, 17)
         Me.LabelFieldsNotYetDisplayed.TabIndex = 84
         Me.LabelFieldsNotYetDisplayed.Text = "Omitted Bin"
+        Me.LabelFieldsNotYetDisplayed.Visible = False
         '
         'pictureJustAButton
         '
@@ -947,10 +954,11 @@ Partial Class Form__Main_Demo
         Me.flowlayoutIncludedBin.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.flowlayoutIncludedBin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.flowlayoutIncludedBin.Controls.Add(Me.Label2)
-        Me.flowlayoutIncludedBin.Location = New System.Drawing.Point(333, 522)
+        Me.flowlayoutIncludedBin.Location = New System.Drawing.Point(333, 553)
         Me.flowlayoutIncludedBin.Name = "flowlayoutIncludedBin"
-        Me.flowlayoutIncludedBin.Size = New System.Drawing.Size(292, 55)
+        Me.flowlayoutIncludedBin.Size = New System.Drawing.Size(292, 24)
         Me.flowlayoutIncludedBin.TabIndex = 86
+        Me.flowlayoutIncludedBin.Visible = False
         '
         'Label2
         '
@@ -965,11 +973,12 @@ Partial Class Form__Main_Demo
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(329, 500)
+        Me.Label3.Location = New System.Drawing.Point(327, 537)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(85, 17)
         Me.Label3.TabIndex = 87
         Me.Label3.Text = "Included Bin"
+        Me.Label3.Visible = False
         '
         'LinkLabelSaveAndShowFront
         '
@@ -1017,24 +1026,38 @@ Partial Class Form__Main_Demo
         Me.ButtonCancel.Text = "Cancel"
         Me.ButtonCancel.UseVisualStyleBackColor = True
         '
-        'ButtonAddElements
+        'ButtonAddElementsV
         '
-        Me.ButtonAddElements.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ButtonAddElements.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonAddElements.Location = New System.Drawing.Point(674, 84)
-        Me.ButtonAddElements.Margin = New System.Windows.Forms.Padding(2)
-        Me.ButtonAddElements.Name = "ButtonAddElements"
-        Me.ButtonAddElements.Size = New System.Drawing.Size(160, 37)
-        Me.ButtonAddElements.TabIndex = 92
-        Me.ButtonAddElements.Text = "Add Elements"
-        Me.ButtonAddElements.UseVisualStyleBackColor = True
+        Me.ButtonAddElementsV.BackColor = System.Drawing.Color.RosyBrown
+        Me.ButtonAddElementsV.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.Add_Elements_to_IDCard
+        Me.ButtonAddElementsV.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.ButtonAddElementsV.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.ButtonAddElementsV.Location = New System.Drawing.Point(664, 96)
+        Me.ButtonAddElementsV.Name = "ButtonAddElementsV"
+        Me.ButtonAddElementsV.Size = New System.Drawing.Size(32, 400)
+        Me.ButtonAddElementsV.TabIndex = 92
+        Me.ButtonAddElementsV.UseVisualStyleBackColor = False
+        '
+        'ButtonAddElementsH
+        '
+        Me.ButtonAddElementsH.BackColor = System.Drawing.Color.RosyBrown
+        Me.ButtonAddElementsH.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.Add_Elements_to_IDCard_H
+        Me.ButtonAddElementsH.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.ButtonAddElementsH.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.ButtonAddElementsH.Location = New System.Drawing.Point(36, 502)
+        Me.ButtonAddElementsH.Name = "ButtonAddElementsH"
+        Me.ButtonAddElementsH.Size = New System.Drawing.Size(582, 32)
+        Me.ButtonAddElementsH.TabIndex = 93
+        Me.ButtonAddElementsH.UseVisualStyleBackColor = False
         '
         'Form__Main_Demo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.SystemColors.ControlLight
         Me.ClientSize = New System.Drawing.Size(1298, 642)
-        Me.Controls.Add(Me.ButtonAddElements)
+        Me.Controls.Add(Me.ButtonAddElementsH)
+        Me.Controls.Add(Me.ButtonAddElementsV)
         Me.Controls.Add(Me.ButtonCancel)
         Me.Controls.Add(Me.ButtonOK)
         Me.Controls.Add(Me.linklabelAndShowBack)
@@ -1210,5 +1233,6 @@ Partial Class Form__Main_Demo
     Friend WithEvents linklabelAndShowBack As LinkLabel
     Friend WithEvents ButtonOK As Button
     Friend WithEvents ButtonCancel As Button
-    Friend WithEvents ButtonAddElements As Button
+    Friend WithEvents ButtonAddElementsV As Button
+    Friend WithEvents ButtonAddElementsH As Button
 End Class

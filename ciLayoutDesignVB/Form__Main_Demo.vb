@@ -3392,7 +3392,8 @@ ExitHandler:
 
     End Sub
 
-    Private Sub ButtonAddElements_Click(sender As Object, e As EventArgs) Handles ButtonAddElements.Click
+    Private Sub ButtonAddElements_Click(sender As Object, e As EventArgs) _
+        Handles ButtonAddElementsV.Click, ButtonAddElementsH.Click
         ''
         ''Added 5/4/2022 td
         ''
@@ -3426,9 +3427,12 @@ ExitHandler:
         End With
 
         If (boolAddPortraitPic) Then mod_designer.Load_NewElement_PortraitPic()
-
-
-
+        If (boolAddQRCode) Then mod_designer.Load_NewElement_QRCode()
+        If (boolAddSignature) Then mod_designer.Load_NewElement_Signature()
+        If (boolAddGraphic) Then mod_designer.Load_NewElement_StaticGraphic()
+        ''mod_designer.UnloadDesigner()
+        ''mod_designer.RedrawForm()
+        RefreshTheSetOfDisplayedElements(False)
 
     End Sub ''Handles ButtonAddElements_Click"
 

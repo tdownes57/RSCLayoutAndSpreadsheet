@@ -887,7 +887,6 @@ Public Class ClassDesigner
         intPicWidth = Me.Initial_Pic_Width
         intPicHeight = Me.Initial_Pic_Height
 
-        ''
         ''TO DO:  Create a form which displays the badge as a white background
         ''        and overlays a blue rectangle which the correct WH ratio 
         ''        and placed on a random part of the badge. Have a heading 
@@ -902,22 +901,51 @@ Public Class ClassDesigner
         Me.ElementsCache_UseEdits.LoadNewElement_Pic(intPicLeft, intPicTop,
                              intPicWidth, intPicHeight,
                              Me.BackgroundBox_Front,
-                             EnumWhichSideOfCard.EnumFrontside)
+                             EnumSideOfCard_Current)
 
     End Sub ''End of ""Public Sub Load_NewElement_PortraitPic()""
 
 
     Public Sub Load_NewElement_QRCode()
+        ''
+        ''Added 5/06/2022 td
+        ''
+        Dim intLeft As Integer
+        Dim intTop As Integer
+        Dim intWidth As Integer
+        Dim intHeight As Integer
 
+        ''Added 5/06/2022 td
+        Me.ElementsCache_UseEdits.LoadNewElement_QRCode(intLeft, intTop,
+                             intWidth, intHeight,
+                             Me.BackgroundBox_Front,
+                             EnumSideOfCard_Current)
 
     End Sub ''End of ""Public Sub Load_NewElement_QRCode()""
 
 
     Public Sub Load_NewElement_Signature()
 
+        ''Added 5/06/2022 td
+
 
     End Sub ''End of ""Public Sub Load_NewElement_Signature()""
 
+
+    Public Sub Load_NewElement_StaticGraphic()
+
+        ''Added 5/06/2022 td
+
+
+    End Sub ''End of ""Public Sub Load_NewElement_StaticGraphic()""
+
+
+    Public Sub Load_NewElement_StaticText()
+
+        ''Added 5/06/2022 td
+
+
+    End Sub ''End of ""Public Sub Load_NewElement_StaticText()""
 
 
     Public Sub UnselectHighlightedElements()
