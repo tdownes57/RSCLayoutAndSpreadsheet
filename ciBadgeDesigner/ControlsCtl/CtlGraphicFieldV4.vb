@@ -142,6 +142,7 @@ Public Class CtlGraphicFieldV4
         ''Added 1/24/2022 thomas d. 
         With objOperationsField_V4
 
+            .CtlCurrentForm = par_formParent ''Added 5/6/2022 td 
             .CtlCurrentControl = CtlFieldV4
             .CtlCurrentElement = CtlFieldV4
             .CtlCurrentFieldOrTextV4 = CtlFieldV4 ''Added 2/3/2022 td

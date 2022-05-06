@@ -115,6 +115,7 @@ Public Class CtlGraphicFieldV3
         ''Added 1/24/2022 thomas d. 
         With objOperationsFldElem
 
+            .CtlCurrentForm = par_formParent ''Added 5/6/2022 td 
             .CtlCurrentControl = CtlFieldElemV3
             .CtlCurrentElement = CtlFieldElemV3
             .CtlCurrentElementField = CtlFieldElemV3 ''Added 1/24/2022 td

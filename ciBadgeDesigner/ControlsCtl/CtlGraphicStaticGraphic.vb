@@ -147,6 +147,8 @@ Public Class CtlGraphicStaticGraphic
         ''Added 1/24/2022 thomas d. 
         With objOperationsSG
 
+            .CtlCurrentForm = par_formParent ''Added 5/6/2022 td 
+
             .CtlCurrentControl = CtlStaticGraphic1
             .CtlCurrentElement = CtlStaticGraphic1
             ''.Designer = par_oMoveEventsForGroupedCtls.

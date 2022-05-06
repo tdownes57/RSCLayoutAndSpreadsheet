@@ -225,6 +225,11 @@ Public Class RSCMoveableControlVB
 
     Public Overridable Property ElementInfo_Base As ciBadgeInterfaces.IElement_Base ''Added 1/10/2022 thomas d.
 
+    ''Added 5/6/2022 td
+    Public ElemIfApplicable_IPic As ciBadgeInterfaces.IElementPic
+    Public ElemIfApplicable_ISig As ciBadgeInterfaces.IElementSig
+    Public ElemIfApplicable_IQR As ciBadgeInterfaces.IElementQRCode
+
     Public Event RSCControlClicked() ''Added 5/4/2022 td
 
     ''#1 Jan2 2022''Private mod_iSaveToModel As ISaveToModel 

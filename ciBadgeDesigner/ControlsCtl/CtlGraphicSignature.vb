@@ -210,6 +210,10 @@ Public Class CtlGraphicSignature
         Me.ElementInfo_Base = CType(par_elementSig, IElement_Base)
         Me.ElementInfo_Sig = CType(par_elementSig, IElementSig)
 
+        ''Added 5/6/2022 td
+        ''  This will be used by Operations__Base.Delete_Element_From_Badge_BA1019
+        Me.ElemIfApplicable_ISig = CType(par_elementSig, IElementSig)
+
         ''9/20/2019 td''Me.FormDesigner = par_formLayout ''Added 9/4/2019 td
         Me.LayoutFunctions = par_formLayout ''Added 9/4/2019 td
 

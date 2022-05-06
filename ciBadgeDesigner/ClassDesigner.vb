@@ -1119,15 +1119,36 @@ Public Class ClassDesigner
         ''   2. Create a new one & add it to the designer form. 
         ''
         ''Jan3 2022 td''LoadElements_QRCode(iBadgeSideElements.ElementQR) ''Dec22 2021 td''LoadDesigner_QRCode()
-        LoadElements_QRCode(iBadgeSideElements.ElementQRCode_1st, par_oMoveEvents) ''Dec22 2021 td''LoadDesigner_QRCode()
+
+
+        ''5/5/2022 td''LoadElements_QRCode(iBadgeSideElements.ElementQRCode_1st, par_oMoveEvents) ''Dec22 2021 td''LoadDesigner_QRCode()
+        Const c_boolLimitOnePerCustomer_QRCode As Boolean = False ''Added 5/6/2022 thomas
+        If (c_boolLimitOnePerCustomer_QRCode) Then
+            LoadElements_QRCode(iBadgeSideElements.ElementQRCode_1st, par_oMoveEvents) ''Dec22 2021 td''LoadDesigner_QRCode()
+        Else
+            LoadElements_AllQRCodes(iBadgeSideElements.ListElementQRCodes(), par_oMoveEvents) ''Dec22 2021 td''LoadDesigner_QRCode()
+        End If ''End of ""If (c_boolLimitOnePerCustomer_QRCode) Then... Else..."
 
         ''12/22/2021 td''LoadElements_Picture(par_cache.PicElement_Front())
         ''01/5/2022 td''LoadElements_Picture(iBadgeSideElements.ElementPic)
-        LoadElements_Picture(iBadgeSideElements.ElementPortrait_1st, True)
+        ''5/05/2022 td''LoadElements_Picture(iBadgeSideElements.ElementPortrait_1st, True)
+        Const c_boolLimitOnePerCustomer_Pic As Boolean = False ''Added 5/6/2022 thomas
+        If (c_boolLimitOnePerCustomer_Pic) Then
+            LoadElements_Picture(iBadgeSideElements.ElementPortrait_1st, par_oMoveEvents, True)
+        Else
+            LoadElements_AllPortraits(iBadgeSideElements.ListElementPortraits(), par_oMoveEvents) ''Dec22 2021 td''LoadDesigner_QRCode()
+        End If ''End of ""If (c_boolLimitOnePerCustomer_QRCode) Then... Else..."
 
         ''12/22/2021 td''LoadElements_Signature(par_cache.ElementSignature) ''Added 10/12/2019 thomas d.
         ''1/4/2022 td''LoadElements_Signature(iBadgeSideElements.ElementSig) ''Modified 12/22/2021 thomas d.
-        LoadElements_Signature(iBadgeSideElements.ElementSignature_1st, par_oMoveEvents) ''Modified 12/22/2021 thomas d.
+        ''5/05/2022 td''LoadElements_Signature(iBadgeSideElements.ElementSignature_1st, par_oMoveEvents) ''Modified 12/22/2021 thomas d.
+
+        Const c_boolLimitOnePerCustomer_Sig As Boolean = False ''Added 5/6/2022 thomas
+        If (c_boolLimitOnePerCustomer_Sig) Then
+            LoadElements_Signature(iBadgeSideElements.ElementSignature_1st, par_oMoveEvents)
+        Else
+            LoadElements_AllSignatures(iBadgeSideElements.ListElementSignatures(), par_oMoveEvents) ''Dec22 2021 td''LoadDesigner_QRCode()
+        End If ''End of ""If (c_boolLimitOnePerCustomer_Sig) Then... Else..."
 
         ''Added 12/18/2021 td 
         ''Dec18 2021''LoadElements_StaticText1(par_cache.ListOfElementTexts_Front.GetEnumerator().Current) ''Added 10/12/2019 thomas d.
@@ -1264,8 +1285,21 @@ Public Class ClassDesigner
     ''End Sub ''End of "Private Sub ControlMoverResizer_AddField"
 
 
+    Private Sub LoadElements_AllPortraits(par_listElements As HashSet(Of ClassElementPortrait),
+                                    par_oMoveEvents As GroupMoveEvents_Singleton,
+                                    Optional pbIfNothingThenExit As Boolean = True)
+        ''Added 5/5/2022 td
+        For Each each_elem As ClassElementPortrait In par_listElements
+            LoadElements_Picture(each_elem, par_oMoveEvents, pbIfNothingThenExit)
+        Next each_elem
+
+    End Sub ''End of ""Private Sub LoadElements_AllPortraits""
+
+
     Private Sub LoadElements_Picture(par_elementPic As ClassElementPortrait,
-                                     pbIfNothingThenExit As Boolean)
+                                       par_oGroupMoveEvents As GroupMoveEvents_Singleton,
+                        pbIfNothingThenExit As Boolean,
+                        Optional pbIfNothingThrowException As Boolean = False)
         ''
         ''Added 7/31/2019 thomas downes
         ''Parameter par_elementPic added 9/17/2019 td
@@ -1278,7 +1312,9 @@ Public Class ClassDesigner
         ''Added 1/5/2022 td
         If (par_elementPic Is Nothing) Then
             If (pbIfNothingThenExit) Then Return ''Exit smoothly. ---1/5/22
-            Throw New Exception("The Element is missing!")
+            ''---Throw New Exception("The Element is missing!")
+            If (pbIfNothingThrowException) Then Throw New Exception("The Element is missing!")
+            Return ''Exit smoothly, regardless of parameter. ---1/5/22
         End If ''End of "If (par_elementPic Is Nothing) Then"
 
         Dim oGetControlParameters As ClassGetElementControlParams ''Added 1/17/2022 thomas d.
@@ -1289,7 +1325,8 @@ Public Class ClassDesigner
                                                              par_elementPic, Me.DesignerForm,
                                                              "CtlGraphic_Portrait",
                                                              Me, True, mod_ctlLasttouched, Me,
-                                                                mod_oGroupMoveEvents)
+                                                                par_oGroupMoveEvents)
+        ''                                                 ''May5 2022  mod_oGroupMoveEvents)
 
         ''10/1/2019 td''Me.Controls.Add(CtlGraphicPortrait_Lady)
         Me.DesignerForm.Controls.Add(CtlGraphic_Portrait)
@@ -1353,6 +1390,17 @@ Public Class ClassDesigner
 
     End Sub ''End of " Private Sub LoadElements_Picture()"
 
+
+    Private Sub LoadElements_AllQRCodes(par_listElementsQR As HashSet(Of ClassElementQRCode),
+                                    par_oMoveEvents As GroupMoveEvents_Singleton)
+        ''
+        ''Added 5/5/2022 td
+        ''
+        For Each each_elem As ClassElementQRCode In par_listElementsQR
+            LoadElements_QRCode(each_elem, par_oMoveEvents)
+        Next each_elem
+
+    End Sub ''Endof ""Private Sub LoadElements_AllQRCodes""
 
     Private Sub LoadElements_QRCode(par_elementQR As ClassElementQRCode,
                                     par_oMoveEvents As GroupMoveEvents_Singleton)
@@ -1438,6 +1486,16 @@ Public Class ClassDesigner
         End If ''End of "If (elementQRCode.WhichSideOfCard = Me.EnumSideOfCard) Then"
 
     End Sub ''ENd of "Private Sub LoadElements_QRCode"
+
+
+    Private Sub LoadElements_AllSignatures(par_listElements As HashSet(Of ClassElementSignature),
+                                    par_oMoveEvents As GroupMoveEvents_Singleton)
+        ''Added 5/5/2022 td
+        For Each each_elem As ClassElementSignature In par_listElements
+            LoadElements_Signature(each_elem, par_oMoveEvents)
+        Next each_elem
+
+    End Sub ''Endof ""Private Sub LoadElements_AllSignatures""
 
 
     Private Sub LoadElements_Signature(par_elementSig As ClassElementSignature,

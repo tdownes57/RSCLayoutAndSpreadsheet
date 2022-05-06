@@ -812,6 +812,99 @@ Namespace ciBadgeCachePersonality
         End Sub ''End of "Public Sub LoadPic_InitialDefault"
 
 
+        Public Sub DeleteElementFromCache_Pic(par_infoPortrait As IElementPic,
+                                              par_bLetsSpecifySide As Boolean,
+                                              par_bSideIsBackside As Boolean,
+                                              ByRef pref_boolSuccess As Boolean)
+            ''
+            ''Added 5/05/2022 thomas d. 
+            ''
+            Dim objElementPortraitPic As ClassElementPortrait
+            Dim b1 As Boolean
+            Dim b2 As Boolean
+            Dim b3 As Boolean
+            Dim b4 As Boolean
+            Dim b5 As Boolean
+            Dim b6 As Boolean
+
+            objElementPortraitPic = GetElement_FromInfo_Pic(par_infoPortrait)
+
+            If (Not par_bLetsSpecifySide) Then
+                ''
+                ''Execute "Remove" on both sides of the badge.  A "False" is returned if
+                ''   the item is not located within the list. ---5/5/2022
+                ''
+                ''not possible''b1 = Me.mod_cacheEdits.ListOfElementPics_Front.Remove(par_infoPortrait)
+                ''not possible''b2 = Me.mod_cacheEdits.ListOfElementPics_Back.Remove(par_infoPortrait)
+                b3 = Me.mod_cacheEdits.ListOfElementPics_Front.Remove(objElementPortraitPic)
+                b4 = Me.mod_cacheEdits.ListOfElementPics_Back.Remove(objElementPortraitPic)
+
+            ElseIf (par_bSideIsBackside) Then
+                b5 = Me.mod_cacheEdits.ListOfElementPics_Back.Remove(objElementPortraitPic)
+            Else
+                b6 = Me.mod_cacheEdits.ListOfElementPics_Front.Remove(objElementPortraitPic)
+
+            End If ''end of ""If (Not par_bLetsSpecifySide) Then... ElseIf... Else..."
+
+ExitHandler:
+            ''Add 5/6/2022 td
+            pref_boolSuccess = (b1 Or b2 Or b3 Or b4 Or b5 Or b6)
+
+        End Sub ''end of ""Public Sub DeleteElementFromCache_Pic""
+
+
+        Public Sub DeleteElementFromCache_QR(par_infoQRCode As IElementQRCode,
+                                              par_bLetsSpecifySide As Boolean,
+                                              par_bSideIsBackside As Boolean,
+                                              ByRef pref_boolSuccess As Boolean)
+            ''
+            ''Added 5/05/2022 thomas d. 
+            ''
+            Dim objElementQRCode As ClassElementQRCode
+            objElementQRCode = GetElement_FromInfo_QRCode(par_infoQRCode)
+
+            If (Not par_bLetsSpecifySide) Then
+                ''Execute "Remove" on both sides of the badge.
+                Me.mod_cacheEdits.ListOfElementQRCodes_Front.Remove(objElementQRCode)
+                Me.mod_cacheEdits.ListOfElementQRCodes_Back.Remove(objElementQRCode)
+
+            ElseIf (par_bSideIsBackside) Then
+                Me.mod_cacheEdits.ListOfElementQRCodes_Back.Remove(objElementQRCode)
+            Else
+                Me.mod_cacheEdits.ListOfElementQRCodes_Front.Remove(objElementQRCode)
+
+            End If ''end of ""If (Not par_bLetsSpecifySide) Then... ElseIf... Else..."
+
+        End Sub ''end of ""Public Sub DeleteElementFromCache_QR""
+
+
+        Public Sub DeleteElementFromCache_Sig(par_infoSig As IElementSig,
+                                              par_bLetsSpecifySide As Boolean,
+                                              par_bSideIsBackside As Boolean,
+                                              ByRef pref_boolSuccess As Boolean)
+            ''
+            ''Added 5/05/2022 thomas d. 
+            ''
+            ''  Sig = Signature
+            ''
+            Dim objElementSig As ClassElementSignature
+            objElementSig = GetElement_FromInfo_Sig(par_infoSig)
+
+            If (Not par_bLetsSpecifySide) Then
+                ''Execute "Remove" on both sides of the badge.
+                Me.mod_cacheEdits.ListOfElementSignatures_Front.Remove(objElementSig)
+                Me.mod_cacheEdits.ListOfElementSignatures_Back.Remove(objElementSig)
+
+            ElseIf (par_bSideIsBackside) Then
+                Me.mod_cacheEdits.ListOfElementSignatures_Back.Remove(objElementSig)
+            Else
+                Me.mod_cacheEdits.ListOfElementSignatures_Front.Remove(objElementSig)
+
+            End If ''end of ""If (Not par_bLetsSpecifySide) Then... ElseIf... Else..."
+
+        End Sub ''end of ""Public Sub DeleteElementFromCache_Sig""
+
+
         Public Sub DeleteElementFromCache(par_infoBase As ciBadgeInterfaces.IElement_Base,
                                   par_enum As ciBadgeInterfaces.Enum_ElementType,
                                 ByRef pref_boolSuccess As Boolean)
@@ -841,6 +934,71 @@ Namespace ciBadgeCachePersonality
             End If ''End of "If (pref_boolSuccess) Then ... Else...."
 
         End Sub ''End of "Public Sub DeleteElementFromCache"
+
+
+        Private Function GetElement_FromInfo_Pic(par_infoPic As IElementPic) As ClassElementPortrait
+            ''
+            ''Added 5/6/2022 td
+            ''
+            Dim boolMatch As Boolean
+
+            ''Search the frontside.
+            For Each each_elem As ClassElementPortrait In Me.mod_cacheEdits.ListOfElementPics_Front
+                boolMatch = (par_infoPic Is CType(each_elem, IElementPic))
+                If (boolMatch) Then Return each_elem
+            Next each_elem
+
+            ''Search the backside.
+            For Each each_elem As ClassElementPortrait In Me.mod_cacheEdits.ListOfElementPics_Back
+                boolMatch = (par_infoPic Is CType(each_elem, IElementPic))
+                If (boolMatch) Then Return each_elem
+            Next each_elem
+
+            Return Nothing
+        End Function ''end of "Private Function GetElement_FromInfo_Pic" 
+
+
+        Private Function GetElement_FromInfo_QRCode(par_infoQR As IElementQRCode) As ClassElementQRCode
+            ''
+            ''Added 5/6/2022 td
+            ''
+            Dim boolMatch As Boolean
+
+            ''Search the frontside.
+            For Each each_elem As ClassElementQRCode In Me.mod_cacheEdits.ListOfElementQRCodes_Front
+                boolMatch = (par_infoQR Is CType(each_elem, IElementQRCode))
+                If (boolMatch) Then Return each_elem
+            Next each_elem
+
+            ''Search the backside.
+            For Each each_elem As ClassElementQRCode In Me.mod_cacheEdits.ListOfElementQRCodes_Back
+                boolMatch = (par_infoQR Is CType(each_elem, IElementQRCode))
+                If (boolMatch) Then Return each_elem
+            Next each_elem
+
+            Return Nothing
+        End Function ''end of "Private Function GetElement_FromInfo_QRCode" 
+
+
+        Private Function GetElement_FromInfo_Sig(par_infoSig As IElementSig) As ClassElementSignature
+            ''
+            ''Added 5/6/2022 td
+            ''
+            Dim boolMatch As Boolean
+
+            For Each each_elem As ClassElementSignature In Me.mod_cacheEdits.ListOfElementSignatures_Front
+                boolMatch = (par_infoSig Is CType(each_elem, IElementSig))
+                If (boolMatch) Then Return each_elem
+            Next each_elem
+
+            For Each each_elem As ClassElementSignature In Me.mod_cacheEdits.ListOfElementSignatures_Back
+                boolMatch = (par_infoSig Is CType(each_elem, IElementSig))
+                If (boolMatch) Then Return each_elem
+            Next each_elem
+
+            Return Nothing
+        End Function ''end of "Private Function GetElement_FromInfo_Sig"" 
+
 
 
         Public Sub SwitchElementToOtherSideOfCard(par_infoBase As ciBadgeInterfaces.IElement_Base,

@@ -37,6 +37,7 @@ Public MustInherit Class Operations__Base
     Public Property EventsForMoveability_Group As GroupMoveEvents_Singleton ''Added 1/11/2022 td 
     Public Property LayoutFunctions As ILayoutFunctions ''Added 1/4/2022 td
 
+    Public Property CtlCurrentForm As Form ''Added 5/5/2022 thomas d. 
     Public Property CtlCurrentControl As Control ''---Implements ICurrentElement.CtlCurrentElement
 
     ''Feb2 2022 ''Public Property MonemMovement_SingleControl As MonemControlMove_AllFunctionality ''Added 2/2/2022
@@ -83,15 +84,56 @@ Public MustInherit Class Operations__Base
         ''Stubbed 1/19/2022 thomas downes
         ''
         Dim boolSuccess As Boolean
+        Dim bElementIsPortraitPic As Boolean ''5/5/2022
+        Dim bElementIsQRCode As Boolean ''5/5/2022
+        Dim bElementIsSig As Boolean ''5/5/2022
+
+        Dim bConfirmDelete As Boolean ''Added 5/5/20222
+        ''Added 5/5/20222
+        bConfirmDelete = MessageBoxTD.Show_Confirmed("Delete element?", "", True)
+        If (Not bConfirmDelete) Then Exit Sub
+
+        bElementIsPortraitPic = (CtlCurrentElement.ElemIfApplicable_IPic IsNot Nothing)
+        bElementIsQRCode = (CtlCurrentElement.ElemIfApplicable_IQR IsNot Nothing)
+        bElementIsSig = (CtlCurrentElement.ElemIfApplicable_ISig IsNot Nothing)
 
         ElementsCacheManager.DeleteElementFromCache(CtlCurrentElement.ElementInfo_Base,
                                                     Me.Element_Type, boolSuccess)
 
+        ''Added 5/5/2022 td
+        ''
+        ''   Unfortunately, the function call above is not very reliable.  
+        ''      Often it fails to find the element.  
+        ''
+        Dim oRSC As RSCMoveableControlVB = CtlCurrentElement
+
+        With ElementsCacheManager
+            If ((Not boolSuccess) And bElementIsPortraitPic) Then
+                ''Pic = Portrait Picture
+                .DeleteElementFromCache_Pic(oRSC.ElemIfApplicable_IPic, False, False, boolSuccess)
+
+            ElseIf ((Not boolSuccess) And bElementIsQRCode) Then
+                ''QR = QR Code
+                .DeleteElementFromCache_QR(oRSC.ElemIfApplicable_IQR, False, False, boolSuccess)
+
+            ElseIf ((Not boolSuccess) And bElementIsSig) Then
+                ''Sig = Signature
+                .DeleteElementFromCache_Sig(oRSC.ElemIfApplicable_ISig, False, False, boolSuccess)
+
+            End If ''End of ""If ((Not boolSuccess) And bElementIsPortraitPic) Then... ElseIf... ElseIf...
+        End With ''End of ""With ElementsCacheManager""
+
         If (boolSuccess) Then
-            MessageBoxTD.Show_Statement("For the change to have a visible effect, you will need to save & refresh.")
+            ''---MessageBoxTD.Show_Statement("For the change to have a visible effect, you will need to save & refresh.")
+            MessageBoxTD.Show_Statement("The element been removed from the design-layout XML.",
+                  "We will now try to remove it from the UI designer." & vbCrLf_Deux &
+                  "You might need to save & refresh the layout-designer to clear it out.")
+            Me.CtlCurrentForm.Controls.Remove(CtlCurrentControl)
+
         Else
             ''Added 1/21/2022 td 
-            MessageBoxTD.Show_Statement("Unfortunately, we could not find that element!!  Sorry!!")
+            MessageBoxTD.Show_Statement("Unfortunately, we could Not find that element!!  Sorry!!")
+
         End If ''Endo  f'"If (boolSuccess) Then .... Else ...."
 
     End Sub ''End of Public Sub Delete_Element_From_Badge_BA1001

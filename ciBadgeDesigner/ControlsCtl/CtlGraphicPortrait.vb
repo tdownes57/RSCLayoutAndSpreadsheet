@@ -117,6 +117,7 @@ Public Class CtlGraphicPortrait
         ''Added 1/24/2022 thomas d. 
         With objOperationsPortrait
 
+            .CtlCurrentForm = par_formParent ''Added 5/6/2022 td 
             .CtlCurrentControl = CtlPortrait1
             .CtlCurrentElement = CtlPortrait1
             ''.Designer = par_oMoveEventsForGroupedCtls.
@@ -173,7 +174,7 @@ Public Class CtlGraphicPortrait
         ''Jan1 2022 td''MyBase.New(par_enumElementType, pboolResizeProportionally,
         MyBase.New(EnumElementType.Portrait,
                    par_elementPic,
-        par_parameters.ElementsCache, par_oParentForm,
+                   par_parameters.ElementsCache, par_oParentForm,
                    pboolResizeProportionally,
                         par_iLayoutFun, par_iRefreshPreview, par_iSizeDesired,
                         par_operationsType, par_operationsAny,
@@ -204,6 +205,10 @@ Public Class CtlGraphicPortrait
         Me.ElementClass_Obj = par_elementPic ''par_elementPic
         Me.ElementInfo_Base = CType(par_elementPic, IElement_Base)
         Me.ElementInfo_Pic = CType(par_elementPic, IElementPic)
+
+        ''Added 5/6/2022 td
+        ''  This will be used by Operations__Base.Delete_Element_From_Badge_BA1019
+        Me.ElemIfApplicable_IPic = CType(par_elementPic, IElementPic)
 
         ''9/20/2019 td''Me.FormDesigner = par_formLayout ''Added 9/4/2019 td
         Me.LayoutFunctions = par_iLayoutFunctions ''Added 9/4/2019 td

@@ -138,6 +138,7 @@ Public Class CtlGraphicQRCode
         ''Added 2/02/2022 thomas d. 
         With objOperationsQR
 
+            .CtlCurrentForm = par_formParent ''Added 5/6/2022 td 
             .CtlCurrentControl = CtlQRCode1
             .CtlCurrentElement = CtlQRCode1
             ''.Designer = par_oMoveEventsForGroupedCtls.
@@ -237,6 +238,10 @@ Public Class CtlGraphicQRCode
         Me.ElementInfo_Base = CType(par_elementQR, IElement_Base)
         ''Me.ElementInfo_Pic = CType(par_elementPic, IElementPic)
         Me.ElementInfo_QR = CType(par_elementQR, IElementQRCode)
+
+        ''Added 5/6/2022 td
+        ''  This will be used by Operations__Base.Delete_Element_From_Badge_BA1019
+        Me.ElemIfApplicable_IQR = CType(par_elementQR, IElementQRCode)
 
         ''9/20/2019 td''Me.FormDesigner = par_formLayout ''Added 9/4/2019 td
         Me.LayoutFunctions = par_iLayoutFunctions ''Added 9/4/2019 td

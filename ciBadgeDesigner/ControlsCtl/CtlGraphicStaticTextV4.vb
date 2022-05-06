@@ -166,6 +166,8 @@ Public Class CtlGraphicStaticTextV4
         ''Added 1/24/2022 thomas d. 
         With objOperationsStaticText_V4
 
+            .CtlCurrentForm = par_formParent ''Added 5/6/2022 td 
+
             .CtlCurrentControl = CtlStaticTextV4
             .CtlCurrentElement = CtlStaticTextV4
             .CtlCurrentFieldOrTextV4 = CtlStaticTextV4 ''Added 2/3/2022 td
