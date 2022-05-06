@@ -28,6 +28,7 @@ Partial Class RSCMoveableControlVB
         'LinkLabelConditional
         '
         Me.LinkLabelConditional.AutoSize = True
+        Me.LinkLabelConditional.BackColor = System.Drawing.Color.Transparent
         Me.LinkLabelConditional.Location = New System.Drawing.Point(3, 0)
         Me.LinkLabelConditional.Name = "LinkLabelConditional"
         Me.LinkLabelConditional.Size = New System.Drawing.Size(59, 13)
@@ -42,7 +43,7 @@ Partial Class RSCMoveableControlVB
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.Controls.Add(Me.LinkLabelConditional)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "RSCMoveableControlVB"
         Me.Size = New System.Drawing.Size(256, 122)
         Me.ResumeLayout(False)

@@ -45,7 +45,7 @@ ExitHandler:
         Me.ConditionalExp_LastEdited = Now ''Added 5/5/2022 td
 
         If (ConditionalExpressionInUse) Then
-            If (Me.ConditionalExpressionValue = EnumCIBFields.Undetermined) Then
+            If (Me.ConditionalExpressionField = EnumCIBFields.Undetermined) Then
                 MessageBoxTD.Show_Statement("Relevant Field is not selected.")
                 Exit Sub
             End If

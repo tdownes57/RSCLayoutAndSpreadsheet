@@ -299,6 +299,11 @@ Public Class RSCMoveableControlVB
         ''         ''Jan2 2022 ''par_iSaveToModel As ISaveToModel,
         ''         ''Dec29 2021 ''par_designer As ClassDesigner,
 
+        ''All LinkLabels to have a transparent BackColor.---5/5/2022
+        ''  https://social.msdn.microsoft.com/Forums/windows/en-US/ef3a3a56-118a-40d2-8635-0c2ceffbe0f3/control-does-not-support-transparent-background-colorsvbnet#:~:text=As%20the%20document%20says%20the%20BackColor%20property%20does,value%20of%20a%20form%20is%20set%20to%20false.
+        ''  ---Added 5/5/2022
+        Me.SetStyle(ControlStyles.SupportsTransparentBackColor, True)
+
         ' This call is required by the designer.
         InitializeComponent()
 

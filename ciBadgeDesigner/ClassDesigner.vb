@@ -870,6 +870,56 @@ Public Class ClassDesigner
     End Sub ''End of "Public Sub LoadDesigner"
 
 
+    Public Sub Load_NewElement_PortraitPic()
+        ''
+        ''Added 5/6/2022 thomas d.
+        ''
+        Dim intPicLeft As Integer
+        Dim intPicTop As Integer
+        Dim intPicWidth As Integer
+        Dim intPicHeight As Integer
+
+        Static s_countCalls As Integer = 0
+
+        ''Added 10/01/2019 td
+        intPicLeft = Me.Initial_Pic_Left
+        intPicTop = Me.Initial_Pic_Top
+        intPicWidth = Me.Initial_Pic_Width
+        intPicHeight = Me.Initial_Pic_Height
+
+        ''
+        ''TO DO:  Create a form which displays the badge as a white background
+        ''        and overlays a blue rectangle which the correct WH ratio 
+        ''        and placed on a random part of the badge. Have a heading 
+        ''        which says, "We have placed the new element at a random position
+        ''        on the badge, as indicated below.  The only reason for this
+        ''        dialog is to let you know where it's been placed.  You cannot
+        ''        modify use this dialog to move the element.  Hit OK to close dialog."
+        ''        That dialog can have the responsibility of calling the Random
+        ''        Number generator and determining pixel position. 
+        ''        --5/6/2022 thomas d.
+        ''
+        Me.ElementsCache_UseEdits.LoadNewElement_Pic(intPicLeft, intPicTop,
+                             intPicWidth, intPicHeight,
+                             Me.BackgroundBox_Front,
+                             EnumWhichSideOfCard.EnumFrontside)
+
+    End Sub ''End of ""Public Sub Load_NewElement_PortraitPic()""
+
+
+    Public Sub Load_NewElement_QRCode()
+
+
+    End Sub ''End of ""Public Sub Load_NewElement_QRCode()""
+
+
+    Public Sub Load_NewElement_Signature()
+
+
+    End Sub ''End of ""Public Sub Load_NewElement_Signature()""
+
+
+
     Public Sub UnselectHighlightedElements()
         ''
         ''Added 10/15/2019 thomas d.  
@@ -1210,10 +1260,12 @@ Public Class ClassDesigner
     ''                      par_graphicFieldCtl, 10,
     ''                      c_bRepaintAfterResize, mc_boolBreakpoints) ''Added 7/28/2019 thomas downes
     ''    End If ''End of "If (boolAllowGroupMovements) Then ...... Else ..."
-
+    ''
     ''End Sub ''End of "Private Sub ControlMoverResizer_AddField"
 
-    Private Sub LoadElements_Picture(par_elementPic As ClassElementPortrait, pbIfNothingThenExit As Boolean)
+
+    Private Sub LoadElements_Picture(par_elementPic As ClassElementPortrait,
+                                     pbIfNothingThenExit As Boolean)
         ''
         ''Added 7/31/2019 thomas downes
         ''Parameter par_elementPic added 9/17/2019 td
