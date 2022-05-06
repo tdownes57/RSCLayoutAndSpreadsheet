@@ -281,19 +281,18 @@ Partial Class FormTypeOfElementsToAdd
         '
         'PanelPortraitPic
         '
-        Me.PanelPortraitPic.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.PanelPortraitPic.BackColor = System.Drawing.Color.RoyalBlue
-        Me.PanelPortraitPic.Location = New System.Drawing.Point(648, 163)
+        Me.PanelPortraitPic.Location = New System.Drawing.Point(669, 163)
         Me.PanelPortraitPic.Name = "PanelPortraitPic"
         Me.PanelPortraitPic.Padding = New System.Windows.Forms.Padding(3)
         Me.PanelPortraitPic.Size = New System.Drawing.Size(118, 165)
         Me.PanelPortraitPic.TabIndex = 113
+        Me.PanelPortraitPic.Visible = False
         '
         'PanelQRCode
         '
-        Me.PanelQRCode.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.PanelQRCode.BackColor = System.Drawing.Color.RoyalBlue
-        Me.PanelQRCode.Location = New System.Drawing.Point(772, 249)
+        Me.PanelQRCode.Location = New System.Drawing.Point(793, 249)
         Me.PanelQRCode.Name = "PanelQRCode"
         Me.PanelQRCode.Padding = New System.Windows.Forms.Padding(3)
         Me.PanelQRCode.Size = New System.Drawing.Size(77, 79)
@@ -301,9 +300,8 @@ Partial Class FormTypeOfElementsToAdd
         '
         'PanelGraphic
         '
-        Me.PanelGraphic.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.PanelGraphic.BackColor = System.Drawing.Color.RoyalBlue
-        Me.PanelGraphic.Location = New System.Drawing.Point(772, 163)
+        Me.PanelGraphic.Location = New System.Drawing.Point(793, 163)
         Me.PanelGraphic.Name = "PanelGraphic"
         Me.PanelGraphic.Padding = New System.Windows.Forms.Padding(3)
         Me.PanelGraphic.Size = New System.Drawing.Size(205, 61)
@@ -311,28 +309,27 @@ Partial Class FormTypeOfElementsToAdd
         '
         'PanelStaticText
         '
-        Me.PanelStaticText.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.PanelStaticText.BackColor = System.Drawing.Color.RoyalBlue
-        Me.PanelStaticText.Location = New System.Drawing.Point(644, 347)
+        Me.PanelStaticText.Location = New System.Drawing.Point(665, 347)
         Me.PanelStaticText.Name = "PanelStaticText"
         Me.PanelStaticText.Padding = New System.Windows.Forms.Padding(3)
         Me.PanelStaticText.Size = New System.Drawing.Size(333, 33)
         Me.PanelStaticText.TabIndex = 116
+        Me.PanelStaticText.Visible = False
         '
         'PanelSignature
         '
-        Me.PanelSignature.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.PanelSignature.BackColor = System.Drawing.Color.RoyalBlue
-        Me.PanelSignature.Location = New System.Drawing.Point(644, 393)
+        Me.PanelSignature.Location = New System.Drawing.Point(665, 393)
         Me.PanelSignature.Name = "PanelSignature"
         Me.PanelSignature.Size = New System.Drawing.Size(248, 76)
         Me.PanelSignature.TabIndex = 117
+        Me.PanelSignature.Visible = False
         '
         'panelField1
         '
-        Me.panelField1.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.panelField1.BackColor = System.Drawing.Color.RoyalBlue
-        Me.panelField1.Location = New System.Drawing.Point(1006, 163)
+        Me.panelField1.Location = New System.Drawing.Point(1027, 163)
         Me.panelField1.Name = "panelField1"
         Me.panelField1.Size = New System.Drawing.Size(129, 64)
         Me.panelField1.TabIndex = 118
@@ -351,36 +348,32 @@ Partial Class FormTypeOfElementsToAdd
         '
         'panelField2
         '
-        Me.panelField2.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.panelField2.BackColor = System.Drawing.Color.RoyalBlue
-        Me.panelField2.Location = New System.Drawing.Point(1006, 231)
+        Me.panelField2.Location = New System.Drawing.Point(1027, 231)
         Me.panelField2.Name = "panelField2"
         Me.panelField2.Size = New System.Drawing.Size(129, 64)
         Me.panelField2.TabIndex = 119
         '
         'panelField3
         '
-        Me.panelField3.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.panelField3.BackColor = System.Drawing.Color.RoyalBlue
-        Me.panelField3.Location = New System.Drawing.Point(1006, 301)
+        Me.panelField3.Location = New System.Drawing.Point(1027, 301)
         Me.panelField3.Name = "panelField3"
         Me.panelField3.Size = New System.Drawing.Size(129, 64)
         Me.panelField3.TabIndex = 120
         '
         'panelField4
         '
-        Me.panelField4.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.panelField4.BackColor = System.Drawing.Color.RoyalBlue
-        Me.panelField4.Location = New System.Drawing.Point(1006, 371)
+        Me.panelField4.Location = New System.Drawing.Point(1027, 371)
         Me.panelField4.Name = "panelField4"
         Me.panelField4.Size = New System.Drawing.Size(129, 64)
         Me.panelField4.TabIndex = 121
         '
         'panelField5
         '
-        Me.panelField5.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.panelField5.BackColor = System.Drawing.Color.RoyalBlue
-        Me.panelField5.Location = New System.Drawing.Point(1006, 443)
+        Me.panelField5.Location = New System.Drawing.Point(1027, 443)
         Me.panelField5.Name = "panelField5"
         Me.panelField5.Size = New System.Drawing.Size(129, 64)
         Me.panelField5.TabIndex = 122
@@ -389,7 +382,7 @@ Partial Class FormTypeOfElementsToAdd
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1316, 621)
+        Me.ClientSize = New System.Drawing.Size(694, 621)
         Me.Controls.Add(Me.panelField5)
         Me.Controls.Add(Me.panelField4)
         Me.Controls.Add(Me.panelField3)

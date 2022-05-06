@@ -231,12 +231,17 @@ ExitHandler:
         ''
         ''Did the user press OK (rather than Cancel)?  
         ''
+        ''5/5/2022 td ''If (frm_show.DialogResult = vbOK) Then
         If (frm_show.DialogResult = vbOK) Then
 
             Me.checkHasPresetValues.Checked = frm_show.checkHasPresetValues.Checked
+
             listPresetValues.Items.Clear()
-            frm_show.listPresetValues.Items.CopyTo(mod_arrayOfValues, 0)
-            listPresetValues.Items.AddRange(mod_arrayOfValues)
+            ''5/5/2022 td ''frm_show.listPresetValues.Items.CopyTo(mod_arrayOfValues, 0)
+            ''5/5/2022 td ''listPresetValues.Items.AddRange(mod_arrayOfValues)
+            For Each strValue As String In frm_show.listPresetValues.Items
+                listPresetValues.Items.Add(strValue)
+            Next strValue
 
         End If ''ENd of "If (frm_show.DialogResult = vbOK) Then"
 

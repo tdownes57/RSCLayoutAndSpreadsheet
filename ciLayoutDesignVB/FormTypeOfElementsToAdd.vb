@@ -73,7 +73,8 @@ Public Class FormTypeOfElementsToAdd
         ''
         ''Added 5/3/2022 thomas downes 
         ''
-        If (par_control.BorderStyle = BorderStyle.None) Then
+        ''----If (par_control.BorderStyle = BorderStyle.None) Then
+        If (par_control.Tag Is Nothing) Then
 
             par_control.BorderStyle = BorderStyle.Fixed3D
 
@@ -103,6 +104,27 @@ Public Class FormTypeOfElementsToAdd
     End Sub ''End of ""Private Sub ToggleBorder(par_control As UserControl)""
 
 
+    Private Sub AddBorder(par_control As UserControl, par_panel As Panel) ''---As RSCMoveableControlVB) ''As Control)
+        ''
+        ''Added 5/3/2022 thomas downes 
+        ''
+        par_control.BorderStyle = BorderStyle.FixedSingle
+
+        ''Show the panel.
+        If (par_panel IsNot Nothing) Then
+            par_panel.Left = par_control.Left - 5
+            par_panel.Top = par_control.Top - 5
+            par_panel.Height = par_control.Height + 10
+            par_panel.Width = par_control.Width + 10
+            par_control.BringToFront()
+            par_panel.Visible = True
+            par_panel.Tag = par_control ''Added 5/5/2022 td
+            par_control.Tag = par_panel ''Added 5/5/2022 td 
+        End If ''end of ""If (par_panel IsNot Nothing) Then""
+
+    End Sub ''End of ""Private Sub AddBorder""
+
+
     Private Function GetCIBFieldToAdd(par_RSCSelectField As RSCSelectCIBField,
                                       par_intFieldIndex As Integer,
             Optional pboolAskAboutMissingSelection As Boolean = True,
@@ -118,9 +140,13 @@ Public Class FormTypeOfElementsToAdd
         With par_RSCSelectField
             enumCIBField = .GetFieldEnumSelected()
             bSubstantiveField = (enumCIBField <> EnumCIBFields.Undetermined)
-            bSelectionBorder = (.BorderStyle <> BorderStyle.None)
-            ''5/5/2022''pref_bMismatch = (bSubstantiveField <> bSelectionBorder)
-            boolMismatch = (bSubstantiveField <> bSelectionBorder)
+            ''5/5/2022 bSelectionBorder = (.BorderStyle <> BorderStyle.None)
+            bSelectionBorder = HasBorder(par_RSCSelectField)
+            ''#1 5/5/2022 td ''pref_bMismatch = (bSubstantiveField <> bSelectionBorder)
+            ''#2 5/5/2022 td ''boolMismatch = ((bSubstantiveField <> bSelectionBorder)
+            boolMismatch = ((bSubstantiveField <> bSelectionBorder) And
+                              (Not bSubstantiveField))
+
             If (boolMismatch) Then pref_bMismatch = True
 
             If (boolMismatch And pboolAskAboutMissingSelection) Then
@@ -189,7 +215,8 @@ Public Class FormTypeOfElementsToAdd
             Return (Not boolBorderIsNone)
 
         Else
-            boolBorderIsNone = (par_control.BorderStyle <> BorderStyle.None)
+            ''---boolBorderIsNone = (par_control.BorderStyle <> BorderStyle.None)
+            boolBorderIsNone = (par_control.BorderStyle = BorderStyle.None)
             Return (Not boolBorderIsNone) '' (par_control.BorderStyle <> BorderStyle.None)
 
         End If ''end of ""If (TypeOf par_control Is CtlGraphicStaticTextV3) Then....ElseIf..."
@@ -405,27 +432,72 @@ Public Class FormTypeOfElementsToAdd
     End Sub
 
     Private Sub RscSelectCIBField1_RSCFieldChanged(newCIBField As EnumCIBFields) Handles RscSelectCIBField1.RSCFieldChanged
+
+        ''Added 5/5/2022 td
+        If (RscSelectCIBField1.SelectedValue <> EnumCIBFields.Undetermined) Then
+            AddBorder(RscSelectCIBField1, panelField1)
+        End If
+
         ''Unlock the next field.
         RscSelectCIBField2.Enabled = True
 
     End Sub
 
+
     Private Sub RscSelectCIBField2_RSCFieldChanged(newCIBField As EnumCIBFields) Handles RscSelectCIBField2.RSCFieldChanged
+
+        ''Added 5/5/2022 td
+        If (RscSelectCIBField2.SelectedValue <> EnumCIBFields.Undetermined) Then
+            AddBorder(RscSelectCIBField2, panelField2)
+        End If
+
         ''Unlock the next field.
         RscSelectCIBField3.Enabled = True
 
     End Sub
 
+
     Private Sub RscSelectCIBField3_RSCFieldChanged(newCIBField As EnumCIBFields) Handles RscSelectCIBField3.RSCFieldChanged
+
+        ''Added 5/5/2022 td
+        If (RscSelectCIBField3.SelectedValue <> EnumCIBFields.Undetermined) Then
+            AddBorder(RscSelectCIBField3, panelField3)
+        End If
+
         ''Unlock the next field.
         RscSelectCIBField4.Enabled = True
 
     End Sub
 
-    Private Sub RscSelectCIBField4_RSCFieldChanged(newCIBField As EnumCIBFields) Handles RscSelectCIBField4.RSCFieldChanged
+
+    Private Sub RscSelectCIBField5_RSCFieldChanged(newCIBField As EnumCIBFields) Handles RscSelectCIBField5.RSCFieldChanged
+
+        ''Added 5/5/2022 td
+        If (RscSelectCIBField5.SelectedValue <> EnumCIBFields.Undetermined) Then
+            AddBorder(RscSelectCIBField5, panelField5)
+        End If
+
         ''Unlock the next field.
         RscSelectCIBField5.Enabled = True
 
     End Sub
 
+
+    Private Sub RscSelectCIBField4_RSCFieldChanged(newCIBField As EnumCIBFields) Handles RscSelectCIBField4.RSCFieldChanged
+
+        ''Added 5/5/2022 td
+        If (RscSelectCIBField4.SelectedValue <> EnumCIBFields.Undetermined) Then
+            AddBorder(RscSelectCIBField4, panelField4)
+        End If
+
+        ''Unlock the next field.
+        RscSelectCIBField5.Enabled = True
+
+    End Sub
+
+    Private Sub CtlGraphicQRCode1_RSCControlClicked_1() Handles CtlGraphicQRCode1.RSCControlClicked
+        ''Added 5/4/2022 td
+        ToggleBorder(CtlGraphicQRCode1, PanelQRCode)
+
+    End Sub
 End Class
