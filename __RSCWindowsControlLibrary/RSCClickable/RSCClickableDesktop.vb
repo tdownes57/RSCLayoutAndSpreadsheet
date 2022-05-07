@@ -41,7 +41,7 @@ Public Class RSCClickableDesktop
     Protected mod_objOperationsUseless As Operations__Useless = Nothing ''New Operations_Useless(Me)
     Protected mod_objOperationsDesktop As Operations__Desktop_Dummy = Nothing ''Added 1/15/2022 td
 
-    Protected Const mc_AddExtraHeadersForContextMenuStrip As Boolean = True ''Added 1/15/2022 td
+    Protected Const mc_AddExtraHeadersForContextMenuStrip As Boolean = False ''May 6, 2022 True ''Added 1/15/2022 td
 
     ''Public Sub New()
     ''    ''    ''Don't expect the Moveability to work, we are sending the events
@@ -185,25 +185,41 @@ Public Class RSCClickableDesktop
 
         ContextMenuStrip1.Items.Clear()
 
-        ''Add a ToolStripMenuItem which will tell which Field is being displayed 
-        ''  on the selected (right-clicked) control. 
-        ''Dec28 ''ContextMenuStrip1.Items.Add(MenuCache_Generic.Tools_MenuHeader0) ''Added 12/13/2021 
-        ''Dec28 ''ContextMenuStrip1.Items.Add(MenuCache_Generic.Tools_MenuHeader1) ''Added 12/12/2021 
-        ContextMenuStrip1.Items.Add(mod_menuCacheNonShared.Tools_MenuHeader0) ''Added 12/13/2021 
-        ContextMenuStrip1.Items.Add(mod_menuCacheNonShared.Tools_MenuHeader1) ''Added 12/12/2021 
+        ''Added 5/6/2022 thomas downes
+        Dim boolAddHeaders As Boolean ''Added 5/6/2022 t//d//
+
+        With mod_menuCacheNonShared ''Added 5/6/2022 t//d//
+
+            ''Added 5/6/2022
+            boolAddHeaders = (.Tools_MenuHeader0 IsNot Nothing)
+
+            ''Add a ToolStripMenuItem which will tell which Field is being displayed 
+            ''  on the selected (right-clicked) control. 
+            ''Dec28 ''ContextMenuStrip1.Items.Add(MenuCache_Generic.Tools_MenuHeader0) ''Added 12/13/2021 
+            ''Dec28 ''ContextMenuStrip1.Items.Add(MenuCache_Generic.Tools_MenuHeader1) ''Added 12/12/2021 
+
+            If (boolAddHeaders) Then
+                ContextMenuStrip1.Items.Add(.Tools_MenuHeader0) ''Added 12/13/2021 
+                ContextMenuStrip1.Items.Add(.Tools_MenuHeader1) ''Added 12/12/2021 
+            End If ''End of ""If (boolAddHeaders) Then""
+
+        End With ''End of ""With mod_menuCacheNonShared""
 
         Dim bool_addExtraHeadersToContextMenus As Boolean ''Added 12/13/2021 td
-        ''Dec.28 2021 td''bool_addExtraHeadersToContextMenus = AddExtraHeadersToolStripMenuItem.Checked
-        bool_addExtraHeadersToContextMenus = mc_AddExtraHeadersForContextMenuStrip
+        ''Dec.28 2021 td ''bool_addExtraHeadersToContextMenus = AddExtraHeadersToolStripMenuItem.Checked
+        ''May 6, 2022 td ''bool_addExtraHeadersToContextMenus = mc_AddExtraHeadersForContextMenuStrip
+        bool_addExtraHeadersToContextMenus = (mc_AddExtraHeadersForContextMenuStrip And boolAddHeaders)
 
         ''Added header items. 
         If (bool_addExtraHeadersToContextMenus) Then
 
             ''Added 12/13/2021 
             ''Dec28 2021''ContextMenuStrip1.Items.Add(MenuCache_Generic.Tools_MenuHeader2) ''Added 12/12/2021 
-            ''Dec28 2021''ContextMenuStrip1.Items.Add(MenuCache_Generic.Tools_MenuHeader3) ''Added 12/13/2021 
-            ContextMenuStrip1.Items.Add(mod_menuCacheNonShared.Tools_MenuHeader2) ''Added 12/12/2021 
-            ContextMenuStrip1.Items.Add(mod_menuCacheNonShared.Tools_MenuHeader3) ''Added 12/13/2021 
+            ''Dec28 2021''ContextMenuStrip1.Items.Add(MenuCache_Generic.Tools_MenuHeader3) ''Added 12/13/2021
+            With mod_menuCacheNonShared
+                ContextMenuStrip1.Items.Add(.Tools_MenuHeader2) ''Added 12/12/2021 
+                ContextMenuStrip1.Items.Add(.Tools_MenuHeader3) ''Added 12/13/2021 
+            End With
 
             Dim objMenuHeader3_1 As New ToolStripMenuItem("mod_designer_ElementRightClicked(...")
             Dim objMenuHeader3_2 As New ToolStripMenuItem("   ... Handles mod_designer.ElementRightClicked")
@@ -212,11 +228,11 @@ Public Class RSCClickableDesktop
             ''  Make 3_2 a sub-item under 3_1. ---12/13/2021 td 
             objMenuHeader3_1.DropDownItems.Add(objMenuHeader3_2)
 
-        End If ''End of "If (mod_letsAddExtraHeadersForContextMenus) Then"
+            ''Let's add a separator bar. 
+            ''Dec28 2021 td''ContextMenuStrip1.Items.Add(MenuCache_Generic.Tools_MenuSeparator) ''Added 12/13/2021
+            ContextMenuStrip1.Items.Add(mod_menuCacheNonShared.Tools_MenuSeparator) ''Added 12/13/2021
 
-        ''Let's add a separator bar. 
-        ''Dec28 2021 td''ContextMenuStrip1.Items.Add(MenuCache_Generic.Tools_MenuSeparator) ''Added 12/13/2021
-        ContextMenuStrip1.Items.Add(mod_menuCacheNonShared.Tools_MenuSeparator) ''Added 12/13/2021
+        End If ''End of "If (bool_addExtraHeadersToContextMenus) Then"
 
         ''
         ''Major step!!!   Add all the editing-related menu items!!
@@ -231,21 +247,26 @@ Public Class RSCClickableDesktop
         ''Added 12/13/2021 td
         ''  Change the text "Field: {0} ({1})" to "Field: School Name (fstrField1)".
         ''Dec28 2021''With MenuCache_Generic.Tools_MenuHeader1
-        With mod_menuCacheNonShared.Tools_MenuHeader1
-            ''Dim objHeader1 As ToolStripItem = MenuCache_ElemFlds.Tools_MenuHeader1
-            ''Dec28 2021 td''.Text = String.Format(.Tag.ToString(), par_control.FieldInfo.FieldLabelCaption,
-            ''Dec28 2021 td''          par_control.FieldInfo.CIBadgeField)
-            .Text = String.Format(.Tag.ToString(), Me.Name, "[CI Badge Field is n/a]")
-        End With ''End of "With mod_menuCacheNonShared.Tools_MenuHeader1"
+
+        If (bool_addExtraHeadersToContextMenus) Then ''Added 5/06/2022
+            With mod_menuCacheNonShared.Tools_MenuHeader1
+                ''Dim objHeader1 As ToolStripItem = MenuCache_ElemFlds.Tools_MenuHeader1
+                ''Dec28 2021 td''.Text = String.Format(.Tag.ToString(), par_control.FieldInfo.FieldLabelCaption,
+                ''Dec28 2021 td''          par_control.FieldInfo.CIBadgeField)
+                .Text = String.Format(.Tag.ToString(), Me.Name, "[CI Badge Field is n/a]")
+            End With ''End of "With mod_menuCacheNonShared.Tools_MenuHeader1"
+        End If ''End of ""If (bool_addExtraHeadersToContextMenus) Then""
 
         ''Added 12/13/2021 td
         ''  Change the text "Context-Menu for Control: {0}" to "Context-Menu for Control: ....".
         ''
         ''Dec28 2021 td''With MenuCache_Generic.Tools_MenuHeader0
-        With mod_menuCacheNonShared.Tools_MenuHeader0
-            ''Dec28 2021''.Text = String.Format(.Tag.ToString(), par_control.Name)
-            .Text = String.Format(.Tag.ToString(), Me.Name)
-        End With ''End of "With MenuCache_ElemFlds.Tools_MenuHeader0"
+        If (bool_addExtraHeadersToContextMenus) Then ''Added 5/06/2022
+            With mod_menuCacheNonShared.Tools_MenuHeader0
+                ''Dec28 2021''.Text = String.Format(.Tag.ToString(), par_control.Name)
+                .Text = String.Format(.Tag.ToString(), Me.Name)
+            End With ''End of "With MenuCache_ElemFlds.Tools_MenuHeader0"
+        End If ''End of ""If (bool_addExtraHeadersToContextMenus) Then""
 
         ''10/13 td''ContextMenuStrip1.Show()
         ''10/13 td''ContextMenuStrip1.Show(par_control, New Point(par_control.Left, par_control.Top))
