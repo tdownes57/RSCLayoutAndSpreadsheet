@@ -170,8 +170,9 @@ Public Class ClassFieldCustomized
     ''--Dec.5 2021--Public Shared ListOfFields_Students As New List(Of ClassFieldCustomized)
     ''--Dec.5 2021--Public Shared ListOfFields_Staff As New List(Of ClassFieldCustomized)
 
-    Public Shared ListOfFields_Students As New HashSet(Of ClassFieldCustomized)
-    Public Shared ListOfFields_Staff As New HashSet(Of ClassFieldCustomized)
+    ''5/7/2022 td''Public Shared ListOfFields_Students As New HashSet(Of ClassFieldCustomized)
+    Public Shared ListOfFields_Staff_NotInUse As New HashSet(Of ClassFieldCustomized)
+    Public Shared ListOfFields_Custom As New HashSet(Of ClassFieldCustomized)
 
     Public Sub New()
         ''
@@ -217,8 +218,11 @@ Public Class ClassFieldCustomized
     ''End Function ''eND OF Public Shared Function ListOfElementsText_Custom()  
 
 
-    Public Shared Sub InitializeHardcodedList_Students(pboolOnlyIfNeeded As Boolean,
+    Public Shared Sub InitializeHardcodedList_Custom(pboolOnlyIfNeeded As Boolean,
                 Optional pListOfFields As HashSet(Of ClassFieldCustomized) = Nothing)
+
+        '' 5/07/2022 td''Public Shared Sub InitializeHardcodedList_Students(pboolOnlyIfNeeded As Boolean,
+        ''            Optional pListOfFields As HashSet(Of ClassFieldCustomized) = Nothing)
         ''
         ''Added 5/5/2022 & 3/23/2022 td
         ''
@@ -226,14 +230,15 @@ Public Class ClassFieldCustomized
             InitializeHardcodedList_ParamList("Student", pboolOnlyIfNeeded, pListOfFields)
 
         Else
-            InitializeHardcodedList_ParamList("Student", pboolOnlyIfNeeded, ListOfFields_Students)
+            ''5/07/2022 td''InitializeHardcodedList_ParamList("Student", pboolOnlyIfNeeded, ListOfFields_Students)
+            InitializeHardcodedList_ParamList("Student", pboolOnlyIfNeeded, ListOfFields_Custom)
 
         End If ''End of "If (pListOfFields IsNot Nothing) Then .... Else..."
 
-    End Sub
+    End Sub ''End of ""Public Shared Sub InitializeHardcodedList_Custom""
 
 
-    Public Shared Sub InitializeHardcodedList_Staff(pboolOnlyIfNeeded As Boolean,
+    Public Shared Sub InitializeHardcodedList_Staff_NotInUse(pboolOnlyIfNeeded As Boolean,
                 Optional pListOfFields As HashSet(Of ClassFieldCustomized) = Nothing)
         ''
         ''Added 5/5/2022 & 3/23/2022 td
@@ -242,7 +247,7 @@ Public Class ClassFieldCustomized
             InitializeHardcodedList_ParamList("Staff", pboolOnlyIfNeeded, pListOfFields)
 
         Else
-            InitializeHardcodedList_ParamList("Staff", pboolOnlyIfNeeded, ListOfFields_Staff)
+            InitializeHardcodedList_ParamList("Staff", pboolOnlyIfNeeded, ListOfFields_Staff_NotInUse)
 
         End If ''End of "If (pListOfFields IsNot Nothing) Then .... Else..."
 
@@ -298,7 +303,8 @@ Public Class ClassFieldCustomized
         ''For intIndex = 1 To 3
 
         ''Added 7/23/2019 thomas
-        With ListOfFields_Students
+        ''---5/3/2022 td''With ListOfFields_Students
+        With ListOfFields_Custom
             If (pboolOnlyIfNeeded And .Count > 0) Then Exit Sub
         End With
 
@@ -341,7 +347,8 @@ Public Class ClassFieldCustomized
             ''---(-.ElementFieldClass = New ClassElementField(new_objectField1, intLeft_Pixels, intTop_Pixels, c_heightPixels)
 
         End With
-        ListOfFields_Students.Add(new_objectField1)
+        ''----5/3/2022 td''ListOfFields_Students.Add(new_objectField1)
+        ListOfFields_Custom.Add(new_objectField1)
 
 
         intFieldIndex = 202 ''Added 9/17/2019 td
@@ -379,7 +386,8 @@ Public Class ClassFieldCustomized
             ''---(-.ElementFieldClass = New ClassElementField(new_objectField2, intLeft_Pixels, intTop_Pixels, c_heightPixels)
 
         End With
-        ListOfFields_Students.Add(new_objectField2)
+        ''5/7/2022 td ''ListOfFields_Students.Add(new_objectField2)
+        ListOfFields_Custom.Add(new_objectField2)
 
 
         intFieldIndex = 203 ''Added 9/17/2019 td
@@ -417,7 +425,8 @@ Public Class ClassFieldCustomized
             ''.ElementFieldClass = New ClassElementField(new_objectField3, intLeft_Pixels, intTop_Pixels, c_heightPixels)
 
         End With
-        ListOfFields_Students.Add(new_objectField3)
+        ''5/7/2022 td''ListOfFields_Students.Add(new_objectField3)
+        ListOfFields_Custom.Add(new_objectField3)
 
 
         ''Added 9/16/2019 td
@@ -453,7 +462,8 @@ Public Class ClassFieldCustomized
             ''--.ElementFieldClass = New ClassElementField(new_objectField61, intLeft_Pixels, intTop_Pixels, c_heightPixels)
 
         End With
-        ListOfFields_Students.Add(new_objectField61)
+        ''---5/3/2022 td---ListOfFields_Students.Add(new_objectField61)
+        ListOfFields_Custom.Add(new_objectField61)
 
 
         ''Added 9/16/2019 td
@@ -487,12 +497,13 @@ Public Class ClassFieldCustomized
             ''--.ElementFieldClass = New ClassElementField(new_objectField62, intLeft_Pixels, intTop_Pixels, c_heightPixels)
 
         End With
-        ListOfFields_Students.Add(new_objectField62)
+        ''5/3/2022 td ''ListOfFields_Students.Add(new_objectField62)
+        ListOfFields_Custom.Add(new_objectField62)
 
 
     End Sub ''End of "InitializeHardcodedList_Students()"
 
-    Public Shared Sub InitializeHardcodedList_Staff(pboolOnlyIfNeeded As Boolean)
+    Public Shared Sub InitializeHardcodedList_Staff_NotInUse(pboolOnlyIfNeeded As Boolean)
         ''
         ''Stubbed 7/16/2019 td
         ''
@@ -504,7 +515,7 @@ Public Class ClassFieldCustomized
         Dim intTop_Pixels As Integer = 0 ''Added 9/17/2019 td 
 
         ''Added 7/23/2019 thomas
-        With ListOfFields_Staff
+        With ListOfFields_Staff_NotInUse
             If (pboolOnlyIfNeeded And .Count > 0) Then Exit Sub
         End With
 
@@ -546,7 +557,7 @@ Public Class ClassFieldCustomized
             ''--.ElementFieldClass = New ClassElementField(new_objectField1, intLeft_Pixels, intTop_Pixels, c_heightPixels)
 
         End With
-        ListOfFields_Staff.Add(new_objectField1)
+        ListOfFields_Staff_NotInUse.Add(new_objectField1)
 
 
         intFieldIndex = 302 ''Added 9/17
@@ -584,7 +595,7 @@ Public Class ClassFieldCustomized
             ''--.ElementFieldClass = New ClassElementField(new_objectField2, intLeft_Pixels, intTop_Pixels, c_heightPixels)
 
         End With
-        ListOfFields_Staff.Add(new_objectField2)
+        ListOfFields_Staff_NotInUse.Add(new_objectField2)
 
 
         intFieldIndex = 303 ''Added 9/17
@@ -622,7 +633,7 @@ Public Class ClassFieldCustomized
             ''--.ElementFieldClass = New ClassElementField(new_objectField3, intLeft_Pixels, intTop_Pixels, c_heightPixels)
 
         End With
-        ListOfFields_Staff.Add(new_objectField3)
+        ListOfFields_Staff_NotInUse.Add(new_objectField3)
 
     End Sub ''End of "InitializeHardcodedList_Staff()"
 
@@ -675,7 +686,8 @@ Public Class ClassFieldCustomized
             ''
             If (pboolSingleField And (pref_singleField IsNot Nothing)) Then
                 ''Add it to the list.  ---5/5/2022
-                If (Not pbDontSaveToList) Then ListOfFields_Students.Add(pref_singleField)
+                ''5/3/2022 td''If (Not pbDontSaveToList) Then ListOfFields_Students.Add(pref_singleField)
+                If (Not pbDontSaveToList) Then ListOfFields_Custom.Add(pref_singleField)
                 ''Exit Sub ''Added 3/23/2022
                 Return pref_singleField
 
@@ -684,7 +696,8 @@ Public Class ClassFieldCustomized
             ElseIf (pboolSingleField) Then
                 ''Don't save it to the list of fields. ---5/5/2022 
             Else
-                ListOfFields_Students.Add(objectEachField)
+                ''5/3/2022 td ''ListOfFields_Students.Add(objectEachField)
+                ListOfFields_Custom.Add(objectEachField)
             End If ''End of ""If (pboolSingleField And (pref_singleField IsNot Nothing)) Then""
 
         Next intFieldIndex
@@ -712,7 +725,8 @@ Public Class ClassFieldCustomized
             ''
             If (pboolSingleField And (pref_singleField IsNot Nothing)) Then
                 ''Add it to the list.  ---5/5/2022
-                If (Not pbDontSaveToList) Then ListOfFields_Students.Add(pref_singleField)
+                ''5/7/2022 td''If (Not pbDontSaveToList) Then ListOfFields_Students.Add(pref_singleField)
+                If (Not pbDontSaveToList) Then ListOfFields_Custom.Add(pref_singleField)
                 ''Exit Sub ''Added 3/23/2022
                 Return pref_singleField
 
@@ -721,7 +735,8 @@ Public Class ClassFieldCustomized
             ElseIf (pboolSingleField) Then
                 ''Don't save it to the list of fields. ---5/5/2022 
             Else
-                ListOfFields_Students.Add(objectEachField)
+                ''5/7/2022 td ''ListOfFields_Students.Add(objectEachField)
+                ListOfFields_Custom.Add(objectEachField)
             End If ''End of ""If (pboolSingleField And (pref_singleField IsNot Nothing)) Then""
 
         Next intFieldIndex
@@ -751,8 +766,11 @@ ExitHandler:
                 .CIBadgeField = par_singleEnum.ToString() '' "[unknown_CIBadgeField]"
                 .FieldType_TD = "T"c
             End With ''end of "With new_object99"
+
+            ''---If (Not pbDontSaveToList) Then _
+            ''---      ListOfFields_Students.Add(new_objectExitHandler)
             If (Not pbDontSaveToList) Then _
-                       ListOfFields_Students.Add(new_objectExitHandler)
+                       ListOfFields_Custom.Add(new_objectExitHandler)
             If (pboolSingleField And (pref_singleField IsNot Nothing)) Then Exit Function ''Added 3/23/2022
 
         End If ''end of "If (pboolSingleField And pref_singleField Is Nothing) Then"

@@ -323,6 +323,10 @@ Namespace ciBadgeCachePersonality
             '' CS = Custom & Standard (Fields)  
             ''
             Dim obj_list As New List(Of ClassFieldAny)
+
+
+
+
             obj_list.AddRange(ListOfFields_Standard)
             obj_list.AddRange(ListOfFields_Custom)
             Return obj_list
@@ -523,7 +527,14 @@ Namespace ciBadgeCachePersonality
 
         Public Property ListOfFields_Standard As HashSet(Of ClassFieldStandard) ''10/17 ''As List(Of ClassFieldStandard)
             Get ''Added 10/14/2019 td
+
+                ''Add 5/7/2022 thomas 
+                If (0 = mod_listFields_Standard.Count) Then
+
+                End If ''End of ""If (0 = mod_listFields_Standard.Count) Then""
+
                 Return mod_listFields_Standard
+
             End Get
             Set(value As HashSet(Of ClassFieldStandard))
                 ''Added 10/14/2019 td td
@@ -534,7 +545,11 @@ Namespace ciBadgeCachePersonality
 
         Public Property ListOfFields_Custom As HashSet(Of ClassFieldCustomized) '' List(Of ClassFieldCustomized)
             Get ''Added 10/14/2019 td
+
+                ''Added 5/7/2022 td
                 Return mod_listFields_Custom
+
+
             End Get
             Set(value As HashSet(Of ClassFieldCustomized)) '' List(Of ClassFieldCustomized))
                 ''Added 10/14/2019 td td
@@ -1185,12 +1200,14 @@ Namespace ciBadgeCachePersonality
             ''----------------------------------------------------------------------------------------------------
             ''Standard Fields (Initialize the list) 
             ''
-            ClassFieldStandard.InitializeHardcodedList_Students(True)
+            ''5/3/2022 td''ClassFieldStandard.InitializeHardcodedList_Students(True)
+            ClassFieldStandard.InitializeHardcodedList_Standard(True)
 
             ''----------------------------------------------------------------------------------------------------
             ''Custom Fields (Initialize the list)  
             ''
-            ClassFieldCustomized.InitializeHardcodedList_Students(True)
+            ''5/3/2022 td ''ClassFieldCustomized.InitializeHardcodedList_Students(True)
+            ClassFieldCustomized.InitializeHardcodedList_Custom(True)
 
             ''----------------------------------------------------------------------------------------------------
             ''
@@ -1204,7 +1221,7 @@ Namespace ciBadgeCachePersonality
             ''----------------------------------------------------------------------------------------------------
             ''Standard Fields (Collect the list items)  
             ''
-            For Each each_field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Students
+            For Each each_field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Standard ''5/3/2022 _Students
 
                 ''10/14/2019 td''mod_listFields.Add(each_field_standard)
                 mod_listFields_Standard.Add(each_field_standard)
@@ -1215,7 +1232,8 @@ Namespace ciBadgeCachePersonality
             ''----------------------------------------------------------------------------------------------------
             ''Customized Fields (Collect the list items)  
             ''
-            For Each each_field_customized As ClassFieldCustomized In ClassFieldCustomized.ListOfFields_Students
+            ''----5/3/2022 td''For Each each_field_customized As ClassFieldCustomized In ClassFieldCustomized.ListOfFields_Students
+            For Each each_field_customized As ClassFieldCustomized In ClassFieldCustomized.ListOfFields_Custom
 
                 ''10/14/2019 td''mod_listFields.Add(each_field_customized)
                 mod_listFields_Custom.Add(each_field_customized)

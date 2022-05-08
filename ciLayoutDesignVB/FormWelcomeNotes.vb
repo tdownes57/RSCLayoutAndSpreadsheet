@@ -17,6 +17,9 @@ Public Class FormWelcomeNotes
         TextBox1.Text = IO.File.ReadAllText(strPathToNotesTXT)
         Me.TextBox1.Tag = ""
 
+        ''Added 5/07/2022 thomas d.
+        ButtonOK.Select()
+
     End Sub
 
     Private Sub ButtonCancelEdits_Click(sender As Object, e As EventArgs) Handles ButtonCancelEdits.Click
