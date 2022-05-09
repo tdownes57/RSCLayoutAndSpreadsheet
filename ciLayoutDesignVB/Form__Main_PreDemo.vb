@@ -57,13 +57,16 @@ Public Class Form__Main_PreDemo
         ''
         ''Added 7/26/2019 thomas downes
         ''
-        ClassFieldStandard.InitializeHardcodedList_Students(True)
-        ClassFieldStandard.InitializeHardcodedList_Staff(True)
+        ClassFieldStandard.InitializeHardcodedList_Standard(True)
+        Return ClassFieldStandard.ListOfFields_Standard
 
-        If (2 <> mod_currentConfigID) Then Return ClassFieldStandard.ListOfFields_Students
-        If (2 = mod_currentConfigID) Then Return ClassFieldStandard.ListOfFields_Staff
+        ''5/2022 ClassFieldStandard.InitializeHardcodedList_Students(True)
+        ''5/2022 ClassFieldStandard.InitializeHardcodedList_Staff(True)
 
-        Return Nothing
+        ''5/2022 If (2 <> mod_currentConfigID) Then Return ClassFieldStandard.ListOfFields_Students
+        ''5/2022 If (2 = mod_currentConfigID) Then Return ClassFieldStandard.ListOfFields_Staff
+
+        ''5/2022 Return Nothing
 
     End Function ''eNd of "Public Function GetCurrentPersonality_FieldInfos_Standard() As List(Of ClassFieldStandard)"
 
@@ -172,27 +175,25 @@ Public Class Form__Main_PreDemo
 
     End Sub
 
-    Private Sub StaffToolStripMenuItem_Click(sender As Object, e As EventArgs)
-        ''
-        ''Added 7/23/2019 thomas downes
-        ''
-        Dim frm_ToShow As New ListCustomFieldsFlow()
-        ClassFieldCustomized.InitializeHardcodedList_Staff(True)
-        frm_ToShow.ListOfFields_Custom = ClassFieldCustomized.ListOfFields_Staff_NotInUse
-        frm_ToShow.Show()
+    ''Private Sub StaffToolStripMenuItem_Click(sender As Object, e As EventArgs)
+    ''    ''
+    ''    ''Added 7/23/2019 thomas downes
+    ''    ''
+    ''    Dim frm_ToShow As New ListCustomFieldsFlow()
+    ''    ClassFieldCustomized.InitializeHardcodedList_Staff(True)
+    ''    frm_ToShow.ListOfFields_Custom = ClassFieldCustomized.ListOfFields_Staff_NotInUse
+    ''    frm_ToShow.Show()
+    ''End Sub
 
-    End Sub
-
-    Private Sub StaffToolStripMenuItem1_Click(sender As Object, e As EventArgs)
-        '' 
-        ''Added 7/23/2019 thomas downes
-        ''
-        Dim frm_ToShow As New DialogListCustomFieldsGrid()
-        ClassFieldCustomized.InitializeHardcodedList_Staff(True)
-        frm_ToShow.ListOfFields = ClassFieldCustomized.ListOfFields_Staff_NotInUse
-        frm_ToShow.Show()
-
-    End Sub
+    ''Private Sub StaffToolStripMenuItem1_Click(sender As Object, e As EventArgs)
+    ''    '' 
+    ''    ''Added 7/23/2019 thomas downes
+    ''    ''
+    ''    Dim frm_ToShow As New DialogListCustomFieldsGrid()
+    ''    ClassFieldCustomized.InitializeHardcodedList_Staff(True)
+    ''    frm_ToShow.ListOfFields = ClassFieldCustomized.ListOfFields_Staff_NotInUse
+    ''    frm_ToShow.Show()
+    ''End Sub
 
     Private Sub StaffToolStripMenuItem2_Click(sender As Object, e As EventArgs) Handles StaffToolStripMenuItem2.Click
         ''
