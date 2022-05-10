@@ -20,13 +20,19 @@ Public Class ClassFields
         ''Standard Fields (Initialize the list) 
         ''
         ''5/3/2022 td''ClassFieldStandard.InitializeHardcodedList_Students(True)
-        ClassFieldStandard.InitializeHardcodedList_Standard(True)
+        ''5/9/2022 td''ClassFieldStandard.InitializeHardcodedList_Students(True)
+        Dim listStandard As HashSet(Of ClassFieldStandard)
+        listStandard =
+            ClassFieldStandard.GetInitializedList_Standard("Students")
 
         ''----------------------------------------------------------------------------------------------------
         ''Custom Fields (Initialize the list)  
         ''
         ''5/3/2022 td''ClassFieldCustomized.InitializeHardcodedList_Students(True)
-        ClassFieldCustomized.InitializeHardcodedList_Custom(True)
+        ''5/7/2022 td''ClassFieldCustomized.InitializeHardcodedList_Custom(True)
+        Dim listCustomized As HashSet(Of ClassFieldCustomized)
+        listCustomized =
+            ClassFieldCustomized.GetInitializedList_Custom("Students")
 
         ''----------------------------------------------------------------------------------------------------
         ''
@@ -41,7 +47,8 @@ Public Class ClassFields
         ''----------------------------------------------------------------------------------------------------
         ''Standard Fields (Collect the list items)  
         ''
-        For Each field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Standard ''5/7/2022 td _Students
+        For Each field_standard As ClassFieldStandard In listStandard ''5/9/2022 ClassFieldStandard.ListOfFields_Standard  ''5/7/2022 td _Students
+            ''5/09/2022 td''For Each field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Standard ''5/7/2022 td _Students
 
             list_of_fields.Add(CType(field_standard, ICIBFieldStandardOrCustom))
 
@@ -51,7 +58,8 @@ Public Class ClassFields
         ''----------------------------------------------------------------------------------------------------
         ''Custom Fields (Collect the list items) 
         ''
-        For Each field_custom As ClassFieldCustomized In ClassFieldCustomized.ListOfFields_Custom
+        For Each field_custom As ClassFieldCustomized In listCustomized ''5/9/2022 ClassFieldCustomized.ListOfFields_Custom
+            ''5/09/2022 td''For Each field_custom As ClassFieldCustomized In ClassFieldCustomized.ListOfFields_Custom ''5/7/2022 td _Students
             ''5/07/2022 For Each field_custom As ClassFieldCustomized In ClassFieldCustomized.ListOfFields_Students
 
             list_of_fields.Add(CType(field_custom, ICIBFieldStandardOrCustom))

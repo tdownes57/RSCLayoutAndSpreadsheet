@@ -185,12 +185,14 @@ Public Class ClassFieldStandard
 
     End Sub
 
-    Public Shared Function ListOfFieldInfos_Standard() As List(Of ICIBFieldStandardOrCustom)
+    Public Shared Function ListOfFieldInfos_Standard(par_listOfFields As List(Of ClassFieldStandard)) _
+             As List(Of ICIBFieldStandardOrCustom)
+        ''------5/9/2022 td  Public Shared Function ListOfFieldInfos_Standard() As List(Of ICIBFieldStandardOrCustom)
         ''-----5/7/2022 td ''Public Shared Function ListOfFieldInfos_Students
 
         ''Added 9/2/2019 Thomas DOWNES
         Dim new_list As New List(Of ICIBFieldStandardOrCustom)
-        For Each obj_class As ClassFieldStandard In ListOfFields_Standard ''5/7/2022 ListOfFields_Students
+        For Each obj_class As ClassFieldStandard In par_listOfFields ''----ListOfFields_Standard ''5/7/2022 ListOfFields_Students
             ''Added 9/2/2019
             new_list.Add(CType(obj_class, ICIBFieldStandardOrCustom))
         Next obj_class
@@ -1151,23 +1153,25 @@ Public Class ClassFieldStandard
 
         Const c_boolAddObjectsToListAtEnd As Boolean = False
         If (c_boolAddObjectsToListAtEnd) Then
-
-            ListOfFieldInfos_Standard.Add(new_objectField1)
-            ListOfFieldInfos_Standard.Add(new_objectField2)
-            ListOfFieldInfos_Standard.Add(new_objectField3)
-            ListOfFieldInfos_Standard.Add(new_objectField4)
-            ListOfFieldInfos_Standard.Add(new_objectField5)
-            ListOfFieldInfos_Standard.Add(new_objectField6)
-            ListOfFieldInfos_Standard.Add(new_objectField7)
-            ListOfFieldInfos_Standard.Add(new_objectField8)
-            ListOfFieldInfos_Standard.Add(new_objectField91)
-            ListOfFieldInfos_Standard.Add(new_objectField92)
-            ListOfFieldInfos_Standard.Add(new_objectField93)
-            ListOfFieldInfos_Standard.Add(new_objectField94)
-            ListOfFieldInfos_Standard.Add(new_objectField95)
-            ListOfFieldInfos_Standard.Add(new_objectField96)
-            ListOfFieldInfos_Standard.Add(new_objectField97)
-            ListOfFieldInfos_Standard.Add(new_objectField98)
+            ''
+            ''Standard fields
+            ''
+            objListOfFields_Standard.Add(new_objectField1)
+            objListOfFields_Standard.Add(new_objectField2)
+            objListOfFields_Standard.Add(new_objectField3)
+            objListOfFields_Standard.Add(new_objectField4)
+            objListOfFields_Standard.Add(new_objectField5)
+            objListOfFields_Standard.Add(new_objectField6)
+            objListOfFields_Standard.Add(new_objectField7)
+            objListOfFields_Standard.Add(new_objectField8)
+            objListOfFields_Standard.Add(new_objectField91)
+            objListOfFields_Standard.Add(new_objectField92)
+            objListOfFields_Standard.Add(new_objectField93)
+            objListOfFields_Standard.Add(new_objectField94)
+            objListOfFields_Standard.Add(new_objectField95)
+            objListOfFields_Standard.Add(new_objectField96)
+            objListOfFields_Standard.Add(new_objectField97)
+            objListOfFields_Standard.Add(new_objectField98)
 
         End If ''End of ""If (c_boolAddObjectsToListAtEnd) Then""
 
@@ -1215,7 +1219,12 @@ ExitHandler:
     End Function ''End of "GetInitializedList_Standard()"
 
 
-    Public Shared Function GetField_ByEnum_Standard(par_singleEnum As EnumCIBFields) As ClassFieldStandard
+    Public Shared Function GetField_ByEnum_Standard(par_singleEnum As EnumCIBFields,
+                         Optional ByRef pref_IsCustomizableLikely As Boolean = False,
+                         Optional ByRef pref_IsCustomizableField As Boolean = False,
+                         Optional ByRef pref_objFieldCustom As ClassFieldCustomized = Nothing) _
+                         As ClassFieldStandard
+
         ''    ''5/8/2022 Public Shared Function BuildField_ByEnum_Standard
         ''
         ''    ''Added 3/23/2022 thomas 
@@ -1227,19 +1236,40 @@ ExitHandler:
         ''                               outputField, True)
         ''    Return outputField
         ''
+        Dim intMaxEnumValue As Integer = 0
+        Dim each_intEnumValue As Integer = 0
+
         For Each each_field In GetInitializedList_Standard("Students")
+
             If (each_field.FieldEnumValue = par_singleEnum) Then
                 Return each_field
-            End If
-        Next
+            End If ''End of ""If (each_field.FieldEnumValue = par_singleEnum) Then""
 
-        If (CInt(par_singleEnum) > intMaxEnumValue) Then
+            each_intEnumValue = CInt(each_field.FieldEnumValue)
+            intMaxEnumValue = CInt(IIf(intMaxEnumValue > each_intEnumValue,
+                                       intMaxEnumValue, each_intEnumValue))
 
-        End If
+        Next each_field
+
+        ''
+        ''Check to see if the parameter might indicate a Custom field,
+        ''   rather than a Standard field.  ----5/9/2022 td
+        ''
+        pref_IsCustomizableLikely = (CInt(par_singleEnum) > intMaxEnumValue)
+        If (pref_IsCustomizableLikely) Then
+            System.Diagnostics.Debugger.Break()
+        End If ''ENd of ""If (pref_IsCustomizableLikely) Then""
+
+        ''Added 5/9/2022 td
+        ''Dim objFieldCustom As ClassFieldCustomized
+        pref_objFieldCustom = ClassFieldCustomized.GetField_ByEnum_Custom(par_singleEnum)
+        If (pref_objFieldCustom IsNot Nothing) Then
+            pref_IsCustomizableField = True
+        End If ''End of ""If (pref_objFieldCustom IsNot Nothing) Then""
 
         Return Nothing
 
-    End Function
+    End Function ''End of ""Public Shared Function GetField_ByEnum_Standard""
 
 
     Public Shared Function LoadField_ByEnum_Custom(par_singleEnum As EnumCIBFields) As ClassFieldStandard
@@ -1265,76 +1295,76 @@ ExitHandler:
     End Sub
 
 
-    Public Shared Sub InitializeHardcodedList_Staff_Obselete(pboolOnlyIfNeeded As Boolean)
-        ''
-        ''Stubbed 7/16/2019 td
-        ''
-        ''  Add Schoolname, Job Title, GradeLevel (if applicable). 
-        ''
-        Dim intFieldIndex As Integer = 0 ''Added 4/22/2020 td 
+    ''Public Shared Sub InitializeHardcodedList_Staff_Obselete(pboolOnlyIfNeeded As Boolean)
+    ''    ''
+    ''    ''Stubbed 7/16/2019 td
+    ''    ''
+    ''    ''  Add Schoolname, Job Title, GradeLevel (if applicable). 
+    ''    ''
+    ''    Dim intFieldIndex As Integer = 0 ''Added 4/22/2020 td 
 
-        ''Added 7/23/2019 thomas
-        With ListOfFields_Staff_NotInUse
-            If (pboolOnlyIfNeeded And .Count > 0) Then Exit Sub
-        End With
+    ''    ''Added 7/23/2019 thomas
+    ''    With ListOfFields_Staff_NotInUse
+    ''        If (pboolOnlyIfNeeded And .Count > 0) Then Exit Sub
+    ''    End With
 
-        intFieldIndex = 101 ''Added 4/22/2020 td
-        Dim new_object1 As New ClassFieldStandard
-        With new_object1
+    ''    intFieldIndex = 101 ''Added 4/22/2020 td
+    ''    Dim new_object1 As New ClassFieldStandard
+    ''    With new_object1
 
-            .FieldIndex = intFieldIndex ''Added 4/22/2020 td
+    ''        .FieldIndex = intFieldIndex ''Added 4/22/2020 td
 
-            ''N/A''.TextFieldId = 1
-            .IsCustomizable = False ''Added 7/26/2019 td 
-            .FieldLabelCaption = "Staffperson ID"
-            .CIBadgeField = "fstrID"
-            .FieldType_TD = "T"c
-            .HasPresetValues = False
-            .IsAdditionalField = False
-            ''.IsDateField = False
-            .IsFieldForDates = False
-            .ExampleValue = "4014"
-        End With
-        ''5/7/2022 td ''ListOfFields_Staff.Add(new_object1)
-        ListOfFields_Staff_NotInUse.Add(new_object1)
+    ''        ''N/A''.TextFieldId = 1
+    ''        .IsCustomizable = False ''Added 7/26/2019 td 
+    ''        .FieldLabelCaption = "Staffperson ID"
+    ''        .CIBadgeField = "fstrID"
+    ''        .FieldType_TD = "T"c
+    ''        .HasPresetValues = False
+    ''        .IsAdditionalField = False
+    ''        ''.IsDateField = False
+    ''        .IsFieldForDates = False
+    ''        .ExampleValue = "4014"
+    ''    End With
+    ''    ''5/7/2022 td ''ListOfFields_Staff.Add(new_object1)
+    ''    ListOfFields_Staff_NotInUse.Add(new_object1)
 
-        intFieldIndex = 102 ''Added 4/22/2020 td
-        Dim new_object2 As New ClassFieldStandard
-        With new_object1
+    ''    intFieldIndex = 102 ''Added 4/22/2020 td
+    ''    Dim new_object2 As New ClassFieldStandard
+    ''    With new_object1
 
-            .FieldIndex = intFieldIndex ''Added 4/22/2020 td
+    ''        .FieldIndex = intFieldIndex ''Added 4/22/2020 td
 
-            ''N/A''.TextFieldId = 2
-            .IsCustomizable = False ''Added 7/26/2019 td 
-            .FieldLabelCaption = "First Name"
-            .CIBadgeField = "fstrFirstName"
-            .FieldType_TD = "T"c
-            .HasPresetValues = False
-            .IsAdditionalField = False
-            ''.IsDateField = False
-            .IsFieldForDates = False
-        End With
-        ListOfFields_Staff_NotInUse.Add(new_object2)
+    ''        ''N/A''.TextFieldId = 2
+    ''        .IsCustomizable = False ''Added 7/26/2019 td 
+    ''        .FieldLabelCaption = "First Name"
+    ''        .CIBadgeField = "fstrFirstName"
+    ''        .FieldType_TD = "T"c
+    ''        .HasPresetValues = False
+    ''        .IsAdditionalField = False
+    ''        ''.IsDateField = False
+    ''        .IsFieldForDates = False
+    ''    End With
+    ''    ListOfFields_Staff_NotInUse.Add(new_object2)
 
-        intFieldIndex = 103 ''Added 4/22/2020 td
-        Dim new_object3 As New ClassFieldStandard
-        With new_object3
+    ''    intFieldIndex = 103 ''Added 4/22/2020 td
+    ''    Dim new_object3 As New ClassFieldStandard
+    ''    With new_object3
 
-            .FieldIndex = intFieldIndex ''Added 4/22/2020 td
+    ''        .FieldIndex = intFieldIndex ''Added 4/22/2020 td
 
-            ''N/A''.TextFieldId = 3
-            .IsCustomizable = False ''Added 7/26/2019 td 
-            .FieldLabelCaption = "Last Name"
-            .CIBadgeField = "fstrLastName"
-            .FieldType_TD = "T"c
-            .HasPresetValues = True
-            .IsAdditionalField = False
-            ''.IsDateField = False
-            .IsFieldForDates = False
-        End With
-        ListOfFields_Staff_NotInUse.Add(new_object3)
-
-    End Sub ''End of "InitializeHardcodedList_Staff_Obselete()"
+    ''        ''N/A''.TextFieldId = 3
+    ''        .IsCustomizable = False ''Added 7/26/2019 td 
+    ''        .FieldLabelCaption = "Last Name"
+    ''        .CIBadgeField = "fstrLastName"
+    ''        .FieldType_TD = "T"c
+    ''        .HasPresetValues = True
+    ''        .IsAdditionalField = False
+    ''        ''.IsDateField = False
+    ''        .IsFieldForDates = False
+    ''    End With
+    ''    ListOfFields_Staff_NotInUse.Add(new_object3)
+    ''
+    ''End Sub ''End of "InitializeHardcodedList_Staff_Obselete()"
 
     ''---Fields cannot link outward to elements.---9/18/2019 td
     ''---9/18/2019 td''Public Shared Sub CopyElementInfo(par_intFieldIndex As Integer,

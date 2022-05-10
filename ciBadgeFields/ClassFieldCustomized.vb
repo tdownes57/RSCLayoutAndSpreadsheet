@@ -218,74 +218,73 @@ Public Class ClassFieldCustomized
     ''End Function ''eND OF Public Shared Function ListOfElementsText_Custom()  
 
 
-    Public Shared Sub InitializeHardcodedList_Custom(pboolOnlyIfNeeded As Boolean,
-                Optional pListOfFields As HashSet(Of ClassFieldCustomized) = Nothing)
-
-        '' 5/07/2022 td''Public Shared Sub InitializeHardcodedList_Students(pboolOnlyIfNeeded As Boolean,
-        ''            Optional pListOfFields As HashSet(Of ClassFieldCustomized) = Nothing)
-        ''
-        ''Added 5/5/2022 & 3/23/2022 td
-        ''
-        If (pListOfFields IsNot Nothing) Then
-            InitializeHardcodedList_ParamList("Student", pboolOnlyIfNeeded, pListOfFields)
-
-        Else
-            ''5/07/2022 td''InitializeHardcodedList_ParamList("Student", pboolOnlyIfNeeded, ListOfFields_Students)
-            InitializeHardcodedList_ParamList("Student", pboolOnlyIfNeeded, ListOfFields_Custom)
-
-        End If ''End of "If (pListOfFields IsNot Nothing) Then .... Else..."
-
-    End Sub ''End of ""Public Shared Sub InitializeHardcodedList_Custom""
-
-
-    Public Shared Sub InitializeHardcodedList_Staff_NotInUse(pboolOnlyIfNeeded As Boolean,
-                Optional pListOfFields As HashSet(Of ClassFieldCustomized) = Nothing)
-        ''
-        ''Added 5/5/2022 & 3/23/2022 td
-        ''
-        If (pListOfFields IsNot Nothing) Then
-            InitializeHardcodedList_ParamList("Staff", pboolOnlyIfNeeded, pListOfFields)
-
-        Else
-            InitializeHardcodedList_ParamList("Staff", pboolOnlyIfNeeded, ListOfFields_Staff_NotInUse)
-
-        End If ''End of "If (pListOfFields IsNot Nothing) Then .... Else..."
-
-    End Sub
+    ''Public Shared Sub InitializeHardcodedList_Custom(pboolOnlyIfNeeded As Boolean,
+    ''            Optional pListOfFields As HashSet(Of ClassFieldCustomized) = Nothing)
+    ''
+    ''    '' 5/07/2022 td''Public Shared Sub InitializeHardcodedList_Students(pboolOnlyIfNeeded As Boolean,
+    ''    ''            Optional pListOfFields As HashSet(Of ClassFieldCustomized) = Nothing)
+    ''    ''
+    ''    ''Added 5/5/2022 & 3/23/2022 td
+    ''    ''
+    ''    If (pListOfFields IsNot Nothing) Then
+    ''        InitializeHardcodedList_ParamList("Student", pboolOnlyIfNeeded, pListOfFields)
+    ''
+    ''    Else
+    ''        ''5/07/2022 td''InitializeHardcodedList_ParamList("Student", pboolOnlyIfNeeded, ListOfFields_Students)
+    ''        InitializeHardcodedList_ParamList("Student", pboolOnlyIfNeeded, ListOfFields_Custom)
+    ''
+    ''    End If ''End of "If (pListOfFields IsNot Nothing) Then .... Else..."
+    ''
+    ''End Sub ''End of ""Public Shared Sub InitializeHardcodedList_Custom""
 
 
-    Public Shared Sub InitializeHardcodedList_ParamList(pstrRecipientClassName As String,
-                            pboolOnlyIfNeeded As Boolean,
-                            parListOfFields As HashSet(Of ClassFieldCustomized))
-        ''
-        ''Added 5/5/2022  &  3/23/2022 td
-        ''
-
-        ''March23 2022 td''            pboolOnlyIfNeeded As Boolean,
-        ''
-        ''Added 3/23/2022 & 7/26/2019 td
-        ''
-        ''March23 2022  Dim intFieldIndex As Integer ''Added 9/17/2019 td 
-        ''March23 2022  Const c_heightPixels As Integer = 30 ''Added 9/17 td
-        ''March23 2022  Dim intLeft_Pixels As Integer = 0
-        ''March23 2022  Dim intTop_Pixels As Integer = 0 ''Added 9/17/2019 td 
-
-        With parListOfFields ''March23 2022'' ListOfFields_Students
-            ''8/28/2019 td''If (pboolOnlyIfNeeded And .Count > 0) Then Exit Sub
-            If (pboolOnlyIfNeeded) Then
-                If (.Count > 0) Then Exit Sub
-            ElseIf (.Count > 0) Then
-                Throw New Exception("Already initialized/ has more than zero fields.")
-            End If
-        End With ''End of "With parListOfFields"
-
-        ''
-        ''Major call!!    Encapsulated 3/23/2022 thomas 
-        ''
-        InstantiateFields_Custom(pstrRecipientClassName)
+    ''Public Shared Sub InitializeHardcodedList_Staff_NotInUse(pboolOnlyIfNeeded As Boolean,
+    ''            Optional pListOfFields As HashSet(Of ClassFieldCustomized) = Nothing)
+    ''    ''
+    ''    ''Added 5/5/2022 & 3/23/2022 td
+    ''    ''
+    ''    If (pListOfFields IsNot Nothing) Then
+    ''        InitializeHardcodedList_ParamList("Staff", pboolOnlyIfNeeded, pListOfFields)
+    ''
+    ''    Else
+    ''        InitializeHardcodedList_ParamList("Staff", pboolOnlyIfNeeded, ListOfFields_Staff_NotInUse)
+    ''
+    ''    End If ''End of "If (pListOfFields IsNot Nothing) Then .... Else..."
+    ''
+    ''End Sub
 
 
-    End Sub ''End of "Public Shared Sub InitializeHardcodedList_ParamList"
+    ''Public Shared Sub InitializeHardcodedList_ParamList(pstrRecipientClassName As String,
+    ''                        pboolOnlyIfNeeded As Boolean,
+    ''                        parListOfFields As HashSet(Of ClassFieldCustomized))
+    ''    ''
+    ''    ''Added 5/5/2022  &  3/23/2022 td
+    ''    ''
+
+    ''    ''March23 2022 td''            pboolOnlyIfNeeded As Boolean,
+    ''    ''
+    ''    ''Added 3/23/2022 & 7/26/2019 td
+    ''    ''
+    ''    ''March23 2022  Dim intFieldIndex As Integer ''Added 9/17/2019 td 
+    ''    ''March23 2022  Const c_heightPixels As Integer = 30 ''Added 9/17 td
+    ''    ''March23 2022  Dim intLeft_Pixels As Integer = 0
+    ''    ''March23 2022  Dim intTop_Pixels As Integer = 0 ''Added 9/17/2019 td 
+    ''
+    ''    With parListOfFields ''March23 2022'' ListOfFields_Students
+    ''        ''8/28/2019 td''If (pboolOnlyIfNeeded And .Count > 0) Then Exit Sub
+    ''        If (pboolOnlyIfNeeded) Then
+    ''            If (.Count > 0) Then Exit Sub
+    ''        ElseIf (.Count > 0) Then
+    ''            Throw New Exception("Already initialized/ has more than zero fields.")
+    ''        End If
+    ''    End With ''End of "With parListOfFields"
+    ''
+    ''    ''
+    ''    ''Major call!!    Encapsulated 3/23/2022 thomas 
+    ''    ''
+    ''    InstantiateFields_Custom(pstrRecipientClassName)
+    ''
+    ''End Sub ''End of "Public Shared Sub InitializeHardcodedList_ParamList"
 
 
     Public Shared Sub InitializeHardcodedList_Students_NotInUse(pboolOnlyIfNeeded As Boolean)
@@ -638,32 +637,56 @@ Public Class ClassFieldCustomized
     End Sub ''End of "InitializeHardcodedList_Staff()"
 
 
-    Public Shared Function BuildField_ByEnum_Customized(par_singleEnum As EnumCIBFields) As ClassFieldCustomized
+    Public Shared Function GetField_ByEnum_Custom(par_singleEnum As EnumCIBFields) As ClassFieldCustomized
+        ''
+        ''  5/8/2022 Public Shared Function BuildField_ByEnum_Standard
         ''
         ''Added 5/05/2022 thomas 
         ''
         Dim outputField As ClassFieldCustomized = Nothing
+        Dim intMaxEnumValue As Integer = 0
+        Dim each_intEnumValue As Integer = 0
 
-        InstantiateFields_Custom("Member/Employee/Student", True, par_singleEnum,
-                                   outputField, True)
+        ''5/30/2022 td ''InstantiateFields_Custom("Member/Employee/Student", True, 
+        ''5/30/2022 td ''    par_singleEnum, outputField, True)
+
+        For Each each_field In GetInitializedList_Custom("Students")
+
+            If (each_field.FieldEnumValue = par_singleEnum) Then
+                Return each_field
+            End If ''End of ""If (each_field.FieldEnumValue = par_singleEnum) Then""
+
+            each_intEnumValue = CInt(each_field.FieldEnumValue)
+            intMaxEnumValue = CInt(IIf(intMaxEnumValue > each_intEnumValue,
+                                       intMaxEnumValue, each_intEnumValue))
+
+        Next each_field
+
         Return outputField
 
     End Function ''End of ""Public Shared Function BuildField_ByEnum_Customized"" 
 
 
-    Public Shared Function InstantiateFields_Custom(pstrRecipientClassName As String,
-                                                Optional pboolSingleField As Boolean = False,
-                               Optional par_singleEnum As EnumCIBFields = EnumCIBFields.Undetermined,
-                               Optional ByRef pref_singleField As ClassFieldCustomized = Nothing,
-                               Optional pbDontSaveToList As Boolean = False) As ClassFieldCustomized
+    Public Shared Function GetInitializedList_Custom(pstrRecipientClassName As String) _
+                      As HashSet(Of ClassFieldCustomized)
+
+        ''5/09/2022 td''Public Shared Function InstantiateFields_Custom(pstrRecipientClassName As String,
+        ''5/09/2022 td''    Optional pboolSingleField As Boolean = False,
+        ''                  Optional par_singleEnum As EnumCIBFields = EnumCIBFields.Undetermined,
+        ''                  Optional ByRef pref_singleField As ClassFieldCustomized = Nothing,
+        ''                  Optional pbDontSaveToList As Boolean = False) As ClassFieldCustomized
         ''
         ''Added 5/5/2022 td
         ''
+        Dim objListOfFields_Custom As HashSet(Of ClassFieldCustomized) ''Added 5/9/2022 td
+
         Dim intFieldIndex As Integer = -1
         Dim objectEachField As ClassFieldCustomized = Nothing
         ClassFieldStandard.FieldIndexHighest = 20 ''Added 5/5/2022 td 
         Dim intFieldIndex_Min As Integer = (1 + ClassFieldStandard.FieldIndexHighest) '' (17 + 1)
         Static s_intCallCount As Integer = 0
+        Dim current_enum As EnumCIBFields ''Added 5/9/2022 td
+        Dim prior_enum As EnumCIBFields ''Added 5/9/2022 td
 
         Const c_NumCustomTextFields As Integer = 25
         Const c_NumCustomDateFields As Integer = 5
@@ -677,33 +700,83 @@ Public Class ClassFieldCustomized
         ''May 5, 2022''For intFieldIndex = 18 To (18 - 1 + 25)
         For intFieldIndex = intFieldIndex_Min To (intFieldIndex_Min - 1 + c_NumCustomTextFields)
 
+            ''
+            ''Date Fields
+            ''
+            If (prior_enum = EnumCIBFields.DateField05) Then Exit For
+            If (prior_enum = EnumCIBFields.DateField04) Then current_enum = EnumCIBFields.DateField05
+            If (prior_enum = EnumCIBFields.DateField03) Then current_enum = EnumCIBFields.DateField04
+            If (prior_enum = EnumCIBFields.DateField02) Then current_enum = EnumCIBFields.DateField03
+            If (prior_enum = EnumCIBFields.DateField01) Then current_enum = EnumCIBFields.DateField02
+
+            ''
+            ''Text Fields
+            ''
+            If (prior_enum = EnumCIBFields.TextField25) Then current_enum = EnumCIBFields.DateField01
+            If (prior_enum = EnumCIBFields.TextField24) Then current_enum = EnumCIBFields.TextField25
+            If (prior_enum = EnumCIBFields.TextField23) Then current_enum = EnumCIBFields.TextField24
+            If (prior_enum = EnumCIBFields.TextField22) Then current_enum = EnumCIBFields.TextField23
+            If (prior_enum = EnumCIBFields.TextField21) Then current_enum = EnumCIBFields.TextField22
+            If (prior_enum = EnumCIBFields.TextField20) Then current_enum = EnumCIBFields.TextField21
+
+            If (prior_enum = EnumCIBFields.TextField19) Then current_enum = EnumCIBFields.TextField20
+            If (prior_enum = EnumCIBFields.TextField18) Then current_enum = EnumCIBFields.TextField19
+            If (prior_enum = EnumCIBFields.TextField17) Then current_enum = EnumCIBFields.TextField18
+            If (prior_enum = EnumCIBFields.TextField16) Then current_enum = EnumCIBFields.TextField17
+            If (prior_enum = EnumCIBFields.TextField15) Then current_enum = EnumCIBFields.TextField16
+
+            If (prior_enum = EnumCIBFields.TextField14) Then current_enum = EnumCIBFields.TextField15
+            If (prior_enum = EnumCIBFields.TextField13) Then current_enum = EnumCIBFields.TextField14
+            If (prior_enum = EnumCIBFields.TextField12) Then current_enum = EnumCIBFields.TextField13
+            If (prior_enum = EnumCIBFields.TextField11) Then current_enum = EnumCIBFields.TextField12
+            If (prior_enum = EnumCIBFields.TextField10) Then current_enum = EnumCIBFields.TextField11
+
+            If (prior_enum = EnumCIBFields.TextField09) Then current_enum = EnumCIBFields.TextField10
+            If (prior_enum = EnumCIBFields.TextField08) Then current_enum = EnumCIBFields.TextField09
+            If (prior_enum = EnumCIBFields.TextField07) Then current_enum = EnumCIBFields.TextField08
+            If (prior_enum = EnumCIBFields.TextField06) Then current_enum = EnumCIBFields.TextField07
+            If (prior_enum = EnumCIBFields.TextField05) Then current_enum = EnumCIBFields.TextField06
+
+            If (prior_enum = EnumCIBFields.TextField04) Then current_enum = EnumCIBFields.TextField05
+            If (prior_enum = EnumCIBFields.TextField03) Then current_enum = EnumCIBFields.TextField04
+            If (prior_enum = EnumCIBFields.TextField02) Then current_enum = EnumCIBFields.TextField03
+            If (prior_enum = EnumCIBFields.TextField01) Then current_enum = EnumCIBFields.TextField02
+
             ''Major call!
+            ''5/09/2022  objectEachField =
+            ''        GetInstantiatedField_Custom_Text(intFieldIndex, pboolSingleField,
+            ''                                      par_singleEnum, pref_singleField)
             objectEachField =
-              InstantiateFields_Custom_Text(intFieldIndex, pboolSingleField, par_singleEnum, pref_singleField)
+                    GetInstantiatedField_Custom_Text(intFieldIndex, current_enum)
 
             ''
             ''Decision Tree
             ''
-            If (pboolSingleField And (pref_singleField IsNot Nothing)) Then
-                ''Add it to the list.  ---5/5/2022
-                ''5/3/2022 td''If (Not pbDontSaveToList) Then ListOfFields_Students.Add(pref_singleField)
-                If (Not pbDontSaveToList) Then ListOfFields_Custom.Add(pref_singleField)
-                ''Exit Sub ''Added 3/23/2022
-                Return pref_singleField
+            ''If (pboolSingleField And (pref_singleField IsNot Nothing)) Then
+            ''    ''Add it to the list.  ---5/5/2022
+            ''    ''5/3/2022 td''If (Not pbDontSaveToList) Then ListOfFields_Students.Add(pref_singleField)
+            ''    If (Not pbDontSaveToList) Then objListOfFields_Custom.Add(pref_singleField)
+            ''    ''Exit Sub ''Added 3/23/2022
+            ''    Return pref_singleField
+            ''
+            ''ElseIf (pbDontSaveToList) Then
+            ''    ''Don't save it to the list of fields. ---5/5/2022
+            ''ElseIf (pboolSingleField) Then
+            ''    ''Don't save it to the list of fields. ---5/5/2022 
+            ''Else
 
-            ElseIf (pbDontSaveToList) Then
-                ''Don't save it to the list of fields. ---5/5/2022
-            ElseIf (pboolSingleField) Then
-                ''Don't save it to the list of fields. ---5/5/2022 
-            Else
-                ''5/3/2022 td ''ListOfFields_Students.Add(objectEachField)
-                ListOfFields_Custom.Add(objectEachField)
-            End If ''End of ""If (pboolSingleField And (pref_singleField IsNot Nothing)) Then""
+            ''5/3/2022 td ''ListOfFields_Students.Add(objectEachField)
+            objListOfFields_Custom.Add(objectEachField)
+
+            ''End If ''End of ""If (pboolSingleField And (pref_singleField IsNot Nothing)) Then""
+
+            ''Added 5/09/2022 thomas downs
+            prior_enum = current_enum
 
         Next intFieldIndex
 
         ''If (pref_singleField IsNot Nothing) Then Exit Function
-        If (pref_singleField IsNot Nothing) Then Return pref_singleField
+        ''5/09/2022 td ''If (pref_singleField IsNot Nothing) Then Return pref_singleField
 
 
         ''
@@ -712,141 +785,170 @@ Public Class ClassFieldCustomized
         ''----For intFieldIndex = 43 to 47
         Dim intFieldIndex_Start As Integer = (intFieldIndex + 1)
 
+        ''Prepare to call this by loop.  (Static variable is reset.)
+        ''---5/09/2022 td
+        ''5/09/2022 td''GetInstantiatedField_Custom_Date(-1, True)
+
         ''For intFieldIndex = (18 + 25) To ((18 + 25) -1 + 5)
         For intFieldIndex = (intFieldIndex_Start) To (intFieldIndex_Start - 1 + c_NumCustomDateFields)
 
+            If (prior_enum = EnumCIBFields.DateField05) Then System.Diagnostics.Debugger.Break()
+            If (prior_enum = EnumCIBFields.DateField04) Then current_enum = EnumCIBFields.DateField05
+            If (prior_enum = EnumCIBFields.DateField03) Then current_enum = EnumCIBFields.DateField04
+            If (prior_enum = EnumCIBFields.DateField02) Then current_enum = EnumCIBFields.DateField03
+            If (prior_enum = EnumCIBFields.DateField01) Then current_enum = EnumCIBFields.DateField02
+            If (prior_enum = EnumCIBFields.Undetermined) Then current_enum = EnumCIBFields.DateField01
+
             ''Major call!
+            ''5/09/2022 td objectEachField =
+            ''5/09/2022 td      InstantiateFields_Custom_Date(intFieldIndex, pboolSingleField,
+            ''5/09/2022 td         par_singleEnum, pref_singleField)
             objectEachField =
-              InstantiateFields_Custom_Date(intFieldIndex, pboolSingleField,
-                                            par_singleEnum, pref_singleField)
+                   GetInstantiatedField_Custom_Date(intFieldIndex, current_enum)
 
             ''
             ''Decision Tree
             ''
-            If (pboolSingleField And (pref_singleField IsNot Nothing)) Then
-                ''Add it to the list.  ---5/5/2022
-                ''5/7/2022 td''If (Not pbDontSaveToList) Then ListOfFields_Students.Add(pref_singleField)
-                If (Not pbDontSaveToList) Then ListOfFields_Custom.Add(pref_singleField)
-                ''Exit Sub ''Added 3/23/2022
-                Return pref_singleField
+            ''If (pboolSingleField And (pref_singleField IsNot Nothing)) Then
+            ''    ''Add it to the list.  ---5/5/2022
+            ''    ''5/7/2022 td''If (Not pbDontSaveToList) Then ListOfFields_Students.Add(pref_singleField)
+            ''    If (Not pbDontSaveToList) Then objListOfFields_Custom.Add(pref_singleField)
+            ''    ''Exit Sub ''Added 3/23/2022
+            ''    Return pref_singleField
 
-            ElseIf (pbDontSaveToList) Then
-                ''Don't save it to the list of fields. ---5/5/2022
-            ElseIf (pboolSingleField) Then
-                ''Don't save it to the list of fields. ---5/5/2022 
-            Else
-                ''5/7/2022 td ''ListOfFields_Students.Add(objectEachField)
-                ListOfFields_Custom.Add(objectEachField)
-            End If ''End of ""If (pboolSingleField And (pref_singleField IsNot Nothing)) Then""
+            ''ElseIf (pbDontSaveToList) Then
+            ''    ''Don't save it to the list of fields. ---5/5/2022
+            ''ElseIf (pboolSingleField) Then
+            ''    ''Don't save it to the list of fields. ---5/5/2022 
+            ''Else
+            ''5/7/2022 td ''ListOfFields_Students.Add(objectEachField)
+
+            objListOfFields_Custom.Add(objectEachField)
+            ''End If ''End of ""If (pboolSingleField And (pref_singleField IsNot Nothing)) Then""
+
+            ''Added 5/09/2022 td
+            prior_enum = current_enum
 
         Next intFieldIndex
 
         ''If (pref_singleField IsNot Nothing) Then Exit Function
-        If (pref_singleField IsNot Nothing) Then Return pref_singleField
+        ''5/09/2022 td''If (pref_singleField IsNot Nothing) Then Return pref_singleField
 
 ExitHandler:
+        Return objListOfFields_Custom
         ''
         ''Check to see if we __still__ haven't instantiated the output. ---3/23/2022
         ''
-        If (pboolSingleField And (pref_singleField Is Nothing)) Then
-            ''
-            ''We __still__ haven't instantiated the output.  Create the field object.
-            '' ---3/23/2022
-            ''
-            Dim new_objectExitHandler As New ClassFieldCustomized
-            With new_objectExitHandler
-                .FieldIndex = intFieldIndex ''Added 4/22/2020 td
-                .FieldEnumValue = par_singleEnum ''Added 9/16/2019 td
-                ''Added 3/23/2022
-                If (par_singleEnum = .FieldEnumValue) Then
-                    pref_singleField = new_objectExitHandler
-                End If
-                .IsCustomizable = True ''Added 7/26/2019 td 
-                .FieldLabelCaption = par_singleEnum.ToString() '' "[unknown_FieldLabelCaption]"
-                .CIBadgeField = par_singleEnum.ToString() '' "[unknown_CIBadgeField]"
-                .FieldType_TD = "T"c
-            End With ''end of "With new_object99"
+        ''If (pboolSingleField And (pref_singleField Is Nothing)) Then
+        ''    ''
+        ''    ''We __still__ haven't instantiated the output.  Create the field object.
+        ''    '' ---3/23/2022
+        ''    ''
+        ''    Dim new_objectExitHandler As New ClassFieldCustomized
+        ''    With new_objectExitHandler
+        ''        .FieldIndex = intFieldIndex ''Added 4/22/2020 td
+        ''        .FieldEnumValue = par_singleEnum ''Added 9/16/2019 td
+        ''        ''Added 3/23/2022
+        ''        If (par_singleEnum = .FieldEnumValue) Then
+        ''            pref_singleField = new_objectExitHandler
+        ''        End If
+        ''        .IsCustomizable = True ''Added 7/26/2019 td 
+        ''        .FieldLabelCaption = par_singleEnum.ToString() '' "[unknown_FieldLabelCaption]"
+        ''        .CIBadgeField = par_singleEnum.ToString() '' "[unknown_CIBadgeField]"
+        ''        .FieldType_TD = "T"c
+        ''    End With ''end of "With new_object99"
 
-            ''---If (Not pbDontSaveToList) Then _
-            ''---      ListOfFields_Students.Add(new_objectExitHandler)
-            If (Not pbDontSaveToList) Then _
-                       ListOfFields_Custom.Add(new_objectExitHandler)
-            If (pboolSingleField And (pref_singleField IsNot Nothing)) Then Exit Function ''Added 3/23/2022
+        ''    ''---If (Not pbDontSaveToList) Then _
+        ''    ''---      ListOfFields_Students.Add(new_objectExitHandler)
+        ''    If (Not pbDontSaveToList) Then _
+        ''               objListOfFields_Custom.Add(new_objectExitHandler)
+        ''    If (pboolSingleField And (pref_singleField IsNot Nothing)) Then Exit Function ''Added 3/23/2022
 
-        End If ''end of "If (pboolSingleField And pref_singleField Is Nothing) Then"
+        ''End If ''end of "If (pboolSingleField And pref_singleField Is Nothing) Then"
 
-        Return Nothing ''aDDED 5/5/2022 
+        ''Return Nothing ''aDDED 5/5/2022 
 
-    End Function ''eND OF ""Public Shared Function InstantiateFields_Custom""
+    End Function ''eND OF ""Public Shared Function GetInstantiatedList_Custom""
 
 
-    Private Shared Function InstantiateFields_Custom_Text(intFieldIndex As Integer,
-                                        pboolSingleField As Boolean,
-                                        par_singleEnum As EnumCIBFields,
-                                        pref_singleField As ClassFieldCustomized) As ClassFieldCustomized
+    Private Shared Function GetInstantiatedField_Custom_Text(par_intFieldIndex As Integer,
+                                          par_enumField As EnumCIBFields) As ClassFieldCustomized
+        ''5/09/2022                                 Optional par_bResetStaticEnumVariable As Boolean = False) _
+        ''5/09/2022                             As ClassFieldCustomized
+        ''5/09/2022 Private Shared Function InstantiateFields_Custom_Text(intFieldIndex As Integer,
+        ''   pboolSingleField As Boolean,
+        ''   par_singleEnum As EnumCIBFields,
+        ''   pref_singleField As ClassFieldCustomized) As ClassFieldCustomized
         ''
         ''Added 5/5/2022
         ''
         Dim new_objectCustomText As New ClassFieldCustomized
-        Dim current_enum As EnumCIBFields = EnumCIBFields.Undetermined
-
-        Static s_prior_enum As EnumCIBFields = EnumCIBFields.Undetermined
-
-        If (s_prior_enum = EnumCIBFields.TextField25) Then System.Diagnostics.Debugger.Break()
-        If (s_prior_enum = EnumCIBFields.TextField24) Then current_enum = EnumCIBFields.TextField25
-        If (s_prior_enum = EnumCIBFields.TextField23) Then current_enum = EnumCIBFields.TextField24
-        If (s_prior_enum = EnumCIBFields.TextField22) Then current_enum = EnumCIBFields.TextField23
-        If (s_prior_enum = EnumCIBFields.TextField21) Then current_enum = EnumCIBFields.TextField22
-        If (s_prior_enum = EnumCIBFields.TextField20) Then current_enum = EnumCIBFields.TextField21
-        If (s_prior_enum = EnumCIBFields.TextField19) Then current_enum = EnumCIBFields.TextField20
-        If (s_prior_enum = EnumCIBFields.TextField18) Then current_enum = EnumCIBFields.TextField19
-        If (s_prior_enum = EnumCIBFields.TextField17) Then current_enum = EnumCIBFields.TextField18
-        If (s_prior_enum = EnumCIBFields.TextField16) Then current_enum = EnumCIBFields.TextField17
-        If (s_prior_enum = EnumCIBFields.TextField15) Then current_enum = EnumCIBFields.TextField16
-        If (s_prior_enum = EnumCIBFields.TextField14) Then current_enum = EnumCIBFields.TextField15
-        If (s_prior_enum = EnumCIBFields.TextField13) Then current_enum = EnumCIBFields.TextField14
-        If (s_prior_enum = EnumCIBFields.TextField12) Then current_enum = EnumCIBFields.TextField13
-        If (s_prior_enum = EnumCIBFields.TextField11) Then current_enum = EnumCIBFields.TextField12
-        If (s_prior_enum = EnumCIBFields.TextField10) Then current_enum = EnumCIBFields.TextField11
-        If (s_prior_enum = EnumCIBFields.TextField09) Then current_enum = EnumCIBFields.TextField10
-        If (s_prior_enum = EnumCIBFields.TextField08) Then current_enum = EnumCIBFields.TextField09
-        If (s_prior_enum = EnumCIBFields.TextField07) Then current_enum = EnumCIBFields.TextField08
-        If (s_prior_enum = EnumCIBFields.TextField06) Then current_enum = EnumCIBFields.TextField07
-        If (s_prior_enum = EnumCIBFields.TextField05) Then current_enum = EnumCIBFields.TextField06
-        If (s_prior_enum = EnumCIBFields.TextField04) Then current_enum = EnumCIBFields.TextField05
-        If (s_prior_enum = EnumCIBFields.TextField03) Then current_enum = EnumCIBFields.TextField04
-        If (s_prior_enum = EnumCIBFields.TextField02) Then current_enum = EnumCIBFields.TextField03
-        If (s_prior_enum = EnumCIBFields.TextField01) Then current_enum = EnumCIBFields.TextField02
-        If (s_prior_enum = EnumCIBFields.Undetermined) Then current_enum = EnumCIBFields.TextField01
-
-        ''Added 5/5/2022
-        If (current_enum = EnumCIBFields.Undetermined) Then
-            Exit Function
-        End If
+        ''5/09/2022 td''Dim current_enum As EnumCIBFields = EnumCIBFields.Undetermined
 
         With new_objectCustomText
-            .FieldIndex = intFieldIndex ''Added 4/22/2020 td
-            .FieldEnumValue = current_enum
-            If (par_singleEnum = .FieldEnumValue) Then
-                pref_singleField = new_objectCustomText
-            End If
+            .FieldIndex = par_intFieldIndex ''Added 4/22/2020 td
+            .FieldEnumValue = par_enumField
+            ''5/9/2022  If (par_singleEnum = .FieldEnumValue) Then
+            ''5/9/2022     pref_singleField = new_objectCustomText
+            ''5/9/2022  End If
             .IsCustomizable = True ''Added 7/26/2019 td 
-            .FieldLabelCaption = "Custom " & par_singleEnum.ToString() '' "[unknown_FieldLabelCaption]"
-            .CIBadgeField = par_singleEnum.ToString() '' "[unknown_CIBadgeField]"
+            .FieldLabelCaption = "Custom " & par_enumField.ToString() '' "[unknown_FieldLabelCaption]"
+            .CIBadgeField = par_enumField.ToString() '' "[unknown_CIBadgeField]"
             .FieldType_TD = "T"c ''T = Text Field
         End With ''end of "With new_objectCustomText"
 
 ExitHandler:
-        s_prior_enum = current_enum
+        ''5/09/2022  s_prior_enum = current_enum
         Return new_objectCustomText
 
-    End Function ''End of ""Private Shared Sub InstantiateFields_Custom_Text""
+        ''Static s_prior_enum As EnumCIBFields = EnumCIBFields.Undetermined
+        ''''Added 5/09/2022 td
+        ''If (par_bResetStaticEnumVariable) Then s_prior_enum = EnumCIBFields.Undetermined
+
+        ''If (s_prior_enum = EnumCIBFields.TextField25) Then System.Diagnostics.Debugger.Break()
+        ''If (s_prior_enum = EnumCIBFields.TextField24) Then current_enum = EnumCIBFields.TextField25
+        ''If (s_prior_enum = EnumCIBFields.TextField23) Then current_enum = EnumCIBFields.TextField24
+        ''If (s_prior_enum = EnumCIBFields.TextField22) Then current_enum = EnumCIBFields.TextField23
+        ''If (s_prior_enum = EnumCIBFields.TextField21) Then current_enum = EnumCIBFields.TextField22
+        ''If (s_prior_enum = EnumCIBFields.TextField20) Then current_enum = EnumCIBFields.TextField21
+        ''If (s_prior_enum = EnumCIBFields.TextField19) Then current_enum = EnumCIBFields.TextField20
+        ''If (s_prior_enum = EnumCIBFields.TextField18) Then current_enum = EnumCIBFields.TextField19
+        ''If (s_prior_enum = EnumCIBFields.TextField17) Then current_enum = EnumCIBFields.TextField18
+        ''If (s_prior_enum = EnumCIBFields.TextField16) Then current_enum = EnumCIBFields.TextField17
+        ''If (s_prior_enum = EnumCIBFields.TextField15) Then current_enum = EnumCIBFields.TextField16
+        ''If (s_prior_enum = EnumCIBFields.TextField14) Then current_enum = EnumCIBFields.TextField15
+        ''If (s_prior_enum = EnumCIBFields.TextField13) Then current_enum = EnumCIBFields.TextField14
+        ''If (s_prior_enum = EnumCIBFields.TextField12) Then current_enum = EnumCIBFields.TextField13
+        ''If (s_prior_enum = EnumCIBFields.TextField11) Then current_enum = EnumCIBFields.TextField12
+        ''If (s_prior_enum = EnumCIBFields.TextField10) Then current_enum = EnumCIBFields.TextField11
+        ''If (s_prior_enum = EnumCIBFields.TextField09) Then current_enum = EnumCIBFields.TextField10
+        ''If (s_prior_enum = EnumCIBFields.TextField08) Then current_enum = EnumCIBFields.TextField09
+        ''If (s_prior_enum = EnumCIBFields.TextField07) Then current_enum = EnumCIBFields.TextField08
+        ''If (s_prior_enum = EnumCIBFields.TextField06) Then current_enum = EnumCIBFields.TextField07
+        ''If (s_prior_enum = EnumCIBFields.TextField05) Then current_enum = EnumCIBFields.TextField06
+        ''If (s_prior_enum = EnumCIBFields.TextField04) Then current_enum = EnumCIBFields.TextField05
+        ''If (s_prior_enum = EnumCIBFields.TextField03) Then current_enum = EnumCIBFields.TextField04
+        ''If (s_prior_enum = EnumCIBFields.TextField02) Then current_enum = EnumCIBFields.TextField03
+        ''If (s_prior_enum = EnumCIBFields.TextField01) Then current_enum = EnumCIBFields.TextField02
+        ''If (s_prior_enum = EnumCIBFields.Undetermined) Then current_enum = EnumCIBFields.TextField01
+
+        ''''Added 5/5/2022
+        ''If (current_enum = EnumCIBFields.Undetermined) Then
+        ''    System.Diagnostics.Debugger.Break()
+        ''    Exit Function
+        ''End If ''end of ""If (current_enum = EnumCIBFields.Undetermined) Then""
 
 
-    Private Shared Function InstantiateFields_Custom_Date(intFieldIndex As Integer,
-                                        pboolSingleField As Boolean,
-                                        par_singleEnum As EnumCIBFields,
-                                        pref_singleField As ClassFieldCustomized) As ClassFieldCustomized
+    End Function ''End of ""Private Shared Sub GetInstantiatedField_Custom_Text""
+
+
+    Private Shared Function GetInstantiatedField_Custom_Date(intFieldIndex As Integer,
+                                 par_currentEnumCIB As EnumCIBFields) _
+                                        As ClassFieldCustomized
+        ''5/09/2022 td''Private Shared Function InstantiateFields_Custom_Date(intFieldIndex As Integer,
+        ''5/09/2022 td''    pboolSingleField As Boolean,
+        ''5/09/2022 td''    par_singleEnum As EnumCIBFields,
+        ''5/09/2022 td''    pref_singleField As ClassFieldCustomized) As ClassFieldCustomized
         ''
         ''Added 5/5/2022
         ''
@@ -855,27 +957,32 @@ ExitHandler:
 
         Static s_prior_enum As EnumCIBFields = EnumCIBFields.Undetermined
 
-        If (s_prior_enum = EnumCIBFields.DateField05) Then System.Diagnostics.Debugger.Break()
-        If (s_prior_enum = EnumCIBFields.DateField04) Then current_enum = EnumCIBFields.DateField05
-        If (s_prior_enum = EnumCIBFields.DateField03) Then current_enum = EnumCIBFields.DateField04
-        If (s_prior_enum = EnumCIBFields.DateField02) Then current_enum = EnumCIBFields.DateField03
-        If (s_prior_enum = EnumCIBFields.DateField01) Then current_enum = EnumCIBFields.DateField02
-        If (s_prior_enum = EnumCIBFields.Undetermined) Then current_enum = EnumCIBFields.DateField01
+        ''Added 5/09/2022 td
+        ''If (par_bResetStaticEnumVariable) Then s_prior_enum = EnumCIBFields.Undetermined
+
+        ''If (s_prior_enum = EnumCIBFields.DateField05) Then System.Diagnostics.Debugger.Break()
+        ''If (s_prior_enum = EnumCIBFields.DateField04) Then current_enum = EnumCIBFields.DateField05
+        ''If (s_prior_enum = EnumCIBFields.DateField03) Then current_enum = EnumCIBFields.DateField04
+        ''If (s_prior_enum = EnumCIBFields.DateField02) Then current_enum = EnumCIBFields.DateField03
+        ''If (s_prior_enum = EnumCIBFields.DateField01) Then current_enum = EnumCIBFields.DateField02
+        ''If (s_prior_enum = EnumCIBFields.Undetermined) Then current_enum = EnumCIBFields.DateField01
 
         With new_objectCustomDate
             .FieldIndex = intFieldIndex ''Added 4/22/2020 td
-            .FieldEnumValue = current_enum
-            If (par_singleEnum = .FieldEnumValue) Then
-                pref_singleField = new_objectCustomDate
-            End If
+            .FieldEnumValue = par_currentEnumCIB '' current_enum
+            ''5/09/2022 td ''If (par_singleEnum = .FieldEnumValue) Then
+            ''5/09/2022 td ''    pref_singleField = new_objectCustomDate
+            ''5/09/2022 td ''End If
             .IsCustomizable = True ''Added 7/26/2019 td 
-            .FieldLabelCaption = "Custom " & par_singleEnum.ToString() '' "[unknown_FieldLabelCaption]"
-            .CIBadgeField = par_singleEnum.ToString() '' "[unknown_CIBadgeField]"
+            ''5/09/2022 td''.FieldLabelCaption = "Custom " & current_enum.ToString() '' "[unknown_FieldLabelCaption]"
+            .FieldLabelCaption = "Custom " & par_currentEnumCIB.ToString() '' "[unknown_FieldLabelCaption]"
+            ''5/09/2022 td''.CIBadgeField = current_enum.ToString() '' "[unknown_CIBadgeField]"
+            .CIBadgeField = par_currentEnumCIB.ToString() '' "[unknown_CIBadgeField]"
             .FieldType_TD = "D"c ''D = Date Field
         End With ''end of "With new_objectCustomDate"
 
 ExitHandler:
-        s_prior_enum = current_enum
+        ''5/09/2022 td''s_prior_enum = current_enum
         Return new_objectCustomDate
 
     End Function ''End of ""Private Shared Sub InstantiateFields_Custom_Date""

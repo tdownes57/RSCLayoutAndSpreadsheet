@@ -414,8 +414,9 @@ Public Class DialogListBothTypeFields
         If (list_local Is Nothing) Then
             ''5/07/2022 td--ClassFieldStandard.InitializeHardcodedList_Students(True)
             ''5/07/2022 td--list_local = ClassFieldStandard.ListOfFields_Students
-            ClassFieldStandard.InitializeHardcodedList_Standard(True)
-            list_local = ClassFieldStandard.ListOfFields_Standard
+            ''5/09/2022 td--ClassFieldStandard.InitializeHardcodedList_Standard(True)
+            ''5/09/2022 td--list_local = ClassFieldStandard.ListOfFields_Standard
+            list_local = ClassFieldStandard.GetInitializedList_Standard("Students")
 
         End If ''end of "If (list_local Is Nothing) Then"
 
