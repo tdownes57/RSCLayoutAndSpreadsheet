@@ -1201,13 +1201,13 @@ Namespace ciBadgeCachePersonality
             ''Standard Fields (Initialize the list) 
             ''
             ''5/3/2022 td''ClassFieldStandard.InitializeHardcodedList_Students(True)
-            ClassFieldStandard.InitializeHardcodedList_Standard(True)
+            ''5/9/2022 td''ClassFieldStandard.InitializeHardcodedList_Standard(True)
 
             ''----------------------------------------------------------------------------------------------------
             ''Custom Fields (Initialize the list)  
             ''
             ''5/3/2022 td ''ClassFieldCustomized.InitializeHardcodedList_Students(True)
-            ClassFieldCustomized.InitializeHardcodedList_Custom(True)
+            ''5/9/2022 td''ClassFieldCustomized.InitializeHardcodedList_Custom(True)
 
             ''----------------------------------------------------------------------------------------------------
             ''
@@ -1221,24 +1221,29 @@ Namespace ciBadgeCachePersonality
             ''----------------------------------------------------------------------------------------------------
             ''Standard Fields (Collect the list items)  
             ''
-            For Each each_field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Standard ''5/3/2022 _Students
+            ''5/9/2022 td''For Each each_field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Standard ''5/3/2022 _Students
+            ''5/9/2022 td''
+            ''5/9/2022 td''''10/14/2019 td''mod_listFields.Add(each_field_standard)
+            ''5/9/2022 td''mod_listFields_Standard.Add(each_field_standard)
+            ''5/9/2022 td''
+            ''5/9/2022 td''Next each_field_standard
 
-                ''10/14/2019 td''mod_listFields.Add(each_field_standard)
-                mod_listFields_Standard.Add(each_field_standard)
+            mod_listFields_Standard = ClassFieldStandard.GetInitializedList_Standard("Students")
 
-            Next each_field_standard
             ''----------------------------------------------------------------------------------------------------
 
             ''----------------------------------------------------------------------------------------------------
             ''Customized Fields (Collect the list items)  
             ''
             ''----5/3/2022 td''For Each each_field_customized As ClassFieldCustomized In ClassFieldCustomized.ListOfFields_Students
-            For Each each_field_customized As ClassFieldCustomized In ClassFieldCustomized.ListOfFields_Custom
+            ''5/9/2022 For Each each_field_customized As ClassFieldCustomized In ClassFieldCustomized.ListOfFields_Custom
+            ''5/9/2022 
+            ''5/9/2022 ''    ''10/14/2019 td''mod_listFields.Add(each_field_customized)
+            ''5/9/2022 ''    mod_listFields_Custom.Add(each_field_customized)
+            ''5/9/2022  
+            ''5/9/2022 ''Next each_field_customized
 
-                ''10/14/2019 td''mod_listFields.Add(each_field_customized)
-                mod_listFields_Custom.Add(each_field_customized)
-
-            Next each_field_customized
+            mod_listFields_Custom = ClassFieldCustomized.GetInitializedList_Custom("Students")
             ''----------------------------------------------------------------------------------------------------
 
         End Sub ''End of "Public Sub LoadFields(par_pictureBackground As PictureBox)"
@@ -1265,7 +1270,8 @@ Namespace ciBadgeCachePersonality
                 ''Customized Field
                 ''
                 Dim objNewFieldFC As ClassFieldCustomized
-                objNewFieldFC = ClassFieldCustomized.BuildField_ByEnum_Customized(p_enumField)
+                ''5/09/2022 objNewFieldFC = ClassFieldCustomized.BuildField_ByEnum_Customized(p_enumField)
+                objNewFieldFC = ClassFieldCustomized.GetField_ByEnum_Custom(p_enumField)
                 mod_listFields_Custom.Add(objNewFieldFC)
 
             Else
@@ -1273,7 +1279,8 @@ Namespace ciBadgeCachePersonality
                 ''Standard Field
                 ''
                 Dim objNewFieldFS As ClassFieldStandard
-                objNewFieldFS = ClassFieldStandard.BuildField_ByEnum_Standard(p_enumField)
+                ''5/09/2022 objNewFieldFS = ClassFieldStandard.BuildField_ByEnum_Standard(p_enumField)
+                objNewFieldFS = ClassFieldStandard.GetField_ByEnum_Standard(p_enumField)
                 mod_listFields_Standard.Add(objNewFieldFS)
 
             End If ''end of ""If bAlreadyLoaded Then... Else...""

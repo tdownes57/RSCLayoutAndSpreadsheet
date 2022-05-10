@@ -33,14 +33,16 @@ Public Class Form__Main_PreDemo
         ''----5/7/2022 ClassFieldCustomized.InitializeHardcodedList_Students(True)
         ''----5/7/2022 ClassFieldCustomized.InitializeHardcodedList_Staff(True)
 
-        ClassFieldCustomized.InitializeHardcodedList_Custom(True)
+        ''5/09/2022 ''ClassFieldCustomized.InitializeHardcodedList_Custom(True)
 
         ''5/7/2022 td''If (2 <> mod_currentConfigID) Then Return ClassFieldCustomized.ListOfFields_Students
         ''5/7/2022 td''If (2 = mod_currentConfigID) Then Return ClassFieldCustomized.ListOfFields_Staff_NotInUse
 
-        Return ClassFieldCustomized.ListOfFields_Custom
+        ''5/09/2022 ''Return ClassFieldCustomized.ListOfFields_Custom
 
         ''5/7/2022 td''Return Nothing
+
+        Return ClassFieldCustomized.GetInitializedList_Custom("Recipient")
 
     End Function ''eNd of "Public Function GetCurrentPersonality_Fields_Custom() As List(Of ClassFieldCustomized)"
 
@@ -57,8 +59,9 @@ Public Class Form__Main_PreDemo
         ''
         ''Added 7/26/2019 thomas downes
         ''
-        ClassFieldStandard.InitializeHardcodedList_Standard(True)
-        Return ClassFieldStandard.ListOfFields_Standard
+        ''5/09/2022 ''ClassFieldStandard.InitializeHardcodedList_Standard(True)
+        ''5/09/2022 ''Return ClassFieldStandard.ListOfFields_Standard
+        Return ClassFieldStandard.GetInitializedList_Standard("Recipient")
 
         ''5/2022 ClassFieldStandard.InitializeHardcodedList_Students(True)
         ''5/2022 ClassFieldStandard.InitializeHardcodedList_Staff(True)
@@ -80,7 +83,7 @@ Public Class Form__Main_PreDemo
         ''5/2022 ''ClassFieldStandard.InitializeHardcodedList_Students(True)
         ''5/2022 ''ClassFieldStandard.InitializeHardcodedList_Staff(True)
 
-        ClassFieldStandard.InitializeHardcodedList_Standard(True)
+        ''5/09/2022 ''ClassFieldStandard.InitializeHardcodedList_Standard(True)
 
         '' 9/2/2019 td''If (2 <> mod_currentConfigID) Then Return ClassFieldStandard.ListOfFields_Students
         '' 9/2/2019 td''If (2 = mod_currentConfigID) Then Return ClassFieldStandard.ListOfFields_Staff
@@ -90,7 +93,11 @@ Public Class Form__Main_PreDemo
         ''5/7/2022 td ''Return Nothing
 
         ''Added 5/7/2022 td
-        Return ClassFieldStandard.ListOfFieldInfos_Standard
+        ''5/09/2022 ''Return ClassFieldStandard.ListOfFieldInfos_Standard
+
+        Dim objListFieldsStandard As HashSet(Of ClassFieldStandard)
+        objListFieldsStandard = ClassFieldStandard.GetInitializedList_Standard("Recipients")
+        Return ClassFieldStandard.ListOfFieldInfos_Standard(objListFieldsStandard)
 
     End Function ''eNd of "Public Function GetCurrentPersonality_FieldInfos_Standard() As List(Of ClassFieldStandard)"
 
@@ -152,10 +159,11 @@ Public Class Form__Main_PreDemo
         ''Added 7/23/2019 thomas downes
         ''
         Dim frm_ToShow As New DialogListCustomFieldsGrid()
-        ''5/2022 ''ClassFieldCustomized.InitializeHardcodedList_Students(True)
-        ''5/2022 ''frm_ToShow.ListOfFields = ClassFieldCustomized.ListOfFields_Students
-        ClassFieldCustomized.InitializeHardcodedList_Custom(True)
-        frm_ToShow.ListOfFields = ClassFieldCustomized.ListOfFields_Custom
+        ''#1 5/2022 ''ClassFieldCustomized.InitializeHardcodedList_Students(True)
+        ''#1 5/2022 ''frm_ToShow.ListOfFields = ClassFieldCustomized.ListOfFields_Students
+        ''#2 5/2022 '' ClassFieldCustomized.InitializeHardcodedList_Custom(True)
+        ''#2 5/2022 ''frm_ToShow.ListOfFields = ClassFieldCustomized.ListOfFields_Custom
+        frm_ToShow.ListOfFields = ClassFieldCustomized.GetInitializedList_Custom("Students")
         frm_ToShow.Show()
 
     End Sub
@@ -169,8 +177,9 @@ Public Class Form__Main_PreDemo
         ''5/2022 ClassFieldCustomized.InitializeHardcodedList_Students(True)
         ''5/2022 frm_ToShow.ListOfFields_Custom = ClassFieldCustomized.ListOfFields_Students
 
-        ClassFieldCustomized.InitializeHardcodedList_Custom(True)
-        frm_ToShow.ListOfFields_Custom = ClassFieldCustomized.ListOfFields_Custom
+        ''5/09/2022 ''ClassFieldCustomized.InitializeHardcodedList_Custom(True)
+        ''5/09/2022 ''frm_ToShow.ListOfFields_Custom = ClassFieldCustomized.ListOfFields_Custom
+        frm_ToShow.ListOfFields_Custom = ClassFieldCustomized.GetInitializedList_Custom("Students")
         frm_ToShow.Show()
 
     End Sub

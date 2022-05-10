@@ -83,10 +83,11 @@ Public Class DialogListStandardFields
         If (ListOfFields_Standard IsNot Nothing) Then list_local = ListOfFields_Standard
 
         If (list_local Is Nothing) Then
-            ''5/2022 ---ClassFieldStandard.InitializeHardcodedList_Students(True)
-            ''5/2022 ---list_local = ClassFieldStandard.ListOfFields_Students
-            ClassFieldStandard.InitializeHardcodedList_Standard(True)
-            list_local = ClassFieldStandard.ListOfFields_Standard
+            ''#1 5/2022 ---ClassFieldStandard.InitializeHardcodedList_Students(True)
+            ''#1 5/2022 ---list_local = ClassFieldStandard.ListOfFields_Students
+            ''#2 5/2022 ---ClassFieldStandard.InitializeHardcodedList_Standard(True)
+            ''#2 5/2022 ---list_local = ClassFieldStandard.ListOfFields_Standard
+            list_local = ClassFieldStandard.GetInitializedList_Standard("Student")
         End If ''end of "If (list_local Is Nothing) Then"
 
         FlowLayoutPanel1.Controls.Clear()

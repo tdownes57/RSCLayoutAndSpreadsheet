@@ -185,6 +185,7 @@ Public Class ClassFieldStandard
 
     End Sub
 
+
     Public Shared Function ListOfFieldInfos_Standard(par_listOfFields As List(Of ClassFieldStandard)) _
              As List(Of ICIBFieldStandardOrCustom)
         ''------5/9/2022 td  Public Shared Function ListOfFieldInfos_Standard() As List(Of ICIBFieldStandardOrCustom)
@@ -194,6 +195,20 @@ Public Class ClassFieldStandard
         Dim new_list As New List(Of ICIBFieldStandardOrCustom)
         For Each obj_class As ClassFieldStandard In par_listOfFields ''----ListOfFields_Standard ''5/7/2022 ListOfFields_Students
             ''Added 9/2/2019
+            new_list.Add(CType(obj_class, ICIBFieldStandardOrCustom))
+        Next obj_class
+        Return new_list
+
+    End Function ''End of "Public Shared Function ListOfFieldInfos_Standard() As List(Of ICIBFieldStandardOrCustom)"
+
+
+
+    Public Shared Function ListOfFieldInfos_Standard(par_listOfFields As HashSet(Of ClassFieldStandard)) _
+             As List(Of ICIBFieldStandardOrCustom)
+
+        ''Added 5/09/2022 td
+        Dim new_list As New List(Of ICIBFieldStandardOrCustom)
+        For Each obj_class As ClassFieldStandard In par_listOfFields
             new_list.Add(CType(obj_class, ICIBFieldStandardOrCustom))
         Next obj_class
         Return new_list

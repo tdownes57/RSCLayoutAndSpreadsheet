@@ -134,12 +134,16 @@ Namespace ciBadgeCachePersonality
             ''----------------------------------------------------------------------------------------------------
             ''Standard Fields (Initialize the list) 
             ''
-            ClassFieldStandard.InitializeHardcodedList_Standard(True)    ''5/2022   _Students(True)
+            ''5/09/2022 ''ClassFieldStandard.InitializeHardcodedList_Standard(True)    ''5/2022   _Students(True)
+            Dim list_fields_Standard As HashSet(Of ClassFieldStandard)
+            list_fields_Standard = ClassFieldStandard.GetInitializedList_Standard("Students")
 
             ''----------------------------------------------------------------------------------------------------
             ''Custom Fields (Initialize the list)  
             ''
-            ClassFieldCustomized.InitializeHardcodedList_Custom(True)    ''5/2022   _Students(True)
+            ''5/09/2022 ''ClassFieldCustomized.InitializeHardcodedList_Custom(True)    ''5/2022   _Students(True)
+            Dim list_fields_Custom As HashSet(Of ClassFieldCustomized)
+            list_fields_Custom = ClassFieldCustomized.GetInitializedList_Custom("Students")
 
             ''----------------------------------------------------------------------------------------------------
             ''
@@ -153,7 +157,7 @@ Namespace ciBadgeCachePersonality
             ''----------------------------------------------------------------------------------------------------
             ''Standard Fields (Collect the list items)  
             ''
-            For Each each_field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Standard
+            For Each each_field_standard As ClassFieldStandard In list_fields_Standard ''5/2022 ClassFieldStandard.ListOfFields_Standard
                 ''5/2022  For Each ... As ...  In ClassFieldStandard.ListOfFields_Students
 
                 ''10/14/2019 td''mod_listFields.Add(each_field_standard)
@@ -165,7 +169,7 @@ Namespace ciBadgeCachePersonality
             ''----------------------------------------------------------------------------------------------------
             ''Customized Fields (Collect the list items)  
             ''
-            For Each each_field_customized As ClassFieldCustomized In ClassFieldCustomized.ListOfFields_Custom
+            For Each each_field_customized As ClassFieldCustomized In list_fields_Custom ''5/2022 ClassFieldCustomized.ListOfFields_Custom
                 ''5/2022  In ClassFieldCustomized.ListOfFields_Students
 
                 ''10/14/2019 td''mod_listFields.Add(each_field_customized)
