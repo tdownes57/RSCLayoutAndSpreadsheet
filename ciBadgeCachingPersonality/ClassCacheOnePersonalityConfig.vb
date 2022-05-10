@@ -136,7 +136,10 @@ Namespace ciBadgeCachePersonality
             ''
             ''5/09/2022 ''ClassFieldStandard.InitializeHardcodedList_Standard(True)    ''5/2022   _Students(True)
             Dim list_fields_Standard As HashSet(Of ClassFieldStandard)
-            list_fields_Standard = ClassFieldStandard.GetInitializedList_Standard("Students")
+            Dim dict_Standard As Dictionary(Of EnumCIBFields, ClassFieldStandard) ''Added 5/10/2022
+
+            ''5/10/2022 list_fields_Standard = ClassFieldStandard.GetInitializedList_Standard("Students")
+            list_fields_Standard = ClassFieldStandard.GetInitializedList_Standard("Students", dict_Standard)
 
             ''----------------------------------------------------------------------------------------------------
             ''Custom Fields (Initialize the list)  

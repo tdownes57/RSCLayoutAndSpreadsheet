@@ -283,7 +283,7 @@ Public Class FormTypeOfElementsToAdd
     Private Function GetCIBFieldToAdd(par_RSCSelectField As RSCSelectCIBField,
                                       par_intFieldIndex As Integer,
             Optional pboolAskAboutMissingSelection As Boolean = True,
-            Optional ByRef pref_bMismatch As Boolean = True) As Boolean
+            Optional ByRef pref_bMismatch As Boolean = True) As EnumCIBFields
         ''
         ''Added 5/4/2022 td
         ''

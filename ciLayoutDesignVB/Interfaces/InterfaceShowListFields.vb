@@ -5,13 +5,18 @@ Option Explicit On
 ''
 Imports ciBadgeCachePersonality ''Added 12/6/2021 td 
 Imports ciBadgeFields
+Imports ciBadgeInterfaces ''Added 5/10/2022 td
 
 Public Interface InterfaceShowListFields
     ''
     ''Added 12/6/2021 thomas downes
     ''
     Property ListOfFields_Custom As HashSet(Of ClassFieldCustomized)
+    ''5/10/2022 ''Property Dictionary_Custom As Dictionary(Of EnumCIBFields, ClassFieldCustomized)
+
     Property ListOfFields_Standard As HashSet(Of ClassFieldStandard)
+    ''5/10/2022 ''Property Dictionary_Standard As Dictionary(Of EnumCIBFields, ClassFieldStandard)
+
     Property CacheManager As ClassCacheManagement
 
     Property JustOneField_Index As Integer

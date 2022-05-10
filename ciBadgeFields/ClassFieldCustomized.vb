@@ -678,7 +678,7 @@ Public Class ClassFieldCustomized
         ''
         ''Added 5/5/2022 td
         ''
-        Dim objListOfFields_Custom As HashSet(Of ClassFieldCustomized) ''Added 5/9/2022 td
+        Dim objListOfFields_Custom As New HashSet(Of ClassFieldCustomized) ''Added 5/9/2022 td
 
         Dim intFieldIndex As Integer = -1
         Dim objectEachField As ClassFieldCustomized = Nothing
@@ -686,7 +686,6 @@ Public Class ClassFieldCustomized
         Dim intFieldIndex_Min As Integer = (1 + ClassFieldStandard.FieldIndexHighest) '' (17 + 1)
         Static s_intCallCount As Integer = 0
         Dim current_enum As EnumCIBFields ''Added 5/9/2022 td
-        Dim prior_enum As EnumCIBFields ''Added 5/9/2022 td
 
         Const c_NumCustomTextFields As Integer = 25
         Const c_NumCustomDateFields As Integer = 5
@@ -697,50 +696,56 @@ Public Class ClassFieldCustomized
         ''
         ''Part 1 of 2. Custom Text Fields 
         ''
+        Dim prior_enum_text As EnumCIBFields ''Added 5/9/2022 td
+        prior_enum_text = EnumCIBFields.Undetermined ''Set to default value, prior to loop below. ---5/10/2022
+
         ''May 5, 2022''For intFieldIndex = 18 To (18 - 1 + 25)
         For intFieldIndex = intFieldIndex_Min To (intFieldIndex_Min - 1 + c_NumCustomTextFields)
 
             ''
             ''Date Fields
             ''
-            If (prior_enum = EnumCIBFields.DateField05) Then Exit For
-            If (prior_enum = EnumCIBFields.DateField04) Then current_enum = EnumCIBFields.DateField05
-            If (prior_enum = EnumCIBFields.DateField03) Then current_enum = EnumCIBFields.DateField04
-            If (prior_enum = EnumCIBFields.DateField02) Then current_enum = EnumCIBFields.DateField03
-            If (prior_enum = EnumCIBFields.DateField01) Then current_enum = EnumCIBFields.DateField02
+            ''If (prior_enum = EnumCIBFields.DateField05) Then Exit For
+            ''If (prior_enum = EnumCIBFields.DateField04) Then current_enum = EnumCIBFields.DateField05
+            ''If (prior_enum = EnumCIBFields.DateField03) Then current_enum = EnumCIBFields.DateField04
+            ''If (prior_enum = EnumCIBFields.DateField02) Then current_enum = EnumCIBFields.DateField03
+            ''If (prior_enum = EnumCIBFields.DateField01) Then current_enum = EnumCIBFields.DateField02
 
             ''
             ''Text Fields
             ''
-            If (prior_enum = EnumCIBFields.TextField25) Then current_enum = EnumCIBFields.DateField01
-            If (prior_enum = EnumCIBFields.TextField24) Then current_enum = EnumCIBFields.TextField25
-            If (prior_enum = EnumCIBFields.TextField23) Then current_enum = EnumCIBFields.TextField24
-            If (prior_enum = EnumCIBFields.TextField22) Then current_enum = EnumCIBFields.TextField23
-            If (prior_enum = EnumCIBFields.TextField21) Then current_enum = EnumCIBFields.TextField22
-            If (prior_enum = EnumCIBFields.TextField20) Then current_enum = EnumCIBFields.TextField21
+            If (prior_enum_text = EnumCIBFields.TextField25) Then Exit For ''5/10/2022 current_enum = EnumCIBFields.DateField01
+            If (prior_enum_text = EnumCIBFields.TextField24) Then current_enum = EnumCIBFields.TextField25
+            If (prior_enum_text = EnumCIBFields.TextField23) Then current_enum = EnumCIBFields.TextField24
+            If (prior_enum_text = EnumCIBFields.TextField22) Then current_enum = EnumCIBFields.TextField23
+            If (prior_enum_text = EnumCIBFields.TextField21) Then current_enum = EnumCIBFields.TextField22
+            If (prior_enum_text = EnumCIBFields.TextField20) Then current_enum = EnumCIBFields.TextField21
 
-            If (prior_enum = EnumCIBFields.TextField19) Then current_enum = EnumCIBFields.TextField20
-            If (prior_enum = EnumCIBFields.TextField18) Then current_enum = EnumCIBFields.TextField19
-            If (prior_enum = EnumCIBFields.TextField17) Then current_enum = EnumCIBFields.TextField18
-            If (prior_enum = EnumCIBFields.TextField16) Then current_enum = EnumCIBFields.TextField17
-            If (prior_enum = EnumCIBFields.TextField15) Then current_enum = EnumCIBFields.TextField16
+            If (prior_enum_text = EnumCIBFields.TextField19) Then current_enum = EnumCIBFields.TextField20
+            If (prior_enum_text = EnumCIBFields.TextField18) Then current_enum = EnumCIBFields.TextField19
+            If (prior_enum_text = EnumCIBFields.TextField17) Then current_enum = EnumCIBFields.TextField18
+            If (prior_enum_text = EnumCIBFields.TextField16) Then current_enum = EnumCIBFields.TextField17
+            If (prior_enum_text = EnumCIBFields.TextField15) Then current_enum = EnumCIBFields.TextField16
 
-            If (prior_enum = EnumCIBFields.TextField14) Then current_enum = EnumCIBFields.TextField15
-            If (prior_enum = EnumCIBFields.TextField13) Then current_enum = EnumCIBFields.TextField14
-            If (prior_enum = EnumCIBFields.TextField12) Then current_enum = EnumCIBFields.TextField13
-            If (prior_enum = EnumCIBFields.TextField11) Then current_enum = EnumCIBFields.TextField12
-            If (prior_enum = EnumCIBFields.TextField10) Then current_enum = EnumCIBFields.TextField11
+            If (prior_enum_text = EnumCIBFields.TextField14) Then current_enum = EnumCIBFields.TextField15
+            If (prior_enum_text = EnumCIBFields.TextField13) Then current_enum = EnumCIBFields.TextField14
+            If (prior_enum_text = EnumCIBFields.TextField12) Then current_enum = EnumCIBFields.TextField13
+            If (prior_enum_text = EnumCIBFields.TextField11) Then current_enum = EnumCIBFields.TextField12
+            If (prior_enum_text = EnumCIBFields.TextField10) Then current_enum = EnumCIBFields.TextField11
 
-            If (prior_enum = EnumCIBFields.TextField09) Then current_enum = EnumCIBFields.TextField10
-            If (prior_enum = EnumCIBFields.TextField08) Then current_enum = EnumCIBFields.TextField09
-            If (prior_enum = EnumCIBFields.TextField07) Then current_enum = EnumCIBFields.TextField08
-            If (prior_enum = EnumCIBFields.TextField06) Then current_enum = EnumCIBFields.TextField07
-            If (prior_enum = EnumCIBFields.TextField05) Then current_enum = EnumCIBFields.TextField06
+            If (prior_enum_text = EnumCIBFields.TextField09) Then current_enum = EnumCIBFields.TextField10
+            If (prior_enum_text = EnumCIBFields.TextField08) Then current_enum = EnumCIBFields.TextField09
+            If (prior_enum_text = EnumCIBFields.TextField07) Then current_enum = EnumCIBFields.TextField08
+            If (prior_enum_text = EnumCIBFields.TextField06) Then current_enum = EnumCIBFields.TextField07
+            If (prior_enum_text = EnumCIBFields.TextField05) Then current_enum = EnumCIBFields.TextField06
 
-            If (prior_enum = EnumCIBFields.TextField04) Then current_enum = EnumCIBFields.TextField05
-            If (prior_enum = EnumCIBFields.TextField03) Then current_enum = EnumCIBFields.TextField04
-            If (prior_enum = EnumCIBFields.TextField02) Then current_enum = EnumCIBFields.TextField03
-            If (prior_enum = EnumCIBFields.TextField01) Then current_enum = EnumCIBFields.TextField02
+            If (prior_enum_text = EnumCIBFields.TextField04) Then current_enum = EnumCIBFields.TextField05
+            If (prior_enum_text = EnumCIBFields.TextField03) Then current_enum = EnumCIBFields.TextField04
+            If (prior_enum_text = EnumCIBFields.TextField02) Then current_enum = EnumCIBFields.TextField03
+            If (prior_enum_text = EnumCIBFields.TextField01) Then current_enum = EnumCIBFields.TextField02
+
+            ''Added 5/10/2022 td
+            If (prior_enum_text = EnumCIBFields.Undetermined) Then current_enum = EnumCIBFields.TextField01
 
             ''Major call!
             ''5/09/2022  objectEachField =
@@ -771,7 +776,7 @@ Public Class ClassFieldCustomized
             ''End If ''End of ""If (pboolSingleField And (pref_singleField IsNot Nothing)) Then""
 
             ''Added 5/09/2022 thomas downs
-            prior_enum = current_enum
+            prior_enum_text = current_enum
 
         Next intFieldIndex
 
@@ -789,15 +794,18 @@ Public Class ClassFieldCustomized
         ''---5/09/2022 td
         ''5/09/2022 td''GetInstantiatedField_Custom_Date(-1, True)
 
+        Dim prior_enum_date As EnumCIBFields ''Added 5/10/2022 td
+        prior_enum_date = EnumCIBFields.Undetermined ''Return to default value, prior to entering loop below. ---5/30/2022
+
         ''For intFieldIndex = (18 + 25) To ((18 + 25) -1 + 5)
         For intFieldIndex = (intFieldIndex_Start) To (intFieldIndex_Start - 1 + c_NumCustomDateFields)
 
-            If (prior_enum = EnumCIBFields.DateField05) Then System.Diagnostics.Debugger.Break()
-            If (prior_enum = EnumCIBFields.DateField04) Then current_enum = EnumCIBFields.DateField05
-            If (prior_enum = EnumCIBFields.DateField03) Then current_enum = EnumCIBFields.DateField04
-            If (prior_enum = EnumCIBFields.DateField02) Then current_enum = EnumCIBFields.DateField03
-            If (prior_enum = EnumCIBFields.DateField01) Then current_enum = EnumCIBFields.DateField02
-            If (prior_enum = EnumCIBFields.Undetermined) Then current_enum = EnumCIBFields.DateField01
+            If (prior_enum_date = EnumCIBFields.DateField05) Then System.Diagnostics.Debugger.Break()
+            If (prior_enum_date = EnumCIBFields.DateField04) Then current_enum = EnumCIBFields.DateField05
+            If (prior_enum_date = EnumCIBFields.DateField03) Then current_enum = EnumCIBFields.DateField04
+            If (prior_enum_date = EnumCIBFields.DateField02) Then current_enum = EnumCIBFields.DateField03
+            If (prior_enum_date = EnumCIBFields.DateField01) Then current_enum = EnumCIBFields.DateField02
+            If (prior_enum_date = EnumCIBFields.Undetermined) Then current_enum = EnumCIBFields.DateField01
 
             ''Major call!
             ''5/09/2022 td objectEachField =
@@ -827,7 +835,7 @@ Public Class ClassFieldCustomized
             ''End If ''End of ""If (pboolSingleField And (pref_singleField IsNot Nothing)) Then""
 
             ''Added 5/09/2022 td
-            prior_enum = current_enum
+            prior_enum_date = current_enum
 
         Next intFieldIndex
 

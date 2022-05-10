@@ -61,7 +61,10 @@ Public Class Form__Main_PreDemo
         ''
         ''5/09/2022 ''ClassFieldStandard.InitializeHardcodedList_Standard(True)
         ''5/09/2022 ''Return ClassFieldStandard.ListOfFields_Standard
-        Return ClassFieldStandard.GetInitializedList_Standard("Recipient")
+        ''5/09/2022 ''Return ClassFieldStandard.GetInitializedList_Standard("Recipient")
+
+        Dim dictStandard As New Dictionary(Of EnumCIBFields, ClassFieldStandard) ''5/10/2022
+        Return ClassFieldStandard.GetInitializedList_Standard("Recipient", dictStandard)
 
         ''5/2022 ClassFieldStandard.InitializeHardcodedList_Students(True)
         ''5/2022 ClassFieldStandard.InitializeHardcodedList_Staff(True)
@@ -95,8 +98,11 @@ Public Class Form__Main_PreDemo
         ''Added 5/7/2022 td
         ''5/09/2022 ''Return ClassFieldStandard.ListOfFieldInfos_Standard
 
+        ''5/10/2022 objListFieldsStandard = ClassFieldStandard.GetInitializedList_Standard("Recipients")
         Dim objListFieldsStandard As HashSet(Of ClassFieldStandard)
-        objListFieldsStandard = ClassFieldStandard.GetInitializedList_Standard("Recipients")
+        Dim dictStandard As New Dictionary(Of EnumCIBFields, ClassFieldStandard) ''Add 5/10/2022
+        objListFieldsStandard = ClassFieldStandard.GetInitializedList_Standard("Recipients", dictStandard)
+
         Return ClassFieldStandard.ListOfFieldInfos_Standard(objListFieldsStandard)
 
     End Function ''eNd of "Public Function GetCurrentPersonality_FieldInfos_Standard() As List(Of ClassFieldStandard)"

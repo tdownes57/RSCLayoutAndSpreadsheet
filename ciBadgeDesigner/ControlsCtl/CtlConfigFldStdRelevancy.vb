@@ -60,7 +60,8 @@ Public Class CtlConfigFldStdRelevancy
             ''Added 3/21/2022 thomas downes
             LabelNotYetRelevant.Text = "Relevant (Press Save to retain.)"
         Else
-            LabelNotYetRelevant.Text = LabelNotYetRelevant.Tag.ToString()
+            ''5/10/2022 LabelNotYetRelevant.Text = LabelNotYetRelevant.Tag.ToString()
+            LabelNotYetRelevant.Text = "Not yet selected by you as Relevant for the Personality / Organization...."
         End If ''End of "If (CheckBoxRelevant.Checked) Then ... Else ..."
 
     End Sub ''End of Handles  CheckBoxRelevant.CheckedChanged 

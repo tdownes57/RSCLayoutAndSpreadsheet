@@ -77,6 +77,7 @@ Public Class DialogListStandardFields
         ''
         ''10/17 td''Dim list_local As List(Of ClassFieldStandard) = Nothing
         Dim list_local As HashSet(Of ClassFieldStandard) = Nothing
+        Dim dict_local As New Dictionary(Of EnumCIBFields, ClassFieldStandard) ''= Nothing
         Dim boolProceed As Boolean ''Added 12/14/2021 td
         Dim bFieldIsRelevant As Boolean ''Added 3/21/2022 td  
 
@@ -87,7 +88,8 @@ Public Class DialogListStandardFields
             ''#1 5/2022 ---list_local = ClassFieldStandard.ListOfFields_Students
             ''#2 5/2022 ---ClassFieldStandard.InitializeHardcodedList_Standard(True)
             ''#2 5/2022 ---list_local = ClassFieldStandard.ListOfFields_Standard
-            list_local = ClassFieldStandard.GetInitializedList_Standard("Student")
+            ''5/10/2022 ////list_local = ClassFieldStandard.GetInitializedList_Standard("Student")
+            list_local = ClassFieldStandard.GetInitializedList_Standard("Student", dict_local)
         End If ''end of "If (list_local Is Nothing) Then"
 
         FlowLayoutPanel1.Controls.Clear()

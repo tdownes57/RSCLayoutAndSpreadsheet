@@ -22,8 +22,10 @@ Public Class ClassFields
         ''5/3/2022 td''ClassFieldStandard.InitializeHardcodedList_Students(True)
         ''5/9/2022 td''ClassFieldStandard.InitializeHardcodedList_Students(True)
         Dim listStandard As HashSet(Of ClassFieldStandard)
+        Dim dictStandard As New Dictionary(Of EnumCIBFields, ClassFieldStandard) ''Added 5/10/2022
+
         listStandard =
-            ClassFieldStandard.GetInitializedList_Standard("Students")
+            ClassFieldStandard.GetInitializedList_Standard("Students", dictStandard)
 
         ''----------------------------------------------------------------------------------------------------
         ''Custom Fields (Initialize the list)  

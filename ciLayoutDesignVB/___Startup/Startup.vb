@@ -96,6 +96,8 @@ Public Class Startup
         Dim strPathToElementsCacheXML_Prior3 As String = "" ''Added 2/09/2022 td 
         ''---Dim strPathToElementsCacheXML_Prior4 As String = "" ''Added 2/09/2022 td 
 
+        Application.DoEvents() ''Allow any latent de-serialization to take place. ---5/10/2022
+
         ''Conditions added 3/31/2022, loading code added 10/16/2019 td 
         If (obj_personality.ListOfRecipients Is Nothing) Then
             ''Added 10/16/2019 td 
@@ -824,7 +826,11 @@ Public Class Startup
             ''   but I know of no other way to pass the object type.  Simply expressing the Type
             ''   by typing its name doesn't work.  ---10/13/2019 td
 
+            ClassElementsCache_Deprecated.DeserializationCompleted = False ''Added 5/10/2022
+
             obj_cache_elements = CType(objDeserialize.DeserializeFromXML(obj_cache_elements.GetType(), False), ClassElementsCache_Deprecated)
+
+            ClassElementsCache_Deprecated.DeserializationCompleted = True ''Added 5/10/2022
 
             ''Added 12/26/2021 thomas d.
             If (obj_cache_elements Is Nothing) Then Return Nothing

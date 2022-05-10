@@ -331,8 +331,9 @@ Public Class ClassFieldStandard
     ''End Function ''End of "Public Shared Sub InitializeHardcodedList_ParamList"
 
 
-    Public Shared Function GetInitializedList_Standard(pstrRecipientClassName As String) _
-        As HashSet(Of ClassFieldStandard)
+    Public Shared Function GetInitializedList_Standard(pstrRecipientClassName As String,
+            ByRef p_dictionary As Dictionary(Of EnumCIBFields, ClassFieldStandard)) _
+            As HashSet(Of ClassFieldStandard)
 
         ''5/8/2022 Public Shared Sub InstantiateFields_Standard(pstrRecipientClassName As String,
         ''                                            Optional pboolSingleField As Boolean = False,
@@ -344,6 +345,8 @@ Public Class ClassFieldStandard
         ''Coded 7/26/2019
         ''
         Dim objListOfFields_Standard As HashSet(Of ClassFieldStandard) ''Added 5/9/2022 td
+        Dim objFieldDictionary_Stan As Dictionary(Of EnumCIBFields, ClassFieldStandard) ''Added 5/10/2022 td
+
         Dim intFieldIndex As Integer ''Added 9/17/2019 td 
         Const c_heightPixels As Integer = 30 ''Added 9/17 td
         Dim intLeft_Pixels As Integer = 0
@@ -352,6 +355,7 @@ Public Class ClassFieldStandard
 
         ''Added 5/9/2022 td
         objListOfFields_Standard = New HashSet(Of ClassFieldStandard) ''Added 5/9/2022 td
+        objFieldDictionary_Stan = New Dictionary(Of EnumCIBFields, ClassFieldStandard) ''Added 5/10/2022 td
 
         intFieldIndex = 1 ''Added 9/17/2019 td
         Dim new_objectField1 As New ClassFieldStandard
@@ -395,6 +399,9 @@ Public Class ClassFieldStandard
 
         End With ''End of "With new_objectField1
 
+        objListOfFields_Standard.Add(new_objectField1)
+        objFieldDictionary_Stan.Add(new_objectField1.FieldEnumValue, new_objectField1)
+
         ''5/5/2022 If (Not pbDontSaveToList) Then _
         ''    ListOfFields_Standard.Add(new_objectField1)
         ''If (pboolSingleField And (pref_singleField IsNot Nothing)) Then Exit Sub ''Added 3/23/2022
@@ -408,7 +415,6 @@ Public Class ClassFieldStandard
         ''    ''Don't save it to the list of fields. ---5/5/2022 
         ''Else
 
-        objListOfFields_Standard.Add(new_objectField1)
 
         ''End If ''End of ""If (pboolSingleField And (pref_singleField IsNot Nothing)) Then""
 
@@ -450,6 +456,9 @@ Public Class ClassFieldStandard
 
         End With ''End of "With new_objectField2
 
+        objListOfFields_Standard.Add(new_objectField2)
+        objFieldDictionary_Stan.Add(new_objectField2.FieldEnumValue, new_objectField2)
+
         ''If (Not pbDontSaveToList) Then _
         ''  ListOfFields_Standard.Add(new_objectField2)
         ''If (pboolSingleField And (pref_singleField IsNot Nothing)) Then Exit Sub ''Added 3/23/2022
@@ -463,7 +472,6 @@ Public Class ClassFieldStandard
         ''ElseIf (pboolSingleField) Then
         ''    ''Don't save it to the list of fields. ---5/5/2022 
         ''Else
-        objListOfFields_Standard.Add(new_objectField2)
 
         ''End If ''End of ""If (pboolSingleField And (pref_singleField IsNot Nothing)) Then""
 
@@ -511,6 +519,10 @@ Public Class ClassFieldStandard
 
         End With ''End of "With new_objectField3"
 
+        objListOfFields_Standard.Add(new_objectField3)
+        ''Added 5/10/2022 td
+        objFieldDictionary_Stan.Add(new_objectField3.FieldEnumValue, new_objectField3)
+
         ''If (Not pbDontSaveToList) Then _
         ''  ListOfFields_Standard.Add(new_object3)
         ''If (pboolSingleField And (pref_singleField IsNot Nothing)) Then Exit Sub ''Added 3/23/2022
@@ -524,7 +536,6 @@ Public Class ClassFieldStandard
         ''ElseIf (pboolSingleField) Then
         ''    ''Don't save it to the list of fields. ---5/5/2022 
         ''Else
-        objListOfFields_Standard.Add(new_objectField3)
         ''End If ''End of ""If (pboolSingleField And (pref_singleField IsNot Nothing)) Then""
 
 
@@ -556,6 +567,10 @@ Public Class ClassFieldStandard
 
         End With ''End of "With new_objectField4"
 
+        objListOfFields_Standard.Add(new_objectField4)
+        ''Added 5/10/2022 td
+        objFieldDictionary_Stan.Add(new_objectField4.FieldEnumValue, new_objectField4)
+
         ''If (Not pbDontSaveToList) Then _
         ''  ListOfFields_Standard.Add(new_object4)
         ''If (pboolSingleField And (pref_singleField IsNot Nothing)) Then Exit Sub ''Added 3/23/2022
@@ -569,7 +584,7 @@ Public Class ClassFieldStandard
         ''ElseIf (pboolSingleField) Then
         ''    ''Don't save it to the list of fields. ---5/5/2022 
         ''Else
-        objListOfFields_Standard.Add(new_objectField4)
+        ''    objListOfFields_Standard.Add(new_objectField4)
         ''End If ''End of ""If (pboolSingleField And (pref_singleField IsNot Nothing)) Then""
 
 
@@ -608,6 +623,10 @@ Public Class ClassFieldStandard
 
         End With ''end of "With new_objectField5"
 
+        objListOfFields_Standard.Add(new_objectField5)
+        ''Added 5/10/2022 td
+        objFieldDictionary_Stan.Add(new_objectField5.FieldEnumValue, new_objectField5)
+
         ''If (Not pbDontSaveToList) Then _
         ''    ListOfFields_Standard.Add(new_object5)
         ''If (pboolSingleField And (pref_singleField IsNot Nothing)) Then Exit Sub ''Added 3/23/2022
@@ -621,7 +640,7 @@ Public Class ClassFieldStandard
         ''ElseIf (pboolSingleField) Then
         ''    ''Don't save it to the list of fields. ---5/5/2022 
         ''Else
-        objListOfFields_Standard.Add(new_objectField5)
+        ''    objListOfFields_Standard.Add(new_objectField5)
         ''End If ''End of ""If (pboolSingleField And (pref_singleField IsNot Nothing)) Then""
 
 
@@ -652,6 +671,10 @@ Public Class ClassFieldStandard
 
         End With ''end of "With new_objectField6"
 
+        objListOfFields_Standard.Add(new_objectField6)
+        ''Added 5/10/2022 td
+        objFieldDictionary_Stan.Add(new_objectField6.FieldEnumValue, new_objectField6)
+
         ''If (Not pbDontSaveToList) Then _
         ''   ListOfFields_Standard.Add(new_object6)
         ''If (pboolSingleField And (pref_singleField IsNot Nothing)) Then Exit Sub ''Added 3/23/2022
@@ -665,7 +688,7 @@ Public Class ClassFieldStandard
         ''ElseIf (pboolSingleField) Then
         ''    ''Don't save it to the list of fields. ---5/5/2022 
         ''Else
-        objListOfFields_Standard.Add(new_objectField6)
+        ''    objListOfFields_Standard.Add(new_objectField6)
         ''End If ''End of ""If (pboolSingleField And (pref_singleField IsNot Nothing)) Then""
 
 
@@ -697,6 +720,10 @@ Public Class ClassFieldStandard
 
         End With ''end of "With new_objectField7"
 
+        objListOfFields_Standard.Add(new_objectField7)
+        ''Added 5/10/2022 td
+        objFieldDictionary_Stan.Add(new_objectField7.FieldEnumValue, new_objectField7)
+
         ''If (Not pbDontSaveToList) Then _
         ''   ListOfFields_Standard.Add(new_object7)
         ''If (pboolSingleField And (pref_singleField IsNot Nothing)) Then Exit Sub ''Added 3/23/2022
@@ -710,7 +737,7 @@ Public Class ClassFieldStandard
         ''ElseIf (pboolSingleField) Then
         ''    ''Don't save it to the list of fields. ---5/5/2022 
         ''Else
-        objListOfFields_Standard.Add(new_objectField7)
+        ''    objListOfFields_Standard.Add(new_objectField7)
         ''End If ''End of ""If (pboolSingleField And (pref_singleField IsNot Nothing)) Then""
 
 
@@ -742,6 +769,10 @@ Public Class ClassFieldStandard
 
         End With ''end of "With new_objectField8"
 
+        objListOfFields_Standard.Add(new_objectField8)
+        ''Added 5/10/2022 td
+        objFieldDictionary_Stan.Add(new_objectField8.FieldEnumValue, new_objectField8)
+
         ''If (Not pbDontSaveToList) Then _
         ''   ListOfFields_Standard.Add(new_object8)
         ''If (pboolSingleField And (pref_singleField IsNot Nothing)) Then Exit Sub ''Added 3/23/2022
@@ -755,7 +786,7 @@ Public Class ClassFieldStandard
         ''ElseIf (pboolSingleField) Then
         ''    ''Don't save it to the list of fields. ---5/5/2022 
         ''Else
-        objListOfFields_Standard.Add(new_objectField8)
+        ''    objListOfFields_Standard.Add(new_objectField8)
         ''End If ''End of ""If (pboolSingleField And (pref_singleField IsNot Nothing)) Then""
 
 
@@ -785,6 +816,9 @@ Public Class ClassFieldStandard
 
         End With ''end of "With new_objectField9"
 
+        objListOfFields_Standard.Add(new_objectField9)
+        objFieldDictionary_Stan.Add(new_objectField9.FieldEnumValue, new_objectField9)
+
         ''If (Not pbDontSaveToList) Then _
         ''   ListOfFields_Standard.Add(new_object9)
         ''If (pboolSingleField And (pref_singleField IsNot Nothing)) Then Exit Sub ''Added 3/23/2022
@@ -798,7 +832,7 @@ Public Class ClassFieldStandard
         ''ElseIf (pboolSingleField) Then
         ''    ''Don't save it to the list of fields. ---5/5/2022 
         ''Else
-        objListOfFields_Standard.Add(new_objectField9)
+        ''    objListOfFields_Standard.Add(new_objectField9)
         ''End If ''End of ""If (pboolSingleField And (pref_singleField IsNot Nothing)) Then""
 
 
@@ -828,6 +862,9 @@ Public Class ClassFieldStandard
 
         End With ''end of "With new_objectField91"
 
+        objListOfFields_Standard.Add(new_objectField91)
+        objFieldDictionary_Stan.Add(new_objectField91.FieldEnumValue, new_objectField91)
+
         ''If (Not pbDontSaveToList) Then _
         ''   ListOfFields_Standard.Add(new_object91)
         ''If (pboolSingleField And (pref_singleField IsNot Nothing)) Then Exit Sub ''Added 3/23/2022
@@ -841,7 +878,7 @@ Public Class ClassFieldStandard
         ''ElseIf (pboolSingleField) Then
         ''    ''Don't save it to the list of fields. ---5/5/2022 
         ''Else
-        objListOfFields_Standard.Add(new_objectField91)
+        ''    objListOfFields_Standard.Add(new_objectField91)
         ''End If ''End of ""If (pboolSingleField And (pref_singleField IsNot Nothing)) Then""
 
 
@@ -871,6 +908,9 @@ Public Class ClassFieldStandard
 
         End With ''end of "With new_objectField92"
 
+        objListOfFields_Standard.Add(new_objectField92)
+        objFieldDictionary_Stan.Add(new_objectField92.FieldEnumValue, new_objectField92)
+
         ''If (Not pbDontSaveToList) Then _
         ''   ListOfFields_Standard.Add(new_object92)
         ''If (pboolSingleField And (pref_singleField IsNot Nothing)) Then Exit Sub ''Added 3/23/2022
@@ -884,7 +924,7 @@ Public Class ClassFieldStandard
         ''ElseIf (pboolSingleField) Then
         ''    ''Don't save it to the list of fields. ---5/5/2022 
         ''Else
-        objListOfFields_Standard.Add(new_objectField92)
+        ''    objListOfFields_Standard.Add(new_objectField92)
         ''End If ''End of ""If (pboolSingleField And (pref_singleField IsNot Nothing)) Then""
 
 
@@ -914,6 +954,9 @@ Public Class ClassFieldStandard
 
         End With ''end of "With new_objectField93"
 
+        objListOfFields_Standard.Add(new_objectField93)
+        objFieldDictionary_Stan.Add(new_objectField93.FieldEnumValue, new_objectField93)
+
         ''If (Not pbDontSaveToList) Then _
         ''   ListOfFields_Standard.Add(new_object93)
         ''If (pboolSingleField And (pref_singleField IsNot Nothing)) Then Exit Sub ''Added 3/23/2022
@@ -927,7 +970,7 @@ Public Class ClassFieldStandard
         ''ElseIf (pboolSingleField) Then
         ''    ''Don't save it to the list of fields. ---5/5/2022 
         ''Else
-        objListOfFields_Standard.Add(new_objectField93)
+        ''    objListOfFields_Standard.Add(new_objectField93)
         ''End If ''End of ""If (pboolSingleField And (pref_singleField IsNot Nothing)) Then""
 
 
@@ -956,6 +999,9 @@ Public Class ClassFieldStandard
             ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementFieldClass = New ClassElementField()
         End With ''end of "With new_objectField94"
 
+        objListOfFields_Standard.Add(new_objectField94)
+        objFieldDictionary_Stan.Add(new_objectField94.FieldEnumValue, new_objectField94)
+
         ''If (Not pbDontSaveToList) Then _
         ''   ListOfFields_Standard.Add(new_object94)
         ''If (pboolSingleField And (pref_singleField IsNot Nothing)) Then Exit Sub ''Added 3/23/2022
@@ -969,7 +1015,7 @@ Public Class ClassFieldStandard
         ''ElseIf (pboolSingleField) Then
         ''    ''Don't save it to the list of fields. ---5/5/2022 
         ''Else
-        objListOfFields_Standard.Add(new_objectField94)
+        ''    objListOfFields_Standard.Add(new_objectField94)
         ''End If ''End of ""If (pboolSingleField And (pref_singleField IsNot Nothing)) Then""
 
 
@@ -999,6 +1045,9 @@ Public Class ClassFieldStandard
 
         End With ''end of "With new_object95"
 
+        objListOfFields_Standard.Add(new_objectField95)
+        objFieldDictionary_Stan.Add(new_objectField95.FieldEnumValue, new_objectField95)
+
         ''If (Not pbDontSaveToList) Then _
         ''   ListOfFields_Standard.Add(new_object95)
         ''If (pboolSingleField And (pref_singleField IsNot Nothing)) Then Exit Sub ''Added 3/23/2022
@@ -1012,7 +1061,7 @@ Public Class ClassFieldStandard
         ''ElseIf (pboolSingleField) Then
         ''    ''Don't save it to the list of fields. ---5/5/2022 
         ''Else
-        objListOfFields_Standard.Add(new_objectField95)
+        ''    objListOfFields_Standard.Add(new_objectField95)
         ''End If ''End of ""If (pboolSingleField And (pref_singleField IsNot Nothing)) Then""
 
 
@@ -1050,6 +1099,9 @@ Public Class ClassFieldStandard
 
         End With ''end of "With new_objectField96"
 
+        objListOfFields_Standard.Add(new_objectField96)
+        objFieldDictionary_Stan.Add(new_objectField96.FieldEnumValue, new_objectField96)
+
         ''If (pboolSingleField And (pref_singleField IsNot Nothing)) Then
         ''    ''Add it to the list.  ---5/5/2022
         ''    If (Not pbDontSaveToList) Then ListOfFields_Standard.Add(new_objectField96)
@@ -1059,7 +1111,7 @@ Public Class ClassFieldStandard
         ''ElseIf (pboolSingleField) Then
         ''    ''Don't save it to the list of fields. ---5/5/2022 
         ''Else
-        objListOfFields_Standard.Add(new_objectField96)
+        ''    objListOfFields_Standard.Add(new_objectField96)
         ''End If ''End of ""If (pboolSingleField And (pref_singleField IsNot Nothing)) Then""
 
 
@@ -1091,7 +1143,10 @@ Public Class ClassFieldStandard
             ''Added 9/3/2019 td
             ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementFieldClass = New ClassElementField()
 
-        End With ''end of "With new_object991"
+        End With ''end of "With new_object97"
+
+        objListOfFields_Standard.Add(new_objectField97)
+        objFieldDictionary_Stan.Add(new_objectField97.FieldEnumValue, new_objectField97)
 
         ''#1 5/5/2022 ''If (Not pbDontSaveToList) Then _
         ''#1 5/5/2022 ''   ListOfFields_Standard.Add(new_object991)
@@ -1105,7 +1160,7 @@ Public Class ClassFieldStandard
         ''ElseIf (pboolSingleField) Then
         ''    ''Don't save it to the list of fields. ---5/5/2022 
         ''Else
-        objListOfFields_Standard.Add(new_objectField97)
+        ''    objListOfFields_Standard.Add(new_objectField97)
         ''End If ''End of ""If (pboolSingleField And (pref_singleField IsNot Nothing)) Then""
 
 
@@ -1136,7 +1191,10 @@ Public Class ClassFieldStandard
             ''Added 9/3/2019 td
             ''---(---Fields cannot link outward to elements.---9/18/2019 td.ElementFieldClass = New ClassElementField()
 
-        End With ''end of "With new_object992"
+        End With ''end of "With new_object98"
+
+        objListOfFields_Standard.Add(new_objectField98)
+        objFieldDictionary_Stan.Add(new_objectField98.FieldEnumValue, new_objectField98)
 
         ''If (Not pbDontSaveToList) Then _
         ''   ListOfFields_Standard.Add(new_object992)
@@ -1154,7 +1212,7 @@ Public Class ClassFieldStandard
         ''    ListOfFields_Standard.Add(new_object992)
         ''End If ''End of ""If (pboolSingleField And (pref_singleField IsNot Nothing)) Then""
 
-        objListOfFields_Standard.Add(new_objectField98)
+        ''  objListOfFields_Standard.Add(new_objectField98)
 
         ''Added 5/5/2022 td 
         FieldIndexHighest = intFieldIndex
@@ -1190,10 +1248,9 @@ Public Class ClassFieldStandard
 
         End If ''End of ""If (c_boolAddObjectsToListAtEnd) Then""
 
-
-
 ExitHandler:
 
+        p_dictionary = objFieldDictionary_Stan ''Added 5/10/2022 td
         Return objListOfFields_Standard
 
         ''
@@ -1234,7 +1291,7 @@ ExitHandler:
     End Function ''End of "GetInitializedList_Standard()"
 
 
-    Public Shared Function GetField_ByEnum_Standard(par_singleEnum As EnumCIBFields,
+    Public Shared Function GetField_ByEnum_Standard_Deprecated(par_singleEnum As EnumCIBFields,
                          Optional ByRef pref_IsCustomizableLikely As Boolean = False,
                          Optional ByRef pref_IsCustomizableField As Boolean = False,
                          Optional ByRef pref_objFieldCustom As ClassFieldCustomized = Nothing) _
@@ -1253,8 +1310,9 @@ ExitHandler:
         ''
         Dim intMaxEnumValue As Integer = 0
         Dim each_intEnumValue As Integer = 0
+        Dim dictionaryFS As New Dictionary(Of EnumCIBFields, ClassFieldStandard) ''Added 5/10/2022
 
-        For Each each_field In GetInitializedList_Standard("Students")
+        For Each each_field In GetInitializedList_Standard("Students", dictionaryFS)
 
             If (each_field.FieldEnumValue = par_singleEnum) Then
                 Return each_field
@@ -1284,7 +1342,7 @@ ExitHandler:
 
         Return Nothing
 
-    End Function ''End of ""Public Shared Function GetField_ByEnum_Standard""
+    End Function ''End of ""Public Shared Function GetField_ByEnum_Standard_Deprecated""
 
 
     Public Shared Function LoadField_ByEnum_Custom(par_singleEnum As EnumCIBFields) As ClassFieldStandard

@@ -407,6 +407,7 @@ Public Class DialogListBothTypeFields
         ''
         ''10/17 td''Dim list_local As List(Of ClassFieldStandard) = Nothing
         Dim list_local As HashSet(Of ClassFieldStandard) = Nothing
+        Dim dict_local As New Dictionary(Of EnumCIBFields, ClassFieldStandard) ''Added 5/10/2022
         Dim boolProceed As Boolean ''Added 12/14/2021 td
 
         If (ListOfFields_Standard IsNot Nothing) Then list_local = ListOfFields_Standard
@@ -416,7 +417,7 @@ Public Class DialogListBothTypeFields
             ''5/07/2022 td--list_local = ClassFieldStandard.ListOfFields_Students
             ''5/09/2022 td--ClassFieldStandard.InitializeHardcodedList_Standard(True)
             ''5/09/2022 td--list_local = ClassFieldStandard.ListOfFields_Standard
-            list_local = ClassFieldStandard.GetInitializedList_Standard("Students")
+            list_local = ClassFieldStandard.GetInitializedList_Standard("Students", dict_local)
 
         End If ''end of "If (list_local Is Nothing) Then"
 

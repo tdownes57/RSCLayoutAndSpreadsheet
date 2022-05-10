@@ -44,6 +44,7 @@ Partial Class CtlConfigFldStdRelevancy
         Me.LabelNotYetRelevant.Name = "LabelNotYetRelevant"
         Me.LabelNotYetRelevant.Size = New System.Drawing.Size(192, 147)
         Me.LabelNotYetRelevant.TabIndex = 1
+        Me.LabelNotYetRelevant.Tag = "Not yet selected by you as Relevant for the Personality / Organization...."
         Me.LabelNotYetRelevant.Text = "Not yet selected by you as Relevant for the Personality / Organization...."
         '
         'LabelQuestion

@@ -3425,6 +3425,10 @@ ExitHandler:
             boolAddSignature = .AddSignature
             boolAddStaticText = .AddStaticText
 
+            ''Added 5/10/2022 td
+            If (.AddField1_Enum = EnumCIBFields.Undetermined) Then System.Diagnostics.Debugger.Break()
+            If (.AddField1_Enum = -1) Then System.Diagnostics.Debugger.Break()
+
             ''Field #1
             rectangleControl = .GetRectangle_Field1(0.5, 2.0)
             If (boolAddField1) Then mod_designer.Load_NewElement_Field(.AddField1_Enum, rectangleControl)

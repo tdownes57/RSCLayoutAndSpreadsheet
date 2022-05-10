@@ -443,12 +443,15 @@ Namespace ciBadgeCachePersonality
                 ''---5/5/2022 bLikelyCustomized = (CInt(each_enum) > CInt(EnumCIBFields.fstrBarCode))
                 bLikelyCustomized = (CInt(each_enum) > CInt(EnumCIBFields.fstrRFID_Unique))
 
-
-                If (pboolLetsFix) Then
+                ''
+                ''There is //no// proper way to address a missing field at runtime. The program code
+                ''   which creates the entire list of fields must be fixed.---5/10/2022 td 
+                ''
+                If (False And pboolLetsFix) Then
                     ''
                     ''Currently, it must be a Standard field (hence the ", False" as the 2nd parameter).  
                     ''
-                    CacheForEditing.LoadField_ByEnum(each_enum, bLikelyCustomized)
+                    CacheForEditing.LoadField_ByEnum_Deprecated(each_enum, bLikelyCustomized)
 
                 End If ''End of "If (pboolLetsFix) Then"
 
@@ -485,13 +488,17 @@ Namespace ciBadgeCachePersonality
         End Function ''End of "Public Function CheckAllElementsHaveCorrectFieldInfo"
 
 
-        Public Sub LoadField_ByEnum(par_enumCIB As EnumCIBFields, pboolIsCustomField As Boolean)
+        Public Sub LoadField_ByEnum_Deprecated(par_enumCIB As EnumCIBFields, pboolIsCustomField As Boolean)
             ''
             ''Added 3/23/2022 thomas d. 
             ''
-            CacheForEditing.LoadField_ByEnum(par_enumCIB, pboolIsCustomField)
+            ''There is //no// best-practices way to re-supply a missing field at runtime.
+            ''   Rather, the program code which creates the entire list of fields must be
+            ''   revamped/ fixed.---5/10/2022 td 
+            ''
+            CacheForEditing.LoadField_ByEnum_Deprecated(par_enumCIB, pboolIsCustomField)
 
-        End Sub ''End of "Public Sub LoadField_ByEnum(par_enumCIB As EnumCIBFields)"
+        End Sub ''End of "Public Sub LoadField_ByEnum_Deprecated(par_enumCIB As EnumCIBFields)"
 
 
 
@@ -788,8 +795,12 @@ Namespace ciBadgeCachePersonality
                 ''9/30 td''objCache =
                 ''9/30 td''     .DeserializeFromXML(GetType(ClassElementsCache), False)
 
+                ClassElementsCache_Deprecated.DeserializationCompleted = False ''False/Prepare. --5/10/2022
+
                 objCache_FromXml = CType(.DeserializeFromXML(GetType(ClassElementsCache_Deprecated), False),
                                             ClassElementsCache_Deprecated)
+
+                ClassElementsCache_Deprecated.DeserializationCompleted = True ''True/Completed. --5/10/2022
 
                 ''Added 12/14/2021 td
                 objCache_FromXml.Check_LinkElementsToFields()

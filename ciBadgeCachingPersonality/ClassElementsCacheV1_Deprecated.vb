@@ -81,6 +81,9 @@ Namespace ciBadgeCachePersonality
         Private mod_listFields_Standard As New HashSet(Of ClassFieldStandard) ''Added 10/14/2019 td  
         Private mod_listFields_Custom As New HashSet(Of ClassFieldCustomized) ''Added 10/14/2019 td  
 
+        Private mod_dictionary_FStandard As New Dictionary(Of EnumCIBFields, ClassFieldStandard) ''Added 10/14/2019 td  
+        Private mod_dictionary_FCustom As New Dictionary(Of EnumCIBFields, ClassFieldCustomized) ''Added 10/14/2019 td  
+
         Private Const mod_bOkayToUseExampleQRCode As Boolean = True ''Added 1/17/2022
         Private Const mod_bOkayToUseExampleSignature As Boolean = True ''Added 1/17/2022
 
@@ -322,14 +325,64 @@ Namespace ciBadgeCachePersonality
             '' SC = Standard & Custom (Fields)  
             '' CS = Custom & Standard (Fields)  
             ''
-            Dim obj_list As New List(Of ClassFieldAny)
+            Dim output_list_any As New List(Of ClassFieldAny)
+            ''Added 5/10/2022
+            Dim local_dict_standard As New Dictionary(Of EnumCIBFields, ClassFieldStandard)
+            Dim local_dict_any As New Dictionary(Of EnumCIBFields, ClassFieldAny)
+            ''----Dim obj_list_custom As List(Of ClassFieldStandard)
 
+            ''5/10/2022 obj_list.AddRange(ListOfFields_Standard)
+            ''5/10/2022 obj_list.AddRange(ListOfFields_Custom)
 
+            ''Standard Fields
+            Application.DoEvents() ''Allow any latent de-serialization to take place. ---5/10/2022
 
+            If (0 = mod_listFields_Standard.Count) Then
+                ''We need to populate the list of standard fields.
+                mod_listFields_Standard = ClassFieldStandard.GetInitializedList_Standard("Recip",
+                    local_dict_standard)
+            End If ''End of ""If (0 = mod_listFields_Standard.Count) Then""
 
-            obj_list.AddRange(ListOfFields_Standard)
-            obj_list.AddRange(ListOfFields_Custom)
-            Return obj_list
+            ''Added 5/10/2022 td
+            If (30 < mod_listFields_Standard.Count) Then
+                ''Added 5/10/2022 td
+                Throw New Exception("The normal number of standard fields is 17, not >30.")
+            End If ''End of ""If (30 < mod_listFields_Standard.Count) Then""
+
+            output_list_any.AddRange(mod_listFields_Standard)
+
+            ''Start building a 2nd dictionary, for both standard & custom.
+            ''    This is to enforce that a field should have a unique
+            ''    field-enumeration value. ---5/10/2022
+            For Each each_stanF As ClassFieldStandard In mod_listFields_Standard
+                local_dict_any.Add(each_stanF.FieldEnumValue, each_stanF)
+            Next each_stanF
+
+            ''Custom fields
+            Application.DoEvents() ''Allow any latent de-serialization to take place. ---5/10/2022
+
+            If (0 = mod_listFields_Custom.Count) Then
+                ''We need to populate the list of custom fields.
+                mod_listFields_Custom = ClassFieldCustomized.GetInitializedList_Custom("Recip")
+            End If ''End of ""If (0 = mod_listFields_Standard.Count) Then""
+
+            ''Added 5/10/2022 td
+            If (30 < mod_listFields_Standard.Count) Then
+                ''Added 5/10/2022 td
+                Throw New Exception("The normal number of standard fields is 17, not >30.")
+            End If ''End of ""If (30 < mod_listFields_Standard.Count) Then""
+
+            Dim boolSubstantive As Boolean ''Added 5/10/2022 td
+            For Each each_customF As ClassFieldCustomized In mod_listFields_Custom
+                boolSubstantive = (each_customF.FieldEnumValue <> EnumCIBFields.Undetermined)
+                If (boolSubstantive) Then
+                    local_dict_any.Add(each_customF.FieldEnumValue, each_customF)
+                    ''Complete work on the output.
+                    output_list_any.Add(each_customF)
+                End If ''End of ""If (boolSubstantive) Then"
+            Next each_customF
+
+            Return output_list_any
 
         End Function ''End of "Public Function ListOfFields_Any() As List(Of ClassFieldAny)"
 
@@ -524,14 +577,26 @@ Namespace ciBadgeCachePersonality
 
         End Function ''End of "Public Function ListOfFields_Any(par_recipInfo As IRecipient) As List(Of ClassFieldAny)"
 
+        Public Shared DeserializationCompleted As Boolean = True ''Default is True. Added 5/10/2022
 
         Public Property ListOfFields_Standard As HashSet(Of ClassFieldStandard) ''10/17 ''As List(Of ClassFieldStandard)
             Get ''Added 10/14/2019 td
 
-                ''Add 5/7/2022 thomas 
-                If (0 = mod_listFields_Standard.Count) Then
+                Application.DoEvents() ''Allow any latent de-serialization to take place.---5/10/2022 
 
-                End If ''End of ""If (0 = mod_listFields_Standard.Count) Then""
+                ''Add 5/7/2022 thomas
+                If (DeserializationCompleted) Then ''Added 5/10/2022
+                    If (0 = mod_listFields_Standard.Count) Then
+                        mod_listFields_Standard = ClassFieldStandard.GetInitializedList_Standard("Recipients",
+                                                        mod_dictionary_FStandard)
+                    End If ''End of ""If (0 = mod_listFields_Standard.Count) Then""
+                End If ''End of ""If (DeserializationCompleted) Then""
+
+                ''Added 5/10/2022 td
+                If (30 < mod_listFields_Standard.Count) Then
+                    ''Added 5/10/2022 td
+                    Throw New Exception("The normal number of standard fields is 17, not >30.")
+                End If ''End of ""If (30 < mod_listFields_Standard.Count) Then""
 
                 Return mod_listFields_Standard
 
@@ -545,6 +610,28 @@ Namespace ciBadgeCachePersonality
 
         Public Property ListOfFields_Custom As HashSet(Of ClassFieldCustomized) '' List(Of ClassFieldCustomized)
             Get ''Added 10/14/2019 td
+
+                Application.DoEvents() ''Allow any latent de-serialization to take place. 
+
+                ''Added 5/10/2022 td
+                If (30 < mod_listFields_Standard.Count) Then
+                    ''Added 5/10/2022 td
+                    Throw New Exception("The normal number of standard fields is 17, not >30.")
+                End If ''End of ""If (30 < mod_listFields_Standard.Count) Then""
+
+                ''Added 5/09/2022 thomas d.
+                ''   Initialize the list, if necessary. 
+                If (DeserializationCompleted) Then ''Added 5/10/2022
+                    If (0 = mod_listFields_Custom.Count) Then
+                        mod_listFields_Custom = ClassFieldCustomized.GetInitializedList_Custom("Recipients")
+                    End If ''End of ""If (0 = mod_listFields_Custom.Count) Then""
+                End If ''End of ""If (DeserializationCompleted) Then""
+
+                ''Added 5/10/2022 td
+                If (30 < mod_listFields_Standard.Count) Then
+                    ''Added 5/10/2022 td
+                    Throw New Exception("The normal number of standard fields is 17, not >30.")
+                End If ''End of ""If (30 < mod_listFields_Standard.Count) Then""
 
                 ''Added 5/7/2022 td
                 Return mod_listFields_Custom
@@ -1221,14 +1308,33 @@ Namespace ciBadgeCachePersonality
             ''----------------------------------------------------------------------------------------------------
             ''Standard Fields (Collect the list items)  
             ''
-            ''5/9/2022 td''For Each each_field_standard As ClassFieldStandard In ClassFieldStandard.ListOfFields_Standard ''5/3/2022 _Students
-            ''5/9/2022 td''
-            ''5/9/2022 td''''10/14/2019 td''mod_listFields.Add(each_field_standard)
-            ''5/9/2022 td''mod_listFields_Standard.Add(each_field_standard)
-            ''5/9/2022 td''
-            ''5/9/2022 td''Next each_field_standard
+            Application.DoEvents() ''Allow any latent de-serialization to take place. ---5/10/2022
 
-            mod_listFields_Standard = ClassFieldStandard.GetInitializedList_Standard("Students")
+            If (0 = mod_listFields_Standard.Count) Then
+                Dim objListFields_Standard As HashSet(Of ClassFieldStandard)
+                ''Added 5/10/2022
+                Dim dictionary_FStandard As New Dictionary(Of EnumCIBFields, ClassFieldStandard)
+
+                objListFields_Standard = ClassFieldStandard.GetInitializedList_Standard("Students",
+                                                     dictionary_FStandard)
+                ''Added 5/10/2022 td
+                mod_listFields_Standard = objListFields_Standard
+                mod_dictionary_FStandard = dictionary_FStandard
+
+            End If ''End of ""If (0 = mod_listFields_Standard.Count) Then""
+
+            ''Added 5/10/2022 td
+            If (30 < mod_listFields_Standard.Count) Then
+                ''Added 5/10/2022 td
+                Throw New Exception("The normal number of standard fields is 17, not >30.")
+            End If ''End of ""If (30 < mod_listFields_Standard.Count) Then""
+
+            ''For Each each_field_standard As ClassFieldStandard In mod_listFields_Standard ''5/10/2022 ClassFieldStandard.ListOfFields_Standard ''5/3/2022 _Students
+            ''
+            ''    ''10/14/2019 td''mod_listFields.Add(each_field_standard)
+            ''    mod_listFields_Standard.Add(each_field_standard)
+            ''
+            ''Next each_field_standard
 
             ''----------------------------------------------------------------------------------------------------
 
@@ -1243,13 +1349,30 @@ Namespace ciBadgeCachePersonality
             ''5/9/2022  
             ''5/9/2022 ''Next each_field_customized
 
-            mod_listFields_Custom = ClassFieldCustomized.GetInitializedList_Custom("Students")
+            Application.DoEvents() ''Allow any latent de-serialization to take place. ---5/10/2022
+
+            If (0 = mod_listFields_Custom.Count) Then
+                mod_listFields_Custom = ClassFieldCustomized.GetInitializedList_Custom("Students")
+            End If ''End of ""If (0 = mod_listFields_Custom.Count) Then""
             ''----------------------------------------------------------------------------------------------------
+
+            ''Added 5/10/2022 td
+            If (30 < mod_listFields_Standard.Count) Then
+                ''Added 5/10/2022 td
+                Throw New Exception("The normal number of standard fields is 17, not >30.")
+            End If ''End of ""If (30 < mod_listFields_Standard.Count) Then""
 
         End Sub ''End of "Public Sub LoadFields(par_pictureBackground As PictureBox)"
 
 
-        Public Sub LoadField_ByEnum(p_enumField As EnumCIBFields, p_boolIsCustomField As Boolean)
+        Public Sub LoadField_ByEnum_Deprecated(p_enumField As EnumCIBFields, p_boolIsCustomField As Boolean)
+            ''
+            ''As of 5/10/2022, this procedure is suffixed "_Deprecated" because the 
+            ''   Fields should be created (more or less) as a single unit.  It's
+            ''   okay to reference a single Field, but it's not okay to create it 
+            ''   as a free-floating entity.  It should be closely "housed" with 
+            ''   the other fields, as if it was an apartment in an apartment building.
+            ''   ----5/10/2022 td 
             ''
             ''Added 3/23/2022 td
             ''
@@ -1280,12 +1403,12 @@ Namespace ciBadgeCachePersonality
                 ''
                 Dim objNewFieldFS As ClassFieldStandard
                 ''5/09/2022 objNewFieldFS = ClassFieldStandard.BuildField_ByEnum_Standard(p_enumField)
-                objNewFieldFS = ClassFieldStandard.GetField_ByEnum_Standard(p_enumField)
+                objNewFieldFS = ClassFieldStandard.GetField_ByEnum_Standard_Deprecated(p_enumField)
                 mod_listFields_Standard.Add(objNewFieldFS)
 
             End If ''end of ""If bAlreadyLoaded Then... Else...""
 
-        End Sub ''End of "LoadField_ByEnum(each_enum)"
+        End Sub ''End of "LoadField_ByEnum_Deprecated(each_enum)"
 
 
         Public Sub LoadFields_FromList(par_listStandard As List(Of ClassFieldStandard),
