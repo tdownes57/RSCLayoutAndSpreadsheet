@@ -130,6 +130,8 @@ Public Class CtlGraphicPortrait
             .EventsForMoveability_Single = Nothing
             ''Added 1/24/2022 thomas downes
             .LayoutFunctions = .Designer
+            ''Added 5/10/2022 td
+            .InfoRefresh = par_parametersGetElementControl.iRefreshPreview
 
         End With ''End of "With objOperationsPortrait"
 

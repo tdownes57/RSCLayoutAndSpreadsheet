@@ -3409,16 +3409,27 @@ ExitHandler:
         Dim boolAddStaticText As Boolean '' 
         Dim rectangleControl As Drawing.Rectangle ''Added 5/6/2022 td
 
+        Dim enumAddField1_Enum As EnumCIBFields ''Added 5/10/2022 td
+        Dim enumAddField2_Enum As EnumCIBFields ''Added 5/10/2022 td
+        Dim enumAddField3_Enum As EnumCIBFields ''Added 5/10/2022 td
+        Dim enumAddField4_Enum As EnumCIBFields ''Added 5/10/2022 td
+        Dim enumAddField5_Enum As EnumCIBFields ''Added 5/10/2022 td
+
         ''Added 5/4/2022 td
         Dim objFormToShow As New FormTypeOfElementsToAdd(Me.ElementsCache_Edits)
-        objFormToShow.ShowDialog()
+        Dim diag_res As DialogResult ''Added 5/10/2022 td
+
+        diag_res = objFormToShow.ShowDialog()
+        If (diag_res = DialogResult.Cancel) Then Exit Sub ''Added 5/10/2022 td
 
         With objFormToShow
+
             boolAddField1 = .AddField1
             boolAddField2 = .AddField2
             boolAddField3 = .AddField3
             boolAddField4 = .AddField4
             boolAddField5 = .AddField5
+
             boolAddGraphic = .AddGraphic
             boolAddPortraitPic = .AddPortraitPic
             boolAddQRCode = .AddQRCode
@@ -3426,28 +3437,35 @@ ExitHandler:
             boolAddStaticText = .AddStaticText
 
             ''Added 5/10/2022 td
-            If (.AddField1_Enum = EnumCIBFields.Undetermined) Then System.Diagnostics.Debugger.Break()
-            If (.AddField1_Enum = -1) Then System.Diagnostics.Debugger.Break()
+            enumAddField1_Enum = .AddField1_Enum
+            enumAddField2_Enum = .AddField2_Enum
+            enumAddField3_Enum = .AddField3_Enum
+            enumAddField4_Enum = .AddField4_Enum
+            enumAddField5_Enum = .AddField5_Enum
+
+            ''Added 5/10/2022 td
+            ''If (.AddField1_Enum = EnumCIBFields.Undetermined) Then System.Diagnostics.Debugger.Break()
+            ''If (.AddField1_Enum = -1) Then System.Diagnostics.Debugger.Break()
 
             ''Field #1
             rectangleControl = .GetRectangle_Field1(0.5, 2.0)
-            If (boolAddField1) Then mod_designer.Load_NewElement_Field(.AddField1_Enum, rectangleControl)
+            If (boolAddField1) Then mod_designer.Load_NewElement_Field(enumAddField1_Enum, rectangleControl)
 
             ''Field #2
             rectangleControl = .GetRectangle_Field2(0.5, 2.0)
-            If (boolAddField2) Then mod_designer.Load_NewElement_Field(.AddField2_Enum, rectangleControl)
+            If (boolAddField2) Then mod_designer.Load_NewElement_Field(enumAddField2_Enum, rectangleControl)
 
             ''Field #3
             rectangleControl = .GetRectangle_Field3(0.5, 2.0)
-            If (boolAddField1) Then mod_designer.Load_NewElement_Field(.AddField3_Enum, rectangleControl)
+            If (boolAddField3) Then mod_designer.Load_NewElement_Field(enumAddField3_Enum, rectangleControl)
 
             ''Field #4
             rectangleControl = .GetRectangle_Field4(0.5, 2.0)
-            If (boolAddField1) Then mod_designer.Load_NewElement_Field(.AddField4_Enum, rectangleControl)
+            If (boolAddField4) Then mod_designer.Load_NewElement_Field(enumAddField4_Enum, rectangleControl)
 
             ''Field #5
             rectangleControl = .GetRectangle_Field5(0.5, 2.0)
-            If (boolAddField5) Then mod_designer.Load_NewElement_Field(.AddField5_Enum, rectangleControl)
+            If (boolAddField5) Then mod_designer.Load_NewElement_Field(enumAddField5_Enum, rectangleControl)
 
             rectangleControl = .GetRectangle_PortraitPic()
             If (boolAddPortraitPic) Then mod_designer.Load_NewElement_PortraitPic(rectangleControl)

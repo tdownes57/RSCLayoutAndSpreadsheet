@@ -42,6 +42,7 @@ Public MustInherit Class Operations__Base
 
     ''Feb2 2022 ''Public Property MonemMovement_SingleControl As MonemControlMove_AllFunctionality ''Added 2/2/2022
     Public Property Monem_iMoveOrResizeFun As IMonemMoveOrResizeFunctionality ''Added 2/2/2022
+    Public Property InfoRefresh As IRefreshCardPreview ''Added 5/10/2022 td
 
 
     Public Sub Switch_To_Other_Side_Of_Badge_BA1001(sender As Object, e As EventArgs)
@@ -89,8 +90,17 @@ Public MustInherit Class Operations__Base
         Dim bElementIsSig As Boolean ''5/5/2022
 
         Dim bConfirmDelete As Boolean ''Added 5/5/20222
-        ''Added 5/5/20222
-        bConfirmDelete = MessageBoxTD.Show_Confirmed("Delete element?", "", True)
+        Dim strTextForElement As String ''Added 5/10/2022 
+
+        ''Added 5/10/2022 td
+        strTextForElement = Me.Element_Type.ToString
+        If (Me.Element_Type = Enum_ElementType.Field) Then
+            strTextForElement &= (" - " & Me.CtlCurrentElement.ToString())
+        End If
+
+        ''Added 5/5/2022
+        bConfirmDelete = MessageBoxTD.Show_Confirmed("Delete element?",
+                                                     strTextForElement, True)
         If (Not bConfirmDelete) Then Exit Sub
 
         bElementIsPortraitPic = (CtlCurrentElement.ElemIfApplicable_IPic IsNot Nothing)
@@ -128,7 +138,9 @@ Public MustInherit Class Operations__Base
             MessageBoxTD.Show_Statement("The element been removed from the design-layout XML.",
                   "We will now try to remove it from the UI designer." & vbCrLf_Deux &
                   "You might need to save & refresh the layout-designer to clear it out.")
+            ''Remove the control.  
             Me.CtlCurrentForm.Controls.Remove(CtlCurrentControl)
+            Me.InfoRefresh.RefreshCardPreview() ''Added 5/10/2022 td
 
         Else
             ''Added 1/21/2022 td 

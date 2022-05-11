@@ -130,7 +130,8 @@ Public Class CtlGraphicFieldV3
             .ElementInfo_Base = par_elementFld
             .ElementInfo_TextOnly = par_elementFld ''Added 2/2/2022 td
             .ElementsCacheManager = par_parametersGetElementControl.ElementsCacheManager
-            .Element_Type = Enum_ElementType.StaticGraphic
+            ''5/10/2022 .Element_Type = Enum_ElementType.StaticGraphic
+            .Element_Type = Enum_ElementType.Field
             .EventsForMoveability_Group = par_oMoveEventsForGroupedCtls
             .EventsForMoveability_Single = Nothing
             .LayoutFunctions = .Designer ''Added 1/24/2022 td
@@ -144,6 +145,9 @@ Public Class CtlGraphicFieldV3
             ''Added 2/14/2022 td
             .CacheOfFieldsEtc_Deprecated =
                 par_parametersGetElementControl.ElementsCacheManager.CacheForEditing
+
+            ''Added 5/10/2022 td
+            .InfoRefresh = par_parametersGetElementControl.iRefreshPreview
 
         End With ''End of "With objOperationsFldElem"
 
@@ -985,6 +989,16 @@ ExitHandler:
         Return boolReturnValue
 
     End Function ''End of "Public Function Rotated_180_360() As Boolean"
+
+
+    Public Overrides Function ToString() As String
+        ''
+        ''Added 5/10/2022 thomas d.
+        ''
+        ''5/10/2022  Return MyBase.ToString())
+        Return LabelText()
+
+    End Function ''End Public Overrides Function ToString() As String
 
 
     Public Function LabelText(Optional par_objElementCopy As ClassElementFieldV3 = Nothing) As String

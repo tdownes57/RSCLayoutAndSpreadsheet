@@ -882,6 +882,13 @@ Public Class ClassDesigner
 
         Static s_countCalls As Integer = 0
 
+        ''Added 5/10/2022 td
+        If (par_enumField = EnumCIBFields.Undetermined) Then
+            System.Diagnostics.Debugger.Break()
+            Exit Sub
+        End If ''End of ""If (par_enumField = EnumCIBFields.Undetermined) Then""
+
+
         ''Added 10/01/2019 td
         intPicLeft = par_rect.Left '' Me.Initial_Pic_Left
         intPicTop = par_rect.Top '' Me.Initial_Pic_Top

@@ -169,6 +169,9 @@ Public Class CtlGraphicFieldV4
             ''Added 2/3/2022 td
             .SelectingElements = par_parametersGetElementControl.DesignerClass ''Added 2/3/2022 td
 
+            ''Added 5/10/2022  
+            .InfoRefresh = par_parametersGetElementControl.iRefreshPreview
+
         End With ''End of "With objOperationsFld_V4"
 
         Return CtlFieldV4

@@ -187,6 +187,7 @@ Public Class CtlGraphicStaticTextV3
         ''Added 1/25/2022 td
         objOperationsST_V3.Designer = par_parametersGetElementControl.DesignerClass
         objOperationsST_V3.LayoutFunctions = par_parametersGetElementControl.DesignerClass
+        objOperationsST_V3.InfoRefresh = par_parametersGetElementControl.iRefreshPreview ''Added 5/10/2022
 
         Return CtlStaticText1
 

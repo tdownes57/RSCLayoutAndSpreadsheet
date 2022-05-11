@@ -122,7 +122,7 @@ Public Class CtlGraphicSignature
             ''Added 2/5/2022 td
             .RightclickMouseInfo = objOperationsSig ''Added 2/5/2022 td
 
-        End With ''eNd of "With CtlQRCode1"
+        End With ''eNd of "With CtlSignature1"
 
         ''
         ''Specify the current element to the Operations object. 
@@ -131,6 +131,26 @@ Public Class CtlGraphicSignature
         infoOps.CtlCurrentElement = CtlSignature1
         ''Added 1/17/2022 td 
         infoOps.ElementsCacheManager = par_parameters.ElementsCacheManager
+
+        ''Added 2/02/2022 thomas d. 
+        With objOperationsSig
+
+            .CtlCurrentForm = par_oParentForm ''Added 5/6/2022 td 
+            .CtlCurrentControl = CtlSignature1
+            .CtlCurrentElement = CtlSignature1
+            ''.Designer = par_oMoveEventsForGroupedCtls.
+            ''.Designer = par_parametersGetElementControl.DesignerClass
+            .ElementInfo_Base = par_elementSig
+            .ElementsCacheManager = par_parameters.ElementsCacheManager
+            .Element_Type = Enum_ElementType.StaticGraphic
+            .EventsForMoveability_Group = par_oMoveEventsGroupedControls
+            .EventsForMoveability_Single = Nothing
+            ''Added 1/24/2022 thomas downes
+            ''.LayoutFunctions = .Designer
+            .Monem_iMoveOrResizeFun = CtlSignature1.mod_iMoveOrResizeFunctionality ''Added 2/02/2022 td
+            .InfoRefresh = par_parameters.iRefreshPreview ''Added 5/10/2022 td
+
+        End With ''End of "With objOperationsSig"
 
         Return CtlSignature1
 
