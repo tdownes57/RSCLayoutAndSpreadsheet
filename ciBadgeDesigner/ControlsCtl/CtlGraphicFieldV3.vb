@@ -165,6 +165,7 @@ Public Class CtlGraphicFieldV3
     ''5/11/2019 td''Public FieldInfo As ICIBFieldStandardOrCustom
     Public FieldEnumValue As EnumCIBFields ''Added 5/11/2022 td
     Public FieldIsCustom As Boolean ''Added 5/11/2022 td
+    ''5/11/2022 td''Public FieldExampleValue As String ''Added 5/11/2022 td
 
     Public Enum_ReminderMsg As EnumReminderMsg = EnumReminderMsg.NotCurrentlyInUse ''Added 10/17/2019 td 
 
@@ -1284,7 +1285,9 @@ ExitHandler:
         ''Added 8/10/2019 thomas downes  
         If (e.KeyCode = Keys.Enter) Then
 
-            Me.FieldInfo.ExampleValue = textTypeExample.Text
+            ''Me.FieldInfo.ExampleValue = textTypeExample.Text
+            Me.ExampleTextToDisplay = textTypeExample.Text ''Added 5/11/2022 td
+
             Me.ElementInfo_TextOnly.Text_Static = textTypeExample.Text
             Me.textTypeExample.Visible = False
 

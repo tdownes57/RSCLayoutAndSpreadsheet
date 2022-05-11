@@ -76,7 +76,7 @@ Public Class DialogTextOffset
         OriginalElementControl_ForApplyOnlyV3 = par_parentControlV3
 
         ''Added 9/18/2019 td 
-        Me.FieldInfo_Denigrated = Me.ElementObject_LayoutDesignV3.FieldInfo ''Added 9/18/2019 td 
+        ''5/11/2022 Me.FieldInfo_Denigrated = Me.ElementObject_LayoutDesignV3.FieldInfo ''Added 9/18/2019 td 
 
     End Sub ''ENd of "Public Sub New(par_element_fromLayout As ClassElementField, par_element_copy As ClassElementField)"
 

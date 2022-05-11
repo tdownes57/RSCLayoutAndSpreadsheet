@@ -103,7 +103,8 @@ Public Class Operations_FieldV4
         Const c_boolTryNewSub As Boolean = True ''Added 12/14/2021 td
 
         ''2/4/2022 td''bIsCustomField = (CtlCurrentElementFieldV4.ElementClass_Obj.FieldObjectCustom IsNot Nothing)
-        bIsCustomField = (CtlCurrentElementFieldV3.ElementClass_ObjV3.FieldObjectCustom IsNot Nothing)
+        ''5/11/2022 td''bIsCustomField = (CtlCurrentElementFieldV3.ElementClass_ObjV3.FieldObjectCustom IsNot Nothing)
+        bIsCustomField = CtlCurrentElementFieldV3.FieldIsCustom
 
         If (bIsCustomField And c_boolTryNewSub) Then
 
@@ -138,9 +139,9 @@ Public Class Operations_FieldV4
         form_ToShow.JustOneField_Index = CtlCurrentElementFieldV4.FieldInfo.FieldIndex
 
         ''Added 12/13/2021 thomas downes
-        form_ToShow.JustOneField_Any = CtlCurrentElementFieldV4.ElementClass_ObjV4.FieldObjectAny
-        form_ToShow.JustOneField_Custom = CtlCurrentElementFieldV4.ElementClass_ObjV4.FieldObjectCustom
-        form_ToShow.JustOneField_Standard = CtlCurrentElementFieldV4.ElementClass_ObjV4.FieldObjectStandard
+        form_ToShow.JustOneField_Any = GetFieldObjectAny() ''5/2022 CtlCurrentElementFieldV4.ElementClass_ObjV4.FieldObjectAny
+        form_ToShow.JustOneField_Custom = GetFieldObjectCustom() ''5/2022 CtlCurrentElementFieldV4.ElementClass_ObjV4.FieldObjectCustom
+        form_ToShow.JustOneField_Standard = GetFieldObjectStandard() ''5/2022 CtlCurrentElementFieldV4.ElementClass_ObjV4.FieldObjectStandard
 
         ''Added 12/12/2021 td
         ''--form_ToShow.ListOfFields_Custom = MenuCache_ElemFlds.CacheOfFieldsEtc.ListOfFields_Custom
@@ -169,12 +170,16 @@ Public Class Operations_FieldV4
 
         ''Can (should) we just show a single field? ''form_ToShow.JustOneField = Me.FieldInfo
         ''10/2/2019 td''form_ToShow.JustOneField_Index = Me.FieldInfo.FieldIndex
-        par_form_ToShow.JustOneField_Index = CtlCurrentElementFieldV4.FieldInfo.FieldIndex
+        ''5/11/2022 td''par_form_ToShow.JustOneField_Index = CtlCurrentElementFieldV4.FieldInfo.FieldIndex
+        par_form_ToShow.JustOneField_Index = GetFieldAny().FieldIndex
 
         ''Added 12/13/2021 thomas downes
-        par_form_ToShow.JustOneField_Any = CtlCurrentElementFieldV4.ElementClass_ObjV4.FieldObjectAny
-        par_form_ToShow.JustOneField_Custom = CtlCurrentElementFieldV4.ElementClass_ObjV4.FieldObjectCustom
-        par_form_ToShow.JustOneField_Standard = CtlCurrentElementFieldV4.ElementClass_ObjV4.FieldObjectStandard
+        ''5/2022 par_form_ToShow.JustOneField_Any = CtlCurrentElementFieldV4.ElementClass_ObjV4.FieldObjectAny
+        ''5/2022 par_form_ToShow.JustOneField_Custom = CtlCurrentElementFieldV4.ElementClass_ObjV4.FieldObjectCustom
+        ''5/2022 par_form_ToShow.JustOneField_Standard = CtlCurrentElementFieldV4.ElementClass_ObjV4.FieldObjectStandard
+        par_form_ToShow.JustOneField_Any = GetFieldObjectAny
+        par_form_ToShow.JustOneField_Custom = GetFieldObjectCustom
+        par_form_ToShow.JustOneField_Standard = GetFieldObjectStandard
 
         ''Added 12/12/2021 td
         ''--form_ToShow.ListOfFields_Custom = MenuCache_ElemFlds.CacheOfFieldsEtc.ListOfFields_Custom
@@ -751,6 +756,35 @@ Public Class Operations_FieldV4
         ''End If ''End of "If (mod_bBypassCreateButton) Then .... ElseIf (mc_CreateVisibleButtonForDemo) Then ...."
 
     End Sub ''End of "Private Sub CreateMouseButton_Master(par_strText As String, par_handler As EventHandler)"
+
+
+    Private Function GetFieldObjectAny() As ciBadgeFields.ClassFieldAny
+
+        ''Added 5/11/2022 thomas downes
+        Me.CacheOfFieldsEtc_Deprecated.GetFieldByFieldEnum(CtlCurrentElementFieldV4.FieldEnum)
+
+    End Function
+
+
+    Private Function GetFieldObjectCustom() As ciBadgeFields.ClassFieldCustomized
+
+        ''Added 5/11/2022 thomas downes
+        Me.CacheOfFieldsEtc_Deprecated.GetFieldByFieldEnum_Custom(CtlCurrentElementFieldV4.ElementClass_ObjV4.FieldEnum)
+
+    End Function
+
+
+    Private Function GetFieldObjectStandard() As ciBadgeFields.ClassFieldStandard
+
+        ''Added 5/11/2022 thomas downes
+        Dim enum_field As EnumCIBFields
+
+        enum_field = CtlCurrentElementFieldV4.ElementClass_ObjV4.FieldEnum
+        With Me.CacheOfFieldsEtc_Deprecated
+            Return .GetFieldByFieldEnum_Standard(enum_field)
+        End With
+
+    End Function
 
 
 End Class

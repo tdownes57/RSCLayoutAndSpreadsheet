@@ -170,7 +170,10 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
 
         With CtlGraphicFldLabel1
 
-            .FieldInfo = Me.ElementObject_CopyV3.FieldInfo
+            ''5/11/2022 .FieldInfo = Me.ElementObject_CopyV3.FieldInfo
+            .FieldEnumValue = Me.ElementObject_CopyV3.FieldEnum
+            .FieldIsCustom = Me.ElementObject_CopyV3.FieldIsCustomizable
+            .ExampleTextToDisplay = Me.ElementObject_CopyV3.ExampleValue_ForElement
 
             ''Added 1/5/2022 td
             ''  Populate the handy interface references.

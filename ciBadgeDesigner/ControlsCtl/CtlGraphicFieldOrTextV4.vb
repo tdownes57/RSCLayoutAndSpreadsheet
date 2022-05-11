@@ -129,7 +129,7 @@ Public Class CtlGraphicFieldOrTextV4
 
     ''7/26/2019 td''Public FieldInfo As ClassFieldCustomized
     ''7/26/2019 td''Public ElementInfo As ClassElementText
-    Public FieldInfo As ICIBFieldStandardOrCustom
+    ''5/11/2022 td''Public FieldInfo As ICIBFieldStandardOrCustom
 
     Public Enum_ReminderMsg As EnumReminderMsg = EnumReminderMsg.NotCurrentlyInUse ''Added 10/17/2019 td 
 
