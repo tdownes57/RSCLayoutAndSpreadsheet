@@ -762,8 +762,40 @@ Namespace ciBadgeCachePersonality
         Public Function BadgeDisplayElements_Fields_FrontV4() As IEnumerable(Of ClassElementFieldV4)
             ''Added 2/10/2022 thomas downes 
             With mod_listElementFields_FrontV4
-                Return .Where(Function(objEl) objEl.IsDisplayedOnBadge_Visibly())
+                ''5/10/2022 Return .Where(Function(objEl) objEl.IsDisplayedOnBadge_Visibly())
             End With
+
+            ''Added 5/10/2022 td 
+            Dim output_list As New List(Of ClassElementFieldV4)
+            Dim each_elementfieldV4 As ClassElementFieldV4
+            Dim each_field As ClassFieldAny
+            Dim each_include As Boolean
+
+            For Each each_elementfieldV4 In mod_listElementFields_FrontV4
+
+                Const c_boolHyperstrict As Boolean = False ''Added 5/10/2022 td
+                If (c_boolHyperstrict) Then
+                    ''
+                    ''Like a heartless bureaucrat, let's make sure every T is crossed. 
+                    ''
+                    each_field = GetFieldByFieldEnum(each_elementfieldV4.FieldEnum)
+
+                    each_include = (each_field.IsRelevantToPersonality Or
+                                each_field.IsDisplayedOnBadge_Front)
+
+                    If each_include Then
+                        output_list.Add(each_elementfieldV4)
+                    End If
+
+                Else
+                    output_list.Add(each_elementfieldV4)
+
+                End If ''End of ""If (c_boolHyperstrict) Then... Else..."
+
+            Next each_elementfieldV4
+
+            Return output_list
+
         End Function ''End of "Public Function BadgeDisplayElements_Fields_FrontV4"
 
 
@@ -1433,8 +1465,8 @@ Namespace ciBadgeCachePersonality
                 ''Refresh the .FieldObject & .FieldInfo properties.
                 ''
                 eachrelated_field = GetFieldByFieldEnum(each_element.FieldEnum)
-                each_element.FieldObjectAny = eachrelated_field
-                each_element.FieldInfo = CType(eachrelated_field, ICIBFieldStandardOrCustom)
+                ''5/11/2022 each_element.FieldObjectAny = eachrelated_field
+                ''5/11/2022 each_element.FieldInfo = CType(eachrelated_field, ICIBFieldStandardOrCustom)
                 each_element.LoadFieldAny(eachrelated_field) ''Added 12/13/2021 td
 
             Next each_element
@@ -1590,7 +1622,7 @@ Namespace ciBadgeCachePersonality
 
                 ''Added 9/18/2019 td
                 new_elementField = New ClassElementFieldV3(each_field, intLeft_Pixels, intTop_Pixels, c_intHeight_Pixels)
-                new_elementField.FieldInfo = each_field
+                ''5/11/2022 new_elementField.FieldInfo = each_field
                 new_elementField.FieldEnum = each_field.FieldEnumValue ''Added 10/12/2019 td
 
                 ''Added 10/13/2019 td
@@ -1632,7 +1664,7 @@ Namespace ciBadgeCachePersonality
 
                 ''Added 9/18/2019 td
                 new_elementField = New ClassElementFieldV3(each_field, intLeft_Pixels, intTop_Pixels, c_intHeight_Pixels)
-                new_elementField.FieldInfo = each_field
+                ''5/11/2022 new_elementField.FieldInfo = each_field
                 new_elementField.FieldEnum = each_field.FieldEnumValue ''Added 10/12/2019 td
 
                 ''Added 10/13/2019 td
@@ -1672,7 +1704,7 @@ Namespace ciBadgeCachePersonality
                                     par_intLeft_Pixels,
                                     par_intTop_Pixels,
                                     c_intHeight_Pixels)
-            new_elementField.FieldInfo = obj_field
+            ''5/11/2022 new_elementField.FieldInfo = obj_field
             new_elementField.FieldEnum = obj_field.FieldEnumValue ''Added 10/12/2019 td
             new_elementField.BadgeLayout = par_layout
             new_elementField.DatetimeUpdated = DateTime.Now
@@ -2085,11 +2117,13 @@ Namespace ciBadgeCachePersonality
                 ''
                 ''10/1/2019 td''Throw New NotImplementedException("Fix the field reference!")
 
-                ''10/12/2019 td''dictionaryFields.TryGetValue(each_elementField.FieldInfo.FieldEnumValue, copy_ofElementField.FieldObject)
-                dictionaryFields.TryGetValue(each_elementField.FieldEnum, copy_ofElementField.FieldObjectAny)
+                ''10/12/2019 td ''dictionaryFields.TryGetValue(each_elementField.FieldInfo.FieldEnumValue, copy_ofElementField.FieldObject)
+                '' 5/20/2022 td ''dictionaryFields.TryGetValue(each_elementField.FieldEnum, copy_ofElementField.FieldObjectAny)
+                dictionaryFields.TryGetValue(each_elementField.FieldEnum,
+                             GetFieldByFieldEnum(each_elementField.FieldEnum))
 
                 ''Added 10/13/2019 td
-                copy_ofElementField.FieldInfo = CType(copy_ofElementField.FieldObjectAny, ICIBFieldStandardOrCustom)
+                ''5/10/2022 td''copy_ofElementField.FieldInfo = CType(copy_ofElementField.FieldObjectAny, ICIBFieldStandardOrCustom)
 
                 objCopyOfCache.ListFieldElementsV3().Add(copy_ofElementField)
 
@@ -2186,6 +2220,8 @@ Namespace ciBadgeCachePersonality
             ''
             ''Added 10/12/2019 thomas d. 
             ''
+            ''
+            ''
             Dim dictionaryFields As New Dictionary(Of ciBadgeInterfaces.EnumCIBFields, ClassFieldAny)
             ''Dim pstrReport As String
 
@@ -2214,13 +2250,13 @@ Namespace ciBadgeCachePersonality
                 ''Fill in the missing links !!!  ---comment 12/14/2021 td
                 ''
                 With each_elementField ''Added 12/14/2021 td
-                    If ((.FieldInfo Is Nothing) Or pboolOverride) Then ''Added 12/14/2021 td
-
-                        .FieldInfo = found_field
-                        .FieldObjectAny = found_field
-                        .LoadFieldAny(found_field) ''Added 12/13/2021 td
-
-                    End If ''End of "If ((.FieldInfo Is Nothing) Or pboolOverride) Then"
+                    ''5/11/2022 td''If ((.FieldInfo Is Nothing) Or pboolOverride) Then ''Added 12/14/2021 td
+                    ''
+                    ''    .FieldInfo = found_field
+                    ''    .FieldObjectAny = found_field
+                    ''    .LoadFieldAny(found_field) ''Added 12/13/2021 td
+                    ''
+                    ''End If ''End of "If ((.FieldInfo Is Nothing) Or pboolOverride) Then"
                 End With ''End of "With each_elementField"
 
             Next each_elementField
@@ -2344,10 +2380,10 @@ Namespace ciBadgeCachePersonality
                 With each_elementField
 
                     ''Dec13 2021''.FieldEnum = .FieldObjectAny.FieldEnumValue ''This is a double-check that the Enum value matches. 
-                    bMisaligned = (.FieldEnum <> .FieldObjectAny.FieldEnumValue)
-                    If (bMisaligned) Then
-                        Throw New DataMisalignedException()
-                    End If ''end of "If (bMisaligned) Then"
+                    ''5/11/2022 bMisaligned = (.FieldEnum <> .FieldObjectAny.FieldEnumValue)
+                    ''5/11/2022 If (bMisaligned) Then
+                    ''    Throw New DataMisalignedException()
+                    ''End If ''end of "If (bMisaligned) Then"
 
                     If (.FieldEnum = par_enum) Then Return each_elementField
 
@@ -2519,33 +2555,34 @@ Namespace ciBadgeCachePersonality
         End Function ''ENd of "Public Function GetElementByField As ClassElementField"
 
 
-        Public Function CheckAllElementsHaveCorrectFieldInfo(ByRef pbAllFine As Boolean,
-                                                         ByRef pstrMessage As String) As Boolean
-            ''
-            ''Added 11/19/2021 td 
-            '' 
-            Dim boolMatch As Boolean = False
-            Dim intCountBad As Integer = 0
-            Dim intCountAll As Integer = 0
+        ''Public Function CheckAllElementsHaveCorrectFieldInfo(ByRef pbAllFine As Boolean,
+        ''                                                 ByRef pstrMessage As String) As Boolean
+        ''    ''
+        ''    ''Added 11/19/2021 td 
+        ''    '' 
+        ''    Dim boolMatch As Boolean = False
+        ''    Dim intCountBad As Integer = 0
+        ''    Dim intCountAll As Integer = 0
 
-            pbAllFine = True
-            pstrMessage = ""
+        ''    pbAllFine = True
+        ''    pstrMessage = ""
 
-            For Each each_element As ClassElementFieldV3 In ListOfElementFields_BothsidesV3() ''Dec18 2021 '' ListOfElementFields
-                intCountAll += 1
-                boolMatch = (each_element.FieldEnum = each_element.FieldInfo.FieldEnumValue)
-                ''We don't want to leave prematurely.''----If (Not boolMatch) Then Return False
-                ''--If (Not boolMatch) Then pbAllFine = False
-                pbAllFine = (boolMatch And pbAllFine)
-                If (Not boolMatch) Then intCountBad += 1
-            Next each_element
+        ''    For Each each_element As ClassElementFieldV3 In ListOfElementFields_BothsidesV3() ''Dec18 2021 '' ListOfElementFields
+        ''        intCountAll += 1
+        ''        boolMatch = (each_element.FieldEnum = each_element.FieldInfo.FieldEnumValue)
+        ''        ''We don't want to leave prematurely.''----If (Not boolMatch) Then Return False
+        ''        ''--If (Not boolMatch) Then pbAllFine = False
+        ''        pbAllFine = (boolMatch And pbAllFine)
+        ''        If (Not boolMatch) Then intCountBad += 1
+        ''    Next each_element
 
-            ''[[[pbAllFine = True
-            pstrMessage = $"Out of {intCountAll} elements, there are {intCountBad} misaligned fields."
+        ''    ''[[[pbAllFine = True
+        ''    pstrMessage = $"Out of {intCountAll} elements, there are {intCountBad} misaligned fields."
 
-            Return True
+        ''    Return True
 
-        End Function ''ENd of "Public Function GetFieldByLabelCaptionpar_caption As String) As ClassFieldAny"
+        ''End Function ''ENd of "Public Function CheckAllElementsHaveCorrectFieldInfo(par_caption As String) As ClassFieldAny"
+
 
         ''Private Sub LoadElements_Picture()
         ''    ''

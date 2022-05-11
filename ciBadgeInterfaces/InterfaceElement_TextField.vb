@@ -37,7 +37,7 @@ Public Interface IElement_TextField
     ''Added 7/18/2019 td
     ''
     ''9/18/2019 td''Property FieldObject As ClassFieldAny ''Added 9/18/2019   
-    Property FieldInfo As ICIBFieldStandardOrCustom ''Added 9/9/2019   
+    ''--5/10/2022--Property FieldInfo As ICIBFieldStandardOrCustom ''Added 9/9/2019   
 
     Property FieldEnum As EnumCIBFields ''Added 10/12/2019 thomas d.
 

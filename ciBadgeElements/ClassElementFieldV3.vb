@@ -208,16 +208,16 @@ Public Class ClassElementFieldV3
     ''--16--10/16/2019 td''Public Property Recipient As IRecipient Implements IElement_TextField.Recipient
 
     ''Added 9/18/2019
-    Public Property FieldObjectAny As ClassFieldAny ''Added 9/18/2019 td
-    Public Property FieldObjectCustom As ClassFieldCustomized ''Added 12/13/2021 td
-    Public Property FieldObjectStandard As ClassFieldStandard ''Added 12/13/2021 td
+    ''--5/10/2022--Public Property FieldObjectAny As ClassFieldAny ''Added 9/18/2019 td
+    ''--5/10/2022--Public Property FieldObjectCustom As ClassFieldCustomized ''Added 12/13/2021 td
+    ''--5/10/2022--Public Property FieldObjectStandard As ClassFieldStandard ''Added 12/13/2021 td
 
     ''Added 10/12/2019 thomas downes
     Public Property FieldEnum As EnumCIBFields Implements IElement_TextField.FieldEnum
 
     ''Added 9/17/2019 td 
-    <Xml.Serialization.XmlIgnore>
-    Public Property FieldInfo As ICIBFieldStandardOrCustom Implements IElement_TextField.FieldInfo
+    ''--5/10/2022--<Xml.Serialization.XmlIgnore>
+    ''--5/10/2022--Public Property FieldInfo As ICIBFieldStandardOrCustom Implements IElement_TextField.FieldInfo
 
     Public Property TextAlignment As System.Windows.Forms.HorizontalAlignment Implements IElement_TextOnly.TextAlignment
 
@@ -519,12 +519,16 @@ Public Class ClassElementFieldV3
 
 
     Public Sub New(par_fieldInfo As ICIBFieldStandardOrCustom,
-                   par_intLeft_Pixels As Integer, par_intTop_Pixels As Integer, par_intHeight_Pixels As Integer)
+                   par_intLeft_Pixels As Integer,
+                   par_intTop_Pixels As Integer,
+                   par_intHeight_Pixels As Integer)
         ''9/17 td''Public Sub New(par_intLeft_Pixels As Integer, par_intTop_Pixels As Integer, par_intHeight_Pixels As Integer)
         ''
         ''Added 9/15/2019 td
         ''
-        Me.FieldInfo = par_fieldInfo ''Added 9/17/2019 td 
+        If (par_fieldInfo Is Nothing) Then Throw New ArgumentException("Null parameter.")
+
+        ''5/10/2022 td''Me.FieldInfo = par_fieldInfo ''Added 9/17/2019 td 
         Me.FieldEnum = par_fieldInfo.FieldEnumValue ''Added 10/12/2019 thomas d. 
 
         Me.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass ''Added 9/12/2019
@@ -551,20 +555,20 @@ Public Class ClassElementFieldV3
         ''
         ''Added 12/13/2021 Thomas Downes  
         ''
-        Me.FieldInfo = CType(parFieldAny, ICIBFieldStandardOrCustom) ''par_fieldAny
-        Me.FieldObjectAny = parFieldAny
+        ''5/10/2022 td''Me.FieldInfo = CType(parFieldAny, ICIBFieldStandardOrCustom) ''par_fieldAny
+        ''5/10/2022 td''Me.FieldObjectAny = parFieldAny
         Me.FieldEnum = parFieldAny.FieldEnumValue ''ADded 12/13/2021 td
 
-        ''Added 12/13/2021 thomas downes
-        If (TypeOf parFieldAny Is ClassFieldCustomized) Then
-
-            Me.FieldObjectCustom = CType(parFieldAny, ClassFieldCustomized) ''Added 12/13/2021 td
-
-        ElseIf (TypeOf parFieldAny Is ClassFieldStandard) Then
-
-            Me.FieldObjectStandard = CType(parFieldAny, ClassFieldStandard) ''Added 12/13/2021 td
-
-        End If
+        ''5/10/2022 td''Added 12/13/2021 thomas downes
+        ''5/10/2022 td''If (TypeOf parFieldAny Is ClassFieldCustomized) Then
+        ''5/10/2022 td''
+        ''    Me.FieldObjectCustom = CType(parFieldAny, ClassFieldCustomized) ''Added 12/13/2021 td
+        ''
+        ''ElseIf (TypeOf parFieldAny Is ClassFieldStandard) Then
+        ''
+        ''    Me.FieldObjectStandard = CType(parFieldAny, ClassFieldStandard) ''Added 12/13/2021 td
+        ''
+        ''End If
 
     End Sub ''End of "Public Sub LoadFieldAny(par_fieldAny As ClassFieldAny)"
 
@@ -605,46 +609,48 @@ Public Class ClassElementFieldV3
         ''
         ''Added 9/19/2019 td  
         ''
-        Dim bIncludedAndVisible As Boolean ''Added 1/24/2022 td
-        Dim bRelevantToPersonality As Boolean ''Added 1/24/2022 td
+        Return True ''Added 5/10/2022 thomas d. 
 
-        par_whyOmitV1.NotRelevantField = (Not Me.FieldInfo.IsRelevantToPersonality) ''Added 11/24/2021 
-        par_whyOmitV1.OmitElement = (Not Me.Visible) ''Added 11/10/2021 td
-        par_whyOmitV1.ElementVisibleIsFalse = (Not Me.Visible) ''Added 12/6/2021 thomas d. 
-        par_whyOmitV1.OmitField = (Not Me.FieldInfo.IsDisplayedOnBadge) ''Added 11/10/20121 td  
+        ''Dim bIncludedAndVisible As Boolean ''Added 1/24/2022 td
+        ''Dim bRelevantToPersonality As Boolean ''Added 1/24/2022 td
 
-        ''Added 1/23/2022 td
-        With Me.FieldInfo
+        ''par_whyOmitV1.NotRelevantField = (Not Me.FieldInfo.IsRelevantToPersonality) ''Added 11/24/2021 
+        ''par_whyOmitV1.OmitElement = (Not Me.Visible) ''Added 11/10/2021 td
+        ''par_whyOmitV1.ElementVisibleIsFalse = (Not Me.Visible) ''Added 12/6/2021 thomas d. 
+        ''par_whyOmitV1.OmitField = (Not Me.FieldInfo.IsDisplayedOnBadge) ''Added 11/10/20121 td  
 
-            bIncludedAndVisible = (.IsDisplayedOnBadge And Me.Visible) ''Added 1/24/2022 td
-            If (bIncludedAndVisible) Then
-                bRelevantToPersonality = .IsRelevantToPersonality
-                bIncludedAndVisible = (.IsRelevantToPersonality And .IsDisplayedOnBadge And Me.Visible)
-                bIncludedAndVisible = ((.IsRelevantToPersonality And .IsDisplayedOnBadge) And
-                          (Me.Visible And Me.Width_Pixels <> 0 And Me.Height_Pixels <> 0))
-            End If ''End of "If (bIncludedAndVisible) Then"
+        ''''Added 1/23/2022 td
+        ''With Me.FieldInfo
 
-            par_whyOmitV2.OmitIrrelevantField = (Not .IsRelevantToPersonality)
-            par_whyOmitV2.OmitInvisibleElement = (Not Me.Visible)
-            par_whyOmitV2.OmitUnbadgedField = (Not .IsDisplayedOnBadge)
-            par_whyOmitV2.OmitZeroHeight = (Me.Height_Pixels = 0)
-            par_whyOmitV2.OmitZeroWidth = (Me.Width_Pixels = 0)
+        ''    bIncludedAndVisible = (.IsDisplayedOnBadge And Me.Visible) ''Added 1/24/2022 td
+        ''    If (bIncludedAndVisible) Then
+        ''        bRelevantToPersonality = .IsRelevantToPersonality
+        ''        bIncludedAndVisible = (.IsRelevantToPersonality And .IsDisplayedOnBadge And Me.Visible)
+        ''        bIncludedAndVisible = ((.IsRelevantToPersonality And .IsDisplayedOnBadge) And
+        ''                  (Me.Visible And Me.Width_Pixels <> 0 And Me.Height_Pixels <> 0))
+        ''    End If ''End of "If (bIncludedAndVisible) Then"
 
-            ''Enumerated values
-            If (Not .IsRelevantToPersonality) Then par_whyOmitV2.EnumOmitReason = EnumOmitReasons.IrrelevantField
-            If (Not Me.Visible) Then par_whyOmitV2.EnumOmitReason = EnumOmitReasons.InvisibleElement
-            If (Not .IsDisplayedOnBadge) Then par_whyOmitV2.EnumOmitReason = EnumOmitReasons.UnbadgedField
-            If (Me.Height_Pixels = 0) Then par_whyOmitV2.EnumOmitReason = EnumOmitReasons.ZeroHeight
-            If (Me.Width_Pixels = 0) Then par_whyOmitV2.EnumOmitReason = EnumOmitReasons.ZeroWidth
+        ''    par_whyOmitV2.OmitIrrelevantField = (Not .IsRelevantToPersonality)
+        ''    par_whyOmitV2.OmitInvisibleElement = (Not Me.Visible)
+        ''    par_whyOmitV2.OmitUnbadgedField = (Not .IsDisplayedOnBadge)
+        ''    par_whyOmitV2.OmitZeroHeight = (Me.Height_Pixels = 0)
+        ''    par_whyOmitV2.OmitZeroWidth = (Me.Width_Pixels = 0)
 
-            ''Current date-time.
-            ''----Not sure if we need to set the date here.
-            ''--If (Not bIncludedAndVisible) Then par_whyOmitV2.SetDateTime()
+        ''    ''Enumerated values
+        ''    If (Not .IsRelevantToPersonality) Then par_whyOmitV2.EnumOmitReason = EnumOmitReasons.IrrelevantField
+        ''    If (Not Me.Visible) Then par_whyOmitV2.EnumOmitReason = EnumOmitReasons.InvisibleElement
+        ''    If (Not .IsDisplayedOnBadge) Then par_whyOmitV2.EnumOmitReason = EnumOmitReasons.UnbadgedField
+        ''    If (Me.Height_Pixels = 0) Then par_whyOmitV2.EnumOmitReason = EnumOmitReasons.ZeroHeight
+        ''    If (Me.Width_Pixels = 0) Then par_whyOmitV2.EnumOmitReason = EnumOmitReasons.ZeroWidth
 
-        End With ''End of "With Me.FieldInfo"
+        ''    ''Current date-time.
+        ''    ''----Not sure if we need to set the date here.
+        ''    ''--If (Not bIncludedAndVisible) Then par_whyOmitV2.SetDateTime()
 
-        ''Jan24 2022 td''Return (Me.FieldInfo.IsDisplayedOnBadge And Me.Visible)
-        Return (bIncludedAndVisible)
+        ''End With ''End of "With Me.FieldInfo"
+
+        ''''Jan24 2022 td''Return (Me.FieldInfo.IsDisplayedOnBadge And Me.Visible)
+        ''Return (bIncludedAndVisible)
 
     End Function ''End of "Public Function IsDisplayedOnBadge_Visibly() As Boolean"
 
@@ -909,12 +915,12 @@ Public Class ClassElementFieldV3
         Me.ExampleValue_ForElement = par_ElementInfo_Field.ExampleValue_ForElement
         ''See FieldInfo. ---9/18/2019 td''Me.FieldInCardData = par_ElementInfo_TextFld.FieldInCardData
         ''See FieldInfo. ---9/18/2019 td''Me.FieldLabelCaption = par_ElementInfo_TextFld.FieldLabelCaption
-        Me.FieldInfo = par_ElementInfo_Field.FieldInfo ''Added 9/18/2019 td 
+        ''5/10/2022 td''Me.FieldInfo = par_ElementInfo_Field.FieldInfo ''Added 9/18/2019 td 
 
         ''Added 12/13/2021 
-        Me.FieldObjectAny = par_objectElement.FieldObjectAny
-        Me.FieldObjectCustom = par_objectElement.FieldObjectCustom
-        Me.FieldObjectStandard = par_objectElement.FieldObjectStandard
+        ''5/10/2022 td''Me.FieldObjectAny = par_objectElement.FieldObjectAny
+        ''5/10/2022 td''Me.FieldObjectCustom = par_objectElement.FieldObjectCustom
+        ''5/10/2022 td''Me.FieldObjectStandard = par_objectElement.FieldObjectStandard
 
         ''Added 10/13/2019 td
         Me.FieldEnum = par_ElementInfo_Field.FieldEnum
@@ -1018,22 +1024,23 @@ Public Class ClassElementFieldV3
                 ''
                 Return Me.ExampleValue_ForElement
 
-            Case (bOkayToUseExampleValues And (Me.FieldInfo.ExampleValue <> ""))
-                ''10/16 td''Case (UseExampleValues And (Me.FieldInfo.ExampleValue <> ""))
-
-                ''Me.ElementInfo.Info.Text = Me.FieldInfo.ExampleValue
-                Return Me.FieldInfo.ExampleValue
-
-            Case (Me.FieldInfo.FieldLabelCaption <> "")
-
-                ''Me.ElementInfo.Info.Text = Me.FieldInfo.ExampleValue
-                Return Me.FieldInfo.FieldLabelCaption
+                ''Case (bOkayToUseExampleValues And (Me.FieldInfo.ExampleValue <> ""))
+                ''    ''10/16 td''Case (UseExampleValues And (Me.FieldInfo.ExampleValue <> ""))
+                ''
+                ''    ''Me.ElementInfo.Info.Text = Me.FieldInfo.ExampleValue
+                ''    Return Me.FieldInfo.ExampleValue
+                ''
+                ''Case (Me.FieldInfo.FieldLabelCaption <> "")
+                ''
+                ''    ''Me.ElementInfo.Info.Text = Me.FieldInfo.ExampleValue
+                ''    Return Me.FieldInfo.FieldLabelCaption
 
             Case Else
 
                 ''Default value.
                 ''7/29 td''Me.ElementInfo.Info.Text = $"Field #{Me.FieldInfo.FieldIndex}"
-                Return $"Field #{Me.FieldInfo.FieldIndex}"
+                ''5/10/2022 td'' Return $"Field #{Me.FieldInfo.FieldIndex}"
+                Return Me.FieldEnum.ToString()
 
         End Select ''End of "Select Case True"
 
